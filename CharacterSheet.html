@@ -142,6 +142,7 @@ body{background:var(--bg);color:var(--text);font-family:'Malgun Gothic','Apple S
 .w-atk{width:40px;text-align:center;color:var(--gold-light);font-weight:bold;}
 .w-dmg{width:70px;text-align:center;}
 .w-traits{flex:1;font-size:10px;color:var(--text2);}
+.w-traits-display{flex:1;display:flex;flex-wrap:wrap;gap:2px;align-items:center;}
 .add-btn{background:var(--bg3);border:1px dashed var(--border2);color:var(--text2);padding:4px 8px;border-radius:3px;cursor:pointer;font-size:11px;width:100%;}
 .add-btn:hover{border-color:var(--gold);color:var(--gold-light);}
 
@@ -168,6 +169,9 @@ body{background:var(--bg);color:var(--text);font-family:'Malgun Gothic','Apple S
 #panel-equip{grid-template-columns:1fr 200px;}
 .equip-row{display:flex;gap:6px;align-items:center;padding:3px 4px;border-bottom:1px solid var(--border);font-size:12px;}
 .equip-row input{background:transparent;border:none;color:var(--text);outline:none;font-size:12px;}
+.equip-btn{cursor:pointer;font-size:14px;color:var(--text2);width:20px;text-align:center;user-select:none;}
+.equip-btn:hover{color:var(--gold);}
+.equip-btn.equipped{color:var(--gold-light);}
 .eq-name{flex:2;}
 .eq-bulk{width:30px;text-align:center;color:var(--text2);}
 .eq-qty{width:30px;text-align:center;}
@@ -232,7 +236,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
 .feat-name-display{flex:1;font-size:12px;color:var(--text);cursor:pointer;padding:2px 3px;border-radius:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .feat-name-display:hover{color:var(--gold-light);background:var(--bg4);}
 
-/* ── 액션 탭 ── */
+/* ── 행동 탭 ── */
 #panel-actions{display:none;flex-direction:column;gap:10px;}
 #panel-actions.active{display:flex;}
 .action-filter-bar{display:flex;gap:6px;flex-wrap:wrap;padding:0 0 6px;}
@@ -322,7 +326,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
   <div class="tab" onclick="switchTab('spells')">주문</div>
   <div class="tab" onclick="switchTab('feats')">재주</div>
   <div class="tab" onclick="switchTab('equip')">장비</div>
-  <div class="tab" onclick="switchTab('actions')">액션</div>
+  <div class="tab" onclick="switchTab('actions')">행동</div>
 </div>
 
 <!-- ═══════════════ TAB: 캐릭터 정보 ═══════════════ -->
@@ -400,7 +404,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
         <span class="stat-label">방어도 (AC)</span>
         <select class="prof-sel" id="prof-ac" onchange="recalcAC();save()">
           <option value="0">미숙련</option><option value="2">숙련</option>
-          <option value="4">전문가</option><option value="6">대가</option><option value="8">전설</option>
+          <option value="4">전문가</option><option value="6">달인</option><option value="8">전설</option>
         </select>
         <span class="stat-val" id="val-ac">10</span>
       </div>
@@ -428,7 +432,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
         <span class="stat-label">인내 Fortitude</span>
         <select class="prof-sel" id="prof-fort" onchange="recalcSaves();save()">
           <option value="0">미숙련</option><option value="2">숙련</option>
-          <option value="4">전문가</option><option value="6">대가</option><option value="8">전설</option>
+          <option value="4">전문가</option><option value="6">달인</option><option value="8">전설</option>
         </select>
         <span class="stat-val" id="val-fort">+0</span>
       </div>
@@ -436,7 +440,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
         <span class="stat-label">반사 Reflex</span>
         <select class="prof-sel" id="prof-ref" onchange="recalcSaves();save()">
           <option value="0">미숙련</option><option value="2">숙련</option>
-          <option value="4">전문가</option><option value="6">대가</option><option value="8">전설</option>
+          <option value="4">전문가</option><option value="6">달인</option><option value="8">전설</option>
         </select>
         <span class="stat-val" id="val-ref">+0</span>
       </div>
@@ -444,16 +448,16 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
         <span class="stat-label">의지 Will</span>
         <select class="prof-sel" id="prof-will" onchange="recalcSaves();save()">
           <option value="0">미숙련</option><option value="2">숙련</option>
-          <option value="4">전문가</option><option value="6">대가</option><option value="8">전설</option>
+          <option value="4">전문가</option><option value="6">달인</option><option value="8">전설</option>
         </select>
         <span class="stat-val" id="val-will">+0</span>
       </div>
       <hr class="divider">
       <div class="stat-row">
-        <span class="stat-label">감지 Perception</span>
+        <span class="stat-label">지각 Perception</span>
         <select class="prof-sel" id="prof-perc" onchange="recalcPerc();save()">
           <option value="0">미숙련</option><option value="2">숙련</option>
-          <option value="4">전문가</option><option value="6">대가</option><option value="8">전설</option>
+          <option value="4">전문가</option><option value="6">달인</option><option value="8">전설</option>
         </select>
         <span class="stat-val" id="val-perc">+0</span>
       </div>
@@ -461,7 +465,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
         <span class="stat-label">클래스 DC</span>
         <select class="prof-sel" id="prof-classdc" onchange="recalcClassDC();save()">
           <option value="0">미숙련</option><option value="2">숙련</option>
-          <option value="4">전문가</option><option value="6">대가</option><option value="8">전설</option>
+          <option value="4">전문가</option><option value="6">달인</option><option value="8">전설</option>
         </select>
         <span class="stat-val" id="val-classdc">10</span>
       </div>
@@ -483,7 +487,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
     <div class="box">
       <div class="box-title">이니셔티브 Initiative</div>
       <div class="stat-row">
-        <span class="stat-label">이니셔티브 (감지)</span>
+        <span class="stat-label">이니셔티브 (지각)</span>
         <span class="stat-val" id="val-init">+0</span>
       </div>
     </div>
@@ -510,7 +514,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
       <div class="box-row"><label>방어 숙련</label>
         <select class="prof-sel" id="prof-ac2" onchange="syncArmorProf();recalcAC();save()">
           <option value="0">미숙련</option><option value="2">숙련</option>
-          <option value="4">전문가</option><option value="6">대가</option><option value="8">전설</option>
+          <option value="4">전문가</option><option value="6">달인</option><option value="8">전설</option>
         </select>
       </div>
     </div>
@@ -532,7 +536,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
         <span class="stat-label">주문 공격 수정치</span>
         <select class="prof-sel" id="prof-spatk" onchange="recalcSpellStats();save()">
           <option value="0">미숙련</option><option value="2">숙련</option>
-          <option value="4">전문가</option><option value="6">대가</option><option value="8">전설</option>
+          <option value="4">전문가</option><option value="6">달인</option><option value="8">전설</option>
         </select>
         <span class="stat-val" id="val-spatk">+0</span>
       </div>
@@ -673,7 +677,10 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
         <span style="width:20px;"></span>
       </div>
       <div id="equip-list"></div>
-      <button class="add-btn" onclick="addEquip()">+ 아이템 추가</button>
+      <button class="add-btn" onclick="openModal('equip-weapon')">+ 무기 DB</button>
+      <button class="add-btn" style="margin-top:3px;" onclick="openModal('equip-armor')">+ 방어구 DB</button>
+      <button class="add-btn" style="margin-top:3px;" onclick="openModal('equip-gear')">+ 장비 DB</button>
+      <button class="add-btn" style="margin-top:3px;" onclick="addEquip()">+ 직접 입력</button>
     </div>
   </div>
   <div>
@@ -702,7 +709,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
   </div>
 </div>
 
-<!-- ═══════════════ TAB: 액션 ═══════════════ -->
+<!-- ═══════════════ TAB: 행동 ═══════════════ -->
 <div id="panel-actions" class="panel" style="padding:12px;">
   <div class="action-filter-bar" id="action-filter-bar">
     <button class="active" data-filter="all" onclick="setActionFilter('all',this)">전체</button>
@@ -759,7 +766,7 @@ const CLASSES = [
   {id:'fighter', name:'파이터', en:'Fighter', hp:10,
    keyAttr:'근력 또는 민첩 (STR/DEX)', tradition:null, casting:null,
    saves:{fort:'전문가',ref:'전문가',will:'숙련'}, perc:'전문가',
-   desc:'무기술과 전투 기법의 대가. 강력한 근접/원거리 전투 전문가.',
+   desc:'무기술과 전투 기법의 달인. 강력한 근접/원거리 전투 전문가.',
    skills:'곡예 또는 운동 + 3+INT개'},
   {id:'ranger', name:'레인저', en:'Ranger', hp:10,
    keyAttr:'근력 또는 민첩 (STR/DEX)', tradition:null, casting:null,
@@ -788,8 +795,8 @@ const SUBCLASS_DB = [
   // ── 바드 뮤즈 ──
   {id:'muse-enigma',  class_id:'bard', subclass_type:'뮤즈', name_ko:'수수께끼', name_en:'Enigma',
    summary:'지식과 신비의 뮤즈. 바드는 더 많은 것을 알려는 탐구 본능에 사로잡힙니다. 추가로 오컬티즘(Occultism)에 훈련됨을 얻습니다. 뮤즈 주문: 비전 자물쇠(Arcane Lock). 집중 주문: 용감한 서사(Inspire Competence) 향상.'},
-  {id:'muse-maestro', class_id:'bard', subclass_type:'뮤즈', name_ko:'대가',    name_en:'Maestro',
-   summary:'공연 예술의 대가에게 영감을 받은 뮤즈. 사람들을 움직이는 능력에 집중합니다. 뮤즈 주문: 숙면(Sleep). 집중 주문: 영웅적 영감(Inspire Heroics) 습득.'},
+  {id:'muse-maestro', class_id:'bard', subclass_type:'뮤즈', name_ko:'마에스트로',    name_en:'Maestro',
+   summary:'공연 예술의 마에스트로에게 영감을 받은 뮤즈. 사람들을 움직이는 능력에 집중합니다. 뮤즈 주문: 숙면(Sleep). 집중 주문: 영웅적 영감(Inspire Heroics) 습득.'},
   {id:'muse-warrior',  class_id:'bard', subclass_type:'뮤즈', name_ko:'전사',    name_en:'Warrior',
    summary:'전투와 전쟁의 영광을 노래하는 뮤즈. 단순 무기와 군용 무기에 훈련됨 추가. 집중 주문: 전투 찬가(Inspire Defense) 습득.'},
   {id:'muse-lore',     class_id:'bard', subclass_type:'뮤즈', name_ko:'지식',    name_en:'Lore',
@@ -985,7 +992,7 @@ const HERITAGE_DB = [
   {id:'vine-leshy',name_ko:'덩굴 레쉬',name_en:'Vine Leshy',ancestry:'leshy',summary:'등반 속도를 얻으며, 적에게 달라붙어 넘어뜨릴 수 있습니다.'},
   // 오크
   {id:'badlands-orc',name_ko:'황무지 오크',name_en:'Badlands Orc',ancestry:'orc',summary:'혹독한 환경에서의 이동 속도 페널티 면역과 탈수 저항을 얻습니다.'},
-  {id:'battle-ready-orc',name_ko:'전투 준비 오크',name_en:'Battle-Ready Orc',ancestry:'orc',summary:'감지 숙련도가 훈련됨에서 전문가로 향상됩니다.'},
+  {id:'battle-ready-orc',name_ko:'전투 준비 오크',name_en:'Battle-Ready Orc',ancestry:'orc',summary:'지각 숙련도가 훈련됨에서 전문가로 향상됩니다.'},
   {id:'deep-orc',name_ko:'심연 오크',name_en:'Deep Orc',ancestry:'orc',summary:'지하 생활에 적응하여 암시야(darkvision)를 얻습니다.'},
   {id:'hold-scarred-orc',name_ko:'흉터 오크',name_en:'Hold-Scarred Orc',ancestry:'orc',summary:'의례적 흉터로 최대 HP가 2 증가하고 회복에 보너스를 얻습니다.'},
   {id:'rainfall-orc',name_ko:'우림 오크',name_en:'Rainfall Orc',ancestry:'orc',summary:'우림 지형 이동에 페널티가 없고 질병 저항을 얻습니다.'},
@@ -1108,7 +1115,7 @@ const CONDITIONS_DATA = [
   {name:'행동감소',en:'Slowed',valued:true,max:3,desc:'매 턴 행동 수 = 3 - 행동감소 수치.'},
   {name:'기절',en:'Stunned',valued:true,max:4,desc:'행동 수치가 기절 값만큼 소모됨. 매 턴 기절 수치만큼 행동 손실.'},
   {name:'혼미',en:'Stupefied',valued:true,max:4,desc:'지능/지혜/매력 기반 판정과 주문 DC에 상태 페널티 = 혼미 수치.'},
-  {name:'의식불명',en:'Unconscious',valued:false,desc:'행동/반응 불가. AC -4, 감지 -4, 실명+귀머거리. 피해 받으면 깨날 수 있음.'},
+  {name:'의식불명',en:'Unconscious',valued:false,desc:'행동/반응 불가. AC -4, 지각 -4, 실명+귀머거리. 피해 받으면 깨날 수 있음.'},
   {name:'미감지',en:'Undetected',valued:false,desc:'존재와 위치 모두 알려지지 않음.'},
   {name:'비우호적',en:'Unfriendly',valued:false,desc:'당신을 비우호적으로 봄. 외교 -1 상황 페널티.'},
   {name:'존재미인지',en:'Unnoticed',valued:false,desc:'당신의 존재 자체를 모름.'},
@@ -1150,7 +1157,7 @@ const ACTION_DB = [
   {id:'step',          cat:'basic', cat_label:'기본 행동', name_ko:'비틀거림',        name_en:'Step',           cost:'1',        traits:[],                  req_skill:null, req_rank:0, req_feat:null, summary:'반응 행동을 유발하지 않고 5피트 이동합니다.'},
   {id:'interact',      cat:'basic', cat_label:'기본 행동', name_ko:'상호작용',        name_en:'Interact',       cost:'1',        traits:['조작'],            req_skill:null, req_rank:0, req_feat:null, summary:'물건을 집거나, 장비를 꺼내거나, 문을 열거나, 간단한 조작을 합니다.'},
   {id:'escape',        cat:'basic', cat_label:'기본 행동', name_ko:'탈출',            name_en:'Escape',         cost:'1',        traits:['공격'],            req_skill:null, req_rank:0, req_feat:null, summary:'붙잡히거나 속박된 상태에서 벗어납니다. 운동 또는 곡예 또는 명중 굴림.'},
-  {id:'seek',          cat:'basic', cat_label:'기본 행동', name_ko:'탐색',            name_en:'Seek',           cost:'1',        traits:[],                  req_skill:null, req_rank:0, req_feat:null, summary:'주변 30피트(원뿔 15피트) 내의 숨겨진 존재나 물체를 탐지합니다. 감지 판정.'},
+  {id:'seek',          cat:'basic', cat_label:'기본 행동', name_ko:'탐색',            name_en:'Seek',           cost:'1',        traits:[],                  req_skill:null, req_rank:0, req_feat:null, summary:'주변 30피트(원뿔 15피트) 내의 숨겨진 존재나 물체를 탐지합니다. 지각 판정.'},
   {id:'stand',         cat:'basic', cat_label:'기본 행동', name_ko:'서기',            name_en:'Stand',          cost:'1',        traits:[],                  req_skill:null, req_rank:0, req_feat:null, summary:'넘어짐 상태를 해제하고 일어납니다.'},
   {id:'drop-prone',    cat:'basic', cat_label:'기본 행동', name_ko:'엎드리기',        name_en:'Drop Prone',     cost:'1',        traits:[],                  req_skill:null, req_rank:0, req_feat:null, summary:'자발적으로 넘어짐 상태가 됩니다. 원거리 공격에 대한 은폐를 얻습니다.'},
   {id:'take-cover',    cat:'basic', cat_label:'기본 행동', name_ko:'엄폐',            name_en:'Take Cover',     cost:'1',        traits:[],                  req_skill:null, req_rank:0, req_feat:null, summary:'장애물 뒤에 몸을 숨겨 은폐(+2 AC, Reflex, Stealth)를 얻습니다.'},
@@ -1254,7 +1261,7 @@ const CONDITIONS = [
 ];
 
 const PROF_RANKS = {
-  '미숙련':0,'숙련':2,'전문가':4,'대가':6,'전설':8,
+  '미숙련':0,'숙련':2,'전문가':4,'달인':6,'전설':8,
   '0':0,'2':2,'4':4,'6':6,'8':8
 };
 
@@ -1396,7 +1403,7 @@ function buildSkills() {
         <option value="0">미숙</option>
         <option value="2">숙련</option>
         <option value="4">전문</option>
-        <option value="6">대가</option>
+        <option value="6">달인</option>
         <option value="8">전설</option>
       </select>
       <span class="skill-attr">${sk.attr.toUpperCase()}</span>
@@ -1792,7 +1799,7 @@ function recalcAll() {
   recalcSkills();
   recalcBulk();
   updateHP();
-  // 액션 탭이 활성화된 경우에만 재렌더
+  // 행동 탭이 활성화된 경우에만 재렌더
   if (document.getElementById('panel-actions')?.classList.contains('active')) renderActions();
 }
 
@@ -1917,11 +1924,13 @@ function renderWeapons() {
   state.weapons.forEach((w,i) => {
     const row = document.createElement('div');
     row.className = 'weapon-row';
+    const traitsArr = (w.traits||'').split(',').map(t=>t.trim()).filter(Boolean);
+    const traitHtml = traitsArr.map(t=>traitTag(t)).join(' ');
     row.innerHTML = `
       <input class="w-name" placeholder="무기 이름" value="${w.name||''}" oninput="state.weapons[${i}].name=this.value;save()">
       <input class="w-atk" placeholder="+0" value="${w.atk||''}" oninput="state.weapons[${i}].atk=this.value;save()">
       <input class="w-dmg" placeholder="1d6+STR" value="${w.dmg||''}" oninput="state.weapons[${i}].dmg=this.value;save()">
-      <input class="w-traits" placeholder="특성..." value="${w.traits||''}" oninput="state.weapons[${i}].traits=this.value;save()">
+      <div class="w-traits-display">${traitHtml || '<span style="color:var(--text2);font-size:10px;">특성 없음</span>'}</div>
       <span class="spell-del" onclick="removeWeapon(${i})">✕</span>`;
     list.appendChild(row);
   });
@@ -1941,14 +1950,57 @@ function renderEquip() {
   state.equip.forEach((e,i) => {
     const row = document.createElement('div');
     row.className = 'equip-row';
+    const isWeapon = e._type === 'weapon';
+    const isArmor = e._type === 'armor';
+    const equipped = e._equipped;
+    const equipBtn = (isWeapon || isArmor)
+      ? `<span class="equip-btn ${equipped?'equipped':''}" onclick="toggleEquip(${i})" title="${equipped?'장착 해제':'장착'}">${equipped?'⚔':'◻'}</span>`
+      : '';
     row.innerHTML = `
       <input class="eq-name" placeholder="아이템 이름" value="${e.name||''}" style="flex:3;" oninput="state.equip[${i}].name=this.value;recalcBulk();save()">
       <input class="eq-qty" type="number" min="0" value="${e.qty||1}" style="width:36px;text-align:center;" oninput="state.equip[${i}].qty=parseInt(this.value);save()">
       <input class="eq-bulk" type="number" min="0" step="0.1" value="${e.bulk||0}" style="width:36px;text-align:center;" oninput="state.equip[${i}].bulk=parseFloat(this.value);recalcBulk();save()">
+      ${equipBtn}
       <span class="spell-del" onclick="removeEquip(${i})">✕</span>`;
     list.appendChild(row);
   });
   recalcBulk();
+}
+
+function toggleEquip(i) {
+  const item = state.equip[i];
+  if (!item) return;
+  item._equipped = !item._equipped;
+
+  if (item._equipped && item._type === 'weapon' && item._data) {
+    const w = item._data;
+    addWeapon({name: w.name_ko, atk:'+0', dmg: w.damage||'', traits: (w.traits||[]).join(', '), _fromEquip:i});
+  } else if (item._equipped && item._type === 'armor' && item._data) {
+    const a = item._data;
+    const nameEl = document.getElementById('armor-name');
+    const acEl = document.getElementById('armor-ac');
+    const dexEl = document.getElementById('armor-dex');
+    if (nameEl) nameEl.value = a.name_ko;
+    if (acEl) acEl.value = a.ac_bonus||0;
+    if (dexEl) dexEl.value = a.dex_cap!==null && a.dex_cap!==undefined ? a.dex_cap : '-';
+    recalcAC();
+  } else if (!item._equipped && item._type === 'weapon') {
+    // 전투 탭에서 해당 무기 제거
+    const wIdx = state.weapons.findIndex(w => w._fromEquip === i);
+    if (wIdx >= 0) { state.weapons.splice(wIdx, 1); renderWeapons(); }
+  } else if (!item._equipped && item._type === 'armor') {
+    const nameEl = document.getElementById('armor-name');
+    const acEl = document.getElementById('armor-ac');
+    const dexEl = document.getElementById('armor-dex');
+    if (nameEl) nameEl.value = '';
+    if (acEl) acEl.value = 0;
+    if (dexEl) dexEl.value = '-';
+    recalcAC();
+  }
+
+  renderEquip();
+  recalcAll();
+  save();
 }
 
 function removeEquip(i) { state.equip.splice(i,1); renderEquip(); save(); }
@@ -2075,7 +2127,8 @@ function openModal(type, ctx) {
   const titles = {
     class:'클래스 선택', ancestry:'혈통 선택', background:'배경 선택',
     heritage:'유산 선택', subclass:'서브클래스 선택', feat:'재주 선택', spell:'주문 선택',
-    weapon:'무기 선택', armor:'방어구 선택'
+    weapon:'무기 선택', armor:'방어구 선택',
+    'equip-weapon':'무기 추가 (인벤토리)', 'equip-armor':'방어구 추가 (인벤토리)', 'equip-gear':'장비 추가 (인벤토리)'
   };
   document.getElementById('modal-title').textContent = titles[type]||type;
 
@@ -2087,7 +2140,7 @@ function openModal(type, ctx) {
   if (fbar) fbar.innerHTML = '';
   if (type==='feat') buildFeatFilters(ctx);
   else if (type==='spell') buildSpellFilters();
-  else if (type==='weapon') buildWeaponFilters();
+  else if (type==='weapon' || type==='equip-weapon') buildWeaponFilters();
   // 서브클래스 모달 제목에 클래스/유형 표시
   if (type==='subclass' && state.selectedClass) {
     const subs = SUBCLASS_DB.filter(s => s.class_id === state.selectedClass.id);
@@ -2106,8 +2159,9 @@ function getOptionsData(type) {
   if (type==='subclass') return state.selectedClass ? SUBCLASS_DB.filter(s => s.class_id === state.selectedClass.id) : [];
   if (type==='feat') return filterFeats();
   if (type==='spell') return filterSpells();
-  if (type==='weapon') return filterWeapons();
-  if (type==='armor') return typeof ARMOR_DB!=='undefined' ? ARMOR_DB : [];
+  if (type==='weapon' || type==='equip-weapon') return filterWeapons();
+  if (type==='armor' || type==='equip-armor') return typeof ARMOR_DB!=='undefined' ? ARMOR_DB : [];
+  if (type==='equip-gear') return typeof GEAR_DB!=='undefined' ? GEAR_DB : [];
   return [];
 }
 
@@ -2259,12 +2313,20 @@ function renderOptions(data) {
               <span class="spell-actions">${item.actions||''}</span>
               ${(item.traditions||[]).map(t=>traitTag(t)).join('')}
               ${(item.traits||[]).map(t=>traitTag(t)).join('')}`;
-    } else if (modalType==='weapon') {
+    } else if (modalType==='weapon' || modalType==='equip-weapon') {
       tags = `<span class="tag hl">${item.damage||''}</span>
               <span class="tag">${item.category||''}</span>
               <span class="tag">부피: ${item.bulk||'-'}</span>
               <span class="tag">가격: ${item.price||'-'}</span>
               ${(item.traits||[]).map(t=>traitTag(t)).join('')}`;
+    } else if (modalType==='equip-armor') {
+      tags = `<span class="tag hl">AC+${item.ac_bonus||0}</span>
+              <span class="tag">${item.category||''}</span>
+              <span class="tag">가격: ${item.price||'-'}</span>
+              ${(item.traits||[]).map(t=>traitTag(t)).join('')}`;
+    } else if (modalType==='equip-gear') {
+      tags = `<span class="tag">가격: ${item.price||'-'}</span>
+              <span class="tag">부피: ${item.bulk||'-'}</span>`;
     } else if (modalType==='subclass') {
       tags = `<span class="tag hl">${item.subclass_type}</span>`;
     } else if (modalType==='heritage') {
@@ -2349,6 +2411,15 @@ function confirmModal() {
     if (acEl) acEl.value = a.ac_bonus||0;
     if (dexEl) dexEl.value = a.dex_cap!==null && a.dex_cap!==undefined ? a.dex_cap : '-';
     recalcAC();
+  } else if (modalType==='equip-weapon') {
+    const w = modalSelected;
+    addEquip({name: w.name_ko, qty:1, bulk: typeof w.bulk==='number'?w.bulk:(w.bulk==='L'?0.1:0), _type:'weapon', _data:w});
+  } else if (modalType==='equip-armor') {
+    const a = modalSelected;
+    addEquip({name: a.name_ko, qty:1, bulk: typeof a.bulk==='number'?a.bulk:(a.bulk==='L'?0.1:0), _type:'armor', _data:a});
+  } else if (modalType==='equip-gear') {
+    const g = modalSelected;
+    addEquip({name: g.name_ko, qty:1, bulk: typeof g.bulk==='number'?g.bulk:(g.bulk==='L'?0.1:0)});
   }
   recalcAll();
   closeModal();
@@ -2369,7 +2440,7 @@ document.getElementById('modal-overlay').addEventListener('click', function(e) {
 
 function applyClassDefaults(cls) {
   const saveMap = {fort:'prof-fort', ref:'prof-ref', will:'prof-will'};
-  const rankMap = {'미숙련':'0','숙련':'2','전문가':'4','대가':'6','전설':'8'};
+  const rankMap = {'미숙련':'0','숙련':'2','전문가':'4','달인':'6','전설':'8'};
   for (const [save, profId] of Object.entries(saveMap)) {
     const el = document.getElementById(profId);
     if (el) el.value = rankMap[cls.saves[save]||'숙련']||'2';
@@ -2590,7 +2661,7 @@ function renderActions() {
       if (!avail) {
         if (a.req_feat) reqHtml = `<div class="action-req">재주 필요: ${a.req_feat}</div>`;
         else if (a.req_skill && a.req_rank > 0) {
-          const rankNames = {2:'숙련',4:'전문가',6:'대가',8:'전설'};
+          const rankNames = {2:'숙련',4:'전문가',6:'달인',8:'전설'};
           const sk = SKILLS.find(s=>s.id===a.req_skill);
           reqHtml = `<div class="action-req">${sk?sk.name:a.req_skill} ${rankNames[a.req_rank]||''} 필요</div>`;
         }
@@ -2611,7 +2682,7 @@ function renderActions() {
     html += `</div></div>`;
   });
 
-  if (!html) html = '<div style="color:var(--text2);padding:16px;">현재 사용 가능한 액션이 없습니다.</div>';
+  if (!html) html = '<div style="color:var(--text2);padding:16px;">현재 사용 가능한 행동이 없습니다.</div>';
   container.innerHTML = html;
 }
 

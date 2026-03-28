@@ -28,8 +28,8 @@ const SPELL_DB = [
 
   { name_ko: "비밀 간파", name_en: "Discern Secrets", rank: 1, is_cantrip: true, is_focus: false,
     traditions: [], actions: "1행동", traits: ["위치", "예언", "정신"],
-    summary: "대상이 다음 감지, 사회, 기만 판정에 +1 상태 보너스를 얻습니다.",
-    desc: "대상이 다음 감지, 사회, 기만 판정에 <strong>+1 상태 보너스</strong>를 얻습니다." },
+    summary: "대상이 다음 지각, 사회, 기만 판정에 +1 상태 보너스를 얻습니다.",
+    desc: "대상이 다음 지각, 사회, 기만 판정에 <strong>+1 상태 보너스</strong>를 얻습니다." },
 
   { name_ko: "신성 창", name_en: "Divine Lance", rank: 1, is_cantrip: true, is_focus: false,
     traditions: ["divine"], actions: "2행동", traits: ["조작", "영혼"],
@@ -49,7 +49,7 @@ const SPELL_DB = [
   { name_ko: "허상", name_en: "Figment", rank: 1, is_cantrip: true, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["환영", "조작"],
     summary: "간단한 청각적 또는 시각적 환영을 만듭니다. 소리만이면 대화를 모방할 수 없고, 이미지라면 5피트 정육면체 안에 맞아야 하며 움직이지 못합니다. 환영은 다른 감각을 만들 수 없습니다. 생물이 환영을 탐색(Seek)하...",
-    desc: "간단한 청각적 또는 시각적 환영을 만듭니다. 소리만이면 대화를 모방할 수 없고, 이미지라면 5피트 정육면체 안에 맞아야 하며 움직이지 못합니다. 환영은 다른 감각을 만들 수 없습니다. 생물이 환영을 탐색(Seek)하면 주문 DC에 대한 감지 판정으로 불신할 수 있습니다." },
+    desc: "간단한 청각적 또는 시각적 환영을 만듭니다. 소리만이면 대화를 모방할 수 없고, 이미지라면 5피트 정육면체 안에 맞아야 하며 움직이지 못합니다. 환영은 다른 감각을 만들 수 없습니다. 생물이 환영을 탐색(Seek)하면 주문 DC에 대한 지각 판정으로 불신할 수 있습니다." },
 
   { name_ko: "금지의 수호", name_en: "Forbidding Ward", rank: 1, is_cantrip: true, is_focus: false,
     traditions: ["divine", "occult"], actions: "2행동", traits: ["조작"],
@@ -73,8 +73,8 @@ const SPELL_DB = [
 
   { name_ko: "환영의 벽집", name_en: "House of Imaginary Walls", rank: 5, is_cantrip: true, is_focus: false,
     traditions: ["arcane"], actions: "1행동", traits: ["환영", "조작", "시각", "위자드"],
-    summary: "보이지 않는 힘의 벽을 만들어 적의 이동을 방해합니다. 10피트×10피트 벽을 세워 불신하지 않은 생물은 통과할 수 없다고 믿습니다(감지 판정으로 불신 가능).",
-    desc: "보이지 않는 힘의 벽을 만들어 적의 이동을 방해합니다. 10피트×10피트 벽을 세워 불신하지 않은 생물은 통과할 수 없다고 믿습니다(감지 판정으로 불신 가능)." },
+    summary: "보이지 않는 힘의 벽을 만들어 적의 이동을 방해합니다. 10피트×10피트 벽을 세워 불신하지 않은 생물은 통과할 수 없다고 믿습니다(지각 판정으로 불신 가능).",
+    desc: "보이지 않는 힘의 벽을 만들어 적의 이동을 방해합니다. 10피트×10피트 벽을 세워 불신하지 않은 생물은 통과할 수 없다고 믿습니다(지각 판정으로 불신 가능)." },
 
   { name_ko: "점화", name_en: "Ignition", rank: 1, is_cantrip: true, is_focus: false,
     traditions: ["arcane", "primal"], actions: "2행동", traits: ["화염", "조작"],
@@ -291,8 +291,8 @@ const SPELL_DB = [
 
   { name_ko: "환영 변장", name_en: "Illusory Disguise", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["환영", "조작", "시각"],
-    summary: "자신을 다른 생물처럼 보이게 합니다. 같은 체형의 생물로만 가능. 키/체중은 약간 변경 가능. 생물이 상호작용하면 감지 판정(주문 DC)으로 불신 가능.강화(2등급): 다른 체형 가능(극단적이지 않은). 강화(3등급...",
-    desc: "자신을 다른 생물처럼 보이게 합니다. 같은 체형의 생물로만 가능. 키/체중은 약간 변경 가능. 생물이 상호작용하면 감지 판정(주문 DC)으로 불신 가능.<br><strong>강화(2등급):</strong> 다른 체형 가능(극단적이지 않은). <strong>강화(3등급):</strong> 최대 10 동의 생물." },
+    summary: "자신을 다른 생물처럼 보이게 합니다. 같은 체형의 생물로만 가능. 키/체중은 약간 변경 가능. 생물이 상호작용하면 지각 판정(주문 DC)으로 불신 가능.강화(2등급): 다른 체형 가능(극단적이지 않은). 강화(3등급...",
+    desc: "자신을 다른 생물처럼 보이게 합니다. 같은 체형의 생물로만 가능. 키/체중은 약간 변경 가능. 생물이 상호작용하면 지각 판정(주문 DC)으로 불신 가능.<br><strong>강화(2등급):</strong> 다른 체형 가능(극단적이지 않은). <strong>강화(3등급):</strong> 최대 10 동의 생물." },
 
   { name_ko: "환영 물체", name_en: "Illusory Object", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["환영", "조작", "시각"],
@@ -446,8 +446,8 @@ const SPELL_DB = [
 
   { name_ko: "복화술", name_en: "Ventriloquism", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "divine", "occult"], actions: "2행동", traits: ["청각", "환영", "조작"],
-    summary: "목소리를 던집니다. 60피트 이내의 다른 위치에서 목소리가 나오는 것처럼 만듭니다. 감지 판정으로 불신 가능.강화(3등급): 사거리 500피트.",
-    desc: "목소리를 던집니다. 60피트 이내의 다른 위치에서 목소리가 나오는 것처럼 만듭니다. 감지 판정으로 불신 가능.<br><strong>강화(3등급):</strong> 사거리 500피트." },
+    summary: "목소리를 던집니다. 60피트 이내의 다른 위치에서 목소리가 나오는 것처럼 만듭니다. 지각 판정으로 불신 가능.강화(3등급): 사거리 500피트.",
+    desc: "목소리를 던집니다. 60피트 이내의 다른 위치에서 목소리가 나오는 것처럼 만듭니다. 지각 판정으로 불신 가능.<br><strong>강화(3등급):</strong> 사거리 500피트." },
 
   { name_ko: "산성 집게", name_en: "Acid Grip", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "primal"], actions: "2행동", traits: ["산성", "조작"],
@@ -571,13 +571,13 @@ const SPELL_DB = [
 
   { name_ko: "인간형 형태", name_en: "Humanoid Form", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["조작", "변이"],
-    summary: "인간형 생물의 형태를 취합니다. 중형 또는 소형 인간형의 외모로 변신합니다. 비전투적 변신이며, 공격/능력치는 변하지 않습니다. 불신 가능(감지 DC = 주문 DC).강화(3등급): 대형 인간형도 가능. 강화(5등급...",
-    desc: "인간형 생물의 형태를 취합니다. 중형 또는 소형 인간형의 외모로 변신합니다. 비전투적 변신이며, 공격/능력치는 변하지 않습니다. 불신 가능(감지 DC = 주문 DC).<br><strong>강화(3등급):</strong> 대형 인간형도 가능. <strong>강화(5등급):</strong> 비인간형 체형도 가능." },
+    summary: "인간형 생물의 형태를 취합니다. 중형 또는 소형 인간형의 외모로 변신합니다. 비전투적 변신이며, 공격/능력치는 변하지 않습니다. 불신 가능(지각 DC = 주문 DC).강화(3등급): 대형 인간형도 가능. 강화(5등급...",
+    desc: "인간형 생물의 형태를 취합니다. 중형 또는 소형 인간형의 외모로 변신합니다. 비전투적 변신이며, 공격/능력치는 변하지 않습니다. 불신 가능(지각 DC = 주문 DC).<br><strong>강화(3등급):</strong> 대형 인간형도 가능. <strong>강화(5등급):</strong> 비인간형 체형도 가능." },
 
   { name_ko: "환영 생물", name_en: "Illusory Creature", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["환영", "조작", "시각"],
-    summary: "생물의 설득력 있는 환영을 만듭니다. 중형 이하, 유지 시 최대 이동 속도 25피트로 이동 및 몸짓 가능. 상호작용하면 불신 가능(감지 판정 vs 주문 DC). 불신하지 않은 생물은 진짜로 인식.강화(5등급): 대형...",
-    desc: "생물의 설득력 있는 환영을 만듭니다. 중형 이하, 유지 시 최대 이동 속도 25피트로 이동 및 몸짓 가능. 상호작용하면 불신 가능(감지 판정 vs 주문 DC). 불신하지 않은 생물은 진짜로 인식.<br><strong>강화(5등급):</strong> 대형, 이동 속도 45피트. <strong>강화(8등급):</strong> 거대, 이동 속도 60피트." },
+    summary: "생물의 설득력 있는 환영을 만듭니다. 중형 이하, 유지 시 최대 이동 속도 25피트로 이동 및 몸짓 가능. 상호작용하면 불신 가능(지각 판정 vs 주문 DC). 불신하지 않은 생물은 진짜로 인식.강화(5등급): 대형...",
+    desc: "생물의 설득력 있는 환영을 만듭니다. 중형 이하, 유지 시 최대 이동 속도 25피트로 이동 및 몸짓 가능. 상호작용하면 불신 가능(지각 판정 vs 주문 DC). 불신하지 않은 생물은 진짜로 인식.<br><strong>강화(5등급):</strong> 대형, 이동 속도 45피트. <strong>강화(8등급):</strong> 거대, 이동 속도 60피트." },
 
   { name_ko: "투명화", name_en: "Invisibility", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["환영", "조작"],
@@ -786,8 +786,8 @@ const SPELL_DB = [
 
   { name_ko: "영웅심", name_en: "Heroism", rank: 3, is_cantrip: false, is_focus: false,
     traditions: ["divine", "occult"], actions: "2행동", traits: ["조작"],
-    summary: "생물의 내면 영웅심을 북돋워 능력을 향상시킵니다. 대상이 명중 굴림, 감지, 기술 판정, 내성 굴림에 +1 상태 보너스를 얻습니다.강화(6등급): 보너스 +2. 강화(9등급): 보너스 +3.",
-    desc: "생물의 내면 영웅심을 북돋워 능력을 향상시킵니다. 대상이 명중 굴림, 감지, 기술 판정, 내성 굴림에 <strong>+1 상태 보너스</strong>를 얻습니다.<br><strong>강화(6등급):</strong> 보너스 +2. <strong>강화(9등급):</strong> 보너스 +3." },
+    summary: "생물의 내면 영웅심을 북돋워 능력을 향상시킵니다. 대상이 명중 굴림, 지각, 기술 판정, 내성 굴림에 +1 상태 보너스를 얻습니다.강화(6등급): 보너스 +2. 강화(9등급): 보너스 +3.",
+    desc: "생물의 내면 영웅심을 북돋워 능력을 향상시킵니다. 대상이 명중 굴림, 지각, 기술 판정, 내성 굴림에 <strong>+1 상태 보너스</strong>를 얻습니다.<br><strong>강화(6등급):</strong> 보너스 +2. <strong>강화(9등급):</strong> 보너스 +3." },
 
   { name_ko: "신성한 빛", name_en: "Holy Light", rank: 3, is_cantrip: false, is_focus: false,
     traditions: ["divine", "primal"], actions: "2행동", traits: ["공격", "화염", "신성(한)", "빛", "조작"],
@@ -971,8 +971,8 @@ const SPELL_DB = [
 
   { name_ko: "신기루", name_en: "Mirage", rank: 4, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["비일반", "환영", "조작"],
-    summary: "자연 환경 하나를 다른 것으로 위장합니다. 숲을 사막으로, 들판을 늪으로 등. 환경의 물리적 특성은 변하지 않지만 외관이 변합니다. 감지 판정으로 불신 가능.강화(5등급): 영역 1마일 폭발.",
-    desc: "자연 환경 하나를 다른 것으로 위장합니다. 숲을 사막으로, 들판을 늪으로 등. 환경의 물리적 특성은 변하지 않지만 외관이 변합니다. 감지 판정으로 불신 가능.<br><strong>강화(5등급):</strong> 영역 1마일 폭발." },
+    summary: "자연 환경 하나를 다른 것으로 위장합니다. 숲을 사막으로, 들판을 늪으로 등. 환경의 물리적 특성은 변하지 않지만 외관이 변합니다. 지각 판정으로 불신 가능.강화(5등급): 영역 1마일 폭발.",
+    desc: "자연 환경 하나를 다른 것으로 위장합니다. 숲을 사막으로, 들판을 늪으로 등. 환경의 물리적 특성은 변하지 않지만 외관이 변합니다. 지각 판정으로 불신 가능.<br><strong>강화(5등급):</strong> 영역 1마일 폭발." },
 
   { name_ko: "산의 강인함", name_en: "Mountain Resilience", rank: 4, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "primal"], actions: "2행동", traits: ["조작"],
@@ -1566,8 +1566,8 @@ const SPELL_DB = [
 
   { name_ko: "예지", name_en: "Foresight", rank: 9, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "divine", "occult"], actions: "2행동", traits: ["조작", "예언"],
-    summary: "위험 감각이 생물에게 위험을 경고하고 행운으로 보호합니다. 대상은 방심(off-guard)이 되지 않으며, 선제력(initiative) 굴림과 감지 판정에 +2 상태 보너스. 위험이 임박하면 시전자에게도 경고합니다....",
-    desc: "위험 감각이 생물에게 위험을 경고하고 행운으로 보호합니다. 대상은 <strong>방심(off-guard)이 되지 않으며</strong>, 선제력(initiative) 굴림과 감지 판정에 <strong>+2 상태 보너스</strong>. 위험이 임박하면 시전자에게도 경고합니다. 또한 턴 시작 시 반응으로 대상이나 시전자가 <strong>다음 내성이나 AC에 +2 상황 보너스</strong>를 사용할 수 있습니다." },
+    summary: "위험 감각이 생물에게 위험을 경고하고 행운으로 보호합니다. 대상은 방심(off-guard)이 되지 않으며, 선제력(initiative) 굴림과 지각 판정에 +2 상태 보너스. 위험이 임박하면 시전자에게도 경고합니다....",
+    desc: "위험 감각이 생물에게 위험을 경고하고 행운으로 보호합니다. 대상은 <strong>방심(off-guard)이 되지 않으며</strong>, 선제력(initiative) 굴림과 지각 판정에 <strong>+2 상태 보너스</strong>. 위험이 임박하면 시전자에게도 경고합니다. 또한 턴 시작 시 반응으로 대상이나 시전자가 <strong>다음 내성이나 AC에 +2 상황 보너스</strong>를 사용할 수 있습니다." },
 
   { name_ko: "내파", name_en: "Implosion", rank: 9, is_cantrip: false, is_focus: false,
     traditions: ["arcane"], actions: "2행동", traits: ["조작"],
@@ -1930,7 +1930,7 @@ const SPELL_DB = [
     summary: "국지적 지진. 영역 내 적이 반사 내성 시도. 실패 시 넘어뜨려짐+4d6 둔기 피해. 영역이 1분간 험지.",
     desc: "국지적 지진. 영역 내 적이 반사 내성 시도. 실패 시 <strong>넘어뜨려짐+4d6 둔기 피해</strong>. 영역이 1분간 험지." },
 
-  { name_ko: "대가의 에튀드", name_en: "Loremaster's Etude", rank: 1, is_cantrip: false, is_focus: true,
+  { name_ko: "달인의 에튀드", name_en: "Loremaster's Etude", rank: 1, is_cantrip: false, is_focus: true,
     traditions: [], actions: "자유 행동", traits: ["바드", "행운", "조작"],
     summary: "뮤즈: 수수께끼(enigma)뮤즈의 깊은 신비에 호소하여 대상의 정보 회상 능력을 강화합니다. 유발 지식 회상 판정을 두 번 굴려 높은 것을 사용합니다.",
     desc: "<strong>뮤즈:</strong> 수수께끼(enigma)<br>뮤즈의 깊은 신비에 호소하여 대상의 정보 회상 능력을 강화합니다. 유발 지식 회상 판정을 <strong>두 번 굴려 높은 것</strong>을 사용합니다." },
@@ -2162,8 +2162,8 @@ const SPELL_DB = [
 
   { name_ko: "속삭이는 고요", name_en: "Whispering Quiet", rank: 1, is_cantrip: false, is_focus: true,
     traditions: [], actions: "2행동", traits: ["클레릭", "조작", "음파"],
-    summary: "영역 내 소리를 억압합니다. 5피트 이상 떨어진 생물은 감지 판정(주문 DC) 없이 영역 내 목소리를 들을 수 없습니다.",
-    desc: "영역 내 소리를 억압합니다. 5피트 이상 떨어진 생물은 감지 판정(주문 DC) 없이 영역 내 목소리를 들을 수 없습니다." },
+    summary: "영역 내 소리를 억압합니다. 5피트 이상 떨어진 생물은 지각 판정(주문 DC) 없이 영역 내 목소리를 들을 수 없습니다.",
+    desc: "영역 내 소리를 억압합니다. 5피트 이상 떨어진 생물은 지각 판정(주문 DC) 없이 영역 내 목소리를 들을 수 없습니다." },
 
   { name_ko: "야생 변신", name_en: "Wild Shape", rank: 1, is_cantrip: false, is_focus: true,
     traditions: ["primal"], actions: "2행동", traits: ["드루이드", "조작", "변이"],
@@ -2177,8 +2177,8 @@ const SPELL_DB = [
 
   { name_ko: "진실의 말씀", name_en: "Word of Truth", rank: 1, is_cantrip: false, is_focus: true,
     traditions: [], actions: "1행동", traits: ["클레릭"],
-    summary: "진실만 말할 수 있게 됩니다. 지속 시간 동안 당신은 의도적으로 거짓말을 할 수 없으며, 다른 생물이 이를 인지합니다. 기만에 대한 감지 판정에 +4 상태 보너스.",
-    desc: "진실만 말할 수 있게 됩니다. 지속 시간 동안 당신은 의도적으로 거짓말을 할 수 없으며, 다른 생물이 이를 인지합니다. 기만에 대한 감지 판정에 <strong>+4 상태 보너스</strong>." },
+    summary: "진실만 말할 수 있게 됩니다. 지속 시간 동안 당신은 의도적으로 거짓말을 할 수 없으며, 다른 생물이 이를 인지합니다. 기만에 대한 지각 판정에 +4 상태 보너스.",
+    desc: "진실만 말할 수 있게 됩니다. 지속 시간 동안 당신은 의도적으로 거짓말을 할 수 없으며, 다른 생물이 이를 인지합니다. 기만에 대한 지각 판정에 <strong>+4 상태 보너스</strong>." },
 
   { name_ko: "전투 열정", name_en: "Zeal for Battle", rank: 4, is_cantrip: false, is_focus: true,
     traditions: [], actions: "반응", traits: ["클레릭", "감정", "정신"],
