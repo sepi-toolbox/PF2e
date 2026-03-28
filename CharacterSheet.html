@@ -1130,6 +1130,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
             <div id="equip-list"></div>
             <button class="add-btn" onclick="openModal('equip-weapon')">+ 무기 DB</button>
             <button class="add-btn" onclick="openModal('equip-armor')">+ 방어구 DB</button>
+            <button class="add-btn" onclick="openModal('equip-shield')">+ 방패 DB</button>
             <button class="add-btn" onclick="openModal('equip-gear')">+ 장비 DB</button>
             <button class="add-btn" onclick="addEquip()">+ 직접 입력</button>
           </div>
@@ -2527,9 +2528,10 @@ function renderEquip() {
     row.className = 'equip-row';
     const isWeapon = e._type === 'weapon';
     const isArmor = e._type === 'armor';
+    const isShield = e._type === 'shield';
     const equipped = e._equipped;
-    const equipBtn = (isWeapon || isArmor)
-      ? `<span class="equip-btn ${equipped?'equipped':''}" onclick="toggleEquip(${i})" title="${equipped?'장착 해제':'장착'}">${equipped?'⚔':'◻'}</span>`
+    const equipBtn = (isWeapon || isArmor || isShield)
+      ? `<span class="equip-btn ${equipped?'equipped':''}" onclick="toggleEquip(${i})" title="${equipped?'장착 해제':'장착'}">${equipped?(isShield?'🛡':'⚔'):'◻'}</span>`
       : '';
     row.innerHTML = `
       <input class="eq-name" placeholder="아이템 이름" value="${e.name||''}" style="flex:3;" oninput="state.equip[${i}].name=this.value;recalcBulk();save()">
@@ -2563,6 +2565,19 @@ function toggleEquip(i) {
     // 전투 탭에서 해당 무기 제거
     const wIdx = state.weapons.findIndex(w => w._fromEquip === i);
     if (wIdx >= 0) { state.weapons.splice(wIdx, 1); renderWeapons(); }
+  } else if (item._equipped && item._type === 'shield' && item._data) {
+    const s = item._data;
+    const nameEl = document.getElementById('shield-name');
+    const acEl = document.getElementById('shield-ac');
+    const hardEl = document.getElementById('shield-hard');
+    const hpEl = document.getElementById('shield-hp');
+    const hpCurEl = document.getElementById('shield-hp-cur');
+    if (nameEl) nameEl.value = s.name_ko;
+    if (acEl) acEl.value = s.ac_bonus||0;
+    if (hardEl) hardEl.value = s.hardness||0;
+    if (hpEl) hpEl.value = s.hp||0;
+    if (hpCurEl) hpCurEl.value = s.hp||0;
+    updateShieldGauge();
   } else if (!item._equipped && item._type === 'armor') {
     const nameEl = document.getElementById('armor-name');
     const acEl = document.getElementById('armor-ac');
@@ -2571,6 +2586,18 @@ function toggleEquip(i) {
     if (acEl) acEl.value = 0;
     if (dexEl) dexEl.value = '-';
     recalcAC();
+  } else if (!item._equipped && item._type === 'shield') {
+    const nameEl = document.getElementById('shield-name');
+    const acEl = document.getElementById('shield-ac');
+    const hardEl = document.getElementById('shield-hard');
+    const hpEl = document.getElementById('shield-hp');
+    const hpCurEl = document.getElementById('shield-hp-cur');
+    if (nameEl) nameEl.value = '';
+    if (acEl) acEl.value = 0;
+    if (hardEl) hardEl.value = 0;
+    if (hpEl) hpEl.value = 0;
+    if (hpCurEl) hpCurEl.value = 0;
+    updateShieldGauge();
   }
 
   renderEquip();
@@ -2703,7 +2730,7 @@ function openModal(type, ctx) {
     class:'클래스 선택', ancestry:'혈통 선택', background:'배경 선택',
     heritage:'유산 선택', subclass:'서브클래스 선택', feat:'재주 선택', spell:'주문 선택',
     weapon:'무기 선택', armor:'방어구 선택',
-    'equip-weapon':'무기 추가 (인벤토리)', 'equip-armor':'방어구 추가 (인벤토리)', 'equip-gear':'장비 추가 (인벤토리)'
+    'equip-weapon':'무기 추가 (인벤토리)', 'equip-armor':'방어구 추가 (인벤토리)', 'equip-shield':'방패 추가 (인벤토리)', 'equip-gear':'장비 추가 (인벤토리)'
   };
   document.getElementById('modal-title').textContent = titles[type]||type;
 
@@ -2736,6 +2763,7 @@ function getOptionsData(type) {
   if (type==='spell') return filterSpells();
   if (type==='weapon' || type==='equip-weapon') return filterWeapons();
   if (type==='armor' || type==='equip-armor') return typeof ARMOR_DB!=='undefined' ? ARMOR_DB : [];
+  if (type==='equip-shield') return typeof SHIELD_DB!=='undefined' ? SHIELD_DB : [];
   if (type==='equip-gear') return typeof GEAR_DB!=='undefined' ? GEAR_DB : [];
   return [];
 }
@@ -2979,7 +3007,10 @@ function showItemDetail(item) {
   } else if (item.ac_bonus !== undefined) {
     tags = `<span class="tag hl">AC+${item.ac_bonus}</span>
             <span class="tag">${item.category||''}</span>
-            ${item.dex_cap!==null?`<span class="tag">DEX상한: ${item.dex_cap}</span>`:''}
+            ${item.dex_cap!==null&&item.dex_cap!==undefined?`<span class="tag">DEX상한: ${item.dex_cap}</span>`:''}
+            ${item.hardness!==undefined?`<span class="tag">경도: ${item.hardness}</span>`:''}
+            ${item.hp!==undefined&&item.bt!==undefined?`<span class="tag">HP: ${item.hp} (BT: ${item.bt})</span>`:''}
+            ${item.speed_penalty?`<span class="tag" style="color:var(--red-light);">속도: ${item.speed_penalty}</span>`:''}
             <span class="tag">가격: ${item.price||'-'}</span>`;
   } else if (item.hp !== undefined && item.keyAttr !== undefined) {
     tags = `<span class="tag hl">HP ${item.hp}+CON</span>
@@ -3065,6 +3096,9 @@ function confirmModal() {
   } else if (modalType==='equip-armor') {
     const a = modalSelected;
     addEquip({name: a.name_ko, qty:1, bulk: typeof a.bulk==='number'?a.bulk:(a.bulk==='L'?0.1:0), _type:'armor', _data:a});
+  } else if (modalType==='equip-shield') {
+    const s = modalSelected;
+    addEquip({name: s.name_ko, qty:1, bulk: typeof s.bulk==='number'?s.bulk:(s.bulk==='L'?0.1:0), _type:'shield', _data:s});
   } else if (modalType==='equip-gear') {
     const g = modalSelected;
     addEquip({name: g.name_ko, qty:1, bulk: typeof g.bulk==='number'?g.bulk:(g.bulk==='L'?0.1:0)});
