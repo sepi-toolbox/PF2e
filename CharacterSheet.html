@@ -2869,10 +2869,6 @@ function renderGrowthPlan() {
   html += growthSlotWithClearHTML('ancestry-sel', '🧬', '혈통 Ancestry',
     state.selectedAncestry ? `${state.selectedAncestry.name} (${state.selectedAncestry.en})` : null,
     "openModal('ancestry')", state.selectedAncestry ? "clearCoreSelection('ancestry')" : null);
-  // Heritage selector
-  html += growthSlotWithClearHTML('heritage-sel', '🛡', '유산 Heritage',
-    state.selectedHeritage ? state.selectedHeritage.name_ko : null,
-    "openModal('heritage')", state.selectedHeritage ? "clearCoreSelection('heritage')" : null);
   // Background selector
   html += growthSlotWithClearHTML('background-sel', '📜', '배경 Background',
     state.selectedBackground ? `${state.selectedBackground.name} (${state.selectedBackground.en})` : null,
@@ -2881,20 +2877,6 @@ function renderGrowthPlan() {
   html += growthSlotWithClearHTML('class-sel', '⚔', '클래스 Class',
     state.selectedClass ? `${state.selectedClass.name} (${state.selectedClass.en})` : null,
     "openModal('class')", state.selectedClass ? "clearCoreSelection('class')" : null);
-  // Subclass selector (only if class has subclasses)
-  if (state.selectedClass) {
-    const subs = SUBCLASS_DB.filter(s => s.class_id === state.selectedClass.id);
-    if (subs.length > 0) {
-      const subLabel = subs[0].subclass_type || '서브클래스';
-      // Find the English name for the subclass type
-      const subEnMap = {'뮤즈':'Muse','교리':'Doctrine','교단':'Druidic Order','사냥 방식':"Hunter's Edge",'전문':'Racket','후원자':'Patron','마법학파':'Arcane School'};
-      const subEn = subEnMap[subLabel] || 'Subclass';
-      const subIcon = {'뮤즈':'🎵','교리':'📿','교단':'🌿','사냥 방식':'🏹','전문':'🗡','후원자':'🔮','마법학파':'📖'}[subLabel] || '⚙';
-      html += growthSlotWithClearHTML('subclass-sel', subIcon, `${subLabel} ${subEn}`,
-        state.selectedSubclass ? `${state.selectedSubclass.name_ko} (${state.selectedSubclass.name_en})` : null,
-        "openModal('subclass')", state.selectedSubclass ? "clearCoreSelection('subclass')" : null);
-    }
-  }
   html += `</div>`;
 
   for (let lv = 1; lv <= curLevel; lv++) {
@@ -2904,8 +2886,27 @@ function renderGrowthPlan() {
 
     html += `<div class="growth-level-header">레벨 ${lv}<span style="font-size:10px;color:var(--text2);font-weight:400;">Level ${lv}</span></div>`;
 
-    // Level 1 specials (core selectors moved to top, keep remaining level 1 items)
+    // Level 1 specials
     if (lv === 1) {
+      // Heritage (only if ancestry selected)
+      if (state.selectedAncestry) {
+        html += growthSlotWithClearHTML('heritage-sel', '🛡', '유산 Heritage',
+          state.selectedHeritage ? state.selectedHeritage.name_ko : null,
+          "openModal('heritage')", state.selectedHeritage ? "clearCoreSelection('heritage')" : null);
+      }
+      // Subclass (only if class selected AND has subclasses)
+      if (state.selectedClass) {
+        const subs = SUBCLASS_DB.filter(s => s.class_id === state.selectedClass.id);
+        if (subs.length > 0) {
+          const subLabel = subs[0].subclass_type || '서브클래스';
+          const subEnMap = {'뮤즈':'Muse','교리':'Doctrine','교단':'Druidic Order','사냥 방식':"Hunter's Edge",'전문':'Racket','후원자':'Patron','마법학파':'Arcane School'};
+          const subEn = subEnMap[subLabel] || 'Subclass';
+          const subIcon = {'뮤즈':'🎵','교리':'📿','교단':'🌿','사냥 방식':'🏹','전문':'🗡','후원자':'🔮','마법학파':'📖'}[subLabel] || '⚙';
+          html += growthSlotWithClearHTML('subclass-sel', subIcon, `${subLabel} ${subEn}`,
+            state.selectedSubclass ? `${state.selectedSubclass.name_ko} (${state.selectedSubclass.name_en})` : null,
+            "openModal('subclass')", state.selectedSubclass ? "clearCoreSelection('subclass')" : null);
+        }
+      }
       // Background skill feat (auto-granted, display only)
       if (g.bgSkillFeat) {
         html += `<div class="growth-slot filled" style="cursor:default;">
@@ -2917,23 +2918,22 @@ function renderGrowthPlan() {
         </div>`;
       }
 
-      // Skill Training at level 1
+      // Skill Training at level 1 (single card, multi-select modal)
       const numSlots = state.trainableSkillSlots || 0;
       if (numSlots > 0) {
-        const trainArr = (g.skillTraining || []);
-        for (let si = 0; si < numSlots; si++) {
-          const curVal = trainArr[si] || '';
-          const skObj = curVal ? SKILLS.find(s => s.id === curVal) : null;
-          const display = skObj ? `${skObj.name} (${skObj.en})` : null;
-          html += `<div class="growth-slot ${curVal ? 'filled' : ''}" onclick="growthPickSkillTraining(${si})">
-            <div class="growth-slot-icon">📖</div>
-            <div class="growth-slot-body">
-              <div class="growth-slot-label">기술 훈련 Skill Training ${si+1}/${numSlots}</div>
-              <div class="growth-slot-value">${display || '선택 안 됨'}</div>
-            </div>
-            ${curVal ? '<span class="spell-del" onclick="event.stopPropagation();growthClearSkillTraining('+si+');" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>' : ''}
-          </div>`;
-        }
+        const trainArr = (g.skillTraining || []).filter(v => v);
+        const filledCount = trainArr.length;
+        const allFilled = filledCount >= numSlots;
+        const displayNames = trainArr.map(id => { const sk = SKILLS.find(s=>s.id===id); return sk ? sk.name : id; }).join(', ');
+        html += `<div class="growth-slot ${allFilled ? 'filled' : ''}" onclick="growthPickSkillTrainingMulti()">
+          <div class="growth-slot-icon">📖</div>
+          <div class="growth-slot-body">
+            <div class="growth-slot-label">기술 훈련 Skill Training</div>
+            <div class="growth-slot-value">${allFilled ? displayNames : filledCount + '/' + numSlots + ' 선택' + (displayNames ? ' — ' + displayNames : '')}</div>
+          </div>
+          <div class="growth-slot-badge">${numSlots}</div>
+          ${filledCount > 0 ? '<span class="spell-del" onclick="event.stopPropagation();growthClearAllSkillTraining();" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>' : ''}
+        </div>`;
       }
     }
 
@@ -3166,6 +3166,74 @@ function growthPickSkillTraining(slotIndex) {
 
 function growthClearSkillTraining(slotIndex) {
   growthSkillTrainingChanged(slotIndex, '');
+}
+
+function growthClearAllSkillTraining() {
+  const trainArr = state.growth[1]?.skillTraining || [];
+  for (let i = trainArr.length - 1; i >= 0; i--) {
+    if (trainArr[i]) growthSkillTrainingChanged(i, '');
+  }
+}
+
+function growthPickSkillTrainingMulti() {
+  const numSlots = state.trainableSkillSlots || 0;
+  if (!state.growth[1]) state.growth[1] = {};
+  if (!state.growth[1].skillTraining) state.growth[1].skillTraining = [];
+  const trainArr = state.growth[1].skillTraining;
+  const alreadySelected = trainArr.filter(v => v);
+
+  document.getElementById('modal-overlay').classList.remove('hidden');
+  document.getElementById('modal-title').textContent = `기술 훈련 선택 (${alreadySelected.length}/${numSlots})`;
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; }
+  const fbar = document.getElementById('modal-filterbar');
+  if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm');
+  if (confirmBtn) { confirmBtn.style.display = ''; confirmBtn.textContent = '완료'; }
+  modalType = 'skill-multi';
+  modalSelected = null;
+
+  const container = document.getElementById('modal-options');
+  const detail = document.getElementById('modal-detail');
+  container.innerHTML = '';
+  if (detail) detail.innerHTML = `<div class="modal-detail-empty">${numSlots}개의 기술을 선택하세요.<br>이미 훈련된 기술은 선택할 수 없습니다.</div>`;
+
+  const available = getAvailableSkillsForTraining(-1, []);
+
+  SKILLS.forEach(sk => {
+    const isAvail = available.includes(sk.id);
+    const isSelected = alreadySelected.includes(sk.id);
+    const isFull = alreadySelected.length >= numSlots && !isSelected;
+    const row = document.createElement('div');
+    row.className = 'opt-row' + (isSelected ? ' selected' : '');
+    if (!isAvail && !isSelected) row.style.opacity = '0.4';
+    row.innerHTML = `
+      <div class="opt-row-icon">${isSelected ? '✓' : '📖'}</div>
+      <span class="opt-row-name">${sk.name} <span style="color:var(--text2);font-size:11px;">${sk.en}</span></span>
+      <span style="font-size:10px;color:var(--text2);margin-right:4px;">${getSkillRankLabel(sk.id)}</span>`;
+
+    if (isAvail || isSelected) {
+      row.style.cursor = 'pointer';
+      row.onclick = () => {
+        if (isSelected) {
+          // Deselect
+          const idx = trainArr.indexOf(sk.id);
+          if (idx >= 0) growthSkillTrainingChanged(idx, '');
+          growthPickSkillTrainingMulti(); // Re-render modal
+        } else if (!isFull) {
+          // Select: find empty slot
+          let emptyIdx = trainArr.findIndex(v => !v);
+          if (emptyIdx < 0) emptyIdx = trainArr.length;
+          growthSkillTrainingChanged(emptyIdx, sk.id);
+          growthPickSkillTrainingMulti(); // Re-render modal
+        }
+      };
+    }
+    container.appendChild(row);
+  });
+
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) listEl.style.display = '';
 }
 
 function growthPickSkillIncrease(lv) {
@@ -4475,6 +4543,7 @@ function clearCoreSelection(type) {
 }
 
 function confirmModal() {
+  if (modalType === 'skill-multi') { closeModal(); return; } // multi-select handled inline
   if (!modalSelected) { closeModal(); return; }
   if (modalType==='class') {
     // Cascade reset if changing class
