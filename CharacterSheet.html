@@ -855,6 +855,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   letter-spacing:.8px;padding:4px 4px 2px;margin-top:2px;
 }
 #growth-plan{padding-bottom:20px;}
+.growth-core-header{
+  font-size:14px;font-weight:700;color:var(--accent);
+  padding:4px 4px 4px;margin-top:0;
+  border-bottom:2px solid var(--accent);margin-bottom:6px;
+  display:flex;align-items:center;justify-content:space-between;
+  letter-spacing:.5px;
+}
+.growth-core-section{margin-bottom:10px;}
 
 /* ══════════════════════════════════
    BOOST MODAL
@@ -2854,6 +2862,41 @@ function renderGrowthPlan() {
   let html = '';
   try {
 
+  // ── Core Build section (above level progression) ──
+  html += `<div class="growth-core-section">`;
+  html += `<div class="growth-core-header">핵심 빌드<span style="font-size:10px;color:var(--text2);font-weight:400;margin-left:6px;">Core Build</span></div>`;
+  // Ancestry selector
+  html += growthSlotWithClearHTML('ancestry-sel', '🧬', '혈통 Ancestry',
+    state.selectedAncestry ? `${state.selectedAncestry.name} (${state.selectedAncestry.en})` : null,
+    "openModal('ancestry')", state.selectedAncestry ? "clearCoreSelection('ancestry')" : null);
+  // Heritage selector
+  html += growthSlotWithClearHTML('heritage-sel', '🛡', '유산 Heritage',
+    state.selectedHeritage ? state.selectedHeritage.name_ko : null,
+    "openModal('heritage')", state.selectedHeritage ? "clearCoreSelection('heritage')" : null);
+  // Background selector
+  html += growthSlotWithClearHTML('background-sel', '📜', '배경 Background',
+    state.selectedBackground ? `${state.selectedBackground.name} (${state.selectedBackground.en})` : null,
+    "openModal('background')", state.selectedBackground ? "clearCoreSelection('background')" : null);
+  // Class selector
+  html += growthSlotWithClearHTML('class-sel', '⚔', '클래스 Class',
+    state.selectedClass ? `${state.selectedClass.name} (${state.selectedClass.en})` : null,
+    "openModal('class')", state.selectedClass ? "clearCoreSelection('class')" : null);
+  // Subclass selector (only if class has subclasses)
+  if (state.selectedClass) {
+    const subs = SUBCLASS_DB.filter(s => s.class_id === state.selectedClass.id);
+    if (subs.length > 0) {
+      const subLabel = subs[0].subclass_type || '서브클래스';
+      // Find the English name for the subclass type
+      const subEnMap = {'뮤즈':'Muse','교리':'Doctrine','교단':'Druidic Order','사냥 방식':"Hunter's Edge",'전문':'Racket','후원자':'Patron','마법학파':'Arcane School'};
+      const subEn = subEnMap[subLabel] || 'Subclass';
+      const subIcon = {'뮤즈':'🎵','교리':'📿','교단':'🌿','사냥 방식':'🏹','전문':'🗡','후원자':'🔮','마법학파':'📖'}[subLabel] || '⚙';
+      html += growthSlotWithClearHTML('subclass-sel', subIcon, `${subLabel} ${subEn}`,
+        state.selectedSubclass ? `${state.selectedSubclass.name_ko} (${state.selectedSubclass.name_en})` : null,
+        "openModal('subclass')", state.selectedSubclass ? "clearCoreSelection('subclass')" : null);
+    }
+  }
+  html += `</div>`;
+
   for (let lv = 1; lv <= curLevel; lv++) {
     const plan = GROWTH_TABLE[lv];
     if (!plan) continue;
@@ -2861,24 +2904,8 @@ function renderGrowthPlan() {
 
     html += `<div class="growth-level-header">레벨 ${lv}<span style="font-size:10px;color:var(--text2);font-weight:400;">Level ${lv}</span></div>`;
 
-    // Level 1 specials: ancestry, heritage, background, class selectors
+    // Level 1 specials (core selectors moved to top, keep remaining level 1 items)
     if (lv === 1) {
-      // Ancestry selector
-      html += growthSlotHTML(lv, 'ancestry-sel', '🧬', '혈통 Ancestry',
-        state.selectedAncestry ? `${state.selectedAncestry.name} (${state.selectedAncestry.en})` : null,
-        "openModal('ancestry')");
-      // Heritage selector
-      html += growthSlotHTML(lv, 'heritage-sel', '🛡', '유산 Heritage',
-        state.selectedHeritage ? state.selectedHeritage.name_ko : null,
-        "openModal('heritage')");
-      // Background selector
-      html += growthSlotHTML(lv, 'background-sel', '📜', '배경 Background',
-        state.selectedBackground ? `${state.selectedBackground.name} (${state.selectedBackground.en})` : null,
-        "openModal('background')");
-      // Class selector
-      html += growthSlotHTML(lv, 'class-sel', '⚔', '클래스 Class',
-        state.selectedClass ? `${state.selectedClass.name} (${state.selectedClass.en})` : null,
-        "openModal('class')");
       // Background skill feat (auto-granted, display only)
       if (g.bgSkillFeat) {
         html += `<div class="growth-slot filled" style="cursor:default;">
@@ -2977,6 +3004,20 @@ function growthSlotHTML(lv, key, icon, label, value, onclickStr) {
       <div class="growth-slot-label">${label}</div>
       <div class="growth-slot-value">${display}</div>
     </div>
+  </div>`;
+}
+
+function growthSlotWithClearHTML(key, icon, label, value, onclickStr, clearAction) {
+  const filled = value ? 'filled' : '';
+  const display = value || '선택 안 됨';
+  const clearBtn = clearAction ? `<span class="spell-del" onclick="event.stopPropagation();${clearAction};" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>` : '';
+  return `<div class="growth-slot ${filled}" onclick="${onclickStr}">
+    <div class="growth-slot-icon">${icon}</div>
+    <div class="growth-slot-body">
+      <div class="growth-slot-label">${label}</div>
+      <div class="growth-slot-value">${display}</div>
+    </div>
+    ${clearBtn}
   </div>`;
 }
 
@@ -4282,21 +4323,187 @@ function filterOptions() {
   renderOptions(getOptionsData(modalType));
 }
 
+// ═══════════════════════════════════════════════
+//  CASCADE RESET FUNCTIONS
+// ═══════════════════════════════════════════════
+
+function resetFromClass() {
+  // Reset all level selections
+  state.growth = {};
+  // Reset all feats
+  state.feats = {ancestry:[], class:[], general:[], skill:[], archetype:[], other:[]};
+  // Reset boosts (class + all level boosts)
+  state.boosts.cls = null;
+  for (let lv = 1; lv <= 20; lv++) {
+    const key = `lv${lv}`;
+    if (state.boosts[key]) state.boosts[key] = [];
+  }
+  // Reset subclass
+  state.selectedSubclass = null;
+  const subBtn = document.getElementById('btn-subclass');
+  if (subBtn) { subBtn.textContent = '서브클래스...'; subBtn.classList.remove('filled'); subBtn.style.display = 'none'; }
+  // Reset weapon proficiencies to defaults
+  ['simple','martial','advanced','unarmed'].forEach(c => {
+    const el = document.getElementById('prof-weapon-'+c);
+    if (el) el.value = '0';
+  });
+  initWeaponProfBadges();
+  // Reset armor proficiencies to defaults
+  ['light','medium','heavy','unarmored'].forEach(c => {
+    const el = document.getElementById('prof-armor-'+c);
+    if (el) el.value = '0';
+  });
+  initArmorProfBadges();
+  // Reset save proficiencies
+  ['prof-fort','prof-ref','prof-will'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '0';
+  });
+  const percEl = document.getElementById('prof-perc');
+  if (percEl) percEl.value = '0';
+  const cdcEl = document.getElementById('prof-classdc');
+  if (cdcEl) cdcEl.value = '0';
+  const spEl = document.getElementById('prof-spatk');
+  if (spEl) spEl.value = '0';
+  // Reset skill proficiencies (set all to 0)
+  if (typeof SKILLS !== 'undefined') {
+    SKILLS.forEach(sk => {
+      const el = document.getElementById('sk-prof-' + sk.id);
+      if (el) el.value = '0';
+    });
+  }
+  // Reset trainable skill slots
+  state.trainableSkillSlots = 0;
+  // Reset spell tradition/type
+  const tradEl = document.getElementById('spell-tradition');
+  if (tradEl) tradEl.value = '';
+  const typeEl = document.getElementById('spell-type');
+  if (typeEl) typeEl.value = '';
+  recalcAll();
+  renderFeats();
+  renderGrowthPlan();
+}
+
+function resetFromAncestry() {
+  // Reset heritage
+  state.selectedHeritage = null;
+  const herBtn = document.getElementById('btn-heritage');
+  if (herBtn) { herBtn.textContent = '유산...'; herBtn.classList.remove('filled'); }
+  // Reset ancestry boosts
+  state.boosts.ancFixed = [];
+  state.boosts.ancFlaw = [];
+  state.boosts.ancFree = [];
+  // Reset ancestry feats
+  state.feats.ancestry = [];
+  // Clear ancestry feats from growth
+  for (const lv in state.growth) {
+    if (state.growth[lv] && state.growth[lv].ancestryFeat) {
+      delete state.growth[lv].ancestryFeat;
+    }
+  }
+  // Reset vision/size
+  state.vision = '없음';
+  state.size = '중형';
+  // Clear languages/traits textarea
+  const langEl = document.getElementById('f-languages');
+  if (langEl) langEl.value = '';
+  recalcAll();
+  renderFeats();
+  renderGrowthPlan();
+}
+
+function resetFromBackground() {
+  // Reset background boosts
+  state.boosts.bg = [];
+  // Remove auto-granted background feat from skill feats
+  if (state.growth[1] && state.growth[1].bgSkillFeat) {
+    const bgFeatName = state.growth[1].bgSkillFeat;
+    const idx = state.feats.skill.findIndex(f => f.name === bgFeatName && f.level === 1);
+    if (idx >= 0) state.feats.skill.splice(idx, 1);
+    delete state.growth[1].bgSkillFeat;
+  }
+  // Reset background-related skill training (clear notes)
+  const notesEl = document.getElementById('f-notes');
+  if (notesEl && notesEl.value.startsWith('[배경:')) notesEl.value = '';
+  recalcAll();
+  renderFeats();
+  renderGrowthPlan();
+}
+
+function resetFromSubclass() {
+  state.selectedSubclass = null;
+  const subBtn = document.getElementById('btn-subclass');
+  if (subBtn) { subBtn.textContent = '서브클래스...'; subBtn.classList.remove('filled'); }
+  renderGrowthPlan();
+  save();
+}
+
+function clearCoreSelection(type) {
+  if (type === 'class') {
+    if (state.selectedClass && !confirm('클래스를 변경하면 모든 빌드 선택이 초기화됩니다. 계속하시겠습니까?')) return;
+    resetFromClass();
+    state.selectedClass = null;
+    const btn = document.getElementById('btn-class');
+    if (btn) { btn.textContent = '클래스 선택...'; btn.classList.remove('filled'); }
+    renderGrowthPlan();
+    save();
+  } else if (type === 'ancestry') {
+    if (state.selectedAncestry && !confirm('혈통을 변경하면 혈통 관련 선택이 초기화됩니다. 계속하시겠습니까?')) return;
+    resetFromAncestry();
+    state.selectedAncestry = null;
+    const btn = document.getElementById('btn-ancestry');
+    if (btn) { btn.textContent = '혈통 선택...'; btn.classList.remove('filled'); }
+    renderGrowthPlan();
+    save();
+  } else if (type === 'background') {
+    if (state.selectedBackground && !confirm('배경을 변경하면 배경 관련 선택이 초기화됩니다. 계속하시겠습니까?')) return;
+    resetFromBackground();
+    state.selectedBackground = null;
+    const btn = document.getElementById('btn-background');
+    if (btn) { btn.textContent = '배경 선택...'; btn.classList.remove('filled'); }
+    renderGrowthPlan();
+    save();
+  } else if (type === 'heritage') {
+    state.selectedHeritage = null;
+    const btn = document.getElementById('btn-heritage');
+    if (btn) { btn.textContent = '유산...'; btn.classList.remove('filled'); }
+    renderGrowthPlan();
+    save();
+  } else if (type === 'subclass') {
+    resetFromSubclass();
+  }
+}
+
 function confirmModal() {
   if (!modalSelected) { closeModal(); return; }
   if (modalType==='class') {
+    // Cascade reset if changing class
+    if (state.selectedClass && state.selectedClass.id !== modalSelected.id) {
+      if (!confirm('클래스를 변경하면 모든 빌드 선택이 초기화됩니다. 계속하시겠습니까?')) { closeModal(); return; }
+      resetFromClass();
+    }
     state.selectedClass = modalSelected;
     const btn = document.getElementById('btn-class');
     btn.textContent = `${modalSelected.name} (${modalSelected.en})`;
     btn.classList.add('filled');
     applyClassDefaults(modalSelected);
   } else if (modalType==='ancestry') {
+    // Cascade reset if changing ancestry
+    if (state.selectedAncestry && state.selectedAncestry.id !== modalSelected.id) {
+      if (!confirm('혈통을 변경하면 혈통 관련 선택이 초기화됩니다. 계속하시겠습니까?')) { closeModal(); return; }
+      resetFromAncestry();
+    }
     state.selectedAncestry = modalSelected;
     const btn = document.getElementById('btn-ancestry');
     btn.textContent = `${modalSelected.name} (${modalSelected.en})`;
     btn.classList.add('filled');
     applyAncestryDefaults(modalSelected);
   } else if (modalType==='background') {
+    // Cascade reset if changing background
+    if (state.selectedBackground && state.selectedBackground.id !== modalSelected.id) {
+      if (!confirm('배경을 변경하면 배경 관련 선택이 초기화됩니다. 계속하시겠습니까?')) { closeModal(); return; }
+      resetFromBackground();
+    }
     state.selectedBackground = modalSelected;
     const btn = document.getElementById('btn-background');
     btn.textContent = `${modalSelected.name} (${modalSelected.en})`;
@@ -4342,13 +4549,19 @@ function confirmModal() {
     const w = modalSelected;
     addWeapon({name: w.name_ko, dmg: w.damage||'', traits: (w.traits||[]).join(', '), _dbData: w, category: w.category, range: w.range});
   } else if (modalType==='subclass') {
+    // Reset subclass-specific features if changing
+    if (state.selectedSubclass && state.selectedSubclass.id !== modalSelected.id) {
+      resetFromSubclass();
+    }
     state.selectedSubclass = modalSelected;
     const btn = document.getElementById('btn-subclass');
     if (btn) { btn.textContent = `${modalSelected.subclass_type}: ${modalSelected.name_ko}`; btn.classList.add('filled'); }
+    renderGrowthPlan();
   } else if (modalType==='heritage') {
     state.selectedHeritage = modalSelected;
     const btn = document.getElementById('btn-heritage');
     if (btn) { btn.textContent = modalSelected.name_ko; btn.classList.add('filled'); }
+    renderGrowthPlan();
   } else if (modalType==='armor') {
     const a = modalSelected;
     const nameEl = document.getElementById('armor-name');
