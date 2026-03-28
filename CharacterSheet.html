@@ -654,6 +654,61 @@ body{
 hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 /* ══════════════════════════════════
+   GROWTH PLAN (Level Progression)
+   ══════════════════════════════════ */
+.growth-level-header{
+  font-size:14px;font-weight:700;color:var(--accent);
+  padding:8px 4px 4px;margin-top:6px;
+  border-bottom:1px solid var(--border);margin-bottom:6px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.growth-level-header:first-child{margin-top:0;}
+.growth-slot{
+  background:var(--bg3);border:1px solid var(--border);border-radius:6px;
+  padding:8px 10px;margin-bottom:5px;cursor:pointer;
+  transition:border-color .15s, background .15s;
+  display:flex;align-items:center;gap:8px;
+}
+.growth-slot:hover{border-color:var(--accent);background:var(--bg4);}
+.growth-slot.filled{border-color:var(--accent);}
+.growth-slot-icon{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;
+  background:var(--bg4);border:1px solid var(--border2);
+}
+.growth-slot.filled .growth-slot-icon{
+  background:var(--accent-bg);border-color:var(--accent);
+}
+.growth-slot-body{flex:1;min-width:0;}
+.growth-slot-label{
+  font-size:11px;font-weight:600;color:var(--text);
+  display:flex;align-items:center;gap:4px;
+}
+.growth-slot-value{
+  font-size:10px;color:var(--text2);margin-top:1px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.growth-slot.filled .growth-slot-value{color:var(--accent);}
+.growth-slot-badge{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  font-size:10px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.growth-auto-feat{
+  font-size:11px;color:var(--text2);padding:3px 10px 3px 12px;
+  margin-bottom:4px;display:flex;align-items:center;gap:4px;
+}
+.growth-auto-feat .auto-label{color:var(--accent);font-weight:600;font-size:10px;}
+.growth-section-mini{
+  font-size:10px;color:var(--text2);text-transform:uppercase;
+  letter-spacing:.8px;padding:4px 4px 2px;margin-top:2px;
+}
+#growth-plan{padding-bottom:20px;}
+
+/* ══════════════════════════════════
    BOOST MODAL
    ══════════════════════════════════ */
 .boost-section{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:8px;margin-bottom:8px;}
@@ -804,43 +859,48 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <!-- ═══ LEFT SIDEBAR: Build Plan ═══ -->
   <div id="sidebar">
 
-    <!-- Ability Boosts (click to open modal) -->
-    <div class="sidebar-section">
-      <div class="sidebar-section-title">능력치 Attributes</div>
-      <div style="font-size:10px;color:var(--text2);text-align:center;margin-bottom:6px;">클릭하여 부스트 배분</div>
+    <!-- Ability Scores Summary (compact, always visible) -->
+    <div class="sidebar-section" style="padding:6px 8px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <div class="sidebar-section-title" style="margin:0;padding:0;border:none;">능력치 Attributes</div>
+        <span style="font-size:9px;color:var(--text2);cursor:pointer;" onclick="openModal('boost')">부스트 배분 ▸</span>
+      </div>
       <div class="attr-grid">
-        <div class="attr-box" onclick="openModal('boost')">
+        <div class="attr-box" onclick="openModal('boost')" style="padding:5px 2px;">
           <div class="attr-name">근력 STR</div>
-          <div class="attr-score" id="mod-str">+0</div>
-          <div class="attr-mod" id="partial-str"></div>
+          <div class="attr-score" id="mod-str" style="font-size:18px;">+0</div>
+          <div class="attr-mod" id="partial-str" style="font-size:9px;"></div>
         </div>
-        <div class="attr-box" onclick="openModal('boost')">
+        <div class="attr-box" onclick="openModal('boost')" style="padding:5px 2px;">
           <div class="attr-name">민첩 DEX</div>
-          <div class="attr-score" id="mod-dex">+0</div>
-          <div class="attr-mod" id="partial-dex"></div>
+          <div class="attr-score" id="mod-dex" style="font-size:18px;">+0</div>
+          <div class="attr-mod" id="partial-dex" style="font-size:9px;"></div>
         </div>
-        <div class="attr-box" onclick="openModal('boost')">
+        <div class="attr-box" onclick="openModal('boost')" style="padding:5px 2px;">
           <div class="attr-name">건강 CON</div>
-          <div class="attr-score" id="mod-con">+0</div>
-          <div class="attr-mod" id="partial-con"></div>
+          <div class="attr-score" id="mod-con" style="font-size:18px;">+0</div>
+          <div class="attr-mod" id="partial-con" style="font-size:9px;"></div>
         </div>
-        <div class="attr-box" onclick="openModal('boost')">
+        <div class="attr-box" onclick="openModal('boost')" style="padding:5px 2px;">
           <div class="attr-name">지능 INT</div>
-          <div class="attr-score" id="mod-int">+0</div>
-          <div class="attr-mod" id="partial-int"></div>
+          <div class="attr-score" id="mod-int" style="font-size:18px;">+0</div>
+          <div class="attr-mod" id="partial-int" style="font-size:9px;"></div>
         </div>
-        <div class="attr-box" onclick="openModal('boost')">
+        <div class="attr-box" onclick="openModal('boost')" style="padding:5px 2px;">
           <div class="attr-name">지혜 WIS</div>
-          <div class="attr-score" id="mod-wis">+0</div>
-          <div class="attr-mod" id="partial-wis"></div>
+          <div class="attr-score" id="mod-wis" style="font-size:18px;">+0</div>
+          <div class="attr-mod" id="partial-wis" style="font-size:9px;"></div>
         </div>
-        <div class="attr-box" onclick="openModal('boost')">
+        <div class="attr-box" onclick="openModal('boost')" style="padding:5px 2px;">
           <div class="attr-name">매력 CHA</div>
-          <div class="attr-score" id="mod-cha">+0</div>
-          <div class="attr-mod" id="partial-cha"></div>
+          <div class="attr-score" id="mod-cha" style="font-size:18px;">+0</div>
+          <div class="attr-mod" id="partial-cha" style="font-size:9px;"></div>
         </div>
       </div>
     </div>
+
+    <!-- Growth Plan (Level Progression) -->
+    <div id="growth-plan"></div>
 
     <!-- Languages / Traits -->
     <div class="sidebar-section">
@@ -1232,7 +1292,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
     <!-- ── 성장 Growth (mobile: sidebar content) ── -->
     <div id="panel-growth" class="panel">
-      <div style="padding:4px 0 10px;font-size:11px;color:var(--text2);">능력치 부스트 및 빌드 정보 (데스크톱에서는 좌측 사이드바에 표시)</div>
+      <div style="padding:4px 0 10px;font-size:11px;color:var(--text2);">레벨별 성장 계획 (데스크톱에서는 좌측 사이드바에 표시)</div>
       <!-- mirror of sidebar content for mobile -->
       <div class="box">
         <div class="box-title">능력치 Attributes</div>
@@ -1246,10 +1306,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
           <div class="attr-box" onclick="openModal('boost')"><div class="attr-name">매력 CHA</div><div class="attr-score" id="mod-cha-m">+0</div></div>
         </div>
       </div>
-      <div class="box">
-        <div class="box-title">언어 / 특성</div>
-        <div style="font-size:12px;color:var(--text2);">좌측 사이드바의 언어/특성 필드를 참조하세요.</div>
-      </div>
+      <div id="growth-plan-mobile"></div>
     </div><!-- /#panel-growth -->
 
     <!-- ── 정보 Info (mobile: center col content) ── -->
@@ -1844,6 +1901,7 @@ let state = {
   spells: {cantrip:[], known:[], focus:[]},
   feats: {ancestry:[], class:[], general:[], skill:[], archetype:[], other:[]},
   conditions: {},
+  growth: {},  // level-by-level progression: { '1': { classFeat:'name', ancestryFeat:'name', ... }, '2': { ... } }
 };
 
 let modalType = null;
@@ -2345,6 +2403,7 @@ function recalcAll() {
   updateHP();
   updateHpGauge();
   updateShieldGauge();
+  renderGrowthPlan();
   // 행동 탭이 활성화된 경우에만 재렌더
   if (document.getElementById('panel-actions')?.classList.contains('active')) renderActions();
 }
@@ -2501,7 +2560,184 @@ function updateHP() {
 
 function onLevelChange() {
   recalcAll();
+  renderGrowthPlan();
   updateSpellSlotsForClass();
+  save();
+}
+
+// ═══════════════════════════════════════════════
+//  GROWTH PLAN — Level-by-Level Progression
+// ═══════════════════════════════════════════════
+
+const GROWTH_TABLE = {
+  1:  { boosts:4, ancestry:true, heritage:true, background:true, classSel:true, ancestryFeat:true, classFeat:true },
+  2:  { classFeat:true, skillFeat:true },
+  3:  { generalFeat:true, skillIncrease:true },
+  4:  { classFeat:true, skillFeat:true },
+  5:  { boosts:4, ancestryFeat:true, skillIncrease:true },
+  6:  { classFeat:true, skillFeat:true },
+  7:  { generalFeat:true, skillIncrease:true },
+  8:  { classFeat:true, skillFeat:true },
+  9:  { ancestryFeat:true, skillIncrease:true },
+  10: { boosts:4, classFeat:true, skillFeat:true },
+  11: { generalFeat:true, skillIncrease:true },
+  12: { classFeat:true, skillFeat:true },
+  13: { ancestryFeat:true, skillIncrease:true },
+  14: { classFeat:true, skillFeat:true },
+  15: { boosts:4, generalFeat:true, skillIncrease:true },
+  16: { classFeat:true, skillFeat:true },
+  17: { ancestryFeat:true, skillIncrease:true },
+  18: { classFeat:true, skillFeat:true },
+  19: { generalFeat:true, skillIncrease:true },
+  20: { boosts:4, classFeat:true, skillFeat:true },
+};
+
+function renderGrowthPlan() {
+  const container = document.getElementById('growth-plan');
+  if (!container) return;
+  const curLevel = getLevel();
+  let html = '';
+
+  for (let lv = 1; lv <= curLevel; lv++) {
+    const plan = GROWTH_TABLE[lv];
+    if (!plan) continue;
+    const g = state.growth[lv] || {};
+
+    html += `<div class="growth-level-header">레벨 ${lv}<span style="font-size:10px;color:var(--text2);font-weight:400;">Level ${lv}</span></div>`;
+
+    // Level 1 specials: ancestry, heritage, background, class selectors
+    if (lv === 1) {
+      // Ancestry selector
+      html += growthSlotHTML(lv, 'ancestry-sel', '🧬', '혈통 Ancestry',
+        state.selectedAncestry ? `${state.selectedAncestry.name} (${state.selectedAncestry.en})` : null,
+        "openModal('ancestry')");
+      // Heritage selector
+      html += growthSlotHTML(lv, 'heritage-sel', '🛡', '유산 Heritage',
+        state.selectedHeritage ? state.selectedHeritage.name_ko : null,
+        "openModal('heritage')");
+      // Background selector
+      html += growthSlotHTML(lv, 'background-sel', '📜', '배경 Background',
+        state.selectedBackground ? `${state.selectedBackground.name} (${state.selectedBackground.en})` : null,
+        "openModal('background')");
+      // Class selector
+      html += growthSlotHTML(lv, 'class-sel', '⚔', '클래스 Class',
+        state.selectedClass ? `${state.selectedClass.name} (${state.selectedClass.en})` : null,
+        "openModal('class')");
+    }
+
+    // Ability Boosts
+    if (plan.boosts) {
+      const boostKey = lv === 1 ? 'lv1' : `lv${lv}`;
+      const boostCount = (state.boosts[boostKey] || []).length;
+      html += `<div class="growth-slot ${boostCount >= plan.boosts ? 'filled' : ''}" onclick="openModal('boost')">
+        <div class="growth-slot-icon">⚙</div>
+        <div class="growth-slot-body">
+          <div class="growth-slot-label">능력치 부스트 Set Abilities</div>
+          <div class="growth-slot-value">${boostCount >= plan.boosts ? boostCount + '개 선택 완료' : '클릭하여 부스트 배분'}</div>
+        </div>
+        <div class="growth-slot-badge">${plan.boosts}</div>
+      </div>`;
+    }
+
+    // Skill Increase
+    if (plan.skillIncrease) {
+      const siVal = g.skillIncrease || null;
+      html += growthSlotHTML(lv, 'skillIncrease', '📈', '기술 증가 Skill Increase',
+        siVal, `growthPickSkillIncrease(${lv})`);
+    }
+
+    // Ancestry Feat
+    if (plan.ancestryFeat) {
+      html += growthFeatSlotHTML(lv, 'ancestryFeat', '🧬', '혈통 재주 Ancestry Feat', 'ancestry', g.ancestryFeat);
+    }
+
+    // Class Feat
+    if (plan.classFeat) {
+      html += growthFeatSlotHTML(lv, 'classFeat', '⚔', '클래스 재주 Class Feat', 'class', g.classFeat);
+    }
+
+    // General Feat
+    if (plan.generalFeat) {
+      html += growthFeatSlotHTML(lv, 'generalFeat', '🔧', '일반 재주 General Feat', 'general', g.generalFeat);
+    }
+
+    // Skill Feat
+    if (plan.skillFeat) {
+      html += growthFeatSlotHTML(lv, 'skillFeat', '📚', '기술 재주 Skill Feat', 'skill', g.skillFeat);
+    }
+  }
+
+  container.innerHTML = html;
+
+  // Also update the mobile growth panel
+  const mobileContainer = document.getElementById('growth-plan-mobile');
+  if (mobileContainer) mobileContainer.innerHTML = html;
+}
+
+function growthSlotHTML(lv, key, icon, label, value, onclickStr) {
+  const filled = value ? 'filled' : '';
+  const display = value || '선택 안 됨';
+  return `<div class="growth-slot ${filled}" onclick="${onclickStr}">
+    <div class="growth-slot-icon">${icon}</div>
+    <div class="growth-slot-body">
+      <div class="growth-slot-label">${label}</div>
+      <div class="growth-slot-value">${display}</div>
+    </div>
+  </div>`;
+}
+
+function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
+  const filled = value ? 'filled' : '';
+  const display = value || '선택 안 됨';
+  return `<div class="growth-slot ${filled}" onclick="growthPickFeat(${lv},'${key}','${featType}')">
+    <div class="growth-slot-icon">${icon}</div>
+    <div class="growth-slot-body">
+      <div class="growth-slot-label">${label}</div>
+      <div class="growth-slot-value">${display}</div>
+    </div>
+    ${value ? '<span class="spell-del" onclick="event.stopPropagation();growthClearFeat('+lv+',\''+key+'\',\''+featType+'\');" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>' : ''}
+  </div>`;
+}
+
+// Growth Plan: pick a feat via the existing modal system
+let growthPendingLevel = null;
+let growthPendingKey = null;
+let growthPendingFeatType = null;
+
+function growthPickFeat(lv, key, featType) {
+  growthPendingLevel = lv;
+  growthPendingKey = key;
+  growthPendingFeatType = featType;
+  openModal('feat', featType);
+}
+
+function growthClearFeat(lv, key, featType) {
+  if (!state.growth[lv]) return;
+  const oldName = state.growth[lv][key];
+  if (oldName) {
+    // Remove from state.feats as well
+    const arr = state.feats[featType];
+    if (arr) {
+      const idx = arr.findIndex(f => f.name === oldName && f.level === lv);
+      if (idx >= 0) arr.splice(idx, 1);
+    }
+  }
+  delete state.growth[lv][key];
+  renderGrowthPlan();
+  renderFeats();
+  save();
+}
+
+function growthPickSkillIncrease(lv) {
+  // Simple prompt for now — user types a skill name
+  const skills = ['곡예','비전','운동','제작','기만','외교','위협','학식',
+    '의학','자연','오컬티즘','공연','종교','사회','은밀','생존','도둑질'];
+  const current = (state.growth[lv] || {}).skillIncrease || '';
+  const choice = prompt('기술 증가 — 기술 이름을 입력하세요:\n(' + skills.join(', ') + ')\n\n현재: ' + (current || '없음'));
+  if (choice === null) return;
+  if (!state.growth[lv]) state.growth[lv] = {};
+  state.growth[lv].skillIncrease = choice.trim() || null;
+  renderGrowthPlan();
   save();
 }
 
@@ -3154,7 +3390,29 @@ function confirmModal() {
     applyBackgroundInfo(modalSelected);
   } else if (modalType==='feat') {
     const type = modalContext || 'other';
-    state.feats[type].push({name: modalSelected.name_ko + (modalSelected.name_en?` (${modalSelected.name_en})`:''), level: modalSelected.feat_level||1});
+    const featName = modalSelected.name_ko + (modalSelected.name_en?` (${modalSelected.name_en})`:'');
+    const featLevel = modalSelected.feat_level||1;
+    // If triggered from growth plan, store in growth state
+    if (growthPendingLevel !== null && growthPendingKey !== null) {
+      const gLv = growthPendingLevel;
+      const gKey = growthPendingKey;
+      const gType = growthPendingFeatType;
+      if (!state.growth[gLv]) state.growth[gLv] = {};
+      // Clear old feat if replacing
+      const oldName = state.growth[gLv][gKey];
+      if (oldName) {
+        const arr = state.feats[gType];
+        if (arr) { const idx = arr.findIndex(f => f.name === oldName && f.level === gLv); if (idx >= 0) arr.splice(idx, 1); }
+      }
+      state.growth[gLv][gKey] = featName;
+      state.feats[type].push({name: featName, level: gLv});
+      growthPendingLevel = null;
+      growthPendingKey = null;
+      growthPendingFeatType = null;
+      renderGrowthPlan();
+    } else {
+      state.feats[type].push({name: featName, level: featLevel});
+    }
     renderFeats();
   } else if (modalType==='spell') {
     const sp = modalSelected;
@@ -3208,6 +3466,10 @@ function closeModal() {
   document.getElementById('modal-overlay').classList.add('hidden');
   modalType = null;
   modalSelected = null;
+  // Clear growth pending state
+  growthPendingLevel = null;
+  growthPendingKey = null;
+  growthPendingFeatType = null;
   const confirmBtn = document.querySelector('.btn-confirm');
   if (confirmBtn) confirmBtn.style.display = '';
   // Restore list visibility (hidden by showInfo)
@@ -3521,6 +3783,7 @@ function collectData() {
     weapons: state.weapons, equip: state.equip,
     spells: state.spells, spellSlots: state.spellSlots, spellSlotsUsed: state.spellSlotsUsed,
     feats: state.feats, conditions: state.conditions,
+    growth: state.growth,
   };
   SKILLS.forEach(sk => {
     data.skillProfs[sk.id] = document.getElementById('sk-prof-'+sk.id)?.value;
@@ -3715,6 +3978,7 @@ function loadData(d) {
     if (d.spellSlotsUsed) state.spellSlotsUsed = d.spellSlotsUsed;
     renderSpells();
     if (d.feats) { state.feats = d.feats; renderFeats(); }
+    if (d.growth) { state.growth = d.growth; renderGrowthPlan(); }
     if (d.conditions) {
       state.conditions = d.conditions;
       // 값을 복원 후 buildConditions 다시 실행
