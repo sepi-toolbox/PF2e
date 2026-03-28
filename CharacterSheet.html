@@ -386,6 +386,29 @@ body{
 /* ══════════════════════════════════
    SPELLS
    ══════════════════════════════════ */
+/* Spell Tab — Pathbuilder Style */
+.spell-header-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+.spell-header-left{display:flex;gap:6px;align-items:center;}
+.spell-header-stats{display:flex;gap:8px;align-items:center;font-size:12px;}
+.spell-stat{color:var(--text2);display:flex;align-items:center;gap:3px;}
+.spell-stat strong{color:var(--text);font-size:14px;}
+.spell-stat-sep{color:var(--border2);}
+.spell-rank-section{border-bottom:1px solid var(--border);}
+.spell-rank-header{padding:8px 12px;font-size:14px;font-weight:700;color:var(--accent);background:var(--bg2);}
+.spell-rank-header .en{font-size:11px;color:var(--text2);font-weight:400;}
+.spell-slot-col-header{display:flex;padding:4px 12px;font-size:10px;color:var(--text2);border-bottom:1px solid var(--border);}
+.spell-slot-row{display:flex;align-items:center;padding:6px 12px;border-bottom:1px solid var(--border);gap:6px;}
+.spell-slot-row:hover{background:var(--bg4);}
+.spell-slot-name{flex:1;font-size:13px;color:var(--text);}
+.spell-slot-name.empty{color:var(--text2);cursor:pointer;}
+.spell-slot-name.empty:hover{color:var(--accent);}
+.spell-slot-dur{width:70px;text-align:center;font-size:11px;color:var(--text2);}
+.spell-slot-range{width:70px;text-align:center;font-size:11px;color:var(--text2);}
+.spell-slot-del{width:20px;text-align:center;cursor:pointer;color:var(--text2);font-size:12px;}
+.spell-slot-del:hover{color:var(--accent);}
+.spell-slots-used{display:flex;gap:3px;padding:4px 12px;}
+.spell-slots-used input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px;cursor:pointer;}
+
 .spell-slot-table{width:100%;border-collapse:collapse;font-size:11px;}
 .spell-slot-table th{
   background:var(--bg3);color:var(--accent);padding:3px 6px;
@@ -1048,70 +1071,53 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     </div><!-- /#panel-defense -->
 
     <!-- ── 주문 Spells ── -->
-    <div id="panel-spells" class="panel">
-      <div class="panel-grid-2">
-        <div>
-          <div class="box">
-            <div class="box-title">주문시전 정보</div>
-            <div class="sidebar-row"><label>주문 계열</label>
-              <select class="prof-sel" id="spell-tradition" onchange="save()" style="min-width:100px;">
-                <option value="">-</option>
-                <option value="arcane">신비 (Arcane)</option>
-                <option value="divine">신성 (Divine)</option>
-                <option value="occult">비의 (Occult)</option>
-                <option value="primal">원시 (Primal)</option>
-              </select>
-            </div>
-            <div class="sidebar-row"><label>시전 유형</label>
-              <select class="prof-sel" id="spell-type" onchange="save()" style="min-width:100px;">
-                <option value="">-</option>
-                <option value="prepared">준비형</option>
-                <option value="spontaneous">즉흥형</option>
-                <option value="focus">집중</option>
-              </select>
-            </div>
-            <div class="sidebar-row"><label>집중력 FP</label>
-              <input class="inline-edit" id="fp-cur" type="number" value="0" min="0" max="3" style="width:30px;" oninput="save()">
-              <span style="color:var(--text2);"> / </span>
-              <input class="inline-edit" id="fp-max" type="number" value="0" min="0" max="3" style="width:30px;" oninput="save()">
-            </div>
-          </div>
-          <div class="box">
-            <div class="box-title">캔트립 Cantrips</div>
-            <div id="spells-cantrip"></div>
-            <button class="add-btn" onclick="openModal('spell','cantrip')">+ DB에서 선택</button>
-            <button class="add-btn" onclick="addSpell(0)">+ 직접 입력</button>
-          </div>
-          <div class="box">
-            <div class="box-title">주문 슬롯 Spell Slots</div>
-            <table class="spell-slot-table" id="spell-slots-table">
-              <thead><tr><th>등급</th><th>슬롯 수</th><th>사용</th></tr></thead>
-              <tbody id="spell-slots-body"></tbody>
-            </table>
+    <div id="panel-spells" class="panel" style="display:none;padding:0;">
+      <!-- Spell Header: DC / Attack / Proficiency -->
+      <div class="spell-header-bar">
+        <div class="spell-header-left">
+          <select class="prof-sel" id="spell-tradition" onchange="save()" style="min-width:80px;font-size:12px;">
+            <option value="">계열 선택</option>
+            <option value="arcane">비전</option><option value="divine">신성</option>
+            <option value="occult">비의</option><option value="primal">원시</option>
+          </select>
+          <select class="prof-sel" id="spell-type" onchange="save()" style="min-width:70px;font-size:12px;">
+            <option value="">시전 유형</option>
+            <option value="prepared">준비형</option><option value="spontaneous">즉흥형</option>
+          </select>
+        </div>
+        <div class="spell-header-stats">
+          <span class="spell-stat">DC <strong id="spell-dc-val">10</strong></span>
+          <span class="spell-stat">명중 <strong id="spell-atk-val">+0</strong></span>
+          <span class="spell-stat-sep">|</span>
+          <span class="spell-stat">FP
+            <input class="inline-edit" id="fp-cur" type="number" value="0" min="0" max="3" style="width:22px;font-size:11px;" oninput="save()">/<input class="inline-edit" id="fp-max" type="number" value="0" min="0" max="3" style="width:22px;font-size:11px;" oninput="save()">
+          </span>
+        </div>
+      </div>
+
+      <!-- Cantrips Section -->
+      <div class="spell-rank-section">
+        <div class="spell-rank-header">캔트립 <span class="en">Cantrips</span></div>
+        <div class="spell-slot-grid">
+          <div class="spell-slot-col-header">
+            <span style="flex:1;">주문</span>
+            <span style="width:70px;text-align:center;">지속</span>
+            <span style="width:70px;text-align:center;">사거리</span>
+            <span style="width:20px;"></span>
           </div>
         </div>
-        <div>
-          <div class="box">
-            <div class="box-title">알고 있는 주문 / 준비 주문</div>
-            <div style="display:flex;gap:4px;margin-bottom:6px;">
-              <select class="prof-sel" id="add-spell-rank" style="min-width:80px;">
-                <option value="1">1등급</option><option value="2">2등급</option><option value="3">3등급</option>
-                <option value="4">4등급</option><option value="5">5등급</option><option value="6">6등급</option>
-                <option value="7">7등급</option><option value="8">8등급</option><option value="9">9등급</option>
-                <option value="10">10등급</option>
-              </select>
-              <button class="add-btn" style="width:auto;padding:4px 10px;" onclick="addSpell(parseInt(document.getElementById('add-spell-rank').value))">+ 주문 추가</button>
-            </div>
-            <div id="spells-known"></div>
-            <button class="add-btn" onclick="openModal('spell','known')" style="margin-top:6px;">+ DB에서 선택</button>
-          </div>
-          <div class="box">
-            <div class="box-title">집중 주문 Focus Spells</div>
-            <div id="spells-focus"></div>
-            <button class="add-btn" onclick="openModal('spell','focus')">+ DB에서 선택</button>
-            <button class="add-btn" onclick="addFocusSpell()">+ 직접 입력</button>
-          </div>
-        </div>
+        <div id="spells-cantrip"></div>
+        <button class="add-btn" onclick="openModal('spell','cantrip')" style="margin:4px 8px;">+ 캔트립 추가</button>
+      </div>
+
+      <!-- Spell Ranks 1~10 -->
+      <div id="spell-ranks-container"></div>
+
+      <!-- Focus Spells -->
+      <div class="spell-rank-section">
+        <div class="spell-rank-header">집중 주문 <span class="en">Focus Spells</span></div>
+        <div id="spells-focus"></div>
+        <button class="add-btn" onclick="openModal('spell','focus')" style="margin:4px 8px;">+ 집중 주문 추가</button>
       </div>
     </div><!-- /#panel-spells -->
 
@@ -2625,30 +2631,104 @@ function addFocusSpell() {
 }
 
 function renderSpells() {
-  renderSpellList('spells-cantrip', state.spells.cantrip, true);
-  renderSpellList('spells-known', state.spells.known, false);
-  renderSpellList('spells-focus', state.spells.focus, false, true);
+  // Cantrips
+  renderSpellSlotList('spells-cantrip', state.spells.cantrip, 'cantrip');
+  // Focus
+  renderSpellSlotList('spells-focus', state.spells.focus, 'focus');
+  // Known spells grouped by rank
+  const ranksContainer = document.getElementById('spell-ranks-container');
+  if (!ranksContainer) return;
+  ranksContainer.innerHTML = '';
+  const maxRank = Math.min(10, Math.ceil(getLevel() / 2));
+  for (let r = 1; r <= maxRank; r++) {
+    const spellsAtRank = state.spells.known.filter(s => s.rank === r);
+    const slotMax = parseInt(state.spellSlots?.[r] || 0);
+
+    const section = document.createElement('div');
+    section.className = 'spell-rank-section';
+    section.innerHTML = `
+      <div class="spell-rank-header">
+        주문 랭크 ${r} <span class="en">Spell Rank ${r}</span>
+        <span style="float:right;font-size:11px;color:var(--text2);">
+          슬롯: <input class="inline-edit" type="number" value="${slotMax}" min="0" max="10"
+            style="width:28px;font-size:11px;" oninput="state.spellSlots=state.spellSlots||{};state.spellSlots[${r}]=parseInt(this.value);renderSpellSlotChecks(this.parentElement,${r});save()">
+        </span>
+      </div>
+      <div class="spell-slot-col-header">
+        <span style="flex:1;">주문</span>
+        <span style="width:70px;text-align:center;">지속</span>
+        <span style="width:70px;text-align:center;">사거리</span>
+        <span style="width:20px;"></span>
+      </div>`;
+
+    // Slot checkboxes
+    if (slotMax > 0) {
+      const checksDiv = document.createElement('div');
+      checksDiv.className = 'spell-slots-used';
+      for (let c = 0; c < slotMax; c++) {
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = !!(state.spellSlotsUsed?.[r]?.[c]);
+        cb.onchange = function() {
+          state.spellSlotsUsed = state.spellSlotsUsed || {};
+          state.spellSlotsUsed[r] = state.spellSlotsUsed[r] || {};
+          state.spellSlotsUsed[r][c] = this.checked;
+          save();
+        };
+        checksDiv.appendChild(cb);
+      }
+      section.appendChild(checksDiv);
+    }
+
+    // Spell rows
+    const listDiv = document.createElement('div');
+    listDiv.id = `spells-rank-${r}`;
+    spellsAtRank.forEach((s, idx) => {
+      const globalIdx = state.spells.known.indexOf(s);
+      const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
+      const row = document.createElement('div');
+      row.className = 'spell-slot-row';
+      row.innerHTML = `
+        <span class="spell-slot-name" onclick="showInfo('spell','${s.name}')">${s.name}</span>
+        <span class="spell-slot-dur">${spellData?.actions||''}</span>
+        <span class="spell-slot-range">-</span>
+        <span class="spell-slot-del" onclick="removeSpell('known',${globalIdx})">✕</span>`;
+      listDiv.appendChild(row);
+    });
+    section.appendChild(listDiv);
+
+    // Add button
+    const addBtn = document.createElement('button');
+    addBtn.className = 'add-btn';
+    addBtn.style.cssText = 'margin:4px 8px;';
+    addBtn.textContent = `+ 랭크 ${r} 주문 추가`;
+    addBtn.onclick = () => { openModal('spell', 'known'); };
+    section.appendChild(addBtn);
+
+    ranksContainer.appendChild(section);
+  }
 }
 
-function renderSpellList(elId, arr, isCantrip, isFocus) {
+function renderSpellSlotList(elId, arr, type) {
   const el = document.getElementById(elId);
   if (!el) return;
   el.innerHTML = '';
-  arr.forEach((s,i) => {
-    const div = document.createElement('div');
-    div.className = 'spell-entry';
-    const badge = isCantrip ? 'C' : (isFocus ? 'F' : s.rank);
-    const spellType = elId==='spells-cantrip'?'cantrip':(elId==='spells-focus'?'focus':'known');
-    div.innerHTML = `
-      <span class="spell-rank-badge">${badge}</span>
-      <span class="spell-entry-name">${s.name}</span>
-      <span class="info-btn" title="주문 정보 보기">ℹ</span>
-      <span class="spell-del">✕</span>`;
-    div.querySelector('.info-btn').addEventListener('click', e => { e.stopPropagation(); showInfo('spell', s.name); });
-    div.querySelector('.spell-del').addEventListener('click', e => { e.stopPropagation(); removeSpell(spellType, i); });
-    div.addEventListener('click', () => showInfo('spell', s.name));
-    el.appendChild(div);
+  arr.forEach((s, i) => {
+    const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
+    const row = document.createElement('div');
+    row.className = 'spell-slot-row';
+    row.innerHTML = `
+      <span class="spell-slot-name" onclick="showInfo('spell','${s.name}')">${s.name}</span>
+      <span class="spell-slot-dur">${spellData?.actions||''}</span>
+      <span class="spell-slot-range">-</span>
+      <span class="spell-slot-del" onclick="removeSpell('${type}',${i})">✕</span>`;
+    el.appendChild(row);
   });
+}
+
+function renderSpellSlotChecks(parentEl, rank) {
+  // Re-render slot checks on slot count change
+  renderSpells();
 }
 
 function removeSpell(type, i) {
@@ -3417,7 +3497,8 @@ function collectData() {
     selectedBackground: state.selectedBackground?.id || null,
     selectedHeritage:   state.selectedHeritage?.id   || null,
     weapons: state.weapons, equip: state.equip,
-    spells: state.spells, feats: state.feats, conditions: state.conditions,
+    spells: state.spells, spellSlots: state.spellSlots, spellSlotsUsed: state.spellSlotsUsed,
+    feats: state.feats, conditions: state.conditions,
   };
   SKILLS.forEach(sk => {
     data.skillProfs[sk.id] = document.getElementById('sk-prof-'+sk.id)?.value;
@@ -3607,7 +3688,10 @@ function loadData(d) {
     }
     if (d.weapons) { state.weapons = d.weapons; renderWeapons(); }
     if (d.equip) { state.equip = d.equip; renderEquip(); }
-    if (d.spells) { state.spells = d.spells; renderSpells(); }
+    if (d.spells) { state.spells = d.spells; }
+    if (d.spellSlots) state.spellSlots = d.spellSlots;
+    if (d.spellSlotsUsed) state.spellSlotsUsed = d.spellSlotsUsed;
+    renderSpells();
     if (d.feats) { state.feats = d.feats; renderFeats(); }
     if (d.conditions) {
       state.conditions = d.conditions;
