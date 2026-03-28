@@ -2063,12 +2063,14 @@ function adjustCond(name, delta, event) {
 }
 
 function buildSpellSlots() {
+  // Legacy spell slot table removed — now handled by renderSpells() rank sections
   const body = document.getElementById('spell-slots-body');
+  if (!body) return;
   body.innerHTML = '';
   for (let r = 1; r <= 10; r++) {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td style="color:var(--gold)">${r}등급</td>
+      <td style="color:var(--accent)">${r}랭크</td>
       <td><input class="inline-edit" id="slots-max-${r}" type="number" min="0" max="9" value="0" style="width:32px;text-align:center;" oninput="updateSlotChecks(${r});save()"></td>
       <td id="slot-checks-${r}" style="display:flex;gap:2px;flex-wrap:wrap;"></td>`;
     body.appendChild(tr);
