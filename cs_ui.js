@@ -771,19 +771,18 @@ function removeLanguage(i) {
 }
 
 function renderLanguages() {
-  const el = document.getElementById('language-list');
-  if (!el) return;
   if (!state.languages) state.languages = [];
-  if (state.languages.length === 0) {
-    el.innerHTML = '<div style="font-size:10px;color:var(--text2);text-align:center;padding:4px;">언어를 추가하세요</div>';
-    return;
-  }
-  el.innerHTML = state.languages.map((l, i) =>
-    `<div style="display:flex;align-items:center;gap:4px;padding:2px 4px;font-size:12px;border-bottom:1px solid var(--border);">
-      <span style="flex:1;color:var(--text);">${l}</span>
-      <span class="spell-del" onclick="removeLanguage(${i})" style="cursor:pointer;">✕</span>
-    </div>`
-  ).join('');
+  const html = state.languages.length === 0
+    ? '<div style="font-size:10px;color:var(--text2);text-align:center;padding:4px;">언어를 추가하세요</div>'
+    : state.languages.map((l, i) =>
+      `<div style="display:flex;align-items:center;gap:4px;padding:2px 4px;font-size:12px;border-bottom:1px solid var(--border);">
+        <span style="flex:1;color:var(--text);">${l}</span>
+        <span class="spell-del" onclick="removeLanguage(${i})" style="cursor:pointer;">✕</span>
+      </div>`).join('');
+  ['language-list','language-list-mobile'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  });
 }
 
 function renderFormulas() {

@@ -120,16 +120,37 @@ function renderConditionList() {
       </div>
       ${isActive ? '<span style="color:var(--red-light);font-size:11px;font-weight:600;">' + (c.valued ? current : '활성') + '</span>' : ''}`;
     row.onclick = () => {
-      if (c.valued) {
-        state.conditions[c.name] = (state.conditions[c.name] || 0) + 1;
-        if (c.max && state.conditions[c.name] > c.max) state.conditions[c.name] = 0;
-      } else {
-        state.conditions[c.name] = state.conditions[c.name] ? 0 : 1;
+      // 상세 정보 토글
+      const existing = row.nextElementSibling;
+      if (existing && existing.classList.contains('opt-row-detail') && existing.classList.contains('open')) {
+        existing.classList.remove('open');
+        row.classList.remove('expanded');
+        return;
       }
-      buildConditions();
-      recalcAll();
-      save();
-      renderConditionList();
+      document.querySelectorAll('.opt-row-detail.open').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.opt-row.expanded').forEach(r => r.classList.remove('expanded'));
+      row.classList.add('expanded');
+      let detailDiv = row.nextElementSibling;
+      if (!detailDiv || !detailDiv.classList.contains('opt-row-detail')) {
+        detailDiv = document.createElement('div');
+        detailDiv.className = 'opt-row-detail';
+        row.after(detailDiv);
+      }
+      const curVal = state.conditions[c.name] || 0;
+      const statusText = c.valued ? `현재 수치: ${curVal}` + (c.max ? ` / ${c.max}` : '') : (curVal ? '활성' : '비활성');
+      detailDiv.innerHTML = `
+        <div style="font-size:12px;line-height:1.6;margin-bottom:8px;">${c.desc}</div>
+        <div style="font-size:11px;color:var(--red-light);margin-bottom:8px;">${statusText}</div>
+        <div style="display:flex;gap:6px;">
+          <button onclick="event.stopPropagation();toggleCondFromModal('${c.name}',1)" style="flex:1;padding:6px;background:var(--red-bg);color:var(--red-light);border:1px solid var(--red);border-radius:4px;cursor:pointer;font-size:12px;">${c.valued ? '+1 증가' : '적용'}</button>
+          <button onclick="event.stopPropagation();toggleCondFromModal('${c.name}',-1)" style="flex:1;padding:6px;background:var(--bg4);color:var(--text2);border:1px solid var(--border2);border-radius:4px;cursor:pointer;font-size:12px;">${c.valued ? '-1 감소' : '해제'}</button>
+        </div>`;
+      detailDiv.classList.add('open');
+      // 데스크톱: 디테일 패인에도 표시
+      const detail = document.getElementById('modal-detail');
+      if (detail && window.innerWidth > 900) {
+        detail.innerHTML = `<div class="modal-detail-title">${c.name}</div><div class="modal-detail-en">${c.en}</div><div class="modal-detail-desc">${c.desc}</div>`;
+      }
     };
     container.appendChild(row);
   });
@@ -140,6 +161,22 @@ function renderConditionList() {
     searchEl.addEventListener('input', renderConditionList);
     searchEl._condBound = true;
   }
+}
+
+function toggleCondFromModal(name, dir) {
+  const cdata = CONDITIONS_DATA.find(c => c.name === name);
+  if (!cdata) return;
+  if (cdata.valued) {
+    let cur = state.conditions[name] || 0;
+    cur = dir > 0 ? Math.min(cur + 1, cdata.max || 99) : Math.max(cur - 1, 0);
+    state.conditions[name] = cur;
+  } else {
+    state.conditions[name] = dir > 0 ? 1 : 0;
+  }
+  buildConditions();
+  recalcAll();
+  save();
+  renderConditionList();
 }
 
 // ═══════════════════════════════════════════════
