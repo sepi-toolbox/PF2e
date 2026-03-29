@@ -23,7 +23,7 @@ const db = firebase.firestore();
 <script src="equipment_db.js"></script>
 <script src="feat_db.js"></script>
 <script src="SPELL_DB.js"></script>
-<script src="class_features_db.js?v=52"></script>
+<script src="class_features_db.js?v=53"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1478,6 +1478,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
             <div class="spell-val-label">주문시전</div>
             <div class="prof-rank-text" id="rank-spell-focus" style="font-size:16px;">미숙련</div>
           </div>
+          <div style="display:flex;gap:12px;font-size:11px;color:var(--text2);">
+            <div style="text-align:center;"><div class="bd-label" id="spell-key-label-f">Wis</div><div class="bd-val" id="spell-key-val-f" style="font-weight:700;color:var(--text);">0</div></div>
+            <div style="text-align:center;"><div class="bd-label">Prof</div><div class="bd-val" id="spell-prof-val-f" style="font-weight:700;color:var(--text);">0</div></div>
+            <div style="text-align:center;"><div class="bd-label">Item</div><div class="bd-val" id="spell-item-val-f" style="font-weight:700;color:var(--text);">0</div></div>
+          </div>
         </div>
         <!-- 집중 포인트 (체크박스 방식) -->
         <div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--border);">
@@ -1667,11 +1672,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=52"></script>
-<script src="cs_calc.js?v=52"></script>
-<script src="cs_ui.js?v=52"></script>
-<script src="cs_modal.js?v=52"></script>
-<script src="cs_save.js?v=52"></script>
+<script src="cs_data.js?v=53"></script>
+<script src="cs_calc.js?v=53"></script>
+<script src="cs_ui.js?v=53"></script>
+<script src="cs_modal.js?v=53"></script>
+<script src="cs_save.js?v=53"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->

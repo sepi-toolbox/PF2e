@@ -805,6 +805,15 @@ function recalcSpellStats() {
   if (focusDcEl) focusDcEl.textContent = dc;
   const focusAtkEl = document.getElementById('spell-atk-val-focus');
   if (focusAtkEl) focusAtkEl.textContent = fmtBonus(atk);
+  // Focus tab breakdown mirrors
+  const fKeyLabel = document.getElementById('spell-key-label-f');
+  if (fKeyLabel) fKeyLabel.textContent = keyAttr ? keyAttr.substring(0,3).toUpperCase() : '—';
+  const fKeyVal = document.getElementById('spell-key-val-f');
+  if (fKeyVal) fKeyVal.textContent = getMod(keyAttr);
+  const fProfVal = document.getElementById('spell-prof-val-f');
+  if (fProfVal) fProfVal.textContent = prof;
+  const fItemVal = document.getElementById('spell-item-val-f');
+  if (fItemVal) fItemVal.textContent = 0;
   renderFpChecks();
   // Breakdown update
   const keyLabel = document.getElementById('spell-key-label');
