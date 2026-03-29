@@ -23,7 +23,7 @@ const db = firebase.firestore();
 <script src="equipment_db.js"></script>
 <script src="feat_db.js"></script>
 <script src="SPELL_DB.js"></script>
-<script src="class_features_db.js?v=7"></script>
+<script src="class_features_db.js?v=8"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1552,9 +1552,9 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
       </div>
       <!-- 버튼 -->
       <div style="display:flex;gap:4px;padding:8px 12px;border-bottom:1px solid var(--border);">
-        <button class="add-btn" onclick="openEquipBrowse()" style="flex:1;">장비 넣기</button>
-        <button class="add-btn" onclick="addContainer()" style="flex:1;">컨테이너 추가</button>
-        <button class="add-btn" onclick="addFormula()" style="flex:1;">포뮬라 추가</button>
+        <button class="add-btn" onclick="openEquipBrowse()" style="flex:1;">장비 추가</button>
+        <button class="add-btn" onclick="addContainer()" style="flex:1;">배낭 추가</button>
+        <button class="add-btn" onclick="addFormula()" style="flex:1;">제조법 추가</button>
       </div>
       <!-- 메인 인벤토리 -->
       <div class="box">
@@ -1569,15 +1569,10 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
       </div>
       <!-- 컨테이너 목록 -->
       <div id="container-list"></div>
-      <!-- 포뮬라 (레시피) -->
+      <!-- 제조법 (레시피) -->
       <div class="box">
-        <div class="box-title">포뮬라 Formulas</div>
+        <div class="box-title">제조법 Formulas</div>
         <div id="formula-list"></div>
-      </div>
-      <!-- 메모 -->
-      <div class="box">
-        <div class="box-title">장비 메모</div>
-        <textarea class="notes-area" id="equip-notes" placeholder="보관함, 특이사항..." style="min-height:60px;" oninput="save()"></textarea>
       </div>
     </div><!-- /#panel-equip -->
 
@@ -1688,11 +1683,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=7"></script>
-<script src="cs_calc.js?v=7"></script>
-<script src="cs_ui.js?v=7"></script>
-<script src="cs_modal.js?v=7"></script>
-<script src="cs_save.js?v=7"></script>
+<script src="cs_data.js?v=8"></script>
+<script src="cs_calc.js?v=8"></script>
+<script src="cs_ui.js?v=8"></script>
+<script src="cs_modal.js?v=8"></script>
+<script src="cs_save.js?v=8"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->

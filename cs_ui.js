@@ -650,20 +650,16 @@ function renderContainers() {
   });
 }
 
-// ── 포뮬라 (레시피) ──
+// ── 제조법 (레시피) ──
 function addFormula() {
-  if (typeof SPELL_DB === 'undefined' && typeof GEAR_DB === 'undefined') {
-    const name = prompt('포뮬라(레시피) 이름:');
-    if (!name) return;
-    if (!state.formulas) state.formulas = [];
+  const name = prompt('제조법 이름 (아이템 이름):');
+  if (!name) return;
+  if (!state.formulas) state.formulas = [];
+  if (!state.formulas.some(f => f.name === name)) {
     state.formulas.push({name, level:1});
     renderFormulas();
     save();
-    return;
   }
-  // 장비 DB에서 선택하여 획득
-  modalType = 'formula-pick';
-  openModal('equip-gear');
 }
 
 function addFormulaByName(name, level) {
@@ -688,7 +684,7 @@ function renderFormulas() {
   if (!state.formulas) state.formulas = [];
   el.innerHTML = '';
   if (state.formulas.length === 0) {
-    el.innerHTML = '<div style="font-size:10px;color:var(--text2);text-align:center;padding:6px 0;">제작 레시피를 추가하세요</div>';
+    el.innerHTML = '<div style="font-size:10px;color:var(--text2);text-align:center;padding:6px 0;">제조법을 추가하세요</div>';
     return;
   }
   state.formulas.forEach((f, i) => {
