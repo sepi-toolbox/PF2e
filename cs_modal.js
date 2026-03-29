@@ -264,6 +264,88 @@ function applyHpTemp() {
   updateHpGauge(); save(); closeModal();
 }
 
+function openShieldHpModal() {
+  const cur = parseInt(document.getElementById('shield-hp-cur')?.value)||0;
+  const max = parseInt(document.getElementById('shield-hp')?.value)||0;
+  const hard = parseInt(document.getElementById('shield-hard')?.value)||0;
+  const bt = Math.floor(max/2);
+  const name = document.getElementById('shield-name')?.value||'방패';
+
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('hidden');
+  modalType = 'shield-hp';
+  document.getElementById('modal-title').textContent = '🛡 ' + name + ' HP';
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) searchEl.style.display = 'none';
+  const fbar = document.getElementById('modal-filterbar');
+  if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm');
+  if (confirmBtn) confirmBtn.style.display = 'none';
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) listEl.style.display = '';
+  const detail = document.getElementById('modal-detail');
+  if (detail) detail.innerHTML = '';
+
+  const inputStyle = 'flex:1;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:8px;border-radius:4px;font-size:14px;text-align:center;';
+  const container = document.getElementById('modal-options');
+  container.innerHTML = `<div style="padding:16px;">
+    <div style="text-align:center;margin-bottom:16px;">
+      <div style="font-size:12px;color:var(--text2);">방패 HP</div>
+      <div style="font-size:28px;font-weight:700;color:var(--text);">${cur} <span style="color:var(--text2);font-size:16px;">/ ${max}</span></div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;">경도: ${hard} | 파손 기준: ${bt}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="border:1px solid var(--border);border-radius:6px;padding:12px;">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">🔧 수리 (회복)</div>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="shield-heal-val" min="0" value="0" onkeydown="if(event.key==='Enter')applyShieldHeal()" style="${inputStyle}">
+          <button onclick="applyShieldHeal()" style="padding:8px 16px;background:var(--green);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:13px;font-weight:600;">확인</button>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:6px;padding:12px;">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">⚔️ 피해</div>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="shield-dmg-val" min="0" value="0" onkeydown="if(event.key==='Enter')applyShieldDamage()" style="${inputStyle}">
+          <button onclick="applyShieldDamage()" style="padding:8px 16px;background:var(--red);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:13px;font-weight:600;">확인</button>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:6px;padding:12px;">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">🔧 HP 직접 설정</div>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="shield-set-val" min="0" value="${cur}" onkeydown="if(event.key==='Enter')applyShieldSet()" style="${inputStyle}">
+          <button onclick="applyShieldSet()" style="padding:8px 16px;background:var(--bg4);color:var(--text);border:1px solid var(--border2);border-radius:4px;cursor:pointer;font-size:13px;">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function applyShieldHeal() {
+  const val = parseInt(document.getElementById('shield-heal-val').value)||0;
+  if (val <= 0) return;
+  const curEl = document.getElementById('shield-hp-cur');
+  const max = parseInt(document.getElementById('shield-hp')?.value)||0;
+  curEl.value = Math.min(max, (parseInt(curEl.value)||0) + val);
+  updateShieldGauge(); save(); closeModal();
+}
+
+function applyShieldDamage() {
+  const val = parseInt(document.getElementById('shield-dmg-val').value)||0;
+  if (val <= 0) return;
+  const curEl = document.getElementById('shield-hp-cur');
+  const hard = parseInt(document.getElementById('shield-hard')?.value)||0;
+  const dmg = Math.max(0, val - hard); // 경도만큼 피해 감소
+  curEl.value = Math.max(0, (parseInt(curEl.value)||0) - dmg);
+  updateShieldGauge(); save(); closeModal();
+}
+
+function applyShieldSet() {
+  const val = parseInt(document.getElementById('shield-set-val').value)||0;
+  const max = parseInt(document.getElementById('shield-hp')?.value)||0;
+  document.getElementById('shield-hp-cur').value = Math.min(max, Math.max(0, val));
+  updateShieldGauge(); save(); closeModal();
+}
+
 function toggleCondFromModal(name, dir) {
   const cdata = CONDITIONS_DATA.find(c => c.name === name);
   if (!cdata) return;

@@ -835,6 +835,8 @@ function updateShieldGauge() {
   if (label) label.textContent = shieldName || '방패';
   const maxDisp = document.getElementById('shield-hp-max-display');
   if (maxDisp) maxDisp.textContent = shieldHp;
+  const curDisp = document.getElementById('shield-hp-cur-display');
+  if (curDisp) curDisp.textContent = cur;
 }
 
 function recalcBulk() {

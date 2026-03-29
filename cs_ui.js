@@ -91,8 +91,6 @@ function renderArmorCard() {
     <div class="defense-card-header">
       <button class="defense-btn" onclick="showArmorRunePopup()">룬</button>
       <button class="defense-btn" onclick="toggleArmorStow()">${stowed?'장착':'보관'}</button>
-      <span style="flex:1;"></span>
-      <button class="defense-btn danger" onclick="clearArmor()">해제</button>
     </div>
     <div class="defense-card-body">
       <div class="defense-card-name">
@@ -199,8 +197,6 @@ function renderShieldCard() {
     <div class="defense-card-header">
       <button class="defense-btn" onclick="showInfo('shield','${name.replace(/'/g,"\\'")}')">정보</button>
       <button class="defense-btn" onclick="toggleShieldStow()">${stowed?'장착':'보관'}</button>
-      <span style="flex:1;"></span>
-      <button class="defense-btn danger" onclick="clearShield()">제거</button>
     </div>
     <div class="defense-card-body">
       <div class="defense-card-name">${name}</div>
