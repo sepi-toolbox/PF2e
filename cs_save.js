@@ -360,4 +360,3 @@ window.onload = function() {
   renderFeats();
   recalcAll();
 };
-</script>
