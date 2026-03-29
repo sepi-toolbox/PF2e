@@ -5,25 +5,20 @@
 let _autoSaveDebounce = null;
 
 function save() {
-  // 미저장 상태 표시
   const st = document.getElementById('save-status');
   if (st) { st.textContent = '미저장'; st.style.color = '#f5c518'; }
-  const fl = document.getElementById('save-status-float');
-  if (fl) { fl.textContent = '미저장'; fl.style.color = '#f5c518'; fl.classList.add('show'); }
-  // 디바운스: 2초 후 자동저장
   if (_autoSaveDebounce) clearTimeout(_autoSaveDebounce);
   _autoSaveDebounce = setTimeout(() => { autoSaveNow(); }, 2000);
 }
 
 function autoSaveNow() {
-  // 로그인 안 됐으면 로컬만 유지
-  if (typeof currentUser === 'undefined' || !currentUser) return;
+  if (typeof currentUser === 'undefined' || !currentUser) {
+    const st = document.getElementById('save-status');
+    if (st) { st.textContent = '로그인 필요'; st.style.color = '#e74c3c'; }
+    return;
+  }
   const st = document.getElementById('save-status');
-  const fl = document.getElementById('save-status-float');
-  // 저장 중 표시
   if (st) { st.textContent = '저장 중...'; st.style.color = '#f5c518'; }
-  if (fl) { fl.textContent = '저장 중...'; fl.style.color = '#f5c518'; fl.classList.add('show'); }
-  // Firebase 저장
   const data = collectData();
   const db2 = firebase.firestore();
   db2.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot).set({
@@ -31,11 +26,9 @@ function autoSaveNow() {
     name: data.name || '이름 없음',
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
   }).then(() => {
-    if (st) { st.textContent = '자동저장'; st.style.color = '#27ae60'; }
-    if (fl) { fl.textContent = '자동저장'; fl.style.color = '#27ae60'; fl.classList.add('show'); }
+    if (st) { st.textContent = '저장완료'; st.style.color = '#27ae60'; }
   }).catch((e) => {
     if (st) { st.textContent = '저장 실패'; st.style.color = '#e74c3c'; }
-    if (fl) { fl.textContent = '저장 실패'; fl.style.color = '#e74c3c'; fl.classList.add('show'); }
     console.error('[autoSave] error:', e);
   });
 }
