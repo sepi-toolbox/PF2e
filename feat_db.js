@@ -784,4 +784,94 @@ const FEAT_DB = [
   {name_ko:"놀라운 의지", name_en:"Resolve", cat:"feature", class_id:"wizard", feat_level:17, summary:"의지 내성 숙련도가 대가로. 의지 내성에서 성공 시 대성공."},
   {name_ko:"전설 주문시전자", name_en:"Legendary Spellcaster", cat:"feature", class_id:"wizard", feat_level:19, summary:"주문 공격 수정치와 주문 DC 숙련도가 전설로 증가."},
   {name_ko:"대위자드의 주문학", name_en:"Archwizard", cat:"feature", class_id:"wizard", feat_level:19, summary:"10랭크 주문 슬롯 1개를 얻습니다."},
+
+  // ═══════════════════════════════════════════════
+  //  혈통 재주 — Ancestry Feats (Player Core)
+  // ═══════════════════════════════════════════════
+
+  // ── 드워프 Dwarf ──
+  {name_ko:'드워프 지식', name_en:'Dwarven Lore', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'제작과 종교학에 숙련됨. 드워프 관련 지식(Lore)에 숙련됨.', desc:'오랜 드워프 문화와 역사에 정통합니다. <strong>제작</strong>과 <strong>종교학</strong>에 숙련됨을 얻고, <strong>드워프 지식(Dwarven Lore)</strong>에 숙련됨을 얻습니다.'},
+  {name_ko:'산맥의 뿌리', name_en:'Mountain Roots', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'강제 이동 거리 절반 감소. 넘어뜨리기에 대한 반사/인내 DC +2.', desc:'산과 같은 안정감으로 밀어내기에 저항합니다. 넘어뜨리기(Trip) 시도에 대한 인내 또는 반사 DC에 +2 상황 보너스를 얻습니다. 강제 이동 거리가 절반으로 줄어듭니다.'},
+  {name_ko:'드워프 무기 친숙', name_en:'Dwarven Weapon Familiarity', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'전투 도끼, 전쟁 도끼, 전투 해머, 워해머에 숙련됨.', desc:'드워프 전통 무기에 숙련되어 있습니다. 전투 도끼, 전쟁 도끼, 전투 해머, 워해머에 숙련됨을 얻습니다. 이 무기는 드워프 재주에서 단순 무기로 취급됩니다.'},
+  {name_ko:'바위 달리기', name_en:'Rock Runner', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'바위/흙 험한 지형에서 이동 속도 페널티 없음.', desc:'바위나 흙으로 된 험한 지형을 쉽게 이동합니다. 바위/흙 험한 지형에서 이동 속도 페널티를 받지 않습니다.'},
+  {name_ko:'가혹한 근면', name_en:'Unburdened Iron', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'방어구 착용으로 인한 이동 속도 감소를 5피트 줄임.', desc:'방어구의 무게에 익숙합니다. 방어구 착용으로 인한 이동 속도 감소를 5피트 줄입니다.'},
+  {name_ko:'보복의 맹세', name_en:'Vengeful Hatred', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'선택한 적 유형에 대해 근접 무기 피해 +1. 전문화 시 +2.', desc:'오랜 적에 대한 드워프의 복수심. 특정 적 유형을 선택하고 해당 유형에 대한 근접 무기 피해에 +1 상황 보너스를 얻습니다.'},
+  {name_ko:'바위 껍질', name_en:'Boulder Roll', feat_level:5, prerequisites:'드워프, 바위 달리기', traits:['드워프'], category:'ancestry', summary:'이동 중 적에게 밀기 시도. 험한 지형 무시.', desc:'바위처럼 굴러갑니다. 이동 중 적에게 밀기(Shove)를 시도할 수 있습니다.'},
+  {name_ko:'산의 견고함', name_en:'Mountain\'s Stoutness', feat_level:9, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'최대 HP +레벨 수치. 빈사 DC 감소.', desc:'산처럼 단단합니다. 최대 HP가 레벨만큼 증가합니다. 빈사 판정 DC가 1 낮아집니다.'},
+  {name_ko:'산 이동자', name_en:'Stonewalker', feat_level:13, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'흙/돌 사이로 녹아들 수 있음. 대지 이동 관련 능력 향상.', desc:'대지와 하나가 됩니다. 석재나 흙벽에 녹아들어 이동할 수 있는 특별한 능력을 얻습니다.'},
+
+  // ── 엘프 Elf ──
+  {name_ko:'엘프 지식', name_en:'Elven Lore', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'주문학과 자연학에 숙련됨. 엘프 관련 지식(Lore)에 숙련됨.', desc:'엘프 문화와 역사에 정통합니다. <strong>주문학</strong>과 <strong>자연학</strong>에 숙련됨을 얻고, <strong>엘프 지식(Elven Lore)</strong>에 숙련됨을 얻습니다.'},
+  {name_ko:'엘프 무기 친숙', name_en:'Elven Weapon Familiarity', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'롱보우, 쇼트보우, 롱소드, 레이피어에 숙련됨.', desc:'전통 엘프 무기에 숙련되어 있습니다. 롱보우, 컴포지트 롱보우, 롱소드, 레이피어, 쇼트보우, 컴포지트 쇼트보우에 숙련됨을 얻습니다.'},
+  {name_ko:'예지자', name_en:'Forlorn', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'감정 효과에 대한 내성 +1 상황 보너스.', desc:'긴 수명으로 많은 이별을 겪었습니다. 감정(Emotion) 효과에 대한 내성에 +1 상황 보너스를 얻습니다.'},
+  {name_ko:'님블 엘프', name_en:'Nimble Elf', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'이동 속도 +5피트.', desc:'다른 엘프보다 더 날쌘합니다. 이동 속도가 5피트 증가합니다.'},
+  {name_ko:'자발적 동맹', name_en:'Unwavering Mien', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'매혹/수면 효과 지속시간 절반. 정신 효과에 대한 내성 보너스.', desc:'엘프의 정신적 강인함으로 정신 조종에 저항합니다. 매혹/수면 효과의 지속시간이 절반으로 줄어듭니다.'},
+  {name_ko:'민첩한 발놀림', name_en:'Ageless Patience', feat_level:5, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'탐색/조사에 2배 시간 투자 시 +2 상황 보너스.', desc:'엘프의 인내심으로 더 꼼꼼하게 작업합니다. 탐색이나 조사에 2배 시간을 들이면 +2 상황 보너스를 얻습니다.'},
+  {name_ko:'엘프 의 직관', name_en:'Elf Step', feat_level:9, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'비틀거림(Step) 시 10피트 이동 가능.', desc:'엘프의 초자연적 민첩함으로 비틀거림(Step) 시 5피트 대신 10피트 이동할 수 있습니다.'},
+  {name_ko:'전문 엘프 무기', name_en:'Expert Elven Weaponry', feat_level:13, prerequisites:'엘프, 엘프 무기 친숙', traits:['엘프'], category:'ancestry', summary:'엘프 무기 숙련도가 전문가로 증가.', desc:'엘프 무기에 대한 숙련도가 전문가로 증가합니다.'},
+
+  // ── 노움 Gnome ──
+  {name_ko:'동물 속삭임', name_en:'Animal Elocutionist', feat_level:1, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'동물과 대화(speak with animals) 지속 효과.', desc:'동물과 대화할 수 있는 타고난 능력이 있습니다. 동물과 대화(speak with animals) 효과를 상시 얻습니다.'},
+  {name_ko:'페이 제 이야기', name_en:'Fey Fellowship', feat_level:1, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'페이와의 상호작용에서 외교/지각 판정에 +2 상황 보너스.', desc:'노움의 페이 혈통으로 페이 생물과 친밀합니다. 페이와의 외교/지각에 +2 상황 보너스를 얻습니다.'},
+  {name_ko:'노움 무기 친숙', name_en:'Gnome Weapon Familiarity', feat_level:1, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'글레이브에 숙련됨. 노움 무기를 단순 무기로 취급.', desc:'노움의 호쿡드 해머와 글레이브에 숙련됨을 얻습니다.'},
+  {name_ko:'집착적 연구', name_en:'Gnome Obsession', feat_level:1, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'선택한 지식(Lore) 기술에 숙련됨. 레벨 상승 시 자동 증가.', desc:'노움의 호기심으로 특정 분야에 집착합니다. 지식(Lore) 기술 하나를 선택하여 숙련됨을 얻습니다.'},
+  {name_ko:'감각 예민', name_en:'Illusion Sense', feat_level:1, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'환상에 대한 간파 판정에 +1 상황 보너스. 환상 종류 인식 초기 판정 획득.', desc:'페이 혈통으로 환상을 꿰뚫어 봅니다. 환상에 대한 간파(Disbelieve) 판정에 +1 상황 보너스를 얻습니다.'},
+  {name_ko:'제1세계 마법', name_en:'First World Magic', feat_level:1, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'원시 캔트립 1개 획득.', desc:'페이 세계의 마법이 흐릅니다. 원시(Primal) 전통에서 캔트립 1개를 선택하여 타고난 주문으로 사용합니다.'},
+  {name_ko:'동물 지원자', name_en:'Animal Accomplice', feat_level:5, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'영속적 사역마 1마리 획득.', desc:'페이의 힘으로 작은 동물과 유대를 맺습니다. 사역마 1마리를 얻습니다.'},
+  {name_ko:'생명력 증대', name_en:'Energized Font', feat_level:9, prerequisites:'노움, 제1세계 마법 또는 주문시전', traits:['노움'], category:'ancestry', summary:'집중 포인트 +1 또는 타고난 주문 슬롯 추가.', desc:'페이 마법의 원천이 강화됩니다. 추가 집중 포인트를 얻거나 타고난 주문 슬롯이 추가됩니다.'},
+  {name_ko:'노움 무기 전문가', name_en:'Gnome Weapon Expertise', feat_level:13, prerequisites:'노움, 노움 무기 친숙', traits:['노움'], category:'ancestry', summary:'노움 무기 숙련도가 전문가로 증가.', desc:'노움 무기에 대한 숙련도가 전문가로 증가합니다.'},
+
+  // ── 고블린 Goblin ──
+  {name_ko:'화염 뿜기', name_en:'Burn It!', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'화염 피해에 +1 상태 보너스. 불붙은 대상에 명중 시 지속 화염 피해.', desc:'고블린의 방화벽에 대한 사랑. 화염 피해를 입히는 주문이나 연금술 아이템 사용 시 피해에 +1 상태 보너스를 얻습니다.'},
+  {name_ko:'고블린 노래', name_en:'Goblin Song', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'1행동으로 적에게 노래하여 판정에 -1 상태 페널티 부여.', desc:'끔찍한 고블린 노래로 적을 혼란에 빠뜨립니다. 1행동으로 적에게 노래하여 그 적의 지각 판정과 의지 내성에 -1 상태 페널티를 부여합니다.'},
+  {name_ko:'고블린 쓰레기 뒤지기', name_en:'Goblin Scuttle', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'[반응] 아군이 인접한 칸으로 이동하면 비틀거림(Step) 가능.', desc:'기회를 포착하여 아군 뒤를 따릅니다. 아군이 인접한 칸으로 이동할 때 반응으로 비틀거림(Step)을 할 수 있습니다.'},
+  {name_ko:'정크 폭탄', name_en:'Junk Tinker', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'쓰레기에서 쓸만한 도구를 제작. 간이 무기/장비 제작 가능.', desc:'쓰레기를 보물로 만들 수 있습니다. 폐자재로 간이 무기/장비를 제작할 수 있습니다.'},
+  {name_ko:'거친 놀이', name_en:'Rough Rider', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'고블린독(Goblin Dog)이나 울프 탈것에 +1 상황 보너스.', desc:'괴상한 짐승을 타는 데 능숙합니다. 탈것 관련 자연(Nature) 판정에 +1 상황 보너스를 얻습니다.'},
+  {name_ko:'무모한 포기', name_en:'Very Sneaky', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'은신(Stealth) 판정에 +1 상황 보너스 (험한 지형에서). 빠른 몰래 이동.', desc:'고블린의 교활함으로 숨는 데 능숙합니다. 험한 지형에서 은신(Stealth) 판정에 +1 상황 보너스를 얻습니다.'},
+  {name_ko:'톱니 공격', name_en:'Goblin Weapon Familiarity', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'도그슬라이서, 호스쵸퍼에 숙련됨.', desc:'고블린 전통 무기에 숙련됩니다. 도그슬라이서(Dogslicer)와 호스쵸퍼(Horsechopper)에 숙련됨을 얻습니다.'},
+  {name_ko:'꼬리 물기', name_en:'Tail Spin', feat_level:5, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'넘어뜨리기(Trip)에 +2 상황 보너스. 꼬리를 이용한 넘어뜨리기.', desc:'크기가 작지만 재빠르게 적의 발을 걸 수 있습니다.'},
+  {name_ko:'나무 줄기 달리기', name_en:'Tree Climber', feat_level:9, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'등반 속도 10피트 획득. 등반 중 방어불가 상태 무시.', desc:'나무를 타는 데 능숙합니다. 등반 속도 10피트를 얻습니다.'},
+  {name_ko:'고블린 무기 전문가', name_en:'Goblin Weapon Frenzy', feat_level:13, prerequisites:'고블린, 톱니 공격', traits:['고블린'], category:'ancestry', summary:'고블린 무기 숙련도가 전문가로 증가.', desc:'고블린 무기에 대한 숙련도가 전문가로 증가합니다.'},
+
+  // ── 하플링 Halfling ──
+  {name_ko:'이방인의 행운', name_en:'Halfling Luck', feat_level:1, prerequisites:'하플링', traits:['하플링','행운'], category:'ancestry', summary:'[반응] 기술 판정이나 내성에서 실패 시 1회 재굴림. 1일 1회.', desc:'하플링의 타고난 행운. 기술 판정이나 내성에서 실패하면 반응으로 재굴림할 수 있습니다. 하루 1회 사용 가능.'},
+  {name_ko:'하플링 지식', name_en:'Halfling Lore', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'곡예와 은신에 숙련됨. 하플링 관련 지식(Lore)에 숙련됨.', desc:'하플링 문화에 정통합니다. <strong>곡예</strong>와 <strong>은신</strong>에 숙련됨을 얻고, <strong>하플링 지식(Halfling Lore)</strong>에 숙련됨을 얻습니다.'},
+  {name_ko:'하플링 무기 친숙', name_en:'Halfling Weapon Familiarity', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'슬링, 쇼트소드, 핸드 크로스보우에 숙련됨.', desc:'하플링 전통 무기에 숙련됩니다. 슬링, 쇼트소드, 핸드 크로스보우에 숙련됨을 얻습니다.'},
+  {name_ko:'눈치 빠른', name_en:'Keen Eyes', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'은폐됨(Concealed) 판정 DC 5→3 감소. 숨겨짐(Hidden) 판정 DC 11→9 감소.', desc:'예리한 시야로 숨은 것을 잘 발견합니다.'},
+  {name_ko:'확고한 다리', name_en:'Sure Feet', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'좁은 표면/험한 지형에서 균형 잡기/곡예에 대성공 확률 증가.', desc:'안정적인 발놀림으로 험한 지형에서도 넘어지지 않습니다. 균형 잡기(Balance) 판정에서 성공은 대성공이 됩니다.'},
+  {name_ko:'타이탄슬레이어', name_en:'Titan Slinger', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'슬링으로 큰 적 공격 시 추가 피해.', desc:'슬링으로 큰 적을 공격할 때 추가 피해를 입힙니다.'},
+  {name_ko:'문화 적응', name_en:'Cultural Adaptability', feat_level:5, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'1레벨 일반 재주 1개 추가 획득.', desc:'다양한 문화에 적응하는 능력. 1레벨 일반 재주 1개를 추가로 얻습니다.'},
+  {name_ko:'신의 행운', name_en:'Guiding Luck', feat_level:9, prerequisites:'하플링, 이방인의 행운', traits:['하플링'], category:'ancestry', summary:'이방인의 행운을 공격 굴림에도 사용 가능. 또는 아군에게 행운 부여.', desc:'행운이 더욱 강해집니다. 이방인의 행운을 공격 굴림에도 사용할 수 있습니다.'},
+  {name_ko:'하플링 무기 전문가', name_en:'Halfling Weapon Expertise', feat_level:13, prerequisites:'하플링, 하플링 무기 친숙', traits:['하플링'], category:'ancestry', summary:'하플링 무기 숙련도가 전문가로 증가.', desc:'하플링 무기에 대한 숙련도가 전문가로 증가합니다.'},
+
+  // ── 인간 Human ──
+  {name_ko:'적응력', name_en:'General Training', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'1레벨 일반 재주 1개 추가 획득.', desc:'인간의 다재다능함. 1레벨 일반 재주 1개를 추가로 얻습니다.'},
+  {name_ko:'기교의 솜씨', name_en:'Haughty Obstinacy', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'정신 효과에 대한 내성에서 성공은 대성공. 명령/지배에 +2.', desc:'인간의 완강함으로 정신 조종에 저항합니다. 정신 효과에 대한 내성에서 성공은 대성공이 됩니다.'},
+  {name_ko:'자연 야심', name_en:'Natural Ambition', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'1레벨 클래스 재주 1개 추가 획득.', desc:'인간의 야심. 1레벨 클래스 재주 1개를 추가로 얻습니다.'},
+  {name_ko:'자연 기술', name_en:'Natural Skill', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'숙련된 기술 1개 추가 획득.', desc:'인간의 다재다능함. 숙련된 기술 1개를 추가로 얻습니다.'},
+  {name_ko:'사교계 촉수', name_en:'Cooperative Nature', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'도움(Aid) 반응 판정에 +4 상황 보너스.', desc:'동료와 협력하는 데 특출납니다. 도움(Aid) 반응 판정에 +4 상황 보너스를 얻습니다.'},
+  {name_ko:'다재다능한 유산', name_en:'Versatile Heritage', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'반엘프 또는 반오크 유산을 선택 가능.', desc:'혼혈의 특성을 발현합니다. 반엘프 또는 반오크 유산을 선택할 수 있습니다.'},
+  {name_ko:'적응 전문가', name_en:'Adaptive Adept', feat_level:5, prerequisites:'인간, 캔트립 보유', traits:['인간'], category:'ancestry', summary:'1랭크 주문 1개를 타고난 주문으로 획득.', desc:'마법적 적응력이 강화됩니다. 전통에 맞는 1랭크 주문 1개를 타고난 주문으로 얻습니다.'},
+  {name_ko:'불굴의 의지', name_en:'Stubborn Persistence', feat_level:9, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'의지 내성에서 대실패를 실패로 변환.', desc:'완강한 의지력. 의지 내성에서 대실패는 실패가 됩니다.'},
+  {name_ko:'무조건 생존', name_en:'Unconventional Expertise', feat_level:13, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'비관습 무기 숙련도가 전문가로 증가.', desc:'선택한 비관습 무기의 숙련도가 전문가로 증가합니다.'},
+
+  // ── 레쉬 Leshy ──
+  {name_ko:'목질 외피', name_en:'Leshy Superstition', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'마법 효과에 대한 내성에 +1 상황 보너스.', desc:'레쉬의 타고난 마법 저항. 마법 효과에 대한 내성에 +1 상황 보너스를 얻습니다.'},
+  {name_ko:'식물 마법', name_en:'Grasping Reach', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'비무장 공격 도달 범위 10피트.', desc:'덩굴이나 가지를 뻗어 공격합니다. 비무장 공격의 도달 범위가 10피트로 증가합니다.'},
+  {name_ko:'씨앗 투사', name_en:'Seedpod', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'씨앗 투척 원거리 비무장 공격 (1d4 B, 사거리 30피트).', desc:'씨앗을 투척하는 원거리 비무장 공격을 얻습니다. 1d4 둔기 피해, 사거리 증분 30피트.'},
+  {name_ko:'태양 양분', name_en:'Solar Rejuvenation', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'직사광선에서 10분 휴식 시 HP = 레벨 × CON 회복.', desc:'태양빛으로 에너지를 보충합니다. 직사광선에서 10분 동안 휴식하면 HP를 회복합니다.'},
+  {name_ko:'은밀 위장', name_en:'Undaunted', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'식물/자연환경에서 은신 판정에 +2 상황 보너스.', desc:'식물 환경에서 자연스럽게 숨을 수 있습니다. 식물/자연환경에서 은신에 +2 상황 보너스를 얻습니다.'},
+  {name_ko:'식물 동맹', name_en:'Leshy Familiar', feat_level:5, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'식물 사역마 1마리 획득.', desc:'작은 식물 생물과 유대를 맺습니다. 식물 특성의 사역마를 얻습니다.'},
+  {name_ko:'재생 묘목', name_en:'Ritual of Regrowth', feat_level:9, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'1일 1회 회복 의식으로 HP = 레벨 × 4 회복. 상태이상 1개 해제.', desc:'자연의 힘으로 재생합니다. 하루 1회 10분간 의식을 통해 HP를 회복하고 상태이상 1개를 해제합니다.'},
+  {name_ko:'뿌리 방벽', name_en:'Bark Shield', feat_level:13, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'[반응] 피격 시 나무껍질 방패 생성 (경도 3, HP 12).', desc:'피격 시 반응으로 나무껍질 방패를 생성합니다. 경도 3, HP 12의 임시 방패입니다.'},
+
+  // ── 오크 Orc ──
+  {name_ko:'오크 지식', name_en:'Orc Lore', feat_level:1, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'운동과 생존에 숙련됨. 오크 관련 지식(Lore)에 숙련됨.', desc:'오크 문화에 정통합니다. <strong>운동</strong>과 <strong>생존</strong>에 숙련됨을 얻고, <strong>오크 지식(Orc Lore)</strong>에 숙련됨을 얻습니다.'},
+  {name_ko:'오크 무기 친숙', name_en:'Orc Weapon Familiarity', feat_level:1, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'팔치온, 그레이트액스에 숙련됨. 오크 무기를 단순 무기로 취급.', desc:'오크 전통 무기에 숙련됩니다. 팔치온과 그레이트액스에 숙련됨을 얻습니다.'},
+  {name_ko:'오크 흉포', name_en:'Orc Ferocity', feat_level:1, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'[반응] HP 0 시 의식불명 대신 HP 1로 유지. 1일 1회.', desc:'오크의 불굴의 투지. HP가 0이 될 때 반응으로 의식불명에 빠지는 대신 HP 1로 서 있을 수 있습니다. 하루 1회.'},
+  {name_ko:'공포감 주입', name_en:'Bloody Blows', feat_level:1, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'치명타 시 대상에게 공포 1 부여.', desc:'피가 튀는 공격으로 적을 겁에 질리게 합니다. 치명타 시 대상에게 공포 1을 부여합니다.'},
+  {name_ko:'불굴의 체력', name_en:'Iron Fists', feat_level:1, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'비무장 주먹 공격 피해가 1d6으로 증가.', desc:'오크의 강인한 주먹. 주먹 비무장 공격의 피해가 1d4에서 1d6으로 증가합니다.'},
+  {name_ko:'수훈자', name_en:'Victorious Vigor', feat_level:5, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'적을 쓰러뜨리면 임시 HP 획득 (레벨 수치).', desc:'전투의 짜릿함으로 힘을 얻습니다. 적을 쓰러뜨리면 레벨만큼의 임시 HP를 얻습니다.'},
+  {name_ko:'불멸의 오크', name_en:'Pervasive Superstition', feat_level:9, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'마법 효과에 대한 내성에 +1 상황 보너스.', desc:'오크의 마법 불신. 마법 효과에 대한 내성에 +1 상황 보너스를 얻습니다.'},
+  {name_ko:'오크 무기 전문가', name_en:'Orc Weapon Expertise', feat_level:13, prerequisites:'오크, 오크 무기 친숙', traits:['오크'], category:'ancestry', summary:'오크 무기 숙련도가 전문가로 증가.', desc:'오크 무기에 대한 숙련도가 전문가로 증가합니다.'},
 ];
