@@ -503,6 +503,13 @@ function addEquip(data) {
 function renderEquip() {
   const list = document.getElementById('equip-list');
   list.innerHTML = '';
+  // 제목 행
+  const header = document.createElement('div');
+  header.className = 'equip-row';
+  header.style.cssText = 'font-size:10px;color:var(--text2);border-bottom:1px solid var(--border);padding:2px 4px;';
+  header.innerHTML = `<span style="flex:1;">아이템</span><span style="width:30px;text-align:center;">부피</span><span style="width:70px;text-align:center;">수량</span><span style="width:60px;text-align:center;">장착</span><span style="width:24px;"></span>`;
+  list.appendChild(header);
+
   state.equip.forEach((e,i) => {
     const row = document.createElement('div');
     row.className = 'equip-row';
@@ -515,24 +522,43 @@ function renderEquip() {
     let equipBtnHtml = '';
     if (isEquippable) {
       equipBtnHtml = equipped
-        ? `<button class="equip-toggle equipped" onclick="event.stopPropagation();toggleEquip(${i})">장착 해제</button>`
+        ? `<button class="equip-toggle equipped" onclick="event.stopPropagation();toggleEquip(${i})">해제</button>`
         : `<button class="equip-toggle" onclick="event.stopPropagation();toggleEquip(${i})">장착</button>`;
     }
 
+    const hasContainers = state.containers && state.containers.length > 0;
+
     row.innerHTML = `
-      <div style="display:flex;align-items:center;gap:6px;flex:1;cursor:pointer;" onclick="showInfo('${eqType}','${eqEscName}')">
-        <span style="flex:1;font-size:12px;color:var(--text);">${e.name||'아이템'}</span>
-        <span style="font-size:10px;color:var(--text2);min-width:24px;text-align:center;">${bulkDisplay}</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:2px;">
+      <span style="flex:1;font-size:12px;color:var(--text);cursor:pointer;" onclick="showInfo('${eqType}','${eqEscName}')">${e.name||'아이템'}</span>
+      <span style="width:30px;text-align:center;font-size:10px;color:var(--text2);">${bulkDisplay}</span>
+      <span style="width:70px;display:flex;align-items:center;justify-content:center;gap:2px;">
         <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},-1)">−</button>
-        <span style="min-width:20px;text-align:center;font-size:13px;font-weight:600;color:var(--text);">${e.qty||1}</span>
+        <span style="min-width:16px;text-align:center;font-size:13px;font-weight:600;color:var(--text);">${e.qty||1}</span>
         <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},1)">+</button>
-      </div>
-      ${equipBtnHtml}`;
+      </span>
+      <span style="width:60px;text-align:center;">${equipBtnHtml}</span>
+      <span style="width:24px;text-align:center;">
+        ${hasContainers ? `<span style="cursor:pointer;font-size:12px;color:var(--text2);" onclick="event.stopPropagation();moveToContainer(${i})" title="배낭으로 이동">📦</span>` : ''}
+      </span>`;
     list.appendChild(row);
   });
   recalcBulk();
+}
+
+function moveToContainer(itemIdx) {
+  if (!state.containers || state.containers.length === 0) return;
+  const item = state.equip[itemIdx];
+  if (!item) return;
+  const names = state.containers.map((c,i) => `${i+1}. ${c.name}`).join('\n');
+  const choice = prompt('이동할 배낭 번호를 입력하세요:\n' + names);
+  if (!choice) return;
+  const ci = parseInt(choice) - 1;
+  if (ci < 0 || ci >= state.containers.length) return;
+  state.containers[ci].items.push({name: item.name, qty: item.qty||1, bulk: item.bulk||0});
+  state.equip.splice(itemIdx, 1);
+  renderEquip();
+  renderContainers();
+  save();
 }
 
 function changeQty(i, delta) {
