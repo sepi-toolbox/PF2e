@@ -248,17 +248,16 @@ body{
    ATTRIBUTES (center col)
    ══════════════════════════════════ */
 .attr-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:5px;
+  display:flex;gap:0;
 }
 .attr-box{
-  background:var(--bg3);border:1px solid var(--border);border-radius:6px;
-  padding:8px 4px;text-align:center;transition:border-color .15s;
+  flex:1;text-align:center;padding:4px 2px;
+  border-right:1px solid var(--border);
 }
-.attr-name{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;}
-.attr-score{font-size:22px;font-weight:700;color:var(--text);line-height:1.1;}
-.attr-mod{font-size:11px;color:var(--accent);height:14px;}
+.attr-box:last-child{border-right:none;}
+.attr-name{font-size:8px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;}
+.attr-score{font-size:15px;font-weight:700;color:var(--text);line-height:1.2;}
+.attr-mod{font-size:9px;color:var(--accent);height:12px;}
 
 /* ══════════════════════════════════
    STAT ROWS (saves, AC, etc.)
@@ -1151,35 +1150,35 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <div class="box">
       <div class="box-title">능력치 Attributes</div>
       <div class="attr-grid">
-        <div class="attr-box" style="padding:5px 2px;">
+        <div class="attr-box">
           <div class="attr-name">근력 STR</div>
-          <div class="attr-score" id="mod-str" style="font-size:18px;">+0</div>
-          <div class="attr-mod" id="partial-str" style="font-size:9px;"></div>
+          <div class="attr-score" id="mod-str">+0</div>
+          <div class="attr-mod" id="partial-str"></div>
         </div>
-        <div class="attr-box" style="padding:5px 2px;">
+        <div class="attr-box">
           <div class="attr-name">민첩 DEX</div>
-          <div class="attr-score" id="mod-dex" style="font-size:18px;">+0</div>
-          <div class="attr-mod" id="partial-dex" style="font-size:9px;"></div>
+          <div class="attr-score" id="mod-dex">+0</div>
+          <div class="attr-mod" id="partial-dex"></div>
         </div>
-        <div class="attr-box" style="padding:5px 2px;">
+        <div class="attr-box">
           <div class="attr-name">건강 CON</div>
-          <div class="attr-score" id="mod-con" style="font-size:18px;">+0</div>
-          <div class="attr-mod" id="partial-con" style="font-size:9px;"></div>
+          <div class="attr-score" id="mod-con">+0</div>
+          <div class="attr-mod" id="partial-con"></div>
         </div>
-        <div class="attr-box" style="padding:5px 2px;">
+        <div class="attr-box">
           <div class="attr-name">지능 INT</div>
-          <div class="attr-score" id="mod-int" style="font-size:18px;">+0</div>
-          <div class="attr-mod" id="partial-int" style="font-size:9px;"></div>
+          <div class="attr-score" id="mod-int">+0</div>
+          <div class="attr-mod" id="partial-int"></div>
         </div>
-        <div class="attr-box" style="padding:5px 2px;">
+        <div class="attr-box">
           <div class="attr-name">지혜 WIS</div>
-          <div class="attr-score" id="mod-wis" style="font-size:18px;">+0</div>
-          <div class="attr-mod" id="partial-wis" style="font-size:9px;"></div>
+          <div class="attr-score" id="mod-wis">+0</div>
+          <div class="attr-mod" id="partial-wis"></div>
         </div>
-        <div class="attr-box" style="padding:5px 2px;">
+        <div class="attr-box">
           <div class="attr-name">매력 CHA</div>
-          <div class="attr-score" id="mod-cha" style="font-size:18px;">+0</div>
-          <div class="attr-mod" id="partial-cha" style="font-size:9px;"></div>
+          <div class="attr-score" id="mod-cha">+0</div>
+          <div class="attr-mod" id="partial-cha"></div>
         </div>
       </div>
     </div>
