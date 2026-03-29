@@ -1768,7 +1768,7 @@ function renderPets() {
         </div>
         <div style="display:flex;gap:4px;">
           <button class="defense-btn" onclick="editPet(${i})">편집</button>
-          <button class="defense-btn" onclick="openPetBarding(${i})">마갑</button>
+          ${!p.isFamiliar ? `<button class="defense-btn" onclick="openPetBarding(${i})">마갑</button>` : `<button class="defense-btn" onclick="openFamiliarAbilities(${i})">능력</button>`}
           <button class="defense-btn" onclick="openPetSkills(${i})">스킬</button>
           <button class="defense-btn" onclick="openPetConditions(${i})">상태</button>
           <button class="defense-btn danger" onclick="removePet(${i})">삭제</button>
@@ -1785,6 +1785,7 @@ function renderPets() {
         </div>
       </div>
       ${p.barding && p.barding !== '없음' ? `<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">🛡 마갑: <strong style="color:var(--text);">${p.barding}</strong> <span style="color:var(--text2);">(AC+${bd?.ac||0} 민첩상한+${bd?.dex||0} 판정${bd?.check||0})</span></div>` : ''}
+      ${p.isFamiliar && p.familiarAbilities?.length > 0 ? `<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">✦ 능력: <strong style="color:var(--accent);">${p.familiarAbilities.map(id => FAMILIAR_ABILITIES.find(a=>a.id===id)?.name||id).join(', ')}</strong></div>` : ''}
       ${(p.conditions && Object.keys(p.conditions).some(k=>p.conditions[k]>0)) ? `<div style="font-size:10px;color:var(--red-light);margin-bottom:4px;">⚠ ${Object.entries(p.conditions).filter(([,v])=>v>0).map(([k,v])=>{const cd=CONDITIONS_DATA.find(c=>c.name===k);return cd?.valued?k+' '+v:k;}).join(', ')}</div>` : ''}
       <!-- Info row -->
       <div style="display:flex;gap:8px;font-size:10px;color:var(--text2);margin-bottom:6px;flex-wrap:wrap;">
@@ -2092,5 +2093,219 @@ function petCondChange(i, name, dir) {
   renderPets();
   save();
   renderPetCondList(i);
+}
+
+// ═══════════════════════════════════════════════
+//  FAMILIARS (사역마)
+// ═══════════════════════════════════════════════
+
+const FAMILIAR_ABILITIES = [
+  // 펫 능력 (Pet Feat abilities)
+  {id:'amphibious',name:'수륙양생',en:'Amphibious',desc:'육지와 수중 모두 호흡 가능. 가장 높은 육상/수영 속도와 같은 육상 속도와 수영 속도를 얻습니다.'},
+  {id:'burrower',name:'굴착',en:'Burrower',desc:'5피트 굴착 속도를 얻어 작은 구멍을 팝니다.'},
+  {id:'climber',name:'등반',en:'Climber',desc:'25피트 등반 속도를 얻습니다.'},
+  {id:'darkvision',name:'암시야',en:'Darkvision',desc:'암시야를 얻습니다.'},
+  {id:'echolocation',name:'반향정위',en:'Echolocation',desc:'20피트 이내 청각을 정밀 감각으로 사용할 수 있습니다.'},
+  {id:'fast',name:'빠른 이동',en:'Fast Movement',desc:'속도 중 하나가 25피트에서 40피트로 증가합니다.'},
+  {id:'flier',name:'비행',en:'Flier',desc:'25피트 비행 속도를 얻습니다.'},
+  {id:'manual-dex',name:'손재주',en:'Manual Dexterity',desc:'앞발 2개를 손처럼 사용하여 조작 행동을 할 수 있습니다.'},
+  {id:'scent',name:'후각',en:'Scent',desc:'30피트 이내 부정확 후각 감각을 얻습니다.'},
+  {id:'tough',name:'강인',en:'Tough',desc:'레벨당 최대 HP가 2 증가합니다.'},
+  // 사역마 전용 능력
+  {id:'accompanist',name:'반주자',en:'Accompanist',desc:'공연 판정 시 사역마가 함께 연주하여 +1 상황 보너스 (+2 달인 이상).'},
+  {id:'construct',name:'구조체',en:'Construct',desc:'동물 특성 대신 구조체 특성. 사망/질병/쇠약/피로/치유/마비/독/구역질/의식불명/공허 면역. 강인 능력 필요.'},
+  {id:'damage-avoid',name:'피해 회피',en:'Damage Avoidance',desc:'내성 유형 1개 선택. 해당 내성에 성공하면 피해를 받지 않음 (다른 효과는 적용).'},
+  {id:'dragon',name:'드래곤',en:'Dragon',desc:'동물 특성 대신 드래곤 특성을 얻습니다.'},
+  {id:'elemental',name:'원소',en:'Elemental',desc:'동물 특성 대신 원소 특성. 공기/땅/불/금속/물/나무 중 선택. 출혈/마비/독/수면/해당 원소 면역.'},
+  {id:'focused-rejuv',name:'집중 회복',en:'Focused Rejuvenation',desc:'재집중 시 사역마가 레벨당 HP 1점 회복합니다.'},
+  {id:'fungus',name:'균류',en:'Fungus',desc:'동물 특성 대신 균류 특성을 얻습니다.'},
+  {id:'independent',name:'독립',en:'Independent',desc:'명령하지 않아도 매 라운드 1행동을 자체적으로 사용합니다.'},
+  {id:'kinspeech',name:'동족어',en:'Kinspeech',desc:'같은 종의 동물과 대화 가능. 말하기 능력 + 6레벨 이상 필요.'},
+  {id:'major-resist',name:'상위 저항',en:'Major Resistance',desc:'저항 능력의 저항값이 레벨과 같아집니다. 8레벨 이상 필요.'},
+  {id:'master-form',name:'주인의 형상',en:'Master\'s Form',desc:'1행동으로 인간형 변신. 손재주+말하기 능력 필요.'},
+  {id:'partner-crime',name:'범죄 동료',en:'Partner in Crime',desc:'기만/도둑질로 도움 시 자동 성공 (달인이면 대성공).'},
+  {id:'plant',name:'식물',en:'Plant',desc:'동물 특성 대신 식물 특성을 얻습니다.'},
+  {id:'plant-form',name:'식물 형태',en:'Plant Form',desc:'1행동으로 작은 식물로 변신. 식물 특성 필요.'},
+  {id:'resistance',name:'저항',en:'Resistance',desc:'산, 냉기, 전기, 불, 독, 음파 중 2개 선택. 레벨 절반 저항 (최소 1).'},
+  {id:'skilled',name:'숙련',en:'Skilled',desc:'곡예/은신 외 기술 1개 선택. 해당 기술 수정치 = 레벨 + 주문시전 속성 수정치.'},
+  {id:'speech',name:'말하기',en:'Speech',desc:'주인이 아는 언어 1개를 이해하고 말할 수 있습니다.'},
+  {id:'spellcasting',name:'주문시전',en:'Spellcasting',desc:'하루 1회 주문 시전 가능 (최고 랭크보다 5 낮은 주문). 6랭크 이상 필요.'},
+  {id:'toolbearer',name:'도구 운반',en:'Toolbearer',desc:'가벼운 부피의 도구를 운반. 인접 시 도구 사용 가능. 손재주 필요.'},
+  {id:'touch-telepathy',name:'접촉 텔레파시',en:'Touch Telepathy',desc:'접촉으로 주인과 텔레파시 소통. 말하기 능력 있으면 같은 언어 사용자와도 가능.'},
+  {id:'valet',name:'시종',en:'Valet',desc:'턴 종료 전 2회까지 가벼운 부피 아이템을 가져와 주인 빈 손에 놓을 수 있습니다.'},
+];
+
+function addFamiliar() {
+  if (!state.pets) state.pets = [];
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('hidden');
+  modalType = 'familiar-add';
+  document.getElementById('modal-title').textContent = '🐱 사역마 추가';
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) searchEl.style.display = 'none';
+  const fbar = document.getElementById('modal-filterbar');
+  if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm');
+  if (confirmBtn) confirmBtn.style.display = 'none';
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) { listEl.style.display = ''; listEl.style.width = '100%'; listEl.style.borderRight = 'none'; }
+  const detail = document.getElementById('modal-detail');
+  if (detail) detail.style.display = 'none';
+
+  const lv = getLevel();
+  const spellAttr = getClassKeyAttr() || 'cha';
+  const spellMod = getMod(spellAttr);
+  const hp = 5 * lv;
+  // AC/내성 = 주인과 동일
+  const masterAC = parseInt(document.getElementById('val-ac')?.textContent || 10);
+  const masterFort = parseInt(document.getElementById('val-fort')?.textContent || 0);
+  const masterRef = parseInt(document.getElementById('val-ref')?.textContent || 0);
+  const masterWill = parseInt(document.getElementById('val-will')?.textContent || 0);
+  const percMod = Math.max(spellMod + lv, 3 + lv);
+
+  const container = document.getElementById('modal-options');
+  container.innerHTML = `<div style="padding:16px;">
+    <div style="border-left:3px solid var(--accent);padding-left:10px;margin-bottom:12px;">
+      <div style="font-size:12px;color:var(--text2);line-height:1.6;">
+        사역마는 마법적 유대로 연결된 작은 생물입니다.<br>
+        <strong>HP:</strong> 5 × 레벨 = <strong style="color:var(--text);">${hp}</strong><br>
+        <strong>AC:</strong> 주인과 동일 = <strong style="color:var(--text);">${masterAC}</strong><br>
+        <strong>내성:</strong> 주인과 동일 (인내 ${masterFort>=0?'+':''}${masterFort}, 반사 ${masterRef>=0?'+':''}${masterRef}, 의지 ${masterWill>=0?'+':''}${masterWill})<br>
+        <strong>지각/곡예/은신:</strong> 주문시전 속성(${spellAttr.toUpperCase()}) + 레벨 = <strong style="color:var(--text);">${percMod>=0?'+':''}${percMod}</strong><br>
+        <strong>크기:</strong> 극소형 (Tiny)<br>
+        <strong>속도:</strong> 25피트<br>
+        <strong>능력:</strong> 매일 2개 선택 (재주로 증가 가능)
+      </div>
+    </div>
+    <div style="margin-bottom:12px;">
+      <label style="font-size:10px;color:var(--text2);">사역마 이름</label>
+      <input id="familiar-name" placeholder="이름..." style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:6px;border-radius:4px;font-size:14px;">
+    </div>
+    <div style="margin-bottom:12px;">
+      <label style="font-size:10px;color:var(--text2);">외형 (박쥐, 고양이, 여우, 까마귀, 뱀 등)</label>
+      <input id="familiar-form" placeholder="고양이" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:6px;border-radius:4px;font-size:13px;">
+    </div>
+    <button onclick="createFamiliar()" style="width:100%;padding:10px;background:var(--accent);color:#000;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">생성</button>
+  </div>`;
+}
+
+function createFamiliar() {
+  const name = document.getElementById('familiar-name')?.value;
+  const form = document.getElementById('familiar-form')?.value || '고양이';
+  if (!name) { alert('이름을 입력하세요.'); return; }
+
+  const lv = getLevel();
+  const spellAttr = getClassKeyAttr() || 'cha';
+  const spellMod = getMod(spellAttr);
+  const hp = 5 * lv;
+  const masterAC = parseInt(document.getElementById('val-ac')?.textContent || 10);
+  const masterFort = parseInt(document.getElementById('val-fort')?.textContent || 0);
+  const masterRef = parseInt(document.getElementById('val-ref')?.textContent || 0);
+  const masterWill = parseInt(document.getElementById('val-will')?.textContent || 0);
+  const percMod = Math.max(spellMod + lv, 3 + lv);
+
+  if (!state.pets) state.pets = [];
+  state.pets.push({
+    name, type: '사역마', isFamiliar: true, familiarForm: form,
+    hp: {cur: hp, max: hp},
+    ac: masterAC, speed: 25, size: '극소형',
+    str: -1, dex: 1, con: 0, int: -1, wis: 1, cha: -1,
+    fort: masterFort, ref: masterRef, will: masterWill,
+    perc: percMod,
+    senses: '저광 시야',
+    attacks: [],
+    familiarAbilities: [], // 선택된 능력 ID 목록
+    maxAbilities: 2,
+    notes: '외형: ' + form,
+  });
+  renderPets(); save(); closeModal();
+}
+
+function openFamiliarAbilities(petIdx) {
+  const p = state.pets[petIdx];
+  if (!p.familiarAbilities) p.familiarAbilities = [];
+  const max = p.maxAbilities || 2;
+
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('hidden');
+  modalType = 'familiar-abilities';
+  document.getElementById('modal-title').textContent = '🐱 ' + p.name + ' — 능력 선택 (' + p.familiarAbilities.length + '/' + max + ')';
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; }
+  const fbar = document.getElementById('modal-filterbar');
+  if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm');
+  if (confirmBtn) { confirmBtn.style.display = ''; confirmBtn.textContent = '완료'; }
+  modalSelected = null;
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) { listEl.style.display = ''; listEl.style.width = ''; listEl.style.borderRight = ''; }
+  const detail = document.getElementById('modal-detail');
+  if (detail) { detail.style.display = ''; detail.innerHTML = '<div class="modal-detail-empty">능력을 선택하면 상세 정보가 표시됩니다.</div>'; }
+
+  renderFamiliarAbilityList(petIdx);
+}
+
+function renderFamiliarAbilityList(petIdx) {
+  const p = state.pets[petIdx];
+  const selected = p.familiarAbilities || [];
+  const max = p.maxAbilities || 2;
+  const isFull = selected.length >= max;
+  const q = document.getElementById('modal-search')?.value?.toLowerCase() || '';
+  const container = document.getElementById('modal-options');
+  container.innerHTML = '';
+
+  const titleEl = document.getElementById('modal-title');
+  if (titleEl) titleEl.textContent = '🐱 ' + p.name + ' — 능력 선택 (' + selected.length + '/' + max + ')';
+
+  FAMILIAR_ABILITIES.forEach(a => {
+    if (q && !a.name.includes(q) && !a.en.toLowerCase().includes(q)) return;
+    const isSelected = selected.includes(a.id);
+    const row = document.createElement('div');
+    row.className = 'opt-row' + (isSelected ? ' selected' : '');
+    if (!isSelected && isFull) row.style.opacity = '0.4';
+    row.innerHTML = `
+      <div class="opt-row-icon">${isSelected ? '✓' : '✦'}</div>
+      <div style="flex:1;">
+        <div class="opt-row-name">${a.name} <span style="color:var(--text2);font-size:10px;">${a.en}</span></div>
+      </div>`;
+    row.style.cursor = (isSelected || !isFull) ? 'pointer' : 'default';
+
+    row.addEventListener('click', () => {
+      // PC: 디테일 표시
+      const detail = document.getElementById('modal-detail');
+      if (detail && window.innerWidth > 900) {
+        container.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
+        row.classList.add('selected');
+        detail.innerHTML = `<div class="modal-detail-title">${a.name}</div>
+          <div class="modal-detail-en">${a.en}</div>
+          <div class="modal-detail-desc" style="margin-top:10px;">${a.desc}</div>
+          <button onclick="toggleFamiliarAbility(${petIdx},'${a.id}')" style="width:100%;margin-top:12px;padding:8px;background:${isSelected?'var(--red-bg)':'var(--accent)'};color:${isSelected?'var(--red-light)':'#000'};border:${isSelected?'1px solid var(--red)':'none'};border-radius:4px;cursor:pointer;font-size:13px;font-weight:600;">${isSelected ? '해제' : '선택'}</button>`;
+      } else {
+        // 모바일: 직접 토글
+        toggleFamiliarAbility(petIdx, a.id);
+      }
+    });
+    container.appendChild(row);
+  });
+
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl && !searchEl._famAbBound) {
+    searchEl.addEventListener('input', () => renderFamiliarAbilityList(petIdx));
+    searchEl._famAbBound = true;
+  }
+}
+
+function toggleFamiliarAbility(petIdx, abilityId) {
+  const p = state.pets[petIdx];
+  if (!p.familiarAbilities) p.familiarAbilities = [];
+  const max = p.maxAbilities || 2;
+  const idx = p.familiarAbilities.indexOf(abilityId);
+  if (idx >= 0) {
+    p.familiarAbilities.splice(idx, 1);
+  } else if (p.familiarAbilities.length < max) {
+    p.familiarAbilities.push(abilityId);
+  }
+  renderPets(); save();
+  renderFamiliarAbilityList(petIdx);
 }
 

@@ -23,7 +23,7 @@ const db = firebase.firestore();
 <script src="equipment_db.js"></script>
 <script src="feat_db.js"></script>
 <script src="SPELL_DB.js"></script>
-<script src="class_features_db.js?v=43"></script>
+<script src="class_features_db.js?v=44"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1554,7 +1554,10 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <!-- ── 동료 Pets ── -->
     <div id="panel-pets" class="panel">
       <div id="pet-list"></div>
-      <button class="add-btn" onclick="addPet()" style="margin:8px;">+ 동료 추가</button>
+      <div style="display:flex;gap:4px;margin:8px;">
+        <button class="add-btn" onclick="addPet()" style="flex:1;">+ 동료 추가</button>
+        <button class="add-btn" onclick="addFamiliar()" style="flex:1;">+ 사역마 추가</button>
+      </div>
     </div>
 
     <!-- ── 재주 Feats ── -->
@@ -1664,11 +1667,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=43"></script>
-<script src="cs_calc.js?v=43"></script>
-<script src="cs_ui.js?v=43"></script>
-<script src="cs_modal.js?v=43"></script>
-<script src="cs_save.js?v=43"></script>
+<script src="cs_data.js?v=44"></script>
+<script src="cs_calc.js?v=44"></script>
+<script src="cs_ui.js?v=44"></script>
+<script src="cs_modal.js?v=44"></script>
+<script src="cs_save.js?v=44"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
