@@ -1011,20 +1011,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 <!-- ═══════════════ CHARACTER HEADER ═══════════════ -->
 <div id="header">
   <div id="header-title">⚔ PF2e<br><small>Player Core KR</small></div>
-  <div class="hdr-fields">
-    <div class="hdr-field" style="min-width:140px;flex:1;">
-      <label>캐릭터 이름</label>
-      <input id="f-name" placeholder="이름..." oninput="save()">
-    </div>
-    <div class="hdr-field" style="min-width:50px;">
-      <label>레벨</label>
-      <input id="f-level" type="number" min="1" max="20" value="1" oninput="onLevelChange()">
-    </div>
-    <div class="hdr-field" style="min-width:60px;">
-      <label>경험치 XP</label>
-      <input id="f-xp" type="number" min="0" value="0" oninput="save()">
-    </div>
-  </div>
+  <div style="flex:1;"></div>
   <div class="hdr-actions">
     <button class="btn btn-confirm" onclick="exportJSON()">⬇ JSON</button>
     <label class="btn btn-cancel" style="cursor:pointer;text-align:center;">
@@ -1044,6 +1031,24 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
   <!-- ═══ CENTER: Stats + Skills (always visible on desktop) ═══ -->
   <div id="center-col">
+
+    <!-- Name / Level / XP -->
+    <div class="box" style="padding:8px 10px;">
+      <div style="display:flex;align-items:flex-end;gap:8px;">
+        <div style="flex:1;">
+          <label style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;">캐릭터 이름</label>
+          <input id="f-name" placeholder="이름..." oninput="save()" style="width:100%;background:var(--bg3);border:none;border-bottom:2px solid var(--accent);color:var(--text);padding:4px 6px;font-size:15px;font-weight:700;">
+        </div>
+        <div style="width:55px;">
+          <label style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;">레벨</label>
+          <input id="f-level" type="number" min="1" max="20" value="1" oninput="onLevelChange()" style="width:100%;background:var(--bg3);border:none;border-bottom:2px solid var(--accent);color:var(--accent);padding:4px 6px;font-size:15px;font-weight:700;text-align:center;">
+        </div>
+        <div style="width:65px;">
+          <label style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;">경험치 XP</label>
+          <input id="f-xp" type="number" min="0" value="0" oninput="save()" style="width:100%;background:var(--bg3);border:none;border-bottom:1px solid var(--border2);color:var(--text);padding:4px 6px;font-size:13px;text-align:center;">
+        </div>
+      </div>
+    </div>
 
     <!-- Ability Scores -->
     <div class="box">
@@ -1202,15 +1207,6 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <div class="box">
       <div class="box-title">언어 / 특성</div>
       <textarea class="notes-area" id="f-languages" placeholder="언어, 특성 기록..." style="min-height:55px;" oninput="save()"></textarea>
-    </div>
-
-    <!-- Player / Deity -->
-    <div class="box">
-      <div class="box-title">캐릭터 정보</div>
-      <div style="display:flex;gap:6px;margin-bottom:4px;">
-        <div style="flex:1;"><label style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;">플레이어</label><input id="f-player" placeholder="플레이어..." oninput="save()" style="width:100%;background:var(--bg3);border:none;border-bottom:1px solid var(--border2);color:var(--text);padding:4px 6px;font-size:12px;"></div>
-        <div style="flex:1;"><label style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;">신격/신앙</label><input id="f-deity" placeholder="신격..." oninput="save()" style="width:100%;background:var(--bg3);border:none;border-bottom:1px solid var(--border2);color:var(--text);padding:4px 6px;font-size:12px;"></div>
-      </div>
     </div>
 
     <!-- Notes -->
@@ -5322,10 +5318,8 @@ function collectData() {
   const data = {
     fields: {
       name: document.getElementById('f-name')?.value,
-      player: document.getElementById('f-player')?.value,
       level: document.getElementById('f-level')?.value,
       xp: document.getElementById('f-xp')?.value,
-      deity: document.getElementById('f-deity')?.value,
       notes: document.getElementById('f-notes')?.value,
       languages: document.getElementById('f-languages')?.value,
       combatNotes: document.getElementById('combat-notes')?.value,
@@ -5435,7 +5429,7 @@ function loadData(d) {
       Object.assign(state.boosts, d.boosts);
     }
     if (d.fields) {
-      ['name','player','level','xp','deity','notes','languages','speed'].forEach(f => {
+      ['name','level','xp','notes','languages','speed'].forEach(f => {
         const el = document.getElementById('f-'+f) || document.getElementById(f);
         if (el && d.fields[f] !== undefined) el.value = d.fields[f];
       });
