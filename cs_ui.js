@@ -82,17 +82,22 @@ function renderArmorCard() {
   const resNames = ['','탄력 (회피 +1)','상위 탄력 (+2)','최상 탄력 (+3)'];
 
   card.className = 'defense-card' + (stowed ? ' stowed' : '');
+  if (!name) {
+    card.innerHTML = `<div class="box"><div class="box-title">갑옷 Armor</div>
+      <div style="font-size:10px;color:var(--text2);text-align:center;padding:6px 0;">장비 탭에서 갑옷을 장착하면 여기에 표시됩니다</div></div>`;
+    return;
+  }
   card.innerHTML = `
     <div class="defense-card-header">
-      ${name ? `<button class="defense-btn" onclick="showArmorRunePopup()">룬</button>` : ''}
-      ${name ? `<button class="defense-btn" onclick="toggleArmorStow()">${stowed?'장착':'보관'}</button>` : ''}
+      <button class="defense-btn" onclick="showArmorRunePopup()">룬</button>
+      <button class="defense-btn" onclick="toggleArmorStow()">${stowed?'장착':'보관'}</button>
       <span style="flex:1;"></span>
-      ${name ? `<button class="defense-btn danger" onclick="clearArmor()">해제</button>` : ''}
+      <button class="defense-btn danger" onclick="clearArmor()">해제</button>
     </div>
     <div class="defense-card-body">
       <div class="defense-card-name">
         <span class="weapon-prof-badge ${profCls}" style="font-size:8px;width:14px;height:14px;">${profLetter}</span>
-        ${name || '갑옷 없음'}
+        ${name}
         ${potency > 0 ? `<span class="tag" style="font-size:9px;">+${potency}</span>` : ''}
         ${resilient > 0 ? `<span class="tag" style="font-size:9px;">${resNames[resilient]||''}</span>` : ''}
       </div>
@@ -183,23 +188,27 @@ function renderShieldCard() {
   const bt = Math.floor(parseInt(hp)/2);
   const stowed = state.shieldStowed || false;
 
+  if (!name) {
+    card.className = 'defense-card';
+    card.innerHTML = `<div class="box"><div class="box-title">방패 Shield</div>
+      <div style="font-size:10px;color:var(--text2);text-align:center;padding:6px 0;">장비 탭에서 방패를 장착하면 여기에 표시됩니다</div></div>`;
+    return;
+  }
   card.className = 'defense-card' + (stowed ? ' stowed' : '');
   card.innerHTML = `
     <div class="defense-card-header">
-      ${name ? `<button class="defense-btn" onclick="showInfo('shield','${name.replace(/'/g,"\\'")}')">정보</button>` : ''}
-      ${name ? `<button class="defense-btn" onclick="toggleShieldStow()">${stowed?'장착':'보관'}</button>` : ''}
+      <button class="defense-btn" onclick="showInfo('shield','${name.replace(/'/g,"\\'")}')">정보</button>
+      <button class="defense-btn" onclick="toggleShieldStow()">${stowed?'장착':'보관'}</button>
       <span style="flex:1;"></span>
-      ${name ? `<button class="defense-btn danger" onclick="clearShield()">제거</button>` : ''}
+      <button class="defense-btn danger" onclick="clearShield()">제거</button>
     </div>
     <div class="defense-card-body">
-      <div class="defense-card-name">${name || '방패 없음'}</div>
-      ${name ? `
+      <div class="defense-card-name">${name}</div>
       <div class="defense-card-stats">
         <span class="stat-item">🛡 Raised AC <span class="stat-val">+${ac}</span></span>
         <span class="stat-item">⚒ Hardness <span class="stat-val">${hard}</span></span>
         <span class="stat-item">❤ HP <span class="stat-val">${hp}</span> (BT ${bt})</span>
       </div>
-      ` : ''}
     </div>
   `;
 }
