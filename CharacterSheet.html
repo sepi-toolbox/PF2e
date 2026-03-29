@@ -23,7 +23,7 @@ const db = firebase.firestore();
 <script src="equipment_db.js"></script>
 <script src="feat_db.js"></script>
 <script src="SPELL_DB.js"></script>
-<script src="class_features_db.js?v=28"></script>
+<script src="class_features_db.js?v=29"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1266,14 +1266,6 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
         </div>
       </div>
 
-      <div class="stat-row">
-        <span class="stat-label">이동 속도</span>
-        <span style="font-size:15px;font-weight:700;color:var(--text);" id="speed-display">25</span>
-        <span style="font-size:11px;color:var(--text2);">피트</span>
-        <input type="hidden" id="speed" value="25">
-        <span style="margin-left:12px;font-size:11px;color:var(--text2);">크기:</span>
-        <span style="font-size:11px;font-weight:600;color:var(--text);" id="char-size">중형</span>
-      </div>
       <div class="stat-row" style="flex-wrap:wrap;">
         <span class="stat-label">영웅 점수</span>
         <span class="hero-star" onclick="toggleHeroStar(1)">★</span>
@@ -1285,9 +1277,25 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
       </div>
     </div>
 
-    <!-- Saves + Perception + ClassDC -->
+    <!-- 이동 / 크기 -->
     <div class="box">
-      <div class="box-title">내성 / 지각 / 클래스 DC</div>
+      <div class="box-title">이동 / 크기</div>
+      <div class="stat-row" onclick="openSpeedModal()" style="cursor:pointer;">
+        <span class="stat-label">이동 속도</span>
+        <span style="font-size:15px;font-weight:700;color:var(--text);" id="speed-display">25</span>
+        <span style="font-size:11px;color:var(--text2);">피트</span>
+        <input type="hidden" id="speed" value="25">
+      </div>
+      <div id="extra-speeds"></div>
+      <div class="stat-row">
+        <span class="stat-label">크기</span>
+        <span style="font-size:13px;font-weight:600;color:var(--text);" id="char-size">중형</span>
+      </div>
+    </div>
+
+    <!-- 내성 Saves -->
+    <div class="box">
+      <div class="box-title">내성 굴림 Saving Throws</div>
       <div class="stat-row">
         <span class="stat-label">인내 Fortitude</span>
         <span class="prof-rank-badge" id="rank-fort">U</span>
@@ -1306,7 +1314,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
         <select id="prof-will" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
         <span class="stat-val" id="val-will">+0</span>
       </div>
-      <hr class="divider">
+    </div>
+
+    <!-- 지각 / 클래스 DC / 감각 -->
+    <div class="box">
+      <div class="box-title">지각 / 클래스 DC</div>
       <div class="stat-row">
         <span class="stat-label">지각 Perception</span>
         <span class="prof-rank-badge" id="rank-perc">U</span>
@@ -1322,6 +1334,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
         <span class="prof-rank-badge" id="rank-classdc">U</span>
         <select id="prof-classdc" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
         <span class="stat-val" id="val-classdc">10</span>
+      </div>
+      <hr class="divider">
+      <div class="stat-row">
+        <span class="stat-label">감각 Senses</span>
+        <span style="font-size:12px;color:var(--text);" id="char-senses">—</span>
       </div>
     </div>
 
@@ -1682,11 +1699,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=28"></script>
-<script src="cs_calc.js?v=28"></script>
-<script src="cs_ui.js?v=28"></script>
-<script src="cs_modal.js?v=28"></script>
-<script src="cs_save.js?v=28"></script>
+<script src="cs_data.js?v=29"></script>
+<script src="cs_calc.js?v=29"></script>
+<script src="cs_ui.js?v=29"></script>
+<script src="cs_modal.js?v=29"></script>
+<script src="cs_save.js?v=29"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->

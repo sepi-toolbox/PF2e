@@ -42,6 +42,15 @@ function syncAllProfRanks() {
   const speedDisp = document.getElementById('speed-display');
   const speedVal = document.getElementById('speed');
   if (speedDisp && speedVal) speedDisp.textContent = speedVal.value || '25';
+  // 감각 표시
+  const sensesEl = document.getElementById('char-senses');
+  if (sensesEl) {
+    const vision = state.selectedAncestry?.vision || state.vision || '';
+    const visionMap = {'암시야':'암시야 (Darkvision)','저광 시야':'저광 시야 (Low-Light Vision)','없음':''};
+    sensesEl.textContent = visionMap[vision] || vision || '—';
+  }
+  // 추가 속도 표시
+  renderExtraSpeeds();
   // 방패 정보 표시
   updateShieldInfo();
   // 내성/지각/클래스DC 배지
@@ -879,6 +888,25 @@ function updateHP() {
     }
   }
   checkHpZero();
+}
+
+function renderExtraSpeeds() {
+  const el = document.getElementById('extra-speeds');
+  if (!el) return;
+  if (!state.extraSpeeds) state.extraSpeeds = {};
+  const types = [['climb','등반'],['swim','수영'],['fly','비행'],['burrow','굴착']];
+  let html = '';
+  types.forEach(([key, label]) => {
+    const val = state.extraSpeeds[key];
+    if (val && val > 0) {
+      html += `<div class="stat-row" style="padding-left:20px;">
+        <span class="stat-label" style="font-size:10px;">${label} 속도</span>
+        <span style="font-size:13px;font-weight:600;color:var(--text);">${val}</span>
+        <span style="font-size:10px;color:var(--text2);">피트</span>
+      </div>`;
+    }
+  });
+  el.innerHTML = html;
 }
 
 function renderFpChecks() {

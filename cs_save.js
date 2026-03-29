@@ -90,6 +90,8 @@ function collectData() {
     armorResilient: state.armorResilient || 0,
     armorStowed: state.armorStowed || false,
     shieldStowed: state.shieldStowed || false,
+    extraSpeeds: state.extraSpeeds || {},
+    shieldRaised: state.shieldRaised || false,
     deity: state.deity || null,
     divineFont: state.divineFont || null,
     sanctification: state.sanctification || null,
@@ -309,6 +311,8 @@ function loadData(d) {
     if (d.containers) { state.containers = d.containers; if (typeof renderContainers === 'function') renderContainers(); }
     if (d.formulas) { state.formulas = d.formulas; if (typeof renderFormulas === 'function') renderFormulas(); }
     if (d.languages) { state.languages = d.languages; if (typeof renderLanguages === 'function') renderLanguages(); }
+    if (d.extraSpeeds) state.extraSpeeds = d.extraSpeeds;
+    if (d.shieldRaised) state.shieldRaised = d.shieldRaised;
     if (d.spells) { state.spells = d.spells; }
     if (d.spellSlots) state.spellSlots = d.spellSlots;
     if (d.spellSlotsUsed) state.spellSlotsUsed = d.spellSlotsUsed;

@@ -163,6 +163,61 @@ function renderConditionList() {
   }
 }
 
+function openSpeedModal() {
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('hidden');
+  modalType = 'speed-edit';
+  document.getElementById('modal-title').textContent = '이동 속도 관리';
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) searchEl.style.display = 'none';
+  const fbar = document.getElementById('modal-filterbar');
+  if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm');
+  if (confirmBtn) confirmBtn.style.display = 'none';
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) listEl.style.display = '';
+  const detail = document.getElementById('modal-detail');
+  if (detail) detail.innerHTML = '';
+
+  if (!state.extraSpeeds) state.extraSpeeds = {};
+  const baseSpeed = document.getElementById('speed')?.value || '25';
+  const inputStyle = 'width:60px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:6px;border-radius:4px;font-size:14px;text-align:center;';
+  const types = [['climb','등반 🧗'],['swim','수영 🏊'],['fly','비행 🕊'],['burrow','굴착 ⛏']];
+
+  const container = document.getElementById('modal-options');
+  container.innerHTML = `<div style="padding:16px;">
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:12px;">
+      <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">🏃 기본 이동 속도</div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <input type="number" id="speed-edit-base" value="${baseSpeed}" min="0" onkeydown="if(event.key==='Enter')applySpeedChanges()" style="${inputStyle}">
+        <span style="font-size:12px;color:var(--text2);">피트</span>
+      </div>
+    </div>
+    ${types.map(([key, label]) => `
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:8px;">
+      <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">${label} 속도</div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <input type="number" id="speed-edit-${key}" value="${state.extraSpeeds[key]||0}" min="0" onkeydown="if(event.key==='Enter')applySpeedChanges()" style="${inputStyle}">
+        <span style="font-size:12px;color:var(--text2);">피트 (0 = 없음)</span>
+      </div>
+    </div>`).join('')}
+    <button onclick="applySpeedChanges()" style="width:100%;padding:10px;background:var(--accent);color:#000;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;">적용</button>
+  </div>`;
+}
+
+function applySpeedChanges() {
+  const base = parseInt(document.getElementById('speed-edit-base')?.value || 25);
+  document.getElementById('speed').value = base;
+  if (!state.extraSpeeds) state.extraSpeeds = {};
+  ['climb','swim','fly','burrow'].forEach(key => {
+    const val = parseInt(document.getElementById('speed-edit-'+key)?.value || 0);
+    state.extraSpeeds[key] = val > 0 ? val : 0;
+  });
+  syncAllProfRanks();
+  save();
+  closeModal();
+}
+
 function openHpModal() {
   const cur = parseInt(document.getElementById('hp-cur').value)||0;
   const max = parseInt(document.getElementById('hp-max').value)||0;
