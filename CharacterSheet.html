@@ -744,7 +744,8 @@ body{
 .modal-header h2{color:var(--accent);font-size:15px;}
 .modal-close{background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;padding:0 4px;}
 .modal-close:hover{color:var(--accent);}
-.modal-close-mobile{display:none;background:var(--accent);color:#fff;border:none;border-radius:6px;padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer;min-height:44px;}
+.modal-close-mobile{display:none;background:none;border:none;color:var(--text2);font-size:24px;cursor:pointer;padding:8px;min-width:44px;min-height:44px;line-height:1;}
+.modal-close-mobile:hover{color:var(--accent);}
 /* Split pane: list left + detail right */
 .modal-body{display:flex;flex:1;overflow:hidden;}
 .modal-list{width:420px;min-width:320px;overflow-y:auto;border-right:1px solid var(--border);display:flex;flex-direction:column;}
@@ -1710,7 +1711,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <div class="modal-header" id="modal-header-bar">
       <h2 id="modal-title" style="flex:1;">선택</h2>
       <button class="modal-close" onclick="closeModal()">✕</button>
-      <button id="modal-close-m" class="modal-close-mobile" onclick="closeModal()">닫기</button>
+      <button id="modal-close-m" class="modal-close-mobile" onclick="closeModal()">✕</button>
     </div>
     <div class="modal-body" id="modal-body">
       <div class="modal-list">
@@ -5429,7 +5430,7 @@ function resetFromClass() {
   // Reset all level selections
   state.growth = {};
   // Reset all feats
-  state.feats = {ancestry:[], class:[], general:[], skill:[], archetype:[], other:[]};
+  state.feats = {special:[], ancestry:[], class:[], general:[], skill:[], archetype:[], other:[]};
   // Reset boosts (class + all level boosts)
   state.boosts.cls = null;
   for (let lv = 1; lv <= 20; lv++) {
