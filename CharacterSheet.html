@@ -1017,9 +1017,8 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
    ══════════════════════════════════ */
 .save-status-bar{
   position:fixed;bottom:12px;right:16px;font-size:11px;color:var(--text2);
-  opacity:0;transition:opacity .5s;
+  opacity:1;z-index:9998;
 }
-.save-status-bar.show{opacity:1;}
 
 /* ══════════════════════════════════
    HERO POINTS & MISC BADGES
@@ -1749,23 +1748,7 @@ auth.onAuthStateChanged(function(user) {
 
 function saveToCloud() {
   if (!currentUser) { alert('로그인이 필요합니다.'); return; }
-  var data = collectData();
-  var status = document.getElementById('save-status');
-  status.textContent = '저장 중...';
-  status.style.color = '#f5c518';
-  db.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot).set({
-    data: JSON.stringify(data),
-    name: data.name || '이름 없음',
-    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-  }).then(function() {
-    status.textContent = '✓ 저장 완료 (' + new Date().toLocaleTimeString() + ')';
-    status.style.color = '#27ae60';
-    loadSlotNames(currentUser.uid);
-  }).catch(function(e) {
-    status.textContent = '✗ 저장 실패';
-    status.style.color = '#e74c3c';
-    console.error(e);
-  });
+  autoSaveNow();
 }
 
 function loadFromCloud() {
