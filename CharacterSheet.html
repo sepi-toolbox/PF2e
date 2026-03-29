@@ -23,7 +23,7 @@ const db = firebase.firestore();
 <script src="equipment_db.js"></script>
 <script src="feat_db.js"></script>
 <script src="SPELL_DB.js"></script>
-<script src="class_features_db.js?v=54"></script>
+<script src="class_features_db.js?v=55"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1674,11 +1674,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=54"></script>
-<script src="cs_calc.js?v=54"></script>
-<script src="cs_ui.js?v=54"></script>
-<script src="cs_modal.js?v=54"></script>
-<script src="cs_save.js?v=54"></script>
+<script src="cs_data.js?v=55"></script>
+<script src="cs_calc.js?v=55"></script>
+<script src="cs_ui.js?v=55"></script>
+<script src="cs_modal.js?v=55"></script>
+<script src="cs_save.js?v=55"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -1738,7 +1738,21 @@ function loadFromCloud() {
   db.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot).get().then(function(doc) {
     if (doc.exists && doc.data().data) {
       var data = JSON.parse(doc.data().data);
-      loadData(data); recalcAll();
+      loadData(data);
+      // 모든 UI 재구축
+      if (typeof buildSkills === 'function') buildSkills();
+      if (typeof buildConditions === 'function') buildConditions();
+      if (typeof renderEquip === 'function') renderEquip();
+      if (typeof renderContainers === 'function') renderContainers();
+      if (typeof renderFormulas === 'function') renderFormulas();
+      if (typeof renderLanguages === 'function') renderLanguages();
+      if (typeof renderPets === 'function') renderPets();
+      if (typeof renderFeats === 'function') renderFeats();
+      if (typeof renderSpells === 'function') renderSpells();
+      if (typeof renderWeapons === 'function') renderWeapons();
+      if (typeof renderArmorCard === 'function') renderArmorCard();
+      if (typeof renderShieldCard === 'function') renderShieldCard();
+      recalcAll();
       status.textContent = '✓ 불러오기 완료';
       status.style.color = '#27ae60';
     } else {
