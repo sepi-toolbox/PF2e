@@ -514,31 +514,78 @@ body{
 .add-btn:hover{border-color:var(--accent);color:var(--accent);}
 
 /* ══════════════════════════════════
-   SPELLS
+   SPELLS — Pathbuilder2e Style
    ══════════════════════════════════ */
-/* Spell Tab — Pathbuilder Style */
-.spell-header-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
-.spell-header-left{display:flex;gap:6px;align-items:center;}
-.spell-header-stats{display:flex;gap:8px;align-items:center;font-size:12px;}
+/* Sub-tabs */
+.spell-subtabs{display:flex;background:var(--bg2);border-bottom:2px solid var(--border);}
+.spell-subtab{
+  padding:10px 20px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;
+}
+.spell-subtab:hover{color:var(--text);}
+.spell-subtab.active{color:var(--accent);border-bottom-color:var(--accent);}
+
+/* Header bar */
+.spell-header-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+.spell-header-left{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.spell-header-stats{display:flex;gap:8px;align-items:center;font-size:12px;flex-wrap:wrap;}
 .spell-stat{color:var(--text2);display:flex;align-items:center;gap:3px;}
 .spell-stat strong{color:var(--text);font-size:14px;}
 .spell-stat-sep{color:var(--border2);}
+.spell-dc-atk-box{
+  display:flex;gap:12px;align-items:center;
+  background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:6px 12px;
+}
+.spell-dc-atk-box .spell-val-label{font-size:10px;color:var(--text2);text-transform:uppercase;}
+.spell-dc-atk-box .spell-val{font-size:18px;font-weight:700;color:var(--text);line-height:1;}
+
+/* TEML badges */
+.spell-teml{display:flex;gap:3px;align-items:center;}
+.spell-teml-badge{
+  width:22px;height:22px;display:flex;align-items:center;justify-content:center;
+  border-radius:4px;font-size:10px;font-weight:700;
+  background:var(--bg4);color:var(--text2);border:1px solid var(--border);
+}
+.spell-teml-badge.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+/* Breakdown row */
+.spell-breakdown{display:flex;gap:16px;padding:4px 12px 8px;font-size:11px;color:var(--text2);background:var(--bg3);border-bottom:1px solid var(--border);}
+.spell-breakdown-item{display:flex;flex-direction:column;align-items:center;gap:1px;}
+.spell-breakdown-item .bd-label{font-size:9px;color:var(--text2);text-transform:uppercase;}
+.spell-breakdown-item .bd-val{font-size:13px;font-weight:600;color:var(--text);}
+
+/* Spell controls row */
+.spell-controls-row{display:flex;gap:6px;padding:6px 12px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;align-items:center;}
+
+/* Rank sections */
 .spell-rank-section{border-bottom:1px solid var(--border);}
-.spell-rank-header{padding:8px 12px;font-size:14px;font-weight:700;color:var(--accent);background:var(--bg2);}
+.spell-rank-header{padding:8px 12px;font-size:14px;font-weight:700;color:var(--accent);background:var(--bg2);text-align:center;}
 .spell-rank-header .en{font-size:11px;color:var(--text2);font-weight:400;}
 .spell-slot-col-header{display:flex;padding:4px 12px;font-size:10px;color:var(--text2);border-bottom:1px solid var(--border);}
 .spell-slot-row{display:flex;align-items:center;padding:6px 12px;border-bottom:1px solid var(--border);gap:6px;}
 .spell-slot-row:hover{background:var(--bg4);}
-.spell-slot-name{flex:1;font-size:13px;color:var(--text);}
-.spell-slot-name.empty{color:var(--text2);cursor:pointer;}
+.spell-slot-name{flex:1;font-size:13px;color:var(--text);cursor:pointer;}
+.spell-slot-name .spell-actions-inline{font-size:11px;color:var(--accent);margin-left:4px;}
+.spell-slot-name.empty{color:var(--text2);font-style:italic;}
 .spell-slot-name.empty:hover{color:var(--accent);}
 .spell-slot-dur{width:70px;text-align:center;font-size:11px;color:var(--text2);}
 .spell-slot-range{width:70px;text-align:center;font-size:11px;color:var(--text2);}
 .spell-slot-del{width:20px;text-align:center;cursor:pointer;color:var(--text2);font-size:12px;}
-.spell-slot-del:hover{color:var(--accent);}
-.spell-slots-used{display:flex;gap:3px;padding:4px 12px;}
-.spell-slots-used input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px;cursor:pointer;}
+.spell-slot-del:hover{color:var(--red);}
+.spell-cast-label{
+  width:40px;font-size:10px;font-weight:600;color:var(--accent);text-align:center;
+  cursor:pointer;user-select:none;
+}
+.spell-cast-label.cast-used{color:var(--text2);text-decoration:line-through;}
 
+/* Slot fire icons */
+.spell-slots-used{display:flex;gap:3px;padding:4px 12px;align-items:center;}
+.spell-slots-used input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px;cursor:pointer;}
+.spell-slot-fires{display:inline-flex;gap:2px;margin-left:8px;font-size:14px;cursor:pointer;}
+.spell-slot-fire{opacity:1;transition:opacity .15s;}
+.spell-slot-fire.used{opacity:0.3;}
+
+/* Legacy compat */
 .spell-slot-table{width:100%;border-collapse:collapse;font-size:11px;}
 .spell-slot-table th{
   background:var(--bg3);color:var(--accent);padding:3px 6px;
@@ -1357,9 +1404,46 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
     <!-- ── 주문 Spells ── -->
     <div id="panel-spells" class="panel" style="padding:0;">
-      <!-- Spell Header: DC / Attack / Proficiency -->
-      <div class="spell-header-bar">
-        <div class="spell-header-left">
+      <!-- Sub-tabs -->
+      <div class="spell-subtabs">
+        <span class="spell-subtab active" id="spell-subtab-class" onclick="switchSpellSubtab('class')">주문</span>
+        <span class="spell-subtab" id="spell-subtab-ritual" onclick="switchSpellSubtab('ritual')">의식</span>
+      </div>
+
+      <!-- Class spells content -->
+      <div id="spell-content-class">
+        <!-- Header bar: DC / Attack + TEML -->
+        <div class="spell-header-bar">
+          <div class="spell-dc-atk-box">
+            <div style="text-align:center;">
+              <div class="spell-val-label">DC</div>
+              <div class="spell-val" id="spell-dc-val">10</div>
+            </div>
+            <div style="text-align:center;">
+              <div class="spell-val-label">Attack</div>
+              <div class="spell-val" id="spell-atk-val">+0</div>
+            </div>
+          </div>
+          <div class="spell-teml" id="spell-teml-badges">
+            <span class="spell-teml-badge" data-rank="2" onclick="setSpellProf(2)">T</span>
+            <span class="spell-teml-badge" data-rank="4" onclick="setSpellProf(4)">E</span>
+            <span class="spell-teml-badge" data-rank="6" onclick="setSpellProf(6)">M</span>
+            <span class="spell-teml-badge" data-rank="8" onclick="setSpellProf(8)">L</span>
+          </div>
+          <div class="spell-header-stats">
+            <span class="spell-stat">FP
+              <input class="inline-edit" id="fp-cur" type="number" value="0" min="0" max="3" style="width:22px;font-size:11px;" oninput="save()">/<input class="inline-edit" id="fp-max" type="number" value="0" min="0" max="3" style="width:22px;font-size:11px;" oninput="save()">
+            </span>
+          </div>
+        </div>
+        <!-- Breakdown row -->
+        <div class="spell-breakdown" id="spell-breakdown-row">
+          <div class="spell-breakdown-item"><span class="bd-label" id="spell-key-label">Wis</span><span class="bd-val" id="spell-key-val">0</span></div>
+          <div class="spell-breakdown-item"><span class="bd-label">Prof</span><span class="bd-val" id="spell-prof-val">0</span></div>
+          <div class="spell-breakdown-item"><span class="bd-label">Item</span><span class="bd-val" id="spell-item-val">0</span></div>
+        </div>
+        <!-- Controls: tradition / type selects (hidden but functional) -->
+        <div class="spell-controls-row">
           <select class="prof-sel" id="spell-tradition" onchange="save()" style="min-width:80px;font-size:12px;">
             <option value="">계열 선택</option>
             <option value="arcane">비전</option><option value="divine">신성</option>
@@ -1369,46 +1453,46 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
             <option value="">시전 유형</option>
             <option value="prepared">준비형</option><option value="spontaneous">즉흥형</option>
           </select>
+          <!-- Hidden proficiency select for save/load compat -->
+          <select class="prof-sel" id="prof-spatk" onchange="recalcSpellStats();save()" style="display:none;">
+            <option value="0">미숙련</option><option value="2">숙련</option>
+            <option value="4">전문가</option><option value="6">달인</option><option value="8">전설</option>
+          </select>
         </div>
-        <div class="spell-header-stats">
-          <span class="spell-stat">숙련
-            <select class="prof-sel" id="prof-spatk" onchange="recalcSpellStats();save()" style="font-size:11px;padding:2px 4px;">
-              <option value="0">미숙련</option><option value="2">숙련</option>
-              <option value="4">전문가</option><option value="6">달인</option><option value="8">전설</option>
-            </select>
-          </span>
-          <span class="spell-stat">DC <strong id="spell-dc-val">10</strong></span>
-          <span class="spell-stat">명중 <strong id="spell-atk-val">+0</strong></span>
-          <span class="spell-stat-sep">|</span>
-          <span class="spell-stat">FP
-            <input class="inline-edit" id="fp-cur" type="number" value="0" min="0" max="3" style="width:22px;font-size:11px;" oninput="save()">/<input class="inline-edit" id="fp-max" type="number" value="0" min="0" max="3" style="width:22px;font-size:11px;" oninput="save()">
-          </span>
-        </div>
-      </div>
 
-      <!-- Cantrips Section -->
-      <div class="spell-rank-section">
-        <div class="spell-rank-header">캔트립 <span class="en">Cantrips</span></div>
-        <div class="spell-slot-grid">
+        <!-- Cantrips Section -->
+        <div class="spell-rank-section" id="spell-cantrips-section">
+          <div class="spell-rank-header" id="cantrip-header">캔트립 (강화 랭크 1)</div>
           <div class="spell-slot-col-header">
             <span style="flex:1;">주문</span>
             <span style="width:70px;text-align:center;">지속</span>
             <span style="width:70px;text-align:center;">사거리</span>
             <span style="width:20px;"></span>
           </div>
+          <div id="spells-cantrip"></div>
         </div>
-        <div id="spells-cantrip"></div>
-        <button class="add-btn" onclick="openModal('spell','cantrip')" style="margin:4px 8px;">+ 캔트립 추가</button>
+
+        <!-- Spell Ranks 1~10 -->
+        <div id="spell-ranks-container"></div>
+
+        <!-- Focus Spells -->
+        <div class="spell-rank-section" id="spell-focus-section">
+          <div class="spell-rank-header">집중 주문 <span class="en">Focus Spells</span></div>
+          <div style="padding:4px 12px;">
+            <span class="spell-stat" style="font-size:11px;">FP
+              <strong style="font-size:13px;"><span id="fp-cur-mirror">0</span>/<span id="fp-max-mirror">0</span></strong>
+            </span>
+          </div>
+          <div id="spells-focus"></div>
+          <button class="add-btn" onclick="openModal('spell','focus')" style="margin:4px 8px;">+ 집중 주문 추가</button>
+        </div>
       </div>
 
-      <!-- Spell Ranks 1~10 -->
-      <div id="spell-ranks-container"></div>
-
-      <!-- Focus Spells -->
-      <div class="spell-rank-section">
-        <div class="spell-rank-header">집중 주문 <span class="en">Focus Spells</span></div>
-        <div id="spells-focus"></div>
-        <button class="add-btn" onclick="openModal('spell','focus')" style="margin:4px 8px;">+ 집중 주문 추가</button>
+      <!-- Rituals content (hidden by default) -->
+      <div id="spell-content-ritual" style="display:none;">
+        <div style="padding:20px;text-align:center;color:var(--text2);">
+          <p style="font-size:13px;">의식 주문은 추후 지원 예정입니다.</p>
+        </div>
       </div>
     </div><!-- /#panel-spells -->
 
@@ -2125,6 +2209,9 @@ let state = {
   weapons: [],
   equip: [],
   spells: {cantrip:[], known:[], focus:[]},
+  cantripSlots: 5,
+  spellSlots: {},
+  spellSlotsUsed: {},
   feats: {ancestry:[], class:[], general:[], skill:[], archetype:[], other:[]},
   conditions: {},
   growth: {},  // level-by-level progression: { '1': { classFeat:'name', ancestryFeat:'name', ... }, '2': { ... } }
@@ -2737,6 +2824,9 @@ function recalcSpellStats() {
   if (spDcVal) spDcVal.textContent = dc;
   const spAtkVal = document.getElementById('spell-atk-val');
   if (spAtkVal) spAtkVal.textContent = fmtBonus(atk);
+  // TEML badges & breakdown update
+  if (typeof updateSpellTemlBadges === 'function') updateSpellTemlBadges();
+  if (typeof updateSpellBreakdown === 'function') updateSpellBreakdown();
   // 방어 탭 미러 업데이트
   const mirrorDc = document.getElementById('val-spdc-mirror');
   if (mirrorDc) mirrorDc.textContent = dc;
@@ -3903,74 +3993,220 @@ function addFocusSpell() {
   save();
 }
 
+// ── Spell slot pending for modal pick ──
+let _spellSlotPending = null;
+
+function getActionIcons(actions) {
+  if (!actions) return '';
+  const map = {'1':'◆','2':'◆◆','3':'◆◆◆','reaction':'↩','free':'⟡'};
+  return map[String(actions)] || actions;
+}
+
+function switchSpellSubtab(tab) {
+  document.getElementById('spell-subtab-class').classList.toggle('active', tab==='class');
+  document.getElementById('spell-subtab-ritual').classList.toggle('active', tab==='ritual');
+  document.getElementById('spell-content-class').style.display = tab==='class' ? '' : 'none';
+  document.getElementById('spell-content-ritual').style.display = tab==='ritual' ? '' : 'none';
+}
+
+
+function updateSpellTemlBadges() {
+  const cur = parseInt(document.getElementById('prof-spatk')?.value||0);
+  const badges = document.querySelectorAll('#spell-teml-badges .spell-teml-badge');
+  // T=2(숙련), E=4(전문가), M=6(달인), L=8(전설); 0=미숙련
+  const ranks = [2,4,6,8];
+  badges.forEach((b, i) => {
+    b.classList.toggle('active', cur >= ranks[i]);
+  });
+}
+
+function setSpellProf(rank) {
+  const el = document.getElementById('prof-spatk');
+  if (!el) return;
+  const cur = parseInt(el.value||0);
+  // If clicking same rank, toggle down to previous; otherwise set to clicked rank
+  el.value = String(cur === rank ? Math.max(0, rank - 2) : rank);
+  recalcSpellStats();
+  save();
+  updateSpellTemlBadges();
+}
+
+function updateSpellBreakdown() {
+  const keyAttr = getClassKeyAttr();
+  const keyMod = getMod(keyAttr);
+  const prof = getProfBonus('prof-spatk');
+  const attrLabels = {str:'Str',dex:'Dex',con:'Con',int:'Int',wis:'Wis',cha:'Cha'};
+  const el1 = document.getElementById('spell-key-label');
+  const el2 = document.getElementById('spell-key-val');
+  const el3 = document.getElementById('spell-prof-val');
+  if (el1) el1.textContent = attrLabels[keyAttr] || 'Key';
+  if (el2) el2.textContent = keyMod;
+  if (el3) el3.textContent = prof;
+}
+
+function pickSpellForSlot(type, rank, slotIndex) {
+  _spellSlotPending = {type, rank, slotIndex};
+  if (type === 'cantrip') {
+    openModal('spell', 'cantrip');
+    // Auto-set filter to cantrip
+    setTimeout(() => {
+      const typeFilter = document.getElementById('filter-spell-type');
+      if (typeFilter) { typeFilter.value = 'cantrip'; renderOptions(getOptionsData('spell')); }
+    }, 50);
+  } else {
+    openModal('spell', 'known');
+    setTimeout(() => {
+      const rankFilter = document.getElementById('filter-spell-rank');
+      if (rankFilter) { rankFilter.value = String(rank); renderOptions(getOptionsData('spell')); }
+    }, 50);
+  }
+}
+
 function renderSpells() {
-  // Cantrips
-  renderSpellSlotList('spells-cantrip', state.spells.cantrip, 'cantrip');
-  // Focus
+  const lv = getLevel();
+  const maxRank = Math.min(10, Math.ceil(lv / 2));
+  const heightenedLevel = Math.max(1, Math.ceil(lv / 2));
+
+  // Update sub-tab label with class name
+  const subtabClass = document.getElementById('spell-subtab-class');
+  if (subtabClass) {
+    subtabClass.textContent = state.selectedClass ? state.selectedClass.name : '주문';
+  }
+
+  // Update TEML badges
+  updateSpellTemlBadges();
+  // Update breakdown
+  updateSpellBreakdown();
+
+  // ── Cantrips ──
+  const cantripHeader = document.getElementById('cantrip-header');
+  if (cantripHeader) cantripHeader.textContent = `캔트립 (강화 랭크 ${heightenedLevel})`;
+
+  const cantripSlots = state.cantripSlots || 5;
+  const cantripEl = document.getElementById('spells-cantrip');
+  if (cantripEl) {
+    cantripEl.innerHTML = '';
+    for (let i = 0; i < cantripSlots; i++) {
+      const spell = state.spells.cantrip[i] || null;
+      const row = document.createElement('div');
+      row.className = 'spell-slot-row';
+      if (spell) {
+        const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
+        const actions = getActionIcons(spellData?.actions);
+        row.innerHTML = `
+          <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-dur">\u2014</span>
+          <span class="spell-slot-range">\u2014</span>
+          <span class="spell-slot-del" onclick="removeSpellFromSlot('cantrip',${i})">✕</span>`;
+      } else {
+        row.innerHTML = `
+          <span class="spell-slot-name empty" onclick="pickSpellForSlot('cantrip',0,${i})">선택 안 됨</span>
+          <span class="spell-slot-dur"></span>
+          <span class="spell-slot-range"></span>
+          <span style="width:20px;"></span>`;
+      }
+      cantripEl.appendChild(row);
+    }
+  }
+
+  // ── Focus spells ──
   renderSpellSlotList('spells-focus', state.spells.focus, 'focus');
-  // Known spells grouped by rank
+  // Update FP mirrors
+  const fpCurMirror = document.getElementById('fp-cur-mirror');
+  const fpMaxMirror = document.getElementById('fp-max-mirror');
+  if (fpCurMirror) fpCurMirror.textContent = document.getElementById('fp-cur')?.value || '0';
+  if (fpMaxMirror) fpMaxMirror.textContent = document.getElementById('fp-max')?.value || '0';
+
+  // ── Known spells grouped by rank ──
   const ranksContainer = document.getElementById('spell-ranks-container');
   if (!ranksContainer) return;
   ranksContainer.innerHTML = '';
-  const maxRank = Math.min(10, Math.ceil(getLevel() / 2));
+
   for (let r = 1; r <= maxRank; r++) {
-    const spellsAtRank = state.spells.known.filter(s => s.rank === r);
     const slotMax = parseInt(state.spellSlots?.[r] || 0);
+    const spellsAtRank = state.spells.known.filter(s => s.rank === r);
 
     const section = document.createElement('div');
     section.className = 'spell-rank-section';
-    section.innerHTML = `
-      <div class="spell-rank-header">
-        주문 랭크 ${r} <span class="en">Spell Rank ${r}</span>
-        <span style="float:right;font-size:11px;color:var(--text2);">
-          슬롯: <input class="inline-edit" type="number" value="${slotMax}" min="0" max="10"
-            style="width:28px;font-size:11px;" oninput="state.spellSlots=state.spellSlots||{};state.spellSlots[${r}]=parseInt(this.value);renderSpellSlotChecks(this.parentElement,${r});save()">
-        </span>
-      </div>
-      <div class="spell-slot-col-header">
-        <span style="flex:1;">주문</span>
-        <span style="width:70px;text-align:center;">지속</span>
-        <span style="width:70px;text-align:center;">사거리</span>
-        <span style="width:20px;"></span>
-      </div>`;
 
-    // Slot checkboxes
+    // Rank header with slot count editor
+    const header = document.createElement('div');
+    header.className = 'spell-rank-header';
+    header.innerHTML = `주문 랭크 ${r}
+      <span style="float:right;font-size:11px;color:var(--text2);">
+        슬롯: <input class="inline-edit" type="number" value="${slotMax}" min="0" max="10"
+          style="width:28px;font-size:11px;" oninput="state.spellSlots=state.spellSlots||{};state.spellSlots[${r}]=parseInt(this.value);renderSpells();save()">
+      </span>`;
+    section.appendChild(header);
+
+    // Fire icons for slot tracking
     if (slotMax > 0) {
-      const checksDiv = document.createElement('div');
-      checksDiv.className = 'spell-slots-used';
+      const firesDiv = document.createElement('div');
+      firesDiv.className = 'spell-slots-used';
+      firesDiv.innerHTML = '<span style="font-size:10px;color:var(--text2);margin-right:4px;">슬롯:</span>';
       for (let c = 0; c < slotMax; c++) {
-        const cb = document.createElement('input');
-        cb.type = 'checkbox';
-        cb.checked = !!(state.spellSlotsUsed?.[r]?.[c]);
-        cb.onchange = function() {
-          state.spellSlotsUsed = state.spellSlotsUsed || {};
-          state.spellSlotsUsed[r] = state.spellSlotsUsed[r] || {};
-          state.spellSlotsUsed[r][c] = this.checked;
-          save();
-        };
-        checksDiv.appendChild(cb);
+        const isUsed = !!(state.spellSlotsUsed?.[r]?.[c]);
+        const fire = document.createElement('span');
+        fire.className = 'spell-slot-fire' + (isUsed ? ' used' : '');
+        fire.textContent = '\uD83D\uDD25';
+        fire.style.cursor = 'pointer';
+        fire.onclick = (function(rank, idx, wasUsed) {
+          return function() {
+            state.spellSlotsUsed = state.spellSlotsUsed || {};
+            state.spellSlotsUsed[rank] = state.spellSlotsUsed[rank] || {};
+            state.spellSlotsUsed[rank][idx] = !wasUsed;
+            renderSpells();
+            save();
+          };
+        })(r, c, isUsed);
+        firesDiv.appendChild(fire);
       }
-      section.appendChild(checksDiv);
+      section.appendChild(firesDiv);
     }
 
-    // Spell rows
-    const listDiv = document.createElement('div');
-    listDiv.id = `spells-rank-${r}`;
-    spellsAtRank.forEach((s, idx) => {
-      const globalIdx = state.spells.known.indexOf(s);
-      const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
+    // Column headers
+    const colHeader = document.createElement('div');
+    colHeader.className = 'spell-slot-col-header';
+    colHeader.innerHTML = `
+      <span style="width:40px;text-align:center;">시전</span>
+      <span style="flex:1;">주문</span>
+      <span style="width:70px;text-align:center;">지속</span>
+      <span style="width:70px;text-align:center;">사거리</span>
+      <span style="width:20px;"></span>`;
+    section.appendChild(colHeader);
+
+    // Render spell slots (max of slotMax or actual spells count)
+    const totalSlots = Math.max(slotMax, spellsAtRank.length);
+    for (let i = 0; i < totalSlots; i++) {
+      const spell = spellsAtRank[i] || null;
       const row = document.createElement('div');
       row.className = 'spell-slot-row';
-      row.innerHTML = `
-        <span class="spell-slot-name" onclick="showInfo('spell','${s.name}')">${s.name}</span>
-        <span class="spell-slot-dur">${spellData?.actions||''}</span>
-        <span class="spell-slot-range">-</span>
-        <span class="spell-slot-del" onclick="removeSpell('known',${globalIdx})">✕</span>`;
-      listDiv.appendChild(row);
-    });
-    section.appendChild(listDiv);
 
-    // Add button
+      // Cast label (clickable to toggle)
+      const isCast = !!(state.spellSlotsUsed?.[r]?.[i]);
+
+      if (spell) {
+        const globalIdx = state.spells.known.indexOf(spell);
+        const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
+        const actions = getActionIcons(spellData?.actions);
+        row.innerHTML = `
+          <span class="spell-cast-label${isCast?' cast-used':''}" onclick="toggleSpellCast(${r},${i})">Cast</span>
+          <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-dur">\u2014</span>
+          <span class="spell-slot-range">\u2014</span>
+          <span class="spell-slot-del" onclick="removeSpell('known',${globalIdx})">✕</span>`;
+      } else {
+        row.innerHTML = `
+          <span class="spell-cast-label">Cast</span>
+          <span class="spell-slot-name empty" onclick="pickSpellForSlot('known',${r},${i})">선택 안 됨</span>
+          <span class="spell-slot-dur"></span>
+          <span class="spell-slot-range"></span>
+          <span style="width:20px;"></span>`;
+      }
+      section.appendChild(row);
+    }
+
+    // Add button if we want more spells beyond slots
     const addBtn = document.createElement('button');
     addBtn.className = 'add-btn';
     addBtn.style.cssText = 'margin:4px 8px;';
@@ -3982,25 +4218,41 @@ function renderSpells() {
   }
 }
 
+function toggleSpellCast(rank, slotIdx) {
+  state.spellSlotsUsed = state.spellSlotsUsed || {};
+  state.spellSlotsUsed[rank] = state.spellSlotsUsed[rank] || {};
+  state.spellSlotsUsed[rank][slotIdx] = !state.spellSlotsUsed[rank][slotIdx];
+  renderSpells();
+  save();
+}
+
+function removeSpellFromSlot(type, index) {
+  if (type === 'cantrip') {
+    state.spells.cantrip.splice(index, 1);
+  }
+  renderSpells();
+  save();
+}
+
 function renderSpellSlotList(elId, arr, type) {
   const el = document.getElementById(elId);
   if (!el) return;
   el.innerHTML = '';
   arr.forEach((s, i) => {
     const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
+    const actions = getActionIcons(spellData?.actions);
     const row = document.createElement('div');
     row.className = 'spell-slot-row';
     row.innerHTML = `
-      <span class="spell-slot-name" onclick="showInfo('spell','${s.name}')">${s.name}</span>
-      <span class="spell-slot-dur">${spellData?.actions||''}</span>
-      <span class="spell-slot-range">-</span>
+      <span class="spell-slot-name" onclick="showInfo('spell','${s.name.replace(/'/g,"\\'")}')">${s.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+      <span class="spell-slot-dur">\u2014</span>
+      <span class="spell-slot-range">\u2014</span>
       <span class="spell-slot-del" onclick="removeSpell('${type}',${i})">✕</span>`;
     el.appendChild(row);
   });
 }
 
 function renderSpellSlotChecks(parentEl, rank) {
-  // Re-render slot checks on slot count change
   renderSpells();
 }
 
@@ -4606,7 +4858,31 @@ function confirmModal() {
     renderFeats();
   } else if (modalType==='spell') {
     const sp = modalSelected;
-    if (sp.is_cantrip) {
+    if (_spellSlotPending) {
+      const pending = _spellSlotPending;
+      _spellSlotPending = null;
+      if (pending.type === 'cantrip') {
+        // Insert at slot index (replace or insert)
+        if (pending.slotIndex < state.spells.cantrip.length) {
+          state.spells.cantrip[pending.slotIndex] = {name: sp.name_ko, rank:0};
+        } else {
+          // Pad with nulls if needed, then set
+          while (state.spells.cantrip.length < pending.slotIndex) state.spells.cantrip.push(null);
+          state.spells.cantrip[pending.slotIndex] = {name: sp.name_ko, rank:0};
+        }
+      } else {
+        // Known spell slot
+        const rank = pending.rank;
+        const spellsAtRank = state.spells.known.filter(s => s.rank === rank);
+        if (pending.slotIndex < spellsAtRank.length) {
+          // Replace existing
+          const globalIdx = state.spells.known.indexOf(spellsAtRank[pending.slotIndex]);
+          state.spells.known[globalIdx] = {name: sp.name_ko, rank: rank};
+        } else {
+          state.spells.known.push({name: sp.name_ko, rank: rank});
+        }
+      }
+    } else if (sp.is_cantrip) {
       state.spells.cantrip.push({name: sp.name_ko, rank:0});
     } else if (sp.is_focus) {
       state.spells.focus.push({name: sp.name_ko});
@@ -4681,6 +4957,7 @@ function closeModal() {
   growthPendingLevel = null;
   growthPendingKey = null;
   growthPendingFeatType = null;
+  _spellSlotPending = null;
   const confirmBtn = document.querySelector('.btn-confirm');
   if (confirmBtn) confirmBtn.style.display = '';
   // Restore list visibility (hidden by showInfo)
@@ -4717,6 +4994,11 @@ function applyClassDefaults(cls) {
     // 시전 유형 자동 설정
     const typeEl = document.getElementById('spell-type');
     if (typeEl && cls.casting) typeEl.value = cls.casting;
+    // 캔트립 슬롯 기본값
+    state.cantripSlots = 5;
+    // 기본 주문 슬롯 (레벨 1 기준: 랭크1 = 2슬롯)
+    state.spellSlots = state.spellSlots || {};
+    if (!state.spellSlots[1]) state.spellSlots[1] = 2;
   }
   const speedEl = document.getElementById('speed');
   if (speedEl && state.selectedAncestry) speedEl.value = state.selectedAncestry.speed;
@@ -5098,7 +5380,7 @@ function collectData() {
     selectedBackground: state.selectedBackground?.id || null,
     selectedHeritage:   state.selectedHeritage?.id   || null,
     weapons: state.weapons, equip: state.equip,
-    spells: state.spells, spellSlots: state.spellSlots, spellSlotsUsed: state.spellSlotsUsed,
+    spells: state.spells, spellSlots: state.spellSlots, spellSlotsUsed: state.spellSlotsUsed, cantripSlots: state.cantripSlots || 5,
     feats: state.feats, conditions: state.conditions,
     growth: state.growth,
     vision: state.vision || null,
@@ -5114,8 +5396,9 @@ function collectData() {
     if (sk.isLore) data.loreNames[sk.id] = document.getElementById('lore-name-'+sk.id)?.value;
   });
   for (let r=1; r<=10; r++) {
+    const domMax = document.getElementById(`slots-max-${r}`)?.value;
     data.spellSlots[r] = {
-      max: document.getElementById(`slots-max-${r}`)?.value,
+      max: domMax !== undefined ? domMax : (state.spellSlots?.[r] || 0),
       checks: Array.from(document.querySelectorAll(`#slot-checks-${r} input`)).map(c=>c.checked),
     };
   }
@@ -5325,6 +5608,7 @@ function loadData(d) {
     if (d.spells) { state.spells = d.spells; }
     if (d.spellSlots) state.spellSlots = d.spellSlots;
     if (d.spellSlotsUsed) state.spellSlotsUsed = d.spellSlotsUsed;
+    if (d.cantripSlots) state.cantripSlots = d.cantripSlots;
     renderSpells();
     if (d.feats) { state.feats = d.feats; renderFeats(); }
     if (d.growth) { state.growth = d.growth; renderGrowthPlan(); }
