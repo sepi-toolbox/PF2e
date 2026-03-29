@@ -507,7 +507,7 @@ function renderEquip() {
   const header = document.createElement('div');
   header.className = 'equip-row';
   header.style.cssText = 'font-size:10px;color:var(--text2);border-bottom:1px solid var(--border);padding:2px 4px;';
-  header.innerHTML = `<span style="flex:1;">아이템</span><span style="width:30px;text-align:center;">부피</span><span style="width:70px;text-align:center;">수량</span><span style="width:60px;text-align:center;">장착</span><span style="width:24px;"></span>`;
+  header.innerHTML = `<span style="flex:1;">아이템</span><span style="width:30px;text-align:center;">부피</span><span style="width:70px;text-align:center;">수량</span><span style="width:60px;text-align:center;">장착</span><span style="width:40px;text-align:center;">상태</span><span style="width:24px;"></span>`;
   list.appendChild(header);
 
   state.equip.forEach((e,i) => {
@@ -537,12 +537,21 @@ function renderEquip() {
         <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},1)">+</button>
       </span>
       <span style="width:60px;text-align:center;">${equipBtnHtml}</span>
+      <span style="width:40px;text-align:center;">
+        <button class="${e._broken ? 'equip-toggle equipped' : 'equip-toggle'}" onclick="event.stopPropagation();toggleBroken(${i})" style="font-size:9px;padding:2px 4px;${e._broken?'background:var(--red-bg);color:var(--red-light);border-color:var(--red);':''}">${e._broken ? '파손' : '정상'}</button>
+      </span>
       <span style="width:24px;text-align:center;">
         ${hasContainers ? `<span style="cursor:pointer;font-size:12px;color:var(--text2);" onclick="event.stopPropagation();moveToContainer(${i})" title="배낭으로 이동">📦</span>` : ''}
       </span>`;
     list.appendChild(row);
   });
   recalcBulk();
+}
+
+function toggleBroken(i) {
+  state.equip[i]._broken = !state.equip[i]._broken;
+  renderEquip();
+  save();
 }
 
 function moveToContainer(itemIdx) {
@@ -1733,12 +1742,84 @@ function applyPetEdit(i) {
   closeModal();
 }
 
-function petHpChange(i, delta) {
+function openPetHpModal(i) {
   const p = state.pets[i];
-  if (delta > 0) p.hp.cur = Math.min(p.hp.max, p.hp.cur + delta);
-  else p.hp.cur = Math.max(0, p.hp.cur + delta);
-  renderPets();
-  save();
+  const cur = p.hp.cur || 0;
+  const max = p.hp.max || 0;
+  const temp = p.hp.temp || 0;
+
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('hidden');
+  modalType = 'pet-hp';
+  document.getElementById('modal-title').textContent = '❤ ' + p.name + ' HP';
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) searchEl.style.display = 'none';
+  const fbar = document.getElementById('modal-filterbar');
+  if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm');
+  if (confirmBtn) confirmBtn.style.display = 'none';
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) { listEl.style.display = ''; listEl.style.width = '100%'; listEl.style.borderRight = 'none'; }
+  const detail = document.getElementById('modal-detail');
+  if (detail) detail.style.display = 'none';
+
+  const inputStyle = 'flex:1;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:8px;border-radius:4px;font-size:14px;text-align:center;';
+  const container = document.getElementById('modal-options');
+  container.innerHTML = `<div style="padding:16px;">
+    <div style="text-align:center;margin-bottom:16px;">
+      <div style="font-size:12px;color:var(--text2);">현재 HP</div>
+      <div style="font-size:28px;font-weight:700;color:var(--text);">${cur} <span style="color:var(--text2);font-size:16px;">/ ${max}</span></div>
+      ${temp > 0 ? '<div style="font-size:12px;color:#999;">임시 HP: +' + temp + '</div>' : ''}
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="border:1px solid var(--border);border-radius:6px;padding:12px;">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">❤️ 회복</div>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="pet-hp-heal" min="0" value="0" onkeydown="if(event.key==='Enter')applyPetHp(${i},'heal')" style="${inputStyle}">
+          <button onclick="applyPetHp(${i},'heal')" style="padding:8px 16px;background:var(--green);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:13px;font-weight:600;">확인</button>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:6px;padding:12px;">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">⚔️ 피해</div>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="pet-hp-dmg" min="0" value="0" onkeydown="if(event.key==='Enter')applyPetHp(${i},'dmg')" style="${inputStyle}">
+          <button onclick="applyPetHp(${i},'dmg')" style="padding:8px 16px;background:var(--red);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:13px;font-weight:600;">확인</button>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:6px;padding:12px;">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">🔧 HP 직접 설정</div>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="pet-hp-set" min="0" value="${cur}" onkeydown="if(event.key==='Enter')applyPetHp(${i},'set')" style="${inputStyle}">
+          <button onclick="applyPetHp(${i},'set')" style="padding:8px 16px;background:var(--bg4);color:var(--text);border:1px solid var(--border2);border-radius:4px;cursor:pointer;font-size:13px;">확인</button>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:6px;padding:12px;">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">🛡 임시 HP</div>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="pet-hp-temp" min="0" value="${temp}" onkeydown="if(event.key==='Enter')applyPetHp(${i},'temp')" style="${inputStyle}">
+          <button onclick="applyPetHp(${i},'temp')" style="padding:8px 16px;background:var(--bg4);color:var(--text);border:1px solid var(--border2);border-radius:4px;cursor:pointer;font-size:13px;">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function applyPetHp(i, action) {
+  const p = state.pets[i];
+  if (action === 'heal') {
+    const val = parseInt(document.getElementById('pet-hp-heal').value) || 0;
+    p.hp.cur = Math.min(p.hp.max, p.hp.cur + val);
+  } else if (action === 'dmg') {
+    let val = parseInt(document.getElementById('pet-hp-dmg').value) || 0;
+    let temp = p.hp.temp || 0;
+    if (temp > 0) { const absorbed = Math.min(temp, val); temp -= absorbed; val -= absorbed; p.hp.temp = temp; }
+    p.hp.cur = Math.max(0, p.hp.cur - val);
+  } else if (action === 'set') {
+    p.hp.cur = Math.min(p.hp.max, Math.max(0, parseInt(document.getElementById('pet-hp-set').value) || 0));
+  } else if (action === 'temp') {
+    p.hp.temp = Math.max(0, parseInt(document.getElementById('pet-hp-temp').value) || 0);
+  }
+  renderPets(); save(); closeModal();
 }
 
 function renderPets() {
@@ -1753,9 +1834,10 @@ function renderPets() {
   state.pets.forEach((p, i) => {
     const hpPct = p.hp.max > 0 ? Math.round((p.hp.cur/p.hp.max)*100) : 0;
     const hpColor = hpPct > 50 ? '#2d8a5e' : hpPct > 25 ? '#a08a20' : '#a03030';
-    // 마갑 적용 계산
+    // 마갑 적용 계산 (파손 시 AC 보너스 절반)
     const bd = p.bardingData || null;
-    const effectiveAC = p.ac + (bd ? bd.ac : 0);
+    const bardingAC = bd ? (p.bardingBroken ? Math.floor(bd.ac / 2) : bd.ac) : 0;
+    const effectiveAC = p.ac + bardingAC;
     const effectiveSpeed = Math.max(0, p.speed + (bd ? bd.speed : 0));
     const bardingCheckPen = bd ? bd.check : 0;
     const bardingDexCap = bd ? bd.dex : 99;
@@ -1778,13 +1860,16 @@ function renderPets() {
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
         <div class="ac-shield" style="width:40px;height:40px;font-size:16px;line-height:40px;">${effectiveAC}</div>
         <div style="flex:1;">
-          <div style="position:relative;background:var(--bg4);border:1px solid var(--border);border-radius:4px;height:22px;overflow:hidden;cursor:pointer;" onclick="petHpChange(${i}, parseInt(prompt('HP 변경량 (+회복 / -피해):'))||0)">
+          <div style="position:relative;background:var(--bg4);border:1px solid var(--border);border-radius:4px;height:22px;overflow:hidden;cursor:pointer;" onclick="openPetHpModal(${i})">
             <div style="position:absolute;left:0;top:0;bottom:0;width:${hpPct}%;background:${hpColor};border-radius:3px;transition:width .3s;"></div>
-            <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;height:100%;font-size:11px;font-weight:700;color:#fff;">HP ${p.hp.cur}/${p.hp.max}</div>
+            ${(p.hp.temp||0) > 0 ? `<div style="position:absolute;right:0;top:0;bottom:0;width:${Math.min(100,(p.hp.temp/p.hp.max)*100)}%;background:#666;border-left:2px solid #999;"></div>` : ''}
+            <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;height:100%;font-size:11px;font-weight:700;color:#fff;">HP ${p.hp.cur}/${p.hp.max}${(p.hp.temp||0)>0?' +임시'+p.hp.temp:''}</div>
           </div>
         </div>
       </div>
-      ${p.barding && p.barding !== '없음' ? `<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">🛡 마갑: <strong style="color:var(--text);">${p.barding}</strong> <span style="color:var(--text2);">(AC+${bd?.ac||0} 민첩상한+${bd?.dex||0} 판정${bd?.check||0})</span></div>` : ''}
+      ${p.barding && p.barding !== '없음' ? `<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">🛡 마갑: <strong style="color:var(--text);">${p.barding}</strong> <span style="color:var(--text2);">(AC+${bd?.ac||0} 민첩상한+${bd?.dex||0} 판정${bd?.check||0})</span>
+        <button onclick="event.stopPropagation();togglePetBardingBroken(${i})" style="font-size:9px;padding:1px 6px;border-radius:3px;cursor:pointer;margin-left:4px;${p.bardingBroken?'background:var(--red-bg);color:var(--red-light);border:1px solid var(--red);':'background:var(--bg4);color:var(--text2);border:1px solid var(--border2);'}">${p.bardingBroken?'파손됨':'정상'}</button>
+      </div>` : ''}
       ${p.isFamiliar && p.familiarAbilities?.length > 0 ? `<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">✦ 능력: <strong style="color:var(--accent);">${p.familiarAbilities.map(id => FAMILIAR_ABILITIES.find(a=>a.id===id)?.name||id).join(', ')}</strong></div>` : ''}
       ${(p.conditions && Object.keys(p.conditions).some(k=>p.conditions[k]>0)) ? `<div style="font-size:10px;color:var(--red-light);margin-bottom:4px;">⚠ ${Object.entries(p.conditions).filter(([,v])=>v>0).map(([k,v])=>{const cd=CONDITIONS_DATA.find(c=>c.name===k);return cd?.valued?k+' '+v:k;}).join(', ')}</div>` : ''}
       <!-- Info row -->
@@ -1922,6 +2007,11 @@ function buyBarding(petIdx, bardingName) {
     deductCurrency(costCp);
   }
   applyBarding(petIdx, bardingName);
+}
+
+function togglePetBardingBroken(i) {
+  state.pets[i].bardingBroken = !state.pets[i].bardingBroken;
+  renderPets(); save();
 }
 
 function applyBarding(petIdx, bardingName) {
