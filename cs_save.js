@@ -1,0 +1,363 @@
+// ═══════════════════════════════════════════════
+//  SAVE / LOAD  (in-memory only; use JSON 내보내기/불러오기)
+// ═══════════════════════════════════════════════
+
+function save() { /* 인메모리 상태 유지 — 영구 저장은 JSON 내보내기 사용 */ }
+
+function collectData() {
+  const data = {
+    fields: {
+      name: document.getElementById('f-name')?.value,
+      level: document.getElementById('f-level')?.value,
+      xp: document.getElementById('f-xp')?.value,
+      notes: document.getElementById('f-notes')?.value,
+      languages: document.getElementById('f-languages')?.value,
+      combatNotes: document.getElementById('combat-notes')?.value,
+      equipNotes: document.getElementById('equip-notes')?.value,
+      speed: document.getElementById('speed')?.value,
+    },
+    boosts: state.boosts,
+    hp: {cur:document.getElementById('hp-cur')?.value, max:document.getElementById('hp-max')?.value, temp:document.getElementById('hp-temp')?.value},
+    dying: document.getElementById('dying')?.value,
+    wounded: document.getElementById('wounded')?.value,
+    heroPoints: document.getElementById('hero-points')?.value,
+    shieldHpCur: document.getElementById('shield-hp-cur')?.value,
+    profs: {
+      ac: document.getElementById('prof-ac')?.value,
+      fort: document.getElementById('prof-fort')?.value,
+      ref: document.getElementById('prof-ref')?.value,
+      will: document.getElementById('prof-will')?.value,
+      perc: document.getElementById('prof-perc')?.value,
+      classdc: document.getElementById('prof-classdc')?.value,
+      spatk: document.getElementById('prof-spatk')?.value,
+      weaponSimple: document.getElementById('prof-weapon-simple')?.value,
+      weaponMartial: document.getElementById('prof-weapon-martial')?.value,
+      weaponAdvanced: document.getElementById('prof-weapon-advanced')?.value,
+      weaponUnarmed: document.getElementById('prof-weapon-unarmed')?.value,
+      armorLight: document.getElementById('prof-armor-light')?.value,
+      armorMedium: document.getElementById('prof-armor-medium')?.value,
+      armorHeavy: document.getElementById('prof-armor-heavy')?.value,
+      armorUnarmored: document.getElementById('prof-armor-unarmored')?.value,
+    },
+    skillProfs: {}, loreNames: {},
+    armor:  {name:document.getElementById('armor-name')?.value,  ac:document.getElementById('armor-ac')?.value,   dex:document.getElementById('armor-dex')?.value},
+    shield: {name:document.getElementById('shield-name')?.value, ac:document.getElementById('shield-ac')?.value,  hard:document.getElementById('shield-hard')?.value, hp:document.getElementById('shield-hp')?.value},
+    spell:  {tradition:document.getElementById('spell-tradition')?.value, type:document.getElementById('spell-type')?.value, fpCur:document.getElementById('fp-cur')?.value, fpMax:document.getElementById('fp-max')?.value},
+    spellSlots: {},
+    currency: {gp:document.getElementById('cur-gp')?.value, sp:document.getElementById('cur-sp')?.value, cp:document.getElementById('cur-cp')?.value, pp:document.getElementById('cur-pp')?.value},
+    selectedClass:      state.selectedClass?.id      || null,
+    selectedSubclass:   state.selectedSubclass?.id   || null,
+    selectedAncestry:   state.selectedAncestry?.id   || null,
+    selectedBackground: state.selectedBackground?.id || null,
+    selectedHeritage:   state.selectedHeritage?.id   || null,
+    weapons: state.weapons, equip: state.equip,
+    spells: state.spells, spellSlots: state.spellSlots, spellSlotsUsed: state.spellSlotsUsed, cantripSlots: state.cantripSlots || 5,
+    feats: state.feats, conditions: state.conditions,
+    growth: state.growth,
+    vision: state.vision || null,
+    size: state.size || null,
+    trainableSkillSlots: state.trainableSkillSlots || 0,
+    armorPotency: state.armorPotency || 0,
+    armorResilient: state.armorResilient || 0,
+    armorStowed: state.armorStowed || false,
+    shieldStowed: state.shieldStowed || false,
+    deity: state.deity || null,
+    divineFont: state.divineFont || null,
+    sanctification: state.sanctification || null,
+    divineFontUsed: state.divineFontUsed || 0,
+  };
+  SKILLS.forEach(sk => {
+    data.skillProfs[sk.id] = document.getElementById('sk-prof-'+sk.id)?.value;
+    if (sk.isLore) data.loreNames[sk.id] = document.getElementById('lore-name-'+sk.id)?.value;
+  });
+  for (let r=1; r<=10; r++) {
+    const domMax = document.getElementById(`slots-max-${r}`)?.value;
+    data.spellSlots[r] = {
+      max: domMax !== undefined ? domMax : (state.spellSlots?.[r] || 0),
+      checks: Array.from(document.querySelectorAll(`#slot-checks-${r} input`)).map(c=>c.checked),
+    };
+  }
+  return data;
+}
+
+function exportJSON() {
+  const data = collectData();
+  const charName = (document.getElementById('f-name')?.value || 'character').replace(/[^\w가-힣]/g,'_');
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${charName}_pf2e.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  const st = document.getElementById('save-status');
+  st.textContent = 'JSON 내보냄';
+  st.classList.add('show');
+  setTimeout(() => { st.classList.remove('show'); st.textContent = '저장됨'; }, 2000);
+}
+
+function importJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      loadData(JSON.parse(e.target.result));
+      recalcAll();
+    } catch(err) {
+      alert('JSON 파일을 읽을 수 없습니다:\n' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function loadData(d) {
+  try {
+    if (!d) return;
+
+    // Fields
+    if (d.boosts) {
+      Object.assign(state.boosts, d.boosts);
+    }
+    if (d.fields) {
+      ['name','level','xp','notes','languages','speed'].forEach(f => {
+        const el = document.getElementById('f-'+f) || document.getElementById(f);
+        if (el && d.fields[f] !== undefined) el.value = d.fields[f];
+      });
+      if (d.fields.combatNotes) document.getElementById('combat-notes').value = d.fields.combatNotes;
+      if (d.fields.equipNotes) document.getElementById('equip-notes').value = d.fields.equipNotes;
+      if (d.fields.speed) document.getElementById('speed').value = d.fields.speed;
+    }
+    // Attrs: now calculated from boosts (no direct attr input)
+    // HP
+    if (d.hp) {
+      ['cur','max','temp'].forEach(t => {
+        if (d.hp[t]!==undefined) document.getElementById('hp-'+t).value = d.hp[t];
+      });
+    }
+    if (d.dying !== undefined) document.getElementById('dying').value = d.dying;
+    if (d.wounded !== undefined) document.getElementById('wounded').value = d.wounded;
+    if (d.heroPoints !== undefined) { document.getElementById('hero-points').value = d.heroPoints; loadHeroPoints(d.heroPoints); }
+    if (d.shieldHpCur !== undefined && document.getElementById('shield-hp-cur')) document.getElementById('shield-hp-cur').value = d.shieldHpCur;
+
+    // Profs
+    if (d.profs) {
+      ['ac','fort','ref','will','perc','classdc','spatk'].forEach(p => {
+        const el = document.getElementById('prof-'+p);
+        if (el && d.profs[p] !== undefined) el.value = d.profs[p];
+      });
+      // Weapon proficiencies
+      const wpMap = {weaponSimple:'simple',weaponMartial:'martial',weaponAdvanced:'advanced',weaponUnarmed:'unarmed'};
+      for (const [key,cat] of Object.entries(wpMap)) {
+        if (d.profs[key] !== undefined) {
+          const el = document.getElementById('prof-weapon-'+cat);
+          if (el) el.value = d.profs[key];
+        }
+      }
+      initWeaponProfBadges();
+      // Armor proficiencies
+      const apMap = {armorLight:'light',armorMedium:'medium',armorHeavy:'heavy',armorUnarmored:'unarmored'};
+      for (const [key,cat] of Object.entries(apMap)) {
+        if (d.profs[key] !== undefined) {
+          const el = document.getElementById('prof-armor-'+cat);
+          if (el) el.value = d.profs[key];
+        }
+      }
+      initArmorProfBadges();
+    }
+    // Skills
+    if (d.skillProfs) {
+      SKILLS.forEach(sk => {
+        if (d.skillProfs[sk.id] !== undefined) {
+          const el = document.getElementById('sk-prof-'+sk.id);
+          if (el) el.value = d.skillProfs[sk.id];
+        }
+        if (sk.isLore && d.loreNames?.[sk.id]) {
+          const el = document.getElementById('lore-name-'+sk.id);
+          if (el) el.value = d.loreNames[sk.id];
+        }
+      });
+    }
+    // Armor/Shield
+    if (d.armor) {
+      ['name','ac','dex'].forEach(k => {
+        const el = document.getElementById('armor-'+k);
+        if (el && d.armor[k] !== undefined) el.value = d.armor[k];
+      });
+    }
+    if (d.shield) {
+      ['name','ac','hard','hp'].forEach(k => {
+        const el = document.getElementById('shield-'+k);
+        if (el && d.shield[k] !== undefined) el.value = d.shield[k];
+      });
+    }
+    // Armor/Shield state
+    if (d.armorPotency !== undefined) state.armorPotency = d.armorPotency;
+    if (d.armorResilient !== undefined) state.armorResilient = d.armorResilient;
+    if (d.armorStowed !== undefined) state.armorStowed = d.armorStowed;
+    if (d.shieldStowed !== undefined) state.shieldStowed = d.shieldStowed;
+    renderArmorCard();
+    renderShieldCard();
+    // Spell
+    if (d.spell) {
+      ['tradition','type'].forEach(k => {
+        const el = document.getElementById('spell-'+k);
+        if (el && d.spell[k] !== undefined) el.value = d.spell[k];
+      });
+      if (d.spell.fpCur !== undefined) document.getElementById('fp-cur').value = d.spell.fpCur;
+      if (d.spell.fpMax !== undefined) document.getElementById('fp-max').value = d.spell.fpMax;
+    }
+    // Spell slots
+    if (d.spellSlots) {
+      for (let r=1;r<=10;r++) {
+        if (d.spellSlots[r]) {
+          const maxEl = document.getElementById(`slots-max-${r}`);
+          if (maxEl) { maxEl.value = d.spellSlots[r].max||0; updateSlotChecks(r); }
+          setTimeout(() => {
+            const checks = document.querySelectorAll(`#slot-checks-${r} input`);
+            (d.spellSlots[r].checks||[]).forEach((v,i) => { if(checks[i]) checks[i].checked = v; });
+          }, 50);
+        }
+      }
+    }
+    // Currency
+    if (d.currency) {
+      ['gp','sp','cp','pp'].forEach(c => {
+        const el = document.getElementById('cur-'+c);
+        if (el && d.currency[c] !== undefined) el.value = d.currency[c];
+      });
+    }
+    // State objects
+    if (d.selectedClass) {
+      state.selectedClass = CLASSES.find(c=>c.id===d.selectedClass)||null;
+      if (state.selectedClass) {
+        const btn = document.getElementById('btn-class');
+        if (btn) { btn.textContent = `${state.selectedClass.name} (${state.selectedClass.en})`; btn.classList.add('filled'); }
+        const subBtn = document.getElementById('btn-subclass');
+        if (subBtn) {
+          const hasSub = SUBCLASS_DB.some(s => s.class_id === state.selectedClass.id);
+          subBtn.style.display = hasSub ? '' : 'none';
+        }
+      }
+    }
+    if (d.selectedSubclass) {
+      state.selectedSubclass = SUBCLASS_DB.find(s=>s.id===d.selectedSubclass)||null;
+      if (state.selectedSubclass) {
+        const btn = document.getElementById('btn-subclass');
+        if (btn) {
+          btn.textContent = `${state.selectedSubclass.subclass_type}: ${state.selectedSubclass.name_ko}`;
+          btn.classList.add('filled');
+        }
+      }
+    }
+    if (d.selectedAncestry) {
+      state.selectedAncestry = ANCESTRIES.find(a=>a.id===d.selectedAncestry)||null;
+      if (state.selectedAncestry) {
+        const btn = document.getElementById('btn-ancestry');
+        if (btn) { btn.textContent = `${state.selectedAncestry.name} (${state.selectedAncestry.en})`; btn.classList.add('filled'); }
+      }
+    }
+    if (d.selectedBackground) {
+      state.selectedBackground = BACKGROUNDS.find(b=>b.id===d.selectedBackground)||null;
+      if (state.selectedBackground) {
+        const btn = document.getElementById('btn-background');
+        if (btn) { btn.textContent = `${state.selectedBackground.name} (${state.selectedBackground.en})`; btn.classList.add('filled'); }
+      }
+    }
+    if (d.selectedHeritage) {
+      state.selectedHeritage = HERITAGE_DB.find(h=>h.id===d.selectedHeritage)||null;
+      if (state.selectedHeritage) {
+        const btn = document.getElementById('btn-heritage');
+        if (btn) { btn.textContent = state.selectedHeritage.name_ko; btn.classList.add('filled'); }
+      }
+    }
+    if (d.weapons) { state.weapons = d.weapons; renderWeapons(); }
+    if (d.equip) { state.equip = d.equip; renderEquip(); }
+    if (d.spells) { state.spells = d.spells; }
+    if (d.spellSlots) state.spellSlots = d.spellSlots;
+    if (d.spellSlotsUsed) state.spellSlotsUsed = d.spellSlotsUsed;
+    if (d.cantripSlots) state.cantripSlots = d.cantripSlots;
+    renderSpells();
+    if (d.feats) { state.feats = d.feats; renderFeats(); }
+    if (d.growth) { state.growth = d.growth; }
+    applyClassFeatures();
+    renderGrowthPlan();
+    if (d.conditions) {
+      state.conditions = d.conditions;
+      // 값을 복원 후 buildConditions 다시 실행
+      buildConditions();
+    }
+    // Restore extra state fields
+    if (d.vision) state.vision = d.vision;
+    if (d.size) state.size = d.size;
+    if (d.trainableSkillSlots !== undefined) state.trainableSkillSlots = d.trainableSkillSlots;
+    // Class-specific choices
+    if (d.deity) state.deity = d.deity;
+    if (d.divineFont) state.divineFont = d.divineFont;
+    if (d.sanctification) state.sanctification = d.sanctification;
+    if (d.divineFontUsed !== undefined) state.divineFontUsed = d.divineFontUsed;
+  } catch(e) { console.warn('Load failed',e); }
+}
+
+// ── PATHBUILDER STYLE: switchTab override ──
+// Override original to handle new panel IDs + mobile sidebar/center
+function switchTab(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+
+  // Mobile-only panels that mirror sidebar/center
+  if (id === 'growth') {
+    // show the growth panel; on mobile also show sidebar
+    document.getElementById('panel-growth')?.classList.add('active');
+    document.getElementById('sidebar')?.classList.add('mobile-active');
+    document.getElementById('center-col')?.classList.remove('mobile-active');
+  } else if (id === 'info') {
+    document.getElementById('panel-info')?.classList.add('active');
+    document.getElementById('center-col')?.classList.add('mobile-active');
+    document.getElementById('sidebar')?.classList.remove('mobile-active');
+  } else {
+    document.getElementById('panel-' + id)?.classList.add('active');
+    document.getElementById('sidebar')?.classList.remove('mobile-active');
+    document.getElementById('center-col')?.classList.remove('mobile-active');
+  }
+
+  if (id === 'actions') renderActions();
+}
+
+// Fix recalcAll to also update mobile mirror attribute displays
+const _origRecalcAll = recalcAll;
+recalcAll = function() {
+  _origRecalcAll();
+  // sync mobile mirror
+  ['str','dex','con','int','wis','cha'].forEach(a => {
+    const src = document.getElementById('mod-' + a);
+    const dst = document.getElementById('mod-' + a + '-m');
+    if (src && dst) dst.textContent = src.textContent;
+  });
+};
+
+// Re-init window.onload to use new tab
+window.onload = function() {
+  buildSkills();
+  buildConditions();
+  buildSpellSlots();
+  // Find fist from WEAPON_DB if available
+  const fistDb = (typeof WEAPON_DB !== 'undefined') ? WEAPON_DB.find(w=>w.name_ko==='주먹') : null;
+  if (fistDb) {
+    addWeapon({name:'주먹', dmg: fistDb.damage, traits: fistDb.traits.join(', '), _dbData: fistDb, category: fistDb.category});
+  } else {
+    addWeapon({name:'비무장 공격', dmg:'1d4 B', traits:'비치명, 민첩, 기교, 비무장'});
+  }
+  initWeaponProfBadges();
+  initArmorProfBadges();
+  renderArmorCard();
+  renderShieldCard();
+  addEquip({name:'모험가 꾸러미', qty:1, bulk:1});
+  renderFeats();
+  recalcAll();
+};
+</script>
