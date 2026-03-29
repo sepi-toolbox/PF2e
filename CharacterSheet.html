@@ -23,10 +23,25 @@ const db = firebase.firestore();
 <script src="equipment_db.js"></script>
 <script src="feat_db.js"></script>
 <script src="SPELL_DB.js"></script>
-<script src="class_features_db.js?v=3"></script>
+<script src="class_features_db.js?v=4"></script>
 <script>
 // Verify class_features_db loaded
-if (typeof CLASS_PROF_TABLE === 'undefined') console.error('class_features_db.js FAILED to load!');
+if (typeof CLASS_AUTO_FEATS === 'undefined') {
+  console.error('⚠ class_features_db.js FAILED — creating fallback');
+  var CLASS_PROF_TABLE = {};
+  var SUBCLASS_PROF_TABLE = {};
+  var CLASS_FEATURE_NAMES = {};
+  var CLASS_AUTO_FEATS = {};
+  var SUBCLASS_AUTO_FEATS = {};
+  var CLASS_AUTO_SPELLS = {};
+  var SUBCLASS_AUTO_SPELLS = {};
+  var SUBCLASS_FEATURE_NAMES = {};
+  var PATRON_TRADITION = {};
+  var DEITY_DB = [];
+  var DIVINE_FONT_SLOTS = {};
+} else {
+  console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
+}
 </script>
 <style>
 /* ═══════════════════════════════════════════
@@ -728,6 +743,7 @@ body{
 .modal-header h2{color:var(--accent);font-size:15px;}
 .modal-close{background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;padding:0 4px;}
 .modal-close:hover{color:var(--accent);}
+.modal-close-mobile{display:none;} /* desktop: 숨김 */
 /* Split pane: list left + detail right */
 .modal-body{display:flex;flex:1;overflow:hidden;}
 .modal-list{width:420px;min-width:320px;overflow-y:auto;border-right:1px solid var(--border);display:flex;flex-direction:column;}
@@ -809,8 +825,9 @@ body{
   .opt-row-detail{display:none;padding:10px 12px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:12px;line-height:1.6;}
   .opt-row-detail.open{display:block;}
   .opt-row.expanded{background:var(--accent-bg);border-left:3px solid var(--accent);}
-  /* 모달 닫기 버튼 강화 */
-  .modal-close{font-size:28px;padding:10px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
+  /* 모달 닫기 버튼 */
+  .modal-close{display:none;} /* X 숨기고 텍스트 버튼으로 대체 */
+  .modal-close-mobile{display:block;background:none;border:none;color:var(--accent);font-size:14px;font-weight:600;cursor:pointer;padding:8px 4px;white-space:nowrap;}
 }
 @media(min-width:701px){
   .modal-detail-back{display:none;}
@@ -1690,6 +1707,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 <div class="modal-overlay hidden" id="modal-overlay">
   <div class="modal">
     <div class="modal-header">
+      <button class="modal-close-mobile" onclick="closeModal()">← 닫기</button>
       <h2 id="modal-title">선택</h2>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
@@ -3040,20 +3058,22 @@ function applyClassFeatures() {
   // ── Auto-granted feats (class + subclass) ──
   // Remove old auto feats
   ['special','class','general','skill','ancestry','other'].forEach(cat => {
-    state.feats[cat] = (state.feats[cat]||[]).filter(f => !f._auto);
+    if (!state.feats[cat]) state.feats[cat] = [];
+    state.feats[cat] = state.feats[cat].filter(f => !f._auto);
   });
   // Gather all auto feats
-  const allAutoFeats = [
-    ...(typeof CLASS_AUTO_FEATS!=='undefined' ? (CLASS_AUTO_FEATS[cls.id]||[]) : []),
-    ...(state.selectedSubclass && typeof SUBCLASS_AUTO_FEATS!=='undefined' ? (SUBCLASS_AUTO_FEATS[state.selectedSubclass.id]||[]) : []),
-  ];
+  const classFeats = CLASS_AUTO_FEATS?.[cls.id] || [];
+  const subFeats = (state.selectedSubclass && SUBCLASS_AUTO_FEATS) ? (SUBCLASS_AUTO_FEATS[state.selectedSubclass.id]||[]) : [];
+  const allAutoFeats = [...classFeats, ...subFeats];
+  console.log('[applyClassFeatures] auto feats:', allAutoFeats.length, 'items for', cls.id);
   allAutoFeats.forEach(f => {
     if (f.lv <= level) {
       const featName = f.name_ko + (f.name_en ? ` (${f.name_en})` : '');
-      const cat = f.category || 'class';
+      const cat = f.category || 'special';
       if (!state.feats[cat]) state.feats[cat] = [];
       if (!state.feats[cat].some(e => e.name === featName)) {
         state.feats[cat].push({name: featName, level: f.lv, _auto: true});
+        console.log('[applyClassFeatures] + feat:', featName, '→', cat);
       }
     }
   });
