@@ -812,6 +812,12 @@ function updateHpGauge() {
   const tempVal = document.getElementById('hp-temp-val');
   if (tempDisp) tempDisp.style.display = temp > 0 ? '' : 'none';
   if (tempVal) tempVal.textContent = temp;
+  // 임시 HP 게이지 (우측에서 차오름)
+  const tempFill = document.getElementById('hp-gauge-temp');
+  if (tempFill) {
+    const tempPct = max > 0 ? Math.min(100, (temp / max) * 100) : 0;
+    tempFill.style.width = tempPct > 0 ? tempPct + '%' : '0';
+  }
   checkHpZero();
 }
 function updateShieldGauge() {

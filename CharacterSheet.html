@@ -23,7 +23,7 @@ const db = firebase.firestore();
 <script src="equipment_db.js"></script>
 <script src="feat_db.js"></script>
 <script src="SPELL_DB.js"></script>
-<script src="class_features_db.js?v=22"></script>
+<script src="class_features_db.js?v=23"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -305,6 +305,7 @@ body{
 .hp-gauge-wrap{margin-bottom:4px;}
 .hp-gauge-bar{position:relative;background:#1a2a2a;border:1px solid var(--border);border-radius:6px;height:28px;overflow:hidden;}
 .hp-gauge-fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#1a6040,#2d8a5e);border-radius:5px;transition:width .3s;}
+.hp-gauge-temp{position:absolute;right:0;top:0;bottom:0;background:rgba(200,180,80,0.35);border-left:2px solid #c9a84c;transition:width .3s;}
 .hp-gauge-text{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;height:100%;font-size:12px;font-weight:700;color:#fff;gap:2px;}
 .hp-gauge-input{background:transparent;border:none;color:#fff;font-size:12px;font-weight:700;width:36px;text-align:center;outline:none;}
 .hp-gauge-input:focus{background:rgba(0,0,0,0.3);border-radius:3px;}
@@ -1238,6 +1239,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
       <div class="hp-gauge-wrap">
         <div class="hp-gauge-bar" onclick="openHpModal()" style="cursor:pointer;">
           <div class="hp-gauge-fill" id="hp-gauge-fill"></div>
+          <div class="hp-gauge-temp" id="hp-gauge-temp" style="width:0;"></div>
           <div class="hp-gauge-text">
             HP <span id="hp-cur-display">0</span> / <span id="hp-max-display">0</span>
             <span id="hp-temp-display" style="margin-left:6px;font-size:10px;color:var(--text2);display:none;">+임시 <span id="hp-temp-val">0</span></span>
@@ -1674,11 +1676,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=22"></script>
-<script src="cs_calc.js?v=22"></script>
-<script src="cs_ui.js?v=22"></script>
-<script src="cs_modal.js?v=22"></script>
-<script src="cs_save.js?v=22"></script>
+<script src="cs_data.js?v=23"></script>
+<script src="cs_calc.js?v=23"></script>
+<script src="cs_ui.js?v=23"></script>
+<script src="cs_modal.js?v=23"></script>
+<script src="cs_save.js?v=23"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
