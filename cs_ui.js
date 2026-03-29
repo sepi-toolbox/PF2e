@@ -723,6 +723,12 @@ function addLanguage() {
   const confirmBtn = document.querySelector('.btn-confirm');
   if (confirmBtn) confirmBtn.style.display = 'none';
 
+  // 리스트 영역 확실히 표시
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) listEl.style.display = '';
+  const detail = document.getElementById('modal-detail');
+  if (detail) detail.innerHTML = '<div class="modal-detail-empty">언어를 선택하세요.</div>';
+
   renderLanguagePickList();
 }
 
@@ -744,12 +750,14 @@ function renderLanguagePickList() {
       row.className = 'opt-row';
       row.style.cursor = 'pointer';
       row.innerHTML = `<div class="opt-row-name">${l}</div>`;
-      row.onclick = () => {
+      row.addEventListener('click', (e) => {
+        e.stopPropagation();
         state.languages.push(l);
         renderLanguages();
+        renderGrowthPlan();
         save();
         closeModal();
-      };
+      });
       container.appendChild(row);
     });
   };
