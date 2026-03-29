@@ -1681,56 +1681,91 @@ function openPetBarding(i) {
   if (searchEl) searchEl.style.display = 'none';
   const fbar = document.getElementById('modal-filterbar');
   if (fbar) fbar.innerHTML = '';
-  let _bardingPetIdx = i;
-  let _bardingSelected = null;
   const confirmBtn = document.querySelector('.btn-confirm');
-  if (confirmBtn) { confirmBtn.style.display = ''; confirmBtn.textContent = '장착'; confirmBtn.onclick = () => {
-    if (_bardingSelected) {
-      p.barding = _bardingSelected.name === '없음' ? null : _bardingSelected.name;
-      p.bardingData = _bardingSelected.name === '없음' ? null : _bardingSelected;
-      renderPets(); save();
-    }
-    closeModal();
-  };}
+  if (confirmBtn) confirmBtn.style.display = 'none';
   const listEl = document.querySelector('.modal-list');
-  if (listEl) listEl.style.display = '';
+  if (listEl) { listEl.style.display = ''; listEl.style.width = ''; listEl.style.borderRight = ''; }
   const detail = document.getElementById('modal-detail');
-  if (detail) detail.innerHTML = '<div class="modal-detail-empty">마갑을 선택하면 상세 정보가 표시됩니다.</div>';
+  if (detail) { detail.style.display = ''; detail.innerHTML = '<div class="modal-detail-empty">마갑을 선택하면 상세 정보가 표시됩니다.</div>'; }
 
   const container = document.getElementById('modal-options');
   container.innerHTML = '';
+
+  // 섹션 헤더
+  const addHeader = (title) => {
+    const h = document.createElement('div');
+    h.className = 'opt-section-header';
+    h.textContent = title;
+    container.appendChild(h);
+  };
+
+  let lastCat = '';
   BARDING_DB.forEach(b => {
+    if (b.category !== lastCat) { addHeader(b.category === '없음' ? '기본' : b.category); lastCat = b.category; }
     const isCur = (p.barding === b.name);
     const row = document.createElement('div');
     row.className = 'opt-row' + (isCur ? ' selected' : '');
     row.style.cursor = 'pointer';
+    const priceText = b.ac > 0 ? (b.bulk >= 4 ? b.name.includes('합성') ? '12gp' : '20gp' : b.name.includes('패딩') ? '4sp' : b.name.includes('가죽') ? '4gp' : '10gp') : '';
     row.innerHTML = `
       <div class="opt-row-icon">${isCur ? '✓' : '🛡'}</div>
-      <div style="flex:1;">
-        <div class="opt-row-name">${b.name} ${b.category !== '없음' ? '<span style="color:var(--text2);font-size:10px;">('+b.category+')</span>' : ''}</div>
-      </div>`;
+      <span class="opt-row-name" style="flex:1;">${b.name}</span>
+      ${priceText ? `<span style="font-size:11px;color:var(--text2);">${priceText}</span>` : ''}`;
+
     row.addEventListener('click', () => {
-      _bardingSelected = b;
       container.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
       row.classList.add('selected');
-      if (detail) {
-        if (b.ac > 0) {
-          detail.innerHTML = `<div class="modal-detail-title">${b.name}</div>
-            <div class="modal-detail-tags"><span class="tag hl">${b.category}</span></div>
-            <div class="modal-detail-desc">
-              <strong>AC 보너스:</strong> +${b.ac}<br>
-              <strong>민첩 상한:</strong> +${b.dex}<br>
-              <strong>판정 페널티:</strong> ${b.check}<br>
-              <strong>속도 페널티:</strong> ${b.speed}피트<br>
-              <strong>부피:</strong> ${b.bulk}
-            </div>`;
-        } else {
-          detail.innerHTML = '<div class="modal-detail-title">없음</div><div class="modal-detail-desc">마갑을 장착하지 않습니다.</div>';
-        }
+
+      if (window.innerWidth > 900) {
+        // PC: 디테일 패인에 상세 + 장착 버튼
+        showBardingDetail(i, b);
+      } else {
+        // 모바일: 아코디언
+        document.querySelectorAll('.opt-row-detail.open').forEach(d => d.classList.remove('open'));
+        document.querySelectorAll('.opt-row.expanded').forEach(r => r.classList.remove('expanded'));
+        row.classList.add('expanded');
+        let dd = row.nextElementSibling;
+        if (!dd || !dd.classList.contains('opt-row-detail')) { dd = document.createElement('div'); dd.className = 'opt-row-detail'; row.after(dd); }
+        dd.innerHTML = buildBardingDetailHtml(b) + `<button onclick="applyBarding(${i},'${b.name}')" style="width:100%;margin-top:8px;padding:10px;background:var(--accent);color:#000;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">장착</button>`;
+        dd.classList.add('open');
       }
     });
     container.appendChild(row);
   });
+}
+
+function buildBardingDetailHtml(b) {
+  if (b.ac === 0) return '<div style="font-size:13px;color:var(--text);">마갑을 장착하지 않습니다.</div>';
+  const prices = {'패딩 마갑':'4sp','가죽 마갑':'4gp','사슬 마갑':'10gp','합성 마갑':'12gp','반판 마갑':'20gp'};
+  return `<div style="font-size:13px;line-height:1.8;">
+    <strong>가격:</strong> ${prices[b.name]||'—'}<br>
+    <strong>AC 보너스:</strong> +${b.ac}<br>
+    <strong>민첩 상한:</strong> +${b.dex}<br>
+    <strong>판정 페널티:</strong> ${b.check}<br>
+    <strong>속도 페널티:</strong> ${b.speed === 0 ? '—' : b.speed + '피트'}<br>
+    <strong>부피:</strong> ${b.bulk}<br>
+    <strong>분류:</strong> ${b.category}
+  </div>`;
+}
+
+function showBardingDetail(petIdx, b) {
+  const detail = document.getElementById('modal-detail');
+  if (!detail) return;
+  detail.innerHTML = `
+    <div class="modal-detail-title">${b.name}</div>
+    ${b.category !== '없음' ? `<div class="modal-detail-tags"><span class="tag hl">${b.category}</span></div>` : ''}
+    <div class="modal-detail-desc" style="margin-bottom:16px;">${buildBardingDetailHtml(b)}</div>
+    <div class="equip-give-buy">
+      <button class="btn-give" onclick="applyBarding(${petIdx},'${b.name}')">장착</button>
+    </div>`;
+}
+
+function applyBarding(petIdx, bardingName) {
+  const p = state.pets[petIdx];
+  const b = BARDING_DB.find(x => x.name === bardingName);
+  p.barding = bardingName === '없음' ? null : bardingName;
+  p.bardingData = bardingName === '없음' ? null : b;
+  renderPets(); save(); closeModal();
 }
 
 // ── 스킬 모달 ──
