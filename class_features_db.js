@@ -303,6 +303,7 @@ var CLASS_AUTO_SPELLS = {
   // Bard: Inspire Courage composition cantrip at L1
   bard: [
     {lv:1, type:'focus', name_ko:'용기의 찬가', name_en:'Courageous Anthem'},
+    {lv:1, type:'focus', name_ko:'대항 공연', name_en:'Counter Performance'},
   ],
 };
 
