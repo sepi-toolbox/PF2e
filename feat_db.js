@@ -3,8 +3,15 @@
 // Class feats: 바드(bard), 클레릭(cleric), 드루이드(druid),
 //   파이터(fighter), 레인저(ranger), 로그(rogue), 위치(witch), 위자드(wizard)
 // Chapter 5 feats: 일반(general), 일반 기술(skill)
+// Class features (special): 클래스 자동 부여 특성
 
 const FEAT_DB = [
+  // ═══ 클래스 특성 (자동 부여) ═══
+  {name_ko:"반격 타격", name_en:"Reactive Strike", feat_level:1, prerequisites:"파이터", traits:["파이터","반응"], category:"special", summary:"도달 범위 내 생물이 조작/이동 행동, 원거리 공격 시 근접 타격으로 반격합니다. 치명타 시 조작 행동을 방해합니다.", desc:"<strong>유발 조건:</strong> 도달 범위 내 생물이 조작 행동이나 이동 행동을 사용하거나, 원거리 공격을 하거나, 이동 중 칸을 떠남.<br>빈틈을 보이는 적을 신속히 공격합니다. 유발 생물에 <strong>근접 타격</strong>을 합니다. 치명타이고 유발이 조작 행동이면 <strong>행동을 방해</strong>합니다. 이 타격은 다중 공격 페널티에 포함되지 않으며, 다중 공격 페널티가 이 타격에 적용되지 않습니다." },
+  {name_ko:"은밀 공격", name_en:"Sneak Attack", feat_level:1, prerequisites:"로그", traits:["로그","정밀"], category:"special", summary:"방심(off-guard) 상태인 생물에 민첩/기교 무기로 타격 시 추가 1d6 정밀 피해. 5·11·17레벨에 주사위 1개씩 증가.", desc:"방심(off-guard) 상태인 생물에 민첩/기교 근접 무기, 민첩/기교 비무장 공격, 원거리 무기/비무장 공격으로 타격 시 <strong>추가 1d6 정밀 피해</strong>. 투척 근접 무기는 민첩/기교여야 합니다. 5, 11, 17레벨에 피해 주사위가 1개씩 증가합니다." },
+  {name_ko:"기습", name_en:"Surprise Attack", feat_level:1, prerequisites:"로그", traits:["로그"], category:"special", summary:"첫 라운드에 기만이나 은신으로 주도권을 굴렸으면, 아직 행동하지 않은 생물은 당신에게 방심.", desc:"전투에 적보다 빨리 뛰어듭니다. 첫 라운드에 기만이나 은신으로 주도권을 굴렸으면, 아직 행동하지 않은 생물은 당신에게 <strong>방심</strong>합니다." },
+  {name_ko:"사냥감 추적", name_en:"Hunt Prey", feat_level:1, prerequisites:"레인저", traits:["레인저","1행동"], category:"special", summary:"생물 1명을 사냥감으로 지정. 탐색에 +2 상황 보너스, 추적에 +2, 두 번째 사거리 증분 페널티 무시.", desc:"볼 수 있거나 추적 중인 생물 1명을 사냥감으로 지정합니다. 사냥감을 탐색(Seek)하기 위한 감지 판정에 <strong>+2 상황 보너스</strong>, 추적(Track)을 위한 생존 판정에 <strong>+2 상황 보너스</strong>. 사냥감에 대한 두 번째 사거리 증분 내 원거리 공격 페널티도 무시합니다. 한 번에 사냥감 1명만 가능. 다음 일일 준비까지 지속." },
+  {name_ko:"자연의 목소리", name_en:"Voice of Nature", feat_level:1, prerequisites:"드루이드", traits:["드루이드"], category:"special", summary:"동물 공감 또는 식물 공감 중 하나를 선택하여 자연과 소통하는 능력을 얻습니다.", desc:"드루이드는 자연의 목소리를 통해 동물 또는 식물과 소통하는 능력을 얻습니다. <strong>동물 공감(Animal Empathy)</strong> 또는 <strong>식물 공감(Plant Empathy)</strong> 중 하나를 선택합니다." },
   {name_ko:"바드 지식", name_en:"Bardic Lore", feat_level:1, prerequisites:"수수께끼 뮤즈", traits:["바드"], category:"bard", summary:"학습으로 모든 주제에 정통합니다. 바드 지식(Bardic Lore)에 숙련됩니다 — 지식 회상(Recall Knowledge)에만 사용할 수 있지만 어떤 주제에든 사용 가능한 특수 지식 기술입니다. 오컬티즘에 전설 숙련도가 있으면 바드 지식에 전문가 숙련도를 얻지만, 다른", desc:"학습으로 모든 주제에 정통합니다. <strong>바드 지식(Bardic Lore)</strong>에 숙련됩니다 — 지식 회상(Recall Knowledge)에만 사용할 수 있지만 <strong>어떤 주제에든</strong> 사용 가능한 특수 지식 기술입니다. 비학에 전설 숙련도가 있으면 바드 지식에 전문가 숙련도를 얻지만, 다른 방법으로는 숙련도를 올릴 수 없습니다." },
   {name_ko:"치유의 찬송", name_en:"Hymn of Healing", feat_level:1, prerequisites:"", traits:["바드"], category:"bard", summary:"치유의 찬송(hymn of healing) 합주 주문을 배워, 풍부한 선율로 아군이 피해에서 회복하도록 돕습니다.", desc:"<em>치유의 찬송(hymn of healing)</em> 합주 주문(370페이지)을 배워, 풍부한 선율로 아군이 피해에서 회복하도록 돕습니다." },
   {name_ko:"잔향 합주", name_en:"Lingering Composition", feat_level:1, prerequisites:"마에스트로 뮤즈", traits:["바드"], category:"bard", summary:"장식을 더하여 합주를 더 오래 지속시킵니다. 잔향 합주(lingering composition) 집중 주문을 배웁니다.", desc:"장식을 더하여 합주를 더 오래 지속시킵니다. <em>잔향 합주(lingering composition)</em> 집중 주문(371페이지)을 배웁니다." },

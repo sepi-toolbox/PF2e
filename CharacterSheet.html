@@ -1566,6 +1566,10 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <div id="panel-feats" class="panel">
       <div class="panel-grid-2">
         <div>
+          <div class="box" style="border-left:3px solid var(--accent);">
+            <div class="box-title" style="color:var(--accent);">⚡ 클래스 특성 Class Features</div>
+            <div id="feats-special"></div>
+          </div>
           <div class="box">
             <div class="box-title">혈통 재주 Ancestry Feats</div>
             <div id="feats-ancestry"></div>
@@ -2220,7 +2224,7 @@ let state = {
   cantripSlots: 5,
   spellSlots: {},
   spellSlotsUsed: {},
-  feats: {ancestry:[], class:[], general:[], skill:[], archetype:[], other:[]},
+  feats: {special:[], ancestry:[], class:[], general:[], skill:[], archetype:[], other:[]},
   conditions: {},
   growth: {},  // level-by-level progression
   // Class-specific choices
@@ -2966,7 +2970,7 @@ function applyClassFeatures() {
 
   // ── Auto-granted feats (class + subclass) ──
   // Remove old auto feats
-  ['class','general','skill','ancestry','other'].forEach(cat => {
+  ['special','class','general','skill','ancestry','other'].forEach(cat => {
     state.feats[cat] = (state.feats[cat]||[]).filter(f => !f._auto);
   });
   // Gather all auto feats
@@ -4590,8 +4594,8 @@ function addFeat(type) {
 }
 
 function renderFeats() {
-  const types = ['ancestry','class','general','skill','archetype','other'];
-  const labels = {'ancestry':'혈통','class':'클래스','general':'일반','skill':'기술','archetype':'원형','other':'기타'};
+  const types = ['special','ancestry','class','general','skill','archetype','other'];
+  const labels = {'special':'클래스 특성','ancestry':'혈통','class':'클래스','general':'일반','skill':'기술','archetype':'원형','other':'기타'};
   types.forEach(t => {
     const el = document.getElementById('feats-'+t);
     if (!el) return;

@@ -283,26 +283,26 @@ var CLASS_FEATURE_NAMES = {
 
 var CLASS_AUTO_FEATS = {
   fighter: [
-    {lv:1, name_ko:'방패 막기', name_en:'Shield Block', category:'class'},
-    {lv:1, name_ko:'반격 타격', name_en:'Reactive Strike', category:'class'},
+    {lv:1, name_ko:'방패 막기', name_en:'Shield Block', category:'special'},
+    {lv:1, name_ko:'반격 타격', name_en:'Reactive Strike', category:'special'},
   ],
   druid: [
-    {lv:1, name_ko:'방패 막기', name_en:'Shield Block', category:'class'},
-    {lv:1, name_ko:'야생 공감', name_en:'Wild Empathy', category:'class'},
+    {lv:1, name_ko:'방패 막기', name_en:'Shield Block', category:'special'},
+    {lv:1, name_ko:'자연의 목소리', name_en:'Voice of Nature', category:'special'},
   ],
   rogue: [
-    {lv:1, name_ko:'은밀 공격', name_en:'Sneak Attack', category:'class'},
-    {lv:1, name_ko:'기습', name_en:'Surprise Attack', category:'class'},
+    {lv:1, name_ko:'은밀 공격', name_en:'Sneak Attack', category:'special'},
+    {lv:1, name_ko:'기습', name_en:'Surprise Attack', category:'special'},
   ],
   ranger: [
-    {lv:1, name_ko:'사냥 목표', name_en:'Hunt Prey', category:'class'},
+    {lv:1, name_ko:'사냥감 추적', name_en:'Hunt Prey', category:'special'},
   ],
 };
 
 // Subclass auto-granted feats
 var SUBCLASS_AUTO_FEATS = {
-  'muse-maestro': [{lv:1, name_ko:'여운 주문', name_en:'Lingering Composition', category:'class'}],
-  'muse-enigma':  [{lv:1, name_ko:'바드 지식', name_en:'Bardic Lore', category:'class'}],
+  'muse-maestro': [{lv:1, name_ko:'잔향 합주', name_en:'Lingering Composition', category:'special'}],
+  'muse-enigma':  [{lv:1, name_ko:'바드 지식', name_en:'Bardic Lore', category:'special'}],
 };
 
 // ═══════════════════════════════════════════════
