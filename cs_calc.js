@@ -1,55 +1,27 @@
 // ═══════════════════════════════════════════════
-//  TEML PROFICIENCY BUTTONS
+//  PROFICIENCY RANK TEXT DISPLAY (read-only)
 // ═══════════════════════════════════════════════
 
-function buildTemlButtons(containerId, selectId, onChange) {
-  const container = document.getElementById(containerId);
-  const select = document.getElementById(selectId);
-  if (!container || !select) return;
-  const ranks = [{val:'0',label:'U'},{val:'2',label:'T'},{val:'4',label:'E'},{val:'6',label:'M'},{val:'8',label:'L'}];
-  container.innerHTML = '';
-  ranks.forEach(r => {
-    const btn = document.createElement('span');
-    btn.className = 'prof-teml-btn' + (select.value === r.val ? ' active' : '');
-    btn.textContent = r.label;
-    btn.onclick = () => {
-      select.value = r.val;
-      container.querySelectorAll('.prof-teml-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      if (onChange) onChange();
-    };
-    container.appendChild(btn);
-  });
+const RANK_LABELS = {'0':'미숙련','2':'숙련','4':'전문가','6':'달인','8':'전설'};
+const RANK_CLASSES = {'0':'','2':'trained','4':'expert','6':'master','8':'legendary'};
+
+function syncProfRankText(textId, selectId) {
+  const el = document.getElementById(textId);
+  const sel = document.getElementById(selectId);
+  if (!el || !sel) return;
+  const v = sel.value || '0';
+  el.textContent = RANK_LABELS[v] || '미숙련';
+  el.className = 'prof-rank-text ' + (RANK_CLASSES[v] || '');
 }
 
-function syncTemlFromSelect(containerId, selectId) {
-  const container = document.getElementById(containerId);
-  const select = document.getElementById(selectId);
-  if (!container || !select) return;
-  const btns = container.querySelectorAll('.prof-teml-btn');
-  const vals = ['0','2','4','6','8'];
-  btns.forEach((btn, i) => {
-    btn.classList.toggle('active', select.value === vals[i]);
-  });
+function syncAllProfRanks() {
+  ['simple','martial','advanced','unarmed'].forEach(c => syncProfRankText('rank-weapon-'+c, 'prof-weapon-'+c));
+  ['light','medium','heavy','unarmored'].forEach(c => syncProfRankText('rank-armor-'+c, 'prof-armor-'+c));
 }
 
-function initAllTemlButtons() {
-  // Weapon proficiencies
-  buildTemlButtons('teml-weapon-simple','prof-weapon-simple', () => { updateWeaponProfBadge('simple'); renderWeapons(); save(); });
-  buildTemlButtons('teml-weapon-martial','prof-weapon-martial', () => { updateWeaponProfBadge('martial'); renderWeapons(); save(); });
-  buildTemlButtons('teml-weapon-advanced','prof-weapon-advanced', () => { updateWeaponProfBadge('advanced'); renderWeapons(); save(); });
-  buildTemlButtons('teml-weapon-unarmed','prof-weapon-unarmed', () => { updateWeaponProfBadge('unarmed'); renderWeapons(); save(); });
-  // Armor proficiencies
-  buildTemlButtons('teml-armor-light','prof-armor-light', () => { updateArmorProfBadge('light'); recalcAC(); save(); });
-  buildTemlButtons('teml-armor-medium','prof-armor-medium', () => { updateArmorProfBadge('medium'); recalcAC(); save(); });
-  buildTemlButtons('teml-armor-heavy','prof-armor-heavy', () => { updateArmorProfBadge('heavy'); recalcAC(); save(); });
-  buildTemlButtons('teml-armor-unarmored','prof-armor-unarmored', () => { updateArmorProfBadge('unarmored'); recalcAC(); save(); });
-}
-
-function syncAllTeml() {
-  ['simple','martial','advanced','unarmed'].forEach(c => syncTemlFromSelect('teml-weapon-'+c, 'prof-weapon-'+c));
-  ['light','medium','heavy','unarmored'].forEach(c => syncTemlFromSelect('teml-armor-'+c, 'prof-armor-'+c));
-}
+// Legacy aliases
+function initAllTemlButtons() { syncAllProfRanks(); }
+function syncAllTeml() { syncAllProfRanks(); }
 
 // ═══════════════════════════════════════════════
 //  TRAIT TOOLTIP HELPERS

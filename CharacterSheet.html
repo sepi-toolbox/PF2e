@@ -377,15 +377,13 @@ body{
 /* ══════════════════════════════════
    WEAPON PROFICIENCY BAR
    ══════════════════════════════════ */
-/* TEML prof buttons (shared with spell-teml) */
-.prof-teml{display:flex;gap:2px;align-items:center;}
-.prof-teml-btn{
-  width:18px;height:18px;display:flex;align-items:center;justify-content:center;
-  border-radius:3px;font-size:9px;font-weight:700;cursor:pointer;
-  background:var(--bg4);color:var(--text2);border:1px solid var(--border);transition:all .1s;
+.prof-rank-text{
+  font-size:10px;font-weight:600;color:var(--text2);
 }
-.prof-teml-btn:hover{border-color:var(--accent);color:var(--accent);}
-.prof-teml-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.prof-rank-text.trained{color:#4caf50;}
+.prof-rank-text.expert{color:#42a5f5;}
+.prof-rank-text.master{color:#ab47bc;}
+.prof-rank-text.legendary{color:#ffa726;}
 .weapon-prof-bar{
   display:flex;flex-wrap:wrap;gap:6px;align-items:center;
   padding:6px 8px;background:var(--bg2);border:1px solid var(--border);
@@ -1345,26 +1343,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
       <div class="box">
         <div class="box-title">무기 숙련 Weapon Proficiencies</div>
         <div class="weapon-prof-bar">
-          <div class="weapon-prof-item">
-            <span style="font-size:11px;color:var(--text);min-width:32px;">단순</span>
-            <div class="prof-teml" id="teml-weapon-simple"></div>
-            <select id="prof-weapon-simple" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
-          </div>
-          <div class="weapon-prof-item">
-            <span style="font-size:11px;color:var(--text);min-width:32px;">군용</span>
-            <div class="prof-teml" id="teml-weapon-martial"></div>
-            <select id="prof-weapon-martial" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
-          </div>
-          <div class="weapon-prof-item">
-            <span style="font-size:11px;color:var(--text);min-width:32px;">고급</span>
-            <div class="prof-teml" id="teml-weapon-advanced"></div>
-            <select id="prof-weapon-advanced" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
-          </div>
-          <div class="weapon-prof-item">
-            <span style="font-size:11px;color:var(--text);min-width:32px;">비무장</span>
-            <div class="prof-teml" id="teml-weapon-unarmed"></div>
-            <select id="prof-weapon-unarmed" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
-          </div>
+          <div class="weapon-prof-item"><span>단순</span><span class="prof-rank-text" id="rank-weapon-simple">미숙련</span></div>
+          <div class="weapon-prof-item"><span>군용</span><span class="prof-rank-text" id="rank-weapon-martial">미숙련</span></div>
+          <div class="weapon-prof-item"><span>고급</span><span class="prof-rank-text" id="rank-weapon-advanced">미숙련</span></div>
+          <div class="weapon-prof-item"><span>비무장</span><span class="prof-rank-text" id="rank-weapon-unarmed">미숙련</span></div>
+          <select id="prof-weapon-simple" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+          <select id="prof-weapon-martial" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+          <select id="prof-weapon-advanced" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+          <select id="prof-weapon-unarmed" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
         </div>
       </div>
       <div class="box">
@@ -1406,26 +1392,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
       <!-- Armor Proficiency Bar -->
       <div class="armor-prof-bar">
-        <div class="armor-prof-item">
-          <span style="font-size:11px;color:var(--text);min-width:32px;">경갑</span>
-          <div class="prof-teml" id="teml-armor-light"></div>
-          <select id="prof-armor-light" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
-        </div>
-        <div class="armor-prof-item">
-          <span style="font-size:11px;color:var(--text);min-width:32px;">평갑</span>
-          <div class="prof-teml" id="teml-armor-medium"></div>
-          <select id="prof-armor-medium" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
-        </div>
-        <div class="armor-prof-item">
-          <span style="font-size:11px;color:var(--text);min-width:32px;">중갑</span>
-          <div class="prof-teml" id="teml-armor-heavy"></div>
-          <select id="prof-armor-heavy" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
-        </div>
-        <div class="armor-prof-item">
-          <span style="font-size:11px;color:var(--text);min-width:32px;">비무장</span>
-          <div class="prof-teml" id="teml-armor-unarmored"></div>
-          <select id="prof-armor-unarmored" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
-        </div>
+        <div class="armor-prof-item"><span>경갑</span><span class="prof-rank-text" id="rank-armor-light">미숙련</span></div>
+        <div class="armor-prof-item"><span>평갑</span><span class="prof-rank-text" id="rank-armor-medium">미숙련</span></div>
+        <div class="armor-prof-item"><span>중갑</span><span class="prof-rank-text" id="rank-armor-heavy">미숙련</span></div>
+        <div class="armor-prof-item"><span>비무장</span><span class="prof-rank-text" id="rank-armor-unarmored">미숙련</span></div>
+        <select id="prof-armor-light" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <select id="prof-armor-medium" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <select id="prof-armor-heavy" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <select id="prof-armor-unarmored" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
       </div>
 
       <!-- AC Breakdown -->
