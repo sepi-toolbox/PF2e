@@ -84,9 +84,8 @@ function renderArmorCard() {
   card.className = 'defense-card' + (stowed ? ' stowed' : '');
   card.innerHTML = `
     <div class="defense-card-header">
-      <button class="defense-btn" onclick="openModal('armor')">변경</button>
-      <button class="defense-btn" onclick="showArmorRunePopup()">룬</button>
-      <button class="defense-btn" onclick="toggleArmorStow()">${stowed?'장착':'보관'}</button>
+      ${name ? `<button class="defense-btn" onclick="showArmorRunePopup()">룬</button>` : ''}
+      ${name ? `<button class="defense-btn" onclick="toggleArmorStow()">${stowed?'장착':'보관'}</button>` : ''}
       <span style="flex:1;"></span>
       ${name ? `<button class="defense-btn danger" onclick="clearArmor()">해제</button>` : ''}
     </div>
@@ -187,10 +186,10 @@ function renderShieldCard() {
   card.className = 'defense-card' + (stowed ? ' stowed' : '');
   card.innerHTML = `
     <div class="defense-card-header">
-      <button class="defense-btn" onclick="openModal('shield')">변경</button>
       ${name ? `<button class="defense-btn" onclick="showInfo('shield','${name.replace(/'/g,"\\'")}')">정보</button>` : ''}
+      ${name ? `<button class="defense-btn" onclick="toggleShieldStow()">${stowed?'장착':'보관'}</button>` : ''}
+      <span style="flex:1;"></span>
       ${name ? `<button class="defense-btn danger" onclick="clearShield()">제거</button>` : ''}
-      <button class="defense-btn" onclick="toggleShieldStow()">${stowed?'장착':'보관'}</button>
     </div>
     <div class="defense-card-body">
       <div class="defense-card-name">${name || '방패 없음'}</div>
