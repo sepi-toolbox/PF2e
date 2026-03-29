@@ -794,11 +794,18 @@ body{
 /* Mobile modal */
 @media(max-width:700px){
   .modal{width:100vw;height:100vh;max-width:100vw;border-radius:0;}
-  .modal-list{width:100%;border-right:none;}
-  .modal-detail{display:none;}
-  .modal-body.detail-open .modal-list{display:none;}
-  .modal-body.detail-open .modal-detail{display:block;}
-  .modal-detail-back{display:block;margin-bottom:10px;color:var(--accent);cursor:pointer;font-size:13px;}
+  .modal-list{width:100%;min-width:0;border-right:none;flex:1;}
+  .modal-detail{display:none !important;}
+  .modal-footer{display:none !important;} /* 선택 버튼은 아코디언 내부로 이동 */
+  .modal-body.detail-open .modal-list{display:flex;} /* 아코디언 모드에서는 항상 리스트 표시 */
+  .modal-body.detail-open .modal-detail{display:none !important;}
+  .modal-detail-back{display:none !important;}
+  /* 아코디언 상세 */
+  .opt-row-detail{display:none;padding:10px 12px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:12px;line-height:1.6;}
+  .opt-row-detail.open{display:block;}
+  .opt-row.expanded{background:var(--accent-bg);border-left:3px solid var(--accent);}
+  /* 모달 닫기 버튼 강화 */
+  .modal-close{font-size:24px;padding:8px;}
 }
 @media(min-width:701px){
   .modal-detail-back{display:none;}
@@ -998,14 +1005,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 @media (max-width:900px){
   #app-layout{
     grid-template-columns:1fr;
-    grid-template-rows:auto auto 1fr;
+    grid-template-rows:auto 1fr;
     height:auto;
     overflow:visible;
+    padding-bottom:56px; /* space for bottom nav */
   }
   #sidebar{
     grid-column:1;grid-row:auto;
     border-right:none;border-bottom:1px solid var(--border);
-    display:none; /* hidden by default; shown via 성장 tab */
+    display:none;
     height:auto;
     overflow-y:visible;
   }
@@ -1014,14 +1022,47 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     grid-column:1;grid-row:auto;
     border-right:none;border-bottom:1px solid var(--border);
     height:auto;overflow-y:visible;
-    display:none; /* hidden by default; shown via 정보 tab */
+    display:none;
   }
   #center-col.mobile-active{display:block;}
-  #right-tabs{grid-column:1;grid-row:1;position:sticky;top:100px;z-index:100;}
-  #right-content{grid-column:1;grid-row:2;padding:8px;}
+  #right-tabs{display:none !important;} /* 상단 탭 바 숨기고 하단 내비로 대체 */
+  #right-content{grid-column:1;grid-row:2;padding:8px 4px;}
   .tab-mobile-only{display:flex !important;}
   .panel-grid-2{grid-template-columns:1fr;}
+
+  /* ── 하단 고정 탭 바 ── */
+  #mobile-bottom-nav{
+    display:flex !important;
+    position:fixed;bottom:0;left:0;right:0;z-index:9998;
+    background:#111820;border-top:1px solid var(--border);
+    height:56px;align-items:stretch;
+    justify-content:space-around;
+    padding:0 2px;
+    padding-bottom:env(safe-area-inset-bottom, 0);
+  }
+  .bnav-btn{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    flex:1;background:none;border:none;color:var(--text2);
+    font-size:9px;gap:2px;cursor:pointer;padding:4px 0;
+    transition:color .15s;min-width:0;
+  }
+  .bnav-btn .bnav-icon{font-size:20px;line-height:1;}
+  .bnav-btn.active{color:var(--accent);}
+  .bnav-btn:active{background:var(--bg4);}
+
+  /* ── 모달 아코디언 (모바일) ── */
+  .modal-body{flex-direction:column;}
+  .modal-list{width:100%;min-width:0;border-right:none;max-height:none;flex:1;}
+  .modal-detail{display:none;} /* 기본 숨김 — 아코디언으로 대체 */
+  .opt-row-detail{
+    display:none;padding:12px;background:var(--bg3);border-bottom:1px solid var(--border);
+    font-size:13px;color:var(--text);line-height:1.6;
+  }
+  .opt-row-detail.open{display:block;}
+  .opt-row.expanded{background:var(--accent-bg);border-left:3px solid var(--accent);}
 }
+/* desktop: 하단 내비 숨김 */
+#mobile-bottom-nav{display:none;}
 </style>
 </head>
 <body>
@@ -1253,15 +1294,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
   <!-- Tab bar -->
   <div id="right-tabs">
+    <!-- mobile-only: 성장/정보 탭을 앞에 배치 -->
+    <div class="tab tab-mobile-only" onclick="switchTab('growth',this)">성장</div>
+    <div class="tab tab-mobile-only" onclick="switchTab('info',this)">정보</div>
     <div class="tab active" onclick="switchTab('weapons',this)">무기</div>
     <div class="tab" onclick="switchTab('defense',this)">방어</div>
     <div class="tab" onclick="switchTab('spells',this)">주문</div>
     <div class="tab" onclick="switchTab('equip',this)">장비</div>
     <div class="tab" onclick="switchTab('feats',this)">재주</div>
     <div class="tab" onclick="switchTab('actions',this)">행동</div>
-    <!-- mobile-only tabs -->
-    <div class="tab tab-mobile-only" onclick="switchTab('growth',this)">성장</div>
-    <div class="tab tab-mobile-only" onclick="switchTab('info',this)">정보</div>
   </div>
 
   <!-- Tab content panels -->
@@ -5164,14 +5205,74 @@ function renderOptions(data) {
 }
 
 function selectOption(item, row) {
+  modalSelected = item;
+
+  // Mobile accordion mode (≤700px)
+  if (window.innerWidth <= 700) {
+    // Toggle: if same row already expanded, collapse it
+    const existing = row?.nextElementSibling;
+    if (existing && existing.classList.contains('opt-row-detail') && existing.classList.contains('open')) {
+      existing.classList.remove('open');
+      row.classList.remove('expanded');
+      modalSelected = null;
+      return;
+    }
+    // Collapse all others
+    document.querySelectorAll('.opt-row-detail.open').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('.opt-row.expanded').forEach(r => r.classList.remove('expanded'));
+    // Build detail HTML
+    let detailHtml = '';
+    if (modalType === 'equip-browse') {
+      const i = item;
+      const p = i.price && i.price !== '—' ? `<div><strong>가격:</strong> ${i.price}</div>` : '';
+      const b = `<div><strong>부피:</strong> ${i.bulk==='L'?'L':i.bulk==='—'?'—':i.bulk}</div>`;
+      const d = i.damage ? `<div><strong>피해:</strong> ${i.damage}</div>` : '';
+      const ac = i.ac_bonus!==undefined ? `<div><strong>AC:</strong> +${i.ac_bonus}</div>` : '';
+      const traits = (i.traits||[]).length ? `<div style="margin-top:4px;">${i.traits.map(t=>traitTag(t)).join(' ')}</div>` : '';
+      detailHtml = `${p}${b}${d}${ac}${traits}
+        <div style="display:flex;gap:6px;margin-top:8px;">
+          <button class="btn-give" onclick="equipBrowseGive()" style="flex:1;padding:8px;background:var(--bg4);border:1px solid var(--border2);border-radius:4px;color:var(--text);cursor:pointer;">획득</button>
+          <button class="btn-buy" onclick="equipBrowseBuy()" style="flex:1;padding:8px;background:var(--accent-bg);border:1px solid var(--accent);border-radius:4px;color:var(--accent);cursor:pointer;">구매</button>
+        </div>`;
+    } else {
+      const nameKo = item.name || item.name_ko || '';
+      const desc = item.desc || item.summary || '';
+      let tags = '';
+      if (item.feat_level !== undefined) tags = `<span class="tag hl">${item.feat_level}레벨</span> <span class="tag">${item.category||''}</span>`;
+      else if (item.rank !== undefined) tags = `<span class="tag hl">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span>`;
+      else if (item.damage) tags = `<span class="tag hl">${item.damage}</span> <span class="tag">가격: ${item.price||'-'}</span>`;
+      else if (item.ac_bonus !== undefined) tags = `<span class="tag hl">AC+${item.ac_bonus}</span>`;
+      detailHtml = `${tags?'<div style="margin-bottom:6px;">'+tags+'</div>':''}
+        <div style="font-size:12px;line-height:1.6;">${desc}</div>`;
+    }
+    // Insert or reuse detail div after row
+    if (row) {
+      row.classList.add('expanded');
+      let detailDiv = row.nextElementSibling;
+      if (!detailDiv || !detailDiv.classList.contains('opt-row-detail')) {
+        detailDiv = document.createElement('div');
+        detailDiv.className = 'opt-row-detail';
+        row.after(detailDiv);
+      }
+      detailDiv.innerHTML = detailHtml;
+      detailDiv.classList.add('open');
+      // Confirm button for non-equip modals
+      if (modalType !== 'equip-browse' && modalType !== 'deity-pick' && modalType !== 'sanct-pick' && modalType !== 'font-pick') {
+        const confirmBtn = document.createElement('button');
+        confirmBtn.textContent = '선택';
+        confirmBtn.style.cssText = 'width:100%;margin-top:8px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;';
+        confirmBtn.onclick = () => confirmModal();
+        detailDiv.appendChild(confirmBtn);
+      }
+    }
+    return;
+  }
+
+  // Desktop: standard behavior
   document.querySelectorAll('.opt-row').forEach(c => c.classList.remove('selected'));
   if (row) row.classList.add('selected');
-  modalSelected = item;
   if (modalType === 'equip-browse') showEquipDetail(item);
   else showItemDetail(item);
-  // Mobile: show detail pane
-  const body = document.getElementById('modal-body');
-  if (body && window.innerWidth <= 700) body.classList.add('detail-open');
 }
 
 function showItemDetail(item) {
@@ -6401,6 +6502,29 @@ function startAutoSave() {
 function stopAutoSave() {
   if (autoSaveTimer) { clearInterval(autoSaveTimer); autoSaveTimer = null; }
 }
+
+// ── Mobile bottom nav tab switching ──
+function mobileNavSwitch(id) {
+  // Update bottom nav active
+  document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.bnav-btn[data-tab="${id}"]`)?.classList.add('active');
+  // Delegate to switchTab
+  switchTab(id, null);
+  window.scrollTo(0, 0);
+}
 </script>
+
+<!-- ═══ MOBILE BOTTOM NAVIGATION ═══ -->
+<nav id="mobile-bottom-nav">
+  <button class="bnav-btn" data-tab="growth" onclick="mobileNavSwitch('growth')"><span class="bnav-icon">📋</span>성장</button>
+  <button class="bnav-btn" data-tab="info" onclick="mobileNavSwitch('info')"><span class="bnav-icon">📊</span>정보</button>
+  <button class="bnav-btn active" data-tab="weapons" onclick="mobileNavSwitch('weapons')"><span class="bnav-icon">⚔️</span>무기</button>
+  <button class="bnav-btn" data-tab="defense" onclick="mobileNavSwitch('defense')"><span class="bnav-icon">🛡️</span>방어</button>
+  <button class="bnav-btn" data-tab="spells" onclick="mobileNavSwitch('spells')"><span class="bnav-icon">✨</span>주문</button>
+  <button class="bnav-btn" data-tab="equip" onclick="mobileNavSwitch('equip')"><span class="bnav-icon">🎒</span>장비</button>
+  <button class="bnav-btn" data-tab="feats" onclick="mobileNavSwitch('feats')"><span class="bnav-icon">⭐</span>재주</button>
+  <button class="bnav-btn" data-tab="actions" onclick="mobileNavSwitch('actions')"><span class="bnav-icon">▶️</span>행동</button>
+</nav>
+
 </body>
 </html>
