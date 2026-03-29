@@ -1316,9 +1316,9 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
       </div>
     </div>
 
-    <!-- 지각 / 클래스 DC / 감각 -->
+    <!-- 감각 능력 -->
     <div class="box">
-      <div class="box-title">지각 / 클래스 DC</div>
+      <div class="box-title">감각 능력 Senses</div>
       <div class="stat-row">
         <span class="stat-label">지각 Perception</span>
         <span class="prof-rank-badge" id="rank-perc">U</span>
@@ -1326,18 +1326,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
         <span class="stat-val" id="val-perc">+0</span>
       </div>
       <div class="stat-row">
-        <span class="stat-label">우선권</span>
-        <span class="stat-val" id="val-init">+0</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">클래스 DC</span>
-        <span class="prof-rank-badge" id="rank-classdc">U</span>
-        <select id="prof-classdc" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
-        <span class="stat-val" id="val-classdc">10</span>
-      </div>
-      <hr class="divider">
-      <div class="stat-row">
-        <span class="stat-label">감각 Senses</span>
+        <span class="stat-label">감각</span>
         <span style="font-size:12px;color:var(--text);" id="char-senses">—</span>
       </div>
     </div>
@@ -1345,6 +1334,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <!-- Skills -->
     <div class="box">
       <div class="box-title">기술 Skills</div>
+      <div style="border-bottom:2px solid var(--accent);margin-bottom:6px;padding-bottom:6px;">
+        <div class="stat-row" style="background:var(--accent-bg);border-radius:4px;padding:4px 6px;">
+          <span class="stat-label" style="color:var(--accent);font-weight:700;">클래스 DC</span>
+          <span class="prof-rank-badge" id="rank-classdc">U</span>
+          <select id="prof-classdc" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+          <span class="stat-val" style="color:var(--accent);" id="val-classdc">10</span>
+        </div>
+      </div>
       <div id="skills-list"></div>
     </div>
 
