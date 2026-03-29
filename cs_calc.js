@@ -137,6 +137,20 @@ function showInfo(type, name) {
     item = GEAR_DB.find(g => g.name_ko === nameKo);
   }
 
+  // 파손된 장비인지 확인하여 수치 조정
+  const brokenEquip = state.equip?.find(e => e.name === nameKo && e._broken);
+  if (item && brokenEquip) {
+    item = {...item}; // 원본 보존을 위해 복사
+    item.name_ko = '파손된 ' + item.name_ko;
+    if (item.damage) item.summary = (item.summary||'') + '<br><br><strong style="color:var(--red-light);">⚠ 파손됨:</strong> 명중 굴림 -2 페널티.';
+    if (item.ac_bonus !== undefined) {
+      const original = item.ac_bonus;
+      item.ac_bonus = Math.floor(original / 2);
+      item.summary = (item.summary||'') + '<br><br><strong style="color:var(--red-light);">⚠ 파손됨:</strong> AC 보너스가 +' + original + '에서 +' + item.ac_bonus + '으로 감소.';
+    }
+    if (item.hardness !== undefined) item.summary = (item.summary||'') + '<br><br><strong style="color:var(--red-light);">⚠ 파손됨:</strong> 방패 올리기로 AC 보너스를 받을 수 없습니다.';
+  }
+
   // DB에 없으면 임시 카드
   if (!item) {
     const nameEn = (name.match(/\(([^)]+)\)/) || [])[1] || '';
