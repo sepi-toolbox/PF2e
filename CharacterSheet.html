@@ -1012,13 +1012,9 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 <div id="header">
   <div id="header-title">⚔ PF2e<br><small>Player Core KR</small></div>
   <div class="hdr-fields">
-    <div class="hdr-field">
+    <div class="hdr-field" style="min-width:140px;flex:1;">
       <label>캐릭터 이름</label>
       <input id="f-name" placeholder="이름..." oninput="save()">
-    </div>
-    <div class="hdr-field">
-      <label>플레이어</label>
-      <input id="f-player" placeholder="플레이어..." oninput="save()">
     </div>
     <div class="hdr-field" style="min-width:50px;">
       <label>레벨</label>
@@ -1027,24 +1023,6 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <div class="hdr-field" style="min-width:60px;">
       <label>경험치 XP</label>
       <input id="f-xp" type="number" min="0" value="0" oninput="save()">
-    </div>
-    <div class="hdr-field">
-      <label>클래스</label>
-      <button class="btn-select" id="btn-class" onclick="openModal('class')">클래스 선택...</button>
-      <button class="heritage-chip" id="btn-subclass" onclick="openModal('subclass')" style="display:none;">서브클래스...</button>
-    </div>
-    <div class="hdr-field">
-      <label>혈통</label>
-      <button class="btn-select" id="btn-ancestry" onclick="openModal('ancestry')">혈통 선택...</button>
-      <button class="heritage-chip" id="btn-heritage" onclick="openModal('heritage')">유산...</button>
-    </div>
-    <div class="hdr-field">
-      <label>배경</label>
-      <button class="btn-select" id="btn-background" onclick="openModal('background')">배경 선택...</button>
-    </div>
-    <div class="hdr-field">
-      <label>신격/신앙</label>
-      <input id="f-deity" placeholder="신격..." oninput="save()">
     </div>
   </div>
   <div class="hdr-actions">
@@ -1224,6 +1202,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <div class="box">
       <div class="box-title">언어 / 특성</div>
       <textarea class="notes-area" id="f-languages" placeholder="언어, 특성 기록..." style="min-height:55px;" oninput="save()"></textarea>
+    </div>
+
+    <!-- Player / Deity -->
+    <div class="box">
+      <div class="box-title">캐릭터 정보</div>
+      <div style="display:flex;gap:6px;margin-bottom:4px;">
+        <div style="flex:1;"><label style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;">플레이어</label><input id="f-player" placeholder="플레이어..." oninput="save()" style="width:100%;background:var(--bg3);border:none;border-bottom:1px solid var(--border2);color:var(--text);padding:4px 6px;font-size:12px;"></div>
+        <div style="flex:1;"><label style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;">신격/신앙</label><input id="f-deity" placeholder="신격..." oninput="save()" style="width:100%;background:var(--bg3);border:none;border-bottom:1px solid var(--border2);color:var(--text);padding:4px 6px;font-size:12px;"></div>
+      </div>
     </div>
 
     <!-- Notes -->
@@ -4807,9 +4794,8 @@ function confirmModal() {
       resetFromClass();
     }
     state.selectedClass = modalSelected;
-    const btn = document.getElementById('btn-class');
-    btn.textContent = `${modalSelected.name} (${modalSelected.en})`;
-    btn.classList.add('filled');
+    const btnC = document.getElementById('btn-class');
+    if (btnC) { btnC.textContent = `${modalSelected.name} (${modalSelected.en})`; btnC.classList.add('filled'); }
     applyClassDefaults(modalSelected);
   } else if (modalType==='ancestry') {
     // Cascade reset if changing ancestry
@@ -4818,9 +4804,8 @@ function confirmModal() {
       resetFromAncestry();
     }
     state.selectedAncestry = modalSelected;
-    const btn = document.getElementById('btn-ancestry');
-    btn.textContent = `${modalSelected.name} (${modalSelected.en})`;
-    btn.classList.add('filled');
+    const btnA = document.getElementById('btn-ancestry');
+    if (btnA) { btnA.textContent = `${modalSelected.name} (${modalSelected.en})`; btnA.classList.add('filled'); }
     applyAncestryDefaults(modalSelected);
   } else if (modalType==='background') {
     // Cascade reset if changing background
@@ -4829,9 +4814,8 @@ function confirmModal() {
       resetFromBackground();
     }
     state.selectedBackground = modalSelected;
-    const btn = document.getElementById('btn-background');
-    btn.textContent = `${modalSelected.name} (${modalSelected.en})`;
-    btn.classList.add('filled');
+    const btnB = document.getElementById('btn-background');
+    if (btnB) { btnB.textContent = `${modalSelected.name} (${modalSelected.en})`; btnB.classList.add('filled'); }
     applyBackgroundInfo(modalSelected);
   } else if (modalType==='feat') {
     const type = modalContext || 'other';
@@ -5563,9 +5547,7 @@ function loadData(d) {
       state.selectedClass = CLASSES.find(c=>c.id===d.selectedClass)||null;
       if (state.selectedClass) {
         const btn = document.getElementById('btn-class');
-        btn.textContent = `${state.selectedClass.name} (${state.selectedClass.en})`;
-        btn.classList.add('filled');
-        // 서브클래스 버튼 표시
+        if (btn) { btn.textContent = `${state.selectedClass.name} (${state.selectedClass.en})`; btn.classList.add('filled'); }
         const subBtn = document.getElementById('btn-subclass');
         if (subBtn) {
           const hasSub = SUBCLASS_DB.some(s => s.class_id === state.selectedClass.id);
@@ -5587,16 +5569,14 @@ function loadData(d) {
       state.selectedAncestry = ANCESTRIES.find(a=>a.id===d.selectedAncestry)||null;
       if (state.selectedAncestry) {
         const btn = document.getElementById('btn-ancestry');
-        btn.textContent = `${state.selectedAncestry.name} (${state.selectedAncestry.en})`;
-        btn.classList.add('filled');
+        if (btn) { btn.textContent = `${state.selectedAncestry.name} (${state.selectedAncestry.en})`; btn.classList.add('filled'); }
       }
     }
     if (d.selectedBackground) {
       state.selectedBackground = BACKGROUNDS.find(b=>b.id===d.selectedBackground)||null;
       if (state.selectedBackground) {
         const btn = document.getElementById('btn-background');
-        btn.textContent = `${state.selectedBackground.name} (${state.selectedBackground.en})`;
-        btn.classList.add('filled');
+        if (btn) { btn.textContent = `${state.selectedBackground.name} (${state.selectedBackground.en})`; btn.classList.add('filled'); }
       }
     }
     if (d.selectedHeritage) {
