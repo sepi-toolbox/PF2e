@@ -163,6 +163,65 @@ function renderConditionList() {
   }
 }
 
+function openResetModal() {
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('hidden');
+  modalType = 'reset-confirm';
+  document.getElementById('modal-title').textContent = '⚠ 슬롯 초기화';
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) searchEl.style.display = 'none';
+  const fbar = document.getElementById('modal-filterbar');
+  if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm');
+  if (confirmBtn) confirmBtn.style.display = 'none';
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) listEl.style.display = '';
+  const detail = document.getElementById('modal-detail');
+  if (detail) detail.innerHTML = '';
+
+  const slot = typeof currentSlot !== 'undefined' ? currentSlot : 'slot1';
+  const container = document.getElementById('modal-options');
+  container.innerHTML = `<div style="padding:20px;text-align:center;">
+    <div style="font-size:14px;color:var(--red-light);font-weight:700;margin-bottom:12px;">현재 슬롯 (${slot})의 모든 데이터를 삭제합니다</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:16px;line-height:1.6;">
+      이 작업은 되돌릴 수 없습니다.<br>
+      혈통, 클래스, 재주, 주문, 장비 등 모든 데이터가 초기화됩니다.
+    </div>
+    <label style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:var(--text);cursor:pointer;margin-bottom:16px;">
+      <input type="checkbox" id="reset-confirm-check" onchange="document.getElementById('reset-confirm-btn').disabled=!this.checked" style="accent-color:var(--red);width:18px;height:18px;">
+      삭제에 동의합니다
+    </label>
+    <div style="display:flex;gap:8px;justify-content:center;">
+      <button id="reset-confirm-btn" disabled onclick="executeReset()" style="padding:10px 24px;background:var(--red);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;opacity:0.5;">삭제</button>
+      <button onclick="closeModal()" style="padding:10px 24px;background:var(--bg4);color:var(--text2);border:1px solid var(--border2);border-radius:4px;font-size:13px;cursor:pointer;">취소</button>
+    </div>
+  </div>`;
+
+  // 체크박스 상태에 따라 버튼 opacity 변경
+  const check = document.getElementById('reset-confirm-check');
+  const btn = document.getElementById('reset-confirm-btn');
+  if (check && btn) {
+    check.onchange = () => {
+      btn.disabled = !check.checked;
+      btn.style.opacity = check.checked ? '1' : '0.5';
+    };
+  }
+}
+
+function executeReset() {
+  // 로컬 state 초기화
+  location.reload();
+  // Firebase에서도 삭제
+  if (typeof currentUser !== 'undefined' && currentUser && typeof currentSlot !== 'undefined') {
+    const db2 = firebase.firestore();
+    db2.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot).delete().then(() => {
+      location.reload();
+    }).catch(() => {
+      location.reload();
+    });
+  }
+}
+
 function openSpeedModal() {
   const overlay = document.getElementById('modal-overlay');
   overlay.classList.remove('hidden');

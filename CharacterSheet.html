@@ -23,7 +23,7 @@ const db = firebase.firestore();
 <script src="equipment_db.js"></script>
 <script src="feat_db.js"></script>
 <script src="SPELL_DB.js"></script>
-<script src="class_features_db.js?v=29"></script>
+<script src="class_features_db.js?v=30"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1128,8 +1128,9 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <span class="brand">⚔ PF2e 캐릭터 시트</span>
     <span id="save-status"></span>
   </div>
-  <div id="auth-area">
+  <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
+    <button onclick="openResetModal()" style="background:none;border:1px solid var(--border2);color:var(--text2);padding:3px 8px;border-radius:4px;cursor:pointer;font-size:10px;" title="현재 슬롯 초기화">🗑</button>
   </div>
 </div>
 
@@ -1696,11 +1697,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=29"></script>
-<script src="cs_calc.js?v=29"></script>
-<script src="cs_ui.js?v=29"></script>
-<script src="cs_modal.js?v=29"></script>
-<script src="cs_save.js?v=29"></script>
+<script src="cs_data.js?v=30"></script>
+<script src="cs_calc.js?v=30"></script>
+<script src="cs_ui.js?v=30"></script>
+<script src="cs_modal.js?v=30"></script>
+<script src="cs_save.js?v=30"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -1768,9 +1769,9 @@ function loadFromCloud() {
       status.style.color = '#888';
     }
   }).catch(function(e) {
-    status.textContent = '✗ 불러오기 실패';
-    status.style.color = '#e74c3c';
-    console.error(e);
+    status.textContent = '새 캐릭터';
+    status.style.color = '#888';
+    console.warn('[loadFromCloud] empty or error:', e);
   });
 }
 
