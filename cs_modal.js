@@ -1352,34 +1352,38 @@ function getOptionsData(type) {
 function buildFeatFilters(ctx) {
   const fbar = document.getElementById('modal-filterbar');
   if (!fbar) return;
-  const cats = [...new Set((typeof FEAT_DB!=='undefined'?FEAT_DB:[]).map(f=>f.category))].sort();
-  fbar.innerHTML = `
-    <select id="filter-feat-cat" onchange="renderOptions(getOptionsData('feat'))">
-      <option value="">전체 분류</option>
-      ${cats.map(c=>`<option value="${c}">${c}</option>`).join('')}
-    </select>
-    <select id="filter-feat-lv" onchange="renderOptions(getOptionsData('feat'))">
-      <option value="">전체 레벨</option>
-      ${[1,2,4,6,8,10,12,14,16,18,20].map(n=>`<option value="${n}">${n}레벨 이하</option>`).join('')}
-    </select>`;
+  const fromGrowth = !!growthPendingKey;
 
-  // 섹션에 따라 자동 필터 설정
-  const catSel = document.getElementById('filter-feat-cat');
-  const lvSel = document.getElementById('filter-feat-lv');
-  if (catSel && lvSel) {
-    if (ctx === 'class' && state.selectedClass) {
-      catSel.value = state.selectedClass.id;
-    } else if (ctx === 'ancestry') {
-      catSel.value = 'ancestry';
-    } else if (ctx === 'general') {
-      catSel.value = 'general';
-    } else if (ctx === 'skill') {
-      catSel.value = 'skill';
+  if (fromGrowth) {
+    // 성장 빌더에서 호출 시 필터 UI 숨김 (사용자 변경 불가)
+    fbar.innerHTML = '';
+  } else {
+    const cats = [...new Set((typeof FEAT_DB!=='undefined'?FEAT_DB:[]).map(f=>f.category))].sort();
+    fbar.innerHTML = `
+      <select id="filter-feat-cat" onchange="renderOptions(getOptionsData('feat'))">
+        <option value="">전체 분류</option>
+        ${cats.map(c=>`<option value="${c}">${c}</option>`).join('')}
+      </select>
+      <select id="filter-feat-lv" onchange="renderOptions(getOptionsData('feat'))">
+        <option value="">전체 레벨</option>
+        ${[1,2,4,6,8,10,12,14,16,18,20].map(n=>`<option value="${n}">${n}레벨 이하</option>`).join('')}
+      </select>`;
+    const catSel = document.getElementById('filter-feat-cat');
+    const lvSel = document.getElementById('filter-feat-lv');
+    if (catSel && lvSel) {
+      if (ctx === 'class' && state.selectedClass) {
+        catSel.value = state.selectedClass.id;
+      } else if (ctx === 'ancestry') {
+        catSel.value = 'ancestry';
+      } else if (ctx === 'general') {
+        catSel.value = 'general';
+      } else if (ctx === 'skill') {
+        catSel.value = 'skill';
+      }
+      const lv = getLevel();
+      const opt = [...lvSel.options].reverse().find(o => parseInt(o.value) <= lv);
+      if (opt) lvSel.value = opt.value;
     }
-    // 현재 레벨 이하로 자동 설정
-    const lv = getLevel();
-    const opt = [...lvSel.options].reverse().find(o => parseInt(o.value) <= lv);
-    if (opt) lvSel.value = opt.value;
   }
 }
 
@@ -1403,15 +1407,38 @@ function buildWeaponFilters() {
 function filterFeats() {
   if (typeof FEAT_DB==='undefined') return [];
   const q = document.getElementById('modal-search')?.value.toLowerCase()||'';
+  const fromGrowth = !!growthPendingKey;
+
+  // 성장 빌더에서 호출 시: growthPendingFeatType + growthPendingLevel 기준
+  if (fromGrowth) {
+    const ft = growthPendingFeatType;
+    const maxLv = growthPendingLevel || getLevel();
+    let cat = ft;
+    // class → 선택된 클래스 id
+    if (ft === 'class' && state.selectedClass) cat = state.selectedClass.id;
+
+    return FEAT_DB.filter(f => {
+      if (q && !f.name_ko.includes(q) && !(f.name_en||'').toLowerCase().includes(q) && !(f.summary||'').includes(q)) return false;
+      if (f.feat_level > maxLv) return false;
+      if (ft === 'ancestry') {
+        // 혈통 재주: ancestry 카테고리 + 선택된 혈통 trait 일치
+        if (f.category !== 'ancestry') return false;
+        if (state.selectedAncestry) {
+          const ancTraits = state.selectedAncestry.traits || [];
+          return f.traits && f.traits.some(t => ancTraits.includes(t));
+        }
+        return true;
+      }
+      return f.category === cat;
+    });
+  }
+
+  // 일반 모달 (재주 탭에서 직접 열기)
   const cat = document.getElementById('filter-feat-cat')?.value||'';
   const lv = parseInt(document.getElementById('filter-feat-lv')?.value||0);
-  // 혈통 재주: 선택된 혈통의 특성(trait)에 맞는 것만
-  const ancTraits = (cat === 'ancestry' && state.selectedAncestry)
-    ? (state.selectedAncestry.traits || []) : null;
   return FEAT_DB.filter(f =>
     (!cat || f.category===cat) &&
     (!lv || f.feat_level<=lv) &&
-    (!ancTraits || (f.traits && f.traits.some(t => ancTraits.includes(t)))) &&
     (!q || f.name_ko.includes(q) || (f.name_en||'').toLowerCase().includes(q) || (f.summary||'').includes(q))
   );
 }
