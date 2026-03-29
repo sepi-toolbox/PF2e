@@ -806,8 +806,8 @@ body{
   display:flex;justify-content:flex-end;gap:8px;
   background:var(--bg3);border-radius:0 0 8px 8px;flex-shrink:0;
 }
-/* Mobile modal */
-@media(max-width:700px){
+/* Mobile modal (900px과 동일 breakpoint) */
+@media(max-width:900px){
   .modal{width:100vw;height:100vh;max-width:100vw;border-radius:0;display:flex;flex-direction:column;overflow:hidden;}
   .modal-header{flex-shrink:0;}
   .modal-body{flex:1;overflow-y:auto;overflow-x:hidden;flex-direction:column;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;}
@@ -829,7 +829,7 @@ body{
   .modal-close{display:none;} /* X 숨기고 텍스트 버튼으로 대체 */
   .modal-close-mobile{display:block;background:none;border:none;color:var(--accent);font-size:14px;font-weight:600;cursor:pointer;padding:8px 4px;white-space:nowrap;}
 }
-@media(min-width:701px){
+@media(min-width:901px){
   .modal-detail-back{display:none;}
 }
 
@@ -2382,9 +2382,31 @@ function showInfo(type, name) {
   if (confirmBtn) confirmBtn.style.display = 'none';
   document.getElementById('modal-title').textContent = titleMap[type] || '정보';
   modalType = 'info';
-  const listEl = document.querySelector('.modal-list');
-  if (listEl) listEl.style.display = 'none';
-  showItemDetail(item);
+
+  // Mobile: detail을 list 영역에 직접 표시
+  if (window.innerWidth <= 900) {
+    const listItems = document.getElementById('modal-options');
+    if (listItems) {
+      const nameKoD = item.name || item.name_ko || '';
+      const nameEnD = item.en || item.name_en || '';
+      const desc = item.desc || item.summary || '';
+      let tags = '';
+      if (item.feat_level !== undefined) tags = `<span class="tag hl">${item.feat_level}레벨</span> <span class="tag">${item.category||''}</span>`;
+      else if (item.rank !== undefined) tags = `<span class="tag hl">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span>`;
+      else if (item.damage) tags = `<span class="tag hl">${item.damage}</span> <span class="tag">${item.price||''}</span>`;
+      else if (item.ac_bonus !== undefined) tags = `<span class="tag hl">AC+${item.ac_bonus}</span>`;
+      listItems.innerHTML = `<div style="padding:16px;">
+        <div style="font-size:16px;font-weight:700;margin-bottom:2px;">${nameKoD}</div>
+        <div style="font-size:12px;color:var(--text2);margin-bottom:10px;">${nameEnD}</div>
+        <div style="margin-bottom:10px;">${tags}</div>
+        <div style="font-size:13px;line-height:1.7;">${desc}</div>
+      </div>`;
+    }
+  } else {
+    const listEl = document.querySelector('.modal-list');
+    if (listEl) listEl.style.display = 'none';
+    showItemDetail(item);
+  }
 }
 
 // ═══════════════════════════════════════════════
@@ -5272,7 +5294,7 @@ function selectOption(item, row) {
   modalSelected = item;
 
   // Mobile accordion mode (≤700px)
-  if (window.innerWidth <= 700) {
+  if (window.innerWidth <= 900) {
     // Toggle: if same row already expanded, collapse it
     const existing = row?.nextElementSibling;
     if (existing && existing.classList.contains('opt-row-detail') && existing.classList.contains('open')) {
