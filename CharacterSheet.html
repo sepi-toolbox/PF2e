@@ -809,7 +809,7 @@ body{
 }
 /* Mobile modal (900px과 동일 breakpoint) */
 @media(max-width:900px){
-  .modal{width:100vw;height:100vh;max-width:100vw;border-radius:0;display:flex;flex-direction:column;overflow:hidden;}
+  .modal{width:100vw;height:100vh;height:100dvh;max-width:100vw;border-radius:0;display:flex;flex-direction:column;overflow:hidden;}
   .modal-header{flex-shrink:0;}
   .modal-body{flex:1;overflow-y:auto;overflow-x:hidden;flex-direction:column;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;}
   .modal-list{width:100%;min-width:0;border-right:none;flex:none;overflow-y:visible;}
@@ -827,8 +827,8 @@ body{
   .opt-row-detail.open{display:block;}
   .opt-row.expanded{background:var(--accent-bg);border-left:3px solid var(--accent);}
   /* 모달 닫기: 데스크톱 ✕ 숨기고, 모바일 "닫기" 버튼 표시 */
-  .modal-close{display:none;}
-  .modal-close-mobile{display:block;}
+  .modal-close{display:none !important;}
+  .modal-close-mobile{display:block !important;}
 }
 @media(min-width:901px){
   .modal-detail-back{display:none;}
@@ -4826,7 +4826,8 @@ function openEquipBrowse() {
     <div class="modal-currency-item"><span class="coin coin-gp"></span><span class="coin-label">금화</span><span class="coin-val" id="mc-gp">${document.getElementById('cur-gp')?.value||0}</span></div>
     <div class="modal-currency-item"><span class="coin coin-sp"></span><span class="coin-label">은화</span><span class="coin-val" id="mc-sp">${document.getElementById('cur-sp')?.value||0}</span></div>
     <div class="modal-currency-item"><span class="coin coin-cp"></span><span class="coin-label">동화</span><span class="coin-val" id="mc-cp">${document.getElementById('cur-cp')?.value||0}</span></div>
-  </div>`;
+  </div>
+  <button class="btn btn-cancel" onclick="closeModal()" style="width:100%;padding:12px;font-size:14px;margin-top:6px;">닫기</button>`;
 
   equipBrowseTab = 'weapon';
   equipBrowseSubTab = '';
