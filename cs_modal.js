@@ -1083,6 +1083,7 @@ function growthSkillTrainingChanged(slotIndex, value) {
     if (el && parseInt(el.value) < 2) el.value = '2';
   }
   recalcSkills();
+  syncAllProfRanks();
   renderGrowthPlan();
   save();
 }
@@ -1108,6 +1109,7 @@ function growthSkillIncreaseChanged(lv, value) {
     }
   }
   recalcSkills();
+  syncAllProfRanks();
   renderGrowthPlan();
   save();
 }

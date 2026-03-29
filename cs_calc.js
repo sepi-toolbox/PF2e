@@ -666,6 +666,25 @@ function recalcAll() {
   if (document.getElementById('panel-actions')?.classList.contains('active')) renderActions();
 }
 
+function getCondPenalty() {
+  const frightened = parseInt(state.conditions['공포'] || 0);
+  const sickened = parseInt(state.conditions['구역질'] || 0);
+  const clumsy = parseInt(state.conditions['둔함'] || 0);
+  const enfeebled = parseInt(state.conditions['약화됨'] || 0);
+  const stupefied = parseInt(state.conditions['혼미'] || 0);
+  return {
+    all: Math.max(frightened, sickened), // 공포/구역질 중 큰 값
+    clumsy, enfeebled, stupefied
+  };
+}
+
+function applyPenaltyColor(el, base, penalty) {
+  if (!el) return;
+  const total = base - penalty;
+  el.textContent = (total >= 0 ? '+' : '') + total;
+  el.style.color = penalty > 0 ? 'var(--red-light)' : '';
+}
+
 function recalcAC() {
   const baseAc = parseInt(document.getElementById('armor-ac')?.value||0);
   const potency = state.armorPotency || 0;
@@ -693,8 +712,11 @@ function recalcAC() {
 
   // 방패 들기 보너스
   const shieldBonus = (state.shieldRaised && !state.shieldStowed) ? parseInt(document.getElementById('shield-ac')?.value||0) : 0;
-  const ac = 10 + effectiveDex + effectiveArmor + effectiveProf + shieldBonus;
-  document.getElementById('val-ac').textContent = ac;
+  const pen = getCondPenalty();
+  const acPenalty = pen.all + pen.clumsy;
+  const ac = 10 + effectiveDex + effectiveArmor + effectiveProf + shieldBonus - acPenalty;
+  const acEl = document.getElementById('val-ac');
+  if (acEl) { acEl.textContent = ac; acEl.style.color = acPenalty > 0 ? 'var(--red-light)' : ''; }
 
   // Update AC breakdown display
   const itemDisp = document.getElementById('ac-item-display');
@@ -714,15 +736,17 @@ function syncArmorProf() {
 
 function recalcSaves() {
   const lv = getLevel();
+  const pen = getCondPenalty();
   const pairs = [
-    ['fort','con','prof-fort','val-fort'],
-    ['ref','dex','prof-ref','val-ref'],
-    ['will','wis','prof-will','val-will'],
+    ['fort','con','prof-fort','val-fort', 0],
+    ['ref','dex','prof-ref','val-ref', pen.clumsy],
+    ['will','wis','prof-will','val-will', 0],
   ];
-  pairs.forEach(([,attr,profId,valId]) => {
+  pairs.forEach(([,attr,profId,valId, extraPen]) => {
     const rank = parseInt(document.getElementById(profId)?.value||0);
-    const total = getMod(attr) + (rank>0?rank+lv:0);
-    document.getElementById(valId).textContent = fmtBonus(total);
+    const base = getMod(attr) + (rank>0?rank+lv:0);
+    const totalPen = pen.all + extraPen;
+    applyPenaltyColor(document.getElementById(valId), base, totalPen);
   });
 }
 
@@ -788,9 +812,13 @@ function recalcSkill(id) {
   if (!sk) return;
   const rank = parseInt(document.getElementById('sk-prof-'+id)?.value||0);
   const lv = getLevel();
-  const total = getMod(sk.attr) + (rank>0?rank+lv:0);
-  const el = document.getElementById('sk-val-'+id);
-  if (el) el.textContent = fmtBonus(total);
+  const base = getMod(sk.attr) + (rank>0?rank+lv:0);
+  const pen = getCondPenalty();
+  let extraPen = 0;
+  if (sk.attr === 'str') extraPen = pen.enfeebled;
+  if (sk.attr === 'dex') extraPen = pen.clumsy;
+  if (['int','wis','cha'].includes(sk.attr)) extraPen = pen.stupefied;
+  applyPenaltyColor(document.getElementById('sk-val-'+id), base, pen.all + extraPen);
 }
 
 function toggleHeroStar(idx) {
