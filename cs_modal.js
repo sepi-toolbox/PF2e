@@ -1919,9 +1919,20 @@ function confirmModal() {
       growthPendingLevel = null;
       growthPendingKey = null;
       growthPendingFeatType = null;
+      // 선택이 필요한 재주면 선택 모달 열기
+      if (typeof checkFeatChoice === 'function' && checkFeatChoice(featName, type, state.feats[type].length - 1)) {
+        renderGrowthPlan();
+        renderFeats();
+        return; // 선택 모달이 열림 → closeModal은 선택 완료 후
+      }
       renderGrowthPlan();
     } else {
       state.feats[type].push({name: featName, level: featLevel});
+      // 선택이 필요한 재주면 선택 모달 열기
+      if (typeof checkFeatChoice === 'function' && checkFeatChoice(featName, type, state.feats[type].length - 1)) {
+        renderFeats();
+        return;
+      }
     }
     renderFeats();
   } else if (modalType==='spell') {

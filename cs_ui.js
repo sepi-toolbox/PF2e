@@ -1352,10 +1352,12 @@ function renderFeats() {
       const div = document.createElement('div');
       div.className = 'feat-entry';
       div.style.cursor = 'pointer';
+      const choiceBadge = f.choice && typeof _getChoiceDisplayName === 'function' ? _getChoiceDisplayName(f) : '';
       if (isAuto) {
         div.innerHTML = `
           <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
             <span style="flex:1;color:var(--text);font-size:12px;">${f.name}</span>
+            ${choiceBadge ? `<span style="font-size:10px;color:var(--accent);flex-shrink:0;">[${choiceBadge}]</span>` : ''}
           </div>
           <div class="feat-src"><span style="color:var(--text2);font-size:10px;">Lv ${f.level||1} — 클래스 특성</span></div>`;
         div.addEventListener('click', () => showInfo('feat', f.name));
@@ -1363,6 +1365,7 @@ function renderFeats() {
         div.innerHTML = `
           <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
             <span style="flex:1;color:var(--text);font-size:12px;">${f.name || labels[t] + ' 재주'}</span>
+            ${choiceBadge ? `<span style="font-size:10px;color:var(--accent);flex-shrink:0;">[${choiceBadge}]</span>` : ''}
             <span class="spell-del" style="flex-shrink:0;">✕</span>
           </div>
           <div class="feat-src"><span style="color:var(--text2);font-size:10px;">Lv ${f.level||1}</span></div>`;

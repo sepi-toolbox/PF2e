@@ -41,7 +41,10 @@ function syncAllProfRanks() {
   if (sizeEl) sizeEl.textContent = state.selectedAncestry?.size || state.size || '중형';
   const speedDisp = document.getElementById('speed-display');
   const speedVal = document.getElementById('speed');
-  if (speedDisp && speedVal) speedDisp.textContent = speedVal.value || '25';
+  if (speedDisp && speedVal) {
+    const baseSpeed = parseInt(speedVal.value || '25') + (state._fb?.speed || 0);
+    speedDisp.textContent = baseSpeed;
+  }
   // 감각 표시
   const sensesEl = document.getElementById('char-senses');
   if (sensesEl) {
@@ -654,6 +657,8 @@ function getProfBonus(selectId) {
 function fmtBonus(n) { return n >= 0 ? '+'+n : ''+n; }
 
 function recalcAll() {
+  // 재주 효과 집계
+  if (typeof applyFeatEffects === 'function') applyFeatEffects();
   ['str','dex','con','int','wis','cha'].forEach(a => {
     const {mod, partial} = calcMod(a);
     const mEl = document.getElementById('mod-'+a);
@@ -771,7 +776,8 @@ function recalcPerc() {
   const total = getMod('wis') + getProfBonus('prof-perc');
   document.getElementById('val-perc').textContent = fmtBonus(total);
   const initEl = document.getElementById('val-init');
-  if (initEl) initEl.textContent = fmtBonus(total);
+  const initBonus = state._fb?.initiative || 0;
+  if (initEl) initEl.textContent = fmtBonus(total + initBonus);
 }
 
 function getClassKeyAttr() {
@@ -837,7 +843,12 @@ function recalcSkills() {
 function recalcSkill(id) {
   const sk = SKILLS.find(s=>s.id===id);
   if (!sk) return;
-  const rank = parseInt(document.getElementById('sk-prof-'+id)?.value||0);
+  let rank = parseInt(document.getElementById('sk-prof-'+id)?.value||0);
+  // 재주에 의한 기술 숙련 적용
+  const featSkill = state._fb?.skills?.[id];
+  if (featSkill && featSkill.min_rank > rank) {
+    rank = featSkill.min_rank;
+  }
   const lv = getLevel();
   const base = getMod(sk.attr) + (rank>0?rank+lv:0);
   const pen = getCondPenalty();
@@ -945,7 +956,7 @@ function recalcBulk() {
     });
   }
   document.getElementById('bulk-total').textContent = total.toFixed(1).replace('.0','');
-  const maxBulk = getMod('str') + 5;
+  const maxBulk = getMod('str') + 5 + (state._fb?.bulk || 0);
   document.getElementById('bulk-max').textContent = maxBulk;
 }
 
@@ -955,7 +966,7 @@ function updateHP() {
     const ancHP = state.selectedAncestry.hp;
     const clsHP = state.selectedClass.hp;
     const conMod = getMod('con');
-    const max = ancHP + (clsHP + conMod) * lv;
+    const max = ancHP + (clsHP + conMod) * lv + (state._fb?.hp || 0);
     const maxEl = document.getElementById('hp-max');
     const curEl = document.getElementById('hp-cur');
     const oldMax = parseInt(maxEl.value || 0);
