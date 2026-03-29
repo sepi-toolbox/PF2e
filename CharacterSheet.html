@@ -825,9 +825,8 @@ body{
   .opt-row-detail{display:none;padding:10px 12px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:12px;line-height:1.6;}
   .opt-row-detail.open{display:block;}
   .opt-row.expanded{background:var(--accent-bg);border-left:3px solid var(--accent);}
-  /* 모달 닫기 버튼 */
-  .modal-close{display:none;} /* X 숨기고 텍스트 버튼으로 대체 */
-  .modal-close-mobile{display:block;background:none;border:none;color:var(--accent);font-size:14px;font-weight:600;cursor:pointer;padding:8px 4px;white-space:nowrap;}
+  /* 모달 닫기: 데스크톱 X는 유지, 모바일 닫기는 JS(#modal-close-m)로 제어 */
+  .modal-close-mobile{display:none;}
 }
 @media(min-width:901px){
   .modal-detail-back{display:none;}
@@ -1706,10 +1705,10 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 <!-- ═══════════════ MODAL ═══════════════ -->
 <div class="modal-overlay hidden" id="modal-overlay">
   <div class="modal">
-    <div class="modal-header">
-      <button class="modal-close-mobile" onclick="closeModal()">← 닫기</button>
-      <h2 id="modal-title">선택</h2>
+    <div class="modal-header" id="modal-header-bar">
+      <h2 id="modal-title" style="flex:1;">선택</h2>
       <button class="modal-close" onclick="closeModal()">✕</button>
+      <button id="modal-close-m" onclick="closeModal()" style="display:none;background:var(--accent);color:#fff;border:none;border-radius:4px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;">닫기</button>
     </div>
     <div class="modal-body" id="modal-body">
       <div class="modal-list">
@@ -5755,6 +5754,15 @@ function closeModal() {
 document.getElementById('modal-overlay').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
+
+// 모바일 모달 닫기 버튼 자동 표시
+new MutationObserver(() => {
+  const overlay = document.getElementById('modal-overlay');
+  const btn = document.getElementById('modal-close-m');
+  if (!btn || !overlay) return;
+  const isOpen = !overlay.classList.contains('hidden');
+  btn.style.display = (isOpen && window.innerWidth <= 900) ? 'block' : 'none';
+}).observe(document.getElementById('modal-overlay'), {attributes:true, attributeFilter:['class']});
 
 function applyClassDefaults(cls) {
   const saveMap = {fort:'prof-fort', ref:'prof-ref', will:'prof-will'};
