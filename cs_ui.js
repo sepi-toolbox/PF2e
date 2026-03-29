@@ -796,18 +796,24 @@ function renderContainers() {
         <span>📦 ${c.name}${c.ignoreBulk ? ' <span style="font-size:9px;color:var(--accent);font-weight:400;">(부피 미적용)</span>' : ''}</span>
         <span class="spell-del" onclick="removeContainer(${ci})" style="cursor:pointer;">✕</span>
       </div>`;
+    // 헤더 (메인과 동일)
+    html += `<div class="equip-row" style="font-size:10px;color:var(--text2);padding:2px 4px;border-bottom:1px solid var(--border);">
+      <span style="flex:1;">아이템</span><span style="width:30px;text-align:center;">부피</span><span style="width:70px;text-align:center;">수량</span><span style="width:60px;"></span><span style="width:40px;"></span><span style="width:28px;"></span>
+    </div>`;
     c.items.forEach((item, ii) => {
       const bulkDisplay = item.bulk === 'L' ? 'L' : (item.bulk || '—');
       const eqEscName = (item.name||'').replace(/'/g,"\\'");
       const eqType = item._type === 'weapon' ? 'weapon' : (item._type === 'armor' ? 'armor' : (item._type === 'shield' ? 'shield' : 'gear'));
       html += `<div class="equip-row">
-        <span style="flex:1;font-size:12px;color:var(--text);cursor:pointer;" onclick="showInfo('${eqType}','${eqEscName}')">${item._broken?'파손된 ':''}${item.name}</span>
+        <span style="flex:1;font-size:12px;color:${item._broken?'var(--red-light)':'var(--text)'};cursor:pointer;" onclick="showInfo('${eqType}','${eqEscName}')">${item._broken?'파손된 ':''}${item.name}</span>
         <span style="width:30px;text-align:center;font-size:10px;color:var(--text2);">${bulkDisplay}</span>
         <span style="width:70px;display:flex;align-items:center;justify-content:center;gap:2px;">
           <button class="qty-btn" onclick="event.stopPropagation();changeContainerQty(${ci},${ii},-1)">−</button>
           <span style="min-width:16px;text-align:center;font-size:13px;font-weight:600;color:var(--text);">${item.qty||1}</span>
           <button class="qty-btn" onclick="event.stopPropagation();changeContainerQty(${ci},${ii},1)">+</button>
         </span>
+        <span style="width:60px;"></span>
+        <span style="width:40px;"></span>
         <span style="width:28px;text-align:center;">
           <select onchange="if(this.value!=='')moveFromContainer(${ci},${ii},this.value);this.value=''" style="font-size:16px;background:none;border:none;color:var(--text2);cursor:pointer;-webkit-appearance:none;appearance:none;width:28px;text-align:center;outline:none;padding:4px 0;" title="이동">
             <option value="">▾</option>
