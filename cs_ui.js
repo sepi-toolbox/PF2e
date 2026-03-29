@@ -543,7 +543,7 @@ function renderEquip() {
         <button class="${e._broken ? 'equip-toggle equipped' : 'equip-toggle'}" onclick="event.stopPropagation();toggleBroken(${i})" style="font-size:9px;padding:2px 4px;${e._broken?'background:var(--red-bg);color:var(--red-light);border-color:var(--red);':''}">${e._broken ? '파손' : '정상'}</button>
       </span>
       <span style="width:28px;text-align:center;">
-        ${hasContainers ? `<select onchange="if(this.value!=='')moveToContainer(${i},parseInt(this.value));this.value=''" style="font-size:16px;background:none;border:none;color:var(--text2);cursor:pointer;-webkit-appearance:none;appearance:none;width:28px;text-align:center;outline:none;padding:4px 0;" title="이동">
+        ${hasContainers ? `<select onchange="if(this.value!=='')moveToContainer(${i},parseInt(this.value));this.value=''" class="move-select" title="이동">
           <option value="">▾</option>
           ${state.containers.map((c,ci) => `<option value="${ci}">${c.name}</option>`).join('')}
         </select>` : ''}
@@ -815,7 +815,7 @@ function renderContainers() {
         <span style="width:60px;"></span>
         <span style="width:40px;"></span>
         <span style="width:28px;text-align:center;">
-          <select onchange="if(this.value!=='')moveFromContainer(${ci},${ii},this.value);this.value=''" style="font-size:16px;background:none;border:none;color:var(--text2);cursor:pointer;-webkit-appearance:none;appearance:none;width:28px;text-align:center;outline:none;padding:4px 0;" title="이동">
+          <select onchange="if(this.value!=='')moveFromContainer(${ci},${ii},this.value);this.value=''" class="move-select" title="이동">
             <option value="">▾</option>
             <option value="main">메인</option>
             ${state.containers.map((cc,cci) => cci !== ci ? `<option value="${cci}">${cc.name}</option>` : '').join('')}
