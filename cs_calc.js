@@ -803,6 +803,7 @@ function updateHpGauge() {
     else if (pct > 25) fill.style.background = 'linear-gradient(90deg,#6a5a1a,#a08a20)';
     else fill.style.background = 'linear-gradient(90deg,#6a1a1a,#a03030)';
   }
+  checkHpZero();
 }
 function updateShieldGauge() {
   const shieldHp = parseInt(document.getElementById('shield-hp')?.value)||0;
@@ -839,8 +840,30 @@ function updateHP() {
     const clsHP = state.selectedClass.hp;
     const conMod = getMod('con');
     const max = ancHP + (clsHP + conMod) * lv;
-    if (document.getElementById('hp-max').value === '0' || !document.getElementById('hp-max')._userEdited) {
-      document.getElementById('hp-max').value = max;
+    const maxEl = document.getElementById('hp-max');
+    const curEl = document.getElementById('hp-cur');
+    const oldMax = parseInt(maxEl.value || 0);
+    if (oldMax === 0 || !maxEl._userEdited) {
+      maxEl.value = max;
+      // 최대치가 바뀌면 현재 HP도 최대치로 설정 (초기 또는 레벨업)
+      if (curEl && (parseInt(curEl.value || 0) === 0 || parseInt(curEl.value) === oldMax)) {
+        curEl.value = max;
+      }
+    }
+  }
+  checkHpZero();
+}
+
+function checkHpZero() {
+  const cur = parseInt(document.getElementById('hp-cur')?.value || 0);
+  if (cur <= 0) {
+    // PF2e: HP 0 → 의식불명 + 빈사 1 (부상 수치만큼 빈사 증가)
+    if (!state.conditions['의식불명']) {
+      state.conditions['의식불명'] = 1;
+      const wounded = state.conditions['부상'] || 0;
+      state.conditions['빈사'] = Math.max(state.conditions['빈사'] || 0, 1 + wounded);
+      buildConditions();
+      if (typeof renderActiveConditions === 'function') renderActiveConditions();
     }
   }
 }
