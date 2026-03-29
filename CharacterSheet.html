@@ -285,10 +285,8 @@ body{
    HP BAR
    ══════════════════════════════════ */
 /* Hero Points checkboxes */
-.hero-cb{cursor:pointer;font-size:18px;color:var(--text2);user-select:none;}
-.hero-cb input{display:none;}
-.hero-cb input:checked + *{color:var(--accent);}
-.hero-cb:has(input:checked){color:var(--accent);}
+.hero-star{cursor:pointer;font-size:20px;color:var(--text2);user-select:none;transition:color .1s;}
+.hero-star.filled{color:var(--accent);}
 /* HP Gauge */
 .hp-gauge-wrap{margin-bottom:4px;}
 .hp-gauge-bar{position:relative;background:#1a2a2a;border:1px solid var(--border);border-radius:6px;height:28px;overflow:hidden;}
@@ -796,7 +794,8 @@ body{
   .modal{width:100vw;height:100vh;max-width:100vw;border-radius:0;}
   .modal-list{width:100%;min-width:0;border-right:none;flex:1;}
   .modal-detail{display:none !important;}
-  .modal-footer{display:none !important;} /* 선택 버튼은 아코디언 내부로 이동 */
+  .modal-footer .btn-confirm{display:none !important;} /* 선택 버튼만 숨김 — 닫기는 유지 */
+  .modal-footer{justify-content:center;}
   .modal-body.detail-open .modal-list{display:flex;} /* 아코디언 모드에서는 항상 리스트 표시 */
   .modal-body.detail-open .modal-detail{display:none !important;}
   .modal-detail-back{display:none !important;}
@@ -1209,10 +1208,10 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
       </div>
       <div class="stat-row" style="flex-wrap:wrap;">
         <span class="stat-label">영웅 점수</span>
-        <label class="hero-cb"><input type="checkbox" id="hero-1" onchange="saveHeroPoints()">★</label>
-        <label class="hero-cb"><input type="checkbox" id="hero-2" onchange="saveHeroPoints()">★</label>
-        <label class="hero-cb"><input type="checkbox" id="hero-3" onchange="saveHeroPoints()">★</label>
-        <input type="hidden" id="hero-points" value="1">
+        <span class="hero-star" onclick="toggleHeroStar(1)">★</span>
+        <span class="hero-star" onclick="toggleHeroStar(2)">★</span>
+        <span class="hero-star" onclick="toggleHeroStar(3)">★</span>
+        <input type="hidden" id="hero-points" value="0">
         <span style="font-size:10px;color:var(--text2);margin-left:8px;">빈사</span>
         <input class="inline-edit" id="dying" type="number" value="0" min="0" max="4" style="width:28px;" oninput="save()">
         <span style="font-size:10px;color:var(--text2);">부상</span>
@@ -2904,17 +2903,23 @@ function recalcSkill(id) {
   if (el) el.textContent = fmtBonus(total);
 }
 
-function saveHeroPoints() {
-  const count = (document.getElementById('hero-1').checked?1:0) + (document.getElementById('hero-2').checked?1:0) + (document.getElementById('hero-3').checked?1:0);
-  document.getElementById('hero-points').value = count;
+function toggleHeroStar(idx) {
+  const cur = parseInt(document.getElementById('hero-points').value) || 0;
+  // Star rating: click filled star to reduce, click empty star to fill up to it
+  const next = (idx === cur) ? idx - 1 : idx;
+  document.getElementById('hero-points').value = next;
+  renderHeroStars(next);
   save();
+}
+function renderHeroStars(n) {
+  document.querySelectorAll('.hero-star').forEach((s, i) => {
+    s.classList.toggle('filled', i < n);
+  });
 }
 function loadHeroPoints(val) {
   const n = parseInt(val)||0;
-  document.getElementById('hero-1').checked = n >= 1;
-  document.getElementById('hero-2').checked = n >= 2;
-  document.getElementById('hero-3').checked = n >= 3;
   document.getElementById('hero-points').value = n;
+  renderHeroStars(n);
 }
 function updateHpGauge() {
   const cur = parseInt(document.getElementById('hp-cur').value)||0;
@@ -4509,26 +4514,22 @@ function renderSpells() {
       </span>`;
     section.appendChild(header);
 
-    // Fire icons for slot tracking
+    // Fire icons for slot tracking (star-rating: click Nth = fill 1..N, click filled = unfill from N)
     if (slotMax > 0) {
       const firesDiv = document.createElement('div');
       firesDiv.className = 'spell-slots-used';
       firesDiv.innerHTML = '<span style="font-size:10px;color:var(--text2);margin-right:4px;">슬롯:</span>';
+      // Count how many are used (progressive from left)
+      const usedCount = getSpellSlotUsedCount(r, slotMax);
       for (let c = 0; c < slotMax; c++) {
-        const isUsed = !!(state.spellSlotsUsed?.[r]?.[c]);
+        const isUsed = c < usedCount;
         const fire = document.createElement('span');
         fire.className = 'spell-slot-fire' + (isUsed ? ' used' : '');
         fire.textContent = '\uD83D\uDD25';
         fire.style.cursor = 'pointer';
-        fire.onclick = (function(rank, idx, wasUsed) {
-          return function() {
-            state.spellSlotsUsed = state.spellSlotsUsed || {};
-            state.spellSlotsUsed[rank] = state.spellSlotsUsed[rank] || {};
-            state.spellSlotsUsed[rank][idx] = !wasUsed;
-            renderSpells();
-            save();
-          };
-        })(r, c, isUsed);
+        fire.onclick = (function(rank, idx) {
+          return function() { toggleSpellSlotStar(rank, idx); };
+        })(r, c);
         firesDiv.appendChild(fire);
       }
       section.appendChild(firesDiv);
@@ -4584,6 +4585,26 @@ function toggleSpellCast(rank, slotIdx) {
   state.spellSlotsUsed = state.spellSlotsUsed || {};
   state.spellSlotsUsed[rank] = state.spellSlotsUsed[rank] || {};
   state.spellSlotsUsed[rank][slotIdx] = !state.spellSlotsUsed[rank][slotIdx];
+  renderSpells();
+  save();
+}
+
+// Star-rating style for spell slot fires
+function getSpellSlotUsedCount(rank, max) {
+  if (!state.spellSlotsUsed?.[rank]) return 0;
+  let count = 0;
+  for (let i = 0; i < max; i++) { if (state.spellSlotsUsed[rank][i]) count++; else break; }
+  return count;
+}
+function toggleSpellSlotStar(rank, idx) {
+  state.spellSlotsUsed = state.spellSlotsUsed || {};
+  state.spellSlotsUsed[rank] = state.spellSlotsUsed[rank] || {};
+  const curUsed = getSpellSlotUsedCount(rank, 20);
+  let newUsed;
+  if (idx < curUsed) { newUsed = idx; } // click filled: unfill from this point
+  else { newUsed = idx + 1; }            // click empty: fill up to this
+  // Set progressive flags
+  for (let i = 0; i < 20; i++) state.spellSlotsUsed[rank][i] = i < newUsed;
   renderSpells();
   save();
 }
