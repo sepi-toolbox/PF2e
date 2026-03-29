@@ -901,6 +901,21 @@ function updateShieldGauge() {
   if (maxDisp) maxDisp.textContent = shieldHp;
   const curDisp = document.getElementById('shield-hp-cur-display');
   if (curDisp) curDisp.textContent = cur;
+  // 방패 HP ≤ BT(max/2)이면 자동 파손
+  const bt = Math.floor(shieldHp / 2);
+  if (shieldName && shieldHp > 0) {
+    const shieldEquip = state.equip?.find(e => e._type === 'shield' && e._equipped);
+    if (shieldEquip) {
+      const wasBroken = shieldEquip._broken;
+      shieldEquip._broken = cur <= bt;
+      if (wasBroken !== shieldEquip._broken) { recalcAC(); }
+    }
+  }
+  // 게이지 색상: 파손 시 빨간색
+  if (fill) {
+    if (cur <= bt && shieldHp > 0) fill.style.background = 'linear-gradient(90deg,#6a1a1a,#a03030)';
+    else fill.style.background = 'linear-gradient(90deg,#4a3a1a,#8a6a2a)';
+  }
 }
 
 function recalcBulk() {
