@@ -577,8 +577,22 @@ function moveToContainer(itemIdx, ci) {
   if (!state.containers || ci < 0 || ci >= state.containers.length) return;
   const item = state.equip[itemIdx];
   if (!item) return;
-  state.containers[ci].items.push({name: item.name, qty: item.qty||1, bulk: item.bulk||0});
+  // 장착 해제 후 이동
+  if (item._equipped) { toggleEquip(itemIdx); }
+  // 전체 데이터 그대로 이동
+  state.containers[ci].items.push({...item});
   state.equip.splice(itemIdx, 1);
+  renderEquip();
+  renderContainers();
+  save();
+}
+
+function moveToMainInventory(ci, ii) {
+  if (!state.containers) return;
+  const item = state.containers[ci].items[ii];
+  if (!item) return;
+  state.equip.push({...item});
+  state.containers[ci].items.splice(ii, 1);
   renderEquip();
   renderContainers();
   save();
@@ -730,6 +744,21 @@ function addContainerItem(ci) {
   save();
 }
 
+function changeContainerQty(ci, ii, delta) {
+  const item = state.containers[ci].items[ii];
+  if (!item) return;
+  const newQty = (item.qty || 1) + delta;
+  if (newQty <= 0) {
+    if (confirm(item.name + '을(를) 제거하시겠습니까?')) {
+      removeContainerItem(ci, ii);
+    }
+    return;
+  }
+  item.qty = newQty;
+  renderContainers();
+  save();
+}
+
 function removeContainerItem(ci, ii) {
   state.containers[ci].items.splice(ii, 1);
   renderContainers();
@@ -756,16 +785,23 @@ function renderContainers() {
         <span class="spell-del" onclick="removeContainer(${ci})" style="cursor:pointer;">✕</span>
       </div>`;
     c.items.forEach((item, ii) => {
-      html += `<div style="display:flex;align-items:center;gap:4px;padding:2px 4px;border-bottom:1px solid var(--border);font-size:12px;">
-        <span style="flex:3;color:var(--text);">${item.name}</span>
-        <input type="number" value="${item.qty}" min="0" style="width:36px;text-align:center;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:3px;font-size:11px;"
-          oninput="state.containers[${ci}].items[${ii}].qty=parseInt(this.value||0);save()">
-        <input type="number" value="${item.bulk}" min="0" step="0.1" style="width:36px;text-align:center;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:3px;font-size:11px;"
-          oninput="state.containers[${ci}].items[${ii}].bulk=parseFloat(this.value||0);save()">
-        <span class="spell-del" onclick="removeContainerItem(${ci},${ii})" style="cursor:pointer;width:20px;text-align:center;">✕</span>
+      const bulkDisplay = item.bulk === 'L' ? 'L' : (item.bulk || '—');
+      const eqEscName = (item.name||'').replace(/'/g,"\\'");
+      const eqType = item._type === 'weapon' ? 'weapon' : (item._type === 'armor' ? 'armor' : (item._type === 'shield' ? 'shield' : 'gear'));
+      html += `<div class="equip-row">
+        <span style="flex:1;font-size:12px;color:var(--text);cursor:pointer;" onclick="showInfo('${eqType}','${eqEscName}')">${item._broken?'파손된 ':''}${item.name}</span>
+        <span style="width:30px;text-align:center;font-size:10px;color:var(--text2);">${bulkDisplay}</span>
+        <span style="width:70px;display:flex;align-items:center;justify-content:center;gap:2px;">
+          <button class="qty-btn" onclick="event.stopPropagation();changeContainerQty(${ci},${ii},-1)">−</button>
+          <span style="min-width:16px;text-align:center;font-size:13px;font-weight:600;color:var(--text);">${item.qty||1}</span>
+          <button class="qty-btn" onclick="event.stopPropagation();changeContainerQty(${ci},${ii},1)">+</button>
+        </span>
+        <span style="width:50px;text-align:center;">
+          <button class="equip-toggle" onclick="event.stopPropagation();moveToMainInventory(${ci},${ii})" style="font-size:9px;">꺼내기</button>
+        </span>
       </div>`;
     });
-    html += `<button class="add-btn" onclick="addContainerItem(${ci})" style="margin-top:4px;">+ 아이템 추가</button></div>`;
+    html += `</div>`;
     el.innerHTML += html;
   });
 }
