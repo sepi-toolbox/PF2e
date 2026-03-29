@@ -1499,7 +1499,6 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
             </span>
           </div>
           <div id="spells-focus"></div>
-          <button class="add-btn" onclick="openModal('spell','focus')" style="margin:4px 8px;">+ 집중 주문 추가</button>
         </div>
 
         <!-- Divine Font (Cleric only, rendered dynamically) -->
@@ -1570,39 +1569,28 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
           <div class="box">
             <div class="box-title">혈통 재주 Ancestry Feats</div>
             <div id="feats-ancestry"></div>
-            <button class="add-btn" onclick="openModal('feat','ancestry')">+ DB에서 선택</button>
-            <button class="add-btn" onclick="addFeat('ancestry')">+ 직접 입력</button>
           </div>
           <div class="box">
             <div class="box-title">클래스 재주 Class Feats</div>
             <div id="feats-class"></div>
-            <button class="add-btn" onclick="openModal('feat','class')">+ DB에서 선택</button>
-            <button class="add-btn" onclick="addFeat('class')">+ 직접 입력</button>
           </div>
           <div class="box">
             <div class="box-title">일반 재주 General Feats</div>
             <div id="feats-general"></div>
-            <button class="add-btn" onclick="openModal('feat','general')">+ DB에서 선택</button>
-            <button class="add-btn" onclick="addFeat('general')">+ 직접 입력</button>
           </div>
         </div>
         <div>
           <div class="box">
             <div class="box-title">기술 재주 Skill Feats</div>
             <div id="feats-skill"></div>
-            <button class="add-btn" onclick="openModal('feat','skill')">+ DB에서 선택</button>
-            <button class="add-btn" onclick="addFeat('skill')">+ 직접 입력</button>
           </div>
           <div class="box">
             <div class="box-title">원형 재주 Archetype Feats</div>
             <div id="feats-archetype"></div>
-            <button class="add-btn" onclick="openModal('feat','archetype')">+ DB에서 선택</button>
-            <button class="add-btn" onclick="addFeat('archetype')">+ 직접 입력</button>
           </div>
           <div class="box">
             <div class="box-title">기타 능력 Other Abilities</div>
             <div id="feats-other"></div>
-            <button class="add-btn" onclick="addFeat('other')">+ 추가</button>
           </div>
         </div>
       </div>
@@ -4543,14 +4531,6 @@ function renderSpells() {
       section.appendChild(row);
     }
 
-    // Add button if we want more spells beyond slots
-    const addBtn = document.createElement('button');
-    addBtn.className = 'add-btn';
-    addBtn.style.cssText = 'margin:4px 8px;';
-    addBtn.textContent = `+ 랭크 ${r} 주문 추가`;
-    addBtn.onclick = () => { openModal('spell', 'known'); };
-    section.appendChild(addBtn);
-
     ranksContainer.appendChild(section);
   }
 }
@@ -4889,6 +4869,7 @@ function equipBrowseGive() {
   addEquip({name: item.name_ko, qty:1, bulk, _type: type, _data: type ? item : undefined});
   recalcAll();
   save();
+  closeModal();
 }
 
 function equipBrowseBuy() {
@@ -4896,7 +4877,7 @@ function equipBrowseBuy() {
   const item = modalSelected;
   const costCp = parsePrice(item.price);
   if (!costCp) { equipBrowseGive(); return; }
-  if (getCurrencyTotalCp() < costCp) { alert('소지금이 부족합니다!'); return; }
+  if (getCurrencyTotalCp() < costCp) { alert(`소지금이 부족합니다!\n필요: ${item.price}\n보유: ${Math.floor(getCurrencyTotalCp()/100)}gp ${Math.floor((getCurrencyTotalCp()%100)/10)}sp ${getCurrencyTotalCp()%10}cp`); return; }
   deductCurrency(costCp);
   equipBrowseGive();
 }

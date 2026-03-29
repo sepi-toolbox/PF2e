@@ -302,38 +302,35 @@ var SUBCLASS_AUTO_FEATS = {
 var CLASS_AUTO_SPELLS = {
   // Bard: Inspire Courage composition cantrip at L1
   bard: [
-    {lv:1, type:'cantrip', name_ko:'용기 부여', name_en:'Inspire Courage'},
+    {lv:1, type:'focus', name_ko:'용기의 찬가', name_en:'Courageous Anthem'},
   ],
 };
 
 var SUBCLASS_AUTO_SPELLS = {
-  // ── 바드 뮤즈 ──
-  'muse-maestro': [{lv:1, type:'focus', name_ko:'영웅적 영감', name_en:'Inspire Heroics'}],
-  'muse-warrior': [{lv:1, type:'cantrip', name_ko:'방어 부여', name_en:'Inspire Defense'}],
-  'muse-enigma':  [{lv:1, type:'focus', name_ko:'능력 부여', name_en:'Inspire Competence'}],
-  // ── 드루이드 교단 ──
-  'order-animal': [{lv:1, type:'focus', name_ko:'동물 전령', name_en:'Heal Animal'}],
-  'order-flame':  [{lv:1, type:'focus', name_ko:'불꽃 광선', name_en:'Fire Ray'}],
-  'order-leaf':   [{lv:1, type:'focus', name_ko:'치유의 새싹', name_en:'Goodberry'}],
-  'order-storm':  [{lv:1, type:'focus', name_ko:'폭풍 쇄도', name_en:'Tempest Surge'}],
-  'order-wave':   [{lv:1, type:'focus', name_ko:'해류 밀기', name_en:'Tidal Surge'}],
-  'order-wild':   [{lv:1, type:'focus', name_ko:'야수 형태', name_en:'Wild Shape'}],
-  // ── 위자드 학파 ──
-  'school-abjuration':    [{lv:1, type:'focus', name_ko:'보호 결계', name_en:'Protective Wards'}],
-  'school-conjuration':   [{lv:1, type:'focus', name_ko:'소환 강화', name_en:'Augment Summoning'}],
-  'school-divination':    [{lv:1, type:'focus', name_ko:'예언의 눈', name_en:"Diviner's Sight"}],
-  'school-enchantment':   [{lv:1, type:'focus', name_ko:'매혹의 말', name_en:'Charming Words'}],
+  // ── 바드 뮤즈 (DB 매칭된 것만) ──
+  'muse-maestro': [{lv:1, type:'focus', name_ko:'포르티시모 작곡', name_en:'Fortissimo Composition'}],
+  'muse-enigma':  [{lv:1, type:'focus', name_ko:'달인의 에튀드', name_en:"Loremaster's Etude"}],
+  // muse-warrior, muse-lore: DB에 매칭 주문 없음
+  // ── 드루이드 교단 (DB 매칭) ──
+  'order-flame':  [{lv:1, type:'focus', name_ko:'화염 광선', name_en:'Fire Ray'}],
+  'order-leaf':   [{lv:1, type:'focus', name_ko:'선의 씨앗', name_en:'Goodberry'}],
+  'order-storm':  [{lv:1, type:'focus', name_ko:'폭풍 군주', name_en:'Tempest Surge'}],
+  'order-wave':   [{lv:1, type:'focus', name_ko:'조류 파도', name_en:'Tidal Surge'}],
+  'order-wild':   [{lv:1, type:'focus', name_ko:'야생 변신', name_en:'Wild Shape'}],
+  // order-animal: DB에 Heal Animal 없음
+  // ── 위자드 학파 (DB 매칭) ──
+  'school-abjuration':    [{lv:1, type:'focus', name_ko:'보호의 수호', name_en:'Protective Wards'}],
+  'school-conjuration':   [{lv:1, type:'focus', name_ko:'소환 강화', name_en:'Fortify Summoning'}],
   'school-evocation':     [{lv:1, type:'focus', name_ko:'힘의 화살', name_en:'Force Bolt'}],
-  'school-illusion':      [{lv:1, type:'focus', name_ko:'지형 왜곡', name_en:'Warped Terrain'}],
-  'school-necromancy':    [{lv:1, type:'focus', name_ko:'무덤의 부름', name_en:'Call of the Grave'}],
-  'school-transmutation': [{lv:1, type:'focus', name_ko:'물질 변형', name_en:'Shifting Form'}],
-  // ── 위치 후원자 ──
-  'patron-curse':  [{lv:1, type:'cantrip', name_ko:'악의 눈', name_en:'Evil Eye'}],
-  'patron-fate':   [{lv:1, type:'cantrip', name_ko:'운명 조율', name_en:'Nudge Fate'}],
-  'patron-fervor': [{lv:1, type:'cantrip', name_ko:'마음 불꽃', name_en:'Stoke the Heart'}],
-  'patron-night':  [{lv:1, type:'cantrip', name_ko:'어둠의 장막', name_en:'Shroud of Night'}],
-  'patron-rune':   [{lv:1, type:'cantrip', name_ko:'비밀 감지', name_en:'Discern Secrets'}],
-  'patron-wild':   [{lv:1, type:'cantrip', name_ko:'야생의 말', name_en:'Wilding Word'}],
+  'school-transmutation': [{lv:1, type:'focus', name_ko:'변형', name_en:'Shifting Form'}],
+  // school-divination, enchantment, illusion, necromancy: DB에 매칭 주문 없음
+  // ── 위치 후원자 (DB 매칭) ──
+  'patron-curse':  [{lv:1, type:'focus', name_ko:'사악한 눈', name_en:'Evil Eye'}],
+  'patron-fate':   [{lv:1, type:'focus', name_ko:'운명 조정', name_en:'Nudge Fate'}],
+  'patron-fervor': [{lv:1, type:'focus', name_ko:'심장 격려', name_en:'Stoke the Heart'}],
+  'patron-night':  [{lv:1, type:'focus', name_ko:'밤의 장막', name_en:'Shroud of Night'}],
+  'patron-rune':   [{lv:1, type:'focus', name_ko:'비밀 간파', name_en:'Discern Secrets'}],
+  // patron-wild: 야생의 말 DB에 없음 (Wilding Word)
 };
 
 // ═══════════════════════════════════════════════
