@@ -804,7 +804,7 @@ function getOptionsData(type) {
   if (type==='class') return CLASSES;
   if (type==='ancestry') return ANCESTRIES;
   if (type==='background') return BACKGROUNDS;
-  if (type==='heritage') return HERITAGE_DB.filter(h => !state.selectedAncestry || h.ancestry === state.selectedAncestry.id);
+  if (type==='heritage') return HERITAGE_DB.filter(h => h.ancestry === '*' || !state.selectedAncestry || h.ancestry === state.selectedAncestry.id);
   if (type==='subclass') return state.selectedClass ? SUBCLASS_DB.filter(s => s.class_id === state.selectedClass.id) : [];
   if (type==='feat') return filterFeats();
   if (type==='spell') return filterSpells();
@@ -951,7 +951,14 @@ function renderOptions(data) {
   const isFeat = modalType === 'feat';
   let grouped = null;
 
-  if (modalType === 'spell') {
+  if (modalType === 'heritage') {
+    grouped = {};
+    data.forEach(item => {
+      const key = item.versatile ? '🌟 다재다능한 유산 / 혼합 혈통' : '🧬 혈통 유산';
+      if (!grouped[key]) grouped[key] = [];
+      grouped[key].push(item);
+    });
+  } else if (modalType === 'spell') {
     grouped = {};
     data.forEach(item => {
       const key = item.is_cantrip ? '캔트립' : item.is_focus ? '집중 주문' : `랭크 ${item.rank} 주문`;

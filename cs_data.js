@@ -251,6 +251,18 @@ const HERITAGE_DB = [
   {id:'deep-orc',name_ko:'심연 오크',name_en:'Deep Orc',ancestry:'orc',summary:'지하 생활에 적응하여 암시야(darkvision)를 얻습니다.'},
   {id:'hold-scarred-orc',name_ko:'흉터 오크',name_en:'Hold-Scarred Orc',ancestry:'orc',summary:'의례적 흉터로 최대 HP가 2 증가하고 회복에 보너스를 얻습니다.'},
   {id:'rainfall-orc',name_ko:'우림 오크',name_en:'Rainfall Orc',ancestry:'orc',summary:'우림 지형 이동에 페널티가 없고 질병 저항을 얻습니다.'},
+
+  // ── 다재다능한 유산 (Versatile Heritage) — 모든 혈통 선택 가능 ──
+  {id:'changeling',name_ko:'체인질링',name_en:'Changeling',ancestry:'*',versatile:true,
+   summary:'밤마녀(hag)의 개입으로 태어난 아이. 아버지의 혈통을 닮지만 양쪽 눈 색이 다른 홍채 이색증이 특징. 성장하면서 저광 시야, 갈고리 손톱, 선천적 마법 등 밤마녀의 특징이 나타남. 저광 시야(이미 있으면 암시야) 획득. 체인질링 특성 추가.'},
+  {id:'nephilim',name_ko:'네피림',name_en:'Nephilim',ancestry:'*',versatile:true,
+   summary:'외부 차원의 초자연적 힘이 주입된 존재. 천상, 지옥, 심연 등의 영향으로 금빛 눈, 후광, 뿔, 꼬리 같은 특징이 나타남. 저광 시야(이미 있으면 암시야) 획득. 네피림 특성 추가. 혈통에 따라 천사혈·지옥아·나락아·법의 전달자·뮤즈의 손길·암흑아 중 선택.'},
+
+  // ── 혼합 혈통 (Mixed Ancestry) — 모든 혈통 선택 가능 ──
+  {id:'aiuvarin',name_ko:'아이우바린 (반엘프)',name_en:'Aiuvarin (Half-Elf)',ancestry:'*',versatile:true,
+   summary:'엘프와 다른 혈통의 혼혈 후손을 "아이우바린"이라 합니다 — 엘프어로 너무 빨리 땅에 떨어지는 나뭇잎에 관한 시에서 유래. 대부분 엘프-인간 혼혈이 가장 흔함. 인간 부모를 둔 경우 약 150년을 삶. 저광 시야 획득. 엘프·아이우바린 특성 추가. 엘프 재주도 선택 가능.'},
+  {id:'dromaar',name_ko:'드로마르 (반오크)',name_en:'Dromaar (Half-Orc)',ancestry:'*',versatile:true,
+   summary:'오크와 다른 혈통의 혼혈 후손을 "드로마르"라 합니다 — 오크어로 전쟁 행군의 북을 치는 자. 벨크젠의 오크들이 속삭이는 폭군 전쟁에서 다른 혈통과 함께 싸우면서 혼혈이 증가. 인간 부모를 둔 경우 약 70년을 삶. 피부에 녹색 기운. 저광 시야 획득. 오크·드로마르 특성 추가. 오크 재주도 선택 가능.'},
 ];
 
 const TRAIT_DB = {
