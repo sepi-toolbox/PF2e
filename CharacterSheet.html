@@ -23,7 +23,11 @@ const db = firebase.firestore();
 <script src="equipment_db.js"></script>
 <script src="feat_db.js"></script>
 <script src="SPELL_DB.js"></script>
-<script src="class_features_db.js"></script>
+<script src="class_features_db.js?v=3"></script>
+<script>
+// Verify class_features_db loaded
+if (typeof CLASS_PROF_TABLE === 'undefined') console.error('class_features_db.js FAILED to load!');
+</script>
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -1497,6 +1501,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
           <div id="spells-focus"></div>
           <button class="add-btn" onclick="openModal('spell','focus')" style="margin:4px 8px;">+ 집중 주문 추가</button>
         </div>
+
+        <!-- Divine Font (Cleric only, rendered dynamically) -->
+        <div class="spell-rank-section" id="spell-divine-font-section" style="display:none;">
+          <div class="spell-rank-header" style="background:var(--accent-bg);border-color:var(--accent);">
+            ⛲ 신성 샘 <span class="en" id="divine-font-label">Divine Font</span>
+          </div>
+          <div id="divine-font-body" style="padding:8px 12px;"></div>
+        </div>
       </div>
 
       <!-- Rituals content (hidden by default) -->
@@ -2222,7 +2234,12 @@ let state = {
   spellSlotsUsed: {},
   feats: {ancestry:[], class:[], general:[], skill:[], archetype:[], other:[]},
   conditions: {},
-  growth: {},  // level-by-level progression: { '1': { classFeat:'name', ancestryFeat:'name', ... }, '2': { ... } }
+  growth: {},  // level-by-level progression
+  // Class-specific choices
+  deity: null,           // deity ID (cleric)
+  divineFont: null,      // 'heal' or 'harm' (cleric)
+  sanctification: null,  // 'holy' or 'unholy' (cleric)
+  divineFontUsed: 0,     // how many divine font slots used today
 };
 
 let modalType = null;
@@ -2950,6 +2967,15 @@ function applyClassFeatures() {
     if (el) el.value = rank;
   }
 
+  // ── Witch: auto-set spell tradition from patron ──
+  if (cls.id === 'witch' && state.selectedSubclass && typeof PATRON_TRADITION !== 'undefined') {
+    const trad = PATRON_TRADITION[state.selectedSubclass.id];
+    if (trad) {
+      const tradEl = document.getElementById('spell-tradition');
+      if (tradEl) tradEl.value = trad;
+    }
+  }
+
   // ── Auto-granted feats (class + subclass) ──
   // Remove old auto feats
   ['class','general','skill','ancestry','other'].forEach(cat => {
@@ -3008,6 +3034,124 @@ function applyClassFeatures() {
   if (typeof initArmorProfBadges === 'function') initArmorProfBadges();
   recalcAll();
   } catch(e) { console.error('[applyClassFeatures] ERROR:', e); }
+}
+
+// ═══════════════════════════════════════════════
+//  CLASS-SPECIFIC BUILD CHOICES (Deity, Font, etc.)
+// ═══════════════════════════════════════════════
+
+function openDeityPicker() {
+  if (typeof DEITY_DB === 'undefined') return;
+  const items = DEITY_DB.map(d =>
+    `<div class="opt-row" onclick="selectDeity('${d.id}')" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
+      <span class="opt-row-name" style="flex:1;">${d.name_ko} <span style="color:var(--text2);font-size:11px;">${d.name_en}</span></span>
+      <span style="font-size:10px;color:var(--text2);">${d.weapon} / ${d.sanctification.map(s=>s==='holy'?'신성':'불경').join('·')}</span>
+    </div>`).join('');
+  document.getElementById('modal-overlay').classList.remove('hidden');
+  document.getElementById('modal-title').textContent = '신격 선택';
+  const fbar = document.getElementById('modal-filterbar'); if(fbar) fbar.innerHTML='';
+  const searchEl = document.getElementById('modal-search'); if(searchEl) searchEl.style.display='none';
+  document.getElementById('modal-options').innerHTML = items;
+  document.getElementById('modal-detail').innerHTML = '<div class="modal-detail-empty">신격을 선택하면 상세 정보가 표시됩니다.</div>';
+  const footer = document.querySelector('.modal-footer');
+  if(footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
+  modalType = 'deity-pick';
+}
+
+function selectDeity(id) {
+  const d = DEITY_DB.find(x=>x.id===id);
+  if(!d) return;
+  state.deity = id;
+  // Auto-set deity skill
+  const skillMap = {society:'사회학',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
+    intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'공예'};
+  if(d.skill && typeof setSkillTrained==='function') setSkillTrained(d.skill);
+  // Reset sanctification if deity doesn't support current choice
+  if(state.sanctification && !d.sanctification.includes(state.sanctification)) state.sanctification = null;
+  // If deity has only one sanctification option, auto-set
+  if(d.sanctification.length === 1) state.sanctification = d.sanctification[0];
+  closeModal();
+  applyClassFeatures();
+  renderGrowthPlan();
+  recalcAll();
+  save();
+}
+
+function clearDeity() {
+  state.deity = null;
+  state.sanctification = null;
+  renderGrowthPlan();
+  save();
+}
+
+function openSanctPicker() {
+  if(!state.deity || typeof DEITY_DB==='undefined') return;
+  const d = DEITY_DB.find(x=>x.id===state.deity);
+  if(!d) return;
+  const opts = d.sanctification || [];
+  const labels = {holy:'✨ 신성 Holy — 선한 힘에 축성됨', unholy:'🔥 불경 Unholy — 악한 힘에 축성됨'};
+  const items = opts.map(s =>
+    `<div class="opt-row" onclick="pickSanctification('${s}')" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
+      <span class="opt-row-name">${labels[s]||s}</span>
+    </div>`).join('');
+  items && (document.getElementById('modal-overlay').classList.remove('hidden'));
+  document.getElementById('modal-title').textContent = '성별화 선택';
+  const fbar = document.getElementById('modal-filterbar'); if(fbar) fbar.innerHTML='';
+  const searchEl = document.getElementById('modal-search'); if(searchEl) searchEl.style.display='none';
+  document.getElementById('modal-options').innerHTML = items;
+  document.getElementById('modal-detail').innerHTML = '';
+  const footer = document.querySelector('.modal-footer');
+  if(footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
+  modalType = 'sanct-pick';
+}
+
+function pickSanctification(val) { state.sanctification = val; closeModal(); renderGrowthPlan(); save(); }
+function clearSanctification() { state.sanctification = null; renderGrowthPlan(); save(); }
+
+function openDivineFontPicker() {
+  const items = `
+    <div class="opt-row" onclick="pickDivineFont('heal')" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
+      <span class="opt-row-name">💚 치유 Heal — 치유 주문 추가 시전 횟수</span></div>
+    <div class="opt-row" onclick="pickDivineFont('harm')" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
+      <span class="opt-row-name">💀 해악 Harm — 해악 주문 추가 시전 횟수</span></div>`;
+  document.getElementById('modal-overlay').classList.remove('hidden');
+  document.getElementById('modal-title').textContent = '신성 샘 선택';
+  const fbar = document.getElementById('modal-filterbar'); if(fbar) fbar.innerHTML='';
+  const searchEl = document.getElementById('modal-search'); if(searchEl) searchEl.style.display='none';
+  document.getElementById('modal-options').innerHTML = items;
+  document.getElementById('modal-detail').innerHTML = '<div class="modal-detail-empty"><strong>신성 샘</strong><br>매일 추가 주문 슬롯을 받아 치유 또는 해악 주문만 시전할 수 있습니다.</div>';
+  const footer = document.querySelector('.modal-footer');
+  if(footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
+  modalType = 'font-pick';
+}
+
+function pickDivineFont(val) {
+  state.divineFont = val;
+  state.divineFontUsed = 0;
+  closeModal();
+  applyClassFeatures();
+  renderGrowthPlan();
+  renderSpells();
+  save();
+}
+
+function clearDivineFont() { state.divineFont = null; state.divineFontUsed = 0; renderGrowthPlan(); renderSpells(); save(); }
+
+function toggleDivineFontSlot(idx) {
+  const total = getDivineFontSlots();
+  let used = state.divineFontUsed || 0;
+  if (idx < used) used = idx;     // un-use: set used count to this index
+  else used = idx + 1;            // use: set used count to index+1
+  state.divineFontUsed = Math.min(used, total);
+  renderSpells();
+  save();
+}
+
+function getDivineFontSlots() {
+  if(!state.divineFont || !state.selectedClass || state.selectedClass.id !== 'cleric') return 0;
+  const lv = getLevel();
+  const base = (typeof DIVINE_FONT_SLOTS!=='undefined' ? DIVINE_FONT_SLOTS[lv] : null) || (3 + Math.floor(lv/4));
+  return base;
 }
 
 function onLevelChange() {
@@ -3113,6 +3257,48 @@ function renderGrowthPlan() {
             "openModal('subclass')", state.selectedSubclass ? "clearCoreSelection('subclass')" : null);
         }
       }
+      // ── Class-specific L1 build choices ──
+      if (state.selectedClass) {
+        const cid = state.selectedClass.id;
+
+        // CLERIC: Deity selector
+        if (cid === 'cleric' && typeof DEITY_DB !== 'undefined') {
+          const deityObj = state.deity ? DEITY_DB.find(d=>d.id===state.deity) : null;
+          html += growthSlotWithClearHTML('deity-sel', '🙏', '신격 Deity',
+            deityObj ? `${deityObj.name_ko} (${deityObj.name_en})` : null,
+            "openDeityPicker()", state.deity ? "clearDeity()" : null);
+
+          // Sanctification (only if deity selected)
+          if (deityObj) {
+            const sanctOpts = deityObj.sanctification || [];
+            if (sanctOpts.length > 0) {
+              const sanctLabel = state.sanctification === 'holy' ? '신성 Holy' : state.sanctification === 'unholy' ? '불경 Unholy' : null;
+              html += growthSlotWithClearHTML('sanct-sel', '✨', '성별화 Sanctification',
+                sanctLabel, "openSanctPicker()", state.sanctification ? "clearSanctification()" : null);
+            }
+          }
+
+          // Divine Font
+          const fontLabel = state.divineFont === 'heal' ? '치유 Heal' : state.divineFont === 'harm' ? '해악 Harm' : null;
+          html += growthSlotWithClearHTML('font-sel', '⛲', '신성 샘 Divine Font',
+            fontLabel, "openDivineFontPicker()", state.divineFont ? "clearDivineFont()" : null);
+        }
+
+        // WITCH: Show patron tradition (auto-set, display only)
+        if (cid === 'witch' && state.selectedSubclass && typeof PATRON_TRADITION !== 'undefined') {
+          const trad = PATRON_TRADITION[state.selectedSubclass.id];
+          if (trad) {
+            const tradNames = {arcane:'비전',divine:'신성',occult:'비의',primal:'원시'};
+            html += `<div class="growth-slot filled" style="cursor:default;">
+              <div class="growth-slot-icon">🔮</div>
+              <div class="growth-slot-body">
+                <div class="growth-slot-label">후원자 전통 Patron Tradition</div>
+                <div class="growth-slot-value">${tradNames[trad]||trad} (${trad})</div>
+              </div></div>`;
+          }
+        }
+      }
+
       // Background skill feat (auto-granted, display only)
       if (g.bgSkillFeat) {
         html += `<div class="growth-slot filled" style="cursor:default;">
@@ -4238,6 +4424,35 @@ function renderSpells() {
   const fpMaxMirror = document.getElementById('fp-max-mirror');
   if (fpCurMirror) fpCurMirror.textContent = document.getElementById('fp-cur')?.value || '0';
   if (fpMaxMirror) fpMaxMirror.textContent = document.getElementById('fp-max')?.value || '0';
+
+  // ── Divine Font (Cleric) ──
+  const dfSection = document.getElementById('spell-divine-font-section');
+  const dfBody = document.getElementById('divine-font-body');
+  if (dfSection && dfBody) {
+    if (state.divineFont && state.selectedClass?.id === 'cleric') {
+      dfSection.style.display = '';
+      const isHeal = state.divineFont === 'heal';
+      const spellName = isHeal ? '치유 (Heal)' : '해악 (Harm)';
+      const totalSlots = getDivineFontSlots();
+      const used = Math.min(state.divineFontUsed || 0, totalSlots);
+      document.getElementById('divine-font-label').textContent = isHeal ? 'Divine Font — Heal' : 'Divine Font — Harm';
+      let fires = '';
+      for (let i = 0; i < totalSlots; i++) {
+        const isUsed = i < used;
+        fires += `<span class="spell-slot-fire${isUsed?' used':''}" style="cursor:pointer;font-size:16px;" onclick="toggleDivineFontSlot(${i})">\uD83D\uDD25</span>`;
+      }
+      dfBody.innerHTML = `
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span style="font-size:20px;">${isHeal?'💚':'💀'}</span>
+          <span style="font-size:14px;font-weight:600;color:var(--text);">${spellName}</span>
+          <span style="font-size:11px;color:var(--text2);margin-left:auto;">${used}/${totalSlots} 사용</span>
+        </div>
+        <div style="display:flex;gap:2px;flex-wrap:wrap;">${fires}</div>
+        <div style="font-size:10px;color:var(--text2);margin-top:4px;">일반 주문 슬롯과 별도로 관리됩니다. 🔥을 클릭하여 사용/미사용 전환</div>`;
+    } else {
+      dfSection.style.display = 'none';
+    }
+  }
 
   // ── Known spells grouped by rank ──
   const ranksContainer = document.getElementById('spell-ranks-container');
@@ -5783,6 +5998,10 @@ function collectData() {
     armorResilient: state.armorResilient || 0,
     armorStowed: state.armorStowed || false,
     shieldStowed: state.shieldStowed || false,
+    deity: state.deity || null,
+    divineFont: state.divineFont || null,
+    sanctification: state.sanctification || null,
+    divineFontUsed: state.divineFontUsed || 0,
   };
   SKILLS.forEach(sk => {
     data.skillProfs[sk.id] = document.getElementById('sk-prof-'+sk.id)?.value;
@@ -6012,6 +6231,11 @@ function loadData(d) {
     if (d.vision) state.vision = d.vision;
     if (d.size) state.size = d.size;
     if (d.trainableSkillSlots !== undefined) state.trainableSkillSlots = d.trainableSkillSlots;
+    // Class-specific choices
+    if (d.deity) state.deity = d.deity;
+    if (d.divineFont) state.divineFont = d.divineFont;
+    if (d.sanctification) state.sanctification = d.sanctification;
+    if (d.divineFontUsed !== undefined) state.divineFontUsed = d.divineFontUsed;
   } catch(e) { console.warn('Load failed',e); }
 }
 

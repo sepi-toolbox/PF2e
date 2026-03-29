@@ -395,3 +395,54 @@ var SUBCLASS_FEATURE_NAMES = {
   'school-transmutation': [{lv:1, name_ko:'학파 주문: 물질 변형', name_en:'Shifting Form'}],
   'school-unified':       [{lv:1, name_ko:'통합 이론: 유연한 학파', name_en:'Universalist Flexibility'}],
 };
+
+// ═══════════════════════════════════════════════
+//  DEITY DATABASE — PF2e Player Core
+//  weapon = WEAPON_DB name_ko, skill = SKILLS id
+// ═══════════════════════════════════════════════
+
+var DEITY_DB = [
+  {id:'abadar',     name_ko:'아바다르',       name_en:'Abadar',         weapon:'석궁',       skill:'society',   sanctification:['holy'],           domains:['도시','대지','여행','부']},
+  {id:'asmodeus',   name_ko:'아스모데우스',   name_en:'Asmodeus',       weapon:'메이스',     skill:'deception', sanctification:['unholy'],         domains:['자신감','불','계략','폭정']},
+  {id:'calistria',  name_ko:'칼리스트리아',   name_en:'Calistria',      weapon:'채찍',       skill:'deception', sanctification:['holy','unholy'],  domains:['고통','열정','비밀','계략']},
+  {id:'cayden',     name_ko:'카이든 카일리언',name_en:'Cayden Cailean', weapon:'레이피어',   skill:'athletics', sanctification:['holy'],           domains:['도시','자유','방탕','힘']},
+  {id:'desna',      name_ko:'데스나',         name_en:'Desna',          weapon:'대거',       skill:'acrobatics', sanctification:['holy'],          domains:['꿈','행운','달','여행']},
+  {id:'erastil',    name_ko:'에라스틸',       name_en:'Erastil',        weapon:'장궁',       skill:'survival',  sanctification:['holy'],           domains:['대지','가족','자연','부']},
+  {id:'gorum',      name_ko:'고룸',           name_en:'Gorum',          weapon:'그레이트소드',skill:'athletics', sanctification:['holy','unholy'],  domains:['자신감','파괴','힘','열정']},
+  {id:'gozreh',     name_ko:'고즈레',         name_en:'Gozreh',         weapon:'삼지창',     skill:'survival',  sanctification:['holy'],           domains:['공기','자연','바다','날씨']},
+  {id:'iomedae',    name_ko:'아이오메다이',   name_en:'Iomedae',        weapon:'롱소드',     skill:'intimidation',sanctification:['holy'],          domains:['자신감','힘','진실','열정']},
+  {id:'irori',      name_ko:'이로리',         name_en:'Irori',          weapon:'주먹',       skill:'athletics', sanctification:['holy'],           domains:['지식','힘','진실','완벽']},
+  {id:'lamashtu',   name_ko:'라마슈투',       name_en:'Lamashtu',       weapon:'팔치온',     skill:'survival',  sanctification:['unholy'],         domains:['가족','힘','밤','계략']},
+  {id:'nethys',     name_ko:'네티스',         name_en:'Nethys',         weapon:'지팡이',     skill:'arcana',    sanctification:['holy','unholy'],  domains:['파괴','지식','마법','보호']},
+  {id:'norgorber',  name_ko:'노르고르버',     name_en:'Norgorber',      weapon:'쇼트소드',   skill:'stealth',   sanctification:['unholy'],         domains:['죽음','비밀','계략','부']},
+  {id:'pharasma',   name_ko:'파라즈마',       name_en:'Pharasma',       weapon:'대거',       skill:'medicine',  sanctification:['holy'],           domains:['죽음','운명','치유','영혼']},
+  {id:'rovagug',    name_ko:'로바구그',       name_en:'Rovagug',        weapon:'그레이트액스',skill:'athletics', sanctification:['unholy'],         domains:['공기','파괴','대지','열정']},
+  {id:'sarenrae',   name_ko:'사렌라이',       name_en:'Sarenrae',       weapon:'시미터',     skill:'medicine',  sanctification:['holy'],           domains:['불','치유','빛','진실']},
+  {id:'shelyn',     name_ko:'셸린',           name_en:'Shelyn',         weapon:'글레이브',   skill:'crafting',  sanctification:['holy'],           domains:['창조','가족','열정','보호']},
+  {id:'torag',      name_ko:'토라그',         name_en:'Torag',          weapon:'워해머',     skill:'crafting',  sanctification:['holy'],           domains:['창조','대지','가족','보호']},
+  {id:'urgathoa',   name_ko:'우르가토아',     name_en:'Urgathoa',       weapon:'대낫',       skill:'intimidation',sanctification:['unholy'],        domains:['방탕','마법','힘','언데드']},
+  {id:'zonkuthon',  name_ko:'존-쿠톤',       name_en:'Zon-Kuthon',     weapon:'시미터',     skill:'intimidation',sanctification:['unholy'],        domains:['어둠','파괴','고통','공허']},
+];
+
+// ═══════════════════════════════════════════════
+//  WITCH PATRON → SPELL TRADITION MAPPING
+// ═══════════════════════════════════════════════
+
+var PATRON_TRADITION = {
+  'patron-curse':  'occult',
+  'patron-fate':   'occult',
+  'patron-fervor': 'divine',
+  'patron-night':  'occult',
+  'patron-rune':   'arcane',
+  'patron-wild':   'primal',
+};
+
+// ═══════════════════════════════════════════════
+//  DIVINE FONT SPELL SLOTS — extra slots per level
+//  Value = base extra slots (add CHA modifier)
+// ═══════════════════════════════════════════════
+
+var DIVINE_FONT_SLOTS = {
+  1:4, 2:4, 3:4, 4:5, 5:5, 6:5, 7:6, 8:6, 9:6, 10:7,
+  11:7, 12:7, 13:8, 14:8, 15:8, 16:9, 17:9, 18:9, 19:10, 20:10
+};
