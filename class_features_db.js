@@ -271,8 +271,69 @@ const CLASS_FEATURE_NAMES = {
 // ═══════════════════════════════════════════════
 
 const CLASS_AUTO_FEATS = {
-  fighter: [{lv:1, name_ko:'방패 막기', name_en:'Shield Block', category:'class'}],
-  druid:   [{lv:1, name_ko:'방패 막기', name_en:'Shield Block', category:'class'}],
+  fighter: [
+    {lv:1, name_ko:'방패 막기', name_en:'Shield Block', category:'class'},
+    {lv:1, name_ko:'기회 공격', name_en:'Attack of Opportunity', category:'class'},
+  ],
+  druid: [
+    {lv:1, name_ko:'방패 막기', name_en:'Shield Block', category:'class'},
+    {lv:1, name_ko:'야생 공감', name_en:'Wild Empathy', category:'class'},
+  ],
+  rogue: [
+    {lv:1, name_ko:'급소 공격', name_en:'Sneak Attack', category:'class'},
+    {lv:1, name_ko:'기습', name_en:'Surprise Attack', category:'class'},
+  ],
+  ranger: [
+    {lv:1, name_ko:'사냥 목표', name_en:'Hunt Prey', category:'class'},
+  ],
+};
+
+// Subclass auto-granted feats
+const SUBCLASS_AUTO_FEATS = {
+  'muse-maestro': [{lv:1, name_ko:'여운 주문', name_en:'Lingering Composition', category:'class'}],
+  'muse-enigma':  [{lv:1, name_ko:'바드 지식', name_en:'Bardic Lore', category:'class'}],
+};
+
+// ═══════════════════════════════════════════════
+//  AUTO-GRANTED SPELLS — added to spell tab
+//  type: 'cantrip' | 'focus' | 'known'
+// ═══════════════════════════════════════════════
+
+const CLASS_AUTO_SPELLS = {
+  // Bard: Inspire Courage composition cantrip at L1
+  bard: [
+    {lv:1, type:'cantrip', name_ko:'용기 부여', name_en:'Inspire Courage'},
+  ],
+};
+
+const SUBCLASS_AUTO_SPELLS = {
+  // ── 바드 뮤즈 ──
+  'muse-maestro': [{lv:1, type:'focus', name_ko:'영웅적 영감', name_en:'Inspire Heroics'}],
+  'muse-warrior': [{lv:1, type:'cantrip', name_ko:'방어 부여', name_en:'Inspire Defense'}],
+  'muse-enigma':  [{lv:1, type:'focus', name_ko:'능력 부여', name_en:'Inspire Competence'}],
+  // ── 드루이드 교단 ──
+  'order-animal': [{lv:1, type:'focus', name_ko:'동물 전령', name_en:'Heal Animal'}],
+  'order-flame':  [{lv:1, type:'focus', name_ko:'불꽃 광선', name_en:'Fire Ray'}],
+  'order-leaf':   [{lv:1, type:'focus', name_ko:'치유의 새싹', name_en:'Goodberry'}],
+  'order-storm':  [{lv:1, type:'focus', name_ko:'폭풍 쇄도', name_en:'Tempest Surge'}],
+  'order-wave':   [{lv:1, type:'focus', name_ko:'해류 밀기', name_en:'Tidal Surge'}],
+  'order-wild':   [{lv:1, type:'focus', name_ko:'야수 형태', name_en:'Wild Shape'}],
+  // ── 위자드 학파 ──
+  'school-abjuration':    [{lv:1, type:'focus', name_ko:'보호 결계', name_en:'Protective Wards'}],
+  'school-conjuration':   [{lv:1, type:'focus', name_ko:'소환 강화', name_en:'Augment Summoning'}],
+  'school-divination':    [{lv:1, type:'focus', name_ko:'예언의 눈', name_en:"Diviner's Sight"}],
+  'school-enchantment':   [{lv:1, type:'focus', name_ko:'매혹의 말', name_en:'Charming Words'}],
+  'school-evocation':     [{lv:1, type:'focus', name_ko:'힘의 화살', name_en:'Force Bolt'}],
+  'school-illusion':      [{lv:1, type:'focus', name_ko:'지형 왜곡', name_en:'Warped Terrain'}],
+  'school-necromancy':    [{lv:1, type:'focus', name_ko:'무덤의 부름', name_en:'Call of the Grave'}],
+  'school-transmutation': [{lv:1, type:'focus', name_ko:'물질 변형', name_en:'Shifting Form'}],
+  // ── 위치 후원자 ──
+  'patron-curse':  [{lv:1, type:'cantrip', name_ko:'악의 눈', name_en:'Evil Eye'}],
+  'patron-fate':   [{lv:1, type:'cantrip', name_ko:'운명 조율', name_en:'Nudge Fate'}],
+  'patron-fervor': [{lv:1, type:'cantrip', name_ko:'마음 불꽃', name_en:'Stoke the Heart'}],
+  'patron-night':  [{lv:1, type:'cantrip', name_ko:'어둠의 장막', name_en:'Shroud of Night'}],
+  'patron-rune':   [{lv:1, type:'cantrip', name_ko:'비밀 감지', name_en:'Discern Secrets'}],
+  'patron-wild':   [{lv:1, type:'cantrip', name_ko:'야생의 말', name_en:'Wilding Word'}],
 };
 
 // ═══════════════════════════════════════════════

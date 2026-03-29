@@ -2948,26 +2948,57 @@ function applyClassFeatures() {
     if (el) el.value = rank;
   }
 
-  // Auto-granted feats
-  if (typeof CLASS_AUTO_FEATS !== 'undefined') {
-    // Remove old auto feats
-    ['class','general','skill','ancestry','other'].forEach(cat => {
-      state.feats[cat] = (state.feats[cat]||[]).filter(f => !f._auto);
-    });
-    // Add current auto feats
-    const autoFeats = CLASS_AUTO_FEATS[cls.id] || [];
-    autoFeats.forEach(f => {
-      if (f.lv <= level) {
-        const featName = f.name_ko + (f.name_en ? ` (${f.name_en})` : '');
-        const cat = f.category || 'class';
-        if (!state.feats[cat]) state.feats[cat] = [];
-        if (!state.feats[cat].some(e => e.name === featName)) {
-          state.feats[cat].push({name: featName, level: f.lv, _auto: true});
+  // ── Auto-granted feats (class + subclass) ──
+  // Remove old auto feats
+  ['class','general','skill','ancestry','other'].forEach(cat => {
+    state.feats[cat] = (state.feats[cat]||[]).filter(f => !f._auto);
+  });
+  // Gather all auto feats
+  const allAutoFeats = [
+    ...(typeof CLASS_AUTO_FEATS!=='undefined' ? (CLASS_AUTO_FEATS[cls.id]||[]) : []),
+    ...(state.selectedSubclass && typeof SUBCLASS_AUTO_FEATS!=='undefined' ? (SUBCLASS_AUTO_FEATS[state.selectedSubclass.id]||[]) : []),
+  ];
+  allAutoFeats.forEach(f => {
+    if (f.lv <= level) {
+      const featName = f.name_ko + (f.name_en ? ` (${f.name_en})` : '');
+      const cat = f.category || 'class';
+      if (!state.feats[cat]) state.feats[cat] = [];
+      if (!state.feats[cat].some(e => e.name === featName)) {
+        state.feats[cat].push({name: featName, level: f.lv, _auto: true});
+      }
+    }
+  });
+  if (typeof renderFeats === 'function') renderFeats();
+
+  // ── Auto-granted spells (class + subclass) ──
+  // Remove old auto spells (preserve null slots in cantrip)
+  state.spells.cantrip = (state.spells.cantrip||[]).filter(s => s === null || !s?._auto);
+  state.spells.focus = (state.spells.focus||[]).filter(s => !s?._auto);
+  state.spells.known = (state.spells.known||[]).filter(s => !s?._auto);
+  // Gather all auto spells
+  const allAutoSpells = [
+    ...(typeof CLASS_AUTO_SPELLS!=='undefined' ? (CLASS_AUTO_SPELLS[cls.id]||[]) : []),
+    ...(state.selectedSubclass && typeof SUBCLASS_AUTO_SPELLS!=='undefined' ? (SUBCLASS_AUTO_SPELLS[state.selectedSubclass.id]||[]) : []),
+  ];
+  allAutoSpells.forEach(s => {
+    if (s.lv <= level) {
+      const spellName = s.name_ko;
+      if (s.type === 'cantrip') {
+        if (!state.spells.cantrip.some(sp => sp?.name === spellName)) {
+          state.spells.cantrip.push({name: spellName, rank:0, _auto: true});
+        }
+      } else if (s.type === 'focus') {
+        if (!state.spells.focus.some(sp => sp?.name === spellName)) {
+          state.spells.focus.push({name: spellName, _auto: true});
+        }
+      } else {
+        if (!state.spells.known.some(sp => sp?.name === spellName)) {
+          state.spells.known.push({name: spellName, rank: s.rank||1, _auto: true});
         }
       }
-    });
-    if (typeof renderFeats === 'function') renderFeats();
-  }
+    }
+  });
+  if (typeof renderSpells === 'function') renderSpells();
 
   // Update UI badges
   if (typeof initWeaponProfBadges === 'function') initWeaponProfBadges();
@@ -4170,26 +4201,29 @@ function renderSpells() {
   const cantripEl = document.getElementById('spells-cantrip');
   if (cantripEl) {
     cantripEl.innerHTML = '';
-    for (let i = 0; i < cantripSlots; i++) {
+    const totalCantrips = Math.max(cantripSlots, (state.spells.cantrip||[]).length);
+    for (let i = 0; i < totalCantrips; i++) {
       const spell = state.spells.cantrip[i] || null;
+      const isAuto = spell?._auto;
       const row = document.createElement('div');
       row.className = 'spell-slot-row';
       if (spell) {
         const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
         const actions = getActionIcons(spellData?.actions);
         row.innerHTML = `
+          ${isAuto ? '<span style="color:var(--accent);font-size:9px;font-weight:700;width:30px;text-align:center;flex-shrink:0;">⚡</span>' : ''}
           <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           <span class="spell-slot-dur">\u2014</span>
           <span class="spell-slot-range">\u2014</span>
-          <span class="spell-slot-del" onclick="removeSpellFromSlot('cantrip',${i})">✕</span>`;
-      } else {
+          ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpellFromSlot('cantrip',${i})">✕</span>`}`;
+      } else if (i < cantripSlots) {
         row.innerHTML = `
           <span class="spell-slot-name empty" onclick="pickSpellForSlot('cantrip',0,${i})">선택 안 됨</span>
           <span class="spell-slot-dur"></span>
           <span class="spell-slot-range"></span>
           <span style="width:20px;"></span>`;
       }
-      cantripEl.appendChild(row);
+      if (spell || i < cantripSlots) cantripEl.appendChild(row);
     }
   }
 
@@ -4323,15 +4357,17 @@ function renderSpellSlotList(elId, arr, type) {
   if (!el) return;
   el.innerHTML = '';
   arr.forEach((s, i) => {
+    const isAuto = s?._auto;
     const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
     const actions = getActionIcons(spellData?.actions);
     const row = document.createElement('div');
     row.className = 'spell-slot-row';
     row.innerHTML = `
+      ${isAuto ? '<span style="color:var(--accent);font-size:9px;font-weight:700;width:30px;text-align:center;flex-shrink:0;">⚡</span>' : ''}
       <span class="spell-slot-name" onclick="showInfo('spell','${s.name.replace(/'/g,"\\'")}')">${s.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
       <span class="spell-slot-dur">\u2014</span>
       <span class="spell-slot-range">\u2014</span>
-      <span class="spell-slot-del" onclick="removeSpell('${type}',${i})">✕</span>`;
+      ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpell('${type}',${i})">✕</span>`}`;
     el.appendChild(row);
   });
 }
@@ -4362,23 +4398,33 @@ function renderFeats() {
     if (!el) return;
     el.innerHTML = '';
     state.feats[t].forEach((f,i) => {
+      const isAuto = f._auto;
       const div = document.createElement('div');
       div.className = 'feat-entry';
-      div.innerHTML = `
-        <input value="${f.name.replace(/"/g,'&quot;')}" placeholder="${labels[t]} 재주 이름..." style="width:100%;margin-bottom:2px;">
-        <div class="feat-src">
-          Lv: <input type="number" value="${f.level||1}" min="1" max="20" style="width:32px;">
-          <span class="info-btn" title="DB 정보 보기">ℹ</span>
-          <span class="spell-del" style="margin-left:auto;">✕</span>
-        </div>`;
-      const nameInput  = div.querySelector('input:not([type=number])');
-      const levelInput = div.querySelector('input[type=number]');
-      nameInput.addEventListener('input', () => { state.feats[t][i].name = nameInput.value; save(); });
-      nameInput.addEventListener('click', () => showInfo('feat', f.name));
-      nameInput.style.cursor = 'pointer';
-      levelInput.addEventListener('input', () => { state.feats[t][i].level = parseInt(levelInput.value); save(); });
-      div.querySelector('.info-btn').addEventListener('click', () => showInfo('feat', f.name));
-      div.querySelector('.spell-del').addEventListener('click', () => removeFeat(t, i));
+      if (isAuto) {
+        div.innerHTML = `
+          <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
+            <span style="color:var(--accent);font-size:10px;font-weight:700;flex-shrink:0;">⚡자동</span>
+            <span style="flex:1;cursor:pointer;color:var(--text);font-size:12px;" onclick="showInfo('feat','${f.name.replace(/'/g,"\\'")}')">${f.name}</span>
+          </div>
+          <div class="feat-src"><span style="color:var(--text2);font-size:10px;">Lv ${f.level||1} — 클래스 특성</span></div>`;
+      } else {
+        div.innerHTML = `
+          <input value="${f.name.replace(/"/g,'&quot;')}" placeholder="${labels[t]} 재주 이름..." style="width:100%;margin-bottom:2px;">
+          <div class="feat-src">
+            Lv: <input type="number" value="${f.level||1}" min="1" max="20" style="width:32px;">
+            <span class="info-btn" title="DB 정보 보기">ℹ</span>
+            <span class="spell-del" style="margin-left:auto;">✕</span>
+          </div>`;
+        const nameInput  = div.querySelector('input:not([type=number])');
+        const levelInput = div.querySelector('input[type=number]');
+        nameInput.addEventListener('input', () => { state.feats[t][i].name = nameInput.value; save(); });
+        nameInput.addEventListener('click', () => showInfo('feat', f.name));
+        nameInput.style.cursor = 'pointer';
+        levelInput.addEventListener('input', () => { state.feats[t][i].level = parseInt(levelInput.value); save(); });
+        div.querySelector('.info-btn').addEventListener('click', () => showInfo('feat', f.name));
+        div.querySelector('.spell-del').addEventListener('click', () => removeFeat(t, i));
+      }
       el.appendChild(div);
     });
   });
