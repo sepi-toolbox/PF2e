@@ -521,8 +521,8 @@ const SPELL_DB = [
 
   { name_ko: "마법 해제", name_en: "Dispel Magic", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "divine", "occult", "primal"], actions: "2행동", traits: ["조작"],
-    summary: "주문을 종료하거나 아이템의 마법을 억압합니다. 대상에 대해 상쇄 판정(431페이지)을 시도합니다.",
-    desc: "주문을 종료하거나 아이템의 마법을 억압합니다. 대상에 대해 <strong>상쇄 판정</strong>(431페이지)을 시도합니다." },
+    summary: "주문을 종료하거나 아이템의 마법을 억압합니다. 대상에 대해 상쇄 판정을 시도합니다.",
+    desc: "주문을 종료하거나 아이템의 마법을 억압합니다. 대상에 대해 <strong>상쇄 판정</strong>을 시도합니다." },
 
   { name_ko: "삽입 메시지", name_en: "Embed Message", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["조작"],
