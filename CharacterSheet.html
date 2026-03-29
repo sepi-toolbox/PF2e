@@ -5173,10 +5173,9 @@ function applyBackgroundInfo(bg) {
 }
 
 function updateSpellSlotsForClass() {
-  // Auto-fill max slots based on class level (simplified)
   if (!state.selectedClass || !state.selectedClass.casting) return;
   const lv = getLevel();
-  // PF2e spontaneous/prepared caster slots by level
+  // PF2e caster slots by level (rank 1-10)
   const slots = [
     [2,0,0,0,0,0,0,0,0,0],  // lv1
     [3,0,0,0,0,0,0,0,0,0],  // lv2
@@ -5200,10 +5199,11 @@ function updateSpellSlotsForClass() {
     [3,3,3,3,3,3,3,3,3,1],  // lv20
   ];
   const row = slots[Math.min(lv,20)-1] || slots[0];
+  state.spellSlots = state.spellSlots || {};
   for (let r=1; r<=10; r++) {
-    const el = document.getElementById(`slots-max-${r}`);
-    if (el) { el.value = row[r-1]||0; updateSlotChecks(r); }
+    state.spellSlots[r] = row[r-1] || 0;
   }
+  renderSpells();
 }
 
 // ═══════════════════════════════════════════════
