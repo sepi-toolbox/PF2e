@@ -163,6 +163,106 @@ function renderConditionList() {
   }
 }
 
+function openHpModal() {
+  const cur = parseInt(document.getElementById('hp-cur').value)||0;
+  const max = parseInt(document.getElementById('hp-max').value)||0;
+  const temp = parseInt(document.getElementById('hp-temp').value)||0;
+
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('hidden');
+  modalType = 'hp-edit';
+  document.getElementById('modal-title').textContent = 'HP 관리';
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) searchEl.style.display = 'none';
+  const fbar = document.getElementById('modal-filterbar');
+  if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm');
+  if (confirmBtn) confirmBtn.style.display = 'none';
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) listEl.style.display = '';
+  const detail = document.getElementById('modal-detail');
+  if (detail) detail.innerHTML = '';
+
+  const container = document.getElementById('modal-options');
+  container.innerHTML = `<div style="padding:16px;">
+    <div style="text-align:center;margin-bottom:16px;">
+      <div style="font-size:12px;color:var(--text2);">현재 HP</div>
+      <div style="font-size:28px;font-weight:700;color:var(--text);">${cur} <span style="color:var(--text2);font-size:16px;">/ ${max}</span></div>
+      ${temp > 0 ? '<div style="font-size:12px;color:var(--accent);">임시 HP: +' + temp + '</div>' : ''}
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="border:1px solid var(--border);border-radius:6px;padding:12px;">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">❤️ 회복</div>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="hp-heal-val" min="0" value="0" style="flex:1;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:8px;border-radius:4px;font-size:14px;text-align:center;">
+          <button onclick="applyHpHeal()" style="padding:8px 16px;background:var(--green);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:13px;font-weight:600;">회복</button>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:6px;padding:12px;">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">⚔️ 피해</div>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="hp-dmg-val" min="0" value="0" style="flex:1;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:8px;border-radius:4px;font-size:14px;text-align:center;">
+          <button onclick="applyHpDamage()" style="padding:8px 16px;background:var(--red);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:13px;font-weight:600;">적용</button>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:6px;padding:12px;">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">🔧 직접 설정</div>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="hp-set-val" min="0" value="${cur}" style="flex:1;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:8px;border-radius:4px;font-size:14px;text-align:center;">
+          <button onclick="applyHpSet()" style="padding:8px 16px;background:var(--bg4);color:var(--text);border:1px solid var(--border2);border-radius:4px;cursor:pointer;font-size:13px;">설정</button>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:6px;padding:12px;">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">🛡 임시 HP</div>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="hp-temp-set" min="0" value="${temp}" style="flex:1;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:8px;border-radius:4px;font-size:14px;text-align:center;">
+          <button onclick="applyHpTemp()" style="padding:8px 16px;background:var(--bg4);color:var(--text);border:1px solid var(--border2);border-radius:4px;cursor:pointer;font-size:13px;">설정</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function applyHpHeal() {
+  const val = parseInt(document.getElementById('hp-heal-val').value)||0;
+  if (val <= 0) return;
+  const curEl = document.getElementById('hp-cur');
+  const max = parseInt(document.getElementById('hp-max').value)||0;
+  curEl.value = Math.min(max, (parseInt(curEl.value)||0) + val);
+  updateHpGauge(); save(); closeModal();
+}
+
+function applyHpDamage() {
+  const val = parseInt(document.getElementById('hp-dmg-val').value)||0;
+  if (val <= 0) return;
+  const curEl = document.getElementById('hp-cur');
+  const tempEl = document.getElementById('hp-temp');
+  let dmg = val;
+  // 임시 HP 먼저 차감
+  let temp = parseInt(tempEl.value)||0;
+  if (temp > 0) {
+    const absorbed = Math.min(temp, dmg);
+    temp -= absorbed;
+    dmg -= absorbed;
+    tempEl.value = temp;
+  }
+  curEl.value = Math.max(0, (parseInt(curEl.value)||0) - dmg);
+  updateHpGauge(); save(); closeModal();
+}
+
+function applyHpSet() {
+  const val = parseInt(document.getElementById('hp-set-val').value)||0;
+  const max = parseInt(document.getElementById('hp-max').value)||0;
+  document.getElementById('hp-cur').value = Math.min(max, Math.max(0, val));
+  updateHpGauge(); save(); closeModal();
+}
+
+function applyHpTemp() {
+  const val = parseInt(document.getElementById('hp-temp-set').value)||0;
+  document.getElementById('hp-temp').value = Math.max(0, val);
+  updateHpGauge(); save(); closeModal();
+}
+
 function toggleCondFromModal(name, dir) {
   const cdata = CONDITIONS_DATA.find(c => c.name === name);
   if (!cdata) return;

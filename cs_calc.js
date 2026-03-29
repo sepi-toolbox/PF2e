@@ -795,6 +795,7 @@ function loadHeroPoints(val) {
 function updateHpGauge() {
   const cur = parseInt(document.getElementById('hp-cur').value)||0;
   const max = parseInt(document.getElementById('hp-max').value)||1;
+  const temp = parseInt(document.getElementById('hp-temp').value)||0;
   const pct = Math.max(0, Math.min(100, (cur/max)*100));
   const fill = document.getElementById('hp-gauge-fill');
   if (fill) {
@@ -803,6 +804,14 @@ function updateHpGauge() {
     else if (pct > 25) fill.style.background = 'linear-gradient(90deg,#6a5a1a,#a08a20)';
     else fill.style.background = 'linear-gradient(90deg,#6a1a1a,#a03030)';
   }
+  const curDisp = document.getElementById('hp-cur-display');
+  const maxDisp = document.getElementById('hp-max-display');
+  if (curDisp) curDisp.textContent = cur;
+  if (maxDisp) maxDisp.textContent = max;
+  const tempDisp = document.getElementById('hp-temp-display');
+  const tempVal = document.getElementById('hp-temp-val');
+  if (tempDisp) tempDisp.style.display = temp > 0 ? '' : 'none';
+  if (tempVal) tempVal.textContent = temp;
   checkHpZero();
 }
 function updateShieldGauge() {
