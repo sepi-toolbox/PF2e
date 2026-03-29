@@ -38,10 +38,18 @@ function traitTag(name) {
 
 function toggleTraitTip(e, el) {
   e.preventDefault();
+  e.stopPropagation();
   const isOpen = el.classList.contains('tip-open');
   document.querySelectorAll('.trait-tag.tip-open').forEach(t => t.classList.remove('tip-open'));
   if (!isOpen) el.classList.add('tip-open');
 }
+// 아무 곳이나 터치/클릭하면 열린 태그 풍선 닫기
+document.addEventListener('click', () => {
+  document.querySelectorAll('.trait-tag.tip-open').forEach(t => t.classList.remove('tip-open'));
+});
+document.addEventListener('touchstart', () => {
+  document.querySelectorAll('.trait-tag.tip-open').forEach(t => t.classList.remove('tip-open'));
+}, {passive: true});
 
 // ═══════════════════════════════════════════════
 //  SKILL PROFICIENCY HELPERS
