@@ -23,7 +23,7 @@ const db = firebase.firestore();
 <script src="equipment_db.js"></script>
 <script src="feat_db.js"></script>
 <script src="SPELL_DB.js"></script>
-<script src="class_features_db.js?v=9"></script>
+<script src="class_features_db.js?v=10"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -48,27 +48,27 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
    ═══════════════════════════════════════════ */
 :root {
-  --bg:       #1a2332;
-  --bg2:      #1e2a3a;
-  --bg3:      #243040;
-  --bg4:      #2a3a4e;
-  --bg5:      #304050;
-  --text:     #c8d0dc;
-  --text2:    #7a8a9e;
-  --border:   #2a3a4e;
-  --border2:  #3a4e65;
-  --accent:   #e67e22;
-  --accent2:  #f39c12;
-  --accent-bg:#2a1800;
-  --red:      #c0392b;
-  --red-bg:   #2a0808;
-  --green:    #1a6a3a;
-  --teal:     #1a3a3a;
+  --bg:       #1c1c1c;
+  --bg2:      #222222;
+  --bg3:      #2a2a2a;
+  --bg4:      #333333;
+  --bg5:      #3a3a3a;
+  --text:     #dddddd;
+  --text2:    #999999;
+  --border:   #444444;
+  --border2:  #555555;
+  --accent:   #c9a84c;
+  --accent2:  #e8d5a3;
+  --accent-bg:#2a2010;
+  --red:      #d4543a;
+  --red-bg:   #2a1010;
+  --green:    #4a8a4a;
+  --teal:     #2a3a2a;
   --modal-bg: rgba(0,0,0,0.85);
   /* legacy compat aliases */
-  --gold:       #e67e22;
-  --gold-light: #f0a050;
-  --red-light:  #e74c3c;
+  --gold:       #c9a84c;
+  --gold-light: #e8d5a3;
+  --red-light:  #e06050;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
@@ -84,7 +84,7 @@ body{
    ══════════════════════════════════ */
 #auth-bar{
   position:sticky;top:0;z-index:9999;
-  background:#111820;
+  background:#161616;
   border-bottom:1px solid var(--border);
   padding:7px 16px;
   display:flex;align-items:center;justify-content:space-between;
@@ -93,7 +93,7 @@ body{
 #auth-bar .brand{color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.5px;}
 #save-status{color:var(--text2);font-size:11px;margin-left:10px;}
 #slot-bar{
-  background:#111820;
+  background:#161616;
   border-bottom:1px solid var(--border);
   padding:5px 16px;
   font-size:12px;
@@ -110,7 +110,7 @@ body{
    MAIN HEADER (name/class bar)
    ══════════════════════════════════ */
 #header{
-  background:#111820;
+  background:#161616;
   border-bottom:2px solid var(--accent);
   padding:10px 16px;
   display:flex;align-items:center;gap:12px;flex-wrap:wrap;
@@ -1079,7 +1079,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   #mobile-bottom-nav{
     display:flex !important;
     position:fixed;bottom:0;left:0;right:0;z-index:9998;
-    background:#111820;border-top:1px solid var(--border);
+    background:#161616;border-top:1px solid var(--border);
     height:56px;align-items:stretch;
     justify-content:space-around;
     padding:0 2px;
@@ -1679,11 +1679,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=9"></script>
-<script src="cs_calc.js?v=9"></script>
-<script src="cs_ui.js?v=9"></script>
-<script src="cs_modal.js?v=9"></script>
-<script src="cs_save.js?v=9"></script>
+<script src="cs_data.js?v=10"></script>
+<script src="cs_calc.js?v=10"></script>
+<script src="cs_ui.js?v=10"></script>
+<script src="cs_modal.js?v=10"></script>
+<script src="cs_save.js?v=10"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
