@@ -1975,6 +1975,9 @@ function closeModal() {
   _spellSlotPending = null;
   const confirmBtn = document.querySelector('.btn-confirm');
   if (confirmBtn) confirmBtn.style.display = '';
+  // Restore modal size
+  const modalEl = document.querySelector('.modal');
+  if (modalEl) { modalEl.style.maxWidth = ''; modalEl.style.height = ''; }
   // Restore list/detail to default state
   const listEl = document.querySelector('.modal-list');
   if (listEl) { listEl.style.display = ''; listEl.style.width = ''; listEl.style.borderRight = ''; }

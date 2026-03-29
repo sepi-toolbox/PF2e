@@ -1748,11 +1748,13 @@ function openPetSkills(i) {
   const confirmBtn = document.querySelector('.btn-confirm');
   if (confirmBtn) confirmBtn.style.display = 'none';
   modalSelected = null;
-  // 리스트만 표시, 디테일 숨김
+  // 리스트만 표시, 디테일 숨김, 모달 축소
   const listEl = document.querySelector('.modal-list');
   if (listEl) { listEl.style.display = ''; listEl.style.width = '100%'; listEl.style.borderRight = 'none'; }
   const detail = document.getElementById('modal-detail');
   if (detail) detail.style.display = 'none';
+  const modalEl = document.querySelector('.modal');
+  if (modalEl && window.innerWidth > 900) { modalEl.style.maxWidth = '400px'; modalEl.style.height = '70vh'; }
 
   renderPetSkillList(i);
 }
@@ -1800,12 +1802,12 @@ function openPetConditions(i) {
   const fbar = document.getElementById('modal-filterbar');
   if (fbar) fbar.innerHTML = '';
   const confirmBtn = document.querySelector('.btn-confirm');
-  if (confirmBtn) { confirmBtn.style.display = ''; confirmBtn.textContent = '완료'; }
-  modalSelected = null;
+  if (confirmBtn) confirmBtn.style.display = 'none';
+  // PC: 리스트+디테일 모두 표시
   const listEl = document.querySelector('.modal-list');
-  if (listEl) listEl.style.display = '';
+  if (listEl) { listEl.style.display = ''; listEl.style.width = ''; listEl.style.borderRight = ''; }
   const detail = document.getElementById('modal-detail');
-  if (detail) detail.innerHTML = '';
+  if (detail) { detail.style.display = ''; detail.innerHTML = '<div class="modal-detail-empty">상태이상을 선택하면 상세 정보가 표시됩니다.</div>'; }
 
   renderPetCondList(i);
 }
@@ -1828,18 +1830,44 @@ function renderPetCondList(i) {
       <div class="opt-row-icon" style="${isActive ? 'background:var(--red-bg);color:var(--red-light);' : ''}">${isActive ? '⚠' : '◻'}</div>
       <div style="flex:1;">
         <div class="opt-row-name">${c.name} <span style="color:var(--text2);font-size:10px;">${c.en}</span></div>
+        <div style="font-size:10px;color:var(--text2);margin-top:2px;">${c.desc.substring(0, 60)}...</div>
       </div>
       ${isActive ? '<span style="color:var(--red-light);font-size:11px;font-weight:600;">' + (c.valued ? current : '활성') + '</span>' : ''}`;
     row.onclick = () => {
-      if (c.valued) {
-        p.conditions[c.name] = (p.conditions[c.name] || 0) + 1;
-        if (c.max && p.conditions[c.name] > c.max) p.conditions[c.name] = 0;
+      const curVal = p.conditions[c.name] || 0;
+      const statusText = c.valued ? `현재 수치: ${curVal}` + (c.max ? ` / ${c.max}` : '') : (curVal ? '활성' : '비활성');
+      const btnHtml = `<div style="display:flex;gap:6px;margin-top:12px;">
+        <button onclick="event.stopPropagation();petCondChange(${i},'${c.name}',1)" style="flex:1;padding:8px;background:var(--red-bg);color:var(--red-light);border:1px solid var(--red);border-radius:4px;cursor:pointer;font-size:12px;">${c.valued ? '+1 증가' : '적용'}</button>
+        <button onclick="event.stopPropagation();petCondChange(${i},'${c.name}',-1)" style="flex:1;padding:8px;background:var(--bg4);color:var(--text2);border:1px solid var(--border2);border-radius:4px;cursor:pointer;font-size:12px;">${c.valued ? '-1 감소' : '해제'}</button>
+      </div>`;
+
+      if (window.innerWidth > 900) {
+        // PC: 디테일 패인
+        container.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
+        row.classList.add('selected');
+        const detail = document.getElementById('modal-detail');
+        if (detail) {
+          detail.innerHTML = `<div class="modal-detail-title">${c.name}</div><div class="modal-detail-en">${c.en}</div>
+            <div style="font-size:11px;color:var(--red-light);margin:8px 0;">${statusText}</div>
+            <div class="modal-detail-desc">${c.desc}</div>${btnHtml}`;
+        }
       } else {
-        p.conditions[c.name] = p.conditions[c.name] ? 0 : 1;
+        // 모바일: 아코디언
+        const existing = row.nextElementSibling;
+        if (existing && existing.classList.contains('opt-row-detail') && existing.classList.contains('open')) {
+          existing.classList.remove('open'); row.classList.remove('expanded'); return;
+        }
+        document.querySelectorAll('.opt-row-detail.open').forEach(d => d.classList.remove('open'));
+        document.querySelectorAll('.opt-row.expanded').forEach(r => r.classList.remove('expanded'));
+        row.classList.add('expanded');
+        let detailDiv = row.nextElementSibling;
+        if (!detailDiv || !detailDiv.classList.contains('opt-row-detail')) {
+          detailDiv = document.createElement('div'); detailDiv.className = 'opt-row-detail'; row.after(detailDiv);
+        }
+        detailDiv.innerHTML = `<div style="font-size:12px;line-height:1.6;margin-bottom:8px;">${c.desc}</div>
+          <div style="font-size:11px;color:var(--red-light);margin-bottom:8px;">${statusText}</div>${btnHtml}`;
+        detailDiv.classList.add('open');
       }
-      renderPets();
-      save();
-      renderPetCondList(i);
     };
     container.appendChild(row);
   });
@@ -1849,5 +1877,22 @@ function renderPetCondList(i) {
     searchEl.addEventListener('input', () => renderPetCondList(i));
     searchEl._petCondBound = true;
   }
+}
+
+function petCondChange(i, name, dir) {
+  const p = state.pets[i];
+  if (!p.conditions) p.conditions = {};
+  const cdata = CONDITIONS_DATA.find(c => c.name === name);
+  if (!cdata) return;
+  if (cdata.valued) {
+    let cur = p.conditions[name] || 0;
+    cur = dir > 0 ? Math.min(cur + 1, cdata.max || 99) : Math.max(cur - 1, 0);
+    p.conditions[name] = cur;
+  } else {
+    p.conditions[name] = dir > 0 ? 1 : 0;
+  }
+  renderPets();
+  save();
+  renderPetCondList(i);
 }
 
