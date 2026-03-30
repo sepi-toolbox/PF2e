@@ -700,9 +700,25 @@ function selectDeity(id) {
   const d = DEITY_DB.find(x=>x.id===id);
   if(!d) return;
   state.deity = id;
-  const skillMap = {society:'사회학',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
-    intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'공예'};
+  // 신격 기술 훈련
   if(d.skill && typeof setSkillTrained==='function') setSkillTrained(d.skill);
+  // 선호 무기 숙련 부여: 군용이면 해당 카테고리를 최소 훈련으로
+  if(d.weapon && typeof WEAPON_DB !== 'undefined') {
+    const wpn = WEAPON_DB.find(w => w.name_ko === d.weapon);
+    if(wpn) {
+      const cat = (wpn.category||'').toLowerCase();
+      let profKey = null;
+      if(cat.includes('군용') || cat.includes('martial')) profKey = 'prof-weapon-martial';
+      else if(cat.includes('고급') || cat.includes('advanced')) profKey = 'prof-weapon-advanced';
+      // 단순/비무장은 이미 클레릭 기본 숙련이므로 별도 처리 불필요
+      if(profKey) {
+        const el = document.getElementById(profKey);
+        if(el && parseInt(el.value||0) < 2) el.value = '2';
+      }
+      // 선호 무기 이름 저장 (calcWeaponDamage에서 사용)
+      state._deityWeapon = d.weapon;
+    }
+  }
   if(state.sanctification && !d.sanctification.includes(state.sanctification)) state.sanctification = null;
   if(d.sanctification.length === 1) state.sanctification = d.sanctification[0];
   _pendingDeityId = null;

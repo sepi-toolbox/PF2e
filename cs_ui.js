@@ -302,6 +302,15 @@ function calcWeaponDamage(w) {
   const typeMap = {'B':'타격','P':'관통','S':'참격','b':'타격','p':'관통','s':'참격'};
   if (typeMap[dmgType]) dmgType = typeMap[dmgType];
 
+  // 치명적 단순함(Deadly Simplicity): 신격 선호 무기가 단순/비무장 & d6이하 → 주사위 +1단계
+  if (state._deityWeapon && (w.name||'') === state._deityWeapon) {
+    const wpCat = getWeaponCategory(w);
+    if ((wpCat === 'simple' || wpCat === 'unarmed') && dieSizeBase > 0 && dieSizeBase <= 6) {
+      const stepUp = {4:6, 6:8};
+      if (stepUp[dieSizeBase]) dieSizeBase = stepUp[dieSizeBase];
+    }
+  }
+
   // Two-hand: check if toggled and weapon has 양손 trait
   let dieSize = dieSizeBase;
   if (w._twoHand) {

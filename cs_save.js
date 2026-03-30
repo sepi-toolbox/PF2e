@@ -336,7 +336,14 @@ function loadData(d) {
     if (d.size) state.size = d.size;
     if (d.trainableSkillSlots !== undefined) state.trainableSkillSlots = d.trainableSkillSlots;
     // Class-specific choices
-    if (d.deity) state.deity = d.deity;
+    if (d.deity) {
+      state.deity = d.deity;
+      // 선호 무기 복원
+      if (typeof DEITY_DB !== 'undefined') {
+        const dty = DEITY_DB.find(x=>x.id===d.deity);
+        if (dty) state._deityWeapon = dty.weapon;
+      }
+    }
     if (d.divineFont) state.divineFont = d.divineFont;
     if (d.sanctification) state.sanctification = d.sanctification;
     if (d.divineFontUsed !== undefined) state.divineFontUsed = d.divineFontUsed;
