@@ -1467,6 +1467,8 @@ function filterSpells() {
       if (sp.is_cantrip || sp.is_focus) return false;
       if (slotRank > 0 && sp.rank !== slotRank) return false;
     }
+    // 집중 주문은 재주/클래스 능력으로만 습득 — 일반 주문 선택에서 제외
+    if (slotType !== 'focus' && sp.is_focus) return false;
     // 검색어
     if (q && !sp.name_ko.includes(q) && !sp.name_en.toLowerCase().includes(q)) return false;
     return true;
