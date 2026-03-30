@@ -630,7 +630,7 @@ function applyClassFeatures() {
 function openDeityPicker() {
   if (typeof DEITY_DB === 'undefined') return;
   const items = DEITY_DB.map(d =>
-    `<div class="opt-row" onclick="selectDeity('${d.id}')" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
+    `<div class="opt-row" onclick="previewDeity('${d.id}',this)" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
       <span class="opt-row-name" style="flex:1;">${d.name_ko} <span style="color:var(--text2);font-size:11px;">${d.name_en}</span></span>
       <span style="font-size:10px;color:var(--text2);">${d.weapon} / ${d.sanctification.map(s=>s==='holy'?'신성':'불경').join('·')}</span>
     </div>`).join('');
@@ -643,20 +643,69 @@ function openDeityPicker() {
   const footer = document.querySelector('.modal-footer');
   if(footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
   modalType = 'deity-pick';
+  _pendingDeityId = null;
+}
+
+var _pendingDeityId = null;
+
+function previewDeity(id, row) {
+  const d = DEITY_DB.find(x=>x.id===id);
+  if(!d) return;
+  _pendingDeityId = id;
+
+  // 행 선택 표시
+  document.querySelectorAll('.opt-row').forEach(r=>r.classList.remove('selected'));
+  if(row) row.classList.add('selected');
+
+  const sanctLabel = d.sanctification.map(s=>s==='holy'?'신성(Holy)':'불경(Unholy)').join(' / ');
+  const skillMap = {society:'사회학',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
+    intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'공예'};
+  const skillName = skillMap[d.skill] || d.skill || '';
+
+  const detailHtml = `
+    <div class="modal-detail-title">${d.name_ko}</div>
+    <div class="modal-detail-en">${d.name_en}</div>
+    <div style="margin:12px 0;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.7;">
+      <div><b>선호 무기:</b> ${d.weapon}</div>
+      <div><b>신성화:</b> ${sanctLabel}</div>
+      <div><b>신격 기술:</b> ${skillName}</div>
+      <div><b>영역:</b> ${(d.domains||[]).join(', ')}</div>
+    </div>
+    <button onclick="confirmDeity()" style="width:100%;margin-top:12px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">선택 확정</button>`;
+
+  // 모바일: 아코디언
+  if (window.innerWidth <= 900) {
+    document.querySelectorAll('.opt-row-detail.open').forEach(d=>d.classList.remove('open'));
+    document.querySelectorAll('.opt-row.expanded').forEach(r=>r.classList.remove('expanded'));
+    if(row) {
+      row.classList.add('expanded');
+      let detailDiv = row.nextElementSibling;
+      if(!detailDiv || !detailDiv.classList.contains('opt-row-detail')) {
+        detailDiv = document.createElement('div'); detailDiv.className='opt-row-detail'; row.after(detailDiv);
+      }
+      detailDiv.innerHTML = detailHtml;
+      detailDiv.classList.add('open');
+    }
+  } else {
+    document.getElementById('modal-detail').innerHTML = detailHtml;
+  }
+}
+
+function confirmDeity() {
+  if(!_pendingDeityId) return;
+  selectDeity(_pendingDeityId);
 }
 
 function selectDeity(id) {
   const d = DEITY_DB.find(x=>x.id===id);
   if(!d) return;
   state.deity = id;
-  // Auto-set deity skill
   const skillMap = {society:'사회학',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
     intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'공예'};
   if(d.skill && typeof setSkillTrained==='function') setSkillTrained(d.skill);
-  // Reset sanctification if deity doesn't support current choice
   if(state.sanctification && !d.sanctification.includes(state.sanctification)) state.sanctification = null;
-  // If deity has only one sanctification option, auto-set
   if(d.sanctification.length === 1) state.sanctification = d.sanctification[0];
+  _pendingDeityId = null;
   closeModal();
   applyClassFeatures();
   renderGrowthPlan();

@@ -464,11 +464,11 @@ function renderWeapons() {
       runeInfo = `<span style="font-size:9px;color:var(--accent);margin-left:6px;">[${parts.join(', ')}]</span>`;
     }
 
-    // 개별 무기 숙련도 표시
+    // 개별 무기 숙련도 표시 (TEML 뱃지)
     const wpCat = getWeaponCategory(w);
     const wpProfVal = parseInt(document.getElementById('prof-weapon-'+wpCat)?.value||0);
-    const wpProfMap = {0:['미숙련',''],2:['숙련','trained'],4:['전문가','expert'],6:['대가','master'],8:['전설','legendary']};
-    const [wpProfName, wpProfCls] = wpProfMap[wpProfVal]||['미숙련',''];
+    const wpTemlMap = {0:['U','미숙련',''],2:['T','숙련','trained'],4:['E','전문가','expert'],6:['M','대가','master'],8:['L','전설','legendary']};
+    const [wpTemlLetter, wpProfName, wpProfCls] = wpTemlMap[wpProfVal]||['U','미숙련',''];
     const wpCatLabel = {simple:'단순',martial:'군용',advanced:'고급',unarmed:'비무장'}[wpCat]||wpCat;
 
     card.innerHTML = `
@@ -484,7 +484,7 @@ function renderWeapons() {
           <div class="weapon-card-name" onclick="showInfo('weapon','${escapedName}')">
             \u2694 ${w._broken?'<span style="color:var(--red-light);">파손된 </span>':''}${w.name||'무기'}${runeInfo}
           </div>
-          ${wpProfVal > 0 ? `<div style="font-size:9px;color:var(--text2);margin-top:-2px;margin-bottom:2px;"><span class="weapon-prof-badge ${wpProfCls}" style="font-size:7px;width:12px;height:12px;display:inline-flex;align-items:center;justify-content:center;">${wpProfMap[wpProfVal][0][0]}</span> ${wpCatLabel} 무기 ${wpProfName}</div>` : `<div style="font-size:9px;color:var(--red-light);margin-top:-2px;margin-bottom:2px;">⚠ ${wpCatLabel} 무기 미숙련</div>`}
+          ${wpProfVal > 0 ? `<div style="font-size:9px;color:var(--text2);margin-top:-2px;margin-bottom:2px;"><span class="weapon-prof-badge ${wpProfCls}" style="font-size:7px;width:12px;height:12px;display:inline-flex;align-items:center;justify-content:center;">${wpTemlLetter}</span> ${wpCatLabel} 무기 ${wpProfName}</div>` : `<div style="font-size:9px;color:var(--red-light);margin-top:-2px;margin-bottom:2px;">⚠ ${wpCatLabel} 무기 미숙련</div>`}
           <div class="weapon-stat">
             <span class="stat-label">\u2699 명중</span>
             <span class="stat-val" style="${w._broken?'color:var(--red-light);':''}">${hitStr}</span>
