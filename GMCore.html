@@ -1314,8 +1314,271 @@ th { background:#333; color:var(--accent); }
 
 <p><strong>극단적 재훈련 <span class="en">Extreme Retraining</span>:</strong> 일부 플레이어는 클래스 변경이나 혈통(ancestry) 관련 선택의 대폭적인 변경을 원할 수 있습니다. 이러한 극단적 재훈련은 일반 규칙의 범위를 벗어나며, GM과 플레이어 사이의 합의가 필요합니다. 이를 허용한다면, 이야기적으로 정당화하세요 — 강력한 마법 의식, 신의 축복, 근본적인 변화를 가져오는 사건 등이 될 수 있습니다. 극단적 재훈련은 상당한 시간, 비용, 그리고 모험(특별한 재료를 구하거나, 시련을 통과하는 등)을 필요로 해야 합니다.</p>
 
-<!-- 1장 계속 작성 예정 -->
-<p style="text-align:center; color:#555; margin-top:40px;">— 1장 계속 번역 진행 중... —</p>
+<!-- ===== 난이도 등급 ===== -->
+<h2 class="sec" id="ch1-difficultyClasses">난이도 등급 <span class="en">Difficulty Classes</span></h2>
+
+<p>판정(check)이 이루어질 때, 그 결과는 <span class="term">난이도 등급(Difficulty Class, DC)</span>과 비교됩니다. DC는 과제가 얼마나 어려운지를 나타내는 수치입니다. GM으로서 여러분은 행동의 DC를 설정하는 핵심적인 역할을 합니다. 이 섹션에서는 DC를 결정하는 데 도움이 되는 지침을 제공합니다.</p>
+
+<p>DC를 설정하는 방법은 크게 세 가지입니다. <strong>단순 DC</strong>는 숙련도 등급에 기반한 빠른 기준점을 제공합니다. <strong>레벨 기반 DC</strong>는 과제나 적의 레벨에 따라 더 세밀한 수치를 제공합니다. 마지막으로, 특정 상황에 맞게 DC를 <strong>조정</strong>할 수 있습니다.</p>
+
+<h3 class="sub" id="ch1-simpleDCs">단순 DC <span class="en">Simple DCs</span></h3>
+
+<p>무언가의 난이도가 특정 레벨이 아닌 숙련도 등급에 따라 달라질 때, 단순 DC를 사용하세요. 이 방법은 빠르고 쉬우며, 특히 특정 숙련도 등급이 필요한 과제에 적합합니다.</p>
+
+<table>
+<caption>단순 DC</caption>
+<tr><th>숙련도 등급</th><th>DC</th></tr>
+<tr><td>미숙련 <span class="en">Untrained</span></td><td>10</td></tr>
+<tr><td>숙련 <span class="en">Trained</span></td><td>15</td></tr>
+<tr><td>전문가 <span class="en">Expert</span></td><td>20</td></tr>
+<tr><td>달인 <span class="en">Master</span></td><td>30</td></tr>
+<tr><td>전설 <span class="en">Legendary</span></td><td>40</td></tr>
+</table>
+
+<h3 class="sub" id="ch1-levelBasedDCs">레벨 기반 DC <span class="en">Level-Based DCs</span></h3>
+
+<p>과제, 함정, 또는 적에게 특정 레벨이 있을 때 레벨 기반 DC를 사용하세요. 이 표는 해당 레벨에서 적절한 도전을 제공하는 DC를 보여줍니다. 해당 레벨의 캐릭터가 관련 능력치와 숙련도를 갖추고 있다면 적절한 성공률을 기대할 수 있습니다.</p>
+
+<table>
+<caption>레벨별 DC</caption>
+<tr><th>레벨</th><th>DC</th><th>레벨</th><th>DC</th></tr>
+<tr><td>0</td><td>14</td><td>13</td><td>31</td></tr>
+<tr><td>1</td><td>15</td><td>14</td><td>32</td></tr>
+<tr><td>2</td><td>16</td><td>15</td><td>34</td></tr>
+<tr><td>3</td><td>18</td><td>16</td><td>35</td></tr>
+<tr><td>4</td><td>19</td><td>17</td><td>36</td></tr>
+<tr><td>5</td><td>20</td><td>18</td><td>38</td></tr>
+<tr><td>6</td><td>22</td><td>19</td><td>39</td></tr>
+<tr><td>7</td><td>23</td><td>20</td><td>40</td></tr>
+<tr><td>8</td><td>24</td><td>21</td><td>42</td></tr>
+<tr><td>9</td><td>26</td><td>22</td><td>44</td></tr>
+<tr><td>10</td><td>27</td><td>23</td><td>46</td></tr>
+<tr><td>11</td><td>28</td><td>24</td><td>48</td></tr>
+<tr><td>12</td><td>30</td><td>25</td><td>50</td></tr>
+</table>
+
+<table>
+<caption>주문 등급별 DC</caption>
+<tr><th>주문 등급</th><th>DC</th><th>주문 등급</th><th>DC</th></tr>
+<tr><td>1</td><td>15</td><td>6</td><td>28</td></tr>
+<tr><td>2</td><td>18</td><td>7</td><td>31</td></tr>
+<tr><td>3</td><td>20</td><td>8</td><td>34</td></tr>
+<tr><td>4</td><td>23</td><td>9</td><td>36</td></tr>
+<tr><td>5</td><td>26</td><td>10</td><td>39</td></tr>
+</table>
+
+<h3 class="sub" id="ch1-adjustingDifficulty">난이도 조정 <span class="en">Adjusting Difficulty</span></h3>
+
+<p>단순 DC나 레벨 기반 DC를 출발점으로 삼되, 특정 상황에 따라 DC를 조정해야 할 수 있습니다. 아래 표는 다양한 난이도 수준에 따른 조정값을 보여줍니다. "희귀도" 열은 해당 난이도 조정이 희귀도와 연결될 때 어떤 희귀도에 해당하는지를 보여줍니다.</p>
+
+<table>
+<caption>DC 조정</caption>
+<tr><th>난이도</th><th>조정값</th><th>희귀도</th></tr>
+<tr><td>매우 매우 쉬움 <span class="en">Incredibly easy</span></td><td>-10</td><td>—</td></tr>
+<tr><td>매우 쉬움 <span class="en">Very easy</span></td><td>-5</td><td>—</td></tr>
+<tr><td>쉬움 <span class="en">Easy</span></td><td>-2</td><td>—</td></tr>
+<tr><td>어려움 <span class="en">Hard</span></td><td>+2</td><td>비일반 <span class="en">Uncommon</span></td></tr>
+<tr><td>매우 어려움 <span class="en">Very hard</span></td><td>+5</td><td>희귀 <span class="en">Rare</span></td></tr>
+<tr><td>매우 매우 어려움 <span class="en">Incredibly hard</span></td><td>+10</td><td>유일 <span class="en">Unique</span></td></tr>
+</table>
+
+<p>예를 들어, 비일반 자물쇠를 따려면 일반 자물쇠의 DC에 +2를 적용합니다. 희귀한 고대 문자를 해독하려면 +5를 적용할 수 있습니다. 유일한 마법 장치를 분석하려면 +10까지 적용될 수 있습니다.</p>
+
+<h3 class="sub" id="ch1-groupAttempts">그룹 시도 <span class="en">Group Attempts</span></h3>
+
+<p>여러 캐릭터가 함께 무언가를 시도할 때, 성공 확률이 크게 높아집니다. 이를 반영하기 위해, 그룹 전체가 판정을 시도하는 경우 DC를 2 높이세요. 예를 들어, 파티 전원이 절벽을 오르거나, 전원이 조용히 경비병을 지나가려 할 때 적용합니다. 이렇게 하면 한 명만 성공해도 되는 상황에서 그룹의 수적 우위가 과도하게 유리해지는 것을 방지합니다.</p>
+
+<p>반대로, 전원이 성공해야 하는 상황(예: 파티 전체가 함정을 피하는 것)에서는 DC를 조정하지 마세요. 이런 경우에는 한 명이라도 실패하면 결과에 영향을 미치므로, 그룹의 규모가 오히려 불리하게 작용하기 때문입니다.</p>
+
+<h3 class="sub" id="ch1-minimumProficiency">최소 숙련도 <span class="en">Minimum Proficiency</span></h3>
+
+<p>일부 과제는 최소 숙련도 등급을 요구합니다. 예를 들어, 매우 복잡한 자물쇠를 따려면 도둑질(Thievery)에 전문가 이상의 숙련도가 필요할 수 있습니다. 이 경우, 요구되는 숙련도 등급에 도달하지 못한 캐릭터는 해당 판정을 시도할 수 없습니다. 이것은 DC를 높이는 것과는 다릅니다 — 아무리 높은 보너스를 가지고 있어도, 충분한 숙련도가 없으면 시도 자체가 불가능합니다.</p>
+
+<p>최소 숙련도를 사용할 때는 플레이어에게 미리 알려주는 것이 좋습니다. "이 자물쇠를 살펴보니, 전문가 수준의 도둑질 능력이 없으면 따기가 불가능해 보입니다"와 같이 설명하세요. 이렇게 하면 플레이어가 불필요한 행동을 소비하지 않게 됩니다.</p>
+
+<div class="note" id="ch1-scopeOfLore">
+<p><strong>지식 범위 결정 <span class="en">Determining the Scope of Lore</span></strong></p>
+<p><span class="term">지식(Lore)</span> 기술은 다양한 주제에 적용될 수 있으며, 그 범위가 얼마나 넓은지에 따라 유용성이 달라집니다. GM으로서 여러분은 지식 기술의 범위를 결정해야 합니다.</p>
+<p>일반적으로, 지식 기술은 좁을수록 더 높은 보너스를 제공하고, 넓을수록 더 많은 상황에 적용됩니다. 예를 들어, "흡혈귀 지식(Vampire Lore)"은 좁은 범위이므로 흡혈귀에 관한 판정에서 매우 유용하지만, 다른 언데드에게는 적용되지 않습니다. "언데드 지식(Undead Lore)"은 더 넓지만 각각의 언데드 유형에 대해서는 약간 덜 전문적입니다.</p>
+<p>캐릭터가 지식 기술을 사용하여 판정을 시도할 때, 해당 지식이 상황에 적절한지 판단하세요. 관련성이 높으면 일반 DC를 사용하고, 약간 관련되지만 직접적이지는 않으면 DC를 높이거나 제한된 정보만 제공하세요. 관련이 없으면 해당 지식 기술로는 판정을 시도할 수 없다고 알려주세요.</p>
+</div>
+
+<!-- ===== 특정 행동 ===== -->
+<h2 class="sec" id="ch1-specificActions">특정 행동 <span class="en">Specific Actions</span></h2>
+
+<p>이 섹션에서는 자주 사용되는 기술 행동에 대한 DC 지침을 제공합니다. 이를 참고하여 특정 행동의 DC를 일관성 있게 설정할 수 있습니다.</p>
+
+<h3 class="sub" id="ch1-craft">제작 <span class="en">Craft</span></h3>
+
+<p>제작 행동의 DC는 제작하려는 아이템의 레벨에 따라 레벨 기반 DC 표를 사용합니다. 캐릭터는 자신의 레벨 이하인 아이템만 제작할 수 있으며, 해당 아이템의 공식(formula)을 알고 있어야 합니다. 비일반이나 희귀 아이템을 제작하는 경우 적절한 DC 조정을 적용하세요.</p>
+
+<h3 class="sub" id="ch1-earnIncome">돈 벌기 <span class="en">Earn Income</span></h3>
+
+<p>돈 벌기 행동은 휴식 기간(downtime) 동안 캐릭터가 수입을 얻는 것을 나타냅니다. DC는 캐릭터가 수행하는 과제의 레벨에 따라 결정됩니다. 캐릭터는 자신의 레벨과 같거나 낮은 레벨의 과제를 선택하여 작업할 수 있습니다. 판정 결과에 따라 수입 금액이 달라집니다.</p>
+
+<h3 class="sub" id="ch1-gatherInfo">정보 수집 <span class="en">Gather Information</span></h3>
+
+<p>정보 수집은 교섭(Diplomacy)을 사용하여 특정 주제에 대한 소문이나 정보를 모으는 행동입니다. DC는 정보의 접근성과 은밀함에 따라 달라집니다. 일반적으로 알려진 사실은 DC 15 정도, 잘 알려지지 않은 정보는 DC 20 이상, 비밀스러운 정보는 DC 30 이상이 될 수 있습니다. 특정 도시나 지역의 상황에 따라 조정하세요.</p>
+
+<h3 class="sub" id="ch1-identify">마법 식별 / 연금술 식별 / 주문 학습 <span class="en">Identify Magic / Identify Alchemy / Learn a Spell</span></h3>
+
+<p>마법 아이템이나 효과를 식별하거나 새로운 주문을 배우는 행동의 DC는 해당 아이템이나 주문의 레벨에 따라 레벨 기반 DC를 사용합니다. 비일반이나 희귀한 것들에는 적절한 DC 조정을 적용하세요. 저주받은 아이템은 일반적으로 저주가 아닌 것처럼 보이므로, 식별 판정에서는 저주의 존재를 드러내지 않을 수 있습니다.</p>
+
+<h3 class="sub" id="ch1-recallKnowledge">지식 회상 <span class="en">Recall Knowledge</span></h3>
+
+<p><span class="term">지식 회상(Recall Knowledge)</span>은 캐릭터가 특정 주제에 대해 알고 있는 것을 기억해내는 행동입니다. DC는 해당 정보의 모호함과 복잡함에 따라 달라집니다.</p>
+
+<p>지식 회상의 DC를 설정할 때, 해당 정보가 얼마나 일반적인지 고려하세요. 일반 상식 수준이라면 DC를 낮게, 전문적이거나 희귀한 지식이라면 DC를 높게 설정하세요. 레벨이 있는 대상(생물, 아이템 등)에 대한 지식 회상은 해당 대상의 레벨에 따른 DC를 사용할 수 있습니다.</p>
+
+<p><strong>대안 기술 <span class="en">Alternative Skills</span>:</strong> 때로는 특정 기술 대신 다른 기술을 사용하여 지식을 회상하려는 플레이어가 있을 수 있습니다. 이 경우 GM의 판단에 따라 허용할 수 있지만, DC를 2~5 정도 높이는 것이 적절합니다. 예를 들어, 종교(Religion) 대신 신비학(Occultism)으로 언데드에 대해 알아보려 한다면, DC를 약간 높여서 허용할 수 있습니다.</p>
+
+<p><strong>추가 지식 <span class="en">Additional Knowledge</span>:</strong> 캐릭터가 이미 생물이나 대상을 성공적으로 식별한 후 추가 정보를 얻으려 한다면, 각 추가 시도마다 DC를 5씩 높이세요. 이렇게 하면 처음에 기본적인 정보를 얻고, 이후 점점 더 전문적이고 세밀한 정보를 얻을 수 있습니다.</p>
+
+<p><strong>생물 식별 <span class="en">Creature Identification</span>:</strong> 생물을 식별할 때 사용하는 기술은 해당 생물의 특성(trait)에 따라 결정됩니다. 아래 표는 각 특성에 대응하는 기술을 보여줍니다.</p>
+
+<table>
+<caption>생물 식별 기술</caption>
+<tr><th>특성 <span class="en">Trait</span></th><th>기술 <span class="en">Skill</span></th></tr>
+<tr><td>이형 <span class="en">Aberration</span></td><td>신비학 <span class="en">Occultism</span></td></tr>
+<tr><td>동물 <span class="en">Animal</span></td><td>자연 <span class="en">Nature</span></td></tr>
+<tr><td>성계 <span class="en">Astral</span></td><td>신비학 <span class="en">Occultism</span></td></tr>
+<tr><td>야수 <span class="en">Beast</span></td><td>비전학 <span class="en">Arcana</span>, 자연 <span class="en">Nature</span></td></tr>
+<tr><td>천상 <span class="en">Celestial</span></td><td>종교 <span class="en">Religion</span></td></tr>
+<tr><td>구조물 <span class="en">Construct</span></td><td>비전학 <span class="en">Arcana</span>, 제작 <span class="en">Crafting</span></td></tr>
+<tr><td>용 <span class="en">Dragon</span></td><td>비전학 <span class="en">Arcana</span></td></tr>
+<tr><td>꿈 <span class="en">Dream</span></td><td>신비학 <span class="en">Occultism</span></td></tr>
+<tr><td>원소 <span class="en">Elemental</span></td><td>비전학 <span class="en">Arcana</span>, 자연 <span class="en">Nature</span></td></tr>
+<tr><td>영계 <span class="en">Ethereal</span></td><td>신비학 <span class="en">Occultism</span></td></tr>
+<tr><td>페이 <span class="en">Fey</span></td><td>자연 <span class="en">Nature</span></td></tr>
+<tr><td>마족 <span class="en">Fiend</span></td><td>종교 <span class="en">Religion</span></td></tr>
+<tr><td>균류 <span class="en">Fungus</span></td><td>자연 <span class="en">Nature</span></td></tr>
+<tr><td>인간형 <span class="en">Humanoid</span></td><td>사회 <span class="en">Society</span></td></tr>
+<tr><td>감시자 <span class="en">Monitor</span></td><td>종교 <span class="en">Religion</span></td></tr>
+<tr><td>점액 <span class="en">Ooze</span></td><td>신비학 <span class="en">Occultism</span></td></tr>
+<tr><td>식물 <span class="en">Plant</span></td><td>자연 <span class="en">Nature</span></td></tr>
+<tr><td>그림자 <span class="en">Shade</span></td><td>종교 <span class="en">Religion</span></td></tr>
+<tr><td>영혼 <span class="en">Spirit</span></td><td>신비학 <span class="en">Occultism</span></td></tr>
+<tr><td>시간 <span class="en">Time</span></td><td>신비학 <span class="en">Occultism</span></td></tr>
+<tr><td>언데드 <span class="en">Undead</span></td><td>종교 <span class="en">Religion</span></td></tr>
+</table>
+
+<div class="note" id="ch1-recallKnowledgeConsider">
+<p><strong>지식 회상 고려사항 <span class="en">Recall Knowledge Considerations</span></strong></p>
+<p>지식 회상은 게임에서 매우 자주 사용되는 행동이므로, 다음 사항들을 고려하여 일관성 있게 운영하세요:</p>
+<p><strong>성공 시 정보 제공:</strong> 성공 시 유용하고 정확한 정보를 제공하세요. 생물의 약점, 저항력, 주요 능력 등 전투에 도움이 되는 정보를 포함하면 좋습니다.</p>
+<p><strong>대성공 시:</strong> 대성공(critical success)이면 더 상세하고 구체적인 정보를 제공하세요.</p>
+<p><strong>실패 시:</strong> 실패하면 단순히 "모른다"고 하세요. 거짓 정보를 제공하지 마세요 — 플레이어가 실패한 것을 알기 때문에, 거짓 정보를 주면 무시할 것이고, 그러면 판정의 의미가 없어집니다.</p>
+<p><strong>대실패 시:</strong> 대실패(critical failure)에서는 거짓 정보를 제공할 수 있습니다. 플레이어는 대실패 여부를 확인할 수 없는 비밀 판정(secret check)일 때 가장 효과적입니다.</p>
+<p><strong>반복 시도:</strong> 같은 대상에 대해 동일한 기술로 지식 회상을 반복하는 것은 일반적으로 허용되지 않습니다. 다른 기술을 사용하거나, 새로운 정보를 접한 후에야 재시도할 수 있습니다.</p>
+</div>
+
+<h3 class="sub" id="ch1-senseDirection">방향 감지 <span class="en">Sense Direction</span></h3>
+
+<p>방향 감지는 생존(Survival)을 사용하여 야생에서 방향을 파악하는 행동입니다. DC는 지형의 특성에 따라 달라집니다. 표지가 뚜렷한 평야에서는 DC 15 정도, 울창한 숲에서는 DC 20, 변화가 적은 사막이나 지하에서는 DC 25 이상이 적절합니다. 마법적으로 방향을 교란하는 지역에서는 DC를 더 높이세요.</p>
+
+<h3 class="sub" id="ch1-socialSkills">사회 기술 <span class="en">Social Skills</span></h3>
+
+<p>위협(Intimidation), 교섭(Diplomacy), 기만(Deception) 등의 사회 기술을 NPC에게 사용할 때, DC는 일반적으로 NPC의 의지(Will) DC를 사용합니다. 또는 NPC의 레벨에 따른 레벨 기반 DC를 사용하되, NPC의 성격과 상황에 따라 조정하세요.</p>
+
+<p>NPC의 태도와 성향은 DC에 영향을 미칩니다. 적대적인 NPC를 설득하려면 더 어렵고, 이미 우호적인 NPC에게 부탁하려면 더 쉽습니다. 상황에 따라 DC를 2~5 정도 조정하세요. 일부 요청은 NPC가 절대로 수락하지 않을 수 있습니다 — 이런 경우에는 아무리 높은 판정 결과라도 실패해야 합니다.</p>
+
+<h3 class="sub" id="ch1-subsist">생존 <span class="en">Subsist</span></h3>
+
+<p>생존(Subsist) 행동은 야생에서나 정착지에서 기본적인 생활을 유지하는 것입니다. 야생에서는 생존(Survival) 기술을, 정착지에서는 사회(Society) 기술을 사용합니다. DC는 환경에 따라 달라집니다. 풍요로운 숲에서의 생존은 DC 15 정도, 메마른 사막에서는 DC 25 이상이 될 수 있습니다.</p>
+
+<h3 class="sub" id="ch1-track">추적 <span class="en">Track</span></h3>
+
+<p>추적은 생존(Survival)을 사용하여 흔적을 따라가는 행동입니다. DC는 추적 대상의 레벨에 따른 레벨 기반 DC를 기본으로 하되, 환경 조건에 따라 조정하세요. 부드러운 진흙이나 눈 위의 흔적은 DC를 낮추고, 단단한 바위 위의 흔적이나 비에 씻긴 흔적은 DC를 높이세요. 대상이 의도적으로 흔적을 지웠다면 DC를 추가로 높이세요.</p>
+
+<h3 class="sub" id="ch1-commandAnimal">동물 훈련 <span class="en">Command an Animal</span></h3>
+
+<p>동물 명령(Command an Animal) 행동은 자연(Nature)을 사용하여 동물에게 지시를 내리는 것입니다. DC는 동물의 레벨에 따른 레벨 기반 DC를 사용합니다. 잘 훈련된 동물에게 익숙한 명령을 내리는 경우 DC를 낮추고, 야생 동물이나 훈련되지 않은 동물에게는 DC를 높이세요. 위험한 행동(예: 불 속으로 뛰어들기)을 명령하는 경우에도 DC가 상승합니다.</p>
+
+<!-- ===== 보상 ===== -->
+<h2 class="sec" id="ch1-rewards">보상 <span class="en">Rewards</span></h2>
+
+<p>캐릭터는 모험을 통해 보상을 얻습니다. 가장 중요한 보상은 경험치, 영웅 점수, 그리고 보물입니다. 이 섹션에서는 이러한 보상을 적절히 분배하는 방법을 설명합니다.</p>
+
+<h3 class="sub" id="ch1-experiencePoints">경험치 <span class="en">Experience Points</span></h3>
+
+<p><span class="term">경험치(Experience Points, XP)</span>는 캐릭터의 성장을 측정합니다. 캐릭터가 충분한 경험치를 모으면 레벨이 올라갑니다. 기본적으로, 다음 레벨에 도달하는 데 1,000 XP가 필요합니다.</p>
+
+<p><strong>적과 위험 요소 <span class="en">Adversaries and Hazards</span>:</strong> 전투에서 적을 물리치거나 위험 요소(hazard)를 극복하면 XP를 획득합니다. XP 보상은 적이나 위험 요소의 레벨과 파티의 레벨 차이에 따라 결정됩니다.</p>
+
+<table>
+<caption>적/위험 요소 XP 보상</caption>
+<tr><th>적 레벨 (파티 레벨 기준)</th><th>XP</th></tr>
+<tr><td>파티 레벨 -4</td><td>10</td></tr>
+<tr><td>파티 레벨 -3</td><td>15</td></tr>
+<tr><td>파티 레벨 -2</td><td>20</td></tr>
+<tr><td>파티 레벨 -1</td><td>30</td></tr>
+<tr><td>파티 레벨</td><td>40</td></tr>
+<tr><td>파티 레벨 +1</td><td>60</td></tr>
+<tr><td>파티 레벨 +2</td><td>80</td></tr>
+<tr><td>파티 레벨 +3</td><td>120</td></tr>
+<tr><td>파티 레벨 +4</td><td>160</td></tr>
+</table>
+
+<p><strong>성취 <span class="en">Accomplishments</span>:</strong> 전투 외에도 캐릭터는 이야기 목표를 달성하거나 퍼즐을 풀거나 중요한 업적을 이룸으로써 XP를 획득합니다.</p>
+
+<table>
+<caption>성취 XP 보상</caption>
+<tr><th>성취</th><th>XP</th></tr>
+<tr><td>소규모 <span class="en">Minor</span></td><td>10</td></tr>
+<tr><td>중규모 <span class="en">Moderate</span>*</td><td>30</td></tr>
+<tr><td>대규모 <span class="en">Major</span>*</td><td>80</td></tr>
+</table>
+<p><em>* 일반적으로 영웅 점수(Hero Point)도 함께 부여합니다.</em></p>
+
+<p>소규모 성취는 간단한 퍼즐을 풀거나 부차적인 목표를 달성한 경우입니다. 중규모 성취는 모험의 핵심 목표 중 하나를 완수한 경우이며, 대규모 성취는 모험의 주요 결말이나 캠페인에서 획기적인 전환점에 해당합니다.</p>
+
+<p><strong>파티 규모 <span class="en">Party Size</span>:</strong> 위의 XP 값은 4인 파티를 기준으로 합니다. 파티 규모가 다른 경우, 각 캐릭터가 받는 XP를 조정하세요. 가장 간단한 방법은 각 적이나 위험 요소가 주는 총 XP를 계산한 뒤 파티 인원수로 나누고, 다시 4를 곱하는 것입니다. 이렇게 하면 적은 인원의 파티는 더 빨리 레벨업하고, 많은 인원의 파티는 더 느리게 레벨업합니다.</p>
+
+<p><strong>그룹 동등성과 파티 레벨 <span class="en">Group Parity and Party Level</span>:</strong> 파티의 레벨은 일반적으로 모든 파티원이 같은 레벨인 것을 전제로 합니다. 파티원 간의 레벨 차이가 생기면 조우 균형이 무너질 수 있습니다. 레벨 차이를 최소화하기 위해, 모든 파티원이 동시에 레벨업하도록 XP를 동일하게 분배하세요. 새로운 캐릭터가 합류하면 나머지 파티와 같은 레벨로 시작하게 하는 것이 일반적입니다.</p>
+
+<div class="note" id="ch1-advancementSpeeds">
+<p><strong>진행 속도 <span class="en">Advancement Speeds</span></strong></p>
+<p>기본 진행 속도는 1,000 XP마다 레벨업하는 것이지만, 캠페인에 맞게 조정할 수 있습니다.</p>
+<table>
+<tr><th>속도</th><th>레벨업에 필요한 XP</th></tr>
+<tr><td>빠름 <span class="en">Fast</span></td><td>800 XP</td></tr>
+<tr><td>표준 <span class="en">Standard</span></td><td>1,000 XP</td></tr>
+<tr><td>느림 <span class="en">Slow</span></td><td>1,200 XP</td></tr>
+</table>
+<p><strong>이야기 기반 레벨업 <span class="en">Story-Based Leveling</span>:</strong> XP를 추적하는 대신, GM이 이야기의 흐름에 따라 적절한 시점에 레벨업을 선언할 수 있습니다. 이 방법은 XP 계산의 부담을 없애고, 서사적 흐름에 맞춘 성장을 가능하게 합니다. 일반적으로 주요 이야기 전환점이나 모험의 장(chapter)을 완료한 후에 레벨업하면 적절합니다.</p>
+</div>
+
+<h3 class="sub" id="ch1-heroPoints">영웅 점수 <span class="en">Hero Points</span></h3>
+
+<p><span class="term">영웅 점수(Hero Points)</span>는 캐릭터가 극적이고 영웅적인 행동을 할 수 있게 해주는 특별한 자원입니다. 영웅 점수를 사용하여 판정을 다시 굴리거나, 죽음의 위기에서 회복할 수 있습니다.</p>
+
+<p><strong>세션 시작 시:</strong> 각 플레이어는 세션이 시작될 때 영웅 점수 1점을 받습니다. 이전 세션에서 남은 영웅 점수는 사라집니다 — 영웅 점수는 세션 간에 이월되지 않습니다.</p>
+
+<p><strong>세션 중 부여:</strong> 세션 진행 중에 플레이어가 특별히 영웅적이거나, 극적이거나, 기억에 남을 만한 행동을 했을 때 영웅 점수를 추가로 부여하세요. 대략 시간당 1점 정도, 또는 세션당 총 2~3점을 추가로 부여하는 것이 적당합니다.</p>
+
+<p>영웅 점수를 부여할 만한 상황의 예:</p>
+<ul>
+<li>캐릭터의 성격이나 배경에 맞는 훌륭한 롤플레잉을 했을 때</li>
+<li>위험을 무릅쓰고 동료를 구하는 영웅적 행동을 했을 때</li>
+<li>뛰어난 전략이나 창의적 해결책으로 위기를 극복했을 때</li>
+<li>모두를 웃게 하거나 감동시키는 기억에 남는 순간을 만들었을 때</li>
+</ul>
+
+<h3 class="sub" id="ch1-treasure">보물 <span class="en">Treasure</span></h3>
+
+<p><span class="term">보물(Treasure)</span>은 캐릭터가 모험 중에 발견하거나 획득하는 재화와 마법 아이템을 포함합니다. 적절한 보물 분배는 캐릭터의 전력을 게임의 기대치에 맞추는 데 중요합니다.</p>
+
+<p><strong>레벨별 보물:</strong> GM Core의 보물 표(5장 참조)에서는 각 레벨에서 캐릭터가 받아야 하는 보물의 양과 종류를 안내합니다. 각 레벨에서 파티는 일정량의 영구 아이템(permanent items), 소모품(consumables), 그리고 화폐(currency)를 받아야 합니다.</p>
+
+<p><strong>영구 아이템:</strong> 무기, 방어구, 마법 아이템 등 지속적으로 사용하는 아이템입니다. 각 레벨에서 파티에 분배되는 영구 아이템은 보통 파티 레벨과 같거나 1~2 레벨 높은 아이템입니다.</p>
+
+<p><strong>소모품:</strong> 물약, 두루마리, 부적(talisman) 등 일회용 아이템입니다. 소모품은 영구 아이템보다 레벨 범위가 넓으며, 플레이어가 필요할 때 사용할 수 있도록 다양하게 제공하세요.</p>
+
+<p><strong>화폐:</strong> 금화(gp)로 표시되는 재화입니다. 캐릭터는 화폐로 필요한 장비를 구매하거나, 서비스를 이용하거나, 기타 비용을 지불합니다. 보물 표에서 지정된 화폐량을 참고하되, 게임의 흐름에 맞게 조정하세요.</p>
+
+<p><strong>보물 분배 방식:</strong> 보물은 다양한 방식으로 제공할 수 있습니다. 적을 처치한 후 전리품으로 얻거나, 던전의 보물 상자에서 발견하거나, 퀘스트 보상으로 받거나, 상점에서 구매할 수 있습니다. 어떤 방식이든, 각 레벨에서 총량이 지침에 맞도록 유지하세요. 하지만 정확한 양에 집착할 필요는 없습니다 — 한 레벨에서 약간 부족해도 다음 레벨에서 보충할 수 있습니다.</p>
+
+<p style="text-align:center; color:#555; margin-top:40px;">— 1장: 게임 운영 끝 —</p>
 
 </div></div>
 
@@ -1354,7 +1617,7 @@ th { background:#333; color:var(--accent); }
 <script>
 const TOC = {"cover":[],
 "intro":[{lvl:"h2",id:"gm-theGM",text:'게임 마스터 The Game Master'}, {lvl:"h2",id:"gm-howToUse",text:'이 책의 사용법 How to Use This Book'}, {lvl:"h3",id:"gm-choosing",text:'도구 선택하기'}, {lvl:"h3",id:"gm-newGM",text:'새로운 게임 마스터라면'}, {lvl:"h3",id:"gm-publishedAdv",text:'출판된 모험을 운영한다면'}, {lvl:"h3",id:"gm-ownAdv",text:'직접 모험을 만든다면'}, {lvl:"h3",id:"gm-needItems",text:'아이템이 필요하다면'}],
-"ch1":[{lvl:"h2",id:"ch1-welcome",text:'환영하는 환경 A Welcoming Environment'},{lvl:"h2",id:"ch1-objectionable",text:'불쾌한 콘텐츠 Objectionable Content'},{lvl:"h3",id:"ch1-baseline",text:'패스파인더 기준선'},{lvl:"h2",id:"ch1-socialSpillover",text:'사회적 파급효과 Social Spillover'},{lvl:"h2",id:"ch1-preparingAdv",text:'모험 준비 Preparing Adventures'},{lvl:"h3",id:"ch1-ownAdventures",text:'직접 만드는 모험'},{lvl:"h3",id:"ch1-publishedAdv2",text:'출판된 모험'},{lvl:"h3",id:"ch1-pfSociety",text:'패스파인더 소사이어티'},{lvl:"h2",id:"ch1-charCreation",text:'캐릭터 생성 Character Creation'},{lvl:"h2",id:"ch1-sessionZero",text:'세션 제로 Session Zero'},{lvl:"h2",id:"ch1-planSession",text:'세션 계획 Planning a Session'},{lvl:"h2",id:"ch1-runSession",text:'세션 운영 Running a Session'},{lvl:"h3",id:"ch1-startSession",text:'세션 시작하기'},{lvl:"h3",id:"ch1-spotlight",text:'스포트라이트'},{lvl:"h3",id:"ch1-stakes",text:'이해관계와 결과'},{lvl:"h3",id:"ch1-failForward",text:'앞으로 나아가는 실패'},{lvl:"h2",id:"ch1-pacing",text:'게임 세션 진행 속도 Pacing Game Sessions'},{lvl:"h2",id:"ch1-specialConsider",text:'특수 고려사항 Special Considerations'},{lvl:"h3",id:"ch1-adjudicating",text:'규칙 판정하기'},{lvl:"h3",id:"ch1-theBasics",text:'기본 원칙'},{lvl:"h3",id:"ch1-consistency",text:'일관성과 공정성'},{lvl:"h2",id:"ch1-lookUpRules",text:'규칙 찾아보기 Looking Up Rules'},{lvl:"h2",id:"ch1-listenPlayers",text:'플레이어의 말 듣기 Listen to the Players'},{lvl:"h2",id:"ch1-makeTheCall",text:'판정하기 Make the Call'},{lvl:"h2",id:"ch1-review",text:'검토 시간 갖기 Take Time for Review'},{lvl:"h2",id:"ch1-yesBut",text:'"네, 하지만" 말하기 Saying "Yes, But"'},{lvl:"h2",id:"ch1-houseRules",text:'하우스 룰 House Rules'},{lvl:"h2",id:"ch1-resolvingProblems",text:'문제 해결 Resolving Problems'},{lvl:"h3",id:"ch1-distractions",text:'주의 산만과 방해'},{lvl:"h3",id:"ch1-problematic",text:'문제 있는 플레이어'},{lvl:"h3",id:"ch1-safetyTools",text:'안전 도구'},{lvl:"h3",id:"ch1-ejecting",text:'플레이어 퇴장시키기'},{lvl:"h2",id:"ch1-powerImbalance",text:'힘의 불균형 Power Imbalances'},{lvl:"h2",id:"ch1-narrativeCollab",text:'서사 협업 Narrative Collaboration'},{lvl:"h3",id:"ch1-ideaFarm",text:'아이디어 농장'},{lvl:"h3",id:"ch1-creativeCollab",text:'창의적 협업'},{lvl:"h3",id:"ch1-decentral",text:'탈중심적 스토리텔링'},{lvl:"h3",id:"ch1-challenges",text:'도전과제'},{lvl:"h2",id:"ch1-roleplayNPC",text:'NPC 롤플레잉 Roleplaying NPCs'},{lvl:"h3",id:"ch1-npcLimitations",text:'NPC의 한계'},{lvl:"h3",id:"ch1-metagaming",text:'메타게이밍'},{lvl:"h3",id:"ch1-falseInfo",text:'거짓 정보'},{lvl:"h3",id:"ch1-secretChecks",text:'비밀 판정'},{lvl:"h3",id:"ch1-betrayal",text:'배신'},{lvl:"h3",id:"ch1-respectChar",text:'캐릭터 존중하기'},{lvl:"h3",id:"ch1-properEnd",text:'적절한 끝'},{lvl:"h2",id:"ch1-storyPoints",text:'이야기 포인트 Story Points'},{lvl:"h2",id:"ch1-groupComposition",text:'그룹 구성 Group Composition'},{lvl:"h3",id:"ch1-pfsOrganized",text:'패스파인더 소사이어티 조직 플레이'},{lvl:"h3",id:"ch1-unusualGroupSizes",text:'일반적이지 않은 그룹 규모'},{lvl:"h3",id:"ch1-playerNeeds",text:'플레이어의 필요'},{lvl:"h2",id:"ch1-charDisabilities",text:'장애가 있는 캐릭터 Characters with Disabilities'},{lvl:"h3",id:"ch1-blindness",text:'실명 또는 시각 장애'},{lvl:"h3",id:"ch1-deafness",text:'청각 장애'},{lvl:"h3",id:"ch1-missingLimbs",text:'사지 결손과 이동 장애'},{lvl:"h2",id:"ch1-rarity",text:'희귀도 Rarity'},{lvl:"h3",id:"ch1-fourRarities",text:'네 가지 희귀도'},{lvl:"h3",id:"ch1-rarityPower",text:'희귀도와 강력함'},{lvl:"h3",id:"ch1-diffContexts",text:'다른 맥락'},{lvl:"h3",id:"ch1-accessEntries",text:'접근 항목'},{lvl:"h3",id:"ch1-startingElements",text:'시작 요소'},{lvl:"h3",id:"ch1-rarityStorytelling",text:'스토리텔링'},{lvl:"h3",id:"ch1-rarityWorldBuilding",text:'세계 구축'},{lvl:"h2",id:"ch1-runningEncounters",text:'조우 운영 Running Encounters'},{lvl:"h3",id:"ch1-startEncounter",text:'조우 시작하기'},{lvl:"h3",id:"ch1-altInitiative",text:'대안적 이니셔티브 기술'},{lvl:"h3",id:"ch1-hiddenEnemyInit",text:'숨어 있는 적과 이니셔티브'},{lvl:"h3",id:"ch1-batchInit",text:'일괄 이니셔티브'},{lvl:"h3",id:"ch1-placingChars",text:'지도에 캐릭터 배치하기'},{lvl:"h3",id:"ch1-settingScene",text:'장면 설정하기'},{lvl:"h3",id:"ch1-runEncounter",text:'조우 진행하기'},{lvl:"h3",id:"ch1-adversaryActions",text:'적의 행동 선택하기'},{lvl:"h3",id:"ch1-speedOfPlay",text:'플레이 속도'},{lvl:"h3",id:"ch1-lookUpRulesEnc",text:'규칙 찾아보기 (조우 중)'},{lvl:"h3",id:"ch1-rewinding",text:'되감기'},{lvl:"h3",id:"ch1-complexRolls",text:'복잡한 굴림'},{lvl:"h3",id:"ch1-adjudicatingActions",text:'행동 판정하기'},{lvl:"h3",id:"ch1-adHocBonuses",text:'임시 보너스와 페널티'},{lvl:"h3",id:"ch1-mapsMiniatures",text:'지도와 미니어처'},{lvl:"h3",id:"ch1-splitCombineMove",text:'이동 분할과 결합'},{lvl:"h3",id:"ch1-specialBattles",text:'특수 전투와 이동'},{lvl:"h3",id:"ch1-socialEncounters",text:'사회적 조우'},{lvl:"h3",id:"ch1-endEncounter",text:'조우 종료하기'}],
+"ch1":[{lvl:"h2",id:"ch1-welcome",text:'환영하는 환경 A Welcoming Environment'},{lvl:"h2",id:"ch1-objectionable",text:'불쾌한 콘텐츠 Objectionable Content'},{lvl:"h3",id:"ch1-baseline",text:'패스파인더 기준선'},{lvl:"h2",id:"ch1-socialSpillover",text:'사회적 파급효과 Social Spillover'},{lvl:"h2",id:"ch1-preparingAdv",text:'모험 준비 Preparing Adventures'},{lvl:"h3",id:"ch1-ownAdventures",text:'직접 만드는 모험'},{lvl:"h3",id:"ch1-publishedAdv2",text:'출판된 모험'},{lvl:"h3",id:"ch1-pfSociety",text:'패스파인더 소사이어티'},{lvl:"h2",id:"ch1-charCreation",text:'캐릭터 생성 Character Creation'},{lvl:"h2",id:"ch1-sessionZero",text:'세션 제로 Session Zero'},{lvl:"h2",id:"ch1-planSession",text:'세션 계획 Planning a Session'},{lvl:"h2",id:"ch1-runSession",text:'세션 운영 Running a Session'},{lvl:"h3",id:"ch1-startSession",text:'세션 시작하기'},{lvl:"h3",id:"ch1-spotlight",text:'스포트라이트'},{lvl:"h3",id:"ch1-stakes",text:'이해관계와 결과'},{lvl:"h3",id:"ch1-failForward",text:'앞으로 나아가는 실패'},{lvl:"h2",id:"ch1-pacing",text:'게임 세션 진행 속도 Pacing Game Sessions'},{lvl:"h2",id:"ch1-specialConsider",text:'특수 고려사항 Special Considerations'},{lvl:"h3",id:"ch1-adjudicating",text:'규칙 판정하기'},{lvl:"h3",id:"ch1-theBasics",text:'기본 원칙'},{lvl:"h3",id:"ch1-consistency",text:'일관성과 공정성'},{lvl:"h2",id:"ch1-lookUpRules",text:'규칙 찾아보기 Looking Up Rules'},{lvl:"h2",id:"ch1-listenPlayers",text:'플레이어의 말 듣기 Listen to the Players'},{lvl:"h2",id:"ch1-makeTheCall",text:'판정하기 Make the Call'},{lvl:"h2",id:"ch1-review",text:'검토 시간 갖기 Take Time for Review'},{lvl:"h2",id:"ch1-yesBut",text:'"네, 하지만" 말하기 Saying "Yes, But"'},{lvl:"h2",id:"ch1-houseRules",text:'하우스 룰 House Rules'},{lvl:"h2",id:"ch1-resolvingProblems",text:'문제 해결 Resolving Problems'},{lvl:"h3",id:"ch1-distractions",text:'주의 산만과 방해'},{lvl:"h3",id:"ch1-problematic",text:'문제 있는 플레이어'},{lvl:"h3",id:"ch1-safetyTools",text:'안전 도구'},{lvl:"h3",id:"ch1-ejecting",text:'플레이어 퇴장시키기'},{lvl:"h2",id:"ch1-powerImbalance",text:'힘의 불균형 Power Imbalances'},{lvl:"h2",id:"ch1-narrativeCollab",text:'서사 협업 Narrative Collaboration'},{lvl:"h3",id:"ch1-ideaFarm",text:'아이디어 농장'},{lvl:"h3",id:"ch1-creativeCollab",text:'창의적 협업'},{lvl:"h3",id:"ch1-decentral",text:'탈중심적 스토리텔링'},{lvl:"h3",id:"ch1-challenges",text:'도전과제'},{lvl:"h2",id:"ch1-roleplayNPC",text:'NPC 롤플레잉 Roleplaying NPCs'},{lvl:"h3",id:"ch1-npcLimitations",text:'NPC의 한계'},{lvl:"h3",id:"ch1-metagaming",text:'메타게이밍'},{lvl:"h3",id:"ch1-falseInfo",text:'거짓 정보'},{lvl:"h3",id:"ch1-secretChecks",text:'비밀 판정'},{lvl:"h3",id:"ch1-betrayal",text:'배신'},{lvl:"h3",id:"ch1-respectChar",text:'캐릭터 존중하기'},{lvl:"h3",id:"ch1-properEnd",text:'적절한 끝'},{lvl:"h2",id:"ch1-storyPoints",text:'이야기 포인트 Story Points'},{lvl:"h2",id:"ch1-groupComposition",text:'그룹 구성 Group Composition'},{lvl:"h3",id:"ch1-pfsOrganized",text:'패스파인더 소사이어티 조직 플레이'},{lvl:"h3",id:"ch1-unusualGroupSizes",text:'일반적이지 않은 그룹 규모'},{lvl:"h3",id:"ch1-playerNeeds",text:'플레이어의 필요'},{lvl:"h2",id:"ch1-charDisabilities",text:'장애가 있는 캐릭터 Characters with Disabilities'},{lvl:"h3",id:"ch1-blindness",text:'실명 또는 시각 장애'},{lvl:"h3",id:"ch1-deafness",text:'청각 장애'},{lvl:"h3",id:"ch1-missingLimbs",text:'사지 결손과 이동 장애'},{lvl:"h2",id:"ch1-rarity",text:'희귀도 Rarity'},{lvl:"h3",id:"ch1-fourRarities",text:'네 가지 희귀도'},{lvl:"h3",id:"ch1-rarityPower",text:'희귀도와 강력함'},{lvl:"h3",id:"ch1-diffContexts",text:'다른 맥락'},{lvl:"h3",id:"ch1-accessEntries",text:'접근 항목'},{lvl:"h3",id:"ch1-startingElements",text:'시작 요소'},{lvl:"h3",id:"ch1-rarityStorytelling",text:'스토리텔링'},{lvl:"h3",id:"ch1-rarityWorldBuilding",text:'세계 구축'},{lvl:"h2",id:"ch1-runningEncounters",text:'조우 운영 Running Encounters'},{lvl:"h3",id:"ch1-startEncounter",text:'조우 시작하기'},{lvl:"h3",id:"ch1-altInitiative",text:'대안적 이니셔티브 기술'},{lvl:"h3",id:"ch1-hiddenEnemyInit",text:'숨어 있는 적과 이니셔티브'},{lvl:"h3",id:"ch1-batchInit",text:'일괄 이니셔티브'},{lvl:"h3",id:"ch1-placingChars",text:'지도에 캐릭터 배치하기'},{lvl:"h3",id:"ch1-settingScene",text:'장면 설정하기'},{lvl:"h3",id:"ch1-runEncounter",text:'조우 진행하기'},{lvl:"h3",id:"ch1-adversaryActions",text:'적의 행동 선택하기'},{lvl:"h3",id:"ch1-speedOfPlay",text:'플레이 속도'},{lvl:"h3",id:"ch1-lookUpRulesEnc",text:'규칙 찾아보기 (조우 중)'},{lvl:"h3",id:"ch1-rewinding",text:'되감기'},{lvl:"h3",id:"ch1-complexRolls",text:'복잡한 굴림'},{lvl:"h3",id:"ch1-adjudicatingActions",text:'행동 판정하기'},{lvl:"h3",id:"ch1-adHocBonuses",text:'임시 보너스와 페널티'},{lvl:"h3",id:"ch1-mapsMiniatures",text:'지도와 미니어처'},{lvl:"h3",id:"ch1-splitCombineMove",text:'이동 분할과 결합'},{lvl:"h3",id:"ch1-specialBattles",text:'특수 전투와 이동'},{lvl:"h3",id:"ch1-socialEncounters",text:'사회적 조우'},{lvl:"h3",id:"ch1-endEncounter",text:'조우 종료하기'},{lvl:"h2",id:"ch1-difficultyClasses",text:'난이도 등급 Difficulty Classes'},{lvl:"h3",id:"ch1-simpleDCs",text:'단순 DC'},{lvl:"h3",id:"ch1-levelBasedDCs",text:'레벨 기반 DC'},{lvl:"h3",id:"ch1-adjustingDifficulty",text:'난이도 조정'},{lvl:"h3",id:"ch1-groupAttempts",text:'그룹 시도'},{lvl:"h3",id:"ch1-minimumProficiency",text:'최소 숙련도'},{lvl:"h2",id:"ch1-specificActions",text:'특정 행동 Specific Actions'},{lvl:"h3",id:"ch1-craft",text:'제작'},{lvl:"h3",id:"ch1-earnIncome",text:'돈 벌기'},{lvl:"h3",id:"ch1-gatherInfo",text:'정보 수집'},{lvl:"h3",id:"ch1-identify",text:'마법 식별 / 연금술 식별 / 주문 학습'},{lvl:"h3",id:"ch1-recallKnowledge",text:'지식 회상'},{lvl:"h3",id:"ch1-senseDirection",text:'방향 감지'},{lvl:"h3",id:"ch1-socialSkills",text:'사회 기술'},{lvl:"h3",id:"ch1-subsist",text:'생존'},{lvl:"h3",id:"ch1-track",text:'추적'},{lvl:"h3",id:"ch1-commandAnimal",text:'동물 훈련'},{lvl:"h2",id:"ch1-rewards",text:'보상 Rewards'},{lvl:"h3",id:"ch1-experiencePoints",text:'경험치'},{lvl:"h3",id:"ch1-heroPoints",text:'영웅 점수'},{lvl:"h3",id:"ch1-treasure",text:'보물'}],
 "ch2":[], "ch3":[], "ch4":[], "ch5":[], "treasure":[], "glossary":[]
 };
 
