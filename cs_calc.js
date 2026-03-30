@@ -117,6 +117,26 @@ function parseFixedSkills(skillStr) {
 }
 
 // ═══════════════════════════════════════════════
+//  SPELL ↔ FEAT INTERACTION NOTES
+// ═══════════════════════════════════════════════
+
+const SPELL_FEAT_MODS = [
+  { feat:'치유의 손', spell:'치유', note:'🔷 <b>치유의 손</b> 적용 — 치유 시전 시 d8 대신 <b>d10</b>을 굴립니다.' },
+  { feat:'해로운 손', spell:'해로움', note:'🔷 <b>해로운 손</b> 적용 — 해로움 시전 시 d8 대신 <b>d10</b>을 굴립니다.' },
+  { feat:'마법 손', spell:'치유', note:'🔷 <b>마법 손</b> 적용 — 상처 치료 성공 시 d8 대신 d10, 치유에 레벨만큼 상태 보너스.' },
+];
+
+function getSpellFeatNotes(spellNameKo) {
+  if (!state.feats) return '';
+  const allFeats = Object.values(state.feats).flat().map(f => f.name.split(' (')[0].trim());
+  const notes = SPELL_FEAT_MODS
+    .filter(m => m.spell === spellNameKo && allFeats.includes(m.feat))
+    .map(m => m.note);
+  if (!notes.length) return '';
+  return '<div style="margin-top:10px;padding:8px 10px;background:rgba(100,160,255,0.08);border-left:3px solid var(--accent);border-radius:4px;font-size:12px;line-height:1.6;">' + notes.join('<br>') + '</div>';
+}
+
+// ═══════════════════════════════════════════════
 //  INFO POPUP (feat / spell)
 // ═══════════════════════════════════════════════
 
@@ -188,11 +208,12 @@ function showInfo(type, name) {
       else if (item.rank !== undefined) tags = `<span class="tag hl">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span>`;
       else if (item.damage) tags = `<span class="tag hl">${item.damage}</span> <span class="tag">${item.price||''}</span>`;
       else if (item.ac_bonus !== undefined) tags = `<span class="tag hl">AC+${item.ac_bonus}</span>`;
+      const spellNotes = (item.rank !== undefined) ? getSpellFeatNotes(nameKoD) : '';
       listItems.innerHTML = `<div style="padding:16px;">
         <div style="font-size:16px;font-weight:700;margin-bottom:2px;">${nameKoD}</div>
         <div style="font-size:12px;color:var(--text2);margin-bottom:10px;">${nameEnD}</div>
         <div style="margin-bottom:10px;">${tags}</div>
-        <div style="font-size:13px;line-height:1.7;">${desc}</div>
+        <div style="font-size:13px;line-height:1.7;">${desc}${spellNotes}</div>
       </div>`;
     }
   } else {

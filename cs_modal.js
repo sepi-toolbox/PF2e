@@ -1640,8 +1640,9 @@ function selectOption(item, row) {
       else if (item.rank !== undefined) tags = `<span class="tag hl">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span>`;
       else if (item.damage) tags = `<span class="tag hl">${item.damage}</span> <span class="tag">가격: ${item.price||'-'}</span>`;
       else if (item.ac_bonus !== undefined) tags = `<span class="tag hl">AC+${item.ac_bonus}</span>`;
+      const mSpellNotes = (item.rank !== undefined && typeof getSpellFeatNotes === 'function') ? getSpellFeatNotes(item.name||item.name_ko||'') : '';
       detailHtml = `${tags?'<div style="margin-bottom:6px;">'+tags+'</div>':''}
-        <div style="font-size:12px;line-height:1.6;">${mDesc}</div>`;
+        <div style="font-size:12px;line-height:1.6;">${mDesc}${mSpellNotes}</div>`;
     }
     // Insert or reuse detail div after row
     if (row) {
@@ -1729,12 +1730,14 @@ function showItemDetail(item) {
     tags = `<span class="tag hl">${item.subclass_type}</span>`;
   }
 
+  // 주문에 재주 효과 노트 추가
+  const spellNotes = (item.rank !== undefined && typeof getSpellFeatNotes === 'function') ? getSpellFeatNotes(nameKo) : '';
   detail.innerHTML = `
     <div class="modal-detail-back" onclick="document.getElementById('modal-body').classList.remove('detail-open')">← 목록으로</div>
     <div class="modal-detail-title">${nameKo}</div>
     <div class="modal-detail-en">${nameEn}</div>
     <div class="modal-detail-tags">${tags}</div>
-    <div class="modal-detail-desc">${desc}</div>`;
+    <div class="modal-detail-desc">${desc}${spellNotes}</div>`;
 }
 
 function filterOptions() {
