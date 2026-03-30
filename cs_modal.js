@@ -1622,14 +1622,26 @@ function selectOption(item, row) {
         </div>`;
     } else {
       const nameKo = item.name || item.name_ko || '';
-      const desc = item.desc || item.summary || '';
+      let mDesc = item.desc || item.summary || '';
       let tags = '';
-      if (item.feat_level !== undefined) tags = `<span class="tag hl">${item.feat_level}레벨</span> <span class="tag">${item.category||''}</span>`;
+      if (item.feat_level !== undefined) {
+        tags = `<span class="tag hl">${item.feat_level}레벨</span> <span class="tag">${item.category||''}</span>`;
+        if (item.prerequisites) {
+          const parts = item.prerequisites.split(/(?<=\.)\s+/);
+          const prereqName = parts[0].replace(/\.$/,'');
+          const prereqRest = parts.slice(1).join(' ');
+          let dp = [`<b style="color:var(--accent);">선행:</b> ${prereqName}`];
+          if (prereqRest || mDesc) dp.push('');
+          if (prereqRest) dp.push(prereqRest);
+          if (mDesc) { dp.push(''); dp.push(mDesc); }
+          mDesc = dp.join('<br>');
+        }
+      }
       else if (item.rank !== undefined) tags = `<span class="tag hl">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span>`;
       else if (item.damage) tags = `<span class="tag hl">${item.damage}</span> <span class="tag">가격: ${item.price||'-'}</span>`;
       else if (item.ac_bonus !== undefined) tags = `<span class="tag hl">AC+${item.ac_bonus}</span>`;
       detailHtml = `${tags?'<div style="margin-bottom:6px;">'+tags+'</div>':''}
-        <div style="font-size:12px;line-height:1.6;">${desc}</div>`;
+        <div style="font-size:12px;line-height:1.6;">${mDesc}</div>`;
     }
     // Insert or reuse detail div after row
     if (row) {
@@ -1667,14 +1679,25 @@ function showItemDetail(item) {
 
   const nameKo = item.name || item.name_ko || '';
   const nameEn = item.en || item.name_en || '';
-  const desc = item.desc || item.summary || '';
+  let desc = item.desc || item.summary || '';
 
   let tags = '';
   if (item.feat_level !== undefined) {
     tags = `<span class="tag hl">${item.feat_level}레벨</span>
             <span class="tag">${item.category||''}</span>
-            ${(item.traits||[]).map(t=>traitTag(t)).join('')}
-            ${item.prerequisites?`<span class="tag" style="color:var(--accent);">선행: ${item.prerequisites}</span>`:''}`;
+            ${(item.traits||[]).map(t=>traitTag(t)).join('')}`;
+    // 선행 요소: 첫 문장만 선행으로, 나머지는 본문에 합침
+    if (item.prerequisites) {
+      const parts = item.prerequisites.split(/(?<=\.)\s+/);
+      const prereqName = parts[0].replace(/\.$/,'');
+      const prereqRest = parts.slice(1).join(' ');
+      let descParts = [];
+      descParts.push(`<b style="color:var(--accent);">선행:</b> ${prereqName}`);
+      if (prereqRest || desc) descParts.push('');
+      if (prereqRest) descParts.push(prereqRest);
+      if (desc) { descParts.push(''); descParts.push(desc); }
+      desc = descParts.join('<br>');
+    }
   } else if (item.rank !== undefined) {
     const rankStr = item.is_cantrip?'캔트립':item.is_focus?'집중':`랭크 ${item.rank}`;
     tags = `<span class="tag hl">${rankStr}</span>

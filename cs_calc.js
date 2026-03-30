@@ -246,14 +246,20 @@ function buildConditions() {
     item.innerHTML = `<span class="cond-name">${c.name}</span>${dotsHtml ? '<span class="cond-dots">'+dotsHtml+'</span>' : ''}`;
 
     // Click = increment (toggle for non-valued, cycle for valued)
-    item.addEventListener('click', (e) => {
-      if (e.target.classList.contains('cond-name')) {
-        // Name click → show/hide description
-        toggleCondDesc(c.name);
-        return;
-      }
-      toggleCondValue(c.name);
-    });
+    if (c.auto) {
+      item.style.opacity = isActive ? '1' : '0.5';
+      item.style.cursor = 'default';
+      item.title = '부피에 따라 자동 적용/해제';
+      item.addEventListener('click', (e) => { toggleCondDesc(c.name); });
+    } else {
+      item.addEventListener('click', (e) => {
+        if (e.target.classList.contains('cond-name')) {
+          toggleCondDesc(c.name);
+          return;
+        }
+        toggleCondValue(c.name);
+      });
+    }
 
     grid.appendChild(item);
   });
@@ -955,9 +961,73 @@ function recalcBulk() {
       });
     });
   }
+  // 동전 부피: 100개당 0.1 부피
+  const totalCoins = ['cur-gp','cur-sp','cur-cp','cur-pp'].reduce((s,id) => s + (parseInt(document.getElementById(id)?.value)||0), 0);
+  total += Math.floor(totalCoins / 100) * 0.1;
+
   document.getElementById('bulk-total').textContent = total.toFixed(1).replace('.0','');
-  const maxBulk = getMod('str') + 5 + (state._fb?.bulk || 0);
-  document.getElementById('bulk-max').textContent = maxBulk;
+  const fbBulk = state._fb?.bulk || 0;
+  const strMod = getMod('str');
+  const encThreshold = strMod + 5 + fbBulk;   // 과적 기준
+  const maxBulk = strMod + 10 + fbBulk;        // 소지 한계
+  document.getElementById('bulk-max').textContent = encThreshold;
+
+  // 과적/초과 상태 판정
+  const bulkStatus = document.getElementById('bulk-status');
+  const bulkTotal = document.getElementById('bulk-total');
+  const isEncumbered = total > encThreshold;
+  const isOverloaded = total > maxBulk;
+
+  if (isOverloaded) {
+    if (bulkStatus) { bulkStatus.textContent = '⛔ 소지 불가! (한계 ' + maxBulk + ')'; bulkStatus.style.color = '#ff4444'; }
+    if (bulkTotal) bulkTotal.style.color = '#ff4444';
+  } else if (isEncumbered) {
+    if (bulkStatus) { bulkStatus.textContent = '⚠ 과적 (둔함 1, 속도 -10ft)'; bulkStatus.style.color = '#ffaa00'; }
+    if (bulkTotal) bulkTotal.style.color = '#ffaa00';
+  } else {
+    if (bulkStatus) { bulkStatus.textContent = ''; bulkStatus.style.color = ''; }
+    if (bulkTotal) bulkTotal.style.color = '';
+  }
+
+  // 과적 상태이상 자동 적용/해제
+  const wasEncumbered = !!state.conditions['과적'];
+  if (isEncumbered && !wasEncumbered) {
+    state.conditions['과적'] = true;
+    if ((parseInt(state.conditions['둔함'])||0) < 1) state.conditions['둔함'] = 1;
+    buildConditions();
+  } else if (!isEncumbered && wasEncumbered) {
+    state.conditions['과적'] = false;
+    if ((parseInt(state.conditions['둔함'])||0) <= 1) state.conditions['둔함'] = 0;
+    buildConditions();
+  }
+
+  // 과적 시 속도 감소 반영
+  recalcSpeed(isEncumbered);
+}
+
+function isOverloaded() {
+  let total = 0;
+  state.equip.forEach(e => { const b = parseFloat(e.bulk||0); total += isNaN(b)?0:b; });
+  if (state.containers) state.containers.forEach(c => { if (c.ignoreBulk) return; c.items.forEach(e => { const b = parseFloat(e.bulk||0); total += isNaN(b)?0:b; }); });
+  const totalCoins = ['cur-gp','cur-sp','cur-cp','cur-pp'].reduce((s,id) => s + (parseInt(document.getElementById(id)?.value)||0), 0);
+  total += Math.floor(totalCoins / 100) * 0.1;
+  return total > getMod('str') + 10 + (state._fb?.bulk || 0);
+}
+
+function recalcSpeed(isEncumbered) {
+  const speedEl = document.getElementById('speed');
+  const baseSpeed = parseInt(speedEl?.value||25);
+  const effSpeed = isEncumbered ? Math.max(0, baseSpeed - 10) : baseSpeed;
+  const dispEl = document.getElementById('speed-display');
+  if (dispEl) {
+    dispEl.textContent = effSpeed;
+    dispEl.style.color = isEncumbered ? '#ffaa00' : '';
+  }
+  const effLabel = document.getElementById('speed-enc-label');
+  if (effLabel) {
+    effLabel.textContent = isEncumbered ? '(과적 -10)' : '';
+    effLabel.style.display = isEncumbered ? 'inline' : 'none';
+  }
 }
 
 function updateHP() {

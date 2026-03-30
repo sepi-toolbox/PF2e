@@ -842,7 +842,7 @@ body{
 .opt-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;}
 .tag{background:var(--bg4);border:1px solid var(--border2);border-radius:3px;padding:1px 6px;font-size:10px;color:var(--text2);}
 .tag.hl{border-color:var(--accent);color:var(--accent);}
-.opt-desc{font-size:11px;color:var(--text2);line-height:1.5;}
+.opt-desc{font-size:11px;color:var(--text2);line-height:1.6;margin-top:4px;}
 .modal-footer{
   padding:10px 16px;border-top:1px solid var(--border);
   display:flex;justify-content:flex-end;gap:8px;
@@ -1201,7 +1201,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
       <div style="display:flex;gap:0;margin-top:6px;border-top:1px solid var(--border);padding-top:6px;">
         <div style="flex:1;cursor:pointer;" onclick="openSpeedModal()">
           <div style="font-size:8px;color:var(--text2);text-transform:uppercase;">이동 속도</div>
-          <div style="font-size:15px;font-weight:700;color:var(--text);"><span id="speed-display">25</span> <span style="font-size:10px;color:var(--text2);">피트</span></div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);"><span id="speed-display">25</span> <span style="font-size:10px;color:var(--text2);">피트</span> <span id="speed-enc-label" style="font-size:10px;color:#ffaa00;display:none;"></span></div>
           <input type="hidden" id="speed" value="25">
         </div>
         <div id="extra-speeds" style="display:flex;gap:8px;align-items:center;"></div>
@@ -1527,10 +1527,10 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
       <!-- 화폐 상단 -->
       <div class="box" style="padding:8px 12px;">
         <div style="display:flex;gap:6px;justify-content:center;align-items:stretch;">
-          <div class="currency-card"><div class="currency-label">백금 PP</div><input id="cur-pp" type="number" value="0" min="0" oninput="save()" class="currency-input"></div>
-          <div class="currency-card" style="border-color:#f5c518;"><div class="currency-label" style="color:#f5c518;">금화 GP</div><input id="cur-gp" type="number" value="0" min="0" oninput="save()" class="currency-input" style="color:#f5c518;"></div>
-          <div class="currency-card"><div class="currency-label">은화 SP</div><input id="cur-sp" type="number" value="0" min="0" oninput="save()" class="currency-input"></div>
-          <div class="currency-card"><div class="currency-label" style="color:#cd7f32;">동화 CP</div><input id="cur-cp" type="number" value="0" min="0" oninput="save()" class="currency-input" style="color:#cd7f32;"></div>
+          <div class="currency-card"><div class="currency-label">백금 PP</div><input id="cur-pp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input"></div>
+          <div class="currency-card" style="border-color:#f5c518;"><div class="currency-label" style="color:#f5c518;">금화 GP</div><input id="cur-gp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input" style="color:#f5c518;"></div>
+          <div class="currency-card"><div class="currency-label">은화 SP</div><input id="cur-sp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input"></div>
+          <div class="currency-card"><div class="currency-label" style="color:#cd7f32;">동화 CP</div><input id="cur-cp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input" style="color:#cd7f32;"></div>
         </div>
       </div>
       <!-- 부피 -->
@@ -1538,7 +1538,8 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
         부피 <span style="font-size:16px;font-weight:700;color:var(--accent);" id="bulk-total">0</span>
         <span style="color:var(--text2);"> / </span>
         <span id="bulk-max">5</span>
-        <span style="font-size:10px;margin-left:4px;">(근력 수정치 + 5)</span>
+        <span style="font-size:10px;margin-left:4px;">(과적 기준, 한계=근력+10)</span>
+        <div id="bulk-status" style="font-size:11px;font-weight:bold;min-height:14px;margin-top:2px;"></div>
       </div>
       <!-- 버튼 -->
       <div style="display:flex;gap:4px;padding:8px 12px;border-bottom:1px solid var(--border);">

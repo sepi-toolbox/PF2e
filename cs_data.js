@@ -387,6 +387,7 @@ const CONDITIONS_DATA = [
   {name:'비우호적',en:'Unfriendly',valued:false,desc:'당신을 비우호적으로 봄. 외교 -1 상황 페널티.'},
   {name:'존재미인지',en:'Unnoticed',valued:false,desc:'당신의 존재 자체를 모름.'},
   {name:'부상',en:'Wounded',valued:true,max:3,desc:'빈사 판정 DC에 부상 수치가 누적. 치유 후 휴식으로 1 감소.'},
+  {name:'과적',en:'Encumbered',valued:false,auto:true,desc:'부피가 5+근력 수정치 초과. 둔함 1, 이동 속도 10피트 감소. 부피 줄이면 자동 해제.'},
 ];
 
 const SKILLS = [

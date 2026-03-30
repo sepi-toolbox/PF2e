@@ -497,6 +497,10 @@ function renderWeapons() {
 function removeWeapon(i) { state.weapons.splice(i,1); renderWeapons(); save(); }
 
 function addEquip(data) {
+  if (typeof isOverloaded === 'function' && isOverloaded()) {
+    alert('소지 한계 초과! 더 이상 아이템을 추가할 수 없습니다.\n(최대 부피 = 근력 수정치 + 10)');
+    return;
+  }
   const d = data || {name:'',qty:1,bulk:0};
   state.equip.push(d);
   renderEquip();
