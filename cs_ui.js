@@ -1172,7 +1172,7 @@ function renderSpells() {
       dfBody.innerHTML = `
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
           <span style="font-size:20px;">${isHeal?'💚':'💀'}</span>
-          <span style="font-size:14px;font-weight:600;color:var(--text);">${spellName}</span>
+          <span style="font-size:14px;font-weight:600;color:var(--accent);cursor:pointer;text-decoration:underline;" onclick="showInfo('spell','${isHeal?'치유':'해로움'}')">${spellName}</span>
           <span style="font-size:11px;color:var(--text2);margin-left:auto;">${used}/${totalSlots} 사용</span>
         </div>
         <div style="display:flex;gap:2px;flex-wrap:wrap;">${fires}</div>
