@@ -1129,11 +1129,15 @@ function renderSpells() {
   }
 
   // ── Focus spells ──
-  // 집중 캔트립과 집중 주문 분리 렌더링
-  const focusCantrips = (state.spells.focus || []).filter(s => s?._auto && s?.name?.includes('캔트립'));
-  const focusRegular = (state.spells.focus || []).filter(s => !focusCantrips.includes(s));
-  renderSpellSlotList('spells-focus-cantrips', focusCantrips, 'focus');
-  renderSpellSlotList('spells-focus', focusRegular, 'focus');
+  // 집중 캔트립과 집중 주문 분리 렌더링 (SPELL_DB의 is_cantrip 기반)
+  const focusCantrips = (state.spells.focus || []).filter(s => {
+    if (!s) return false;
+    const spData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
+    return spData ? spData.is_cantrip : (s.name || '').includes('캔트립');
+  });
+  const focusRegular = (state.spells.focus || []).filter(s => s && !focusCantrips.includes(s));
+  renderSpellSlotList('spells-focus-cantrips', focusCantrips, 'focus', heightenedLevel);
+  renderSpellSlotList('spells-focus', focusRegular, 'focus', heightenedLevel);
 
   // 집중 포인트 자동 계산: min(집중 주문 수, 3)
   const totalFocusSpells = (state.spells.focus || []).length;
@@ -1306,7 +1310,7 @@ function removeSpellFromSlot(type, index) {
   save();
 }
 
-function renderSpellSlotList(elId, arr, type) {
+function renderSpellSlotList(elId, arr, type, heightenedLevel) {
   const el = document.getElementById(elId);
   if (!el) return;
   el.innerHTML = '';
@@ -1314,10 +1318,18 @@ function renderSpellSlotList(elId, arr, type) {
     const isAuto = s?._auto;
     const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
     const actions = getActionIcons(spellData?.actions);
+    // 집중 주문 랭크 표시: 캔트립은 heightenedLevel로, 일반 집중주문도 heightenedLevel
+    let rankLabel = '';
+    if (type === 'focus' && heightenedLevel) {
+      const isCantrip = spellData ? spellData.is_cantrip : false;
+      const baseRank = spellData?.rank || 1;
+      const effectiveRank = isCantrip ? heightenedLevel : Math.max(baseRank, heightenedLevel);
+      rankLabel = `<span style="font-size:10px;color:var(--accent);margin-left:4px;">[${effectiveRank}랭크]</span>`;
+    }
     const row = document.createElement('div');
     row.className = 'spell-slot-row';
     row.innerHTML = `
-      <span class="spell-slot-name" onclick="showInfo('spell','${s.name.replace(/'/g,"\\'")}')">${s.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+      <span class="spell-slot-name" onclick="showInfo('spell','${s.name.replace(/'/g,"\\'")}')">${s.name}${rankLabel}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
       <span class="spell-slot-dur">\u2014</span>
       <span class="spell-slot-range">\u2014</span>
       ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpell('${type}',${i})">✕</span>`}`;
