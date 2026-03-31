@@ -1716,6 +1716,14 @@ function filterFeats() {
           if (state._fb?.adoptedAncestries) {
             ancTraits.push(...state._fb.adoptedAncestries);
           }
+          // 직접 스캔 (applyFeatEffects 미실행 시 대비)
+          const _ancMap = {dwarf:'드워프',elf:'엘프',gnome:'노움',goblin:'고블린',halfling:'하플링',human:'인간',leshy:'레쉬',orc:'오크'};
+          Object.values(state.feats).flat().forEach(ff => {
+            if (ff && ff.name && ff.name.includes('양자 혈통') && ff.choice) {
+              const t = _ancMap[ff.choice] || ff.choice;
+              if (!ancTraits.includes(t)) ancTraits.push(t);
+            }
+          });
           return f.traits && f.traits.some(t => ancTraits.includes(t));
         }
         return true;
