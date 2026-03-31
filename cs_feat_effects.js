@@ -474,6 +474,10 @@ const FEAT_EFFECTS = {
   'Nimble Elf': {
     effects: [{type:'speed_bonus', value:5}]
   },
+  'Otherworldly Magic': {
+    choice: {type:'spell_cantrip', tradition:'arcane', label:'비전(Arcane) 캔트립 선택'},
+    effects: [{type:'grant_innate_spell'}]
+  },
   'Unwavering Mien': {
     effects: [{type:'display_note', text:'매혹/수면 효과 지속시간 절반'}]
   },
@@ -2994,13 +2998,51 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       row.onclick = () => _applyFeatChoice(opt.id);
       container.appendChild(row);
     });
+  } else if (choiceDef.type === 'spell_cantrip' && typeof SPELL_DB !== 'undefined') {
+    const tradition = choiceDef.tradition || 'arcane';
+    const cantrips = SPELL_DB.filter(sp => sp.is_cantrip && sp.traditions && sp.traditions.includes(tradition));
+    cantrips.sort((a,b) => (a.name_ko||'').localeCompare(b.name_ko||''));
+    // 검색 표시
+    if (searchEl) {
+      searchEl.style.display = '';
+      searchEl.value = '';
+      searchEl.oninput = () => {
+        const q = searchEl.value.toLowerCase();
+        container.querySelectorAll('.opt-row').forEach(row => {
+          row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+      };
+    }
+    cantrips.forEach(sp => {
+      const row = document.createElement('div');
+      row.className = 'opt-row';
+      row.style.cursor = 'pointer';
+      const actions = typeof getActionIcons==='function' ? getActionIcons(sp.actions) : (sp.actions||'');
+      row.innerHTML = `<span class="opt-row-name">${sp.name_ko} ${actions}</span><span style="font-size:10px;color:var(--text2);margin-left:auto;">${sp.name_en}</span>`;
+      row.onclick = () => _applyFeatChoice(sp.name_ko);
+      container.appendChild(row);
+    });
   }
 }
 
 function _applyFeatChoice(choiceId) {
   if (!modalContext) return;
-  const {featType, featIndex} = modalContext;
+  const {featType, featIndex, choiceDef} = modalContext;
   state.feats[featType][featIndex].choice = choiceId;
+
+  // spell_cantrip 선택 시 선천적 주문에 추가
+  if (choiceDef?.type === 'spell_cantrip') {
+    const tradition = choiceDef.tradition || 'arcane';
+    const tradKo = {arcane:'비전',divine:'신성',occult:'비의',primal:'근원'}[tradition] || tradition;
+    const featName = state.feats[featType][featIndex].name || '';
+    // 기존에 이 재주로 추가된 선천 주문 제거
+    if (!state.spells.innate) state.spells.innate = [];
+    state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== featName);
+    // 새 선천 주문 추가
+    state.spells.innate.push({name: choiceId, tradition: tradKo, type:'cantrip', uses:'자유', _sourceFeat: featName, _source: featName});
+    if (typeof renderSpells === 'function') renderSpells();
+  }
+
   renderFeats();
   recalcAll();
   save();
