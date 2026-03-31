@@ -1442,9 +1442,8 @@ function renderFeats() {
         <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
           <span style="flex:1;color:var(--text);font-size:12px;">${h.name_ko} (${h.name_en||''})</span>
         </div>
-        <div class="feat-src"><span style="color:var(--text2);font-size:10px;">Lv 1</span></div>
+        <div class="feat-src"><span class="tag-meta">유산</span> <span class="tag-meta">${hAncestry}</span></div>
         <div class="feat-detail">
-          <div style="margin-bottom:6px;"><span class="tag-meta">유산</span> <span class="tag-meta">${hAncestry}</span></div>
           <div style="line-height:1.6;">${typeof formatDescActions==='function'?formatDescActions(desc,h):desc}</div>
         </div>`;
       div.addEventListener('click', () => _toggleFeatAccordion(div));
@@ -1485,9 +1484,8 @@ function renderFeats() {
           <span style="flex:1;color:var(--text);font-size:12px;">${f.name || labels[t] + ' 재주'}</span>
           ${choiceBadge ? `<span style="font-size:10px;color:var(--accent);flex-shrink:0;">[${choiceBadge}]</span>` : ''}
         </div>
-        <div class="feat-src"><span style="color:var(--text2);font-size:10px;">${srcLabel}</span></div>
+        <div class="feat-src"><span style="color:var(--text2);font-size:10px;">${fMeta}</span></div>
         <div class="feat-detail">
-          <div style="margin-bottom:4px;">${fMeta}</div>
           ${fTraits ? `<div style="margin-bottom:6px;">${fTraits}</div>` : ''}
           ${fPrereq}
           <div style="line-height:1.6;">${typeof formatDescActions==='function'?formatDescActions(desc,featData):desc}</div>
