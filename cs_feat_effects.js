@@ -524,7 +524,7 @@ const FEAT_EFFECTS = {
     choice: {
       type:'lore', label:'집착할 지식(Lore) 분야를 입력하세요',
     },
-    effects: [{type:'display_note', text:'집착적 연구($choice_name): 해당 지식에 숙련됨, 레벨 상승 시 자동 증가'}]
+    effects: [{type:'grant_lore', name:'$choice'}, {type:'display_note', text:'$choice_name 지식에 숙련됨 + 확신(Assurance) 재주 적용. 휴식 1일로 주제 변경 가능'}]
   },
   'Illusion Sense': {
     effects: [{type:'display_note', text:'환상에 대한 간파 판정에 +1 상황 보너스'}]
@@ -2915,7 +2915,8 @@ function _applyOneEffect(fb, eff, feat, level) {
     }
     case 'grant_lore': {
       // 빈 지식 슬롯을 찾아 이름 설정 + 숙련 부여
-      const loreName = eff.name || '';
+      let loreName = eff.name || '';
+      if (loreName === '$choice') loreName = feat.choice || '';
       if (!loreName) break;
       const slots = ['lore1','lore2'];
       for (const sid of slots) {

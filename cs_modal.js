@@ -71,6 +71,12 @@ function openRestModal() {
         </select>
       </div>` : ''}
     </div>` : ''}
+    ${_hasGnomeObsession() ? `
+    <div style="margin-top:12px;padding:10px;background:var(--bg3);border:1px solid var(--accent);border-radius:4px;">
+      <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:6px;">🔍 집착적 연구 — 주제 변경</div>
+      <div style="font-size:11px;color:var(--text2);margin-bottom:8px;">집착할 지식 분야를 변경합니다.</div>
+      <input id="rest-obsession-topic" type="text" value="${_getObsessionTopic()}" placeholder="새 지식 분야..." style="width:100%;padding:6px;background:var(--bg4);color:var(--text);border:1px solid var(--border2);border-radius:4px;font-size:12px;">
+    </div>` : ''}
     ${_hasOtherworldlyAcumen() ? `
     <div style="margin-top:12px;padding:10px;background:var(--bg3);border:1px solid var(--accent);border-radius:4px;">
       <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:6px;">🔮 이세계 통찰 — 주문 교체</div>
@@ -111,6 +117,14 @@ function _reopenAcumenChoice() {
   }
 }
 
+function _hasGnomeObsession() {
+  return Object.values(state.feats).flat().some(f => f.name && f.name.includes('집착적 연구'));
+}
+function _getObsessionTopic() {
+  const f = Object.values(state.feats).flat().find(f => f.name && f.name.includes('집착적 연구'));
+  return f?.choice || '';
+}
+
 function _hasExpertLongevity() {
   return Object.values(state.feats).flat().some(f => f.name && f.name.includes('전문가의 장수'));
 }
@@ -149,6 +163,13 @@ function applyRest() {
   const ancestralSel = document.getElementById('rest-ancestral-skill');
   if (ancestralSel) {
     state.tempSkillTrained = ancestralSel.value || null;
+  }
+  // 집착적 연구 주제 변경
+  const obsInput = document.getElementById('rest-obsession-topic');
+  if (obsInput && obsInput.value.trim()) {
+    const newTopic = obsInput.value.trim();
+    const obsFeat = Object.values(state.feats).flat().find(f => f.name && f.name.includes('집착적 연구'));
+    if (obsFeat) obsFeat.choice = newTopic;
   }
   // 전문가의 장수 임시 전문가
   const expertSel = document.getElementById('rest-expert-skill');
@@ -2168,8 +2189,9 @@ function resetFromAncestry() {
   state.size = '중형';
   const speedEl = document.getElementById('speed');
   if (speedEl) speedEl.value = 25;
-  // 유산 부여 선천적 주문 제거
+  // 유산 부여 선천적 주문 + 임시 재주 제거
   if (state.spells.innate) state.spells.innate = state.spells.innate.filter(s => !s._heritage);
+  if (state.feats.other) state.feats.other = state.feats.other.filter(f => !f._heritageCantrip);
   // Clear languages/traits textarea
   const langEl = document.getElementById('f-languages');
   if (langEl) langEl.value = '';
@@ -2235,6 +2257,8 @@ function clearCoreSelection(type) {
     state.vision = state.selectedAncestry?.vision || '없음';
     // 유산 부여 선천 주문 제거
     if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => !s._heritage);
+    // 유산 캔트립 임시 재주 제거
+    if (state.feats.other) state.feats.other = state.feats.other.filter(f => !f._heritageCantrip);
     const btn = document.getElementById('btn-heritage');
     if (btn) { btn.textContent = '유산...'; btn.classList.remove('filled'); }
     recalcAll();
