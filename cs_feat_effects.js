@@ -96,7 +96,7 @@ const FEAT_EFFECTS = {
       ]
     },
     effects: [
-      {type:'display_note', text:'입양 혈통: $choice_name — 해당 혈통 재주 선택 가능'},
+      {type:'adopted_ancestry'},
     ]
   },
   'Breath Control': {
@@ -603,7 +603,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'슬링으로 대형+ 적 공격 시 추가 피해'}]
   },
   'Cultural Adaptability': {
-    effects: [{type:'display_note', text:'1레벨 일반 재주 1개 추가 획득'}]
+    effects: [{type:'grant_feat', feat:'양자 혈통 (Adopted Ancestry)'}, {type:'display_note', text:'양자 혈통 재주 + 선택한 혈통의 1레벨 혈통 재주 1개 추가 획득'}]
   },
   'Guiding Luck': {
     effects: [{type:'display_note', text:'이방인의 행운을 명중 굴림에도 사용 가능'}]
@@ -2776,6 +2776,7 @@ function applyFeatEffects() {
     familiarWeapons: [],
     martialExperience: false,
     unburdenedIron: false,
+    adoptedAncestries: [],
     extraSenses: [],
     damage_notes: [],
     notes: [],
@@ -2895,6 +2896,16 @@ function _applyOneEffect(fb, eff, feat, level) {
       // 특정 무기에 직접 훈련됨(trained) 부여
       if (!fb.trainedWeapons) fb.trainedWeapons = [];
       if (eff.weapons) eff.weapons.forEach(w => { if (!fb.trainedWeapons.includes(w)) fb.trainedWeapons.push(w); });
+      break;
+    }
+    case 'adopted_ancestry': {
+      // 양자 혈통 — 선택한 혈통의 재주에 접근
+      if (feat.choice) {
+        const ancMap = {dwarf:'드워프',elf:'엘프',gnome:'노움',goblin:'고블린',halfling:'하플링',human:'인간',leshy:'레쉬',orc:'오크'};
+        const traitName = ancMap[feat.choice] || feat.choice;
+        if (!fb.adoptedAncestries) fb.adoptedAncestries = [];
+        if (!fb.adoptedAncestries.includes(traitName)) fb.adoptedAncestries.push(traitName);
+      }
       break;
     }
     case 'grant_feat': {
@@ -3028,7 +3039,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
   const detail = document.getElementById('modal-detail');
   if (detail) { detail.style.display = 'none'; }
   // spell_cantrip: 닫기/취소/선택 전부 숨김 (선택 필수, detail 내 버튼만 사용)
-  if (isSpellChoice || choiceDef.type === 'lore') {
+  if (isSpellChoice || choiceDef.type === 'lore' || choiceDef.type === 'custom') {
     const closeBtn = document.querySelector('.modal-close');
     const closeBtnM = document.getElementById('modal-close-m');
     const footer = document.querySelector('.modal-footer');

@@ -1712,6 +1712,10 @@ function filterFeats() {
           if (state.selectedHeritage?.extraFeats) {
             ancTraits.push(...state.selectedHeritage.extraFeats);
           }
+          // 양자 혈통 (Adopted Ancestry) 추가
+          if (state._fb?.adoptedAncestries) {
+            ancTraits.push(...state._fb.adoptedAncestries);
+          }
           return f.traits && f.traits.some(t => ancTraits.includes(t));
         }
         return true;
