@@ -931,10 +931,15 @@ function recalcSkill(id) {
     if (sel) sel.value = rank;
     if (typeof syncProfRankBadge === 'function') syncProfRankBadge('rank-sk-'+id, 'sk-prof-'+id);
   }
-  // 임시 숙련 (조상의 장수 등) — 실제 등급이 이미 숙련 이상이면 무시
+  // 임시 숙련 (조상의 장수) — 실제 등급이 이미 숙련 이상이면 무시
   let isTemp = false;
   if (state.tempSkillTrained === id && rank < 2) {
     rank = 2;
+    isTemp = true;
+  }
+  // 임시 전문가 (전문가의 장수) — 숙련이면 전문가로
+  if (state.tempSkillExpert === id && rank >= 2 && rank < 4) {
+    rank = 4;
     isTemp = true;
   }
   const lv = getLevel();
@@ -1183,7 +1188,7 @@ function renderExtraSpeeds() {
   const types = [['climb','등반'],['swim','수영'],['fly','비행'],['burrow','굴착']];
   let html = '';
   types.forEach(([key, label]) => {
-    const val = state.extraSpeeds[key];
+    const val = Math.max(state.extraSpeeds[key] || 0, state._fb?.extraSpeeds?.[key] || 0);
     if (val && val > 0) {
       html += `<div style="text-align:center;cursor:pointer;" onclick="openSpeedModal()">
         <div style="font-size:8px;color:var(--text2);text-transform:uppercase;">${label}</div>

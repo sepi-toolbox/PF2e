@@ -57,6 +57,25 @@ function openRestModal() {
           return Math.max(baseRank, featRank) < 2;
         }).map(s => `<option value="${s.id}" ${state.tempSkillTrained===s.id?'selected':''}>${s.name}</option>`).join('')}
       </select>
+      ${_hasExpertLongevity() ? `
+      <div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px;">
+        <div style="font-size:11px;color:var(--accent);font-weight:600;margin-bottom:4px;">전문가의 장수 — 임시 전문가</div>
+        <div style="font-size:10px;color:var(--text2);margin-bottom:4px;">이미 숙련된 기술 1개를 임시 전문가로 올립니다.</div>
+        <select id="rest-expert-skill" style="width:100%;padding:6px;background:var(--bg4);color:var(--text);border:1px solid var(--border2);border-radius:4px;font-size:12px;">
+          <option value="">기술 선택...</option>
+          ${SKILLS.filter(s => {
+            if (s.isLore) return false;
+            const baseRank = parseInt(document.getElementById('sk-prof-'+s.id)?.value||0);
+            return baseRank >= 2 && baseRank < 4;
+          }).map(s => `<option value="${s.id}" ${state.tempSkillExpert===s.id?'selected':''}>${s.name}</option>`).join('')}
+        </select>
+      </div>` : ''}
+    </div>` : ''}
+    ${_hasOtherworldlyAcumen() ? `
+    <div style="margin-top:12px;padding:10px;background:var(--bg3);border:1px solid var(--accent);border-radius:4px;">
+      <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:6px;">🔮 이세계 통찰 — 주문 교체</div>
+      <div style="font-size:11px;color:var(--text2);margin-bottom:8px;">휴식 1일을 소비하여 선천 주문을 같은 전통의 다른 2랭크 주문으로 교체할 수 있습니다.</div>
+      <button onclick="closeModal();_reopenAcumenChoice()" style="width:100%;padding:8px;background:var(--accent-bg);border:1px solid var(--accent);border-radius:4px;color:var(--accent);cursor:pointer;font-size:12px;">주문 교체하기</button>
     </div>` : ''}
     <div style="display:flex;gap:8px;margin-top:16px;">
       <button onclick="applyRest()" style="flex:1;padding:10px;background:var(--accent);color:#000;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">적용</button>
@@ -68,6 +87,32 @@ function openRestModal() {
   if (detail) detail.innerHTML = '';
   const listEl = document.querySelector('.modal-list');
   if (listEl) listEl.style.display = '';
+}
+
+function _hasOtherworldlyAcumen() {
+  return Object.values(state.feats).flat().some(f => f.name && f.name.includes('이세계 통찰'));
+}
+
+function _reopenAcumenChoice() {
+  const allFeats = Object.values(state.feats).flat();
+  const idx = allFeats.findIndex(f => f.name && f.name.includes('이세계 통찰'));
+  if (idx < 0) return;
+  // 해당 재주의 타입과 인덱스 찾기
+  for (const [type, arr] of Object.entries(state.feats)) {
+    const fi = arr.findIndex(f => f.name && f.name.includes('이세계 통찰'));
+    if (fi >= 0) {
+      const nameEn = (typeof _extractEnName === 'function') ? _extractEnName(arr[fi].name) : 'Otherworldly Acumen';
+      const def = (typeof FEAT_EFFECTS !== 'undefined') ? FEAT_EFFECTS[nameEn] : null;
+      if (def?.choice && typeof openFeatChoiceModal === 'function') {
+        openFeatChoiceModal(type, fi, def.choice);
+      }
+      return;
+    }
+  }
+}
+
+function _hasExpertLongevity() {
+  return Object.values(state.feats).flat().some(f => f.name && f.name.includes('전문가의 장수'));
 }
 
 function _hasAncestralLongevity() {
@@ -102,6 +147,11 @@ function applyRest() {
   const ancestralSel = document.getElementById('rest-ancestral-skill');
   if (ancestralSel) {
     state.tempSkillTrained = ancestralSel.value || null;
+  }
+  // 전문가의 장수 임시 전문가
+  const expertSel = document.getElementById('rest-expert-skill');
+  if (expertSel) {
+    state.tempSkillExpert = expertSel.value || null;
   }
   updateHpGauge();
   buildConditions();

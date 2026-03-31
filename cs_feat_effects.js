@@ -482,6 +482,9 @@ const FEAT_EFFECTS = {
     choice: {type:'spell_cantrip', tradition:'primal', label:'근원(Primal) 캔트립 선택'},
     effects: [{type:'grant_innate_spell'}]
   },
+  'Tree Climber': {
+    effects: [{type:'speed_extra', key:'climb', value:10}]
+  },
   'Martial Experience': {
     effects: [{type:'martial_experience'}]
   },
@@ -733,7 +736,8 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'4랭크 비의 선천 주문 하루 1회 (점술, 매혹, 투청, 투시, 꿈 메시지, 환영 변장 중 선택)'}]
   },
   'Otherworldly Acumen': {
-    effects: [{type:'display_note', text:'같은 전통의 2랭크 주문 1개를 선천 주문으로 하루 1회. 휴식 1일로 변경 가능'}]
+    choice: {type:'spell_rank', rank:2, tradition:'arcane', label:'비전(Arcane) 2랭크 주문 선택'},
+    effects: []
   },
   'Celestial Magic': {
     effects: [{type:'display_note', text:'2랭크 신성 선천 주문 2개 하루 1회 (맑은 마음, 영원의 빛, 인간형 형태, 폭로의 빛, 생명 공유, 확실한 발놀림 중 선택)'}]
@@ -3071,10 +3075,14 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       row.onclick = () => _applyFeatChoice(opt.id);
       container.appendChild(row);
     });
-  } else if (choiceDef.type === 'spell_cantrip' && typeof SPELL_DB !== 'undefined') {
+  } else if ((choiceDef.type === 'spell_cantrip' || choiceDef.type === 'spell_rank') && typeof SPELL_DB !== 'undefined') {
     const tradition = choiceDef.tradition || 'arcane';
+    const isRankSpell = choiceDef.type === 'spell_rank';
+    const targetRank = choiceDef.rank || 1;
     let cantrips;
-    if (tradition === 'any') {
+    if (isRankSpell) {
+      cantrips = SPELL_DB.filter(sp => !sp.is_cantrip && !sp.is_focus && sp.rank && sp.rank <= targetRank && sp.traditions && sp.traditions.includes(tradition));
+    } else if (tradition === 'any') {
       const classTrad = state.selectedClass?.tradition || '';
       cantrips = SPELL_DB.filter(sp => sp.is_cantrip && sp.traditions && (!classTrad || !sp.traditions.includes(classTrad)));
     } else {
@@ -3151,7 +3159,7 @@ function _applyFeatChoice(choiceId) {
   state.feats[featType][featIndex].choice = choiceId;
 
   // spell_cantrip 선택 시 선천적 주문에 추가
-  if (choiceDef?.type === 'spell_cantrip') {
+  if (choiceDef?.type === 'spell_cantrip' || choiceDef?.type === 'spell_rank') {
     const tradition = choiceDef.tradition || 'arcane';
     const tradKo = {arcane:'비전',divine:'신성',occult:'비의',primal:'근원'}[tradition] || tradition;
     const featName = state.feats[featType][featIndex].name || '';
@@ -3159,7 +3167,9 @@ function _applyFeatChoice(choiceId) {
     if (!state.spells.innate) state.spells.innate = [];
     state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== featName);
     // 새 선천 주문 추가
-    state.spells.innate.push({name: choiceId, tradition: tradKo, type:'cantrip', uses:'자유', _sourceFeat: featName, _source: featName});
+    const spType = choiceDef.type === 'spell_rank' ? 'spell' : 'cantrip';
+    const spUses = choiceDef.type === 'spell_rank' ? '하루 1회' : '자유';
+    state.spells.innate.push({name: choiceId, tradition: tradKo, type: spType, uses: spUses, _sourceFeat: featName, _source: featName});
     if (typeof renderSpells === 'function') renderSpells();
     // 선천적 주문 탭으로 자동 전환
     if (typeof switchSpellSubtab === 'function') switchSpellSubtab('innate');
