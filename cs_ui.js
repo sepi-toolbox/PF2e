@@ -1558,6 +1558,7 @@ function removeFeat(t, i) {
     state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== feat.name);
   }
   state.feats[t].splice(i,1);
+  alert('removeFeat 호출: ' + featName + ' / FEAT_DB: ' + (typeof FEAT_DB !== 'undefined'));
   // 선행 연쇄 제거: 보유 재주 이름 목록을 만들고, 선행이 충족 안 되는 재주 반복 제거
   if (typeof FEAT_DB !== 'undefined') {
     const _getLearnedNames = () => {
