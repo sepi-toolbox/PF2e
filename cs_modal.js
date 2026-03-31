@@ -1607,8 +1607,8 @@ function _checkPrereqs(prereqStr) {
     // 뮤즈/교리/교단 체크
     if (state.selectedSubclass && (state.selectedSubclass.name_ko === c || state.selectedSubclass.name_en === c)) continue;
 
-    // 최소 100세 등 특수 조건은 통과
-    if (/최소\s*\d+세/.test(c) || /\d+레벨/.test(c)) continue;
+    // 숫자+레벨 조건은 통과 (레벨은 별도 필터에서 체크)
+    if (/\d+레벨/.test(c)) continue;
 
     // 재주 보유 체크
     if (learnedFeats.has(c)) continue;
