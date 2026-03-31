@@ -1704,7 +1704,7 @@ function selectOption(item, row) {
       let tags = '';
       if (item.feat_level !== undefined) {
         const mfTraits = (item.traits||[]).map(t2=>traitTag(t2)).join('');
-        tags = `<div><span class="tag-meta">${item.feat_level}레벨</span> <span class="tag-meta">${_catKo[item.category]||item.category||''}</span></div>${mfTraits?'<div style="margin-top:4px;">'+mfTraits+'</div>':''}`;
+        tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${item.feat_level}레벨</span> <span class="tag-meta">${_catKo[item.category]||item.category||''}</span></div>${mfTraits?'<div style="margin-bottom:6px;">'+mfTraits+'</div>':''}`;
         if (item.prerequisites) {
           const parts = item.prerequisites.split(/(?<=\.)\s+/);
           const prereqName = parts[0].replace(/\.$/,'');
@@ -1840,7 +1840,7 @@ function showItemDetail(item) {
   let tags = '';
   if (item.feat_level !== undefined) {
     const traitsHtml = (item.traits||[]).map(t=>traitTag(t)).join('');
-    tags = `<div><span class="tag-meta">${item.feat_level}레벨</span> <span class="tag-meta">${_catKo[item.category]||item.category||''}</span></div>${traitsHtml?'<div style="margin-top:4px;">'+traitsHtml+'</div>':''}`;
+    tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${item.feat_level}레벨</span> <span class="tag-meta">${_catKo[item.category]||item.category||''}</span></div>${traitsHtml?'<div style="margin-bottom:6px;">'+traitsHtml+'</div>':''}`;
     // 선행 요소: 첫 문장만 선행으로, 나머지는 본문에 합침
     if (item.prerequisites) {
       const parts = item.prerequisites.split(/(?<=\.)\s+/);
@@ -1855,12 +1855,12 @@ function showItemDetail(item) {
   } else if (item.rank !== undefined) {
     const rankStr = item.is_cantrip?'캔트립':item.is_focus?'집중':`랭크 ${item.rank}`;
     const spTraits = [...(item.traditions||[]),...(item.traits||[])].map(t=>traitTag(t)).join('');
-    tags = `<div><span class="tag-meta">${rankStr}</span> <span class="spell-actions">${item.actions||''}</span></div>${spTraits?'<div style="margin-top:4px;">'+spTraits+'</div>':''}`;
+    tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${rankStr}</span> <span class="spell-actions">${item.actions||''}</span></div>${spTraits?'<div style="margin-bottom:6px;">'+spTraits+'</div>':''}`;
   } else if (item.damage !== undefined) {
     const wpTraits = (item.traits||[]).map(t=>traitTag(t)).join('');
-    tags = `<div><span class="tag-meta">${item.damage||''}</span> <span class="tag-meta">${item.category||''}</span> <span class="tag-meta">가격: ${item.price||'-'}</span></div>${wpTraits?'<div style="margin-top:4px;">'+wpTraits+'</div>':''}`;
+    tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${item.damage||''}</span> <span class="tag-meta">${item.category||''}</span> <span class="tag-meta">가격: ${item.price||'-'}</span></div>${wpTraits?'<div style="margin-bottom:6px;">'+wpTraits+'</div>':''}`;
   } else if (item.ac_bonus !== undefined) {
-    tags = `<div><span class="tag-meta">AC+${item.ac_bonus}</span> <span class="tag-meta">${item.category||''}</span>
+    tags = `<div style="margin-bottom:4px;"><span class="tag-meta">AC+${item.ac_bonus}</span> <span class="tag-meta">${item.category||''}</span>
             ${item.dex_cap!==null&&item.dex_cap!==undefined?`<span class="tag-meta">DEX상한: ${item.dex_cap}</span>`:''}
             ${item.hardness!==undefined?`<span class="tag-meta">경도: ${item.hardness}</span>`:''}
             ${item.hp!==undefined&&item.bt!==undefined?`<span class="tag-meta">HP: ${item.hp} (BT: ${item.bt})</span>`:''}
