@@ -1422,7 +1422,14 @@ function removeSpell(type, i) {
 function addFeat(type) {
   const name = prompt('재주/능력 이름:');
   if (!name) return;
-  state.feats[type].push({name, level:getLevel()});
+  // DB에서 영문명 매칭
+  let fullName = name;
+  if (typeof FEAT_DB !== 'undefined' && !name.includes('(')) {
+    const found = FEAT_DB.find(f => f.name_ko === name.trim());
+    if (found?.name_en) fullName = `${found.name_ko} (${found.name_en})`;
+  }
+  state.feats[type].push({name: fullName, level:getLevel()});
+  recalcAll();
   renderFeats();
   save();
 }

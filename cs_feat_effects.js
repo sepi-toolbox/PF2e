@@ -2944,8 +2944,16 @@ function _applyOneEffect(fb, eff, feat, level) {
 
 function _extractEnName(featFullName) {
   if (!featFullName) return '';
+  // 괄호 안 영문명 추출 시도
   const m = featFullName.match(/\(([^)]+)\)$/);
-  return m ? m[1].trim() : '';
+  if (m) return m[1].trim();
+  // 영문명이 없으면 FEAT_DB에서 한국어 이름으로 매칭
+  const nameKo = featFullName.split(' (')[0].trim();
+  if (typeof FEAT_DB !== 'undefined') {
+    const found = FEAT_DB.find(f => f.name_ko === nameKo);
+    if (found) return found.name_en || '';
+  }
+  return '';
 }
 
 function _resolveChoice(ref, feat) {
