@@ -1746,35 +1746,43 @@ function selectOption(item, row) {
   else showItemDetail(item);
 }
 
-// 설명 텍스트에서 행동 블록([반응], [1행동] 등)을 행동 탭과 동일한 action-card로 변환
+// 설명 텍스트에서 행동 블록([반응], [1행동] 등)을 행동 탭과 완전히 동일한 카드로 변환
 function formatDescActions(text) {
   if (!text) return text;
-  const costMap = {'[반응]':'↩','[1행동]':'◆','[2행동]':'◆◆','[3행동]':'◆◆◆','[자유 행동]':'⟡'};
-  const costEnMap = {'[반응]':'Reaction','[1행동]':'1 Action','[2행동]':'2 Actions','[3행동]':'3 Actions','[자유 행동]':'Free Action'};
+  const costToKey = {'[반응]':'reaction','[1행동]':'1','[2행동]':'2','[3행동]':'3','[자유 행동]':'free'};
 
   // 패턴1: "이름(English) [행동] 유발 조건: ... 효과: ..."
   let result = text.replace(/([^\.\n<]*?\([A-Za-z\s']+\))\s*(\[(?:반응|1행동|2행동|3행동|자유 행동)\])\s*(유발 조건:\s*.+?)?\s*(효과:\s*.+?)(?=$|\n|<br>)/g,
     (match, namePart, costPart, triggerPart, effectPart) => {
-      const costIcon = costMap[costPart] || costPart;
+      const costKey = costToKey[costPart] || '1';
       const nameKo = namePart.replace(/\s*\([^)]+\)/, '').trim();
       const nameEn = (namePart.match(/\(([^)]+)\)/) || [])[1] || '';
+      // ACTION_DB에 등록된 행동이면 DB 데이터를 그대로 사용
+      if (typeof ACTION_DB !== 'undefined') {
+        const dbAction = ACTION_DB.find(a => a.name_ko === nameKo || a.name_en === nameEn);
+        if (dbAction) {
+          return _buildActionCard(dbAction.cost, dbAction.name_ko, dbAction.name_en, dbAction.traits||[], dbAction.summary);
+        }
+      }
       let summary = '';
       if (triggerPart) summary += triggerPart.trim();
       if (effectPart) summary += (summary ? ' ' : '') + effectPart.trim();
-      return _buildActionCard(costIcon, nameKo, nameEn, summary);
+      return _buildActionCard(costKey, nameKo, nameEn, [], summary);
     });
 
   // 패턴2: "[행동] 설명..." (이름 없이)
   result = result.replace(/(\[(?:반응|1행동|2행동|3행동|자유 행동)\])\s+([^<\[]+)/g, (match, costPart, rest) => {
     if (rest.includes('action-card')) return match;
-    const costIcon = costMap[costPart] || costPart;
-    return _buildActionCard(costIcon, '', '', rest.trim());
+    const costKey = costToKey[costPart] || '1';
+    return _buildActionCard(costKey, '', '', [], rest.trim());
   });
 
   return result;
 }
 
-function _buildActionCard(costIcon, nameKo, nameEn, summary) {
+function _buildActionCard(costKey, nameKo, nameEn, traits, summary) {
+  const costIcon = getActionCostIcon(costKey);
+  const traitsHtml = (traits||[]).map(t => `<span class="tag">${t}</span>`).join('');
   return `<div class="action-card" style="margin:8px 0;">
     <div class="action-card-head">
       <span class="action-cost">${costIcon}</span>
@@ -1783,6 +1791,7 @@ function _buildActionCard(costIcon, nameKo, nameEn, summary) {
         ${nameEn ? `<div class="action-name-en">${nameEn}</div>` : ''}
       </div>
     </div>
+    ${traitsHtml ? `<div class="action-traits">${traitsHtml}</div>` : ''}
     <div class="action-summary">${summary}</div>
   </div>`;
 }
