@@ -1488,7 +1488,6 @@ function openSkillPickModal(title, availableIds) {
 let modalContext = null;
 
 function openModal(type, ctx) {
-  console.log('[openModal]', type, ctx);
   modalType = type;
   modalContext = ctx || null;
   modalSelected = null;
@@ -1670,7 +1669,7 @@ function _checkPrereqs(prereqStr) {
 
     // 영문 재주명 체크
     if (typeof FEAT_DB !== 'undefined') {
-      const found = FEAT_DB.find(f => f.name_ko === c || f.name_en === c);
+      const found = FEAT_DB.find(f => f && f.name_ko === c || f && f.name_en === c);
       if (found && (learnedFeats.has(found.name_ko) || learnedFeats.has(found.name_en))) continue;
     }
 

@@ -1630,7 +1630,6 @@ const FEAT_DB = [
 ,
   {name_ko:"대위자드의 신비학", name_en:"Archwizard", cat:"feature", class_id:"wizard", feat_level:19, summary:"10랭크 주문 슬롯 1개를 얻습니다."}
 ,
-
   // ═══════════════════════════════════════════════
   //  혈통 재주 — Ancestry Feats (Player Core)
   // ═══════════════════════════════════════════════
@@ -1674,7 +1673,6 @@ const FEAT_DB = [
 ,
   {name_ko:'돌벽', name_en:'Stonewall', feat_level:17, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'[반응] 하루 1회. 적의 명중/인내 실패 시 석화되어 모든 피해 무효.', desc:'<strong>빈도:</strong> 하루 1회<br><strong>유발 조건:</strong> 적이나 위험의 효과가 당신에게 명중하거나, 그에 대한 인내 내성에 실패합니다.<br>돌의 강인함이 너무 강하게 밀려와 당신의 건장한 몸을 대체합니다. 현재 턴 종료까지 <strong>석화(petrified)</strong>됩니다. 유발 효과나 돌에 영향을 줄 수 없는 다른 해로운 효과로부터 <strong>어떤 피해도 받지 않습니다</strong>.'}
 ,
-
   // ── 엘프 Elf ──
   {name_ko:'엘프 지식', name_en:'Elven Lore', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'신비학과 자연학에 숙련. 엘프 지식(Elf Lore)에 숙련.', desc:'전통적인 엘프 예술을 공부하여 비전 마법과 주변 세계에 대해 배웠습니다. <strong>신비학과 자연학에 숙련</strong>됩니다. 이 기술 중 하나에 자동으로 숙련되는 경우, 대신 선택한 다른 기술에 숙련됩니다. 또한 <strong>엘프 지식(Elf Lore)</strong>에 대한 추가 지식 일반 재주를 얻습니다.'}
 ,
@@ -1712,7 +1710,6 @@ const FEAT_DB = [
 ,
   {name_ko:'마법 탑승자', name_en:'Magic Rider', feat_level:17, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'순간이동 대상 시 추가 1명 + 목표 1마일 이내 도착.', desc:'먼 과거에 먼 세계 사이를 여행하기 위해 강력한 마법을 사용했으며, 그 마법의 잔재가 그러한 이동을 더 쉽게 만듭니다. 둘 이상을 운송하는 <strong>순간이동 주문의 대상</strong>이 될 때, 시전자가 선택하여 일반 한계를 넘어 <strong>추가 1명</strong>에게 영향을 줄 수 있습니다. 추가로, 순간이동(teleport) 주문의 대상이 될 때, 이동 거리에 관계없이 당신과 다른 대상은 <strong>목표에서 1마일 이내</strong>에 도착합니다.'}
 ,
-
   // ── 노움 Gnome ──
   {name_ko:'동물 속삭임', name_en:'Animal Elocutionist', feat_level:1, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'동물과 대화(speak with animals) 지속 효과.', desc:'동물 소리를 무지한 소음이 아닌 대화로 듣고, 대답할 수 있습니다. 동물에게 질문하고, 답을 받고, 외교(Diplomacy) 기술을 사용할 수 있습니다. 대부분의 경우 야생 동물은 당신이 말할 시간을 줍니다. 동물에게 <strong>인상 만들기(Make an Impression)에 +1 상황 보너스</strong>를 얻습니다.'}
 ,
@@ -1747,7 +1744,6 @@ const FEAT_DB = [
 ,
   {name_ko:'고향 귀환', name_en:'Homeward Bound', feat_level:17, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'빈도: 주 2회', desc:'<strong>빈도:</strong> 주 2회<br>당신과 첫 번째 세계 사이의 연결이 대부분의 노움보다 몸속에서 강하게 울려, 우주와 첫 번째 세계 사이의 문턱을 넘을 수 있습니다. <em>차원간 순간이동(interplanar teleport)</em>을 <strong>원시 선천 주문으로 주 2회</strong> 시전할 수 있습니다. 이것은 첫 번째 세계와 우주 사이를 왕래하는 데만 사용할 수 있습니다. 몸의 자연적 공명으로 주문의 초점(locus) 역할을 할 수 있으며, 특별히 조율된 차원 열쇠가 필요하지 않습니다.'}
 ,
-
   // ── 고블린 Goblin ──
   {name_ko:'화염 뿜기', name_en:'Burn It!', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'화염 피해에 +1 상태 보너스. 불붙은 대상에 명중 시 지속 화염 피해.', desc:'불이 당신을 매혹합니다. 화염 피해를 입히는 주문과 연금술 아이템이 <strong>주문 랭크의 절반 또는 아이템 레벨의 4분의 1만큼 상태 보너스</strong>(최소 +1)를 피해에 얻습니다. 지속 화염 피해에도 <strong>+1 상태 보너스</strong>를 얻습니다.'}
 ,
@@ -1767,7 +1763,6 @@ const FEAT_DB = [
 ,
   {name_ko:'고블린 지식', name_en:'Goblin Lore', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'자연학과 은신에 숙련됩니다. 이미 숙련이면 대신 다른 기술에 숙련. 고블린 지식에 대한 추가 지식 재주를 얻습니다.', desc:'<strong>자연학과 은신에 숙련</strong>됩니다. 이미 숙련이면 대신 다른 기술에 숙련. <strong>고블린 지식</strong>에 대한 추가 지식 재주를 얻습니다.'}
 ,
-,
   {name_ko:'무릎치기', name_en:'Kneecap', feat_level:5, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'근접 타격을 하되 피해를 주지 않습니다. 명중 시 대상의 이동 속도에 -10피트 상태 페널티(치명타 시 -15피트)를 1라운드간 부여합니다. 지', desc:'근접 타격을 하되 피해를 주지 않습니다. 명중 시 대상의 이동 속도에 <strong>-10피트 상태 페널티</strong>(치명타 시 -15피트)를 1라운드간 부여합니다. 지상 이동 속도가 있고 다리에 의존하는 대상에게만 적용. 최소 5피트.'}
 ,
   {name_ko:'큰소리 가수', name_en:'Loud Singer', feat_level:5, prerequisites:'고블린, 고블린 노래', traits:['고블린'], category:'ancestry', summary:'전제조건: 고블린 노래. 고블린 노래 범위가 60피트로 증가하고 추가 적 1명 대상 가능.', desc:'<strong>전제조건:</strong> 고블린 노래. 고블린 노래 범위가 <strong>60피트로 증가</strong>하고 <strong>추가 적 1명</strong> 대상 가능.'}
@@ -1785,7 +1780,6 @@ const FEAT_DB = [
 ,
   {name_ko:'무모한 포기', name_en:'Reckless Abandon', feat_level:17, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'[자유 행동] 하루 1회. 이 턴 내성 실패/대실패→성공, 최소 피해만 받음.', desc:'<strong>빈도:</strong> 하루 1회<br>남은 턴 동안, 해로운 효과에 대한 내성 굴림에서 <strong>실패/대실패 시 성공</strong>이 됩니다. 또한 이 턴에 적이나 위험으로부터 <strong>최소 가능 피해</strong>를 받습니다. 이 혜택은 이 턴 동안 전적으로 발생한 해로운 효과에만 적용됩니다. 지속 피해와 이전 상태는 정상 진행되며, 턴 종료 시 전체 결과에 노출됩니다.'}
 ,
-
   // ── 하플링 Halfling ──
   {name_ko:'이방인의 행운', name_en:'Halfling Luck', feat_level:1, prerequisites:'하플링', traits:['하플링','행운'], category:'ancestry', summary:'[반응] 기술 판정이나 내성에서 실패 시 1회 재굴림. 1일 1회.', desc:'<strong>빈도:</strong> 하루 1회<br><br>행복한 천성으로 불운이 당신을 피하는 것 같으며, 어느 정도 사실일 수 있습니다. 유발 판정을 <strong>다시 굴릴 수 있습니다</strong>. 더 나빠도 새 결과를 사용해야 합니다.'}
 ,
@@ -1829,7 +1823,6 @@ const FEAT_DB = [
 ,
   {name_ko:'그림자 자아', name_en:'Shadow Self', feat_level:17, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'전제조건: 은신 전설', desc:'<strong>전제조건:</strong> 은신 전설<br><br>적의 시선에서 미끄러져 나가 다른 곳에 있는 것처럼 보입니다. <strong>1분간 또는 적대적 행동을 할 때까지(먼저 오는 것) 투명</strong>해집니다. 10피트 내의 위치를 선택합니다. 투명이 끝날 때까지, 당신을 찾으려는 누구에게든 그 위치에 숨어있는 것처럼 보입니다. 수색자가 당신이 거기 없다는 명확한 증거를 얻으면 더 이상 거기에 숨어있다고 생각하지 않지만, 실제 위치는 발견하지 못합니다.'}
 ,
-
   // ── 인간 Human ──
   {name_ko:'적응력', name_en:'General Training', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'인간의 다재다능함. 1레벨 일반 재주 1개를 추가로 얻습니다.', desc:'적응력이 다양한 유용한 능력의 숙달로 나타납니다. <strong>1레벨 일반 재주 1개</strong>를 얻습니다. 전제조건을 충족해야 하지만, 캐릭터 생성 중에 선택하면 나중에 전제조건을 결정할 수 있습니다.<br><strong>특수:</strong> 이 재주를 여러 번 선택할 수 있으며, 매번 다른 재주를 선택합니다.'}
 ,
@@ -1873,7 +1866,6 @@ const FEAT_DB = [
 ,
   {name_ko:'영웅적 존재감', name_en:'Heroic Presence', feat_level:17, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'빈도: 하루 1회', desc:'<strong>빈도:</strong> 하루 1회<br>영웅의 피가 혈관을 흐르며, 동료들이 깊이 파고들어 새로운 수준의 결의를 찾도록 영감을 줍니다. 30피트 내 최대 <strong>10명의 동의하는 생물</strong>에게 6랭크 <em>열정적 확신(zealous conviction)</em>의 효과를 부여합니다. 단, 대상에게 일반적으로 혐오스럽다고 여길 명령을 내리면 효과가 자동으로 종료됩니다. 이 행동은 동맹에게 영감을 주는 방식에 따라 청각 또는 시각 특성을 가집니다.'}
 ,
-
   // ── 레쉬 Leshy ──
   {name_ko:'목질 외피', name_en:'Leshy Superstition', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'마법 효과에 대한 내성에 +1 상황 보너스.', desc:'<strong>유발 조건:</strong> 주문이나 마법 효과에 대한 내성 굴림을 시도하지만 아직 굴리지 않았습니다.<br>물체에 깃든 영혼을 알아채며, 어떤 것이 행운을 가져오고 어떤 것이 불운인지 배웁니다. 행운의 물체에 집중하여 유발 효과에 대한 내성에 <strong>+1 상황 보너스</strong>.'}
 ,
@@ -1891,7 +1883,6 @@ const FEAT_DB = [
 ,
   {name_ko:'뿌리 방벽', name_en:'Bark Shield', feat_level:13, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'[반응] 피격 시 나무껍질 방패 생성 (경도 3, HP 12).', desc:'피격 시 반응으로 나무껍질 방패를 생성합니다. 경도 3, HP 12의 임시 방패입니다.'}
 ,
-
   // ── 오크 Orc ──
   {name_ko:'오크 지식', name_en:'Orc Lore', feat_level:1, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'운동과 생존에 숙련됨. 오크 관련 지식(Lore)에 숙련됨.', desc:'<strong>운동과 생존에 숙련</strong>됩니다. 이미 숙련이면 다른 기술. <strong>오크 지식</strong>에 대한 추가 지식 재주를 얻습니다.'}
 ,
@@ -1933,37 +1924,29 @@ const FEAT_DB = [
 ,
   {name_ko:'난동의 흉포', name_en:'Rampaging Ferocity', feat_level:17, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'전제조건: 오크의 흉포', desc:'<strong>전제조건:</strong> 오크의 흉포<br><br>죽음을 막아내면서도 맹렬하게 공격합니다. <strong>근접 타격 1회</strong>를 합니다. 이 타격이 적의 HP를 0으로 만들면, 이번 오크의 흉포 활성화는 빈도에 포함되지 않습니다.'}
 ,
-
   // ═══ 원형 재주 — 다중클래스 (Multiclass Archetype Feats) ═══
 
   // ── 바드 다중클래스 Bard Multiclass ──
   {name_ko:'바드 헌신', name_en:'Bard Dedication', feat_level:2, prerequisites:'매력 +2', traits:['원형','다중클래스','헌신'], category:'archetype', summary:'비전(오컬트) 캔트립을 시전하고, 뮤즈를 선택하며, 주문 공격과 주문 DC에 숙련됩니다.', desc:'바드의 길로 발을 들입니다. 비전(오컬트) 전통의 캔트립 2개를 시전할 수 있습니다. 비학 주문 명중 굴림과 주문 DC에 <strong>숙련</strong>됩니다. 핵심 능력치는 <strong>매력</strong>입니다. 뮤즈를 하나 선택하지만 추가 캔트립은 얻지 못합니다. 비학에 숙련됩니다.<br><strong>특수:</strong> 다른 헌신 재주를 선택하려면 먼저 바드 원형 재주를 2개 이상 가져야 합니다.'}
 ,
-
   // ── 클레릭 다중클래스 Cleric Multiclass ──
   {name_ko:'클레릭 헌신', name_en:'Cleric Dedication', feat_level:2, prerequisites:'지혜 +2', traits:['원형','다중클래스','헌신'], category:'archetype', summary:'신성 캔트립을 시전하고, 신격을 선택하며, 종교와 신격 기술에 숙련됩니다.', desc:'클레릭의 길로 발을 들입니다. 신성 전통의 캔트립 2개를 시전할 수 있습니다. 신성 주문 명중 굴림과 주문 DC에 <strong>숙련</strong>됩니다. 핵심 능력치는 <strong>지혜</strong>입니다. 신격을 선택합니다. <strong>종교</strong>와 신격이 부여하는 기술에 숙련됩니다.<br><strong>특수:</strong> 다른 헌신 재주를 선택하려면 먼저 클레릭 원형 재주를 2개 이상 가져야 합니다.'}
 ,
-
   // ── 드루이드 다중클래스 Druid Multiclass ──
   {name_ko:'드루이드 헌신', name_en:'Druid Dedication', feat_level:2, prerequisites:'지혜 +2', traits:['원형','다중클래스','헌신'], category:'archetype', summary:'원시 캔트립을 시전하고, 드루이드 교단을 선택하며, 자연에 숙련됩니다.', desc:'드루이드의 길로 발을 들입니다. 원시 전통의 캔트립 2개를 시전할 수 있습니다. 원시 주문 명중 굴림과 주문 DC에 <strong>숙련</strong>됩니다. 핵심 능력치는 <strong>지혜</strong>입니다. 드루이드 교단을 하나 선택합니다. <strong>자연</strong>에 숙련됩니다.<br><strong>특수:</strong> 다른 헌신 재주를 선택하려면 먼저 드루이드 원형 재주를 2개 이상 가져야 합니다.'}
 ,
-
   // ── 파이터 다중클래스 Fighter Multiclass ──
   {name_ko:'파이터 헌신', name_en:'Fighter Dedication', feat_level:2, prerequisites:'근력 +2, 민첩 +2', traits:['원형','다중클래스','헌신'], category:'archetype', summary:'군용 무기, 곡예 또는 운동, 파이터 클래스 DC에 숙련됩니다.', desc:'파이터의 길로 발을 들입니다. 모든 <strong>군용 무기</strong>에 숙련됩니다. <strong>곡예</strong> 또는 <strong>운동</strong>(선택) 중 하나에 숙련됩니다. 파이터 클래스 DC에 숙련됩니다.<br><strong>특수:</strong> 다른 헌신 재주를 선택하려면 먼저 파이터 원형 재주를 2개 이상 가져야 합니다.'}
 ,
-
   // ── 레인저 다중클래스 Ranger Multiclass ──
   {name_ko:'레인저 헌신', name_en:'Ranger Dedication', feat_level:2, prerequisites:'민첩 +2', traits:['원형','다중클래스','헌신'], category:'archetype', summary:'생존에 숙련되고, 레인저 클래스 DC에 숙련되며, 사냥감 추적을 얻습니다.', desc:'레인저의 길로 발을 들입니다. <strong>생존</strong>에 숙련됩니다. 레인저 클래스 DC에 숙련됩니다. <strong>사냥감 추적(Hunt Prey)</strong> 행동을 얻습니다.<br><strong>특수:</strong> 다른 헌신 재주를 선택하려면 먼저 레인저 원형 재주를 2개 이상 가져야 합니다.'}
 ,
-
   // ── 로그 다중클래스 Rogue Multiclass ──
   {name_ko:'로그 헌신', name_en:'Rogue Dedication', feat_level:2, prerequisites:'민첩 +2', traits:['원형','다중클래스','헌신'], category:'archetype', summary:'기술 재주, 기습, 경갑/은신/도둑질/로그 클래스 DC에 숙련됩니다.', desc:'로그의 길로 발을 들입니다. 전제조건을 충족하는 <strong>기술 재주</strong> 하나를 얻습니다. <strong>기습(Surprise Attack)</strong>을 얻습니다. <strong>경갑</strong>에 숙련됩니다. <strong>은신</strong>과 <strong>도둑질</strong>에 숙련됩니다. 로그 클래스 DC에 숙련됩니다.<br><strong>특수:</strong> 다른 헌신 재주를 선택하려면 먼저 로그 원형 재주를 2개 이상 가져야 합니다.'}
 ,
-
   // ── 위치 다중클래스 Witch Multiclass ──
   {name_ko:'위치 헌신', name_en:'Witch Dedication', feat_level:2, prerequisites:'지능 +2', traits:['원형','다중클래스','헌신'], category:'archetype', summary:'후원자를 선택하고, 사역마를 얻고, 후원자 전통의 캔트립을 시전합니다.', desc:'위치의 길로 발을 들입니다. <strong>후원자</strong>를 선택하고 <strong>사역마</strong>를 얻습니다. 사역마에게서 후원자의 마법 전통에 속하는 <strong>캔트립 1개</strong>를 배웁니다. 해당 전통의 주문 명중 굴림과 주문 DC에 <strong>숙련</strong>됩니다. 핵심 능력치는 <strong>지능</strong>입니다. 후원자의 전통에 해당하는 기술에 숙련됩니다.<br><strong>특수:</strong> 다른 헌신 재주를 선택하려면 먼저 위치 원형 재주를 2개 이상 가져야 합니다.'}
 ,
-
   // ── 위자드 다중클래스 Wizard Multiclass ──
   {name_ko:'위자드 헌신', name_en:'Wizard Dedication', feat_level:2, prerequisites:'지능 +2', traits:['원형','다중클래스','헌신'], category:'archetype', summary:'주문서에 캔트립 4개를 기록하고, 2개를 준비하며, 비전 학파를 선택합니다.', desc:'위자드의 길로 발을 들입니다. 비전(아케인) 캔트립 <strong>4개</strong>가 담긴 주문서를 얻고, 매일 <strong>2개</strong>를 준비하여 시전할 수 있습니다. 비전 주문 명중 굴림과 주문 DC에 <strong>숙련</strong>됩니다. 핵심 능력치는 <strong>지능</strong>입니다. <strong>신비학</strong>에 숙련됩니다. 비전 학파를 하나 선택합니다.<br><strong>특수:</strong> 다른 헌신 재주를 선택하려면 먼저 위자드 원형 재주를 2개 이상 가져야 합니다.'}
 ,
@@ -2065,7 +2048,6 @@ const FEAT_DB = [
 ,
   {name_ko:'달인 위자드 주문시전', name_en:'Master Wizard Spellcasting', feat_level:18, prerequisites:'전문가 위자드 주문시전, 신비학 전설', traits:['원형'], category:'archetype', summary:'달인 주문시전 혜택을 얻어 고급 비전 주문 슬롯을 확보합니다.', desc:'위자드 원형의 달인 주문시전 혜택을 얻습니다. 비전(아케인) 주문 명중 굴림과 주문 DC가 <strong>달인</strong>으로 증가합니다. 20레벨에 5순환 주문 슬롯 1개를 얻습니다.'}
 ,
-
   // ══════════════════════════════════
   //  체인질링 혈통/재주
   // ══════════════════════════════════
@@ -2093,7 +2075,6 @@ const FEAT_DB = [
 ,
   {name_ko:'해그 마법', name_en:'Hag Magic', feat_level:13, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'4랭크 비학 선천 주문 하루 1회.', desc:'유산을 통해 해그의 마법을 복제할 수 있습니다. 의식에 사용 가능한 4랭크 이하의 일반 주문 1개를 선택합니다(모든 의식에서: 점술, 매혹, 투청, 투시, 꿈 메시지, 환영 변장). <strong>4랭크 비학 선천 주문으로 하루 1회</strong> 시전.'}
 ,
-
   // ══════════════════════════════════
   //  네피림 혈통/재주
   // ══════════════════════════════════
@@ -2141,7 +2122,6 @@ const FEAT_DB = [
 ,
   {name_ko:'영원한 날개', name_en:'Eternal Wings', feat_level:17, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'전제조건: 신성 날개. 날개가 이제 영구적인 몸의 일부. 하루 1회 10분이 아닌 항상 신성 날개의 효과.', desc:'<strong>전제조건:</strong> 신성 날개. 날개가 이제 영구적인 몸의 일부. 하루 1회 10분이 아닌 <strong>항상</strong> 신성 날개의 효과.'}
 ,
-
   // ══════════════════════════════════
   //  아이우바린 재주
   // ══════════════════════════════════
@@ -2153,7 +2133,6 @@ const FEAT_DB = [
 ,
   {name_ko:'초자연적 매력', name_en:'Supernatural Charm', feat_level:5, prerequisites:'아이우바린', traits:['아이우바린'], category:'ancestry', summary:'1랭크 매혹을 비전 선천 주문으로 하루 1회.', desc:'피 속의 엘프 마법이 더 매력적이거나 매혹적으로 만드는 힘으로 나타납니다. <em>1랭크 매혹(charm)</em>을 <strong>비전 선천 주문으로 하루 1회</strong> 시전.'}
 ,
-
   // ══════════════════════════════════
   //  드로마르 재주
   // ══════════════════════════════════
