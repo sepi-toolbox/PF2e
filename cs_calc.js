@@ -51,10 +51,10 @@ function syncAllProfRanks() {
   if (sensesEl) {
     const ancVision = state.selectedAncestry?.vision || '없음';
     const stateVision = state.vision || '없음';
-    // 더 좋은 시야를 사용 (암시야 > 저광 시야 > 없음)
-    const visionRank = {'암시야':2,'저광 시야':1,'없음':0};
+    // 더 좋은 시야를 사용 (상위 암시야 > 암시야 > 저광 시야 > 없음)
+    const visionRank = {'상위 암시야':3,'암시야':2,'저광 시야':1,'없음':0};
     const vision = (visionRank[stateVision]||0) >= (visionRank[ancVision]||0) ? stateVision : ancVision;
-    const visionMap = {'암시야':'암시야 (Darkvision)','저광 시야':'저광 시야 (Low-Light Vision)','없음':''};
+    const visionMap = {'상위 암시야':'상위 암시야 (Greater Darkvision)','암시야':'암시야 (Darkvision)','저광 시야':'저광 시야 (Low-Light Vision)','없음':''};
     sensesEl.textContent = visionMap[vision] || vision || '—';
   }
   // 저항 표시

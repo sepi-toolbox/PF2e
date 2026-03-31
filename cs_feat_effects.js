@@ -429,6 +429,9 @@ const FEAT_EFFECTS = {
   'Mountain Roots': {
     effects: [{type:'display_note', text:'밀기/넘어뜨리기에 대한 DC +2 상황 보너스. 강제 이동 거리 절반'}]
   },
+  'Defy the Darkness': {
+    effects: [{type:'vision_upgrade', vision:'상위 암시야'}]
+  },
   "Stonemason's Eye": {
     effects: [{type:'skill_trained', skill:'crafting'}]
   },
@@ -2903,6 +2906,10 @@ function _applyOneEffect(fb, eff, feat, level) {
       // 특정 무기에 직접 훈련됨(trained) 부여
       if (!fb.trainedWeapons) fb.trainedWeapons = [];
       if (eff.weapons) eff.weapons.forEach(w => { if (!fb.trainedWeapons.includes(w)) fb.trainedWeapons.push(w); });
+      break;
+    }
+    case 'vision_upgrade': {
+      state.vision = eff.vision;
       break;
     }
     case 'unburdened_iron': {
