@@ -1707,9 +1707,8 @@ function selectOption(item, row) {
           const prereqName = parts[0].replace(/\.$/,'');
           const prereqRest = parts.slice(1).join(' ');
           let dp = [`<b style="color:var(--accent);">선행:</b> ${prereqName}`];
-          if (prereqRest || mDesc) dp.push('');
           if (prereqRest) dp.push(prereqRest);
-          if (mDesc) { dp.push(''); dp.push(mDesc); }
+          if (mDesc) dp.push(mDesc);
           mDesc = dp.join('<br>');
         }
       }
@@ -1795,7 +1794,7 @@ function formatDescActions(text, item) {
   if (nameKo && typeof ACTION_DB !== 'undefined') {
     const dbAction = ACTION_DB.find(a => a.name_ko === nameKo || (nameEn && a.name_en === nameEn));
     if (dbAction) {
-      return (prefixText ? prefixText + '<br><br>' : '') +
+      return (prefixText ? prefixText + '<br>' : '') +
         _buildActionCard(dbAction.cost, dbAction.name_ko, dbAction.name_en, dbAction.traits||[], dbAction.summary);
     }
   }
@@ -1807,7 +1806,7 @@ function formatDescActions(text, item) {
     nameEn = nameEn || item.name_en || item.en || '';
   }
   const itemTraits = (!nameKo && item?.traits) ? item.traits : [];
-  return (prefixText ? prefixText + '<br><br>' : '') +
+  return (prefixText ? prefixText + '<br>' : '') +
     _buildActionCard(costKey, nameKo, nameEn, itemTraits, restText);
 }
 
@@ -1847,9 +1846,8 @@ function showItemDetail(item) {
       const prereqRest = parts.slice(1).join(' ');
       let descParts = [];
       descParts.push(`<b style="color:var(--accent);">선행:</b> ${prereqName}`);
-      if (prereqRest || desc) descParts.push('');
       if (prereqRest) descParts.push(prereqRest);
-      if (desc) { descParts.push(''); descParts.push(desc); }
+      if (desc) descParts.push(desc);
       desc = descParts.join('<br>');
     }
   } else if (item.rank !== undefined) {
