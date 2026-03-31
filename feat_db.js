@@ -952,4 +952,58 @@ const FEAT_DB = [
   {name_ko:'비전 확장', name_en:'Arcane Breadth', feat_level:8, prerequisites:'기초 위자드 주문시전', traits:['원형'], category:'archetype', summary:'추가 비전(아케인) 주문 슬롯을 얻습니다.', desc:'기초 위자드 주문시전으로 얻은 각 순환의 주문 슬롯이 <strong>1개에서 2개</strong>로 증가합니다.'},
   {name_ko:'전문가 위자드 주문시전', name_en:'Expert Wizard Spellcasting', feat_level:12, prerequisites:'기초 위자드 주문시전, 신비학 달인', traits:['원형'], category:'archetype', summary:'전문가 주문시전 혜택을 얻어 중급 비전 주문 슬롯을 확보합니다.', desc:'위자드 원형의 전문가 주문시전 혜택을 얻습니다. 비전(아케인) 주문 공격 굴림과 주문 DC가 <strong>전문가</strong>로 증가합니다. 14레벨에 3순환 주문 슬롯 1개, 16레벨에 4순환 주문 슬롯 1개를 얻습니다.'},
   {name_ko:'달인 위자드 주문시전', name_en:'Master Wizard Spellcasting', feat_level:18, prerequisites:'전문가 위자드 주문시전, 신비학 전설', traits:['원형'], category:'archetype', summary:'달인 주문시전 혜택을 얻어 고급 비전 주문 슬롯을 확보합니다.', desc:'위자드 원형의 달인 주문시전 혜택을 얻습니다. 비전(아케인) 주문 공격 굴림과 주문 DC가 <strong>달인</strong>으로 증가합니다. 20레벨에 5순환 주문 슬롯 1개를 얻습니다.'},
+
+  // ══════════════════════════════════
+  //  체인질링 혈통/재주
+  // ══════════════════════════════════
+  {name_ko:'소금물의 메이', name_en:'Brine May', feat_level:1, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'어머니가 바다 해그. 수영 운동 판정에서 성공 시 대성공. 수영 실패해도 가라앉지 않음.', desc:'어머니가 바다 해그로, 바다 초록이나 파란 눈 하나를 부여합니다. 수영 운동 판정에서 <strong>성공 시 대성공</strong>. 수영 행동에 성공하지 않고 턴을 물에서 끝내도 <strong>가라앉지 않습니다</strong>.'},
+  {name_ko:'어린 메이', name_en:'Callow May', feat_level:1, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'달콤한 해그의 자녀. 매력적인 거짓말쟁이 재주 획득. 기만으로 주도권 굴리면 미행동 적은 방심.', desc:'달콤한 해그에게 태어났으며 선명한 초록 눈. <strong>매력적인 거짓말쟁이(Charming Liar)</strong> 기술 재주를 얻습니다. 기만으로 주도권을 굴리면, 아직 행동하지 않은 적은 당신에게 <strong>방심(off-guard)</strong>.'},
+  {name_ko:'꿈의 메이', name_en:'Dream May', feat_level:1, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'뻐꾸기 해그의 자녀. 수면/꿈 효과 내성 +2. 밤새 HP 회복 2배, 소진/파멸 2만큼 감소.', desc:'뻐꾸기 해그의 자녀로 보라색이나 검은 눈. 수면 효과와 꿈 효과에 대한 내성에 <strong>+2 상황 보너스</strong>. 밤새 HP 회복 시 건강 수정치 × <strong>레벨의 2배</strong>를 회복하고, 소진/파멸 상태를 <strong>2만큼 줄입니다</strong>.'},
+  {name_ko:'쇳물의 메이', name_en:'Slag May', feat_level:1, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'철 해그의 자녀. 1d6 참격 발톱 비무장 공격 (냉철).', desc:'철 해그에게서 태어나 보라색이나 강철 회색 눈. 냉철(cold iron) 발톱. <strong>1d6 참격 피해</strong>의 발톱(claw) 비무장 공격. 격투 그룹, 비무장/조이기 특성, 냉철.'},
+  {name_ko:'체인질링 지식', name_en:'Changeling Lore', feat_level:1, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'기만과 비학에 숙련. 해그 지식 추가.', desc:'<strong>기만과 비학에 숙련</strong>(이미 숙련이면 다른 기술). <strong>해그 지식</strong>에 대한 추가 지식 재주.'},
+  {name_ko:'해그 발톱', name_en:'Hag Claws', feat_level:1, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'1d4 참격 발톱 비무장 공격 (민첩/기교).', desc:'<strong>1d4 참격 피해</strong>의 발톱 비무장 공격. 격투 그룹, 민첩/기교/비무장 특성. <strong>특수:</strong> 재훈련으로 나올 수 없습니다.'},
+  {name_ko:'해그의 시야', name_en:"Hag's Sight", feat_level:1, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'암시야(darkvision) 획득.', desc:'해그 어머니에게서 부여받은 초자연적 시야. <strong>암시야(darkvision)</strong>를 얻습니다.'},
+  {name_ko:'부름받은', name_en:'Called', feat_level:5, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'정신 효과 의지 내성 +1. 조종 효과 내성 성공 시 대성공.', desc:'정신 효과에 대한 의지 내성에 <strong>+1 상황 보너스</strong>. 조종 상태로 만드는 정신 효과에 대한 내성에서 <strong>성공 시 대성공</strong>.'},
+  {name_ko:'안개의 아이', name_en:'Mist Child', feat_level:5, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'은폐 시 단순 판정 DC 6, 숨겨짐 시 DC 12.', desc:'은폐(concealed) 시 단순 판정 DC가 <strong>6</strong>으로, 숨겨진(hidden) 시 <strong>12</strong>로 증가.'},
+  {name_ko:'저주받은 발톱', name_en:'Accursed Claws', feat_level:9, prerequisites:'체인질링, 발톱 비무장 공격', traits:['체인질링'], category:'ancestry', summary:'발톱 치명타 시 1d4 지속 정신 피해.', desc:'발톱 타격 <strong>치명타 시 1d4 지속 정신 피해</strong> 추가.'},
+  {name_ko:'비학 저항', name_en:'Occult Resistance', feat_level:9, prerequisites:'체인질링, 비학 전문가', traits:['체인질링'], category:'ancestry', summary:'비학 효과 내성 +1 상황 보너스.', desc:'비학 효과에 대한 모든 내성에 <strong>+1 상황 보너스</strong>.'},
+  {name_ko:'해그 마법', name_en:'Hag Magic', feat_level:13, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'4랭크 비학 선천 주문 하루 1회.', desc:'4랭크 이하의 일반 주문 1개를 선택 (점술, 매혹, 투청, 투시, 꿈 메시지, 환영 변장 등). <strong>4랭크 비학 선천 주문으로 하루 1회</strong> 시전.'},
+
+  // ══════════════════════════════════
+  //  네피림 혈통/재주
+  // ══════════════════════════════════
+  {name_ko:'천사혈', name_en:'Angelkin', feat_level:1, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'천사의 후손. 사회에 숙련, 천상어, 다국어 재주.', desc:'천사의 후손. <strong>사회에 숙련</strong>(이미 숙련이면 다른 기술). 천상어를 알고, <strong>다국어(Multilingual)</strong> 기술 재주를 얻습니다.'},
+  {name_ko:'암흑아', name_en:'Grimspawn', feat_level:1, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'아바돈의 데몬 혈통. 불굴(Diehard) 재주 획득.', desc:'아바돈의 영혼을 삼키는 데몬에서 혈통을 추적. <strong>불굴(Diehard)</strong> 일반 재주를 얻습니다.'},
+  {name_ko:'지옥아', name_en:'Hellspawn', feat_level:1, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'헬의 악마 후손. 기만·법률 지식 숙련. 거짓 간파 재주.', desc:'헬의 교활한 악마의 후손. <strong>기만과 법률 지식에 숙련</strong>(이미 기만 숙련이면 다른 기술). <strong>거짓 간파(Lie to Me)</strong> 기술 재주.'},
+  {name_ko:'법의 전달자', name_en:'Lawbringer', feat_level:1, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'아르콘 혈통. 감정 효과 내성 +1. 감정 내성 성공 시 대성공.', desc:'천국의 아르콘 혈통. 감정 효과에 대한 내성에 <strong>+1 상황 보너스</strong>. 감정 효과에 대한 내성에서 <strong>성공 시 대성공</strong>.'},
+  {name_ko:'뮤즈의 손길', name_en:'Musetouched', feat_level:1, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'아자타 혈통. 탈출 +1. 탈출 대실패→실패, 성공→대성공.', desc:'엘리시움의 아자타 혈통. 탈출(Escape)에 <strong>+1 상황 보너스</strong>. 탈출 판정에서 <strong>대실패 시 실패</strong>로, <strong>성공 시 대성공</strong>으로.'},
+  {name_ko:'나락아', name_en:'Pitborn', feat_level:1, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'외부 균열의 악마 혈통. 운동 숙련 + 운동 기술 재주 1개.', desc:'외부 균열의 악마 혈통. <strong>운동에 숙련</strong>(이미 숙련이면 다른 기술). 운동 숙련 전제조건이 있는 1레벨 일반 기술 재주 1개를 추가로 얻습니다.'},
+  {name_ko:'야수적 발현', name_en:'Bestial Manifestation', feat_level:1, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'차원 생물의 발톱/발굽/턱/꼬리 중 하나 선택.', desc:'발톱(1d4 참격, 민첩/기교/다용도 관통), 발굽(1d6 둔기, 기교), 턱(1d6 관통, 기교), 꼬리(1d4 둔기, 민첩/기교) 중 하나 선택. <strong>특수:</strong> 1레벨에서만, 재훈련 불가.'},
+  {name_ko:'후광', name_en:'Halo', feat_level:1, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'신성 빛 캔트립 효과로 빛을 발함.', desc:'빛과 선함의 후광이 신성 빛(divine light) 캔트립의 효과로 빛을 발합니다. 유지(Sustain)로 억제하거나 재개할 수 있습니다.'},
+  {name_ko:'네피림 눈', name_en:'Nephilim Eyes', feat_level:1, prerequisites:'네피림, 저광 시야', traits:['네피림'], category:'ancestry', summary:'암시야(darkvision) 획득.', desc:'<strong>암시야(darkvision)</strong>를 얻습니다.'},
+  {name_ko:'네피림 지식', name_en:'Nephilim Lore', feat_level:1, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'외교/위협 + 종교 숙련. 차원 관련 지식 재주.', desc:'<strong>외교 또는 위협</strong>과 <strong>종교에 숙련</strong>. 혈통에 연결된 차원에 대한 지식 하위 범주의 추가 지식 재주.'},
+  {name_ko:'재빠른 발굽', name_en:'Nimble Hooves', feat_level:1, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'이동 속도 +5피트.', desc:'발굽, 발목 날개 등이 이동을 가속합니다. 이동 속도 <strong>+5피트</strong>.'},
+  {name_ko:'축복받은 피', name_en:'Blessed Blood', feat_level:5, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'악마/언데드가 피를 마시면 1d6 영혼 피해. 성수 제작 +4.', desc:'악마, 언데드가 피를 마시거나 관통/참격 피해를 가하면 <strong>1d6 영혼 피해</strong>. 자기 피를 재료로 성수 제작 판정에 <strong>+4 상황 보너스</strong>.'},
+  {name_ko:'네피림 저항', name_en:'Nephilim Resistance', feat_level:5, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'산성/냉기/전기/화염/음파 중 하나에 저항 5.', desc:'산성, 냉기, 전기, 화염, 음파 피해 유형 중 하나를 선택. 해당 유형에 <strong>저항 5</strong>.'},
+  {name_ko:'많은 차원의 혈손', name_en:'Scion of Many Planes', feat_level:5, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'추가 네피림 혈통 재주 1개 획득.', desc:'아직 가지고 있지 않은 <strong>네피림 혈통 재주 1개</strong>를 선택하여 얻습니다.'},
+  {name_ko:'신성 날개', name_en:'Divine Wings', feat_level:9, prerequisites:'네피림', traits:['네피림'], category:'ancestry', summary:'[2행동] 하루 1회. 10분간 비행 속도 = 이동 속도.', desc:'<strong>빈도:</strong> 하루 1회. 등에서 마법 날개를 불러냅니다. <strong>10분간 이동 속도와 같은 비행 속도</strong>를 얻습니다.'},
+  {name_ko:'천상체 마법', name_en:'Celestial Magic', feat_level:9, prerequisites:'네피림, 천사혈/법의 전달자/뮤즈의 손길', traits:['네피림'], category:'ancestry', summary:'2랭크 신성 선천 주문 2개 하루 1회.', desc:'맑은 마음, 영원의 빛, 인간형 형태, 폭로의 빛, 생명 공유, 확실한 발놀림 중 <strong>2개를 선택</strong>. 각각 <strong>2랭크 신성 선천 주문으로 하루 1회</strong> 시전.'},
+  {name_ko:'악마 마법', name_en:'Fiendish Magic', feat_level:9, prerequisites:'네피림, 암흑아/나락아/지옥아', traits:['네피림'], category:'ancestry', summary:'2랭크 신성 선천 주문 2개 하루 1회.', desc:'변장 마법, 거짓 활력, 투명화, 투시, 분쇄, 편집증 중 <strong>2개를 선택</strong>. 각각 <strong>2랭크 신성 선천 주문으로 하루 1회</strong> 시전.'},
+  {name_ko:'천상체의 자비', name_en:'Celestial Mercy', feat_level:13, prerequisites:'네피림, 천상체 혈통', traits:['네피림'], category:'ancestry', summary:'고통 정화를 4랭크 신성 선천 주문으로 하루 2회.', desc:'<em>고통 정화(cleanse affliction)</em>를 <strong>4랭크 신성 선천 주문으로 하루 2회</strong> 시전.'},
+  {name_ko:'옆으로 미끄러지기', name_en:'Slip Sideways', feat_level:13, prerequisites:'네피림, 악마 혈통', traits:['네피림'], category:'ancestry', summary:'순간이동을 5랭크 신성 선천 주문으로 하루 1회.', desc:'<em>순간이동(translocate)</em>을 <strong>5랭크 신성 선천 주문으로 하루 1회</strong> 시전.'},
+  {name_ko:'네피림 동족 소환', name_en:'Summon Nephilim Kin', feat_level:13, prerequisites:'네피림, 아무 네피림 혈통 재주', traits:['네피림'], category:'ancestry', summary:'5랭크 소환 주문을 신성 선천 주문으로 하루 1회.', desc:'천상체 소환, 악마 소환 등 혈통에 적합한 <strong>5랭크 소환 주문을 신성 선천 주문으로 하루 1회</strong> 시전.'},
+
+  // ══════════════════════════════════
+  //  아이우바린 재주
+  // ══════════════════════════════════
+  {name_ko:'명예 획득', name_en:'Earned Glory', feat_level:1, prerequisites:'아이우바린', traits:['아이우바린'], category:'ancestry', summary:'공연 숙련. 인상적 공연 재주. 엘프에게 인상 만들기 대실패→실패.', desc:'<strong>공연에 숙련</strong>(이미 숙련이면 다른 기술). <strong>인상적 공연(Impressive Performance)</strong> 재주를 얻습니다. 엘프에게 공연으로 인상 만들기 시도 시 <strong>대실패를 굴리면 실패</strong>가 됩니다.'},
+  {name_ko:'엘프 선조 회귀', name_en:'Elf Atavism', feat_level:1, prerequisites:'아이우바린', traits:['아이우바린'], category:'ancestry', summary:'엘프 유산 혜택 획득. 1레벨 전용, 재훈련 불가.', desc:'엘프 부모나 조상의 <strong>엘프 유산의 혜택</strong>을 얻습니다. <strong>특수:</strong> 1레벨에서만, 재훈련 불가.'},
+  {name_ko:'모방 영감', name_en:'Inspire Imitation', feat_level:5, prerequisites:'아이우바린', traits:['아이우바린'], category:'ancestry', summary:'기술 대성공 시 같은 기술로 원조 반응 자동 자격.', desc:'기술 판정에 <strong>대성공</strong>할 때마다, 같은 기술로 아군을 돕기 위한 원조(Aid) 반응을 사용할 자격을 자동으로 얻으며, 준비 행동이 필요 없습니다.'},
+  {name_ko:'초자연적 매력', name_en:'Supernatural Charm', feat_level:5, prerequisites:'아이우바린', traits:['아이우바린'], category:'ancestry', summary:'1랭크 매혹을 비전 선천 주문으로 하루 1회.', desc:'<em>1랭크 매혹(charm)</em>을 <strong>비전 선천 주문으로 하루 1회</strong> 시전.'},
+
+  // ══════════════════════════════════
+  //  드로마르 재주
+  // ══════════════════════════════════
+  {name_ko:'괴물 평화주의자', name_en:'Monstrous Peacemaker', feat_level:1, prerequisites:'드로마르', traits:['드로마르'], category:'ancestry', summary:'비인간형 지적 생물/소외된 인간형에 외교 +1. 동기 감지에도 동일.', desc:'비인간형 지적 생물과 소외된 인간형(거인, 고블린, 코볼드, 오크 등)에 대한 외교 판정에 <strong>+1 상황 보너스</strong>. 이 생물들의 동기 감지에도 같은 보너스.'},
+  {name_ko:'오크 시야', name_en:'Orc Sight', feat_level:1, prerequisites:'드로마르, 저광 시야', traits:['드로마르'], category:'ancestry', summary:'암시야(darkvision) 획득. 1레벨 전용, 재훈련 불가.', desc:'오크의 피가 선조의 예리한 시야를 부여합니다. <strong>암시야(darkvision)</strong>를 얻습니다. <strong>특수:</strong> 1레벨에서만, 재훈련 불가.'},
 ];
