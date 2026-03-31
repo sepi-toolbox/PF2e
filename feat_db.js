@@ -795,7 +795,7 @@ const FEAT_DB = [
   // ── 드워프 Dwarf ──
   {name_ko:'드워프 지식', name_en:'Dwarven Lore', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'제작과 종교학에 숙련됨. 드워프 관련 지식(Lore)에 숙련됨.', desc:'오랜 드워프 문화와 역사에 정통합니다. <strong>제작</strong>과 <strong>종교학</strong>에 숙련됨을 얻고, <strong>드워프 지식(Dwarven Lore)</strong>에 숙련됨을 얻습니다.'},
   {name_ko:'산맥의 뿌리', name_en:'Mountain Roots', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'강제 이동 거리 절반 감소. 넘어뜨리기에 대한 반사/인내 DC +2.', desc:'산과 같은 안정감으로 밀어내기에 저항합니다. 넘어뜨리기(Trip) 시도에 대한 인내 또는 반사 DC에 +2 상황 보너스를 얻습니다. 강제 이동 거리가 절반으로 줄어듭니다.'},
-  {name_ko:'드워프 무기 친숙', name_en:'Dwarven Weapon Familiarity', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'전투 도끼, 전쟁 도끼, 전투 해머, 워해머에 숙련됨.', desc:'드워프 전통 무기에 숙련되어 있습니다. 전투 도끼, 전쟁 도끼, 전투 해머, 워해머에 숙련됨을 얻습니다. 이 무기는 드워프 재주에서 단순 무기로 취급됩니다.'},
+  {name_ko:'드워프 무기 친숙', name_en:'Dwarven Weapon Familiarity', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'전투 도끼, 픽, 워해머에 친숙. 군용→단순, 고급→군용 취급.', desc:'드워프 특성 무기와 전투 도끼, 픽(pick), 워해머에 친숙합니다 — <strong>군용 무기는 단순 무기</strong>로, <strong>고급 무기는 군용 무기</strong>로 취급합니다. 5레벨에서 치명 특성 효과 적용.'},
   {name_ko:'바위 달리기', name_en:'Rock Runner', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'바위/흙 험한 지형에서 이동 속도 페널티 없음.', desc:'바위나 흙으로 된 험한 지형을 쉽게 이동합니다. 바위/흙 험한 지형에서 이동 속도 페널티를 받지 않습니다.'},
   {name_ko:'가혹한 근면', name_en:'Unburdened Iron', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'방어구 착용으로 인한 이동 속도 감소를 5피트 줄임.', desc:'방어구의 무게에 익숙합니다. 방어구 착용으로 인한 이동 속도 감소를 5피트 줄입니다.'},
   {name_ko:'보복의 맹세', name_en:'Vengeful Hatred', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'선택한 적 유형에 대해 근접 무기 피해 +1. 전문화 시 +2.', desc:'오랜 적에 대한 드워프의 복수심. 특정 적 유형을 선택하고 해당 유형에 대한 근접 무기 피해에 +1 상황 보너스를 얻습니다.'},
@@ -805,7 +805,7 @@ const FEAT_DB = [
 
   // ── 엘프 Elf ──
   {name_ko:'엘프 지식', name_en:'Elven Lore', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'주문학과 자연학에 숙련됨. 엘프 관련 지식(Lore)에 숙련됨.', desc:'엘프 문화와 역사에 정통합니다. <strong>주문학</strong>과 <strong>자연학</strong>에 숙련됨을 얻고, <strong>엘프 지식(Elven Lore)</strong>에 숙련됨을 얻습니다.'},
-  {name_ko:'엘프 무기 친숙', name_en:'Elven Weapon Familiarity', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'롱보우, 쇼트보우, 롱소드, 레이피어에 숙련됨.', desc:'전통 엘프 무기에 숙련되어 있습니다. 롱보우, 컴포지트 롱보우, 롱소드, 레이피어, 쇼트보우, 컴포지트 쇼트보우에 숙련됨을 얻습니다.'},
+  {name_ko:'엘프 무기 친숙', name_en:'Elven Weapon Familiarity', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'장궁, 단궁, 합성 장궁, 합성 단궁, 롱소드, 레이피어에 친숙. 군용→단순 취급.', desc:'엘프 특성 무기와 장궁, 합성 장궁, 단궁, 합성 단궁, 롱소드, 레이피어에 친숙합니다 — <strong>군용 무기는 단순 무기</strong>로, <strong>고급 무기는 군용 무기</strong>로 취급합니다. 5레벨에서 치명 특성 효과 적용.'},
   {name_ko:'예지자', name_en:'Forlorn', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'감정 효과에 대한 내성 +1 상황 보너스.', desc:'긴 수명으로 많은 이별을 겪었습니다. 감정(Emotion) 효과에 대한 내성에 +1 상황 보너스를 얻습니다.'},
   {name_ko:'님블 엘프', name_en:'Nimble Elf', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'다른 엘프보다 더 날쌘합니다.', desc:'다른 엘프보다 더 날쌘합니다. 이동 속도가 5피트 증가합니다.'},
   {name_ko:'자발적 동맹', name_en:'Unwavering Mien', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'매혹/수면 효과 지속시간 절반. 정신 효과에 대한 내성 보너스.', desc:'엘프의 정신적 강인함으로 정신 조종에 저항합니다. 매혹/수면 효과의 지속시간이 절반으로 줄어듭니다.'},

@@ -430,7 +430,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'밀기/넘어뜨리기에 대한 DC +2 상황 보너스. 강제 이동 거리 절반'}]
   },
   'Dwarven Weapon Familiarity': {
-    effects: [{type:'display_note', text:'전투 도끼, 전쟁 도끼, 전투 해머, 워해머 숙련됨'}]
+    effects: [{type:'weapon_familiarity', weapons:['전투 도끼','픽','워해머']}]
   },
   'Rock Runner': {
     effects: [{type:'display_note', text:'바위/흙 험한 지형 이동 페널티 없음'}]
@@ -463,7 +463,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'skill_trained', skill:'arcana'}, {type:'skill_trained', skill:'nature'}, {type:'grant_lore', name:'엘프'}]
   },
   'Elven Weapon Familiarity': {
-    effects: [{type:'display_note', text:'롱보우, 쇼트보우, 롱소드, 레이피어 숙련됨'}]
+    effects: [{type:'weapon_familiarity', weapons:['장궁','단궁','합성 장궁','합성 단궁','롱소드','레이피어']}]
   },
   'Forlorn': {
     effects: [{type:'save_bonus', save:'will', value:1, bonus_type:'circumstance', condition:'감정 효과'}]
@@ -492,7 +492,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'페이와의 외교/지각에 +2 상황 보너스'}]
   },
   'Gnome Weapon Familiarity': {
-    effects: [{type:'display_note', text:'글레이브, 호쿡드 해머 숙련됨'}]
+    effects: [{type:'weapon_familiarity', weapons:['글레이브']}]
   },
   'Gnome Obsession': {
     choice: {
@@ -536,7 +536,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'험한 지형에서 은신 +1 상황 보너스'}]
   },
   'Goblin Weapon Familiarity': {
-    effects: [{type:'display_note', text:'도그슬라이서, 호스쵸퍼 숙련됨'}]
+    effects: [{type:'weapon_familiarity', weapons:[]}, {type:'display_note', text:'고블린 특성 무기에 친숙 (군용→단순, 고급→군용)'}]
   },
   'Tail Spin': {
     effects: [{type:'display_note', text:'넘어뜨리기(Trip)에 +2 상황 보너스'}]
@@ -556,7 +556,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'skill_trained', skill:'acrobatics'}, {type:'skill_trained', skill:'stealth'}, {type:'grant_lore', name:'하플링'}]
   },
   'Halfling Weapon Familiarity': {
-    effects: [{type:'display_note', text:'슬링, 쇼트소드, 핸드 크로스보우 숙련됨'}]
+    effects: [{type:'weapon_familiarity', weapons:['쇼트소드','하플링 투석 지팡이']}]
   },
   'Keen Eyes': {
     effects: [{type:'display_note', text:'은폐됨 DC 5→3, 숨겨짐 DC 11→9'}]
@@ -641,7 +641,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'skill_trained', skill:'athletics'}, {type:'skill_trained', skill:'survival'}, {type:'grant_lore', name:'오크'}]
   },
   'Orc Weapon Familiarity': {
-    effects: [{type:'display_note', text:'팔치온, 그레이트액스 숙련됨'}]
+    effects: [{type:'weapon_familiarity', weapons:['팔치온','그레이트액스']}]
   },
   'Orc Ferocity': {
     effects: [{type:'display_note', text:'[반응] HP 0 시 HP 1로 유지. 하루 1회'}]
@@ -2736,6 +2736,7 @@ function applyFeatEffects() {
     saves: {},           // {fort:{value:0,type:'',cond:''}}
     ac: 0,
     actions: [],
+    familiarWeapons: [],
     damage_notes: [],
     notes: [],
     cantrip_bonus: 0,
@@ -2845,6 +2846,11 @@ function _applyOneEffect(fb, eff, feat, level) {
     case 'proficiency':
       // 숙련도 변경 — syncAllProfRanks에서 처리 예정
       break;
+    case 'weapon_familiarity': {
+      // 해당 무기를 한 카테고리 낮춰 취급 (군용→단순)
+      if (eff.weapons) eff.weapons.forEach(w => { if (!fb.familiarWeapons.includes(w)) fb.familiarWeapons.push(w); });
+      break;
+    }
     case 'grant_lore': {
       // 빈 지식 슬롯을 찾아 이름 설정 + 숙련 부여
       const loreName = eff.name || '';
