@@ -424,7 +424,7 @@ const FEAT_EFFECTS = {
 
   // ── 드워프 ──
   'Dwarven Lore': {
-    effects: [{type:'skill_trained', skill:'crafting'}, {type:'skill_trained', skill:'religion'}]
+    effects: [{type:'skill_trained', skill:'crafting'}, {type:'skill_trained', skill:'religion'}, {type:'grant_lore', name:'드워프'}]
   },
   'Mountain Roots': {
     effects: [{type:'display_note', text:'밀기/넘어뜨리기에 대한 DC +2 상황 보너스. 강제 이동 거리 절반'}]
@@ -460,7 +460,7 @@ const FEAT_EFFECTS = {
 
   // ── 엘프 ──
   'Elven Lore': {
-    effects: [{type:'skill_trained', skill:'arcana'}, {type:'skill_trained', skill:'nature'}]
+    effects: [{type:'skill_trained', skill:'arcana'}, {type:'skill_trained', skill:'nature'}, {type:'grant_lore', name:'엘프'}]
   },
   'Elven Weapon Familiarity': {
     effects: [{type:'display_note', text:'롱보우, 쇼트보우, 롱소드, 레이피어 숙련됨'}]
@@ -553,7 +553,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[반응] 기술/내성 실패 시 1회 재굴림. 하루 1회'}]
   },
   'Halfling Lore': {
-    effects: [{type:'skill_trained', skill:'acrobatics'}, {type:'skill_trained', skill:'stealth'}]
+    effects: [{type:'skill_trained', skill:'acrobatics'}, {type:'skill_trained', skill:'stealth'}, {type:'grant_lore', name:'하플링'}]
   },
   'Halfling Weapon Familiarity': {
     effects: [{type:'display_note', text:'슬링, 쇼트소드, 핸드 크로스보우 숙련됨'}]
@@ -638,7 +638,7 @@ const FEAT_EFFECTS = {
 
   // ── 오크 ──
   'Orc Lore': {
-    effects: [{type:'skill_trained', skill:'athletics'}, {type:'skill_trained', skill:'survival'}]
+    effects: [{type:'skill_trained', skill:'athletics'}, {type:'skill_trained', skill:'survival'}, {type:'grant_lore', name:'오크'}]
   },
   'Orc Weapon Familiarity': {
     effects: [{type:'display_note', text:'팔치온, 그레이트액스 숙련됨'}]
@@ -664,7 +664,7 @@ const FEAT_EFFECTS = {
 
   // ── 체인질링 ──
   'Changeling Lore': {
-    effects: [{type:'skill_trained', skill:'deception'}, {type:'skill_trained', skill:'occultism'}]
+    effects: [{type:'skill_trained', skill:'deception'}, {type:'skill_trained', skill:'occultism'}, {type:'grant_lore', name:'해그'}]
   },
   "Hag's Sight": {
     effects: [{type:'display_note', text:'암시야(darkvision) 획득'}]
@@ -681,7 +681,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'skill_trained', skill:'athletics'}, {type:'display_note', text:'운동 숙련 전제조건 1레벨 기술 재주 1개 추가'}]
   },
   'Nephilim Lore': {
-    effects: [{type:'skill_trained', skill:'religion'}, {type:'display_note', text:'외교 또는 위협 숙련 (선택). 차원 관련 지식 재주'}]
+    effects: [{type:'skill_trained', skill:'religion'}, {type:'grant_lore', name:'차원'}, {type:'display_note', text:'외교 또는 위협 숙련 (선택)'}]
   },
   'Nephilim Eyes': {
     effects: [{type:'display_note', text:'암시야(darkvision) 획득'}]
@@ -2845,6 +2845,33 @@ function _applyOneEffect(fb, eff, feat, level) {
     case 'proficiency':
       // 숙련도 변경 — syncAllProfRanks에서 처리 예정
       break;
+    case 'grant_lore': {
+      // 빈 지식 슬롯을 찾아 이름 설정 + 숙련 부여
+      const loreName = eff.name || '';
+      if (!loreName) break;
+      const slots = ['lore1','lore2'];
+      for (const sid of slots) {
+        const nameEl = document.getElementById('lore-name-'+sid);
+        const profEl = document.getElementById('sk-prof-'+sid);
+        if (!nameEl) continue;
+        // 이미 같은 이름이 설정되어 있으면 숙련만 확보
+        if (nameEl.value === loreName) {
+          if (profEl && parseInt(profEl.value||0) < 2) profEl.value = '2';
+          if (!fb.skills[sid]) fb.skills[sid] = {min_rank:0, bonus:0};
+          fb.skills[sid].min_rank = Math.max(fb.skills[sid].min_rank, 2);
+          break;
+        }
+        // 빈 슬롯이면 이름 설정
+        if (!nameEl.value) {
+          nameEl.value = loreName;
+          if (profEl && parseInt(profEl.value||0) < 2) profEl.value = '2';
+          if (!fb.skills[sid]) fb.skills[sid] = {min_rank:0, bonus:0};
+          fb.skills[sid].min_rank = Math.max(fb.skills[sid].min_rank, 2);
+          break;
+        }
+      }
+      break;
+    }
   }
 }
 
