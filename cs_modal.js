@@ -2419,10 +2419,10 @@ function applyHeritageEffects(h) {
     else if (curVision === '암시야') { /* 이미 암시야 */ }
     else state.vision = '저광 시야';
   } else if (h.vision) {
-    // 특정 시야 부여 (저광 시야 등)
+    // 특정 시야 부여 — 현재보다 좋으면 적용
     const curVision = state.vision || state.selectedAncestry?.vision || '없음';
-    if (curVision === '없음' || !curVision) state.vision = h.vision;
-    // 이미 같거나 더 좋은 시야면 유지
+    const visionRank = {'암시야':2,'저광 시야':1,'없음':0};
+    if ((visionRank[h.vision]||0) > (visionRank[curVision]||0)) state.vision = h.vision;
   }
   recalcAll();
   renderFeats();
