@@ -1699,7 +1699,9 @@ function filterFeats() {
     // class → 선택된 클래스 id
     if (ft === 'class' && state.selectedClass) cat = state.selectedClass.id;
 
+    console.log('[filterFeats] ft:', ft, 'growthPending:', !!growthPendingKey);
     return FEAT_DB.filter(f => {
+      if (!f) return false;
       if (q && !f.name_ko.includes(q) && !(f.name_en||'').toLowerCase().includes(q) && !(f.summary||'').includes(q)) return false;
       if (f.feat_level > maxLv) return false;
       // 선행 조건 체크
@@ -1724,7 +1726,8 @@ function filterFeats() {
               if (!ancTraits.includes(t)) ancTraits.push(t);
             }
           });
-          return f.traits && f.traits.some(t => ancTraits.includes(t));
+          const matched = f.traits && f.traits.some(t => ancTraits.includes(t));
+          return matched;
         }
         return true;
       }
