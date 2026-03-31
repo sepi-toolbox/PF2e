@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=72"></script>
-<script src="feat_db.js?v=72"></script>
-<script src="SPELL_DB.js?v=72"></script>
-<script src="class_features_db.js?v=72"></script>
+<script src="equipment_db.js?v=73"></script>
+<script src="feat_db.js?v=73"></script>
+<script src="SPELL_DB.js?v=73"></script>
+<script src="class_features_db.js?v=73"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1266,6 +1266,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
       </div>
       <input type="hidden" id="dying" value="0">
       <input type="hidden" id="wounded" value="0">
+      <!-- 저항/약점 -->
+      <div id="resistances-display" style="display:none;padding:4px 8px;margin-top:2px;">
+        <div style="font-size:9px;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;">저항 Resistances</div>
+        <div id="resistances-list" style="display:flex;flex-wrap:wrap;gap:4px;"></div>
+      </div>
       <hr class="divider">
       <!-- 내성 굴림 -->
       <div class="stat-row">
@@ -1674,12 +1679,12 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=72"></script>
-<script src="cs_calc.js?v=72"></script>
-<script src="cs_ui.js?v=72"></script>
-<script src="cs_modal.js?v=72"></script>
-<script src="cs_feat_effects.js?v=72"></script>
-<script src="cs_save.js?v=72"></script>
+<script src="cs_data.js?v=73"></script>
+<script src="cs_calc.js?v=73"></script>
+<script src="cs_ui.js?v=73"></script>
+<script src="cs_modal.js?v=73"></script>
+<script src="cs_feat_effects.js?v=73"></script>
+<script src="cs_save.js?v=73"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->

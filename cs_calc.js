@@ -56,6 +56,8 @@ function syncAllProfRanks() {
     const visionMap = {'암시야':'암시야 (Darkvision)','저광 시야':'저광 시야 (Low-Light Vision)','없음':''};
     sensesEl.textContent = visionMap[vision] || vision || '—';
   }
+  // 저항 표시
+  renderResistances();
   // 추가 속도 표시
   renderExtraSpeeds();
   // 방패 정보 표시
@@ -992,6 +994,37 @@ function updateShieldGauge() {
     if (cur <= bt && shieldHp > 0) fill.style.background = 'linear-gradient(90deg,#6a1a1a,#a03030)';
     else fill.style.background = 'linear-gradient(90deg,#4a3a1a,#8a6a2a)';
   }
+}
+
+function renderResistances() {
+  const wrap = document.getElementById('resistances-display');
+  const list = document.getElementById('resistances-list');
+  if (!wrap || !list) return;
+
+  const resistances = [];
+  const lv = getLevel();
+  const halfLv = Math.max(1, Math.floor(lv / 2));
+
+  // 유산에서 저항 가져오기
+  const heritage = state.selectedHeritage;
+  if (heritage?.resistances) {
+    heritage.resistances.forEach(r => {
+      const val = r.formula === 'half' ? halfLv : (r.value || 0);
+      resistances.push({type: r.type, value: val, source: heritage.name_ko});
+    });
+  }
+
+  // FEAT_EFFECTS에서 저항 가져오기 (state._fb에 저장된 것)
+  // 향후 확장 가능
+
+  if (resistances.length === 0) {
+    wrap.style.display = 'none';
+    return;
+  }
+  wrap.style.display = '';
+  list.innerHTML = resistances.map(r =>
+    `<span class="tag" style="font-size:10px;background:var(--bg4);border:1px solid var(--border2);">🛡 ${r.type} ${r.value}</span>`
+  ).join('');
 }
 
 function recalcBulk() {
