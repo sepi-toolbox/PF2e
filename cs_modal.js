@@ -2129,8 +2129,10 @@ function confirmModal() {
       growthPendingFeatType = null;
       // 선택이 필요한 재주면 선택 모달 열기
       if (typeof checkFeatChoice === 'function' && checkFeatChoice(featName, type, state.feats[type].length - 1)) {
+        recalcAll();
         renderGrowthPlan();
         renderFeats();
+        save();
         return; // 선택 모달이 열림 → closeModal은 선택 완료 후
       }
       renderGrowthPlan();
@@ -2138,10 +2140,13 @@ function confirmModal() {
       state.feats[type].push({name: featName, level: featLevel});
       // 선택이 필요한 재주면 선택 모달 열기
       if (typeof checkFeatChoice === 'function' && checkFeatChoice(featName, type, state.feats[type].length - 1)) {
+        recalcAll();
         renderFeats();
+        save();
         return;
       }
     }
+    recalcAll();
     renderFeats();
   } else if (modalType==='spell') {
     const sp = modalSelected;
