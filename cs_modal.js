@@ -1040,7 +1040,7 @@ function renderGrowthPlan() {
         if (cid === 'witch' && state.selectedSubclass && typeof PATRON_TRADITION !== 'undefined') {
           const trad = PATRON_TRADITION[state.selectedSubclass.id];
           if (trad) {
-            const tradNames = {arcane:'비전',divine:'신성',occult:'비의',primal:'원시'};
+            const tradNames = {arcane:'비전',divine:'신성',occult:'오컬트',primal:'원시'};
             html += `<div class="growth-slot filled" style="cursor:default;">
               <div class="growth-slot-icon">🔮</div>
               <div class="growth-slot-body">
@@ -2637,12 +2637,12 @@ function applyHeritageEffects(h) {
   // 선천적 주문 부여
   if (h.innateSpells) {
     state.spells.innate = (state.spells.innate||[]).filter(s => !s._heritage);
-    const needsChoice = h.innateSpells.some(sp => sp.tradition === '근원' || sp.tradition === '선택');
+    const needsChoice = h.innateSpells.some(sp => sp.tradition === '원시' || sp.tradition === '선택');
     if (needsChoice) {
       // 캔트립 선택 모달 열기
       const sp = h.innateSpells[0];
       const trad = sp.tradition === '선택' ? 'any' : 'primal';
-      const label = sp.tradition === '선택' ? '전통 캔트립 선택 (비전/신성/비의 중)' : '근원(Primal) 캔트립 선택';
+      const label = sp.tradition === '선택' ? '전통 캔트립 선택 (비전/신성/오컬트 중)' : '원시(Primal) 캔트립 선택';
       // 가짜 재주로 choice 모달 호출
       if (!state.feats.other) state.feats.other = [];
       const tempFeatName = h.name_ko + ' 캔트립';

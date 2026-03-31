@@ -16,7 +16,7 @@ const CLASSES = [
   {id:'druid', name:'드루이드', en:'Druid', hp:8,
    keyAttr:'지혜 (WIS)', tradition:'primal', casting:'prepared',
    saves:{fort:'숙련',ref:'숙련',will:'전문가'}, perc:'숙련',
-   desc:'자연의 힘은 저항할 수 없습니다. 수 분 만에 가장 견고한 요새도 무너뜨려 잔해로, 재로, 눈사태 아래로, 또는 파도 아래로 삼킬 수 있습니다. 자연을 존중하는 이에게 끝없는 풍요와 숨 막히는 장관을 줄 수 있고 — 가볍게 여기는 이에게는 고통스러운 죽음을. 당신은 자연의 부름을 듣는 자 중 하나입니다.<br><br><strong>전투 조우 중...</strong> 자연의 힘을 불러내 적을 물리치고 아군을 보호합니다. 근원 주문을 시전하여 자신과 친구를 보호하고, 상처를 치유하고, 치명적인 동물을 소환하여 편에 세우거나, 강력한 원소 마법을 발동하거나, 무시무시한 야수로 변신합니다.<br><br><strong>사회적 조우 중...</strong> 자연 세계에 가장 좋은 것뿐 아니라, 그 안의 생물이 조화와 평화 속에 살 수 있는 해결책을 찾으며 균형과 이성적 접근을 대변합니다. 양측이 진정으로 필요한 것을 얻을 수 있는 타협을 자주 제안합니다.<br><br><strong>탐험 중...</strong> 적을 추적하고, 야생을 탐색하며, 주문으로 마법 기운을 감지합니다. 야생 동물에게 정찰 능력을 빌려달라고 할 수도 있고, 뛰어난 감각과 정찰 능력으로 그룹을 돕습니다.<br><br><strong>휴식 중...</strong> 마법 물건이나 물약을 제작할 수 있습니다. 또는 자연과의 유대로 야생 지역을 돌보고, 문명이 초래한 상처를 치유하며, 지속 가능한 농업과 축산 기술을 가르쳐 자연의 균형을 해치지 않고 생활할 수 있게 합니다.<br><br><strong>당신은 아마도...</strong><br>• 자연의 힘에 대한 깊고 의미 있는 존경심을 가지고 있습니다.<br>• 끊임없이 자연 세계에 경외감을 느끼며, 다른 이와 나누고 싶지만 그들의 영향을 경계합니다.<br>• 식물과 동물을 동맹으로 대하며, 목표 달성을 위해 함께 일합니다.<br><br><strong>다른 사람들은 아마도...</strong><br>• 당신을 자연의 대변자로 보며, 자연을 통제할 수 있다고 확신합니다.<br>• 사회와 도시를 피하는 은둔자라고 가정합니다.<br>• 사제와 비슷한 신비주의자로 여기지만, 자연의 힘에만 응답한다고 봅니다.',
+   desc:'자연의 힘은 저항할 수 없습니다. 수 분 만에 가장 견고한 요새도 무너뜨려 잔해로, 재로, 눈사태 아래로, 또는 파도 아래로 삼킬 수 있습니다. 자연을 존중하는 이에게 끝없는 풍요와 숨 막히는 장관을 줄 수 있고 — 가볍게 여기는 이에게는 고통스러운 죽음을. 당신은 자연의 부름을 듣는 자 중 하나입니다.<br><br><strong>전투 조우 중...</strong> 자연의 힘을 불러내 적을 물리치고 아군을 보호합니다. 원시 주문을 시전하여 자신과 친구를 보호하고, 상처를 치유하고, 치명적인 동물을 소환하여 편에 세우거나, 강력한 원소 마법을 발동하거나, 무시무시한 야수로 변신합니다.<br><br><strong>사회적 조우 중...</strong> 자연 세계에 가장 좋은 것뿐 아니라, 그 안의 생물이 조화와 평화 속에 살 수 있는 해결책을 찾으며 균형과 이성적 접근을 대변합니다. 양측이 진정으로 필요한 것을 얻을 수 있는 타협을 자주 제안합니다.<br><br><strong>탐험 중...</strong> 적을 추적하고, 야생을 탐색하며, 주문으로 마법 기운을 감지합니다. 야생 동물에게 정찰 능력을 빌려달라고 할 수도 있고, 뛰어난 감각과 정찰 능력으로 그룹을 돕습니다.<br><br><strong>휴식 중...</strong> 마법 물건이나 물약을 제작할 수 있습니다. 또는 자연과의 유대로 야생 지역을 돌보고, 문명이 초래한 상처를 치유하며, 지속 가능한 농업과 축산 기술을 가르쳐 자연의 균형을 해치지 않고 생활할 수 있게 합니다.<br><br><strong>당신은 아마도...</strong><br>• 자연의 힘에 대한 깊고 의미 있는 존경심을 가지고 있습니다.<br>• 끊임없이 자연 세계에 경외감을 느끼며, 다른 이와 나누고 싶지만 그들의 영향을 경계합니다.<br>• 식물과 동물을 동맹으로 대하며, 목표 달성을 위해 함께 일합니다.<br><br><strong>다른 사람들은 아마도...</strong><br>• 당신을 자연의 대변자로 보며, 자연을 통제할 수 있다고 확신합니다.<br>• 사회와 도시를 피하는 은둔자라고 가정합니다.<br>• 사제와 비슷한 신비주의자로 여기지만, 자연의 힘에만 응답한다고 봅니다.',
    skills:'자연 + 2+INT개'},
   {id:'fighter', name:'파이터', en:'Fighter', hp:10,
    keyAttr:'근력 또는 민첩 (STR/DEX)', tradition:null, casting:null,
@@ -75,7 +75,7 @@ const SUBCLASS_DB = [
   {id:'order-wave',   class_id:'druid', subclass_type:'교단', name_ko:'물결', name_en:'Wave',
    summary:'물과 얼음의 힘을 다루며 해류와 조류의 수호자입니다.<br><br><b>결사 기술:</b> 자연<br><b>드루이드 재주:</b> 수중 호흡<br><b>결사 주문:</b> <em>물의 채찍(Tidal Surge)</em><br><b>금기:</b> 수원 오염이나 수생 생물에 대한 무자비한 행위.'},
   {id:'order-wild',   class_id:'druid', subclass_type:'교단', name_ko:'야생', name_en:'Untamed',
-   summary:'자연 세계의 통제할 수 없는 부름이 몸을 관통합니다. 야생 동물에 의해 자랐거나, 도시에서 자란 후 도시의 인위를 거부했을 수 있습니다. 근원 마법이 야생 생물의 형태를 입을 능력을 부여합니다.<br><strong>결사 기술:</strong> 위협 | <strong>드루이드 재주:</strong> 야생 형태 | <strong>결사 주문:</strong> <em>야생 변이(untamed shift)</em><br>'},
+   summary:'자연 세계의 통제할 수 없는 부름이 몸을 관통합니다. 야생 동물에 의해 자랐거나, 도시에서 자란 후 도시의 인위를 거부했을 수 있습니다. 원시 마법이 야생 생물의 형태를 입을 능력을 부여합니다.<br><strong>결사 기술:</strong> 위협 | <strong>드루이드 재주:</strong> 야생 형태 | <strong>결사 주문:</strong> <em>야생 변이(untamed shift)</em><br>'},
 
   // ── 레인저 사냥 방식 ──
   {id:'edge-flurry',    class_id:'ranger', subclass_type:'사냥 방식', name_ko:'연타',   name_en:'Flurry',
@@ -102,10 +102,10 @@ const SUBCLASS_DB = [
    summary:'남의 것을 가져가는 짜릿함을 즐깁니다. 기교 근접 무기나 비무장 공격으로 공격 시 피해 굴림에 근력 대신 <strong>민첩 수정치를 추가</strong>.<br><strong>기술:</strong> 도둑질.'},
 
   // ── 위치 후원자 ──
-  {id:'patron-curse',  class_id:'witch', subclass_type:'후원자', name_ko:'저주',   name_en:'Curse',   summary:'저주의 힘을 부여하는 후원자. 비의(Occult) 전통. 주술: 악의 눈(Evil Eye). 저주·조종 관련 주문 확장.'},
-  {id:'patron-fate',   class_id:'witch', subclass_type:'후원자', name_ko:'운명',   name_en:'Fate',    summary:'운명의 실을 다루는 후원자. 비의(Occult) 전통. 주술: 운명의 실(Thread of Fate). 예지 관련 주문 확장.'},
+  {id:'patron-curse',  class_id:'witch', subclass_type:'후원자', name_ko:'저주',   name_en:'Curse',   summary:'저주의 힘을 부여하는 후원자. 오컬트(Occult) 전통. 주술: 악의 눈(Evil Eye). 저주·조종 관련 주문 확장.'},
+  {id:'patron-fate',   class_id:'witch', subclass_type:'후원자', name_ko:'운명',   name_en:'Fate',    summary:'운명의 실을 다루는 후원자. 오컬트(Occult) 전통. 주술: 운명의 실(Thread of Fate). 예지 관련 주문 확장.'},
   {id:'patron-fervor', class_id:'witch', subclass_type:'후원자', name_ko:'열정',   name_en:'Fervor',  summary:'신성한 헌신의 후원자. 신성(Divine) 전통. 주술: 정화의 불꽃(Stoke the Heart). 치유·강화 관련 주문.'},
-  {id:'patron-night',  class_id:'witch', subclass_type:'후원자', name_ko:'밤',     name_en:'Night',   summary:'어둠과 꿈의 후원자. 비의(Occult) 전통. 주술: 마녀의 포옹(Witch\'s Cauldron). 환상·공포 관련 주문.'},
+  {id:'patron-night',  class_id:'witch', subclass_type:'후원자', name_ko:'밤',     name_en:'Night',   summary:'어둠과 꿈의 후원자. 오컬트(Occult) 전통. 주술: 마녀의 포옹(Witch\'s Cauldron). 환상·공포 관련 주문.'},
   {id:'patron-rune',   class_id:'witch', subclass_type:'후원자', name_ko:'룬',     name_en:'Rune',    summary:'룬 마법의 후원자. 신비(Arcane) 전통. 주술: 룬 저주(Pact of Doom). 변환·방호 관련 주문.'},
   {id:'patron-wild',   class_id:'witch', subclass_type:'후원자', name_ko:'야생',   name_en:'Wild',    summary:'자연 야생의 후원자. 원시(Primal) 전통. 주술: 야생의 분노(Wilding Word). 자연·동물 관련 주문.'},
 
@@ -155,7 +155,7 @@ const ANCESTRIES = [
   {id:'leshy', name:'레쉬', en:'Leshy', hp:8, size:'소형', speed:25,
    boosts:['건강(CON)','지혜(WIS)','자유'], flaws:['지능(INT)'],
    traits:['레쉬','식물'], vision:'저광 시야',
-   desc:'레시는 일시적으로 물리적 형태를 부여받은 불멸의 자연 영혼입니다. 환경의 수호자이자 사자(使者)인 레시는 숙련된 드루이드나 다른 근원 마법의 대가가 적절한 그릇을 만드는 의식을 행하고, 영혼이 임시 거처로 그 그릇을 선택할 때 "태어납니다". 레시는 의식이 끝나는 순간부터 자립할 수 있지만, 창조자와 평생의 유대를 유지하는 것도 드물지 않습니다. 많은 레시가 물리적 세계와 상호작용하는 기회를 즐깁니다. 대부분의 레시 영혼은 고대이지만, 과거의 삶을 거의 기억하지 못하며 새 삶을 다시 한번 세계의 경이를 경험할 기회로 봅니다.<br><strong>당신은 아마도...</strong><br>• 영역을 떠날 수 없는 자연의 수호자를 위한 여행 대리인 역할을 합니다.<br>• 문명이 자연과 협력하고 생태학적으로 친화적인 방식으로 도시를 건설하도록 격려합니다.<br>• 영적 기원 때문에 당신을 호기심의 대상으로 봅니다.<br>• 자연에 대해서만 알고 문명과 사회에 익숙하지 않다고 가정합니다.<br><strong>다른 사람들은 아마도...</strong><br>• 영적 기원 때문에 당신을 호기심의 대상으로 봅니다.<br>• 자연에 대해서만 알고 문명과 사회에 익숙하지 않다고 가정합니다.<br><strong>신체 묘사</strong><br>레시는 그릇을 만드는 데 사용된 재료만큼이나 다양하며, 보통 다양한 식물이나 균류의 기이한 혼합체로 나타납니다. 몸은 어렴풋이 인간형이며, 만들어진 식물이나 균류의 수많은 특성을 가집니다. 일반적인 레시는 약 90cm(3피트) 키입니다. 레시는 성인으로 삶을 시작하며 나이를 먹지 않습니다.<br><strong>사회</strong><br>대부분의 레시에게 가족이라는 개념은 출생의 문제가 아니라 충성과 우정의 유대로 결정됩니다. 레시는 헌신적인 동맹이지만, 자연을 황폐화하려는 자에 대한 관용은 거의 없습니다. 신뢰를 얻은 누군가를 기꺼이 가족으로 받아들이지만, 가족 구성원이 대가로 그들과 자연의 보호 대상을 돌봐주기를 기대합니다.<br><strong>신앙</strong><br>레시의 신앙은 일반적으로 자연 세계에 집중됩니다. 철학적 성향이 있는 이는 녹색 신앙(Green Faith)을 향하며, 고즈레(Gozreh)가 신앙심 있는 레시 사이에서 가장 인기 있는 신격입니다. 일부 레시는 강력한 자연 영혼인 녹색 남자(green men)도 숭배합니다.',
+   desc:'레시는 일시적으로 물리적 형태를 부여받은 불멸의 자연 영혼입니다. 환경의 수호자이자 사자(使者)인 레시는 숙련된 드루이드나 다른 원시 마법의 대가가 적절한 그릇을 만드는 의식을 행하고, 영혼이 임시 거처로 그 그릇을 선택할 때 "태어납니다". 레시는 의식이 끝나는 순간부터 자립할 수 있지만, 창조자와 평생의 유대를 유지하는 것도 드물지 않습니다. 많은 레시가 물리적 세계와 상호작용하는 기회를 즐깁니다. 대부분의 레시 영혼은 고대이지만, 과거의 삶을 거의 기억하지 못하며 새 삶을 다시 한번 세계의 경이를 경험할 기회로 봅니다.<br><strong>당신은 아마도...</strong><br>• 영역을 떠날 수 없는 자연의 수호자를 위한 여행 대리인 역할을 합니다.<br>• 문명이 자연과 협력하고 생태학적으로 친화적인 방식으로 도시를 건설하도록 격려합니다.<br>• 영적 기원 때문에 당신을 호기심의 대상으로 봅니다.<br>• 자연에 대해서만 알고 문명과 사회에 익숙하지 않다고 가정합니다.<br><strong>다른 사람들은 아마도...</strong><br>• 영적 기원 때문에 당신을 호기심의 대상으로 봅니다.<br>• 자연에 대해서만 알고 문명과 사회에 익숙하지 않다고 가정합니다.<br><strong>신체 묘사</strong><br>레시는 그릇을 만드는 데 사용된 재료만큼이나 다양하며, 보통 다양한 식물이나 균류의 기이한 혼합체로 나타납니다. 몸은 어렴풋이 인간형이며, 만들어진 식물이나 균류의 수많은 특성을 가집니다. 일반적인 레시는 약 90cm(3피트) 키입니다. 레시는 성인으로 삶을 시작하며 나이를 먹지 않습니다.<br><strong>사회</strong><br>대부분의 레시에게 가족이라는 개념은 출생의 문제가 아니라 충성과 우정의 유대로 결정됩니다. 레시는 헌신적인 동맹이지만, 자연을 황폐화하려는 자에 대한 관용은 거의 없습니다. 신뢰를 얻은 누군가를 기꺼이 가족으로 받아들이지만, 가족 구성원이 대가로 그들과 자연의 보호 대상을 돌봐주기를 기대합니다.<br><strong>신앙</strong><br>레시의 신앙은 일반적으로 자연 세계에 집중됩니다. 철학적 성향이 있는 이는 녹색 신앙(Green Faith)을 향하며, 고즈레(Gozreh)가 신앙심 있는 레시 사이에서 가장 인기 있는 신격입니다. 일부 레시는 강력한 자연 영혼인 녹색 남자(green men)도 숭배합니다.',
    specials:['저광 시야','식물 영양: 보통 식비 불필요']},
   {id:'orc', name:'오크', en:'Orc', hp:10, size:'중형', speed:25,
    boosts:['자유','자유'], flaws:[],
@@ -223,10 +223,10 @@ const HERITAGE_DB = [
   {id:'woodland-elf',name_ko:'삼림 엘프',name_en:'Woodland Elf',ancestry:'elf',summary:'숲, 깊은 정글, 또는 유사한 환경에서의 삶에 적응하여 나무를 오르고 잎사귀를 활용하는 법을 알고 있습니다. 나무, 덩굴, 기타 식물을 오를 때, <strong>성공 시 절반 속도로, 대성공 시 전체 속도</strong>로 이동합니다(빠른 등반(Quick Climb)이 있으면 성공 시에도 전체 속도). 등반 속도가 있으면 영향받지 않습니다.<br>숲 지형 내에 있을 때, 장애물 뒤에 있지 않더라도 항상 <strong>엄폐 행동(Take Cover)</strong>을 사용하여 엄폐를 얻을 수 있습니다.'},
   // 노움
   {id:'chameleon-gnome',name_ko:'카멜레온 노움',name_en:'Chameleon Gnome',ancestry:'gnome',summary:'머리카락과 피부의 색이 변할 수 있으며, 아마도 첫 번째 세계의 영향이나 남아있는 환영 효과 때문입니다. 생동감과 정확한 색상을 천천히 바꿀 수 있고, 몸 전체에서 다르게 하여 패턴이나 다른 화려한 디자인을 만들 수 있습니다. 사소한 국소 변화에는 <strong>단일 행동</strong>이, 몸 전체의 극적인 변화에는 <strong>최대 1시간</strong>이 걸립니다. 잠자는 동안 색상이 꿈에 맞춰 저절로 변하여, 매일 아침 독특한 색상이 됩니다.<br>색상이 환경과 대략 유사한 지역(예: 숲에서 숲의 초록)에 있을 때, 단일 행동으로 주변 환경에 섞이도록 사소한 국소 변화를 할 수 있습니다. 이것은 주변 환경의 색상이나 패턴이 바뀔 때까지 은신(Stealth) 판정에 <strong>+2 상황 보너스</strong>를 줍니다.'},
-  {id:'fey-touched-gnome',name_ko:'페이혈 노움',name_en:'Fey-Touched Gnome',ancestry:'gnome',innateSpells:[{name:'근원 캔트립 1개',tradition:'근원',type:'cantrip',uses:'자유'}],summary:'페이의 피가 혈관을 흐르며, 마법으로 포화시켜 진정으로 그들 중 하나로 만듭니다. 노움과 인간형 특성에 더하여 페이(fey) 특성을 얻습니다. 근원(Primal) 주문 목록에서 캔트립 1개를 선택합니다. 이 주문을 근원 선천 주문으로 자유롭게 시전할 수 있습니다. 캔트립은 레벨 절반(올림)과 같은 주문 랭크로 고양됩니다. 하루에 1회, 10분간의 명상(집중 특성 있는 활동)으로 첫 번째 세계와 재정렬하여 이 캔트립을 같은 목록의 다른 것으로 변경할 수 있습니다.'},
+  {id:'fey-touched-gnome',name_ko:'페이혈 노움',name_en:'Fey-Touched Gnome',ancestry:'gnome',innateSpells:[{name:'원시 캔트립 1개',tradition:'원시',type:'cantrip',uses:'자유'}],summary:'페이의 피가 혈관을 흐르며, 마법으로 포화시켜 진정으로 그들 중 하나로 만듭니다. 노움과 인간형 특성에 더하여 페이(fey) 특성을 얻습니다. 원시(Primal) 주문 목록에서 캔트립 1개를 선택합니다. 이 주문을 원시 선천 주문으로 자유롭게 시전할 수 있습니다. 캔트립은 레벨 절반(올림)과 같은 주문 랭크로 고양됩니다. 하루에 1회, 10분간의 명상(집중 특성 있는 활동)으로 첫 번째 세계와 재정렬하여 이 캔트립을 같은 목록의 다른 것으로 변경할 수 있습니다.'},
   {id:'sensate-gnome',name_ko:'감각 노움',name_en:'Sensate Gnome',ancestry:'gnome',extraSenses:'부정확 후각 30피트',summary:'모든 색을 더 밝게, 모든 소리를 더 풍부하게, 특히 모든 냄새를 놀라운 세부 사항으로 느낍니다. 특수 감각을 얻습니다: <strong>30피트 범위의 부정확 후각(imprecise scent)</strong>. 이것은 후각으로 생물의 정확한 위치를 결정할 수 있다는 의미입니다(434페이지 설명). GM은 일반적으로 바람이 생물로부터 불어오면 범위를 두 배로, 생물로 불어가면 절반으로 합니다.<br>추가로, 후각 범위 내에서 미탐지(undetected) 생물을 찾으려 할 때 지각 판정에 <strong>+2 상황 보너스</strong>를 얻습니다.'},
   {id:'umbral-gnome',name_ko:'암영 노움',name_en:'Umbral Gnome',ancestry:'gnome',vision:'암시야',summary:'어둡거나 그림자의 페이와의 연결이든, 드라트넬라르(drathnelar)로 알려진 지하 노움이든, 다른 원천이든, 완전한 어둠에서도 볼 수 있습니다. <strong>암시야(darkvision)</strong>를 얻습니다.'},
-  {id:'wellspring-gnome',name_ko:'원천 노움',name_en:'Wellspring Gnome',ancestry:'gnome',innateSpells:[{name:'선택한 전통 캔트립 1개',tradition:'선택',type:'cantrip',uses:'자유'}],summary:'다른 마법 원천이 페이 혈통의 근원 마법보다 당신을 더 강하게 붙잡고 있습니다. 이 연결은 비학 차원이나 고대 비학 노래, 신격/천상체/악마, 마법사 전쟁이 남긴 마법 유출물, 또는 고대 룬 마법에서 올 수 있습니다. 비전, 신성, 비학 중 하나를 선택합니다. 해당 마법 전통의 주문 목록에서 캔트립 1개를 얻습니다. 이 주문을 선택한 전통의 선천 주문으로 자유롭게 시전할 수 있습니다. 캔트립은 레벨 절반(올림)과 같은 주문 랭크로 고양됩니다. 노움 혈통 특기에서 근원 선천 주문을 얻을 때마다, 그 전통을 근원에서 선택한 전통으로 변경합니다.'},
+  {id:'wellspring-gnome',name_ko:'원천 노움',name_en:'Wellspring Gnome',ancestry:'gnome',innateSpells:[{name:'선택한 전통 캔트립 1개',tradition:'선택',type:'cantrip',uses:'자유'}],summary:'다른 마법 원천이 페이 혈통의 원시 마법보다 당신을 더 강하게 붙잡고 있습니다. 이 연결은 비학 차원이나 고대 비학 노래, 신격/천상체/악마, 마법사 전쟁이 남긴 마법 유출물, 또는 고대 룬 마법에서 올 수 있습니다. 비전, 신성, 비학 중 하나를 선택합니다. 해당 마법 전통의 주문 목록에서 캔트립 1개를 얻습니다. 이 주문을 선택한 전통의 선천 주문으로 자유롭게 시전할 수 있습니다. 캔트립은 레벨 절반(올림)과 같은 주문 랭크로 고양됩니다. 노움 혈통 특기에서 원시 선천 주문을 얻을 때마다, 그 전통을 원시에서 선택한 전통으로 변경합니다.'},
   // 고블린
   {id:'charhide-goblin',name_ko:'숯가죽 고블린',name_en:'Charhide Goblin',ancestry:'goblin',resistances:[{type:'화염',formula:'half'}],summary:'조상은 항상 불과의 연결과 더 두꺼운 피부를 가져 화상에 저항할 수 있었습니다. 레벨 절반만큼의 화염 저항(최소 1)을 얻습니다. 지속 화염 피해를 제거하기 위한 단순 판정이 DC 15 대신 DC 10이며, 다른 생물이 도우면 DC 5로 줄어듭니다.'},
   {id:'irongut-goblin',name_ko:'철위장 고블린',name_en:'Irongut Goblin',ancestry:'goblin',summary:'대부분의 사람이 상한 것으로 여기는 음식으로 살아갈 수 있습니다. 쓰레기가 쉽게 구할 수 있다면, 생존 활동 없이도 정착지에서 빈곤한 식사로 살아갈 수 있습니다. 구역질 상태일 때도 먹고 마실 수 있습니다.<br>고통에 대한 내성, 구역질 상태 얻기/제거에 <strong>+2 상황 보너스</strong>를 얻습니다. 이 보너스의 영향을 받는 인내 내성에서 <strong>성공 시 대성공</strong>이 됩니다. 섭취한 것에서 비롯된 경우에만 적용됩니다.'},
@@ -315,11 +315,11 @@ const TRAIT_DB = {
   // 마법 계열/학파
   '신비':'신비(Arcane) 마법 전통. 비전 마법.',
   '신성':'신성(Divine) 마법 전통. 신격에서 힘을 얻음.',
-  '비의':'비의(Occult) 마법 전통. 우주의 신비를 탐구.',
+  '오컬트':'오컬트(Occult) 마법 전통. 우주의 신비를 탐구.',
   '원시':'원시(Primal) 마법 전통. 자연의 힘.',
   'arcane':'신비(Arcane) 마법 전통. 비전 마법.',
   'divine':'신성(Divine) 마법 전통. 신격에서 힘을 얻음.',
-  'occult':'비의(Occult) 마법 전통. 우주의 신비를 탐구.',
+  'occult':'오컬트(Occult) 마법 전통. 우주의 신비를 탐구.',
   'primal':'원시(Primal) 마법 전통. 자연의 힘.',
   '변환':'Transmutation 마법 계열.',
   '소환':'Conjuration 마법 계열.',
@@ -559,7 +559,7 @@ const ACTION_DB = [
   {id:'disable-device',cat:'skill', cat_label:'도둑질 행동', name_ko:'장치 해제',       name_en:'Disable a Device',cost:'2',      traits:['교묘'],            req_skill:'thievery', req_rank:2, req_feat:null, summary:'<strong>특성:</strong> 조작<br><br>함정이나 복잡한 장치를 해제합니다. 종종 여러 번의 성공이 필요합니다. 도둑 키트가 필요하거나 유용한 경우가 많으며, 일부 장치는 더 높은 숙련도를 요구합니다.<br><strong>대성공:</strong> 장치를 해제하거나 2회 성공 진행. 흔적을 남기지 않으며 나중에 재설치 가능.<br>'},
 
   // ── 자연 (Nature) 기술 행동 ──
-  {id:'command-animal',cat:'skill', cat_label:'자연 행동', name_ko:'동물 지시',       name_en:'Command an Animal',cost:'1',      traits:['청각','언어'],     req_skill:'nature', req_rank:2, req_feat:null, summary:'<strong>특성:</strong> 청각, 집중<br>동물에게 명령을 내립니다. 동물의 의지 DC에 대해 자연학 판정을 시도합니다. GM이 동물의 태도에 따라 DC를 조정할 수 있습니다. 적대적이거나 비우호적인 동물에게는 자동 실패합니다. 도움이 되는 동물이면 성공도가 한 단계 향상됩니다.<br>대부분의 동물은 엎드리기, 도약, 탐색, 일어서기, 보폭, 타격의 기본 행동을 알고 있습니다.<br><strong>성공:</strong> 동물이 다음 턴에 명령을 수행합니다.<br><br><strong>숙련 행동:</strong> 마법 식별(근원 전통), 주문 학습(근원 전통).'},
+  {id:'command-animal',cat:'skill', cat_label:'자연 행동', name_ko:'동물 지시',       name_en:'Command an Animal',cost:'1',      traits:['청각','언어'],     req_skill:'nature', req_rank:2, req_feat:null, summary:'<strong>특성:</strong> 청각, 집중<br>동물에게 명령을 내립니다. 동물의 의지 DC에 대해 자연학 판정을 시도합니다. GM이 동물의 태도에 따라 DC를 조정할 수 있습니다. 적대적이거나 비우호적인 동물에게는 자동 실패합니다. 도움이 되는 동물이면 성공도가 한 단계 향상됩니다.<br>대부분의 동물은 엎드리기, 도약, 탐색, 일어서기, 보폭, 타격의 기본 행동을 알고 있습니다.<br><strong>성공:</strong> 동물이 다음 턴에 명령을 수행합니다.<br><br><strong>숙련 행동:</strong> 마법 식별(원시 전통), 주문 학습(원시 전통).'},
 
   // ── 생존 (Survival) 기술 행동 ──
   {id:'sense-direction',cat:'skill',cat_label:'생존 행동', name_ko:'방향 감지',       name_en:'Sense Direction', cost:'varies',   traits:[],                  req_skill:'survival', req_rank:0, req_feat:null, summary:'<strong>특성:</strong> 탐험, 비밀<br>별, 태양 위치, 지리적 특성 등을 사용하여 야생에서 방향을 유지합니다. 보통 하루 1회 시도합니다. 나침반 없으면 -2 아이템 페널티.<br><strong>대성공:</strong> 방향을 정확히 파악합니다.<br>'},

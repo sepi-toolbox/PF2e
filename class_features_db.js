@@ -176,7 +176,7 @@ var CLASS_FEATURE_NAMES = {
     {lv:13, name_ko:'무기 전문화', name_en:'Weapon Specialization'},
     {lv:15, name_ko:'대가 주문시전자', name_en:'Master Spellcaster'},
     {lv:19, name_ko:'전설 주문시전자', name_en:'Legendary Spellcaster'},
-    {lv:19, name_ko:'근원 대사제', name_en:'Primal Hierophant'},
+    {lv:19, name_ko:'원시 대사제', name_en:'Primal Hierophant'},
   ],
   fighter: [
     {lv:1, name_ko:'반격 타격', name_en:'Reactive Strike'},
@@ -387,10 +387,10 @@ var SUBCLASS_FEATURE_NAMES = {
   'racket-assassin':  [{lv:1, name_ko:'기습 라운드 +2d6', name_en:'Surprise +2d6'}],
   'racket-eldritch-trickster': [{lv:1, name_ko:'주문→스닉 어택', name_en:'Spell → Sneak Attack'}],
   // ── 위치 후원자 ──
-  'patron-curse':  [{lv:1, name_ko:'비의 전통 / 주술: 악의 눈', name_en:'Occult / Evil Eye'}],
-  'patron-fate':   [{lv:1, name_ko:'비의 전통 / 주술: 운명의 실', name_en:'Occult / Nudge Fate'}],
+  'patron-curse':  [{lv:1, name_ko:'오컬트 전통 / 주술: 악의 눈', name_en:'Occult / Evil Eye'}],
+  'patron-fate':   [{lv:1, name_ko:'오컬트 전통 / 주술: 운명의 실', name_en:'Occult / Nudge Fate'}],
   'patron-fervor': [{lv:1, name_ko:'신성 전통 / 주술: 마음 불꽃', name_en:'Divine / Stoke the Heart'}],
-  'patron-night':  [{lv:1, name_ko:'비의 전통 / 주술: 마녀의 빗장', name_en:'Occult / Shroud of Night'}],
+  'patron-night':  [{lv:1, name_ko:'오컬트 전통 / 주술: 마녀의 빗장', name_en:'Occult / Shroud of Night'}],
   'patron-rune':   [{lv:1, name_ko:'비전 전통 / 주술: 파멸의 서약', name_en:'Arcane / Discern Secrets'}],
   'patron-wild':   [{lv:1, name_ko:'원시 전통 / 주술: 야생의 분노', name_en:'Primal / Wilding Word'}],
   // ── 위자드 마법학파 ──

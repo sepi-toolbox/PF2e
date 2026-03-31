@@ -358,7 +358,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'grant_innate_spell', spell:'마법 감지', tradition:'신비', spellType:'cantrip', uses:'자유'}, {type:'display_note', text:'전문가=1행동, 대가=자유 행동, 전설=수동 상시 감지'}]
   },
   'Unified Theory': {
-    effects: [{type:'display_note', text:'주문학으로 다른 마법 전통(신성/비의/원시) 판정 대체 가능. 전설 전용'}]
+    effects: [{type:'display_note', text:'주문학으로 다른 마법 전통(신성/오컬트/원시) 판정 대체 가능. 전설 전용'}]
   },
   'Connections': {
     effects: [{type:'display_note', text:'정보 수집 시 영향력 있는 인맥에 접근. 어려운 정보 획득 가능'}]
@@ -488,7 +488,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'grant_innate_spell'}]
   },
   'First World Magic': {
-    choice: {type:'spell_cantrip', tradition:'primal', label:'근원(Primal) 캔트립 선택'},
+    choice: {type:'spell_cantrip', tradition:'primal', label:'원시(Primal) 캔트립 선택'},
     effects: [{type:'grant_innate_spell'}]
   },
   'Tree Climber': {
@@ -736,7 +736,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'grant_innate_spell', spell:'순간이동', tradition:'신성', spellType:'spell', uses:'하루 1회'}]
   },
   'Hag Magic': {
-    effects: [{type:'display_note', text:'4랭크 비의 선천 주문 하루 1회 (점술, 매혹, 투청, 투시, 꿈 메시지, 환영 변장 중 선택)'}]
+    effects: [{type:'display_note', text:'4랭크 오컬트 선천 주문 하루 1회 (점술, 매혹, 투청, 투시, 꿈 메시지, 환영 변장 중 선택)'}]
   },
   'Otherworldly Acumen': {
     choice: {type:'spell_rank', rank:2, tradition:'arcane', label:'비전(Arcane) 2랭크 주문 선택'},
@@ -968,7 +968,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'영구 빠른(quickened) 상태 — 추가 행동은 1행동 합주 캔트립에만 사용'}]
   },
   'Impossible Polymath': {
-    effects: [{type:'display_note', text:'신비학→비전, 자연학→근원, 종교학→신성 주문을 주문서에 추가 가능'}]
+    effects: [{type:'display_note', text:'신비학→비전, 자연학→원시, 종교학→신성 주문을 주문서에 추가 가능'}]
   },
 
   // ── 20레벨 ──
@@ -1313,7 +1313,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[1행동] 공기/물 주문 시 AC +1 상황 보너스 (원거리 +2), 내성 +1'}]
   },
   'Grown of Oak': {
-    effects: [{type:'display_note', text:'참나무 회복력을 근원 선천 주문으로 자유 시전 가능 (자신+레시 사역마)'}]
+    effects: [{type:'display_note', text:'참나무 회복력을 원시 선천 주문으로 자유 시전 가능 (자신+레시 사역마)'}]
   },
   'Insect Shape': {
     effects: [{type:'display_note', text:'곤충 형태를 야생 형태 목록에 추가. 비비행 곤충 시 24시간 지속'}]
@@ -1332,7 +1332,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'공룡 형태를 야생 형태 목록에 추가. 운동 부여 형태 시 +1 상태 보너스'}]
   },
   'Fey Caller': {
-    effects: [{type:'display_note', text:'주문 목록에 환영 변장/환영 물체/환영 장면 추가 (근원 주문)'}]
+    effects: [{type:'display_note', text:'주문 목록에 환영 변장/환영 물체/환영 장면 추가 (원시 주문)'}]
   },
   'Floral Restoration': {
     effects: [{type:'display_note', text:'하루 1회. 근처 식물에서 집중 포인트 1점 + 4d8 HP 회복 (2레벨마다 +1d8)'}]
@@ -1360,7 +1360,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'식물 형태를 야생 형태 목록에 추가. 변신 중 독 저항 5'}]
   },
   'Primal Howl': {
-    effects: [{type:'display_note', text:'동료의 근원 울음: 30피트 원뿔 음파 피해 (레벨 2당 1d6). 실패=공포 1, 대실패=공포 2'}]
+    effects: [{type:'display_note', text:'동료의 원시 울음: 30피트 원뿔 음파 피해 (레벨 2당 1d6). 실패=공포 1, 대실패=공포 2'}]
   },
   'Pristine Weapon': {
     effects: [{type:'display_note', text:'푸른 무기가 냉철+은으로 취급. 약점 생물 치명타 시 1d4 지속 출혈'}]
@@ -1381,7 +1381,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'재집중 시 집중 풀 완전 회복'}]
   },
   'Primal Summons': {
-    effects: [{type:'display_note', text:'집중 주문: 근원 소환 습득. 소환 생물에 원소 힘 부여'}]
+    effects: [{type:'display_note', text:'집중 주문: 원시 소환 습득. 소환 생물에 원소 힘 부여'}]
   },
   'Wandering Oasis': {
     effects: [{type:'display_note', text:'60피트 내 아군 포함 극심한 환경 열/추위 보호. 생존 전설이면 극단적까지'}]
@@ -1396,7 +1396,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'동물 동료 성장: 전문화 1개. 비무장 전문가, 내성/감지 달인. 최대 3회'}]
   },
   'Timeless Nature': {
-    effects: [{type:'save_bonus', save:'all', value:2, bonus_type:'status', condition:'질병/근원 마법'}, {type:'display_note', text:'노화 정지. 질병/근원 마법 내성 +2 상태 보너스'}]
+    effects: [{type:'save_bonus', save:'all', value:2, bonus_type:'status', condition:'질병/원시 마법'}, {type:'display_note', text:'노화 정지. 질병/원시 마법 내성 +2 상태 보너스'}]
   },
   'Verdant Metamorphosis': {
     effects: [{type:'display_note', text:'식물 특성 획득. 녹색 휴식으로 나무 변신 (AC 30). 햇빛 10분 쉬면 HP 절반 회복'}]
@@ -2554,7 +2554,7 @@ const FEAT_EFFECTS = {
   // ── 바드 멀티클래스 ──
   'Bard Dedication': {
     choice: {type:'custom', label:'뮤즈를 선택하세요', options:[{id:'muse-enigma',name:'수수께끼'},{id:'muse-maestro',name:'마에스트로'},{id:'muse-warrior',name:'전사'},{id:'muse-lore',name:'지식'}]},
-    effects: [{type:'skill_trained', skill:'occultism'}, {type:'skill_trained', skill:'performance'}, {type:'display_note', text:'비의 캔트립 2개 습득. 주문 공격/DC 숙련됨. 핵심 속성: 매력. 뮤즈: $choice_name'}]
+    effects: [{type:'skill_trained', skill:'occultism'}, {type:'skill_trained', skill:'performance'}, {type:'display_note', text:'오컬트 캔트립 2개 습득. 주문 공격/DC 숙련됨. 핵심 속성: 매력. 뮤즈: $choice_name'}]
   },
   'Basic Bard Spellcasting': {
     effects: [{type:'display_note', text:'기초 주문시전 혜택: 1랭크 주문 슬롯 1개. 6레벨에 2랭크, 8레벨에 3랭크 슬롯 추가'}]
@@ -3151,7 +3151,7 @@ function _applyFeatChoice(choiceId) {
   // spell_cantrip 선택 시 선천적 주문에 추가
   if (choiceDef?.type === 'spell_cantrip' || choiceDef?.type === 'spell_rank') {
     const tradition = choiceDef.tradition || 'arcane';
-    const tradKo = {arcane:'비전',divine:'신성',occult:'비의',primal:'근원'}[tradition] || tradition;
+    const tradKo = {arcane:'비전',divine:'신성',occult:'오컬트',primal:'원시'}[tradition] || tradition;
     const featName = state.feats[featType][featIndex].name || '';
     // 기존에 이 재주로 추가된 선천 주문 제거
     if (!state.spells.innate) state.spells.innate = [];

@@ -1960,7 +1960,7 @@ const SPELL_DB = [
     summary: "집중된 달빛 광선. 1d6 화염 피해(반사). 대상이 변이(polymorph) 상태면 상쇄를 시도합니다.강화(+1): 피해 +1d6.",
     desc: "집중된 달빛 광선. <strong>1d6 화염 피해</strong>(반사). 대상이 변이(polymorph) 상태면 상쇄를 시도합니다.<br><strong>강화(+1):</strong> 피해 +1d6." },
 
-  { name_ko: "신비의 등대", name_en: "Mystic Beacon", rank: 4, is_cantrip: false, is_focus: true,
+  { name_ko: "신오컬트 등대", name_en: "Mystic Beacon", rank: 4, is_cantrip: false, is_focus: true,
     traditions: [], actions: "1행동", traits: ["클레릭", "조작"],
     summary: "대상이 다음에 시전하는 피해/치유 주문이 1랭크 높은 것처럼 피해/치유를 줍니다(초기 피해/치유에만 적용). 주문 시전 후 종료.",
     desc: "대상이 다음에 시전하는 피해/치유 주문이 <strong>1랭크 높은 것처럼</strong> 피해/치유를 줍니다(초기 피해/치유에만 적용). 주문 시전 후 종료." },

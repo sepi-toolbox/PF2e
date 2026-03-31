@@ -147,7 +147,7 @@ const FEAT_DB = [
 ,
   {name_ko:"영원한 합주", name_en:"Eternal Composition", feat_level:18, prerequisites:"마에스트로 뮤즈", traits:["바드"], category:"bard", summary:"세계가 무대이며 당신은 항상 연주 중입니다. 영구적으로 빠른(quickened) 상태; 추가 행동은 1행동으로 시전하는 합주 캔트립에만 사용 가능. 탐험 모드에서 어떤 탐험 전술을 사용하든 적격한 합주 캔트립을 선언할 수 있습니다. 전투 조우에서 첫 번째 턴 이전에도 ", desc:'<strong>전제조건:</strong> 마에스트로 뮤즈<br>세계가 무대이며 당신은 항상 연주 중입니다. <strong>영구적으로 빠른(quickened)</strong> 상태; 추가 행동은 1행동으로 시전하는 합주 캔트립에만 사용 가능. 탐험 모드에서 어떤 탐험 전술을 사용하든 적격한 합주 캔트립을 선언할 수 있습니다. 전투 조우에서 첫 번째 턴 이전에도 이전 턴에 시전한 것처럼 활성화됩니다.' }
 ,
-  {name_ko:"불가능한 박학", name_en:"Impossible Polymath", feat_level:18, prerequisites:"신비학, 자연학, 또는 종교학에 숙련; 비밀스러운 박학", traits:["바드"], category:"bard", summary:"비밀스러운 공식이 다른 바드가 이해하지 못하는 다양한 전통의 마법에 손을 대게 합니다. 신비학에 숙련이면 비전 주문을, 자연학에 숙련이면 근원 주문을, 종교학에 숙련이면 신성 주문을 비밀스러운 박학의 주문서에 추가할 수 있습니다. 비밀스러운 박학처럼 매일 하나를 오컬티즘 주", desc:'<strong>전제조건:</strong> 신비학, 자연학, 또는 종교에 숙련; 비밀스러운 박학<br>비밀스러운 공식이 다른 바드가 이해하지 못하는 다양한 전통의 마법에 손을 대게 합니다. 신비학에 숙련이면 <strong>비전 주문</strong>을, 자연학에 숙련이면 <strong>근원 주문</strong>을, 종교에 숙련이면 <strong>신성 주문</strong>을 비밀스러운 박학의 주문서에 추가할 수 있습니다. 비밀스러운 박학처럼 매일 하나를 비학 주문으로 레퍼토리에 추가할 수 있지만, 다재다능한 박학이 있어도 다른 전통의 주문은 준비 시 <strong>유지할 수 없습니다</strong>.' }
+  {name_ko:"불가능한 박학", name_en:"Impossible Polymath", feat_level:18, prerequisites:"신비학, 자연학, 또는 종교학에 숙련; 비밀스러운 박학", traits:["바드"], category:"bard", summary:"비밀스러운 공식이 다른 바드가 이해하지 못하는 다양한 전통의 마법에 손을 대게 합니다. 신비학에 숙련이면 비전 주문을, 자연학에 숙련이면 원시 주문을, 종교학에 숙련이면 신성 주문을 비밀스러운 박학의 주문서에 추가할 수 있습니다. 비밀스러운 박학처럼 매일 하나를 오컬티즘 주", desc:'<strong>전제조건:</strong> 신비학, 자연학, 또는 종교에 숙련; 비밀스러운 박학<br>비밀스러운 공식이 다른 바드가 이해하지 못하는 다양한 전통의 마법에 손을 대게 합니다. 신비학에 숙련이면 <strong>비전 주문</strong>을, 자연학에 숙련이면 <strong>원시 주문</strong>을, 종교에 숙련이면 <strong>신성 주문</strong>을 비밀스러운 박학의 주문서에 추가할 수 있습니다. 비밀스러운 박학처럼 매일 하나를 비학 주문으로 레퍼토리에 추가할 수 있지만, 다재다능한 박학이 있어도 다른 전통의 주문은 준비 시 <strong>유지할 수 없습니다</strong>.' }
 ,
   {name_ko:"치명적 아리아", name_en:"Fatal Aria", feat_level:20, prerequisites:"", traits:["바드"], category:"bard", summary:"노래가 견딜 수 없는 감정으로 대상을 압도하여 즉사시킬 수 있습니다. 치명적 아리아(fatal aria) 합주 주문을 배웁니다.", desc:'노래가 견딜 수 없는 감정으로 대상을 압도하여 즉사시킬 수 있습니다. <em>치명적 아리아(fatal aria)</em> 합주 주문(370페이지)을 배웁니다.' }
 ,
@@ -317,7 +317,7 @@ const FEAT_DB = [
 ,
   {name_ko:"폭풍 태생", name_en:"Storm Born", feat_level:1, prerequisites:"폭풍 결사. 바깥 요소 속에서 편안합니다. 날씨로 인한 원거리 주문 공격이나 지각 판정의 상황 페널티를 받지 않으며, 날씨로 은폐된 대상에 대한 주문도 단순 판정 불필요.", traits:["드루이드"], category:"druid", summary:"바깥 요소 속에서 편안합니다.", desc:'<strong>전제조건:</strong> 폭풍 결사. 바깥 요소 속에서 편안합니다. 날씨로 인한 원거리 주문 공격이나 지각 판정의 <strong>상황 페널티를 받지 않으며</strong>, 날씨로 은폐된 대상에 대한 주문도 단순 판정 불필요.' }
 ,
-  {name_ko:"푸른 무기", name_en:"Verdant Weapon", feat_level:1, prerequisites:"", traits:["드루이드", "탐험"], category:"druid", summary:"근원 에너지를 씨앗에 집중시켜 나무 지팡이, 덩굴 채찍 등의 무기로 자라게 합니다. 10분간 씨앗에 0레벨 무기(금속 부품 없는, 숙련된) 하나를 각인합니다. 상호작용으로 즉시 무기로 성장/씨앗으로 복귀. 룬과 부적은 씨앗 상태에서 억제됩니다. 씨앗은 하나만 가능.", desc:'근원 에너지를 씨앗에 집중시켜 나무 지팡이, 덩굴 채찍 등의 무기로 자라게 합니다. <strong>10분간</strong> 씨앗에 0레벨 무기(금속 부품 없는, 숙련된) 하나를 각인합니다. 상호작용으로 즉시 무기로 성장/씨앗으로 복귀. 룬과 부적은 씨앗 상태에서 억제됩니다. 씨앗은 하나만 가능.' }
+  {name_ko:"푸른 무기", name_en:"Verdant Weapon", feat_level:1, prerequisites:"", traits:["드루이드", "탐험"], category:"druid", summary:"원시 에너지를 씨앗에 집중시켜 나무 지팡이, 덩굴 채찍 등의 무기로 자라게 합니다. 10분간 씨앗에 0레벨 무기(금속 부품 없는, 숙련된) 하나를 각인합니다. 상호작용으로 즉시 무기로 성장/씨앗으로 복귀. 룬과 부적은 씨앗 상태에서 억제됩니다. 씨앗은 하나만 가능.", desc:'원시 에너지를 씨앗에 집중시켜 나무 지팡이, 덩굴 채찍 등의 무기로 자라게 합니다. <strong>10분간</strong> 씨앗에 0레벨 무기(금속 부품 없는, 숙련된) 하나를 각인합니다. 상호작용으로 즉시 무기로 성장/씨앗으로 복귀. 룬과 부적은 씨앗 상태에서 억제됩니다. 씨앗은 하나만 가능.' }
 ,
   {name_ko:"야생 형태", name_en:"Untamed Form", feat_level:1, prerequisites:"야생 결사. 야생과 하나이며 항상 변하고 적응합니다. 야생 형태(untamed form) 결사 주문을 얻어, 드루이드 재주로 확장 가능한 다양한 형태로 변신합니다.", traits:["드루이드"], category:"druid", summary:"야생과 하나이며 항상 변하고 적응합니다.", desc:'<strong>전제조건:</strong> 야생 결사. 야생과 하나이며 항상 변하고 적응합니다. <em>야생 형태(untamed form)</em> 결사 주문(382페이지)을 얻어, 드루이드 재주로 확장 가능한 다양한 형태로 변신합니다.' }
 ,
@@ -325,7 +325,7 @@ const FEAT_DB = [
 ,
   {name_ko:"야생의 부름", name_en:"Call of the Wild", feat_level:2, prerequisites:"", traits:["드루이드"], category:"druid", summary:"자연의 생물을 불러 도움을 청합니다. 10분간 자연과 교감하여 드루이드 주문 슬롯에 준비된 주문을 같은 랭크의 동물 소환 또는 식물/균류 소환으로 교체할 수 있습니다.", desc:'자연의 생물을 불러 도움을 청합니다. <strong>10분간</strong> 자연과 교감하여 드루이드 주문 슬롯에 준비된 주문을 같은 랭크의 <em>동물 소환</em> 또는 <em>식물/균류 소환</em>으로 교체할 수 있습니다.' }
 ,
-  {name_ko:"강화된 사역마", name_en:"Enhanced Familiar", feat_level:2, prerequisites:"사역마. 추가 근원 에너지를 주입합니다. 매일 2개 대신 4개의 사역마/주인 능력을 선택합니다.", traits:["드루이드"], category:"druid", summary:"매일 4개의 사역마 능력 선택.", desc:'매일 <strong>4개의 사역마 능력</strong> 선택.' }
+  {name_ko:"강화된 사역마", name_en:"Enhanced Familiar", feat_level:2, prerequisites:"사역마. 추가 원시 에너지를 주입합니다. 매일 2개 대신 4개의 사역마/주인 능력을 선택합니다.", traits:["드루이드"], category:"druid", summary:"매일 4개의 사역마 능력 선택.", desc:'매일 <strong>4개의 사역마 능력</strong> 선택.' }
 ,
   {name_ko:"결사 탐험가", name_en:"Order Explorer", feat_level:2, prerequisites:"", traits:["드루이드"], category:"druid", summary:"다른 결사의 비밀을 배웠습니다. 자신의 것이 아닌 결사를 선택하여 해당 결사 전제조건의 1레벨 재주 1개를 얻고, 재주 전제조건을 위해 그 결사의 구성원이 됩니다. 새 결사의 금기를 위반하면 해당 결사의 재주/능력을 잃습니다.", desc:'다른 결사의 비밀을 배웠습니다. 자신의 것이 아닌 결사를 선택하여 해당 결사 전제조건의 <strong>1레벨 재주 1개</strong>를 얻고, 재주 전제조건을 위해 그 결사의 구성원이 됩니다. 새 결사의 금기를 위반하면 해당 결사의 재주/능력을 잃습니다.<br><strong>특수:</strong> 여러 번 선택 가능. 매번 다른 결사.' }
 ,
@@ -349,7 +349,7 @@ const FEAT_DB = [
 ,
   {name_ko:"해류 주문", name_en:"Current Spell", feat_level:6, prerequisites:"", traits:["드루이드", "집중", "주문변형"], category:"druid", summary:"다음 행동이 공기/물 특성 주문 시전이면, 다음 턴 시작까지 AC에 +1 상황 보너스(원거리 공격에 +2). 공기/물 특성 효과에 대한 내성에도 +1 상황 보너스.", desc:'다음 행동이 공기/물 특성 주문 시전이면, 다음 턴 시작까지 <strong>AC에 +1 상황 보너스</strong>(원거리 공격에 +2). 공기/물 특성 효과에 대한 내성에도 <strong>+1 상황 보너스</strong>.' }
 ,
-  {name_ko:"참나무의 관", name_en:"Grown of Oak", feat_level:6, prerequisites:"잎 결사. 피부를 고목의 내구성으로 만듭니다. 참나무 회복력(oaken resilience)을 최고 랭크보다 1 낮은 근원 선천 주문으로 자유롭게 시전 가능(자신과 30피트 내 레시 사역마 대상).", traits:["드루이드"], category:"druid", summary:"피부를 고목의 내구성으로 만듭니다.", desc:'<strong>전제조건:</strong> 잎 결사. 피부를 고목의 내구성으로 만듭니다. <em>참나무 회복력(oaken resilience)</em>을 최고 랭크보다 1 낮은 근원 선천 주문으로 자유롭게 시전 가능(자신과 30피트 내 레시 사역마 대상).' }
+  {name_ko:"참나무의 관", name_en:"Grown of Oak", feat_level:6, prerequisites:"잎 결사. 피부를 고목의 내구성으로 만듭니다. 참나무 회복력(oaken resilience)을 최고 랭크보다 1 낮은 원시 선천 주문으로 자유롭게 시전 가능(자신과 30피트 내 레시 사역마 대상).", traits:["드루이드"], category:"druid", summary:"피부를 고목의 내구성으로 만듭니다.", desc:'<strong>전제조건:</strong> 잎 결사. 피부를 고목의 내구성으로 만듭니다. <em>참나무 회복력(oaken resilience)</em>을 최고 랭크보다 1 낮은 원시 선천 주문으로 자유롭게 시전 가능(자신과 30피트 내 레시 사역마 대상).' }
 ,
   {name_ko:"곤충 형태", name_en:"Insect Shape", feat_level:6, prerequisites:"야생 형태. 곤충 형태의 형상들을 야생 형태 목록에 추가. 비비행 곤충 형태(해충 형태)로 변신 시 지속 시간 24시간.", traits:["드루이드"], category:"druid", summary:"곤충 형태의 형상들을 야생 형태 목록에 추가.", desc:'<strong>전제조건:</strong> 야생 형태. 곤충 형태의 형상들을 야생 형태 목록에 추가. 비비행 곤충 형태(해충 형태)로 변신 시 지속 시간 <strong>24시간</strong>.' }
 ,
@@ -363,7 +363,7 @@ const FEAT_DB = [
 ,
   {name_ko:"흉포한 형태", name_en:"Ferocious Shape", feat_level:8, prerequisites:"야생 형태. 공룡 형태의 형상들을 야생 형태 목록에 추가. 야생 형태로 운동 수정치를 부여하는 형태 시 운동 판정에 +1 상태 보너스.", traits:["드루이드"], category:"druid", summary:"공룡 형태의 형상들을 야생 형태 목록에 추가.", desc:'<strong>전제조건:</strong> 야생 형태. 공룡 형태의 형상들을 야생 형태 목록에 추가. 야생 형태로 운동 수정치를 부여하는 형태 시 운동 판정에 <strong>+1 상태 보너스</strong>.' }
 ,
-  {name_ko:"페이 소환사", name_en:"Fey Caller", feat_level:8, prerequisites:"", traits:["드루이드"], category:"druid", summary:"페이의 근원 마법 변형 속임수를 배웠습니다. 주문 목록에 환영 변장, 환영 물체, 환영 장면을 추가하며, 근원 주문으로 시전합니다.", desc:'페이의 근원 마법 변형 속임수를 배웠습니다. 주문 목록에 <em>환영 변장, 환영 물체, 환영 장면</em>을 추가하며, 근원 주문으로 시전합니다.' }
+  {name_ko:"페이 소환사", name_en:"Fey Caller", feat_level:8, prerequisites:"", traits:["드루이드"], category:"druid", summary:"페이의 원시 마법 변형 속임수를 배웠습니다. 주문 목록에 환영 변장, 환영 물체, 환영 장면을 추가하며, 원시 주문으로 시전합니다.", desc:'페이의 원시 마법 변형 속임수를 배웠습니다. 주문 목록에 <em>환영 변장, 환영 물체, 환영 장면</em>을 추가하며, 원시 주문으로 시전합니다.' }
 ,
   {name_ko:"꽃의 회복", name_en:"Floral Restoration", feat_level:8, prerequisites:"잎 결사. 빈도: 하루 1회. 근처 식물에게 활력을 나누어달라고 요청합니다. 집중 포인트 1점과 4d8 HP를 회복합니다. 최소 15평방피트의 건강한 식물이 있는 곳이어야 합니다. 9레벨부터 2레벨마다 치유가 1d8 증가.", traits:["드루이드", "치유", "활력"], category:"druid", summary:"근처 식물에게 활력을 나누어달라고 요청합니다.", desc:'<strong>전제조건:</strong> 잎 결사. <strong>빈도:</strong> 하루 1회. 근처 식물에게 활력을 나누어달라고 요청합니다. <strong>집중 포인트 1점과 4d8 HP를 회복</strong>합니다. 최소 15평방피트의 건강한 식물이 있는 곳이어야 합니다. 9레벨부터 2레벨마다 치유가 1d8 증가.' }
 ,
@@ -383,7 +383,7 @@ const FEAT_DB = [
 ,
   {name_ko:"식물 형태", name_en:"Plant Shape", feat_level:10, prerequisites:"잎 결사 또는 야생 형태. 식물 형태의 형상들을 야생 형태 목록에 추가. 변신 중 독 저항 5.", traits:["드루이드"], category:"druid", summary:"식물 형태의 형상들을 야생 형태 목록에 추가.", desc:'<strong>전제조건:</strong> 잎 결사 또는 야생 형태. 식물 형태의 형상들을 야생 형태 목록에 추가. 변신 중 <strong>독 저항 5</strong>.' }
 ,
-  {name_ko:"근원 울음", name_en:"Primal Howl", feat_level:10, prerequisites:"놀라운 동료. 동료가 근원 마법이 실린 울음을 낼 수 있습니다. 30피트 원뿔 내 모든 생물이 동료 레벨 2당 1d6 음파 피해(인내 기본 내성). 실패 시 공포 1, 대실패 시 공포 2.", traits:["드루이드"], category:"druid", summary:"동료가 근원 마법이 실린 울음을 낼 수 있습니다.", desc:'<strong>전제조건:</strong> 놀라운 동료. 동료가 근원 마법이 실린 울음을 낼 수 있습니다. 30피트 원뿔 내 모든 생물이 동료 레벨 2당 1d6 음파 피해(인내 기본 내성). 실패 시 <strong>공포 1</strong>, 대실패 시 <strong>공포 2</strong>.' }
+  {name_ko:"원시 울음", name_en:"Primal Howl", feat_level:10, prerequisites:"놀라운 동료. 동료가 원시 마법이 실린 울음을 낼 수 있습니다. 30피트 원뿔 내 모든 생물이 동료 레벨 2당 1d6 음파 피해(인내 기본 내성). 실패 시 공포 1, 대실패 시 공포 2.", traits:["드루이드"], category:"druid", summary:"동료가 원시 마법이 실린 울음을 낼 수 있습니다.", desc:'<strong>전제조건:</strong> 놀라운 동료. 동료가 원시 마법이 실린 울음을 낼 수 있습니다. 30피트 원뿔 내 모든 생물이 동료 레벨 2당 1d6 음파 피해(인내 기본 내성). 실패 시 <strong>공포 1</strong>, 대실패 시 <strong>공포 2</strong>.' }
 ,
   {name_ko:"깨끗한 무기", name_en:"Pristine Weapon", feat_level:10, prerequisites:"푸른 무기. 푸른 무기가 마법 생물의 저항을 관통합니다. 냉철과 은으로 취급. 냉철이나 은 약점 생물에 치명타 시 1d4 지속 출혈 피해.", traits:["드루이드"], category:"druid", summary:"푸른 무기가 마법 생물의 저항을 관통합니다.", desc:'<strong>전제조건:</strong> 푸른 무기. 푸른 무기가 마법 생물의 저항을 관통합니다. <strong>냉철과 은으로 취급</strong>. 냉철이나 은 약점 생물에 치명타 시 <strong>1d4 지속 출혈 피해</strong>.' }
 ,
@@ -395,9 +395,9 @@ const FEAT_DB = [
 ,
   {name_ko:"화환 주문", name_en:"Garland Spell", feat_level:12, prerequisites:"잎 결사. 다음 행동이 균류/식물 특성 주문이면, 사거리 내 10피트 폭발에 식물이 자랍니다. 가시 또는 독덩굴로 험지 + 위험 지형(이동 시 2d6 관통/독 피해, 턴당 1회). 1분 또는 다음 화환 주문까지 지속. 16레벨에 3d6, 20레벨에 4d6.", traits:["드루이드", "조작", "주문변형"], category:"druid", summary:"다음 행동이 균류/식물 특성 주문이면, 사거리 내 10피트 폭발에 식물이 자랍니다.", desc:'<strong>전제조건:</strong> 잎 결사. 다음 행동이 균류/식물 특성 주문이면, 사거리 내 10피트 폭발에 식물이 자랍니다. 가시 또는 독덩굴로 <strong>험지 + 위험 지형</strong>(이동 시 2d6 관통/독 피해, 턴당 1회). 1분 또는 다음 화환 주문까지 지속. 16레벨에 3d6, 20레벨에 4d6.' }
 ,
-  {name_ko:"근원 집중", name_en:"Primal Focus", feat_level:12, prerequisites:"", traits:["드루이드"], category:"druid", summary:"재집중 시 집중 풀을 완전히 채웁니다.", desc:'재집중 시 집중 풀을 <strong>완전히 채웁니다</strong>.' }
+  {name_ko:"원시 집중", name_en:"Primal Focus", feat_level:12, prerequisites:"", traits:["드루이드"], category:"druid", summary:"재집중 시 집중 풀을 완전히 채웁니다.", desc:'재집중 시 집중 풀을 <strong>완전히 채웁니다</strong>.' }
 ,
-  {name_ko:"근원 소환", name_en:"Primal Summons", feat_level:12, prerequisites:"야생의 부름", traits:["드루이드"], category:"druid", summary:"아군 소환 시 공기/대지/화염/물의 원소 힘을 부여합니다.", desc:'<strong>전제조건:</strong> 야생의 부름. 아군 소환 시 공기/대지/화염/물의 원소 힘을 부여합니다. <em>근원 소환(primal summons)</em> 결사 주문(381페이지)을 얻습니다.' }
+  {name_ko:"원시 소환", name_en:"Primal Summons", feat_level:12, prerequisites:"야생의 부름", traits:["드루이드"], category:"druid", summary:"아군 소환 시 공기/대지/화염/물의 원소 힘을 부여합니다.", desc:'<strong>전제조건:</strong> 야생의 부름. 아군 소환 시 공기/대지/화염/물의 원소 힘을 부여합니다. <em>원시 소환(primal summons)</em> 결사 주문(381페이지)을 얻습니다.' }
 ,
   {name_ko:"방랑하는 오아시스", name_en:"Wandering Oasis", feat_level:12, prerequisites:"생존 달인. 위안의 에너지에 둘러싸여 있습니다. 당신과 60피트 내 아군은 극심한 환경 열/추위로부터 보호됩니다. 생존 전설이면 극단적 열/추위에서도.", traits:["드루이드"], category:"druid", summary:"위안의 에너지에 둘러싸여 있습니다.", desc:'<strong>전제조건:</strong> 생존 대가. 위안의 에너지에 둘러싸여 있습니다. 당신과 60피트 내 아군은 <strong>극심한 환경 열/추위로부터 보호</strong>됩니다. 생존 전설이면 극단적 열/추위에서도.' }
 ,
@@ -407,7 +407,7 @@ const FEAT_DB = [
 ,
   {name_ko:"전문화된 동료", name_en:"Specialized Companion", feat_level:14, prerequisites:"놀라운 동료. 동물 동료가 전문화 1개를 얻습니다(비무장 공격 전문가, 내성/감지 달인, 민첩+1, 지능+2, 비무장 피해 주사위 +1, 전문화 보너스). 특수: 최대 3회 선택 가능.", traits:["드루이드"], category:"druid", summary:"전문화 1개 추가. 특수: 최대 3회.", desc:'<strong>전제조건:</strong> 놀라운 동료. 전문화 1개 추가. <strong>특수:</strong> 최대 3회.' }
 ,
-  {name_ko:"영원한 자연", name_en:"Timeless Nature", feat_level:14, prerequisites:"", traits:["드루이드"], category:"druid", summary:"근원 마법이 유지하여 노화가 멈춥니다. 질병과 근원 마법에 대한 내성에 +2 상태 보너스.", desc:'근원 마법이 유지하여 노화가 멈춥니다. 질병과 근원 마법에 대한 내성에 <strong>+2 상태 보너스</strong>.' }
+  {name_ko:"영원한 자연", name_en:"Timeless Nature", feat_level:14, prerequisites:"", traits:["드루이드"], category:"druid", summary:"원시 마법이 유지하여 노화가 멈춥니다. 질병과 원시 마법에 대한 내성에 +2 상태 보너스.", desc:'원시 마법이 유지하여 노화가 멈춥니다. 질병과 원시 마법에 대한 내성에 <strong>+2 상태 보너스</strong>.' }
 ,
   {name_ko:"녹색 변태", name_en:"Verdant Metamorphosis", feat_level:14, prerequisites:"잎 결사. 식물 버전의 자신이 되어 식물 특성을 얻고(부적절한 특성 상실). 녹색 휴식(Verdant Rest) 행동을 얻어 나무/식물로 변신(AC 30). 자연 햇빛에서 10분 쉬면 최대 HP의 절반 회복. 이 형태로 일일 휴식하면 최대 HP까지 회복하고 비영구적 소진/기력상실/서투름/멍청함 제거, 19레벨 이하 독/질병도 제거.", traits:["드루이드"], category:"druid", summary:"식물 버전의 자신이 되어 식물 특성을 얻고(부적절한 특성 상실).", desc:'<strong>전제조건:</strong> 잎 결사. 식물 버전의 자신이 되어 <strong>식물 특성</strong>을 얻고(부적절한 특성 상실). 녹색 휴식(Verdant Rest) 행동을 얻어 나무/식물로 변신(AC 30). 자연 햇빛에서 10분 쉬면 최대 HP의 절반 회복. 이 형태로 일일 휴식하면 최대 HP까지 회복하고 비영구적 소진/기력상실/서투름/멍청함 제거, 19레벨 이하 독/질병도 제거.' }
 ,
@@ -423,7 +423,7 @@ const FEAT_DB = [
 ,
   {name_ko:"완벽한 형태 제어", name_en:"Perfect Form Control", feat_level:18, prerequisites:"형태 제어, 근력 +4. 마법과 근육 기억으로 대체 형태를 무기한 유지합니다. 형태 제어 사용 시 야생 형태의 지속 시간이 1시간이 아닌 무제한(해산 가능).", traits:["드루이드"], category:"druid", summary:"마법과 근육 기억으로 대체 형태를 무기한 유지합니다.", desc:'<strong>전제조건:</strong> 형태 제어, 근력 +4. 마법과 근육 기억으로 대체 형태를 무기한 유지합니다. 형태 제어 사용 시 야생 형태의 지속 시간이 1시간이 아닌 <strong>무제한</strong>(해산 가능).' }
 ,
-  {name_ko:"근원 방패", name_en:"Primal Aegis", feat_level:18, prerequisites:"", traits:["드루이드"], category:"druid", summary:"두꺼운 보호적 근원 에너지 장으로 둘러싸입니다. 당신과 30피트 내 아군이 산성/냉기/전기/화염/활력/공허 피해에 지혜 수정치만큼 저항.", desc:'두꺼운 보호적 근원 에너지 장으로 둘러싸입니다. 당신과 30피트 내 아군이 산성/냉기/전기/화염/활력/공허 피해에 <strong>지혜 수정치만큼 저항</strong>.' }
+  {name_ko:"원시 방패", name_en:"Primal Aegis", feat_level:18, prerequisites:"", traits:["드루이드"], category:"druid", summary:"두꺼운 보호적 원시 에너지 장으로 둘러싸입니다. 당신과 30피트 내 아군이 산성/냉기/전기/화염/활력/공허 피해에 지혜 수정치만큼 저항.", desc:'두꺼운 보호적 원시 에너지 장으로 둘러싸입니다. 당신과 30피트 내 아군이 산성/냉기/전기/화염/활력/공허 피해에 <strong>지혜 수정치만큼 저항</strong>.' }
 ,
   {name_ko:"대사제의 힘", name_en:"Hierophant's Power", feat_level:20, prerequisites:"", traits:["드루이드"], category:"druid", summary:"자연 세계와 얽혀 그 전체 힘이 흐릅니다. 추가 10랭크 주문 슬롯을 얻습니다.", desc:"자연 세계와 얽혀 그 전체 힘이 흐릅니다. <strong>추가 10랭크 주문 슬롯</strong>을 얻습니다." }
 ,
@@ -627,7 +627,7 @@ const FEAT_DB = [
 ,
   {name_ko:"연속 사냥", name_en:"Hunted Shot", feat_level:1, prerequisites:"", traits:["레인저", "화려함"], category:"ranger", summary:"요구사항: 재장전 0 원거리 무기.", desc:'<strong>요구사항:</strong> 재장전 0 원거리 무기. 사냥감에게 빠르게 두 발을 쏩니다. 사냥감에 대해 <strong>원거리 타격 2회</strong>(첫 번째 사거리 증분 내만). 두 공격 모두 다중 공격에 포함되지만 둘 다 후 증가.' }
 ,
-  {name_ko:"입문 관리인", name_en:"Initiate Warden", feat_level:1, prerequisites:"", traits:["레인저"], category:"ranger", summary:"근원 마법과의 연결이 관리인 주문에 접근을 부여합니다. 입문 관리인 주문 1개를 선택합니다. 집중 풀 1점을 얻습니다.", desc:'근원 마법과의 연결이 관리인 주문에 접근을 부여합니다. 입문 관리인 주문 1개를 선택합니다(383페이지). <strong>집중 풀 1점</strong>을 얻습니다.' }
+  {name_ko:"입문 관리인", name_en:"Initiate Warden", feat_level:1, prerequisites:"", traits:["레인저"], category:"ranger", summary:"원시 마법과의 연결이 관리인 주문에 접근을 부여합니다. 입문 관리인 주문 1개를 선택합니다. 집중 풀 1점을 얻습니다.", desc:'원시 마법과의 연결이 관리인 주문에 접근을 부여합니다. 입문 관리인 주문 1개를 선택합니다(383페이지). <strong>집중 풀 1점</strong>을 얻습니다.' }
 ,
   {name_ko:"괴물 사냥꾼", name_en:"Monster Hunter", feat_level:1, prerequisites:"", traits:["레인저"], category:"ranger", summary:"강한 사냥감에 대한 지식을 축적합니다. 사냥감에 대해 지식 회상에 성공하면(첫 1회/사냥감), 당신과 모든 아군이 해당 사냥감의 약점이나 저항 중 하나에 대해 알게 됩니다. 대성공하면 당신과 아군이 다음 내성 굴림에 +1 상황 보너스와 다음 공격에 +1 상황 보너스.", desc:'강한 사냥감에 대한 지식을 축적합니다. 사냥감에 대해 <strong>지식 회상에 성공하면</strong>(첫 1회/사냥감), 당신과 모든 아군이 해당 사냥감의 약점이나 저항 중 하나에 대해 알게 됩니다. <strong>대성공</strong>하면 당신과 아군이 다음 내성 굴림에 <strong>+1 상황 보너스</strong>와 다음 공격에 <strong>+1 상황 보너스</strong>.' }
 ,
@@ -753,7 +753,7 @@ const FEAT_DB = [
 ,
   {name_ko:"전설적 사격", name_en:"Legendary Shot", feat_level:20, prerequisites:"지각 전설, 원거리 사격. 원거리 무기 달인이면 사냥감에 대해 최대 5 사거리 증분까지 페널티 무시.", traits:["레인저"], category:"ranger", summary:"원거리 무기 달인이면 사냥감에 대해 최대 5 사거리 증분까지 페널티 무시.", desc:'<strong>전제조건:</strong> 지각 전설, 원거리 사격. 원거리 무기 대가이면 사냥감에 대해 <strong>최대 5 사거리 증분까지 페널티 무시</strong>.' }
 ,
-  {name_ko:"땅끝까지", name_en:"To the Ends of the Earth", feat_level:20, prerequisites:"생존 전설. 100피트 내 생물에 사냥감 추적 시, 아무리 멀어져도 정확한 위치를 항상 알 수 있습니다. 자연학 전설이면 순간이동이나 차원 이동도 추적 가능(탐지+근원 특성 추가).", traits:["레인저"], category:"ranger", summary:"100피트 내 생물에 사냥감 추적 시, 아무리 멀어져도 정확한 위치를 항상 알 수 있습니다.", desc:'<strong>전제조건:</strong> 생존 전설. 100피트 내 생물에 사냥감 추적 시, 아무리 멀어져도 <strong>정확한 위치를 항상 알 수 있습니다</strong>. 자연학 전설이면 순간이동이나 차원 이동도 추적 가능(탐지+근원 특성 추가).' }
+  {name_ko:"땅끝까지", name_en:"To the Ends of the Earth", feat_level:20, prerequisites:"생존 전설. 100피트 내 생물에 사냥감 추적 시, 아무리 멀어져도 정확한 위치를 항상 알 수 있습니다. 자연학 전설이면 순간이동이나 차원 이동도 추적 가능(탐지+원시 특성 추가).", traits:["레인저"], category:"ranger", summary:"100피트 내 생물에 사냥감 추적 시, 아무리 멀어져도 정확한 위치를 항상 알 수 있습니다.", desc:'<strong>전제조건:</strong> 생존 전설. 100피트 내 생물에 사냥감 추적 시, 아무리 멀어져도 <strong>정확한 위치를 항상 알 수 있습니다</strong>. 자연학 전설이면 순간이동이나 차원 이동도 추적 가능(탐지+원시 특성 추가).' }
 ,
   {name_ko:"삼중 위협", name_en:"Triple Threat", feat_level:20, prerequisites:"공유 사냥감. 사냥감 추적 시 3명을 사냥감으로 지정하거나, 2명 지정 + 아군 1명에 공유, 또는 1명 지정 + 아군 2명에 공유 가능.", traits:["레인저"], category:"ranger", summary:"사냥감 추적 시 3명을 사냥감으로 지정하거나, 2명 지정 + 아군 1명에 공유, 또는 1명 지정 + 아군 2명에 공유 가능.", desc:'<strong>전제조건:</strong> 공유 사냥감. 사냥감 추적 시 <strong>3명을 사냥감</strong>으로 지정하거나, 2명 지정 + 아군 1명에 공유, 또는 1명 지정 + 아군 2명에 공유 가능.' }
 ,
@@ -1327,7 +1327,7 @@ const FEAT_DB = [
 ,
   {name_ko:"차원 감각", name_en:"Planar Sense", feat_level:7, prerequisites:"오컬티즘 달인", traits:["일반 기술"], category:"skill", summary:"차원 이상을 직감적으로 감지합니다. 차원의 균열, 포털, 비전 통로, 다른 차원에서 온 존재 등에 대해 수동적인 지각 판정을 수행합니다. 수동 지각 대신 오컬티즘 판정을 사용하여 이러한 현상의 존재를 감지하거나(성공 시) 특성을 파악(대성공 시)합니다. 이것은 마법 감지의", desc:'<strong>전제조건:</strong> 비학 대가<br>차원 이상을 직감적으로 감지합니다. 차원의 균열, 포털, 비전 통로, 다른 차원에서 온 존재 등에 대해 수동적인 지각 판정을 수행합니다. 수동 감지 대신 비학 판정을 사용하여 이러한 현상의 존재를 감지하거나(성공 시) 특성을 파악(대성공 시)합니다. 이것은 마법 감지의 한 형태이며 마법이 차단되면 작동하지 않습니다.' }
 ,
-  {name_ko:"기이한 마법", name_en:"Bizarre Magic", feat_level:7, prerequisites:"오컬티즘 달인", traits:["일반 기술"], category:"skill", summary:"비술의 기이한 변형을 활용할 수 있습니다 — 비의(occult) 주문을 시전할 수 없더라도 마찬가지입니다. 당신이 시전하는 주문을 주문 인식하거나 사용하는 마법을 마법 식별하는 DC가 5 증가합니다.", desc:'<strong>전제조건:</strong> 비학 대가<br>비술의 기이한 변형을 활용할 수 있습니다 — 비의(occult) 주문을 시전할 수 없더라도 마찬가지입니다. 당신이 시전하는 주문을 주문 인식하거나 사용하는 마법을 마법 식별하는 DC가 <strong>5 증가</strong>합니다.' }
+  {name_ko:"기이한 마법", name_en:"Bizarre Magic", feat_level:7, prerequisites:"오컬티즘 달인", traits:["일반 기술"], category:"skill", summary:"비술의 기이한 변형을 활용할 수 있습니다 — 오컬트(occult) 주문을 시전할 수 없더라도 마찬가지입니다. 당신이 시전하는 주문을 주문 인식하거나 사용하는 마법을 마법 식별하는 DC가 5 증가합니다.", desc:'<strong>전제조건:</strong> 비학 대가<br>비술의 기이한 변형을 활용할 수 있습니다 — 오컬트(occult) 주문을 시전할 수 없더라도 마찬가지입니다. 당신이 시전하는 주문을 주문 인식하거나 사용하는 마법을 마법 식별하는 DC가 <strong>5 증가</strong>합니다.' }
 ,
   {name_ko:"신속 추적자", name_en:"Swift Tracker", feat_level:7, prerequisites:"생존 달인", traits:["일반 기술"], category:"skill", summary:"추적 중 매시간마다 새 판정을 굴려야 하는 것 대신, 매 30분마다 1회로 줄어듭니다. 전설이면 패배하지 않는 한 새 판정이 필요 없습니다(극단적인 흔적 변화 시 제외).", desc:'<strong>전제조건:</strong> 생존 대가<br>추적 중 매시간마다 새 판정을 굴려야 하는 것 대신, <strong>매 30분마다 1회</strong>로 줄어듭니다. 전설이면 패배하지 않는 한 새 판정이 필요 없습니다(극단적인 흔적 변화 시 제외).' }
 ,
@@ -1380,7 +1380,7 @@ const FEAT_DB = [
 ,
   {name_ko:"신성 글꼴", name_en:"Divine Font", cat:"feature", class_id:"cleric", feat_level:1, summary:"신격이 특별히 강화된 에너지에 접근을 부여합니다. 치유(heal) 또는 해로움(harm)에 대해 추가 주문 슬롯을 얻으며, 슬롯 수는 1 + 매력 수정치입니다. 글꼴이 둘 다 허용하면 매일 하나를 선택합니다."}
 ,
-  {name_ko:"원시 주문시전", name_en:"Primal Spellcasting", cat:"feature", class_id:"druid", feat_level:1, summary:"야생 세계의 힘이 당신을 통해 흐릅니다. 근원(primal) 전통의 주문시전자입니다. 매일 아침 근원 주문 목록에서 주문을 준비합니다."}
+  {name_ko:"원시 주문시전", name_en:"Primal Spellcasting", cat:"feature", class_id:"druid", feat_level:1, summary:"야생 세계의 힘이 당신을 통해 흐릅니다. 원시(primal) 전통의 주문시전자입니다. 매일 아침 원시 주문 목록에서 주문을 준비합니다."}
 ,
   {name_ko:"드루이드 결사", name_en:"Druidic Order", cat:"feature", class_id:"druid", feat_level:1, summary:"드루이드가 되면 결사와 자신을 맞추며, 클래스 특기, 결사 주문, 추가 숙련 기술을 얻습니다."}
 ,
@@ -1610,7 +1610,7 @@ const FEAT_DB = [
 ,
   {name_ko:"전설 주문시전자", name_en:"Legendary Spellcaster", cat:"feature", class_id:"druid", feat_level:19, summary:"주문 공격 수정치와 주문 DC 숙련도가 전설로 증가."}
 ,
-  {name_ko:"근원 대사제", name_en:"Primal Hierophant", cat:"feature", class_id:"druid", feat_level:19, summary:"근원 주문 목록에서 10랭크 주문 1개 + 10랭크 슬롯 1개."}
+  {name_ko:"원시 대사제", name_en:"Primal Hierophant", cat:"feature", class_id:"druid", feat_level:19, summary:"원시 주문 목록에서 10랭크 주문 1개 + 10랭크 슬롯 1개."}
 ,
   {name_ko:"다재다능한 전설", name_en:"Versatile Legend", cat:"feature", class_id:"fighter", feat_level:19, summary:"전투의 모든 측면을 익혔습니다. 파이터 클래스 DC가 대가로. 모든 단순/군용 무기와 비무장 공격이 전설로. 모든 고급 무기가 대가로 증가."}
 ,
@@ -1724,7 +1724,7 @@ const FEAT_DB = [
 ,
   {name_ko:'감각 예민', name_en:'Illusion Sense', feat_level:1, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'환상에 대한 간파 판정에 +1 상황 보너스. 환상 종류 인식 초기 판정 획득.', desc:'조상이 환영에 싸여 요람에서 자라며 나날을 보냈고, 그 결과 환영 마법을 감지하는 것이 제2의 천성입니다. 환영에 대한 지각 판정과 의지 내성에 <strong>+1 상황 보너스</strong>를 얻습니다.<br>불신할 수 있는 환영의 10피트 내에 들어오면, 상호작용(Interact) 행동에 행동을 소비하지 않았더라도 GM이 <strong>자동으로 비밀 불신 판정</strong>을 굴려줍니다.'}
 ,
-  {name_ko:'제1세계 마법', name_en:'First World Magic', feat_level:1, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'페이 세계의 마법이 흐릅니다.', desc:'첫 번째 세계와의 연결이 페이와 유사한 근원 선천 주문을 부여합니다. 근원 주문 목록(311페이지)에서 <strong>캔트립 1개</strong>를 선택합니다. 이 주문을 근원 선천 주문으로 자유롭게 시전할 수 있습니다. 캔트립은 레벨 절반(올림)과 같은 주문 랭크로 고양됩니다.'}
+  {name_ko:'제1세계 마법', name_en:'First World Magic', feat_level:1, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'페이 세계의 마법이 흐릅니다.', desc:'첫 번째 세계와의 연결이 페이와 유사한 원시 선천 주문을 부여합니다. 원시 주문 목록(311페이지)에서 <strong>캔트립 1개</strong>를 선택합니다. 이 주문을 원시 선천 주문으로 자유롭게 시전할 수 있습니다. 캔트립은 레벨 절반(올림)과 같은 주문 랭크로 고양됩니다.'}
 ,
   {name_ko:'눈부신 빛', name_en:'Razzle-Dazzle', feat_level:1, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'빈도: 시간당 1회', desc:'<strong>빈도:</strong> 시간당 1회<br><br>빛의 조작을 상당히 연습하여, 칼날의 반사를 무기화하거나 마법적 표현의 밝기를 비상식적인 높이로 강화했습니다. 대상에게 부여하는 실명 또는 눈부심 상태의 지속 시간을 <strong>1라운드 연장</strong>합니다.'}
 ,
@@ -1736,7 +1736,7 @@ const FEAT_DB = [
 ,
   {name_ko:'신중한 호기심', name_en:'Cautious Curiosity', feat_level:9, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'전제조건: 노움 유산이나 혈통 재주에서 얻은 비전 또는 비학 선천 주문 최소 1개', desc:'<strong>전제조건:</strong> 노움 유산이나 혈통 재주에서 얻은 비전 또는 비학 선천 주문 최소 1개<br>들키지 않고 곤경에 빠지고 빠져나오는 마법 기법을 배웠습니다. <em>변장 마법(disguise magic)</em>과 <em>침묵(silence)</em>을 <strong>2랭크 비전 또는 비학 선천 주문</strong>으로 얻습니다. 전통은 노움 혈통 옵션에 사용하는 전통과 일치해야 합니다. 각 주문을 <strong>하루 1회</strong> 시전할 수 있으며, 자신만 대상으로 할 수 있습니다.'}
 ,
-  {name_ko:'첫 번째 세계 전문가', name_en:'First World Adept', feat_level:9, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'전제조건: 근원 선천 주문 최소 1개', desc:'<strong>전제조건:</strong> 근원 선천 주문 최소 1개<br>페이 마법이 시간이 지나며 강해졌습니다. <em>투명화(invisibility)</em>와 <em>폭로의 빛(revealing light)</em>을 <strong>2랭크 근원 선천 주문</strong>으로 얻습니다. 각 주문을 <strong>하루 1회</strong> 시전할 수 있습니다.'}
+  {name_ko:'첫 번째 세계 전문가', name_en:'First World Adept', feat_level:9, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'전제조건: 원시 선천 주문 최소 1개', desc:'<strong>전제조건:</strong> 원시 선천 주문 최소 1개<br>페이 마법이 시간이 지나며 강해졌습니다. <em>투명화(invisibility)</em>와 <em>폭로의 빛(revealing light)</em>을 <strong>2랭크 원시 선천 주문</strong>으로 얻습니다. 각 주문을 <strong>하루 1회</strong> 시전할 수 있습니다.'}
 ,
   {name_ko:'생명 도약', name_en:'Life Leap', feat_level:9, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'요구사항: 살아있는 생물에 인접해야 합니다.', desc:'<strong>요구사항:</strong> 살아있는 생물에 인접해야 합니다.<br>살아있는 생물이 차지하는 공간을 순식간에 통과하여, 반대편에 자연스럽게 나타나며 화려한 빛을 보여줍니다. 현재 위치에서 같은 살아있는 생물에 인접하지만 반대편이나 모서리에 있는 다른 위치로 이동합니다. 위치가 유효한지 확인하려면 측면 공격과 같은 규칙을 사용합니다: 두 공간의 중심을 지나는 선이 생물 공간의 반대편이나 모서리를 지나야 합니다.<br>생물의 생명력을 통과하여 선택한 위치에 나타납니다; 이것은 이동 기반 반응을 유발하지 않습니다. 목적지를 볼 수 있어야 하며, 이동 속도가 허용하는 것보다 멀리 이동할 수 없습니다.'}
 ,
@@ -1746,7 +1746,7 @@ const FEAT_DB = [
 ,
   {name_ko:'본능적 은폐', name_en:'Instinctive Obfuscation', feat_level:13, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'전제조건: 노움 유산이나 혈통 재주에서 얻은 비전 또는 비학 선천 주문 최소 1개', desc:'<strong>전제조건:</strong> 노움 유산이나 혈통 재주에서 얻은 비전 또는 비학 선천 주문 최소 1개<br><br>내면의 마법이 위협에 대한 자연적 반응으로 나타납니다. 당신의 공간에 잠시 환영의 분신이 나타납니다. 유발 공격자는 <strong>DC 10 단순 판정</strong>을 굴려야 합니다; 성공하면 공격이 정상적으로 당신을 대상으로 하고, 실패하면 공격이 분신을 대상으로 하여 파괴합니다. 이 행동의 전통은 노움 혈통 옵션의 전통과 일치합니다.'}
 ,
-  {name_ko:'고향 귀환', name_en:'Homeward Bound', feat_level:17, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'빈도: 주 2회', desc:'<strong>빈도:</strong> 주 2회<br>당신과 첫 번째 세계 사이의 연결이 대부분의 노움보다 몸속에서 강하게 울려, 우주와 첫 번째 세계 사이의 문턱을 넘을 수 있습니다. <em>차원간 순간이동(interplanar teleport)</em>을 <strong>근원 선천 주문으로 주 2회</strong> 시전할 수 있습니다. 이것은 첫 번째 세계와 우주 사이를 왕래하는 데만 사용할 수 있습니다. 몸의 자연적 공명으로 주문의 초점(locus) 역할을 할 수 있으며, 특별히 조율된 차원 열쇠가 필요하지 않습니다.'}
+  {name_ko:'고향 귀환', name_en:'Homeward Bound', feat_level:17, prerequisites:'노움', traits:['노움'], category:'ancestry', summary:'빈도: 주 2회', desc:'<strong>빈도:</strong> 주 2회<br>당신과 첫 번째 세계 사이의 연결이 대부분의 노움보다 몸속에서 강하게 울려, 우주와 첫 번째 세계 사이의 문턱을 넘을 수 있습니다. <em>차원간 순간이동(interplanar teleport)</em>을 <strong>원시 선천 주문으로 주 2회</strong> 시전할 수 있습니다. 이것은 첫 번째 세계와 우주 사이를 왕래하는 데만 사용할 수 있습니다. 몸의 자연적 공명으로 주문의 초점(locus) 역할을 할 수 있으며, 특별히 조율된 차원 열쇠가 필요하지 않습니다.'}
 ,
 
   // ── 고블린 Goblin ──
@@ -1822,7 +1822,7 @@ const FEAT_DB = [
 ,
   {name_ko:'억누를 수 없는', name_en:'Irrepressible', feat_level:9, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'공포와 감정을 이용하려는 시도를 쉽게 물리칩니다. 감정 효과에 대한 내성에서 성공을 굴리면 대성공. 대담한 하플링 유산이면 감정 효과에 대한 대', desc:'공포와 감정을 이용하려는 시도를 쉽게 물리칩니다. 감정 효과에 대한 내성에서 <strong>성공을 굴리면 대성공</strong>. 대담한 하플링 유산이면 감정 효과에 대한 <strong>대실패를 굴리면 실패</strong>가 됩니다.'}
 ,
-  {name_ko:'방해받지 않는 통과', name_en:'Unhampered Passage', feat_level:9, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'다른 이가 당신을 속박하게 두지 않습니다. 속박 해제(unfettered movement)를 자신에게 근원 선천 주문으로 하루 1회 시전할 수 ', desc:'다른 이가 당신을 속박하게 두지 않습니다. <em>속박 해제(unfettered movement)</em>를 자신에게 <strong>근원 선천 주문으로 하루 1회</strong> 시전할 수 있습니다.'}
+  {name_ko:'방해받지 않는 통과', name_en:'Unhampered Passage', feat_level:9, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'다른 이가 당신을 속박하게 두지 않습니다. 속박 해제(unfettered movement)를 자신에게 원시 선천 주문으로 하루 1회 시전할 수 ', desc:'다른 이가 당신을 속박하게 두지 않습니다. <em>속박 해제(unfettered movement)</em>를 자신에게 <strong>원시 선천 주문으로 하루 1회</strong> 시전할 수 있습니다.'}
 ,
   {name_ko:'하플링 무기 전문가', name_en:'Halfling Weapon Expertise', feat_level:13, prerequisites:'하플링, 하플링 무기 친숙', traits:['하플링'], category:'ancestry', summary:'하플링 무기 숙련도가 전문가로 증가.', desc:'하플링 무기에 대한 숙련도가 전문가로 증가합니다.'}
 ,
@@ -2028,7 +2028,7 @@ const FEAT_DB = [
 ,
   {name_ko:'찬가 공연', name_en:'Anthemic Performance', feat_level:8, prerequisites:'바드 헌신', traits:['원형'], category:'archetype', summary:'용감한 찬가(courageous anthem) 합주 캔트립을 얻습니다.', desc:'<em>용감한 찬가(courageous anthem)</em> 합주 캔트립을 얻습니다. 이미 이 캔트립이 있다면 대신 다른 바드 합주 캔트립을 선택합니다.'}
 ,
-  {name_ko:'비의 확장', name_en:'Occult Breadth', feat_level:8, prerequisites:'기초 바드 주문시전', traits:['원형'], category:'archetype', summary:'추가 비전(오컬트) 주문 슬롯을 얻습니다.', desc:'기초 바드 주문시전으로 얻은 각 순환의 주문 슬롯이 <strong>1개에서 2개</strong>로 증가합니다.'}
+  {name_ko:'오컬트 확장', name_en:'Occult Breadth', feat_level:8, prerequisites:'기초 바드 주문시전', traits:['원형'], category:'archetype', summary:'추가 비전(오컬트) 주문 슬롯을 얻습니다.', desc:'기초 바드 주문시전으로 얻은 각 순환의 주문 슬롯이 <strong>1개에서 2개</strong>로 증가합니다.'}
 ,
   {name_ko:'신성 확장', name_en:'Divine Breadth', feat_level:8, prerequisites:'기초 클레릭 주문시전', traits:['원형'], category:'archetype', summary:'추가 신성 주문 슬롯을 얻습니다.', desc:'기초 클레릭 주문시전으로 얻은 각 순환의 주문 슬롯이 <strong>1개에서 2개</strong>로 증가합니다.'}
 ,
