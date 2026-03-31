@@ -317,9 +317,6 @@ const FEAT_EFFECTS = {
   'Quick Identification': {
     effects: [{type:'display_note', text:'마법 식별 10분→1분. 달인=3행동, 전설=1행동'}]
   },
-  'Recognize Spell': {
-    effects: [{type:'display_note', text:'[반응] 주문 시전 목격 시 식별. 2랭크 이하 일반 주문 자동 식별'}]
-  },
   'Multilingual': {
     effects: [{type:'display_note', text:'추가 언어 2개 습득. 전문가=비일반 언어도 가능. 이 재주 반복 선택 가능'}]
   },
@@ -466,9 +463,6 @@ const FEAT_EFFECTS = {
   "Mountain's Stoutness": {
     effects: [{type:'hp_bonus', value:'level'}, {type:'recovery_dc', value:-1}]
   },
-  'Stonewalker': {
-    effects: [{type:'display_note', text:'석재/흙벽 녹아들기 이동 가능'}]
-  },
 
   // ── 엘프 ──
   'Elven Lore': {
@@ -531,9 +525,6 @@ const FEAT_EFFECTS = {
   },
   'Illusion Sense': {
     effects: [{type:'display_note', text:'환상에 대한 간파 판정에 +1 상황 보너스'}]
-  },
-  'First World Magic': {
-    effects: [{type:'cantrip_slots', value:1, tradition:'primal'}]
   },
   'Animal Accomplice': {
     effects: [{type:'display_note', text:'사역마 1마리 획득'}]
@@ -1933,9 +1924,6 @@ const FEAT_EFFECTS = {
   'Swipe': {
     effects: [{type:'display_note', text:'[2행동] 인접한 최대 2명에게 한 번의 명중 굴림으로 타격'}]
   },
-  'Twin Parry': {
-    effects: [{type:'display_note', text:'[1행동] 각 손의 근접 무기로 방어. AC +1 상황 보너스 (방어 특성이면 +2)'}]
-  },
 
   // ── 6레벨 ──
   'Advanced Weapon Training': {
@@ -1976,9 +1964,6 @@ const FEAT_EFFECTS = {
   },
 
   // ── 8레벨 ──
-  'Blind-Fight': {
-    effects: [{type:'display_note', text:'은폐 시 단순 판정 불필요. 숨겨진 적에 방심 아님(DC 5). 인접 레벨 이하 미탐지→숨겨진'}]
-  },
   'Disorienting Opening': {
     effects: [{type:'display_note', text:'반격 타격 명중 시 대상이 다음 턴까지 방심'}]
   },
@@ -2044,9 +2029,6 @@ const FEAT_EFFECTS = {
   'Tactical Reflexes': {
     effects: [{type:'display_note', text:'각 턴 시작에 반격 타격 전용 추가 반응 1회'}]
   },
-  'Twin Riposte': {
-    effects: [{type:'display_note', text:'[반응] 쌍검 방어 중 적의 대실패 시 근접 타격 또는 무장 해제'}]
-  },
 
   // ── 12레벨 ──
   'Brutal Finish': {
@@ -2087,9 +2069,6 @@ const FEAT_EFFECTS = {
   'Guiding Riposte': {
     effects: [{type:'display_note', text:'결투 반격 명중 시 대상을 최대 10피트 재배치'}]
   },
-  'Improved Twin Riposte': {
-    effects: [{type:'display_note', text:'쌍검 방어 없이도 쌍검 반격 사용 가능. 전용 추가 반응 1회'}]
-  },
   'Opening Stance': {
     effects: [{type:'display_note', text:'[반응] 주도권 굴림 시 자세 특성 행동 1개를 즉시 사용'}]
   },
@@ -2121,9 +2100,6 @@ const FEAT_EFFECTS = {
   },
 
   // ── 18레벨 ──
-  'Impossible Volley': {
-    effects: [{type:'display_note', text:'[3행동] 살포+재장전 0 무기. 10피트 폭발 내 모든 적에 -2로 타격'}]
-  },
   'Savage Critical': {
     effects: [{type:'display_note', text:'전설 숙련도 무기로 주사위 19 굴림 시 성공이면 자동 치명 성공'}]
   },
@@ -2182,9 +2158,6 @@ const FEAT_EFFECTS = {
   'Mobility': {
     effects: [{type:'display_note', text:'절반 속도 이하로 보폭하면 이동이 반응을 유발하지 않음'}]
   },
-  'Quick Draw': {
-    effects: [{type:'display_note', text:'[1행동] 무기를 뽑고 즉시 타격'}]
-  },
   'Strong Arm': {
     effects: [{type:'display_note', text:'투척 무기의 사거리 증분 10피트 증가'}]
   },
@@ -2220,9 +2193,6 @@ const FEAT_EFFECTS = {
   "Scoundrel's Surprise": {
     effects: [{type:'display_note', text:'[1행동] 변장 벗어 놀라게 함. 간파 못한 생물은 다음 공격에 방심'}]
   },
-  "Scout's Warning": {
-    effects: [{type:'display_note', text:'[반응] 주도권 굴림 직전. 아군 모두의 주도권에 +1 상황 보너스'}]
-  },
   'The Harder They Fall': {
     effects: [{type:'display_note', text:'방심한 적 넘어뜨리기 성공 시 1d6 둔기 피해. 대성공이면 +은밀 공격 피해'}]
   },
@@ -2248,9 +2218,6 @@ const FEAT_EFFECTS = {
   },
   'Shove Down': {
     effects: [{type:'display_note', text:'[자유] 밀기 성공 후 즉시 넘어뜨리기 시도 (도달 밖이어도)'}]
-  },
-  'Skirmish Strike': {
-    effects: [{type:'display_note', text:'[1행동] 비틀거림+타격 또는 타격+비틀거림'}]
   },
   'Sly Disarm': {
     effects: [{type:'display_note', text:'운동 대신 도둑질로 무장 해제 가능. 성공 시 대상이 방심'}]
@@ -2352,9 +2319,6 @@ const FEAT_EFFECTS = {
   },
   'Leave an Opening': {
     effects: [{type:'display_note', text:'방심한 적에 치명 타격 시 아군의 반격 타격을 유발'}]
-  },
-  'Sense the Unseen': {
-    effects: [{type:'display_note', text:'[반응] 탐색 실패 시 미탐지 생물을 자동으로 숨겨진 상태로'}]
   },
   "Stay Down!": {
     effects: [{type:'display_note', text:'[반응] 도달 내 엎드린 적이 일어나려 할 때 운동으로 방해'}]
