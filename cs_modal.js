@@ -1556,6 +1556,81 @@ function buildWeaponFilters() {
     </select>`;
 }
 
+function _checkPrereqs(prereqStr) {
+  if (!prereqStr) return true;
+  // 첫 문장만 선행 조건으로 사용 (나머지는 효과 설명)
+  const prereq = prereqStr.split(/(?<=\.)\s+/)[0].replace(/\.$/,'').trim();
+  if (!prereq) return true;
+
+  const learnedFeats = new Set();
+  Object.values(state.feats).forEach(arr => arr.forEach(f => {
+    if (f.name) {
+      learnedFeats.add(f.name.split(' (')[0].trim());
+      const enM = f.name.match(/\(([^)]+)\)$/);
+      if (enM) learnedFeats.add(enM[1].trim());
+    }
+  }));
+
+  // 쉼표로 구분된 각 조건 체크 (AND)
+  const conditions = prereq.split(/,\s*/);
+  for (const cond of conditions) {
+    const c = cond.trim();
+    if (!c) continue;
+
+    // 기술 숙련도 체크: "곡예 숙련", "은신 전문가" 등
+    const skillRankMatch = c.match(/^(.+?)\s+(숙련|전문가|달인|전설)$/);
+    if (skillRankMatch) {
+      const skillName = skillRankMatch[1];
+      const rankMap = {'숙련':2,'전문가':4,'달인':6,'전설':8};
+      const reqRank = rankMap[skillRankMatch[2]] || 2;
+      const sk = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.name === skillName) : null;
+      if (sk) {
+        const curRank = parseInt(document.getElementById('sk-prof-'+sk.id)?.value||0);
+        if (curRank < reqRank) return false;
+      }
+      continue;
+    }
+
+    // 능력치 체크: "건강 +2", "매력 +2" 등
+    const attrMatch = c.match(/^(근력|민첩|건강|지능|지혜|매력)\s*\+(\d+)$/);
+    if (attrMatch) {
+      const attrMap = {'근력':'str','민첩':'dex','건강':'con','지능':'int','지혜':'wis','매력':'cha'};
+      const mod = getMod(attrMap[attrMatch[1]]);
+      if (mod < parseInt(attrMatch[2])) return false;
+      continue;
+    }
+
+    // 혈통 체크: "엘프", "드워프" 등
+    if (state.selectedAncestry?.traits?.includes(c)) continue;
+    if (state.selectedHeritage?.extraFeats?.includes(c)) continue;
+
+    // 뮤즈/교리/교단 체크
+    if (state.selectedSubclass && (state.selectedSubclass.name_ko === c || state.selectedSubclass.name_en === c)) continue;
+
+    // 최소 100세 등 특수 조건은 통과
+    if (c.includes('세') || c.includes('레벨')) continue;
+
+    // 재주 보유 체크
+    if (learnedFeats.has(c)) continue;
+
+    // 영문 재주명 체크
+    if (typeof FEAT_DB !== 'undefined') {
+      const found = FEAT_DB.find(f => f.name_ko === c || f.name_en === c);
+      if (found && (learnedFeats.has(found.name_ko) || learnedFeats.has(found.name_en))) continue;
+    }
+
+    // 클래스 체크
+    if (state.selectedClass && (state.selectedClass.name === c || state.selectedClass.en === c || state.selectedClass.id === c)) continue;
+
+    // "주문시전 클래스 특성" 등 일반적 조건은 통과
+    if (c.includes('주문') || c.includes('글꼴') || c.includes('동물') || c.includes('사역마')) continue;
+
+    // 매칭 안 되면 실패
+    return false;
+  }
+  return true;
+}
+
 function filterFeats() {
   if (typeof FEAT_DB==='undefined') return [];
   const q = document.getElementById('modal-search')?.value.toLowerCase()||'';
@@ -1572,12 +1647,13 @@ function filterFeats() {
     return FEAT_DB.filter(f => {
       if (q && !f.name_ko.includes(q) && !(f.name_en||'').toLowerCase().includes(q) && !(f.summary||'').includes(q)) return false;
       if (f.feat_level > maxLv) return false;
+      // 선행 조건 체크
+      if (f.prerequisites && !_checkPrereqs(f.prerequisites)) return false;
       if (ft === 'ancestry') {
         // 혈통 재주: ancestry 카테고리 + 선택된 혈통 trait 일치 + 유산 extraFeats
         if (f.category !== 'ancestry') return false;
         if (state.selectedAncestry) {
           const ancTraits = [...(state.selectedAncestry.traits || [])];
-          // 유산이 추가하는 재주 카테고리 (체인질링, 네피림, 엘프, 오크 등)
           if (state.selectedHeritage?.extraFeats) {
             ancTraits.push(...state.selectedHeritage.extraFeats);
           }
@@ -1595,7 +1671,8 @@ function filterFeats() {
   return FEAT_DB.filter(f =>
     (!cat || f.category===cat) &&
     (!lv || f.feat_level<=lv) &&
-    (!q || f.name_ko.includes(q) || (f.name_en||'').toLowerCase().includes(q) || (f.summary||'').includes(q))
+    (!q || f.name_ko.includes(q) || (f.name_en||'').toLowerCase().includes(q) || (f.summary||'').includes(q)) &&
+    (!f.prerequisites || _checkPrereqs(f.prerequisites))
   );
 }
 
