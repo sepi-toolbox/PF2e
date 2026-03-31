@@ -429,6 +429,9 @@ const FEAT_EFFECTS = {
   'Defy the Darkness': {
     effects: [{type:'vision_upgrade', vision:'상위 암시야'}]
   },
+  'Echoes in Stone': {
+    effects: [{type:'extra_sense', sense:'진동 감각 20피트 (돌/흙 위, 1행동)'}]
+  },
   'Stonegate': {
     effects: [{type:'grant_innate_spell', spell:'마법 통로', tradition:'신성', spellType:'spell', uses:'하루 1회'}]
   },
@@ -2758,6 +2761,7 @@ function applyFeatEffects() {
     familiarWeapons: [],
     martialExperience: false,
     unburdenedIron: false,
+    extraSenses: [],
     damage_notes: [],
     notes: [],
     cantrip_bonus: 0,
@@ -2876,6 +2880,10 @@ function _applyOneEffect(fb, eff, feat, level) {
       // 특정 무기에 직접 훈련됨(trained) 부여
       if (!fb.trainedWeapons) fb.trainedWeapons = [];
       if (eff.weapons) eff.weapons.forEach(w => { if (!fb.trainedWeapons.includes(w)) fb.trainedWeapons.push(w); });
+      break;
+    }
+    case 'extra_sense': {
+      if (eff.sense && !fb.extraSenses.includes(eff.sense)) fb.extraSenses.push(eff.sense);
       break;
     }
     case 'vision_upgrade': {

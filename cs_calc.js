@@ -55,7 +55,15 @@ function syncAllProfRanks() {
     const visionRank = {'상위 암시야':3,'암시야':2,'저광 시야':1,'없음':0};
     const vision = (visionRank[stateVision]||0) >= (visionRank[ancVision]||0) ? stateVision : ancVision;
     const visionMap = {'상위 암시야':'상위 암시야 (Greater Darkvision)','암시야':'암시야 (Darkvision)','저광 시야':'저광 시야 (Low-Light Vision)','없음':''};
-    sensesEl.textContent = visionMap[vision] || vision || '—';
+    let sensesText = visionMap[vision] || vision || '—';
+    // 유산 추가 감각
+    const heritageSense = state.selectedHeritage?.extraSenses;
+    if (heritageSense) sensesText += (sensesText && sensesText !== '—' ? ', ' : '') + heritageSense;
+    // 재주 추가 감각
+    if (state._fb?.extraSenses?.length) {
+      sensesText += (sensesText && sensesText !== '—' ? ', ' : '') + state._fb.extraSenses.join(', ');
+    }
+    sensesEl.textContent = sensesText || '—';
   }
   // 저항 표시
   renderResistances();

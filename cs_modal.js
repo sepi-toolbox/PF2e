@@ -2231,8 +2231,14 @@ function clearCoreSelection(type) {
     save();
   } else if (type === 'heritage') {
     state.selectedHeritage = null;
+    // 시야를 혈통 기본값으로 복원
+    state.vision = state.selectedAncestry?.vision || '없음';
+    // 유산 부여 선천 주문 제거
+    if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => !s._heritage);
     const btn = document.getElementById('btn-heritage');
     if (btn) { btn.textContent = '유산...'; btn.classList.remove('filled'); }
+    recalcAll();
+    renderFeats();
     renderGrowthPlan();
     save();
   } else if (type === 'subclass') {
@@ -2630,11 +2636,26 @@ function applyHeritageEffects(h) {
   }
   // 선천적 주문 부여
   if (h.innateSpells) {
-    // 기존 유산 부여 선천 주문 제거
     state.spells.innate = (state.spells.innate||[]).filter(s => !s._heritage);
-    h.innateSpells.forEach(sp => {
-      state.spells.innate.push({name: sp.name, tradition: sp.tradition, type: sp.type, uses: sp.uses, _heritage: true, _source: h.name_ko});
-    });
+    const needsChoice = h.innateSpells.some(sp => sp.tradition === '근원' || sp.tradition === '선택');
+    if (needsChoice) {
+      // 캔트립 선택 모달 열기
+      const sp = h.innateSpells[0];
+      const trad = sp.tradition === '선택' ? 'any' : 'primal';
+      const label = sp.tradition === '선택' ? '전통 캔트립 선택 (비전/신성/비의 중)' : '근원(Primal) 캔트립 선택';
+      // 가짜 재주로 choice 모달 호출
+      if (!state.feats.other) state.feats.other = [];
+      const tempFeatName = h.name_ko + ' 캔트립';
+      state.feats.other.push({name: tempFeatName, level:1, _auto:true, _heritageCantrip:true});
+      const fi = state.feats.other.length - 1;
+      if (typeof openFeatChoiceModal === 'function') {
+        setTimeout(() => openFeatChoiceModal('other', fi, {type:'spell_cantrip', tradition: trad, label}), 100);
+      }
+    } else {
+      h.innateSpells.forEach(sp => {
+        state.spells.innate.push({name: sp.name, tradition: sp.tradition, type: sp.type, uses: sp.uses, _heritage: true, _source: h.name_ko});
+      });
+    }
   }
   recalcAll();
   renderFeats();
