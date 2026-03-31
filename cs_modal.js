@@ -2477,8 +2477,9 @@ function closeModal() {
   // Clean up equip-browse
   const eqTabs = document.getElementById('equip-tab-container');
   if (eqTabs) eqTabs.style.display = 'none';
-  if (footer && !footer.querySelector('.btn-confirm')) {
-    footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">취소</button><button class="btn btn-confirm" onclick="confirmModal()">선택</button>';
+  // footer 버튼 항상 초기화
+  if (footer) {
+    footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button><button class="btn btn-confirm" onclick="confirmModal()">선택</button>';
   }
   modalType = null;
   modalSelected = null;
@@ -2679,7 +2680,9 @@ function applyHeritageEffects(h) {
   }
   // 선천적 주문 부여
   if (h.innateSpells) {
-    state.spells.innate = (state.spells.innate||[]).filter(s => !s._heritage);
+    if (!state.spells) state.spells = {cantrip:[],known:[],focus:[],innate:[]};
+    if (!state.spells.innate) state.spells.innate = [];
+    state.spells.innate = state.spells.innate.filter(s => !s._heritage);
     const needsChoice = h.innateSpells.some(sp => sp.tradition === '원시' || sp.tradition === '선택');
     if (needsChoice) {
       // 캔트립 선택 모달 열기
