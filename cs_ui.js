@@ -710,7 +710,19 @@ function toggleEquip(i) {
   save();
 }
 
-function removeEquip(i) { state.equip.splice(i,1); renderEquip(); save(); }
+function removeEquip(i) {
+  const item = state.equip[i];
+  // 장착된 아이템이면 먼저 해제
+  if (item?._equipped) {
+    item._equipped = true; // toggleEquip이 반전시키므로
+    toggleEquip(i);
+  }
+  state.equip.splice(i,1);
+  // 무기의 _fromEquip 인덱스 재정렬
+  state.weapons.forEach(w => { if (w._fromEquip > i) w._fromEquip--; });
+  renderEquip();
+  save();
+}
 
 // ── 컨테이너 (서브 인벤토리) ──
 function addContainer() {
