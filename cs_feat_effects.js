@@ -3236,7 +3236,6 @@ function _applyFeatChoice(choiceId) {
   if (!modalContext) return;
   const {featType, featIndex, choiceDef} = modalContext;
   state.feats[featType][featIndex].choice = choiceId;
-  console.log('[_applyFeatChoice]', featType, featIndex, choiceId, state.feats[featType][featIndex]);
 
   // spell_cantrip 선택 시 선천적 주문에 추가
   if (choiceDef?.type === 'spell_cantrip' || choiceDef?.type === 'spell_rank') {

@@ -1589,6 +1589,9 @@ function cascadeRemoveFeats() {
       if (state.selectedAncestry?.traits?.includes(ct)) continue;
       if (state.selectedHeritage?.extraFeats?.includes(ct)) continue;
       if (state.selectedHeritage && state.selectedHeritage.name_ko === ct) continue;
+      // 양자 혈통으로 얻은 혈통
+      const _ac = {dwarf:'드워프',elf:'엘프',gnome:'노움',goblin:'고블린',halfling:'하플링',human:'인간',leshy:'레쉬',orc:'오크'};
+      if (Object.values(state.feats).flat().some(ff => ff && ff.name && ff.name.includes('양자 혈통') && ff.choice && (_ac[ff.choice] === ct))) continue;
       if (state.selectedClass && (state.selectedClass.name === ct || state.selectedClass.en === ct)) continue;
       if (state.selectedSubclass && (state.selectedSubclass.name_ko === ct || state.selectedSubclass.name_en === ct)) continue;
       if (learned.has(ct)) continue;

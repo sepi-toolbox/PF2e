@@ -1654,10 +1654,14 @@ function _checkPrereqs(prereqStr) {
       continue;
     }
 
-    // 혈통 체크: "엘프", "드워프" 등
+    // 혈통 체크: "엘프", "드워프" 등 (양자 혈통 포함)
     if (state.selectedAncestry?.traits?.includes(c)) continue;
     if (state.selectedHeritage?.extraFeats?.includes(c)) continue;
     if (state.selectedHeritage && state.selectedHeritage.name_ko === c) continue;
+    // 양자 혈통으로 얻은 혈통도 체크
+    const _adoptedCheck = {dwarf:'드워프',elf:'엘프',gnome:'노움',goblin:'고블린',halfling:'하플링',human:'인간',leshy:'레쉬',orc:'오크'};
+    const _isAdopted = Object.values(state.feats).flat().some(ff => ff && ff.name && ff.name.includes('양자 혈통') && ff.choice && (_adoptedCheck[ff.choice] === c));
+    if (_isAdopted) continue;
 
     // 뮤즈/교리/교단 체크
     if (state.selectedSubclass && (state.selectedSubclass.name_ko === c || state.selectedSubclass.name_en === c)) continue;
@@ -1712,7 +1716,6 @@ function filterFeats() {
           if (!_ancestryTraits.includes(t)) _ancestryTraits.push(t);
         }
       });
-      console.log('[filterFeats] ancestryTraits:', _ancestryTraits);
     }
 
     return FEAT_DB.filter(f => {
