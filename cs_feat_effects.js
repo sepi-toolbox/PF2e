@@ -3001,7 +3001,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
   const detail = document.getElementById('modal-detail');
   if (detail) { detail.style.display = 'none'; }
   // spell_cantrip: 닫기/취소/선택 전부 숨김 (선택 필수, detail 내 버튼만 사용)
-  if (isSpellChoice) {
+  if (isSpellChoice || choiceDef.type === 'lore') {
     const closeBtn = document.querySelector('.modal-close');
     const closeBtnM = document.getElementById('modal-close-m');
     const footer = document.querySelector('.modal-footer');

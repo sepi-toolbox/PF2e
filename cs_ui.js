@@ -1644,6 +1644,20 @@ function removeFeat(t, i) {
   if (feat?.name && state.spells?.innate) {
     state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== feat.name);
   }
+  // 재주로 부여된 지식 슬롯 정리 (grant_lore)
+  if (feat?.choice && typeof FEAT_DB !== 'undefined') {
+    const nameEn = (typeof _extractEnName === 'function') ? _extractEnName(feat.name) : '';
+    const def = nameEn ? (typeof FEAT_EFFECTS !== 'undefined' ? FEAT_EFFECTS[nameEn] : null) : null;
+    const hasGrantLore = def?.effects?.some(e => e.type === 'grant_lore');
+    if (hasGrantLore) {
+      const loreName = feat.choice;
+      ['lore1','lore2'].forEach(sid => {
+        const el = document.getElementById('lore-name-'+sid);
+        const profEl = document.getElementById('sk-prof-'+sid);
+        if (el && el.value === loreName) { el.value = ''; if (profEl) profEl.value = '0'; }
+      });
+    }
+  }
   state.feats[t].splice(i,1);
   cascadeRemoveFeats();
   recalcAll(); renderFeats(); save();

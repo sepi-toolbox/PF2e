@@ -1217,11 +1217,25 @@ function growthClearFeat(lv, key, featType) {
   if (!state.growth[lv]) return;
   const oldName = state.growth[lv][key];
   if (oldName) {
-    // Remove from state.feats
     const arr = state.feats[featType];
     if (arr) {
       const idx = arr.findIndex(f => f.name === oldName && f.level === lv);
-      if (idx >= 0) arr.splice(idx, 1);
+      if (idx >= 0) {
+        // grant_lore로 부여된 지식 슬롯 정리
+        const removedFeat = arr[idx];
+        if (removedFeat?.choice && typeof FEAT_EFFECTS !== 'undefined') {
+          const en = removedFeat.name?.match(/\(([^)]+)\)$/)?.[1] || '';
+          const def = en ? FEAT_EFFECTS[en] : null;
+          if (def?.effects?.some(e => e.type === 'grant_lore')) {
+            ['lore1','lore2'].forEach(sid => {
+              const el = document.getElementById('lore-name-'+sid);
+              const profEl = document.getElementById('sk-prof-'+sid);
+              if (el && el.value === removedFeat.choice) { el.value = ''; if (profEl) profEl.value = '0'; }
+            });
+          }
+        }
+        arr.splice(idx, 1);
+      }
     }
     // 선천 주문 제거
     if (state.spells?.innate) {
