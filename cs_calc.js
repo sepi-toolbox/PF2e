@@ -169,6 +169,8 @@ function showInfo(type, name) {
   } else if (type === 'feat' && typeof FEAT_DB !== 'undefined') {
     item = FEAT_DB.find(f => f.name_ko === nameKo) ||
            FEAT_DB.find(f => nameKo.startsWith(f.name_ko));
+  } else if (type === 'heritage' && typeof HERITAGE_DB !== 'undefined') {
+    item = HERITAGE_DB.find(h => h.name_ko === nameKo);
   } else if (type === 'weapon' && typeof WEAPON_DB !== 'undefined') {
     item = WEAPON_DB.find(w => w.name_ko === nameKo);
   } else if (type === 'armor' && typeof ARMOR_DB !== 'undefined') {
@@ -204,7 +206,7 @@ function showInfo(type, name) {
     };
   }
 
-  const titleMap = {spell:'주문 정보', feat:'재주 정보', weapon:'무기 정보', armor:'방어구 정보', shield:'방패 정보', gear:'장비 정보'};
+  const titleMap = {spell:'주문 정보', feat:'재주 정보', heritage:'유산 정보', weapon:'무기 정보', armor:'방어구 정보', shield:'방패 정보', gear:'장비 정보'};
   document.getElementById('modal-overlay').classList.remove('hidden');
   const searchEl = document.getElementById('modal-search');
   if (searchEl) searchEl.style.display = 'none';
