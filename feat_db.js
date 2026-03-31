@@ -1770,7 +1770,7 @@ const FEAT_DB = [
 ,
   {name_ko:'무릎치기', name_en:'Kneecap', feat_level:5, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'근접 타격을 하되 피해를 주지 않습니다. 명중 시 대상의 이동 속도에 -10피트 상태 페널티(치명타 시 -15피트)를 1라운드간 부여합니다. 지', desc:'근접 타격을 하되 피해를 주지 않습니다. 명중 시 대상의 이동 속도에 <strong>-10피트 상태 페널티</strong>(치명타 시 -15피트)를 1라운드간 부여합니다. 지상 이동 속도가 있고 다리에 의존하는 대상에게만 적용. 최소 5피트.'}
 ,
-  {name_ko:'큰소리 가수', name_en:'Loud Singer', feat_level:5, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'전제조건: 고블린 노래. 고블린 노래 범위가 60피트로 증가하고 추가 적 1명 대상 가능.', desc:'<strong>전제조건:</strong> 고블린 노래. 고블린 노래 범위가 <strong>60피트로 증가</strong>하고 <strong>추가 적 1명</strong> 대상 가능.'}
+  {name_ko:'큰소리 가수', name_en:'Loud Singer', feat_level:5, prerequisites:'고블린, 고블린 노래', traits:['고블린'], category:'ancestry', summary:'전제조건: 고블린 노래. 고블린 노래 범위가 60피트로 증가하고 추가 적 1명 대상 가능.', desc:'<strong>전제조건:</strong> 고블린 노래. 고블린 노래 범위가 <strong>60피트로 증가</strong>하고 <strong>추가 적 1명</strong> 대상 가능.'}
 ,
   {name_ko:'파괴자', name_en:'Vandal', feat_level:5, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'도둑질에 숙련됩니다. 함정이나 무인 물체에 타격 명중 시 처음 5점 경도 무시.', desc:'<strong>도둑질에 숙련</strong>됩니다. 함정이나 무인 물체에 타격 명중 시 처음 <strong>5점 경도 무시</strong>.'}
 ,
