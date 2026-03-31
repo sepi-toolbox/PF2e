@@ -1699,35 +1699,31 @@ function filterFeats() {
     // class → 선택된 클래스 id
     if (ft === 'class' && state.selectedClass) cat = state.selectedClass.id;
 
-    console.log('[filterFeats] ft:', ft, 'growthPending:', !!growthPendingKey);
+    // 혈통 재주용 traits 사전 구성 (filter 밖에서 1번만)
+    let _ancestryTraits = null;
+    if (ft === 'ancestry' && state.selectedAncestry) {
+      _ancestryTraits = [...(state.selectedAncestry.traits || [])];
+      if (state.selectedHeritage?.extraFeats) _ancestryTraits.push(...state.selectedHeritage.extraFeats);
+      if (state._fb?.adoptedAncestries) _ancestryTraits.push(...state._fb.adoptedAncestries);
+      const _am = {dwarf:'드워프',elf:'엘프',gnome:'노움',goblin:'고블린',halfling:'하플링',human:'인간',leshy:'레쉬',orc:'오크'};
+      Object.values(state.feats).flat().forEach(ff => {
+        if (ff && ff.name && ff.name.includes('양자 혈통') && ff.choice) {
+          const t = _am[ff.choice] || ff.choice;
+          if (!_ancestryTraits.includes(t)) _ancestryTraits.push(t);
+        }
+      });
+      console.log('[filterFeats] ancestryTraits:', _ancestryTraits);
+    }
+
     return FEAT_DB.filter(f => {
       if (!f) return false;
       if (q && !f.name_ko.includes(q) && !(f.name_en||'').toLowerCase().includes(q) && !(f.summary||'').includes(q)) return false;
       if (f.feat_level > maxLv) return false;
-      // 선행 조건 체크
       if (f.prerequisites && !_checkPrereqs(f.prerequisites)) return false;
       if (ft === 'ancestry') {
-        // 혈통 재주: ancestry 카테고리 + 선택된 혈통 trait 일치 + 유산 extraFeats
         if (f.category !== 'ancestry') return false;
-        if (state.selectedAncestry) {
-          const ancTraits = [...(state.selectedAncestry.traits || [])];
-          if (state.selectedHeritage?.extraFeats) {
-            ancTraits.push(...state.selectedHeritage.extraFeats);
-          }
-          // 양자 혈통 (Adopted Ancestry) 추가
-          if (state._fb?.adoptedAncestries) {
-            ancTraits.push(...state._fb.adoptedAncestries);
-          }
-          // 직접 스캔 (applyFeatEffects 미실행 시 대비)
-          const _ancMap = {dwarf:'드워프',elf:'엘프',gnome:'노움',goblin:'고블린',halfling:'하플링',human:'인간',leshy:'레쉬',orc:'오크'};
-          Object.values(state.feats).flat().forEach(ff => {
-            if (ff && ff.name && ff.name.includes('양자 혈통') && ff.choice) {
-              const t = _ancMap[ff.choice] || ff.choice;
-              if (!ancTraits.includes(t)) ancTraits.push(t);
-            }
-          });
-          const matched = f.traits && f.traits.some(t => ancTraits.includes(t));
-          return matched;
+        if (_ancestryTraits) {
+          return f.traits && f.traits.some(t => _ancestryTraits.includes(t));
         }
         return true;
       }
