@@ -2895,7 +2895,9 @@ function _applyOneEffect(fb, eff, feat, level) {
     }
     case 'grant_adopted_feat': {
       // 문화 적응: 양자 혈통으로 선택한 혈통의 1레벨 재주 1개 획득
-      // 양자 혈통 choice가 설정된 후 모달을 열어야 함
+      // 이미 이 재주로 혈통 재주를 부여했으면 스킵
+      const alreadyGranted = (state.feats.ancestry||[]).some(f => f && f._grantedBy === feat.name);
+      if (alreadyGranted) break;
       setTimeout(() => {
         const adoptedFeat = Object.values(state.feats).flat().find(f => f && f.name && f.name.includes('양자 혈통') && f.choice && f._grantedBy === feat.name);
         if (!adoptedFeat) return;
