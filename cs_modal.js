@@ -1746,52 +1746,45 @@ function selectOption(item, row) {
   else showItemDetail(item);
 }
 
-// 설명 텍스트에서 행동 블록([반응], [1행동] 등)을 카드 형태로 변환
-function formatActionBlocks(text) {
-  if (!text) return text;
-  // 패턴: "행동이름(영문이름) [행동타입]" 또는 "[행동타입]"으로 시작하는 문장 블록
-  // 유산 패턴: "이름(English Name) [반응] 유발 조건: ... 효과: ..."
-  const actionPattern = /([^\.\n]*?\([A-Za-z\s']+\)\s*)?(\[(?:반응|1행동|2행동|3행동|자유 행동)\])\s*(유발 조건:\s*.+?)?\s*(효과:\s*.+?)(?=$|\n|<br>)/g;
-
-  return text.replace(actionPattern, (match, namePart, costPart, triggerPart, effectPart) => {
-    const costMap = {'[반응]':'↩','[1행동]':'◆','[2행동]':'◆◆','[3행동]':'◆◆◆','[자유 행동]':'⟡'};
-    const costIcon = costMap[costPart] || costPart;
-    const actionName = namePart ? namePart.trim() : '';
-    const trigger = triggerPart ? `<div style="margin-top:4px;"><b>유발 조건:</b> ${triggerPart.replace(/^유발 조건:\s*/,'')}</div>` : '';
-    const effect = effectPart ? `<div style="margin-top:4px;"><b>효과:</b> ${effectPart.replace(/^효과:\s*/,'')}</div>` : '';
-
-    return `<div style="margin:8px 0;padding:8px 10px;background:var(--bg3);border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:4px;">
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
-        <span style="font-size:16px;color:var(--accent);">${costIcon}</span>
-        <b style="font-size:13px;">${actionName}</b>
-      </div>
-      ${trigger}${effect}
-    </div>`;
-  });
-}
-
-// 간이 패턴: "[행동타입] 설명..." 형태 (이름 없이 바로 행동)
-function formatSimpleActionBlocks(text) {
-  if (!text) return text;
-  return text.replace(/(\[(?:반응|1행동|2행동|3행동|자유 행동)\])\s+([^<\[]+)/g, (match, costPart, rest) => {
-    // 이미 formatActionBlocks에서 변환된 경우 스킵
-    if (rest.includes('border-left')) return match;
-    const costMap = {'[반응]':'↩','[1행동]':'◆','[2행동]':'◆◆','[3행동]':'◆◆◆','[자유 행동]':'⟡'};
-    const costIcon = costMap[costPart] || costPart;
-    return `<div style="margin:8px 0;padding:8px 10px;background:var(--bg3);border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:4px;">
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
-        <span style="font-size:16px;color:var(--accent);">${costIcon}</span>
-      </div>
-      <div style="font-size:12px;line-height:1.6;">${rest.trim()}</div>
-    </div>`;
-  });
-}
-
+// 설명 텍스트에서 행동 블록([반응], [1행동] 등)을 행동 탭과 동일한 action-card로 변환
 function formatDescActions(text) {
   if (!text) return text;
-  let result = formatActionBlocks(text);
-  result = formatSimpleActionBlocks(result);
+  const costMap = {'[반응]':'↩','[1행동]':'◆','[2행동]':'◆◆','[3행동]':'◆◆◆','[자유 행동]':'⟡'};
+  const costEnMap = {'[반응]':'Reaction','[1행동]':'1 Action','[2행동]':'2 Actions','[3행동]':'3 Actions','[자유 행동]':'Free Action'};
+
+  // 패턴1: "이름(English) [행동] 유발 조건: ... 효과: ..."
+  let result = text.replace(/([^\.\n<]*?\([A-Za-z\s']+\))\s*(\[(?:반응|1행동|2행동|3행동|자유 행동)\])\s*(유발 조건:\s*.+?)?\s*(효과:\s*.+?)(?=$|\n|<br>)/g,
+    (match, namePart, costPart, triggerPart, effectPart) => {
+      const costIcon = costMap[costPart] || costPart;
+      const nameKo = namePart.replace(/\s*\([^)]+\)/, '').trim();
+      const nameEn = (namePart.match(/\(([^)]+)\)/) || [])[1] || '';
+      let summary = '';
+      if (triggerPart) summary += triggerPart.trim();
+      if (effectPart) summary += (summary ? ' ' : '') + effectPart.trim();
+      return _buildActionCard(costIcon, nameKo, nameEn, summary);
+    });
+
+  // 패턴2: "[행동] 설명..." (이름 없이)
+  result = result.replace(/(\[(?:반응|1행동|2행동|3행동|자유 행동)\])\s+([^<\[]+)/g, (match, costPart, rest) => {
+    if (rest.includes('action-card')) return match;
+    const costIcon = costMap[costPart] || costPart;
+    return _buildActionCard(costIcon, '', '', rest.trim());
+  });
+
   return result;
+}
+
+function _buildActionCard(costIcon, nameKo, nameEn, summary) {
+  return `<div class="action-card" style="margin:8px 0;">
+    <div class="action-card-head">
+      <span class="action-cost">${costIcon}</span>
+      <div style="flex:1;min-width:0;">
+        ${nameKo ? `<div class="action-name-ko">${nameKo}</div>` : ''}
+        ${nameEn ? `<div class="action-name-en">${nameEn}</div>` : ''}
+      </div>
+    </div>
+    <div class="action-summary">${summary}</div>
+  </div>`;
 }
 
 function showItemDetail(item) {
