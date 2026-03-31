@@ -18,8 +18,8 @@ const SPELL_DB = [
 
   { name_ko: "멍하게", name_en: "Daze", rank: 1, is_cantrip: true, is_focus: false,
     traditions: ["arcane", "divine", "occult"], actions: "2행동", traits: ["조작", "정신", "비치명"],
-    summary: "대상의 정신을 흐리게 하여 방심하거나 느리게 만듭니다.대성공: 영향 없음.성공: 대상이 1라운드간 방심(off-guard).실패: 대상이 4 정신 피해를 받고 1라운드간 방심.대실패: 대상이 4 정신 피해를 받고 1...",
-    desc: "대상의 정신을 흐리게 하여 방심하거나 느리게 만듭니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상이 1라운드간 <strong>방심(off-guard)</strong>.<br><strong>실패:</strong> 대상이 <strong>4 정신 피해</strong>를 받고 1라운드간 <strong>방심</strong>.<br><strong>대실패:</strong> 대상이 <strong>4 정신 피해</strong>를 받고 1라운드간 <strong>방심 + 느려짐 1(slowed 1)</strong>.<br><strong>강화(+2):</strong> 피해 +4." },
+    summary: "대상의 정신을 흐리게 하여 무방비하거나 느리게 만듭니다.대성공: 영향 없음.성공: 대상이 1라운드간 무방비(off-guard).실패: 대상이 4 정신 피해를 받고 1라운드간 무방비.대실패: 대상이 4 정신 피해를 받고 1...",
+    desc: "대상의 정신을 흐리게 하여 무방비하거나 느리게 만듭니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상이 1라운드간 <strong>무방비(off-guard)</strong>.<br><strong>실패:</strong> 대상이 <strong>4 정신 피해</strong>를 받고 1라운드간 <strong>무방비</strong>.<br><strong>대실패:</strong> 대상이 <strong>4 정신 피해</strong>를 받고 1라운드간 <strong>무방비 + 느려짐 1(slowed 1)</strong>.<br><strong>강화(+2):</strong> 피해 +4." },
 
   { name_ko: "마법 탐지", name_en: "Detect Magic", rank: 1, is_cantrip: true, is_focus: false,
     traditions: ["arcane", "divine", "occult", "primal"], actions: "2행동", traits: ["탐지", "조작"],
@@ -139,7 +139,7 @@ const SPELL_DB = [
   { name_ko: "덩굴 묶기", name_en: "Tangle Vine", rank: 1, is_cantrip: true, is_focus: false,
     traditions: ["arcane", "primal"], actions: "2행동", traits: ["조작", "식물"],
     summary: "덩굴을 소환하여 적을 얽어맵니다. 대상이 반사 내성에 실패하면 5피트 끌려오고 다음 탈출할 때까지 이동 불가(immobilized). 대실패 시 넘어뜨려짐(prone)과 이동 불가.강화(2랭크): 실패 시 대상이 방...",
-    desc: "덩굴을 소환하여 적을 얽어맵니다. 대상이 반사 내성에 실패하면 <strong>5피트 끌려오고</strong> 다음 탈출할 때까지 <strong>이동 불가(immobilized)</strong>. 대실패 시 <strong>넘어뜨려짐(prone)과 이동 불가</strong>.<br><strong>강화(2랭크):</strong> 실패 시 대상이 방심(off-guard)도 됩니다.<br><strong>강화(4랭크):</strong> 실패 시 대상이 10피트 끌려옵니다." },
+    desc: "덩굴을 소환하여 적을 얽어맵니다. 대상이 반사 내성에 실패하면 <strong>5피트 끌려오고</strong> 다음 탈출할 때까지 <strong>이동 불가(immobilized)</strong>. 대실패 시 <strong>넘어뜨려짐(prone)과 이동 불가</strong>.<br><strong>강화(2랭크):</strong> 실패 시 대상이 무방비(off-guard)도 됩니다.<br><strong>강화(4랭크):</strong> 실패 시 대상이 10피트 끌려옵니다." },
 
   { name_ko: "염동 손", name_en: "Telekinetic Hand", rank: 1, is_cantrip: true, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["조작"],
@@ -1546,8 +1546,8 @@ const SPELL_DB = [
 
   { name_ko: "억제할 수 없는 춤", name_en: "Uncontrollable Dance", rank: 8, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["무력화", "조작", "정신"],
-    summary: "춤에 대한 억제할 수 없는 충동으로 대상을 극복합니다. 의지 실패 시 대상이 매 턴 1행동을 춤추는 데 사용해야 합니다(방심+이동 속도 -10피트). 대실패 시 모든 행동을 춤에 사용.",
-    desc: "<strong>특성:</strong> 집중, 무력화, 조작, 정신 | <strong>전통:</strong> 비전, 비학<br><strong>사거리:</strong> 접촉 | <strong>대상:</strong> 생물 1 | <strong>방어:</strong> 의지 | <strong>지속 시간:</strong> 다양<br>춤에 대한 억제할 수 없는 충동으로 대상을 극복합니다. 의지 실패 시 대상이 매 턴 1행동을 춤추는 데 사용해야 합니다(방심+이동 속도 -10피트). 대실패 시 모든 행동을 춤에 사용.</div>" },
+    summary: "춤에 대한 억제할 수 없는 충동으로 대상을 극복합니다. 의지 실패 시 대상이 매 턴 1행동을 춤추는 데 사용해야 합니다(무방비+이동 속도 -10피트). 대실패 시 모든 행동을 춤에 사용.",
+    desc: "<strong>특성:</strong> 집중, 무력화, 조작, 정신 | <strong>전통:</strong> 비전, 비학<br><strong>사거리:</strong> 접촉 | <strong>대상:</strong> 생물 1 | <strong>방어:</strong> 의지 | <strong>지속 시간:</strong> 다양<br>춤에 대한 억제할 수 없는 충동으로 대상을 극복합니다. 의지 실패 시 대상이 매 턴 1행동을 춤추는 데 사용해야 합니다(무방비+이동 속도 -10피트). 대실패 시 모든 행동을 춤에 사용.</div>" },
 
   { name_ko: "끊임없는 관찰", name_en: "Unrelenting Observation", rank: 8, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["조작", "투시"],
@@ -1566,8 +1566,8 @@ const SPELL_DB = [
 
   { name_ko: "예지", name_en: "Foresight", rank: 9, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "divine", "occult"], actions: "2행동", traits: ["조작", "예언"],
-    summary: "위험 감각이 생물에게 위험을 경고하고 행운으로 보호합니다. 대상은 방심(off-guard)이 되지 않으며, 선제력(initiative) 굴림과 지각 판정에 +2 상태 보너스. 위험이 임박하면 시전자에게도 경고합니다....",
-    desc: "위험 감각이 생물에게 위험을 경고하고 행운으로 보호합니다. 대상은 <strong>방심(off-guard)이 되지 않으며</strong>, 선제력(initiative) 굴림과 지각 판정에 <strong>+2 상태 보너스</strong>. 위험이 임박하면 시전자에게도 경고합니다. 또한 턴 시작 시 반응으로 대상이나 시전자가 <strong>다음 내성이나 AC에 +2 상황 보너스</strong>를 사용할 수 있습니다." },
+    summary: "위험 감각이 생물에게 위험을 경고하고 행운으로 보호합니다. 대상은 무방비(off-guard)이 되지 않으며, 선제력(initiative) 굴림과 지각 판정에 +2 상태 보너스. 위험이 임박하면 시전자에게도 경고합니다....",
+    desc: "위험 감각이 생물에게 위험을 경고하고 행운으로 보호합니다. 대상은 <strong>무방비(off-guard)이 되지 않으며</strong>, 선제력(initiative) 굴림과 지각 판정에 <strong>+2 상태 보너스</strong>. 위험이 임박하면 시전자에게도 경고합니다. 또한 턴 시작 시 반응으로 대상이나 시전자가 <strong>다음 내성이나 AC에 +2 상황 보너스</strong>를 사용할 수 있습니다." },
 
   { name_ko: "내파", name_en: "Implosion", rank: 9, is_cantrip: false, is_focus: false,
     traditions: ["arcane"], actions: "2행동", traits: ["조작"],

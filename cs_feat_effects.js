@@ -797,7 +797,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'방사 영역 합주를 10피트 더 큰 원뿔로 변경 가능'}]
   },
   'Emotional Push': {
-    effects: [{type:'display_note', text:'[반응] 적이 감정 주문 내성 실패 시, 대상이 다음 공격에 방심(off-guard)'}]
+    effects: [{type:'display_note', text:'[반응] 적이 감정 주문 내성 실패 시, 대상이 다음 공격에 무방비(off-guard)'}]
   },
   'Esoteric Polymath': {
     effects: [{type:'display_note', text:'비학 주문서 획득. 일일 준비 시 주문서에서 주문 1개를 레퍼토리에 추가'}]
@@ -1533,7 +1533,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'추적 중 전체 속도 이동. 달인=매시간 판정 불필요. 전설=다른 탐험 활동 병행'}]
   },
   'Blind-Fight': {
-    effects: [{type:'display_note', text:'은폐 단순 판정 불필요. 숨겨진 적에게 방심 아님. 인접 미탐지→숨겨진'}]
+    effects: [{type:'display_note', text:'은폐 단순 판정 불필요. 숨겨진 적에게 무방비 아님. 인접 미탐지→숨겨진'}]
   },
   'Deadly Aim': {
     effects: [{type:'display_note', text:'[2행동] 원거리 타격 -2 페널티, 피해 +4 상황 보너스 (11레벨 +6, 15레벨 +8)'}]
@@ -1567,7 +1567,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'자연 지형 탐험 시 주의 회피 중이면 원하는 수의 아군에게도 혜택 부여'}]
   },
   'Distracting Shot': {
-    effects: [{type:'display_note', text:'사냥감에 원거리 치명타 또는 동일 턴 2회 명중 시 다음 턴까지 방심'}]
+    effects: [{type:'display_note', text:'사냥감에 원거리 치명타 또는 동일 턴 2회 명중 시 다음 턴까지 무방비'}]
   },
   'Double Prey': {
     effects: [{type:'display_note', text:'사냥감 추적 시 2명을 사냥감으로 지정 가능'}]
@@ -1592,7 +1592,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'관측 사냥감 탐색 시 아군의 실패/대실패가 성공으로'}]
   },
   'Greater Distracting Shot': {
-    effects: [{type:'display_note', text:'원거리 명중만으로 방심 부여. 치명타/2회 명중 시 다음 턴 종료까지'}]
+    effects: [{type:'display_note', text:'원거리 명중만으로 무방비 부여. 치명타/2회 명중 시 다음 턴 종료까지'}]
   },
   'Improved Twin Riposte': {
     effects: [{type:'display_note', text:'턴 시작 시 쌍검 반격 전용 추가 반응 1회. 쌍검 방어 없이도 사용'}]
@@ -1867,7 +1867,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[반응] 근접 명중 굴림 유발 시 즉시 방패 올리기'}]
   },
   'Snagging Strike': {
-    effects: [{type:'display_note', text:'[1행동] 한 손 무기+빈 손. 근접 타격 명중 시 대상이 다음 턴까지 방심'}]
+    effects: [{type:'display_note', text:'[1행동] 한 손 무기+빈 손. 근접 타격 명중 시 대상이 다음 턴까지 무방비'}]
   },
   'Sudden Charge': {
     effects: [{type:'display_note', text:'[2행동] 보폭 2회 후 근접 타격'}]
@@ -1878,16 +1878,16 @@ const FEAT_EFFECTS = {
 
   // ── 2레벨 ──
   'Aggressive Block': {
-    effects: [{type:'display_note', text:'방패 막기 시 공격자를 5피트 밀거나 방심하게 할 수 있음 (선택)'}]
+    effects: [{type:'display_note', text:'방패 막기 시 공격자를 5피트 밀거나 무방비하게 할 수 있음 (선택)'}]
   },
   'Assisting Shot': {
-    effects: [{type:'display_note', text:'[1행동] 원거리 타격. 명중 시 대상이 다음 공격에 방심'}]
+    effects: [{type:'display_note', text:'[1행동] 원거리 타격. 명중 시 대상이 다음 공격에 무방비'}]
   },
   'Blade Break': {
     effects: [{type:'display_note', text:'[반응] 적의 치명타 시 무기/방패를 파괴하여 경도×2만큼 피해 감소'}]
   },
   'Brutish Shove': {
-    effects: [{type:'display_note', text:'[1행동] 양손 근접 타격. 명중 시 자동 5피트 밀기+방심'}]
+    effects: [{type:'display_note', text:'[1행동] 양손 근접 타격. 명중 시 자동 5피트 밀기+무방비'}]
   },
   'Combat Grab': {
     effects: [{type:'display_note', text:'[1행동] 한 손 무기+빈 손. 근접 타격 후 빈 손으로 적을 붙잡기(grabbed)'}]
@@ -1908,7 +1908,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[2행동] 투척 타격. 명중 시 10피트 내 다른 적에게 튕겨 추가 타격'}]
   },
   'Sleek Reposition': {
-    effects: [{type:'display_note', text:'[1행동] 기교/장창으로 타격. 명중 시 자동 재배치. 실패 시에도 방심'}]
+    effects: [{type:'display_note', text:'[1행동] 기교/장창으로 타격. 명중 시 자동 재배치. 실패 시에도 무방비'}]
   },
 
   // ── 4레벨 ──
@@ -1922,7 +1922,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[2행동] 한 손 무기+빈 손. 양손으로 잡아 피해 주사위 증가'}]
   },
   'Parting Shot': {
-    effects: [{type:'display_note', text:'[2행동] 한 걸음 후 원거리 타격. 대상은 이 공격에 방심'}]
+    effects: [{type:'display_note', text:'[2행동] 한 걸음 후 원거리 타격. 대상은 이 공격에 무방비'}]
   },
   'Powerful Shove': {
     effects: [{type:'display_note', text:'자신보다 2 크기까지 큰 적에게 밀기 가능. 벽 충돌 시 근력 수정치 피해'}]
@@ -1969,7 +1969,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[1행동] 자세: 투척 무기가 사거리 내에서 즉시 손으로 돌아옴'}]
   },
   'Shatter Defenses': {
-    effects: [{type:'display_note', text:'[1행동] 겁먹은 적에 타격. 명중+피해 시 공포가 끝날 때까지 방심'}]
+    effects: [{type:'display_note', text:'[1행동] 겁먹은 적에 타격. 명중+피해 시 공포가 끝날 때까지 무방비'}]
   },
   'Shield Warden': {
     effects: [{type:'display_note', text:'방패 올린 상태에서 인접 아군에 대한 공격에도 방패 막기 사용 가능'}]
@@ -1980,7 +1980,7 @@ const FEAT_EFFECTS = {
 
   // ── 8레벨 ──
   'Disorienting Opening': {
-    effects: [{type:'display_note', text:'반격 타격 명중 시 대상이 다음 턴까지 방심'}]
+    effects: [{type:'display_note', text:'반격 타격 명중 시 대상이 다음 턴까지 무방비'}]
   },
   'Dueling Riposte': {
     effects: [{type:'display_note', text:'[반응] 결투 방어 중 적의 타격 대실패 시 근접 타격 또는 무장 해제'}]
@@ -2024,7 +2024,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[2행동] 원거리 타격. 명중+피해 시 대상이 느려짐(slowed) 1'}]
   },
   'Disarming Twist': {
-    effects: [{type:'display_note', text:'[1행동] 한 손 무기+빈 손. 타격+무장 해제. 실패 시에도 방심'}]
+    effects: [{type:'display_note', text:'[1행동] 한 손 무기+빈 손. 타격+무장 해제. 실패 시에도 무방비'}]
   },
   'Disruptive Stance': {
     effects: [{type:'display_note', text:'[1행동] 자세: 집중 행동에도 반격 타격 가능. 명중만으로 집중/조작 행동 방해'}]
@@ -2033,13 +2033,13 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'겁먹은 적 타격 시 공포 수치×2 상황 보너스를 피해에 추가 (달인이면 ×3)'}]
   },
   'Flinging Charge': {
-    effects: [{type:'display_note', text:'[2행동] 보폭 2회(중간에 투척 타격). 명중 시 다음 근접 공격에 방심'}]
+    effects: [{type:'display_note', text:'[2행동] 보폭 2회(중간에 투척 타격). 명중 시 다음 근접 공격에 무방비'}]
   },
   'Mirror Shield': {
     effects: [{type:'display_note', text:'[반응] 주문 공격 대실패 시 시전자에게 주문 반사'}]
   },
   'Overpowering Charge': {
-    effects: [{type:'display_note', text:'돌진 충격으로 통과 시 근력 수정치 둔기 피해 (대성공 시 2배+방심)'}]
+    effects: [{type:'display_note', text:'돌진 충격으로 통과 시 근력 수정치 둔기 피해 (대성공 시 2배+무방비)'}]
   },
   'Tactical Reflexes': {
     effects: [{type:'display_note', text:'각 턴 시작에 반격 타격 전용 추가 반응 1회'}]
@@ -2108,7 +2108,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[1행동] 자세: 이중 사격 페널티 -1로 감소. 이동 시 자세 종료'}]
   },
   'Overwhelming Blow': {
-    effects: [{type:'display_note', text:'[2행동] 근접 타격(다중 공격 3회). 명중 시 자동 치명타. 기절 1+방심'}]
+    effects: [{type:'display_note', text:'[2행동] 근접 타격(다중 공격 3회). 명중 시 자동 치명타. 기절 1+무방비'}]
   },
   'Twinned Defense': {
     effects: [{type:'display_note', text:'[1행동] 자세: 각 손에 근접 무기. 항상 쌍검 방어의 AC 보너스'}]
@@ -2142,7 +2142,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[반응] 공격 대상 시 유발 공격에 AC +2 상황 보너스'}]
   },
   'Overextending Feint': {
-    effects: [{type:'display_note', text:'속임 성공 시 대상이 모든 공격에 방심. 대실패 시 당신이 방심'}]
+    effects: [{type:'display_note', text:'속임 성공 시 대상이 모든 공격에 무방비. 대실패 시 당신이 무방비'}]
   },
   'Plant Evidence': {
     effects: [{type:'display_note', text:'도둑질로 물건을 훔치는 대신 대상에게 물건을 심을 수 있음'}]
@@ -2151,10 +2151,10 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'함정 탐지에 +1 상황 보너스, 함정 AC/내성에도 +1. 수색 없이도 함정 발견 가능'}]
   },
   'Tumble Behind': {
-    effects: [{type:'display_note', text:'덤블 통과 성공 시 통과한 적이 다음 턴까지 방심'}]
+    effects: [{type:'display_note', text:'덤블 통과 성공 시 통과한 적이 다음 턴까지 무방비'}]
   },
   'Twin Feint': {
-    effects: [{type:'display_note', text:'[2행동] 각 손에 근접 무기. 같은 대상에 타격 2회. 두 번째 공격에 자동 방심'}]
+    effects: [{type:'display_note', text:'[2행동] 각 손에 근접 무기. 같은 대상에 타격 2회. 두 번째 공격에 자동 무방비'}]
   },
   "You're Next": {
     effects: [{type:'display_note', text:'[반응] 적 쓰러뜨린 후 60피트 내 생물에 +2 상황 보너스로 사기 저하'}]
@@ -2168,7 +2168,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[반응] 지식 회상으로 식별한 적에 치명 성공 시 인접 아군이 비틀거림 또는 타격'}]
   },
   'Distracting Feint': {
-    effects: [{type:'display_note', text:'속임으로 방심한 대상의 지각과 반사 내성에 -2 상황 페널티'}]
+    effects: [{type:'display_note', text:'속임으로 무방비한 대상의 지각과 반사 내성에 -2 상황 페널티'}]
   },
   'Mobility': {
     effects: [{type:'display_note', text:'절반 속도 이하로 보폭하면 이동이 반응을 유발하지 않음'}]
@@ -2177,7 +2177,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'투척 무기의 사거리 증분 10피트 증가'}]
   },
   'Unbalancing Blow': {
-    effects: [{type:'display_note', text:'치명타 피해 시 대상이 다음 턴까지 당신의 공격에 방심'}]
+    effects: [{type:'display_note', text:'치명타 피해 시 대상이 다음 턴까지 당신의 공격에 무방비'}]
   },
   'Underhanded Assault': {
     effects: [{type:'display_note', text:'[2행동] 아군 인접 적에 잠행(은신 -2). 성공 시 근접 타격 가능'}]
@@ -2185,10 +2185,10 @@ const FEAT_EFFECTS = {
 
   // ── 4레벨 ──
   'Dread Striker': {
-    effects: [{type:'display_note', text:'겁먹은(frightened) 생물은 당신의 공격에도 방심'}]
+    effects: [{type:'display_note', text:'겁먹은(frightened) 생물은 당신의 공격에도 무방비'}]
   },
   'Head Stomp': {
-    effects: [{type:'display_note', text:'[1행동] 엎드린 대상에 비무장 타격. 명중 시 멍청함 1(치명타 2)+방심'}]
+    effects: [{type:'display_note', text:'[1행동] 엎드린 대상에 비무장 타격. 명중 시 멍청함 1(치명타 2)+무방비'}]
   },
   'Mug': {
     effects: [{type:'display_note', text:'[1행동] 근접 타격. 은밀 공격 피해 시 도둑질(Steal)도 시도 가능'}]
@@ -2206,10 +2206,10 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[1행동] 도달 내 적의 장비를 도둑질로 손상 (대성공: 숙련 보너스×4 피해)'}]
   },
   "Scoundrel's Surprise": {
-    effects: [{type:'display_note', text:'[1행동] 변장 벗어 놀라게 함. 간파 못한 생물은 다음 공격에 방심'}]
+    effects: [{type:'display_note', text:'[1행동] 변장 벗어 놀라게 함. 간파 못한 생물은 다음 공격에 무방비'}]
   },
   'The Harder They Fall': {
-    effects: [{type:'display_note', text:'방심한 적 넘어뜨리기 성공 시 1d6 둔기 피해. 대성공이면 +은밀 공격 피해'}]
+    effects: [{type:'display_note', text:'무방비한 적 넘어뜨리기 성공 시 1d6 둔기 피해. 대성공이면 +은밀 공격 피해'}]
   },
   'Twin Distraction': {
     effects: [{type:'display_note', text:'쌍검 속임으로 양쪽 모두 피해 시 의지 내성. 실패 시 멍청함 1'}]
@@ -2235,10 +2235,10 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[자유] 밀기 성공 후 즉시 넘어뜨리기 시도 (도달 밖이어도)'}]
   },
   'Sly Disarm': {
-    effects: [{type:'display_note', text:'운동 대신 도둑질로 무장 해제 가능. 성공 시 대상이 방심'}]
+    effects: [{type:'display_note', text:'운동 대신 도둑질로 무장 해제 가능. 성공 시 대상이 무방비'}]
   },
   'Twist the Knife': {
-    effects: [{type:'display_note', text:'[1행동] 은밀 공격 피해를 준 방심 대상에 은밀 공격 주사위 수만큼 지속 출혈'}]
+    effects: [{type:'display_note', text:'[1행동] 은밀 공격 피해를 준 무방비 대상에 은밀 공격 주사위 수만큼 지속 출혈'}]
   },
   'Watch Your Back': {
     effects: [{type:'display_note', text:'[1행동] 위협 판정. 성공 시 대상이 당신 지각에 +2이지만 공포 의지 내성에 -2'}]
@@ -2270,7 +2270,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[반응] 타격 실패/대실패 시 공격을 인접 생물에게 리다이렉트'}]
   },
   'Sly Striker': {
-    effects: [{type:'display_note', text:'방심하지 않은 생물에도 1d6 정밀 피해 (14레벨에 2d6)'}]
+    effects: [{type:'display_note', text:'무방비하지 않은 생물에도 1d6 정밀 피해 (14레벨에 2d6)'}]
   },
   'Swipe Souvenir': {
     effects: [{type:'display_note', text:'[1행동] 붙잡힌/속박 시 탈출 시도 후 성공하면 도둑질도 시도'}]
@@ -2287,7 +2287,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'날렵한 회피 반응 시 근접 타격도 가능 (다중 공격 미포함/미적용)'}]
   },
   'Precise Debilitations': {
-    effects: [{type:'display_note', text:'추가 쇠약: 추가 2d6 정밀 피해 또는 대상이 방심'}]
+    effects: [{type:'display_note', text:'추가 쇠약: 추가 2d6 정밀 피해 또는 대상이 무방비'}]
   },
   'Sneak Adept': {
     effects: [{type:'display_note', text:'잠행(Sneak) 실패 시 성공으로 취급 (대실패는 여전히 가능)'}]
@@ -2310,7 +2310,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[2행동] 높이/멀리뛰기. 도약 종료 시 근접 타격. 추락 피해 없이 착지'}]
   },
   'Felling Shot': {
-    effects: [{type:'display_note', text:'[2행동] 방심한 생물에 원거리 타격. 명중 시 반사 내성 → 최대 120피트 추락'}]
+    effects: [{type:'display_note', text:'[2행동] 무방비한 생물에 원거리 타격. 명중 시 반사 내성 → 최대 120피트 추락'}]
   },
   'Preparation': {
     effects: [{type:'display_note', text:'[1행동] 다음 턴까지 로그 반응 전용 추가 반응 1회'}]
@@ -2330,10 +2330,10 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[반응] 10분 1회. 물리 공격이 HP 0으로 만들려 할 때 절반 피해'}]
   },
   'Instant Opening': {
-    effects: [{type:'display_note', text:'[1행동] 30피트 내 대상 1명이 다음 턴 종료까지 방심'}]
+    effects: [{type:'display_note', text:'[1행동] 30피트 내 대상 1명이 다음 턴 종료까지 무방비'}]
   },
   'Leave an Opening': {
-    effects: [{type:'display_note', text:'방심한 적에 치명 타격 시 아군의 반격 타격을 유발'}]
+    effects: [{type:'display_note', text:'무방비한 적에 치명 타격 시 아군의 반격 타격을 유발'}]
   },
   "Stay Down!": {
     effects: [{type:'display_note', text:'[반응] 도달 내 엎드린 적이 일어나려 할 때 운동으로 방해'}]
@@ -2350,7 +2350,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[반응] 정신 효과의 허점을 찾아 다음 턴 종료까지 해당 효과 무시'}]
   },
   'Dispelling Slice': {
-    effects: [{type:'display_note', text:'[2행동] 방심한 대상에 타격. 은밀 공격 피해 시 활성 주문 상쇄 시도'}]
+    effects: [{type:'display_note', text:'[2행동] 무방비한 대상에 타격. 은밀 공격 피해 시 활성 주문 상쇄 시도'}]
   },
   'Perfect Distraction': {
     effects: [{type:'display_note', text:'미끼를 남기고 잠행. 오도(mislead) 주문처럼 작동. 10분 준비 필요'}]
@@ -2378,7 +2378,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'시간당 1회. 모든 적에게 숨겨짐/미탐지 시 1분간 투명 (적대 행동해도 유지)'}]
   },
   'Impossible Striker': {
-    effects: [{type:'display_note', text:'방심하지 않은 대상에게도 전체 은밀 공격 피해'}]
+    effects: [{type:'display_note', text:'무방비하지 않은 대상에게도 전체 은밀 공격 피해'}]
   },
   'Reactive Distraction': {
     effects: [{type:'display_note', text:'[반응] 공격/효과 대상 시 미끼와 자리를 바꿈. 미끼가 대신 대상'}]

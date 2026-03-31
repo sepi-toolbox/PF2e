@@ -9,9 +9,9 @@ const FEAT_DB = [
 // ═══ 클래스 특성 (자동 부여) ═══
   {name_ko:"반격 타격", name_en:"Reactive Strike", feat_level:1, prerequisites:"파이터", traits:["파이터","반응"], category:"special", summary:"도달 범위 내 생물이 조작/이동 행동, 원거리 공격 시 근접 타격으로 반격합니다. 치명타 시 조작 행동을 방해합니다.", desc:'<strong>유발 조건:</strong> 도달 범위 내 생물이 조작 행동이나 이동 행동을 사용하거나, 원거리 공격을 하거나, 이동 중 칸을 떠납니다.<br>빈틈을 보이는 적을 신속히 공격합니다. 유발 생물에 <strong>근접 타격</strong>을 합니다. 치명타이고 유발이 조작 행동이면 <strong>행동을 방해</strong>합니다. 이 타격은 다중 공격 페널티에 포함되지 않으며, 다중 공격 페널티가 이 타격에 적용되지 않습니다.' }
 ,
-  {name_ko:"은밀 공격", name_en:"Sneak Attack", feat_level:1, prerequisites:"로그", traits:["로그","정밀"], category:"special", summary:"방심(off-guard) 상태인 생물에 민첩/기교 무기로 타격 시 추가 1d6 정밀 피해. 5·11·17레벨에 주사위 1개씩 증가.", desc:'방심(off-guard) 상태인 생물에 민첩/기교 근접 무기, 민첩/기교 비무장 공격, 원거리 무기/비무장 공격으로 타격 시 <strong>추가 1d6 정밀 피해</strong>. 투척 근접 무기는 민첩/기교여야 합니다. 5, 11, 17레벨에 피해 주사위가 1개씩 증가.' }
+  {name_ko:"은밀 공격", name_en:"Sneak Attack", feat_level:1, prerequisites:"로그", traits:["로그","정밀"], category:"special", summary:"무방비(off-guard) 상태인 생물에 민첩/기교 무기로 타격 시 추가 1d6 정밀 피해. 5·11·17레벨에 주사위 1개씩 증가.", desc:'무방비(off-guard) 상태인 생물에 민첩/기교 근접 무기, 민첩/기교 비무장 공격, 원거리 무기/비무장 공격으로 타격 시 <strong>추가 1d6 정밀 피해</strong>. 투척 근접 무기는 민첩/기교여야 합니다. 5, 11, 17레벨에 피해 주사위가 1개씩 증가.' }
 ,
-  {name_ko:"기습", name_en:"Surprise Attack", feat_level:1, prerequisites:"로그", traits:["로그"], category:"special", summary:"첫 라운드에 기만이나 은신으로 주도권을 굴렸으면, 아직 행동하지 않은 생물은 당신에게 방심.", desc:'전투에 적보다 빨리 뛰어듭니다. 첫 라운드에 기만이나 은신으로 주도권을 굴렸으면, 아직 행동하지 않은 생물은 당신에게 <strong>방심</strong>.' }
+  {name_ko:"기습", name_en:"Surprise Attack", feat_level:1, prerequisites:"로그", traits:["로그"], category:"special", summary:"첫 라운드에 기만이나 은신으로 주도권을 굴렸으면, 아직 행동하지 않은 생물은 당신에게 무방비.", desc:'전투에 적보다 빨리 뛰어듭니다. 첫 라운드에 기만이나 은신으로 주도권을 굴렸으면, 아직 행동하지 않은 생물은 당신에게 <strong>무방비</strong>.' }
 ,
   {name_ko:"사냥감 추적", name_en:"Hunt Prey", feat_level:1, prerequisites:"레인저", traits:["레인저","1행동"], category:"special", summary:"생물 1명을 사냥감으로 지정. 탐색에 +2 상황 보너스, 추적에 +2, 두 번째 사거리 증분 페널티 무시.", desc:'볼 수 있거나 추적 중인 생물 1명을 사냥감으로 지정합니다. 사냥감을 탐색(Seek)하기 위한 지각 판정에 <strong>+2 상황 보너스</strong>, 추적(Track)을 위한 생존 판정에 <strong>+2 상황 보너스</strong>. 사냥감에 대한 두 번째 사거리 증분 내 원거리 공격 페널티도 무시합니다. 한 번에 사냥감 1명만 가능. 다음 일일 준비까지 지속.' }
 ,
@@ -35,7 +35,7 @@ const FEAT_DB = [
 ,
   {name_ko:"지향 청중", name_en:"Directed Audience", feat_level:2, prerequisites:"", traits:["바드"], category:"bard", summary:"합주 주문의 영역을 형성할 수 있습니다. 영역이 방사인 합주 주문을 시전할 때마다, 주문의 영역을 10피트 더 큰 원뿔로 변경할 수 있습니다(원래 영역의 최대 2배). 예: 30피트 방사 → 40피트 원뿔, 5피트 방사 → 10피트 원뿔만 가능.", desc:'합주 주문의 영역을 형성할 수 있습니다. 영역이 방사인 합주 주문을 시전할 때마다, 주문의 영역을 <strong>10피트 더 큰 원뿔</strong>로 변경할 수 있습니다(원래 영역의 최대 2배). 예: 30피트 방사 → 40피트 원뿔, 5피트 방사 → 10피트 원뿔만 가능.' }
 ,
-  {name_ko:"감정적 밀어붙이기", name_en:"Emotional Push", feat_level:2, prerequisites:"", traits:["바드", "집중"], category:"bard", summary:"적의 갑작스러운 감정 변화를 이용합니다. 대상은 다음 턴 종료까지 당신의 다음 공격에 방심(off-guard).", desc:'<strong>유발 조건:</strong> 인식하고 있는 적이 감정 주문에 대한 내성에 실패합니다.<br>적의 갑작스러운 감정 변화를 이용합니다. 대상은 다음 턴 종료까지 당신의 다음 공격에 <strong>방심(off-guard)</strong>.' }
+  {name_ko:"감정적 밀어붙이기", name_en:"Emotional Push", feat_level:2, prerequisites:"", traits:["바드", "집중"], category:"bard", summary:"적의 갑작스러운 감정 변화를 이용합니다. 대상은 다음 턴 종료까지 당신의 다음 공격에 무방비(off-guard).", desc:'<strong>유발 조건:</strong> 인식하고 있는 적이 감정 주문에 대한 내성에 실패합니다.<br>적의 갑작스러운 감정 변화를 이용합니다. 대상은 다음 턴 종료까지 당신의 다음 공격에 <strong>무방비(off-guard)</strong>.' }
 ,
   {name_ko:"비밀스러운 박학", name_en:"Esoteric Polymath", feat_level:2, prerequisites:"박학다식 뮤즈", traits:["바드"], category:"bard", summary:"위자드의 주문서와 유사한 오컬티즘 주문서를 가지며, 그 주문으로 레퍼토리를 보충합니다. 레퍼토리의 모든 주문을 이 책에 무료로 추가합니다. 오컬티즘 기술로 주문 학습(Learn Spells)을 하여 적절한 비용을 지불하고 주문서에 추가할 수 있습니다.", desc:'<strong>전제조건:</strong> 박학다식 뮤즈<br>위자드의 주문서와 유사한 비학 주문서를 가지며, 그 주문으로 레퍼토리를 보충합니다. 레퍼토리의 모든 주문을 이 책에 무료로 추가합니다. 비학 기술로 <strong>주문 학습(Learn Spells)</strong>을 하여 적절한 비용을 지불하고 주문서에 추가할 수 있습니다.<br>일일 준비 시, 주문서에서 <strong>주문 1개</strong>를 선택합니다. 이미 레퍼토리에 있으면 그날 추가 시그니처 주문으로 취급합니다. 레퍼토리에 없으면 다음 준비까지 레퍼토리에 있는 것처럼 취급합니다.' }
 ,
@@ -443,19 +443,19 @@ const FEAT_DB = [
 ,
   {name_ko:"반응적 방패", name_en:"Reactive Shield", feat_level:1, prerequisites:"", traits:["파이터"], category:"fighter", summary:"유발 조건: 적이 당신에게 근접 타격의 명중 굴림을 유발합니다.", desc:'<strong>유발 조건:</strong> 적이 당신에게 근접 타격의 명중 굴림을 유발합니다. 방패를 빠르게 올려 방어합니다. 즉시 <strong>방패 올리기</strong>.' }
 ,
-  {name_ko:"걸림 타격", name_en:"Snagging Strike", feat_level:1, prerequisites:"", traits:["파이터"], category:"fighter", summary:"요구사항: 한 손에 무기, 다른 손은 빈 손.", desc:'<strong>요구사항:</strong> 한 손에 무기, 다른 손은 빈 손. 빈 손으로 적의 갑옷/의복/몸을 잡아 방심하게 합니다. 근접 타격을 합니다. 명중 시 대상은 다음 턴 시작까지 당신에게 <strong>방심(off-guard)</strong>.' }
+  {name_ko:"걸림 타격", name_en:"Snagging Strike", feat_level:1, prerequisites:"", traits:["파이터"], category:"fighter", summary:"요구사항: 한 손에 무기, 다른 손은 빈 손.", desc:'<strong>요구사항:</strong> 한 손에 무기, 다른 손은 빈 손. 빈 손으로 적의 갑옷/의복/몸을 잡아 무방비하게 합니다. 근접 타격을 합니다. 명중 시 대상은 다음 턴 시작까지 당신에게 <strong>무방비(off-guard)</strong>.' }
 ,
   {name_ko:"돌진", name_en:"Sudden Charge", feat_level:1, prerequisites:"", traits:["파이터", "화려함"], category:"fighter", summary:"전력으로 적에게 돌진합니다. 보폭 2회 후 근접 타격을 합니다.", desc:'전력으로 적에게 돌진합니다. <strong>보폭 2회 후 근접 타격</strong>을 합니다.' }
 ,
   {name_ko:"맹렬한 일격", name_en:"Vicious Swing", feat_level:1, prerequisites:"", traits:["파이터"], category:"fighter", summary:"무기를 가볍게 들어올린 후 무시무시한 힘으로 내려칩니다. 근접 타격을 합니다. 이것은 다중 공격 페널티에 2회 공격으로 포함되지만, 무기 피해 주사위를 1개 추가합니다.", desc:'무기를 가볍게 들어올린 후 무시무시한 힘으로 내려칩니다. 근접 타격을 합니다. 이것은 다중 공격 페널티에 <strong>2회 공격으로 포함</strong>되지만, 무기 피해 주사위를 <strong>1개 추가</strong>합니다.' }
 ,
-  {name_ko:"공격적 막기", name_en:"Aggressive Block", feat_level:2, prerequisites:"", traits:["파이터"], category:"fighter", summary:"방패 막기 사용 시, 잔여 에너지로 적을 밀어냅니다. 방패 막기의 유발 공격자를 5피트 밀거나, 다음 턴 시작까지 방심하게 할 수 있습니다(선택).", desc:'방패 막기 사용 시, 잔여 에너지로 적을 밀어냅니다. 방패 막기의 유발 공격자를 <strong>5피트 밀거나</strong>, 다음 턴 시작까지 <strong>방심</strong>하게 할 수 있습니다(선택).' }
+  {name_ko:"공격적 막기", name_en:"Aggressive Block", feat_level:2, prerequisites:"", traits:["파이터"], category:"fighter", summary:"방패 막기 사용 시, 잔여 에너지로 적을 밀어냅니다. 방패 막기의 유발 공격자를 5피트 밀거나, 다음 턴 시작까지 무방비하게 할 수 있습니다(선택).", desc:'방패 막기 사용 시, 잔여 에너지로 적을 밀어냅니다. 방패 막기의 유발 공격자를 <strong>5피트 밀거나</strong>, 다음 턴 시작까지 <strong>무방비</strong>하게 할 수 있습니다(선택).' }
 ,
-  {name_ko:"보조 사격", name_en:"Assisting Shot", feat_level:2, prerequisites:"", traits:["파이터", "압박"], category:"fighter", summary:"원거리 타격을 합니다. 명중 시, 대상은 다음 턴 시작까지 다음 공격에 방심.", desc:'원거리 타격을 합니다. 명중 시, 대상은 다음 턴 시작까지 다음 공격에 <strong>방심</strong>.' }
+  {name_ko:"보조 사격", name_en:"Assisting Shot", feat_level:2, prerequisites:"", traits:["파이터", "압박"], category:"fighter", summary:"원거리 타격을 합니다. 명중 시, 대상은 다음 턴 시작까지 다음 공격에 무방비.", desc:'원거리 타격을 합니다. 명중 시, 대상은 다음 턴 시작까지 다음 공격에 <strong>무방비</strong>.' }
 ,
   {name_ko:"칼날 꺾기", name_en:"Blade Break", feat_level:2, prerequisites:"", traits:["파이터"], category:"fighter", summary:"유발 조건: 적이 근접 타격으로 치명타를 가합니다.", desc:'<strong>유발 조건:</strong> 적이 근접 타격으로 치명타를 가합니다. 장비된 무기나 방패를 희생하여 피해를 줄입니다. 무기/방패가 파괴되지만 피해를 <strong>파괴된 아이템의 경도 × 2만큼 줄입니다</strong>.' }
 ,
-  {name_ko:"야만적 밀치기", name_en:"Brutish Shove", feat_level:2, prerequisites:"", traits:["파이터", "압박"], category:"fighter", summary:"양손 무기의 무게로 적을 뒤로 밉니다. 양손 근접 무기로 타격합니다. 명중 시, 운동 판정 없이 자동으로 5피트 밀기(Shove). 대상은 다음 턴 시작까지 방심.", desc:'양손 무기의 무게로 적을 뒤로 밉니다. 양손 근접 무기로 타격합니다. 명중 시, 운동 판정 없이 자동으로 <strong>5피트 밀기(Shove)</strong>. 대상은 다음 턴 시작까지 <strong>방심</strong>.' }
+  {name_ko:"야만적 밀치기", name_en:"Brutish Shove", feat_level:2, prerequisites:"", traits:["파이터", "압박"], category:"fighter", summary:"양손 무기의 무게로 적을 뒤로 밉니다. 양손 근접 무기로 타격합니다. 명중 시, 운동 판정 없이 자동으로 5피트 밀기(Shove). 대상은 다음 턴 시작까지 무방비.", desc:'양손 무기의 무게로 적을 뒤로 밉니다. 양손 근접 무기로 타격합니다. 명중 시, 운동 판정 없이 자동으로 <strong>5피트 밀기(Shove)</strong>. 대상은 다음 턴 시작까지 <strong>무방비</strong>.' }
 ,
   {name_ko:"전투 잡기", name_en:"Combat Grab", feat_level:2, prerequisites:"", traits:["파이터", "압박"], category:"fighter", summary:"요구사항: 한 손에 근접 무기, 빈 손 하나.", desc:'<strong>요구사항:</strong> 한 손에 근접 무기, 빈 손 하나. 근접 타격 후 빈 손으로 적을 <strong>붙잡습니다(grabbed)</strong>. 다음 턴 시작이나 놓기, 강제 이동 시까지 유지.' }
 ,
@@ -469,7 +469,7 @@ const FEAT_DB = [
 ,
   {name_ko:"도약 던지기", name_en:"Rebounding Toss", feat_level:2, prerequisites:"", traits:["파이터", "화려함"], category:"fighter", summary:"요구사항: 투척 무기.", desc:'<strong>요구사항:</strong> 투척 무기. 투척 원거리 타격을 합니다. 명중 시 무기가 원래 대상에서 10피트 내 다른 적에게 튕깁니다. 두 번째 적에게 추가 타격. 두 공격 모두 다중 공격에 포함되지만 둘 다 한 후 증가.' }
 ,
-  {name_ko:"매끄러운 재배치", name_en:"Sleek Reposition", feat_level:2, prerequisites:"", traits:["파이터", "압박"], category:"fighter", summary:"실패: 대상이 현재 턴 종료까지 방심.", desc:'<strong>요구사항:</strong> 기교 무기 또는 장창. 이전 공격에서 회복 중인 적의 갑옷/의복/몸을 잡아 옮깁니다. 기교 무기/장창으로 근접 타격. 자신 크기 이하 대상 명중 시 <strong>자동 재배치(Reposition)</strong>(치명타 효과 포함). 도달 무기면 도달 범위 사용.<br><strong>실패:</strong> 대상이 현재 턴 종료까지 방심.' }
+  {name_ko:"매끄러운 재배치", name_en:"Sleek Reposition", feat_level:2, prerequisites:"", traits:["파이터", "압박"], category:"fighter", summary:"실패: 대상이 현재 턴 종료까지 무방비.", desc:'<strong>요구사항:</strong> 기교 무기 또는 장창. 이전 공격에서 회복 중인 적의 갑옷/의복/몸을 잡아 옮깁니다. 기교 무기/장창으로 근접 타격. 자신 크기 이하 대상 명중 시 <strong>자동 재배치(Reposition)</strong>(치명타 효과 포함). 도달 무기면 도달 범위 사용.<br><strong>실패:</strong> 대상이 현재 턴 종료까지 무방비.' }
 ,
   {name_ko:"돌진 충격", name_en:"Barreling Charge", feat_level:4, prerequisites:"운동 숙련. 적의 공간을 통과하며 돌진합니다. 보폭하며 각 적의 인내 DC에 대해 운동 판정. 성공 시 통과, 실패 시 진입 전 정지. 이동 종료 시 근접 타격.", traits:["파이터", "화려함"], category:"fighter", summary:"적의 공간을 통과하며 돌진합니다.", desc:'<strong>전제조건:</strong> 운동 숙련. 적의 공간을 통과하며 돌진합니다. 보폭하며 각 적의 인내 DC에 대해 운동 판정. 성공 시 통과, 실패 시 진입 전 정지. 이동 종료 시 근접 타격.' }
 ,
@@ -477,7 +477,7 @@ const FEAT_DB = [
 ,
   {name_ko:"양손 공격", name_en:"Dual-Handed Assault", feat_level:4, prerequisites:"", traits:["파이터", "화려함"], category:"fighter", summary:"요구사항: 한 손 근접 무기, 빈 손.", desc:'<strong>요구사항:</strong> 한 손 근접 무기, 빈 손. 빈 손을 잠시 잡아 더 강력한 타격을 합니다. 양손 특성이 없으면 피해 주사위 한 단계 증가, 양손 특성이 있으면 양손 혜택 + 피해 주사위 수만큼 상황 보너스.' }
 ,
-  {name_ko:"이별의 사격", name_en:"Parting Shot", feat_level:4, prerequisites:"", traits:["파이터"], category:"fighter", summary:"요구사항: 장전된 또는 재장전 0 원거리 무기.", desc:'<strong>요구사항:</strong> 장전된 또는 재장전 0 원거리 무기. 뒤로 물러나며 적을 놀라게 하는 빠른 사격. 한 걸음 후 원거리 타격. 대상은 이 공격에 <strong>방심</strong>.' }
+  {name_ko:"이별의 사격", name_en:"Parting Shot", feat_level:4, prerequisites:"", traits:["파이터"], category:"fighter", summary:"요구사항: 장전된 또는 재장전 0 원거리 무기.", desc:'<strong>요구사항:</strong> 장전된 또는 재장전 0 원거리 무기. 뒤로 물러나며 적을 놀라게 하는 빠른 사격. 한 걸음 후 원거리 타격. 대상은 이 공격에 <strong>무방비</strong>.' }
 ,
   {name_ko:"강력한 밀치기", name_en:"Powerful Shove", feat_level:4, prerequisites:"공격적 막기 또는 야만적 밀치기. 더 큰 적도 밀어낼 수 있습니다. 자신보다 2 크기까지 큰 생물에게 사용 가능. 밀기나 치명 특성으로 밀려난 적이 물체에 멈추면 근력 수정치만큼 피해(최소 1).", traits:["파이터"], category:"fighter", summary:"더 큰 적도 밀어낼 수 있습니다.", desc:'<strong>전제조건:</strong> 공격적 막기 또는 야만적 밀치기. 더 큰 적도 밀어낼 수 있습니다. 자신보다 <strong>2 크기까지 큰 생물</strong>에게 사용 가능. 밀기나 치명 특성으로 밀려난 적이 물체에 멈추면 <strong>근력 수정치만큼 피해</strong>(최소 1).' }
 ,
@@ -509,7 +509,7 @@ const FEAT_DB = [
 ,
   {name_ko:"도탄 자세", name_en:"Ricochet Stance", feat_level:6, prerequisites:"", traits:["파이터", "자세"], category:"fighter", summary:"투척 무기가 즉시 돌아오는 자세를 취합니다. 이 자세 중 둔기/참격 피해의 투척 무기로 원거리 타격 시, 무기가 즉시 손으로 돌아옵니다(사거리 증분 내, 빈 손 필요).", desc:'투척 무기가 사거리 내에서 <strong>즉시 손으로 돌아옵니다</strong>.' }
 ,
-  {name_ko:"방어 파쇄", name_en:"Shatter Defenses", feat_level:6, prerequisites:"", traits:["파이터", "압박"], category:"fighter", summary:"요구사항: 도달 범위 내 겁먹은(frightened) 생물.", desc:'<strong>요구사항:</strong> 도달 범위 내 겁먹은(frightened) 생물. 공포를 이용합니다. 겁먹은 생물에 근접 타격. 명중하고 피해를 주면 공포가 끝날 때까지 <strong>방심</strong>. 이미 방심이었으면 다음 턴 시작까지 <strong>공포를 1 미만으로 줄일 수 없습니다</strong>.' }
+  {name_ko:"방어 파쇄", name_en:"Shatter Defenses", feat_level:6, prerequisites:"", traits:["파이터", "압박"], category:"fighter", summary:"요구사항: 도달 범위 내 겁먹은(frightened) 생물.", desc:'<strong>요구사항:</strong> 도달 범위 내 겁먹은(frightened) 생물. 공포를 이용합니다. 겁먹은 생물에 근접 타격. 명중하고 피해를 주면 공포가 끝날 때까지 <strong>무방비</strong>. 이미 무방비이었으면 다음 턴 시작까지 <strong>공포를 1 미만으로 줄일 수 없습니다</strong>.' }
 ,
   {name_ko:"방패 수호", name_en:"Shield Warden", feat_level:6, prerequisites:"방패 막기. 방패를 올린 상태에서 인접한 아군에 대한 공격에도 방패 막기를 사용하여 아군의 피해를 줄입니다.", traits:["파이터"], category:"fighter", summary:"방패를 올린 상태에서 인접한 아군에 대한 공격에도 방패 막기를 사용하여 아군의 피해를 줄입니다.", desc:'<strong>전제조건:</strong> 방패 막기. 방패를 올린 상태에서 인접한 아군에 대한 공격에도 <strong>방패 막기를 사용</strong>하여 아군의 피해를 줄입니다.' }
 ,
@@ -517,9 +517,9 @@ const FEAT_DB = [
 ,
   {name_ko:'수호자의 편향', name_en:'Guardian\'s Deflection', feat_level:6, prerequisites:'', traits:['파이터'], category:'fighter', summary:'유발 조건: 도달 범위 내 아군이 공격에 명중당하고, +2 상황 보너스가 치명타→명중 또는 명중→빗나감으로 바꿀 수 있을 때. 요구사항: 한 손', desc:'<strong>유발 조건:</strong> 도달 범위 내 아군이 공격에 명중당하고, +2 상황 보너스가 치명타→명중 또는 명중→빗나감으로 바꿀 수 있을 때. <strong>요구사항:</strong> 한 손 근접 무기, 빈 손. 무기로 아군의 공격을 편향시켜 <strong>AC +2 상황 보너스</strong>.'}
 ,
-  {name_ko:"맹공 감지", name_en:"Blind-Fight", feat_level:8, prerequisites:"지각 달인. 전투 본능이 은폐/투명 적을 더 잘 인식합니다. 은폐 시 단순 판정 불필요, 숨겨진 적에게 방심 아님, DC 5 단순 판정만 필요. 인접한 레벨 이하 미탐지 생물은 숨겨진 것으로 취급.", traits:["파이터"], category:"fighter", summary:"은폐 시 단순 판정 불필요, 숨겨진 적에게 방심 아님(DC 5), 인접 레벨 이하 미탐지→숨겨진.", desc:'<strong>전제조건:</strong> 감지 대가. 은폐 시 단순 판정 불필요, 숨겨진 적에게 방심 아님(DC 5), 인접 레벨 이하 미탐지→숨겨진.' }
+  {name_ko:"맹공 감지", name_en:"Blind-Fight", feat_level:8, prerequisites:"지각 달인. 전투 본능이 은폐/투명 적을 더 잘 인식합니다. 은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님, DC 5 단순 판정만 필요. 인접한 레벨 이하 미탐지 생물은 숨겨진 것으로 취급.", traits:["파이터"], category:"fighter", summary:"은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님(DC 5), 인접 레벨 이하 미탐지→숨겨진.", desc:'<strong>전제조건:</strong> 감지 대가. 은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님(DC 5), 인접 레벨 이하 미탐지→숨겨진.' }
 ,
-  {name_ko:"혼란의 빈틈", name_en:"Disorienting Opening", feat_level:8, prerequisites:"반격 타격. 반격 타격으로 명중 시 대상이 다음 턴 시작까지 방심.", traits:["파이터"], category:"fighter", summary:"반격 타격으로 명중 시 대상이 다음 턴 시작까지 방심.", desc:'<strong>전제조건:</strong> 반격 타격. 반격 타격으로 명중 시 대상이 다음 턴 시작까지 <strong>방심</strong>.' }
+  {name_ko:"혼란의 빈틈", name_en:"Disorienting Opening", feat_level:8, prerequisites:"반격 타격. 반격 타격으로 명중 시 대상이 다음 턴 시작까지 무방비.", traits:["파이터"], category:"fighter", summary:"반격 타격으로 명중 시 대상이 다음 턴 시작까지 무방비.", desc:'<strong>전제조건:</strong> 반격 타격. 반격 타격으로 명중 시 대상이 다음 턴 시작까지 <strong>무방비</strong>.' }
 ,
   {name_ko:"결투 반격", name_en:"Dueling Riposte", feat_level:8, prerequisites:"결투 방어. 유발 조건: 도달 내 생물이 당신에 대해 타격에 대실패합니다. 요구사항: 결투 방어의 혜택을 받고 있어야. 우아하게 반격합니다. 유발 생물에 근접 타격 또는 무장 해제.", traits:["파이터"], category:"fighter", summary:"요구사항: 결투 방어의 혜택을 받고 있어야.", desc:'<strong>전제조건:</strong> 결투 방어. <strong>유발 조건:</strong> 도달 내 생물이 당신에 대해 타격에 대실패합니다. <strong>요구사항:</strong> 결투 방어의 혜택을 받고 있어야. 우아하게 반격합니다. 유발 생물에 근접 타격 또는 무장 해제.' }
 ,
@@ -543,21 +543,21 @@ const FEAT_DB = [
 ,
   {name_ko:"내리찍기 강화", name_en:"Crashing Slam", feat_level:10, prerequisites:"내리찍기. 내리찍기 사용 시, 타격 대신 넘어뜨리기(Trip)를 할 때, 타격 1회를 시도할 수 있습니다. 명중하면 넘어뜨리기 판정 대신 자동으로 넘어뜨리기 대성공 효과를 적용. 양손 근접 무기면 넘어뜨리기 피해에 무기의 피해 주사위 크기를 사용.", traits:["파이터"], category:"fighter", summary:"내리찍기 사용 시, 타격 대신 넘어뜨리기(Trip)를 할 때, 타격 1회를 시도할 수 있습니다.", desc:'<strong>전제조건:</strong> 내리찍기. 내리찍기 사용 시, 타격 대신 넘어뜨리기(Trip)를 할 때, 타격 1회를 시도할 수 있습니다. 명중하면 넘어뜨리기 판정 대신 자동으로 <strong>넘어뜨리기 대성공</strong> 효과를 적용. 양손 근접 무기면 넘어뜨리기 피해에 무기의 피해 주사위 크기를 사용.' }
 ,
-  {name_ko:"공중 요격", name_en:"Cut from the Air", feat_level:10, prerequisites:"", traits:["파이터"], category:"fighter", summary:"유발 조건: 물리적 원거리 타격의 대상이 됩니다.", desc:'<strong>유발 조건:</strong> 물리적 원거리 타격의 대상이 됩니다. <strong>요구사항:</strong> 공격을 인지하고, 방심이 아니며, 빈 손이나 근접 무기가 있어야. 원거리 공격을 쳐냅니다. 유발 공격에 대해 <strong>AC +4 상황 보너스</strong>. 빗나가면 공중에서 쳐낸 것.' }
+  {name_ko:"공중 요격", name_en:"Cut from the Air", feat_level:10, prerequisites:"", traits:["파이터"], category:"fighter", summary:"유발 조건: 물리적 원거리 타격의 대상이 됩니다.", desc:'<strong>유발 조건:</strong> 물리적 원거리 타격의 대상이 됩니다. <strong>요구사항:</strong> 공격을 인지하고, 무방비이 아니며, 빈 손이나 근접 무기가 있어야. 원거리 공격을 쳐냅니다. 유발 공격에 대해 <strong>AC +4 상황 보너스</strong>. 빗나가면 공중에서 쳐낸 것.' }
 ,
   {name_ko:"무력화 사격", name_en:"Debilitating Shot", feat_level:10, prerequisites:"", traits:["파이터", "화려함"], category:"fighter", summary:"약점을 겨냥하여 정밀 사격. 원거리 타격. 명중하고 피해를 주면 대상이 다음 턴 종료까지 느려짐(slowed) 1.", desc:'약점을 겨냥하여 정밀 사격. 원거리 타격. 명중하고 피해를 주면 대상이 다음 턴 종료까지 <strong>느려짐(slowed) 1</strong>.' }
 ,
-  {name_ko:"무장 해제 비틀기", name_en:"Disarming Twist", feat_level:10, prerequisites:"운동 숙련. 요구사항: 한 손 근접 무기, 빈 손. 한 손 근접 무기로 타격. 무장 해제의 성공/대성공 효과도 적용. 실패 시에도 대상이 턴 종료까지 방심. 무장 해제 자세 중이면 공격에 +1 상황 보너스.", traits:["파이터", "압박"], category:"fighter", summary:"요구사항: 한 손 근접 무기, 빈 손.", desc:'<strong>전제조건:</strong> 운동 숙련. <strong>요구사항:</strong> 한 손 근접 무기, 빈 손. 한 손 근접 무기로 타격. 무장 해제의 성공/대성공 효과도 적용. 실패 시에도 대상이 턴 종료까지 방심. 무장 해제 자세 중이면 공격에 +1 상황 보너스.' }
+  {name_ko:"무장 해제 비틀기", name_en:"Disarming Twist", feat_level:10, prerequisites:"운동 숙련. 요구사항: 한 손 근접 무기, 빈 손. 한 손 근접 무기로 타격. 무장 해제의 성공/대성공 효과도 적용. 실패 시에도 대상이 턴 종료까지 무방비. 무장 해제 자세 중이면 공격에 +1 상황 보너스.", traits:["파이터", "압박"], category:"fighter", summary:"요구사항: 한 손 근접 무기, 빈 손.", desc:'<strong>전제조건:</strong> 운동 숙련. <strong>요구사항:</strong> 한 손 근접 무기, 빈 손. 한 손 근접 무기로 타격. 무장 해제의 성공/대성공 효과도 적용. 실패 시에도 대상이 턴 종료까지 무방비. 무장 해제 자세 중이면 공격에 +1 상황 보너스.' }
 ,
   {name_ko:"방해 자세", name_en:"Disruptive Stance", feat_level:10, prerequisites:"", traits:["파이터", "자세"], category:"fighter", summary:"이 자세 중, 도달 내 생물이 집중(concentrate) 행동을 사용할 때도 반격 타격을 사용할 수 있습니다. 또한 타격 명중(치명타뿐 아니라)으로도 집중/조작 행동을 방해합니다.", desc:'이 자세 중, 도달 내 생물이 <strong>집중(concentrate) 행동</strong>을 사용할 때도 반격 타격을 사용할 수 있습니다. 또한 타격 명중(치명타뿐 아니라)으로도 집중/조작 행동을 <strong>방해</strong>합니다.' }
 ,
   {name_ko:"공포의 야수", name_en:"Fearsome Brute", feat_level:10, prerequisites:"", traits:["파이터"], category:"fighter", summary:"겁먹은 적에게 타격 시 공포 수치 × 2만큼 상황 보너스를 피해에 추가. 위협 달인이면 × 3.", desc:'겁먹은 적에게 타격 시 <strong>공포 수치 × 2만큼 상황 보너스를 피해에 추가</strong>. 위협 대가이면 × 3.' }
 ,
-  {name_ko:"투척 돌진", name_en:"Flinging Charge", feat_level:10, prerequisites:"", traits:["파이터", "화려함"], category:"fighter", summary:"투척 무기를 던져 주의를 분산시키고 돌진합니다. 보폭 2회(중간에 투척 타격 1회). 명중 시 대상이 현재 턴의 다음 근접 공격에 방심.", desc:'투척 무기를 던져 주의를 분산시키고 돌진합니다. 보폭 2회(중간에 투척 타격 1회). 명중 시 대상이 현재 턴의 다음 근접 공격에 <strong>방심</strong>.' }
+  {name_ko:"투척 돌진", name_en:"Flinging Charge", feat_level:10, prerequisites:"", traits:["파이터", "화려함"], category:"fighter", summary:"투척 무기를 던져 주의를 분산시키고 돌진합니다. 보폭 2회(중간에 투척 타격 1회). 명중 시 대상이 현재 턴의 다음 근접 공격에 무방비.", desc:'투척 무기를 던져 주의를 분산시키고 돌진합니다. 보폭 2회(중간에 투척 타격 1회). 명중 시 대상이 현재 턴의 다음 근접 공격에 <strong>무방비</strong>.' }
 ,
   {name_ko:"거울 방패", name_en:"Mirror Shield", feat_level:10, prerequisites:"", traits:["파이터"], category:"fighter", summary:"유발 조건: 주문 공격이 당신의 AC에 대해 대실패합니다.", desc:'<strong>유발 조건:</strong> 주문 공격이 당신의 AC에 대해 대실패합니다. <strong>요구사항:</strong> 방패를 올린 상태. 주문을 시전자에게 반사합니다. 가장 높은 원거리 무기 숙련도로 원거리 공격(또는 주문 공격). 성공 시 시전자가 자기 주문의 성공 효과를 받습니다(치명타면 대성공 효과).' }
 ,
-  {name_ko:"압도적 돌진", name_en:"Overpowering Charge", feat_level:10, prerequisites:"돌진 충격. 돌진 충격으로 적의 공간을 성공적으로 통과하면 근력 수정치만큼 둔기 피해(대성공 시 두 배 + 다음 턴까지 방심).", traits:["파이터"], category:"fighter", summary:"돌진 충격으로 적의 공간을 성공적으로 통과하면 근력 수정치만큼 둔기 피해(대성공 시 두 배 + 다음 턴까지 방심).", desc:'<strong>전제조건:</strong> 돌진 충격. 돌진 충격으로 적의 공간을 성공적으로 통과하면 <strong>근력 수정치만큼 둔기 피해</strong>(대성공 시 두 배 + 다음 턴까지 방심).' }
+  {name_ko:"압도적 돌진", name_en:"Overpowering Charge", feat_level:10, prerequisites:"돌진 충격. 돌진 충격으로 적의 공간을 성공적으로 통과하면 근력 수정치만큼 둔기 피해(대성공 시 두 배 + 다음 턴까지 무방비).", traits:["파이터"], category:"fighter", summary:"돌진 충격으로 적의 공간을 성공적으로 통과하면 근력 수정치만큼 둔기 피해(대성공 시 두 배 + 다음 턴까지 무방비).", desc:'<strong>전제조건:</strong> 돌진 충격. 돌진 충격으로 적의 공간을 성공적으로 통과하면 <strong>근력 수정치만큼 둔기 피해</strong>(대성공 시 두 배 + 다음 턴까지 무방비).' }
 ,
   {name_ko:"전술적 반사", name_en:"Tactical Reflexes", feat_level:10, prerequisites:"", traits:["파이터"], category:"fighter", summary:"각 턴 시작에 반격 타격에만 사용할 수 있는 추가 반응 1회.", desc:'각 턴 시작에 반격 타격에만 사용할 수 있는 <strong>추가 반응 1회</strong>.' }
 ,
@@ -569,7 +569,7 @@ const FEAT_DB = [
 ,
   {name_ko:"결투의 춤", name_en:"Dueling Dance", feat_level:12, prerequisites:"결투 방어. 요구사항: 한 손 근접 무기, 빈 손. 이 자세 중 항상 결투 방어의 혜택을 받습니다.", traits:["파이터", "자세"], category:"fighter", summary:"요구사항: 한 손 근접 무기, 빈 손.", desc:'<strong>전제조건:</strong> 결투 방어. <strong>요구사항:</strong> 한 손 근접 무기, 빈 손. 이 자세 중 항상 <strong>결투 방어의 혜택</strong>을 받습니다.' }
 ,
-  {name_ko:"투척 밀기", name_en:"Flinging Shove", feat_level:12, prerequisites:"공격적 막기 또는 야만적 밀치기. 밀기 거리가 성공 시 10피트, 대성공 시 20피트로 증가. 공격적 막기에서 방심 또는 밀기 선택 가능. 야만적 밀치기 실패 시에도 5피트 밀기.", traits:["파이터"], category:"fighter", summary:"밀기 거리가 성공 시 10피트, 대성공 시 20피트로 증가.", desc:'<strong>전제조건:</strong> 공격적 막기 또는 야만적 밀치기. 밀기 거리가 성공 시 <strong>10피트</strong>, 대성공 시 <strong>20피트</strong>로 증가. 공격적 막기에서 방심 또는 밀기 선택 가능. 야만적 밀치기 실패 시에도 <strong>5피트 밀기</strong>.' }
+  {name_ko:"투척 밀기", name_en:"Flinging Shove", feat_level:12, prerequisites:"공격적 막기 또는 야만적 밀치기. 밀기 거리가 성공 시 10피트, 대성공 시 20피트로 증가. 공격적 막기에서 무방비 또는 밀기 선택 가능. 야만적 밀치기 실패 시에도 5피트 밀기.", traits:["파이터"], category:"fighter", summary:"밀기 거리가 성공 시 10피트, 대성공 시 20피트로 증가.", desc:'<strong>전제조건:</strong> 공격적 막기 또는 야만적 밀치기. 밀기 거리가 성공 시 <strong>10피트</strong>, 대성공 시 <strong>20피트</strong>로 증가. 공격적 막기에서 무방비 또는 밀기 선택 가능. 야만적 밀치기 실패 시에도 <strong>5피트 밀기</strong>.' }
 ,
   {name_ko:"향상된 결투 반격", name_en:"Improved Dueling Riposte", feat_level:12, prerequisites:"결투 반격. 결투 방어의 혜택 없이도 결투 반격 사용 가능. 각 턴 시작에 결투 반격에만 사용할 수 있는 추가 반응 1회.", traits:["파이터"], category:"fighter", summary:"결투 방어의 혜택 없이도 결투 반격 사용 가능.", desc:'<strong>전제조건:</strong> 결투 반격. 결투 방어의 혜택 없이도 결투 반격 사용 가능. 각 턴 시작에 결투 반격에만 사용할 수 있는 <strong>추가 반응 1회</strong>.' }
 ,
@@ -605,7 +605,7 @@ const FEAT_DB = [
 ,
   {name_ko:"연속 사격 자세", name_en:"Multishot Stance", feat_level:16, prerequisites:"이중 사격. 요구사항: 재장전 0 원거리 무기. 이 자세 중 이중 사격의 페널티가 -1로 감소. 위치에서 이동하면 자세 종료. 삼중 사격이 있으면 3회 타격 시 -2.", traits:["파이터", "자세"], category:"fighter", summary:"요구사항: 재장전 0 원거리 무기.", desc:'<strong>전제조건:</strong> 이중 사격. <strong>요구사항:</strong> 재장전 0 원거리 무기. 이 자세 중 이중 사격의 페널티가 <strong>-1</strong>로 감소. 위치에서 이동하면 자세 종료. 삼중 사격이 있으면 3회 타격 시 -2.' }
 ,
-  {name_ko:"압도적 일격", name_en:"Overwhelming Blow", feat_level:16, prerequisites:"", traits:["파이터"], category:"fighter", summary:"전체 체중을 실은 강력한 공격. 근접 타격(다중 공격에 3회로 포함). 명중 시 자동 치명타. 치명타 굴림이면 무기가 치명적(deadly) d12 특성도 추가. 명중 여부와 관계없이 기절(stunned) 1과 다음 턴 시작까지 방심.", desc:'전체 체중을 실은 강력한 공격. 근접 타격(다중 공격에 3회로 포함). 명중 시 <strong>자동 치명타</strong>. 치명타 굴림이면 무기가 <strong>치명적(deadly) d12</strong> 특성도 추가. 명중 여부와 관계없이 <strong>기절(stunned) 1</strong>과 다음 턴 시작까지 <strong>방심</strong>.' }
+  {name_ko:"압도적 일격", name_en:"Overwhelming Blow", feat_level:16, prerequisites:"", traits:["파이터"], category:"fighter", summary:"전체 체중을 실은 강력한 공격. 근접 타격(다중 공격에 3회로 포함). 명중 시 자동 치명타. 치명타 굴림이면 무기가 치명적(deadly) d12 특성도 추가. 명중 여부와 관계없이 기절(stunned) 1과 다음 턴 시작까지 무방비.", desc:'전체 체중을 실은 강력한 공격. 근접 타격(다중 공격에 3회로 포함). 명중 시 <strong>자동 치명타</strong>. 치명타 굴림이면 무기가 <strong>치명적(deadly) d12</strong> 특성도 추가. 명중 여부와 관계없이 <strong>기절(stunned) 1</strong>과 다음 턴 시작까지 <strong>무방비</strong>.' }
 ,
   {name_ko:"쌍검 수비", name_en:"Twinned Defense", feat_level:16, prerequisites:"쌍검 방어. 요구사항: 각 손에 근접 무기. 이 자세 중 항상 쌍검 방어의 혜택.", traits:["파이터", "자세"], category:"fighter", summary:"요구사항: 각 손에 근접 무기.", desc:'<strong>전제조건:</strong> 쌍검 방어. <strong>요구사항:</strong> 각 손에 근접 무기. 이 자세 중 항상 <strong>쌍검 방어의 혜택</strong>.' }
 ,
@@ -677,7 +677,7 @@ const FEAT_DB = [
 ,
   {name_ko:"신속 추적자", name_en:"Swift Tracker", feat_level:6, prerequisites:"생존 전문가, 숙련된 추적자. 추적 중에도 전체 속도로 이동. 생존 달인이면 매시간 새 판정 불필요. 전설이면 추적 중 다른 탐험 활동도 가능. 사냥감 추적 중 생존으로 주도권을 굴리면 첫 턴에 사냥감 향해 보폭을 자유 행동으로.", traits:["레인저"], category:"ranger", summary:"추적 중 매시간마다 새 판정을 굴려야 하는 것 대신, 매 30분마다 1회로 줄어듭니다.", desc:'<strong>전제조건:</strong> 생존 대가<br>추적 중 매시간마다 새 판정을 굴려야 하는 것 대신, <strong>매 30분마다 1회</strong>로 줄어듭니다. 전설이면 패배하지 않는 한 새 판정이 필요 없습니다(극단적인 흔적 변화 시 제외).' }
 ,
-  {name_ko:"맹공 감지", name_en:"Blind-Fight", feat_level:8, prerequisites:"지각 달인. 은폐 시 단순 판정 불필요, 숨겨진 적에게 방심 아님(DC 5), 인접한 레벨 이하 미탐지 생물은 숨겨진 것으로 취급.", traits:["레인저"], category:"ranger", summary:"", desc:'<strong>전제조건:</strong> 감지 대가. 은폐 시 단순 판정 불필요, 숨겨진 적에게 방심 아님(DC 5), 인접 레벨 이하 미탐지→숨겨진.' }
+  {name_ko:"맹공 감지", name_en:"Blind-Fight", feat_level:8, prerequisites:"지각 달인. 은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님(DC 5), 인접한 레벨 이하 미탐지 생물은 숨겨진 것으로 취급.", traits:["레인저"], category:"ranger", summary:"", desc:'<strong>전제조건:</strong> 감지 대가. 은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님(DC 5), 인접 레벨 이하 미탐지→숨겨진.' }
 ,
   {name_ko:"치명적 조준", name_en:"Deadly Aim", feat_level:8, prerequisites:"무기 전문화. 사냥감의 약점을 겨냥. 원거리 타격에 -2 페널티, 피해에 +4 상황 보너스(11레벨 +6, 15레벨 +8).", traits:["레인저", "화려함"], category:"ranger", summary:"사냥감의 약점을 겨냥.", desc:'<strong>전제조건:</strong> 무기 전문화. 사냥감의 약점을 겨냥. 원거리 타격에 <strong>-2 페널티, 피해에 +4 상황 보너스</strong>(11레벨 +6, 15레벨 +8).' }
 ,
@@ -705,7 +705,7 @@ const FEAT_DB = [
 ,
   {name_ko:'관리인의 발걸음', name_en:'Warden\'s Step', feat_level:10, prerequisites:'', traits:['레인저'], category:'ranger', summary:'전제조건: 은신 대가. 자연 지형에서 탐험 시 주의 회피(Avoid Notice) 중이면, 원하는 수의 아군에게도 같은 혜택을 부여합니다(아군의', desc:'<strong>전제조건:</strong> 은신 대가. 자연 지형에서 탐험 시 주의 회피(Avoid Notice) 중이면, <strong>원하는 수의 아군에게도</strong> 같은 혜택을 부여합니다(아군의 행동 불필요).'}
 ,
-  {name_ko:"주의 분산 사격", name_en:"Distracting Shot", feat_level:12, prerequisites:"", traits:["레인저"], category:"ranger", summary:"사냥감에 원거리 치명타를 하거나 같은 턴에 2회 이상 명중하면, 다음 턴 시작까지 방심.", desc:'사냥감에 원거리 <strong>치명타</strong>를 하거나 같은 턴에 <strong>2회 이상 명중</strong>하면, 다음 턴 시작까지 <strong>방심</strong>.' }
+  {name_ko:"주의 분산 사격", name_en:"Distracting Shot", feat_level:12, prerequisites:"", traits:["레인저"], category:"ranger", summary:"사냥감에 원거리 치명타를 하거나 같은 턴에 2회 이상 명중하면, 다음 턴 시작까지 무방비.", desc:'사냥감에 원거리 <strong>치명타</strong>를 하거나 같은 턴에 <strong>2회 이상 명중</strong>하면, 다음 턴 시작까지 <strong>무방비</strong>.' }
 ,
   {name_ko:"이중 사냥감", name_en:"Double Prey", feat_level:12, prerequisites:"", traits:["레인저"], category:"ranger", summary:"사냥감 추적 시 2명을 사냥감으로 지정 가능.", desc:'사냥감 추적 시 <strong>2명을 사냥감</strong>으로 지정 가능.' }
 ,
@@ -727,7 +727,7 @@ const FEAT_DB = [
 ,
   {name_ko:'관리인의 안내', name_en:'Warden\'s Guidance', feat_level:14, prerequisites:'', traits:['레인저'], category:'ranger', summary:'사냥감이 당신에게 관측 상태인 한, 사냥감을 탐색하는 아군의 실패/대실패가 성공이 됩니다. 아군이 당신을 보거나 들을 수 있어야.', desc:'사냥감이 당신에게 관측 상태인 한, 사냥감을 탐색하는 <strong>아군의 실패/대실패가 성공</strong>이 됩니다. 아군이 당신을 보거나 들을 수 있어야.'}
 ,
-  {name_ko:"상위 주의 분산 사격", name_en:"Greater Distracting Shot", feat_level:16, prerequisites:"주의 분산 사격. 원거리 명중만으로도 다음 턴 시작까지 방심. 치명타나 2회 명중 시 다음 턴 종료까지.", traits:["레인저"], category:"ranger", summary:"원거리 명중만으로도 다음 턴 시작까지 방심.", desc:'<strong>전제조건:</strong> 주의 분산 사격. 원거리 명중만으로도 다음 턴 시작까지 <strong>방심</strong>. 치명타나 2회 명중 시 <strong>다음 턴 종료까지</strong>.' }
+  {name_ko:"상위 주의 분산 사격", name_en:"Greater Distracting Shot", feat_level:16, prerequisites:"주의 분산 사격. 원거리 명중만으로도 다음 턴 시작까지 무방비. 치명타나 2회 명중 시 다음 턴 종료까지.", traits:["레인저"], category:"ranger", summary:"원거리 명중만으로도 다음 턴 시작까지 무방비.", desc:'<strong>전제조건:</strong> 주의 분산 사격. 원거리 명중만으로도 다음 턴 시작까지 <strong>무방비</strong>. 치명타나 2회 명중 시 <strong>다음 턴 종료까지</strong>.' }
 ,
   {name_ko:"향상된 쌍검 반격", name_en:"Improved Twin Riposte", feat_level:16, prerequisites:"쌍검 반격. 각 턴 시작에 쌍검 반격 전용 추가 반응 1회. 쌍검 방어 없이도 사용 가능.", traits:["레인저"], category:"ranger", summary:"", desc:'<strong>전제조건:</strong> 쌍검 반격. 각 턴 시작에 쌍검 반격 전용 <strong>추가 반응 1회</strong>. 쌍검 방어 없이도 사용 가능.' }
 ,
@@ -761,15 +761,15 @@ const FEAT_DB = [
 ,
   {name_ko:"날렵한 회피", name_en:"Nimble Dodge", feat_level:1, prerequisites:"", traits:["로그"], category:"rogue", summary:"유발 조건: 공격이 당신을 대상으로 하고 AC에 대해 명중 굴림을 유발합니다.", desc:'<strong>유발 조건:</strong> 공격이 당신을 대상으로 하고 AC에 대해 명중 굴림을 유발합니다. 재빠르게 비껴 공격을 피합니다. 유발 공격에 대해 <strong>AC +2 상황 보너스</strong>.' }
 ,
-  {name_ko:"과장된 속임", name_en:"Overextending Feint", feat_level:1, prerequisites:"", traits:["로그"], category:"rogue", summary:"속임(Feint) 시도에 대실패하면, 대상이 방심하는 대신 당신이 대상에게 방심합니다(다음 턴 시작까지). 그러나 속임에 성공하면 대상은 당신뿐 아니라 모든 공격에 방심.", desc:'속임(Feint) 시도에 대실패하면, 대상이 방심하는 대신 <strong>당신이 대상에게 방심</strong>합니다(다음 턴 시작까지). 그러나 속임에 성공하면 대상은 당신뿐 아니라 <strong>모든 공격에 방심</strong>.' }
+  {name_ko:"과장된 속임", name_en:"Overextending Feint", feat_level:1, prerequisites:"", traits:["로그"], category:"rogue", summary:"속임(Feint) 시도에 대실패하면, 대상이 무방비하는 대신 당신이 대상에게 무방비합니다(다음 턴 시작까지). 그러나 속임에 성공하면 대상은 당신뿐 아니라 모든 공격에 무방비.", desc:'속임(Feint) 시도에 대실패하면, 대상이 무방비하는 대신 <strong>당신이 대상에게 무방비</strong>합니다(다음 턴 시작까지). 그러나 속임에 성공하면 대상은 당신뿐 아니라 <strong>모든 공격에 무방비</strong>.' }
 ,
   {name_ko:"증거 심기", name_en:"Plant Evidence", feat_level:1, prerequisites:"", traits:["로그"], category:"rogue", summary:"도둑질(Thievery)로 물건을 훔치는 대신 대상에게 물건을 심을 수 있습니다(같은 규칙, DC 적용).", desc:'도둑질(Thievery)로 물건을 훔치는 대신 대상에게 <strong>물건을 심을 수</strong> 있습니다(같은 규칙, DC 적용).' }
 ,
   {name_ko:"함정 탐지기", name_en:"Trap Finder", feat_level:1, prerequisites:"", traits:["로그"], category:"rogue", summary:"함정 탐지에 +1 상황 보너스, 함정의 AC와 내성에도 +1. 수색 없이도 함정을 찾을 수 있습니다. 도둑질 달인 필요 함정을 해제 가능. 도둑질 달인이면 전설 필요 함정도 해제 가능하며 보너스가 +2로 증가.", desc:'함정 탐지에 <strong>+1 상황 보너스</strong>, 함정의 AC와 내성에도 +1. 수색 없이도 함정을 찾을 수 있습니다. 도둑질 대가 필요 함정을 해제 가능. 도둑질 대가이면 전설 필요 함정도 해제 가능하며 보너스가 +2로 증가.' }
 ,
-  {name_ko:"구르기 뒤돌기", name_en:"Tumble Behind", feat_level:1, prerequisites:"", traits:["로그"], category:"rogue", summary:"덤블 통과(Tumble Through)에 성공하면, 통과한 적이 다음 턴 시작까지 당신의 공격에 방심.", desc:'덤블 통과(Tumble Through)에 성공하면, 통과한 적이 다음 턴 시작까지 당신의 공격에 <strong>방심</strong>.' }
+  {name_ko:"구르기 뒤돌기", name_en:"Tumble Behind", feat_level:1, prerequisites:"", traits:["로그"], category:"rogue", summary:"덤블 통과(Tumble Through)에 성공하면, 통과한 적이 다음 턴 시작까지 당신의 공격에 무방비.", desc:'덤블 통과(Tumble Through)에 성공하면, 통과한 적이 다음 턴 시작까지 당신의 공격에 <strong>무방비</strong>.' }
 ,
-  {name_ko:"쌍검 속임", name_en:"Twin Feint", feat_level:1, prerequisites:"", traits:["로그"], category:"rogue", summary:"요구사항: 각 손에 근접 무기.", desc:'<strong>요구사항:</strong> 각 손에 근접 무기. 한 무기로 적의 주의를 분산시키고 다른 무기로 다른 각도에서 공격. 같은 대상에 각 무기로 타격 1회씩. 두 번째 공격에 대상은 <strong>자동 방심</strong>. 다중 공격 페널티 정상 적용.' }
+  {name_ko:"쌍검 속임", name_en:"Twin Feint", feat_level:1, prerequisites:"", traits:["로그"], category:"rogue", summary:"요구사항: 각 손에 근접 무기.", desc:'<strong>요구사항:</strong> 각 손에 근접 무기. 한 무기로 적의 주의를 분산시키고 다른 무기로 다른 각도에서 공격. 같은 대상에 각 무기로 타격 1회씩. 두 번째 공격에 대상은 <strong>자동 무방비</strong>. 다중 공격 페널티 정상 적용.' }
 ,
   {name_ko:"네 차례다", name_en:"You're Next", feat_level:1, prerequisites:"위협 숙련. 유발 조건: 적을 HP 0으로 만듭니다. 적을 쓰러뜨린 후 60피트 내 다른 생물에게 +2 상황 보너스로 사기 저하 시도. 위협 전설이면 자유 행동으로.", traits:["로그", "감정", "공포", "정신"], category:"rogue", summary:"적을 쓰러뜨린 후 60피트 내 다른 생물에게 +2 상황 보너스로 사기 저하 시도.", desc:"적을 쓰러뜨린 후 60피트 내 다른 생물에게 <strong>+2 상황 보너스로 사기 저하</strong> 시도. 위협 전설이면 자유 행동으로." }
 ,
@@ -779,7 +779,7 @@ const FEAT_DB = [
 ,
   {name_ko:"영리한 계략", name_en:"Clever Gambit", feat_level:2, prerequisites:"지략가 라켓. 유발 조건: 지식 회상으로 식별한 생물에 대해 타격이 치명 성공하고 피해를 줍니다. 한 걸음 또는 보폭(유발 생물의 반응 유발하지 않음).", traits:["로그"], category:"rogue", summary:"한 걸음 또는 보폭(유발 생물의 반응 유발하지 않음).", desc:'<strong>전제조건:</strong> 지략가 라켓. <strong>유발 조건:</strong> 지식 회상으로 식별한 생물에 대해 타격이 치명 성공하고 피해를 줍니다. 한 걸음 또는 보폭(유발 생물의 반응 유발하지 않음).' }
 ,
-  {name_ko:"주의 분산 속임", name_en:"Distracting Feint", feat_level:2, prerequisites:"사기꾼 라켓. 속임으로 방심한 동안 지각 판정과 반사 내성에 -2 상황 페널티.", traits:["로그"], category:"rogue", summary:"속임으로 방심한 동안 지각 판정과 반사 내성에 -2 상황 페널티.", desc:'<strong>전제조건:</strong> 사기꾼 라켓. 속임으로 방심한 동안 지각 판정과 반사 내성에 <strong>-2 상황 페널티</strong>.' }
+  {name_ko:"주의 분산 속임", name_en:"Distracting Feint", feat_level:2, prerequisites:"사기꾼 라켓. 속임으로 무방비한 동안 지각 판정과 반사 내성에 -2 상황 페널티.", traits:["로그"], category:"rogue", summary:"속임으로 무방비한 동안 지각 판정과 반사 내성에 -2 상황 페널티.", desc:'<strong>전제조건:</strong> 사기꾼 라켓. 속임으로 무방비한 동안 지각 판정과 반사 내성에 <strong>-2 상황 페널티</strong>.' }
 ,
   {name_ko:"기동성", name_en:"Mobility", feat_level:2, prerequisites:"", traits:["로그"], category:"rogue", summary:"절반 속도 이하로 보폭하면 이동이 반응을 유발하지 않습니다.", desc:'절반 속도 이하로 보폭하면 이동이 <strong>반응을 유발하지 않습니다</strong>.' }
 ,
@@ -787,13 +787,13 @@ const FEAT_DB = [
 ,
   {name_ko:"강한 팔", name_en:"Strong Arm", feat_level:2, prerequisites:"", traits:["로그"], category:"rogue", summary:"투척 무기의 사거리 증분이 10피트 증가.", desc:'투척 무기의 사거리 증분이 <strong>10피트 증가</strong>.' }
 ,
-  {name_ko:"불균형 타격", name_en:"Unbalancing Blow", feat_level:2, prerequisites:"도둑 라켓. 치명타로 피해 시 대상이 다음 턴 시작까지 당신의 공격에 방심.", traits:["로그"], category:"rogue", summary:"치명타로 피해 시 대상이 다음 턴 시작까지 당신의 공격에 방심.", desc:'<strong>전제조건:</strong> 도둑 라켓. 치명타로 피해 시 대상이 다음 턴 시작까지 당신의 공격에 <strong>방심</strong>.' }
+  {name_ko:"불균형 타격", name_en:"Unbalancing Blow", feat_level:2, prerequisites:"도둑 라켓. 치명타로 피해 시 대상이 다음 턴 시작까지 당신의 공격에 무방비.", traits:["로그"], category:"rogue", summary:"치명타로 피해 시 대상이 다음 턴 시작까지 당신의 공격에 무방비.", desc:'<strong>전제조건:</strong> 도둑 라켓. 치명타로 피해 시 대상이 다음 턴 시작까지 당신의 공격에 <strong>무방비</strong>.' }
 ,
   {name_ko:"비열한 습격", name_en:"Underhanded Assault", feat_level:2, prerequisites:"은신 숙련. 아군 인접 적에게 잠행. 현재 관측 중이어도 숨겨진 것처럼 판정(은신 -2 페널티). 성공 시 잠행 종료 시 근접 타격 가능.", traits:["로그", "시각"], category:"rogue", summary:"아군 인접 적에게 잠행.", desc:'<strong>전제조건:</strong> 은신 숙련. 아군 인접 적에게 잠행. 현재 관측 중이어도 숨겨진 것처럼 판정(은신 -2 페널티). 성공 시 잠행 종료 시 근접 타격 가능.' }
 ,
-  {name_ko:"공포 타격자", name_en:"Dread Striker", feat_level:4, prerequisites:"", traits:["로그"], category:"rogue", summary:"겁먹은(frightened) 생물은 당신의 공격에도 방심.", desc:'겁먹은(frightened) 생물은 당신의 공격에도 <strong>방심</strong>.' }
+  {name_ko:"공포 타격자", name_en:"Dread Striker", feat_level:4, prerequisites:"", traits:["로그"], category:"rogue", summary:"겁먹은(frightened) 생물은 당신의 공격에도 무방비.", desc:'겁먹은(frightened) 생물은 당신의 공격에도 <strong>무방비</strong>.' }
 ,
-  {name_ko:"머리 밟기", name_en:"Head Stomp", feat_level:4, prerequisites:"", traits:["로그"], category:"rogue", summary:"엎드린 대상에 비무장 타격. 명중 시 다음 턴 종료까지 멍청함(stupefied) 1(치명타 2)과 방심.", desc:'엎드린 대상에 비무장 타격. 명중 시 다음 턴 종료까지 <strong>멍청함(stupefied) 1</strong>(치명타 2)과 <strong>방심</strong>.' }
+  {name_ko:"머리 밟기", name_en:"Head Stomp", feat_level:4, prerequisites:"", traits:["로그"], category:"rogue", summary:"엎드린 대상에 비무장 타격. 명중 시 다음 턴 종료까지 멍청함(stupefied) 1(치명타 2)과 무방비.", desc:'엎드린 대상에 비무장 타격. 명중 시 다음 턴 종료까지 <strong>멍청함(stupefied) 1</strong>(치명타 2)과 <strong>무방비</strong>.' }
 ,
   {name_ko:"갈취", name_en:"Mug", feat_level:4, prerequisites:"", traits:["로그"], category:"rogue", summary:"인접 적에 근접 타격. 명중하고 은밀 공격 피해를 주면 도둑질(Steal)도 시도 가능(전투 중이어도).", desc:'인접 적에 근접 타격. 명중하고 은밀 공격 피해를 주면 <strong>도둑질(Steal)</strong>도 시도 가능(전투 중이어도).' }
 ,
@@ -805,15 +805,15 @@ const FEAT_DB = [
 ,
   {name_ko:"파괴 공작", name_en:"Sabotage", feat_level:4, prerequisites:"", traits:["로그", "무력화"], category:"rogue", summary:"요구사항: 빈 손. 도달 내 생물이 들거나 지닌 움직이는 부품이 있는 아이템을 손상시킵니다. 도둑질 판정(대상의 반사 DC). 대성공: 도둑질 숙련 보너스 ×4 피해. 성공: ×2 피해. 대실패: 1일 면역.", desc:'<strong>요구사항:</strong> 빈 손. 도달 내 생물이 들거나 지닌 움직이는 부품이 있는 아이템을 손상시킵니다. 도둑질 판정(대상의 반사 DC). 대성공: 도둑질 숙련 보너스 ×4 피해. 성공: ×2 피해. 대실패: 1일 면역.' }
 ,
-  {name_ko:"사기꾼의 기습", name_en:"Scoundrel's Surprise", feat_level:4, prerequisites:"", traits:["로그", "조작"], category:"rogue", summary:"변장을 극적으로 벗어 놀라게 합니다. 이전에 변장을 간파하지 못한 생물은 턴 종료까지 다음 공격에 방심.", desc:'재빠른 말솜씨, 아첨, 날카로운 혀로 위험을 피하고 곤란한 상황을 탈출합니다. 기만으로 성공적으로 속임(Feint) 시 다음 턴 종료까지 당신의 근접 공격에 <strong>방심</strong>; 대성공이면 모든 근접 공격에. 민첩/기교 근접 무기를 들고 속이면 즉시 <strong>자유 행동으로 한 걸음</strong>.<br><strong>기술:</strong> 기만, 외교. <strong>핵심 속성:</strong> 매력 선택 가능.' }
+  {name_ko:"사기꾼의 기습", name_en:"Scoundrel's Surprise", feat_level:4, prerequisites:"", traits:["로그", "조작"], category:"rogue", summary:"변장을 극적으로 벗어 놀라게 합니다. 이전에 변장을 간파하지 못한 생물은 턴 종료까지 다음 공격에 무방비.", desc:'재빠른 말솜씨, 아첨, 날카로운 혀로 위험을 피하고 곤란한 상황을 탈출합니다. 기만으로 성공적으로 속임(Feint) 시 다음 턴 종료까지 당신의 근접 공격에 <strong>무방비</strong>; 대성공이면 모든 근접 공격에. 민첩/기교 근접 무기를 들고 속이면 즉시 <strong>자유 행동으로 한 걸음</strong>.<br><strong>기술:</strong> 기만, 외교. <strong>핵심 속성:</strong> 매력 선택 가능.' }
 ,
   {name_ko:"정찰 경고", name_en:"Scout's Warning", feat_level:4, prerequisites:"", traits:["로그"], category:"rogue", summary:"", desc:'야생을 고향이라 부르며 길을 찾고 여행자를 안내했습니다.<br><strong>속성 부스트:</strong> 민첩 또는 지혜, 자유 | <strong>기술:</strong> 생존, 지형 지식 | <strong>기술 재주:</strong> 채집가' }
 ,
-  {name_ko:"그들이 클수록", name_en:"The Harder They Fall", feat_level:4, prerequisites:"", traits:["로그"], category:"rogue", summary:"방심한 적을 넘어뜨리기(Trip)에 성공하면 1d6 둔기 피해. 대성공이면 1d6 + 은밀 공격 피해.", desc:'방심한 적을 넘어뜨리기(Trip)에 성공하면 <strong>1d6 둔기 피해</strong>. 대성공이면 1d6 + 은밀 공격 피해.' }
+  {name_ko:"그들이 클수록", name_en:"The Harder They Fall", feat_level:4, prerequisites:"", traits:["로그"], category:"rogue", summary:"무방비한 적을 넘어뜨리기(Trip)에 성공하면 1d6 둔기 피해. 대성공이면 1d6 + 은밀 공격 피해.", desc:'무방비한 적을 넘어뜨리기(Trip)에 성공하면 <strong>1d6 둔기 피해</strong>. 대성공이면 1d6 + 은밀 공격 피해.' }
 ,
   {name_ko:"쌍검 교란", name_en:"Twin Distraction", feat_level:4, prerequisites:"쌍검 속임. 쌍검 속임으로 두 타격 모두 피해를 주면 대상은 클래스 DC에 대해 의지 내성. 실패 시 다음 턴 종료까지 멍청함 1.", traits:["로그"], category:"rogue", summary:"쌍검 속임으로 두 타격 모두 피해를 주면 대상은 클래스 DC에 대해 의지 내성.", desc:'<strong>전제조건:</strong> 쌍검 속임. 쌍검 속임으로 두 타격 모두 피해를 주면 대상은 클래스 DC에 대해 의지 내성. 실패 시 다음 턴 종료까지 <strong>멍청함 1</strong>.' }
 ,
-  {name_ko:'사기꾼의 기습', name_en:'Scoundrel\'s Surprise', feat_level:4, prerequisites:'', traits:['로그'], category:'rogue', summary:'변장을 극적으로 벗어 놀라게 합니다. 이전에 변장을 간파하지 못한 생물은 턴 종료까지 다음 공격에 방심.', desc:'변장을 극적으로 벗어 놀라게 합니다. 이전에 변장을 간파하지 못한 생물은 턴 종료까지 다음 공격에 <strong>방심</strong>.'}
+  {name_ko:'사기꾼의 기습', name_en:'Scoundrel\'s Surprise', feat_level:4, prerequisites:'', traits:['로그'], category:'rogue', summary:'변장을 극적으로 벗어 놀라게 합니다. 이전에 변장을 간파하지 못한 생물은 턴 종료까지 다음 공격에 무방비.', desc:'변장을 극적으로 벗어 놀라게 합니다. 이전에 변장을 간파하지 못한 생물은 턴 종료까지 다음 공격에 <strong>무방비</strong>.'}
 ,
   {name_ko:'정찰 경고', name_en:'Scout\'s Warning', feat_level:4, prerequisites:'', traits:['로그'], category:'rogue', summary:'유발 조건: 감지/생존으로 주도권 굴림 직전. 아군 모두의 주도권에 +1 상황 보너스.', desc:'<strong>유발 조건:</strong> 감지/생존으로 주도권 굴림 직전. 아군 모두의 주도권에 <strong>+1 상황 보너스</strong>.'}
 ,
@@ -831,13 +831,13 @@ const FEAT_DB = [
 ,
   {name_ko:"교전 타격", name_en:"Skirmish Strike", feat_level:6, prerequisites:"", traits:["로그", "화려함"], category:"rogue", summary:"한 걸음+타격 또는 타격+한 걸음.", desc:'한 걸음+타격 또는 타격+한 걸음.' }
 ,
-  {name_ko:"교활한 해제", name_en:"Sly Disarm", feat_level:6, prerequisites:"", traits:["로그"], category:"rogue", summary:"운동 대신 도둑질로 무장 해제 가능. 성공 시 대상이 턴 종료까지 다음 공격에 방심.", desc:'운동 대신 <strong>도둑질로 무장 해제</strong> 가능. 성공 시 대상이 턴 종료까지 다음 공격에 <strong>방심</strong>.' }
+  {name_ko:"교활한 해제", name_en:"Sly Disarm", feat_level:6, prerequisites:"", traits:["로그"], category:"rogue", summary:"운동 대신 도둑질로 무장 해제 가능. 성공 시 대상이 턴 종료까지 다음 공격에 무방비.", desc:'운동 대신 <strong>도둑질로 무장 해제</strong> 가능. 성공 시 대상이 턴 종료까지 다음 공격에 <strong>무방비</strong>.' }
 ,
-  {name_ko:"칼 비틀기", name_en:"Twist the Knife", feat_level:6, prerequisites:"", traits:["로그"], category:"rogue", summary:"요구사항: 마지막 행동이 방심한 대상에 은밀 공격 피해를 준 근접 타격.", desc:'<strong>요구사항:</strong> 마지막 행동이 방심한 대상에 은밀 공격 피해를 준 근접 타격. 상처를 벌립니다. 은밀 공격 피해 주사위 수만큼 <strong>지속 출혈 피해</strong>.' }
+  {name_ko:"칼 비틀기", name_en:"Twist the Knife", feat_level:6, prerequisites:"", traits:["로그"], category:"rogue", summary:"요구사항: 마지막 행동이 무방비한 대상에 은밀 공격 피해를 준 근접 타격.", desc:'<strong>요구사항:</strong> 마지막 행동이 무방비한 대상에 은밀 공격 피해를 준 근접 타격. 상처를 벌립니다. 은밀 공격 피해 주사위 수만큼 <strong>지속 출혈 피해</strong>.' }
 ,
   {name_ko:"뒤를 조심해", name_en:"Watch Your Back", feat_level:6, prerequisites:"위협 숙련. 30피트 내 대상의 의지 DC에 위협 판정. 성공 시 1분간 대상이 당신에 대한 지각에 +2 상태 보너스지만, 공포 효과에 대한 의지 내성에 -2 상태 페널티.", traits:["로그", "감정", "공포", "정신"], category:"rogue", summary:"30피트 내 대상의 의지 DC에 위협 판정.", desc:'<strong>전제조건:</strong> 위협 숙련. 30피트 내 대상의 의지 DC에 위협 판정. 성공 시 1분간 대상이 당신에 대한 감지에 <strong>+2 상태 보너스</strong>지만, 공포 효과에 대한 의지 내성에 <strong>-2 상태 페널티</strong>.' }
 ,
-  {name_ko:"맹공 감지", name_en:"Blind-Fight", feat_level:8, prerequisites:"지각 달인. 은폐 시 단순 판정 불필요, 숨겨진 적에게 방심 아님(DC 5), 인접 레벨 이하 미탐지→숨겨진.", traits:["로그"], category:"rogue", summary:"", desc:'<strong>전제조건:</strong> 감지 대가. 은폐 시 단순 판정 불필요, 숨겨진 적에게 방심 아님(DC 5), 인접 레벨 이하 미탐지→숨겨진.' }
+  {name_ko:"맹공 감지", name_en:"Blind-Fight", feat_level:8, prerequisites:"지각 달인. 은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님(DC 5), 인접 레벨 이하 미탐지→숨겨진.", traits:["로그"], category:"rogue", summary:"", desc:'<strong>전제조건:</strong> 감지 대가. 은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님(DC 5), 인접 레벨 이하 미탐지→숨겨진.' }
 ,
   {name_ko:"과녁", name_en:"Bullseye", feat_level:8, prerequisites:"", traits:["로그"], category:"rogue", summary:"다음 투척 무기 타격에 +1 상황 보너스, 대상의 은폐/하위 엄폐/표준 엄폐 무시(상위 엄폐→표준).", desc:'다음 투척 무기 타격에 <strong>+1 상황 보너스</strong>, 대상의 은폐/하위 엄폐/표준 엄폐 무시(상위 엄폐→표준).' }
 ,
@@ -857,7 +857,7 @@ const FEAT_DB = [
 ,
   {name_ko:"옆걸음", name_en:"Sidestep", feat_level:8, prerequisites:"", traits:["로그"], category:"rogue", summary:"유발 조건: 당신을 대상으로 한 타격이 실패/대실패합니다.", desc:'<strong>유발 조건:</strong> 당신을 대상으로 한 타격이 실패/대실패합니다. 공격을 인접한 다른 생물에게 <strong>리다이렉트</strong>합니다. 공격자가 새 대상에 대해 다시 굴림.' }
 ,
-  {name_ko:"교활한 타격자", name_en:"Sly Striker", feat_level:8, prerequisites:"은밀 공격. 방심하지 않은 생물에도 1d6 정밀 피해를 줍니다(은밀 공격 가능 무기/비무장 공격만). 14레벨에 은밀 공격이 3d6 이상이면 2d6.", traits:["로그"], category:"rogue", summary:"방심하지 않은 생물에도 1d6 정밀 피해를 줍니다(은밀 공격 가능 무기/비무장 공격만).", desc:'<strong>전제조건:</strong> 은밀 공격. 방심하지 않은 생물에도 <strong>1d6 정밀 피해</strong>를 줍니다(은밀 공격 가능 무기/비무장 공격만). 14레벨에 은밀 공격이 3d6 이상이면 <strong>2d6</strong>.' }
+  {name_ko:"교활한 타격자", name_en:"Sly Striker", feat_level:8, prerequisites:"은밀 공격. 무방비하지 않은 생물에도 1d6 정밀 피해를 줍니다(은밀 공격 가능 무기/비무장 공격만). 14레벨에 은밀 공격이 3d6 이상이면 2d6.", traits:["로그"], category:"rogue", summary:"무방비하지 않은 생물에도 1d6 정밀 피해를 줍니다(은밀 공격 가능 무기/비무장 공격만).", desc:'<strong>전제조건:</strong> 은밀 공격. 무방비하지 않은 생물에도 <strong>1d6 정밀 피해</strong>를 줍니다(은밀 공격 가능 무기/비무장 공격만). 14레벨에 은밀 공격이 3d6 이상이면 <strong>2d6</strong>.' }
 ,
   {name_ko:"전리품 빼앗기", name_en:"Swipe Souvenir", feat_level:8, prerequisites:"", traits:["로그"], category:"rogue", summary:"요구사항: 붙잡힌/속박된 상태.", desc:'<strong>요구사항:</strong> 붙잡힌/속박된 상태. 적의 손아귀에서 빠져나가며 물건을 챙깁니다. 탈출 시도 후 성공하면 <strong>도둑질도 시도</strong> 가능.' }
 ,
@@ -867,7 +867,7 @@ const FEAT_DB = [
 ,
   {name_ko:"날렵한 타격", name_en:"Nimble Strike", feat_level:10, prerequisites:"날렵한 구르기. 날렵한 회피 반응 사용 시 근접 타격도 가능(다중 공격 페널티 미포함/미적용).", traits:["로그"], category:"rogue", summary:"날렵한 회피 반응 사용 시 근접 타격도 가능(다중 공격 페널티 미포함/미적용).", desc:'<strong>전제조건:</strong> 날렵한 구르기. 날렵한 회피 반응 사용 시 <strong>근접 타격도 가능</strong>(다중 공격 페널티 미포함/미적용).' }
 ,
-  {name_ko:"정밀 쇠약", name_en:"Precise Debilitations", feat_level:10, prerequisites:"도둑 라켓, 쇠약 타격. 추가 쇠약 옵션: 당신의 공격에서 추가 2d6 정밀 피해, 대상이 방심.", traits:["로그"], category:"rogue", summary:"추가 쇠약 옵션: 당신의 공격에서 추가 2d6 정밀 피해, 대상이 방심.", desc:'<strong>전제조건:</strong> 도둑 라켓, 쇠약 타격. 추가 쇠약 옵션: 당신의 공격에서 <strong>추가 2d6 정밀 피해</strong>, 대상이 <strong>방심</strong>.' }
+  {name_ko:"정밀 쇠약", name_en:"Precise Debilitations", feat_level:10, prerequisites:"도둑 라켓, 쇠약 타격. 추가 쇠약 옵션: 당신의 공격에서 추가 2d6 정밀 피해, 대상이 무방비.", traits:["로그"], category:"rogue", summary:"추가 쇠약 옵션: 당신의 공격에서 추가 2d6 정밀 피해, 대상이 무방비.", desc:'<strong>전제조건:</strong> 도둑 라켓, 쇠약 타격. 추가 쇠약 옵션: 당신의 공격에서 <strong>추가 2d6 정밀 피해</strong>, 대상이 <strong>무방비</strong>.' }
 ,
   {name_ko:"잠행 전문가", name_en:"Sneak Adept", feat_level:10, prerequisites:"은신 달인. 잠행(Sneak) 실패 시 성공으로 취급(대실패는 여전히 가능).", traits:["로그"], category:"rogue", summary:"잠행(Sneak) 실패 시 성공으로 취급(대실패는 여전히 가능).", desc:'<strong>전제조건:</strong> 은신 대가. 잠행(Sneak) 실패 시 <strong>성공으로 취급</strong>(대실패는 여전히 가능).' }
 ,
@@ -881,7 +881,7 @@ const FEAT_DB = [
 ,
   {name_ko:"환상적 도약", name_en:"Fantastic Leap", feat_level:12, prerequisites:"", traits:["로그"], category:"rogue", summary:"높이뛰기/멀리뛰기 시도(높이뛰기도 멀리뛰기 길이로 계산). 도약 종료 시 근접 타격 가능. 도약 높이 이하 추락이면 피해 없이 착지.", desc:'높이뛰기/멀리뛰기 시도(높이뛰기도 멀리뛰기 길이로 계산). 도약 종료 시 근접 타격 가능. 도약 높이 이하 추락이면 피해 없이 착지.' }
 ,
-  {name_ko:"낙하 사격", name_en:"Felling Shot", feat_level:12, prerequisites:"", traits:["로그"], category:"rogue", summary:"방심한 생물에 원거리 타격. 명중하고 피해를 주면 반사 내성(클래스 DC). 실패: 최대 120피트 추락(피해 없음). 대실패: 추락 + 다음 턴까지 비행 불가.", desc:'방심한 생물에 원거리 타격. 명중하고 피해를 주면 반사 내성(클래스 DC). 실패: 최대 120피트 추락(피해 없음). 대실패: 추락 + 다음 턴까지 비행 불가.' }
+  {name_ko:"낙하 사격", name_en:"Felling Shot", feat_level:12, prerequisites:"", traits:["로그"], category:"rogue", summary:"무방비한 생물에 원거리 타격. 명중하고 피해를 주면 반사 내성(클래스 DC). 실패: 최대 120피트 추락(피해 없음). 대실패: 추락 + 다음 턴까지 비행 불가.", desc:'무방비한 생물에 원거리 타격. 명중하고 피해를 주면 반사 내성(클래스 DC). 실패: 최대 120피트 추락(피해 없음). 대실패: 추락 + 다음 턴까지 비행 불가.' }
 ,
   {name_ko:"준비", name_en:"Preparation", feat_level:12, prerequisites:"", traits:["로그", "화려함"], category:"rogue", summary:"전장을 조사합니다. 다음 턴 시작 전까지 아무 로그 반응에 사용할 수 있는 추가 반응 1회.", desc:'전장을 조사합니다. 다음 턴 시작 전까지 아무 로그 반응에 사용할 수 있는 <strong>추가 반응 1회</strong>.' }
 ,
@@ -893,9 +893,9 @@ const FEAT_DB = [
 ,
   {name_ko:"방어적 구르기", name_en:"Defensive Roll", feat_level:14, prerequisites:"", traits:["로그"], category:"rogue", summary:"빈도: 10분에 1회.", desc:'<strong>빈도:</strong> 10분에 1회. <strong>유발 조건:</strong> 물리 공격이 HP 0으로 만들려 합니다. 구르며 충격을 분산시켜 <strong>절반 피해</strong>.' }
 ,
-  {name_ko:"즉시 빈틈", name_en:"Instant Opening", feat_level:14, prerequisites:"", traits:["로그", "집중"], category:"rogue", summary:"30피트 내 대상 1명이 다음 턴 종료까지 당신의 공격에 방심. 청각 또는 시각 특성.", desc:'30피트 내 대상 1명이 다음 턴 종료까지 당신의 공격에 <strong>방심</strong>. 청각 또는 시각 특성.' }
+  {name_ko:"즉시 빈틈", name_en:"Instant Opening", feat_level:14, prerequisites:"", traits:["로그", "집중"], category:"rogue", summary:"30피트 내 대상 1명이 다음 턴 종료까지 당신의 공격에 무방비. 청각 또는 시각 특성.", desc:'30피트 내 대상 1명이 다음 턴 종료까지 당신의 공격에 <strong>무방비</strong>. 청각 또는 시각 특성.' }
 ,
-  {name_ko:"빈틈 남기기", name_en:"Leave an Opening", feat_level:14, prerequisites:"", traits:["로그"], category:"rogue", summary:"방심한 적에 치명 타격 시, 반격 타격(Reactive Strike) 반응이 있는 아군 1명이 마치 적이 조작 행동을 사용한 것처럼 반격 타격을 유발합니다.", desc:'방심한 적에 치명 타격 시, 반격 타격(Reactive Strike) 반응이 있는 아군 1명이 마치 적이 조작 행동을 사용한 것처럼 <strong>반격 타격을 유발</strong>합니다.' }
+  {name_ko:"빈틈 남기기", name_en:"Leave an Opening", feat_level:14, prerequisites:"", traits:["로그"], category:"rogue", summary:"무방비한 적에 치명 타격 시, 반격 타격(Reactive Strike) 반응이 있는 아군 1명이 마치 적이 조작 행동을 사용한 것처럼 반격 타격을 유발합니다.", desc:'무방비한 적에 치명 타격 시, 반격 타격(Reactive Strike) 반응이 있는 아군 1명이 마치 적이 조작 행동을 사용한 것처럼 <strong>반격 타격을 유발</strong>합니다.' }
 ,
   {name_ko:"감각 못 느낀 것 감지", name_en:"Sense the Unseen", feat_level:14, prerequisites:"", traits:["로그"], category:"rogue", summary:"", desc:'<strong>유발 조건:</strong> 탐색에 실패. 미탐지 생물을 자동 감지하여 <strong>숨겨진</strong>으로.' }
 ,
@@ -907,7 +907,7 @@ const FEAT_DB = [
 ,
   {name_ko:"인지적 허점", name_en:"Cognitive Loophole", feat_level:16, prerequisites:"", traits:["로그"], category:"rogue", summary:"유발 조건: 턴이 종료됩니다.", desc:'<strong>유발 조건:</strong> 턴이 종료됩니다. <strong>요구사항:</strong> 정신 효과의 영향을 받고 있어야. 정신 효과의 허점을 찾아 다음 턴 종료까지 <strong>해당 효과를 무시</strong>합니다. 효과당 1회만. <strong>특수:</strong> 정신 효과가 반응을 막아도 사용 가능.' }
 ,
-  {name_ko:"마법 베기", name_en:"Dispelling Slice", feat_level:16, prerequisites:"", traits:["로그"], category:"rogue", summary:"방심한 대상에 타격. 은밀 공격 피해를 주면 대상의 활성 주문 1개를 상쇄 시도(랭크 = 레벨 절반 올림, 수정치 = 클래스 DC - 10).", desc:'방심한 대상에 타격. 은밀 공격 피해를 주면 대상의 활성 주문 1개를 <strong>상쇄 시도</strong>(랭크 = 레벨 절반 올림, 수정치 = 클래스 DC - 10).' }
+  {name_ko:"마법 베기", name_en:"Dispelling Slice", feat_level:16, prerequisites:"", traits:["로그"], category:"rogue", summary:"무방비한 대상에 타격. 은밀 공격 피해를 주면 대상의 활성 주문 1개를 상쇄 시도(랭크 = 레벨 절반 올림, 수정치 = 클래스 DC - 10).", desc:'무방비한 대상에 타격. 은밀 공격 피해를 주면 대상의 활성 주문 1개를 <strong>상쇄 시도</strong>(랭크 = 레벨 절반 올림, 수정치 = 클래스 DC - 10).' }
 ,
   {name_ko:"완벽한 교란", name_en:"Perfect Distraction", feat_level:16, prerequisites:"기만 전설. 미끼를 남기고 잠행. 오도(mislead) 주문처럼 작동하지만 투명이 아닌 미탐지. 미끼를 계속 이동시킬 수 있음. 다시 사용하려면 10분 준비 필요.", traits:["로그"], category:"rogue", summary:"미끼를 남기고 잠행. 오도(mislead) 주문처럼 작동하지만 투명이 아닌 미탐지. 미끼를 계속 이동시킬 수 있음. 다시 사용하려면 10분 준비 필요.", desc:'<strong>전제조건:</strong> 기만 전설. 미끼를 남기고 잠행. <em>오도(mislead)</em> 주문처럼 작동하지만 투명이 아닌 미탐지. 미끼를 계속 이동시킬 수 있음. 다시 사용하려면 10분 준비 필요.' }
 ,
@@ -923,7 +923,7 @@ const FEAT_DB = [
 ,
   {name_ko:"숨겨진 모범", name_en:"Hidden Paragon", feat_level:20, prerequisites:"은신 전설. 빈도: 시간당 1회. 유발 조건: 모든 적에게 숨겨짐/미탐지 상태가 됩니다. 1분간 투명(적대적 행동을 해도). 폭로의 빛이나 참된 시야로도 드러나지 않지만 탐색은 정상.", traits:["로그"], category:"rogue", summary:"1분간 투명(적대적 행동을 해도).", desc:'<strong>전제조건:</strong> 은신 전설. <strong>빈도:</strong> 시간당 1회. <strong>유발 조건:</strong> 모든 적에게 숨겨짐/미탐지 상태가 됩니다. <strong>1분간 투명</strong>(적대적 행동을 해도). 폭로의 빛이나 참된 시야로도 드러나지 않지만 탐색은 정상.' }
 ,
-  {name_ko:"불가능한 타격자", name_en:"Impossible Striker", feat_level:20, prerequisites:"교활한 타격자. 교활한 타격자의 피해 대신, 방심하지 않은 대상에게도 전체 은밀 공격 피해를 줄 수 있습니다.", traits:["로그"], category:"rogue", summary:"교활한 타격자의 피해 대신, 방심하지 않은 대상에게도 전체 은밀 공격 피해를 줄 수 있습니다.", desc:'<strong>전제조건:</strong> 교활한 타격자. 교활한 타격자의 피해 대신, 방심하지 않은 대상에게도 <strong>전체 은밀 공격 피해</strong>를 줄 수 있습니다.' }
+  {name_ko:"불가능한 타격자", name_en:"Impossible Striker", feat_level:20, prerequisites:"교활한 타격자. 교활한 타격자의 피해 대신, 무방비하지 않은 대상에게도 전체 은밀 공격 피해를 줄 수 있습니다.", traits:["로그"], category:"rogue", summary:"교활한 타격자의 피해 대신, 무방비하지 않은 대상에게도 전체 은밀 공격 피해를 줄 수 있습니다.", desc:'<strong>전제조건:</strong> 교활한 타격자. 교활한 타격자의 피해 대신, 무방비하지 않은 대상에게도 <strong>전체 은밀 공격 피해</strong>를 줄 수 있습니다.' }
 ,
   {name_ko:"반응적 교란", name_en:"Reactive Distraction", feat_level:20, prerequisites:"기만 전설, 완벽한 교란. 유발 조건: 공격/효과의 대상이 되거나 영역 내에 있습니다. 요구사항: 완벽한 교란이 준비됨. 미끼와 자리를 바꿉니다. 완벽한 교란을 사용하되, 은폐/엄폐 위치에서 잠행 종료 필요. 미끼가 대신 대상이 됩니다.", traits:["로그", "집중", "조작"], category:"rogue", summary:"당신은 학문이나 헌신이 아닌, 당신조차 완전히 이해하지 못하는 이세계 후원자의 대리인으로서 강력한 마법을 구사합니다. 이 존재는 은밀한 신격, 강력한 페이, 고대의 영혼, 또는 다른 강대한 초자연적 존재일 수 있지만 — 그 본질은 당신에게도 타인에게도 마찬가지로 미스터", desc:'<strong>전제조건:</strong> 기만 전설, 완벽한 교란. <strong>유발 조건:</strong> 공격/효과의 대상이 되거나 영역 내에 있습니다. <strong>요구사항:</strong> 완벽한 교란이 준비됨. 미끼와 자리를 바꿉니다. 완벽한 교란을 사용하되, 은폐/엄폐 위치에서 잠행 종료 필요. 미끼가 대신 대상이 됩니다.' }
 ,
@@ -1175,11 +1175,11 @@ const FEAT_DB = [
 ,
   {name_ko:"빠른 비집기", name_en:"Quick Squeeze", feat_level:1, prerequisites:"곡예 숙련", traits:["일반 기술"], category:"skill", summary:"비집기(Squeeze) 시 라운드당 5피트로 이동(대성공 시 10피트). 전설이면 전체 속도로.", desc:'<strong>전제조건:</strong> 곡예 숙련<br>비집기(Squeeze) 시 라운드당 <strong>5피트로 이동</strong>(대성공 시 10피트). 전설이면 전체 속도로.' }
 ,
-  {name_ko:"안정된 균형", name_en:"Steady Balance", feat_level:1, prerequisites:"곡예 숙련", traits:["일반 기술"], category:"skill", summary:"악조건에서도 쉽게 균형을 유지합니다. 균형 잡기(Balance) 행동에서 성공 시 대성공이 됩니다. 좁은 표면과 고르지 않은 지면에서 균형을 잡으려 시도할 때 방심이 되지 않습니다. 또한 곡예 판정으로 반사 내성 대신 모서리 잡기(Grab an Edge)를 시도할 수 ", desc:'<strong>전제조건:</strong> 곡예 숙련<br>악조건에서도 쉽게 균형을 유지합니다. 균형 잡기(Balance) 행동에서 <strong>성공 시 대성공</strong>이 됩니다. 좁은 표면과 고르지 않은 지면에서 균형을 잡으려 시도할 때 <strong>방심이 되지 않습니다</strong>. 또한 곡예 판정으로 반사 내성 대신 <strong>모서리 잡기(Grab an Edge)</strong>를 시도할 수 있습니다.' }
+  {name_ko:"안정된 균형", name_en:"Steady Balance", feat_level:1, prerequisites:"곡예 숙련", traits:["일반 기술"], category:"skill", summary:"악조건에서도 쉽게 균형을 유지합니다. 균형 잡기(Balance) 행동에서 성공 시 대성공이 됩니다. 좁은 표면과 고르지 않은 지면에서 균형을 잡으려 시도할 때 무방비이 되지 않습니다. 또한 곡예 판정으로 반사 내성 대신 모서리 잡기(Grab an Edge)를 시도할 수 ", desc:'<strong>전제조건:</strong> 곡예 숙련<br>악조건에서도 쉽게 균형을 유지합니다. 균형 잡기(Balance) 행동에서 <strong>성공 시 대성공</strong>이 됩니다. 좁은 표면과 고르지 않은 지면에서 균형을 잡으려 시도할 때 <strong>무방비이 되지 않습니다</strong>. 또한 곡예 판정으로 반사 내성 대신 <strong>모서리 잡기(Grab an Edge)</strong>를 시도할 수 있습니다.' }
 ,
   {name_ko:"빠른 점프", name_en:"Quick Jump", feat_level:1, prerequisites:"운동 숙련", traits:["일반 기술"], category:"skill", summary:"높이뛰기와 멀리뛰기를 2행동 대신 1행동으로 사용할 수 있습니다. 그렇게 하면 초기 보폭을 수행하지 않습니다(10피트 보폭하지 않아서 실패하지도 않음).", desc:'<strong>전제조건:</strong> 운동 숙련<br>높이뛰기와 멀리뛰기를 2행동 대신 <strong>1행동</strong>으로 사용할 수 있습니다. 그렇게 하면 초기 보폭을 수행하지 않습니다(10피트 보폭하지 않아서 실패하지도 않음).' }
 ,
-  {name_ko:"수중 약탈자", name_en:"Underwater Marauder", feat_level:1, prerequisites:"운동 숙련", traits:["일반 기술"], category:"skill", summary:"물속에서 싸우는 법을 배웠습니다. 물속에서 방심이 되지 않으며, 물속에서 둔기나 참격 근접 무기를 사용할 때 일반적인 페널티를 받지 않습니다.", desc:'<strong>전제조건:</strong> 운동 숙련<br>물속에서 싸우는 법을 배웠습니다. 물속에서 <strong>방심이 되지 않으며</strong>, 물속에서 둔기나 참격 근접 무기를 사용할 때 일반적인 페널티를 받지 않습니다.' }
+  {name_ko:"수중 약탈자", name_en:"Underwater Marauder", feat_level:1, prerequisites:"운동 숙련", traits:["일반 기술"], category:"skill", summary:"물속에서 싸우는 법을 배웠습니다. 물속에서 무방비이 되지 않으며, 물속에서 둔기나 참격 근접 무기를 사용할 때 일반적인 페널티를 받지 않습니다.", desc:'<strong>전제조건:</strong> 운동 숙련<br>물속에서 싸우는 법을 배웠습니다. 물속에서 <strong>무방비이 되지 않으며</strong>, 물속에서 둔기나 참격 근접 무기를 사용할 때 일반적인 페널티를 받지 않습니다.' }
 ,
   {name_ko:"거인 레슬러", name_en:"Titan Wrestler", feat_level:1, prerequisites:"운동 숙련", traits:["일반 기술"], category:"skill", summary:"자신보다 최대 두 크기 큰 생물에게 무장 해제, 조이기, 재배치, 밀기, 넘어뜨리기를 시도할 수 있습니다. 전설이면 세 크기까지.", desc:'<strong>전제조건:</strong> 운동 숙련<br>자신보다 최대 <strong>두 크기 큰 생물</strong>에게 무장 해제, 조이기, 재배치, 밀기, 넘어뜨리기를 시도할 수 있습니다. 전설이면 <strong>세 크기</strong>까지.' }
 ,
@@ -1231,7 +1231,7 @@ const FEAT_DB = [
 ,
   {name_ko:"거리 지혜", name_en:"Streetwise", feat_level:1, prerequisites:"사회 숙련", traits:["일반 기술"], category:"skill", summary:"거리 생활을 알고 지역 정착지의 맥박을 느낍니다. 외교 대신 사회로 정보 수집을 할 수 있습니다. 정기적으로 방문하는 정착지에서는 사회로 지식 회상을 사용하여 외교의 정보 수집으로 알 수 있는 것과 같은 종류의 정보를 알 수 있습니다. DC는 보통 상당히 높지만, 시간", desc:'<strong>전제조건:</strong> 사회 숙련<br>거리 생활을 알고 지역 정착지의 맥박을 느낍니다. 외교 대신 <strong>사회로 정보 수집</strong>을 할 수 있습니다. 정기적으로 방문하는 정착지에서는 사회로 지식 회상을 사용하여 외교의 정보 수집으로 알 수 있는 것과 같은 종류의 정보를 알 수 있습니다. DC는 보통 상당히 높지만, 시간을 들이지 않고 정보를 압니다. 실패하면 이후 정상적으로 정보 수집 가능.' }
 ,
-  {name_ko:"입술 읽기", name_en:"Read Lips", feat_level:1, prerequisites:"사회 숙련", traits:["일반 기술"], category:"skill", summary:"명확히 볼 수 있는 근처 사람의 입술을 읽을 수 있습니다. 읽는 언어를 알아야 합니다. 여유가 있을 때는 자동. 조우 모드이거나 어려운 경우에는 입술 움직임에 집중하는 동안 매혹(fascinated)과 방심(off-guard) 상태이며, 사회 판정(GM이 DC 결정)에", desc:'<strong>전제조건:</strong> 사회 숙련<br>명확히 볼 수 있는 근처 사람의 입술을 읽을 수 있습니다. 읽는 언어를 알아야 합니다. 여유가 있을 때는 자동. 조우 모드이거나 어려운 경우에는 입술 움직임에 집중하는 동안 매혹(fascinated)과 방심(off-guard) 상태이며, 사회 판정(GM이 DC 결정)에 성공해야 합니다.' }
+  {name_ko:"입술 읽기", name_en:"Read Lips", feat_level:1, prerequisites:"사회 숙련", traits:["일반 기술"], category:"skill", summary:"명확히 볼 수 있는 근처 사람의 입술을 읽을 수 있습니다. 읽는 언어를 알아야 합니다. 여유가 있을 때는 자동. 조우 모드이거나 어려운 경우에는 입술 움직임에 집중하는 동안 매혹(fascinated)과 무방비(off-guard) 상태이며, 사회 판정(GM이 DC 결정)에", desc:'<strong>전제조건:</strong> 사회 숙련<br>명확히 볼 수 있는 근처 사람의 입술을 읽을 수 있습니다. 읽는 언어를 알아야 합니다. 여유가 있을 때는 자동. 조우 모드이거나 어려운 경우에는 입술 움직임에 집중하는 동안 매혹(fascinated)과 무방비(off-guard) 상태이며, 사회 판정(GM이 DC 결정)에 성공해야 합니다.' }
 ,
   {name_ko:"수화", name_en:"Sign Language", feat_level:1, prerequisites:"사회 숙련", traits:["일반 기술"], category:"skill", summary:"아는 언어와 관련된 수화를 배워 수화로 소통하고 이해할 수 있습니다. 수화는 보통 복잡한 개념을 전달하려면 양손이 필요하며, 청각이 아닌 시각적입니다. 전투 중에는 기본 몸짓(적을 가리키기 등)과 달리 이해하기 어렵습니다. 저시야 지역에서는 시야가 어려운 것처럼 수화도", desc:'<strong>전제조건:</strong> 사회 숙련<br>아는 언어와 관련된 수화를 배워 수화로 소통하고 이해할 수 있습니다. 수화는 보통 복잡한 개념을 전달하려면 양손이 필요하며, 청각이 아닌 시각적입니다. 전투 중에는 기본 몸짓(적을 가리키기 등)과 달리 이해하기 어렵습니다. 저시야 지역에서는 시야가 어려운 것처럼 수화도 어렵습니다.' }
 ,
@@ -1257,7 +1257,7 @@ const FEAT_DB = [
 ,
   {name_ko:"마법 속기", name_en:"Magical Shorthand", feat_level:2, prerequisites:"신비학, 자연학, 오컬티즘, 또는 종교학에 전문가", traits:["일반 기술"], category:"skill", summary:"주문 학습이 쉽게 됩니다. 주문 학습에 성공하면 주문 랭크에 관계없이 10분만 걸립니다. 성공할 결과를 굴리면 대성공이 됩니다. 실패하면 1주일 후 또는 레벨을 올린 후(먼저 오는 것) 재시도 가능.", desc:'<strong>전제조건:</strong> 신비학, 자연학, 비학, 또는 종교에 전문가<br>주문 학습이 쉽게 됩니다. 주문 학습에 성공하면 주문 랭크에 관계없이 <strong>10분</strong>만 걸립니다. 성공할 결과를 굴리면 <strong>대성공</strong>이 됩니다. 실패하면 1주일 후 또는 레벨을 올린 후(먼저 오는 것) 재시도 가능.<br>또한 휴식을 사용하여 새 주문을 배울 수 있습니다. 전통의 관련 기술로 돈 벌기(Earn Income)처럼 작동하지만, 돈 대신 배울 주문을 선택하여 학습 비용에 대한 할인을 받습니다(벌어들인 수입이 비용 이상이면 무료).' }
 ,
-  {name_ko:"민첩한 기기", name_en:"Nimble Crawl", feat_level:2, prerequisites:"곡예 전문가", traits:["일반 기술"], category:"skill", summary:"놀라울 정도로 빠르게 기어갑니다 — 5피트 대신 절반 속도까지. 달인이면 전체 속도, 전설이면 엎드린 상태에서 방심이 되지 않습니다.", desc:'<strong>전제조건:</strong> 곡예 전문가<br>놀라울 정도로 빠르게 기어갑니다 — 5피트 대신 <strong>절반 속도</strong>까지. 대가이면 전체 속도, 전설이면 엎드린 상태에서 <strong>방심이 되지 않습니다</strong>.' }
+  {name_ko:"민첩한 기기", name_en:"Nimble Crawl", feat_level:2, prerequisites:"곡예 전문가", traits:["일반 기술"], category:"skill", summary:"놀라울 정도로 빠르게 기어갑니다 — 5피트 대신 절반 속도까지. 달인이면 전체 속도, 전설이면 엎드린 상태에서 무방비이 되지 않습니다.", desc:'<strong>전제조건:</strong> 곡예 전문가<br>놀라울 정도로 빠르게 기어갑니다 — 5피트 대신 <strong>절반 속도</strong>까지. 대가이면 전체 속도, 전설이면 엎드린 상태에서 <strong>무방비이 되지 않습니다</strong>.' }
 ,
   {name_ko:"강력한 도약", name_en:"Powerful Leap", feat_level:2, prerequisites:"운동 전문가", traits:["일반 기술"], category:"skill", summary:"높이뛰기(High Jump) 없이도 수직 도약(Leap)으로 5피트 위로 뛸 수 있습니다. 또한 도약/높이뛰기/멀리뛰기 시 수평 거리가 5피트 증가합니다.", desc:'<strong>전제조건:</strong> 운동 전문가<br>높이뛰기(High Jump) 없이도 수직 도약(Leap)으로 <strong>5피트 위로</strong> 뛸 수 있습니다. 또한 도약/높이뛰기/멀리뛰기 시 수평 거리가 <strong>5피트 증가</strong>합니다.' }
 ,
@@ -1398,9 +1398,9 @@ const FEAT_DB = [
 ,
   {name_ko:"사냥꾼의 기질", name_en:"Hunter's Edge", cat:"feature", class_id:"ranger", feat_level:1, summary:"사냥감 추적 시 추가 혜택을 부여하는 기질을 선택합니다. 난타(Flurry): 사냥감에 대한 다중 공격 페널티가 완화됩니다. 두 번째 공격이 -5 대신 -3(민첩 무기 -2), 세 번째 이후가 -10 대신 -6(민첩 -4). 지략(Outwit): 사냥감의 공격에 대해 AC +1 상황 보너스, 사냥감에 대한 기만/위협/은신 및 지식 회상에 +2 상황 보너스. 정밀(Precision): 라운드에서 사냥감을 처음 명중할 때 추가 1d8 정밀 피해. 11레벨에서 2d8, 19레벨에서 3d8."}
 ,
-  {name_ko:"은밀 공격 1d6", name_en:"Sneak Attack 1d6", cat:"feature", class_id:"rogue", feat_level:1, summary:"방심(off-guard) 상태인 생물에 민첩/기교 근접 무기, 민첩/기교 비무장 공격, 원거리 무기/비무장 공격으로 타격 시 추가 1d6 정밀 피해. 투척 근접 무기는 민첩/기교여야 합니다. 5, 11, 17레벨에 피해 주사위가 1개씩 증가."}
+  {name_ko:"은밀 공격 1d6", name_en:"Sneak Attack 1d6", cat:"feature", class_id:"rogue", feat_level:1, summary:"무방비(off-guard) 상태인 생물에 민첩/기교 근접 무기, 민첩/기교 비무장 공격, 원거리 무기/비무장 공격으로 타격 시 추가 1d6 정밀 피해. 투척 근접 무기는 민첩/기교여야 합니다. 5, 11, 17레벨에 피해 주사위가 1개씩 증가."}
 ,
-  {name_ko:"기습", name_en:"Surprise Attack", cat:"feature", class_id:"rogue", feat_level:1, summary:"전투에 적보다 빨리 뛰어듭니다. 첫 라운드에 기만이나 은신으로 주도권을 굴렸으면, 아직 행동하지 않은 생물은 당신에게 방심."}
+  {name_ko:"기습", name_en:"Surprise Attack", cat:"feature", class_id:"rogue", feat_level:1, summary:"전투에 적보다 빨리 뛰어듭니다. 첫 라운드에 기만이나 은신으로 주도권을 굴렸으면, 아직 행동하지 않은 생물은 당신에게 무방비."}
 ,
   {name_ko:"라켓", name_en:"Racket", cat:"feature", class_id:"rogue", feat_level:1, summary:"1레벨에 로그의 라켓을 선택합니다. 라켓은 로그로서의 활동 방식을 나타내며, 추가 기술과 핵심 속성 선택지를 부여합니다. 지략가, 건달, 사기꾼, 도둑 중 하나를 선택합니다."}
 ,
@@ -1432,7 +1432,7 @@ const FEAT_DB = [
 ,
   {name_ko:"의지 전문가", name_en:"Iron Will", cat:"feature", class_id:"ranger", feat_level:3, summary:"의지 내성 숙련도가 전문가로 증가."}
 ,
-  {name_ko:"이점 부정", name_en:"Deny Advantage", cat:"feature", class_id:"rogue", feat_level:3, summary:"빈틈을 이용하는 자로서, 자신에게 그런 틈을 남기지 않습니다. 자신의 레벨 이하인 숨겨진/미탐지/측면 공격하는 생물이나 기습을 사용하는 생물에게 방심이 되지 않습니다(다른 이유로 방심은 여전히 가능). 그러나 그 생물은 아군의 측면 공격에 도움을 줄 수 있습니다."}
+  {name_ko:"이점 부정", name_en:"Deny Advantage", cat:"feature", class_id:"rogue", feat_level:3, summary:"빈틈을 이용하는 자로서, 자신에게 그런 틈을 남기지 않습니다. 자신의 레벨 이하인 숨겨진/미탐지/측면 공격하는 생물이나 기습을 사용하는 생물에게 무방비이 되지 않습니다(다른 이유로 무방비은 여전히 가능). 그러나 그 생물은 아군의 측면 공격에 도움을 줄 수 있습니다."}
 ,
   {name_ko:"감지 전문가", name_en:"Alertness", cat:"feature", class_id:"cleric", feat_level:5, summary:"감지 숙련도가 전문가로 증가."}
 ,
@@ -1488,11 +1488,11 @@ const FEAT_DB = [
 ,
   {name_ko:"전투 단련", name_en:"Juggernaut", cat:"feature", class_id:"fighter", feat_level:9, summary:"의지 내성 숙련도가 전문가로 증가."}
 ,
-  {name_ko:"자연의 끝", name_en:"Nature", cat:"feature", class_id:"ranger", feat_level:9, summary:"험지에 있는 적은 당신에게 방심(off-guard)."}
+  {name_ko:"자연의 끝", name_en:"Nature", cat:"feature", class_id:"ranger", feat_level:9, summary:"험지에 있는 적은 당신에게 무방비(off-guard)."}
 ,
   {name_ko:"레인저 전문가", name_en:"Ranger Expertise", cat:"feature", class_id:"ranger", feat_level:9, summary:"레인저 클래스 DC 숙련도가 전문가로 증가."}
 ,
-  {name_ko:"쇠약 타격", name_en:"Debilitating Strike", cat:"feature", class_id:"rogue", feat_level:9, summary:"유발 조건: 방심한 생물에 타격이 명중하고 피해를 줍니다. 다음 턴 종료까지 쇠약 효과 1개를 적용합니다: 이동 속도에 -10피트 상태 페널티 기력상실(enfeebled) 1"}
+  {name_ko:"쇠약 타격", name_en:"Debilitating Strike", cat:"feature", class_id:"rogue", feat_level:9, summary:"유발 조건: 무방비한 생물에 타격이 명중하고 피해를 줍니다. 다음 턴 종료까지 쇠약 효과 1개를 적용합니다: 이동 속도에 -10피트 상태 페널티 기력상실(enfeebled) 1"}
 ,
   {name_ko:"로그 회복력", name_en:"Rogue Resilience", cat:"feature", class_id:"rogue", feat_level:9, summary:"인내 내성 숙련도가 전문가로. 인내 내성에서 성공 시 대성공."}
 ,
@@ -1641,7 +1641,7 @@ const FEAT_DB = [
 ,
   {name_ko:'드워프 무기 친숙', name_en:'Dwarven Weapon Familiarity', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'전투 도끼, 픽, 워해머에 친숙. 드워프 특성 무기는 한 단계 낮은 카테고리로 취급.', desc:'동족이 강타 무기에 대한 친화력을 심어주었고, 당신은 더 우아한 무기보다 이것을 선호합니다. 드워프 특성의 모든 <strong>비일반 무기에 접근</strong>합니다. 드워프 특성 무기와 전투 도끼(battle axe), 곡괭이(pick), 워해머(warhammer)에 친숙합니다 — 숙련도 목적으로, 이 중 <strong>군용 무기는 단순 무기</strong>로, <strong>고급 무기는 군용 무기</strong>로 취급합니다.<br>5레벨에서, 이 무기 중 하나로 치명타를 가하면 해당 무기의 <strong>치명 특성 효과</strong>를 적용합니다.'}
 ,
-  {name_ko:'바위 달리기', name_en:'Rock Runner', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'바위/흙 험한 지형에서 이동 속도 페널티 없음.', desc:'돌과의 타고난 연결로 울퉁불퉁한 표면을 민첩하게 이동합니다. 돌로 인한 <strong>험지(잔해나 자갈 등)와 돌과 흙으로 된 고르지 않은 지면을 무시</strong>할 수 있습니다. 추가로, 곡예(Acrobatics) 기술로 돌이나 흙으로 된 좁은 표면이나 고르지 않은 지면에서 균형 잡기(Balance)를 할 때, <strong>방심(off-guard) 상태가 되지 않으며</strong>, 이 곡예 판정에서 <strong>성공을 굴리면 대성공</strong>이 됩니다.'}
+  {name_ko:'바위 달리기', name_en:'Rock Runner', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'바위/흙 험한 지형에서 이동 속도 페널티 없음.', desc:'돌과의 타고난 연결로 울퉁불퉁한 표면을 민첩하게 이동합니다. 돌로 인한 <strong>험지(잔해나 자갈 등)와 돌과 흙으로 된 고르지 않은 지면을 무시</strong>할 수 있습니다. 추가로, 곡예(Acrobatics) 기술로 돌이나 흙으로 된 좁은 표면이나 고르지 않은 지면에서 균형 잡기(Balance)를 할 때, <strong>무방비(off-guard) 상태가 되지 않으며</strong>, 이 곡예 판정에서 <strong>성공을 굴리면 대성공</strong>이 됩니다.'}
 ,
   {name_ko:'가혹한 근면', name_en:'Unburdened Iron', feat_level:1, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'방어구 착용으로 인한 이동 속도 감소를 5피트 줄임.', desc:'고대 전쟁 중 조상이 처음 고안한 기법을 배워, 거대한 갑옷을 편하게 착용할 수 있습니다. 착용한 갑옷으로 인한 <strong>이동 속도 감소를 무시</strong>합니다.<br>추가로, 다른 이유(예: 과적(encumbered) 상태나 주문)로 이동 속도에 페널티를 받을 때, 페널티에서 <strong>5피트를 차감</strong>합니다. 예를 들어, 과적 상태는 일반적으로 이동 속도에 -10피트 페널티를 주지만, 이 재주로 -5피트 페널티로 줄어듭니다. 이동 속도에 여러 페널티가 있으면 하나만 선택하여 줄입니다.'}
 ,
@@ -1787,9 +1787,8 @@ const FEAT_DB = [
 ,
   {name_ko:'하플링 무기 친숙', name_en:'Halfling Weapon Familiarity', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'슬링, 쇼트소드, 핸드 크로스보우에 숙련됨.', desc:'하플링 특성의 모든 비일반 무기에 접근. 하플링 특성 무기와 투석구(sling), 쇼트소드에 친숙 — <strong>군용→단순, 고급→군용</strong>. 5레벨에서 치명 특성 효과 적용.'}
 ,
-  {name_ko:'눈치 빠른', name_en:'Keen Eyes', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'은폐됨(Concealed) 판정 DC 5→3 감소. 숨겨짐(Hidden) 판정 DC 11→9 감소.', desc:'예리한 시야로 숨은 것을 잘 발견합니다.'}
 ,
-  {name_ko:'확고한 다리', name_en:'Sure Feet', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'좁은 표면/험한 지형에서 균형 잡기/곡예에 대성공 확률 증가.', desc:'균형 잡기든 등반이든, 발이 쉽게 지지점을 찾습니다. 균형 잡기(Balance) 곡예 판정이나 등반(Climb) 운동 판정에서 <strong>성공을 굴리면 대성공</strong>. 균형 잡기나 등반 시도 시 <strong>방심 상태가 되지 않습니다</strong>.'}
+  {name_ko:'확고한 다리', name_en:'Sure Feet', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'좁은 표면/험한 지형에서 균형 잡기/곡예에 대성공 확률 증가.', desc:'균형 잡기든 등반이든, 발이 쉽게 지지점을 찾습니다. 균형 잡기(Balance) 곡예 판정이나 등반(Climb) 운동 판정에서 <strong>성공을 굴리면 대성공</strong>. 균형 잡기나 등반 시도 시 <strong>무방비 상태가 되지 않습니다</strong>.'}
 ,
   {name_ko:'타이탄슬레이어', name_en:'Titan Slinger', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'슬링으로 큰 적 공격 시 추가 피해.', desc:'투석구로 거대한 생물을 쓰러뜨리는 법을 배웠습니다. 투석구 그룹 무기로 <strong>대형 이상 생물을 명중</strong>하면, 무기 피해 주사위를 <strong>한 단계 증가</strong>시킵니다(276페이지 참조).'}
 ,
@@ -1976,7 +1975,7 @@ const FEAT_DB = [
 ,
   {name_ko:'기초 속임수', name_en:'Basic Trickery', feat_level:4, prerequisites:'로그 헌신', traits:['원형'], category:'archetype', summary:'1~2레벨 로그 재주 하나를 얻습니다.', desc:'1레벨 또는 2레벨 <strong>로그 재주</strong> 하나를 얻습니다.'}
 ,
-  {name_ko:'은밀 공격자', name_en:'Sneak Attacker', feat_level:4, prerequisites:'로그 헌신', traits:['원형'], category:'archetype', summary:'은밀 공격으로 방심 상태인 적에게 추가 1d4 정밀 피해(6레벨에 1d6).', desc:'<strong>특성:</strong> 이동, 비밀<br>탐지되지 않은 채 이동합니다. 절반 속도로 보폭합니다. 이동 종료 시 GM이 은신 판정을 비밀리에 굴려, 이동 시작 시 숨겨진/미탐지 상태였던 각 생물의 감지 DC와 비교합니다. 이동 중 엄폐/상위 엄폐가 있으면 보너스를 얻습니다.<br><strong>성공:</strong> 이동 중과 이동 후 미탐지(undetected) 상태를 유지합니다. 숨기/잠행/한 걸음 외의 행동을 하면 관측 상태.<br>'}
+  {name_ko:'은밀 공격자', name_en:'Sneak Attacker', feat_level:4, prerequisites:'로그 헌신', traits:['원형'], category:'archetype', summary:'은밀 공격으로 무방비 상태인 적에게 추가 1d4 정밀 피해(6레벨에 1d6).', desc:'<strong>특성:</strong> 이동, 비밀<br>탐지되지 않은 채 이동합니다. 절반 속도로 보폭합니다. 이동 종료 시 GM이 은신 판정을 비밀리에 굴려, 이동 시작 시 숨겨진/미탐지 상태였던 각 생물의 감지 DC와 비교합니다. 이동 중 엄폐/상위 엄폐가 있으면 보너스를 얻습니다.<br><strong>성공:</strong> 이동 중과 이동 후 미탐지(undetected) 상태를 유지합니다. 숨기/잠행/한 걸음 외의 행동을 하면 관측 상태.<br>'}
 ,
   {name_ko:'기초 위치 주문시전', name_en:'Basic Witch Spellcasting', feat_level:4, prerequisites:'위치 헌신', traits:['원형'], category:'archetype', summary:'기초 주문시전 혜택을 얻어 후원자 전통의 주문 슬롯을 확보합니다.', desc:'위치 원형의 기초 주문시전 혜택을 얻습니다. 6레벨에 1순환 주문 슬롯 1개, 8레벨에 2순환 주문 슬롯 1개를 얻습니다.'}
 ,
@@ -2020,7 +2019,7 @@ const FEAT_DB = [
 ,
   {name_ko:'비전 확장', name_en:'Arcane Breadth', feat_level:8, prerequisites:'기초 위자드 주문시전', traits:['원형'], category:'archetype', summary:'추가 비전(아케인) 주문 슬롯을 얻습니다.', desc:'기초 위자드 주문시전으로 얻은 각 순환의 주문 슬롯이 <strong>1개에서 2개</strong>로 증가합니다.'}
 ,
-  {name_ko:'비범한 회피', name_en:'Uncanny Dodge', feat_level:10, prerequisites:'로그 헌신', traits:['원형'], category:'archetype', summary:'이점 부정(deny advantage)을 얻어 숨겨지지 않은 적이 방심을 유발하지 못합니다.', desc:'<strong>이점 부정(deny advantage)</strong>을 얻습니다. 당신은 숨겨지지 않은(hidden이 아닌) 적에게 방심(off-guard) 상태가 되지 않습니다.'}
+  {name_ko:'비범한 회피', name_en:'Uncanny Dodge', feat_level:10, prerequisites:'로그 헌신', traits:['원형'], category:'archetype', summary:'이점 부정(deny advantage)을 얻어 숨겨지지 않은 적이 무방비을 유발하지 못합니다.', desc:'<strong>이점 부정(deny advantage)</strong>을 얻습니다. 당신은 숨겨지지 않은(hidden이 아닌) 적에게 무방비(off-guard) 상태가 되지 않습니다.'}
 ,
   {name_ko:'전문가 바드 주문시전', name_en:'Expert Bard Spellcasting', feat_level:12, prerequisites:'기초 바드 주문시전, 비학 달인', traits:['원형'], category:'archetype', summary:'전문가 주문시전 혜택을 얻어 중급 주문 슬롯을 확보합니다.', desc:'바드 원형의 전문가 주문시전 혜택을 얻습니다. 비전(오컬트) 주문 명중 굴림과 주문 DC가 <strong>전문가</strong>로 증가합니다. 14레벨에 3순환 주문 슬롯 1개, 16레벨에 4순환 주문 슬롯 1개를 얻습니다.'}
 ,
@@ -2053,7 +2052,7 @@ const FEAT_DB = [
   // ══════════════════════════════════
   {name_ko:'소금물의 메이', name_en:'Brine May', feat_level:1, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'어머니가 바다 해그. 수영 운동 판정에서 성공 시 대성공. 수영 실패해도 가라앉지 않음.', desc:'어머니가 바다 해그로, 바다 초록이나 파란 눈 하나를 부여합니다. 바다와 해안에서 편안함을 느낍니다. 수영 운동 판정에서 <strong>성공 시 대성공</strong>. 해당 라운드에 수영 행동에 성공하지 않고 턴을 물에서 끝내도 <strong>가라앉지 않습니다</strong>(흐름에 밀릴 수는 있음).'}
 ,
-  {name_ko:'어린 메이', name_en:'Callow May', feat_level:1, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'달콤한 해그의 자녀. 매력적인 거짓말쟁이 재주 획득. 기만으로 주도권 굴리면 미행동 적은 방심.', desc:'가장 흔한 체인질링으로, 달콤한 해그에게 태어났으며 선명한 초록 눈이 그 혈통을 나타냅니다. 어머니의 조종적 성격과 다재다능한 목소리가 속임에 우위를 줍니다. <strong>매력적인 거짓말쟁이(Charming Liar)</strong> 기술 재주를 얻습니다. 기만으로 주도권을 굴리면, 아직 행동하지 않은 적은 당신에게 <strong>방심(off-guard)</strong>.'}
+  {name_ko:'어린 메이', name_en:'Callow May', feat_level:1, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'달콤한 해그의 자녀. 매력적인 거짓말쟁이 재주 획득. 기만으로 주도권 굴리면 미행동 적은 무방비.', desc:'가장 흔한 체인질링으로, 달콤한 해그에게 태어났으며 선명한 초록 눈이 그 혈통을 나타냅니다. 어머니의 조종적 성격과 다재다능한 목소리가 속임에 우위를 줍니다. <strong>매력적인 거짓말쟁이(Charming Liar)</strong> 기술 재주를 얻습니다. 기만으로 주도권을 굴리면, 아직 행동하지 않은 적은 당신에게 <strong>무방비(off-guard)</strong>.'}
 ,
   {name_ko:'꿈의 메이', name_en:'Dream May', feat_level:1, prerequisites:'체인질링', traits:['체인질링'], category:'ancestry', summary:'뻐꾸기 해그의 자녀. 수면/꿈 효과 내성 +2. 밤새 HP 회복 2배, 소진/파멸 2만큼 감소.', desc:'뻐꾸기 해그의 자녀로 보라색이나 검은 눈 하나. 어머니의 수면과 꿈에 대한 힘이 저항력을 부여합니다. 수면 효과와 꿈을 유발/변경하는 효과에 대한 내성에 <strong>+2 상황 보너스</strong>.<br>수면이 더 회복적입니다. 밤새 HP를 회복할 때 건강 수정치 × 레벨이 아닌 <strong>× 레벨의 2배</strong>를 회복하고, 소진(drained)과 파멸(doomed) 상태를 1 대신 <strong>2만큼 줄입니다</strong>.'}
 ,
