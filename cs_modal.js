@@ -43,6 +43,16 @@ function openRestModal() {
         주문 슬롯 회복
       </label>
     </div>
+    </div>
+    ${_hasAncestralLongevity() ? `
+    <div style="margin-top:12px;padding:10px;background:var(--bg3);border:1px solid var(--accent);border-radius:4px;">
+      <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:6px;">📜 조상의 장수 — 임시 기술 숙련</div>
+      <div style="font-size:11px;color:var(--text2);margin-bottom:8px;">준비 시 선택한 기술 1개에 임시 숙련됨을 부여합니다. 다음 휴식까지 지속됩니다.</div>
+      <select id="rest-ancestral-skill" style="width:100%;padding:6px;background:var(--bg4);color:var(--text);border:1px solid var(--border2);border-radius:4px;font-size:12px;">
+        <option value="">기술 선택...</option>
+        ${SKILLS.filter(s => !s.isLore && parseInt(document.getElementById('sk-prof-'+s.id)?.value||0) < 2).map(s => `<option value="${s.id}" ${state.tempSkillTrained===s.id?'selected':''}>${s.name}</option>`).join('')}
+      </select>
+    </div>` : ''}
     <div style="display:flex;gap:8px;margin-top:16px;">
       <button onclick="applyRest()" style="flex:1;padding:10px;background:var(--accent);color:#000;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">적용</button>
       <button onclick="closeModal()" style="padding:10px 20px;background:var(--bg4);color:var(--text2);border:1px solid var(--border2);border-radius:4px;font-size:13px;cursor:pointer;">취소</button>
@@ -53,6 +63,10 @@ function openRestModal() {
   if (detail) detail.innerHTML = '';
   const listEl = document.querySelector('.modal-list');
   if (listEl) listEl.style.display = '';
+}
+
+function _hasAncestralLongevity() {
+  return Object.values(state.feats).flat().some(f => f.name && f.name.includes('조상의 장수'));
 }
 
 function applyRest() {
@@ -78,6 +92,11 @@ function applyRest() {
     // 주문 슬롯 사용 초기화
     state.spellSlotsUsed = {};
     state.divineFontUsed = 0;
+  }
+  // 조상의 장수 임시 숙련
+  const ancestralSel = document.getElementById('rest-ancestral-skill');
+  if (ancestralSel) {
+    state.tempSkillTrained = ancestralSel.value || null;
   }
   updateHpGauge();
   buildConditions();

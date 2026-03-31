@@ -925,11 +925,15 @@ function recalcSkill(id) {
   const featSkill = state._fb?.skills?.[id];
   if (featSkill && featSkill.min_rank > rank) {
     rank = featSkill.min_rank;
-    // UI select도 업데이트
     const sel = document.getElementById('sk-prof-'+id);
     if (sel) sel.value = rank;
-    // 뱃지도 업데이트
     if (typeof syncProfRankBadge === 'function') syncProfRankBadge('rank-sk-'+id, 'sk-prof-'+id);
+  }
+  // 임시 숙련 (조상의 장수 등)
+  let isTemp = false;
+  if (state.tempSkillTrained === id && rank < 2) {
+    rank = 2;
+    isTemp = true;
   }
   const lv = getLevel();
   const base = getMod(sk.attr) + (rank>0?rank+lv:0);
@@ -939,6 +943,18 @@ function recalcSkill(id) {
   if (sk.attr === 'dex') extraPen = pen.clumsy;
   if (['int','wis','cha'].includes(sk.attr)) extraPen = pen.stupefied;
   applyPenaltyColor(document.getElementById('sk-val-'+id), base, pen.all + extraPen);
+  // 임시 숙련 표시
+  const nameEl = document.querySelector(`#skills-list .skill-row:nth-child(${SKILLS.indexOf(sk)+1}) .skill-name`);
+  const tempLabel = nameEl?.querySelector('.temp-trained-label');
+  if (isTemp && !tempLabel) {
+    const span = document.createElement('span');
+    span.className = 'temp-trained-label';
+    span.style.cssText = 'font-size:9px;color:var(--accent);margin-left:4px;';
+    span.textContent = '(임시 숙련)';
+    nameEl?.appendChild(span);
+  } else if (!isTemp && tempLabel) {
+    tempLabel.remove();
+  }
 }
 
 function toggleHeroStar(idx) {

@@ -92,6 +92,7 @@ function collectData() {
     shieldStowed: state.shieldStowed || false,
     extraSpeeds: state.extraSpeeds || {},
     shieldRaised: state.shieldRaised || false,
+    tempSkillTrained: state.tempSkillTrained || null,
     deity: state.deity || null,
     divineFont: state.divineFont || null,
     sanctification: state.sanctification || null,
@@ -336,6 +337,7 @@ function loadData(d) {
     if (d.size) state.size = d.size;
     if (d.trainableSkillSlots !== undefined) state.trainableSkillSlots = d.trainableSkillSlots;
     // Class-specific choices
+    if (d.tempSkillTrained) state.tempSkillTrained = d.tempSkillTrained;
     if (d.deity) {
       state.deity = d.deity;
       // 선호 무기 복원
