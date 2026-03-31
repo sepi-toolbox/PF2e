@@ -478,6 +478,10 @@ const FEAT_EFFECTS = {
     choice: {type:'spell_cantrip', tradition:'arcane', label:'비전(Arcane) 캔트립 선택'},
     effects: [{type:'grant_innate_spell'}]
   },
+  'First World Magic': {
+    choice: {type:'spell_cantrip', tradition:'primal', label:'근원(Primal) 캔트립 선택'},
+    effects: [{type:'grant_innate_spell'}]
+  },
   'Unwavering Mien': {
     effects: [{type:'display_note', text:'매혹/수면 효과 지속시간 절반'}]
   },
@@ -593,6 +597,10 @@ const FEAT_EFFECTS = {
   },
   'Natural Ambition': {
     effects: [{type:'display_note', text:'1레벨 클래스 재주 1개 추가 획득'}]
+  },
+  'Adapted Cantrip': {
+    choice: {type:'spell_cantrip', tradition:'any', label:'다른 전통에서 캔트립 선택'},
+    effects: [{type:'grant_innate_spell'}]
   },
   'Natural Skill': {
     choice: {
@@ -3000,7 +3008,14 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     });
   } else if (choiceDef.type === 'spell_cantrip' && typeof SPELL_DB !== 'undefined') {
     const tradition = choiceDef.tradition || 'arcane';
-    const cantrips = SPELL_DB.filter(sp => sp.is_cantrip && sp.traditions && sp.traditions.includes(tradition));
+    let cantrips;
+    if (tradition === 'any') {
+      // 클래스 전통을 제외한 모든 전통의 캔트립
+      const classTrad = state.selectedClass?.tradition || '';
+      cantrips = SPELL_DB.filter(sp => sp.is_cantrip && sp.traditions && (!classTrad || !sp.traditions.includes(classTrad)));
+    } else {
+      cantrips = SPELL_DB.filter(sp => sp.is_cantrip && sp.traditions && sp.traditions.includes(tradition));
+    }
     cantrips.sort((a,b) => (a.name_ko||'').localeCompare(b.name_ko||''));
     // 검색 표시
     if (searchEl) {
