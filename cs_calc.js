@@ -202,8 +202,8 @@ function showInfo(type, name) {
   if (type === 'spell' && typeof SPELL_DB !== 'undefined') {
     item = SPELL_DB.find(s => s.name_ko === nameKo || s.name_en === nameKo);
   } else if (type === 'feat' && typeof FEAT_DB !== 'undefined') {
-    item = FEAT_DB.find(f => f.name_ko === nameKo) ||
-           FEAT_DB.find(f => nameKo.startsWith(f.name_ko));
+    item = FEAT_DB.find(f => f && f.name_ko === nameKo) ||
+           FEAT_DB.find(f => f && nameKo.startsWith(f.name_ko));
   } else if (type === 'heritage' && typeof HERITAGE_DB !== 'undefined') {
     item = HERITAGE_DB.find(h => h.name_ko === nameKo);
   } else if (type === 'weapon' && typeof WEAPON_DB !== 'undefined') {

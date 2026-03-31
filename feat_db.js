@@ -1787,7 +1787,6 @@ const FEAT_DB = [
 ,
   {name_ko:'하플링 무기 친숙', name_en:'Halfling Weapon Familiarity', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'슬링, 쇼트소드, 핸드 크로스보우에 숙련됨.', desc:'하플링 특성의 모든 비일반 무기에 접근. 하플링 특성 무기와 투석구(sling), 쇼트소드에 친숙 — <strong>군용→단순, 고급→군용</strong>. 5레벨에서 치명 특성 효과 적용.'}
 ,
-,
   {name_ko:'확고한 다리', name_en:'Sure Feet', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'좁은 표면/험한 지형에서 균형 잡기/곡예에 대성공 확률 증가.', desc:'균형 잡기든 등반이든, 발이 쉽게 지지점을 찾습니다. 균형 잡기(Balance) 곡예 판정이나 등반(Climb) 운동 판정에서 <strong>성공을 굴리면 대성공</strong>. 균형 잡기나 등반 시도 시 <strong>무방비 상태가 되지 않습니다</strong>.'}
 ,
   {name_ko:'거체 학살자', name_en:'Titan Slinger', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'투석구로 대형 이상 생물 명중 시 피해 주사위 한 단계 증가.', desc:'투석구로 거대한 생물을 쓰러뜨리는 법을 배웠습니다. 투석구 그룹 무기로 <strong>대형 이상 생물을 명중</strong>하면, 무기 피해 주사위를 <strong>한 단계 증가</strong>시킵니다 (d4→d6, d6→d8, d8→d10, d10→d12).'}

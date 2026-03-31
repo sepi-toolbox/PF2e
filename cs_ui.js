@@ -1469,7 +1469,7 @@ function addFeat(type) {
   // DB에서 영문명 매칭
   let fullName = name;
   if (typeof FEAT_DB !== 'undefined' && !name.includes('(')) {
-    const found = FEAT_DB.find(f => f.name_ko === name.trim());
+    const found = FEAT_DB.find(f => f && f.name_ko === name.trim());
     if (found?.name_en) fullName = `${found.name_ko} (${found.name_en})`;
   }
   state.feats[type].push({name: fullName, level:getLevel()});
@@ -1526,7 +1526,7 @@ function renderFeats() {
       const choiceBadge = f.choice && typeof _getChoiceDisplayName === 'function' ? _getChoiceDisplayName(f) : '';
       const srcLabel = isAuto ? `Lv ${f.level||1} — 클래스 특성` : `Lv ${f.level||1}`;
       // DB에서 설명 가져오기
-      const featData = (typeof FEAT_DB !== 'undefined') ? FEAT_DB.find(fd => fd.name_ko === f.name.split(' (')[0].trim()) : null;
+      const featData = (typeof FEAT_DB !== 'undefined') ? FEAT_DB.find(fd => fd && fd.name_ko === f.name.split(' (')[0].trim()) : null;
       const desc = featData?.desc || featData?.summary || '';
       // 아코디언 내 메타 + 특성 뱃지
       const catLabels = {ancestry:'혈통',class:'클래스',general:'일반',skill:'기술',archetype:'원형',special:'클래스 특성',other:'기타'};
@@ -1592,7 +1592,7 @@ function cascadeRemoveFeats() {
       if (state.selectedClass && (state.selectedClass.name === ct || state.selectedClass.en === ct)) continue;
       if (state.selectedSubclass && (state.selectedSubclass.name_ko === ct || state.selectedSubclass.name_en === ct)) continue;
       if (learned.has(ct)) continue;
-      const fd = FEAT_DB.find(f => f.name_ko === ct || f.name_en === ct);
+      const fd = FEAT_DB.find(f => f && (f.name_ko === ct || f.name_en === ct));
       if (fd && (learned.has(fd.name_ko) || learned.has(fd.name_en))) continue;
       if (/숙련|전문가|달인|전설/.test(ct)) continue;
       if (/\+\d+$/.test(ct)) continue;
@@ -1613,7 +1613,7 @@ function cascadeRemoveFeats() {
         const f = arr[j];
         if (!f?.name) continue;
         const fNameKo = f.name.split(' (')[0].trim();
-        const fData = FEAT_DB.find(fd => fd.name_ko === fNameKo);
+        const fData = FEAT_DB.find(fd => fd && fd.name_ko === fNameKo);
         if (fData?.prerequisites && !_prereqMet(fData.prerequisites, learned)) {
           if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== f.name);
           // 성장에서도 제거
