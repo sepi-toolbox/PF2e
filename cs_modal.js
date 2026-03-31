@@ -1972,9 +1972,11 @@ function resetFromAncestry() {
       delete state.growth[lv].ancestryFeat;
     }
   }
-  // Reset vision/size
+  // Reset vision/size/speed
   state.vision = '없음';
   state.size = '중형';
+  const speedEl = document.getElementById('speed');
+  if (speedEl) speedEl.value = 25;
   // Clear languages/traits textarea
   const langEl = document.getElementById('f-languages');
   if (langEl) langEl.value = '';
@@ -2012,24 +2014,24 @@ function resetFromSubclass() {
 function clearCoreSelection(type) {
   if (type === 'class') {
     if (state.selectedClass && !confirm('클래스를 변경하면 모든 빌드 선택이 초기화됩니다. 계속하시겠습니까?')) return;
-    resetFromClass();
     state.selectedClass = null;
+    resetFromClass();
     const btn = document.getElementById('btn-class');
     if (btn) { btn.textContent = '클래스 선택...'; btn.classList.remove('filled'); }
     renderGrowthPlan();
     save();
   } else if (type === 'ancestry') {
     if (state.selectedAncestry && !confirm('혈통을 변경하면 혈통 관련 선택이 초기화됩니다. 계속하시겠습니까?')) return;
-    resetFromAncestry();
     state.selectedAncestry = null;
+    resetFromAncestry();
     const btn = document.getElementById('btn-ancestry');
     if (btn) { btn.textContent = '혈통 선택...'; btn.classList.remove('filled'); }
     renderGrowthPlan();
     save();
   } else if (type === 'background') {
     if (state.selectedBackground && !confirm('배경을 변경하면 배경 관련 선택이 초기화됩니다. 계속하시겠습니까?')) return;
-    resetFromBackground();
     state.selectedBackground = null;
+    resetFromBackground();
     const btn = document.getElementById('btn-background');
     if (btn) { btn.textContent = '배경 선택...'; btn.classList.remove('filled'); }
     renderGrowthPlan();
