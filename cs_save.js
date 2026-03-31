@@ -92,6 +92,7 @@ function collectData() {
     shieldStowed: state.shieldStowed || false,
     extraSpeeds: state.extraSpeeds || {},
     shieldRaised: state.shieldRaised || false,
+    innateSpellsUsed: state.innateSpellsUsed || {},
     tempSkillTrained: state.tempSkillTrained || null,
     tempSkillExpert: state.tempSkillExpert || null,
     deity: state.deity || null,
@@ -338,6 +339,7 @@ function loadData(d) {
     if (d.size) state.size = d.size;
     if (d.trainableSkillSlots !== undefined) state.trainableSkillSlots = d.trainableSkillSlots;
     // Class-specific choices
+    if (d.innateSpellsUsed) state.innateSpellsUsed = d.innateSpellsUsed;
     if (d.tempSkillTrained) state.tempSkillTrained = d.tempSkillTrained;
     if (d.tempSkillExpert) state.tempSkillExpert = d.tempSkillExpert;
     if (d.deity) {

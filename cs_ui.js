@@ -1142,17 +1142,32 @@ function renderSpells() {
     if (innateTab) innateTab.style.display = innateArr.length > 0 ? '' : 'none';
     if (innateList) {
       innateList.innerHTML = '';
-      innateArr.forEach((s) => {
+      if (!state.innateSpellsUsed) state.innateSpellsUsed = {};
+      innateArr.forEach((s, i) => {
         const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
         const actions = getActionIcons(spellData?.actions);
         const isCantrip = s.type === 'cantrip';
         const rankLabel = isCantrip ? `[캔트립 ${heightenedLevel}랭크]` : (s.rank ? `[${s.rank}랭크]` : '');
         const usesLabel = s.uses === '자유' ? '자유 시전' : s.uses || '';
+        // 사용 횟수 체크 (자유 시전이 아닌 경우)
+        const maxUses = s.uses === '자유' ? 0 : parseInt((s.uses||'').match(/\d+/)?.[0]) || 1;
+        const used = state.innateSpellsUsed[i] || 0;
+        let usesHtml = '';
+        if (maxUses > 0) {
+          let checks = '';
+          for (let u = 0; u < maxUses; u++) {
+            const isUsed = u < used;
+            checks += `<span onclick="toggleInnateUse(${i},${u},${maxUses})" style="cursor:pointer;font-size:14px;margin:0 1px;">${isUsed ? '🔥' : '⬜'}</span>`;
+          }
+          usesHtml = `<span style="margin-left:6px;">${checks}</span>`;
+        }
         const row = document.createElement('div');
         row.className = 'spell-slot-row';
+        row.style.opacity = (maxUses > 0 && used >= maxUses) ? '0.5' : '1';
         row.innerHTML = `
           <span class="spell-slot-name" onclick="showInfo('spell','${(s.name||'').replace(/'/g,"\\'")}')">${s.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           <span style="font-size:10px;color:var(--accent);margin-left:4px;">${rankLabel}</span>
+          ${usesHtml}
           <span style="font-size:10px;color:var(--text2);margin-left:auto;">${s.tradition || ''} · ${usesLabel}</span>
           ${s._source ? `<span style="font-size:9px;color:var(--text2);margin-left:4px;">(${s._source})</span>` : ''}`;
         innateList.appendChild(row);
@@ -1382,6 +1397,15 @@ function toggleSpellSlotStar(rank, idx) {
   save();
 }
 
+function toggleInnateUse(idx, clickedSlot, max) {
+  if (!state.innateSpellsUsed) state.innateSpellsUsed = {};
+  const cur = state.innateSpellsUsed[idx] || 0;
+  // 클릭한 슬롯 이하면 사용, 초과면 해제
+  state.innateSpellsUsed[idx] = clickedSlot < cur ? clickedSlot : Math.min(clickedSlot + 1, max);
+  renderSpells();
+  save();
+}
+
 function removeSpellFromSlot(type, index) {
   if (type === 'cantrip') {
     state.spells.cantrip.splice(index, 1);
@@ -1528,12 +1552,34 @@ function _toggleFeatAccordion(div) {
 
 function removeFeat(t, i) {
   const feat = state.feats[t][i];
+  const featName = feat?.name?.split(' (')[0].trim() || '';
   // 재주로 얻은 선천 주문 제거
   if (feat?.name && state.spells?.innate) {
     state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== feat.name);
-    if (typeof renderSpells === 'function') renderSpells();
   }
   state.feats[t].splice(i,1);
+  // 선행 연쇄 제거: 이 재주를 선행으로 요구하는 다른 재주도 제거
+  if (featName && typeof FEAT_DB !== 'undefined') {
+    let changed = true;
+    while (changed) {
+      changed = false;
+      for (const [type, arr] of Object.entries(state.feats)) {
+        for (let j = arr.length - 1; j >= 0; j--) {
+          const f = arr[j];
+          const fNameKo = f.name?.split(' (')[0].trim() || '';
+          const fData = FEAT_DB.find(fd => fd.name_ko === fNameKo);
+          if (fData?.prerequisites && typeof _checkPrereqs === 'function' && !_checkPrereqs(fData.prerequisites)) {
+            // 선천 주문도 정리
+            if (f.name && state.spells?.innate) {
+              state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== f.name);
+            }
+            arr.splice(j, 1);
+            changed = true;
+          }
+        }
+      }
+    }
+  }
   recalcAll(); renderFeats(); save();
 }
 

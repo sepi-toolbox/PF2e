@@ -142,6 +142,8 @@ function applyRest() {
     // 주문 슬롯 사용 초기화
     state.spellSlotsUsed = {};
     state.divineFontUsed = 0;
+    // 선천 주문 사용 초기화
+    state.innateSpellsUsed = {};
   }
   // 조상의 장수 임시 숙련
   const ancestralSel = document.getElementById('rest-ancestral-skill');
