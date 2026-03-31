@@ -2461,7 +2461,7 @@ function confirmModal() {
     const g = modalSelected;
     addEquip({name: g.name_ko, qty:1, bulk: typeof g.bulk==='number'?g.bulk:(g.bulk==='L'?0.1:0)});
   }
-  recalcAll();
+  try { recalcAll(); } catch(e) { console.error('confirmModal recalcAll error:', e); }
   closeModal();
   save();
 }

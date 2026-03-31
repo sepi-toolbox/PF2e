@@ -584,6 +584,9 @@ const FEAT_EFFECTS = {
   'Halfling Luck': {
     effects: [{type:'display_note', text:'[반응] 기술/내성 실패 시 1회 재굴림. 하루 1회'}]
   },
+  'Prairie Rider': {
+    effects: [{type:'skill_trained', skill:'nature'}]
+  },
   'Halfling Lore': {
     effects: [{type:'skill_trained', skill:'acrobatics'}, {type:'skill_trained', skill:'stealth'}, {type:'grant_lore', name:'하플링'}]
   },

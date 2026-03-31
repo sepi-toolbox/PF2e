@@ -1792,7 +1792,7 @@ const FEAT_DB = [
 ,
   {name_ko:'거체 학살자', name_en:'Titan Slinger', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'투석구로 대형 이상 생물 명중 시 피해 주사위 한 단계 증가.', desc:'투석구로 거대한 생물을 쓰러뜨리는 법을 배웠습니다. 투석구 그룹 무기로 <strong>대형 이상 생물을 명중</strong>하면, 무기 피해 주사위를 <strong>한 단계 증가</strong>시킵니다 (d4→d6, d6→d8, d8→d10, d10→d12).'}
 ,
-  {name_ko:'주의 분산 그림자', name_en:'Distracting Shadows', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'더 큰 종족을 주의 분산으로 사용하여 주목을 피하는 법을 배웠습니다. 자신보다 최소 한 크기 이상 큰 생물(보통 중형 이상)을 숨기(Hide)와', desc:'더 큰 종족을 주의 분산으로 사용하여 주목을 피하는 법을 배웠습니다. 자신보다 최소 한 크기 이상 큰 생물(보통 중형 이상)을 숨기(Hide)와 잠행(Sneak) 행동의 <strong>엄폐로 사용</strong>할 수 있습니다. 다만 엄폐 잡기(Take Cover) 같은 다른 용도로는 사용할 수 없습니다.'}
+  {name_ko:'주의 분산 그림자', name_en:'Distracting Shadows', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'더 큰 종족을 주의 분산으로 사용하여 주목을 피하는 법을 배웠습니다. 자신보다 최소 한 크기 이상 큰 생물(보통 중형 이상)을 숨기(Hide)와', desc:'더 큰 종족을 주의 분산으로 사용하여 주목을 피하는 법을 배웠습니다. 자신보다 최소 한 크기 이상 큰 생물(보통 중형 이상)을 숨기(Hide)와 잠행(Sneak) 행동의 <strong>엄폐로 사용</strong>할 수 있습니다. 다만 엄폐(Take Cover) 같은 다른 용도로는 사용할 수 없습니다.'}
 ,
   {name_ko:'시골 수다', name_en:'Folksy Patter', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'암호화된 메시지를 소박한 관용구로 위장하는 데 능숙합니다. 속어, 농담, 하플링어 차용어 등을 사용하여 세 개의 기본 단어로 구성된 간단한 메시', desc:'암호화된 메시지를 소박한 관용구로 위장하는 데 능숙합니다. 속어, 농담, 하플링어 차용어 등을 사용하여 세 개의 기본 단어로 구성된 간단한 메시지를 전달합니다(예: "위험 암살자 도주" 또는 "만남 달뜸"). 의도된 청자는 <strong>DC 20 지각 판정</strong>으로 메시지를 파악합니다. 청자가 하플링이거나 시골 수다를 가지면 DC가 5 감소하며, 둘 다라면 10 감소합니다. 도청자도 당신의 기만 DC에 대해 지각 판정을 시도할 수 있습니다.'}
 ,
@@ -1800,15 +1800,15 @@ const FEAT_DB = [
 ,
   {name_ko:'속박 벗은 하플링', name_en:'Unfettered Halfling', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'강제 복역이나 감옥에 갇혔다가 탈출한 후, 다시는 잡히지 않도록 훈련했습니다. 탈출 판정이나 붙잡힘(grabbed)/부동(immobilized)', desc:'강제 복역이나 감옥에 갇혔다가 탈출한 후, 다시는 잡히지 않도록 훈련했습니다. 탈출 판정이나 붙잡힘(grabbed)/부동(immobilized)/속박(restrained) 상태를 부과하는 효과에 대한 내성에서 <strong>성공을 굴리면 대성공</strong>. 생물이 당신을 조이기(Grapple)에 <strong>실패하면 대실패</strong>가 됩니다.'}
 ,
-  {name_ko:'경계하는 하플링', name_en:'Watchful Halfling', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'주변 사람들에 주의를 기울여, 성격에서 벗어나는 행동을 더 쉽게 알아챕니다. 마법에 걸리거나 빙의된 캐릭터를 알아내기 위해 의도 파악(Sense', desc:'주변 사람들에 주의를 기울여, 성격에서 벗어나는 행동을 더 쉽게 알아챕니다. 마법에 걸리거나 빙의된 캐릭터를 알아내기 위해 의도 파악(Sense Motive)를 사용할 때 지각 판정에 <strong>+2 상황 보너스</strong>. 적극적으로 의도 파악를 사용하지 않더라도 GM이 자동으로 비밀 판정을 굴려줍니다(일반 보너스 없이).<br>추가로, 마법이나 빙의를 극복하기 위한 다른 생물의 내성 굴림이나 판정에 보너스를 주는 <strong>원조(Aid) 기본 행동</strong>을 사용할 수 있습니다. 원조 규칙대로, 턴에 행동을 사용하여 생물에게 효과에 맞서 싸우도록 격려하는 준비가 필요합니다.'}
+  {name_ko:'경계하는 하플링', name_en:'Watchful Halfling', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'주변 사람들에 주의를 기울여, 성격에서 벗어나는 행동을 더 쉽게 알아챕니다. 마법에 걸리거나 빙의된 캐릭터를 알아내기 위해 의도 파악(Sense', desc:'주변 사람들에 주의를 기울여, 성격에서 벗어나는 행동을 더 쉽게 알아챕니다. 마법에 걸리거나 빙의된 캐릭터를 알아내기 위해 의도 파악(Sense Motive)를 사용할 때 지각 판정에 <strong>+2 상황 보너스</strong>. 적극적으로 의도 파악를 사용하지 않더라도 GM이 자동으로 비밀 판정을 굴려줍니다(일반 보너스 없이).<br>추가로, 마법이나 빙의를 극복하기 위한 다른 생물의 내성 굴림이나 판정에 보너스를 주는 <strong>도움(Aid) 기본 행동</strong>을 사용할 수 있습니다. 도움 규칙대로, 턴에 행동을 사용하여 생물에게 효과에 맞서 싸우도록 격려하는 준비가 필요합니다.'}
 ,
   {name_ko:'문화 적응', name_en:'Cultural Adaptability', feat_level:5, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'다양한 문화에 적응하는 능력.', desc:'모험 중 주변의 지배적 혈통의 문화에 적응하는 능력을 연마했습니다. <strong>양자 혈통(Adopted Ancestry)</strong> 일반 재주를 얻고, 선택한 혈통에서 <strong>1레벨 혈통 재주 1개</strong>도 추가로 얻습니다.'}
 ,
-  {name_ko:'경쾌한 걸음', name_en:'Step Lively', feat_level:5, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'유발 조건: 대형 이상 적이 인접한 곳에서 이동 행동을 종료합니다.', desc:'<strong>유발 조건:</strong> 대형 이상 적이 인접한 곳에서 이동 행동을 종료합니다.<br>더 큰 생물의 둔한 발걸음을 피하는 전문가입니다. 해당 적에 인접한 다른 칸으로 <strong>한 걸음(Step)</strong>.'}
+  {name_ko:'경쾌한 걸음', name_en:'Step Lively', feat_level:5, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'[반응] 대형 이상 적이 인접 이동 종료 시 한 걸음(Step).', desc:'<strong>유발 조건:</strong> 대형 이상 적이 인접한 곳에서 이동 행동을 종료합니다.<br>더 큰 생물의 둔한 발걸음을 피하는 전문가입니다. 해당 적에 인접한 다른 칸으로 <strong>한 걸음(Step)</strong>.'}
 ,
   {name_ko:'신의 행운', name_en:'Guiding Luck', feat_level:9, prerequisites:'하플링, 이방인의 행운', traits:['하플링'], category:'ancestry', summary:'이방인의 행운을 명중 굴림에도 사용 가능. 또는 아군에게 행운 부여.', desc:'<strong>전제조건:</strong> 하플링 행운(Halfling Luck)<br>행운이 올바른 방향을 보고 정확하게 타격하도록 안내합니다. 하플링 행운을 <strong>하루 2회</strong> 사용할 수 있습니다: 일반 유발 조건으로 1회, 그리고 지각 판정이나 명중 굴림에 실패할 때 1회.'}
 ,
-  {name_ko:'발밑에서 춤추기', name_en:'Dance Underfoot', feat_level:9, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'전제조건: 경쾌한 걸음(Step Lively)', desc:'<strong>전제조건:</strong> 경쾌한 걸음(Step Lively)<br>전투에서 적의 다리 아래로 빠져나갑니다. 성공적인 <strong>덤블 통과(Tumble Through)</strong> 행동을 대형 이상 적의 칸에서 종료할 수 있습니다. 또한 경쾌한 걸음 재주 사용 시 유발 적의 칸으로 한 걸음을 밟을 수 있습니다. 적이 팔다리가 있거나 이 기동을 위한 충분한 공간을 남겨야 합니다(GM 판단). 예를 들어, 거인이나 드래곤과 공간을 공유할 수 있지만, 우즈와는 불가능합니다.'}
+  {name_ko:'발밑에서 춤추기', name_en:'Dance Underfoot', feat_level:9, prerequisites:'하플링, 경쾌한 걸음', traits:['하플링'], category:'ancestry', summary:'대형 이상 적의 칸에서 덤블 통과 종료 가능. 경쾌한 걸음으로 적의 칸에 진입 가능.', desc:'<strong>전제조건:</strong> 경쾌한 걸음(Step Lively)<br>전투에서 적의 다리 아래로 빠져나갑니다. 성공적인 <strong>덤블 통과(Tumble Through)</strong> 행동을 대형 이상 적의 칸에서 종료할 수 있습니다. 또한 경쾌한 걸음 재주 사용 시 유발 적의 칸으로 한 걸음을 밟을 수 있습니다. 적이 팔다리가 있거나 이 기동을 위한 충분한 공간을 남겨야 합니다(GM 판단). 예를 들어, 거인이나 드래곤과 공간을 공유할 수 있지만, 우즈와는 불가능합니다.'}
 ,
   {name_ko:'억누를 수 없는', name_en:'Irrepressible', feat_level:9, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'공포와 감정을 이용하려는 시도를 쉽게 물리칩니다. 감정 효과에 대한 내성에서 성공을 굴리면 대성공. 대담한 하플링 유산이면 감정 효과에 대한 대', desc:'공포와 감정을 이용하려는 시도를 쉽게 물리칩니다. 감정 효과에 대한 내성에서 <strong>성공을 굴리면 대성공</strong>. 대담한 하플링 유산이면 감정 효과에 대한 <strong>대실패를 굴리면 실패</strong>가 됩니다.'}
 ,
@@ -1816,7 +1816,7 @@ const FEAT_DB = [
 ,
   {name_ko:'하플링 무기 전문가', name_en:'Halfling Weapon Expertise', feat_level:13, prerequisites:'하플링, 하플링 무기 친숙', traits:['하플링'], category:'ancestry', summary:'하플링 무기 숙련도가 전문가로 증가.', desc:'하플링 무기에 대한 숙련도가 전문가로 증가합니다.'}
 ,
-  {name_ko:'끊임없는 그림자', name_en:'Ceaseless Shadows', feat_level:13, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'전제조건: 주의 분산 그림자(Distracting Shadows)', desc:'<strong>전제조건:</strong> 주의 분산 그림자(Distracting Shadows)<br>눈에 띄지 않는 데 탁월하며, 특히 군중 속에서. 숨기나 잠행에 <strong>엄폐나 은폐가 더 이상 필요하지 않습니다</strong>. 생물로부터 하위 엄폐가 있으면 표준 엄폐로 승격되어 엄폐 잡기를 할 수 있고, 표준 엄폐가 있으면 <strong>상위 엄폐</strong>로 승격됩니다.'}
+  {name_ko:'끊임없는 그림자', name_en:'Ceaseless Shadows', feat_level:13, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'전제조건: 주의 분산 그림자(Distracting Shadows)', desc:'<strong>전제조건:</strong> 주의 분산 그림자(Distracting Shadows)<br>눈에 띄지 않는 데 탁월하며, 특히 군중 속에서. 숨기나 잠행에 <strong>엄폐나 은폐가 더 이상 필요하지 않습니다</strong>. 생물로부터 하위 엄폐가 있으면 표준 엄폐로 승격되어 엄폐를 할 수 있고, 표준 엄폐가 있으면 <strong>상위 엄폐</strong>로 승격됩니다.'}
 ,
   {name_ko:'넘어뜨리기 춤', name_en:'Toppling Dance', feat_level:13, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'전제조건: 발밑에서 춤추기(Dance Underfoot)', desc:'<strong>전제조건:</strong> 발밑에서 춤추기(Dance Underfoot)<br>발밑에서 춤추기로 생물의 칸을 공유하는 동안, 근접 무기와 비무장 공격이 <strong>넘어뜨리기(trip) 특성</strong>을 얻지만, 칸을 공유하는 생물에 대해서만. 대형 이상의 엎드린(prone) 생물과 같은 칸에 있을 수 있으며, 아군이 아니어도 됩니다.'}
 ,
@@ -1831,7 +1831,7 @@ const FEAT_DB = [
 ,
   {name_ko:'자연 기술', name_en:'Natural Skill', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'인간의 다재다능함. 숙련된 기술 1개를 추가로 얻습니다.', desc:'독창성으로 다양한 기술을 배울 수 있습니다. 선택한 <strong>기술 2개에 숙련</strong>됩니다.'}
 ,
-  {name_ko:'사교계 촉수', name_en:'Cooperative Nature', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'도움(Aid) 반응 판정에 +4 상황 보너스.', desc:'짧은 인간 수명이 관점을 주고, 어린 나이부터 차이를 제쳐두고 다른 이와 함께 위대함을 달성하는 법을 가르쳤습니다. 원조(Aid) 판정에 <strong>+4 상황 보너스</strong>.'}
+  {name_ko:'사교계 촉수', name_en:'Cooperative Nature', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'도움(Aid) 반응 판정에 +4 상황 보너스.', desc:'짧은 인간 수명이 관점을 주고, 어린 나이부터 차이를 제쳐두고 다른 이와 함께 위대함을 달성하는 법을 가르쳤습니다. 도움(Aid) 판정에 <strong>+4 상황 보너스</strong>.'}
 ,
   {name_ko:'적응된 캔트립', name_en:'Adapted Cantrip', feat_level:1, prerequisites:'인간, 주문시전 클래스 특성', traits:['인간'], category:'ancestry', summary:'다른 전통에서 캔트립 1개를 선택하여 클래스 전통으로 시전.', desc:'<strong>전제조건:</strong> 주문시전 클래스 특성<br>여러 마법 전통을 공부하여 주문시전 양식에 맞게 주문을 변경했습니다. 자신의 것이 아닌 마법 전통에서 <strong>캔트립 1개</strong>를 선택합니다. 이 캔트립을 클래스 전통의 주문으로 시전할 수 있습니다.<br>나중에 이 캔트립을 교환하거나 재훈련하면, 같은 대안 전통이나 다른 전통에서 교체를 선택할 수 있습니다.'}
 ,
@@ -1847,9 +1847,9 @@ const FEAT_DB = [
 ,
   {name_ko:'불굴의 의지', name_en:'Stubborn Persistence', feat_level:9, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'의지 내성에서 대실패를 실패로 변환.', desc:'인간은 다른 이가 포기할 만한 가장 혹독한 시련도 견뎌내는 능력으로 유명합니다. 피로(fatigued) 상태가 될 때, <strong>DC 17 단순 판정</strong>을 시도합니다. 성공하면 피로 상태가 되지 않습니다. 피로의 근본 원인(휴식 부족 등)을 해결하지 않으면, GM이 정한 간격으로 실패할 때까지 다시 판정해야 합니다.'}
 ,
-  {name_ko:'협력의 영혼', name_en:'Cooperative Soul', feat_level:9, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'동료와 영혼 깊이의 유대를 발전시켜 더 큰 수준의 협력을 유지합니다. 원조하는 기술에 최소 전문가이면, 기술 판정 원조에서 실패나 대실패를 굴리', desc:'동료와 영혼 깊이의 유대를 발전시켜 더 큰 수준의 협력을 유지합니다. 원조하는 기술에 최소 전문가이면, 기술 판정 원조에서 <strong>실패나 대실패를 굴리면 성공</strong>이 됩니다.'}
+  {name_ko:'협력의 영혼', name_en:'Cooperative Soul', feat_level:9, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'동료와 영혼 깊이의 유대를 발전시켜 더 큰 수준의 협력을 유지합니다. 도움하는 기술에 최소 전문가이면, 기술 판정 도움에서 실패나 대실패를 굴리', desc:'동료와 영혼 깊이의 유대를 발전시켜 더 큰 수준의 협력을 유지합니다. 도움하는 기술에 최소 전문가이면, 기술 판정 도움에서 <strong>실패나 대실패를 굴리면 성공</strong>이 됩니다.'}
 ,
-  {name_ko:'집단 원조', name_en:'Group Aid', feat_level:9, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'팀워크를 강조하며 자라 동료를 돕는 것이 자연스럽습니다. 공격 특성이 없는 기술 판정에서 아군을 원조한 후, 같은 라운드에 같은 목적으로 같은 ', desc:'팀워크를 강조하며 자라 동료를 돕는 것이 자연스럽습니다. 공격 특성이 없는 기술 판정에서 아군을 원조한 후, 같은 라운드에 같은 목적으로 같은 기술 판정을 시도하는 <strong>다른 모든 아군도 원조</strong>할 수 있습니다. 반응 대신 <strong>자유 행동</strong>으로 합니다. 원조를 위한 준비가 다른 아군에게도 여전히 적용되어야 하며, 각 아군은 한 번만 원조할 수 있습니다.'}
+  {name_ko:'집단 도움', name_en:'Group Aid', feat_level:9, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'팀워크를 강조하며 자라 동료를 돕는 것이 자연스럽습니다. 공격 특성이 없는 기술 판정에서 아군을 도움한 후, 같은 라운드에 같은 목적으로 같은 ', desc:'팀워크를 강조하며 자라 동료를 돕는 것이 자연스럽습니다. 공격 특성이 없는 기술 판정에서 아군을 도움한 후, 같은 라운드에 같은 목적으로 같은 기술 판정을 시도하는 <strong>다른 모든 아군도 도움</strong>할 수 있습니다. 반응 대신 <strong>자유 행동</strong>으로 합니다. 도움를 위한 준비가 다른 아군에게도 여전히 적용되어야 하며, 각 아군은 한 번만 도움할 수 있습니다.'}
 ,
   {name_ko:'강인한 여행자', name_en:'Hardy Traveler', feat_level:9, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'친구가 곁에 있거나 마음에 희망이 있으면 너무 먼 여정이나 너무 무거운 짐은 없습니다. 최대 및 과적 부피 한계를 1 증가시킵니다. 추가로, 야', desc:'친구가 곁에 있거나 마음에 희망이 있으면 너무 먼 여정이나 너무 무거운 짐은 없습니다. 최대 및 과적 부피 한계를 <strong>1 증가</strong>시킵니다. 추가로, 야외 여행 시 이동 속도에 <strong>+10피트 상황 보너스</strong>.'}
 ,
@@ -2128,7 +2128,7 @@ const FEAT_DB = [
 ,
   {name_ko:'엘프 선조 회귀', name_en:'Elf Atavism', feat_level:1, prerequisites:'아이우바린', traits:['아이우바린'], category:'ancestry', summary:'엘프 유산 혜택 획득. 1레벨 전용, 재훈련 불가.', desc:'엘프의 피가 특히 강하게 흘러 일반적인 아이우바린보다 훨씬 더 엘프적인 특징을 부여합니다. 엘프 부모나 조상의 <strong>엘프 유산의 혜택</strong>을 얻습니다. 보통 없는 엘프 특징에 의존하거나 개선하는 유산은 선택할 수 없습니다. <strong>특수:</strong> 1레벨에서만, 재훈련 불가.'}
 ,
-  {name_ko:'모방 영감', name_en:'Inspire Imitation', feat_level:5, prerequisites:'아이우바린', traits:['아이우바린'], category:'ancestry', summary:'기술 대성공 시 같은 기술로 원조 반응 자동 자격.', desc:'행동이 동맹에게 위대한 성취를 영감합니다. 기술 판정에 <strong>대성공</strong>할 때마다, 같은 기술로 아군을 돕기 위한 원조(Aid) 반응을 사용할 자격을 자동으로 얻으며, 준비 행동이 필요 없습니다.'}
+  {name_ko:'모방 영감', name_en:'Inspire Imitation', feat_level:5, prerequisites:'아이우바린', traits:['아이우바린'], category:'ancestry', summary:'기술 대성공 시 같은 기술로 도움 반응 자동 자격.', desc:'행동이 동맹에게 위대한 성취를 영감합니다. 기술 판정에 <strong>대성공</strong>할 때마다, 같은 기술로 아군을 돕기 위한 도움(Aid) 반응을 사용할 자격을 자동으로 얻으며, 준비 행동이 필요 없습니다.'}
 ,
   {name_ko:'초자연적 매력', name_en:'Supernatural Charm', feat_level:5, prerequisites:'아이우바린', traits:['아이우바린'], category:'ancestry', summary:'1랭크 매혹을 비전 선천 주문으로 하루 1회.', desc:'피 속의 엘프 마법이 더 매력적이거나 매혹적으로 만드는 힘으로 나타납니다. <em>1랭크 매혹(charm)</em>을 <strong>비전 선천 주문으로 하루 1회</strong> 시전.'}
 ,
