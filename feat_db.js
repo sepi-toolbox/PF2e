@@ -1781,7 +1781,7 @@ const FEAT_DB = [
   {name_ko:'무모한 포기', name_en:'Reckless Abandon', feat_level:17, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'[자유 행동] 하루 1회. 이 턴 내성 실패/대실패→성공, 최소 피해만 받음.', desc:'<strong>빈도:</strong> 하루 1회<br>남은 턴 동안, 해로운 효과에 대한 내성 굴림에서 <strong>실패/대실패 시 성공</strong>이 됩니다. 또한 이 턴에 적이나 위험으로부터 <strong>최소 가능 피해</strong>를 받습니다. 이 혜택은 이 턴 동안 전적으로 발생한 해로운 효과에만 적용됩니다. 지속 피해와 이전 상태는 정상 진행되며, 턴 종료 시 전체 결과에 노출됩니다.'}
 ,
   // ── 하플링 Halfling ──
-  {name_ko:'이방인의 행운', name_en:'Halfling Luck', feat_level:1, prerequisites:'하플링', traits:['하플링','행운'], category:'ancestry', summary:'[반응] 기술 판정이나 내성에서 실패 시 1회 재굴림. 1일 1회.', desc:'<strong>빈도:</strong> 하루 1회<br><br>행복한 천성으로 불운이 당신을 피하는 것 같으며, 어느 정도 사실일 수 있습니다. 유발 판정을 <strong>다시 굴릴 수 있습니다</strong>. 더 나빠도 새 결과를 사용해야 합니다.'}
+  {name_ko:'이방인의 행운', name_en:'Halfling Luck', feat_level:1, prerequisites:'하플링', traits:['하플링','행운'], category:'ancestry', summary:'[반응] 기술 판정이나 내성에서 실패 시 1회 재굴림. 1일 1회.', desc:'<strong>빈도:</strong> 하루 1회<br>행복한 천성으로 불운이 당신을 피하는 것 같으며, 어느 정도 사실일 수 있습니다. 유발 판정을 <strong>다시 굴릴 수 있습니다</strong>. 더 나빠도 새 결과를 사용해야 합니다.'}
 ,
   {name_ko:'하플링 지식', name_en:'Halfling Lore', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'곡예와 은신에 숙련됨. 하플링 관련 지식(Lore)에 숙련됨.', desc:'<strong>곡예와 은신에 숙련</strong>됩니다. 이미 숙련이면 대신 다른 기술. <strong>하플링 지식</strong>에 대한 추가 지식 재주를 얻습니다.'}
 ,

@@ -1004,7 +1004,8 @@ function renderGrowthPlan() {
       if (state.selectedAncestry) {
         const intMod = Math.max(0, getMod('int'));
         const baseCount = 2; // 공용어 + 혈통어
-        const maxLangs = baseCount + intMod;
+        const heritageBonus = state.selectedHeritage?.extraLanguages || 0;
+        const maxLangs = baseCount + intMod + heritageBonus;
         const curLangs = (state.languages || []).length;
         const remain = Math.max(0, maxLangs - curLangs);
         const langNames = (state.languages || []).join(', ');
@@ -2705,13 +2706,7 @@ function applyHeritageEffects(h) {
       });
     }
   }
-  // 추가 언어 (유목 하플링 등)
-  if (h.extraLanguages) {
-    const langEl = document.getElementById('f-languages');
-    if (langEl && !langEl.value.includes('추가 언어')) {
-      langEl.value = (langEl.value ? langEl.value + '\n' : '') + `[${h.name_ko}] 추가 언어 ${h.extraLanguages}개 선택`;
-    }
-  }
+  // 추가 언어 (유목 하플링 등) — renderGrowthPlan에서 maxLangs에 반영
   // 유산 무기 부여 (면도이빨 고블린 등)
   if (h.grantWeapon) {
     // 기존 유산 무기 제거
