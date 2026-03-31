@@ -1884,6 +1884,7 @@ function showItemDetail(item) {
     <div class="modal-detail-title">${nameKo}</div>
     <div class="modal-detail-en">${nameEn}</div>
     <div class="modal-detail-tags">${tags}</div>
+    <hr style="border:none;border-top:1px solid var(--border);margin:0 0 10px 0;">
     <div class="modal-detail-desc">${formatDescActions(desc, item)}${spellNotes}</div>`;
 }
 
