@@ -1750,34 +1750,53 @@ function selectOption(item, row) {
 function formatDescActions(text) {
   if (!text) return text;
   const costToKey = {'[반응]':'reaction','[1행동]':'1','[2행동]':'2','[3행동]':'3','[자유 행동]':'free'};
+  const actionCostRe = /\[(?:반응|1행동|2행동|3행동|자유 행동)\]/;
 
-  // 패턴1: "이름(English) [행동] 유발 조건: ... 효과: ..."
-  let result = text.replace(/([^\.\n<]*?\([A-Za-z\s']+\))\s*(\[(?:반응|1행동|2행동|3행동|자유 행동)\])\s*(유발 조건:\s*.+?)?\s*(효과:\s*.+?)(?=$|\n|<br>)/g,
-    (match, namePart, costPart, triggerPart, effectPart) => {
-      const costKey = costToKey[costPart] || '1';
-      const nameKo = namePart.replace(/\s*\([^)]+\)/, '').trim();
-      const nameEn = (namePart.match(/\(([^)]+)\)/) || [])[1] || '';
-      // ACTION_DB에 등록된 행동이면 DB 데이터를 그대로 사용
-      if (typeof ACTION_DB !== 'undefined') {
-        const dbAction = ACTION_DB.find(a => a.name_ko === nameKo || a.name_en === nameEn);
-        if (dbAction) {
-          return _buildActionCard(dbAction.cost, dbAction.name_ko, dbAction.name_en, dbAction.traits||[], dbAction.summary);
-        }
-      }
-      let summary = '';
-      if (triggerPart) summary += triggerPart.trim();
-      if (effectPart) summary += (summary ? ' ' : '') + effectPart.trim();
-      return _buildActionCard(costKey, nameKo, nameEn, [], summary);
-    });
+  // 한국어 이름 + 선택적 (영문) + [행동] + 나머지 설명
+  // "고대의 피에 호소(Call on Ancient Blood) [반응] ..." 또는 "고대의 피에 호소 [반응] ..."
+  const fullPattern = /([\uAC00-\uD7A3\w\s]+?)(?:\(([A-Za-z\s'']+)\))?\s*(\[(?:반응|1행동|2행동|3행동|자유 행동)\])\s*([\s\S]*?)(?=(?:[\uAC00-\uD7A3\w\s]+?(?:\([A-Za-z\s'']+\))?\s*\[(?:반응|1행동|2행동|3행동|자유 행동)\])|$)/g;
 
-  // 패턴2: "[행동] 설명..." (이름 없이)
-  result = result.replace(/(\[(?:반응|1행동|2행동|3행동|자유 행동)\])\s+([^<\[]+)/g, (match, costPart, rest) => {
-    if (rest.includes('action-card')) return match;
-    const costKey = costToKey[costPart] || '1';
-    return _buildActionCard(costKey, '', '', [], rest.trim());
-  });
+  // 텍스트에 행동 패턴이 있는지 먼저 확인
+  if (!actionCostRe.test(text)) return text;
 
-  return result;
+  // 행동 블록 앞의 일반 텍스트와 행동 블록을 분리
+  const firstActionIdx = text.search(actionCostRe);
+  // [행동] 앞에서 행동 이름 시작점 찾기 (마지막 마침표 또는 텍스트 시작)
+  let nameStartIdx = firstActionIdx;
+  const beforeAction = text.substring(0, firstActionIdx);
+  const lastPeriod = beforeAction.lastIndexOf('.');
+  const lastBr = beforeAction.lastIndexOf('<br>');
+  const splitPoint = Math.max(lastPeriod, lastBr);
+  if (splitPoint >= 0) {
+    nameStartIdx = splitPoint + (beforeAction[splitPoint] === '.' ? 1 : 4); // 4 for <br>
+  } else {
+    nameStartIdx = 0;
+  }
+
+  const prefixText = text.substring(0, nameStartIdx).trim();
+  const actionText = text.substring(nameStartIdx).trim();
+
+  // 행동 텍스트에서 "이름(영문) [행동타입] 설명..." 파싱
+  const match = actionText.match(/^([\uAC00-\uD7A3\w\s]+?)(?:\(([A-Za-z\s'']+)\))?\s*(\[(?:반응|1행동|2행동|3행동|자유 행동)\])\s*([\s\S]*)$/);
+  if (!match) return text;
+
+  const nameKo = match[1].trim();
+  const nameEn = match[2] || '';
+  const costPart = match[3];
+  const restText = match[4].trim();
+  const costKey = costToKey[costPart] || '1';
+
+  // ACTION_DB에 등록된 행동이면 DB 데이터를 그대로 사용
+  if (typeof ACTION_DB !== 'undefined') {
+    const dbAction = ACTION_DB.find(a => a.name_ko === nameKo || (nameEn && a.name_en === nameEn));
+    if (dbAction) {
+      return (prefixText ? prefixText + '<br><br>' : '') +
+        _buildActionCard(dbAction.cost, dbAction.name_ko, dbAction.name_en, dbAction.traits||[], dbAction.summary);
+    }
+  }
+
+  return (prefixText ? prefixText + '<br><br>' : '') +
+    _buildActionCard(costKey, nameKo, nameEn, [], restText);
 }
 
 function _buildActionCard(costKey, nameKo, nameEn, traits, summary) {
