@@ -1373,7 +1373,7 @@ function addFeat(type) {
 }
 
 function renderFeats() {
-  // 유산 표시 — 재주와 동일한 형식
+  // 유산 표시 — 아코디언
   const herDisplay = document.getElementById('heritage-display');
   if (herDisplay) {
     if (state.selectedHeritage) {
@@ -1381,12 +1381,14 @@ function renderFeats() {
       const div = document.createElement('div');
       div.className = 'feat-entry';
       div.style.cursor = 'pointer';
+      const desc = h.summary || h.desc || '';
       div.innerHTML = `
         <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
           <span style="flex:1;color:var(--text);font-size:12px;">${h.name_ko} (${h.name_en||''})</span>
         </div>
-        <div class="feat-src"><span style="color:var(--text2);font-size:10px;">Lv 1</span></div>`;
-      div.addEventListener('click', () => showInfo('heritage', h.name_ko));
+        <div class="feat-src"><span style="color:var(--text2);font-size:10px;">Lv 1</span></div>
+        <div class="feat-detail">${typeof formatDescActions==='function'?formatDescActions(desc,h):desc}</div>`;
+      div.addEventListener('click', () => _toggleFeatAccordion(div));
       herDisplay.innerHTML = '';
       herDisplay.appendChild(div);
     } else {
@@ -1406,26 +1408,29 @@ function renderFeats() {
       div.className = 'feat-entry';
       div.style.cursor = 'pointer';
       const choiceBadge = f.choice && typeof _getChoiceDisplayName === 'function' ? _getChoiceDisplayName(f) : '';
-      if (isAuto) {
-        div.innerHTML = `
-          <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
-            <span style="flex:1;color:var(--text);font-size:12px;">${f.name}</span>
-            ${choiceBadge ? `<span style="font-size:10px;color:var(--accent);flex-shrink:0;">[${choiceBadge}]</span>` : ''}
-          </div>
-          <div class="feat-src"><span style="color:var(--text2);font-size:10px;">Lv ${f.level||1} — 클래스 특성</span></div>`;
-        div.addEventListener('click', () => showInfo('feat', f.name));
-      } else {
-        div.innerHTML = `
-          <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
-            <span style="flex:1;color:var(--text);font-size:12px;">${f.name || labels[t] + ' 재주'}</span>
-            ${choiceBadge ? `<span style="font-size:10px;color:var(--accent);flex-shrink:0;">[${choiceBadge}]</span>` : ''}
-          </div>
-          <div class="feat-src"><span style="color:var(--text2);font-size:10px;">Lv ${f.level||1}</span></div>`;
-        div.addEventListener('click', () => showInfo('feat', f.name));
-      }
+      const srcLabel = isAuto ? `Lv ${f.level||1} — 클래스 특성` : `Lv ${f.level||1}`;
+      // DB에서 설명 가져오기
+      const featData = (typeof FEAT_DB !== 'undefined') ? FEAT_DB.find(fd => fd.name_ko === f.name.split(' (')[0].trim()) : null;
+      const desc = featData?.desc || featData?.summary || '';
+      div.innerHTML = `
+        <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
+          <span style="flex:1;color:var(--text);font-size:12px;">${f.name || labels[t] + ' 재주'}</span>
+          ${choiceBadge ? `<span style="font-size:10px;color:var(--accent);flex-shrink:0;">[${choiceBadge}]</span>` : ''}
+        </div>
+        <div class="feat-src"><span style="color:var(--text2);font-size:10px;">${srcLabel}</span></div>
+        <div class="feat-detail">${typeof formatDescActions==='function'?formatDescActions(desc,featData):desc}</div>`;
+      div.addEventListener('click', () => _toggleFeatAccordion(div));
       el.appendChild(div);
     });
   });
+}
+
+function _toggleFeatAccordion(div) {
+  // 다른 열린 아코디언 닫기
+  div.parentElement?.querySelectorAll('.feat-entry.expanded').forEach(el => {
+    if (el !== div) el.classList.remove('expanded');
+  });
+  div.classList.toggle('expanded');
 }
 
 function removeFeat(t, i) { state.feats[t].splice(i,1); renderFeats(); save(); }
