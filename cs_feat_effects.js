@@ -482,6 +482,9 @@ const FEAT_EFFECTS = {
     choice: {type:'spell_cantrip', tradition:'primal', label:'근원(Primal) 캔트립 선택'},
     effects: [{type:'grant_innate_spell'}]
   },
+  'Martial Experience': {
+    effects: [{type:'martial_experience'}]
+  },
   'Unwavering Mien': {
     effects: [{type:'display_note', text:'매혹/수면 효과 지속시간 절반'}]
   },
@@ -2776,6 +2779,7 @@ function applyFeatEffects() {
     ac: 0,
     actions: [],
     familiarWeapons: [],
+    martialExperience: false,
     damage_notes: [],
     notes: [],
     cantrip_bonus: 0,
@@ -2894,6 +2898,11 @@ function _applyOneEffect(fb, eff, feat, level) {
       // 특정 무기에 직접 훈련됨(trained) 부여
       if (!fb.trainedWeapons) fb.trainedWeapons = [];
       if (eff.weapons) eff.weapons.forEach(w => { if (!fb.trainedWeapons.includes(w)) fb.trainedWeapons.push(w); });
+      break;
+    }
+    case 'martial_experience': {
+      // 미숙련 무기에 레벨을 숙련 보너스로, 11레벨에서 모든 무기 숙련
+      fb.martialExperience = true;
       break;
     }
     case 'grant_innate_spell': {

@@ -292,7 +292,7 @@ const SPELL_DB = [
   { name_ko: "환영 변장", name_en: "Illusory Disguise", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["환영", "조작", "시각"],
     summary: "자신을 다른 생물처럼 보이게 합니다. 같은 체형의 생물로만 가능. 키/체중은 약간 변경 가능. 생물이 상호작용하면 지각 판정(주문 DC)으로 불신 가능.강화(2랭크): 다른 체형 가능(극단적이지 않은). 강화(3랭크...",
-    desc: "자신을 다른 생물처럼 보이게 합니다. 같은 체형의 생물로만 가능. 키/체중은 약간 변경 가능. 생물이 상호작용하면 감지 판정(주문 DC)으로 불신 가능.<br>" },
+    desc: "자신을 다른 생물처럼 보이게 합니다. 같은 체형의 생물로만 가능. 키/체중은 약간 변경 가능. 생물이 상호작용하면 지각 판정(주문 DC)으로 불신 가능.<br>" },
 
   { name_ko: "환영 물체", name_en: "Illusory Object", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["환영", "조작", "시각"],
@@ -447,7 +447,7 @@ const SPELL_DB = [
   { name_ko: "복화술", name_en: "Ventriloquism", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "divine", "occult"], actions: "2행동", traits: ["청각", "환영", "조작"],
     summary: "목소리를 던집니다. 60피트 이내의 다른 위치에서 목소리가 나오는 것처럼 만듭니다. 지각 판정으로 불신 가능.강화(3랭크): 사거리 500피트.",
-    desc: "<strong>특성:</strong> 청각, 집중, 환영, 조작 | <strong>전통:</strong> 비전, 신성, 비학<br><strong>지속 시간:</strong> 10분<br>목소리를 던집니다. 60피트 이내의 다른 위치에서 목소리가 나오는 것처럼 만듭니다. 감지 판정으로 불신 가능.<br><strong>강화(3랭크):</strong> 사거리 500피트.</div>" },
+    desc: "<strong>특성:</strong> 청각, 집중, 환영, 조작 | <strong>전통:</strong> 비전, 신성, 비학<br><strong>지속 시간:</strong> 10분<br>목소리를 던집니다. 60피트 이내의 다른 위치에서 목소리가 나오는 것처럼 만듭니다. 지각 판정으로 불신 가능.<br><strong>강화(3랭크):</strong> 사거리 500피트.</div>" },
 
   { name_ko: "산성 집게", name_en: "Acid Grip", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "primal"], actions: "2행동", traits: ["산성", "조작"],
@@ -577,7 +577,7 @@ const SPELL_DB = [
   { name_ko: "환영 생물", name_en: "Illusory Creature", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["환영", "조작", "시각"],
     summary: "생물의 설득력 있는 환영을 만듭니다. 중형 이하, 유지 시 최대 이동 속도 25피트로 이동 및 몸짓 가능. 상호작용하면 불신 가능(지각 판정 vs 주문 DC). 불신하지 않은 생물은 진짜로 인식.강화(5랭크): 대형...",
-    desc: "<strong>특성:</strong> 집중, 환영, 조작, 시각 | <strong>전통:</strong> 비전, 비학<br><strong>사거리:</strong> 500피트 | <strong>지속 시간:</strong> 유지<br>생물의 설득력 있는 환영을 만듭니다. 중형 이하, 유지 시 최대 이동 속도 25피트로 이동 및 몸짓 가능. 상호작용하면 불신 가능(감지 판정 vs 주문 DC). 불신하지 않은 생물은 진짜로 인식.<br><strong>강화(5랭크):</strong> 대형, 이동 속도 45피트. <strong>강화(8랭크):</strong> 거대, 이동 속도 60피트.</div>" },
+    desc: "<strong>특성:</strong> 집중, 환영, 조작, 시각 | <strong>전통:</strong> 비전, 비학<br><strong>사거리:</strong> 500피트 | <strong>지속 시간:</strong> 유지<br>생물의 설득력 있는 환영을 만듭니다. 중형 이하, 유지 시 최대 이동 속도 25피트로 이동 및 몸짓 가능. 상호작용하면 불신 가능(지각 판정 vs 주문 DC). 불신하지 않은 생물은 진짜로 인식.<br><strong>강화(5랭크):</strong> 대형, 이동 속도 45피트. <strong>강화(8랭크):</strong> 거대, 이동 속도 60피트.</div>" },
 
   { name_ko: "투명화", name_en: "Invisibility", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["환영", "조작"],
@@ -972,7 +972,7 @@ const SPELL_DB = [
   { name_ko: "신기루", name_en: "Mirage", rank: 4, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["비일반", "환영", "조작"],
     summary: "자연 환경 하나를 다른 것으로 위장합니다. 숲을 사막으로, 들판을 늪으로 등. 환경의 물리적 특성은 변하지 않지만 외관이 변합니다. 지각 판정으로 불신 가능.강화(5랭크): 영역 1마일 폭발.",
-    desc: "<strong>특성:</strong> 비일반, 집중, 환영, 조작 | <strong>전통:</strong> 비전, 비학<br><strong>사거리:</strong> 500피트 | <strong>영역:</strong> 50피트 폭발 | <strong>지속 시간:</strong> 다음 일일 준비까지<br>자연 환경 하나를 다른 것으로 위장합니다. 숲을 사막으로, 들판을 늪으로 등. 환경의 물리적 특성은 변하지 않지만 외관이 변합니다. 감지 판정으로 불신 가능.<br><strong>강화(5랭크):</strong> 영역 1마일 폭발.</div>" },
+    desc: "<strong>특성:</strong> 비일반, 집중, 환영, 조작 | <strong>전통:</strong> 비전, 비학<br><strong>사거리:</strong> 500피트 | <strong>영역:</strong> 50피트 폭발 | <strong>지속 시간:</strong> 다음 일일 준비까지<br>자연 환경 하나를 다른 것으로 위장합니다. 숲을 사막으로, 들판을 늪으로 등. 환경의 물리적 특성은 변하지 않지만 외관이 변합니다. 지각 판정으로 불신 가능.<br><strong>강화(5랭크):</strong> 영역 1마일 폭발.</div>" },
 
   { name_ko: "산의 강인함", name_en: "Mountain Resilience", rank: 4, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "primal"], actions: "2행동", traits: ["조작"],
@@ -1567,7 +1567,7 @@ const SPELL_DB = [
   { name_ko: "예지", name_en: "Foresight", rank: 9, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "divine", "occult"], actions: "2행동", traits: ["조작", "예언"],
     summary: "위험 감각이 생물에게 위험을 경고하고 행운으로 보호합니다. 대상은 방심(off-guard)이 되지 않으며, 선제력(initiative) 굴림과 지각 판정에 +2 상태 보너스. 위험이 임박하면 시전자에게도 경고합니다....",
-    desc: "위험 감각이 생물에게 위험을 경고하고 행운으로 보호합니다. 대상은 <strong>방심(off-guard)이 되지 않으며</strong>, 선제력(initiative) 굴림과 감지 판정에 <strong>+2 상태 보너스</strong>. 위험이 임박하면 시전자에게도 경고합니다. 또한 턴 시작 시 반응으로 대상이나 시전자가 <strong>다음 내성이나 AC에 +2 상황 보너스</strong>를 사용할 수 있습니다." },
+    desc: "위험 감각이 생물에게 위험을 경고하고 행운으로 보호합니다. 대상은 <strong>방심(off-guard)이 되지 않으며</strong>, 선제력(initiative) 굴림과 지각 판정에 <strong>+2 상태 보너스</strong>. 위험이 임박하면 시전자에게도 경고합니다. 또한 턴 시작 시 반응으로 대상이나 시전자가 <strong>다음 내성이나 AC에 +2 상황 보너스</strong>를 사용할 수 있습니다." },
 
   { name_ko: "내파", name_en: "Implosion", rank: 9, is_cantrip: false, is_focus: false,
     traditions: ["arcane"], actions: "2행동", traits: ["조작"],
