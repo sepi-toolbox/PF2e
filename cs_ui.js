@@ -1504,7 +1504,16 @@ function _toggleFeatAccordion(div) {
   div.classList.toggle('expanded');
 }
 
-function removeFeat(t, i) { state.feats[t].splice(i,1); recalcAll(); renderFeats(); save(); }
+function removeFeat(t, i) {
+  const feat = state.feats[t][i];
+  // 재주로 얻은 선천 주문 제거
+  if (feat?.name && state.spells?.innate) {
+    state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== feat.name);
+    if (typeof renderSpells === 'function') renderSpells();
+  }
+  state.feats[t].splice(i,1);
+  recalcAll(); renderFeats(); save();
+}
 
 function updateSlotChecks(rank) {
   const max = parseInt(document.getElementById(`slots-max-${rank}`)?.value||0);

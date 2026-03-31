@@ -2241,6 +2241,13 @@ function confirmModal() {
 function closeModal() {
   const wasBoost = (modalType === 'boost');
   document.getElementById('modal-overlay').classList.add('hidden');
+  // 닫기/취소 버튼 복원 (spell_cantrip에서 숨겼을 수 있음)
+  const closeBtn = document.querySelector('.modal-close');
+  const closeBtnM = document.getElementById('modal-close-m');
+  const cancelBtn = document.querySelector('.modal-footer .btn-cancel');
+  if (closeBtn) closeBtn.style.display = '';
+  if (closeBtnM) closeBtnM.style.display = '';
+  if (cancelBtn) cancelBtn.style.display = '';
   // Clean up equip-browse
   const eqTabs = document.getElementById('equip-tab-container');
   if (eqTabs) eqTabs.style.display = 'none';

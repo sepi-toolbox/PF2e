@@ -2940,6 +2940,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
   modalType = 'feat-choice';
   modalContext = {featType, featIndex, choiceDef};
 
+  const isSpellChoice = choiceDef.type === 'spell_cantrip';
   document.getElementById('modal-title').textContent = choiceDef.label || '선택';
   const searchEl = document.getElementById('modal-search');
   if (searchEl) searchEl.style.display = 'none';
@@ -2949,6 +2950,15 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
   if (confirmBtn) confirmBtn.style.display = 'none';
   const detail = document.getElementById('modal-detail');
   if (detail) { detail.style.display = 'none'; }
+  // spell_cantrip: 닫기/취소 숨김 (선택 필수)
+  const closeBtn = document.querySelector('.modal-close');
+  const closeBtnM = document.getElementById('modal-close-m');
+  const cancelBtn = document.querySelector('.modal-footer .btn-cancel');
+  if (isSpellChoice) {
+    if (closeBtn) closeBtn.style.display = 'none';
+    if (closeBtnM) closeBtnM.style.display = 'none';
+    if (cancelBtn) cancelBtn.style.display = 'none';
+  }
 
   const listEl = document.querySelector('.modal-list');
   if (listEl) { listEl.style.display = ''; listEl.style.width = '100%'; listEl.style.borderRight = 'none'; }
