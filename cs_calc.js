@@ -758,6 +758,8 @@ function recalcAll() {
   renderWeapons();
   renderGrowthPlan();
   syncAllProfRanks();
+  // 주문 탭 렌더링 (선천적 주문 포함)
+  if (typeof renderSpells === 'function') renderSpells();
   // 행동 탭이 활성화된 경우에만 재렌더
   if (document.getElementById('panel-actions')?.classList.contains('active')) renderActions();
 }
