@@ -2448,6 +2448,9 @@ function getLearnedFeatNames() {
 }
 
 function isActionAvailable(action) {
+  if (action.req_heritage) {
+    if (!state.selectedHeritage || state.selectedHeritage.id !== action.req_heritage) return false;
+  }
   if (action.req_feat) {
     const learned = getLearnedFeatNames();
     if (!learned.has(action.req_feat)) return false;
@@ -2456,6 +2459,10 @@ function isActionAvailable(action) {
     if (getSkillRank(action.req_skill) < action.req_rank) return false;
   }
   return true;
+}
+
+function isGrantedAction(action) {
+  return !!(action.req_feat || action.req_heritage || action.cat === 'heritage');
 }
 
 function renderActions() {
@@ -2487,6 +2494,8 @@ function renderActions() {
     if (_actionFilter !== 'all') {
       if (_actionFilter === 'reaction') {
         if (a.cost !== 'reaction') return false;
+      } else if (_actionFilter === 'feat') {
+        if (a.cat !== 'feat' && a.cat !== 'heritage') return false;
       } else if (_actionFilter !== a.cat) {
         return false;
       }
@@ -2514,19 +2523,23 @@ function renderActions() {
     html += `<div style="margin-bottom:12px;"><div class="action-group-title">${label}</div><div class="actions-grid">`;
     all.forEach(a => {
       const avail = isActionAvailable(a);
+      const granted = avail && isGrantedAction(a);
       const opacity = avail ? '' : 'opacity:0.45;';
+      const grantedStyle = granted ? 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);' : '';
       const costIcon = getActionCostIcon(a.cost);
       const traitsHtml = (a.traits||[]).map(t => `<span class="tag">${t}</span>`).join('');
       let reqHtml = '';
       if (!avail) {
         if (a.req_feat) reqHtml = `<div class="action-req">재주 필요: ${a.req_feat}</div>`;
+        else if (a.req_heritage) reqHtml = `<div class="action-req">유산 필요</div>`;
         else if (a.req_skill && a.req_rank > 0) {
           const rankNames = {2:'숙련',4:'전문가',6:'달인',8:'전설'};
           const sk = SKILLS.find(s=>s.id===a.req_skill);
           reqHtml = `<div class="action-req">${sk?sk.name:a.req_skill} ${rankNames[a.req_rank]||''} 필요</div>`;
         }
       }
-      html += `<div class="action-card" style="${opacity}">
+      const sourceHtml = granted ? `<div style="font-size:9px;color:var(--accent);margin-top:2px;">${a.req_heritage ? '유산 부여' : a.req_feat ? '재주: '+a.req_feat : ''}</div>` : '';
+      html += `<div class="action-card" style="${opacity}${grantedStyle}">
         <div class="action-card-head">
           <span class="action-cost">${costIcon}</span>
           <div style="flex:1;min-width:0;">
@@ -2536,7 +2549,7 @@ function renderActions() {
         </div>
         ${traitsHtml ? `<div class="action-traits">${traitsHtml}</div>` : ''}
         <div class="action-summary">${a.summary}</div>
-        ${reqHtml}
+        ${sourceHtml}${reqHtml}
       </div>`;
     });
     html += `</div></div>`;

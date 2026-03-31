@@ -520,6 +520,13 @@ const ACTION_DB = [
   {id:'inspire-courage',cat:'feat', cat_label:'재주 행동', name_ko:'용기 고취',       name_en:'Inspire Courage',cost:'1',        traits:['집중','조작','청각','감정','정신'],req_skill:null, req_rank:0, req_feat:'용기 고취', summary:'바드 캔트립. 아군의 명중 굴림과 피해 굴림에 +1 사기 보너스.'},
   {id:'inspire-defense',cat:'feat', cat_label:'재주 행동', name_ko:'방어 고취',       name_en:'Inspire Defense',cost:'1',        traits:['집중','조작','청각','감정','정신'],req_skill:null, req_rank:0, req_feat:'방어 고취', summary:'바드 캔트립. 아군의 AC와 내성에 +1 사기 보너스.'},
   {id:'channel-smite', cat:'feat',  cat_label:'재주 행동', name_ko:'채널 강타',       name_en:'Channel Smite',  cost:'2',        traits:['신성','사악','선'],req_skill:null, req_rank:0, req_feat:'채널 강타', summary:'신성 시전 에너지를 무기 타격에 담아 발사합니다.'},
+  {id:'battle-medicine',cat:'feat', cat_label:'재주 행동', name_ko:'전투 의학',       name_en:'Battle Medicine', cost:'1',       traits:['조작','의학'],     req_skill:null, req_rank:0, req_feat:'전투 의학', summary:'전투 중 부상 치료. 1일 1회/대상. 숙련 2d8, 전문가 2d8+10, 달인 4d8+30, 전설 4d8+50.'},
+  {id:'bon-mot',       cat:'feat',  cat_label:'재주 행동', name_ko:'한마디',          name_en:'Bon Mot',        cost:'1',        traits:['청각','감정','언어','정신'],req_skill:null, req_rank:0, req_feat:'한마디', summary:'외교로 적의 지각/의지에 -2~-3 상태 페널티 (1분).'},
+  {id:'goblin-song',   cat:'feat',  cat_label:'재주 행동', name_ko:'고블린 노래',     name_en:'Goblin Song',    cost:'1',        traits:['고블린'],          req_skill:null, req_rank:0, req_feat:'고블린 노래', summary:'공연으로 적의 지각/의지에 -1 상태 페널티.'},
+  {id:'hunt-prey',     cat:'feat',  cat_label:'재주 행동', name_ko:'사냥감 지정',     name_en:'Hunt Prey',      cost:'1',        traits:['레인저'],          req_skill:null, req_rank:0, req_feat:'사냥감 지정', summary:'사냥감 1마리 지정. 추적/인지 보너스 + 사냥 방식 효과 적용.'},
+
+  // ── 유산/혈통 부여 행동 ──
+  {id:'call-ancient-blood', cat:'heritage', cat_label:'유산 행동', name_ko:'고대의 피에 호소', name_en:'Call on Ancient Blood', cost:'reaction', traits:['드워프','집중'], req_skill:null, req_rank:0, req_feat:null, req_heritage:'ancient-blooded-dwarf', summary:'마법 효과에 대한 내성 굴림 전 반응. 유발 내성과 이 턴 종료까지 마법 효과 내성에 +1 상황 보너스.'},
 ];
 
 const CONDITIONS = [
