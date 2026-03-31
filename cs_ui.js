@@ -1373,18 +1373,22 @@ function addFeat(type) {
 }
 
 function renderFeats() {
-  // 유산 표시
+  // 유산 표시 — 재주와 동일한 형식
   const herDisplay = document.getElementById('heritage-display');
   if (herDisplay) {
     if (state.selectedHeritage) {
       const h = state.selectedHeritage;
-      herDisplay.innerHTML = `<div class="feat-entry" style="cursor:pointer;" onclick="showInfo('heritage','${(h.name_ko||'').replace(/'/g,"\\'")}')">
+      const div = document.createElement('div');
+      div.className = 'feat-entry';
+      div.style.cursor = 'pointer';
+      div.innerHTML = `
         <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
-          <span style="flex:1;color:var(--text);font-size:12px;">${h.name_ko}</span>
-          <span style="font-size:10px;color:var(--text2);">${h.name_en||''}</span>
+          <span style="flex:1;color:var(--text);font-size:12px;">${h.name_ko} (${h.name_en||''})</span>
         </div>
-        <div class="feat-src"><span style="color:var(--text2);font-size:10px;">${h.summary ? h.summary.substring(0,60)+'...' : ''}</span></div>
-      </div>`;
+        <div class="feat-src"><span style="color:var(--text2);font-size:10px;">Lv 1</span></div>`;
+      div.addEventListener('click', () => showInfo('heritage', h.name_ko));
+      herDisplay.innerHTML = '';
+      herDisplay.appendChild(div);
     } else {
       herDisplay.innerHTML = '<div style="font-size:11px;color:var(--text2);padding:6px 0;">코어 탭에서 유산을 선택하세요</div>';
     }
