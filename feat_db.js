@@ -1759,7 +1759,7 @@ const FEAT_DB = [
 ,
   {name_ko:'거친 놀이', name_en:'Rough Rider', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'고블린독(Goblin Dog)이나 울프 탈것에 +1 상황 보너스.', desc:'전제조건 없이 <strong>기마(Ride) 재주</strong>를 얻습니다. 고블린 개나 늑대 탈것에 동물 명령 시 <strong>+1 상황 보너스</strong>. 늑대를 동물 동료로 얻으면 탑승 특수 능력을 얻습니다.'}
 ,
-  {name_ko:'무모한 포기', name_en:'Very Sneaky', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'은신(Stealth) 판정에 +1 상황 보너스 (험한 지형에서). 빠른 몰래 이동.', desc:'잠행 시 <strong>5피트 더 멀리</strong>(이동 속도까지) 이동 가능. 잠행 행동을 계속 사용하고 은신 판정에 성공하는 한, 잠행 종료 시 엄폐/은폐 없어도 관측되지 않음(단 턴 종료 시 엄폐/은폐 필요).'}
+  {name_ko:'매우 은밀한', name_en:'Very Sneaky', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'잠행 시 5피트 더 멀리 이동. 엄폐/은폐 없이도 관측 안 됨.', desc:'잠행 시 <strong>5피트 더 멀리</strong>(이동 속도까지) 이동 가능. 잠행 행동을 계속 사용하고 은신 판정에 성공하는 한, 잠행 종료 시 엄폐/은폐 없어도 관측되지 않음(단 턴 종료 시 엄폐/은폐 필요).'}
 ,
   {name_ko:'고블린 무기 친숙', name_en:'Goblin Weapon Familiarity', feat_level:1, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'고블린 전통 무기에 숙련됩니다.', desc:'고블린 특성의 모든 비일반 무기에 접근합니다. 고블린 특성 무기에 친숙 — <strong>군용→단순, 고급→군용</strong>으로 취급. 5레벨에서 치명 특성 효과 적용.'}
 ,
@@ -1781,9 +1781,9 @@ const FEAT_DB = [
 ,
   {name_ko:'고블린 무기 전문가', name_en:'Goblin Weapon Frenzy', feat_level:13, prerequisites:'고블린, 고블린 무기 친숙', traits:['고블린'], category:'ancestry', summary:'고블린 무기 숙련도가 전문가로 증가.', desc:'고블린 무기에 대한 숙련도가 전문가로 증가합니다.'}
 ,
-  {name_ko:'매우 매우 은밀한', name_en:'Very, Very Sneaky', feat_level:13, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'전제조건: 매우 은밀한. 잠행 시 이동 속도까지 이동 가능. 숨기나 잠행에 엄폐/은폐가 더 이상 불필요.', desc:'<strong>전제조건:</strong> 매우 은밀한. 잠행 시 <strong>이동 속도까지 이동</strong> 가능. 숨기나 잠행에 엄폐/은폐가 <strong>더 이상 불필요</strong>.'}
+  {name_ko:'매우 매우 은밀한', name_en:'Very, Very Sneaky', feat_level:13, prerequisites:'고블린, 매우 은밀한', traits:['고블린'], category:'ancestry', summary:'전제조건: 매우 은밀한. 잠행 시 이동 속도까지 이동 가능. 숨기나 잠행에 엄폐/은폐가 더 이상 불필요.', desc:'<strong>전제조건:</strong> 매우 은밀한. 잠행 시 <strong>이동 속도까지 이동</strong> 가능. 숨기나 잠행에 엄폐/은폐가 <strong>더 이상 불필요</strong>.'}
 ,
-  {name_ko:'무모한 포기', name_en:'Reckless Abandon', feat_level:17, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'빈도: 하루 1회', desc:'<strong>빈도:</strong> 하루 1회<br>남은 턴 동안, 해로운 효과에 대한 내성 굴림에서 <strong>실패/대실패 시 성공</strong>이 됩니다. 또한 이 턴에 적이나 위험으로부터 <strong>최소 가능 피해</strong>를 받습니다. 이 혜택은 이 턴 동안 전적으로 발생한 해로운 효과에만 적용됩니다. 지속 피해와 이전 상태는 정상 진행되며, 턴 종료 시 전체 결과에 노출됩니다.'}
+  {name_ko:'무모한 포기', name_en:'Reckless Abandon', feat_level:17, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'[자유 행동] 하루 1회. 이 턴 내성 실패/대실패→성공, 최소 피해만 받음.', desc:'<strong>빈도:</strong> 하루 1회<br>남은 턴 동안, 해로운 효과에 대한 내성 굴림에서 <strong>실패/대실패 시 성공</strong>이 됩니다. 또한 이 턴에 적이나 위험으로부터 <strong>최소 가능 피해</strong>를 받습니다. 이 혜택은 이 턴 동안 전적으로 발생한 해로운 효과에만 적용됩니다. 지속 피해와 이전 상태는 정상 진행되며, 턴 종료 시 전체 결과에 노출됩니다.'}
 ,
 
   // ── 하플링 Halfling ──
