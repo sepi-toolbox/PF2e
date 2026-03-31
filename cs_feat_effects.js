@@ -88,12 +88,7 @@ const FEAT_EFFECTS = {
   },
   'Adopted Ancestry': {
     choice: {
-      type:'custom', label:'입양된 혈통을 선택하세요',
-      options:[
-        {id:'dwarf', name:'드워프'}, {id:'elf', name:'엘프'}, {id:'gnome', name:'노움'},
-        {id:'goblin', name:'고블린'}, {id:'halfling', name:'하플링'}, {id:'human', name:'인간'},
-        {id:'leshy', name:'레쉬'}, {id:'orc', name:'오크'},
-      ]
+      type:'ancestry_pick', label:'입양할 혈통을 선택하세요', repeatable:true
     },
     effects: [
       {type:'adopted_ancestry'},
@@ -603,7 +598,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'슬링으로 대형+ 적 공격 시 추가 피해'}]
   },
   'Cultural Adaptability': {
-    effects: [{type:'grant_feat', feat:'양자 혈통 (Adopted Ancestry)'}, {type:'display_note', text:'양자 혈통 재주 + 선택한 혈통의 1레벨 혈통 재주 1개 추가 획득'}]
+    effects: [{type:'grant_feat', feat:'양자 혈통 (Adopted Ancestry)'}, {type:'grant_adopted_feat'}]
   },
   'Guiding Luck': {
     effects: [{type:'display_note', text:'이방인의 행운을 명중 굴림에도 사용 가능'}]
@@ -2898,6 +2893,67 @@ function _applyOneEffect(fb, eff, feat, level) {
       if (eff.weapons) eff.weapons.forEach(w => { if (!fb.trainedWeapons.includes(w)) fb.trainedWeapons.push(w); });
       break;
     }
+    case 'grant_adopted_feat': {
+      // 문화 적응: 양자 혈통으로 선택한 혈통의 1레벨 재주 1개 획득
+      // 양자 혈통 choice가 설정된 후 모달을 열어야 함
+      setTimeout(() => {
+        const adoptedFeat = Object.values(state.feats).flat().find(f => f && f.name && f.name.includes('양자 혈통') && f.choice && f._grantedBy === feat.name);
+        if (!adoptedFeat) return;
+        const ancMap = {dwarf:'드워프',elf:'엘프',gnome:'노움',goblin:'고블린',halfling:'하플링',human:'인간',leshy:'레쉬',orc:'오크'};
+        const traitName = ancMap[adoptedFeat.choice] || adoptedFeat.choice;
+        // 해당 혈통의 1레벨 재주 목록
+        if (typeof FEAT_DB === 'undefined') return;
+        const candidates = FEAT_DB.filter(f => f && f.category === 'ancestry' && f.feat_level === 1 && f.traits && f.traits.includes(traitName));
+        if (!candidates.length) return;
+        // 모달로 선택
+        const overlay = document.getElementById('modal-overlay');
+        overlay.classList.remove('hidden');
+        modalType = 'feat-choice';
+        document.getElementById('modal-title').textContent = traitName + ' 1레벨 혈통 재주 선택';
+        const searchEl = document.getElementById('modal-search');
+        if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; }
+        const det = document.getElementById('modal-detail');
+        if (det) { det.style.display = ''; det.innerHTML = '<div class="modal-detail-empty">재주를 선택하면 상세 정보가 표시됩니다.</div>'; }
+        const listEl = document.querySelector('.modal-list');
+        if (listEl) { listEl.style.display = ''; listEl.style.width = ''; }
+        const closeBtn = document.querySelector('.modal-close');
+        const closeBtnM = document.getElementById('modal-close-m');
+        const footer = document.querySelector('.modal-footer');
+        if (closeBtn) closeBtn.style.display = 'none';
+        if (closeBtnM) closeBtnM.style.display = 'none';
+        if (footer) footer.style.display = 'none';
+        const container = document.getElementById('modal-options');
+        container.innerHTML = '';
+        candidates.forEach(cf => {
+          const row = document.createElement('div');
+          row.className = 'opt-row';
+          row.style.cursor = 'pointer';
+          row.innerHTML = `<span class="opt-row-icon">📄</span><span class="opt-row-name">${cf.name_ko}</span><span style="font-size:10px;color:var(--text2);margin-left:auto;">${cf.name_en}</span>`;
+          row.onclick = () => {
+            container.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
+            row.classList.add('selected');
+            if (typeof showItemDetail === 'function') showItemDetail(cf);
+            const detEl = document.getElementById('modal-detail');
+            if (detEl) {
+              const btn = document.createElement('button');
+              btn.textContent = '이 재주 선택';
+              btn.style.cssText = 'width:100%;margin-top:12px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;';
+              btn.onclick = () => {
+                const fullName = cf.name_ko + (cf.name_en ? ' (' + cf.name_en + ')' : '');
+                state.feats.ancestry.push({name: fullName, level: 1, _grantedBy: feat.name});
+                closeModal();
+                recalcAll();
+                renderFeats();
+                save();
+              };
+              detEl.appendChild(btn);
+            }
+          };
+          container.appendChild(row);
+        });
+      }, 500);
+      break;
+    }
     case 'adopted_ancestry': {
       // 양자 혈통 — 선택한 혈통의 재주에 접근
       if (feat.choice) {
@@ -3045,7 +3101,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
   const detail = document.getElementById('modal-detail');
   if (detail) { detail.style.display = 'none'; }
   // spell_cantrip: 닫기/취소/선택 전부 숨김 (선택 필수, detail 내 버튼만 사용)
-  if (isSpellChoice || choiceDef.type === 'lore' || choiceDef.type === 'custom') {
+  if (isSpellChoice || choiceDef.type === 'lore' || choiceDef.type === 'custom' || choiceDef.type === 'ancestry_pick') {
     const closeBtn = document.querySelector('.modal-close');
     const closeBtnM = document.getElementById('modal-close-m');
     const footer = document.querySelector('.modal-footer');
@@ -3181,6 +3237,48 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
             btn.onclick = () => _applyFeatChoice(sp.name_ko);
             detailEl.appendChild(btn);
           }
+        }
+      };
+      container.appendChild(row);
+    });
+  } else if (choiceDef.type === 'ancestry_pick' && typeof ANCESTRIES !== 'undefined') {
+    // 혈통 선택 모달 — 이미 선택한 혈통과 내 혈통 제외
+    const myAnc = state.selectedAncestry?.id || '';
+    const alreadyAdopted = Object.values(state.feats).flat()
+      .filter(f => f && f.name && f.name.includes('양자 혈통') && f.choice)
+      .map(f => f.choice);
+    const available = ANCESTRIES.filter(a => a.id !== myAnc && !alreadyAdopted.includes(a.id));
+
+    if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; searchEl.oninput = () => {
+      const q = searchEl.value.toLowerCase();
+      container.querySelectorAll('.opt-row').forEach(r => { r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none'; });
+    };}
+    if (detail) { detail.style.display = ''; detail.innerHTML = '<div class="modal-detail-empty">혈통을 선택하면 상세 정보가 표시됩니다.</div>'; }
+    if (listEl) { listEl.style.width = ''; listEl.style.borderRight = ''; }
+    modalContext._selectedSpell = null;
+
+    available.forEach(anc => {
+      const row = document.createElement('div');
+      row.className = 'opt-row';
+      row.style.cursor = 'pointer';
+      row.innerHTML = `<span class="opt-row-icon">🧬</span><span class="opt-row-name">${anc.name} <span style="color:var(--text2);font-size:10px;">${anc.en}</span></span>`;
+      row.onclick = () => {
+        container.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
+        row.classList.add('selected');
+        modalContext._selectedSpell = anc.id;
+        // 상세 정보 표시
+        const detailEl = document.getElementById('modal-detail');
+        if (detailEl) {
+          detailEl.innerHTML = `
+            <div class="modal-detail-title">${anc.name}</div>
+            <div class="modal-detail-en">${anc.en}</div>
+            <div style="margin:12px 0;font-size:13px;line-height:1.7;">
+              <div><b>HP:</b> ${anc.hp} | <b>크기:</b> ${anc.size} | <b>속도:</b> ${anc.speed}피트</div>
+              <div><b>부스트:</b> ${anc.boosts.join(', ')}</div>
+              ${anc.flaws.length ? '<div><b>결함:</b> '+anc.flaws.join(', ')+'</div>' : ''}
+              <div><b>특성:</b> ${anc.traits.join(', ')}</div>
+            </div>
+            <button onclick="_applyFeatChoice(modalContext._selectedSpell)" style="width:100%;margin-top:12px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">이 혈통 선택</button>`;
         }
       };
       container.appendChild(row);
