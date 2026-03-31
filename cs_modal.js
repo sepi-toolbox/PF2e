@@ -1923,8 +1923,8 @@ function selectOption(item, row) {
 // 설명 텍스트에서 행동 블록([반응], [1행동] 등)을 행동 탭과 완전히 동일한 카드로 변환
 // 재주가 행동인 경우 행동 카드 생성
 function _buildFeatActionCard(item) {
-  if (!item || item.feat_level === undefined) return '';
-  const summ = item.summary || '';
+  if (!item) return '';
+  const summ = item.summary || item.desc || '';
   const costMatch = summ.match(/^\[(반응|1행동|2행동|3행동|자유 행동)\]/);
   if (!costMatch) return '';
   const costMap = {'반응':'reaction','1행동':'1','2행동':'2','3행동':'3','자유 행동':'free'};
