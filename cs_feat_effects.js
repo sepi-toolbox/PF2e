@@ -3087,8 +3087,6 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     // 디테일 패널 활성화
     if (detail) { detail.style.display = ''; detail.innerHTML = '<div class="modal-detail-empty">캔트립을 선택하면 상세 정보가 표시됩니다.</div>'; }
     if (listEl) { listEl.style.width = ''; listEl.style.borderRight = ''; }
-    // 확인 버튼 표시
-    if (confirmBtn) { confirmBtn.style.display = ''; confirmBtn.textContent = '선택'; confirmBtn.onclick = () => { if (modalContext._selectedSpell) _applyFeatChoice(modalContext._selectedSpell); }; }
     modalContext._selectedSpell = null;
 
     cantrips.forEach(sp => {
@@ -3122,6 +3120,15 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
           container.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
           row.classList.add('selected');
           if (typeof showItemDetail === 'function') showItemDetail(sp);
+          // detail 패널에 선택 확정 버튼 추가
+          const detailEl = document.getElementById('modal-detail');
+          if (detailEl) {
+            const btn = document.createElement('button');
+            btn.textContent = '이 캔트립 선택';
+            btn.style.cssText = 'width:100%;margin-top:12px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;';
+            btn.onclick = () => _applyFeatChoice(sp.name_ko);
+            detailEl.appendChild(btn);
+          }
         }
       };
       container.appendChild(row);
