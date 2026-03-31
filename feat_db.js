@@ -1776,9 +1776,8 @@ const FEAT_DB = [
 ,
   {name_ko:'나무 줄기 달리기', name_en:'Tree Climber', feat_level:9, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'등반 속도 10피트 획득. 등반 중 방어불가 상태 무시.', desc:'나무꼭대기에서 삶의 상당 부분을 보내며 빠르고 안전하게 오르는 전문가가 되었습니다. <strong>등반 속도 10피트</strong>를 얻습니다.'}
 ,
-  {name_ko:'동굴 등반가', name_en:'Cave Climber', feat_level:9, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'등반 속도 10피트를 얻습니다.', desc:'<strong>등반 속도 10피트</strong>를 얻습니다.'}
-,
-  {name_ko:'매달리기', name_en:'Cling', feat_level:9, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'요구사항: 마지막 행동이 성공한 타격이었고 빈 손이 있어야 합니다.', desc:'<strong>요구사항:</strong> 마지막 행동이 성공한 타격이었고 빈 손이 있어야 합니다.<br>적에 매달려 괴롭힙니다. 대상 이동 시 함께 이동 가능. 다음 턴 시작, 함께 이동하지 않기로 선택, 또는 대상이 탈출하면 해제. 탈출은 당신의 곡예 DC에 대해 시도.<br><strong>특수:</strong> 턱이나 유사한 비무장 공격으로 이전 타격을 했다면 빈 손 없이 사용 가능.'}
+  {name_ko:'동굴 등반가', name_en:'Cave Climber', feat_level:9, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'등반 속도 10피트 획득.', desc:'수년간 동굴을 기어오른 덕분에 어디든 쉽게 오를 수 있습니다. <strong>등반 속도가 10피트</strong> 증가합니다.'},
+  {name_ko:'매달리기', name_en:'Cling', feat_level:9, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'[1행동] 타격 성공 후 적에 매달려 이동 시 함께 이동.', desc:'<strong>요구사항:</strong> 마지막 행동이 성공한 타격이었고 빈 손이 있어야 합니다.<br>적에 매달려 괴롭힙니다. 대상 이동 시 함께 이동 가능. 다음 턴 시작, 함께 이동하지 않기로 선택, 또는 대상이 탈출하면 해제. 탈출은 당신의 곡예 DC에 대해 시도.<br><strong>특수:</strong> 턱이나 유사한 비무장 공격으로 이전 타격을 했다면 빈 손 없이 사용 가능.'}
 ,
   {name_ko:'고블린 무기 전문가', name_en:'Goblin Weapon Frenzy', feat_level:13, prerequisites:'고블린, 고블린 무기 친숙', traits:['고블린'], category:'ancestry', summary:'고블린 무기 숙련도가 전문가로 증가.', desc:'고블린 무기에 대한 숙련도가 전문가로 증가합니다.'}
 ,

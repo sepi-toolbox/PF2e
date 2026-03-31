@@ -558,6 +558,9 @@ const FEAT_EFFECTS = {
   'Rough Rider': {
     effects: [{type:'grant_feat', feat:'기마 (Ride)'}, {type:'display_note', text:'고블린 개/늑대 탈것에 동물 명령 +1 상황 보너스'}]
   },
+  'Cave Climber': {
+    effects: [{type:'speed_extra', key:'climb', value:10}]
+  },
   'Vandal': {
     effects: [{type:'skill_trained', skill:'thievery'}]
   },
