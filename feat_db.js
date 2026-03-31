@@ -1781,7 +1781,7 @@ const FEAT_DB = [
   {name_ko:'무모한 포기', name_en:'Reckless Abandon', feat_level:17, prerequisites:'고블린', traits:['고블린'], category:'ancestry', summary:'[자유 행동] 하루 1회. 이 턴 내성 실패/대실패→성공, 최소 피해만 받음.', desc:'<strong>빈도:</strong> 하루 1회<br>남은 턴 동안, 해로운 효과에 대한 내성 굴림에서 <strong>실패/대실패 시 성공</strong>이 됩니다. 또한 이 턴에 적이나 위험으로부터 <strong>최소 가능 피해</strong>를 받습니다. 이 혜택은 이 턴 동안 전적으로 발생한 해로운 효과에만 적용됩니다. 지속 피해와 이전 상태는 정상 진행되며, 턴 종료 시 전체 결과에 노출됩니다.'}
 ,
   // ── 하플링 Halfling ──
-  {name_ko:'이방인의 행운', name_en:'Halfling Luck', feat_level:1, prerequisites:'하플링', traits:['하플링','행운'], category:'ancestry', summary:'[반응] 기술 판정이나 내성에서 실패 시 1회 재굴림. 1일 1회.', desc:'<strong>빈도:</strong> 하루 1회<br>행복한 천성으로 불운이 당신을 피하는 것 같으며, 어느 정도 사실일 수 있습니다. 유발 판정을 <strong>다시 굴릴 수 있습니다</strong>. 더 나빠도 새 결과를 사용해야 합니다.'}
+  {name_ko:'하플링의 행운', name_en:'Halfling Luck', feat_level:1, prerequisites:'하플링', traits:['하플링','행운'], category:'ancestry', summary:'[반응] 기술 판정이나 내성에서 실패 시 1회 재굴림. 1일 1회.', desc:'<strong>빈도:</strong> 하루 1회<br>행복한 천성으로 불운이 당신을 피하는 것 같으며, 어느 정도 사실일 수 있습니다. 유발 판정을 <strong>다시 굴릴 수 있습니다</strong>. 더 나빠도 새 결과를 사용해야 합니다.'}
 ,
   {name_ko:'하플링 지식', name_en:'Halfling Lore', feat_level:1, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'곡예와 은신에 숙련됨. 하플링 관련 지식(Lore)에 숙련됨.', desc:'<strong>곡예와 은신에 숙련</strong>됩니다. 이미 숙련이면 대신 다른 기술. <strong>하플링 지식</strong>에 대한 추가 지식 재주를 얻습니다.'}
 ,
@@ -1805,7 +1805,7 @@ const FEAT_DB = [
 ,
   {name_ko:'경쾌한 걸음', name_en:'Step Lively', feat_level:5, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'[반응] 대형 이상 적이 인접 이동 종료 시 한 걸음(Step).', desc:'<strong>유발 조건:</strong> 대형 이상 적이 인접한 곳에서 이동 행동을 종료합니다.<br>더 큰 생물의 둔한 발걸음을 피하는 전문가입니다. 해당 적에 인접한 다른 칸으로 <strong>한 걸음(Step)</strong>.'}
 ,
-  {name_ko:'신의 행운', name_en:'Guiding Luck', feat_level:9, prerequisites:'하플링, 이방인의 행운', traits:['하플링'], category:'ancestry', summary:'이방인의 행운을 명중 굴림에도 사용 가능. 또는 아군에게 행운 부여.', desc:'<strong>전제조건:</strong> 하플링 행운(Halfling Luck)<br>행운이 올바른 방향을 보고 정확하게 타격하도록 안내합니다. 하플링 행운을 <strong>하루 2회</strong> 사용할 수 있습니다: 일반 유발 조건으로 1회, 그리고 지각 판정이나 명중 굴림에 실패할 때 1회.'}
+  {name_ko:'신의 행운', name_en:'Guiding Luck', feat_level:9, prerequisites:'하플링, 하플링의 행운', traits:['하플링'], category:'ancestry', summary:'하플링의 행운을 명중 굴림에도 사용 가능. 또는 아군에게 행운 부여.', desc:'<strong>전제조건:</strong> 하플링 행운(Halfling Luck)<br>행운이 올바른 방향을 보고 정확하게 타격하도록 안내합니다. 하플링 행운을 <strong>하루 2회</strong> 사용할 수 있습니다: 일반 유발 조건으로 1회, 그리고 지각 판정이나 명중 굴림에 실패할 때 1회.'}
 ,
   {name_ko:'발밑에서 춤추기', name_en:'Dance Underfoot', feat_level:9, prerequisites:'하플링, 경쾌한 걸음', traits:['하플링'], category:'ancestry', summary:'대형 이상 적의 칸에서 덤블 통과 종료 가능. 경쾌한 걸음으로 적의 칸에 진입 가능.', desc:'<strong>전제조건:</strong> 경쾌한 걸음(Step Lively)<br>전투에서 적의 다리 아래로 빠져나갑니다. 성공적인 <strong>덤블 통과(Tumble Through)</strong> 행동을 대형 이상 적의 칸에서 종료할 수 있습니다. 또한 경쾌한 걸음 재주 사용 시 유발 적의 칸으로 한 걸음을 밟을 수 있습니다. 적이 팔다리가 있거나 이 기동을 위한 충분한 공간을 남겨야 합니다(GM 판단). 예를 들어, 거인이나 드래곤과 공간을 공유할 수 있지만, 우즈와는 불가능합니다.'}
 ,
@@ -1815,11 +1815,11 @@ const FEAT_DB = [
 ,
   {name_ko:'하플링 무기 전문가', name_en:'Halfling Weapon Expertise', feat_level:13, prerequisites:'하플링, 하플링 무기 친숙', traits:['하플링'], category:'ancestry', summary:'하플링 무기 숙련도가 전문가로 증가.', desc:'하플링 무기에 대한 숙련도가 전문가로 증가합니다.'}
 ,
-  {name_ko:'끊임없는 그림자', name_en:'Ceaseless Shadows', feat_level:13, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'전제조건: 주의 분산 그림자(Distracting Shadows)', desc:'<strong>전제조건:</strong> 주의 분산 그림자(Distracting Shadows)<br>눈에 띄지 않는 데 탁월하며, 특히 군중 속에서. 숨기나 잠행에 <strong>엄폐나 은폐가 더 이상 필요하지 않습니다</strong>. 생물로부터 하위 엄폐가 있으면 표준 엄폐로 승격되어 엄폐를 할 수 있고, 표준 엄폐가 있으면 <strong>상위 엄폐</strong>로 승격됩니다.'}
+  {name_ko:'끊임없는 그림자', name_en:'Ceaseless Shadows', feat_level:13, prerequisites:'하플링, 주의 분산 그림자', traits:['하플링'], category:'ancestry', summary:'전제조건: 주의 분산 그림자(Distracting Shadows)', desc:'<strong>전제조건:</strong> 주의 분산 그림자(Distracting Shadows)<br>눈에 띄지 않는 데 탁월하며, 특히 군중 속에서. 숨기나 잠행에 <strong>엄폐나 은폐가 더 이상 필요하지 않습니다</strong>. 생물로부터 하위 엄폐가 있으면 표준 엄폐로 승격되어 엄폐를 할 수 있고, 표준 엄폐가 있으면 <strong>상위 엄폐</strong>로 승격됩니다.'}
 ,
-  {name_ko:'넘어뜨리기 춤', name_en:'Toppling Dance', feat_level:13, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'전제조건: 발밑에서 춤추기(Dance Underfoot)', desc:'<strong>전제조건:</strong> 발밑에서 춤추기(Dance Underfoot)<br>발밑에서 춤추기로 생물의 칸을 공유하는 동안, 근접 무기와 비무장 공격이 <strong>넘어뜨리기(trip) 특성</strong>을 얻지만, 칸을 공유하는 생물에 대해서만. 대형 이상의 엎드린(prone) 생물과 같은 칸에 있을 수 있으며, 아군이 아니어도 됩니다.'}
+  {name_ko:'넘어뜨리기 춤', name_en:'Toppling Dance', feat_level:13, prerequisites:'하플링, 발밑에서 춤추기', traits:['하플링'], category:'ancestry', summary:'전제조건: 발밑에서 춤추기(Dance Underfoot)', desc:'<strong>전제조건:</strong> 발밑에서 춤추기(Dance Underfoot)<br>발밑에서 춤추기로 생물의 칸을 공유하는 동안, 근접 무기와 비무장 공격이 <strong>넘어뜨리기(trip) 특성</strong>을 얻지만, 칸을 공유하는 생물에 대해서만. 대형 이상의 엎드린(prone) 생물과 같은 칸에 있을 수 있으며, 아군이 아니어도 됩니다.'}
 ,
-  {name_ko:'그림자 자아', name_en:'Shadow Self', feat_level:17, prerequisites:'하플링', traits:['하플링'], category:'ancestry', summary:'전제조건: 은신 전설', desc:'<strong>전제조건:</strong> 은신 전설<br><br>적의 시선에서 미끄러져 나가 다른 곳에 있는 것처럼 보입니다. <strong>1분간 또는 적대적 행동을 할 때까지(먼저 오는 것) 투명</strong>해집니다. 10피트 내의 위치를 선택합니다. 투명이 끝날 때까지, 당신을 찾으려는 누구에게든 그 위치에 숨어있는 것처럼 보입니다. 수색자가 당신이 거기 없다는 명확한 증거를 얻으면 더 이상 거기에 숨어있다고 생각하지 않지만, 실제 위치는 발견하지 못합니다.'}
+  {name_ko:'그림자 자아', name_en:'Shadow Self', feat_level:17, prerequisites:'하플링, 은신 전설', traits:['하플링'], category:'ancestry', summary:'[1행동] 1분간 투명. 10피트 내 위치에 환영 생성.', desc:'적의 시선에서 미끄러져 나가 다른 곳에 있는 것처럼 보입니다. <strong>1분간 또는 적대적 행동을 할 때까지(먼저 오는 것) 투명</strong>해집니다. 10피트 내의 위치를 선택합니다. 투명이 끝날 때까지, 당신을 찾으려는 누구에게든 그 위치에 숨어있는 것처럼 보입니다. 수색자가 당신이 거기 없다는 명확한 증거를 얻으면 더 이상 거기에 숨어있다고 생각하지 않지만, 실제 위치는 발견하지 못합니다.'}
 ,
   // ── 인간 Human ──
   {name_ko:'적응력', name_en:'General Training', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'인간의 다재다능함. 1레벨 일반 재주 1개를 추가로 얻습니다.', desc:'적응력이 다양한 유용한 능력의 숙달로 나타납니다. <strong>1레벨 일반 재주 1개</strong>를 얻습니다. 전제조건을 충족해야 하지만, 캐릭터 생성 중에 선택하면 나중에 전제조건을 결정할 수 있습니다.<br><strong>특수:</strong> 이 재주를 여러 번 선택할 수 있으며, 매번 다른 재주를 선택합니다.'}

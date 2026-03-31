@@ -585,6 +585,9 @@ const FEAT_EFFECTS = {
   'Halfling Lore': {
     effects: [{type:'skill_trained', skill:'acrobatics'}, {type:'skill_trained', skill:'stealth'}, {type:'grant_lore', name:'하플링'}]
   },
+  'Unhampered Passage': {
+    effects: [{type:'grant_innate_spell', spell:'속박 해제', tradition:'원시', spellType:'spell', uses:'하루 1회'}]
+  },
   'Halfling Weapon Familiarity': {
     effects: [{type:'weapon_familiarity', weapons:['쇼트소드','하플링 투석 지팡이']}]
   },
