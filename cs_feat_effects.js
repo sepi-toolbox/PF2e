@@ -585,7 +585,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'1레벨 일반 재주 1개 추가 획득'}]
   },
   'Guiding Luck': {
-    effects: [{type:'display_note', text:'이방인의 행운을 공격 굴림에도 사용 가능'}]
+    effects: [{type:'display_note', text:'이방인의 행운을 명중 굴림에도 사용 가능'}]
   },
   'Halfling Weapon Expertise': {
     effects: [{type:'display_note', text:'하플링 무기 숙련도 전문가로 증가'}]
@@ -1846,7 +1846,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[1행동] 자세: 첫 사거리 증분 내 원거리 타격 시 피해 주사위 1개 추가'}]
   },
   'Reactive Shield': {
-    effects: [{type:'display_note', text:'[반응] 근접 공격 굴림 유발 시 즉시 방패 올리기'}]
+    effects: [{type:'display_note', text:'[반응] 근접 명중 굴림 유발 시 즉시 방패 올리기'}]
   },
   'Snagging Strike': {
     effects: [{type:'display_note', text:'[1행동] 한 손 무기+빈 손. 근접 타격 명중 시 대상이 다음 턴까지 방심'}]
@@ -1919,7 +1919,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[2행동] 근접 타격 명중+피해 시 넘어뜨리기(Trip) 시도'}]
   },
   'Swipe': {
-    effects: [{type:'display_note', text:'[2행동] 인접한 최대 2명에게 한 번의 공격 굴림으로 타격'}]
+    effects: [{type:'display_note', text:'[2행동] 인접한 최대 2명에게 한 번의 명중 굴림으로 타격'}]
   },
   'Twin Parry': {
     effects: [{type:'display_note', text:'[1행동] 각 손의 근접 무기로 방어. AC +1 상황 보너스 (방어 특성이면 +2)'}]
@@ -2322,7 +2322,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[1행동] 다음 턴까지 로그 반응 전용 추가 반응 1회'}]
   },
   'Reactive Interference': {
-    effects: [{type:'display_note', text:'[반응] 인접 적의 반응을 방해. 레벨 이하면 자동, 높으면 공격 굴림'}]
+    effects: [{type:'display_note', text:'[반응] 인접 적의 반응을 방해. 레벨 이하면 자동, 높으면 명중 굴림'}]
   },
   'Ricochet Feint': {
     effects: [{type:'display_note', text:'도탄 자세 중 투척 사거리 내 생물에게도 속임(Feint) 가능'}]

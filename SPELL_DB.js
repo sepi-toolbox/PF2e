@@ -182,12 +182,12 @@ const SPELL_DB = [
   { name_ko: "재앙", name_en: "Bane", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["divine", "occult"], actions: "2행동", traits: ["조작", "정신"],
     summary: "적의 마음을 의심으로 채웁니다. 영역 내 적이 의지 실패 시 명중 굴림에 -1 상태 페널티. 유지 시 반경 +10피트, 새 적에게 내성 요구. 축복(bless)을 상쇄 가능.",
-    desc: "적의 마음을 의심으로 채웁니다. 영역 내 적이 의지 실패 시 공격 굴림에 <strong>-1 상태 페널티</strong>. 유지 시 반경 +10피트, 새 적에게 내성 요구. 축복(bless)을 상쇄 가능." },
+    desc: "적의 마음을 의심으로 채웁니다. 영역 내 적이 의지 실패 시 명중 굴림에 <strong>-1 상태 페널티</strong>. 유지 시 반경 +10피트, 새 적에게 내성 요구. 축복(bless)을 상쇄 가능." },
 
   { name_ko: "축복", name_en: "Bless", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["divine", "occult"], actions: "2행동", traits: ["조작", "정신"],
     summary: "아군(자신 포함) 명중 굴림에 +1 상태 보너스. 유지 시 반경 +10피트. 재앙(bane)을 상쇄 가능.",
-    desc: "아군(자신 포함) 공격 굴림에 <strong>+1 상태 보너스</strong>. 유지 시 반경 +10피트. 재앙(bane)을 상쇄 가능." },
+    desc: "아군(자신 포함) 명중 굴림에 <strong>+1 상태 보너스</strong>. 유지 시 반경 +10피트. 재앙(bane)을 상쇄 가능." },
 
   { name_ko: "불 뿜기", name_en: "Breathe Fire", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "primal"], actions: "2행동", traits: ["화염", "조작"],
@@ -242,7 +242,7 @@ const SPELL_DB = [
   { name_ko: "힘의 포격", name_en: "Force Barrage", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "1~3행동", traits: ["힘", "조작"],
     summary: "오류 없는 마법 힘의 파편으로 생물을 강타합니다. 1행동 시 1발(1d4+1 힘 피해), 2행동 시 2발, 3행동 시 3발. 각 탄을 같은 대상이나 다른 대상에 배분할 수 있습니다. 명중 굴림 없이 자동 명중.강화(...",
-    desc: "오류 없는 마법 힘의 파편으로 생물을 강타합니다. 1행동 시 <strong>1발(1d4+1 힘 피해)</strong>, 2행동 시 <strong>2발</strong>, 3행동 시 <strong>3발</strong>. 각 탄을 같은 대상이나 다른 대상에 배분할 수 있습니다. <strong>공격 굴림 없이 자동 명중.</strong><br>" },
+    desc: "오류 없는 마법 힘의 파편으로 생물을 강타합니다. 1행동 시 <strong>1발(1d4+1 힘 피해)</strong>, 2행동 시 <strong>2발</strong>, 3행동 시 <strong>3발</strong>. 각 탄을 같은 대상이나 다른 대상에 배분할 수 있습니다. <strong>명중 굴림 없이 자동 명중.</strong><br>" },
 
   { name_ko: "부드러운 착지", name_en: "Gentle Landing", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane"], actions: "반응", traits: ["조작"],
@@ -312,7 +312,7 @@ const SPELL_DB = [
   { name_ko: "도약", name_en: "Jump", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "primal"], actions: "1행동", traits: ["조작"],
     summary: "인상적인 도약을 합니다. 즉시 높이뛰기 또는 멀리뛰기를 합니다. 운동 판정 대신 주문 명중 굴림을 사용하며, 질주 없이 멀리뛰기가 가능합니다.강화(3랭크): 최대 도약 거리 30피트.",
-    desc: "인상적인 도약을 합니다. 즉시 높이뛰기 또는 멀리뛰기를 합니다. 운동 판정 대신 <strong>주문 공격 굴림</strong>을 사용하며, 질주 없이 멀리뛰기가 가능합니다.<br>" },
+    desc: "인상적인 도약을 합니다. 즉시 높이뛰기 또는 멀리뛰기를 합니다. 운동 판정 대신 <strong>주문 명중 굴림</strong>을 사용하며, 질주 없이 멀리뛰기가 가능합니다.<br>" },
 
   { name_ko: "잠금", name_en: "Lock", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "divine", "occult"], actions: "2행동", traits: ["조작"],
@@ -432,7 +432,7 @@ const SPELL_DB = [
   { name_ko: "확실한 타격", name_en: "Sure Strike", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "1행동", traits: [],
     summary: "다음 공격이 특히 정확합니다. 이 턴의 다음 명중 굴림에서 d20을 두 번 굴려 높은 것을 사용(행운 효과).",
-    desc: "<strong>특성:</strong> 집중 | <strong>전통:</strong> 비전, 비학<br>다음 공격이 특히 정확합니다. 이 턴의 다음 공격 굴림에서 <strong>d20을 두 번 굴려 높은 것을 사용</strong>(행운 효과).</div>" },
+    desc: "<strong>특성:</strong> 집중 | <strong>전통:</strong> 비전, 비학<br>다음 공격이 특히 정확합니다. 이 턴의 다음 명중 굴림에서 <strong>d20을 두 번 굴려 높은 것을 사용</strong>(행운 효과).</div>" },
 
   { name_ko: "순풍", name_en: "Tailwind", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "primal"], actions: "2행동", traits: ["공기", "조작"],
@@ -477,7 +477,7 @@ const SPELL_DB = [
   { name_ko: "타오르는 화살", name_en: "Blazing Bolt", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "primal"], actions: "1~3행동", traits: ["공격", "화염", "조작"],
     summary: "열과 불꽃의 광선. 주문 명중 굴림. 명중 시 2d6 화염 피해, 치명 시 2배. 추가 행동으로 추가 대상(최대 3). 2행동 이상 시 피해 4d6. 다중공격 페널티는 모든 굴림 후 적용.강화(+1): 각 광선 피해...",
-    desc: "열과 불꽃의 광선. 주문 공격 굴림. 명중 시 <strong>2d6 화염 피해</strong>, 치명 시 2배. 추가 행동으로 추가 대상(최대 3). 2행동 이상 시 피해 4d6. 다중공격 페널티는 모든 굴림 후 적용.<br>" },
+    desc: "열과 불꽃의 광선. 주문 명중 굴림. 명중 시 <strong>2d6 화염 피해</strong>, 치명 시 2배. 추가 행동으로 추가 대상(최대 3). 2행동 이상 시 피해 4d6. 다중공격 페널티는 모든 굴림 후 적용.<br>" },
 
   { name_ko: "혈의 복수", name_en: "Blood Vendetta", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "divine", "occult"], actions: "반응", traits: ["조작"],
@@ -672,7 +672,7 @@ const SPELL_DB = [
   { name_ko: "영적 무장", name_en: "Spiritual Armament", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["divine", "occult"], actions: "2행동", traits: ["조작", "성별화", "영혼"],
     summary: "현재 착용하거나 들고 있는 무기 하나의 유령 같은 마법 복제본을 만들어 대상에게 날립니다. 대상의 AC에 주문 명중 굴림을 굴려 명중 시 2d8 피해(급소 공격 시 2배 피해). 피해 유형은 선택한 무기와 동일하며,...",
-    desc: "<strong>특성:</strong> 집중, 조작, 성별화, 영혼 | <strong>전통:</strong> 신성, 비학<br><strong>사거리:</strong> 120피트 | <strong>대상:</strong> 생물 1 | <strong>방어:</strong> AC | <strong>지속 시간:</strong> 유지(최대 1분)<br>현재 착용하거나 들고 있는 무기 하나의 유령 같은 마법 복제본을 만들어 대상에게 날립니다. 대상의 AC에 주문 공격 굴림을 굴려 명중 시 <strong>2d8 피해</strong>(급소 공격 시 2배 피해). 피해 유형은 선택한 무기와 동일하며, 영혼 피해가 더 해롭다면 영혼 피해로 대체됩니다. 이 공격은 다중 공격 페널티에 기여합니다. 공격 후 무기는 당신 곁으로 돌아옵니다. 주문을 성별화하면 공격도 성별화됩니다. 유지 시마다 120피트 내 원하는 생물에 다시 공격할 수 있습니다.<br><strong>강화(+2):</strong> 피해 +1d8.</div>" },
+    desc: "<strong>특성:</strong> 집중, 조작, 성별화, 영혼 | <strong>전통:</strong> 신성, 비학<br><strong>사거리:</strong> 120피트 | <strong>대상:</strong> 생물 1 | <strong>방어:</strong> AC | <strong>지속 시간:</strong> 유지(최대 1분)<br>현재 착용하거나 들고 있는 무기 하나의 유령 같은 마법 복제본을 만들어 대상에게 날립니다. 대상의 AC에 주문 명중 굴림을 굴려 명중 시 <strong>2d8 피해</strong>(급소 공격 시 2배 피해). 피해 유형은 선택한 무기와 동일하며, 영혼 피해가 더 해롭다면 영혼 피해로 대체됩니다. 이 공격은 다중 공격 페널티에 기여합니다. 공격 후 무기는 당신 곁으로 돌아옵니다. 주문을 성별화하면 공격도 성별화됩니다. 유지 시마다 120피트 내 원하는 생물에 다시 공격할 수 있습니다.<br><strong>강화(+2):</strong> 피해 +1d8.</div>" },
 
   { name_ko: "상태", name_en: "Status", rank: 2, is_cantrip: false, is_focus: false,
     traditions: ["divine", "occult"], actions: "2행동", traits: ["탐지", "조작"],
@@ -732,7 +732,7 @@ const SPELL_DB = [
   { name_ko: "냉기의 어둠", name_en: "Chilling Darkness", rank: 3, is_cantrip: false, is_focus: false,
     traditions: ["divine"], actions: "2행동", traits: ["공격", "냉기", "어둠", "조작", "불경"],
     summary: "불경한 에너지가 스며든 극도로 차가운 어둠의 광선을 발사합니다. 원거리 주문 명중 굴림을 합니다. 광선은 5d6 냉기 피해를 가합니다. 대상이 신성 특성을 지니고 있다면 추가로 5d6 영혼 피해를 가합니다.대성공: ...",
-    desc: "불경한 에너지가 스며든 극도로 차가운 어둠의 광선을 발사합니다. 원거리 주문 공격 굴림을 합니다. 광선은 <strong>5d6 냉기 피해</strong>를 가합니다. 대상이 신성 특성을 지니고 있다면 추가로 <strong>5d6 영혼 피해</strong>를 가합니다.<br><br>광선이 마법 빛의 영역을 통과하거나 마법 빛의 영향을 받는 생물을 대상으로 삼는 경우, 냉기의 어둠은 해당 빛을 상쇄하려 시도합니다. 광선이 빛의 영역을 통과하는지 판단할 필요가 있다면, 자신과 주문의 대상 사이에 선을 그어 확인합니다.<br>" },
+    desc: "불경한 에너지가 스며든 극도로 차가운 어둠의 광선을 발사합니다. 원거리 주문 명중 굴림을 합니다. 광선은 <strong>5d6 냉기 피해</strong>를 가합니다. 대상이 신성 특성을 지니고 있다면 추가로 <strong>5d6 영혼 피해</strong>를 가합니다.<br><br>광선이 마법 빛의 영역을 통과하거나 마법 빛의 영향을 받는 생물을 대상으로 삼는 경우, 냉기의 어둠은 해당 빛을 상쇄하려 시도합니다. 광선이 빛의 영역을 통과하는지 판단할 필요가 있다면, 자신과 주문의 대상 사이에 선을 그어 확인합니다.<br>" },
 
   { name_ko: "아늑한 오두막", name_en: "Cozy Cabin", rank: 3, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "3행동", traits: ["조작"],
@@ -787,12 +787,12 @@ const SPELL_DB = [
   { name_ko: "영웅심", name_en: "Heroism", rank: 3, is_cantrip: false, is_focus: false,
     traditions: ["divine", "occult"], actions: "2행동", traits: ["조작"],
     summary: "생물의 내면 영웅심을 북돋워 능력을 향상시킵니다. 대상이 명중 굴림, 지각, 기술 판정, 내성 굴림에 +1 상태 보너스를 얻습니다.강화(6랭크): 보너스 +2. 강화(9랭크): 보너스 +3.",
-    desc: "생물의 내면 영웅심을 북돋워 능력을 향상시킵니다. 대상이 공격 굴림, 감지, 기술 판정, 내성 굴림에 <strong>+1 상태 보너스</strong>를 얻습니다.<br>" },
+    desc: "생물의 내면 영웅심을 북돋워 능력을 향상시킵니다. 대상이 명중 굴림, 감지, 기술 판정, 내성 굴림에 <strong>+1 상태 보너스</strong>를 얻습니다.<br>" },
 
   { name_ko: "신성한 빛", name_en: "Holy Light", rank: 3, is_cantrip: false, is_focus: false,
     traditions: ["divine", "primal"], actions: "2행동", traits: ["공격", "화염", "신성(한)", "빛", "조작"],
     summary: "신성한 에너지가 깃든 작열하는 빛의 광선을 발사합니다. 원거리 주문 명중 굴림을 합니다. 이 광선은 5d6 화염 피해를 줍니다. 대상이 불경(unholy) 특성을 지니고 있다면, 추가로 5d6 영혼 피해를 줍니다.대...",
-    desc: "신성한 에너지가 깃든 작열하는 빛의 광선을 발사합니다. 원거리 주문 공격 굴림을 합니다. 이 광선은 <strong>5d6 화염 피해</strong>를 줍니다. 대상이 불경(unholy) 특성을 지니고 있다면, 추가로 <strong>5d6 영혼 피해</strong>를 줍니다.<br><br>이 빛이 마법적 어둠 영역을 통과하거나 마법적 어둠의 영향을 받는 생물을 대상으로 삼을 경우, 신성한 빛은 그 어둠을 상쇄하려고 시도합니다. 빛이 어둠 영역을 통과하는지 확인해야 한다면, 당신 자신과 주문의 대상 사이에 선을 그어 판단합니다.<br>" },
+    desc: "신성한 에너지가 깃든 작열하는 빛의 광선을 발사합니다. 원거리 주문 명중 굴림을 합니다. 이 광선은 <strong>5d6 화염 피해</strong>를 줍니다. 대상이 불경(unholy) 특성을 지니고 있다면, 추가로 <strong>5d6 영혼 피해</strong>를 줍니다.<br><br>이 빛이 마법적 어둠 영역을 통과하거나 마법적 어둠의 영향을 받는 생물을 대상으로 삼을 경우, 신성한 빛은 그 어둠을 상쇄하려고 시도합니다. 빛이 어둠 영역을 통과하는지 확인해야 한다면, 당신 자신과 주문의 대상 사이에 선을 그어 판단합니다.<br>" },
 
   { name_ko: "초인지", name_en: "Hypercognition", rank: 3, is_cantrip: false, is_focus: false,
     traditions: ["occult"], actions: "1행동", traits: [],
@@ -1187,7 +1187,7 @@ const SPELL_DB = [
   { name_ko: "영적 수호자", name_en: "Spiritual Guardian", rank: 5, is_cantrip: false, is_focus: false,
     traditions: ["divine"], actions: "2행동", traits: ["조작", "성별화", "영혼"],
     summary: "마법의 힘으로 만들어진 중형 수호자가 범위 내 빈 공간에 출현합니다. 수호자는 반투명하며 착용하거나 든 무기 중 하나의 유령 같은 복제본을 지닙니다. 신을 섬기는 경우 수호자는 신의 시종 또는 봉사자 형태를 취합니다...",
-    desc: "<strong>특성:</strong> 집중, 조작, 성별화, 영혼 | <strong>전통:</strong> 신성<br><strong>사거리:</strong> 120피트 | <strong>지속 시간:</strong> 유지(최대 1분)<br>마법의 힘으로 만들어진 중형 수호자가 범위 내 빈 공간에 출현합니다. 수호자는 반투명하며 착용하거나 든 무기 중 하나의 유령 같은 복제본을 지닙니다. 신을 섬기는 경우 수호자는 신의 시종 또는 봉사자 형태를 취합니다. 주문을 성별화하면 수호자의 공격도 성별화됩니다. 생물은 수호자의 공간을 통과할 수 있지만 그 안에 멈출 수 없습니다. 수호자와 협공이 가능합니다. 수호자는 HP 50 외 다른 속성이 없으며 HP는 회복이 불가능하고 아래의 보호 행동을 할 때만 HP를 잃습니다. 주문 시전 시 및 유지 시마다 수호자를 120피트 내 빈 공간으로 이동시키고 다음 중 하나를 수행합니다:<br><strong>공격:</strong> 수호자가 인접한 생물에 근접 주문 공격 굴림을 실행합니다. 명중 시 <strong>3d8 피해</strong>(급소 공격 시 2배). 피해 유형은 무기 유형과 같으며, 영혼 피해가 더 해로우면 영혼 피해로. 다중 공격 페널티에 기여합니다.<br><strong>보호:</strong> 인접한 선택한 생물을 보호합니다. 그 생물이 피해를 받을 때마다 수호자가 대신 피해를 받습니다. 수호자의 HP가 0이 되면 사라지고 주문이 종료됩니다.</div>" },
+    desc: "<strong>특성:</strong> 집중, 조작, 성별화, 영혼 | <strong>전통:</strong> 신성<br><strong>사거리:</strong> 120피트 | <strong>지속 시간:</strong> 유지(최대 1분)<br>마법의 힘으로 만들어진 중형 수호자가 범위 내 빈 공간에 출현합니다. 수호자는 반투명하며 착용하거나 든 무기 중 하나의 유령 같은 복제본을 지닙니다. 신을 섬기는 경우 수호자는 신의 시종 또는 봉사자 형태를 취합니다. 주문을 성별화하면 수호자의 공격도 성별화됩니다. 생물은 수호자의 공간을 통과할 수 있지만 그 안에 멈출 수 없습니다. 수호자와 협공이 가능합니다. 수호자는 HP 50 외 다른 속성이 없으며 HP는 회복이 불가능하고 아래의 보호 행동을 할 때만 HP를 잃습니다. 주문 시전 시 및 유지 시마다 수호자를 120피트 내 빈 공간으로 이동시키고 다음 중 하나를 수행합니다:<br><strong>공격:</strong> 수호자가 인접한 생물에 근접 주문 명중 굴림을 실행합니다. 명중 시 <strong>3d8 피해</strong>(급소 공격 시 2배). 피해 유형은 무기 유형과 같으며, 영혼 피해가 더 해로우면 영혼 피해로. 다중 공격 페널티에 기여합니다.<br><strong>보호:</strong> 인접한 선택한 생물을 보호합니다. 그 생물이 피해를 받을 때마다 수호자가 대신 피해를 받습니다. 수호자의 HP가 0이 되면 사라지고 주문이 종료됩니다.</div>" },
 
   { name_ko: "잠재 암시", name_en: "Subconscious Suggestion", rank: 5, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["무력화", "언어", "조작", "정신"],
@@ -1467,7 +1467,7 @@ const SPELL_DB = [
   { name_ko: "정밀 대상", name_en: "True Target", rank: 7, is_cantrip: false, is_focus: false,
     traditions: ["arcane"], actions: "1행동", traits: ["예언"],
     summary: "한 생물에 대한 여러 공격을 특별히 정확하게 합니다. 이 턴과 다음 턴에 대상에 대한 명중 굴림에서 d20을 두 번 굴려 높은 것을 사용.",
-    desc: "<strong>특성:</strong> 집중, 예언 | <strong>전통:</strong> 비전<br><strong>사거리:</strong> 60피트 | <strong>대상:</strong> 생물 1 | <strong>지속 시간:</strong> 다음 일일 준비까지<br>한 생물에 대한 여러 공격을 특별히 정확하게 합니다. 이 턴과 다음 턴에 대상에 대한 공격 굴림에서 <strong>d20을 두 번 굴려 높은 것을 사용</strong>.</div>" },
+    desc: "<strong>특성:</strong> 집중, 예언 | <strong>전통:</strong> 비전<br><strong>사거리:</strong> 60피트 | <strong>대상:</strong> 생물 1 | <strong>지속 시간:</strong> 다음 일일 준비까지<br>한 생물에 대한 여러 공격을 특별히 정확하게 합니다. 이 턴과 다음 턴에 대상에 대한 명중 굴림에서 <strong>d20을 두 번 굴려 높은 것을 사용</strong>.</div>" },
 
   { name_ko: "화산 분출", name_en: "Volcanic Eruption", rank: 7, is_cantrip: false, is_focus: false,
     traditions: ["primal"], actions: "2행동", traits: ["대지", "화염", "조작"],

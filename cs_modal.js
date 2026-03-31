@@ -2787,6 +2787,29 @@ function renderActions() {
     return true;
   });
 
+  // 보유 재주 중 행동인 것 동적 추가 (ACTION_DB에 없는 것만)
+  if (typeof FEAT_DB !== 'undefined') {
+    const existingIds = new Set(visible.map(a => a.id));
+    const learned = getLearnedFeatNames();
+    FEAT_DB.forEach(fd => {
+      if (!learned.has(fd.name_ko)) return;
+      // summary 시작이 [행동] 또는 traits에 반응이 있는 재주
+      const actionMatch = (fd.summary||'').match(/^\[(?:반응|1행동|2행동|3행동|자유 행동)\]/);
+      const costMap = {'[반응]':'reaction','[1행동]':'1','[2행동]':'2','[3행동]':'3','[자유 행동]':'free'};
+      let cost = null;
+      if (actionMatch) cost = costMap[actionMatch[0]];
+      if (!cost) return;
+      const id = 'feat-auto-' + fd.name_en;
+      if (existingIds.has(id)) return;
+      const desc = (fd.desc||fd.summary||'').replace(/^\[(?:반응|1행동|2행동|3행동|자유 행동)\]\s*/, '');
+      visible.push({
+        id, cat:'feat', cat_label:'재주 행동', name_ko: fd.name_ko, name_en: fd.name_en,
+        cost, traits: fd.traits||[], req_skill:null, req_rank:0, req_feat: fd.name_ko,
+        summary: desc.substring(0, 120) + (desc.length > 120 ? '...' : '')
+      });
+    });
+  }
+
   // Group by cat_label, separate available vs locked
   const groups = {};
   visible.forEach(a => {
