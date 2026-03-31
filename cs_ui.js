@@ -1157,7 +1157,7 @@ function renderSpells() {
           let checks = '';
           for (let u = 0; u < maxUses; u++) {
             const isUsed = u < used;
-            checks += `<span onclick="toggleInnateUse(${i},${u},${maxUses})" style="cursor:pointer;font-size:14px;margin:0 1px;">${isUsed ? '🔥' : '⬜'}</span>`;
+            checks += `<span onclick="toggleInnateUse(${i},${u},${maxUses})" style="cursor:pointer;font-size:12px;margin:0 1px;color:${isUsed ? 'var(--text2)' : 'var(--accent)'};">${isUsed ? '○' : '●'}</span>`;
           }
           usesHtml = `<span style="margin-left:6px;">${checks}</span>`;
         }
