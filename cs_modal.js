@@ -2256,7 +2256,6 @@ function closeModal() {
   // Clean up equip-browse
   const eqTabs = document.getElementById('equip-tab-container');
   if (eqTabs) eqTabs.style.display = 'none';
-  const footer = document.querySelector('.modal-footer');
   if (footer && !footer.querySelector('.btn-confirm')) {
     footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">취소</button><button class="btn btn-confirm" onclick="confirmModal()">선택</button>';
   }
