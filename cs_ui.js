@@ -1504,7 +1504,7 @@ function _toggleFeatAccordion(div) {
   div.classList.toggle('expanded');
 }
 
-function removeFeat(t, i) { state.feats[t].splice(i,1); renderFeats(); save(); }
+function removeFeat(t, i) { state.feats[t].splice(i,1); recalcAll(); renderFeats(); save(); }
 
 function updateSlotChecks(rank) {
   const max = parseInt(document.getElementById(`slots-max-${rank}`)?.value||0);
