@@ -3010,14 +3010,14 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     const tradition = choiceDef.tradition || 'arcane';
     let cantrips;
     if (tradition === 'any') {
-      // 클래스 전통을 제외한 모든 전통의 캔트립
       const classTrad = state.selectedClass?.tradition || '';
       cantrips = SPELL_DB.filter(sp => sp.is_cantrip && sp.traditions && (!classTrad || !sp.traditions.includes(classTrad)));
     } else {
       cantrips = SPELL_DB.filter(sp => sp.is_cantrip && sp.traditions && sp.traditions.includes(tradition));
     }
     cantrips.sort((a,b) => (a.name_ko||'').localeCompare(b.name_ko||''));
-    // 검색 표시
+
+    // 주문 선택 모달과 동일한 구조로 전환
     if (searchEl) {
       searchEl.style.display = '';
       searchEl.value = '';
@@ -3028,13 +3028,25 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
         });
       };
     }
+    // 디테일 패널 활성화
+    if (detail) { detail.style.display = ''; detail.innerHTML = '<div class="modal-detail-empty">캔트립을 선택하면 상세 정보가 표시됩니다.</div>'; }
+    if (listEl) { listEl.style.width = ''; listEl.style.borderRight = ''; }
+    // 확인 버튼 표시
+    if (confirmBtn) { confirmBtn.style.display = ''; confirmBtn.textContent = '선택'; confirmBtn.onclick = () => { if (modalContext._selectedSpell) _applyFeatChoice(modalContext._selectedSpell); }; }
+    modalContext._selectedSpell = null;
+
     cantrips.forEach(sp => {
       const row = document.createElement('div');
       row.className = 'opt-row';
       row.style.cursor = 'pointer';
       const actions = typeof getActionIcons==='function' ? getActionIcons(sp.actions) : (sp.actions||'');
-      row.innerHTML = `<span class="opt-row-name">${sp.name_ko} ${actions}</span><span style="font-size:10px;color:var(--text2);margin-left:auto;">${sp.name_en}</span>`;
-      row.onclick = () => _applyFeatChoice(sp.name_ko);
+      row.innerHTML = `<span class="opt-row-icon">📄</span><span class="opt-row-name">${sp.name_ko}</span>${actions?`<span class="opt-row-actions">${actions}</span>`:''}`;
+      row.onclick = () => {
+        container.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
+        row.classList.add('selected');
+        modalContext._selectedSpell = sp.name_ko;
+        if (typeof showItemDetail === 'function') showItemDetail(sp);
+      };
       container.appendChild(row);
     });
   }
