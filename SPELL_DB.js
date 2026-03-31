@@ -1146,8 +1146,8 @@ const SPELL_DB = [
 
   { name_ko: "차원 하인", name_en: "Planar Servitor", rank: 5, is_cantrip: false, is_focus: false,
     traditions: ["divine"], actions: "3행동", traits: ["조작"],
-    summary: "차원에서 하인을 소환합니다. 천상, 마귀, 또는 감시자를 소환하며, 주문 랭크에 따라 레벨이 결정됩니다. 소환된 생물은 하수인 특성을 가집니다.",
-    desc: "차원에서 하인을 소환합니다. 천상, 마귀, 또는 감시자를 소환하며, 주문 랭크에 따라 레벨이 결정됩니다. 소환된 생물은 하수인 특성을 가집니다." },
+    summary: "차원에서 하인을 소환합니다. 천상체, 악마, 또는 주시자를 소환하며, 주문 랭크에 따라 레벨이 결정됩니다. 소환된 생물은 하수인 특성을 가집니다.",
+    desc: "차원에서 하인을 소환합니다. 천상체, 악마, 또는 주시자를 소환하며, 주문 랭크에 따라 레벨이 결정됩니다. 소환된 생물은 하수인 특성을 가집니다." },
 
   { name_ko: "식물 형태", name_en: "Plant Form", rank: 5, is_cantrip: false, is_focus: false,
     traditions: ["primal"], actions: "2행동", traits: ["조작", "식물", "변이"],
@@ -1194,10 +1194,10 @@ const SPELL_DB = [
     summary: "생물의 마음에 발동 조건이 있는 암시를 심습니다. 암시(Suggestion)와 유사하지만, 지정한 발동 조건이 충족될 때까지 잠재되어 있다가 활성화됩니다. 활성화되면 대상이 암시를 따릅니다.",
     desc: "생물의 마음에 발동 조건이 있는 암시를 심습니다. 암시(Suggestion)와 유사하지만, 지정한 발동 조건이 충족될 때까지 잠재되어 있다가 활성화됩니다. 활성화되면 대상이 암시를 따릅니다." },
 
-  { name_ko: "천상 소환", name_en: "Summon Celestial", rank: 5, is_cantrip: false, is_focus: false,
+  { name_ko: "천상체 소환", name_en: "Summon Celestial", rank: 5, is_cantrip: false, is_focus: false,
     traditions: ["divine"], actions: "3행동", traits: ["조작"],
-    summary: "당신을 위해 싸울 천상 생물을 소환합니다. 주문 랭크 -1 이하 레벨의 천상 소환.강화(6랭크 이후): 더 강한 천상 소환.",
-    desc: "당신을 위해 싸울 천상 생물을 소환합니다. 주문 랭크 -1 이하 레벨의 천상 소환.<br><strong>강화(6랭크 이후):</strong> 더 강한 천상 소환." },
+    summary: "당신을 위해 싸울 천상체를 소환합니다. 주문 랭크 -1 이하 레벨의 천상체 소환.강화(6랭크 이후): 더 강한 천상체 소환.",
+    desc: "당신을 위해 싸울 천상체를 소환합니다. 주문 랭크 -1 이하 레벨의 천상체 소환.<br><strong>강화(6랭크 이후):</strong> 더 강한 천상체 소환." },
 
   { name_ko: "용 소환", name_en: "Summon Dragon", rank: 5, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "divine", "occult"], actions: "3행동", traits: ["조작"],
@@ -1209,10 +1209,10 @@ const SPELL_DB = [
     summary: "기형체(aberration)를 소환합니다. 주문 랭크 -1 이하 레벨.",
     desc: "기형체(aberration)를 소환합니다. <strong>지속:</strong> 최대 1분 (지속). 소환된 기형체의 레벨은 주문 랭크 -1 이하여야 합니다. 매 턴 2개의 행동을 얻고 명령이 필요합니다.<br><strong>강화:</strong> 1랭크당 소환 가능한 최대 레벨 +1." },
 
-  { name_ko: "마귀 소환", name_en: "Summon Fiend", rank: 5, is_cantrip: false, is_focus: false,
+  { name_ko: "악마 소환", name_en: "Summon Fiend", rank: 5, is_cantrip: false, is_focus: false,
     traditions: ["divine"], actions: "3행동", traits: ["조작"],
-    summary: "마귀를 소환합니다. 주문 랭크 -1 이하 레벨.",
-    desc: "마귀를 소환합니다. <strong>지속:</strong> 최대 1분 (지속). 소환된 마귀의 레벨은 주문 랭크 -1 이하여야 합니다. 매 턴 2개의 행동을 얻고 명령이 필요합니다.<br><strong>강화:</strong> 1랭크당 소환 가능한 최대 레벨 +1." },
+    summary: "악마를 소환합니다. 주문 랭크 -1 이하 레벨.",
+    desc: "악마를 소환합니다. <strong>지속:</strong> 최대 1분 (지속). 소환된 악마의 레벨은 주문 랭크 -1 이하여야 합니다. 매 턴 2개의 행동을 얻고 명령이 필요합니다.<br><strong>강화:</strong> 1랭크당 소환 가능한 최대 레벨 +1." },
 
   { name_ko: "거인 소환", name_en: "Summon Giant", rank: 5, is_cantrip: false, is_focus: false,
     traditions: ["primal"], actions: "3행동", traits: ["조작"],

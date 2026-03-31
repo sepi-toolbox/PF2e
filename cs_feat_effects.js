@@ -443,7 +443,7 @@ const FEAT_EFFECTS = {
       type:'custom', label:'복수 대상 유형을 선택하세요',
       options:[
         {id:'giant', name:'거인'}, {id:'orc', name:'오크'}, {id:'undead', name:'언데드'},
-        {id:'aberration', name:'기형체'}, {id:'fiend', name:'마귀'}, {id:'dragon', name:'드래곤'},
+        {id:'aberration', name:'기형체'}, {id:'fiend', name:'악마'}, {id:'dragon', name:'드래곤'},
       ]
     },
     effects: [{type:'display_note', text:'보복의 맹세($choice_name): 해당 유형 근접 피해 +1 (전문화 +2)'}]
