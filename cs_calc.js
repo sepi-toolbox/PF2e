@@ -128,7 +128,73 @@ document.addEventListener('click', () => {
 });
 document.addEventListener('touchstart', () => {
   document.querySelectorAll('.trait-tag.tip-open').forEach(t => t.classList.remove('tip-open'));
+  document.querySelectorAll('.spell-tip.tip-open').forEach(t => { t.classList.remove('tip-open'); const b = t.querySelector('.spell-balloon'); if (b) b.style.display = 'none'; });
 }, {passive: true});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.spell-tip.tip-open').forEach(t => { t.classList.remove('tip-open'); const b = t.querySelector('.spell-balloon'); if (b) b.style.display = 'none'; });
+});
+
+// spell-tip: data-tip 속성으로 풍선 동적 생성 (trait-tag와 동일 패턴)
+document.addEventListener('mouseover', (e) => {
+  const tip = e.target.closest('.spell-tip');
+  if (!tip) return;
+  if (!tip.querySelector('.spell-balloon') && tip.dataset.tip) {
+    const balloon = document.createElement('span');
+    balloon.className = 'spell-balloon';
+    balloon.textContent = tip.dataset.tip;
+    tip.appendChild(balloon);
+  }
+  const balloon = tip.querySelector('.spell-balloon');
+  if (balloon) {
+    balloon.style.display = 'block';
+    const rect = tip.getBoundingClientRect();
+    const bRect = balloon.getBoundingClientRect();
+    let left = rect.left + rect.width/2 - bRect.width/2;
+    let top = rect.top - bRect.height - 6;
+    if (left < 4) left = 4;
+    if (left + bRect.width > window.innerWidth - 4) left = window.innerWidth - bRect.width - 4;
+    if (top < 4) top = rect.bottom + 6;
+    balloon.style.left = left + 'px';
+    balloon.style.top = top + 'px';
+  }
+});
+document.addEventListener('mouseout', (e) => {
+  const tip = e.target.closest('.spell-tip');
+  if (tip && !tip.classList.contains('tip-open')) {
+    const balloon = tip.querySelector('.spell-balloon');
+    if (balloon) balloon.style.display = 'none';
+  }
+});
+document.addEventListener('touchstart', (e) => {
+  const tip = e.target.closest('.spell-tip');
+  if (!tip) return;
+  e.preventDefault();
+  e.stopPropagation();
+  const isOpen = tip.classList.contains('tip-open');
+  document.querySelectorAll('.spell-tip.tip-open').forEach(t => { t.classList.remove('tip-open'); const b = t.querySelector('.spell-balloon'); if (b) b.style.display = 'none'; });
+  if (!isOpen) {
+    if (!tip.querySelector('.spell-balloon') && tip.dataset.tip) {
+      const balloon = document.createElement('span');
+      balloon.className = 'spell-balloon';
+      balloon.textContent = tip.dataset.tip;
+      tip.appendChild(balloon);
+    }
+    tip.classList.add('tip-open');
+    const balloon = tip.querySelector('.spell-balloon');
+    if (balloon) {
+      balloon.style.display = 'block';
+      const rect = tip.getBoundingClientRect();
+      const bRect = balloon.getBoundingClientRect();
+      let left = rect.left + rect.width/2 - bRect.width/2;
+      let top = rect.top - bRect.height - 6;
+      if (left < 4) left = 4;
+      if (left + bRect.width > window.innerWidth - 4) left = window.innerWidth - bRect.width - 4;
+      if (top < 4) top = rect.bottom + 6;
+      balloon.style.left = left + 'px';
+      balloon.style.top = top + 'px';
+    }
+  }
+}, {passive: false});
 
 // ═══════════════════════════════════════════════
 //  SKILL PROFICIENCY HELPERS

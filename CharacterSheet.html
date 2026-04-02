@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=201"></script>
-<script src="feat_db.js?v=201"></script>
-<script src="SPELL_DB.js?v=201"></script>
-<script src="class_features_db.js?v=201"></script>
+<script src="equipment_db.js?v=202"></script>
+<script src="feat_db.js?v=202"></script>
+<script src="SPELL_DB.js?v=202"></script>
+<script src="class_features_db.js?v=202"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -930,6 +930,17 @@ body{
 }
 .trait-tag.tip-open .trait-balloon{display:block;}
 .trait-tag .trait-balloon::after{display:none;}
+.spell-tip{
+  position:relative;display:inline;color:var(--accent);border-bottom:1px dotted var(--accent);
+  cursor:help;font-weight:600;
+}
+.spell-tip .spell-balloon{
+  display:none;position:fixed;background:var(--bg2);border:1px solid var(--accent);border-radius:4px;
+  padding:8px 12px;font-size:11px;color:var(--text);max-width:300px;width:max-content;z-index:99999;
+  line-height:1.6;white-space:normal;text-align:left;pointer-events:none;font-weight:400;
+  box-shadow:0 2px 8px rgba(0,0,0,0.4);
+}
+.spell-tip.tip-open .spell-balloon{display:block;}
 .info-btn{
   color:var(--text2);cursor:pointer;font-size:10px;padding:1px 5px;
   user-select:none;flex-shrink:0;border:1px solid var(--border2);border-radius:3px;
@@ -1231,7 +1242,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v201</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v202</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1786,13 +1797,13 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=201"></script>
-<script src="cs_calc.js?v=201"></script>
-<script src="cs_ui.js?v=201"></script>
-<script src="cs_modal.js?v=201"></script>
-<script src="cs_feat_effects.js?v=201"></script>
-<script src="cs_save.js?v=201"></script>
-<script src="cs_dice.js?v=201"></script>
+<script src="cs_data.js?v=202"></script>
+<script src="cs_calc.js?v=202"></script>
+<script src="cs_ui.js?v=202"></script>
+<script src="cs_modal.js?v=202"></script>
+<script src="cs_feat_effects.js?v=202"></script>
+<script src="cs_save.js?v=202"></script>
+<script src="cs_dice.js?v=202"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->

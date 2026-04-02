@@ -3013,6 +3013,28 @@ function renderActions() {
     });
   }
 
+  // _fb._customActions: summary 기반 동적 행동 카드 추가
+  if (state._fb?._customActions) {
+    const existingIds2 = new Set(visible.map(a => a.id));
+    state._fb._customActions.forEach(ca => {
+      const id = 'custom-' + (ca.featName||'').replace(/\s/g,'-');
+      if (existingIds2.has(id)) return;
+      existingIds2.add(id);
+      const costMatch = ca.summary.match(/^\[(.+?)\]/);
+      const costMap = {'반응':'reaction','1행동':'1','2행동':'2','3행동':'3','자유행동':'free'};
+      const cost = costMatch ? (costMap[costMatch[1]] || 'free') : 'free';
+      const nameKo = ca.featName.split(' (')[0].trim();
+      const nameEnMatch = ca.featName.match(/\(([^)]+)\)$/);
+      const nameEn = nameEnMatch ? nameEnMatch[1] : '';
+      const desc = ca.summary.replace(/^\[.+?\]\s*/, '').replace(/^[^—]*—\s*/, '');
+      visible.push({
+        id, cat:'feat', cat_label:'재주 행동', name_ko: nameKo, name_en: nameEn,
+        cost, traits:[], req_skill:null, req_rank:0, req_feat: nameKo,
+        summary: desc
+      });
+    });
+  }
+
   // Group by cat_label, separate available vs locked
   const groups = {};
   visible.forEach(a => {
