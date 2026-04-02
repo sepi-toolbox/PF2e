@@ -651,6 +651,13 @@ const FEAT_EFFECTS = {
   'Stubborn Persistence': {
     effects: [{type:'display_note', text:'의지 내성 대실패→실패'}]
   },
+  'Hardy Traveler': {
+    effects: [{type:'bulk_bonus', value:1}]
+  },
+  'Multitalented': {
+    choice: {type:'feat_pick', label:'2레벨 멀티클래스 헌신 재주 선택', pickCategory:'archetype', pickMaxLevel:2, pickTraits:['헌신'], grantTo:'archetype', skipPrereqIfAiuvarin:true},
+    effects: []
+  },
   'Advanced General Training': {
     choice: {type:'feat_pick', label:'7레벨 이하 일반 재주 선택', pickCategory:'general', pickMaxLevel:7, grantTo:'general'},
     effects: []
@@ -3380,12 +3387,25 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       if (Array.isArray(arr)) arr.forEach(f => { if (f?.name) ownedNames.add(f.name.split(' (')[0].trim()); });
     }
 
+    // 아이우바린 유산 보유 + skipPrereqIfAiuvarin이면 능력치 전제조건 생략
+    const isAiuvarin = state.selectedHeritage?.id === 'aiuvarin';
+    const skipPrereq = choiceDef.skipPrereqIfAiuvarin && isAiuvarin;
+    // 자기 클래스 이름 (헌신 재주에서 자기 클래스 제외용)
+    const myClassName = state.selectedClass?.name || '';
+    const myClassEn = state.selectedClass?.en || '';
+
     const candidates = FEAT_DB.filter(f => {
       if (!f) return false;
       if (f.category !== pickCat) return false;
       if (f.feat_level > pickMax) return false;
       if (pickTraits && !(f.traits && f.traits.some(t => pickTraits.includes(t)))) return false;
-      if (f.prerequisites && typeof _checkPrereqs === 'function' && !_checkPrereqs(f.prerequisites)) return false;
+      // 헌신 재주: 자기 클래스 헌신 제외
+      if (pickTraits?.includes('헌신') && f.name_ko) {
+        if (myClassName && f.name_ko.includes(myClassName)) return false;
+        if (myClassEn && f.name_en && f.name_en.toLowerCase().includes(myClassEn.toLowerCase())) return false;
+      }
+      // 전제조건 체크 (아이우바린이면 생략 가능)
+      if (f.prerequisites && !skipPrereq && typeof _checkPrereqs === 'function' && !_checkPrereqs(f.prerequisites)) return false;
       if (ownedNames.has(f.name_ko)) return false;
       return true;
     });
