@@ -743,6 +743,31 @@ const FEAT_EFFECTS = {
   'Orc Weapon Familiarity': {
     effects: [{type:'weapon_familiarity', weapons:['팔치온','그레이트액스']}]
   },
+  'Tusks': {
+    effects: [{type:'grant_weapon', weapon_name:'엄니', weapon_category:'unarmed', damage:'1d6 P', range:0, traits:['비무장','기교']}]
+  },
+  'Beast Trainer': {
+    effects: [{type:'skill_trained', skill:'nature'}],
+    choice: {type:'custom', label:'재주 선택', options:[{id:'pet',name:'반려동물 (Pet)'},{id:'train',name:'동물 훈련 (Train Animal)'}]},
+    choiceEffects: {
+      pet: [{type:'grant_feat', feat:'반려동물 (Pet)'}],
+      train: [{type:'grant_feat', feat:'동물 훈련 (Train Animal)'}]
+    }
+  },
+  'Hold Mark': {
+    choice: {type:'custom', label:'거점 표식 선택', options:[
+      {id:'sun',name:'타오르는 태양 (외교, 비전)'},
+      {id:'skull',name:'죽음의 머리 (생존, 원시)'},
+      {id:'corpse',name:'더럽혀진 시체 (종교학, 신성)'},
+      {id:'hand',name:'빈 손 (위협, 비학)'}
+    ]},
+    choiceEffects: {
+      sun: [{type:'skill_trained', skill:'diplomacy'},{type:'save_bonus', save:'all', value:1, bonus_type:'status', condition:'비전 주문'}],
+      skull: [{type:'skill_trained', skill:'survival'},{type:'save_bonus', save:'all', value:1, bonus_type:'status', condition:'원시 주문'}],
+      corpse: [{type:'skill_trained', skill:'religion'},{type:'save_bonus', save:'all', value:1, bonus_type:'status', condition:'신성 주문'}],
+      hand: [{type:'skill_trained', skill:'intimidation'},{type:'save_bonus', save:'all', value:1, bonus_type:'status', condition:'비학 주문'}]
+    }
+  },
   'Orc Ferocity': {
     effects: [{type:'display_note', text:'[반응] HP 0 시 HP 1로 유지. 하루 1회'}]
   },
@@ -2857,6 +2882,12 @@ function applyFeatEffects() {
       def.effects.forEach(eff => {
         _applyOneEffect(fb, eff, feat, level);
       });
+      // choiceEffects: 선택값에 따른 추가 효과
+      if (def.choiceEffects && feat.choice && def.choiceEffects[feat.choice]) {
+        def.choiceEffects[feat.choice].forEach(eff => {
+          _applyOneEffect(fb, eff, feat, level);
+        });
+      }
     });
   });
 

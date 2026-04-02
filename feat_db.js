@@ -1904,7 +1904,7 @@ const FEAT_DB = [
 ,
   {name_ko:'오크 미신', name_en:'Orc Superstition', feat_level:1, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'유발 조건: 주문이나 마법 효과에 대한 내성 굴림을 시도하지만 아직 굴리지 않았습니다.', desc:'<strong>유발 조건:</strong> 주문이나 마법 효과에 대한 내성 굴림을 시도하지만 아직 굴리지 않았습니다.<br>오크 문화적 미신에서 파생된 기법으로 마법에 대항합니다. 유발 주문이나 마법 효과에 대한 내성에 <strong>+1 상황 보너스</strong>.'}
 ,
-  {name_ko:'명예의 표식', name_en:'Hold Mark', feat_level:1, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'공동체의 무용의 표식으로 강화된 흉터나 문신을 지닙니다. 아래 표에서 하나를 선택합니다. 해당 기술에 숙련되고, 해당 전통의 주문에 대한 내성에', desc:'공동체의 무용의 표식으로 강화된 흉터나 문신을 지닙니다. 아래 표에서 하나를 선택합니다. 해당 기술에 숙련되고, 해당 전통의 주문에 대한 내성에 <strong>+1 상태 보너스</strong>. 선택한 상징이나 유사 개념의 큰 낙인이나 문신을 얻습니다.'}
+  {name_ko:'거점 표식', name_en:'Hold Mark', feat_level:1, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'공동체의 무용의 표식. 선택한 기술에 숙련 + 해당 전통 주문 내성 +1 상태 보너스.', desc:'공동체의 무용의 표식으로 강화된 흉터나 문신을 지닙니다. 아래 표에서 하나를 선택합니다. 해당 기술에 숙련되고, 해당 전통의 주문에 대한 내성에 <strong>+1 상태 보너스</strong>.<br><strong>타오르는 태양:</strong> 외교, 비전 | <strong>죽음의 머리:</strong> 생존, 원시 | <strong>더럽혀진 시체:</strong> 종교학, 신성 | <strong>빈 손:</strong> 위협, 비학'}
 ,
   {name_ko:'엄니', name_en:'Tusks', feat_level:1, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'특히 길고 들쭉날쭉한 엄니가 뼈에서 고기를 찢기에 완벽합니다. 1d6 관통 피해의 엄니(tusks) 비무장 공격을 얻습니다. 격투 그룹이며 기교', desc:'특히 길고 들쭉날쭉한 엄니가 뼈에서 고기를 찢기에 완벽합니다. <strong>1d6 관통 피해</strong>의 엄니(tusks) 비무장 공격을 얻습니다. 격투 그룹이며 기교와 비무장 특성.<br><strong>특수:</strong> 1레벨에서만 가질 수 있으며, 이 재주로 재훈련할 수 없습니다. 엄니를 부러뜨리거나 깎거나 뽑는 등 극단적 조치로만 재훈련 가능.'}
 ,
