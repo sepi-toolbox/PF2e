@@ -1791,6 +1791,10 @@ function filterFeats() {
         }
         return true;
       }
+      // 클래스 재주 슬롯: 해당 클래스 재주 + archetype 재주도 포함
+      if (ft === 'class') {
+        return f.category === cat || f.category === 'archetype';
+      }
       return f.category === cat;
     });
   }
