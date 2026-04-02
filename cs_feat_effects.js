@@ -3198,9 +3198,9 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       cantrips = SPELL_DB.filter(sp => !sp.is_cantrip && !sp.is_focus && sp.rank && sp.rank <= targetRank && sp.traditions && sp.traditions.includes(tradition));
     } else if (tradition === 'any' || tradition === '$other') {
       const classTrad = state.selectedClass?.tradition || '';
-      cantrips = SPELL_DB.filter(sp => sp.is_cantrip && sp.traditions && (!classTrad || !sp.traditions.includes(classTrad)));
+      cantrips = SPELL_DB.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && (!classTrad || !sp.traditions.includes(classTrad)));
     } else {
-      cantrips = SPELL_DB.filter(sp => sp.is_cantrip && sp.traditions && sp.traditions.includes(tradition));
+      cantrips = SPELL_DB.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && sp.traditions.includes(tradition));
     }
     cantrips.sort((a,b) => (a.name_ko||'').localeCompare(b.name_ko||''));
 
