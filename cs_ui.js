@@ -1591,17 +1591,32 @@ function cascadeRemoveFeats() {
       }
     }
   }
-  // grant_feat로 부여된 재주 정리 (_grantedBy가 없는 재주이면 제거)
-  const allFeatNames = new Set();
-  for (const arr of Object.values(state.feats)) {
-    if (Array.isArray(arr)) arr.forEach(f => { if (f.name) allFeatNames.add(f.name); });
-  }
-  for (const type of Object.keys(state.feats)) {
-    const arr = state.feats[type];
-    if (!Array.isArray(arr)) continue;
-    for (let j = arr.length - 1; j >= 0; j--) {
-      if (arr[j]._grantedBy && !allFeatNames.has(arr[j]._grantedBy)) {
-        arr.splice(j, 1);
+  // grant_feat / feat_pick으로 부여된 재주 연쇄 정리 (A→B→C 재귀)
+  let grantChanged = true;
+  while (grantChanged) {
+    grantChanged = false;
+    const allFeatNames = new Set();
+    for (const arr of Object.values(state.feats)) {
+      if (Array.isArray(arr)) arr.forEach(f => { if (f?.name) allFeatNames.add(f.name); });
+    }
+    for (const type of Object.keys(state.feats)) {
+      const arr = state.feats[type];
+      if (!Array.isArray(arr)) continue;
+      for (let j = arr.length - 1; j >= 0; j--) {
+        if (arr[j]?._grantedBy && !allFeatNames.has(arr[j]._grantedBy)) {
+          // 선천 주문도 함께 제거
+          if (arr[j].name && state.spells?.innate) {
+            state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== arr[j].name);
+          }
+          // 성장에서도 제거
+          for (const lv of Object.keys(state.growth || {})) {
+            for (const k of Object.keys(state.growth[lv] || {})) {
+              if (state.growth[lv][k] === arr[j].name) delete state.growth[lv][k];
+            }
+          }
+          arr.splice(j, 1);
+          grantChanged = true;
+        }
       }
     }
   }
@@ -1609,7 +1624,7 @@ function cascadeRemoveFeats() {
   if (state.spells?.innate) {
     const allNames2 = new Set();
     for (const arr of Object.values(state.feats)) {
-      if (Array.isArray(arr)) arr.forEach(f => { if (f.name) allNames2.add(f.name); });
+      if (Array.isArray(arr)) arr.forEach(f => { if (f?.name) allNames2.add(f.name); });
     }
     state.spells.innate = state.spells.innate.filter(s => !s._sourceFeat || allNames2.has(s._sourceFeat));
   }

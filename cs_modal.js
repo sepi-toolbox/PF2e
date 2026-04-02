@@ -2522,7 +2522,12 @@ function closeModal() {
 }
 
 document.getElementById('modal-overlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
+  if (e.target === this) {
+    // 필수 선택 모달이면 닫지 않음 (footer가 숨겨진 상태 = 닫기 불가)
+    const footer = document.querySelector('.modal-footer');
+    if (footer && footer.style.display === 'none') return;
+    closeModal();
+  }
 });
 
 // 모바일 모달 닫기 버튼: CSS media query로 제어 (JS MutationObserver 제거)

@@ -612,13 +612,15 @@ const FEAT_EFFECTS = {
 
   // ── 인간 ──
   'General Training': {
-    effects: [{type:'display_note', text:'1레벨 일반 재주 1개 추가 획득'}]
+    choice: {type:'feat_pick', label:'1레벨 일반 재주 선택', pickCategory:'general', pickMaxLevel:1, grantTo:'general'},
+    effects: []
   },
   'Haughty Obstinacy': {
     effects: [{type:'display_note', text:'정신 효과 내성 성공→대성공. 명령/지배에 +2'}]
   },
   'Natural Ambition': {
-    effects: [{type:'display_note', text:'1레벨 클래스 재주 1개 추가 획득'}]
+    choice: {type:'feat_pick', label:'1레벨 클래스 재주 선택', pickCategory:'$class', pickMaxLevel:1, grantTo:'class'},
+    effects: []
   },
   'Adapted Cantrip': {
     choice: {type:'spell_cantrip', tradition:'any', label:'다른 전통에서 캔트립 선택'},
@@ -645,6 +647,10 @@ const FEAT_EFFECTS = {
   },
   'Stubborn Persistence': {
     effects: [{type:'display_note', text:'의지 내성 대실패→실패'}]
+  },
+  'Advanced General Training': {
+    choice: {type:'feat_pick', label:'7레벨 이하 일반 재주 선택', pickCategory:'general', pickMaxLevel:7, grantTo:'general'},
+    effects: []
   },
   'Unconventional Expertise': {
     effects: [{type:'display_note', text:'비관습 무기 숙련도 전문가로 증가'}]
@@ -3046,7 +3052,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
   const detail = document.getElementById('modal-detail');
   if (detail) { detail.style.display = 'none'; }
   // spell_cantrip: 닫기/취소/선택 전부 숨김 (선택 필수, detail 내 버튼만 사용)
-  if (isSpellChoice || choiceDef.type === 'lore' || choiceDef.type === 'custom' || choiceDef.type === 'ancestry_pick') {
+  if (isSpellChoice || choiceDef.type === 'lore' || choiceDef.type === 'custom' || choiceDef.type === 'ancestry_pick' || choiceDef.type === 'feat_pick') {
     const closeBtn = document.querySelector('.modal-close');
     const closeBtnM = document.getElementById('modal-close-m');
     const footer = document.querySelector('.modal-footer');
@@ -3228,12 +3234,88 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       };
       container.appendChild(row);
     });
+  } else if (choiceDef.type === 'feat_pick' && typeof FEAT_DB !== 'undefined') {
+    // ── 범용 재주 선택 모달 (적응력, 자연 야심, 고급 일반 훈련 등) ──
+    let pickCat = choiceDef.pickCategory || 'general';
+    if (pickCat === '$class' && state.selectedClass) pickCat = state.selectedClass.id;
+    const pickMax = choiceDef.pickMaxLevel || 99;
+    const pickTraits = choiceDef.pickTraits || null;
+
+    // 이미 보유한 재주 이름 (중복 방지)
+    const ownedNames = new Set();
+    for (const arr of Object.values(state.feats)) {
+      if (Array.isArray(arr)) arr.forEach(f => { if (f?.name) ownedNames.add(f.name.split(' (')[0].trim()); });
+    }
+
+    const candidates = FEAT_DB.filter(f => {
+      if (!f) return false;
+      if (f.category !== pickCat) return false;
+      if (f.feat_level > pickMax) return false;
+      if (pickTraits && !(f.traits && f.traits.some(t => pickTraits.includes(t)))) return false;
+      if (f.prerequisites && typeof _checkPrereqs === 'function' && !_checkPrereqs(f.prerequisites)) return false;
+      if (ownedNames.has(f.name_ko)) return false;
+      return true;
+    });
+
+    if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; searchEl.oninput = () => {
+      const q = searchEl.value.toLowerCase();
+      container.querySelectorAll('.opt-row').forEach(r => { r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none'; });
+    };}
+    if (detail) { detail.style.display = ''; detail.innerHTML = '<div class="modal-detail-empty">재주를 선택하면 상세 정보가 표시됩니다.</div>'; }
+    if (listEl) { listEl.style.width = ''; listEl.style.borderRight = ''; }
+
+    candidates.forEach(cf => {
+      const row = document.createElement('div');
+      row.className = 'opt-row';
+      row.style.cursor = 'pointer';
+      row.innerHTML = `<span class="opt-row-icon">📄</span><span class="opt-row-name">${cf.name_ko}</span><span style="font-size:10px;color:var(--text2);margin-left:auto;">${cf.name_en||''}</span>`;
+      row.onclick = () => {
+        container.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
+        row.classList.add('selected');
+        if (typeof showItemDetail === 'function') showItemDetail(cf);
+        const detEl = document.getElementById('modal-detail');
+        if (detEl) {
+          const btn = document.createElement('button');
+          btn.textContent = '이 재주 선택';
+          btn.style.cssText = 'width:100%;margin-top:12px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;';
+          btn.onclick = () => {
+            const fullName = cf.name_ko + (cf.name_en ? ' (' + cf.name_en + ')' : '');
+            _applyFeatChoice(fullName);
+          };
+          detEl.appendChild(btn);
+        }
+      };
+      container.appendChild(row);
+    });
   }
 }
 
 function _applyFeatChoice(choiceId) {
   if (!modalContext) return;
   const {featType, featIndex, choiceDef} = modalContext;
+
+  // ── feat_pick: 재주 부여 + 연쇄 모달 ──
+  if (choiceDef?.type === 'feat_pick') {
+    // 부모 재주에 choice 저장 (있으면)
+    if (featType && featIndex !== null && state.feats[featType]?.[featIndex]) {
+      state.feats[featType][featIndex].choice = choiceId;
+    }
+    const grantTo = choiceDef.grantTo || 'general';
+    const grantedBy = choiceDef._grantedBy || (state.feats[featType]?.[featIndex]?.name || '');
+    if (!state.feats[grantTo]) state.feats[grantTo] = [];
+    state.feats[grantTo].push({name: choiceId, level: 1, _grantedBy: grantedBy});
+    const newIdx = state.feats[grantTo].length - 1;
+    renderFeats();
+    try { recalcAll(); } catch(e) { console.error(e); }
+    save();
+    closeModal();
+    // 부여된 재주에 선택이 필요하면 연쇄 모달
+    if (typeof checkFeatChoice === 'function') {
+      checkFeatChoice(choiceId, grantTo, newIdx);
+    }
+    return;
+  }
+
   state.feats[featType][featIndex].choice = choiceId;
 
   // spell_cantrip 선택 시 선천적 주문에 추가
@@ -3258,73 +3340,26 @@ function _applyFeatChoice(choiceId) {
   save();
   closeModal();
 
-  // 양자 혈통 선택 완료 후 — 문화 적응의 grant_adopted_feat 트리거
+  // 양자 혈통 선택 완료 후 — 문화 적응의 grant_adopted_feat → feat_pick으로 혈통 재주 선택
   if (choiceDef?.type === 'ancestry_pick') {
     const grantedByFeat = state.feats[featType]?.[featIndex];
     if (grantedByFeat?._grantedBy) {
-      // 문화 적응이 grant한 양자 혈통 → 혈통 재주 선택 모달
       const parentFeatName = grantedByFeat._grantedBy;
+      const traitName = ANCESTRY_NAME_MAP[choiceId] || choiceId;
       const alreadyGranted = (state.feats.ancestry||[]).some(f => f && f._grantedBy === parentFeatName);
       if (!alreadyGranted) {
-        _openAdoptedFeatPicker(choiceId, parentFeatName);
+        openFeatChoiceModal(null, null, {
+          type: 'feat_pick',
+          label: traitName + ' 1레벨 혈통 재주 선택',
+          pickCategory: 'ancestry',
+          pickMaxLevel: 1,
+          pickTraits: [traitName],
+          grantTo: 'ancestry',
+          _grantedBy: parentFeatName
+        });
       }
     }
   }
-}
-
-function _openAdoptedFeatPicker(ancestryId, parentFeatName) {
-  const traitName = ANCESTRY_NAME_MAP[ancestryId] || ancestryId;
-  if (typeof FEAT_DB === 'undefined') return;
-  const candidates = FEAT_DB.filter(f => f && f.category === 'ancestry' && f.feat_level === 1 && f.traits && f.traits.includes(traitName));
-  if (!candidates.length) return;
-  const overlay = document.getElementById('modal-overlay');
-  overlay.classList.remove('hidden');
-  modalType = 'feat-choice';
-  document.getElementById('modal-title').textContent = traitName + ' 1레벨 혈통 재주 선택';
-  const searchEl = document.getElementById('modal-search');
-  if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; searchEl.oninput = () => {
-    const q = searchEl.value.toLowerCase();
-    document.getElementById('modal-options').querySelectorAll('.opt-row').forEach(r => { r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none'; });
-  };}
-  const det = document.getElementById('modal-detail');
-  if (det) { det.style.display = ''; det.innerHTML = '<div class="modal-detail-empty">재주를 선택하면 상세 정보가 표시됩니다.</div>'; }
-  const listEl = document.querySelector('.modal-list');
-  if (listEl) { listEl.style.display = ''; listEl.style.width = ''; }
-  const closeBtn = document.querySelector('.modal-close');
-  const closeBtnM = document.getElementById('modal-close-m');
-  const footer = document.querySelector('.modal-footer');
-  if (closeBtn) closeBtn.style.display = 'none';
-  if (closeBtnM) closeBtnM.style.display = 'none';
-  if (footer) footer.style.display = 'none';
-  const container = document.getElementById('modal-options');
-  container.innerHTML = '';
-  candidates.forEach(cf => {
-    const row = document.createElement('div');
-    row.className = 'opt-row';
-    row.style.cursor = 'pointer';
-    row.innerHTML = `<span class="opt-row-icon">📄</span><span class="opt-row-name">${cf.name_ko}</span><span style="font-size:10px;color:var(--text2);margin-left:auto;">${cf.name_en}</span>`;
-    row.onclick = () => {
-      container.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
-      row.classList.add('selected');
-      if (typeof showItemDetail === 'function') showItemDetail(cf);
-      const detEl = document.getElementById('modal-detail');
-      if (detEl) {
-        const btn = document.createElement('button');
-        btn.textContent = '이 재주 선택';
-        btn.style.cssText = 'width:100%;margin-top:12px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;';
-        btn.onclick = () => {
-          const fullName = cf.name_ko + (cf.name_en ? ' (' + cf.name_en + ')' : '');
-          state.feats.ancestry.push({name: fullName, level: 1, _grantedBy: parentFeatName});
-          closeModal();
-          try { recalcAll(); } catch(e) { console.error(e); }
-          renderFeats();
-          save();
-        };
-        detEl.appendChild(btn);
-      }
-    };
-    container.appendChild(row);
-  });
 }
 
 // ── 재주 추가 시 선택 필요 여부 체크 ──
