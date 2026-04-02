@@ -691,7 +691,16 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'직사광선 10분 휴식 시 HP = 레벨 × CON 회복'}]
   },
   'Undaunted': {
-    effects: [{type:'display_note', text:'식물/자연환경에서 은신 +2 상황 보너스'}]
+    effects: [{type:'save_bonus', save:'will', value:1, bonus_type:'circumstance', condition:'감정 효과'}]
+  },
+  'Harmlessly Cute': {
+    effects: [{type:'grant_feat', feat:'뻔뻔한 요청 (Shameless Request)'}, {type:'display_note', text:'기만으로 주도권 굴릴 때 +1 상황 보너스'}]
+  },
+  'Leshy Lore': {
+    effects: [{type:'skill_trained', skill:'nature'}, {type:'skill_trained', skill:'stealth'}, {type:'grant_lore', name:'레쉬'}]
+  },
+  'Shadow of the Wilds': {
+    effects: [{type:'display_note', text:'도시 외 환경에서 항상 흔적 감추기 상태'}]
   },
   'Leshy Familiar': {
     effects: [{type:'display_note', text:'식물 특성 사역마 1마리 획득'}]

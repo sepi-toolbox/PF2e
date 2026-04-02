@@ -1857,7 +1857,13 @@ const FEAT_DB = [
 ,
   {name_ko:'씨앗 투사', name_en:'Seedpod', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'씨앗 투척 원거리 비무장 공격 (1d4 B, 사거리 30피트).', desc:'몸이 거의 끝없는 단단한 씨앗 꼬투리를 생산합니다. 사거리 30피트, <strong>1d4 둔기 피해</strong>의 씨앗 꼬투리(seedpod) 원거리 비무장 공격을 얻습니다. 치명타 시 덩굴이 터져 대상의 이동 속도에 다음 턴 시작까지 <strong>-10피트 상황 페널티</strong>. 치명 특성 효과는 추가되지 않습니다.'}
 ,
-  {name_ko:'태양 양분', name_en:'Solar Rejuvenation', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'직사광선에서 10분 휴식 시 HP = 레벨 × CON 회복.', desc:'낮 동안 야외에서 10분 쉬면, 건강 수정치 × 레벨 절반만큼 <strong>HP를 회복</strong>합니다. 상처 치료의 치유와 별도로 추가됩니다. 광합성에 의존하지 않는 레시는 유사하게 적합한 환경이 필요합니다(균류 레시는 어둡고 습한 환경과 썩은 식물 더미).'}
+  {name_ko:'무해하게 귀여운', name_en:'Harmlessly Cute', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'뻔뻔한 요청을 보너스 재주로 획득. 기만으로 주도권 굴릴 때 +1 상황 보너스.', desc:'크기와 태도가 다른 이에게 해가 없다고 확신시키기 쉽게 만듭니다. <strong>뻔뻔한 요청(Shameless Request)</strong> 기술 재주를 보너스 재주로 얻습니다. 추가로, 기만으로 주도권 굴릴 때 <strong>+1 상황 보너스</strong>.'}
+,
+  {name_ko:'레쉬 지식', name_en:'Leshy Lore', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'자연학과 은신에 숙련. 레쉬 지식(Lore) 획득.', desc:'<strong>자연학과 은신에 숙련</strong>. 이미 숙련이면 다른 기술. <strong>레쉬 지식</strong>에 대한 추가 지식 재주를 얻습니다.'}
+,
+  {name_ko:'야생의 그림자', name_en:'Shadow of the Wilds', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'도시 외 환경에서 항상 흔적 감추기 상태로 간주.', desc:'야생 지역에서 당신의 통과를 알아채기 어렵습니다. 도시 환경이 아닌 한, 탐험 모드에서 다른 활동을 선택했어도 항상 <strong>흔적 감추기(Covering Tracks)</strong> 상태로 간주됩니다.'}
+,
+  {name_ko:'태양 양분', name_en:'Solar Rejuvenation', feat_level:9, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'직사광선에서 10분 휴식 시 HP = 레벨 × CON 회복.', desc:'낮 동안 야외에서 10분 쉬면, 건강 수정치 × 레벨 절반만큼 <strong>HP를 회복</strong>합니다. 상처 치료의 치유와 별도로 추가됩니다. 광합성에 의존하지 않는 레시는 유사하게 적합한 환경이 필요합니다(균류 레시는 어둡고 습한 환경과 썩은 식물 더미).'}
 ,
   {name_ko:'굴하지 않는', name_en:'Undaunted', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'식물/자연환경에서 은신 판정에 +2 상황 보너스.', desc:'긴 존재를 통해 많은 도전을 견뎌왔습니다. 감정 효과에 대한 내성에 <strong>+1 상황 보너스</strong>. 감정 효과에 대한 내성에서 <strong>성공을 굴리면 대성공</strong>.'}
 ,
