@@ -194,7 +194,7 @@ const SPELL_DB = [
     summary: "2d6 화염 피해. 기본 반사. 강화(+1): +2d6.",
     desc: "<strong>2d6 화염 피해</strong>. 기본 반사. <strong>강화(+1):</strong> +2d6." },
 
-  { name_ko: "매혹", name_en: "Charm", rank: 1, is_cantrip: false, is_focus: false,
+  { name_ko: "매력", name_en: "Charm", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult", "primal"], actions: "2행동", traits: ["감정", "무력화", "조작", "정신", "은밀"],
     summary: "최근 위협/적대 시 의지에 +4 상황 보너스. 적대 행동 시 종료.대성공: 영향 없음+인지. 성공: 영향 없음. 실패: 태도 우호적, 적대 불가. 대실패: 태도 도움, 적대 불가.강화(4랭크): 다음 일일 준비까지....",
     desc: "최근 위협/적대 시 의지에 +4 상황 보너스. 적대 행동 시 종료.<br>" },
@@ -364,12 +364,12 @@ const SPELL_DB = [
     summary: "돌 원뿔을 발사하여 생물을 때립니다. 2d4 둔기 피해(반사). 실패 시 험지(1라운드)가 됨.강화(+1): 피해 +2d4.",
     desc: "<strong>특성:</strong> 대지, 집중, 조작 | <strong>전통:</strong> 비전, 원시<br><strong>영역:</strong> 15피트 원뿔 | <strong>방어:</strong> 반사<br>돌 원뿔을 발사하여 생물을 때립니다. <strong>2d4 둔기 피해</strong>(반사). 실패 시 <strong>험지(1라운드)</strong>가 됨.<br><strong>강화(+1):</strong> 피해 +2d4.</div>" },
 
-  { name_ko: "문자 몸", name_en: "Runic Body", rank: 1, is_cantrip: false, is_focus: false,
+  { name_ko: "룬 육체", name_en: "Runic Body", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "divine", "occult", "primal"], actions: "1행동", traits: ["조작"],
     summary: "생물의 비무장 공격에 일시적으로 마법 룬을 적용합니다. 비무장 공격이 +1 무기 강화 룬이 새겨진 것처럼 +1 아이템 보너스를 얻습니다.강화(4랭크): +1 타격 룬 + 속성 룬 1개 효과 추가. 강화(+2 이후):...",
     desc: "생물의 비무장 공격에 일시적으로 마법 룬을 적용합니다. 비무장 공격이 +1 무기 강화 룬이 새겨진 것처럼 <strong>+1 아이템 보너스</strong>를 얻습니다.<br>" },
 
-  { name_ko: "문자 무기", name_en: "Runic Weapon", rank: 1, is_cantrip: false, is_focus: false,
+  { name_ko: "룬 무기", name_en: "Runic Weapon", rank: 1, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "divine", "occult", "primal"], actions: "1행동", traits: ["조작"],
     summary: "무기에 일시적으로 마법 룬을 적용합니다. 무기가 +1 무기 강화 룬이 새겨진 것처럼 +1 아이템 보너스를 얻습니다. 이미 룬이 있으면 효과 없음.강화(4랭크): +1 타격 룬 + 속성 룬 1개 추가.",
     desc: "무기에 일시적으로 마법 룬을 적용합니다. 무기가 +1 무기 강화 룬이 새겨진 것처럼 <strong>+1 아이템 보너스</strong>를 얻습니다. 이미 룬이 있으면 효과 없음.<br>" },
@@ -1029,7 +1029,7 @@ const SPELL_DB = [
     summary: "30피트 이내의 모든 생물과 텔레파시로 소통합니다. 같은 언어를 공유하지 않아도 의미가 전달됩니다.강화(6랭크): 120피트로 사거리 증가. 강화(8랭크): 모든 거리(같은 차원 내).",
     desc: "30피트 이내의 모든 생물과 텔레파시로 소통합니다. 같은 언어를 공유하지 않아도 의미가 전달됩니다.<br>" },
 
-  { name_ko: "순간이동", name_en: "Translocate", rank: 4, is_cantrip: false, is_focus: false,
+  { name_ko: "위치 전환", name_en: "Translocate", rank: 4, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["조작", "순간이동"],
     summary: "중간 거리를 순간이동합니다. 최대 120피트까지 볼 수 있는 빈 칸으로 순간이동합니다.강화(5랭크): 사거리 1마일(볼 수 있거나 명확히 지정 가능한 위치).",
     desc: "중간 거리를 순간이동합니다. 최대 <strong>120피트</strong>까지 볼 수 있는 빈 칸으로 순간이동합니다.<br>" },
@@ -1334,7 +1334,7 @@ const SPELL_DB = [
     summary: "생물이 당신에게 접근하지 못하게 합니다. 영역에 들어오려는 생물이 의지 내성 실패 시 자기 턴에 더 가까이 이동할 수 없습니다. 내성 성공 시 1라운드만 통과 가능(다음 턴에 다시 시도 필요).",
     desc: "생물이 당신에게 접근하지 못하게 합니다. 영역에 들어오려는 생물이 의지 내성 실패 시 자기 턴에 더 가까이 이동할 수 없습니다. 내성 성공 시 1라운드만 통과 가능(다음 턴에 다시 시도 필요)." },
 
-  { name_ko: "투시", name_en: "Scrying", rank: 6, is_cantrip: false, is_focus: false,
+  { name_ko: "원격 감시", name_en: "Scrying", rank: 6, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "occult"], actions: "2행동", traits: ["비일반", "조작", "투시"],
     summary: "선택한 생물을 감시합니다. 대상에 대해 아는 것이 많을수록 내성에 페널티. 실패 시 보이지 않는 마법 감지기를 대상 옆에 만들어 보고 들을 수 있습니다. 대상이 내성에 성공하면 1주간 면역.",
     desc: "선택한 생물을 감시합니다. 대상에 대해 아는 것이 많을수록 내성에 페널티. 실패 시 보이지 않는 마법 감지기를 대상 옆에 만들어 보고 들을 수 있습니다. 대상이 내성에 성공하면 1주간 면역." },
@@ -1579,7 +1579,7 @@ const SPELL_DB = [
     summary: "즉시 여러 생물을 죽입니다. 영역 내 생물이 인내 내성 시도. 14레벨 이하 생물이 실패하면 즉사(죽음 효과). 더 높은 레벨은 100 피해. 대실패 시 레벨에 관계없이 즉사.강화(10랭크): 영향받는 최대 레벨 1...",
     desc: "즉시 여러 생물을 죽입니다. 영역 내 생물이 인내 내성 시도. 14레벨 이하 생물이 실패하면 <strong>즉사</strong>(죽음 효과). 더 높은 레벨은 <strong>100 피해</strong>. 대실패 시 레벨에 관계없이 즉사.<br>" },
 
-  { name_ko: "변형", name_en: "Metamorphosis", rank: 9, is_cantrip: false, is_focus: false,
+  { name_ko: "대변신", name_en: "Metamorphosis", rank: 9, is_cantrip: false, is_focus: false,
     traditions: ["arcane", "primal"], actions: "2행동", traits: ["조작", "변이"],
     summary: "변환 마법의 달인으로서 형태 속에 또 다른 형태를 숨깁니다. 주문 목록에 있거나 8랭크 이하로 준비 가능한 모든 변신형(polymorph) 주문이 부여하는 형태로 변신할 수 있습니다(8랭크 이하 상향된 버전 포함)....",
     desc: "<strong>특성:</strong> 집중, 조작, 변이 | <strong>전통:</strong> 비전, 원시<br><strong>지속 시간:</strong> 1분<br>변환 마법의 달인으로서 형태 속에 또 다른 형태를 숨깁니다. 주문 목록에 있거나 8랭크 이하로 준비 가능한 모든 변신형(polymorph) 주문이 부여하는 형태로 변신할 수 있습니다(8랭크 이하 상향된 버전 포함). 해당 형태에서 일반적으로 얻는 임시 HP 대신 <strong>임시 HP 40</strong>을 얻습니다.</div>" },
@@ -1940,7 +1940,7 @@ const SPELL_DB = [
     summary: "실패한 내성 굴림을 다시 굴립니다. 새 결과를 사용해야 합니다.",
     desc: "실패한 내성 굴림을 <strong>다시 굴립니다</strong>. 새 결과를 사용해야 합니다." },
 
-  { name_ko: "마법 독", name_en: "Magic Hide", rank: 1, is_cantrip: false, is_focus: true,
+  { name_ko: "마법 가죽", name_en: "Magic Hide", rank: 1, is_cantrip: false, is_focus: true,
     traditions: ["primal"], actions: "1행동", traits: ["레인저"],
     summary: "동물 동료의 가죽을 마법으로 강화합니다. 동물 동료가 AC에 +2 상태 보너스.",
     desc: "동물 동료의 가죽을 마법으로 강화합니다. 동물 동료가 AC에 <strong>+2 상태 보너스</strong>." },
@@ -1960,7 +1960,7 @@ const SPELL_DB = [
     summary: "집중된 달빛 광선. 1d6 화염 피해(반사). 대상이 변이(polymorph) 상태면 상쇄를 시도합니다.강화(+1): 피해 +1d6.",
     desc: "집중된 달빛 광선. <strong>1d6 화염 피해</strong>(반사). 대상이 변이(polymorph) 상태면 상쇄를 시도합니다.<br><strong>강화(+1):</strong> 피해 +1d6." },
 
-  { name_ko: "신오컬트 등대", name_en: "Mystic Beacon", rank: 4, is_cantrip: false, is_focus: true,
+  { name_ko: "신비의 등대", name_en: "Mystic Beacon", rank: 4, is_cantrip: false, is_focus: true,
     traditions: [], actions: "1행동", traits: ["클레릭", "조작"],
     summary: "대상이 다음에 시전하는 피해/치유 주문이 1랭크 높은 것처럼 피해/치유를 줍니다(초기 피해/치유에만 적용). 주문 시전 후 종료.",
     desc: "대상이 다음에 시전하는 피해/치유 주문이 <strong>1랭크 높은 것처럼</strong> 피해/치유를 줍니다(초기 피해/치유에만 적용). 주문 시전 후 종료." },
@@ -2060,7 +2060,7 @@ const SPELL_DB = [
     summary: "공허 에너지로 대상의 몸을 뒤섞습니다. 1d4 공허 피해. 인내 실패 시 서투름(clumsy) 1(1라운드). 대실패 시 서투름 2.강화(+1): 피해 +1d4.",
     desc: "공허 에너지로 대상의 몸을 뒤섞습니다. <strong>1d4 공허 피해</strong>. 인내 실패 시 <strong>서투름(clumsy) 1</strong>(1라운드). 대실패 시 서투름 2.<br><strong>강화(+1):</strong> 피해 +1d4." },
 
-  { name_ko: "변형", name_en: "Shifting Form", rank: 4, is_cantrip: false, is_focus: true,
+  { name_ko: "형태 변환", name_en: "Shifting Form", rank: 4, is_cantrip: false, is_focus: true,
     traditions: [], actions: "2행동", traits: ["클레릭", "변형"],
     summary: "형태를 변화시킵니다. 다음 중 하나를 선택: 등반 속도 20피트, 수영 속도 20피트, 암시야, 도달 +5피트 비무장 공격.강화(6랭크): 2가지 선택.",
     desc: "형태를 변화시킵니다. 다음 중 하나를 선택: 등반 속도 20피트, 수영 속도 20피트, 암시야, 도달 +5피트 비무장 공격.<br><strong>강화(6랭크):</strong> 2가지 선택." },
@@ -2100,7 +2100,7 @@ const SPELL_DB = [
     summary: "질병/독 고통이나 지속 독 피해의 진행을 서두르게 합니다. 대상이 즉시 다음 내성 굴림을 시도합니다. 내성에 +2 또는 -2 상태 보너스/페널티를 선택하여 부여할 수 있습니다.",
     desc: "질병/독 고통이나 지속 독 피해의 진행을 서두르게 합니다. 대상이 즉시 다음 내성 굴림을 시도합니다. 내성에 +2 또는 -2 상태 보너스/페널티를 선택하여 부여할 수 있습니다." },
 
-  { name_ko: "폭풍 군주", name_en: "Tempest Surge", rank: 1, is_cantrip: false, is_focus: true,
+  { name_ko: "폭풍 쇄도", name_en: "Tempest Surge", rank: 1, is_cantrip: false, is_focus: true,
     traditions: ["primal"], actions: "2행동", traits: ["공기", "드루이드", "전기", "조작"],
     summary: "번개를 소환하여 적에게 1d12 전기 피해. 실패 시 피해+서투름(clumsy) 2(1라운드). 대실패 시 2배 피해+서투름 2.강화(+1): 피해 +1d12.",
     desc: "번개를 소환하여 적에게 <strong>1d12 전기 피해</strong>. 실패 시 피해+<strong>서투름(clumsy) 2</strong>(1라운드). 대실패 시 2배 피해+서투름 2.<br><strong>강화(+1):</strong> 피해 +1d12." },

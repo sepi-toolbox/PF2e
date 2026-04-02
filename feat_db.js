@@ -99,7 +99,7 @@ const FEAT_DB = [
 ,
   {name_ko:"상상의 벽 집", name_en:"House of Imaginary Walls", feat_level:10, prerequisites:"", traits:["바드"], category:"bard", summary:"상상의 벽 집(house of imaginary walls) 합주 캔트립을 배워, 다른 이가 진짜라고 믿는 상상의 장벽을 세웁니다.", desc:'<em>상상의 벽 집(house of imaginary walls)</em> 합주 캔트립(370페이지)을 배워, 다른 이가 진짜라고 믿는 상상의 장벽을 세웁니다.' }
 ,
-  {name_ko:"뱀 물기의 송가", name_en:"Ode to Ouroboros", feat_level:10, prerequisites:"", traits:["바드"], category:"bard", summary:"뱀 물기의 송가(ode to ouroboros) 합주 주문을 배워, 아군을 일시적으로 죽음에서 구합니다.", desc:'<em>뱀 물기의 송가(ode to ouroboros)</em> 합주 주문(371페이지)을 배워, 아군을 일시적으로 죽음에서 구합니다.' }
+  {name_ko:"우로보로스의 송가", name_en:"Ode to Ouroboros", feat_level:10, prerequisites:"", traits:["바드"], category:"bard", summary:"우로보로스의 송가(ode to ouroboros) 합주 주문을 배워, 아군을 일시적으로 죽음에서 구합니다.", desc:'<em>우로보로스의 송가(ode to ouroboros)</em> 합주 주문(371페이지)을 배워, 아군을 일시적으로 죽음에서 구합니다.' }
 ,
   {name_ko:"빠른 시전", name_en:"Quickened Casting", feat_level:10, prerequisites:"", traits:["바드", "집중", "주문변형"], category:"bard", summary:"빈도: 하루 1회. 다음 행동이 캔트립이거나 가장 높은 슬롯보다 2랭크 이상 낮은 주문이면, 시전 행동 수 1 감소(최소 1).", desc:'<strong>빈도:</strong> 하루 1회. 다음 행동이 캔트립이거나 가장 높은 슬롯보다 2랭크 이상 낮은 주문이면, 시전 <strong>행동 수 1 감소</strong>(최소 1).' }
 ,
@@ -159,15 +159,15 @@ const FEAT_DB = [
 ,
   {name_ko:"궁극의 박학", name_en:"Ultimate Polymath", feat_level:20, prerequisites:"박학다식 뮤즈", traits:["바드"], category:"bard", summary:"모든 주문을 유연하게 시전하여 현기증 나는 가능성의 배열을 부여합니다. 레퍼토리의 모든 주문이 시그니처 주문이 됩니다.", desc:'<strong>전제조건:</strong> 박학다식 뮤즈<br>모든 주문을 유연하게 시전하여 현기증 나는 가능성의 배열을 부여합니다. 레퍼토리의 <strong>모든 주문이 시그니처 주문</strong>이 됩니다.' }
 ,
-  {name_ko:"죽음에 대한 경고", name_en:"Deadly Simplicity", feat_level:1, prerequisites:"", traits:["클레릭"], category:"cleric", summary:"단순 무기에 대한 신격의 교리가 당신의 공격을 치명적으로 만듭니다. 신격의 선호 무기가 비무장 공격이거나 피해 주사위가 d6 이하인 단순 무기이면, 그 공격이나 무기의 피해 주사위가 한 단계 증가합니다(d4→d6, d6→d8 등).", desc:'단순 무기에 대한 신격의 교리가 당신의 공격을 치명적으로 만듭니다. 신격의 선호 무기가 비무장 공격이거나 피해 주사위가 d6 이하인 단순 무기이면, 그 공격이나 무기의 <strong>피해 주사위가 한 단계 증가</strong>합니다(d4→d6, d6→d8 등).' }
+  {name_ko:"치명적 단순함", name_en:"Deadly Simplicity", feat_level:1, prerequisites:"", traits:["클레릭"], category:"cleric", summary:"단순 무기에 대한 신격의 교리가 당신의 공격을 치명적으로 만듭니다. 신격의 선호 무기가 비무장 공격이거나 피해 주사위가 d6 이하인 단순 무기이면, 그 공격이나 무기의 피해 주사위가 한 단계 증가합니다(d4→d6, d6→d8 등).", desc:'단순 무기에 대한 신격의 교리가 당신의 공격을 치명적으로 만듭니다. 신격의 선호 무기가 비무장 공격이거나 피해 주사위가 d6 이하인 단순 무기이면, 그 공격이나 무기의 <strong>피해 주사위가 한 단계 증가</strong>합니다(d4→d6, d6→d8 등).' }
 ,
   {name_ko:"신성 응징", name_en:"Divine Castigation", feat_level:1, prerequisites:"", traits:["클레릭"], category:"cleric", summary:"신앙의 힘으로 적을 응징합니다. 당신에게 신성(holy) 또는 불경(unholy) 특성이 있을 때, 해로움이나 치유로 반대 특성의 생물에게 피해를 줄 때 추가 영혼 피해를 입힙니다. 추가 피해는 주문 랭크과 같습니다.", desc:'신앙의 힘으로 적을 응징합니다. 당신에게 신성(holy) 또는 불경(unholy) 특성이 있을 때, <em>해로움</em>이나 <em>치유</em>로 반대 특성의 생물에게 피해를 줄 때 추가 <strong>영혼 피해</strong>를 입힙니다. 추가 피해는 주문 랭크과 같습니다.' }
 ,
   {name_ko:"영역 입문", name_en:"Domain Initiate", feat_level:1, prerequisites:"", traits:["클레릭"], category:"cleric", summary:"신격의 영역 중 하나의 초기 영역 주문을 집중 주문으로 얻습니다. 집중 풀에 집중 포인트 1점. 특수: 여러 번 선택 가능, 매번 다른 영역.", desc:'신격의 영역 중 하나의 초기 영역 주문을 집중 주문으로 얻습니다. 집중 풀에 집중 포인트 1점. <strong>특수:</strong> 여러 번 선택 가능, 매번 다른 영역.' }
 ,
-  {name_ko:"해로운 손", name_en:"Harming Hands", feat_level:1, prerequisites:"해로운 글꼴. 공허 에너지의 사악한 힘이 성장합니다. 해로움 시전 시 d8 대신 d10을 굴립니다.", traits:["클레릭"], category:"cleric", summary:"공허 에너지의 사악한 힘이 성장합니다.", desc:'<strong>전제조건:</strong> 해로운 글꼴. 공허 에너지의 사악한 힘이 성장합니다. <em>해로움</em> 시전 시 d8 대신 <strong>d10</strong>을 굴립니다.' }
+  {name_ko:"해로운 손", name_en:"Harming Hands", feat_level:1, prerequisites:"해로운 원천. 공허 에너지의 사악한 힘이 성장합니다. 해로움 시전 시 d8 대신 d10을 굴립니다.", traits:["클레릭"], category:"cleric", summary:"공허 에너지의 사악한 힘이 성장합니다.", desc:'<strong>전제조건:</strong> 해로운 원천. 공허 에너지의 사악한 힘이 성장합니다. <em>해로움</em> 시전 시 d8 대신 <strong>d10</strong>을 굴립니다.' }
 ,
-  {name_ko:"치유의 손", name_en:"Healing Hands", feat_level:1, prerequisites:"치유 글꼴. 활력이 더 선명하고 회복적입니다. 치유 시전 시 d8 대신 d10을 굴립니다.", traits:["클레릭"], category:"cleric", summary:"활력이 더 선명하고 회복적입니다.", desc:'<strong>전제조건:</strong> 치유 글꼴. 활력이 더 선명하고 회복적입니다. <em>치유</em> 시전 시 d8 대신 <strong>d10</strong>을 굴립니다.' }
+  {name_ko:"치유의 손", name_en:"Healing Hands", feat_level:1, prerequisites:"치유 원천. 활력이 더 선명하고 회복적입니다. 치유 시전 시 d8 대신 d10을 굴립니다.", traits:["클레릭"], category:"cleric", summary:"활력이 더 선명하고 회복적입니다.", desc:'<strong>전제조건:</strong> 치유 원천. 활력이 더 선명하고 회복적입니다. <em>치유</em> 시전 시 d8 대신 <strong>d10</strong>을 굴립니다.' }
 ,
   {name_ko:"회피 예감", name_en:"Premonition of Avoidance", feat_level:1, prerequisites:"", traits:["클레릭", "신성", "예측"], category:"cleric", summary:"유발 조건: 위험에 대한 내성 굴림을 하려 합니다.", desc:'<strong>유발 조건:</strong> 위험에 대한 내성 굴림을 하려 합니다. 신격이 순간의 선견을 부여합니다. 유발 내성에 <strong>+2 상황 보너스</strong>.' }
 ,
@@ -185,7 +185,7 @@ const FEAT_DB = [
 ,
   {name_ko:"생명 흡수", name_en:"Sap Life", feat_level:2, prerequisites:"", traits:["클레릭", "치유"], category:"cleric", summary:"적의 생명력을 끌어냅니다. 해로움으로 살아있는 생물 최소 1명에게 피해를 줄 때, 주문 랭크만큼 HP를 회복합니다(자신이 살아있는 생물이 아니면 무효).", desc:'적의 생명력을 끌어냅니다. <em>해로움</em>으로 살아있는 생물 최소 1명에게 피해를 줄 때, <strong>주문 랭크만큼 HP를 회복</strong>합니다(자신이 살아있는 생물이 아니면 무효).' }
 ,
-  {name_ko:"다재다능한 글꼴", name_en:"Versatile Font", feat_level:2, prerequisites:"해로운/치유 글꼴, 신격이 둘 다 허용. 글꼴 슬롯에 해로움이나 치유 어느 쪽이든 준비 가능.", traits:["클레릭"], category:"cleric", summary:"글꼴 슬롯에 해로움이나 치유 어느 쪽이든 준비 가능.", desc:'<strong>전제조건:</strong> 해로운/치유 글꼴, 신격이 둘 다 허용. 글꼴 슬롯에 <em>해로움</em>이나 <em>치유</em> 어느 쪽이든 준비 가능.' }
+  {name_ko:"다재다능한 원천", name_en:"Versatile Font", feat_level:2, prerequisites:"해로운/치유 원천, 신격이 둘 다 허용. 원천 슬롯에 해로움이나 치유 어느 쪽이든 준비 가능.", traits:["클레릭"], category:"cleric", summary:"원천 슬롯에 해로움이나 치유 어느 쪽이든 준비 가능.", desc:'<strong>전제조건:</strong> 해로운/치유 원천, 신격이 둘 다 허용. 원천 슬롯에 <em>해로움</em>이나 <em>치유</em> 어느 쪽이든 준비 가능.' }
 ,
   {name_ko:"전투 사제의 갑옷", name_en:"Warpriest's Armor", feat_level:2, prerequisites:"전투 사제 교의. 평갑에 숙련. 평갑 전문가 이상을 얻을 때 평갑에도 적용. 2 부피 이상 갑옷을 1 부피 가벼운 것처럼 취급(최소 1).", traits:["클레릭"], category:"cleric", summary:"평갑에 숙련. 평갑 전문가 이상을 얻을 때 평갑에도 적용. 2 부피 이상 갑옷을 1 부피 가벼운 것처럼 취급(최소 1).", desc:'전투의 위험 속에서 무기와 주문 모두로 싸웁니다.' }
 ,
@@ -201,7 +201,7 @@ const FEAT_DB = [
 ,
   {name_ko:"회복의 타격", name_en:"Restorative Strike", feat_level:4, prerequisites:"", traits:["클레릭"], category:"cleric", summary:"요구사항: 시전 가능한 해로움 또는 치유가 있어야 합니다.", desc:'<strong>요구사항:</strong> 시전 가능한 <em>해로움</em> 또는 <em>치유</em>가 있어야 합니다. 1행동 <em>해로움</em>/<em>치유</em>를 시전하여 자신을 치유하고(조작 특성 없음), 근접 타격을 합니다. 신격 선호 무기로 하면 <strong>공격에 +1 상태 보너스</strong>. 명중 시 사거리 밖이라도 인접한 적에 인접한 동의하는 생물에게 같은 양의 치유를 줄 수 있습니다.' }
 ,
-  {name_ko:"신성한 땅", name_en:"Sacred Ground", feat_level:4, prerequisites:"해로운/치유 글꼴. 빈도: 10분에 1회. 1분간 기도하여 30피트 폭발 내에 신격의 영역의 그림자를 부릅니다(10분 지속). 영역 내에서 10분 전체를 보낸 생물은 레벨만큼 HP를 회복합니다.", traits:["클레릭", "봉헌", "신성", "탐험"], category:"cleric", summary:"1분간 기도하여 30피트 폭발 내에 신격의 영역의 그림자를 부릅니다(10분 지속).", desc:'<strong>전제조건:</strong> 해로운/치유 글꼴. <strong>빈도:</strong> 10분에 1회. 1분간 기도하여 30피트 폭발 내에 신격의 영역의 그림자를 부릅니다(10분 지속). 영역 내에서 10분 전체를 보낸 생물은 <strong>레벨만큼 HP를 회복</strong>합니다.' }
+  {name_ko:"신성한 땅", name_en:"Sacred Ground", feat_level:4, prerequisites:"해로운/치유 원천. 빈도: 10분에 1회. 1분간 기도하여 30피트 폭발 내에 신격의 영역의 그림자를 부릅니다(10분 지속). 영역 내에서 10분 전체를 보낸 생물은 레벨만큼 HP를 회복합니다.", traits:["클레릭", "봉헌", "신성", "탐험"], category:"cleric", summary:"1분간 기도하여 30피트 폭발 내에 신격의 영역의 그림자를 부릅니다(10분 지속).", desc:'<strong>전제조건:</strong> 해로운/치유 원천. <strong>빈도:</strong> 10분에 1회. 1분간 기도하여 30피트 폭발 내에 신격의 영역의 그림자를 부릅니다(10분 지속). 영역 내에서 10분 전체를 보낸 생물은 <strong>레벨만큼 HP를 회복</strong>합니다.' }
 ,
   {name_ko:"타도", name_en:"Cast Down", feat_level:6, prerequisites:"", traits:["클레릭", "집중", "주문변형"], category:"cleric", summary:"신앙의 힘으로 적을 쓰러뜨립니다. 다음 행동이 단일 생물에게 피해를 주는 해로움/치유 시전이면, 피해를 받은 대상은 엎드려집니다(prone). 대실패 시 1분간 이동 속도 -10피트도 추가.", desc:'신앙의 힘으로 적을 쓰러뜨립니다. 다음 행동이 단일 생물에게 피해를 주는 <em>해로움</em>/<em>치유</em> 시전이면, 피해를 받은 대상은 <strong>엎드려집니다(prone)</strong>. 대실패 시 1분간 <strong>이동 속도 -10피트</strong>도 추가.' }
 ,
@@ -223,9 +223,9 @@ const FEAT_DB = [
 ,
   {name_ko:"순교자", name_en:"Martyr", feat_level:8, prerequisites:"", traits:["클레릭", "주문변형"], category:"cleric", summary:"동료를 지원하기 위해 극단적 행동을 합니다. 다음 행동이 단일 아군에게 HP를 회복하는 해로움/치유 시전이면, 자신의 활력도 함께 전달합니다. 주문 랭크당 1d8 HP를 잃고(줄이거나 경감 불가), 아군이 같은 양만큼 추가 HP를 회복합니다.", desc:'동료를 지원하기 위해 극단적 행동을 합니다. 다음 행동이 단일 아군에게 HP를 회복하는 <em>해로움</em>/<em>치유</em> 시전이면, 자신의 활력도 함께 전달합니다. 주문 랭크당 <strong>1d8 HP를 잃고</strong>(줄이거나 경감 불가), 아군이 같은 양만큼 <strong>추가 HP를 회복</strong>합니다.' }
 ,
-  {name_ko:"회복 채널", name_en:"Restorative Channel", feat_level:8, prerequisites:"치유 글꼴. 신성한 은총으로 상태를 제거합니다. 치유 글꼴의 추가 슬롯에 준비된 치유 1개를 희생하여 대신 다음 주문 중 하나를 시전: 고통 정화, 맑은 마음, 건강한 몸, 확실한 발놀림. 희생한 주문과 같은 랭크으로 고양.", traits:["클레릭"], category:"cleric", summary:"신성한 은총으로 상태를 제거합니다.", desc:'<strong>전제조건:</strong> 치유 글꼴. 신성한 은총으로 상태를 제거합니다. 치유 글꼴의 추가 슬롯에 준비된 <em>치유</em> 1개를 희생하여 대신 다음 주문 중 하나를 시전: <em>고통 정화, 맑은 마음, 건강한 몸, 확실한 발놀림</em>. 희생한 주문과 같은 랭크로 고양.' }
+  {name_ko:"회복 채널", name_en:"Restorative Channel", feat_level:8, prerequisites:"치유 원천. 신성한 은총으로 상태를 제거합니다. 치유 원천의 추가 슬롯에 준비된 치유 1개를 희생하여 대신 다음 주문 중 하나를 시전: 고통 정화, 맑은 마음, 건강한 몸, 확실한 발놀림. 희생한 주문과 같은 랭크으로 고양.", traits:["클레릭"], category:"cleric", summary:"신성한 은총으로 상태를 제거합니다.", desc:'<strong>전제조건:</strong> 치유 원천. 신성한 은총으로 상태를 제거합니다. 치유 원천의 추가 슬롯에 준비된 <em>치유</em> 1개를 희생하여 대신 다음 주문 중 하나를 시전: <em>고통 정화, 맑은 마음, 건강한 몸, 확실한 발놀림</em>. 희생한 주문과 같은 랭크로 고양.' }
 ,
-  {name_ko:"무장 성별화", name_en:"Sanctify Armament", feat_level:8, prerequisites:"신성 또는 불경 특성. 무기를 만져 1라운드간 신성/불경 특성을 부여하고, 반대 특성 생물에 추가 2d6 영혼 피해.", traits:["클레릭", "신성"], category:"cleric", summary:"무기를 만져 1라운드간 신성/불경 특성을 부여하고, 반대 특성 생물에 추가 2d6 영혼 피해.", desc:'<strong>전제조건:</strong> 신성 또는 불경 특성. 무기를 만져 1라운드간 <strong>신성/불경 특성</strong>을 부여하고, 반대 특성 생물에 <strong>추가 2d6 영혼 피해</strong>.' }
+  {name_ko:"무장 성화", name_en:"Sanctify Armament", feat_level:8, prerequisites:"신성 또는 불경 특성. 무기를 만져 1라운드간 신성/불경 특성을 부여하고, 반대 특성 생물에 추가 2d6 영혼 피해.", traits:["클레릭", "신성"], category:"cleric", summary:"무기를 만져 1라운드간 신성/불경 특성을 부여하고, 반대 특성 생물에 추가 2d6 영혼 피해.", desc:'<strong>전제조건:</strong> 신성 또는 불경 특성. 무기를 만져 1라운드간 <strong>신성/불경 특성</strong>을 부여하고, 반대 특성 생물에 <strong>추가 2d6 영혼 피해</strong>.' }
 ,
   {name_ko:"솟아오르는 집중", name_en:"Surging Focus", feat_level:8, prerequisites:"", traits:["클레릭"], category:"cleric", summary:"빈도: 하루 1회. 유발 조건: 볼 수 있는 아군이 HP 0으로 떨어집니다. 정의로운 분노의 급류로 집중 포인트 1점을 즉시 회복합니다.", desc:'<strong>빈도:</strong> 하루 1회. <strong>유발 조건:</strong> 볼 수 있는 아군이 HP 0으로 떨어집니다. 정의로운 분노의 급류로 <strong>집중 포인트 1점을 즉시 회복</strong>합니다.' }
 ,
@@ -235,7 +235,7 @@ const FEAT_DB = [
 ,
   {name_ko:"응징 무기", name_en:"Castigating Weapon", feat_level:10, prerequisites:"신성 응징. 신성 응징으로 영혼 피해를 준 후 턴 종료까지 무기/비무장 타격이 신성/불경 특성을 얻고 추가 영혼 피해(해로움/치유의 랭크만큼).", traits:["클레릭"], category:"cleric", summary:"신성 응징으로 영혼 피해를 준 후 턴 종료까지 무기/비무장 타격이 신성/불경 특성을 얻고 추가 영혼 피해(해로움/치유의 랭크만큼).", desc:'<strong>전제조건:</strong> 신성 응징. 신성 응징으로 영혼 피해를 준 후 턴 종료까지 무기/비무장 타격이 신성/불경 특성을 얻고 <strong>추가 영혼 피해</strong>(해로움/치유의 랭크만큼).' }
 ,
-  {name_ko:"영웅적 회복", name_en:"Heroic Recovery", feat_level:10, prerequisites:"치유 글꼴. 다음 행동이 단일 살아있는 생물 대상 치유이고 HP를 회복하면, 대상이 다음 턴 종료까지: 이동 속도 +5피트, 공격 +1 상태 보너스, 피해 +1 상태 보너스. 엎드려있으면 즉시 반응 없이 일어남.", traits:["클레릭", "집중", "주문변형"], category:"cleric", summary:"다음 행동이 단일 살아있는 생물 대상 치유이고 HP를 회복하면, 대상이 다음 턴 종료까지: 이동 속도 +5피트, 공격 +1 상태 보너스, 피해 +1 상태 보너스.", desc:'<strong>전제조건:</strong> 치유 글꼴. 다음 행동이 단일 살아있는 생물 대상 <em>치유</em>이고 HP를 회복하면, 대상이 다음 턴 종료까지: 이동 속도 <strong>+5피트</strong>, 공격 <strong>+1 상태 보너스</strong>, 피해 <strong>+1 상태 보너스</strong>. 엎드려있으면 즉시 <strong>반응 없이 일어남</strong>.' }
+  {name_ko:"영웅적 회복", name_en:"Heroic Recovery", feat_level:10, prerequisites:"치유 원천. 다음 행동이 단일 살아있는 생물 대상 치유이고 HP를 회복하면, 대상이 다음 턴 종료까지: 이동 속도 +5피트, 공격 +1 상태 보너스, 피해 +1 상태 보너스. 엎드려있으면 즉시 반응 없이 일어남.", traits:["클레릭", "집중", "주문변형"], category:"cleric", summary:"다음 행동이 단일 살아있는 생물 대상 치유이고 HP를 회복하면, 대상이 다음 턴 종료까지: 이동 속도 +5피트, 공격 +1 상태 보너스, 피해 +1 상태 보너스.", desc:'<strong>전제조건:</strong> 치유 원천. 다음 행동이 단일 살아있는 생물 대상 <em>치유</em>이고 HP를 회복하면, 대상이 다음 턴 종료까지: 이동 속도 <strong>+5피트</strong>, 공격 <strong>+1 상태 보너스</strong>, 피해 <strong>+1 상태 보너스</strong>. 엎드려있으면 즉시 <strong>반응 없이 일어남</strong>.' }
 ,
   {name_ko:"전쟁의 보충", name_en:"Replenishment of War", feat_level:10, prerequisites:"신격 선호 무기 전문가. 신격 선호 무기로 생물에 피해를 줄 때 레벨 절반만큼 임시 HP(치명타 시 레벨만큼). 다음 턴 시작까지 지속.", traits:["클레릭"], category:"cleric", summary:"신격 선호 무기로 생물에 피해를 줄 때 레벨 절반만큼 임시 HP(치명타 시 레벨만큼).", desc:'<strong>전제조건:</strong> 신격 선호 무기 전문가. 신격 선호 무기로 생물에 피해를 줄 때 <strong>레벨 절반만큼 임시 HP</strong>(치명타 시 레벨만큼). 다음 턴 시작까지 지속.' }
 ,
@@ -259,9 +259,9 @@ const FEAT_DB = [
 ,
   {name_ko:"신격의 보호", name_en:"Deity's Protection", feat_level:14, prerequisites:"고급 영역. 영역 주문 시전 후 다음 턴 시작까지 모든 피해에 저항(영역 주문 랭크만큼).", traits:["클레릭"], category:"cleric", summary:"영역 주문 시전 후 다음 턴 시작까지 모든 피해에 저항(영역 주문 랭크만큼).", desc:'무엇보다 숭배하는 신격의 필멸 시종입니다. 신격은 기술 1개와 선호 무기에 숙련을 부여하고, 주문 목록에 주문을 추가합니다.' }
 ,
-  {name_ko:"밀물과 썰물", name_en:"Ebb and Flow", feat_level:14, prerequisites:"다재다능한 글꼴. 활력과 공허를 동시에 끌어와 적을 해치고 아군을 치유합니다. 다음 행동이 1-2행동 치유/해로움이면, 사거리 내 피해를 받을 생물 1명과 치유를 받을 생물 1명을 선택하여 둘 다 대상으로 합니다.", traits:["클레릭", "집중", "주문변형"], category:"cleric", summary:"활력과 공허를 동시에 끌어와 적을 해치고 아군을 치유합니다.", desc:'<strong>전제조건:</strong> 다재다능한 글꼴. 활력과 공허를 동시에 끌어와 적을 해치고 아군을 치유합니다. 다음 행동이 1-2행동 <em>치유</em>/<em>해로움</em>이면, 사거리 내 피해를 받을 생물 1명과 치유를 받을 생물 1명을 선택하여 <strong>둘 다 대상</strong>으로 합니다.' }
+  {name_ko:"밀물과 썰물", name_en:"Ebb and Flow", feat_level:14, prerequisites:"다재다능한 원천. 활력과 공허를 동시에 끌어와 적을 해치고 아군을 치유합니다. 다음 행동이 1-2행동 치유/해로움이면, 사거리 내 피해를 받을 생물 1명과 치유를 받을 생물 1명을 선택하여 둘 다 대상으로 합니다.", traits:["클레릭", "집중", "주문변형"], category:"cleric", summary:"활력과 공허를 동시에 끌어와 적을 해치고 아군을 치유합니다.", desc:'<strong>전제조건:</strong> 다재다능한 원천. 활력과 공허를 동시에 끌어와 적을 해치고 아군을 치유합니다. 다음 행동이 1-2행동 <em>치유</em>/<em>해로움</em>이면, 사거리 내 피해를 받을 생물 1명과 치유를 받을 생물 1명을 선택하여 <strong>둘 다 대상</strong>으로 합니다.' }
 ,
-  {name_ko:"빠른 채널", name_en:"Fast Channel", feat_level:14, prerequisites:"해로운/치유 글꼴. 2행동으로 해로움/치유 시전 시 3행동 버전의 효과를 얻습니다.", traits:["클레릭"], category:"cleric", summary:"2행동으로 해로움/치유 시전 시 3행동 버전의 효과를 얻습니다.", desc:'<strong>전제조건:</strong> 해로운/치유 글꼴. 2행동으로 <em>해로움</em>/<em>치유</em> 시전 시 <strong>3행동 버전의 효과</strong>를 얻습니다.' }
+  {name_ko:"빠른 채널", name_en:"Fast Channel", feat_level:14, prerequisites:"해로운/치유 원천. 2행동으로 해로움/치유 시전 시 3행동 버전의 효과를 얻습니다.", traits:["클레릭"], category:"cleric", summary:"2행동으로 해로움/치유 시전 시 3행동 버전의 효과를 얻습니다.", desc:'<strong>전제조건:</strong> 해로운/치유 원천. 2행동으로 <em>해로움</em>/<em>치유</em> 시전 시 <strong>3행동 버전의 효과</strong>를 얻습니다.' }
 ,
   {name_ko:"지속 무장", name_en:"Lasting Armament", feat_level:14, prerequisites:"무장 성별화. 무장 성별화 지속이 1라운드에서 1시간으로 증가(다른 무기에 사용하면 종료).", traits:["클레릭"], category:"cleric", summary:"무장 성별화 지속이 1라운드에서 1시간으로 증가(다른 무기에 사용하면 종료).", desc:'<strong>전제조건:</strong> 무장 성별화. 무장 성별화 지속이 1라운드에서 <strong>1시간</strong>으로 증가(다른 무기에 사용하면 종료).' }
 ,
@@ -277,7 +277,7 @@ const FEAT_DB = [
 ,
   {name_ko:"반향 강타", name_en:"Rebounding Smite", feat_level:16, prerequisites:"채널 강타. 유발 조건: 채널 강타 중 타격이 빗나갑니다. 에너지가 잠시 남아 새 대상에게 전달됩니다. 소비한 해로움/치유의 1행동 버전을 타격 대상이 아닌 다른 생물에게 시전합니다.", traits:["클레릭"], category:"cleric", summary:"에너지가 잠시 남아 새 대상에게 전달됩니다.", desc:'<strong>전제조건:</strong> 채널 강타. <strong>유발 조건:</strong> 채널 강타 중 타격이 빗나갑니다. 에너지가 잠시 남아 새 대상에게 전달됩니다. 소비한 <em>해로움</em>/<em>치유</em>의 1행동 버전을 <strong>타격 대상이 아닌 다른 생물에게</strong> 시전합니다.' }
 ,
-  {name_ko:"치유하기", name_en:"Remediate", feat_level:16, prerequisites:"", traits:["클레릭", "집중", "주문변형"], category:"cleric", summary:"빈도: 시간당 1회. 다음 행동이 신성 글꼴로 3행동 치유/해로움 시전이면, 일반 효과 외에 주문 영역 내 신성 효과 1개를 상쇄 시도.", desc:'<strong>빈도:</strong> 시간당 1회. 다음 행동이 신성 글꼴로 3행동 <em>치유</em>/<em>해로움</em> 시전이면, 일반 효과 외에 주문 영역 내 <strong>신성 효과 1개를 상쇄</strong> 시도.' }
+  {name_ko:"치유하기", name_en:"Remediate", feat_level:16, prerequisites:"", traits:["클레릭", "집중", "주문변형"], category:"cleric", summary:"빈도: 시간당 1회. 다음 행동이 신성 원천로 3행동 치유/해로움 시전이면, 일반 효과 외에 주문 영역 내 신성 효과 1개를 상쇄 시도.", desc:'<strong>빈도:</strong> 시간당 1회. 다음 행동이 신성 원천로 3행동 <em>치유</em>/<em>해로움</em> 시전이면, 일반 효과 외에 주문 영역 내 <strong>신성 효과 1개를 상쇄</strong> 시도.' }
 ,
   {name_ko:"부활자", name_en:"Resurrectionist", feat_level:16, prerequisites:"", traits:["클레릭"], category:"cleric", summary:"빈사 생물의 HP를 회복하거나 죽은 생물을 되살리고 HP를 회복시킬 때, 대상에게 1분간 빠른 치유 5를 부여합니다. 의식을 잃으면 빠른 치유가 종료.", desc:'빈사 생물의 HP를 회복하거나 죽은 생물을 되살리고 HP를 회복시킬 때, 대상에게 <strong>1분간 빠른 치유 5</strong>를 부여합니다. 의식을 잃으면 빠른 치유가 종료.' }
 ,
@@ -601,7 +601,7 @@ const FEAT_DB = [
 ,
   {name_ko:"향상된 반사 방패", name_en:"Improved Reflexive Shield", feat_level:16, prerequisites:"반사 방패. 반사 내성 피해에 방패 막기 사용 시, 같은 효과에 대한 인접 아군도 피해 감소 혜택.", traits:["파이터"], category:"fighter", summary:"반사 내성 피해에 방패 막기 사용 시, 같은 효과에 대한 인접 아군도 피해 감소 혜택.", desc:'<strong>전제조건:</strong> 반사 방패. 반사 내성 피해에 방패 막기 사용 시, 같은 효과에 대한 <strong>인접 아군도 피해 감소 혜택</strong>.' }
 ,
-  {name_ko:"만물 양식 달인", name_en:"Master of Many Styles", feat_level:16, prerequisites:"개시 자세. 유발 조건: 턴 시작. 자세 사이를 유연하게 전환합니다. 자세 특성의 행동 1개를 사용합니다.", traits:["파이터"], category:"fighter", summary:"자세 사이를 유연하게 전환합니다.", desc:'<strong>전제조건:</strong> 개시 자세. <strong>유발 조건:</strong> 턴 시작. 자세 사이를 유연하게 전환합니다. 자세 특성의 행동 1개를 사용합니다.' }
+  {name_ko:"다양한 양식의 달인", name_en:"Master of Many Styles", feat_level:16, prerequisites:"개시 자세. 유발 조건: 턴 시작. 자세 사이를 유연하게 전환합니다. 자세 특성의 행동 1개를 사용합니다.", traits:["파이터"], category:"fighter", summary:"자세 사이를 유연하게 전환합니다.", desc:'<strong>전제조건:</strong> 개시 자세. <strong>유발 조건:</strong> 턴 시작. 자세 사이를 유연하게 전환합니다. 자세 특성의 행동 1개를 사용합니다.' }
 ,
   {name_ko:"연속 사격 자세", name_en:"Multishot Stance", feat_level:16, prerequisites:"이중 사격. 요구사항: 재장전 0 원거리 무기. 이 자세 중 이중 사격의 페널티가 -1로 감소. 위치에서 이동하면 자세 종료. 삼중 사격이 있으면 3회 타격 시 -2.", traits:["파이터", "자세"], category:"fighter", summary:"요구사항: 재장전 0 원거리 무기.", desc:'<strong>전제조건:</strong> 이중 사격. <strong>요구사항:</strong> 재장전 0 원거리 무기. 이 자세 중 이중 사격의 페널티가 <strong>-1</strong>로 감소. 위치에서 이동하면 자세 종료. 삼중 사격이 있으면 3회 타격 시 -2.' }
 ,
@@ -963,8 +963,6 @@ const FEAT_DB = [
 ,
   {name_ko:"안정된 주문시전", name_en:"Steady Spellcasting", feat_level:6, prerequisites:"", traits:["위치"], category:"witch", summary:"반응이 주문시전을 방해하려 하면 DC 15 단순 판정. 성공 시 방해 안 됨.", desc:'반응이 주문시전을 방해하려 하면 <strong>DC 15 단순 판정</strong>. 성공 시 방해 안 됨.' }
 ,
-  {name_ko:"위치의 책임", name_en:"Witch's Charge", feat_level:6, prerequisites:"", traits:["위치"], category:"witch", summary:"아군 1명을 선택하여 \"책임\"으로 지정합니다. 책임에 대한 주문에 +1 상태 보너스(주문 공격과 DC). 다른 아군을 지정하면 이전 지정 해제.", desc:'사역마를 통로로 하여 후원자가 주문시전 능력을 부여합니다. 후원자의 전통으로 주문을 시전합니다. 매일 아침 사역마와 교감하여 주문을 준비합니다. 사역마가 알고 있는 주문에서 선택하여 주문 슬롯에 준비합니다.' }
-,
   {name_ko:'위치의 책임', name_en:'Witch\'s Charge', feat_level:6, prerequisites:'', traits:['위치'], category:'witch', summary:'아군 1명을 선택하여 "책임"으로 지정합니다. 책임에 대한 주문에 +1 상태 보너스(주문 공격과 DC). 다른 아군을 지정하면 이전 지정 해제.', desc:'아군 1명을 선택하여 "책임"으로 지정합니다. 책임에 대한 주문에 <strong>+1 상태 보너스</strong>(주문 공격과 DC). 다른 아군을 지정하면 이전 지정 해제.'}
 ,
   {name_ko:"놀라운 사역마", name_en:"Incredible Familiar", feat_level:8, prerequisites:"", traits:["위치"], category:"witch", summary:"매일 6개의 사역마 능력을 선택합니다.", desc:'매일 <strong>6개의 사역마 능력</strong>을 선택합니다.' }
@@ -975,8 +973,6 @@ const FEAT_DB = [
 ,
   {name_ko:"바느질 사역마", name_en:"Stitched Familiar", feat_level:8, prerequisites:"", traits:["위치"], category:"witch", summary:"사역마를 여러 생물의 부품으로 만들었습니다. 사역마에 추가 능력 1개를 항상 부여하며, 이것은 매일 변경 불가.", desc:'사역마를 여러 생물의 부품으로 만들었습니다. 사역마에 <strong>추가 능력 1개</strong>를 항상 부여하며, 이것은 매일 변경 불가.' }
 ,
-  {name_ko:"위치의 병", name_en:"Witch's Bottle", feat_level:8, prerequisites:"", traits:["위치"], category:"witch", summary:"특수한 병에 집중 에너지를 저장합니다.", desc:'사역마를 통로로 하여 후원자가 주문시전 능력을 부여합니다. 후원자의 전통으로 주문을 시전합니다. 매일 아침 사역마와 교감하여 주문을 준비합니다. 사역마가 알고 있는 주문에서 선택하여 주문 슬롯에 준비합니다.' }
-,
   {name_ko:'위치의 병', name_en:'Witch\'s Bottle', feat_level:8, prerequisites:'', traits:['위치'], category:'witch', summary:'특수한 병에 집중 에너지를 저장합니다. 재집중(Refocus) 시 1점 대신 집중 풀을 완전히 채웁니다.', desc:'특수한 병에 집중 에너지를 저장합니다. 재집중(Refocus) 시 1점 대신 <strong>집중 풀을 완전히 채웁니다</strong>.'}
 ,
   {name_ko:"두 배, 두 배", name_en:"Double, Double", feat_level:10, prerequisites:"", traits:["위치"], category:"witch", summary:"주술 캔트립을 시전할 때, 같은 턴에 두 번째 주술 캔트립도 시전할 수 있습니다(일반 턴당 1주술 제한 무시, 캔트립에만).", desc:'주술 캔트립을 시전할 때, 같은 턴에 <strong>두 번째 주술 캔트립</strong>도 시전할 수 있습니다(일반 턴당 1주술 제한 무시, 캔트립에만).' }
@@ -985,19 +981,15 @@ const FEAT_DB = [
 ,
   {name_ko:"빠른 시전", name_en:"Quickened Casting", feat_level:10, prerequisites:"", traits:["위치", "집중", "주문변형"], category:"witch", summary:"", desc:'<strong>빈도:</strong> 하루 1회. 다음 행동이 캔트립이거나 가장 높은 슬롯보다 2랭크 이상 낮은 주문이면, 시전 <strong>행동 수 1 감소</strong>(최소 1).' }
 ,
-  {name_ko:"위치의 교감", name_en:"Witch's Communion", feat_level:10, prerequisites:"", traits:["위치"], category:"witch", summary:"다른 위치(또는 유사한 마법 사용자)와 10분간 의식을 행하여 서로의 사역마에서 임시 주문 1개를 준비할 수 있습니다.", desc:'사역마를 통로로 하여 후원자가 주문시전 능력을 부여합니다. 후원자의 전통으로 주문을 시전합니다. 매일 아침 사역마와 교감하여 주문을 준비합니다. 사역마가 알고 있는 주문에서 선택하여 주문 슬롯에 준비합니다.' }
-,
   {name_ko:'위치의 교감', name_en:'Witch\'s Communion', feat_level:10, prerequisites:'', traits:['위치'], category:'witch', summary:'다른 위치(또는 유사한 마법 사용자)와 10분간 의식을 행하여 서로의 사역마에서 임시 주문 1개를 준비할 수 있습니다.', desc:'다른 위치(또는 유사한 마법 사용자)와 10분간 의식을 행하여 서로의 사역마에서 <strong>임시 주문 1개</strong>를 준비할 수 있습니다.'}
 ,
   {name_ko:"의식 주문", name_en:"Coven Spell", feat_level:12, prerequisites:"", traits:["위치"], category:"witch", summary:"위치 2명 이상이 함께 10분간 의식하여, 일반적으로 시전할 수 없는 의식 주문 1개를 협력 시전합니다.", desc:'위치 2명 이상이 함께 10분간 의식하여, 일반적으로 시전할 수 없는 <strong>의식 주문 1개</strong>를 협력 시전합니다.' }
 ,
   {name_ko:"주술 집중", name_en:"Hex Focus", feat_level:12, prerequisites:"", traits:["위치"], category:"witch", summary:"재집중 시 집중 풀을 완전히 채웁니다.", desc:'재집중 시 집중 풀을 <strong>완전히 채웁니다</strong>.' }
 ,
-  {name_ko:"위치의 빗자루", name_en:"Witch's Broom", feat_level:12, prerequisites:"", traits:["위치"], category:"witch", summary:"빗자루(또는 유사한 탈것)에 마법을 부여하여 비행할 수 있게 합니다. 하루에 최대 1시간 비행 가능(연속일 필요 없음). 비행 속도는 이동 속도와 같습니다.", desc:'사역마를 통로로 하여 후원자가 주문시전 능력을 부여합니다. 후원자의 전통으로 주문을 시전합니다. 매일 아침 사역마와 교감하여 주문을 준비합니다. 사역마가 알고 있는 주문에서 선택하여 주문 슬롯에 준비합니다.' }
+  {name_ko:'위치의 빗자루', name_en:'Witch\'s Broom', feat_level:12, prerequisites:'', traits:['위치'], category:'witch', summary:'빗자루(또는 유사한 탈것)에 마법을 부여하여 비행할 수 있게 합니다. 하루에 최대 1시간 비행 가능(연속일 필요 없음). 비행 속도는 이동 속도와 같습니다.', desc:'빗자루(또는 유사한 탈것)에 마법을 부여하여 <strong>비행</strong>할 수 있게 합니다. 하루에 최대 1시간 비행 가능(연속일 필요 없음). 비행 속도는 이동 속도와 같습니다.'}
 ,
-  {name_ko:'위치의 빗자루', name_en:'Witch\'s Broom', feat_level:12, prerequisites:'', traits:['위치'], category:'witch', summary:'빗자루(또는 유사한 탈것)에 마법을 부여하여 비행할 수 있게 합니다. 하루에 최대 1시간 비행 가능(연속일 필요 없음). 비행 속도는 이동 속도', desc:'빗자루(또는 유사한 탈것)에 마법을 부여하여 <strong>비행</strong>할 수 있게 합니다. 하루에 최대 1시간 비행 가능(연속일 필요 없음). 비행 속도는 이동 속도와 같습니다.'}
-,
-  {name_ko:"후원자의 존재감", name_en:"Patron's Presence", feat_level:14, prerequisites:"", traits:["위치"], category:"witch", summary:"후원자의 초자연적 존재감이 당신을 통해 발산됩니다. 30피트 내 적이 당신에게 공포 효과의 의지 내성에 -2 상태 페널티.", desc:'주문시전 능력은 타고나거나 수년간의 학습으로 얻은 것이 아닙니다. 대신 강력한 존재가 부여한 것으로, 그 존재는 당신에게 힘을 줌으로써 자신의 의제를 세계에서 진행시킬 수 있다는 것을 알고 있습니다. 이 존재는 보통 신비롭고 멀리 있어, 자신의 정체와 동기를 거의 드러내지 않습니다. 말보다는 전조, 꿈, 유사한 미묘한 징후로 뜻을 알립니다.<br>후원자는 사역마를 통해 당신과 소통합니다 — 사역마는 당신을 가르치고, 후원자의 마법의 통로가 되며, 후원자의 모호한 목적을 위해 당신을 감시할 수도 있습니다.<br>1레벨에 후원자를 선택하며, 이것이 주문시전 전통, 기술, 첫 번째 교훈, 고유한 사역마 능력을 결정합니다.' }
+  {name_ko:'후원자의 존재감', name_en:'Patron\'s Presence', feat_level:14, prerequisites:'', traits:['위치'], category:'witch', summary:'후원자의 초자연적 존재감이 당신을 통해 발산됩니다. 30피트 내 적이 당신에게 공포 효과의 의지 내성에 -2 상태 페널티.', desc:'후원자의 초자연적 존재감이 당신을 통해 발산됩니다. 30피트 내 적이 당신에게 공포 효과의 의지 내성에 <strong>-2 상태 페널티</strong>.'}
 ,
   {name_ko:"주문 반사", name_en:"Reflect Spell", feat_level:14, prerequisites:"반격 주문. 반격 주문으로 상쇄에 대성공하면, 주문을 시전자에게 되돌려보냅니다(시전자가 새 대상이 됨).", traits:["위치"], category:"witch", summary:"상쇄에 대성공하면 주문을 시전자에게 되돌립니다.", desc:'<strong>전제조건:</strong> 반격 주문. 상쇄에 대성공하면 주문을 <strong>시전자에게 되돌립니다</strong>.' }
 ,
@@ -1009,21 +1001,15 @@ const FEAT_DB = [
 ,
   {name_ko:"힘 흡수", name_en:"Siphon Power", feat_level:16, prerequisites:"", traits:["위치"], category:"witch", summary:"주문 슬롯이 바닥났어도 가장 높은 랭크이 아닌 주문 1개를 하루에 추가 시전 가능.", desc:'주문 슬롯이 바닥났어도 가장 높은 랭크가 아닌 <strong>주문 1개를 하루에 추가 시전</strong> 가능.' }
 ,
-  {name_ko:"후원자의 주장", name_en:"Patron's Claim", feat_level:18, prerequisites:"", traits:["위치"], category:"witch", summary:"후원자가 적에게 표식을 남겨 저주합니다. 주술로 피해를 준 적에게 1분간 -2 상태 페널티(내성 굴림)를 부여합니다.", desc:'주문시전 능력은 타고나거나 수년간의 학습으로 얻은 것이 아닙니다. 대신 강력한 존재가 부여한 것으로, 그 존재는 당신에게 힘을 줌으로써 자신의 의제를 세계에서 진행시킬 수 있다는 것을 알고 있습니다. 이 존재는 보통 신비롭고 멀리 있어, 자신의 정체와 동기를 거의 드러내지 않습니다. 말보다는 전조, 꿈, 유사한 미묘한 징후로 뜻을 알립니다.<br>후원자는 사역마를 통해 당신과 소통합니다 — 사역마는 당신을 가르치고, 후원자의 마법의 통로가 되며, 후원자의 모호한 목적을 위해 당신을 감시할 수도 있습니다.<br>1레벨에 후원자를 선택하며, 이것이 주문시전 전통, 기술, 첫 번째 교훈, 고유한 사역마 능력을 결정합니다.' }
-,
   {name_ko:"주술 분열", name_en:"Split Hex", feat_level:18, prerequisites:"", traits:["위치"], category:"witch", summary:"단일 대상 주술 시전 시, 사거리 내 두 번째 대상에게도 같은 주술을 적용할 수 있습니다.", desc:'단일 대상 주술 시전 시, 사거리 내 <strong>두 번째 대상에게도</strong> 같은 주술을 적용할 수 있습니다.' }
 ,
   {name_ko:'후원자의 주장', name_en:'Patron\'s Claim', feat_level:18, prerequisites:'', traits:['위치'], category:'witch', summary:'후원자가 적에게 표식을 남겨 저주합니다. 주술로 피해를 준 적에게 1분간 -2 상태 페널티(내성 굴림)를 부여합니다.', desc:'후원자가 적에게 표식을 남겨 저주합니다. 주술로 피해를 준 적에게 1분간 <strong>-2 상태 페널티</strong>(내성 굴림)를 부여합니다.'}
 ,
   {name_ko:"주술 달인", name_en:"Hex Master", feat_level:20, prerequisites:"", traits:["위치"], category:"witch", summary:"턴당 주술 1개 제한이 해제됩니다. 원하는 만큼 주술을 사용할 수 있습니다.", desc:'턴당 주술 1개 제한이 <strong>해제</strong>됩니다. 원하는 만큼 주술을 사용할 수 있습니다.' }
 ,
-  {name_ko:"후원자의 진실", name_en:"Patron's Truth", feat_level:20, prerequisites:"후원자의 선물. 추가 10랭크 주문 슬롯을 얻습니다.", traits:["위치"], category:"witch", summary:"추가 10랭크 주문 슬롯을 얻습니다.", desc:'주문시전 능력은 타고나거나 수년간의 학습으로 얻은 것이 아닙니다. 대신 강력한 존재가 부여한 것으로, 그 존재는 당신에게 힘을 줌으로써 자신의 의제를 세계에서 진행시킬 수 있다는 것을 알고 있습니다. 이 존재는 보통 신비롭고 멀리 있어, 자신의 정체와 동기를 거의 드러내지 않습니다. 말보다는 전조, 꿈, 유사한 미묘한 징후로 뜻을 알립니다.<br>후원자는 사역마를 통해 당신과 소통합니다 — 사역마는 당신을 가르치고, 후원자의 마법의 통로가 되며, 후원자의 모호한 목적을 위해 당신을 감시할 수도 있습니다.<br>1레벨에 후원자를 선택하며, 이것이 주문시전 전통, 기술, 첫 번째 교훈, 고유한 사역마 능력을 결정합니다.' }
-,
-  {name_ko:"위치의 오두막", name_en:"Witch's Hut", feat_level:20, prerequisites:"", traits:["위치"], category:"witch", summary:"후원자의 힘으로 거주지를 만들어냅니다. 매그니피센트 맨션(magnificent mansion)과 유사하지만, 다리 달린 오두막 형태로 이동할 수 있습니다.", desc:'사역마를 통로로 하여 후원자가 주문시전 능력을 부여합니다. 후원자의 전통으로 주문을 시전합니다. 매일 아침 사역마와 교감하여 주문을 준비합니다. 사역마가 알고 있는 주문에서 선택하여 주문 슬롯에 준비합니다.' }
-,
   {name_ko:'후원자의 진실', name_en:'Patron\'s Truth', feat_level:20, prerequisites:'', traits:['위치'], category:'witch', summary:'전제조건: 후원자의 선물. 추가 10랭크 주문 슬롯을 얻습니다.', desc:'<strong>전제조건:</strong> 후원자의 선물. <strong>추가 10랭크 주문 슬롯</strong>을 얻습니다.'}
 ,
-  {name_ko:'위치의 오두막', name_en:'Witch\'s Hut', feat_level:20, prerequisites:'', traits:['위치'], category:'witch', summary:'후원자의 힘으로 거주지를 만들어냅니다. 매그니피센트 맨션(magnificent mansion)과 유사하지만, 다리 달린 오두막 형태로 이동할 수', desc:'후원자의 힘으로 거주지를 만들어냅니다. <em>매그니피센트 맨션(magnificent mansion)</em>과 유사하지만, 다리 달린 오두막 형태로 이동할 수 있습니다.'}
+  {name_ko:'위치의 오두막', name_en:'Witch\'s Hut', feat_level:20, prerequisites:'', traits:['위치'], category:'witch', summary:'후원자의 힘으로 거주지를 만들어냅니다. 매그니피센트 맨션(magnificent mansion)과 유사하지만, 다리 달린 오두막 형태로 이동할 수 있습니다.', desc:'후원자의 힘으로 거주지를 만들어냅니다. <em>매그니피센트 맨션(magnificent mansion)</em>과 유사하지만, 다리 달린 오두막 형태로 이동할 수 있습니다.'}
 ,
   {name_ko:"반격 주문", name_en:"Counterspell", feat_level:1, prerequisites:"", traits:["위자드"], category:"wizard", summary:"", desc:'<strong>유발 조건:</strong> 준비한 주문과 같은 주문이 시전됩니다. 해당 주문을 소비하여 <strong>상쇄</strong> 시도.' }
 ,
@@ -1257,11 +1243,11 @@ const FEAT_DB = [
 ,
   {name_ko:"마법 속기", name_en:"Magical Shorthand", feat_level:2, prerequisites:"신비학, 자연학, 오컬티즘, 또는 종교학에 전문가", traits:["일반 기술"], category:"skill", summary:"주문 학습이 쉽게 됩니다. 주문 학습에 성공하면 주문 랭크에 관계없이 10분만 걸립니다. 성공할 결과를 굴리면 대성공이 됩니다. 실패하면 1주일 후 또는 레벨을 올린 후(먼저 오는 것) 재시도 가능.", desc:'<strong>전제조건:</strong> 신비학, 자연학, 비학, 또는 종교에 전문가<br>주문 학습이 쉽게 됩니다. 주문 학습에 성공하면 주문 랭크에 관계없이 <strong>10분</strong>만 걸립니다. 성공할 결과를 굴리면 <strong>대성공</strong>이 됩니다. 실패하면 1주일 후 또는 레벨을 올린 후(먼저 오는 것) 재시도 가능.<br>또한 휴식을 사용하여 새 주문을 배울 수 있습니다. 전통의 관련 기술로 돈 벌기(Earn Income)처럼 작동하지만, 돈 대신 배울 주문을 선택하여 학습 비용에 대한 할인을 받습니다(벌어들인 수입이 비용 이상이면 무료).' }
 ,
-  {name_ko:"민첩한 기기", name_en:"Nimble Crawl", feat_level:2, prerequisites:"곡예 전문가", traits:["일반 기술"], category:"skill", summary:"놀라울 정도로 빠르게 기어갑니다 — 5피트 대신 절반 속도까지. 달인이면 전체 속도, 전설이면 엎드린 상태에서 무방비이 되지 않습니다.", desc:'<strong>전제조건:</strong> 곡예 전문가<br>놀라울 정도로 빠르게 기어갑니다 — 5피트 대신 <strong>절반 속도</strong>까지. 대가이면 전체 속도, 전설이면 엎드린 상태에서 <strong>무방비이 되지 않습니다</strong>.' }
+  {name_ko:"민첩한 포복", name_en:"Nimble Crawl", feat_level:2, prerequisites:"곡예 전문가", traits:["일반 기술"], category:"skill", summary:"놀라울 정도로 빠르게 기어갑니다 — 5피트 대신 절반 속도까지. 달인이면 전체 속도, 전설이면 엎드린 상태에서 무방비이 되지 않습니다.", desc:'<strong>전제조건:</strong> 곡예 전문가<br>놀라울 정도로 빠르게 기어갑니다 — 5피트 대신 <strong>절반 속도</strong>까지. 대가이면 전체 속도, 전설이면 엎드린 상태에서 <strong>무방비이 되지 않습니다</strong>.' }
 ,
   {name_ko:"강력한 도약", name_en:"Powerful Leap", feat_level:2, prerequisites:"운동 전문가", traits:["일반 기술"], category:"skill", summary:"높이뛰기(High Jump) 없이도 수직 도약(Leap)으로 5피트 위로 뛸 수 있습니다. 또한 도약/높이뛰기/멀리뛰기 시 수평 거리가 5피트 증가합니다.", desc:'<strong>전제조건:</strong> 운동 전문가<br>높이뛰기(High Jump) 없이도 수직 도약(Leap)으로 <strong>5피트 위로</strong> 뛸 수 있습니다. 또한 도약/높이뛰기/멀리뛰기 시 수평 거리가 <strong>5피트 증가</strong>합니다.' }
 ,
-  {name_ko:"빠른 발걸음", name_en:"Rapid Mantel", feat_level:2, prerequisites:"운동 전문가", traits:["일반 기술"], category:"skill", summary:"모서리를 쉽게 잡고 올라갑니다. 모서리 잡기(Grab an Edge)를 하면 표면 위로 올라서 일어설 수 있습니다. 반사 내성 대신 운동으로 모서리 잡기를 할 수 있습니다. 모서리 꼭대기에서 5피트 아래까지 등반/도약하면 그 행동의 일부로 올라서 일어설 수 있습니다.", desc:'<strong>전제조건:</strong> 운동 전문가<br>모서리를 쉽게 잡고 올라갑니다. 모서리 잡기(Grab an Edge)를 하면 표면 위로 올라서 일어설 수 있습니다. 반사 내성 대신 <strong>운동으로 모서리 잡기</strong>를 할 수 있습니다. 모서리 꼭대기에서 5피트 아래까지 등반/도약하면 그 행동의 일부로 올라서 일어설 수 있습니다.' }
+  {name_ko:"빠른 올라서기", name_en:"Rapid Mantel", feat_level:2, prerequisites:"운동 전문가", traits:["일반 기술"], category:"skill", summary:"모서리를 쉽게 잡고 올라갑니다. 모서리 잡기(Grab an Edge)를 하면 표면 위로 올라서 일어설 수 있습니다. 반사 내성 대신 운동으로 모서리 잡기를 할 수 있습니다. 모서리 꼭대기에서 5피트 아래까지 등반/도약하면 그 행동의 일부로 올라서 일어설 수 있습니다.", desc:'<strong>전제조건:</strong> 운동 전문가<br>모서리를 쉽게 잡고 올라갑니다. 모서리 잡기(Grab an Edge)를 하면 표면 위로 올라서 일어설 수 있습니다. 반사 내성 대신 <strong>운동으로 모서리 잡기</strong>를 할 수 있습니다. 모서리 꼭대기에서 5피트 아래까지 등반/도약하면 그 행동의 일부로 올라서 일어설 수 있습니다.' }
 ,
   {name_ko:"연금술 제작", name_en:"Alchemical Crafting", feat_level:2, prerequisites:"제작 전문가", traits:["일반 기술"], category:"skill", summary:"연금술 아이템을 제작할 수 있습니다. 이 재주를 선택하면 2레벨 이하의 일반 연금술 아이템 공식 4개를 얻습니다.", desc:'<strong>전제조건:</strong> 제작 전문가<br>연금술 아이템을 제작할 수 있습니다. 이 재주를 선택하면 <strong>2레벨 이하의 일반 연금술 아이템 공식 4개</strong>를 얻습니다.' }
 ,
@@ -1269,7 +1255,7 @@ const FEAT_DB = [
 ,
   {name_ko:"빠른 변장", name_en:"Quick Disguise", feat_level:2, prerequisites:"기만 전문가", traits:["일반 기술"], category:"skill", summary:"보통 시간의 1/10에 변장을 만듭니다(보통 1분). 달인이면 변장+변장(Impersonate)이 3행동 활동, 전설이면 1행동.", desc:'<strong>전제조건:</strong> 기만 전문가<br>보통 시간의 <strong>1/10</strong>에 변장을 만듭니다(보통 1분). 대가이면 변장+변장(Impersonate)이 <strong>3행동 활동</strong>, 전설이면 <strong>1행동</strong>.' }
 ,
-  {name_ko:"기쁜 손", name_en:"Glad-Hand", feat_level:2, prerequisites:"외교 전문가", traits:["일반 기술"], category:"skill", summary:"첫 인상이 당신의 강점입니다. 일상적이거나 사교적인 상황에서 누군가를 만나면, 1분 대화 없이도 즉시 인상 만들기를 시도할 수 있습니다. 실패하면 1분 대화 후 실패/대실패 결과 대신 새 판정을 시도할 수 있습니다.", desc:'<strong>전제조건:</strong> 외교 전문가<br>첫 인상이 당신의 강점입니다. 일상적이거나 사교적인 상황에서 누군가를 만나면, 1분 대화 없이도 즉시 <strong>인상 만들기를 시도</strong>할 수 있습니다. 실패하면 1분 대화 후 실패/대실패 결과 대신 새 판정을 시도할 수 있습니다.' }
+  {name_ko:"친근한 인상", name_en:"Glad-Hand", feat_level:2, prerequisites:"외교 전문가", traits:["일반 기술"], category:"skill", summary:"첫 인상이 당신의 강점입니다. 일상적이거나 사교적인 상황에서 누군가를 만나면, 1분 대화 없이도 즉시 인상 만들기를 시도할 수 있습니다. 실패하면 1분 대화 후 실패/대실패 결과 대신 새 판정을 시도할 수 있습니다.", desc:'<strong>전제조건:</strong> 외교 전문가<br>첫 인상이 당신의 강점입니다. 일상적이거나 사교적인 상황에서 누군가를 만나면, 1분 대화 없이도 즉시 <strong>인상 만들기를 시도</strong>할 수 있습니다. 실패하면 1분 대화 후 실패/대실패 결과 대신 새 판정을 시도할 수 있습니다.' }
 ,
   {name_ko:"위협적 체격", name_en:"Intimidating Prowess", feat_level:2, prerequisites:"근력 +3, 위협 전문가", traits:["일반 기술"], category:"skill", summary:"물리적으로 위협할 수 있는 상황에서 강요나 사기 저하 시 +1 상황 보너스를 얻고, 언어를 공유하지 않아도 페널티를 무시합니다. 근력 +5 이상이고 위협 달인이면 보너스가 +2.", desc:'<strong>전제조건:</strong> 근력 +3, 위협 전문가<br>물리적으로 위협할 수 있는 상황에서 강요나 사기 저하 시 <strong>+1 상황 보너스</strong>를 얻고, 언어를 공유하지 않아도 <strong>페널티를 무시</strong>합니다. 근력 +5 이상이고 위협 대가이면 보너스가 <strong>+2</strong>.' }
 ,
@@ -1378,7 +1364,7 @@ const FEAT_DB = [
 ,
   {name_ko:"신성 주문시전", name_en:"Divine Spellcasting", cat:"feature", class_id:"cleric", feat_level:1, summary:"신격의 힘과 신앙으로 신성(divine) 전통의 주문을 시전합니다. 매일 아침 기도와 명상으로 준비하여, 신성 주문 목록에서 시전할 주문을 선택해 주문 슬롯에 \"로드\"합니다. 핵심 속성이 지혜이므로 주문 DC와 공격 수정치에 지혜를 사용합니다."}
 ,
-  {name_ko:"신성 글꼴", name_en:"Divine Font", cat:"feature", class_id:"cleric", feat_level:1, summary:"신격이 특별히 강화된 에너지에 접근을 부여합니다. 치유(heal) 또는 해로움(harm)에 대해 추가 주문 슬롯을 얻으며, 슬롯 수는 1 + 매력 수정치입니다. 글꼴이 둘 다 허용하면 매일 하나를 선택합니다."}
+  {name_ko:"신성 원천", name_en:"Divine Font", cat:"feature", class_id:"cleric", feat_level:1, summary:"신격이 특별히 강화된 에너지에 접근을 부여합니다. 치유(heal) 또는 해로움(harm)에 대해 추가 주문 슬롯을 얻으며, 슬롯 수는 1 + 매력 수정치입니다. 원천이 둘 다 허용하면 매일 하나를 선택합니다."}
 ,
   {name_ko:"원시 주문시전", name_en:"Primal Spellcasting", cat:"feature", class_id:"druid", feat_level:1, summary:"야생 세계의 힘이 당신을 통해 흐릅니다. 원시(primal) 전통의 주문시전자입니다. 매일 아침 원시 주문 목록에서 주문을 준비합니다."}
 ,

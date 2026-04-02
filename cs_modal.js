@@ -1681,7 +1681,7 @@ function _checkPrereqs(prereqStr) {
     if (state.selectedClass && (state.selectedClass.name === c || state.selectedClass.en === c || state.selectedClass.id === c)) continue;
 
     // "주문시전 클래스 특성" 등 일반적 조건은 통과
-    if (c.includes('주문') || c.includes('글꼴') || c.includes('동물') || c.includes('사역마')) continue;
+    if (c.includes('주문') || c.includes('원천') || c.includes('동물') || c.includes('사역마')) continue;
 
     // 매칭 안 되면 실패
     return false;

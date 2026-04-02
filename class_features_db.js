@@ -147,7 +147,7 @@ var CLASS_FEATURE_NAMES = {
   ],
   cleric: [
     {lv:1, name_ko:'신성 주문시전', name_en:'Divine Spellcasting'},
-    {lv:1, name_ko:'신성 글꼴', name_en:'Divine Font'},
+    {lv:1, name_ko:'신성 원천', name_en:'Divine Font'},
     {lv:3, name_ko:'2차 교의', name_en:'Second Doctrine'},
     {lv:5, name_ko:'감지 전문가', name_en:'Alertness'},
     {lv:7, name_ko:'3차 교의', name_en:'Third Doctrine'},

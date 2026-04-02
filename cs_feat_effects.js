@@ -1074,7 +1074,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'해로움으로 살아있는 생물에 피해 시 주문 랭크만큼 HP 회복'}]
   },
   'Versatile Font': {
-    effects: [{type:'display_note', text:'글꼴 슬롯에 해로움/치유 어느 쪽이든 준비 가능'}]
+    effects: [{type:'display_note', text:'원천 슬롯에 해로움/치유 어느 쪽이든 준비 가능'}]
   },
   "Warpriest's Armor": {
     effects: [{type:'proficiency', target:'armor-medium', rank:2}, {type:'display_note', text:'평갑 숙련. 전문가 이상 획득 시 평갑에도 적용. 2부피+ 갑옷 부피 1 감소'}]
@@ -1139,7 +1139,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[주문변형] 단일 아군 HP 회복 시 랭크당 1d8 HP 잃고 아군에 같은 양 추가 회복'}]
   },
   'Restorative Channel': {
-    effects: [{type:'display_note', text:'치유 글꼴 슬롯을 희생하여 고통 정화/맑은 마음/건강한 몸/확실한 발놀림 시전'}]
+    effects: [{type:'display_note', text:'치유 원천 슬롯을 희생하여 고통 정화/맑은 마음/건강한 몸/확실한 발놀림 시전'}]
   },
   'Sanctify Armament': {
     effects: [{type:'display_note', text:'[1행동] 무기에 1라운드 신성/불경 특성 부여. 반대 특성 생물에 추가 2d6 영혼 피해'}]
@@ -1225,7 +1225,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[반응] 채널 강타 빗나감 시 해로움/치유 1행동 버전을 다른 생물에 시전'}]
   },
   'Remediate': {
-    effects: [{type:'display_note', text:'[주문변형] 시간 1회. 3행동 글꼴 해로움/치유 시전 시 영역 내 신성 효과 1개 상쇄 시도'}]
+    effects: [{type:'display_note', text:'[주문변형] 시간 1회. 3행동 원천 해로움/치유 시전 시 영역 내 신성 효과 1개 상쇄 시도'}]
   },
   'Resurrectionist': {
     effects: [{type:'display_note', text:'빈사/사망 생물 HP 회복 시 1분간 빠른 치유 5 부여'}]
