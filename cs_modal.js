@@ -1677,6 +1677,12 @@ function _checkPrereqs(prereqStr) {
       if (found && (learnedFeats.has(found.name_ko) || learnedFeats.has(found.name_en))) continue;
     }
 
+    // "아무 클래스" 체크: 클래스가 선택되어 있으면 통과
+    if (c === '아무 클래스') {
+      if (!state.selectedClass) return false;
+      continue;
+    }
+
     // 클래스 체크
     if (state.selectedClass && (state.selectedClass.name === c || state.selectedClass.en === c || state.selectedClass.id === c)) continue;
 

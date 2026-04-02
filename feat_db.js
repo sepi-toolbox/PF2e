@@ -1812,7 +1812,7 @@ const FEAT_DB = [
 ,
   {name_ko:'오만한 완고함', name_en:'Haughty Obstinacy', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'정신 효과에 대한 내성에서 성공은 대성공. 명령/지배에 +2.', desc:'강력한 자존심이 다른 이가 당신에게 명령하기 어렵게 합니다. 행동을 직접 지배하려는 정신 효과에 대한 내성에서 <strong>성공을 굴리면 대성공</strong>. 생물이 위협(Intimidation)으로 강요(Coerce)하려는 판정에서 <strong>실패하면 대실패</strong>가 됩니다(따라서 1주일간 다시 강요할 수 없음).'}
 ,
-  {name_ko:'타고난 야망', name_en:'Natural Ambition', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'1레벨 클래스 재주 1개 추가 획득.', desc:'야망적으로 자라 항상 별을 향해 나아가, 선택한 분야에서 빠르게 진전합니다. <strong>1레벨 클래스 재주 1개</strong>를 얻습니다. 전제조건을 충족해야 하지만, 캐릭터 생성 중 나중에 선택 가능.'}
+  {name_ko:'타고난 야망', name_en:'Natural Ambition', feat_level:1, prerequisites:'인간, 아무 클래스', traits:['인간'], category:'ancestry', summary:'1레벨 클래스 재주 1개 추가 획득. 클래스를 선택해야 합니다.', desc:'<strong>전제조건:</strong> 아무 클래스<br>야망적으로 자라 항상 별을 향해 나아가, 선택한 분야에서 빠르게 진전합니다. <strong>1레벨 클래스 재주 1개</strong>를 얻습니다. 전제조건을 충족해야 하지만, 캐릭터 생성 중 나중에 선택 가능.'}
 ,
   {name_ko:'타고난 기술', name_en:'Natural Skill', feat_level:1, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'인간의 다재다능함. 숙련된 기술 1개를 추가로 얻습니다.', desc:'독창성으로 다양한 기술을 배울 수 있습니다. 선택한 <strong>기술 2개에 숙련</strong>됩니다.'}
 ,
