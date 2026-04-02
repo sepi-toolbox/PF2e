@@ -1846,9 +1846,9 @@ const FEAT_DB = [
 ,
   {name_ko:'고급 일반 훈련', name_en:'Advanced General Training', feat_level:13, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'긴 모험 생활에서 적응력이 수많은 유용한 능력을 습득하게 했습니다. 7레벨 이하 일반 재주 1개를 얻습니다. 전제조건을 충족해야 합니다.', desc:'긴 모험 생활에서 적응력이 수많은 유용한 능력을 습득하게 했습니다. <strong>7레벨 이하 일반 재주 1개</strong>를 얻습니다. 전제조건을 충족해야 합니다.<br><strong>특수:</strong> 여러 번 선택 가능, 매번 다른 재주.'}
 ,
-  {name_ko:'회복력', name_en:'Bounce Back', feat_level:13, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'빈도: 하루 1회', desc:'<strong>빈도:</strong> 하루 1회<br><br>놀라운 회복력으로 임사 경험에서 회복합니다. 빈사 상태를 잃어서 <strong>부상(wounded) 상태 수치를 증가시키지 않습니다</strong>.'}
+  {name_ko:'회복력', name_en:'Bounce Back', feat_level:13, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'[자유 행동] 빈도: 하루 1회. 빈사 상태를 잃을 때 부상(wounded) 상태 수치를 증가시키지 않습니다.', desc:'<strong>빈도:</strong> 하루 1회<br><br>놀라운 회복력으로 임사 경험에서 회복합니다. 빈사 상태를 잃어서 <strong>부상(wounded) 상태 수치를 증가시키지 않습니다</strong>.'}
 ,
-  {name_ko:'영웅적 존재감', name_en:'Heroic Presence', feat_level:17, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'빈도: 하루 1회', desc:'<strong>빈도:</strong> 하루 1회<br>영웅의 피가 혈관을 흐르며, 동료들이 깊이 파고들어 새로운 수준의 결의를 찾도록 영감을 줍니다. 30피트 내 최대 <strong>10명의 동의하는 생물</strong>에게 6랭크 <em>열정적 확신(zealous conviction)</em>의 효과를 부여합니다. 단, 대상에게 일반적으로 혐오스럽다고 여길 명령을 내리면 효과가 자동으로 종료됩니다. 이 행동은 동맹에게 영감을 주는 방식에 따라 청각 또는 시각 특성을 가집니다.'}
+  {name_ko:'영웅적 존재감', name_en:'Heroic Presence', feat_level:17, prerequisites:'인간', traits:['인간'], category:'ancestry', summary:'[자유 행동] 빈도: 하루 1회. 30피트 내 최대 10명에게 6랭크 열정적 확신 효과 부여 (임시 HP 19, 공포/도주 내성 +2, 10분). 혐오 명령 시 즉시 종료.', desc:'<strong>빈도:</strong> 하루 1회<br>영웅의 피가 혈관을 흐르며, 동료들이 깊이 파고들어 새로운 수준의 결의를 찾도록 영감을 줍니다. 30피트 내 최대 <strong>10명의 동의하는 생물</strong>에게 6랭크 <span class="spell-tip" data-tip="열정적 확신 (Zealous Conviction) 6랭크: 대상이 임시 HP 19를 얻고, 공포(frightened)/도주(fleeing)에 대한 내성에 +2 상태 보너스. 지속 10분. 강화(+1): 임시 HP +3.">열정적 확신(zealous conviction)</span>의 효과를 부여합니다. 대상에게 일반적으로 혐오스럽다고 여길 명령을 내리면 효과가 자동으로 종료됩니다.'}
 ,
   // ── 레쉬 Leshy ──
   {name_ko:'레쉬의 미신', name_en:'Leshy Superstition', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'마법 효과에 대한 내성에 +1 상황 보너스.', desc:'<strong>유발 조건:</strong> 주문이나 마법 효과에 대한 내성 굴림을 시도하지만 아직 굴리지 않았습니다.<br>물체에 깃든 영혼을 알아채며, 어떤 것이 행운을 가져오고 어떤 것이 불운인지 배웁니다. 행운의 물체에 집중하여 유발 효과에 대한 내성에 <strong>+1 상황 보너스</strong>.'}

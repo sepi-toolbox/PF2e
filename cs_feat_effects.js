@@ -671,10 +671,10 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'선택한 비관습 무기 숙련도 전문가로 증가: $choice_name'}]
   },
   'Bounce Back': {
-    effects: [{type:'grant_action', summary:'[자유행동] 회복력 (Bounce Back) — 빈도: 하루 1회. 빈사 상태를 잃을 때 부상(wounded) 상태 수치를 증가시키지 않습니다.'}]
+    effects: [{type:'display_note', text:'[자유 행동] 하루 1회. 빈사 해제 시 부상 수치 미증가'}]
   },
   'Heroic Presence': {
-    effects: [{type:'grant_action', summary:'[자유행동] 영웅적 존재감 (Heroic Presence) — 빈도: 하루 1회. 30피트 내 최대 10명의 동의하는 생물에게 6랭크 <span class="spell-tip" data-tip="열정적 확신 (Zealous Conviction) 6랭크: 대상이 임시 HP 19를 얻고, 공포(frightened)/도주(fleeing)에 대한 내성에 +2 상태 보너스. 지속 10분. 강화(+1): 임시 HP +3.">열정적 확신</span> 효과 부여. 대상에게 혐오스러운 명령을 내리면 효과 즉시 종료.'}]
+    effects: [{type:'display_note', text:'[자유 행동] 하루 1회. 열정적 확신 6랭크: 임시 HP 19, 공포/도주 내성 +2 (10분)'}]
   },
 
   // ── 레쉬 ──
