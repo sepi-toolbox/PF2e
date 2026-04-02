@@ -1871,23 +1871,23 @@ const FEAT_DB = [
 ,
   {name_ko:'레쉬 활공', name_en:'Leshy Glide', feat_level:5, prerequisites:'레쉬, 잎 레쉬 또는 고양이 착지', traits:['레쉬'], category:'ancestry', summary:'[1행동] 활공: 5피트 아래로 최대 25피트 앞으로 이동.', desc:'<strong>전제조건:</strong> 잎 레쉬 유산 또는 고양이 착지(Cat Fall) 기술 재주<br>자신의 잎을 사용하여 하강을 제어합니다. 천천히 땅을 향해 활공하며, <strong>5피트 아래로 최대 25피트 앞으로</strong> 이동합니다. 매 라운드 최소 1행동을 활공에 소비하고 아직 지면에 도달하지 않았다면, 턴 종료 시 공중에 남아 있습니다.'}
 ,
-  {name_ko:'의식 귀환', name_en:'Ritual Reversion', feat_level:5, prerequisites:'레쉬', traits:['레쉬','변신','근원'], category:'ancestry', summary:'[2행동] 식물/균류 표본 형태로 변신 (식물과 하나 효과).', desc:'감각을 줄이지 않고 일시적으로 덜 눈에 띄는 형태로 돌아갈 수 있습니다. 영혼이 합류하기 직전의 몸 외관으로 돌아가, 가장 닮은 식물이나 균류의 일반 표본 형태를 취합니다. 이것은 크기가 소형으로 유지되는 점을 제외하면 <em>식물과 하나(one with plants)</em>의 효과를 가집니다.'}
+  {name_ko:'의식 귀환', name_en:'Ritual Reversion', feat_level:5, prerequisites:'레쉬', traits:['레쉬','변신','원시'], category:'ancestry', summary:'[2행동] 식물/균류 표본 형태로 변신 (식물과 하나 효과).', desc:'감각을 줄이지 않고 일시적으로 덜 눈에 띄는 형태로 돌아갈 수 있습니다. 영혼이 합류하기 직전의 몸 외관으로 돌아가, 가장 닮은 식물이나 균류의 일반 표본 형태를 취합니다. 이것은 크기가 소형으로 유지되는 점을 제외하면 <em>식물과 하나(one with plants)</em>의 효과를 가집니다.'}
 ,
   {name_ko:'동족과 대화', name_en:'Speak with Kindred', feat_level:5, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'식물/균류에게 질문하고 외교 사용 가능. 자신의 종류에 +2 상황 보너스.', desc:'같은 생리를 공유하는 생물과 연결이 있습니다. 식물과 균류에게 질문하고, 답을 받고, 외교 기술을 사용할 수 있습니다. 자신의 종류의 식물이나 균류와의 외교 판정에 <strong>+2 상황 보너스</strong>. 일반적으로 균류 레쉬는 버섯과 균류, 호박 레쉬는 호박/멜론/과실 식물, 잎 레쉬는 낙엽수, 덩굴 레쉬는 덩굴과 등반 식물에 보너스를 얻습니다.'}
 ,
-  {name_ko:'나무껍질과 덩굴', name_en:'Bark and Tendril', feat_level:9, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'얽히는 식물 + 참나무 회복력을 2랭크 근원 선천 주문으로 하루 1회씩 시전.', desc:'근원 마법을 다룹니다. <em>얽히는 식물(entangling flora)</em>과 <em>참나무 회복력(oaken resilience)</em>을 <strong>2랭크 근원 선천 주문으로 하루 1회씩</strong> 시전 가능.'}
+  {name_ko:'나무껍질과 덩굴', name_en:'Bark and Tendril', feat_level:9, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'방해 식물 + 참나무 강인을 2랭크 원시 선천 주문으로 하루 1회씩 시전.', desc:'원시 마법을 다룹니다. <em>방해 식물(Entangling Flora)</em>과 <em>참나무 강인(Oaken Resilience)</em>을 <strong>2랭크 원시 선천 주문으로 하루 1회씩</strong> 시전 가능.'}
 ,
   {name_ko:'행운의 기념품', name_en:'Lucky Keepsake', feat_level:9, prerequisites:'레쉬, 레쉬의 미신', traits:['레쉬'], category:'ancestry', summary:'주문과 마법 효과에 대한 내성에 항상 +1 상황 보너스.', desc:'<strong>전제조건:</strong> 레쉬의 미신<br>행운을 부여하는 기념품이 있습니다. 레쉬의 미신을 사용할 때만이 아니라 <strong>항상</strong> 주문과 마법 효과에 대한 내성에 <strong>+1 상황 보너스</strong>. 기념품을 잃으면 새 것을 지정할 때까지(보통 1주일) 보너스를 잃습니다.'}
 ,
   {name_ko:'가시 씨앗 꼬투리', name_en:'Thorned Seedpod', feat_level:9, prerequisites:'레쉬, 씨앗 투사', traits:['레쉬'], category:'ancestry', summary:'씨앗 꼬투리 대성공 시 1d4 지속 관통 피해.', desc:'<strong>전제조건:</strong> 씨앗 투사(Seedpod)<br>씨앗 꼬투리가 치명적 일격을 가하면 가시 덩굴이 터집니다. 씨앗 꼬투리 타격에 대성공하면, 덩굴이 적을 꿰뚫고 찔러 <strong>1d4 지속 관통 피해</strong>.'}
 ,
-  {name_ko:'녹색 남자의 부름', name_en:'Call of the Green Man', feat_level:13, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'식물 형태를 5랭크 근원 선천 주문으로 하루 1회 시전. 17레벨에서 6랭크.', desc:'근처의 자연 영혼을 불러 몸을 강화합니다. <strong>하루 1회</strong>, <em>식물 형태(plant form)</em>를 <strong>5랭크 근원 선천 주문</strong>으로 시전 가능. 17레벨에서 6랭크로 고양 가능.'}
+  {name_ko:'녹색 남자의 부름', name_en:'Call of the Green Man', feat_level:13, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'식물 형태를 5랭크 원시 선천 주문으로 하루 1회 시전. 17레벨에서 6랭크.', desc:'근처의 자연 영혼을 불러 몸을 강화합니다. <strong>하루 1회</strong>, <em>식물 형태(Plant Form)</em>를 <strong>5랭크 원시 선천 주문</strong>으로 시전 가능. 17레벨에서 6랭크로 고양 가능.'}
 ,
   {name_ko:'독의 망토', name_en:'Cloak of Poison', feat_level:13, prerequisites:'레쉬', traits:['레쉬','독'], category:'ancestry', summary:'[2행동] 독의 망토: 하루 1회, 1분간 접촉/근접 공격자에게 3d6 독 피해.', desc:'<strong>빈도:</strong> 하루 1회<br>공격하는 자를 해치는 농축 독의 망토를 분비합니다. <strong>1분간</strong>, 당신을 만지거나 도달 특질 없는 비무장 공격이나 근접 무기로 피해를 주는 생물은 <strong>3d6 독 피해</strong>를 받습니다.'}
 ,
-  {name_ko:'번영과 파멸', name_en:'Flourish and Ruin', feat_level:17, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'생명의 들판 + 얽히는 넝쿨을 6랭크 근원 선천 주문으로 하루 1회씩 시전.', desc:'영혼의 생명 정수를 불러 아군의 생명을 회복하고 덩굴로 적을 얽어 매립니다. <em>생명의 들판(field of life)</em>과 <em>얽히는 넝쿨(tangling creepers)</em>을 <strong>6랭크 근원 선천 주문으로 하루 1회씩</strong> 시전 가능.'}
+  {name_ko:'번영과 파멸', name_en:'Flourish and Ruin', feat_level:17, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'생명의 들판 + 얽히는 넝쿨을 6랭크 원시 선천 주문으로 하루 1회씩 시전.', desc:'영혼의 생명 정수를 불러 아군의 생명을 회복하고 덩굴로 적을 얽어 매립니다. <em>생명의 들판(Field of Life)</em>과 <em>얽히는 넝쿨(Tangling Creepers)</em>을 <strong>6랭크 원시 선천 주문으로 하루 1회씩</strong> 시전 가능.'}
 ,
-  {name_ko:'재성장', name_en:'Regrowth', feat_level:17, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'재생을 7랭크 근원 선천 주문으로 하루 1회 시전.', desc:'생명 정수에 대한 지배력으로 자신이나 아군이 심각한 부상에서 회복하게 합니다. <em>재생(regenerate)</em>을 <strong>7랭크 근원 선천 주문으로 하루 1회</strong> 시전 가능.'}
+  {name_ko:'재성장', name_en:'Regrowth', feat_level:17, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'재생을 7랭크 원시 선천 주문으로 하루 1회 시전.', desc:'생명 정수에 대한 지배력으로 자신이나 아군이 심각한 부상에서 회복하게 합니다. <em>재생(Regenerate)</em>을 <strong>7랭크 원시 선천 주문으로 하루 1회</strong> 시전 가능.'}
 ,
   // ── 오크 Orc ──
   {name_ko:'오크 지식', name_en:'Orc Lore', feat_level:1, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'운동과 생존에 숙련됨. 오크 관련 지식(Lore)에 숙련됨.', desc:'<strong>운동과 생존에 숙련</strong>됩니다. 이미 숙련이면 다른 기술. <strong>오크 지식</strong>에 대한 추가 지식 재주를 얻습니다.'}

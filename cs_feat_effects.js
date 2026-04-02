@@ -715,7 +715,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'식물/균류에게 외교 사용 가능. 자신의 종류에 +2 상황 보너스'}]
   },
   'Bark and Tendril': {
-    effects: [{type:'display_note', text:'얽히는 식물 + 참나무 회복력: 2랭크 근원 선천 주문 하루 1회씩'}]
+    effects: [{type:'grant_innate_spell', spell:'방해 식물', tradition:'원시', spellType:'spell', uses:'하루 1회'}, {type:'grant_innate_spell', spell:'참나무 강인', tradition:'원시', spellType:'spell', uses:'하루 1회'}]
   },
   'Lucky Keepsake': {
     effects: [{type:'save_bonus', save:'all', value:1, bonus_type:'circumstance', condition:'주문/마법 효과'}]

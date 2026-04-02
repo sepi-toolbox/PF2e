@@ -2218,4 +2218,15 @@ const SPELL_DB = [
     traditions: [], actions: "", traits: [],
     summary: "특질: 집중, 조작, 투시 | 전통: 비전, 비학시전: 1분 | 사거리: 500피트 | 지속 시간: 10분사거리 내 위치에 보이지 않는 떠다니는 눈을 만듭니다. 움직일 수 없지만 ",
     desc: "<strong>특성:</strong> 집중, 조작, 투시 | <strong>전통:</strong> 비전, 비학<br><strong>시전:</strong> 1분 | <strong>사거리:</strong> 500피트 | <strong>지속 시간:</strong> 10분<br>사거리 내 위치에 보이지 않는 떠다니는 눈을 만듭니다. 움직일 수 없지만 해당 지점에서 모든 방향을 정상적인 시각으로 볼 수 있습니다.</div>" },
+
+  // ── 레쉬 혈통 선천 주문 ──
+  { name_ko: "방해 식물", name_en: "Entangling Flora", rank: 2, is_cantrip: false, is_focus: false,
+    traditions: ['비전','원시'], actions: "2행동", traits: ['집중','조작','식물'],
+    summary: "특성: 집중, 조작, 식물 | 전통: 비전, 원시 | 사거리: 120피트 | 영역: 영역 내 모든 5피트 칸 | 지속 시간: 1분. 식물을 자라게 하여 영역을 험지로 만듭니다. 영역 내 턴 시작 시 반사 내성. 실패 시 이동 불가.",
+    desc: "<strong>특성:</strong> 집중, 조작, 식물 | <strong>전통:</strong> 비전, 원시<br><strong>사거리:</strong> 120피트 | <strong>영역:</strong> 영역 내 모든 5피트 칸 | <strong>지속 시간:</strong> 1분<br>식물을 자라게 하여 영역 내 이동을 방해합니다. 영역은 <strong>험지</strong>가 됩니다. 영역 내에서 턴을 시작하는 각 생물은 반사 내성 시도. 실패 시 <strong>이동 불가(immobilized)</strong>(탈출 DC = 주문 DC). 대실패 시 넘어뜨려짐+이동 불가." },
+
+  { name_ko: "참나무 강인", name_en: "Oaken Resilience", rank: 2, is_cantrip: false, is_focus: false,
+    traditions: ['비전','원시'], actions: "2행동", traits: ['집중','조작','식물'],
+    summary: "특성: 집중, 조작, 식물 | 전통: 비전, 원시 | 사거리: 접촉 | 대상: 생물 1 | 지속 시간: 10분. 나무의 회복력 부여. 임시 HP 10 + 밀기/넘어뜨리기 DC +2. 화염 약점 2.",
+    desc: "<strong>특성:</strong> 집중, 조작, 식물 | <strong>전통:</strong> 비전, 원시<br><strong>사거리:</strong> 접촉 | <strong>대상:</strong> 생물 1 | <strong>지속 시간:</strong> 10분<br>나무의 회복력을 부여하지만 가연성도 함께. 대상의 최대 HP에 <strong>임시 HP 10</strong>을 얻고, 밀기/넘어뜨리기에 대한 인내 DC에 +2. 그러나 <strong>화염 약점 2</strong>.<br><strong>강화(+2):</strong> 임시 HP +5, 화염 약점 +1." },
 ];
