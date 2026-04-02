@@ -1867,7 +1867,7 @@ const FEAT_DB = [
 ,
   {name_ko:'굴하지 않는', name_en:'Undaunted', feat_level:1, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'식물/자연환경에서 은신 판정에 +2 상황 보너스.', desc:'긴 존재를 통해 많은 도전을 견뎌왔습니다. 감정 효과에 대한 내성에 <strong>+1 상황 보너스</strong>. 감정 효과에 대한 내성에서 <strong>성공을 굴리면 대성공</strong>.'}
 ,
-  {name_ko:'고정 뿌리', name_en:'Anchoring Roots', feat_level:5, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'[1행동] 고정(Anchor): 재배치/밀기/넘어뜨리기 DC +2 상황 보너스. 안정된 균형 재주 획득.', desc:'발에서 작은 뿌리가 솟아 이동할 때 안정시킵니다. 곡예에 숙련이 아니어도 <strong>안정된 균형(Steady Balance)</strong> 기술 재주를 얻고, 고정(Anchor) 행동을 사용할 수 있습니다.<br><strong>고정</strong> [1행동] — 요구사항: 단단한 표면 위. 뿌리를 땅에 박아 재배치/밀기/넘어뜨리기에 대한 인내/반사 DC에 <strong>+2 상황 보너스</strong>(뿌리 레쉬면 +4). 강제 이동 시 <strong>절반 거리만</strong> 이동.'}
+  {name_ko:'고정 뿌리', name_en:'Anchoring Roots', feat_level:5, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'안정된 균형 재주 획득. 고정(Anchor) 행동 사용 가능.', desc:'발에서 작은 뿌리가 솟아 이동할 때 안정시킵니다. 곡예에 숙련이 아니어도 <strong>안정된 균형(Steady Balance)</strong> 기술 재주를 얻고, 고정(Anchor) 행동을 사용할 수 있습니다.<br><strong>고정</strong> [1행동] — 요구사항: 단단한 표면 위. 뿌리를 땅에 박아 재배치/밀기/넘어뜨리기에 대한 인내/반사 DC에 <strong>+2 상황 보너스</strong>(뿌리 레쉬면 +4). 강제 이동 시 <strong>절반 거리만</strong> 이동.'}
 ,
   {name_ko:'레쉬 활공', name_en:'Leshy Glide', feat_level:5, prerequisites:'레쉬, 잎 레쉬 유산 또는 고양이 착지', traits:['레쉬'], category:'ancestry', summary:'[1행동] 활공: 5피트 아래로 최대 25피트 앞으로 이동.', desc:'<strong>전제조건:</strong> 잎 레쉬 유산 또는 고양이 착지(Cat Fall) 기술 재주<br>자신의 잎을 사용하여 하강을 제어합니다. 천천히 땅을 향해 활공하며, <strong>5피트 아래로 최대 25피트 앞으로</strong> 이동합니다. 매 라운드 최소 1행동을 활공에 소비하고 아직 지면에 도달하지 않았다면, 턴 종료 시 공중에 남아 있습니다.'}
 ,

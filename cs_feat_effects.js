@@ -703,7 +703,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'도시 외 환경에서 항상 흔적 감추기 상태'}]
   },
   'Anchoring Roots': {
-    effects: [{type:'grant_feat', feat:'안정된 균형 (Steady Balance)'}, {type:'display_note', text:'고정 [1행동]: 재배치/밀기/넘어뜨리기 DC +2 상황 보너스 (뿌리 레쉬 +4). 강제 이동 절반'}]
+    effects: [{type:'grant_feat', feat:'안정된 균형 (Steady Balance)'}, {type:'grant_action', summary:'[1행동] 고정 (Anchor) — 요구: 단단한 표면. 뿌리를 박아 이동할 때까지 재배치/밀기/넘어뜨리기 DC에 +2 상황 보너스 (뿌리 레쉬 +4). 강제 이동 시 절반 거리만 이동.'}]
   },
   'Leshy Glide': {
     effects: [{type:'display_note', text:'[1행동] 5피트 아래로 최대 25피트 앞으로 활공'}]
