@@ -3417,6 +3417,18 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     if (detail) { detail.style.display = ''; detail.innerHTML = '<div class="modal-detail-empty">재주를 선택하면 상세 정보가 표시됩니다.</div>'; }
     if (listEl) { listEl.style.width = ''; listEl.style.borderRight = ''; }
 
+    if (candidates.length === 0) {
+      container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text2);">선택 가능한 재주가 없습니다.<br><span style="font-size:11px;">전제조건(능력치 등)을 확인하세요.</span></div>';
+      // 닫기 허용
+      const closeBtn2 = document.querySelector('.modal-close');
+      const closeBtnM2 = document.getElementById('modal-close-m');
+      const footer2 = document.querySelector('.modal-footer');
+      if (closeBtn2) closeBtn2.style.display = '';
+      if (closeBtnM2) closeBtnM2.style.display = '';
+      if (footer2) { footer2.style.display = ''; footer2.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>'; }
+      return;
+    }
+
     candidates.forEach(cf => {
       const row = document.createElement('div');
       row.className = 'opt-row';
