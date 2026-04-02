@@ -1546,7 +1546,13 @@ function getOptionsData(type) {
   if (type==='class') return CLASSES;
   if (type==='ancestry') return ANCESTRIES;
   if (type==='background') return BACKGROUNDS;
-  if (type==='heritage') return HERITAGE_DB.filter(h => h.ancestry === '*' || !state.selectedAncestry || h.ancestry === state.selectedAncestry.id);
+  if (type==='heritage') {
+    const hasVersatile = Object.values(state.feats).flat().some(f => f?.name?.includes('다재다능한 유산'));
+    return HERITAGE_DB.filter(h => {
+      if (h.versatile) return hasVersatile;
+      return h.ancestry === '*' || !state.selectedAncestry || h.ancestry === state.selectedAncestry.id;
+    });
+  }
   if (type==='subclass') return state.selectedClass ? SUBCLASS_DB.filter(s => s.class_id === state.selectedClass.id) : [];
   if (type==='feat') return filterFeats();
   if (type==='spell') return filterSpells();
