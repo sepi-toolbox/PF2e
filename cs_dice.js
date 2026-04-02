@@ -86,6 +86,18 @@ const DiceRoller = (() => {
     return rollPool(label, modifier);
   }
 
+  // "2d8+4 참격" 같은 문자열 파싱 → 굴림
+  function rollDamage(dmgStr, label) {
+    const match = dmgStr.match(/(\d+)d(\d+)/);
+    if (!match) return;
+    const count = parseInt(match[1]) || 1;
+    const sides = parseInt(match[2]) || 6;
+    const modMatch = dmgStr.match(/d\d+\s*([+-]\s*\d+)/);
+    const mod = modMatch ? parseInt(modMatch[1].replace(/\s/g, '')) : 0;
+    pool = [{sides, count}];
+    return rollPool(label || dmgStr, mod);
+  }
+
   function poolLabel() {
     const parts = pool.map(d => d.count + 'd' + d.sides);
     return parts.join(' + ') || 'd20';
@@ -308,16 +320,28 @@ const DiceRoller = (() => {
     document.addEventListener('click', (e) => {
       // 명중 stat-val 클릭
       const statEl = e.target.closest('.weapon-stat');
-      if (statEl && statEl.querySelector('.stat-label')?.textContent.includes('명중')) {
-        e.stopPropagation();
-        const valEl = statEl.querySelector('.stat-val');
-        if (!valEl) return;
-        const mod = parseInt(valEl.textContent) || 0;
+      if (statEl) {
+        const label = statEl.querySelector('.stat-label')?.textContent || '';
         const card = statEl.closest('.weapon-card');
         const nameEl = card?.querySelector('.weapon-card-name');
-        const wpName = nameEl?.textContent?.replace(/[⚔\s파손된\s]/g,'').trim().split('[')[0].trim() || '명중';
-        rollCheck(mod, wpName + ' 명중');
-        return;
+        const wpName = nameEl?.textContent?.replace(/[⚔\s파손된\s]/g,'').trim().split('[')[0].trim() || '무기';
+
+        if (label.includes('명중')) {
+          e.stopPropagation();
+          const valEl = statEl.querySelector('.stat-val');
+          if (!valEl) return;
+          const mod = parseInt(valEl.textContent) || 0;
+          rollCheck(mod, wpName + ' 명중');
+          return;
+        }
+        if (label.includes('피해') && statEl.classList.contains('weapon-stat-dmg')) {
+          e.stopPropagation();
+          const dmgStr = statEl.dataset.dmg || '';
+          if (dmgStr && dmgStr !== '—') {
+            rollDamage(dmgStr, wpName + ' 피해');
+          }
+          return;
+        }
       }
 
       // 내성 클릭 (val-fort, val-ref, val-will)
@@ -326,7 +350,8 @@ const DiceRoller = (() => {
       };
       for (const [id, label] of Object.entries(saveNames)) {
         if (e.target.id === id || e.target.closest('#' + id)) {
-          const mod = parseInt(e.target.textContent) || 0;
+          const el = e.target.id === id ? e.target : e.target.closest('#' + id);
+          const mod = parseInt(el.textContent) || 0;
           rollCheck(mod, label);
           return;
         }
@@ -334,7 +359,8 @@ const DiceRoller = (() => {
 
       // 지각 클릭
       if (e.target.id === 'val-perc' || e.target.closest('#val-perc')) {
-        const mod = parseInt(e.target.textContent) || 0;
+        const el = e.target.id === 'val-perc' ? e.target : e.target.closest('#val-perc');
+        const mod = parseInt(el.textContent) || 0;
         rollCheck(mod, '지각');
         return;
       }
@@ -343,7 +369,6 @@ const DiceRoller = (() => {
       if (e.target.classList.contains('skill-total') || e.target.closest('.skill-total')) {
         const el = e.target.classList.contains('skill-total') ? e.target : e.target.closest('.skill-total');
         const mod = parseInt(el.textContent) || 0;
-        // 기술명 찾기
         const row = el.closest('.skill-row');
         const nameEl = row?.querySelector('.skill-name');
         const skillName = nameEl?.textContent?.trim() || '기술';
@@ -353,7 +378,8 @@ const DiceRoller = (() => {
 
       // 선제 클릭
       if (e.target.id === 'val-init' || e.target.closest('#val-init')) {
-        const mod = parseInt(e.target.textContent) || 0;
+        const el = e.target.id === 'val-init' ? e.target : e.target.closest('#val-init');
+        const mod = parseInt(el.textContent) || 0;
         rollCheck(mod, '선제');
         return;
       }

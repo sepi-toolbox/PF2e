@@ -519,7 +519,7 @@ function renderWeapons() {
             <span class="stat-label">\u2699 명중</span>
             <span class="stat-val" style="${w._broken?'color:var(--red-light);':''}">${hitStr}</span>
           </div>
-          <div class="weapon-stat">
+          <div class="weapon-stat weapon-stat-dmg" data-dmg="${(dmgResult.str||'').replace(/"/g,'&quot;')}">
             <span class="stat-label">\uD83C\uDFAF 피해</span>
             <span class="stat-val dmg">${dmgStr}</span>
           </div>
