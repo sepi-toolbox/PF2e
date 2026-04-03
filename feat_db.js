@@ -1922,13 +1922,13 @@ const FEAT_DB = [
 ,
   {name_ko:'오크 무기 전문가', name_en:'Orc Weapon Expertise', feat_level:13, prerequisites:'오크, 오크 무기 친숙', traits:['오크'], category:'ancestry', summary:'오크 무기에 대한 숙련도가 전문가로 증가합니다.', desc:'오크 무기에 대한 숙련도가 전문가로 증가합니다.'}
 ,
-  {name_ko:'놀라운 흉포', name_en:'Incredible Ferocity', feat_level:13, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'전제조건: 오크의 흉포', desc:'<strong>전제조건:</strong> 오크의 흉포<br>임사 경험 후 시간을 가지고 회복하면 흉포를 재건할 수 있습니다. 오크의 흉포를 하루 1회 대신 <strong>시간당 1회</strong> 사용 가능.'}
+  {name_ko:'놀라운 흉포', name_en:'Incredible Ferocity', feat_level:13, prerequisites:'오크, 오크 흉포', traits:['오크'], category:'ancestry', summary:'오크 흉포를 하루 1회 대신 시간당 1회 사용 가능.', desc:'<strong>전제조건:</strong> 오크 흉포<br>임사 경험 후 시간을 가지고 회복하면 흉포를 재건할 수 있습니다. 오크 흉포를 하루 1회 대신 <strong>시간당 1회</strong> 사용 가능.'}
 ,
-  {name_ko:'흉포한 야수들', name_en:'Ferocious Beasts', feat_level:13, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'전제조건: 동물 동료, 반려동물, 또는 결합 동물; 오크의 흉포', desc:'<strong>전제조건:</strong> 동물 동료, 반려동물, 또는 결합 동물; 오크의 흉포<br>고대부터 가장 강한 오크 야수 조련사는 자기 피를 섞은 약을 먹여 동반 야수의 진정한 투쟁 정신을 이끌어냈습니다. 모든 동물 동료, 반려동물, 사역마, 결합 동물이 <strong>오크의 흉포 재주</strong>를 얻고, 오크의 흉포에만 사용할 수 있는 <strong>반응 1회</strong>를 라운드마다 얻습니다.'}
+  {name_ko:'흉포한 야수들', name_en:'Ferocious Beasts', feat_level:13, prerequisites:'오크, 오크 흉포', traits:['오크'], category:'ancestry', summary:'동물 동료/반려동물/사역마/결합 동물이 오크 흉포를 얻음.', desc:'<strong>전제조건:</strong> 동물 동료, 반려동물, 또는 결합 동물; 오크 흉포<br>고대부터 가장 강한 오크 야수 조련사는 자기 피를 섞은 약을 먹여 동반 야수의 진정한 투쟁 정신을 이끌어냈습니다. 모든 동물 동료, 반려동물, 사역마, 결합 동물이 <strong>오크 흉포 재주</strong>를 얻고, 오크 흉포에만 사용할 수 있는 <strong>반응 1회</strong>를 라운드마다 얻습니다.'}
 ,
-  {name_ko:'주문 탐식자', name_en:'Spell Devourer', feat_level:13, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'전제조건: 오크 미신', desc:'<strong>전제조건:</strong> 오크 미신<br>마법에 저항할 뿐 아니라 삼켜버립니다. 주문이나 마법 효과에 대한 내성에 <strong>성공할 때마다</strong>, 주문 랭크의 두 배만큼의 <strong>임시 HP</strong>를 얻습니다(마법 효과가 주문이 아니면 레벨만큼). 이 임시 HP는 다음 턴 종료까지 지속.'}
+  {name_ko:'주문 탐식자', name_en:'Spell Devourer', feat_level:13, prerequisites:'오크, 오크 미신', traits:['오크'], category:'ancestry', summary:'주문/마법 효과 내성 성공 시 주문 랭크×2만큼 임시 HP 획득.', desc:'<strong>전제조건:</strong> 오크 미신<br>마법에 저항할 뿐 아니라 삼켜버립니다. 주문이나 마법 효과에 대한 내성에 <strong>성공할 때마다</strong>, 주문 랭크의 두 배만큼의 <strong>임시 HP</strong>를 얻습니다(마법 효과가 주문이 아니면 레벨만큼). 이 임시 HP는 다음 턴 종료까지 지속.'}
 ,
-  {name_ko:'난동의 흉포', name_en:'Rampaging Ferocity', feat_level:17, prerequisites:'오크', traits:['오크'], category:'ancestry', summary:'전제조건: 오크의 흉포', desc:'<strong>전제조건:</strong> 오크의 흉포<br><br>죽음을 막아내면서도 맹렬하게 공격합니다. <strong>근접 타격 1회</strong>를 합니다. 이 타격이 적의 HP를 0으로 만들면, 이번 오크의 흉포 활성화는 빈도에 포함되지 않습니다.'}
+  {name_ko:'난동의 흉포', name_en:'Rampaging Ferocity', feat_level:17, prerequisites:'오크, 오크 흉포', traits:['오크'], category:'ancestry', summary:'[자유 행동] 오크 흉포 발동 시 근접 타격 1회. 적 쓰러뜨리면 흉포 빈도에 불포함.', desc:'<strong>전제조건:</strong> 오크 흉포<br>죽음을 막아내면서도 맹렬하게 공격합니다. <strong>근접 타격 1회</strong>를 합니다. 이 타격이 적의 HP를 0으로 만들면, 이번 오크 흉포 활성화는 빈도에 포함되지 않습니다.'}
 ,
   // ═══ 원형 재주 — 다중클래스 (Multiclass Archetype Feats) ═══
 
