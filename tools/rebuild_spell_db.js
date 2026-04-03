@@ -5,7 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const htmlPath = '/Users/sepi/Library/Mobile Documents/com~apple~CloudDocs/AIwork/01_TTRPG-Translation/Pathfinder2e/PlayerCore/03. 완역/PlayerCore.html';
+const htmlPath = path.resolve(__dirname, '../PlayerCore.html');
 const html = fs.readFileSync(htmlPath, 'utf-8');
 
 // 기존 SPELL_DB에서 보존할 데이터
