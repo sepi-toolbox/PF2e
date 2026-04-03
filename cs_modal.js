@@ -2590,6 +2590,10 @@ function confirmModal() {
     renderFeats();
     renderSpells();
     renderGrowthPlan();
+    // 디버깅: feats-special 엘리먼트의 자식 수
+    const _dbgEl = document.getElementById('feats-special');
+    const _dbgSpEl = document.getElementById('spell-ranks-container');
+    alert(`[렌더 확인]\nfeats-special 자식수: ${_dbgEl?.children?.length ?? 'null'}\nfeats-special HTML 길이: ${_dbgEl?.innerHTML?.length ?? 0}\nspell-ranks-container 자식수: ${_dbgSpEl?.children?.length ?? 'null'}`);
   } else if (modalType==='heritage') {
     state.selectedHeritage = modalSelected;
     const btn = document.getElementById('btn-heritage');
