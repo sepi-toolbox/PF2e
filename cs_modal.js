@@ -2202,7 +2202,8 @@ function filterSpells() {
     if (slotType === 'focus' && !sp.is_focus) return false;
     if (slotType === 'known') {
       if (sp.is_cantrip || sp.is_focus) return false;
-      if (slotRank > 0 && sp.rank !== slotRank) return false;
+      // 해당 랭크 이하 주문 허용 (낮은 랭크 주문의 고양 버전으로 배울 수 있음)
+      if (slotRank > 0 && sp.rank > slotRank) return false;
     }
     // 집중 주문은 재주/클래스 능력으로만 습득 — 일반 주문 선택에서 제외
     if (slotType !== 'focus' && sp.is_focus) return false;
