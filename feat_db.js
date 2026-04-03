@@ -19,7 +19,7 @@ const FEAT_DB = [
 ,
   {name_ko:"바드 지식", name_en:"Bardic Lore", feat_level:1, prerequisites:"수수께끼 뮤즈", traits:["바드"], category:"bard", summary:"학습으로 모든 주제에 정통합니다. 바드 지식(Bardic Lore)에 숙련됩니다 — 지식 회상(Recall Knowledge)에만 사용할 수 있지만 어떤 주제에든 사용 가능한 특수 지식 기술입니다. 오컬티즘에 전설 숙련도가 있으면 바드 지식에 전문가 숙련도를 얻지만, 다른", desc:'<strong>전제조건:</strong> 수수께끼 뮤즈<br>학습으로 모든 주제에 정통합니다. <strong>바드 지식(Bardic Lore)</strong>에 숙련됩니다 — 지식 회상(Recall Knowledge)에만 사용할 수 있지만 <strong>어떤 주제에든</strong> 사용 가능한 특수 지식 기술입니다. 비학에 전설 숙련도가 있으면 바드 지식에 전문가 숙련도를 얻지만, 다른 방법으로는 숙련도를 올릴 수 없습니다.' }
 ,
-  {name_ko:"치유의 찬송", name_en:"Hymn of Healing", feat_level:1, prerequisites:"", traits:["바드"], category:"bard", summary:"치유의 찬송 합주 주문을 습득합니다.", desc:'<span class="spell-tip" data-tip="[1행동] 합주 캔트립 — 사거리 30피트 | 대상: 아군 1 또는 자신 | 지속: 유지. 첫 라운드에 1d4 HP 회복. 유지할 때마다 1d4 HP 회복. 강화: 3랭크 2d4 / 5랭크 3d4 / 7랭크 4d4 / 9랭크 5d4."><em>치유의 찬송</em></span>(Hymn of Healing) 합주 주문을 배워, 풍부한 선율로 아군이 피해에서 회복하도록 돕습니다.' }
+  {name_ko:"치유의 찬송", name_en:"Hymn of Healing", feat_level:1, prerequisites:"", traits:["바드"], category:"bard", summary:"치유의 찬송 합주 주문을 습득합니다.", desc:'<span class="spell-tip" data-tip="[1행동] 합주 캔트립 — 사거리 30피트 | 대상: 아군 1 또는 자신 | 지속: 유지. 첫 라운드에 1d4 HP 회복. 유지할 때마다 1d4 HP 회복. 강화: 3랭크 2d4 / 5랭크 3d4 / 7랭크 4d4 / 9랭크 5d4."><em>치유의 찬송(Hymn of Healing)</em></span> 합주 주문을 배워, 풍부한 선율로 아군이 피해에서 회복하도록 돕습니다.' }
 ,
   {name_ko:"잔향 합주", name_en:"Lingering Composition", feat_level:1, prerequisites:"마에스트로 뮤즈", traits:["바드"], category:"bard", summary:"장식을 더하여 합주를 더 오래 지속시킵니다. 잔향 합주(lingering composition) 집중 주문을 배웁니다.", desc:'<strong>전제조건:</strong> 마에스트로 뮤즈<br>장식을 더하여 합주를 더 오래 지속시킵니다. <em>잔향 합주(lingering composition)</em> 집중 주문(371페이지)을 배웁니다.' }
 ,
