@@ -1156,6 +1156,11 @@ function renderGrowthPlan() {
     if (plan.skillFeat) {
       html += growthFeatSlotHTML(lv, 'skillFeat', '📚', '기술 재주 Skill Feat', 'skill', g.skillFeat);
     }
+
+    // Spell Repertoire (spontaneous casters with CLASS_SPELL_TABLE)
+    if (state.selectedClass?.casting === 'spontaneous') {
+      html += growthSpellCardHTML(lv);
+    }
   }
 
   container.innerHTML = html;
@@ -1509,6 +1514,248 @@ function openSkillPickModal(title, availableIds) {
 }
 
 // ═══════════════════════════════════════════════
+//  GROWTH PLAN — SPELL REPERTOIRE (spontaneous casters)
+// ═══════════════════════════════════════════════
+
+// 확장/축소 상태 (세션 중 유지, 저장 안 함)
+if (typeof _growthSpellExpanded === 'undefined') var _growthSpellExpanded = {};
+
+// 해당 레벨에서 새로 얻는 주문 슬롯 계산
+function getNewSpellSlotsAtLevel(classId, lv) {
+  if (typeof CLASS_SPELL_TABLE === 'undefined' || !CLASS_SPELL_TABLE[classId]) return null;
+  const cur = CLASS_SPELL_TABLE[classId][Math.min(lv,20)];
+  if (!cur) return null;
+  const prev = lv > 1 ? CLASS_SPELL_TABLE[classId][Math.min(lv-1,20)] : null;
+  const result = {};
+  let total = 0;
+  // 캔트립 (1레벨에만)
+  if (lv === 1 && cur.cantrips > 0) {
+    result.cantrip = cur.cantrips;
+    total += cur.cantrips;
+  }
+  // 랭크별 슬롯 증분
+  for (let r = 1; r <= 10; r++) {
+    const c = cur.slots[r-1] || 0;
+    const p = prev ? (prev.slots[r-1] || 0) : 0;
+    const diff = c - p;
+    if (diff > 0) { result['rank'+r] = diff; total += diff; }
+  }
+  return total > 0 ? result : null;
+}
+
+// _auto known 주문 중 이 레벨에 부여되는 것 (뮤즈 등)
+function getAutoKnownAtLevel(lv) {
+  const result = [];
+  const cid = state.selectedClass?.id;
+  const sid = state.selectedSubclass?.id;
+  if (typeof CLASS_AUTO_SPELLS !== 'undefined' && cid && CLASS_AUTO_SPELLS[cid]) {
+    CLASS_AUTO_SPELLS[cid].forEach(s => {
+      if (s.lv === lv && s.type === 'known') result.push({name: s.name_ko, rank: s.rank || 1});
+    });
+  }
+  if (typeof SUBCLASS_AUTO_SPELLS !== 'undefined' && sid && SUBCLASS_AUTO_SPELLS[sid]) {
+    SUBCLASS_AUTO_SPELLS[sid].forEach(s => {
+      if (s.lv === lv && s.type === 'known') result.push({name: s.name_ko, rank: s.rank || 1});
+    });
+  }
+  // cantrip 자동 부여
+  if (typeof CLASS_AUTO_SPELLS !== 'undefined' && cid && CLASS_AUTO_SPELLS[cid]) {
+    CLASS_AUTO_SPELLS[cid].forEach(s => {
+      if (s.lv === lv && s.type === 'cantrip') result.push({name: s.name_ko, rank: 0, isCantrip: true});
+    });
+  }
+  if (typeof SUBCLASS_AUTO_SPELLS !== 'undefined' && sid && SUBCLASS_AUTO_SPELLS[sid]) {
+    SUBCLASS_AUTO_SPELLS[sid].forEach(s => {
+      if (s.lv === lv && s.type === 'cantrip') result.push({name: s.name_ko, rank: 0, isCantrip: true});
+    });
+  }
+  return result;
+}
+
+// 성장 주문 카드 HTML
+function growthSpellCardHTML(lv) {
+  const cid = state.selectedClass?.id;
+  if (!cid) return '';
+  const newSlots = getNewSpellSlotsAtLevel(cid, lv);
+  if (!newSlots) return '';
+
+  const g = state.growth[lv] || {};
+  const gs = g.spells || {};
+  const autoKnown = getAutoKnownAtLevel(lv);
+
+  // 자동 부여 주문이 차지하는 슬롯 계산
+  const autoByKey = {};
+  autoKnown.forEach(a => {
+    const key = a.isCantrip ? 'cantrip' : 'rank' + a.rank;
+    if (!autoByKey[key]) autoByKey[key] = [];
+    autoByKey[key].push(a.name);
+  });
+
+  let totalNew = 0, totalFilled = 0;
+  const slotKeys = [];
+
+  // 각 키별 사용자 선택 가능 수 계산
+  Object.keys(newSlots).forEach(key => {
+    const count = newSlots[key];
+    const autoCount = (autoByKey[key] || []).length;
+    const userCount = Math.max(0, count - autoCount);
+    const userFilled = (gs[key] || []).filter(n => n).length;
+    slotKeys.push({key, total: count, autoCount, autoNames: autoByKey[key] || [], userCount, userFilled});
+    totalNew += userCount;
+    totalFilled += Math.min(userFilled, userCount);
+  });
+
+  if (totalNew === 0 && slotKeys.every(s => s.autoCount === 0)) return '';
+
+  const allFilled = totalFilled >= totalNew;
+  const expanded = !!_growthSpellExpanded[lv];
+
+  // 요약 라인
+  let summary = [];
+  slotKeys.forEach(s => {
+    const label = s.key === 'cantrip' ? '캔트립' : s.key.replace('rank','') + '랭크';
+    const filled = s.autoCount + Math.min(s.userFilled, s.userCount);
+    summary.push(`${label} ${filled}/${s.total}`);
+  });
+
+  let html = `<div class="growth-slot ${allFilled ? 'filled' : ''}" onclick="toggleGrowthSpellExpand(${lv})" style="flex-wrap:wrap;">
+    <div class="growth-slot-icon">🎵</div>
+    <div class="growth-slot-body">
+      <div class="growth-slot-label">주문 레퍼토리 Spell Repertoire</div>
+      <div class="growth-slot-value">${summary.join(', ')}</div>
+    </div>
+    ${totalFilled > 0 ? '<span class="spell-del" onclick="event.stopPropagation();growthClearSpells('+lv+');" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>' : ''}
+    ${!allFilled && totalNew > 0 ? '<div class="growth-slot-badge">'+(totalNew - totalFilled)+'</div>' : ''}
+  </div>`;
+
+  // 인라인 확장
+  if (expanded) {
+    html += '<div class="growth-spell-detail" style="margin-left:32px;margin-bottom:8px;">';
+    slotKeys.forEach(s => {
+      const label = s.key === 'cantrip' ? '캔트립' : s.key.replace('rank','') + '랭크 주문';
+      html += `<div style="font-size:10px;color:var(--accent);margin:6px 0 2px;font-weight:600;">${label} (${s.total}개)</div>`;
+      // 자동 부여 슬롯
+      s.autoNames.forEach(name => {
+        html += `<div class="growth-spell-slot" style="display:flex;align-items:center;gap:6px;padding:3px 6px;border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);margin:2px 0;border-radius:4px;font-size:12px;">
+          <span style="flex:1;">${name}</span>
+          <span style="font-size:9px;color:var(--accent);">자동 부여</span>
+        </div>`;
+      });
+      // 사용자 선택 슬롯
+      for (let i = 0; i < s.userCount; i++) {
+        const name = (gs[s.key] || [])[i] || null;
+        const rank = s.key === 'cantrip' ? 0 : parseInt(s.key.replace('rank',''));
+        if (name) {
+          html += `<div class="growth-spell-slot" style="display:flex;align-items:center;gap:6px;padding:3px 6px;background:var(--bg2);margin:2px 0;border-radius:4px;font-size:12px;cursor:pointer;" onclick="event.stopPropagation();showInfo('spell','${name.replace(/'/g,"\\'")}')">
+            <span style="flex:1;">${name}</span>
+            <span class="spell-del" onclick="event.stopPropagation();growthRemoveSpell(${lv},'${s.key}',${i});" style="color:var(--red);font-size:12px;cursor:pointer;">✕</span>
+          </div>`;
+        } else {
+          html += `<div class="growth-spell-slot" style="display:flex;align-items:center;gap:6px;padding:3px 6px;background:var(--bg2);margin:2px 0;border-radius:4px;font-size:12px;cursor:pointer;opacity:0.6;" onclick="event.stopPropagation();openGrowthSpellPicker(${lv},'${s.key}',${i},${rank})">
+            <span style="flex:1;color:var(--text2);">선택 안 됨</span>
+          </div>`;
+        }
+      }
+    });
+    html += '</div>';
+  }
+
+  return html;
+}
+
+function toggleGrowthSpellExpand(lv) {
+  _growthSpellExpanded[lv] = !_growthSpellExpanded[lv];
+  renderGrowthPlan();
+}
+
+// 성장 주문 선택 모달
+let _growthSpellPending = null;
+
+function openGrowthSpellPicker(lv, slotKey, slotIdx, rank) {
+  _growthSpellPending = {lv, slotKey, slotIdx, rank};
+  const isCantrip = slotKey === 'cantrip';
+  // 주문 모달 열기 (spell 타입)
+  _spellSlotPending = null; // 일반 슬롯 선택과 충돌 방지
+  openModal('spell', isCantrip ? 'cantrip' : 'known');
+}
+
+// confirmModal에서 호출 — growth 주문 선택 완료
+function applyGrowthSpellSelection(spellName) {
+  if (!_growthSpellPending) return false;
+  const {lv, slotKey, slotIdx} = _growthSpellPending;
+  if (!state.growth[lv]) state.growth[lv] = {};
+  if (!state.growth[lv].spells) state.growth[lv].spells = {};
+  if (!state.growth[lv].spells[slotKey]) state.growth[lv].spells[slotKey] = [];
+  state.growth[lv].spells[slotKey][slotIdx] = spellName;
+  _growthSpellPending = null;
+  syncGrowthSpellsToState();
+  renderGrowthPlan();
+  renderSpells();
+  save();
+  return true;
+}
+
+function growthRemoveSpell(lv, slotKey, slotIdx) {
+  if (!state.growth[lv]?.spells?.[slotKey]) return;
+  state.growth[lv].spells[slotKey][slotIdx] = null;
+  syncGrowthSpellsToState();
+  renderGrowthPlan();
+  renderSpells();
+  save();
+}
+
+function growthClearSpells(lv) {
+  if (!state.growth[lv]) return;
+  delete state.growth[lv].spells;
+  syncGrowthSpellsToState();
+  renderGrowthPlan();
+  renderSpells();
+  save();
+}
+
+// growth의 주문 선택을 state.spells에 동기화
+function syncGrowthSpellsToState() {
+  const cid = state.selectedClass?.id;
+  if (!cid || typeof CLASS_SPELL_TABLE === 'undefined' || !CLASS_SPELL_TABLE[cid]) return;
+  if (!state.selectedClass.casting) return;
+
+  // _auto가 아닌 known/cantrip 주문 중 growth에서 온 것을 재구축
+  // 기존 _auto 주문은 유지, growth 주문만 교체
+  const autoCantrips = (state.spells.cantrip || []).filter(s => s?._auto);
+  const autoKnown = (state.spells.known || []).filter(s => s?._auto);
+
+  const newCantrips = [...autoCantrips];
+  const newKnown = [...autoKnown];
+
+  const curLevel = getLevel();
+  for (let lv = 1; lv <= curLevel; lv++) {
+    const gs = state.growth[lv]?.spells;
+    if (!gs) continue;
+    // 캔트립
+    if (gs.cantrip) {
+      gs.cantrip.forEach(name => {
+        if (name && !newCantrips.find(c => c.name === name)) {
+          newCantrips.push({name, rank: 0});
+        }
+      });
+    }
+    // 랭크별 known
+    for (let r = 1; r <= 10; r++) {
+      const arr = gs['rank'+r];
+      if (!arr) continue;
+      arr.forEach(name => {
+        if (name && !newKnown.find(k => k.name === name && k.rank === r)) {
+          newKnown.push({name, rank: r});
+        }
+      });
+    }
+  }
+
+  state.spells.cantrip = newCantrips;
+  state.spells.known = newKnown;
+}
+
+// ═══════════════════════════════════════════════
 //  MODAL SYSTEM
 // ═══════════════════════════════════════════════
 
@@ -1839,8 +2086,14 @@ function filterSpells() {
   const q = document.getElementById('modal-search')?.value.toLowerCase()||'';
   const classTrad = state.selectedClass?.tradition || '';
   const pending = typeof _spellSlotPending !== 'undefined' ? _spellSlotPending : null;
-  const slotType = pending?.type || '';  // 'cantrip', 'known', 'focus'
-  const slotRank = pending?.rank || 0;
+  const gPending = typeof _growthSpellPending !== 'undefined' ? _growthSpellPending : null;
+  let slotType = pending?.type || '';  // 'cantrip', 'known', 'focus'
+  let slotRank = pending?.rank || 0;
+  // growth 주문 선택 시 필터 적용
+  if (!pending && gPending) {
+    slotType = gPending.slotKey === 'cantrip' ? 'cantrip' : 'known';
+    slotRank = gPending.rank || 0;
+  }
 
   return SPELL_DB.filter(sp => {
     // 클래스 전통 필터 (any면 모두 허용)
@@ -2542,6 +2795,12 @@ function confirmModal() {
     renderFeats();
   } else if (modalType==='spell') {
     const sp = modalSelected;
+    // growth 주문 선택 우선 처리
+    if (_growthSpellPending) {
+      applyGrowthSpellSelection(sp.name_ko);
+      closeModal();
+      return;
+    }
     if (_spellSlotPending) {
       const pending = _spellSlotPending;
       _spellSlotPending = null;
@@ -2975,36 +3234,42 @@ function applyBackgroundInfo(bg) {
   recalcSkills();
 }
 
+function getClassSpellData() {
+  if (!state.selectedClass) return null;
+  const cid = state.selectedClass.id;
+  const lv = getLevel();
+  if (typeof CLASS_SPELL_TABLE !== 'undefined' && CLASS_SPELL_TABLE[cid]) {
+    return CLASS_SPELL_TABLE[cid][Math.min(lv,20)] || null;
+  }
+  return null;
+}
+
 function updateSpellSlotsForClass() {
   if (!state.selectedClass || !state.selectedClass.casting) return;
+  const data = getClassSpellData();
   const lv = getLevel();
-  // PF2e caster slots by level (rank 1-10)
-  const slots = [
-    [2,0,0,0,0,0,0,0,0,0],  // lv1
-    [3,0,0,0,0,0,0,0,0,0],  // lv2
-    [3,2,0,0,0,0,0,0,0,0],  // lv3
-    [3,3,0,0,0,0,0,0,0,0],  // lv4
-    [3,3,2,0,0,0,0,0,0,0],  // lv5
-    [3,3,3,0,0,0,0,0,0,0],  // lv6
-    [3,3,3,2,0,0,0,0,0,0],  // lv7
-    [3,3,3,3,0,0,0,0,0,0],  // lv8
-    [3,3,3,3,2,0,0,0,0,0],  // lv9
-    [3,3,3,3,3,0,0,0,0,0],  // lv10
-    [3,3,3,3,3,2,0,0,0,0],  // lv11
-    [3,3,3,3,3,3,0,0,0,0],  // lv12
-    [3,3,3,3,3,3,2,0,0,0],  // lv13
-    [3,3,3,3,3,3,3,0,0,0],  // lv14
-    [3,3,3,3,3,3,3,2,0,0],  // lv15
-    [3,3,3,3,3,3,3,3,0,0],  // lv16
-    [3,3,3,3,3,3,3,3,2,0],  // lv17
-    [3,3,3,3,3,3,3,3,3,0],  // lv18
-    [3,3,3,3,3,3,3,3,3,1],  // lv19
-    [3,3,3,3,3,3,3,3,3,1],  // lv20
-  ];
-  const row = slots[Math.min(lv,20)-1] || slots[0];
   state.spellSlots = state.spellSlots || {};
-  for (let r=1; r<=10; r++) {
-    state.spellSlots[r] = row[r-1] || 0;
+  if (data) {
+    // CLASS_SPELL_TABLE 기반 자동 설정
+    for (let r = 1; r <= 10; r++) {
+      state.spellSlots[r] = data.slots[r-1] || 0;
+    }
+    state.cantripSlots = data.cantrips || 5;
+  } else {
+    // CLASS_SPELL_TABLE에 없는 클래스 — 범용 폴백
+    const slots = [
+      [2,0,0,0,0,0,0,0,0,0],[3,0,0,0,0,0,0,0,0,0],[3,2,0,0,0,0,0,0,0,0],
+      [3,3,0,0,0,0,0,0,0,0],[3,3,2,0,0,0,0,0,0,0],[3,3,3,0,0,0,0,0,0,0],
+      [3,3,3,2,0,0,0,0,0,0],[3,3,3,3,0,0,0,0,0,0],[3,3,3,3,2,0,0,0,0,0],
+      [3,3,3,3,3,0,0,0,0,0],[3,3,3,3,3,2,0,0,0,0],[3,3,3,3,3,3,0,0,0,0],
+      [3,3,3,3,3,3,2,0,0,0],[3,3,3,3,3,3,3,0,0,0],[3,3,3,3,3,3,3,2,0,0],
+      [3,3,3,3,3,3,3,3,0,0],[3,3,3,3,3,3,3,3,2,0],[3,3,3,3,3,3,3,3,3,0],
+      [3,3,3,3,3,3,3,3,3,1],[3,3,3,3,3,3,3,3,3,1],
+    ];
+    const row = slots[Math.min(lv,20)-1] || slots[0];
+    for (let r = 1; r <= 10; r++) {
+      state.spellSlots[r] = row[r-1] || 0;
+    }
   }
   renderSpells();
 }

@@ -99,6 +99,7 @@ function collectData() {
     divineFont: state.divineFont || null,
     sanctification: state.sanctification || null,
     divineFontUsed: state.divineFontUsed || 0,
+    signatureSpells: state.signatureSpells || {},
   };
   SKILLS.forEach(sk => {
     data.skillProfs[sk.id] = document.getElementById('sk-prof-'+sk.id)?.value;
@@ -341,6 +342,7 @@ function loadData(d) {
     }
     if (d.growth) { state.growth = d.growth; }
     applyClassFeatures();
+    if (typeof syncGrowthSpellsToState === 'function') syncGrowthSpellsToState();
     renderGrowthPlan();
     if (d.conditions) {
       state.conditions = d.conditions;
@@ -366,6 +368,7 @@ function loadData(d) {
     if (d.divineFont) state.divineFont = d.divineFont;
     if (d.sanctification) state.sanctification = d.sanctification;
     if (d.divineFontUsed !== undefined) state.divineFontUsed = d.divineFontUsed;
+    if (d.signatureSpells) state.signatureSpells = d.signatureSpells;
   } catch(e) { console.warn('Load failed',e); }
 }
 

@@ -646,6 +646,7 @@ let state = {
   cantripSlots: 5,
   spellSlots: {},
   spellSlotsUsed: {},
+  signatureSpells: {},  // {rank: spellName} — 시그니처 주문 (3레벨~)
   feats: {special:[], ancestry:[], class:[], general:[], skill:[], archetype:[], other:[]},
   conditions: {},
   growth: {},  // level-by-level progression
