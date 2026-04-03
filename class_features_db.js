@@ -304,7 +304,7 @@ var SUBCLASS_AUTO_FEATS = {
   'muse-maestro': [{lv:1, name_ko:'잔향 합주', name_en:'Lingering Composition', category:'special'}],
   'muse-enigma':  [{lv:1, name_ko:'바드 지식', name_en:'Bardic Lore', category:'special'}],
   'muse-warrior': [{lv:1, name_ko:'무예 공연', name_en:'Martial Performance', category:'special'}],
-  'muse-lore':    [{lv:1, name_ko:'바드 지식', name_en:'Bardic Lore', category:'special'}],
+  'muse-polymath': [{lv:1, name_ko:'다재다능한 공연', name_en:'Versatile Performance', category:'special'}],
 };
 
 // ═══════════════════════════════════════════════
@@ -325,7 +325,7 @@ var SUBCLASS_AUTO_SPELLS = {
   'muse-maestro': [{lv:1, type:'focus', name_ko:'포르티시모 작곡', name_en:'Fortissimo Composition'}, {lv:1, type:'known', rank:1, name_ko:'위로', name_en:'Soothe'}],
   'muse-enigma':  [{lv:1, type:'focus', name_ko:'달인의 에튀드', name_en:"Loremaster's Etude"}, {lv:1, type:'known', rank:1, name_ko:'확실한 타격', name_en:'Sure Strike'}],
   'muse-warrior': [{lv:1, type:'known', rank:1, name_ko:'공포', name_en:'Fear'}],
-  'muse-lore':    [],
+  'muse-polymath': [{lv:1, type:'known', rank:1, name_ko:'환영 하수인', name_en:'Phantasmal Minion'}],
   // ── 드루이드 교단 (DB 매칭) ──
   'order-flame':  [{lv:1, type:'focus', name_ko:'화염 광선', name_en:'Fire Ray'}],
   'order-leaf':   [{lv:1, type:'focus', name_ko:'선의 씨앗', name_en:'Goodberry'}],
@@ -357,7 +357,7 @@ var SUBCLASS_FEATURE_NAMES = {
   'muse-enigma':  [{lv:1, name_ko:'바드 지식 (자유 지식 기술)', name_en:'Bardic Lore'}],
   'muse-maestro': [{lv:1, name_ko:'여운 주문 재주', name_en:'Lingering Composition'}],
   'muse-warrior': [{lv:1, name_ko:'군용 무기 훈련', name_en:'Martial Weapon Training'}],
-  'muse-lore':    [{lv:1, name_ko:'지식 기술 2개 추가', name_en:'Lore Skills'}],
+  'muse-polymath': [{lv:1, name_ko:'다재다능한 공연', name_en:'Versatile Performance'}],
   // ── 클레릭 교리 ──
   'doctrine-cloistered': [
     {lv:1,  name_ko:'도메인 개시 주문 1개', name_en:'Domain Initiate Spell'},

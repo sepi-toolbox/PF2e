@@ -57,8 +57,8 @@ const SUBCLASS_DB = [
    summary:'뮤즈가 끊임없이 더 높은 예술적 무용의 경지로 영감을 줍니다. 많은 바드에게 스승이나 라이벌이 이 역할을 하지만, 일부는 더 높은 목표를 세워 과거의 위대한 작곡가를 넘어서거나 완전히 새로운 길을 개척하려 합니다. 초자연적 생물이라면 합창 천사나 리라키엔 아자타일 수 있고, 신격이라면 셸린일 수 있습니다.<br>마에스트로 뮤즈의 바드로서, 동료에게 영감을 주며 음악적, 연설적 능력에 자신 있습니다.<br><strong>뮤즈 재주:</strong> 잔향 합주(Lingering Composition) | <strong>뮤즈 주문:</strong> <em>치유(soothe)</em>'},
   {id:'muse-warrior',  class_id:'bard', subclass_type:'뮤즈', name_ko:'전사',    name_en:'Warrior',
    summary:'전장이 무대이고 강철의 울림이 노래입니다. 뮤즈는 전투에 환호하거나 그 필요성에 체념하며 수많은 전투를 목격했습니다. 개별 병사나 장군이 영감을 줄 수 있지만, 특히 심오한 역사를 가진 전장이나 무기도 마찬가지입니다. 생물이라면 아르콘이나 데블 병사 같은 이세계 전사일 수 있고, 신격이라면 고룸일 수 있습니다.<br>전사 뮤즈의 바드로서, 공연 외에 전투 훈련도 하며 전투의 위험에 대비시킵니다. 한가운데 뛰어들 수도 있습니다.<br><strong>뮤즈 재주:</strong> 무예 공연(Martial Performance) | <strong>뮤즈 주문:</strong> <em>공포(fear)</em>'},
-  {id:'muse-lore',     class_id:'bard', subclass_type:'뮤즈', name_ko:'지식',    name_en:'Lore',
-   summary:'지식과 기억의 수집가인 뮤즈. 지식(Lore) 기술 두 개 추가 훈련됨 획득. 뮤즈 주문: 기억의 방(Memory Palace).'},
+  {id:'muse-polymath',  class_id:'bard', subclass_type:'뮤즈', name_ko:'박학다식', name_en:'Polymath',
+   summary:'만물박사로, 기술과 추구 사이를 오갑니다. 다양한 주제에 관심이 있지만 하나에 전념하는 일은 드물며, 모든 것을 시도하고 싶어합니다.<br><strong>뮤즈 재주:</strong> 다재다능한 공연(Versatile Performance) | <strong>뮤즈 주문:</strong> <em>환영 하수인(phantasmal minion)</em>'},
 
   // ── 클레릭 교리 ──
   {id:'doctrine-cloistered', class_id:'cleric', subclass_type:'교리', name_ko:'수도원 성직자', name_en:'Cloistered Cleric',
