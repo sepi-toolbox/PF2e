@@ -1820,14 +1820,7 @@ function syncGrowthSpellsToState() {
   if (!cid || typeof CLASS_SPELL_TABLE === 'undefined' || !CLASS_SPELL_TABLE[cid]) return;
   if (!state.selectedClass.casting) return;
 
-  // _auto가 아닌 known/cantrip 주문 중 growth에서 온 것을 재구축
-  // 기존 _auto 주문은 유지, growth 주문만 교체
-  const autoCantrips = (state.spells.cantrip || []).filter(s => s?._auto);
-  const autoKnown = (state.spells.known || []).filter(s => s?._auto);
-
-  const newCantrips = [...autoCantrips];
-  const newKnown = [...autoKnown];
-
+  // growth 주문을 기존 state.spells에 추가 (기존 주문 유지, 중복만 방지)
   const curLevel = getLevel();
   for (let lv = 1; lv <= curLevel; lv++) {
     const gs = state.growth[lv]?.spells;
@@ -1835,8 +1828,8 @@ function syncGrowthSpellsToState() {
     // 캔트립
     if (gs.cantrip) {
       gs.cantrip.forEach(name => {
-        if (name && !newCantrips.find(c => c.name === name)) {
-          newCantrips.push({name, rank: 0});
+        if (name && !(state.spells.cantrip||[]).find(c => c?.name === name)) {
+          state.spells.cantrip.push({name, rank: 0});
         }
       });
     }
@@ -1845,15 +1838,12 @@ function syncGrowthSpellsToState() {
       const arr = gs['rank'+r];
       if (!arr) continue;
       arr.forEach(name => {
-        if (name && !newKnown.find(k => k.name === name && k.rank === r)) {
-          newKnown.push({name, rank: r});
+        if (name && !(state.spells.known||[]).find(k => k.name === name && k.rank === r)) {
+          state.spells.known.push({name, rank: r});
         }
       });
     }
   }
-
-  state.spells.cantrip = newCantrips;
-  state.spells.known = newKnown;
 }
 
 // ═══════════════════════════════════════════════
