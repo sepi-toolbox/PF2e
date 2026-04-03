@@ -106,11 +106,17 @@ function collectData() {
     if (sk.isLore) data.loreNames[sk.id] = document.getElementById('lore-name-'+sk.id)?.value;
   });
   for (let r=1; r<=10; r++) {
-    const domMax = document.getElementById(`slots-max-${r}`)?.value;
-    data.spellSlots[r] = {
-      max: domMax !== undefined ? domMax : (state.spellSlots?.[r] || 0),
-      checks: Array.from(document.querySelectorAll(`#slot-checks-${r} input`)).map(c=>c.checked),
-    };
+    // CLASS_SPELL_TABLE 기반 클래스는 state 값 그대로 저장 (숫자)
+    const hasAutoSlots = typeof getClassSpellData === 'function' && getClassSpellData();
+    if (hasAutoSlots) {
+      data.spellSlots[r] = state.spellSlots?.[r] || 0;
+    } else {
+      const domMax = document.getElementById(`slots-max-${r}`)?.value;
+      data.spellSlots[r] = {
+        max: domMax !== undefined ? domMax : (state.spellSlots?.[r] || 0),
+        checks: Array.from(document.querySelectorAll(`#slot-checks-${r} input`)).map(c=>c.checked),
+      };
+    }
   }
   return data;
 }
@@ -331,7 +337,18 @@ function loadData(d) {
       if (!state.spells.focus) state.spells.focus = [];
       if (!state.spells.innate) state.spells.innate = [];
     }
-    if (d.spellSlots) state.spellSlots = d.spellSlots;
+    if (d.spellSlots) {
+      state.spellSlots = {};
+      // 이전 저장 형식({max,checks}) → 숫자로 정규화
+      for (let r = 1; r <= 10; r++) {
+        const v = d.spellSlots[r];
+        if (v && typeof v === 'object' && v.max !== undefined) {
+          state.spellSlots[r] = parseInt(v.max) || 0;
+        } else {
+          state.spellSlots[r] = parseInt(v) || 0;
+        }
+      }
+    }
     if (d.spellSlotsUsed) state.spellSlotsUsed = d.spellSlotsUsed;
     if (d.cantripSlots) state.cantripSlots = d.cantripSlots;
     renderSpells();
