@@ -2674,11 +2674,18 @@ function resetFromClass() {
   }
   // Reset trainable skill slots
   state.trainableSkillSlots = 0;
+  // Reset spells, slots, signature
+  state.spells = {cantrip:[], known:[], focus:[], innate:[]};
+  state.spellSlots = {};
+  state.spellSlotsUsed = {};
+  state.cantripSlots = 5;
+  state.signatureSpells = {};
   // Reset spell tradition/type
   const tradEl = document.getElementById('spell-tradition');
   if (tradEl) tradEl.value = '';
   const typeEl = document.getElementById('spell-type');
   if (typeEl) typeEl.value = '';
+  renderSpells();
   recalcAll();
   renderFeats();
   renderGrowthPlan();
