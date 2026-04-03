@@ -1861,7 +1861,8 @@ if (typeof _growthFamiliarExpanded === 'undefined') var _growthFamiliarExpanded 
 
 // 위치 사역마: 레벨 1 초기 주문 수
 var FAMILIAR_INIT = {
-  witch: {cantrip: 10, rank1: 5}  // + 후원자 교훈 1개 (SUBCLASS_AUTO_SPELLS)
+  witch:  {cantrip: 10, rank1: 5},  // + 후원자 교훈 1개
+  wizard: {cantrip: 10, rank1: 7},  // 5 + 학파 교과 2개
 };
 
 // 해당 레벨에서 사역마가 배울 수 있는 최대 랭크
@@ -2114,7 +2115,7 @@ function syncFamiliarSpellsToState() {
 let _memorizeActiveSlot = null; // {rank, idx}
 
 function openMemorizeModal() {
-  if (!state.familiarSpells || !state.selectedClass) return;
+  if (!state.selectedClass || state.selectedClass.casting !== 'prepared') return;
   const overlay = document.getElementById('modal-overlay');
   overlay.classList.remove('hidden');
   modalType = 'memorize';
@@ -2195,27 +2196,44 @@ function _renderMemorizeDetail() {
     detail.innerHTML = '<div class="modal-detail-empty">왼쪽에서 슬롯을 선택하세요.</div>';
     return;
   }
-  const fs = state.familiarSpells;
-  if (!fs) return;
 
   const isCantrip = active.rank === 0;
   const rank = active.rank;
+  const fs = state.familiarSpells;
+  const hasSpellbook = !!fs; // 위치/위자드: 주문서/사역마 보유
 
-  // 선택 가능한 주문 목록
+  // 선택 가능한 주문 목록 구축
   let available = [];
-  if (isCantrip) {
-    (fs.cantrip || []).forEach(name => available.push({name, note: ''}));
-  } else {
-    for (let sr = 1; sr <= rank; sr++) {
-      (fs[sr] || []).forEach(name => {
-        const note = sr < rank ? `${sr}랭크 고양` : '';
-        available.push({name, note});
-      });
+  if (hasSpellbook) {
+    // 주문서/사역마에서 가져오기
+    if (isCantrip) {
+      (fs.cantrip || []).forEach(name => available.push({name, note: ''}));
+    } else {
+      for (let sr = 1; sr <= rank; sr++) {
+        (fs[sr] || []).forEach(name => {
+          available.push({name, note: sr < rank ? `${sr}랭크 고양` : ''});
+        });
+      }
     }
+  } else if (typeof SPELL_DB !== 'undefined') {
+    // 클레릭/드루이드: 전통 목록 전체에서 선택
+    let trad = state.selectedClass?.tradition || '';
+    if (trad === 'any' && state.selectedSubclass && typeof PATRON_TRADITION !== 'undefined') {
+      trad = PATRON_TRADITION[state.selectedSubclass.id] || trad;
+    }
+    SPELL_DB.forEach(sp => {
+      if (sp.is_focus) return;
+      if (isCantrip && !sp.is_cantrip) return;
+      if (!isCantrip && (sp.is_cantrip || sp.rank > rank)) return;
+      if (trad && trad !== 'any' && sp.traditions && !sp.traditions.includes(trad)) return;
+      const note = (!isCantrip && sp.rank < rank) ? `${sp.rank}랭크 고양` : '';
+      available.push({name: sp.name_ko, note});
+    });
   }
 
   if (available.length === 0) {
-    detail.innerHTML = '<div class="modal-detail-empty">사역마가 이 랭크의 주문을 모릅니다.<br>빌더에서 주문을 배우세요.</div>';
+    const msg = hasSpellbook ? '주문서에 이 랭크의 주문이 없습니다.<br>빌더에서 주문을 배우세요.' : '이 랭크에 사용 가능한 주문이 없습니다.';
+    detail.innerHTML = `<div class="modal-detail-empty">${msg}</div>`;
     return;
   }
 

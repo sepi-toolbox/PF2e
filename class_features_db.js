@@ -508,7 +508,15 @@ var CLASS_SPELL_TABLE = {
     19: {cantrips:5, slots:[3,3,3,3,3,3,3,3,3,1]},
     20: {cantrips:5, slots:[3,3,3,3,3,3,3,3,3,1]},
   },
-  witch: {
+  witch:   _FULL_CASTER_TABLE(),
+  cleric:  _FULL_CASTER_TABLE(),
+  druid:   _FULL_CASTER_TABLE(),
+  wizard:  _FULL_CASTER_TABLE(),
+};
+
+// 표준 풀캐스터 일일 주문 테이블 (모든 풀캐스터 공유)
+function _FULL_CASTER_TABLE() {
+  return {
     1:  {cantrips:5, slots:[2,0,0,0,0,0,0,0,0,0]},
     2:  {cantrips:5, slots:[3,0,0,0,0,0,0,0,0,0]},
     3:  {cantrips:5, slots:[3,2,0,0,0,0,0,0,0,0]},
@@ -529,5 +537,5 @@ var CLASS_SPELL_TABLE = {
     18: {cantrips:5, slots:[3,3,3,3,3,3,3,3,3,0]},
     19: {cantrips:5, slots:[3,3,3,3,3,3,3,3,3,1]},
     20: {cantrips:5, slots:[3,3,3,3,3,3,3,3,3,1]},
-  }
-};
+  };
+}

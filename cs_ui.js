@@ -1205,7 +1205,7 @@ function renderSpells() {
   // ── "주문 기억" 버튼 표시/숨김 ──
   const isPrepared = state.selectedClass?.casting === 'prepared';
   const memBtn = document.getElementById('btn-memorize-spells');
-  if (memBtn) memBtn.style.display = (isPrepared && state.familiarSpells) ? '' : 'none';
+  if (memBtn) memBtn.style.display = isPrepared ? '' : 'none';
 
   // ── Cantrips ──
   const cantripHeader = document.getElementById('cantrip-header');
@@ -1216,7 +1216,7 @@ function renderSpells() {
   if (cantripEl) {
     cantripEl.innerHTML = '';
 
-    if (isPrepared && state.familiarSpells) {
+    if (isPreparedCaster) {
       // ═══ PREPARED: 준비된 캔트립 표시 ═══
       const prep = state.preparedSpells?.cantrip || [];
       for (let i = 0; i < cantripSlots; i++) {
@@ -1325,7 +1325,7 @@ function renderSpells() {
   ranksContainer.innerHTML = '';
 
   const isSpontaneous = state.selectedClass?.casting === 'spontaneous';
-  const isPreparedCaster = isPrepared && state.familiarSpells;
+  const isPreparedCaster = isPrepared && (typeof CLASS_SPELL_TABLE !== 'undefined') && CLASS_SPELL_TABLE[state.selectedClass?.id];
 
   for (let r = 1; r <= maxRank; r++) {
     const slotMax = parseInt(state.spellSlots?.[r] || 0);
