@@ -1350,18 +1350,33 @@ function renderSpells() {
 
     if (isSpontaneous) {
       // ═══ SPONTANEOUS: 레퍼토리 나열 방식 ═══
-      if (allAtRank.length === 0) {
+
+      // 시그니처 주문 고양: 낮은 랭크의 시그니처 주문을 이 랭크에도 표시
+      const sigHeightened = [];
+      const sigs = state.signatureSpells || {};
+      for (let sr = 1; sr < r; sr++) {
+        const sigName = sigs[sr];
+        if (!sigName) continue;
+        // 이미 이 랭크에 같은 이름으로 배운 게 없을 때만
+        if (!allAtRank.some(s => s.name === sigName)) {
+          sigHeightened.push({name: sigName, originalRank: sr});
+        }
+      }
+
+      if (allAtRank.length === 0 && sigHeightened.length === 0) {
         const emptyRow = document.createElement('div');
         emptyRow.className = 'spell-slot-row';
         emptyRow.style.opacity = '0.5';
         emptyRow.innerHTML = '<span class="spell-slot-name" style="color:var(--text2);font-size:12px;">빌더에서 주문을 선택하세요</span>';
         section.appendChild(emptyRow);
       }
+
+      // 정식으로 배운 주문
       allAtRank.forEach(spell => {
         const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
         const actions = getActionIcons(spellData?.actions);
         const isAuto = spell._auto;
-        const isSig = state.signatureSpells?.[r] === spell.name;
+        const isSig = sigs[r] === spell.name;
         const row = document.createElement('div');
         row.className = 'spell-slot-row';
         if (isAuto) row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
@@ -1377,6 +1392,19 @@ function renderSpells() {
         row.innerHTML = `
           <span class="spell-slot-name" onclick="showInfo('spell','${(spell.name||'').replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           ${badges}${srcFeat}`;
+        section.appendChild(row);
+      });
+
+      // 시그니처 고양 주문 (낮은 랭크에서 올라온 것)
+      sigHeightened.forEach(sig => {
+        const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === sig.name) : null;
+        const actions = getActionIcons(spellData?.actions);
+        const row = document.createElement('div');
+        row.className = 'spell-slot-row';
+        row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(212,175,55,0.08);';
+        row.innerHTML = `
+          <span class="spell-slot-name" onclick="showInfo('spell','${(sig.name||'').replace(/'/g,"\\'")}')">${sig.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span style="font-size:9px;color:var(--accent);margin-left:auto;">★ ${sig.originalRank}랭크에서 고양</span>`;
         section.appendChild(row);
       });
     } else {
