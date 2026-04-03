@@ -2005,6 +2005,28 @@ function selectOption(item, row) {
             : `<button class="btn-give" onclick="equipBrowseGive()" style="flex:1;padding:8px;background:var(--bg4);border:1px solid var(--border2);border-radius:4px;color:var(--text);cursor:pointer;">획득</button>
                <button class="btn-buy" onclick="equipBrowseBuy()" style="flex:1;padding:8px;background:var(--accent-bg);border:1px solid var(--accent);border-radius:4px;color:var(--accent);cursor:pointer;">구매</button>`}
         </div>`;
+    } else if (modalType === 'background') {
+      const bg = item;
+      const descText = (bg.desc || bg.summary || '').replace(/\s*속성 부스트:.*$/, '');
+      let html = `<div style="font-size:12px;line-height:1.8;">`;
+      html += `<div style="margin-bottom:8px;">${descText}</div>`;
+      html += `<div><strong>능력치 부스트:</strong> ${bg.boosts || '—'}</div>`;
+      html += `<div><strong>기술:</strong> ${bg.skills || '—'}</div>`;
+      html += `<div><strong>기술 재주:</strong> ${bg.feat || '—'}</div>`;
+      // 기술 재주 설명 추가
+      if (bg.feat && typeof FEAT_DB !== 'undefined') {
+        const featName = bg.feat.trim();
+        const fd = FEAT_DB.find(f => f && f.name_ko === featName);
+        if (fd) {
+          const fdDesc = (fd.desc || fd.summary || '').replace(/<strong>전제조건:<\/strong>[^<]*<br>/i, '');
+          html += `<div style="margin-top:8px;padding:8px 10px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);">`;
+          html += `<div style="font-weight:600;margin-bottom:4px;">${fd.name_ko} <span style="color:var(--text2);font-weight:400;">${fd.name_en||''}</span></div>`;
+          html += `<div style="font-size:11px;line-height:1.6;">${fdDesc}</div>`;
+          html += `</div>`;
+        }
+      }
+      html += `</div>`;
+      detailHtml = html;
     } else {
       const nameKo = item.name || item.name_ko || '';
       let mDesc = item.desc || item.summary || '';
@@ -2206,6 +2228,36 @@ function showItemDetail(item) {
             ${item.boosts.map(b=>`<span class="tag hl">${b}</span>`).join('')}`;
   } else if (item.subclass_type) {
     tags = `<span class="tag hl">${item.subclass_type}</span>`;
+  }
+
+  // 배경 전용 상세 패널
+  if (modalType === 'background' && item.skills) {
+    const bg = item;
+    const descText = (bg.desc || bg.summary || '').replace(/\s*속성 부스트:.*$/, '');
+    let bgHtml = `<div style="font-size:12px;line-height:1.8;">`;
+    bgHtml += `<div style="margin-bottom:8px;">${descText}</div>`;
+    bgHtml += `<div><strong>능력치 부스트:</strong> ${bg.boosts || '—'}</div>`;
+    bgHtml += `<div><strong>기술:</strong> ${bg.skills || '—'}</div>`;
+    bgHtml += `<div><strong>기술 재주:</strong> ${bg.feat || '—'}</div>`;
+    if (bg.feat && typeof FEAT_DB !== 'undefined') {
+      const featName = bg.feat.trim();
+      const fd = FEAT_DB.find(f => f && f.name_ko === featName);
+      if (fd) {
+        const fdDesc = (fd.desc || fd.summary || '').replace(/<strong>전제조건:<\/strong>[^<]*<br>/i, '');
+        bgHtml += `<div style="margin-top:8px;padding:8px 10px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);">`;
+        bgHtml += `<div style="font-weight:600;margin-bottom:4px;">${fd.name_ko} <span style="color:var(--text2);font-weight:400;">${fd.name_en||''}</span></div>`;
+        bgHtml += `<div style="font-size:11px;line-height:1.6;">${fdDesc}</div>`;
+        bgHtml += `</div>`;
+      }
+    }
+    bgHtml += `</div>`;
+    detail.innerHTML = `
+      <div class="modal-detail-back" onclick="document.getElementById('modal-body').classList.remove('detail-open')">← 목록으로</div>
+      <div class="modal-detail-title">${nameKo}</div>
+      <div class="modal-detail-en">${nameEn}</div>
+      <hr style="border:none;border-top:1px solid var(--border);margin:0 0 10px 0;">
+      <div class="modal-detail-desc">${bgHtml}</div>`;
+    return;
   }
 
   // 주문에 재주 효과 노트 추가
