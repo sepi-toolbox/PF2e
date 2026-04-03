@@ -2589,8 +2589,8 @@ function confirmModal() {
     if (btn) { btn.textContent = `${modalSelected.subclass_type}: ${modalSelected.name_ko}`; btn.classList.add('filled'); }
     const _dbgSub = typeof SUBCLASS_AUTO_FEATS !== 'undefined' ? SUBCLASS_AUTO_FEATS[modalSelected.id] : 'UNDEF';
     const _dbgSpell = typeof SUBCLASS_AUTO_SPELLS !== 'undefined' ? SUBCLASS_AUTO_SPELLS[modalSelected.id] : 'UNDEF';
-    alert(`[DEBUG] 뮤즈 선택: ${modalSelected.id}\nAutoFeats: ${JSON.stringify(_dbgSub)}\nAutoSpells: ${JSON.stringify(_dbgSpell)}`);
     applyClassFeatures();
+    alert(`[DEBUG after apply]\nspecial: ${JSON.stringify(state.feats.special.map(f=>f.name))}\nfocus: ${JSON.stringify(state.spells.focus.map(s=>s.name))}\nknown: ${JSON.stringify(state.spells.known.map(s=>s.name))}`);
     renderGrowthPlan();
   } else if (modalType==='heritage') {
     state.selectedHeritage = modalSelected;
