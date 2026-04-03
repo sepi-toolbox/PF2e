@@ -690,24 +690,26 @@ function applyClassFeatures() {
   state.spells.focus = (state.spells.focus||[]).filter(s => !s?._auto);
   state.spells.known = (state.spells.known||[]).filter(s => !s?._auto);
   // Gather all auto spells
-  const allAutoSpells = [
-    ...(typeof CLASS_AUTO_SPELLS!=='undefined' ? (CLASS_AUTO_SPELLS[cls.id]||[]) : []),
-    ...(state.selectedSubclass && typeof SUBCLASS_AUTO_SPELLS!=='undefined' ? (SUBCLASS_AUTO_SPELLS[state.selectedSubclass.id]||[]) : []),
-  ];
+  const _classAutoSp = (typeof CLASS_AUTO_SPELLS!=='undefined' ? (CLASS_AUTO_SPELLS[cls.id]||[]) : []);
+  const _subAutoSp = (state.selectedSubclass && typeof SUBCLASS_AUTO_SPELLS!=='undefined' ? (SUBCLASS_AUTO_SPELLS[state.selectedSubclass.id]||[]) : []);
+  const allAutoSpells = [..._classAutoSp, ..._subAutoSp];
   allAutoSpells.forEach(s => {
     if (s.lv <= level) {
       const spellName = s.name_ko;
+      // 출처: 서브클래스 주문이면 서브클래스명, 아니면 클래스명
+      const src = _subAutoSp.includes(s)
+        ? (state.selectedSubclass?.name_ko || cls.name) : cls.name;
       if (s.type === 'cantrip') {
         if (!state.spells.cantrip.some(sp => sp?.name === spellName)) {
-          state.spells.cantrip.push({name: spellName, rank:0, _auto: true});
+          state.spells.cantrip.push({name: spellName, rank:0, _auto: true, _source: src});
         }
       } else if (s.type === 'focus') {
         if (!state.spells.focus.some(sp => sp?.name === spellName)) {
-          state.spells.focus.push({name: spellName, _auto: true});
+          state.spells.focus.push({name: spellName, _auto: true, _source: src});
         }
       } else {
         if (!state.spells.known.some(sp => sp?.name === spellName)) {
-          state.spells.known.push({name: spellName, rank: s.rank||1, _auto: true});
+          state.spells.known.push({name: spellName, rank: s.rank||1, _auto: true, _source: src});
         }
       }
     }

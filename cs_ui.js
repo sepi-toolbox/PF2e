@@ -1175,13 +1175,14 @@ function renderSpells() {
         }
         const row = document.createElement('div');
         row.className = 'spell-slot-row';
-        // 행 반투명 없음 — 개별 🔥 딤으로 사용 상태 표시
+        row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
+        const srcName = s._source ? s._source.split(' (')[0].trim() : '';
         row.innerHTML = `
           <span class="spell-slot-name" onclick="showInfo('spell','${(s.name||'').replace(/'/g,"\\'")}')">${s.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           <span style="font-size:10px;color:var(--accent);margin-left:4px;">${rankLabel}</span>
           ${usesHtml}
           <span style="font-size:10px;color:var(--text2);margin-left:auto;">${s.tradition || ''} · ${usesLabel}</span>
-          ${s._source ? `<span style="font-size:9px;color:var(--text2);margin-left:4px;">(${s._source})</span>` : ''}`;
+          ${srcName ? `<span style="font-size:9px;color:var(--accent);margin-left:4px;">${srcName}</span>` : ''}`;
         innateList.appendChild(row);
       });
       if (innateArr.length === 0) {
@@ -1215,13 +1216,14 @@ function renderSpells() {
       const isAuto = spell?._auto;
       const row = document.createElement('div');
       row.className = 'spell-slot-row';
+      if (isAuto) row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
       if (spell) {
         const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
         const actions = getActionIcons(spellData?.actions);
+        const srcLabel = isAuto && spell._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${spell._source}</span>` : '';
         row.innerHTML = `
           <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
-          <span class="spell-slot-dur">\u2014</span>
-          <span class="spell-slot-range">\u2014</span>
+          ${srcLabel}
           ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpellFromSlot('cantrip',${i})">✕</span>`}`;
       } else if (i < cantripSlots) {
         row.innerHTML = `
@@ -1382,9 +1384,10 @@ function renderSpells() {
       const row = document.createElement('div');
       row.className = 'spell-slot-row';
       row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
+      const srcName = spell._source ? spell._source.split(' (')[0].trim() : '';
       row.innerHTML = `
         <span class="spell-slot-name" onclick="showInfo('spell','${(spell.name||'').replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
-        <span style="font-size:9px;color:var(--accent);margin-left:auto;">클래스 부여</span>`;
+        <span style="font-size:9px;color:var(--accent);margin-left:auto;">${srcName || '클래스 부여'}</span>`;
       section.appendChild(row);
     });
 
@@ -1456,10 +1459,11 @@ function renderSpellSlotList(elId, arr, type, heightenedLevel) {
     }
     const row = document.createElement('div');
     row.className = 'spell-slot-row';
+    if (isAuto) row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
+    const srcLabel = isAuto && s._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${s._source}</span>` : '';
     row.innerHTML = `
       <span class="spell-slot-name" onclick="showInfo('spell','${s.name.replace(/'/g,"\\'")}')">${s.name}${rankLabel}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
-      <span class="spell-slot-dur">\u2014</span>
-      <span class="spell-slot-range">\u2014</span>
+      ${srcLabel}
       ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpell('${type}',${i})">✕</span>`}`;
     el.appendChild(row);
   });
