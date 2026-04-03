@@ -1939,8 +1939,8 @@ const SPELL_DB = [
     range: "15피트",
     area: "15피트 원뿔",
     defense: "의지",
-    summary: "현란하게 소용돌이치는 색채의 폭발이 영역 내 생물의 시야를 어지럽힙니다. 영역 내 각 생물은 의지 내성을 시도합니다.대성공: 영향 없음.성공: 1라운드 동안 눈부심(dazzled) 상태가 됩니다.실패: 1라운드 동안 눈멈(blinded) 상태가 되고, 이후 1분 동안 눈부심 상태가 됩니다.대실패: 멍해짐(stunned) 1, 1분 동안 눈멈, 이후 1...",
-    desc: "<strong>사거리:</strong> 15피트<br><strong>영역:</strong> 15피트 원뿔<br><strong>방어:</strong> 의지<br>현란하게 소용돌이치는 색채의 폭발이 영역 내 생물의 시야를 어지럽힙니다. 영역 내 각 생물은 의지 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> <strong>1라운드</strong> 동안 <strong>눈부심(dazzled)</strong> 상태가 됩니다.<br><strong>실패:</strong> <strong>1라운드</strong> 동안 <strong>눈멈(blinded)</strong> 상태가 되고, 이후 <strong>1분</strong> 동안 눈부심 상태가 됩니다.<br><strong>대실패:</strong> <strong>멍해짐(stunned) 1</strong>, <strong>1분</strong> 동안 눈멈, 이후 <strong>10분</strong> 동안 눈부심 상태가 됩니다." },
+    summary: "현란하게 소용돌이치는 색채의 폭발이 영역 내 생물의 시야를 어지럽힙니다. 영역 내 각 생물은 의지 내성을 시도합니다.대성공: 영향 없음.성공: 1라운드 동안 눈부심(dazzled).실패: 기절(stunned) 1, 1라운드 동안 눈멈(blinded), 1분 동안 눈부심(dazzled).대실패: 1라운드 동안 기절(stunned), 1분 동안 눈멈(bl...",
+    desc: "<strong>사거리:</strong> 15피트<br><strong>영역:</strong> 15피트 원뿔<br><strong>방어:</strong> 의지<br>현란하게 소용돌이치는 색채의 폭발이 영역 내 생물의 시야를 어지럽힙니다. 영역 내 각 생물은 의지 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> <strong>1라운드</strong> 동안 <strong>눈부심(dazzled)</strong>.<br><strong>실패:</strong> <strong>기절(stunned) 1</strong>, <strong>1라운드</strong> 동안 <strong>눈멈(blinded)</strong>, <strong>1분</strong> 동안 <strong>눈부심(dazzled)</strong>.<br><strong>대실패:</strong> <strong>1라운드</strong> 동안 <strong>기절(stunned)</strong>, <strong>1분</strong> 동안 <strong>눈멈(blinded)</strong>." },
 
   { name_ko: "쇠약",
     name_en: "Enfeeble",
@@ -2774,8 +2774,8 @@ const SPELL_DB = [
     range: "30피트",
     target: "동의하는 생물 1",
     duration: "5분",
-    summary: "대상의 몸을 마법적으로 키워 한 크기 등급 증가시킵니다(예: 중형에서 대형). 장비도 대상에 맞게 함께 커집니다. 커진 무기는 한 크기 등급이 증가하여 피해 주사위가 1단계 증가합니다(예: 1d8 → 1d10). 대상이 확장할 충분한 공간이 없으면 주문이 실패합니다. 이 주문은 대상이 해당 크기 등급에 맞는 도달(reach)도 얻게 합니다.강화(4랭크...",
-    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 동의하는 생물 1<br><strong>지속 시간:</strong> 5분<br>대상의 몸을 마법적으로 키워 <strong>한 크기 등급</strong> 증가시킵니다(예: 중형에서 대형). 장비도 대상에 맞게 함께 커집니다. 커진 무기는 한 크기 등급이 증가하여 피해 주사위가 <strong>1단계 증가</strong>합니다(예: 1d8 → 1d10). 대상이 확장할 충분한 공간이 없으면 주문이 실패합니다. 이 주문은 대상이 해당 크기 등급에 맞는 도달(reach)도 얻게 합니다.<br><strong>강화(4랭크):</strong> 대상이 <strong>두 크기 등급</strong> 증가합니다(최대 거대). 피해 주사위가 <strong>2단계 증가</strong>합니다." },
+    summary: "마법적 힘으로 대상이 대형 크기로 성장합니다. 장비도 함께 커지지만 제거하면 원래 크기로 돌아옵니다. 대상은 둔함(clumsy) 1이 됩니다. 도달이 5피트 증가하며(초소형에서 시작했다면 10피트), 근접 피해에 +2 상태 보너스를 얻습니다. 이 주문은 대형 이상 생물에게 효과가 없습니다.강화(4랭크): 대상이 거대 크기로 성장합니다. 근접 피해 상태...",
+    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 동의하는 생물 1<br><strong>지속 시간:</strong> 5분<br>마법적 힘으로 대상이 <strong>대형</strong> 크기로 성장합니다. 장비도 함께 커지지만 제거하면 원래 크기로 돌아옵니다. 대상은 <strong>둔함(clumsy) 1</strong>이 됩니다. 도달이 <strong>5피트</strong> 증가하며(초소형에서 시작했다면 10피트), 근접 피해에 <strong>+2 상태 보너스</strong>를 얻습니다. 이 주문은 대형 이상 생물에게 효과가 없습니다.<br><strong>강화(4랭크):</strong> 대상이 <strong>거대</strong> 크기로 성장합니다. 근접 피해 상태 보너스가 <strong>+4</strong>이고 도달이 <strong>10피트</strong> 증가합니다(초소형이면 15피트). 거대 이상 생물에게 효과 없음.<br><strong>강화(6랭크):</strong> 2랭크 또는 4랭크 버전을 선택하여 최대 <strong>10</strong>명의 동의 생물에 적용합니다." },
 
   { name_ko: "방해 식물",
     name_en: "Entangling Flora",
@@ -3378,8 +3378,8 @@ const SPELL_DB = [
     range: "120피트",
     target: "비행 중인 생물 1",
     defense: "인내",
-    summary: "비행 중인 생물에 대지의 인력을 강화하여 끌어내립니다. 대상은 인내 내성을 시도합니다.대성공: 영향 없음.성공: 대상이 30피트 하강합니다.실패: 대상이 비행 속도를 잃고 60피트 하강합니다. 비행이 날개 같은 물리적 수단이라면 비행 속도를 완전히 잃지는 않지만, 대신 비행 속도가 다음 턴 끝까지 0이 됩니다.대실패: 실패와 같지만, 비행 속도를 1분...",
-    desc: "<strong>사거리:</strong> 120피트<br><strong>대상:</strong> 비행 중인 생물 1<br><strong>방어:</strong> 인내<br>비행 중인 생물에 대지의 인력을 강화하여 끌어내립니다. 대상은 인내 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상이 <strong>30피트</strong> 하강합니다.<br><strong>실패:</strong> 대상이 비행 속도를 잃고 <strong>60피트</strong> 하강합니다. 비행이 날개 같은 물리적 수단이라면 비행 속도를 완전히 잃지는 않지만, 대신 비행 속도가 다음 턴 끝까지 <strong>0</strong>이 됩니다.<br><strong>대실패:</strong> 실패와 같지만, 비행 속도를 <strong>1분</strong> 동안 잃습니다." },
+    summary: "비행 중인 생물에 대지의 인력을 강화하여 끌어내립니다. 대상은 인내 내성을 시도합니다.대성공: 영향 없음.성공: 대상이 최대 120피트까지 안전하게 하강합니다.실패: 대상이 최대 120피트까지 안전하게 하강합니다. 땅에 도달하면 1라운드 동안 비행, 부양, 또는 기타 방법으로 지면을 떠날 수 없습니다.대실패: 대상이 최대 120피트까지 안전하게 하강합...",
+    desc: "<strong>사거리:</strong> 120피트<br><strong>대상:</strong> 비행 중인 생물 1<br><strong>방어:</strong> 인내<br>비행 중인 생물에 대지의 인력을 강화하여 끌어내립니다. 대상은 인내 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상이 최대 <strong>120피트</strong>까지 안전하게 하강합니다.<br><strong>실패:</strong> 대상이 최대 <strong>120피트</strong>까지 안전하게 하강합니다. 땅에 도달하면 <strong>1라운드</strong> 동안 비행, 부양, 또는 기타 방법으로 지면을 떠날 수 없습니다.<br><strong>대실패:</strong> 대상이 최대 <strong>120피트</strong>까지 안전하게 하강합니다. 땅에 도달하면 <strong>1분</strong> 동안 비행, 부양, 또는 기타 방법으로 지면을 떠날 수 없습니다." },
 
   { name_ko: "매혹",
     name_en: "Enthrall",
