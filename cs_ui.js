@@ -1355,8 +1355,8 @@ function renderSpells() {
     }
     section.appendChild(header);
 
-    // ── Fire icons for slot usage ──
-    if (slotMax > 0) {
+    // ── Fire icons for slot usage (prepared caster는 개별 주문에 🔥 표시) ──
+    if (slotMax > 0 && !isPreparedCaster) {
       const firesDiv = document.createElement('div');
       firesDiv.className = 'spell-slots-used';
       firesDiv.innerHTML = '<span style="font-size:10px;color:var(--text2);margin-right:4px;">슬롯:</span>';
@@ -1435,25 +1435,22 @@ function renderSpells() {
         section.appendChild(row);
       });
     } else if (isPreparedCaster) {
-      // ═══ PREPARED CASTER: 슬롯별 준비된 주문 ═══
+      // ═══ PREPARED CASTER: 준비된 주문 + 🔥 시전 토글 ═══
       const prep = state.preparedSpells?.[r] || [];
       for (let i = 0; i < slotMax; i++) {
         const name = prep[i] || null;
         const isCast = !!(state.spellSlotsUsed?.[r]?.[i]);
         const row = document.createElement('div');
-        row.className = 'spell-slot-row' + (isCast ? ' slot-used' : '');
+        row.className = 'spell-slot-row';
+        if (isCast) row.style.opacity = '0.35';
         if (name) {
           const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === name) : null;
           const actions = getActionIcons(spellData?.actions);
+          const fireIcon = `<span class="spell-slot-fire${isCast?' used':''}" onclick="togglePreparedCast(${r},${i})" style="cursor:pointer;font-size:14px;margin-right:4px;" title="${isCast?'슬롯 복원':'시전 (소모)'}">\uD83D\uDD25</span>`;
           row.innerHTML = `
-            <span class="spell-cast-label${isCast?' cast-used':''}" onclick="${isCast ? '' : 'castPreparedSpell('+r+','+i+')'}" title="${isCast ? '시전됨' : '시전하기'}">${isCast ? '시전됨' : 'Cast'}</span>
-            <span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
-            <span class="spell-slot-del" onclick="unprepareSlot(${r},${i})" title="준비 해제">✕</span>`;
+            ${fireIcon}<span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}${isCast ? ' <span style="font-size:9px;color:var(--text2);">(시전됨)</span>' : ''}</span>`;
         } else {
-          row.innerHTML = `
-            <span class="spell-cast-label" style="opacity:0.3;">Cast</span>
-            <span class="spell-slot-name empty" onclick="openPrepareSpellForSlot(${r},${i})">준비 안 됨</span>
-            <span style="width:20px;"></span>`;
+          row.innerHTML = `<span style="font-size:14px;margin-right:4px;opacity:0.2;">🔥</span><span class="spell-slot-name" style="color:var(--text2);font-size:12px;">준비 안 됨</span>`;
         }
         section.appendChild(row);
       }
@@ -1594,6 +1591,14 @@ function renderSpellSlotList(elId, arr, type, heightenedLevel) {
 
 function renderSpellSlotChecks(parentEl, rank) {
   renderSpells();
+}
+
+function togglePreparedCast(rank, slotIdx) {
+  state.spellSlotsUsed = state.spellSlotsUsed || {};
+  state.spellSlotsUsed[rank] = state.spellSlotsUsed[rank] || {};
+  state.spellSlotsUsed[rank][slotIdx] = !state.spellSlotsUsed[rank][slotIdx];
+  renderSpells();
+  save();
 }
 
 function removeSpell(type, i) {
