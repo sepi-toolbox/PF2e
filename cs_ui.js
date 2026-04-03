@@ -1142,6 +1142,9 @@ function pickSpellForSlot(type, rank, slotIndex) {
 }
 
 function renderSpells() {
+  try { _renderSpellsInner(); } catch(e) { console.error('renderSpells ERROR:', e); alert('renderSpells 에러: '+e.message); }
+}
+function _renderSpellsInner() {
   const lv = getLevel() || 1;
   const maxRank = Math.min(10, Math.ceil(lv / 2)) || 1;
   const heightenedLevel = Math.max(1, Math.ceil(lv / 2)) || 1;
