@@ -1486,6 +1486,9 @@ function addFeat(type) {
 }
 
 function renderFeats() {
+  try { _renderFeatsInner(); } catch(e) { console.error('renderFeats ERROR:', e); alert('renderFeats 에러: '+e.message+'\n'+e.stack); }
+}
+function _renderFeatsInner() {
   // 유산 표시 — 아코디언
   const herDisplay = document.getElementById('heritage-display');
   if (herDisplay) {
