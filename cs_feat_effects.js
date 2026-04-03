@@ -862,7 +862,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'grant_focus_spell', spell:'치유의 찬송'}]
   },
   'Lingering Composition': {
-    effects: [{type:'display_note', text:'집중 주문: 잔향 합주 습득. 합주 지속 시간 연장. 집중 포인트 풀 +1 (최대 3)'}]
+    effects: [{type:'grant_focus_spell', spell:'작곡 연장'}, {type:'display_note', text:'합주 지속 시간 연장. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Martial Performance': {
     effects: [{type:'display_note', text:'용감한 찬가 활성 중 타격 명중 시 합주 지속 1라운드 연장 (시전당 1회)'}]
@@ -889,7 +889,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'비학 주문서 획득. 일일 준비 시 주문서에서 주문 1개를 레퍼토리에 추가'}]
   },
   "Loremaster's Etude": {
-    effects: [{type:'display_note', text:'집중 주문: 지식 달인의 에튀드 습득. 지식 회상 보조. 집중 포인트 풀 +1 (최대 3)'}]
+    effects: [{type:'grant_focus_spell', spell:'대가의 에튀드'}, {type:'display_note', text:'지식 회상 보조. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Multifarious Muse': {
     choice: {
@@ -968,7 +968,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'미숙련 기술 숙련 보너스 = 레벨. 숙련 필요 행동도 미숙련으로 시도 가능'}]
   },
   'Fortissimo Composition': {
-    effects: [{type:'display_note', text:'집중 주문: 포르티시모 합주 습득. 합주 강화. 집중 포인트 풀 +1 (최대 3)'}]
+    effects: [{type:'grant_focus_spell', spell:'포르티시모 작곡'}, {type:'display_note', text:'합주 강화. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Know-It-All': {
     effects: [{type:'display_note', text:'지식 회상 성공 시 추가 정보 획득. 대성공 시 추가 질문 가능'}]

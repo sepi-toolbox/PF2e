@@ -321,9 +321,9 @@ var CLASS_AUTO_SPELLS = {
 };
 
 var SUBCLASS_AUTO_SPELLS = {
-  // ── 바드 뮤즈 (DB 매칭된 것만) ──
-  'muse-maestro': [{lv:1, type:'focus', name_ko:'포르티시모 작곡', name_en:'Fortissimo Composition'}, {lv:1, type:'known', rank:1, name_ko:'위로', name_en:'Soothe'}],
-  'muse-enigma':  [{lv:1, type:'focus', name_ko:'달인의 에튀드', name_en:"Loremaster's Etude"}, {lv:1, type:'known', rank:1, name_ko:'확실한 타격', name_en:'Sure Strike'}],
+  // ── 바드 뮤즈: 뮤즈 주문만 자동 부여 (집중 주문은 재주 선택 시 습득) ──
+  'muse-maestro': [{lv:1, type:'known', rank:1, name_ko:'위로', name_en:'Soothe'}],
+  'muse-enigma':  [{lv:1, type:'known', rank:1, name_ko:'확실한 타격', name_en:'Sure Strike'}],
   'muse-warrior': [{lv:1, type:'known', rank:1, name_ko:'공포', name_en:'Fear'}],
   'muse-polymath': [{lv:1, type:'known', rank:1, name_ko:'환영 하수인', name_en:'Phantasmal Minion'}],
   // ── 드루이드 교단 (DB 매칭) ──

@@ -1,7 +1,7 @@
 // Pathfinder 2e Player Core — 주문 데이터베이스
 // PlayerCore.html 7장에서 자동 생성
 // Generated: 2026-04-03
-// Total: 434 spells
+// Total: 435 spells
 
 const SPELL_DB = [
 
@@ -808,6 +808,18 @@ const SPELL_DB = [
     defense: "AC",
     summary: "돌을 마법으로 날립니다. 주문 명중 굴림. 1d6 둔기 피해.강화(+1): 피해 +1d6.",
     desc: "<strong>사거리:</strong> 60피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> AC<br>돌을 마법으로 날립니다. 주문 명중 굴림. <strong>1d6 둔기 피해</strong>.<br><strong>강화(+1):</strong> 피해 +1d6." },
+
+  { name_ko: "치유의 찬송",
+    name_en: "Hymn of Healing",
+    rank: 1,
+    is_cantrip: false,
+    is_focus: true,
+    traditions: [],
+    actions: "자유 행동",
+    traits: ["바드","작곡","치유","조작","활력"],
+    duration: "유지(최대 4라운드)",
+    summary: "풍부한 선율로 아군의 치유를 돕습니다. 합주 캔트립 시전 직전에 자유 행동으로 사용합니다. 당신 또는 아군이 해당 합주의 영역 내에서 HP를 회복하면, 추가로 2d6 HP를 회복합니다. 이후 유지할 때마다 추가 회복이 2d6씩 적용됩니다.강화(+1): 추가 회복 +1d6.",
+    desc: "<strong>지속 시간:</strong> 유지(최대 4라운드)<br>풍부한 선율로 아군의 치유를 돕습니다. 합주 캔트립 시전 직전에 자유 행동으로 사용합니다. 당신 또는 아군이 해당 합주의 영역 내에서 HP를 회복하면, 추가로 <strong>2d6 HP</strong>를 회복합니다. 이후 유지할 때마다 추가 회복이 2d6씩 적용됩니다.<br><strong>강화(+1):</strong> 추가 회복 +1d6." },
 
   { name_ko: "야심 점화",
     name_en: "Ignite Ambition",
