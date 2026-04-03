@@ -671,7 +671,7 @@ function applyClassFeatures() {
       allAutoFeats.push({lv: f.lv, name_ko: f.name_ko, name_en: f.name_en, category: 'special'});
     }
   });
-  console.log('[applyClassFeatures] auto feats:', allAutoFeats.length, 'items for', cls.id);
+  console.log('[applyClassFeatures] auto feats:', allAutoFeats.length, 'items for', cls.id, 'subFeats:', subFeats);
   allAutoFeats.forEach(f => {
     if (f.lv <= level) {
       const featName = f.name_ko + (f.name_en ? ` (${f.name_en})` : '');
@@ -712,7 +712,8 @@ function applyClassFeatures() {
       }
     }
   });
-  console.log('[applyClassFeatures] auto spells added — focus:', state.spells.focus.length, 'cantrip:', state.spells.cantrip.length);
+  console.log('[applyClassFeatures] auto spells added — focus:', state.spells.focus.length, 'known:', state.spells.known.length, 'cantrip:', state.spells.cantrip.length, 'allAutoSpells:', allAutoSpells);
+  console.log('[applyClassFeatures] state.feats.special:', state.feats.special.map(f=>f.name));
   if (typeof renderSpells === 'function') renderSpells();
 
   // Update UI badges
