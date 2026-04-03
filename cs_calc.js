@@ -327,14 +327,30 @@ function showInfo(type, name) {
       const desc = item.desc || item.summary || '';
       let tags = '';
       if (item.feat_level !== undefined) tags = `<span class="tag-meta">${item.feat_level}레벨</span> <span class="tag-meta">${item.category||''}</span>`;
-      else if (item.rank !== undefined) tags = `<span class="tag-meta">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span>`;
+      else if (item.rank !== undefined) tags = `<span class="tag-meta">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span> <span class="spell-actions">${item.actions||''}</span>`;
       else if (item.damage) tags = `<span class="tag-meta">${item.damage}</span> <span class="tag-meta">${item.price||''}</span>`;
       else if (item.ac_bonus !== undefined) tags = `<span class="tag-meta">AC+${item.ac_bonus}</span>`;
+      // 주문 메타 구조화
+      let spellMeta = '';
+      if (item.rank !== undefined) {
+        const spTraits = [...(item.traditions||[]),...(item.traits||[])].map(t => typeof traitTag==='function'?traitTag(t):`<span class="tag">${t}</span>`).join('');
+        if (spTraits) spellMeta += `<div style="margin-bottom:6px;">${spTraits}</div>`;
+        let metaLines = '';
+        if (item.castTime) metaLines += `<div><strong>시전:</strong> ${item.castTime}</div>`;
+        if (item.range) metaLines += `<div><strong>사거리:</strong> ${item.range}${item.area ? ` | <strong>영역:</strong> ${item.area}` : ''}</div>`;
+        if (item.target) metaLines += `<div><strong>대상:</strong> ${item.target}</div>`;
+        if (item.defense) metaLines += `<div><strong>방어:</strong> ${item.defense}</div>`;
+        if (item.duration) metaLines += `<div><strong>지속 시간:</strong> ${item.duration}</div>`;
+        if (item.trigger) metaLines += `<div><strong>유발 조건:</strong> ${item.trigger}</div>`;
+        if (metaLines) spellMeta += `<div style="font-size:12px;line-height:1.6;padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--border);color:var(--text2);">${metaLines}</div>`;
+        desc = desc.replace(/<strong>(?:사거리|영역|대상|방어|지속 ?시간|빈도|유발 조건|요구사항|비용|시전):<\/strong>[^<]*(?:<br>)?/g, '').replace(/^\s*<br>/, '');
+      }
       const spellNotes = (item.rank !== undefined) ? getSpellFeatNotes(nameKoD) : '';
       listItems.innerHTML = `<div style="padding:16px;">
         <div style="font-size:16px;font-weight:700;margin-bottom:2px;">${nameKoD}</div>
         <div style="font-size:12px;color:var(--text2);margin-bottom:10px;">${nameEnD}</div>
         <div style="margin-bottom:10px;">${tags}</div>
+        ${spellMeta}
         <div style="font-size:13px;line-height:1.7;">${typeof formatDescActions==='function'?formatDescActions(desc,item):desc}${spellNotes}</div>
       </div>`;
     }
