@@ -1297,35 +1297,10 @@ function renderSpells() {
   if (!ranksContainer) return;
   ranksContainer.innerHTML = '';
 
-  // _auto(클래스/뮤즈) 주문을 먼저 모아서 별도 섹션으로 렌더링
-  const autoKnown = state.spells.known.filter(s => s._auto);
-  const manualKnown = state.spells.known.filter(s => !s._auto);
-
-  if (autoKnown.length > 0) {
-    const autoSection = document.createElement('div');
-    autoSection.className = 'spell-rank-section';
-    autoSection.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.04);';
-    const autoHeader = document.createElement('div');
-    autoHeader.className = 'spell-rank-header';
-    autoHeader.innerHTML = '클래스 부여 주문';
-    autoSection.appendChild(autoHeader);
-    autoKnown.forEach(spell => {
-      const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
-      const actions = getActionIcons(spellData?.actions);
-      const row = document.createElement('div');
-      row.className = 'spell-slot-row';
-      row.innerHTML = `
-        <span class="spell-slot-name" onclick="showInfo('spell','${(spell.name||'').replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
-        <span style="font-size:10px;color:var(--accent);margin-left:4px;">[${spell.rank}랭크]</span>
-        <span style="font-size:10px;color:var(--text2);margin-left:auto;">뮤즈 부여</span>`;
-      autoSection.appendChild(row);
-    });
-    ranksContainer.appendChild(autoSection);
-  }
-
   for (let r = 1; r <= maxRank; r++) {
     const slotMax = parseInt(state.spellSlots?.[r] || 0);
-    const spellsAtRank = manualKnown.filter(s => s.rank === r);
+    const spellsAtRank = state.spells.known.filter(s => s.rank === r && !s._auto);
+    const autoAtRank = state.spells.known.filter(s => s.rank === r && s._auto);
 
     const section = document.createElement('div');
     section.className = 'spell-rank-section';
@@ -1399,6 +1374,19 @@ function renderSpells() {
       }
       section.appendChild(row);
     }
+
+    // _auto 주문 (클래스/뮤즈 부여) — 슬롯과 별도로 항상 표시
+    autoAtRank.forEach(spell => {
+      const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
+      const actions = getActionIcons(spellData?.actions);
+      const row = document.createElement('div');
+      row.className = 'spell-slot-row';
+      row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
+      row.innerHTML = `
+        <span class="spell-slot-name" onclick="showInfo('spell','${(spell.name||'').replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+        <span style="font-size:9px;color:var(--accent);margin-left:auto;">클래스 부여</span>`;
+      section.appendChild(row);
+    });
 
     ranksContainer.appendChild(section);
   }
