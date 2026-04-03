@@ -319,12 +319,26 @@ function loadData(d) {
     if (d.pets) { state.pets = d.pets; if (typeof renderPets === 'function') renderPets(); }
     if (d.extraSpeeds) state.extraSpeeds = d.extraSpeeds;
     if (d.shieldRaised) state.shieldRaised = d.shieldRaised;
-    if (d.spells) { state.spells = d.spells; }
+    if (d.spells) {
+      state.spells = d.spells;
+      // 배열 필드 보장 (이전 저장 호환)
+      if (!state.spells.cantrip) state.spells.cantrip = [];
+      if (!state.spells.known) state.spells.known = [];
+      if (!state.spells.focus) state.spells.focus = [];
+      if (!state.spells.innate) state.spells.innate = [];
+    }
     if (d.spellSlots) state.spellSlots = d.spellSlots;
     if (d.spellSlotsUsed) state.spellSlotsUsed = d.spellSlotsUsed;
     if (d.cantripSlots) state.cantripSlots = d.cantripSlots;
     renderSpells();
-    if (d.feats) { state.feats = d.feats; renderFeats(); }
+    if (d.feats) {
+      state.feats = d.feats;
+      // 배열 필드 보장
+      ['special','ancestry','class','general','skill','archetype','other'].forEach(k => {
+        if (!state.feats[k]) state.feats[k] = [];
+      });
+      renderFeats();
+    }
     if (d.growth) { state.growth = d.growth; }
     applyClassFeatures();
     renderGrowthPlan();
