@@ -100,6 +100,8 @@ function collectData() {
     sanctification: state.sanctification || null,
     divineFontUsed: state.divineFontUsed || 0,
     signatureSpells: state.signatureSpells || {},
+    familiarSpells: state.familiarSpells || null,
+    preparedSpells: state.preparedSpells || null,
   };
   SKILLS.forEach(sk => {
     data.skillProfs[sk.id] = document.getElementById('sk-prof-'+sk.id)?.value;
@@ -363,6 +365,7 @@ function loadData(d) {
     if (d.growth) { state.growth = d.growth; }
     applyClassFeatures();
     if (typeof syncGrowthSpellsToState === 'function') syncGrowthSpellsToState();
+    if (typeof syncFamiliarSpellsToState === 'function') syncFamiliarSpellsToState();
     renderGrowthPlan();
     if (d.conditions) {
       state.conditions = d.conditions;
@@ -389,6 +392,8 @@ function loadData(d) {
     if (d.sanctification) state.sanctification = d.sanctification;
     if (d.divineFontUsed !== undefined) state.divineFontUsed = d.divineFontUsed;
     if (d.signatureSpells) state.signatureSpells = d.signatureSpells;
+    if (d.familiarSpells) state.familiarSpells = d.familiarSpells;
+    if (d.preparedSpells) state.preparedSpells = d.preparedSpells;
   } catch(e) { console.warn('Load failed',e); }
   // 로드 완료 — 자동저장 복원 + 진행 중인 debounce 취소
   _loadComplete = wasLoadComplete;

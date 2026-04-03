@@ -647,6 +647,8 @@ let state = {
   spellSlots: {},
   spellSlotsUsed: {},
   signatureSpells: {},  // {rank: spellName} — 시그니처 주문 (3레벨~)
+  familiarSpells: null, // {cantrip:[], 1:[], 2:[], ...} — 사역마/주문서가 아는 주문 (prepared caster)
+  preparedSpells: null, // {cantrip:[], 1:[], 2:[], ...} — 슬롯에 준비된 주문 (중복 가능, null=빈)
   feats: {special:[], ancestry:[], class:[], general:[], skill:[], archetype:[], other:[]},
   conditions: {},
   growth: {},  // level-by-level progression

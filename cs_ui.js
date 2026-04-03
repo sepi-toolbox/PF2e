@@ -1203,6 +1203,7 @@ function renderSpells() {
   updateSpellBreakdown();
 
   // ── Cantrips ──
+  const isPrepared = state.selectedClass?.casting === 'prepared';
   const cantripHeader = document.getElementById('cantrip-header');
   if (cantripHeader) cantripHeader.textContent = `캔트립 (강화 랭크 ${heightenedLevel})`;
 
@@ -1210,29 +1211,49 @@ function renderSpells() {
   const cantripEl = document.getElementById('spells-cantrip');
   if (cantripEl) {
     cantripEl.innerHTML = '';
-    const totalCantrips = Math.max(cantripSlots, (state.spells.cantrip||[]).length);
-    for (let i = 0; i < totalCantrips; i++) {
-      const spell = state.spells.cantrip[i] || null;
-      const isAuto = spell?._auto;
-      const row = document.createElement('div');
-      row.className = 'spell-slot-row';
-      if (isAuto) row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
-      if (spell) {
-        const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
-        const actions = getActionIcons(spellData?.actions);
-        const srcLabel = isAuto && spell._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${spell._source}</span>` : '';
-        row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
-          ${srcLabel}
-          ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpellFromSlot('cantrip',${i})">✕</span>`}`;
-      } else if (i < cantripSlots) {
-        row.innerHTML = `
-          <span class="spell-slot-name empty" onclick="pickSpellForSlot('cantrip',0,${i})">선택 안 됨</span>
-          <span class="spell-slot-dur"></span>
-          <span class="spell-slot-range"></span>
-          <span style="width:20px;"></span>`;
+
+    if (isPrepared && state.familiarSpells) {
+      // ═══ PREPARED: 준비된 캔트립 표시 ═══
+      const prep = state.preparedSpells?.cantrip || [];
+      for (let i = 0; i < cantripSlots; i++) {
+        const name = prep[i] || null;
+        const row = document.createElement('div');
+        row.className = 'spell-slot-row';
+        if (name) {
+          const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === name) : null;
+          const actions = getActionIcons(spellData?.actions);
+          row.innerHTML = `
+            <span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-del" onclick="unprepareSlot(0,${i})" title="준비 해제">✕</span>`;
+        } else {
+          row.innerHTML = `<span class="spell-slot-name empty" onclick="openPrepareSpellForSlot(0,${i})">준비 안 됨</span><span style="width:20px;"></span>`;
+        }
+        cantripEl.appendChild(row);
       }
-      if (spell || i < cantripSlots) cantripEl.appendChild(row);
+    } else {
+      // ═══ SPONTANEOUS / FALLBACK ═══
+      const totalCantrips = Math.max(cantripSlots, (state.spells.cantrip||[]).length);
+      for (let i = 0; i < totalCantrips; i++) {
+        const spell = state.spells.cantrip[i] || null;
+        const isAuto = spell?._auto;
+        const row = document.createElement('div');
+        row.className = 'spell-slot-row';
+        if (isAuto) row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
+        if (spell) {
+          const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
+          const actions = getActionIcons(spellData?.actions);
+          const srcLabel = isAuto && spell._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${spell._source}</span>` : '';
+          row.innerHTML = `
+            <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            ${srcLabel}
+            ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpellFromSlot('cantrip',${i})">✕</span>`}`;
+        } else if (i < cantripSlots) {
+          row.innerHTML = `
+            <span class="spell-slot-name empty" onclick="pickSpellForSlot('cantrip',0,${i})">선택 안 됨</span>
+            <span class="spell-slot-dur"></span><span class="spell-slot-range"></span><span style="width:20px;"></span>`;
+        }
+        if (spell || i < cantripSlots) cantripEl.appendChild(row);
+      }
     }
   }
 
@@ -1300,6 +1321,15 @@ function renderSpells() {
   ranksContainer.innerHTML = '';
 
   const isSpontaneous = state.selectedClass?.casting === 'spontaneous';
+  const isPreparedCaster = isPrepared && state.familiarSpells;
+
+  // ── Prepared caster: 휴식 버튼 ──
+  if (isPreparedCaster) {
+    const restDiv = document.createElement('div');
+    restDiv.style.cssText = 'text-align:center;padding:6px;border-bottom:1px solid var(--border);';
+    restDiv.innerHTML = `<button onclick="longRest()" style="background:var(--accent);color:#000;border:none;padding:4px 16px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600;">🌙 휴식 — 슬롯 복원</button>`;
+    ranksContainer.appendChild(restDiv);
+  }
 
   for (let r = 1; r <= maxRank; r++) {
     const slotMax = parseInt(state.spellSlots?.[r] || 0);
@@ -1308,6 +1338,8 @@ function renderSpells() {
 
     // spontaneous: 주문이나 슬롯이 하나도 없으면 섹션 스킵
     if (isSpontaneous && allAtRank.length === 0 && slotMax === 0) continue;
+    // prepared: 슬롯 없으면 스킵
+    if (isPreparedCaster && slotMax === 0) continue;
 
     const section = document.createElement('div');
     section.className = 'spell-rank-section';
@@ -1315,8 +1347,7 @@ function renderSpells() {
     // ── Rank header ──
     const header = document.createElement('div');
     header.className = 'spell-rank-header';
-    if (isSpontaneous) {
-      // 레퍼토리 방식: 슬롯 수 표시 (편집 불가)
+    if (isSpontaneous || isPreparedCaster) {
       header.innerHTML = `${r}랭크 주문
         <span style="float:right;font-size:11px;color:var(--text2);">슬롯 ${slotMax}개</span>`;
     } else {
@@ -1407,8 +1438,31 @@ function renderSpells() {
           <span style="font-size:9px;color:var(--accent);margin-left:auto;">★ ${sig.originalRank}랭크에서 고양</span>`;
         section.appendChild(row);
       });
+    } else if (isPreparedCaster) {
+      // ═══ PREPARED CASTER: 슬롯별 준비된 주문 ═══
+      const prep = state.preparedSpells?.[r] || [];
+      for (let i = 0; i < slotMax; i++) {
+        const name = prep[i] || null;
+        const isCast = !!(state.spellSlotsUsed?.[r]?.[i]);
+        const row = document.createElement('div');
+        row.className = 'spell-slot-row' + (isCast ? ' slot-used' : '');
+        if (name) {
+          const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === name) : null;
+          const actions = getActionIcons(spellData?.actions);
+          row.innerHTML = `
+            <span class="spell-cast-label${isCast?' cast-used':''}" onclick="${isCast ? '' : 'castPreparedSpell('+r+','+i+')'}" title="${isCast ? '시전됨' : '시전하기'}">${isCast ? '시전됨' : 'Cast'}</span>
+            <span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-del" onclick="unprepareSlot(${r},${i})" title="준비 해제">✕</span>`;
+        } else {
+          row.innerHTML = `
+            <span class="spell-cast-label" style="opacity:0.3;">Cast</span>
+            <span class="spell-slot-name empty" onclick="openPrepareSpellForSlot(${r},${i})">준비 안 됨</span>
+            <span style="width:20px;"></span>`;
+        }
+        section.appendChild(row);
+      }
     } else {
-      // ═══ PREPARED / FALLBACK: 기존 슬롯 방식 ═══
+      // ═══ LEGACY FALLBACK: 기존 슬롯 방식 ═══
       const spellsAtRank = allAtRank.filter(s => !s._auto);
       const autoAtRank = allAtRank.filter(s => s._auto);
 
