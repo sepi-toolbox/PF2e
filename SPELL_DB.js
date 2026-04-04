@@ -867,7 +867,7 @@ const SPELL_DB = [
     summary: "대상에 임시 HP = 주문 랭크 × 2(1분 지속).강화(+1): 임시 HP +2.",
     desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 동의 생물 1<br>대상에 <strong>임시 HP = 주문 랭크 × 2</strong>(1분 지속).<br><strong>강화(+1):</strong> 임시 HP +2." },
 
-  { name_ko: "잔향 합주",
+  { name_ko: "잔향 작곡",
     name_en: "Lingering Composition",
     rank: 1,
     is_cantrip: false,

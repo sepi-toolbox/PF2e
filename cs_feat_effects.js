@@ -898,10 +898,10 @@ const FEAT_EFFECTS = {
     effects: [{type:'grant_focus_spell', spell:'치유의 찬송'}, {type:'grant_action'}]
   },
   'Lingering Composition': {
-    effects: [{type:'grant_focus_spell', spell:'잔향 합주'}, {type:'display_note', text:'합주 지속 시간 연장. 집중 포인트 풀 +1 (최대 3)'}]
+    effects: [{type:'grant_focus_spell', spell:'잔향 작곡'}, {type:'display_note', text:'작곡 지속 시간 연장. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Martial Performance': {
-    effects: [{type:'display_note', text:'용감한 찬가 활성 중 타격 명중 시 합주 지속 1라운드 연장 (시전당 1회)'}]
+    effects: [{type:'display_note', text:'용감한 찬가 활성 중 타격 명중 시 작곡 지속 1라운드 연장 (시전당 1회)'}]
   },
   // 'Reach Spell' — 공유 재주, 위치 섹션에 정의됨
   'Versatile Performance': {
@@ -916,7 +916,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'cantrip_slots', value:2}]
   },
   'Directed Audience': {
-    effects: [{type:'display_note', text:'방사 영역 합주를 10피트 더 큰 원뿔로 변경 가능'}]
+    effects: [{type:'display_note', text:'방사 영역 작곡를 10피트 더 큰 원뿔로 변경 가능'}]
   },
   'Emotional Push': {
     effects: [{type:'display_note', text:'[반응] 적이 감정 주문 내성 실패 시, 대상이 다음 공격에 무방비(off-guard)'}]
@@ -934,10 +934,10 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'추가 뮤즈: $choice_name — 해당 뮤즈 1레벨 재주 획득'}]
   },
   'Song of Strength': {
-    effects: [{type:'grant_focus_spell', spell:'힘의 노래'}, {type:'display_note', text:'합주 캔트립: 힘의 노래 습득. 아군의 운동 판정 보조'}]
+    effects: [{type:'grant_focus_spell', spell:'힘의 노래'}, {type:'display_note', text:'작곡 캔트립: 힘의 노래 습득. 아군의 운동 판정 보조'}]
   },
   'Uplifting Overture': {
-    effects: [{type:'grant_focus_spell', spell:'고양 서곡'}, {type:'display_note', text:'합주 캔트립: 고양 서곡 습득. 아군의 기술 판정 보조'}]
+    effects: [{type:'grant_focus_spell', spell:'고양 서곡'}, {type:'display_note', text:'작곡 캔트립: 고양 서곡 습득. 아군의 기술 판정 보조'}]
   },
 
   // ── 4레벨 ──
@@ -948,19 +948,19 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[주문변형] 용감한 찬가 시전 시 아군 1명이 반응으로 보폭'}]
   },
   'In Tune': {
-    effects: [{type:'display_note', text:'[주문변형] 방사 합주의 원점을 60피트 내 아군으로 변경'}]
+    effects: [{type:'display_note', text:'[주문변형] 방사 작곡의 원점을 60피트 내 아군으로 변경'}]
   },
   'Melodious Spell': {
     effects: [{type:'display_note', text:'[주문변형] 주문 구성요소를 공연에 숨김. 지각 판정 성공해야 감지'}]
   },
   'Rallying Anthem': {
-    effects: [{type:'grant_focus_spell', spell:'결집의 찬가'}, {type:'display_note', text:'합주 캔트립: 결집의 찬가 습득. 아군 의지 내성 강화 및 정신 피해 저항'}]
+    effects: [{type:'grant_focus_spell', spell:'결집의 찬가'}, {type:'display_note', text:'작곡 캔트립: 결집의 찬가 습득. 아군 의지 내성 강화 및 정신 피해 저항'}]
   },
   'Ritual Researcher': {
     effects: [{type:'display_note', text:'오컬티즘으로 의식 학습 가능. 보조 판정 성공도 한 단계 향상'}]
   },
   'Triple Time': {
-    effects: [{type:'grant_focus_spell', spell:'세 박자'}, {type:'display_note', text:'합주 캔트립: 세 박자 습득. 아군 이동 속도 증가'}]
+    effects: [{type:'grant_focus_spell', spell:'세 박자'}, {type:'display_note', text:'작곡 캔트립: 세 박자 습득. 아군 이동 속도 증가'}]
   },
   'Versatile Signature': {
     effects: [{type:'display_note', text:'일일 준비 시 각 랭크의 시그니처 주문 변경 가능'}]
@@ -974,16 +974,16 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[주문변형] 결집의 찬가 시전 시 방패 올리기 + 아군 1명도 방패 올리기'}]
   },
   'Dirge of Doom': {
-    effects: [{type:'grant_focus_spell', spell:'파멸의 만가'}, {type:'display_note', text:'합주 캔트립: 파멸의 만가 습득. 적에게 공포 부여'}]
+    effects: [{type:'grant_focus_spell', spell:'파멸의 만가'}, {type:'display_note', text:'작곡 캔트립: 파멸의 만가 습득. 적에게 공포 부여'}]
   },
   'Educate Allies': {
-    effects: [{type:'display_note', text:'합주 영향 아군에게 해박한 보너스(+1) 전달. 자신은 +2로 증가'}]
+    effects: [{type:'display_note', text:'작곡 영향 아군에게 해박한 보너스(+1) 전달. 자신은 +2로 증가'}]
   },
   'Harmonize': {
-    effects: [{type:'display_note', text:'[주문변형] 합주를 조화시켜 다른 합주와 동시 유지 가능'}]
+    effects: [{type:'display_note', text:'[주문변형] 작곡를 조화시켜 다른 작곡와 동시 유지 가능'}]
   },
   'Song of Marching': {
-    effects: [{type:'grant_focus_spell', spell:'행군의 노래'}, {type:'display_note', text:'합주 캔트립: 행군의 노래 습득. 장거리 행군 피로 경감'}]
+    effects: [{type:'grant_focus_spell', spell:'행군의 노래'}, {type:'display_note', text:'작곡 캔트립: 행군의 노래 습득. 장거리 행군 피로 경감'}]
   },
   // 'Steady Spellcasting' — 공유 재주, 위치 섹션에 정의됨
 
@@ -992,13 +992,13 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[반응] 아군 주문시전 시 공연 판정으로 슬롯/집중 포인트 대신 소비'}]
   },
   'Call and Response': {
-    effects: [{type:'display_note', text:'[주문변형] 합주 캔트립을 호응 형태로 — 아군 1명이 1행동으로 지속 연장'}]
+    effects: [{type:'display_note', text:'[주문변형] 작곡 캔트립을 호응 형태로 — 아군 1명이 1행동으로 지속 연장'}]
   },
   'Eclectic Skill': {
     effects: [{type:'display_note', text:'미숙련 기술 숙련 보너스 = 레벨. 숙련 필요 행동도 미숙련으로 시도 가능'}]
   },
   'Fortissimo Composition': {
-    effects: [{type:'grant_focus_spell', spell:'포르티시모 작곡'}, {type:'display_note', text:'합주 강화. 집중 포인트 풀 +1 (최대 3)'}]
+    effects: [{type:'grant_focus_spell', spell:'포르티시모 작곡'}, {type:'display_note', text:'작곡 강화. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Know-It-All': {
     effects: [{type:'display_note', text:'지식 회상 성공 시 추가 정보 획득. 대성공 시 추가 질문 가능'}]
@@ -1012,13 +1012,13 @@ const FEAT_EFFECTS = {
 
   // ── 10레벨 ──
   'Annotate Composition': {
-    effects: [{type:'display_note', text:'10분 + 집중 포인트 1점으로 합주를 두루마리에 전사. 다른 이가 읽어 활성화'}]
+    effects: [{type:'display_note', text:'10분 + 집중 포인트 1점으로 작곡를 두루마리에 전사. 다른 이가 읽어 활성화'}]
   },
   'Courageous Assault': {
     effects: [{type:'display_note', text:'[주문변형] 용감한 찬가 시전 시 아군 1명이 반응으로 근접 타격'}]
   },
   'House of Imaginary Walls': {
-    effects: [{type:'grant_focus_spell', spell:'상상의 벽 집'}, {type:'display_note', text:'합주 캔트립: 상상의 벽 집 습득. 상상의 장벽 생성'}]
+    effects: [{type:'grant_focus_spell', spell:'상상의 벽 집'}, {type:'display_note', text:'작곡 캔트립: 상상의 벽 집 습득. 상상의 장벽 생성'}]
   },
   'Ode to Ouroboros': {
     effects: [{type:'grant_focus_spell', spell:'뱀 물기의 송가'}, {type:'display_note', text:'집중 주문: 뱀 물기의 송가 습득. 아군을 일시적으로 죽음에서 구함. 집중 포인트 풀 +1 (최대 3)'}]
@@ -1030,7 +1030,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'grant_focus_spell', spell:'속박 해방의 교향곡'}, {type:'display_note', text:'집중 주문: 속박 해방의 교향곡 습득. 무력화 상태 보호. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Unusual Composition': {
-    effects: [{type:'display_note', text:'[주문변형] 합주를 어떤 감각으로든 전달 가능 (진동감각 등)'}]
+    effects: [{type:'display_note', text:'[주문변형] 작곡를 어떤 감각으로든 전달 가능 (진동감각 등)'}]
   },
 
   // ── 12레벨 ──
@@ -1052,16 +1052,16 @@ const FEAT_EFFECTS = {
 
   // ── 14레벨 ──
   'Allegro': {
-    effects: [{type:'grant_focus_spell', spell:'알레그로'}, {type:'display_note', text:'합주 캔트립: 알레그로 습득. 아군 가속'}]
+    effects: [{type:'grant_focus_spell', spell:'알레그로'}, {type:'display_note', text:'작곡 캔트립: 알레그로 습득. 아군 가속'}]
   },
   'Earworm': {
-    effects: [{type:'display_note', text:'10분간 합주 캔트립을 아군 머릿속에 심어 나중에 자유 행동으로 활성화'}]
+    effects: [{type:'display_note', text:'10분간 작곡 캔트립을 아군 머릿속에 심어 나중에 자유 행동으로 활성화'}]
   },
   'Soothing Ballad': {
     effects: [{type:'grant_focus_spell', spell:'위로의 발라드'}, {type:'display_note', text:'집중 주문: 위로의 발라드 습득. 아군 치유. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Triumphant Inspiration': {
-    effects: [{type:'display_note', text:'[자유행동] 적 쓰러뜨릴 때 1행동 합주 캔트립 즉시 시전'}]
+    effects: [{type:'display_note', text:'[자유행동] 적 쓰러뜨릴 때 1행동 작곡 캔트립 즉시 시전'}]
   },
   'True Hypercognition': {
     effects: [{type:'display_note', text:'[1행동] 즉시 최대 5회 지식 회상 사용'}]
@@ -1076,7 +1076,7 @@ const FEAT_EFFECTS = {
   },
   // 'Effortless Concentration' — 공유 재주, 드루이드 섹션에 정의됨
   'Resounding Finale': {
-    effects: [{type:'display_note', text:'[반응] 음파 피해 수신 시 합주 종료하여 아군에 음파 저항 (랭크 x 2)'}]
+    effects: [{type:'display_note', text:'[반응] 음파 피해 수신 시 작곡 종료하여 아군에 음파 저항 (랭크 x 2)'}]
   },
   'Studious Capacity': {
     effects: [{type:'display_note', text:'하루 1회 추가 주문 시전 가능 (최고 랭크 제외)'}]
@@ -1093,7 +1093,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'용감한 찬가 영향 중 아군의 무기/비무장 공격에 추가 1d6 음파 피해'}]
   },
   'Eternal Composition': {
-    effects: [{type:'display_note', text:'영구 빠른(quickened) 상태 — 추가 행동은 1행동 합주 캔트립에만 사용'}]
+    effects: [{type:'display_note', text:'영구 빠른(quickened) 상태 — 추가 행동은 1행동 작곡 캔트립에만 사용'}]
   },
   'Impossible Polymath': {
     effects: [{type:'display_note', text:'주문학→비전, 자연학→원시, 종교학→신성 주문을 주문서에 추가 가능'}]
@@ -1110,7 +1110,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'grant_focus_spell', spell:'피리 부는 사나이'}, {type:'display_note', text:'집중 주문: 피리 부는 사나이 습득. 의지 약한 생물 지배. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Symphony of the Muse': {
-    effects: [{type:'display_note', text:'턴당 합주 1개 제한 해제. 새 합주 시전해도 이전 합주 유지'}]
+    effects: [{type:'display_note', text:'턴당 작곡 1개 제한 해제. 새 작곡 시전해도 이전 작곡 유지'}]
   },
   'Ultimate Polymath': {
     effects: [{type:'display_note', text:'레퍼토리의 모든 주문이 시그니처 주문'}]
@@ -2700,7 +2700,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'집중 주문: 대항 공연 습득. 집중 포인트 풀 획득/확장'}]
   },
   'Anthemic Performance': {
-    effects: [{type:'display_note', text:'합주 캔트립: 용기의 찬가 습득'}]
+    effects: [{type:'display_note', text:'작곡 캔트립: 용기의 찬가 습득'}]
   },
   'Occult Breadth': {
     effects: [{type:'display_note', text:'바드 원형 주문 슬롯 수 증가 (최고 2랭크 제외 각 랭크 +1)'}]

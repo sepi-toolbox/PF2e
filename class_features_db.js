@@ -133,7 +133,7 @@ var SUBCLASS_PROF_TABLE = {
 var CLASS_FEATURE_NAMES = {
   bard: [
     {lv:1, name_ko:'오컬트 주문시전', name_en:'Occult Spellcasting'},
-    {lv:1, name_ko:'합주 주문', name_en:'Composition Spells'},
+    {lv:1, name_ko:'작곡 주문', name_en:'Composition Spells'},
     {lv:3, name_ko:'번개 반사', name_en:'Lightning Reflexes'},
     {lv:3, name_ko:'시그니처 주문', name_en:'Signature Spells'},
     {lv:7, name_ko:'전문가 주문시전자', name_en:'Expert Spellcaster'},
@@ -301,7 +301,7 @@ var CLASS_AUTO_FEATS = {
 
 // Subclass auto-granted feats
 var SUBCLASS_AUTO_FEATS = {
-  'muse-maestro': [{lv:1, name_ko:'잔향 합주', name_en:'Lingering Composition', category:'special'}],
+  'muse-maestro': [{lv:1, name_ko:'잔향 작곡', name_en:'Lingering Composition', category:'special'}],
   'muse-enigma':  [{lv:1, name_ko:'바드 지식', name_en:'Bardic Lore', category:'special'}],
   'muse-warrior': [{lv:1, name_ko:'무예 공연', name_en:'Martial Performance', category:'special'}],
   'muse-polymath': [{lv:1, name_ko:'다재다능한 공연', name_en:'Versatile Performance', category:'special'}],
@@ -357,7 +357,7 @@ var SUBCLASS_AUTO_SPELLS = {
 var SUBCLASS_FEATURE_NAMES = {
   // ── 바드 뮤즈 ──
   'muse-enigma':  [{lv:1, name_ko:'바드 지식 (자유 지식 기술)', name_en:'Bardic Lore'}],
-  'muse-maestro': [{lv:1, name_ko:'잔향 합주', name_en:'Lingering Composition'}],
+  'muse-maestro': [{lv:1, name_ko:'잔향 작곡', name_en:'Lingering Composition'}],
   'muse-warrior': [{lv:1, name_ko:'군용 무기 훈련', name_en:'Martial Weapon Training'}],
   'muse-polymath': [{lv:1, name_ko:'다재다능한 공연', name_en:'Versatile Performance'}],
   // ── 클레릭 교리 ──
