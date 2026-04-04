@@ -1290,6 +1290,25 @@ function growthClearFeat(lv, key, featType) {
     }
   }
   delete state.growth[lv][key];
+  // cantrip_slots 재주를 제거한 경우 초과 캔트립 정리
+  if (state.growth[lv]?.spells?.cantrip) {
+    const cid = state.selectedClass?.id;
+    const base = getNewSpellSlotsAtLevel(cid, lv);
+    const baseCantrip = base?.cantrip || 0;
+    const bonus = _getCantripBonusAtLevel(lv);
+    const maxCantrip = baseCantrip + bonus;
+    const arr = state.growth[lv].spells.cantrip;
+    if (arr.length > maxCantrip) {
+      // 초과분 삭제 + state.spells.cantrip에서도 제거
+      const removed = arr.splice(maxCantrip);
+      removed.forEach(name => {
+        if (name && state.spells?.cantrip) {
+          const idx = state.spells.cantrip.findIndex(c => c?.name === name);
+          if (idx >= 0) state.spells.cantrip.splice(idx, 1);
+        }
+      });
+    }
+  }
   // 선행 연쇄 제거 + 선천 주문 정리
   if (typeof cascadeRemoveFeats === 'function') cascadeRemoveFeats();
   recalcAll();
@@ -1586,12 +1605,40 @@ function getAutoKnownAtLevel(lv) {
   return result;
 }
 
+// 해당 레벨에 배운 재주의 cantrip_slots 보너스 합산
+function _getCantripBonusAtLevel(lv) {
+  const g = state.growth[lv] || {};
+  let bonus = 0;
+  // 모든 재주 슬롯 확인
+  ['classFeat','classFeat2','generalFeat','skillFeat','ancestryFeat','archFeat'].forEach(key => {
+    const featName = g[key];
+    if (!featName) return;
+    const en = typeof _extractEnName === 'function' ? _extractEnName(featName) : '';
+    if (!en || typeof FEAT_EFFECTS === 'undefined') return;
+    const def = FEAT_EFFECTS[en];
+    if (!def || !def.effects) return;
+    def.effects.forEach(eff => {
+      if (eff.type === 'cantrip_slots') bonus += (eff.value || 0);
+    });
+  });
+  return bonus;
+}
+
 // 성장 주문 카드 HTML
 function growthSpellCardHTML(lv) {
   const cid = state.selectedClass?.id;
   if (!cid) return '';
   const newSlots = getNewSpellSlotsAtLevel(cid, lv);
-  if (!newSlots) return '';
+
+  // cantrip_slots 보너스 확인 (이 레벨에 해당 재주를 배운 경우)
+  const cantripBonus = _getCantripBonusAtLevel(lv);
+  if (!newSlots && cantripBonus <= 0) return '';
+  const slots = newSlots || {};
+  if (cantripBonus > 0) {
+    slots.cantrip = (slots.cantrip || 0) + cantripBonus;
+  }
+  // newSlots → slots로 이하 참조 교체를 위해 변수 재할당
+  const _newSlots = slots;
 
   const g = state.growth[lv] || {};
   const gs = g.spells || {};
@@ -1609,8 +1656,8 @@ function growthSpellCardHTML(lv) {
   const slotKeys = [];
 
   // 각 키별 사용자 선택 가능 수 계산 (자동 부여 주문은 보너스 — 슬롯 차감 안 함)
-  Object.keys(newSlots).forEach(key => {
-    const count = newSlots[key];
+  Object.keys(_newSlots).forEach(key => {
+    const count = _newSlots[key];
     const autoCount = (autoByKey[key] || []).length;
     const userCount = count; // 자동 부여는 보너스이므로 슬롯 차감 없음
     const userFilled = (gs[key] || []).filter(n => n).length;
@@ -3951,7 +3998,11 @@ function updateSpellSlotsForClass() {
     for (let r = 1; r <= 10; r++) {
       state.spellSlots[r] = data.slots[r-1] || 0;
     }
-    state.cantripSlots = data.cantrips || 5;
+    // cantrip_slots 보너스 합산 (모든 레벨)
+    let cantripBonus = 0;
+    const curLv = getLevel();
+    for (let l = 1; l <= curLv; l++) cantripBonus += _getCantripBonusAtLevel(l);
+    state.cantripSlots = (data.cantrips || 5) + cantripBonus;
   } else {
     // CLASS_SPELL_TABLE에 없는 클래스 — 범용 폴백
     const slots = [
