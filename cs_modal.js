@@ -1608,13 +1608,13 @@ function growthSpellCardHTML(lv) {
   let totalNew = 0, totalFilled = 0;
   const slotKeys = [];
 
-  // 각 키별 사용자 선택 가능 수 계산
+  // 각 키별 사용자 선택 가능 수 계산 (자동 부여 주문은 보너스 — 슬롯 차감 안 함)
   Object.keys(newSlots).forEach(key => {
     const count = newSlots[key];
     const autoCount = (autoByKey[key] || []).length;
-    const userCount = Math.max(0, count - autoCount);
+    const userCount = count; // 자동 부여는 보너스이므로 슬롯 차감 없음
     const userFilled = (gs[key] || []).filter(n => n).length;
-    slotKeys.push({key, total: count, autoCount, autoNames: autoByKey[key] || [], userCount, userFilled});
+    slotKeys.push({key, total: count + autoCount, autoCount, autoNames: autoByKey[key] || [], userCount, userFilled});
     totalNew += userCount;
     totalFilled += Math.min(userFilled, userCount);
   });
