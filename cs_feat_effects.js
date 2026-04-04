@@ -3186,14 +3186,14 @@ function _applyOneEffect(fb, eff, feat, level) {
     }
     case 'grant_focus_spell': {
       let spellName = eff.spell;
-      if (spellName === '$domain_initial' && feat.choice && typeof DOMAIN_DB !== 'undefined') {
-        const dom = DOMAIN_DB[feat.choice];
+      if (spellName === '$domain_initial') {
+        const dom = feat.choice && typeof DOMAIN_DB !== 'undefined' ? DOMAIN_DB[feat.choice] : null;
         spellName = dom && dom.initial ? dom.initial : '';
-      } else if (spellName === '$domain_advanced' && feat.choice && typeof DOMAIN_DB !== 'undefined') {
-        const dom = DOMAIN_DB[feat.choice];
+      } else if (spellName === '$domain_advanced') {
+        const dom = feat.choice && typeof DOMAIN_DB !== 'undefined' ? DOMAIN_DB[feat.choice] : null;
         spellName = dom && dom.advanced ? dom.advanced : '';
       }
-      if (spellName && feat.name) {
+      if (spellName && !spellName.startsWith('$') && feat.name) {
         if (!state.spells.focus) state.spells.focus = [];
         const existing = state.spells.focus.find(s => s._sourceFeat === feat.name && s.name === spellName);
         if (!existing) {
