@@ -461,6 +461,15 @@ const FEAT_EFFECTS = {
   "Mountain's Stoutness": {
     effects: [{type:'hp_bonus', value:'level'}, {type:'recovery_dc', value:-1}]
   },
+  'March the Mines': {
+    effects: [{type:'grant_action'}]
+  },
+  'Stone Bones': {
+    effects: [{type:'grant_action'}]
+  },
+  'Stonewall': {
+    effects: [{type:'grant_action'}]
+  },
 
   // ── 엘프 ──
   'Elven Lore': {
@@ -499,10 +508,16 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'탐색/조사에 2배 시간 투자 시 +2 상황 보너스'}]
   },
   'Elf Step': {
-    effects: [{type:'display_note', text:'비틀거림(Step) 시 10피트 이동 가능'}]
+    effects: [{type:'grant_action'}, {type:'display_note', text:'비틀거림(Step) 시 10피트 이동 가능'}]
   },
   'Expert Elven Weaponry': {
     effects: [{type:'display_note', text:'엘프 무기 숙련도 전문가로 증가'}]
+  },
+  'Avenge Ally': {
+    effects: [{type:'grant_action'}]
+  },
+  'Universal Longevity': {
+    effects: [{type:'grant_action'}]
   },
 
   // ── 노움 ──
@@ -536,6 +551,12 @@ const FEAT_EFFECTS = {
   'Gnome Weapon Expertise': {
     effects: [{type:'display_note', text:'노움 무기 숙련도 전문가로 증가'}]
   },
+  'Instinctive Obfuscation': {
+    effects: [{type:'grant_action'}]
+  },
+  'Life Leap': {
+    effects: [{type:'grant_action'}]
+  },
 
   // ── 고블린 ──
   'Burn It!': {
@@ -545,7 +566,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'grant_action', action:'goblin-song'}, {type:'display_note', text:'[1행동] 적의 지각/의지에 -1 상태 페널티'}]
   },
   'Goblin Scuttle': {
-    effects: [{type:'display_note', text:'[반응] 아군 인접 이동 시 비틀거림(Step) 가능'}]
+    effects: [{type:'grant_action'}, {type:'display_note', text:'[반응] 아군 인접 이동 시 비틀거림(Step) 가능'}]
   },
   'Junk Tinker': {
     effects: [{type:'display_note', text:'폐자재로 간이 무기/장비 제작 가능'}]
@@ -574,10 +595,16 @@ const FEAT_EFFECTS = {
   'Goblin Weapon Frenzy': {
     effects: [{type:'display_note', text:'고블린 무기 숙련도 전문가로 증가'}]
   },
+  'Cling': {
+    effects: [{type:'grant_action'}]
+  },
+  'Reckless Abandon': {
+    effects: [{type:'grant_action'}]
+  },
 
   // ── 하플링 ──
   'Halfling Luck': {
-    effects: [{type:'display_note', text:'[반응] 기술/내성 실패 시 1회 재굴림. 하루 1회'}]
+    effects: [{type:'grant_action'}, {type:'display_note', text:'[반응] 기술/내성 실패 시 1회 재굴림. 하루 1회'}]
   },
   'Prairie Rider': {
     effects: [{type:'skill_trained', skill:'nature'}]
@@ -608,6 +635,12 @@ const FEAT_EFFECTS = {
   },
   'Halfling Weapon Expertise': {
     effects: [{type:'display_note', text:'하플링 무기 숙련도 전문가로 증가'}]
+  },
+  'Shadow Self': {
+    effects: [{type:'grant_action'}]
+  },
+  'Step Lively': {
+    effects: [{type:'grant_action'}]
   },
 
   // ── 인간 ──
@@ -671,15 +704,15 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'선택한 비관습 무기 숙련도 전문가로 증가: $choice_name'}]
   },
   'Bounce Back': {
-    effects: [{type:'display_note', text:'[자유 행동] 하루 1회. 빈사 해제 시 부상 수치 미증가'}]
+    effects: [{type:'grant_action'}, {type:'display_note', text:'[자유 행동] 하루 1회. 빈사 해제 시 부상 수치 미증가'}]
   },
   'Heroic Presence': {
-    effects: [{type:'display_note', text:'[자유 행동] 하루 1회. 열정적 확신 6랭크: 임시 HP 19, 공포/도주 내성 +2 (10분)'}]
+    effects: [{type:'grant_action'}, {type:'display_note', text:'[자유 행동] 하루 1회. 열정적 확신 6랭크: 임시 HP 19, 공포/도주 내성 +2 (10분)'}]
   },
 
   // ── 레쉬 ──
   'Leshy Superstition': {
-    effects: [{type:'save_bonus', save:'all', value:1, bonus_type:'circumstance', condition:'마법 효과'}]
+    effects: [{type:'grant_action'}, {type:'save_bonus', save:'all', value:1, bonus_type:'circumstance', condition:'마법 효과'}]
   },
   'Grasping Reach': {
     effects: [{type:'display_note', text:'비무장 공격 도달 범위 10피트'}]
@@ -706,10 +739,10 @@ const FEAT_EFFECTS = {
     effects: [{type:'grant_feat', feat:'안정된 균형 (Steady Balance)'}, {type:'grant_action', actionName:'고정'}]
   },
   'Leshy Glide': {
-    effects: [{type:'display_note', text:'[1행동] 5피트 아래로 최대 25피트 앞으로 활공'}]
+    effects: [{type:'grant_action'}, {type:'display_note', text:'[1행동] 5피트 아래로 최대 25피트 앞으로 활공'}]
   },
   'Ritual Reversion': {
-    effects: [{type:'display_note', text:'[2행동] 식물/균류 표본 형태로 변신 (식물과 하나 효과)'}]
+    effects: [{type:'grant_action'}, {type:'display_note', text:'[2행동] 식물/균류 표본 형태로 변신 (식물과 하나 효과)'}]
   },
   'Speak with Kindred': {
     effects: [{type:'display_note', text:'식물/균류에게 외교 사용 가능. 자신의 종류에 +2 상황 보너스'}]
@@ -727,7 +760,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'grant_innate_spell', spell:'식물 형태', tradition:'원시', spellType:'spell', uses:'하루 1회'}]
   },
   'Cloak of Poison': {
-    effects: [{type:'display_note', text:'[2행동] 하루 1회, 1분간 접촉/근접 공격자에게 3d6 독 피해'}]
+    effects: [{type:'grant_action'}, {type:'display_note', text:'[2행동] 하루 1회, 1분간 접촉/근접 공격자에게 3d6 독 피해'}]
   },
   'Flourish and Ruin': {
     effects: [{type:'grant_innate_spell', spell:'생명의 장', tradition:'원시', spellType:'spell', uses:'하루 1회'}, {type:'grant_innate_spell', spell:'덩굴 뒤엉킴', tradition:'원시', spellType:'spell', uses:'하루 1회'}]
@@ -769,7 +802,7 @@ const FEAT_EFFECTS = {
     }
   },
   'Orc Ferocity': {
-    effects: [{type:'display_note', text:'[반응] HP 0 시 HP 1로 유지. 하루 1회'}]
+    effects: [{type:'grant_action'}, {type:'display_note', text:'[반응] HP 0 시 HP 1로 유지. 하루 1회'}]
   },
   'Bloody Blows': {
     effects: [{type:'display_note', text:'치명타 시 대상에게 공포 1 부여'}]
@@ -785,6 +818,9 @@ const FEAT_EFFECTS = {
   },
   'Orc Weapon Expertise': {
     effects: [{type:'display_note', text:'오크 무기 숙련도 전문가로 증가'}]
+  },
+  'Rampaging Ferocity': {
+    effects: [{type:'grant_action'}]
   },
 
   // ── 체인질링 ──
@@ -813,6 +849,9 @@ const FEAT_EFFECTS = {
   },
   'Nimble Hooves': {
     effects: [{type:'speed_bonus', value:5}]
+  },
+  'Divine Wings': {
+    effects: [{type:'grant_action'}]
   },
 
   // ── 아이우바린 ──
@@ -1899,7 +1938,10 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'재집중(Refocus) 시 집중 풀을 완전히 채움'}]
   },
   'Secondary Detonation Array': {
-    effects: [{type:'display_note', text:'[반응] 보호 배열 에너지 방출: 30피트 내 적에게 레벨 × 1d4 피해. 사용 후 저항 소멸'}]
+    effects: [{type:'display_note', text:'[반응] 보호 배열 에너지 방출: 30피트 내 적에게 레벨 × 1d4 피해. 사용 후 저항 소멸'},{type:'grant_action'}]
+  },
+  'Arcane Bond': {
+    effects: [{type:'grant_action'}]
   },
   'Superior Bond': {
     effects: [{type:'display_note', text:'결합 아이템 소진을 하루 2회 사용 가능'}]
@@ -2341,7 +2383,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'단순 독이 2d4 독 피해로 증가. 대실패 시 독이 낭비되지 않음'}]
   },
   'Inspired Stratagem': {
-    effects: [{type:'display_note', text:'일일 준비 시 최대 5명과 전략 공유. [반응]으로 아군이 판정을 2번 굴림'}]
+    effects: [{type:'display_note', text:'일일 준비 시 최대 5명과 전략 공유. [반응]으로 아군이 판정을 2번 굴림'},{type:'grant_action'}]
   },
   'Nimble Roll': {
     effects: [{type:'display_note', text:'날렵한 회피를 반사 내성에도 사용 가능. 회피 성공 시 10피트 보폭'}]
