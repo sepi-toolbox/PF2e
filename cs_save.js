@@ -427,8 +427,14 @@ function switchTab(id, el) {
 }
 
 // Fix recalcAll to also update mobile mirror attribute displays + auto-save
-let _loadComplete = false;
-let _cloudLoading = false;  // 클라우드 로드 중에는 자동저장 차단
+let _loadComplete = false;   // true = UI 초기화 + 클라우드 로드 모두 완료
+let _uiReady = false;        // window.onload 완료
+let _cloudResolved = false;  // 클라우드 로드 완료 (or 로그인 안 됨)
+function _checkReady() {
+  if (_uiReady && _cloudResolved && !_loadComplete) {
+    _loadComplete = true;
+  }
+}
 const _origRecalcAll = recalcAll;
 recalcAll = function() {
   _origRecalcAll();
@@ -438,8 +444,8 @@ recalcAll = function() {
     const dst = document.getElementById('mod-' + a + '-m');
     if (src && dst) dst.textContent = src.textContent;
   });
-  // 초기 로드 완료 후 + 클라우드 로드 중이 아닐 때만 자동저장
-  if (_loadComplete && !_cloudLoading) save();
+  // UI + 클라우드 모두 준비된 후에만 자동저장
+  if (_loadComplete) save();
 };
 
 // Re-init window.onload to use new tab
@@ -459,5 +465,6 @@ window.onload = function() {
   renderPets();
   recalcAll();
   renderGrowthPlan();
-  _loadComplete = true;
+  _uiReady = true;
+  _checkReady();
 };
