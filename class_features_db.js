@@ -334,7 +334,7 @@ var SUBCLASS_AUTO_SPELLS = {
   'order-wild':   [{lv:1, type:'focus', name_ko:'야생 변신', name_en:'Wild Shape'}],
   // order-animal: DB에 Heal Animal 없음
   // ── 위저드 비전 학파 (Remaster) ──
-  'school-ars-grammatica': [{lv:1, type:'focus', name_ko:'보호의 말', name_en:'Protective Words'}],
+  'school-ars-grammatica': [{lv:1, type:'focus', name_ko:'보호의 결계', name_en:'Protective Wards'}],
   'school-battle-magic':   [{lv:1, type:'focus', name_ko:'힘의 화살', name_en:'Force Bolt'}],
   'school-boundary':       [{lv:1, type:'focus', name_ko:'소환 강화', name_en:'Fortify Summoning'}],
   'school-civic-wizardry': [{lv:1, type:'focus', name_ko:'대지 공사', name_en:'Earthworks'}],
@@ -399,7 +399,7 @@ var SUBCLASS_FEATURE_NAMES = {
   'patron-rune':   [{lv:1, name_ko:'비전 전통 / 주술: 파멸의 서약', name_en:'Arcane / Discern Secrets'}],
   'patron-wild':   [{lv:1, name_ko:'원시 전통 / 주술: 야생의 분노', name_en:'Primal / Wilding Word'}],
   // ── 위저드 비전 학파 (Remaster) ──
-  'school-ars-grammatica': [{lv:1, name_ko:'학파 주문: 보호의 말', name_en:'Protective Words'}],
+  'school-ars-grammatica': [{lv:1, name_ko:'학파 주문: 보호의 결계', name_en:'Protective Wards'}],
   'school-battle-magic':   [{lv:1, name_ko:'학파 주문: 힘의 화살', name_en:'Force Bolt'}],
   'school-boundary':       [{lv:1, name_ko:'학파 주문: 소환 강화', name_en:'Fortify Summoning'}],
   'school-civic-wizardry': [{lv:1, name_ko:'학파 주문: 대지 공사', name_en:'Earthworks'}],

@@ -54,7 +54,7 @@ const SUBCLASS_DB = [
   {id:'muse-enigma',  class_id:'bard', subclass_type:'뮤즈', name_ko:'수수께끼', name_en:'Enigma',
    summary:'뮤즈는 미스터리로, 삶과 다차원계의 숨겨진 비밀을 밝히도록 합니다. 완전히 파악할 수 없는 사람, 상징이 깊이 겹쳐진 텍스트, 또는 평생 작품의 바탕이 되는 감정적 역설일 수 있습니다. 이세계 생물이라면 신비로운 영겁(aeon)이나 비학 용일 수 있고, 신격이라면 이로리나 네시스일 수 있습니다.<br>수수께끼 뮤즈의 바드로서, 영감과 비학 지원 곁에 지식을 제공하여 동료를 지원합니다.<br><strong>뮤즈 재주:</strong> 바드 지식(Bardic Lore) | <strong>뮤즈 주문:</strong> <em>확실한 타격(sure strike)</em>'},
   {id:'muse-maestro', class_id:'bard', subclass_type:'뮤즈', name_ko:'마에스트로',    name_en:'Maestro',
-   summary:'뮤즈가 끊임없이 더 높은 예술적 무용의 경지로 영감을 줍니다. 많은 바드에게 스승이나 라이벌이 이 역할을 하지만, 일부는 더 높은 목표를 세워 과거의 위대한 작곡가를 넘어서거나 완전히 새로운 길을 개척하려 합니다. 초자연적 생물이라면 합창 천사나 리라키엔 아자타일 수 있고, 신격이라면 셸린일 수 있습니다.<br>마에스트로 뮤즈의 바드로서, 동료에게 영감을 주며 음악적, 연설적 능력에 자신 있습니다.<br><strong>뮤즈 재주:</strong> 잔향 합주(Lingering Composition) | <strong>뮤즈 주문:</strong> <em>치유(soothe)</em>'},
+   summary:'뮤즈가 끊임없이 더 높은 예술적 무용의 경지로 영감을 줍니다. 많은 바드에게 스승이나 라이벌이 이 역할을 하지만, 일부는 더 높은 목표를 세워 과거의 위대한 작곡가를 넘어서거나 완전히 새로운 길을 개척하려 합니다. 초자연적 생물이라면 합창 천사나 리라키엔 아자타일 수 있고, 신격이라면 셸린일 수 있습니다.<br>마에스트로 뮤즈의 바드로서, 동료에게 영감을 주며 음악적, 연설적 능력에 자신 있습니다.<br><strong>뮤즈 재주:</strong> 잔향 합주(Lingering Composition) | <strong>뮤즈 주문:</strong> <em>위로(soothe)</em>'},
   {id:'muse-warrior',  class_id:'bard', subclass_type:'뮤즈', name_ko:'전사',    name_en:'Warrior',
    summary:'전장이 무대이고 강철의 울림이 노래입니다. 뮤즈는 전투에 환호하거나 그 필요성에 체념하며 수많은 전투를 목격했습니다. 개별 병사나 장군이 영감을 줄 수 있지만, 특히 심오한 역사를 가진 전장이나 무기도 마찬가지입니다. 생물이라면 아르콘이나 데블 병사 같은 이세계 전사일 수 있고, 신격이라면 고룸일 수 있습니다.<br>전사 뮤즈의 바드로서, 공연 외에 전투 훈련도 하며 전투의 위험에 대비시킵니다. 한가운데 뛰어들 수도 있습니다.<br><strong>뮤즈 재주:</strong> 무예 공연(Martial Performance) | <strong>뮤즈 주문:</strong> <em>공포(fear)</em>'},
   {id:'muse-polymath',  class_id:'bard', subclass_type:'뮤즈', name_ko:'박학다식', name_en:'Polymath',
@@ -113,7 +113,7 @@ const SUBCLASS_DB = [
   {id:'patron-wild',   class_id:'witch', subclass_type:'후원자', name_ko:'야생',   name_en:'Wild',    summary:'자연 야생의 후원자. 원시(Primal) 전통. 주술: 야생의 분노(Wilding Word). 자연·동물 관련 주문.'},
 
   // ── 위저드 비전 학파 (Remaster) ──
-  {id:'school-ars-grammatica', class_id:'wizard', subclass_type:'비전 학파', name_ko:'문법 학파',      name_en:'Ars Grammatica',        summary:'문자와 수호의 마법. 학파 주문: 보호의 말(Protective Words) / 감시의 룬(Rune of Observation). 교과: message, sigil 등.'},
+  {id:'school-ars-grammatica', class_id:'wizard', subclass_type:'비전 학파', name_ko:'문법 학파',      name_en:'Ars Grammatica',        summary:'문자와 수호의 마법. 학파 주문: 보호의 결계(Protective Wards) / 감시의 룬(Rune of Observation). 교과: message, sigil 등.'},
   {id:'school-battle-magic',   class_id:'wizard', subclass_type:'비전 학파', name_ko:'전투 마법 학파', name_en:'Battle Magic',          summary:'전쟁과 파괴의 마법. 학파 주문: 힘의 화살(Force Bolt) / 에너지 흡수(Energy Absorption). 교과: shield, fire 등.'},
   {id:'school-boundary',       class_id:'wizard', subclass_type:'비전 학파', name_ko:'경계 학파',      name_en:'The Boundary',          summary:'차원과 소환의 마법. 학파 주문: 소환 강화(Fortify Summoning) / 공포의 나선(Spiral of Horrors). 교과: telekinetic hand 등.'},
   {id:'school-civic-wizardry', class_id:'wizard', subclass_type:'비전 학파', name_ko:'시민 마법 학파', name_en:'Civic Wizardry',        summary:'건설과 실용의 마법. 학파 주문: 대지 공사(Earthworks) / 가족 회복(Community Restoration). 교과: prestidigitation 등.'},

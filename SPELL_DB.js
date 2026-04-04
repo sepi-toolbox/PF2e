@@ -1,7 +1,7 @@
 // Pathfinder 2e Player Core — 주문 데이터베이스
 // PlayerCore.html 7장에서 자동 생성
 // Generated: 2026-04-04
-// Total: 428 spells
+// Total: 430 spells
 
 const SPELL_DB = [
 
@@ -611,6 +611,21 @@ const SPELL_DB = [
     summary: "특성: 위치, 집중악랄한 웃음으로 유지 중인 주문을 자유 행동으로 유지합니다. 이번 턴에 유지(Sustain) 행동 대신 이것을 사용하여 1개의 주문을 유지할 수 있습니다.",
     desc: "<strong>특성:</strong> 위치, 집중<br>악랄한 웃음으로 유지 중인 주문을 자유 행동으로 유지합니다. 이번 턴에 유지(Sustain) 행동 대신 이것을 사용하여 1개의 주문을 유지할 수 있습니다." },
 
+  { name_ko: "매혹의 밀침",
+    name_en: "Charming Push",
+    rank: 1,
+    is_cantrip: false,
+    is_focus: true,
+    traditions: [],
+    actions: "1행동",
+    traits: [],
+    range: "30피트",
+    target: "생물 1",
+    defense: "의지",
+    duration: "다음 턴 시작까지",
+    summary: "특성: 집중, 무력화, 정신, 위저드대상의 마음을 밀어 적의를 꺾습니다. 대상은 의지 내성을 시도합니다.대성공: 영향 없음.성공: 대상은 당신에 대한 명중 굴림과 피해 굴림에 -1 상황 페널티를 받습니다.실패: 대상은 당신에 대해 적대적 행동을 사용할 수 없습니다.대실패: 대상은 기절(stunned) 1이 되고 당신에 대해 적대적 행동을 사용할 수 없...",
+    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 다음 턴 시작까지<br><strong>특성:</strong> 집중, 무력화, 정신, 위저드<br>대상의 마음을 밀어 적의를 꺾습니다. 대상은 의지 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상은 당신에 대한 명중 굴림과 피해 굴림에 <strong>-1 상황 페널티</strong>를 받습니다.<br><strong>실패:</strong> 대상은 당신에 대해 적대적 행동을 사용할 수 없습니다.<br><strong>대실패:</strong> 대상은 <strong>기절(stunned) 1</strong>이 되고 당신에 대해 적대적 행동을 사용할 수 없습니다." },
+
   { name_ko: "축제의 뿔피리",
     name_en: "Cornucopia",
     rank: 1,
@@ -960,6 +975,19 @@ const SPELL_DB = [
     area: "15피트 발산",
     summary: "특성: 클레릭, 집중 | 지속 시간: 유지(최대 1분)아군을 보호하는 문양의 고리를 펼칩니다. 당신과 영역 내 아군은 AC에 +1 상태 보너스를 얻습니다. 주문을 유지할 때마다 발산 반경이 5피트씩 증가합니다(최대 30피트).",
     desc: "<strong>영역:</strong> 15피트 발산<br><strong>특성:</strong> 클레릭, 집중 | <strong>지속 시간:</strong> 유지(최대 1분)<br>아군을 보호하는 문양의 고리를 펼칩니다. 당신과 영역 내 아군은 AC에 <strong>+1 상태 보너스</strong>를 얻습니다. 주문을 유지할 때마다 발산 반경이 <strong>5피트</strong>씩 증가합니다(최대 30피트)." },
+
+  { name_ko: "보호의 결계",
+    name_en: "Protective Wards",
+    rank: 1,
+    is_cantrip: false,
+    is_focus: true,
+    traditions: [],
+    actions: "2행동",
+    traits: [],
+    area: "시전자 중심 5피트 발산",
+    duration: "유지(최대 1분)",
+    summary: "특성: 오라, 집중, 조작, 위저드문자 고리를 펼쳐 아군을 보호합니다. 당신과 영역 내 아군은 AC에 +1 상태 보너스를 받습니다. 매 턴 주문을 유지(Sustain)할 때마다 발산 반경이 5피트씩 증가하며, 최대 30피트까지 확장됩니다.",
+    desc: "<strong>영역:</strong> 시전자 중심 5피트 발산<br><strong>지속 시간:</strong> 유지(최대 1분)<br><strong>특성:</strong> 오라, 집중, 조작, 위저드<br>문자 고리를 펼쳐 아군을 보호합니다. 당신과 영역 내 아군은 <strong>AC에 +1 상태 보너스</strong>를 받습니다. 매 턴 주문을 유지(Sustain)할 때마다 발산 반경이 5피트씩 증가하며, 최대 30피트까지 확장됩니다." },
 
   { name_ko: "밀어내는 돌풍",
     name_en: "Pushing Gust",
@@ -2857,8 +2885,8 @@ const SPELL_DB = [
     actions: "2행동",
     traits: [],
     duration: "10분",
-    summary: "특성: 집중, 조작, 변이 | 전통: 비전, 비학인간형 생물의 형태를 취합니다. 중형 또는 소형 인간형의 외모로 변신합니다. 비전투적 변신이며, 공격/능력치는 변하지 않습니다. 불신 가능(감지 DC = 주문 DC).강화(3랭크): 대형 인간형도 가능. 강화(5랭크): 비인간형 체형도 가능.",
-    desc: "<strong>지속 시간:</strong> 10분<br><strong>특성:</strong> 집중, 조작, 변이 | <strong>전통:</strong> 비전, 비학<br>인간형 생물의 형태를 취합니다. 중형 또는 소형 인간형의 외모로 변신합니다. 비전투적 변신이며, 공격/능력치는 변하지 않습니다. 불신 가능(감지 DC = 주문 DC).<br><strong>강화(3랭크):</strong> 대형 인간형도 가능. <strong>강화(5랭크):</strong> 비인간형 체형도 가능." },
+    summary: "특성: 집중, 조작, 변이 | 전통: 비전, 비학인간형 생물의 형태를 취합니다. 중형 또는 소형 인간형의 외모로 변신합니다. 비전투적 변신이며, 공격/능력치는 변하지 않습니다. 불신 가능(지각 DC = 주문 DC).강화(3랭크): 대형 인간형도 가능. 강화(5랭크): 비인간형 체형도 가능.",
+    desc: "<strong>지속 시간:</strong> 10분<br><strong>특성:</strong> 집중, 조작, 변이 | <strong>전통:</strong> 비전, 비학<br>인간형 생물의 형태를 취합니다. 중형 또는 소형 인간형의 외모로 변신합니다. 비전투적 변신이며, 공격/능력치는 변하지 않습니다. 불신 가능(지각 DC = 주문 DC).<br><strong>강화(3랭크):</strong> 대형 인간형도 가능. <strong>강화(5랭크):</strong> 비인간형 체형도 가능." },
 
   { name_ko: "환영 생물",
     name_en: "Illusory Creature",
