@@ -1737,7 +1737,7 @@ const SPELL_DB = [
     summary: "달빛이 야수적 힘을 부여합니다. 대상이 변이 전투 형태 중이면 공격에 +2 상태 보너스, 피해에 +5, 임시 HP 10. 변이 중이 아니면 발톱 비무장 공격(1d4 참격, 민첩)을 얻고 10 임시 HP.",
     desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 최대 5 동의 생물<br><strong>지속 시간:</strong> 1분<br>달빛이 야수적 힘을 부여합니다. 대상이 변이 전투 형태 중이면 공격에 <strong>+2 상태 보너스</strong>, 피해에 <strong>+5</strong>, 임시 HP 10. 변이 중이 아니면 발톱 비무장 공격(1d4 참격, 민첩)을 얻고 10 임시 HP." },
 
-  { name_ko: "우로보로스의 송가",
+  { name_ko: "뱀 물기의 송가",
     name_en: "Ode to Ouroboros",
     rank: 5,
     is_cantrip: false,
@@ -1751,7 +1751,7 @@ const SPELL_DB = [
     summary: "당신의 송가가 죽음을 막습니다. 대상의 빈사 수치가 사망 수치보다 1 낮게 유지됩니다. 분해(disintegrate)나 죽음 효과처럼 빈사 수치를 올리지 않고 죽이는 효과에는 도움이 되지 않습니다.",
     desc: "<strong>사거리:</strong> 60피트<br><strong>대상:</strong> 유발 생물<br><strong>유발 조건:</strong> 생물의 빈사 수치가 사망 수치에 도달할 때<br>당신의 송가가 죽음을 막습니다. 대상의 빈사 수치가 사망 수치보다 <strong>1 낮게</strong> 유지됩니다. 분해(disintegrate)나 죽음 효과처럼 빈사 수치를 올리지 않고 죽이는 효과에는 도움이 되지 않습니다." },
 
-  { name_ko: "자유로운 심장의 교향곡",
+  { name_ko: "속박 해방의 교향곡",
     name_en: "Symphony of the Unfettered Heart",
     rank: 5,
     is_cantrip: false,
@@ -1764,7 +1764,7 @@ const SPELL_DB = [
     summary: "공연 판정으로 조이기, 이동 불가, 마비, 억제, 느려짐, 멍해짐 중 하나를 상쇄합니다. 상태의 원천에 따라 상쇄 DC 결정.강화(9랭크): 최대 4 대상.",
     desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 당신 또는 아군 1<br>공연 판정으로 조이기, 이동 불가, 마비, 억제, 느려짐, 멍해짐 중 하나를 상쇄합니다. 상태의 원천에 따라 상쇄 DC 결정.<br><strong>강화(9랭크):</strong> 최대 4 대상." },
 
-  { name_ko: "진정의 발라드",
+  { name_ko: "위로의 발라드",
     name_en: "Soothing Ballad",
     rank: 7,
     is_cantrip: false,
@@ -1803,7 +1803,7 @@ const SPELL_DB = [
     summary: "너무나 완벽한 음악을 연주하여 대상이 기쁨이나 슬픔으로 죽을 수 있습니다. 대상으로 삼은 후 해당 생물은 1분간 일시 면역이 됩니다. 효과는 대상의 레벨과 현재 HP에 따라 달라집니다.16레벨 이하: 대상이 즉시 사망합니다.17레벨: 대상의 HP가 50 이하이면 즉시 사망합니다. 그렇지 않으면 HP가 0으로 떨어지고 빈사 1이 됩니다.18레벨 이상: ...",
     desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br>너무나 완벽한 음악을 연주하여 대상이 기쁨이나 슬픔으로 죽을 수 있습니다. 대상으로 삼은 후 해당 생물은 <strong>1분간 일시 면역</strong>이 됩니다. 효과는 대상의 레벨과 현재 HP에 따라 달라집니다.<br><strong>16레벨 이하:</strong> 대상이 즉시 사망합니다.<br><strong>17레벨:</strong> 대상의 HP가 50 이하이면 즉시 사망합니다. 그렇지 않으면 HP가 0으로 떨어지고 빈사 1이 됩니다.<br><strong>18레벨 이상:</strong> 대상이 50 피해를 받습니다. 이로 인해 HP가 0이 되면 즉시 사망합니다." },
 
-  { name_ko: "유혹의 피리",
+  { name_ko: "피리 부는 사나이",
     name_en: "Pied Piping",
     rank: 10,
     is_cantrip: false,

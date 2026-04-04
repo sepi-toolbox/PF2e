@@ -1021,13 +1021,13 @@ const FEAT_EFFECTS = {
     effects: [{type:'grant_focus_spell', spell:'상상의 벽 집'}, {type:'display_note', text:'합주 캔트립: 상상의 벽 집 습득. 상상의 장벽 생성'}]
   },
   'Ode to Ouroboros': {
-    effects: [{type:'display_note', text:'집중 주문: 뱀 물기의 송가 습득. 아군을 일시적으로 죽음에서 구함. 집중 포인트 풀 +1 (최대 3)'}]
+    effects: [{type:'grant_focus_spell', spell:'뱀 물기의 송가'}, {type:'display_note', text:'집중 주문: 뱀 물기의 송가 습득. 아군을 일시적으로 죽음에서 구함. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Quickened Casting': {
     effects: [{type:'display_note', text:'하루 1회. 캔트립 또는 최고 슬롯보다 2랭크 이상 낮은 주문의 시전 행동 수 1 감소'}]
   },
   'Symphony of the Unfettered Heart': {
-    effects: [{type:'display_note', text:'집중 주문: 속박 해방의 교향곡 습득. 무력화 상태 보호. 집중 포인트 풀 +1 (최대 3)'}]
+    effects: [{type:'grant_focus_spell', spell:'속박 해방의 교향곡'}, {type:'display_note', text:'집중 주문: 속박 해방의 교향곡 습득. 무력화 상태 보호. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Unusual Composition': {
     effects: [{type:'display_note', text:'[주문변형] 합주를 어떤 감각으로든 전달 가능 (진동감각 등)'}]
@@ -1058,7 +1058,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'10분간 합주 캔트립을 아군 머릿속에 심어 나중에 자유 행동으로 활성화'}]
   },
   'Soothing Ballad': {
-    effects: [{type:'display_note', text:'집중 주문: 위로의 발라드 습득. 아군 치유. 집중 포인트 풀 +1 (최대 3)'}]
+    effects: [{type:'grant_focus_spell', spell:'위로의 발라드'}, {type:'display_note', text:'집중 주문: 위로의 발라드 습득. 아군 치유. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Triumphant Inspiration': {
     effects: [{type:'display_note', text:'[자유행동] 적 쓰러뜨릴 때 1행동 합주 캔트립 즉시 시전'}]
@@ -1101,13 +1101,13 @@ const FEAT_EFFECTS = {
 
   // ── 20레벨 ──
   'Fatal Aria': {
-    effects: [{type:'display_note', text:'집중 주문: 치명적 아리아 습득. 즉사 효과. 집중 포인트 풀 +1 (최대 3)'}]
+    effects: [{type:'grant_focus_spell', spell:'치명적 아리아'}, {type:'display_note', text:'집중 주문: 치명적 아리아 습득. 즉사 효과. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Perfect Encore': {
     effects: [{type:'spell_slots', rank:10, value:1}]
   },
   'Pied Piping': {
-    effects: [{type:'display_note', text:'집중 주문: 피리 부는 사나이 습득. 의지 약한 생물 지배. 집중 포인트 풀 +1 (최대 3)'}]
+    effects: [{type:'grant_focus_spell', spell:'피리 부는 사나이'}, {type:'display_note', text:'집중 주문: 피리 부는 사나이 습득. 의지 약한 생물 지배. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Symphony of the Muse': {
     effects: [{type:'display_note', text:'턴당 합주 1개 제한 해제. 새 합주 시전해도 이전 합주 유지'}]
