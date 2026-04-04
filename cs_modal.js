@@ -2636,8 +2636,14 @@ function _checkPrereqs(prereqStr) {
     const _isAdopted = Object.values(state.feats).flat().some(ff => ff && ff.name && ff.name.includes('양자 혈통') && ff.choice && (ANCESTRY_NAME_MAP[ff.choice] === c));
     if (_isAdopted) continue;
 
-    // 뮤즈/교리/교단 체크
-    if (state.selectedSubclass && (state.selectedSubclass.name_ko === c || state.selectedSubclass.name_en === c)) continue;
+    // 뮤즈/교리/교단 체크 — "수수께끼 뮤즈" = name_ko("수수께끼") + subclass_type("뮤즈")
+    if (state.selectedSubclass) {
+      const sub = state.selectedSubclass;
+      if (sub.name_ko === c || sub.name_en === c) continue;
+      // "name_ko subclass_type" 형태 (예: "수수께끼 뮤즈", "전투 사제 교의")
+      if (sub.subclass_type && c === sub.name_ko + ' ' + sub.subclass_type) continue;
+      if (sub.subclass_type && sub.name_en && c === sub.name_en + ' ' + sub.subclass_type) continue;
+    }
 
     // 숫자+레벨 조건은 통과 (레벨은 별도 필터에서 체크)
     if (/\d+레벨/.test(c)) continue;
