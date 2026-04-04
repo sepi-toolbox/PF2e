@@ -2905,6 +2905,7 @@ function applyFeatEffects() {
     notes: [],
     cantrip_bonus: 0,
     familiar_abilities: 0,
+    _grantedLores: [],   // grant_lore로 부여된 지식 이름 추적
   };
 
   const level = getLevel();
@@ -2928,6 +2929,19 @@ function applyFeatEffects() {
         });
       }
     });
+  });
+
+  // grant_lore 정리: 더 이상 재주가 부여하지 않는 지식 슬롯 초기화
+  ['lore1','lore2'].forEach(sid => {
+    const nameEl = document.getElementById('lore-name-'+sid);
+    const profEl = document.getElementById('sk-prof-'+sid);
+    if (!nameEl || !nameEl.value) return;
+    if (fb._grantedLores.includes(nameEl.value)) return; // 아직 부여 중
+    // 사용자가 직접 입력한 지식인지 확인 — 숙련도가 재주 부여 수준(2)이면 재주가 부여한 것
+    if (profEl && parseInt(profEl.value||0) <= 2) {
+      nameEl.value = '';
+      profEl.value = '0';
+    }
   });
 
   state._fb = fb;
@@ -3123,6 +3137,7 @@ function _applyOneEffect(fb, eff, feat, level) {
       let loreName = eff.name || '';
       if (loreName === '$choice') loreName = feat.choice || '';
       if (!loreName) break;
+      fb._grantedLores.push(loreName);
       const slots = ['lore1','lore2'];
       for (const sid of slots) {
         const nameEl = document.getElementById('lore-name-'+sid);
