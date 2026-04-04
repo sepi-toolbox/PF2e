@@ -67,7 +67,7 @@ blocks.forEach(block => {
   let traits = [], traditions = [];
   const meta = {};
   const descLines = [];
-  const metaKeywords = ['특질','전통','사거리','영역','대상','방어','지속 시간','지속시간','요구사항','빈도','유발 조건','비용','시전'];
+  const metaKeywords = ['특질','특성','전통','사거리','영역','대상','방어','지속 시간','지속시간','요구사항','빈도','유발 조건','비용','시전'];
 
   lines.forEach(line => {
     // 이 줄이 메타 필드인지 (파이프로 여러 필드 연결 가능)
@@ -96,9 +96,10 @@ blocks.forEach(block => {
     }
   });
 
-  // 특성
-  if (meta['특질']) {
-    traits = meta['특질'].split(',').map(t => t.trim()).filter(t => t && t !== '캔트립' && t !== '집중');
+  // 특성 ('특질' 또는 '특성' 키)
+  const rawTraits = meta['특성'] || meta['특질'] || '';
+  if (rawTraits) {
+    traits = rawTraits.split(',').map(t => t.trim()).filter(t => t && t !== '캔트립' && t !== '집중');
   }
   // 전통
   if (meta['전통']) {
