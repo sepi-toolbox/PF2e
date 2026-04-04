@@ -1,4 +1,4 @@
-const _catKo = {ancestry:'혈통',class:'클래스',general:'일반',skill:'기술',archetype:'원형',bard:'바드',cleric:'클레릭',druid:'드루이드',fighter:'파이터',ranger:'레인저',rogue:'로그',witch:'위치',wizard:'위자드'};
+const _catKo = {ancestry:'혈통',class:'클래스',general:'일반',skill:'기술',archetype:'원형',bard:'바드',cleric:'클레릭',druid:'드루이드',fighter:'파이터',ranger:'레인저',rogue:'로그',witch:'위치',wizard:'위저드'};
 
 // ═══════════════════════════════════════════════
 //  REST & CONDITION MODALS
@@ -2200,7 +2200,7 @@ function _renderMemorizeDetail() {
   const isCantrip = active.rank === 0;
   const rank = active.rank;
   const fs = state.familiarSpells;
-  const hasSpellbook = !!fs; // 위치/위자드: 주문서/사역마 보유
+  const hasSpellbook = !!fs; // 위치/위저드: 주문서/사역마 보유
 
   // 선택 가능한 주문 목록 구축
   let available = [];

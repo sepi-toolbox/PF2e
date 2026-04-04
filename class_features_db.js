@@ -267,13 +267,13 @@ var CLASS_FEATURE_NAMES = {
     {lv:7, name_ko:'전문가 주문시전자', name_en:'Expert Spellcaster'},
     {lv:9, name_ko:'마법 인내', name_en:'Magical Fortitude'},
     {lv:11, name_ko:'감지 전문가', name_en:'Alertness'},
-    {lv:11, name_ko:'위자드 무기 전문가', name_en:'Wizard Weapon Expertise'},
+    {lv:11, name_ko:'위저드 무기 전문가', name_en:'Wizard Weapon Expertise'},
     {lv:13, name_ko:'방어 법의', name_en:'Defensive Robes'},
     {lv:13, name_ko:'무기 전문화', name_en:'Weapon Specialization'},
     {lv:15, name_ko:'대가 주문시전자', name_en:'Master Spellcaster'},
     {lv:17, name_ko:'놀라운 의지', name_en:'Resolve'},
     {lv:19, name_ko:'전설 주문시전자', name_en:'Legendary Spellcaster'},
-    {lv:19, name_ko:'대위자드의 주문학', name_en:"Archwizard's Spellcraft"},
+    {lv:19, name_ko:'대위저드의 주문학', name_en:"Archwizard's Spellcraft"},
   ],
 };
 
@@ -333,7 +333,7 @@ var SUBCLASS_AUTO_SPELLS = {
   'order-wave':   [{lv:1, type:'focus', name_ko:'조류 파도', name_en:'Tidal Surge'}],
   'order-wild':   [{lv:1, type:'focus', name_ko:'야생 변신', name_en:'Wild Shape'}],
   // order-animal: DB에 Heal Animal 없음
-  // ── 위자드 학파 (DB 매칭) ──
+  // ── 위저드 학파 (DB 매칭) ──
   'school-abjuration':    [{lv:1, type:'focus', name_ko:'보호의 수호', name_en:'Protective Wards'}],
   'school-conjuration':   [{lv:1, type:'focus', name_ko:'소환 강화', name_en:'Fortify Summoning'}],
   'school-evocation':     [{lv:1, type:'focus', name_ko:'힘의 화살', name_en:'Force Bolt'}],
@@ -396,7 +396,7 @@ var SUBCLASS_FEATURE_NAMES = {
   'patron-night':  [{lv:1, name_ko:'오컬트 전통 / 주술: 마녀의 빗장', name_en:'Occult / Shroud of Night'}],
   'patron-rune':   [{lv:1, name_ko:'비전 전통 / 주술: 파멸의 서약', name_en:'Arcane / Discern Secrets'}],
   'patron-wild':   [{lv:1, name_ko:'원시 전통 / 주술: 야생의 분노', name_en:'Primal / Wilding Word'}],
-  // ── 위자드 마법학파 ──
+  // ── 위저드 마법학파 ──
   'school-abjuration':    [{lv:1, name_ko:'학파 주문: 마법 방어막', name_en:'Protective Wards'}],
   'school-conjuration':   [{lv:1, name_ko:'학파 주문: 비전 소환', name_en:'Augment Summoning'}],
   'school-divination':    [{lv:1, name_ko:'학파 주문: 예언의 눈', name_en:"Diviner's Sight"}],

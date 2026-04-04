@@ -1066,7 +1066,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'영구 빠른(quickened) 상태 — 추가 행동은 1행동 합주 캔트립에만 사용'}]
   },
   'Impossible Polymath': {
-    effects: [{type:'display_note', text:'신비학→비전, 자연학→원시, 종교학→신성 주문을 주문서에 추가 가능'}]
+    effects: [{type:'display_note', text:'주문학→비전, 자연학→원시, 종교학→신성 주문을 주문서에 추가 가능'}]
   },
 
   // ── 20레벨 ──
@@ -1453,7 +1453,7 @@ const FEAT_EFFECTS = {
   'Healing Transformation': {
     effects: [{type:'display_note', text:'[1행동] 단일 대상 변신 주문 시 주문 랭크당 1d6 HP 회복'}]
   },
-  // 'Overwhelming Energy' — 이미 위자드 섹션에 존재
+  // 'Overwhelming Energy' — 이미 위저드 섹션에 존재
   'Plant Shape': {
     effects: [{type:'display_note', text:'식물 형태를 야생 형태 목록에 추가. 변신 중 독 저항 5'}]
   },
@@ -1725,7 +1725,7 @@ const FEAT_EFFECTS = {
   //  위치 재주 (Witch Feats)
   // ═══════════════════════════════════════
 
-  // -- 공유 재주 (위치/위자드 공통) --
+  // -- 공유 재주 (위치/위저드 공통) --
   'Reach Spell': {
     effects: [{type:'display_note', text:'[1행동] 주문 사거리 30피트 증가 (접촉→30피트)'}]
   },
@@ -1826,7 +1826,7 @@ const FEAT_EFFECTS = {
   },
 
   // ═══════════════════════════════════════
-  //  위자드 재주 (Wizard Feats)
+  //  위저드 재주 (Wizard Feats)
   // ═══════════════════════════════════════
 
   'Familiar': {
@@ -2812,7 +2812,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'주문 공격/DC 달인. 7랭크 슬롯'}]
   },
 
-  // ── 위자드 멀티클래스 ──
+  // ── 위저드 멀티클래스 ──
   'Wizard Dedication': {
     effects: [{type:'skill_trained', skill:'arcana'}, {type:'display_note', text:'주문서 획득 (캔트립 4개, 매일 2개 준비). 주문 공격/DC 숙련됨. 핵심 속성: 지능. 학파 선택'}]
   },
@@ -2820,16 +2820,16 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'학파의 초기 학파 주문 습득. 집중 포인트 풀 획득'}]
   },
   'Basic Arcana': {
-    effects: [{type:'display_note', text:'1~2레벨 위자드 재주 1개 습득'}]
+    effects: [{type:'display_note', text:'1~2레벨 위저드 재주 1개 습득'}]
   },
   'Basic Wizard Spellcasting': {
     effects: [{type:'display_note', text:'기초 주문시전 혜택. 주문서에 주문 추가'}]
   },
   'Advanced Arcana': {
-    effects: [{type:'display_note', text:'위자드 재주 1개 습득 (위자드 레벨 = 캐릭터 레벨/2). 반복 선택 가능'}]
+    effects: [{type:'display_note', text:'위저드 재주 1개 습득 (위저드 레벨 = 캐릭터 레벨/2). 반복 선택 가능'}]
   },
   'Arcane Breadth': {
-    effects: [{type:'display_note', text:'위자드 원형 주문 슬롯 수 증가'}]
+    effects: [{type:'display_note', text:'위저드 원형 주문 슬롯 수 증가'}]
   },
   'Expert Wizard Spellcasting': {
     effects: [{type:'display_note', text:'주문 공격/DC 전문가. 4랭크 슬롯'}]

@@ -1,7 +1,7 @@
 // Pathfinder 2e Player Core — Feat Database
 // Auto-generated from PlayerCore.html
 // Class feats: 바드(bard), 클레릭(cleric), 드루이드(druid),
-//   파이터(fighter), 레인저(ranger), 로그(rogue), 위치(witch), 위자드(wizard)
+//   파이터(fighter), 레인저(ranger), 로그(rogue), 위치(witch), 위저드(wizard)
 // Chapter 5 feats: 일반(general), 일반 기술(skill)
 // Class features (special): 클래스 자동 부여 특성
 
@@ -37,7 +37,7 @@ const FEAT_DB = [
 ,
   {name_ko:"감정적 밀어붙이기", name_en:"Emotional Push", feat_level:2, prerequisites:"", traits:["바드", "집중"], category:"bard", summary:"적의 갑작스러운 감정 변화를 이용합니다. 대상은 다음 턴 종료까지 당신의 다음 공격에 무방비(off-guard).", desc:'<strong>유발 조건:</strong> 인식하고 있는 적이 감정 주문에 대한 내성에 실패합니다.<br>적의 갑작스러운 감정 변화를 이용합니다. 대상은 다음 턴 종료까지 당신의 다음 공격에 <strong>무방비(off-guard)</strong>.' }
 ,
-  {name_ko:"비밀스러운 박학", name_en:"Esoteric Polymath", feat_level:2, prerequisites:"박학다식 뮤즈", traits:["바드"], category:"bard", summary:"위자드의 주문서와 유사한 오컬티즘 주문서를 가지며, 그 주문으로 레퍼토리를 보충합니다. 레퍼토리의 모든 주문을 이 책에 무료로 추가합니다. 오컬티즘 기술로 주문 학습(Learn Spells)을 하여 적절한 비용을 지불하고 주문서에 추가할 수 있습니다.", desc:'<strong>전제조건:</strong> 박학다식 뮤즈<br>위자드의 주문서와 유사한 비학 주문서를 가지며, 그 주문으로 레퍼토리를 보충합니다. 레퍼토리의 모든 주문을 이 책에 무료로 추가합니다. 비학 기술로 <strong>주문 학습(Learn Spells)</strong>을 하여 적절한 비용을 지불하고 주문서에 추가할 수 있습니다.<br>일일 준비 시, 주문서에서 <strong>주문 1개</strong>를 선택합니다. 이미 레퍼토리에 있으면 그날 추가 시그니처 주문으로 취급합니다. 레퍼토리에 없으면 다음 준비까지 레퍼토리에 있는 것처럼 취급합니다.' }
+  {name_ko:"비밀스러운 박학", name_en:"Esoteric Polymath", feat_level:2, prerequisites:"박학다식 뮤즈", traits:["바드"], category:"bard", summary:"위저드의 주문서와 유사한 오컬티즘 주문서를 가지며, 그 주문으로 레퍼토리를 보충합니다. 레퍼토리의 모든 주문을 이 책에 무료로 추가합니다. 오컬티즘 기술로 주문 학습(Learn Spells)을 하여 적절한 비용을 지불하고 주문서에 추가할 수 있습니다.", desc:'<strong>전제조건:</strong> 박학다식 뮤즈<br>위저드의 주문서와 유사한 비학 주문서를 가지며, 그 주문으로 레퍼토리를 보충합니다. 레퍼토리의 모든 주문을 이 책에 무료로 추가합니다. 비학 기술로 <strong>주문 학습(Learn Spells)</strong>을 하여 적절한 비용을 지불하고 주문서에 추가할 수 있습니다.<br>일일 준비 시, 주문서에서 <strong>주문 1개</strong>를 선택합니다. 이미 레퍼토리에 있으면 그날 추가 시그니처 주문으로 취급합니다. 레퍼토리에 없으면 다음 준비까지 레퍼토리에 있는 것처럼 취급합니다.' }
 ,
   {name_ko:"지식 달인의 에튀드", name_en:"Loremaster's Etude", feat_level:2, prerequisites:"수수께끼 뮤즈", traits:["바드", "행운"], category:"bard", summary:"마법적으로 기억을 해제하여 더 쉽게 떠올리게 합니다. 지식 달인의 에튀드(loremaster's etude) 합주 주문을 배웁니다.", desc:"마법적으로 기억을 해제하여 더 쉽게 떠올리게 합니다. <em>지식 달인의 에튀드(loremaster's etude)</em> 합주 주문을 배웁니다." }
 ,
@@ -133,7 +133,7 @@ const FEAT_DB = [
 ,
   {name_ko:"용감한 총공격", name_en:"Courageous Onslaught", feat_level:16, prerequisites:"용감한 전진, 용감한 맹공", traits:["바드", "청각", "집중", "주문변형"], category:"bard", summary:"공연으로 적에 대한 총공격을 지휘합니다. 다음 행동이 용감한 찬가 시전이면, 상태 보너스를 얻는 아군 1명이 즉시 반응으로 보폭 후 근접 타격을 할 수 있습니다.", desc:'<strong>전제조건:</strong> 용감한 전진, 용감한 맹공<br>공연으로 적에 대한 총공격을 지휘합니다. 다음 행동이 <em>용감한 찬가</em> 시전이면, 상태 보너스를 얻는 아군 1명이 즉시 반응으로 <strong>보폭 후 근접 타격</strong>을 할 수 있습니다.' }
 ,
-  {name_ko:"무의식적 집중", name_en:"Effortless Concentration", feat_level:16, prerequisites:"", traits:["바드"], category:"bard", summary:"유발 조건: 턴 시작.", desc:'<strong>유발 조건:</strong> 턴 시작. 활성 위자드 주문 1개의 지속 시간을 즉시 연장.' }
+  {name_ko:"무의식적 집중", name_en:"Effortless Concentration", feat_level:16, prerequisites:"", traits:["바드"], category:"bard", summary:"유발 조건: 턴 시작.", desc:'<strong>유발 조건:</strong> 턴 시작. 활성 위저드 주문 1개의 지속 시간을 즉시 연장.' }
 ,
   {name_ko:"울려 퍼지는 피날레", name_en:"Resounding Finale", feat_level:16, prerequisites:"마에스트로 뮤즈", traits:["바드", "집중"], category:"bard", summary:"공연을 갑작스럽고 극적인 마무리로 끝내 다른 소리를 압도합니다. 합주 주문이 즉시 종료되고, 혜택을 받던 모든 아군이 유발 피해에 대해 합주 주문 랭크 × 2만큼의 음파 저항을 얻습니다.", desc:'<strong>전제조건:</strong> 마에스트로 뮤즈<br><br>공연을 갑작스럽고 극적인 마무리로 끝내 다른 소리를 압도합니다. 합주 주문이 즉시 종료되고, 혜택을 받던 모든 아군이 유발 피해에 대해 합주 주문 랭크 × 2만큼의 <strong>음파 저항</strong>을 얻습니다.' }
 ,
@@ -147,7 +147,7 @@ const FEAT_DB = [
 ,
   {name_ko:"영원한 합주", name_en:"Eternal Composition", feat_level:18, prerequisites:"마에스트로 뮤즈", traits:["바드"], category:"bard", summary:"세계가 무대이며 당신은 항상 연주 중입니다. 영구적으로 빠른(quickened) 상태; 추가 행동은 1행동으로 시전하는 합주 캔트립에만 사용 가능. 탐험 모드에서 어떤 탐험 전술을 사용하든 적격한 합주 캔트립을 선언할 수 있습니다. 전투 조우에서 첫 번째 턴 이전에도 ", desc:'<strong>전제조건:</strong> 마에스트로 뮤즈<br>세계가 무대이며 당신은 항상 연주 중입니다. <strong>영구적으로 빠른(quickened)</strong> 상태; 추가 행동은 1행동으로 시전하는 합주 캔트립에만 사용 가능. 탐험 모드에서 어떤 탐험 전술을 사용하든 적격한 합주 캔트립을 선언할 수 있습니다. 전투 조우에서 첫 번째 턴 이전에도 이전 턴에 시전한 것처럼 활성화됩니다.' }
 ,
-  {name_ko:"불가능한 박학", name_en:"Impossible Polymath", feat_level:18, prerequisites:"신비학, 자연학, 또는 종교학에 숙련; 비밀스러운 박학", traits:["바드"], category:"bard", summary:"비밀스러운 공식이 다른 바드가 이해하지 못하는 다양한 전통의 마법에 손을 대게 합니다. 신비학에 숙련이면 비전 주문을, 자연학에 숙련이면 원시 주문을, 종교학에 숙련이면 신성 주문을 비밀스러운 박학의 주문서에 추가할 수 있습니다. 비밀스러운 박학처럼 매일 하나를 오컬티즘 주", desc:'<strong>전제조건:</strong> 신비학, 자연학, 또는 종교에 숙련; 비밀스러운 박학<br>비밀스러운 공식이 다른 바드가 이해하지 못하는 다양한 전통의 마법에 손을 대게 합니다. 신비학에 숙련이면 <strong>비전 주문</strong>을, 자연학에 숙련이면 <strong>원시 주문</strong>을, 종교에 숙련이면 <strong>신성 주문</strong>을 비밀스러운 박학의 주문서에 추가할 수 있습니다. 비밀스러운 박학처럼 매일 하나를 비학 주문으로 레퍼토리에 추가할 수 있지만, 다재다능한 박학이 있어도 다른 전통의 주문은 준비 시 <strong>유지할 수 없습니다</strong>.' }
+  {name_ko:"불가능한 박학", name_en:"Impossible Polymath", feat_level:18, prerequisites:"주문학, 자연학, 또는 종교학에 숙련; 비밀스러운 박학", traits:["바드"], category:"bard", summary:"비밀스러운 공식이 다른 바드가 이해하지 못하는 다양한 전통의 마법에 손을 대게 합니다. 주문학에 숙련이면 비전 주문을, 자연학에 숙련이면 원시 주문을, 종교학에 숙련이면 신성 주문을 비밀스러운 박학의 주문서에 추가할 수 있습니다. 비밀스러운 박학처럼 매일 하나를 오컬티즘 주", desc:'<strong>전제조건:</strong> 주문학, 자연학, 또는 종교에 숙련; 비밀스러운 박학<br>비밀스러운 공식이 다른 바드가 이해하지 못하는 다양한 전통의 마법에 손을 대게 합니다. 주문학에 숙련이면 <strong>비전 주문</strong>을, 자연학에 숙련이면 <strong>원시 주문</strong>을, 종교에 숙련이면 <strong>신성 주문</strong>을 비밀스러운 박학의 주문서에 추가할 수 있습니다. 비밀스러운 박학처럼 매일 하나를 비학 주문으로 레퍼토리에 추가할 수 있지만, 다재다능한 박학이 있어도 다른 전통의 주문은 준비 시 <strong>유지할 수 없습니다</strong>.' }
 ,
   {name_ko:"치명적 아리아", name_en:"Fatal Aria", feat_level:20, prerequisites:"", traits:["바드"], category:"bard", summary:"노래가 견딜 수 없는 감정으로 대상을 압도하여 즉사시킬 수 있습니다. 치명적 아리아(fatal aria) 합주 주문을 배웁니다.", desc:'노래가 견딜 수 없는 감정으로 대상을 압도하여 즉사시킬 수 있습니다. <em>치명적 아리아(fatal aria)</em> 합주 주문(370페이지)을 배웁니다.' }
 ,
@@ -411,7 +411,7 @@ const FEAT_DB = [
 ,
   {name_ko:"녹색 변태", name_en:"Verdant Metamorphosis", feat_level:14, prerequisites:"잎 결사. 식물 버전의 자신이 되어 식물 특성을 얻고(부적절한 특성 상실). 녹색 휴식(Verdant Rest) 행동을 얻어 나무/식물로 변신(AC 30). 자연 햇빛에서 10분 쉬면 최대 HP의 절반 회복. 이 형태로 일일 휴식하면 최대 HP까지 회복하고 비영구적 소진/기력상실/서투름/멍청함 제거, 19레벨 이하 독/질병도 제거.", traits:["드루이드"], category:"druid", summary:"식물 버전의 자신이 되어 식물 특성을 얻고(부적절한 특성 상실).", desc:'<strong>전제조건:</strong> 잎 결사. 식물 버전의 자신이 되어 <strong>식물 특성</strong>을 얻고(부적절한 특성 상실). 녹색 휴식(Verdant Rest) 행동을 얻어 나무/식물로 변신(AC 30). 자연 햇빛에서 10분 쉬면 최대 HP의 절반 회복. 이 형태로 일일 휴식하면 최대 HP까지 회복하고 비영구적 소진/기력상실/서투름/멍청함 제거, 19레벨 이하 독/질병도 제거.' }
 ,
-  {name_ko:"무의식적 집중", name_en:"Effortless Concentration", feat_level:16, prerequisites:"", traits:["드루이드"], category:"druid", summary:"", desc:'<strong>유발 조건:</strong> 턴 시작. 활성 위자드 주문 1개의 지속 시간을 즉시 연장.' }
+  {name_ko:"무의식적 집중", name_en:"Effortless Concentration", feat_level:16, prerequisites:"", traits:["드루이드"], category:"druid", summary:"", desc:'<strong>유발 조건:</strong> 턴 시작. 활성 위저드 주문 1개의 지속 시간을 즉시 연장.' }
 ,
   {name_ko:"꿰뚫는 가시", name_en:"Impaling Briars", feat_level:16, prerequisites:"잎 결사", traits:["드루이드"], category:"druid", summary:"꿰뚫는 가시(impaling briars) 결사 주문을 얻습니다.", desc:'<strong>전제조건:</strong> 잎 결사. <em>꿰뚫는 가시(impaling briars)</em> 결사 주문(382페이지)을 얻습니다.' }
 ,
@@ -997,7 +997,7 @@ const FEAT_DB = [
 ,
   {name_ko:'후원자의 존재감', name_en:'Patron\'s Presence', feat_level:14, prerequisites:'', traits:['위치'], category:'witch', summary:'후원자의 초자연적 존재감이 당신을 통해 발산됩니다. 30피트 내 적이 당신에게 공포 효과의 의지 내성에 -2 상태 페널티.', desc:'후원자의 초자연적 존재감이 당신을 통해 발산됩니다. 30피트 내 적이 당신에게 공포 효과의 의지 내성에 <strong>-2 상태 페널티</strong>.'}
 ,
-  {name_ko:"무의식적 집중", name_en:"Effortless Concentration", feat_level:16, prerequisites:"", traits:["위치"], category:"witch", summary:"", desc:'<strong>유발 조건:</strong> 턴 시작. 활성 위자드 주문 1개의 지속 시간을 즉시 연장.' }
+  {name_ko:"무의식적 집중", name_en:"Effortless Concentration", feat_level:16, prerequisites:"", traits:["위치"], category:"witch", summary:"", desc:'<strong>유발 조건:</strong> 턴 시작. 활성 위저드 주문 1개의 지속 시간을 즉시 연장.' }
 ,
   {name_ko:"힘 흡수", name_en:"Siphon Power", feat_level:16, prerequisites:"", traits:["위치"], category:"witch", summary:"주문 슬롯이 바닥났어도 가장 높은 랭크이 아닌 주문 1개를 하루에 추가 시전 가능.", desc:'주문 슬롯이 바닥났어도 가장 높은 랭크가 아닌 <strong>주문 1개를 하루에 추가 시전</strong> 가능.' }
 ,
@@ -1011,95 +1011,95 @@ const FEAT_DB = [
 ,
   {name_ko:'위치의 오두막', name_en:'Witch\'s Hut', feat_level:20, prerequisites:'', traits:['위치'], category:'witch', summary:'후원자의 힘으로 거주지를 만들어냅니다. 매그니피센트 맨션(magnificent mansion)과 유사하지만, 다리 달린 오두막 형태로 이동할 수 있습니다.', desc:'후원자의 힘으로 거주지를 만들어냅니다. <em>매그니피센트 맨션(magnificent mansion)</em>과 유사하지만, 다리 달린 오두막 형태로 이동할 수 있습니다.'}
 ,
-  {name_ko:"반격 주문", name_en:"Counterspell", feat_level:1, prerequisites:"", traits:["위자드"], category:"wizard", summary:"", desc:'<strong>유발 조건:</strong> 준비한 주문과 같은 주문이 시전됩니다. 해당 주문을 소비하여 <strong>상쇄</strong> 시도.' }
+  {name_ko:"반격 주문", name_en:"Counterspell", feat_level:1, prerequisites:"", traits:["위저드"], category:"wizard", summary:"", desc:'<strong>유발 조건:</strong> 준비한 주문과 같은 주문이 시전됩니다. 해당 주문을 소비하여 <strong>상쇄</strong> 시도.' }
 ,
-  {name_ko:"사역마", name_en:"Familiar", feat_level:1, prerequisites:"", traits:["위자드"], category:"wizard", summary:"사역마를 얻습니다. HP는 레벨x5, AC/내성/감지/기술은 당신의 수치를 사용합니다.", desc:'사역마를 얻습니다(212페이지 규칙).' }
+  {name_ko:"사역마", name_en:"Familiar", feat_level:1, prerequisites:"", traits:["위저드"], category:"wizard", summary:"사역마를 얻습니다. HP는 레벨x5, AC/내성/감지/기술은 당신의 수치를 사용합니다.", desc:'사역마를 얻습니다(212페이지 규칙).' }
 ,
-  {name_ko:"주문 도달", name_en:"Reach Spell", feat_level:1, prerequisites:"", traits:["위자드", "집중", "주문변형"], category:"wizard", summary:"주문 사거리 30피트 증가(접촉이면 30피트로).", desc:'주문 사거리 <strong>30피트 증가</strong>(접촉이면 30피트로).' }
+  {name_ko:"주문 도달", name_en:"Reach Spell", feat_level:1, prerequisites:"", traits:["위저드", "집중", "주문변형"], category:"wizard", summary:"주문 사거리 30피트 증가(접촉이면 30피트로).", desc:'주문 사거리 <strong>30피트 증가</strong>(접촉이면 30피트로).' }
 ,
-  {name_ko:"주문서 신동", name_en:"Spellbook Prodigy", feat_level:1, prerequisites:"", traits:["위자드"], category:"wizard", summary:"주문서 관리에 놀라운 재능이 있습니다. 주문서의 시작 캔트립이 10개에서 12개로 증가. 레벨을 올릴 때 추가 주문이 2개에서 3개로 증가.", desc:'주문서 관리에 놀라운 재능이 있습니다. 주문서의 시작 캔트립이 10개에서 <strong>12개</strong>로 증가. 레벨을 올릴 때 추가 주문이 2개에서 <strong>3개</strong>로 증가.' }
+  {name_ko:"주문서 신동", name_en:"Spellbook Prodigy", feat_level:1, prerequisites:"", traits:["위저드"], category:"wizard", summary:"주문서 관리에 놀라운 재능이 있습니다. 주문서의 시작 캔트립이 10개에서 12개로 증가. 레벨을 올릴 때 추가 주문이 2개에서 3개로 증가.", desc:'주문서 관리에 놀라운 재능이 있습니다. 주문서의 시작 캔트립이 10개에서 <strong>12개</strong>로 증가. 레벨을 올릴 때 추가 주문이 2개에서 <strong>3개</strong>로 증가.' }
 ,
-  {name_ko:"주문 확장", name_en:"Widen Spell", feat_level:1, prerequisites:"", traits:["위자드", "조작", "주문변형"], category:"wizard", summary:"폭발/원뿔/직선 영역 확장.", desc:'폭발/원뿔/직선 영역 확장.' }
+  {name_ko:"주문 확장", name_en:"Widen Spell", feat_level:1, prerequisites:"", traits:["위저드", "조작", "주문변형"], category:"wizard", summary:"폭발/원뿔/직선 영역 확장.", desc:'폭발/원뿔/직선 영역 확장.' }
 ,
-  {name_ko:"캔트립 확장", name_en:"Cantrip Expansion", feat_level:2, prerequisites:"", traits:["위자드"], category:"wizard", summary:"매일 캔트립 2개를 추가로 준비.", desc:'매일 <strong>캔트립 2개를 추가</strong>로 준비.' }
+  {name_ko:"캔트립 확장", name_en:"Cantrip Expansion", feat_level:2, prerequisites:"", traits:["위저드"], category:"wizard", summary:"매일 캔트립 2개를 추가로 준비.", desc:'매일 <strong>캔트립 2개를 추가</strong>로 준비.' }
 ,
-  {name_ko:"주문 은닉", name_en:"Conceal Spell", feat_level:2, prerequisites:"", traits:["위자드", "집중", "주문변형"], category:"wizard", summary:"다음 주문에 미묘한 특성을 부여하여 주문시전 징후를 숨깁니다.", desc:'다음 주문에 <strong>미묘한 특성</strong>을 부여하여 주문시전 징후를 숨깁니다.' }
+  {name_ko:"주문 은닉", name_en:"Conceal Spell", feat_level:2, prerequisites:"", traits:["위저드", "집중", "주문변형"], category:"wizard", summary:"다음 주문에 미묘한 특성을 부여하여 주문시전 징후를 숨깁니다.", desc:'다음 주문에 <strong>미묘한 특성</strong>을 부여하여 주문시전 징후를 숨깁니다.' }
 ,
-  {name_ko:"강화된 사역마", name_en:"Enhanced Familiar", feat_level:2, prerequisites:"", traits:["위자드"], category:"wizard", summary:"매일 4개의 사역마 능력 선택.", desc:'매일 <strong>4개의 사역마 능력</strong> 선택.' }
+  {name_ko:"강화된 사역마", name_en:"Enhanced Familiar", feat_level:2, prerequisites:"", traits:["위저드"], category:"wizard", summary:"매일 4개의 사역마 능력 선택.", desc:'매일 <strong>4개의 사역마 능력</strong> 선택.' }
 ,
-  {name_ko:"에너지 삭마", name_en:"Energy Ablation", feat_level:2, prerequisites:"", traits:["위자드", "주문변형"], category:"wizard", summary:"유발 조건: 주문으로 피해를 줍니다.", desc:'<strong>유발 조건:</strong> 주문으로 피해를 줍니다. 주문의 에너지 잔재가 피해를 받은 대상의 저항을 약화시킵니다. 피해를 받은 대상 1명이 다음 턴 시작까지 주문의 피해 유형에 <strong>약점 1</strong>(5레벨에 2, 10레벨에 3, 15레벨에 4, 20레벨에 5).' }
+  {name_ko:"에너지 삭마", name_en:"Energy Ablation", feat_level:2, prerequisites:"", traits:["위저드", "주문변형"], category:"wizard", summary:"유발 조건: 주문으로 피해를 줍니다.", desc:'<strong>유발 조건:</strong> 주문으로 피해를 줍니다. 주문의 에너지 잔재가 피해를 받은 대상의 저항을 약화시킵니다. 피해를 받은 대상 1명이 다음 턴 시작까지 주문의 피해 유형에 <strong>약점 1</strong>(5레벨에 2, 10레벨에 3, 15레벨에 4, 20레벨에 5).' }
 ,
-  {name_ko:"비치명 주문", name_en:"Nonlethal Spell", feat_level:2, prerequisites:"", traits:["위자드", "조작", "주문변형"], category:"wizard", summary:"다음 주문에 비치명(nonlethal) 특성을 부여하여 대상을 죽이지 않고 기절시킵니다.", desc:'다음 주문에 <strong>비치명(nonlethal) 특성</strong>을 부여하여 대상을 죽이지 않고 기절시킵니다.' }
+  {name_ko:"비치명 주문", name_en:"Nonlethal Spell", feat_level:2, prerequisites:"", traits:["위저드", "조작", "주문변형"], category:"wizard", summary:"다음 주문에 비치명(nonlethal) 특성을 부여하여 대상을 죽이지 않고 기절시킵니다.", desc:'다음 주문에 <strong>비치명(nonlethal) 특성</strong>을 부여하여 대상을 죽이지 않고 기절시킵니다.' }
 ,
-  {name_ko:"마법 주입 타격", name_en:"Bespell Strikes", feat_level:4, prerequisites:"", traits:["위자드"], category:"wizard", summary:"캔트립이 아닌 주문을 시전한 후 턴 종료까지, 무기와 비무장 공격에 주문의 에너지가 깃듭니다. 무기/비무장 타격이 추가 1d6 피해를 입힙니다(피해 유형은 시전한 주문에서 선택 가능한 에너지 유형, 없으면 힘(force)).", desc:'캔트립이 아닌 주문을 시전한 후 턴 종료까지, 무기와 비무장 공격에 주문의 에너지가 깃듭니다. 무기/비무장 타격이 <strong>추가 1d6 피해</strong>를 입힙니다(피해 유형은 시전한 주문에서 선택 가능한 에너지 유형, 없으면 힘(force)).' }
+  {name_ko:"마법 주입 타격", name_en:"Bespell Strikes", feat_level:4, prerequisites:"", traits:["위저드"], category:"wizard", summary:"캔트립이 아닌 주문을 시전한 후 턴 종료까지, 무기와 비무장 공격에 주문의 에너지가 깃듭니다. 무기/비무장 타격이 추가 1d6 피해를 입힙니다(피해 유형은 시전한 주문에서 선택 가능한 에너지 유형, 없으면 힘(force)).", desc:'캔트립이 아닌 주문을 시전한 후 턴 종료까지, 무기와 비무장 공격에 주문의 에너지가 깃듭니다. 무기/비무장 타격이 <strong>추가 1d6 피해</strong>를 입힙니다(피해 유형은 시전한 주문에서 선택 가능한 에너지 유형, 없으면 힘(force)).' }
 ,
-  {name_ko:"마법 도구 소환", name_en:"Call Wizardly Tools", feat_level:4, prerequisites:"", traits:["위자드"], category:"wizard", summary:"마법 아이템 1개를 원거리에서 손으로 소환합니다. 60피트 내이고 볼 수 있어야 합니다.", desc:'마법 아이템 1개를 원거리에서 손으로 소환합니다. 60피트 내이고 볼 수 있어야 합니다.' }
+  {name_ko:"마법 도구 소환", name_en:"Call Wizardly Tools", feat_level:4, prerequisites:"", traits:["위저드"], category:"wizard", summary:"마법 아이템 1개를 원거리에서 손으로 소환합니다. 60피트 내이고 볼 수 있어야 합니다.", desc:'마법 아이템 1개를 원거리에서 손으로 소환합니다. 60피트 내이고 볼 수 있어야 합니다.' }
 ,
-  {name_ko:"연결 집중", name_en:"Linked Focus", feat_level:4, prerequisites:"비전 유대, 학파 주문. 결합 아이템 소진으로 학파 주문을 시전하면, 집중 포인트 1점도 회복합니다.", traits:["위자드"], category:"wizard", summary:"결합 아이템 소진으로 학파 주문을 시전하면, 집중 포인트 1점도 회복합니다.", desc:'<strong>전제조건:</strong> 비전 유대, 학파 주문. 결합 아이템 소진으로 학파 주문을 시전하면, <strong>집중 포인트 1점도 회복</strong>합니다.' }
+  {name_ko:"연결 집중", name_en:"Linked Focus", feat_level:4, prerequisites:"비전 유대, 학파 주문. 결합 아이템 소진으로 학파 주문을 시전하면, 집중 포인트 1점도 회복합니다.", traits:["위저드"], category:"wizard", summary:"결합 아이템 소진으로 학파 주문을 시전하면, 집중 포인트 1점도 회복합니다.", desc:'<strong>전제조건:</strong> 비전 유대, 학파 주문. 결합 아이템 소진으로 학파 주문을 시전하면, <strong>집중 포인트 1점도 회복</strong>합니다.' }
 ,
-  {name_ko:"주문 보호 배열", name_en:"Spell Protection Array", feat_level:4, prerequisites:"", traits:["위자드"], category:"wizard", summary:"주문서에 보호 룬 배열을 새겨 자신을 보호합니다. 일일 준비 시 에너지 유형 1개를 선택하여 해당 유형에 저항 5(11레벨에 10, 17레벨에 15).", desc:'주문서에 보호 룬 배열을 새겨 자신을 보호합니다. 일일 준비 시 에너지 유형 1개를 선택하여 해당 유형에 <strong>저항 5</strong>(11레벨에 10, 17레벨에 15).' }
+  {name_ko:"주문 보호 배열", name_en:"Spell Protection Array", feat_level:4, prerequisites:"", traits:["위저드"], category:"wizard", summary:"주문서에 보호 룬 배열을 새겨 자신을 보호합니다. 일일 준비 시 에너지 유형 1개를 선택하여 해당 유형에 저항 5(11레벨에 10, 17레벨에 15).", desc:'주문서에 보호 룬 배열을 새겨 자신을 보호합니다. 일일 준비 시 에너지 유형 1개를 선택하여 해당 유형에 <strong>저항 5</strong>(11레벨에 10, 17레벨에 15).' }
 ,
-  {name_ko:"설득력 있는 환영", name_en:"Convincing Illusion", feat_level:6, prerequisites:"", traits:["위자드"], category:"wizard", summary:"환영(illusion) 주문에 대한 불신 DC가 +2 증가합니다.", desc:'환영(illusion) 주문에 대한 불신 DC가 <strong>+2 증가</strong>합니다.' }
+  {name_ko:"설득력 있는 환영", name_en:"Convincing Illusion", feat_level:6, prerequisites:"", traits:["위저드"], category:"wizard", summary:"환영(illusion) 주문에 대한 불신 DC가 +2 증가합니다.", desc:'환영(illusion) 주문에 대한 불신 DC가 <strong>+2 증가</strong>합니다.' }
 ,
-  {name_ko:"폭발적 도착", name_en:"Explosive Arrival", feat_level:6, prerequisites:"", traits:["위자드"], category:"wizard", summary:"유발 조건: 순간이동 효과로 도착합니다.", desc:'<strong>유발 조건:</strong> 순간이동 효과로 도착합니다. 도착 시 10피트 방사 내 모든 생물에게 레벨 절반 × 1d6 피해(기본 반사 내성). 에너지 유형은 일일 준비 시 선택.' }
+  {name_ko:"폭발적 도착", name_en:"Explosive Arrival", feat_level:6, prerequisites:"", traits:["위저드"], category:"wizard", summary:"유발 조건: 순간이동 효과로 도착합니다.", desc:'<strong>유발 조건:</strong> 순간이동 효과로 도착합니다. 도착 시 10피트 방사 내 모든 생물에게 레벨 절반 × 1d6 피해(기본 반사 내성). 에너지 유형은 일일 준비 시 선택.' }
 ,
-  {name_ko:"저항 불가 마법", name_en:"Irresistible Magic", feat_level:6, prerequisites:"", traits:["위자드"], category:"wizard", summary:"주문에 대한 적의 첫 내성이 대성공이면, 일반 성공으로 취급합니다(대상당 주문당 1회).", desc:'주문에 대한 적의 첫 내성이 대성공이면, <strong>일반 성공</strong>으로 취급합니다(대상당 주문당 1회).' }
+  {name_ko:"저항 불가 마법", name_en:"Irresistible Magic", feat_level:6, prerequisites:"", traits:["위저드"], category:"wizard", summary:"주문에 대한 적의 첫 내성이 대성공이면, 일반 성공으로 취급합니다(대상당 주문당 1회).", desc:'주문에 대한 적의 첫 내성이 대성공이면, <strong>일반 성공</strong>으로 취급합니다(대상당 주문당 1회).' }
 ,
-  {name_ko:"분할 슬롯", name_en:"Split Slot", feat_level:6, prerequisites:"", traits:["위자드"], category:"wizard", summary:"일일 준비 시, 하나의 주문 슬롯을 2랭크 낮은 슬롯 2개로 분할할 수 있습니다(각각 다른 주문 준비).", desc:'일일 준비 시, 하나의 주문 슬롯을 <strong>2랭크 낮은 슬롯 2개</strong>로 분할할 수 있습니다(각각 다른 주문 준비).' }
+  {name_ko:"분할 슬롯", name_en:"Split Slot", feat_level:6, prerequisites:"", traits:["위저드"], category:"wizard", summary:"일일 준비 시, 하나의 주문 슬롯을 2랭크 낮은 슬롯 2개로 분할할 수 있습니다(각각 다른 주문 준비).", desc:'일일 준비 시, 하나의 주문 슬롯을 <strong>2랭크 낮은 슬롯 2개</strong>로 분할할 수 있습니다(각각 다른 주문 준비).' }
 ,
-  {name_ko:"안정된 주문시전", name_en:"Steady Spellcasting", feat_level:6, prerequisites:"", traits:["위자드"], category:"wizard", summary:"반응이 주문시전을 방해하려 하면 DC 15 단순 판정. 성공 시 방해 안 됨.", desc:'반응이 주문시전을 방해하려 하면 <strong>DC 15 단순 판정</strong>. 성공 시 방해 안 됨.' }
+  {name_ko:"안정된 주문시전", name_en:"Steady Spellcasting", feat_level:6, prerequisites:"", traits:["위저드"], category:"wizard", summary:"반응이 주문시전을 방해하려 하면 DC 15 단순 판정. 성공 시 방해 안 됨.", desc:'반응이 주문시전을 방해하려 하면 <strong>DC 15 단순 판정</strong>. 성공 시 방해 안 됨.' }
 ,
-  {name_ko:"고급 학파 주문", name_en:"Advanced School Spell", feat_level:8, prerequisites:"", traits:["위자드"], category:"wizard", summary:"학파의 고급 학파 주문을 얻습니다.", desc:'학파의 <strong>고급 학파 주문</strong>을 얻습니다.' }
+  {name_ko:"고급 학파 주문", name_en:"Advanced School Spell", feat_level:8, prerequisites:"", traits:["위저드"], category:"wizard", summary:"학파의 고급 학파 주문을 얻습니다.", desc:'학파의 <strong>고급 학파 주문</strong>을 얻습니다.' }
 ,
-  {name_ko:"유대 보존", name_en:"Bond Conservation", feat_level:8, prerequisites:"", traits:["위자드", "주문변형"], category:"wizard", summary:"다음 행동이 결합 아이템 소진으로 재시전하는 것이면, 원래 주문보다 2랭크 이상 낮은 다른 준비 주문 1개도 추가 시전 가능(소진이 그 주문도 커버).", desc:'다음 행동이 결합 아이템 소진으로 재시전하는 것이면, 원래 주문보다 2랭크 이상 낮은 <strong>다른 준비 주문 1개도 추가 시전</strong> 가능(소진이 그 주문도 커버).' }
+  {name_ko:"유대 보존", name_en:"Bond Conservation", feat_level:8, prerequisites:"", traits:["위저드", "주문변형"], category:"wizard", summary:"다음 행동이 결합 아이템 소진으로 재시전하는 것이면, 원래 주문보다 2랭크 이상 낮은 다른 준비 주문 1개도 추가 시전 가능(소진이 그 주문도 커버).", desc:'다음 행동이 결합 아이템 소진으로 재시전하는 것이면, 원래 주문보다 2랭크 이상 낮은 <strong>다른 준비 주문 1개도 추가 시전</strong> 가능(소진이 그 주문도 커버).' }
 ,
-  {name_ko:"형태 유지", name_en:"Form Retention", feat_level:8, prerequisites:"", traits:["위자드"], category:"wizard", summary:"변신(polymorph) 주문의 지속 시간이 2배가 됩니다(최대 1시간까지만).", desc:'변신(polymorph) 주문의 지속 시간이 2배가 됩니다(최대 1시간까지만).' }
+  {name_ko:"형태 유지", name_en:"Form Retention", feat_level:8, prerequisites:"", traits:["위저드"], category:"wizard", summary:"변신(polymorph) 주문의 지속 시간이 2배가 됩니다(최대 1시간까지만).", desc:'변신(polymorph) 주문의 지속 시간이 2배가 됩니다(최대 1시간까지만).' }
 ,
-  {name_ko:"지식이 힘", name_en:"Knowledge is Power", feat_level:8, prerequisites:"", traits:["위자드"], category:"wizard", summary:"지식 회상으로 생물을 성공적으로 식별하면, 해당 생물에 대한 주문의 DC에 +1 상황 보너스(턴 종료까지). 대성공이면 +2.", desc:'지식 회상으로 생물을 성공적으로 식별하면, 해당 생물에 대한 주문의 DC에 <strong>+1 상황 보너스</strong>(턴 종료까지). 대성공이면 <strong>+2</strong>.' }
+  {name_ko:"지식이 힘", name_en:"Knowledge is Power", feat_level:8, prerequisites:"", traits:["위저드"], category:"wizard", summary:"지식 회상으로 생물을 성공적으로 식별하면, 해당 생물에 대한 주문의 DC에 +1 상황 보너스(턴 종료까지). 대성공이면 +2.", desc:'지식 회상으로 생물을 성공적으로 식별하면, 해당 생물에 대한 주문의 DC에 <strong>+1 상황 보너스</strong>(턴 종료까지). 대성공이면 <strong>+2</strong>.' }
 ,
-  {name_ko:"압도적 에너지", name_en:"Overwhelming Energy", feat_level:10, prerequisites:"", traits:["위자드", "조작", "주문변형"], category:"wizard", summary:"다음 주문이 대상의 에너지 저항을 레벨만큼 무시합니다. 면역은 무효.", desc:'다음 주문이 대상의 에너지 <strong>저항을 레벨만큼 무시</strong>합니다. 면역은 무효.' }
+  {name_ko:"압도적 에너지", name_en:"Overwhelming Energy", feat_level:10, prerequisites:"", traits:["위저드", "조작", "주문변형"], category:"wizard", summary:"다음 주문이 대상의 에너지 저항을 레벨만큼 무시합니다. 면역은 무효.", desc:'다음 주문이 대상의 에너지 <strong>저항을 레벨만큼 무시</strong>합니다. 면역은 무효.' }
 ,
-  {name_ko:"빠른 시전", name_en:"Quickened Casting", feat_level:10, prerequisites:"", traits:["위자드", "집중", "주문변형"], category:"wizard", summary:"", desc:'<strong>빈도:</strong> 하루 1회. 다음 행동이 캔트립이거나 가장 높은 슬롯보다 2랭크 이상 낮은 주문이면, 시전 <strong>행동 수 1 감소</strong>(최소 1).' }
+  {name_ko:"빠른 시전", name_en:"Quickened Casting", feat_level:10, prerequisites:"", traits:["위저드", "집중", "주문변형"], category:"wizard", summary:"", desc:'<strong>빈도:</strong> 하루 1회. 다음 행동이 캔트립이거나 가장 높은 슬롯보다 2랭크 이상 낮은 주문이면, 시전 <strong>행동 수 1 감소</strong>(최소 1).' }
 ,
-  {name_ko:"두루마리 전문가", name_en:"Scroll Adept", feat_level:10, prerequisites:"", traits:["위자드"], category:"wizard", summary:"일일 준비 시, 임시 두루마리 1개를 무료로 만듭니다(레벨보다 2랭크 이상 낮은 주문서의 주문). 다음 준비 시 만료.", desc:'일일 준비 시, 임시 두루마리 1개를 무료로 만듭니다(레벨보다 2랭크 이상 낮은 주문서의 주문). 다음 준비 시 만료.' }
+  {name_ko:"두루마리 전문가", name_en:"Scroll Adept", feat_level:10, prerequisites:"", traits:["위저드"], category:"wizard", summary:"일일 준비 시, 임시 두루마리 1개를 무료로 만듭니다(레벨보다 2랭크 이상 낮은 주문서의 주문). 다음 준비 시 만료.", desc:'일일 준비 시, 임시 두루마리 1개를 무료로 만듭니다(레벨보다 2랭크 이상 낮은 주문서의 주문). 다음 준비 시 만료.' }
 ,
-  {name_ko:"영리한 반격 주문", name_en:"Clever Counterspell", feat_level:12, prerequisites:"반격 주문. 같은 주문이 아니어도 같은 전통에서 유사한 랭크 이상 주문으로 반격 가능(상쇄 판정 필요).", traits:["위자드"], category:"wizard", summary:"같은 주문이 아니어도 같은 전통에서 유사한 랭크 이상 주문으로 반격 가능(상쇄 판정 필요).", desc:'<strong>전제조건:</strong> 반격 주문. 같은 주문이 아니어도 같은 <strong>전통에서 유사한 랭크 이상 주문</strong>으로 반격 가능(상쇄 판정 필요).' }
+  {name_ko:"영리한 반격 주문", name_en:"Clever Counterspell", feat_level:12, prerequisites:"반격 주문. 같은 주문이 아니어도 같은 전통에서 유사한 랭크 이상 주문으로 반격 가능(상쇄 판정 필요).", traits:["위저드"], category:"wizard", summary:"같은 주문이 아니어도 같은 전통에서 유사한 랭크 이상 주문으로 반격 가능(상쇄 판정 필요).", desc:'<strong>전제조건:</strong> 반격 주문. 같은 주문이 아니어도 같은 <strong>전통에서 유사한 랭크 이상 주문</strong>으로 반격 가능(상쇄 판정 필요).' }
 ,
-  {name_ko:"강제 에너지", name_en:"Forcible Energy", feat_level:12, prerequisites:"", traits:["위자드"], category:"wizard", summary:"에너지 삭마의 약점이 추가 3(기존에 더해)으로 증가합니다.", desc:'에너지 삭마의 약점이 <strong>추가 3</strong>(기존에 더해)으로 증가합니다.' }
+  {name_ko:"강제 에너지", name_en:"Forcible Energy", feat_level:12, prerequisites:"", traits:["위저드"], category:"wizard", summary:"에너지 삭마의 약점이 추가 3(기존에 더해)으로 증가합니다.", desc:'에너지 삭마의 약점이 <strong>추가 3</strong>(기존에 더해)으로 증가합니다.' }
 ,
-  {name_ko:"예리한 마법 탐지", name_en:"Keen Magical Detection", feat_level:12, prerequisites:"", traits:["위자드"], category:"wizard", summary:"항상 마법 탐지(detect magic)가 활성화된 것처럼 마법 아우라를 감지합니다. 1행동으로 30피트 방사 내 모든 마법 아우라의 위치와 학파를 파악합니다.", desc:'항상 <em>마법 탐지(detect magic)</em>가 활성화된 것처럼 마법 아우라를 감지합니다. 1행동으로 30피트 방사 내 모든 마법 아우라의 위치와 학파를 파악합니다.' }
+  {name_ko:"예리한 마법 탐지", name_en:"Keen Magical Detection", feat_level:12, prerequisites:"", traits:["위저드"], category:"wizard", summary:"항상 마법 탐지(detect magic)가 활성화된 것처럼 마법 아우라를 감지합니다. 1행동으로 30피트 방사 내 모든 마법 아우라의 위치와 학파를 파악합니다.", desc:'항상 <em>마법 탐지(detect magic)</em>가 활성화된 것처럼 마법 아우라를 감지합니다. 1행동으로 30피트 방사 내 모든 마법 아우라의 위치와 학파를 파악합니다.' }
 ,
-  {name_ko:"마법 감각", name_en:"Magic Sense", feat_level:12, prerequisites:"", traits:["위자드"], category:"wizard", summary:"부정확 마법 감각 30피트를 얻어, 마법 아우라를 감지할 수 있습니다. 물질적 감각처럼 탐색(Seek)으로 정확한 위치를 파악할 수 있습니다.", desc:'<strong>부정확 마법 감각 30피트</strong>를 얻어, 마법 아우라를 감지할 수 있습니다. 물질적 감각처럼 탐색(Seek)으로 정확한 위치를 파악할 수 있습니다.' }
+  {name_ko:"마법 감각", name_en:"Magic Sense", feat_level:12, prerequisites:"", traits:["위저드"], category:"wizard", summary:"부정확 마법 감각 30피트를 얻어, 마법 아우라를 감지할 수 있습니다. 물질적 감각처럼 탐색(Seek)으로 정확한 위치를 파악할 수 있습니다.", desc:'<strong>부정확 마법 감각 30피트</strong>를 얻어, 마법 아우라를 감지할 수 있습니다. 물질적 감각처럼 탐색(Seek)으로 정확한 위치를 파악할 수 있습니다.' }
 ,
-  {name_ko:"결합 집중", name_en:"Bonded Focus", feat_level:14, prerequisites:"비전 유대, 학파 주문. 재집중(Refocus) 시 집중 풀을 완전히 채웁니다.", traits:["위자드"], category:"wizard", summary:"재집중(Refocus) 시 집중 풀을 완전히 채웁니다.", desc:'<strong>전제조건:</strong> 비전 유대, 학파 주문. 재집중(Refocus) 시 집중 풀을 <strong>완전히 채웁니다</strong>.' }
+  {name_ko:"결합 집중", name_en:"Bonded Focus", feat_level:14, prerequisites:"비전 유대, 학파 주문. 재집중(Refocus) 시 집중 풀을 완전히 채웁니다.", traits:["위저드"], category:"wizard", summary:"재집중(Refocus) 시 집중 풀을 완전히 채웁니다.", desc:'<strong>전제조건:</strong> 비전 유대, 학파 주문. 재집중(Refocus) 시 집중 풀을 <strong>완전히 채웁니다</strong>.' }
 ,
-  {name_ko:"주문 반사", name_en:"Reflect Spell", feat_level:14, prerequisites:"반격 주문. 상쇄에 대성공하면 주문을 시전자에게 되돌립니다.", traits:["위자드"], category:"wizard", summary:"", desc:'<strong>전제조건:</strong> 반격 주문. 상쇄에 대성공하면 주문을 <strong>시전자에게 되돌립니다</strong>.' }
+  {name_ko:"주문 반사", name_en:"Reflect Spell", feat_level:14, prerequisites:"반격 주문. 상쇄에 대성공하면 주문을 시전자에게 되돌립니다.", traits:["위저드"], category:"wizard", summary:"", desc:'<strong>전제조건:</strong> 반격 주문. 상쇄에 대성공하면 주문을 <strong>시전자에게 되돌립니다</strong>.' }
 ,
-  {name_ko:"이차 폭발 배열", name_en:"Secondary Detonation Array", feat_level:14, prerequisites:"", traits:["위자드"], category:"wizard", summary:"주문 보호 배열의 에너지를 방출합니다. [반응]으로 보호 배열의 저항 유형과 같은 에너지로 30피트 내 적에게 레벨 × 1d4 피해(기본 반사 내성). 사용 후 보호 배열의 저항이 다음 준비까지 사라집니다.", desc:'주문 보호 배열의 에너지를 방출합니다. [반응]으로 보호 배열의 저항 유형과 같은 에너지로 30피트 내 적에게 <strong>레벨 × 1d4 피해</strong>(기본 반사 내성). 사용 후 보호 배열의 저항이 다음 준비까지 사라집니다.' }
+  {name_ko:"이차 폭발 배열", name_en:"Secondary Detonation Array", feat_level:14, prerequisites:"", traits:["위저드"], category:"wizard", summary:"주문 보호 배열의 에너지를 방출합니다. [반응]으로 보호 배열의 저항 유형과 같은 에너지로 30피트 내 적에게 레벨 × 1d4 피해(기본 반사 내성). 사용 후 보호 배열의 저항이 다음 준비까지 사라집니다.", desc:'주문 보호 배열의 에너지를 방출합니다. [반응]으로 보호 배열의 저항 유형과 같은 에너지로 30피트 내 적에게 <strong>레벨 × 1d4 피해</strong>(기본 반사 내성). 사용 후 보호 배열의 저항이 다음 준비까지 사라집니다.' }
 ,
-  {name_ko:"상위 결합", name_en:"Superior Bond", feat_level:14, prerequisites:"", traits:["위자드"], category:"wizard", summary:"결합 아이템 소진을 하루 2회 사용 가능.", desc:'결합 아이템 소진을 <strong>하루 2회</strong> 사용 가능.' }
+  {name_ko:"상위 결합", name_en:"Superior Bond", feat_level:14, prerequisites:"", traits:["위저드"], category:"wizard", summary:"결합 아이템 소진을 하루 2회 사용 가능.", desc:'결합 아이템 소진을 <strong>하루 2회</strong> 사용 가능.' }
 ,
-  {name_ko:"무의식적 집중", name_en:"Effortless Concentration", feat_level:16, prerequisites:"", traits:["위자드"], category:"wizard", summary:"", desc:'<strong>유발 조건:</strong> 턴 시작. 활성 위자드 주문 1개의 지속 시간을 즉시 연장.' }
+  {name_ko:"무의식적 집중", name_en:"Effortless Concentration", feat_level:16, prerequisites:"", traits:["위저드"], category:"wizard", summary:"", desc:'<strong>유발 조건:</strong> 턴 시작. 활성 위저드 주문 1개의 지속 시간을 즉시 연장.' }
 ,
-  {name_ko:"빛나는 주문", name_en:"Scintillating Spell", feat_level:16, prerequisites:"", traits:["위자드", "조작", "주문변형"], category:"wizard", summary:"다음 주문이 시각적으로 찬란하게 빛납니다. 피해를 받은 생물이 눈부심(dazzled) 1라운드(치명 실패 시 실명(blinded) 1라운드 후 눈부심).", desc:'다음 주문이 시각적으로 찬란하게 빛납니다. 피해를 받은 생물이 <strong>눈부심(dazzled) 1라운드</strong>(치명 실패 시 <strong>실명(blinded) 1라운드</strong> 후 눈부심).' }
+  {name_ko:"빛나는 주문", name_en:"Scintillating Spell", feat_level:16, prerequisites:"", traits:["위저드", "조작", "주문변형"], category:"wizard", summary:"다음 주문이 시각적으로 찬란하게 빛납니다. 피해를 받은 생물이 눈부심(dazzled) 1라운드(치명 실패 시 실명(blinded) 1라운드 후 눈부심).", desc:'다음 주문이 시각적으로 찬란하게 빛납니다. 피해를 받은 생물이 <strong>눈부심(dazzled) 1라운드</strong>(치명 실패 시 <strong>실명(blinded) 1라운드</strong> 후 눈부심).' }
 ,
-  {name_ko:"주문 수선", name_en:"Spell Tinker", feat_level:16, prerequisites:"", traits:["위자드", "집중"], category:"wizard", summary:"유지 중인 주문의 매개변수를 변경합니다. 유지 중인 주문 1개의 영역/대상/기타 변수를 재설정할 수 있습니다(GM 판단에 따라 허용 범위 결정).", desc:'유지 중인 주문의 매개변수를 변경합니다. 유지 중인 주문 1개의 영역/대상/기타 변수를 재설정할 수 있습니다(GM 판단에 따라 허용 범위 결정).' }
+  {name_ko:"주문 수선", name_en:"Spell Tinker", feat_level:16, prerequisites:"", traits:["위저드", "집중"], category:"wizard", summary:"유지 중인 주문의 매개변수를 변경합니다. 유지 중인 주문 1개의 영역/대상/기타 변수를 재설정할 수 있습니다(GM 판단에 따라 허용 범위 결정).", desc:'유지 중인 주문의 매개변수를 변경합니다. 유지 중인 주문 1개의 영역/대상/기타 변수를 재설정할 수 있습니다(GM 판단에 따라 허용 범위 결정).' }
 ,
-  {name_ko:"무한한 가능성", name_en:"Infinite Possibilities", feat_level:18, prerequisites:"", traits:["위자드"], category:"wizard", summary:"주문 슬롯이 바닥났어도 가장 높은 랭크이 아닌 주문 1개를 하루에 추가 시전 가능.", desc:'주문 슬롯이 바닥났어도 가장 높은 랭크가 아닌 <strong>주문 1개를 하루에 추가 시전</strong> 가능.' }
+  {name_ko:"무한한 가능성", name_en:"Infinite Possibilities", feat_level:18, prerequisites:"", traits:["위저드"], category:"wizard", summary:"주문 슬롯이 바닥났어도 가장 높은 랭크이 아닌 주문 1개를 하루에 추가 시전 가능.", desc:'주문 슬롯이 바닥났어도 가장 높은 랭크가 아닌 <strong>주문 1개를 하루에 추가 시전</strong> 가능.' }
 ,
-  {name_ko:"재준비 주문", name_en:"Reprepare Spell", feat_level:18, prerequisites:"", traits:["위자드"], category:"wizard", summary:"빈도: 하루 1회. 10분간 이미 시전한 주문 슬롯 1개에 주문서에서 다른 주문을 재준비합니다.", desc:'<strong>빈도:</strong> 하루 1회. <strong>10분간</strong> 이미 시전한 주문 슬롯 1개에 주문서에서 다른 주문을 <strong>재준비</strong>합니다.' }
+  {name_ko:"재준비 주문", name_en:"Reprepare Spell", feat_level:18, prerequisites:"", traits:["위저드"], category:"wizard", summary:"빈도: 하루 1회. 10분간 이미 시전한 주문 슬롯 1개에 주문서에서 다른 주문을 재준비합니다.", desc:'<strong>빈도:</strong> 하루 1회. <strong>10분간</strong> 이미 시전한 주문 슬롯 1개에 주문서에서 다른 주문을 <strong>재준비</strong>합니다.' }
 ,
-  {name_ko:"재고", name_en:"Second Thoughts", feat_level:18, prerequisites:"", traits:["위자드"], category:"wizard", summary:"빈도: 하루 1회. 유발 조건: 주문을 시전합니다. 시전한 주문을 취소하고 다른 주문으로 교체하여 즉시 시전합니다(같은 랭크, 같은 행동 수). 원래 주문의 슬롯이 소비되고 새 주문이 시전됩니다.", desc:'<strong>빈도:</strong> 하루 1회. <strong>유발 조건:</strong> 주문을 시전합니다. 시전한 주문을 취소하고 다른 주문으로 <strong>교체하여 즉시 시전</strong>합니다(같은 랭크, 같은 행동 수). 원래 주문의 슬롯이 소비되고 새 주문이 시전됩니다.' }
+  {name_ko:"재고", name_en:"Second Thoughts", feat_level:18, prerequisites:"", traits:["위저드"], category:"wizard", summary:"빈도: 하루 1회. 유발 조건: 주문을 시전합니다. 시전한 주문을 취소하고 다른 주문으로 교체하여 즉시 시전합니다(같은 랭크, 같은 행동 수). 원래 주문의 슬롯이 소비되고 새 주문이 시전됩니다.", desc:'<strong>빈도:</strong> 하루 1회. <strong>유발 조건:</strong> 주문을 시전합니다. 시전한 주문을 취소하고 다른 주문으로 <strong>교체하여 즉시 시전</strong>합니다(같은 랭크, 같은 행동 수). 원래 주문의 슬롯이 소비되고 새 주문이 시전됩니다.' }
 ,
-  {name_ko:"대위자드의 힘", name_en:"Archwizard's Might", feat_level:20, prerequisites:"대위자드의 신비학. 추가 10랭크 주문 슬롯을 얻습니다.", traits:["위자드"], category:"wizard", summary:"추가 10랭크 주문 슬롯을 얻습니다.", desc:"마법의 절정에 도달합니다. <strong>추가 10랭크 주문 슬롯 1개</strong>를 얻습니다. 이 슬롯에는 10랭크 주문 1개를 준비할 수 있습니다." }
+  {name_ko:"대위저드의 힘", name_en:"Archwizard's Might", feat_level:20, prerequisites:"대위저드의 주문학. 추가 10랭크 주문 슬롯을 얻습니다.", traits:["위저드"], category:"wizard", summary:"추가 10랭크 주문 슬롯을 얻습니다.", desc:"마법의 절정에 도달합니다. <strong>추가 10랭크 주문 슬롯 1개</strong>를 얻습니다. 이 슬롯에는 10랭크 주문 1개를 준비할 수 있습니다." }
 ,
-  {name_ko:"주문 조합", name_en:"Spell Combination", feat_level:20, prerequisites:"", traits:["위자드"], category:"wizard", summary:"두 주문을 하나로 결합하여 동시에 시전합니다. 같은 대상/영역의 주문 2개를 동시에 시전하며 각각의 슬롯을 소비합니다.", desc:'두 주문을 하나로 결합하여 동시에 시전합니다. 같은 대상/영역의 주문 2개를 동시에 시전하며 각각의 슬롯을 소비합니다.' }
+  {name_ko:"주문 조합", name_en:"Spell Combination", feat_level:20, prerequisites:"", traits:["위저드"], category:"wizard", summary:"두 주문을 하나로 결합하여 동시에 시전합니다. 같은 대상/영역의 주문 2개를 동시에 시전하며 각각의 슬롯을 소비합니다.", desc:'두 주문을 하나로 결합하여 동시에 시전합니다. 같은 대상/영역의 주문 2개를 동시에 시전하며 각각의 슬롯을 소비합니다.' }
 ,
-  {name_ko:"주문 통달", name_en:"Spell Mastery", feat_level:20, prerequisites:"", traits:["위자드"], category:"wizard", summary:"주문서 없이도 특정 주문을 항상 준비합니다. 주문 4개를 선택하여 항상 준비된 것으로 취급(일일 준비 없이, 슬롯 소비 없이). 각 주문은 하루 1회만.", desc:'주문서 없이도 특정 주문을 항상 준비합니다. 주문 4개를 선택하여 <strong>항상 준비된 것으로</strong> 취급(일일 준비 없이, 슬롯 소비 없이). 각 주문은 하루 1회만.' }
+  {name_ko:"주문 통달", name_en:"Spell Mastery", feat_level:20, prerequisites:"", traits:["위저드"], category:"wizard", summary:"주문서 없이도 특정 주문을 항상 준비합니다. 주문 4개를 선택하여 항상 준비된 것으로 취급(일일 준비 없이, 슬롯 소비 없이). 각 주문은 하루 1회만.", desc:'주문서 없이도 특정 주문을 항상 준비합니다. 주문 4개를 선택하여 <strong>항상 준비된 것으로</strong> 취급(일일 준비 없이, 슬롯 소비 없이). 각 주문은 하루 1회만.' }
 ,
-  {name_ko:"주문변형 통달", name_en:"Spellshape Mastery", feat_level:20, prerequisites:"", traits:["위자드"], category:"wizard", summary:"주문변형 재주 1개를 선택합니다. 해당 주문변형을 사용할 때 자유 행동으로 사용할 수 있습니다(1행동 대신).", desc:'주문변형 재주 1개를 선택합니다. 해당 주문변형을 사용할 때 <strong>자유 행동</strong>으로 사용할 수 있습니다(1행동 대신).' }
+  {name_ko:"주문변형 통달", name_en:"Spellshape Mastery", feat_level:20, prerequisites:"", traits:["위저드"], category:"wizard", summary:"주문변형 재주 1개를 선택합니다. 해당 주문변형을 사용할 때 자유 행동으로 사용할 수 있습니다(1행동 대신).", desc:'주문변형 재주 1개를 선택합니다. 해당 주문변형을 사용할 때 <strong>자유 행동</strong>으로 사용할 수 있습니다(1행동 대신).' }
 ,
-  {name_ko:'대위자드의 힘', name_en:'Archwizard\'s Might', feat_level:20, prerequisites:'', traits:['위자드'], category:'wizard', summary:'전제조건: 대위자드의 주문학. 추가 10랭크 주문 슬롯을 얻습니다.', desc:'<strong>전제조건:</strong> 대위자드의 주문학. <strong>추가 10랭크 주문 슬롯</strong>을 얻습니다.'}
+  {name_ko:'대위저드의 힘', name_en:'Archwizard\'s Might', feat_level:20, prerequisites:'', traits:['위저드'], category:'wizard', summary:'전제조건: 대위저드의 주문학. 추가 10랭크 주문 슬롯을 얻습니다.', desc:'<strong>전제조건:</strong> 대위저드의 주문학. <strong>추가 10랭크 주문 슬롯</strong>을 얻습니다.'}
 ,
   {name_ko:"양자 혈통", name_en:"Adopted Ancestry", feat_level:1, prerequisites:"", traits:["일반"], category:"general", summary:"당신은 혈통에 속하지 않는 문화에서 자랐거나 그 문화와 깊은 유대를 맺었습니다. 다른 혈통 1개를 선택합니다. 해당 혈통의 혈통 재주에 접근할 수 있습니다.", desc:'당신은 혈통에 속하지 않는 문화에서 자랐거나 그 문화와 깊은 유대를 맺었습니다. 다른 혈통 1개를 선택합니다. 해당 혈통의 혈통 재주에 <strong>접근</strong>할 수 있습니다.' }
 ,
@@ -1151,7 +1151,7 @@ const FEAT_DB = [
 ,
   {name_ko:"의심스러운 지식", name_en:"Dubious Knowledge", feat_level:1, prerequisites:"지식 회상 기술에 숙련", traits:["일반 기술"], category:"skill", summary:"기이하고 때로는 의심스러운 방대한 잡학 지식을 축적했습니다. 지식 회상(Recall Knowledge) 판정에 실패하면, 완전히 실패하는 대신 정확한 정보 1개와 잘못된 정보 1개를 모두 얻습니다. GM이 어떤 것이 정확하고 어떤 것이 잘못된 것인지 결정합니다.", desc:'<strong>전제조건:</strong> 지식 회상 기술에 숙련<br>기이하고 때로는 의심스러운 방대한 잡학 지식을 축적했습니다. 지식 회상(Recall Knowledge) 판정에 실패하면, 완전히 실패하는 대신 <strong>정확한 정보 1개와 잘못된 정보 1개</strong>를 모두 얻습니다. GM이 어떤 것이 정확하고 어떤 것이 잘못된 것인지 결정합니다.' }
 ,
-  {name_ko:"빠른 식별", name_en:"Quick Identification", feat_level:1, prerequisites:"신비학, 자연학, 오컬티즘, 또는 종교학에 숙련", traits:["일반 기술"], category:"skill", summary:"마법 식별(Identify Magic)을 신속하게 수행합니다. 아이템, 진행 중인 효과, 위치의 속성을 결정할 때 10분 대신 1분만 걸립니다. 달인이면 3행동 활동, 전설이면 1행동.", desc:'<strong>전제조건:</strong> 신비학, 자연학, 비학, 또는 종교에 숙련<br>마법 식별(Identify Magic)을 신속하게 수행합니다. 아이템, 진행 중인 효과, 위치의 속성을 결정할 때 10분 대신 <strong>1분</strong>만 걸립니다. 대가이면 3행동 활동, 전설이면 <strong>1행동</strong>.' }
+  {name_ko:"빠른 식별", name_en:"Quick Identification", feat_level:1, prerequisites:"주문학, 자연학, 오컬티즘, 또는 종교학에 숙련", traits:["일반 기술"], category:"skill", summary:"마법 식별(Identify Magic)을 신속하게 수행합니다. 아이템, 진행 중인 효과, 위치의 속성을 결정할 때 10분 대신 1분만 걸립니다. 달인이면 3행동 활동, 전설이면 1행동.", desc:'<strong>전제조건:</strong> 주문학, 자연학, 비학, 또는 종교에 숙련<br>마법 식별(Identify Magic)을 신속하게 수행합니다. 아이템, 진행 중인 효과, 위치의 속성을 결정할 때 10분 대신 <strong>1분</strong>만 걸립니다. 대가이면 3행동 활동, 전설이면 <strong>1행동</strong>.' }
 ,
   {name_ko:"기술 훈련", name_en:"Skill Training", feat_level:1, prerequisites:"지능 +1", traits:["일반 기술"], category:"skill", summary:"선택한 기술에 숙련됩니다.", desc:'<strong>전제조건:</strong> 지능 +1<br>선택한 기술에 <strong>숙련</strong>됩니다.<br><strong>특수:</strong> 여러 번 선택 가능. 매번 새 기술.' }
 ,
@@ -1197,7 +1197,7 @@ const FEAT_DB = [
 ,
   {name_ko:"자연 의학", name_en:"Natural Medicine", feat_level:1, prerequisites:"자연학 숙련", traits:["일반 기술"], category:"skill", summary:"자연 치료제를 적용합니다. 의학 대신 자연학으로 상처 치료를 할 수 있습니다(더 높은 숙련도로 더 어려운 판정도 시도 가능). 상처 치료 외의 의학 용도나 재주 전제조건은 대체하지 않습니다.", desc:'<strong>전제조건:</strong> 자연학 숙련<br>자연 치료제를 적용합니다. 의학 대신 <strong>자연학으로 상처 치료</strong>를 할 수 있습니다(더 높은 숙련도로 더 어려운 판정도 시도 가능). 상처 치료 외의 의학 용도나 재주 전제조건은 대체하지 않습니다.<br>야생에 있으면 신선한 재료에 더 쉽게 접근할 수 있어, GM 판단에 따라 자연학으로 상처 치료 시 <strong>+2 상황 보너스</strong>.' }
 ,
-  {name_ko:"신비 감각", name_en:"Arcane Sense", feat_level:1, prerequisites:"신비학 숙련", traits:["일반 기술"], category:"skill", summary:"마법에 대한 직관적인 감각이 발달했습니다. 마법 감지(Detect Magic) 단순 주문(cantrip)을 신비(arcane) 단순 주문으로 사용할 수 있으며, 이 단순 주문은 신비학 기술로 시전합니다. 신비학 전문가이면 이 주문을 1행동으로 시전할 수 있으며, 달인이", desc:'<strong>전제조건:</strong> 신비학 숙련<br>마법에 대한 직관적인 감각이 발달했습니다. 마법 감지(Detect Magic) 단순 주문(cantrip)을 신비(arcane) 단순 주문으로 사용할 수 있으며, 이 단순 주문은 신비학 기술로 시전합니다. 신비학 전문가이면 이 주문을 1행동으로 시전할 수 있으며, 대가이면 자유 행동으로 사용 가능합니다. 전설이면 수동적(passive)으로 마법 감지의 효과를 지속적으로 얻습니다.' }
+  {name_ko:"신비 감각", name_en:"Arcane Sense", feat_level:1, prerequisites:"주문학 숙련", traits:["일반 기술"], category:"skill", summary:"마법에 대한 직관적인 감각이 발달했습니다. 마법 감지(Detect Magic) 단순 주문(cantrip)을 신비(arcane) 단순 주문으로 사용할 수 있으며, 이 단순 주문은 주문학 기술로 시전합니다. 주문학 전문가이면 이 주문을 1행동으로 시전할 수 있으며, 달인이", desc:'<strong>전제조건:</strong> 주문학 숙련<br>마법에 대한 직관적인 감각이 발달했습니다. 마법 감지(Detect Magic) 단순 주문(cantrip)을 신비(arcane) 단순 주문으로 사용할 수 있으며, 이 단순 주문은 주문학 기술로 시전합니다. 주문학 전문가이면 이 주문을 1행동으로 시전할 수 있으며, 대가이면 자유 행동으로 사용 가능합니다. 전설이면 수동적(passive)으로 마법 감지의 효과를 지속적으로 얻습니다.' }
 ,
   {name_ko:"기이한 것 식별", name_en:"Oddity Identification", feat_level:1, prerequisites:"오컬티즘 숙련", traits:["일반 기술"], category:"skill", summary:"마법 효과를 인지하거나 주문이 시전되는 것을 보면, 즉시 그것이 마음을 뒤트는지(정신 특성), 운에 맞서는지(행운/불운 특성), 비밀을 밝히는지(탐지/예측/폭로/관찰 특성) 판단합니다. 이런 효과에 대한 마법 식별이나 지식 회상 시 항상 오컬티즘을 페널티 없이 사용할 수 ", desc:'<strong>전제조건:</strong> 비학 숙련<br>마법 효과를 인지하거나 주문이 시전되는 것을 보면, 즉시 그것이 마음을 뒤트는지(정신 특성), 운에 맞서는지(행운/불운 특성), 비밀을 밝히는지(탐지/예측/폭로/관찰 특성) 판단합니다. 이런 효과에 대한 마법 식별이나 지식 회상 시 항상 <strong>비학</strong>을 페널티 없이 사용할 수 있으며 <strong>+2 상황 보너스</strong>.' }
 ,
@@ -1241,7 +1241,7 @@ const FEAT_DB = [
 ,
   {name_ko:"자동 지식", name_en:"Automatic Knowledge", feat_level:2, prerequisites:"지식 회상 행동에 전문가, 해당 기술에 확신(Assurance)", traits:["일반 기술"], category:"skill", summary:"라운드당 1회, 자유 행동으로 지식 회상을 사용할 수 있습니다. 이때 확신의 결과를 사용해야 합니다.", desc:'<strong>전제조건:</strong> 지식 회상 행동에 전문가, 해당 기술에 확신(Assurance)<br>라운드당 1회, <strong>자유 행동으로 지식 회상</strong>을 사용할 수 있습니다. 이때 확신의 결과를 사용해야 합니다.<br><strong>특수:</strong> 여러 번 선택 가능. 매번 다른 기술(전문가 이상이고 확인이 있어야).' }
 ,
-  {name_ko:"마법 속기", name_en:"Magical Shorthand", feat_level:2, prerequisites:"신비학, 자연학, 오컬티즘, 또는 종교학에 전문가", traits:["일반 기술"], category:"skill", summary:"주문 학습이 쉽게 됩니다. 주문 학습에 성공하면 주문 랭크에 관계없이 10분만 걸립니다. 성공할 결과를 굴리면 대성공이 됩니다. 실패하면 1주일 후 또는 레벨을 올린 후(먼저 오는 것) 재시도 가능.", desc:'<strong>전제조건:</strong> 신비학, 자연학, 비학, 또는 종교에 전문가<br>주문 학습이 쉽게 됩니다. 주문 학습에 성공하면 주문 랭크에 관계없이 <strong>10분</strong>만 걸립니다. 성공할 결과를 굴리면 <strong>대성공</strong>이 됩니다. 실패하면 1주일 후 또는 레벨을 올린 후(먼저 오는 것) 재시도 가능.<br>또한 휴식을 사용하여 새 주문을 배울 수 있습니다. 전통의 관련 기술로 돈 벌기(Earn Income)처럼 작동하지만, 돈 대신 배울 주문을 선택하여 학습 비용에 대한 할인을 받습니다(벌어들인 수입이 비용 이상이면 무료).' }
+  {name_ko:"마법 속기", name_en:"Magical Shorthand", feat_level:2, prerequisites:"주문학, 자연학, 오컬티즘, 또는 종교학에 전문가", traits:["일반 기술"], category:"skill", summary:"주문 학습이 쉽게 됩니다. 주문 학습에 성공하면 주문 랭크에 관계없이 10분만 걸립니다. 성공할 결과를 굴리면 대성공이 됩니다. 실패하면 1주일 후 또는 레벨을 올린 후(먼저 오는 것) 재시도 가능.", desc:'<strong>전제조건:</strong> 주문학, 자연학, 비학, 또는 종교에 전문가<br>주문 학습이 쉽게 됩니다. 주문 학습에 성공하면 주문 랭크에 관계없이 <strong>10분</strong>만 걸립니다. 성공할 결과를 굴리면 <strong>대성공</strong>이 됩니다. 실패하면 1주일 후 또는 레벨을 올린 후(먼저 오는 것) 재시도 가능.<br>또한 휴식을 사용하여 새 주문을 배울 수 있습니다. 전통의 관련 기술로 돈 벌기(Earn Income)처럼 작동하지만, 돈 대신 배울 주문을 선택하여 학습 비용에 대한 할인을 받습니다(벌어들인 수입이 비용 이상이면 무료).' }
 ,
   {name_ko:"민첩한 포복", name_en:"Nimble Crawl", feat_level:2, prerequisites:"곡예 전문가", traits:["일반 기술"], category:"skill", summary:"놀라울 정도로 빠르게 기어갑니다 — 5피트 대신 절반 속도까지. 달인이면 전체 속도, 전설이면 엎드린 상태에서 무방비이 되지 않습니다.", desc:'<strong>전제조건:</strong> 곡예 전문가<br>놀라울 정도로 빠르게 기어갑니다 — 5피트 대신 <strong>절반 속도</strong>까지. 대가이면 전체 속도, 전설이면 엎드린 상태에서 <strong>무방비이 되지 않습니다</strong>.' }
 ,
@@ -1323,7 +1323,7 @@ const FEAT_DB = [
 ,
   {name_ko:"차원간 생존", name_en:"Planar Survival", feat_level:7, prerequisites:"생존 달인", traits:["일반 기술"], category:"skill", summary:"정상적으로 자급할 수 있는 자원이나 자연 현상이 없는 다른 차원에서도 생존(Subsist)에 생존 기술을 사용할 수 있습니다. 예를 들어, 먹을 것이 없는 차원에서도 페널티 없이 채집 가능. 판정 성공은 차원의 일반적 조건으로 인한 피해로부터 당신과 생존으로 지원하는 ", desc:'<strong>전제조건:</strong> 생존 대가<br>정상적으로 자급할 수 있는 자원이나 자연 현상이 없는 다른 차원에서도 생존(Subsist)에 <strong>생존 기술</strong>을 사용할 수 있습니다. 예를 들어, 먹을 것이 없는 차원에서도 페널티 없이 채집 가능. 판정 성공은 차원의 일반적 조건으로 인한 피해로부터 당신과 생존으로 지원하는 다른 이들을 보호합니다(소규모 위험은 제외).' }
 ,
-  {name_ko:"빠른 인식", name_en:"Quick Recognition", feat_level:7, prerequisites:"신비학/자연학/오컬티즘/종교학에 달인; 주문 인식", traits:["일반 기술"], category:"skill", summary:"주문을 빠르게 인식합니다. 달인인 기술로 라운드당 1회 자유 행동으로 주문을 인식할 수 있습니다.", desc:'<strong>전제조건:</strong> 신비학/자연학/비학/종교에 대가; 주문 인식<br>주문을 빠르게 인식합니다. 대가인 기술로 <strong>라운드당 1회 자유 행동으로</strong> 주문을 인식할 수 있습니다.' }
+  {name_ko:"빠른 인식", name_en:"Quick Recognition", feat_level:7, prerequisites:"주문학/자연학/오컬티즘/종교학에 달인; 주문 인식", traits:["일반 기술"], category:"skill", summary:"주문을 빠르게 인식합니다. 달인인 기술로 라운드당 1회 자유 행동으로 주문을 인식할 수 있습니다.", desc:'<strong>전제조건:</strong> 주문학/자연학/비학/종교에 대가; 주문 인식<br>주문을 빠르게 인식합니다. 대가인 기술로 <strong>라운드당 1회 자유 행동으로</strong> 주문을 인식할 수 있습니다.' }
 ,
   {name_ko:"저주 해제", name_en:"Break Curse", feat_level:7, prerequisites:"오컬티즘 또는 종교학에 달인", traits:["일반 기술"], category:"skill", summary:"지식으로 저주를 해제할 수 있습니다. 오컬티즘이나 종교학으로 저주 상쇄를 시도할 수 있습니다. 상쇄 랭크은 레벨 절반(올림)과 같습니다.", desc:'<strong>전제조건:</strong> 비학 또는 종교에 대가<br>지식으로 저주를 해제할 수 있습니다. 비학이나 종교로 <strong>저주 상쇄</strong>를 시도할 수 있습니다. 상쇄 랭크는 레벨 절반(올림)과 같습니다.' }
 ,
@@ -1355,7 +1355,7 @@ const FEAT_DB = [
 ,
   {name_ko:"전설적 공연자", name_en:"Legendary Performer", feat_level:15, prerequisites:"공연 전설, 거장 공연자", traits:["일반 기술"], category:"skill", summary:"명성이 온 땅에 퍼졌습니다. 사회 기술이 있는 생물은 당신에 대해 들어봤으며, 보통 평소보다 한 단계 나은 태도를 가집니다(평판과 성향에 따라). 공연으로 돈 벌기 시 장소가 허용하는 것보다 더 높은 레벨의 관객을 끌어옵니다. 보통 레벨 또는 레벨+2(더 높은 쪽)까지", desc:'<strong>전제조건:</strong> 공연 전설, 거장 공연자<br>명성이 온 땅에 퍼졌습니다. 사회 기술이 있는 생물은 당신에 대해 들어봤으며, 보통 평소보다 <strong>한 단계 나은 태도</strong>를 가집니다(평판과 성향에 따라). 공연으로 돈 벌기 시 장소가 허용하는 것보다 <strong>더 높은 레벨의 관객</strong>을 끌어옵니다. 보통 레벨 또는 레벨+2(더 높은 쪽)까지 관객이 증가합니다.' }
 ,
-  {name_ko:"통합 이론", name_en:"Unified Theory", feat_level:15, prerequisites:"신비학 전설", traits:["일반 기술"], category:"skill", summary:"네 가지 마법 전통과 마법 정수의 공통 기반을 이해하여, 비전의 렌즈를 통해 모두를 이해합니다. 마법 전통에 따라 자연학, 오컬티즘, 종교학 판정이 필요한 기술 행동이나 기술 재주를 사용할 때, 대신 신비학을 사용할 수 있습니다. 다른 마법에 신비학을 사용할 때 보통 받는 ", desc:'<strong>전제조건:</strong> 신비학 전설<br>네 가지 마법 전통과 마법 정수의 공통 기반을 이해하여, 비전의 렌즈를 통해 모두를 이해합니다. 마법 전통에 따라 자연학, 비학, 종교 판정이 필요한 기술 행동이나 기술 재주를 사용할 때, 대신 <strong>신비학</strong>을 사용할 수 있습니다. 다른 마법에 신비학을 사용할 때 보통 받는 페널티나 높은 DC도 더 이상 받지 않습니다.' }
+  {name_ko:"통합 이론", name_en:"Unified Theory", feat_level:15, prerequisites:"주문학 전설", traits:["일반 기술"], category:"skill", summary:"네 가지 마법 전통과 마법 정수의 공통 기반을 이해하여, 비전의 렌즈를 통해 모두를 이해합니다. 마법 전통에 따라 자연학, 오컬티즘, 종교학 판정이 필요한 기술 행동이나 기술 재주를 사용할 때, 대신 주문학을 사용할 수 있습니다. 다른 마법에 주문학을 사용할 때 보통 받는 ", desc:'<strong>전제조건:</strong> 주문학 전설<br>네 가지 마법 전통과 마법 정수의 공통 기반을 이해하여, 비전의 렌즈를 통해 모두를 이해합니다. 마법 전통에 따라 자연학, 비학, 종교 판정이 필요한 기술 행동이나 기술 재주를 사용할 때, 대신 <strong>주문학</strong>을 사용할 수 있습니다. 다른 마법에 주문학을 사용할 때 보통 받는 페널티나 높은 DC도 더 이상 받지 않습니다.' }
 ,
   // ── 클래스 특성 (Class Features) ──
   {name_ko:"비학 주문시전", name_en:"Occult Spellcasting", cat:"feature", class_id:"bard", feat_level:1, summary:"비밀스러운 지식에서 마법을 끌어옵니다. 비학(occult) 전통의 주문시전자로, 주문 시전(Cast a Spell) 활동을 사용합니다. 바드로서 주문을 시전할 때, 주문은 음악적 리프나 영리한 리메릭일 수 있고, 몸짓은 춤과 극적인 판토마임을 포함할 수 있으며, 악기를 연주하며 주문시전을 동반할 수 있습니다. 매일 최대 2개의 1랭크 주문을 시전할 수 있습니다. 주문을 시전하려면 알고 있어야 하며, 주문 레퍼토리 클래스 특성을 통해 배웁니다. 매일 시전할 수 있는 주문 수를 주문 슬롯이라 합니다. 일부 주문은 주문 공격을 시도하거나 적이 주문 DC에 대해 내성 굴림을 해야 합니다. 핵심 속성이 매력이므로, 주문 공격 수정치와 주문 DC는 매력 수정치를 사용합니다."}
@@ -1400,7 +1400,7 @@ const FEAT_DB = [
 ,
   {name_ko:"비전 유대", name_en:"Arcane Bond", cat:"feature", class_id:"wizard", feat_level:1, summary:"마법적 힘의 일부를 결합 아이템에 저장합니다. 매일 준비 시 소유한 아이템 1개를 지정. 결합 아이템 소진(Drain Bonded Item) [자유 행동]을 얻어, 이미 시전한 준비 주문 1개를 슬롯 소비 없이 하루 1회 추가 시전 가능."}
 ,
-  {name_ko:"비전 논제", name_en:"Arcane Thesis", cat:"feature", class_id:"wizard", feat_level:1, summary:"정식 위자드가 되는 과정에서 독자적 마법 연구의 논문을 작성했습니다. 논제에 따라 특별한 혜택을 얻습니다. 실험적 주문변형 Experimental Spellshaping — 주문변형의 마법 관행을 변수와 매개변수를 변경하여 더 효율적으로 실현할 수 있다는 논제입니다. 선택한 1레벨 주문변형 위자드 특기 1개를 얻습니다. 4레벨부터 일일 준비 시 레벨 절반 이하의 주문변형 위자드 특기를 추가로 얻을 수 있습니다. 향상된 사역마 동조 Improved Familiar Attunement — 위자드와 사역마의 마법적 유대를 미세 조정하면 더 큰 결과를 얻을 수 있다는 논제. 사역마(Familiar) 특기를 얻고, 사역마가 추가 능력 1개를 더 얻습니다(6, 12, 18레벨에 추가 1개씩). 비전 유대가 아이템 대신 사역마에 저장되어, 결합 아이템 소진(Drain Bonded Item) 대신 사역마 소진(Drain Familiar)을 얻습니다. 주문 혼합 Spell Blending — 주문 슬롯이 모든 주문시전에 힘을 공급하는 근본적 에너지의 약칭이라는 논제. 일일 준비 시, 같은 랭크의 주문 슬롯 2개를 최대 2랭크 높은 보너스 슬롯 1개로 교환할 수 있습니다. 주문 슬롯 1개를 캔트립 2개로 교환도 가능. 주문 대체 Spell Substitution — 준비된 주문은 다음 준비까지 변경할 수 없다는 사실을 거부합니다. 10분간 준비된 주문 슬롯 1개를 비우고 주문서에서 다른 주문을 준비할 수 있습니다. 지팡이 연결 Staff Nexus — 학습 초기부터 지팡이를 집중적으로 채택하면 주문시전자와 지팡이 사이에 공생적 유대를 만들 수 있다는 논제. 자작 지팡이로 시작(캔트립 1개 + 1랭크 주문 1개 포함). 일일 준비 시 주문 1개를 소비하여 해당 랭크만큼 지팡이에 충전. 8레벨에 주문 2개, 16레벨에 3개까지 소비 가능."}
+  {name_ko:"비전 논제", name_en:"Arcane Thesis", cat:"feature", class_id:"wizard", feat_level:1, summary:"정식 위저드가 되는 과정에서 독자적 마법 연구의 논문을 작성했습니다. 논제에 따라 특별한 혜택을 얻습니다. 실험적 주문변형 Experimental Spellshaping — 주문변형의 마법 관행을 변수와 매개변수를 변경하여 더 효율적으로 실현할 수 있다는 논제입니다. 선택한 1레벨 주문변형 위저드 특기 1개를 얻습니다. 4레벨부터 일일 준비 시 레벨 절반 이하의 주문변형 위저드 특기를 추가로 얻을 수 있습니다. 향상된 사역마 동조 Improved Familiar Attunement — 위저드와 사역마의 마법적 유대를 미세 조정하면 더 큰 결과를 얻을 수 있다는 논제. 사역마(Familiar) 특기를 얻고, 사역마가 추가 능력 1개를 더 얻습니다(6, 12, 18레벨에 추가 1개씩). 비전 유대가 아이템 대신 사역마에 저장되어, 결합 아이템 소진(Drain Bonded Item) 대신 사역마 소진(Drain Familiar)을 얻습니다. 주문 혼합 Spell Blending — 주문 슬롯이 모든 주문시전에 힘을 공급하는 근본적 에너지의 약칭이라는 논제. 일일 준비 시, 같은 랭크의 주문 슬롯 2개를 최대 2랭크 높은 보너스 슬롯 1개로 교환할 수 있습니다. 주문 슬롯 1개를 캔트립 2개로 교환도 가능. 주문 대체 Spell Substitution — 준비된 주문은 다음 준비까지 변경할 수 없다는 사실을 거부합니다. 10분간 준비된 주문 슬롯 1개를 비우고 주문서에서 다른 주문을 준비할 수 있습니다. 지팡이 연결 Staff Nexus — 학습 초기부터 지팡이를 집중적으로 채택하면 주문시전자와 지팡이 사이에 공생적 유대를 만들 수 있다는 논제. 자작 지팡이로 시작(캔트립 1개 + 1랭크 주문 1개 포함). 일일 준비 시 주문 1개를 소비하여 해당 랭크만큼 지팡이에 충전. 8레벨에 주문 2개, 16레벨에 3개까지 소비 가능."}
 ,
   {name_ko:"비전 학파", name_en:"Arcane School", cat:"feature", class_id:"wizard", feat_level:1, summary:"1레벨에 비전 학파를 선택하며, 교과과정 주문과 학파 주문(집중 주문)을 얻습니다. 시전 가능한 각 주문 랭크에 학파 교과에서 추가 슬롯 1개씩을 얻고, 그 슬롯에는 교과 주문만 준비 가능합니다. 학파에는 소환(Ars Grammatica), 창조(Civic Wizardry), 변환(School of Mentalism), 점술(School of Protean Form), 환영(School of the Boundary) 등 8개 학파가 있으며, 통합 마법 이론(School of Unified Magical Theory)은 특정 학파에 속하지 않는 유연한 접근입니다."}
 ,
@@ -1516,7 +1516,7 @@ const FEAT_DB = [
 ,
   {name_ko:"감지 전문가", name_en:"Alertness", cat:"feature", class_id:"wizard", feat_level:11, summary:"감지 숙련도가 전문가로 증가."}
 ,
-  {name_ko:"위자드 무기 전문가", name_en:"Wizard Weapon Expertise", cat:"feature", class_id:"wizard", feat_level:11, summary:"단순 무기, 비무장 공격 숙련도가 전문가로 증가."}
+  {name_ko:"위저드 무기 전문가", name_en:"Wizard Weapon Expertise", cat:"feature", class_id:"wizard", feat_level:11, summary:"단순 무기, 비무장 공격 숙련도가 전문가로 증가."}
 ,
   {name_ko:"경갑 전문화", name_en:"Light Armor Expertise", cat:"feature", class_id:"bard", feat_level:13, summary:"경갑이나 비무장 상태에서 피하는 법을 배웠습니다. 경갑과 비무장 방어 숙련도가 전문가로 증가."}
 ,
@@ -1614,7 +1614,7 @@ const FEAT_DB = [
 ,
   {name_ko:"전설 주문시전자", name_en:"Legendary Spellcaster", cat:"feature", class_id:"wizard", feat_level:19, summary:"주문 공격 수정치와 주문 DC 숙련도가 전설로 증가."}
 ,
-  {name_ko:"대위자드의 신비학", name_en:"Archwizard", cat:"feature", class_id:"wizard", feat_level:19, summary:"10랭크 주문 슬롯 1개를 얻습니다."}
+  {name_ko:"대위저드의 주문학", name_en:"Archwizard", cat:"feature", class_id:"wizard", feat_level:19, summary:"10랭크 주문 슬롯 1개를 얻습니다."}
 ,
   // ═══════════════════════════════════════════════
   //  혈통 재주 — Ancestry Feats (Player Core)
@@ -1660,7 +1660,7 @@ const FEAT_DB = [
   {name_ko:'돌벽', name_en:'Stonewall', feat_level:17, prerequisites:'드워프', traits:['드워프'], category:'ancestry', summary:'[반응] 하루 1회. 적의 명중/인내 실패 시 석화되어 모든 피해 무효.', desc:'<strong>빈도:</strong> 하루 1회<br><strong>유발 조건:</strong> 적이나 위험의 효과가 당신에게 명중하거나, 그에 대한 인내 내성에 실패합니다.<br>돌의 강인함이 너무 강하게 밀려와 당신의 건장한 몸을 대체합니다. 현재 턴 종료까지 <strong>석화(petrified)</strong>됩니다. 유발 효과나 돌에 영향을 줄 수 없는 다른 해로운 효과로부터 <strong>어떤 피해도 받지 않습니다</strong>.'}
 ,
   // ── 엘프 Elf ──
-  {name_ko:'엘프 지식', name_en:'Elven Lore', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'신비학과 자연학에 숙련. 엘프 지식(Elf Lore)에 숙련.', desc:'전통적인 엘프 예술을 공부하여 비전 마법과 주변 세계에 대해 배웠습니다. <strong>신비학과 자연학에 숙련</strong>됩니다. 이 기술 중 하나에 자동으로 숙련되는 경우, 대신 선택한 다른 기술에 숙련됩니다. 또한 <strong>엘프 지식(Elf Lore)</strong>에 대한 추가 지식 일반 재주를 얻습니다.'}
+  {name_ko:'엘프 지식', name_en:'Elven Lore', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'주문학과 자연학에 숙련. 엘프 지식(Elf Lore)에 숙련.', desc:'전통적인 엘프 예술을 공부하여 비전 마법과 주변 세계에 대해 배웠습니다. <strong>주문학과 자연학에 숙련</strong>됩니다. 이 기술 중 하나에 자동으로 숙련되는 경우, 대신 선택한 다른 기술에 숙련됩니다. 또한 <strong>엘프 지식(Elf Lore)</strong>에 대한 추가 지식 일반 재주를 얻습니다.'}
 ,
   {name_ko:'엘프 무기 친숙', name_en:'Elven Weapon Familiarity', feat_level:1, prerequisites:'엘프', traits:['엘프'], category:'ancestry', summary:'장궁, 단궁, 롱소드, 레이피어에 훈련됨. 엘프 특성 무기는 한 단계 낮은 카테고리로 취급.', desc:'활과 기타 우아한 무기를 선호합니다. 엘프 특성의 모든 비일반 무기에 접근합니다. 엘프 특성 무기와 장궁, 합성 장궁, 레이피어, 단궁, 합성 단궁에 친숙합니다 — 숙련도 목적으로, 이 중 <strong>군용 무기는 단순 무기</strong>로, <strong>고급 무기는 군용 무기</strong>로 취급합니다.<br>5레벨에서, 이 무기 중 하나로 치명타를 가하면 해당 무기의 치명 특성 효과를 적용합니다.'}
 ,
@@ -1953,8 +1953,8 @@ const FEAT_DB = [
   // ── 위치 다중클래스 Witch Multiclass ──
   {name_ko:'위치 헌신', name_en:'Witch Dedication', feat_level:2, prerequisites:'지능 +2', traits:['원형','다중클래스','헌신'], category:'archetype', summary:'후원자를 선택하고, 사역마를 얻고, 후원자 전통의 캔트립을 시전합니다.', desc:'위치의 길로 발을 들입니다. <strong>후원자</strong>를 선택하고 <strong>사역마</strong>를 얻습니다. 사역마에게서 후원자의 마법 전통에 속하는 <strong>캔트립 1개</strong>를 배웁니다. 해당 전통의 주문 명중 굴림과 주문 DC에 <strong>숙련</strong>됩니다. 핵심 능력치는 <strong>지능</strong>입니다. 후원자의 전통에 해당하는 기술에 숙련됩니다.<br><strong>특수:</strong> 다른 헌신 재주를 선택하려면 먼저 위치 원형 재주를 2개 이상 가져야 합니다.'}
 ,
-  // ── 위자드 다중클래스 Wizard Multiclass ──
-  {name_ko:'위자드 헌신', name_en:'Wizard Dedication', feat_level:2, prerequisites:'지능 +2', traits:['원형','다중클래스','헌신'], category:'archetype', summary:'주문서에 캔트립 4개를 기록하고, 2개를 준비하며, 비전 학파를 선택합니다.', desc:'위자드의 길로 발을 들입니다. 비전(아케인) 캔트립 <strong>4개</strong>가 담긴 주문서를 얻고, 매일 <strong>2개</strong>를 준비하여 시전할 수 있습니다. 비전 주문 명중 굴림과 주문 DC에 <strong>숙련</strong>됩니다. 핵심 능력치는 <strong>지능</strong>입니다. <strong>신비학</strong>에 숙련됩니다. 비전 학파를 하나 선택합니다.<br><strong>특수:</strong> 다른 헌신 재주를 선택하려면 먼저 위자드 원형 재주를 2개 이상 가져야 합니다.'}
+  // ── 위저드 다중클래스 Wizard Multiclass ──
+  {name_ko:'위저드 헌신', name_en:'Wizard Dedication', feat_level:2, prerequisites:'지능 +2', traits:['원형','다중클래스','헌신'], category:'archetype', summary:'주문서에 캔트립 4개를 기록하고, 2개를 준비하며, 비전 학파를 선택합니다.', desc:'위저드의 길로 발을 들입니다. 비전(아케인) 캔트립 <strong>4개</strong>가 담긴 주문서를 얻고, 매일 <strong>2개</strong>를 준비하여 시전할 수 있습니다. 비전 주문 명중 굴림과 주문 DC에 <strong>숙련</strong>됩니다. 핵심 능력치는 <strong>지능</strong>입니다. <strong>주문학</strong>에 숙련됩니다. 비전 학파를 하나 선택합니다.<br><strong>특수:</strong> 다른 헌신 재주를 선택하려면 먼저 위저드 원형 재주를 2개 이상 가져야 합니다.'}
 ,
   {name_ko:'기초 바드 주문시전', name_en:'Basic Bard Spellcasting', feat_level:4, prerequisites:'바드 헌신', traits:['원형'], category:'archetype', summary:'기초 주문시전 혜택을 얻어 비전(오컬트) 주문 슬롯을 확보합니다.', desc:'바드 원형의 기초 주문시전 혜택을 얻습니다. 6레벨에 1순환 주문 슬롯 1개, 8레벨에 2순환 주문 슬롯 1개를 얻습니다.'}
 ,
@@ -1988,11 +1988,11 @@ const FEAT_DB = [
 ,
   {name_ko:'기초 마법', name_en:'Basic Witchcraft', feat_level:4, prerequisites:'위치 헌신', traits:['원형'], category:'archetype', summary:'1~2레벨 위치 재주 하나를 얻고, 사역마 능력이 3개로 증가합니다.', desc:'1레벨 또는 2레벨 <strong>위치 재주</strong> 하나를 얻습니다. 사역마가 기본 2개 대신 <strong>3개</strong>의 사역마 능력을 얻습니다.'}
 ,
-  {name_ko:'비전 학파 주문', name_en:'Arcane School Spell', feat_level:4, prerequisites:'위자드 헌신', traits:['원형'], category:'archetype', summary:'선택한 학파의 초기 집중 주문을 얻습니다.', desc:'1레벨에 비전 학파를 선택하며, 교과과정 주문과 학파 주문(집중 주문)을 얻습니다. 시전 가능한 각 주문 랭크에 학파 교과에서 <strong>추가 슬롯 1개씩</strong>을 얻고, 그 슬롯에는 교과 주문만 준비 가능합니다.<br>학파에는 소환(Ars Grammatica), 창조(Civic Wizardry), 변환(School of Mentalism), 점술(School of Protean Form), 환영(School of the Boundary) 등 8개 학파가 있으며, 통합 마법 이론(School of Unified Magical Theory)은 특정 학파에 속하지 않는 유연한 접근입니다.'}
+  {name_ko:'비전 학파 주문', name_en:'Arcane School Spell', feat_level:4, prerequisites:'위저드 헌신', traits:['원형'], category:'archetype', summary:'선택한 학파의 초기 집중 주문을 얻습니다.', desc:'1레벨에 비전 학파를 선택하며, 교과과정 주문과 학파 주문(집중 주문)을 얻습니다. 시전 가능한 각 주문 랭크에 학파 교과에서 <strong>추가 슬롯 1개씩</strong>을 얻고, 그 슬롯에는 교과 주문만 준비 가능합니다.<br>학파에는 소환(Ars Grammatica), 창조(Civic Wizardry), 변환(School of Mentalism), 점술(School of Protean Form), 환영(School of the Boundary) 등 8개 학파가 있으며, 통합 마법 이론(School of Unified Magical Theory)은 특정 학파에 속하지 않는 유연한 접근입니다.'}
 ,
-  {name_ko:'기초 비전학', name_en:'Basic Arcana', feat_level:4, prerequisites:'위자드 헌신', traits:['원형'], category:'archetype', summary:'1~2레벨 위자드 재주 하나를 얻습니다.', desc:'1레벨 또는 2레벨 <strong>위자드 재주</strong> 하나를 얻습니다.'}
+  {name_ko:'기초 비전학', name_en:'Basic Arcana', feat_level:4, prerequisites:'위저드 헌신', traits:['원형'], category:'archetype', summary:'1~2레벨 위저드 재주 하나를 얻습니다.', desc:'1레벨 또는 2레벨 <strong>위저드 재주</strong> 하나를 얻습니다.'}
 ,
-  {name_ko:'기초 위자드 주문시전', name_en:'Basic Wizard Spellcasting', feat_level:4, prerequisites:'위자드 헌신', traits:['원형'], category:'archetype', summary:'기초 주문시전 혜택을 얻어 비전(아케인) 주문 슬롯을 확보합니다.', desc:'위자드 원형의 기초 주문시전 혜택을 얻습니다. 6레벨에 1순환 주문 슬롯 1개, 8레벨에 2순환 주문 슬롯 1개를 얻습니다. 이 슬롯의 주문은 주문서에서 준비합니다.'}
+  {name_ko:'기초 위저드 주문시전', name_en:'Basic Wizard Spellcasting', feat_level:4, prerequisites:'위저드 헌신', traits:['원형'], category:'archetype', summary:'기초 주문시전 혜택을 얻어 비전(아케인) 주문 슬롯을 확보합니다.', desc:'위저드 원형의 기초 주문시전 혜택을 얻습니다. 6레벨에 1순환 주문 슬롯 1개, 8레벨에 2순환 주문 슬롯 1개를 얻습니다. 이 슬롯의 주문은 주문서에서 준비합니다.'}
 ,
   {name_ko:'고급 뮤즈의 속삭임', name_en:"Advanced Muse's Whispers", feat_level:6, prerequisites:'기초 뮤즈의 속삭임', traits:['원형'], category:'archetype', summary:'자신의 레벨 절반 이하인 바드 재주 하나를 얻습니다.', desc:'자신의 레벨의 절반 이하인 <strong>바드 재주</strong> 하나를 얻습니다.<br><strong>특수:</strong> 이 재주를 여러 번 선택할 수 있으며, 매번 다른 바드 재주를 선택해야 합니다.'}
 ,
@@ -2010,7 +2010,7 @@ const FEAT_DB = [
 ,
   {name_ko:'고급 마법', name_en:'Advanced Witchcraft', feat_level:6, prerequisites:'기초 마법', traits:['원형'], category:'archetype', summary:'자신의 레벨 절반 이하인 위치 재주 하나를 얻습니다.', desc:'자신의 레벨의 절반 이하인 <strong>위치 재주</strong> 하나를 얻습니다.<br><strong>특수:</strong> 이 재주를 여러 번 선택할 수 있으며, 매번 다른 위치 재주를 선택해야 합니다.'}
 ,
-  {name_ko:'고급 비전학', name_en:'Advanced Arcana', feat_level:6, prerequisites:'기초 비전학', traits:['원형'], category:'archetype', summary:'자신의 레벨 절반 이하인 위자드 재주 하나를 얻습니다.', desc:'자신의 레벨의 절반 이하인 <strong>위자드 재주</strong> 하나를 얻습니다.<br><strong>특수:</strong> 이 재주를 여러 번 선택할 수 있으며, 매번 다른 위자드 재주를 선택해야 합니다.'}
+  {name_ko:'고급 비전학', name_en:'Advanced Arcana', feat_level:6, prerequisites:'기초 비전학', traits:['원형'], category:'archetype', summary:'자신의 레벨 절반 이하인 위저드 재주 하나를 얻습니다.', desc:'자신의 레벨의 절반 이하인 <strong>위저드 재주</strong> 하나를 얻습니다.<br><strong>특수:</strong> 이 재주를 여러 번 선택할 수 있으며, 매번 다른 위저드 재주를 선택해야 합니다.'}
 ,
   {name_ko:'찬가 공연', name_en:'Anthemic Performance', feat_level:8, prerequisites:'바드 헌신', traits:['원형'], category:'archetype', summary:'용감한 찬가(courageous anthem) 합주 캔트립을 얻습니다.', desc:'<em>용감한 찬가(courageous anthem)</em> 합주 캔트립을 얻습니다. 이미 이 캔트립이 있다면 대신 다른 바드 합주 캔트립을 선택합니다.'}
 ,
@@ -2024,7 +2024,7 @@ const FEAT_DB = [
 ,
   {name_ko:'후원자의 확장', name_en:"Patron's Breadth", feat_level:8, prerequisites:'기초 위치 주문시전', traits:['원형'], category:'archetype', summary:'추가 주문 슬롯을 얻습니다.', desc:'주문시전 능력은 타고나거나 수년간의 학습으로 얻은 것이 아닙니다. 대신 강력한 존재가 부여한 것으로, 그 존재는 당신에게 힘을 줌으로써 자신의 의제를 세계에서 진행시킬 수 있다는 것을 알고 있습니다. 이 존재는 보통 신비롭고 멀리 있어, 자신의 정체와 동기를 거의 드러내지 않습니다. 말보다는 전조, 꿈, 유사한 미묘한 징후로 뜻을 알립니다.<br>후원자는 사역마를 통해 당신과 소통합니다 — 사역마는 당신을 가르치고, 후원자의 마법의 통로가 되며, 후원자의 모호한 목적을 위해 당신을 감시할 수도 있습니다.<br>1레벨에 후원자를 선택하며, 이것이 주문시전 전통, 기술, 첫 번째 교훈, 고유한 사역마 능력을 결정합니다.'}
 ,
-  {name_ko:'비전 확장', name_en:'Arcane Breadth', feat_level:8, prerequisites:'기초 위자드 주문시전', traits:['원형'], category:'archetype', summary:'추가 비전(아케인) 주문 슬롯을 얻습니다.', desc:'기초 위자드 주문시전으로 얻은 각 순환의 주문 슬롯이 <strong>1개에서 2개</strong>로 증가합니다.'}
+  {name_ko:'비전 확장', name_en:'Arcane Breadth', feat_level:8, prerequisites:'기초 위저드 주문시전', traits:['원형'], category:'archetype', summary:'추가 비전(아케인) 주문 슬롯을 얻습니다.', desc:'기초 위저드 주문시전으로 얻은 각 순환의 주문 슬롯이 <strong>1개에서 2개</strong>로 증가합니다.'}
 ,
   {name_ko:'비범한 회피', name_en:'Uncanny Dodge', feat_level:10, prerequisites:'로그 헌신', traits:['원형'], category:'archetype', summary:'이점 부정(deny advantage)을 얻어 숨겨지지 않은 적이 무방비을 유발하지 못합니다.', desc:'<strong>이점 부정(deny advantage)</strong>을 얻습니다. 당신은 숨겨지지 않은(hidden이 아닌) 적에게 무방비(off-guard) 상태가 되지 않습니다.'}
 ,
@@ -2042,7 +2042,7 @@ const FEAT_DB = [
 ,
   {name_ko:'전문가 위치 주문시전', name_en:'Expert Witch Spellcasting', feat_level:12, prerequisites:'기초 위치 주문시전, 후원자 전통 기술 달인', traits:['원형'], category:'archetype', summary:'전문가 주문시전 혜택을 얻어 중급 주문 슬롯을 확보합니다.', desc:'위치 원형의 전문가 주문시전 혜택을 얻습니다. 주문 명중 굴림과 주문 DC가 <strong>전문가</strong>로 증가합니다. 14레벨에 3순환 주문 슬롯 1개, 16레벨에 4순환 주문 슬롯 1개를 얻습니다.'}
 ,
-  {name_ko:'전문가 위자드 주문시전', name_en:'Expert Wizard Spellcasting', feat_level:12, prerequisites:'기초 위자드 주문시전, 신비학 달인', traits:['원형'], category:'archetype', summary:'전문가 주문시전 혜택을 얻어 중급 비전 주문 슬롯을 확보합니다.', desc:'위자드 원형의 전문가 주문시전 혜택을 얻습니다. 비전(아케인) 주문 명중 굴림과 주문 DC가 <strong>전문가</strong>로 증가합니다. 14레벨에 3순환 주문 슬롯 1개, 16레벨에 4순환 주문 슬롯 1개를 얻습니다.'}
+  {name_ko:'전문가 위저드 주문시전', name_en:'Expert Wizard Spellcasting', feat_level:12, prerequisites:'기초 위저드 주문시전, 주문학 달인', traits:['원형'], category:'archetype', summary:'전문가 주문시전 혜택을 얻어 중급 비전 주문 슬롯을 확보합니다.', desc:'위저드 원형의 전문가 주문시전 혜택을 얻습니다. 비전(아케인) 주문 명중 굴림과 주문 DC가 <strong>전문가</strong>로 증가합니다. 14레벨에 3순환 주문 슬롯 1개, 16레벨에 4순환 주문 슬롯 1개를 얻습니다.'}
 ,
   {name_ko:'달인 바드 주문시전', name_en:'Master Bard Spellcasting', feat_level:18, prerequisites:'전문가 바드 주문시전, 비학 전설', traits:['원형'], category:'archetype', summary:'달인 주문시전 혜택을 얻어 고급 주문 슬롯을 확보합니다.', desc:'바드 원형의 달인 주문시전 혜택을 얻습니다. 비전(오컬트) 주문 명중 굴림과 주문 DC가 <strong>달인</strong>으로 증가합니다. 20레벨에 5순환 주문 슬롯 1개를 얻습니다.'}
 ,
@@ -2052,7 +2052,7 @@ const FEAT_DB = [
 ,
   {name_ko:'달인 위치 주문시전', name_en:'Master Witch Spellcasting', feat_level:18, prerequisites:'전문가 위치 주문시전, 후원자 전통 기술 전설', traits:['원형'], category:'archetype', summary:'달인 주문시전 혜택을 얻어 고급 주문 슬롯을 확보합니다.', desc:'위치 원형의 달인 주문시전 혜택을 얻습니다. 주문 명중 굴림과 주문 DC가 <strong>달인</strong>으로 증가합니다. 20레벨에 5순환 주문 슬롯 1개를 얻습니다.'}
 ,
-  {name_ko:'달인 위자드 주문시전', name_en:'Master Wizard Spellcasting', feat_level:18, prerequisites:'전문가 위자드 주문시전, 신비학 전설', traits:['원형'], category:'archetype', summary:'달인 주문시전 혜택을 얻어 고급 비전 주문 슬롯을 확보합니다.', desc:'위자드 원형의 달인 주문시전 혜택을 얻습니다. 비전(아케인) 주문 명중 굴림과 주문 DC가 <strong>달인</strong>으로 증가합니다. 20레벨에 5순환 주문 슬롯 1개를 얻습니다.'}
+  {name_ko:'달인 위저드 주문시전', name_en:'Master Wizard Spellcasting', feat_level:18, prerequisites:'전문가 위저드 주문시전, 주문학 전설', traits:['원형'], category:'archetype', summary:'달인 주문시전 혜택을 얻어 고급 비전 주문 슬롯을 확보합니다.', desc:'위저드 원형의 달인 주문시전 혜택을 얻습니다. 비전(아케인) 주문 명중 굴림과 주문 DC가 <strong>달인</strong>으로 증가합니다. 20레벨에 5순환 주문 슬롯 1개를 얻습니다.'}
 ,
   // ══════════════════════════════════
   //  체인질링 혈통/재주
