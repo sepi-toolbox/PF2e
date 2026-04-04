@@ -1883,7 +1883,7 @@ const FEAT_DB = [
 ,
   {name_ko:'녹색 남자의 부름', name_en:'Call of the Green Man', feat_level:13, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'식물 형태를 5랭크 원시 선천 주문으로 하루 1회 시전. 17레벨에서 6랭크.', desc:'근처의 자연 영혼을 불러 몸을 강화합니다. <strong>하루 1회</strong>, <em>식물 형태(Plant Form)</em>를 <strong>5랭크 원시 선천 주문</strong>으로 시전 가능. 17레벨에서 6랭크로 고양 가능.'}
 ,
-  {name_ko:'독의 망토', name_en:'Cloak of Poison', feat_level:13, prerequisites:'레쉬', traits:['레쉬','독'], category:'ancestry', summary:'[2행동] 독의 망토: 하루 1회, 1분간 접촉/근접 공격자에게 3d6 독 피해.', desc:'<strong>빈도:</strong> 하루 1회<br>공격하는 자를 해치는 농축 독의 망토를 분비합니다. <strong>1분간</strong>, 당신을 만지거나 도달 특질 없는 비무장 공격이나 근접 무기로 피해를 주는 생물은 <strong>3d6 독 피해</strong>를 받습니다.'}
+  {name_ko:'독의 망토', name_en:'Cloak of Poison', feat_level:13, prerequisites:'레쉬', traits:['레쉬','독'], category:'ancestry', summary:'[2행동] 독의 망토: 하루 1회, 1분간 접촉/근접 공격자에게 3d6 독 피해.', desc:'<strong>빈도:</strong> 하루 1회<br>공격하는 자를 해치는 농축 독의 망토를 분비합니다. <strong>1분간</strong>, 당신을 만지거나 도달 특성 없는 비무장 공격이나 근접 무기로 피해를 주는 생물은 <strong>3d6 독 피해</strong>를 받습니다.'}
 ,
   {name_ko:'번영과 파멸', name_en:'Flourish and Ruin', feat_level:17, prerequisites:'레쉬', traits:['레쉬'], category:'ancestry', summary:'생명의 장 + 덩굴 뒤엉킴을 6랭크 원시 선천 주문으로 하루 1회씩 시전.', desc:'영혼의 생명 정수를 불러 아군의 생명을 회복하고 덩굴로 적을 얽어 매립니다. <em>생명의 장(Field of Life)</em>과 <em>덩굴 뒤엉킴(Tangling Creepers)</em>을 <strong>6랭크 원시 선천 주문으로 하루 1회씩</strong> 시전 가능.'}
 ,
