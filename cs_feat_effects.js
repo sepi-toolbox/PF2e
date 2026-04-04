@@ -220,9 +220,6 @@ const FEAT_EFFECTS = {
   'Slippery Secrets': {
     effects: [{type:'display_note', text:'거짓말 감지/판독 불가 효과에 대한 의지 내성 +1 상황 보너스'}]
   },
-  'Bon Mot': {
-    effects: [{type:'grant_action', action:'bon-mot'}, {type:'display_note', text:'[1행동] 외교로 적의 지각/의지에 -2~-3 상태 페널티 (1분)'}]
-  },
   'Group Impression': {
     effects: [{type:'display_note', text:'인상 만들기를 최대 4명에게 동시 사용 가능'}]
   },

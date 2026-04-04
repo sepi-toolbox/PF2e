@@ -112,16 +112,14 @@ const SUBCLASS_DB = [
   {id:'patron-rune',   class_id:'witch', subclass_type:'후원자', name_ko:'룬',     name_en:'Rune',    summary:'룬 마법의 후원자. 신비(Arcane) 전통. 주술: 룬 저주(Pact of Doom). 변환·방호 관련 주문.'},
   {id:'patron-wild',   class_id:'witch', subclass_type:'후원자', name_ko:'야생',   name_en:'Wild',    summary:'자연 야생의 후원자. 원시(Primal) 전통. 주술: 야생의 분노(Wilding Word). 자연·동물 관련 주문.'},
 
-  // ── 위저드 마법학파 ──
-  {id:'school-abjuration',    class_id:'wizard', subclass_type:'마법학파', name_ko:'방호학파',   name_en:'Abjuration',    summary:'방어와 보호 마법 전문. 집중 주문: 마법 방어막(Protective Wards). 방호 주문 자동 습득.'},
-  {id:'school-conjuration',   class_id:'wizard', subclass_type:'마법학파', name_ko:'소환학파',   name_en:'Conjuration',   summary:'소환과 공간 마법 전문. 집중 주문: 순간 이동(Dimensional Steps). 소환 주문 자동 습득.'},
-  {id:'school-divination',    class_id:'wizard', subclass_type:'마법학파', name_ko:'예지학파',   name_en:'Divination',    summary:'정보와 예언 마법 전문. 집중 주문: 예언의 눈(Diviner\'s Sight). 예지 주문 자동 습득.'},
-  {id:'school-enchantment',   class_id:'wizard', subclass_type:'마법학파', name_ko:'조종학파',   name_en:'Enchantment',   summary:'마음 조종 마법 전문. 집중 주문: 마음 통제(Charming Words). 조종 주문 자동 습득.'},
-  {id:'school-evocation',     class_id:'wizard', subclass_type:'마법학파', name_ko:'소멸학파',   name_en:'Evocation',     summary:'에너지와 파괴 마법 전문. 집중 주문: 마법 손(Force Bolt). 소멸 주문 자동 습득.'},
-  {id:'school-illusion',      class_id:'wizard', subclass_type:'마법학파', name_ko:'환상학파',   name_en:'Illusion',      summary:'환상과 속임 마법 전문. 집중 주문: 환영 숨기기(Warped Terrain). 환상 주문 자동 습득.'},
-  {id:'school-necromancy',    class_id:'wizard', subclass_type:'마법학파', name_ko:'죽음학파',   name_en:'Necromancy',    summary:'생명력과 언데드 마법 전문. 집중 주문: 생명 흡수(Call of the Grave). 죽음 주문 자동 습득.'},
-  {id:'school-transmutation', class_id:'wizard', subclass_type:'마법학파', name_ko:'변환학파',   name_en:'Transmutation', summary:'변형과 변환 마법 전문. 집중 주문: 마법 손아귀(Shifting Form). 변환 주문 자동 습득.'},
-  {id:'school-unified',       class_id:'wizard', subclass_type:'마법학파', name_ko:'통합 마법 이론', name_en:'Unified Magical Theory', summary:'특정 학파 비전문. 모든 마법학파에서 주문 습득 가능. 집중 주문 풀이 더 다양함.'},
+  // ── 위저드 비전 학파 (Remaster) ──
+  {id:'school-ars-grammatica', class_id:'wizard', subclass_type:'비전 학파', name_ko:'문법 학파',      name_en:'Ars Grammatica',        summary:'문자와 수호의 마법. 학파 주문: 보호의 말(Protective Words) / 감시의 룬(Rune of Observation). 교과: message, sigil 등.'},
+  {id:'school-battle-magic',   class_id:'wizard', subclass_type:'비전 학파', name_ko:'전투 마법 학파', name_en:'Battle Magic',          summary:'전쟁과 파괴의 마법. 학파 주문: 힘의 화살(Force Bolt) / 에너지 흡수(Energy Absorption). 교과: shield, fire 등.'},
+  {id:'school-boundary',       class_id:'wizard', subclass_type:'비전 학파', name_ko:'경계 학파',      name_en:'The Boundary',          summary:'차원과 소환의 마법. 학파 주문: 소환 강화(Fortify Summoning) / 공포의 나선(Spiral of Horrors). 교과: telekinetic hand 등.'},
+  {id:'school-civic-wizardry', class_id:'wizard', subclass_type:'비전 학파', name_ko:'시민 마법 학파', name_en:'Civic Wizardry',        summary:'건설과 실용의 마법. 학파 주문: 대지 공사(Earthworks) / 가족 회복(Community Restoration). 교과: prestidigitation 등.'},
+  {id:'school-mentalism',      class_id:'wizard', subclass_type:'비전 학파', name_ko:'정신 학파',      name_en:'Mentalism',             summary:'환상과 정신의 마법. 학파 주문: 매혹의 밀침(Charming Push) / 투명 망토(Invisibility Cloak). 교과: daze, figment 등.'},
+  {id:'school-protean-form',   class_id:'wizard', subclass_type:'비전 학파', name_ko:'변형 학파',      name_en:'Protean Form',          summary:'변형과 변환의 마법. 학파 주문: 몸 뒤섞기(Scramble Body) / 변형(Shifting Form). 교과: gouging claw 등.'},
+  {id:'school-unified',        class_id:'wizard', subclass_type:'비전 학파', name_ko:'통합 이론 학파', name_en:'Unified Magical Theory', summary:'특정 학파에 전문화하지 않고 모든 학파에서 자유롭게 습득. 교과 주문 없음, 대신 유연성 확보.'},
 ];
 
 const ANCESTRIES = [
@@ -596,7 +594,6 @@ const ACTION_DB = [
   {id:'inspire-defense',cat:'feat', cat_label:'재주 행동', name_ko:'방어 고취',       name_en:'Inspire Defense',cost:'1',        traits:['집중','조작','청각','감정','정신'],req_skill:null, req_rank:0, req_feat:'방어 고취', summary:'바드 캔트립. 아군의 AC와 내성에 +1 사기 보너스.'},
   {id:'channel-smite', cat:'feat',  cat_label:'재주 행동', name_ko:'채널 강타',       name_en:'Channel Smite',  cost:'2',        traits:['신성','사악','선'],req_skill:null, req_rank:0, req_feat:'채널 강타', summary:'신성 시전 에너지를 무기 타격에 담아 발사합니다.'},
   {id:'battle-medicine',cat:'feat', cat_label:'재주 행동', name_ko:'전투 의학',       name_en:'Battle Medicine', cost:'1',       traits:['조작','의학'],     req_skill:null, req_rank:0, req_feat:'전투 의학', summary:'전투 중 부상 치료. 1일 1회/대상. 숙련 2d8, 전문가 2d8+10, 달인 4d8+30, 전설 4d8+50.'},
-  {id:'bon-mot',       cat:'feat',  cat_label:'재주 행동', name_ko:'한마디',          name_en:'Bon Mot',        cost:'1',        traits:['청각','감정','언어','정신'],req_skill:null, req_rank:0, req_feat:'한마디', summary:'외교로 적의 지각/의지에 -2~-3 상태 페널티 (1분).'},
   {id:'goblin-song',   cat:'feat',  cat_label:'재주 행동', name_ko:'고블린 노래',     name_en:'Goblin Song',    cost:'1',        traits:['고블린'],          req_skill:null, req_rank:0, req_feat:'고블린 노래', summary:'공연으로 적의 지각/의지에 -1 상태 페널티.'},
   {id:'hunt-prey',     cat:'feat',  cat_label:'재주 행동', name_ko:'사냥감 지정',     name_en:'Hunt Prey',      cost:'1',        traits:['레인저'],          req_skill:null, req_rank:0, req_feat:'사냥감 지정', summary:'볼 수 있거나 추적 중인 생물 1명을 사냥감으로 지정합니다. 사냥감을 탐색(Seek)하기 위한 지각 판정에 <strong>+2 상황 보너스</strong>, 추적(Track)을 위한 생존 판정에 <strong>+2 상황 보너스</strong>. 사냥감에 대한 두 번째 사거리 증분 내 원거리 공격 페널티도 무시합니다. 한 번에 사냥감 1명만 가능. 다음 일일 준비까지 지속.'},
 

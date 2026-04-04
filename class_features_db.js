@@ -333,12 +333,14 @@ var SUBCLASS_AUTO_SPELLS = {
   'order-wave':   [{lv:1, type:'focus', name_ko:'조류 파도', name_en:'Tidal Surge'}],
   'order-wild':   [{lv:1, type:'focus', name_ko:'야생 변신', name_en:'Wild Shape'}],
   // order-animal: DB에 Heal Animal 없음
-  // ── 위저드 학파 (DB 매칭) ──
-  'school-abjuration':    [{lv:1, type:'focus', name_ko:'보호의 수호', name_en:'Protective Wards'}],
-  'school-conjuration':   [{lv:1, type:'focus', name_ko:'소환 강화', name_en:'Fortify Summoning'}],
-  'school-evocation':     [{lv:1, type:'focus', name_ko:'힘의 화살', name_en:'Force Bolt'}],
-  'school-transmutation': [{lv:1, type:'focus', name_ko:'변형', name_en:'Shifting Form'}],
-  // school-divination, enchantment, illusion, necromancy: DB에 매칭 주문 없음
+  // ── 위저드 비전 학파 (Remaster) ──
+  'school-ars-grammatica': [{lv:1, type:'focus', name_ko:'보호의 말', name_en:'Protective Words'}],
+  'school-battle-magic':   [{lv:1, type:'focus', name_ko:'힘의 화살', name_en:'Force Bolt'}],
+  'school-boundary':       [{lv:1, type:'focus', name_ko:'소환 강화', name_en:'Fortify Summoning'}],
+  'school-civic-wizardry': [{lv:1, type:'focus', name_ko:'대지 공사', name_en:'Earthworks'}],
+  'school-mentalism':      [{lv:1, type:'focus', name_ko:'매혹의 밀침', name_en:'Charming Push'}],
+  'school-protean-form':   [{lv:1, type:'focus', name_ko:'몸 뒤섞기', name_en:'Scramble Body'}],
+  // school-unified: 학파 주문 없음 (통합 이론)
   // ── 위치 후원자 (DB 매칭) ──
   'patron-curse':  [{lv:1, type:'focus', name_ko:'사악한 눈', name_en:'Evil Eye'}],
   'patron-fate':   [{lv:1, type:'focus', name_ko:'운명 조정', name_en:'Nudge Fate'}],
@@ -396,16 +398,14 @@ var SUBCLASS_FEATURE_NAMES = {
   'patron-night':  [{lv:1, name_ko:'오컬트 전통 / 주술: 마녀의 빗장', name_en:'Occult / Shroud of Night'}],
   'patron-rune':   [{lv:1, name_ko:'비전 전통 / 주술: 파멸의 서약', name_en:'Arcane / Discern Secrets'}],
   'patron-wild':   [{lv:1, name_ko:'원시 전통 / 주술: 야생의 분노', name_en:'Primal / Wilding Word'}],
-  // ── 위저드 마법학파 ──
-  'school-abjuration':    [{lv:1, name_ko:'학파 주문: 마법 방어막', name_en:'Protective Wards'}],
-  'school-conjuration':   [{lv:1, name_ko:'학파 주문: 비전 소환', name_en:'Augment Summoning'}],
-  'school-divination':    [{lv:1, name_ko:'학파 주문: 예언의 눈', name_en:"Diviner's Sight"}],
-  'school-enchantment':   [{lv:1, name_ko:'학파 주문: 매혹의 말', name_en:'Charming Words'}],
-  'school-evocation':     [{lv:1, name_ko:'학파 주문: 힘의 화살', name_en:'Force Bolt'}],
-  'school-illusion':      [{lv:1, name_ko:'학파 주문: 지형 왜곡', name_en:'Warped Terrain'}],
-  'school-necromancy':    [{lv:1, name_ko:'학파 주문: 무덤의 부름', name_en:'Call of the Grave'}],
-  'school-transmutation': [{lv:1, name_ko:'학파 주문: 물질 변형', name_en:'Shifting Form'}],
-  'school-unified':       [{lv:1, name_ko:'통합 이론: 유연한 학파', name_en:'Universalist Flexibility'}],
+  // ── 위저드 비전 학파 (Remaster) ──
+  'school-ars-grammatica': [{lv:1, name_ko:'학파 주문: 보호의 말', name_en:'Protective Words'}],
+  'school-battle-magic':   [{lv:1, name_ko:'학파 주문: 힘의 화살', name_en:'Force Bolt'}],
+  'school-boundary':       [{lv:1, name_ko:'학파 주문: 소환 강화', name_en:'Fortify Summoning'}],
+  'school-civic-wizardry': [{lv:1, name_ko:'학파 주문: 대지 공사', name_en:'Earthworks'}],
+  'school-mentalism':      [{lv:1, name_ko:'학파 주문: 매혹의 밀침', name_en:'Charming Push'}],
+  'school-protean-form':   [{lv:1, name_ko:'학파 주문: 몸 뒤섞기', name_en:'Scramble Body'}],
+  'school-unified':        [{lv:1, name_ko:'통합 이론: 유연한 주문', name_en:'Unified Flexibility'}],
 };
 
 // ═══════════════════════════════════════════════
