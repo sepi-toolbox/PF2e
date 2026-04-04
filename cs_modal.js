@@ -3329,8 +3329,7 @@ function resetFromSubclass() {
   state.selectedSubclass = null;
   const subBtn = document.getElementById('btn-subclass');
   if (subBtn) { subBtn.textContent = '서브클래스...'; subBtn.classList.remove('filled'); }
-  applyClassFeatures();
-  recalcAll();
+  applyClassFeatures(); // 내부에서 recalcAll() 호출됨
   renderGrowthPlan();
   save();
 }
