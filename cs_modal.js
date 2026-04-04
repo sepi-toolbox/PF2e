@@ -698,7 +698,7 @@ function applyClassFeatures() {
         if (f._auto && !f.choice) {
           const nameEn = typeof _extractEnName === 'function' ? _extractEnName(f.name) : '';
           if (nameEn && typeof FEAT_EFFECTS !== 'undefined' && FEAT_EFFECTS[nameEn] && FEAT_EFFECTS[nameEn].choice) {
-            setTimeout(() => checkFeatChoice(f.name, cat, idx), 300);
+            setTimeout(() => checkFeatChoice(f.name, cat, idx), 0);
           }
         }
       });
