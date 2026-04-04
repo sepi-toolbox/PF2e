@@ -3622,6 +3622,11 @@ function confirmModal() {
     renderFeats();
     renderSpells();
     renderGrowthPlan();
+  } else if (modalType==='muse_pick') {
+    // 다양한 뮤즈 선택 — feat choice에 id 적용
+    if (modalSelected && modalContext) {
+      _applyFeatChoice(modalSelected.id);
+    }
   } else if (modalType==='heritage') {
     state.selectedHeritage = modalSelected;
     const btn = document.getElementById('btn-heritage');

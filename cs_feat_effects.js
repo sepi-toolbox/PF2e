@@ -3396,33 +3396,46 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     };
     container.appendChild(btn);
   } else if (choiceDef.type === 'muse_pick') {
-    // ── 다양한 뮤즈 전용: 서브클래스 선택과 동일한 UI ──
-    // 이미 선택된 뮤즈 수집 (메인 서브클래스 + 다양한 뮤즈 choices)
+    // ── 다양한 뮤즈 전용: 기존 서브클래스 모달과 완전히 동일한 UI ──
+    // 모달을 리셋하고 서브클래스 모달 방식으로 전환
+    overlay.classList.add('hidden'); // 현재 feat-choice 모달 닫기
+
+    // 이미 선택된 뮤즈 수집
     const takenMuses = new Set();
     if (state.selectedSubclass) takenMuses.add(state.selectedSubclass.id);
     Object.values(state.feats).flat().forEach(ff => {
       if (ff?.name?.includes('다양한 뮤즈') && ff.choice) takenMuses.add(ff.choice);
     });
 
-    // 바드 뮤즈 목록에서 이미 선택된 것 제외
+    // 서브클래스 모달 열기 (muse_pick 모드)
+    modalType = 'muse_pick';
+    modalContext = {featType, featIndex, choiceDef, takenMuses};
+    overlay.classList.remove('hidden');
+    document.getElementById('modal-title').textContent = '추가 뮤즈 선택';
+    const searchEl2 = document.getElementById('modal-search');
+    if (searchEl2) { searchEl2.style.display = 'none'; searchEl2.value = ''; }
+    const fbar2 = document.getElementById('modal-filterbar');
+    if (fbar2) fbar2.innerHTML = '';
+    // 목록 + 상세 패널 레이아웃 복원 (서브클래스 모달과 동일)
+    const listEl2 = document.querySelector('.modal-list');
+    if (listEl2) { listEl2.style.display = ''; listEl2.style.width = ''; listEl2.style.borderRight = ''; }
+    const detail2 = document.getElementById('modal-detail');
+    if (detail2) detail2.style.display = '';
+    const confirmBtn2 = document.querySelector('.btn-confirm');
+    if (confirmBtn2) confirmBtn2.style.display = '';
+    const closeBtn2 = document.querySelector('.modal-close');
+    if (closeBtn2) closeBtn2.style.display = '';
+    const closeBtnM2 = document.getElementById('modal-close-m');
+    if (closeBtnM2) closeBtnM2.style.display = '';
+    const footer2 = document.querySelector('.modal-footer');
+    if (footer2) footer2.style.display = '';
+
+    // 필터링된 뮤즈 목록으로 renderOptions 호출
     const museList = typeof SUBCLASS_DB !== 'undefined'
       ? SUBCLASS_DB.filter(s => s.class_id === 'bard' && !takenMuses.has(s.id))
       : [];
-
-    if (museList.length === 0) {
-      container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text2);">선택 가능한 뮤즈가 없습니다.</div>';
-    } else {
-      museList.forEach(muse => {
-        const row = document.createElement('div');
-        row.className = 'opt-row';
-        row.style.cssText = 'cursor:pointer;padding:10px 12px;border-bottom:1px solid var(--border);';
-        row.innerHTML = `
-          <div style="font-weight:600;font-size:14px;color:var(--text1);">${muse.name_ko} <span style="font-size:12px;color:var(--text2);">${muse.name_en}</span></div>
-          <div style="font-size:11px;color:var(--text2);margin-top:4px;line-height:1.4;">${(muse.summary||'').replace(/<[^>]*>/g,'').substring(0,120)}${(muse.summary||'').length>120?'...':''}</div>`;
-        row.onclick = () => _applyFeatChoice(muse.id);
-        container.appendChild(row);
-      });
-    }
+    renderOptions(museList);
+    return; // 이후 로직 스킵
   } else if (choiceDef.type === 'custom' && choiceDef.options) {
     // 영역 입문: 신격 영역으로 필터링
     let filteredOpts = choiceDef.options;
