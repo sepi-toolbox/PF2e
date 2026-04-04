@@ -1093,7 +1093,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'용감한 찬가 영향 중 아군의 무기/비무장 공격에 추가 1d6 음파 피해'}]
   },
   'Eternal Composition': {
-    effects: [{type:'display_note', text:'영구 빠른(quickened) 상태 — 추가 행동은 1행동 작곡 캔트립에만 사용'}]
+    effects: [{type:'display_note', text:'영구 가속(quickened) 상태 — 추가 행동은 1행동 작곡 캔트립에만 사용'}]
   },
   'Impossible Polymath': {
     effects: [{type:'display_note', text:'주문학→비전, 자연학→원시, 종교학→신성 주문을 주문서에 추가 가능'}]
