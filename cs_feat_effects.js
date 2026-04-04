@@ -3482,7 +3482,8 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       }
     }
     if (choiceDef.repeatable && choiceDef.label && choiceDef.label.includes('영역')) {
-      const featBaseName = feat.name ? feat.name.split(' (')[0] : '';
+      const curFeat = (featType && featIndex != null && state.feats[featType]) ? state.feats[featType][featIndex] : null;
+      const featBaseName = curFeat && curFeat.name ? curFeat.name.split(' (')[0] : '';
       const alreadyChosen = new Set();
       Object.values(state.feats).flat().forEach(f => {
         if (f && f.name && f.name.split(' (')[0] === featBaseName && f.choice) alreadyChosen.add(f.choice);
