@@ -415,7 +415,7 @@ const SPELL_DB = [
     summary: "1 부피 이하의 비고정 물체를 염동력으로 발사하여 적에게 날립니다. AC에 대한 주문 공격 굴림을 합니다. 성공 시 2d6 둔기, 관통, 또는 참격 피해(발사한 물체에 적합한 유형)를 가합니다. 물체의 특수 특성이나 마법 속성은 적용되지 않습니다.강화(+1): 피해 +1d6.",
     desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> AC<br>1 부피 이하의 비고정 물체를 염동력으로 발사하여 적에게 날립니다. AC에 대한 주문 공격 굴림을 합니다. 성공 시 <strong>2d6 둔기, 관통, 또는 참격 피해</strong>(발사한 물체에 적합한 유형)를 가합니다. 물체의 특수 특성이나 마법 속성은 적용되지 않습니다.<br><strong>강화(+1):</strong> 피해 +1d6." },
 
-  { name_ko: "고양의 서곡",
+  { name_ko: "고양 서곡",
     name_en: "Uplifting Overture",
     rank: 1,
     is_cantrip: true,
@@ -470,7 +470,7 @@ const SPELL_DB = [
     summary: "자연 생물에게 간단한 메시지를 전달합니다. 복잡한 개념은 전달할 수 없지만, 기본적인 의도(위험, 안전, 먹이 등)를 전달할 수 있습니다.",
     desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 동물 또는 식물 1<br>자연 생물에게 간단한 메시지를 전달합니다. 복잡한 개념은 전달할 수 없지만, 기본적인 의도(위험, 안전, 먹이 등)를 전달할 수 있습니다." },
 
-  { name_ko: "집결의 찬가",
+  { name_ko: "결집의 찬가",
     name_en: "Rallying Anthem",
     rank: 2,
     is_cantrip: true,
@@ -483,7 +483,7 @@ const SPELL_DB = [
     summary: "아군이 더 효과적으로 자신을 보호하도록 돕는 노래를 부릅니다. 당신과 영역 내 모든 아군은 AC와 내성 굴림에 +1 상태 보너스를 얻으며, 주문 랭크의 절반과 동일한 물리 피해 저항도 얻습니다.",
     desc: "<strong>영역:</strong> 60피트 발산<br><strong>지속 시간:</strong> 1라운드<br>아군이 더 효과적으로 자신을 보호하도록 돕는 노래를 부릅니다. 당신과 영역 내 모든 아군은 AC와 내성 굴림에 <strong>+1 상태 보너스</strong>를 얻으며, 주문 랭크의 절반과 동일한 <strong>물리 피해 저항</strong>도 얻습니다." },
 
-  { name_ko: "삼박자",
+  { name_ko: "세 박자",
     name_en: "Triple Time",
     rank: 2,
     is_cantrip: true,
@@ -496,7 +496,7 @@ const SPELL_DB = [
     summary: "빠른 박자를 설정합니다. 당신과 영역 내 모든 아군은 1라운드 동안 모든 이동 속도에 +10피트 상태 보너스를 얻습니다.",
     desc: "<strong>영역:</strong> 60피트 발산<br><strong>지속 시간:</strong> 1라운드<br>빠른 박자를 설정합니다. 당신과 영역 내 모든 아군은 1라운드 동안 모든 이동 속도에 <strong>+10피트 상태 보너스</strong>를 얻습니다." },
 
-  { name_ko: "죽음의 디르지",
+  { name_ko: "파멸의 만가",
     name_en: "Dirge of Doom",
     rank: 3,
     is_cantrip: true,
@@ -522,7 +522,7 @@ const SPELL_DB = [
     summary: "아군의 이동을 유지하는 경쾌한 연주를 합니다. 당신과 영역 내 아군은 주문 지속 시간 동안 다른 탐험 활동에 추가하여 급행군(Hustle)을 할 수 있습니다(당신의 탐험 활동은 이 주문의 유지입니다). 이후 당신과 아군은 1일간 일시 면역이 됩니다.이 노래를 연주하는 중에 전투에 돌입하면, 선제력 굴림에 공연 수정치를 사용할 수 있습니다. 당신과 영향...",
     desc: "<strong>영역:</strong> 60피트 발산<br><strong>지속 시간:</strong> 유지(최대 1시간)<br>아군의 이동을 유지하는 경쾌한 연주를 합니다. 당신과 영역 내 아군은 주문 지속 시간 동안 다른 탐험 활동에 추가하여 <strong>급행군(Hustle)</strong>을 할 수 있습니다(당신의 탐험 활동은 이 주문의 유지입니다). 이후 당신과 아군은 <strong>1일간 일시 면역</strong>이 됩니다.<br>이 노래를 연주하는 중에 전투에 돌입하면, 선제력 굴림에 <strong>공연 수정치</strong>를 사용할 수 있습니다. 당신과 영향받은 아군은 해당 선제력 굴림에 <strong>+1 상태 보너스</strong>도 받습니다.<br><strong>강화(6랭크):</strong> 최대 2시간까지 유지 가능.<br><strong>강화(9랭크):</strong> 최대 4시간까지 유지 가능." },
 
-  { name_ko: "환영의 벽집",
+  { name_ko: "상상의 벽 집",
     name_en: "House of Imaginary Walls",
     rank: 5,
     is_cantrip: true,

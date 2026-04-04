@@ -934,10 +934,10 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'추가 뮤즈: $choice_name — 해당 뮤즈 1레벨 재주 획득'}]
   },
   'Song of Strength': {
-    effects: [{type:'display_note', text:'합주 캔트립: 힘의 노래 습득. 아군의 운동 판정 보조'}]
+    effects: [{type:'grant_focus_spell', spell:'힘의 노래'}, {type:'display_note', text:'합주 캔트립: 힘의 노래 습득. 아군의 운동 판정 보조'}]
   },
   'Uplifting Overture': {
-    effects: [{type:'display_note', text:'합주 캔트립: 고양 서곡 습득. 아군의 기술 판정 보조'}]
+    effects: [{type:'grant_focus_spell', spell:'고양 서곡'}, {type:'display_note', text:'합주 캔트립: 고양 서곡 습득. 아군의 기술 판정 보조'}]
   },
 
   // ── 4레벨 ──
@@ -954,13 +954,13 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[주문변형] 주문 구성요소를 공연에 숨김. 지각 판정 성공해야 감지'}]
   },
   'Rallying Anthem': {
-    effects: [{type:'display_note', text:'합주 캔트립: 결집의 찬가 습득. 아군 의지 내성 강화 및 정신 피해 저항'}]
+    effects: [{type:'grant_focus_spell', spell:'결집의 찬가'}, {type:'display_note', text:'합주 캔트립: 결집의 찬가 습득. 아군 의지 내성 강화 및 정신 피해 저항'}]
   },
   'Ritual Researcher': {
     effects: [{type:'display_note', text:'오컬티즘으로 의식 학습 가능. 보조 판정 성공도 한 단계 향상'}]
   },
   'Triple Time': {
-    effects: [{type:'display_note', text:'합주 캔트립: 세 박자 습득. 아군 이동 속도 증가'}]
+    effects: [{type:'grant_focus_spell', spell:'세 박자'}, {type:'display_note', text:'합주 캔트립: 세 박자 습득. 아군 이동 속도 증가'}]
   },
   'Versatile Signature': {
     effects: [{type:'display_note', text:'일일 준비 시 각 랭크의 시그니처 주문 변경 가능'}]
@@ -974,7 +974,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[주문변형] 결집의 찬가 시전 시 방패 올리기 + 아군 1명도 방패 올리기'}]
   },
   'Dirge of Doom': {
-    effects: [{type:'display_note', text:'합주 캔트립: 파멸의 만가 습득. 적에게 공포 부여'}]
+    effects: [{type:'grant_focus_spell', spell:'파멸의 만가'}, {type:'display_note', text:'합주 캔트립: 파멸의 만가 습득. 적에게 공포 부여'}]
   },
   'Educate Allies': {
     effects: [{type:'display_note', text:'합주 영향 아군에게 해박한 보너스(+1) 전달. 자신은 +2로 증가'}]
@@ -983,7 +983,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[주문변형] 합주를 조화시켜 다른 합주와 동시 유지 가능'}]
   },
   'Song of Marching': {
-    effects: [{type:'display_note', text:'합주 캔트립: 행군의 노래 습득. 장거리 행군 피로 경감'}]
+    effects: [{type:'grant_focus_spell', spell:'행군의 노래'}, {type:'display_note', text:'합주 캔트립: 행군의 노래 습득. 장거리 행군 피로 경감'}]
   },
   // 'Steady Spellcasting' — 공유 재주, 위치 섹션에 정의됨
 
@@ -1018,7 +1018,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'[주문변형] 용감한 찬가 시전 시 아군 1명이 반응으로 근접 타격'}]
   },
   'House of Imaginary Walls': {
-    effects: [{type:'display_note', text:'합주 캔트립: 상상의 벽 집 습득. 상상의 장벽 생성'}]
+    effects: [{type:'grant_focus_spell', spell:'상상의 벽 집'}, {type:'display_note', text:'합주 캔트립: 상상의 벽 집 습득. 상상의 장벽 생성'}]
   },
   'Ode to Ouroboros': {
     effects: [{type:'display_note', text:'집중 주문: 뱀 물기의 송가 습득. 아군을 일시적으로 죽음에서 구함. 집중 포인트 풀 +1 (최대 3)'}]
@@ -1052,7 +1052,7 @@ const FEAT_EFFECTS = {
 
   // ── 14레벨 ──
   'Allegro': {
-    effects: [{type:'display_note', text:'합주 캔트립: 알레그로 습득. 아군 가속'}]
+    effects: [{type:'grant_focus_spell', spell:'알레그로'}, {type:'display_note', text:'합주 캔트립: 알레그로 습득. 아군 가속'}]
   },
   'Earworm': {
     effects: [{type:'display_note', text:'10분간 합주 캔트립을 아군 머릿속에 심어 나중에 자유 행동으로 활성화'}]
