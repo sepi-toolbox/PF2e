@@ -428,6 +428,7 @@ function switchTab(id, el) {
 
 // Fix recalcAll to also update mobile mirror attribute displays + auto-save
 let _loadComplete = false;
+let _cloudLoading = false;  // 클라우드 로드 중에는 자동저장 차단
 const _origRecalcAll = recalcAll;
 recalcAll = function() {
   _origRecalcAll();
@@ -437,8 +438,8 @@ recalcAll = function() {
     const dst = document.getElementById('mod-' + a + '-m');
     if (src && dst) dst.textContent = src.textContent;
   });
-  // 초기 로드 완료 후에만 자동저장
-  if (_loadComplete) save();
+  // 초기 로드 완료 후 + 클라우드 로드 중이 아닐 때만 자동저장
+  if (_loadComplete && !_cloudLoading) save();
 };
 
 // Re-init window.onload to use new tab

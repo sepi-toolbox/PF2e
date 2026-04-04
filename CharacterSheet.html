@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=290"></script>
-<script src="feat_db.js?v=290"></script>
-<script src="SPELL_DB.js?v=290"></script>
-<script src="class_features_db.js?v=290"></script>
+<script src="equipment_db.js?v=291"></script>
+<script src="feat_db.js?v=291"></script>
+<script src="SPELL_DB.js?v=291"></script>
+<script src="class_features_db.js?v=291"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1242,7 +1242,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v290</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v291</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1798,13 +1798,13 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=290"></script>
-<script src="cs_calc.js?v=290"></script>
-<script src="cs_ui.js?v=290"></script>
-<script src="cs_modal.js?v=290"></script>
-<script src="cs_feat_effects.js?v=290"></script>
-<script src="cs_save.js?v=290"></script>
-<script src="cs_dice.js?v=290"></script>
+<script src="cs_data.js?v=291"></script>
+<script src="cs_calc.js?v=291"></script>
+<script src="cs_ui.js?v=291"></script>
+<script src="cs_modal.js?v=291"></script>
+<script src="cs_feat_effects.js?v=291"></script>
+<script src="cs_save.js?v=291"></script>
+<script src="cs_dice.js?v=291"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -1858,6 +1858,7 @@ function saveToCloud() {
 
 function loadFromCloud() {
   if (!currentUser) { alert('로그인이 필요합니다.'); return; }
+  if (typeof _cloudLoading !== 'undefined') _cloudLoading = true;
   var status = document.getElementById('save-status');
   status.textContent = '불러오는 중...';
   status.style.color = '#f5c518';
@@ -1879,18 +1880,21 @@ function loadFromCloud() {
       if (typeof renderWeapons === 'function') renderWeapons();
       if (typeof renderArmorCard === 'function') renderArmorCard();
       if (typeof renderShieldCard === 'function') renderShieldCard();
+      if (typeof _cloudLoading !== 'undefined') _cloudLoading = false;
       recalcAll();
       status.textContent = '✓ 불러오기 완료';
       status.style.color = '#27ae60';
     } else {
       status.textContent = '이 슬롯은 비어있습니다.';
       status.style.color = '#888';
+      if (typeof _cloudLoading !== 'undefined') _cloudLoading = false;
       recalcAll();
     }
   }).catch(function(e) {
     status.textContent = '새 캐릭터';
     status.style.color = '#888';
     console.warn('[loadFromCloud] empty or error:', e);
+    if (typeof _cloudLoading !== 'undefined') _cloudLoading = false;
     recalcAll();
   });
 }
