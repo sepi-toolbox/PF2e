@@ -2640,9 +2640,20 @@ function _checkPrereqs(prereqStr) {
     if (state.selectedSubclass) {
       const sub = state.selectedSubclass;
       if (sub.name_ko === c || sub.name_en === c) continue;
-      // "name_ko subclass_type" 형태 (예: "수수께끼 뮤즈", "전투 사제 교의")
       if (sub.subclass_type && c === sub.name_ko + ' ' + sub.subclass_type) continue;
       if (sub.subclass_type && sub.name_en && c === sub.name_en + ' ' + sub.subclass_type) continue;
+    }
+    // 다양한 뮤즈/결사 탐험가 등으로 추가 선택한 서브클래스도 체크
+    if (typeof SUBCLASS_DB !== 'undefined') {
+      let _extraSubMatch = false;
+      Object.values(state.feats).flat().forEach(ff => {
+        if (!ff?.choice || _extraSubMatch) return;
+        const extraSub = SUBCLASS_DB.find(s => s.id === ff.choice);
+        if (!extraSub) return;
+        if (extraSub.name_ko === c || extraSub.name_en === c) _extraSubMatch = true;
+        if (extraSub.subclass_type && c === extraSub.name_ko + ' ' + extraSub.subclass_type) _extraSubMatch = true;
+      });
+      if (_extraSubMatch) continue;
     }
 
     // 숫자+레벨 조건은 통과 (레벨은 별도 필터에서 체크)
@@ -2741,11 +2752,22 @@ function filterFeats() {
       });
     }
 
+    // 이미 배운 재주 이름 수집 (중복 방지용)
+    const _learnedNames = new Set();
+    Object.values(state.feats).flat().forEach(ff => {
+      if (ff && ff.name && !ff._auto) _learnedNames.add(ff.name);
+    });
+
     return FEAT_DB.filter(f => {
       if (!f) return false;
       if (q && !f.name_ko.includes(q) && !(f.name_en||'').toLowerCase().includes(q) && !(f.summary||'').includes(q)) return false;
       if (f.feat_level > maxLv) return false;
       if (f.prerequisites && !_checkPrereqs(f.prerequisites)) return false;
+      // 이미 배운 재주 중복 방지 (repeatable이면 허용)
+      if (!f.repeatable) {
+        const fullName = f.name_ko + (f.name_en ? ` (${f.name_en})` : '');
+        if (_learnedNames.has(fullName)) return false;
+      }
       // 헌신 재주 특수 조건
       if (f.traits?.includes('헌신') && !canTakeDedication(f)) return false;
       if (ft === 'ancestry') {

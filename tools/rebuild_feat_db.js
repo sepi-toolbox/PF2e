@@ -206,6 +206,11 @@ while ((match = h3Re.exec(html)) !== null) {
 
   feat.desc = body.desc;
 
+  // "특수: 여러 번 선택 가능" 패턴 → repeatable:true
+  if (/여러\s*번\s*선택|최대\s*\d+회\s*선택/.test(body.desc)) {
+    feat.repeatable = true;
+  }
+
   feats.push(feat);
 }
 
@@ -287,6 +292,7 @@ for (const f of feats) {
   const sum = f.summary.length > 300 ? f.summary.substring(0, 297) + '...' : f.summary;
   parts.push(`summary:'${escStr(sum)}'`);
   parts.push(`desc:'${escStr(f.desc)}'`);
+  if (f.repeatable) parts.push(`repeatable:true`);
   out += `  {${parts.join(', ')}},\n`;
 }
 

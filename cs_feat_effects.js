@@ -929,13 +929,7 @@ const FEAT_EFFECTS = {
   },
   'Multifarious Muse': {
     choice: {
-      type:'custom', label:'추가 뮤즈를 선택하세요', repeatable:true,
-      options:[
-        {id:'enigma', name:'수수께끼 뮤즈'},
-        {id:'maestro', name:'마에스트로 뮤즈'},
-        {id:'polymath', name:'박학다식 뮤즈'},
-        {id:'warrior', name:'전사 뮤즈'},
-      ]
+      type:'muse_pick', label:'추가 뮤즈를 선택하세요', repeatable:true
     },
     effects: [{type:'display_note', text:'추가 뮤즈: $choice_name — 해당 뮤즈 1레벨 재주 획득'}]
   },
@@ -3256,9 +3250,14 @@ function _getChoiceDisplayName(feat) {
     const sk = SKILLS.find(s => s.id === feat.choice);
     if (sk) return sk.name;
   }
-  // 커스텀 옵션이면 name_en에서 FEAT_EFFECTS의 options 검색
+  // muse_pick: SUBCLASS_DB에서 이름 조회
   const nameEn = _extractEnName(feat.name);
   const def = FEAT_EFFECTS[nameEn];
+  if (def?.choice?.type === 'muse_pick' && typeof SUBCLASS_DB !== 'undefined') {
+    const muse = SUBCLASS_DB.find(s => s.id === feat.choice);
+    if (muse) return muse.name_ko + ' ' + (muse.subclass_type || '뮤즈');
+  }
+  // 커스텀 옵션이면 FEAT_EFFECTS의 options 검색
   if (def && def.choice && def.choice.options) {
     const opt = def.choice.options.find(o => o.id === feat.choice);
     if (opt) return opt.name;
@@ -3285,7 +3284,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
   const detail = document.getElementById('modal-detail');
   if (detail) { detail.style.display = 'none'; }
   // spell_cantrip: 닫기/취소/선택 전부 숨김 (선택 필수, detail 내 버튼만 사용)
-  if (isSpellChoice || choiceDef.type === 'lore' || choiceDef.type === 'custom' || choiceDef.type === 'ancestry_pick' || choiceDef.type === 'feat_pick' || choiceDef.type === 'skill_multi' || choiceDef.type === 'weapon_pick') {
+  if (isSpellChoice || choiceDef.type === 'lore' || choiceDef.type === 'custom' || choiceDef.type === 'muse_pick' || choiceDef.type === 'ancestry_pick' || choiceDef.type === 'feat_pick' || choiceDef.type === 'skill_multi' || choiceDef.type === 'weapon_pick') {
     const closeBtn = document.querySelector('.modal-close');
     const closeBtnM = document.getElementById('modal-close-m');
     const footer = document.querySelector('.modal-footer');
@@ -3396,6 +3395,34 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       if (val) _applyFeatChoice(val);
     };
     container.appendChild(btn);
+  } else if (choiceDef.type === 'muse_pick') {
+    // ── 다양한 뮤즈 전용: 서브클래스 선택과 동일한 UI ──
+    // 이미 선택된 뮤즈 수집 (메인 서브클래스 + 다양한 뮤즈 choices)
+    const takenMuses = new Set();
+    if (state.selectedSubclass) takenMuses.add(state.selectedSubclass.id);
+    Object.values(state.feats).flat().forEach(ff => {
+      if (ff?.name?.includes('다양한 뮤즈') && ff.choice) takenMuses.add(ff.choice);
+    });
+
+    // 바드 뮤즈 목록에서 이미 선택된 것 제외
+    const museList = typeof SUBCLASS_DB !== 'undefined'
+      ? SUBCLASS_DB.filter(s => s.class_id === 'bard' && !takenMuses.has(s.id))
+      : [];
+
+    if (museList.length === 0) {
+      container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text2);">선택 가능한 뮤즈가 없습니다.</div>';
+    } else {
+      museList.forEach(muse => {
+        const row = document.createElement('div');
+        row.className = 'opt-row';
+        row.style.cssText = 'cursor:pointer;padding:10px 12px;border-bottom:1px solid var(--border);';
+        row.innerHTML = `
+          <div style="font-weight:600;font-size:14px;color:var(--text1);">${muse.name_ko} <span style="font-size:12px;color:var(--text2);">${muse.name_en}</span></div>
+          <div style="font-size:11px;color:var(--text2);margin-top:4px;line-height:1.4;">${(muse.summary||'').replace(/<[^>]*>/g,'').substring(0,120)}${(muse.summary||'').length>120?'...':''}</div>`;
+        row.onclick = () => _applyFeatChoice(muse.id);
+        container.appendChild(row);
+      });
+    }
   } else if (choiceDef.type === 'custom' && choiceDef.options) {
     // 영역 입문: 신격 영역으로 필터링
     let filteredOpts = choiceDef.options;
