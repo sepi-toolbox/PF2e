@@ -12,7 +12,7 @@ const CLASS_FEATURE_DESCRIPTIONS = [
   {name_ko:"전설 주문시전자", name_en:"Legendary Spellcaster", cat:"feature", class_id:"bard", feat_level:19, summary:"공연이 우주의 기초를 뒤흔들 수 있습니다. 주문 공격 수정치와 주문 DC 숙련도가 전설로 증가."},
   {name_ko:"마기스터리 주문", name_en:"Magistry Spells", cat:"feature", class_id:"bard", feat_level:19, summary:"가장 강력한 주문시전을 완성했습니다. 오컬트 목록에서 10랭크 주문 1개를 레퍼토리에 추가합니다. 10랭크 주문 슬롯 1개를 얻으며, 이 슬롯으로만 이 주문을 시전할 수 있습니다. 다른 주문 슬롯과 달리, 레벨을 올려도 새 10랭크 슬롯을 얻지 못하지만, 주문을 재훈련으로 교환할 수 있습니다."},
   {name_ko:"신성 주문시전", name_en:"Divine Spellcasting", cat:"feature", class_id:"cleric", feat_level:1, summary:"신격의 힘과 신앙으로 신성(divine) 전통의 주문을 시전합니다. 매일 아침 기도와 명상으로 준비하여, 신성 주문 목록에서 시전할 주문을 선택해 주문 슬롯에 \"로드\"합니다. 핵심 속성이 지혜이므로 주문 DC와 공격 수정치에 지혜를 사용합니다."},
-  {name_ko:"신성 글꼴", name_en:"Divine Font", cat:"feature", class_id:"cleric", feat_level:1, summary:"신격이 특별히 강화된 에너지에 접근을 부여합니다. 치유(heal) 또는 해로움(harm)에 대해 추가 주문 슬롯을 얻으며, 슬롯 수는 1 + 매력 수정치입니다. 글꼴이 둘 다 허용하면 매일 하나를 선택합니다."},
+  {name_ko:"신성 원천", name_en:"Divine Font", cat:"feature", class_id:"cleric", feat_level:1, summary:"신격이 특별히 강화된 에너지에 접근을 부여합니다. 치유(heal) 또는 해로움(harm)에 대해 추가 주문 슬롯을 얻으며, 슬롯 수는 1 + 매력 수정치입니다. 원천이 둘 다 허용하면 매일 하나를 선택합니다."},
   {name_ko:"2차 교의", name_en:"Second Doctrine", cat:"feature", class_id:"cleric", feat_level:3, summary:"선택한 교의의 2차 혜택을 얻습니다(3레벨)."},
   {name_ko:"감지 전문가", name_en:"Alertness", cat:"feature", class_id:"cleric", feat_level:5, summary:"감지 숙련도가 전문가로 증가."},
   {name_ko:"3차 교의", name_en:"Third Doctrine", cat:"feature", class_id:"cleric", feat_level:7, summary:"선택한 교의의 3차 혜택을 얻습니다(7레벨)."},
