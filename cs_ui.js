@@ -1299,7 +1299,7 @@ function renderSpells() {
     if (state.divineFont && state.selectedClass?.id === 'cleric') {
       dfSection.style.display = '';
       const isHeal = state.divineFont === 'heal';
-      const spellName = isHeal ? '치유 (Heal)' : '해악 (Harm)';
+      const spellName = isHeal ? '치유 (Heal)' : '해로움 (Harm)';
       const totalSlots = getDivineFontSlots();
       const used = Math.min(state.divineFontUsed || 0, totalSlots);
       document.getElementById('divine-font-label').textContent = isHeal ? 'Divine Font — Heal' : 'Divine Font — Harm';

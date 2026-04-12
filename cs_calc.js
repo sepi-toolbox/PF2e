@@ -324,7 +324,7 @@ function showInfo(type, name) {
     if (listItems) {
       const nameKoD = item.name || item.name_ko || '';
       const nameEnD = item.en || item.name_en || '';
-      const desc = item.desc || item.summary || '';
+      let desc = item.desc || item.summary || '';
       let tags = '';
       if (item.feat_level !== undefined) tags = `<span class="tag-meta">${item.feat_level}레벨</span> <span class="tag-meta">${item.category||''}</span>`;
       else if (item.rank !== undefined) tags = `<span class="tag-meta">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span> <span class="spell-actions">${item.actions||''}</span>`;

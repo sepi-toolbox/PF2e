@@ -158,11 +158,11 @@ const FEAT_EFFECTS = {
 
   'Assurance': {
     choice: {
-      type:'skill', label:'확인을 적용할 기술을 선택하세요',
+      type:'skill', label:'확신을 적용할 기술을 선택하세요',
       filter:{min_rank:2}, repeatable:true,
     },
     effects: [
-      {type:'display_note', text:'확인($choice_name): 굴림 대신 10 + 숙련 보너스 사용'},
+      {type:'display_note', text:'확신($choice_name): 굴림 대신 10 + 숙련 보너스 사용'},
     ]
   },
   'Skill Training': {

@@ -15,6 +15,11 @@ const CLASS_MAP = {
   '파이터':'fighter', '레인저':'ranger', '로그':'rogue', '위저드':'wizard', '위치':'witch',
   '건터':'gunslinger', '인벤터':'inventor', '매거스':'magus', '스워시버클러':'swashbuckler',
 };
+const ANCESTRY_MAP = {
+  '드워프':'dwarf', '엘프':'elf', '노움':'gnome', '고블린':'goblin',
+  '하플링':'halfling', '인간':'human', '레쉬':'leshy', '오크':'orc',
+  '체인질링':'changeling', '네피림':'nephilim', '아이우바린':'aiuvarin', '드로마르':'dromaar',
+};
 
 // ── h3 헤더에서 재주 파싱 ──
 // 패턴: <h3 ...>한글명 <span class="en">English</span> [행동] — 재주 N [카테고리1] 추가특성...</h3>
@@ -60,16 +65,14 @@ function parseHeader(h3Inner) {
     category = 'skill';
     mainTrait = '일반';
   } else {
-    // 클래스 재주
+    // 클래스 또는 혈통 재주
     const parts = bracketContent.split(/[,\s]+/);
     for (const p of parts) {
-      if (CLASS_MAP[p]) {
-        category = CLASS_MAP[p];
-        break;
-      }
+      if (CLASS_MAP[p]) { category = CLASS_MAP[p]; break; }
+      if (ANCESTRY_MAP[p]) { category = 'ancestry'; break; }
     }
     if (!category) {
-      // 혈통 재주 등 — 스킵
+      // 미인식 카테고리 — 스킵
       return null;
     }
     mainTrait = bracketContent;
@@ -158,7 +161,7 @@ while ((match = h3Re.exec(html)) !== null) {
 
   const header = parseHeader(h3Inner);
   if (!header) continue; // 혈통 재주 등 스킵
-  if (!['bard','champion','cleric','druid','fighter','ranger','rogue','wizard','witch','general','skill'].includes(header.category)) continue;
+  if (!['ancestry','bard','champion','cleric','druid','fighter','ranger','rogue','wizard','witch','general','skill'].includes(header.category)) continue;
 
   const body = extractBody(h3Idx);
 
@@ -237,7 +240,7 @@ while ((em = existingRe.exec(existingDb)) !== null) {
 
 // ── 출력 ──
 // 카테고리별 정렬
-const order = ['general','skill','bard','champion','cleric','druid','fighter','ranger','rogue','wizard','witch'];
+const order = ['ancestry','general','skill','bard','champion','cleric','druid','fighter','ranger','rogue','wizard','witch'];
 feats.sort((a, b) => {
   const oi = order.indexOf(a.category) - order.indexOf(b.category);
   if (oi !== 0) return oi;
