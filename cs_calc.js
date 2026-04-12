@@ -606,13 +606,43 @@ function renderBoostModal() {
     container.appendChild(s);
   }
 
-  // 배경 섹션
+  // 배경 섹션 — 고정 선택 + 자유 선택 분리
   {
-    const bgDesc = state.selectedBackground
-      ? `배경: ${state.selectedBackground.name} — 속성: ${state.selectedBackground.boosts}`
-      : '배경을 선택하면 부스트 설명이 표시됩니다.';
-    container.appendChild(makeBoostSection('배경 부스트 (2개, 서로 다른 속성)', bgDesc,
-      'bg', 2, ATTRS, state.boosts.bg));
+    const bg = state.selectedBackground;
+    if (!bg) {
+      const s = document.createElement('div');
+      s.className = 'boost-section';
+      s.innerHTML = '<div class="boost-section-title">배경 부스트</div><div class="boost-section-desc" style="color:var(--text2);">배경을 먼저 선택하세요.</div>';
+      container.appendChild(s);
+    } else {
+      const KO_TO_ID = {'근력':'str','민첩':'dex','건강':'con','지능':'int','지혜':'wis','매력':'cha'};
+      const boostStr = bg.boosts || '';
+      const fixedPart = boostStr.split(',').map(s=>s.trim()).find(p => p.includes('또는'));
+
+      if (fixedPart) {
+        // "A 또는 B, 자유" → 고정 + 자유 분리
+        const fixedOptions = fixedPart.split('또는').map(s => KO_TO_ID[s.trim().replace(/\(.*\)/,'').trim()] || '').filter(Boolean);
+        if (!state.boosts.bgFixed) state.boosts.bgFixed = [];
+        if (!state.boosts.bgFree) state.boosts.bgFree = [];
+        // bgFixed/bgFree → bg 자동 동기화
+        state.boosts.bg = [...state.boosts.bgFixed, ...state.boosts.bgFree];
+
+        // 고정 부스트 (1개)
+        container.appendChild(makeBoostSection(
+          `배경 고정 부스트 — ${fixedPart}`, `배경: ${bg.name}`,
+          'bgFixed', 1, fixedOptions, state.boosts.bgFixed));
+
+        // 자유 부스트 (1개, 고정 선택과 다른 속성)
+        const freeAvail = ATTRS.filter(a => !state.boosts.bgFixed.includes(a));
+        container.appendChild(makeBoostSection(
+          '배경 자유 부스트 (다른 속성 1개)', '고정 부스트와 다른 속성을 선택하세요.',
+          'bgFree', 1, freeAvail, state.boosts.bgFree));
+      } else {
+        // "자유, 자유" — 기존 로직
+        container.appendChild(makeBoostSection('배경 부스트 (자유 2개, 서로 다른 속성)',
+          `배경: ${bg.name}`, 'bg', 2, ATTRS, state.boosts.bg));
+      }
+    }
   }
 
   // 클래스 섹션

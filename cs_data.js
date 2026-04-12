@@ -62,9 +62,9 @@ const SUBCLASS_DB = [
 
   // ── 클레릭 교리 ──
   {id:'doctrine-cloistered', class_id:'cleric', subclass_type:'교리', name_ko:'수도원 성직자', name_en:'Cloistered Cleric',
-   summary:'학식 있는 연구가 주문에 힘을 부여합니다. 주문시전에 집중합니다.'},
+   summary:'신성 마법과 신격의 영역에 집중하는 성직자입니다.<br><strong>1차 교의(1레벨):</strong> 영역 입문(Domain Initiate) 클레릭 재주를 얻습니다.<br><strong>2차 교의(3레벨):</strong> 인내 내성 → 전문가.<br><strong>3차 교의(7레벨):</strong> 주문 명중/DC → 전문가.<br><strong>4차 교의(11레벨):</strong> 신격 선호 무기, 단순 무기, 비무장 → 전문가. 선호 무기 치명 성공 시 치명 특수 효과 적용; 클래스 DC 대신 주문 DC 사용 가능.<br><strong>5차 교의(15레벨):</strong> 주문 명중/DC → 달인.<br><strong>최종 교의(19레벨):</strong> 주문 명중/DC → 전설.'},
   {id:'doctrine-warpriest',  class_id:'cleric', subclass_type:'교리', name_ko:'전투 사제',    name_en:'Warpriest',
-   summary:'전투의 위험 속에서 무기와 주문 모두로 싸웁니다.'},
+   summary:'주문과 전투 모두에 능한 전투적 성직자입니다.<br><strong>1차 교의(1레벨):</strong> 경갑·평갑 숙련, 인내 내성 → 전문가, 방패 막기 재주 획득. 신격 선호 무기가 단순/비무장이면 치명적 소박함 재주 획득. 13레벨에 신성 방어 획득 시 경갑·평갑 → 전문가.<br><strong>2차 교의(3레벨):</strong> 군용 무기 숙련.<br><strong>3차 교의(7레벨):</strong> 신격 선호 무기, 군용/단순/비무장 → 전문가. 선호 무기 치명 성공 시 치명 특수 효과; 클래스 DC 대신 주문 DC 사용 가능.<br><strong>4차 교의(11레벨):</strong> 주문 명중/DC → 전문가.<br><strong>5차 교의(15레벨):</strong> 인내 내성 → 달인. 인내 성공 시 대성공.<br><strong>최종 교의(19레벨):</strong> 신격 선호 무기, 주문 명중/DC → 달인.'},
 
   // ── 드루이드 교단 ──
   {id:'order-animal', class_id:'druid', subclass_type:'교단', name_ko:'동물', name_en:'Animal',

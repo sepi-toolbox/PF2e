@@ -3434,6 +3434,8 @@ function resetFromAncestry() {
 function resetFromBackground() {
   // Reset background boosts
   state.boosts.bg = [];
+  state.boosts.bgFixed = [];
+  state.boosts.bgFree = [];
   // Remove auto-granted background feat from skill feats
   if (state.growth[1] && state.growth[1].bgSkillFeat) {
     const bgFeatName = state.growth[1].bgSkillFeat;
