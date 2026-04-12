@@ -230,7 +230,7 @@ const HERITAGE_DB = [
   {id:'wellspring-gnome',name_ko:'원천 노움',name_en:'Wellspring Gnome',ancestry:'gnome',innateSpells:[{name:'선택한 전통 캔트립 1개',tradition:'선택',type:'cantrip',uses:'자유'}],summary:'다른 마법 원천이 페이 혈통의 원시 마법보다 당신을 더 강하게 붙잡고 있습니다. 이 연결은 오컬트 차원이나 고대 오컬트 노래, 신격/천상체/악마, 마법사 전쟁이 남긴 마법 유출물, 또는 고대 룬 마법에서 올 수 있습니다. 비전, 신성, 오컬트 중 하나를 선택합니다. 해당 마법 전통의 주문 목록에서 캔트립 1개를 얻습니다. 이 주문을 선택한 전통의 선천 주문으로 자유롭게 시전할 수 있습니다. 캔트립은 레벨 절반(올림)과 같은 주문 랭크로 고양됩니다. 노움 혈통 재주에서 원시 선천 주문을 얻을 때마다, 그 전통을 원시에서 선택한 전통으로 변경합니다.'},
   // 고블린
   {id:'charhide-goblin',name_ko:'숯가죽 고블린',name_en:'Charhide Goblin',ancestry:'goblin',resistances:[{type:'화염',formula:'half'}],summary:'조상은 항상 불과의 연결과 더 두꺼운 피부를 가져 화상에 저항할 수 있었습니다. 레벨 절반만큼의 화염 저항(최소 1)을 얻습니다. 지속 화염 피해를 제거하기 위한 단순 판정이 DC 15 대신 DC 10이며, 다른 생물이 도우면 DC 5로 줄어듭니다.'},
-  {id:'irongut-goblin',name_ko:'철위장 고블린',name_en:'Irongut Goblin',ancestry:'goblin',summary:'대부분의 사람이 상한 것으로 여기는 음식으로 살아갈 수 있습니다. 쓰레기가 쉽게 구할 수 있다면, 생존 활동 없이도 정착지에서 빈곤한 식사로 살아갈 수 있습니다. 구역질 상태일 때도 먹고 마실 수 있습니다.<br>고통에 대한 내성, 구역질 상태 얻기/제거에 <strong>+2 상황 보너스</strong>를 얻습니다. 이 보너스의 영향을 받는 인내 내성에서 <strong>성공 시 대성공</strong>이 됩니다. 섭취한 것에서 비롯된 경우에만 적용됩니다.'},
+  {id:'irongut-goblin',name_ko:'철위장 고블린',name_en:'Irongut Goblin',ancestry:'goblin',summary:'대부분의 사람이 상한 것으로 여기는 음식으로 살아갈 수 있습니다. 쓰레기가 쉽게 구할 수 있다면, 생존 활동 없이도 정착지에서 빈곤한 식사로 살아갈 수 있습니다. 메스꺼움 상태일 때도 먹고 마실 수 있습니다.<br>고통에 대한 내성, 메스꺼움 상태 얻기/제거에 <strong>+2 상황 보너스</strong>를 얻습니다. 이 보너스의 영향을 받는 인내 내성에서 <strong>성공 시 대성공</strong>이 됩니다. 섭취한 것에서 비롯된 경우에만 적용됩니다.'},
   {id:'razortooth-goblin',name_ko:'면도이빨 고블린',name_en:'Razortooth Goblin',ancestry:'goblin',grantWeapon:{name:'턱',dmg:'1d6 P',traits:'기교, 비무장',category:'비무장 근접'},summary:'가족의 이빨은 무시무시한 무기입니다. <strong>1d6 관통 피해</strong>의 턱(jaws) 비무장 공격을 얻습니다. 격투 그룹이며 기교와 비무장 특성을 가집니다.'},
   {id:'snow-goblin',name_ko:'눈 고블린',name_en:'Snow Goblin',ancestry:'goblin',resistances:[{type:'냉기',formula:'half'}],summary:'혹한 지역에 적응하여 하늘색~남색 피부와 파란 털을 가집니다. 레벨 절반만큼의 냉기 저항(최소 1)을 얻고, 환경 추위 효과를 한 단계 낮게 취급합니다.'},
   {id:'unbreakable-goblin',name_ko:'부서지지 않는 고블린',name_en:'Unbreakable Goblin',ancestry:'goblin',hpBonus:4,summary:'두꺼운 두개골, 연골성 뼈, 또는 다른 양날의 축복 덕분에 부상에서 쉽게 회복합니다. 혈통에서 6 대신 <strong>10 HP</strong>를 얻습니다. 추락 시, 절반 거리에서 떨어진 것처럼 피해를 줄입니다.'},
@@ -307,7 +307,7 @@ const TRAIT_DB = {
   '치사 d12':'치명타 시 피해 주사위를 d12로 바꾸고 1d12을 추가.',
   '살포 30ft':'30피트 이내 대상 공격 시 -2 페널티.',
   '수도승':'수도승 재주의 일부가 이 무기에 적용됨.',
-  '조이기':'이동 불가 + 무방비. 탈출(Escape)로 빠져나옴.',
+  '잡힘':'속박 + 무방비. 탈출(Escape)로 빠져나옴.',
   '자유 손':'이 무기는 손을 차지하지 않아 다른 용도로 사용 가능.',
   '비무장':'비무장 공격. 무장해제 불가.',
   '조준':'사거리 이내 근접 목표에 공격 시 -2 페널티.',
@@ -501,9 +501,9 @@ const TRAIT_DB = {
   '엎드려짐':'바닥에 누움. 무방비 + 공격에 -2. 일어나기에 1행동. 원거리 공격에 +1 AC.',
   '가속':'매 턴 추가 행동 1개(보통 용도 제한). 여러 가속은 누적 불가.',
   '억제':'이동 불가 + 무방비 + 조작에 DC 5 단순 판정. 탈출로 빠져나옴.',
-  '구역질':'모든 판정/DC에 페널티 = 수치. 삼키기 불가. 1행동으로 인내 내성 시도하여 감소.',
-  '느려짐':'턴 시작 시 행동이 수치만큼 감소.',
-  '멍해짐':'행동/반응 불가. 수치가 있으면 해당 수만큼 행동 소실.',
+  '메스꺼움':'모든 판정/DC에 페널티 = 수치. 삼키기 불가. 1행동으로 인내 내성 시도하여 감소.',
+  '둔화':'턴 시작 시 행동이 수치만큼 감소.',
+  '기절':'행동/반응 불가. 수치가 있으면 해당 수만큼 행동 소실.',
   '멍청함':'정신 기반 판정/DC에 페널티 = 수치. 주문시전 시 DC 5+수치 단순 판정(실패 시 소실).',
   '무의식':'의식 없음. AC -4, 감지 -4, 무방비+눈멈. 행동 불가.',
   '부상':'빈사 시 빈사 수치에 부상 수치 추가. 전체 HP 회복 시 해소.',
@@ -543,7 +543,7 @@ const CONDITIONS_DATA = [
   {name:'넘어짐',en:'Prone',valued:false,desc:'근접 공격에 -2, 원거리 공격에 +2 AC. 일어서기 = 25피트 이동 소모.'},
   {name:'속행',en:'Quickened',valued:false,desc:'매 턴 행동이 1개 추가됨. 추가 행동은 특정 행동에만 사용 가능.'},
   {name:'속박됨',en:'Restrained',valued:false,desc:'붙잡힘 + 고정됨 상태. 이동 속도 0.'},
-  {name:'구역질',en:'Sickened',valued:true,max:4,desc:'모든 판정/공격에 상태 페널티 = 구역질 수치. 음식 섭취 불가.'},
+  {name:'메스꺼움',en:'Sickened',valued:true,max:4,desc:'모든 판정/공격에 상태 페널티 = 메스꺼움 수치. 음식 섭취 불가.'},
   {name:'행동감소',en:'Slowed',valued:true,max:3,desc:'매 턴 행동 수 = 3 - 행동감소 수치.'},
   {name:'기절',en:'Stunned',valued:true,max:4,desc:'행동 수치가 기절 값만큼 소모됨. 매 턴 기절 수치만큼 행동 손실.'},
   {name:'혼미',en:'Stupefied',valued:true,max:4,desc:'지능/지혜/매력 기반 판정과 주문 DC에 상태 페널티 = 혼미 수치.'},
@@ -639,7 +639,7 @@ const ACTION_DB = [
 
   // ── 의학 (Medicine) 기술 행동 ──
   {id:'stabilize',     cat:'skill', cat_label:'의학 행동', name_ko:'안정화',          name_en:'Stabilize',      cost:'1',        traits:[],                  req_skill:'medicine', req_rank:0, req_feat:null, summary:'빈사 상태 대상의 빈사 값을 줄여 의식 불명 상태를 유지합니다.'},
-  {id:'treat-wounds',  cat:'skill', cat_label:'의학 행동', name_ko:'부상 치료',       name_en:'Treat Wounds',   cost:'10min',    traits:[],                  req_skill:'medicine', req_rank:2, req_feat:null, summary:'<strong>특성:</strong> 탐험, 치유, 조작<br><br>부상당한 살아있는 생물 1명을 10분간 치료합니다(자신도 가능). 대상은 1시간 동안 상처 치료에 면역입니다(치료 시간 포함). 의학 판정 DC는 보통 15이지만 GM이 조정 가능합니다. 전문가이면 DC 20으로 치유 +10, 대가이면 DC 30으로 +30, 전설이면 DC 40으로 +50.<br>1시간 동안 치료하면 회복량이 2배가 됩니다.<br><strong>대성공:</strong> 4d8 HP 회복 + 부상(wounded) 상태 제거.<br>'},
+  {id:'treat-wounds',  cat:'skill', cat_label:'의학 행동', name_ko:'부상 치료',       name_en:'Treat Wounds',   cost:'10min',    traits:[],                  req_skill:'medicine', req_rank:2, req_feat:null, summary:'<strong>특성:</strong> 탐험, 치유, 조작<br><br>부상당한 살아있는 생물 1명을 10분간 치료합니다(자신도 가능). 대상은 1시간 동안 상처 치료에 면역입니다(치료 시간 포함). 의학 판정 DC는 보통 15이지만 GM이 조정 가능합니다. 전문가이면 DC 20으로 치유 +10, 달인이면 DC 30으로 +30, 전설이면 DC 40으로 +50.<br>1시간 동안 치료하면 회복량이 2배가 됩니다.<br><strong>대성공:</strong> 4d8 HP 회복 + 부상(wounded) 상태 제거.<br>'},
   {id:'treat-poison',  cat:'skill', cat_label:'의학 행동', name_ko:'독 치료',         name_en:'Treat Poison',   cost:'1',        traits:[],                  req_skill:'medicine', req_rank:2, req_feat:null, summary:'<strong>특성:</strong> 조작<br><br>독의 확산을 방지합니다. 독의 DC에 대해 의학 판정. 대성공: 다음 내성에 +4, 성공: +2, 대실패: -2.'},
   {id:'treat-disease', cat:'skill', cat_label:'의학 행동', name_ko:'질병 치료',       name_en:'Treat Disease',  cost:'8h',       traits:[],                  req_skill:'medicine', req_rank:2, req_feat:null, summary:'<strong>특성:</strong> 휴식, 조작<br><br>최소 8시간 동안 병든 생물을 돌봅니다. 질병의 DC에 대해 의학 판정. 대성공: 다음 내성에 +4, 성공: +2, 대실패: -2.'},
   {id:'first-aid',     cat:'skill', cat_label:'의학 행동', name_ko:'응급 처치',       name_en:'First Aid',      cost:'1',        traits:[],                  req_skill:'medicine', req_rank:0, req_feat:null, summary:'지혈(피를 흘리는 상태 해제) 또는 공포에 빠진 동료를 깨웁니다.'},
@@ -695,7 +695,7 @@ const CONDITIONS = [
   '실명','파손됨','둔함','은폐됨','혼란','지배됨','현혹됨','귀머거리',
   '파멸','쇠약','빈사','약화됨','매혹됨','피로','방어불가','도주중',
   '우호적','공포','붙잡힘','협력적','숨겨짐','고정됨','무관심','투명',
-  '발각됨','마비','석화','넘어짐','속행','속박됨','구역질','행동감소',
+  '발각됨','마비','석화','넘어짐','속행','속박됨','메스꺼움','행동감소',
   '기절','혼미','의식불명','미감지','비우호적','존재미인지','부상'
 ];
 
