@@ -142,7 +142,7 @@
 | Fatigued | 피로 |
 | Fleeing | 도주 |
 | Frightened | 공포 |
-| Grabbed | 조이기 |
+| Grabbed | 잡힘 |
 | Hidden | 숨겨짐 |
 | Immobilized | 이동 불가 |
 | Invisible | 투명 |
