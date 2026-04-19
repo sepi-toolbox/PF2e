@@ -1075,24 +1075,7 @@ function renderGrowthPlan() {
           state.selectedHeritage ? state.selectedHeritage.name_ko : null,
           "openModal('heritage')", state.selectedHeritage ? "clearCoreSelection('heritage')" : null);
       }
-      // Languages
-      if (state.selectedAncestry) {
-        const intMod = Math.max(0, getMod('int'));
-        const baseCount = 2; // 공용어 + 혈통어
-        const heritageBonus = state.selectedHeritage?.extraLanguages || 0;
-        const maxLangs = baseCount + intMod + heritageBonus;
-        const curLangs = (state.languages || []).length;
-        const remain = Math.max(0, maxLangs - curLangs);
-        const langNames = (state.languages || []).join(', ');
-        html += `<div class="growth-slot ${curLangs >= maxLangs ? 'filled' : ''}" onclick="addLanguage()">
-          <div class="growth-slot-icon">🗣</div>
-          <div class="growth-slot-body">
-            <div class="growth-slot-label">언어 Languages</div>
-            <div class="growth-slot-value">${curLangs >= maxLangs ? langNames : curLangs + '/' + maxLangs + ' 선택' + (langNames ? ' — ' + langNames : '')}</div>
-          </div>
-          ${remain > 0 ? `<div class="growth-slot-badge">${remain}</div>` : ''}
-        </div>`;
-      }
+      // 언어는 혈통 모달에서 처리
 
       // ── Class-specific L1 build choices (클래스 모달에서 처리하지 않는 것만) ──
       if (state.selectedClass) {
