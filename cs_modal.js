@@ -1057,7 +1057,7 @@ function renderGrowthPlan() {
         ? (SUBCLASS_FEATURE_NAMES[state.selectedSubclass.id]||[]).filter(f => f.lv === lv) : [];
       const allFeats = [...classFeats, ...subFeats];
       if (allFeats.length > 0) {
-        html += `<div class="growth-slot" style="cursor:default;opacity:0.85;border-left:2px solid var(--accent);background:var(--accent-bg);">
+        html += `<div class="growth-slot" onclick="openClassModalAtLevel(${lv})" style="cursor:pointer;opacity:0.85;border-left:2px solid var(--accent);background:var(--accent-bg);">
           <div class="growth-slot-icon" style="background:var(--accent);color:#fff;font-size:10px;">⚡</div>
           <div class="growth-slot-body">
             <div class="growth-slot-label" style="color:var(--accent);font-size:10px;">클래스 특성</div>
@@ -3302,6 +3302,7 @@ function showItemDetail(item) {
         <div class="modal-detail-tags">${tags}</div>
         <hr style="border:none;border-top:1px solid var(--border);margin:0 0 10px 0;">
         <div style="font-size:12px;line-height:1.7;color:var(--text2);margin-bottom:10px;">${shortDesc}</div>
+        ${modalType === 'class' ? _buildClassProgressionTable(item) : ''}
         ${choicesHtml}
         <button id="modal-confirm-choice" onclick="confirmModal()" disabled
           style="width:100%;margin-top:14px;padding:10px;background:var(--bg4);color:var(--text2);border:1px solid var(--border);border-radius:4px;font-size:13px;font-weight:600;cursor:not-allowed;">
@@ -3365,13 +3366,59 @@ function _choiceDropdown(id, label, options, disabled, selected) {
   </div>`;
 }
 
-// ── 클래스 모달: 기술 선택 ──
+// ── 클래스 발전 표 (Table) ──
+function _buildClassProgressionTable(cls) {
+  if (!cls || typeof CLASS_FEATURE_NAMES === 'undefined') return '';
+  const cfn = CLASS_FEATURE_NAMES[cls.id] || [];
+  const gt = GROWTH_TABLE;
+
+  let rows = '';
+  for (let lv = 1; lv <= 20; lv++) {
+    const plan = gt[lv] || {};
+    const parts = [];
+
+    // 클래스 특성
+    const feats = cfn.filter(f => f.lv === lv);
+    feats.forEach(f => parts.push(f.name_ko));
+
+    // GROWTH_TABLE 항목
+    if (plan.classFeat) parts.push('클래스 재주');
+    if (plan.ancestryFeat) parts.push('혈통 재주');
+    if (plan.generalFeat) parts.push('일반 재주');
+    if (plan.skillFeat) parts.push('기술 재주');
+    if (plan.skillIncrease) parts.push('기술 증가');
+    if (plan.boosts) parts.push('능력치 부스트');
+    if (lv === 1) { parts.push('혈통과 배경'); parts.push('초기 숙련도'); }
+
+    const rowBg = lv % 2 === 0 ? 'var(--bg3)' : 'transparent';
+    rows += `<tr style="background:${rowBg};">
+      <td style="padding:3px 6px;text-align:center;font-weight:600;color:var(--accent);border-right:1px solid var(--border);white-space:nowrap;">${lv}</td>
+      <td style="padding:3px 6px;font-size:11px;line-height:1.5;">${parts.join(', ')}</td>
+    </tr>`;
+  }
+
+  return `<div style="margin:10px 0;border:1px solid var(--border);border-radius:6px;overflow:hidden;">
+    <div style="font-size:11px;font-weight:600;color:var(--accent);padding:8px 10px;background:var(--bg3);border-bottom:1px solid var(--border);">📋 ${cls.name} 발전 표</div>
+    <div>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;color:var(--text1);">
+      <thead><tr style="background:var(--bg4);border-bottom:1px solid var(--border);">
+        <th style="padding:4px 6px;text-align:center;font-size:10px;color:var(--text2);border-right:1px solid var(--border);">레벨</th>
+        <th style="padding:4px 6px;text-align:left;font-size:10px;color:var(--text2);">클래스 특성</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    </div>
+  </div>`;
+}
+
+// ── 클래스 모달: 레벨별 통합 UI ──
 function _buildClassChoicesUI(cls) {
+  // ── 기술 파싱 ──
   const skillParts = (cls.skills || '').split(' + ');
   const fixedSkills = [];
   let trainableBase = 0;
   let deitySkill = false;
-  const choiceSkills = []; // "또는" 패턴의 선택형 고정 기술
+  const choiceSkills = [];
 
   skillParts.forEach(p => {
     const m = p.match(/(\d+)\+INT개/);
@@ -3390,51 +3437,180 @@ function _buildClassChoicesUI(cls) {
 
   _modalChoices = { type: 'class', fixedSkills, choiceSkills, trainableBase, deitySkill, trainableSkills: Array(trainableBase).fill(''), chosenFixedSkills: Array(choiceSkills.length).fill('') };
 
-  let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
-  html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📖 기술 숙련</div>`;
+  // ── 클래스 특성 수집 ──
+  const maxLv = state.level || 1;
+  const classFeats = typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []).filter(f => f.lv <= maxLv) : [];
+  const subId = state.selectedSubclass?.id;
+  const subFeats = subId && typeof SUBCLASS_FEATURE_NAMES !== 'undefined'
+    ? (SUBCLASS_FEATURE_NAMES[subId] || []).filter(f => f.lv <= maxLv) : [];
+  const allFeats = [...classFeats, ...subFeats].sort((a, b) => a.lv - b.lv || a.name_ko.localeCompare(b.name_ko));
+  const featsByLv = {};
+  allFeats.forEach(f => { (featsByLv[f.lv] = featsByLv[f.lv] || []).push(f); });
 
-  // 고정 기술 (disabled)
-  fixedSkills.forEach(name => {
-    html += _choiceDropdown('', `고정 기술`, [{value: name, label: name}], true, name);
-  });
-  // 선택형 고정 기술 (active dropdown)
-  choiceSkills.forEach((choices, ci) => {
-    const options = choices.map(c => ({value: c, label: c}));
-    html += `<div style="margin-bottom:6px;">
-      <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 (선택)</div>
-      <select onchange="_modalChoices.chosenFixedSkills[${ci}]=this.value;_validateInitialChoices()" style="${_selStyle}">
-        <option value="">— 선택 —</option>
-        ${options.map(o => `<option value="${o.value}">${o.label}</option>`).join('')}
-      </select>
-    </div>`;
-  });
-  // 추가 기술 숙련 (active)
-  html += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">추가 기술 숙련 (기본 ${trainableBase}개${deitySkill ? ' + 신격 기술' : ''}, + 버튼으로 추가)</div>`;
-  html += `<div id="class-trainable-skills">`;
-  for (let i = 0; i < trainableBase; i++) {
-    html += _buildTrainableSkillRow(i, fixedSkills);
-  }
-  html += `</div>`;
-  html += `<div style="text-align:center;margin-top:4px;">
-    <button onclick="_addTrainableSkill()" style="padding:4px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--accent);cursor:pointer;font-size:12px;">＋ 추가</button>
-    <span style="font-size:10px;color:var(--text2);margin-left:6px;">INT 수정치만큼 추가 가능</span>
-  </div>`;
-  html += `</div>`;
-
-  // ── 클레릭 전용: 교리 / 신격 / 신성 원천 ──
+  // ── 서브클래스 HTML 미리 준비 ──
+  let subclassHtml = '';
   if (cls.id === 'cleric') {
-    html += _buildClericChoicesUI();
-  }
-  // ── 서브클래스가 있는 다른 클래스 ──
-  else if (typeof SUBCLASS_DB !== 'undefined') {
+    subclassHtml = _buildClericChoicesUI();
+  } else if (typeof SUBCLASS_DB !== 'undefined') {
     const subs = SUBCLASS_DB.filter(s => s.class_id === cls.id);
     if (subs.length > 0) {
       const subLabel = subs[0].subclass_type || '서브클래스';
-      html += _buildSubclassChoiceUI(cls.id, subLabel, subs);
+      subclassHtml = _buildSubclassChoiceUI(cls.id, subLabel, subs);
     }
   }
 
+  // ── 레벨별 통합 렌더링 ──
+  let html = '';
+
+  // 1레벨에 들어갈 항목 수집
+  const lv1Feats = featsByLv[1] || [];
+  const hasLv1Content = true; // 기술 숙련은 항상 있음
+
+  // === 1레벨 ===
+  html += _classLevelHeader(1);
+
+  // 기술 숙련 블록
+  html += _classFeatureBlock('📖', '기술 숙련', 'Skill Proficiencies', () => {
+    let inner = '';
+    fixedSkills.forEach(name => {
+      inner += _choiceDropdown('', '고정 기술', [{value: name, label: name}], true, name);
+    });
+    choiceSkills.forEach((choices, ci) => {
+      const options = choices.map(c => ({value: c, label: c}));
+      inner += `<div style="margin-bottom:6px;">
+        <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 (선택)</div>
+        <select onchange="_modalChoices.chosenFixedSkills[${ci}]=this.value;_validateInitialChoices()" style="${_selStyle}">
+          <option value="">— 선택 —</option>
+          ${options.map(o => `<option value="${o.value}">${o.label}</option>`).join('')}
+        </select>
+      </div>`;
+    });
+    inner += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">추가 기술 숙련 (기본 ${trainableBase}개${deitySkill ? ' + 신격 기술' : ''}, + 버튼으로 추가)</div>`;
+    inner += `<div id="class-trainable-skills">`;
+    for (let i = 0; i < trainableBase; i++) {
+      inner += _buildTrainableSkillRow(i, fixedSkills);
+    }
+    inner += `</div>`;
+    inner += `<div style="text-align:center;margin-top:4px;">
+      <button onclick="_addTrainableSkill()" style="padding:4px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--accent);cursor:pointer;font-size:12px;">＋ 추가</button>
+      <span style="font-size:10px;color:var(--text2);margin-left:6px;">INT 수정치만큼 추가 가능</span>
+    </div>`;
+    return inner;
+  });
+
+  // 서브클래스/클레릭 블록 (1레벨)
+  if (subclassHtml) {
+    html += subclassHtml;
+  }
+
+  // 1레벨 클래스 특성 블록들
+  lv1Feats.forEach((f, fi) => {
+    const isSub = subFeats.includes(f);
+    html += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
+      return `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${f.desc || ''}</div>`;
+    }, isSub);
+  });
+
+  // === 2레벨 이상 ===
+  const otherLevels = Object.keys(featsByLv).map(Number).filter(lv => lv > 1).sort((a, b) => a - b);
+  otherLevels.forEach(lv => {
+    html += _classLevelHeader(lv);
+    featsByLv[lv].forEach((f, fi) => {
+      const isSub = subFeats.includes(f);
+      html += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
+        return `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${f.desc || ''}</div>`;
+      }, isSub);
+    });
+  });
+
+  // 동적 갱신용 컨테이너 ID
+  html = `<div id="class-level-ui">${html}</div>`;
   return html;
+}
+
+// ── 레벨 헤더 ──
+function _classLevelHeader(lv) {
+  return `<div id="class-lv-${lv}" style="display:flex;align-items:center;gap:8px;margin:${lv === 1 ? '6' : '16'}px 0 8px;">
+    <div style="font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap;">${lv}레벨</div>
+    <div style="flex:1;height:1px;background:var(--border);"></div>
+  </div>`;
+}
+
+// ── 클래스 특성 블록 카드 ──
+function _classFeatureBlock(icon, nameKo, nameEn, contentFn, isSub) {
+  const subTag = isSub ? `<span style="font-size:9px;color:var(--accent);margin-left:6px;background:var(--bg3);padding:1px 5px;border-radius:3px;">서브클래스</span>` : '';
+  return `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-bottom:6px;">
+    <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:6px;">${icon} ${nameKo} <span style="font-weight:400;color:var(--text2);font-size:10px;">${nameEn}</span>${subTag}</div>
+    ${contentFn()}
+  </div>`;
+}
+
+// ── 서브클래스 변경 시 레벨별 UI 전체 갱신 ──
+function _refreshClassFeaturesPreview() {
+  const container = document.getElementById('class-level-ui');
+  if (!container || !_modalChoices || _modalChoices.type !== 'class') return;
+  const cls = typeof modalSelected !== 'undefined' ? modalSelected : null;
+  if (!cls) return;
+  // 전체 UI를 다시 빌드하면 _modalChoices가 초기화되므로
+  // 서브클래스 변경 시에는 클래스 특성 부분만 갱신
+  // → 레벨 2+ 섹션을 다시 렌더링
+  const maxLv = state.level || 1;
+  const classFeats = typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []).filter(f => f.lv <= maxLv) : [];
+  const subId = _modalChoices?.doctrine || _modalChoices?.subclass || (state.selectedSubclass?.id);
+  const subFeats = subId && typeof SUBCLASS_FEATURE_NAMES !== 'undefined'
+    ? (SUBCLASS_FEATURE_NAMES[subId] || []).filter(f => f.lv <= maxLv) : [];
+
+  // 1레벨 클래스 특성 + 2레벨 이상 전체를 다시 생성
+  const allFeats = [...classFeats, ...subFeats].sort((a, b) => a.lv - b.lv || a.name_ko.localeCompare(b.name_ko));
+  const featsByLv = {};
+  allFeats.forEach(f => { (featsByLv[f.lv] = featsByLv[f.lv] || []).push(f); });
+
+  // 기존 동적 블록 제거 (class-feat-dynamic 클래스)
+  container.querySelectorAll('.cfp-dynamic').forEach(el => el.remove());
+
+  // 1레벨 클래스 특성 블록 추가 (기술/서브클래스 뒤에)
+  const lv1Feats = featsByLv[1] || [];
+  let lv1Html = '';
+  lv1Feats.forEach(f => {
+    const isSub = subFeats.includes(f);
+    lv1Html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
+      return `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${f.desc || ''}</div>`;
+    }, isSub)}</div>`;
+  });
+
+  // 2레벨 이상 블록
+  let otherHtml = '';
+  Object.keys(featsByLv).map(Number).filter(lv => lv > 1).sort((a, b) => a - b).forEach(lv => {
+    otherHtml += `<div class="cfp-dynamic">${_classLevelHeader(lv)}`;
+    featsByLv[lv].forEach(f => {
+      const isSub = subFeats.includes(f);
+      otherHtml += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
+        return `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${f.desc || ''}</div>`;
+      }, isSub);
+    });
+    otherHtml += `</div>`;
+  });
+
+  container.insertAdjacentHTML('beforeend', lv1Html + otherHtml);
+}
+
+// ── 빌더에서 클래스 특성 클릭 시 → 클래스 모달 열기 + 스크롤 ──
+function openClassModalAtLevel(targetLv) {
+  if (!state.selectedClass) return;
+  openModal('class');
+  // 현재 클래스를 자동 선택
+  const cls = CLASSES.find(c => c.id === state.selectedClass.id);
+  if (!cls) return;
+  modalSelected = cls;
+  showItemDetail(cls);
+  // detail-open 활성화 (모바일 포함)
+  const body = document.getElementById('modal-body');
+  if (body) body.classList.add('detail-open');
+  // 스크롤: 약간의 지연 후 해당 레벨로 이동
+  setTimeout(() => {
+    const target = document.getElementById('class-lv-' + targetLv);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
 }
 
 // ── 클레릭 전용 UI: 교리 + 신격 + 신성 원천 ──
@@ -3495,6 +3671,7 @@ function _onClericDoctrineChange(id) {
     const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === id) : null;
     info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.summary || ''}</div>` : '';
   }
+  _refreshClassFeaturesPreview();
   _validateInitialChoices();
 }
 
@@ -3596,6 +3773,7 @@ function _onSubclassChange(id) {
     const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === id) : null;
     info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.summary || ''}</div>` : '';
   }
+  _refreshClassFeaturesPreview();
   _validateInitialChoices();
 }
 
