@@ -531,13 +531,10 @@ const FEAT_EFFECTS = {
     effects: [{type:'weapon_familiarity', weapons:['글레이브']}]
   },
   'Gnome Obsession': {
-    choice: {
-      type:'lore', label:'집착할 지식(Lore) 분야를 입력하세요',
-    },
     effects: [
       {type:'grant_feat', feat:'추가 지식 (Additional Lore)'},
       {type:'grant_feat', feat:'확신 (Assurance)'},
-      {type:'display_note', text:'추가 지식/확신 재주 자동 부여. 휴식 1일로 주제 변경 가능'}
+      {type:'display_note', text:'추가 지식/확신 재주 자동 부여. 각 재주에서 지식 분야/기술 선택. 휴식 1일로 주제 변경 가능'}
     ]
   },
   'Illusion Sense': {
