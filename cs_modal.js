@@ -1094,45 +1094,9 @@ function renderGrowthPlan() {
         </div>`;
       }
 
-      // Subclass (only if class selected AND has subclasses)
-      if (state.selectedClass) {
-        const subs = SUBCLASS_DB.filter(s => s.class_id === state.selectedClass.id);
-        if (subs.length > 0) {
-          const subLabel = subs[0].subclass_type || '서브클래스';
-          const subEnMap = {'뮤즈':'Muse','교리':'Doctrine','교단':'Druidic Order','사냥 방식':"Hunter's Edge",'전문':'Racket','후원자':'Patron','마법학파':'Arcane School'};
-          const subEn = subEnMap[subLabel] || 'Subclass';
-          const subIcon = {'뮤즈':'🎵','교리':'📿','교단':'🌿','사냥 방식':'🏹','전문':'🗡','후원자':'🔮','마법학파':'📖'}[subLabel] || '⚙';
-          html += growthSlotWithClearHTML('subclass-sel', subIcon, `${subLabel} ${subEn}`,
-            state.selectedSubclass ? `${state.selectedSubclass.name_ko} (${state.selectedSubclass.name_en})` : null,
-            "openModal('subclass')", state.selectedSubclass ? "clearCoreSelection('subclass')" : null);
-        }
-      }
-      // ── Class-specific L1 build choices ──
+      // ── Class-specific L1 build choices (클래스 모달에서 처리하지 않는 것만) ──
       if (state.selectedClass) {
         const cid = state.selectedClass.id;
-
-        // CLERIC: Deity selector
-        if (cid === 'cleric' && typeof DEITY_DB !== 'undefined') {
-          const deityObj = state.deity ? DEITY_DB.find(d=>d.id===state.deity) : null;
-          html += growthSlotWithClearHTML('deity-sel', '🙏', '신격 Deity',
-            deityObj ? `${deityObj.name_ko} (${deityObj.name_en})` : null,
-            "openDeityPicker()", state.deity ? "clearDeity()" : null);
-
-          // Sanctification (only if deity selected)
-          if (deityObj) {
-            const sanctOpts = deityObj.sanctification || [];
-            if (sanctOpts.length > 0) {
-              const sanctLabel = state.sanctification === 'holy' ? '신성 Holy' : state.sanctification === 'unholy' ? '불경 Unholy' : null;
-              html += growthSlotWithClearHTML('sanct-sel', '✨', '성별화 Sanctification',
-                sanctLabel, "openSanctPicker()", state.sanctification ? "clearSanctification()" : null);
-            }
-          }
-
-          // Divine Font
-          const fontLabel = state.divineFont === 'heal' ? '치유 Heal' : state.divineFont === 'harm' ? '해악 Harm' : null;
-          html += growthSlotWithClearHTML('font-sel', '⛲', '신성 원천 Divine Font',
-            fontLabel, "openDivineFontPicker()", state.divineFont ? "clearDivineFont()" : null);
-        }
 
         // WITCH: Show patron tradition (auto-set, display only)
         if (cid === 'witch' && state.selectedSubclass && typeof PATRON_TRADITION !== 'undefined') {
