@@ -251,7 +251,7 @@ const HERITAGE_DB = [
   // 오크
   {id:'badlands-orc',name_ko:'황무지 오크',name_en:'Badlands Orc',ancestry:'orc',summary:'태양에 타는 황무지 출신으로, 긴 다리와 요소를 견디는 능력이 번성에 도움이 되었습니다. 탐험 중 멈추기 전까지 <strong>급행(Hustle)을 두 배 오래</strong> 할 수 있고, 환경 열 효과를 한 단계 낮게 취급합니다.'},
   {id:'battle-ready-orc',name_ko:'전투 준비 오크',name_en:'Battle-Ready Orc',ancestry:'orc',summary:'두려운 전장 지휘관의 혈통입니다. <strong>위협(Intimidation)에 숙련</strong>되고, <strong>위협적 노려보기(Intimidating Glare)</strong> 기술 재주를 얻습니다.',grantSkills:['intimidation'],grantFeats:['위협적 노려보기 (Intimidating Glare)']},
-  {id:'deep-orc',name_ko:'심연 오크',name_en:'Deep Orc',ancestry:'orc',summary:'굳은살이 박힌 손과 빨간 눈이 산악 동굴의 깊은 어둠에서 보낸 삶을 말해줍니다. 지하 지형에 대한 <strong>지형 전문가(Terrain Expertise)</strong> 기술 재주와 <strong>전투 등반가(Combat Climber)</strong> 기술 재주를 얻습니다.',grantFeats:['지형 전문가 (Terrain Expertise)','전투 등반가 (Combat Climber)']},
+  {id:'deep-orc',name_ko:'심연 오크',name_en:'Deep Orc',ancestry:'orc',summary:'굳은살이 박힌 손과 빨간 눈이 산악 동굴의 깊은 어둠에서 보낸 삶을 말해줍니다. 지하 지형에 대한 <strong>지형 전문가(Terrain Expertise)</strong> 기술 재주와 <strong>전투 등반가(Combat Climber)</strong> 기술 재주를 얻습니다.',grantFeats:[{name:'지형 전문가 (Terrain Expertise)',choice:'underground'},'전투 등반가 (Combat Climber)']},
   {id:'hold-scarred-orc',name_ko:'흉터 오크',name_en:'Hold-Scarred Orc',ancestry:'orc',summary:'의례적 흉터나 문신에 참여하는 오크 공동체의 일원입니다. 혈통에서 10 대신 <strong>12 HP</strong>를 얻습니다. <strong>불굴(Diehard)</strong> 재주도 얻습니다.',hpBonus:2,grantFeats:['불굴 (Diehard)']},
   {id:'rainfall-orc',name_ko:'우림 오크',name_en:'Rainfall Orc',ancestry:'orc',summary:'열대 우림에서 태어나 정글 지형을 민첩하게 이동하고 습한 환경의 질병에 저항합니다. 등반(Climb)이나 수영(Swim) 운동 판정에 <strong>+2 상황 보너스</strong>, 질병에 대한 내성에 <strong>+1 상황 보너스</strong>.'},
 

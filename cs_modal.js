@@ -2801,10 +2801,10 @@ function filterFeats() {
       });
     }
 
-    // 이미 배운 재주 이름 수집 (중복 방지용)
+    // 이미 배운 재주 이름 수집 (중복 방지 — 전 카테고리, _auto 포함)
     const _learnedNames = new Set();
     Object.values(state.feats).flat().forEach(ff => {
-      if (ff && ff.name && !ff._auto) _learnedNames.add(ff.name);
+      if (ff && ff.name) _learnedNames.add(ff.name);
     });
 
     return FEAT_DB.filter(f => {
@@ -3993,13 +3993,19 @@ function applyHeritageEffects(h) {
   }
   // 유산 재주 부여
   if (h.grantFeats) {
-    h.grantFeats.forEach(featName => {
+    h.grantFeats.forEach(entry => {
+      const featName = typeof entry === 'string' ? entry : entry.name;
+      const presetChoice = typeof entry === 'object' ? entry.choice : undefined;
       const nameKo = featName.split(' (')[0].trim();
       const fd = typeof FEAT_DB !== 'undefined' ? FEAT_DB.find(f => f && f.name_ko === nameKo) : null;
       const cat = fd?.category === 'general' ? 'general' : 'skill';
       if (!state.feats[cat]) state.feats[cat] = [];
       const already = state.feats[cat].some(f => f.name === featName);
-      if (!already) state.feats[cat].push({name: featName, level: 1, _fromHeritage: true});
+      if (!already) {
+        const feat = {name: featName, level: 1, _fromHeritage: true};
+        if (presetChoice) feat.choice = presetChoice;
+        state.feats[cat].push(feat);
+      }
     });
   }
   // 유산 HP 보너스 (부서지지 않는 고블린 등)

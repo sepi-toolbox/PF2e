@@ -1369,4 +1369,7 @@ var FEAT_DB = [
   {name_ko:'주술 달인', name_en:'Hex Master', feat_level:20, traits:['위치'], category:'witch', summary:'턴당 주술 1개 제한이 해제됩니다. 원하는 만큼 주술을 사용할 수 있습니다.', desc:'턴당 주술 1개 제한이 <strong>해제</strong>됩니다. 원하는 만큼 주술을 사용할 수 있습니다.'},
   {name_ko:'후원자의 진실', name_en:'Patron\'s Truth', feat_level:20, prerequisites:'후원자의 선물. 추가 10랭크 주문 슬롯을 얻습니다.', traits:['위치'], category:'witch', summary:'추가 10랭크 주문 슬롯을 얻습니다.', desc:'<strong>추가 10랭크 주문 슬롯</strong>을 얻습니다.'},
   {name_ko:'위치의 오두막', name_en:'Witch\'s Hut', feat_level:20, traits:['위치'], category:'witch', summary:'후원자의 힘으로 거주지를 만들어냅니다. 매그니피센트 맨션(magnificent mansion)과 유사하지만, 다리 달린 오두막 형태로 이동할 수 있습니다.', desc:'후원자의 힘으로 거주지를 만들어냅니다. <em>매그니피센트 맨션(magnificent mansion)</em>과 유사하지만, 다리 달린 오두막 형태로 이동할 수 있습니다.'},
+  // ── 수동 추가 (rebuild 미포함 재주) ──
+  {name_ko:'전투 등반가', name_en:'Combat Climber', feat_level:1, traits:['일반','기술'], category:'skill', prerequisites:'운동 숙련', summary:'등반 중에도 전투할 수 있습니다. 등반 중 무방비 상태가 되지 않으며, 한 손으로 벽을 잡고 다른 손으로 무기를 사용할 수 있습니다.', desc:'등반 중에도 전투할 수 있습니다. 등반 중 <strong>무방비 상태가 되지 않으며</strong>, 한 손으로 벽을 잡고 다른 손으로 무기를 사용할 수 있습니다.'},
+  {name_ko:'동물 훈련', name_en:'Train Animal', feat_level:1, traits:['일반','기술','휴식','조작'], category:'skill', prerequisites:'자연학 숙련', summary:'동물에게 특정 행동을 가르칩니다. 이미 아는 기본 행동이나 새 행동을 훈련시킬 수 있습니다.', desc:'동물에게 특정 행동을 가르칩니다. 이미 알고 있는 기본 행동을 선택하거나 새 기본 행동을 가르칩니다. GM이 DC와 소요 시간을 결정합니다(보통 최소 1주일).<br><strong>성공:</strong> 동물이 행동을 배웁니다.<br><strong>실패:</strong> 동물이 배우지 못합니다.'},
 ];

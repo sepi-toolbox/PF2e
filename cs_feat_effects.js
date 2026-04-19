@@ -193,6 +193,9 @@ const FEAT_EFFECTS = {
   'Bargain Hunter': {
     effects: [{type:'display_note', text:'외교로 수입 획득 가능. 1레벨 시작 시 추가 2gp'}]
   },
+  'Combat Climber': {
+    effects: [{type:'display_note', text:'등반 중 무방비 상태 면제. 한 손으로 벽을 잡고 전투 가능'}]
+  },
   'Train Animal': {
     effects: [{type:'display_note', text:'다운타임으로 동물에게 행동 훈련 가능'}]
   },
