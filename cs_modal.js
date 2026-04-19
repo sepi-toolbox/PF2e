@@ -2989,6 +2989,14 @@ function renderOptions(data) {
       grouped[key].push(item);
     });
   } else if (isFeat) {
+    // 전제조건 충족 재주를 상단, 미달 재주를 하단으로 정렬
+    data.sort((a, b) => {
+      let aFail = false, bFail = false;
+      try { aFail = (a.prereqs || a.prerequisites) && !_checkPrereqs(a); } catch(e) {}
+      try { bFail = (b.prereqs || b.prerequisites) && !_checkPrereqs(b); } catch(e) {}
+      if (aFail !== bFail) return aFail ? 1 : -1;
+      return 0;
+    });
     grouped = {};
     data.forEach(item => {
       const key = `${item.feat_level}레벨`;
