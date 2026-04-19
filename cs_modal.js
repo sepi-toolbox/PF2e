@@ -2586,6 +2586,10 @@ function openModal(type, ctx) {
     document.getElementById('modal-title').textContent = `${state.selectedClass.name} — ${stype} 선택`;
   }
 
+  // 초기 선택 UI가 있는 타입은 footer 숨김 (자체 확인 버튼 사용)
+  const footer = document.querySelector('.modal-footer');
+  if (footer) footer.style.display = ['class','ancestry','background'].includes(type) ? 'none' : '';
+
   renderOptions(getOptionsData(type));
 }
 
