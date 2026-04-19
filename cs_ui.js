@@ -1996,6 +1996,10 @@ function _renderLearnSpellsModal() {
 
   if (fbar) fbar.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:2px;padding:4px 0;">${tabHtml}</div>`;
 
+  // 상세 패널 초기화 (최초 열기 시만)
+  const detail = document.getElementById('modal-detail');
+  if (detail) detail.innerHTML = '<div class="modal-detail-empty">주문을 클릭하여 배우거나 취소할 수 있습니다.</div>';
+
   _refreshLearnSpellsList();
   modalType = 'learn-spells';
 }
@@ -2055,15 +2059,13 @@ function _refreshLearnSpellsList() {
       ${actions ? `<span style="font-size:11px;color:var(--accent);margin-right:4px;">${actions}</span>` : ''}
       ${isLearned ? '<span style="font-size:10px;color:var(--accent);">습득됨</span>' : ''}`;
     row.onclick = () => {
-      if (isLearned) { showItemDetail(sp); return; }
-      _learnSpellFromModal(sp, r);
+      if (isLearned) _unlearnSpellFromModal(sp, r);
+      else _learnSpellFromModal(sp, r);
+      showItemDetail(sp);
     };
     container.appendChild(row);
   });
 
-  // 상세 패널 초기화
-  const detail = document.getElementById('modal-detail');
-  if (detail) detail.innerHTML = '<div class="modal-detail-empty">주문을 선택하면 상세 정보가 표시됩니다.<br>클릭하여 배울 수 있습니다.</div>';
 }
 
 function _learnSpellFromModal(sp, rank) {
@@ -2094,11 +2096,52 @@ function _learnSpellFromModal(sp, rank) {
 
   renderSpells();
   save();
-  // 모달 새로고침
-  const cid = state.selectedClass.id;
+  _refreshLearnSpellsUI();
+}
+
+function _unlearnSpellFromModal(sp, rank) {
+  const isSpellbook = state.selectedClass?.casting === 'prepared';
+
+  if (isSpellbook) {
+    const key = rank === 0 ? 'cantrip' : rank;
+    if (state.familiarSpells?.[key]) {
+      const idx = state.familiarSpells[key].indexOf(sp.name_ko);
+      if (idx >= 0) state.familiarSpells[key].splice(idx, 1);
+    }
+  } else {
+    if (rank === 0) {
+      const idx = (state.spells.cantrip || []).findIndex(s => s?.name === sp.name_ko && !s._auto);
+      if (idx >= 0) state.spells.cantrip.splice(idx, 1);
+    } else {
+      const idx = (state.spells.known || []).findIndex(s => s?.name === sp.name_ko && s.rank === rank && !s._auto);
+      if (idx >= 0) state.spells.known.splice(idx, 1);
+    }
+  }
+
+  renderSpells();
+  save();
+  _refreshLearnSpellsUI();
+}
+
+function _refreshLearnSpellsUI() {
+  const cid = state.selectedClass?.id;
   const lv = getLevel();
   _learnSpellRanks = _calcLearnableRanks(cid, lv) || [];
-  _renderLearnSpellsModal();
+  // 탭 바 진행도 갱신
+  const fbar = document.getElementById('modal-filterbar');
+  if (fbar) {
+    let tabHtml = '';
+    _learnSpellRanks.forEach(r => {
+      const active = _learnSpellRank === r.rank ? 'active' : '';
+      const isFull = r.current >= r.max;
+      const warn = (!isFull && r.max < 99) ? ' style="color:#f44336;"' : '';
+      const countStr = r.max >= 99 ? `${r.current}` : `${r.current}/${r.max}`;
+      tabHtml += `<span class="spell-subtab ${active}" onclick="_learnSpellRank=${r.rank};_refreshLearnSpellsList()">${r.label} <b${warn}>${countStr}</b></span>`;
+    });
+    fbar.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:2px;padding:4px 0;">${tabHtml}</div>`;
+  }
+  // 목록 갱신
+  _refreshLearnSpellsList();
 }
 
 function updateSlotChecks(rank) {
