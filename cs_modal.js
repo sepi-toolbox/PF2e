@@ -3495,7 +3495,7 @@ function _buildClassChoicesUI(cls) {
     });
   });
 
-  _modalChoices = { type: 'class', fixedSkills, trainableBase, deitySkill, trainableSkills: [] };
+  _modalChoices = { type: 'class', fixedSkills, trainableBase, deitySkill, trainableSkills: Array(trainableBase).fill('') };
 
   let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
   html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📖 기술 숙련</div>`;
@@ -3639,7 +3639,7 @@ function _buildBackgroundChoicesUI(bg) {
 function _buildAncestryChoicesUI(anc) {
   const fixedLangs = anc.languages || ['공통어'];
   const bonusBase = anc.bonusLangs || 0;
-  _modalChoices = { type: 'ancestry', fixedLangs, bonusBase, bonusLangs: [] };
+  _modalChoices = { type: 'ancestry', fixedLangs, bonusBase, bonusLangs: Array(bonusBase).fill('') };
 
   let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
   html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">🗣 언어</div>`;
