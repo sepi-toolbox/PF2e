@@ -3556,13 +3556,10 @@ function _buildClericChoicesUI() {
   _modalChoices.deity = '';
   _modalChoices.divineFont = '';
 
-  let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">`;
-  html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📿 교리 · 신격 · 신성 원천</div>`;
-
-  // 교리 선택
+  // 교리
   const doctrines = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.filter(s => s.class_id === 'cleric') : [];
-  html += `<div style="margin-bottom:6px;">
-    <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">교리 Doctrine</div>
+  let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">
+    <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📿 교리 Doctrine</div>
     <select id="cls-doctrine" onchange="_onClericDoctrineChange(this.value)" style="${_selStyle}">
       <option value="">— 선택 —</option>
       ${doctrines.map(d => `<option value="${d.id}">${d.name_ko} (${d.name_en})</option>`).join('')}
@@ -3570,10 +3567,10 @@ function _buildClericChoicesUI() {
     <div id="cls-doctrine-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>
   </div>`;
 
-  // 신격 선택
+  // 신격
   const deities = typeof DEITY_DB !== 'undefined' ? DEITY_DB : [];
-  html += `<div style="margin-bottom:6px;">
-    <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">신격 Deity</div>
+  html += `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">
+    <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">🙏 신격 Deity</div>
     <select id="cls-deity" onchange="_onClericDeityChange(this.value)" style="${_selStyle}">
       <option value="">— 선택 —</option>
       ${deities.map(d => `<option value="${d.id}">${d.name_ko} (${d.name_en})</option>`).join('')}
@@ -3582,8 +3579,8 @@ function _buildClericChoicesUI() {
   </div>`;
 
   // 신성 원천
-  html += `<div style="margin-bottom:6px;">
-    <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">신성 원천 Divine Font</div>
+  html += `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">
+    <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">⛲ 신성 원천 Divine Font</div>
     <select id="cls-font" onchange="_modalChoices.divineFont=this.value;_validateInitialChoices()" style="${_selStyle}">
       <option value="">— 선택 —</option>
       <option value="heal">💚 치유 (Heal)</option>
@@ -3591,7 +3588,6 @@ function _buildClericChoicesUI() {
     </select>
   </div>`;
 
-  html += `</div>`;
   return html;
 }
 
