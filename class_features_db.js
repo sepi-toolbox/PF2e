@@ -365,7 +365,7 @@ var SUBCLASS_FEATURE_NAMES = {
   'muse-polymath': [{lv:1, name_ko:'다재다능한 공연', name_en:'Versatile Performance', desc:'박학다식한 뮤즈의 영향으로 공연 기술로 다른 기술을 대체할 수 있습니다. 다재다능한 공연(Versatile Performance) 재주를 얻어, 공연(Performance)으로 기만, 외교, 위협 판정을 대체합니다.'}],
   // ── 클레릭 교리 ──
   'doctrine-cloistered': [
-    {lv:1,  name_ko:'도메인 개시 주문 1개', name_en:'Domain Initiate Spell', desc:'은둔 교리를 따르는 클레릭으로서 신격의 영역 주문에 접근합니다. 영역 입문(Domain Initiate) 재주를 얻어 선택한 영역의 초기 집중 주문을 습득합니다.'},
+    // 영역 입문(Domain Initiate) 재주는 SUBCLASS_AUTO_FEATS에서 부여 — 여기서는 제거 (중복)
     {lv:3, name_ko:'전문가 주문시전자', name_en:'Expert Spellcaster', desc:'주문 시전 능력이 한 단계 더 발전했습니다. 주문 명중과 주문 DC의 숙련도가 전문가로 증가합니다.'},
     {lv:15, name_ko:'달인 주문시전자', name_en:'Master Spellcaster', desc:'주문 시전에 대한 달인급 숙달을 달성했습니다. 주문 명중과 주문 DC의 숙련도가 달인으로 증가합니다.'},
     {lv:19, name_ko:'전설 주문시전자', name_en:'Legendary Spellcaster', desc:'마법의 완벽한 숙달을 이루었습니다. 주문 명중과 주문 DC의 숙련도가 전설로 증가합니다.'},

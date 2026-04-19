@@ -3727,8 +3727,9 @@ function _buildClericChoicesUI() {
     <div id="cls-doctrine-feats"></div>
   </div>`;
 
-  // 신격
+  // 신격 (성별화 포함)
   const deities = typeof DEITY_DB !== 'undefined' ? DEITY_DB : [];
+  _modalChoices.sanctification = '';
   html += `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">
     <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">🙏 신격 Deity</div>
     <select id="cls-deity" onchange="_onClericDeityChange(this.value)" style="${_selStyle}">
@@ -3736,15 +3737,12 @@ function _buildClericChoicesUI() {
       ${deities.map(d => `<option value="${d.id}">${d.name_ko} (${d.name_en})</option>`).join('')}
     </select>
     <div id="cls-deity-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>
-  </div>`;
-
-  // 성별화
-  _modalChoices.sanctification = '';
-  html += `<div id="cls-sanct-block" style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;display:none;">
-    <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">✨ 성별화 Sanctification</div>
-    <select id="cls-sanct" onchange="_modalChoices.sanctification=this.value;_validateInitialChoices()" style="${_selStyle}">
-    </select>
-    <div style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;">신격의 성별화에 따라 신성(Holy) 또는 불경(Unholy)을 선택합니다.</div>
+    <div id="cls-deity-details"></div>
+    <div id="cls-sanct-block" style="margin-top:8px;display:none;">
+      <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">✨ 성별화 Sanctification</div>
+      <select id="cls-sanct" onchange="_modalChoices.sanctification=this.value;_validateInitialChoices()" style="${_selStyle}">
+      </select>
+    </div>
   </div>`;
 
   // 신성 원천
@@ -3782,17 +3780,37 @@ function _onClericDeityChange(id) {
 
   if (info) {
     if (d) {
-      const sanctLabel = (d.sanctification||[]).map(s => s==='holy'?'신성':'불경').join('/');
       const skillMap = {society:'사회학',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
-        intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작'};
+        intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',
+        nature:'자연학',religion:'종교학',occultism:'오컬티즘',diplomacy:'외교',performance:'공연',thievery:'도둑질'};
       info.innerHTML = `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">
-        ${d.title ? `<div style="color:var(--accent);font-style:italic;">${d.title}</div>` : ''}
-        <div><strong>선호 무기:</strong> ${d.weapon} | <strong>신격 기술:</strong> ${skillMap[d.skill]||d.skill}</div>
-        <div><strong>성별화:</strong> ${sanctLabel || '—'} | <strong>영역:</strong> ${(d.domains||[]).join(', ')}</div>
+        ${d.title ? `<div style="color:var(--accent);font-style:italic;margin-bottom:4px;">${d.title}</div>` : ''}
+        <div><strong>영역:</strong> ${(d.domains||[]).join(', ')}</div>
         ${d.desc ? `<div style="margin-top:4px;">${d.desc}</div>` : ''}
       </div>`;
     } else {
       info.innerHTML = '';
+    }
+  }
+  // 신격 기술 / 선호 무기 비활성 드롭다운
+  const detailsEl = document.getElementById('cls-deity-details');
+  if (detailsEl) {
+    if (d) {
+      const skillMap = {society:'사회학',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
+        intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',
+        nature:'자연학',religion:'종교학',occultism:'오컬티즘',diplomacy:'외교',performance:'공연',thievery:'도둑질'};
+      const skillName = skillMap[d.skill] || d.skill;
+      detailsEl.innerHTML = `
+        <div style="margin-top:8px;">
+          <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">📖 신격 기술</div>
+          <select disabled style="${_selStyle}opacity:0.6;"><option>${skillName}</option></select>
+        </div>
+        <div style="margin-top:6px;">
+          <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">⚔ 선호 무기</div>
+          <select disabled style="${_selStyle}opacity:0.6;"><option>${d.weapon}</option></select>
+        </div>`;
+    } else {
+      detailsEl.innerHTML = '';
     }
   }
 
