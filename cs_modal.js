@@ -2617,9 +2617,109 @@ function buildWeaponFilters() {
     </select>`;
 }
 
-function _checkPrereqs(prereqStr) {
+// ── 구조화 prereqs 단일 조건 체크 ──
+function _checkOnePrereq(cond) {
+  // 기술 숙련도: {skill:'religion', rank:2}
+  if (cond.skill) {
+    const sk = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === cond.skill) : null;
+    if (!sk) return true; // 알 수 없는 기술 → 통과
+    const cur = parseInt(document.getElementById('sk-prof-'+sk.id)?.value||0);
+    return cur >= (cond.rank || 2);
+  }
+  // 지각: {perception:6}
+  if (cond.perception != null) {
+    const cur = parseInt(document.getElementById('prof-perc')?.value||0);
+    return cur >= cond.perception;
+  }
+  // 지식(아무 지식): {lore:4}
+  if (cond.lore != null) {
+    const loreSkills = (typeof SKILLS !== 'undefined') ? SKILLS.filter(s => s.isLore) : [];
+    const anyLore = loreSkills.some(s => {
+      const cur = parseInt(document.getElementById('sk-prof-'+s.id)?.value||0);
+      return cur >= cond.lore;
+    });
+    if (anyLore) return true;
+    // 재주 부여 지식 체크 (최소 숙련=2)
+    if (cond.lore <= 2 && state._featGrantedLores?.length > 0) return true;
+    return false;
+  }
+  // 능력치: {ability:'cha', min:2}
+  if (cond.ability) {
+    return getMod(cond.ability) >= (cond.min || 0);
+  }
+  // 시야: {vision:'darkvision'} or {vision:'low-light'}
+  if (cond.vision) {
+    const curVision = state.vision || state.selectedAncestry?.vision || '없음';
+    const rank = {'암시야':2,'darkvision':2,'저광 시야':1,'low-light':1,'없음':0};
+    return (rank[curVision]||0) >= (rank[cond.vision]||0);
+  }
+  // 재주 보유: {feat:'Halfling Luck'}
+  if (cond.feat) {
+    const allFeats = Object.values(state.feats).flat().filter(ff => ff?.name);
+    return allFeats.some(ff => {
+      const ko = ff.name.split(' (')[0].trim();
+      const enM = ff.name.match(/\(([^)]+)\)$/);
+      const en = enM ? enM[1].trim() : '';
+      return en === cond.feat || ko === cond.feat;
+    });
+  }
+  // 혈통: {ancestry:'엘프'}
+  if (cond.ancestry) {
+    if (state.selectedAncestry?.traits?.includes(cond.ancestry)) return true;
+    if (state.selectedHeritage?.extraFeats?.includes(cond.ancestry)) return true;
+    // 양자 혈통
+    const adopted = Object.values(state.feats).flat().some(ff =>
+      ff?.name?.includes('양자 혈통') && ff.choice && (typeof ANCESTRY_NAME_MAP !== 'undefined') && ANCESTRY_NAME_MAP[ff.choice] === cond.ancestry
+    );
+    return adopted;
+  }
+  // 유산: {heritage:'천상 혈통'}
+  if (cond.heritage) {
+    return state.selectedHeritage?.name_ko === cond.heritage;
+  }
+  // 서브클래스: {subclass:'수수께끼 뮤즈'}
+  if (cond.subclass) {
+    const c = cond.subclass;
+    if (state.selectedSubclass) {
+      const sub = state.selectedSubclass;
+      if (sub.name_ko === c || sub.name_en === c) return true;
+      if (sub.subclass_type && c === sub.name_ko + ' ' + sub.subclass_type) return true;
+      if (sub.subclass_type && sub.name_en && c === sub.name_en + ' ' + sub.subclass_type) return true;
+    }
+    // 추가 서브클래스 (다양한 뮤즈 등)
+    if (typeof SUBCLASS_DB !== 'undefined') {
+      const match = Object.values(state.feats).flat().some(ff => {
+        if (!ff?.choice) return false;
+        const extraSub = SUBCLASS_DB.find(s => s.id === ff.choice);
+        if (!extraSub) return false;
+        if (extraSub.name_ko === c || extraSub.name_en === c) return true;
+        if (extraSub.subclass_type && c === extraSub.name_ko + ' ' + extraSub.subclass_type) return true;
+        return false;
+      });
+      if (match) return true;
+    }
+    return false;
+  }
+  // OR 조건: {or:[...]}
+  if (cond.or) {
+    return cond.or.some(sub => _checkOnePrereq(sub));
+  }
+  return true; // 알 수 없는 조건 → 통과
+}
+
+// ── 전제조건 체크 (구조화 prereqs 우선, 텍스트 폴백) ──
+function _checkPrereqs(feat) {
+  // prereqs 배열이 있으면 구조화 체크
+  if (feat.prereqs && feat.prereqs.length > 0) {
+    return feat.prereqs.every(cond => _checkOnePrereq(cond));
+  }
+  // prereqs가 없으면 텍스트 기반 폴백 (prereqs 미정의 재주용)
+  return _checkPrereqsText(feat.prerequisites);
+}
+
+// ── 텍스트 기반 전제조건 체크 (폴백) ──
+function _checkPrereqsText(prereqStr) {
   if (!prereqStr) return true;
-  // 첫 문장만 선행 조건으로 사용 (나머지는 효과 설명)
   const prereq = prereqStr.split(/(?<=\.)\s+/)[0].replace(/\.$/,'').trim();
   if (!prereq) return true;
 
@@ -2632,142 +2732,59 @@ function _checkPrereqs(prereqStr) {
     }
   }));
 
-  // 쉼표로 구분된 각 조건 체크 (AND)
-  const conditions = prereq.split(/,\s*/);
+  const conditions = prereq.replace(/;\s*/g, ', ').split(/,\s*/);
   for (const cond of conditions) {
     const c = cond.trim();
     if (!c) continue;
-
-    // "또는" OR 조건: "A 또는 B" → A 또는 B 중 하나만 통과하면 OK
     if (c.includes(' 또는 ')) {
       const orParts = c.split(/\s+또는\s+/);
-      const anyPass = orParts.some(part => _checkPrereqs(part.trim()));
+      const anyPass = orParts.some(part => _checkPrereqsText(part.trim()));
       if (!anyPass) return false;
       continue;
     }
-
-    // 기술 숙련도 체크: "곡예 숙련", "은신 전문가" 등
+    // 기술 숙련도
     const skillRankMatch = c.match(/^(.+?)\s+(숙련|전문가|달인|전설)$/);
     if (skillRankMatch) {
-      const skillName = skillRankMatch[1];
+      const name = skillRankMatch[1].replace(/에$/, '');
       const rankMap = {'숙련':2,'전문가':4,'달인':6,'전설':8};
       const reqRank = rankMap[skillRankMatch[2]] || 2;
-
-      // 지각(Perception) 체크 — SKILLS 배열에 없고 별도 숙련도
-      if (skillName === '지각') {
-        const percRank = parseInt(document.getElementById('prof-perc')?.value||0);
-        if (percRank < reqRank) return false;
-        continue;
-      }
-
-      // 지식(Lore) 체크 — 아무 지식 기술이 해당 등급 이상이면 충족
-      if (skillName === '지식') {
-        const loreSkills = (typeof SKILLS !== 'undefined') ? SKILLS.filter(s => s.isLore) : [];
-        const anyLore = loreSkills.some(s => {
-          const cur = parseInt(document.getElementById('sk-prof-'+s.id)?.value||0);
-          return cur >= reqRank;
-        });
-        // 재주 부여 지식도 체크
-        if (!anyLore && state._featGrantedLores && state._featGrantedLores.length > 0) {
-          // 부여된 지식은 최소 숙련(2)
-          if (reqRank <= 2) { continue; }
-        }
-        if (!anyLore) return false;
-        continue;
-      }
-
-      // "에" 접미사 제거: "종교에 숙련" → "종교"로 매칭 시도
-      const cleanName = skillName.replace(/에$/, '');
-      const sk = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.name === skillName || s.name === cleanName) : null;
-      if (sk) {
-        const curRank = parseInt(document.getElementById('sk-prof-'+sk.id)?.value||0);
-        if (curRank < reqRank) return false;
-      }
-      // sk가 null이면 기술이 아닌 숙련도(내성, 무기 등) — 현재 체크 불가, 통과
+      if (name === '지각') { if (parseInt(document.getElementById('prof-perc')?.value||0) < reqRank) return false; continue; }
+      const sk = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.name === skillRankMatch[1] || s.name === name) : null;
+      if (sk && parseInt(document.getElementById('sk-prof-'+sk.id)?.value||0) < reqRank) return false;
       continue;
     }
-
-    // 능력치 체크: "건강 +2", "매력 +2" 등
+    // 능력치
     const attrMatch = c.match(/^(근력|민첩|건강|지능|지혜|매력)\s*\+(\d+)$/);
     if (attrMatch) {
       const attrMap = {'근력':'str','민첩':'dex','건강':'con','지능':'int','지혜':'wis','매력':'cha'};
-      const mod = getMod(attrMap[attrMatch[1]]);
-      if (mod < parseInt(attrMatch[2])) return false;
+      if (getMod(attrMap[attrMatch[1]]) < parseInt(attrMatch[2])) return false;
       continue;
     }
-
-    // 시야 체크: "암시야", "저광 시야"
+    // 시야
     if (c === '암시야' || c === '저광 시야') {
       const curVision = state.vision || state.selectedAncestry?.vision || '없음';
-      const visionRank = {'암시야':2,'저광 시야':1,'없음':0};
-      if ((visionRank[curVision]||0) < (visionRank[c]||0)) return false;
+      const vr = {'암시야':2,'저광 시야':1,'없음':0};
+      if ((vr[curVision]||0) < (vr[c]||0)) return false;
       continue;
     }
-
-    // 혈통 체크: "엘프", "드워프" 등 (양자 혈통 포함)
+    // 혈통/유산/서브클래스/재주 — 기존 로직 유지
     if (state.selectedAncestry?.traits?.includes(c)) continue;
     if (state.selectedHeritage?.extraFeats?.includes(c)) continue;
-    if (state.selectedHeritage && state.selectedHeritage.name_ko === c) continue;
-    // 양자 혈통으로 얻은 혈통도 체크
-    const _isAdopted = Object.values(state.feats).flat().some(ff => ff && ff.name && ff.name.includes('양자 혈통') && ff.choice && (ANCESTRY_NAME_MAP[ff.choice] === c));
-    if (_isAdopted) continue;
-
-    // 뮤즈/교리/교단 체크 — "수수께끼 뮤즈" = name_ko("수수께끼") + subclass_type("뮤즈")
+    if (state.selectedHeritage?.name_ko === c) continue;
     if (state.selectedSubclass) {
       const sub = state.selectedSubclass;
       if (sub.name_ko === c || sub.name_en === c) continue;
       if (sub.subclass_type && c === sub.name_ko + ' ' + sub.subclass_type) continue;
-      if (sub.subclass_type && sub.name_en && c === sub.name_en + ' ' + sub.subclass_type) continue;
     }
-    // 다양한 뮤즈/결사 탐험가 등으로 추가 선택한 서브클래스도 체크
-    if (typeof SUBCLASS_DB !== 'undefined') {
-      let _extraSubMatch = false;
-      Object.values(state.feats).flat().forEach(ff => {
-        if (!ff?.choice || _extraSubMatch) return;
-        const extraSub = SUBCLASS_DB.find(s => s.id === ff.choice);
-        if (!extraSub) return;
-        if (extraSub.name_ko === c || extraSub.name_en === c) _extraSubMatch = true;
-        if (extraSub.subclass_type && c === extraSub.name_ko + ' ' + extraSub.subclass_type) _extraSubMatch = true;
-      });
-      if (_extraSubMatch) continue;
-    }
-
-    // 숫자+레벨 조건은 통과 (레벨은 별도 필터에서 체크)
     if (/\d+레벨/.test(c)) continue;
-
-    // 재주 보유 체크
     if (learnedFeats.has(c)) continue;
-
-    // 영문 재주명 체크
     if (typeof FEAT_DB !== 'undefined') {
-      const found = FEAT_DB.find(f => f && f.name_ko === c || f && f.name_en === c);
+      const found = FEAT_DB.find(f => f && (f.name_ko === c || f.name_en === c));
       if (found && (learnedFeats.has(found.name_ko) || learnedFeats.has(found.name_en))) continue;
     }
-
-    // "아무 클래스" 체크: 클래스가 선택되어 있으면 통과
-    if (c === '아무 클래스') {
-      if (!state.selectedClass) return false;
-      continue;
-    }
-
-    // 클래스 체크
-    if (state.selectedClass && (state.selectedClass.name === c || state.selectedClass.en === c || state.selectedClass.id === c)) continue;
-
-    // "주문시전 클래스 특성" — 실제 주문시전 클래스인지 확인
-    if (c === '주문시전 클래스 특성') {
-      if (!state.selectedClass?.tradition) return false;
-      continue;
-    }
-
-    // 원천/동물/사역마 등 일반적 조건은 통과
+    if (c === '주문시전 클래스 특성') { if (!state.selectedClass?.tradition) return false; continue; }
     if (c.includes('원천') || c.includes('동물') || c.includes('사역마')) continue;
-    // "N랭크 주문 시전 가능" 등 주문 관련 조건 — 주문시전 클래스가 아니면 실패
-    if (c.includes('주문')) {
-      if (!state.selectedClass?.tradition) return false;
-      continue;
-    }
-
-    // 매칭 안 되면 실패
+    if (c.includes('주문')) { if (!state.selectedClass?.tradition) return false; continue; }
     return false;
   }
   return true;
@@ -2843,7 +2860,7 @@ function filterFeats() {
       if (!f) return false;
       if (q && !f.name_ko.includes(q) && !(f.name_en||'').toLowerCase().includes(q) && !(f.summary||'').includes(q)) return false;
       if (f.feat_level > maxLv) return false;
-      if (f.prerequisites && !_checkPrereqs(f.prerequisites)) return false;
+      if ((f.prereqs || f.prerequisites) && !_checkPrereqs(f)) return false;
       // 이미 배운 재주 중복 방지 (repeatable이면 허용)
       if (!f.repeatable) {
         const fullName = f.name_ko + (f.name_en ? ` (${f.name_en})` : '');
@@ -2873,7 +2890,7 @@ function filterFeats() {
     (!cat || f.category===cat) &&
     (!lv || f.feat_level<=lv) &&
     (!q || f.name_ko.includes(q) || (f.name_en||'').toLowerCase().includes(q) || (f.summary||'').includes(q)) &&
-    (!f.prerequisites || _checkPrereqs(f.prerequisites))
+    (!(f.prereqs || f.prerequisites) || _checkPrereqs(f))
   );
 }
 

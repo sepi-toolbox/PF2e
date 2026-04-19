@@ -217,24 +217,49 @@ while ((match = h3Re.exec(html)) !== null) {
   feats.push(feat);
 }
 
-// ── 기존 feat_db.js에서 혈통/아키타입 재주 읽기 ──
+// ── 기존 feat_db.js에서 혈통/아키타입 재주 + prereqs 읽기 ──
 const existingDb = fs.readFileSync('feat_db.js', 'utf8');
-// ancestry와 archetype 재주 + class_id가 있는 feature 항목 추출
-const existingFeats = [];
-const existingRe = /\{([^}]+)\}/g;
-let em;
-while ((em = existingRe.exec(existingDb)) !== null) {
-  const inner = em[1];
-  const catMatch = inner.match(/category:\s*'([^']+)'/);
-  if (!catMatch) continue;
-  const cat = catMatch[1];
-  // 기존 ancestry, archetype, feature 유지
-  if (cat === 'ancestry' || cat === 'archetype') {
-    existingFeats.push(em[0]);
+
+// prereqs 보존: eval로 기존 DB를 로드하여 name_en → prereqs 매핑
+const existingPrereqs = {};
+try {
+  eval(existingDb);
+  if (typeof FEAT_DB !== 'undefined') {
+    for (const f of FEAT_DB) {
+      if (f && f.name_en && f.prereqs) {
+        existingPrereqs[f.name_en] = JSON.stringify(f.prereqs)
+          .replace(/"(\w+)":/g, '$1:')
+          .replace(/"([^"]+)"/g, (m, v) => "'" + v.replace(/'/g, "\\'") + "'");
+      }
+    }
   }
-  // class_id가 있는 feature (클래스 요소) 유지
-  if (inner.includes('class_id:') && inner.includes("cat:'feature'")) {
-    existingFeats.push(em[0]);
+} catch(e) { console.error('  prereqs 로드 실패:', e.message); }
+console.error(`  기존 prereqs 보존: ${Object.keys(existingPrereqs).length}개`);
+
+// ancestry와 archetype 재주 + class_id가 있는 feature 항목 추출 (raw text)
+const existingFeats = [];
+// 중첩 {} 처리를 위해 브래킷 카운팅으로 각 엔트리 추출
+let braceDepth = 0, entryStart = -1;
+for (let i = 0; i < existingDb.length; i++) {
+  if (existingDb[i] === '{') {
+    if (braceDepth === 0) entryStart = i;
+    braceDepth++;
+  } else if (existingDb[i] === '}') {
+    braceDepth--;
+    if (braceDepth === 0 && entryStart >= 0) {
+      const entry = existingDb.substring(entryStart, i + 1);
+      const catMatch = entry.match(/category:\s*'([^']+)'/);
+      if (catMatch) {
+        const cat = catMatch[1];
+        if (cat === 'ancestry' || cat === 'archetype') {
+          existingFeats.push(entry);
+        }
+        if (entry.includes('class_id:') && entry.includes("cat:'feature'")) {
+          existingFeats.push(entry);
+        }
+      }
+      entryStart = -1;
+    }
   }
 }
 
@@ -289,6 +314,10 @@ for (const f of feats) {
   parts.push(`name_en:'${escStr(f.name_en)}'`);
   parts.push(`feat_level:${f.feat_level}`);
   if (f.prerequisites) parts.push(`prerequisites:'${escStr(f.prerequisites)}'`);
+  // 기존 prereqs 보존
+  if (existingPrereqs[f.name_en]) {
+    parts.push(`prereqs:${existingPrereqs[f.name_en]}`);
+  }
   parts.push(`traits:[${f.traits.map(t => `'${escStr(t)}'`).join(',')}]`);
   parts.push(`category:'${f.category}'`);
   // summary 200자 제한
