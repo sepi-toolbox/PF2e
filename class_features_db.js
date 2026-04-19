@@ -329,11 +329,11 @@ var SUBCLASS_AUTO_SPELLS = {
   'muse-polymath': [{lv:1, type:'known', rank:1, name_ko:'환영 하수인', name_en:'Phantasmal Minion'}],
   // ── 드루이드 교단 (DB 매칭) ──
   'order-flame':  [{lv:1, type:'focus', name_ko:'화염 광선', name_en:'Fire Ray'}],
-  'order-leaf':   [{lv:1, type:'focus', name_ko:'선의 씨앗', name_en:'Goodberry'}],
+  'order-leaf':   [{lv:1, type:'focus', name_ko:'축제의 뿔피리', name_en:'Cornucopia'}],
   'order-storm':  [{lv:1, type:'focus', name_ko:'폭풍 군주', name_en:'Tempest Surge'}],
   'order-wave':   [{lv:1, type:'focus', name_ko:'조류 파도', name_en:'Tidal Surge'}],
-  'order-wild':   [{lv:1, type:'focus', name_ko:'야생 변신', name_en:'Wild Shape'}],
-  // order-animal: DB에 Heal Animal 없음
+  'order-wild':   [{lv:1, type:'focus', name_ko:'야생 변이', name_en:'Untamed Shift'}],
+  'order-animal': [{lv:1, type:'focus', name_ko:'동물 치유', name_en:'Heal Animal'}],
   // ── 위저드 비전 학파 (Remaster) ──
   'school-ars-grammatica': [{lv:1, type:'focus', name_ko:'보호의 결계', name_en:'Protective Wards'}],
   'school-battle-magic':   [{lv:1, type:'focus', name_ko:'힘의 화살', name_en:'Force Bolt'}],
