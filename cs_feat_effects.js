@@ -3356,6 +3356,12 @@ function _onFeatChoiceInline(featType, featIndex, choiceType) {
   if (!val) return;
   state.feats[featType][featIndex].choice = val;
   renderFeats();
+  // 선택한 재주를 다시 펼침
+  const container = document.getElementById('feats-' + featType);
+  if (container) {
+    const entry = container.children[featIndex];
+    if (entry) entry.classList.add('expanded');
+  }
   try { recalcAll(); } catch(e) { console.error(e); }
   save();
 }
