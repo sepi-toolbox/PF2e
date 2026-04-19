@@ -1209,11 +1209,14 @@ function renderSpells() {
   const hasCasting = !!(state.selectedClass?.casting);
   const memBtn = document.getElementById('btn-memorize-spells');
   if (memBtn) memBtn.style.display = isPrepared ? '' : 'none';
+  // 주문 배우기 버튼: 전통 전체 접근 캐스터(클레릭/드루이드)는 숨김
+  const isSpellbookCaster = isPrepared && typeof FAMILIAR_INIT !== 'undefined' && FAMILIAR_INIT[state.selectedClass?.id];
+  const showLearnBtn = isSpontaneous || isSpellbookCaster;
   const learnBtn = document.getElementById('btn-learn-spells');
-  if (learnBtn) learnBtn.style.display = hasCasting ? '' : 'none';
+  if (learnBtn) learnBtn.style.display = showLearnBtn ? '' : 'none';
   // 경고 배지: 배울 수 있는 주문이 남아있으면 표시
   const learnWarn = document.getElementById('learn-spells-warn');
-  if (learnWarn && hasCasting) {
+  if (learnWarn && showLearnBtn) {
     learnWarn.style.display = _hasUnlearnedSpells() ? '' : 'none';
   }
 
@@ -1909,17 +1912,16 @@ function _hasUnlearnedSpells() {
 
 function openLearnSpellsPanel() {
   if (!state.selectedClass?.casting) return;
+  const cid = state.selectedClass.id;
 
   if (state.selectedClass.casting === 'spontaneous') {
-    // 즉흥형: 첫 번째 빈 캔트립 또는 known 슬롯 찾아서 주문 선택 모달 열기
+    // 즉흥형(바드): 첫 번째 빈 캔트립 또는 known 슬롯의 주문 선택 모달 열기
     const cantripSlots = state.cantripSlots || 5;
     const cantrips = state.spells.cantrip || [];
     for (let i = 0; i < cantripSlots; i++) {
       if (!cantrips[i]) { pickSpellForSlot('cantrip', 0, i); return; }
     }
-    // 빈 known 슬롯 찾기
     const lv = getLevel();
-    const cid = state.selectedClass.id;
     const spellData = (typeof CLASS_SPELL_TABLE !== 'undefined' && CLASS_SPELL_TABLE[cid]) ? CLASS_SPELL_TABLE[cid][Math.min(lv,20)] : null;
     if (spellData) {
       const slots = spellData.slots || [];
@@ -1927,17 +1929,25 @@ function openLearnSpellsPanel() {
         const max = slots[r-1] || 0;
         if (max <= 0) continue;
         const known = (state.spells.known || []).filter(s => s.rank === r && !s._auto);
-        if (known.length < max) {
-          pickSpellForSlot('known', r, known.length);
-          return;
-        }
+        if (known.length < max) { pickSpellForSlot('known', r, known.length); return; }
       }
     }
     return;
   }
   if (state.selectedClass.casting === 'prepared') {
-    // 준비형: 주문 기억 모달 열기
-    if (typeof openMemorizeModal === 'function') openMemorizeModal();
+    // 주문서 캐스터(위저드/위치): 주문서에 주문 추가
+    if (typeof FAMILIAR_INIT !== 'undefined' && FAMILIAR_INIT[cid]) {
+      const lv = getLevel();
+      const maxRank = Math.min(10, Math.ceil(lv / 2));
+      // 빈 초기 슬롯이 있으면 그걸 먼저, 아니면 자유 습득 슬롯
+      const freeSpells = state.familiarSpells?.free || (state.growth[lv]?.familiarSpells?.free || []);
+      const nextIdx = freeSpells.length;
+      if (typeof openGrowthFamiliarFreePicker === 'function') {
+        openGrowthFamiliarFreePicker(lv, nextIdx, maxRank);
+      }
+      return;
+    }
+    // 전통 전체 접근(클레릭/드루이드): "배우기" 불필요 — 버튼이 숨겨져야 하지만 혹시 눌리면 무시
     return;
   }
 }
