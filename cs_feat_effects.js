@@ -534,7 +534,12 @@ const FEAT_EFFECTS = {
     choice: {
       type:'lore', label:'집착할 지식(Lore) 분야를 입력하세요',
     },
-    effects: [{type:'grant_lore', name:'$choice'}, {type:'display_note', text:'$choice_name 지식에 숙련됨 + 확신(Assurance) 재주 적용. 휴식 1일로 주제 변경 가능'}]
+    effects: [
+      {type:'grant_lore', name:'$choice'},
+      {type:'grant_feat', feat:'추가 지식 (Additional Lore)', choiceValue:'$choice'},
+      {type:'grant_feat', feat:'확신 (Assurance)', choiceValue:'$choice'},
+      {type:'display_note', text:'$choice_name 지식에 숙련됨 + 추가 지식/확신 재주 자동 부여. 휴식 1일로 주제 변경 가능'}
+    ]
   },
   'Illusion Sense': {
     effects: [{type:'display_note', text:'환상에 대한 간파 판정에 +1 상황 보너스'}]
@@ -3138,10 +3143,20 @@ function _applyOneEffect(fb, eff, feat, level) {
       // 재주 자동 부여
       if (eff.feat && feat.name) {
         const grantName = eff.feat;
-        const alreadyHas = Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(grantName.split(' (')[0]));
-        if (!alreadyHas) {
+        const existing = Object.values(state.feats).flat().find(f => f && f.name && f.name.includes(grantName.split(' (')[0]));
+        if (existing) {
+          // choiceValue 동기화: 부모 choice 변경 시 자식도 갱신
+          if (eff.choiceValue && existing._grantedBy === feat.name) {
+            existing.choice = eff.choiceValue === '$choice' ? feat.choice : eff.choiceValue;
+          }
+        } else {
           if (!state.feats.general) state.feats.general = [];
-          state.feats.general.push({name: grantName, level: 1, _auto: true, _grantedBy: feat.name});
+          const grantedEntry = {name: grantName, level: 1, _auto: true, _grantedBy: feat.name};
+          // choiceValue: 부모 재주의 choice를 자식 재주에 미리 지정
+          if (eff.choiceValue) {
+            grantedEntry.choice = eff.choiceValue === '$choice' ? feat.choice : eff.choiceValue;
+          }
+          state.feats.general.push(grantedEntry);
           // 부여된 재주에 choice가 필요하면 모달 열기
           const grantedIdx = state.feats.general.length - 1;
           const grantedFeat = state.feats.general[grantedIdx];
