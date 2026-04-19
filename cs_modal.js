@@ -3581,11 +3581,12 @@ function _buildClericChoicesUI() {
   // 신성 원천
   html += `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">
     <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">⛲ 신성 원천 Divine Font</div>
-    <select id="cls-font" onchange="_modalChoices.divineFont=this.value;_validateInitialChoices()" style="${_selStyle}">
+    <select id="cls-font" onchange="_onClericFontChange(this.value)" style="${_selStyle}">
       <option value="">— 선택 —</option>
-      <option value="heal">💚 치유 (Heal)</option>
-      <option value="harm">💀 해악 (Harm)</option>
+      <option value="heal">치유 (Heal)</option>
+      <option value="harm">해악 (Harm)</option>
     </select>
+    <div id="cls-font-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>
   </div>`;
 
   return html;
@@ -3619,6 +3620,31 @@ function _onClericDeityChange(id) {
     } else {
       info.innerHTML = '';
     }
+  }
+  _validateInitialChoices();
+}
+
+function _onClericFontChange(val) {
+  _modalChoices.divineFont = val;
+  const info = document.getElementById('cls-font-info');
+  if (info) {
+    if (!val) { info.innerHTML = ''; _validateInitialChoices(); return; }
+    // 신성 원천 기능 설명
+    const cfDesc = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
+      ? (CLASS_FEATURE_NAMES.cleric.find(f => f.name_en === 'Divine Font') || {}).desc || '' : '';
+    // 주문 정보
+    const spellName = val === 'heal' ? '치유' : '해로움';
+    const spell = typeof SPELL_DB !== 'undefined' ? SPELL_DB.find(s => s.name_ko === spellName) : null;
+    let spellHtml = '';
+    if (spell) {
+      spellHtml = `<div style="margin-top:6px;padding:6px 8px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);">
+        <div style="font-weight:600;">${spell.name_ko} <span style="color:var(--text2);font-weight:400;">${spell.name_en}</span></div>
+        <div style="margin-top:4px;">${spell.desc || spell.summary || ''}</div>
+      </div>`;
+    }
+    info.innerHTML = `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">
+      ${cfDesc}
+    </div>${spellHtml}`;
   }
   _validateInitialChoices();
 }
