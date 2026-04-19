@@ -360,6 +360,23 @@ function loadData(d) {
       ['special','ancestry','class','general','skill','archetype','other'].forEach(k => {
         if (!state.feats[k]) state.feats[k] = [];
       });
+      // 중복 재주 정리: 같은 이름+레벨의 non-repeatable 재주 제거
+      if (typeof FEAT_DB !== 'undefined') {
+        Object.keys(state.feats).forEach(cat => {
+          const arr = state.feats[cat];
+          const seen = new Set();
+          for (let i = arr.length - 1; i >= 0; i--) {
+            const f = arr[i];
+            if (!f?.name) continue;
+            const key = f.name + '|' + (f.level||1);
+            const fNameKo = f.name.split(' (')[0].trim();
+            const fd = FEAT_DB.find(x => x && x.name_ko === fNameKo);
+            if (fd?.repeatable) continue; // repeatable 재주는 중복 허용
+            if (seen.has(key)) { arr.splice(i, 1); continue; }
+            seen.add(key);
+          }
+        });
+      }
       renderFeats();
     }
     if (d.growth) { state.growth = d.growth; }

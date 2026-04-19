@@ -1170,7 +1170,7 @@ function renderGrowthPlan() {
         html += `<div class="growth-slot ${allFilled ? 'filled' : ''}" onclick="growthPickSkillTrainingMulti()">
           <div class="growth-slot-icon">📖</div>
           <div class="growth-slot-body">
-            <div class="growth-slot-label">기술 훈련 Skill Training</div>
+            <div class="growth-slot-label">추가 기술 숙련 Additional Trained Skills</div>
             <div class="growth-slot-value">${allFilled ? displayNames : filledCount + '/' + numSlots + ' 선택' + (displayNames ? ' — ' + displayNames : '')}</div>
           </div>
           <div class="growth-slot-badge">${numSlots}</div>
@@ -1496,7 +1496,7 @@ function growthPickSkillTraining(slotIndex) {
   _skillPickLevel = 1;
   const trainArr = state.growth[1]?.skillTraining || [];
   const available = getAvailableSkillsForTraining(slotIndex, trainArr);
-  openSkillPickModal('기술 훈련 선택', available);
+  openSkillPickModal('추가 기술 숙련 선택', available);
 }
 
 function growthClearSkillTraining(slotIndex) {
@@ -1518,7 +1518,7 @@ function growthPickSkillTrainingMulti() {
   const alreadySelected = trainArr.filter(v => v);
 
   document.getElementById('modal-overlay').classList.remove('hidden');
-  document.getElementById('modal-title').textContent = `기술 훈련 선택 (${alreadySelected.length}/${numSlots})`;
+  document.getElementById('modal-title').textContent = `추가 기술 숙련 선택 (${alreadySelected.length}/${numSlots})`;
   const searchEl = document.getElementById('modal-search');
   if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; }
   const fbar = document.getElementById('modal-filterbar');
