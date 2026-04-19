@@ -3342,13 +3342,17 @@ function _hasFeatChoiceIssue(feat) {
   const def = FEAT_EFFECTS[nameEn];
   if (!def?.choice) return false;
   const ch = def.choice;
-  // skill 타입: 선택된 기술이 min_rank 미달
-  if (ch.type === 'skill' && ch.filter?.min_rank && feat.choice) {
-    const rank = parseInt(document.getElementById('sk-prof-' + feat.choice)?.value || 0);
-    if (rank < ch.filter.min_rank) return true;
+  if (ch.type === 'skill') {
+    // 유효하지 않은 기술 ID
+    if (feat.choice && typeof SKILLS !== 'undefined' && !SKILLS.some(s => s.id === feat.choice)) return true;
+    // min_rank 미달
+    if (ch.filter?.min_rank && feat.choice) {
+      const rank = parseInt(document.getElementById('sk-prof-' + feat.choice)?.value || 0);
+      if (rank < ch.filter.min_rank) return true;
+    }
   }
   // choice 미선택
-  if (!feat.choice && (ch.type === 'lore' || ch.type === 'skill')) return true;
+  if (!feat.choice && (ch.type === 'lore' || ch.type === 'skill' || ch.type === 'custom')) return true;
   return false;
 }
 
@@ -3394,7 +3398,10 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
       html += `<option value="${s.id}"${sel}>${s.name}</option>`;
     });
     html += `</select>`;
-    if (!current) {
+    const isValidSkill = current && skills.some(s => s.id === current);
+    if (!current || !isValidSkill) {
+      // 유효하지 않은 값이면 초기화
+      if (current && !isValidSkill) feat.choice = '';
       html += `<div style="margin-top:4px;font-size:11px;color:#f44336;">⚠ 선택하지 않은 항목이 있습니다.</div>`;
     } else if (minRank > 0) {
       const curRank = parseInt(document.getElementById('sk-prof-' + current)?.value || 0);
