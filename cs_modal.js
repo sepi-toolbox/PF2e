@@ -3484,6 +3484,7 @@ function _buildClassChoicesUI(cls) {
   const fixedSkills = [];
   let trainableBase = 0;
   let deitySkill = false;
+  const choiceSkills = []; // "또는" 패턴의 선택형 고정 기술
 
   skillParts.forEach(p => {
     const m = p.match(/(\d+)\+INT개/);
@@ -3491,11 +3492,16 @@ function _buildClassChoicesUI(cls) {
     if (p.trim() === '신격기술') { deitySkill = true; return; }
     p.split(',').forEach(s => {
       const name = s.trim();
-      if (name) fixedSkills.push(name);
+      if (!name) return;
+      if (name.includes('또는')) {
+        choiceSkills.push(name.split(/\s*또는\s*/).map(c => c.trim()));
+      } else {
+        fixedSkills.push(name);
+      }
     });
   });
 
-  _modalChoices = { type: 'class', fixedSkills, trainableBase, deitySkill, trainableSkills: Array(trainableBase).fill('') };
+  _modalChoices = { type: 'class', fixedSkills, choiceSkills, trainableBase, deitySkill, trainableSkills: Array(trainableBase).fill(''), chosenFixedSkills: Array(choiceSkills.length).fill('') };
 
   let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
   html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📖 기술 숙련</div>`;
@@ -3503,6 +3509,17 @@ function _buildClassChoicesUI(cls) {
   // 고정 기술 (disabled)
   fixedSkills.forEach(name => {
     html += _choiceDropdown('', `고정 기술`, [{value: name, label: name}], true, name);
+  });
+  // 선택형 고정 기술 (active dropdown)
+  choiceSkills.forEach((choices, ci) => {
+    const options = choices.map(c => ({value: c, label: c}));
+    html += `<div style="margin-bottom:6px;">
+      <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 (선택)</div>
+      <select onchange="_modalChoices.chosenFixedSkills[${ci}]=this.value;_validateInitialChoices()" style="${_selStyle}">
+        <option value="">— 선택 —</option>
+        ${options.map(o => `<option value="${o.value}">${o.label}</option>`).join('')}
+      </select>
+    </div>`;
   });
   if (deitySkill) {
     html += _choiceDropdown('', `신격 기술 (신격 선택 시 자동)`, [{value:'deity', label:'신격 기술'}], true, 'deity');
@@ -3731,6 +3748,8 @@ function _validateInitialChoices() {
     if (skills.some(v => !v)) valid = false;
     // 최소 base 개수
     if (skills.length < (_modalChoices.trainableBase || 0)) valid = false;
+    // 선택형 고정 기술 ("또는" 패턴)
+    if ((_modalChoices.chosenFixedSkills || []).some(v => !v)) valid = false;
   } else if (_modalChoices.type === 'background') {
     if (_modalChoices.hasChoiceSkill && !_modalChoices.choiceSkill) valid = false;
   } else if (_modalChoices.type === 'ancestry') {
@@ -3971,8 +3990,15 @@ function confirmModal() {
     if (btnC) { btnC.textContent = `${modalSelected.name} (${modalSelected.en})`; btnC.classList.add('filled'); }
     applyClassDefaults(modalSelected);
     // 모달 내 기술 선택 반영
-    if (_modalChoices.type === 'class' && _modalChoices.trainableSkills) {
-      const skills = _modalChoices.trainableSkills.filter(v => v);
+    if (_modalChoices.type === 'class') {
+      // 선택형 고정 기술 (예: "곡예 또는 운동")
+      (_modalChoices.chosenFixedSkills || []).forEach(name => {
+        if (!name) return;
+        const id = skillNameToId(name);
+        if (id) { const el = document.getElementById('sk-prof-' + id); if (el && parseInt(el.value) < 2) el.value = '2'; }
+      });
+      // 추가 기술 숙련
+      const skills = (_modalChoices.trainableSkills || []).filter(v => v);
       state.trainableSkillSlots = skills.length;
       if (!state.growth[1]) state.growth[1] = {};
       state.growth[1].skillTraining = skills;
