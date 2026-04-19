@@ -3455,9 +3455,11 @@ function _buildInitialChoicesUI(type, item) {
 }
 
 // ── 드롭다운 빌더 헬퍼 ──
+var _selStyle = 'width:100%;padding:6px 8px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:12px;';
 function _choiceDropdown(id, label, options, disabled, selected) {
-  const dis = disabled ? 'disabled style="opacity:0.7;background:var(--bg3);"' : '';
-  let html = `<select id="${id}" ${dis} onchange="_onInitialChoiceChange()" style="width:100%;padding:6px 8px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:12px;">`;
+  const disAttr = disabled ? 'disabled' : '';
+  const disStyle = disabled ? 'opacity:0.6;' : '';
+  let html = `<select id="${id}" ${disAttr} onchange="_onInitialChoiceChange()" style="${_selStyle}${disStyle}">`;
   if (!disabled && !selected) html += `<option value="">— 선택 —</option>`;
   options.forEach(o => {
     const val = typeof o === 'object' ? o.value : o;
@@ -3525,7 +3527,7 @@ function _buildTrainableSkillRow(index, excludeNames) {
   const options = allSkills.filter(s => !exclude.has(s.id)).map(s => ({value: s.id, label: `${s.name} (${s.en})`}));
   const curVal = (_modalChoices.trainableSkills || [])[index] || '';
   return `<div class="trainable-skill-row" data-index="${index}" style="display:flex;gap:4px;align-items:center;margin-bottom:4px;">
-    <select onchange="_onTrainableSkillChange(${index}, this.value)" style="flex:1;padding:6px 8px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:12px;">
+    <select onchange="_onTrainableSkillChange(${index}, this.value)" style="${_selStyle}flex:1;">
       <option value="">— 선택 —</option>
       ${options.map(o => `<option value="${o.value}"${o.value === curVal ? ' selected' : ''}>${o.label}</option>`).join('')}
     </select>
@@ -3591,7 +3593,7 @@ function _buildBackgroundChoicesUI(bg) {
       });
       html += `<div style="margin-bottom:6px;">
         <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 (선택)</div>
-        <select id="bg-choice-skill" onchange="_modalChoices.choiceSkill=this.value;_validateInitialChoices()" style="width:100%;padding:6px 8px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:12px;">
+        <select id="bg-choice-skill" onchange="_modalChoices.choiceSkill=this.value;_validateInitialChoices()" style="${_selStyle}">
           <option value="">— 선택 —</option>
           ${options.map(o => `<option value="${o.value}">${o.label}</option>`).join('')}
         </select>
@@ -3658,8 +3660,7 @@ function _buildAncestryChoicesUI(anc) {
   // 시야/크기/속도 정보 표시
   html += `<div style="margin-top:10px;font-size:11px;color:var(--text2);line-height:1.7;">`;
   html += `<div><strong>크기:</strong> ${anc.size} | <strong>속도:</strong> ${anc.speed}피트</div>`;
-  html += `<div><strong>시야:</strong> ${anc.vision || '없음'}</div>`;
-  if (anc.specials?.length) html += `<div><strong>특수:</strong> ${anc.specials.join(', ')}</div>`;
+  html += `<div><strong>감각:</strong> ${anc.vision || '없음'}</div>`;
   html += `</div>`;
 
   html += `</div>`;
@@ -3673,7 +3674,7 @@ function _buildBonusLangRow(index, excludeLangs) {
   const options = allLangs.filter(l => !exclude.has(l)).map(l => ({value: l, label: l}));
   const curVal = (_modalChoices.bonusLangs || [])[index] || '';
   return `<div style="display:flex;gap:4px;align-items:center;margin-bottom:4px;">
-    <select onchange="_onBonusLangChange(${index}, this.value)" style="flex:1;padding:6px 8px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;font-size:12px;">
+    <select onchange="_onBonusLangChange(${index}, this.value)" style="${_selStyle}flex:1;">
       <option value="">— 선택 —</option>
       ${options.map(o => `<option value="${o.value}"${o.value === curVal ? ' selected' : ''}>${o.label}</option>`).join('')}
     </select>
@@ -3996,7 +3997,7 @@ function confirmModal() {
       if (langEl) {
         const traits = modalSelected.traits ? `특성: ${modalSelected.traits.join(', ')}` : '';
         const size = `크기: ${modalSelected.size || '중형'}`;
-        const vision = `시야: ${modalSelected.vision || '없음'}`;
+        const vision = `감각: ${modalSelected.vision || '없음'}`;
         const specials = (modalSelected.specials||[]).join('\n');
         const langLine = `언어: ${allLangs.join(', ')}`;
         langEl.value = [traits, size, vision, langLine, specials].filter(Boolean).join('\n');
@@ -4374,7 +4375,7 @@ function applyAncestryDefaults(anc) {
   state.size = anc.size || '중형';
   const langEl = document.getElementById('f-languages');
   if (langEl && !langEl.value) {
-    langEl.value = `특성: ${anc.traits.join(', ')}\n크기: ${anc.size}\n시야: ${anc.vision}\n${anc.specials.join('\n')}`;
+    langEl.value = `특성: ${anc.traits.join(', ')}\n크기: ${anc.size}\n감각: ${anc.vision}\n${anc.specials.join('\n')}`;
   }
   // Parse ancestry boosts/flaws from format like ['건강(CON)','지혜(WIS)','자유']
   const fixed = [], flaws = [];
