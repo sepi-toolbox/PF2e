@@ -4414,7 +4414,7 @@ function renderActions() {
     else groups[a.cat_label].locked.push(a);
   });
 
-  const catOrder = ['기본 행동','운동 행동','곡예 행동','은신 행동','기만 행동','외교 행동','위협 행동','의학 행동','도둑질 행동','자연 행동','생존 행동','제작 행동','공연 행동','지식 행동','재주 행동'];
+  const catOrder = ['재주 행동','유산 행동','기본 행동','운동 행동','곡예 행동','은신 행동','기만 행동','외교 행동','위협 행동','의학 행동','도둑질 행동','자연 행동','생존 행동','제작 행동','공연 행동','지식 행동'];
 
   let html = '';
   const orderedGroups = [...catOrder.filter(k => groups[k]), ...Object.keys(groups).filter(k => !catOrder.includes(k))];
