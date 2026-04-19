@@ -1113,34 +1113,6 @@ function renderGrowthPlan() {
         }
       }
 
-      // Background skill feat (auto-granted, display only)
-      if (g.bgSkillFeat) {
-        html += `<div class="growth-slot filled" style="cursor:default;">
-          <div class="growth-slot-icon">📚</div>
-          <div class="growth-slot-body">
-            <div class="growth-slot-label">배경 기술 재주 Background Skill Feat</div>
-            <div class="growth-slot-value">${g.bgSkillFeat}</div>
-          </div>
-        </div>`;
-      }
-
-      // Skill Training at level 1 (single card, multi-select modal)
-      const numSlots = state.trainableSkillSlots || 0;
-      if (numSlots > 0) {
-        const trainArr = (g.skillTraining || []).filter(v => v);
-        const filledCount = trainArr.length;
-        const allFilled = filledCount >= numSlots;
-        const displayNames = trainArr.map(id => { const sk = SKILLS.find(s=>s.id===id); return sk ? sk.name : id; }).join(', ');
-        html += `<div class="growth-slot ${allFilled ? 'filled' : ''}" onclick="growthPickSkillTrainingMulti()">
-          <div class="growth-slot-icon">📖</div>
-          <div class="growth-slot-body">
-            <div class="growth-slot-label">추가 기술 숙련 Additional Trained Skills</div>
-            <div class="growth-slot-value">${allFilled ? displayNames : filledCount + '/' + numSlots + ' 선택' + (displayNames ? ' — ' + displayNames : '')}</div>
-          </div>
-          <div class="growth-slot-badge">${numSlots}</div>
-          ${filledCount > 0 ? '<span class="spell-del" onclick="event.stopPropagation();growthClearAllSkillTraining();" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>' : ''}
-        </div>`;
-      }
     }
 
     // Ability Boosts
@@ -1193,24 +1165,10 @@ function renderGrowthPlan() {
       html += growthFeatSlotHTML(lv, 'skillFeat', '📚', '기술 재주 Skill Feat', 'skill', g.skillFeat);
     }
 
-    // Spell Repertoire (spontaneous casters with CLASS_SPELL_TABLE)
-    if (state.selectedClass?.casting === 'spontaneous') {
-      html += growthSpellCardHTML(lv);
-    }
-
-    // Signature Spells (3레벨에 등장, 이후 새 랭크 얻을 때마다)
+    // 주문 관련은 주문 탭의 "주문 배우기" 버튼에서 처리
+    // 시그니처 주문만 빌더에 유지
     if (lv >= 3 && state.selectedClass?.casting === 'spontaneous') {
       html += growthSignatureCardHTML(lv);
-    }
-
-    // Spellbook/Familiar (prepared+주문서: wizard, witch)
-    if (state.selectedClass?.casting === 'prepared' && typeof FAMILIAR_INIT !== 'undefined' && FAMILIAR_INIT[state.selectedClass.id]) {
-      html += growthFamiliarSpellCardHTML(lv);
-    }
-    // Full tradition access (prepared+전통 전체: cleric, druid)
-    if (state.selectedClass?.casting === 'prepared' && !(typeof FAMILIAR_INIT !== 'undefined' && FAMILIAR_INIT[state.selectedClass.id])
-        && typeof CLASS_SPELL_TABLE !== 'undefined' && CLASS_SPELL_TABLE[state.selectedClass.id] && lv === 1) {
-      html += growthFullTraditionCardHTML();
     }
   }
 
