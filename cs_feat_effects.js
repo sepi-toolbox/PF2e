@@ -3366,14 +3366,25 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
     </div>`;
   } else if (ch.type === 'skill') {
     const skills = typeof SKILLS !== 'undefined' ? SKILLS : [];
+    const minRank = ch.filter?.min_rank || 0;
     html += `<select id="${uid}" onchange="_onFeatChoiceInline('${featType}',${featIndex},'skill')"
       style="width:100%;padding:6px 8px;font-size:13px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;outline:none;">
       <option value="">— 선택 —</option>`;
     skills.forEach(s => {
+      const rank = parseInt(document.getElementById('sk-prof-' + s.id)?.value || 0);
+      if (rank < minRank && s.id !== current) return;
       const sel = s.id === current ? ' selected' : '';
       html += `<option value="${s.id}"${sel}>${s.name}</option>`;
     });
     html += `</select>`;
+    // 이미 선택된 기술이 조건 미달인 경우 경고
+    if (current && minRank > 0) {
+      const curRank = parseInt(document.getElementById('sk-prof-' + current)?.value || 0);
+      if (curRank < minRank) {
+        const curName = skills.find(s => s.id === current)?.name || current;
+        html += `<div style="margin-top:4px;font-size:11px;color:#f44336;">⚠ ${curName}이(가) 숙련되어 있지 않습니다.</div>`;
+      }
+    }
   } else if (ch.type === 'skill_defaults') {
     const skills = typeof SKILLS !== 'undefined' ? SKILLS : [];
     const defaults = ch.defaults || [];
