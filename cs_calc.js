@@ -112,6 +112,7 @@ function updateWeaponProfSummary() {
     state._fb.trainedWeapons.forEach(w => { if (!items.includes(w)) items.push(w); });
   }
   el.innerHTML = _buildProfSummaryHTML('숙련 :', items);
+  el.style.display = items.length ? '' : 'none';
 }
 
 function updateArmorProfSummary() {
@@ -129,6 +130,7 @@ function updateArmorProfSummary() {
     if (rank >= 2) items.push(c.name);
   });
   el.innerHTML = _buildProfSummaryHTML('숙련 :', items);
+  el.style.display = items.length ? '' : 'none';
 }
 
 // Legacy aliases
