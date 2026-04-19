@@ -3158,9 +3158,10 @@ function _applyOneEffect(fb, eff, feat, level) {
           }
           state.feats.general.push(grantedEntry);
           // 부여된 재주에 choice가 필요하면 모달 열기
+          // choiceValue가 지정된 경우: 부모 choice에서 상속하므로 팝업 억제
           const grantedIdx = state.feats.general.length - 1;
           const grantedFeat = state.feats.general[grantedIdx];
-          if (!grantedFeat.choice && typeof checkFeatChoice === 'function') {
+          if (!grantedFeat.choice && !eff.choiceValue && typeof checkFeatChoice === 'function') {
             setTimeout(() => checkFeatChoice(grantName, 'general', grantedIdx), 0);
           }
         }
