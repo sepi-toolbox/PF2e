@@ -1168,7 +1168,7 @@ function renderSpells() {
         if (maxUses > 0) {
           let checks = '';
           for (let u = 0; u < maxUses; u++) {
-            const isUsed = u < used;
+            const isUsed = u >= (maxUses - used);
             checks += `<span class="spell-slot-fire${isUsed?' used':''}" onclick="toggleInnateUse(${i},${u},${maxUses})" style="cursor:pointer;font-size:14px;margin:0 1px;">🔥</span>`;
           }
           usesHtml = `<span style="margin-left:6px;">${checks}</span>`;
@@ -1305,7 +1305,7 @@ function renderSpells() {
       document.getElementById('divine-font-label').textContent = isHeal ? 'Divine Font — Heal' : 'Divine Font — Harm';
       let fires = '';
       for (let i = 0; i < totalSlots; i++) {
-        const isUsed = i < used;
+        const isUsed = i >= (totalSlots - used);
         fires += `<span class="spell-slot-fire${isUsed?' used':''}" style="cursor:pointer;font-size:16px;" onclick="toggleDivineFontSlot(${i})">\uD83D\uDD25</span>`;
       }
       dfBody.innerHTML = `
@@ -1361,14 +1361,14 @@ function renderSpells() {
       firesDiv.innerHTML = '<span style="font-size:10px;color:var(--text2);margin-right:4px;">슬롯:</span>';
       const usedCount = getSpellSlotUsedCount(r, slotMax);
       for (let c = 0; c < slotMax; c++) {
-        const isUsed = c < usedCount;
+        const isUsed = c >= (slotMax - usedCount);
         const fire = document.createElement('span');
         fire.className = 'spell-slot-fire' + (isUsed ? ' used' : '');
         fire.textContent = '\uD83D\uDD25';
         fire.style.cursor = 'pointer';
-        fire.onclick = (function(rank, idx) {
-          return function() { toggleSpellSlotStar(rank, idx); };
-        })(r, c);
+        fire.onclick = (function(rank, idx, total) {
+          return function() { toggleSpellSlotStar(rank, idx, total); };
+        })(r, c, slotMax);
         firesDiv.appendChild(fire);
       }
       section.appendChild(firesDiv);
@@ -1530,13 +1530,15 @@ function getSpellSlotUsedCount(rank, max) {
   for (let i = 0; i < max; i++) { if (state.spellSlotsUsed[rank][i]) count++; else break; }
   return count;
 }
-function toggleSpellSlotStar(rank, idx) {
+function toggleSpellSlotStar(rank, idx, total) {
   state.spellSlotsUsed = state.spellSlotsUsed || {};
   state.spellSlotsUsed[rank] = state.spellSlotsUsed[rank] || {};
   const curUsed = getSpellSlotUsedCount(rank, 20);
+  const remaining = total - curUsed;
   let newUsed;
-  if (idx < curUsed) { newUsed = idx; } // click filled: unfill from this point
-  else { newUsed = idx + 1; }            // click empty: fill up to this
+  if (idx < remaining) { newUsed = total - idx; }       // click bright: use down to here
+  else { newUsed = total - idx - 1; }                    // click dim: restore up to here
+  newUsed = Math.max(0, Math.min(newUsed, total));
   // Set progressive flags
   for (let i = 0; i < 20; i++) state.spellSlotsUsed[rank][i] = i < newUsed;
   renderSpells();
@@ -1546,8 +1548,12 @@ function toggleSpellSlotStar(rank, idx) {
 function toggleInnateUse(idx, clickedSlot, max) {
   if (!state.innateSpellsUsed) state.innateSpellsUsed = {};
   const cur = state.innateSpellsUsed[idx] || 0;
-  // 클릭한 슬롯 이하면 사용, 초과면 해제
-  state.innateSpellsUsed[idx] = clickedSlot < cur ? clickedSlot : Math.min(clickedSlot + 1, max);
+  const remaining = max - cur;
+  // 밝은 🔥 클릭: 소모 (남은 수 줄임), 어두운 🔥 클릭: 복원
+  let newUsed;
+  if (clickedSlot < remaining) { newUsed = max - clickedSlot; }
+  else { newUsed = max - clickedSlot - 1; }
+  state.innateSpellsUsed[idx] = Math.max(0, Math.min(newUsed, max));
   renderSpells();
   save();
 }

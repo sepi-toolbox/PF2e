@@ -897,11 +897,11 @@ function openDivineFontPicker() {
     <div class="opt-row" onclick="pickDivineFont('harm')" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
       <span class="opt-row-name">💀 해악 Harm — 해악 주문 추가 시전 횟수</span></div>`;
   document.getElementById('modal-overlay').classList.remove('hidden');
-  document.getElementById('modal-title').textContent = '신성 샘 선택';
+  document.getElementById('modal-title').textContent = '신성 원천 선택';
   const fbar = document.getElementById('modal-filterbar'); if(fbar) fbar.innerHTML='';
   const searchEl = document.getElementById('modal-search'); if(searchEl) searchEl.style.display='none';
   document.getElementById('modal-options').innerHTML = items;
-  document.getElementById('modal-detail').innerHTML = '<div class="modal-detail-empty"><strong>신성 샘</strong><br>매일 추가 주문 슬롯을 받아 치유 또는 해악 주문만 시전할 수 있습니다.</div>';
+  document.getElementById('modal-detail').innerHTML = '<div class="modal-detail-empty"><strong>신성 원천</strong><br>매일 추가 주문 슬롯을 받아 치유 또는 해악 주문만 시전할 수 있습니다.</div>';
   const footer = document.querySelector('.modal-footer');
   if(footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
   modalType = 'font-pick';
@@ -921,10 +921,12 @@ function clearDivineFont() { state.divineFont = null; state.divineFontUsed = 0; 
 
 function toggleDivineFontSlot(idx) {
   const total = getDivineFontSlots();
-  let used = state.divineFontUsed || 0;
-  if (idx < used) used = idx;     // un-use: set used count to this index
-  else used = idx + 1;            // use: set used count to index+1
-  state.divineFontUsed = Math.min(used, total);
+  const used = state.divineFontUsed || 0;
+  const remaining = total - used;
+  let newUsed;
+  if (idx < remaining) { newUsed = total - idx; }       // click bright: use down to here
+  else { newUsed = total - idx - 1; }                    // click dim: restore up to here
+  state.divineFontUsed = Math.max(0, Math.min(newUsed, total));
   renderSpells();
   save();
 }
@@ -1083,7 +1085,7 @@ function renderGrowthPlan() {
 
           // Divine Font
           const fontLabel = state.divineFont === 'heal' ? '치유 Heal' : state.divineFont === 'harm' ? '해악 Harm' : null;
-          html += growthSlotWithClearHTML('font-sel', '⛲', '신성 샘 Divine Font',
+          html += growthSlotWithClearHTML('font-sel', '⛲', '신성 원천 Divine Font',
             fontLabel, "openDivineFontPicker()", state.divineFont ? "clearDivineFont()" : null);
         }
 
