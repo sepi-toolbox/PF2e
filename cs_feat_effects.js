@@ -416,7 +416,8 @@ const FEAT_EFFECTS = {
 
   // ── 드워프 ──
   'Dwarven Lore': {
-    effects: [{type:'skill_trained', skill:'crafting'}, {type:'skill_trained', skill:'religion'}, {type:'grant_lore', name:'드워프'}]
+    choice: {type:'skill_defaults', defaults:['crafting','religion'], count:2, label:'드워프 지식 기술 (기본: 제작, 종교학)'},
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'드워프'}]
   },
   'Mountain Roots': {
     effects: [{type:'display_note', text:'밀기/넘어뜨리기에 대한 DC +2 상황 보너스. 강제 이동 거리 절반'}]
@@ -473,7 +474,8 @@ const FEAT_EFFECTS = {
 
   // ── 엘프 ──
   'Elven Lore': {
-    effects: [{type:'skill_trained', skill:'arcana'}, {type:'skill_trained', skill:'nature'}, {type:'grant_lore', name:'엘프'}]
+    choice: {type:'skill_defaults', defaults:['arcana','nature'], count:2, label:'엘프 지식 기술 (기본: 주문학, 자연학)'},
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'엘프'}]
   },
   'Elven Weapon Familiarity': {
     effects: [
@@ -582,7 +584,8 @@ const FEAT_EFFECTS = {
     effects: [{type:'skill_trained', skill:'thievery'}]
   },
   'Goblin Lore': {
-    effects: [{type:'skill_trained', skill:'nature'}, {type:'skill_trained', skill:'stealth'}, {type:'grant_lore', name:'고블린'}]
+    choice: {type:'skill_defaults', defaults:['nature','stealth'], count:2, label:'고블린 지식 기술 (기본: 자연학, 은신)'},
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'고블린'}]
   },
   'Very Sneaky': {
     effects: [{type:'display_note', text:'험한 지형에서 은신 +1 상황 보너스'}]
@@ -611,7 +614,8 @@ const FEAT_EFFECTS = {
     effects: [{type:'skill_trained', skill:'nature'}]
   },
   'Halfling Lore': {
-    effects: [{type:'skill_trained', skill:'acrobatics'}, {type:'skill_trained', skill:'stealth'}, {type:'grant_lore', name:'하플링'}]
+    choice: {type:'skill_defaults', defaults:['acrobatics','stealth'], count:2, label:'하플링 지식 기술 (기본: 곡예, 은신)'},
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'하플링'}]
   },
   'Unhampered Passage': {
     effects: [{type:'grant_innate_spell', spell:'속박 해제', tradition:'원시', spellType:'spell', uses:'하루 1회'}]
@@ -731,7 +735,8 @@ const FEAT_EFFECTS = {
     effects: [{type:'grant_feat', feat:'뻔뻔한 요청 (Shameless Request)'}, {type:'display_note', text:'기만으로 우선권 굴릴 때 +1 상황 보너스'}]
   },
   'Leshy Lore': {
-    effects: [{type:'skill_trained', skill:'nature'}, {type:'skill_trained', skill:'stealth'}, {type:'grant_lore', name:'레쉬'}]
+    choice: {type:'skill_defaults', defaults:['nature','stealth'], count:2, label:'레쉬 지식 기술 (기본: 자연학, 은신)'},
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'레쉬'}]
   },
   'Shadow of the Wilds': {
     effects: [{type:'display_note', text:'도시 외 환경에서 항상 흔적 감추기 상태'}]
@@ -772,7 +777,8 @@ const FEAT_EFFECTS = {
 
   // ── 오크 ──
   'Orc Lore': {
-    effects: [{type:'skill_trained', skill:'athletics'}, {type:'skill_trained', skill:'survival'}, {type:'grant_lore', name:'오크'}]
+    choice: {type:'skill_defaults', defaults:['athletics','survival'], count:2, label:'오크 지식 기술 (기본: 운동, 생존)'},
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'오크'}]
   },
   'Orc Weapon Familiarity': {
     effects: [{type:'weapon_familiarity', weapons:['팔치온','그레이트액스']}]
@@ -826,7 +832,8 @@ const FEAT_EFFECTS = {
 
   // ── 체인질링 ──
   'Changeling Lore': {
-    effects: [{type:'skill_trained', skill:'deception'}, {type:'skill_trained', skill:'occultism'}, {type:'grant_lore', name:'해그'}]
+    choice: {type:'skill_defaults', defaults:['deception','occultism'], count:2, label:'체인질링 지식 기술 (기본: 기만, 오컬티즘)'},
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'해그'}]
   },
   "Hag's Sight": {
     effects: [{type:'display_note', text:'암시야(darkvision) 획득'}]
@@ -843,7 +850,8 @@ const FEAT_EFFECTS = {
     effects: [{type:'skill_trained', skill:'athletics'}, {type:'display_note', text:'운동 숙련 전제조건 1레벨 기술 재주 1개 추가'}]
   },
   'Nephilim Lore': {
-    effects: [{type:'skill_trained', skill:'religion'}, {type:'grant_lore', name:'차원'}, {type:'display_note', text:'외교 또는 위협 숙련 (선택)'}]
+    choice: {type:'skill_defaults', defaults:['religion','diplomacy'], count:2, label:'네피림 지식 기술 (기본: 종교학, 외교)'},
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'차원'}]
   },
   'Nephilim Eyes': {
     effects: [{type:'display_note', text:'암시야(darkvision) 획득'}]
@@ -2992,6 +3000,11 @@ function applyFeatEffects() {
       const def = FEAT_EFFECTS[nameEn];
       if (!def || !def.effects) return;
 
+      // skill_defaults: choice 미설정 시 기본값 자동 적용
+      if (def.choice?.type === 'skill_defaults' && !feat.choice) {
+        feat.choice = (def.choice.defaults || []).join(',');
+      }
+
       def.effects.forEach(eff => {
         _applyOneEffect(fb, eff, feat, level);
       });
@@ -3327,6 +3340,26 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
       html += `<option value="${s.id}"${sel}>${s.name}</option>`;
     });
     html += `</select>`;
+  } else if (ch.type === 'skill_defaults') {
+    const skills = typeof SKILLS !== 'undefined' ? SKILLS : [];
+    const defaults = ch.defaults || [];
+    const count = ch.count || defaults.length;
+    const vals = (current || defaults.join(',')).split(',');
+    for (let si = 0; si < count; si++) {
+      const selVal = vals[si] || '';
+      const selectId = `${uid}-${si}`;
+      const defaultId = defaults[si] || '';
+      const defaultName = skills.find(s => s.id === defaultId)?.name || defaultId;
+      html += `<div style="display:flex;align-items:center;gap:6px;${si > 0 ? 'margin-top:4px;' : ''}">
+        <span style="font-size:11px;color:var(--text2);min-width:20px;">${si+1}.</span>
+        <select id="${selectId}" onchange="_onSkillDefaultsChange('${featType}',${featIndex},${count})"
+          style="flex:1;padding:6px 8px;font-size:13px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;outline:none;">`;
+      skills.forEach(s => {
+        const sel = s.id === selVal ? ' selected' : '';
+        html += `<option value="${s.id}"${sel}>${s.name}</option>`;
+      });
+      html += `</select></div>`;
+    }
   } else if (ch.type === 'custom' && ch.options) {
     html += `<select id="${uid}" onchange="_onFeatChoiceInline('${featType}',${featIndex},'custom')"
       style="width:100%;padding:6px 8px;font-size:13px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;outline:none;">
@@ -3345,6 +3378,24 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
   }
   html += `</div>`;
   return html;
+}
+
+function _onSkillDefaultsChange(featType, featIndex, count) {
+  const uid = `fc-${featType}-${featIndex}`;
+  const vals = [];
+  for (let i = 0; i < count; i++) {
+    const el = document.getElementById(`${uid}-${i}`);
+    if (el) vals.push(el.value);
+  }
+  state.feats[featType][featIndex].choice = vals.join(',');
+  const container = document.getElementById('feats-' + featType);
+  try { recalcAll(); } catch(e) { console.error(e); }
+  // 아코디언 유지
+  if (container) {
+    const entry = container.children[featIndex];
+    if (entry) entry.classList.add('expanded');
+  }
+  save();
 }
 
 function _onFeatChoiceInline(featType, featIndex, choiceType) {
@@ -3959,7 +4010,7 @@ function checkFeatChoice(featName, featType, featIndex) {
   if (def && def.choice) {
     const t = def.choice.type;
     // 인라인 컨트롤이 있는 타입은 팝업 생략 → 재주 탭에서 선택
-    if (t === 'lore' || t === 'skill' || (t === 'custom' && def.choice.options)) {
+    if (t === 'lore' || t === 'skill' || t === 'skill_defaults' || (t === 'custom' && def.choice.options)) {
       return false;
     }
     openFeatChoiceModal(featType, featIndex, def.choice);
