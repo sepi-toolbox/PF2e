@@ -1917,40 +1917,64 @@ function openLearnSpellsPanel() {
   const cid = state.selectedClass.id;
   const lv = getLevel();
 
-  // 준비형 주문서 캐스터: 빌더 탭으로 이동 (사역마/주문서 UI)
-  if (state.selectedClass.casting === 'prepared') {
-    if (typeof FAMILIAR_INIT !== 'undefined' && FAMILIAR_INIT[cid]) {
-      if (typeof switchTab === 'function') switchTab('builder');
-    }
-    return;
-  }
-
-  // 즉흥형: 전용 학습 모달 열기
-  if (state.selectedClass.casting !== 'spontaneous') return;
-
-  const spellData = (typeof CLASS_SPELL_TABLE !== 'undefined' && CLASS_SPELL_TABLE[cid])
-    ? CLASS_SPELL_TABLE[cid][Math.min(lv,20)] : null;
-  if (!spellData) return;
+  // 랭크별 슬롯 정보 계산
+  const ranks = _calcLearnableRanks(cid, lv);
+  if (!ranks) return;
 
   // 첫 번째 미완료 랭크 찾기
-  const cantripMax = (spellData.cantrips || 5) + (state._fb?.cantrip_bonus || 0);
-  const cantripCount = (state.spells.cantrip || []).filter(s => s).length;
-  if (cantripCount < cantripMax) { _learnSpellRank = 0; }
-  else {
-    _learnSpellRank = 1;
+  _learnSpellRank = 0;
+  for (const r of ranks) {
+    if (r.current < r.max) { _learnSpellRank = r.rank; break; }
+  }
+
+  _learnSpellRanks = ranks;
+  _renderLearnSpellsModal();
+}
+
+function _calcLearnableRanks(cid, lv) {
+  const ranks = [];
+  const casting = state.selectedClass?.casting;
+
+  if (casting === 'spontaneous') {
+    const spellData = (typeof CLASS_SPELL_TABLE !== 'undefined' && CLASS_SPELL_TABLE[cid])
+      ? CLASS_SPELL_TABLE[cid][Math.min(lv,20)] : null;
+    if (!spellData) return null;
+    // 캔트립
+    const cantripMax = (spellData.cantrips || 5) + (state._fb?.cantrip_bonus || 0);
+    const cantripCount = (state.spells.cantrip || []).filter(s => s).length;
+    ranks.push({rank:0, label:'캔트립', max:cantripMax, current:cantripCount});
+    // 랭크별
     const slots = spellData.slots || [];
     for (let r = 1; r <= 10; r++) {
       const max = slots[r-1] || 0;
       if (max <= 0) continue;
       const known = (state.spells.known || []).filter(s => s.rank === r && !s._auto).length;
-      if (known < max) { _learnSpellRank = r; break; }
+      ranks.push({rank:r, label:`${r}랭크`, max, current:known});
+    }
+  } else if (casting === 'prepared' && typeof FAMILIAR_INIT !== 'undefined' && FAMILIAR_INIT[cid]) {
+    // 주문서 캐스터 (위저드/위치)
+    const init = FAMILIAR_INIT[cid];
+    const maxRank = Math.min(10, Math.ceil(lv / 2));
+    // 캔트립
+    const cantripMax = init.cantrip || 10;
+    const cantripCount = (state.familiarSpells?.cantrip || []).length;
+    ranks.push({rank:0, label:'캔트립', max:cantripMax, current:cantripCount});
+    // 1랭크 초기
+    const rank1Max = init.rank1 || 5;
+    const rank1Count = (state.familiarSpells?.[1] || []).length;
+    ranks.push({rank:1, label:'1랭크', max:rank1Max, current:rank1Count});
+    // 2랭크 이상: 레벨업마다 2개씩 (간소화 — 최대 랭크까지 표시)
+    for (let r = 2; r <= maxRank; r++) {
+      const count = (state.familiarSpells?.[r] || []).length;
+      ranks.push({rank:r, label:`${r}랭크`, max:count + 99, current:count}); // 주문서는 제한 없음
     }
   }
-
-  _renderLearnSpellsModal(spellData);
+  return ranks.length > 0 ? ranks : null;
 }
 
-function _renderLearnSpellsModal(spellData) {
+var _learnSpellRanks = [];
+
+function _renderLearnSpellsModal() {
   const overlay = document.getElementById('modal-overlay');
   overlay.classList.remove('hidden');
   document.getElementById('modal-title').textContent = '주문 배우기';
@@ -1961,24 +1985,14 @@ function _renderLearnSpellsModal(spellData) {
   if (footer) footer.style.display = 'none';
 
   // ── 진행도 탭 바 생성 ──
-  const cantripMax = (spellData.cantrips || 5) + (state._fb?.cantrip_bonus || 0);
-  const cantripCount = (state.spells.cantrip || []).filter(s => s).length;
-  const slots = spellData.slots || [];
-
   let tabHtml = '';
-  // 캔트립 탭
-  const c0Active = _learnSpellRank === 0 ? 'active' : '';
-  const c0Warn = cantripCount < cantripMax ? ' style="color:#f44336;"' : '';
-  tabHtml += `<span class="spell-subtab ${c0Active}" onclick="_learnSpellRank=0;_refreshLearnSpellsList()">캔트립 <b${c0Warn}>${cantripCount}/${cantripMax}</b></span>`;
-  // 랭크 탭
-  for (let r = 1; r <= 10; r++) {
-    const max = slots[r-1] || 0;
-    if (max <= 0) continue;
-    const known = (state.spells.known || []).filter(s => s.rank === r && !s._auto).length;
-    const active = _learnSpellRank === r ? 'active' : '';
-    const warn = known < max ? ' style="color:#f44336;"' : '';
-    tabHtml += `<span class="spell-subtab ${active}" onclick="_learnSpellRank=${r};_refreshLearnSpellsList()">${r}랭크 <b${warn}>${known}/${max}</b></span>`;
-  }
+  _learnSpellRanks.forEach(r => {
+    const active = _learnSpellRank === r.rank ? 'active' : '';
+    const isFull = r.current >= r.max;
+    const warn = (!isFull && r.max < 99) ? ' style="color:#f44336;"' : '';
+    const countStr = r.max >= 99 ? `${r.current}` : `${r.current}/${r.max}`;
+    tabHtml += `<span class="spell-subtab ${active}" onclick="_learnSpellRank=${r.rank};_refreshLearnSpellsList()">${r.label} <b${warn}>${countStr}</b></span>`;
+  });
 
   if (fbar) fbar.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:2px;padding:4px 0;">${tabHtml}</div>`;
 
@@ -2017,8 +2031,15 @@ function _refreshLearnSpellsList() {
 
   // 이미 배운 주문 표시
   const learnedNames = new Set();
-  if (r === 0) { (state.spells.cantrip || []).forEach(s => { if (s?.name) learnedNames.add(s.name); }); }
-  else { (state.spells.known || []).filter(s => s.rank === r).forEach(s => { if (s?.name) learnedNames.add(s.name); }); }
+  const isSpellbook = state.selectedClass?.casting === 'prepared';
+  if (isSpellbook) {
+    // 주문서 캐스터: familiarSpells에서 확인
+    if (r === 0) { (state.familiarSpells?.cantrip || []).forEach(n => { if (n) learnedNames.add(n); }); }
+    else { (state.familiarSpells?.[r] || []).forEach(n => { if (n) learnedNames.add(n); }); }
+  } else {
+    if (r === 0) { (state.spells.cantrip || []).forEach(s => { if (s?.name) learnedNames.add(s.name); }); }
+    else { (state.spells.known || []).filter(s => s.rank === r).forEach(s => { if (s?.name) learnedNames.add(s.name); }); }
+  }
 
   const container = document.getElementById('modal-options');
   if (!container) return;
@@ -2046,28 +2067,38 @@ function _refreshLearnSpellsList() {
 }
 
 function _learnSpellFromModal(sp, rank) {
-  if (rank === 0) {
-    // 캔트립 추가
-    const cantripSlots = state.cantripSlots || 5;
-    const cantrips = state.spells.cantrip || [];
-    // 빈 슬롯 찾기
-    let idx = cantrips.findIndex(s => !s);
-    if (idx < 0 && cantrips.length < cantripSlots) idx = cantrips.length;
-    if (idx < 0) return; // 슬롯 없음
-    state.spells.cantrip[idx] = {name: sp.name_ko, rank: 0};
+  const isSpellbook = state.selectedClass?.casting === 'prepared';
+
+  if (isSpellbook) {
+    // 주문서 캐스터: familiarSpells에 추가
+    if (!state.familiarSpells) state.familiarSpells = {};
+    const key = rank === 0 ? 'cantrip' : rank;
+    if (!state.familiarSpells[key]) state.familiarSpells[key] = [];
+    if (!state.familiarSpells[key].includes(sp.name_ko)) {
+      state.familiarSpells[key].push(sp.name_ko);
+    }
   } else {
-    // known 주문 추가
-    if (!state.spells.known) state.spells.known = [];
-    state.spells.known.push({name: sp.name_ko, rank: rank});
+    // 즉흥형: spells에 추가
+    if (rank === 0) {
+      const cantripSlots = state.cantripSlots || 5;
+      const cantrips = state.spells.cantrip || [];
+      let idx = cantrips.findIndex(s => !s);
+      if (idx < 0 && cantrips.length < cantripSlots) idx = cantrips.length;
+      if (idx < 0) return;
+      state.spells.cantrip[idx] = {name: sp.name_ko, rank: 0};
+    } else {
+      if (!state.spells.known) state.spells.known = [];
+      state.spells.known.push({name: sp.name_ko, rank: rank});
+    }
   }
+
   renderSpells();
   save();
-  // 모달 새로고침 — 진행도 업데이트를 위해 spellData 다시 계산
+  // 모달 새로고침
   const cid = state.selectedClass.id;
   const lv = getLevel();
-  const spellData = (typeof CLASS_SPELL_TABLE !== 'undefined' && CLASS_SPELL_TABLE[cid])
-    ? CLASS_SPELL_TABLE[cid][Math.min(lv,20)] : null;
-  if (spellData) _renderLearnSpellsModal(spellData);
+  _learnSpellRanks = _calcLearnableRanks(cid, lv) || [];
+  _renderLearnSpellsModal();
 }
 
 function updateSlotChecks(rank) {
