@@ -2956,10 +2956,12 @@ function applyFeatEffects() {
   });
   state._featGrantedLores = [];
 
-  // skill_trained: 재주가 부여한 기술 숙련 초기화
+  // skill_trained: 재주가 부여한 기술 숙련 → 이전 값으로 복원
   (state._featGrantedSkills || []).forEach(entry => {
     const profEl = document.getElementById('sk-prof-' + entry.skill);
-    if (profEl && parseInt(profEl.value || 0) === entry.rank) profEl.value = '0';
+    if (profEl && parseInt(profEl.value || 0) === entry.rank) {
+      profEl.value = String(entry.prevRank || 0);
+    }
   });
   state._featGrantedSkills = [];
 
@@ -3058,8 +3060,9 @@ function _applyOneEffect(fb, eff, feat, level) {
           if (!fb.skills[s]) fb.skills[s] = {min_rank:0, bonus:0};
           fb.skills[s].min_rank = Math.max(fb.skills[s].min_rank, 2);
           const profEl = document.getElementById('sk-prof-' + s);
-          if (profEl && parseInt(profEl.value || 0) < 2) {
-            state._featGrantedSkills.push({skill: s, rank: 2, feat: feat.name});
+          const prevRank = parseInt(profEl?.value || 0);
+          if (profEl && prevRank < 2) {
+            state._featGrantedSkills.push({skill: s, rank: 2, feat: feat.name, prevRank});
             profEl.value = '2';
           }
         });
