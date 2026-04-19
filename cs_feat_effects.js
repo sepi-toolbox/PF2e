@@ -417,7 +417,7 @@ const FEAT_EFFECTS = {
   // ── 드워프 ──
   'Dwarven Lore': {
     choice: {type:'skill_defaults', defaults:['crafting','religion'], count:2, label:'드워프 지식 기술 (기본: 제작, 종교학)'},
-    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'드워프'}]
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_feat', feat:'추가 지식 (Additional Lore)', defaultChoice:'드워프'}]
   },
   'Mountain Roots': {
     effects: [{type:'display_note', text:'밀기/넘어뜨리기에 대한 DC +2 상황 보너스. 강제 이동 거리 절반'}]
@@ -475,7 +475,7 @@ const FEAT_EFFECTS = {
   // ── 엘프 ──
   'Elven Lore': {
     choice: {type:'skill_defaults', defaults:['arcana','nature'], count:2, label:'엘프 지식 기술 (기본: 주문학, 자연학)'},
-    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'엘프'}]
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_feat', feat:'추가 지식 (Additional Lore)', defaultChoice:'엘프'}]
   },
   'Elven Weapon Familiarity': {
     effects: [
@@ -585,7 +585,7 @@ const FEAT_EFFECTS = {
   },
   'Goblin Lore': {
     choice: {type:'skill_defaults', defaults:['nature','stealth'], count:2, label:'고블린 지식 기술 (기본: 자연학, 은신)'},
-    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'고블린'}]
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_feat', feat:'추가 지식 (Additional Lore)', defaultChoice:'고블린'}]
   },
   'Very Sneaky': {
     effects: [{type:'display_note', text:'험한 지형에서 은신 +1 상황 보너스'}]
@@ -615,7 +615,7 @@ const FEAT_EFFECTS = {
   },
   'Halfling Lore': {
     choice: {type:'skill_defaults', defaults:['acrobatics','stealth'], count:2, label:'하플링 지식 기술 (기본: 곡예, 은신)'},
-    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'하플링'}]
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_feat', feat:'추가 지식 (Additional Lore)', defaultChoice:'하플링'}]
   },
   'Unhampered Passage': {
     effects: [{type:'grant_innate_spell', spell:'속박 해제', tradition:'원시', spellType:'spell', uses:'하루 1회'}]
@@ -736,7 +736,7 @@ const FEAT_EFFECTS = {
   },
   'Leshy Lore': {
     choice: {type:'skill_defaults', defaults:['nature','stealth'], count:2, label:'레쉬 지식 기술 (기본: 자연학, 은신)'},
-    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'레쉬'}]
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_feat', feat:'추가 지식 (Additional Lore)', defaultChoice:'레쉬'}]
   },
   'Shadow of the Wilds': {
     effects: [{type:'display_note', text:'도시 외 환경에서 항상 흔적 감추기 상태'}]
@@ -778,7 +778,7 @@ const FEAT_EFFECTS = {
   // ── 오크 ──
   'Orc Lore': {
     choice: {type:'skill_defaults', defaults:['athletics','survival'], count:2, label:'오크 지식 기술 (기본: 운동, 생존)'},
-    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'오크'}]
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_feat', feat:'추가 지식 (Additional Lore)', defaultChoice:'오크'}]
   },
   'Orc Weapon Familiarity': {
     effects: [{type:'weapon_familiarity', weapons:['팔치온','그레이트액스']}]
@@ -833,7 +833,7 @@ const FEAT_EFFECTS = {
   // ── 체인질링 ──
   'Changeling Lore': {
     choice: {type:'skill_defaults', defaults:['deception','occultism'], count:2, label:'체인질링 지식 기술 (기본: 기만, 오컬티즘)'},
-    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'해그'}]
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_feat', feat:'추가 지식 (Additional Lore)', defaultChoice:'해그'}]
   },
   "Hag's Sight": {
     effects: [{type:'display_note', text:'암시야(darkvision) 획득'}]
@@ -851,7 +851,7 @@ const FEAT_EFFECTS = {
   },
   'Nephilim Lore': {
     choice: {type:'skill_defaults', defaults:['religion','diplomacy'], count:2, label:'네피림 지식 기술 (기본: 종교학, 외교)'},
-    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_lore', name:'차원'}]
+    effects: [{type:'skill_trained', skill:'$choice'}, {type:'grant_feat', feat:'추가 지식 (Additional Lore)'}]
   },
   'Nephilim Eyes': {
     effects: [{type:'display_note', text:'암시야(darkvision) 획득'}]
@@ -3158,7 +3158,10 @@ function _applyOneEffect(fb, eff, feat, level) {
         const alreadyHas = Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(grantName.split(' (')[0]));
         if (!alreadyHas) {
           if (!state.feats.general) state.feats.general = [];
-          state.feats.general.push({name: grantName, level: 1, _auto: true, _grantedBy: feat.name});
+          const entry = {name: grantName, level: 1, _auto: true, _grantedBy: feat.name};
+          // defaultChoice: 자식 재주의 초기 choice 설정 (사용자 변경 가능)
+          if (eff.defaultChoice) entry.choice = eff.defaultChoice;
+          state.feats.general.push(entry);
         }
       }
       break;
