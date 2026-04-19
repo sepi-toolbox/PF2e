@@ -890,28 +890,71 @@ function openSanctPicker() {
 function pickSanctification(val) { state.sanctification = val; closeModal(); renderGrowthPlan(); save(); }
 function clearSanctification() { state.sanctification = null; renderGrowthPlan(); save(); }
 
+var _pendingFont = null;
 function openDivineFontPicker() {
+  _pendingFont = null;
   const items = `
-    <div class="opt-row" onclick="pickDivineFont('heal')" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
+    <div class="opt-row" onclick="previewDivineFont('heal',this)" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
       <span class="opt-row-name">💚 치유 Heal — 치유 주문 추가 시전 횟수</span></div>
-    <div class="opt-row" onclick="pickDivineFont('harm')" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
+    <div class="opt-row" onclick="previewDivineFont('harm',this)" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
       <span class="opt-row-name">💀 해악 Harm — 해악 주문 추가 시전 횟수</span></div>`;
   document.getElementById('modal-overlay').classList.remove('hidden');
   document.getElementById('modal-title').textContent = '신성 원천 선택';
   const fbar = document.getElementById('modal-filterbar'); if(fbar) fbar.innerHTML='';
   const searchEl = document.getElementById('modal-search'); if(searchEl) searchEl.style.display='none';
   document.getElementById('modal-options').innerHTML = items;
-  const _dfDesc = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
-    ? (CLASS_FEATURE_NAMES.cleric.find(f => f.name_en === 'Divine Font') || {}).desc || '' : '';
-  document.getElementById('modal-detail').innerHTML = `<div class="modal-detail-empty"><strong>신성 원천</strong> <span style="color:var(--text2);">Divine Font</span><br><div style="margin-top:8px;line-height:1.7;font-size:13px;color:var(--text);">${_dfDesc}</div></div>`;
+  document.getElementById('modal-detail').innerHTML = '<div class="modal-detail-empty">원천을 선택하면 상세 정보가 표시됩니다.</div>';
   const footer = document.querySelector('.modal-footer');
   if(footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
   modalType = 'font-pick';
 }
 
-function pickDivineFont(val) {
-  state.divineFont = val;
+function previewDivineFont(val, row) {
+  _pendingFont = val;
+  document.querySelectorAll('.opt-row').forEach(r=>r.classList.remove('selected'));
+  if(row) row.classList.add('selected');
+
+  const isHeal = val === 'heal';
+  const icon = isHeal ? '💚' : '💀';
+  const label = isHeal ? '치유 원천' : '해악 원천';
+  const labelEn = isHeal ? 'Heal' : 'Harm';
+  const spellDesc = isHeal
+    ? '최고 랭크 추가 슬롯에 <em>치유(Heal)</em> 주문만 준비할 수 있습니다.'
+    : '최고 랭크 추가 슬롯에 <em>해로움(Harm)</em> 주문만 준비할 수 있습니다.';
+  const _dfDesc = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
+    ? (CLASS_FEATURE_NAMES.cleric.find(f => f.name_en === 'Divine Font') || {}).desc || '' : '';
+
+  const detailHtml = `
+    <div class="modal-detail-title">${icon} ${label}</div>
+    <div class="modal-detail-en">${labelEn}</div>
+    <div style="margin:12px 0;font-size:13px;line-height:1.7;">
+      <div>${spellDesc}</div>
+      <div style="margin-top:8px;color:var(--text2);font-size:12px;">${_dfDesc}</div>
+    </div>
+    <button onclick="confirmDivineFont()" style="width:100%;margin-top:12px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">선택 확정</button>`;
+
+  if (window.innerWidth <= 900) {
+    document.querySelectorAll('.opt-row-detail.open').forEach(d=>d.classList.remove('open'));
+    document.querySelectorAll('.opt-row.expanded').forEach(r=>r.classList.remove('expanded'));
+    if(row) {
+      row.classList.add('expanded');
+      let detailDiv = row.nextElementSibling;
+      if(!detailDiv || !detailDiv.classList.contains('opt-row-detail')) {
+        detailDiv = document.createElement('div'); detailDiv.className='opt-row-detail'; row.after(detailDiv);
+      }
+      detailDiv.innerHTML = detailHtml;
+      detailDiv.classList.add('open');
+    }
+  } else {
+    document.getElementById('modal-detail').innerHTML = detailHtml;
+  }
+}
+
+function confirmDivineFont() {
+  if (!_pendingFont) return;
+  state.divineFont = _pendingFont;
   state.divineFontUsed = 0;
+  _pendingFont = null;
   closeModal();
   applyClassFeatures();
   renderGrowthPlan();
