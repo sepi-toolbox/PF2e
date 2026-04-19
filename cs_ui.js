@@ -1682,7 +1682,7 @@ function renderFeats() {
       }
       const choiceUI = _buildFeatChoiceUI(f, t, i);
       const hasIssue = typeof _hasFeatChoiceIssue === 'function' && _hasFeatChoiceIssue(f);
-      const redDot = hasIssue ? '<span style="font-size:12px;flex-shrink:0;line-height:1;" title="선택 필요">⚠️</span>' : '';
+      const redDot = hasIssue ? '<span style="font-size:11px;color:#f44336;flex-shrink:0;line-height:1;" title="선택 필요">⚠</span>' : '';
       div.innerHTML = `
         <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
           <span style="flex:1;color:var(--text);font-size:12px;">${f.name || labels[t] + ' 재주'}</span>
