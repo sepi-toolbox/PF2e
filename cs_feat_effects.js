@@ -3336,6 +3336,22 @@ function _getChoiceDisplayName(feat) {
 
 // ── 재주 탭 인라인 choice 컨트롤 ──
 
+function _hasFeatChoiceIssue(feat) {
+  const nameEn = _extractEnName(feat.name);
+  if (!nameEn) return false;
+  const def = FEAT_EFFECTS[nameEn];
+  if (!def?.choice) return false;
+  const ch = def.choice;
+  // skill 타입: 선택된 기술이 min_rank 미달
+  if (ch.type === 'skill' && ch.filter?.min_rank && feat.choice) {
+    const rank = parseInt(document.getElementById('sk-prof-' + feat.choice)?.value || 0);
+    if (rank < ch.filter.min_rank) return true;
+  }
+  // choice 미선택
+  if (!feat.choice && (ch.type === 'lore' || ch.type === 'skill')) return true;
+  return false;
+}
+
 function _buildFeatChoiceUI(feat, featType, featIndex) {
   const nameEn = _extractEnName(feat.name);
   if (!nameEn) return '';

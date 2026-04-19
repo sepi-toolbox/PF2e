@@ -1681,8 +1681,11 @@ function renderFeats() {
         fPrereq = `<div style="margin-top:4px;"><b style="color:var(--accent);">선행:</b> ${prParts[0].replace(/\.$/,'')}</div>`;
       }
       const choiceUI = _buildFeatChoiceUI(f, t, i);
+      const hasIssue = typeof _hasFeatChoiceIssue === 'function' && _hasFeatChoiceIssue(f);
+      const redDot = hasIssue ? '<span style="width:8px;height:8px;background:#f44336;border-radius:50%;display:inline-block;flex-shrink:0;" title="선택 필요"></span>' : '';
       div.innerHTML = `
         <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
+          ${redDot}
           <span style="flex:1;color:var(--text);font-size:12px;">${f.name || labels[t] + ' 재주'}</span>
           ${choiceBadge ? `<span style="font-size:10px;color:var(--accent);flex-shrink:0;">[${choiceBadge}]</span>` : ''}
         </div>
