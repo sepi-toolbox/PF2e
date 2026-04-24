@@ -141,16 +141,6 @@ th { background:#333; color:var(--accent); }
   :root { --toc-w: 180px; }
   .content { padding:20px 20px 60px; }
 }
-@media (max-width:640px) {
-  .left-toc { display:none; }
-  .content { padding:15px 15px 60px; }
-  .cover h1 { font-size:2em; }
-  h1.ch { font-size:1.5em; }
-  body { font-size:15px; }
-  .tab-btn { padding:10px 10px; font-size:0.78em; }
-  .mobile-toc-btn { display:flex; }
-  .mobile-toc-overlay.open { display:block; }
-}
 /* ===== Mobile TOC Widget ===== */
 .mobile-toc-btn {
   display:none; position:fixed; left:16px; bottom:24px; z-index:900;
@@ -182,6 +172,16 @@ th { background:#333; color:var(--accent); }
 .mobile-toc-overlay .toc-list li a:hover,
 .mobile-toc-overlay .toc-list li a.active { color:var(--accent); background:rgba(201,168,76,0.08); }
 .mobile-toc-overlay .toc-list li.toc-h3 a { padding-left:28px; font-size:0.82em; }
+@media (max-width:640px) {
+  .left-toc { display:none; }
+  .content { padding:15px 15px 60px; }
+  .cover h1 { font-size:2em; }
+  h1.ch { font-size:1.5em; }
+  body { font-size:15px; }
+  .tab-btn { padding:10px 10px; font-size:0.78em; }
+  .mobile-toc-btn { display:flex; }
+  .mobile-toc-overlay.open { display:block; }
+}
 /* ===== EN original toggle ===== */
 .en-orig { display:none; background:#181818; border-left:3px solid #555; padding:8px 12px; margin:4px 0; font-size:0.88em; color:#888; line-height:1.7; font-style:italic; }
 .en-orig.show { display:block; }
