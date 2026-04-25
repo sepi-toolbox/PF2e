@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=444"></script>
-<script src="feat_db.js?v=444"></script>
-<script src="SPELL_DB.js?v=444"></script>
-<script src="class_features_db.js?v=444"></script>
+<script src="equipment_db.js?v=445"></script>
+<script src="feat_db.js?v=445"></script>
+<script src="SPELL_DB.js?v=445"></script>
+<script src="class_features_db.js?v=445"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1243,6 +1243,12 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   .dice-3d-face{font-size:22px;}
   .dice-anim-total-num{font-size:36px;}
 }
+
+/* ── Session System ── */
+.session-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;}
+.session-overlay.hidden{display:none;}
+.session-modal{background:#1a1a1a;border:1px solid #f5c518;border-radius:8px;padding:24px;min-width:300px;max-width:90vw;box-shadow:0 8px 32px rgba(0,0,0,.6);}
+#session-bar{display:none;background:#1a1a1a;border-bottom:1px solid #333;padding:6px 16px;font-size:12px;align-items:center;gap:8px;}
 </style>
 </head>
 <body>
@@ -1252,7 +1258,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v444</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v445</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1262,6 +1268,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 <!-- ═══════════════ SLOT BAR ═══════════════ -->
 <div id="slot-bar" style="display:none;"></div>
+<div id="session-bar"></div>
 
 <!-- ═══════════════ CHARACTER HEADER ═══════════════ -->
 <div id="header">
@@ -1814,13 +1821,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=444"></script>
-<script src="cs_calc.js?v=444"></script>
-<script src="cs_ui.js?v=444"></script>
-<script src="cs_modal.js?v=444"></script>
-<script src="cs_feat_effects.js?v=444"></script>
-<script src="cs_save.js?v=444"></script>
-<script src="cs_dice.js?v=444"></script>
+<script src="cs_data.js?v=445"></script>
+<script src="cs_calc.js?v=445"></script>
+<script src="cs_ui.js?v=445"></script>
+<script src="cs_modal.js?v=445"></script>
+<script src="cs_feat_effects.js?v=445"></script>
+<script src="cs_save.js?v=445"></script>
+<script src="cs_session.js?v=445"></script>
+<script src="cs_dice.js?v=445"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -1844,12 +1852,28 @@ function updateAuthUI(user) {
     slotBar.style.display = 'flex';
     updateSlotBar();
     loadSlotNames(user.uid);
-    loadFromCloud(); // 로그인 복원 시 자동 불러오기
     startAutoSave();
+    // 세션 버튼 주입
+    if (typeof injectSessionButtons === 'function') injectSessionButtons();
+    // 세션 복귀 시도 → 실패하면 일반 로드
+    if (typeof restoreSession === 'function' && localStorage.getItem('pf2e_sessionId')) {
+      restoreSession().then(function(restored) {
+        if (!restored) loadFromCloud();
+      });
+    } else {
+      loadFromCloud(); // 일반 로그인 복원 시 자동 불러오기
+    }
   } else {
     currentUser = null;
     area.innerHTML = '<button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>';
     slotBar.style.display = 'none';
+    // 세션 리스너 정리
+    if (typeof stopSessionListeners === 'function') stopSessionListeners();
+    if (typeof _sessionMode !== 'undefined' && _sessionMode) {
+      _sessionMode = false; _currentSession = null; _isGM = false;
+      var sBar = document.getElementById('session-bar');
+      if (sBar) sBar.style.display = 'none';
+    }
     stopAutoSave();
     // 로그인 안 됨 → 클라우드 로드 불필요
     _cloudResolved = true; _checkReady();
@@ -1876,6 +1900,11 @@ function saveToCloud() {
 
 function loadFromCloud() {
   if (!currentUser) { alert('로그인이 필요합니다.'); return; }
+  // 세션 모드이면 세션 경로에서 로드
+  if (typeof _sessionMode !== 'undefined' && _sessionMode && typeof loadSessionCharacter === 'function') {
+    loadSessionCharacter(_gmEditTarget || currentUser.uid);
+    return;
+  }
   var status = document.getElementById('save-status');
   status.textContent = '불러오는 중...';
   status.style.color = '#f5c518';
