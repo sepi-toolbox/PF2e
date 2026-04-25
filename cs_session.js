@@ -349,6 +349,7 @@ function startSessionListeners() {
       _currentSession.players = data.players || {};
       _currentSession.name = data.name;
       updateSessionBar();
+      if (_isGM && typeof renderGMDashboard === 'function') renderGMDashboard();
     });
 
   // 플레이어: 자기 캐릭터 문서 감시 (GM 편집 반영)
@@ -384,25 +385,24 @@ function stopSessionListeners() {
 //  UI: 세션 모드 전환
 // ═════════════════════════════════════════��═════
 function enterSessionUI() {
-  const slotBar = document.getElementById('slot-bar');
-  if (slotBar) slotBar.style.display = 'none';
-  // 세션 바 생성/표시
-  let bar = document.getElementById('session-bar');
-  if (!bar) {
-    bar = document.createElement('div');
-    bar.id = 'session-bar';
+  if (_isGM) {
+    // GM: 전용 대시보드 갱신
+    if (typeof renderGMDashboard === 'function') renderGMDashboard();
+  } else {
+    // 플레이어: 세션 바 표시 + 캐릭터 시트
     const slotBar = document.getElementById('slot-bar');
-    slotBar.parentNode.insertBefore(bar, slotBar.nextSibling);
+    if (slotBar) slotBar.style.display = 'none';
+    let bar = document.getElementById('session-bar');
+    if (bar) bar.style.display = 'flex';
+    updateSessionBar();
   }
-  bar.style.display = 'flex';
-  updateSessionBar();
-  // 세션 버튼 업데이트
-  updateSessionButtons();
 }
 
 function exitSessionUI() {
   const bar = document.getElementById('session-bar');
   if (bar) bar.style.display = 'none';
+  const gmPage = document.getElementById('gm-page');
+  if (gmPage) gmPage.style.display = 'none';
   // 모드 선택 화면으로 돌아가기
   if (typeof showModeSelection === 'function') showModeSelection();
 }
