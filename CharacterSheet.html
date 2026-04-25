@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=452"></script>
-<script src="feat_db.js?v=452"></script>
-<script src="SPELL_DB.js?v=452"></script>
-<script src="class_features_db.js?v=452"></script>
+<script src="equipment_db.js?v=453"></script>
+<script src="feat_db.js?v=453"></script>
+<script src="SPELL_DB.js?v=453"></script>
+<script src="class_features_db.js?v=453"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1249,6 +1249,10 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 .session-overlay.hidden{display:none;}
 .session-modal{background:#1a1a1a;border:1px solid #f5c518;border-radius:8px;padding:24px;min-width:300px;max-width:90vw;box-shadow:0 8px 32px rgba(0,0,0,.6);}
 #session-bar{display:none;background:#1a1a1a;border-bottom:1px solid #333;padding:6px 16px;font-size:12px;align-items:center;gap:8px;}
+#gm-tab-bar{display:none;background:#111;border-bottom:2px solid #333;padding:4px 8px;align-items:center;gap:4px;overflow-x:auto;white-space:nowrap;}
+.gm-tab{background:#222;color:#aaa;border:1px solid #444;padding:6px 16px;border-radius:4px 4px 0 0;cursor:pointer;font-size:12px;font-weight:700;transition:all .15s;}
+.gm-tab:hover{background:#2a2a2a;color:#fff;}
+.gm-tab-active{background:#1a1a1a;color:#f5c518;border-color:#f5c518;border-bottom-color:#1a1a1a;}
 </style>
 </head>
 <body>
@@ -1258,7 +1262,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v452</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v453</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1821,14 +1825,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=452"></script>
-<script src="cs_calc.js?v=452"></script>
-<script src="cs_ui.js?v=452"></script>
-<script src="cs_modal.js?v=452"></script>
-<script src="cs_feat_effects.js?v=452"></script>
-<script src="cs_save.js?v=452"></script>
-<script src="cs_session.js?v=452"></script>
-<script src="cs_dice.js?v=452"></script>
+<script src="cs_data.js?v=453"></script>
+<script src="cs_calc.js?v=453"></script>
+<script src="cs_ui.js?v=453"></script>
+<script src="cs_modal.js?v=453"></script>
+<script src="cs_feat_effects.js?v=453"></script>
+<script src="cs_save.js?v=453"></script>
+<script src="cs_session.js?v=453"></script>
+<script src="cs_dice.js?v=453"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -1845,6 +1849,17 @@ function updateAuthUI(user) {
   const slotBar = document.getElementById('slot-bar');
   if (user) {
     currentUser = user;
+    startAutoSave();
+    // GM 세션 모드 감지 (?gmsession=ID)
+    var gmSessionId = new URLSearchParams(window.location.search).get('gmsession');
+    if (gmSessionId && typeof enterGMSessionMode === 'function') {
+      area.innerHTML = '<span style="color:#aaa;margin-right:8px;">' + (user.displayName || user.email) + '</span>' +
+        '<button onclick="saveToCloud()" style="background:#2980b9;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;">저장</button>' +
+        '<button onclick="googleLogout()" style="background:#555;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;">로그아웃</button>';
+      enterGMSessionMode(gmSessionId);
+      return;
+    }
+    // 일반 플레이어 모드
     area.innerHTML = '<span style="color:#aaa;margin-right:8px;">' + (user.displayName || user.email) + '</span>' +
       '<button onclick="loadFromCloud()" style="background:#27ae60;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;">불러오기</button>' +
       '<button onclick="saveToCloud()" style="background:#2980b9;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;">저장</button>' +
@@ -1854,7 +1869,6 @@ function updateAuthUI(user) {
     updateSlotBar();
     loadSlotNames(user.uid);
     loadFromCloud();
-    startAutoSave();
   } else {
     currentUser = null;
     area.innerHTML = '<button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>';

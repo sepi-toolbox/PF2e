@@ -533,3 +533,153 @@ autoSaveNow = function() {
   if (_sessionMode) return sessionSaveNow();
   return _origAutoSaveNow();
 };
+
+// ═══════════════════════════════════════════════
+//  GM 세션 모드 (?gmsession=ID 파라미터)
+// ═══════════════════════════════════════════════
+let _gmPlayerTabs = [];       // [{uid, displayName}]
+let _gmCharUnsubs = {};       // uid → onSnapshot unsub
+let _gmActiveTab = null;      // 현재 보고 있는 플레이어 uid
+
+function checkGMSessionParam() {
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('gmsession');
+  if (!sessionId) return false;
+  // auth 완료 후 호출되므로 currentUser가 있어야 함
+  if (!currentUser) return false;
+  _pendingGMSession = sessionId;
+  return true;
+}
+
+let _pendingGMSession = null;
+
+async function enterGMSessionMode(sessionId) {
+  try {
+    const doc = await db.collection('sessions').doc(sessionId).get();
+    if (!doc.exists) { alert('세션을 찾을 수 없습니다.'); return; }
+    const data = doc.data();
+    if (data.gmUid !== currentUser.uid) { alert('이 세션의 GM이 아닙니다.'); return; }
+
+    _currentSession = { id: doc.id, name: data.name, joinCode: data.joinCode, gmUid: data.gmUid, players: data.players || {} };
+    _sessionMode = true;
+    _isGM = true;
+
+    // 슬롯 바 숨기기
+    const slotBar = document.getElementById('slot-bar');
+    if (slotBar) slotBar.style.display = 'none';
+
+    // 플레이어 탭 바 생성
+    _buildPlayerTabBar();
+
+    // 세션 문서 실시간 감시 (플레이어 참가/퇴장 → 탭 갱신)
+    _sessionDocUnsub = db.collection('sessions').doc(sessionId)
+      .onSnapshot(snap => {
+        if (!snap.exists) return;
+        const d = snap.data();
+        _currentSession.players = d.players || {};
+        _buildPlayerTabBar();
+      });
+
+    // 첫 번째 플레이어 탭 자동 선택
+    const uids = Object.keys(_currentSession.players);
+    if (uids.length > 0) {
+      gmSwitchTab(uids[0]);
+    } else {
+      _showEmptyPartyMessage();
+    }
+  } catch(e) {
+    console.error('[enterGMSessionMode]', e);
+    alert('세션 로드 실패: ' + e.message);
+  }
+}
+
+function _buildPlayerTabBar() {
+  let bar = document.getElementById('gm-tab-bar');
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'gm-tab-bar';
+    const slotBar = document.getElementById('slot-bar');
+    slotBar.parentNode.insertBefore(bar, slotBar.nextSibling);
+  }
+  bar.style.display = 'flex';
+
+  const players = _currentSession.players || {};
+  const uids = Object.keys(players);
+  _gmPlayerTabs = uids.map(uid => ({ uid, displayName: players[uid].displayName || '???' }));
+
+  bar.innerHTML =
+    '<span style="color:var(--gold);font-weight:700;font-size:12px;padding:0 8px;">🎮 ' + (_currentSession.name || '세션') + '</span>' +
+    uids.map(uid => {
+      const p = players[uid];
+      const active = uid === _gmActiveTab;
+      return '<button class="gm-tab' + (active ? ' gm-tab-active' : '') + '" onclick="gmSwitchTab(\'' + uid + '\')">' +
+        (p.displayName || '???') +
+      '</button>';
+    }).join('') +
+    '<a href="GMSheet.html" style="margin-left:auto;color:#888;font-size:11px;padding:0 12px;text-decoration:none;align-self:center;">← 로비</a>';
+
+  // 플레이어가 새로 참가했을 때 자동 선택
+  if (!_gmActiveTab && uids.length > 0) {
+    gmSwitchTab(uids[0]);
+  }
+}
+
+function gmSwitchTab(uid) {
+  if (_gmActiveTab === uid) return;
+
+  // 현재 편집 중인 캐릭터 저장
+  if (_gmActiveTab && _loadComplete) {
+    sessionSaveNow();
+  }
+
+  _gmActiveTab = uid;
+  _gmEditTarget = uid;
+
+  // 탭 바 활성 상태 갱신
+  document.querySelectorAll('.gm-tab').forEach(btn => btn.classList.remove('gm-tab-active'));
+  const activeBtn = document.querySelector('.gm-tab[onclick*="' + uid + '"]');
+  if (activeBtn) activeBtn.classList.add('gm-tab-active');
+
+  // 캐릭터 로드
+  loadSessionCharacter(uid);
+
+  // 이전 리스너 해제 후 이 캐릭터에 대한 실시간 감시 시작
+  _startGMCharListener(uid);
+}
+
+function _startGMCharListener(uid) {
+  // 기존 리스너 해제
+  if (_charDocUnsub) { _charDocUnsub(); _charDocUnsub = null; }
+
+  _charDocUnsub = db.collection('sessions').doc(_currentSession.id)
+    .collection('characters').doc(uid)
+    .onSnapshot(doc => {
+      if (!doc.exists || !doc.data().data) return;
+      // 플레이어가 수정한 변경사항 반영
+      const remoteData = doc.data().data;
+      const localData = JSON.stringify(collectData());
+      if (remoteData !== localData && _gmActiveTab === uid) {
+        const prev = _loadComplete;
+        _loadComplete = false;
+        loadData(JSON.parse(remoteData));
+        _rebuildAllUI();
+        recalcAll();
+        _loadComplete = prev;
+      }
+    });
+}
+
+function _showEmptyPartyMessage() {
+  // 참가자 없을 때 안내 메시지
+  const header = document.getElementById('header');
+  if (header) {
+    header.insertAdjacentHTML('afterend',
+      '<div id="gm-empty-msg" style="text-align:center;padding:60px 20px;color:#666;">' +
+        '<p style="font-size:16px;margin-bottom:8px;">아직 참가한 플레이어가 없습니다.</p>' +
+        '<p style="font-size:13px;">참가 코드: <strong style="color:#f5c518;font-family:monospace;font-size:18px;letter-spacing:3px;">' + _currentSession.joinCode + '</strong></p>' +
+        '<p style="font-size:11px;margin-top:8px;">이 코드를 플레이어에게 공유하세요.</p>' +
+      '</div>'
+    );
+  }
+}
+
