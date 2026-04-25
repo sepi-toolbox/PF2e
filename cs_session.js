@@ -400,7 +400,7 @@ function startSessionListeners() {
   // ── 주사위 공유 리스너 ──
   _rollsReady = false;
   _rollsUnsub = db.collection('sessions').doc(_currentSession.id)
-    .collection('rolls').orderBy('createdAt')
+    .collection('rolls')
     .onSnapshot(function(snap) {
       if (!_rollsReady) { _rollsReady = true; return; }
       snap.docChanges().forEach(function(change) {
@@ -660,7 +660,7 @@ async function enterGMSessionMode(sessionId) {
     }
     _rollsReady = false;
     _rollsUnsub = db.collection('sessions').doc(sessionId)
-      .collection('rolls').orderBy('createdAt')
+      .collection('rolls')
       .onSnapshot(function(snap) {
         if (!_rollsReady) { _rollsReady = true; return; }
         snap.docChanges().forEach(function(change) {
@@ -723,7 +723,9 @@ function _buildPlayerTabBar() {
 function gmSwitchTab(uid) {
   if (_gmActiveTab === uid) return;
 
-  // 현재 편집 중인 캐릭터 저장
+  // 현재 편집 중인 캐릭터 저장 + 대기 중인 동기화 즉시 적용하지 않고 버림
+  if (_gmSyncTimeout) { clearTimeout(_gmSyncTimeout); _gmSyncTimeout = null; }
+  _gmPendingData = null;
   if (_gmActiveTab && _loadComplete) {
     sessionSaveNow();
   }
@@ -743,25 +745,37 @@ function gmSwitchTab(uid) {
   _startGMCharListener(uid);
 }
 
+let _gmSyncTimeout = null;
+let _gmPendingData = null;
+
 function _startGMCharListener(uid) {
-  // 기존 리스너 해제
+  // 기존 리스너 + 디바운스 타이머 해제
   if (_charDocUnsub) { _charDocUnsub(); _charDocUnsub = null; }
+  if (_gmSyncTimeout) { clearTimeout(_gmSyncTimeout); _gmSyncTimeout = null; }
+  _gmPendingData = null;
 
   _charDocUnsub = db.collection('sessions').doc(_currentSession.id)
     .collection('characters').doc(uid)
     .onSnapshot(doc => {
       if (!doc.exists || !doc.data().data) return;
-      // 플레이어가 수정한 변경사항 반영
       const remoteData = doc.data().data;
       const localData = JSON.stringify(collectData());
       if (remoteData !== localData && _gmActiveTab === uid) {
-        const prev = _loadComplete;
-        _loadComplete = false;
-        loadData(JSON.parse(remoteData));
-        _rebuildAllUI();
-        recalcAll();
-        _loadComplete = prev;
-        _flashSyncIndicator();
+        // 3초 디바운스 — 플레이어가 편집을 멈출 때까지 대기
+        _gmPendingData = remoteData;
+        if (_gmSyncTimeout) clearTimeout(_gmSyncTimeout);
+        _gmSyncTimeout = setTimeout(function() {
+          if (_gmPendingData && _gmActiveTab === uid) {
+            var prev = _loadComplete;
+            _loadComplete = false;
+            loadData(JSON.parse(_gmPendingData));
+            _rebuildAllUI();
+            recalcAll();
+            _loadComplete = prev;
+            _flashSyncIndicator();
+            _gmPendingData = null;
+          }
+        }, 3000);
       }
     });
 }

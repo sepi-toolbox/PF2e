@@ -58,6 +58,23 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .modal-box{background:var(--card);border:1px solid var(--gold);border-radius:8px;padding:24px;min-width:300px;max-width:90vw;}
 /* empty */
 .empty{color:var(--text2);font-size:13px;text-align:center;padding:20px;}
+/* 주사위 토스트 (플레이어 굴림 표시) */
+#dice-toast-container{position:fixed;top:12px;right:12px;z-index:99999;display:flex;flex-direction:column;gap:6px;pointer-events:none;max-height:60vh;overflow:hidden;}
+.dice-toast{pointer-events:auto;min-width:180px;max-width:260px;background:var(--card);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:10px;padding:10px 14px;box-shadow:0 6px 24px rgba(0,0,0,.5);transform:translateX(120%);opacity:0;transition:all .35s cubic-bezier(.22,1,.36,1);}
+.dice-toast.show{transform:translateX(0);opacity:1;}
+.dice-toast.hide{transform:translateX(120%);opacity:0;}
+.dice-toast.nat20{border-color:#f1c40f;box-shadow:0 0 20px rgba(241,196,15,.4);}
+.dice-toast.nat1{border-color:#e74c3c;box-shadow:0 0 20px rgba(231,76,60,.3);}
+.dice-toast-who{font-size:10px;font-weight:700;color:var(--blue);margin-bottom:2px;}
+.dice-toast-header{display:flex;justify-content:space-between;align-items:center;}
+.dice-toast-label{font-size:11px;color:var(--text2);font-weight:600;}
+.dice-toast-total{font-size:22px;font-weight:900;color:var(--blue);}
+.dice-toast.nat20 .dice-toast-total{color:#f1c40f;}
+.dice-toast.nat1 .dice-toast-total{color:#e74c3c;}
+.dice-toast-detail{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;}
+.dice-result-chip{display:inline-block;padding:1px 5px;border-radius:4px;font-size:10px;font-weight:700;color:#fff;}
+.dice-result-chip.dice-max{box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);}
+.dice-result-chip.dice-min{opacity:.6;}
 </style>
 </head>
 <body>
@@ -201,6 +218,7 @@ function startListeningFallback() {
 
 function stopListening() {
   if (_sessionsUnsub) { _sessionsUnsub(); _sessionsUnsub = null; }
+  stopRollsListener();
 }
 
 // ═══════════════════════════════════════════════
@@ -231,6 +249,7 @@ function selectSession(id) {
   if (!s) return;
   renderSessionList(); // active 표시 갱신
   renderSessionDetail(s);
+  startRollsListener(id); // 주사위 공유 리스너
 }
 
 function renderSessionDetail(s) {
@@ -380,6 +399,68 @@ async function _returnCharToPlayer(sessionId, uid) {
 function startSession() {
   if (!selectedSessionId) { alert('세션을 선택하세요.'); return; }
   window.location.href = 'CharacterSheet.html?gmsession=' + selectedSessionId;
+}
+
+// ═══════════════════════════════════════════════
+//  주사위 공유 토스트 (로비에서도 플레이어 굴림 확인)
+// ═══════════════════════════════════════════════
+const DICE_COLORS = {4:'#e74c3c',6:'#e67e22',8:'#f1c40f',10:'#2ecc71',12:'#3498db',20:'#9b59b6',100:'#95a5a6'};
+let _rollsUnsub = null;
+let _rollsReady = false;
+
+function startRollsListener(sessionId) {
+  stopRollsListener();
+  _rollsReady = false;
+  _rollsUnsub = db.collection('sessions').doc(sessionId)
+    .collection('rolls')
+    .onSnapshot(function(snap) {
+      if (!_rollsReady) { _rollsReady = true; return; }
+      snap.docChanges().forEach(function(change) {
+        if (change.type === 'added') {
+          var data = change.doc.data();
+          if (currentUser && data.uid !== currentUser.uid) {
+            showRemoteToast(data);
+          }
+        }
+      });
+    });
+}
+
+function stopRollsListener() {
+  if (_rollsUnsub) { _rollsUnsub(); _rollsUnsub = null; }
+  _rollsReady = false;
+}
+
+function showRemoteToast(data) {
+  var container = document.getElementById('dice-toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'dice-toast-container';
+    document.body.appendChild(container);
+  }
+  var toast = document.createElement('div');
+  toast.className = 'dice-toast' + (data.isNat20 ? ' nat20' : '') + (data.isNat1 ? ' nat1' : '');
+
+  var diceStr = (data.dice || []).map(function(d) {
+    var cls = d.value === d.sides ? 'dice-max' : d.value === 1 ? 'dice-min' : '';
+    return '<span class="dice-result-chip ' + cls + '" style="background:' + (DICE_COLORS[d.sides]||'#666') + '">d' + d.sides + ':' + d.value + '</span>';
+  }).join(' ');
+
+  var mod = data.modifier || 0;
+  var modStr = mod ? ' ' + (mod >= 0 ? '+' : '') + mod : '';
+
+  toast.innerHTML =
+    '<div class="dice-toast-who">🎲 ' + (data.characterName || '???') + '</div>' +
+    '<div class="dice-toast-header"><span class="dice-toast-label">' + (data.label || '') + '</span><span class="dice-toast-total">' + data.total + '</span></div>' +
+    '<div class="dice-toast-detail">' + diceStr + modStr + '</div>';
+
+  container.prepend(toast);
+  requestAnimationFrame(function() { toast.classList.add('show'); });
+  setTimeout(function() {
+    toast.classList.remove('show');
+    toast.classList.add('hide');
+    setTimeout(function() { toast.remove(); }, 400);
+  }, 5000);
 }
 </script>
 </body>
