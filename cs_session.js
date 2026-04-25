@@ -695,8 +695,11 @@ function _startGMCharListener(uid) {
 // GM이 탭 바에서 플레이어 추방
 async function gmKickPlayer(uid, name) {
   if (!_currentSession) return;
-  if (!confirm('"' + name + '"을(를) 추방하시겠습니까?\n해당 플레이어의 세션 캐릭터도 삭제됩니다.')) return;
+  if (!confirm('"' + name + '"을(를) 추방하시겠습니까?\n캐릭터는 해당 플레이어의 개인 슬롯으로 반환됩니다.')) return;
   try {
+    // 세션 캐릭터를 플레이어 개인 슬롯으로 복사
+    await _returnCharToPlayer(uid);
+    // 세션에서 제거
     const playerField = 'players.' + uid;
     await db.collection('sessions').doc(_currentSession.id).update({
       [playerField]: firebase.firestore.FieldValue.delete()
@@ -718,6 +721,29 @@ async function gmKickPlayer(uid, name) {
   } catch(e) {
     console.error('[gmKickPlayer]', e);
     alert('추방 실패: ' + e.message);
+  }
+}
+
+async function _returnCharToPlayer(uid) {
+  try {
+    const charDoc = await db.collection('sessions').doc(_currentSession.id)
+      .collection('characters').doc(uid).get();
+    if (!charDoc.exists || !charDoc.data().data) return;
+    const slotsSnap = await db.collection('users').doc(uid).collection('characters').get();
+    const usedSlots = new Set();
+    slotsSnap.forEach(d => { if (d.data().data) usedSlots.add(d.id); });
+    let targetSlot = null;
+    for (let i = 1; i <= 5; i++) {
+      if (!usedSlots.has('slot' + i)) { targetSlot = 'slot' + i; break; }
+    }
+    if (!targetSlot) return;
+    await db.collection('users').doc(uid).collection('characters').doc(targetSlot).set({
+      data: charDoc.data().data,
+      name: charDoc.data().name || '이름 없음',
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  } catch(e) {
+    console.warn('[_returnCharToPlayer]', e);
   }
 }
 
