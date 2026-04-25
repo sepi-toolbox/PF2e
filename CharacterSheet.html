@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=449"></script>
-<script src="feat_db.js?v=449"></script>
-<script src="SPELL_DB.js?v=449"></script>
-<script src="class_features_db.js?v=449"></script>
+<script src="equipment_db.js?v=450"></script>
+<script src="feat_db.js?v=450"></script>
+<script src="SPELL_DB.js?v=450"></script>
+<script src="class_features_db.js?v=450"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1260,7 +1260,11 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 .mode-title{font-size:18px;font-weight:700;color:#fff;}
 .mode-desc{font-size:12px;color:#888;line-height:1.4;}
 .gm-big-btn{width:100%;padding:14px;border:none;border-radius:6px;cursor:pointer;font-size:16px;font-weight:700;}
-.gm-player-card{background:#222;border:1px solid #444;border-radius:6px;padding:12px 16px;margin-bottom:6px;}
+.gm-player-card{background:#222;border:1px solid #444;border-radius:6px;padding:12px 16px;margin-bottom:6px;display:flex;flex-direction:column;gap:4px;}
+.gm-player-clickable{cursor:pointer;transition:border-color .2s;}
+.gm-player-clickable:hover{border-color:#f5c518;background:#2a2a2a;}
+#gm-edit-banner{display:none;background:#2c3e50;color:#fff;padding:8px 16px;font-size:13px;align-items:center;justify-content:space-between;gap:8px;}
+#gm-edit-banner button{background:#f5c518;color:#000;border:none;padding:5px 14px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;}
 @media(max-width:600px){.mode-cards{flex-direction:column;align-items:center;}.mode-card{width:80vw;padding:24px 20px;}}
 </style>
 </head>
@@ -1271,7 +1275,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v449</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v450</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1834,14 +1838,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=449"></script>
-<script src="cs_calc.js?v=449"></script>
-<script src="cs_ui.js?v=449"></script>
-<script src="cs_modal.js?v=449"></script>
-<script src="cs_feat_effects.js?v=449"></script>
-<script src="cs_save.js?v=449"></script>
-<script src="cs_session.js?v=449"></script>
-<script src="cs_dice.js?v=449"></script>
+<script src="cs_data.js?v=450"></script>
+<script src="cs_calc.js?v=450"></script>
+<script src="cs_ui.js?v=450"></script>
+<script src="cs_modal.js?v=450"></script>
+<script src="cs_feat_effects.js?v=450"></script>
+<script src="cs_save.js?v=450"></script>
+<script src="cs_session.js?v=450"></script>
+<script src="cs_dice.js?v=450"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -2193,8 +2197,10 @@ function renderGMDashboard() {
   var playerList = '';
   Object.keys(players).forEach(function(uid) {
     var p = players[uid];
-    playerList += '<div class="gm-player-card">' +
+    playerList += '<div class="gm-player-card gm-player-clickable" onclick="gmViewCharacter(\'' + uid + '\',\'' + (p.displayName || '???').replace(/'/g,'\\\'') + '\')">' +
       '<span style="color:#fff;font-weight:700;">' + (p.displayName || '???') + '</span>' +
+      '<span class="gm-card-charinfo" id="gm-card-' + uid + '" style="color:#888;font-size:11px;"></span>' +
+      '<span style="color:#f5c518;font-size:11px;">클릭하여 시트 보기 →</span>' +
     '</div>';
   });
   if (!playerList) playerList = '<p style="color:#666;">아직 참가한 플레이어가 없습니다.</p>';
@@ -2215,6 +2221,83 @@ function renderGMDashboard() {
         '<button onclick="leaveSession()" style="background:#c0392b;color:#fff;border:none;padding:8px 20px;border-radius:4px;cursor:pointer;font-size:13px;">세션 삭제</button>' +
       '</div>' +
     '</div>';
+  // 각 카드에 캐릭터 요약 정보 로드
+  _loadGMCardInfos();
+}
+
+function _loadGMCardInfos() {
+  if (!_currentSession) return;
+  var players = _currentSession.players || {};
+  Object.keys(players).forEach(function(uid) {
+    db.collection('sessions').doc(_currentSession.id)
+      .collection('characters').doc(uid).get().then(function(doc) {
+        var el = document.getElementById('gm-card-' + uid);
+        if (!el) return;
+        if (doc.exists && doc.data().data) {
+          try {
+            var d = JSON.parse(doc.data().data);
+            var cls = d.selectedClass || '';
+            var lv = d.level || 1;
+            var name = d.name || '이름 없음';
+            el.textContent = name + ' — ' + cls + ' Lv.' + lv;
+          } catch(e) { el.textContent = '데이터 로드 실패'; }
+        } else {
+          el.textContent = '캐릭터 미생성';
+        }
+      });
+  });
+}
+
+// GM이 플레이어 캐릭터 시트 열기
+function gmViewCharacter(uid, playerName) {
+  if (!_currentSession) return;
+  _gmEditTarget = uid;
+  // GM 대시보드 숨기고 캐릭터 시트 표시
+  var gmPage = document.getElementById('gm-page');
+  if (gmPage) gmPage.style.display = 'none';
+  _showApp();
+  // GM 편집 배너
+  var banner = document.getElementById('gm-edit-banner');
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'gm-edit-banner';
+    document.getElementById('auth-bar').after(banner);
+  }
+  banner.style.display = 'flex';
+  banner.innerHTML =
+    '<span>🎮 <strong>' + playerName + '</strong>의 캐릭터를 편집 중</span>' +
+    '<button onclick="gmBackToDashboard()">← 대시보드로 돌아가기</button>';
+  // auth-bar 버튼을 GM 편집용으로 갱신
+  _setAuthArea([
+    _makeBtn('저장', '#2980b9', saveToCloud),
+    _makeBtn('← 대시보드', '#444', gmBackToDashboard, 'color:#ccc;')
+  ]);
+  // 해당 플레이어 캐릭터 로드
+  if (typeof loadSessionCharacter === 'function') loadSessionCharacter(uid);
+}
+
+function gmBackToDashboard() {
+  _gmEditTarget = null;
+  // 배너 숨기기
+  var banner = document.getElementById('gm-edit-banner');
+  if (banner) banner.style.display = 'none';
+  // 시트 숨기고 대시보드 복귀
+  _hideApp();
+  var gmPage = document.getElementById('gm-page');
+  if (gmPage) gmPage.style.display = 'flex';
+  renderGMDashboard();
+  // auth-area 복귀
+  _setAuthArea([
+    _makeBtn('←', '#444', function() {
+      localStorage.removeItem('pf2e_appMode');
+      if (typeof _sessionMode !== 'undefined' && _sessionMode) {
+        if (typeof stopSessionListeners === 'function') stopSessionListeners();
+        _sessionMode = false; _currentSession = null; _isGM = false;
+        clearSessionStorage();
+      }
+      showModeSelection();
+    }, 'color:#ccc;')
+  ]);
 }
 
 function mobileNavSwitch(id) {
