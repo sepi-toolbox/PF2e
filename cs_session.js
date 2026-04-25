@@ -403,14 +403,8 @@ function enterSessionUI() {
 function exitSessionUI() {
   const bar = document.getElementById('session-bar');
   if (bar) bar.style.display = 'none';
-  const slotBar = document.getElementById('slot-bar');
-  if (slotBar && currentUser) {
-    slotBar.style.display = 'flex';
-    updateSlotBar();
-    loadSlotNames(currentUser.uid);
-    loadFromCloud();
-  }
-  updateSessionButtons();
+  // 모드 선택 화면으로 돌아가기
+  if (typeof showModeSelection === 'function') showModeSelection();
 }
 
 function updateSessionBar() {
@@ -430,10 +424,7 @@ function updateSessionBar() {
 }
 
 function updateSessionButtons() {
-  const btnCreate = document.getElementById('btn-session-create');
-  const btnJoin = document.getElementById('btn-session-join');
-  if (btnCreate) btnCreate.style.display = _sessionMode ? 'none' : '';
-  if (btnJoin) btnJoin.style.display = _sessionMode ? 'none' : '';
+  // (no-op — 버튼은 모드 선택으로 이동됨)
 }
 
 // ════��═══════════════════════════════════���══════
@@ -518,34 +509,21 @@ function closeSessionModal() {
   if (overlay) overlay.classList.add('hidden');
 }
 
-// ═════════════════════════��═════════════════════
-//  AUTH UI에 세션 버튼 주입
-// ══════════════════════════��════════════════════
-function injectSessionButtons() {
-  const authArea = document.getElementById('auth-area');
-  if (!authArea) return;
-  // 이미 있으면 스킵
-  if (document.getElementById('btn-session-create')) return;
-  // 로그아웃 버튼 앞에 삽입
-  const logoutBtn = authArea.querySelector('button[onclick="googleLogout()"]');
-  if (!logoutBtn) return;
-  const createBtn = document.createElement('button');
-  createBtn.id = 'btn-session-create';
-  createBtn.textContent = '세션 만들기';
-  createBtn.style.cssText = 'background:#f5c518;color:#000;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:700;margin-right:4px;';
-  createBtn.onclick = openCreateSessionModal;
-  const joinBtn = document.createElement('button');
-  joinBtn.id = 'btn-session-join';
-  joinBtn.textContent = '세션 참가';
-  joinBtn.style.cssText = 'background:#3498db;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:700;margin-right:4px;';
-  joinBtn.onclick = openJoinSessionModal;
-  authArea.insertBefore(joinBtn, logoutBtn);
-  authArea.insertBefore(createBtn, joinBtn);
-  // 세션 모드이면 숨기기
-  if (_sessionMode) {
-    createBtn.style.display = 'none';
-    joinBtn.style.display = 'none';
-  }
+// ═══════════════════════════════════════════════
+//  GM 모드: 세션 만들기/참가 선택 모달
+// ═══════════════════════════════════════════════
+function openGMSessionChoiceModal() {
+  const overlay = _getOrCreateSessionOverlay();
+  overlay.innerHTML =
+    '<div class="session-modal" style="max-width:360px;text-align:center;">' +
+      '<h3 style="color:#f5c518;margin:0 0 20px;">📜 게임마스터 모드</h3>' +
+      '<button onclick="openCreateSessionModal()" style="width:100%;padding:12px;background:#f5c518;color:#000;border:none;border-radius:6px;cursor:pointer;font-size:15px;font-weight:700;margin-bottom:10px;">새 세션 만들기</button>' +
+      '<button onclick="openJoinSessionModal()" style="width:100%;padding:12px;background:#3498db;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:15px;font-weight:700;margin-bottom:16px;">기존 세션 참가</button>' +
+      '<div style="border-top:1px solid #444;padding-top:12px;">' +
+        '<button onclick="closeSessionModal();localStorage.removeItem(\'pf2e_appMode\');showModeSelection();" style="background:none;border:none;color:#888;cursor:pointer;font-size:12px;">← 모드 선택으로 돌아가기</button>' +
+      '</div>' +
+    '</div>';
+  overlay.classList.remove('hidden');
 }
 
 // ══���════════════════════════════���═══════════════
