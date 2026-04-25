@@ -517,10 +517,9 @@ function openGMSessionChoiceModal() {
   overlay.innerHTML =
     '<div class="session-modal" style="max-width:360px;text-align:center;">' +
       '<h3 style="color:#f5c518;margin:0 0 20px;">📜 게임마스터 모드</h3>' +
-      '<button onclick="openCreateSessionModal()" style="width:100%;padding:12px;background:#f5c518;color:#000;border:none;border-radius:6px;cursor:pointer;font-size:15px;font-weight:700;margin-bottom:10px;">새 세션 만들기</button>' +
-      '<button onclick="openJoinSessionModal()" style="width:100%;padding:12px;background:#3498db;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:15px;font-weight:700;margin-bottom:16px;">기존 세션 참가</button>' +
+      '<button onclick="openCreateSessionModal()" style="width:100%;padding:12px;background:#f5c518;color:#000;border:none;border-radius:6px;cursor:pointer;font-size:15px;font-weight:700;margin-bottom:16px;">새 세션 만들기</button>' +
       '<div style="border-top:1px solid #444;padding-top:12px;">' +
-        '<button onclick="closeSessionModal();localStorage.removeItem(\'pf2e_appMode\');showModeSelection();" style="background:none;border:none;color:#888;cursor:pointer;font-size:12px;">← 모드 선택으로 돌아가기</button>' +
+        '<button onclick="closeSessionModal();localStorage.removeItem(\'pf2e_appMode\');showModeSelection();" style="background:none;border:none;color:#888;cursor:pointer;font-size:12px;">← 뒤로가기</button>' +
       '</div>' +
     '</div>';
   overlay.classList.remove('hidden');

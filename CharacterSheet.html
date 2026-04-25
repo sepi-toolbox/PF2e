@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=446"></script>
-<script src="feat_db.js?v=446"></script>
-<script src="SPELL_DB.js?v=446"></script>
-<script src="class_features_db.js?v=446"></script>
+<script src="equipment_db.js?v=447"></script>
+<script src="feat_db.js?v=447"></script>
+<script src="SPELL_DB.js?v=447"></script>
+<script src="class_features_db.js?v=447"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1269,7 +1269,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v446</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v447</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1832,14 +1832,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=446"></script>
-<script src="cs_calc.js?v=446"></script>
-<script src="cs_ui.js?v=446"></script>
-<script src="cs_modal.js?v=446"></script>
-<script src="cs_feat_effects.js?v=446"></script>
-<script src="cs_save.js?v=446"></script>
-<script src="cs_session.js?v=446"></script>
-<script src="cs_dice.js?v=446"></script>
+<script src="cs_data.js?v=447"></script>
+<script src="cs_calc.js?v=447"></script>
+<script src="cs_ui.js?v=447"></script>
+<script src="cs_modal.js?v=447"></script>
+<script src="cs_feat_effects.js?v=447"></script>
+<script src="cs_save.js?v=447"></script>
+<script src="cs_session.js?v=447"></script>
+<script src="cs_dice.js?v=447"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -2034,7 +2034,16 @@ window.addEventListener('beforeunload', function() {
 // ═══════════════════════════════════════════════
 //  MODE SELECTION — 플레이어 / 게임마스터 모드
 // ═══════════════════════════════════════════════
+function _resetAuthArea() {
+  // auth-area를 기본 상태(이름 + 로그아웃)로 리셋
+  var area = document.getElementById('auth-area');
+  if (!area || !currentUser) return;
+  area.innerHTML = '<span style="color:#aaa;margin-right:8px;">' + (currentUser.displayName || currentUser.email) + '</span>' +
+    '<button onclick="googleLogout()" style="background:#555;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;">로그아웃</button>';
+}
+
 function showModeSelection() {
+  _resetAuthArea();
   // 앱 전체를 가리는 모드 선택 오버레이
   var overlay = document.getElementById('mode-select-overlay');
   if (!overlay) {
@@ -2090,8 +2099,7 @@ function _injectPlayerButtons() {
   if (!area) return;
   var logoutBtn = area.querySelector('button[onclick="googleLogout()"]');
   if (!logoutBtn) return;
-  // 이미 있으면 스킵
-  if (document.getElementById('btn-change-mode')) return;
+  if (document.getElementById('btn-back-mode')) return;
   var saveBtn = document.createElement('button');
   saveBtn.textContent = '저장';
   saveBtn.style.cssText = 'background:#2980b9;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;';
@@ -2100,16 +2108,23 @@ function _injectPlayerButtons() {
   loadBtn.textContent = '불러오기';
   loadBtn.style.cssText = 'background:#27ae60;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;';
   loadBtn.onclick = loadFromCloud;
-  var modeBtn = document.createElement('button');
-  modeBtn.id = 'btn-change-mode';
-  modeBtn.textContent = '모드 변경';
-  modeBtn.style.cssText = 'background:#8e44ad;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;';
-  modeBtn.onclick = function() {
+  var joinBtn = document.createElement('button');
+  joinBtn.id = 'btn-session-join';
+  joinBtn.textContent = '세션 참가';
+  joinBtn.style.cssText = 'background:#3498db;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:700;margin-right:4px;';
+  joinBtn.onclick = function() { if (typeof openJoinSessionModal === 'function') openJoinSessionModal(); };
+  var backBtn = document.createElement('button');
+  backBtn.id = 'btn-back-mode';
+  backBtn.textContent = '←';
+  backBtn.title = '뒤로가기';
+  backBtn.style.cssText = 'background:#444;color:#ccc;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;';
+  backBtn.onclick = function() {
     localStorage.removeItem('pf2e_appMode');
     showModeSelection();
   };
-  area.insertBefore(modeBtn, logoutBtn);
-  area.insertBefore(saveBtn, modeBtn);
+  area.insertBefore(backBtn, logoutBtn);
+  area.insertBefore(joinBtn, backBtn);
+  area.insertBefore(saveBtn, joinBtn);
   area.insertBefore(loadBtn, saveBtn);
 }
 
@@ -2128,14 +2143,14 @@ function _injectGMButtons() {
   if (!area) return;
   var logoutBtn = area.querySelector('button[onclick="googleLogout()"]');
   if (!logoutBtn) return;
-  if (document.getElementById('btn-change-mode')) return;
-  var modeBtn = document.createElement('button');
-  modeBtn.id = 'btn-change-mode';
-  modeBtn.textContent = '모드 변경';
-  modeBtn.style.cssText = 'background:#8e44ad;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;';
-  modeBtn.onclick = function() {
+  if (document.getElementById('btn-back-mode')) return;
+  var backBtn = document.createElement('button');
+  backBtn.id = 'btn-back-mode';
+  backBtn.textContent = '←';
+  backBtn.title = '뒤로가기';
+  backBtn.style.cssText = 'background:#444;color:#ccc;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;';
+  backBtn.onclick = function() {
     localStorage.removeItem('pf2e_appMode');
-    // 세션 중이면 나가기
     if (typeof _sessionMode !== 'undefined' && _sessionMode) {
       if (typeof stopSessionListeners === 'function') stopSessionListeners();
       _sessionMode = false; _currentSession = null; _isGM = false;
@@ -2145,7 +2160,7 @@ function _injectGMButtons() {
     }
     showModeSelection();
   };
-  area.insertBefore(modeBtn, logoutBtn);
+  area.insertBefore(backBtn, logoutBtn);
 }
 
 function mobileNavSwitch(id) {
