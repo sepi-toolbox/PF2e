@@ -2492,8 +2492,9 @@ function getOptionsData(type) {
   if (type==='heritage') {
     const hasVersatile = Object.values(state.feats).flat().some(f => f?.name?.includes('다재다능한 유산'));
     return HERITAGE_DB.filter(h => {
+      if (h.ancestry === '*') return true; // 다목적 유산 (네피림, 체인질링 등)은 항상 표시
       if (h.versatile) return hasVersatile;
-      return h.ancestry === '*' || !state.selectedAncestry || h.ancestry === state.selectedAncestry.id;
+      return !state.selectedAncestry || h.ancestry === state.selectedAncestry.id;
     });
   }
   if (type==='subclass') return state.selectedClass ? SUBCLASS_DB.filter(s => s.class_id === state.selectedClass.id) : [];
