@@ -936,7 +936,178 @@ function getProfBonus(selectId) {
 }
 function fmtBonus(n) { return n >= 0 ? '+'+n : ''+n; }
 
+// ═══════════════════════════════════════════════
+//  빌더 핵심 선택 반응형 재파생 (유산/배경)
+//  applyFeatEffects와 동일한 clear+rebuild 패턴
+// ═══════════════════════════════════════════════
+function rebuildCoreEffects() {
+  const heritage = state.selectedHeritage;
+  const bg = state.selectedBackground;
+
+  // ── CLEAR PHASE ──
+
+  // 유산 기술: prevRank 복원
+  (state._heritageGrantedSkills || []).forEach(entry => {
+    const el = document.getElementById('sk-prof-' + entry.skill);
+    if (el && parseInt(el.value || 0) === entry.rank) {
+      el.value = String(entry.prevRank || 0);
+    }
+  });
+  state._heritageGrantedSkills = [];
+
+  // 유산 재주: _fromHeritage 제거 (choice 스냅샷)
+  const savedHeritageChoices = {};
+  Object.values(state.feats).forEach(arr => {
+    if (!arr) return;
+    for (let i = arr.length - 1; i >= 0; i--) {
+      if (arr[i]?._fromHeritage) {
+        if (arr[i].choice) savedHeritageChoices[arr[i].name] = arr[i].choice;
+        arr.splice(i, 1);
+      }
+    }
+  });
+
+  // 유산 무기: _fromHeritage 제거
+  state.weapons = (state.weapons || []).filter(w => !w._fromHeritage);
+
+  // 유산 선천 주문: _heritage 제거 (캔트립 선택 제외 — _heritageCantrip 재주가 관리)
+  if (state.spells?.innate) {
+    state.spells.innate = state.spells.innate.filter(s => !s._heritage);
+  }
+
+  // 배경 기술: prevRank 복원
+  (state._bgGrantedSkills || []).forEach(entry => {
+    const el = document.getElementById('sk-prof-' + entry.skill);
+    if (el && parseInt(el.value || 0) === entry.rank) {
+      el.value = String(entry.prevRank || 0);
+    }
+  });
+  state._bgGrantedSkills = [];
+
+  // 배경 지식: 이름+숙련 복원
+  (state._bgGrantedLores || []).forEach(entry => {
+    const nameEl = document.getElementById('lore-name-' + entry.slot);
+    const profEl = document.getElementById('sk-prof-' + entry.slot);
+    if (nameEl && nameEl.value === entry.name) {
+      nameEl.value = entry.prevName || '';
+      if (profEl) profEl.value = String(entry.prevRank || 0);
+    }
+  });
+  state._bgGrantedLores = [];
+
+  // 배경 재주: _fromBackground 제거
+  Object.values(state.feats).forEach(arr => {
+    if (!arr) return;
+    for (let i = arr.length - 1; i >= 0; i--) {
+      if (arr[i]?._fromBackground) arr.splice(i, 1);
+    }
+  });
+
+  // ── REBUILD PHASE ──
+
+  // 유산 HP 보너스
+  state._heritageHpBonus = heritage?.hpBonus || 0;
+
+  // 유산 기술 숙련
+  if (heritage?.grantSkills) {
+    heritage.grantSkills.forEach(sid => {
+      const el = document.getElementById('sk-prof-' + sid);
+      if (!el) return;
+      const cur = parseInt(el.value || 0);
+      if (cur < 2) {
+        state._heritageGrantedSkills.push({skill: sid, rank: 2, prevRank: cur});
+        el.value = '2';
+      } else {
+        // 이미 2 이상이면 추적만 (clear 시 복원 불필요)
+        state._heritageGrantedSkills.push({skill: sid, rank: 2, prevRank: cur});
+      }
+    });
+  }
+
+  // 유산 재주
+  if (heritage?.grantFeats) {
+    heritage.grantFeats.forEach(entry => {
+      const featName = typeof entry === 'string' ? entry : entry.name;
+      const presetChoice = typeof entry === 'object' ? entry.choice : undefined;
+      const nameKo = featName.split(' (')[0].trim();
+      const fd = typeof FEAT_DB !== 'undefined' ? FEAT_DB.find(f => f && f.name_ko === nameKo) : null;
+      const cat = fd?.category === 'general' ? 'general' : 'skill';
+      if (!state.feats[cat]) state.feats[cat] = [];
+      const feat = {name: featName, level: 1, _fromHeritage: true};
+      if (savedHeritageChoices[featName]) feat.choice = savedHeritageChoices[featName];
+      else if (presetChoice) feat.choice = presetChoice;
+      state.feats[cat].push(feat);
+    });
+  }
+
+  // 유산 무기
+  if (heritage?.grantWeapon) {
+    const w = heritage.grantWeapon;
+    if (typeof addWeapon === 'function') {
+      addWeapon({name: w.name, dmg: w.dmg, traits: w.traits, category: w.category, _fromHeritage: true});
+    }
+  }
+
+  // 유산 선천 주문 (비선택형만 — 선택형��� _heritageCantrip 재주가 관리)
+  if (heritage?.innateSpells) {
+    if (!state.spells) state.spells = {cantrip:[], known:[], focus:[], innate:[]};
+    if (!state.spells.innate) state.spells.innate = [];
+    heritage.innateSpells.forEach(sp => {
+      const needsChoice = sp.tradition === '원시' || sp.tradition === '선택';
+      if (!needsChoice) {
+        state.spells.innate.push({name: sp.name, tradition: sp.tradition, type: sp.type, uses: sp.uses, _heritage: true, _source: heritage.name_ko});
+      }
+    });
+  }
+
+  // 배경 기술 + 지식
+  if (bg?.skills) {
+    let loreUsed = 0;
+    bg.skills.split(', ').forEach(skillName => {
+      const s = skillName.trim();
+      if (s.includes('또는') || s.includes('/') || s.includes('중 선택')) return;
+      if (s.endsWith(' 지식') || s === '필사 지식' || s.includes('지식')) {
+        const loreName = s.replace(' 지식', '').trim();
+        const slot = loreUsed === 0 ? 'lore1' : 'lore2';
+        const nameEl = document.getElementById('lore-name-' + slot);
+        const profEl = document.getElementById('sk-prof-' + slot);
+        if (nameEl && profEl) {
+          const prevName = nameEl.value === loreName ? loreName : nameEl.value;
+          const prevRank = parseInt(profEl.value || 0);
+          state._bgGrantedLores.push({slot, name: loreName, prevName: prevRank < 2 ? '' : prevName, prevRank: prevRank < 2 ? 0 : prevRank});
+          if (!nameEl.value || nameEl.value === loreName) nameEl.value = loreName;
+          if (prevRank < 2) profEl.value = '2';
+        }
+        loreUsed++;
+      } else {
+        const id = skillNameToId(s);
+        if (!id) return;
+        const el = document.getElementById('sk-prof-' + id);
+        if (!el) return;
+        const cur = parseInt(el.value || 0);
+        if (cur < 2) {
+          state._bgGrantedSkills.push({skill: id, rank: 2, prevRank: cur});
+          el.value = '2';
+        } else {
+          state._bgGrantedSkills.push({skill: id, rank: 2, prevRank: cur});
+        }
+      }
+    });
+  }
+
+  // 배경 재주
+  if (bg?.feat) {
+    const featName = bg.feat.trim();
+    if (featName && !featName.includes('/') && !featName.includes('또는')) {
+      if (!state.feats.skill) state.feats.skill = [];
+      state.feats.skill.push({name: featName, level: 1, _fromBackground: true});
+    }
+  }
+}
+
 function recalcAll() {
+  // 빌더 핵심 선택 재파생 (유산/배경)
+  rebuildCoreEffects();
   // 재주 효과 집계
   if (typeof applyFeatEffects === 'function') applyFeatEffects();
   ['str','dex','con','int','wis','cha'].forEach(a => {

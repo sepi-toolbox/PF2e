@@ -4352,16 +4352,18 @@ function resetFromBackground() {
   state.boosts.bg = [];
   state.boosts.bgFixed = [];
   state.boosts.bgFree = [];
-  // Remove auto-granted background feat from skill feats
-  if (state.growth[1] && state.growth[1].bgSkillFeat) {
-    const bgFeatName = state.growth[1].bgSkillFeat;
-    const idx = state.feats.skill.findIndex(f => f.name === bgFeatName && f.level === 1);
+  // Growth plan 배경 재주 정리
+  if (state.growth[1]) delete state.growth[1].bgSkillFeat;
+  // 기존 저장 데이터 호환: _fromBackground 없는 배경 재주 제거
+  if (state.selectedBackground?.feat) {
+    const fn = state.selectedBackground.feat.trim();
+    const idx = state.feats.skill.findIndex(f => f.name === fn && f.level === 1 && !f._fromBackground);
     if (idx >= 0) state.feats.skill.splice(idx, 1);
-    delete state.growth[1].bgSkillFeat;
   }
-  // Reset background-related skill training (clear notes)
+  // 노트 정리
   const notesEl = document.getElementById('f-notes');
   if (notesEl && notesEl.value.startsWith('[배경:')) notesEl.value = '';
+  // 기술/지식/재주는 rebuildCoreEffects()가 null 감지 시 자동 정리
   recalcAll();
   renderFeats();
   renderGrowthPlan();
@@ -4402,31 +4404,10 @@ function clearCoreSelection(type) {
     renderGrowthPlan();
     save();
   } else if (type === 'heritage') {
-    const oldHeritage = state.selectedHeritage;
     state.selectedHeritage = null;
-    // 시야를 혈통 기본값으로 복원
-    state.vision = state.selectedAncestry?.vision || '없음';
-    // 유산 부여 선천 주문 제거
-    if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => !s._heritage);
-    // 유산 캔트립 임시 재주 제거
+    // 유산 캔트립 임시 재주 제거 (인터랙티브 모달 관련)
     if (state.feats.other) state.feats.other = state.feats.other.filter(f => !f._heritageCantrip);
-    // 유산 무기 제거
-    state.weapons = (state.weapons||[]).filter(w => !w._fromHeritage);
-    // 유산 기술 숙련 제거
-    if (oldHeritage?.grantSkills) {
-      oldHeritage.grantSkills.forEach(sid => {
-        const profEl = document.getElementById('sk-prof-' + sid);
-        if (profEl && parseInt(profEl.value || 0) === 2) profEl.value = '0';
-      });
-    }
-    // 유산 재주 제거
-    Object.values(state.feats).forEach(arr => {
-      for (let i = arr.length - 1; i >= 0; i--) {
-        if (arr[i]._fromHeritage) arr.splice(i, 1);
-      }
-    });
-    // 유산 HP 보너스 제거
-    state._heritageHpBonus = 0;
+    // 나머지(시야/주문/무기/기술/재주/HP)는 rebuildCoreEffects()가 null 감지 시 자동 정리
     const btn = document.getElementById('btn-heritage');
     if (btn) { btn.textContent = '유산...'; btn.classList.remove('filled'); }
     recalcAll();
@@ -4934,84 +4915,26 @@ function applyAncestryDefaults(anc) {
 function applyHeritageEffects(h) {
   if (!h) return;
   try {
-  // 시야 적용
-  if (h.vision === 'upgrade') {
-    // 저광 시야 부여, 이미 저광이면 암시야로 업그레이드
-    const curVision = state.vision || state.selectedAncestry?.vision || '없음';
-    if (curVision === '저광 시야') state.vision = '암시야';
-    else if (curVision === '암시야') { /* 이미 암시야 */ }
-    else state.vision = '저광 시야';
-  } else if (h.vision) {
-    // 특정 시야 부여 — 현재보다 좋으면 적용
-    const curVision = state.vision || state.selectedAncestry?.vision || '없음';
-    const visionRank = {'암시야':2,'저광 시야':1,'없음':0};
-    if ((visionRank[h.vision]||0) > (visionRank[curVision]||0)) state.vision = h.vision;
-  }
-  // 선천적 주문 부여
+  // 캔트립 선택이 필요한 유산만 인터랙티브 모달 열기
   if (h.innateSpells) {
-    if (!state.spells) state.spells = {cantrip:[],known:[],focus:[],innate:[]};
-    if (!state.spells.innate) state.spells.innate = [];
-    state.spells.innate = state.spells.innate.filter(s => !s._heritage);
     const needsChoice = h.innateSpells.some(sp => sp.tradition === '원시' || sp.tradition === '선택');
     if (needsChoice) {
-      // 캔트립 선택 모달 열기
       const sp = h.innateSpells[0];
       const trad = sp.tradition === '선택' ? 'any' : 'primal';
       const label = sp.tradition === '선택' ? '전통 캔트립 선택 (비전/신성/오컬트 중)' : '원시(Primal) 캔트립 선택';
-      // 가짜 재주로 choice 모달 호출
       if (!state.feats.other) state.feats.other = [];
       const tempFeatName = h.name_ko + ' 캔트립';
-      state.feats.other.push({name: tempFeatName, level:1, _auto:true, _heritageCantrip:true});
-      const fi = state.feats.other.length - 1;
-      if (typeof openFeatChoiceModal === 'function') {
-        setTimeout(() => openFeatChoiceModal('other', fi, {type:'spell_cantrip', tradition: trad, label}), 0);
+      // 중복 방지
+      if (!state.feats.other.some(f => f._heritageCantrip)) {
+        state.feats.other.push({name: tempFeatName, level:1, _auto:true, _heritageCantrip:true});
+        const fi = state.feats.other.length - 1;
+        if (typeof openFeatChoiceModal === 'function') {
+          setTimeout(() => openFeatChoiceModal('other', fi, {type:'spell_cantrip', tradition: trad, label}), 0);
+        }
       }
-    } else {
-      h.innateSpells.forEach(sp => {
-        state.spells.innate.push({name: sp.name, tradition: sp.tradition, type: sp.type, uses: sp.uses, _heritage: true, _source: h.name_ko});
-      });
     }
   }
-  // 추가 언어 (유목 하플링 등) — renderGrowthPlan에서 maxLangs에 반영
-  // 유산 무기 부여 (면도이빨 고블린 등)
-  if (h.grantWeapon) {
-    // 기존 유산 무기 제거
-    state.weapons = (state.weapons||[]).filter(w => !w._fromHeritage);
-    const w = h.grantWeapon;
-    if (typeof addWeapon === 'function') {
-      addWeapon({name: w.name, dmg: w.dmg, traits: w.traits, category: w.category, _fromHeritage: true});
-    }
-  }
-  // 유산 기술 숙련 부여
-  if (h.grantSkills) {
-    h.grantSkills.forEach(sid => {
-      const profEl = document.getElementById('sk-prof-' + sid);
-      if (profEl && parseInt(profEl.value || 0) < 2) profEl.value = '2';
-    });
-  }
-  // 유산 재주 부여
-  if (h.grantFeats) {
-    h.grantFeats.forEach(entry => {
-      const featName = typeof entry === 'string' ? entry : entry.name;
-      const presetChoice = typeof entry === 'object' ? entry.choice : undefined;
-      const nameKo = featName.split(' (')[0].trim();
-      const fd = typeof FEAT_DB !== 'undefined' ? FEAT_DB.find(f => f && f.name_ko === nameKo) : null;
-      const cat = fd?.category === 'general' ? 'general' : 'skill';
-      if (!state.feats[cat]) state.feats[cat] = [];
-      const already = state.feats[cat].some(f => f.name === featName);
-      if (!already) {
-        const feat = {name: featName, level: 1, _fromHeritage: true};
-        if (presetChoice) feat.choice = presetChoice;
-        state.feats[cat].push(feat);
-      }
-    });
-  }
-  // 유산 HP 보너스 (부서지지 않는 고블린 등)
-  if (h.hpBonus) {
-    state._heritageHpBonus = h.hpBonus;
-  } else {
-    state._heritageHpBonus = 0;
-  }
+  // 나머지 효과(시야, 기술, 재주, 무기, 주문, HP)는 rebuildCoreEffects()가 매 recalcAll마다 재파생
   recalcAll();
   renderFeats();
   if (typeof renderSpells === 'function') renderSpells();
@@ -5019,51 +4942,23 @@ function applyHeritageEffects(h) {
 }
 
 function applyBackgroundInfo(bg) {
-  // Show info in notes if empty
+  // 노트에 배경 정보 표시 (1회성 UI)
   const notesEl = document.getElementById('f-notes');
   if (notesEl && !notesEl.value) {
     notesEl.value = `[배경: ${bg.name}]\n속성 부스트: ${bg.boosts}\n기술: ${bg.skills}\n기술 재주: ${bg.feat}`;
   }
-  // Auto-set background skill proficiencies
-  if (bg.skills) {
-    let loreUsed = 0;
-    bg.skills.split(', ').forEach(skillName => {
-      const s = skillName.trim();
-      // Skip choice skills (contains '또는')
-      if (s.includes('또는')) return;
-      // Skip slash-separated choices (e.g. '주문학/자연학/오컬티즘/종교학 중 선택')
-      if (s.includes('/') || s.includes('중 선택')) return;
-      if (s.endsWith(' 지식') || s === '필사 지식' || s.includes('지식')) {
-        const loreName = s.replace(' 지식', '').trim();
-        const loreId = loreUsed === 0 ? 'lore1' : 'lore2';
-        setSkillTrained(loreId);
-        const loreNameEl = document.getElementById('lore-name-' + loreId);
-        if (loreNameEl && !loreNameEl.value) loreNameEl.value = loreName;
-        loreUsed++;
-      } else {
-        const id = skillNameToId(s);
-        if (id) setSkillTrained(id);
-      }
-    });
-  }
-  // Auto-set background skill feat
+  // growth plan에 배경 재주 저장 (1회성)
   if (bg.feat) {
     const featName = bg.feat.trim();
-    // Don't add if it contains a choice indicator
     if (featName && !featName.includes('/') && !featName.includes('또는')) {
-      // Avoid duplicates
-      const alreadyHas = state.feats.skill.some(f => f.name === featName);
-      if (!alreadyHas) {
-        state.feats.skill.push({name: featName, level: 1});
-        // Also store in growth plan Level 1
-        if (!state.growth[1]) state.growth[1] = {};
-        state.growth[1].bgSkillFeat = featName;
-        renderFeats();
-        renderGrowthPlan();
-      }
+      if (!state.growth[1]) state.growth[1] = {};
+      state.growth[1].bgSkillFeat = featName;
     }
   }
-  recalcSkills();
+  // 기술/지식/재주 적용은 rebuildCoreEffects()가 매 recalcAll마다 재파생
+  recalcAll();
+  renderFeats();
+  renderGrowthPlan();
 }
 
 function getClassSpellData() {
