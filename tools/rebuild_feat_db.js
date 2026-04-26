@@ -220,8 +220,9 @@ while ((match = h3Re.exec(html)) !== null) {
 // ── 기존 feat_db.js에서 혈통/아키타입 재주 + prereqs 읽기 ──
 const existingDb = fs.readFileSync('feat_db.js', 'utf8');
 
-// prereqs 보존: eval로 기존 DB를 로드하여 name_en → prereqs 매핑
+// prereqs + desc 템플릿 보존: eval로 기존 DB를 로드하여 name_en → prereqs/desc 매핑
 const existingPrereqs = {};
+const existingDescRefs = {};
 try {
   eval(existingDb);
   if (typeof FEAT_DB !== 'undefined') {
@@ -231,10 +232,15 @@ try {
           .replace(/"(\w+)":/g, '$1:')
           .replace(/"([^"]+)"/g, (m, v) => "'" + v.replace(/'/g, "\\'") + "'");
       }
+      // desc에 {{type:key}} 템플릿이 있으면 보존
+      if (f && f.name_en && f.desc && /\{\{(spell|feat|condition|trait|action):/.test(f.desc)) {
+        existingDescRefs[f.name_en] = f.desc;
+      }
     }
   }
 } catch(e) { console.error('  prereqs 로드 실패:', e.message); }
 console.error(`  기존 prereqs 보존: ${Object.keys(existingPrereqs).length}개`);
+console.error(`  기존 desc 템플릿 보존: ${Object.keys(existingDescRefs).length}개`);
 
 // ancestry와 archetype 재주 + class_id가 있는 feature 항목 추출 (raw text)
 const existingFeats = [];
@@ -323,7 +329,9 @@ for (const f of feats) {
   // summary 200자 제한
   const sum = f.summary.length > 300 ? f.summary.substring(0, 297) + '...' : f.summary;
   parts.push(`summary:'${escStr(sum)}'`);
-  parts.push(`desc:'${escStr(f.desc)}'`);
+  // desc 템플릿 보존: 기존 DB에 {{}} 참조가 있으면 그 desc 유지
+  const finalDesc = existingDescRefs[f.name_en] || f.desc;
+  parts.push(`desc:'${escStr(finalDesc)}'`);
   if (f.repeatable) parts.push(`repeatable:true`);
   out += `  {${parts.join(', ')}},\n`;
 }

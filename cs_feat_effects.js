@@ -3745,7 +3745,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
             if (spell) {
               detail2.innerHTML = `<div style="padding:16px;"><div style="font-size:16px;font-weight:bold;color:var(--accent,#c9a84c);margin-bottom:8px;">${spell.name_ko} <span style="font-size:11px;color:#888;">${spell.name_en}</span></div>`
                 + (spell.traits ? `<div style="margin-bottom:8px;">${spell.traits.map(t => '<span style="display:inline-block;background:#333;color:#ccc;padding:2px 6px;border-radius:3px;font-size:10px;margin:1px 2px;">'+t+'</span>').join('')}</div>` : '')
-                + `<div style="color:#bbb;line-height:1.7;font-size:13px;">${spell.desc||'설명 없음'}</div></div>`;
+                + `<div style="color:#bbb;line-height:1.7;font-size:13px;">${resolveDescRefs(spell.desc||'설명 없음')}</div></div>`;
             } else if (spellName) {
               detail2.innerHTML = `<div style="padding:16px;"><div style="font-size:16px;font-weight:bold;color:var(--accent);">${spellName}</div><div style="color:#888;margin-top:8px;">주문 상세 정보가 DB에 없습니다.</div></div>`;
             } else {
@@ -3821,7 +3821,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
           detailDiv.innerHTML = `
             <div style="margin-bottom:4px;"><span class="tag-meta">${rankStr}</span></div>
             ${spTraits ? '<div style="margin-bottom:6px;">'+spTraits+'</div>' : ''}
-            <div style="font-size:12px;line-height:1.6;">${spDesc}</div>
+            <div style="font-size:12px;line-height:1.6;">${resolveDescRefs(spDesc)}</div>
             <button onclick="if(modalContext._selectedSpell)_applyFeatChoice(modalContext._selectedSpell)" style="width:100%;margin-top:8px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">선택</button>`;
           detailDiv.classList.add('open');
         } else {

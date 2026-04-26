@@ -2136,7 +2136,7 @@ const SPELL_DB = [
     target: "생물 1",
     defense: "의지",
     summary: "대상에게 불안과 공포의 파동을 보내 겁먹게 합니다. 대상은 의지 내성을 시도합니다.대성공: 영향 없음.성공: 공포(frightened) 1 상태가 됩니다.실패: 공포 2 상태가 됩니다.대실패: 공포 3 상태가 되고, 1라운드 동안 도주(fleeing) 상태가 됩니다.강화(3랭크): 최대 5명의 생물을 대상으로 삼을 수 있습니다.",
-    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br>대상에게 불안과 공포의 파동을 보내 겁먹게 합니다. 대상은 의지 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> <strong>공포(frightened) 1</strong> 상태가 됩니다.<br><strong>실패:</strong> <strong>공포 2</strong> 상태가 됩니다.<br><strong>대실패:</strong> <strong>공포 3</strong> 상태가 되고, <strong>1라운드</strong> 동안 <strong>도주(fleeing)</strong> 상태가 됩니다.<br><strong>강화(3랭크):</strong> 최대 <strong>5</strong>명의 생물을 대상으로 삼을 수 있습니다." },
+    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br>대상에게 불안과 공포의 파동을 보내 겁먹게 합니다. 대상은 의지 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> {{condition:Frightened}} 1 상태가 됩니다.<br><strong>실패:</strong> {{condition:Frightened}} 2 상태가 됩니다.<br><strong>대실패:</strong> {{condition:Frightened}} 3 상태가 되고, <strong>1라운드</strong> 동안 {{condition:Fleeing}} 상태가 됩니다.<br><strong>강화(3랭크):</strong> 최대 <strong>5</strong>명의 생물을 대상으로 삼을 수 있습니다." },
 
   { name_ko: "순발력",
     name_en: "Fleet Step",

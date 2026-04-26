@@ -3170,6 +3170,8 @@ function _buildFeatActionCard(item) {
 
 function formatDescActions(text, item) {
   if (!text) return text;
+  // desc 동적 참조 해석
+  if (typeof resolveDescRefs === 'function') text = resolveDescRefs(text);
   const actionCostRe = /\[(?:반응|1행동|2행동|3행동|자유 행동)\]/;
   if (!actionCostRe.test(text)) return text;
 
@@ -3550,7 +3552,7 @@ function _buildClassChoicesUI(cls) {
   // 1레벨 클래스 특성 블록들 (서브클래스 특성은 서브클래스 블록 안에 표시하므로 제외)
   lv1Feats.filter(f => !subFeats.includes(f)).forEach(f => {
     html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-      return `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${f.desc || ''}</div>`;
+      return `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${resolveDescRefs(f.desc||'')}</div>`;
     }, false)}</div>`;
   });
 
@@ -3561,7 +3563,7 @@ function _buildClassChoicesUI(cls) {
     featsByLv[lv].forEach((f, fi) => {
       const isSub = subFeats.includes(f);
       html += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-        return `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${f.desc || ''}</div>`;
+        return `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${resolveDescRefs(f.desc||'')}</div>`;
       }, isSub);
     });
     html += `</div>`;
@@ -3628,7 +3630,7 @@ function _refreshClassFeaturesPreview() {
   let lv1Html = '';
   lv1Feats.forEach(f => {
     lv1Html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-      return `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${f.desc || ''}</div>`;
+      return `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${resolveDescRefs(f.desc||'')}</div>`;
     }, false)}</div>`;
   });
 
@@ -3639,7 +3641,7 @@ function _refreshClassFeaturesPreview() {
     featsByLv[lv].forEach(f => {
       const isSub = subFeats.includes(f);
       otherHtml += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-        return `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${f.desc || ''}</div>`;
+        return `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${resolveDescRefs(f.desc||'')}</div>`;
       }, isSub);
     });
     otherHtml += `</div>`;
@@ -3707,7 +3709,7 @@ function _renderSubclassFeatsInBlock(subId, containerId) {
     const descHtml = feat?.desc || feat?.summary || '';
     html += `<div style="${_cs}">
       <div style="font-size:11px;font-weight:600;color:var(--text1);margin-bottom:4px;">🎖 ${af.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${af.name_en}</span> <span style="${_badge}">재주</span></div>
-      ${descHtml ? `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${descHtml}</div>` : `<div style="font-size:10px;color:var(--text2);font-style:italic;">Player Core 2 재주 — 상세 설명 미등록</div>`}
+      ${descHtml ? `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${resolveDescRefs(descHtml)}</div>` : `<div style="font-size:10px;color:var(--text2);font-style:italic;">Player Core 2 재주 — 상세 설명 미등록</div>`}
     </div>`;
   });
 
@@ -3721,7 +3723,7 @@ function _renderSubclassFeatsInBlock(subId, containerId) {
     const typeLabel = sp.type === 'focus' ? '집중 주문' : sp.type === 'cantrip' ? '캔트립' : `${sp.rank || 1}랭크 주문`;
     html += `<div style="${_cs}">
       <div style="font-size:11px;font-weight:600;color:var(--text1);margin-bottom:4px;">✨ ${sp.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${sp.name_en}</span> <span style="${_badge}">${typeLabel}</span></div>
-      ${spellData ? `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${spellData.desc || spellData.summary || ''}</div>` : ''}
+      ${spellData ? `<div style="font-size:11px;color:var(--text2);line-height:1.6;">${resolveDescRefs(spellData.desc||spellData.summary||'')}</div>` : ''}
     </div>`;
   });
 
@@ -3736,7 +3738,7 @@ function _renderSubclassFeatsInBlock(subId, containerId) {
       for (const ko of shownKoNames) { if (ko && f.name_ko.includes(ko)) return; }
       html += `<div style="${_cs}">
         <div style="font-size:11px;font-weight:600;color:var(--text1);margin-bottom:4px;">⚡ ${f.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${f.name_en}</span></div>
-        <div style="font-size:11px;color:var(--text2);line-height:1.6;">${f.desc || ''}</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.6;">${resolveDescRefs(f.desc||'')}</div>
       </div>`;
     });
   }
@@ -4058,7 +4060,7 @@ function _buildBackgroundChoicesUI(bg) {
         const fdDesc = (fd.desc || fd.summary || '').replace(/<strong>전제조건:<\/strong>[^<]*<br>/i, '');
         html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);margin-top:4px;">
           <div style="font-weight:600;font-size:11px;margin-bottom:2px;">${fd.name_ko} <span style="color:var(--text2);font-weight:400;">${fd.name_en||''}</span></div>
-          <div style="font-size:10px;line-height:1.5;color:var(--text2);">${fdDesc}</div>
+          <div style="font-size:10px;line-height:1.5;color:var(--text2);">${resolveDescRefs(fdDesc)}</div>
         </div>`;
       }
     }

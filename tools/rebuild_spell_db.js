@@ -17,7 +17,14 @@ try {
   if (m) OLD_DB = eval(m[1]);
 } catch(e) {}
 const oldMap = {};
-OLD_DB.forEach(sp => { oldMap[sp.name_en] = sp; });
+const oldDescRefs = {};
+OLD_DB.forEach(sp => {
+  oldMap[sp.name_en] = sp;
+  // desc에 {{type:key}} 템플릿이 있으면 보존 대상
+  if (sp.desc && /\{\{(spell|feat|condition|trait|action):/.test(sp.desc)) {
+    oldDescRefs[sp.name_en] = sp.desc;
+  }
+});
 
 // <div class="note">...</div> 블록 추출
 // 멀티라인이므로 [\s\S]를 사용하되 다음 </div>까지
@@ -140,7 +147,8 @@ blocks.forEach(block => {
   if (meta['비용']) spell.cost = meta['비용'];
   if (meta['시전']) spell.castTime = meta['시전'];
   spell.summary = summary;
-  spell.desc = desc;
+  // desc 템플릿 보존: 기존 DB에 {{}} 참조가 있으면 유지
+  spell.desc = oldDescRefs[name_en] || desc;
 
   spells.push(spell);
 });

@@ -251,6 +251,113 @@ document.addEventListener('touchstart', (e) => {
 }, {passive: false});
 
 // ═══════════════════════════════════════════════
+//  DESC DYNAMIC REFERENCES  {{type:key}}
+// ═══════════════════════════════════════════════
+
+const _DESC_REF_RE = /\{\{(spell|feat|condition|trait|action):([^}]+)\}\}/g;
+
+function _lookupDescRef(type, key) {
+  switch (type) {
+    case 'spell': {
+      const sp = typeof SPELL_DB!=='undefined' && SPELL_DB.find(s => s.name_en === key);
+      return sp ? {ko: sp.name_ko, en: sp.name_en, summary: sp.summary||'', desc: sp.desc||''} : null;
+    }
+    case 'feat': {
+      const f = typeof FEAT_DB!=='undefined' && FEAT_DB.find(x => x.name_en === key);
+      return f ? {ko: f.name_ko, en: f.name_en, summary: f.summary||'', desc: f.desc||''} : null;
+    }
+    case 'condition': {
+      const c = typeof CONDITIONS_DATA!=='undefined' && CONDITIONS_DATA.find(c => c.en.toLowerCase() === key.toLowerCase());
+      return c ? {ko: c.name, en: c.en, summary: c.desc||'', desc: c.desc||''} : null;
+    }
+    case 'trait': {
+      const k = key.charAt(0).toUpperCase() + key.slice(1);
+      const tVal = typeof TRAIT_DB!=='undefined' && (TRAIT_DB[key] || TRAIT_DB[k]);
+      return tVal ? {ko: key, en: key, summary: typeof tVal==='string'?tVal:tVal.desc||'', desc: typeof tVal==='string'?tVal:tVal.desc||''} : null;
+    }
+    case 'action': {
+      const a = typeof ACTION_DB!=='undefined' && ACTION_DB.find(a => a.name_en === key);
+      return a ? {ko: a.name_ko, en: a.name_en, summary: a.summary||'', desc: a.desc||a.summary||''} : null;
+    }
+  }
+  return null;
+}
+
+function resolveDescRefs(html) {
+  if (!html || typeof html !== 'string') return html||'';
+  return html.replace(_DESC_REF_RE, (match, type, key) => {
+    const data = _lookupDescRef(type, key);
+    if (!data) return match;
+    const label = data.ko ? `${data.ko}(${data.en})` : data.en;
+    return `<span class="desc-ref" data-ref-type="${type}" data-ref-key="${key.replace(/"/g,'&quot;')}">${label}</span>`;
+  });
+}
+
+// desc-ref 팝업 (이벤트 위임)
+(function() {
+  let _refPopup = null;
+
+  function _createRefPopup() {
+    if (_refPopup) return _refPopup;
+    _refPopup = document.createElement('div');
+    _refPopup.id = 'desc-ref-popup';
+    _refPopup.style.cssText = 'display:none;position:fixed;z-index:10001;max-width:340px;min-width:200px;background:var(--bg2,#1e1e1e);border:1px solid var(--gold,#d4a843);border-radius:8px;padding:12px 14px;box-shadow:0 4px 20px rgba(0,0,0,.5);font-size:12px;line-height:1.6;color:var(--text,#e0e0e0);pointer-events:auto;';
+    document.body.appendChild(_refPopup);
+    return _refPopup;
+  }
+
+  function _showRefPopup(el) {
+    const type = el.dataset.refType;
+    const key = el.dataset.refKey;
+    const data = _lookupDescRef(type, key);
+    if (!data) return;
+    const popup = _createRefPopup();
+    const typeLabel = {spell:'주문',feat:'재주',condition:'상태',trait:'특성',action:'행동'}[type]||type;
+    const typeBadge = `<span style="display:inline-block;background:var(--gold,#d4a843);color:#000;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;margin-right:6px;">${typeLabel}</span>`;
+    const titleKo = data.ko || data.en;
+    const titleEn = data.en && data.en !== data.ko ? `<span style="color:var(--text2,#999);font-size:11px;margin-left:4px;">${data.en}</span>` : '';
+    let body = data.summary || data.desc || '';
+    const plain = body.replace(/<[^>]*>/g,'');
+    const display = plain.length > 200 ? plain.substring(0, 200) + '…' : plain;
+    popup.innerHTML = `<div style="margin-bottom:6px;">${typeBadge}<strong>${titleKo}</strong>${titleEn}</div><div style="color:var(--text2,#bbb);font-size:11px;line-height:1.5;">${display}</div>`;
+    popup.style.display = 'block';
+    const rect = el.getBoundingClientRect();
+    const pRect = popup.getBoundingClientRect();
+    let left = rect.left + rect.width/2 - pRect.width/2;
+    let top = rect.top - pRect.height - 8;
+    if (left < 4) left = 4;
+    if (left + pRect.width > window.innerWidth - 4) left = window.innerWidth - pRect.width - 4;
+    if (top < 4) top = rect.bottom + 8;
+    popup.style.left = left + 'px';
+    popup.style.top = top + 'px';
+  }
+
+  function _hideRefPopup() {
+    if (_refPopup) _refPopup.style.display = 'none';
+  }
+
+  document.addEventListener('mouseover', (e) => {
+    const ref = e.target.closest('.desc-ref');
+    if (ref) _showRefPopup(ref);
+  });
+  document.addEventListener('mouseout', (e) => {
+    const ref = e.target.closest('.desc-ref');
+    if (ref) _hideRefPopup();
+  });
+  document.addEventListener('touchstart', (e) => {
+    const ref = e.target.closest('.desc-ref');
+    if (ref) {
+      e.preventDefault(); e.stopPropagation();
+      if (_refPopup && _refPopup.style.display === 'block') { _hideRefPopup(); return; }
+      _showRefPopup(ref);
+    } else { _hideRefPopup(); }
+  }, {passive: false});
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.desc-ref') && !e.target.closest('#desc-ref-popup')) _hideRefPopup();
+  });
+})();
+
+// ═══════════════════════════════════════════════
 //  SKILL PROFICIENCY HELPERS
 // ═══════════════════════════════════════════════
 
@@ -560,7 +667,7 @@ function toggleCondDesc(name) {
     const detail = document.createElement('div');
     detail.className = 'cond-detail open';
     detail.dataset.name = name;
-    detail.innerHTML = `<strong>${cdata.name}</strong> <span style="color:var(--text2);">${cdata.en}</span>${cdata.valued ? ' (최대 '+(cdata.max||4)+')' : ''}<br>${cdata.desc}`;
+    detail.innerHTML = `<strong>${cdata.name}</strong> <span style="color:var(--text2);">${cdata.en}</span>${cdata.valued ? ' (최대 '+(cdata.max||4)+')' : ''}<br>${resolveDescRefs(cdata.desc)}`;
     // Insert after the clicked item
     const item = grid.querySelector(`.cond-item[data-name="${name}"]`);
     if (item) item.after(detail);
