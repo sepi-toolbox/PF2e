@@ -718,6 +718,9 @@ function _buildPlayerTabBar() {
   if (!_gmActiveTab && uids.length > 0) {
     gmSwitchTab(uids[0]);
   }
+
+  // 플레이어 전환 FAB 업데이트
+  _ensureGMSwitchFab();
 }
 
 function gmSwitchTab(uid) {
@@ -740,6 +743,9 @@ function gmSwitchTab(uid) {
 
   // 캐릭터 로드
   loadSessionCharacter(uid);
+
+  // 플레이어 전환 FAB 팝업 active 갱신
+  if (typeof _updateGMSwitchPopup === 'function') _updateGMSwitchPopup();
 
   // 이전 리스너 해제 후 이 캐릭터에 대한 실시간 감시 시작
   _startGMCharListener(uid);
@@ -860,4 +866,103 @@ function _showEmptyPartyMessage() {
     );
   }
 }
+
+// ═══════════════════════════════════════════════
+//  GM 플레이어 전환 FAB (모바일 + 데스크톱)
+// ═══════════════════════════════════════════════
+let _gmSwitchPopupOpen = false;
+
+function _ensureGMSwitchFab() {
+  if (!_isGM) return;
+  var fab = document.getElementById('gm-switch-fab');
+  if (!fab) {
+    fab = document.createElement('button');
+    fab.id = 'gm-switch-fab';
+    fab.title = '플레이어 전환';
+    fab.onclick = _toggleGMSwitchPopup;
+    document.body.appendChild(fab);
+  }
+  var count = Object.keys(_currentSession.players || {}).length;
+  fab.innerHTML = '👥<span class="gm-fab-badge">' + count + '</span>';
+  fab.style.display = '';
+  _updateGMSwitchPopup();
+}
+
+function _toggleGMSwitchPopup() {
+  _gmSwitchPopupOpen = !_gmSwitchPopupOpen;
+  var popup = document.getElementById('gm-switch-popup');
+  if (!popup) {
+    popup = document.createElement('div');
+    popup.id = 'gm-switch-popup';
+    document.body.appendChild(popup);
+  }
+  popup.classList.toggle('open', _gmSwitchPopupOpen);
+  if (_gmSwitchPopupOpen) _updateGMSwitchPopup();
+}
+
+function _updateGMSwitchPopup() {
+  var popup = document.getElementById('gm-switch-popup');
+  if (!popup || !_currentSession) return;
+  var players = _currentSession.players || {};
+  var uids = Object.keys(players);
+  if (!uids.length) {
+    popup.innerHTML = '<div class="gm-popup-header">플레이어 전환</div><div style="padding:12px;color:#666;font-size:12px;text-align:center;">참가자 없음</div>';
+    return;
+  }
+
+  // 캐릭터 이름을 비동기로 로드하여 표시
+  var html = '<div class="gm-popup-header">플레이어 전환</div>';
+  uids.forEach(function(uid) {
+    var p = players[uid];
+    var isActive = uid === _gmActiveTab;
+    html += '<div class="gm-popup-item' + (isActive ? ' active' : '') + '" onclick="_gmFabSwitchTo(\'' + uid + '\')">' +
+      '<span>' + (p.displayName || '???') + '</span>' +
+      '<span class="gm-popup-char" id="gm-fab-char-' + uid + '">...</span>' +
+    '</div>';
+  });
+  popup.innerHTML = html;
+
+  // 캐릭터 이름 비동기 로드
+  uids.forEach(function(uid) {
+    db.collection('sessions').doc(_currentSession.id)
+      .collection('characters').doc(uid).get().then(function(doc) {
+        var el = document.getElementById('gm-fab-char-' + uid);
+        if (!el) return;
+        if (doc.exists && doc.data().data) {
+          try {
+            var d = JSON.parse(doc.data().data);
+            el.textContent = (d.name || '이름 없음');
+          } catch(e) { el.textContent = ''; }
+        } else {
+          el.textContent = '미생성';
+        }
+      }).catch(function() {});
+  });
+}
+
+function _gmFabSwitchTo(uid) {
+  _gmSwitchPopupOpen = false;
+  var popup = document.getElementById('gm-switch-popup');
+  if (popup) popup.classList.remove('open');
+  gmSwitchTab(uid);
+}
+
+function _hideGMSwitchFab() {
+  var fab = document.getElementById('gm-switch-fab');
+  if (fab) fab.style.display = 'none';
+  var popup = document.getElementById('gm-switch-popup');
+  if (popup) popup.classList.remove('open');
+  _gmSwitchPopupOpen = false;
+}
+
+// 팝업 바깥 클릭 시 닫기
+document.addEventListener('click', function(e) {
+  if (!_gmSwitchPopupOpen) return;
+  var popup = document.getElementById('gm-switch-popup');
+  var fab = document.getElementById('gm-switch-fab');
+  if (popup && fab && !popup.contains(e.target) && !fab.contains(e.target)) {
+    _gmSwitchPopupOpen = false;
+    popup.classList.remove('open');
+  }
+});
 

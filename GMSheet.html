@@ -58,23 +58,27 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .modal-box{background:var(--card);border:1px solid var(--gold);border-radius:8px;padding:24px;min-width:300px;max-width:90vw;}
 /* empty */
 .empty{color:var(--text2);font-size:13px;text-align:center;padding:20px;}
-/* 주사위 토스트 (플레이어 굴림 표시) */
+/* 주사위 토스트 — CharacterSheet.html과 동일 */
 #dice-toast-container{position:fixed;top:12px;right:12px;z-index:99999;display:flex;flex-direction:column;gap:6px;pointer-events:none;max-height:60vh;overflow:hidden;}
-.dice-toast{pointer-events:auto;min-width:180px;max-width:260px;background:var(--card);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:10px;padding:10px 14px;box-shadow:0 6px 24px rgba(0,0,0,.5);transform:translateX(120%);opacity:0;transition:all .35s cubic-bezier(.22,1,.36,1);}
+.dice-toast{pointer-events:auto;min-width:180px;max-width:260px;background:#1e1e1e;border:1px solid #444;border-left:3px solid #3498db;border-radius:10px;padding:10px 14px;box-shadow:0 6px 24px rgba(0,0,0,.5);transform:translateX(120%);opacity:0;transition:all .35s cubic-bezier(.22,1,.36,1);}
 .dice-toast.show{transform:translateX(0);opacity:1;}
 .dice-toast.hide{transform:translateX(120%);opacity:0;}
 .dice-toast.nat20{border-color:#f1c40f;box-shadow:0 0 20px rgba(241,196,15,.4);}
 .dice-toast.nat1{border-color:#e74c3c;box-shadow:0 0 20px rgba(231,76,60,.3);}
-.dice-toast-who{font-size:10px;font-weight:700;color:var(--blue);margin-bottom:2px;}
+.dice-toast-who{font-size:10px;font-weight:700;color:#3498db;margin-bottom:2px;}
 .dice-toast-header{display:flex;justify-content:space-between;align-items:center;}
-.dice-toast-label{font-size:11px;color:var(--text2);font-weight:600;}
-.dice-toast-total{font-size:22px;font-weight:900;color:var(--blue);}
+.dice-toast-label{font-size:11px;color:#999;font-weight:600;}
+.dice-toast-total{font-size:22px;font-weight:900;color:#3498db;}
 .dice-toast.nat20 .dice-toast-total{color:#f1c40f;}
 .dice-toast.nat1 .dice-toast-total{color:#e74c3c;}
 .dice-toast-detail{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;}
 .dice-result-chip{display:inline-block;padding:1px 5px;border-radius:4px;font-size:10px;font-weight:700;color:#fff;}
 .dice-result-chip.dice-max{box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);}
 .dice-result-chip.dice-min{opacity:.6;}
+@media(max-width:900px){
+  #dice-toast-container{top:8px;right:8px;left:8px;}
+  .dice-toast{max-width:none;}
+}
 </style>
 </head>
 <body>

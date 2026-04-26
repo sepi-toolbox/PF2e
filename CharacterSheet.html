@@ -1202,6 +1202,22 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 .dice-toast-remote.nat1 .dice-toast-total{color:#e74c3c;}
 .dice-toast-who{font-size:10px;font-weight:700;color:#3498db;margin-bottom:2px;}
 
+/* GM 플레이어 전환 FAB */
+#gm-switch-fab{position:fixed;bottom:80px;right:72px;z-index:9000;width:48px;height:48px;border-radius:50%;border:none;background:#3498db;color:#fff;font-size:20px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.4);transition:transform .2s,box-shadow .2s;display:none;}
+#gm-switch-fab:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(0,0,0,.5);}
+#gm-switch-fab .gm-fab-badge{position:absolute;top:-2px;right:-2px;min-width:16px;height:16px;background:var(--accent,#d4a04a);color:#000;font-size:9px;font-weight:800;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+#gm-switch-popup{position:fixed;bottom:136px;right:72px;z-index:9002;background:var(--bg2,#1e1e1e);border:1px solid var(--border,#444);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.6);min-width:180px;max-width:260px;overflow:hidden;transform:translateY(10px) scale(.95);opacity:0;pointer-events:none;transition:all .2s ease;}
+#gm-switch-popup.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto;}
+.gm-popup-header{padding:8px 12px;font-size:11px;font-weight:700;color:var(--accent,#d4a04a);border-bottom:1px solid var(--border,#444);}
+.gm-popup-item{padding:10px 14px;font-size:13px;color:#ccc;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .12s;}
+.gm-popup-item:hover{background:#2a2a2a;}
+.gm-popup-item.active{color:var(--accent,#d4a04a);font-weight:700;}
+.gm-popup-item .gm-popup-char{font-size:10px;color:#888;font-weight:400;}
+@media(max-width:900px){
+  #gm-switch-fab{bottom:70px;right:60px;width:42px;height:42px;font-size:18px;}
+  #gm-switch-popup{bottom:120px;right:60px;}
+}
+
 /* 3D 애니메이션 오버레이 */
 #dice-anim-overlay{position:fixed;inset:0;z-index:9020;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .25s;}
 #dice-anim-overlay.active{opacity:1;pointer-events:auto;}
