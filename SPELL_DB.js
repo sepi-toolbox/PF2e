@@ -1,6 +1,6 @@
 // Pathfinder 2e Player Core — 주문 데이터베이스
 // PlayerCore.html 7장에서 자동 생성
-// Generated: 2026-04-19
+// Generated: 2026-04-26
 // Total: 416 spells
 
 const SPELL_DB = [
@@ -60,8 +60,8 @@ const SPELL_DB = [
     target: "생물 1",
     defense: "의지",
     duration: "1라운드",
-    summary: "대상의 정신을 흐리게 하여 무방비하거나 느리게 만듭니다.대성공: 영향 없음.성공: 대상이 1라운드간 무방비(off-guard).실패: 대상이 4 정신 피해를 받고 1라운드간 무방비.대실패: 대상이 4 정신 피해를 받고 1라운드간 무방비 + 둔화 1(slowed 1).강화(+2): 피해 +4.",
-    desc: "<strong>사거리:</strong> 60피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 1라운드<br>대상의 정신을 흐리게 하여 무방비하거나 느리게 만듭니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상이 1라운드간 <strong>무방비(off-guard)</strong>.<br><strong>실패:</strong> 대상이 <strong>4 정신 피해</strong>를 받고 1라운드간 <strong>무방비</strong>.<br><strong>대실패:</strong> 대상이 <strong>4 정신 피해</strong>를 받고 1라운드간 <strong>무방비 + 둔화 1(slowed 1)</strong>.<br><strong>강화(+2):</strong> 피해 +4." },
+    summary: "대상의 정신을 흐리게 하여 무방비하거나 둔화시킵니다.대성공: 영향 없음.성공: 대상이 1라운드간 무방비(off-guard).실패: 대상이 4 정신 피해를 받고 1라운드간 무방비.대실패: 대상이 4 정신 피해를 받고 1라운드간 무방비 + 둔화 1(slowed 1).강화(+2): 피해 +4.",
+    desc: "<strong>사거리:</strong> 60피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 1라운드<br>대상의 정신을 흐리게 하여 무방비하거나 둔화시킵니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상이 1라운드간 <strong>무방비(off-guard)</strong>.<br><strong>실패:</strong> 대상이 <strong>4 정신 피해</strong>를 받고 1라운드간 <strong>무방비</strong>.<br><strong>대실패:</strong> 대상이 <strong>4 정신 피해</strong>를 받고 1라운드간 <strong>무방비 + 둔화 1(slowed 1)</strong>.<br><strong>강화(+2):</strong> 피해 +4." },
 
   { name_ko: "마법 탐지",
     name_en: "Detect Magic",
@@ -304,8 +304,8 @@ const SPELL_DB = [
     target: "생물 1",
     defense: "의지",
     duration: "1라운드",
-    summary: "어둠의 장막으로 적의 시야를 방해합니다. 의지 실패 시 대상이 눈부심(dazzled)(1라운드). 대실패 시 눈부심(1분).",
-    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 1라운드<br>어둠의 장막으로 적의 시야를 방해합니다. 의지 실패 시 대상이 <strong>눈부심(dazzled)</strong>(1라운드). 대실패 시 눈부심(1분)." },
+    summary: "어둠의 장막으로 적의 시야를 방해합니다. 의지 실패 시 대상이 현혹됨(dazzled)(1라운드). 대실패 시 현혹됨(1분).",
+    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 1라운드<br>어둠의 장막으로 적의 시야를 방해합니다. 의지 실패 시 대상이 <strong>현혹됨(dazzled)</strong>(1라운드). 대실패 시 현혹됨(1분)." },
 
   { name_ko: "인장",
     name_en: "Sigil",
@@ -681,8 +681,8 @@ const SPELL_DB = [
     traits: ["클레릭","조작"],
     range: "30피트",
     target: "생물 1",
-    summary: "당신의 개인적 창작 전문 분야를 반영하는 물감이나 다채로운 환영의 홍수가 영역에 쏟아집니다. 1d4를 굴려 환영의 색을 결정합니다. 영역 내 각 생물은 의지 내성에 성공하거나, 해당 색의 효과를 받아야 합니다.1 하양: 실패 시 눈부심 1라운드 / 대실패 시 눈부심 1분.2 빨강: 실패 시 약화됨 1 (1라운드) / 대실패 시 약화됨 2 (1라운드)....",
-    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br>당신의 개인적 창작 전문 분야를 반영하는 물감이나 다채로운 환영의 홍수가 영역에 쏟아집니다. 1d4를 굴려 환영의 색을 결정합니다. 영역 내 각 생물은 의지 내성에 성공하거나, 해당 색의 효과를 받아야 합니다.<br><strong>1 하양:</strong> 실패 시 눈부심 1라운드 / 대실패 시 눈부심 1분.<br><strong>2 빨강:</strong> 실패 시 약화됨 1 (1라운드) / 대실패 시 약화됨 2 (1라운드).<br><strong>3 노랑:</strong> 실패 시 공포 1 / 대실패 시 공포 2.<br><strong>4 파랑:</strong> 실패 시 둔함 1 (1라운드) / 대실패 시 둔함 2 (1라운드)." },
+    summary: "당신의 개인적 창작 전문 분야를 반영하는 물감이나 다채로운 환영의 홍수가 영역에 쏟아집니다. 1d4를 굴려 환영의 색을 결정합니다. 영역 내 각 생물은 의지 내성에 성공하거나, 해당 색의 효과를 받아야 합니다.1 하양: 실패 시 현혹됨 1라운드 / 대실패 시 현혹됨 1분.2 빨강: 실패 시 약화 1 (1라운드) / 대실패 시 약화 2 (1라운드).3 ...",
+    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br>당신의 개인적 창작 전문 분야를 반영하는 물감이나 다채로운 환영의 홍수가 영역에 쏟아집니다. 1d4를 굴려 환영의 색을 결정합니다. 영역 내 각 생물은 의지 내성에 성공하거나, 해당 색의 효과를 받아야 합니다.<br><strong>1 하양:</strong> 실패 시 현혹됨 1라운드 / 대실패 시 현혹됨 1분.<br><strong>2 빨강:</strong> 실패 시 약화 1 (1라운드) / 대실패 시 약화 2 (1라운드).<br><strong>3 노랑:</strong> 실패 시 공포 1 / 대실패 시 공포 2.<br><strong>4 파랑:</strong> 실패 시 서투름 1 (1라운드) / 대실패 시 서투름 2 (1라운드)." },
 
   { name_ko: "파괴의 울부짖음",
     name_en: "Cry of Destruction",
@@ -707,8 +707,8 @@ const SPELL_DB = [
     traits: ["클레릭","빛","조작","시각"],
     area: "15피트 원뿔",
     defense: "인내",
-    summary: "종교 상징을 들어올려 눈부신 빛의 섬광을 만듭니다.대성공: 영향 없음. 성공: 눈부심 1라운드. 실패: 눈멈 1라운드+눈부심 1분. 대실패: 눈멈 1라운드+눈부심 1시간.강화(3랭크): 영역 30피트 원뿔.",
-    desc: "<strong>영역:</strong> 15피트 원뿔<br><strong>방어:</strong> 인내<br>종교 상징을 들어올려 눈부신 빛의 섬광을 만듭니다.<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> 눈부심 1라운드. <strong>실패:</strong> 눈멈 1라운드+눈부심 1분. <strong>대실패:</strong> 눈멈 1라운드+눈부심 1시간.<br><strong>강화(3랭크):</strong> 영역 30피트 원뿔." },
+    summary: "종교 상징을 들어올려 눈부신 빛의 섬광을 만듭니다.대성공: 영향 없음. 성공: 현혹됨 1라운드. 실패: 실명 1라운드+현혹됨 1분. 대실패: 실명 1라운드+현혹됨 1시간.강화(3랭크): 영역 30피트 원뿔.",
+    desc: "<strong>영역:</strong> 15피트 원뿔<br><strong>방어:</strong> 인내<br>종교 상징을 들어올려 눈부신 빛의 섬광을 만듭니다.<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> 현혹됨 1라운드. <strong>실패:</strong> 실명 1라운드+현혹됨 1분. <strong>대실패:</strong> 실명 1라운드+현혹됨 1시간.<br><strong>강화(3랭크):</strong> 영역 30피트 원뿔." },
 
   { name_ko: "죽음의 부름",
     name_en: "Death's Call",
@@ -959,8 +959,8 @@ const SPELL_DB = [
     range: "120피트",
     target: "생물 1",
     defense: "반사",
-    summary: "달빛 광선을 발사합니다. 주문 명중 굴림을 합니다. 광선은 2d6 화염 피해를 줍니다. 이 피해는 약점, 저항 등의 목적에서 은 피해로 취급됩니다.대성공: 2배 피해, 대상이 1분 동안 눈부심.성공: 전체 피해, 대상이 1라운드 동안 눈부심.강화(+1): 피해 +1d6.",
-    desc: "<strong>사거리:</strong> 120피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 반사<br>달빛 광선을 발사합니다. 주문 명중 굴림을 합니다. 광선은 <strong>2d6 화염 피해</strong>를 줍니다. 이 피해는 약점, 저항 등의 목적에서 <strong>은 피해</strong>로 취급됩니다.<br><strong>대성공:</strong> 2배 피해, 대상이 <strong>1분</strong> 동안 눈부심.<br><strong>성공:</strong> 전체 피해, 대상이 <strong>1라운드</strong> 동안 눈부심.<br><strong>강화(+1):</strong> 피해 +1d6." },
+    summary: "달빛 광선을 발사합니다. 주문 명중 굴림을 합니다. 광선은 2d6 화염 피해를 줍니다. 이 피해는 약점, 저항 등의 목적에서 은 피해로 취급됩니다.대성공: 2배 피해, 대상이 1분 동안 현혹됨.성공: 전체 피해, 대상이 1라운드 동안 현혹됨.강화(+1): 피해 +1d6.",
+    desc: "<strong>사거리:</strong> 120피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 반사<br>달빛 광선을 발사합니다. 주문 명중 굴림을 합니다. 광선은 <strong>2d6 화염 피해</strong>를 줍니다. 이 피해는 약점, 저항 등의 목적에서 <strong>은 피해</strong>로 취급됩니다.<br><strong>대성공:</strong> 2배 피해, 대상이 <strong>1분</strong> 동안 현혹됨.<br><strong>성공:</strong> 전체 피해, 대상이 <strong>1라운드</strong> 동안 현혹됨.<br><strong>강화(+1):</strong> 피해 +1d6." },
 
   { name_ko: "복수의 바늘",
     name_en: "Needle of Vengeance",
@@ -1189,8 +1189,8 @@ const SPELL_DB = [
     target: "살아있는 생물 1",
     defense: "의지",
     duration: "다양",
-    summary: "의지력을 침식합니다. 성공: 멍청함 1(다음 턴 끝까지). 실패: 멍청함 2. 대실패: 멍청함 2(1분)+넘어뜨려짐.",
-    desc: "<strong>사거리:</strong> 접촉<br><strong>대상:</strong> 살아있는 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 다양<br>의지력을 침식합니다. <strong>성공:</strong> 멍청함 1(다음 턴 끝까지). <strong>실패:</strong> 멍청함 2. <strong>대실패:</strong> 멍청함 2(1분)+넘어뜨려짐." },
+    summary: "의지력을 침식합니다. 성공: 현기증 1(다음 턴 끝까지). 실패: 현기증 2. 대실패: 현기증 2(1분)+넘어뜨려짐.",
+    desc: "<strong>사거리:</strong> 접촉<br><strong>대상:</strong> 살아있는 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 다양<br>의지력을 침식합니다. <strong>성공:</strong> 현기증 1(다음 턴 끝까지). <strong>실패:</strong> 현기증 2. <strong>대실패:</strong> 현기증 2(1분)+넘어뜨려짐." },
 
   { name_ko: "언데드의 접촉",
     name_en: "Touch of Undeath",
@@ -1357,8 +1357,8 @@ const SPELL_DB = [
     defense: "의지",
     duration: "대상의 다음 턴 끝까지",
     requirements: "가장 최근 행동이 대상에게 피해를 준 행동이어야 합니다.",
-    summary: "더 많은 고통을 가하겠다는 위협으로, 최근 해를 입힌 생물에게 명령을 내립니다. 명령(command) 주문의 효과로 대상에게 명령을 합니다. 대상이 공포(frightened), 멍청함(stupefied), 또는 지속 피해를 받는 중이라면 내성에 -2 상황 페널티를 받습니다. 결과에 관계없이, 대상은 이후 1시간 동안 일시 면역이 됩니다.",
-    desc: "<strong>사거리:</strong> 100피트<br><strong>대상:</strong> 가장 최근 행동으로 피해를 준 생물<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 대상의 다음 턴 끝까지<br><strong>요구사항:</strong> 가장 최근 행동이 대상에게 피해를 준 행동이어야 합니다.<br>더 많은 고통을 가하겠다는 위협으로, 최근 해를 입힌 생물에게 명령을 내립니다. <em>명령(command)</em> 주문의 효과로 대상에게 명령을 합니다. 대상이 공포(frightened), 멍청함(stupefied), 또는 지속 피해를 받는 중이라면 내성에 <strong>-2 상황 페널티</strong>를 받습니다. 결과에 관계없이, 대상은 이후 <strong>1시간</strong> 동안 일시 면역이 됩니다." },
+    summary: "더 많은 고통을 가하겠다는 위협으로, 최근 해를 입힌 생물에게 명령을 내립니다. 명령(command) 주문의 효과로 대상에게 명령을 합니다. 대상이 공포(frightened), 현기증(stupefied), 또는 지속 피해를 받는 중이라면 내성에 -2 상황 페널티를 받습니다. 결과에 관계없이, 대상은 이후 1시간 동안 일시 면역이 됩니다.",
+    desc: "<strong>사거리:</strong> 100피트<br><strong>대상:</strong> 가장 최근 행동으로 피해를 준 생물<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 대상의 다음 턴 끝까지<br><strong>요구사항:</strong> 가장 최근 행동이 대상에게 피해를 준 행동이어야 합니다.<br>더 많은 고통을 가하겠다는 위협으로, 최근 해를 입힌 생물에게 명령을 내립니다. <em>명령(command)</em> 주문의 효과로 대상에게 명령을 합니다. 대상이 공포(frightened), 현기증(stupefied), 또는 지속 피해를 받는 중이라면 내성에 <strong>-2 상황 페널티</strong>를 받습니다. 결과에 관계없이, 대상은 이후 <strong>1시간</strong> 동안 일시 면역이 됩니다." },
 
   { name_ko: "가족 회복",
     name_en: "Community Restoration",
@@ -1397,8 +1397,8 @@ const SPELL_DB = [
     target: "생물 1",
     defense: "인내",
     duration: "1분",
-    summary: "대상의 시야를 어둡게 합니다. 인내 실패 시 눈부심(dazzled). 대실패 시 눈멈(blinded)(1라운드 후 눈부심으로 전환).",
-    desc: "<strong>사거리:</strong> 60피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 인내<br><strong>지속 시간:</strong> 1분<br>대상의 시야를 어둡게 합니다. 인내 실패 시 <strong>눈부심(dazzled)</strong>. 대실패 시 <strong>눈멈(blinded)</strong>(1라운드 후 눈부심으로 전환)." },
+    summary: "대상의 시야를 어둡게 합니다. 인내 실패 시 현혹됨(dazzled). 대실패 시 실명(blinded)(1라운드 후 현혹됨으로 전환).",
+    desc: "<strong>사거리:</strong> 60피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 인내<br><strong>지속 시간:</strong> 1분<br>대상의 시야를 어둡게 합니다. 인내 실패 시 <strong>현혹됨(dazzled)</strong>. 대실패 시 <strong>실명(blinded)</strong>(1라운드 후 현혹됨으로 전환)." },
 
   { name_ko: "망상적 자만",
     name_en: "Delusional Pride",
@@ -2106,8 +2106,8 @@ const SPELL_DB = [
     range: "15피트",
     area: "15피트 원뿔",
     defense: "의지",
-    summary: "현란하게 소용돌이치는 색채의 폭발이 영역 내 생물의 시야를 어지럽힙니다. 영역 내 각 생물은 의지 내성을 시도합니다.대성공: 영향 없음.성공: 1라운드 동안 눈부심(dazzled).실패: 기절(stunned) 1, 1라운드 동안 눈멈(blinded), 1분 동안 눈부심(dazzled).대실패: 1라운드 동안 기절(stunned), 1분 동안 눈멈(bl...",
-    desc: "<strong>사거리:</strong> 15피트<br><strong>영역:</strong> 15피트 원뿔<br><strong>방어:</strong> 의지<br>현란하게 소용돌이치는 색채의 폭발이 영역 내 생물의 시야를 어지럽힙니다. 영역 내 각 생물은 의지 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> <strong>1라운드</strong> 동안 <strong>눈부심(dazzled)</strong>.<br><strong>실패:</strong> <strong>기절(stunned) 1</strong>, <strong>1라운드</strong> 동안 <strong>눈멈(blinded)</strong>, <strong>1분</strong> 동안 <strong>눈부심(dazzled)</strong>.<br><strong>대실패:</strong> <strong>1라운드</strong> 동안 <strong>기절(stunned)</strong>, <strong>1분</strong> 동안 <strong>눈멈(blinded)</strong>." },
+    summary: "현란하게 소용돌이치는 색채의 폭발이 영역 내 생물의 시야를 어지럽힙니다. 영역 내 각 생물은 의지 내성을 시도합니다.대성공: 영향 없음.성공: 1라운드 동안 현혹됨(dazzled).실패: 기절(stunned) 1, 1라운드 동안 실명(blinded), 1분 동안 현혹됨(dazzled).대실패: 1라운드 동안 기절(stunned), 1분 동안 실명(bl...",
+    desc: "<strong>사거리:</strong> 15피트<br><strong>영역:</strong> 15피트 원뿔<br><strong>방어:</strong> 의지<br>현란하게 소용돌이치는 색채의 폭발이 영역 내 생물의 시야를 어지럽힙니다. 영역 내 각 생물은 의지 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> <strong>1라운드</strong> 동안 <strong>현혹됨(dazzled)</strong>.<br><strong>실패:</strong> <strong>기절(stunned) 1</strong>, <strong>1라운드</strong> 동안 <strong>실명(blinded)</strong>, <strong>1분</strong> 동안 <strong>현혹됨(dazzled)</strong>.<br><strong>대실패:</strong> <strong>1라운드</strong> 동안 <strong>기절(stunned)</strong>, <strong>1분</strong> 동안 <strong>실명(blinded)</strong>." },
 
   { name_ko: "쇠약",
     name_en: "Enfeeble",
@@ -2817,8 +2817,8 @@ const SPELL_DB = [
     traits: ["치유","조작","정신"],
     range: "접촉",
     target: "동의 생물 1",
-    summary: "정신 오염을 몰아냅니다. 도주(fleeing), 공포(frightened), 멍청함(stupefied) 중 하나를 부여하는 효과에 상쇄를 시도합니다. 상쇄 실패해도 랭크가 2 낮았으면 성공했을 경우, 다음 턴 시작까지 효과를 억압합니다.강화(4랭크): 혼란(confused), 지배(controlled) 추가. 강화(6랭크): 운명(doomed) 추가....",
-    desc: "<strong>사거리:</strong> 접촉<br><strong>대상:</strong> 동의 생물 1<br>정신 오염을 몰아냅니다. 도주(fleeing), 공포(frightened), 멍청함(stupefied) 중 하나를 부여하는 효과에 상쇄를 시도합니다. 상쇄 실패해도 랭크가 2 낮았으면 성공했을 경우, 다음 턴 시작까지 효과를 억압합니다.<br><strong>강화(4랭크):</strong> 혼란(confused), 지배(controlled) 추가. <strong>강화(6랭크):</strong> 운명(doomed) 추가. <strong>강화(8랭크):</strong> 기절(stunned) 추가." },
+    summary: "정신 오염을 몰아냅니다. 도주(fleeing), 공포(frightened), 현기증(stupefied) 중 하나를 부여하는 효과에 상쇄를 시도합니다. 상쇄 실패해도 랭크가 2 낮았으면 성공했을 경우, 다음 턴 시작까지 효과를 억압합니다.강화(4랭크): 혼란(confused), 지배(controlled) 추가. 강화(6랭크): 운명(doomed) 추가....",
+    desc: "<strong>사거리:</strong> 접촉<br><strong>대상:</strong> 동의 생물 1<br>정신 오염을 몰아냅니다. 도주(fleeing), 공포(frightened), 현기증(stupefied) 중 하나를 부여하는 효과에 상쇄를 시도합니다. 상쇄 실패해도 랭크가 2 낮았으면 성공했을 경우, 다음 턴 시작까지 효과를 억압합니다.<br><strong>강화(4랭크):</strong> 혼란(confused), 지배(controlled) 추가. <strong>강화(6랭크):</strong> 운명(doomed) 추가. <strong>강화(8랭크):</strong> 기절(stunned) 추가." },
 
   { name_ko: "어둠",
     name_en: "Darkness",
@@ -2857,8 +2857,8 @@ const SPELL_DB = [
     range: "30피트",
     target: "생물 1",
     defense: "인내",
-    summary: "대상의 청각을 빼앗아 귀먹게 합니다. 대상은 인내 내성을 시도합니다.대성공: 영향 없음.성공: 대상의 다음 턴 끝까지 귀먹음(deafened) 상태가 됩니다.실패: 10분 동안 귀먹음 상태가 됩니다.대실패: 영구적으로 귀먹음 상태가 됩니다.주문의 효과가 끝난 후 대상은 이 주문에 대해 1분간 면역이 됩니다.",
-    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 인내<br>대상의 청각을 빼앗아 귀먹게 합니다. 대상은 인내 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상의 다음 턴 끝까지 <strong>귀먹음(deafened)</strong> 상태가 됩니다.<br><strong>실패:</strong> <strong>10분</strong> 동안 귀먹음 상태가 됩니다.<br><strong>대실패:</strong> <strong>영구적으로</strong> 귀먹음 상태가 됩니다.<br>주문의 효과가 끝난 후 대상은 이 주문에 대해 <strong>1분간 면역</strong>이 됩니다." },
+    summary: "대상의 청각을 빼앗아 귀머거리로 만듭니다. 대상은 인내 내성을 시도합니다.대성공: 영향 없음.성공: 대상의 다음 턴 끝까지 귀머거리(deafened) 상태가 됩니다.실패: 10분 동안 귀머거리 상태가 됩니다.대실패: 영구적으로 귀머거리 상태가 됩니다.주문의 효과가 끝난 후 대상은 이 주문에 대해 1분간 면역이 됩니다.",
+    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 인내<br>대상의 청각을 빼앗아 귀머거리로 만듭니다. 대상은 인내 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상의 다음 턴 끝까지 <strong>귀머거리(deafened)</strong> 상태가 됩니다.<br><strong>실패:</strong> <strong>10분</strong> 동안 귀머거리 상태가 됩니다.<br><strong>대실패:</strong> <strong>영구적으로</strong> 귀머거리 상태가 됩니다.<br>주문의 효과가 끝난 후 대상은 이 주문에 대해 <strong>1분간 면역</strong>이 됩니다." },
 
   { name_ko: "마법 해제",
     name_en: "Dispel Magic",
@@ -2898,8 +2898,8 @@ const SPELL_DB = [
     range: "30피트",
     target: "동의하는 생물 1",
     duration: "5분",
-    summary: "마법적 힘으로 대상이 대형 크기로 성장합니다. 장비도 함께 커지지만 제거하면 원래 크기로 돌아옵니다. 대상은 둔함(clumsy) 1이 됩니다. 도달이 5피트 증가하며(초소형에서 시작했다면 10피트), 근접 피해에 +2 상태 보너스를 얻습니다. 이 주문은 대형 이상 생물에게 효과가 없습니다.강화(4랭크): 대상이 거대 크기로 성장합니다. 근접 피해 상태...",
-    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 동의하는 생물 1<br><strong>지속 시간:</strong> 5분<br>마법적 힘으로 대상이 <strong>대형</strong> 크기로 성장합니다. 장비도 함께 커지지만 제거하면 원래 크기로 돌아옵니다. 대상은 <strong>둔함(clumsy) 1</strong>이 됩니다. 도달이 <strong>5피트</strong> 증가하며(초소형에서 시작했다면 10피트), 근접 피해에 <strong>+2 상태 보너스</strong>를 얻습니다. 이 주문은 대형 이상 생물에게 효과가 없습니다.<br><strong>강화(4랭크):</strong> 대상이 <strong>거대</strong> 크기로 성장합니다. 근접 피해 상태 보너스가 <strong>+4</strong>이고 도달이 <strong>10피트</strong> 증가합니다(초소형이면 15피트). 거대 이상 생물에게 효과 없음.<br><strong>강화(6랭크):</strong> 2랭크 또는 4랭크 버전을 선택하여 최대 <strong>10</strong>명의 동의 생물에 적용합니다." },
+    summary: "마법적 힘으로 대상이 대형 크기로 성장합니다. 장비도 함께 커지지만 제거하면 원래 크기로 돌아옵니다. 대상은 서투름(clumsy) 1이 됩니다. 도달이 5피트 증가하며(초소형에서 시작했다면 10피트), 근접 피해에 +2 상태 보너스를 얻습니다. 이 주문은 대형 이상 생물에게 효과가 없습니다.강화(4랭크): 대상이 거대 크기로 성장합니다. 근접 피해 상...",
+    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 동의하는 생물 1<br><strong>지속 시간:</strong> 5분<br>마법적 힘으로 대상이 <strong>대형</strong> 크기로 성장합니다. 장비도 함께 커지지만 제거하면 원래 크기로 돌아옵니다. 대상은 <strong>서투름(clumsy) 1</strong>이 됩니다. 도달이 <strong>5피트</strong> 증가하며(초소형에서 시작했다면 10피트), 근접 피해에 <strong>+2 상태 보너스</strong>를 얻습니다. 이 주문은 대형 이상 생물에게 효과가 없습니다.<br><strong>강화(4랭크):</strong> 대상이 <strong>거대</strong> 크기로 성장합니다. 근접 피해 상태 보너스가 <strong>+4</strong>이고 도달이 <strong>10피트</strong> 증가합니다(초소형이면 15피트). 거대 이상 생물에게 효과 없음.<br><strong>강화(6랭크):</strong> 2랭크 또는 4랭크 버전을 선택하여 최대 <strong>10</strong>명의 동의 생물에 적용합니다." },
 
   { name_ko: "방해 식물",
     name_en: "Entangling Flora",
@@ -3104,8 +3104,8 @@ const SPELL_DB = [
     range: "30피트",
     area: "10피트 폭발",
     defense: "인내",
-    summary: "불협화음이 터져 나와 2d10 음파 피해를 줍니다. 각 생물은 인내 내성을 시도합니다.대성공: 영향 없음.성공: 절반 피해.실패: 전체 피해, 1라운드 동안 귀먹음(deafened).대실패: 2배 피해, 1분 동안 귀먹음, 기절(stunned) 1.강화(+1): 피해 +1d10.",
-    desc: "<strong>사거리:</strong> 30피트<br><strong>영역:</strong> 10피트 폭발<br><strong>방어:</strong> 인내<br>불협화음이 터져 나와 <strong>2d10 음파 피해</strong>를 줍니다. 각 생물은 인내 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 절반 피해.<br><strong>실패:</strong> 전체 피해, 1라운드 동안 귀먹음(deafened).<br><strong>대실패:</strong> 2배 피해, 1분 동안 귀먹음, <strong>기절(stunned) 1</strong>.<br><strong>강화(+1):</strong> 피해 +1d10." },
+    summary: "불협화음이 터져 나와 2d10 음파 피해를 줍니다. 각 생물은 인내 내성을 시도합니다.대성공: 영향 없음.성공: 절반 피해.실패: 전체 피해, 1라운드 동안 귀머거리(deafened).대실패: 2배 피해, 1분 동안 귀머거리, 기절(stunned) 1.강화(+1): 피해 +1d10.",
+    desc: "<strong>사거리:</strong> 30피트<br><strong>영역:</strong> 10피트 폭발<br><strong>방어:</strong> 인내<br>불협화음이 터져 나와 <strong>2d10 음파 피해</strong>를 줍니다. 각 생물은 인내 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 절반 피해.<br><strong>실패:</strong> 전체 피해, 1라운드 동안 귀머거리(deafened).<br><strong>대실패:</strong> 2배 피해, 1분 동안 귀머거리, <strong>기절(stunned) 1</strong>.<br><strong>강화(+1):</strong> 피해 +1d10." },
 
   { name_ko: "참나무 강인",
     name_en: "Oaken Resilience",
@@ -3269,8 +3269,8 @@ const SPELL_DB = [
     traits: ["치유","조작"],
     range: "접촉",
     target: "동의하는 생물 1",
-    summary: "물리적 상태를 상쇄(counteract)합니다. 눈멈(blinded), 현혹(dazzled), 귀먹음(deafened), 약화(enfeebled), 메스꺼움(sickened) 중 하나를 상쇄 시도합니다. 상쇄 랭크가 2 이상 낮으면 다음 턴 시작까지 억제만 합니다. 저주, 질병, 정상 상태는 상쇄/억제 불가.강화(4랭크): 소진(drained), 기절...",
-    desc: "<strong>사거리:</strong> 접촉<br><strong>대상:</strong> 동의하는 생물 1<br>물리적 상태를 상쇄(counteract)합니다. 눈멈(blinded), 현혹(dazzled), 귀먹음(deafened), 약화(enfeebled), 메스꺼움(sickened) 중 하나를 상쇄 시도합니다. 상쇄 랭크가 2 이상 낮으면 다음 턴 시작까지 억제만 합니다. 저주, 질병, 정상 상태는 상쇄/억제 불가.<br><strong>강화(4랭크):</strong> 소진(drained), 기절(stunned) 추가. <strong>강화(8랭크):</strong> 소진, 기절 및 전체 목록 추가." },
+    summary: "물리적 상태를 상쇄(counteract)합니다. 실명(blinded), 현혹(dazzled), 귀머거리(deafened), 약화(enfeebled), 메스꺼움(sickened) 중 하나를 상쇄 시도합니다. 상쇄 랭크가 2 이상 낮으면 다음 턴 시작까지 억제만 합니다. 저주, 질병, 정상 상태는 상쇄/억제 불가.강화(4랭크): 소진(drained), 기...",
+    desc: "<strong>사거리:</strong> 접촉<br><strong>대상:</strong> 동의하는 생물 1<br>물리적 상태를 상쇄(counteract)합니다. 실명(blinded), 현혹(dazzled), 귀머거리(deafened), 약화(enfeebled), 메스꺼움(sickened) 중 하나를 상쇄 시도합니다. 상쇄 랭크가 2 이상 낮으면 다음 턴 시작까지 억제만 합니다. 저주, 질병, 정상 상태는 상쇄/억제 불가.<br><strong>강화(4랭크):</strong> 소진(drained), 기절(stunned) 추가. <strong>강화(8랭크):</strong> 소진, 기절 및 전체 목록 추가." },
 
   { name_ko: "동물과 대화",
     name_en: "Speak with Animals",
@@ -3325,8 +3325,8 @@ const SPELL_DB = [
     target: "생물 1",
     defense: "의지",
     duration: "다양",
-    summary: "대상의 정신을 둔하게 하여 주문시전을 불안정하게 만듭니다.대성공: 영향 없음. 성공: 다음 턴 시작까지 멍청함(stupefied) 1. 실패: 1분 동안 멍청함 2. 대실패: 1분 동안 멍청함 3.",
-    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 다양<br>대상의 정신을 둔하게 하여 주문시전을 불안정하게 만듭니다.<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> 다음 턴 시작까지 멍청함(stupefied) 1. <strong>실패:</strong> 1분 동안 멍청함 2. <strong>대실패:</strong> 1분 동안 멍청함 3." },
+    summary: "대상의 정신을 둔하게 하여 주문시전을 불안정하게 만듭니다.대성공: 영향 없음. 성공: 다음 턴 시작까지 현기증(stupefied) 1. 실패: 1분 동안 현기증 2. 대실패: 1분 동안 현기증 3.",
+    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 다양<br>대상의 정신을 둔하게 하여 주문시전을 불안정하게 만듭니다.<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> 다음 턴 시작까지 현기증(stupefied) 1. <strong>실패:</strong> 1분 동안 현기증 2. <strong>대실패:</strong> 1분 동안 현기증 3." },
 
   { name_ko: "정령 소환",
     name_en: "Summon Elemental",
@@ -3451,8 +3451,8 @@ const SPELL_DB = [
     range: "30피트",
     target: "생물 1",
     defense: "인내",
-    summary: "대상의 눈에서 빛을 빼앗아 눈멀게 하려 시도합니다. 대상은 인내 내성을 시도합니다.대성공: 영향 없음.성공: 대상의 다음 턴 끝까지 눈멈(blinded) 상태가 됩니다.실패: 1분 동안 눈멈 상태가 됩니다.대실패: 영구적으로 눈멈 상태가 됩니다.주문의 효과가 끝난 후 대상은 이 주문에 대해 1분간 면역이 됩니다.",
-    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 인내<br>대상의 눈에서 빛을 빼앗아 눈멀게 하려 시도합니다. 대상은 인내 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상의 다음 턴 끝까지 <strong>눈멈(blinded)</strong> 상태가 됩니다.<br><strong>실패:</strong> <strong>1분</strong> 동안 눈멈 상태가 됩니다.<br><strong>대실패:</strong> <strong>영구적으로</strong> 눈멈 상태가 됩니다.<br>주문의 효과가 끝난 후 대상은 이 주문에 대해 <strong>1분간 면역</strong>이 됩니다." },
+    summary: "대상의 눈에서 빛을 빼앗아 눈멀게 하려 시도합니다. 대상은 인내 내성을 시도합니다.대성공: 영향 없음.성공: 대상의 다음 턴 끝까지 실명(blinded) 상태가 됩니다.실패: 1분 동안 실명 상태가 됩니다.대실패: 영구적으로 실명 상태가 됩니다.주문의 효과가 끝난 후 대상은 이 주문에 대해 1분간 면역이 됩니다.",
+    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 인내<br>대상의 눈에서 빛을 빼앗아 눈멀게 하려 시도합니다. 대상은 인내 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상의 다음 턴 끝까지 <strong>실명(blinded)</strong> 상태가 됩니다.<br><strong>실패:</strong> <strong>1분</strong> 동안 실명 상태가 됩니다.<br><strong>대실패:</strong> <strong>영구적으로</strong> 실명 상태가 됩니다.<br>주문의 효과가 끝난 후 대상은 이 주문에 대해 <strong>1분간 면역</strong>이 됩니다." },
 
   { name_ko: "냉기의 어둠",
     name_en: "Chilling Darkness",
@@ -3492,8 +3492,8 @@ const SPELL_DB = [
     range: "30피트",
     target: "생물 1",
     defense: "의지",
-    summary: "대상의 신앙을 공격하여 의심과 정신적 혼란을 일으킵니다. 6d6 정신 피해(신성 주문시전자에게는 6d8).대성공: 영향 없음. 성공: 절반 피해. 실패: 전체 피해; 신성 시전자면 멍청함 1(1라운드). 대실패: 2배 피해, 멍청함 1(1라운드), 신성 주문 시전 불가(1라운드).자신의 신격 추종자에게 중대한 이유 없이 시전하면 대부분의 신에게 금기(...",
-    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br>대상의 신앙을 공격하여 의심과 정신적 혼란을 일으킵니다. <strong>6d6 정신 피해</strong>(신성 주문시전자에게는 6d8).<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> 절반 피해. <strong>실패:</strong> 전체 피해; 신성 시전자면 멍청함 1(1라운드). <strong>대실패:</strong> 2배 피해, 멍청함 1(1라운드), 신성 주문 시전 불가(1라운드).<br>자신의 신격 추종자에게 중대한 이유 없이 시전하면 대부분의 신에게 금기(anathema).<br><strong>강화(+1):</strong> 피해 +2d6(또는 신성 시전자에게 +2d8)." },
+    summary: "대상의 신앙을 공격하여 의심과 정신적 혼란을 일으킵니다. 6d6 정신 피해(신성 주문시전자에게는 6d8).대성공: 영향 없음. 성공: 절반 피해. 실패: 전체 피해; 신성 시전자면 현기증 1(1라운드). 대실패: 2배 피해, 현기증 1(1라운드), 신성 주문 시전 불가(1라운드).자신의 신격 추종자에게 중대한 이유 없이 시전하면 대부분의 신에게 금기(...",
+    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br>대상의 신앙을 공격하여 의심과 정신적 혼란을 일으킵니다. <strong>6d6 정신 피해</strong>(신성 주문시전자에게는 6d8).<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> 절반 피해. <strong>실패:</strong> 전체 피해; 신성 시전자면 현기증 1(1라운드). <strong>대실패:</strong> 2배 피해, 현기증 1(1라운드), 신성 주문 시전 불가(1라운드).<br>자신의 신격 추종자에게 중대한 이유 없이 시전하면 대부분의 신에게 금기(anathema).<br><strong>강화(+1):</strong> 피해 +2d6(또는 신성 시전자에게 +2d8)." },
 
   { name_ko: "꿈의 전언",
     name_en: "Dream Message",
@@ -3657,8 +3657,8 @@ const SPELL_DB = [
     area: "30피트 발산",
     defense: "의지",
     duration: "유지(최대 1라운드)",
-    summary: "빠르게 변화하는 색채와 무늬의 폭발이 영역 내 생물의 시선을 사로잡습니다. 각 생물은 의지 내성을 시도합니다.대성공: 영향 없음.성공: 눈부심(dazzled) 1라운드.실패: 매혹(fascinated) 상태가 됩니다. 유지하면 매혹이 지속됩니다. 적대 행동을 받으면 매혹 종료.대실패: 매혹 상태 + 기절(stunned) 2.",
-    desc: "<strong>영역:</strong> 30피트 발산<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 유지(최대 1라운드)<br>빠르게 변화하는 색채와 무늬의 폭발이 영역 내 생물의 시선을 사로잡습니다. 각 생물은 의지 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> <strong>눈부심(dazzled)</strong> 1라운드.<br><strong>실패:</strong> <strong>매혹(fascinated)</strong> 상태가 됩니다. 유지하면 매혹이 지속됩니다. 적대 행동을 받으면 매혹 종료.<br><strong>대실패:</strong> <strong>매혹</strong> 상태 + <strong>기절(stunned) 2</strong>." },
+    summary: "빠르게 변화하는 색채와 무늬의 폭발이 영역 내 생물의 시선을 사로잡습니다. 각 생물은 의지 내성을 시도합니다.대성공: 영향 없음.성공: 현혹됨(dazzled) 1라운드.실패: 매혹(fascinated) 상태가 됩니다. 유지하면 매혹이 지속됩니다. 적대 행동을 받으면 매혹 종료.대실패: 매혹 상태 + 기절(stunned) 2.",
+    desc: "<strong>영역:</strong> 30피트 발산<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 유지(최대 1라운드)<br>빠르게 변화하는 색채와 무늬의 폭발이 영역 내 생물의 시선을 사로잡습니다. 각 생물은 의지 내성을 시도합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> <strong>현혹됨(dazzled)</strong> 1라운드.<br><strong>실패:</strong> <strong>매혹(fascinated)</strong> 상태가 됩니다. 유지하면 매혹이 지속됩니다. 적대 행동을 받으면 매혹 종료.<br><strong>대실패:</strong> <strong>매혹</strong> 상태 + <strong>기절(stunned) 2</strong>." },
 
   { name_ko: "곤충 형태",
     name_en: "Insect Form",
@@ -4853,8 +4853,8 @@ const SPELL_DB = [
     range: "30피트",
     target: "생물 1",
     defense: "의지",
-    summary: "생물을 영구적으로 멍청하게 만듭니다. 의지 실패 시 멍청함(stupefied) 4(영구). 대실패 시 멍청함 4+혼란(confused) 1라운드. 이 효과는 저주이며 상쇄로만 제거 가능.",
-    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br>생물을 영구적으로 멍청하게 만듭니다. 의지 실패 시 <strong>멍청함(stupefied) 4</strong>(영구). 대실패 시 멍청함 4+<strong>혼란(confused) 1라운드</strong>. 이 효과는 저주이며 상쇄로만 제거 가능." },
+    summary: "생물을 영구적으로 멍청하게 만듭니다. 의지 실패 시 현기증(stupefied) 4(영구). 대실패 시 현기증 4+혼란(confused) 1라운드. 이 효과는 저주이며 상쇄로만 제거 가능.",
+    desc: "<strong>사거리:</strong> 30피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br>생물을 영구적으로 멍청하게 만듭니다. 의지 실패 시 <strong>현기증(stupefied) 4</strong>(영구). 대실패 시 현기증 4+<strong>혼란(confused) 1라운드</strong>. 이 효과는 저주이며 상쇄로만 제거 가능." },
 
   { name_ko: "석화",
     name_en: "Petrify",
@@ -5036,7 +5036,7 @@ const SPELL_DB = [
     defense: "인내",
     duration: "다양",
     summary: "당신의 신앙에서 비롯된 강력한 신성 선언, 즉 당신의 이상에 반대하는 자들을 해치는 명령을 발합니다. 당신의 성별화와 반대되는 성별화를 지닌 생물(불경 성별화를 지녔다면 신성 특성의 생물, 그 반대의 경우도 마찬가지)이나 성별화가 없는 생물에게 영역 내에서 7d10 영혼 피해를 가합니다. 각 생물은 인내 내성을 시도해야 합니다.대성공: 영향 없음.성공...",
-    desc: "<strong>사거리:</strong> 40피트<br><strong>영역:</strong> 40피트 발산<br><strong>방어:</strong> 인내<br><strong>지속 시간:</strong> 다양<br>당신의 신앙에서 비롯된 강력한 신성 선언, 즉 당신의 이상에 반대하는 자들을 해치는 명령을 발합니다. 당신의 성별화와 반대되는 성별화를 지닌 생물(불경 성별화를 지녔다면 신성 특성의 생물, 그 반대의 경우도 마찬가지)이나 성별화가 없는 생물에게 영역 내에서 <strong>7d10 영혼 피해</strong>를 가합니다. 각 생물은 인내 내성을 시도해야 합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 절반 피해를 받습니다.<br><strong>실패:</strong> 전체 피해를 받고, 약화(enfeebled) 2 상태가 되며, 당신으로부터 직접 5피트 밀려납니다. 레벨 10 이하의 생물은 추가로 눈멈(blinded) 상태가 됩니다.<br><strong>대실패:</strong> 2배 피해를 받고, 약화 2 상태가 되며, 당신으로부터 직접 10피트 밀려납니다. 레벨 10 이하의 생물은 추가로 고향 차원으로 추방됩니다. 이 차원이 고향인 생물은 대신 기절(stunned) 4 상태가 됩니다.<br><strong>강화(+1):</strong> 피해 +1d10, 레벨 기준치 +2." },
+    desc: "<strong>사거리:</strong> 40피트<br><strong>영역:</strong> 40피트 발산<br><strong>방어:</strong> 인내<br><strong>지속 시간:</strong> 다양<br>당신의 신앙에서 비롯된 강력한 신성 선언, 즉 당신의 이상에 반대하는 자들을 해치는 명령을 발합니다. 당신의 성별화와 반대되는 성별화를 지닌 생물(불경 성별화를 지녔다면 신성 특성의 생물, 그 반대의 경우도 마찬가지)이나 성별화가 없는 생물에게 영역 내에서 <strong>7d10 영혼 피해</strong>를 가합니다. 각 생물은 인내 내성을 시도해야 합니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 절반 피해를 받습니다.<br><strong>실패:</strong> 전체 피해를 받고, 약화(enfeebled) 2 상태가 되며, 당신으로부터 직접 5피트 밀려납니다. 레벨 10 이하의 생물은 추가로 실명(blinded) 상태가 됩니다.<br><strong>대실패:</strong> 2배 피해를 받고, 약화 2 상태가 되며, 당신으로부터 직접 10피트 밀려납니다. 레벨 10 이하의 생물은 추가로 고향 차원으로 추방됩니다. 이 차원이 고향인 생물은 대신 기절(stunned) 4 상태가 됩니다.<br><strong>강화(+1):</strong> 피해 +1d10, 레벨 기준치 +2." },
 
   { name_ko: "적 복제",
     name_en: "Duplicate Foe",
@@ -5214,8 +5214,8 @@ const SPELL_DB = [
     range: "500피트",
     area: "60피트 폭발",
     defense: "반사",
-    summary: "모든 대상에 8d10 화염 피해, 언데드에 추가 8d10 활력 피해. 마법 어둠과 겹치면 어둠 효과를 상쇄 시도.대성공: 영향 없음. 성공: 절반 피해. 실패: 전체 피해. 대실패: 전체 피해 + 영구 눈멈(blinded).강화(+1): 화염 +1d10, 활력 +1d10.",
-    desc: "<strong>사거리:</strong> 500피트<br><strong>영역:</strong> 60피트 폭발<br><strong>방어:</strong> 반사<br>모든 대상에 <strong>8d10 화염 피해</strong>, 언데드에 추가 <strong>8d10 활력 피해</strong>. 마법 어둠과 겹치면 어둠 효과를 상쇄 시도.<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> 절반 피해. <strong>실패:</strong> 전체 피해. <strong>대실패:</strong> 전체 피해 + 영구 눈멈(blinded).<br><strong>강화(+1):</strong> 화염 +1d10, 활력 +1d10." },
+    summary: "모든 대상에 8d10 화염 피해, 언데드에 추가 8d10 활력 피해. 마법 어둠과 겹치면 어둠 효과를 상쇄 시도.대성공: 영향 없음. 성공: 절반 피해. 실패: 전체 피해. 대실패: 전체 피해 + 영구 실명(blinded).강화(+1): 화염 +1d10, 활력 +1d10.",
+    desc: "<strong>사거리:</strong> 500피트<br><strong>영역:</strong> 60피트 폭발<br><strong>방어:</strong> 반사<br>모든 대상에 <strong>8d10 화염 피해</strong>, 언데드에 추가 <strong>8d10 활력 피해</strong>. 마법 어둠과 겹치면 어둠 효과를 상쇄 시도.<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> 절반 피해. <strong>실패:</strong> 전체 피해. <strong>대실패:</strong> 전체 피해 + 영구 실명(blinded).<br><strong>강화(+1):</strong> 화염 +1d10, 활력 +1d10." },
 
   { name_ko: "정밀 대상",
     name_en: "True Target",
@@ -5557,7 +5557,7 @@ const SPELL_DB = [
     duration: "유지(최대 1분)",
     requirements: "야외이며 지상에 있어야 합니다.",
     summary: "머리 위 하늘이 순식간에 어두워지며, 번개가 번쩍이는 불길한 구름이 소용돌이칩니다. 주문을 시전할 때와 이후 매 턴 처음 유지할 때, 영역에서 발생할 다음 폭풍 효과 중 하나를 선택합니다. 같은 효과를 연속 두 번 선택할 수 없습니다.고요: 추가 효과 없음.안개: 안개(mist)의 효과로 짙은 안개가 낀다.비: 억수같은 비가 내려 일반 불꽃을 끕니다....",
-    desc: "<strong>영역:</strong> 100피트 발산<br><strong>지속 시간:</strong> 유지(최대 1분)<br><strong>요구사항:</strong> 야외이며 지상에 있어야 합니다.<br>머리 위 하늘이 순식간에 어두워지며, 번개가 번쩍이는 불길한 구름이 소용돌이칩니다. 주문을 시전할 때와 이후 매 턴 처음 유지할 때, 영역에서 발생할 다음 폭풍 효과 중 하나를 선택합니다. 같은 효과를 연속 두 번 선택할 수 없습니다.<br><strong>고요:</strong> 추가 효과 없음.<br><strong>안개:</strong> <em>안개(mist)</em>의 효과로 짙은 안개가 낀다.<br><strong>비:</strong> 억수같은 비가 내려 일반 불꽃을 끕니다. 영역 내 생물은 곡예와 지각 판정에 <strong>-2 상황 페널티</strong>.<br><strong>바람:</strong> 강력한 바람이 모든 방향에서 불어닥칩니다. 원거리 공격에 <strong>-4 상황 페널티</strong>. 비행 생물에게 영역은 험지.<br>또한, 라운드당 한 번 단일 행동(집중+조작)으로 사거리 내 볼 수 있는 대상에 번개를 내려칠 수 있습니다. <strong>10d6 전기 피해</strong>(기본 반사). 실패 시 <strong>1라운드 귀먹음</strong>도 적용.<br><strong>강화(+1):</strong> 번개 피해 +1d6, 불타는 공간 피해 +1d6." },
+    desc: "<strong>영역:</strong> 100피트 발산<br><strong>지속 시간:</strong> 유지(최대 1분)<br><strong>요구사항:</strong> 야외이며 지상에 있어야 합니다.<br>머리 위 하늘이 순식간에 어두워지며, 번개가 번쩍이는 불길한 구름이 소용돌이칩니다. 주문을 시전할 때와 이후 매 턴 처음 유지할 때, 영역에서 발생할 다음 폭풍 효과 중 하나를 선택합니다. 같은 효과를 연속 두 번 선택할 수 없습니다.<br><strong>고요:</strong> 추가 효과 없음.<br><strong>안개:</strong> <em>안개(mist)</em>의 효과로 짙은 안개가 낀다.<br><strong>비:</strong> 억수같은 비가 내려 일반 불꽃을 끕니다. 영역 내 생물은 곡예와 지각 판정에 <strong>-2 상황 페널티</strong>.<br><strong>바람:</strong> 강력한 바람이 모든 방향에서 불어닥칩니다. 원거리 공격에 <strong>-4 상황 페널티</strong>. 비행 생물에게 영역은 험지.<br>또한, 라운드당 한 번 단일 행동(집중+조작)으로 사거리 내 볼 수 있는 대상에 번개를 내려칠 수 있습니다. <strong>10d6 전기 피해</strong>(기본 반사). 실패 시 <strong>1라운드 귀머거리</strong>도 적용.<br><strong>강화(+1):</strong> 번개 피해 +1d6, 불타는 공간 피해 +1d6." },
 
   { name_ko: "저주받은 자의 울부짖음",
     name_en: "Wails of the Damned",

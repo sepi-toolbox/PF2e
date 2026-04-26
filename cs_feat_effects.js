@@ -350,7 +350,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'신성한 부적 소지. 마법에 대한 의지 내성 +1 상황 보너스'}]
   },
   'Arcane Sense': {
-    effects: [{type:'grant_innate_spell', spell:'마법 감지', tradition:'신비', spellType:'cantrip', uses:'자유'}, {type:'display_note', text:'전문가=1행동, 대가=자유 행동, 전설=수동 상시 감지'}]
+    effects: [{type:'grant_innate_spell', spell:'마법 탐지', tradition:'신비', spellType:'cantrip', uses:'자유'}, {type:'display_note', text:'전문가=1행동, 달인=자유 행동, 전설=수동 상시 감지'}]
   },
   'Unified Theory': {
     effects: [{type:'display_note', text:'주문학으로 다른 마법 전통(신성/오컬트/원시) 판정 대체 가능. 전설 전용'}]
@@ -1334,7 +1334,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'치유 주문으로 상태 상쇄 시 판정을 두 번 굴리고 높은 결과 사용'}]
   },
   'Sapping Symbol': {
-    effects: [{type:'display_note', text:'[반응] 상징 올린 상태에서 근접 피해 시 종교 판정 → 공격자 기력상실 1/2'}]
+    effects: [{type:'display_note', text:'[반응] 상징 올린 상태에서 근접 피해 시 종교 판정 → 공격자 약화 1/2'}]
   },
   'Shared Replenishment': {
     effects: [{type:'display_note', text:'전쟁의 보충 임시 HP를 자신 대신 10피트 내 아군에게 부여 가능'}]
@@ -1978,7 +1978,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'결합 아이템 소진을 하루 2회 사용 가능'}]
   },
   'Scintillating Spell': {
-    effects: [{type:'display_note', text:'[1행동] 다음 주문 피해 대상에 눈부심 1라운드 (치명실패 시 실명 1라운드)'}]
+    effects: [{type:'display_note', text:'[1행동] 다음 주문 피해 대상에 현혹됨 1라운드 (치명실패 시 실명 1라운드)'}]
   },
   'Spell Tinker': {
     effects: [{type:'display_note', text:'유지 중인 주문 1개의 영역/대상/변수를 재설정 가능'}]
@@ -2347,7 +2347,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'겁먹은(frightened) 생물은 당신의 공격에도 무방비'}]
   },
   'Head Stomp': {
-    effects: [{type:'display_note', text:'[1행동] 엎드린 대상에 비무장 타격. 명중 시 멍청함 1(치명타 2)+무방비'}]
+    effects: [{type:'display_note', text:'[1행동] 엎드린 대상에 비무장 타격. 명중 시 현기증 1(치명타 2)+무방비'}]
   },
   'Mug': {
     effects: [{type:'display_note', text:'[1행동] 근접 타격. 은밀 공격 피해 시 도둑질(Steal)도 시도 가능'}]
@@ -2371,7 +2371,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'무방비한 적 넘어뜨리기 성공 시 1d6 둔기 피해. 대성공이면 +은밀 공격 피해'}]
   },
   'Twin Distraction': {
-    effects: [{type:'display_note', text:'쌍검 속임으로 양쪽 모두 피해 시 의지 내성. 실패 시 멍청함 1'}]
+    effects: [{type:'display_note', text:'쌍검 속임으로 양쪽 모두 피해 시 의지 내성. 실패 시 현기증 1'}]
   },
 
   // ── 6레벨 ──
