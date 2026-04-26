@@ -316,10 +316,23 @@ function resolveDescRefs(html) {
     const typeBadge = `<span style="display:inline-block;background:var(--gold,#d4a843);color:#000;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;margin-right:6px;">${typeLabel}</span>`;
     const titleKo = data.ko || data.en;
     const titleEn = data.en && data.en !== data.ko ? `<span style="color:var(--text2,#999);font-size:11px;margin-left:4px;">${data.en}</span>` : '';
-    let body = data.summary || data.desc || '';
-    const plain = body.replace(/<[^>]*>/g,'');
-    const display = plain.length > 200 ? plain.substring(0, 200) + '…' : plain;
-    popup.innerHTML = `<div style="margin-bottom:6px;">${typeBadge}<strong>${titleKo}</strong>${titleEn}</div><div style="color:var(--text2,#bbb);font-size:11px;line-height:1.5;">${display}</div>`;
+    let body = data.desc || data.summary || '';
+    // 안전한 태그만 유지 (strong, em, br), 나머지 제거
+    let safe = body.replace(/<(?!\/?(?:strong|em|br)\b)[^>]*>/gi, '');
+    // 중첩 {{}} 템플릿은 팝업 안에서 재귀 해석하지 않음
+    safe = safe.replace(/\{\{[^}]+\}\}/g, (m) => { const d = m.match(/\{\{\w+:([^}]+)\}\}/); return d ? d[1] : m; });
+    // 텍스트 길이 300자 제한 (태그 제외)
+    const plainLen = safe.replace(/<[^>]*>/g,'').length;
+    if (plainLen > 300) {
+      let count = 0, cut = safe.length;
+      for (let i = 0; i < safe.length && count < 300; i++) {
+        if (safe[i] === '<') { while (i < safe.length && safe[i] !== '>') i++; continue; }
+        count++;
+        if (count >= 300) cut = i + 1;
+      }
+      safe = safe.substring(0, cut) + '…';
+    }
+    popup.innerHTML = `<div style="margin-bottom:6px;">${typeBadge}<strong>${titleKo}</strong>${titleEn}</div><div style="color:var(--text2,#bbb);font-size:11px;line-height:1.5;">${safe}</div>`;
     popup.style.display = 'block';
     const rect = el.getBoundingClientRect();
     const pRect = popup.getBoundingClientRect();
