@@ -379,10 +379,10 @@ var SUBCLASS_FEATURE_NAMES = {
   // ── 드루이드 교단 ──
   'order-animal': [{lv:1, name_ko:'동물 친구 습득', name_en:'Animal Companion', desc:'동물 결사에 가입하여 동물 친구(Animal Companion)를 얻습니다. 자연학에 훈련되며, 동물 친구가 전투와 탐험에서 함께합니다.'}],
   // 'order-flame': Player Core 2 — 비활성
-  'order-leaf':   [{lv:1, name_ko:'집중 주문: 선의 씨앗', name_en:'Goodberry', desc:'잎 결사에 가입하여 선의 씨앗(Goodberry) 집중 주문을 습득합니다. 외교에 훈련됩니다.'}],
+  'order-leaf':   [{lv:1, name_ko:'집중 주문: 축제의 뿔피리', name_en:'Cornucopia', desc:'잎 결사에 가입하여 축제의 뿔피리(Cornucopia) 집중 주문을 습득합니다. 외교에 훈련됩니다.'}],
   'order-storm':  [{lv:1, name_ko:'집중 주문: 폭풍 쇄도', name_en:'Tempest Surge', desc:'폭풍 결사에 가입하여 폭풍 쇄도(Tempest Surge) 집중 주문을 습득합니다. 곡예에 훈련됩니다.'}],
   // 'order-wave': Player Core 2 — 비활성
-  'order-wild':   [{lv:1, name_ko:'집중 주문: 야생 변신', name_en:'Wild Shape', desc:'야생 결사에 가입하여 야생 변신(Wild Shape) 집중 주문을 습득합니다. 위협에 훈련됩니다.'}],
+  'order-wild':   [{lv:1, name_ko:'집중 주문: 야생 해방', name_en:'Untamed Form', desc:'야생 결사에 가입하여 야생 해방(Untamed Form) 집중 주문을 습득합니다. 위협에 훈련됩니다.'}],
   // ── 레인저 사냥 방식 ──
   'edge-flurry':    [{lv:1, name_ko:'다중 공격 페널티 감소', name_en:'Flurry', desc:'사냥감에 대한 연속 공격에 능숙합니다. 사냥감에 대한 다중 공격 페널티가 -4/-8로 감소합니다(일반 -5/-10). 민첩 무기 사용 시 -3/-6으로 감소합니다.'}],
   'edge-outwit':    [{lv:1, name_ko:'사냥 목표 AC +1', name_en:'Outwit', desc:'사냥감의 약점을 간파합니다. 사냥감의 공격에 대해 AC에 +1 상황 보너스를 받고, 사냥감에 대한 기만, 위협, 은신, 지식 회상 판정에 +2 상황 보너스를 받습니다.'}],
