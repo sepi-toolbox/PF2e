@@ -906,7 +906,7 @@ const SPELL_DB = [
     summary: "뮤즈: 마에스트로(maestro)작곡에 장식을 추가하여 효과를 연장합니다. 다음 행동이 지속 시간 1라운드인 작곡 캔트립 시전이라면, 공연(Performance) 판정을 시도합니다. DC는 보통 작곡 대상 중 가장 높은 레벨과 동일한 표준 난이도 DC이지만, GM이 상황에 따라 다른 DC를 지정할 수 있습니다. 효과는 판정 결과에 따라 달라집니다.대성...",
     desc: "<strong>뮤즈:</strong> 마에스트로(maestro)<br>작곡에 장식을 추가하여 효과를 연장합니다. 다음 행동이 지속 시간 1라운드인 작곡 캔트립 시전이라면, 공연(Performance) 판정을 시도합니다. DC는 보통 작곡 대상 중 가장 높은 레벨과 동일한 표준 난이도 DC이지만, GM이 상황에 따라 다른 DC를 지정할 수 있습니다. 효과는 판정 결과에 따라 달라집니다.<br><strong>대성공:</strong> 작곡이 <strong>4라운드</strong> 동안 지속됩니다.<br><strong>성공:</strong> 작곡이 <strong>3라운드</strong> 동안 지속됩니다.<br><strong>실패:</strong> 작곡이 1라운드 동안 지속되지만(정상), 이 주문에 집중점을 소비하지 않습니다." },
 
-  { name_ko: "대가의 에튀드",
+  { name_ko: "달인의 에튀드",
     name_en: "Loremaster's Etude",
     rank: 1,
     is_cantrip: false,

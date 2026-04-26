@@ -448,7 +448,7 @@ function renderWeapons() {
     let wpProfVal = parseInt(document.getElementById('prof-weapon-'+wpCat)?.value||0);
     if (state._fb?.trainedWeapons?.includes(wpNameForFam) && wpProfVal < 2) wpProfVal = 2;
     if (state._fb?.martialExperience && wpProfVal < 2 && getLevel() >= 11) wpProfVal = 2;
-    const wpTemlMap = {0:['U','미숙련',''],2:['T','숙련','trained'],4:['E','전문가','expert'],6:['M','대가','master'],8:['L','전설','legendary']};
+    const wpTemlMap = {0:['U','미숙련',''],2:['T','숙련','trained'],4:['E','전문가','expert'],6:['M','달인','master'],8:['L','전설','legendary']};
     const [wpTemlLetter, wpProfName, wpProfCls] = wpTemlMap[wpProfVal]||['U','미숙련',''];
     const wpCatLabel = {simple:'단순',martial:'군용',advanced:'고급',unarmed:'비무장'}[wpCat]||wpCat;
 

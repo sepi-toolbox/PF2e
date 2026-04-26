@@ -941,7 +941,7 @@ const FEAT_EFFECTS = {
     effects: [{type:'display_note', text:'오컬트 주문서 획득. 일일 준비 시 주문서에서 주문 1개를 레퍼토리에 추가'}]
   },
   "Loremaster's Etude": {
-    effects: [{type:'grant_focus_spell', spell:'대가의 에튀드'}, {type:'display_note', text:'지식 회상 보조. 집중 포인트 풀 +1 (최대 3)'}]
+    effects: [{type:'grant_focus_spell', spell:'달인의 에튀드'}, {type:'display_note', text:'지식 회상 보조. 집중 포인트 풀 +1 (최대 3)'}]
   },
   'Multifarious Muse': {
     choice: {
