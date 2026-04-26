@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=487"></script>
-<script src="feat_db.js?v=487"></script>
-<script src="SPELL_DB.js?v=487"></script>
-<script src="class_features_db.js?v=487"></script>
+<script src="equipment_db.js?v=488"></script>
+<script src="feat_db.js?v=488"></script>
+<script src="SPELL_DB.js?v=488"></script>
+<script src="class_features_db.js?v=488"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1316,7 +1316,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v487</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v488</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1543,11 +1543,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
           <select id="prof-weapon-unarmed" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
       </div>
       <div id="weapon-prof-summary" class="ac-breakdown" style="min-height:0;border-top:1px solid var(--border);display:none;"></div>
-      <div class="box">
-        <div class="box-title">공격 Strikes</div>
-        <div id="weapons-list"></div>
-        <div style="font-size:10px;color:var(--text2);text-align:center;padding:6px 0;">장비 탭에서 무기를 장착하면 여기에 표시됩니다</div>
-      </div>
+      <div id="weapons-list"></div>
     </div><!-- /#panel-weapons -->
 
     <!-- ── 방어 Defense ── -->
@@ -1595,8 +1591,8 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
       <!-- Armor Card -->
       <div class="defense-card" id="armor-card"></div>
-      <!-- Shield Card -->
-      <div class="defense-card" id="shield-card"></div>
+      <!-- Shield Card (무기 탭으로 이동, 숨김) -->
+      <div class="defense-card" id="shield-card" style="display:none;"></div>
       <!-- conditions-grid hidden but kept for buildConditions() -->
       <div id="conditions-grid" style="display:none;"></div>
     </div><!-- /#panel-defense -->
@@ -1887,14 +1883,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=487"></script>
-<script src="cs_calc.js?v=487"></script>
-<script src="cs_ui.js?v=487"></script>
-<script src="cs_modal.js?v=487"></script>
-<script src="cs_feat_effects.js?v=487"></script>
-<script src="cs_save.js?v=487"></script>
-<script src="cs_session.js?v=487"></script>
-<script src="cs_dice.js?v=487"></script>
+<script src="cs_data.js?v=488"></script>
+<script src="cs_calc.js?v=488"></script>
+<script src="cs_ui.js?v=488"></script>
+<script src="cs_modal.js?v=488"></script>
+<script src="cs_feat_effects.js?v=488"></script>
+<script src="cs_save.js?v=488"></script>
+<script src="cs_session.js?v=488"></script>
+<script src="cs_dice.js?v=488"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
