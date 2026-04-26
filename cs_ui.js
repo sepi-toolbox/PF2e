@@ -1193,11 +1193,10 @@ function renderContainers() {
   if (!state.containers) state.containers = [];
   el.innerHTML = '';
   state.containers.forEach((c, ci) => {
-    let html = `<div class="box">
-      <div class="box-title" style="display:flex;justify-content:space-between;align-items:center;">
-        <span>📦 ${c.name}${c.ignoreBulk ? ' <span style="font-size:9px;color:var(--accent);font-weight:400;">(부피 미적용)</span>' : ''}</span>
-        <span class="spell-del" onclick="removeContainer(${ci})" style="cursor:pointer;">✕</span>
-      </div>`;
+    let html = `<div class="equip-section-label" style="display:flex;justify-content:space-between;align-items:center;">
+        <span>\uD83D\uDCE6 ${c.name}${c.ignoreBulk ? ' <span style="font-size:9px;color:var(--accent);font-weight:400;">(부피 미적용)</span>' : ''}</span>
+        <span class="spell-del" onclick="removeContainer(${ci})" style="cursor:pointer;">\u2715</span>
+      </div><div class="equip-cat-box">`;
     // 헤더 (메인과 동일)
     html += `<div class="equip-row" style="font-size:10px;color:var(--text2);padding:2px 4px;border-bottom:1px solid var(--border);">
       <span style="flex:1;">아이템</span><span style="width:30px;text-align:center;">부피</span><span style="width:70px;text-align:center;">수량</span><span style="width:60px;"></span><span style="width:40px;"></span><span style="width:28px;"></span>
