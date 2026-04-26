@@ -60,8 +60,8 @@ const SPELL_DB = [
     target: "생물 1",
     defense: "의지",
     duration: "1라운드",
-    summary: "대상의 정신을 흐리게 하여 발묶임하거나 둔화시킵니다.대성공: 영향 없음.성공: 대상이 1라운드간 발묶임(off-guard).실패: 대상이 4 정신 피해를 받고 1라운드간 발묶임.대실패: 대상이 4 정신 피해를 받고 1라운드간 발묶임 + 둔화 1(slowed 1).강화(+2): 피해 +4.",
-    desc: "<strong>사거리:</strong> 60피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 1라운드<br>대상의 정신을 흐리게 하여 발묶임하거나 둔화시킵니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상이 1라운드간 <strong>{{condition:Flat-Footed}}</strong>.<br><strong>실패:</strong> 대상이 <strong>4 정신 피해</strong>를 받고 1라운드간 <strong>발묶임</strong>.<br><strong>대실패:</strong> 대상이 <strong>4 정신 피해</strong>를 받고 1라운드간 <strong>발묶임 + 둔화 1(slowed 1)</strong>.<br><strong>강화(+2):</strong> 피해 +4." },
+    summary: "대상의 정신을 흐리게 하여 무방비하거나 둔화시킵니다.대성공: 영향 없음.성공: 대상이 1라운드간 무방비(off-guard).실패: 대상이 4 정신 피해를 받고 1라운드간 무방비.대실패: 대상이 4 정신 피해를 받고 1라운드간 무방비 + 둔화 1(slowed 1).강화(+2): 피해 +4.",
+    desc: "<strong>사거리:</strong> 60피트<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 1라운드<br>대상의 정신을 흐리게 하여 무방비하거나 둔화시킵니다.<br><strong>대성공:</strong> 영향 없음.<br><strong>성공:</strong> 대상이 1라운드간 <strong>{{condition:Off-Guard}}</strong>.<br><strong>실패:</strong> 대상이 <strong>4 정신 피해</strong>를 받고 1라운드간 <strong>무방비</strong>.<br><strong>대실패:</strong> 대상이 <strong>4 정신 피해</strong>를 받고 1라운드간 <strong>무방비 + 둔화 1(slowed 1)</strong>.<br><strong>강화(+2):</strong> 피해 +4." },
 
   { name_ko: "마법 탐지",
     name_en: "Detect Magic",
@@ -5401,8 +5401,8 @@ const SPELL_DB = [
     target: "생물 1",
     defense: "의지",
     duration: "다양",
-    summary: "대상은 발묶임(off-guard). 반응 사용 불가. 반보(Stride, 절반 속도) 외의 이동 행동 사용 불가.대성공: 영향 없음. 성공: 3라운드, 매 턴 최소 1행동을 춤에 사용. 실패: 1분, 매 턴 최소 2행동을 춤에 사용. 대실패: 1분, 매 턴 모든 행동을 춤에 사용.",
-    desc: "<strong>사거리:</strong> 접촉<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 다양<br>대상은 {{condition:Flat-Footed}}. 반응 사용 불가. 반보(Stride, 절반 속도) 외의 이동 행동 사용 불가.<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> 3라운드, 매 턴 최소 1행동을 춤에 사용. <strong>실패:</strong> 1분, 매 턴 최소 2행동을 춤에 사용. <strong>대실패:</strong> 1분, 매 턴 모든 행동을 춤에 사용." },
+    summary: "대상은 무방비(off-guard). 반응 사용 불가. 반보(Stride, 절반 속도) 외의 이동 행동 사용 불가.대성공: 영향 없음. 성공: 3라운드, 매 턴 최소 1행동을 춤에 사용. 실패: 1분, 매 턴 최소 2행동을 춤에 사용. 대실패: 1분, 매 턴 모든 행동을 춤에 사용.",
+    desc: "<strong>사거리:</strong> 접촉<br><strong>대상:</strong> 생물 1<br><strong>방어:</strong> 의지<br><strong>지속 시간:</strong> 다양<br>대상은 {{condition:Off-Guard}}. 반응 사용 불가. 반보(Stride, 절반 속도) 외의 이동 행동 사용 불가.<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> 3라운드, 매 턴 최소 1행동을 춤에 사용. <strong>실패:</strong> 1분, 매 턴 최소 2행동을 춤에 사용. <strong>대실패:</strong> 1분, 매 턴 모든 행동을 춤에 사용." },
 
   { name_ko: "끊임없는 관찰",
     name_en: "Unrelenting Observation",
@@ -5461,8 +5461,8 @@ const SPELL_DB = [
     range: "접촉",
     target: "생물 1",
     duration: "1시간",
-    summary: "여섯 번째 감각이 대상에게 위험을 경고합니다. 자신에게 시전하면 정신 연결로 대상에게 알립니다. 대상은 우선권에 +2 상태 보너스를 받으며, 감지되지 않은 생물이나 측면 협공에 의해 발묶임(off-guard)가 되지 않습니다. 반응: 적대적 생물이나 위험이 대상을 위협할 때, 예지가 대상을 방어합니다 — 대상이 두 번 굴려 높은 것을 사용합니다. 적대...",
-    desc: "<strong>사거리:</strong> 접촉<br><strong>대상:</strong> 생물 1<br><strong>지속 시간:</strong> 1시간<br>여섯 번째 감각이 대상에게 위험을 경고합니다. 자신에게 시전하면 정신 연결로 대상에게 알립니다. 대상은 우선권에 <strong>+2 상태 보너스</strong>를 받으며, 감지되지 않은 생물이나 측면 협공에 의해 <strong>{{condition:Flat-Footed}}</strong>가 되지 않습니다. 반응: 적대적 생물이나 위험이 대상을 위협할 때, 예지가 대상을 방어합니다 — 대상이 <strong>두 번 굴려 높은 것을 사용</strong>합니다. 적대적 존재가 대상에 대해 굴리면, <strong>두 번 굴려 낮은 것을 사용</strong>합니다. 행운/불운 특성." },
+    summary: "여섯 번째 감각이 대상에게 위험을 경고합니다. 자신에게 시전하면 정신 연결로 대상에게 알립니다. 대상은 우선권에 +2 상태 보너스를 받으며, 감지되지 않은 생물이나 측면 협공에 의해 무방비(off-guard)가 되지 않습니다. 반응: 적대적 생물이나 위험이 대상을 위협할 때, 예지가 대상을 방어합니다 — 대상이 두 번 굴려 높은 것을 사용합니다. 적대...",
+    desc: "<strong>사거리:</strong> 접촉<br><strong>대상:</strong> 생물 1<br><strong>지속 시간:</strong> 1시간<br>여섯 번째 감각이 대상에게 위험을 경고합니다. 자신에게 시전하면 정신 연결로 대상에게 알립니다. 대상은 우선권에 <strong>+2 상태 보너스</strong>를 받으며, 감지되지 않은 생물이나 측면 협공에 의해 <strong>{{condition:Off-Guard}}</strong>가 되지 않습니다. 반응: 적대적 생물이나 위험이 대상을 위협할 때, 예지가 대상을 방어합니다 — 대상이 <strong>두 번 굴려 높은 것을 사용</strong>합니다. 적대적 존재가 대상에 대해 굴리면, <strong>두 번 굴려 낮은 것을 사용</strong>합니다. 행운/불운 특성." },
 
   { name_ko: "내파",
     name_en: "Implosion",

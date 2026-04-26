@@ -57,8 +57,8 @@ for (const c of CONDITIONS_DATA) {
 
 // 수동 별칭 (desc에서 사용하는 Remaster 이름 → DB의 en 필드)
 const aliases = {
-  'off-guard': {type:'condition', key:'Flat-Footed'},
-  'flat-footed': {type:'condition', key:'Flat-Footed'},
+  'off-guard': {type:'condition', key:'Off-Guard'},
+  'flat-footed': {type:'condition', key:'Off-Guard'},
   'greater darkvision': null, // 특수 시야 — 변환하지 않음
   'darkvision': null,
   'low-light vision': null,

@@ -410,7 +410,7 @@ function loadData(d) {
     if (d.conditions) {
       state.conditions = d.conditions;
       // v369: 상태 키 마이그레이션 (구 용어 → 신 용어)
-      const _condMigrate = {둔함:'서투름',약화됨:'약화',혼미:'현기증',행동감소:'둔화',고정됨:'고정',방어불가:'발묶임',무방비:'발묶임',속박됨:'구속',매혹됨:'매혹',쇠약:'탈진',은폐됨:'은폐',구역질:'메스꺼움'};
+      const _condMigrate = {둔함:'서투름',약화됨:'약화',혼미:'현기증',행동감소:'둔화',고정됨:'고정',방어불가:'무방비',발묶임:'무방비',속박됨:'구속',매혹됨:'매혹',쇠약:'탈진',은폐됨:'은폐',구역질:'메스꺼움'};
       for (const [old,nw] of Object.entries(_condMigrate)) {
         if (state.conditions[old] !== undefined) {
           state.conditions[nw] = state.conditions[old];
