@@ -292,6 +292,14 @@ function _rebuildAllUI() {
 async function selectSlotForSession(slotId) {
   if (!_currentSession || !currentUser) return;
   try {
+    // 기존에 다른 슬롯으로 참가 중이었다면 그 슬롯의 sessionId 정리
+    const prevSlot = _currentSession.players[currentUser.uid]?.slotId;
+    if (prevSlot && prevSlot !== slotId) {
+      await db.collection('users').doc(currentUser.uid)
+        .collection('characters').doc(prevSlot).update({
+          sessionId: firebase.firestore.FieldValue.delete()
+        }).catch(function() {});
+    }
     // 세션 players map에 slotId 등록
     const playerField = 'players.' + currentUser.uid;
     await db.collection('sessions').doc(_currentSession.id).update({
