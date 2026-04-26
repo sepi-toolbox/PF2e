@@ -17,6 +17,15 @@ let _rollsReady = false; // 초기 스냅샷 스킵용
 let _lastSavedData = null; // 자기 저장 데이터 — onSnapshot 자기 반응 스킵용
 let _leavingSession = false; // 자진 퇴장 중 — onSnapshot 추방 감지 방지
 
+/* ── 재시도/재연결 ── */
+let _saveRetryTimer = null;
+let _saveRetryCount = 0;
+const _SAVE_RETRY_MAX = 5;
+const _SAVE_RETRY_DELAYS = [2000, 4000, 8000, 15000, 30000]; // 지수 백오프
+
+let _reconnectTimer = null;
+const _RECONNECT_DELAY = 3000; // onSnapshot 에러 후 재연결 대기
+
 /* ── 상수 ── */
 const SESSION_CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // I,O,0,1 제외
 const SESSION_CODE_LEN = 6;
@@ -242,9 +251,20 @@ function sessionSaveNow() {
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     }).then(() => {
       if (st) { st.textContent = '저장완료'; st.style.color = '#27ae60'; }
+      _saveRetryCount = 0;
+      if (_saveRetryTimer) { clearTimeout(_saveRetryTimer); _saveRetryTimer = null; }
     }).catch((e) => {
-      if (st) { st.textContent = '저장 실패'; st.style.color = '#e74c3c'; }
       console.error('[sessionSave]', e);
+      _saveRetryCount++;
+      if (_saveRetryCount <= _SAVE_RETRY_MAX) {
+        var delay = _SAVE_RETRY_DELAYS[Math.min(_saveRetryCount - 1, _SAVE_RETRY_DELAYS.length - 1)];
+        if (st) { st.textContent = '저장 실패 — ' + Math.round(delay/1000) + '초 후 재시도 (' + _saveRetryCount + '/' + _SAVE_RETRY_MAX + ')'; st.style.color = '#e74c3c'; }
+        if (_saveRetryTimer) clearTimeout(_saveRetryTimer);
+        _saveRetryTimer = setTimeout(function() { _saveRetryTimer = null; sessionSaveNow(); }, delay);
+      } else {
+        if (st) { st.textContent = '저장 실패 — 네트워크를 확인하세요'; st.style.color = '#e74c3c'; }
+        _saveRetryCount = 0;
+      }
     });
 }
 
@@ -347,6 +367,11 @@ async function selectSlotForSession(slotId) {
 function startSessionListeners() {
   if (!_currentSession) return;
 
+  // 기존 리스너 해제 (재연결 시 중복 방지)
+  if (_sessionDocUnsub) { _sessionDocUnsub(); _sessionDocUnsub = null; }
+  if (_charDocUnsub) { _charDocUnsub(); _charDocUnsub = null; }
+  if (_rollsUnsub) { _rollsUnsub(); _rollsUnsub = null; }
+
   // ── 주사위 공유 콜백 설정 ──
   if (typeof DiceRoller !== 'undefined' && DiceRoller.onRoll) {
     DiceRoller.onRoll(function(entry) {
@@ -409,6 +434,10 @@ function startSessionListeners() {
       if (_isGM && typeof renderGMDashboard === 'function') renderGMDashboard();
     }, function(err) {
       console.error('[sessionDocListener]', err);
+      // 리스너 끊김 → 재연결 시도
+      if (_sessionMode && _currentSession) {
+        setTimeout(function() { if (_sessionMode) startSessionListeners(); }, _RECONNECT_DELAY);
+      }
     });
 
   // 플레이어: 자기 캐릭터 문서 감시 (GM 편집 반영)
@@ -434,6 +463,10 @@ function startSessionListeners() {
         }
       }, function(err) {
         console.error('[charDocListener]', err);
+        // 리스너 끊김 → 재연결 시도
+        if (_sessionMode && _currentSession) {
+          setTimeout(function() { if (_sessionMode) startSessionListeners(); }, _RECONNECT_DELAY);
+        }
       });
   }
 
@@ -463,6 +496,10 @@ function stopSessionListeners() {
   _leavingSession = false;
   _lastSavedData = null;
   _gmLastSavedData = null;
+  // 재시도/재연결 타이머 정리
+  if (_saveRetryTimer) { clearTimeout(_saveRetryTimer); _saveRetryTimer = null; }
+  _saveRetryCount = 0;
+  if (_reconnectTimer) { clearTimeout(_reconnectTimer); _reconnectTimer = null; }
   // 주사위 콜백 해제
   if (typeof DiceRoller !== 'undefined' && DiceRoller.onRoll) {
     DiceRoller.onRoll(null);
@@ -699,6 +736,21 @@ async function enterGMSessionMode(sessionId) {
         const d = snap.data();
         _currentSession.players = d.players || {};
         _buildPlayerTabBar();
+      }, function(err) {
+        console.error('[GM sessionDocListener]', err);
+        // 리스너 끊김 → 재연결
+        if (_sessionMode && _currentSession) {
+          setTimeout(function() {
+            if (!_sessionMode || !_currentSession) return;
+            _sessionDocUnsub = db.collection('sessions').doc(_currentSession.id)
+              .onSnapshot(snap => {
+                if (!snap.exists) return;
+                const d2 = snap.data();
+                _currentSession.players = d2.players || {};
+                _buildPlayerTabBar();
+              }, function(e2) { console.error('[GM sessionDoc reconnect]', e2); });
+          }, _RECONNECT_DELAY);
+        }
       });
 
     // 주사위 공유 콜백 + 리스너 (GM도 주사위 공유 수신)
@@ -857,6 +909,12 @@ function _startGMCharListener(uid) {
     }, function(err) {
       console.error('[GM charListener]', err);
       _showGMSyncStatus('error');
+      // 리스너 끊김 → 재연결 시도
+      if (_sessionMode && _currentSession && _gmActiveTab === uid) {
+        setTimeout(function() {
+          if (_sessionMode && _gmActiveTab === uid) _startGMCharListener(uid);
+        }, _RECONNECT_DELAY);
+      }
     });
 }
 
