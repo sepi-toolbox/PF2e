@@ -430,6 +430,17 @@ function showInfo(type, name) {
 // window.onload is defined below after all overrides
 
 function buildSkills() {
+  // 기존 기술 숙련값/지식 이름 백업 (DOM 재생성 시 값 유실 방지)
+  const savedProfs = {};
+  const savedLores = {};
+  SKILLS.forEach(sk => {
+    const profEl = document.getElementById('sk-prof-' + sk.id);
+    if (profEl) savedProfs[sk.id] = profEl.value;
+    if (sk.isLore) {
+      const loreEl = document.getElementById('lore-name-' + sk.id);
+      if (loreEl) savedLores[sk.id] = loreEl.value;
+    }
+  });
   const list = document.getElementById('skills-list');
   list.innerHTML = '';
   SKILLS.forEach(sk => {
@@ -442,6 +453,15 @@ function buildSkills() {
       <span class="skill-name">${sk.name}${sk.isLore?` <input class="inline-edit" id="lore-name-${sk.id}" placeholder="주제..." oninput="save()" style="width:60px;font-size:11px;">`:''}</span>
       <span class="skill-total" id="sk-val-${sk.id}">+0</span>`;
     list.appendChild(row);
+    // 백업값 복원
+    if (savedProfs[sk.id]) {
+      const profEl = document.getElementById('sk-prof-' + sk.id);
+      if (profEl) profEl.value = savedProfs[sk.id];
+    }
+    if (savedLores[sk.id]) {
+      const loreEl = document.getElementById('lore-name-' + sk.id);
+      if (loreEl) loreEl.value = savedLores[sk.id];
+    }
   });
 }
 
