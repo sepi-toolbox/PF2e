@@ -699,6 +699,19 @@ function _onRuneTouchEnd(ev) {
   _dragRuneIdx = null;
 }
 
+// ── 장비 탭 내부 탭 전환 (인벤토리/배낭/제조법) ──
+function switchEquipInvTab(tab) {
+  ['main','container','formula'].forEach(t => {
+    const tabEl = document.getElementById('equip-inv-tab-'+t);
+    const contentEl = document.getElementById('equip-inv-content-'+t);
+    if (tabEl) tabEl.classList.toggle('active', tab===t);
+    if (contentEl) contentEl.style.display = tab===t ? '' : 'none';
+  });
+  // 배낭 빈 메시지 토글
+  const emptyMsg = document.getElementById('container-empty-msg');
+  if (emptyMsg) emptyMsg.style.display = (state.containers && state.containers.length > 0) ? 'none' : '';
+}
+
 // 아이템 인벤토리 카테고리 판정
 function _getInvCat(e) {
   if (e._isRune) return 'gear';
@@ -737,30 +750,31 @@ function renderEquip() {
     groups[cat].push(i);
   });
 
-  // 카테고리 순서대로 렌더 (빈 카테고리도 표시, 각각 박스)
+  // 카테고리 순서대로 렌더 (주문 탭 spell-rank 스타일)
   INV_CATEGORIES.forEach(cat => {
     const idxs = groups[cat.id] || [];
 
-    const box = document.createElement('div');
-    box.className = 'equip-cat-box';
+    const section = document.createElement('div');
+    section.className = 'spell-rank-section';
 
     const hdr = document.createElement('div');
-    hdr.className = 'equip-cat-header';
-    hdr.innerHTML = `<span>${cat.icon} ${cat.label}</span><span class="equip-cat-count">${idxs.length}</span>`;
-    box.appendChild(hdr);
+    hdr.className = 'spell-rank-header';
+    hdr.style.cssText = 'display:flex;justify-content:space-between;align-items:center;text-align:left;';
+    hdr.innerHTML = `<span>${cat.icon} ${cat.label}</span><span style="font-size:10px;font-weight:400;color:var(--text2);">${idxs.length}개</span>`;
+    section.appendChild(hdr);
 
     if (idxs.length === 0) {
       const empty = document.createElement('div');
-      empty.className = 'equip-cat-empty';
-      empty.textContent = '\u2014';
-      box.appendChild(empty);
+      empty.className = 'spell-slot-row';
+      empty.innerHTML = `<span class="spell-slot-name empty">\u2014</span>`;
+      section.appendChild(empty);
     } else {
       idxs.forEach(i => {
         const e = state.equip[i];
-        _renderEquipRow(box, e, i, hasContainers);
+        _renderEquipRow(section, e, i, hasContainers);
       });
     }
-    list.appendChild(box);
+    list.appendChild(section);
   });
 
   recalcBulk();
@@ -783,7 +797,7 @@ function _renderEquipRow(list, e, i, hasContainers) {
   }
 
   const isDropTarget = e._type === 'weapon' || e._type === 'armor' || e._type === 'shield';
-  row.className = 'equip-row' + (isDropTarget ? ' equip-drop-target' : '');
+  row.className = 'spell-slot-row' + (isDropTarget ? ' equip-drop-target' : '');
   if (isDropTarget) {
     row.dataset.equipIdx = i;
     row.addEventListener('dragover', _onRuneDragOver);
@@ -829,7 +843,7 @@ function _renderEquipRow(list, e, i, hasContainers) {
     const r = state.equip[ri];
     if (!r) return;
     const runeRow = document.createElement('div');
-    runeRow.className = 'equip-row equip-rune-attached';
+    runeRow.className = 'spell-slot-row equip-rune-attached';
     runeRow.innerHTML = `
       <span style="flex:1;font-size:11px;color:var(--accent);padding-left:20px;">\u2728 ${r.name||'\uB8EC'} <span style="font-size:9px;color:var(--text2);">${r._runeData?.desc||''}</span></span>
       <span style="width:30px;"></span>
@@ -1192,33 +1206,35 @@ function renderContainers() {
   if (!el) return;
   if (!state.containers) state.containers = [];
   el.innerHTML = '';
+  // 배낭 빈 메시지 토글
+  const emptyMsg = document.getElementById('container-empty-msg');
+  if (emptyMsg) emptyMsg.style.display = state.containers.length > 0 ? 'none' : '';
+
   state.containers.forEach((c, ci) => {
-    let html = `<div class="equip-section-label" style="display:flex;justify-content:space-between;align-items:center;">
-        <span>\uD83D\uDCE6 ${c.name}${c.ignoreBulk ? ' <span style="font-size:9px;color:var(--accent);font-weight:400;">(부피 미적용)</span>' : ''}</span>
-        <span class="spell-del" onclick="removeContainer(${ci})" style="cursor:pointer;">\u2715</span>
-      </div><div class="equip-cat-box">`;
-    // 헤더 (메인과 동일)
-    html += `<div class="equip-row" style="font-size:10px;color:var(--text2);padding:2px 4px;border-bottom:1px solid var(--border);">
-      <span style="flex:1;">아이템</span><span style="width:30px;text-align:center;">부피</span><span style="width:70px;text-align:center;">수량</span><span style="width:60px;"></span><span style="width:40px;"></span><span style="width:28px;"></span>
-    </div>`;
+    let html = `<div class="spell-rank-section">
+      <div class="spell-rank-header" style="display:flex;justify-content:space-between;align-items:center;text-align:left;">
+        <span>\uD83D\uDCE6 ${c.name}${c.ignoreBulk ? ' <span style="font-size:9px;font-weight:400;color:var(--text2);">(부피 미적용)</span>' : ''}</span>
+        <span class="spell-del" onclick="removeContainer(${ci})" style="cursor:pointer;font-size:12px;">\u2715</span>
+      </div>`;
+    if (c.items.length === 0) {
+      html += `<div class="spell-slot-row"><span class="spell-slot-name empty">\u2014</span></div>`;
+    }
     c.items.forEach((item, ii) => {
-      const bulkDisplay = item.bulk === 'L' ? 'L' : (item.bulk || '—');
+      const bulkDisplay = item.bulk === 'L' ? 'L' : (item.bulk || '\u2014');
       const eqEscName = (item.name||'').replace(/'/g,"\\'");
       const eqType = item._type === 'weapon' ? 'weapon' : (item._type === 'armor' ? 'armor' : (item._type === 'shield' ? 'shield' : 'gear'));
-      html += `<div class="equip-row">
-        <span style="flex:1;font-size:12px;color:${item._broken?'var(--red-light)':'var(--text)'};cursor:pointer;" onclick="showInfo('${eqType}','${eqEscName}')">${item._broken?'파손된 ':''}${item.name}</span>
+      html += `<div class="spell-slot-row">
+        <span class="spell-slot-name" style="color:${item._broken?'var(--red-light)':'var(--text)'}" onclick="showInfo('${eqType}','${eqEscName}')">${item._broken?'\uD30C\uC190\uB41C ':''}${item.name}</span>
         <span style="width:30px;text-align:center;font-size:10px;color:var(--text2);">${bulkDisplay}</span>
         <span style="width:70px;display:flex;align-items:center;justify-content:center;gap:2px;">
-          <button class="qty-btn" onclick="event.stopPropagation();changeContainerQty(${ci},${ii},-1)">−</button>
+          <button class="qty-btn" onclick="event.stopPropagation();changeContainerQty(${ci},${ii},-1)">\u2212</button>
           <span style="min-width:16px;text-align:center;font-size:13px;font-weight:600;color:var(--text);">${item.qty||1}</span>
           <button class="qty-btn" onclick="event.stopPropagation();changeContainerQty(${ci},${ii},1)">+</button>
         </span>
-        <span style="width:60px;"></span>
-        <span style="width:40px;"></span>
         <span style="width:28px;text-align:center;">
           <span class="move-wrap"><select onchange="if(this.value!=='')moveFromContainer(${ci},${ii},this.value);this.value=''">
             <option value=""></option>
-            <option value="main">메인</option>
+            <option value="main">\uBA54\uC778</option>
             ${state.containers.map((cc,cci) => cci !== ci ? `<option value="${cci}">${cc.name}</option>` : '').join('')}
           </select></span>
         </span>
