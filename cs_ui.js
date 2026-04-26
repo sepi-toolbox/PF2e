@@ -192,9 +192,15 @@ function renderShieldCard() {
       <div style="font-size:10px;color:var(--text2);text-align:center;padding:10px 0;">장비 탭에서 방패를 장착하면 여기에 표시됩니다</div>`;
     return;
   }
+  const shHeld = _isHeld('shield');
+  const shHoldBtn = stowed ? '' : (shHeld
+    ? `<button class="defense-btn held" disabled title="손에 들고 있음">\u270B</button>`
+    : `<button class="defense-btn" onclick="holdInHand('shield')">들기</button>`);
+
   card.className = 'defense-card' + (stowed ? ' stowed' : '');
   card.innerHTML = `
     <div class="defense-card-header">
+      ${shHoldBtn}
       <button class="defense-btn" onclick="showInfo('shield','${name.replace(/'/g,"\\'")}')">정보</button>
       <button class="defense-btn" onclick="toggleShieldStow()">${stowed?'장착':'보관'}</button>
     </div>
@@ -217,6 +223,8 @@ function clearShield() {
   const hpCur = document.getElementById('shield-hp-cur');
   if (hpCur) hpCur.value = 0;
   state.shieldStowed = false;
+  _clearHandSlotFor('shield');
+  renderHandSlots();
   renderShieldCard();
   updateShieldGauge();
   save();
@@ -224,6 +232,8 @@ function clearShield() {
 
 function toggleShieldStow() {
   state.shieldStowed = !state.shieldStowed;
+  if (state.shieldStowed) _clearHandSlotFor('shield');
+  renderHandSlots();
   renderShieldCard();
   save();
 }
@@ -416,6 +426,24 @@ function closeRunePopupOutside(e) {
 }
 
 // ── Options popup (two-hand toggle) ──
+function toggleTwoHand(idx, checked) {
+  const w = state.weapons[idx];
+  if (!w) return;
+  if (checked && _isHeld('weapon', w.id)) {
+    // 한손→양손: 빈 손 1개 더 필요
+    if (_freeHandCount() < 1) {
+      alert('양손으로 사용하려면 다른 손이 비어 있어야 합니다.');
+      closeRunePopup();
+      return;
+    }
+  }
+  w._twoHand = checked;
+  // 양손 해제 시 별도 처리 불필요 (손 하나 여유 생김)
+  renderHandSlots();
+  renderWeapons();
+  save();
+}
+
 function showWeaponOptions(idx, btnEl) {
   closeRunePopup();
   const w = state.weapons[idx];
@@ -428,7 +456,7 @@ function showWeaponOptions(idx, btnEl) {
   popup.id = 'rune-popup-active';
   popup.innerHTML = `
     <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
-      <input type="checkbox" ${w._twoHand?'checked':''} onchange="state.weapons[${idx}]._twoHand=this.checked;renderWeapons();save()">
+      <input type="checkbox" ${w._twoHand?'checked':''} onchange="toggleTwoHand(${idx},this.checked)">
       양손 사용 (Two-Hand)
     </label>
     <button class="weapon-btn" onclick="closeRunePopup()" style="width:100%;margin-top:6px;">닫기</button>
@@ -449,8 +477,159 @@ function toggleWeaponStow(idx) {
   const w = state.weapons[idx];
   if (!w) return;
   w._stowed = !w._stowed;
+  if (w._stowed) _clearHandSlotFor('weapon', w.id);
+  renderHandSlots();
   renderWeapons();
   save();
+}
+
+// ═══════════════════════════════════════════════
+//  HAND SLOTS
+// ═══════════════════════════════════════════════
+
+function getHandsNeeded(w) {
+  if (w._twoHand) return 2;
+  const h = w._dbData?.hands;
+  if (h === 2) return 2;
+  return 1;
+}
+
+function _freeHandCount() {
+  let free = 2;
+  for (const s of state.handSlots) {
+    if (!s) continue;
+    if (s.type === 'weapon') {
+      const w = state.weapons.find(x => x.id === s.weaponId);
+      if (w && getHandsNeeded(w) === 2) { free -= 2; continue; }
+    }
+    free -= 1;
+  }
+  return Math.max(free, 0);
+}
+
+function _isHeld(type, weaponId) {
+  return state.handSlots.some(s => s && s.type === type && (type === 'shield' || s.weaponId === weaponId));
+}
+
+function holdInHand(type, weaponId) {
+  if (!state.handSlots) state.handSlots = [null, null];
+  if (_isHeld(type, weaponId)) return;
+
+  let needed = 1;
+  if (type === 'weapon') {
+    const w = state.weapons.find(x => x.id === weaponId);
+    if (!w) return;
+    needed = getHandsNeeded(w);
+  }
+
+  if (_freeHandCount() < needed) {
+    alert(needed === 2 ? '빈 손이 2개 필요합니다. 먼저 손에 든 것을 놓아주세요.' : '빈 손이 없습니다. 먼저 손에 든 것을 놓아주세요.');
+    return;
+  }
+
+  const entry = type === 'shield' ? {type:'shield'} : {type:'weapon', weaponId};
+
+  if (needed === 2) {
+    // 양손: 슬롯 0에 저장, 슬롯 1은 null로 유지 (렌더에서 합쳐 표시)
+    state.handSlots[0] = entry;
+    state.handSlots[1] = null;
+  } else {
+    const idx = state.handSlots[0] === null ? 0 : 1;
+    state.handSlots[idx] = entry;
+  }
+
+  renderHandSlots();
+  renderWeapons();
+  renderShieldCard();
+  save();
+}
+
+function releaseHand(slotIdx) {
+  if (!state.handSlots) return;
+  const slot = state.handSlots[slotIdx];
+  if (!slot) return;
+
+  // 양손 무기: 슬롯 0 해제하면 끝
+  state.handSlots[slotIdx] = null;
+
+  renderHandSlots();
+  renderWeapons();
+  renderShieldCard();
+  save();
+}
+
+function _clearHandSlotFor(type, weaponId) {
+  if (!state.handSlots) return;
+  for (let i = 0; i < 2; i++) {
+    const s = state.handSlots[i];
+    if (!s) continue;
+    if (s.type === type && (type === 'shield' || s.weaponId === weaponId)) {
+      state.handSlots[i] = null;
+    }
+  }
+}
+
+function renderHandSlots() {
+  const el = document.getElementById('hand-slots');
+  if (!el) return;
+  if (!state.handSlots) state.handSlots = [null, null];
+
+  // 양손 무기 감지
+  const s0 = state.handSlots[0];
+  let isTwoHand = false;
+  let twoHandName = '';
+  if (s0 && s0.type === 'weapon') {
+    const w = state.weapons.find(x => x.id === s0.weaponId);
+    if (w && getHandsNeeded(w) === 2) {
+      isTwoHand = true;
+      twoHandName = w.name || '무기';
+    }
+  }
+
+  if (isTwoHand) {
+    el.innerHTML = `
+      <div class="hand-slot hand-slot-two">
+        <span class="hand-slot-icon">\u270B</span>
+        <span class="hand-slot-label">양손</span>
+        <span class="hand-slot-name">${twoHandName}</span>
+        <button class="hand-slot-btn" onclick="releaseHand(0)">놓기</button>
+      </div>`;
+    return;
+  }
+
+  let html = '';
+  for (let i = 0; i < 2; i++) {
+    const s = state.handSlots[i];
+    if (!s) {
+      html += `
+        <div class="hand-slot hand-slot-empty">
+          <span class="hand-slot-icon">\u270B</span>
+          <span class="hand-slot-label">손 ${i+1}</span>
+          <span class="hand-slot-name empty">비어있음</span>
+        </div>`;
+    } else if (s.type === 'weapon') {
+      const w = state.weapons.find(x => x.id === s.weaponId);
+      const name = w ? (w.name || '무기') : '(없음)';
+      if (!w) { state.handSlots[i] = null; continue; }
+      html += `
+        <div class="hand-slot">
+          <span class="hand-slot-icon">\u2694</span>
+          <span class="hand-slot-label">손 ${i+1}</span>
+          <span class="hand-slot-name">${name}</span>
+          <button class="hand-slot-btn" onclick="releaseHand(${i})">놓기</button>
+        </div>`;
+    } else if (s.type === 'shield') {
+      const shName = document.getElementById('shield-name')?.value || '방패';
+      html += `
+        <div class="hand-slot">
+          <span class="hand-slot-icon">\uD83D\uDEE1</span>
+          <span class="hand-slot-label">손 ${i+1}</span>
+          <span class="hand-slot-name">${shName}</span>
+          <button class="hand-slot-btn" onclick="releaseHand(${i})">놓기</button>
+        </div>`;
+    }
+  }
+  el.innerHTML = html;
 }
 
 function renderWeapons() {
@@ -501,8 +680,14 @@ function renderWeapons() {
     const [wpTemlLetter, wpProfName, wpProfCls] = wpTemlMap[wpProfVal]||['U','미숙련',''];
     const wpCatLabel = {simple:'단순',martial:'군용',advanced:'고급',unarmed:'비무장'}[wpCat]||wpCat;
 
+    const wHeld = _isHeld('weapon', w.id);
+    const holdBtn = w._stowed ? '' : (wHeld
+      ? `<button class="weapon-btn held" disabled title="손에 들고 있음">\u270B</button>`
+      : `<button class="weapon-btn" onclick="holdInHand('weapon','${w.id}')" title="손에 들기">들기</button>`);
+
     card.innerHTML = `
       <div class="weapon-card-header">
+        ${holdBtn}
         ${hasTwoHandTrait ? `<button class="weapon-btn" onclick="showWeaponOptions(${i},this)" title="옵션">옵션</button>` : ''}
         <button class="weapon-btn" onclick="showRunePopup(${i},this)" title="룬 설정">룬</button>
         <button class="weapon-btn" onclick="toggleWeaponStow(${i})" title="${w._stowed?'꺼내기':'넣기'}">${w._stowed?'꺼내기':'넣기'}</button>
@@ -532,7 +717,14 @@ function renderWeapons() {
   });
 }
 
-function removeWeapon(i) { state.weapons.splice(i,1); renderWeapons(); save(); }
+function removeWeapon(i) {
+  const w = state.weapons[i];
+  if (w) _clearHandSlotFor('weapon', w.id);
+  state.weapons.splice(i,1);
+  renderHandSlots();
+  renderWeapons();
+  save();
+}
 
 function addEquip(data) {
   if (typeof isOverloaded === 'function' && isOverloaded()) {

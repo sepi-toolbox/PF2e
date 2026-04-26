@@ -80,7 +80,7 @@ function collectData() {
     selectedAncestry:   state.selectedAncestry?.id   || null,
     selectedBackground: state.selectedBackground?.id || null,
     selectedHeritage:   state.selectedHeritage?.id   || null,
-    weapons: state.weapons, equip: state.equip, containers: state.containers || [], formulas: state.formulas || [], languages: state.languages || [], pets: state.pets || [],
+    weapons: state.weapons, handSlots: state.handSlots || [null, null], equip: state.equip, containers: state.containers || [], formulas: state.formulas || [], languages: state.languages || [], pets: state.pets || [],
     spells: state.spells, spellSlots: state.spellSlots, spellSlotsUsed: state.spellSlotsUsed, cantripSlots: state.cantripSlots || 5,
     feats: state.feats, conditions: state.conditions,
     growth: state.growth,
@@ -326,6 +326,20 @@ function loadData(d) {
       }
     }
     if (d.weapons) { state.weapons = d.weapons; renderWeapons(); }
+    if (d.handSlots && Array.isArray(d.handSlots)) {
+      state.handSlots = d.handSlots;
+      // 유효성 검증: 존재하지 않는 weapon id 참조 정리
+      for (let i = 0; i < 2; i++) {
+        const s = state.handSlots[i];
+        if (s && s.type === 'weapon' && !state.weapons.find(w => w.id === s.weaponId)) {
+          state.handSlots[i] = null;
+        }
+        if (s && s.type === 'shield' && !document.getElementById('shield-name')?.value) {
+          state.handSlots[i] = null;
+        }
+      }
+      renderHandSlots();
+    }
     if (d.equip) { state.equip = d.equip; renderEquip(); }
     if (d.containers) { state.containers = d.containers; if (typeof renderContainers === 'function') renderContainers(); }
     if (d.formulas) { state.formulas = d.formulas; if (typeof renderFormulas === 'function') renderFormulas(); }

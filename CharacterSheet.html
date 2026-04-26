@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=474"></script>
-<script src="feat_db.js?v=474"></script>
-<script src="SPELL_DB.js?v=474"></script>
-<script src="class_features_db.js?v=474"></script>
+<script src="equipment_db.js?v=475"></script>
+<script src="feat_db.js?v=475"></script>
+<script src="SPELL_DB.js?v=475"></script>
+<script src="class_features_db.js?v=475"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -493,6 +493,32 @@ body{
   .defense-panel-left{border-right:none;border-bottom:1px solid var(--border);}
 }
 .defense-conditions{padding:8px 10px;}
+
+/* ══════════════════════════════════
+   HAND SLOTS
+   ══════════════════════════════════ */
+.hand-slots-container{padding:0 8px 4px;}
+.hand-slots-container:empty{display:none;}
+.hand-slot{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 10px;margin-bottom:3px;
+  border:1px solid var(--border);border-radius:5px;
+  background:var(--bg3);font-size:11px;
+}
+.hand-slot-two{border-color:var(--accent);background:rgba(212,175,55,.08);}
+.hand-slot-icon{font-size:14px;flex-shrink:0;}
+.hand-slot-label{color:var(--text2);font-size:10px;min-width:28px;}
+.hand-slot-name{flex:1;font-weight:600;color:var(--text1);}
+.hand-slot-name.empty{font-weight:400;color:var(--text2);font-style:italic;}
+.hand-slot-btn{
+  background:var(--bg2);border:1px solid var(--border2);color:var(--text2);
+  padding:1px 6px;border-radius:3px;cursor:pointer;font-size:9px;
+}
+.hand-slot-btn:hover{background:var(--bg4);color:var(--text1);}
+.weapon-btn.held,.defense-btn.held{
+  background:transparent;border:none;color:var(--accent);
+  font-size:13px;padding:0 4px;cursor:default;
+}
 
 /* ══════════════════════════════════
    WEAPON CARDS
@@ -1287,7 +1313,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v474</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v475</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1514,6 +1540,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
           <select id="prof-weapon-unarmed" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
       </div>
       <div id="weapon-prof-summary" class="ac-breakdown" style="min-height:0;border-top:1px solid var(--border);display:none;"></div>
+      <div id="hand-slots" class="hand-slots-container"></div>
       <div class="box">
         <div class="box-title">공격 Strikes</div>
         <div id="weapons-list"></div>
@@ -1850,14 +1877,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=474"></script>
-<script src="cs_calc.js?v=474"></script>
-<script src="cs_ui.js?v=474"></script>
-<script src="cs_modal.js?v=474"></script>
-<script src="cs_feat_effects.js?v=474"></script>
-<script src="cs_save.js?v=474"></script>
-<script src="cs_session.js?v=474"></script>
-<script src="cs_dice.js?v=474"></script>
+<script src="cs_data.js?v=475"></script>
+<script src="cs_calc.js?v=475"></script>
+<script src="cs_ui.js?v=475"></script>
+<script src="cs_modal.js?v=475"></script>
+<script src="cs_feat_effects.js?v=475"></script>
+<script src="cs_save.js?v=475"></script>
+<script src="cs_session.js?v=475"></script>
+<script src="cs_dice.js?v=475"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
