@@ -724,12 +724,12 @@ function _getInvCat(e) {
 }
 
 const INV_CATEGORIES = [
-  {id:'weapon-shield', label:'무기 및 방패', icon:'\u2694'},
-  {id:'armor',         label:'갑옷',         icon:'\uD83D\uDEE1'},
-  {id:'gear',          label:'장비',         icon:'\uD83C\uDFD2'},
-  {id:'consumable',    label:'소모품',       icon:'\uD83E\uDDEA'},
-  {id:'ammo',          label:'탄환',         icon:'\u27B3'},
-  {id:'treasure',      label:'보물',         icon:'\uD83D\uDC8E'},
+  {id:'weapon-shield', label:'무기 및 방패', icon:'\u2694',     createType:'weapon'},
+  {id:'armor',         label:'갑옷',         icon:'\uD83D\uDEE1', createType:'armor'},
+  {id:'gear',          label:'장비',         icon:'\uD83C\uDFD2', createType:'gear'},
+  {id:'consumable',    label:'소모품',       icon:'\uD83E\uDDEA', createType:'gear'},
+  {id:'ammo',          label:'탄환',         icon:'\u27B3',      createType:'gear'},
+  {id:'treasure',      label:'보물',         icon:'\uD83D\uDC8E', createType:'gear'},
 ];
 
 function renderEquip() {
@@ -759,8 +759,13 @@ function renderEquip() {
 
     const hdr = document.createElement('div');
     hdr.className = 'spell-rank-header';
-    hdr.style.cssText = 'display:flex;justify-content:space-between;align-items:center;text-align:left;';
-    hdr.innerHTML = `<span>${cat.icon} ${cat.label}</span><span style="font-size:10px;font-weight:400;color:var(--text2);">${idxs.length}개</span>`;
+    hdr.innerHTML = `${cat.icon} ${cat.label} <span style="font-size:10px;font-weight:400;color:var(--text2);">${idxs.length}</span>`;
+    // + 생성 버튼
+    const addBtn = document.createElement('span');
+    addBtn.className = 'equip-cat-add';
+    addBtn.textContent = '+';
+    addBtn.onclick = () => openCustomCreateModal(cat.createType, cat.id);
+    hdr.appendChild(addBtn);
     section.appendChild(hdr);
 
     if (idxs.length === 0) {
@@ -826,9 +831,6 @@ function _renderEquipRow(list, e, i, hasContainers) {
       <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},1)">+</button>
     </span>
     <span style="width:80px;text-align:center;">${holdSelectHtml}</span>
-    <span style="width:40px;text-align:center;">
-      <button class="${e._broken ? 'equip-toggle equipped' : 'equip-toggle'}" onclick="event.stopPropagation();toggleBroken(${i})" style="font-size:9px;padding:2px 4px;${e._broken?'background:var(--red-bg);color:var(--red-light);border-color:var(--red);':''}">${e._broken ? '\uD30C\uC190' : '\uC815\uC0C1'}</button>
-    </span>
     <span style="width:28px;text-align:center;">
       ${hasContainers ? `<span class="move-wrap"><select onchange="if(this.value!=='')moveToContainer(${i},parseInt(this.value));this.value=''">
         <option value=""></option>
@@ -2547,7 +2549,6 @@ function openEquipBrowse() {
       <div class="equip-tab" onclick="switchEquipTab('armor')">방어구</div>
       <div class="equip-tab" onclick="switchEquipTab('shield')">방패</div>
       <div class="equip-tab" onclick="switchEquipTab('gear')">장비</div>
-      <div class="equip-tab" onclick="switchEquipTab('custom')">기타</div>
     </div>
     <div class="equip-subtabs" id="equip-subtabs" style="display:none;"></div>`;
 
@@ -2690,8 +2691,9 @@ function showEquipDetail(item) {
     <div class="equip-give-buy">
       ${modalType === 'formula-pick'
         ? `<button class="btn-give" onclick="recordFormula('${nameKo.replace(/'/g,"\\'")}')">📜 제조법 기록</button>`
-        : `<button class="btn-give" onclick="equipBrowseGive()">획득</button>
-           <button class="btn-buy" onclick="equipBrowseBuy()">구매</button>`}
+        : `<label style="display:flex;align-items:center;justify-content:center;gap:4px;font-size:11px;color:var(--text2);margin-bottom:8px;cursor:pointer;"><input type="checkbox" id="equip-broken-check"> 파손 상태로 획득</label>
+           <div style="display:flex;gap:6px;"><button class="btn-give" onclick="equipBrowseGive()" style="flex:1;">획득</button>
+           <button class="btn-buy" onclick="equipBrowseBuy()" style="flex:1;">구매</button></div>`}
     </div>`;
 }
 
@@ -2753,12 +2755,14 @@ function equipBrowseGive() {
   else if (item.hardness !== undefined) type = 'shield';
   else if (item.ac_bonus !== undefined) type = 'armor';
 
+  const isBroken = document.getElementById('equip-broken-check')?.checked || false;
+
   // 룬 아이템 감지
   if (item.runeType) {
-    addEquip({name: item.name_ko, qty:1, bulk, _isRune: true, _runeData: {attachTo: item.attachTo, runeType: item.runeType, runeValue: item.runeValue}, _attachedTo: null});
+    addEquip({name: item.name_ko, qty:1, bulk, _isRune: true, _runeData: {attachTo: item.attachTo, runeType: item.runeType, runeValue: item.runeValue}, _attachedTo: null, _broken: isBroken});
   } else {
     const invCat = item.invCat || null;
-    addEquip({name: item.name_ko, qty:1, bulk, _type: type, _data: type ? item : undefined, _invCat: invCat});
+    addEquip({name: item.name_ko, qty:1, bulk, _type: type, _data: type ? item : undefined, _invCat: invCat, _broken: isBroken});
   }
   recalcAll();
   save();
@@ -2792,8 +2796,81 @@ function _hideCustomEquipForm() {
   if (detail) detail.style.display = '';
 }
 
+// 카테고리별 커스텀 아이템 생성 — 별도 오버레이 모달
+let _customInvCat = null;
+
+function openCustomCreateModal(createType, catId) {
+  const typeMap = {'weapon-shield':'weapon', 'armor':'armor', 'gear':'gear', 'consumable':'gear', 'ammo':'gear', 'treasure':'gear'};
+  _customEquipType = typeMap[catId] || createType || 'gear';
+  _customInvCat = catId;
+
+  // 기존 오버레이가 있으면 제거
+  document.getElementById('custom-create-overlay')?.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'custom-create-overlay';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:10000;display:flex;align-items:center;justify-content:center;';
+
+  const panel = document.createElement('div');
+  panel.style.cssText = 'background:var(--bg2);border:2px solid var(--accent);border-radius:10px;width:90%;max-width:400px;max-height:85vh;overflow-y:auto;padding:16px;';
+  overlay.appendChild(panel);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeCustomCreateModal(); });
+
+  const s = 'width:100%;padding:8px 10px;font-size:13px;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:4px;outline:none;box-sizing:border-box;';
+  const catLabel = INV_CATEGORIES.find(c => c.id === catId)?.label || '아이템';
+
+  // 타입 버튼
+  let typeBtns = '';
+  if (catId === 'weapon-shield') {
+    typeBtns = `
+      <button onclick="_setCustomType('weapon')" class="custom-type-btn${_customEquipType==='weapon'?' active':''}" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:${_customEquipType==='weapon'?'var(--accent)':'var(--bg3)'};color:${_customEquipType==='weapon'?'var(--bg)':'var(--text)'};">무기</button>
+      <button onclick="_setCustomType('shield')" class="custom-type-btn${_customEquipType==='shield'?' active':''}" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:${_customEquipType==='shield'?'var(--accent)':'var(--bg3)'};color:${_customEquipType==='shield'?'var(--bg)':'var(--text)'};">방패</button>`;
+  } else if (catId === 'armor') {
+    typeBtns = `<button class="custom-type-btn active" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--accent);color:var(--bg);">방어구</button>`;
+  } else {
+    typeBtns = `<button class="custom-type-btn active" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--accent);color:var(--bg);">장비</button>`;
+  }
+
+  panel.innerHTML = `
+    <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:12px;">${catLabel} 추가</div>
+    <div style="display:flex;gap:6px;margin-bottom:12px;" id="custom-type-btns">${typeBtns}</div>
+    <div style="margin-bottom:8px;">
+      <div style="font-size:11px;color:var(--text2);margin-bottom:2px;">이름 *</div>
+      <input id="ce-name" type="text" placeholder="아이템 이름" style="${s}">
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:8px;">
+      <div style="flex:1;">
+        <div style="font-size:11px;color:var(--text2);margin-bottom:2px;">부피</div>
+        <select id="ce-bulk" style="${s}">
+          <option value="0">\u2014 (없음)</option><option value="L">L (가벼움)</option>
+          <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+        </select>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:11px;color:var(--text2);margin-bottom:2px;">가격</div>
+        <input id="ce-price" type="text" placeholder="예: 5gp" style="${s}">
+      </div>
+    </div>
+    <div id="ce-type-fields"></div>
+    <div style="margin-bottom:12px;">
+      <div style="font-size:11px;color:var(--text2);margin-bottom:2px;">설명</div>
+      <textarea id="ce-desc" rows="2" placeholder="특수 효과나 설명" style="${s}resize:vertical;"></textarea>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button onclick="_addCustomEquip()" style="flex:1;padding:10px;background:var(--accent);color:var(--bg);border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">추가</button>
+      <button onclick="closeCustomCreateModal()" style="flex:1;padding:10px;background:var(--bg4);color:var(--text2);border:1px solid var(--border);border-radius:6px;font-size:13px;cursor:pointer;">취소</button>
+    </div>`;
+
+  document.body.appendChild(overlay);
+  _updateCustomTypeFields();
+}
+
+function closeCustomCreateModal() {
+  document.getElementById('custom-create-overlay')?.remove();
+}
+
 function _renderCustomEquipForm() {
-  _customEquipType = 'gear';
+  if (!_customEquipType) _customEquipType = 'gear';
   const body = document.getElementById('modal-body');
   if (!body) return;
 
@@ -2820,10 +2897,14 @@ function _renderCustomEquipForm() {
 
       <!-- 타입 선택 -->
       <div style="display:flex;gap:6px;margin-bottom:12px;" id="custom-type-btns">
-        <button onclick="_setCustomType('gear')" class="custom-type-btn active" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--accent);color:var(--bg);">장비</button>
-        <button onclick="_setCustomType('weapon')" class="custom-type-btn" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text);">무기</button>
-        <button onclick="_setCustomType('armor')" class="custom-type-btn" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text);">방어구</button>
-        <button onclick="_setCustomType('shield')" class="custom-type-btn" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text);">방패</button>
+        ${_customInvCat==='weapon-shield' ? `
+          <button onclick="_setCustomType('weapon')" class="custom-type-btn${_customEquipType==='weapon'?' active':''}" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:${_customEquipType==='weapon'?'var(--accent)':'var(--bg3)'};color:${_customEquipType==='weapon'?'var(--bg)':'var(--text)'};">무기</button>
+          <button onclick="_setCustomType('shield')" class="custom-type-btn${_customEquipType==='shield'?' active':''}" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:${_customEquipType==='shield'?'var(--accent)':'var(--bg3)'};color:${_customEquipType==='shield'?'var(--bg)':'var(--text)'};">방패</button>
+        ` : _customInvCat==='armor' ? `
+          <button onclick="_setCustomType('armor')" class="custom-type-btn active" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--accent);color:var(--bg);">방어구</button>
+        ` : `
+          <button onclick="_setCustomType('gear')" class="custom-type-btn active" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--accent);color:var(--bg);">장비</button>
+        `}
       </div>
 
       <!-- 공통 필드 -->
@@ -3032,7 +3113,7 @@ function _addCustomEquip() {
       hands, range, reload: reload ? parseInt(reload) : null, group, traits, _custom: true
     };
     if (desc) data.desc = desc;
-    addEquip({name, qty:1, bulk, _type:'weapon', _data: data});
+    addEquip({name, qty:1, bulk, _type:'weapon', _data: data, _invCat: _customInvCat || null});
 
   } else if (_customEquipType === 'armor') {
     const ac_bonus = parseInt(document.getElementById('ce-ac')?.value) || 0;
@@ -3074,7 +3155,7 @@ function _addCustomEquip() {
 
   recalcAll();
   save();
-  closeModal();
+  closeCustomCreateModal();
 }
 
 // ═══════════════════════════════════════════════
