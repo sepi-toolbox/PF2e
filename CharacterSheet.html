@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=478"></script>
-<script src="feat_db.js?v=478"></script>
-<script src="SPELL_DB.js?v=478"></script>
-<script src="class_features_db.js?v=478"></script>
+<script src="equipment_db.js?v=479"></script>
+<script src="feat_db.js?v=479"></script>
+<script src="SPELL_DB.js?v=479"></script>
+<script src="class_features_db.js?v=479"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -496,6 +496,18 @@ body{
 
 .weapon-card.dropped{opacity:.35;border-style:dotted;border-color:var(--red-light,#c66);}
 .weapon-btn.action-cost{font-size:8px;color:var(--text2);margin-left:1px;}
+/* Rune drag-and-drop */
+.equip-rune-row{cursor:grab;background:rgba(212,175,55,.05);}
+.equip-rune-row:active{cursor:grabbing;}
+.equip-rune-attached{background:rgba(212,175,55,.04);border-bottom:1px solid rgba(212,175,55,.15);}
+.rune-drop-highlight{outline:2px solid var(--accent)!important;outline-offset:-2px;}
+.rune-drop-candidate{outline:1px dashed rgba(212,175,55,.3);outline-offset:-1px;}
+.rune-drag-ghost{
+  position:fixed;z-index:10000;pointer-events:none;
+  background:var(--accent);color:#000;padding:4px 10px;border-radius:4px;
+  font-size:11px;font-weight:600;opacity:.85;white-space:nowrap;
+  transform:translate(-50%,-100%);
+}
 
 /* ══════════════════════════════════
    WEAPON CARDS
@@ -1296,7 +1308,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v478</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v479</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1859,14 +1871,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=478"></script>
-<script src="cs_calc.js?v=478"></script>
-<script src="cs_ui.js?v=478"></script>
-<script src="cs_modal.js?v=478"></script>
-<script src="cs_feat_effects.js?v=478"></script>
-<script src="cs_save.js?v=478"></script>
-<script src="cs_session.js?v=478"></script>
-<script src="cs_dice.js?v=478"></script>
+<script src="cs_data.js?v=479"></script>
+<script src="cs_calc.js?v=479"></script>
+<script src="cs_ui.js?v=479"></script>
+<script src="cs_modal.js?v=479"></script>
+<script src="cs_feat_effects.js?v=479"></script>
+<script src="cs_save.js?v=479"></script>
+<script src="cs_session.js?v=479"></script>
+<script src="cs_dice.js?v=479"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->

@@ -112,3 +112,26 @@ const GEAR_DB = [
   {name_ko:'연금술사의 불', name_en:"Alchemist's Fire", price:'3gp', bulk:'L'},
   {name_ko:'산 플라스크(약)', name_en:'Acid Flask (Lesser)', price:'3gp', bulk:'L'},
 ];
+
+// ═══════════════════════════════════
+//  RUNE & ATTACHMENT DATABASE
+// ═══════════════════════════════════
+const RUNE_DB = [
+  // ── 무기 룬 ──
+  {name_ko:'무기 위력 룬 +1', name_en:'Weapon Potency (+1)', price:'35gp', level:2, bulk:'—', attachTo:'weapon', runeType:'potency', runeValue:1, desc:'명중 +1'},
+  {name_ko:'무기 위력 룬 +2', name_en:'Weapon Potency (+2)', price:'935gp', level:10, bulk:'—', attachTo:'weapon', runeType:'potency', runeValue:2, desc:'명중 +2'},
+  {name_ko:'무기 위력 룬 +3', name_en:'Weapon Potency (+3)', price:'8,935gp', level:16, bulk:'—', attachTo:'weapon', runeType:'potency', runeValue:3, desc:'명중 +3'},
+  {name_ko:'강타 룬', name_en:'Striking', price:'65gp', level:4, bulk:'—', attachTo:'weapon', runeType:'striking', runeValue:1, desc:'피해 주사위 +1개'},
+  {name_ko:'상위 강타 룬', name_en:'Greater Striking', price:'1,065gp', level:12, bulk:'—', attachTo:'weapon', runeType:'striking', runeValue:2, desc:'피해 주사위 +2개'},
+  {name_ko:'최상위 강타 룬', name_en:'Major Striking', price:'31,065gp', level:19, bulk:'—', attachTo:'weapon', runeType:'striking', runeValue:3, desc:'피해 주사위 +3개'},
+  // ── 갑옷 룬 ──
+  {name_ko:'갑옷 위력 룬 +1', name_en:'Armor Potency (+1)', price:'160gp', level:5, bulk:'—', attachTo:'armor', runeType:'potency', runeValue:1, desc:'AC +1'},
+  {name_ko:'갑옷 위력 룬 +2', name_en:'Armor Potency (+2)', price:'1,060gp', level:11, bulk:'—', attachTo:'armor', runeType:'potency', runeValue:2, desc:'AC +2'},
+  {name_ko:'갑옷 위력 룬 +3', name_en:'Armor Potency (+3)', price:'20,560gp', level:18, bulk:'—', attachTo:'armor', runeType:'potency', runeValue:3, desc:'AC +3'},
+  {name_ko:'탄력 룬', name_en:'Resilient', price:'340gp', level:8, bulk:'—', attachTo:'armor', runeType:'resilient', runeValue:1, desc:'내성 +1'},
+  {name_ko:'상위 탄력 룬', name_en:'Greater Resilient', price:'3,440gp', level:14, bulk:'—', attachTo:'armor', runeType:'resilient', runeValue:2, desc:'내성 +2'},
+  {name_ko:'최상위 탄력 룬', name_en:'Major Resilient', price:'49,440gp', level:20, bulk:'—', attachTo:'armor', runeType:'resilient', runeValue:3, desc:'내성 +3'},
+  // ── 방패 부착물 ──
+  {name_ko:'방패 보스', name_en:'Shield Boss', price:'1gp', level:0, bulk:'—', attachTo:'shield', runeType:'boss', runeValue:1, desc:'방패로 1d6 B 타격 공격 가능'},
+  {name_ko:'방패 스파이크', name_en:'Shield Spikes', price:'5sp', level:0, bulk:'—', attachTo:'shield', runeType:'spikes', runeValue:1, desc:'방패로 1d6 P 관통 공격 가능'},
+];

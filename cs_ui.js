@@ -90,7 +90,6 @@ function renderArmorCard() {
   }
   card.innerHTML = `
     <div class="defense-card-header">
-      <button class="defense-btn" onclick="showArmorRunePopup()">룬</button>
       <button class="defense-btn" onclick="toggleArmorStow()">${stowed?'장착':'보관'}</button>
     </div>
     <div class="defense-card-body">
@@ -128,53 +127,7 @@ function toggleArmorStow() {
   save();
 }
 
-function showArmorRunePopup() {
-  const potency = state.armorPotency || 0;
-  const resilient = state.armorResilient || 0;
-  const popup = document.createElement('div');
-  popup.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10001;background:var(--bg2);border:2px solid var(--accent);border-radius:8px;padding:16px;min-width:260px;';
-  popup.innerHTML = `
-    <div style="font-weight:700;color:var(--accent);margin-bottom:10px;">갑옷 룬 설정</div>
-    <div style="margin-bottom:8px;">
-      <label style="font-size:11px;color:var(--text2);">강화 (Potency)</label><br>
-      <select id="rune-armor-potency" style="background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:4px;border-radius:3px;width:100%;">
-        <option value="0" ${potency===0?'selected':''}>없음</option>
-        <option value="1" ${potency===1?'selected':''}>+1 강화</option>
-        <option value="2" ${potency===2?'selected':''}>+2 강화</option>
-        <option value="3" ${potency===3?'selected':''}>+3 강화</option>
-      </select>
-    </div>
-    <div style="margin-bottom:12px;">
-      <label style="font-size:11px;color:var(--text2);">탄력 (Resilient)</label><br>
-      <select id="rune-armor-resilient" style="background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:4px;border-radius:3px;width:100%;">
-        <option value="0" ${resilient===0?'selected':''}>없음</option>
-        <option value="1" ${resilient===1?'selected':''}>탄력 (+1)</option>
-        <option value="2" ${resilient===2?'selected':''}>상위 탄력 (+2)</option>
-        <option value="3" ${resilient===3?'selected':''}>최상 탄력 (+3)</option>
-      </select>
-    </div>
-    <div style="display:flex;gap:6px;justify-content:flex-end;">
-      <button onclick="applyArmorRunes()" style="background:var(--accent);color:#fff;border:none;padding:5px 14px;border-radius:4px;cursor:pointer;">적용</button>
-      <button onclick="this.closest('div[style]').remove();document.getElementById('armor-rune-overlay')?.remove();" style="background:var(--bg4);color:var(--text2);border:1px solid var(--border2);padding:5px 14px;border-radius:4px;cursor:pointer;">취소</button>
-    </div>
-  `;
-  const overlay = document.createElement('div');
-  overlay.id = 'armor-rune-overlay';
-  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:10000;';
-  overlay.onclick = () => { overlay.remove(); popup.remove(); };
-  document.body.appendChild(overlay);
-  document.body.appendChild(popup);
-}
-
-function applyArmorRunes() {
-  state.armorPotency = parseInt(document.getElementById('rune-armor-potency')?.value||0);
-  state.armorResilient = parseInt(document.getElementById('rune-armor-resilient')?.value||0);
-  document.getElementById('armor-rune-overlay')?.remove();
-  document.querySelector('div[style*="translate(-50%"]')?.remove();
-  renderArmorCard();
-  recalcAC();
-  save();
-}
+// showArmorRunePopup 제거됨 — 룬 아이템 부착으로 대체 (v479)
 
 // ── Render Shield Card ──
 function renderShieldCard() {
@@ -367,44 +320,8 @@ function calcWeaponDamage(w) {
   return { str, abilMod };
 }
 
-// ── Runes popup ──
+// ── Popup helpers ──
 let activeRunePopup = null;
-function showRunePopup(idx, btnEl) {
-  closeRunePopup();
-  const w = state.weapons[idx];
-  if (!w) return;
-  const popup = document.createElement('div');
-  popup.className = 'weapon-rune-popup';
-  popup.id = 'rune-popup-active';
-  popup.innerHTML = `
-    <label>잠재력 룬 (Potency)</label>
-    <select onchange="state.weapons[${idx}]._potency=parseInt(this.value);renderWeapons();save()">
-      <option value="0" ${(w._potency||0)===0?'selected':''}>없음</option>
-      <option value="1" ${(w._potency||0)===1?'selected':''}>+1</option>
-      <option value="2" ${(w._potency||0)===2?'selected':''}>+2</option>
-      <option value="3" ${(w._potency||0)===3?'selected':''}>+3</option>
-    </select>
-    <label>강타 룬 (Striking)</label>
-    <select onchange="state.weapons[${idx}]._striking=parseInt(this.value);renderWeapons();save()">
-      <option value="0" ${(w._striking||0)===0?'selected':''}>없음</option>
-      <option value="1" ${(w._striking||0)===1?'selected':''}>강타 (Striking)</option>
-      <option value="2" ${(w._striking||0)===2?'selected':''}>상위 강타 (Greater)</option>
-      <option value="3" ${(w._striking||0)===3?'selected':''}>최상위 강타 (Major)</option>
-    </select>
-    <button class="weapon-btn" onclick="closeRunePopup()" style="width:100%;margin-top:2px;">닫기</button>
-  `;
-  // Position near the button
-  const rect = btnEl.getBoundingClientRect();
-  popup.style.position = 'fixed';
-  popup.style.top = (rect.bottom + 4) + 'px';
-  popup.style.left = Math.min(rect.left, window.innerWidth - 220) + 'px';
-  document.body.appendChild(popup);
-  activeRunePopup = popup;
-  // Close on outside click
-  setTimeout(() => {
-    document.addEventListener('click', closeRunePopupOutside, {once:true,capture:true});
-  }, 50);
-}
 function closeRunePopup() {
   const p = document.getElementById('rune-popup-active');
   if (p) p.remove();
@@ -558,7 +475,6 @@ function renderWeapons() {
     card.innerHTML = `
       <div class="weapon-card-header">
         ${actionBtns}
-        <button class="weapon-btn" onclick="showRunePopup(${i},this)" title="룬 설정">룬</button>
         <span style="flex:1;"></span>
         <button class="weapon-btn danger" onclick="removeWeapon(${i})" title="삭제">삭제</button>
       </div>
@@ -601,6 +517,188 @@ function addEquip(data) {
   renderEquip();
 }
 
+// ═══════════════════════════════════════════════
+//  RUNE ATTACHMENT SYSTEM
+// ═══════════════════════════════════════════════
+
+function _getAttachedRunes(equipIdx) {
+  return state.equip.filter(e => e._isRune && e._attachedTo === equipIdx);
+}
+
+function _getAttachedRuneIndices(equipIdx) {
+  const res = [];
+  state.equip.forEach((e,i) => { if (e._isRune && e._attachedTo === equipIdx) res.push(i); });
+  return res;
+}
+
+function attachRune(runeIdx, targetIdx) {
+  const rune = state.equip[runeIdx];
+  const target = state.equip[targetIdx];
+  if (!rune || !target || !rune._isRune) return;
+
+  const rd = rune._runeData;
+  if (!rd) return;
+
+  // 카테고리 검증
+  if (rd.attachTo !== target._type) {
+    alert(`이 룬은 ${rd.attachTo === 'weapon' ? '무기' : rd.attachTo === 'armor' ? '갑옷' : '방패'}에만 부착할 수 있습니다.`);
+    return;
+  }
+
+  // 같은 유형 룬 중복 방지 (potency 2개 등)
+  const existing = _getAttachedRunes(targetIdx);
+  const dup = existing.find(r => r._runeData?.runeType === rd.runeType);
+  if (dup) {
+    alert(`이미 같은 유형의 룬(${dup.name})이 부착되어 있습니다. 먼저 해제하세요.`);
+    return;
+  }
+
+  rune._attachedTo = targetIdx;
+  applyAttachedRunes(targetIdx);
+  renderEquip();
+  renderWeapons();
+  recalcAll();
+  save();
+}
+
+function detachRune(runeIdx) {
+  const rune = state.equip[runeIdx];
+  if (!rune || !rune._isRune) return;
+  const oldTarget = rune._attachedTo;
+  rune._attachedTo = null;
+  if (oldTarget !== null && oldTarget !== undefined) {
+    applyAttachedRunes(oldTarget);
+  }
+  renderEquip();
+  renderWeapons();
+  recalcAll();
+  save();
+}
+
+function applyAttachedRunes(equipIdx) {
+  const target = state.equip[equipIdx];
+  if (!target) return;
+  const runes = _getAttachedRunes(equipIdx);
+
+  if (target._type === 'weapon') {
+    const w = state.weapons.find(w => w._fromEquip === equipIdx);
+    if (w) {
+      w._potency = 0; w._striking = 0;
+      runes.forEach(r => {
+        const rd = r._runeData;
+        if (rd.runeType === 'potency') w._potency = rd.runeValue;
+        if (rd.runeType === 'striking') w._striking = rd.runeValue;
+      });
+    }
+  }
+
+  if (target._type === 'armor') {
+    state.armorPotency = 0; state.armorResilient = 0;
+    runes.forEach(r => {
+      const rd = r._runeData;
+      if (rd.runeType === 'potency') state.armorPotency = rd.runeValue;
+      if (rd.runeType === 'resilient') state.armorResilient = rd.runeValue;
+    });
+  }
+
+  if (target._type === 'shield') {
+    // 방패 보스/스파이크: 무기카드 피해 반영
+    const sw = state.weapons.find(w => w._fromEquip === equipIdx && w._isShield);
+    if (sw) {
+      const boss = runes.find(r => r._runeData?.runeType === 'boss');
+      const spikes = runes.find(r => r._runeData?.runeType === 'spikes');
+      if (spikes) { sw.dmg = '1d6 P'; sw.name = target.name + ' (스파이크)'; }
+      else if (boss) { sw.dmg = '1d6 B'; sw.name = target.name + ' (보스)'; }
+      else { sw.dmg = ''; sw.name = target.name; }
+    }
+  }
+}
+
+// 룬 인덱스 재정렬 (equip splice 시)
+function _reindexRuneAttachments(removedIdx) {
+  state.equip.forEach(e => {
+    if (e._isRune && e._attachedTo !== null && e._attachedTo !== undefined) {
+      if (e._attachedTo === removedIdx) e._attachedTo = null;
+      else if (e._attachedTo > removedIdx) e._attachedTo--;
+    }
+  });
+}
+
+// 드래그앤드롭 상태
+let _dragRuneIdx = null;
+let _dragGhost = null;
+
+function _initRuneDrag(runeIdx, ev) {
+  _dragRuneIdx = runeIdx;
+  // 데스크톱
+  if (ev.dataTransfer) {
+    ev.dataTransfer.setData('text/plain', runeIdx);
+    ev.dataTransfer.effectAllowed = 'move';
+  }
+}
+
+function _onRuneDragOver(ev) {
+  ev.preventDefault();
+  if (ev.dataTransfer) ev.dataTransfer.dropEffect = 'move';
+  ev.currentTarget.classList.add('rune-drop-highlight');
+}
+
+function _onRuneDragLeave(ev) {
+  ev.currentTarget.classList.remove('rune-drop-highlight');
+}
+
+function _onRuneDrop(targetIdx, ev) {
+  ev.preventDefault();
+  ev.currentTarget.classList.remove('rune-drop-highlight');
+  const rIdx = _dragRuneIdx !== null ? _dragRuneIdx : parseInt(ev.dataTransfer?.getData('text/plain'));
+  if (rIdx !== null && !isNaN(rIdx)) {
+    attachRune(rIdx, targetIdx);
+  }
+  _dragRuneIdx = null;
+}
+
+// 모바일 터치 드래그
+function _initRuneTouchDrag(runeIdx, ev) {
+  ev.preventDefault();
+  _dragRuneIdx = runeIdx;
+  const touch = ev.touches[0];
+  _dragGhost = document.createElement('div');
+  _dragGhost.className = 'rune-drag-ghost';
+  _dragGhost.textContent = state.equip[runeIdx]?.name || '룬';
+  _dragGhost.style.left = touch.clientX + 'px';
+  _dragGhost.style.top = touch.clientY + 'px';
+  document.body.appendChild(_dragGhost);
+
+  // 드롭 대상 하이라이트
+  document.querySelectorAll('.equip-row[data-equip-idx]').forEach(el => el.classList.add('rune-drop-candidate'));
+}
+
+function _onRuneTouchMove(ev) {
+  if (_dragGhost && ev.touches[0]) {
+    _dragGhost.style.left = ev.touches[0].clientX + 'px';
+    _dragGhost.style.top = (ev.touches[0].clientY - 20) + 'px';
+  }
+}
+
+function _onRuneTouchEnd(ev) {
+  if (_dragGhost) { _dragGhost.remove(); _dragGhost = null; }
+  document.querySelectorAll('.rune-drop-candidate,.rune-drop-highlight').forEach(el => {
+    el.classList.remove('rune-drop-candidate','rune-drop-highlight');
+  });
+  if (_dragRuneIdx === null) return;
+
+  const touch = ev.changedTouches?.[0];
+  if (touch) {
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    const row = el?.closest('.equip-row[data-equip-idx]');
+    if (row) {
+      const targetIdx = parseInt(row.dataset.equipIdx);
+      if (!isNaN(targetIdx)) attachRune(_dragRuneIdx, targetIdx);
+    }
+  }
+  _dragRuneIdx = null;
+}
+
 function renderEquip() {
   const list = document.getElementById('equip-list');
   list.innerHTML = '';
@@ -611,12 +709,54 @@ function renderEquip() {
   header.innerHTML = `<span style="flex:1;">아이템</span><span style="width:30px;text-align:center;">부피</span><span style="width:70px;text-align:center;">수량</span><span style="width:80px;text-align:center;">상태</span><span style="width:40px;text-align:center;">파손</span><span style="width:28px;"></span>`;
   list.appendChild(header);
 
+  const hasContainers = state.containers && state.containers.length > 0;
+  // 부착된 룬은 부모 아래에 표시하므로 별도 건너뜀
+  const attachedRuneIdxs = new Set();
+  state.equip.forEach((e,i) => { if (e._isRune && e._attachedTo !== null && e._attachedTo !== undefined) attachedRuneIdxs.add(i); });
+
   state.equip.forEach((e,i) => {
+    if (attachedRuneIdxs.has(i)) return; // 부착된 룬은 부모 아래에서 렌더
+
     const row = document.createElement('div');
-    row.className = 'equip-row';
     const eqType = e._type === 'weapon' ? 'weapon' : (e._type === 'armor' ? 'armor' : (e._type === 'shield' ? 'shield' : 'gear'));
     const eqEscName = (e.name||'').replace(/'/g,"\\'");
     const bulkDisplay = e.bulk === 'L' ? 'L' : (e.bulk || '—');
+
+    // ── 미부착 룬 아이템 ──
+    if (e._isRune && (e._attachedTo === null || e._attachedTo === undefined)) {
+      row.className = 'equip-row equip-rune-row';
+      row.draggable = true;
+      row.addEventListener('dragstart', ev => _initRuneDrag(i, ev));
+      row.addEventListener('touchstart', ev => _initRuneTouchDrag(i, ev), {passive:false});
+      row.addEventListener('touchmove', _onRuneTouchMove, {passive:false});
+      row.addEventListener('touchend', _onRuneTouchEnd);
+      const rd = e._runeData || {};
+      const targetLabel = rd.attachTo === 'weapon' ? '무기' : rd.attachTo === 'armor' ? '갑옷' : '방패';
+      row.innerHTML = `
+        <span style="flex:1;font-size:12px;color:var(--accent);cursor:grab;">\u2728 ${e.name||'룬'} <span style="font-size:9px;color:var(--text2);">[${targetLabel}에 드래그]</span></span>
+        <span style="width:30px;text-align:center;font-size:10px;color:var(--text2);">${bulkDisplay}</span>
+        <span style="width:70px;display:flex;align-items:center;justify-content:center;gap:2px;">
+          <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},-1)">−</button>
+          <span style="min-width:16px;text-align:center;font-size:13px;font-weight:600;color:var(--text);">${e.qty||1}</span>
+          <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},1)">+</button>
+        </span>
+        <span style="width:80px;"></span>
+        <span style="width:40px;"></span>
+        <span style="width:28px;"></span>`;
+      list.appendChild(row);
+      return;
+    }
+
+    // ── 일반 아이템 (드롭 대상) ──
+    const isDropTarget = e._type === 'weapon' || e._type === 'armor' || e._type === 'shield';
+    row.className = 'equip-row' + (isDropTarget ? ' equip-drop-target' : '');
+    if (isDropTarget) {
+      row.dataset.equipIdx = i;
+      row.addEventListener('dragover', _onRuneDragOver);
+      row.addEventListener('dragleave', _onRuneDragLeave);
+      row.addEventListener('drop', ev => _onRuneDrop(i, ev));
+    }
+
     const hm = e._holdMode || 'stowed';
     const isArmor = e._type === 'armor';
     const isTwoOnly = e._type === 'weapon' && e._data && e._data.hands === 2;
@@ -628,8 +768,6 @@ function renderEquip() {
       ${isArmor ? `<option value="worn"${hm==='worn'?' selected':''}>장착</option>` : ''}
       <option value="dropped"${hm==='dropped'?' selected':''}>떨구기</option>
     </select>`;
-
-    const hasContainers = state.containers && state.containers.length > 0;
 
     row.innerHTML = `
       <span style="flex:1;font-size:12px;color:${e._broken?'var(--red-light)':'var(--text)'};cursor:pointer;" onclick="showInfo('${eqType}','${eqEscName}')">${e._broken?'파손된 ':''}${e.name||'아이템'}</span>
@@ -650,6 +788,23 @@ function renderEquip() {
         </select></span>` : ''}
       </span>`;
     list.appendChild(row);
+
+    // ── 부착된 룬 표시 (들여쓰기) ──
+    const attachedIdxs = _getAttachedRuneIndices(i);
+    attachedIdxs.forEach(ri => {
+      const r = state.equip[ri];
+      if (!r) return;
+      const runeRow = document.createElement('div');
+      runeRow.className = 'equip-row equip-rune-attached';
+      runeRow.innerHTML = `
+        <span style="flex:1;font-size:11px;color:var(--accent);padding-left:20px;">\u2728 ${r.name||'룬'} <span style="font-size:9px;color:var(--text2);">${r._runeData?.desc||''}</span></span>
+        <span style="width:30px;"></span>
+        <span style="width:70px;"></span>
+        <span style="width:80px;text-align:center;"><button class="equip-toggle" onclick="event.stopPropagation();detachRune(${ri})" style="font-size:9px;padding:2px 6px;">해제</button></span>
+        <span style="width:40px;"></span>
+        <span style="width:28px;"></span>`;
+      list.appendChild(runeRow);
+    });
   });
   recalcBulk();
 }
@@ -882,9 +1037,26 @@ function removeEquip(i) {
     const hm = item._holdMode || 'stowed';
     if (hm !== 'stowed' && hm !== 'dropped') changeHoldMode(i, 'stowed');
   }
+  // 부착된 룬 해제
+  if (item && !item._isRune) {
+    state.equip.forEach(e => { if (e._isRune && e._attachedTo === i) e._attachedTo = null; });
+  }
+  // 룬 제거 시 대상 장비 효과 재적용
+  if (item && item._isRune && item._attachedTo !== null && item._attachedTo !== undefined) {
+    const tgt = item._attachedTo;
+    item._attachedTo = null;
+    // splice 전에 적용해야 인덱스 유효
+  }
   state.equip.splice(i,1);
-  // 무기의 _fromEquip 인덱스 재정렬
+  // 인덱스 재정렬
   state.weapons.forEach(w => { if (w._fromEquip > i) w._fromEquip--; });
+  _reindexRuneAttachments(i);
+  // 모든 부착 룬 효과 재적용
+  state.equip.forEach((e,ei) => {
+    if ((e._type === 'weapon' || e._type === 'armor' || e._type === 'shield') && _getAttachedRunes(ei).length > 0) {
+      applyAttachedRunes(ei);
+    }
+  });
   renderEquip();
   save();
 }
@@ -2328,6 +2500,7 @@ function openEquipBrowse() {
       <div class="equip-tab" onclick="switchEquipTab('armor')">방어구</div>
       <div class="equip-tab" onclick="switchEquipTab('shield')">방패</div>
       <div class="equip-tab" onclick="switchEquipTab('gear')">장비</div>
+      <div class="equip-tab" onclick="switchEquipTab('rune')">룬</div>
       <div class="equip-tab" onclick="switchEquipTab('custom')">기타</div>
     </div>
     <div class="equip-subtabs" id="equip-subtabs" style="display:none;"></div>`;
@@ -2407,6 +2580,7 @@ function renderEquipBrowseItems() {
   else if (equipBrowseTab === 'armor') items = [...ARMOR_DB];
   else if (equipBrowseTab === 'shield') items = [...SHIELD_DB];
   else if (equipBrowseTab === 'gear') items = [...GEAR_DB];
+  else if (equipBrowseTab === 'rune') items = typeof RUNE_DB !== 'undefined' ? [...RUNE_DB] : [];
   else items = [...GEAR_DB]; // fallback
 
   if (equipBrowseSubTab) items = items.filter(i => i.category === equipBrowseSubTab);
@@ -2533,7 +2707,13 @@ function equipBrowseGive() {
   if (item.damage !== undefined) type = 'weapon';
   else if (item.hardness !== undefined) type = 'shield';
   else if (item.ac_bonus !== undefined) type = 'armor';
-  addEquip({name: item.name_ko, qty:1, bulk, _type: type, _data: type ? item : undefined});
+
+  // 룬 아이템 감지
+  if (item.runeType) {
+    addEquip({name: item.name_ko, qty:1, bulk, _isRune: true, _runeData: {attachTo: item.attachTo, runeType: item.runeType, runeValue: item.runeValue}, _attachedTo: null});
+  } else {
+    addEquip({name: item.name_ko, qty:1, bulk, _type: type, _data: type ? item : undefined});
+  }
   recalcAll();
   save();
   closeModal();
