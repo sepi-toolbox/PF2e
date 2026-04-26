@@ -2783,6 +2783,7 @@ function equipBrowseBuy() {
 // ═══════════════════════════════════════════════
 
 let _customEquipType = 'gear'; // 현재 선택된 커스텀 타입
+let _customTraits = []; // 커스텀 장비 선택된 특성 목록
 
 function _hideCustomEquipForm() {
   const container = document.getElementById('custom-equip-form');
@@ -2802,6 +2803,7 @@ function openCustomCreateModal(createType, catId) {
   const typeMap = {'weapon-shield':'weapon', 'armor':'armor', 'gear':'gear', 'consumable':'gear', 'ammo':'gear', 'treasure':'gear'};
   _customEquipType = typeMap[catId] || createType || 'gear';
   _customInvCat = catId;
+  _customTraits = [];
 
   // 기존 오버레이가 있으면 제거
   document.getElementById('custom-create-overlay')?.remove();
@@ -2945,6 +2947,7 @@ function _renderCustomEquipForm() {
 
 function _setCustomType(type) {
   _customEquipType = type;
+  _customTraits = [];
   document.querySelectorAll('#custom-type-btns .custom-type-btn').forEach(b => {
     b.style.background = 'var(--bg3)';
     b.style.color = 'var(--text)';
@@ -2953,6 +2956,30 @@ function _setCustomType(type) {
   const btns = document.querySelectorAll('#custom-type-btns .custom-type-btn');
   if (btns[idx]) { btns[idx].style.background = 'var(--accent)'; btns[idx].style.color = 'var(--bg)'; }
   _updateCustomTypeFields();
+}
+
+function _addCustomTrait() {
+  const sel = document.getElementById('ce-trait-select');
+  if (!sel || !sel.value) return;
+  const t = sel.value;
+  if (!_customTraits.includes(t)) {
+    _customTraits.push(t);
+    _renderCustomTraitTags();
+  }
+  sel.value = '';
+}
+
+function _removeCustomTrait(idx) {
+  _customTraits.splice(idx, 1);
+  _renderCustomTraitTags();
+}
+
+function _renderCustomTraitTags() {
+  const container = document.getElementById('ce-traits-tags');
+  if (!container) return;
+  container.innerHTML = _customTraits.map((t, i) =>
+    `<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 8px;background:var(--bg4);border:1px solid var(--border);border-radius:12px;font-size:11px;color:var(--text1);">${t}<span onclick="_removeCustomTrait(${i})" style="cursor:pointer;color:var(--text2);font-size:13px;line-height:1;">&times;</span></span>`
+  ).join('');
 }
 
 function _updateCustomTypeFields() {
@@ -3005,8 +3032,15 @@ function _updateCustomTypeFields() {
           </div>
         </div>
         <div style="margin-top:6px;">
-          <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">특성 (쉼표 구분)</div>
-          <input id="ce-traits" type="text" placeholder="예: 민첩, 기교, 투척 30ft" style="${s}">
+          <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">특성</div>
+          <div style="display:flex;gap:4px;margin-bottom:4px;">
+            <select id="ce-trait-select" style="${s}flex:1;">
+              <option value="">— 특성 선택 —</option>
+              ${Object.keys(TRAIT_DB).map(t => `<option value="${t}">${t}</option>`).join('')}
+            </select>
+            <button onclick="_addCustomTrait()" style="padding:4px 10px;background:var(--accent);color:var(--bg);border:none;border-radius:4px;font-size:11px;cursor:pointer;white-space:nowrap;">추가</button>
+          </div>
+          <div id="ce-traits-tags" style="display:flex;flex-wrap:wrap;gap:4px;"></div>
         </div>
       </div>`;
   } else if (_customEquipType === 'armor') {
@@ -3051,10 +3085,14 @@ function _updateCustomTypeFields() {
             <input id="ce-group" type="text" placeholder="예: 가죽" style="${s}">
           </div>
           <div style="${half}">
-            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">특성 (쉼표 구분)</div>
-            <input id="ce-traits" type="text" placeholder="" style="${s}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">특성</div>
+            <select id="ce-trait-select" style="${s}" onchange="_addCustomTrait()">
+              <option value="">— 선택 —</option>
+              ${Object.keys(TRAIT_DB).map(t => `<option value="${t}">${t}</option>`).join('')}
+            </select>
           </div>
         </div>
+        <div id="ce-traits-tags" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;"></div>
       </div>`;
   } else if (_customEquipType === 'shield') {
     c.innerHTML = `
@@ -3105,7 +3143,7 @@ function _addCustomEquip() {
     const reload = document.getElementById('ce-reload')?.value;
     const category = document.getElementById('ce-category')?.value || '단순 근접';
     const group = (document.getElementById('ce-group')?.value || '').trim() || '';
-    const traits = (document.getElementById('ce-traits')?.value || '').split(',').map(t => t.trim()).filter(Boolean);
+    const traits = [..._customTraits];
 
     const data = {
       name_ko: name, name_en: '', category, price, damage, bulk: bulkVal === 'L' ? 'L' : bulk,
@@ -3122,7 +3160,7 @@ function _addCustomEquip() {
     const strength = parseInt(document.getElementById('ce-str')?.value) || 0;
     const category = document.getElementById('ce-category')?.value || '경갑';
     const group = (document.getElementById('ce-group')?.value || '').trim() || '';
-    const traits = (document.getElementById('ce-traits')?.value || '').split(',').map(t => t.trim()).filter(Boolean);
+    const traits = [..._customTraits];
 
     const data = {
       name_ko: name, name_en: '', category, price, ac_bonus, dex_cap, check_penalty, speed_penalty,
