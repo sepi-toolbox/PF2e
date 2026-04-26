@@ -2196,7 +2196,7 @@ function openEquipBrowse() {
       <div class="equip-tab" onclick="switchEquipTab('armor')">방어구</div>
       <div class="equip-tab" onclick="switchEquipTab('shield')">방패</div>
       <div class="equip-tab" onclick="switchEquipTab('gear')">장비</div>
-      <div class="equip-tab" onclick="switchEquipTab('all')">전체</div>
+      <div class="equip-tab" onclick="switchEquipTab('custom')">기타</div>
     </div>
     <div class="equip-subtabs" id="equip-subtabs" style="display:none;"></div>`;
 
@@ -2219,9 +2219,25 @@ function switchEquipTab(tab) {
   equipBrowseTab = tab;
   equipBrowseSubTab = '';
   document.querySelectorAll('#equip-tabs .equip-tab').forEach(t => t.classList.remove('active'));
-  const tabMap = {weapon:0, armor:1, shield:2, gear:3, all:4};
+  const tabMap = {weapon:0, armor:1, shield:2, gear:3, custom:4};
   const tabs = document.querySelectorAll('#equip-tabs .equip-tab');
   if (tabs[tabMap[tab]]) tabs[tabMap[tab]].classList.add('active');
+
+  // 커스텀 탭이면 목록 대신 입력 폼 표시
+  if (tab === 'custom') {
+    const subContainer = document.getElementById('equip-subtabs');
+    subContainer.innerHTML = '';
+    subContainer.style.display = 'none';
+    // 검색 바 숨김
+    const searchEl = document.getElementById('modal-search');
+    if (searchEl) searchEl.style.display = 'none';
+    _renderCustomEquipForm();
+    return;
+  }
+
+  // 검색 바 표시 (다른 탭 복귀 시)
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) searchEl.style.display = '';
 
   const subContainer = document.getElementById('equip-subtabs');
   let cats = [];
@@ -2256,7 +2272,7 @@ function renderEquipBrowseItems() {
   else if (equipBrowseTab === 'armor') items = [...ARMOR_DB];
   else if (equipBrowseTab === 'shield') items = [...SHIELD_DB];
   else if (equipBrowseTab === 'gear') items = [...GEAR_DB];
-  else items = [...WEAPON_DB, ...ARMOR_DB, ...SHIELD_DB, ...GEAR_DB];
+  else items = [...GEAR_DB]; // fallback
 
   if (equipBrowseSubTab) items = items.filter(i => i.category === equipBrowseSubTab);
 
@@ -2396,6 +2412,280 @@ function equipBrowseBuy() {
   if (getCurrencyTotalCp() < costCp) { alert(`소지금이 부족합니다!\n필요: ${item.price}\n보유: ${Math.floor(getCurrencyTotalCp()/100)}gp ${Math.floor((getCurrencyTotalCp()%100)/10)}sp ${getCurrencyTotalCp()%10}cp`); return; }
   deductCurrency(costCp);
   equipBrowseGive();
+}
+
+// ═══════════════════════════════════════════════
+//  CUSTOM EQUIPMENT (커스텀 장비)
+// ═══════════════════════════════════════════════
+
+let _customEquipType = 'gear'; // 현재 선택된 커스텀 타입
+
+function _renderCustomEquipForm() {
+  _customEquipType = 'gear';
+  const body = document.getElementById('modal-body');
+  if (!body) return;
+  const s = 'width:100%;padding:8px 10px;font-size:13px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;outline:none;box-sizing:border-box;';
+  body.innerHTML = `
+    <div style="padding:12px;overflow-y:auto;flex:1;">
+      <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:10px;">커스텀 아이템 추가</div>
+
+      <!-- 타입 선택 -->
+      <div style="display:flex;gap:6px;margin-bottom:12px;" id="custom-type-btns">
+        <button onclick="_setCustomType('gear')" class="custom-type-btn active" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--accent);color:var(--bg);">장비</button>
+        <button onclick="_setCustomType('weapon')" class="custom-type-btn" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text);">무기</button>
+        <button onclick="_setCustomType('armor')" class="custom-type-btn" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text);">방어구</button>
+        <button onclick="_setCustomType('shield')" class="custom-type-btn" style="flex:1;padding:8px 4px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text);">방패</button>
+      </div>
+
+      <!-- 공통 필드 -->
+      <div style="margin-bottom:8px;">
+        <div style="font-size:11px;color:var(--text2);margin-bottom:2px;">이름 *</div>
+        <input id="ce-name" type="text" placeholder="아이템 이름" style="${s}">
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <div style="flex:1;">
+          <div style="font-size:11px;color:var(--text2);margin-bottom:2px;">부피</div>
+          <select id="ce-bulk" style="${s}">
+            <option value="0">— (없음)</option>
+            <option value="L">L (가벼움)</option>
+            <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5">5</option>
+          </select>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:11px;color:var(--text2);margin-bottom:2px;">가격</div>
+          <input id="ce-price" type="text" placeholder="예: 5gp" style="${s}">
+        </div>
+      </div>
+
+      <!-- 타입별 추가 필드 -->
+      <div id="ce-type-fields"></div>
+
+      <!-- 설명 -->
+      <div style="margin-bottom:12px;">
+        <div style="font-size:11px;color:var(--text2);margin-bottom:2px;">설명 / 특수 능력</div>
+        <textarea id="ce-desc" rows="3" placeholder="아이템의 특수 효과나 설명" style="${s}resize:vertical;"></textarea>
+      </div>
+
+      <!-- 추가 버튼 -->
+      <button onclick="_addCustomEquip()" style="width:100%;padding:12px;background:var(--accent);color:var(--bg);border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;">아이템 추가</button>
+    </div>`;
+
+  _updateCustomTypeFields();
+}
+
+function _setCustomType(type) {
+  _customEquipType = type;
+  document.querySelectorAll('#custom-type-btns .custom-type-btn').forEach(b => {
+    b.style.background = 'var(--bg3)';
+    b.style.color = 'var(--text)';
+  });
+  const idx = {gear:0, weapon:1, armor:2, shield:3}[type] || 0;
+  const btns = document.querySelectorAll('#custom-type-btns .custom-type-btn');
+  if (btns[idx]) { btns[idx].style.background = 'var(--accent)'; btns[idx].style.color = 'var(--bg)'; }
+  _updateCustomTypeFields();
+}
+
+function _updateCustomTypeFields() {
+  const c = document.getElementById('ce-type-fields');
+  if (!c) return;
+  const s = 'width:100%;padding:8px 10px;font-size:13px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;outline:none;box-sizing:border-box;';
+  const half = 'flex:1;min-width:0;';
+
+  if (_customEquipType === 'weapon') {
+    c.innerHTML = `
+      <div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-bottom:8px;background:var(--bg3);">
+        <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">무기 속성</div>
+        <div style="display:flex;gap:8px;margin-bottom:6px;">
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">피해</div>
+            <input id="ce-damage" type="text" placeholder="예: 1d8 S" style="${s}">
+          </div>
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">손</div>
+            <select id="ce-hands" style="${s}">
+              <option value="1">한손</option><option value="2">양손</option><option value="1+">한손+</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:6px;">
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">사거리 (ft)</div>
+            <input id="ce-range" type="number" placeholder="근접은 비워두세요" style="${s}">
+          </div>
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">재장전</div>
+            <select id="ce-reload" style="${s}">
+              <option value="">없음</option><option value="0">0</option><option value="1">1</option><option value="2">2</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">분류</div>
+            <select id="ce-category" style="${s}">
+              <option value="단순 근접">단순 근접</option><option value="단순 원거리">단순 원거리</option>
+              <option value="군용 근접">군용 근접</option><option value="군용 원거리">군용 원거리</option>
+              <option value="고급 근접">고급 근접</option><option value="고급 원거리">고급 원거리</option>
+              <option value="비무장">비무장</option>
+            </select>
+          </div>
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">그룹</div>
+            <input id="ce-group" type="text" placeholder="예: 칼" style="${s}">
+          </div>
+        </div>
+        <div style="margin-top:6px;">
+          <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">특성 (쉼표 구분)</div>
+          <input id="ce-traits" type="text" placeholder="예: 민첩, 기교, 투척 30ft" style="${s}">
+        </div>
+      </div>`;
+  } else if (_customEquipType === 'armor') {
+    c.innerHTML = `
+      <div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-bottom:8px;background:var(--bg3);">
+        <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">방어구 속성</div>
+        <div style="display:flex;gap:8px;margin-bottom:6px;">
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">AC 보너스</div>
+            <input id="ce-ac" type="number" value="0" style="${s}">
+          </div>
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">DEX 상한</div>
+            <input id="ce-dex" type="number" placeholder="없으면 비움" style="${s}">
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:6px;">
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">점검 페널티</div>
+            <input id="ce-check" type="number" value="0" style="${s}">
+          </div>
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">속도 페널티</div>
+            <input id="ce-speed" type="number" value="0" style="${s}">
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:6px;">
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">근력 요구</div>
+            <input id="ce-str" type="number" value="0" style="${s}">
+          </div>
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">분류</div>
+            <select id="ce-category" style="${s}">
+              <option value="경갑">경갑</option><option value="평갑">평갑</option><option value="중갑">중갑</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">그룹</div>
+            <input id="ce-group" type="text" placeholder="예: 가죽" style="${s}">
+          </div>
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">특성 (쉼표 구분)</div>
+            <input id="ce-traits" type="text" placeholder="" style="${s}">
+          </div>
+        </div>
+      </div>`;
+  } else if (_customEquipType === 'shield') {
+    c.innerHTML = `
+      <div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-bottom:8px;background:var(--bg3);">
+        <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">방패 속성</div>
+        <div style="display:flex;gap:8px;margin-bottom:6px;">
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">AC 보너스</div>
+            <input id="ce-ac" type="number" value="2" style="${s}">
+          </div>
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">속도 페널티</div>
+            <input id="ce-speed" type="number" value="0" style="${s}">
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">경도</div>
+            <input id="ce-hardness" type="number" value="5" style="${s}">
+          </div>
+          <div style="${half}">
+            <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">HP / BT</div>
+            <div style="display:flex;gap:4px;">
+              <input id="ce-hp" type="number" value="20" placeholder="HP" style="${s}">
+              <input id="ce-bt" type="number" value="10" placeholder="BT" style="${s}">
+            </div>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    c.innerHTML = ''; // 장비(gear)는 추가 필드 없음
+  }
+}
+
+function _addCustomEquip() {
+  const name = (document.getElementById('ce-name')?.value || '').trim();
+  if (!name) { alert('이름을 입력하세요.'); return; }
+
+  const bulkVal = document.getElementById('ce-bulk')?.value || '0';
+  const bulk = bulkVal === 'L' ? 0.1 : parseInt(bulkVal) || 0;
+  const price = (document.getElementById('ce-price')?.value || '').trim() || '—';
+  const desc = (document.getElementById('ce-desc')?.value || '').trim();
+
+  if (_customEquipType === 'weapon') {
+    const damage = (document.getElementById('ce-damage')?.value || '').trim() || '1d4';
+    const hands = document.getElementById('ce-hands')?.value || '1';
+    const range = parseInt(document.getElementById('ce-range')?.value) || null;
+    const reload = document.getElementById('ce-reload')?.value;
+    const category = document.getElementById('ce-category')?.value || '단순 근접';
+    const group = (document.getElementById('ce-group')?.value || '').trim() || '';
+    const traits = (document.getElementById('ce-traits')?.value || '').split(',').map(t => t.trim()).filter(Boolean);
+
+    const data = {
+      name_ko: name, name_en: '', category, price, damage, bulk: bulkVal === 'L' ? 'L' : bulk,
+      hands, range, reload: reload ? parseInt(reload) : null, group, traits, _custom: true
+    };
+    if (desc) data.desc = desc;
+    addEquip({name, qty:1, bulk, _type:'weapon', _data: data});
+
+  } else if (_customEquipType === 'armor') {
+    const ac_bonus = parseInt(document.getElementById('ce-ac')?.value) || 0;
+    const dex_cap = document.getElementById('ce-dex')?.value !== '' ? parseInt(document.getElementById('ce-dex')?.value) : null;
+    const check_penalty = parseInt(document.getElementById('ce-check')?.value) || 0;
+    const speed_penalty = parseInt(document.getElementById('ce-speed')?.value) || 0;
+    const strength = parseInt(document.getElementById('ce-str')?.value) || 0;
+    const category = document.getElementById('ce-category')?.value || '경갑';
+    const group = (document.getElementById('ce-group')?.value || '').trim() || '';
+    const traits = (document.getElementById('ce-traits')?.value || '').split(',').map(t => t.trim()).filter(Boolean);
+
+    const data = {
+      name_ko: name, name_en: '', category, price, ac_bonus, dex_cap, check_penalty, speed_penalty,
+      strength, bulk: bulkVal === 'L' ? 'L' : bulk, group, traits, _custom: true
+    };
+    if (desc) data.desc = desc;
+    addEquip({name, qty:1, bulk, _type:'armor', _data: data});
+
+  } else if (_customEquipType === 'shield') {
+    const ac_bonus = parseInt(document.getElementById('ce-ac')?.value) || 2;
+    const speed_penalty = parseInt(document.getElementById('ce-speed')?.value) || 0;
+    const hardness = parseInt(document.getElementById('ce-hardness')?.value) || 5;
+    const hp = parseInt(document.getElementById('ce-hp')?.value) || 20;
+    const bt = parseInt(document.getElementById('ce-bt')?.value) || 10;
+
+    const data = {
+      name_ko: name, name_en: '', price, ac_bonus, speed_penalty,
+      bulk: bulkVal === 'L' ? 'L' : bulk, hardness, hp, bt, _custom: true
+    };
+    if (desc) data.desc = desc;
+    addEquip({name, qty:1, bulk, _type:'shield', _data: data});
+
+  } else {
+    // 일반 장비
+    const entry = {name, qty:1, bulk};
+    if (desc) entry._desc = desc;
+    addEquip(entry);
+  }
+
+  recalcAll();
+  save();
+  closeModal();
 }
 
 // ═══════════════════════════════════════════════
