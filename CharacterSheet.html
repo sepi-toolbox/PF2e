@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=482"></script>
-<script src="feat_db.js?v=482"></script>
-<script src="SPELL_DB.js?v=482"></script>
-<script src="class_features_db.js?v=482"></script>
+<script src="equipment_db.js?v=483"></script>
+<script src="feat_db.js?v=483"></script>
+<script src="SPELL_DB.js?v=483"></script>
+<script src="class_features_db.js?v=483"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -497,14 +497,24 @@ body{
 .weapon-card.dropped{opacity:.35;border-style:dotted;border-color:var(--red-light,#c66);}
 .weapon-btn.action-cost{font-size:8px;color:var(--text2);margin-left:1px;}
 /* Rune drag-and-drop */
+.equip-cat-box{
+  border:1px solid var(--border);border-radius:6px;
+  background:var(--bg3);margin:6px 0;overflow:hidden;
+}
+.equip-cat-box:first-child{margin-top:0;}
 .equip-cat-header{
   display:flex;align-items:center;justify-content:space-between;
-  padding:6px 8px 3px;margin-top:6px;
+  padding:6px 10px;
   font-size:11px;font-weight:700;color:var(--accent);
-  border-bottom:1px solid rgba(212,175,55,.25);
+  background:var(--bg4);border-bottom:1px solid var(--border);
 }
-.equip-cat-header:first-child{margin-top:0;}
-.equip-cat-count{font-size:9px;font-weight:400;color:var(--text2);background:var(--bg4);padding:1px 6px;border-radius:8px;}
+.equip-cat-count{font-size:9px;font-weight:400;color:var(--text2);background:var(--bg2);padding:1px 6px;border-radius:8px;}
+.equip-cat-empty{text-align:center;padding:10px 0;font-size:10px;color:var(--text2);font-style:italic;}
+.equip-section-label{
+  font-size:12px;font-weight:700;color:var(--text2);
+  padding:10px 12px 4px;margin-top:4px;
+  text-transform:uppercase;letter-spacing:.5px;
+}
 .equip-rune-row{cursor:grab;background:rgba(212,175,55,.05);}
 .equip-rune-row:active{cursor:grabbing;}
 .equip-rune-attached{background:rgba(212,175,55,.04);border-bottom:1px solid rgba(212,175,55,.15);}
@@ -1316,7 +1326,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v482</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v483</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1760,17 +1770,13 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
         <button class="add-btn" onclick="addFormula()" style="flex:1;">제조법 추가</button>
       </div>
       <!-- 메인 인벤토리 -->
-      <div class="box">
-        <div class="box-title">메인 인벤토리 Main Inventory</div>
-        <div id="equip-list"></div>
-      </div>
+      <div class="equip-section-label">메인 인벤토리 Main Inventory</div>
+      <div id="equip-list"></div>
       <!-- 컨테이너 목록 -->
       <div id="container-list"></div>
       <!-- 제조법 (레시피) -->
-      <div class="box">
-        <div class="box-title">제조법 Formulas</div>
-        <div id="formula-list"></div>
-      </div>
+      <div class="equip-section-label">제조법 Formulas</div>
+      <div id="formula-list"></div>
     </div><!-- /#panel-equip -->
 
     <!-- ── 동료 Pets ── -->
@@ -1879,14 +1885,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=482"></script>
-<script src="cs_calc.js?v=482"></script>
-<script src="cs_ui.js?v=482"></script>
-<script src="cs_modal.js?v=482"></script>
-<script src="cs_feat_effects.js?v=482"></script>
-<script src="cs_save.js?v=482"></script>
-<script src="cs_session.js?v=482"></script>
-<script src="cs_dice.js?v=482"></script>
+<script src="cs_data.js?v=483"></script>
+<script src="cs_calc.js?v=483"></script>
+<script src="cs_ui.js?v=483"></script>
+<script src="cs_modal.js?v=483"></script>
+<script src="cs_feat_effects.js?v=483"></script>
+<script src="cs_save.js?v=483"></script>
+<script src="cs_session.js?v=483"></script>
+<script src="cs_dice.js?v=483"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->

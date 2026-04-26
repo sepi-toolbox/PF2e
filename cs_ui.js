@@ -737,27 +737,30 @@ function renderEquip() {
     groups[cat].push(i);
   });
 
-  // 카테고리 순서대로 렌더 (빈 카테고리도 표시)
+  // 카테고리 순서대로 렌더 (빈 카테고리도 표시, 각각 박스)
   INV_CATEGORIES.forEach(cat => {
     const idxs = groups[cat.id] || [];
+
+    const box = document.createElement('div');
+    box.className = 'equip-cat-box';
 
     const hdr = document.createElement('div');
     hdr.className = 'equip-cat-header';
     hdr.innerHTML = `<span>${cat.icon} ${cat.label}</span><span class="equip-cat-count">${idxs.length}</span>`;
-    list.appendChild(hdr);
+    box.appendChild(hdr);
 
     if (idxs.length === 0) {
       const empty = document.createElement('div');
-      empty.className = 'equip-row';
-      empty.style.cssText = 'justify-content:center;padding:8px 0;';
-      empty.innerHTML = `<span style="font-size:10px;color:var(--text2);font-style:italic;">\u2014</span>`;
-      list.appendChild(empty);
+      empty.className = 'equip-cat-empty';
+      empty.textContent = '\u2014';
+      box.appendChild(empty);
     } else {
       idxs.forEach(i => {
         const e = state.equip[i];
-        _renderEquipRow(list, e, i, hasContainers);
+        _renderEquipRow(box, e, i, hasContainers);
       });
     }
+    list.appendChild(box);
   });
 
   recalcBulk();
