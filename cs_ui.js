@@ -701,7 +701,7 @@ function _onRuneTouchEnd(ev) {
 
 // 아이템 인벤토리 카테고리 판정
 function _getInvCat(e) {
-  if (e._isRune) return 'rune';
+  if (e._isRune) return 'gear';
   if (e._type === 'weapon' || e._type === 'shield') return 'weapon-shield';
   if (e._type === 'armor') return 'armor';
   if (e._invCat === 'consumable') return 'consumable';
@@ -717,7 +717,6 @@ const INV_CATEGORIES = [
   {id:'consumable',    label:'소모품',       icon:'\uD83E\uDDEA'},
   {id:'ammo',          label:'탄환',         icon:'\u27B3'},
   {id:'treasure',      label:'보물',         icon:'\uD83D\uDC8E'},
-  {id:'rune',          label:'룬',           icon:'\u2728'},
 ];
 
 function renderEquip() {
@@ -764,32 +763,16 @@ function _renderEquipRow(list, e, i, hasContainers) {
   const eqEscName = (e.name||'').replace(/'/g,"\\'");
   const bulkDisplay = e.bulk === 'L' ? 'L' : (e.bulk || '\u2014');
 
-  // ── 미부착 룬 아이템 ──
-  if (e._isRune && (e._attachedTo === null || e._attachedTo === undefined)) {
-    row.className = 'equip-row equip-rune-row';
+  // 룬이면 드래그 가능
+  const isUnattachedRune = e._isRune && (e._attachedTo === null || e._attachedTo === undefined);
+  if (isUnattachedRune) {
     row.draggable = true;
     row.addEventListener('dragstart', ev => _initRuneDrag(i, ev));
     row.addEventListener('touchstart', ev => _initRuneTouchDrag(i, ev), {passive:false});
     row.addEventListener('touchmove', _onRuneTouchMove, {passive:false});
     row.addEventListener('touchend', _onRuneTouchEnd);
-    const rd = e._runeData || {};
-    const targetLabel = rd.attachTo === 'weapon' ? '\uBB34\uAE30' : rd.attachTo === 'armor' ? '\uAC11\uC637' : '\uBC29\uD328';
-    row.innerHTML = `
-      <span style="flex:1;font-size:12px;color:var(--accent);cursor:grab;">\u2728 ${e.name||'\uB8EC'} <span style="font-size:9px;color:var(--text2);">[${targetLabel}\uC5D0 \uB4DC\uB798\uADF8]</span></span>
-      <span style="width:30px;text-align:center;font-size:10px;color:var(--text2);">${bulkDisplay}</span>
-      <span style="width:70px;display:flex;align-items:center;justify-content:center;gap:2px;">
-        <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},-1)">\u2212</button>
-        <span style="min-width:16px;text-align:center;font-size:13px;font-weight:600;color:var(--text);">${e.qty||1}</span>
-        <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},1)">+</button>
-      </span>
-      <span style="width:80px;"></span>
-      <span style="width:40px;"></span>
-      <span style="width:28px;"></span>`;
-    list.appendChild(row);
-    return;
   }
 
-  // ── 일반 아이템 ──
   const isDropTarget = e._type === 'weapon' || e._type === 'armor' || e._type === 'shield';
   row.className = 'equip-row' + (isDropTarget ? ' equip-drop-target' : '');
   if (isDropTarget) {
@@ -2540,7 +2523,6 @@ function openEquipBrowse() {
       <div class="equip-tab" onclick="switchEquipTab('armor')">방어구</div>
       <div class="equip-tab" onclick="switchEquipTab('shield')">방패</div>
       <div class="equip-tab" onclick="switchEquipTab('gear')">장비</div>
-      <div class="equip-tab" onclick="switchEquipTab('rune')">룬</div>
       <div class="equip-tab" onclick="switchEquipTab('custom')">기타</div>
     </div>
     <div class="equip-subtabs" id="equip-subtabs" style="display:none;"></div>`;
@@ -2619,8 +2601,7 @@ function renderEquipBrowseItems() {
   if (equipBrowseTab === 'weapon') items = [...WEAPON_DB];
   else if (equipBrowseTab === 'armor') items = [...ARMOR_DB];
   else if (equipBrowseTab === 'shield') items = [...SHIELD_DB];
-  else if (equipBrowseTab === 'gear') items = [...GEAR_DB];
-  else if (equipBrowseTab === 'rune') items = typeof RUNE_DB !== 'undefined' ? [...RUNE_DB] : [];
+  else if (equipBrowseTab === 'gear') items = [...GEAR_DB, ...(typeof RUNE_DB !== 'undefined' ? RUNE_DB : [])];
   else items = [...GEAR_DB]; // fallback
 
   if (equipBrowseSubTab) items = items.filter(i => i.category === equipBrowseSubTab);
