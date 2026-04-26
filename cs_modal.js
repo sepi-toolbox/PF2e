@@ -3102,8 +3102,8 @@ function selectOption(item, row) {
       }
       detailDiv.innerHTML = detailHtml;
       detailDiv.classList.add('open');
-      // 초기 선택 UI 버튼 검증 트리거
-      if (typeof _validateInitialChoices === 'function') setTimeout(_validateInitialChoices, 0);
+      // 초기 선택 UI: 이전 값 복원 + 검증 트리거
+      if (typeof _restoreInitialChoicesUI === 'function') setTimeout(_restoreInitialChoicesUI, 0);
       // Confirm button for non-equip modals (초기 선택 UI가 있으면 자체 버튼 사용)
       const hasInitChoices = document.getElementById('modal-confirm-choice');
       if (!hasInitChoices && modalType !== 'equip-browse' && modalType !== 'deity-pick' && modalType !== 'sanct-pick' && modalType !== 'font-pick') {
@@ -3313,7 +3313,7 @@ function showItemDetail(item) {
           style="width:100%;margin-top:14px;padding:10px;background:var(--bg4);color:var(--text2);border:1px solid var(--border);border-radius:4px;font-size:13px;font-weight:600;cursor:not-allowed;">
           모든 항목을 선택하세요
         </button>`;
-      _validateInitialChoices();
+      setTimeout(_restoreInitialChoicesUI, 0);
       return;
     }
   }
@@ -3442,6 +3442,21 @@ function _buildClassChoicesUI(cls) {
 
   _modalChoices = { type: 'class', fixedSkills, choiceSkills, trainableBase, deitySkill, trainableSkills: Array(trainableBase).fill(''), chosenFixedSkills: Array(choiceSkills.length).fill('') };
 
+  // ── 이전 선택값 복원 (같은 클래스가 이미 선택된 경우) ──
+  if (state.selectedClass?.id === cls.id) {
+    const saved = state.initialChoices?.class;
+    // trainableSkills: growth에 저장된 값 우선, 없으면 initialChoices
+    const savedTraining = state.growth?.[1]?.skillTraining || (saved ? saved.trainableSkills : []) || [];
+    for (let i = 0; i < trainableBase && i < savedTraining.length; i++) {
+      _modalChoices.trainableSkills[i] = savedTraining[i] || '';
+    }
+    // chosenFixedSkills 복원
+    const savedFixed = saved?.chosenFixedSkills || [];
+    for (let i = 0; i < choiceSkills.length && i < savedFixed.length; i++) {
+      _modalChoices.chosenFixedSkills[i] = savedFixed[i] || '';
+    }
+  }
+
   // ── 클래스 특성 수집 ──
   const maxLv = state.level || 1;
   const classFeats = typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []).filter(f => f.lv <= maxLv) : [];
@@ -3481,12 +3496,13 @@ function _buildClassChoicesUI(cls) {
       inner += _choiceDropdown('', '고정 기술', [{value: name, label: name}], true, name);
     });
     choiceSkills.forEach((choices, ci) => {
+      const curFixed = _modalChoices.chosenFixedSkills[ci] || '';
       const options = choices.map(c => ({value: c, label: c}));
       inner += `<div style="margin-bottom:6px;">
         <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 (선택)</div>
         <select onchange="_modalChoices.chosenFixedSkills[${ci}]=this.value;_validateInitialChoices()" style="${_selStyle}">
           <option value="">— 선택 —</option>
-          ${options.map(o => `<option value="${o.value}">${o.label}</option>`).join('')}
+          ${options.map(o => `<option value="${o.value}"${o.value === curFixed ? ' selected' : ''}>${o.label}</option>`).join('')}
         </select>
       </div>`;
     });
@@ -3714,9 +3730,14 @@ function openClassModalAtLevel(targetLv) {
 
 // ── 클레릭 전용 UI: 교리 + 신격 + 신성 원천 ──
 function _buildClericChoicesUI() {
-  _modalChoices.doctrine = '';
-  _modalChoices.deity = '';
-  _modalChoices.divineFont = '';
+  // ── 이전 선택값 복원 ──
+  const _savedDoc = state.selectedSubclass?.id || '';
+  const _savedDeity = state.deity || '';
+  const _savedSanct = state.sanctification || '';
+  const _savedFont = state.divineFont || '';
+  _modalChoices.doctrine = state.selectedClass?.id === 'cleric' ? _savedDoc : '';
+  _modalChoices.deity = state.selectedClass?.id === 'cleric' ? _savedDeity : '';
+  _modalChoices.divineFont = state.selectedClass?.id === 'cleric' ? _savedFont : '';
 
   // 교리
   const doctrines = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.filter(s => s.class_id === 'cleric') : [];
@@ -3724,7 +3745,7 @@ function _buildClericChoicesUI() {
     <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📿 교리 Doctrine</div>
     <select id="cls-doctrine" onchange="_onClericDoctrineChange(this.value)" style="${_selStyle}">
       <option value="">— 선택 —</option>
-      ${doctrines.map(d => `<option value="${d.id}">${d.name_ko} (${d.name_en})</option>`).join('')}
+      ${doctrines.map(d => `<option value="${d.id}"${d.id === _savedDoc ? ' selected' : ''}>${d.name_ko} (${d.name_en})</option>`).join('')}
     </select>
     <div id="cls-doctrine-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>
     <div id="cls-doctrine-feats"></div>
@@ -3732,12 +3753,12 @@ function _buildClericChoicesUI() {
 
   // 신격 (성별화 포함)
   const deities = typeof DEITY_DB !== 'undefined' ? DEITY_DB : [];
-  _modalChoices.sanctification = '';
+  _modalChoices.sanctification = state.selectedClass?.id === 'cleric' ? _savedSanct : '';
   html += `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">
     <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">🙏 신격 Deity</div>
     <select id="cls-deity" onchange="_onClericDeityChange(this.value)" style="${_selStyle}">
       <option value="">— 선택 —</option>
-      ${deities.map(d => `<option value="${d.id}">${d.name_ko} (${d.name_en})</option>`).join('')}
+      ${deities.map(d => `<option value="${d.id}"${d.id === _savedDeity ? ' selected' : ''}>${d.name_ko} (${d.name_en})</option>`).join('')}
     </select>
     <div id="cls-deity-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>
     <div id="cls-deity-details"></div>
@@ -3753,8 +3774,8 @@ function _buildClericChoicesUI() {
     <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">⛲ 신성 원천 Divine Font</div>
     <select id="cls-font" onchange="_onClericFontChange(this.value)" style="${_selStyle}">
       <option value="">— 선택 —</option>
-      <option value="heal">치유 (Heal)</option>
-      <option value="harm">해악 (Harm)</option>
+      <option value="heal"${_savedFont === 'heal' ? ' selected' : ''}>치유 (Heal)</option>
+      <option value="harm"${_savedFont === 'harm' ? ' selected' : ''}>해악 (Harm)</option>
     </select>
     <div id="cls-font-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>
   </div>`;
@@ -3871,13 +3892,14 @@ function _onClericFontChange(val) {
 
 // ── 범용 서브클래스 선택 UI (클레릭 제외) ──
 function _buildSubclassChoiceUI(classId, label, subs) {
-  _modalChoices.subclass = '';
+  const _savedSub = state.selectedSubclass?.id || '';
+  _modalChoices.subclass = _savedSub;
   let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">`;
   html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">⚙ ${label}</div>`;
   html += `<div style="margin-bottom:6px;">
     <select id="cls-subclass" onchange="_onSubclassChange(this.value)" style="${_selStyle}">
       <option value="">— 선택 —</option>
-      ${subs.map(s => `<option value="${s.id}">${s.name_ko} (${s.name_en})</option>`).join('')}
+      ${subs.map(s => `<option value="${s.id}"${s.id === _savedSub ? ' selected' : ''}>${s.name_ko} (${s.name_en})</option>`).join('')}
     </select>
     <div id="cls-subclass-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>
     <div id="cls-subclass-feats"></div>
@@ -3949,7 +3971,8 @@ function _rebuildTrainableSkillDropdowns() {
 
 // ── 배경 모달: 기술 + 재주 ──
 function _buildBackgroundChoicesUI(bg) {
-  _modalChoices = { type: 'background', skills: {}, choiceSkill: null, loreName: '' };
+  const _savedBgChoice = (state.selectedBackground?.id === bg.id) ? (state.initialChoices?.background?.choiceSkill || null) : null;
+  _modalChoices = { type: 'background', skills: {}, choiceSkill: _savedBgChoice, loreName: '' };
   const descText = (bg.desc || '').replace(/\s*속성 부스트:.*$/, '');
 
   let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
@@ -3974,7 +3997,7 @@ function _buildBackgroundChoicesUI(bg) {
         <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 (선택)</div>
         <select id="bg-choice-skill" onchange="_modalChoices.choiceSkill=this.value;_validateInitialChoices()" style="${_selStyle}">
           <option value="">— 선택 —</option>
-          ${options.map(o => `<option value="${o.value}">${o.label}</option>`).join('')}
+          ${options.map(o => `<option value="${o.value}"${o.value === _savedBgChoice ? ' selected' : ''}>${o.label}</option>`).join('')}
         </select>
       </div>`;
     } else if (name.endsWith(' 지식') || name.includes('지식')) {
@@ -4016,6 +4039,19 @@ function _buildAncestryChoicesUI(anc) {
   const bonusBase = anc.bonusLangs || 0;
   _modalChoices = { type: 'ancestry', fixedLangs, bonusBase, bonusLangs: Array(bonusBase).fill('') };
 
+  // ── 이전 선택값 복원: state.languages에서 고정 언���를 제외한 나머지가 보너스 언어 ──
+  if (state.selectedAncestry?.id === anc.id && state.languages?.length) {
+    const fixedSet = new Set(fixedLangs);
+    const savedBonus = state.languages.filter(l => !fixedSet.has(l));
+    for (let i = 0; i < savedBonus.length; i++) {
+      if (i < _modalChoices.bonusLangs.length) {
+        _modalChoices.bonusLangs[i] = savedBonus[i];
+      } else {
+        _modalChoices.bonusLangs.push(savedBonus[i]);
+      }
+    }
+  }
+
   let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
   html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">🗣 언어</div>`;
 
@@ -4027,7 +4063,8 @@ function _buildAncestryChoicesUI(anc) {
   // 추가 언어 (active + "+" 버튼)
   html += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">추가 언어 (기본 ${bonusBase}개, + 버튼으로 추가)</div>`;
   html += `<div id="anc-bonus-langs">`;
-  for (let i = 0; i < bonusBase; i++) {
+  const bonusCount = Math.max(bonusBase, _modalChoices.bonusLangs.length);
+  for (let i = 0; i < bonusCount; i++) {
     html += _buildBonusLangRow(i, fixedLangs);
   }
   html += `</div>`;
@@ -4092,6 +4129,33 @@ function _rebuildBonusLangDropdowns() {
   container.innerHTML = html;
 }
 
+// ── DOM 삽입 후 이전 선택값의 정보 패널 복원 ──
+function _restoreInitialChoicesUI() {
+  // 클레릭: 교리/신격/신성원천 정보 패널 트리거
+  if (_modalChoices.doctrine) {
+    _onClericDoctrineChange(_modalChoices.doctrine);
+  }
+  if (_modalChoices.deity) {
+    // _onClericDeityChange가 sanctification을 리셋하므로 미리 보존
+    const savedSanct = _modalChoices.sanctification || '';
+    _onClericDeityChange(_modalChoices.deity);
+    // 성별화 값 복원 (2개 선택지인 경우 리셋되므로)
+    if (savedSanct) {
+      _modalChoices.sanctification = savedSanct;
+      const sanctEl = document.getElementById('cls-sanct');
+      if (sanctEl) sanctEl.value = savedSanct;
+    }
+  }
+  if (_modalChoices.divineFont) {
+    _onClericFontChange(_modalChoices.divineFont);
+  }
+  // 범용 서브클래스 정보 패널 트리거
+  if (_modalChoices.subclass) {
+    _onSubclassChange(_modalChoices.subclass);
+  }
+  _validateInitialChoices();
+}
+
 // ── 공통: 유효성 검증 + 확인 버튼 활성화 ──
 function _onInitialChoiceChange() { _validateInitialChoices(); }
 
@@ -4144,6 +4208,8 @@ function _validateInitialChoices() {
 // ═══════════════════════════════════════════════
 
 function resetFromClass() {
+  // Reset initialChoices for class
+  if (state.initialChoices) delete state.initialChoices.class;
   // Reset all level selections
   state.growth = {};
   // Reset all feats
@@ -4210,6 +4276,8 @@ function resetFromClass() {
 }
 
 function resetFromAncestry() {
+  // Reset initialChoices for ancestry
+  if (state.initialChoices) delete state.initialChoices.ancestry;
   // Reset heritage
   state.selectedHeritage = null;
   const herBtn = document.getElementById('btn-heritage');
@@ -4243,6 +4311,8 @@ function resetFromAncestry() {
 }
 
 function resetFromBackground() {
+  // Reset initialChoices for background
+  if (state.initialChoices) delete state.initialChoices.background;
   // Reset background boosts
   state.boosts.bg = [];
   state.boosts.bgFixed = [];
@@ -4393,6 +4463,12 @@ function confirmModal() {
       const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === _modalChoices.subclass) : null;
       if (sub) { state.selectedSubclass = sub; const btn = document.getElementById('btn-subclass'); if (btn) { btn.textContent = `${sub.name_ko} (${sub.name_en})`; btn.classList.add('filled'); } }
     }
+    // ── 선택값 영속 저장 ──
+    if (!state.initialChoices) state.initialChoices = {};
+    state.initialChoices.class = {
+      trainableSkills: (_modalChoices.trainableSkills || []).filter(v => v),
+      chosenFixedSkills: (_modalChoices.chosenFixedSkills || []).slice(),
+    };
     applyClassFeatures();
   } else if (modalType==='ancestry') {
     // Cascade reset if changing ancestry
@@ -4419,6 +4495,11 @@ function confirmModal() {
         langEl.value = [traits, size, vision, langLine, specials].filter(Boolean).join('\n');
       }
     }
+    // ── 선택값 영속 저장 ──
+    if (!state.initialChoices) state.initialChoices = {};
+    state.initialChoices.ancestry = {
+      bonusLangs: (_modalChoices.bonusLangs || []).filter(v => v),
+    };
   } else if (modalType==='background') {
     // Cascade reset if changing background
     if (state.selectedBackground && state.selectedBackground.id !== modalSelected.id) {
@@ -4440,6 +4521,11 @@ function confirmModal() {
     } else {
       applyBackgroundInfo(modalSelected);
     }
+    // ── 선택값 영속 저장 ──
+    if (!state.initialChoices) state.initialChoices = {};
+    state.initialChoices.background = {
+      choiceSkill: _modalChoices.choiceSkill || null,
+    };
   } else if (modalType==='feat') {
     const type = modalContext || 'other';
     const featName = modalSelected.name_ko + (modalSelected.name_en?` (${modalSelected.name_en})`:'');

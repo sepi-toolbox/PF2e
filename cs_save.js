@@ -103,6 +103,7 @@ function collectData() {
     signatureSpells: state.signatureSpells || {},
     familiarSpells: state.familiarSpells || null,
     preparedSpells: state.preparedSpells || null,
+    initialChoices: state.initialChoices || null,
   };
   SKILLS.forEach(sk => {
     data.skillProfs[sk.id] = document.getElementById('sk-prof-'+sk.id)?.value;
@@ -431,6 +432,7 @@ function loadData(d) {
     if (d.signatureSpells) state.signatureSpells = d.signatureSpells;
     if (d.familiarSpells) state.familiarSpells = d.familiarSpells;
     if (d.preparedSpells) state.preparedSpells = d.preparedSpells;
+    if (d.initialChoices) state.initialChoices = d.initialChoices;
   } catch(e) { console.warn('Load failed',e); }
   // 로드 완료 — 자동저장 복원 + 진행 중인 debounce 취소
   _loadComplete = wasLoadComplete;
