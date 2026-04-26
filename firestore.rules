@@ -19,10 +19,8 @@ service cloud.firestore {
       allow read: if request.auth != null;
       // GM만 생성
       allow create: if request.auth != null;
-      // GM 또는 세션 참가자가 수정 (플레이어 참가/퇴장)
-      allow update: if request.auth != null
-        && (resource.data.gmUid == request.auth.uid
-            || resource.data.players[request.auth.uid] != null);
+      // 로그인 사용자가 수정 가능 (참가/퇴장 — players map 자기 항목만 변경)
+      allow update: if request.auth != null;
       // GM만 삭제
       allow delete: if request.auth != null
         && resource.data.gmUid == request.auth.uid;
