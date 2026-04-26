@@ -94,26 +94,15 @@ async function joinSession(code) {
     return;
   }
 
-  // players map에 자신 추가
-  const playerField = 'players.' + currentUser.uid;
-  await db.collection('sessions').doc(doc.id).update({
-    [playerField + '.displayName']: currentUser.displayName || currentUser.email || '???',
-    [playerField + '.joinedAt']: firebase.firestore.FieldValue.serverTimestamp(),
-    [playerField + '.characterId']: currentUser.uid
-  });
-
   _currentSession = { id: doc.id, name: data.name, joinCode: data.joinCode, gmUid: data.gmUid, players: data.players || {} };
-  _currentSession.players[currentUser.uid] = { displayName: currentUser.displayName || '???' };
   _sessionMode = true;
   _isGM = false;
   _gmEditTarget = null;
   localStorage.setItem('pf2e_sessionId', doc.id);
   localStorage.setItem('pf2e_sessionRole', 'player');
 
-  enterSessionUI();
-  startSessionListeners();
   closeSessionModal();
-  // 캐릭터 선택 모달
+  // 슬롯 선택 모달 — 선택 완료 시 세션 참가 처리
   openCharacterChoiceModal();
 }
 
@@ -144,8 +133,13 @@ async function restoreSession() {
     _gmEditTarget = null;
     enterSessionUI();
     startSessionListeners();
-    // 플레이어: 세션 캐릭터 로드
+    // 플레이어: 세션 슬롯으로 전환 후 로드
     if (!_isGM) {
+      const myInfo = data.players[currentUser.uid];
+      if (myInfo && myInfo.slotId) {
+        currentSlot = myInfo.slotId;
+        localStorage.setItem('pf2e_lastSlot', currentSlot);
+      }
       loadSessionCharacter(currentUser.uid);
     }
     return true;
@@ -167,31 +161,34 @@ function clearSessionStorage() {
 async function leaveSession() {
   if (!_currentSession) return;
   if (_isGM) {
-    if (!confirm('세션을 삭제하시겠습니까?\n모든 참가자의 세션 캐릭터가 삭제됩니다.')) return;
-    // 캐릭터 + 롤 서브컬렉션 삭제는 클라이언트에서 일일이 해야 함
+    if (!confirm('세션을 삭제하시겠습니까?')) return;
     try {
-      const charSnap = await db.collection('sessions').doc(_currentSession.id).collection('characters').get();
+      // rolls 서브컬렉션 삭제
       const rollSnap = await db.collection('sessions').doc(_currentSession.id).collection('rolls').get();
       const batch = db.batch();
-      charSnap.forEach(d => batch.delete(d.ref));
       rollSnap.forEach(d => batch.delete(d.ref));
       batch.delete(db.collection('sessions').doc(_currentSession.id));
       await batch.commit();
+      // 플레이어 캐릭터의 sessionId는 각 클라이언트의 onSnapshot에서 자동 정리됨
     } catch (e) {
       console.error('[deleteSession]', e);
     }
   } else {
-    // 플레이어 나가기 — 내보내기 옵션
-    const doExport = confirm('세션을 나갑니다.\n현재 캐릭터를 개인 슬롯으로 내보내시겠습니까?');
-    if (doExport) await exportSessionCharToSlot();
-    // players map에서 제거 + 캐릭터 삭제
+    if (!confirm('세션을 나가시겠습니까?\n캐릭터는 개인 슬���에 그대로 유지됩니다.')) return;
     try {
+      // 캐릭터 doc에서 sessionId 제거
+      const mySlot = _currentSession.players[currentUser.uid]?.slotId;
+      if (mySlot) {
+        await db.collection('users').doc(currentUser.uid)
+          .collection('characters').doc(mySlot).update({
+            sessionId: firebase.firestore.FieldValue.delete()
+          });
+      }
+      // players map에서 제거
       const playerField = 'players.' + currentUser.uid;
       await db.collection('sessions').doc(_currentSession.id).update({
         [playerField]: firebase.firestore.FieldValue.delete()
       });
-      await db.collection('sessions').doc(_currentSession.id)
-        .collection('characters').doc(currentUser.uid).delete();
     } catch (e) {
       console.error('[leaveSession]', e);
     }
@@ -210,18 +207,30 @@ async function leaveSession() {
 // ══════════��═════════════════���══════════════════
 function sessionSaveNow() {
   if (!_currentSession || !currentUser) return;
-  const targetUid = _gmEditTarget || currentUser.uid;
   // GM이 파티 뷰(편집 대상 없음)이면 저장 불필요
   if (_isGM && !_gmEditTarget) return;
 
   const st = document.getElementById('save-status');
   if (st) { st.textContent = '저장 중...'; st.style.color = '#f5c518'; }
   const data = collectData();
-  db.collection('sessions').doc(_currentSession.id)
-    .collection('characters').doc(targetUid).set({
-      ownerUid: targetUid,
+
+  let targetUid, targetSlot;
+  if (_isGM && _gmEditTarget) {
+    // GM이 플레이어 캐릭터 편집 → 해당 플레이어의 개인 슬롯에 저장
+    targetUid = _gmEditTarget;
+    targetSlot = _currentSession.players[_gmEditTarget]?.slotId;
+  } else {
+    // 플레이어 세션 모드 → 자기 슬롯에 저장
+    targetUid = currentUser.uid;
+    targetSlot = currentSlot;
+  }
+  if (!targetSlot) return;
+
+  db.collection('users').doc(targetUid)
+    .collection('characters').doc(targetSlot).set({
       data: JSON.stringify(data),
       name: data.name || '이름 없음',
+      sessionId: _currentSession.id,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     }).then(() => {
       if (st) { st.textContent = '저장완료'; st.style.color = '#27ae60'; }
@@ -234,8 +243,15 @@ function sessionSaveNow() {
 function loadSessionCharacter(uid) {
   const st = document.getElementById('save-status');
   if (st) { st.textContent = '불러오는 중...'; st.style.color = '#f5c518'; }
-  db.collection('sessions').doc(_currentSession.id)
-    .collection('characters').doc(uid).get().then(doc => {
+  // 세션 players map에서 해당 플레이어의 슬롯 확인
+  const slotId = _currentSession.players[uid]?.slotId;
+  if (!slotId) {
+    if (st) { st.textContent = '슬롯 미지정'; st.style.color = '#888'; }
+    _cloudResolved = true; _checkReady();
+    return;
+  }
+  db.collection('users').doc(uid)
+    .collection('characters').doc(slotId).get().then(doc => {
       if (doc.exists && doc.data().data) {
         const data = JSON.parse(doc.data().data);
         _loadComplete = false;
@@ -272,60 +288,42 @@ function _rebuildAllUI() {
   if (typeof renderShieldCard === 'function') renderShieldCard();
 }
 
-// 세션 캐릭터 → 개인 슬롯 내보내기
-async function exportSessionCharToSlot() {
+// 개인 슬롯을 세션에 연결 (캐릭터 복사 없이 슬롯 직접 사용)
+async function selectSlotForSession(slotId) {
+  if (!_currentSession || !currentUser) return;
   try {
-    const doc = await db.collection('sessions').doc(_currentSession.id)
-      .collection('characters').doc(currentUser.uid).get();
-    if (!doc.exists || !doc.data().data) return;
-    // 빈 슬롯 찾기
-    const slotsSnap = await db.collection('users').doc(currentUser.uid).collection('characters').get();
-    const usedSlots = new Set();
-    slotsSnap.forEach(d => { if (d.data().data) usedSlots.add(d.id); });
-    let targetSlot = null;
-    for (let i = 1; i <= 5; i++) {
-      if (!usedSlots.has('slot' + i)) { targetSlot = 'slot' + i; break; }
-    }
-    if (!targetSlot) {
-      alert('빈 개인 슬롯이 없습니다. (5/5 사용 중)');
-      return;
-    }
-    await db.collection('users').doc(currentUser.uid).collection('characters').doc(targetSlot).set({
-      data: doc.data().data,
-      name: doc.data().name || '이름 없음',
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    // 세션 players map에 slotId 등록
+    const playerField = 'players.' + currentUser.uid;
+    await db.collection('sessions').doc(_currentSession.id).update({
+      [playerField + '.displayName']: currentUser.displayName || currentUser.email || '???',
+      [playerField + '.joinedAt']: firebase.firestore.FieldValue.serverTimestamp(),
+      [playerField + '.slotId']: slotId
     });
-    alert('캐릭터를 ' + targetSlot + '에 내보냈습니다.');
-  } catch (e) {
-    console.error('[exportSessionChar]', e);
-    alert('내보내기 실패: ' + e.message);
-  }
-}
-
-// 개인 슬롯 → 세션 캐릭터 복사
-async function copySlotToSession(slotId) {
-  try {
-    const doc = await db.collection('users').doc(currentUser.uid)
-      .collection('characters').doc(slotId).get();
-    if (!doc.exists || !doc.data().data) {
-      alert('선택한 슬롯이 비��있습니다.');
-      return;
-    }
-    await db.collection('sessions').doc(_currentSession.id)
-      .collection('characters').doc(currentUser.uid).set({
-        ownerUid: currentUser.uid,
-        data: doc.data().data,
-        name: doc.data().name || '이름 없음',
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-    // 로드
+    // 캐릭터 doc에 sessionId 기록
+    await db.collection('users').doc(currentUser.uid)
+      .collection('characters').doc(slotId).set({
+        sessionId: _currentSession.id
+      }, { merge: true });
+    // 로컬 상태 설정
+    _currentSession.players[currentUser.uid] = {
+      displayName: currentUser.displayName || '???',
+      slotId: slotId
+    };
+    currentSlot = slotId;
+    localStorage.setItem('pf2e_lastSlot', slotId);
+    // 세션 UI 활성화
+    enterSessionUI();
+    startSessionListeners();
+    // 캐릭터 로드
     loadSessionCharacter(currentUser.uid);
     closeSessionModal();
   } catch (e) {
-    console.error('[copySlotToSession]', e);
-    alert('복사 실패: ' + e.message);
+    console.error('[selectSlotForSession]', e);
+    alert('세션 참가 실패: ' + e.message);
   }
 }
+
+
 
 // ════════════════��═════════════════��════════════
 //  onSnapshot 리스너
@@ -358,6 +356,14 @@ function startSessionListeners() {
       if (!doc.exists) {
         // 세션이 삭제됨 (GM이 삭제)
         if (!_isGM) {
+          // 캐릭터 doc에서 sessionId 정리
+          const mySlot = currentSlot;
+          if (mySlot && currentUser) {
+            db.collection('users').doc(currentUser.uid)
+              .collection('characters').doc(mySlot).update({
+                sessionId: firebase.firestore.FieldValue.delete()
+              }).catch(function() {});
+          }
           alert('세션이 종료되었습니다.');
           stopSessionListeners();
           _sessionMode = false;
@@ -371,18 +377,28 @@ function startSessionListeners() {
       const data = doc.data();
       _currentSession.players = data.players || {};
       _currentSession.name = data.name;
+      // 플레이어: 자신이 players map에서 제거됨 (추방)
+      if (!_isGM && currentUser && !data.players[currentUser.uid]) {
+        alert('세션에서 추방되었습니다.');
+        stopSessionListeners();
+        _sessionMode = false;
+        _currentSession = null;
+        _isGM = false;
+        clearSessionStorage();
+        exitSessionUI();
+        return;
+      }
       updateSessionBar();
       if (_isGM && typeof renderGMDashboard === 'function') renderGMDashboard();
     });
 
   // 플레이어: 자기 캐릭터 문서 감시 (GM 편집 반영)
   if (!_isGM) {
-    _charDocUnsub = db.collection('sessions').doc(_currentSession.id)
-      .collection('characters').doc(currentUser.uid)
+    const mySlot = _currentSession.players[currentUser.uid]?.slotId || currentSlot;
+    _charDocUnsub = db.collection('users').doc(currentUser.uid)
+      .collection('characters').doc(mySlot)
       .onSnapshot(doc => {
         if (!doc.exists || !doc.data().data) return;
-        // GM이 수정한 경우에만 반영 (자기 저장은 무시)
-        // updatedAt 비교 대신, 간단히 데이터 hash 비교
         const remoteData = doc.data().data;
         const localData = JSON.stringify(collectData());
         if (remoteData !== localData) {
@@ -532,12 +548,11 @@ function openCharacterChoiceModal() {
   const overlay = _getOrCreateSessionOverlay();
   let html =
     '<div class="session-modal" style="max-width:400px;">' +
-      '<h3 style="color:#f5c518;margin:0 0 16px;">세션 캐릭터 선택</h3>' +
-      '<p style="color:#aaa;font-size:12px;margin:0 0 12px;">새 캐릭��를 만들거나 기존 캐릭터를 복사합니���.</p>' +
-      '<button onclick="closeSessionModal()" style="width:100%;padding:10px;background:#27ae60;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:700;margin-bottom:8px;">새 캐릭터 만들기</button>' +
-      '<div style="border-top:1px solid #444;margin:8px 0;"></div>' +
-      '<p style="color:#888;font-size:11px;margin:4px 0 8px;">기존 ��릭터 복사:</p>' +
+      '<h3 style="color:#f5c518;margin:0 0 16px;">세션에 참가할 캐릭터 선택</h3>' +
+      '<p style="color:#aaa;font-size:12px;margin:0 0 12px;">개인 슬롯의 캐릭터를 그대로 세션에서 사용합니다.</p>' +
       '<div id="session-slot-list" style="display:flex;flex-direction:column;gap:4px;">로딩 중...</div>' +
+      '<div style="border-top:1px solid #444;margin:12px 0 8px;"></div>' +
+      '<button onclick="closeSessionModal();_sessionMode=false;_currentSession=null;clearSessionStorage();" style="background:#555;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;width:100%;">취소</button>' +
     '</div>';
   overlay.innerHTML = html;
   overlay.classList.remove('hidden');
@@ -546,14 +561,21 @@ function openCharacterChoiceModal() {
     const list = document.getElementById('session-slot-list');
     if (!list) return;
     let items = '';
-    snap.forEach(doc => {
-      const d = doc.data();
-      const name = d.name && d.name !== '��름 없음' ? d.name : '빈 슬롯';
-      if (d.data) {
-        items += '<button onclick="copySlotToSession(\'' + doc.id + '\')" style="padding:8px;background:#333;color:#ccc;border:1px solid #555;border-radius:4px;cursor:pointer;text-align:left;font-size:12px;">' + doc.id.replace('slot', '슬롯 ') + ': <strong style="color:#fff;">' + name + '</strong></button>';
+    for (let i = 1; i <= 5; i++) {
+      const slotId = 'slot' + i;
+      const doc = snap.docs.find(d => d.id === slotId);
+      const d = doc ? doc.data() : null;
+      const name = (d && d.name && d.name !== '이름 없음') ? d.name : null;
+      const inSession = d && d.sessionId;
+      if (inSession) {
+        items += '<button disabled style="padding:8px;background:#222;color:#666;border:1px solid #333;border-radius:4px;text-align:left;font-size:12px;cursor:not-allowed;">' +
+          '슬롯 ' + i + ': ' + (name || '빈 슬롯') + ' <span style="color:#e74c3c;font-size:10px;">— 다른 세션 참가 중</span></button>';
+      } else {
+        const label = name ? '<strong style="color:#fff;">' + name + '</strong>' : '<span style="color:#888;">빈 슬롯 (새 캐릭터)</span>';
+        items += '<button onclick="selectSlotForSession(\'' + slotId + '\')" style="padding:8px;background:#333;color:#ccc;border:1px solid #555;border-radius:4px;cursor:pointer;text-align:left;font-size:12px;">슬롯 ' + i + ': ' + label + '</button>';
       }
-    });
-    list.innerHTML = items || '<span style="color:#666;">저장된 캐릭터가 ��습니다.</span>';
+    }
+    list.innerHTML = items;
   });
 }
 
@@ -595,7 +617,11 @@ function openGMSessionChoiceModal() {
 // ═══════════════��═══════════════════════════════
 const _origAutoSaveNow = autoSaveNow;
 autoSaveNow = function() {
-  if (_sessionMode) return sessionSaveNow();
+  // GM이 플레이어 편집 중이면 세션 저장 경로
+  if (_sessionMode && _isGM && _gmEditTarget) return sessionSaveNow();
+  // 플레이어 세션 모드: 자기 슬롯에 sessionId 포함 저장
+  if (_sessionMode && !_isGM) return sessionSaveNow();
+  // 일반 모드
   return _origAutoSaveNow();
 };
 
@@ -760,8 +786,11 @@ function _startGMCharListener(uid) {
   if (_gmSyncTimeout) { clearTimeout(_gmSyncTimeout); _gmSyncTimeout = null; }
   _gmPendingData = null;
 
-  _charDocUnsub = db.collection('sessions').doc(_currentSession.id)
-    .collection('characters').doc(uid)
+  // 플레이어의 개인 슬롯을 감시
+  const slotId = _currentSession.players[uid]?.slotId;
+  if (!slotId) return;
+  _charDocUnsub = db.collection('users').doc(uid)
+    .collection('characters').doc(slotId)
     .onSnapshot(doc => {
       if (!doc.exists || !doc.data().data) return;
       const remoteData = doc.data().data;
@@ -801,17 +830,21 @@ function _flashSyncIndicator() {
 // GM이 탭 바에서 플레이어 추방
 async function gmKickPlayer(uid, name) {
   if (!_currentSession) return;
-  if (!confirm('"' + name + '"을(를) 추방하시겠습니까?\n캐릭터는 해당 플레이어의 개인 슬롯으로 반환됩니다.')) return;
+  if (!confirm('"' + name + '"을(를) 추방하시겠습니까?\n캐릭터는 해당 플레이어의 개인 슬롯에 그대로 유지됩니다.')) return;
   try {
-    // 세션 캐릭터를 플레이어 개인 슬롯으로 복사
-    await _returnCharToPlayer(uid);
-    // 세션에서 제거
+    // 캐릭터 doc에서 sessionId 제거
+    const slotId = _currentSession.players[uid]?.slotId;
+    if (slotId) {
+      await db.collection('users').doc(uid)
+        .collection('characters').doc(slotId).update({
+          sessionId: firebase.firestore.FieldValue.delete()
+        });
+    }
+    // 세션 players map에서 제거
     const playerField = 'players.' + uid;
     await db.collection('sessions').doc(_currentSession.id).update({
       [playerField]: firebase.firestore.FieldValue.delete()
     });
-    await db.collection('sessions').doc(_currentSession.id)
-      .collection('characters').doc(uid).delete();
     // 추방된 플레이어가 현재 보고 있는 탭이면 다른 탭으로 전환
     if (_gmActiveTab === uid) {
       _gmActiveTab = null;
@@ -827,29 +860,6 @@ async function gmKickPlayer(uid, name) {
   } catch(e) {
     console.error('[gmKickPlayer]', e);
     alert('추방 실패: ' + e.message);
-  }
-}
-
-async function _returnCharToPlayer(uid) {
-  try {
-    const charDoc = await db.collection('sessions').doc(_currentSession.id)
-      .collection('characters').doc(uid).get();
-    if (!charDoc.exists || !charDoc.data().data) return;
-    const slotsSnap = await db.collection('users').doc(uid).collection('characters').get();
-    const usedSlots = new Set();
-    slotsSnap.forEach(d => { if (d.data().data) usedSlots.add(d.id); });
-    let targetSlot = null;
-    for (let i = 1; i <= 5; i++) {
-      if (!usedSlots.has('slot' + i)) { targetSlot = 'slot' + i; break; }
-    }
-    if (!targetSlot) return;
-    await db.collection('users').doc(uid).collection('characters').doc(targetSlot).set({
-      data: charDoc.data().data,
-      name: charDoc.data().name || '이름 없음',
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-  } catch(e) {
-    console.warn('[_returnCharToPlayer]', e);
   }
 }
 
@@ -922,10 +932,12 @@ function _updateGMSwitchPopup() {
   });
   popup.innerHTML = html;
 
-  // 캐릭터 이름 비동기 로드
+  // 캐릭터 이름 비동기 로드 (개인 슬롯에서)
   uids.forEach(function(uid) {
-    db.collection('sessions').doc(_currentSession.id)
-      .collection('characters').doc(uid).get().then(function(doc) {
+    var slotId = players[uid]?.slotId;
+    if (!slotId) { var el2 = document.getElementById('gm-fab-char-' + uid); if (el2) el2.textContent = '슬롯 미지정'; return; }
+    db.collection('users').doc(uid)
+      .collection('characters').doc(slotId).get().then(function(doc) {
         var el = document.getElementById('gm-fab-char-' + uid);
         if (!el) return;
         if (doc.exists && doc.data().data) {
@@ -934,7 +946,7 @@ function _updateGMSwitchPopup() {
             el.textContent = (d.name || '이름 없음');
           } catch(e) { el.textContent = ''; }
         } else {
-          el.textContent = '미생성';
+          el.textContent = '빈 슬롯';
         }
       }).catch(function() {});
   });

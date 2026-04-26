@@ -278,9 +278,11 @@ function renderSessionDetail(s) {
       '<button class="kick-btn" onclick="kickPlayer(\'' + s.id + '\',\'' + uid + '\',\'' + (p.displayName || '???').replace(/'/g, "\\'") + '\')">추방</button>' +
     '</div>';
   }).join('');
-  // 캐릭터 요약 로드
+  // 캐릭터 요약 로드 (개인 슬롯에서)
   uids.forEach(uid => {
-    db.collection('sessions').doc(s.id).collection('characters').doc(uid).get().then(doc => {
+    const slotId = players[uid]?.slotId;
+    if (!slotId) { const el2 = document.getElementById('pc-info-' + uid); if (el2) el2.textContent = '슬롯 미지정'; return; }
+    db.collection('users').doc(uid).collection('characters').doc(slotId).get().then(doc => {
       const el = document.getElementById('pc-info-' + uid);
       if (!el) return;
       if (doc.exists && doc.data().data) {
@@ -289,7 +291,7 @@ function renderSessionDetail(s) {
           el.textContent = (d.name || '이름 없음') + ' — ' + (d.selectedClass || '?') + ' Lv.' + (d.level || 1);
         } catch(e) { el.textContent = '데이터 오류'; }
       } else {
-        el.textContent = '캐릭터 미생성';
+        el.textContent = '빈 슬롯';
       }
     });
   });
@@ -333,17 +335,15 @@ async function deleteCurrentSession() {
   if (!selectedSessionId) return;
   const s = mySessions.find(s => s.id === selectedSessionId);
   if (!s) return;
-  if (!confirm('"' + (s.name||'세션') + '"을 삭제하시겠습니까?\n모든 참가자의 세션 캐릭터가 삭제됩니다.')) return;
+  if (!confirm('"' + (s.name||'세션') + '"을 삭제하시겠습니까?')) return;
   try {
-    // 서브컬렉션(characters) 삭제
-    const charSnap = await db.collection('sessions').doc(selectedSessionId).collection('characters').get();
-    const batch = db.batch();
-    charSnap.forEach(d => batch.delete(d.ref));
-    // rolls 서브컬렉션도 삭제
+    // rolls 서브컬렉션 삭제
     const rollSnap = await db.collection('sessions').doc(selectedSessionId).collection('rolls').get();
+    const batch = db.batch();
     rollSnap.forEach(d => batch.delete(d.ref));
     batch.delete(db.collection('sessions').doc(selectedSessionId));
     await batch.commit();
+    // 플레이어 캐릭터의 sessionId는 각 클라이언트의 onSnapshot에서 자동 정리됨
   } catch(e) {
     console.error('[deleteSession]', e);
     alert('삭제 실패: ' + e.message);
@@ -356,44 +356,27 @@ async function deleteCurrentSession() {
 //  참가자 추방
 // ═══════════════════════════════════════════════
 async function kickPlayer(sessionId, uid, name) {
-  if (!confirm('"' + name + '"을(를) 세션에서 추방하시겠습니까?\n캐릭터는 해당 플레이어의 개인 슬롯으로 반환됩니다.')) return;
+  if (!confirm('"' + name + '"을(를) 세션에서 추방하시겠습니까?\n캐릭터는 해당 플레이어의 개인 슬롯에 그대로 유지됩니다.')) return;
   try {
-    // 세션 캐릭터를 플레이어 개인 슬롯으로 복사
-    await _returnCharToPlayer(sessionId, uid);
-    // 세션에서 제거
+    // 세션 doc에서 해당 플레이어의 slotId 확인 후 sessionId 제거
+    const sessDoc = await db.collection('sessions').doc(sessionId).get();
+    if (sessDoc.exists) {
+      const slotId = sessDoc.data().players?.[uid]?.slotId;
+      if (slotId) {
+        await db.collection('users').doc(uid)
+          .collection('characters').doc(slotId).update({
+            sessionId: firebase.firestore.FieldValue.delete()
+          });
+      }
+    }
+    // 세션 players map에서 제거
     const playerField = 'players.' + uid;
     await db.collection('sessions').doc(sessionId).update({
       [playerField]: firebase.firestore.FieldValue.delete()
     });
-    await db.collection('sessions').doc(sessionId)
-      .collection('characters').doc(uid).delete();
   } catch(e) {
     console.error('[kickPlayer]', e);
     alert('추방 실패: ' + e.message);
-  }
-}
-
-async function _returnCharToPlayer(sessionId, uid) {
-  try {
-    const charDoc = await db.collection('sessions').doc(sessionId)
-      .collection('characters').doc(uid).get();
-    if (!charDoc.exists || !charDoc.data().data) return;
-    // 빈 슬롯 찾기
-    const slotsSnap = await db.collection('users').doc(uid).collection('characters').get();
-    const usedSlots = new Set();
-    slotsSnap.forEach(d => { if (d.data().data) usedSlots.add(d.id); });
-    let targetSlot = null;
-    for (let i = 1; i <= 5; i++) {
-      if (!usedSlots.has('slot' + i)) { targetSlot = 'slot' + i; break; }
-    }
-    if (!targetSlot) return; // 빈 슬롯 없으면 스킵 (데이터 유실 방지 — 세션 캐릭터는 삭제 전까지 남아있음)
-    await db.collection('users').doc(uid).collection('characters').doc(targetSlot).set({
-      data: charDoc.data().data,
-      name: charDoc.data().name || '이름 없음',
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-  } catch(e) {
-    console.warn('[_returnCharToPlayer]', e);
   }
 }
 
