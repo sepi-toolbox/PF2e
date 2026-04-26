@@ -424,7 +424,7 @@ function startSessionListeners() {
           _loadComplete = false;
           loadData(JSON.parse(remoteData));
           _rebuildAllUI();
-          recalcAll();
+          _preserveAndRecalc();
           _loadComplete = prev;
           // GM 편집 수신 후 플레이어 측에서도 저장 (정본 유지)
           save();
@@ -836,7 +836,7 @@ function _startGMCharListener(uid) {
             _loadComplete = false;
             loadData(JSON.parse(_gmPendingData));
             _rebuildAllUI();
-            recalcAll();
+            _preserveAndRecalc();
             _loadComplete = prev;
             _flashSyncIndicator();
             _showGMSyncStatus('done');
@@ -844,7 +844,29 @@ function _startGMCharListener(uid) {
           }
         }, 3000);
       }
+    }, function(err) {
+      console.error('[GM charListener]', err);
+      _showGMSyncStatus('error');
     });
+}
+
+// ── recalcAll 시 HP/상태 보존 (동기화 수신 전용) ──
+function _preserveAndRecalc() {
+  // loadData가 설정한 HP/dying/wounded 값을 보존
+  var curEl = document.getElementById('hp-cur');
+  var dyingEl = document.getElementById('dying');
+  var woundedEl = document.getElementById('wounded');
+  var heroEl = document.getElementById('hero-points');
+  var savedCur = curEl ? curEl.value : null;
+  var savedDying = dyingEl ? dyingEl.value : null;
+  var savedWounded = woundedEl ? woundedEl.value : null;
+  var savedHero = heroEl ? heroEl.value : null;
+  recalcAll();
+  // recalcAll → updateHP가 덮어쓴 값을 복원
+  if (curEl && savedCur !== null) curEl.value = savedCur;
+  if (dyingEl && savedDying !== null) dyingEl.value = savedDying;
+  if (woundedEl && savedWounded !== null) woundedEl.value = savedWounded;
+  if (heroEl && savedHero !== null) heroEl.value = savedHero;
 }
 
 // ── 동기화 인디케이터 ──
@@ -876,6 +898,9 @@ function _showGMSyncStatus(status) {
   if (status === 'pending') {
     el.textContent = '⏳ 동기화 대기...';
     el.style.color = '#f5c518';
+  } else if (status === 'error') {
+    el.textContent = '⚠ 동기화 오류';
+    el.style.color = '#e74c3c';
   } else if (status === 'done') {
     var now = new Date();
     var time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0') + ':' + now.getSeconds().toString().padStart(2,'0');
