@@ -15,6 +15,7 @@ let _partyUnsub = null;
 let _rollsUnsub = null;
 let _rollsReady = false; // 초기 스냅샷 스킵용
 let _lastSavedData = null; // 자기 저장 데이터 — onSnapshot 자기 반응 스킵용
+let _leavingSession = false; // 자진 퇴장 중 — onSnapshot 추방 감지 방지
 
 /* ── 상수 ── */
 const SESSION_CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // I,O,0,1 제외
@@ -175,7 +176,8 @@ async function leaveSession() {
       console.error('[deleteSession]', e);
     }
   } else {
-    if (!confirm('세션을 나가시겠습니까?\n캐릭터는 개인 슬���에 그대로 유지됩니다.')) return;
+    if (!confirm('세션을 나가시겠습니까?\n캐릭터는 개인 슬롯에 그대로 유지됩니다.')) return;
+    _leavingSession = true; // 자진 퇴장 — onSnapshot 추방 감지 방지
     try {
       // 캐릭터 doc에서 sessionId 제거
       const mySlot = _currentSession.players[currentUser.uid]?.slotId;
@@ -392,7 +394,8 @@ function startSessionListeners() {
       _currentSession.name = data.name;
       // 플레이어: 자신이 players map에서 제거됨 (추방)
       if (!_isGM && currentUser && !data.players[currentUser.uid]) {
-        alert('세션에서 추방되었습니다.');
+        if (_leavingSession) return; // 자진 퇴장 중이면 무시
+        alert('세션에서 퇴장되었습니다.');
         stopSessionListeners();
         _sessionMode = false;
         _currentSession = null;
