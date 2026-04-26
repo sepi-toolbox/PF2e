@@ -547,7 +547,7 @@ const CONDITIONS_DATA = [
   {name:'약화',en:'Enfeebled',valued:true,max:4,desc:'근력 기반 판정/피해에 상태 페널티 = 약화 수치.'},
   {name:'매혹',en:'Charmed',valued:false,desc:'특정 생물에게 우호적 감정을 느낌. 그 생물을 해치는 행동에 제한.'},
   {name:'피로',en:'Fatigued',valued:false,desc:'모든 판정/DC에 -1 상황 페널티. 방어구 착용 중 이동 속도 5피트 감소. 휴식 후 해제.'},
-  {name:'무방비',en:'Off-Guard',valued:false,desc:'민첩 보너스가 AC에 적용되지 않음.'},
+  {name:'무방비',en:'Off-Guard',valued:false,desc:'AC에 -2 상황 페널티. 협공, 넘어짐, 은신 공격 등으로 발생.'},
   {name:'도주중',en:'Fleeing',valued:false,desc:'매 턴 최대한 멀리 이동 필수. 다른 행동 불가.'},
   {name:'우호적',en:'Friendly',valued:false,desc:'당신에게 우호적. 요청에 응할 가능성 높음.'},
   {name:'공포',en:'Frightened',valued:true,max:4,desc:'모든 판정/DC에 상태 페널티 = 공포 수치. 매 턴 종료 시 1 감소.'},
