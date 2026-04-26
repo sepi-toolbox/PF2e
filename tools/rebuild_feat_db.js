@@ -242,8 +242,10 @@ try {
 console.error(`  기존 prereqs 보존: ${Object.keys(existingPrereqs).length}개`);
 console.error(`  기존 desc 템플릿 보존: ${Object.keys(existingDescRefs).length}개`);
 
-// ancestry와 archetype 재주 + class_id가 있는 feature 항목 추출 (raw text)
+// archetype 재주 + class_id가 있는 feature 항목 추출 (raw text)
+// ancestry는 PlayerCore.html에서 자동 파싱되므로 보존하지 않음 (v364~)
 const existingFeats = [];
+const seenExistingNames = new Set();
 // 중첩 {} 처리를 위해 브래킷 카운팅으로 각 엔트리 추출
 let braceDepth = 0, entryStart = -1;
 for (let i = 0; i < existingDb.length; i++) {
@@ -255,13 +257,18 @@ for (let i = 0; i < existingDb.length; i++) {
     if (braceDepth === 0 && entryStart >= 0) {
       const entry = existingDb.substring(entryStart, i + 1);
       const catMatch = entry.match(/category:\s*'([^']+)'/);
+      const nameMatch = entry.match(/name_en:\s*'([^']+)'/);
+      const nameKey = nameMatch ? nameMatch[1] : '';
       if (catMatch) {
         const cat = catMatch[1];
-        if (cat === 'ancestry' || cat === 'archetype') {
+        // archetype만 보존 (ancestry는 자동 파싱됨)
+        if (cat === 'archetype' && !seenExistingNames.has(nameKey)) {
           existingFeats.push(entry);
+          seenExistingNames.add(nameKey);
         }
-        if (entry.includes('class_id:') && entry.includes("cat:'feature'")) {
+        if (entry.includes('class_id:') && entry.includes("cat:'feature'") && !seenExistingNames.has(nameKey)) {
           existingFeats.push(entry);
+          seenExistingNames.add(nameKey);
         }
       }
       entryStart = -1;
@@ -299,8 +306,8 @@ out += '//  class/general/skill: PlayerCore.html 자동 파싱\n';
 out += '// ═══════════════════════════════════════════════\n\n';
 out += 'var FEAT_DB = [\n';
 
-// 먼저 기존 ancestry/archetype 출력
-out += '  // ── 혈통 재주 (기존) ──\n';
+// 먼저 기존 archetype 출력
+out += '  // ── 아키타입 재주 (기존) ──\n';
 for (const ef of existingFeats) {
   out += '  ' + ef + ',\n';
 }
