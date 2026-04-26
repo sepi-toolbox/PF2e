@@ -425,7 +425,6 @@ function startSessionListeners() {
           _loadComplete = prev;
           // GM 편집 수신 후 플레이어 측에서도 저장 (정본 유지)
           save();
-          _flashSyncIndicator();
         }
       });
   }
