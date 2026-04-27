@@ -3,6 +3,7 @@
 // ═══════════════════════════════════════════════
 
 let _autoSaveDebounce = null;
+let _lastSavedJson = null; // 직전 저장 JSON — 동일 데이터 중복 write 방지
 
 function save() {
   const st = document.getElementById('save-status');
@@ -19,14 +20,21 @@ function autoSaveNow() {
     return;
   }
   const st = document.getElementById('save-status');
-  if (st) { st.textContent = '저장 중...'; st.style.color = '#f5c518'; }
   const data = collectData();
+  const json = JSON.stringify(data);
+  // 변경 없음 — write 스킵
+  if (json === _lastSavedJson) {
+    if (st) { st.textContent = '저장완료'; st.style.color = '#27ae60'; }
+    return;
+  }
+  if (st) { st.textContent = '저장 중...'; st.style.color = '#f5c518'; }
   const db2 = firebase.firestore();
   db2.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot).set({
-    data: JSON.stringify(data),
+    data: json,
     name: data.name || '이름 없음',
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
   }).then(() => {
+    _lastSavedJson = json;
     if (st) { st.textContent = '저장완료'; st.style.color = '#27ae60'; }
   }).catch((e) => {
     if (st) { st.textContent = '저장 실패'; st.style.color = '#e74c3c'; }

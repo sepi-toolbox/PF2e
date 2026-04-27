@@ -223,7 +223,6 @@ function sessionSaveNow() {
   if (_isGM && !_gmEditTarget) return;
 
   const st = document.getElementById('save-status');
-  if (st) { st.textContent = '저장 중...'; st.style.color = '#f5c518'; }
   const data = collectData();
 
   let targetUid, targetSlot;
@@ -239,6 +238,13 @@ function sessionSaveNow() {
   if (!targetSlot) return;
 
   var jsonData = JSON.stringify(data);
+  // 변경 없음 — write 스킵 (직전 저장과 동일하면 firestore 호출 안 함)
+  var prevJson = (targetUid === currentUser.uid) ? _lastSavedData : (_isGM ? _gmLastSavedData : null);
+  if (jsonData === prevJson) {
+    if (st) { st.textContent = '저장완료'; st.style.color = '#27ae60'; }
+    return;
+  }
+  if (st) { st.textContent = '저장 중...'; st.style.color = '#f5c518'; }
   // 저장 데이터 기록 — onSnapshot에서 자기 반응 스킵용
   if (targetUid === currentUser.uid) _lastSavedData = jsonData;
   else if (_isGM) _gmLastSavedData = jsonData;
@@ -474,6 +480,7 @@ function startSessionListeners() {
   _rollsReady = false;
   _rollsUnsub = db.collection('sessions').doc(_currentSession.id)
     .collection('rolls')
+    .limit(100)
     .onSnapshot(function(snap) {
       if (!_rollsReady) { _rollsReady = true; return; }
       snap.docChanges().forEach(function(change) {
@@ -722,6 +729,16 @@ async function enterGMSessionMode(sessionId) {
     _sessionMode = true;
     _isGM = true;
 
+    // 이전 세션의 누적 rolls 정리 (read 비용 절감)
+    try {
+      const oldRolls = await db.collection('sessions').doc(sessionId).collection('rolls').get();
+      if (!oldRolls.empty) {
+        const batch = db.batch();
+        oldRolls.forEach(d => batch.delete(d.ref));
+        await batch.commit();
+      }
+    } catch (e) { console.warn('[rolls cleanup]', e); }
+
     // 슬롯 바 숨기기
     const slotBar = document.getElementById('slot-bar');
     if (slotBar) slotBar.style.display = 'none';
@@ -769,6 +786,7 @@ async function enterGMSessionMode(sessionId) {
     _rollsReady = false;
     _rollsUnsub = db.collection('sessions').doc(sessionId)
       .collection('rolls')
+      .limit(100)
       .onSnapshot(function(snap) {
         if (!_rollsReady) { _rollsReady = true; return; }
         snap.docChanges().forEach(function(change) {

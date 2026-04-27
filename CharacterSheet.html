@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=508"></script>
-<script src="feat_db.js?v=508"></script>
-<script src="SPELL_DB.js?v=508"></script>
-<script src="class_features_db.js?v=508"></script>
+<script src="equipment_db.js?v=509"></script>
+<script src="feat_db.js?v=509"></script>
+<script src="SPELL_DB.js?v=509"></script>
+<script src="class_features_db.js?v=509"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1321,7 +1321,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v508</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v509</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1888,14 +1888,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=508"></script>
-<script src="cs_calc.js?v=508"></script>
-<script src="cs_ui.js?v=508"></script>
-<script src="cs_modal.js?v=508"></script>
-<script src="cs_feat_effects.js?v=508"></script>
-<script src="cs_save.js?v=508"></script>
-<script src="cs_session.js?v=508"></script>
-<script src="cs_dice.js?v=508"></script>
+<script src="cs_data.js?v=509"></script>
+<script src="cs_calc.js?v=509"></script>
+<script src="cs_ui.js?v=509"></script>
+<script src="cs_modal.js?v=509"></script>
+<script src="cs_feat_effects.js?v=509"></script>
+<script src="cs_save.js?v=509"></script>
+<script src="cs_session.js?v=509"></script>
+<script src="cs_dice.js?v=509"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -1905,14 +1905,12 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 // ═══════════════════════════════════════════════
 let currentUser = null;
 let currentSlot = localStorage.getItem('pf2e_lastSlot') || 'slot1';
-let autoSaveTimer = null;
 
 function updateAuthUI(user) {
   const area = document.getElementById('auth-area');
   const slotBar = document.getElementById('slot-bar');
   if (user) {
     currentUser = user;
-    startAutoSave();
     // GM 세션 모드 감지 (?gmsession=ID)
     var gmSessionId = new URLSearchParams(window.location.search).get('gmsession');
     if (gmSessionId && typeof enterGMSessionMode === 'function') {
@@ -1947,7 +1945,6 @@ function updateAuthUI(user) {
       var sBar = document.getElementById('session-bar');
       if (sBar) sBar.style.display = 'none';
     }
-    stopAutoSave();
     _cloudResolved = true; _checkReady();
   }
 }
@@ -2078,16 +2075,8 @@ function loadSlotNames(uid) {
   });
 }
 
-function startAutoSave() {
-  stopAutoSave();
-  autoSaveTimer = setInterval(function() {
-    if (currentUser) saveToCloud();
-  }, 120000); // 2분마다 자동 저장
-}
-
-function stopAutoSave() {
-  if (autoSaveTimer) { clearInterval(autoSaveTimer); autoSaveTimer = null; }
-}
+// 자동 저장은 save() 디바운스(일반 2초/세션 0.5초)가 담당.
+// 변경이 없으면 저장하지 않으므로 별도 인터벌 불필요.
 
 // 페이지 닫기/새로고침 시 대기 중인 저장 즉시 실행
 window.addEventListener('beforeunload', function() {

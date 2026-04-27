@@ -400,6 +400,7 @@ function startRollsListener(sessionId) {
   _rollsReady = false;
   _rollsUnsub = db.collection('sessions').doc(sessionId)
     .collection('rolls')
+    .limit(100)
     .onSnapshot(function(snap) {
       if (!_rollsReady) { _rollsReady = true; return; }
       snap.docChanges().forEach(function(change) {
