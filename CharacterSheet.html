@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PF2e 캐릭터 시트 (Player Core 한국어판)</title>
+<title>Pathforge</title>
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=507"></script>
-<script src="feat_db.js?v=507"></script>
-<script src="SPELL_DB.js?v=507"></script>
-<script src="class_features_db.js?v=507"></script>
+<script src="equipment_db.js?v=508"></script>
+<script src="feat_db.js?v=508"></script>
+<script src="SPELL_DB.js?v=508"></script>
+<script src="class_features_db.js?v=508"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1321,7 +1321,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v507</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v508</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1335,7 +1335,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 <!-- ═══════════════ CHARACTER HEADER ═══════════════ -->
 <div id="header">
-  <span style="color:var(--text2);font-size:12px;">PF2e 캐릭터 시트</span>
+  <span style="color:var(--text2);font-size:12px;">Pathforge</span>
   <div style="flex:1;"></div>
   <div class="hdr-actions">
     <button onclick="openRestModal()" style="background:var(--bg4);color:var(--accent2);border:1px solid var(--border2);padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600;">🛏 휴식</button>
@@ -1888,14 +1888,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=507"></script>
-<script src="cs_calc.js?v=507"></script>
-<script src="cs_ui.js?v=507"></script>
-<script src="cs_modal.js?v=507"></script>
-<script src="cs_feat_effects.js?v=507"></script>
-<script src="cs_save.js?v=507"></script>
-<script src="cs_session.js?v=507"></script>
-<script src="cs_dice.js?v=507"></script>
+<script src="cs_data.js?v=508"></script>
+<script src="cs_calc.js?v=508"></script>
+<script src="cs_ui.js?v=508"></script>
+<script src="cs_modal.js?v=508"></script>
+<script src="cs_feat_effects.js?v=508"></script>
+<script src="cs_save.js?v=508"></script>
+<script src="cs_session.js?v=508"></script>
+<script src="cs_dice.js?v=508"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
