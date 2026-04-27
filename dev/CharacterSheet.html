@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pathforge (dev)</title>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+firebase.initializeApp({
+  apiKey: "AIzaSyCM0_tctWtlRY08fVmcBaVrk2-mNb--SQM",
+  authDomain: "pf2e-sheets.firebaseapp.com",
+  projectId: "pf2e-sheets",
+  storageBucket: "pf2e-sheets.firebasestorage.app",
+  messagingSenderId: "967668320246",
+  appId: "1:967668320246:web:6e012c3069d4fd2f33e9d7"
+});
+const auth = firebase.auth();
+const db = firebase.firestore();
+</script>
+<script src="equipment_db.js?v=509"></script>
+<script src="feat_db.js?v=509"></script>
+<script src="SPELL_DB.js?v=509"></script>
+<script src="class_features_db.js?v=509"></script>
+<script>
+// Verify class_features_db loaded
+if (typeof CLASS_AUTO_FEATS === 'undefined') {
+  console.error('⚠ class_features_db.js FAILED — creating fallback');
+  var CLASS_PROF_TABLE = {};
+  var SUBCLASS_PROF_TABLE = {};
+  var CLASS_FEATURE_NAMES = {};
+  var CLASS_AUTO_FEATS = {};
+  var SUBCLASS_AUTO_FEATS = {};
+  var CLASS_AUTO_SPELLS = {};
+  var SUBCLASS_AUTO_SPELLS = {};
+  var SUBCLASS_FEATURE_NAMES = {};
+  var PATRON_TRADITION = {};
+  var DEITY_DB = [];
+  var DOMAIN_DB = {};
+  var DIVINE_FONT_SLOTS = {};
+} else {
+  console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
+}
+</script>
+<style>
+/* ═══════════════════════════════════════════
+   PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
+   ═══════════════════════════════════════════ */
+:root {
+  --bg:       #1c1c1c;
+  --bg2:      #222222;
+  --bg3:      #2a2a2a;
+  --bg4:      #333333;
+  --bg5:      #3a3a3a;
+  --text:     #dddddd;
+  --text2:    #999999;
+  --border:   #444444;
+  --border2:  #555555;
+  --accent:   #c9a84c;
+  --accent2:  #e8d5a3;
+  --accent-bg:#2a2010;
+  --red:      #d4543a;
+  --red-bg:   #2a1010;
+  --green:    #4a8a4a;
+  --teal:     #2a3a2a;
+  --modal-bg: rgba(0,0,0,0.85);
+  /* legacy compat aliases */
+  --gold:       #c9a84c;
+  --gold-light: #e8d5a3;
+  --red-light:  #e06050;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+  font-size:13px;
+  min-height:100vh;
+}
+
+/* ══════════════════════════════════
+   AUTH / TOP BAR
+   ══════════════════════════════════ */
+#auth-bar{
+  position:sticky;top:0;z-index:9999;
+  background:#161616;
+  border-bottom:1px solid var(--border);
+  padding:7px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;
+}
+#auth-bar .brand{color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.5px;}
+#save-status{color:var(--text2);font-size:11px;margin-left:10px;}
+#slot-bar{
+  background:#161616;
+  border-bottom:1px solid var(--border);
+  padding:5px 16px;
+  font-size:12px;
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+}
+#slot-bar button{
+  background:var(--bg3);border:1px solid var(--border2);color:var(--text2);
+  padding:3px 10px;border-radius:3px;cursor:pointer;font-size:11px;
+}
+#slot-bar button:hover{border-color:var(--accent);color:var(--accent);}
+#slot-bar button.active-slot{background:var(--accent-bg);border-color:var(--accent);color:var(--accent);}
+
+/* ══════════════════════════════════
+   MAIN HEADER (name/class bar)
+   ══════════════════════════════════ */
+#header{
+  background:#161616;
+  border-bottom:2px solid var(--accent);
+  padding:10px 16px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+#header-title{
+  font-size:15px;font-weight:700;
+  color:var(--accent);white-space:nowrap;
+  display:flex;align-items:center;gap:8px;
+}
+#header-title small{font-size:10px;color:var(--text2);font-weight:normal;}
+.hdr-fields{display:flex;flex-wrap:wrap;gap:8px;flex:1;}
+.hdr-field{display:flex;flex-direction:column;gap:2px;min-width:80px;}
+.hdr-field label{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;}
+.hdr-field input{
+  background:transparent;border:none;border-bottom:1px solid var(--border2);
+  color:var(--text);padding:3px 4px;font-size:12px;outline:none;width:100px;
+}
+.hdr-field input:focus{border-bottom-color:var(--accent);}
+.hdr-field input[type=number]{width:50px;}
+.btn-select{
+  background:transparent;border:1px solid var(--border2);color:var(--text2);
+  padding:3px 8px;border-radius:4px;font-size:11px;cursor:pointer;
+  text-align:left;white-space:nowrap;
+}
+.btn-select:hover{border-color:var(--accent);color:var(--accent);}
+.btn-select.filled{border-color:var(--accent);color:var(--accent);}
+.heritage-chip{
+  display:inline-block;background:var(--bg3);border:1px solid var(--border2);
+  border-radius:3px;padding:2px 8px;font-size:10px;color:var(--text2);cursor:pointer;margin-top:2px;
+}
+.heritage-chip.filled{border-color:var(--accent);color:var(--accent);}
+.hdr-actions{display:flex;gap:6px;margin-left:auto;flex-shrink:0;align-items:center;}
+.btn{padding:5px 12px;border-radius:4px;cursor:pointer;font-size:11px;border:1px solid;}
+.btn-confirm{background:var(--accent-bg);border-color:var(--accent);color:var(--accent);}
+.btn-confirm:hover{background:#3a2200;}
+.btn-cancel{background:var(--bg3);border-color:var(--border2);color:var(--text2);}
+.btn-cancel:hover{border-color:var(--red);color:var(--red);}
+
+/* ══════════════════════════════════
+   3-COLUMN LAYOUT
+   ══════════════════════════════════ */
+#app-layout{
+  display:grid;
+  grid-template-columns:270px 340px 1fr;
+  grid-template-rows:auto 1fr;
+  height:calc(100vh - 100px);
+  overflow:hidden;
+}
+/* sidebar */
+#sidebar{
+  grid-column:1;
+  grid-row:1/3;
+  background:var(--bg2);
+  border-right:1px solid var(--border);
+  overflow-y:auto;
+  padding:10px;
+}
+/* center column: stats + skills */
+#center-col{
+  grid-column:2;
+  grid-row:1/3;
+  background:var(--bg);
+  border-right:1px solid var(--border);
+  overflow-y:auto;
+  padding:10px;
+}
+/* right: tabs header */
+#right-tabs{
+  grid-column:3;
+  grid-row:1;
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+}
+/* right: tab panels */
+#right-content{
+  grid-column:3;
+  grid-row:2;
+  overflow-y:auto;
+  background:var(--bg);
+  padding:12px;
+}
+
+/* ══════════════════════════════════
+   TAB BAR (right column)
+   ══════════════════════════════════ */
+#right-tabs{
+  display:flex;
+  overflow-x:auto;
+  white-space:nowrap;
+  scrollbar-width:none;
+}
+#right-tabs::-webkit-scrollbar{display:none;}
+.tab{
+  padding:9px 14px;
+  cursor:pointer;
+  color:var(--text2);
+  font-size:12px;
+  border-bottom:2px solid transparent;
+  transition:all .15s;
+  flex-shrink:0;
+}
+.tab:hover{color:var(--text);background:var(--bg3);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+/* mobile-only tabs hidden on desktop */
+.tab-mobile-only{display:none;}
+
+/* ══════════════════════════════════
+   PANELS (right content area)
+   ══════════════════════════════════ */
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* ══════════════════════════════════
+   CARD / BOX
+   ══════════════════════════════════ */
+.box{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:10px;
+  margin-bottom:8px;
+}
+.box-title{
+  font-size:9px;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  margin-bottom:8px;
+  padding-bottom:5px;
+  border-bottom:1px solid var(--border);
+  font-weight:600;
+}
+
+/* ══════════════════════════════════
+   ATTRIBUTES (center col)
+   ══════════════════════════════════ */
+.attr-grid{
+  display:flex;gap:0;
+}
+.attr-box{
+  flex:1;text-align:center;padding:6px 2px;
+  border-right:1px solid var(--border);
+}
+.attr-box:last-child{border-right:none;}
+.attr-name{font-size:8px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;}
+.attr-score{font-size:15px;font-weight:700;color:var(--text);line-height:1.2;}
+.attr-mod{font-size:9px;color:var(--accent);min-height:0;}
+
+/* ══════════════════════════════════
+   STAT ROWS (saves, AC, etc.)
+   ══════════════════════════════════ */
+.stat-row{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
+.stat-label{font-size:11px;color:var(--text2);flex:1;}
+.stat-val{
+  font-size:15px;font-weight:700;color:var(--text);
+  width:36px;text-align:center;
+}
+.prof-sel{
+  background:var(--bg3);border:1px solid var(--border2);color:var(--text2);
+  padding:2px 3px;border-radius:3px;font-size:10px;cursor:pointer;
+}
+.prof-sel option{background:var(--bg2);}
+.inline-edit{
+  background:transparent;border:none;border-bottom:1px solid var(--border2);
+  color:var(--text);outline:none;font-size:inherit;font-family:inherit;
+}
+.inline-edit:focus{border-bottom-color:var(--accent);}
+
+/* ══════════════════════════════════
+   AC SHIELD BADGE
+   ══════════════════════════════════ */
+.ac-shield{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--accent);
+  color:#fff;
+  font-weight:700;
+  font-size:18px;
+  width:44px;height:50px;
+  clip-path:polygon(50% 0%,100% 15%,100% 70%,50% 100%,0% 70%,0% 15%);
+  flex-shrink:0;
+}
+.ac-wrap{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.ac-label{font-size:10px;color:var(--text2);}
+
+/* ══════════════════════════════════
+   HP BAR
+   ══════════════════════════════════ */
+/* Hero Points checkboxes */
+.hero-star{cursor:pointer;font-size:20px;color:var(--text2);user-select:none;transition:color .1s;}
+.hero-star.filled{color:var(--accent);}
+/* HP Gauge */
+.hp-gauge-wrap{margin-bottom:4px;}
+.hp-gauge-bar{position:relative;background:#1a2a2a;border:1px solid var(--border);border-radius:6px;height:28px;overflow:hidden;}
+.hp-gauge-fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#1a6040,#2d8a5e);border-radius:5px;transition:width .3s;}
+.hp-gauge-temp{position:absolute;right:0;top:0;bottom:0;background:#666;border-left:2px solid #999;transition:width .3s;}
+.hp-gauge-text{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;height:100%;font-size:12px;font-weight:700;color:#fff;gap:2px;}
+.hp-gauge-input{background:transparent;border:none;color:#fff;font-size:12px;font-weight:700;width:36px;text-align:center;outline:none;}
+.hp-gauge-input:focus{background:rgba(0,0,0,0.3);border-radius:3px;}
+/* Shield Gauge */
+.shield-gauge-wrap{margin-bottom:4px;}
+.shield-gauge-bar{position:relative;background:#1a2030;border:1px solid var(--border);border-radius:6px;height:22px;overflow:hidden;}
+.shield-gauge-fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#4a3a1a,#8a6a2a);border-radius:5px;transition:width .3s;}
+
+.hp-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.hp-num{
+  background:var(--teal);border:1px solid var(--border2);border-radius:4px;
+  padding:4px 6px;text-align:center;min-width:52px;
+}
+.hp-num input{
+  background:transparent;border:none;color:#5dd;font-size:17px;font-weight:700;
+  width:46px;text-align:center;outline:none;
+}
+.hp-label{font-size:9px;color:var(--text2);text-transform:uppercase;}
+.hp-sep{font-size:16px;color:var(--text2);}
+
+/* ══════════════════════════════════
+   PROFICIENCY BADGES
+   ══════════════════════════════════ */
+.prof-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:18px;height:18px;border-radius:50%;
+  font-size:9px;font-weight:700;flex-shrink:0;
+}
+.prof-badge.U{background:#3a3a3a;color:#888;border:1px solid #555;}
+.prof-badge.T{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent);}
+.prof-badge.E{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent);}
+.prof-badge.M{background:#1a1000;color:#f0a050;border:1px solid #f0a050;}
+.prof-badge.L{background:#0a0a20;color:#80a0ff;border:1px solid #80a0ff;}
+
+/* ══════════════════════════════════
+   SKILLS LIST (center col)
+   ══════════════════════════════════ */
+.skill-row{
+  display:flex;align-items:center;gap:5px;
+  padding:3px 4px;border-radius:4px;transition:background .1s;
+}
+.skill-row:hover{background:var(--bg3);}
+.skill-gear{font-size:10px;color:var(--text2);width:14px;flex-shrink:0;}
+.skill-prof{
+  background:var(--bg3);border:1px solid var(--border2);color:var(--text2);
+  padding:1px 3px;border-radius:2px;font-size:10px;cursor:pointer;
+  min-width:30px;text-align:center;
+}
+.skill-prof option{background:var(--bg2);}
+.skill-attr{font-size:10px;color:var(--text2);width:26px;flex-shrink:0;}
+.skill-name{font-size:12px;flex:1;color:var(--text);}
+.skill-total{font-size:13px;font-weight:700;color:var(--accent);width:28px;text-align:right;}
+
+/* ══════════════════════════════════
+   SIDEBAR (left col)
+   ══════════════════════════════════ */
+.sidebar-section{
+  background:var(--bg3);border:1px solid var(--border);border-radius:6px;
+  padding:8px;margin-bottom:8px;
+}
+.sidebar-section-title{
+  font-size:9px;color:var(--accent);text-transform:uppercase;
+  letter-spacing:1px;margin-bottom:6px;font-weight:600;
+}
+.sidebar-row{
+  display:flex;align-items:center;gap:6px;margin-bottom:5px;
+}
+.sidebar-row label{font-size:10px;color:var(--text2);min-width:44px;}
+
+/* ══════════════════════════════════
+   WEAPON PROFICIENCY BAR
+   ══════════════════════════════════ */
+.prof-rank-text{
+  font-size:18px;font-weight:700;color:var(--text2);line-height:1;
+}
+.prof-rank-text.trained{color:#4caf50;}
+.prof-rank-text.expert{color:#42a5f5;}
+.prof-rank-text.master{color:#ab47bc;}
+.prof-rank-text.legendary{color:#ffa726;}
+.prof-rank-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:4px;font-size:10px;font-weight:700;
+  background:var(--bg4);color:var(--text2);border:1px solid var(--border);flex-shrink:0;
+}
+.prof-rank-badge.trained{background:#1a3a1a;color:#4caf50;border-color:#4caf50;}
+.prof-rank-badge.expert{background:#1a2a3a;color:#42a5f5;border-color:#42a5f5;}
+.prof-rank-badge.master{background:#2a1a2a;color:#ab47bc;border-color:#ab47bc;}
+.prof-rank-badge.legendary{background:#3a2a1a;color:#ffa726;border-color:#ffa726;}
+.weapon-prof-bar{
+  display:flex;flex-wrap:wrap;gap:0;
+  margin-bottom:8px;
+}
+.weapon-prof-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:8px 4px;border-right:1px solid var(--border);
+}
+.weapon-prof-item:last-child{border-right:none;}
+.weapon-prof-item span:first-child{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;}
+.weapon-prof-item select{
+  background:var(--bg3);border:1px solid var(--border2);color:var(--text2);
+  padding:1px 3px;border-radius:3px;font-size:10px;cursor:pointer;width:42px;
+}
+.weapon-prof-item select option{background:var(--bg2);}
+.weapon-prof-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:16px;height:16px;border-radius:50%;font-size:9px;font-weight:700;
+  border:1px solid var(--border2);color:var(--text2);background:var(--bg3);
+}
+.weapon-prof-badge.trained{background:#1a3a1a;color:#4caf50;border-color:#4caf50;}
+.weapon-prof-badge.expert{background:#1a2a3a;color:#42a5f5;border-color:#42a5f5;}
+.weapon-prof-badge.master{background:#2a1a2a;color:#ab47bc;border-color:#ab47bc;}
+.weapon-prof-badge.legendary{background:#3a2a1a;color:#ffa726;border-color:#ffa726;}
+
+/* ══════════════════════════════════
+   DEFENSE PANEL
+   ══════════════════════════════════ */
+.armor-prof-bar{
+  display:flex;flex-wrap:wrap;gap:0;
+  padding:0;background:var(--bg2);
+  border-bottom:1px solid var(--border);
+}
+.armor-prof-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:8px 4px;border-right:1px solid var(--border);
+}
+.armor-prof-item:last-child{border-right:none;}
+.armor-prof-item span:first-child{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;}
+.armor-prof-item select{
+  background:var(--bg3);border:1px solid var(--border2);color:var(--text2);
+  padding:1px 3px;border-radius:3px;font-size:10px;cursor:pointer;width:42px;
+}
+.armor-prof-item select option{background:var(--bg2);}
+.ac-breakdown{
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  padding:6px 12px;background:var(--bg);font-size:11px;color:var(--text2);
+  border-bottom:1px solid var(--border);
+}
+.ac-breakdown .ac-part{
+  display:flex;align-items:center;gap:2px;
+}
+.ac-breakdown .ac-part-val{
+  color:var(--accent);font-weight:700;font-size:12px;
+}
+.ac-breakdown .ac-sep{color:var(--border2);}
+.defense-card{
+  border:1px solid var(--border);border-radius:6px;margin:8px 10px;
+  background:var(--bg3);overflow:hidden;transition:opacity .2s;
+}
+.defense-card.stowed{opacity:.45;border-style:dashed;}
+.defense-card-header{
+  display:flex;align-items:center;gap:4px;padding:4px 8px;
+  background:var(--bg4);border-bottom:1px solid var(--border);
+  flex-wrap:wrap;
+}
+.defense-card-body{padding:6px 10px;}
+.defense-card-name{
+  font-size:13px;font-weight:700;color:var(--text);
+  display:flex;align-items:center;gap:4px;
+  margin-bottom:2px;
+}
+.defense-card-stats{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  font-size:11px;color:var(--text2);
+}
+.defense-card-stats .stat-item{
+  display:flex;align-items:center;gap:3px;
+}
+.defense-card-stats .stat-val{color:var(--text);font-weight:600;}
+.defense-btn{
+  background:var(--bg2);border:1px solid var(--border2);color:var(--text2);
+  padding:2px 6px;border-radius:3px;cursor:pointer;font-size:10px;
+  transition:border-color .15s,color .15s;
+}
+.defense-btn:hover{border-color:var(--accent);color:var(--accent);}
+.defense-btn.danger:hover{border-color:var(--red);color:var(--red-light);}
+.defense-panel-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+}
+@media(max-width:600px){
+  .defense-panel-grid{grid-template-columns:1fr;}
+}
+.defense-panel-left{border-right:1px solid var(--border);}
+@media(max-width:600px){
+  .defense-panel-left{border-right:none;border-bottom:1px solid var(--border);}
+}
+.defense-conditions{padding:8px 10px;}
+
+.weapon-card.dropped{opacity:.35;border-style:dotted;border-color:var(--red-light,#c66);}
+.weapon-btn.action-cost{font-size:8px;color:var(--text2);margin-left:1px;}
+/* Rune drag-and-drop */
+.equip-cat-add{
+  position:absolute;right:10px;
+  width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;color:var(--accent);cursor:pointer;
+  border:1px solid var(--accent);border-radius:4px;line-height:1;
+}
+.equip-cat-add:hover{background:var(--accent);color:var(--bg);}
+.spell-rank-header{position:relative;}
+.equip-rune-row{cursor:grab;background:rgba(212,175,55,.05);}
+.equip-rune-row:active{cursor:grabbing;}
+.equip-rune-attached{background:rgba(212,175,55,.04);border-bottom:1px solid rgba(212,175,55,.15);}
+.rune-drop-highlight{outline:2px solid var(--accent)!important;outline-offset:-2px;}
+.rune-drop-candidate{outline:1px dashed rgba(212,175,55,.3);outline-offset:-1px;}
+.rune-drag-ghost{
+  position:fixed;z-index:10000;pointer-events:none;
+  background:var(--accent);color:#000;padding:4px 10px;border-radius:4px;
+  font-size:11px;font-weight:600;opacity:.85;white-space:nowrap;
+  transform:translate(-50%,-100%);
+}
+
+/* ══════════════════════════════════
+   WEAPON CARDS
+   ══════════════════════════════════ */
+.weapon-card{
+  border:1px solid var(--border);border-radius:6px;margin-bottom:6px;
+  background:var(--bg3);overflow:hidden;transition:opacity .2s;
+}
+.weapon-card.stowed{opacity:.45;border-style:dashed;}
+.weapon-card-header{
+  display:flex;align-items:center;gap:4px;padding:4px 8px;
+  background:var(--bg4);border-bottom:1px solid var(--border);
+}
+.weapon-btn{
+  background:var(--bg2);border:1px solid var(--border2);color:var(--text2);
+  padding:2px 6px;border-radius:3px;cursor:pointer;font-size:10px;
+  transition:border-color .15s,color .15s;
+}
+.weapon-btn:hover{border-color:var(--accent);color:var(--accent);}
+.weapon-btn.danger:hover{border-color:var(--red);color:var(--red-light);}
+.weapon-card-body{padding:6px 10px;}
+.weapon-card-stats{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.weapon-card-name{
+  font-size:13px;font-weight:700;color:var(--text);cursor:pointer;
+  display:flex;align-items:center;gap:4px;
+}
+.weapon-card-name:hover{color:var(--accent);}
+.weapon-stat{
+  display:flex;align-items:center;gap:3px;font-size:12px;
+}
+.weapon-stat .stat-label{font-size:10px;color:var(--text2);}
+.weapon-stat .stat-val{font-weight:700;color:var(--accent);font-size:13px;}
+.weapon-stat .stat-val.dmg{color:var(--text);white-space:nowrap;}
+.weapon-stat{white-space:nowrap;}
+.weapon-card-traits{
+  display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;
+}
+.weapon-card-range{
+  font-size:11px;color:var(--text2);margin-top:3px;
+}
+/* Runes modal dropdown */
+.weapon-rune-popup{
+  position:absolute;z-index:100;background:var(--bg2);
+  border:1px solid var(--border2);border-radius:6px;
+  padding:10px;min-width:200px;box-shadow:0 4px 16px rgba(0,0,0,.5);
+}
+.weapon-rune-popup label{font-size:11px;color:var(--text2);display:block;margin-bottom:2px;}
+.weapon-rune-popup select{
+  width:100%;background:var(--bg3);border:1px solid var(--border2);
+  color:var(--text);padding:3px 5px;border-radius:3px;font-size:11px;
+  margin-bottom:8px;
+}
+.add-btn{
+  background:var(--bg3);border:1px dashed var(--border2);color:var(--text2);
+  padding:4px 8px;border-radius:4px;cursor:pointer;font-size:11px;width:100%;
+  margin-top:3px;
+}
+.add-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ══════════════════════════════════
+   SPELLS — Pathbuilder2e Style
+   ══════════════════════════════════ */
+/* Sub-tabs */
+.spell-subtabs{display:flex;background:var(--bg2);border-bottom:2px solid var(--border);}
+.spell-subtab{
+  padding:10px 20px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;
+}
+.spell-subtab:hover{color:var(--text);}
+.spell-subtab.active{color:var(--accent);border-bottom-color:var(--accent);}
+
+/* Header bar */
+.spell-header-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+.spell-header-left{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.spell-header-stats{display:flex;gap:8px;align-items:center;font-size:12px;flex-wrap:wrap;}
+.spell-stat{color:var(--text2);display:flex;align-items:center;gap:3px;}
+.spell-stat strong{color:var(--text);font-size:14px;}
+.spell-stat-sep{color:var(--border2);}
+.spell-dc-atk-box{
+  display:flex;gap:12px;align-items:center;
+  background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:6px 12px;
+}
+.spell-dc-atk-box .spell-val-label{font-size:10px;color:var(--text2);text-transform:uppercase;}
+.spell-dc-atk-box .spell-val{font-size:18px;font-weight:700;color:var(--text);line-height:1;}
+
+/* TEML badges */
+.spell-teml{display:flex;gap:3px;align-items:center;}
+.spell-teml-badge{
+  width:22px;height:22px;display:flex;align-items:center;justify-content:center;
+  border-radius:4px;font-size:10px;font-weight:700;
+  background:var(--bg4);color:var(--text2);border:1px solid var(--border);
+}
+.spell-teml-badge.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+/* Breakdown row */
+.spell-breakdown{display:flex;gap:16px;padding:4px 12px 8px;font-size:11px;color:var(--text2);background:var(--bg3);border-bottom:1px solid var(--border);}
+.spell-breakdown-item{display:flex;flex-direction:column;align-items:center;gap:1px;}
+.spell-breakdown-item .bd-label{font-size:9px;color:var(--text2);text-transform:uppercase;}
+.spell-breakdown-item .bd-val{font-size:13px;font-weight:600;color:var(--text);}
+
+/* Spell controls row */
+.spell-controls-row{display:flex;gap:6px;padding:6px 12px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;align-items:center;}
+
+/* Rank sections */
+.spell-rank-section{border-bottom:1px solid var(--border);}
+.spell-rank-header{padding:8px 12px;font-size:14px;font-weight:700;color:var(--accent);background:var(--bg2);text-align:center;}
+.spell-rank-header .en{font-size:11px;color:var(--text2);font-weight:400;}
+.spell-slot-col-header{display:flex;padding:4px 12px;font-size:10px;color:var(--text2);border-bottom:1px solid var(--border);}
+.spell-slot-row{display:flex;align-items:center;padding:6px 12px;border-bottom:1px solid var(--border);gap:6px;}
+.spell-slot-row:hover{background:var(--bg4);}
+.spell-slot-name{flex:1;font-size:13px;color:var(--text);cursor:pointer;}
+.spell-slot-name .spell-actions-inline{font-size:11px;color:var(--accent);margin-left:4px;}
+.spell-slot-name.empty{color:var(--text2);font-style:italic;}
+.spell-slot-name.empty:hover{color:var(--accent);}
+.spell-slot-dur{width:70px;text-align:center;font-size:11px;color:var(--text2);}
+.spell-slot-range{width:70px;text-align:center;font-size:11px;color:var(--text2);}
+.spell-slot-del{width:20px;text-align:center;cursor:pointer;color:var(--text2);font-size:12px;}
+.spell-slot-del:hover{color:var(--red);}
+.spell-cast-label{
+  width:40px;font-size:10px;font-weight:600;color:var(--accent);text-align:center;
+  cursor:pointer;user-select:none;
+}
+.spell-cast-label.cast-used{color:var(--text2);text-decoration:line-through;}
+.spell-slot-row.slot-used{opacity:0.35;}
+
+/* Slot fire icons */
+.spell-slots-used{display:flex;gap:3px;padding:4px 12px;align-items:center;}
+.spell-slots-used input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px;cursor:pointer;}
+.spell-slot-fires{display:inline-flex;gap:2px;margin-left:8px;font-size:14px;cursor:pointer;}
+.spell-slot-fire{opacity:1;transition:opacity .15s;}
+.spell-slot-fire.used{opacity:0.3;}
+
+/* Legacy compat */
+.spell-slot-table{width:100%;border-collapse:collapse;font-size:11px;}
+.spell-slot-table th{
+  background:var(--bg3);color:var(--accent);padding:3px 6px;
+  text-align:center;border:1px solid var(--border);
+}
+.spell-slot-table td{padding:3px 6px;border:1px solid var(--border);text-align:center;}
+.slot-check{width:14px;height:14px;cursor:pointer;accent-color:var(--red);}
+.spell-entry{display:flex;gap:6px;align-items:center;padding:3px 4px;border-radius:3px;margin-bottom:2px;cursor:pointer;}
+.spell-entry:hover{background:var(--bg3);}
+.spell-entry:hover .spell-entry-name{color:var(--accent);}
+.spell-rank-badge{
+  background:var(--bg4);border:1px solid var(--border2);border-radius:3px;
+  padding:1px 4px;font-size:10px;color:var(--accent);min-width:20px;text-align:center;
+}
+.spell-entry-name{flex:1;font-size:12px;}
+.spell-del{color:var(--red);cursor:pointer;font-size:14px;line-height:1;padding:0 2px;}
+.spell-actions{font-size:10px;color:var(--accent);margin-right:4px;}
+
+/* ══════════════════════════════════
+   FEATS
+   ══════════════════════════════════ */
+.feat-entry{
+  padding:5px 8px;border:1px solid var(--border);border-radius:4px;
+  margin-bottom:4px;background:var(--bg3);
+}
+.feat-entry input{
+  background:transparent;border:none;color:var(--text);outline:none;font-size:12px;
+}
+.feat-entry input:focus{background:var(--bg4);padding:1px 3px;border-radius:2px;}
+.feat-entry-header{display:flex;align-items:center;gap:4px;margin-bottom:2px;}
+.feat-name-display{
+  flex:1;font-size:12px;color:var(--text);cursor:pointer;
+  padding:2px 3px;border-radius:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.feat-name-display:hover{color:var(--accent);background:var(--bg4);}
+.feat-src{font-size:10px;color:var(--text2);display:flex;align-items:center;gap:4px;}
+.feat-traits-row{
+  display:none;padding:4px 8px 0;
+}
+.feat-entry.expanded .feat-traits-row{display:block;}
+.feat-detail{
+  display:none;padding:8px;margin-top:4px;
+  border-top:1px solid var(--border);
+  font-size:12px;color:var(--text2);line-height:1.6;
+}
+.feat-entry.expanded .feat-detail{display:block;}
+.feat-entry.expanded{border-color:var(--accent);background:var(--bg2);}
+.feat-choice-ctrl select,.feat-choice-ctrl input{
+  -webkit-appearance:none;appearance:none;font-family:inherit;
+  min-height:36px;box-sizing:border-box;
+}
+.feat-choice-ctrl button{min-height:36px;}
+@media(max-width:600px){
+  .feat-choice-ctrl select,.feat-choice-ctrl input{font-size:16px!important;min-height:40px;}
+  .feat-choice-ctrl button{min-height:40px;font-size:14px!important;}
+}
+
+/* ══════════════════════════════════
+   EQUIPMENT
+   ══════════════════════════════════ */
+.equip-row{
+  display:flex;gap:6px;align-items:center;padding:6px 4px;
+  border-bottom:1px solid var(--border);font-size:12px;
+}
+.qty-btn{
+  width:24px;height:24px;border:1px solid var(--border2);border-radius:4px;
+  background:var(--bg4);color:var(--text);font-size:14px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+}
+.qty-btn:hover{border-color:var(--accent);color:var(--accent);}
+.equip-toggle{
+  font-size:10px;padding:3px 8px;border:1px solid var(--border2);border-radius:4px;
+  background:var(--bg4);color:var(--text2);cursor:pointer;white-space:nowrap;
+}
+.equip-toggle:hover{border-color:var(--accent);color:var(--accent);}
+.equip-toggle.equipped{background:var(--accent-bg);color:var(--accent);border-color:var(--accent);}
+.equip-hold-select{
+  font-size:9px;padding:2px 2px;border:1px solid var(--border2);border-radius:4px;
+  background:var(--bg4);color:var(--text2);cursor:pointer;width:72px;
+  -webkit-appearance:none;appearance:none;text-align:center;
+}
+.equip-hold-select.active{background:var(--accent-bg);color:var(--accent);border-color:var(--accent);}
+.move-wrap{position:relative;width:28px;height:24px;display:inline-flex;align-items:center;justify-content:center;}
+.move-wrap::after{content:'▾';font-size:16px;color:var(--text2);pointer-events:none;}
+.move-wrap select{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:11px;}
+.currency-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px;}
+.currency-box{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:4px;
+  padding:5px;text-align:center;
+}
+.currency-box label{font-size:10px;color:var(--accent);display:block;margin-bottom:2px;}
+.currency-box input{
+  background:transparent;border:none;color:var(--text);font-size:14px;
+  font-weight:700;width:50px;text-align:center;outline:none;
+}
+.currency-card{
+  flex:1;border:1px solid var(--border2);border-radius:6px;
+  padding:6px 4px;text-align:center;background:var(--bg3);
+}
+.currency-label{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;}
+.currency-input{
+  background:transparent;border:none;color:var(--text);font-size:18px;
+  font-weight:700;width:100%;text-align:center;outline:none;
+}
+.currency-input::-webkit-inner-spin-button{-webkit-appearance:none;}
+
+/* ══════════════════════════════════
+   NOTES / TEXTAREA
+   ══════════════════════════════════ */
+.notes-area{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:4px;
+  width:100%;min-height:70px;resize:vertical;color:var(--text);
+  padding:6px;font-size:12px;font-family:inherit;
+}
+.notes-area:focus{outline:none;border-color:var(--accent);}
+
+/* ══════════════════════════════════
+   CONDITIONS
+   ══════════════════════════════════ */
+/* ── Conditions Grid ── */
+.condition-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:2px;}
+.cond-item{
+  display:flex;align-items:center;gap:4px;
+  padding:5px 8px;background:var(--bg3);border:1px solid var(--border);
+  cursor:pointer;transition:all .12s;font-size:11px;user-select:none;
+  border-radius:3px;
+}
+.cond-item:hover{border-color:var(--red-light);}
+.cond-item.active{background:var(--red-bg);border-color:var(--red);color:var(--red-light);}
+.cond-item .cond-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cond-item .cond-dots{display:flex;gap:2px;flex-shrink:0;}
+.cond-dot{width:8px;height:8px;border-radius:50%;background:var(--bg5);border:1px solid var(--border2);}
+.cond-dot.filled{background:var(--red);border-color:var(--red);}
+.cond-detail{
+  grid-column:1/-1;background:var(--bg2);border:1px solid var(--accent);
+  border-radius:4px;padding:8px 10px;font-size:11px;color:var(--text);
+  line-height:1.6;display:none;
+}
+.cond-detail.open{display:block;}
+
+/* ══════════════════════════════════
+   ACTIONS TAB
+   ══════════════════════════════════ */
+.action-filter-bar{display:flex;gap:6px;flex-wrap:wrap;padding:0 0 8px;}
+.action-filter-bar button{
+  background:var(--bg3);border:1px solid var(--border2);color:var(--text2);
+  padding:3px 10px;border-radius:12px;font-size:11px;cursor:pointer;
+}
+.action-filter-bar button:hover{border-color:var(--accent);color:var(--accent);}
+.action-filter-bar button.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent);}
+.action-group-title{
+  font-size:9px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;
+  border-bottom:1px solid var(--border);padding-bottom:4px;margin-bottom:6px;
+}
+.actions-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;}
+.action-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;}
+.action-card:hover{border-color:var(--border2);}
+.action-card-head{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.action-cost{font-size:13px;color:var(--accent);flex-shrink:0;min-width:20px;}
+.action-name-ko{font-size:13px;font-weight:700;color:var(--text);flex:1;}
+.action-name-en{font-size:10px;color:var(--text2);}
+.action-traits{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px;}
+.action-summary{font-size:11px;color:var(--text2);line-height:1.5;}
+.action-req{font-size:10px;color:var(--text2);margin-top:3px;font-style:italic;}
+
+/* ══════════════════════════════════
+   MODAL — Pathbuilder split-pane style
+   ══════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;background:var(--modal-bg);z-index:10000;display:flex;align-items:center;justify-content:center;}
+.modal-overlay.hidden{display:none;}
+.modal{
+  background:var(--bg2);border:1px solid var(--border2);border-radius:8px;
+  width:95vw;max-width:1100px;height:85vh;display:flex;flex-direction:column;
+}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 16px;border-bottom:1px solid var(--border);
+  background:var(--bg3);border-radius:8px 8px 0 0;flex-shrink:0;
+}
+.modal-header h2{color:var(--accent);font-size:15px;}
+.modal-close{background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;padding:0 4px;}
+.modal-close:hover{color:var(--accent);}
+.modal-close-mobile{display:none;background:none;border:none;color:var(--text2);font-size:24px;cursor:pointer;padding:8px;min-width:44px;min-height:44px;line-height:1;}
+.modal-close-mobile:hover{color:var(--accent);}
+/* Split pane: list left + detail right */
+.modal-body{display:flex;flex:1;overflow:hidden;}
+.modal-list{width:420px;min-width:320px;overflow-y:auto;border-right:1px solid var(--border);display:flex;flex-direction:column;}
+.modal-list-header{padding:8px 12px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.modal-search{
+  width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);
+  padding:7px 10px;border-radius:4px;font-size:13px;margin-bottom:6px;
+}
+.modal-search:focus{outline:none;border-color:var(--accent);}
+.modal-filters{display:flex;gap:6px;flex-wrap:wrap;}
+.modal-filters select{
+  background:var(--bg3);border:1px solid var(--border2);color:var(--text);
+  padding:4px 6px;border-radius:3px;font-size:12px;
+}
+.modal-list-items{overflow-y:auto;flex:1;}
+.modal-detail{flex:1;overflow-y:auto;padding:16px;background:var(--bg3);}
+.modal-detail-empty{color:var(--text2);text-align:center;padding:40px 16px;font-size:13px;}
+.modal-detail-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.modal-detail-en{font-size:12px;color:var(--text2);margin-bottom:10px;}
+.modal-detail-tags{margin-bottom:12px;}
+.modal-detail-desc{font-size:13px;color:var(--text);line-height:1.7;}
+.modal-detail-desc strong{color:var(--accent);}
+/* List item row */
+.opt-row{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);
+  transition:background .1s;
+}
+.opt-row:hover{background:var(--bg4);}
+.opt-row.selected{background:var(--accent-bg);border-left:3px solid var(--accent);}
+.opt-row-icon{width:28px;height:28px;background:var(--bg4);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text2);flex-shrink:0;}
+.opt-row-name{flex:1;font-size:13px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.opt-row-actions{font-size:11px;color:var(--text2);margin-left:4px;}
+.opt-row-level{
+  width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:#fff;flex-shrink:0;
+}
+.opt-row-level.r0{background:#555;} /* cantrip / level 0 */
+.opt-row-level.r1{background:var(--accent);}
+.opt-row-level.r2{background:#2980b9;}
+.opt-row-level.r3{background:#8e44ad;}
+.opt-row-level.r4{background:#c0392b;}
+.opt-row-level.r5{background:#16a085;}
+.opt-row-level.r6{background:#d35400;}
+.opt-row-level.r7{background:#2c3e50;}
+.opt-row-level.r8{background:#7f8c8d;}
+.opt-row-level.r9{background:#f39c12;}
+.opt-row-level.r10{background:#e74c3c;}
+/* Section header in list */
+.opt-section-header{padding:6px 12px;font-size:12px;font-weight:700;color:var(--accent);background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1;}
+/* Legacy compat */
+.option-card{display:none;} /* hidden, replaced by opt-row */
+.opt-name{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:4px;}
+.opt-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;}
+.tag{background:var(--bg4);border:1px solid var(--border2);border-radius:3px;padding:1px 6px;font-size:10px;color:var(--text2);}
+.tag.hl{border-color:var(--accent);color:var(--accent);}
+.tag-meta{font-size:10px;color:var(--text2);font-weight:600;}
+.opt-desc{font-size:11px;color:var(--text2);line-height:1.6;margin-top:4px;}
+.modal-footer{
+  padding:10px 16px;border-top:1px solid var(--border);
+  display:flex;justify-content:flex-end;gap:8px;
+  background:var(--bg3);border-radius:0 0 8px 8px;flex-shrink:0;
+}
+/* Mobile modal (900px과 동일 breakpoint) */
+@media(max-width:900px){
+  .modal{width:100vw;height:100vh;height:100dvh;max-width:100vw;border-radius:0;display:flex;flex-direction:column;overflow:hidden;}
+  .modal-header{flex-shrink:0;}
+  .modal-body{flex:1;overflow-y:auto;overflow-x:hidden;flex-direction:column;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;}
+  .modal-list{width:100%;min-width:0;border-right:none;flex:none;overflow-y:visible;}
+  .modal-list-header{flex-shrink:0;}
+  .modal-list-items{overflow-y:visible;}
+  .modal-detail{display:none !important;}
+  .modal-footer{flex-shrink:0;display:flex !important;justify-content:center;background:var(--bg3);padding:10px;border-top:1px solid var(--border);}
+  .modal-footer .btn-confirm{display:none !important;}
+  .modal-footer .btn-cancel{display:block !important;width:100%;padding:12px;font-size:14px;}
+  .modal-body.detail-open .modal-list{display:flex;}
+  .modal-body.detail-open .modal-detail{display:none !important;}
+  .modal-detail-back{display:none !important;}
+  /* 아코디언 상세 */
+  .opt-row-detail{display:none;padding:10px 12px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:12px;line-height:1.6;}
+  .opt-row-detail.open{display:block;}
+  .opt-row.expanded{background:var(--accent-bg);border-left:3px solid var(--accent);}
+  /* 모달 닫기: 데스크톱 ✕ 숨기고, 모바일 "닫기" 버튼 표시 */
+  .modal-close{display:none !important;}
+  .modal-close-mobile{display:block !important;}
+}
+@media(min-width:901px){
+  .modal-detail-back{display:none;}
+}
+
+/* ══════════════════════════════════
+   EQUIPMENT BROWSE MODAL
+   ══════════════════════════════════ */
+.equip-tabs{display:flex;gap:0;border-bottom:2px solid var(--border);padding:0 12px;background:var(--bg2);flex-shrink:0;}
+.equip-tab{padding:8px 16px;font-size:13px;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;white-space:nowrap;}
+.equip-tab:hover{color:var(--text);}
+.equip-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.equip-subtabs{display:flex;gap:0;padding:0 12px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;flex-shrink:0;}
+.equip-subtab{padding:5px 12px;font-size:11px;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;}
+.equip-subtab:hover{color:var(--text);}
+.equip-subtab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.equip-give-buy{display:flex;gap:8px;margin-top:16px;padding-top:12px;border-top:1px solid var(--border);}
+.equip-give-buy button{flex:1;padding:10px;border:1px solid var(--border2);border-radius:4px;font-size:13px;cursor:pointer;font-weight:600;}
+.equip-give-buy .btn-give{background:var(--bg4);color:var(--text);}
+.equip-give-buy .btn-give:hover{border-color:var(--accent);color:var(--accent);}
+.equip-give-buy .btn-buy{background:var(--accent-bg);border-color:var(--accent);color:var(--accent);}
+.equip-give-buy .btn-buy:hover{background:var(--accent);color:#fff;}
+.modal-currency{display:flex;align-items:center;gap:16px;margin-left:auto;}
+.modal-currency-item{display:flex;align-items:center;gap:5px;font-size:12px;}
+.modal-currency-item .coin{width:24px;height:24px;border-radius:50%;display:inline-block;}
+.coin-pp{background:linear-gradient(135deg,#d0d0d0,#a0a0a0);}
+.coin-gp{background:linear-gradient(135deg,#e8c547,#c9a020);}
+.coin-sp{background:linear-gradient(135deg,#c0c0c0,#909090);}
+.coin-cp{background:linear-gradient(135deg,#cd8c52,#a06830);}
+.modal-currency-item .coin-label{color:var(--text2);font-size:11px;}
+.modal-currency-item .coin-val{color:var(--text);font-weight:700;font-size:14px;}
+
+/* ══════════════════════════════════
+   TRAIT TOOLTIPS
+   ══════════════════════════════════ */
+.trait-tag{
+  position:relative;display:inline-block;background:var(--bg4);border:1px solid var(--border2);
+  border-radius:3px;padding:1px 6px;font-size:10px;color:var(--text2);cursor:default;margin:1px;
+}
+.trait-tag:hover{border-color:var(--accent);color:var(--accent);}
+.trait-tag .trait-balloon{
+  display:none;position:fixed;background:var(--bg2);border:1px solid var(--accent);border-radius:4px;
+  padding:6px 10px;font-size:11px;color:var(--text);max-width:280px;width:max-content;z-index:99999;
+  line-height:1.5;white-space:normal;text-align:center;pointer-events:none;
+  box-shadow:0 2px 8px rgba(0,0,0,0.4);
+}
+.trait-tag.tip-open .trait-balloon{display:block;}
+.trait-tag .trait-balloon::after{display:none;}
+.spell-tip{
+  position:relative;display:inline;color:var(--accent);border-bottom:1px dotted var(--accent);
+  cursor:help;font-weight:600;
+}
+.spell-tip .spell-balloon{
+  display:none;position:fixed;background:var(--bg2);border:1px solid var(--accent);border-radius:4px;
+  padding:8px 12px;font-size:11px;color:var(--text);max-width:300px;width:max-content;z-index:99999;
+  line-height:1.6;white-space:normal;text-align:left;pointer-events:none;font-weight:400;
+  box-shadow:0 2px 8px rgba(0,0,0,0.4);
+}
+.spell-tip.tip-open .spell-balloon{display:block;}
+.desc-ref{
+  color:var(--gold,#d4a843);cursor:pointer;border-bottom:1px dotted var(--gold,#d4a843);
+  transition:opacity .15s;
+}
+.desc-ref:hover{opacity:.8;}
+.info-btn{
+  color:var(--text2);cursor:pointer;font-size:10px;padding:1px 5px;
+  user-select:none;flex-shrink:0;border:1px solid var(--border2);border-radius:3px;
+  background:var(--bg4);
+}
+.info-btn:hover{color:var(--accent);border-color:var(--accent);}
+.info-badge{
+  display:inline-block;background:var(--bg4);border:1px solid var(--border2);
+  border-radius:3px;padding:1px 5px;font-size:10px;color:var(--text2);margin:1px;
+}
+hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
+
+/* ══════════════════════════════════
+   GROWTH PLAN (Level Progression)
+   ══════════════════════════════════ */
+.growth-level-header{
+  font-size:14px;font-weight:700;color:var(--accent);
+  padding:8px 4px 4px;margin-top:6px;
+  border-bottom:1px solid var(--border);margin-bottom:6px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.growth-level-header:first-child{margin-top:0;}
+.growth-slot{
+  background:var(--bg3);border:1px solid var(--border);border-radius:6px;
+  padding:8px 10px;margin-bottom:5px;cursor:pointer;
+  transition:border-color .15s, background .15s;
+  display:flex;align-items:center;gap:8px;
+}
+.growth-slot:hover{border-color:var(--accent);background:var(--bg4);}
+.growth-slot.filled{border-color:var(--accent);}
+.growth-slot-icon{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;
+  background:var(--bg4);border:1px solid var(--border2);
+}
+.growth-slot.filled .growth-slot-icon{
+  background:var(--accent-bg);border-color:var(--accent);
+}
+.growth-slot-body{flex:1;min-width:0;}
+.growth-slot-label{
+  font-size:11px;font-weight:600;color:var(--text);
+  display:flex;align-items:center;gap:4px;
+}
+.growth-slot-value{
+  font-size:10px;color:var(--text2);margin-top:1px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.growth-slot.filled .growth-slot-value{color:var(--accent);}
+.growth-slot-badge{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  font-size:10px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.growth-skill-select {
+  width:100%;
+  background:var(--bg3);
+  border:1px solid var(--border2);
+  color:var(--text);
+  padding:4px 6px;
+  border-radius:4px;
+  font-size:11px;
+  margin-top:3px;
+}
+.growth-skill-select:focus { border-color:var(--accent); outline:none; }
+.growth-skill-select.filled { border-color:var(--accent); color:var(--accent); }
+.growth-skill-training-wrap {
+  padding:4px 10px 6px 12px;
+}
+.growth-skill-training-wrap .growth-slot-label {
+  margin-bottom:4px;
+}
+.growth-auto-feat{
+  font-size:11px;color:var(--text2);padding:3px 10px 3px 12px;
+  margin-bottom:4px;display:flex;align-items:center;gap:4px;
+}
+.growth-auto-feat .auto-label{color:var(--accent);font-weight:600;font-size:10px;}
+.growth-section-mini{
+  font-size:10px;color:var(--text2);text-transform:uppercase;
+  letter-spacing:.8px;padding:4px 4px 2px;margin-top:2px;
+}
+#growth-plan{padding-bottom:20px;}
+.growth-core-header{
+  font-size:14px;font-weight:700;color:var(--accent);
+  padding:4px 4px 4px;margin-top:0;
+  border-bottom:2px solid var(--accent);margin-bottom:6px;
+  display:flex;align-items:center;justify-content:space-between;
+  letter-spacing:.5px;
+}
+.growth-core-section{margin-bottom:10px;}
+
+/* ══════════════════════════════════
+   BOOST MODAL
+   ══════════════════════════════════ */
+.boost-section{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:8px;margin-bottom:8px;}
+.boost-section-title{font-size:11px;color:var(--accent);font-weight:700;margin-bottom:6px;}
+.boost-section-desc{font-size:10px;color:var(--text2);margin-bottom:6px;}
+.boost-radio-group{display:flex;flex-wrap:wrap;gap:6px;}
+.boost-radio-group label{
+  display:flex;align-items:center;gap:4px;font-size:12px;cursor:pointer;
+  padding:2px 8px;border:1px solid var(--border2);border-radius:3px;transition:all .15s;
+}
+.boost-radio-group label:hover{border-color:var(--accent);}
+.boost-radio-group label.selected{background:var(--accent-bg);border-color:var(--accent);color:var(--accent);}
+.boost-radio-group label.fixed{background:var(--bg4);color:var(--text2);cursor:default;}
+.boost-radio-group label.flaw{background:var(--red-bg);border-color:var(--red);color:var(--red);}
+.boost-summary-bar{display:flex;gap:8px;padding:8px;background:var(--bg4);border-radius:4px;margin-bottom:8px;}
+.boost-summary-attr{text-align:center;flex:1;}
+.boost-summary-attr .bsa-name{font-size:9px;color:var(--text2);text-transform:uppercase;}
+.boost-summary-attr .bsa-val{font-size:18px;font-weight:700;color:var(--accent);}
+.boost-grid{display:grid;grid-template-columns:90px repeat(6,1fr);gap:3px;font-size:11px;margin-top:4px;}
+.boost-grid .bg-head{color:var(--accent);font-size:10px;text-align:center;padding:2px;}
+.boost-grid .bg-src{color:var(--text2);font-size:10px;display:flex;align-items:center;padding:2px 0;}
+.boost-cell{text-align:center;}
+.boost-cell input[type=checkbox]{width:14px;height:14px;accent-color:var(--accent);cursor:pointer;}
+.boost-cell input[type=checkbox]:disabled{accent-color:var(--red);cursor:default;}
+.flaw-cell input[type=checkbox]{accent-color:var(--red)!important;}
+
+/* ══════════════════════════════════
+   SAVE STATUS
+   ══════════════════════════════════ */
+
+/* ══════════════════════════════════
+   HERO POINTS & MISC BADGES
+   ══════════════════════════════════ */
+.hero-pts-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.hero-dot{
+  width:14px;height:14px;border-radius:50%;border:2px solid var(--accent);
+  background:transparent;display:inline-block;
+}
+.hero-dot.filled{background:var(--accent);}
+
+/* grid panels */
+.panel-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+/* ══════════════════════════════════
+   RESPONSIVE — MOBILE (≤900px)
+   ══════════════════════════════════ */
+@media (max-width:900px){
+  #app-layout{
+    grid-template-columns:1fr;
+    grid-template-rows:auto 1fr;
+    height:auto;
+    overflow:visible;
+    padding-bottom:56px; /* space for bottom nav */
+  }
+  #sidebar{
+    grid-column:1;grid-row:auto;
+    border-right:none;border-bottom:1px solid var(--border);
+    display:none;
+    height:auto;
+    overflow-y:visible;
+  }
+  #sidebar.mobile-active{display:block;}
+  #center-col{
+    grid-column:1;grid-row:auto;
+    border-right:none;border-bottom:1px solid var(--border);
+    height:auto;overflow-y:visible;
+    display:none;
+  }
+  #center-col.mobile-active{display:block;}
+  #right-tabs{display:none !important;} /* 상단 탭 바 숨기고 하단 내비로 대체 */
+  #right-content{grid-column:1;grid-row:2;padding:8px 4px;}
+  .tab-mobile-only{display:flex !important;}
+  .panel-grid-2{grid-template-columns:1fr;}
+
+  /* ── 하단 고정 탭 바 ── */
+  #mobile-bottom-nav{
+    display:flex !important;
+    position:fixed;bottom:0;left:0;right:0;z-index:9998;
+    background:#161616;border-top:1px solid var(--border);
+    height:56px;align-items:stretch;
+    justify-content:space-around;
+    padding:0 2px;
+    padding-bottom:env(safe-area-inset-bottom, 0);
+  }
+  .bnav-btn{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    flex:1;background:none;border:none;color:var(--text2);
+    font-size:9px;gap:2px;cursor:pointer;padding:4px 0;
+    transition:color .15s;min-width:0;
+  }
+  .bnav-btn .bnav-icon{font-size:20px;line-height:1;}
+  .bnav-btn.active{color:var(--accent);}
+  .bnav-btn:active{background:var(--bg4);}
+
+  /* ── 모달 아코디언 (모바일) ── */
+  .modal-body{flex-direction:column;}
+  .modal-list{width:100%;min-width:0;border-right:none;max-height:none;flex:1;}
+  .modal-detail{display:none;} /* 기본 숨김 — 아코디언으로 대체 */
+  .opt-row-detail{
+    display:none;padding:12px;background:var(--bg3);border-bottom:1px solid var(--border);
+    font-size:13px;color:var(--text);line-height:1.6;
+  }
+  .opt-row-detail.open{display:block;}
+  .opt-row.expanded{background:var(--accent-bg);border-left:3px solid var(--accent);}
+}
+/* desktop: 하단 내비 숨김 */
+#mobile-bottom-nav{display:none;}
+
+/* ══ 주사위 시스템 ══ */
+#dice-fab{position:fixed;bottom:80px;right:16px;z-index:9000;width:48px;height:48px;border-radius:50%;border:none;background:var(--accent,#d4a04a);color:#fff;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.4);transition:transform .2s,box-shadow .2s;}
+#dice-fab:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(0,0,0,.5);}
+#dice-tray{position:fixed;bottom:80px;right:16px;z-index:9001;width:280px;background:var(--bg2,#1e1e1e);border:1px solid var(--border,#444);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.6);transform:translateY(20px) scale(.95);opacity:0;pointer-events:none;transition:all .25s ease;}
+#dice-tray.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto;}
+#dice-tray.open+#dice-fab{opacity:0;pointer-events:none;}
+.dice-tray-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;font-size:14px;font-weight:700;color:var(--accent,#d4a04a);border-bottom:1px solid var(--border,#444);}
+.dice-tray-close{background:none;border:none;color:var(--text2,#999);font-size:16px;cursor:pointer;}
+#dice-tray-body{padding:10px 12px;}
+.dice-buttons{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:8px;}
+.dice-btn-wrap{position:relative;display:inline-flex;flex-direction:column;align-items:center;}
+.dice-btn{width:46px;height:52px;border:2px solid var(--border,#444);background:var(--bg3,#2a2a2a);border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;transition:all .15s;color:var(--text,#eee);}
+.dice-btn:hover{border-color:var(--dice-color);background:color-mix(in srgb,var(--dice-color) 15%,var(--bg3,#2a2a2a));}
+.dice-btn.active{border-color:var(--dice-color);box-shadow:0 0 8px color-mix(in srgb,var(--dice-color) 50%,transparent);}
+.dice-icon{width:22px;height:22px;color:var(--dice-color);}
+.dice-btn-label{font-size:9px;font-weight:700;color:var(--text2,#999);}
+.dice-count{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;background:var(--accent,#d4a04a);color:#000;font-size:10px;font-weight:800;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.dice-pool-info{display:flex;align-items:center;gap:6px;margin:8px 0;padding:6px 8px;background:var(--bg3,#2a2a2a);border-radius:6px;}
+.dice-pool-label{flex:1;font-size:13px;font-weight:700;color:var(--accent,#d4a04a);}
+.dice-roll-btn{padding:6px 14px;background:var(--accent,#d4a04a);color:#000;border:none;border-radius:6px;font-size:12px;font-weight:800;cursor:pointer;transition:background .15s;}
+.dice-roll-btn:hover{filter:brightness(1.15);}
+.dice-clear-btn{width:24px;height:24px;background:none;border:1px solid var(--border,#444);color:var(--text2,#999);border-radius:4px;font-size:12px;cursor:pointer;}
+.dice-quick{display:flex;gap:4px;margin-top:6px;}
+.dice-quick-btn{flex:1;padding:5px 0;background:var(--bg3,#2a2a2a);border:1px solid var(--border,#444);color:var(--text,#eee);border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
+.dice-quick-btn:hover,.dice-quick-btn.active{border-color:var(--accent,#d4a04a);color:var(--accent,#d4a04a);}
+
+/* 토스트 */
+#dice-toast-container{position:fixed;top:12px;right:12px;z-index:99999;display:flex;flex-direction:column;gap:6px;pointer-events:none;max-height:60vh;overflow:hidden;}
+.dice-toast{pointer-events:auto;min-width:180px;max-width:260px;background:var(--bg2,#1e1e1e);border:1px solid var(--border,#444);border-radius:10px;padding:10px 14px;box-shadow:0 6px 24px rgba(0,0,0,.5);transform:translateX(120%);opacity:0;transition:all .35s cubic-bezier(.22,1,.36,1);}
+.dice-toast.show{transform:translateX(0);opacity:1;}
+.dice-toast.hide{transform:translateX(120%);opacity:0;}
+.dice-toast.nat20{border-color:#f1c40f;box-shadow:0 0 20px rgba(241,196,15,.4);}
+.dice-toast.nat1{border-color:#e74c3c;box-shadow:0 0 20px rgba(231,76,60,.3);}
+.dice-toast-header{display:flex;justify-content:space-between;align-items:center;}
+.dice-toast-label{font-size:11px;color:var(--text2,#999);font-weight:600;}
+.dice-toast-total{font-size:22px;font-weight:900;color:var(--accent,#d4a04a);}
+.dice-toast.nat20 .dice-toast-total{color:#f1c40f;}
+.dice-toast.nat1 .dice-toast-total{color:#e74c3c;}
+.dice-toast-detail{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;}
+.dice-result-chip{display:inline-block;padding:1px 5px;border-radius:4px;font-size:10px;font-weight:700;color:#fff;}
+.dice-result-chip.dice-max{box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);}
+.dice-result-chip.dice-min{opacity:.6;}
+/* 원격 주사위 토스트 (세션 공유) */
+.dice-toast-remote{border-left:3px solid #3498db;}
+.dice-toast-remote .dice-toast-total{color:#3498db;}
+.dice-toast-remote.nat20 .dice-toast-total{color:#f1c40f;}
+.dice-toast-remote.nat1 .dice-toast-total{color:#e74c3c;}
+.dice-toast-who{font-size:10px;font-weight:700;color:#3498db;margin-bottom:2px;}
+
+/* GM 플레이어 전환 FAB */
+#gm-switch-fab{position:fixed;bottom:80px;right:72px;z-index:9000;width:48px;height:48px;border-radius:50%;border:none;background:#3498db;color:#fff;font-size:20px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.4);transition:transform .2s,box-shadow .2s;display:none;}
+#gm-switch-fab:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(0,0,0,.5);}
+#gm-switch-fab .gm-fab-badge{position:absolute;top:-2px;right:-2px;min-width:16px;height:16px;background:var(--accent,#d4a04a);color:#000;font-size:9px;font-weight:800;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+#gm-switch-popup{position:fixed;bottom:136px;right:72px;z-index:9002;background:var(--bg2,#1e1e1e);border:1px solid var(--border,#444);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.6);min-width:180px;max-width:260px;overflow:hidden;transform:translateY(10px) scale(.95);opacity:0;pointer-events:none;transition:all .2s ease;}
+#gm-switch-popup.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto;}
+.gm-popup-header{padding:8px 12px;font-size:11px;font-weight:700;color:var(--accent,#d4a04a);border-bottom:1px solid var(--border,#444);}
+.gm-popup-item{padding:10px 14px;font-size:13px;color:#ccc;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .12s;}
+.gm-popup-item:hover{background:#2a2a2a;}
+.gm-popup-item.active{color:var(--accent,#d4a04a);font-weight:700;}
+.gm-popup-item .gm-popup-char{font-size:10px;color:#888;font-weight:400;}
+@media(max-width:900px){
+  #gm-switch-fab{bottom:70px;right:60px;width:42px;height:42px;font-size:18px;}
+  #gm-switch-popup{bottom:120px;right:60px;}
+}
+
+/* 3D 애니메이션 오버레이 */
+#dice-anim-overlay{position:fixed;inset:0;z-index:9020;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .25s;}
+#dice-anim-overlay.active{opacity:1;pointer-events:auto;}
+#dice-anim-overlay.hidden{opacity:0;pointer-events:none;}
+.dice-3d{width:64px;height:64px;position:relative;animation:diceRoll .8s cubic-bezier(.17,.67,.32,1.2) both;perspective:400px;}
+.dice-3d-face{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff;background:var(--color,#9b59b6);border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.4),inset 0 2px 4px rgba(255,255,255,.2);animation:diceSpin .7s cubic-bezier(.17,.67,.32,1.2) both;animation-delay:inherit;}
+.dice-3d-label{position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--color,#999);opacity:.7;}
+@keyframes diceRoll{0%{transform:translateY(-80px) scale(0.3);opacity:0}40%{transform:translateY(10px) scale(1.1);opacity:1}60%{transform:translateY(-5px) scale(0.98)}100%{transform:translateY(0) scale(1)}}
+@keyframes diceSpin{0%{transform:rotateX(720deg) rotateZ(360deg)}100%{transform:rotateX(0) rotateZ(0)}}
+.dice-anim-total{position:absolute;bottom:24%;left:50%;transform:translateX(-50%);text-align:center;animation:totalPop .4s .6s both;}
+.dice-anim-total-num{display:block;font-size:48px;font-weight:900;color:var(--accent,#d4a04a);text-shadow:0 2px 16px rgba(0,0,0,.6);}
+.dice-anim-total.nat20 .dice-anim-total-num{color:#f1c40f;text-shadow:0 0 24px rgba(241,196,15,.6);}
+.dice-anim-total.nat1 .dice-anim-total-num{color:#e74c3c;}
+.dice-anim-total-label{font-size:12px;color:var(--text2,#999);}
+@keyframes totalPop{0%{transform:translateX(-50%) scale(0);opacity:0}60%{transform:translateX(-50%) scale(1.15)}100%{transform:translateX(-50%) scale(1);opacity:1}}
+
+/* 로그 패널 */
+#dice-log-panel{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+#dice-log-panel.open{max-height:300px;overflow-y:auto;border-top:1px solid var(--border,#444);}
+.dice-log-header{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;font-size:12px;font-weight:700;color:var(--text2,#999);}
+.dice-log-clear{background:none;border:none;color:var(--red-light,#e74c3c);font-size:10px;cursor:pointer;}
+.dice-log-list{padding:0 8px 8px;}
+.dice-log-entry{padding:5px 8px;border-radius:6px;margin-bottom:3px;background:var(--bg3,#2a2a2a);}
+.dice-log-entry.nat20{border-left:3px solid #f1c40f;}
+.dice-log-entry.nat1{border-left:3px solid #e74c3c;}
+.dice-log-top{display:flex;justify-content:space-between;align-items:center;}
+.dice-log-label{font-size:11px;color:var(--text,#eee);font-weight:600;}
+.dice-log-total{font-size:16px;font-weight:900;color:var(--accent,#d4a04a);}
+.dice-log-bottom{display:flex;justify-content:space-between;margin-top:1px;}
+.dice-log-detail{font-size:9px;color:var(--text2,#999);}
+.dice-log-time{font-size:9px;color:var(--text2,#999);}
+.dice-log-empty{padding:16px;text-align:center;font-size:12px;color:var(--text2,#999);}
+
+/* 판정 클릭 가능 표시 */
+#val-fort,#val-ref,#val-will,#val-perc,#val-init,.skill-total,.weapon-stat{cursor:pointer;}
+.weapon-stat:hover .stat-val,.skill-total:hover,#val-fort:hover,#val-ref:hover,#val-will:hover,#val-perc:hover,#val-init:hover{color:var(--accent,#d4a04a)!important;text-decoration:underline;text-decoration-style:dotted;}
+
+/* 모바일 대응 */
+@media(max-width:900px){
+  #dice-fab{bottom:70px;right:10px;width:42px;height:42px;font-size:20px;}
+  #dice-tray{bottom:70px;right:8px;width:calc(100vw - 16px);max-width:320px;}
+  #dice-toast-container{top:8px;right:8px;left:8px;}
+  .dice-toast{max-width:none;}
+  .dice-3d{width:52px;height:52px;}
+  .dice-3d-face{font-size:22px;}
+  .dice-anim-total-num{font-size:36px;}
+}
+
+/* ── Session System ── */
+.session-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;}
+.session-overlay.hidden{display:none;}
+.session-modal{background:#1a1a1a;border:1px solid #f5c518;border-radius:8px;padding:24px;min-width:300px;max-width:90vw;box-shadow:0 8px 32px rgba(0,0,0,.6);}
+#session-bar{display:none;background:#1a1a1a;border-bottom:1px solid #333;padding:6px 16px;font-size:12px;align-items:center;gap:8px;}
+#gm-tab-bar{display:none;background:#111;border-bottom:2px solid #333;padding:4px 8px;align-items:center;gap:4px;overflow-x:auto;white-space:nowrap;}
+.gm-tab{background:#222;color:#aaa;border:1px solid #444;padding:6px 16px;border-radius:4px 4px 0 0;cursor:pointer;font-size:12px;font-weight:700;transition:all .15s;}
+.gm-tab:hover{background:#2a2a2a;color:#fff;}
+.gm-tab-active{background:#1a1a1a;color:#f5c518;border-color:#f5c518;border-bottom-color:#1a1a1a;}
+.gm-tab-wrap{display:inline-flex;align-items:stretch;position:relative;}
+.gm-tab-kick{background:#c0392b;color:#fff;border:none;padding:0 6px;font-size:13px;cursor:pointer;border-radius:0 4px 0 0;opacity:.5;transition:opacity .15s;}
+.gm-tab-kick:hover{opacity:1;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ AUTH BAR ═══════════════ -->
+<div id="auth-bar">
+  <div style="display:flex;align-items:center;gap:8px;">
+    <span class="brand"></span>
+    <span id="save-status"></span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v509</span>
+  </div>
+  <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
+    <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
+    <button onclick="openResetModal()" style="background:none;border:1px solid var(--border2);color:var(--text2);padding:3px 8px;border-radius:4px;cursor:pointer;font-size:10px;" title="현재 슬롯 초기화">🗑</button>
+  </div>
+</div>
+
+<!-- ═══════════════ SLOT BAR ═══════════════ -->
+<div id="slot-bar" style="display:none;"></div>
+<div id="session-bar"></div>
+
+<!-- ═══════════════ CHARACTER HEADER ═══════════════ -->
+<div id="header">
+  <span style="color:#ff8c42;font-size:12px;font-weight:700;">Pathforge (dev)</span>
+  <div style="flex:1;"></div>
+  <div class="hdr-actions">
+    <button onclick="openRestModal()" style="background:var(--bg4);color:var(--accent2);border:1px solid var(--border2);padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600;">🛏 휴식</button>
+    <button onclick="openConditionModal()" style="background:var(--bg4);color:var(--red-light);border:1px solid var(--border2);padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600;">⚠ 상태이상</button>
+    <button class="btn btn-confirm" onclick="exportJSON()">⬇ JSON</button>
+    <label class="btn btn-cancel" style="cursor:pointer;text-align:center;">
+      ⬆ JSON
+      <input type="file" accept=".json" style="display:none;" onchange="importJSON(event)">
+    </label>
+    <button onclick="openResetModal()" style="background:none;border:1px solid var(--red);color:var(--red-light);padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px;">🗑 초기화</button>
+  </div>
+</div>
+
+<!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
+<div id="app-layout">
+
+  <!-- ═══ LEFT SIDEBAR: Build Plan ═══ -->
+  <div id="sidebar">
+    <div id="growth-plan"></div>
+  </div><!-- /#sidebar -->
+
+  <!-- ═══ CENTER: Stats + Skills (always visible on desktop) ═══ -->
+  <div id="center-col">
+
+    <!-- 캐릭터 정보 (이름/레벨/XP + 능력치 + 이동/크기) -->
+    <div class="box" style="padding:8px 10px;">
+      <div style="display:flex;align-items:flex-end;gap:8px;margin-bottom:6px;">
+        <div style="flex:1;">
+          <label style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;">캐릭터 이름</label>
+          <input id="f-name" placeholder="이름..." oninput="save()" style="width:100%;background:var(--bg3);border:none;border-bottom:2px solid var(--accent);color:var(--text);padding:4px 6px;font-size:15px;font-weight:700;">
+        </div>
+        <div style="width:55px;">
+          <label style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;">레벨</label>
+          <input id="f-level" type="number" min="1" max="20" value="1" oninput="onLevelChange()" style="width:100%;background:var(--bg3);border:none;border-bottom:2px solid var(--accent);color:var(--accent);padding:4px 6px;font-size:15px;font-weight:700;text-align:center;">
+        </div>
+        <div style="width:65px;">
+          <label style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;">경험치 XP</label>
+          <input id="f-xp" type="number" min="0" value="0" oninput="checkXpLevelUp()" style="width:100%;background:var(--bg3);border:none;border-bottom:1px solid var(--border2);color:var(--text);padding:4px 6px;font-size:13px;text-align:center;">
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;margin-bottom:6px;">
+        <span style="font-size:10px;color:var(--text2);">영웅 점수</span>
+        <span class="hero-star" onclick="toggleHeroStar(1)">★</span>
+        <span class="hero-star" onclick="toggleHeroStar(2)">★</span>
+        <span class="hero-star" onclick="toggleHeroStar(3)">★</span>
+        <input type="hidden" id="hero-points" value="0">
+      </div>
+      <div class="attr-grid">
+        <div class="attr-box"><div class="attr-name">근력 STR</div><div class="attr-score" id="mod-str">+0</div><div class="attr-mod" id="partial-str"></div></div>
+        <div class="attr-box"><div class="attr-name">민첩 DEX</div><div class="attr-score" id="mod-dex">+0</div><div class="attr-mod" id="partial-dex"></div></div>
+        <div class="attr-box"><div class="attr-name">건강 CON</div><div class="attr-score" id="mod-con">+0</div><div class="attr-mod" id="partial-con"></div></div>
+        <div class="attr-box"><div class="attr-name">지능 INT</div><div class="attr-score" id="mod-int">+0</div><div class="attr-mod" id="partial-int"></div></div>
+        <div class="attr-box"><div class="attr-name">지혜 WIS</div><div class="attr-score" id="mod-wis">+0</div><div class="attr-mod" id="partial-wis"></div></div>
+        <div class="attr-box"><div class="attr-name">매력 CHA</div><div class="attr-score" id="mod-cha">+0</div><div class="attr-mod" id="partial-cha"></div></div>
+      </div>
+      <div style="display:flex;gap:0;margin-top:6px;border-top:1px solid var(--border);padding-top:6px;">
+        <div style="flex:1;cursor:pointer;" onclick="openSpeedModal()">
+          <div style="font-size:8px;color:var(--text2);text-transform:uppercase;">이동 속도</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);"><span id="speed-display">25</span> <span style="font-size:10px;color:var(--text2);">피트</span> <span id="speed-enc-label" style="font-size:10px;color:#ffaa00;display:none;"></span></div>
+          <input type="hidden" id="speed" value="25">
+        </div>
+        <div id="extra-speeds" style="display:flex;gap:8px;align-items:center;"></div>
+        <div style="text-align:right;">
+          <div style="font-size:8px;color:var(--text2);text-transform:uppercase;">크기</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);" id="char-size">중형</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 방어 능력 -->
+    <div class="box">
+      <div class="box-title">방어 능력</div>
+      <!-- AC -->
+      <div class="ac-wrap">
+        <div class="ac-shield" id="val-ac">10</div>
+        <div>
+          <div class="ac-label">방어도 (AC)</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;">
+            <button id="shield-raise-btn" onclick="toggleShieldRaise()" style="padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600;background:var(--bg4);color:var(--text2);border:1px solid var(--border2);">🛡 방패 들기</button>
+          </div>
+        </div>
+      </div>
+      <select id="prof-ac" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+      <!-- HP -->
+      <div class="hp-gauge-wrap">
+        <div class="hp-gauge-bar" onclick="openHpModal()" style="cursor:pointer;">
+          <div class="hp-gauge-fill" id="hp-gauge-fill"></div>
+          <div class="hp-gauge-temp" id="hp-gauge-temp" style="width:0;"></div>
+          <div class="hp-gauge-text">
+            HP <span id="hp-cur-display">0</span> / <span id="hp-max-display">0</span>
+            <span id="hp-temp-display" style="margin-left:6px;font-size:10px;color:var(--text2);display:none;">+임시 <span id="hp-temp-val">0</span></span>
+          </div>
+        </div>
+        <input type="hidden" id="hp-cur" value="0">
+        <input type="hidden" id="hp-max" value="0">
+        <input type="hidden" id="hp-temp" value="0">
+      </div>
+      <!-- Shield HP -->
+      <div class="shield-gauge-wrap" id="shield-gauge-wrap" style="display:none;">
+        <div class="shield-gauge-bar" onclick="openShieldHpModal()" style="cursor:pointer;">
+          <div class="shield-gauge-fill" id="shield-gauge-fill"></div>
+          <div class="hp-gauge-text" style="font-size:11px;">
+            🛡 <span id="shield-gauge-label">방패</span>
+            HP <span id="shield-hp-cur-display">0</span> / <span id="shield-hp-max-display">0</span>
+          </div>
+        </div>
+        <input type="hidden" id="shield-hp-cur" value="0">
+      </div>
+      <div id="shield-info-row" style="display:none;padding:2px 0;">
+        <div style="display:flex;gap:12px;justify-content:center;font-size:11px;color:var(--text2);">
+          <span>방패 AC: <strong style="color:var(--text);" id="shield-ac-display">+0</strong></span>
+          <span>경도: <strong style="color:var(--text);" id="shield-hard-display">0</strong></span>
+        </div>
+      </div>
+      <input type="hidden" id="dying" value="0">
+      <input type="hidden" id="wounded" value="0">
+      <!-- 저항/약점 -->
+      <div id="resistances-display" style="display:none;padding:4px 8px;margin-top:2px;">
+        <div style="font-size:9px;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;">저항 Resistances</div>
+        <div id="resistances-list" style="display:flex;flex-wrap:wrap;gap:4px;"></div>
+      </div>
+      <hr class="divider">
+      <!-- 내성 굴림 -->
+      <div class="stat-row">
+        <span class="stat-label">인내 Fortitude</span>
+        <span class="prof-rank-badge" id="rank-fort">U</span>
+        <select id="prof-fort" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <span class="stat-val" id="val-fort">+0</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">반사 Reflex</span>
+        <span class="prof-rank-badge" id="rank-ref">U</span>
+        <select id="prof-ref" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <span class="stat-val" id="val-ref">+0</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">의지 Will</span>
+        <span class="prof-rank-badge" id="rank-will">U</span>
+        <select id="prof-will" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <span class="stat-val" id="val-will">+0</span>
+      </div>
+    </div>
+
+    <!-- 감각 능력 -->
+    <div class="box">
+      <div class="box-title">감각 능력 Senses</div>
+      <div class="stat-row">
+        <span class="stat-label">지각 Perception</span>
+        <span class="prof-rank-badge" id="rank-perc">U</span>
+        <select id="prof-perc" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <span class="stat-val" id="val-perc">+0</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">감각</span>
+        <span style="font-size:12px;color:var(--text);" id="char-senses">—</span>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="box">
+      <div class="box-title">기술 Skills</div>
+      <div style="border-bottom:2px solid var(--accent);margin-bottom:6px;padding-bottom:6px;">
+        <div class="stat-row" style="background:var(--accent-bg);border-radius:4px;padding:4px 6px;">
+          <span class="stat-label" style="color:var(--accent);font-weight:700;">클래스 DC</span>
+          <span class="prof-rank-badge" id="rank-classdc">U</span>
+          <select id="prof-classdc" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+          <span class="stat-val" style="color:var(--accent);" id="val-classdc">10</span>
+        </div>
+      </div>
+      <div id="skills-list"></div>
+    </div>
+
+    <!-- Active Conditions -->
+    <div class="box" id="active-conditions-box" style="display:none;">
+      <div class="box-title">활성 상태이상 Active Conditions</div>
+      <div id="active-conditions-list"></div>
+    </div>
+
+  </div><!-- /#center-col -->
+
+  <!-- ═══ RIGHT: Tab bar + content ═══ -->
+
+  <!-- Tab bar -->
+  <div id="right-tabs">
+    <!-- mobile-only: 성장/정보 탭을 앞에 배치 -->
+    <div class="tab tab-mobile-only" onclick="switchTab('growth',this)">성장</div>
+    <div class="tab tab-mobile-only" onclick="switchTab('info',this)">정보</div>
+    <div class="tab active" onclick="switchTab('weapons',this)">무기</div>
+    <div class="tab" onclick="switchTab('defense',this)">방어</div>
+    <div class="tab" onclick="switchTab('spells',this)">주문</div>
+    <div class="tab" onclick="switchTab('equip',this)">장비</div>
+    <div class="tab" onclick="switchTab('pets',this)">동료</div>
+    <div class="tab" onclick="switchTab('feats',this)">재주</div>
+    <div class="tab" onclick="switchTab('actions',this)">행동</div>
+  </div>
+
+  <!-- Tab content panels -->
+  <div id="right-content">
+
+    <!-- ── 무기 Weapons ── -->
+    <div id="panel-weapons" class="panel active">
+      <div class="weapon-prof-bar">
+          <div class="weapon-prof-item"><span>단순</span><span class="prof-rank-text" id="rank-weapon-simple">미숙련</span></div>
+          <div class="weapon-prof-item"><span>군용</span><span class="prof-rank-text" id="rank-weapon-martial">미숙련</span></div>
+          <div class="weapon-prof-item"><span>고급</span><span class="prof-rank-text" id="rank-weapon-advanced">미숙련</span></div>
+          <div class="weapon-prof-item"><span>비무장</span><span class="prof-rank-text" id="rank-weapon-unarmed">미숙련</span></div>
+          <select id="prof-weapon-simple" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+          <select id="prof-weapon-martial" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+          <select id="prof-weapon-advanced" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+          <select id="prof-weapon-unarmed" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+      </div>
+      <div id="weapon-prof-summary" class="ac-breakdown" style="min-height:0;border-top:1px solid var(--border);display:none;"></div>
+      <div id="weapons-list"></div>
+    </div><!-- /#panel-weapons -->
+
+    <!-- ── 방어 Defense ── -->
+    <div id="panel-defense" class="panel" style="padding:0;">
+      <!-- Hidden inputs for backward compatibility -->
+      <input type="hidden" id="armor-name" value="">
+      <input type="hidden" id="armor-ac" value="0">
+      <input type="hidden" id="armor-dex" value="">
+      <input type="hidden" id="armor-check-pen" value="0">
+      <input type="hidden" id="armor-speed-pen" value="0">
+      <input type="hidden" id="armor-str-req" value="0">
+      <input type="hidden" id="armor-category" value="">
+      <input type="hidden" id="shield-name" value="">
+      <input type="hidden" id="shield-ac" value="0">
+      <input type="hidden" id="shield-hard" value="0">
+      <input type="hidden" id="shield-hp" value="0">
+      <select class="prof-sel" id="prof-ac2" style="display:none;">
+        <option value="0">미숙련</option><option value="2">숙련</option>
+        <option value="4">전문가</option><option value="6">달인</option><option value="8">전설</option>
+      </select>
+
+      <!-- Armor Proficiency Bar -->
+      <div class="armor-prof-bar">
+        <div class="armor-prof-item"><span>경갑</span><span class="prof-rank-text" id="rank-armor-light">미숙련</span></div>
+        <div class="armor-prof-item"><span>평갑</span><span class="prof-rank-text" id="rank-armor-medium">미숙련</span></div>
+        <div class="armor-prof-item"><span>중갑</span><span class="prof-rank-text" id="rank-armor-heavy">미숙련</span></div>
+        <div class="armor-prof-item"><span>비무장</span><span class="prof-rank-text" id="rank-armor-unarmored">미숙련</span></div>
+        <select id="prof-armor-light" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <select id="prof-armor-medium" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <select id="prof-armor-heavy" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <select id="prof-armor-unarmored" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+      </div>
+      <div id="armor-prof-summary" class="ac-breakdown" style="min-height:0;border-top:1px solid var(--border);display:none;"></div>
+
+      <!-- AC Breakdown -->
+      <div class="ac-breakdown" id="ac-breakdown">
+        <span class="ac-part">Base <span class="ac-part-val" id="ac-base">10</span></span>
+        <span class="ac-sep">|</span>
+        <span class="ac-part">Item <span class="ac-part-val" id="ac-item-display">+0</span></span>
+        <span class="ac-sep">|</span>
+        <span class="ac-part">Dex <span class="ac-part-val" id="ac-dex-display">+0</span></span>
+        <span class="ac-sep">|</span>
+        <span class="ac-part">Proficiency <span class="ac-part-val" id="ac-prof-display">+0</span></span>
+      </div>
+
+      <!-- Armor Card -->
+      <div class="defense-card" id="armor-card"></div>
+      <!-- Shield Card (무기 탭으로 이동, 숨김) -->
+      <div class="defense-card" id="shield-card" style="display:none;"></div>
+      <!-- conditions-grid hidden but kept for buildConditions() -->
+      <div id="conditions-grid" style="display:none;"></div>
+    </div><!-- /#panel-defense -->
+
+    <!-- ── 주문 Spells ── -->
+    <div id="panel-spells" class="panel" style="padding:0;">
+      <!-- Sub-tabs -->
+      <div class="spell-subtabs" style="display:flex;align-items:center;">
+        <span class="spell-subtab active" id="spell-subtab-class" onclick="switchSpellSubtab('class')">주문</span>
+        <span class="spell-subtab" id="spell-subtab-focus" onclick="switchSpellSubtab('focus')">집중 주문</span>
+        <span class="spell-subtab" id="spell-subtab-innate" onclick="switchSpellSubtab('innate')">선천적 주문</span>
+        <span class="spell-subtab" id="spell-subtab-ritual" onclick="switchSpellSubtab('ritual')">의식</span>
+        <span style="margin-left:auto;display:flex;gap:4px;align-items:center;">
+          <span id="btn-learn-spells" style="display:none;"><button onclick="openLearnSpellsPanel()" style="background:var(--accent);color:#000;border:none;padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600;">📖 주문 배우기 <span id="learn-spells-warn" style="display:none;color:#f44336;">⚠</span></button></span>
+          <span id="btn-memorize-spells" style="display:none;"><button onclick="openMemorizeModal()" style="background:var(--bg3);color:var(--text);border:1px solid var(--border);padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600;">📋 주문 기억</button></span>
+        </span>
+      </div>
+
+      <!-- Class spells content -->
+      <div id="spell-content-class">
+        <!-- Header bar: DC / Attack + TEML -->
+        <div class="spell-header-bar">
+          <div style="display:flex;align-items:center;gap:20px;">
+            <div style="text-align:center;">
+              <div class="spell-val-label">DC</div>
+              <div class="spell-val" id="spell-dc-val" style="font-size:22px;">10</div>
+            </div>
+            <div style="text-align:center;">
+              <div class="spell-val-label">주문 명중</div>
+              <div class="spell-val" id="spell-atk-val" style="font-size:22px;">+0</div>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <div class="spell-val-label">주문시전</div>
+            <div class="prof-rank-text" id="rank-spell" style="font-size:16px;">미숙련</div>
+          </div>
+          <div style="display:flex;gap:12px;font-size:11px;color:var(--text2);">
+            <div style="text-align:center;"><div class="bd-label" id="spell-key-label">Wis</div><div class="bd-val" id="spell-key-val" style="font-weight:700;color:var(--text);">0</div></div>
+            <div style="text-align:center;"><div class="bd-label">Prof</div><div class="bd-val" id="spell-prof-val" style="font-weight:700;color:var(--text);">0</div></div>
+            <div style="text-align:center;"><div class="bd-label">Item</div><div class="bd-val" id="spell-item-val" style="font-weight:700;color:var(--text);">0</div></div>
+          </div>
+        </div>
+        <!-- 계열 / 시전 유형 (읽기전용 표시) -->
+        <div style="display:flex;justify-content:center;gap:16px;padding:6px 12px;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border);">
+          <span>계열: <strong style="color:var(--text);" id="spell-tradition-display">—</strong></span>
+          <span>|</span>
+          <span>시전: <strong style="color:var(--text);" id="spell-type-display">—</strong></span>
+        </div>
+        <!-- Hidden selects for save/load -->
+        <select id="spell-tradition" style="display:none;"><option value="">—</option><option value="arcane">비전</option><option value="divine">신성</option><option value="occult">비의</option><option value="primal">원시</option></select>
+        <select id="spell-type" style="display:none;"><option value="">—</option><option value="prepared">준비형</option><option value="spontaneous">즉흥형</option></select>
+        <select id="prof-spatk" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+
+        <!-- Cantrips Section -->
+        <div class="spell-rank-section" id="spell-cantrips-section">
+          <div class="spell-rank-header" id="cantrip-header">캔트립 (강화 랭크 1)</div>
+          <div class="spell-slot-col-header">
+            <span style="flex:1;">주문</span>
+            <span style="width:70px;text-align:center;">지속</span>
+            <span style="width:70px;text-align:center;">사거리</span>
+            <span style="width:20px;"></span>
+          </div>
+          <div id="spells-cantrip"></div>
+        </div>
+
+        <!-- Spell Ranks 1~10 -->
+        <div id="spell-ranks-container"></div>
+
+        <!-- Divine Font (Cleric only) -->
+        <div class="spell-rank-section" id="spell-divine-font-section" style="display:none;">
+          <div class="spell-rank-header" style="background:var(--accent-bg);border-color:var(--accent);">
+            ⛲ 신성 원천 <span class="en" id="divine-font-label">Divine Font</span>
+          </div>
+          <div id="divine-font-body" style="padding:8px 12px;"></div>
+        </div>
+
+      </div>
+
+      <!-- Focus Spells content (separate tab) -->
+      <div id="spell-content-focus" style="display:none;">
+        <!-- Focus header (클래스 탭과 동일 구조) -->
+        <div class="spell-header-bar">
+          <div style="display:flex;align-items:center;gap:20px;">
+            <div style="text-align:center;">
+              <div class="spell-val-label">DC</div>
+              <div class="spell-val" id="spell-dc-val-focus" style="font-size:22px;">10</div>
+            </div>
+            <div style="text-align:center;">
+              <div class="spell-val-label">주문 명중</div>
+              <div class="spell-val" id="spell-atk-val-focus" style="font-size:22px;">+0</div>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <div class="spell-val-label">주문시전</div>
+            <div class="prof-rank-text" id="rank-spell-focus" style="font-size:16px;">미숙련</div>
+          </div>
+          <div style="display:flex;gap:12px;font-size:11px;color:var(--text2);">
+            <div style="text-align:center;"><div class="bd-label" id="spell-key-label-f">Wis</div><div class="bd-val" id="spell-key-val-f" style="font-weight:700;color:var(--text);">0</div></div>
+            <div style="text-align:center;"><div class="bd-label">Prof</div><div class="bd-val" id="spell-prof-val-f" style="font-weight:700;color:var(--text);">0</div></div>
+            <div style="text-align:center;"><div class="bd-label">Item</div><div class="bd-val" id="spell-item-val-f" style="font-weight:700;color:var(--text);">0</div></div>
+          </div>
+        </div>
+        <!-- 집중 포인트 (체크박스 방식) -->
+        <div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--border);">
+          <span style="font-size:12px;color:var(--text2);">집중 포인트</span>
+          <span id="fp-checks" style="display:flex;gap:4px;"></span>
+          <input type="hidden" id="fp-cur" value="0">
+          <input type="hidden" id="fp-max" value="0">
+        </div>
+        <!-- Focus Cantrips -->
+        <div class="spell-rank-section">
+          <div class="spell-rank-header">집중 캔트립 <span class="en">Focus Cantrips</span></div>
+          <div id="spells-focus-cantrips"></div>
+        </div>
+        <!-- Focus Spells -->
+        <div class="spell-rank-section">
+          <div class="spell-rank-header">집중 주문 <span class="en">Focus Spells</span></div>
+          <div id="spells-focus"></div>
+        </div>
+      </div>
+
+      <!-- Innate spells content (hidden by default) -->
+      <div id="spell-content-innate" style="display:none;">
+        <div style="padding:8px 12px;font-size:11px;color:var(--text2);border-bottom:1px solid var(--border);">
+          유산, 혈통, 재주 등에 의해 부여된 선천적 주문입니다. 자유롭게 시전하거나 하루 횟수 제한이 있습니다.
+        </div>
+        <div id="spells-innate"></div>
+      </div>
+
+      <!-- Rituals content (hidden by default) -->
+      <div id="spell-content-ritual" style="display:none;">
+        <div style="padding:20px;text-align:center;color:var(--text2);">
+          <p style="font-size:13px;">의식 주문은 추후 지원 예정입니다.</p>
+        </div>
+      </div>
+    </div><!-- /#panel-spells -->
+
+    <!-- ── 장비 Gear ── -->
+    <div id="panel-equip" class="panel">
+      <!-- 화폐 상단 -->
+      <div class="box" style="padding:8px 12px;">
+        <div style="display:flex;gap:6px;justify-content:center;align-items:stretch;">
+          <div class="currency-card"><div class="currency-label">백금 PP</div><input id="cur-pp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input"></div>
+          <div class="currency-card" style="border-color:#f5c518;"><div class="currency-label" style="color:#f5c518;">금화 GP</div><input id="cur-gp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input" style="color:#f5c518;"></div>
+          <div class="currency-card"><div class="currency-label">은화 SP</div><input id="cur-sp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input"></div>
+          <div class="currency-card"><div class="currency-label" style="color:#cd7f32;">동화 CP</div><input id="cur-cp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input" style="color:#cd7f32;"></div>
+        </div>
+      </div>
+      <!-- 부피 -->
+      <div style="text-align:center;padding:4px 0;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border);">
+        부피 <span style="font-size:16px;font-weight:700;color:var(--accent);" id="bulk-total">0</span>
+        <span style="color:var(--text2);"> / </span>
+        <span id="bulk-max">5</span>
+        <span style="font-size:10px;margin-left:4px;">(과적 기준, 한계=근력+10)</span>
+        <div id="bulk-status" style="font-size:11px;font-weight:bold;min-height:14px;margin-top:2px;"></div>
+      </div>
+      <!-- 탭 바 -->
+      <div class="spell-subtabs" id="equip-inv-tabs">
+        <span class="spell-subtab active" id="equip-inv-tab-main" onclick="switchEquipInvTab('main')">인벤토리</span>
+        <span class="spell-subtab" id="equip-inv-tab-container" onclick="switchEquipInvTab('container')">배낭</span>
+        <span class="spell-subtab" id="equip-inv-tab-formula" onclick="switchEquipInvTab('formula')">제조법</span>
+        <span style="margin-left:auto;display:flex;gap:4px;align-items:center;padding-right:8px;">
+          <button class="add-btn" onclick="openEquipBrowse()" style="font-size:10px;padding:4px 10px;">장비 추가</button>
+          <button class="add-btn" onclick="addContainer()" style="font-size:10px;padding:4px 10px;">배낭 추가</button>
+        </span>
+      </div>
+      <!-- 메인 인벤토리 -->
+      <div id="equip-inv-content-main">
+        <div id="equip-list"></div>
+      </div>
+      <!-- 배낭 -->
+      <div id="equip-inv-content-container" style="display:none;">
+        <div id="container-list"></div>
+        <div style="text-align:center;padding:16px 0;font-size:11px;color:var(--text2);font-style:italic;" id="container-empty-msg">배낭이 없습니다. "배낭 추가"로 추가하세요.</div>
+      </div>
+      <!-- 제조법 -->
+      <div id="equip-inv-content-formula" style="display:none;">
+        <div style="text-align:right;padding:6px 12px;">
+          <button class="add-btn" onclick="addFormula()" style="font-size:10px;padding:4px 10px;">제조법 추가</button>
+        </div>
+        <div id="formula-list"></div>
+      </div>
+    </div><!-- /#panel-equip -->
+
+    <!-- ── 동료 Pets ── -->
+    <div id="panel-pets" class="panel">
+      <div id="pet-list"></div>
+      <div style="display:flex;gap:4px;margin:8px;">
+        <button class="add-btn" onclick="addPet()" style="flex:1;">+ 동료 추가</button>
+        <button class="add-btn" onclick="addFamiliar()" style="flex:1;">+ 사역마 추가</button>
+      </div>
+    </div>
+
+    <!-- ── 재주 Feats ── -->
+    <div id="panel-feats" class="panel">
+      <div class="panel-grid-2">
+        <div>
+          <div class="box" style="border-left:3px solid var(--accent);">
+            <div class="box-title" style="color:var(--accent);">⚡ 클래스 특성 Class Features</div>
+            <div id="feats-special"></div>
+          </div>
+          <div class="box">
+            <div class="box-title">유산 Heritage</div>
+            <div id="heritage-display"></div>
+          </div>
+          <div class="box">
+            <div class="box-title">혈통 재주 Ancestry Feats</div>
+            <div id="feats-ancestry"></div>
+          </div>
+          <div class="box">
+            <div class="box-title">클래스 재주 Class Feats</div>
+            <div id="feats-class"></div>
+          </div>
+          <div class="box">
+            <div class="box-title">일반 재주 General Feats</div>
+            <div id="feats-general"></div>
+          </div>
+        </div>
+        <div>
+          <div class="box">
+            <div class="box-title">기술 재주 Skill Feats</div>
+            <div id="feats-skill"></div>
+          </div>
+          <div class="box">
+            <div class="box-title">원형 재주 Archetype Feats</div>
+            <div id="feats-archetype"></div>
+          </div>
+          <div class="box">
+            <div class="box-title">기타 능력 Other Abilities</div>
+            <div id="feats-other"></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /#panel-feats -->
+
+    <!-- ── 행동 Actions ── -->
+    <div id="panel-actions" class="panel">
+      <div class="action-filter-bar" id="action-filter-bar">
+        <button class="active" data-filter="all" onclick="setActionFilter('all',this)">전체</button>
+        <button data-filter="basic" onclick="setActionFilter('basic',this)">기본 행동</button>
+        <button data-filter="skill" onclick="setActionFilter('skill',this)">기술 행동</button>
+        <button data-filter="feat" onclick="setActionFilter('feat',this)">재주 행동</button>
+        <button data-filter="reaction" onclick="setActionFilter('reaction',this)">반응</button>
+        <button data-filter="conditions" onclick="setActionFilter('conditions',this)">상태이상</button>
+      </div>
+      <div id="actions-content"></div>
+    </div><!-- /#panel-actions -->
+
+    <!-- ── 성장 Growth (mobile: sidebar content) ── -->
+    <div id="panel-growth" class="panel">
+      <div id="growth-plan-mobile"></div>
+    </div><!-- /#panel-growth -->
+
+    <!-- ── 정보 Info (mobile: center col content) ── -->
+    <div id="panel-info" class="panel">
+    </div><!-- /#panel-info -->
+
+  </div><!-- /#right-content -->
+
+</div><!-- /#app-layout -->
+
+<!-- ═══════════════ MODAL ═══════════════ -->
+<div class="modal-overlay hidden" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header" id="modal-header-bar">
+      <h2 id="modal-title" style="flex:1;">선택</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button id="modal-close-m" class="modal-close-mobile" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <div class="modal-list">
+        <div class="modal-list-header">
+          <input class="modal-search" id="modal-search" placeholder="검색..." oninput="filterOptions()">
+          <div class="modal-filters" id="modal-filterbar"></div>
+        </div>
+        <div class="modal-list-items" id="modal-options"></div>
+      </div>
+      <div class="modal-detail" id="modal-detail">
+        <div class="modal-detail-empty">항목을 선택하면 상세 정보가 표시됩니다.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" onclick="closeModal()">닫기</button>
+      <button class="btn btn-confirm" onclick="confirmModal()">선택</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- App code (split from inline JS) -->
+<script src="cs_data.js?v=509"></script>
+<script src="cs_calc.js?v=509"></script>
+<script src="cs_ui.js?v=509"></script>
+<script src="cs_modal.js?v=509"></script>
+<script src="cs_feat_effects.js?v=509"></script>
+<script src="cs_save.js?v=509"></script>
+<script src="cs_session.js?v=509"></script>
+<script src="cs_dice.js?v=509"></script>
+
+
+<!-- Firebase Auth + Cloud Save -->
+<script>
+// ═══════════════════════════════════════════════
+//  FIREBASE AUTH + FIRESTORE SAVE/LOAD
+// ═══════════════════════════════════════════════
+let currentUser = null;
+let currentSlot = localStorage.getItem('pf2e_lastSlot') || 'slot1';
+
+function updateAuthUI(user) {
+  const area = document.getElementById('auth-area');
+  const slotBar = document.getElementById('slot-bar');
+  if (user) {
+    currentUser = user;
+    // GM 세션 모드 감지 (?gmsession=ID)
+    var gmSessionId = new URLSearchParams(window.location.search).get('gmsession');
+    if (gmSessionId && typeof enterGMSessionMode === 'function') {
+      area.innerHTML = '<span style="color:#aaa;margin-right:8px;">' + (user.displayName || user.email) + '</span>' +
+        '<button onclick="saveToCloud()" style="background:#2980b9;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;">저장</button>' +
+        '<button onclick="googleLogout()" style="background:#555;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;">로그아웃</button>';
+      enterGMSessionMode(gmSessionId);
+      return;
+    }
+    // 플레이어 모드 — 세션 복귀 시도
+    area.innerHTML = '<span style="color:#aaa;margin-right:8px;">' + (user.displayName || user.email) + '</span>' +
+      '<button onclick="saveToCloud()" style="background:#2980b9;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;">저장</button>' +
+      '<button onclick="if(typeof openJoinSessionModal===\'function\')openJoinSessionModal()" style="background:#3498db;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:700;margin-right:4px;">세션 참가</button>' +
+      '<button onclick="googleLogout()" style="background:#555;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;">로그아웃</button>';
+    slotBar.style.display = 'flex';
+    updateSlotBar();
+    loadSlotNames(user.uid);
+    // 이전 세션이 있으면 복귀, 없으면 일반 로드
+    if (typeof restoreSession === 'function' && localStorage.getItem('pf2e_sessionId')) {
+      restoreSession().then(function(ok) { if (!ok) loadFromCloud(); });
+    } else {
+      loadFromCloud();
+    }
+  } else {
+    currentUser = null;
+    area.innerHTML = '<button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>';
+    slotBar.style.display = 'none';
+    if (typeof closeSessionModal === 'function') closeSessionModal();
+    if (typeof stopSessionListeners === 'function') stopSessionListeners();
+    if (typeof _sessionMode !== 'undefined' && _sessionMode) {
+      _sessionMode = false; _currentSession = null; _isGM = false;
+      var sBar = document.getElementById('session-bar');
+      if (sBar) sBar.style.display = 'none';
+    }
+    _cloudResolved = true; _checkReady();
+  }
+}
+
+let _loginPending = false;
+function googleLogin() {
+  if (_loginPending) return;
+  _loginPending = true;
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).catch(function(e) {
+    if (e.code !== 'auth/cancelled-popup-request' && e.code !== 'auth/popup-closed-by-user') {
+      alert('로그인 실패: ' + e.message);
+    }
+  }).finally(function() { _loginPending = false; });
+}
+
+function googleLogout() {
+  auth.signOut();
+}
+
+auth.onAuthStateChanged(function(user) {
+  updateAuthUI(user);
+});
+
+function saveToCloud() {
+  if (!currentUser) { alert('로그인이 필요합니다.'); return; }
+  autoSaveNow();
+}
+
+function loadFromCloud() {
+  if (!currentUser) { alert('로그인이 필요합니다.'); return; }
+  // 세션 모드이면 세션 경로에서 로드
+  if (typeof _sessionMode !== 'undefined' && _sessionMode && typeof loadSessionCharacter === 'function') {
+    loadSessionCharacter(_gmEditTarget || currentUser.uid);
+    return;
+  }
+  var status = document.getElementById('save-status');
+  status.textContent = '불러오는 중...';
+  status.style.color = '#f5c518';
+  db.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot).get().then(function(doc) {
+    if (doc.exists && doc.data().data) {
+      var data = JSON.parse(doc.data().data);
+      loadData(data);
+      // 모든 UI 재구축
+      if (typeof buildSkills === 'function') buildSkills();
+      if (typeof buildConditions === 'function') buildConditions();
+      if (typeof renderEquip === 'function') renderEquip();
+      if (typeof renderContainers === 'function') renderContainers();
+      if (typeof renderFormulas === 'function') renderFormulas();
+      if (typeof renderLanguages === 'function') renderLanguages();
+      if (typeof renderPets === 'function') renderPets();
+      if (typeof renderFeats === 'function') renderFeats();
+      if (typeof updateSpellSlotsForClass === 'function') updateSpellSlotsForClass();
+      if (typeof renderSpells === 'function') renderSpells();
+      if (typeof renderWeapons === 'function') renderWeapons();
+      if (typeof renderArmorCard === 'function') renderArmorCard();
+      if (typeof renderShieldCard === 'function') renderShieldCard();
+      _cloudResolved = true; _checkReady();
+      recalcAll();
+      status.textContent = '✓ 불러오기 완료';
+      status.style.color = '#27ae60';
+    } else {
+      status.textContent = '이 슬롯은 비어있습니다.';
+      status.style.color = '#888';
+      _cloudResolved = true; _checkReady();
+      recalcAll();
+    }
+  }).catch(function(e) {
+    status.textContent = '새 캐릭터';
+    status.style.color = '#888';
+    console.warn('[loadFromCloud] empty or error:', e);
+    _cloudResolved = true; _checkReady();
+    recalcAll();
+  });
+}
+
+function switchSlot(slot) {
+  if (slot === currentSlot) return;
+  localStorage.setItem('pf2e_lastSlot', slot);
+  // 현재 슬롯 즉시 저장 후 새 슬롯 로드
+  if (_autoSaveDebounce) { clearTimeout(_autoSaveDebounce); _autoSaveDebounce = null; }
+  if (currentUser) {
+    var data = collectData();
+    var oldSlot = currentSlot;
+    db.collection('users').doc(currentUser.uid).collection('characters').doc(oldSlot).set({
+      data: JSON.stringify(data),
+      name: data.name || '이름 없음',
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(function() {
+      currentSlot = slot;
+      loadFromCloud();
+      updateSlotBar();
+      loadSlotNames(currentUser.uid);
+    }).catch(function() {
+      currentSlot = slot;
+      loadFromCloud();
+      updateSlotBar();
+    });
+  } else {
+    currentSlot = slot;
+    updateSlotBar();
+  }
+}
+
+function updateSlotBar() {
+  var slotBar = document.getElementById('slot-bar');
+  if (!slotBar) return;
+  slotBar.innerHTML = '<span style="color:#888;">캐릭터 슬롯:</span>';
+  for (var i = 1; i <= 5; i++) {
+    var active = currentSlot === 'slot' + i ? 'background:#f5c518;color:#000;' : 'background:#333;color:#ccc;';
+    slotBar.innerHTML += '<button onclick="switchSlot(\'slot' + i + '\')" style="border:none;padding:3px 10px;border-radius:3px;cursor:pointer;font-size:11px;' + active + '" id="slot-btn-' + i + '">슬롯 ' + i + '</button>';
+  }
+}
+
+function loadSlotNames(uid) {
+  db.collection('users').doc(uid).collection('characters').get().then(function(snap) {
+    snap.forEach(function(doc) {
+      var d = doc.data();
+      var slotNum = doc.id.replace('slot', '');
+      var btn = document.getElementById('slot-btn-' + slotNum);
+      if (btn) {
+        var charName = d.name && d.name !== '이름 없음' ? d.name : '';
+        var label = charName ? charName : '슬롯 ' + slotNum;
+        if (d.sessionId) label += ' 🎮';
+        btn.textContent = label;
+      }
+    });
+  });
+}
+
+// 자동 저장은 save() 디바운스(일반 2초/세션 0.5초)가 담당.
+// 변경이 없으면 저장하지 않으므로 별도 인터벌 불필요.
+
+// 페이지 닫기/새로고침 시 대기 중인 저장 즉시 실행
+window.addEventListener('beforeunload', function() {
+  if (_loadComplete && currentUser && _autoSaveDebounce) {
+    clearTimeout(_autoSaveDebounce);
+    _autoSaveDebounce = null;
+    autoSaveNow();
+  }
+});
+
+// ── Mobile bottom nav tab switching ──
+function mobileNavSwitch(id) {
+  // Close any open modal
+  if (!document.getElementById('modal-overlay')?.classList.contains('hidden')) closeModal();
+  // Update bottom nav active
+  document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.bnav-btn[data-tab="${id}"]`)?.classList.add('active');
+  // Delegate to switchTab
+  switchTab(id, null);
+  window.scrollTo(0, 0);
+}
+</script>
+
+<!-- ═══ MOBILE BOTTOM NAVIGATION ═══ -->
+<nav id="mobile-bottom-nav">
+  <button class="bnav-btn" data-tab="growth" onclick="mobileNavSwitch('growth')"><span class="bnav-icon">📋</span>성장</button>
+  <button class="bnav-btn" data-tab="info" onclick="mobileNavSwitch('info')"><span class="bnav-icon">📊</span>정보</button>
+  <button class="bnav-btn active" data-tab="weapons" onclick="mobileNavSwitch('weapons')"><span class="bnav-icon">⚔️</span>무기</button>
+  <button class="bnav-btn" data-tab="defense" onclick="mobileNavSwitch('defense')"><span class="bnav-icon">🛡️</span>방어</button>
+  <button class="bnav-btn" data-tab="spells" onclick="mobileNavSwitch('spells')"><span class="bnav-icon">✨</span>주문</button>
+  <button class="bnav-btn" data-tab="equip" onclick="mobileNavSwitch('equip')"><span class="bnav-icon">🎒</span>장비</button>
+  <button class="bnav-btn" data-tab="pets" onclick="mobileNavSwitch('pets')"><span class="bnav-icon">🐾</span>펫</button>
+  <button class="bnav-btn" data-tab="feats" onclick="mobileNavSwitch('feats')"><span class="bnav-icon">⭐</span>재주</button>
+  <button class="bnav-btn" data-tab="actions" onclick="mobileNavSwitch('actions')"><span class="bnav-icon">▶️</span>행동</button>
+</nav>
+
+</body>
+</html>
