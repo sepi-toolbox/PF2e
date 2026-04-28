@@ -1563,30 +1563,13 @@ const SPELL_DB = [
   },
   {
     "id": "protective-wards",
-    "name_ko": "보호의 수호",
-    "name_en": "Protective Wards",
-    "rank": 1,
-    "is_cantrip": false,
-    "is_focus": true,
-    "traditions": [],
-    "actions": "1행동",
-    "traits": [
-      "클레릭"
-    ],
-    "area": "15피트 발산",
-    "duration": "유지(최대 1분)",
-    "summary": "아군을 보호하는 문양의 고리를 펼칩니다. 당신과 영역 내 아군은 AC에 +1 상태 보너스를 얻습니다. 주문을 유지할 때마다 발산 반경이 5피트씩 증가합니다(최대 30피트).",
-    "desc": "<strong>영역:</strong> 15피트 발산<br><strong>지속 시간:</strong> 유지(최대 1분)<br>아군을 보호하는 문양의 고리를 펼칩니다. 당신과 영역 내 아군은 AC에 <strong>+1 상태 보너스</strong>를 얻습니다. 주문을 유지할 때마다 발산 반경이 <strong>5피트</strong>씩 증가합니다(최대 30피트)."
-  },
-  {
-    "id": "protective-wards-2",
     "name_ko": "보호의 결계",
     "name_en": "Protective Wards",
     "rank": 1,
     "is_cantrip": false,
     "is_focus": true,
     "traditions": [],
-    "actions": "2행동",
+    "actions": "1행동",
     "traits": [
       "오라",
       "조작",
