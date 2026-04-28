@@ -13,7 +13,8 @@ global.alert = ()=>{}; global.setTimeout = ()=>{}; global.setInterval = ()=>{};
 global.localStorage = {getItem:()=>null,setItem:()=>{}};
 global.firebase = {auth:()=>({onAuthStateChanged:()=>{}}),firestore:()=>({})};
 
-const root = path.resolve(__dirname, '..');
+// dev/ 기준 (v509~ 운영/개발 분리)
+const root = path.resolve(__dirname, '..', 'dev');
 
 // cs_data.js 직접 파싱 (eval이 실패할 수 있으므로 CONDITIONS_DATA만 추출)
 const dataText = fs.readFileSync(path.join(root, 'cs_data.js'), 'utf8');

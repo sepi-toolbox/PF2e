@@ -1053,7 +1053,7 @@ var FEAT_DB = [
     ],
     "category": "ancestry",
     "summary": "고대 전쟁 중 조상이 처음 고안한 기법을 배워, 거대한 갑옷을 편하게 착용할 수 있습니다. 착용한 갑옷으로 인한 이동 속도 감소를 무시합니다. 추가로, 다른 이유(예: 과적(encumbered) 상태나 주문)로 이동 속도에 페널티를 받을 때, 페널티에서 5피트를 차감합니다. 예를 들어, 과적 상태는 일반적으로 이동 속도에 -10피트 페널티를 주지만, 이 재주로 -5피트 페널티로 줄어듭니다. 이동 속도에 여러 페널티가 있으면 하나만 선택하여 줄입니다.",
-    "desc": "고대 전쟁 중 조상이 처음 고안한 기법을 배워, 거대한 갑옷을 편하게 착용할 수 있습니다. 착용한 갑옷으로 인한 <strong>이동 속도 감소를 무시</strong>합니다.<br>추가로, 다른 이유(예: {{condition:Encumbered}} 상태나 주문)로 이동 속도에 페널티를 받을 때, 페널티에서 <strong>5피트를 차감</strong>합니다. 예를 들어, 과적 상태는 일반적으로 이동 속도에 -10피트 페널티를 주지만, 이 재주로 -5피트 페널티로 줄어듭니다. 이동 속도에 여러 페널티가 있으면 하나만 선택하여 줄입니다."
+    "desc": "고대 전쟁 중 조상이 처음 고안한 기법을 배워, 거대한 갑옷을 편하게 착용할 수 있습니다. 착용한 갑옷으로 인한 <strong>이동 속도 감소를 무시</strong>합니다.<br>추가로, 다른 이유(예: {{condition:Encumbered}} 상태나 주문)로 이동 속도에 페널티를 받을 때, 페널티에서 <strong>5피트를 차감</strong>합니다. 예를 들어, {{condition:Encumbered}} 상태는 일반적으로 이동 속도에 -10피트 페널티를 주지만, 이 재주로 -5피트 페널티로 줄어듭니다. 이동 속도에 여러 페널티가 있으면 하나만 선택하여 줄입니다."
   },
   {
     "id": "ancestral-longevity",
@@ -1234,7 +1234,7 @@ var FEAT_DB = [
     ],
     "category": "ancestry",
     "summary": "[자유 행동] 빈도: 시간당 1회  유발 조건: 생물을 실명(blinded) 또는 현혹됨(dazzled) 상태로 만듭니다. 빛의 조작을 상당히 연습하여, 칼날의 반사를 무기화하거나 마법적 표현의 밝기를 비상식적인 높이로 강화했습니다. 대상에게 부여하는 실명 또는 현혹됨 상태의 지속 시간을 1라운드 연장합니다.",
-    "desc": "<strong>빈도:</strong> 시간당 1회<br> <strong>유발 조건:</strong> 생물을 {{condition:Blinded}} 또는 {{condition:Dazzled}} 상태로 만듭니다.<br>빛의 조작을 상당히 연습하여, 칼날의 반사를 무기화하거나 마법적 표현의 밝기를 비상식적인 높이로 강화했습니다. 대상에게 부여하는 실명 또는 현혹됨 상태의 지속 시간을 <strong>1라운드 연장</strong>합니다."
+    "desc": "<strong>빈도:</strong> 시간당 1회<br> <strong>유발 조건:</strong> 생물을 {{condition:Blinded}} 또는 {{condition:Dazzled}} 상태로 만듭니다.<br>빛의 조작을 상당히 연습하여, 칼날의 반사를 무기화하거나 마법적 표현의 밝기를 비상식적인 높이로 강화했습니다. 대상에게 부여하는 {{condition:Blinded}} 또는 {{condition:Dazzled}} 상태의 지속 시간을 <strong>1라운드 연장</strong>합니다."
   },
   {
     "id": "burn-it",
@@ -1342,7 +1342,7 @@ var FEAT_DB = [
     ],
     "category": "ancestry",
     "summary": "잠행 시 5피트 더 멀리(이동 속도까지) 이동 가능. 잠행 행동을 계속 사용하고 은신 판정에 성공하는 한, 잠행 종료 시 엄폐/은폐 없어도 관측되지 않음(단 턴 종료 시 엄폐/은폐 필요).",
-    "desc": "잠행 시 <strong>5피트 더 멀리</strong>(이동 속도까지) 이동 가능. 잠행 행동을 계속 사용하고 은신 판정에 성공하는 한, 잠행 종료 시 엄폐/은폐 없어도 관측되지 않음(단 턴 종료 시 엄폐/은폐 필요)."
+    "desc": "잠행 시 <strong>5피트 더 멀리</strong>(이동 속도까지) 이동 가능. 잠행 행동을 계속 사용하고 은신 판정에 성공하는 한, 잠행 종료 시 엄폐/{{condition:Concealed}} 없어도 관측되지 않음(단 턴 종료 시 엄폐/{{condition:Concealed}} 필요)."
   },
   {
     "id": "distracting-shadows",
@@ -1427,7 +1427,7 @@ var FEAT_DB = [
     ],
     "category": "ancestry",
     "summary": "균형 잡기든 등반이든, 발이 쉽게 지지점을 찾습니다. 균형 잡기(Balance) 곡예 판정이나 등반(Climb) 운동 판정에서 성공을 굴리면 대성공. 균형 잡기나 등반 시도 시 무방비 상태가 되지 않습니다.",
-    "desc": "균형 잡기든 등반이든, 발이 쉽게 지지점을 찾습니다. 균형 잡기(Balance) 곡예 판정이나 등반(Climb) 운동 판정에서 <strong>성공을 굴리면 대성공</strong>. 균형 잡기나 등반 시도 시 <strong>무방비 상태가 되지 않습니다</strong>."
+    "desc": "균형 잡기든 등반이든, 발이 쉽게 지지점을 찾습니다. 균형 잡기(Balance) 곡예 판정이나 등반(Climb) 운동 판정에서 <strong>성공을 굴리면 대성공</strong>. 균형 잡기나 등반 시도 시 <strong>{{condition:Off-Guard}} 상태가 되지 않습니다</strong>."
   },
   {
     "id": "titan-slinger",
@@ -2197,7 +2197,7 @@ var FEAT_DB = [
     ],
     "category": "ancestry",
     "summary": "예외적으로 죽이기 어렵습니다. 회복 판정 DC가 9 + 빈사 수치(강인함 재주 있으면 8 + 빈사 수치). 추가로, 부활 주문 등으로 1주일 쇠약해지는 효과를 받지 않습니다.",
-    "desc": "예외적으로 죽이기 어렵습니다. 회복 판정 DC가 <strong>9 + 빈사 수치</strong>(강인함 재주 있으면 8 + 빈사 수치). 추가로, 부활 주문 등으로 1주일 쇠약해지는 효과를 <strong>받지 않습니다</strong>."
+    "desc": "예외적으로 죽이기 어렵습니다. 회복 판정 DC가 <strong>9 + {{condition:Dying}} 수치</strong>(강인함 재주 있으면 8 + {{condition:Dying}} 수치). 추가로, 부활 주문 등으로 1주일 쇠약해지는 효과를 <strong>받지 않습니다</strong>."
   },
   {
     "id": "scar-thick-skin",
@@ -2318,7 +2318,7 @@ var FEAT_DB = [
     ],
     "category": "ancestry",
     "summary": "강인함으로 대부분보다 더 많은 벌을 견딜 수 있습니다. 최대 히트 포인트를 레벨만큼 증가시킵니다. 빈사(dying) 상태일 때, 회복 판정의 DC가 10 + 빈사 수치 대신 9 + 빈사 수치입니다. 강인함(Toughness) 재주도 가지고 있으면, 그것과 이 재주에서 얻는 히트 포인트는 누적되며, 회복 판정 DC는 6 + 빈사 수치입니다.",
-    "desc": "강인함으로 대부분보다 더 많은 벌을 견딜 수 있습니다. 최대 히트 포인트를 <strong>레벨만큼 증가</strong>시킵니다. {{condition:Dying}} 상태일 때, 회복 판정의 DC가 <strong>10 + 빈사 수치 대신 9 + 빈사 수치</strong>입니다.<br>{{feat:Toughness}} 재주도 가지고 있으면, 그것과 이 재주에서 얻는 히트 포인트는 누적되며, 회복 판정 DC는 <strong>6 + 빈사 수치</strong>입니다."
+    "desc": "강인함으로 대부분보다 더 많은 벌을 견딜 수 있습니다. 최대 히트 포인트를 <strong>레벨만큼 증가</strong>시킵니다. {{condition:Dying}} 상태일 때, 회복 판정의 DC가 <strong>10 + {{condition:Dying}} 수치 대신 9 + {{condition:Dying}} 수치</strong>입니다.<br>{{feat:Toughness}} 재주도 가지고 있으면, 그것과 이 재주에서 얻는 히트 포인트는 누적되며, 회복 판정 DC는 <strong>6 + {{condition:Dying}} 수치</strong>입니다."
   },
   {
     "id": "stone-bones",
@@ -2569,7 +2569,7 @@ var FEAT_DB = [
     ],
     "category": "ancestry",
     "summary": "친구가 곁에 있거나 마음에 희망이 있으면 너무 먼 여정이나 너무 무거운 짐은 없습니다. 최대 및 과적 부피 한계를 1 증가시킵니다. 추가로, 야외 여행 시 이동 속도에 +10피트 상황 보너스.",
-    "desc": "친구가 곁에 있거나 마음에 희망이 있으면 너무 먼 여정이나 너무 무거운 짐은 없습니다. 최대 및 과적 부피 한계를 <strong>1 증가</strong>시킵니다. 추가로, 야외 여행 시 이동 속도에 <strong>+10피트 상황 보너스</strong>."
+    "desc": "친구가 곁에 있거나 마음에 희망이 있으면 너무 먼 여정이나 너무 무거운 짐은 없습니다. 최대 및 {{condition:Encumbered}} 부피 한계를 <strong>1 증가</strong>시킵니다. 추가로, 야외 여행 시 이동 속도에 <strong>+10피트 상황 보너스</strong>."
   },
   {
     "id": "incredible-improvisation",
@@ -2866,7 +2866,7 @@ var FEAT_DB = [
     ],
     "category": "ancestry",
     "summary": "[자유 행동] 빈도: 하루 1회  유발 조건: 빈사(dying) 상태를 잃습니다. 놀라운 회복력으로 임사 경험에서 회복합니다. 빈사 상태를 잃어서 부상(wounded) 상태 수치를 증가시키지 않습니다.",
-    "desc": "<strong>빈도:</strong> 하루 1회<br> <strong>유발 조건:</strong> {{condition:Dying}} 상태를 잃습니다.<br>놀라운 회복력으로 임사 경험에서 회복합니다. 빈사 상태를 잃어서 <strong>{{condition:Wounded}} 상태 수치를 증가시키지 않습니다</strong>."
+    "desc": "<strong>빈도:</strong> 하루 1회<br> <strong>유발 조건:</strong> {{condition:Dying}} 상태를 잃습니다.<br>놀라운 회복력으로 임사 경험에서 회복합니다. {{condition:Dying}} 상태를 잃어서 <strong>{{condition:Wounded}} 상태 수치를 증가시키지 않습니다</strong>."
   },
   {
     "id": "stubborn-persistence",
@@ -2878,7 +2878,7 @@ var FEAT_DB = [
     ],
     "category": "ancestry",
     "summary": "인간은 다른 이가 포기할 만한 가장 혹독한 시련도 견뎌내는 능력으로 유명합니다. 피로(fatigued) 상태가 될 때, DC 17 단순 판정을 시도합니다. 성공하면 피로 상태가 되지 않습니다. 피로의 근본 원인(휴식 부족 등)을 해결하지 않으면, GM이 정한 간격으로 실패할 때까지 다시 판정해야 합니다.",
-    "desc": "인간은 다른 이가 포기할 만한 가장 혹독한 시련도 견뎌내는 능력으로 유명합니다. {{condition:Fatigued}} 상태가 될 때, <strong>DC 17 단순 판정</strong>을 시도합니다. 성공하면 피로 상태가 되지 않습니다. 피로의 근본 원인(휴식 부족 등)을 해결하지 않으면, GM이 정한 간격으로 실패할 때까지 다시 판정해야 합니다."
+    "desc": "인간은 다른 이가 포기할 만한 가장 혹독한 시련도 견뎌내는 능력으로 유명합니다. {{condition:Fatigued}} 상태가 될 때, <strong>DC 17 단순 판정</strong>을 시도합니다. 성공하면 {{condition:Fatigued}} 상태가 되지 않습니다. 피로의 근본 원인(휴식 부족 등)을 해결하지 않으면, GM이 정한 간격으로 실패할 때까지 다시 판정해야 합니다."
   },
   {
     "id": "incredible-ferocity",
@@ -2950,7 +2950,7 @@ var FEAT_DB = [
     ],
     "category": "ancestry",
     "summary": "유산을 통해 해그의 마법을 복제할 수 있습니다. 의식에 사용 가능한 4랭크 이하의 일반 주문 1개를 선택합니다(모든 의식에서: 점술, 매혹, 투청, 투시, 꿈 메시지, 환영 변장). 4랭크 오컬트 선천 주문으로 하루 1회 시전.",
-    "desc": "유산을 통해 해그의 마법을 복제할 수 있습니다. 의식에 사용 가능한 4랭크 이하의 일반 주문 1개를 선택합니다(모든 의식에서: 점술, 매혹, 투청, 투시, 꿈 메시지, 환영 변장). <strong>4랭크 오컬트 선천 주문으로 하루 1회</strong> 시전."
+    "desc": "유산을 통해 해그의 마법을 복제할 수 있습니다. 의식에 사용 가능한 4랭크 이하의 일반 주문 1개를 선택합니다(모든 의식에서: 점술, {{condition:Charmed}}, 투청, 투시, 꿈 메시지, 환영 변장). <strong>4랭크 오컬트 선천 주문으로 하루 1회</strong> 시전."
   },
   {
     "id": "celestial-mercy",
@@ -3089,7 +3089,7 @@ var FEAT_DB = [
     ],
     "category": "ancestry",
     "summary": "빈도: 시간당 1회  유발 조건: 은신으로 숨기를 성공하여 모든 현재 적에게 숨겨지거나, 은신으로 잠행하여 모든 현재 적에게 미탐지됩니다. 적의 시선에서 미끄러져 나가 다른 곳에 있는 것처럼 보입니다. 1분간 또는 적대적 행동을 할 때까지(먼저 오는 것) 투명해집니다. 10피트 내의 위치를 선택합니다. 투명이 끝날 때까지, 당신을 찾으려는 누구에게든 그 위치에 숨어있는 것처럼 보입니다. 수색자가 당신이 거기 없다는 명확한 증거를 얻으면 더 이상 거기에 숨어있다고 생각하지 않지만, 실제 위치는 발견하지 못합니다.",
-    "desc": "<strong>빈도:</strong> 시간당 1회<br> <strong>유발 조건:</strong> 은신으로 숨기를 성공하여 모든 현재 적에게 숨겨지거나, 은신으로 잠행하여 모든 현재 적에게 미탐지됩니다.<br>적의 시선에서 미끄러져 나가 다른 곳에 있는 것처럼 보입니다. <strong>1분간 또는 적대적 행동을 할 때까지(먼저 오는 것) 투명</strong>해집니다. 10피트 내의 위치를 선택합니다. 투명이 끝날 때까지, 당신을 찾으려는 누구에게든 그 위치에 숨어있는 것처럼 보입니다. 수색자가 당신이 거기 없다는 명확한 증거를 얻으면 더 이상 거기에 숨어있다고 생각하지 않지만, 실제 위치는 발견하지 못합니다."
+    "desc": "<strong>빈도:</strong> 시간당 1회<br> <strong>유발 조건:</strong> 은신으로 숨기를 성공하여 모든 현재 적에게 숨겨지거나, 은신으로 잠행하여 모든 현재 적에게 미탐지됩니다.<br>적의 시선에서 미끄러져 나가 다른 곳에 있는 것처럼 보입니다. <strong>1분간 또는 적대적 행동을 할 때까지(먼저 오는 것) {{condition:Invisible}}</strong>해집니다. 10피트 내의 위치를 선택합니다. 투명이 끝날 때까지, 당신을 찾으려는 누구에게든 그 위치에 숨어있는 것처럼 보입니다. 수색자가 당신이 거기 없다는 명확한 증거를 얻으면 더 이상 거기에 숨어있다고 생각하지 않지만, 실제 위치는 발견하지 못합니다."
   },
   {
     "id": "heroic-presence",
@@ -3210,7 +3210,7 @@ var FEAT_DB = [
     ],
     "category": "general",
     "summary": "쓰러지기까지 시간이 걸립니다. 빈사(dying) 4가 아닌 빈사 5에서 죽습니다.",
-    "desc": "쓰러지기까지 시간이 걸립니다. {{condition:Dying}} 4가 아닌 <strong>빈사 5</strong>에서 죽습니다."
+    "desc": "쓰러지기까지 시간이 걸립니다. {{condition:Dying}} 4가 아닌 <strong>{{condition:Dying}} 5</strong>에서 죽습니다."
   },
   {
     "id": "fast-recovery",
@@ -3843,7 +3843,7 @@ var FEAT_DB = [
     ],
     "category": "skill",
     "summary": "[3행동] 공포를 줄이려 합니다. 10피트 방사 내 공포(frightened) 상태인 생물의 의지 DC에 대해 외교 판정. 각 생물은 1시간 면역. 대성공: 공포 수치 2 감소. 성공: 1 감소.",
-    "desc": "공포를 줄이려 합니다. 10피트 방사 내 {{condition:Frightened}} 상태인 생물의 의지 DC에 대해 외교 판정. 각 생물은 1시간 면역.<br><strong>대성공:</strong> 공포 수치 2 감소. <strong>성공:</strong> 1 감소."
+    "desc": "공포를 줄이려 합니다. 10피트 방사 내 {{condition:Frightened}} 상태인 생물의 의지 DC에 대해 외교 판정. 각 생물은 1시간 면역.<br><strong>대성공:</strong> {{condition:Frightened}} 수치 2 감소. <strong>성공:</strong> 1 감소."
   },
   {
     "id": "intimidating-glare",
@@ -4016,7 +4016,7 @@ var FEAT_DB = [
     ],
     "category": "skill",
     "summary": "공연(Perform) 시, 결과를 관찰자 1명의 의지 DC와 비교합니다. 성공하면 대상이 1라운드간 매혹(fascinated)됩니다. 전투 같은 즉각적인 주의가 필요한 상황이면, 매혹시키려면 대성공해야 하며 공연 행동이 무력화(incapacitation) 특성을 얻습니다. 판정 전에 매혹시킬 대상을 선택해야 하며, 대상은 이후 1시간 면역입니다. 공연 전문가이면 최대 4명, 달인이면 10명, 전설이면 인원 제한 없이 동시에 매혹시킬 수 있습니다.",
-    "desc": "공연(Perform) 시, 결과를 관찰자 1명의 의지 DC와 비교합니다. 성공하면 대상이 <strong>1라운드간 매혹(fascinated)</strong>됩니다. 전투 같은 즉각적인 주의가 필요한 상황이면, 매혹시키려면 대성공해야 하며 공연 행동이 무력화(incapacitation) 특성을 얻습니다. 판정 전에 매혹시킬 대상을 선택해야 하며, 대상은 이후 1시간 면역입니다.<br>공연 전문가이면 최대 <strong>4명</strong>, 달인이면 <strong>10명</strong>, 전설이면 <strong>인원 제한 없이</strong> 동시에 매혹시킬 수 있습니다."
+    "desc": "공연(Perform) 시, 결과를 관찰자 1명의 의지 DC와 비교합니다. 성공하면 대상이 <strong>1라운드간 {{condition:Charmed}}(fascinated)</strong>됩니다. 전투 같은 즉각적인 주의가 필요한 상황이면, 매혹시키려면 대성공해야 하며 공연 행동이 무력화(incapacitation) 특성을 얻습니다. 판정 전에 매혹시킬 대상을 선택해야 하며, 대상은 이후 1시간 면역입니다.<br>공연 전문가이면 최대 <strong>4명</strong>, 달인이면 <strong>10명</strong>, 전설이면 <strong>인원 제한 없이</strong> 동시에 매혹시킬 수 있습니다."
   },
   {
     "id": "impressive-performance",
@@ -4130,7 +4130,7 @@ var FEAT_DB = [
     ],
     "category": "skill",
     "summary": "명확히 볼 수 있는 근처 사람의 입술을 읽을 수 있습니다. 읽는 언어를 알아야 합니다. 여유가 있을 때는 자동. 조우 모드이거나 어려운 경우에는 입술 움직임에 집중하는 동안 매혹(fascinated)과 무방비(off-guard) 상태이며, 사회 판정(GM이 DC 결정)에 성공해야 합니다.",
-    "desc": "명확히 볼 수 있는 근처 사람의 입술을 읽을 수 있습니다. 읽는 언어를 알아야 합니다. 여유가 있을 때는 자동. 조우 모드이거나 어려운 경우에는 입술 움직임에 집중하는 동안 매혹(fascinated)과 {{condition:Off-Guard}} 상태이며, 사회 판정(GM이 DC 결정)에 성공해야 합니다."
+    "desc": "명확히 볼 수 있는 근처 사람의 입술을 읽을 수 있습니다. 읽는 언어를 알아야 합니다. 여유가 있을 때는 자동. 조우 모드이거나 어려운 경우에는 입술 움직임에 집중하는 동안 {{condition:Charmed}}(fascinated)과 {{condition:Off-Guard}} 상태이며, 사회 판정(GM이 DC 결정)에 성공해야 합니다."
   },
   {
     "id": "sign-language",
@@ -5145,7 +5145,7 @@ var FEAT_DB = [
     ],
     "category": "skill",
     "summary": "[1행동] 적을 너무 겁먹게 하여 죽을 수도 있습니다. 30피트 내 살아있는 생물의 의지 DC에 대해 위협 판정을 시도합니다. 대상이 당신의 말을 이해하지 못하면 -4 상황 페널티. 1분간 면역. 대성공: 대상이 인내 내성(위협 DC)을 굴립니다. 대실패 시 사망(죽음 특성). 다른 결과: 공포 2 + 1라운드 도주.  성공: 공포 2. 실패: 공포 1. 대실패: 영향 없음.",
-    "desc": "적을 너무 겁먹게 하여 죽을 수도 있습니다. 30피트 내 살아있는 생물의 의지 DC에 대해 위협 판정을 시도합니다. 대상이 당신의 말을 이해하지 못하면 -4 상황 페널티. 1분간 면역.<br><strong>대성공:</strong> 대상이 인내 내성(위협 DC)을 굴립니다. 대실패 시 <strong>사망</strong>(죽음 특성). 다른 결과: 공포 2 + 1라운드 도주.<br> <strong>성공:</strong> 공포 2. <strong>실패:</strong> 공포 1. <strong>대실패:</strong> 영향 없음."
+    "desc": "적을 너무 겁먹게 하여 죽을 수도 있습니다. 30피트 내 살아있는 생물의 의지 DC에 대해 위협 판정을 시도합니다. 대상이 당신의 말을 이해하지 못하면 -4 상황 페널티. 1분간 면역.<br><strong>대성공:</strong> 대상이 인내 내성(위협 DC)을 굴립니다. 대실패 시 <strong>사망</strong>(죽음 특성). 다른 결과: {{condition:Frightened}} 2 + 1라운드 도주.<br> <strong>성공:</strong> {{condition:Frightened}} 2. <strong>실패:</strong> {{condition:Frightened}} 1. <strong>대실패:</strong> 영향 없음."
   },
   {
     "id": "legendary-medic",
@@ -5164,7 +5164,7 @@ var FEAT_DB = [
     ],
     "category": "skill",
     "summary": "기적적 결과를 달성하는 의료 혁신을 발견했습니다. 각 대상에 하루 1회, 1시간 치료 후 의학 판정을 시도하여 질병이나 실명/청각상실/파멸/소진 상태를 제거할 수 있습니다. DC는 질병이나 주문/효과의 DC. 유물이나 20레벨 초과 원천이면 DC +10.",
-    "desc": "기적적 결과를 달성하는 의료 혁신을 발견했습니다. 각 대상에 하루 1회, 1시간 치료 후 의학 판정을 시도하여 질병이나 실명/청각상실/파멸/소진 상태를 <strong>제거</strong>할 수 있습니다. DC는 질병이나 주문/효과의 DC. 유물이나 20레벨 초과 원천이면 DC +10."
+    "desc": "기적적 결과를 달성하는 의료 혁신을 발견했습니다. 각 대상에 하루 1회, 1시간 치료 후 의학 판정을 시도하여 질병이나 {{condition:Blinded}}/청각상실/{{condition:Doomed}}/소진 상태를 <strong>제거</strong>할 수 있습니다. DC는 질병이나 주문/효과의 DC. 유물이나 20레벨 초과 원천이면 DC +10."
   },
   {
     "id": "divine-guidance",
@@ -5265,7 +5265,7 @@ var FEAT_DB = [
     ],
     "category": "skill",
     "summary": "보이기를 선택하지 않는 한 항상 잠행합니다. 엄폐나 은폐 없이도 숨기와 잠행을 할 수 있습니다. 주의 회피 외의 탐험 전술을 사용해도, 주의 회피의 혜택도 함께 얻습니다(선택하지 않는 한).",
-    "desc": "보이기를 선택하지 않는 한 항상 잠행합니다. 엄폐나 은폐 없이도 <strong>숨기와 잠행</strong>을 할 수 있습니다. 주의 회피 외의 탐험 전술을 사용해도, 주의 회피의 혜택도 함께 얻습니다(선택하지 않는 한)."
+    "desc": "보이기를 선택하지 않는 한 항상 잠행합니다. 엄폐나 {{condition:Concealed}} 없이도 <strong>숨기와 잠행</strong>을 할 수 있습니다. 주의 회피 외의 탐험 전술을 사용해도, 주의 회피의 혜택도 함께 얻습니다(선택하지 않는 한)."
   },
   {
     "id": "legendary-thief",
@@ -5592,7 +5592,7 @@ var FEAT_DB = [
     ],
     "category": "bard",
     "summary": "[1행동] 공연자의 냉독(cold reading) 기법, 아우라 읽기, 기타 속임수로 적의 강점과 약점을 발견합니다. GM이 당신 대신 비밀 오컬티즘 판정을 굴립니다. 은폐, 숨겨짐, 미탐지가 아닌 전투 중인 적 1명의 기만 또는 은신 DC(높은 쪽)에 대해 판정합니다. 대상은 1일간 당신의 전투 판독에 면역이 됩니다. 대성공: GM이 적에 대한 정보 2개를 알려줍니다 (가장 높은 약점, 가장 낮은 내성 수정치, 면역 1개, 가장 높은 저항 중 선택).  성공: 위 목록에서 정보 1개.  대실패: GM이 거짓 정보를 줍니다.",
-    "desc": "공연자의 냉독(cold reading) 기법, 아우라 읽기, 기타 속임수로 적의 강점과 약점을 발견합니다. GM이 당신 대신 비밀 오컬티즘 판정을 굴립니다. 은폐, 숨겨짐, 미탐지가 아닌 전투 중인 적 1명의 기만 또는 은신 DC(높은 쪽)에 대해 판정합니다. 대상은 1일간 당신의 전투 판독에 면역이 됩니다.<br><strong>대성공:</strong> GM이 적에 대한 정보 2개를 알려줍니다 (가장 높은 약점, 가장 낮은 내성 수정치, 면역 1개, 가장 높은 저항 중 선택).<br> <strong>성공:</strong> 위 목록에서 정보 1개.<br> <strong>대실패:</strong> GM이 거짓 정보를 줍니다."
+    "desc": "공연자의 냉독(cold reading) 기법, 아우라 읽기, 기타 속임수로 적의 강점과 약점을 발견합니다. GM이 당신 대신 비밀 오컬티즘 판정을 굴립니다. {{condition:Concealed}}, {{condition:Hidden}}, 미탐지가 아닌 전투 중인 적 1명의 기만 또는 은신 DC(높은 쪽)에 대해 판정합니다. 대상은 1일간 당신의 전투 판독에 면역이 됩니다.<br><strong>대성공:</strong> GM이 적에 대한 정보 2개를 알려줍니다 (가장 높은 약점, 가장 낮은 내성 수정치, 면역 1개, 가장 높은 저항 중 선택).<br> <strong>성공:</strong> 위 목록에서 정보 1개.<br> <strong>대실패:</strong> GM이 거짓 정보를 줍니다."
   },
   {
     "id": "courageous-advance",
@@ -6456,7 +6456,7 @@ var FEAT_DB = [
     ],
     "category": "bard",
     "summary": "모든 주문을 유연하게 시전하여 현기증 나는 가능성의 배열을 부여합니다. 레퍼토리의 모든 주문이 시그니처 주문이 됩니다.",
-    "desc": "모든 주문을 유연하게 시전하여 현기증 나는 가능성의 배열을 부여합니다. 레퍼토리의 <strong>모든 주문이 시그니처 주문</strong>이 됩니다."
+    "desc": "모든 주문을 유연하게 시전하여 {{condition:Stupefied}} 나는 가능성의 배열을 부여합니다. 레퍼토리의 <strong>모든 주문이 시그니처 주문</strong>이 됩니다."
   },
   {
     "id": "deadly-simplicity",
@@ -6611,7 +6611,7 @@ var FEAT_DB = [
     ],
     "category": "cleric",
     "summary": "활력이 언데드에 공포를 안깁니다. 치유로 언데드에 피해를 줄 때, 내성 실패한 언데드는 공포 1. 대실패 시 다음 턴 시작까지 도주(fleeing)도 추가. 무심 언데드도 면역이 아닙니다.",
-    "desc": "활력이 언데드에 공포를 안깁니다. <em>치유</em>로 언데드에 피해를 줄 때, 내성 실패한 언데드는 <strong>공포 1</strong>. 대실패 시 다음 턴 시작까지 <strong>{{condition:Fleeing}}</strong>도 추가. 무심 언데드도 면역이 아닙니다."
+    "desc": "활력이 언데드에 공포를 안깁니다. <em>치유</em>로 언데드에 피해를 줄 때, 내성 실패한 언데드는 <strong>{{condition:Frightened}} 1</strong>. 대실패 시 다음 턴 시작까지 <strong>{{condition:Fleeing}}</strong>도 추가. 무심 언데드도 면역이 아닙니다."
   },
   {
     "id": "rapid-response",
@@ -7130,7 +7130,7 @@ var FEAT_DB = [
     ],
     "category": "cleric",
     "summary": "[반응] 유발 조건: 상징을 올린 상태에서 근접 공격으로 피해를 받으려 합니다. 공격자의 의지 DC에 대해 종교 판정. 대성공: 공격자가 당신에게서 멀어지는 행동을 할 때까지 약화(enfeebled) 2. 성공: 약화 1.",
-    "desc": "<strong>유발 조건:</strong> 상징을 올린 상태에서 근접 공격으로 피해를 받으려 합니다. 공격자의 의지 DC에 대해 종교 판정. <strong>대성공:</strong> 공격자가 당신에게서 멀어지는 행동을 할 때까지 <strong>{{condition:Enfeebled}} 2</strong>. <strong>성공:</strong> 약화 1."
+    "desc": "<strong>유발 조건:</strong> 상징을 올린 상태에서 근접 공격으로 피해를 받으려 합니다. 공격자의 의지 DC에 대해 종교 판정. <strong>대성공:</strong> 공격자가 당신에게서 멀어지는 행동을 할 때까지 <strong>{{condition:Enfeebled}} 2</strong>. <strong>성공:</strong> {{condition:Enfeebled}} 1."
   },
   {
     "id": "shared-replenishment",
@@ -7335,7 +7335,7 @@ var FEAT_DB = [
     ],
     "category": "cleric",
     "summary": "빈사 생물의 HP를 회복하거나 죽은 생물을 되살리고 HP를 회복시킬 때, 대상에게 1분간 빠른 치유 5를 부여합니다. 의식을 잃으면 빠른 치유가 종료.",
-    "desc": "빈사 생물의 HP를 회복하거나 죽은 생물을 되살리고 HP를 회복시킬 때, 대상에게 <strong>1분간 빠른 치유 5</strong>를 부여합니다. 의식을 잃으면 빠른 치유가 종료."
+    "desc": "{{condition:Dying}} 생물의 HP를 회복하거나 죽은 생물을 되살리고 HP를 회복시킬 때, 대상에게 <strong>1분간 빠른 치유 5</strong>를 부여합니다. 의식을 잃으면 빠른 치유가 종료."
   },
   {
     "id": "divine-apex",
@@ -8116,7 +8116,7 @@ var FEAT_DB = [
     ],
     "category": "druid",
     "summary": "공포 1, 대실패 시 공포 2.",
-    "desc": "<strong>공포 1</strong>, 대실패 시 <strong>공포 2</strong>."
+    "desc": "<strong>{{condition:Frightened}} 1</strong>, 대실패 시 <strong>{{condition:Frightened}} 2</strong>."
   },
   {
     "id": "pristine-weapon",
@@ -8340,7 +8340,7 @@ var FEAT_DB = [
     ],
     "category": "druid",
     "summary": "식물 특성을 얻고(부적절한 특성 상실). 녹색 휴식(Verdant Rest) 행동을 얻어 나무/식물로 변신(AC 30). 자연 햇빛에서 10분 쉬면 최대 HP의 절반 회복. 이 형태로 일일 휴식하면 최대 HP까지 회복하고 비영구적 소진/약화/서투름/현기증 제거, 19레벨 이하 독/질병도 제거.",
-    "desc": "<strong>식물 특성</strong>을 얻고(부적절한 특성 상실). 녹색 휴식(Verdant Rest) 행동을 얻어 나무/식물로 변신(AC 30). 자연 햇빛에서 10분 쉬면 최대 HP의 절반 회복. 이 형태로 일일 휴식하면 최대 HP까지 회복하고 비영구적 소진/약화/서투름/현기증 제거, 19레벨 이하 독/질병도 제거."
+    "desc": "<strong>식물 특성</strong>을 얻고(부적절한 특성 상실). 녹색 휴식(Verdant Rest) 행동을 얻어 나무/식물로 변신(AC 30). 자연 햇빛에서 10분 쉬면 최대 HP의 절반 회복. 이 형태로 일일 휴식하면 최대 HP까지 회복하고 비영구적 소진/{{condition:Enfeebled}}/{{condition:Clumsy}}/{{condition:Stupefied}} 제거, 19레벨 이하 독/질병도 제거."
   },
   {
     "id": "effortless-concentration-druid",
@@ -8620,7 +8620,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "방패 막기 사용 시, 잔여 에너지로 적을 밀어냅니다. 방패 막기의 유발 공격자를 5피트 밀거나, 다음 턴 시작까지 무방비하게 할 수 있습니다(선택).",
-    "desc": "방패 막기 사용 시, 잔여 에너지로 적을 밀어냅니다. 방패 막기의 유발 공격자를 <strong>5피트 밀거나</strong>, 다음 턴 시작까지 <strong>무방비</strong>하게 할 수 있습니다(선택)."
+    "desc": "방패 막기 사용 시, 잔여 에너지로 적을 밀어냅니다. 방패 막기의 유발 공격자를 <strong>5피트 밀거나</strong>, 다음 턴 시작까지 <strong>{{condition:Off-Guard}}</strong>하게 할 수 있습니다(선택)."
   },
   {
     "id": "assisting-shot",
@@ -8633,7 +8633,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "[1행동] 원거리 타격을 합니다. 명중 시, 대상은 다음 턴 시작까지 다음 공격에 무방비.",
-    "desc": "원거리 타격을 합니다. 명중 시, 대상은 다음 턴 시작까지 다음 공격에 <strong>무방비</strong>."
+    "desc": "원거리 타격을 합니다. 명중 시, 대상은 다음 턴 시작까지 다음 공격에 <strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "blade-break",
@@ -8658,7 +8658,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "[1행동] 양손 무기의 무게로 적을 뒤로 밉니다. 양손 근접 무기로 타격합니다. 명중 시, 운동 판정 없이 자동으로 5피트 밀기(Shove). 대상은 다음 턴 시작까지 무방비.",
-    "desc": "양손 무기의 무게로 적을 뒤로 밉니다. 양손 근접 무기로 타격합니다. 명중 시, 운동 판정 없이 자동으로 <strong>5피트 밀기(Shove)</strong>. 대상은 다음 턴 시작까지 <strong>무방비</strong>."
+    "desc": "양손 무기의 무게로 적을 뒤로 밉니다. 양손 근접 무기로 타격합니다. 명중 시, 운동 판정 없이 자동으로 <strong>5피트 밀기(Shove)</strong>. 대상은 다음 턴 시작까지 <strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "combat-grab",
@@ -8698,7 +8698,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "[2행동] 공격에 물리적 위협을 실어 적을 겁먹게 합니다. 근접 타격을 합니다. 명중하고 피해를 주면 대상은 공포 1(치명타 시 공포 2).",
-    "desc": "공격에 물리적 위협을 실어 적을 겁먹게 합니다. 근접 타격을 합니다. 명중하고 피해를 주면 대상은 <strong>공포 1</strong>(치명타 시 공포 2)."
+    "desc": "공격에 물리적 위협을 실어 적을 겁먹게 합니다. 근접 타격을 합니다. 명중하고 피해를 주면 대상은 <strong>{{condition:Frightened}} 1</strong>(치명타 시 {{condition:Frightened}} 2)."
   },
   {
     "id": "lightning-swap",
@@ -8748,7 +8748,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "[1행동] 요구사항: 기교 무기 또는 장창. 이전 공격에서 회복 중인 적의 갑옷/의복/몸을 잡아 옮깁니다. 기교 무기/장창으로 근접 타격. 자신 크기 이하 대상 명중 시 자동 재배치(Reposition)(치명타 효과 포함). 도달 무기면 도달 범위 사용. 실패: 대상이 현재 턴 종료까지 무방비.",
-    "desc": "<strong>요구사항:</strong> 기교 무기 또는 장창. 이전 공격에서 회복 중인 적의 갑옷/의복/몸을 잡아 옮깁니다. 기교 무기/장창으로 근접 타격. 자신 크기 이하 대상 명중 시 <strong>자동 재배치(Reposition)</strong>(치명타 효과 포함). 도달 무기면 도달 범위 사용.<br><strong>실패:</strong> 대상이 현재 턴 종료까지 무방비."
+    "desc": "<strong>요구사항:</strong> 기교 무기 또는 장창. 이전 공격에서 회복 중인 적의 갑옷/의복/몸을 잡아 옮깁니다. 기교 무기/장창으로 근접 타격. 자신 크기 이하 대상 명중 시 <strong>자동 재배치(Reposition)</strong>(치명타 효과 포함). 도달 무기면 도달 범위 사용.<br><strong>실패:</strong> 대상이 현재 턴 종료까지 {{condition:Off-Guard}}."
   },
   {
     "id": "barreling-charge",
@@ -8806,7 +8806,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "[2행동] 요구사항: 장전된 또는 재장전 0 원거리 무기. 뒤로 물러나며 적을 놀라게 하는 빠른 사격. 한 걸음 후 원거리 타격. 대상은 이 공격에 무방비.",
-    "desc": "<strong>요구사항:</strong> 장전된 또는 재장전 0 원거리 무기. 뒤로 물러나며 적을 놀라게 하는 빠른 사격. 한 걸음 후 원거리 타격. 대상은 이 공격에 <strong>무방비</strong>."
+    "desc": "<strong>요구사항:</strong> 장전된 또는 재장전 0 원거리 무기. 뒤로 물러나며 적을 놀라게 하는 빠른 사격. 한 걸음 후 원거리 타격. 대상은 이 공격에 <strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "powerful-shove",
@@ -8940,7 +8940,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "[1행동] 요구사항: 생물을 붙잡고 있어야. 붙잡힌 적을 두들겨 기절시킵니다. 붙잡힌 생물에 근접 타격(둔기 피해). 명중 시 클래스 DC에 대해 인내 내성(무력화 효과). 대성공: 영향 없음. 성공: 기절(stunned) 1. 실패: 기절 2. 대실패: 기절 3.",
-    "desc": "<strong>요구사항:</strong> 생물을 붙잡고 있어야. 붙잡힌 적을 두들겨 기절시킵니다. 붙잡힌 생물에 근접 타격(둔기 피해). 명중 시 클래스 DC에 대해 인내 내성(무력화 효과).<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> {{condition:Stunned}} 1. <strong>실패:</strong> 기절 2. <strong>대실패:</strong> 기절 3."
+    "desc": "<strong>요구사항:</strong> 생물을 붙잡고 있어야. 붙잡힌 적을 두들겨 기절시킵니다. 붙잡힌 생물에 근접 타격(둔기 피해). 명중 시 클래스 DC에 대해 인내 내성(무력화 효과).<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> {{condition:Stunned}} 1. <strong>실패:</strong> {{condition:Stunned}} 2. <strong>대실패:</strong> {{condition:Stunned}} 3."
   },
   {
     "id": "disarming-stance",
@@ -9014,7 +9014,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "[2행동] 요구사항: 관통 피해가 가능한 근접 무기. 감지할 수 없는 적에게 무기를 박아 위치를 밝힙니다. 은폐 시 단순 판정 불필요, 숨겨진 경우 DC 5. 명중하고 피해를 주면 무기를 대상에 박아 놓아(Release) 위치를 노출.",
-    "desc": "<strong>요구사항:</strong> 관통 피해가 가능한 근접 무기. 감지할 수 없는 적에게 무기를 박아 위치를 밝힙니다. 은폐 시 단순 판정 불필요, 숨겨진 경우 DC 5. 명중하고 피해를 주면 무기를 대상에 박아 놓아(Release) 위치를 노출."
+    "desc": "<strong>요구사항:</strong> 관통 피해가 가능한 근접 무기. 감지할 수 없는 적에게 무기를 박아 위치를 밝힙니다. {{condition:Concealed}} 시 단순 판정 불필요, 숨겨진 경우 DC 5. 명중하고 피해를 주면 무기를 대상에 박아 놓아(Release) 위치를 노출."
   },
   {
     "id": "ricochet-stance",
@@ -9040,7 +9040,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "[1행동] 요구사항: 도달 범위 내 겁먹은(frightened) 생물. 공포를 이용합니다. 겁먹은 생물에 근접 타격. 명중하고 피해를 주면 공포가 끝날 때까지 무방비. 이미 무방비이었으면 다음 턴 시작까지 공포를 1 미만으로 줄일 수 없습니다.",
-    "desc": "<strong>요구사항:</strong> 도달 범위 내 {{condition:Frightened}} 생물. 공포를 이용합니다. 겁먹은 생물에 근접 타격. 명중하고 피해를 주면 공포가 끝날 때까지 <strong>무방비</strong>. 이미 무방비이었으면 다음 턴 시작까지 <strong>공포를 1 미만으로 줄일 수 없습니다</strong>."
+    "desc": "<strong>요구사항:</strong> 도달 범위 내 {{condition:Frightened}} 생물. 공포를 이용합니다. 겁먹은 생물에 근접 타격. 명중하고 피해를 주면 공포가 끝날 때까지 <strong>{{condition:Off-Guard}}</strong>. 이미 무방비이었으면 다음 턴 시작까지 <strong>공포를 1 미만으로 줄일 수 없습니다</strong>."
   },
   {
     "id": "shield-warden",
@@ -9112,7 +9112,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "무방비.",
-    "desc": "<strong>무방비</strong>."
+    "desc": "<strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "dueling-riposte",
@@ -9155,7 +9155,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "[2행동] 잠시 집중하여 정확한 공격. 원거리 타격에 +2 상황 보너스와 대상의 은폐 무시.",
-    "desc": "잠시 집중하여 정확한 공격. 원거리 타격에 <strong>+2 상황 보너스</strong>와 대상의 은폐 무시."
+    "desc": "잠시 집중하여 정확한 공격. 원거리 타격에 <strong>+2 상황 보너스</strong>와 대상의 {{condition:Concealed}} 무시."
   },
   {
     "id": "mobile-shot-stance",
@@ -9212,7 +9212,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "+1 상태 보너스와 레벨 절반만큼 임시 HP(공포 효과에 대성공이면 두 배).",
-    "desc": "<strong>+1 상태 보너스</strong>와 레벨 절반만큼 <strong>임시 HP</strong>(공포 효과에 대성공이면 두 배)."
+    "desc": "<strong>+1 상태 보너스</strong>와 레벨 절반만큼 <strong>임시 HP</strong>({{condition:Frightened}} 효과에 대성공이면 두 배)."
   },
   {
     "id": "sudden-leap",
@@ -9312,7 +9312,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "[1행동] 요구사항: 한 손 근접 무기, 빈 손. 한 손 근접 무기로 타격. 무장 해제의 성공/대성공 효과도 적용. 실패 시에도 대상이 턴 종료까지 무방비. 무장 해제 자세 중이면 공격에 +1 상황 보너스.",
-    "desc": "<strong>요구사항:</strong> 한 손 근접 무기, 빈 손. 한 손 근접 무기로 타격. 무장 해제의 성공/대성공 효과도 적용. 실패 시에도 대상이 턴 종료까지 무방비. 무장 해제 자세 중이면 공격에 +1 상황 보너스."
+    "desc": "<strong>요구사항:</strong> 한 손 근접 무기, 빈 손. 한 손 근접 무기로 타격. 무장 해제의 성공/대성공 효과도 적용. 실패 시에도 대상이 턴 종료까지 {{condition:Off-Guard}}. 무장 해제 자세 중이면 공격에 +1 상황 보너스."
   },
   {
     "id": "disruptive-stance",
@@ -9337,7 +9337,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "겁먹은 적에게 타격 시 공포 수치 × 2만큼 상황 보너스를 피해에 추가. 위협 달인이면 × 3.",
-    "desc": "겁먹은 적에게 타격 시 <strong>공포 수치 × 2만큼 상황 보너스를 피해에 추가</strong>. 위협 달인이면 × 3."
+    "desc": "겁먹은 적에게 타격 시 <strong>{{condition:Frightened}} 수치 × 2만큼 상황 보너스를 피해에 추가</strong>. 위협 달인이면 × 3."
   },
   {
     "id": "flinging-charge",
@@ -9350,7 +9350,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "[2행동] 투척 무기를 던져 주의를 분산시키고 돌진합니다. 보폭 2회(중간에 투척 타격 1회). 명중 시 대상이 현재 턴의 다음 근접 공격에 무방비.",
-    "desc": "투척 무기를 던져 주의를 분산시키고 돌진합니다. 보폭 2회(중간에 투척 타격 1회). 명중 시 대상이 현재 턴의 다음 근접 공격에 <strong>무방비</strong>."
+    "desc": "투척 무기를 던져 주의를 분산시키고 돌진합니다. 보폭 2회(중간에 투척 타격 1회). 명중 시 대상이 현재 턴의 다음 근접 공격에 <strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "mirror-shield",
@@ -9380,7 +9380,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "근력 수정치만큼 둔기 피해(대성공 시 두 배 + 다음 턴까지 무방비).",
-    "desc": "<strong>근력 수정치만큼 둔기 피해</strong>(대성공 시 두 배 + 다음 턴까지 무방비)."
+    "desc": "<strong>근력 수정치만큼 둔기 피해</strong>(대성공 시 두 배 + 다음 턴까지 {{condition:Off-Guard}})."
   },
   {
     "id": "tactical-reflexes",
@@ -9479,7 +9479,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "10피트, 대성공 시 20피트로 증가. 공격적 막기에서 무방비 또는 밀기 선택 가능. 야만적 밀치기 실패 시에도 5피트 밀기.",
-    "desc": "<strong>10피트</strong>, 대성공 시 <strong>20피트</strong>로 증가. 공격적 막기에서 무방비 또는 밀기 선택 가능. 야만적 밀치기 실패 시에도 <strong>5피트 밀기</strong>."
+    "desc": "<strong>10피트</strong>, 대성공 시 <strong>20피트</strong>로 증가. 공격적 막기에서 {{condition:Off-Guard}} 또는 밀기 선택 가능. 야만적 밀치기 실패 시에도 <strong>5피트 밀기</strong>."
   },
   {
     "id": "improved-dueling-riposte",
@@ -9752,7 +9752,7 @@ var FEAT_DB = [
     ],
     "category": "fighter",
     "summary": "[3행동] 전체 체중을 실은 강력한 공격. 근접 타격(다중 공격에 3회로 포함). 명중 시 자동 치명타. 치명타 굴림이면 무기가 치명적(deadly) d12 특성도 추가. 명중 여부와 관계없이 기절(stunned) 1과 다음 턴 시작까지 무방비.",
-    "desc": "전체 체중을 실은 강력한 공격. 근접 타격(다중 공격에 3회로 포함). 명중 시 <strong>자동 치명타</strong>. 치명타 굴림이면 무기가 <strong>치명적(deadly) d12</strong> 특성도 추가. 명중 여부와 관계없이 <strong>{{condition:Stunned}} 1</strong>과 다음 턴 시작까지 <strong>무방비</strong>."
+    "desc": "전체 체중을 실은 강력한 공격. 근접 타격(다중 공격에 3회로 포함). 명중 시 <strong>자동 치명타</strong>. 치명타 굴림이면 무기가 <strong>치명적(deadly) d12</strong> 특성도 추가. 명중 여부와 관계없이 <strong>{{condition:Stunned}} 1</strong>과 다음 턴 시작까지 <strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "twinned-defense",
@@ -9962,7 +9962,7 @@ var FEAT_DB = [
     ],
     "category": "ranger",
     "summary": "[2행동] 사냥감에 원거리 타격. +2 상황 보너스와 사냥감의 은폐 및 하위 엄폐 무시.",
-    "desc": "사냥감에 원거리 타격. <strong>+2 상황 보너스</strong>와 사냥감의 은폐 및 하위 엄폐 무시."
+    "desc": "사냥감에 원거리 타격. <strong>+2 상황 보너스</strong>와 사냥감의 {{condition:Concealed}} 및 하위 엄폐 무시."
   },
   {
     "id": "monster-warden",
@@ -10414,7 +10414,7 @@ var FEAT_DB = [
     ],
     "category": "ranger",
     "summary": "사냥감에 원거리 치명타를 하거나 같은 턴에 2회 이상 명중하면, 다음 턴 시작까지 무방비.",
-    "desc": "사냥감에 원거리 <strong>치명타</strong>를 하거나 같은 턴에 <strong>2회 이상 명중</strong>하면, 다음 턴 시작까지 <strong>무방비</strong>."
+    "desc": "사냥감에 원거리 <strong>치명타</strong>를 하거나 같은 턴에 <strong>2회 이상 명중</strong>하면, 다음 턴 시작까지 <strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "double-prey",
@@ -10554,7 +10554,7 @@ var FEAT_DB = [
     ],
     "category": "ranger",
     "summary": "무방비. 치명타나 2회 명중 시 다음 턴 종료까지.",
-    "desc": "<strong>무방비</strong>. 치명타나 2회 명중 시 <strong>다음 턴 종료까지</strong>."
+    "desc": "<strong>{{condition:Off-Guard}}</strong>. 치명타나 2회 명중 시 <strong>다음 턴 종료까지</strong>."
   },
   {
     "id": "improved-twin-riposte-ranger",
@@ -10807,7 +10807,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "속임(Feint) 시도에 대실패하면, 대상이 무방비하는 대신 당신이 대상에게 무방비합니다(다음 턴 시작까지). 그러나 속임에 성공하면 대상은 당신뿐 아니라 모든 공격에 무방비.",
-    "desc": "속임(Feint) 시도에 대실패하면, 대상이 무방비하는 대신 <strong>당신이 대상에게 무방비</strong>합니다(다음 턴 시작까지). 그러나 속임에 성공하면 대상은 당신뿐 아니라 <strong>모든 공격에 무방비</strong>."
+    "desc": "속임(Feint) 시도에 대실패하면, 대상이 무방비하는 대신 <strong>당신이 대상에게 {{condition:Off-Guard}}</strong>합니다(다음 턴 시작까지). 그러나 속임에 성공하면 대상은 당신뿐 아니라 <strong>모든 공격에 {{condition:Off-Guard}}</strong>."
   },
   {
     "id": "plant-evidence",
@@ -10843,7 +10843,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "덤블 통과(Tumble Through)에 성공하면, 통과한 적이 다음 턴 시작까지 당신의 공격에 무방비.",
-    "desc": "덤블 통과(Tumble Through)에 성공하면, 통과한 적이 다음 턴 시작까지 당신의 공격에 <strong>무방비</strong>."
+    "desc": "덤블 통과(Tumble Through)에 성공하면, 통과한 적이 다음 턴 시작까지 당신의 공격에 <strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "twin-feint",
@@ -10855,7 +10855,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "[2행동] 요구사항: 각 손에 근접 무기. 한 무기로 적의 주의를 분산시키고 다른 무기로 다른 각도에서 공격. 같은 대상에 각 무기로 타격 1회씩. 두 번째 공격에 대상은 자동 무방비. 다중 공격 페널티 정상 적용.",
-    "desc": "<strong>요구사항:</strong> 각 손에 근접 무기. 한 무기로 적의 주의를 분산시키고 다른 무기로 다른 각도에서 공격. 같은 대상에 각 무기로 타격 1회씩. 두 번째 공격에 대상은 <strong>자동 무방비</strong>. 다중 공격 페널티 정상 적용."
+    "desc": "<strong>요구사항:</strong> 각 손에 근접 무기. 한 무기로 적의 주의를 분산시키고 다른 무기로 다른 각도에서 공격. 같은 대상에 각 무기로 타격 1회씩. 두 번째 공격에 대상은 <strong>자동 {{condition:Off-Guard}}</strong>. 다중 공격 페널티 정상 적용."
   },
   {
     "id": "youre-next",
@@ -10895,7 +10895,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "공포 1.",
-    "desc": "<strong>공포 1</strong>."
+    "desc": "<strong>{{condition:Frightened}} 1</strong>."
   },
   {
     "id": "clever-gambit",
@@ -10985,7 +10985,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "무방비.",
-    "desc": "<strong>무방비</strong>."
+    "desc": "<strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "underhanded-assault",
@@ -11017,7 +11017,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "겁먹은(frightened) 생물은 당신의 공격에도 무방비.",
-    "desc": "{{condition:Frightened}} 생물은 당신의 공격에도 <strong>무방비</strong>."
+    "desc": "{{condition:Frightened}} 생물은 당신의 공격에도 <strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "head-stomp",
@@ -11029,7 +11029,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "[1행동] 엎드린 대상에 비무장 타격. 명중 시 다음 턴 종료까지 현기증(stupefied) 1(치명타 2)과 무방비.",
-    "desc": "엎드린 대상에 비무장 타격. 명중 시 다음 턴 종료까지 <strong>{{condition:Stupefied}} 1</strong>(치명타 2)과 <strong>무방비</strong>."
+    "desc": "엎드린 대상에 비무장 타격. 명중 시 다음 턴 종료까지 <strong>{{condition:Stupefied}} 1</strong>(치명타 2)과 <strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "mug",
@@ -11104,7 +11104,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "[1행동] 변장을 극적으로 벗어 놀라게 합니다. 이전에 변장을 간파하지 못한 생물은 턴 종료까지 다음 공격에 무방비.",
-    "desc": "변장을 극적으로 벗어 놀라게 합니다. 이전에 변장을 간파하지 못한 생물은 턴 종료까지 다음 공격에 <strong>무방비</strong>."
+    "desc": "변장을 극적으로 벗어 놀라게 합니다. 이전에 변장을 간파하지 못한 생물은 턴 종료까지 다음 공격에 <strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "scouts-warning-rogue",
@@ -11146,7 +11146,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "현기증 1.",
-    "desc": "<strong>현기증 1</strong>."
+    "desc": "<strong>{{condition:Stupefied}} 1</strong>."
   },
   {
     "id": "analyze-weakness",
@@ -11259,7 +11259,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "운동 대신 도둑질로 무장 해제 가능. 성공 시 대상이 턴 종료까지 다음 공격에 무방비.",
-    "desc": "운동 대신 <strong>도둑질로 무장 해제</strong> 가능. 성공 시 대상이 턴 종료까지 다음 공격에 <strong>무방비</strong>."
+    "desc": "운동 대신 <strong>도둑질로 무장 해제</strong> 가능. 성공 시 대상이 턴 종료까지 다음 공격에 <strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "twist-the-knife",
@@ -11293,7 +11293,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "[1행동] +2 상태 보너스지만, 공포 효과에 대한 의지 내성에 -2 상태 페널티.",
-    "desc": "<strong>+2 상태 보너스</strong>지만, 공포 효과에 대한 의지 내성에 <strong>-2 상태 페널티</strong>."
+    "desc": "<strong>+2 상태 보너스</strong>지만, {{condition:Frightened}} 효과에 대한 의지 내성에 <strong>-2 상태 페널티</strong>."
   },
   {
     "id": "blind-fight-rogue",
@@ -11323,7 +11323,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "[1행동] 다음 투척 무기 타격에 +1 상황 보너스, 대상의 은폐/하위 엄폐/표준 엄폐 무시(상위 엄폐→표준).",
-    "desc": "다음 투척 무기 타격에 <strong>+1 상황 보너스</strong>, 대상의 은폐/하위 엄폐/표준 엄폐 무시(상위 엄폐→표준)."
+    "desc": "다음 투척 무기 타격에 <strong>+1 상황 보너스</strong>, 대상의 {{condition:Concealed}}/하위 엄폐/표준 엄폐 무시(상위 엄폐→표준)."
   },
   {
     "id": "delay-trap",
@@ -11530,7 +11530,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "추가 2d6 정밀 피해, 대상이 무방비.",
-    "desc": "<strong>추가 2d6 정밀 피해</strong>, 대상이 <strong>무방비</strong>."
+    "desc": "<strong>추가 2d6 정밀 피해</strong>, 대상이 <strong>{{condition:Off-Guard}}</strong>."
   },
   {
     "id": "sneak-adept",
@@ -11723,7 +11723,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "[1행동] 30피트 내 대상 1명이 다음 턴 종료까지 당신의 공격에 무방비. 청각 또는 시각 특성.",
-    "desc": "30피트 내 대상 1명이 다음 턴 종료까지 당신의 공격에 <strong>무방비</strong>. 청각 또는 시각 특성."
+    "desc": "30피트 내 대상 1명이 다음 턴 종료까지 당신의 공격에 <strong>{{condition:Off-Guard}}</strong>. 청각 또는 시각 특성."
   },
   {
     "id": "leave-an-opening",
@@ -11952,7 +11952,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "[반응] 빈도: 시간당 1회. 유발 조건: 모든 적에게 숨겨짐/미탐지 상태가 됩니다. 1분간 투명(적대적 행동을 해도). 폭로의 빛이나 참된 시야로도 드러나지 않지만 탐색은 정상.",
-    "desc": "<strong>빈도:</strong> 시간당 1회. <strong>유발 조건:</strong> 모든 적에게 숨겨짐/미탐지 상태가 됩니다. <strong>1분간 투명</strong>(적대적 행동을 해도). 폭로의 빛이나 참된 시야로도 드러나지 않지만 탐색은 정상."
+    "desc": "<strong>빈도:</strong> 시간당 1회. <strong>유발 조건:</strong> 모든 적에게 {{condition:Hidden}}/미탐지 상태가 됩니다. <strong>1분간 {{condition:Invisible}}</strong>(적대적 행동을 해도). 폭로의 빛이나 참된 시야로도 드러나지 않지만 탐색은 정상."
   },
   {
     "id": "impossible-striker",
@@ -11994,7 +11994,7 @@ var FEAT_DB = [
     ],
     "category": "rogue",
     "summary": "[반응] 유발 조건: 공격/효과의 대상이 되거나 영역 내에 있습니다. 요구사항: 완벽한 교란이 준비됨. 미끼와 자리를 바꿉니다. 완벽한 교란을 사용하되, 은폐/엄폐 위치에서 잠행 종료 필요. 미끼가 대신 대상이 됩니다.",
-    "desc": "<strong>유발 조건:</strong> 공격/효과의 대상이 되거나 영역 내에 있습니다. <strong>요구사항:</strong> 완벽한 교란이 준비됨. 미끼와 자리를 바꿉니다. 완벽한 교란을 사용하되, 은폐/엄폐 위치에서 잠행 종료 필요. 미끼가 대신 대상이 됩니다."
+    "desc": "<strong>유발 조건:</strong> 공격/효과의 대상이 되거나 영역 내에 있습니다. <strong>요구사항:</strong> 완벽한 교란이 준비됨. 미끼와 자리를 바꿉니다. 완벽한 교란을 사용하되, {{condition:Concealed}}/엄폐 위치에서 잠행 종료 필요. 미끼가 대신 대상이 됩니다."
   },
   {
     "id": "counterspell",
@@ -12461,7 +12461,7 @@ var FEAT_DB = [
     ],
     "category": "wizard",
     "summary": "[1행동] 다음 주문이 시각적으로 찬란하게 빛납니다. 피해를 받은 생물이 현혹됨(dazzled) 1라운드(치명 실패 시 실명(blinded) 1라운드 후 현혹됨).",
-    "desc": "다음 주문이 시각적으로 찬란하게 빛납니다. 피해를 받은 생물이 <strong>{{condition:Dazzled}} 1라운드</strong>(치명 실패 시 <strong>{{condition:Blinded}} 1라운드</strong> 후 현혹됨)."
+    "desc": "다음 주문이 시각적으로 찬란하게 빛납니다. 피해를 받은 생물이 <strong>{{condition:Dazzled}} 1라운드</strong>(치명 실패 시 <strong>{{condition:Blinded}} 1라운드</strong> 후 {{condition:Dazzled}})."
   },
   {
     "id": "spell-tinker",
@@ -12935,7 +12935,7 @@ var FEAT_DB = [
     ],
     "category": "witch",
     "summary": "후원자의 초자연적 존재감이 당신을 통해 발산됩니다. 30피트 내 적이 당신에게 공포 효과의 의지 내성에 -2 상태 페널티.",
-    "desc": "후원자의 초자연적 존재감이 당신을 통해 발산됩니다. 30피트 내 적이 당신에게 공포 효과의 의지 내성에 <strong>-2 상태 페널티</strong>."
+    "desc": "후원자의 초자연적 존재감이 당신을 통해 발산됩니다. 30피트 내 적이 당신에게 {{condition:Frightened}} 효과의 의지 내성에 <strong>-2 상태 페널티</strong>."
   },
   {
     "id": "reflect-spell-witch",
