@@ -3444,27 +3444,13 @@ function _buildClassProgressionTable(cls) {
 
 // ── 클래스 모달: 레벨별 통합 UI ──
 function _buildClassChoicesUI(cls) {
-  // ── 기술 파싱 ──
-  const skillParts = (cls.skills || '').split(' + ');
-  const fixedSkills = [];
-  let trainableBase = 0;
-  let deitySkill = false;
-  const choiceSkills = [];
-
-  skillParts.forEach(p => {
-    const m = p.match(/(\d+)\+INT개/);
-    if (m) { trainableBase = parseInt(m[1]); return; }
-    if (p.trim() === '신격기술') { deitySkill = true; return; }
-    p.split(',').forEach(s => {
-      const name = s.trim();
-      if (!name) return;
-      if (name.includes('또는')) {
-        choiceSkills.push(name.split(/\s*또는\s*/).map(c => c.trim()));
-      } else {
-        fixedSkills.push(name);
-      }
-    });
-  });
+  // ── 정규화된 데이터 사용 (CLASSES.fixed_skills/choice_skill_groups/free_skill_count) ──
+  const skillNameById = {};
+  if (typeof SKILLS !== 'undefined') SKILLS.forEach(s => { skillNameById[s.id] = s.name; });
+  const fixedSkills = (cls.fixed_skills || []).map(id => skillNameById[id] || id);
+  const choiceSkills = (cls.choice_skill_groups || []).map(grp => grp.map(id => skillNameById[id] || id));
+  const trainableBase = cls.free_skill_count || 0;
+  const deitySkill = !!cls.deity_skill;
 
   _modalChoices = { type: 'class', fixedSkills, choiceSkills, trainableBase, deitySkill, trainableSkills: Array(trainableBase).fill(''), chosenFixedSkills: Array(choiceSkills.length).fill('') };
 
@@ -4871,19 +4857,9 @@ function applyClassDefaults(cls) {
   // Auto-set class key attribute boost
   const key = parseAttrKey(cls.keyAttr);
   if (key) state.boosts.cls = key;
-  // Auto-set fixed class skill proficiencies
-  parseFixedSkills(cls.skills || '').forEach(name => {
-    const id = skillNameToId(name);
-    if (id) setSkillTrained(id);
-  });
-  // Parse trainable skill slot count (e.g. '4+INT개' from '오컬티즘, 공연 + 4+INT개')
-  const skillParts = (cls.skills || '').split(' + ');
-  let trainableSlots = 0;
-  for (const p of skillParts) {
-    const m = p.match(/(\d+)\+INT개/);
-    if (m) { trainableSlots = parseInt(m[1]); break; }
-  }
-  state.trainableSkillSlots = trainableSlots;
+  // Auto-set fixed class skill proficiencies (정규화된 fixed_skills 사용)
+  (cls.fixed_skills || []).forEach(id => setSkillTrained(id));
+  state.trainableSkillSlots = cls.free_skill_count || 0;
   updateHP();
   updateSpellSlotsForClass();
   recalcSkills();

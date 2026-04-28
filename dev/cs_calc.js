@@ -383,14 +383,6 @@ function setSkillTrained(id) {
   if (el && el.value === '0') el.value = '2';
 }
 
-function parseFixedSkills(skillStr) {
-  // '오컬티즘, 공연 + 4+INT개' → ['오컬티즘','공연']
-  // '곡예 또는 운동 + 3+INT개' → [] (skip choices)
-  const part = (skillStr || '').split(' + ')[0];
-  if (part.includes(' 또는 ')) return [];
-  return part.split(', ').map(s => s.trim()).filter(Boolean);
-}
-
 // ═══════════════════════════════════════════════
 //  SPELL ↔ FEAT INTERACTION NOTES
 // ═══════════════════════════════════════════════
