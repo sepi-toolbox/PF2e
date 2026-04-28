@@ -264,6 +264,25 @@ const SHIELD_DB = [
 
 const WEAPON_DB = [
   {
+    "id": "fist",
+    "name_ko": "주먹",
+    "name_en": "Fist",
+    "category": "비무장",
+    "price": "—",
+    "damage": "1d4 B",
+    "bulk": 0,
+    "hands": 1,
+    "range": null,
+    "reload": null,
+    "group": "격투",
+    "traits": [
+      "민첩",
+      "비치명",
+      "비무장",
+      "정교"
+    ]
+  },
+  {
     "id": "club",
     "name_ko": "클럽",
     "name_en": "Club",

@@ -300,7 +300,7 @@ var DEITY_DB = [
     "id": "abadar",
     "name_ko": "아바다르",
     "name_en": "Abadar",
-    "weapon": "석궁",
+    "weapon": "crossbow",
     "skill": "society",
     "sanctification": [
       "holy"
@@ -318,7 +318,7 @@ var DEITY_DB = [
     "id": "asmodeus",
     "name_ko": "아스모데우스",
     "name_en": "Asmodeus",
-    "weapon": "메이스",
+    "weapon": "mace",
     "skill": "deception",
     "sanctification": [
       "unholy"
@@ -336,7 +336,7 @@ var DEITY_DB = [
     "id": "calistria",
     "name_ko": "칼리스트리아",
     "name_en": "Calistria",
-    "weapon": "채찍",
+    "weapon": "whip",
     "skill": "deception",
     "sanctification": [
       "holy",
@@ -355,7 +355,7 @@ var DEITY_DB = [
     "id": "cayden",
     "name_ko": "카이든 카일리언",
     "name_en": "Cayden Cailean",
-    "weapon": "레이피어",
+    "weapon": "rapier",
     "skill": "athletics",
     "sanctification": [
       "holy"
@@ -373,7 +373,7 @@ var DEITY_DB = [
     "id": "desna",
     "name_ko": "데스나",
     "name_en": "Desna",
-    "weapon": "대거",
+    "weapon": "dagger",
     "skill": "acrobatics",
     "sanctification": [
       "holy"
@@ -391,7 +391,7 @@ var DEITY_DB = [
     "id": "erastil",
     "name_ko": "에라스틸",
     "name_en": "Erastil",
-    "weapon": "장궁",
+    "weapon": "longbow",
     "skill": "survival",
     "sanctification": [
       "holy"
@@ -409,7 +409,7 @@ var DEITY_DB = [
     "id": "gorum",
     "name_ko": "고룸",
     "name_en": "Gorum",
-    "weapon": "그레이트소드",
+    "weapon": "greatsword",
     "skill": "athletics",
     "sanctification": [
       "holy",
@@ -428,7 +428,7 @@ var DEITY_DB = [
     "id": "gozreh",
     "name_ko": "고즈레",
     "name_en": "Gozreh",
-    "weapon": "삼지창",
+    "weapon": "trident",
     "skill": "survival",
     "sanctification": [
       "holy"
@@ -446,7 +446,7 @@ var DEITY_DB = [
     "id": "iomedae",
     "name_ko": "아이오메다이",
     "name_en": "Iomedae",
-    "weapon": "롱소드",
+    "weapon": "longsword",
     "skill": "intimidation",
     "sanctification": [
       "holy"
@@ -464,7 +464,7 @@ var DEITY_DB = [
     "id": "irori",
     "name_ko": "이로리",
     "name_en": "Irori",
-    "weapon": "주먹",
+    "weapon": "fist",
     "skill": "athletics",
     "sanctification": [
       "holy"
@@ -482,7 +482,7 @@ var DEITY_DB = [
     "id": "lamashtu",
     "name_ko": "라마슈투",
     "name_en": "Lamashtu",
-    "weapon": "팔치온",
+    "weapon": "falchion",
     "skill": "survival",
     "sanctification": [
       "unholy"
@@ -500,7 +500,7 @@ var DEITY_DB = [
     "id": "nethys",
     "name_ko": "네티스",
     "name_en": "Nethys",
-    "weapon": "지팡이",
+    "weapon": "staff",
     "skill": "arcana",
     "sanctification": [
       "holy",
@@ -519,7 +519,7 @@ var DEITY_DB = [
     "id": "norgorber",
     "name_ko": "노르고르버",
     "name_en": "Norgorber",
-    "weapon": "쇼트소드",
+    "weapon": "shortsword",
     "skill": "stealth",
     "sanctification": [
       "unholy"
@@ -537,7 +537,7 @@ var DEITY_DB = [
     "id": "pharasma",
     "name_ko": "파라즈마",
     "name_en": "Pharasma",
-    "weapon": "대거",
+    "weapon": "dagger",
     "skill": "medicine",
     "sanctification": [
       "holy"
@@ -555,7 +555,7 @@ var DEITY_DB = [
     "id": "rovagug",
     "name_ko": "로바구그",
     "name_en": "Rovagug",
-    "weapon": "그레이트액스",
+    "weapon": "greataxe",
     "skill": "athletics",
     "sanctification": [
       "unholy"
@@ -573,7 +573,7 @@ var DEITY_DB = [
     "id": "sarenrae",
     "name_ko": "사렌라이",
     "name_en": "Sarenrae",
-    "weapon": "시미터",
+    "weapon": "scimitar",
     "skill": "medicine",
     "sanctification": [
       "holy"
@@ -591,7 +591,7 @@ var DEITY_DB = [
     "id": "shelyn",
     "name_ko": "셸린",
     "name_en": "Shelyn",
-    "weapon": "글레이브",
+    "weapon": "glaive",
     "skill": "crafting",
     "sanctification": [
       "holy"
@@ -609,7 +609,7 @@ var DEITY_DB = [
     "id": "torag",
     "name_ko": "토라그",
     "name_en": "Torag",
-    "weapon": "워해머",
+    "weapon": "warhammer",
     "skill": "crafting",
     "sanctification": [
       "holy"
@@ -627,7 +627,7 @@ var DEITY_DB = [
     "id": "urgathoa",
     "name_ko": "우르가토아",
     "name_en": "Urgathoa",
-    "weapon": "대낫",
+    "weapon": "scythe",
     "skill": "intimidation",
     "sanctification": [
       "unholy"
@@ -645,7 +645,7 @@ var DEITY_DB = [
     "id": "zonkuthon",
     "name_ko": "존-쿠톤",
     "name_en": "Zon-Kuthon",
-    "weapon": "시미터",
+    "weapon": "scimitar",
     "skill": "intimidation",
     "sanctification": [
       "unholy"

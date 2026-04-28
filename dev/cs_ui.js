@@ -270,7 +270,7 @@ function calcWeaponDamage(w) {
   if (typeMap[dmgType]) dmgType = typeMap[dmgType];
 
   // 치명적 단순함(Deadly Simplicity): 신격 선호 무기가 단순/비무장 & d6이하 → 주사위 +1단계
-  if (state._deityWeapon && (w.name||'') === state._deityWeapon) {
+  if (state._deityWeapon && (w._dbData?.id || '') === state._deityWeapon) {
     const wpCat = getWeaponCategory(w);
     if ((wpCat === 'simple' || wpCat === 'unarmed') && dieSizeBase > 0 && dieSizeBase <= 6) {
       const stepUp = {4:6, 6:8};
