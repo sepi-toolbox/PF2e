@@ -3713,6 +3713,15 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
         }
       });
       filteredOpts = filteredOpts.filter(opt => initiatedDomains.has(opt.id));
+    } else if (choiceDef.label && choiceDef.label.includes('영역')) {
+      // Domain Initiate: 신격의 4개 영역만 선택 가능 (PF2e 룰 PC1 p.113)
+      // state.deity = 신격 id, DEITY_DB.domains = 영역 id 배열 (외래키)
+      if (state.deity && typeof DEITY_DB !== 'undefined') {
+        const deity = DEITY_DB.find(d => d.id === state.deity);
+        if (deity && Array.isArray(deity.domains) && deity.domains.length) {
+          filteredOpts = filteredOpts.filter(opt => deity.domains.includes(opt.id));
+        }
+      }
     }
     // 영역 선택: 좌측 목록 + 우측 주문 설명 레이아웃
     const isDomain = choiceDef.label && choiceDef.label.includes('영역');
