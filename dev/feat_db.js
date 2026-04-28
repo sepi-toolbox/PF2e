@@ -1060,11 +1060,11 @@ var FEAT_DB = [
     "name_ko": "조상의 장수",
     "name_en": "Ancestral Longevity",
     "feat_level": 1,
-    "prerequisites": "최소 100세",
     "traits": [
       "엘프"
     ],
     "category": "ancestry",
+    "prerequisites": "최소 100세",
     "summary": "수년에 걸쳐 방대한 생활 지식을 축적했습니다. 일일 준비 시, 삶의 경험을 되돌아보며 선택한 기술 1개에 숙련됩니다. 이 숙련은 다음 준비 때까지 지속됩니다. 임시 숙련이므로, 기술 증가나 재주 같은 영구적 캐릭터 옵션의 전제조건으로 사용할 수 없습니다.",
     "desc": "수년에 걸쳐 방대한 생활 지식을 축적했습니다. 일일 준비 시, 삶의 경험을 되돌아보며 선택한 <strong>기술 1개에 숙련</strong>됩니다. 이 숙련은 다음 준비 때까지 지속됩니다. 임시 숙련이므로, 기술 증가나 재주 같은 영구적 캐릭터 옵션의 전제조건으로 사용할 수 없습니다."
   },
@@ -1233,7 +1233,8 @@ var FEAT_DB = [
       "노움"
     ],
     "category": "ancestry",
-    "summary": "[자유 행동] 빈도: 시간당 1회  유발 조건: 생물을 실명(blinded) 또는 현혹됨(dazzled) 상태로 만듭니다. 빛의 조작을 상당히 연습하여, 칼날의 반사를 무기화하거나 마법적 표현의 밝기를 비상식적인 높이로 강화했습니다. 대상에게 부여하는 실명 또는 현혹됨 상태의 지속 시간을 1라운드 연장합니다.",
+    "actionCost": "free",
+    "summary": "[자유 행동] 빈도: 시간당 1회 \n유발 조건: 생물을 실명(blinded) 또는 현혹됨(dazzled) 상태로 만듭니다. 빛의 조작을 상당히 연습하여, 칼날의 반사를 무기화하거나 마법적 표현의 밝기를 비상식적인 높이로 강화했습니다. 대상에게 부여하는 실명 또는 현혹됨 상태의 지속 시간을 1라운드 연장합니다.",
     "desc": "<strong>빈도:</strong> 시간당 1회<br> <strong>유발 조건:</strong> 생물을 {{condition:Blinded}} 또는 {{condition:Dazzled}} 상태로 만듭니다.<br>빛의 조작을 상당히 연습하여, 칼날의 반사를 무기화하거나 마법적 표현의 밝기를 비상식적인 높이로 강화했습니다. 대상에게 부여하는 {{condition:Blinded}} 또는 {{condition:Dazzled}} 상태의 지속 시간을 <strong>1라운드 연장</strong>합니다."
   },
   {
@@ -1281,6 +1282,7 @@ var FEAT_DB = [
       "고블린"
     ],
     "category": "ancestry",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 아군이 인접한 곳에서 이동 행동을 종료합니다. 아군의 이동을 이용하여 위치를 조정합니다. 한 걸음(Step).",
     "desc": "<strong>유발 조건:</strong> 아군이 인접한 곳에서 이동 행동을 종료합니다.<br>아군의 이동을 이용하여 위치를 조정합니다. <strong>한 걸음(Step)</strong>."
   },
@@ -1293,8 +1295,9 @@ var FEAT_DB = [
       "고블린"
     ],
     "category": "ancestry",
-    "summary": "[1행동] 짜증나는 노래를 부르며 적의 주의를 분산시킵니다. 30피트 내 적 1명의 의지 DC에 대해 공연 판정을 시도합니다. 전문가이면 대상 2명, 달인 4명, 전설 8명. 대성공: 1분간 지각 판정과 의지 내성에 -1 상태 페널티.  성공: 1라운드간 동일.  대실패: 대상이 1시간 면역.",
-    "desc": "짜증나는 노래를 부르며 적의 주의를 분산시킵니다. 30피트 내 적 1명의 의지 DC에 대해 <strong>공연 판정</strong>을 시도합니다. 전문가이면 대상 2명, 달인 4명, 전설 8명.<br><strong>대성공:</strong> 1분간 지각 판정과 의지 내성에 -1 상태 페널티.<br> <strong>성공:</strong> 1라운드간 동일.<br> <strong>대실패:</strong> 대상이 1시간 면역."
+    "actionCost": "1",
+    "summary": "[1행동] 짜증나는 노래를 부르며 적의 주의를 분산시킵니다. 30피트 내 적 1명의 의지 DC에 대해 공연 판정을 시도합니다. 전문가이면 대상 2명, 달인 4명, 전설 8명. 대성공: 1분간 지각 판정과 의지 내성에 -1 상태 페널티. \n성공: 1라운드간 동일. \n대실패: 대상이 1시간 면역.",
+    "desc": "짜증나는 노래를 부르며 적의 주의를 분산시킵니다. 30피트 내 적 1명의 의지 DC에 대해 <strong>공연 판정</strong>을 시도합니다. 전문가이면 대상 2명, 달인 4명, 전설 8명.<br><strong>대성공:</strong> 1분간 지각 판정과 의지 내성에 -1 상태 페널티.<br>\n<strong>성공:</strong> 1라운드간 동일.<br>\n<strong>대실패:</strong> 대상이 1시간 면역."
   },
   {
     "id": "goblin-weapon-familiarity",
@@ -1390,8 +1393,9 @@ var FEAT_DB = [
       "하플링"
     ],
     "category": "ancestry",
-    "summary": "[자유 행동] 빈도: 하루 1회  유발 조건: 기술 판정이나 내성 굴림에 실패합니다. 행복한 천성으로 불운이 당신을 피하는 것 같으며, 어느 정도 사실일 수 있습니다. 유발 판정을 다시 굴릴 수 있습니다. 더 나빠도 새 결과를 사용해야 합니다.",
-    "desc": "<strong>빈도:</strong> 하루 1회<br> <strong>유발 조건:</strong> 기술 판정이나 내성 굴림에 실패합니다.<br>행복한 천성으로 불운이 당신을 피하는 것 같으며, 어느 정도 사실일 수 있습니다. 유발 판정을 <strong>다시 굴릴 수 있습니다</strong>. 더 나빠도 새 결과를 사용해야 합니다."
+    "actionCost": "free",
+    "summary": "[자유 행동] 빈도: 하루 1회 \n유발 조건: 기술 판정이나 내성 굴림에 실패합니다. 행복한 천성으로 불운이 당신을 피하는 것 같으며, 어느 정도 사실일 수 있습니다. 유발 판정을 다시 굴릴 수 있습니다. 더 나빠도 새 결과를 사용해야 합니다.",
+    "desc": "<strong>빈도:</strong> 하루 1회<br>\n<strong>유발 조건:</strong> 기술 판정이나 내성 굴림에 실패합니다.<br>행복한 천성으로 불운이 당신을 피하는 것 같으며, 어느 정도 사실일 수 있습니다. 유발 판정을 <strong>다시 굴릴 수 있습니다</strong>. 더 나빠도 새 결과를 사용해야 합니다."
   },
   {
     "id": "halfling-weapon-familiarity",
@@ -1470,11 +1474,11 @@ var FEAT_DB = [
     "name_ko": "적응된 캔트립",
     "name_en": "Adapted Cantrip",
     "feat_level": 1,
-    "prerequisites": "주문시전 클래스 특성",
     "traits": [
       "인간"
     ],
     "category": "ancestry",
+    "prerequisites": "주문시전 클래스 특성",
     "summary": "여러 마법 전통을 공부하여 주문시전 양식에 맞게 주문을 변경했습니다. 자신의 것이 아닌 마법 전통에서 캔트립 1개를 선택합니다. 주문을 준비하면, 다른 옵션과 함께 캔트립 준비 시 이 주문을 선택할 수 있습니다. 주문 레퍼토리가 있으면, 알고 있는 캔트립 중 하나를 선택한 주문으로 교체합니다. 이 캔트립을 클래스 전통의 주문으로 시전할 수 있습니다. 나중에 이 캔트립을 교환하거나 재훈련하면, 같은 대안 전통이나 다른 전통에서 교체를 선택할 수 있습니다.",
     "desc": "여러 마법 전통을 공부하여 주문시전 양식에 맞게 주문을 변경했습니다. 자신의 것이 아닌 마법 전통에서 <strong>캔트립 1개</strong>를 선택합니다. 주문을 준비하면, 다른 옵션과 함께 캔트립 준비 시 이 주문을 선택할 수 있습니다. 주문 레퍼토리가 있으면, 알고 있는 캔트립 중 하나를 선택한 주문으로 교체합니다. 이 캔트립을 클래스 전통의 주문으로 시전할 수 있습니다.<br>나중에 이 캔트립을 교환하거나 재훈련하면, 같은 대안 전통이나 다른 전통에서 교체를 선택할 수 있습니다."
   },
@@ -1584,7 +1588,8 @@ var FEAT_DB = [
       "오크"
     ],
     "category": "ancestry",
-    "summary": "[반응] 빈도: 하루 1회  유발 조건: HP가 0으로 떨어지지만 즉사하지는 않습니다. 전투의 사나움이 피를 타고 흐르며, 부상이 아무리 끔찍해도 쓰러지기를 거부합니다. 기절을 피하고 1 HP에 남으며, 부상(wounded) 상태가 1 증가합니다.",
+    "actionCost": "reaction",
+    "summary": "[반응] 빈도: 하루 1회 \n유발 조건: HP가 0으로 떨어지지만 즉사하지는 않습니다. 전투의 사나움이 피를 타고 흐르며, 부상이 아무리 끔찍해도 쓰러지기를 거부합니다. 기절을 피하고 1 HP에 남으며, 부상(wounded) 상태가 1 증가합니다.",
     "desc": "<strong>빈도:</strong> 하루 1회<br> <strong>유발 조건:</strong> HP가 0으로 떨어지지만 즉사하지는 않습니다.<br>전투의 사나움이 피를 타고 흐르며, 부상이 아무리 끔찍해도 쓰러지기를 거부합니다. 기절을 피하고 <strong>1 HP에 남으며</strong>, {{condition:Wounded}} 상태가 1 증가합니다."
   },
   {
@@ -1609,6 +1614,7 @@ var FEAT_DB = [
       "오크"
     ],
     "category": "ancestry",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 주문이나 마법 효과에 대한 내성 굴림을 시도하지만 아직 굴리지 않았습니다. 오크 문화적 미신에서 파생된 기법으로 마법에 대항합니다. 유발 주문이나 마법 효과에 대한 내성에 +1 상황 보너스.",
     "desc": "<strong>유발 조건:</strong> 주문이나 마법 효과에 대한 내성 굴림을 시도하지만 아직 굴리지 않았습니다.<br>오크 문화적 미신에서 파생된 기법으로 마법에 대항합니다. 유발 주문이나 마법 효과에 대한 내성에 <strong>+1 상황 보너스</strong>."
   },
@@ -1654,7 +1660,8 @@ var FEAT_DB = [
     "name_en": "Brine May",
     "feat_level": 1,
     "traits": [
-      "체인질링 혈통"
+      "체인질링 혈통",
+      "혈통"
     ],
     "category": "ancestry",
     "summary": "어머니가 바다 해그로, 바다 초록이나 파란 눈 하나를 부여합니다. 바다와 해안에서 편안함을 느낍니다. 수영 운동 판정에서 성공 시 대성공. 해당 라운드에 수영 행동에 성공하지 않고 턴을 물에서 끝내도 가라앉지 않습니다(흐름에 밀릴 수는 있음).",
@@ -1666,7 +1673,8 @@ var FEAT_DB = [
     "name_en": "Callow May",
     "feat_level": 1,
     "traits": [
-      "체인질링 혈통"
+      "체인질링 혈통",
+      "혈통"
     ],
     "category": "ancestry",
     "summary": "가장 흔한 체인질링으로, 달콤한 해그에게 태어났으며 선명한 초록 눈이 그 혈통을 나타냅니다. 어머니의 조종적 성격과 다재다능한 목소리가 속임에 우위를 줍니다. 매력적인 거짓말쟁이(Charming Liar) 기술 재주를 얻습니다. 기만으로 우선권을 굴리면, 아직 행동하지 않은 적은 당신에게 무방비(off-guard).",
@@ -1678,7 +1686,8 @@ var FEAT_DB = [
     "name_en": "Dream May",
     "feat_level": 1,
     "traits": [
-      "체인질링 혈통"
+      "체인질링 혈통",
+      "혈통"
     ],
     "category": "ancestry",
     "summary": "뻐꾸기 해그의 자녀로 보라색이나 검은 눈 하나. 어머니의 수면과 꿈에 대한 힘이 저항력을 부여합니다. 수면 효과와 꿈을 유발/변경하는 효과에 대한 내성에 +2 상황 보너스. 수면이 더 회복적입니다. 밤새 HP를 회복할 때 건강 수정치 × 레벨이 아닌 × 레벨의 2배를 회복하고, 소진(drained)과 파멸(doomed) 상태를 1 대신 2만큼 줄입니다.",
@@ -1690,7 +1699,8 @@ var FEAT_DB = [
     "name_en": "Slag May",
     "feat_level": 1,
     "traits": [
-      "체인질링 혈통"
+      "체인질링 혈통",
+      "혈통"
     ],
     "category": "ancestry",
     "summary": "철 해그에게서 태어나 보라색이나 강철 회색 눈. 자연에서 자라는 냉철(cold iron) 두껍고 튼튼한 발톱이 있습니다. 1d6 참격 피해의 발톱(claw) 비무장 공격을 얻습니다. 격투 그룹, 비무장/붙잡기(grapple) 특성, 냉철.",
@@ -1738,7 +1748,8 @@ var FEAT_DB = [
     "name_en": "Angelkin",
     "feat_level": 1,
     "traits": [
-      "네피림 혈통"
+      "네피림 혈통",
+      "혈통"
     ],
     "category": "ancestry",
     "summary": "천사의 후손. 사회에 숙련(이미 숙련이면 다른 기술). 천상어를 알고, 다국어(Multilingual) 기술 재주를 얻습니다.",
@@ -1750,7 +1761,8 @@ var FEAT_DB = [
     "name_en": "Grimspawn",
     "feat_level": 1,
     "traits": [
-      "네피림 혈통"
+      "네피림 혈통",
+      "혈통"
     ],
     "category": "ancestry",
     "summary": "아바돈의 영혼을 삼키는 데몬에서 혈통을 추적. 끈질기게 생명력에 매달립니다. 불굴(Diehard) 일반 재주를 얻습니다.",
@@ -1762,7 +1774,8 @@ var FEAT_DB = [
     "name_en": "Hellspawn",
     "feat_level": 1,
     "traits": [
-      "네피림 혈통"
+      "네피림 혈통",
+      "혈통"
     ],
     "category": "ancestry",
     "summary": "헬의 교활한 책략가 악마의 후손. 거짓말과 왜곡된 표현을 알아채는 것만큼 구성하는 데도 능숙합니다. 기만과 법률 지식에 숙련(이미 기만 숙련이면 다른 기술). 거짓 간파(Lie to Me) 기술 재주.",
@@ -1774,7 +1787,8 @@ var FEAT_DB = [
     "name_en": "Lawbringer",
     "feat_level": 1,
     "traits": [
-      "네피림 혈통"
+      "네피림 혈통",
+      "혈통"
     ],
     "category": "ancestry",
     "summary": "천국의 7층 산의 수호자 아르콘의 혈통. 감정 효과에 대한 내성에 +1 상황 보너스. 감정 효과에 대한 내성에서 성공 시 대성공.",
@@ -1786,7 +1800,8 @@ var FEAT_DB = [
     "name_en": "Musetouched",
     "feat_level": 1,
     "traits": [
-      "네피림 혈통"
+      "네피림 혈통",
+      "혈통"
     ],
     "category": "ancestry",
     "summary": "엘리시움의 자유의 화신 아자타의 해방적 힘이 피를 타고 노래합니다. 탈출(Escape)에 +1 상황 보너스. 탈출 판정에서 대실패 시 실패로, 성공 시 대성공으로.",
@@ -1798,7 +1813,8 @@ var FEAT_DB = [
     "name_en": "Pitborn",
     "feat_level": 1,
     "traits": [
-      "네피림 혈통"
+      "네피림 혈통",
+      "혈통"
     ],
     "category": "ancestry",
     "summary": "외부 균열의 악마, 살아있는 죄의 화신의 피가 흐릅니다. 운동에 숙련(이미 숙련이면 다른 기술). 운동 숙련 전제조건이 있는 1레벨 일반 기술 재주 1개를 추가로 얻습니다.",
@@ -1833,7 +1849,6 @@ var FEAT_DB = [
     "name_ko": "네피림 눈",
     "name_en": "Nephilim Eyes",
     "feat_level": 1,
-    "prerequisites": "저광 시야. 암시야(darkvision)를 얻습니다.",
     "prereqs": [
       {
         "vision": "low-light"
@@ -1843,6 +1858,7 @@ var FEAT_DB = [
       "네피림"
     ],
     "category": "ancestry",
+    "prerequisites": "저광 시야. 암시야(darkvision)를 얻습니다.",
     "summary": "암시야(darkvision)를 얻습니다.",
     "desc": "<strong>암시야(darkvision)</strong>를 얻습니다."
   },
@@ -1911,7 +1927,6 @@ var FEAT_DB = [
     "name_ko": "오크 시야",
     "name_en": "Orc Sight",
     "feat_level": 1,
-    "prerequisites": "저광 시야. 오크의 피가 선조의 예리한 시야를 부여합니다. 암시야(darkvision)를 얻습니다. 특수: 1레벨에서만, 재훈련 불가.",
     "prereqs": [
       {
         "vision": "low-light"
@@ -1921,6 +1936,7 @@ var FEAT_DB = [
       "드로마르"
     ],
     "category": "ancestry",
+    "prerequisites": "저광 시야. 오크의 피가 선조의 예리한 시야를 부여합니다. 암시야(darkvision)를 얻습니다. 특수: 1레벨에서만, 재훈련 불가.",
     "summary": "암시야(darkvision)를 얻습니다. 특수: 1레벨에서만, 재훈련 불가.",
     "desc": "<strong>암시야(darkvision)</strong>를 얻습니다. <strong>특수:</strong> 1레벨에서만, 재훈련 불가."
   },
@@ -1929,7 +1945,6 @@ var FEAT_DB = [
     "name_ko": "바위 굴리기",
     "name_en": "Boulder Roll",
     "feat_level": 5,
-    "prerequisites": "바위 달리기(Rock Runner)",
     "prereqs": [
       {
         "feat": "Rock Runner"
@@ -1939,6 +1954,8 @@ var FEAT_DB = [
       "드워프"
     ],
     "category": "ancestry",
+    "actionCost": "2",
+    "prerequisites": "바위 달리기(Rock Runner)",
     "summary": "[2행동] 드워프의 체격으로 적을 밀어낼 수 있습니다, 마치 거대한 바위가 지하 동굴을 굴러가듯. 당신과 같은 크기 이하인 적이 있는 칸으로 한 걸음(Step)을 밟으면, 적은 바로 뒤의 빈 칸으로 이동해야 합니다. 적은 해를 끼치는 곳이라도 이동해야 합니다. 적은 당신의 운동(Athletics) DC에 대해 인내(Fortitude) 내성 굴림을 시도하여 한 걸음을 막을 수 있습니다. 내성을 시도하면, 대성공하지 않는 한 레벨 + 근력 수정치만큼의 둔기 피해를 받습니다. 적이 빈 칸으로 이동할 수 없으면(고체 물체나 다른 생물...",
     "desc": "드워프의 체격으로 적을 밀어낼 수 있습니다, 마치 거대한 바위가 지하 동굴을 굴러가듯. 당신과 같은 크기 이하인 적이 있는 <strong>칸으로 한 걸음(Step)</strong>을 밟으면, 적은 바로 뒤의 빈 칸으로 이동해야 합니다. 적은 해를 끼치는 곳이라도 이동해야 합니다. 적은 당신의 운동(Athletics) DC에 대해 <strong>인내(Fortitude) 내성 굴림</strong>을 시도하여 한 걸음을 막을 수 있습니다. 내성을 시도하면, 대성공하지 않는 한 <strong>레벨 + 근력 수정치만큼의 둔기 피해</strong>를 받습니다.<br>적이 빈 칸으로 이동할 수 없으면(고체 물체나 다른 생물에 둘러싸여 있는 등), 바위 굴리기는 효과가 없습니다."
   },
@@ -1947,7 +1964,6 @@ var FEAT_DB = [
     "name_ko": "어둠에 맞서기",
     "name_en": "Defy the Darkness",
     "feat_level": 5,
-    "prerequisites": "암시야(darkvision)",
     "prereqs": [
       {
         "vision": "darkvision"
@@ -1957,6 +1973,7 @@ var FEAT_DB = [
       "드워프"
     ],
     "category": "ancestry",
+    "prerequisites": "암시야(darkvision)",
     "summary": "마법 어둠을 다루는 적과 싸우기 위해 개발된 고대 드워프 방법을 사용하여, 암시야를 연마하고 그런 마법을 직접 사용하지 않겠다고 맹세했습니다. 상위 암시야(greater darkvision)를 얻어, 일반적으로 암시야를 방해하는 마법 어둠(예: 4랭크 어둠 주문이 만든 어둠)도 꿰뚫어 볼 수 있습니다. 어둠(darkness) 특성이 있는 주문을 시전하거나, 어둠 특성이 있는 아이템 활성화를 사용하거나, 어둠 특성이 있는 다른 능력을 사용할 수 없습니다.",
     "desc": "마법 어둠을 다루는 적과 싸우기 위해 개발된 고대 드워프 방법을 사용하여, 암시야를 연마하고 그런 마법을 직접 사용하지 않겠다고 맹세했습니다. <strong>상위 암시야(greater darkvision)</strong>를 얻어, 일반적으로 암시야를 방해하는 마법 어둠(예: 4랭크 어둠 주문이 만든 어둠)도 꿰뚫어 볼 수 있습니다. {{spell:Darkness}} 특성이 있는 주문을 시전하거나, 어둠 특성이 있는 아이템 활성화를 사용하거나, 어둠 특성이 있는 다른 능력을 사용할 수 <strong>없습니다</strong>."
   },
@@ -1965,7 +1982,6 @@ var FEAT_DB = [
     "name_ko": "드워프 보강",
     "name_en": "Dwarven Reinforcement",
     "feat_level": 5,
-    "prerequisites": "제작 전문가",
     "prereqs": [
       {
         "skill": "crafting",
@@ -1976,6 +1992,7 @@ var FEAT_DB = [
       "드워프"
     ],
     "category": "ancestry",
+    "prerequisites": "제작 전문가",
     "summary": "공학과 금속 가공 지식으로 두꺼운 물체와 구조물을 일시적으로 강화할 수 있습니다. 1시간 동안 아이템에 작업하여 24시간 동안 경도(Hardness)에 +1 상황 보너스를 줄 수 있습니다. 제작 달인이면 보너스 +2, 전설이면 +3입니다. 구조물의 일부를 보강할 수 있지만, 1시간으로는 보통 문 하나, 창문 몇 개, 또는 10피트 정육면체 내에 맞는 다른 구역만 보강합니다.",
     "desc": "공학과 금속 가공 지식으로 두꺼운 물체와 구조물을 일시적으로 강화할 수 있습니다. <strong>1시간 동안 아이템에 작업</strong>하여 24시간 동안 경도(Hardness)에 <strong>+1 상황 보너스</strong>를 줄 수 있습니다. 제작 달인이면 보너스 +2, 전설이면 +3입니다. 구조물의 일부를 보강할 수 있지만, 1시간으로는 보통 문 하나, 창문 몇 개, 또는 10피트 정육면체 내에 맞는 다른 구역만 보강합니다."
   },
@@ -2020,7 +2037,6 @@ var FEAT_DB = [
     "name_ko": "활성화된 원천",
     "name_en": "Energized Font",
     "feat_level": 5,
-    "prerequisites": "집중 풀(focus pool), 노움 유산이나 혈통 재주에서 얻은 선천 주문 중 하나 이상이 집중 주문과 같은 전통을 공유",
     "prereqs": [
       {
         "feat": "focus pool"
@@ -2030,6 +2046,8 @@ var FEAT_DB = [
       "노움"
     ],
     "category": "ancestry",
+    "actionCost": "1",
+    "prerequisites": "집중 풀(focus pool), 노움 유산이나 혈통 재주에서 얻은 선천 주문 중 하나 이상이 집중 주문과 같은 전통을 공유",
     "summary": "[1행동] 빈도: 하루 1회 내면에 흐르는 마법 덕분에 정신을 더 빠르게 집중할 수 있습니다. 평소 최대까지 집중 포인트 1점을 회복합니다.",
     "desc": "<strong>빈도:</strong> 하루 1회<br>내면에 흐르는 마법 덕분에 정신을 더 빠르게 집중할 수 있습니다. 평소 최대까지 <strong>집중 포인트 1점을 회복</strong>합니다."
   },
@@ -2046,6 +2064,7 @@ var FEAT_DB = [
       "노움"
     ],
     "category": "ancestry",
+    "actionCost": "1",
     "summary": "[1행동] 다른 이들이 갑옷에 각인하여 상상력의 통로로 삼는 곳에서, 당신의 생생한 마음과 대담한 성격은 밋밋한 갑옷 위에 더 어울리는 인격을 투사합니다. 갑옷의 모양과 외관을 상상하는 일상복이나 고급 의복으로 변경합니다. 갑옷의 능력치는 변하지 않습니다. 의식이 있고 갑옷을 착용하는 한 지속됩니다. 생물은 탐색(Seeking)이나 갑옷을 만져서 환영을 불신할 수 있습니다. DC는 당신의 의지 DC와 같습니다.",
     "desc": "다른 이들이 갑옷에 각인하여 상상력의 통로로 삼는 곳에서, 당신의 생생한 마음과 대담한 성격은 밋밋한 갑옷 위에 더 어울리는 인격을 투사합니다. 갑옷의 모양과 외관을 <strong>상상하는 일상복이나 고급 의복</strong>으로 변경합니다. 갑옷의 능력치는 변하지 않습니다. 의식이 있고 갑옷을 착용하는 한 지속됩니다. 생물은 탐색(Seeking)이나 갑옷을 만져서 환영을 불신할 수 있습니다. DC는 당신의 의지 DC와 같습니다."
   },
@@ -2058,6 +2077,7 @@ var FEAT_DB = [
       "고블린"
     ],
     "category": "ancestry",
+    "actionCost": "1",
     "summary": "[1행동] 근접 타격을 하되 피해를 주지 않습니다. 명중 시 대상의 이동 속도에 -10피트 상태 페널티(치명타 시 -15피트)를 1라운드간 부여합니다. 지상 이동 속도가 있고 다리에 의존하는 대상에게만 적용. 최소 5피트.",
     "desc": "근접 타격을 하되 피해를 주지 않습니다. 명중 시 대상의 이동 속도에 <strong>-10피트 상태 페널티</strong>(치명타 시 -15피트)를 1라운드간 부여합니다. 지상 이동 속도가 있고 다리에 의존하는 대상에게만 적용. 최소 5피트."
   },
@@ -2066,7 +2086,6 @@ var FEAT_DB = [
     "name_ko": "큰소리 가수",
     "name_en": "Loud Singer",
     "feat_level": 5,
-    "prerequisites": "고블린 노래. 고블린 노래 범위가 60피트로 증가하고 추가 적 1명 대상 가능.",
     "prereqs": [
       {
         "feat": "Goblin Song"
@@ -2076,6 +2095,7 @@ var FEAT_DB = [
       "고블린"
     ],
     "category": "ancestry",
+    "prerequisites": "고블린 노래. 고블린 노래 범위가 60피트로 증가하고 추가 적 1명 대상 가능.",
     "summary": "60피트로 증가하고 추가 적 1명 대상 가능.",
     "desc": "<strong>60피트로 증가</strong>하고 <strong>추가 적 1명</strong> 대상 가능."
   },
@@ -2112,6 +2132,7 @@ var FEAT_DB = [
       "하플링"
     ],
     "category": "ancestry",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 대형 이상 적이 인접한 곳에서 이동 행동을 종료합니다. 더 큰 생물의 둔한 발걸음을 피하는 전문가입니다. 해당 적에 인접한 다른 칸으로 한 걸음(Step).",
     "desc": "<strong>유발 조건:</strong> 대형 이상 적이 인접한 곳에서 이동 행동을 종료합니다.<br>더 큰 생물의 둔한 발걸음을 피하는 전문가입니다. 해당 적에 인접한 다른 칸으로 <strong>한 걸음(Step)</strong>."
   },
@@ -2120,7 +2141,6 @@ var FEAT_DB = [
     "name_ko": "적응된 전문가",
     "name_en": "Adaptive Adept",
     "feat_level": 5,
-    "prerequisites": "적응된 캔트립, 3랭크 주문 시전 가능",
     "prereqs": [
       {
         "feat": "Adapted Cantrip"
@@ -2130,6 +2150,7 @@ var FEAT_DB = [
       "인간"
     ],
     "category": "ancestry",
+    "prerequisites": "적응된 캔트립, 3랭크 주문 시전 가능",
     "summary": "적응된 캔트립과 같은 전통에서 캔트립 또는 1랭크 주문 1개를 선택합니다. 적응된 캔트립처럼 주문 옵션에 추가되며, 클래스 전통의 주문으로 시전합니다. 1랭크 주문을 선택하면 고양된 버전에 접근할 수 없습니다.",
     "desc": "적응된 캔트립과 같은 전통에서 캔트립 또는 <strong>1랭크 주문 1개</strong>를 선택합니다. 적응된 캔트립처럼 주문 옵션에 추가되며, 클래스 전통의 주문으로 시전합니다. 1랭크 주문을 선택하면 고양된 버전에 접근할 수 없습니다."
   },
@@ -2186,7 +2207,6 @@ var FEAT_DB = [
     "name_ko": "죽음에 맞서기",
     "name_en": "Defy Death",
     "feat_level": 5,
-    "prerequisites": "오크의 흉포",
     "prereqs": [
       {
         "feat": "Orc Ferocity"
@@ -2196,6 +2216,7 @@ var FEAT_DB = [
       "오크"
     ],
     "category": "ancestry",
+    "prerequisites": "오크의 흉포",
     "summary": "예외적으로 죽이기 어렵습니다. 회복 판정 DC가 9 + 빈사 수치(강인함 재주 있으면 8 + 빈사 수치). 추가로, 부활 주문 등으로 1주일 쇠약해지는 효과를 받지 않습니다.",
     "desc": "예외적으로 죽이기 어렵습니다. 회복 판정 DC가 <strong>9 + {{condition:Dying}} 수치</strong>(강인함 재주 있으면 8 + {{condition:Dying}} 수치). 추가로, 부활 주문 등으로 1주일 쇠약해지는 효과를 <strong>받지 않습니다</strong>."
   },
@@ -2305,6 +2326,7 @@ var FEAT_DB = [
       "드워프"
     ],
     "category": "ancestry",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 돌이나 흙 표면 위에 서 있어야 합니다. 잠시 멈춰 주변의 돌에 감각을 동조시킵니다. 다음 턴 시작까지 20피트 범위의 부정확 진동감각(tremorsense)을 얻습니다.",
     "desc": "<strong>요구사항:</strong> 돌이나 흙 표면 위에 서 있어야 합니다.<br>잠시 멈춰 주변의 돌에 감각을 동조시킵니다. 다음 턴 시작까지 <strong>20피트 범위의 부정확 진동감각(tremorsense)</strong>을 얻습니다."
   },
@@ -2329,6 +2351,7 @@ var FEAT_DB = [
       "드워프"
     ],
     "category": "ancestry",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 물리적 피해를 입히는 치명타에 맞습니다. 불굴의 본성이 가장 심각한 부상도 떨쳐내는 데 도움을 줍니다. DC 17 단순 판정을 시도합니다. 성공하면, 공격이 일반 명중이 됩니다.",
     "desc": "<strong>유발 조건:</strong> 물리적 피해를 입히는 치명타에 맞습니다.<br>불굴의 본성이 가장 심각한 부상도 떨쳐내는 데 도움을 줍니다. <strong>DC 17 단순 판정</strong>을 시도합니다. 성공하면, 공격이 <strong>일반 명중</strong>이 됩니다."
   },
@@ -2353,6 +2376,7 @@ var FEAT_DB = [
       "엘프"
     ],
     "category": "ancestry",
+    "actionCost": "1",
     "summary": "[1행동] 우아한 춤처럼 움직이며, 보폭도 넓습니다. 5피트 한 걸음(Step)을 2회 합니다.",
     "desc": "우아한 춤처럼 움직이며, 보폭도 넓습니다. <strong>5피트 한 걸음(Step)을 2회</strong> 합니다."
   },
@@ -2361,7 +2385,6 @@ var FEAT_DB = [
     "name_ko": "전문가의 장수",
     "name_en": "Expert Longevity",
     "feat_level": 9,
-    "prerequisites": "조상의 장수(Ancestral Longevity)",
     "prereqs": [
       {
         "feat": "Ancestral Longevity"
@@ -2371,6 +2394,7 @@ var FEAT_DB = [
       "엘프"
     ],
     "category": "ancestry",
+    "prerequisites": "조상의 장수(Ancestral Longevity)",
     "summary": "삶을 통해 얻은 지식과 기술을 계속 다듬었습니다. 조상의 장수로 숙련될 기술을 선택할 때, 이미 숙련된 기술 하나도 추가로 선택하여 전문가로 만들 수 있습니다. 이것은 조상의 장수가 만료될 때까지 지속됩니다. 조상의 장수와 전문가의 장수 효과가 만료되면, 기술 증가 하나를 재훈련할 수 있습니다. 재훈련으로 얻는 기술 증가는 조상의 장수로 선택한 기술에 숙련되게 하거나, 전문가의 장수로 선택한 기술에 전문가가 되게 해야 합니다.",
     "desc": "삶을 통해 얻은 지식과 기술을 계속 다듬었습니다. 조상의 장수로 숙련될 기술을 선택할 때, 이미 숙련된 기술 하나도 추가로 선택하여 <strong>전문가</strong>로 만들 수 있습니다. 이것은 조상의 장수가 만료될 때까지 지속됩니다.<br>조상의 장수와 전문가의 장수 효과가 만료되면, <strong>기술 증가 하나를 재훈련</strong>할 수 있습니다. 재훈련으로 얻는 기술 증가는 조상의 장수로 선택한 기술에 숙련되게 하거나, 전문가의 장수로 선택한 기술에 전문가가 되게 해야 합니다."
   },
@@ -2379,11 +2403,11 @@ var FEAT_DB = [
     "name_ko": "이세계 통찰",
     "name_en": "Otherworldly Acumen",
     "feat_level": 9,
-    "prerequisites": "엘프 혈통 재주에서 얻은 선천 주문이 최소 1개",
     "traits": [
       "엘프"
     ],
     "category": "ancestry",
+    "prerequisites": "엘프 혈통 재주에서 얻은 선천 주문이 최소 1개",
     "summary": "보유한 비전 마법이 힘과 복잡성에서 성장합니다. 이전에 다른 엘프 혈통 재주에서 얻은 선천 주문과 같은 전통에서 일반적인 2랭크 주문 1개를 선택합니다(예: 이세계 마법이 있으면 비전 목록에서). 그 주문을 선천 주문으로 하루 1회 시전할 수 있으며, 선택한 목록과 같은 전통을 사용합니다. 마법은 적응성이 있습니다. 휴식 1일을 소비하면, 선택한 주문을 같은 전통의 다른 일반적인 2랭크 주문으로 변경할 수 있습니다.",
     "desc": "보유한 비전 마법이 힘과 복잡성에서 성장합니다. 이전에 다른 엘프 혈통 재주에서 얻은 선천 주문과 같은 전통에서 일반적인 <strong>2랭크 주문 1개</strong>를 선택합니다(예: 이세계 마법이 있으면 비전 목록에서). 그 주문을 선천 주문으로 <strong>하루 1회</strong> 시전할 수 있으며, 선택한 목록과 같은 전통을 사용합니다.<br>마법은 적응성이 있습니다. <strong>휴식 1일</strong>을 소비하면, 선택한 주문을 같은 전통의 다른 일반적인 2랭크 주문으로 변경할 수 있습니다."
   },
@@ -2404,11 +2428,11 @@ var FEAT_DB = [
     "name_ko": "신중한 호기심",
     "name_en": "Cautious Curiosity",
     "feat_level": 9,
-    "prerequisites": "노움 유산이나 혈통 재주에서 얻은 비전 또는 오컬트 선천 주문 최소 1개",
     "traits": [
       "노움"
     ],
     "category": "ancestry",
+    "prerequisites": "노움 유산이나 혈통 재주에서 얻은 비전 또는 오컬트 선천 주문 최소 1개",
     "summary": "들키지 않고 곤경에 빠지고 빠져나오는 마법 기법을 배웠습니다. 변장 마법(disguise magic)과 침묵(silence)을 2랭크 비전 또는 오컬트 선천 주문으로 얻습니다. 전통은 노움 혈통 옵션에 사용하는 전통과 일치해야 합니다. 각 주문을 하루 1회 시전할 수 있으며, 자신만 대상으로 할 수 있습니다.",
     "desc": "들키지 않고 곤경에 빠지고 빠져나오는 마법 기법을 배웠습니다. <em>변장 마법(disguise magic)</em>과 <em>{{spell:Silence}}</em>을 <strong>2랭크 비전 또는 오컬트 선천 주문</strong>으로 얻습니다. 전통은 노움 혈통 옵션에 사용하는 전통과 일치해야 합니다. 각 주문을 <strong>하루 1회</strong> 시전할 수 있으며, 자신만 대상으로 할 수 있습니다."
   },
@@ -2417,11 +2441,11 @@ var FEAT_DB = [
     "name_ko": "첫 번째 세계 전문가",
     "name_en": "First World Adept",
     "feat_level": 9,
-    "prerequisites": "근원 선천 주문 최소 1개",
     "traits": [
       "노움"
     ],
     "category": "ancestry",
+    "prerequisites": "근원 선천 주문 최소 1개",
     "summary": "페이 마법이 시간이 지나며 강해졌습니다. 투명화(invisibility)와 폭로의 빛(revealing light)을 2랭크 근원 선천 주문으로 얻습니다. 각 주문을 하루 1회 시전할 수 있습니다.",
     "desc": "페이 마법이 시간이 지나며 강해졌습니다. <em>{{spell:Invisibility}}</em>와 <em>{{spell:Revealing Light}}</em>을 <strong>2랭크 근원 선천 주문</strong>으로 얻습니다. 각 주문을 <strong>하루 1회</strong> 시전할 수 있습니다."
   },
@@ -2436,6 +2460,7 @@ var FEAT_DB = [
       "노움"
     ],
     "category": "ancestry",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 살아있는 생물에 인접해야 합니다. 살아있는 생물이 차지하는 공간을 순식간에 통과하여, 반대편에 자연스럽게 나타나며 화려한 빛을 보여줍니다. 현재 위치에서 같은 살아있는 생물에 인접하지만 반대편이나 모서리에 있는 다른 위치로 이동합니다. 위치가 유효한지 확인하려면 측면 공격과 같은 규칙을 사용합니다: 두 공간의 중심을 지나는 선이 생물 공간의 반대편이나 모서리를 지나야 합니다. 생물의 생명력을 통과하여 선택한 위치에 나타납니다; 이것은 이동 기반 반응을 유발하지 않습니다. 목적지를 볼 수 있어야 하며, 이동...",
     "desc": "<strong>요구사항:</strong> 살아있는 생물에 인접해야 합니다.<br>살아있는 생물이 차지하는 공간을 순식간에 통과하여, 반대편에 자연스럽게 나타나며 화려한 빛을 보여줍니다. 현재 위치에서 같은 살아있는 생물에 인접하지만 반대편이나 모서리에 있는 다른 위치로 이동합니다. 위치가 유효한지 확인하려면 측면 공격과 같은 규칙을 사용합니다: 두 공간의 중심을 지나는 선이 생물 공간의 반대편이나 모서리를 지나야 합니다.<br>생물의 생명력을 통과하여 선택한 위치에 나타납니다; 이것은 이동 기반 반응을 유발하지 않습니다. 목적지를 볼 수 있어야 하며, 이동 속도가 허용하는 것보다 멀리 이동할 수 없습니다."
   },
@@ -2472,6 +2497,7 @@ var FEAT_DB = [
       "고블린"
     ],
     "category": "ancestry",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 마지막 행동이 성공한 타격이었고 빈 손이 있어야 합니다. 적에 매달려 괴롭힙니다. 대상 이동 시 함께 이동 가능. 다음 턴 시작, 함께 이동하지 않기로 선택, 또는 대상이 탈출하면 해제. 탈출은 당신의 곡예 DC에 대해 시도. 특수: 턱이나 유사한 비무장 공격으로 이전 타격을 했다면 빈 손 없이 사용 가능.",
     "desc": "<strong>요구사항:</strong> 마지막 행동이 성공한 타격이었고 빈 손이 있어야 합니다.<br>적에 매달려 괴롭힙니다. 대상 이동 시 함께 이동 가능. 다음 턴 시작, 함께 이동하지 않기로 선택, 또는 대상이 탈출하면 해제. 탈출은 당신의 곡예 DC에 대해 시도.<br><strong>특수:</strong> 턱이나 유사한 비무장 공격으로 이전 타격을 했다면 빈 손 없이 사용 가능."
   },
@@ -2480,7 +2506,6 @@ var FEAT_DB = [
     "name_ko": "발밑에서 춤추기",
     "name_en": "Dance Underfoot",
     "feat_level": 9,
-    "prerequisites": "경쾌한 걸음(Step Lively)",
     "prereqs": [
       {
         "feat": "Step Lively"
@@ -2490,6 +2515,7 @@ var FEAT_DB = [
       "하플링"
     ],
     "category": "ancestry",
+    "prerequisites": "경쾌한 걸음(Step Lively)",
     "summary": "전투에서 적의 다리 아래로 빠져나갑니다. 성공적인 덤블 통과(Tumble Through) 행동을 대형 이상 적의 칸에서 종료할 수 있습니다. 또한 경쾌한 걸음 재주 사용 시 유발 적의 칸으로 한 걸음을 밟을 수 있습니다. 적이 팔다리가 있거나 이 기동을 위한 충분한 공간을 남겨야 합니다(GM 판단). 예를 들어, 거인이나 드래곤과 공간을 공유할 수 있지만, 우즈와는 불가능합니다.",
     "desc": "전투에서 적의 다리 아래로 빠져나갑니다. 성공적인 <strong>덤블 통과(Tumble Through)</strong> 행동을 대형 이상 적의 칸에서 종료할 수 있습니다. 또한 경쾌한 걸음 재주 사용 시 유발 적의 칸으로 한 걸음을 밟을 수 있습니다. 적이 팔다리가 있거나 이 기동을 위한 충분한 공간을 남겨야 합니다(GM 판단). 예를 들어, 거인이나 드래곤과 공간을 공유할 수 있지만, 우즈와는 불가능합니다."
   },
@@ -2498,7 +2524,6 @@ var FEAT_DB = [
     "name_ko": "안내하는 행운",
     "name_en": "Guiding Luck",
     "feat_level": 9,
-    "prerequisites": "하플링 행운(Halfling Luck)",
     "prereqs": [
       {
         "feat": "Halfling Luck"
@@ -2508,6 +2533,7 @@ var FEAT_DB = [
       "하플링"
     ],
     "category": "ancestry",
+    "prerequisites": "하플링 행운(Halfling Luck)",
     "summary": "행운이 올바른 방향을 보고 정확하게 타격하도록 안내합니다. 하플링 행운을 하루 2회 사용할 수 있습니다: 일반 유발 조건으로 1회, 그리고 지각 판정이나 명중 굴림에 실패할 때 1회.",
     "desc": "행운이 올바른 방향을 보고 정확하게 타격하도록 안내합니다. 하플링 행운을 <strong>하루 2회</strong> 사용할 수 있습니다: 일반 유발 조건으로 1회, 그리고 지각 판정이나 명중 굴림에 실패할 때 1회."
   },
@@ -2580,8 +2606,9 @@ var FEAT_DB = [
       "인간"
     ],
     "category": "ancestry",
-    "summary": "[자유 행동] 빈도: 하루 1회  유발 조건: 미숙련 기술로 판정을 시도합니다. 번뜩이는 영감이 경험 부족에도 불구하고 큰 이점을 줍니다. 유발 기술 판정에 +4 상황 보너스.",
-    "desc": "<strong>빈도:</strong> 하루 1회<br> <strong>유발 조건:</strong> 미숙련 기술로 판정을 시도합니다.<br>번뜩이는 영감이 경험 부족에도 불구하고 큰 이점을 줍니다. 유발 기술 판정에 <strong>+4 상황 보너스</strong>."
+    "actionCost": "free",
+    "summary": "[자유 행동] 빈도: 하루 1회 \n유발 조건: 미숙련 기술로 판정을 시도합니다. 번뜩이는 영감이 경험 부족에도 불구하고 큰 이점을 줍니다. 유발 기술 판정에 +4 상황 보너스.",
+    "desc": "<strong>빈도:</strong> 하루 1회<br>\n<strong>유발 조건:</strong> 미숙련 기술로 판정을 시도합니다.<br>번뜩이는 영감이 경험 부족에도 불구하고 큰 이점을 줍니다. 유발 기술 판정에 <strong>+4 상황 보너스</strong>."
   },
   {
     "id": "multitalented",
@@ -2600,7 +2627,6 @@ var FEAT_DB = [
     "name_ko": "만연한 미신",
     "name_en": "Pervasive Superstition",
     "feat_level": 9,
-    "prerequisites": "오크 미신",
     "prereqs": [
       {
         "feat": "Orc Superstition"
@@ -2610,6 +2636,7 @@ var FEAT_DB = [
       "오크"
     ],
     "category": "ancestry",
+    "prerequisites": "오크 미신",
     "summary": "미신에 몸을 담그고 고대 오크 정신 수련을 연습합니다. 항상 주문과 마법 효과에 대한 내성에 +1 상황 보너스.",
     "desc": "미신에 몸을 담그고 고대 오크 정신 수련을 연습합니다. <strong>항상</strong> 주문과 마법 효과에 대한 내성에 <strong>+1 상황 보너스</strong>."
   },
@@ -2618,7 +2645,6 @@ var FEAT_DB = [
     "name_ko": "불사의 흉포",
     "name_en": "Undying Ferocity",
     "feat_level": 9,
-    "prerequisites": "오크의 흉포",
     "prereqs": [
       {
         "feat": "Orc Ferocity"
@@ -2628,6 +2654,7 @@ var FEAT_DB = [
       "오크"
     ],
     "category": "ancestry",
+    "prerequisites": "오크의 흉포",
     "summary": "초자연적 활력으로 죽음의 손아귀에 저항합니다. 오크의 흉포 사용 시 레벨만큼의 임시 HP를 얻습니다.",
     "desc": "초자연적 활력으로 죽음의 손아귀에 저항합니다. 오크의 흉포 사용 시 <strong>레벨만큼의 임시 HP</strong>를 얻습니다."
   },
@@ -2636,11 +2663,11 @@ var FEAT_DB = [
     "name_ko": "저주받은 발톱",
     "name_en": "Accursed Claws",
     "feat_level": 9,
-    "prerequisites": "발톱 비무장 공격. 발톱이 어머니의 해그 마법을 전달. 발톱 타격 치명타 시 1d4 지속 정신 피해 추가.",
     "traits": [
       "체인질링"
     ],
     "category": "ancestry",
+    "prerequisites": "발톱 비무장 공격. 발톱이 어머니의 해그 마법을 전달. 발톱 타격 치명타 시 1d4 지속 정신 피해 추가.",
     "summary": "치명타 시 1d4 지속 정신 피해 추가.",
     "desc": "<strong>치명타 시 1d4 지속 정신 피해</strong> 추가."
   },
@@ -2649,7 +2676,6 @@ var FEAT_DB = [
     "name_ko": "오컬트 저항",
     "name_en": "Occult Resistance",
     "feat_level": 9,
-    "prerequisites": "오컬티즘 전문가. 오컬트 효과에 대한 모든 내성에 +1 상황 보너스.",
     "prereqs": [
       {
         "skill": "occultism",
@@ -2660,6 +2686,7 @@ var FEAT_DB = [
       "체인질링"
     ],
     "category": "ancestry",
+    "prerequisites": "오컬티즘 전문가. 오컬트 효과에 대한 모든 내성에 +1 상황 보너스.",
     "summary": "+1 상황 보너스.",
     "desc": "<strong>+1 상황 보너스</strong>."
   },
@@ -2674,6 +2701,7 @@ var FEAT_DB = [
       "네피림"
     ],
     "category": "ancestry",
+    "actionCost": "2",
     "summary": "[2행동] 빈도: 하루 1회. 노력으로 등에서 마법 날개를 불러냅니다. 10분간 이동 속도와 같은 비행 속도를 얻습니다.",
     "desc": "<strong>빈도:</strong> 하루 1회. 노력으로 등에서 마법 날개를 불러냅니다. <strong>10분간 이동 속도와 같은 비행 속도</strong>를 얻습니다."
   },
@@ -2682,7 +2710,6 @@ var FEAT_DB = [
     "name_ko": "천상 마법",
     "name_en": "Celestial Magic",
     "feat_level": 9,
-    "prerequisites": "천사혈, 법의 전달자, 또는 뮤즈의 손길. 맑은 마음, 영원의 빛, 인간형 형태, 폭로의 빛, 생명 공유, 확실한 발놀림 중 2개를 선택. 각각 2랭크 신성 선천 주문으로 하루 1회 시전.",
     "prereqs": [
       {
         "feat": "Angelkin"
@@ -2695,6 +2722,7 @@ var FEAT_DB = [
       "네피림"
     ],
     "category": "ancestry",
+    "prerequisites": "천사혈, 법의 전달자, 또는 뮤즈의 손길. 맑은 마음, 영원의 빛, 인간형 형태, 폭로의 빛, 생명 공유, 확실한 발놀림 중 2개를 선택. 각각 2랭크 신성 선천 주문으로 하루 1회 시전.",
     "summary": "2개를 선택. 각각 2랭크 신성 선천 주문으로 하루 1회 시전.",
     "desc": "<strong>2개를 선택</strong>. 각각 <strong>2랭크 신성 선천 주문으로 하루 1회</strong> 시전."
   },
@@ -2703,7 +2731,6 @@ var FEAT_DB = [
     "name_ko": "마귀 마법",
     "name_en": "Fiendish Magic",
     "feat_level": 9,
-    "prerequisites": "암흑아, 나락아, 또는 지옥아. 변장 마법, 거짓 활력, 투명화, 투시, 분쇄, 편집증 중 2개를 선택. 각각 2랭크 신성 선천 주문으로 하루 1회 시전.",
     "prereqs": [
       {
         "feat": "Grimspawn"
@@ -2716,6 +2743,7 @@ var FEAT_DB = [
       "네피림"
     ],
     "category": "ancestry",
+    "prerequisites": "암흑아, 나락아, 또는 지옥아. 변장 마법, 거짓 활력, 투명화, 투시, 분쇄, 편집증 중 2개를 선택. 각각 2랭크 신성 선천 주문으로 하루 1회 시전.",
     "summary": "2개를 선택. 각각 2랭크 신성 선천 주문으로 하루 1회 시전.",
     "desc": "<strong>2개를 선택</strong>. 각각 <strong>2랭크 신성 선천 주문으로 하루 1회</strong> 시전."
   },
@@ -2728,6 +2756,7 @@ var FEAT_DB = [
       "드워프"
     ],
     "category": "ancestry",
+    "actionCost": "2",
     "summary": "[2행동] 대지를 통과하며 행군하고 아군을 이끕니다. 이 활동을 사용할 때 굴파기 속도 15피트를 얻고(더 높은 것이 없다면), 보폭 2회 또는 굴파기 2회를 합니다. 이동 시작 시 인접한 동의하는 아군 1명을 선택하여 함께 이동시킬 수 있습니다. 해당 아군은 당신의 바로 뒤 칸에서 이동을 종료합니다.",
     "desc": "대지를 통과하며 행군하고 아군을 이끕니다. 이 활동을 사용할 때 <strong>굴파기 속도 15피트</strong>를 얻고(더 높은 것이 없다면), 보폭 2회 또는 굴파기 2회를 합니다. 이동 시작 시 인접한 <strong>동의하는 아군 1명</strong>을 선택하여 함께 이동시킬 수 있습니다. 해당 아군은 당신의 바로 뒤 칸에서 이동을 종료합니다."
   },
@@ -2753,6 +2782,7 @@ var FEAT_DB = [
       "엘프"
     ],
     "category": "ancestry",
+    "actionCost": "1",
     "summary": "[1행동] 빈도: 10분에 1회 요구사항: 빈사(dying) 상태인 아군의 30피트 내에 있어야 합니다. 언젠가 동료들보다 오래 살 것을 알지만, 그들이 죽음의 문턱에 있는 것을 보면 공격에 명료함이 생깁니다. 타격을 합니다. 명중 굴림을 두 번 굴리고 높은 결과를 사용합니다.",
     "desc": "<strong>빈도:</strong> 10분에 1회<br><strong>요구사항:</strong> {{condition:Dying}} 상태인 아군의 30피트 내에 있어야 합니다.<br>언젠가 동료들보다 오래 살 것을 알지만, 그들이 죽음의 문턱에 있는 것을 보면 공격에 명료함이 생깁니다. 타격을 합니다. 명중 굴림을 <strong>두 번 굴리고 높은 결과</strong>를 사용합니다."
   },
@@ -2761,7 +2791,6 @@ var FEAT_DB = [
     "name_ko": "보편적 장수",
     "name_en": "Universal Longevity",
     "feat_level": 13,
-    "prerequisites": "조상의 장수(Ancestral Longevity)",
     "prereqs": [
       {
         "feat": "Ancestral Longevity"
@@ -2771,6 +2800,8 @@ var FEAT_DB = [
       "엘프"
     ],
     "category": "ancestry",
+    "actionCost": "1",
+    "prerequisites": "조상의 장수(Ancestral Longevity)",
     "summary": "[1행동] 빈도: 하루 1회 긴 삶에서 배운 모든 기술을 따라잡는 능력을 완성하여, 거의 진정으로 미숙련인 적이 없습니다. 삶의 경험을 되돌아보며, 조상의 장수로 선택한 기술을 변경합니다(전문가의 장수가 있으면 그 기술도 변경).",
     "desc": "<strong>빈도:</strong> 하루 1회<br>긴 삶에서 배운 모든 기술을 따라잡는 능력을 완성하여, 거의 진정으로 미숙련인 적이 없습니다. 삶의 경험을 되돌아보며, 조상의 장수로 선택한 기술을 변경합니다(전문가의 장수가 있으면 그 기술도 변경)."
   },
@@ -2779,22 +2810,22 @@ var FEAT_DB = [
     "name_ko": "본능적 은폐",
     "name_en": "Instinctive Obfuscation",
     "feat_level": 13,
-    "prerequisites": "노움 유산이나 혈통 재주에서 얻은 비전 또는 오컬트 선천 주문 최소 1개",
     "traits": [
       "환영",
       "시각",
       "노움"
     ],
     "category": "ancestry",
-    "summary": "[반응] 빈도: 시간당 1회  유발 조건: 적이 당신을 공격하지만 아직 굴리지 않았습니다. 내면의 마법이 위협에 대한 자연적 반응으로 나타납니다. 당신의 공간에 잠시 환영의 분신이 나타납니다. 유발 공격자는 DC 10 단순 판정을 굴려야 합니다; 성공하면 공격이 정상적으로 당신을 대상으로 하고, 실패하면 공격이 분신을 대상으로 하여 파괴합니다. 이 행동의 전통은 노움 혈통 옵션의 전통과 일치합니다.",
-    "desc": "<strong>빈도:</strong> 시간당 1회<br> <strong>유발 조건:</strong> 적이 당신을 공격하지만 아직 굴리지 않았습니다.<br>내면의 마법이 위협에 대한 자연적 반응으로 나타납니다. 당신의 공간에 잠시 환영의 분신이 나타납니다. 유발 공격자는 <strong>DC 10 단순 판정</strong>을 굴려야 합니다; 성공하면 공격이 정상적으로 당신을 대상으로 하고, 실패하면 공격이 분신을 대상으로 하여 파괴합니다. 이 행동의 전통은 노움 혈통 옵션의 전통과 일치합니다."
+    "actionCost": "reaction",
+    "prerequisites": "노움 유산이나 혈통 재주에서 얻은 비전 또는 오컬트 선천 주문 최소 1개",
+    "summary": "[반응] 빈도: 시간당 1회 \n유발 조건: 적이 당신을 공격하지만 아직 굴리지 않았습니다. 내면의 마법이 위협에 대한 자연적 반응으로 나타납니다. 당신의 공간에 잠시 환영의 분신이 나타납니다. 유발 공격자는 DC 10 단순 판정을 굴려야 합니다; 성공하면 공격이 정상적으로 당신을 대상으로 하고, 실패하면 공격이 분신을 대상으로 하여 파괴합니다. 이 행동의 전통은 노움 혈통 옵션의 전통과 일치합니다.",
+    "desc": "<strong>빈도:</strong> 시간당 1회<br>\n<strong>유발 조건:</strong> 적이 당신을 공격하지만 아직 굴리지 않았습니다.<br>내면의 마법이 위협에 대한 자연적 반응으로 나타납니다. 당신의 공간에 잠시 환영의 분신이 나타납니다. 유발 공격자는 <strong>DC 10 단순 판정</strong>을 굴려야 합니다; 성공하면 공격이 정상적으로 당신을 대상으로 하고, 실패하면 공격이 분신을 대상으로 하여 파괴합니다. 이 행동의 전통은 노움 혈통 옵션의 전통과 일치합니다."
   },
   {
     "id": "very-very-sneaky",
     "name_ko": "매우 매우 은밀한",
     "name_en": "Very, Very Sneaky",
     "feat_level": 13,
-    "prerequisites": "매우 은밀한. 잠행 시 이동 속도까지 이동 가능. 숨기나 잠행에 엄폐/은폐가 더 이상 불필요.",
     "prereqs": [
       {
         "feat": "Very Sneaky"
@@ -2804,6 +2835,7 @@ var FEAT_DB = [
       "고블린"
     ],
     "category": "ancestry",
+    "prerequisites": "매우 은밀한. 잠행 시 이동 속도까지 이동 가능. 숨기나 잠행에 엄폐/은폐가 더 이상 불필요.",
     "summary": "이동 속도까지 이동 가능. 숨기나 잠행에 엄폐/은폐가 더 이상 불필요.",
     "desc": "<strong>이동 속도까지 이동</strong> 가능. 숨기나 잠행에 엄폐/은폐가 <strong>더 이상 불필요</strong>."
   },
@@ -2812,7 +2844,6 @@ var FEAT_DB = [
     "name_ko": "끊임없는 그림자",
     "name_en": "Ceaseless Shadows",
     "feat_level": 13,
-    "prerequisites": "주의 분산 그림자(Distracting Shadows)",
     "prereqs": [
       {
         "feat": "Distracting Shadows"
@@ -2822,6 +2853,7 @@ var FEAT_DB = [
       "하플링"
     ],
     "category": "ancestry",
+    "prerequisites": "주의 분산 그림자(Distracting Shadows)",
     "summary": "눈에 띄지 않는 데 탁월하며, 특히 군중 속에서. 숨기나 잠행에 엄폐나 은폐가 더 이상 필요하지 않습니다. 생물로부터 하위 엄폐가 있으면 표준 엄폐로 승격되어 엄폐를 할 수 있고, 표준 엄폐가 있으면 상위 엄폐로 승격됩니다.",
     "desc": "눈에 띄지 않는 데 탁월하며, 특히 군중 속에서. 숨기나 잠행에 <strong>엄폐나 은폐가 더 이상 필요하지 않습니다</strong>. 생물로부터 하위 엄폐가 있으면 표준 엄폐로 승격되어 엄폐를 할 수 있고, 표준 엄폐가 있으면 <strong>상위 엄폐</strong>로 승격됩니다."
   },
@@ -2830,7 +2862,6 @@ var FEAT_DB = [
     "name_ko": "넘어뜨리기 춤",
     "name_en": "Toppling Dance",
     "feat_level": 13,
-    "prerequisites": "발밑에서 춤추기(Dance Underfoot)",
     "prereqs": [
       {
         "feat": "Dance Underfoot"
@@ -2840,6 +2871,7 @@ var FEAT_DB = [
       "하플링"
     ],
     "category": "ancestry",
+    "prerequisites": "발밑에서 춤추기(Dance Underfoot)",
     "summary": "발밑에서 춤추기로 생물의 칸을 공유하는 동안, 근접 무기와 비무장 공격이 넘어뜨리기(trip) 특성을 얻지만, 칸을 공유하는 생물에 대해서만. 대형 이상의 엎드린(prone) 생물과 같은 칸에 있을 수 있으며, 아군이 아니어도 됩니다.",
     "desc": "발밑에서 춤추기로 생물의 칸을 공유하는 동안, 근접 무기와 비무장 공격이 <strong>넘어뜨리기(trip) 특성</strong>을 얻지만, 칸을 공유하는 생물에 대해서만. 대형 이상의 {{condition:Prone}} 생물과 같은 칸에 있을 수 있으며, 아군이 아니어도 됩니다."
   },
@@ -2865,7 +2897,8 @@ var FEAT_DB = [
       "인간"
     ],
     "category": "ancestry",
-    "summary": "[자유 행동] 빈도: 하루 1회  유발 조건: 빈사(dying) 상태를 잃습니다. 놀라운 회복력으로 임사 경험에서 회복합니다. 빈사 상태를 잃어서 부상(wounded) 상태 수치를 증가시키지 않습니다.",
+    "actionCost": "free",
+    "summary": "[자유 행동] 빈도: 하루 1회 \n유발 조건: 빈사(dying) 상태를 잃습니다. 놀라운 회복력으로 임사 경험에서 회복합니다. 빈사 상태를 잃어서 부상(wounded) 상태 수치를 증가시키지 않습니다.",
     "desc": "<strong>빈도:</strong> 하루 1회<br> <strong>유발 조건:</strong> {{condition:Dying}} 상태를 잃습니다.<br>놀라운 회복력으로 임사 경험에서 회복합니다. {{condition:Dying}} 상태를 잃어서 <strong>{{condition:Wounded}} 상태 수치를 증가시키지 않습니다</strong>."
   },
   {
@@ -2885,7 +2918,6 @@ var FEAT_DB = [
     "name_ko": "놀라운 흉포",
     "name_en": "Incredible Ferocity",
     "feat_level": 13,
-    "prerequisites": "오크의 흉포",
     "prereqs": [
       {
         "feat": "Orc Ferocity"
@@ -2895,6 +2927,7 @@ var FEAT_DB = [
       "오크"
     ],
     "category": "ancestry",
+    "prerequisites": "오크의 흉포",
     "summary": "임사 경험 후 시간을 가지고 회복하면 흉포를 재건할 수 있습니다. 오크의 흉포를 하루 1회 대신 시간당 1회 사용 가능.",
     "desc": "임사 경험 후 시간을 가지고 회복하면 흉포를 재건할 수 있습니다. 오크의 흉포를 하루 1회 대신 <strong>시간당 1회</strong> 사용 가능."
   },
@@ -2903,7 +2936,6 @@ var FEAT_DB = [
     "name_ko": "흉포한 야수들",
     "name_en": "Ferocious Beasts",
     "feat_level": 13,
-    "prerequisites": "동물 동료, 반려동물, 또는 결합 동물; 오크의 흉포",
     "prereqs": [
       {
         "feat": "Animal Companion"
@@ -2919,6 +2951,7 @@ var FEAT_DB = [
       "오크"
     ],
     "category": "ancestry",
+    "prerequisites": "동물 동료, 반려동물, 또는 결합 동물; 오크의 흉포",
     "summary": "고대부터 가장 강한 오크 야수 조련사는 자기 피를 섞은 약을 먹여 동반 야수의 진정한 투쟁 정신을 이끌어냈습니다. 모든 동물 동료, 반려동물, 사역마, 결합 동물이 오크의 흉포 재주를 얻고, 오크의 흉포에만 사용할 수 있는 반응 1회를 라운드마다 얻습니다.",
     "desc": "고대부터 가장 강한 오크 야수 조련사는 자기 피를 섞은 약을 먹여 동반 야수의 진정한 투쟁 정신을 이끌어냈습니다. 모든 동물 동료, 반려동물, 사역마, 결합 동물이 <strong>오크의 흉포 재주</strong>를 얻고, 오크의 흉포에만 사용할 수 있는 <strong>반응 1회</strong>를 라운드마다 얻습니다."
   },
@@ -2927,7 +2960,6 @@ var FEAT_DB = [
     "name_ko": "주문 탐식자",
     "name_en": "Spell Devourer",
     "feat_level": 13,
-    "prerequisites": "오크 미신",
     "prereqs": [
       {
         "feat": "Orc Superstition"
@@ -2937,6 +2969,7 @@ var FEAT_DB = [
       "오크"
     ],
     "category": "ancestry",
+    "prerequisites": "오크 미신",
     "summary": "마법에 저항할 뿐 아니라 삼켜버립니다. 주문이나 마법 효과에 대한 내성에 성공할 때마다, 주문 랭크의 두 배만큼의 임시 HP를 얻습니다(마법 효과가 주문이 아니면 레벨만큼). 이 임시 HP는 다음 턴 종료까지 지속.",
     "desc": "마법에 저항할 뿐 아니라 삼켜버립니다. 주문이나 마법 효과에 대한 내성에 <strong>성공할 때마다</strong>, 주문 랭크의 두 배만큼의 <strong>임시 HP</strong>를 얻습니다(마법 효과가 주문이 아니면 레벨만큼). 이 임시 HP는 다음 턴 종료까지 지속."
   },
@@ -2957,7 +2990,6 @@ var FEAT_DB = [
     "name_ko": "천상의 자비",
     "name_en": "Celestial Mercy",
     "feat_level": 13,
-    "prerequisites": "천상 혈통. 고통 정화(cleanse affliction)를 4랭크 신성 선천 주문으로 하루 2회 시전.",
     "prereqs": [
       {
         "heritage": "천상 혈통"
@@ -2967,6 +2999,7 @@ var FEAT_DB = [
       "네피림"
     ],
     "category": "ancestry",
+    "prerequisites": "천상 혈통. 고통 정화(cleanse affliction)를 4랭크 신성 선천 주문으로 하루 2회 시전.",
     "summary": "고통 정화(cleanse affliction)를 4랭크 신성 선천 주문으로 하루 2회 시전.",
     "desc": "<em>{{spell:Cleanse Affliction}}</em>를 <strong>4랭크 신성 선천 주문으로 하루 2회</strong> 시전."
   },
@@ -2975,7 +3008,6 @@ var FEAT_DB = [
     "name_ko": "옆으로 미끄러지기",
     "name_en": "Slip Sideways",
     "feat_level": 13,
-    "prerequisites": "마귀 혈통. 순간이동(translocate)을 5랭크 신성 선천 주문으로 하루 1회 시전.",
     "prereqs": [
       {
         "heritage": "마귀 혈통"
@@ -2985,6 +3017,7 @@ var FEAT_DB = [
       "네피림"
     ],
     "category": "ancestry",
+    "prerequisites": "마귀 혈통. 순간이동(translocate)을 5랭크 신성 선천 주문으로 하루 1회 시전.",
     "summary": "순간이동(translocate)을 5랭크 신성 선천 주문으로 하루 1회 시전.",
     "desc": "<em>{{spell:Translocate}}</em>을 <strong>5랭크 신성 선천 주문으로 하루 1회</strong> 시전."
   },
@@ -2993,11 +3026,11 @@ var FEAT_DB = [
     "name_ko": "네피림 동족 소환",
     "name_en": "Summon Nephilim Kin",
     "feat_level": 13,
-    "prerequisites": "아무 네피림 혈통 재주. 천상 소환, 마귀 소환, 또는 혈통에 적합한 5랭크 소환 주문을 선택. 5랭크 신성 선천 주문으로 하루 1회 시전. 소환된 생물은 자신의 혈통과 같은 범주여야 합니다.",
     "traits": [
       "네피림"
     ],
     "category": "ancestry",
+    "prerequisites": "아무 네피림 혈통 재주. 천상 소환, 마귀 소환, 또는 혈통에 적합한 5랭크 소환 주문을 선택. 5랭크 신성 선천 주문으로 하루 1회 시전. 소환된 생물은 자신의 혈통과 같은 범주여야 합니다.",
     "summary": "천상 소환, 마귀 소환, 또는 혈통에 적합한 5랭크 소환 주문을 선택. 5랭크 신성 선천 주문으로 하루 1회 시전. 소환된 생물은 자신의 혈통과 같은 범주여야 합니다.",
     "desc": "<em>천상 소환</em>, <em>마귀 소환</em>, 또는 혈통에 적합한 5랭크 소환 주문을 선택. <strong>5랭크 신성 선천 주문으로 하루 1회</strong> 시전. 소환된 생물은 자신의 혈통과 같은 범주여야 합니다."
   },
@@ -3006,7 +3039,6 @@ var FEAT_DB = [
     "name_ko": "돌문",
     "name_en": "Stonegate",
     "feat_level": 17,
-    "prerequisites": "돌걸음(Stonewalker)",
     "prereqs": [
       {
         "feat": "Stonewalker"
@@ -3017,6 +3049,7 @@ var FEAT_DB = [
       "드워프"
     ],
     "category": "ancestry",
+    "prerequisites": "돌걸음(Stonewalker)",
     "summary": "대지의 장벽이 더 이상 진행을 방해하지 않습니다. 마법 통로(magic passage)를 7랭크 신성 선천 주문으로 하루 1회 시전할 수 있습니다. 그러나 일반 주문과 달리, 이 능력은 흙이나 돌로 된 장벽을 통과하는 데만 사용할 수 있습니다.",
     "desc": "대지의 장벽이 더 이상 진행을 방해하지 않습니다. <em>{{spell:Magic Passage}}</em>를 <strong>7랭크 신성 선천 주문으로 하루 1회</strong> 시전할 수 있습니다. 그러나 일반 주문과 달리, 이 능력은 <strong>흙이나 돌로 된 장벽을 통과하는 데만</strong> 사용할 수 있습니다."
   },
@@ -3031,6 +3064,7 @@ var FEAT_DB = [
       "드워프"
     ],
     "category": "ancestry",
+    "actionCost": "reaction",
     "summary": "[반응] 빈도: 하루 1회 유발 조건: 적이나 위험의 효과가 당신에게 명중하거나, 그에 대한 인내 내성에 실패합니다. 돌의 강인함이 너무 강하게 밀려와 당신의 건장한 몸을 대체합니다. 현재 턴 종료까지 석화(petrified)됩니다. 유발 효과나 돌에 영향을 줄 수 없는 다른 해로운 효과로부터 어떤 피해도 받지 않습니다.",
     "desc": "<strong>빈도:</strong> 하루 1회<br><strong>유발 조건:</strong> 적이나 위험의 효과가 당신에게 명중하거나, 그에 대한 인내 내성에 실패합니다.<br>돌의 강인함이 너무 강하게 밀려와 당신의 건장한 몸을 대체합니다. 현재 턴 종료까지 <strong>{{condition:Petrified}}</strong>됩니다. 유발 효과나 돌에 영향을 줄 수 없는 다른 해로운 효과로부터 <strong>어떤 피해도 받지 않습니다</strong>."
   },
@@ -3069,6 +3103,7 @@ var FEAT_DB = [
       "고블린"
     ],
     "category": "ancestry",
+    "actionCost": "free",
     "summary": "[자유 행동] 빈도: 하루 1회 남은 턴 동안, 해로운 효과에 대한 내성 굴림에서 실패/대실패 시 성공이 됩니다. 또한 이 턴에 적이나 위험으로부터 최소 가능 피해를 받습니다. 이 혜택은 이 턴 동안 전적으로 발생한 해로운 효과에만 적용됩니다. 지속 피해와 이전 상태는 정상 진행되며, 턴 종료 시 전체 결과에 노출됩니다.",
     "desc": "<strong>빈도:</strong> 하루 1회<br>남은 턴 동안, 해로운 효과에 대한 내성 굴림에서 <strong>실패/대실패 시 성공</strong>이 됩니다. 또한 이 턴에 적이나 위험으로부터 <strong>최소 가능 피해</strong>를 받습니다. 이 혜택은 이 턴 동안 전적으로 발생한 해로운 효과에만 적용됩니다. 지속 피해와 이전 상태는 정상 진행되며, 턴 종료 시 전체 결과에 노출됩니다."
   },
@@ -3077,7 +3112,6 @@ var FEAT_DB = [
     "name_ko": "그림자 자아",
     "name_en": "Shadow Self",
     "feat_level": 17,
-    "prerequisites": "은신 전설",
     "prereqs": [
       {
         "skill": "stealth",
@@ -3088,7 +3122,8 @@ var FEAT_DB = [
       "하플링"
     ],
     "category": "ancestry",
-    "summary": "빈도: 시간당 1회  유발 조건: 은신으로 숨기를 성공하여 모든 현재 적에게 숨겨지거나, 은신으로 잠행하여 모든 현재 적에게 미탐지됩니다. 적의 시선에서 미끄러져 나가 다른 곳에 있는 것처럼 보입니다. 1분간 또는 적대적 행동을 할 때까지(먼저 오는 것) 투명해집니다. 10피트 내의 위치를 선택합니다. 투명이 끝날 때까지, 당신을 찾으려는 누구에게든 그 위치에 숨어있는 것처럼 보입니다. 수색자가 당신이 거기 없다는 명확한 증거를 얻으면 더 이상 거기에 숨어있다고 생각하지 않지만, 실제 위치는 발견하지 못합니다.",
+    "prerequisites": "은신 전설",
+    "summary": "빈도: 시간당 1회 \n유발 조건: 은신으로 숨기를 성공하여 모든 현재 적에게 숨겨지거나, 은신으로 잠행하여 모든 현재 적에게 미탐지됩니다. 적의 시선에서 미끄러져 나가 다른 곳에 있는 것처럼 보입니다. 1분간 또는 적대적 행동을 할 때까지(먼저 오는 것) 투명해집니다. 10피트 내의 위치를 선택합니다. 투명이 끝날 때까지, 당신을 찾으려는 누구에게든 그 위치에 숨어있는 것처럼 보입니다. 수색자가 당신이 거기 없다는 명확한 증거를 얻으면 더 이상 거기에 숨어있다고 생각하지 않지만, 실제 위치는 발견하지 못합니다.",
     "desc": "<strong>빈도:</strong> 시간당 1회<br> <strong>유발 조건:</strong> 은신으로 숨기를 성공하여 모든 현재 적에게 숨겨지거나, 은신으로 잠행하여 모든 현재 적에게 미탐지됩니다.<br>적의 시선에서 미끄러져 나가 다른 곳에 있는 것처럼 보입니다. <strong>1분간 또는 적대적 행동을 할 때까지(먼저 오는 것) {{condition:Invisible}}</strong>해집니다. 10피트 내의 위치를 선택합니다. 투명이 끝날 때까지, 당신을 찾으려는 누구에게든 그 위치에 숨어있는 것처럼 보입니다. 수색자가 당신이 거기 없다는 명확한 증거를 얻으면 더 이상 거기에 숨어있다고 생각하지 않지만, 실제 위치는 발견하지 못합니다."
   },
   {
@@ -3102,6 +3137,7 @@ var FEAT_DB = [
       "인간"
     ],
     "category": "ancestry",
+    "actionCost": "1",
     "summary": "[1행동] 빈도: 하루 1회 영웅의 피가 혈관을 흐르며, 동료들이 깊이 파고들어 새로운 수준의 결의를 찾도록 영감을 줍니다. 30피트 내 최대 10명의 동의하는 생물에게 6랭크 열정적 확신(zealous conviction)의 효과를 부여합니다. 단, 대상에게 일반적으로 혐오스럽다고 여길 명령을 내리면 효과가 자동으로 종료됩니다. 이 행동은 동맹에게 영감을 주는 방식에 따라 청각 또는 시각 특성을 가집니다.",
     "desc": "<strong>빈도:</strong> 하루 1회<br>영웅의 피가 혈관을 흐르며, 동료들이 깊이 파고들어 새로운 수준의 결의를 찾도록 영감을 줍니다. 30피트 내 최대 <strong>10명의 동의하는 생물</strong>에게 6랭크 <em>{{spell:Zealous Conviction}}</em>의 효과를 부여합니다. 단, 대상에게 일반적으로 혐오스럽다고 여길 명령을 내리면 효과가 자동으로 종료됩니다. 이 행동은 동맹에게 영감을 주는 방식에 따라 청각 또는 시각 특성을 가집니다."
   },
@@ -3110,7 +3146,6 @@ var FEAT_DB = [
     "name_ko": "난동의 흉포",
     "name_en": "Rampaging Ferocity",
     "feat_level": 17,
-    "prerequisites": "오크의 흉포",
     "prereqs": [
       {
         "feat": "Orc Ferocity"
@@ -3120,6 +3155,8 @@ var FEAT_DB = [
       "오크"
     ],
     "category": "ancestry",
+    "actionCost": "free",
+    "prerequisites": "오크의 흉포",
     "summary": "[자유 행동] 유발 조건: 오크의 흉포를 사용합니다. 죽음을 막아내면서도 맹렬하게 공격합니다. 근접 타격 1회를 합니다. 이 타격이 적의 HP를 0으로 만들면, 이번 오크의 흉포 활성화는 빈도에 포함되지 않습니다.",
     "desc": "<strong>유발 조건:</strong> 오크의 흉포를 사용합니다.<br>죽음을 막아내면서도 맹렬하게 공격합니다. <strong>근접 타격 1회</strong>를 합니다. 이 타격이 적의 HP를 0으로 만들면, 이번 오크의 흉포 활성화는 빈도에 포함되지 않습니다."
   },
@@ -3138,7 +3175,6 @@ var FEAT_DB = [
     "name_ko": "영원한 날개",
     "name_en": "Eternal Wings",
     "feat_level": 17,
-    "prerequisites": "신성 날개. 날개가 이제 영구적인 몸의 일부. 하루 1회 10분이 아닌 항상 신성 날개의 효과.",
     "prereqs": [
       {
         "feat": "Divine Wings"
@@ -3148,6 +3184,7 @@ var FEAT_DB = [
       "네피림"
     ],
     "category": "ancestry",
+    "prerequisites": "신성 날개. 날개가 이제 영구적인 몸의 일부. 하루 1회 10분이 아닌 항상 신성 날개의 효과.",
     "summary": "항상 신성 날개의 효과.",
     "desc": "<strong>항상</strong> 신성 날개의 효과."
   },
@@ -3217,7 +3254,6 @@ var FEAT_DB = [
     "name_ko": "빠른 회복",
     "name_en": "Fast Recovery",
     "feat_level": 1,
-    "prerequisites": "건강 +2",
     "prereqs": [
       {
         "ability": "con",
@@ -3228,6 +3264,7 @@ var FEAT_DB = [
       "일반"
     ],
     "category": "general",
+    "prerequisites": "건강 +2",
     "summary": "몸이 고통에서 빠르게 회복합니다. 쉬면서 평소의 두 배의 HP를 회복합니다. 진행 중인 질병이나 독에 대한 인내 내성에 성공할 때마다 단계를 1 대신 2만큼 감소시키고(맹독은 1), 대성공 시 3만큼 감소(맹독은 2). 또한 밤에 쉴 때 소진(drained) 상태를 1 대신 2만큼 줄입니다.",
     "desc": "몸이 고통에서 빠르게 회복합니다. 쉬면서 평소의 <strong>두 배의 HP</strong>를 회복합니다. 진행 중인 질병이나 독에 대한 인내 내성에 성공할 때마다 단계를 1 대신 <strong>2만큼 감소</strong>시키고(맹독은 1), 대성공 시 3만큼 감소(맹독은 2). 또한 밤에 쉴 때 {{condition:Drained}} 상태를 1 대신 <strong>2만큼 줄입니다</strong>."
   },
@@ -3236,7 +3273,6 @@ var FEAT_DB = [
     "name_ko": "깃털 걸음",
     "name_en": "Feather Step",
     "feat_level": 1,
-    "prerequisites": "민첩 +2",
     "prereqs": [
       {
         "ability": "dex",
@@ -3247,6 +3283,7 @@ var FEAT_DB = [
       "일반"
     ],
     "category": "general",
+    "prerequisites": "민첩 +2",
     "summary": "조심스럽고 빠르게 걷습니다. 험지(difficult terrain)로 한 걸음(Step)을 할 수 있습니다.",
     "desc": "조심스럽고 빠르게 걷습니다. 험지(difficult terrain)로 <strong>한 걸음(Step)</strong>을 할 수 있습니다."
   },
@@ -3307,6 +3344,7 @@ var FEAT_DB = [
       "일반"
     ],
     "category": "general",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 방패를 올린 상태에서 공격으로 물리적 피해(둔기, 관통, 참격)를 받으려 합니다. 방패를 제자리에 눌러 타격을 막습니다. 방패의 경도(Hardness)만큼 피해를 방지합니다. 남은 피해를 당신과 방패가 각각 받으며, 방패가 파손되거나 파괴될 수 있습니다.",
     "desc": "<strong>유발 조건:</strong> 방패를 올린 상태에서 공격으로 물리적 피해(둔기, 관통, 참격)를 받으려 합니다.<br>방패를 제자리에 눌러 타격을 막습니다. 방패의 경도(Hardness)만큼 피해를 <strong>방지</strong>합니다. 남은 피해를 당신과 방패가 각각 받으며, 방패가 파손되거나 파괴될 수 있습니다."
   },
@@ -3356,8 +3394,8 @@ var FEAT_DB = [
       "일반"
     ],
     "category": "general",
-    "summary": "비용: 선택한 아이템의 가격  요구사항: 마지막으로 물건을 구입할 수 있었던 이후 이 능력을 사용하지 않았어야 합니다. 복잡한 계획과 비상 대책을 정기적으로 세우며, 자원을 사용하여 실행합니다. 1분간 배낭을 뒤져 이전에 선언하지 않았던 구매 아이템을 꺼냅니다 — 필요할 것을 직감하고 가장 최근 기회에 구매한 것입니다. 아이템은 모험 장비(291페이지 표)여야 하며, 무기/갑옷/연금술/마법 아이템/보물이 아닌 일반 아이템이어야 합니다. 레벨 절반 이하, 들고 다녀도 과적되지 않을 부피여야 합니다.",
-    "desc": "<strong>비용:</strong> 선택한 아이템의 가격<br> <strong>요구사항:</strong> 마지막으로 물건을 구입할 수 있었던 이후 이 능력을 사용하지 않았어야 합니다.<br>복잡한 계획과 비상 대책을 정기적으로 세우며, 자원을 사용하여 실행합니다. 1분간 배낭을 뒤져 이전에 선언하지 않았던 구매 아이템을 꺼냅니다 — 필요할 것을 직감하고 가장 최근 기회에 구매한 것입니다. 아이템은 모험 장비(291페이지 표)여야 하며, 무기/갑옷/연금술/마법 아이템/보물이 아닌 일반 아이템이어야 합니다. 레벨 절반 이하, 들고 다녀도 과적되지 않을 부피여야 합니다."
+    "summary": "비용: 선택한 아이템의 가격 \n요구사항: 마지막으로 물건을 구입할 수 있었던 이후 이 능력을 사용하지 않았어야 합니다. 복잡한 계획과 비상 대책을 정기적으로 세우며, 자원을 사용하여 실행합니다. 1분간 배낭을 뒤져 이전에 선언하지 않았던 구매 아이템을 꺼냅니다 — 필요할 것을 직감하고 가장 최근 기회에 구매한 것입니다. 아이템은 모험 장비(291페이지 표)여야 하며, 무기/갑옷/연금술/마법 아이템/보물이 아닌 일반 아이템이어야 합니다. 레벨 절반 이하, 들고 다녀도 과적되지 않을 부피여야 합니다.",
+    "desc": "<strong>비용:</strong> 선택한 아이템의 가격<br>\n<strong>요구사항:</strong> 마지막으로 물건을 구입할 수 있었던 이후 이 능력을 사용하지 않았어야 합니다.<br>복잡한 계획과 비상 대책을 정기적으로 세우며, 자원을 사용하여 실행합니다. 1분간 배낭을 뒤져 이전에 선언하지 않았던 구매 아이템을 꺼냅니다 — 필요할 것을 직감하고 가장 최근 기회에 구매한 것입니다. 아이템은 모험 장비(291페이지 표)여야 하며, 무기/갑옷/연금술/마법 아이템/보물이 아닌 일반 아이템이어야 합니다. 레벨 절반 이하, 들고 다녀도 과적되지 않을 부피여야 합니다."
   },
   {
     "id": "untrained-improvisation",
@@ -3376,7 +3414,6 @@ var FEAT_DB = [
     "name_ko": "신속 수색",
     "name_en": "Expeditious Search",
     "feat_level": 7,
-    "prerequisites": "지각 달인",
     "prereqs": [
       {
         "perception": 6
@@ -3386,6 +3423,7 @@ var FEAT_DB = [
       "일반"
     ],
     "category": "general",
+    "prerequisites": "지각 달인",
     "summary": "구역을 일반 시간의 절반으로 수색합니다. 전설이면 1/4 시간.",
     "desc": "구역을 일반 시간의 <strong>절반</strong>으로 수색합니다. 전설이면 1/4 시간."
   },
@@ -3394,7 +3432,6 @@ var FEAT_DB = [
     "name_ko": "선견 소모품",
     "name_en": "Prescient Consumable",
     "feat_level": 7,
-    "prerequisites": "선견 계획자",
     "prereqs": [
       {
         "feat": "Prescient Planner"
@@ -3404,6 +3441,7 @@ var FEAT_DB = [
       "일반"
     ],
     "category": "general",
+    "prerequisites": "선견 계획자",
     "summary": "선견 계획자로 모험 장비 대신 소모품 아이템을 꺼낼 수 있습니다. 레벨 절반 이하의 일반 소모품이어야 합니다.",
     "desc": "선견 계획자로 모험 장비 대신 <strong>소모품 아이템</strong>을 꺼낼 수 있습니다. 레벨 절반 이하의 일반 소모품이어야 합니다."
   },
@@ -3412,7 +3450,6 @@ var FEAT_DB = [
     "name_ko": "놀라운 투자",
     "name_en": "Incredible Investiture",
     "feat_level": 11,
-    "prerequisites": "매력 +3",
     "prereqs": [
       {
         "ability": "cha",
@@ -3423,6 +3460,7 @@ var FEAT_DB = [
       "일반"
     ],
     "category": "general",
+    "prerequisites": "매력 +3",
     "summary": "더 많은 마법 아이템을 투자할 수 있습니다. 투자 아이템 한도가 10에서 12로 증가합니다.",
     "desc": "더 많은 마법 아이템을 투자할 수 있습니다. 투자 아이템 한도가 10에서 <strong>12</strong>로 증가합니다."
   },
@@ -3431,11 +3469,11 @@ var FEAT_DB = [
     "name_ko": "확신",
     "name_en": "Assurance",
     "feat_level": 1,
-    "prerequisites": "최소 1개 기술에 숙련",
     "traits": [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "최소 1개 기술에 숙련",
     "summary": "특정 과제에 대해 안정적인 결과를 보장할 수 있을 만큼 연습했습니다. 숙련된 기술 1개를 선택합니다. 해당 기술로 판정할 때, 주사위를 굴리지 않고 10 + 숙련 보너스를 결과로 사용할 수 있습니다(다른 보너스, 페널티, 수정치는 적용하지 않음). 특수: 여러 번 선택 가능. 매번 다른 기술.",
     "desc": "특정 과제에 대해 안정적인 결과를 보장할 수 있을 만큼 연습했습니다. 숙련된 기술 1개를 선택합니다. 해당 기술로 판정할 때, 주사위를 굴리지 않고 <strong>10 + 숙련 보너스</strong>를 결과로 사용할 수 있습니다(다른 보너스, 페널티, 수정치는 적용하지 않음).<br><strong>특수:</strong> 여러 번 선택 가능. 매번 다른 기술.",
     "repeatable": true
@@ -3445,7 +3483,6 @@ var FEAT_DB = [
     "name_ko": "의심스러운 지식",
     "name_en": "Dubious Knowledge",
     "feat_level": 1,
-    "prerequisites": "지식 회상 기술에 숙련",
     "prereqs": [
       {
         "or": [
@@ -3484,6 +3521,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "지식 회상 기술에 숙련",
     "summary": "기이하고 때로는 의심스러운 방대한 잡학 지식을 축적했습니다. 지식 회상(Recall Knowledge) 판정에 실패하면, 완전히 실패하는 대신 정확한 정보 1개와 잘못된 정보 1개를 모두 얻습니다. GM이 어떤 것이 정확하고 어떤 것이 잘못된 것인지 결정합니다.",
     "desc": "기이하고 때로는 의심스러운 방대한 잡학 지식을 축적했습니다. 지식 회상(Recall Knowledge) 판정에 실패하면, 완전히 실패하는 대신 <strong>정확한 정보 1개와 잘못된 정보 1개</strong>를 모두 얻습니다. GM이 어떤 것이 정확하고 어떤 것이 잘못된 것인지 결정합니다."
   },
@@ -3492,7 +3530,6 @@ var FEAT_DB = [
     "name_ko": "빠른 식별",
     "name_en": "Quick Identification",
     "feat_level": 1,
-    "prerequisites": "주문학, 자연학, 오컬티즘, 또는 종교에 숙련",
     "prereqs": [
       {
         "or": [
@@ -3519,15 +3556,30 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "주문학, 자연학, 오컬티즘, 또는 종교에 숙련",
     "summary": "마법 식별(Identify Magic)을 신속하게 수행합니다. 아이템, 진행 중인 효과, 위치의 속성을 결정할 때 10분 대신 1분만 걸립니다. 달인이면 3행동 활동, 전설이면 1행동.",
     "desc": "마법 식별(Identify Magic)을 신속하게 수행합니다. 아이템, 진행 중인 효과, 위치의 속성을 결정할 때 10분 대신 <strong>1분</strong>만 걸립니다. 달인이면 3행동 활동, 전설이면 <strong>1행동</strong>."
+  },
+  {
+    "id": "recognize-spell",
+    "name_ko": "주문 인식",
+    "name_en": "Recognize Spell",
+    "feat_level": 1,
+    "traits": [
+      "일반 비밀 기술",
+      "비밀"
+    ],
+    "category": "skill",
+    "actionCost": "reaction",
+    "prerequisites": "주문학, 자연학, 오컬티즘, 또는 종교에 숙련",
+    "summary": "[반응] 유발 조건: 시야 내 생물이 당신이 준비하지 않았거나 레퍼토리에 없는 주문을 시전하거나, 함정 등이 그런 주문을 시전합니다. 시전을 인식해야 합니다. 주문의 전통에 적합한 기술에 숙련이면서 2랭크 이하의 일반 주문이면, 자동으로 식별합니다(대성공 시도는 하되 성공보다 나쁜 결과는 불가). 자동 식별 최대 랭크: 전문가 4, 달인 6, 전설 10. GM이 비밀 판정을 굴립니다. 대성공: 주문을 정확히 인식하고, 해당 주문에 대한 내성이나 AC에 +1 상황 보너스. \n성공: 주문을 정확히 인식합니다. \n실패: 주문을 인식...",
+    "desc": "<strong>유발 조건:</strong> 시야 내 생물이 당신이 준비하지 않았거나 레퍼토리에 없는 주문을 시전하거나, 함정 등이 그런 주문을 시전합니다. 시전을 인식해야 합니다.<br>주문의 전통에 적합한 기술에 숙련이면서 2랭크 이하의 일반 주문이면, <strong>자동으로 식별</strong>합니다(대성공 시도는 하되 성공보다 나쁜 결과는 불가). 자동 식별 최대 랭크: 전문가 4, 달인 6, 전설 10. GM이 비밀 판정을 굴립니다.<br><strong>대성공:</strong> 주문을 정확히 인식하고, 해당 주문에 대한 내성이나 AC에 <strong>+1 상황 보너스</strong>.<br>\n<strong>성공:</strong> 주문을 정확히 인식합니다.<br>\n<strong>실패:</strong> 주문을 인식하지 못합니다.<br>\n<strong>대실패:</strong> GM이 선택한 다른 주문으로 잘못 식별합니다."
   },
   {
     "id": "skill-training",
     "name_ko": "기술 훈련",
     "name_en": "Skill Training",
     "feat_level": 1,
-    "prerequisites": "지능 +1",
     "prereqs": [
       {
         "ability": "int",
@@ -3538,20 +3590,36 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "지능 +1",
     "summary": "선택한 기술에 숙련됩니다. 특수: 여러 번 선택 가능. 매번 새 기술.",
     "desc": "선택한 기술에 <strong>숙련</strong>됩니다.<br><strong>특수:</strong> 여러 번 선택 가능. 매번 새 기술.",
     "repeatable": true
+  },
+  {
+    "id": "trick-magic-item",
+    "name_ko": "마법 아이템 속이기",
+    "name_en": "Trick Magic Item",
+    "feat_level": 1,
+    "traits": [
+      "일반 조작 기술",
+      "조작"
+    ],
+    "category": "skill",
+    "actionCost": "1",
+    "prerequisites": "주문학, 자연학, 오컬티즘, 또는 종교에 숙련",
+    "summary": "[1행동] 보통 사용할 수 없는 마법 아이템을 속여 일시적으로 활성화하려 합니다. 예를 들어, 파이터가 완드에서 주문을 시전하거나 위저드가 비전 목록에 없는 주문을 두루마리에서 시전할 수 있습니다. 아이템이 무엇을 하는지 알아야 합니다. 아이템의 마법 전통에 맞는 기술로 판정합니다(비전=주문학, 근원=자연학, 오컬트=오컬티즘, 신성=종교, 또는 마법 특성만 있으면 아무 것이나). GM이 아이템 레벨에 기반하여 DC를 결정합니다. 관련 전통의 주문을 시전할 수 없으면, 레벨을 숙련 보너스로, 지능/지혜/매력 중 가장 높은 것을 ...",
+    "desc": "보통 사용할 수 없는 마법 아이템을 속여 일시적으로 활성화하려 합니다. 예를 들어, 파이터가 완드에서 주문을 시전하거나 위저드가 비전 목록에 없는 주문을 두루마리에서 시전할 수 있습니다. 아이템이 무엇을 하는지 알아야 합니다.<br>아이템의 마법 전통에 맞는 기술로 판정합니다(비전=주문학, 근원=자연학, 오컬트=오컬티즘, 신성=종교, 또는 마법 특성만 있으면 아무 것이나). GM이 아이템 레벨에 기반하여 DC를 결정합니다.<br>관련 전통의 주문을 시전할 수 없으면, 레벨을 숙련 보너스로, 지능/지혜/매력 중 가장 높은 것을 수정치로 사용합니다. 달인이면 숙련 보너스, 전설이면 전문가 보너스를 사용합니다.<br><strong>성공:</strong> 현재 턴 나머지 동안 아이템을 정상적으로 활성화할 수 있습니다.<br>\n<strong>실패:</strong> 이번 턴에 사용 불가, 다음 턴에 재시도 가능.<br>\n<strong>대실패:</strong> 다음 일일 준비까지 사용 불가."
   },
   {
     "id": "seasoned",
     "name_ko": "양념 달인",
     "name_en": "Seasoned",
     "feat_level": 1,
-    "prerequisites": "술 지식, 요리 지식, 또는 제작에 숙련",
     "traits": [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "술 지식, 요리 지식, 또는 제작에 숙련",
     "summary": "다양한 음식과 음료의 준비를 마스터했습니다. 음식과 음료를 제작할 때(연금술 제작이 있으면 영약, 마법 제작이 있으면 포션 포함) +1 상황 보너스. 전제조건 기술 중 하나가 달인이면 +2.",
     "desc": "다양한 음식과 음료의 준비를 마스터했습니다. 음식과 음료를 제작할 때(연금술 제작이 있으면 영약, 마법 제작이 있으면 포션 포함) <strong>+1 상황 보너스</strong>. 전제조건 기술 중 하나가 달인이면 <strong>+2</strong>."
   },
@@ -3560,7 +3628,6 @@ var FEAT_DB = [
     "name_ko": "고양이 착지",
     "name_en": "Cat Fall",
     "feat_level": 1,
-    "prerequisites": "곡예 숙련",
     "prereqs": [
       {
         "skill": "acrobatics",
@@ -3571,6 +3638,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "곡예 숙련",
     "summary": "추락 시 반사적으로 착지합니다. 추락 피해를 계산할 때 추락 거리를 10피트 줄여 취급합니다. 전문가이면 25피트, 달인이면 50피트 줄이고, 전설이면 추락 피해를 받지 않습니다.",
     "desc": "추락 시 반사적으로 착지합니다. 추락 피해를 계산할 때 추락 거리를 <strong>10피트 줄여</strong> 취급합니다. 전문가이면 25피트, 달인이면 50피트 줄이고, 전설이면 추락 피해를 <strong>받지 않습니다</strong>."
   },
@@ -3579,7 +3647,6 @@ var FEAT_DB = [
     "name_ko": "빠른 비집기",
     "name_en": "Quick Squeeze",
     "feat_level": 1,
-    "prerequisites": "곡예 숙련",
     "prereqs": [
       {
         "skill": "acrobatics",
@@ -3590,6 +3657,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "곡예 숙련",
     "summary": "비집기(Squeeze) 시 라운드당 5피트로 이동(대성공 시 10피트). 전설이면 전체 속도로.",
     "desc": "비집기(Squeeze) 시 라운드당 <strong>5피트로 이동</strong>(대성공 시 10피트). 전설이면 전체 속도로."
   },
@@ -3598,7 +3666,6 @@ var FEAT_DB = [
     "name_ko": "안정된 균형",
     "name_en": "Steady Balance",
     "feat_level": 1,
-    "prerequisites": "곡예 숙련",
     "prereqs": [
       {
         "skill": "acrobatics",
@@ -3609,6 +3676,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "곡예 숙련",
     "summary": "악조건에서도 쉽게 균형을 유지합니다. 균형 잡기(Balance) 행동에서 성공 시 대성공이 됩니다. 좁은 표면과 고르지 않은 지면에서 균형을 잡으려 시도할 때 무방비이 되지 않습니다. 또한 곡예 판정으로 반사 내성 대신 모서리 잡기(Grab an Edge)를 시도할 수 있습니다.",
     "desc": "악조건에서도 쉽게 균형을 유지합니다. 균형 잡기(Balance) 행동에서 <strong>성공 시 대성공</strong>이 됩니다. 좁은 표면과 고르지 않은 지면에서 균형을 잡으려 시도할 때 <strong>무방비이 되지 않습니다</strong>. 또한 곡예 판정으로 반사 내성 대신 <strong>모서리 잡기(Grab an Edge)</strong>를 시도할 수 있습니다."
   },
@@ -3617,7 +3685,6 @@ var FEAT_DB = [
     "name_ko": "빠른 점프",
     "name_en": "Quick Jump",
     "feat_level": 1,
-    "prerequisites": "운동 숙련",
     "prereqs": [
       {
         "skill": "athletics",
@@ -3628,15 +3695,53 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "운동 숙련",
     "summary": "높이뛰기와 멀리뛰기를 2행동 대신 1행동으로 사용할 수 있습니다. 그렇게 하면 초기 보폭을 수행하지 않습니다(10피트 보폭하지 않아서 실패하지도 않음).",
     "desc": "높이뛰기와 멀리뛰기를 2행동 대신 <strong>1행동</strong>으로 사용할 수 있습니다. 그렇게 하면 초기 보폭을 수행하지 않습니다(10피트 보폭하지 않아서 실패하지도 않음)."
+  },
+  {
+    "id": "combat-climber",
+    "name_ko": "전투 등반가",
+    "name_en": "Combat Climber",
+    "feat_level": 1,
+    "prereqs": [
+      {
+        "skill": "athletics",
+        "rank": 2
+      }
+    ],
+    "traits": [
+      "일반 기술"
+    ],
+    "category": "skill",
+    "prerequisites": "운동 숙련",
+    "summary": "당신의 기술은 등반하면서도 전투할 수 있게 합니다. 등반(Climb) 중 무방비 상태가 되지 않으며, 한 손이 다른 일에 사용 중이어도 등반할 수 있습니다. 다만 다른 한 손과 두 다리는 여전히 등반에 사용해야 합니다.",
+    "desc": "당신의 기술은 등반하면서도 전투할 수 있게 합니다. 등반(Climb) 중 {{condition:Off-Guard}} 상태가 되지 않으며, 한 손이 다른 일에 사용 중이어도 등반할 수 있습니다. 다만 다른 한 손과 두 다리는 여전히 등반에 사용해야 합니다."
+  },
+  {
+    "id": "hefty-hauler",
+    "name_ko": "무거운 짐꾼",
+    "name_en": "Hefty Hauler",
+    "feat_level": 1,
+    "prereqs": [
+      {
+        "skill": "athletics",
+        "rank": 2
+      }
+    ],
+    "traits": [
+      "일반 기술"
+    ],
+    "category": "skill",
+    "prerequisites": "운동 숙련",
+    "summary": "체격에 비해 더 많이 짊어질 수 있습니다. 최대 부피 한계와 부담 부피 한계가 각각 2 증가합니다.",
+    "desc": "체격에 비해 더 많이 짊어질 수 있습니다. <strong>최대 부피 한계와 부담 부피 한계가 각각 2 증가</strong>합니다."
   },
   {
     "id": "underwater-marauder",
     "name_ko": "수중 약탈자",
     "name_en": "Underwater Marauder",
     "feat_level": 1,
-    "prerequisites": "운동 숙련",
     "prereqs": [
       {
         "skill": "athletics",
@@ -3647,6 +3752,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "운동 숙련",
     "summary": "물속에서 싸우는 법을 배웠습니다. 물속에서 무방비이 되지 않으며, 물속에서 둔기나 참격 근접 무기를 사용할 때 일반적인 페널티를 받지 않습니다.",
     "desc": "물속에서 싸우는 법을 배웠습니다. 물속에서 <strong>무방비이 되지 않으며</strong>, 물속에서 둔기나 참격 근접 무기를 사용할 때 일반적인 페널티를 받지 않습니다."
   },
@@ -3655,7 +3761,6 @@ var FEAT_DB = [
     "name_ko": "거인 레슬러",
     "name_en": "Titan Wrestler",
     "feat_level": 1,
-    "prerequisites": "운동 숙련",
     "prereqs": [
       {
         "skill": "athletics",
@@ -3666,6 +3771,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "운동 숙련",
     "summary": "자신보다 최대 두 크기 큰 생물에게 무장 해제, 붙잡기, 재배치, 밀기, 넘어뜨리기를 시도할 수 있습니다. 전설이면 세 크기까지.",
     "desc": "자신보다 최대 <strong>두 크기 큰 생물</strong>에게 무장 해제, 붙잡기, 재배치, 밀기, 넘어뜨리기를 시도할 수 있습니다. 전설이면 <strong>세 크기</strong>까지."
   },
@@ -3674,7 +3780,6 @@ var FEAT_DB = [
     "name_ko": "연금술 제작",
     "name_en": "Alchemical Crafting",
     "feat_level": 1,
-    "prerequisites": "제작 숙련",
     "prereqs": [
       {
         "skill": "crafting",
@@ -3685,6 +3790,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "제작 숙련",
     "summary": "연금술 아이템을 제작할 수 있습니다. 이 재주를 선택하면 2레벨 이하의 일반 연금술 아이템 공식 4개를 얻습니다.",
     "desc": "연금술 아이템을 제작할 수 있습니다. 이 재주를 선택하면 <strong>2레벨 이하의 일반 연금술 아이템 공식 4개</strong>를 얻습니다."
   },
@@ -3693,7 +3799,6 @@ var FEAT_DB = [
     "name_ko": "빠른 수리",
     "name_en": "Quick Repair",
     "feat_level": 1,
-    "prerequisites": "제작 숙련",
     "prereqs": [
       {
         "skill": "crafting",
@@ -3704,6 +3809,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "제작 숙련",
     "summary": "수리(Repair) 활동에서 탐험 특성이 사라지고 10분 대신 1분. 달인이면 3행동, 전설이면 1행동.",
     "desc": "수리(Repair) 활동에서 탐험 특성이 사라지고 10분 대신 <strong>1분</strong>. 달인이면 <strong>3행동</strong>, 전설이면 <strong>1행동</strong>."
   },
@@ -3712,7 +3818,6 @@ var FEAT_DB = [
     "name_ko": "전문 제작",
     "name_en": "Specialty Crafting",
     "feat_level": 1,
-    "prerequisites": "제작 숙련",
     "prereqs": [
       {
         "skill": "crafting",
@@ -3723,6 +3828,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "제작 숙련",
     "summary": "특정 종류의 아이템 제작에 집중 훈련했습니다. 아래 전문 분야 중 하나를 선택합니다; 해당 유형의 아이템을 제작할 때 +1 상황 보너스(달인이면 +2). 전문 분야: 연금술(연금술 아이템), 예술품(보석 포함 미술품), 대장간(금속 제품/금속 갑옷), 제본(책/종이), 유리 세공, 가죽 세공(가죽 갑옷 포함), 도기, 조선, 석공, 재단, 직조, 목공.",
     "desc": "특정 종류의 아이템 제작에 집중 훈련했습니다. 아래 전문 분야 중 하나를 선택합니다; 해당 유형의 아이템을 제작할 때 <strong>+1 상황 보너스</strong>(달인이면 +2).<br><strong>전문 분야:</strong> 연금술(연금술 아이템), 예술품(보석 포함 미술품), 대장간(금속 제품/금속 갑옷), 제본(책/종이), 유리 세공, 가죽 세공(가죽 갑옷 포함), 도기, 조선, 석공, 재단, 직조, 목공."
   },
@@ -3731,7 +3837,6 @@ var FEAT_DB = [
     "name_ko": "매력적인 거짓말쟁이",
     "name_en": "Charming Liar",
     "feat_level": 1,
-    "prerequisites": "기만 숙련",
     "prereqs": [
       {
         "skill": "deception",
@@ -3742,6 +3847,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "기만 숙련",
     "summary": "매력이 넘치는 거짓말로 상대방이 속은 것을 알게 되어도 당신에게 호감을 느낍니다. 거짓말(Lie)에 성공하면, 대상은 거짓말이 진행되는 동안 당신에 대한 태도가 한 단계 개선됩니다(적대적이 아닌 한). 대화가 끝나면 원래 태도로 돌아갑니다.",
     "desc": "매력이 넘치는 거짓말로 상대방이 속은 것을 알게 되어도 당신에게 호감을 느낍니다. 거짓말(Lie)에 <strong>성공하면</strong>, 대상은 거짓말이 진행되는 동안 당신에 대한 태도가 <strong>한 단계 개선</strong>됩니다(적대적이 아닌 한). 대화가 끝나면 원래 태도로 돌아갑니다."
   },
@@ -3750,7 +3856,6 @@ var FEAT_DB = [
     "name_ko": "긴 주의 분산",
     "name_en": "Lengthy Diversion",
     "feat_level": 1,
-    "prerequisites": "기만 숙련",
     "prereqs": [
       {
         "skill": "deception",
@@ -3761,6 +3866,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "기만 숙련",
     "summary": "주의 분산(Create a Diversion)에 대성공하면, 턴이 끝난 후에도 숨겨진 상태를 유지합니다. GM이 상황에 따라 지속 시간을 결정합니다(최소 1라운드 추가).",
     "desc": "주의 분산(Create a Diversion)에 <strong>대성공</strong>하면, 턴이 끝난 후에도 <strong>숨겨진 상태를 유지</strong>합니다. GM이 상황에 따라 지속 시간을 결정합니다(최소 1라운드 추가)."
   },
@@ -3769,7 +3875,6 @@ var FEAT_DB = [
     "name_ko": "거짓 간파",
     "name_en": "Lie to Me",
     "feat_level": 1,
-    "prerequisites": "기만 숙련",
     "prereqs": [
       {
         "skill": "deception",
@@ -3780,6 +3885,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "기만 숙련",
     "summary": "기만으로 함정을 놓아 당신을 속이려는 자를 잡을 수 있습니다. 당신에게 거짓말하려는 사람과 대화할 수 있으면, 지각 DC 대신 기만 DC를 사용합니다(더 높은 경우). 일방적인 연설 등에는 적용되지 않습니다.",
     "desc": "기만으로 함정을 놓아 당신을 속이려는 자를 잡을 수 있습니다. 당신에게 거짓말하려는 사람과 대화할 수 있으면, 지각 DC 대신 <strong>기만 DC</strong>를 사용합니다(더 높은 경우). 일방적인 연설 등에는 적용되지 않습니다."
   },
@@ -3788,7 +3894,6 @@ var FEAT_DB = [
     "name_ko": "집단 인상",
     "name_en": "Group Impression",
     "feat_level": 1,
-    "prerequisites": "외교 숙련",
     "prereqs": [
       {
         "skill": "diplomacy",
@@ -3799,6 +3904,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "외교 숙련",
     "summary": "인상 만들기(Make an Impression) 시 페널티 없이 최대 10명의 대상에게 결과를 비교합니다. 전문가이면 20명, 달인 50명, 전설 100명.",
     "desc": "인상 만들기(Make an Impression) 시 페널티 없이 <strong>최대 10명</strong>의 대상에게 결과를 비교합니다. 전문가이면 20명, 달인 50명, 전설 100명."
   },
@@ -3807,7 +3913,6 @@ var FEAT_DB = [
     "name_ko": "수다쟁이",
     "name_en": "Hobnobber",
     "feat_level": 1,
-    "prerequisites": "외교 숙련",
     "prereqs": [
       {
         "skill": "diplomacy",
@@ -3818,15 +3923,34 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "외교 숙련",
     "summary": "대화를 통해 정보를 수집하는 데 능숙합니다. 정보 수집(Gather Information) 탐험 활동이 보통의 절반 시간에 완료됩니다(보통 1시간). 외교 달인이고 정보 수집에 대실패하면 실패가 됩니다. 배운 소문이 정확하다는 보장은 없습니다.",
     "desc": "대화를 통해 정보를 수집하는 데 능숙합니다. 정보 수집(Gather Information) 탐험 활동이 보통의 <strong>절반 시간</strong>에 완료됩니다(보통 1시간). 외교 달인이고 정보 수집에 대실패하면 <strong>실패</strong>가 됩니다. 배운 소문이 정확하다는 보장은 없습니다."
+  },
+  {
+    "id": "bargain-hunter",
+    "name_ko": "흥정 사냥꾼",
+    "name_en": "Bargain Hunter",
+    "feat_level": 1,
+    "prereqs": [
+      {
+        "skill": "diplomacy",
+        "rank": 2
+      }
+    ],
+    "traits": [
+      "일반 기술"
+    ],
+    "category": "skill",
+    "prerequisites": "외교 숙련",
+    "summary": "외교를 사용하여 수입 벌이를 시도할 수 있으며, 매일 좋은 거래를 사냥하고 되팔아 수익을 냅니다. 또한 특정 아이템에 대해 좋은 거래를 찾는 데 시간을 쓸 수도 있습니다 — 외교로 수입 벌이를 사용하는 것과 동일하지만, 돈을 얻는 대신 그 액수만큼 할인된 가격으로 아이템을 구매합니다(벌어들인 금액이 아이템 가격과 같거나 초과하면 무료로 획득). 마지막으로, 캐릭터 생성 시 1레벨에 흥정 사냥꾼을 선택하면 시작 시 2 gp를 추가로 갖고 시작합니다.",
+    "desc": "외교를 사용하여 <strong>수입 벌이</strong>를 시도할 수 있으며, 매일 좋은 거래를 사냥하고 되팔아 수익을 냅니다. 또한 특정 아이템에 대해 좋은 거래를 찾는 데 시간을 쓸 수도 있습니다 — 외교로 수입 벌이를 사용하는 것과 동일하지만, 돈을 얻는 대신 그 액수만큼 할인된 가격으로 아이템을 구매합니다(벌어들인 금액이 아이템 가격과 같거나 초과하면 무료로 획득). 마지막으로, 캐릭터 생성 시 1레벨에 흥정 사냥꾼을 선택하면 시작 시 <strong>2 gp</strong>를 추가로 갖고 시작합니다."
   },
   {
     "id": "no-cause-for-alarm",
     "name_ko": "진정 안 돼도 괜찮아",
     "name_en": "No Cause for Alarm",
     "feat_level": 1,
-    "prerequisites": "외교 숙련",
     "prereqs": [
       {
         "skill": "diplomacy",
@@ -3842,6 +3966,8 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "actionCost": "3",
+    "prerequisites": "외교 숙련",
     "summary": "[3행동] 공포를 줄이려 합니다. 10피트 방사 내 공포(frightened) 상태인 생물의 의지 DC에 대해 외교 판정. 각 생물은 1시간 면역. 대성공: 공포 수치 2 감소. 성공: 1 감소.",
     "desc": "공포를 줄이려 합니다. 10피트 방사 내 {{condition:Frightened}} 상태인 생물의 의지 DC에 대해 외교 판정. 각 생물은 1시간 면역.<br><strong>대성공:</strong> {{condition:Frightened}} 수치 2 감소. <strong>성공:</strong> 1 감소."
   },
@@ -3850,7 +3976,6 @@ var FEAT_DB = [
     "name_ko": "위협적 노려보기",
     "name_en": "Intimidating Glare",
     "feat_level": 1,
-    "prerequisites": "위협 숙련",
     "prereqs": [
       {
         "skill": "intimidation",
@@ -3861,6 +3986,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "위협 숙련",
     "summary": "노려보기만으로도 사기 저하(Demoralize)를 할 수 있습니다. 이렇게 하면 사기 저하가 청각 특성을 잃고 시각 특성을 얻으며, 대상이 당신의 언어를 이해하지 못해도 페널티를 받지 않습니다.",
     "desc": "노려보기만으로도 사기 저하(Demoralize)를 할 수 있습니다. 이렇게 하면 사기 저하가 청각 특성을 잃고 <strong>시각 특성을 얻으며</strong>, 대상이 당신의 언어를 이해하지 못해도 <strong>페널티를 받지 않습니다</strong>."
   },
@@ -3869,7 +3995,6 @@ var FEAT_DB = [
     "name_ko": "빠른 강요",
     "name_en": "Quick Coercion",
     "feat_level": 1,
-    "prerequisites": "위협 숙련",
     "prereqs": [
       {
         "skill": "intimidation",
@@ -3880,6 +4005,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "위협 숙련",
     "summary": "몇 마디 암시만으로 효과적으로 위협합니다. 1분 대신 1라운드의 대화 후 강요(Coerce)할 수 있습니다. 여전히 전투 중이거나 대화 없이는 강요할 수 없습니다.",
     "desc": "몇 마디 암시만으로 효과적으로 위협합니다. 1분 대신 <strong>1라운드의 대화</strong> 후 강요(Coerce)할 수 있습니다. 여전히 전투 중이거나 대화 없이는 강요할 수 없습니다."
   },
@@ -3888,7 +4014,6 @@ var FEAT_DB = [
     "name_ko": "집단 강요",
     "name_en": "Group Coercion",
     "feat_level": 1,
-    "prerequisites": "위협 숙련",
     "prereqs": [
       {
         "skill": "intimidation",
@@ -3899,6 +4024,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "위협 숙련",
     "summary": "고립시키지 않고도 효과적으로 위협합니다. 강요(Coerce) 시 1명 대신 최대 5명에게 결과를 비교합니다. 각 대상에 다른 성공도가 가능합니다. 전문가이면 10명, 달인 25명, 전설 50명.",
     "desc": "고립시키지 않고도 효과적으로 위협합니다. 강요(Coerce) 시 1명 대신 <strong>최대 5명</strong>에게 결과를 비교합니다. 각 대상에 다른 성공도가 가능합니다. 전문가이면 10명, 달인 25명, 전설 50명."
   },
@@ -3907,7 +4033,6 @@ var FEAT_DB = [
     "name_ko": "전투 의료",
     "name_en": "Battle Medicine",
     "feat_level": 1,
-    "prerequisites": "의학 숙련",
     "prereqs": [
       {
         "skill": "medicine",
@@ -3920,6 +4045,8 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "actionCost": "1",
+    "prerequisites": "의학 숙련",
     "summary": "[1행동] 요구사항: 치료 키트를 착용하거나 들고 있어야 합니다. 전장에서 빠르게 상처를 치료합니다. 상처 치료(Treat Wounds) 규칙에 따라 의학 판정을 시도하지만, 10분이 아닌 1행동으로 수행합니다. 대상은 하루 동안(전장 의료와 상처 치료 모두에) 당신의 전투 의료에 면역이 됩니다. 이 면역은 당신이 레벨을 올리면 해제됩니다.",
     "desc": "<strong>요구사항:</strong> 치료 키트를 착용하거나 들고 있어야 합니다.<br>전장에서 빠르게 상처를 치료합니다. 상처 치료(Treat Wounds) 규칙에 따라 의학 판정을 시도하지만, 10분이 아닌 <strong>1행동</strong>으로 수행합니다. 대상은 하루 동안(전장 의료와 상처 치료 모두에) 당신의 전투 의료에 면역이 됩니다. 이 면역은 당신이 레벨을 올리면 해제됩니다."
   },
@@ -3928,7 +4055,6 @@ var FEAT_DB = [
     "name_ko": "자연 의학",
     "name_en": "Natural Medicine",
     "feat_level": 1,
-    "prerequisites": "자연학 숙련",
     "prereqs": [
       {
         "skill": "nature",
@@ -3939,6 +4065,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "자연학 숙련",
     "summary": "자연 치료제를 적용합니다. 의학 대신 자연학으로 상처 치료를 할 수 있습니다(더 높은 숙련도로 더 어려운 판정도 시도 가능). 상처 치료 외의 의학 용도나 재주 전제조건은 대체하지 않습니다. 야생에 있으면 신선한 재료에 더 쉽게 접근할 수 있어, GM 판단에 따라 자연학으로 상처 치료 시 +2 상황 보너스.",
     "desc": "자연 치료제를 적용합니다. 의학 대신 <strong>자연학으로 상처 치료</strong>를 할 수 있습니다(더 높은 숙련도로 더 어려운 판정도 시도 가능). 상처 치료 외의 의학 용도나 재주 전제조건은 대체하지 않습니다.<br>야생에 있으면 신선한 재료에 더 쉽게 접근할 수 있어, GM 판단에 따라 자연학으로 상처 치료 시 <strong>+2 상황 보너스</strong>."
   },
@@ -3947,7 +4074,6 @@ var FEAT_DB = [
     "name_ko": "신비 감각",
     "name_en": "Arcane Sense",
     "feat_level": 1,
-    "prerequisites": "주문학 숙련",
     "prereqs": [
       {
         "skill": "arcana",
@@ -3958,6 +4084,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "주문학 숙련",
     "summary": "마법에 대한 직관적인 감각이 발달했습니다. 마법 감지(Detect Magic) 단순 주문(cantrip)을 신비(arcane) 단순 주문으로 사용할 수 있으며, 이 단순 주문은 주문학 기술로 시전합니다. 주문학 전문가이면 이 주문을 1행동으로 시전할 수 있으며, 달인이면 자유 행동으로 사용 가능합니다. 전설이면 수동적(passive)으로 마법 감지의 효과를 지속적으로 얻습니다.",
     "desc": "마법에 대한 직관적인 감각이 발달했습니다. {{spell:Detect Magic}} 단순 주문(cantrip)을 신비(arcane) 단순 주문으로 사용할 수 있으며, 이 단순 주문은 주문학 기술로 시전합니다. 주문학 전문가이면 이 주문을 1행동으로 시전할 수 있으며, 달인이면 자유 행동으로 사용 가능합니다. 전설이면 수동적(passive)으로 마법 탐지의 효과를 지속적으로 얻습니다."
   },
@@ -3966,7 +4093,6 @@ var FEAT_DB = [
     "name_ko": "기이한 것 식별",
     "name_en": "Oddity Identification",
     "feat_level": 1,
-    "prerequisites": "오컬티즘 숙련",
     "prereqs": [
       {
         "skill": "occultism",
@@ -3977,6 +4103,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "오컬티즘 숙련",
     "summary": "마법 효과를 인지하거나 주문이 시전되는 것을 보면, 즉시 그것이 마음을 뒤트는지(정신 특성), 운에 맞서는지(행운/불운 특성), 비밀을 밝히는지(탐지/예측/폭로/관찰 특성) 판단합니다. 이런 효과에 대한 마법 식별이나 지식 회상 시 항상 오컬티즘을 페널티 없이 사용할 수 있으며 +2 상황 보너스.",
     "desc": "마법 효과를 인지하거나 주문이 시전되는 것을 보면, 즉시 그것이 마음을 뒤트는지(정신 특성), 운에 맞서는지(행운/불운 특성), 비밀을 밝히는지(탐지/예측/폭로/관찰 특성) 판단합니다. 이런 효과에 대한 마법 식별이나 지식 회상 시 항상 <strong>오컬티즘</strong>을 페널티 없이 사용할 수 있으며 <strong>+2 상황 보너스</strong>."
   },
@@ -3985,7 +4112,6 @@ var FEAT_DB = [
     "name_ko": "비밀 교육",
     "name_en": "Schooled in Secrets",
     "feat_level": 1,
-    "prerequisites": "오컬티즘 숙련",
     "prereqs": [
       {
         "skill": "occultism",
@@ -3996,6 +4122,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "오컬티즘 숙련",
     "summary": "비밀 교단과 비밀 결사의 표시와 상징을 알아챕니다. 그런 조직에 대한 정보 수집 시 외교 대신 오컬티즘을, 그런 조직 구성원 변장 시 기만 대신 오컬티즘을 사용할 수 있습니다. 비밀 조직에 속해 있으면 구성원을 자동 인식하며(은밀히 숨기지 않는 한), 그들도 당신을 인식합니다.",
     "desc": "비밀 교단과 비밀 결사의 표시와 상징을 알아챕니다. 그런 조직에 대한 정보 수집 시 외교 대신 <strong>오컬티즘</strong>을, 그런 조직 구성원 변장 시 기만 대신 <strong>오컬티즘</strong>을 사용할 수 있습니다.<br>비밀 조직에 속해 있으면 구성원을 자동 인식하며(은밀히 숨기지 않는 한), 그들도 당신을 인식합니다."
   },
@@ -4004,7 +4131,6 @@ var FEAT_DB = [
     "name_ko": "매혹적 공연",
     "name_en": "Fascinating Performance",
     "feat_level": 1,
-    "prerequisites": "공연 숙련",
     "prereqs": [
       {
         "skill": "performance",
@@ -4015,6 +4141,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "공연 숙련",
     "summary": "공연(Perform) 시, 결과를 관찰자 1명의 의지 DC와 비교합니다. 성공하면 대상이 1라운드간 매혹(fascinated)됩니다. 전투 같은 즉각적인 주의가 필요한 상황이면, 매혹시키려면 대성공해야 하며 공연 행동이 무력화(incapacitation) 특성을 얻습니다. 판정 전에 매혹시킬 대상을 선택해야 하며, 대상은 이후 1시간 면역입니다. 공연 전문가이면 최대 4명, 달인이면 10명, 전설이면 인원 제한 없이 동시에 매혹시킬 수 있습니다.",
     "desc": "공연(Perform) 시, 결과를 관찰자 1명의 의지 DC와 비교합니다. 성공하면 대상이 <strong>1라운드간 {{condition:Charmed}}(fascinated)</strong>됩니다. 전투 같은 즉각적인 주의가 필요한 상황이면, 매혹시키려면 대성공해야 하며 공연 행동이 무력화(incapacitation) 특성을 얻습니다. 판정 전에 매혹시킬 대상을 선택해야 하며, 대상은 이후 1시간 면역입니다.<br>공연 전문가이면 최대 <strong>4명</strong>, 달인이면 <strong>10명</strong>, 전설이면 <strong>인원 제한 없이</strong> 동시에 매혹시킬 수 있습니다."
   },
@@ -4023,7 +4150,6 @@ var FEAT_DB = [
     "name_ko": "인상적 공연",
     "name_en": "Impressive Performance",
     "feat_level": 1,
-    "prerequisites": "공연 숙련",
     "prereqs": [
       {
         "skill": "performance",
@@ -4034,6 +4160,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "공연 숙련",
     "summary": "공연이 감탄을 불러일으키고 팬을 얻습니다. 외교 대신 공연으로 인상 만들기를 할 수 있습니다. 관객 앞에서 최소 10분 공연하면 페널티 없이 최대 10명에게 인상 만들기. 1시간 공연이면 20명, 2시간이면 50명.",
     "desc": "공연이 감탄을 불러일으키고 팬을 얻습니다. 외교 대신 <strong>공연으로 인상 만들기</strong>를 할 수 있습니다. 관객 앞에서 최소 10분 공연하면 페널티 없이 <strong>최대 10명</strong>에게 인상 만들기. 1시간 공연이면 20명, 2시간이면 50명."
   },
@@ -4042,7 +4169,6 @@ var FEAT_DB = [
     "name_ko": "거장 공연자",
     "name_en": "Virtuosic Performer",
     "feat_level": 1,
-    "prerequisites": "공연 숙련",
     "prereqs": [
       {
         "skill": "performance",
@@ -4053,6 +4179,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "공연 숙련",
     "summary": "특정 유형의 공연에 탁월한 재능이 있습니다. 선택한 전문 분야의 공연 판정에 +1 상황 보너스(달인이면 +2). 전문 분야: 연기(드라마/판토마임/인형극), 코미디(익살/농담/리메릭), 댄스(발레/후아라/지그/마크루), 건반(하프시코드/오르간/피아노), 구연(서사시/송가/시/이야기), 타악기(차임/드럼/공/실로폰), 가창(발라드/성가/멜로디/운율), 현악기(피들/하프/류트/비올), 관악기(백파이프/플루트/리코더/트럼펫).",
     "desc": "특정 유형의 공연에 탁월한 재능이 있습니다. 선택한 전문 분야의 공연 판정에 <strong>+1 상황 보너스</strong>(달인이면 +2).<br><strong>전문 분야:</strong> 연기(드라마/판토마임/인형극), 코미디(익살/농담/리메릭), 댄스(발레/후아라/지그/마크루), 건반(하프시코드/오르간/피아노), 구연(서사시/송가/시/이야기), 타악기(차임/드럼/공/실로폰), 가창(발라드/성가/멜로디/운율), 현악기(피들/하프/류트/비올), 관악기(백파이프/플루트/리코더/트럼펫)."
   },
@@ -4061,7 +4188,6 @@ var FEAT_DB = [
     "name_ko": "경전 학도",
     "name_en": "Student of the Canon",
     "feat_level": 1,
-    "prerequisites": "종교 숙련",
     "prereqs": [
       {
         "skill": "religion",
@@ -4072,6 +4198,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "종교 숙련",
     "summary": "다양한 신앙을 충분히 연구하여 사실이 아닐 가능성이 높은 개념을 인식합니다. 종교적 성격의 문서 해독이나 신앙의 교리에 대한 지식 회상에서 대실패 시 실패가 됩니다. 자신의 신앙의 교리에 대한 지식 회상에서 실패 시 성공, 성공 시 대성공.",
     "desc": "다양한 신앙을 충분히 연구하여 사실이 아닐 가능성이 높은 개념을 인식합니다. 종교적 성격의 문서 해독이나 신앙의 교리에 대한 지식 회상에서 <strong>대실패 시 실패</strong>가 됩니다. 자신의 신앙의 교리에 대한 지식 회상에서 <strong>실패 시 성공</strong>, <strong>성공 시 대성공</strong>."
   },
@@ -4080,7 +4207,6 @@ var FEAT_DB = [
     "name_ko": "궁정 예법",
     "name_en": "Courtly Graces",
     "feat_level": 1,
-    "prerequisites": "사회 숙련",
     "prereqs": [
       {
         "skill": "society",
@@ -4091,6 +4217,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "사회 숙련",
     "summary": "귀족들 사이에서 성장했거나 적절한 예법과 태도를 익혀 귀족으로 행동하고 권력 게임에 참여할 수 있습니다. 의도적으로 다르게 행동하지 않는 한, 당신과 대화하는 이는 당신이 귀족이거나 귀족과 밀접히 연관된 사람(주요 하인 등)이라고 여깁니다. 귀족에게 인상 만들기를 사회로 할 수 있으며, 변장으로 귀족의 유형이나 특정 귀족 개인인 척할 수 있습니다. 그런 상황에서 일반 기술(외교나 기만)을 사용하면 대신 +1 상황 보너스를 받습니다.",
     "desc": "귀족들 사이에서 성장했거나 적절한 예법과 태도를 익혀 귀족으로 행동하고 권력 게임에 참여할 수 있습니다. 의도적으로 다르게 행동하지 않는 한, 당신과 대화하는 이는 당신이 귀족이거나 귀족과 밀접히 연관된 사람(주요 하인 등)이라고 여깁니다.<br>귀족에게 인상 만들기를 사회로 할 수 있으며, 변장으로 귀족의 유형이나 특정 귀족 개인인 척할 수 있습니다. 그런 상황에서 일반 기술(외교나 기만)을 사용하면 대신 <strong>+1 상황 보너스</strong>를 받습니다."
   },
@@ -4099,7 +4226,6 @@ var FEAT_DB = [
     "name_ko": "거리 지혜",
     "name_en": "Streetwise",
     "feat_level": 1,
-    "prerequisites": "사회 숙련",
     "prereqs": [
       {
         "skill": "society",
@@ -4110,6 +4236,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "사회 숙련",
     "summary": "거리 생활을 알고 지역 정착지의 맥박을 느낍니다. 외교 대신 사회로 정보 수집을 할 수 있습니다. 정기적으로 방문하는 정착지에서는 사회로 지식 회상을 사용하여 외교의 정보 수집으로 알 수 있는 것과 같은 종류의 정보를 알 수 있습니다. DC는 보통 상당히 높지만, 시간을 들이지 않고 정보를 압니다. 실패하면 이후 정상적으로 정보 수집 가능.",
     "desc": "거리 생활을 알고 지역 정착지의 맥박을 느낍니다. 외교 대신 <strong>사회로 정보 수집</strong>을 할 수 있습니다. 정기적으로 방문하는 정착지에서는 사회로 지식 회상을 사용하여 외교의 정보 수집으로 알 수 있는 것과 같은 종류의 정보를 알 수 있습니다. DC는 보통 상당히 높지만, 시간을 들이지 않고 정보를 압니다. 실패하면 이후 정상적으로 정보 수집 가능."
   },
@@ -4118,7 +4245,6 @@ var FEAT_DB = [
     "name_ko": "입술 읽기",
     "name_en": "Read Lips",
     "feat_level": 1,
-    "prerequisites": "사회 숙련",
     "prereqs": [
       {
         "skill": "society",
@@ -4129,6 +4255,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "사회 숙련",
     "summary": "명확히 볼 수 있는 근처 사람의 입술을 읽을 수 있습니다. 읽는 언어를 알아야 합니다. 여유가 있을 때는 자동. 조우 모드이거나 어려운 경우에는 입술 움직임에 집중하는 동안 매혹(fascinated)과 무방비(off-guard) 상태이며, 사회 판정(GM이 DC 결정)에 성공해야 합니다.",
     "desc": "명확히 볼 수 있는 근처 사람의 입술을 읽을 수 있습니다. 읽는 언어를 알아야 합니다. 여유가 있을 때는 자동. 조우 모드이거나 어려운 경우에는 입술 움직임에 집중하는 동안 {{condition:Charmed}}(fascinated)과 {{condition:Off-Guard}} 상태이며, 사회 판정(GM이 DC 결정)에 성공해야 합니다."
   },
@@ -4137,7 +4264,6 @@ var FEAT_DB = [
     "name_ko": "수화",
     "name_en": "Sign Language",
     "feat_level": 1,
-    "prerequisites": "사회 숙련",
     "prereqs": [
       {
         "skill": "society",
@@ -4148,6 +4274,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "사회 숙련",
     "summary": "아는 언어와 관련된 수화를 배워 수화로 소통하고 이해할 수 있습니다. 수화는 보통 복잡한 개념을 전달하려면 양손이 필요하며, 청각이 아닌 시각적입니다. 전투 중에는 기본 몸짓(적을 가리키기 등)과 달리 이해하기 어렵습니다. 저시야 지역에서는 시야가 어려운 것처럼 수화도 어렵습니다.",
     "desc": "아는 언어와 관련된 수화를 배워 수화로 소통하고 이해할 수 있습니다. 수화는 보통 복잡한 개념을 전달하려면 양손이 필요하며, 청각이 아닌 시각적입니다. 전투 중에는 기본 몸짓(적을 가리키기 등)과 달리 이해하기 어렵습니다. 저시야 지역에서는 시야가 어려운 것처럼 수화도 어렵습니다."
   },
@@ -4156,7 +4283,6 @@ var FEAT_DB = [
     "name_ko": "다국어",
     "name_en": "Multilingual",
     "feat_level": 1,
-    "prerequisites": "사회 숙련",
     "prereqs": [
       {
         "skill": "society",
@@ -4167,6 +4293,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "사회 숙련",
     "summary": "새 언어를 쉽게 습득합니다. 일반, 비일반, 접근 가능한 언어에서 2개를 추가로 배웁니다. 사회 달인이 되면 추가 1개, 전설이면 또 1개. 특수: 여러 번 선택 가능. 매번 추가 언어를 배웁니다.",
     "desc": "새 언어를 쉽게 습득합니다. 일반, 비일반, 접근 가능한 언어에서 <strong>2개를 추가로</strong> 배웁니다. 사회 달인이 되면 추가 1개, 전설이면 또 1개.<br><strong>특수:</strong> 여러 번 선택 가능. 매번 추가 언어를 배웁니다.",
     "repeatable": true
@@ -4176,7 +4303,6 @@ var FEAT_DB = [
     "name_ko": "숙련된 밀수꾼",
     "name_en": "Experienced Smuggler",
     "feat_level": 1,
-    "prerequisites": "은신 숙련",
     "prereqs": [
       {
         "skill": "stealth",
@@ -4187,6 +4313,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "은신 숙련",
     "summary": "자주 물건을 밀수합니다. GM이 숨긴 작은 물건에 대한 수동 관찰자의 은신 판정을 굴릴 때, 실제 주사위 결과와 10 중 높은 것을 사용합니다. 달인이면 15, 전설이면 수동 관찰자에게 자동 성공. 적극적으로 수색하는 생물에게는 효과 없음.",
     "desc": "자주 물건을 밀수합니다. GM이 숨긴 작은 물건에 대한 수동 관찰자의 은신 판정을 굴릴 때, 실제 주사위 결과와 <strong>10 중 높은 것</strong>을 사용합니다. 달인이면 15, 전설이면 수동 관찰자에게 자동 성공. 적극적으로 수색하는 생물에게는 효과 없음."
   },
@@ -4195,7 +4322,6 @@ var FEAT_DB = [
     "name_ko": "숙련된 추적자",
     "name_en": "Experienced Tracker",
     "feat_level": 1,
-    "prerequisites": "생존 숙련",
     "prereqs": [
       {
         "skill": "survival",
@@ -4206,6 +4332,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "생존 숙련",
     "summary": "추적이 제2의 천성입니다. 생존 판정에 -5 페널티를 받고 전체 속도로 추적할 수 있습니다. 달인이면 페널티 없음. 전설이면 매시간 새 판정 불필요(흔적에 큰 변화가 있을 때만).",
     "desc": "추적이 제2의 천성입니다. 생존 판정에 <strong>-5 페널티</strong>를 받고 <strong>전체 속도로 추적</strong>할 수 있습니다. 달인이면 페널티 없음. 전설이면 매시간 새 판정 불필요(흔적에 큰 변화가 있을 때만)."
   },
@@ -4214,7 +4341,6 @@ var FEAT_DB = [
     "name_ko": "지형 은신가",
     "name_en": "Terrain Stalker",
     "feat_level": 1,
-    "prerequisites": "은신 숙련",
     "prereqs": [
       {
         "skill": "stealth",
@@ -4225,6 +4351,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "은신 숙련",
     "summary": "험지 유형 1개를 선택합니다(잔해, 눈, 수풀). 해당 지형에서 모든 비아군에게 미탐지 상태일 때, 5피트 이하로 이동하고 10피트 내 적을 지나지 않는 한 은신 판정 없이 잠행할 수 있습니다. 탐험 중에는 주의 회피 중 다른 생물에 15피트 내까지 자동 접근합니다(적극 수색/경계 중이 아닌 한). 특수: 여러 번 선택 가능. 매번 다른 지형.",
     "desc": "험지 유형 1개를 선택합니다(잔해, 눈, 수풀). 해당 지형에서 모든 비아군에게 미탐지 상태일 때, 5피트 이하로 이동하고 10피트 내 적을 지나지 않는 한 <strong>은신 판정 없이 잠행</strong>할 수 있습니다.<br>탐험 중에는 주의 회피 중 다른 생물에 <strong>15피트 내까지 자동 접근</strong>합니다(적극 수색/경계 중이 아닌 한).<br><strong>특수:</strong> 여러 번 선택 가능. 매번 다른 지형.",
     "repeatable": true
@@ -4234,7 +4361,6 @@ var FEAT_DB = [
     "name_ko": "미묘한 도둑질",
     "name_en": "Subtle Theft",
     "feat_level": 1,
-    "prerequisites": "도둑질 숙련",
     "prereqs": [
       {
         "skill": "thievery",
@@ -4245,6 +4371,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "도둑질 숙련",
     "summary": "성공적으로 훔칠 때, 관찰자(훔친 대상이 아닌 다른 생물)가 당신의 도둑질을 탐지하는 지각 DC에 -2 상황 페널티를 받습니다. 또한 먼저 주의 분산(Create a Diversion)을 하면, 손재주(Palm an Object)나 훔치기(Steal) 1회를 해도 미탐지 상태가 유지됩니다.",
     "desc": "성공적으로 훔칠 때, 관찰자(훔친 대상이 아닌 다른 생물)가 당신의 도둑질을 탐지하는 지각 DC에 <strong>-2 상황 페널티</strong>를 받습니다. 또한 먼저 주의 분산(Create a Diversion)을 하면, 손재주(Palm an Object)나 훔치기(Steal) 1회를 해도 <strong>미탐지 상태가 유지</strong>됩니다."
   },
@@ -4253,7 +4380,6 @@ var FEAT_DB = [
     "name_ko": "소매치기",
     "name_en": "Pickpocket",
     "feat_level": 1,
-    "prerequisites": "도둑질 숙련",
     "prereqs": [
       {
         "skill": "thievery",
@@ -4264,6 +4390,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "도둑질 숙련",
     "summary": "주머니 같은 밀접하게 지켜지는 물건을 -5 페널티 없이 훔치거나 손재주로 다룰 수 있습니다. 극히 눈에 띄거나 시간이 걸리는 물건(착용 신발, 갑옷, 사용 중인 무기 등)은 여전히 불가. 달인이면 전투 중이거나 경계 중인 생물에게도 시도 가능(2행동, -5 페널티).",
     "desc": "주머니 같은 밀접하게 지켜지는 물건을 <strong>-5 페널티 없이</strong> 훔치거나 손재주로 다룰 수 있습니다. 극히 눈에 띄거나 시간이 걸리는 물건(착용 신발, 갑옷, 사용 중인 무기 등)은 여전히 불가. 달인이면 전투 중이거나 경계 중인 생물에게도 시도 가능(2행동, -5 페널티)."
   },
@@ -4272,7 +4399,6 @@ var FEAT_DB = [
     "name_ko": "채집가",
     "name_en": "Forager",
     "feat_level": 1,
-    "prerequisites": "생존 숙련",
     "prereqs": [
       {
         "skill": "survival",
@@ -4283,6 +4409,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "생존 숙련",
     "summary": "생존으로 생존(Subsist)할 때, 성공보다 나쁜 결과를 굴려도 성공이 됩니다. 성공하면 자신과 추가 4명에게 생활을 제공하고, 대성공이면 두 배. 절반 인원에게 편안한 생활을 제공할 수도 있습니다. 생존 전문가이면 추가 8명, 달인 16명, 전설 32명.",
     "desc": "생존으로 생존(Subsist)할 때, 성공보다 나쁜 결과를 굴려도 <strong>성공</strong>이 됩니다. 성공하면 자신과 추가 <strong>4명</strong>에게 생활을 제공하고, 대성공이면 두 배. 절반 인원에게 편안한 생활을 제공할 수도 있습니다. 생존 전문가이면 추가 8명, 달인 16명, 전설 32명."
   },
@@ -4291,7 +4418,6 @@ var FEAT_DB = [
     "name_ko": "지형 전문가",
     "name_en": "Terrain Expertise",
     "feat_level": 1,
-    "prerequisites": "생존 숙련",
     "prereqs": [
       {
         "skill": "survival",
@@ -4302,6 +4428,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "생존 숙련",
     "summary": "특정 지형 유형에서의 경험이 뛰어난 자신감을 줍니다. 선택한 지형(수중, 극지, 사막, 숲, 산, 평원, 하늘, 늪, 지하)에서 생존 판정에 +1 상황 보너스. 특수: 여러 번 선택 가능. 매번 다른 지형.",
     "desc": "특정 지형 유형에서의 경험이 뛰어난 자신감을 줍니다. 선택한 지형(수중, 극지, 사막, 숲, 산, 평원, 하늘, 늪, 지하)에서 생존 판정에 <strong>+1 상황 보너스</strong>.<br><strong>특수:</strong> 여러 번 선택 가능. 매번 다른 지형.",
     "repeatable": true
@@ -4311,7 +4438,6 @@ var FEAT_DB = [
     "name_ko": "야생 동물 조사",
     "name_en": "Survey Wildlife",
     "feat_level": 1,
-    "prerequisites": "생존 숙련",
     "prereqs": [
       {
         "skill": "survival",
@@ -4322,15 +4448,36 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "생존 숙련",
     "summary": "야생의 세부 사항을 관찰하여 근처 생물의 존재를 파악합니다. 10분간 주변을 평가하여 둥지, 배설물, 식물의 흔적을 기반으로 근처 생물을 알아냅니다. GM이 DC를 결정합니다. 성공하면 이 흔적만으로 지식 회상을 시도하여 생물에 대해 더 배울 수 있습니다(-2 페널티, 달인이면 페널티 없음).",
     "desc": "야생의 세부 사항을 관찰하여 근처 생물의 존재를 파악합니다. 10분간 주변을 평가하여 둥지, 배설물, 식물의 흔적을 기반으로 근처 생물을 알아냅니다. GM이 DC를 결정합니다. 성공하면 이 흔적만으로 지식 회상을 시도하여 생물에 대해 더 배울 수 있습니다(-2 페널티, 달인이면 페널티 없음)."
+  },
+  {
+    "id": "train-animal",
+    "name_ko": "동물 훈련",
+    "name_en": "Train Animal",
+    "feat_level": 1,
+    "prereqs": [
+      {
+        "skill": "nature",
+        "rank": 2
+      }
+    ],
+    "traits": [
+      "일반 기술 휴식 조작",
+      "휴식",
+      "조작"
+    ],
+    "category": "skill",
+    "prerequisites": "자연학 숙련",
+    "summary": "동물에게 특정 행동을 가르칩니다. 이미 알고 있는 기본 행동을 선택하거나(동물 명령의 행동 목록) 새 기본 행동을 가르칩니다. GM이 DC와 소요 시간을 결정합니다(보통 최소 1주일). 비판적 사고가 필요한 속임수는 보통 불가능합니다. 전문가/달인/전설이면 더 특이한 생물도 훈련 가능(GM 재량). 성공: 동물이 행동을 배웁니다. 이미 알던 행동이면 자연학 판정 없이 명령 가능. 새 행동이면 명령 가능 목록에 추가되지만 판정은 필요. \n실패: 동물이 배우지 못합니다.",
+    "desc": "동물에게 특정 행동을 가르칩니다. 이미 알고 있는 기본 행동을 선택하거나(동물 명령의 행동 목록) 새 기본 행동을 가르칩니다. GM이 DC와 소요 시간을 결정합니다(보통 최소 1주일). 비판적 사고가 필요한 속임수는 보통 불가능합니다. 전문가/달인/전설이면 더 특이한 생물도 훈련 가능(GM 재량).<br><strong>성공:</strong> 동물이 행동을 배웁니다. 이미 알던 행동이면 자연학 판정 없이 명령 가능. 새 행동이면 명령 가능 목록에 추가되지만 판정은 필요.<br>\n<strong>실패:</strong> 동물이 배우지 못합니다."
   },
   {
     "id": "automatic-knowledge",
     "name_ko": "자동 지식",
     "name_en": "Automatic Knowledge",
     "feat_level": 2,
-    "prerequisites": "지식 회상 행동에 전문가, 해당 기술에 확신(Assurance)",
     "prereqs": [
       {
         "or": [
@@ -4369,6 +4516,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "지식 회상 행동에 전문가, 해당 기술에 확신(Assurance)",
     "summary": "라운드당 1회, 자유 행동으로 지식 회상을 사용할 수 있습니다. 이때 확인의 결과를 사용해야 합니다. 특수: 여러 번 선택 가능. 매번 다른 기술(전문가 이상이고 확인이 있어야).",
     "desc": "라운드당 1회, <strong>자유 행동으로 지식 회상</strong>을 사용할 수 있습니다. 이때 확인의 결과를 사용해야 합니다.<br><strong>특수:</strong> 여러 번 선택 가능. 매번 다른 기술(전문가 이상이고 확인이 있어야).",
     "repeatable": true
@@ -4378,7 +4526,6 @@ var FEAT_DB = [
     "name_ko": "마법 속기",
     "name_en": "Magical Shorthand",
     "feat_level": 2,
-    "prerequisites": "주문학, 자연학, 오컬티즘, 또는 종교에 전문가",
     "prereqs": [
       {
         "or": [
@@ -4405,6 +4552,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "주문학, 자연학, 오컬티즘, 또는 종교에 전문가",
     "summary": "주문 학습이 쉽게 됩니다. 주문 학습에 성공하면 주문 랭크에 관계없이 10분만 걸립니다. 성공할 결과를 굴리면 대성공이 됩니다. 실패하면 1주일 후 또는 레벨을 올린 후(먼저 오는 것) 재시도 가능. 또한 휴식을 사용하여 새 주문을 배울 수 있습니다. 전통의 관련 기술로 돈 벌기(Earn Income)처럼 작동하지만, 돈 대신 배울 주문을 선택하여 학습 비용에 대한 할인을 받습니다(벌어들인 수입이 비용 이상이면 무료).",
     "desc": "주문 학습이 쉽게 됩니다. 주문 학습에 성공하면 주문 랭크에 관계없이 <strong>10분</strong>만 걸립니다. 성공할 결과를 굴리면 <strong>대성공</strong>이 됩니다. 실패하면 1주일 후 또는 레벨을 올린 후(먼저 오는 것) 재시도 가능.<br>또한 휴식을 사용하여 새 주문을 배울 수 있습니다. 전통의 관련 기술로 돈 벌기(Earn Income)처럼 작동하지만, 돈 대신 배울 주문을 선택하여 학습 비용에 대한 할인을 받습니다(벌어들인 수입이 비용 이상이면 무료)."
   },
@@ -4413,7 +4561,6 @@ var FEAT_DB = [
     "name_ko": "민첩한 기기",
     "name_en": "Nimble Crawl",
     "feat_level": 2,
-    "prerequisites": "곡예 전문가",
     "prereqs": [
       {
         "skill": "acrobatics",
@@ -4424,6 +4571,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "곡예 전문가",
     "summary": "놀라울 정도로 빠르게 기어갑니다 — 5피트 대신 절반 속도까지. 달인이면 전체 속도, 전설이면 엎드린 상태에서 무방비이 되지 않습니다.",
     "desc": "놀라울 정도로 빠르게 기어갑니다 — 5피트 대신 <strong>절반 속도</strong>까지. 달인이면 전체 속도, 전설이면 엎드린 상태에서 <strong>무방비이 되지 않습니다</strong>."
   },
@@ -4432,7 +4580,6 @@ var FEAT_DB = [
     "name_ko": "강력한 도약",
     "name_en": "Powerful Leap",
     "feat_level": 2,
-    "prerequisites": "운동 전문가",
     "prereqs": [
       {
         "skill": "athletics",
@@ -4443,6 +4590,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "운동 전문가",
     "summary": "높이뛰기(High Jump) 없이도 수직 도약(Leap)으로 5피트 위로 뛸 수 있습니다. 또한 도약/높이뛰기/멀리뛰기 시 수평 거리가 5피트 증가합니다.",
     "desc": "높이뛰기(High Jump) 없이도 수직 도약(Leap)으로 <strong>5피트 위로</strong> 뛸 수 있습니다. 또한 도약/높이뛰기/멀리뛰기 시 수평 거리가 <strong>5피트 증가</strong>합니다."
   },
@@ -4451,7 +4599,6 @@ var FEAT_DB = [
     "name_ko": "빠른 발걸음",
     "name_en": "Rapid Mantel",
     "feat_level": 2,
-    "prerequisites": "운동 전문가",
     "prereqs": [
       {
         "skill": "athletics",
@@ -4462,15 +4609,35 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "운동 전문가",
     "summary": "모서리를 쉽게 잡고 올라갑니다. 모서리 잡기(Grab an Edge)를 하면 표면 위로 올라서 일어설 수 있습니다. 반사 내성 대신 운동으로 모서리 잡기를 할 수 있습니다. 모서리 꼭대기에서 5피트 아래까지 등반/도약하면 그 행동의 일부로 올라서 일어설 수 있습니다.",
     "desc": "모서리를 쉽게 잡고 올라갑니다. 모서리 잡기(Grab an Edge)를 하면 표면 위로 올라서 일어설 수 있습니다. 반사 내성 대신 <strong>운동으로 모서리 잡기</strong>를 할 수 있습니다. 모서리 꼭대기에서 5피트 아래까지 등반/도약하면 그 행동의 일부로 올라서 일어설 수 있습니다."
+  },
+  {
+    "id": "inventor",
+    "name_ko": "발명가",
+    "name_en": "Inventor",
+    "feat_level": 2,
+    "prereqs": [
+      {
+        "skill": "crafting",
+        "rank": 4
+      }
+    ],
+    "traits": [
+      "일반 기술 휴식",
+      "휴식"
+    ],
+    "category": "skill",
+    "prerequisites": "제작 전문가",
+    "summary": "제작에 천재적이어서 물건이 어떻게 만들어지는지 쉽게 파악하고 새로운 발명을 합니다. 휴식을 사용하여 모르는 일반 공식을 발명할 수 있습니다. 제작 활동과 같은 방식으로 작동합니다(가격의 절반을 선불, 제작 판정, 성공 시 완성 또는 추가 작업). 차이점은 아이템을 만드는 대신 연구, 설계, 개발에 시간을 보낸다는 것입니다. 완성되면 공식서에 추가합니다. GM이 비일반이나 희귀 공식의 발명을 허용할 수 있습니다(보통 DC 증가). 연금술 공식에는 연금술 제작, 마법 공식에는 마법 제작 재주가 필요합니다.",
+    "desc": "제작에 천재적이어서 물건이 어떻게 만들어지는지 쉽게 파악하고 새로운 발명을 합니다. 휴식을 사용하여 모르는 일반 공식을 <strong>발명</strong>할 수 있습니다. 제작 활동과 같은 방식으로 작동합니다(가격의 절반을 선불, 제작 판정, 성공 시 완성 또는 추가 작업). 차이점은 아이템을 만드는 대신 연구, 설계, 개발에 시간을 보낸다는 것입니다. 완성되면 공식서에 추가합니다.<br><br>GM이 비일반이나 희귀 공식의 발명을 허용할 수 있습니다(보통 DC 증가). 연금술 공식에는 {{feat:Alchemical Crafting}}, 마법 공식에는 {{feat:Magical Crafting}} 재주가 필요합니다."
   },
   {
     "id": "magical-crafting",
     "name_ko": "마법 제작",
     "name_en": "Magical Crafting",
     "feat_level": 2,
-    "prerequisites": "제작 전문가",
     "prereqs": [
       {
         "skill": "crafting",
@@ -4481,6 +4648,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "제작 전문가",
     "summary": "마법 아이템을 제작할 수 있습니다. 다만 일부는 다른 요구사항이 있을 수 있습니다(GM Core 참조). 이 재주를 선택하면 2레벨 이하의 일반 마법 아이템 공식 4개를 얻습니다.",
     "desc": "마법 아이템을 제작할 수 있습니다. 다만 일부는 다른 요구사항이 있을 수 있습니다(GM Core 참조). 이 재주를 선택하면 <strong>2레벨 이하의 일반 마법 아이템 공식 4개</strong>를 얻습니다."
   },
@@ -4489,7 +4657,6 @@ var FEAT_DB = [
     "name_ko": "빠른 변장",
     "name_en": "Quick Disguise",
     "feat_level": 2,
-    "prerequisites": "기만 전문가",
     "prereqs": [
       {
         "skill": "deception",
@@ -4500,6 +4667,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "기만 전문가",
     "summary": "보통 시간의 1/10에 변장을 만듭니다(보통 1분). 달인이면 변장+변장(Impersonate)이 3행동 활동, 전설이면 1행동.",
     "desc": "보통 시간의 <strong>1/10</strong>에 변장을 만듭니다(보통 1분). 달인이면 변장+변장(Impersonate)이 <strong>3행동 활동</strong>, 전설이면 <strong>1행동</strong>."
   },
@@ -4508,7 +4676,6 @@ var FEAT_DB = [
     "name_ko": "기쁜 손",
     "name_en": "Glad-Hand",
     "feat_level": 2,
-    "prerequisites": "외교 전문가",
     "prereqs": [
       {
         "skill": "diplomacy",
@@ -4519,6 +4686,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "외교 전문가",
     "summary": "첫 인상이 당신의 강점입니다. 일상적이거나 사교적인 상황에서 누군가를 만나면, 1분 대화 없이도 즉시 인상 만들기를 시도할 수 있습니다. 실패하면 1분 대화 후 실패/대실패 결과 대신 새 판정을 시도할 수 있습니다.",
     "desc": "첫 인상이 당신의 강점입니다. 일상적이거나 사교적인 상황에서 누군가를 만나면, 1분 대화 없이도 즉시 <strong>인상 만들기를 시도</strong>할 수 있습니다. 실패하면 1분 대화 후 실패/대실패 결과 대신 새 판정을 시도할 수 있습니다."
   },
@@ -4527,7 +4695,6 @@ var FEAT_DB = [
     "name_ko": "위협적 체격",
     "name_en": "Intimidating Prowess",
     "feat_level": 2,
-    "prerequisites": "근력 +3, 위협 전문가",
     "prereqs": [
       {
         "ability": "str",
@@ -4542,6 +4709,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "근력 +3, 위협 전문가",
     "summary": "물리적으로 위협할 수 있는 상황에서 강요나 사기 저하 시 +1 상황 보너스를 얻고, 언어를 공유하지 않아도 페널티를 무시합니다. 근력 +5 이상이고 위협 달인이면 보너스가 +2.",
     "desc": "물리적으로 위협할 수 있는 상황에서 강요나 사기 저하 시 <strong>+1 상황 보너스</strong>를 얻고, 언어를 공유하지 않아도 <strong>페널티를 무시</strong>합니다. 근력 +5 이상이고 위협 달인이면 보너스가 <strong>+2</strong>."
   },
@@ -4550,7 +4718,6 @@ var FEAT_DB = [
     "name_ko": "지속 강요",
     "name_en": "Lasting Coercion",
     "feat_level": 2,
-    "prerequisites": "위협 전문가",
     "prereqs": [
       {
         "skill": "intimidation",
@@ -4561,6 +4728,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "위협 전문가",
     "summary": "성공적으로 강요하면 대상이 복종하는 최대 시간이 1주일로 증가합니다(GM 결정). 전설이면 최대 1개월.",
     "desc": "성공적으로 강요하면 대상이 복종하는 최대 시간이 <strong>1주일</strong>로 증가합니다(GM 결정). 전설이면 최대 <strong>1개월</strong>."
   },
@@ -4569,7 +4737,6 @@ var FEAT_DB = [
     "name_ko": "강건한 회복",
     "name_en": "Robust Recovery",
     "feat_level": 2,
-    "prerequisites": "의학 전문가",
     "prereqs": [
       {
         "skill": "medicine",
@@ -4580,6 +4747,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "의학 전문가",
     "summary": "질병과 독에서 회복하는 민간 의학을 배웠고, 부지런히 사용하여 특히 회복력이 강해졌습니다. 질병 치료나 독 치료를 하거나 받을 때, 성공 시 상황 보너스가 +4로 증가하고, 환자의 내성 결과가 성공이면 대성공이 됩니다.",
     "desc": "질병과 독에서 회복하는 민간 의학을 배웠고, 부지런히 사용하여 특히 회복력이 강해졌습니다. 질병 치료나 독 치료를 하거나 받을 때, 성공 시 상황 보너스가 <strong>+4로 증가</strong>하고, 환자의 내성 결과가 성공이면 <strong>대성공</strong>이 됩니다."
   },
@@ -4588,7 +4756,6 @@ var FEAT_DB = [
     "name_ko": "지속 회복",
     "name_en": "Continual Recovery",
     "feat_level": 2,
-    "prerequisites": "의학 전문가",
     "prereqs": [
       {
         "skill": "medicine",
@@ -4599,6 +4766,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "의학 전문가",
     "summary": "상처 치료(Treat Wounds) 후 대상의 면역 시간이 1시간이 아닌 10분으로 줄어듭니다.",
     "desc": "상처 치료(Treat Wounds) 후 대상의 면역 시간이 1시간이 아닌 <strong>10분</strong>으로 줄어듭니다."
   },
@@ -4607,7 +4775,6 @@ var FEAT_DB = [
     "name_ko": "구역 의무관",
     "name_en": "Ward Medic",
     "feat_level": 2,
-    "prerequisites": "의학 전문가",
     "prereqs": [
       {
         "skill": "medicine",
@@ -4618,6 +4785,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "의학 전문가",
     "summary": "대규모 의료 구역에서 여러 환자를 동시에 치료하는 법을 배웠습니다. 질병 치료나 상처 치료 시 최대 2명을 동시에 치료합니다. 달인이면 4명, 전설이면 8명.",
     "desc": "대규모 의료 구역에서 여러 환자를 동시에 치료하는 법을 배웠습니다. 질병 치료나 상처 치료 시 <strong>최대 2명</strong>을 동시에 치료합니다. 달인이면 4명, 전설이면 8명."
   },
@@ -4626,7 +4794,6 @@ var FEAT_DB = [
     "name_ko": "비정상 치료",
     "name_en": "Unusual Treatment",
     "feat_level": 2,
-    "prerequisites": "의학 전문가",
     "prereqs": [
       {
         "skill": "medicine",
@@ -4637,6 +4804,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "의학 전문가",
     "summary": "의료 훈련이 덜 명확한 상태까지 확장됩니다. DC 20 상처 치료 성공 시, 환자의 서투름(clumsy)/약화(enfeebled)/현기증(stupefied) 중 하나의 수치를 1 줄입니다. 한 번에 1명만 혜택. 하루 1회. 달인이면 DC 30으로 소진(drained)도 제거 가능. 전설이면 선택한 상태를 2만큼 줄입니다.",
     "desc": "의료 훈련이 덜 명확한 상태까지 확장됩니다. DC 20 상처 치료 성공 시, 환자의 {{condition:Clumsy}}/{{condition:Enfeebled}}/{{condition:Stupefied}} 중 하나의 수치를 <strong>1 줄입니다</strong>. 한 번에 1명만 혜택. 하루 1회. 달인이면 DC 30으로 {{condition:Drained}}도 제거 가능. 전설이면 선택한 상태를 <strong>2만큼 줄입니다</strong>."
   },
@@ -4645,7 +4813,6 @@ var FEAT_DB = [
     "name_ko": "추가 지식",
     "name_en": "Additional Lore",
     "feat_level": 2,
-    "prerequisites": "지식 전문가",
     "prereqs": [
       {
         "lore": 4
@@ -4655,6 +4822,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "지식 전문가",
     "summary": "지식의 영역을 넓혔습니다. 새로운 지식(Lore) 하위 기술을 선택합니다. 해당 기술에 전문가가 됩니다. 특수: 여러 번 선택 가능. 매번 다른 지식 하위 기술을 선택합니다.",
     "desc": "지식의 영역을 넓혔습니다. 새로운 지식(Lore) 하위 기술을 선택합니다. 해당 기술에 <strong>전문가</strong>가 됩니다.<br><strong>특수:</strong> 여러 번 선택 가능. 매번 다른 지식 하위 기술을 선택합니다.",
     "repeatable": true
@@ -4664,7 +4832,6 @@ var FEAT_DB = [
     "name_ko": "전문적 경험",
     "name_en": "Experienced Professional",
     "feat_level": 2,
-    "prerequisites": "지식 전문가",
     "prereqs": [
       {
         "lore": 4
@@ -4674,6 +4841,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "지식 전문가",
     "summary": "직업의 전문성이 당신의 업무를 돋보이게 합니다. 지식으로 돈 벌기(Earn Income)를 시도할 때, 실패해도 당신과 지정한 다른 생물들에게 하루 1 sp(구리 동전 10개) 가치의 생활을 제공합니다. 결정적 실패 시, 피해를 주는 실수 없이 단순히 아무것도 벌지 못합니다.",
     "desc": "직업의 전문성이 당신의 업무를 돋보이게 합니다. 지식으로 돈 벌기(Earn Income)를 시도할 때, 실패해도 당신과 지정한 다른 생물들에게 하루 1 sp(구리 동전 10개) 가치의 생활을 제공합니다. 결정적 실패 시, 피해를 주는 실수 없이 단순히 아무것도 벌지 못합니다."
   },
@@ -4682,7 +4850,6 @@ var FEAT_DB = [
     "name_ko": "조용한 동맹",
     "name_en": "Quiet Allies",
     "feat_level": 2,
-    "prerequisites": "은신 전문가",
     "prereqs": [
       {
         "skill": "stealth",
@@ -4693,6 +4860,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "은신 전문가",
     "summary": "집단과 함께 이동하는 데 능숙합니다. 주의 회피(Avoiding Notice) 중 아군이 전문가 따르기(Follow the Expert)를 사용하면, 각자 따로 굴리지 않고 가장 낮은 수정치로 단일 은신 판정을 굴립니다. 우선권에는 적용 안 됨.",
     "desc": "집단과 함께 이동하는 데 능숙합니다. 주의 회피(Avoiding Notice) 중 아군이 전문가 따르기(Follow the Expert)를 사용하면, 각자 따로 굴리지 않고 <strong>가장 낮은 수정치로 단일 은신 판정</strong>을 굴립니다. 우선권에는 적용 안 됨."
   },
@@ -4701,7 +4869,6 @@ var FEAT_DB = [
     "name_ko": "경계 해제",
     "name_en": "Wary Disarmament",
     "feat_level": 2,
-    "prerequisites": "도둑질 전문가",
     "prereqs": [
       {
         "skill": "thievery",
@@ -4712,15 +4879,35 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "도둑질 전문가",
     "summary": "장치 해제 중 장치를 유발하거나 함정을 작동시키면, 그 장치/함정의 공격이나 효과에 대해 AC 또는 내성에 +2 상황 보너스. 실패로 유발된 공격/효과에만 적용되며, 이후 추가 공격(복합 함정 등)에는 적용 안 됨.",
     "desc": "장치 해제 중 장치를 유발하거나 함정을 작동시키면, 그 장치/함정의 공격이나 효과에 대해 <strong>AC 또는 내성에 +2 상황 보너스</strong>. 실패로 유발된 공격/효과에만 적용되며, 이후 추가 공격(복합 함정 등)에는 적용 안 됨."
+  },
+  {
+    "id": "bonded-animal",
+    "name_ko": "유대 동물",
+    "name_en": "Bonded Animal",
+    "feat_level": 2,
+    "prereqs": [
+      {
+        "skill": "nature",
+        "rank": 4
+      }
+    ],
+    "traits": [
+      "일반 기술 휴식",
+      "휴식"
+    ],
+    "category": "skill",
+    "prerequisites": "자연학 전문가",
+    "summary": "동물과 강한 유대를 맺을 수 있습니다. 우호적 또는 협력적인 일반 동물(동료나 특수 동물이 아닌)과 7일 동안 꾸준히 교류하여 유대를 쌓을 수 있습니다. 그 후 동물의 의지 DC에 대항하여 자연학 판정을 시도합니다. 성공하면 동물과 유대가 형성됩니다. 다른 동물과 유대를 맺거나 관계를 심각하게 손상시키지 않는 한 유대는 영구적으로 지속됩니다. 유대를 맺은 동물은 협력적 태도 덕분에 더 쉽게 지시할 수 있습니다. 유대 동물이 -1레벨이면 하수인(minion) 특성을 얻어 더 효율적으로 명령할 수 있습니다. 자연학 달인이면 하수인...",
+    "desc": "동물과 강한 유대를 맺을 수 있습니다. 우호적 또는 협력적인 일반 동물(동료나 특수 동물이 아닌)과 7일 동안 꾸준히 교류하여 유대를 쌓을 수 있습니다. 그 후 동물의 의지 DC에 대항하여 자연학 판정을 시도합니다. 성공하면 동물과 유대가 형성됩니다. 다른 동물과 유대를 맺거나 관계를 심각하게 손상시키지 않는 한 유대는 영구적으로 지속됩니다.<br>유대를 맺은 동물은 협력적 태도 덕분에 더 쉽게 지시할 수 있습니다. 유대 동물이 -1레벨이면 하수인(minion) 특성을 얻어 더 효율적으로 명령할 수 있습니다. 자연학 달인이면 하수인이 될 수 있는 최대 레벨이 3으로, 전설이면 11로 증가합니다.<br><strong>특수:</strong> 유대 동물과 동물 동료를 동시에 가질 수 없습니다(반려동물이나 사역마와는 동시에 가질 수 있음)."
   },
   {
     "id": "unmistakable-lore",
     "name_ko": "틀림없는 지식",
     "name_en": "Unmistakable Lore",
     "feat_level": 2,
-    "prerequisites": "지식 전문가",
     "prereqs": [
       {
         "lore": 4
@@ -4730,6 +4917,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "지식 전문가",
     "summary": "전문 분야에 대한 정보를 절대 틀리지 않습니다. 숙련된 지식 하위 범주로 지식 회상에서 대실패 시 실패가 됩니다. 달인이면 대성공 시 평소보다 더 많은 정보나 맥락을 얻습니다. 세계에 당신의 흔적을 남기려면 적절한 장비가 필요합니다 — 갑옷, 무기, 기타 장비를 포함하여. 이 장에서는 캐릭터 생성 중에 구매할 수 있는 다양한 장비를 제시합니다. 보통 대부분의 도시와 대형 정착지에서 이 아이템들을 구매할 수 있습니다. 캐릭터는 15금화(gp)(150은화)로 시작하여 이 장의 일반 아이템을 구매합니다. 비일반 희귀도 아이템은 캐릭...",
     "desc": "전문 분야에 대한 정보를 절대 틀리지 않습니다. 숙련된 지식 하위 범주로 지식 회상에서 <strong>대실패 시 실패</strong>가 됩니다. 달인이면 대성공 시 평소보다 더 많은 정보나 맥락을 얻습니다.<br>세계에 당신의 흔적을 남기려면 적절한 장비가 필요합니다 — 갑옷, 무기, 기타 장비를 포함하여. 이 장에서는 캐릭터 생성 중에 구매할 수 있는 다양한 장비를 제시합니다. 보통 대부분의 도시와 대형 정착지에서 이 아이템들을 구매할 수 있습니다.<br>캐릭터는 <strong>15금화(gp)</strong>(150은화)로 시작하여 이 장의 일반 아이템을 구매합니다. 비일반 희귀도 아이템은 캐릭터 생성 중 선택한 능력에서 특별한 접근을 얻거나 GM의 허가가 있어야 구매할 수 있습니다. 각 클래스의 빠른 장비 패키지가 268페이지에 있습니다."
   },
@@ -4738,7 +4926,6 @@ var FEAT_DB = [
     "name_ko": "솟구쳐 일어서기",
     "name_en": "Kip Up",
     "feat_level": 7,
-    "prerequisites": "곡예 달인",
     "prereqs": [
       {
         "skill": "acrobatics",
@@ -4749,6 +4936,8 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "actionCost": "free",
+    "prerequisites": "곡예 달인",
     "summary": "[자유 행동] 유발: 당신의 턴이 시작됩니다. 쓰러진 자세에서 즉각적으로 일어납니다. 넘어짐(prone) 상태를 종료하고 일어납니다. 이 행동은 기동(move) 행동이 아닙니다.",
     "desc": "<strong>유발:</strong> 당신의 턴이 시작됩니다.<br>쓰러진 자세에서 즉각적으로 일어납니다. {{condition:Prone}} 상태를 종료하고 일어납니다. 이 행동은 기동(move) 행동이 아닙니다."
   },
@@ -4757,7 +4946,6 @@ var FEAT_DB = [
     "name_ko": "빠른 등반",
     "name_en": "Quick Climb",
     "feat_level": 7,
-    "prerequisites": "운동 달인",
     "prereqs": [
       {
         "skill": "athletics",
@@ -4768,6 +4956,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "운동 달인",
     "summary": "등반 시 성공이면 5피트 더, 대성공이면 10피트 더 이동합니다(최대 이동 속도). 전설이면 이동 속도와 같은 등반 속도를 얻습니다.",
     "desc": "등반 시 성공이면 <strong>5피트 더</strong>, 대성공이면 <strong>10피트 더</strong> 이동합니다(최대 이동 속도). 전설이면 이동 속도와 같은 <strong>등반 속도</strong>를 얻습니다."
   },
@@ -4776,7 +4965,6 @@ var FEAT_DB = [
     "name_ko": "빠른 수영",
     "name_en": "Quick Swim",
     "feat_level": 7,
-    "prerequisites": "운동 달인",
     "prereqs": [
       {
         "skill": "athletics",
@@ -4787,6 +4975,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "운동 달인",
     "summary": "수영 시 성공이면 5피트 더, 대성공이면 10피트 더(최대 이동 속도). 전설이면 이동 속도와 같은 수영 속도.",
     "desc": "수영 시 성공이면 <strong>5피트 더</strong>, 대성공이면 <strong>10피트 더</strong>(최대 이동 속도). 전설이면 이동 속도와 같은 <strong>수영 속도</strong>."
   },
@@ -4795,7 +4984,6 @@ var FEAT_DB = [
     "name_ko": "벽 점프",
     "name_en": "Wall Jump",
     "feat_level": 7,
-    "prerequisites": "운동 달인",
     "prereqs": [
       {
         "skill": "athletics",
@@ -4806,6 +4994,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "운동 달인",
     "summary": "점프의 모멘텀으로 벽을 타고 오릅니다. 점프 끝에 벽에 인접해 있으면(높이뛰기/멀리뛰기/도약 중), 다음 행동이 또 다른 점프인 한 추락하지 않습니다. 이전 점프가 모멘텀을 주어 높이뛰기/멀리뛰기를 1행동으로 사용할 수 있지만 초기 보폭은 없습니다. 턴당 1회(전설이면 연속 점프 행동만큼).",
     "desc": "점프의 모멘텀으로 벽을 타고 오릅니다. 점프 끝에 벽에 인접해 있으면(높이뛰기/멀리뛰기/도약 중), 다음 행동이 또 다른 점프인 한 <strong>추락하지 않습니다</strong>. 이전 점프가 모멘텀을 주어 높이뛰기/멀리뛰기를 1행동으로 사용할 수 있지만 초기 보폭은 없습니다. 턴당 1회(전설이면 연속 점프 행동만큼)."
   },
@@ -4814,7 +5003,6 @@ var FEAT_DB = [
     "name_ko": "완벽한 제작",
     "name_en": "Impeccable Crafting",
     "feat_level": 7,
-    "prerequisites": "제작 달인, 전문 제작",
     "prereqs": [
       {
         "skill": "crafting",
@@ -4828,6 +5016,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "제작 달인, 전문 제작",
     "summary": "완벽한 창작물을 뛰어난 효율로 제작합니다. 전문 제작으로 선택한 유형의 아이템을 제작 판정에서 성공하면 대성공이 됩니다.",
     "desc": "완벽한 창작물을 뛰어난 효율로 제작합니다. 전문 제작으로 선택한 유형의 아이템을 제작 판정에서 <strong>성공하면 대성공</strong>이 됩니다."
   },
@@ -4836,7 +5025,6 @@ var FEAT_DB = [
     "name_ko": "괴물 제작",
     "name_en": "Monster Crafting",
     "feat_level": 7,
-    "prerequisites": "생존 달인",
     "prereqs": [
       {
         "skill": "survival",
@@ -4847,6 +5035,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "생존 달인",
     "summary": "괴물의 부품을 사용하여 제작에 도움을 줄 수 있습니다. 괴물의 몸을 사용하여 아이템을 제작할 때 제작(Crafting) 대신 생존(Survival)을 사용합니다. 괴물의 몸에서 가치 있는 부품이 있으면 원재료 비용에 충당할 수 있습니다. 추가 작업일에는 자신의 레벨 대신 괴물의 레벨을 사용하여 가격을 줄입니다.",
     "desc": "괴물의 부품을 사용하여 제작에 도움을 줄 수 있습니다. 괴물의 몸을 사용하여 아이템을 제작할 때 제작(Crafting) 대신 <strong>생존(Survival)</strong>을 사용합니다. 괴물의 몸에서 가치 있는 부품이 있으면 원재료 비용에 충당할 수 있습니다. 추가 작업일에는 자신의 레벨 대신 <strong>괴물의 레벨</strong>을 사용하여 가격을 줄입니다."
   },
@@ -4855,7 +5044,6 @@ var FEAT_DB = [
     "name_ko": "교활한 비밀",
     "name_en": "Slippery Secrets",
     "feat_level": 7,
-    "prerequisites": "기만 달인",
     "prereqs": [
       {
         "skill": "deception",
@@ -4866,6 +5054,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "기만 달인",
     "summary": "진정한 본성이나 의도를 밝히려는 시도를 피합니다. 주문이나 마법 효과가 당신의 마음을 읽거나, 거짓말을 탐지하거나, 정체를 밝히려 할 때, 주문/효과의 DC에 대해 기만 판정을 시도합니다. 성공하면 효과가 아무것도 밝히지 못합니다.",
     "desc": "진정한 본성이나 의도를 밝히려는 시도를 피합니다. 주문이나 마법 효과가 당신의 마음을 읽거나, 거짓말을 탐지하거나, 정체를 밝히려 할 때, 주문/효과의 DC에 대해 <strong>기만 판정</strong>을 시도합니다. 성공하면 효과가 <strong>아무것도 밝히지 못합니다</strong>."
   },
@@ -4874,7 +5063,6 @@ var FEAT_DB = [
     "name_ko": "뻔뻔한 요청",
     "name_en": "Shameless Request",
     "feat_level": 7,
-    "prerequisites": "외교 달인",
     "prereqs": [
       {
         "skill": "diplomacy",
@@ -4885,6 +5073,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "외교 달인",
     "summary": "뻔뻔함과 매력으로 요청의 결과나 터무니없음을 경시합니다. 요청(Request) 시 터무니없는 요청에 대한 DC 증가를 2만큼 줄입니다. 대실패를 굴려도 실패가 됩니다. 이것은 태도를 악화시키지 않지만, 대상은 결국 반복적인 요청에 질립니다.",
     "desc": "뻔뻔함과 매력으로 요청의 결과나 터무니없음을 경시합니다. 요청(Request) 시 터무니없는 요청에 대한 DC 증가를 <strong>2만큼 줄입니다</strong>. 대실패를 굴려도 <strong>실패</strong>가 됩니다. 이것은 태도를 악화시키지 않지만, 대상은 결국 반복적인 요청에 질립니다."
   },
@@ -4893,7 +5082,6 @@ var FEAT_DB = [
     "name_ko": "전투 함성",
     "name_en": "Battle Cry",
     "feat_level": 7,
-    "prerequisites": "위협 달인",
     "prereqs": [
       {
         "skill": "intimidation",
@@ -4908,6 +5096,8 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "actionCost": "reaction",
+    "prerequisites": "위협 달인",
     "summary": "[반응] 유발: 전투 조우에서 우선권을 굴립니다. 전투 시작에 굉음을 지르며 적을 위협합니다. 30피트 범위 내 모든 적에게 사기 저하(Demoralize)를 시도합니다. 이 반응으로 시도하는 사기 저하는 언어가 필요하지 않으며 청각 특성을 얻습니다.",
     "desc": "<strong>유발:</strong> 전투 조우에서 우선권을 굴립니다.<br>전투 시작에 굉음을 지르며 적을 위협합니다. 30피트 범위 내 모든 적에게 사기 저하(Demoralize)를 시도합니다. 이 반응으로 시도하는 사기 저하는 언어가 필요하지 않으며 청각 특성을 얻습니다."
   },
@@ -4916,7 +5106,6 @@ var FEAT_DB = [
     "name_ko": "공포 퇴각",
     "name_en": "Terrified Retreat",
     "feat_level": 7,
-    "prerequisites": "위협 달인",
     "prereqs": [
       {
         "skill": "intimidation",
@@ -4927,15 +5116,30 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "위협 달인",
     "summary": "사기 저하(Demoralize)에 대성공하고 대상의 레벨이 당신보다 낮으면, 대상은 1라운드간 도주(fleeing)합니다.",
     "desc": "사기 저하(Demoralize)에 <strong>대성공</strong>하고 대상의 레벨이 당신보다 낮으면, 대상은 <strong>1라운드간 {{condition:Fleeing}}</strong>합니다."
+  },
+  {
+    "id": "advanced-first-aid",
+    "name_ko": "고급 응급처치",
+    "name_en": "Advanced First Aid",
+    "feat_level": 7,
+    "traits": [
+      "일반 치유 조작 기술",
+      "치유",
+      "조작"
+    ],
+    "category": "skill",
+    "prerequisites": "의학 달인",
+    "summary": "의료 훈련을 활용하여 병이나 공포를 완화합니다. 의학으로 응급처치를 사용할 때, 환자를 안정화하거나 출혈을 멈추는 대신 동료의 공포(frightened) 또는 메스꺼움(sickened) 상태를 2만큼 줄이거나, 대성공 시 그 상태 중 하나를 완전히 제거할 수 있습니다. 한 번에 상태 하나만 제거할 수 있으며, 의학 판정 DC는 보통 해당 상태를 유발한 효과의 DC입니다.",
+    "desc": "의료 훈련을 활용하여 병이나 공포를 완화합니다. 의학으로 응급처치를 사용할 때, 환자를 안정화하거나 출혈을 멈추는 대신 동료의 <strong>공포(frightened)</strong> 또는 <strong>메스꺼움(sickened)</strong> 상태를 2만큼 줄이거나, 대성공 시 그 상태 중 하나를 완전히 제거할 수 있습니다. 한 번에 상태 하나만 제거할 수 있으며, 의학 판정 DC는 보통 해당 상태를 유발한 효과의 DC입니다."
   },
   {
     "id": "bizarre-magic",
     "name_ko": "기이한 마법",
     "name_en": "Bizarre Magic",
     "feat_level": 7,
-    "prerequisites": "오컬티즘 달인",
     "prereqs": [
       {
         "skill": "occultism",
@@ -4946,6 +5150,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "오컬티즘 달인",
     "summary": "비술의 기이한 변형을 활용할 수 있습니다 — 비의(occult) 주문을 시전할 수 없더라도 마찬가지입니다. 당신이 시전하는 주문을 주문 인식하거나 사용하는 마법을 마법 식별하는 DC가 5 증가합니다.",
     "desc": "비술의 기이한 변형을 활용할 수 있습니다 — 비의(occult) 주문을 시전할 수 없더라도 마찬가지입니다. 당신이 시전하는 주문을 주문 인식하거나 사용하는 마법을 마법 식별하는 DC가 <strong>5 증가</strong>합니다."
   },
@@ -4954,7 +5159,6 @@ var FEAT_DB = [
     "name_ko": "빠른 자물쇠 열기",
     "name_en": "Quick Unlock",
     "feat_level": 7,
-    "prerequisites": "도둑질 달인",
     "prereqs": [
       {
         "skill": "thievery",
@@ -4965,6 +5169,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "도둑질 달인",
     "summary": "자물쇠 열기(Pick a Lock)를 2행동 대신 1행동으로.",
     "desc": "자물쇠 열기(Pick a Lock)를 2행동 대신 <strong>1행동</strong>으로."
   },
@@ -4973,7 +5178,6 @@ var FEAT_DB = [
     "name_ko": "감각 속이기",
     "name_en": "Foil Senses",
     "feat_level": 7,
-    "prerequisites": "은신 달인",
     "prereqs": [
       {
         "skill": "stealth",
@@ -4984,6 +5188,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "은신 달인",
     "summary": "생물의 특수 감각을 속이는 데 능숙하여 항상 이에 대비합니다. 주의 회피, 숨기, 잠행을 사용할 때마다 항상 특수 감각에 대한 예방 조치를 취하는 것으로 간주됩니다(433페이지 다른 감각으로 탐지하기 사이드바 참조).",
     "desc": "생물의 특수 감각을 속이는 데 능숙하여 항상 이에 대비합니다. 주의 회피, 숨기, 잠행을 사용할 때마다 항상 <strong>특수 감각에 대한 예방 조치를 취하는 것</strong>으로 간주됩니다(433페이지 다른 감각으로 탐지하기 사이드바 참조)."
   },
@@ -4992,7 +5197,6 @@ var FEAT_DB = [
     "name_ko": "차원간 생존",
     "name_en": "Planar Survival",
     "feat_level": 7,
-    "prerequisites": "생존 달인",
     "prereqs": [
       {
         "skill": "survival",
@@ -5003,6 +5207,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "생존 달인",
     "summary": "정상적으로 자급할 수 있는 자원이나 자연 현상이 없는 다른 차원에서도 생존(Subsist)에 생존 기술을 사용할 수 있습니다. 예를 들어, 먹을 것이 없는 차원에서도 페널티 없이 채집 가능. 판정 성공은 차원의 일반적 조건으로 인한 피해로부터 당신과 생존으로 지원하는 다른 이들을 보호합니다(소규모 위험은 제외).",
     "desc": "정상적으로 자급할 수 있는 자원이나 자연 현상이 없는 다른 차원에서도 생존(Subsist)에 <strong>생존 기술</strong>을 사용할 수 있습니다. 예를 들어, 먹을 것이 없는 차원에서도 페널티 없이 채집 가능. 판정 성공은 차원의 일반적 조건으로 인한 피해로부터 당신과 생존으로 지원하는 다른 이들을 보호합니다(소규모 위험은 제외)."
   },
@@ -5011,7 +5216,6 @@ var FEAT_DB = [
     "name_ko": "빠른 인식",
     "name_en": "Quick Recognition",
     "feat_level": 7,
-    "prerequisites": "주문학/자연학/오컬티즘/종교에 달인; 주문 인식",
     "prereqs": [
       {
         "or": [
@@ -5038,6 +5242,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "주문학/자연학/오컬티즘/종교에 달인; 주문 인식",
     "summary": "주문을 빠르게 인식합니다. 달인인 기술로 라운드당 1회 자유 행동으로 주문을 인식할 수 있습니다.",
     "desc": "주문을 빠르게 인식합니다. 달인인 기술로 <strong>라운드당 1회 자유 행동으로</strong> 주문을 인식할 수 있습니다."
   },
@@ -5046,7 +5251,6 @@ var FEAT_DB = [
     "name_ko": "저주 해제",
     "name_en": "Break Curse",
     "feat_level": 7,
-    "prerequisites": "오컬티즘 또는 종교에 달인",
     "prereqs": [
       {
         "or": [
@@ -5065,6 +5269,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "오컬티즘 또는 종교에 달인",
     "summary": "지식으로 저주를 해제할 수 있습니다. 오컬티즘이나 종교로 저주 상쇄를 시도할 수 있습니다. 상쇄 랭크는 레벨 절반(올림)과 같습니다.",
     "desc": "지식으로 저주를 해제할 수 있습니다. 오컬티즘이나 종교로 <strong>저주 상쇄</strong>를 시도할 수 있습니다. 상쇄 랭크는 레벨 절반(올림)과 같습니다."
   },
@@ -5073,7 +5278,6 @@ var FEAT_DB = [
     "name_ko": "신속 잠행",
     "name_en": "Swift Sneak",
     "feat_level": 7,
-    "prerequisites": "은신 달인",
     "prereqs": [
       {
         "skill": "stealth",
@@ -5084,6 +5288,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "은신 달인",
     "summary": "잠행(Sneak) 시 절반 속도 대신 전체 속도로 이동할 수 있습니다. 수영/등반/비행/굴파기 중에도 사용 가능.",
     "desc": "잠행(Sneak) 시 절반 속도 대신 <strong>전체 속도로 이동</strong>할 수 있습니다. 수영/등반/비행/굴파기 중에도 사용 가능."
   },
@@ -5092,7 +5297,6 @@ var FEAT_DB = [
     "name_ko": "구름 도약",
     "name_en": "Cloud Jump",
     "feat_level": 15,
-    "prerequisites": "운동 전설",
     "prereqs": [
       {
         "skill": "athletics",
@@ -5103,6 +5307,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "운동 전설",
     "summary": "도약의 물리적 한계를 무시합니다. 높이뛰기 시 최대 도약 높이가 없으며 멀리뛰기 시 최대 도약 거리가 없습니다. 실제 도약한 거리에 추가로 도약 거리가 두 배가 됩니다. 예를 들어 높이뛰기 판정 결과가 30이고 도약 거리를 두 배 적용하면 60피트 높이까지 뛸 수 있습니다. 도약은 여전히 이동 행동이며 속도 규칙을 따릅니다.",
     "desc": "도약의 물리적 한계를 무시합니다. 높이뛰기 시 최대 도약 높이가 없으며 멀리뛰기 시 최대 도약 거리가 없습니다. 실제 도약한 거리에 추가로 도약 거리가 두 배가 됩니다. 예를 들어 높이뛰기 판정 결과가 30이고 도약 거리를 두 배 적용하면 60피트 높이까지 뛸 수 있습니다. 도약은 여전히 이동 행동이며 속도 규칙을 따릅니다."
   },
@@ -5111,7 +5316,6 @@ var FEAT_DB = [
     "name_ko": "전설적 협상",
     "name_en": "Legendary Negotiation",
     "feat_level": 15,
-    "prerequisites": "외교 전설",
     "prereqs": [
       {
         "skill": "diplomacy",
@@ -5122,6 +5326,8 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "actionCost": "3",
+    "prerequisites": "외교 전설",
     "summary": "[3행동] 적대적 상황에서도 놀라울 정도로 빠르게 협상합니다. 인상 만들기를 시도한 후 상대에게 현재 활동을 중단하고 협상에 참여하도록 요청합니다. 외교 판정에 -5 페널티. DC는 보통 대상의 의지 DC. 일부 생물은 개인적 의지와 관계없이 멈출 수 없으며, 동의해도 결국 주장이 부족하면 폭력으로 돌아갈 수 있습니다.",
     "desc": "적대적 상황에서도 놀라울 정도로 빠르게 협상합니다. 인상 만들기를 시도한 후 상대에게 현재 활동을 중단하고 협상에 참여하도록 요청합니다. 외교 판정에 <strong>-5 페널티</strong>. DC는 보통 대상의 의지 DC. 일부 생물은 개인적 의지와 관계없이 멈출 수 없으며, 동의해도 결국 주장이 부족하면 폭력으로 돌아갈 수 있습니다."
   },
@@ -5130,7 +5336,6 @@ var FEAT_DB = [
     "name_ko": "공포로 죽이기",
     "name_en": "Scare to Death",
     "feat_level": 15,
-    "prerequisites": "위협 전설",
     "prereqs": [
       {
         "skill": "intimidation",
@@ -5144,7 +5349,9 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
-    "summary": "[1행동] 적을 너무 겁먹게 하여 죽을 수도 있습니다. 30피트 내 살아있는 생물의 의지 DC에 대해 위협 판정을 시도합니다. 대상이 당신의 말을 이해하지 못하면 -4 상황 페널티. 1분간 면역. 대성공: 대상이 인내 내성(위협 DC)을 굴립니다. 대실패 시 사망(죽음 특성). 다른 결과: 공포 2 + 1라운드 도주.  성공: 공포 2. 실패: 공포 1. 대실패: 영향 없음.",
+    "actionCost": "1",
+    "prerequisites": "위협 전설",
+    "summary": "[1행동] 적을 너무 겁먹게 하여 죽을 수도 있습니다. 30피트 내 살아있는 생물의 의지 DC에 대해 위협 판정을 시도합니다. 대상이 당신의 말을 이해하지 못하면 -4 상황 페널티. 1분간 면역. 대성공: 대상이 인내 내성(위협 DC)을 굴립니다. 대실패 시 사망(죽음 특성). 다른 결과: 공포 2 + 1라운드 도주. \n성공: 공포 2. 실패: 공포 1. 대실패: 영향 없음.",
     "desc": "적을 너무 겁먹게 하여 죽을 수도 있습니다. 30피트 내 살아있는 생물의 의지 DC에 대해 위협 판정을 시도합니다. 대상이 당신의 말을 이해하지 못하면 -4 상황 페널티. 1분간 면역.<br><strong>대성공:</strong> 대상이 인내 내성(위협 DC)을 굴립니다. 대실패 시 <strong>사망</strong>(죽음 특성). 다른 결과: {{condition:Frightened}} 2 + 1라운드 도주.<br> <strong>성공:</strong> {{condition:Frightened}} 2. <strong>실패:</strong> {{condition:Frightened}} 1. <strong>대실패:</strong> 영향 없음."
   },
   {
@@ -5152,7 +5359,6 @@ var FEAT_DB = [
     "name_ko": "전설적 의사",
     "name_en": "Legendary Medic",
     "feat_level": 15,
-    "prerequisites": "의학 전설",
     "prereqs": [
       {
         "skill": "medicine",
@@ -5163,6 +5369,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "의학 전설",
     "summary": "기적적 결과를 달성하는 의료 혁신을 발견했습니다. 각 대상에 하루 1회, 1시간 치료 후 의학 판정을 시도하여 질병이나 실명/청각상실/파멸/소진 상태를 제거할 수 있습니다. DC는 질병이나 주문/효과의 DC. 유물이나 20레벨 초과 원천이면 DC +10.",
     "desc": "기적적 결과를 달성하는 의료 혁신을 발견했습니다. 각 대상에 하루 1회, 1시간 치료 후 의학 판정을 시도하여 질병이나 {{condition:Blinded}}/청각상실/{{condition:Doomed}}/소진 상태를 <strong>제거</strong>할 수 있습니다. DC는 질병이나 주문/효과의 DC. 유물이나 20레벨 초과 원천이면 DC +10."
   },
@@ -5171,7 +5378,6 @@ var FEAT_DB = [
     "name_ko": "신성 안내",
     "name_en": "Divine Guidance",
     "feat_level": 15,
-    "prerequisites": "종교 전설",
     "prereqs": [
       {
         "skill": "religion",
@@ -5182,6 +5388,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "종교 전설",
     "summary": "필요할 때 신성한 존재나 자신의 깊은 믿음으로부터 안내를 받습니다. 하루에 한 번 10분간 기도나 명상 후 종교 판정(DC 20)을 시도하여 눈앞의 상황이나 문제에 대한 신탁과 같은 안내를 받습니다. 안내는 신비롭거나 은유적일 수 있지만 실질적으로 도움이 됩니다. 대성공하면 특히 상세하고 명확한 안내를 받으며, 실패하면 이 능력을 다음 일일 준비 이후까지 다시 사용할 수 없습니다.",
     "desc": "필요할 때 신성한 존재나 자신의 깊은 믿음으로부터 안내를 받습니다. 하루에 한 번 10분간 기도나 명상 후 종교 판정(DC 20)을 시도하여 눈앞의 상황이나 문제에 대한 신탁과 같은 안내를 받습니다. 안내는 신비롭거나 은유적일 수 있지만 실질적으로 도움이 됩니다. 대성공하면 특히 상세하고 명확한 안내를 받으며, 실패하면 이 능력을 다음 일일 준비 이후까지 다시 사용할 수 없습니다."
   },
@@ -5190,7 +5397,6 @@ var FEAT_DB = [
     "name_ko": "전설적 암호 해독가",
     "name_en": "Legendary Codebreaker",
     "feat_level": 15,
-    "prerequisites": "사회 전설",
     "prereqs": [
       {
         "skill": "society",
@@ -5201,6 +5407,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "사회 전설",
     "summary": "언어와 암호에 대한 기술이 탁월하여 빠르게 읽어가며 정보를 해독합니다. 정상 속도로 읽으며 사회로 문서 해독을 할 수 있습니다. 천천히 읽고 성공하면 대성공; 느린 속도에서 대성공하면 거의 단어 단위의 이해를 얻습니다.",
     "desc": "언어와 암호에 대한 기술이 탁월하여 빠르게 읽어가며 정보를 해독합니다. 정상 속도로 읽으며 <strong>사회로 문서 해독</strong>을 할 수 있습니다. 천천히 읽고 성공하면 <strong>대성공</strong>; 느린 속도에서 대성공하면 거의 단어 단위의 이해를 얻습니다."
   },
@@ -5209,7 +5416,6 @@ var FEAT_DB = [
     "name_ko": "전설적 언어학자",
     "name_en": "Legendary Linguist",
     "feat_level": 15,
-    "prerequisites": "사회 전설, 다국어",
     "prereqs": [
       {
         "skill": "society",
@@ -5223,6 +5429,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "사회 전설, 다국어",
     "summary": "언어에 능숙하여 즉석에서 피진어를 만들 수 있습니다. 언어를 모르더라도 언어를 가진 모든 생물과 항상 대화할 수 있습니다 — 단순화된 용어와 기본 개념을 전달하는 새 피진어를 만들어. 생물이 어떤 소통 매체(말, 수화 등)를 사용하는지는 먼저 이해해야 합니다.",
     "desc": "언어에 능숙하여 즉석에서 피진어를 만들 수 있습니다. 언어를 모르더라도 <strong>언어를 가진 모든 생물과 항상 대화</strong>할 수 있습니다 — 단순화된 용어와 기본 개념을 전달하는 새 피진어를 만들어. 생물이 어떤 소통 매체(말, 수화 등)를 사용하는지는 먼저 이해해야 합니다."
   },
@@ -5231,7 +5438,6 @@ var FEAT_DB = [
     "name_ko": "전설적 생존자",
     "name_en": "Legendary Survivalist",
     "feat_level": 15,
-    "prerequisites": "생존 전설",
     "prereqs": [
       {
         "skill": "survival",
@@ -5242,6 +5448,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "생존 전설",
     "summary": "음식이나 물 없이 무기한 생존할 수 있으며, 심각한/극단적/놀라운 추위와 더위에서도 피해를 받지 않습니다.",
     "desc": "음식이나 물 없이 <strong>무기한 생존</strong>할 수 있으며, 심각한/극단적/놀라운 추위와 더위에서도 <strong>피해를 받지 않습니다</strong>."
   },
@@ -5250,7 +5457,6 @@ var FEAT_DB = [
     "name_ko": "전설적 잠행가",
     "name_en": "Legendary Sneak",
     "feat_level": 15,
-    "prerequisites": "은신 전설, 신속 잠행",
     "prereqs": [
       {
         "skill": "stealth",
@@ -5264,6 +5470,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "은신 전설, 신속 잠행",
     "summary": "보이기를 선택하지 않는 한 항상 잠행합니다. 엄폐나 은폐 없이도 숨기와 잠행을 할 수 있습니다. 주의 회피 외의 탐험 전술을 사용해도, 주의 회피의 혜택도 함께 얻습니다(선택하지 않는 한).",
     "desc": "보이기를 선택하지 않는 한 항상 잠행합니다. 엄폐나 {{condition:Concealed}} 없이도 <strong>숨기와 잠행</strong>을 할 수 있습니다. 주의 회피 외의 탐험 전술을 사용해도, 주의 회피의 혜택도 함께 얻습니다(선택하지 않는 한)."
   },
@@ -5272,7 +5479,6 @@ var FEAT_DB = [
     "name_ko": "전설적 도둑",
     "name_en": "Legendary Thief",
     "feat_level": 15,
-    "prerequisites": "도둑질 전설, 소매치기",
     "prereqs": [
       {
         "skill": "thievery",
@@ -5286,6 +5492,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "도둑질 전설, 소매치기",
     "summary": "도둑질 능력이 상식을 초월합니다. 사용 중인 무기나 착용 중인 신발/갑옷처럼 극히 눈에 띄거나 시간이 걸리는 물건도 훔칠 수 있습니다. 최소 1분(갑옷 같은 아이템은 훨씬 더 오래) 동안 느리고 조심스럽게 해야 하며, 어둠의 엄폐나 북적이는 군중 등 숨어있을 수단이 있어야 합니다. 성공해도 완전한 갑옷처럼 극히 눈에 띄는 아이템은 곧 사라진 것을 알아챕니다.",
     "desc": "도둑질 능력이 상식을 초월합니다. 사용 중인 무기나 착용 중인 신발/갑옷처럼 극히 눈에 띄거나 시간이 걸리는 물건도 <strong>훔칠 수 있습니다</strong>. 최소 1분(갑옷 같은 아이템은 훨씬 더 오래) 동안 느리고 조심스럽게 해야 하며, 어둠의 엄폐나 북적이는 군중 등 숨어있을 수단이 있어야 합니다. 성공해도 완전한 갑옷처럼 극히 눈에 띄는 아이템은 곧 사라진 것을 알아챕니다."
   },
@@ -5294,7 +5501,6 @@ var FEAT_DB = [
     "name_ko": "전설적 전문가",
     "name_en": "Legendary Professional",
     "feat_level": 15,
-    "prerequisites": "지식 전설",
     "prereqs": [
       {
         "lore": 8
@@ -5304,6 +5510,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "지식 전설",
     "summary": "명성이 땅 전체에 퍼졌습니다(예: 전쟁 지식이면 전설적 장군이나 전략가). 전설적 공연자(위 참조)처럼 작동하지만, 지식으로 돈 벌기 시 더 높은 레벨의 직업을 얻습니다.",
     "desc": "명성이 땅 전체에 퍼졌습니다(예: 전쟁 지식이면 전설적 장군이나 전략가). 전설적 공연자(위 참조)처럼 작동하지만, <strong>지식으로 돈 벌기</strong> 시 더 높은 레벨의 직업을 얻습니다."
   },
@@ -5312,7 +5519,6 @@ var FEAT_DB = [
     "name_ko": "전설적 공연자",
     "name_en": "Legendary Performer",
     "feat_level": 15,
-    "prerequisites": "공연 전설, 거장 공연자",
     "prereqs": [
       {
         "skill": "performance",
@@ -5326,6 +5532,7 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "공연 전설, 거장 공연자",
     "summary": "명성이 온 땅에 퍼졌습니다. 사회 기술이 있는 생물은 당신에 대해 들어봤으며, 보통 평소보다 한 단계 나은 태도를 가집니다(평판과 성향에 따라). 공연으로 돈 벌기 시 장소가 허용하는 것보다 더 높은 레벨의 관객을 끌어옵니다. 보통 레벨 또는 레벨+2(더 높은 쪽)까지 관객이 증가합니다.",
     "desc": "명성이 온 땅에 퍼졌습니다. 사회 기술이 있는 생물은 당신에 대해 들어봤으며, 보통 평소보다 <strong>한 단계 나은 태도</strong>를 가집니다(평판과 성향에 따라). 공연으로 돈 벌기 시 장소가 허용하는 것보다 <strong>더 높은 레벨의 관객</strong>을 끌어옵니다. 보통 레벨 또는 레벨+2(더 높은 쪽)까지 관객이 증가합니다."
   },
@@ -5334,7 +5541,6 @@ var FEAT_DB = [
     "name_ko": "통합 이론",
     "name_en": "Unified Theory",
     "feat_level": 15,
-    "prerequisites": "주문학 전설",
     "prereqs": [
       {
         "skill": "arcana",
@@ -5345,133 +5551,15 @@ var FEAT_DB = [
       "일반 기술"
     ],
     "category": "skill",
+    "prerequisites": "주문학 전설",
     "summary": "네 가지 마법 전통과 마법 정수의 공통 기반을 이해하여, 비전의 렌즈를 통해 모두를 이해합니다. 마법 전통에 따라 자연학, 오컬티즘, 종교 판정이 필요한 기술 행동이나 기술 재주를 사용할 때, 대신 주문학을 사용할 수 있습니다. 다른 마법에 주문학을 사용할 때 보통 받는 페널티나 높은 DC도 더 이상 받지 않습니다.",
     "desc": "네 가지 마법 전통과 마법 정수의 공통 기반을 이해하여, 비전의 렌즈를 통해 모두를 이해합니다. 마법 전통에 따라 자연학, 오컬티즘, 종교 판정이 필요한 기술 행동이나 기술 재주를 사용할 때, 대신 <strong>주문학</strong>을 사용할 수 있습니다. 다른 마법에 주문학을 사용할 때 보통 받는 페널티나 높은 DC도 더 이상 받지 않습니다."
-  },
-  {
-    "id": "bonded-animal",
-    "name_ko": "유대 동물",
-    "name_en": "Bonded Animal",
-    "feat_level": 2,
-    "prerequisites": "자연학 전문가",
-    "prereqs": [
-      {
-        "skill": "nature",
-        "rank": 4
-      }
-    ],
-    "traits": [
-      "휴식",
-      "일반 기술"
-    ],
-    "category": "skill",
-    "summary": "동물과 강한 유대를 맺을 수 있습니다. 우호적 또는 협력적인 일반 동물(동료나 특수 동물이 아닌)과 7일 동안 꾸준히 교류한 뒤 자연학 판정으로 의지 DC를 넘으면 영구적인 유대가 형성됩니다. 유대 동물이 -1레벨이면 하수인 특성을 얻어 더 효율적으로 명령할 수 있습니다.",
-    "desc": "동물과 강한 유대를 맺을 수 있습니다. 우호적 또는 협력적인 일반 동물(동료나 특수 동물이 아닌)과 7일 동안 꾸준히 교류하여 유대를 쌓을 수 있습니다. 그 후 동물의 의지 DC에 대항하여 자연학 판정을 시도합니다. 성공하면 동물과 유대가 형성됩니다. 다른 동물과 유대를 맺거나 관계를 심각하게 손상시키지 않는 한 유대는 영구적으로 지속됩니다.<br><br>유대를 맺은 동물은 협력적 태도 덕분에 더 쉽게 지시할 수 있습니다. 유대 동물이 -1레벨이면 <strong>하수인(minion)</strong> 특성을 얻어 더 효율적으로 명령할 수 있습니다. 자연학 달인이면 하수인이 될 수 있는 최대 레벨이 3으로, 전설이면 11로 증가합니다.<br><br><strong>특수:</strong> 유대 동물과 동물 동료를 동시에 가질 수 없습니다(반려동물이나 사역마와는 동시에 가질 수 있음)."
-  },
-  {
-    "id": "inventor",
-    "name_ko": "발명가",
-    "name_en": "Inventor",
-    "feat_level": 2,
-    "prerequisites": "제작 전문가",
-    "prereqs": [
-      {
-        "skill": "crafting",
-        "rank": 4
-      }
-    ],
-    "traits": [
-      "휴식",
-      "일반 기술"
-    ],
-    "category": "skill",
-    "summary": "제작에 천재적이어서 물건이 어떻게 만들어지는지 쉽게 파악하고 새로운 발명을 합니다. 휴식을 사용하여 모르는 일반 공식을 발명할 수 있습니다. 제작 활동과 같은 방식으로 작동하지만 아이템을 만드는 대신 연구·설계·개발에 시간을 보냅니다. 완성된 공식은 공식서에 추가됩니다.",
-    "desc": "제작에 천재적이어서 물건이 어떻게 만들어지는지 쉽게 파악하고 새로운 발명을 합니다. 휴식을 사용하여 모르는 일반 공식을 <strong>발명</strong>할 수 있습니다. 제작 활동과 같은 방식으로 작동합니다(가격의 절반을 선불, 제작 판정, 성공 시 완성 또는 추가 작업). 차이점은 아이템을 만드는 대신 연구, 설계, 개발에 시간을 보낸다는 것입니다. 완성되면 공식서에 추가합니다.<br><br>GM이 비일반이나 희귀 공식의 발명을 허용할 수 있습니다(보통 DC 증가). 연금술 공식에는 {{feat:Alchemical Crafting}}, 마법 공식에는 {{feat:Magical Crafting}} 재주가 필요합니다."
-  },
-  {
-    "id": "train-animal",
-    "name_ko": "동물 훈련",
-    "name_en": "Train Animal",
-    "feat_level": 1,
-    "prerequisites": "자연학 숙련",
-    "prereqs": [
-      {
-        "skill": "nature",
-        "rank": 2
-      }
-    ],
-    "traits": [
-      "휴식",
-      "조작",
-      "일반 기술"
-    ],
-    "category": "skill",
-    "summary": "동물에게 특정 행동을 가르칩니다. 이미 알고 있는 기본 행동을 선택하거나 새 기본 행동을 가르칩니다. GM이 DC와 소요 시간을 결정하며 보통 최소 1주일이 걸립니다. 비판적 사고가 필요한 속임수는 보통 불가능합니다.",
-    "desc": "동물에게 특정 행동을 가르칩니다. 이미 알고 있는 기본 행동을 선택하거나(동물 명령의 행동 목록) 새 기본 행동을 가르칩니다. GM이 DC와 소요 시간을 결정합니다(보통 최소 1주일). 비판적 사고가 필요한 속임수는 보통 불가능합니다. 전문가/달인/전설이면 더 특이한 생물도 훈련 가능(GM 재량).<br><br><strong>성공:</strong> 동물이 행동을 배웁니다. 이미 알던 행동이면 자연학 판정 없이 명령 가능. 새 행동이면 명령 가능 목록에 추가되지만 판정은 필요.<br><strong>실패:</strong> 동물이 배우지 못합니다."
-  },
-  {
-    "id": "bargain-hunter",
-    "name_ko": "흥정 사냥꾼",
-    "name_en": "Bargain Hunter",
-    "feat_level": 1,
-    "prerequisites": "외교 숙련",
-    "prereqs": [
-      {
-        "skill": "diplomacy",
-        "rank": 2
-      }
-    ],
-    "traits": [
-      "일반 기술"
-    ],
-    "category": "skill",
-    "summary": "외교를 사용하여 수입 벌이를 시도할 수 있으며, 매일 좋은 거래를 사냥하고 되팔아 수익을 냅니다. 또한 특정 아이템에 대해 좋은 거래를 찾는 데 시간을 쓸 수도 있습니다. 캐릭터 생성 시 1레벨에 이 재주를 선택하면 시작 시 2 gp를 추가로 갖습니다.",
-    "desc": "외교를 사용하여 <strong>수입 벌이</strong>를 시도할 수 있으며, 매일 좋은 거래를 사냥하고 되팔아 수익을 냅니다. 또한 특정 아이템에 대해 좋은 거래를 찾는 데 시간을 쓸 수도 있습니다 — 외교로 수입 벌이를 사용하는 것과 동일하지만, 돈을 얻는 대신 그 액수만큼 할인된 가격으로 아이템을 구매합니다(벌어들인 금액이 아이템 가격과 같거나 초과하면 무료로 획득). 마지막으로, 캐릭터 생성 시 1레벨에 흥정 사냥꾼을 선택하면 시작 시 2 gp를 추가로 갖고 시작합니다."
-  },
-  {
-    "id": "combat-climber",
-    "name_ko": "전투 등반가",
-    "name_en": "Combat Climber",
-    "feat_level": 1,
-    "prerequisites": "운동 숙련",
-    "prereqs": [
-      {
-        "skill": "athletics",
-        "rank": 2
-      }
-    ],
-    "traits": [
-      "일반 기술"
-    ],
-    "category": "skill",
-    "summary": "등반하면서도 전투할 수 있습니다. 등반 중 무방비 상태가 되지 않으며, 한 손이 사용 중이어도 등반할 수 있습니다(다른 한 손과 두 다리는 여전히 등반에 사용해야 함).",
-    "desc": "당신의 기술은 등반하면서도 전투할 수 있게 합니다. 등반(Climb) 중 {{condition:Off-Guard}} 상태가 되지 않으며, 한 손이 다른 일에 사용 중이어도 등반할 수 있습니다. 다만 다른 한 손과 두 다리는 여전히 등반에 사용해야 합니다."
-  },
-  {
-    "id": "hefty-hauler",
-    "name_ko": "무거운 짐꾼",
-    "name_en": "Hefty Hauler",
-    "feat_level": 1,
-    "prerequisites": "운동 숙련",
-    "prereqs": [
-      {
-        "skill": "athletics",
-        "rank": 2
-      }
-    ],
-    "traits": [
-      "일반 기술"
-    ],
-    "category": "skill",
-    "summary": "체격에 비해 더 많이 짊어질 수 있습니다. 최대 부피 한계와 부담 부피 한계가 각각 2 증가합니다.",
-    "desc": "체격에 비해 더 많이 짊어질 수 있습니다. <strong>최대 부피 한계와 부담 부피 한계가 각각 2 증가</strong>합니다."
   },
   {
     "id": "bardic-lore",
     "name_ko": "바드 지식",
     "name_en": "Bardic Lore",
     "feat_level": 1,
-    "prerequisites": "수수께끼 뮤즈",
     "prereqs": [
       {
         "subclass": "수수께끼 뮤즈"
@@ -5481,6 +5569,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "수수께끼 뮤즈",
     "summary": "학습으로 모든 주제에 정통합니다. 바드 지식(Bardic Lore)에 숙련됩니다 — 지식 회상(Recall Knowledge)에만 사용할 수 있지만 어떤 주제에든 사용 가능한 특수 지식 기술입니다. 오컬티즘에 전설 숙련도가 있으면 바드 지식에 전문가 숙련도를 얻지만, 다른 방법으로는 숙련도를 올릴 수 없습니다.",
     "desc": "학습으로 모든 주제에 정통합니다. <strong>{{feat:Bardic Lore}}</strong>에 숙련됩니다 — 지식 회상(Recall Knowledge)에만 사용할 수 있지만 <strong>어떤 주제에든</strong> 사용 가능한 특수 지식 기술입니다. 오컬티즘에 전설 숙련도가 있으면 바드 지식에 전문가 숙련도를 얻지만, 다른 방법으로는 숙련도를 올릴 수 없습니다."
   },
@@ -5501,7 +5590,6 @@ var FEAT_DB = [
     "name_ko": "잔향 작곡",
     "name_en": "Lingering Composition",
     "feat_level": 1,
-    "prerequisites": "마에스트로 뮤즈",
     "prereqs": [
       {
         "subclass": "마에스트로 뮤즈"
@@ -5511,6 +5599,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "마에스트로 뮤즈",
     "summary": "장식을 더하여 작곡를 더 오래 지속시킵니다. 잔향 작곡(lingering composition) 집중 주문(371페이지)을 배웁니다.",
     "desc": "장식을 더하여 작곡를 더 오래 지속시킵니다. <em>{{spell:Lingering Composition}}</em> 집중 주문(371페이지)을 배웁니다."
   },
@@ -5519,7 +5608,6 @@ var FEAT_DB = [
     "name_ko": "무예 공연",
     "name_en": "Martial Performance",
     "feat_level": 1,
-    "prerequisites": "전사 뮤즈",
     "prereqs": [
       {
         "subclass": "전사 뮤즈"
@@ -5529,11 +5617,12 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "전사 뮤즈",
     "summary": "뮤즈가 대부분의 바드보다 더 다양한 무기를 다루는 법을 가르쳤으며, 공연을 전투 도구에 자연스럽게 녹일 수 있습니다. 용감한 찬가 작곡 캔트립이 활성화된 상태에서 타격으로 적에게 피해를 주면, 주문의 지속 시간이 1라운드 연장됩니다. 개별 시전당 1회만 연장 가능. 결집의 찬가나 힘의 노래 작곡 캔트립을 얻으면 이 혜택을 그 캔트립에도 적용할 수 있습니다.",
     "desc": "뮤즈가 대부분의 바드보다 더 다양한 무기를 다루는 법을 가르쳤으며, 공연을 전투 도구에 자연스럽게 녹일 수 있습니다. <em>용감한 찬가</em> 작곡 캔트립이 활성화된 상태에서 타격으로 적에게 피해를 주면, 주문의 지속 시간이 <strong>1라운드 연장</strong>됩니다. 개별 시전당 1회만 연장 가능.<br><em>결집의 찬가</em>나 <em>힘의 노래</em> 작곡 캔트립을 얻으면 이 혜택을 그 캔트립에도 적용할 수 있습니다."
   },
   {
-    "id": "reach-spell",
+    "id": "reach-spell-witch",
     "name_ko": "주문 도달",
     "name_en": "Reach Spell",
     "feat_level": 1,
@@ -5543,6 +5632,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "1",
     "summary": "[1행동] 주문의 사거리를 늘릴 수 있습니다. 다음 행동이 사거리가 있는 주문 시전이면, 그 주문의 사거리를 30피트 증가시킵니다. 원래 접촉 사거리이면 30피트로 확장됩니다.",
     "desc": "주문의 사거리를 늘릴 수 있습니다. 다음 행동이 사거리가 있는 주문 시전이면, 그 주문의 사거리를 <strong>30피트 증가</strong>시킵니다. 원래 접촉 사거리이면 30피트로 확장됩니다."
   },
@@ -5551,7 +5641,6 @@ var FEAT_DB = [
     "name_ko": "다재다능한 공연",
     "name_en": "Versatile Performance",
     "feat_level": 1,
-    "prerequisites": "박학다식 뮤즈",
     "prereqs": [
       {
         "subclass": "박학다식 뮤즈"
@@ -5561,6 +5650,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "박학다식 뮤즈",
     "summary": "웅장한 공연에 의지하여 일반적인 사회 기술 대신 사용합니다. 외교 대신 공연으로 인상 만들기, 위협 대신 공연으로 사기 저하를 할 수 있습니다. 연기 공연으로 기만 대신 변장도 가능합니다. 추가로, 기만, 외교, 위협에 특정 숙련도 등급을 요구하는 기술 재주의 전제조건을 충족하는 데 공연의 숙련도 등급을 사용할 수 있습니다.",
     "desc": "웅장한 공연에 의지하여 일반적인 사회 기술 대신 사용합니다. 외교 대신 <strong>공연으로 인상 만들기</strong>, 위협 대신 <strong>공연으로 사기 저하</strong>를 할 수 있습니다. 연기 공연으로 기만 대신 <strong>변장</strong>도 가능합니다.<br>추가로, 기만, 외교, 위협에 특정 숙련도 등급을 요구하는 기술 재주의 전제조건을 충족하는 데 <strong>공연의 숙련도 등급</strong>을 사용할 수 있습니다."
   },
@@ -5577,7 +5667,7 @@ var FEAT_DB = [
     "desc": "자신의 것이 아닌 공연적 영향에 저항합니다. 청각, 환영, 언어, 음파, 시각 특성의 효과에 대한 내성에 <strong>+1 상황 보너스</strong>."
   },
   {
-    "id": "cantrip-expansion",
+    "id": "cantrip-expansion-witch",
     "name_ko": "캔트립 확장",
     "name_en": "Cantrip Expansion",
     "feat_level": 2,
@@ -5610,6 +5700,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 인식하고 있는 적이 감정 주문에 대한 내성에 실패합니다. 적의 갑작스러운 감정 변화를 이용합니다. 대상은 다음 턴 종료까지 당신의 다음 공격에 무방비(off-guard).",
     "desc": "<strong>유발 조건:</strong> 인식하고 있는 적이 감정 주문에 대한 내성에 실패합니다.<br>적의 갑작스러운 감정 변화를 이용합니다. 대상은 다음 턴 종료까지 당신의 다음 공격에 <strong>{{condition:Off-Guard}}</strong>."
   },
@@ -5618,7 +5709,6 @@ var FEAT_DB = [
     "name_ko": "비밀스러운 박학",
     "name_en": "Esoteric Polymath",
     "feat_level": 2,
-    "prerequisites": "박학다식 뮤즈",
     "prereqs": [
       {
         "subclass": "박학다식 뮤즈"
@@ -5628,6 +5718,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "박학다식 뮤즈",
     "summary": "위저드의 주문서와 유사한 오컬트 주문서를 가지며, 그 주문으로 레퍼토리를 보충합니다. 레퍼토리의 모든 주문을 이 책에 무료로 추가합니다. 오컬티즘 기술로 주문 학습(Learn Spells)을 하여 적절한 비용을 지불하고 주문서에 추가할 수 있습니다. 일일 준비 시, 주문서에서 주문 1개를 선택합니다. 이미 레퍼토리에 있으면 그날 추가 시그니처 주문으로 취급합니다. 레퍼토리에 없으면 다음 준비까지 레퍼토리에 있는 것처럼 취급합니다.",
     "desc": "위저드의 주문서와 유사한 오컬트 주문서를 가지며, 그 주문으로 레퍼토리를 보충합니다. 레퍼토리의 모든 주문을 이 책에 무료로 추가합니다. 오컬티즘 기술로 <strong>주문 학습(Learn Spells)</strong>을 하여 적절한 비용을 지불하고 주문서에 추가할 수 있습니다.<br>일일 준비 시, 주문서에서 <strong>주문 1개</strong>를 선택합니다. 이미 레퍼토리에 있으면 그날 추가 시그니처 주문으로 취급합니다. 레퍼토리에 없으면 다음 준비까지 레퍼토리에 있는 것처럼 취급합니다."
   },
@@ -5636,7 +5727,6 @@ var FEAT_DB = [
     "name_ko": "지식 달인의 에튀드",
     "name_en": "Loremaster's Etude",
     "feat_level": 2,
-    "prerequisites": "수수께끼 뮤즈",
     "prereqs": [
       {
         "subclass": "수수께끼 뮤즈"
@@ -5647,6 +5737,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "수수께끼 뮤즈",
     "summary": "마법적으로 기억을 해제하여 더 쉽게 떠올리게 합니다. 지식 달인의 에튀드(loremaster's etude) 작곡 주문(371페이지)을 배웁니다.",
     "desc": "마법적으로 기억을 해제하여 더 쉽게 떠올리게 합니다. <em>지식 달인의 에튀드(loremaster's etude)</em> 작곡 주문(371페이지)을 배웁니다."
   },
@@ -5668,7 +5759,6 @@ var FEAT_DB = [
     "name_ko": "힘의 노래",
     "name_en": "Song of Strength",
     "feat_level": 2,
-    "prerequisites": "전사 뮤즈",
     "prereqs": [
       {
         "subclass": "전사 뮤즈"
@@ -5678,6 +5768,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "전사 뮤즈",
     "summary": "공연이 아군에게 물리적 과제를 돕도록 힘을 불어넣습니다. 힘의 노래(song of strength) 작곡 캔트립(371페이지)을 배웁니다.",
     "desc": "공연이 아군에게 물리적 과제를 돕도록 힘을 불어넣습니다. <em>{{spell:Song of Strength}}</em> 작곡 캔트립(371페이지)을 배웁니다."
   },
@@ -5686,7 +5777,6 @@ var FEAT_DB = [
     "name_ko": "고양 서곡",
     "name_en": "Uplifting Overture",
     "feat_level": 2,
-    "prerequisites": "마에스트로 뮤즈",
     "prereqs": [
       {
         "subclass": "마에스트로 뮤즈"
@@ -5696,6 +5786,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "마에스트로 뮤즈",
     "summary": "고양 서곡(uplifting overture) 작곡 캔트립(372페이지)을 배워, 공연의 영감적 성질로 아군의 기술을 돕습니다.",
     "desc": "<em>{{spell:Uplifting Overture}}</em> 작곡 캔트립(372페이지)을 배워, 공연의 영감적 성질로 아군의 기술을 돕습니다."
   },
@@ -5709,7 +5800,8 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
-    "summary": "[1행동] 공연자의 냉독(cold reading) 기법, 아우라 읽기, 기타 속임수로 적의 강점과 약점을 발견합니다. GM이 당신 대신 비밀 오컬티즘 판정을 굴립니다. 은폐, 숨겨짐, 미탐지가 아닌 전투 중인 적 1명의 기만 또는 은신 DC(높은 쪽)에 대해 판정합니다. 대상은 1일간 당신의 전투 판독에 면역이 됩니다. 대성공: GM이 적에 대한 정보 2개를 알려줍니다 (가장 높은 약점, 가장 낮은 내성 수정치, 면역 1개, 가장 높은 저항 중 선택).  성공: 위 목록에서 정보 1개.  대실패: GM이 거짓 정보를 줍니다.",
+    "actionCost": "1",
+    "summary": "[1행동] 공연자의 냉독(cold reading) 기법, 아우라 읽기, 기타 속임수로 적의 강점과 약점을 발견합니다. GM이 당신 대신 비밀 오컬티즘 판정을 굴립니다. 은폐, 숨겨짐, 미탐지가 아닌 전투 중인 적 1명의 기만 또는 은신 DC(높은 쪽)에 대해 판정합니다. 대상은 1일간 당신의 전투 판독에 면역이 됩니다. 대성공: GM이 적에 대한 정보 2개를 알려줍니다 (가장 높은 약점, 가장 낮은 내성 수정치, 면역 1개, 가장 높은 저항 중 선택). \n성공: 위 목록에서 정보 1개. \n대실패: GM이 거짓 정보를 줍니다.",
     "desc": "공연자의 냉독(cold reading) 기법, 아우라 읽기, 기타 속임수로 적의 강점과 약점을 발견합니다. GM이 당신 대신 비밀 오컬티즘 판정을 굴립니다. {{condition:Concealed}}, {{condition:Hidden}}, 미탐지가 아닌 전투 중인 적 1명의 기만 또는 은신 DC(높은 쪽)에 대해 판정합니다. 대상은 1일간 당신의 전투 판독에 면역이 됩니다.<br><strong>대성공:</strong> GM이 적에 대한 정보 2개를 알려줍니다 (가장 높은 약점, 가장 낮은 내성 수정치, 면역 1개, 가장 높은 저항 중 선택).<br> <strong>성공:</strong> 위 목록에서 정보 1개.<br> <strong>대실패:</strong> GM이 거짓 정보를 줍니다."
   },
   {
@@ -5717,7 +5809,6 @@ var FEAT_DB = [
     "name_ko": "용감한 전진",
     "name_en": "Courageous Advance",
     "feat_level": 4,
-    "prerequisites": "전사 뮤즈",
     "prereqs": [
       {
         "subclass": "전사 뮤즈"
@@ -5730,6 +5821,8 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "1",
+    "prerequisites": "전사 뮤즈",
     "summary": "[1행동] 고무적인 외침으로 아군에게 전진을 촉구합니다. 다음 행동이 용감한 찬가 작곡 캔트립 시전이면, 주문에서 상태 보너스를 얻는 아군 1명이 즉시 반응으로 보폭(Stride)을 할 수 있습니다.",
     "desc": "고무적인 외침으로 아군에게 전진을 촉구합니다. 다음 행동이 <em>용감한 찬가</em> 작곡 캔트립 시전이면, 주문에서 상태 보너스를 얻는 아군 1명이 즉시 반응으로 <strong>보폭(Stride)</strong>을 할 수 있습니다."
   },
@@ -5738,7 +5831,6 @@ var FEAT_DB = [
     "name_ko": "동조",
     "name_en": "In Tune",
     "feat_level": 4,
-    "prerequisites": "마에스트로 뮤즈",
     "prereqs": [
       {
         "subclass": "마에스트로 뮤즈"
@@ -5750,6 +5842,8 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "1",
+    "prerequisites": "마에스트로 뮤즈",
     "summary": "[1행동] 뛰어난 공연 기술을 다른 이에게 동조시켜, 마치 누구나 할 수 있는 것처럼 약간의 기술을 부여합니다. 다음 행동이 방사 영역의 작곡 주문 시전이면, 영역이 당신 대신 60피트 내 동의하는 아군에서 퍼집니다. 지향 청중이 있으면 원뿔도 아군에서 시작 가능.",
     "desc": "뛰어난 공연 기술을 다른 이에게 동조시켜, 마치 누구나 할 수 있는 것처럼 약간의 기술을 부여합니다. 다음 행동이 방사 영역의 작곡 주문 시전이면, 영역이 당신 대신 60피트 내 동의하는 <strong>아군에서 퍼집니다</strong>. 지향 청중이 있으면 원뿔도 아군에서 시작 가능."
   },
@@ -5764,6 +5858,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "1",
     "summary": "[1행동] 주문시전을 공연에 미묘하게 엮습니다. 다음 행동이 주문 시전이면, 주문의 구성요소를 공연에 숨깁니다. 지각 DC에 대한 지각 판정에 성공하지 않으면, 공연에 주문시전이 포함된 것을 알지 못합니다.",
     "desc": "주문시전을 공연에 미묘하게 엮습니다. 다음 행동이 주문 시전이면, 주문의 구성요소를 공연에 숨깁니다. 지각 DC에 대한 지각 판정에 성공하지 않으면, 공연에 주문시전이 포함된 것을 알지 못합니다."
   },
@@ -5820,7 +5915,6 @@ var FEAT_DB = [
     "name_ko": "확실한 지식",
     "name_en": "Assured Knowledge",
     "feat_level": 6,
-    "prerequisites": "수수께끼 뮤즈",
     "prereqs": [
       {
         "subclass": "수수께끼 뮤즈"
@@ -5831,6 +5925,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "수수께끼 뮤즈",
     "summary": "자신 있게 정보를 얻습니다. 어떤 기술(바드 지식 포함)로든 지식 회상(Recall Knowledge)을 할 때, 굴리는 대신 10 + 숙련 보너스를 결과로 받을 수 있습니다(다른 보너스, 페널티, 수정치 적용 안 됨). 기술에 전문가이면, 확신(Assurance) 재주가 없어도 해당 기술의 자동 지식(Automatic Knowledge) 기술 재주 전제조건을 충족합니다.",
     "desc": "자신 있게 정보를 얻습니다. 어떤 기술(바드 지식 포함)로든 지식 회상(Recall Knowledge)을 할 때, 굴리는 대신 <strong>10 + 숙련 보너스</strong>를 결과로 받을 수 있습니다(다른 보너스, 페널티, 수정치 적용 안 됨).<br>기술에 전문가이면, {{feat:Assurance}} 재주가 없어도 해당 기술의 <strong>{{feat:Automatic Knowledge}}</strong> 기술 재주 전제조건을 충족합니다."
   },
@@ -5839,7 +5934,6 @@ var FEAT_DB = [
     "name_ko": "방어 조율",
     "name_en": "Defensive Coordination",
     "feat_level": 6,
-    "prerequisites": "전사 뮤즈, 결집의 찬가",
     "prereqs": [
       {
         "subclass": "전사 뮤즈"
@@ -5855,6 +5949,8 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "1",
+    "prerequisites": "전사 뮤즈, 결집의 찬가",
     "summary": "[1행동] 압도적 역경에도 맞서 버티는 전설적 영웅처럼, 당신과 아군은 방어선을 지킵니다. 다음 행동이 결집의 찬가 작곡 캔트립 시전이면, 방패 올리기(Raise a Shield)를 할 수 있고, 주문에서 상태 보너스를 얻는 아군 1명이 즉시 반응으로 방패 올리기를 할 수 있습니다.",
     "desc": "압도적 역경에도 맞서 버티는 전설적 영웅처럼, 당신과 아군은 방어선을 지킵니다. 다음 행동이 <em>결집의 찬가</em> 작곡 캔트립 시전이면, <strong>방패 올리기(Raise a Shield)</strong>를 할 수 있고, 주문에서 상태 보너스를 얻는 아군 1명이 즉시 반응으로 방패 올리기를 할 수 있습니다."
   },
@@ -5875,7 +5971,6 @@ var FEAT_DB = [
     "name_ko": "동료 교육",
     "name_en": "Educate Allies",
     "feat_level": 6,
-    "prerequisites": "해박한(Well-Versed)",
     "prereqs": [
       {
         "feat": "Well-Versed"
@@ -5886,6 +5981,8 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "reaction",
+    "prerequisites": "해박한(Well-Versed)",
     "summary": "[반응] 유발 조건: 작곡 주문의 혜택을 받는 아군이 청각, 환영, 언어, 음파, 시각 특성의 효과를 받습니다. 작곡 주문의 속성을 조정하여 방어 지식을 전달합니다. 작곡 주문의 영향을 받는 모든 아군이 다음 턴 시작까지 해박한 재주의 +1 상황 보너스를 얻습니다. 가르치는 것이 자신의 기술도 강화하여 개인 해박한 보너스가 다음 턴 시작까지 +2로 증가합니다.",
     "desc": "<strong>유발 조건:</strong> 작곡 주문의 혜택을 받는 아군이 청각, 환영, 언어, 음파, 시각 특성의 효과를 받습니다.<br>작곡 주문의 속성을 조정하여 방어 지식을 전달합니다. 작곡 주문의 영향을 받는 모든 아군이 다음 턴 시작까지 해박한 재주의 <strong>+1 상황 보너스</strong>를 얻습니다. 가르치는 것이 자신의 기술도 강화하여 개인 해박한 보너스가 다음 턴 시작까지 <strong>+2로 증가</strong>합니다."
   },
@@ -5894,7 +5991,6 @@ var FEAT_DB = [
     "name_ko": "조화",
     "name_en": "Harmonize",
     "feat_level": 6,
-    "prerequisites": "마에스트로 뮤즈",
     "prereqs": [
       {
         "subclass": "마에스트로 뮤즈"
@@ -5907,6 +6003,8 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "1",
+    "prerequisites": "마에스트로 뮤즈",
     "summary": "[1행동] 여러 작곡를 동시에 연주할 수 있습니다. 다음 행동이 작곡 시전이면 조화된 작곡가 됩니다. 일반 작곡와 달리, 다른 작곡를 시전해도 종료되지 않으며, 같은 턴에 다른 작곡도 시전할 수 있습니다. 다른 조화된 작곡를 시전하면 기존 조화된 작곡가 종료됩니다.",
     "desc": "여러 작곡를 동시에 연주할 수 있습니다. 다음 행동이 작곡 시전이면 <strong>조화된 작곡</strong>가 됩니다. 일반 작곡와 달리, 다른 작곡를 시전해도 종료되지 않으며, 같은 턴에 다른 작곡도 시전할 수 있습니다. 다른 조화된 작곡를 시전하면 기존 조화된 작곡가 종료됩니다."
   },
@@ -5923,7 +6021,7 @@ var FEAT_DB = [
     "desc": "<em>{{spell:Song of Marching}}</em> 작곡 캔트립(371페이지)을 배워, 아군과 함께 먼 거리를 무리 없이 횡단합니다."
   },
   {
-    "id": "steady-spellcasting",
+    "id": "steady-spellcasting-witch",
     "name_ko": "안정된 주문시전",
     "name_en": "Steady Spellcasting",
     "feat_level": 6,
@@ -5945,6 +6043,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 30피트 내 아군이 주문을 시전합니다. 공연으로 아군의 주문시전을 보충하여 마법 에너지를 대신 제공합니다. 아군의 레벨에 대한 매우 높은 DC에 대해 공연 판정을 시도하고, 집중 포인트(집중 주문인 경우)를 소비하거나 유발 주문보다 최소 1랭크 높은 주문 슬롯을 소비합니다. 성공하면 아군이 일반적으로 소비해야 할 집중 포인트나 주문 슬롯을 소비하지 않습니다.",
     "desc": "<strong>유발 조건:</strong> 30피트 내 아군이 주문을 시전합니다.<br>공연으로 아군의 주문시전을 보충하여 마법 에너지를 대신 제공합니다. 아군의 레벨에 대한 매우 높은 DC에 대해 <strong>공연 판정</strong>을 시도하고, 집중 포인트(집중 주문인 경우)를 소비하거나 유발 주문보다 최소 1랭크 높은 주문 슬롯을 소비합니다. 성공하면 아군이 일반적으로 소비해야 할 집중 포인트나 주문 슬롯을 <strong>소비하지 않습니다</strong>."
   },
@@ -5960,6 +6059,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "1",
     "summary": "[1행동] 작곡가 호응 구호 형태를 취해 아군이 당신 없이도 효과를 이어갈 수 있습니다. 다음 행동이 지속 시간 1라운드의 작곡 캔트립 시전이면 호출이 됩니다. 주문이 활성화된 동안, 주문의 영향을 받는 아군 1명이 청각과 집중 특성의 단일 행동으로 응답하여 지속 시간을 1라운드 연장할 수 있습니다. 1명만 응답 가능.",
     "desc": "작곡가 호응 구호 형태를 취해 아군이 당신 없이도 효과를 이어갈 수 있습니다. 다음 행동이 지속 시간 1라운드의 작곡 캔트립 시전이면 호출이 됩니다. 주문이 활성화된 동안, 주문의 영향을 받는 아군 1명이 청각과 집중 특성의 <strong>단일 행동으로 응답</strong>하여 지속 시간을 1라운드 연장할 수 있습니다. 1명만 응답 가능."
   },
@@ -5968,7 +6068,6 @@ var FEAT_DB = [
     "name_ko": "다재다능한 기술",
     "name_en": "Eclectic Skill",
     "feat_level": 8,
-    "prerequisites": "박학다식 뮤즈, 오컬티즘 달인",
     "prereqs": [
       {
         "subclass": "박학다식 뮤즈"
@@ -5982,6 +6081,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "박학다식 뮤즈, 오컬티즘 달인",
     "summary": "폭넓은 경험이 다양한 기술로 변환됩니다. 미숙련 기술 판정의 숙련 보너스가 레벨과 같아집니다. 보통 숙련이 필요한 기술 행동을 미숙련으로도 시도 가능. 오컬티즘 전설이면 전문가가 필요한 기술 행동도 미숙련이나 숙련으로 시도 가능.",
     "desc": "폭넓은 경험이 다양한 기술로 변환됩니다. 미숙련 기술 판정의 숙련 보너스가 <strong>레벨과 같아집니다</strong>. 보통 숙련이 필요한 기술 행동을 미숙련으로도 시도 가능. 오컬티즘 전설이면 전문가가 필요한 기술 행동도 미숙련이나 숙련으로 시도 가능."
   },
@@ -5990,7 +6090,6 @@ var FEAT_DB = [
     "name_ko": "포르티시모 작곡",
     "name_en": "Fortissimo Composition",
     "feat_level": 8,
-    "prerequisites": "마에스트로 뮤즈",
     "prereqs": [
       {
         "subclass": "마에스트로 뮤즈"
@@ -6000,6 +6099,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "마에스트로 뮤즈",
     "summary": "찬가가 더 크고 강력해집니다. 포르티시모 작곡(fortissimo composition) 주문변형 집중 주문(370페이지)을 배웁니다.",
     "desc": "찬가가 더 크고 강력해집니다. <em>{{spell:Fortissimo Composition}}</em> 주문변형 집중 주문(370페이지)을 배웁니다."
   },
@@ -6008,7 +6108,6 @@ var FEAT_DB = [
     "name_ko": "만물박사",
     "name_en": "Know-It-All",
     "feat_level": 8,
-    "prerequisites": "수수께끼 뮤즈",
     "prereqs": [
       {
         "subclass": "수수께끼 뮤즈"
@@ -6018,6 +6117,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "수수께끼 뮤즈",
     "summary": "지식 회상에 성공하면 추가 정보나 맥락을 얻습니다. 대성공하면 추가 정보/맥락을 얻거나 추가 후속 질문을 할 수 있습니다(GM 선택).",
     "desc": "지식 회상에 성공하면 <strong>추가 정보나 맥락</strong>을 얻습니다. 대성공하면 추가 정보/맥락을 얻거나 <strong>추가 후속 질문</strong>을 할 수 있습니다(GM 선택)."
   },
@@ -6026,7 +6126,6 @@ var FEAT_DB = [
     "name_ko": "반사적 용기",
     "name_en": "Reflexive Courage",
     "feat_level": 8,
-    "prerequisites": "전사 뮤즈",
     "prereqs": [
       {
         "subclass": "전사 뮤즈"
@@ -6037,8 +6136,10 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
-    "summary": "[반응] 유발 조건: 도달 범위 내 생물이 청각 효과, 조작 행동, 이동 행동을 사용하거나, 원거리 공격을 하거나, 이동 중 칸을 떠납니다.  요구사항: 용감한 찬가의 영향을 받고 있어야 합니다. 사나운 전투 함성으로 스스로를 고무하여 적을 공격합니다. 유발 생물에 근접 타격. 치명타이고 유발이 조작 행동이면 행동이 방해됩니다.",
-    "desc": "<strong>유발 조건:</strong> 도달 범위 내 생물이 청각 효과, 조작 행동, 이동 행동을 사용하거나, 원거리 공격을 하거나, 이동 중 칸을 떠납니다.<br> <strong>요구사항:</strong> 용감한 찬가의 영향을 받고 있어야 합니다.<br>사나운 전투 함성으로 스스로를 고무하여 적을 공격합니다. 유발 생물에 <strong>근접 타격</strong>. 치명타이고 유발이 조작 행동이면 행동이 <strong>방해됩니다</strong>."
+    "actionCost": "reaction",
+    "prerequisites": "전사 뮤즈",
+    "summary": "[반응] 유발 조건: 도달 범위 내 생물이 청각 효과, 조작 행동, 이동 행동을 사용하거나, 원거리 공격을 하거나, 이동 중 칸을 떠납니다. \n요구사항: 용감한 찬가의 영향을 받고 있어야 합니다. 사나운 전투 함성으로 스스로를 고무하여 적을 공격합니다. 유발 생물에 근접 타격. 치명타이고 유발이 조작 행동이면 행동이 방해됩니다.",
+    "desc": "<strong>유발 조건:</strong> 도달 범위 내 생물이 청각 효과, 조작 행동, 이동 행동을 사용하거나, 원거리 공격을 하거나, 이동 중 칸을 떠납니다.<br>\n<strong>요구사항:</strong> 용감한 찬가의 영향을 받고 있어야 합니다.<br>사나운 전투 함성으로 스스로를 고무하여 적을 공격합니다. 유발 생물에 <strong>근접 타격</strong>. 치명타이고 유발이 조작 행동이면 행동이 <strong>방해됩니다</strong>."
   },
   {
     "id": "soulsight",
@@ -6071,7 +6172,6 @@ var FEAT_DB = [
     "name_ko": "용감한 맹공",
     "name_en": "Courageous Assault",
     "feat_level": 10,
-    "prerequisites": "전사 뮤즈",
     "prereqs": [
       {
         "subclass": "전사 뮤즈"
@@ -6084,6 +6184,8 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "1",
+    "prerequisites": "전사 뮤즈",
     "summary": "[1행동] 강력한 외침으로 아군을 공격으로 이끕니다. 다음 행동이 용감한 찬가 시전이면, 상태 보너스를 얻는 아군 1명이 즉시 반응으로 근접 타격을 할 수 있습니다.",
     "desc": "강력한 외침으로 아군을 공격으로 이끕니다. 다음 행동이 <em>용감한 찬가</em> 시전이면, 상태 보너스를 얻는 아군 1명이 즉시 반응으로 <strong>근접 타격</strong>을 할 수 있습니다."
   },
@@ -6112,7 +6214,7 @@ var FEAT_DB = [
     "desc": "<em>뱀 {{spell:Ode to Ouroboros}}</em> 작곡 주문(371페이지)을 배워, 아군을 일시적으로 죽음에서 구합니다."
   },
   {
-    "id": "quickened-casting",
+    "id": "quickened-casting-witch",
     "name_ko": "빠른 시전",
     "name_en": "Quickened Casting",
     "feat_level": 10,
@@ -6122,6 +6224,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "free",
     "summary": "[자유 행동] 빈도: 하루 1회 다음 행동이 바드 캔트립이나 가장 높은 바드 주문 슬롯보다 최소 2랭크 낮은 바드 주문 시전이면, 시전에 필요한 행동 수를 1 줄입니다(최소 1행동).",
     "desc": "<strong>빈도:</strong> 하루 1회<br>다음 행동이 바드 캔트립이나 가장 높은 바드 주문 슬롯보다 최소 2랭크 낮은 바드 주문 시전이면, 시전에 필요한 행동 수를 <strong>1 줄입니다</strong>(최소 1행동)."
   },
@@ -6142,7 +6245,6 @@ var FEAT_DB = [
     "name_ko": "비범한 작곡",
     "name_en": "Unusual Composition",
     "feat_level": 10,
-    "prerequisites": "박학다식 뮤즈",
     "prereqs": [
       {
         "subclass": "박학다식 뮤즈"
@@ -6155,6 +6257,8 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "1",
+    "prerequisites": "박학다식 뮤즈",
     "summary": "[1행동] 작곡의 감정과 힘을 다른 매체로 변환합니다. 다음 행동이 청각이나 시각인 작곡 주문 시전이면, 진동감각 같은 특수 감각을 포함한 어떤 감각으로든 목격할 수 있는 생물에게 영향을 줄 수 있습니다. 원하는 감각을 제외할 수 있습니다.",
     "desc": "작곡의 감정과 힘을 다른 매체로 변환합니다. 다음 행동이 청각이나 시각인 작곡 주문 시전이면, 진동감각 같은 특수 감각을 포함한 <strong>어떤 감각으로든 목격할 수 있는 생물에게 영향</strong>을 줄 수 있습니다. 원하는 감각을 제외할 수 있습니다."
   },
@@ -6163,7 +6267,6 @@ var FEAT_DB = [
     "name_ko": "다재다능한 박학",
     "name_en": "Eclectic Polymath",
     "feat_level": 12,
-    "prerequisites": "비밀스러운 박학",
     "prereqs": [
       {
         "feat": "Esoteric Polymath"
@@ -6173,6 +6276,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "비밀스러운 박학",
     "summary": "유연한 정신이 한 주문에서 다른 주문으로 빠르게 전환합니다. 일일 준비 시 비밀스러운 박학으로 레퍼토리에 주문을 추가했을 때, 다시 준비할 때 비밀스러운 박학의 새 주문을 레퍼토리에 유지하고 대신 같은 랭크의 다른 레퍼토리 주문에 대한 접근을 잃을 수 있습니다.",
     "desc": "유연한 정신이 한 주문에서 다른 주문으로 빠르게 전환합니다. 일일 준비 시 비밀스러운 박학으로 레퍼토리에 주문을 추가했을 때, 다시 준비할 때 비밀스러운 박학의 새 주문을 레퍼토리에 <strong>유지하고</strong> 대신 같은 랭크의 다른 레퍼토리 주문에 대한 접근을 잃을 수 있습니다."
   },
@@ -6181,7 +6285,6 @@ var FEAT_DB = [
     "name_ko": "수수께끼의 지식",
     "name_en": "Enigma's Knowledge",
     "feat_level": 12,
-    "prerequisites": "확실한 지식",
     "prereqs": [
       {
         "feat": "Assured Knowledge"
@@ -6191,6 +6294,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "확실한 지식",
     "summary": "뮤즈가 적시에 지식을 속삭입니다. 지식 회상에 사용할 수 있는 모든 기술에 자동 지식 기술 재주의 혜택을 얻습니다. 자동 지식의 특수 조항대로 라운드당 1회만 사용.",
     "desc": "뮤즈가 적시에 지식을 속삭입니다. 지식 회상에 사용할 수 있는 <strong>모든 기술에 자동 지식</strong> 기술 재주의 혜택을 얻습니다. 자동 지식의 특수 조항대로 라운드당 1회만 사용."
   },
@@ -6215,15 +6319,15 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
-    "summary": "[반응] 유발 조건: 생물이나 위험이 당신에게 음파 피해를 주려 합니다. 주변 음향을 조작하여 음파 피해를 원천으로 돌려보냅니다. 생물의 의지 DC(또는 위험의 인내 DC, 주문이면 주문 DC 중 낮은 것)에 대해 공연 판정을 시도합니다. 대성공: 유발 피해를 레벨 × 4까지 줄입니다. 생물이 줄인 양만큼 음파 피해를 받습니다.  성공: 유발 피해를 레벨 × 2까지 줄이고, 생물이 같은 양의 음파 피해를 받습니다.",
-    "desc": "<strong>유발 조건:</strong> 생물이나 위험이 당신에게 음파 피해를 주려 합니다.<br>주변 음향을 조작하여 음파 피해를 원천으로 돌려보냅니다. 생물의 의지 DC(또는 위험의 인내 DC, 주문이면 주문 DC 중 낮은 것)에 대해 공연 판정을 시도합니다.<br><strong>대성공:</strong> 유발 피해를 레벨 × 4까지 줄입니다. 생물이 줄인 양만큼 음파 피해를 받습니다.<br> <strong>성공:</strong> 유발 피해를 레벨 × 2까지 줄이고, 생물이 같은 양의 음파 피해를 받습니다."
+    "actionCost": "reaction",
+    "summary": "[반응] 유발 조건: 생물이나 위험이 당신에게 음파 피해를 주려 합니다. 주변 음향을 조작하여 음파 피해를 원천으로 돌려보냅니다. 생물의 의지 DC(또는 위험의 인내 DC, 주문이면 주문 DC 중 낮은 것)에 대해 공연 판정을 시도합니다. 대성공: 유발 피해를 레벨 × 4까지 줄입니다. 생물이 줄인 양만큼 음파 피해를 받습니다. \n성공: 유발 피해를 레벨 × 2까지 줄이고, 생물이 같은 양의 음파 피해를 받습니다.",
+    "desc": "<strong>유발 조건:</strong> 생물이나 위험이 당신에게 음파 피해를 주려 합니다.<br>주변 음향을 조작하여 음파 피해를 원천으로 돌려보냅니다. 생물의 의지 DC(또는 위험의 인내 DC, 주문이면 주문 DC 중 낮은 것)에 대해 공연 판정을 시도합니다.<br><strong>대성공:</strong> 유발 피해를 레벨 × 4까지 줄입니다. 생물이 줄인 양만큼 음파 피해를 받습니다.<br>\n<strong>성공:</strong> 유발 피해를 레벨 × 2까지 줄이고, 생물이 같은 양의 음파 피해를 받습니다."
   },
   {
     "id": "shared-assault",
     "name_ko": "공유된 맹공",
     "name_en": "Shared Assault",
     "feat_level": 12,
-    "prerequisites": "용감한 맹공",
     "prereqs": [
       {
         "feat": "Courageous Assault"
@@ -6233,6 +6337,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "용감한 맹공",
     "summary": "전투의 승리 속에서 다른 아군과 영광을 나눕니다. 용감한 맹공으로 선택한 아군이 부여받은 타격에서 대성공하면, 용감한 찬가의 영향을 받는 다른 아군 1명이 즉시 반응으로 근접 타격을 할 수 있습니다. 세 번째 아군에게는 이어지지 않습니다.",
     "desc": "전투의 승리 속에서 다른 아군과 영광을 나눕니다. 용감한 맹공으로 선택한 아군이 부여받은 타격에서 <strong>대성공하면</strong>, 용감한 찬가의 영향을 받는 다른 아군 1명이 즉시 반응으로 근접 타격을 할 수 있습니다. 세 번째 아군에게는 이어지지 않습니다."
   },
@@ -6278,7 +6383,6 @@ var FEAT_DB = [
     "name_ko": "승리의 영감",
     "name_en": "Triumphant Inspiration",
     "feat_level": 14,
-    "prerequisites": "전사 뮤즈",
     "prereqs": [
       {
         "subclass": "전사 뮤즈"
@@ -6288,6 +6392,8 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "free",
+    "prerequisites": "전사 뮤즈",
     "summary": "[자유 행동] 유발 조건: 근접 무기 타격이나 근접 비무장 공격으로 적에게 치명타를 가합니다. 승리의 외침으로 동료에게 영감을 줍니다. 보통 1행동으로 시전하는 아는 작곡 캔트립을 시전합니다.",
     "desc": "<strong>유발 조건:</strong> 근접 무기 타격이나 근접 비무장 공격으로 적에게 치명타를 가합니다.<br>승리의 외침으로 동료에게 영감을 줍니다. 보통 1행동으로 시전하는 아는 <strong>작곡 캔트립</strong>을 시전합니다."
   },
@@ -6296,7 +6402,6 @@ var FEAT_DB = [
     "name_ko": "초인지",
     "name_en": "True Hypercognition",
     "feat_level": 14,
-    "prerequisites": "수수께끼 뮤즈",
     "prereqs": [
       {
         "subclass": "수수께끼 뮤즈"
@@ -6306,6 +6411,8 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "1",
+    "prerequisites": "수수께끼 뮤즈",
     "summary": "[1행동] 정신이 놀라운 속도로 작동합니다. 즉시 최대 5회의 지식 회상 행동을 사용합니다. 일반적으로 지식 회상에 의해 유발되는 특수 능력이나 자유 행동은 사용할 수 없습니다.",
     "desc": "정신이 놀라운 속도로 작동합니다. 즉시 최대 <strong>5회의 지식 회상 행동</strong>을 사용합니다. 일반적으로 지식 회상에 의해 유발되는 특수 능력이나 자유 행동은 사용할 수 없습니다."
   },
@@ -6321,6 +6428,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "1",
     "summary": "[1행동] 공격에 영감을 줄 때 마법적 활력을 불어넣습니다. 다음 행동이 용감한 찬가 시전이면, 당신과 영향받는 모든 아군이 3 + 매력 수정치만큼의 임시 HP를 1분간 얻습니다.",
     "desc": "공격에 영감을 줄 때 마법적 활력을 불어넣습니다. 다음 행동이 <em>용감한 찬가</em> 시전이면, 당신과 영향받는 모든 아군이 <strong>3 + 매력 수정치만큼의 임시 HP</strong>를 1분간 얻습니다."
   },
@@ -6329,7 +6437,6 @@ var FEAT_DB = [
     "name_ko": "용감한 총공격",
     "name_en": "Courageous Onslaught",
     "feat_level": 16,
-    "prerequisites": "용감한 전진, 용감한 맹공",
     "prereqs": [
       {
         "feat": "Courageous Advance"
@@ -6345,11 +6452,13 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "1",
+    "prerequisites": "용감한 전진, 용감한 맹공",
     "summary": "[1행동] 공연으로 적에 대한 총공격을 지휘합니다. 다음 행동이 용감한 찬가 시전이면, 상태 보너스를 얻는 아군 1명이 즉시 반응으로 보폭 후 근접 타격을 할 수 있습니다.",
     "desc": "공연으로 적에 대한 총공격을 지휘합니다. 다음 행동이 <em>용감한 찬가</em> 시전이면, 상태 보너스를 얻는 아군 1명이 즉시 반응으로 <strong>보폭 후 근접 타격</strong>을 할 수 있습니다."
   },
   {
-    "id": "effortless-concentration",
+    "id": "effortless-concentration-witch",
     "name_ko": "무의식적 집중",
     "name_en": "Effortless Concentration",
     "feat_level": 16,
@@ -6357,6 +6466,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "free",
     "summary": "[자유 행동] 유발 조건: 턴이 시작됩니다. 거의 생각 없이 주문을 유지합니다. 즉시 유지(Sustain) 행동의 효과를 얻어, 활성 바드 주문 1개의 지속 시간을 연장합니다.",
     "desc": "<strong>유발 조건:</strong> 턴이 시작됩니다.<br>거의 생각 없이 주문을 유지합니다. 즉시 유지(Sustain) 행동의 효과를 얻어, 활성 바드 주문 1개의 지속 시간을 연장합니다."
   },
@@ -6365,7 +6475,6 @@ var FEAT_DB = [
     "name_ko": "울려 퍼지는 피날레",
     "name_en": "Resounding Finale",
     "feat_level": 16,
-    "prerequisites": "마에스트로 뮤즈",
     "prereqs": [
       {
         "subclass": "마에스트로 뮤즈"
@@ -6376,6 +6485,8 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "reaction",
+    "prerequisites": "마에스트로 뮤즈",
     "summary": "[반응] 유발 조건: 당신이나 작곡 주문의 혜택을 받는 아군이 음파 피해를 받으려 합니다. 공연을 갑작스럽고 극적인 마무리로 끝내 다른 소리를 압도합니다. 작곡 주문이 즉시 종료되고, 혜택을 받던 모든 아군이 유발 피해에 대해 작곡 주문 랭크 × 2만큼의 음파 저항을 얻습니다.",
     "desc": "<strong>유발 조건:</strong> 당신이나 작곡 주문의 혜택을 받는 아군이 음파 피해를 받으려 합니다.<br>공연을 갑작스럽고 극적인 마무리로 끝내 다른 소리를 압도합니다. 작곡 주문이 즉시 종료되고, 혜택을 받던 모든 아군이 유발 피해에 대해 작곡 주문 랭크 × 2만큼의 <strong>음파 저항</strong>을 얻습니다."
   },
@@ -6384,7 +6495,6 @@ var FEAT_DB = [
     "name_ko": "학구적 용량",
     "name_en": "Studious Capacity",
     "feat_level": 16,
-    "prerequisites": "수수께끼 뮤즈, 오컬티즘 전설",
     "prereqs": [
       {
         "subclass": "수수께끼 뮤즈"
@@ -6398,6 +6508,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "수수께끼 뮤즈, 오컬티즘 전설",
     "summary": "오컬트 마법의 지속적 연구가 마법 용량을 늘렸습니다. 적절한 주문 랭크의 주문 슬롯이 바닥나도 하루에 주문 1개를 추가로 시전할 수 있습니다. 단, 가장 높은 주문 랭크의 주문에는 사용할 수 없습니다.",
     "desc": "오컬트 마법의 지속적 연구가 마법 용량을 늘렸습니다. 적절한 주문 랭크의 주문 슬롯이 바닥나도 <strong>하루에 주문 1개를 추가로</strong> 시전할 수 있습니다. 단, 가장 높은 주문 랭크의 주문에는 사용할 수 없습니다."
   },
@@ -6412,6 +6523,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 죽음 특성이 없거나 즉사를 유발하지 않는 타격이나 주문으로 피해를 받으려 합니다. 오컬트 연결과 놀라운 설득력으로 유발 피해가 상상의 산물이라고 자신을 납득시킵니다. 피해가 원래 유형에서 정신 피해로 변경되고, 피해 효과가 비치명(nonlethal) 특성을 얻습니다. 정신 효과나 정신 피해에 면역이면 사용 불가.",
     "desc": "<strong>유발 조건:</strong> 죽음 특성이 없거나 즉사를 유발하지 않는 타격이나 주문으로 피해를 받으려 합니다.<br>오컬트 연결과 놀라운 설득력으로 유발 피해가 상상의 산물이라고 자신을 납득시킵니다. 피해가 원래 유형에서 <strong>정신 피해로 변경</strong>되고, 피해 효과가 <strong>비치명(nonlethal) 특성</strong>을 얻습니다. 정신 효과나 정신 피해에 면역이면 사용 불가."
   },
@@ -6420,7 +6532,6 @@ var FEAT_DB = [
     "name_ko": "깊은 전승",
     "name_en": "Deep Lore",
     "feat_level": 18,
-    "prerequisites": "수수께끼 뮤즈, 오컬티즘 전설",
     "prereqs": [
       {
         "subclass": "수수께끼 뮤즈"
@@ -6434,6 +6545,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "수수께끼 뮤즈, 오컬티즘 전설",
     "summary": "레퍼토리가 방대하여 일반보다 훨씬 많은 주문을 포함합니다. 시전 가능한 각 주문 랭크에 주문 1개씩 추가합니다.",
     "desc": "레퍼토리가 방대하여 일반보다 훨씬 많은 주문을 포함합니다. 시전 가능한 각 주문 랭크에 <strong>주문 1개씩 추가</strong>합니다."
   },
@@ -6442,12 +6554,12 @@ var FEAT_DB = [
     "name_ko": "불협화음",
     "name_en": "Discordant Voice",
     "feat_level": 18,
-    "prerequisites": "용감한 찬가",
     "traits": [
       "음파",
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "용감한 찬가",
     "summary": "용감한 찬가가 아군의 공격에 강력한 음파 반향을 부여합니다. 아군이 용감한 찬가의 영향을 받는 동안, 무기 타격과 비무장 공격이 추가 1d6 음파 피해.",
     "desc": "용감한 찬가가 아군의 공격에 강력한 음파 반향을 부여합니다. 아군이 용감한 찬가의 영향을 받는 동안, 무기 타격과 비무장 공격이 <strong>추가 1d6 음파 피해</strong>."
   },
@@ -6456,7 +6568,6 @@ var FEAT_DB = [
     "name_ko": "영원한 작곡",
     "name_en": "Eternal Composition",
     "feat_level": 18,
-    "prerequisites": "마에스트로 뮤즈",
     "prereqs": [
       {
         "subclass": "마에스트로 뮤즈"
@@ -6466,6 +6577,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "마에스트로 뮤즈",
     "summary": "세계가 무대이며 당신은 항상 연주 중입니다. 영구적으로 가속(quickened) 상태; 추가 행동은 1행동으로 시전하는 작곡 캔트립에만 사용 가능. 탐험 모드에서 어떤 탐험 전술을 사용하든 적격한 작곡 캔트립을 선언할 수 있습니다. 전투 조우에서 첫 번째 턴 이전에도 이전 턴에 시전한 것처럼 활성화됩니다.",
     "desc": "세계가 무대이며 당신은 항상 연주 중입니다. <strong>영구적으로 {{condition:Quickened}}</strong> 상태; 추가 행동은 1행동으로 시전하는 작곡 캔트립에만 사용 가능. 탐험 모드에서 어떤 탐험 전술을 사용하든 적격한 작곡 캔트립을 선언할 수 있습니다. 전투 조우에서 첫 번째 턴 이전에도 이전 턴에 시전한 것처럼 활성화됩니다."
   },
@@ -6474,7 +6586,6 @@ var FEAT_DB = [
     "name_ko": "불가능한 박학",
     "name_en": "Impossible Polymath",
     "feat_level": 18,
-    "prerequisites": "주문학, 자연학, 또는 종교에 숙련; 비밀스러운 박학",
     "prereqs": [
       {
         "or": [
@@ -6500,6 +6611,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "주문학, 자연학, 또는 종교에 숙련; 비밀스러운 박학",
     "summary": "비밀스러운 공식이 다른 바드가 이해하지 못하는 다양한 전통의 마법에 손을 대게 합니다. 주문학에 숙련이면 비전 주문을, 자연학에 숙련이면 근원 주문을, 종교에 숙련이면 신성 주문을 비밀스러운 박학의 주문서에 추가할 수 있습니다. 비밀스러운 박학처럼 매일 하나를 오컬트 주문으로 레퍼토리에 추가할 수 있지만, 다재다능한 박학이 있어도 다른 전통의 주문은 준비 시 유지할 수 없습니다.",
     "desc": "비밀스러운 공식이 다른 바드가 이해하지 못하는 다양한 전통의 마법에 손을 대게 합니다. 주문학에 숙련이면 <strong>비전 주문</strong>을, 자연학에 숙련이면 <strong>근원 주문</strong>을, 종교에 숙련이면 <strong>신성 주문</strong>을 비밀스러운 박학의 주문서에 추가할 수 있습니다. 비밀스러운 박학처럼 매일 하나를 오컬트 주문으로 레퍼토리에 추가할 수 있지만, 다재다능한 박학이 있어도 다른 전통의 주문은 준비 시 <strong>유지할 수 없습니다</strong>."
   },
@@ -6520,11 +6632,11 @@ var FEAT_DB = [
     "name_ko": "완벽한 앙코르",
     "name_en": "Perfect Encore",
     "feat_level": 20,
-    "prerequisites": "마기스터리 주문",
     "traits": [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "마기스터리 주문",
     "summary": "또 하나의 놀라운 창작을 개발합니다. 추가 10랭크 주문 슬롯을 얻습니다.",
     "desc": "또 하나의 놀라운 창작을 개발합니다. <strong>추가 10랭크 주문 슬롯</strong>을 얻습니다."
   },
@@ -6545,7 +6657,6 @@ var FEAT_DB = [
     "name_ko": "뮤즈의 교향곡",
     "name_en": "Symphony of the Muse",
     "feat_level": 20,
-    "prerequisites": "조화",
     "prereqs": [
       {
         "feat": "Harmonize"
@@ -6555,6 +6666,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "조화",
     "summary": "무수한 공연을 다양한 효과의 독주 교향곡으로 엮는 법을 배웠습니다. 턴당 작곡 1개나 한 번에 1개의 제한이 없어집니다; 새 작곡를 사용해도 이전 작곡의 효과가 남은 지속 시간 동안 계속됩니다.",
     "desc": "무수한 공연을 다양한 효과의 독주 교향곡으로 엮는 법을 배웠습니다. <strong>턴당 작곡 1개나 한 번에 1개의 제한이 없어집니다</strong>; 새 작곡를 사용해도 이전 작곡의 효과가 남은 지속 시간 동안 계속됩니다."
   },
@@ -6563,7 +6675,6 @@ var FEAT_DB = [
     "name_ko": "궁극의 박학",
     "name_en": "Ultimate Polymath",
     "feat_level": 20,
-    "prerequisites": "박학다식 뮤즈",
     "prereqs": [
       {
         "subclass": "박학다식 뮤즈"
@@ -6573,6 +6684,7 @@ var FEAT_DB = [
       "바드"
     ],
     "category": "bard",
+    "prerequisites": "박학다식 뮤즈",
     "summary": "모든 주문을 유연하게 시전하여 현기증 나는 가능성의 배열을 부여합니다. 레퍼토리의 모든 주문이 시그니처 주문이 됩니다.",
     "desc": "모든 주문을 유연하게 시전하여 {{condition:Stupefied}} 나는 가능성의 배열을 부여합니다. 레퍼토리의 <strong>모든 주문이 시그니처 주문</strong>이 됩니다."
   },
@@ -6618,7 +6730,6 @@ var FEAT_DB = [
     "name_ko": "해로운 손",
     "name_en": "Harming Hands",
     "feat_level": 1,
-    "prerequisites": "해로운 원천. 공허 에너지의 사악한 힘이 성장합니다. 해로움 시전 시 d8 대신 d10을 굴립니다.",
     "prereqs": [
       {
         "feat": "해로운 원천"
@@ -6628,6 +6739,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "해로운 원천. 공허 에너지의 사악한 힘이 성장합니다. 해로움 시전 시 d8 대신 d10을 굴립니다.",
     "summary": "해로움 시전 시 d8 대신 d10을 굴립니다.",
     "desc": "<em>해로움</em> 시전 시 d8 대신 <strong>d10</strong>을 굴립니다."
   },
@@ -6636,7 +6748,6 @@ var FEAT_DB = [
     "name_ko": "치유의 손",
     "name_en": "Healing Hands",
     "feat_level": 1,
-    "prerequisites": "치유 원천. 활력이 더 선명하고 회복적입니다. 치유 시전 시 d8 대신 d10을 굴립니다.",
     "prereqs": [
       {
         "feat": "치유 원천"
@@ -6646,6 +6757,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "치유 원천. 활력이 더 선명하고 회복적입니다. 치유 시전 시 d8 대신 d10을 굴립니다.",
     "summary": "치유 시전 시 d8 대신 d10을 굴립니다.",
     "desc": "<em>치유</em> 시전 시 d8 대신 <strong>d10</strong>을 굴립니다."
   },
@@ -6660,11 +6772,12 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 위험에 대한 내성 굴림을 하려 합니다. 신격이 순간의 선견을 부여합니다. 유발 내성에 +2 상황 보너스.",
     "desc": "<strong>유발 조건:</strong> 위험에 대한 내성 굴림을 하려 합니다. 신격이 순간의 선견을 부여합니다. 유발 내성에 <strong>+2 상황 보너스</strong>."
   },
   {
-    "id": "reach-spell-cleric",
+    "id": "reach-spell-witch",
     "name_ko": "주문 도달",
     "name_en": "Reach Spell",
     "feat_level": 1,
@@ -6674,11 +6787,12 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "1",
     "summary": "[1행동] 주문의 사거리를 30피트 증가(접촉이면 30피트로).",
     "desc": "주문의 사거리를 <strong>30피트 증가</strong>(접촉이면 30피트로)."
   },
   {
-    "id": "cantrip-expansion-cleric",
+    "id": "cantrip-expansion-witch",
     "name_ko": "캔트립 확장",
     "name_en": "Cantrip Expansion",
     "feat_level": 2,
@@ -6740,6 +6854,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 아군이 HP 0으로 감소합니다. 긴급 상황에서 빠르게 움직입니다. 유발 아군을 향해 보폭. 이동 중 이동 속도에 +10피트 보너스.",
     "desc": "<strong>유발 조건:</strong> 아군이 HP 0으로 감소합니다. 긴급 상황에서 빠르게 움직입니다. 유발 아군을 향해 <strong>보폭</strong>. 이동 중 이동 속도에 +10피트 보너스."
   },
@@ -6761,7 +6876,6 @@ var FEAT_DB = [
     "name_ko": "다재다능한 원천",
     "name_en": "Versatile Font",
     "feat_level": 2,
-    "prerequisites": "해로운/치유 원천, 신격이 둘 다 허용. 원천 슬롯에 해로움이나 치유 어느 쪽이든 준비 가능.",
     "prereqs": [
       {
         "feat": "해로운/치유 원천"
@@ -6771,6 +6885,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "해로운/치유 원천, 신격이 둘 다 허용. 원천 슬롯에 해로움이나 치유 어느 쪽이든 준비 가능.",
     "summary": "해로움이나 치유 어느 쪽이든 준비 가능.",
     "desc": "<em>해로움</em>이나 <em>치유</em> 어느 쪽이든 준비 가능."
   },
@@ -6779,7 +6894,6 @@ var FEAT_DB = [
     "name_ko": "전투 사제의 갑옷",
     "name_en": "Warpriest's Armor",
     "feat_level": 2,
-    "prerequisites": "전투 사제 교의. 평갑에 숙련. 평갑 전문가 이상을 얻을 때 평갑에도 적용. 2 부피 이상 갑옷을 1 부피 가벼운 것처럼 취급(최소 1).",
     "prereqs": [
       {
         "subclass": "전투 사제 교의"
@@ -6789,6 +6903,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "전투 사제 교의. 평갑에 숙련. 평갑 전문가 이상을 얻을 때 평갑에도 적용. 2 부피 이상 갑옷을 1 부피 가벼운 것처럼 취급(최소 1).",
     "summary": "평갑에 숙련. 평갑 전문가 이상을 얻을 때 평갑에도 적용. 2 부피 이상 갑옷을 1 부피 가벼운 것처럼 취급(최소 1).",
     "desc": "<strong>평갑에 숙련</strong>. 평갑 전문가 이상을 얻을 때 평갑에도 적용. 2 부피 이상 갑옷을 1 부피 가벼운 것처럼 취급(최소 1)."
   },
@@ -6802,6 +6917,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "2",
     "summary": "[2행동] 비용: 해로움 또는 치유 주문 1개를 소비합니다. 근접 타격을 합니다. 명중 시, 소비한 주문의 1행동 버전을 대상에게 시전하여 일반 타격 피해에 추가합니다. 대상은 자동으로 내성 실패(타격이 치명타이면 대실패). 타격 실패 시 또는 해당 에너지에 피해를 받지 않는 생물을 명중하면 주문은 효과 없이 소비됩니다.",
     "desc": "<strong>비용:</strong> <em>해로움</em> 또는 <em>치유</em> 주문 1개를 소비합니다. 근접 타격을 합니다. 명중 시, 소비한 주문의 1행동 버전을 대상에게 시전하여 일반 타격 피해에 추가합니다. 대상은 자동으로 <strong>내성 실패</strong>(타격이 치명타이면 대실패). 타격 실패 시 또는 해당 에너지에 피해를 받지 않는 생물을 명중하면 주문은 효과 없이 소비됩니다."
   },
@@ -6828,6 +6944,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "1",
     "summary": "[1행동] 치유 대상의 공격에 에너지를 쏟습니다. 다음 행동이 단일 생물에게 HP를 회복하는 해로움이나 치유 시전이면, 대상이 다음 턴 종료까지 근접 무기/비무장 공격에 추가 1d6 피해(해로움=공허, 치유=활력). 5랭크 이상이면 2d6, 8랭크 이상이면 3d6.",
     "desc": "치유 대상의 공격에 에너지를 쏟습니다. 다음 행동이 단일 생물에게 HP를 회복하는 <em>해로움</em>이나 <em>치유</em> 시전이면, 대상이 다음 턴 종료까지 근접 무기/비무장 공격에 <strong>추가 1d6 피해</strong>(해로움=공허, 치유=활력). 5랭크 이상이면 2d6, 8랭크 이상이면 3d6."
   },
@@ -6840,6 +6957,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 종교 상징을 들고 있어야 합니다. 종교 상징을 강하게 제시합니다. 다음 턴 시작까지 내성 굴림에 +2 상황 보너스. 올린 상태에서 활력/공허 효과에 대한 내성에서 성공 시 대성공.",
     "desc": "<strong>요구사항:</strong> 종교 상징을 들고 있어야 합니다. 종교 상징을 강하게 제시합니다. 다음 턴 시작까지 내성 굴림에 <strong>+2 상황 보너스</strong>. 올린 상태에서 활력/공허 효과에 대한 내성에서 <strong>성공 시 대성공</strong>."
   },
@@ -6852,6 +6970,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "2",
     "summary": "[2행동] 요구사항: 시전 가능한 해로움 또는 치유가 있어야 합니다. 1행동 해로움/치유를 시전하여 자신을 치유하고(조작 특성 없음), 근접 타격을 합니다. 신격 선호 무기로 하면 공격에 +1 상태 보너스. 명중 시 사거리 밖이라도 인접한 적에 인접한 동의하는 생물에게 같은 양의 치유를 줄 수 있습니다.",
     "desc": "<strong>요구사항:</strong> 시전 가능한 <em>해로움</em> 또는 <em>치유</em>가 있어야 합니다. 1행동 <em>해로움</em>/<em>치유</em>를 시전하여 자신을 치유하고(조작 특성 없음), 근접 타격을 합니다. 신격 선호 무기로 하면 <strong>공격에 +1 상태 보너스</strong>. 명중 시 사거리 밖이라도 인접한 적에 인접한 동의하는 생물에게 같은 양의 치유를 줄 수 있습니다."
   },
@@ -6860,7 +6979,6 @@ var FEAT_DB = [
     "name_ko": "신성한 땅",
     "name_en": "Sacred Ground",
     "feat_level": 4,
-    "prerequisites": "해로운/치유 원천. 빈도: 10분에 1회. 1분간 기도하여 30피트 폭발 내에 신격의 영역의 그림자를 부릅니다(10분 지속). 영역 내에서 10분 전체를 보낸 생물은 레벨만큼 HP를 회복합니다.",
     "prereqs": [
       {
         "feat": "해로운/치유 원천"
@@ -6873,6 +6991,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "해로운/치유 원천. 빈도: 10분에 1회. 1분간 기도하여 30피트 폭발 내에 신격의 영역의 그림자를 부릅니다(10분 지속). 영역 내에서 10분 전체를 보낸 생물은 레벨만큼 HP를 회복합니다.",
     "summary": "빈도: 10분에 1회. 1분간 기도하여 30피트 폭발 내에 신격의 영역의 그림자를 부릅니다(10분 지속). 영역 내에서 10분 전체를 보낸 생물은 레벨만큼 HP를 회복합니다.",
     "desc": "<strong>빈도:</strong> 10분에 1회. 1분간 기도하여 30피트 폭발 내에 신격의 영역의 그림자를 부릅니다(10분 지속). 영역 내에서 10분 전체를 보낸 생물은 <strong>레벨만큼 HP를 회복</strong>합니다."
   },
@@ -6887,6 +7006,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "1",
     "summary": "[1행동] 신앙의 힘으로 적을 쓰러뜨립니다. 다음 행동이 단일 생물에게 피해를 주는 해로움/치유 시전이면, 피해를 받은 대상은 엎드려집니다(prone). 대실패 시 1분간 이동 속도 -10피트도 추가.",
     "desc": "신앙의 힘으로 적을 쓰러뜨립니다. 다음 행동이 단일 생물에게 피해를 주는 <em>해로움</em>/<em>치유</em> 시전이면, 피해를 받은 대상은 <strong>{{condition:Prone}}</strong>. 대실패 시 1분간 <strong>이동 속도 -10피트</strong>도 추가."
   },
@@ -6900,8 +7020,9 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
-    "summary": "[반응] 유발 조건: 인접한 생물의 마법 능력에 대한 아군의 내성 굴림 직전.  요구사항: 신격의 선호 무기를 들고 있어야 합니다. 인접 생물에 선호 무기로 타격. 명중 시 모든 아군이 유발 내성에 +2 상황 보너스(치명타 시 +3).",
-    "desc": "<strong>유발 조건:</strong> 인접한 생물의 마법 능력에 대한 아군의 내성 굴림 직전.<br> <strong>요구사항:</strong> 신격의 선호 무기를 들고 있어야 합니다. 인접 생물에 선호 무기로 타격. 명중 시 모든 아군이 유발 내성에 <strong>+2 상황 보너스</strong>(치명타 시 +3)."
+    "actionCost": "reaction",
+    "summary": "[반응] 유발 조건: 인접한 생물의 마법 능력에 대한 아군의 내성 굴림 직전. \n요구사항: 신격의 선호 무기를 들고 있어야 합니다. 인접 생물에 선호 무기로 타격. 명중 시 모든 아군이 유발 내성에 +2 상황 보너스(치명타 시 +3).",
+    "desc": "<strong>유발 조건:</strong> 인접한 생물의 마법 능력에 대한 아군의 내성 굴림 직전.<br>\n<strong>요구사항:</strong> 신격의 선호 무기를 들고 있어야 합니다. 인접 생물에 선호 무기로 타격. 명중 시 모든 아군이 유발 내성에 <strong>+2 상황 보너스</strong>(치명타 시 +3)."
   },
   {
     "id": "divine-weapon",
@@ -6912,6 +7033,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "free",
     "summary": "[자유 행동] 빈도: 턴당 1회. 유발 조건: 턴에 신성 주문 슬롯으로 주문 시전을 완료합니다. 잔여 주문 에너지를 무기에 흡수시킵니다. 턴 종료까지 무기가 추가 1d4 영혼 피해. 신성/불경 특성이 있으면 반대 특성 생물에 2d4.",
     "desc": "<strong>빈도:</strong> 턴당 1회. <strong>유발 조건:</strong> 턴에 신성 주문 슬롯으로 주문 시전을 완료합니다. 잔여 주문 에너지를 무기에 흡수시킵니다. 턴 종료까지 무기가 <strong>추가 1d4 영혼 피해</strong>. 신성/불경 특성이 있으면 반대 특성 생물에 <strong>2d4</strong>."
   },
@@ -6920,7 +7042,6 @@ var FEAT_DB = [
     "name_ko": "마법 손",
     "name_en": "Magic Hands",
     "feat_level": 6,
-    "prerequisites": "치유의 손. 상처 치료(Treat Wounds) 의학 판정 성공 시 d8 대신 d10, 치유에 레벨만큼 상태 보너스.",
     "prereqs": [
       {
         "feat": "Healing Hands"
@@ -6930,6 +7051,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "치유의 손. 상처 치료(Treat Wounds) 의학 판정 성공 시 d8 대신 d10, 치유에 레벨만큼 상태 보너스.",
     "summary": "d10, 치유에 레벨만큼 상태 보너스.",
     "desc": "<strong>d10</strong>, 치유에 <strong>레벨만큼 상태 보너스</strong>."
   },
@@ -6946,7 +7068,7 @@ var FEAT_DB = [
     "desc": "영역 버전의 <em>해로움</em>/<em>치유</em> 시전 시 영역 내 최대 <strong>5명을 제외</strong>할 수 있습니다."
   },
   {
-    "id": "steady-spellcasting-cleric",
+    "id": "steady-spellcasting-witch",
     "name_ko": "안정된 주문시전",
     "name_en": "Steady Spellcasting",
     "feat_level": 6,
@@ -6962,7 +7084,6 @@ var FEAT_DB = [
     "name_ko": "고급 영역",
     "name_en": "Advanced Domain",
     "feat_level": 8,
-    "prerequisites": "영역 입문. 초기 영역 주문이 있는 영역의 고급 영역 주문을 얻습니다. 특수: 여러 번 선택 가능.",
     "prereqs": [
       {
         "feat": "Domain Initiate"
@@ -6972,6 +7093,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "영역 입문. 초기 영역 주문이 있는 영역의 고급 영역 주문을 얻습니다. 특수: 여러 번 선택 가능.",
     "summary": "고급 영역 주문을 얻습니다. 특수: 여러 번 선택 가능.",
     "desc": "<strong>고급 영역 주문</strong>을 얻습니다. <strong>특수:</strong> 여러 번 선택 가능.",
     "repeatable": true
@@ -6993,7 +7115,6 @@ var FEAT_DB = [
     "name_ko": "에너지 각인",
     "name_en": "Emblazon Energy",
     "feat_level": 8,
-    "prerequisites": "문장 각인. 원소 에너지를 각인에 부여합니다. 산성/냉기/전기/화염/음파 중 하나를 선택합니다.",
     "prereqs": [
       {
         "feat": "Emblazon Armament"
@@ -7003,6 +7124,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "문장 각인. 원소 에너지를 각인에 부여합니다. 산성/냉기/전기/화염/음파 중 하나를 선택합니다.",
     "summary": "",
     "desc": ""
   },
@@ -7016,6 +7138,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "1",
     "summary": "[1행동] 동료를 지원하기 위해 극단적 행동을 합니다. 다음 행동이 단일 아군에게 HP를 회복하는 해로움/치유 시전이면, 자신의 활력도 함께 전달합니다. 주문 랭크당 1d8 HP를 잃고(줄이거나 경감 불가), 아군이 같은 양만큼 추가 HP를 회복합니다.",
     "desc": "동료를 지원하기 위해 극단적 행동을 합니다. 다음 행동이 단일 아군에게 HP를 회복하는 <em>해로움</em>/<em>치유</em> 시전이면, 자신의 활력도 함께 전달합니다. 주문 랭크당 <strong>1d8 HP를 잃고</strong>(줄이거나 경감 불가), 아군이 같은 양만큼 <strong>추가 HP를 회복</strong>합니다."
   },
@@ -7024,7 +7147,6 @@ var FEAT_DB = [
     "name_ko": "회복 채널",
     "name_en": "Restorative Channel",
     "feat_level": 8,
-    "prerequisites": "치유 원천. 신성한 은총으로 상태를 제거합니다. 치유 원천의 추가 슬롯에 준비된 치유 1개를 희생하여 대신 다음 주문 중 하나를 시전: 고통 정화, 맑은 마음, 건강한 몸, 확실한 발놀림. 희생한 주문과 같은 랭크로 고양.",
     "prereqs": [
       {
         "feat": "치유 원천"
@@ -7034,6 +7156,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "치유 원천. 신성한 은총으로 상태를 제거합니다. 치유 원천의 추가 슬롯에 준비된 치유 1개를 희생하여 대신 다음 주문 중 하나를 시전: 고통 정화, 맑은 마음, 건강한 몸, 확실한 발놀림. 희생한 주문과 같은 랭크로 고양.",
     "summary": "치유 1개를 희생하여 대신 다음 주문 중 하나를 시전: 고통 정화, 맑은 마음, 건강한 몸, 확실한 발놀림. 희생한 주문과 같은 랭크로 고양.",
     "desc": "<em>치유</em> 1개를 희생하여 대신 다음 주문 중 하나를 시전: <em>고통 정화, 맑은 마음, 건강한 몸, 확실한 발놀림</em>. 희생한 주문과 같은 랭크로 고양."
   },
@@ -7042,12 +7165,13 @@ var FEAT_DB = [
     "name_ko": "무장 성별화",
     "name_en": "Sanctify Armament",
     "feat_level": 8,
-    "prerequisites": "신성 또는 불경 특성. 무기를 만져 1라운드간 신성/불경 특성을 부여하고, 반대 특성 생물에 추가 2d6 영혼 피해.",
     "traits": [
       "신성",
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "1",
+    "prerequisites": "신성 또는 불경 특성. 무기를 만져 1라운드간 신성/불경 특성을 부여하고, 반대 특성 생물에 추가 2d6 영혼 피해.",
     "summary": "[1행동] 신성/불경 특성을 부여하고, 반대 특성 생물에 추가 2d6 영혼 피해.",
     "desc": "<strong>신성/불경 특성</strong>을 부여하고, 반대 특성 생물에 <strong>추가 2d6 영혼 피해</strong>."
   },
@@ -7060,6 +7184,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "free",
     "summary": "[자유 행동] 빈도: 하루 1회. 유발 조건: 볼 수 있는 아군이 HP 0으로 떨어집니다. 정의로운 분노의 급류로 집중 포인트 1점을 즉시 회복합니다.",
     "desc": "<strong>빈도:</strong> 하루 1회. <strong>유발 조건:</strong> 볼 수 있는 아군이 HP 0으로 떨어집니다. 정의로운 분노의 급류로 <strong>집중 포인트 1점을 즉시 회복</strong>합니다."
   },
@@ -7084,6 +7209,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 자신이나 장비에만 영향을 주는 1행동 이상의 신성 주문을 시전합니다. 이동하며 축복합니다. 10피트까지 보폭. 주문이 2행동 이상이면 전체 속도까지.",
     "desc": "<strong>유발 조건:</strong> 자신이나 장비에만 영향을 주는 1행동 이상의 신성 주문을 시전합니다. 이동하며 축복합니다. <strong>10피트까지 보폭</strong>. 주문이 2행동 이상이면 <strong>전체 속도까지</strong>."
   },
@@ -7092,7 +7218,6 @@ var FEAT_DB = [
     "name_ko": "응징 무기",
     "name_en": "Castigating Weapon",
     "feat_level": 10,
-    "prerequisites": "신성 응징. 신성 응징으로 영혼 피해를 준 후 턴 종료까지 무기/비무장 타격이 신성/불경 특성을 얻고 추가 영혼 피해(해로움/치유의 랭크만큼).",
     "prereqs": [
       {
         "feat": "Divine Castigation"
@@ -7102,6 +7227,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "신성 응징. 신성 응징으로 영혼 피해를 준 후 턴 종료까지 무기/비무장 타격이 신성/불경 특성을 얻고 추가 영혼 피해(해로움/치유의 랭크만큼).",
     "summary": "추가 영혼 피해(해로움/치유의 랭크만큼).",
     "desc": "<strong>추가 영혼 피해</strong>(해로움/치유의 랭크만큼)."
   },
@@ -7110,7 +7236,6 @@ var FEAT_DB = [
     "name_ko": "영웅적 회복",
     "name_en": "Heroic Recovery",
     "feat_level": 10,
-    "prerequisites": "치유 원천. 다음 행동이 단일 살아있는 생물 대상 치유이고 HP를 회복하면, 대상이 다음 턴 종료까지: 이동 속도 +5피트, 공격 +1 상태 보너스, 피해 +1 상태 보너스. 엎드려있으면 즉시 반응 없이 일어남.",
     "prereqs": [
       {
         "feat": "치유 원천"
@@ -7122,6 +7247,8 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "1",
+    "prerequisites": "치유 원천. 다음 행동이 단일 살아있는 생물 대상 치유이고 HP를 회복하면, 대상이 다음 턴 종료까지: 이동 속도 +5피트, 공격 +1 상태 보너스, 피해 +1 상태 보너스. 엎드려있으면 즉시 반응 없이 일어남.",
     "summary": "[1행동] 치유이고 HP를 회복하면, 대상이 다음 턴 종료까지: 이동 속도 +5피트, 공격 +1 상태 보너스, 피해 +1 상태 보너스. 엎드려있으면 즉시 반응 없이 일어남.",
     "desc": "<em>치유</em>이고 HP를 회복하면, 대상이 다음 턴 종료까지: 이동 속도 <strong>+5피트</strong>, 공격 <strong>+1 상태 보너스</strong>, 피해 <strong>+1 상태 보너스</strong>. 엎드려있으면 즉시 <strong>반응 없이 일어남</strong>."
   },
@@ -7130,11 +7257,11 @@ var FEAT_DB = [
     "name_ko": "전쟁의 보충",
     "name_en": "Replenishment of War",
     "feat_level": 10,
-    "prerequisites": "신격 선호 무기 전문가. 신격 선호 무기로 생물에 피해를 줄 때 레벨 절반만큼 임시 HP(치명타 시 레벨만큼). 다음 턴 시작까지 지속.",
     "traits": [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "신격 선호 무기 전문가. 신격 선호 무기로 생물에 피해를 줄 때 레벨 절반만큼 임시 HP(치명타 시 레벨만큼). 다음 턴 시작까지 지속.",
     "summary": "레벨 절반만큼 임시 HP(치명타 시 레벨만큼). 다음 턴 시작까지 지속.",
     "desc": "<strong>레벨 절반만큼 임시 HP</strong>(치명타 시 레벨만큼). 다음 턴 시작까지 지속."
   },
@@ -7143,7 +7270,6 @@ var FEAT_DB = [
     "name_ko": "공유 회피",
     "name_en": "Shared Avoidance",
     "feat_level": 10,
-    "prerequisites": "회피 예감. 회피 예감 사용 시, 같은 위험에 같은 내성을 굴리는 20피트 내 아군도 +2 상황 보너스.",
     "prereqs": [
       {
         "feat": "Premonition of Avoidance"
@@ -7153,6 +7279,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "회피 예감. 회피 예감 사용 시, 같은 위험에 같은 내성을 굴리는 20피트 내 아군도 +2 상황 보너스.",
     "summary": "20피트 내 아군도 +2 상황 보너스.",
     "desc": "<strong>20피트 내 아군도 +2 상황 보너스</strong>."
   },
@@ -7161,7 +7288,6 @@ var FEAT_DB = [
     "name_ko": "신앙의 방패",
     "name_en": "Shield of Faith",
     "feat_level": 10,
-    "prerequisites": "영역 입문. 집중 포인트를 소비하여 영역 주문을 시전할 때, 다음 턴 시작까지 AC에 +1 상태 보너스.",
     "prereqs": [
       {
         "feat": "Domain Initiate"
@@ -7171,6 +7297,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "영역 입문. 집중 포인트를 소비하여 영역 주문을 시전할 때, 다음 턴 시작까지 AC에 +1 상태 보너스.",
     "summary": "AC에 +1 상태 보너스.",
     "desc": "<strong>AC에 +1 상태 보너스</strong>."
   },
@@ -7185,6 +7312,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "1",
     "summary": "[1행동] 다음 행동이 단일 대상 해로움/치유이고 HP 회복 시, 1라운드간 AC와 내성에 +2 상태 보너스.",
     "desc": "다음 행동이 단일 대상 <em>해로움</em>/<em>치유</em>이고 HP 회복 시, 1라운드간 <strong>AC와 내성에 +2 상태 보너스</strong>."
   },
@@ -7205,7 +7333,6 @@ var FEAT_DB = [
     "name_ko": "대마법 각인",
     "name_en": "Emblazon Antimagic",
     "feat_level": 12,
-    "prerequisites": "문장 각인. 각인이 공격적 마법을 방어합니다.",
     "prereqs": [
       {
         "feat": "Emblazon Armament"
@@ -7215,6 +7342,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "문장 각인. 각인이 공격적 마법을 방어합니다.",
     "summary": "",
     "desc": ""
   },
@@ -7236,7 +7364,6 @@ var FEAT_DB = [
     "name_ko": "흡수 상징",
     "name_en": "Sapping Symbol",
     "feat_level": 12,
-    "prerequisites": "상징 올리기. 유발 조건: 상징을 올린 상태에서 근접 공격으로 피해를 받으려 합니다. 공격자의 의지 DC에 대해 종교 판정. 대성공: 공격자가 당신에게서 멀어지는 행동을 할 때까지 약화(enfeebled) 2. 성공: 약화 1.",
     "prereqs": [
       {
         "feat": "Raise Symbol"
@@ -7247,6 +7374,8 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "reaction",
+    "prerequisites": "상징 올리기. 유발 조건: 상징을 올린 상태에서 근접 공격으로 피해를 받으려 합니다. 공격자의 의지 DC에 대해 종교 판정. 대성공: 공격자가 당신에게서 멀어지는 행동을 할 때까지 약화(enfeebled) 2. 성공: 약화 1.",
     "summary": "[반응] 유발 조건: 상징을 올린 상태에서 근접 공격으로 피해를 받으려 합니다. 공격자의 의지 DC에 대해 종교 판정. 대성공: 공격자가 당신에게서 멀어지는 행동을 할 때까지 약화(enfeebled) 2. 성공: 약화 1.",
     "desc": "<strong>유발 조건:</strong> 상징을 올린 상태에서 근접 공격으로 피해를 받으려 합니다. 공격자의 의지 DC에 대해 종교 판정. <strong>대성공:</strong> 공격자가 당신에게서 멀어지는 행동을 할 때까지 <strong>{{condition:Enfeebled}} 2</strong>. <strong>성공:</strong> {{condition:Enfeebled}} 1."
   },
@@ -7255,7 +7384,6 @@ var FEAT_DB = [
     "name_ko": "공유 보충",
     "name_en": "Shared Replenishment",
     "feat_level": 12,
-    "prerequisites": "전쟁의 보충. 전쟁의 보충의 임시 HP를 자신 대신 10피트 내 아군에게 줄 수 있습니다. 매번 다른 아군에게 가능.",
     "prereqs": [
       {
         "feat": "Replenishment of War"
@@ -7265,6 +7393,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "전쟁의 보충. 전쟁의 보충의 임시 HP를 자신 대신 10피트 내 아군에게 줄 수 있습니다. 매번 다른 아군에게 가능.",
     "summary": "10피트 내 아군에게 줄 수 있습니다. 매번 다른 아군에게 가능.",
     "desc": "<strong>10피트 내 아군에게</strong> 줄 수 있습니다. 매번 다른 아군에게 가능."
   },
@@ -7273,7 +7402,6 @@ var FEAT_DB = [
     "name_ko": "채널 차단",
     "name_en": "Channeling Block",
     "feat_level": 14,
-    "prerequisites": "방패 막기. 방패 막기 시 해로움/치유 주문을 소비합니다. 주문 랭크당 1d8을 굴려 이번 막기 동안 방패의 경도를 증가시킵니다.",
     "prereqs": [
       {
         "feat": "Shield Block"
@@ -7283,6 +7411,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "방패 막기. 방패 막기 시 해로움/치유 주문을 소비합니다. 주문 랭크당 1d8을 굴려 이번 막기 동안 방패의 경도를 증가시킵니다.",
     "summary": "해로움/치유 주문을 소비합니다. 주문 랭크당 1d8을 굴려 이번 막기 동안 방패의 경도를 증가시킵니다.",
     "desc": "<em>해로움</em>/<em>치유</em> 주문을 소비합니다. 주문 랭크당 1d8을 굴려 이번 막기 동안 방패의 <strong>경도를 증가</strong>시킵니다."
   },
@@ -7291,7 +7420,6 @@ var FEAT_DB = [
     "name_ko": "신격의 보호",
     "name_en": "Deity's Protection",
     "feat_level": 14,
-    "prerequisites": "고급 영역. 영역 주문 시전 후 다음 턴 시작까지 모든 피해에 저항(영역 주문 랭크만큼).",
     "prereqs": [
       {
         "feat": "Advanced Domain"
@@ -7301,6 +7429,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "고급 영역. 영역 주문 시전 후 다음 턴 시작까지 모든 피해에 저항(영역 주문 랭크만큼).",
     "summary": "모든 피해에 저항(영역 주문 랭크만큼).",
     "desc": "<strong>모든 피해에 저항</strong>(영역 주문 랭크만큼)."
   },
@@ -7309,7 +7438,6 @@ var FEAT_DB = [
     "name_ko": "밀물과 썰물",
     "name_en": "Ebb and Flow",
     "feat_level": 14,
-    "prerequisites": "다재다능한 원천. 활력과 공허를 동시에 끌어와 적을 해치고 아군을 치유합니다. 다음 행동이 1-2행동 치유/해로움이면, 사거리 내 피해를 받을 생물 1명과 치유를 받을 생물 1명을 선택하여 둘 다 대상으로 합니다.",
     "prereqs": [
       {
         "feat": "Versatile Font"
@@ -7321,6 +7449,8 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "1",
+    "prerequisites": "다재다능한 원천. 활력과 공허를 동시에 끌어와 적을 해치고 아군을 치유합니다. 다음 행동이 1-2행동 치유/해로움이면, 사거리 내 피해를 받을 생물 1명과 치유를 받을 생물 1명을 선택하여 둘 다 대상으로 합니다.",
     "summary": "[1행동] 치유/해로움이면, 사거리 내 피해를 받을 생물 1명과 치유를 받을 생물 1명을 선택하여 둘 다 대상으로 합니다.",
     "desc": "<em>치유</em>/<em>해로움</em>이면, 사거리 내 피해를 받을 생물 1명과 치유를 받을 생물 1명을 선택하여 <strong>둘 다 대상</strong>으로 합니다."
   },
@@ -7329,7 +7459,6 @@ var FEAT_DB = [
     "name_ko": "빠른 채널",
     "name_en": "Fast Channel",
     "feat_level": 14,
-    "prerequisites": "해로운/치유 원천. 2행동으로 해로움/치유 시전 시 3행동 버전의 효과를 얻습니다.",
     "prereqs": [
       {
         "feat": "해로운/치유 원천"
@@ -7339,6 +7468,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "해로운/치유 원천. 2행동으로 해로움/치유 시전 시 3행동 버전의 효과를 얻습니다.",
     "summary": "해로움/치유 시전 시 3행동 버전의 효과를 얻습니다.",
     "desc": "<em>해로움</em>/<em>치유</em> 시전 시 <strong>3행동 버전의 효과</strong>를 얻습니다."
   },
@@ -7347,7 +7477,6 @@ var FEAT_DB = [
     "name_ko": "지속 무장",
     "name_en": "Lasting Armament",
     "feat_level": 14,
-    "prerequisites": "무장 성별화. 무장 성별화 지속이 1라운드에서 1시간으로 증가(다른 무기에 사용하면 종료).",
     "prereqs": [
       {
         "feat": "Sanctify Armament"
@@ -7357,6 +7486,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "무장 성별화. 무장 성별화 지속이 1라운드에서 1시간으로 증가(다른 무기에 사용하면 종료).",
     "summary": "1시간으로 증가(다른 무기에 사용하면 종료).",
     "desc": "<strong>1시간</strong>으로 증가(다른 무기에 사용하면 종료)."
   },
@@ -7370,6 +7500,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "reaction",
     "summary": "[반응] 빈도: 시간당 1회. 유발 조건: 정신 효과에 대한 내성에 실패합니다. 신격이 신앙의 환영을 보내 정신 공격에 맞섭니다. 유발 내성을 +2 상황 보너스로 다시 굴립니다. 더 나빠도 새 결과를 사용.",
     "desc": "<strong>빈도:</strong> 시간당 1회. <strong>유발 조건:</strong> 정신 효과에 대한 내성에 실패합니다. 신격이 신앙의 환영을 보내 정신 공격에 맞섭니다. 유발 내성을 <strong>+2 상황 보너스로 다시 굴립니다</strong>. 더 나빠도 새 결과를 사용."
   },
@@ -7382,6 +7513,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 본향 차원이 아닌 생물에 치명타. 요구사항: 추방 주문이 준비되어 있어야 합니다. 타격의 힘이 피해자를 본향으로 돌려보냅니다. 준비된 추방을 소비하여 주문 시전 없이 적용. 대상은 정상적으로 저항 가능.",
     "desc": "<strong>유발 조건:</strong> 본향 차원이 아닌 생물에 치명타. <strong>요구사항:</strong> <em>추방</em> 주문이 준비되어 있어야 합니다. 타격의 힘이 피해자를 본향으로 돌려보냅니다. 준비된 <em>추방</em>을 소비하여 주문 시전 없이 적용. 대상은 정상적으로 저항 가능."
   },
@@ -7390,11 +7522,11 @@ var FEAT_DB = [
     "name_ko": "영원한 저주",
     "name_en": "Eternal Bane",
     "feat_level": 16,
-    "prerequisites": "불경. 영구적으로 15피트 반경의 저주(bane) 주문에 둘러싸입니다(랭크 = 레벨 절반 올림). 해산 가능, 1분 후 자동 복귀.",
     "traits": [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "불경. 영구적으로 15피트 반경의 저주(bane) 주문에 둘러싸입니다(랭크 = 레벨 절반 올림). 해산 가능, 1분 후 자동 복귀.",
     "summary": "저주(bane) 주문에 둘러싸입니다(랭크 = 레벨 절반 올림). 해산 가능, 1분 후 자동 복귀.",
     "desc": "<em>{{spell:Bane}}</em> 주문에 둘러싸입니다(랭크 = 레벨 절반 올림). 해산 가능, 1분 후 자동 복귀."
   },
@@ -7403,11 +7535,11 @@ var FEAT_DB = [
     "name_ko": "영원한 축복",
     "name_en": "Eternal Blessing",
     "feat_level": 16,
-    "prerequisites": "신성. 영구적으로 15피트 반경의 축복(bless) 주문에 둘러싸입니다. 해산 가능, 1분 후 자동 복귀.",
     "traits": [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "신성. 영구적으로 15피트 반경의 축복(bless) 주문에 둘러싸입니다. 해산 가능, 1분 후 자동 복귀.",
     "summary": "축복(bless) 주문에 둘러싸입니다. 해산 가능, 1분 후 자동 복귀.",
     "desc": "<em>{{spell:Bless}}</em> 주문에 둘러싸입니다. 해산 가능, 1분 후 자동 복귀."
   },
@@ -7416,7 +7548,6 @@ var FEAT_DB = [
     "name_ko": "반향 강타",
     "name_en": "Rebounding Smite",
     "feat_level": 16,
-    "prerequisites": "채널 강타. 유발 조건: 채널 강타 중 타격이 빗나갑니다. 에너지가 잠시 남아 새 대상에게 전달됩니다. 소비한 해로움/치유의 1행동 버전을 타격 대상이 아닌 다른 생물에게 시전합니다.",
     "prereqs": [
       {
         "feat": "Channel Smite"
@@ -7426,6 +7557,8 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "reaction",
+    "prerequisites": "채널 강타. 유발 조건: 채널 강타 중 타격이 빗나갑니다. 에너지가 잠시 남아 새 대상에게 전달됩니다. 소비한 해로움/치유의 1행동 버전을 타격 대상이 아닌 다른 생물에게 시전합니다.",
     "summary": "[반응] 유발 조건: 채널 강타 중 타격이 빗나갑니다. 에너지가 잠시 남아 새 대상에게 전달됩니다. 소비한 해로움/치유의 1행동 버전을 타격 대상이 아닌 다른 생물에게 시전합니다.",
     "desc": "<strong>유발 조건:</strong> 채널 강타 중 타격이 빗나갑니다. 에너지가 잠시 남아 새 대상에게 전달됩니다. 소비한 <em>해로움</em>/<em>치유</em>의 1행동 버전을 <strong>타격 대상이 아닌 다른 생물에게</strong> 시전합니다."
   },
@@ -7440,6 +7573,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "free",
     "summary": "[자유 행동] 빈도: 시간당 1회. 다음 행동이 신성 원천로 3행동 치유/해로움 시전이면, 일반 효과 외에 주문 영역 내 신성 효과 1개를 상쇄 시도.",
     "desc": "<strong>빈도:</strong> 시간당 1회. 다음 행동이 신성 원천로 3행동 <em>치유</em>/<em>해로움</em> 시전이면, 일반 효과 외에 주문 영역 내 <strong>신성 효과 1개를 상쇄</strong> 시도."
   },
@@ -7478,6 +7612,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "1",
     "summary": "[1행동] 다음 행동이 2행동 해로움/치유로 단일 생물을 치유/피해하는 것이면, 사거리 내 추가 생물 1명을 선택하여 1행동 버전을 동일 랭크로 적용. 추가 슬롯 불필요.",
     "desc": "다음 행동이 2행동 <em>해로움</em>/<em>치유</em>로 단일 생물을 치유/피해하는 것이면, 사거리 내 추가 생물 1명을 선택하여 <strong>1행동 버전을 동일 랭크로 적용</strong>. 추가 슬롯 불필요."
   },
@@ -7486,7 +7621,6 @@ var FEAT_DB = [
     "name_ko": "향상된 신속 추방",
     "name_en": "Improved Swift Banishment",
     "feat_level": 18,
-    "prerequisites": "신속 추방. 추방 준비 없이도 5랭크 이상 주문 슬롯이 남아있으면 사용 가능. 해당 슬롯을 희생하고 그 랭크로 고양. 대상의 내성에 -2 상황 페널티.",
     "prereqs": [
       {
         "feat": "Swift Banishment"
@@ -7496,6 +7630,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "신속 추방. 추방 준비 없이도 5랭크 이상 주문 슬롯이 남아있으면 사용 가능. 해당 슬롯을 희생하고 그 랭크로 고양. 대상의 내성에 -2 상황 페널티.",
     "summary": "추방 준비 없이도 5랭크 이상 주문 슬롯이 남아있으면 사용 가능. 해당 슬롯을 희생하고 그 랭크로 고양. 대상의 내성에 -2 상황 페널티.",
     "desc": "<em>추방</em> 준비 없이도 5랭크 이상 주문 슬롯이 남아있으면 사용 가능. 해당 슬롯을 희생하고 그 랭크로 고양. 대상의 내성에 <strong>-2 상황 페널티</strong>."
   },
@@ -7528,7 +7663,6 @@ var FEAT_DB = [
     "name_ko": "공유 명확함",
     "name_en": "Shared Clarity",
     "feat_level": 18,
-    "prerequisites": "명확함의 예감. 명확함의 예감 사용 시, 같은 정신 효과에 같은 내성을 실패한 15피트 내 아군도 +2 보너스로 다시 굴림 가능.",
     "prereqs": [
       {
         "feat": "Premonition of Clarity"
@@ -7538,6 +7672,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "명확함의 예감. 명확함의 예감 사용 시, 같은 정신 효과에 같은 내성을 실패한 15피트 내 아군도 +2 보너스로 다시 굴림 가능.",
     "summary": "15피트 내 아군도 +2 보너스로 다시 굴림 가능.",
     "desc": "<strong>15피트 내 아군도 +2 보너스로 다시 굴림</strong> 가능."
   },
@@ -7562,6 +7697,7 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 적에게 치명타를 받습니다. 요구사항: 아바타 주문이 준비되어 있어야 합니다. 위기의 순간에 즉시 신의 형태를 부릅니다. 주문 슬롯에서 아바타를 시전합니다. 유발 치명타가 일반 명중으로 감소되고, 아바타의 임시 HP를 얻은 후 피해가 적용됩니다.",
     "desc": "<strong>유발 조건:</strong> 적에게 치명타를 받습니다. <strong>요구사항:</strong> <em>아바타</em> 주문이 준비되어 있어야 합니다. 위기의 순간에 즉시 신의 형태를 부릅니다. 주문 슬롯에서 <em>아바타</em>를 시전합니다. 유발 치명타가 <strong>일반 명중으로 감소</strong>되고, 아바타의 임시 HP를 얻은 후 피해가 적용됩니다."
   },
@@ -7570,11 +7706,11 @@ var FEAT_DB = [
     "name_ko": "기적의 창조자",
     "name_en": "Maker of Miracles",
     "feat_level": 20,
-    "prerequisites": "기적의 주문. 진정한 신적 힘의 전도체입니다. 추가 10랭크 주문 슬롯을 얻습니다.",
     "traits": [
       "클레릭"
     ],
     "category": "cleric",
+    "prerequisites": "기적의 주문. 진정한 신적 힘의 전도체입니다. 추가 10랭크 주문 슬롯을 얻습니다.",
     "summary": "추가 10랭크 주문 슬롯을 얻습니다.",
     "desc": "<strong>추가 10랭크 주문 슬롯</strong>을 얻습니다."
   },
@@ -7588,11 +7724,12 @@ var FEAT_DB = [
       "클레릭"
     ],
     "category": "cleric",
+    "actionCost": "free",
     "summary": "[자유 행동] 생명과 죽음의 에너지의 본질에 대한 깊은 이해가 자유롭게 조작할 수 있게 합니다. 보통 1행동이고 해로움/치유에 적용 가능한 주문변형 행동 1개를 사용합니다. 이 방식으로 사용하면 효과는 해로움/치유에만 적용됩니다.",
     "desc": "생명과 죽음의 에너지의 본질에 대한 깊은 이해가 자유롭게 조작할 수 있게 합니다. 보통 1행동이고 <em>해로움</em>/<em>치유</em>에 적용 가능한 <strong>주문변형 행동 1개를 사용</strong>합니다. 이 방식으로 사용하면 효과는 <em>해로움</em>/<em>치유</em>에만 적용됩니다."
   },
   {
-    "id": "animal-companion",
+    "id": "animal-companion-ranger",
     "name_ko": "동물 동료",
     "name_en": "Animal Companion",
     "feat_level": 1,
@@ -7604,7 +7741,7 @@ var FEAT_DB = [
     "desc": "동물 동료를 얻어 함께 모험합니다(206페이지 규칙 참조)."
   },
   {
-    "id": "animal-empathy",
+    "id": "animal-empathy-ranger",
     "name_ko": "동물 공감",
     "name_en": "Animal Empathy",
     "feat_level": 1,
@@ -7640,7 +7777,7 @@ var FEAT_DB = [
     "desc": "식물과 균류에게 외교를 사용할 수 있습니다. 식물과 균류의 감정과 욕구는 매우 기초적입니다."
   },
   {
-    "id": "reach-spell-druid",
+    "id": "reach-spell-witch",
     "name_ko": "주문 도달",
     "name_en": "Reach Spell",
     "feat_level": 1,
@@ -7650,6 +7787,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
     "summary": "[1행동] 주문 사거리를 30피트 증가(접촉이면 30피트로).",
     "desc": "주문 사거리를 <strong>30피트 증가</strong>(접촉이면 30피트로)."
   },
@@ -7658,7 +7796,6 @@ var FEAT_DB = [
     "name_ko": "폭풍 태생",
     "name_en": "Storm Born",
     "feat_level": 1,
-    "prerequisites": "폭풍 결사. 바깥 요소 속에서 편안합니다. 날씨로 인한 원거리 주문 공격이나 지각 판정의 상황 페널티를 받지 않으며, 날씨로 은폐된 대상에 대한 주문도 단순 판정 불필요.",
     "prereqs": [
       {
         "subclass": "폭풍 결사"
@@ -7668,6 +7805,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "폭풍 결사. 바깥 요소 속에서 편안합니다. 날씨로 인한 원거리 주문 공격이나 지각 판정의 상황 페널티를 받지 않으며, 날씨로 은폐된 대상에 대한 주문도 단순 판정 불필요.",
     "summary": "상황 페널티를 받지 않으며, 날씨로 은폐된 대상에 대한 주문도 단순 판정 불필요.",
     "desc": "<strong>상황 페널티를 받지 않으며</strong>, 날씨로 은폐된 대상에 대한 주문도 단순 판정 불필요."
   },
@@ -7689,7 +7827,6 @@ var FEAT_DB = [
     "name_ko": "야생 형태",
     "name_en": "Untamed Form",
     "feat_level": 1,
-    "prerequisites": "야생 결사. 야생과 하나이며 항상 변하고 적응합니다. 야생 변신(wild shape) 결사 주문(382페이지)을 얻어, 드루이드 재주로 확장 가능한 다양한 형태로 변신합니다.",
     "prereqs": [
       {
         "subclass": "야생 결사"
@@ -7699,11 +7836,12 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "야생 결사. 야생과 하나이며 항상 변하고 적응합니다. 야생 변신(wild shape) 결사 주문(382페이지)을 얻어, 드루이드 재주로 확장 가능한 다양한 형태로 변신합니다.",
     "summary": "야생 변신(wild shape) 결사 주문(382페이지)을 얻어, 드루이드 재주로 확장 가능한 다양한 형태로 변신합니다.",
     "desc": "<em>야생 변신(wild shape)</em> 결사 주문(382페이지)을 얻어, 드루이드 재주로 확장 가능한 다양한 형태로 변신합니다."
   },
   {
-    "id": "widen-spell",
+    "id": "widen-spell-witch",
     "name_ko": "주문 확장",
     "name_en": "Widen Spell",
     "feat_level": 1,
@@ -7713,6 +7851,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
     "summary": "[1행동] 주문의 에너지를 조작하여 더 넓은 영역에 영향을 줍니다. 다음 행동이 폭발/원뿔/직선 영역이고 지속 시간이 없는 주문 시전이면, 영역을 확장합니다. 반경 10피트 이상 폭발에 5피트 추가, 15피트 이하 원뿔/직선에 5피트 추가, 더 큰 원뿔/직선에 10피트 추가.",
     "desc": "주문의 에너지를 조작하여 더 넓은 영역에 영향을 줍니다. 다음 행동이 폭발/원뿔/직선 영역이고 지속 시간이 없는 주문 시전이면, 영역을 확장합니다. 반경 10피트 이상 폭발에 <strong>5피트 추가</strong>, 15피트 이하 원뿔/직선에 <strong>5피트 추가</strong>, 더 큰 원뿔/직선에 <strong>10피트 추가</strong>."
   },
@@ -7729,11 +7868,10 @@ var FEAT_DB = [
     "desc": "자연의 생물을 불러 도움을 청합니다. <strong>10분간</strong> 자연과 교감하여 드루이드 주문 슬롯에 준비된 주문을 같은 랭크의 <em>동물 소환</em> 또는 <em>식물/균류 소환</em>으로 교체할 수 있습니다."
   },
   {
-    "id": "enhanced-familiar",
+    "id": "enhanced-familiar-witch",
     "name_ko": "강화된 사역마",
     "name_en": "Enhanced Familiar",
     "feat_level": 2,
-    "prerequisites": "사역마. 추가 근원 에너지를 주입합니다. 매일 2개 대신 4개의 사역마/주인 능력을 선택합니다.",
     "prereqs": [
       {
         "feat": "Familiar"
@@ -7743,6 +7881,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "사역마. 추가 근원 에너지를 주입합니다. 매일 2개 대신 4개의 사역마/주인 능력을 선택합니다.",
     "summary": "4개의 사역마/주인 능력을 선택합니다.",
     "desc": "<strong>4개의 사역마/주인 능력</strong>을 선택합니다."
   },
@@ -7776,7 +7915,6 @@ var FEAT_DB = [
     "name_ko": "인간형 변신",
     "name_en": "Anthropomorphic Shape",
     "feat_level": 4,
-    "prerequisites": "야생 형태. 인간형 형태의 형상들을 야생 형태 목록에 추가합니다.",
     "prereqs": [
       {
         "feat": "Untamed Form"
@@ -7786,6 +7924,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "야생 형태. 인간형 형태의 형상들을 야생 형태 목록에 추가합니다.",
     "summary": "",
     "desc": ""
   },
@@ -7806,7 +7945,6 @@ var FEAT_DB = [
     "name_ko": "숲 통과",
     "name_en": "Forest Passage",
     "feat_level": 4,
-    "prerequisites": "잎 결사. 식물과 균류로 인한 험지를 무시합니다.",
     "prereqs": [
       {
         "subclass": "잎 결사"
@@ -7816,6 +7954,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "잎 결사. 식물과 균류로 인한 험지를 무시합니다.",
     "summary": "험지를 무시합니다.",
     "desc": "<strong>험지를 무시</strong>합니다."
   },
@@ -7824,7 +7963,6 @@ var FEAT_DB = [
     "name_ko": "형태 제어",
     "name_en": "Form Control",
     "feat_level": 4,
-    "prerequisites": "야생 형태. 다음 행동이 야생 형태 시전이면, 주문 랭크가 2 낮아지지만(최소 1랭크) 최대 1시간(또는 나열된 지속 시간 중 긴 것) 동안 변신 유지 가능.",
     "prereqs": [
       {
         "feat": "Untamed Form"
@@ -7836,6 +7974,8 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
+    "prerequisites": "야생 형태. 다음 행동이 야생 형태 시전이면, 주문 랭크가 2 낮아지지만(최소 1랭크) 최대 1시간(또는 나열된 지속 시간 중 긴 것) 동안 변신 유지 가능.",
     "summary": "[1행동] 2 낮아지지만(최소 1랭크) 최대 1시간(또는 나열된 지속 시간 중 긴 것) 동안 변신 유지 가능.",
     "desc": "<strong>2 낮아지지만</strong>(최소 1랭크) <strong>최대 1시간</strong>(또는 나열된 지속 시간 중 긴 것) 동안 변신 유지 가능."
   },
@@ -7844,7 +7984,6 @@ var FEAT_DB = [
     "name_ko": "레시 사역마 비밀",
     "name_en": "Leshy Familiar Secrets",
     "feat_level": 4,
-    "prerequisites": "잎 결사. 매일 추가 사역마 능력 1개를 선택합니다(움켜잡는 덩굴, 공기 정화, 녹색 폭발 중 하나).",
     "prereqs": [
       {
         "subclass": "잎 결사"
@@ -7854,15 +7993,15 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "잎 결사. 매일 추가 사역마 능력 1개를 선택합니다(움켜잡는 덩굴, 공기 정화, 녹색 폭발 중 하나).",
     "summary": "추가 사역마 능력 1개를 선택합니다(움켜잡는 덩굴, 공기 정화, 녹색 폭발 중 하나).",
     "desc": "<strong>추가 사역마 능력 1개</strong>를 선택합니다(움켜잡는 덩굴, 공기 정화, 녹색 폭발 중 하나)."
   },
   {
-    "id": "mature-animal-companion",
+    "id": "mature-animal-companion-ranger",
     "name_ko": "성숙한 동물 동료",
     "name_en": "Mature Animal Companion",
     "feat_level": 4,
-    "prerequisites": "동물 동료. 동물 동료가 성숙한 동물 동료로 성장합니다(211페이지). 동물 명령 행동 없이도 턴에 보폭 또는 타격 1행동을 독립적으로 사용 가능.",
     "prereqs": [
       {
         "feat": "Animal Companion"
@@ -7872,6 +8011,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "동물 동료. 동물 동료가 성숙한 동물 동료로 성장합니다(211페이지). 동물 명령 행동 없이도 턴에 보폭 또는 타격 1행동을 독립적으로 사용 가능.",
     "summary": "1행동을 독립적으로 사용 가능.",
     "desc": "<strong>1행동을 독립적으로</strong> 사용 가능."
   },
@@ -7880,7 +8020,6 @@ var FEAT_DB = [
     "name_ko": "결사 마법",
     "name_en": "Order Magic",
     "feat_level": 4,
-    "prerequisites": "결사 탐험가. 선택한 결사의 초기 결사 주문을 얻습니다. 특수: 여러 번 선택 가능.",
     "prereqs": [
       {
         "feat": "Order Explorer"
@@ -7890,6 +8029,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "결사 탐험가. 선택한 결사의 초기 결사 주문을 얻습니다. 특수: 여러 번 선택 가능.",
     "summary": "초기 결사 주문을 얻습니다. 특수: 여러 번 선택 가능.",
     "desc": "<strong>초기 결사 주문</strong>을 얻습니다. <strong>특수:</strong> 여러 번 선택 가능.",
     "repeatable": true
@@ -7899,7 +8039,6 @@ var FEAT_DB = [
     "name_ko": "눈보라 주문",
     "name_en": "Snowdrift Spell",
     "feat_level": 4,
-    "prerequisites": "폭풍 결사. 다음 행동이 공기/물/냉기 특성(화염 아님) 주문 시전이면, 지면의 영향받는 생물 1명 아래와 인접 칸에 발목 깊이 눈이 쌓입니다. 다음 턴 시작까지 험지. 상호작용으로 제거 가능.",
     "prereqs": [
       {
         "subclass": "폭풍 결사"
@@ -7912,6 +8051,8 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
+    "prerequisites": "폭풍 결사. 다음 행동이 공기/물/냉기 특성(화염 아님) 주문 시전이면, 지면의 영향받는 생물 1명 아래와 인접 칸에 발목 깊이 눈이 쌓입니다. 다음 턴 시작까지 험지. 상호작용으로 제거 가능.",
     "summary": "[1행동] 험지. 상호작용으로 제거 가능.",
     "desc": "<strong>험지</strong>. 상호작용으로 제거 가능."
   },
@@ -7926,6 +8067,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
     "summary": "[1행동] 다음 행동이 공기/물 특성 주문 시전이면, 다음 턴 시작까지 AC에 +1 상황 보너스(원거리 공격에 +2). 공기/물 특성 효과에 대한 내성에도 +1 상황 보너스.",
     "desc": "다음 행동이 공기/물 특성 주문 시전이면, 다음 턴 시작까지 <strong>AC에 +1 상황 보너스</strong>(원거리 공격에 +2). 공기/물 특성 효과에 대한 내성에도 <strong>+1 상황 보너스</strong>."
   },
@@ -7934,7 +8076,6 @@ var FEAT_DB = [
     "name_ko": "참나무의 관",
     "name_en": "Grown of Oak",
     "feat_level": 6,
-    "prerequisites": "잎 결사. 피부를 고목의 내구성으로 만듭니다. 참나무 회복력(oaken resilience)을 최고 랭크보다 1 낮은 근원 선천 주문으로 자유롭게 시전 가능(자신과 30피트 내 레시 사역마 대상).",
     "prereqs": [
       {
         "subclass": "잎 결사"
@@ -7944,6 +8085,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "잎 결사. 피부를 고목의 내구성으로 만듭니다. 참나무 회복력(oaken resilience)을 최고 랭크보다 1 낮은 근원 선천 주문으로 자유롭게 시전 가능(자신과 30피트 내 레시 사역마 대상).",
     "summary": "참나무 회복력(oaken resilience)을 최고 랭크보다 1 낮은 근원 선천 주문으로 자유롭게 시전 가능(자신과 30피트 내 레시 사역마 대상).",
     "desc": "<em>{{spell:Oaken Resilience}}</em>을 최고 랭크보다 1 낮은 근원 선천 주문으로 자유롭게 시전 가능(자신과 30피트 내 레시 사역마 대상)."
   },
@@ -7952,7 +8094,6 @@ var FEAT_DB = [
     "name_ko": "곤충 형태",
     "name_en": "Insect Shape",
     "feat_level": 6,
-    "prerequisites": "야생 형태. 곤충 형태의 형상들을 야생 형태 목록에 추가. 비비행 곤충 형태(해충 형태)로 변신 시 지속 시간 24시간.",
     "prereqs": [
       {
         "feat": "Untamed Form"
@@ -7962,6 +8103,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "야생 형태. 곤충 형태의 형상들을 야생 형태 목록에 추가. 비비행 곤충 형태(해충 형태)로 변신 시 지속 시간 24시간.",
     "summary": "24시간.",
     "desc": "<strong>24시간</strong>."
   },
@@ -7970,7 +8112,6 @@ var FEAT_DB = [
     "name_ko": "본능적 지원",
     "name_en": "Instinctive Support",
     "feat_level": 6,
-    "prerequisites": "동물 동료. 유발 조건: 동물 동료만을 대상으로 하는 비캔트립 주문을 시전합니다. 주문 후 동료가 턴의 행동을 얻으며(동물 명령처럼), 행동 중 하나는 지원(Support)이어야 합니다.",
     "prereqs": [
       {
         "feat": "Animal Companion"
@@ -7980,11 +8121,13 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "free",
+    "prerequisites": "동물 동료. 유발 조건: 동물 동료만을 대상으로 하는 비캔트립 주문을 시전합니다. 주문 후 동료가 턴의 행동을 얻으며(동물 명령처럼), 행동 중 하나는 지원(Support)이어야 합니다.",
     "summary": "[자유 행동] 유발 조건: 동물 동료만을 대상으로 하는 비캔트립 주문을 시전합니다. 주문 후 동료가 턴의 행동을 얻으며(동물 명령처럼), 행동 중 하나는 지원(Support)이어야 합니다.",
     "desc": "<strong>유발 조건:</strong> 동물 동료만을 대상으로 하는 비캔트립 주문을 시전합니다. 주문 후 동료가 턴의 행동을 얻으며(동물 명령처럼), 행동 중 하나는 지원(Support)이어야 합니다."
   },
   {
-    "id": "steady-spellcasting-druid",
+    "id": "steady-spellcasting-witch",
     "name_ko": "안정된 주문시전",
     "name_en": "Steady Spellcasting",
     "feat_level": 6,
@@ -8000,7 +8143,6 @@ var FEAT_DB = [
     "name_ko": "폭풍 보복",
     "name_en": "Storm Retribution",
     "feat_level": 6,
-    "prerequisites": "폭풍 결사, 폭풍 급습 결사 주문. 유발 조건: 인접한 적이 근접으로 치명타를 가합니다. 요구사항: 집중 포인트 1점 이상. 유발 적에게 폭풍 급습을 시전하고, 반사 내성 실패 시 5피트 밀어냄(대실패 시 10피트). 이동은 강제 이동.",
     "prereqs": [
       {
         "subclass": "폭풍 결사"
@@ -8010,6 +8152,8 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "reaction",
+    "prerequisites": "폭풍 결사, 폭풍 급습 결사 주문. 유발 조건: 인접한 적이 근접으로 치명타를 가합니다. 요구사항: 집중 포인트 1점 이상. 유발 적에게 폭풍 급습을 시전하고, 반사 내성 실패 시 5피트 밀어냄(대실패 시 10피트). 이동은 강제 이동.",
     "summary": "[반응] 유발 조건: 인접한 적이 근접으로 치명타를 가합니다. 요구사항: 집중 포인트 1점 이상. 유발 적에게 폭풍 급습을 시전하고, 반사 내성 실패 시 5피트 밀어냄(대실패 시 10피트). 이동은 강제 이동.",
     "desc": "<strong>유발 조건:</strong> 인접한 적이 근접으로 치명타를 가합니다. <strong>요구사항:</strong> 집중 포인트 1점 이상. 유발 적에게 <em>폭풍 급습</em>을 시전하고, 반사 내성 실패 시 <strong>5피트 밀어냄</strong>(대실패 시 10피트). 이동은 강제 이동."
   },
@@ -8018,7 +8162,6 @@ var FEAT_DB = [
     "name_ko": "위협적 표시",
     "name_en": "Deimatic Display",
     "feat_level": 8,
-    "prerequisites": "위협 숙련. 동물 위협 표시를 흉내 냅니다. 위협 판정 1회로 15피트 원뿔 내 모든 동물/균류/식물 생물에게 사기 저하(Demoralize). 시각 특성을 얻고, 볼 수 있는 생물만 영향. 언어 미이해 페널티 없음.",
     "prereqs": [
       {
         "skill": "intimidation",
@@ -8029,6 +8172,8 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
+    "prerequisites": "위협 숙련. 동물 위협 표시를 흉내 냅니다. 위협 판정 1회로 15피트 원뿔 내 모든 동물/균류/식물 생물에게 사기 저하(Demoralize). 시각 특성을 얻고, 볼 수 있는 생물만 영향. 언어 미이해 페널티 없음.",
     "summary": "[1행동] ",
     "desc": ""
   },
@@ -8037,7 +8182,6 @@ var FEAT_DB = [
     "name_ko": "흉포한 형태",
     "name_en": "Ferocious Shape",
     "feat_level": 8,
-    "prerequisites": "야생 형태. 공룡 형태의 형상들을 야생 형태 목록에 추가. 야생 형태로 운동 수정치를 부여하는 형태 시 운동 판정에 +1 상태 보너스.",
     "prereqs": [
       {
         "feat": "Untamed Form"
@@ -8047,6 +8191,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "야생 형태. 공룡 형태의 형상들을 야생 형태 목록에 추가. 야생 형태로 운동 수정치를 부여하는 형태 시 운동 판정에 +1 상태 보너스.",
     "summary": "+1 상태 보너스.",
     "desc": "<strong>+1 상태 보너스</strong>."
   },
@@ -8067,7 +8212,6 @@ var FEAT_DB = [
     "name_ko": "꽃의 회복",
     "name_en": "Floral Restoration",
     "feat_level": 8,
-    "prerequisites": "잎 결사. 빈도: 하루 1회. 근처 식물에게 활력을 나누어달라고 요청합니다. 집중 포인트 1점과 4d8 HP를 회복합니다. 최소 15평방피트의 건강한 식물이 있는 곳이어야 합니다. 9레벨부터 2레벨마다 치유가 1d8 증가.",
     "prereqs": [
       {
         "subclass": "잎 결사"
@@ -8079,15 +8223,16 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
+    "prerequisites": "잎 결사. 빈도: 하루 1회. 근처 식물에게 활력을 나누어달라고 요청합니다. 집중 포인트 1점과 4d8 HP를 회복합니다. 최소 15평방피트의 건강한 식물이 있는 곳이어야 합니다. 9레벨부터 2레벨마다 치유가 1d8 증가.",
     "summary": "[1행동] 빈도: 하루 1회. 근처 식물에게 활력을 나누어달라고 요청합니다. 집중 포인트 1점과 4d8 HP를 회복합니다. 최소 15평방피트의 건강한 식물이 있는 곳이어야 합니다. 9레벨부터 2레벨마다 치유가 1d8 증가.",
     "desc": "<strong>빈도:</strong> 하루 1회. 근처 식물에게 활력을 나누어달라고 요청합니다. <strong>집중 포인트 1점과 4d8 HP를 회복</strong>합니다. 최소 15평방피트의 건강한 식물이 있는 곳이어야 합니다. 9레벨부터 2레벨마다 치유가 1d8 증가."
   },
   {
-    "id": "incredible-companion",
+    "id": "incredible-companion-ranger",
     "name_ko": "놀라운 동료",
     "name_en": "Incredible Companion",
     "feat_level": 8,
-    "prerequisites": "성숙한 동물 동료. 동물 동료가 민첩 또는 야만 동물 동료(211페이지)가 되어 추가 능력을 얻습니다.",
     "prereqs": [
       {
         "feat": "Mature Animal Companion"
@@ -8097,6 +8242,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "성숙한 동물 동료. 동물 동료가 민첩 또는 야만 동물 동료(211페이지)가 되어 추가 능력을 얻습니다.",
     "summary": "",
     "desc": ""
   },
@@ -8109,6 +8255,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "2",
     "summary": "[2행동] 빈도: 시간당 1회. 30피트 내 빈 칸에 드루이드 기념비(선돌이나 수호수)를 세웁니다(험지). 비전/신성/오컬트 중 하나를 선택하여 15피트 내 모든 생물이 해당 특성에 +2 상태 보너스를 내성에 얻습니다. 1라운드 지속, 최대 1분간 유지 가능.",
     "desc": "<strong>빈도:</strong> 시간당 1회. 30피트 내 빈 칸에 드루이드 기념비(선돌이나 수호수)를 세웁니다(험지). 비전/신성/오컬트 중 하나를 선택하여 15피트 내 모든 생물이 해당 특성에 <strong>+2 상태 보너스</strong>를 내성에 얻습니다. <strong>1라운드 지속</strong>, 최대 1분간 유지 가능."
   },
@@ -8117,7 +8264,6 @@ var FEAT_DB = [
     "name_ko": "비상 형태",
     "name_en": "Soaring Shape",
     "feat_level": 8,
-    "prerequisites": "야생 형태. 날개가 지상의 속박에서 해방합니다. 공중 형태의 박쥐와 새 형상을 야생 형태 목록에 추가. 곤충 형태가 있으면 말벌도, 흉포한 형태가 있으면 익룡도 추가. 곡예 수정치를 부여하는 형태 시 곡예에 +1 상태 보너스.",
     "prereqs": [
       {
         "feat": "Untamed Form"
@@ -8127,6 +8273,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "야생 형태. 날개가 지상의 속박에서 해방합니다. 공중 형태의 박쥐와 새 형상을 야생 형태 목록에 추가. 곤충 형태가 있으면 말벌도, 흉포한 형태가 있으면 익룡도 추가. 곡예 수정치를 부여하는 형태 시 곡예에 +1 상태 보너스.",
     "summary": "+1 상태 보너스.",
     "desc": "<strong>+1 상태 보너스</strong>."
   },
@@ -8135,7 +8282,6 @@ var FEAT_DB = [
     "name_ko": "바람 부르기",
     "name_en": "Wind Caller",
     "feat_level": 8,
-    "prerequisites": "폭풍 결사. 바람에게 도움을 청합니다. 폭풍바람 비행(stormwind flight) 결사 주문(382페이지)을 얻습니다.",
     "prereqs": [
       {
         "subclass": "폭풍 결사"
@@ -8145,6 +8291,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "폭풍 결사. 바람에게 도움을 청합니다. 폭풍바람 비행(stormwind flight) 결사 주문(382페이지)을 얻습니다.",
     "summary": "폭풍바람 비행(stormwind flight) 결사 주문(382페이지)을 얻습니다.",
     "desc": "<em>폭풍바람 비행(stormwind flight)</em> 결사 주문(382페이지)을 얻습니다."
   },
@@ -8153,7 +8300,6 @@ var FEAT_DB = [
     "name_ko": "원소 형태",
     "name_en": "Elemental Shape",
     "feat_level": 10,
-    "prerequisites": "야생 형태. 원소 형태의 형상들을 야생 형태 목록에 추가. 야생 형태 변신 중 화염 저항 5.",
     "prereqs": [
       {
         "feat": "Untamed Form"
@@ -8163,6 +8309,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "야생 형태. 원소 형태의 형상들을 야생 형태 목록에 추가. 야생 형태 변신 중 화염 저항 5.",
     "summary": "화염 저항 5.",
     "desc": "<strong>화염 저항 5</strong>."
   },
@@ -8176,11 +8323,12 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
     "summary": "[1행동] 변신 마법으로 상처를 봉합합니다. 다음 행동이 단일 대상 비캔트립 변신 주문이면, 주문 랭크당 1d6 HP도 회복(치유 효과).",
     "desc": "변신 마법으로 상처를 봉합합니다. 다음 행동이 단일 대상 비캔트립 변신 주문이면, 주문 랭크당 <strong>1d6 HP도 회복</strong>(치유 효과)."
   },
   {
-    "id": "overwhelming-energy",
+    "id": "overwhelming-energy-wizard",
     "name_ko": "압도적 에너지",
     "name_en": "Overwhelming Energy",
     "feat_level": 10,
@@ -8190,6 +8338,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
     "summary": "[1행동] 다음 행동이 주문 시전이면, 대상의 산성/냉기/전기/화염/음파 저항을 레벨만큼 무시합니다(지속 피해와 지속 효과 포함). 면역은 영향 없음.",
     "desc": "다음 행동이 주문 시전이면, 대상의 산성/냉기/전기/화염/음파 <strong>저항을 레벨만큼 무시</strong>합니다(지속 피해와 지속 효과 포함). 면역은 영향 없음."
   },
@@ -8198,7 +8347,6 @@ var FEAT_DB = [
     "name_ko": "식물 형태",
     "name_en": "Plant Shape",
     "feat_level": 10,
-    "prerequisites": "잎 결사 또는 야생 형태. 식물 형태의 형상들을 야생 형태 목록에 추가. 변신 중 독 저항 5.",
     "prereqs": [
       {
         "or": [
@@ -8215,6 +8363,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "잎 결사 또는 야생 형태. 식물 형태의 형상들을 야생 형태 목록에 추가. 변신 중 독 저항 5.",
     "summary": "독 저항 5.",
     "desc": "<strong>독 저항 5</strong>."
   },
@@ -8223,7 +8372,6 @@ var FEAT_DB = [
     "name_ko": "근원 울음",
     "name_en": "Primal Howl",
     "feat_level": 10,
-    "prerequisites": "놀라운 동료. 동료가 근원 마법이 실린 울음을 낼 수 있습니다. 30피트 원뿔 내 모든 생물이 동료 레벨 2당 1d6 음파 피해(인내 기본 내성). 실패 시 공포 1, 대실패 시 공포 2.",
     "prereqs": [
       {
         "feat": "Incredible Companion"
@@ -8233,6 +8381,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "놀라운 동료. 동료가 근원 마법이 실린 울음을 낼 수 있습니다. 30피트 원뿔 내 모든 생물이 동료 레벨 2당 1d6 음파 피해(인내 기본 내성). 실패 시 공포 1, 대실패 시 공포 2.",
     "summary": "공포 1, 대실패 시 공포 2.",
     "desc": "<strong>{{condition:Frightened}} 1</strong>, 대실패 시 <strong>{{condition:Frightened}} 2</strong>."
   },
@@ -8241,7 +8390,6 @@ var FEAT_DB = [
     "name_ko": "깨끗한 무기",
     "name_en": "Pristine Weapon",
     "feat_level": 10,
-    "prerequisites": "푸른 무기. 푸른 무기가 마법 생물의 저항을 관통합니다. 냉철과 은으로 취급. 냉철이나 은 약점 생물에 치명타 시 1d4 지속 출혈 피해.",
     "prereqs": [
       {
         "feat": "Verdant Weapon"
@@ -8251,15 +8399,15 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "푸른 무기. 푸른 무기가 마법 생물의 저항을 관통합니다. 냉철과 은으로 취급. 냉철이나 은 약점 생물에 치명타 시 1d4 지속 출혈 피해.",
     "summary": "냉철과 은으로 취급. 냉철이나 은 약점 생물에 치명타 시 1d4 지속 출혈 피해.",
     "desc": "<strong>냉철과 은으로 취급</strong>. 냉철이나 은 약점 생물에 치명타 시 <strong>1d4 지속 출혈 피해</strong>."
   },
   {
-    "id": "side-by-side",
+    "id": "side-by-side-ranger",
     "name_ko": "나란히",
     "name_en": "Side by Side",
     "feat_level": 10,
-    "prerequisites": "동물 동료. 동료와 함께 같은 적에 인접하면, 실제 위치에 관계없이 서로 측면 공격으로 취급합니다.",
     "prereqs": [
       {
         "feat": "Animal Companion"
@@ -8269,6 +8417,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "동물 동료. 동료와 함께 같은 적에 인접하면, 실제 위치에 관계없이 서로 측면 공격으로 취급합니다.",
     "summary": "서로 측면 공격으로 취급합니다.",
     "desc": "<strong>서로 측면 공격으로 취급</strong>합니다."
   },
@@ -8277,7 +8426,6 @@ var FEAT_DB = [
     "name_ko": "천둥 주문",
     "name_en": "Thunderclap Spell",
     "feat_level": 10,
-    "prerequisites": "폭풍 결사. 다음 행동이 전기 특성/전기 피해, 지속 없음, 내성 필요 주문이면, 번개의 충격파가 천둥을 만듭니다. 반사 내성 실패한 생물은 1라운드 청각 상실(deafened), 대실패 시 엎드림(prone)도.",
     "prereqs": [
       {
         "subclass": "폭풍 결사"
@@ -8289,6 +8437,8 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
+    "prerequisites": "폭풍 결사. 다음 행동이 전기 특성/전기 피해, 지속 없음, 내성 필요 주문이면, 번개의 충격파가 천둥을 만듭니다. 반사 내성 실패한 생물은 1라운드 청각 상실(deafened), 대실패 시 엎드림(prone)도.",
     "summary": "[1행동] 1라운드 청각 상실(deafened), 대실패 시 엎드림(prone)도.",
     "desc": "<strong>1라운드 청각 {{condition:Deafened}}</strong>, 대실패 시 <strong>{{condition:Prone}}</strong>도."
   },
@@ -8297,7 +8447,6 @@ var FEAT_DB = [
     "name_ko": "용 형태",
     "name_en": "Dragon Shape",
     "feat_level": 12,
-    "prerequisites": "비상 형태. 용 형태의 형상들을 야생 형태 목록에 추가. 변신 중 산성/냉기/전기/화염/독 중 선택한 저항 5.",
     "prereqs": [
       {
         "feat": "Soaring Shape"
@@ -8307,6 +8456,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "비상 형태. 용 형태의 형상들을 야생 형태 목록에 추가. 변신 중 산성/냉기/전기/화염/독 중 선택한 저항 5.",
     "summary": "저항 5.",
     "desc": "<strong>저항 5</strong>."
   },
@@ -8315,7 +8465,6 @@ var FEAT_DB = [
     "name_ko": "화환 주문",
     "name_en": "Garland Spell",
     "feat_level": 12,
-    "prerequisites": "잎 결사. 다음 행동이 균류/식물 특성 주문이면, 사거리 내 10피트 폭발에 식물이 자랍니다. 가시 또는 독덩굴로 험지 + 위험 지형(이동 시 2d6 관통/독 피해, 턴당 1회). 1분 또는 다음 화환 주문까지 지속. 16레벨에 3d6, 20레벨에 4d6.",
     "prereqs": [
       {
         "subclass": "잎 결사"
@@ -8327,6 +8476,8 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
+    "prerequisites": "잎 결사. 다음 행동이 균류/식물 특성 주문이면, 사거리 내 10피트 폭발에 식물이 자랍니다. 가시 또는 독덩굴로 험지 + 위험 지형(이동 시 2d6 관통/독 피해, 턴당 1회). 1분 또는 다음 화환 주문까지 지속. 16레벨에 3d6, 20레벨에 4d6.",
     "summary": "[1행동] 험지 + 위험 지형(이동 시 2d6 관통/독 피해, 턴당 1회). 1분 또는 다음 화환 주문까지 지속. 16레벨에 3d6, 20레벨에 4d6.",
     "desc": "<strong>험지 + 위험 지형</strong>(이동 시 2d6 관통/독 피해, 턴당 1회). 1분 또는 다음 화환 주문까지 지속. 16레벨에 3d6, 20레벨에 4d6."
   },
@@ -8347,7 +8498,6 @@ var FEAT_DB = [
     "name_ko": "근원 소환",
     "name_en": "Primal Summons",
     "feat_level": 12,
-    "prerequisites": "야생의 부름. 아군 소환 시 공기/대지/화염/물의 원소 힘을 부여합니다. 근원 소환(primal summons) 결사 주문(381페이지)을 얻습니다.",
     "prereqs": [
       {
         "feat": "Call of the Wild"
@@ -8357,6 +8507,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "야생의 부름. 아군 소환 시 공기/대지/화염/물의 원소 힘을 부여합니다. 근원 소환(primal summons) 결사 주문(381페이지)을 얻습니다.",
     "summary": "근원 소환(primal summons) 결사 주문(381페이지)을 얻습니다.",
     "desc": "<em>{{feat:Primal Summons}}</em> 결사 주문(381페이지)을 얻습니다."
   },
@@ -8365,7 +8516,6 @@ var FEAT_DB = [
     "name_ko": "방랑하는 오아시스",
     "name_en": "Wandering Oasis",
     "feat_level": 12,
-    "prerequisites": "생존 달인. 위안의 에너지에 둘러싸여 있습니다. 당신과 60피트 내 아군은 극심한 환경 열/추위로부터 보호됩니다. 생존 전설이면 극단적 열/추위에서도.",
     "prereqs": [
       {
         "skill": "survival",
@@ -8376,6 +8526,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "생존 달인. 위안의 에너지에 둘러싸여 있습니다. 당신과 60피트 내 아군은 극심한 환경 열/추위로부터 보호됩니다. 생존 전설이면 극단적 열/추위에서도.",
     "summary": "극심한 환경 열/추위로부터 보호됩니다. 생존 전설이면 극단적 열/추위에서도.",
     "desc": "<strong>극심한 환경 열/추위로부터 보호</strong>됩니다. 생존 전설이면 극단적 열/추위에서도."
   },
@@ -8384,7 +8535,6 @@ var FEAT_DB = [
     "name_ko": "반응적 변신",
     "name_en": "Reactive Transformation",
     "feat_level": 14,
-    "prerequisites": "야생 형태; 용/원소/식물/비상 형태 중 하나. 위험 시 반사적으로 변신합니다. 유발 조건에 따라 적절한 형태로 야생 형태를 시전합니다(추락→공중 형태, 특정 피해→해당 저항 형태).",
     "prereqs": [
       {
         "feat": "Untamed Form"
@@ -8394,6 +8544,8 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "reaction",
+    "prerequisites": "야생 형태; 용/원소/식물/비상 형태 중 하나. 위험 시 반사적으로 변신합니다. 유발 조건에 따라 적절한 형태로 야생 형태를 시전합니다(추락→공중 형태, 특정 피해→해당 저항 형태).",
     "summary": "[반응] ",
     "desc": ""
   },
@@ -8408,15 +8560,15 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
     "summary": "[1행동] 주문을 씨앗에 접습니다. 다음 행동이 1-2행동 주문 시전이면, 주문이 인접 칸에 심어집니다. 10분 내에 반응으로 싹을 틔워 효과를 발생시킵니다(생물이 주변 칸에 진입 시 유발). 지각 DC = 주문 DC.",
     "desc": "주문을 씨앗에 접습니다. 다음 행동이 1-2행동 주문 시전이면, 주문이 인접 칸에 심어집니다. <strong>10분 내</strong>에 반응으로 싹을 틔워 효과를 발생시킵니다(생물이 주변 칸에 진입 시 유발). 지각 DC = 주문 DC."
   },
   {
-    "id": "specialized-companion",
+    "id": "specialized-companion-ranger",
     "name_ko": "전문화된 동료",
     "name_en": "Specialized Companion",
     "feat_level": 14,
-    "prerequisites": "놀라운 동료. 동물 동료가 전문화 1개를 얻습니다(211페이지). 특수: 최대 3회 선택 가능.",
     "prereqs": [
       {
         "feat": "Incredible Companion"
@@ -8426,6 +8578,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "놀라운 동료. 동물 동료가 전문화 1개를 얻습니다(211페이지). 특수: 최대 3회 선택 가능.",
     "summary": "전문화 1개를 얻습니다(211페이지). 특수: 최대 3회 선택 가능.",
     "desc": "<strong>전문화 1개</strong>를 얻습니다(211페이지). <strong>특수:</strong> 최대 3회 선택 가능.",
     "repeatable": true
@@ -8447,7 +8600,6 @@ var FEAT_DB = [
     "name_ko": "녹색 변태",
     "name_en": "Verdant Metamorphosis",
     "feat_level": 14,
-    "prerequisites": "잎 결사. 식물 버전의 자신이 되어 식물 특성을 얻고(부적절한 특성 상실). 녹색 휴식(Verdant Rest) 행동을 얻어 나무/식물로 변신(AC 30). 자연 햇빛에서 10분 쉬면 최대 HP의 절반 회복. 이 형태로 일일 휴식하면 최대 HP까지 회복하고 비영구적 소진/약화/서투름/현기증 제거, 19레벨 이하 독/질병도 제거.",
     "prereqs": [
       {
         "subclass": "잎 결사"
@@ -8457,11 +8609,12 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "잎 결사. 식물 버전의 자신이 되어 식물 특성을 얻고(부적절한 특성 상실). 녹색 휴식(Verdant Rest) 행동을 얻어 나무/식물로 변신(AC 30). 자연 햇빛에서 10분 쉬면 최대 HP의 절반 회복. 이 형태로 일일 휴식하면 최대 HP까지 회복하고 비영구적 소진/약화/서투름/현기증 제거, 19레벨 이하 독/질병도 제거.",
     "summary": "식물 특성을 얻고(부적절한 특성 상실). 녹색 휴식(Verdant Rest) 행동을 얻어 나무/식물로 변신(AC 30). 자연 햇빛에서 10분 쉬면 최대 HP의 절반 회복. 이 형태로 일일 휴식하면 최대 HP까지 회복하고 비영구적 소진/약화/서투름/현기증 제거, 19레벨 이하 독/질병도 제거.",
     "desc": "<strong>식물 특성</strong>을 얻고(부적절한 특성 상실). 녹색 휴식(Verdant Rest) 행동을 얻어 나무/식물로 변신(AC 30). 자연 햇빛에서 10분 쉬면 최대 HP의 절반 회복. 이 형태로 일일 휴식하면 최대 HP까지 회복하고 비영구적 소진/{{condition:Enfeebled}}/{{condition:Clumsy}}/{{condition:Stupefied}} 제거, 19레벨 이하 독/질병도 제거."
   },
   {
-    "id": "effortless-concentration-druid",
+    "id": "effortless-concentration-witch",
     "name_ko": "무의식적 집중",
     "name_en": "Effortless Concentration",
     "feat_level": 16,
@@ -8469,6 +8622,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "free",
     "summary": "[자유 행동] 유발 조건: 턴 시작. 즉시 유지(Sustain) 효과를 얻어 활성 드루이드 주문의 지속 시간 연장.",
     "desc": "<strong>유발 조건:</strong> 턴 시작. 즉시 유지(Sustain) 효과를 얻어 활성 드루이드 주문의 지속 시간 연장."
   },
@@ -8477,7 +8631,6 @@ var FEAT_DB = [
     "name_ko": "꿰뚫는 가시",
     "name_en": "Impaling Briars",
     "feat_level": 16,
-    "prerequisites": "잎 결사. 꿰뚫는 가시(impaling briars) 결사 주문(382페이지)을 얻습니다.",
     "prereqs": [
       {
         "subclass": "잎 결사"
@@ -8487,6 +8640,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "잎 결사. 꿰뚫는 가시(impaling briars) 결사 주문(382페이지)을 얻습니다.",
     "summary": "꿰뚫는 가시(impaling briars) 결사 주문(382페이지)을 얻습니다.",
     "desc": "<em>꿰뚫는 {{spell:Impaling Briars}}</em> 결사 주문(382페이지)을 얻습니다."
   },
@@ -8495,7 +8649,6 @@ var FEAT_DB = [
     "name_ko": "괴물 형태",
     "name_en": "Monstrosity Shape",
     "feat_level": 16,
-    "prerequisites": "야생 형태. 강력한 마법 생물로 변신합니다. 괴물 형태의 동굴벌레와 바다뱀 형상을 야생 형태 목록에 추가. 비상 형태가 있으면 불사조도 추가.",
     "prereqs": [
       {
         "feat": "Untamed Form"
@@ -8505,6 +8658,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "야생 형태. 강력한 마법 생물로 변신합니다. 괴물 형태의 동굴벌레와 바다뱀 형상을 야생 형태 목록에 추가. 비상 형태가 있으면 불사조도 추가.",
     "summary": "",
     "desc": ""
   },
@@ -8513,7 +8667,6 @@ var FEAT_DB = [
     "name_ko": "고양의 바람",
     "name_en": "Uplifting Winds",
     "feat_level": 16,
-    "prerequisites": "폭풍 결사. 비행 중 공기/전기 특성 주문 시전 시, 비행 속도에 +10 상태 보너스를 얻고 즉시 절반 속도까지 비행 가능.",
     "prereqs": [
       {
         "subclass": "폭풍 결사"
@@ -8523,6 +8676,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "폭풍 결사. 비행 중 공기/전기 특성 주문 시전 시, 비행 속도에 +10 상태 보너스를 얻고 즉시 절반 속도까지 비행 가능.",
     "summary": "+10 상태 보너스를 얻고 즉시 절반 속도까지 비행 가능.",
     "desc": "<strong>+10 상태 보너스</strong>를 얻고 즉시 절반 속도까지 비행 가능."
   },
@@ -8531,7 +8685,6 @@ var FEAT_DB = [
     "name_ko": "재앙 부르기",
     "name_en": "Invoke Disaster",
     "feat_level": 18,
-    "prerequisites": "바람 부르기. 자연의 분노를 적에게 부릅니다. 폭풍 군주(storm lord) 결사 주문(382페이지)을 얻습니다.",
     "prereqs": [
       {
         "feat": "Wind Caller"
@@ -8541,6 +8694,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "바람 부르기. 자연의 분노를 적에게 부릅니다. 폭풍 군주(storm lord) 결사 주문(382페이지)을 얻습니다.",
     "summary": "폭풍 군주(storm lord) 결사 주문(382페이지)을 얻습니다.",
     "desc": "<em>{{spell:Storm Lord}}</em> 결사 주문(382페이지)을 얻습니다."
   },
@@ -8549,7 +8703,6 @@ var FEAT_DB = [
     "name_ko": "완벽한 형태 제어",
     "name_en": "Perfect Form Control",
     "feat_level": 18,
-    "prerequisites": "형태 제어, 근력 +4. 마법과 근육 기억으로 대체 형태를 무기한 유지합니다. 형태 제어 사용 시 야생 형태의 지속 시간이 1시간이 아닌 무제한(해산 가능).",
     "prereqs": [
       {
         "feat": "Form Control"
@@ -8563,6 +8716,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "형태 제어, 근력 +4. 마법과 근육 기억으로 대체 형태를 무기한 유지합니다. 형태 제어 사용 시 야생 형태의 지속 시간이 1시간이 아닌 무제한(해산 가능).",
     "summary": "무제한(해산 가능).",
     "desc": "<strong>무제한</strong>(해산 가능)."
   },
@@ -8602,6 +8756,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "actionCost": "1",
     "summary": "[1행동] 빈도: 분당 1회. 세계의 지맥에서 마법을 끌어옵니다. 다음 행동이 5랭크 이하, 지속 없는 주문 시전이면, 준비된 주문을 소비하지 않습니다.",
     "desc": "<strong>빈도:</strong> 분당 1회. 세계의 지맥에서 마법을 끌어옵니다. 다음 행동이 5랭크 이하, 지속 없는 주문 시전이면, <strong>준비된 주문을 소비하지 않습니다</strong>."
   },
@@ -8610,7 +8765,6 @@ var FEAT_DB = [
     "name_ko": "진정한 변신술사",
     "name_en": "True Shapeshifter",
     "feat_level": 20,
-    "prerequisites": "용 형태, 야생 형태. 형태의 한계를 초월합니다. 하루 1회 자연 화신(nature incarnate)을 준비하지 않았어도 시전하여 카이주로 변신. 식물 형태가 있으면 녹색 남자로도 가능. 진정한 변신(True Shapeshift) 활동도 얻어, 야생 형태 중 목록의 다른 형태로 2행동으로 즉시 변환 가능.",
     "prereqs": [
       {
         "feat": "Dragon Shape"
@@ -8624,6 +8778,7 @@ var FEAT_DB = [
       "드루이드"
     ],
     "category": "druid",
+    "prerequisites": "용 형태, 야생 형태. 형태의 한계를 초월합니다. 하루 1회 자연 화신(nature incarnate)을 준비하지 않았어도 시전하여 카이주로 변신. 식물 형태가 있으면 녹색 남자로도 가능. 진정한 변신(True Shapeshift) 활동도 얻어, 야생 형태 중 목록의 다른 형태로 2행동으로 즉시 변환 가능.",
     "summary": "하루 1회 자연 화신(nature incarnate)을 준비하지 않았어도 시전하여 카이주로 변신. 식물 형태가 있으면 녹색 남자로도 가능. 진정한 변신(True Shapeshift) 활동도 얻어, 야생 형태 중 목록의 다른 형태로 2행동으로 즉시 변환 가능.",
     "desc": "<strong>하루 1회</strong> <em>{{spell:Nature Incarnate}}</em>을 준비하지 않았어도 시전하여 카이주로 변신. 식물 형태가 있으면 녹색 남자로도 가능. 진정한 변신(True Shapeshift) 활동도 얻어, 야생 형태 중 목록의 다른 형태로 2행동으로 즉시 변환 가능."
   },
@@ -8637,6 +8792,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 타격을 통해 적의 방어를 평가합니다. 근접 타격을 합니다. 명중 시, GM이 대상의 AC, 내성 굴림, 무기 약점 중 하나에 대한 정보를 줍니다.",
     "desc": "타격을 통해 적의 방어를 평가합니다. 근접 타격을 합니다. 명중 시, GM이 대상의 AC, 내성 굴림, 무기 약점 중 하나에 대한 정보를 줍니다."
   },
@@ -8650,6 +8806,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 요구사항: 각 손에 근접 무기 1개씩. 양손으로 동시에 공격합니다. 두 번 타격하되, 두 번째 타격은 다중 공격 페널티 없이 합니다. 두 번째 무기의 피해만큼 결합 피해에 추가합니다.",
     "desc": "<strong>요구사항:</strong> 각 손에 근접 무기 1개씩. 양손으로 동시에 공격합니다. 두 번 타격하되, 두 번째 타격은 다중 공격 페널티 <strong>없이</strong> 합니다. 두 번째 무기의 피해만큼 결합 피해에 추가합니다."
   },
@@ -8663,6 +8820,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 신중하게 공격합니다. 근접 타격을 합니다. 빗나가면 이 타격은 다중 공격 페널티에 포함되지 않습니다.",
     "desc": "신중하게 공격합니다. 근접 타격을 합니다. 빗나가면 이 타격은 <strong>다중 공격 페널티에 포함되지 않습니다</strong>."
   },
@@ -8676,6 +8834,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 원거리 무기를 들고 있어야 합니다. 근거리에서 무기를 더 치명적으로 사용합니다. 이 자세 중 첫 번째 사거리 증분 내에서 원거리 타격 시, 추가 피해 주사위 1개를 더합니다. 사거리가 15피트 이하인 무기를 사용 중이면 피해 유형과 같은 추가 1 피해도 추가.",
     "desc": "<strong>요구사항:</strong> 원거리 무기를 들고 있어야 합니다. 근거리에서 무기를 더 치명적으로 사용합니다. 이 자세 중 첫 번째 사거리 증분 내에서 원거리 타격 시, 추가 <strong>피해 주사위 1개</strong>를 더합니다. 사거리가 15피트 이하인 무기를 사용 중이면 피해 유형과 같은 <strong>추가 1 피해</strong>도 추가."
   },
@@ -8688,6 +8847,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 적이 당신에게 근접 타격의 명중 굴림을 유발합니다. 방패를 빠르게 올려 방어합니다. 즉시 방패 올리기.",
     "desc": "<strong>유발 조건:</strong> 적이 당신에게 근접 타격의 명중 굴림을 유발합니다. 방패를 빠르게 올려 방어합니다. 즉시 <strong>방패 올리기</strong>."
   },
@@ -8700,6 +8860,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 한 손에 무기, 다른 손은 빈 손. 빈 손으로 적의 갑옷/의복/몸을 잡아 무방비하게 합니다. 근접 타격을 합니다. 명중 시 대상은 다음 턴 시작까지 당신에게 무방비(off-guard).",
     "desc": "<strong>요구사항:</strong> 한 손에 무기, 다른 손은 빈 손. 빈 손으로 적의 갑옷/의복/몸을 잡아 무방비하게 합니다. 근접 타격을 합니다. 명중 시 대상은 다음 턴 시작까지 당신에게 <strong>{{condition:Off-Guard}}</strong>."
   },
@@ -8713,6 +8874,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 전력으로 적에게 돌진합니다. 보폭 2회 후 근접 타격을 합니다.",
     "desc": "전력으로 적에게 돌진합니다. <strong>보폭 2회 후 근접 타격</strong>을 합니다."
   },
@@ -8725,6 +8887,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 무기를 가볍게 들어올린 후 무시무시한 힘으로 내려칩니다. 근접 타격을 합니다. 이것은 다중 공격 페널티에 2회 공격으로 포함되지만, 무기 피해 주사위를 1개 추가합니다.",
     "desc": "무기를 가볍게 들어올린 후 무시무시한 힘으로 내려칩니다. 근접 타격을 합니다. 이것은 다중 공격 페널티에 <strong>2회 공격으로 포함</strong>되지만, 무기 피해 주사위를 <strong>1개 추가</strong>합니다."
   },
@@ -8750,6 +8913,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 원거리 타격을 합니다. 명중 시, 대상은 다음 턴 시작까지 다음 공격에 무방비.",
     "desc": "원거리 타격을 합니다. 명중 시, 대상은 다음 턴 시작까지 다음 공격에 <strong>{{condition:Off-Guard}}</strong>."
   },
@@ -8762,6 +8926,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 적이 근접 타격으로 치명타를 가합니다. 장비된 무기나 방패를 희생하여 피해를 줄입니다. 무기/방패가 파괴되지만 피해를 파괴된 아이템의 경도 × 2만큼 줄입니다.",
     "desc": "<strong>유발 조건:</strong> 적이 근접 타격으로 치명타를 가합니다. 장비된 무기나 방패를 희생하여 피해를 줄입니다. 무기/방패가 파괴되지만 피해를 <strong>파괴된 아이템의 경도 × 2만큼 줄입니다</strong>."
   },
@@ -8775,6 +8940,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 양손 무기의 무게로 적을 뒤로 밉니다. 양손 근접 무기로 타격합니다. 명중 시, 운동 판정 없이 자동으로 5피트 밀기(Shove). 대상은 다음 턴 시작까지 무방비.",
     "desc": "양손 무기의 무게로 적을 뒤로 밉니다. 양손 근접 무기로 타격합니다. 명중 시, 운동 판정 없이 자동으로 <strong>5피트 밀기(Shove)</strong>. 대상은 다음 턴 시작까지 <strong>{{condition:Off-Guard}}</strong>."
   },
@@ -8788,6 +8954,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 한 손에 근접 무기, 빈 손 하나. 근접 타격 후 빈 손으로 적을 붙잡습니다(grabbed). 다음 턴 시작이나 놓기, 강제 이동 시까지 유지.",
     "desc": "<strong>요구사항:</strong> 한 손에 근접 무기, 빈 손 하나. 근접 타격 후 빈 손으로 적을 <strong>{{condition:Grabbed}}</strong>. 다음 턴 시작이나 놓기, 강제 이동 시까지 유지."
   },
@@ -8800,6 +8967,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 한 손에 근접 무기 1개, 다른 손은 빈 손. 다음 턴 시작까지 AC에 +2 상황 보너스.",
     "desc": "<strong>요구사항:</strong> 한 손에 근접 무기 1개, 다른 손은 빈 손. 다음 턴 시작까지 <strong>AC에 +2 상황 보너스</strong>."
   },
@@ -8815,6 +8983,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 공격에 물리적 위협을 실어 적을 겁먹게 합니다. 근접 타격을 합니다. 명중하고 피해를 주면 대상은 공포 1(치명타 시 공포 2).",
     "desc": "공격에 물리적 위협을 실어 적을 겁먹게 합니다. 근접 타격을 합니다. 명중하고 피해를 주면 대상은 <strong>{{condition:Frightened}} 1</strong>(치명타 시 {{condition:Frightened}} 2)."
   },
@@ -8827,6 +8996,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "free",
     "summary": "[자유 행동] 유발 조건: 근접 무기로 타격을 합니다(굴리기 전). 즉시 다른 무기로 교환합니다. 유발 타격에 교환한 무기를 사용.",
     "desc": "<strong>유발 조건:</strong> 근접 무기로 타격을 합니다(굴리기 전). 즉시 다른 무기로 교환합니다. 유발 타격에 교환한 무기를 사용."
   },
@@ -8839,6 +9009,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 근접 무기. 적의 도달 끝에서 공격합니다. 이 타격에 도달이 5피트 증가합니다. 무기에 해제/밀기/넘어뜨리기 특성이 있으면 해당 행동으로 대체 가능.",
     "desc": "<strong>요구사항:</strong> 근접 무기. 적의 도달 끝에서 공격합니다. 이 타격에 도달이 <strong>5피트 증가</strong>합니다. 무기에 해제/밀기/넘어뜨리기 특성이 있으면 해당 행동으로 대체 가능."
   },
@@ -8852,6 +9023,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 요구사항: 투척 무기. 투척 원거리 타격을 합니다. 명중 시 무기가 원래 대상에서 10피트 내 다른 적에게 튕깁니다. 두 번째 적에게 추가 타격. 두 공격 모두 다중 공격에 포함되지만 둘 다 한 후 증가.",
     "desc": "<strong>요구사항:</strong> 투척 무기. 투척 원거리 타격을 합니다. 명중 시 무기가 원래 대상에서 10피트 내 다른 적에게 튕깁니다. 두 번째 적에게 추가 타격. 두 공격 모두 다중 공격에 포함되지만 둘 다 한 후 증가."
   },
@@ -8865,6 +9037,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 기교 무기 또는 장창. 이전 공격에서 회복 중인 적의 갑옷/의복/몸을 잡아 옮깁니다. 기교 무기/장창으로 근접 타격. 자신 크기 이하 대상 명중 시 자동 재배치(Reposition)(치명타 효과 포함). 도달 무기면 도달 범위 사용. 실패: 대상이 현재 턴 종료까지 무방비.",
     "desc": "<strong>요구사항:</strong> 기교 무기 또는 장창. 이전 공격에서 회복 중인 적의 갑옷/의복/몸을 잡아 옮깁니다. 기교 무기/장창으로 근접 타격. 자신 크기 이하 대상 명중 시 <strong>자동 재배치(Reposition)</strong>(치명타 효과 포함). 도달 무기면 도달 범위 사용.<br><strong>실패:</strong> 대상이 현재 턴 종료까지 {{condition:Off-Guard}}."
   },
@@ -8873,7 +9046,6 @@ var FEAT_DB = [
     "name_ko": "돌진 충격",
     "name_en": "Barreling Charge",
     "feat_level": 4,
-    "prerequisites": "운동 숙련. 적의 공간을 통과하며 돌진합니다. 보폭하며 각 적의 인내 DC에 대해 운동 판정. 성공 시 통과, 실패 시 진입 전 정지. 이동 종료 시 근접 타격.",
     "prereqs": [
       {
         "skill": "athletics",
@@ -8885,6 +9057,8 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
+    "prerequisites": "운동 숙련. 적의 공간을 통과하며 돌진합니다. 보폭하며 각 적의 인내 DC에 대해 운동 판정. 성공 시 통과, 실패 시 진입 전 정지. 이동 종료 시 근접 타격.",
     "summary": "[2행동] ",
     "desc": ""
   },
@@ -8898,6 +9072,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 요구사항: 재장전 0 원거리 무기. 눈 깜짝할 사이에 두 발을 쏩니다. 서로 다른 대상에게 각각 -2 페널티로 타격 2회. 둘 다 다중 공격에 포함되지만 둘 다 한 후 증가.",
     "desc": "<strong>요구사항:</strong> 재장전 0 원거리 무기. 눈 깜짝할 사이에 두 발을 쏩니다. 서로 다른 대상에게 <strong>각각 -2 페널티</strong>로 타격 2회. 둘 다 다중 공격에 포함되지만 둘 다 한 후 증가."
   },
@@ -8911,6 +9086,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 한 손 근접 무기, 빈 손. 빈 손을 잠시 잡아 더 강력한 타격을 합니다. 양손 특성이 없으면 피해 주사위 한 단계 증가, 양손 특성이 있으면 양손 혜택 + 피해 주사위 수만큼 상황 보너스.",
     "desc": "<strong>요구사항:</strong> 한 손 근접 무기, 빈 손. 빈 손을 잠시 잡아 더 강력한 타격을 합니다. 양손 특성이 없으면 피해 주사위 한 단계 증가, 양손 특성이 있으면 양손 혜택 + 피해 주사위 수만큼 상황 보너스."
   },
@@ -8923,6 +9099,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 요구사항: 장전된 또는 재장전 0 원거리 무기. 뒤로 물러나며 적을 놀라게 하는 빠른 사격. 한 걸음 후 원거리 타격. 대상은 이 공격에 무방비.",
     "desc": "<strong>요구사항:</strong> 장전된 또는 재장전 0 원거리 무기. 뒤로 물러나며 적을 놀라게 하는 빠른 사격. 한 걸음 후 원거리 타격. 대상은 이 공격에 <strong>{{condition:Off-Guard}}</strong>."
   },
@@ -8931,7 +9108,6 @@ var FEAT_DB = [
     "name_ko": "강력한 밀치기",
     "name_en": "Powerful Shove",
     "feat_level": 4,
-    "prerequisites": "공격적 막기 또는 야만적 밀치기. 더 큰 적도 밀어낼 수 있습니다. 자신보다 2 크기까지 큰 생물에게 사용 가능. 밀기나 치명 특성으로 밀려난 적이 물체에 멈추면 근력 수정치만큼 피해(최소 1).",
     "prereqs": [
       {
         "or": [
@@ -8948,6 +9124,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "공격적 막기 또는 야만적 밀치기. 더 큰 적도 밀어낼 수 있습니다. 자신보다 2 크기까지 큰 생물에게 사용 가능. 밀기나 치명 특성으로 밀려난 적이 물체에 멈추면 근력 수정치만큼 피해(최소 1).",
     "summary": "2 크기까지 큰 생물에게 사용 가능. 밀기나 치명 특성으로 밀려난 적이 물체에 멈추면 근력 수정치만큼 피해(최소 1).",
     "desc": "<strong>2 크기까지 큰 생물</strong>에게 사용 가능. 밀기나 치명 특성으로 밀려난 적이 물체에 멈추면 <strong>근력 수정치만큼 피해</strong>(최소 1)."
   },
@@ -8962,6 +9139,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 최소 2명에게 측면 공격을 받고 있어야. 적의 측면 공격을 역이용합니다. 측면 공격하는 적 1명에게 타격 후, 다른 측면 공격 적에게 같은 무기로 추가 타격(같은 다중 공격 페널티, 추가 포함 안 됨).",
     "desc": "<strong>요구사항:</strong> 최소 2명에게 측면 공격을 받고 있어야. 적의 측면 공격을 역이용합니다. 측면 공격하는 적 1명에게 타격 후, 다른 측면 공격 적에게 같은 무기로 <strong>추가 타격</strong>(같은 다중 공격 페널티, 추가 포함 안 됨)."
   },
@@ -8982,7 +9160,6 @@ var FEAT_DB = [
     "name_ko": "내리찍기",
     "name_en": "Slam Down",
     "feat_level": 4,
-    "prerequisites": "운동 숙련. 근접 타격을 합니다. 명중하고 피해를 주면, 명중한 생물에게 넘어뜨리기(Trip)를 시도합니다. 양손 근접 무기면 빈 손 요구사항 무시. 두 공격 모두 다중 공격에 포함.",
     "prereqs": [
       {
         "skill": "athletics",
@@ -8994,6 +9171,8 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
+    "prerequisites": "운동 숙련. 근접 타격을 합니다. 명중하고 피해를 주면, 명중한 생물에게 넘어뜨리기(Trip)를 시도합니다. 양손 근접 무기면 빈 손 요구사항 무시. 두 공격 모두 다중 공격에 포함.",
     "summary": "[2행동] 넘어뜨리기(Trip)를 시도합니다. 양손 근접 무기면 빈 손 요구사항 무시. 두 공격 모두 다중 공격에 포함.",
     "desc": "<strong>넘어뜨리기(Trip)</strong>를 시도합니다. 양손 근접 무기면 빈 손 요구사항 무시. 두 공격 모두 다중 공격에 포함."
   },
@@ -9007,11 +9186,12 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 넓은 호를 그리며 벱니다. 근접 도달 내이고 서로 인접한 최대 2명에게 명중 굴림 결과를 비교합니다. 피해는 한 번만 굴려 각 명중한 생물에 적용. 다중 공격에 2회로 포함. 쓸기(sweep) 특성 무기면 수정치가 모든 공격에 적용.",
     "desc": "넓은 호를 그리며 벱니다. 근접 도달 내이고 서로 인접한 <strong>최대 2명</strong>에게 명중 굴림 결과를 비교합니다. 피해는 한 번만 굴려 각 명중한 생물에 적용. 다중 공격에 2회로 포함. 쓸기(sweep) 특성 무기면 수정치가 모든 공격에 적용."
   },
   {
-    "id": "twin-parry",
+    "id": "twin-parry-ranger",
     "name_ko": "쌍검 방어",
     "name_en": "Twin Parry",
     "feat_level": 4,
@@ -9019,6 +9199,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 각 손에 근접 무기 1개씩. 두 무기로 공격을 막습니다. 다음 턴 시작까지 AC +1 상황 보너스(한쪽이 방어(parry) 특성이면 +2).",
     "desc": "<strong>요구사항:</strong> 각 손에 근접 무기 1개씩. 두 무기로 공격을 막습니다. 다음 턴 시작까지 <strong>AC +1 상황 보너스</strong>(한쪽이 방어(parry) 특성이면 +2)."
   },
@@ -9044,6 +9225,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 붙잡히거나(grabbed), 엎드리거나(prone), 속박된(restrained) 생물에게 타격합니다. 무기 피해 주사위 수만큼 상황 보너스를 피해에 추가(양손이면 +2). 실패 시에도 무기 피해 주사위 수만큼 피해(양손이면 +2).",
     "desc": "{{condition:Grabbed}}, {{condition:Prone}}, {{condition:Restrained}} 생물에게 타격합니다. 무기 피해 주사위 수만큼 <strong>상황 보너스를 피해에 추가</strong>(양손이면 +2). 실패 시에도 무기 피해 주사위 수만큼 피해(양손이면 +2)."
   },
@@ -9057,6 +9239,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 생물을 붙잡고 있어야. 붙잡힌 적을 두들겨 기절시킵니다. 붙잡힌 생물에 근접 타격(둔기 피해). 명중 시 클래스 DC에 대해 인내 내성(무력화 효과). 대성공: 영향 없음. 성공: 기절(stunned) 1. 실패: 기절 2. 대실패: 기절 3.",
     "desc": "<strong>요구사항:</strong> 생물을 붙잡고 있어야. 붙잡힌 적을 두들겨 기절시킵니다. 붙잡힌 생물에 근접 타격(둔기 피해). 명중 시 클래스 DC에 대해 인내 내성(무력화 효과).<br><strong>대성공:</strong> 영향 없음. <strong>성공:</strong> {{condition:Stunned}} 1. <strong>실패:</strong> {{condition:Stunned}} 2. <strong>대실패:</strong> {{condition:Stunned}} 3."
   },
@@ -9065,7 +9248,6 @@ var FEAT_DB = [
     "name_ko": "무장 해제 자세",
     "name_en": "Disarming Stance",
     "feat_level": 6,
-    "prerequisites": "운동 숙련. 요구사항: 한 손 근접 무기 1개, 빈 손. 무장 해제에 +1 상황 보너스, 무장 해제 방어에 +2 상황 보너스. 자신보다 2 크기까지 큰 생물에게 무장 해제 가능.",
     "prereqs": [
       {
         "skill": "athletics",
@@ -9077,6 +9259,8 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
+    "prerequisites": "운동 숙련. 요구사항: 한 손 근접 무기 1개, 빈 손. 무장 해제에 +1 상황 보너스, 무장 해제 방어에 +2 상황 보너스. 자신보다 2 크기까지 큰 생물에게 무장 해제 가능.",
     "summary": "[1행동] 요구사항: 한 손 근접 무기 1개, 빈 손. 무장 해제에 +1 상황 보너스, 무장 해제 방어에 +2 상황 보너스. 자신보다 2 크기까지 큰 생물에게 무장 해제 가능.",
     "desc": "<strong>요구사항:</strong> 한 손 근접 무기 1개, 빈 손. 무장 해제에 <strong>+1 상황 보너스</strong>, 무장 해제 방어에 <strong>+2 상황 보너스</strong>. 자신보다 2 크기까지 큰 생물에게 무장 해제 가능."
   },
@@ -9085,7 +9269,6 @@ var FEAT_DB = [
     "name_ko": "맹렬한 집중",
     "name_en": "Furious Focus",
     "feat_level": 6,
-    "prerequisites": "맹렬한 일격. 양손 근접 무기로 맹렬한 일격 시 다중 공격에 1회로만 포함(2회 대신).",
     "prereqs": [
       {
         "feat": "Vicious Swing"
@@ -9095,6 +9278,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "맹렬한 일격. 양손 근접 무기로 맹렬한 일격 시 다중 공격에 1회로만 포함(2회 대신).",
     "summary": "1회로만 포함(2회 대신).",
     "desc": "<strong>1회로만 포함</strong>(2회 대신)."
   },
@@ -9107,6 +9291,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 도달 범위 내 아군이 공격에 명중당하고, +2 상황 보너스가 치명타→명중 또는 명중→빗나감으로 바꿀 수 있을 때. 요구사항: 한 손 근접 무기, 빈 손. 무기로 아군의 공격을 편향시켜 AC +2 상황 보너스.",
     "desc": "<strong>유발 조건:</strong> 도달 범위 내 아군이 공격에 명중당하고, +2 상황 보너스가 치명타→명중 또는 명중→빗나감으로 바꿀 수 있을 때. <strong>요구사항:</strong> 한 손 근접 무기, 빈 손. 무기로 아군의 공격을 편향시켜 <strong>AC +2 상황 보너스</strong>."
   },
@@ -9131,11 +9316,12 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 요구사항: 관통 피해가 가능한 근접 무기. 감지할 수 없는 적에게 무기를 박아 위치를 밝힙니다. 은폐 시 단순 판정 불필요, 숨겨진 경우 DC 5. 명중하고 피해를 주면 무기를 대상에 박아 놓아(Release) 위치를 노출.",
     "desc": "<strong>요구사항:</strong> 관통 피해가 가능한 근접 무기. 감지할 수 없는 적에게 무기를 박아 위치를 밝힙니다. {{condition:Concealed}} 시 단순 판정 불필요, 숨겨진 경우 DC 5. 명중하고 피해를 주면 무기를 대상에 박아 놓아(Release) 위치를 노출."
   },
   {
-    "id": "ricochet-stance",
+    "id": "ricochet-stance-rogue",
     "name_ko": "도탄 자세",
     "name_en": "Ricochet Stance",
     "feat_level": 6,
@@ -9144,6 +9330,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 투척 무기가 즉시 돌아오는 자세를 취합니다. 이 자세 중 둔기/참격 피해의 투척 무기로 원거리 타격 시, 무기가 즉시 손으로 돌아옵니다(사거리 증분 내, 빈 손 필요).",
     "desc": "투척 무기가 즉시 돌아오는 자세를 취합니다. 이 자세 중 둔기/참격 피해의 투척 무기로 원거리 타격 시, 무기가 <strong>즉시 손으로 돌아옵니다</strong>(사거리 증분 내, 빈 손 필요)."
   },
@@ -9157,6 +9344,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 도달 범위 내 겁먹은(frightened) 생물. 공포를 이용합니다. 겁먹은 생물에 근접 타격. 명중하고 피해를 주면 공포가 끝날 때까지 무방비. 이미 무방비이었으면 다음 턴 시작까지 공포를 1 미만으로 줄일 수 없습니다.",
     "desc": "<strong>요구사항:</strong> 도달 범위 내 {{condition:Frightened}} 생물. 공포를 이용합니다. 겁먹은 생물에 근접 타격. 명중하고 피해를 주면 공포가 끝날 때까지 <strong>{{condition:Off-Guard}}</strong>. 이미 무방비이었으면 다음 턴 시작까지 <strong>공포를 1 미만으로 줄일 수 없습니다</strong>."
   },
@@ -9165,7 +9353,6 @@ var FEAT_DB = [
     "name_ko": "방패 수호",
     "name_en": "Shield Warden",
     "feat_level": 6,
-    "prerequisites": "방패 막기. 방패를 올린 상태에서 인접한 아군에 대한 공격에도 방패 막기를 사용하여 아군의 피해를 줄입니다.",
     "prereqs": [
       {
         "feat": "Shield Block"
@@ -9175,6 +9362,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "방패 막기. 방패를 올린 상태에서 인접한 아군에 대한 공격에도 방패 막기를 사용하여 아군의 피해를 줄입니다.",
     "summary": "방패 막기를 사용하여 아군의 피해를 줄입니다.",
     "desc": "<strong>방패 막기를 사용</strong>하여 아군의 피해를 줄입니다."
   },
@@ -9183,7 +9371,6 @@ var FEAT_DB = [
     "name_ko": "삼중 사격",
     "name_en": "Triple Shot",
     "feat_level": 6,
-    "prerequisites": "이중 사격. 이중 사격의 두 타격을 같은 대상에게 할 수 있습니다. 추가 1행동으로 3회 타격도 가능(페널티 -4). 모두 다중 공격에 포함되지만 전부 한 후 증가.",
     "prereqs": [
       {
         "feat": "Double Shot"
@@ -9193,15 +9380,15 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "이중 사격. 이중 사격의 두 타격을 같은 대상에게 할 수 있습니다. 추가 1행동으로 3회 타격도 가능(페널티 -4). 모두 다중 공격에 포함되지만 전부 한 후 증가.",
     "summary": "같은 대상에게 할 수 있습니다. 추가 1행동으로 3회 타격도 가능(페널티 -4). 모두 다중 공격에 포함되지만 전부 한 후 증가.",
     "desc": "<strong>같은 대상에게</strong> 할 수 있습니다. 추가 1행동으로 <strong>3회 타격</strong>도 가능(페널티 -4). 모두 다중 공격에 포함되지만 전부 한 후 증가."
   },
   {
-    "id": "blind-fight",
+    "id": "blind-fight-rogue",
     "name_ko": "맹투",
     "name_en": "Blind-Fight",
     "feat_level": 8,
-    "prerequisites": "지각 달인. 전투 본능이 은폐/투명 적을 더 잘 인식합니다. 은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님, DC 5 단순 판정만 필요. 인접한 레벨 이하 미탐지 생물은 숨겨진 것으로 취급.",
     "prereqs": [
       {
         "perception": 6
@@ -9211,6 +9398,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "지각 달인. 전투 본능이 은폐/투명 적을 더 잘 인식합니다. 은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님, DC 5 단순 판정만 필요. 인접한 레벨 이하 미탐지 생물은 숨겨진 것으로 취급.",
     "summary": "",
     "desc": ""
   },
@@ -9219,7 +9407,6 @@ var FEAT_DB = [
     "name_ko": "혼란의 빈틈",
     "name_en": "Disorienting Opening",
     "feat_level": 8,
-    "prerequisites": "반격 타격. 반격 타격으로 명중 시 대상이 다음 턴 시작까지 무방비.",
     "prereqs": [
       {
         "feat": "Reactive Striker"
@@ -9229,6 +9416,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "반격 타격. 반격 타격으로 명중 시 대상이 다음 턴 시작까지 무방비.",
     "summary": "무방비.",
     "desc": "<strong>{{condition:Off-Guard}}</strong>."
   },
@@ -9237,7 +9425,6 @@ var FEAT_DB = [
     "name_ko": "결투 반격",
     "name_en": "Dueling Riposte",
     "feat_level": 8,
-    "prerequisites": "결투 방어. 유발 조건: 도달 내 생물이 당신에 대해 타격에 대실패합니다. 요구사항: 결투 방어의 혜택을 받고 있어야. 우아하게 반격합니다. 유발 생물에 근접 타격 또는 무장 해제.",
     "prereqs": [
       {
         "feat": "Dueling Parry"
@@ -9247,6 +9434,8 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "reaction",
+    "prerequisites": "결투 방어. 유발 조건: 도달 내 생물이 당신에 대해 타격에 대실패합니다. 요구사항: 결투 방어의 혜택을 받고 있어야. 우아하게 반격합니다. 유발 생물에 근접 타격 또는 무장 해제.",
     "summary": "[반응] 유발 조건: 도달 내 생물이 당신에 대해 타격에 대실패합니다. 요구사항: 결투 방어의 혜택을 받고 있어야. 우아하게 반격합니다. 유발 생물에 근접 타격 또는 무장 해제.",
     "desc": "<strong>유발 조건:</strong> 도달 내 생물이 당신에 대해 타격에 대실패합니다. <strong>요구사항:</strong> 결투 방어의 혜택을 받고 있어야. 우아하게 반격합니다. 유발 생물에 근접 타격 또는 무장 해제."
   },
@@ -9259,6 +9448,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 공격이 비행 중인 적을 추락시킵니다. 타격을 합니다. 명중하고 피해를 주면 비행 대상이 최대 120피트 추락(점진적이므로 지면 충돌 시 추락 피해 없음). 치명타면 다음 턴 종료까지 비행/도약/부유 불가.",
     "desc": "공격이 비행 중인 적을 추락시킵니다. 타격을 합니다. 명중하고 피해를 주면 비행 대상이 <strong>최대 120피트 추락</strong>(점진적이므로 지면 충돌 시 추락 피해 없음). 치명타면 다음 턴 종료까지 <strong>비행/도약/부유 불가</strong>."
   },
@@ -9272,6 +9462,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 잠시 집중하여 정확한 공격. 원거리 타격에 +2 상황 보너스와 대상의 은폐 무시.",
     "desc": "잠시 집중하여 정확한 공격. 원거리 타격에 <strong>+2 상황 보너스</strong>와 대상의 {{condition:Concealed}} 무시."
   },
@@ -9285,6 +9476,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 이 자세 중 원거리 타격이 반격 타격이나 원거리 공격으로 유발되는 반응을 유발하지 않습니다. 반격 타격이 있으면 5피트 내에서 장전된 원거리 무기로도 사용 가능.",
     "desc": "이 자세 중 원거리 타격이 반격 타격이나 원거리 공격으로 유발되는 반응을 <strong>유발하지 않습니다</strong>. 반격 타격이 있으면 5피트 내에서 장전된 원거리 무기로도 사용 가능."
   },
@@ -9298,6 +9490,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 요구사항: 양손 근접 무기, 도달 내 대상. 강타로 적을 원하는 위치로 밀어냅니다. 타격 명중 시 대상을 5피트 재배치.",
     "desc": "<strong>요구사항:</strong> 양손 근접 무기, 도달 내 대상. 강타로 적을 원하는 위치로 밀어냅니다. 타격 명중 시 대상을 <strong>5피트 재배치</strong>."
   },
@@ -9306,7 +9499,6 @@ var FEAT_DB = [
     "name_ko": "빠른 방패 막기",
     "name_en": "Quick Shield Block",
     "feat_level": 8,
-    "prerequisites": "방패 막기. 각 턴 시작에 방패 막기에만 사용할 수 있는 추가 반응 1회.",
     "prereqs": [
       {
         "feat": "Shield Block"
@@ -9316,6 +9508,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "방패 막기. 각 턴 시작에 방패 막기에만 사용할 수 있는 추가 반응 1회.",
     "summary": "추가 반응 1회.",
     "desc": "<strong>추가 반응 1회</strong>."
   },
@@ -9324,11 +9517,11 @@ var FEAT_DB = [
     "name_ko": "울려 퍼지는 용기",
     "name_en": "Resounding Bravery",
     "feat_level": 8,
-    "prerequisites": "용기. 적의 능력에 대한 의지 내성에 대성공하면 1분간 내성에 +1 상태 보너스와 레벨 절반만큼 임시 HP(공포 효과에 대성공이면 두 배).",
     "traits": [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "용기. 적의 능력에 대한 의지 내성에 대성공하면 1분간 내성에 +1 상태 보너스와 레벨 절반만큼 임시 HP(공포 효과에 대성공이면 두 배).",
     "summary": "+1 상태 보너스와 레벨 절반만큼 임시 HP(공포 효과에 대성공이면 두 배).",
     "desc": "<strong>+1 상태 보너스</strong>와 레벨 절반만큼 <strong>임시 HP</strong>({{condition:Frightened}} 효과에 대성공이면 두 배)."
   },
@@ -9341,6 +9534,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 인상적인 도약과 함께 일격. 도약/높이뛰기/멀리뛰기 중 어느 지점에서든 근접 타격 1회. 타격 직후 공중이면 착지. 도약 높이 이하의 추락은 피해 없이 착지.",
     "desc": "인상적인 도약과 함께 일격. 도약/높이뛰기/멀리뛰기 중 어느 지점에서든 <strong>근접 타격 1회</strong>. 타격 직후 공중이면 착지. 도약 높이 이하의 추락은 피해 없이 착지."
   },
@@ -9366,6 +9560,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 빗나가도 스치는 타격. 근접 타격을 합니다. 실패 시에도 피해 주사위를 제외한 피해를 줍니다(무기 룬, 주문, 특수 능력의 주사위도 제외).",
     "desc": "빗나가도 스치는 타격. 근접 타격을 합니다. <strong>실패 시에도</strong> 피해 주사위를 제외한 피해를 줍니다(무기 룬, 주문, 특수 능력의 주사위도 제외)."
   },
@@ -9374,7 +9569,6 @@ var FEAT_DB = [
     "name_ko": "내리찍기 강화",
     "name_en": "Crashing Slam",
     "feat_level": 10,
-    "prerequisites": "내리찍기. 내리찍기 사용 시, 타격 대신 넘어뜨리기(Trip)를 할 때, 타격 1회를 시도할 수 있습니다. 명중하면 넘어뜨리기 판정 대신 자동으로 넘어뜨리기 대성공 효과를 적용. 양손 근접 무기면 넘어뜨리기 피해에 무기의 피해 주사위 크기를 사용.",
     "prereqs": [
       {
         "feat": "Slam Down"
@@ -9384,6 +9578,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "내리찍기. 내리찍기 사용 시, 타격 대신 넘어뜨리기(Trip)를 할 때, 타격 1회를 시도할 수 있습니다. 명중하면 넘어뜨리기 판정 대신 자동으로 넘어뜨리기 대성공 효과를 적용. 양손 근접 무기면 넘어뜨리기 피해에 무기의 피해 주사위 크기를 사용.",
     "summary": "넘어뜨리기 대성공 효과를 적용. 양손 근접 무기면 넘어뜨리기 피해에 무기의 피해 주사위 크기를 사용.",
     "desc": "<strong>넘어뜨리기 대성공</strong> 효과를 적용. 양손 근접 무기면 넘어뜨리기 피해에 무기의 피해 주사위 크기를 사용."
   },
@@ -9396,6 +9591,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 물리적 원거리 타격의 대상이 됩니다. 요구사항: 공격을 인지하고, 무방비이 아니며, 빈 손이나 근접 무기가 있어야. 원거리 공격을 쳐냅니다. 유발 공격에 대해 AC +4 상황 보너스. 빗나가면 공중에서 쳐낸 것.",
     "desc": "<strong>유발 조건:</strong> 물리적 원거리 타격의 대상이 됩니다. <strong>요구사항:</strong> 공격을 인지하고, 무방비이 아니며, 빈 손이나 근접 무기가 있어야. 원거리 공격을 쳐냅니다. 유발 공격에 대해 <strong>AC +4 상황 보너스</strong>. 빗나가면 공중에서 쳐낸 것."
   },
@@ -9409,6 +9605,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 약점을 겨냥하여 정밀 사격. 원거리 타격. 명중하고 피해를 주면 대상이 다음 턴 종료까지 둔화(slowed) 1.",
     "desc": "약점을 겨냥하여 정밀 사격. 원거리 타격. 명중하고 피해를 주면 대상이 다음 턴 종료까지 <strong>{{condition:Slowed}} 1</strong>."
   },
@@ -9417,7 +9614,6 @@ var FEAT_DB = [
     "name_ko": "무장 해제 비틀기",
     "name_en": "Disarming Twist",
     "feat_level": 10,
-    "prerequisites": "운동 숙련. 요구사항: 한 손 근접 무기, 빈 손. 한 손 근접 무기로 타격. 무장 해제의 성공/대성공 효과도 적용. 실패 시에도 대상이 턴 종료까지 무방비. 무장 해제 자세 중이면 공격에 +1 상황 보너스.",
     "prereqs": [
       {
         "skill": "athletics",
@@ -9429,6 +9625,8 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
+    "prerequisites": "운동 숙련. 요구사항: 한 손 근접 무기, 빈 손. 한 손 근접 무기로 타격. 무장 해제의 성공/대성공 효과도 적용. 실패 시에도 대상이 턴 종료까지 무방비. 무장 해제 자세 중이면 공격에 +1 상황 보너스.",
     "summary": "[1행동] 요구사항: 한 손 근접 무기, 빈 손. 한 손 근접 무기로 타격. 무장 해제의 성공/대성공 효과도 적용. 실패 시에도 대상이 턴 종료까지 무방비. 무장 해제 자세 중이면 공격에 +1 상황 보너스.",
     "desc": "<strong>요구사항:</strong> 한 손 근접 무기, 빈 손. 한 손 근접 무기로 타격. 무장 해제의 성공/대성공 효과도 적용. 실패 시에도 대상이 턴 종료까지 {{condition:Off-Guard}}. 무장 해제 자세 중이면 공격에 +1 상황 보너스."
   },
@@ -9442,6 +9640,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 이 자세 중, 도달 내 생물이 집중(concentrate) 행동을 사용할 때도 반격 타격을 사용할 수 있습니다. 또한 타격 명중(치명타뿐 아니라)으로도 집중/조작 행동을 방해합니다.",
     "desc": "이 자세 중, 도달 내 생물이 <strong>집중(concentrate) 행동</strong>을 사용할 때도 반격 타격을 사용할 수 있습니다. 또한 타격 명중(치명타뿐 아니라)으로도 집중/조작 행동을 <strong>방해</strong>합니다."
   },
@@ -9467,6 +9666,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "2",
     "summary": "[2행동] 투척 무기를 던져 주의를 분산시키고 돌진합니다. 보폭 2회(중간에 투척 타격 1회). 명중 시 대상이 현재 턴의 다음 근접 공격에 무방비.",
     "desc": "투척 무기를 던져 주의를 분산시키고 돌진합니다. 보폭 2회(중간에 투척 타격 1회). 명중 시 대상이 현재 턴의 다음 근접 공격에 <strong>{{condition:Off-Guard}}</strong>."
   },
@@ -9479,6 +9679,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 주문 공격이 당신의 AC에 대해 대실패합니다. 요구사항: 방패를 올린 상태. 주문을 시전자에게 반사합니다. 가장 높은 원거리 무기 숙련도로 원거리 공격(또는 주문 공격). 성공 시 시전자가 자기 주문의 성공 효과를 받습니다(치명타면 대성공 효과).",
     "desc": "<strong>유발 조건:</strong> 주문 공격이 당신의 AC에 대해 대실패합니다. <strong>요구사항:</strong> 방패를 올린 상태. 주문을 시전자에게 반사합니다. 가장 높은 원거리 무기 숙련도로 원거리 공격(또는 주문 공격). 성공 시 시전자가 자기 주문의 성공 효과를 받습니다(치명타면 대성공 효과)."
   },
@@ -9487,7 +9688,6 @@ var FEAT_DB = [
     "name_ko": "압도적 돌진",
     "name_en": "Overpowering Charge",
     "feat_level": 10,
-    "prerequisites": "돌진 충격. 돌진 충격으로 적의 공간을 성공적으로 통과하면 근력 수정치만큼 둔기 피해(대성공 시 두 배 + 다음 턴까지 무방비).",
     "prereqs": [
       {
         "feat": "Barreling Charge"
@@ -9497,6 +9697,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "돌진 충격. 돌진 충격으로 적의 공간을 성공적으로 통과하면 근력 수정치만큼 둔기 피해(대성공 시 두 배 + 다음 턴까지 무방비).",
     "summary": "근력 수정치만큼 둔기 피해(대성공 시 두 배 + 다음 턴까지 무방비).",
     "desc": "<strong>근력 수정치만큼 둔기 피해</strong>(대성공 시 두 배 + 다음 턴까지 {{condition:Off-Guard}})."
   },
@@ -9513,7 +9714,7 @@ var FEAT_DB = [
     "desc": "각 턴 시작에 반격 타격에만 사용할 수 있는 <strong>추가 반응 1회</strong>."
   },
   {
-    "id": "twin-riposte",
+    "id": "twin-riposte-ranger",
     "name_ko": "쌍검 반격",
     "name_en": "Twin Riposte",
     "feat_level": 10,
@@ -9526,6 +9727,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 도달 내 생물이 당신에 대한 타격에 대실패합니다. 요구사항: 쌍검 방어의 혜택을 받는 중. 한 무기로 막고 다른 무기로 공격. 근접 타격 또는 무장 해제.",
     "desc": "<strong>유발 조건:</strong> 도달 내 생물이 당신에 대한 타격에 대실패합니다. <strong>요구사항:</strong> 쌍검 방어의 혜택을 받는 중. 한 무기로 막고 다른 무기로 공격. 근접 타격 또는 무장 해제."
   },
@@ -9539,6 +9741,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 양손 근접 무기. 마지막 일격. 양손 근접 무기로 타격 후 턴이 종료됩니다. 무기 피해 주사위 1개 추가(18레벨 이상이면 2개). 실패 시에도 무기 피해 주사위 1개만큼 피해(18레벨이면 2개).",
     "desc": "<strong>요구사항:</strong> 양손 근접 무기. 마지막 일격. 양손 근접 무기로 타격 후 <strong>턴이 종료</strong>됩니다. 무기 피해 주사위 1개 추가(18레벨 이상이면 2개). 실패 시에도 무기 피해 주사위 1개만큼 피해(18레벨이면 2개)."
   },
@@ -9552,6 +9755,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 적에 인접. 한 적에서 빠져나와 다른 적을 타격. 이동 속도까지 보폭(다른 적의 근접 도달 내에서 종료 필요). 이동 종료 시 근접 타격.",
     "desc": "<strong>요구사항:</strong> 적에 인접. 한 적에서 빠져나와 다른 적을 타격. 이동 속도까지 보폭(다른 적의 근접 도달 내에서 종료 필요). 이동 종료 시 근접 타격."
   },
@@ -9560,7 +9764,6 @@ var FEAT_DB = [
     "name_ko": "결투의 춤",
     "name_en": "Dueling Dance",
     "feat_level": 12,
-    "prerequisites": "결투 방어. 요구사항: 한 손 근접 무기, 빈 손. 이 자세 중 항상 결투 방어의 혜택을 받습니다.",
     "prereqs": [
       {
         "feat": "Dueling Parry"
@@ -9571,6 +9774,8 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
+    "prerequisites": "결투 방어. 요구사항: 한 손 근접 무기, 빈 손. 이 자세 중 항상 결투 방어의 혜택을 받습니다.",
     "summary": "[1행동] 요구사항: 한 손 근접 무기, 빈 손. 이 자세 중 항상 결투 방어의 혜택을 받습니다.",
     "desc": "<strong>요구사항:</strong> 한 손 근접 무기, 빈 손. 이 자세 중 항상 <strong>결투 방어의 혜택</strong>을 받습니다."
   },
@@ -9579,7 +9784,6 @@ var FEAT_DB = [
     "name_ko": "투척 밀기",
     "name_en": "Flinging Shove",
     "feat_level": 12,
-    "prerequisites": "공격적 막기 또는 야만적 밀치기. 밀기 거리가 성공 시 10피트, 대성공 시 20피트로 증가. 공격적 막기에서 무방비 또는 밀기 선택 가능. 야만적 밀치기 실패 시에도 5피트 밀기.",
     "prereqs": [
       {
         "or": [
@@ -9596,6 +9800,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "공격적 막기 또는 야만적 밀치기. 밀기 거리가 성공 시 10피트, 대성공 시 20피트로 증가. 공격적 막기에서 무방비 또는 밀기 선택 가능. 야만적 밀치기 실패 시에도 5피트 밀기.",
     "summary": "10피트, 대성공 시 20피트로 증가. 공격적 막기에서 무방비 또는 밀기 선택 가능. 야만적 밀치기 실패 시에도 5피트 밀기.",
     "desc": "<strong>10피트</strong>, 대성공 시 <strong>20피트</strong>로 증가. 공격적 막기에서 {{condition:Off-Guard}} 또는 밀기 선택 가능. 야만적 밀치기 실패 시에도 <strong>5피트 밀기</strong>."
   },
@@ -9604,7 +9809,6 @@ var FEAT_DB = [
     "name_ko": "향상된 결투 반격",
     "name_en": "Improved Dueling Riposte",
     "feat_level": 12,
-    "prerequisites": "결투 반격. 결투 방어의 혜택 없이도 결투 반격 사용 가능. 각 턴 시작에 결투 반격에만 사용할 수 있는 추가 반응 1회.",
     "prereqs": [
       {
         "feat": "Dueling Riposte"
@@ -9614,6 +9818,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "결투 반격. 결투 방어의 혜택 없이도 결투 반격 사용 가능. 각 턴 시작에 결투 반격에만 사용할 수 있는 추가 반응 1회.",
     "summary": "추가 반응 1회.",
     "desc": "<strong>추가 반응 1회</strong>."
   },
@@ -9622,7 +9827,6 @@ var FEAT_DB = [
     "name_ko": "놀라운 도탄",
     "name_en": "Incredible Ricochet",
     "feat_level": 12,
-    "prerequisites": "놀라운 조준. 이번 턴에 이전에 공격한 생물에 원거리 타격. 대상의 은폐와 모든 엄폐를 무시합니다.",
     "prereqs": [
       {
         "feat": "Incredible Aim"
@@ -9634,6 +9838,8 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
+    "prerequisites": "놀라운 조준. 이번 턴에 이전에 공격한 생물에 원거리 타격. 대상의 은폐와 모든 엄폐를 무시합니다.",
     "summary": "[1행동] 은폐와 모든 엄폐를 무시합니다.",
     "desc": "<strong>은폐와 모든 엄폐를 무시</strong>합니다."
   },
@@ -9642,7 +9848,6 @@ var FEAT_DB = [
     "name_ko": "돌진 자세",
     "name_en": "Lunging Stance",
     "feat_level": 12,
-    "prerequisites": "돌진 찌르기, 반격 타격. 요구사항: 근접 무기. 이 자세 중, 도달 밖이지만 돌진 찌르기 도달 내인 생물에게도 반격 타격을 사용 가능(도달 5피트 증가).",
     "prereqs": [
       {
         "feat": "Lunge"
@@ -9656,6 +9861,8 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
+    "prerequisites": "돌진 찌르기, 반격 타격. 요구사항: 근접 무기. 이 자세 중, 도달 밖이지만 돌진 찌르기 도달 내인 생물에게도 반격 타격을 사용 가능(도달 5피트 증가).",
     "summary": "[1행동] 요구사항: 근접 무기. 이 자세 중, 도달 밖이지만 돌진 찌르기 도달 내인 생물에게도 반격 타격을 사용 가능(도달 5피트 증가).",
     "desc": "<strong>요구사항:</strong> 근접 무기. 이 자세 중, 도달 밖이지만 돌진 찌르기 도달 내인 생물에게도 <strong>반격 타격</strong>을 사용 가능(도달 5피트 증가)."
   },
@@ -9669,6 +9876,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 방패를 들고 있어야. 이 자세 중 항상 방패가 올려진 상태로 취급됩니다(방패 올리기 행동 불필요).",
     "desc": "<strong>요구사항:</strong> 방패를 들고 있어야. 이 자세 중 항상 방패가 <strong>올려진 상태</strong>로 취급됩니다(방패 올리기 행동 불필요)."
   },
@@ -9682,6 +9890,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 턴의 마지막 행동을 완료하고 턴이 아직 종료되지 않았습니다. 모든 것을 마지막 무모한 압박에 쏟습니다. 압박 특성의 행동 1개를 사용합니다. 다음 턴 시작까지 반응 사용 불가. 평소대로 다중 공격 페널티 적용.",
     "desc": "<strong>유발 조건:</strong> 턴의 마지막 행동을 완료하고 턴이 아직 종료되지 않았습니다. 모든 것을 마지막 무모한 압박에 쏟습니다. 압박 특성의 행동 1개를 사용합니다. 다음 턴 시작까지 <strong>반응 사용 불가</strong>. 평소대로 다중 공격 페널티 적용."
   },
@@ -9695,6 +9904,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 빈도: 하루 1회. 적의 주문과 상태를 털어냅니다. 비영구적 상태/주문/마법 효과 1개를 선택합니다. 상태이면 종료, 주문이면 상쇄 시도(랭크 = 레벨 절반 올림, 의지 내성으로 상쇄 판정).",
     "desc": "<strong>빈도:</strong> 하루 1회. 적의 주문과 상태를 털어냅니다. 비영구적 상태/주문/마법 효과 1개를 선택합니다. 상태이면 종료, 주문이면 상쇄 시도(랭크 = 레벨 절반 올림, 의지 내성으로 상쇄 판정)."
   },
@@ -9708,6 +9918,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 한 손 근접 무기, 빈 손. 무기를 지렛대로 사용하여 적을 원하는 곳으로 밀어냅니다. 한 손 근접 타격. 명중 시 최대 10피트 재배치(자신의 공간 통과 가능). 실패 시에도 5피트 재배치.",
     "desc": "<strong>요구사항:</strong> 한 손 근접 무기, 빈 손. 무기를 지렛대로 사용하여 적을 원하는 곳으로 밀어냅니다. 한 손 근접 타격. 명중 시 <strong>최대 10피트 재배치</strong>(자신의 공간 통과 가능). 실패 시에도 5피트 재배치."
   },
@@ -9716,7 +9927,6 @@ var FEAT_DB = [
     "name_ko": "안내하는 반격",
     "name_en": "Guiding Riposte",
     "feat_level": 14,
-    "prerequisites": "결투 반격. 결투 반격으로 타격 명중 시 최대 10피트 재배치.",
     "prereqs": [
       {
         "feat": "Dueling Riposte"
@@ -9726,15 +9936,15 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "결투 반격. 결투 반격으로 타격 명중 시 최대 10피트 재배치.",
     "summary": "최대 10피트 재배치.",
     "desc": "<strong>최대 10피트 재배치</strong>."
   },
   {
-    "id": "improved-twin-riposte",
+    "id": "improved-twin-riposte-ranger",
     "name_ko": "향상된 쌍검 반격",
     "name_en": "Improved Twin Riposte",
     "feat_level": 14,
-    "prerequisites": "쌍검 반격. 쌍검 방어 없이도 사용 가능. 각 턴 시작에 쌍검 반격 전용 추가 반응 1회.",
     "prereqs": [
       {
         "feat": "Twin Riposte"
@@ -9744,6 +9954,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "쌍검 반격. 쌍검 방어 없이도 사용 가능. 각 턴 시작에 쌍검 반격 전용 추가 반응 1회.",
     "summary": "추가 반응 1회.",
     "desc": "<strong>추가 반응 1회</strong>."
   },
@@ -9756,6 +9967,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "free",
     "summary": "[자유 행동] 유발 조건: 우선권을 굴립니다. 위험의 첫 징후에 자세에 들어갑니다. 자세 특성의 행동 1개를 사용합니다.",
     "desc": "<strong>유발 조건:</strong> 우선권을 굴립니다. 위험의 첫 징후에 자세에 들어갑니다. 자세 특성의 <strong>행동 1개를 사용</strong>합니다."
   },
@@ -9770,6 +9982,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 각 손에 무기 1개씩. 이전 공격의 모멘텀으로 두 무기를 갑자기 휘두릅니다. 각 무기로 1회씩 타격합니다.",
     "desc": "<strong>요구사항:</strong> 각 손에 무기 1개씩. 이전 공격의 모멘텀으로 두 무기를 갑자기 휘두릅니다. <strong>각 무기로 1회씩 타격</strong>합니다."
   },
@@ -9783,6 +9996,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "3",
     "summary": "[3행동] 흐릿한 동작으로 근접 도달 내 모든 적에게 타격. 각 공격이 다중 공격에 포함되지만 전부 한 후에만 증가.",
     "desc": "흐릿한 동작으로 근접 도달 내 <strong>모든 적에게 타격</strong>. 각 공격이 다중 공격에 포함되지만 전부 한 후에만 증가."
   },
@@ -9791,7 +10005,6 @@ var FEAT_DB = [
     "name_ko": "우아한 자세",
     "name_en": "Graceful Poise",
     "feat_level": 16,
-    "prerequisites": "이중 베기. 이 자세 중 이중 베기의 두 번째 타격을 민첩 무기로 하면 다중 공격에 1회로만 포함.",
     "prereqs": [
       {
         "feat": "Double Slice"
@@ -9802,6 +10015,8 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
+    "prerequisites": "이중 베기. 이 자세 중 이중 베기의 두 번째 타격을 민첩 무기로 하면 다중 공격에 1회로만 포함.",
     "summary": "[1행동] 1회로만 포함.",
     "desc": "<strong>1회로만 포함</strong>."
   },
@@ -9810,7 +10025,6 @@ var FEAT_DB = [
     "name_ko": "향상된 반사 방패",
     "name_en": "Improved Reflexive Shield",
     "feat_level": 16,
-    "prerequisites": "반사 방패. 반사 내성 피해에 방패 막기 사용 시, 같은 효과에 대한 인접 아군도 피해 감소 혜택.",
     "prereqs": [
       {
         "feat": "Reflexive Shield"
@@ -9820,6 +10034,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "반사 방패. 반사 내성 피해에 방패 막기 사용 시, 같은 효과에 대한 인접 아군도 피해 감소 혜택.",
     "summary": "인접 아군도 피해 감소 혜택.",
     "desc": "<strong>인접 아군도 피해 감소 혜택</strong>."
   },
@@ -9828,7 +10043,6 @@ var FEAT_DB = [
     "name_ko": "만물 양식 달인",
     "name_en": "Master of Many Styles",
     "feat_level": 16,
-    "prerequisites": "개시 자세. 유발 조건: 턴 시작. 자세 사이를 유연하게 전환합니다. 자세 특성의 행동 1개를 사용합니다.",
     "prereqs": [
       {
         "feat": "Opening Stance"
@@ -9838,6 +10052,8 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "free",
+    "prerequisites": "개시 자세. 유발 조건: 턴 시작. 자세 사이를 유연하게 전환합니다. 자세 특성의 행동 1개를 사용합니다.",
     "summary": "[자유 행동] 유발 조건: 턴 시작. 자세 사이를 유연하게 전환합니다. 자세 특성의 행동 1개를 사용합니다.",
     "desc": "<strong>유발 조건:</strong> 턴 시작. 자세 사이를 유연하게 전환합니다. 자세 특성의 행동 1개를 사용합니다."
   },
@@ -9846,7 +10062,6 @@ var FEAT_DB = [
     "name_ko": "연속 사격 자세",
     "name_en": "Multishot Stance",
     "feat_level": 16,
-    "prerequisites": "이중 사격. 요구사항: 재장전 0 원거리 무기. 이 자세 중 이중 사격의 페널티가 -1로 감소. 위치에서 이동하면 자세 종료. 삼중 사격이 있으면 3회 타격 시 -2.",
     "prereqs": [
       {
         "feat": "Double Shot"
@@ -9857,6 +10072,8 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
+    "prerequisites": "이중 사격. 요구사항: 재장전 0 원거리 무기. 이 자세 중 이중 사격의 페널티가 -1로 감소. 위치에서 이동하면 자세 종료. 삼중 사격이 있으면 3회 타격 시 -2.",
     "summary": "[1행동] 요구사항: 재장전 0 원거리 무기. 이 자세 중 이중 사격의 페널티가 -1로 감소. 위치에서 이동하면 자세 종료. 삼중 사격이 있으면 3회 타격 시 -2.",
     "desc": "<strong>요구사항:</strong> 재장전 0 원거리 무기. 이 자세 중 이중 사격의 페널티가 <strong>-1</strong>로 감소. 위치에서 이동하면 자세 종료. 삼중 사격이 있으면 3회 타격 시 -2."
   },
@@ -9869,6 +10086,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "3",
     "summary": "[3행동] 전체 체중을 실은 강력한 공격. 근접 타격(다중 공격에 3회로 포함). 명중 시 자동 치명타. 치명타 굴림이면 무기가 치명적(deadly) d12 특성도 추가. 명중 여부와 관계없이 기절(stunned) 1과 다음 턴 시작까지 무방비.",
     "desc": "전체 체중을 실은 강력한 공격. 근접 타격(다중 공격에 3회로 포함). 명중 시 <strong>자동 치명타</strong>. 치명타 굴림이면 무기가 <strong>치명적(deadly) d12</strong> 특성도 추가. 명중 여부와 관계없이 <strong>{{condition:Stunned}} 1</strong>과 다음 턴 시작까지 <strong>{{condition:Off-Guard}}</strong>."
   },
@@ -9877,7 +10095,6 @@ var FEAT_DB = [
     "name_ko": "쌍검 수비",
     "name_en": "Twinned Defense",
     "feat_level": 16,
-    "prerequisites": "쌍검 방어. 요구사항: 각 손에 근접 무기. 이 자세 중 항상 쌍검 방어의 혜택.",
     "prereqs": [
       {
         "feat": "Twin Parry"
@@ -9888,11 +10105,13 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "1",
+    "prerequisites": "쌍검 방어. 요구사항: 각 손에 근접 무기. 이 자세 중 항상 쌍검 방어의 혜택.",
     "summary": "[1행동] 요구사항: 각 손에 근접 무기. 이 자세 중 항상 쌍검 방어의 혜택.",
     "desc": "<strong>요구사항:</strong> 각 손에 근접 무기. 이 자세 중 항상 <strong>쌍검 방어의 혜택</strong>."
   },
   {
-    "id": "impossible-volley",
+    "id": "impossible-volley-ranger",
     "name_ko": "불가능한 일제사격",
     "name_en": "Impossible Volley",
     "feat_level": 18,
@@ -9901,6 +10120,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "actionCost": "3",
     "summary": "[3행동] 요구사항: 살포(volley) 특성과 재장전 0 원거리 무기. 무기의 살포 사거리 이상 중심의 10피트 반경 폭발 내 모든 적에게 -2 페널티로 타격. 피해는 한 번만 굴림. 다중 공격에 포함되지만 전부 후 증가.",
     "desc": "<strong>요구사항:</strong> 살포(volley) 특성과 재장전 0 원거리 무기. 무기의 살포 사거리 이상 중심의 <strong>10피트 반경 폭발</strong> 내 모든 적에게 -2 페널티로 타격. 피해는 한 번만 굴림. 다중 공격에 포함되지만 전부 후 증가."
   },
@@ -9921,7 +10141,6 @@ var FEAT_DB = [
     "name_ko": "공중 격파",
     "name_en": "Smash from the Air",
     "feat_level": 18,
-    "prerequisites": "공중 요격. 원거리 주문 공격에 대해서도 공중 요격을 사용할 수 있습니다.",
     "prereqs": [
       {
         "feat": "Cut from the Air"
@@ -9931,6 +10150,7 @@ var FEAT_DB = [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "공중 요격. 원거리 주문 공격에 대해서도 공중 요격을 사용할 수 있습니다.",
     "summary": "원거리 주문 공격에 대해서도 공중 요격을 사용할 수 있습니다.",
     "desc": "<strong>원거리 주문 공격</strong>에 대해서도 공중 요격을 사용할 수 있습니다."
   },
@@ -9951,11 +10171,11 @@ var FEAT_DB = [
     "name_ko": "궁극의 유연성",
     "name_en": "Ultimate Flexibility",
     "feat_level": 20,
-    "prerequisites": "향상된 유연성. 전투 유연성으로 3개 재주를 얻습니다(8레벨 이하 1개, 14레벨 이하 1개, 18레벨 이하 1개). 서로의 전제조건 충족 가능. 1시간 훈련으로 전투 유연성 재주를 재선택할 수 있습니다.",
     "traits": [
       "파이터"
     ],
     "category": "fighter",
+    "prerequisites": "향상된 유연성. 전투 유연성으로 3개 재주를 얻습니다(8레벨 이하 1개, 14레벨 이하 1개, 18레벨 이하 1개). 서로의 전제조건 충족 가능. 1시간 훈련으로 전투 유연성 재주를 재선택할 수 있습니다.",
     "summary": "3개 재주를 얻습니다(8레벨 이하 1개, 14레벨 이하 1개, 18레벨 이하 1개). 서로의 전제조건 충족 가능. 1시간 훈련으로 전투 유연성 재주를 재선택할 수 있습니다.",
     "desc": "<strong>3개 재주</strong>를 얻습니다(8레벨 이하 1개, 14레벨 이하 1개, 18레벨 이하 1개). 서로의 전제조건 충족 가능. 1시간 훈련으로 전투 유연성 재주를 재선택할 수 있습니다."
   },
@@ -10005,6 +10225,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 재장전 0 원거리 무기. 사냥감에게 빠르게 두 발을 쏩니다. 사냥감에 대해 원거리 타격 2회(첫 번째 사거리 증분 내만). 두 공격 모두 다중 공격에 포함되지만 둘 다 후 증가.",
     "desc": "<strong>요구사항:</strong> 재장전 0 원거리 무기. 사냥감에게 빠르게 두 발을 쏩니다. 사냥감에 대해 <strong>원거리 타격 2회</strong>(첫 번째 사거리 증분 내만). 두 공격 모두 다중 공격에 포함되지만 둘 다 후 증가."
   },
@@ -10042,6 +10263,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 각 손에 근접 무기 1개씩. 사냥감에게 두 무기로 즉시 공격합니다. 사냥감에 대해 각 무기로 타격 1회씩. 두 공격 모두 다중 공격에 포함되지만 둘 다 후 증가.",
     "desc": "<strong>요구사항:</strong> 각 손에 근접 무기 1개씩. 사냥감에게 두 무기로 즉시 공격합니다. 사냥감에 대해 <strong>각 무기로 타격 1회씩</strong>. 두 공격 모두 다중 공격에 포함되지만 둘 다 후 증가."
   },
@@ -10079,6 +10301,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "2",
     "summary": "[2행동] 사냥감에 원거리 타격. +2 상황 보너스와 사냥감의 은폐 및 하위 엄폐 무시.",
     "desc": "사냥감에 원거리 타격. <strong>+2 상황 보너스</strong>와 사냥감의 {{condition:Concealed}} 및 하위 엄폐 무시."
   },
@@ -10087,7 +10310,6 @@ var FEAT_DB = [
     "name_ko": "괴물 수호",
     "name_en": "Monster Warden",
     "feat_level": 2,
-    "prerequisites": "괴물 사냥꾼. 괴물 사냥꾼의 보너스 부여 시, 당신과 아군이 해당 사냥감의 다음 내성에 +1 상황 보너스와 다음 공격에 대한 AC에 +1 상황 보너스도 추가.",
     "prereqs": [
       {
         "feat": "Monster Hunter"
@@ -10097,11 +10319,12 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "괴물 사냥꾼. 괴물 사냥꾼의 보너스 부여 시, 당신과 아군이 해당 사냥감의 다음 내성에 +1 상황 보너스와 다음 공격에 대한 AC에 +1 상황 보너스도 추가.",
     "summary": "+1 상황 보너스와 다음 공격에 대한 AC에 +1 상황 보너스도 추가.",
     "desc": "<strong>+1 상황 보너스</strong>와 다음 공격에 대한 AC에 <strong>+1 상황 보너스</strong>도 추가."
   },
   {
-    "id": "quick-draw",
+    "id": "quick-draw-rogue",
     "name_ko": "빠른 뽑기",
     "name_en": "Quick Draw",
     "feat_level": 2,
@@ -10109,6 +10332,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "1",
     "summary": "[1행동] 무기를 뽑고 같은 동작으로 공격합니다. 상호작용으로 무기를 뽑은 후 즉시 타격.",
     "desc": "무기를 뽑고 같은 동작으로 공격합니다. 상호작용으로 무기를 뽑은 후 <strong>즉시 타격</strong>."
   },
@@ -10117,7 +10341,6 @@ var FEAT_DB = [
     "name_ko": "고급 관리인",
     "name_en": "Advanced Warden",
     "feat_level": 4,
-    "prerequisites": "입문 관리인. 고급 관리인 주문 1개를 선택합니다. 특수: 여러 번 선택 가능.",
     "prereqs": [
       {
         "feat": "Initiate Warden"
@@ -10127,6 +10350,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "입문 관리인. 고급 관리인 주문 1개를 선택합니다. 특수: 여러 번 선택 가능.",
     "summary": "특수: 여러 번 선택 가능.",
     "desc": "<strong>특수:</strong> 여러 번 선택 가능.",
     "repeatable": true
@@ -10136,7 +10360,6 @@ var FEAT_DB = [
     "name_ko": "동료의 외침",
     "name_en": "Companion's Cry",
     "feat_level": 4,
-    "prerequisites": "동물 동료. 동물 명령에 2행동을 소비하면 동료가 추가 행동 1개를 얻습니다.",
     "prereqs": [
       {
         "feat": "Animal Companion"
@@ -10146,6 +10369,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "동물 동료. 동물 명령에 2행동을 소비하면 동료가 추가 행동 1개를 얻습니다.",
     "summary": "2행동을 소비하면 동료가 추가 행동 1개를 얻습니다.",
     "desc": "<strong>2행동을 소비</strong>하면 동료가 추가 행동 1개를 얻습니다."
   },
@@ -10158,6 +10382,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 도달 내 사냥감이 조작/이동 행동을 사용하거나 이동 중 칸을 떠납니다. 사냥감에 근접 타격. 치명타 시 유발 행동을 방해합니다.",
     "desc": "<strong>유발 조건:</strong> 도달 내 사냥감이 조작/이동 행동을 사용하거나 이동 중 칸을 떠납니다. 사냥감에 근접 타격. 치명타 시 유발 행동을 <strong>방해</strong>합니다."
   },
@@ -10194,11 +10419,12 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "1",
     "summary": "[1행동] 이동하며 재장전합니다. 보폭/한 걸음/잠행 후 상호작용으로 재장전.",
     "desc": "이동하며 재장전합니다. 보폭/한 걸음/잠행 후 <strong>상호작용으로 재장전</strong>."
   },
   {
-    "id": "scouts-warning",
+    "id": "scouts-warning-rogue",
     "name_ko": "정찰 경고",
     "name_en": "Scout's Warning",
     "feat_level": 4,
@@ -10206,6 +10432,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "free",
     "summary": "[자유 행동] 유발 조건: 지각 또는 생존으로 우선권을 굴리려 합니다. 아군에게 위험을 경고합니다. 모든 아군의 우선권에 +1 상황 보너스.",
     "desc": "<strong>유발 조건:</strong> 지각 또는 생존으로 우선권을 굴리려 합니다. 아군에게 위험을 경고합니다. 모든 아군의 우선권에 <strong>+1 상황 보너스</strong>."
   },
@@ -10218,6 +10445,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "1",
     "summary": "[1행동] 각 손의 근접 무기로 방어. AC +1 상황 보너스(방어 특성이면 +2). 다음 턴 시작까지.",
     "desc": "각 손의 근접 무기로 방어. <strong>AC +1 상황 보너스</strong>(방어 특성이면 +2). 다음 턴 시작까지."
   },
@@ -10230,6 +10458,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "free",
     "summary": "[자유 행동] 유발 조건: 사냥감에 대한 지식 회상에 성공/대성공. 즉시 다른 보이는 생물에 대해 추가 지식 회상을 시도합니다.",
     "desc": "<strong>유발 조건:</strong> 사냥감에 대한 지식 회상에 성공/대성공. 즉시 다른 보이는 생물에 대해 <strong>추가 지식 회상</strong>을 시도합니다."
   },
@@ -10238,7 +10467,6 @@ var FEAT_DB = [
     "name_ko": "달인 관리인",
     "name_en": "Masterful Warden",
     "feat_level": 6,
-    "prerequisites": "입문 관리인. 달인 관리인 주문 1개를 선택합니다. 특수: 여러 번 선택 가능.",
     "prereqs": [
       {
         "feat": "Initiate Warden"
@@ -10248,6 +10476,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "입문 관리인. 달인 관리인 주문 1개를 선택합니다. 특수: 여러 번 선택 가능.",
     "summary": "특수: 여러 번 선택 가능.",
     "desc": "<strong>특수:</strong> 여러 번 선택 가능.",
     "repeatable": true
@@ -10257,7 +10486,6 @@ var FEAT_DB = [
     "name_ko": "성숙한 동물 동료",
     "name_en": "Mature Animal Companion",
     "feat_level": 6,
-    "prerequisites": "동물 동료. 동물 동료가 성숙. 동물 명령 없이도 턴에 보폭/타격 1행동 독립 사용.",
     "prereqs": [
       {
         "feat": "Animal Companion"
@@ -10267,11 +10495,12 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "동물 동료. 동물 동료가 성숙. 동물 명령 없이도 턴에 보폭/타격 1행동 독립 사용.",
     "summary": "1행동 독립 사용.",
     "desc": "<strong>1행동 독립 사용</strong>."
   },
   {
-    "id": "skirmish-strike",
+    "id": "skirmish-strike-rogue",
     "name_ko": "교전 타격",
     "name_en": "Skirmish Strike",
     "feat_level": 6,
@@ -10280,6 +10509,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "1",
     "summary": "[1행동] 발과 무기가 연동합니다. 한 걸음 후 타격 또는 타격 후 한 걸음.",
     "desc": "발과 무기가 연동합니다. <strong>한 걸음 후 타격</strong> 또는 <strong>타격 후 한 걸음</strong>."
   },
@@ -10300,7 +10530,6 @@ var FEAT_DB = [
     "name_ko": "신속 추적자",
     "name_en": "Swift Tracker",
     "feat_level": 6,
-    "prerequisites": "생존 전문가, 숙련된 추적자. 추적 중에도 전체 속도로 이동. 생존 달인이면 매시간 새 판정 불필요. 전설이면 추적 중 다른 탐험 활동도 가능. 사냥감 추적 중 생존으로 우선권을 굴리면 첫 턴에 사냥감 향해 보폭을 자유 행동으로.",
     "prereqs": [
       {
         "skill": "survival",
@@ -10314,15 +10543,15 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "생존 전문가, 숙련된 추적자. 추적 중에도 전체 속도로 이동. 생존 달인이면 매시간 새 판정 불필요. 전설이면 추적 중 다른 탐험 활동도 가능. 사냥감 추적 중 생존으로 우선권을 굴리면 첫 턴에 사냥감 향해 보폭을 자유 행동으로.",
     "summary": "전체 속도로 이동. 생존 달인이면 매시간 새 판정 불필요. 전설이면 추적 중 다른 탐험 활동도 가능. 사냥감 추적 중 생존으로 우선권을 굴리면 첫 턴에 사냥감 향해 보폭을 자유 행동으로.",
     "desc": "<strong>전체 속도로 이동</strong>. 생존 달인이면 매시간 새 판정 불필요. 전설이면 추적 중 다른 탐험 활동도 가능. 사냥감 추적 중 생존으로 우선권을 굴리면 <strong>첫 턴에 사냥감 향해 보폭을 자유 행동으로</strong>."
   },
   {
-    "id": "blind-fight-ranger",
+    "id": "blind-fight-rogue",
     "name_ko": "맹투",
     "name_en": "Blind-Fight",
     "feat_level": 8,
-    "prerequisites": "지각 달인. 은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님(DC 5), 인접한 레벨 이하 미탐지 생물은 숨겨진 것으로 취급.",
     "prereqs": [
       {
         "perception": 6
@@ -10332,6 +10561,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "지각 달인. 은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님(DC 5), 인접한 레벨 이하 미탐지 생물은 숨겨진 것으로 취급.",
     "summary": "",
     "desc": ""
   },
@@ -10340,12 +10570,13 @@ var FEAT_DB = [
     "name_ko": "치명적 조준",
     "name_en": "Deadly Aim",
     "feat_level": 8,
-    "prerequisites": "무기 전문화. 사냥감의 약점을 겨냥. 원거리 타격에 -2 페널티, 피해에 +4 상황 보너스(11레벨 +6, 15레벨 +8).",
     "traits": [
       "화려함",
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "1",
+    "prerequisites": "무기 전문화. 사냥감의 약점을 겨냥. 원거리 타격에 -2 페널티, 피해에 +4 상황 보너스(11레벨 +6, 15레벨 +8).",
     "summary": "[1행동] -2 페널티, 피해에 +4 상황 보너스(11레벨 +6, 15레벨 +8).",
     "desc": "<strong>-2 페널티, 피해에 +4 상황 보너스</strong>(11레벨 +6, 15레벨 +8)."
   },
@@ -10366,7 +10597,6 @@ var FEAT_DB = [
     "name_ko": "지형 달인",
     "name_en": "Terrain Master",
     "feat_level": 8,
-    "prerequisites": "생존 달인, 선호 지형. 1시간 연습으로 현재 지형을 선호 지형으로 임시 교체(원래 지형을 떠나 하루가 지나면 복귀).",
     "prereqs": [
       {
         "skill": "survival",
@@ -10380,6 +10610,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "생존 달인, 선호 지형. 1시간 연습으로 현재 지형을 선호 지형으로 임시 교체(원래 지형을 떠나 하루가 지나면 복귀).",
     "summary": "1시간 연습으로 현재 지형을 선호 지형으로 임시 교체(원래 지형을 떠나 하루가 지나면 복귀).",
     "desc": "<strong>1시간 연습</strong>으로 현재 지형을 선호 지형으로 임시 교체(원래 지형을 떠나 하루가 지나면 복귀)."
   },
@@ -10392,6 +10623,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "1",
     "summary": "[1행동] 사냥감의 약점을 지적하여 아군에게 사냥감 추적과 기질의 혜택을 다음 턴 종료까지 부여합니다.",
     "desc": "사냥감의 약점을 지적하여 아군에게 사냥감 추적과 기질의 혜택을 <strong>다음 턴 종료까지</strong> 부여합니다."
   },
@@ -10400,7 +10632,6 @@ var FEAT_DB = [
     "name_ko": "위장",
     "name_en": "Camouflage",
     "feat_level": 10,
-    "prerequisites": "은신 달인. 자연 지형에서 엄폐/은폐 없이도 숨기와 잠행 가능.",
     "prereqs": [
       {
         "skill": "stealth",
@@ -10411,6 +10642,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "은신 달인. 자연 지형에서 엄폐/은폐 없이도 숨기와 잠행 가능.",
     "summary": "숨기와 잠행 가능.",
     "desc": "<strong>숨기와 잠행</strong> 가능."
   },
@@ -10419,7 +10651,6 @@ var FEAT_DB = [
     "name_ko": "놀라운 동료",
     "name_en": "Incredible Companion",
     "feat_level": 10,
-    "prerequisites": "성숙한 동물 동료. 민첩 또는 야만 동물 동료로 성장(211페이지).",
     "prereqs": [
       {
         "feat": "Mature Animal Companion"
@@ -10429,6 +10660,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "성숙한 동물 동료. 민첩 또는 야만 동물 동료로 성장(211페이지).",
     "summary": "",
     "desc": ""
   },
@@ -10437,7 +10669,6 @@ var FEAT_DB = [
     "name_ko": "달인 괴물 사냥꾼",
     "name_en": "Master Monster Hunter",
     "feat_level": 10,
-    "prerequisites": "자연학 달인, 괴물 사냥꾼. 자연학으로 어떤 생물이든 지식 회상 가능. 성공 시에도(대성공뿐 아니라) 괴물 사냥꾼의 혜택 적용.",
     "prereqs": [
       {
         "skill": "nature",
@@ -10451,6 +10682,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "자연학 달인, 괴물 사냥꾼. 자연학으로 어떤 생물이든 지식 회상 가능. 성공 시에도(대성공뿐 아니라) 괴물 사냥꾼의 혜택 적용.",
     "summary": "어떤 생물이든 지식 회상 가능. 성공 시에도(대성공뿐 아니라) 괴물 사냥꾼의 혜택 적용.",
     "desc": "<strong>어떤 생물이든</strong> 지식 회상 가능. 성공 시에도(대성공뿐 아니라) 괴물 사냥꾼의 혜택 적용."
   },
@@ -10459,7 +10691,6 @@ var FEAT_DB = [
     "name_ko": "무적 관리인",
     "name_en": "Peerless Warden",
     "feat_level": 10,
-    "prerequisites": "입문 관리인. 무적 관리인 주문 1개를 선택합니다. 특수: 여러 번 선택 가능.",
     "prereqs": [
       {
         "feat": "Initiate Warden"
@@ -10469,6 +10700,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "입문 관리인. 무적 관리인 주문 1개를 선택합니다. 특수: 여러 번 선택 가능.",
     "summary": "특수: 여러 번 선택 가능.",
     "desc": "<strong>특수:</strong> 여러 번 선택 가능.",
     "repeatable": true
@@ -10482,6 +10714,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "2",
     "summary": "[2행동] 요구사항: 원거리 무기. 사냥감에 하위 엄폐를 주는 생물을 선택합니다. 선택한 생물과 사냥감 모두에게 단일 원거리 타격(하위 엄폐 무시). 피해 1회만 굴려 두 대상에 적용. 다중 공격에 2회로 포함.",
     "desc": "<strong>요구사항:</strong> 원거리 무기. 사냥감에 하위 엄폐를 주는 생물을 선택합니다. 선택한 생물과 사냥감 모두에게 <strong>단일 원거리 타격</strong>(하위 엄폐 무시). 피해 1회만 굴려 두 대상에 적용. 다중 공격에 2회로 포함."
   },
@@ -10490,7 +10723,6 @@ var FEAT_DB = [
     "name_ko": "쌍검 반격",
     "name_en": "Twin Riposte",
     "feat_level": 10,
-    "prerequisites": "쌍검 방어. 유발 조건: 도달 내 생물이 대실패. 요구사항: 쌍검 방어 혜택 중. 근접 타격 또는 무장 해제.",
     "prereqs": [
       {
         "feat": "Twin Parry"
@@ -10500,6 +10732,8 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "reaction",
+    "prerequisites": "쌍검 방어. 유발 조건: 도달 내 생물이 대실패. 요구사항: 쌍검 방어 혜택 중. 근접 타격 또는 무장 해제.",
     "summary": "[반응] 유발 조건: 도달 내 생물이 대실패. 요구사항: 쌍검 방어 혜택 중. 근접 타격 또는 무장 해제.",
     "desc": "<strong>유발 조건:</strong> 도달 내 생물이 대실패. <strong>요구사항:</strong> 쌍검 방어 혜택 중. 근접 타격 또는 무장 해제."
   },
@@ -10508,7 +10742,6 @@ var FEAT_DB = [
     "name_ko": "관리인의 발걸음",
     "name_en": "Warden's Step",
     "feat_level": 10,
-    "prerequisites": "은신 달인. 자연 지형에서 탐험 시 주의 회피(Avoid Notice) 중이면, 원하는 수의 아군에게도 같은 혜택을 부여합니다(아군의 행동 불필요).",
     "prereqs": [
       {
         "skill": "stealth",
@@ -10519,6 +10752,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "은신 달인. 자연 지형에서 탐험 시 주의 회피(Avoid Notice) 중이면, 원하는 수의 아군에게도 같은 혜택을 부여합니다(아군의 행동 불필요).",
     "summary": "원하는 수의 아군에게도 같은 혜택을 부여합니다(아군의 행동 불필요).",
     "desc": "<strong>원하는 수의 아군에게도</strong> 같은 혜택을 부여합니다(아군의 행동 불필요)."
   },
@@ -10556,6 +10790,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 각 손에 근접 무기. 사냥감에 근접 타격. 실패 시 다른 무기가 명중했을 때의 피해(피해 주사위 제외)를 줍니다.",
     "desc": "<strong>요구사항:</strong> 각 손에 근접 무기. 사냥감에 근접 타격. <strong>실패 시</strong> 다른 무기가 명중했을 때의 피해(피해 주사위 제외)를 줍니다."
   },
@@ -10564,7 +10799,6 @@ var FEAT_DB = [
     "name_ko": "나란히",
     "name_en": "Side by Side",
     "feat_level": 12,
-    "prerequisites": "동물 동료. 같은 적에 인접 시 위치에 관계없이 서로 측면 공격.",
     "prereqs": [
       {
         "feat": "Animal Companion"
@@ -10574,6 +10808,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "동물 동료. 같은 적에 인접 시 위치에 관계없이 서로 측면 공격.",
     "summary": "서로 측면 공격.",
     "desc": "<strong>서로 측면 공격</strong>."
   },
@@ -10582,16 +10817,16 @@ var FEAT_DB = [
     "name_ko": "관리인의 집중",
     "name_en": "Warden's Focus",
     "feat_level": 12,
-    "prerequisites": "관리인 주문. 재집중 시 집중 풀을 완전히 채웁니다.",
     "traits": [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "관리인 주문. 재집중 시 집중 풀을 완전히 채웁니다.",
     "summary": "완전히 채웁니다.",
     "desc": "<strong>완전히 채웁니다</strong>."
   },
   {
-    "id": "sense-the-unseen",
+    "id": "sense-the-unseen-rogue",
     "name_ko": "감각 못 느낀 것 감지",
     "name_en": "Sense the Unseen",
     "feat_level": 14,
@@ -10599,6 +10834,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 탐색 판정에 실패. 가장 미세한 단서도 포착합니다. 실패했어도 탐색 영역의 미탐지 생물을 자동 감지하여 숨겨진(hidden)으로 만듭니다.",
     "desc": "<strong>유발 조건:</strong> 탐색 판정에 실패. 가장 미세한 단서도 포착합니다. 실패했어도 탐색 영역의 미탐지 생물을 자동 감지하여 <strong>{{condition:Hidden}}</strong>으로 만듭니다."
   },
@@ -10607,7 +10843,6 @@ var FEAT_DB = [
     "name_ko": "공유 사냥감",
     "name_en": "Shared Prey",
     "feat_level": 14,
-    "prerequisites": "이중 사냥감, 관리인의 은혜. 사냥감 추적으로 사냥감 1명만 지정 시, 자신 외에 아군 1명에게도 혜택을 부여합니다. 다음 사냥감 추적 때까지 유지.",
     "prereqs": [
       {
         "feat": "Double Prey"
@@ -10620,6 +10855,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "이중 사냥감, 관리인의 은혜. 사냥감 추적으로 사냥감 1명만 지정 시, 자신 외에 아군 1명에게도 혜택을 부여합니다. 다음 사냥감 추적 때까지 유지.",
     "summary": "아군 1명에게도 혜택을 부여합니다. 다음 사냥감 추적 때까지 유지.",
     "desc": "<strong>아군 1명에게도</strong> 혜택을 부여합니다. 다음 사냥감 추적 때까지 유지."
   },
@@ -10628,7 +10864,6 @@ var FEAT_DB = [
     "name_ko": "은밀한 동료",
     "name_en": "Stealthy Companion",
     "feat_level": 14,
-    "prerequisites": "동물 동료, 위장. 동물 동료도 위장의 혜택을 얻습니다. 전문화된 매복형이면 은신이 달인(이미 달인이면 전설)로.",
     "prereqs": [
       {
         "feat": "Animal Companion"
@@ -10641,6 +10876,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "동물 동료, 위장. 동물 동료도 위장의 혜택을 얻습니다. 전문화된 매복형이면 은신이 달인(이미 달인이면 전설)로.",
     "summary": "위장의 혜택을 얻습니다. 전문화된 매복형이면 은신이 달인(이미 달인이면 전설)로.",
     "desc": "<strong>위장의 혜택</strong>을 얻습니다. 전문화된 매복형이면 은신이 달인(이미 달인이면 전설)로."
   },
@@ -10661,7 +10897,6 @@ var FEAT_DB = [
     "name_ko": "상위 주의 분산 사격",
     "name_en": "Greater Distracting Shot",
     "feat_level": 16,
-    "prerequisites": "주의 분산 사격. 원거리 명중만으로도 다음 턴 시작까지 무방비. 치명타나 2회 명중 시 다음 턴 종료까지.",
     "prereqs": [
       {
         "feat": "Distracting Shot"
@@ -10671,6 +10906,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "주의 분산 사격. 원거리 명중만으로도 다음 턴 시작까지 무방비. 치명타나 2회 명중 시 다음 턴 종료까지.",
     "summary": "무방비. 치명타나 2회 명중 시 다음 턴 종료까지.",
     "desc": "<strong>{{condition:Off-Guard}}</strong>. 치명타나 2회 명중 시 <strong>다음 턴 종료까지</strong>."
   },
@@ -10679,7 +10915,6 @@ var FEAT_DB = [
     "name_ko": "향상된 쌍검 반격",
     "name_en": "Improved Twin Riposte",
     "feat_level": 16,
-    "prerequisites": "쌍검 반격. 각 턴 시작에 쌍검 반격 전용 추가 반응 1회. 쌍검 방어 없이도 사용 가능.",
     "prereqs": [
       {
         "feat": "Twin Riposte"
@@ -10689,6 +10924,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "쌍검 반격. 각 턴 시작에 쌍검 반격 전용 추가 반응 1회. 쌍검 방어 없이도 사용 가능.",
     "summary": "추가 반응 1회. 쌍검 방어 없이도 사용 가능.",
     "desc": "<strong>추가 반응 1회</strong>. 쌍검 방어 없이도 사용 가능."
   },
@@ -10697,7 +10933,6 @@ var FEAT_DB = [
     "name_ko": "전설적 괴물 사냥꾼",
     "name_en": "Legendary Monster Hunter",
     "feat_level": 16,
-    "prerequisites": "자연학 전설, 달인 괴물 사냥꾼. 괴물 사냥꾼(및 괴물 수호)의 보너스가 +1에서 +2로 증가.",
     "prereqs": [
       {
         "skill": "nature",
@@ -10711,6 +10946,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "자연학 전설, 달인 괴물 사냥꾼. 괴물 사냥꾼(및 괴물 수호)의 보너스가 +1에서 +2로 증가.",
     "summary": "+2로 증가.",
     "desc": "<strong>+2로 증가</strong>."
   },
@@ -10719,7 +10955,6 @@ var FEAT_DB = [
     "name_ko": "전문화된 동료",
     "name_en": "Specialized Companion",
     "feat_level": 16,
-    "prerequisites": "놀라운 동료. 전문화 1개 추가. 특수: 최대 3회.",
     "prereqs": [
       {
         "feat": "Incredible Companion"
@@ -10729,6 +10964,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "놀라운 동료. 전문화 1개 추가. 특수: 최대 3회.",
     "summary": "특수: 최대 3회.",
     "desc": "<strong>특수:</strong> 최대 3회."
   },
@@ -10741,6 +10977,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "free",
     "summary": "[자유 행동] 빈도: 라운드당 1회. 요구사항: 이번 턴 마지막 행동이 관리인 주문 시전. 현재 무기를 즉시 재장전.",
     "desc": "<strong>빈도:</strong> 라운드당 1회. <strong>요구사항:</strong> 이번 턴 마지막 행동이 관리인 주문 시전. 현재 무기를 <strong>즉시 재장전</strong>."
   },
@@ -10754,6 +10991,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "3",
     "summary": "[3행동] 요구사항: 각 손에 근접 무기. 정밀함을 포기하고 불가능한 속도로 공격. 각 무기로 3회씩 타격(각 무기의 첫 공격은 이미 1회 공격한 것처럼 페널티, 나머지는 최대 페널티).",
     "desc": "<strong>요구사항:</strong> 각 손에 근접 무기. 정밀함을 포기하고 불가능한 속도로 공격. 각 무기로 <strong>3회씩 타격</strong>(각 무기의 첫 공격은 이미 1회 공격한 것처럼 페널티, 나머지는 최대 페널티)."
   },
@@ -10767,6 +11005,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "3",
     "summary": "[3행동] 요구사항: 살포+재장전 0 원거리 무기. 살포 사거리 이상 중심의 10피트 폭발 내 모든 적에게 -2 페널티로 타격. 피해 1회만. 다중 공격에 포함되지만 전부 후 증가.",
     "desc": "<strong>요구사항:</strong> 살포+재장전 0 원거리 무기. 살포 사거리 이상 중심의 10피트 폭발 내 모든 적에게 <strong>-2 페널티로 타격</strong>. 피해 1회만. 다중 공격에 포함되지만 전부 후 증가."
   },
@@ -10775,11 +11014,11 @@ var FEAT_DB = [
     "name_ko": "다면적 기질",
     "name_en": "Manifold Edge",
     "feat_level": 18,
-    "prerequisites": "기질, 달인 사냥꾼. 사냥감 추적 시 1레벨에 선택한 기질 대신 다른 기질의 혜택을 얻을 수 있습니다(달인 사냥꾼의 추가 혜택은 없음).",
     "traits": [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "기질, 달인 사냥꾼. 사냥감 추적 시 1레벨에 선택한 기질 대신 다른 기질의 혜택을 얻을 수 있습니다(달인 사냥꾼의 추가 혜택은 없음).",
     "summary": "다른 기질의 혜택을 얻을 수 있습니다(달인 사냥꾼의 추가 혜택은 없음).",
     "desc": "<strong>다른 기질의 혜택</strong>을 얻을 수 있습니다(달인 사냥꾼의 추가 혜택은 없음)."
   },
@@ -10788,7 +11027,6 @@ var FEAT_DB = [
     "name_ko": "달인 동료",
     "name_en": "Masterful Companion",
     "feat_level": 18,
-    "prerequisites": "달인 사냥꾼, 동물 동료. 사냥감 추적 시 동물 동료도 기존 기질 혜택 대신 달인 사냥꾼의 강화된 기질 혜택을 얻습니다.",
     "prereqs": [
       {
         "feat": "Animal Companion"
@@ -10798,6 +11036,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "달인 사냥꾼, 동물 동료. 사냥감 추적 시 동물 동료도 기존 기질 혜택 대신 달인 사냥꾼의 강화된 기질 혜택을 얻습니다.",
     "summary": "달인 사냥꾼의 강화된 기질 혜택을 얻습니다.",
     "desc": "<strong>달인 사냥꾼의 강화된 기질 혜택</strong>을 얻습니다."
   },
@@ -10811,6 +11050,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "actionCost": "3",
     "summary": "[3행동] 요구사항: 재장전 1 이상의 장전된 원거리 무기, 지난 턴 이후 재장전하지 않았어야. 놀라운 집중과 정밀로 최적의 순간에 사격합니다. 사냥감에 원거리 타격. 명중 시 최대 피해. 타격 후 턴이 종료됩니다.",
     "desc": "<strong>요구사항:</strong> 재장전 1 이상의 장전된 원거리 무기, 지난 턴 이후 재장전하지 않았어야. 놀라운 집중과 정밀로 최적의 순간에 사격합니다. 사냥감에 원거리 타격. 명중 시 <strong>최대 피해</strong>. 타격 후 턴이 종료됩니다."
   },
@@ -10819,7 +11059,6 @@ var FEAT_DB = [
     "name_ko": "그림자 사냥꾼",
     "name_en": "Shadow Hunter",
     "feat_level": 18,
-    "prerequisites": "위장. 자연 지형에서 원하면 항상 모든 적에게 은폐(concealed)(사냥감 제외).",
     "prereqs": [
       {
         "feat": "Camouflage"
@@ -10829,6 +11068,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "위장. 자연 지형에서 원하면 항상 모든 적에게 은폐(concealed)(사냥감 제외).",
     "summary": "은폐(concealed)(사냥감 제외).",
     "desc": "<strong>{{condition:Concealed}}</strong>(사냥감 제외)."
   },
@@ -10837,7 +11077,6 @@ var FEAT_DB = [
     "name_ko": "전설적 사격",
     "name_en": "Legendary Shot",
     "feat_level": 20,
-    "prerequisites": "지각 전설, 원거리 사격. 원거리 무기 달인이면 사냥감에 대해 최대 5 사거리 증분까지 페널티 무시.",
     "prereqs": [
       {
         "perception": 8
@@ -10850,6 +11089,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "지각 전설, 원거리 사격. 원거리 무기 달인이면 사냥감에 대해 최대 5 사거리 증분까지 페널티 무시.",
     "summary": "최대 5 사거리 증분까지 페널티 무시.",
     "desc": "<strong>최대 5 사거리 증분까지 페널티 무시</strong>."
   },
@@ -10858,7 +11098,6 @@ var FEAT_DB = [
     "name_ko": "땅끝까지",
     "name_en": "To the Ends of the Earth",
     "feat_level": 20,
-    "prerequisites": "생존 전설. 100피트 내 생물에 사냥감 추적 시, 아무리 멀어져도 정확한 위치를 항상 알 수 있습니다. 자연학 전설이면 순간이동이나 차원 이동도 추적 가능(탐지+근원 특성 추가).",
     "prereqs": [
       {
         "skill": "survival",
@@ -10869,6 +11108,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "생존 전설. 100피트 내 생물에 사냥감 추적 시, 아무리 멀어져도 정확한 위치를 항상 알 수 있습니다. 자연학 전설이면 순간이동이나 차원 이동도 추적 가능(탐지+근원 특성 추가).",
     "summary": "정확한 위치를 항상 알 수 있습니다. 자연학 전설이면 순간이동이나 차원 이동도 추적 가능(탐지+근원 특성 추가).",
     "desc": "<strong>정확한 위치를 항상 알 수 있습니다</strong>. 자연학 전설이면 순간이동이나 차원 이동도 추적 가능(탐지+근원 특성 추가)."
   },
@@ -10877,7 +11117,6 @@ var FEAT_DB = [
     "name_ko": "삼중 위협",
     "name_en": "Triple Threat",
     "feat_level": 20,
-    "prerequisites": "공유 사냥감. 사냥감 추적 시 3명을 사냥감으로 지정하거나, 2명 지정 + 아군 1명에 공유, 또는 1명 지정 + 아군 2명에 공유 가능.",
     "prereqs": [
       {
         "feat": "Shared Prey"
@@ -10887,6 +11126,7 @@ var FEAT_DB = [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "공유 사냥감. 사냥감 추적 시 3명을 사냥감으로 지정하거나, 2명 지정 + 아군 1명에 공유, 또는 1명 지정 + 아군 2명에 공유 가능.",
     "summary": "3명을 사냥감으로 지정하거나, 2명 지정 + 아군 1명에 공유, 또는 1명 지정 + 아군 2명에 공유 가능.",
     "desc": "<strong>3명을 사냥감</strong>으로 지정하거나, 2명 지정 + 아군 1명에 공유, 또는 1명 지정 + 아군 2명에 공유 가능."
   },
@@ -10895,11 +11135,11 @@ var FEAT_DB = [
     "name_ko": "궁극의 교전병",
     "name_en": "Ultimate Skirmisher",
     "feat_level": 20,
-    "prerequisites": "방해받지 않는 여정. 모든 험지, 상위 험지, 위험 지형을 무시하고, 이동으로 유발되는 함정/위험도 원하지 않는 한 유발하지 않습니다.",
     "traits": [
       "레인저"
     ],
     "category": "ranger",
+    "prerequisites": "방해받지 않는 여정. 모든 험지, 상위 험지, 위험 지형을 무시하고, 이동으로 유발되는 함정/위험도 원하지 않는 한 유발하지 않습니다.",
     "summary": "험지, 상위 험지, 위험 지형을 무시하고, 이동으로 유발되는 함정/위험도 원하지 않는 한 유발하지 않습니다.",
     "desc": "<strong>험지, 상위 험지, 위험 지형을 무시</strong>하고, 이동으로 유발되는 함정/위험도 원하지 않는 한 유발하지 않습니다."
   },
@@ -10912,6 +11152,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 공격이 당신을 대상으로 하고 AC에 대해 명중 굴림을 유발합니다. 재빠르게 비껴 공격을 피합니다. 유발 공격에 대해 AC +2 상황 보너스.",
     "desc": "<strong>유발 조건:</strong> 공격이 당신을 대상으로 하고 AC에 대해 명중 굴림을 유발합니다. 재빠르게 비껴 공격을 피합니다. 유발 공격에 대해 <strong>AC +2 상황 보너스</strong>."
   },
@@ -10972,6 +11213,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "2",
     "summary": "[2행동] 요구사항: 각 손에 근접 무기. 한 무기로 적의 주의를 분산시키고 다른 무기로 다른 각도에서 공격. 같은 대상에 각 무기로 타격 1회씩. 두 번째 공격에 대상은 자동 무방비. 다중 공격 페널티 정상 적용.",
     "desc": "<strong>요구사항:</strong> 각 손에 근접 무기. 한 무기로 적의 주의를 분산시키고 다른 무기로 다른 각도에서 공격. 같은 대상에 각 무기로 타격 1회씩. 두 번째 공격에 대상은 <strong>자동 {{condition:Off-Guard}}</strong>. 다중 공격 페널티 정상 적용."
   },
@@ -10980,7 +11222,6 @@ var FEAT_DB = [
     "name_ko": "네 차례다",
     "name_en": "You're Next",
     "feat_level": 1,
-    "prerequisites": "위협 숙련. 유발 조건: 적을 HP 0으로 만듭니다. 적을 쓰러뜨린 후 60피트 내 다른 생물에게 +2 상황 보너스로 사기 저하 시도. 위협 전설이면 자유 행동으로.",
     "prereqs": [
       {
         "skill": "intimidation",
@@ -10994,6 +11235,8 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
+    "prerequisites": "위협 숙련. 유발 조건: 적을 HP 0으로 만듭니다. 적을 쓰러뜨린 후 60피트 내 다른 생물에게 +2 상황 보너스로 사기 저하 시도. 위협 전설이면 자유 행동으로.",
     "summary": "[반응] 유발 조건: 적을 HP 0으로 만듭니다. 적을 쓰러뜨린 후 60피트 내 다른 생물에게 +2 상황 보너스로 사기 저하 시도. 위협 전설이면 자유 행동으로.",
     "desc": "<strong>유발 조건:</strong> 적을 HP 0으로 만듭니다. 적을 쓰러뜨린 후 60피트 내 다른 생물에게 <strong>+2 상황 보너스로 사기 저하</strong> 시도. 위협 전설이면 자유 행동으로."
   },
@@ -11002,7 +11245,6 @@ var FEAT_DB = [
     "name_ko": "잔혹한 구타",
     "name_en": "Brutal Beating",
     "feat_level": 2,
-    "prerequisites": "건달 라켓. 치명타가 적의 자신감을 흔듭니다. 치명타로 피해를 줄 때마다 대상은 공포 1.",
     "prereqs": [
       {
         "subclass": "건달 라켓"
@@ -11012,6 +11254,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "건달 라켓. 치명타가 적의 자신감을 흔듭니다. 치명타로 피해를 줄 때마다 대상은 공포 1.",
     "summary": "공포 1.",
     "desc": "<strong>{{condition:Frightened}} 1</strong>."
   },
@@ -11020,7 +11263,6 @@ var FEAT_DB = [
     "name_ko": "영리한 계략",
     "name_en": "Clever Gambit",
     "feat_level": 2,
-    "prerequisites": "지략가 라켓. 유발 조건: 지식 회상으로 식별한 생물에 대해 타격이 치명 성공하고 피해를 줍니다. 한 걸음 또는 보폭(유발 생물의 반응 유발하지 않음).",
     "prereqs": [
       {
         "subclass": "지략가 라켓"
@@ -11030,6 +11272,8 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
+    "prerequisites": "지략가 라켓. 유발 조건: 지식 회상으로 식별한 생물에 대해 타격이 치명 성공하고 피해를 줍니다. 한 걸음 또는 보폭(유발 생물의 반응 유발하지 않음).",
     "summary": "[반응] 유발 조건: 지식 회상으로 식별한 생물에 대해 타격이 치명 성공하고 피해를 줍니다. 한 걸음 또는 보폭(유발 생물의 반응 유발하지 않음).",
     "desc": "<strong>유발 조건:</strong> 지식 회상으로 식별한 생물에 대해 타격이 치명 성공하고 피해를 줍니다. 한 걸음 또는 보폭(유발 생물의 반응 유발하지 않음)."
   },
@@ -11038,7 +11282,6 @@ var FEAT_DB = [
     "name_ko": "주의 분산 속임",
     "name_en": "Distracting Feint",
     "feat_level": 2,
-    "prerequisites": "사기꾼 라켓. 속임으로 무방비한 동안 지각 판정과 반사 내성에 -2 상황 페널티.",
     "prereqs": [
       {
         "subclass": "사기꾼 라켓"
@@ -11048,6 +11291,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "사기꾼 라켓. 속임으로 무방비한 동안 지각 판정과 반사 내성에 -2 상황 페널티.",
     "summary": "-2 상황 페널티.",
     "desc": "<strong>-2 상황 페널티</strong>."
   },
@@ -11072,6 +11316,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
     "summary": "[1행동] 무기를 뽑고 즉시 타격.",
     "desc": "무기를 뽑고 즉시 타격."
   },
@@ -11092,7 +11337,6 @@ var FEAT_DB = [
     "name_ko": "불균형 타격",
     "name_en": "Unbalancing Blow",
     "feat_level": 2,
-    "prerequisites": "도둑 라켓. 치명타로 피해 시 대상이 다음 턴 시작까지 당신의 공격에 무방비.",
     "prereqs": [
       {
         "subclass": "도둑 라켓"
@@ -11102,6 +11346,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "도둑 라켓. 치명타로 피해 시 대상이 다음 턴 시작까지 당신의 공격에 무방비.",
     "summary": "무방비.",
     "desc": "<strong>{{condition:Off-Guard}}</strong>."
   },
@@ -11110,7 +11355,6 @@ var FEAT_DB = [
     "name_ko": "비열한 습격",
     "name_en": "Underhanded Assault",
     "feat_level": 2,
-    "prerequisites": "은신 숙련. 아군 인접 적에게 잠행. 현재 관측 중이어도 숨겨진 것처럼 판정(은신 -2 페널티). 성공 시 잠행 종료 시 근접 타격 가능.",
     "prereqs": [
       {
         "skill": "stealth",
@@ -11122,6 +11366,8 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "2",
+    "prerequisites": "은신 숙련. 아군 인접 적에게 잠행. 현재 관측 중이어도 숨겨진 것처럼 판정(은신 -2 페널티). 성공 시 잠행 종료 시 근접 타격 가능.",
     "summary": "[2행동] ",
     "desc": ""
   },
@@ -11146,6 +11392,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
     "summary": "[1행동] 엎드린 대상에 비무장 타격. 명중 시 다음 턴 종료까지 현기증(stupefied) 1(치명타 2)과 무방비.",
     "desc": "엎드린 대상에 비무장 타격. 명중 시 다음 턴 종료까지 <strong>{{condition:Stupefied}} 1</strong>(치명타 2)과 <strong>{{condition:Off-Guard}}</strong>."
   },
@@ -11158,6 +11405,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "2",
     "summary": "[2행동] 인접 적에 근접 타격. 명중하고 은밀 공격 피해를 주면 도둑질(Steal)도 시도 가능(전투 중이어도).",
     "desc": "인접 적에 근접 타격. 명중하고 은밀 공격 피해를 주면 <strong>도둑질(Steal)</strong>도 시도 가능(전투 중이어도)."
   },
@@ -11171,6 +11419,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
     "summary": "[1행동] 무기에 접촉독/부상독을 바릅니다. 빈 손이 있으면 독을 뽑는 상호작용도 포함. 일일 준비 시 로그 레벨만큼의 단순 부상독(1d4 독 피해, 내성 없음)을 준비 가능. 다음 준비 시 만료.",
     "desc": "무기에 접촉독/부상독을 바릅니다. 빈 손이 있으면 독을 뽑는 상호작용도 포함. 일일 준비 시 로그 레벨만큼의 <strong>단순 부상독</strong>(1d4 독 피해, 내성 없음)을 준비 가능. 다음 준비 시 만료."
   },
@@ -11183,8 +11432,9 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
-    "summary": "[1행동] 적 1명을 관찰하여 다음 행동을 예측합니다. 지각으로 의도 파악 시도(적의 기만 DC 또는 레벨의 어려운 DC 중 높은 것). 대성공: 다음 턴 시작까지 대상의 공격에 AC +2, 다음 내성에 +2.  성공: 동일하지만 +1.  대실패: AC -1, 내성 -1.",
-    "desc": "적 1명을 관찰하여 다음 행동을 예측합니다. 지각으로 의도 파악 시도(적의 기만 DC 또는 레벨의 어려운 DC 중 높은 것).<br><strong>대성공:</strong> 다음 턴 시작까지 대상의 공격에 <strong>AC +2</strong>, 다음 내성에 <strong>+2</strong>.<br> <strong>성공:</strong> 동일하지만 +1.<br> <strong>대실패:</strong> AC -1, 내성 -1."
+    "actionCost": "1",
+    "summary": "[1행동] 적 1명을 관찰하여 다음 행동을 예측합니다. 지각으로 의도 파악 시도(적의 기만 DC 또는 레벨의 어려운 DC 중 높은 것). 대성공: 다음 턴 시작까지 대상의 공격에 AC +2, 다음 내성에 +2. \n성공: 동일하지만 +1. \n대실패: AC -1, 내성 -1.",
+    "desc": "적 1명을 관찰하여 다음 행동을 예측합니다. 지각으로 의도 파악 시도(적의 기만 DC 또는 레벨의 어려운 DC 중 높은 것).<br><strong>대성공:</strong> 다음 턴 시작까지 대상의 공격에 <strong>AC +2</strong>, 다음 내성에 <strong>+2</strong>.<br>\n<strong>성공:</strong> 동일하지만 +1.<br>\n<strong>대실패:</strong> AC -1, 내성 -1."
   },
   {
     "id": "reactive-pursuit",
@@ -11195,6 +11445,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 인접 적이 당신에게서 멀어집니다. 보폭하되 적에 인접하게 종료 필요. 유발 적의 반응을 유발하지 않음.",
     "desc": "<strong>유발 조건:</strong> 인접 적이 당신에게서 멀어집니다. 보폭하되 적에 인접하게 종료 필요. 유발 적의 반응을 유발하지 않음."
   },
@@ -11208,6 +11459,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 빈 손. 도달 내 생물이 들거나 지닌 움직이는 부품이 있는 아이템을 손상시킵니다. 도둑질 판정(대상의 반사 DC). 대성공: 도둑질 숙련 보너스 ×4 피해. 성공: ×2 피해. 대실패: 1일 면역.",
     "desc": "<strong>요구사항:</strong> 빈 손. 도달 내 생물이 들거나 지닌 움직이는 부품이 있는 아이템을 손상시킵니다. 도둑질 판정(대상의 반사 DC). 대성공: 도둑질 숙련 보너스 ×4 피해. 성공: ×2 피해. 대실패: 1일 면역."
   },
@@ -11221,6 +11473,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
     "summary": "[1행동] 변장을 극적으로 벗어 놀라게 합니다. 이전에 변장을 간파하지 못한 생물은 턴 종료까지 다음 공격에 무방비.",
     "desc": "변장을 극적으로 벗어 놀라게 합니다. 이전에 변장을 간파하지 못한 생물은 턴 종료까지 다음 공격에 <strong>{{condition:Off-Guard}}</strong>."
   },
@@ -11233,6 +11486,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "free",
     "summary": "[자유 행동] 유발 조건: 지각/생존으로 우선권 굴림 직전. 아군 모두의 우선권에 +1 상황 보너스.",
     "desc": "<strong>유발 조건:</strong> 지각/생존으로 우선권 굴림 직전. 아군 모두의 우선권에 <strong>+1 상황 보너스</strong>."
   },
@@ -11253,7 +11507,6 @@ var FEAT_DB = [
     "name_ko": "쌍검 교란",
     "name_en": "Twin Distraction",
     "feat_level": 4,
-    "prerequisites": "쌍검 속임. 쌍검 속임으로 두 타격 모두 피해를 주면 대상은 클래스 DC에 대해 의지 내성. 실패 시 다음 턴 종료까지 현기증 1.",
     "prereqs": [
       {
         "feat": "Twin Feint"
@@ -11263,6 +11516,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "쌍검 속임. 쌍검 속임으로 두 타격 모두 피해를 주면 대상은 클래스 DC에 대해 의지 내성. 실패 시 다음 턴 종료까지 현기증 1.",
     "summary": "현기증 1.",
     "desc": "<strong>{{condition:Stupefied}} 1</strong>."
   },
@@ -11271,11 +11525,12 @@ var FEAT_DB = [
     "name_ko": "약점 분석",
     "name_en": "Analyze Weakness",
     "feat_level": 6,
-    "prerequisites": "은밀 공격 2d6. 요구사항: 지식 회상으로 식별한 생물. 대상의 약점을 파악합니다. 턴 종료 전 다음 은밀 공격 시 추가 2d6 정밀 피해(11레벨 3d6, 17레벨 4d6).",
     "traits": [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
+    "prerequisites": "은밀 공격 2d6. 요구사항: 지식 회상으로 식별한 생물. 대상의 약점을 파악합니다. 턴 종료 전 다음 은밀 공격 시 추가 2d6 정밀 피해(11레벨 3d6, 17레벨 4d6).",
     "summary": "[1행동] 요구사항: 지식 회상으로 식별한 생물. 대상의 약점을 파악합니다. 턴 종료 전 다음 은밀 공격 시 추가 2d6 정밀 피해(11레벨 3d6, 17레벨 4d6).",
     "desc": "<strong>요구사항:</strong> 지식 회상으로 식별한 생물. 대상의 약점을 파악합니다. 턴 종료 전 다음 은밀 공격 시 <strong>추가 2d6 정밀 피해</strong>(11레벨 3d6, 17레벨 4d6)."
   },
@@ -11284,7 +11539,6 @@ var FEAT_DB = [
     "name_ko": "매복 예상",
     "name_en": "Anticipate Ambush",
     "feat_level": 6,
-    "prerequisites": "은신 전문가. 절반 이동 속도로 경계. 조우 시작 시 지각으로 우선권, 은신으로 우선권 굴리는 모든 적에게 -2 상황 페널티.",
     "prereqs": [
       {
         "skill": "stealth",
@@ -11296,6 +11550,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "은신 전문가. 절반 이동 속도로 경계. 조우 시작 시 지각으로 우선권, 은신으로 우선권 굴리는 모든 적에게 -2 상황 페널티.",
     "summary": "-2 상황 페널티.",
     "desc": "<strong>-2 상황 페널티</strong>."
   },
@@ -11340,7 +11595,6 @@ var FEAT_DB = [
     "name_ko": "밀어 눕히기",
     "name_en": "Shove Down",
     "feat_level": 6,
-    "prerequisites": "운동 숙련. 요구사항: 마지막 행동이 성공한 밀기. 밀기 후 즉시 넘어뜨리기 시도(도달 밖이어도).",
     "prereqs": [
       {
         "skill": "athletics",
@@ -11351,6 +11605,8 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "free",
+    "prerequisites": "운동 숙련. 요구사항: 마지막 행동이 성공한 밀기. 밀기 후 즉시 넘어뜨리기 시도(도달 밖이어도).",
     "summary": "[자유 행동] 요구사항: 마지막 행동이 성공한 밀기. 밀기 후 즉시 넘어뜨리기 시도(도달 밖이어도).",
     "desc": "<strong>요구사항:</strong> 마지막 행동이 성공한 밀기. 밀기 후 즉시 넘어뜨리기 시도(도달 밖이어도)."
   },
@@ -11364,6 +11620,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
     "summary": "[1행동] 한 걸음+타격 또는 타격+한 걸음.",
     "desc": "한 걸음+타격 또는 타격+한 걸음."
   },
@@ -11388,6 +11645,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
     "summary": "[1행동] 요구사항: 마지막 행동이 무방비한 대상에 은밀 공격 피해를 준 근접 타격. 상처를 벌립니다. 은밀 공격 피해 주사위 수만큼 지속 출혈 피해.",
     "desc": "<strong>요구사항:</strong> 마지막 행동이 무방비한 대상에 은밀 공격 피해를 준 근접 타격. 상처를 벌립니다. 은밀 공격 피해 주사위 수만큼 <strong>지속 출혈 피해</strong>."
   },
@@ -11396,7 +11654,6 @@ var FEAT_DB = [
     "name_ko": "뒤를 조심해",
     "name_en": "Watch Your Back",
     "feat_level": 6,
-    "prerequisites": "위협 숙련. 30피트 내 대상의 의지 DC에 위협 판정. 성공 시 1분간 대상이 당신에 대한 지각에 +2 상태 보너스지만, 공포 효과에 대한 의지 내성에 -2 상태 페널티.",
     "prereqs": [
       {
         "skill": "intimidation",
@@ -11410,6 +11667,8 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
+    "prerequisites": "위협 숙련. 30피트 내 대상의 의지 DC에 위협 판정. 성공 시 1분간 대상이 당신에 대한 지각에 +2 상태 보너스지만, 공포 효과에 대한 의지 내성에 -2 상태 페널티.",
     "summary": "[1행동] +2 상태 보너스지만, 공포 효과에 대한 의지 내성에 -2 상태 페널티.",
     "desc": "<strong>+2 상태 보너스</strong>지만, {{condition:Frightened}} 효과에 대한 의지 내성에 <strong>-2 상태 페널티</strong>."
   },
@@ -11418,7 +11677,6 @@ var FEAT_DB = [
     "name_ko": "맹투",
     "name_en": "Blind-Fight",
     "feat_level": 8,
-    "prerequisites": "지각 달인. 은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님(DC 5), 인접 레벨 이하 미탐지→숨겨진.",
     "prereqs": [
       {
         "perception": 6
@@ -11428,6 +11686,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "지각 달인. 은폐 시 단순 판정 불필요, 숨겨진 적에게 무방비 아님(DC 5), 인접 레벨 이하 미탐지→숨겨진.",
     "summary": "",
     "desc": ""
   },
@@ -11440,6 +11699,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
     "summary": "[1행동] 다음 투척 무기 타격에 +1 상황 보너스, 대상의 은폐/하위 엄폐/표준 엄폐 무시(상위 엄폐→표준).",
     "desc": "다음 투척 무기 타격에 <strong>+1 상황 보너스</strong>, 대상의 {{condition:Concealed}}/하위 엄폐/표준 엄폐 무시(상위 엄폐→표준)."
   },
@@ -11452,6 +11712,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 도달 내 함정이 유발됩니다. 도둑질로 장치 해제 시도. 대성공: 유발 방지 또는 다음 턴까지 지연(선택). 성공: 같지만 GM이 더 나쁜 것 선택.",
     "desc": "<strong>유발 조건:</strong> 도달 내 함정이 유발됩니다. 도둑질로 장치 해제 시도. 대성공: 유발 방지 또는 다음 턴까지 지연(선택). 성공: 같지만 GM이 더 나쁜 것 선택."
   },
@@ -11460,7 +11721,6 @@ var FEAT_DB = [
     "name_ko": "향상된 독 무기",
     "name_en": "Improved Poison Weapon",
     "feat_level": 8,
-    "prerequisites": "독 무기. 단순 독이 2d4 독 피해로 증가. 공격 대실패 시 독이 낭비되지 않음.",
     "prereqs": [
       {
         "feat": "Poison Weapon"
@@ -11470,6 +11730,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "독 무기. 단순 독이 2d4 독 피해로 증가. 공격 대실패 시 독이 낭비되지 않음.",
     "summary": "2d4 독 피해로 증가. 공격 대실패 시 독이 낭비되지 않음.",
     "desc": "<strong>2d4 독 피해</strong>로 증가. 공격 대실패 시 독이 낭비되지 않음."
   },
@@ -11490,7 +11751,6 @@ var FEAT_DB = [
     "name_ko": "날렵한 구르기",
     "name_en": "Nimble Roll",
     "feat_level": 8,
-    "prerequisites": "날렵한 회피. 반사 내성 직전에도 날렵한 회피 사용 가능(반사 내성에 보너스 적용). 회피 후 공격이 실패/대실패하거나 내성 성공/대성공 시 10피트까지 보폭 가능.",
     "prereqs": [
       {
         "feat": "Nimble Dodge"
@@ -11500,6 +11760,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "날렵한 회피. 반사 내성 직전에도 날렵한 회피 사용 가능(반사 내성에 보너스 적용). 회피 후 공격이 실패/대실패하거나 내성 성공/대성공 시 10피트까지 보폭 가능.",
     "summary": "10피트까지 보폭 가능.",
     "desc": "<strong>10피트까지 보폭</strong> 가능."
   },
@@ -11512,6 +11773,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 도달 내 생물이 아군의 근접 공격에 명중당합니다. 유발 생물에 타격.",
     "desc": "<strong>유발 조건:</strong> 도달 내 생물이 아군의 근접 공격에 명중당합니다. 유발 생물에 <strong>타격</strong>."
   },
@@ -11537,6 +11799,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
     "summary": "[1행동] 투척 무기가 사거리 내에서 즉시 손으로 돌아옵니다.",
     "desc": "투척 무기가 사거리 내에서 <strong>즉시 손으로 돌아옵니다</strong>."
   },
@@ -11549,6 +11812,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 당신을 대상으로 한 타격이 실패/대실패합니다. 공격을 인접한 다른 생물에게 리다이렉트합니다. 공격자가 새 대상에 대해 다시 굴림.",
     "desc": "<strong>유발 조건:</strong> 당신을 대상으로 한 타격이 실패/대실패합니다. 공격을 인접한 다른 생물에게 <strong>리다이렉트</strong>합니다. 공격자가 새 대상에 대해 다시 굴림."
   },
@@ -11557,11 +11821,11 @@ var FEAT_DB = [
     "name_ko": "교활한 타격자",
     "name_en": "Sly Striker",
     "feat_level": 8,
-    "prerequisites": "은밀 공격. 무방비하지 않은 생물에도 1d6 정밀 피해를 줍니다(은밀 공격 가능 무기/비무장 공격만). 14레벨에 은밀 공격이 3d6 이상이면 2d6.",
     "traits": [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "은밀 공격. 무방비하지 않은 생물에도 1d6 정밀 피해를 줍니다(은밀 공격 가능 무기/비무장 공격만). 14레벨에 은밀 공격이 3d6 이상이면 2d6.",
     "summary": "1d6 정밀 피해를 줍니다(은밀 공격 가능 무기/비무장 공격만). 14레벨에 은밀 공격이 3d6 이상이면 2d6.",
     "desc": "<strong>1d6 정밀 피해</strong>를 줍니다(은밀 공격 가능 무기/비무장 공격만). 14레벨에 은밀 공격이 3d6 이상이면 <strong>2d6</strong>."
   },
@@ -11574,6 +11838,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "2",
     "summary": "[2행동] 요구사항: 붙잡힌/속박된 상태. 적의 손아귀에서 빠져나가며 물건을 챙깁니다. 탈출 시도 후 성공하면 도둑질도 시도 가능.",
     "desc": "<strong>요구사항:</strong> 붙잡힌/속박된 상태. 적의 손아귀에서 빠져나가며 물건을 챙깁니다. 탈출 시도 후 성공하면 <strong>도둑질도 시도</strong> 가능."
   },
@@ -11582,7 +11847,6 @@ var FEAT_DB = [
     "name_ko": "전술적 진입",
     "name_en": "Tactical Entry",
     "feat_level": 8,
-    "prerequisites": "은신 달인. 요구사항: 이번 조우에서 은신으로 우선권 굴림, 아직 아무도 행동 안 함. 보폭(반응 유발하지 않음).",
     "prereqs": [
       {
         "skill": "stealth",
@@ -11593,6 +11857,8 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "free",
+    "prerequisites": "은신 달인. 요구사항: 이번 조우에서 은신으로 우선권 굴림, 아직 아무도 행동 안 함. 보폭(반응 유발하지 않음).",
     "summary": "[자유 행동] 요구사항: 이번 조우에서 은신으로 우선권 굴림, 아직 아무도 행동 안 함. 보폭(반응 유발하지 않음).",
     "desc": "<strong>요구사항:</strong> 이번 조우에서 은신으로 우선권 굴림, 아직 아무도 행동 안 함. 보폭(반응 유발하지 않음)."
   },
@@ -11601,7 +11867,6 @@ var FEAT_DB = [
     "name_ko": "체계적 쇠약",
     "name_en": "Methodical Debilitations",
     "feat_level": 10,
-    "prerequisites": "지략가 라켓, 쇠약 타격. 추가 쇠약 옵션: 측면 공격 불가, 방패 올리기/하위/표준 엄폐에서 상황 보너스 획득 불가(상위 엄폐만 +2).",
     "prereqs": [
       {
         "subclass": "지략가 라켓"
@@ -11611,6 +11876,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "지략가 라켓, 쇠약 타격. 추가 쇠약 옵션: 측면 공격 불가, 방패 올리기/하위/표준 엄폐에서 상황 보너스 획득 불가(상위 엄폐만 +2).",
     "summary": "",
     "desc": ""
   },
@@ -11619,7 +11885,6 @@ var FEAT_DB = [
     "name_ko": "날렵한 타격",
     "name_en": "Nimble Strike",
     "feat_level": 10,
-    "prerequisites": "날렵한 구르기. 날렵한 회피 반응 사용 시 근접 타격도 가능(다중 공격 페널티 미포함/미적용).",
     "prereqs": [
       {
         "feat": "Nimble Roll"
@@ -11629,6 +11894,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "날렵한 구르기. 날렵한 회피 반응 사용 시 근접 타격도 가능(다중 공격 페널티 미포함/미적용).",
     "summary": "근접 타격도 가능(다중 공격 페널티 미포함/미적용).",
     "desc": "<strong>근접 타격도 가능</strong>(다중 공격 페널티 미포함/미적용)."
   },
@@ -11637,7 +11903,6 @@ var FEAT_DB = [
     "name_ko": "정밀 쇠약",
     "name_en": "Precise Debilitations",
     "feat_level": 10,
-    "prerequisites": "도둑 라켓, 쇠약 타격. 추가 쇠약 옵션: 당신의 공격에서 추가 2d6 정밀 피해, 대상이 무방비.",
     "prereqs": [
       {
         "subclass": "도둑 라켓"
@@ -11647,6 +11912,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "도둑 라켓, 쇠약 타격. 추가 쇠약 옵션: 당신의 공격에서 추가 2d6 정밀 피해, 대상이 무방비.",
     "summary": "추가 2d6 정밀 피해, 대상이 무방비.",
     "desc": "<strong>추가 2d6 정밀 피해</strong>, 대상이 <strong>{{condition:Off-Guard}}</strong>."
   },
@@ -11655,7 +11921,6 @@ var FEAT_DB = [
     "name_ko": "잠행 전문가",
     "name_en": "Sneak Adept",
     "feat_level": 10,
-    "prerequisites": "은신 달인. 잠행(Sneak) 실패 시 성공으로 취급(대실패는 여전히 가능).",
     "prereqs": [
       {
         "skill": "stealth",
@@ -11666,6 +11931,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "은신 달인. 잠행(Sneak) 실패 시 성공으로 취급(대실패는 여전히 가능).",
     "summary": "성공으로 취급(대실패는 여전히 가능).",
     "desc": "<strong>성공으로 취급</strong>(대실패는 여전히 가능)."
   },
@@ -11674,7 +11940,6 @@ var FEAT_DB = [
     "name_ko": "전술적 쇠약",
     "name_en": "Tactical Debilitations",
     "feat_level": 10,
-    "prerequisites": "사기꾼 라켓, 쇠약 타격. 추가 쇠약 옵션: 반응 사용 불가, 측면 공격 불가.",
     "prereqs": [
       {
         "subclass": "사기꾼 라켓"
@@ -11684,6 +11949,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "사기꾼 라켓, 쇠약 타격. 추가 쇠약 옵션: 반응 사용 불가, 측면 공격 불가.",
     "summary": "",
     "desc": ""
   },
@@ -11692,7 +11958,6 @@ var FEAT_DB = [
     "name_ko": "잔혹한 쇠약",
     "name_en": "Vicious Debilitations",
     "feat_level": 10,
-    "prerequisites": "건달 라켓, 쇠약 타격. 추가 쇠약 옵션: 둔기/관통/참격 약점 5, 서투름(clumsy) 1.",
     "prereqs": [
       {
         "subclass": "건달 라켓"
@@ -11702,6 +11967,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "건달 라켓, 쇠약 타격. 추가 쇠약 옵션: 둔기/관통/참격 약점 5, 서투름(clumsy) 1.",
     "summary": "서투름(clumsy) 1.",
     "desc": "<strong>{{condition:Clumsy}} 1</strong>."
   },
@@ -11710,7 +11976,6 @@ var FEAT_DB = [
     "name_ko": "피의 쇠약",
     "name_en": "Bloody Debilitation",
     "feat_level": 12,
-    "prerequisites": "의학 숙련, 쇠약 타격. 추가 쇠약: 3d6 지속 출혈 피해.",
     "prereqs": [
       {
         "skill": "medicine",
@@ -11721,6 +11986,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "의학 숙련, 쇠약 타격. 추가 쇠약: 3d6 지속 출혈 피해.",
     "summary": "3d6 지속 출혈 피해.",
     "desc": "<strong>3d6 지속 출혈 피해</strong>."
   },
@@ -11729,12 +11995,12 @@ var FEAT_DB = [
     "name_ko": "치명적 쇠약",
     "name_en": "Critical Debilitation",
     "feat_level": 12,
-    "prerequisites": "쇠약 타격. 치명 성공 시 추가 쇠약: 인내 내성(클래스 DC). 대성공: 무효. 성공: 둔화 1. 실패: 둔화 2. 대실패: 다음 턴 종료까지 마비.",
     "traits": [
       "무력화",
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "쇠약 타격. 치명 성공 시 추가 쇠약: 인내 내성(클래스 DC). 대성공: 무효. 성공: 둔화 1. 실패: 둔화 2. 대실패: 다음 턴 종료까지 마비.",
     "summary": "",
     "desc": ""
   },
@@ -11747,6 +12013,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "2",
     "summary": "[2행동] 높이뛰기/멀리뛰기 시도(높이뛰기도 멀리뛰기 길이로 계산). 도약 종료 시 근접 타격 가능. 도약 높이 이하 추락이면 피해 없이 착지.",
     "desc": "높이뛰기/멀리뛰기 시도(높이뛰기도 멀리뛰기 길이로 계산). 도약 종료 시 근접 타격 가능. 도약 높이 이하 추락이면 피해 없이 착지."
   },
@@ -11759,6 +12026,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "2",
     "summary": "[2행동] 무방비한 생물에 원거리 타격. 명중하고 피해를 주면 반사 내성(클래스 DC). 실패: 최대 120피트 추락(피해 없음). 대실패: 추락 + 다음 턴까지 비행 불가.",
     "desc": "무방비한 생물에 원거리 타격. 명중하고 피해를 주면 반사 내성(클래스 DC). 실패: 최대 120피트 추락(피해 없음). 대실패: 추락 + 다음 턴까지 비행 불가."
   },
@@ -11772,6 +12040,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
     "summary": "[1행동] 전장을 조사합니다. 다음 턴 시작 전까지 아무 로그 반응에 사용할 수 있는 추가 반응 1회.",
     "desc": "전장을 조사합니다. 다음 턴 시작 전까지 아무 로그 반응에 사용할 수 있는 <strong>추가 반응 1회</strong>."
   },
@@ -11784,6 +12053,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 인접 적이 반응을 시작합니다. 레벨 이하 생물이면 자동 방해, 높은 레벨이면 AC에 대해 명중 굴림 — 성공 시 방해.",
     "desc": "<strong>유발 조건:</strong> 인접 적이 반응을 시작합니다. 레벨 이하 생물이면 자동 방해, 높은 레벨이면 AC에 대해 명중 굴림 — 성공 시 방해."
   },
@@ -11792,7 +12062,6 @@ var FEAT_DB = [
     "name_ko": "도탄 속임",
     "name_en": "Ricochet Feint",
     "feat_level": 12,
-    "prerequisites": "도탄 자세. 도탄 자세 중 근접 도달이 아닌 투척 무기 첫 사거리 증분 내 생물에게도 속임(Feint) 가능.",
     "prereqs": [
       {
         "feat": "Ricochet Stance"
@@ -11802,6 +12071,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "도탄 자세. 도탄 자세 중 근접 도달이 아닌 투척 무기 첫 사거리 증분 내 생물에게도 속임(Feint) 가능.",
     "summary": "속임(Feint) 가능.",
     "desc": "<strong>속임(Feint)</strong> 가능."
   },
@@ -11815,6 +12085,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
     "summary": "[1행동] 숨어있다가 적을 공격합니다. 이동 속도까지 보폭하되 숨겨진/미탐지 적에 인접하게 종료. 그 적에게 타격(타격 전까지 숨겨진/미탐지 유지).",
     "desc": "숨어있다가 적을 공격합니다. 이동 속도까지 보폭하되 숨겨진/미탐지 적에 인접하게 종료. 그 적에게 타격(타격 전까지 숨겨진/미탐지 유지)."
   },
@@ -11827,6 +12098,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "free",
     "summary": "[자유 행동] 빈도: 10분에 1회. 유발 조건: 물리 공격이 HP 0으로 만들려 합니다. 구르며 충격을 분산시켜 절반 피해.",
     "desc": "<strong>빈도:</strong> 10분에 1회. <strong>유발 조건:</strong> 물리 공격이 HP 0으로 만들려 합니다. 구르며 충격을 분산시켜 <strong>절반 피해</strong>."
   },
@@ -11840,6 +12112,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
     "summary": "[1행동] 30피트 내 대상 1명이 다음 턴 종료까지 당신의 공격에 무방비. 청각 또는 시각 특성.",
     "desc": "30피트 내 대상 1명이 다음 턴 종료까지 당신의 공격에 <strong>{{condition:Off-Guard}}</strong>. 청각 또는 시각 특성."
   },
@@ -11864,6 +12137,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 탐색에 실패. 미탐지 생물을 자동 감지하여 숨겨진으로.",
     "desc": "<strong>유발 조건:</strong> 탐색 판정에 실패. 가장 미세한 단서도 포착합니다. 실패했어도 탐색 영역의 미탐지 생물을 자동 감지하여 <strong>{{condition:Hidden}}</strong>으로 만듭니다."
   },
@@ -11872,7 +12146,6 @@ var FEAT_DB = [
     "name_ko": "일어나지 마!",
     "name_en": "Stay Down!",
     "feat_level": 14,
-    "prerequisites": "운동 달인. 유발 조건: 도달 내 엎드린 적이 일어나려 합니다. 운동 판정(적의 인내 DC). 성공: 행동 방해, 적이 엎드린 상태 유지. 대성공: 다음 턴까지 일어나기 불가.",
     "prereqs": [
       {
         "skill": "athletics",
@@ -11883,6 +12156,8 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
+    "prerequisites": "운동 달인. 유발 조건: 도달 내 엎드린 적이 일어나려 합니다. 운동 판정(적의 인내 DC). 성공: 행동 방해, 적이 엎드린 상태 유지. 대성공: 다음 턴까지 일어나기 불가.",
     "summary": "[반응] 유발 조건: 도달 내 엎드린 적이 일어나려 합니다. 운동 판정(적의 인내 DC). 성공: 행동 방해, 적이 엎드린 상태 유지. 대성공: 다음 턴까지 일어나기 불가.",
     "desc": "<strong>유발 조건:</strong> 도달 내 엎드린 적이 일어나려 합니다. 운동 판정(적의 인내 DC). 성공: 행동 방해, 적이 엎드린 상태 유지. 대성공: 다음 턴까지 일어나기 불가."
   },
@@ -11891,7 +12166,6 @@ var FEAT_DB = [
     "name_ko": "백지 상태",
     "name_en": "Blank Slate",
     "feat_level": 16,
-    "prerequisites": "기만 전설. 탐지/폭로/관찰 마법이 당신을 감지하지 못합니다(상쇄 랭크 10 이상 효과만 가능).",
     "prereqs": [
       {
         "skill": "deception",
@@ -11902,6 +12176,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "기만 전설. 탐지/폭로/관찰 마법이 당신을 감지하지 못합니다(상쇄 랭크 10 이상 효과만 가능).",
     "summary": "",
     "desc": ""
   },
@@ -11910,7 +12185,6 @@ var FEAT_DB = [
     "name_ko": "구름 걷기",
     "name_en": "Cloud Step",
     "feat_level": 16,
-    "prerequisites": "곡예 전설. 보폭 시 물, 공기, 제한 중량 표면 위를 걸을 수 있습니다. 턴 종료 시 정상적으로 추락/침몰.",
     "prereqs": [
       {
         "skill": "acrobatics",
@@ -11921,6 +12195,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "곡예 전설. 보폭 시 물, 공기, 제한 중량 표면 위를 걸을 수 있습니다. 턴 종료 시 정상적으로 추락/침몰.",
     "summary": "",
     "desc": ""
   },
@@ -11933,6 +12208,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 턴이 종료됩니다. 요구사항: 정신 효과의 영향을 받고 있어야. 정신 효과의 허점을 찾아 다음 턴 종료까지 해당 효과를 무시합니다. 효과당 1회만. 특수: 정신 효과가 반응을 막아도 사용 가능.",
     "desc": "<strong>유발 조건:</strong> 턴이 종료됩니다. <strong>요구사항:</strong> 정신 효과의 영향을 받고 있어야. 정신 효과의 허점을 찾아 다음 턴 종료까지 <strong>해당 효과를 무시</strong>합니다. 효과당 1회만. <strong>특수:</strong> 정신 효과가 반응을 막아도 사용 가능."
   },
@@ -11945,6 +12221,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "2",
     "summary": "[2행동] 무방비한 대상에 타격. 은밀 공격 피해를 주면 대상의 활성 주문 1개를 상쇄 시도(랭크 = 레벨 절반 올림, 수정치 = 클래스 DC - 10).",
     "desc": "무방비한 대상에 타격. 은밀 공격 피해를 주면 대상의 활성 주문 1개를 <strong>상쇄 시도</strong>(랭크 = 레벨 절반 올림, 수정치 = 클래스 DC - 10)."
   },
@@ -11953,7 +12230,6 @@ var FEAT_DB = [
     "name_ko": "완벽한 교란",
     "name_en": "Perfect Distraction",
     "feat_level": 16,
-    "prerequisites": "기만 전설. 미끼를 남기고 잠행. 오도(mislead) 주문처럼 작동하지만 투명이 아닌 미탐지. 미끼를 계속 이동시킬 수 있음. 다시 사용하려면 10분 준비 필요.",
     "prereqs": [
       {
         "skill": "deception",
@@ -11964,6 +12240,8 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "1",
+    "prerequisites": "기만 전설. 미끼를 남기고 잠행. 오도(mislead) 주문처럼 작동하지만 투명이 아닌 미탐지. 미끼를 계속 이동시킬 수 있음. 다시 사용하려면 10분 준비 필요.",
     "summary": "[1행동] 오도(mislead) 주문처럼 작동하지만 투명이 아닌 미탐지. 미끼를 계속 이동시킬 수 있음. 다시 사용하려면 10분 준비 필요.",
     "desc": "<em>{{spell:Mislead}}</em> 주문처럼 작동하지만 투명이 아닌 미탐지. 미끼를 계속 이동시킬 수 있음. 다시 사용하려면 10분 준비 필요."
   },
@@ -11985,7 +12263,6 @@ var FEAT_DB = [
     "name_ko": "신속 회피",
     "name_en": "Swift Elusion",
     "feat_level": 16,
-    "prerequisites": "곡예 전설. 유발 조건: 적이 인접하게 이동을 종료합니다. 곡예 판정(적의 반사 DC). 성공 시 적에 인접한 다른 칸으로 보폭하거나 적을 인접한 다른 칸으로 이동.",
     "prereqs": [
       {
         "skill": "acrobatics",
@@ -11996,6 +12273,8 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
+    "prerequisites": "곡예 전설. 유발 조건: 적이 인접하게 이동을 종료합니다. 곡예 판정(적의 반사 DC). 성공 시 적에 인접한 다른 칸으로 보폭하거나 적을 인접한 다른 칸으로 이동.",
     "summary": "[반응] 유발 조건: 적이 인접하게 이동을 종료합니다. 곡예 판정(적의 반사 DC). 성공 시 적에 인접한 다른 칸으로 보폭하거나 적을 인접한 다른 칸으로 이동.",
     "desc": "<strong>유발 조건:</strong> 적이 인접하게 이동을 종료합니다. 곡예 판정(적의 반사 DC). 성공 시 적에 인접한 다른 칸으로 보폭하거나 적을 인접한 다른 칸으로 이동."
   },
@@ -12004,7 +12283,6 @@ var FEAT_DB = [
     "name_ko": "불가능한 침투",
     "name_en": "Implausible Infiltration",
     "feat_level": 18,
-    "prerequisites": "곡예 전설, 빠른 비집기. 요구사항: 바닥이나 수직 벽에 인접. 미세한 틈을 찾아 벽이나 바닥을 통과합니다(나무/석고/돌만, 10피트 이하, 금속 불가).",
     "prereqs": [
       {
         "skill": "acrobatics",
@@ -12020,6 +12298,8 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "2",
+    "prerequisites": "곡예 전설, 빠른 비집기. 요구사항: 바닥이나 수직 벽에 인접. 미세한 틈을 찾아 벽이나 바닥을 통과합니다(나무/석고/돌만, 10피트 이하, 금속 불가).",
     "summary": "[2행동] 요구사항: 바닥이나 수직 벽에 인접. 미세한 틈을 찾아 벽이나 바닥을 통과합니다(나무/석고/돌만, 10피트 이하, 금속 불가).",
     "desc": "<strong>요구사항:</strong> 바닥이나 수직 벽에 인접. 미세한 틈을 찾아 벽이나 바닥을 <strong>통과</strong>합니다(나무/석고/돌만, 10피트 이하, 금속 불가)."
   },
@@ -12028,7 +12308,6 @@ var FEAT_DB = [
     "name_ko": "불가능한 구매",
     "name_en": "Implausible Purchase",
     "feat_level": 18,
-    "prerequisites": "예측 구매. 물건을 사고 나서도 선견 계획자를 사용 가능하며, 1행동으로 꺼냄. 하루 5회까지 레벨보다 6 낮은 일반 소모품을 꺼낼 수 있습니다.",
     "prereqs": [
       {
         "feat": "Predictive Purchase"
@@ -12038,6 +12317,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "예측 구매. 물건을 사고 나서도 선견 계획자를 사용 가능하며, 1행동으로 꺼냄. 하루 5회까지 레벨보다 6 낮은 일반 소모품을 꺼낼 수 있습니다.",
     "summary": "1행동으로 꺼냄. 하루 5회까지 레벨보다 6 낮은 일반 소모품을 꺼낼 수 있습니다.",
     "desc": "<strong>1행동으로 꺼냄</strong>. 하루 5회까지 레벨보다 6 낮은 일반 소모품을 꺼낼 수 있습니다."
   },
@@ -12058,7 +12338,6 @@ var FEAT_DB = [
     "name_ko": "숨겨진 모범",
     "name_en": "Hidden Paragon",
     "feat_level": 20,
-    "prerequisites": "은신 전설. 빈도: 시간당 1회. 유발 조건: 모든 적에게 숨겨짐/미탐지 상태가 됩니다. 1분간 투명(적대적 행동을 해도). 폭로의 빛이나 참된 시야로도 드러나지 않지만 탐색은 정상.",
     "prereqs": [
       {
         "skill": "stealth",
@@ -12069,6 +12348,8 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
+    "prerequisites": "은신 전설. 빈도: 시간당 1회. 유발 조건: 모든 적에게 숨겨짐/미탐지 상태가 됩니다. 1분간 투명(적대적 행동을 해도). 폭로의 빛이나 참된 시야로도 드러나지 않지만 탐색은 정상.",
     "summary": "[반응] 빈도: 시간당 1회. 유발 조건: 모든 적에게 숨겨짐/미탐지 상태가 됩니다. 1분간 투명(적대적 행동을 해도). 폭로의 빛이나 참된 시야로도 드러나지 않지만 탐색은 정상.",
     "desc": "<strong>빈도:</strong> 시간당 1회. <strong>유발 조건:</strong> 모든 적에게 {{condition:Hidden}}/미탐지 상태가 됩니다. <strong>1분간 {{condition:Invisible}}</strong>(적대적 행동을 해도). 폭로의 빛이나 참된 시야로도 드러나지 않지만 탐색은 정상."
   },
@@ -12077,7 +12358,6 @@ var FEAT_DB = [
     "name_ko": "불가능한 타격자",
     "name_en": "Impossible Striker",
     "feat_level": 20,
-    "prerequisites": "교활한 타격자. 교활한 타격자의 피해 대신, 무방비하지 않은 대상에게도 전체 은밀 공격 피해를 줄 수 있습니다.",
     "prereqs": [
       {
         "feat": "Sly Striker"
@@ -12087,6 +12367,7 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "prerequisites": "교활한 타격자. 교활한 타격자의 피해 대신, 무방비하지 않은 대상에게도 전체 은밀 공격 피해를 줄 수 있습니다.",
     "summary": "전체 은밀 공격 피해를 줄 수 있습니다.",
     "desc": "<strong>전체 은밀 공격 피해</strong>를 줄 수 있습니다."
   },
@@ -12095,7 +12376,6 @@ var FEAT_DB = [
     "name_ko": "반응적 교란",
     "name_en": "Reactive Distraction",
     "feat_level": 20,
-    "prerequisites": "기만 전설, 완벽한 교란. 유발 조건: 공격/효과의 대상이 되거나 영역 내에 있습니다. 요구사항: 완벽한 교란이 준비됨. 미끼와 자리를 바꿉니다. 완벽한 교란을 사용하되, 은폐/엄폐 위치에서 잠행 종료 필요. 미끼가 대신 대상이 됩니다.",
     "prereqs": [
       {
         "skill": "deception",
@@ -12111,11 +12391,13 @@ var FEAT_DB = [
       "로그"
     ],
     "category": "rogue",
+    "actionCost": "reaction",
+    "prerequisites": "기만 전설, 완벽한 교란. 유발 조건: 공격/효과의 대상이 되거나 영역 내에 있습니다. 요구사항: 완벽한 교란이 준비됨. 미끼와 자리를 바꿉니다. 완벽한 교란을 사용하되, 은폐/엄폐 위치에서 잠행 종료 필요. 미끼가 대신 대상이 됩니다.",
     "summary": "[반응] 유발 조건: 공격/효과의 대상이 되거나 영역 내에 있습니다. 요구사항: 완벽한 교란이 준비됨. 미끼와 자리를 바꿉니다. 완벽한 교란을 사용하되, 은폐/엄폐 위치에서 잠행 종료 필요. 미끼가 대신 대상이 됩니다.",
     "desc": "<strong>유발 조건:</strong> 공격/효과의 대상이 되거나 영역 내에 있습니다. <strong>요구사항:</strong> 완벽한 교란이 준비됨. 미끼와 자리를 바꿉니다. 완벽한 교란을 사용하되, {{condition:Concealed}}/엄폐 위치에서 잠행 종료 필요. 미끼가 대신 대상이 됩니다."
   },
   {
-    "id": "counterspell",
+    "id": "counterspell-witch",
     "name_ko": "반격 주문",
     "name_en": "Counterspell",
     "feat_level": 1,
@@ -12123,6 +12405,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 준비한 주문과 같은 주문이 시전됩니다. 해당 주문을 소비하여 상쇄 시도.",
     "desc": "<strong>유발 조건:</strong> 준비한 주문과 같은 주문이 시전됩니다. 해당 주문을 소비하여 <strong>상쇄</strong> 시도."
   },
@@ -12139,7 +12422,7 @@ var FEAT_DB = [
     "desc": "사역마를 얻습니다(212페이지 규칙)."
   },
   {
-    "id": "reach-spell-wizard",
+    "id": "reach-spell-witch",
     "name_ko": "주문 도달",
     "name_en": "Reach Spell",
     "feat_level": 1,
@@ -12149,6 +12432,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "1",
     "summary": "[1행동] 주문 사거리 30피트 증가(접촉이면 30피트로).",
     "desc": "주문 사거리 <strong>30피트 증가</strong>(접촉이면 30피트로)."
   },
@@ -12165,7 +12449,7 @@ var FEAT_DB = [
     "desc": "주문서 관리에 놀라운 재능이 있습니다. 주문서의 시작 캔트립이 10개에서 <strong>12개</strong>로 증가. 레벨을 올릴 때 추가 주문이 2개에서 <strong>3개</strong>로 증가."
   },
   {
-    "id": "widen-spell-wizard",
+    "id": "widen-spell-witch",
     "name_ko": "주문 확장",
     "name_en": "Widen Spell",
     "feat_level": 1,
@@ -12175,11 +12459,12 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "1",
     "summary": "[1행동] 폭발/원뿔/직선 영역 확장.",
     "desc": "폭발/원뿔/직선 영역 확장."
   },
   {
-    "id": "cantrip-expansion-wizard",
+    "id": "cantrip-expansion-witch",
     "name_ko": "캔트립 확장",
     "name_en": "Cantrip Expansion",
     "feat_level": 2,
@@ -12191,7 +12476,7 @@ var FEAT_DB = [
     "desc": "매일 <strong>캔트립 2개를 추가</strong>로 준비."
   },
   {
-    "id": "conceal-spell",
+    "id": "conceal-spell-witch",
     "name_ko": "주문 은닉",
     "name_en": "Conceal Spell",
     "feat_level": 2,
@@ -12201,11 +12486,12 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "1",
     "summary": "[1행동] 다음 주문에 미묘한 특성을 부여하여 주문시전 징후를 숨깁니다.",
     "desc": "다음 주문에 <strong>미묘한 특성</strong>을 부여하여 주문시전 징후를 숨깁니다."
   },
   {
-    "id": "enhanced-familiar-wizard",
+    "id": "enhanced-familiar-witch",
     "name_ko": "강화된 사역마",
     "name_en": "Enhanced Familiar",
     "feat_level": 2,
@@ -12231,6 +12517,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 주문으로 피해를 줍니다. 주문의 에너지 잔재가 피해를 받은 대상의 저항을 약화시킵니다. 피해를 받은 대상 1명이 다음 턴 시작까지 주문의 피해 유형에 약점 1(5레벨에 2, 10레벨에 3, 15레벨에 4, 20레벨에 5).",
     "desc": "<strong>유발 조건:</strong> 주문으로 피해를 줍니다. 주문의 에너지 잔재가 피해를 받은 대상의 저항을 약화시킵니다. 피해를 받은 대상 1명이 다음 턴 시작까지 주문의 피해 유형에 <strong>약점 1</strong>(5레벨에 2, 10레벨에 3, 15레벨에 4, 20레벨에 5)."
   },
@@ -12245,6 +12532,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "1",
     "summary": "[1행동] 다음 주문에 비치명(nonlethal) 특성을 부여하여 대상을 죽이지 않고 기절시킵니다.",
     "desc": "다음 주문에 <strong>비치명(nonlethal) 특성</strong>을 부여하여 대상을 죽이지 않고 기절시킵니다."
   },
@@ -12269,6 +12557,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "1",
     "summary": "[1행동] 마법 아이템 1개를 원거리에서 손으로 소환합니다. 60피트 내이고 볼 수 있어야 합니다.",
     "desc": "마법 아이템 1개를 원거리에서 손으로 소환합니다. 60피트 내이고 볼 수 있어야 합니다."
   },
@@ -12277,11 +12566,11 @@ var FEAT_DB = [
     "name_ko": "연결 집중",
     "name_en": "Linked Focus",
     "feat_level": 4,
-    "prerequisites": "비전 유대, 학파 주문. 결합 아이템 소진으로 학파 주문을 시전하면, 집중 포인트 1점도 회복합니다.",
     "traits": [
       "위저드"
     ],
     "category": "wizard",
+    "prerequisites": "비전 유대, 학파 주문. 결합 아이템 소진으로 학파 주문을 시전하면, 집중 포인트 1점도 회복합니다.",
     "summary": "집중 포인트 1점도 회복합니다.",
     "desc": "<strong>집중 포인트 1점도 회복</strong>합니다."
   },
@@ -12318,6 +12607,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "free",
     "summary": "[자유 행동] 유발 조건: 순간이동 효과로 도착합니다. 도착 시 10피트 방사 내 모든 생물에게 레벨 절반 × 1d6 피해(기본 반사 내성). 에너지 유형은 일일 준비 시 선택.",
     "desc": "<strong>유발 조건:</strong> 순간이동 효과로 도착합니다. 도착 시 10피트 방사 내 모든 생물에게 레벨 절반 × 1d6 피해(기본 반사 내성). 에너지 유형은 일일 준비 시 선택."
   },
@@ -12346,7 +12636,7 @@ var FEAT_DB = [
     "desc": "일일 준비 시, 하나의 주문 슬롯을 <strong>2랭크 낮은 슬롯 2개</strong>로 분할할 수 있습니다(각각 다른 주문 준비)."
   },
   {
-    "id": "steady-spellcasting-wizard",
+    "id": "steady-spellcasting-witch",
     "name_ko": "안정된 주문시전",
     "name_en": "Steady Spellcasting",
     "feat_level": 6,
@@ -12379,6 +12669,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "1",
     "summary": "[1행동] 다음 행동이 결합 아이템 소진으로 재시전하는 것이면, 원래 주문보다 2랭크 이상 낮은 다른 준비 주문 1개도 추가 시전 가능(소진이 그 주문도 커버).",
     "desc": "다음 행동이 결합 아이템 소진으로 재시전하는 것이면, 원래 주문보다 2랭크 이상 낮은 <strong>다른 준비 주문 1개도 추가 시전</strong> 가능(소진이 그 주문도 커버)."
   },
@@ -12417,11 +12708,12 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "1",
     "summary": "[1행동] 다음 주문이 대상의 에너지 저항을 레벨만큼 무시합니다. 면역은 무효.",
     "desc": "다음 주문이 대상의 에너지 <strong>저항을 레벨만큼 무시</strong>합니다. 면역은 무효."
   },
   {
-    "id": "quickened-casting-wizard",
+    "id": "quickened-casting-witch",
     "name_ko": "빠른 시전",
     "name_en": "Quickened Casting",
     "feat_level": 10,
@@ -12431,6 +12723,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "free",
     "summary": "[자유 행동] 빈도: 하루 1회. 다음 행동이 캔트립이거나 가장 높은 슬롯보다 2랭크 이상 낮은 주문이면, 시전 행동 수 1 감소(최소 1).",
     "desc": "<strong>빈도:</strong> 하루 1회. 다음 행동이 캔트립이거나 가장 높은 슬롯보다 2랭크 이상 낮은 주문이면, 시전 <strong>행동 수 1 감소</strong>(최소 1)."
   },
@@ -12451,7 +12744,6 @@ var FEAT_DB = [
     "name_ko": "영리한 반격 주문",
     "name_en": "Clever Counterspell",
     "feat_level": 12,
-    "prerequisites": "반격 주문. 같은 주문이 아니어도 같은 전통에서 유사한 랭크 이상 주문으로 반격 가능(상쇄 판정 필요).",
     "prereqs": [
       {
         "feat": "Counterspell"
@@ -12461,6 +12753,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "prerequisites": "반격 주문. 같은 주문이 아니어도 같은 전통에서 유사한 랭크 이상 주문으로 반격 가능(상쇄 판정 필요).",
     "summary": "전통에서 유사한 랭크 이상 주문으로 반격 가능(상쇄 판정 필요).",
     "desc": "<strong>전통에서 유사한 랭크 이상 주문</strong>으로 반격 가능(상쇄 판정 필요)."
   },
@@ -12505,20 +12798,19 @@ var FEAT_DB = [
     "name_ko": "결합 집중",
     "name_en": "Bonded Focus",
     "feat_level": 14,
-    "prerequisites": "비전 유대, 학파 주문. 재집중(Refocus) 시 집중 풀을 완전히 채웁니다.",
     "traits": [
       "위저드"
     ],
     "category": "wizard",
+    "prerequisites": "비전 유대, 학파 주문. 재집중(Refocus) 시 집중 풀을 완전히 채웁니다.",
     "summary": "완전히 채웁니다.",
     "desc": "<strong>완전히 채웁니다</strong>."
   },
   {
-    "id": "reflect-spell",
+    "id": "reflect-spell-witch",
     "name_ko": "주문 반사",
     "name_en": "Reflect Spell",
     "feat_level": 14,
-    "prerequisites": "반격 주문. 상쇄에 대성공하면 주문을 시전자에게 되돌립니다.",
     "prereqs": [
       {
         "feat": "Counterspell"
@@ -12528,6 +12820,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "prerequisites": "반격 주문. 상쇄에 대성공하면 주문을 시전자에게 되돌립니다.",
     "summary": "시전자에게 되돌립니다.",
     "desc": "<strong>시전자에게 되돌립니다</strong>."
   },
@@ -12556,7 +12849,7 @@ var FEAT_DB = [
     "desc": "결합 아이템 소진을 <strong>하루 2회</strong> 사용 가능."
   },
   {
-    "id": "effortless-concentration-wizard",
+    "id": "effortless-concentration-witch",
     "name_ko": "무의식적 집중",
     "name_en": "Effortless Concentration",
     "feat_level": 16,
@@ -12564,6 +12857,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "free",
     "summary": "[자유 행동] 유발 조건: 턴 시작. 활성 위저드 주문 1개의 지속 시간을 즉시 연장.",
     "desc": "<strong>유발 조건:</strong> 턴 시작. 활성 위저드 주문 1개의 지속 시간을 즉시 연장."
   },
@@ -12578,6 +12872,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "1",
     "summary": "[1행동] 다음 주문이 시각적으로 찬란하게 빛납니다. 피해를 받은 생물이 현혹됨(dazzled) 1라운드(치명 실패 시 실명(blinded) 1라운드 후 현혹됨).",
     "desc": "다음 주문이 시각적으로 찬란하게 빛납니다. 피해를 받은 생물이 <strong>{{condition:Dazzled}} 1라운드</strong>(치명 실패 시 <strong>{{condition:Blinded}} 1라운드</strong> 후 {{condition:Dazzled}})."
   },
@@ -12591,6 +12886,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "2",
     "summary": "[2행동] 유지 중인 주문의 매개변수를 변경합니다. 유지 중인 주문 1개의 영역/대상/기타 변수를 재설정할 수 있습니다(GM 판단에 따라 허용 범위 결정).",
     "desc": "유지 중인 주문의 매개변수를 변경합니다. 유지 중인 주문 1개의 영역/대상/기타 변수를 재설정할 수 있습니다(GM 판단에 따라 허용 범위 결정)."
   },
@@ -12627,6 +12923,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "free",
     "summary": "[자유 행동] 빈도: 하루 1회. 유발 조건: 주문을 시전합니다. 시전한 주문을 취소하고 다른 주문으로 교체하여 즉시 시전합니다(같은 랭크, 같은 행동 수). 원래 주문의 슬롯이 소비되고 새 주문이 시전됩니다.",
     "desc": "<strong>빈도:</strong> 하루 1회. <strong>유발 조건:</strong> 주문을 시전합니다. 시전한 주문을 취소하고 다른 주문으로 <strong>교체하여 즉시 시전</strong>합니다(같은 랭크, 같은 행동 수). 원래 주문의 슬롯이 소비되고 새 주문이 시전됩니다."
   },
@@ -12635,11 +12932,11 @@ var FEAT_DB = [
     "name_ko": "대위저드의 힘",
     "name_en": "Archwizard's Might",
     "feat_level": 20,
-    "prerequisites": "대위저드의 주문학. 추가 10랭크 주문 슬롯을 얻습니다.",
     "traits": [
       "위저드"
     ],
     "category": "wizard",
+    "prerequisites": "대위저드의 주문학. 추가 10랭크 주문 슬롯을 얻습니다.",
     "summary": "추가 10랭크 주문 슬롯을 얻습니다.",
     "desc": "<strong>추가 10랭크 주문 슬롯</strong>을 얻습니다."
   },
@@ -12652,6 +12949,7 @@ var FEAT_DB = [
       "위저드"
     ],
     "category": "wizard",
+    "actionCost": "3",
     "summary": "[3행동] 두 주문을 하나로 결합하여 동시에 시전합니다. 같은 대상/영역의 주문 2개를 동시에 시전하며 각각의 슬롯을 소비합니다.",
     "desc": "두 주문을 하나로 결합하여 동시에 시전합니다. 같은 대상/영역의 주문 2개를 동시에 시전하며 각각의 슬롯을 소비합니다."
   },
@@ -12690,6 +12988,7 @@ var FEAT_DB = [
       "위치"
     ],
     "category": "witch",
+    "actionCost": "1",
     "summary": "[1행동] 불길한 웃음으로 유지 가능한 주술의 지속 시간을 연장합니다. 활성 주술 1개의 지속 시간이 이번 턴 종료가 아닌 다음 턴 종료까지 연장됩니다.",
     "desc": "불길한 웃음으로 유지 가능한 주술의 지속 시간을 연장합니다. 활성 주술 1개의 지속 시간이 이번 턴 종료가 아닌 <strong>다음 턴 종료까지</strong> 연장됩니다."
   },
@@ -12714,6 +13013,7 @@ var FEAT_DB = [
       "위치"
     ],
     "category": "witch",
+    "actionCost": "reaction",
     "summary": "[반응] 유발 조건: 생물이 이미 준비한 주문과 같은 주문을 시전합니다. 준비된 해당 주문을 소비하여 유발 주문을 상쇄 시도합니다.",
     "desc": "<strong>유발 조건:</strong> 생물이 이미 준비한 주문과 같은 주문을 시전합니다. 준비된 해당 주문을 소비하여 유발 주문을 <strong>상쇄</strong> 시도합니다."
   },
@@ -12728,6 +13028,7 @@ var FEAT_DB = [
       "위치"
     ],
     "category": "witch",
+    "actionCost": "1",
     "summary": "[1행동] 주문 사거리 30피트 증가(접촉이면 30피트로).",
     "desc": "주문 사거리 <strong>30피트 증가</strong>(접촉이면 30피트로)."
   },
@@ -12742,6 +13043,7 @@ var FEAT_DB = [
       "위치"
     ],
     "category": "witch",
+    "actionCost": "1",
     "summary": "[1행동] 폭발/원뿔/직선 영역을 확장합니다.",
     "desc": "폭발/원뿔/직선 영역을 확장합니다."
   },
@@ -12792,6 +13094,7 @@ var FEAT_DB = [
       "위치"
     ],
     "category": "witch",
+    "actionCost": "1",
     "summary": "[1행동] 다음 주문 시전에 미묘한(subtle) 특성을 부여하여 주문시전의 시각적 징후를 숨깁니다. 기만 DC에 대한 지각 판정에 성공하지 않으면 주문시전을 알아채지 못합니다.",
     "desc": "다음 주문 시전에 <strong>미묘한(subtle) 특성</strong>을 부여하여 주문시전의 시각적 징후를 숨깁니다. 기만 DC에 대한 지각 판정에 성공하지 않으면 주문시전을 알아채지 못합니다."
   },
@@ -12846,6 +13149,7 @@ var FEAT_DB = [
       "위치"
     ],
     "category": "witch",
+    "actionCost": "1",
     "summary": "[1행동] 다음 행동이 단일 대상 주문 시전이고 대상에게 피해를 주면, 피해를 받은 대상에 인접한 다른 생물 1명도 절반 피해를 받습니다(같은 피해 유형).",
     "desc": "다음 행동이 단일 대상 주문 시전이고 대상에게 피해를 주면, 피해를 받은 대상에 인접한 다른 생물 1명도 <strong>절반 피해</strong>를 받습니다(같은 피해 유형)."
   },
@@ -12992,6 +13296,7 @@ var FEAT_DB = [
       "위치"
     ],
     "category": "witch",
+    "actionCost": "free",
     "summary": "[자유 행동] 빈도: 하루 1회. 다음 행동이 위치 캔트립이거나 가장 높은 슬롯보다 2랭크 이상 낮은 위치 주문이면, 시전에 필요한 행동 수 1 감소(최소 1).",
     "desc": "<strong>빈도:</strong> 하루 1회. 다음 행동이 위치 캔트립이거나 가장 높은 슬롯보다 2랭크 이상 낮은 위치 주문이면, 시전에 필요한 <strong>행동 수 1 감소</strong>(최소 1)."
   },
@@ -13060,7 +13365,6 @@ var FEAT_DB = [
     "name_ko": "주문 반사",
     "name_en": "Reflect Spell",
     "feat_level": 14,
-    "prerequisites": "반격 주문. 반격 주문으로 상쇄에 대성공하면, 주문을 시전자에게 되돌려보냅니다(시전자가 새 대상이 됨).",
     "prereqs": [
       {
         "feat": "Counterspell"
@@ -13070,6 +13374,7 @@ var FEAT_DB = [
       "위치"
     ],
     "category": "witch",
+    "prerequisites": "반격 주문. 반격 주문으로 상쇄에 대성공하면, 주문을 시전자에게 되돌려보냅니다(시전자가 새 대상이 됨).",
     "summary": "대성공하면, 주문을 시전자에게 되돌려보냅니다(시전자가 새 대상이 됨).",
     "desc": "<strong>대성공</strong>하면, 주문을 시전자에게 <strong>되돌려보냅니다</strong>(시전자가 새 대상이 됨)."
   },
@@ -13094,6 +13399,7 @@ var FEAT_DB = [
       "위치"
     ],
     "category": "witch",
+    "actionCost": "free",
     "summary": "[자유 행동] 유발 조건: 턴 시작. 활성 위치 주문 1개의 지속 시간을 즉시 연장.",
     "desc": "<strong>유발 조건:</strong> 턴 시작. 활성 위치 주문 1개의 지속 시간을 즉시 연장."
   },
@@ -13150,11 +13456,11 @@ var FEAT_DB = [
     "name_ko": "후원자의 진실",
     "name_en": "Patron's Truth",
     "feat_level": 20,
-    "prerequisites": "후원자의 선물. 추가 10랭크 주문 슬롯을 얻습니다.",
     "traits": [
       "위치"
     ],
     "category": "witch",
+    "prerequisites": "후원자의 선물. 추가 10랭크 주문 슬롯을 얻습니다.",
     "summary": "추가 10랭크 주문 슬롯을 얻습니다.",
     "desc": "<strong>추가 10랭크 주문 슬롯</strong>을 얻습니다."
   },

@@ -120,7 +120,7 @@ var CLASS_FEATURE_NAMES = {
   ],
   cleric: [
     {lv:1, name_ko:'신성 주문시전', name_en:'Divine Spellcasting', desc:'신성 전통의 주문을 준비하여 시전합니다. 핵심 능력치는 지혜이며, 매일 아침 신성 주문 목록에서 주문을 준비합니다. 1레벨에 1랭크 주문 2개와 신성 캔트립 5개를 준비할 수 있습니다.'},
-    {lv:1, name_ko:'신성 원천', name_en:'Divine Font', desc:'신의 축복을 통해 활력 또는 공허의 힘을 전달하는 추가 주문을 얻습니다. <strong>치유 원천:</strong> 최고 랭크 추가 슬롯에 <em>heal</em> 주문만 준비 가능. <strong>해악 원천:</strong> 최고 랭크 추가 슬롯에 <em>harm</em> 주문만 준비 가능. 추가 슬롯은 1레벨 4개, 5레벨 5개, 15레벨 6개입니다.'},
+    {lv:1, id:'divine-font', name_ko:'신성 원천', name_en:'Divine Font', desc:'신의 축복을 통해 활력 또는 공허의 힘을 전달하는 추가 주문을 얻습니다. <strong>치유 원천:</strong> 최고 랭크 추가 슬롯에 <em>heal</em> 주문만 준비 가능. <strong>해악 원천:</strong> 최고 랭크 추가 슬롯에 <em>harm</em> 주문만 준비 가능. 추가 슬롯은 1레벨 4개, 5레벨 5개, 15레벨 6개입니다.'},
     {lv:3, name_ko:'2차 교의', name_en:'Second Doctrine', desc:'2차 교의의 혜택을 얻습니다. <strong>은둔:</strong> 인내 내성 숙련도가 전문가로 증가합니다. <strong>전쟁사제:</strong> 군용 무기에 훈련됩니다.'},
     {lv:5, name_ko:'지각 전문가', name_en:'Alertness', desc:'주변에 항상 경계합니다. 지각 숙련도가 전문가로 증가합니다.'},
     {lv:7, name_ko:'3차 교의', name_en:'Third Doctrine', desc:'3차 교의의 혜택을 얻습니다. <strong>은둔:</strong> 주문 명중과 DC 숙련도가 전문가로 증가합니다. <strong>전쟁사제:</strong> 신의 총애 무기, 단순 무기, 비무장 공격 숙련도가 전문가로 증가합니다.'},

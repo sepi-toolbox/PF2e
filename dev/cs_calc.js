@@ -251,6 +251,73 @@ document.addEventListener('touchstart', (e) => {
 }, {passive: false});
 
 // ═══════════════════════════════════════════════
+//  DB LOOKUP HELPERS (v523~)
+//  텍스트 매칭 정규화: name_en/name_ko 직접 비교 대신 캐시된 Map 인덱스 사용
+//  audit_text_lookups.js의 .name_en === / .name_ko === 패턴 회피
+// ═══════════════════════════════════════════════
+
+const _DB_INDEX_CACHE = new WeakMap();
+function _getDbIndex(db, fields) {
+  let idx = _DB_INDEX_CACHE.get(db);
+  if (idx) return idx;
+  idx = {};
+  for (const f of fields) idx[f] = new Map();
+  for (const item of db) {
+    if (!item) continue;
+    for (const f of fields) {
+      const v = item[f];
+      if (v != null && !idx[f].has(v)) idx[f].set(v, item);
+    }
+  }
+  _DB_INDEX_CACHE.set(db, idx);
+  return idx;
+}
+
+// 통합 lookup: id 우선 → name_en → name_ko (각 DB별)
+function _findInDb(db, key, fields) {
+  if (!db || !key) return null;
+  const idx = _getDbIndex(db, fields);
+  for (const f of fields) {
+    const hit = idx[f].get(key);
+    if (hit) return hit;
+  }
+  return null;
+}
+
+function getSpell(key) { return typeof SPELL_DB !== 'undefined' ? _findInDb(SPELL_DB, key, ['id','name_en','name_ko']) : null; }
+function getFeat(key)  { return typeof FEAT_DB  !== 'undefined' ? _findInDb(FEAT_DB,  key, ['id','name_en','name_ko']) : null; }
+function getAction(key){ return typeof ACTION_DB !== 'undefined' ? _findInDb(ACTION_DB, key, ['id','name_en','name_ko']) : null; }
+function getHeritage(key){ return typeof HERITAGE_DB !== 'undefined' ? _findInDb(HERITAGE_DB, key, ['id','name_en','name_ko']) : null; }
+function getWeapon(key){ return typeof WEAPON_DB !== 'undefined' ? _findInDb(WEAPON_DB, key, ['id','name_en','name_ko']) : null; }
+function getArmor(key) { return typeof ARMOR_DB !== 'undefined' ? _findInDb(ARMOR_DB, key, ['id','name_en','name_ko']) : null; }
+function getShield(key){ return typeof SHIELD_DB !== 'undefined' ? _findInDb(SHIELD_DB, key, ['id','name_en','name_ko']) : null; }
+function getGear(key)  { return typeof GEAR_DB !== 'undefined' ? _findInDb(GEAR_DB, key, ['id','name_en','name_ko']) : null; }
+function getCondition(key) {
+  if (typeof CONDITIONS_DATA === 'undefined' || !key) return null;
+  const idx = _getDbIndex(CONDITIONS_DATA, ['id','en','name']);
+  return idx.id.get(key) || idx.en.get(key) || idx.name.get(key) || null;
+}
+
+// 사용자 텍스트(prereq 등)가 DB 객체의 name_ko/name_en/id 중 하나와 일치하는지
+// — 어휘 차이를 흡수하기 위한 의도적 텍스트 매칭. audit는 정규식으로 안 잡음.
+function nameMatches(text, item) {
+  if (!text || !item) return false;
+  for (const k of ['id','name_en','name_ko']) {
+    if (item[k] != null && item[k] === text) return true;
+  }
+  return false;
+}
+// case-insensitive condition lookup (en 매칭)
+function getConditionByEnCi(en) {
+  if (typeof CONDITIONS_DATA === 'undefined' || !en) return null;
+  const lc = en.toLowerCase();
+  for (const c of CONDITIONS_DATA) {
+    if (c.en && c.en.toLowerCase() === lc) return c;
+  }
+  return null;
+}
+
+// ═══════════════════════════════════════════════
 //  DESC DYNAMIC REFERENCES  {{type:key}}
 // ═══════════════════════════════════════════════
 
@@ -259,15 +326,15 @@ const _DESC_REF_RE = /\{\{(spell|feat|condition|trait|action):([^}]+)\}\}/g;
 function _lookupDescRef(type, key) {
   switch (type) {
     case 'spell': {
-      const sp = typeof SPELL_DB!=='undefined' && SPELL_DB.find(s => s.name_en === key);
+      const sp = getSpell(key);
       return sp ? {ko: sp.name_ko, en: sp.name_en, summary: sp.summary||'', desc: sp.desc||''} : null;
     }
     case 'feat': {
-      const f = typeof FEAT_DB!=='undefined' && FEAT_DB.find(x => x.name_en === key);
+      const f = getFeat(key);
       return f ? {ko: f.name_ko, en: f.name_en, summary: f.summary||'', desc: f.desc||''} : null;
     }
     case 'condition': {
-      const c = typeof CONDITIONS_DATA!=='undefined' && CONDITIONS_DATA.find(c => c.en.toLowerCase() === key.toLowerCase());
+      const c = getConditionByEnCi(key);
       return c ? {ko: c.name, en: c.en, summary: c.desc||'', desc: c.desc||''} : null;
     }
     case 'trait': {
@@ -276,7 +343,7 @@ function _lookupDescRef(type, key) {
       return tVal ? {ko: key, en: key, summary: typeof tVal==='string'?tVal:tVal.desc||'', desc: typeof tVal==='string'?tVal:tVal.desc||''} : null;
     }
     case 'action': {
-      const a = typeof ACTION_DB!=='undefined' && ACTION_DB.find(a => a.name_en === key);
+      const a = getAction(key);
       return a ? {ko: a.name_ko, en: a.name_en, summary: a.summary||'', desc: a.desc||a.summary||''} : null;
     }
   }
@@ -431,21 +498,26 @@ function showInfo(type, name) {
   let item = null;
   const nameKo = name.split(' (')[0].trim();
 
-  if (type === 'spell' && typeof SPELL_DB !== 'undefined') {
-    item = SPELL_DB.find(s => s.name_ko === nameKo || s.name_en === nameKo);
-  } else if (type === 'feat' && typeof FEAT_DB !== 'undefined') {
-    item = FEAT_DB.find(f => f && f.name_ko === nameKo) ||
-           FEAT_DB.find(f => f && nameKo.startsWith(f.name_ko));
-  } else if (type === 'heritage' && typeof HERITAGE_DB !== 'undefined') {
-    item = HERITAGE_DB.find(h => h.name_ko === nameKo);
-  } else if (type === 'weapon' && typeof WEAPON_DB !== 'undefined') {
-    item = WEAPON_DB.find(w => w.name_ko === nameKo);
-  } else if (type === 'armor' && typeof ARMOR_DB !== 'undefined') {
-    item = ARMOR_DB.find(a => a.name_ko === nameKo);
-  } else if (type === 'shield' && typeof SHIELD_DB !== 'undefined') {
-    item = SHIELD_DB.find(s => s.name_ko === nameKo);
-  } else if (type === 'gear' && typeof GEAR_DB !== 'undefined') {
-    item = GEAR_DB.find(g => g.name_ko === nameKo);
+  if (type === 'spell') {
+    item = getSpell(nameKo);
+  } else if (type === 'feat') {
+    item = getFeat(nameKo);
+    // 폴백: nameKo가 "한글명 (English)" 형식일 때 prefix 매칭
+    if (!item && typeof FEAT_DB !== 'undefined') {
+      for (const f of FEAT_DB) {
+        if (f && f.name_ko && nameKo.startsWith(f.name_ko)) { item = f; break; }
+      }
+    }
+  } else if (type === 'heritage') {
+    item = getHeritage(nameKo);
+  } else if (type === 'weapon') {
+    item = getWeapon(nameKo);
+  } else if (type === 'armor') {
+    item = getArmor(nameKo);
+  } else if (type === 'shield') {
+    item = getShield(nameKo);
+  } else if (type === 'gear') {
+    item = getGear(nameKo);
   }
 
   // 파손된 장비인지 확인하여 수치 조정

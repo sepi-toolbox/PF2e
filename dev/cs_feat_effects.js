@@ -2824,7 +2824,7 @@ const FEAT_EFFECTS = {
 
   // ── 레인저 멀티클래스 ──
   'Ranger Dedication': {
-    effects: [{type:'skill_trained', skill:'survival'}, {type:'grant_action', summary:'[1행동] 사냥감 추적 (Hunt Prey) — 시야 내 생물 1명을 사냥감으로 지정. 사냥감에 대해 무시(Ignore) 지형을 사용하여 추적하고, 추적 속도가 전체 속도가 됩니다.'}, {type:'display_note', text:'레인저 클래스 DC 숙련'}]
+    effects: [{type:'skill_trained', skill:'survival'}, {type:'grant_action', summary:'[1행동] 사냥감 추적 (Hunt Prey) — 시야 내 생물 1명을 사냥감으로 지정. 사냥감에 대해 무시(Ignore) 지형을 사용하여 추적하고, 추적 속도가 전체 속도가 됩니다.', actionCost:'1'}, {type:'display_note', text:'레인저 클래스 DC 숙련'}]
   },
   "Basic Hunter's Trick": {
     effects: [{type:'display_note', text:'1~2레벨 레인저 재주 1개 습득'}]
@@ -2841,7 +2841,7 @@ const FEAT_EFFECTS = {
 
   // ── 로그 멀티클래스 ──
   'Rogue Dedication': {
-    effects: [{type:'skill_trained', skill:'stealth'}, {type:'skill_trained', skill:'thievery'}, {type:'grant_action', summary:'기습 공격 (Surprise Attack) — 전투 시작 시 선제를 굴리기 전에 행동한 적이 아닌 모든 생물은 당신에게 무방비(flat-footed)입니다. 첫 턴이 끝나면 해제.'}, {type:'display_note', text:'기술 재주 1개 습득. 경갑 숙련됨. 로그 클래스 DC 숙련'}]
+    effects: [{type:'skill_trained', skill:'stealth'}, {type:'skill_trained', skill:'thievery'}, {type:'grant_action', summary:'기습 공격 (Surprise Attack) — 전투 시작 시 선제를 굴리기 전에 행동한 적이 아닌 모든 생물은 당신에게 무방비(flat-footed)입니다. 첫 턴이 끝나면 해제.', actionCost:'free'}, {type:'display_note', text:'기술 재주 1개 습득. 경갑 숙련됨. 로그 클래스 DC 숙련'}]
   },
   'Basic Trickery': {
     effects: [{type:'display_note', text:'1~2레벨 로그 재주 1개 습득'}]
@@ -3106,7 +3106,7 @@ function _applyOneEffect(fb, eff, feat, level) {
       // summary 기반 동적 행동 (ACTION_DB에 없는 행동) — 레거시
       if (eff.summary && feat.name) {
         if (!fb._customActions) fb._customActions = [];
-        fb._customActions.push({featName: feat.name, summary: eff.summary});
+        fb._customActions.push({featName: feat.name, summary: eff.summary, actionCost: eff.actionCost || 'free'});
       }
       // actionName 기반: desc에서 자동 추출 (정본 = feat_db.desc)
       if (eff.actionName && feat.name) {
@@ -3313,10 +3313,8 @@ function _extractEnName(featFullName) {
   if (m) return m[1].trim();
   // 영문명이 없으면 FEAT_DB에서 한국어 이름으로 매칭
   const nameKo = featFullName.split(' (')[0].trim();
-  if (typeof FEAT_DB !== 'undefined') {
-    const found = FEAT_DB.find(f => f && f.name_ko === nameKo);
-    if (found) return found.name_en || '';
-  }
+  const found = getFeat(nameKo);
+  if (found) return found.name_en || '';
   return '';
 }
 
@@ -3374,7 +3372,7 @@ function _hasFeatPrereqIssue(feat) {
   if (typeof FEAT_DB === 'undefined' || typeof _checkPrereqs !== 'function') return false;
   const nameKo = feat.name?.split(' (')[0]?.trim();
   if (!nameKo) return false;
-  const fd = FEAT_DB.find(f => f && f.name_ko === nameKo);
+  const fd = getFeat(nameKo);
   if (!fd) return false;
   if (!fd.prereqs && !fd.prerequisites) return false;
   return !_checkPrereqs(fd);

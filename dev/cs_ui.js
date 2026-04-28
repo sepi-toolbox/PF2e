@@ -46,8 +46,8 @@ function initArmorProfBadges() {
 
 // ── Armor category detection ──
 function getArmorCategory(name) {
-  if (!name || typeof ARMOR_DB === 'undefined') return 'unarmored';
-  const armor = ARMOR_DB.find(a => a.name_ko === name || a.name_en === name);
+  if (!name) return 'unarmored';
+  const armor = getArmor(name);
   if (!armor) return 'unarmored';
   const cat = armor.category || '';
   if (cat.includes('경갑') || cat.toLowerCase().includes('light')) return 'light';
@@ -1508,7 +1508,7 @@ function renderSpells() {
       innateList.innerHTML = '';
       if (!state.innateSpellsUsed) state.innateSpellsUsed = {};
       innateArr.forEach((s, i) => {
-        const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
+        const spellData = getSpell(s.name);
         const actions = getActionIcons(spellData?.actions);
         const isCantrip = s.type === 'cantrip';
         const rankLabel = isCantrip ? `[캔트립 ${heightenedLevel}랭크]` : (s.rank ? `[${s.rank}랭크]` : '');
@@ -1609,7 +1609,7 @@ function renderSpells() {
         const row = document.createElement('div');
         row.className = 'spell-slot-row';
         if (name) {
-          const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === name) : null;
+          const spellData = getSpell(name);
           const actions = getActionIcons(spellData?.actions);
           row.innerHTML = `
             <span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
@@ -1629,7 +1629,7 @@ function renderSpells() {
         row.className = 'spell-slot-row';
         if (isAuto) row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
         if (spell) {
-          const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
+          const spellData = getSpell(spell.name);
           const actions = getActionIcons(spellData?.actions);
           const srcLabel = isAuto && spell._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${spell._source}</span>` : '';
           row.innerHTML = `
@@ -1650,7 +1650,7 @@ function renderSpells() {
   // 집중 캔트립과 집중 주문 분리 렌더링 (SPELL_DB의 is_cantrip 기반)
   const focusCantrips = (state.spells.focus || []).filter(s => {
     if (!s) return false;
-    const spData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
+    const spData = getSpell(s.name);
     return spData ? spData.is_cantrip : (s.name || '').includes('캔트립');
   });
   const focusRegular = (state.spells.focus || []).filter(s => s && !focusCantrips.includes(s));
@@ -1782,7 +1782,7 @@ function renderSpells() {
 
       // 정식으로 배운 주문
       allAtRank.forEach(spell => {
-        const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
+        const spellData = getSpell(spell.name);
         const actions = getActionIcons(spellData?.actions);
         const isAuto = spell._auto;
         const isSig = sigs[r] === spell.name;
@@ -1806,7 +1806,7 @@ function renderSpells() {
 
       // 시그니처 고양 주문 (낮은 랭크에서 올라온 것)
       sigHeightened.forEach(sig => {
-        const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === sig.name) : null;
+        const spellData = getSpell(sig.name);
         const actions = getActionIcons(spellData?.actions);
         const row = document.createElement('div');
         row.className = 'spell-slot-row';
@@ -1826,7 +1826,7 @@ function renderSpells() {
         row.className = 'spell-slot-row';
         if (isCast) row.style.opacity = '0.35';
         if (name) {
-          const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === name) : null;
+          const spellData = getSpell(name);
           const actions = getActionIcons(spellData?.actions);
           const fireIcon = `<span class="spell-slot-fire${isCast?' used':''}" onclick="togglePreparedCast(${r},${i})" style="cursor:pointer;font-size:14px;margin-right:4px;" title="${isCast?'슬롯 복원':'시전 (소모)'}">\uD83D\uDD25</span>`;
           row.innerHTML = `
@@ -1860,7 +1860,7 @@ function renderSpells() {
         row.className = 'spell-slot-row' + (isCast ? ' slot-used' : '');
         if (spell) {
           const globalIdx = state.spells.known.indexOf(spell);
-          const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
+          const spellData = getSpell(spell.name);
           const actions = getActionIcons(spellData?.actions);
           row.innerHTML = `
             <span class="spell-cast-label${isCast?' cast-used':''}" onclick="toggleSpellCast(${r},${i})">Cast</span>
@@ -1880,7 +1880,7 @@ function renderSpells() {
       }
       // _auto 주문
       autoAtRank.forEach(spell => {
-        const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
+        const spellData = getSpell(spell.name);
         const actions = getActionIcons(spellData?.actions);
         const row = document.createElement('div');
         row.className = 'spell-slot-row';
@@ -1955,7 +1955,7 @@ function renderSpellSlotList(elId, arr, type, heightenedLevel) {
   el.innerHTML = '';
   arr.forEach((s, i) => {
     const isAuto = s?._auto;
-    const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
+    const spellData = getSpell(s.name);
     const actions = getActionIcons(spellData?.actions);
     // 집중 주문 랭크 표시: 캔트립은 heightenedLevel로, 일반 집중주문도 heightenedLevel
     let rankLabel = '';
@@ -2001,7 +2001,7 @@ function addFeat(type) {
   // DB에서 영문명 매칭
   let fullName = name;
   if (typeof FEAT_DB !== 'undefined' && !name.includes('(')) {
-    const found = FEAT_DB.find(f => f && f.name_ko === name.trim());
+    const found = getFeat(name.trim());
     if (found?.name_en) fullName = `${found.name_ko} (${found.name_en})`;
   }
   state.feats[type].push({name: fullName, level:getLevel()});
@@ -2059,14 +2059,15 @@ function renderFeats() {
       // DB에서 설명 가져오기
       const fNameKo = f.name.split(' (')[0].trim();
       const fNameEn = (f.name.match(/\(([^)]+)\)/)||[])[1] || '';
-      let featData = (typeof FEAT_DB !== 'undefined') ? FEAT_DB.find(fd => fd && fd.name_ko === fNameKo) : null;
+      let featData = getFeat(fNameKo);
       // 클래스 특성은 CLASS_FEATURE_NAMES / SUBCLASS_DB.features에서 desc 보충
       let classFeatureDesc = '';
       if (t === 'special' && typeof CLASS_FEATURE_NAMES !== 'undefined') {
         const clsId = state.selectedClass?.id;
         const allCF = [...(clsId && CLASS_FEATURE_NAMES[clsId] || []),
                        ...(state.selectedSubclass?.features || [])];
-        const cfMatch = allCF.find(cf => cf.name_ko === fNameKo || cf.name_en === fNameEn);
+        // 어휘 매칭 (사용자 데이터 vs DB 객체) — _findInDb로 처리
+        const cfMatch = _findInDb(allCF, fNameKo, ['name_ko','name_en']) || _findInDb(allCF, fNameEn, ['name_ko','name_en']);
         if (cfMatch?.desc) classFeatureDesc = cfMatch.desc;
       }
       const desc = featData?.desc || featData?.summary || classFeatureDesc || '';
@@ -2133,7 +2134,7 @@ function cascadeRemoveFeats() {
         const f = arr[j];
         if (!f?.name) continue;
         const fNameKo = f.name.split(' (')[0].trim();
-        const fData = FEAT_DB.find(fd => fd && fd.name_ko === fNameKo);
+        const fData = getFeat(fNameKo);
         if (fData?.prerequisites && !_checkPrereqs(fData.prerequisites)) {
           if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== f.name);
           // 성장에서도 제거
@@ -3830,7 +3831,7 @@ function renderPetCondList(i) {
   container.innerHTML = '';
 
   CONDITIONS_DATA.forEach(c => {
-    if (c.name === '파손됨') return; // 장비 상태이므로 제외
+    if (c.id === 'broken') return; // 장비 상태이므로 제외
     if (q && !c.name.includes(q) && !c.en.toLowerCase().includes(q)) return;
     const current = p.conditions[c.name] || 0;
     const isActive = c.valued ? current > 0 : !!current;

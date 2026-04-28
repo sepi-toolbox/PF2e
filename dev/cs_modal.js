@@ -214,7 +214,7 @@ function renderConditionList() {
   container.innerHTML = '';
 
   CONDITIONS_DATA.forEach(c => {
-    if (c.name === '파손됨') return; // 장비 상태이므로 제외
+    if (c.id === 'broken') return; // 장비 상태이므로 제외
     if (q && !c.name.includes(q) && !c.en.toLowerCase().includes(q)) return;
     const row = document.createElement('div');
     row.className = 'opt-row';
@@ -670,8 +670,15 @@ function applyClassFeatures() {
   const featureNames = (typeof CLASS_FEATURE_NAMES !== 'undefined' ? CLASS_FEATURE_NAMES[cls.id] : null) || [];
   const subFeatureNames = (state.selectedSubclass && true)
     ? (state.selectedSubclass.features || []) : [];
+  // id/name_en/name_ko 중 하나라도 일치하면 동일 항목으로 간주 (어휘 차이 흡수)
+  const _featMatch = (a, b) => {
+    for (const k of ['id','name_en','name_ko']) {
+      if (a[k] != null && a[k] === b[k]) return true;
+    }
+    return false;
+  };
   [...featureNames, ...subFeatureNames].forEach(f => {
-    if (f.lv <= level && !allAutoFeats.some(a => a.name_ko === f.name_ko || a.name_en === f.name_en)) {
+    if (f.lv <= level && !allAutoFeats.some(a => _featMatch(a, f))) {
       allAutoFeats.push({lv: f.lv, name_ko: f.name_ko, name_en: f.name_en, category: 'special'});
     }
   });
@@ -922,7 +929,7 @@ function previewDivineFont(val, row) {
     ? '최고 랭크 추가 슬롯에 <em>치유(Heal)</em> 주문만 준비할 수 있습니다.'
     : '최고 랭크 추가 슬롯에 <em>해로움(Harm)</em> 주문만 준비할 수 있습니다.';
   const _dfDesc = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
-    ? (CLASS_FEATURE_NAMES.cleric.find(f => f.name_en === 'Divine Font') || {}).desc || '' : '';
+    ? (CLASS_FEATURE_NAMES.cleric.find(f => f.id === 'divine-font') || {}).desc || '' : '';
 
   const detailHtml = `
     <div class="modal-detail-title">${icon} ${label}</div>
@@ -2279,7 +2286,7 @@ function _renderMemorizeDetail() {
   const label = isCantrip ? '캔트립' : `${rank}랭크`;
   let html = `<div style="padding:8px;"><div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">슬롯 ${active.idx+1} — ${label} 주문 선택</div>`;
   available.forEach(({name, note}) => {
-    const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === name) : null;
+    const spellData = getSpell(name);
     const actions = typeof getActionIcons === 'function' ? getActionIcons(spellData?.actions) : '';
     html += `<div onclick="_memorizeAssign('${name.replace(/'/g,"\\'")}')" style="display:flex;align-items:center;gap:8px;padding:8px 10px;margin:3px 0;border-radius:6px;cursor:pointer;font-size:13px;background:var(--bg3);border:1px solid var(--border);transition:background 0.1s;" onmouseenter="this.style.background='var(--accent)';this.style.color='#000'" onmouseleave="this.style.background='var(--bg3)';this.style.color=''">
       <span style="flex:1;font-weight:500;">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
@@ -2381,7 +2388,7 @@ function openPrepareSpellForSlot(rank, slotIdx) {
   }
 
   allAvailable.forEach(({name, originalRank}) => {
-    const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === name) : null;
+    const spellData = getSpell(name);
     const actions = typeof getActionIcons === 'function' ? getActionIcons(spellData?.actions) : '';
     const row = document.createElement('div');
     row.className = 'opt-row';
@@ -2643,17 +2650,18 @@ function _checkOnePrereq(cond) {
   }
   // 유산: {heritage:'천상 혈통'}
   if (cond.heritage) {
-    return state.selectedHeritage?.name_ko === cond.heritage;
+    return nameMatches(cond.heritage, state.selectedHeritage);
   }
   // 서브클래스: {subclass:'수수께끼 뮤즈'} — name_ko로 시작하면 매칭 (서브클래스 타입 단어 차이 허용)
   if (cond.subclass) {
     const c = cond.subclass;
     const matchSub = (sub) => {
       if (!sub) return false;
-      if (sub.name_ko === c || sub.name_en === c) return true;
+      if (nameMatches(c, sub)) return true;
       // "폭풍 결사" / "수수께끼 뮤즈" 등: 첫 단어가 name_ko면 매칭 ('교단'/'결사' 같은 어휘 차이 흡수)
-      if (sub.name_ko && c.split(' ')[0] === sub.name_ko) return true;
-      if (sub.name_en && c.split(' ')[0].toLowerCase() === sub.name_en.toLowerCase()) return true;
+      const firstWord = c.split(' ')[0];
+      if (sub.name_ko && firstWord === sub.name_ko) return true;
+      if (sub.name_en && firstWord.toLowerCase() === sub.name_en.toLowerCase()) return true;
       return false;
     };
     if (matchSub(state.selectedSubclass)) return true;
@@ -2737,16 +2745,16 @@ function _checkPrereqsText(prereqStr) {
     // 혈통/유산/서브클래스/재주 — 기존 로직 유지
     if (state.selectedAncestry?.traits?.includes(c)) continue;
     if (state.selectedHeritage?.extraFeats?.includes(c)) continue;
-    if (state.selectedHeritage?.name_ko === c) continue;
+    if (nameMatches(c, state.selectedHeritage)) continue;
     if (state.selectedSubclass) {
       const sub = state.selectedSubclass;
-      if (sub.name_ko === c || sub.name_en === c) continue;
+      if (nameMatches(c, sub)) continue;
       if (sub.subclass_type && c === sub.name_ko + ' ' + sub.subclass_type) continue;
     }
     if (/\d+레벨/.test(c)) continue;
     if (learnedFeats.has(c)) continue;
-    if (typeof FEAT_DB !== 'undefined') {
-      const found = FEAT_DB.find(f => f && (f.name_ko === c || f.name_en === c));
+    {
+      const found = getFeat(c);
       if (found && (learnedFeats.has(found.name_ko) || learnedFeats.has(found.name_en))) continue;
     }
     if (c === '주문시전 클래스 특성') { if (!state.selectedClass?.tradition) return false; continue; }
@@ -2769,7 +2777,7 @@ function canTakeDedication(f) {
   const allFeats = Object.values(state.feats).flat().filter(ff => ff?.name);
   const ownedDedications = allFeats.filter(ff => {
     const nameKo = ff.name.split(' (')[0].trim();
-    const dbEntry = typeof FEAT_DB !== 'undefined' ? FEAT_DB.find(fd => fd && fd.name_ko === nameKo) : null;
+    const dbEntry = getFeat(nameKo);
     return dbEntry?.traits?.includes('헌신');
   });
   if (ownedDedications.length === 0) return true; // 첫 헌신은 자유
@@ -2782,7 +2790,7 @@ function canTakeDedication(f) {
     const archFeats = allFeats.filter(ff => {
       if (ff.name === ded.name) return false; // 헌신 자체 제외
       const fNameKo = ff.name.split(' (')[0].trim();
-      const fDb = typeof FEAT_DB !== 'undefined' ? FEAT_DB.find(fd => fd && fd.name_ko === fNameKo) : null;
+      const fDb = getFeat(fNameKo);
       return fDb?.category === 'archetype' && fDb?.prerequisites?.includes(classWord);
     });
     if (archFeats.length < 2) return false;
@@ -2985,7 +2993,9 @@ function renderOptions(data) {
     const row = document.createElement('div');
     const nameKo = item.name || item.name_ko || '';
     const nameEn = item.en || item.name_en || '';
-    const selected = modalSelected?.id === item.id || modalSelected?.name_ko === item.name_ko;
+    // id 우선 매칭, id 없는 모달 항목(혈통/배경 등 일부)은 name_ko 폴백
+    const _matchKey = modalSelected?.id != null && item?.id != null ? 'id' : 'name_ko';
+    const selected = !!modalSelected && modalSelected[_matchKey] != null && modalSelected[_matchKey] === item?.[_matchKey];
     row.className = 'opt-row' + (selected ? ' selected' : '');
 
     // Level/rank badge
@@ -3211,8 +3221,8 @@ function formatDescActions(text, item) {
   nameKo = nameKo.replace(/을$|를$/, '').trim();
 
   // ACTION_DB에 등록된 행동이면 DB 데이터를 그대로 사용
-  if (nameKo && typeof ACTION_DB !== 'undefined') {
-    const dbAction = ACTION_DB.find(a => a.name_ko === nameKo || (nameEn && a.name_en === nameEn));
+  if (nameKo) {
+    const dbAction = getAction(nameKo) || (nameEn ? getAction(nameEn) : null);
     if (dbAction) {
       return (prefixText ? prefixText + '<br>' : '') +
         _buildActionCard(dbAction.cost, dbAction.name_ko, dbAction.name_en, dbAction.traits||[], dbAction.summary);
@@ -3676,8 +3686,7 @@ function _renderSubclassFeatsInBlock(subId, containerId) {
   autoFeats.forEach(af => {
     shownNames.add(af.name_en);
     if (af.name_ko) shownKoNames.add(af.name_ko);
-    const feat = typeof FEAT_DB !== 'undefined'
-      ? FEAT_DB.find(f => f.name_en === af.name_en || f.name_ko === af.name_ko) : null;
+    const feat = getFeat(af.name_en) || getFeat(af.name_ko);
     const descHtml = feat?.desc || feat?.summary || '';
     html += `<div style="${_cs}">
       <div style="font-size:11px;font-weight:600;color:var(--text1);margin-bottom:4px;">🎖 ${af.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${af.name_en}</span> <span style="${_badge}">재주</span></div>
@@ -3690,8 +3699,7 @@ function _renderSubclassFeatsInBlock(subId, containerId) {
   autoSpells.forEach(sp => {
     shownNames.add(sp.name_en);
     shownKoNames.add(sp.name_ko);
-    const spellData = typeof SPELL_DB !== 'undefined'
-      ? SPELL_DB.find(s => s.name_en === sp.name_en || s.name_ko === sp.name_ko) : null;
+    const spellData = getSpell(sp.name_en) || getSpell(sp.name_ko);
     const typeLabel = sp.type === 'focus' ? '집중 주문' : sp.type === 'cantrip' ? '캔트립' : `${sp.rank || 1}랭크 주문`;
     html += `<div style="${_cs}">
       <div style="font-size:11px;font-weight:600;color:var(--text1);margin-bottom:4px;">✨ ${sp.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${sp.name_en}</span> <span style="${_badge}">${typeLabel}</span></div>
@@ -3875,10 +3883,10 @@ function _onClericFontChange(val) {
     if (!val) { info.innerHTML = ''; _validateInitialChoices(); return; }
     // 신성 원천 기능 설명
     const cfDesc = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
-      ? (CLASS_FEATURE_NAMES.cleric.find(f => f.name_en === 'Divine Font') || {}).desc || '' : '';
+      ? (CLASS_FEATURE_NAMES.cleric.find(f => f.id === 'divine-font') || {}).desc || '' : '';
     // 주문 정보
     const spellName = val === 'heal' ? '치유' : '해로움';
-    const spell = typeof SPELL_DB !== 'undefined' ? SPELL_DB.find(s => s.name_ko === spellName) : null;
+    const spell = getSpell(spellName);
     let spellHtml = '';
     if (spell) {
       spellHtml = `<div style="margin-top:6px;padding:6px 8px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);">
@@ -5077,11 +5085,8 @@ function renderActions() {
     const learned = getLearnedFeatNames();
     FEAT_DB.forEach(fd => {
       if (!learned.has(fd.name_ko)) return;
-      // summary 시작이 [행동] 또는 traits에 반응이 있는 재주
-      const actionMatch = (fd.summary||'').match(/^\[(?:반응|1행동|2행동|3행동|자유 행동)\]/);
-      const costMap = {'[반응]':'reaction','[1행동]':'1','[2행동]':'2','[3행동]':'3','[자유 행동]':'free'};
-      let cost = null;
-      if (actionMatch) cost = costMap[actionMatch[0]];
+      // actionCost 컬럼 (v523~) — 정규식 fallback 제거
+      const cost = fd.actionCost || null;
       if (!cost) return;
       const id = 'feat-auto-' + fd.name_en;
       if (existingIds.has(id)) return;
@@ -5103,7 +5108,7 @@ function renderActions() {
       // actionName 기반: desc에서 자동 추출 (정본 = feat_db.desc)
       if (ca.actionName) {
         // 부모 재주의 desc에서 행동 섹션 추출
-        const fd = typeof FEAT_DB !== 'undefined' ? FEAT_DB.find(f => f && f.name_ko === featNameKo) : null;
+        const fd = getFeat(featNameKo);
         if (!fd?.desc) return;
         const marker = '<strong>' + ca.actionName + '</strong>';
         const idx = fd.desc.indexOf(marker);
@@ -5129,13 +5134,11 @@ function renderActions() {
         return;
       }
 
-      // 레거시: summary 기반 (하위 호환)
+      // 레거시: summary 기반 (하위 호환) — ca.actionCost는 cs_feat_effects.js에서 부여 (v523~)
       const id = 'custom-' + (ca.featName||'').replace(/\s/g,'-');
       if (existingIds2.has(id)) return;
       existingIds2.add(id);
-      const costMatch = ca.summary.match(/^\[(.+?)\]/);
-      const costMap = {'반응':'reaction','1행동':'1','2행동':'2','3행동':'3','자유행동':'free','자유 행동':'free'};
-      const cost = costMatch ? (costMap[costMatch[1]] || 'free') : 'free';
+      const cost = ca.actionCost || 'free';
       const nameEnMatch = ca.featName.match(/\(([^)]+)\)$/);
       const nameEn = nameEnMatch ? nameEnMatch[1] : '';
       const desc = ca.summary.replace(/^\[.+?\]\s*/, '').replace(/^[^—]*—\s*/, '');

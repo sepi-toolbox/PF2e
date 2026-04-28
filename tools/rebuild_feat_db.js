@@ -3,11 +3,27 @@
  * PlayerCore.html에서 재주(feats)를 자동 파싱하여 feat_db.js 형식으로 출력.
  * 혈통 재주는 기존 feat_db.js에 이미 있으므로 class/general/skill만 생성.
  *
- * 사용법: node tools/rebuild_feat_db.js > feat_db_new.js
+ * 사용법:
+ *   루트 cwd: node tools/rebuild_feat_db.js > feat_db_new.js
+ *   dev/ cwd: cd dev && node ../tools/rebuild_feat_db.js > feat_db_new.js
+ *
+ * 출력 형식: JSON (var FEAT_DB = [...];) — dev/feat_db.js 호환
+ * 입력 형식: 양쪽 호환 (eval로 처리, JSON 또는 JS literal 모두 가능)
+ * id 보존: 기존 항목의 id 유지, 신규 항목은 name_en에서 자동 슬러그 생성
  */
 
 const fs = require('fs');
-const html = fs.readFileSync('PlayerCore.html', 'utf8');
+const path = require('path');
+
+// PlayerCore.html은 루트에만 있음 — cwd가 dev/면 ../PlayerCore.html
+const PLAYERCORE_PATH = fs.existsSync('PlayerCore.html')
+  ? 'PlayerCore.html'
+  : fs.existsSync('../PlayerCore.html') ? '../PlayerCore.html' : null;
+if (!PLAYERCORE_PATH) {
+  console.error('ERROR: PlayerCore.html not found in cwd or parent');
+  process.exit(1);
+}
+const html = fs.readFileSync(PLAYERCORE_PATH, 'utf8');
 
 // ── 카테고리 매핑 ──
 const CLASS_MAP = {
@@ -199,6 +215,11 @@ while ((match = h3Re.exec(html)) !== null) {
   if (body.trigger) summaryPrefix += `유발 조건: ${body.trigger}. `;
   if (body.requirements) summaryPrefix += `요구사항: ${body.requirements}. `;
 
+  // actionCost 정규화: PlayerCore 표기 → state value
+  // '반응'→'reaction', '1행동'→'1', '2행동'→'2', '3행동'→'3', '자유 행동'→'free'
+  const ACTION_COST_MAP = {'반응':'reaction','1행동':'1','2행동':'2','3행동':'3','자유 행동':'free'};
+  const actionCost = header.actionCost ? (ACTION_COST_MAP[header.actionCost] || null) : null;
+
   const feat = {
     name_ko: header.name_ko,
     name_en: header.name_en,
@@ -206,6 +227,7 @@ while ((match = h3Re.exec(html)) !== null) {
     prerequisites: body.prerequisites,
     traits: traits,
     category: header.category,
+    actionCost: actionCost,
   };
 
   // summary: 행동 비용이 있으면 앞에 붙임
@@ -225,67 +247,67 @@ while ((match = h3Re.exec(html)) !== null) {
   feats.push(feat);
 }
 
-// ── 기존 feat_db.js에서 혈통/아키타입 재주 + prereqs 읽기 ──
+// ── 기존 feat_db.js를 eval로 로드 (양쪽 형식 호환: JSON 또는 JS literal) ──
 const existingDb = fs.readFileSync('feat_db.js', 'utf8');
+const existingByNameEn = {}; // name_en → 객체 (id, prereqs, desc 등 보존)
+const existingArchetype = []; // 보존할 archetype 객체 그대로
+const existingFeatures = []; // 보존할 feature(class_id 있는) 객체
 
-// prereqs + desc 템플릿 보존: eval로 기존 DB를 로드하여 name_en → prereqs/desc 매핑
-const existingPrereqs = {};
-const existingDescRefs = {};
 try {
   eval(existingDb);
   if (typeof FEAT_DB !== 'undefined') {
     for (const f of FEAT_DB) {
-      if (f && f.name_en && f.prereqs) {
-        existingPrereqs[f.name_en] = JSON.stringify(f.prereqs)
-          .replace(/"(\w+)":/g, '$1:')
-          .replace(/"([^"]+)"/g, (m, v) => "'" + v.replace(/'/g, "\\'") + "'");
-      }
-      // desc에 {{type:key}} 템플릿이 있으면 보존
-      if (f && f.name_en && f.desc && /\{\{(spell|feat|condition|trait|action):/.test(f.desc)) {
-        existingDescRefs[f.name_en] = f.desc;
-      }
+      if (!f || !f.name_en) continue;
+      existingByNameEn[f.name_en] = f;
+      if (f.category === 'archetype') existingArchetype.push(f);
+      if (f.cat === 'feature' && f.class_id) existingFeatures.push(f);
     }
   }
-} catch(e) { console.error('  prereqs 로드 실패:', e.message); }
-console.error(`  기존 prereqs 보존: ${Object.keys(existingPrereqs).length}개`);
-console.error(`  기존 desc 템플릿 보존: ${Object.keys(existingDescRefs).length}개`);
+} catch(e) {
+  console.error('  기존 feat_db.js 로드 실패:', e.message);
+  process.exit(1);
+}
+const preservedPrereqs = Object.values(existingByNameEn).filter(f => f.prereqs).length;
+const preservedDescRefs = Object.values(existingByNameEn).filter(f => f.desc && /\{\{(spell|feat|condition|trait|action):/.test(f.desc)).length;
+console.error(`  기존 항목 로드: ${Object.keys(existingByNameEn).length}개`);
+console.error(`  prereqs 보존 후보: ${preservedPrereqs}개`);
+console.error(`  desc 템플릿 보존 후보: ${preservedDescRefs}개`);
 
-// archetype 재주 + class_id가 있는 feature 항목 추출 (raw text)
-// ancestry는 PlayerCore.html에서 자동 파싱되므로 보존하지 않음 (v364~)
-const existingFeats = [];
-const seenExistingNames = new Set();
-// 중첩 {} 처리를 위해 브래킷 카운팅으로 각 엔트리 추출
-let braceDepth = 0, entryStart = -1;
-for (let i = 0; i < existingDb.length; i++) {
-  if (existingDb[i] === '{') {
-    if (braceDepth === 0) entryStart = i;
-    braceDepth++;
-  } else if (existingDb[i] === '}') {
-    braceDepth--;
-    if (braceDepth === 0 && entryStart >= 0) {
-      const entry = existingDb.substring(entryStart, i + 1);
-      const catMatch = entry.match(/category:\s*'([^']+)'/);
-      const nameMatch = entry.match(/name_en:\s*'([^']+)'/);
-      const nameKey = nameMatch ? nameMatch[1] : '';
-      if (catMatch) {
-        const cat = catMatch[1];
-        // archetype만 보존 (ancestry는 자동 파싱됨)
-        if (cat === 'archetype' && !seenExistingNames.has(nameKey)) {
-          existingFeats.push(entry);
-          seenExistingNames.add(nameKey);
-        }
-        if (entry.includes('class_id:') && entry.includes("cat:'feature'") && !seenExistingNames.has(nameKey)) {
-          existingFeats.push(entry);
-          seenExistingNames.add(nameKey);
-        }
-      }
-      entryStart = -1;
-    }
-  }
+// ── id 슬러그 생성 ──
+function slugify(name_en) {
+  return name_en.toLowerCase()
+    .replace(/['']/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
-// ── 출력 ──
-// 카테고리별 정렬
+// 기존 id 풀 + 신규 슬러그 충돌 처리
+const allIds = new Set();
+for (const f of Object.values(existingByNameEn)) {
+  if (f.id) allIds.add(f.id);
+}
+
+function assignId(feat) {
+  // 기존 항목이면 기존 id 재사용
+  const existing = existingByNameEn[feat.name_en];
+  if (existing && existing.id) return existing.id;
+  // 신규: name_en에서 슬러그 생성
+  let base = slugify(feat.name_en);
+  if (!allIds.has(base)) { allIds.add(base); return base; }
+  // 1차 충돌: 카테고리 접미사
+  const withCat = `${base}-${feat.category}`;
+  if (!allIds.has(withCat)) { allIds.add(withCat); return withCat; }
+  // 2차 충돌: 숫자 접미사
+  for (let i = 2; i < 100; i++) {
+    const withNum = `${base}-${i}`;
+    if (!allIds.has(withNum)) { allIds.add(withNum); return withNum; }
+  }
+  // 폴백
+  allIds.add(base + '-x');
+  return base + '-x';
+}
+
+// ── 카테고리별 정렬 ──
 const order = ['ancestry','general','skill','bard','champion','cleric','druid','fighter','ranger','rogue','wizard','witch'];
 feats.sort((a, b) => {
   const oi = order.indexOf(a.category) - order.indexOf(b.category);
@@ -302,55 +324,78 @@ for (const [cat, count] of Object.entries(stats)) {
 }
 console.error(`  합계: ${feats.length}`);
 
-// JS 출력
-function escStr(s) {
-  return s.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, ' ').replace(/\r/g, '');
+// ── 최종 객체 배열 빌드 ──
+// 1) archetype: 기존 객체 그대로 유지 (id 포함)
+// 2) feature(class_id): 기존 객체 그대로
+// 3) parsed: id 부여 + prereqs/desc 템플릿 보존 (기존 항목과 머지)
+const finalFeats = [];
+
+// summary 첫 [N행동] 패턴 → actionCost 추출 (자동 파싱 안 되는 archetype/feature용)
+const ACTION_COST_KO_TO_VAL = {'반응':'reaction','1행동':'1','2행동':'2','3행동':'3','자유 행동':'free','자유행동':'free'};
+function extractActionCostFromSummary(summary) {
+  if (!summary) return null;
+  const m = summary.match(/^\[(반응|1행동|2행동|3행동|자유 행동|자유행동)\]/);
+  return m ? (ACTION_COST_KO_TO_VAL[m[1]] || null) : null;
 }
 
+// archetype 먼저 (actionCost 자동 추출 — 누락된 경우만)
+for (const ef of existingArchetype) {
+  if (!ef.id) ef.id = assignId(ef);
+  if (ef.actionCost === undefined) {
+    const ac = extractActionCostFromSummary(ef.summary);
+    if (ac) ef.actionCost = ac;
+  }
+  finalFeats.push(ef);
+}
+for (const ef of existingFeatures) {
+  if (!ef.id) ef.id = assignId(ef);
+  if (ef.actionCost === undefined) {
+    const ac = extractActionCostFromSummary(ef.summary);
+    if (ac) ef.actionCost = ac;
+  }
+  finalFeats.push(ef);
+}
+
+// parsed feats
+for (const f of feats) {
+  const existing = existingByNameEn[f.name_en];
+  // 출력 객체 — 키 순서: id, name_ko, name_en, feat_level, prereqs, traits, category, prerequisites, summary, desc, repeatable
+  const obj = {};
+  obj.id = assignId(f);
+  obj.name_ko = f.name_ko;
+  obj.name_en = f.name_en;
+  obj.feat_level = f.feat_level;
+  // prereqs 보존
+  if (existing && existing.prereqs) obj.prereqs = existing.prereqs;
+  obj.traits = f.traits;
+  obj.category = f.category;
+  if (f.actionCost) obj.actionCost = f.actionCost;
+  if (f.prerequisites) obj.prerequisites = f.prerequisites;
+  // summary 300자 제한
+  obj.summary = f.summary.length > 300 ? f.summary.substring(0, 297) + '...' : f.summary;
+  // desc 템플릿 보존: 기존 desc에 {{}} 참조가 있으면 그것을 사용
+  if (existing && existing.desc && /\{\{(spell|feat|condition|trait|action):/.test(existing.desc)) {
+    obj.desc = existing.desc;
+  } else {
+    obj.desc = f.desc;
+  }
+  if (f.repeatable) obj.repeatable = true;
+  // 사용자 정의 추가 컬럼 보존 (actionCost 등 — 명시 처리한 키 외 모든 키)
+  if (existing) {
+    const known = new Set(['id','name_ko','name_en','feat_level','prereqs','traits','category','actionCost','prerequisites','summary','desc','repeatable','cat','class_id']);
+    for (const k of Object.keys(existing)) {
+      if (!known.has(k)) obj[k] = existing[k];
+    }
+  }
+  finalFeats.push(obj);
+}
+
+// ── JSON 출력 ──
 let out = '// ═══════════════════════════════════════════════\n';
 out += '//  FEAT_DB — 자동생성 (rebuild_feat_db.js)\n';
 out += '//  ancestry/archetype: 기존 수동 데이터 유지\n';
 out += '//  class/general/skill: PlayerCore.html 자동 파싱\n';
 out += '// ═══════════════════════════════════════════════\n\n';
-out += 'var FEAT_DB = [\n';
-
-// 먼저 기존 archetype 출력
-out += '  // ── 아키타입 재주 (기존) ──\n';
-for (const ef of existingFeats) {
-  out += '  ' + ef + ',\n';
-}
-
-// 새 파싱 재주 출력
-let lastCat = '';
-for (const f of feats) {
-  if (f.category !== lastCat) {
-    const label = f.category === 'general' ? '일반 재주' :
-                  f.category === 'skill' ? '기술 재주' :
-                  `${f.category} 클래스 재주`;
-    out += `\n  // ── ${label} ──\n`;
-    lastCat = f.category;
-  }
-  const parts = [];
-  parts.push(`name_ko:'${escStr(f.name_ko)}'`);
-  parts.push(`name_en:'${escStr(f.name_en)}'`);
-  parts.push(`feat_level:${f.feat_level}`);
-  if (f.prerequisites) parts.push(`prerequisites:'${escStr(f.prerequisites)}'`);
-  // 기존 prereqs 보존
-  if (existingPrereqs[f.name_en]) {
-    parts.push(`prereqs:${existingPrereqs[f.name_en]}`);
-  }
-  parts.push(`traits:[${f.traits.map(t => `'${escStr(t)}'`).join(',')}]`);
-  parts.push(`category:'${f.category}'`);
-  // summary 200자 제한
-  const sum = f.summary.length > 300 ? f.summary.substring(0, 297) + '...' : f.summary;
-  parts.push(`summary:'${escStr(sum)}'`);
-  // desc 템플릿 보존: 기존 DB에 {{}} 참조가 있으면 그 desc 유지
-  const finalDesc = existingDescRefs[f.name_en] || f.desc;
-  parts.push(`desc:'${escStr(finalDesc)}'`);
-  if (f.repeatable) parts.push(`repeatable:true`);
-  out += `  {${parts.join(', ')}},\n`;
-}
-
-out += '];\n';
+out += 'var FEAT_DB = ' + JSON.stringify(finalFeats, null, 2) + ';\n';
 
 process.stdout.write(out);
