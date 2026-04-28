@@ -12,6 +12,7 @@ const path = require('path');
 const vm = require('vm');
 const XLSX = require('xlsx');
 const { DB_DEFS } = require('./db_schema');
+const { getDescription } = require('./db_column_dict');
 
 const ROOT = path.resolve(__dirname, '..');
 const DEV_DIR = path.join(ROOT, 'dev');
@@ -120,6 +121,11 @@ function main() {
   }));
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(metaRows), '_META');
 
+  // 컬럼 사전 시트 (_DICT) — export 끝에 빌드. 모든 시트의 헤더 자동 수집 + 사전 매핑.
+  const dictRows = [];
+  // 임시: 시트 빌드 후 정보 모으기 위해 콜백으로 처리
+  const sheetColumns = {};  // sheet → [columns]
+
   let okCount = 0;
   let totalRows = 0;
   for (const def of DB_DEFS) {
@@ -145,8 +151,35 @@ function main() {
       console.log(`  ${def.sheet.padEnd(22)} ${String(n).padStart(5)} ${def.shape === 'array' ? 'rows' : 'keys'}`);
       okCount++;
       totalRows += n;
+      // 컬럼명 수집 (사전 빌드용)
+      const ref = sheet['!ref'];
+      if (ref) {
+        const range = XLSX.utils.decode_range(ref);
+        const cols = [];
+        for (let C = range.s.c; C <= range.e.c; C++) {
+          const cell = sheet[XLSX.utils.encode_cell({ r: 0, c: C })];
+          if (cell && cell.v) cols.push(String(cell.v));
+        }
+        sheetColumns[def.sheet] = { cols, shape: def.shape };
+      }
     }
   }
+
+  // _DICT 시트 빌드 — 모든 시트의 (시트, 컬럼, 설명) 행
+  for (const def of DB_DEFS) {
+    const info = sheetColumns[def.sheet];
+    if (!info) continue;
+    for (const col of info.cols) {
+      dictRows.push({
+        sheet: def.sheet,
+        column: col,
+        description: getDescription(def.sheet, col, info.shape),
+      });
+    }
+  }
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(dictRows), '_DICT');
+  const filledCount = dictRows.filter(r => r.description).length;
+  console.log(`\n  _DICT sheet: ${dictRows.length} columns total, ${filledCount} described, ${dictRows.length - filledCount} blank (사용자 채움 가능)`);
 
   XLSX.writeFile(wb, OUT_PATH);
   console.log(`\n[export] ${okCount}/${DB_DEFS.length} DBs, ${totalRows} total entries → ${OUT_PATH}`);
