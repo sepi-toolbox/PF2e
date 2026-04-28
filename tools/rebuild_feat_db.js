@@ -54,20 +54,24 @@ function parseHeader(h3Inner) {
   const afterCategory = after.substring(after.indexOf(featMatch[0]) + featMatch[0].length).trim();
   const extraTraits = afterCategory.replace(/<[^>]*>/g, '').trim().split(/\s+/).filter(t => t && t !== '—');
 
-  // 카테고리 결정
+  // 카테고리 결정 — bracket을 토큰화하여 처리
+  // 패턴 예: [일반], [일반 기술], [일반 기술 휴식 조작], [일반 비밀 기술], [바드 행운] 등
+  const tokens = bracketContent.split(/[,\s]+/).filter(Boolean);
   let category = null;
   let mainTrait = bracketContent;
+  let extraFromBracket = [];
 
-  if (bracketContent === '일반') {
-    category = 'general';
-    mainTrait = '일반';
-  } else if (bracketContent === '일반 기술') {
+  if (tokens.includes('일반') && tokens.includes('기술')) {
     category = 'skill';
     mainTrait = '일반';
+    extraFromBracket = tokens.filter(t => t !== '일반' && t !== '기술');
+  } else if (tokens.includes('일반')) {
+    category = 'general';
+    mainTrait = '일반';
+    extraFromBracket = tokens.filter(t => t !== '일반');
   } else {
     // 클래스 또는 혈통 재주
-    const parts = bracketContent.split(/[,\s]+/);
-    for (const p of parts) {
+    for (const p of tokens) {
       if (CLASS_MAP[p]) { category = CLASS_MAP[p]; break; }
       if (ANCESTRY_MAP[p]) { category = 'ancestry'; break; }
     }
@@ -76,9 +80,13 @@ function parseHeader(h3Inner) {
       return null;
     }
     mainTrait = bracketContent;
+    extraFromBracket = tokens.filter(t => !CLASS_MAP[t] && !ANCESTRY_MAP[t]);
   }
 
-  return { name_ko, name_en, feat_level, category, mainTrait, actionCost, extraTraits };
+  // bracket 안의 추가 토큰(휴식, 조작, 비밀 등)을 extraTraits에 합침
+  const mergedExtraTraits = [...extraFromBracket, ...extraTraits];
+
+  return { name_ko, name_en, feat_level, category, mainTrait, actionCost, extraTraits: mergedExtraTraits };
 }
 
 // ── 본문 추출: h3 이후 ~ 다음 h3 또는 h2 전까지의 <p> 태그들 ──
