@@ -2645,24 +2645,23 @@ function _checkOnePrereq(cond) {
   if (cond.heritage) {
     return state.selectedHeritage?.name_ko === cond.heritage;
   }
-  // 서브클래스: {subclass:'수수께끼 뮤즈'}
+  // 서브클래스: {subclass:'수수께끼 뮤즈'} — name_ko로 시작하면 매칭 (서브클래스 타입 단어 차이 허용)
   if (cond.subclass) {
     const c = cond.subclass;
-    if (state.selectedSubclass) {
-      const sub = state.selectedSubclass;
+    const matchSub = (sub) => {
+      if (!sub) return false;
       if (sub.name_ko === c || sub.name_en === c) return true;
-      if (sub.subclass_type && c === sub.name_ko + ' ' + sub.subclass_type) return true;
-      if (sub.subclass_type && sub.name_en && c === sub.name_en + ' ' + sub.subclass_type) return true;
-    }
+      // "폭풍 결사" / "수수께끼 뮤즈" 등: 첫 단어가 name_ko면 매칭 ('교단'/'결사' 같은 어휘 차이 흡수)
+      if (sub.name_ko && c.split(' ')[0] === sub.name_ko) return true;
+      if (sub.name_en && c.split(' ')[0].toLowerCase() === sub.name_en.toLowerCase()) return true;
+      return false;
+    };
+    if (matchSub(state.selectedSubclass)) return true;
     // 추가 서브클래스 (다양한 뮤즈 등)
     if (typeof SUBCLASS_DB !== 'undefined') {
       const match = Object.values(state.feats).flat().some(ff => {
         if (!ff?.choice) return false;
-        const extraSub = SUBCLASS_DB.find(s => s.id === ff.choice);
-        if (!extraSub) return false;
-        if (extraSub.name_ko === c || extraSub.name_en === c) return true;
-        if (extraSub.subclass_type && c === extraSub.name_ko + ' ' + extraSub.subclass_type) return true;
-        return false;
+        return matchSub(SUBCLASS_DB.find(s => s.id === ff.choice));
       });
       if (match) return true;
     }
