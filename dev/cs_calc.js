@@ -49,13 +49,13 @@ function syncAllProfRanks() {
   // 감각 표시 (유산 vision이 혈통 vision보다 우선)
   const sensesEl = document.getElementById('char-senses');
   if (sensesEl) {
-    const ancVision = state.selectedAncestry?.vision || '없음';
-    const stateVision = state.vision || '없음';
+    const ancVision = state.selectedAncestry?.vision || 'none';
+    const stateVision = state.vision || 'none';
     // 더 좋은 시야를 사용 (상위 암시야 > 암시야 > 저광 시야 > 없음)
-    const visionRank = {'상위 암시야':3,'암시야':2,'저광 시야':1,'없음':0};
-    const vision = (visionRank[stateVision]||0) >= (visionRank[ancVision]||0) ? stateVision : ancVision;
-    const visionMap = {'상위 암시야':'상위 암시야 (Greater Darkvision)','암시야':'암시야 (Darkvision)','저광 시야':'저광 시야 (Low-Light Vision)','없음':''};
-    let sensesText = visionMap[vision] || vision || '—';
+    const vision = (VISION_RANK[stateVision]||0) >= (VISION_RANK[ancVision]||0) ? stateVision : ancVision;
+    const ko = VISION_KO[vision] || '';
+    const en = VISION_EN[vision] || '';
+    let sensesText = (ko && en) ? `${ko} (${en})` : (ko || '—');
     // 유산 추가 감각
     const heritageSense = state.selectedHeritage?.extraSenses;
     if (heritageSense) sensesText += (sensesText && sensesText !== '—' ? ', ' : '') + heritageSense;
@@ -142,11 +142,15 @@ function syncAllTeml() { syncAllProfRanks(); }
 // ═══════════════════════════════════════════════
 
 function traitTag(name) {
-  const desc = TRAIT_DB[name] || TRAIT_DB[name.replace(/\s*\d+.*$/, '')] || null;
+  // v526~ TRAIT_DB array 형식. id 또는 name_ko로 lookup, 끝의 dice 표기 제거 후 재시도
+  const t = getTrait(name) || getTrait(name.replace(/\s*\d+.*$/, ''));
+  const desc = t?.desc || null;
+  // 표시 라벨: name이 id면 한글명으로, 아니면 그대로
+  const label = (t && t.name_ko && t.name_ko !== name) ? t.name_ko : name;
   if (desc) {
-    return `<span class="trait-tag" onmouseenter="posTraitTip(this)" onmouseleave="hideTraitTip(this)" ontouchstart="toggleTraitTip(event,this)">${name}<span class="trait-balloon">${desc}</span></span>`;
+    return `<span class="trait-tag" onmouseenter="posTraitTip(this)" onmouseleave="hideTraitTip(this)" ontouchstart="toggleTraitTip(event,this)">${label}<span class="trait-balloon">${desc}</span></span>`;
   }
-  return `<span class="tag">${name}</span>`;
+  return `<span class="tag">${label}</span>`;
 }
 
 function posTraitTip(el) {
@@ -297,6 +301,16 @@ function getCondition(key) {
   const idx = _getDbIndex(CONDITIONS_DATA, ['id','en','name']);
   return idx.id.get(key) || idx.en.get(key) || idx.name.get(key) || null;
 }
+// TRAIT_DB v526~ array 형식. id 또는 한글명으로 lookup
+function getTrait(key) {
+  if (typeof TRAIT_DB === 'undefined' || !key) return null;
+  return _findInDb(TRAIT_DB, key, ['id','name_ko','name_en']);
+}
+// LANGUAGES v526~ array 형식. id/name_ko/name_en 매칭
+function getLanguage(key) {
+  if (typeof LANGUAGES === 'undefined' || !key) return null;
+  return _findInDb(LANGUAGES, key, ['id','name_ko','name_en']);
+}
 
 // 사용자 텍스트(prereq 등)가 DB 객체의 name_ko/name_en/id 중 하나와 일치하는지
 // — 어휘 차이를 흡수하기 위한 의도적 텍스트 매칭. audit는 정규식으로 안 잡음.
@@ -338,9 +352,10 @@ function _lookupDescRef(type, key) {
       return c ? {ko: c.name, en: c.en, summary: c.desc||'', desc: c.desc||''} : null;
     }
     case 'trait': {
-      const k = key.charAt(0).toUpperCase() + key.slice(1);
-      const tVal = typeof TRAIT_DB!=='undefined' && (TRAIT_DB[key] || TRAIT_DB[k]);
-      return tVal ? {ko: key, en: key, summary: typeof tVal==='string'?tVal:tVal.desc||'', desc: typeof tVal==='string'?tVal:tVal.desc||''} : null;
+      const t = getTrait(key);
+      if (!t) return null;
+      const text = t.desc || '';
+      return {ko: t.name_ko || key, en: t.name_en || key, summary: text, desc: text};
     }
     case 'action': {
       const a = getAction(key);

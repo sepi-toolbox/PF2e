@@ -2627,11 +2627,10 @@ function _checkOnePrereq(cond) {
   if (cond.ability) {
     return getMod(cond.ability) >= (cond.min || 0);
   }
-  // 시야: {vision:'darkvision'} or {vision:'low-light'}
+  // 시야: {vision:'darkvision'} or {vision:'low-light'} (v526~ enum)
   if (cond.vision) {
-    const curVision = state.vision || state.selectedAncestry?.vision || '없음';
-    const rank = {'암시야':2,'darkvision':2,'저광 시야':1,'low-light':1,'없음':0};
-    return (rank[curVision]||0) >= (rank[cond.vision]||0);
+    const curVision = state.vision || state.selectedAncestry?.vision || 'none';
+    return (VISION_RANK[curVision]||0) >= (VISION_RANK[cond.vision]||0);
   }
   // 재주 보유: {feat:'Halfling Luck'}
   if (cond.feat) {
@@ -2740,12 +2739,18 @@ function _checkPrereqsText(prereqStr) {
       if (getMod(attrMap[attrMatch[1]]) < parseInt(attrMatch[2])) return false;
       continue;
     }
-    // 시야
-    if (c === '암시야' || c === '저광 시야') {
-      const curVision = state.vision || state.selectedAncestry?.vision || '없음';
-      const vr = {'암시야':2,'저광 시야':1,'없음':0};
-      if ((vr[curVision]||0) < (vr[c]||0)) return false;
-      continue;
+    // 시야 — prereq 텍스트는 한글 또는 enum 양쪽 허용 (v526~)
+    {
+      // c 토큰을 enum으로 정규화
+      const visionId = (c === '암시야' || c === 'darkvision') ? 'darkvision'
+                     : (c === '저광 시야' || c === 'low-light') ? 'low-light'
+                     : (c === '상위 암시야' || c === 'greater-darkvision') ? 'greater-darkvision'
+                     : null;
+      if (visionId) {
+        const curVision = state.vision || state.selectedAncestry?.vision || 'none';
+        if ((VISION_RANK[curVision]||0) < (VISION_RANK[visionId]||0)) return false;
+        continue;
+      }
     }
     // 혈통/유산/서브클래스/재주 — 기존 로직 유지
     if (state.selectedAncestry?.traits?.includes(c)) continue;
@@ -4079,9 +4084,10 @@ function _buildAncestryChoicesUI(anc) {
   let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
   html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">🗣 언어</div>`;
 
-  // 고정 언어 (disabled)
-  fixedLangs.forEach(lang => {
-    html += _choiceDropdown('', `기본 언어`, [{value: lang, label: lang}], true, lang);
+  // 고정 언어 (disabled) — id로 저장, 라벨은 한글 표시
+  fixedLangs.forEach(langId => {
+    const ko = (typeof getLanguageKo === 'function') ? getLanguageKo(langId) : langId;
+    html += _choiceDropdown('', `기본 언어`, [{value: langId, label: ko}], true, langId);
   });
 
   // 추가 언어 (active + "+" 버튼)
@@ -4100,7 +4106,7 @@ function _buildAncestryChoicesUI(anc) {
   // 시야/크기/속도 정보 표시
   html += `<div style="margin-top:10px;font-size:11px;color:var(--text2);line-height:1.7;">`;
   html += `<div><strong>크기:</strong> ${anc.size} | <strong>속도:</strong> ${anc.speed}피트</div>`;
-  html += `<div><strong>감각:</strong> ${anc.vision || '없음'}</div>`;
+  html += `<div><strong>감각:</strong> ${VISION_KO[anc.vision] || anc.vision || '없음'}</div>`;
   html += `</div>`;
 
   html += `</div>`;
@@ -4109,9 +4115,9 @@ function _buildAncestryChoicesUI(anc) {
 
 function _buildBonusLangRow(index, excludeLangs) {
   const allLangs = typeof LANGUAGES !== 'undefined' ? LANGUAGES : [];
-  const exclude = new Set(excludeLangs || []);
+  const exclude = new Set(excludeLangs || []);  // id 배열
   (_modalChoices.bonusLangs || []).forEach((v, i) => { if (v && i !== index) exclude.add(v); });
-  const options = allLangs.filter(l => !exclude.has(l)).map(l => ({value: l, label: l}));
+  const options = allLangs.filter(l => !exclude.has(l.id)).map(l => ({value: l.id, label: l.name_ko}));
   const curVal = (_modalChoices.bonusLangs || [])[index] || '';
   return `<div style="display:flex;gap:4px;align-items:center;margin-bottom:4px;">
     <select onchange="_onBonusLangChange(${index}, this.value)" style="${_selStyle}flex:1;">
@@ -4319,7 +4325,7 @@ function resetFromAncestry() {
     }
   }
   // Reset vision/size/speed
-  state.vision = '없음';
+  state.vision = 'none';
   state.size = '중형';
   const speedEl = document.getElementById('speed');
   if (speedEl) speedEl.value = 25;
@@ -4494,7 +4500,7 @@ function confirmModal() {
       if (langEl) {
         const traits = modalSelected.traits ? `특성: ${modalSelected.traits.join(', ')}` : '';
         const size = `크기: ${modalSelected.size || '중형'}`;
-        const vision = `감각: ${modalSelected.vision || '없음'}`;
+        const vision = `감각: ${VISION_KO[modalSelected.vision] || modalSelected.vision || '없음'}`;
         const specials = (modalSelected.specials||[]).join('\n');
         const langLine = `언어: ${allLangs.join(', ')}`;
         langEl.value = [traits, size, vision, langLine, specials].filter(Boolean).join('\n');
@@ -4872,7 +4878,7 @@ function applyAncestryDefaults(anc) {
   const speedEl = document.getElementById('speed');
   if (speedEl) speedEl.value = anc.speed;
   // Save vision and size to state
-  state.vision = anc.vision || '없음';
+  state.vision = anc.vision || 'none';
   state.size = anc.size || '중형';
   const langEl = document.getElementById('f-languages');
   if (langEl && !langEl.value) {

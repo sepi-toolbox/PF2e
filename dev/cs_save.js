@@ -347,7 +347,14 @@ function loadData(d) {
     }
     if (d.containers) { state.containers = d.containers; if (typeof renderContainers === 'function') renderContainers(); }
     if (d.formulas) { state.formulas = d.formulas; if (typeof renderFormulas === 'function') renderFormulas(); }
-    if (d.languages) { state.languages = d.languages; if (typeof renderLanguages === 'function') renderLanguages(); }
+    if (d.languages) {
+      // v526~: 한글 이름 → id 마이그레이션 (LANGUAGES.name_ko 매칭)
+      state.languages = d.languages.map(l => {
+        const found = (typeof getLanguage === 'function') ? getLanguage(l) : null;
+        return found ? found.id : l;
+      });
+      if (typeof renderLanguages === 'function') renderLanguages();
+    }
     if (d.pets) { state.pets = d.pets; if (typeof renderPets === 'function') renderPets(); }
     if (d.extraSpeeds) state.extraSpeeds = d.extraSpeeds;
     if (d.shieldRaised) state.shieldRaised = d.shieldRaised;
@@ -451,7 +458,11 @@ function loadData(d) {
       buildConditions();
     }
     // Restore extra state fields
-    if (d.vision) state.vision = d.vision;
+    if (d.vision) {
+      // v526~: 한글 → enum 마이그레이션
+      const _vMig = {'없음':'none','저광 시야':'low-light','암시야':'darkvision','상위 암시야':'greater-darkvision'};
+      state.vision = _vMig[d.vision] || d.vision;
+    }
     if (d.size) state.size = d.size;
     if (d.trainableSkillSlots !== undefined) state.trainableSkillSlots = d.trainableSkillSlots;
     // Class-specific choices

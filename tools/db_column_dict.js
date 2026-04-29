@@ -59,10 +59,17 @@ const PER_SHEET = {
     flaws:          '고정 능력치 결점 enum 배열',
     flaw_choices:   '선택형 결점 그룹 (이중배열)',
     free_flaws:     '자유 결점 슬롯 수',
-    vision:         '시야 종류 (없음/저광시야/암시야)',
-    languages:      '기본 언어 배열 (LANGUAGES 항목)',
+    traits:         'TRAIT_DB.id 외래키 배열 (예: ["드워프","인간형"]). v526~ id 참조',
+    vision:         '시야 enum (none/low-light/darkvision/greater-darkvision). v526~',
+    languages:      'LANGUAGES.id 외래키 배열 (예: ["common","dwarven"]). v526~ id 참조',
     bonusLangs:     'INT에 더해지는 추가 언어 슬롯 수',
     specials:       '특수 능력 텍스트 배열',
+  },
+  LANGUAGES: {
+    category:       '카테고리 (common/uncommon/rare). v526~',
+  },
+  TRAIT_DB: {
+    desc:           '특성 효과 설명 (무기 트레이트는 게임 메카닉, 혈통/생물 트레이트는 분류용)',
   },
   BACKGROUNDS: {
     boosts:         '고정 능력치 부스트 enum 배열',
@@ -74,7 +81,7 @@ const PER_SHEET = {
   HERITAGE_DB: {
     ancestry:        '소속 혈통 id',
     resistances:     '저항 (예: ["화염 5"])',
-    vision:          '시야 부여/업그레이드',
+    vision:          '시야 enum (low-light/darkvision/upgrade) — upgrade는 한 단계 상승. v526~',
     innateSpells:    '선천 주문 배열',
     extraSenses:     '추가 감각',
     grantWeapon:     '부여 무기 (한글명)',

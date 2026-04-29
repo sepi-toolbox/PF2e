@@ -1296,8 +1296,19 @@ function removeFormula(i) {
 }
 
 // ── 언어 ──
-const COMMON_LANGUAGES = ['공용어','드워프어','엘프어','노움어','고블린어','하플링어','요툰어','오크어'];
-const UNCOMMON_LANGUAGES = ['아클로어','크토니안어','드라코닉어','천상어','페이어','콜로어','네크릴어','페트란어','사크브로스어','숲요정어'];
+// v526~ LANGUAGES 객체 배열에서 category로 동적 분류 (id 배열)
+const COMMON_LANGUAGES = (typeof LANGUAGES !== 'undefined') ? LANGUAGES.filter(l => l.category === 'common').map(l => l.id) : [];
+const UNCOMMON_LANGUAGES = (typeof LANGUAGES !== 'undefined') ? LANGUAGES.filter(l => l.category === 'uncommon').map(l => l.id) : [];
+const RARE_LANGUAGES = (typeof LANGUAGES !== 'undefined') ? LANGUAGES.filter(l => l.category === 'rare').map(l => l.id) : [];
+
+// 언어 id → 한글 이름 lookup (UI 표시용) — getLanguage 헬퍼 (cs_calc.js) 사용
+function getLanguageKo(id) {
+  if (typeof getLanguage === 'function') {
+    const lang = getLanguage(id);
+    return lang ? lang.name_ko : id;
+  }
+  return id;
+}
 
 function getMaxLanguages() {
   const intMod = Math.max(0, getMod('int'));
@@ -1341,29 +1352,34 @@ function renderLanguagePickList() {
   const titleEl = document.getElementById('modal-title');
   if (titleEl) titleEl.textContent = `언어 선택 (${selected.length}/${maxLangs})`;
 
-  const addSection = (title, langs) => {
-    const items = langs.filter(l => !q || l.toLowerCase().includes(q));
+  const addSection = (title, langIds) => {
+    // langIds는 LANGUAGES.id 배열. 검색은 한글 이름과 id 양쪽으로
+    const items = langIds.filter(id => {
+      if (!q) return true;
+      const ko = getLanguageKo(id).toLowerCase();
+      return id.toLowerCase().includes(q) || ko.includes(q);
+    });
     if (items.length === 0) return;
     const header = document.createElement('div');
     header.className = 'opt-section-header';
     header.textContent = title;
     container.appendChild(header);
-    items.forEach(l => {
-      const isSelected = selected.includes(l);
+    items.forEach(id => {
+      const isSelected = selected.includes(id);
       const row = document.createElement('div');
       row.className = 'opt-row' + (isSelected ? ' selected' : '');
       if (!isSelected && isFull) row.style.opacity = '0.4';
       row.innerHTML = `
         <div class="opt-row-icon">${isSelected ? '✓' : '🗣'}</div>
-        <span class="opt-row-name">${l}</span>`;
+        <span class="opt-row-name">${getLanguageKo(id)}</span>`;
       row.style.cursor = (isSelected || !isFull) ? 'pointer' : 'default';
       if (isSelected || !isFull) {
         row.addEventListener('click', (e) => {
           e.stopPropagation();
           if (isSelected) {
-            state.languages = state.languages.filter(x => x !== l);
+            state.languages = state.languages.filter(x => x !== id);
           } else {
-            state.languages.push(l);
+            state.languages.push(id);
           }
           renderLanguagePickList();
           renderGrowthPlan();
@@ -1375,6 +1391,7 @@ function renderLanguagePickList() {
   };
   addSection('일반 언어', COMMON_LANGUAGES);
   addSection('비일반 언어', UNCOMMON_LANGUAGES);
+  addSection('희귀 언어', RARE_LANGUAGES);
 
   const searchEl = document.getElementById('modal-search');
   if (searchEl && !searchEl._langBound) {
@@ -1394,9 +1411,9 @@ function renderLanguages() {
   if (!state.languages) state.languages = [];
   const html = state.languages.length === 0
     ? '<div style="font-size:10px;color:var(--text2);text-align:center;padding:4px;">언어를 추가하세요</div>'
-    : state.languages.map((l, i) =>
+    : state.languages.map((id, i) =>
       `<div style="display:flex;align-items:center;gap:4px;padding:2px 4px;font-size:12px;border-bottom:1px solid var(--border);">
-        <span style="flex:1;color:var(--text);">${l}</span>
+        <span style="flex:1;color:var(--text);">${getLanguageKo(id)}</span>
         <span class="spell-del" onclick="removeLanguage(${i})" style="cursor:pointer;">✕</span>
       </div>`).join('');
   ['language-list','language-list-mobile'].forEach(id => {
