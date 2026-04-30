@@ -4064,8 +4064,9 @@ function _buildBackgroundChoicesUI(bg) {
 
 // ── 혈통 모달: 언어 선택 ──
 function _buildAncestryChoicesUI(anc) {
-  const fixedLangs = anc.languages || ['공통어'];
-  const bonusBase = anc.bonusLangs || 0;
+  const fixedLangs = anc.languages || ['common'];
+  // PF2e Remaster 룰: 모든 혈통은 기본 보너스 언어 1개 + INT 수정치 (v526~ 컬럼 제거, 상수)
+  const bonusBase = 1;
   _modalChoices = { type: 'ancestry', fixedLangs, bonusBase, bonusLangs: Array(bonusBase).fill('') };
 
   // ── 이전 선택값 복원: state.languages에서 고정 언���를 제외한 나머지가 보너스 언어 ──

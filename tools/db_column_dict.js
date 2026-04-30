@@ -68,6 +68,9 @@ const PER_SHEET = {
   LANGUAGES: {
     category:       '카테고리 (common/uncommon/rare). v526~',
   },
+  VISION_DEFS: {
+    rank:           '시야 우선순위 (높을수록 더 좋은 시야). 비교 시 사용',
+  },
   TRAIT_DB: {
     desc:           '특성 효과 설명 (무기 트레이트는 게임 메카닉, 혈통/생물 트레이트는 분류용)',
   },

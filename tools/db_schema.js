@@ -18,6 +18,7 @@ const DB_DEFS = [
   { sheet:'BACKGROUNDS',       var:'BACKGROUNDS',       file:'cs_data.js', keyword:'const', shape:'array' },
   { sheet:'HERITAGE_DB',       var:'HERITAGE_DB',       file:'cs_data.js', keyword:'const', shape:'array' },
   { sheet:'LANGUAGES',         var:'LANGUAGES',         file:'cs_data.js', keyword:'const', shape:'array' },
+  { sheet:'VISION_DEFS',       var:'VISION_DEFS',       file:'cs_data.js', keyword:'const', shape:'array' },
   { sheet:'SKILLS',            var:'SKILLS',            file:'cs_data.js', keyword:'const', shape:'array' },
   { sheet:'CONDITIONS_DATA',   var:'CONDITIONS_DATA',   file:'cs_data.js', keyword:'const', shape:'array' },
   { sheet:'ACTION_DB',         var:'ACTION_DB',         file:'cs_data.js', keyword:'const', shape:'array' },
