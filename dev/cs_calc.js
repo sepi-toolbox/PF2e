@@ -1412,6 +1412,8 @@ function recalcAll() {
   if (document.getElementById('panel-actions')?.classList.contains('active')) renderActions();
   // 재주 탭 갱신 (숙련 변경 → 드롭다운 반영)
   if (typeof renderFeats === 'function') renderFeats();
+  // 임시 디버그 박스 갱신 (v530)
+  _debugShowBonusPool();
 }
 
 function getCondPenalty() {
@@ -1447,6 +1449,26 @@ function getStackedBonus(category, target) {
   const picks = Object.values(byType);
   const total = picks.reduce((sum, b) => sum + resolveVal(b.value), 0);
   return { total, picks };
+}
+
+// ── 임시 디버그 (v530, 진단 후 제거 예정) ──
+function _debugShowBonusPool() {
+  let el = document.getElementById('debug-bonus-pool');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'debug-bonus-pool';
+    el.style.cssText = 'position:fixed;top:5px;right:5px;background:#000;color:#0f0;padding:8px 10px;font-size:11px;border:1px solid #0f0;z-index:99999;max-width:340px;font-family:monospace;border-radius:4px;cursor:pointer;line-height:1.4';
+    el.title = '클릭하여 닫기';
+    el.onclick = () => el.remove();
+    document.body.appendChild(el);
+  }
+  const pool = state._fb?.bonuses || [];
+  if (!pool.length) {
+    el.innerHTML = '<b>BONUS POOL</b>: <span style="color:#f80">empty</span><br><span style="color:#888">state._fb=' + (state._fb ? 'exists' : 'undefined') + '</span>';
+  } else {
+    el.innerHTML = '<b>BONUS POOL (' + pool.length + ')</b><br>' +
+      pool.map(b => `[${b.category}/${b.target||'-'}] +${b.value} (${b.bonus_type||'untyped'}) ${b.source||''}`).join('<br>');
+  }
 }
 
 function applyPenaltyColor(el, base, penalty) {
