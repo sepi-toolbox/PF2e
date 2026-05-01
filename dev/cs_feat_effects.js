@@ -8009,6 +8009,7 @@ function applyFeatEffects() {
     notes: [],
     cantrip_bonus: 0,
     familiar_abilities: 0,
+    bonuses: [],         // 활성 보너스 풀 — {category,target,value,bonus_type,condition,source} (v530~)
   };
 
   const level = getLevel();
@@ -8105,19 +8106,33 @@ function applyFeatEffects() {
   state._fb = fb;
 }
 
+// 활성 보너스 풀에 푸시 — 굴림 모달/AC·속도 합산/툴팁의 단일 출처 (v530~)
+function _pushBonus(fb, category, target, eff, feat) {
+  fb.bonuses.push({
+    category,                            // 'save'|'ac'|'initiative'|'skill'|'speed'|'perception'|'hit'|'damage'
+    target: target || null,              // save name, skill id, weapon, ... (없으면 null)
+    value: eff.value,
+    bonus_type: eff.bonus_type || '',    // 'circumstance'|'status'|'item'|''
+    condition: eff.condition || '',      // 한글 자유 텍스트 (자동 분기 없음, 사용자가 보고 결정)
+    source: feat?.name || '',            // 출처 재주명 (툴팁/모달 표시용)
+  });
+}
+
 function _applyOneEffect(fb, eff, feat, level) {
   switch (eff.type) {
     case 'hp_bonus':
       fb.hp += (eff.value === 'level') ? level : (typeof eff.value === 'number' ? eff.value : 0);
       break;
     case 'speed_bonus':
-      fb.speed += eff.value;
+      // 합산은 recalcSpeed에서 풀 기반 type별 max로 (v530~)
+      _pushBonus(fb, 'speed', null, eff, feat);
       break;
     case 'speed_extra':
       fb.extraSpeeds[eff.key] = Math.max(fb.extraSpeeds[eff.key] || 0, eff.value);
       break;
     case 'initiative_bonus':
       fb.initiative = Math.max(fb.initiative, eff.value);
+      _pushBonus(fb, 'initiative', null, eff, feat);
       break;
     case 'bulk_bonus':
       fb.bulk += eff.value;
@@ -8153,6 +8168,7 @@ function _applyOneEffect(fb, eff, feat, level) {
       if (sid2) {
         if (!fb.skills[sid2]) fb.skills[sid2] = {min_rank:0, bonus:0};
         fb.skills[sid2].bonus += eff.value;
+        _pushBonus(fb, 'skill', sid2, eff, feat);
       }
       break;
     }
@@ -8163,10 +8179,12 @@ function _applyOneEffect(fb, eff, feat, level) {
         ['fort','ref','will'].forEach(s => {
           if (!fb.saves[s]) fb.saves[s] = [];
           fb.saves[s].push(entry);
+          _pushBonus(fb, 'save', s, eff, feat);
         });
       } else {
         if (!fb.saves[key]) fb.saves[key] = [];
         fb.saves[key].push(entry);
+        _pushBonus(fb, 'save', key, eff, feat);
       }
       break;
     }
@@ -8200,6 +8218,10 @@ function _applyOneEffect(fb, eff, feat, level) {
       fb.notes.push(text);
       break;
     }
+    case 'ac_bonus':
+      _pushBonus(fb, 'ac', null, eff, feat);
+      // 자동 합산은 recalcAC에서 풀을 읽어 type별 max 적용 (v530~)
+      break;
     case 'cantrip_slots':
       fb.cantrip_bonus += eff.value;
       break;

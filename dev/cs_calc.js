@@ -192,6 +192,57 @@ document.addEventListener('click', () => {
   document.querySelectorAll('.spell-tip.tip-open').forEach(t => { t.classList.remove('tip-open'); const b = t.querySelector('.spell-balloon'); if (b) b.style.display = 'none'; });
 });
 
+// 활성 보너스 출처 툴팁: data-bonus-picks 속성 있는 요소에 마우스/터치 시 출처 풍선 (v530~)
+(function initBonusTooltips() {
+  let balloon = null;
+  function getBalloon() {
+    if (balloon) return balloon;
+    balloon = document.createElement('div');
+    balloon.className = 'bonus-balloon';
+    balloon.style.cssText = 'position:fixed;display:none;background:#222;color:#fff;border:1px solid var(--gold);padding:8px 10px;border-radius:6px;font-size:12px;z-index:10000;max-width:280px;line-height:1.5;pointer-events:none;box-shadow:0 4px 12px rgba(0,0,0,0.4)';
+    document.body.appendChild(balloon);
+    return balloon;
+  }
+  function show(el) {
+    let picks;
+    try { picks = JSON.parse(el.dataset.bonusPicks || '[]'); } catch(e) { return; }
+    if (!picks.length) return;
+    const html = picks.map(p => {
+      const t = p.bonus_type ? `<span style="color:var(--gold);font-weight:600">[${p.bonus_type}]</span> ` : '';
+      const sign = (typeof p.value === 'number' && p.value < 0) ? '' : '+';
+      const cond = p.condition ? `<div style="color:#aaa;font-size:11px;margin-left:8px">└ ${p.condition}</div>` : '';
+      return `<div>${t}${sign}${p.value} <em style="color:#ddd">${p.source||''}</em>${cond}</div>`;
+    }).join('');
+    const b = getBalloon();
+    b.innerHTML = '<div style="color:var(--gold);font-weight:600;margin-bottom:4px">활성 보너스</div>' + html;
+    b.style.display = 'block';
+    const rect = el.getBoundingClientRect();
+    const bRect = b.getBoundingClientRect();
+    let left = rect.left + rect.width/2 - bRect.width/2;
+    let top = rect.top - bRect.height - 6;
+    if (left < 4) left = 4;
+    if (left + bRect.width > window.innerWidth - 4) left = window.innerWidth - bRect.width - 4;
+    if (top < 4) top = rect.bottom + 6;
+    b.style.left = left + 'px';
+    b.style.top = top + 'px';
+  }
+  function hide() { if (balloon) balloon.style.display = 'none'; }
+  document.addEventListener('mouseover', e => {
+    const el = e.target.closest('[data-bonus-picks]');
+    if (el && el.dataset.bonusPicks && el.dataset.bonusPicks !== '[]') show(el);
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('[data-bonus-picks]')) hide();
+  });
+  document.addEventListener('touchstart', e => {
+    const el = e.target.closest('[data-bonus-picks]');
+    if (el && el.dataset.bonusPicks && el.dataset.bonusPicks !== '[]') {
+      show(el);
+      setTimeout(hide, 3000);
+    } else hide();
+  }, {passive: true});
+})();
+
 // spell-tip: data-tip 속성으로 풍선 동적 생성 (trait-tag와 동일 패턴)
 document.addEventListener('mouseover', (e) => {
   const tip = e.target.closest('.spell-tip');
@@ -1375,6 +1426,29 @@ function getCondPenalty() {
   };
 }
 
+// 활성 보너스 풀에서 category/target에 매칭되는 보너스를 type별 max 1개로 합산 (v530~)
+//   각 type(circumstance/status/item/'')별 최댓값 1개만 적용 — PF2e 보너스 합산 규칙
+//   반환: {total: 합산값, picks: [{value, bonus_type, source, condition}, ...]}
+//   picks는 실제 적용된 보너스 (툴팁용 출처 표시)
+//   value === 'level' 키워드는 현재 레벨로 해석
+function getStackedBonus(category, target) {
+  const pool = state._fb?.bonuses || [];
+  const matched = pool.filter(b => b.category === category && (target == null || b.target == null || b.target === target));
+  if (!matched.length) return { total: 0, picks: [] };
+  const lv = getLevel();
+  const resolveVal = v => (v === 'level' ? lv : (typeof v === 'number' ? v : parseInt(v) || 0));
+  // type별 그룹 → 각 그룹에서 value 최대 1개
+  const byType = {};
+  for (const b of matched) {
+    const t = b.bonus_type || '';
+    const v = resolveVal(b.value);
+    if (!byType[t] || resolveVal(byType[t].value) < v) byType[t] = b;
+  }
+  const picks = Object.values(byType);
+  const total = picks.reduce((sum, b) => sum + resolveVal(b.value), 0);
+  return { total, picks };
+}
+
 function applyPenaltyColor(el, base, penalty) {
   if (!el) return;
   const total = base - penalty;
@@ -1414,9 +1488,15 @@ function recalcAC() {
   const shieldBonus = (state.shieldRaised && !state.shieldStowed && !shieldBroken) ? parseInt(document.getElementById('shield-ac')?.value||0) : 0;
   const pen = getCondPenalty();
   const acPenalty = pen.all + pen.clumsy;
-  const ac = 10 + effectiveDex + effectiveArmor + effectiveProf + shieldBonus - acPenalty;
+  // 활성 보너스 풀에서 AC 보너스 (type별 1개) — 마법 효과/재주 등 (v530~)
+  const acExtra = getStackedBonus('ac', null);
+  const ac = 10 + effectiveDex + effectiveArmor + effectiveProf + shieldBonus + acExtra.total - acPenalty;
   const acEl = document.getElementById('val-ac');
-  if (acEl) { acEl.textContent = ac; acEl.style.color = acPenalty > 0 ? 'var(--red-light)' : ''; }
+  if (acEl) {
+    acEl.textContent = ac;
+    acEl.style.color = acPenalty > 0 ? 'var(--red-light)' : '';
+    acEl.dataset.bonusPicks = JSON.stringify(acExtra.picks);  // 툴팁용
+  }
 
   // Update AC breakdown display
   const itemDisp = document.getElementById('ac-item-display');
@@ -1770,11 +1850,14 @@ function recalcSpeed(isEncumbered) {
   const baseSpeed = parseInt(speedEl?.value||25);
   const hasUI = state._fb?.unburdenedIron || false;
   const encPenalty = isEncumbered ? (hasUI ? 5 : 10) : 0;
-  const effSpeed = Math.max(5, baseSpeed - encPenalty);
+  // 활성 보너스 풀에서 이속 보너스 (type별 1개) — 재주/주문 효과 (v530~)
+  const speedExtra = getStackedBonus('speed', null);
+  const effSpeed = Math.max(5, baseSpeed + speedExtra.total - encPenalty);
   const dispEl = document.getElementById('speed-display');
   if (dispEl) {
     dispEl.textContent = effSpeed;
     dispEl.style.color = isEncumbered ? '#ffaa00' : '';
+    dispEl.dataset.bonusPicks = JSON.stringify(speedExtra.picks);  // 툴팁용
   }
   const effLabel = document.getElementById('speed-enc-label');
   if (effLabel) {

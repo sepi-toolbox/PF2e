@@ -89,15 +89,103 @@ const DiceRoller = (() => {
   }
 
   // "2d8+4 참격" 같은 문자열 파싱 → 굴림
-  function rollDamage(dmgStr, label) {
+  function rollDamage(dmgStr, label, extraMod) {
     const match = dmgStr.match(/(\d+)d(\d+)/);
     if (!match) return;
     const count = parseInt(match[1]) || 1;
     const sides = parseInt(match[2]) || 6;
     const modMatch = dmgStr.match(/d\d+\s*([+-]\s*\d+)/);
-    const mod = modMatch ? parseInt(modMatch[1].replace(/\s/g, '')) : 0;
+    const mod = (modMatch ? parseInt(modMatch[1].replace(/\s/g, '')) : 0) + (extraMod || 0);
     pool = [{sides, count}];
     return rollPool(label || dmgStr, mod);
+  }
+
+  // ══ 활성 보너스 굴림 모달 (v530~) ══
+  // 굴림 진입점에서 호출 — 사용자가 type별 1개씩 보너스 선택 + 임시 보너스 입력
+  function openBonusRollModal(opts) {
+    // opts: {category, label, onConfirm: (extraMod, picks, custom) => void}
+    const pool = state._fb?.bonuses || [];
+    const matched = pool.filter(b => b.category === opts.category);
+    const TYPE_LABEL = {circumstance:'상황 보너스 (Circumstance)', status:'상태 보너스 (Status)', item:'아이템 보너스 (Item)', '':'기타'};
+    const TYPES = ['circumstance', 'status', 'item', ''];
+    const grouped = {};
+    for (const t of TYPES) grouped[t] = matched.filter(b => (b.bonus_type || '') === t);
+
+    const overlay = document.createElement('div');
+    overlay.className = 'bonus-roll-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:10001;display:flex;align-items:center;justify-content:center';
+
+    let bodyHtml = '';
+    for (const t of TYPES) {
+      const group = grouped[t];
+      if (!group.length && t === '') continue;  // untyped 빈 그룹은 표시 안 함 (circumstance/status/item은 빈 상태도 표시)
+      bodyHtml += `<div style="margin-bottom:10px"><div style="color:var(--gold);font-size:11px;margin-bottom:4px;font-weight:600">${TYPE_LABEL[t] || t}</div>`;
+      bodyHtml += `<label style="display:flex;align-items:center;gap:6px;padding:3px 0;cursor:pointer"><input type="radio" name="brm-${t}" value="" checked> <span style="color:#888;font-size:12px">미선택</span></label>`;
+      group.forEach((b, i) => {
+        const cond = b.condition ? ` <span style="color:#888;font-size:11px">(조건: ${b.condition})</span>` : '';
+        const sign = (typeof b.value === 'number' && b.value < 0) ? '' : '+';
+        bodyHtml += `<label style="display:flex;align-items:center;gap:6px;padding:3px 0;cursor:pointer"><input type="radio" name="brm-${t}" value="${i}"> <span style="font-size:12px"><strong>${sign}${b.value}</strong> <em style="color:#bbb">${b.source||''}</em>${cond}</span></label>`;
+      });
+      if (!group.length) bodyHtml += `<div style="color:#666;font-size:11px;padding:2px 0 2px 22px">(없음)</div>`;
+      bodyHtml += `</div>`;
+    }
+
+    const card = document.createElement('div');
+    card.style.cssText = 'background:var(--bg2);border:1px solid var(--gold);border-radius:8px;width:90vw;max-width:420px;max-height:85vh;display:flex;flex-direction:column;color:var(--text)';
+    card.innerHTML = `
+      <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+        <h3 style="margin:0;color:var(--gold);font-size:14px">${opts.label}</h3>
+        <button id="brm-x" style="background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;padding:0 4px">✕</button>
+      </div>
+      <div style="padding:12px 16px;overflow-y:auto;flex:1">
+        ${bodyHtml}
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
+          <div style="color:var(--gold);font-size:11px;margin-bottom:6px;font-weight:600">임시 보너스 (세션용 · untyped)</div>
+          <div style="display:flex;align-items:center;gap:8px;justify-content:center">
+            <button id="brm-minus" style="width:36px;height:36px;background:var(--bg3);border:1px solid var(--border2);border-radius:4px;color:var(--text);font-size:18px;cursor:pointer">−</button>
+            <input id="brm-extra" type="number" value="0" style="width:70px;text-align:center;background:var(--bg3);border:1px solid var(--border2);border-radius:4px;color:var(--text);padding:7px;font-size:14px">
+            <button id="brm-plus" style="width:36px;height:36px;background:var(--bg3);border:1px solid var(--border2);border-radius:4px;color:var(--text);font-size:18px;cursor:pointer">+</button>
+          </div>
+        </div>
+      </div>
+      <div style="padding:10px 16px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end">
+        <button id="brm-cancel" style="padding:8px 16px;background:var(--bg3);border:1px solid var(--border2);border-radius:4px;color:var(--text);cursor:pointer">취소</button>
+        <button id="brm-roll" style="padding:8px 16px;background:var(--gold);border:none;border-radius:4px;color:#000;font-weight:600;cursor:pointer">🎲 굴리기</button>
+      </div>
+    `;
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+
+    const close = () => overlay.remove();
+    card.querySelector('#brm-x').onclick = close;
+    card.querySelector('#brm-cancel').onclick = close;
+    overlay.onclick = e => { if (e.target === overlay) close(); };
+    card.querySelector('#brm-minus').onclick = () => {
+      const inp = card.querySelector('#brm-extra');
+      inp.value = (parseInt(inp.value) || 0) - 1;
+    };
+    card.querySelector('#brm-plus').onclick = () => {
+      const inp = card.querySelector('#brm-extra');
+      inp.value = (parseInt(inp.value) || 0) + 1;
+    };
+    card.querySelector('#brm-roll').onclick = () => {
+      let total = 0;
+      const picks = [];
+      const lv = (typeof getLevel === 'function') ? getLevel() : 1;
+      for (const t of TYPES) {
+        const sel = card.querySelector(`input[name="brm-${t}"]:checked`);
+        if (sel && sel.value !== '') {
+          const b = grouped[t][parseInt(sel.value)];
+          const v = (b.value === 'level') ? lv : (typeof b.value === 'number' ? b.value : parseInt(b.value)||0);
+          total += v;
+          picks.push(b);
+        }
+      }
+      const extra = parseInt(card.querySelector('#brm-extra').value) || 0;
+      total += extra;
+      close();
+      opts.onConfirm(total, picks, extra);
+    };
   }
 
   function poolLabel() {
@@ -334,14 +422,22 @@ const DiceRoller = (() => {
           const valEl = statEl.querySelector('.stat-val');
           if (!valEl) return;
           const mod = parseInt(valEl.textContent) || 0;
-          rollCheck(mod, wpName + ' 명중');
+          openBonusRollModal({
+            category: 'hit',
+            label: wpName + ' 명중',
+            onConfirm: extra => rollCheck(mod + extra, wpName + ' 명중'),
+          });
           return;
         }
         if (label.includes('피해') && statEl.classList.contains('weapon-stat-dmg')) {
           e.stopPropagation();
           const dmgStr = statEl.dataset.dmg || '';
           if (dmgStr && dmgStr !== '—') {
-            rollDamage(dmgStr, wpName + ' 피해');
+            openBonusRollModal({
+              category: 'damage',
+              label: wpName + ' 피해',
+              onConfirm: extra => rollDamage(dmgStr, wpName + ' 피해', extra),
+            });
           }
           return;
         }
@@ -349,13 +445,17 @@ const DiceRoller = (() => {
 
       // 내성 클릭 (val-fort, val-ref, val-will)
       const saveNames = {
-        'val-fort': '건강 내성', 'val-ref': '반사 내성', 'val-will': '의지 내성'
+        'val-fort': ['건강 내성', 'fort'], 'val-ref': ['반사 내성', 'ref'], 'val-will': ['의지 내성', 'will']
       };
-      for (const [id, label] of Object.entries(saveNames)) {
+      for (const [id, [label]] of Object.entries(saveNames)) {
         if (e.target.id === id || e.target.closest('#' + id)) {
           const el = e.target.id === id ? e.target : e.target.closest('#' + id);
           const mod = parseInt(el.textContent) || 0;
-          rollCheck(mod, label);
+          openBonusRollModal({
+            category: 'save',
+            label,
+            onConfirm: extra => rollCheck(mod + extra, label),
+          });
           return;
         }
       }
@@ -364,7 +464,11 @@ const DiceRoller = (() => {
       if (e.target.id === 'val-perc' || e.target.closest('#val-perc')) {
         const el = e.target.id === 'val-perc' ? e.target : e.target.closest('#val-perc');
         const mod = parseInt(el.textContent) || 0;
-        rollCheck(mod, '지각');
+        openBonusRollModal({
+          category: 'perception',
+          label: '지각',
+          onConfirm: extra => rollCheck(mod + extra, '지각'),
+        });
         return;
       }
 
@@ -375,7 +479,11 @@ const DiceRoller = (() => {
         const row = el.closest('.skill-row');
         const nameEl = row?.querySelector('.skill-name');
         const skillName = nameEl?.textContent?.trim() || '기술';
-        rollCheck(mod, skillName);
+        openBonusRollModal({
+          category: 'skill',
+          label: skillName,
+          onConfirm: extra => rollCheck(mod + extra, skillName),
+        });
         return;
       }
 
@@ -383,7 +491,11 @@ const DiceRoller = (() => {
       if (e.target.id === 'val-init' || e.target.closest('#val-init')) {
         const el = e.target.id === 'val-init' ? e.target : e.target.closest('#val-init');
         const mod = parseInt(el.textContent) || 0;
-        rollCheck(mod, '선제');
+        openBonusRollModal({
+          category: 'initiative',
+          label: '선제',
+          onConfirm: extra => rollCheck(mod + extra, '선제'),
+        });
         return;
       }
     });
