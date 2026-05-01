@@ -108,7 +108,7 @@ function _reopenAcumenChoice() {
     const fi = arr.findIndex(f => f.name && f.name.includes('이세계 통찰'));
     if (fi >= 0) {
       const nameEn = (typeof _extractEnName === 'function') ? _extractEnName(arr[fi].name) : 'Otherworldly Acumen';
-      const def = (typeof FEAT_EFFECTS !== 'undefined') ? FEAT_EFFECTS[nameEn] : null;
+      const def = (typeof _getFeatEffectsDef === 'function') ? _getFeatEffectsDef(nameEn) : null;
       if (def?.choice && typeof openFeatChoiceModal === 'function') {
         openFeatChoiceModal(type, fi, def.choice);
       }
@@ -705,7 +705,8 @@ function applyClassFeatures() {
       (state.feats[cat]||[]).forEach((f, idx) => {
         if (f._auto && !f.choice) {
           const nameEn = typeof _extractEnName === 'function' ? _extractEnName(f.name) : '';
-          if (nameEn && typeof FEAT_EFFECTS !== 'undefined' && FEAT_EFFECTS[nameEn] && FEAT_EFFECTS[nameEn].choice) {
+          const _def = nameEn && typeof _getFeatEffectsDef === 'function' ? _getFeatEffectsDef(nameEn) : null;
+          if (_def && _def.choice) {
             setTimeout(() => checkFeatChoice(f.name, cat, idx), 0);
           }
         }
@@ -1227,9 +1228,9 @@ function growthClearFeat(lv, key, featType) {
       if (idx >= 0) {
         // 재주로 부여된 지식/기술 숙련 정리
         const removedFeat = arr[idx];
-        if (removedFeat?.name && typeof FEAT_EFFECTS !== 'undefined') {
+        if (removedFeat?.name && typeof _getFeatEffectsDef === 'function') {
           const en = removedFeat.name?.match(/\(([^)]+)\)$/)?.[1] || '';
-          const def = en ? FEAT_EFFECTS[en] : null;
+          const def = en ? _getFeatEffectsDef(en) : null;
           if (def?.effects) {
             def.effects.forEach(eff => {
               if (eff.type === 'grant_lore') {
@@ -1594,8 +1595,8 @@ function _getCantripBonusAtLevel(lv) {
     const featName = g[key];
     if (!featName) return;
     const en = typeof _extractEnName === 'function' ? _extractEnName(featName) : '';
-    if (!en || typeof FEAT_EFFECTS === 'undefined') return;
-    const def = FEAT_EFFECTS[en];
+    if (!en || typeof _getFeatEffectsDef !== 'function') return;
+    const def = _getFeatEffectsDef(en);
     if (!def || !def.effects) return;
     def.effects.forEach(eff => {
       if (eff.type === 'cantrip_slots') bonus += (eff.value || 0);
@@ -2686,13 +2687,36 @@ function _checkOnePrereq(cond) {
   return true; // 알 수 없는 조건 → 통과
 }
 
-// ── 전제조건 체크 (구조화 prereqs 우선, 텍스트 폴백) ──
-function _checkPrereqs(feat) {
-  // prereqs 배열이 있으면 구조화 체크
-  if (feat.prereqs && feat.prereqs.length > 0) {
-    return feat.prereqs.every(cond => _checkOnePrereq(cond));
+// ── PREREQ_GROUPS row → _checkOnePrereq 입력 객체로 변환 (v528~) ──
+function _rowToCond(r) {
+  const t = r.type;
+  if (['str','dex','con','int','wis','cha'].includes(t)) {
+    return { ability: t, min: parseInt(r.value) || 0 };
   }
-  // prereqs가 없으면 텍스트 기반 폴백 (prereqs 미정의 재주용)
+  if (t === 'perception') return { perception: parseInt(r.value) || 0 };
+  if (t === 'lore')       return { lore: parseInt(r.value) || 0 };
+  if (t === 'feat')       return { feat: r.value };
+  if (t === 'ancestry')   return { ancestry: r.value };
+  if (t === 'heritage')   return { heritage: r.value };
+  if (t === 'subclass')   return { subclass: r.value };
+  if (t === 'vision')     return { vision: r.value };
+  // 기본: SKILLS.id 외래키 (기술 숙련도)
+  return { skill: t, rank: parseInt(r.value) || 0 };
+}
+
+// ── 전제조건 체크 (PREREQ_GROUPS 우선, 텍스트 폴백) — v528~ ──
+function _checkPrereqs(feat) {
+  if (feat.prereq_group_id && typeof PREREQ_GROUPS !== 'undefined') {
+    const rows = getPrereqRows(feat.prereq_group_id);
+    if (rows.length > 0) {
+      const andRows = rows.filter(r => r.logic === 'and');
+      const orRows  = rows.filter(r => r.logic === 'or');
+      if (!andRows.every(r => _checkOnePrereq(_rowToCond(r)))) return false;
+      if (orRows.length > 0 && !orRows.some(r => _checkOnePrereq(_rowToCond(r)))) return false;
+      return true;
+    }
+  }
+  // 구조화 데이터 없으면 텍스트 기반 폴백
   return _checkPrereqsText(feat.prerequisites);
 }
 
@@ -2970,8 +2994,8 @@ function renderOptions(data) {
     // 전제조건 충족 재주를 상단, 미달 재주를 하단으로 정렬
     data.sort((a, b) => {
       let aFail = false, bFail = false;
-      try { aFail = (a.prereqs || a.prerequisites) && !_checkPrereqs(a); } catch(e) {}
-      try { bFail = (b.prereqs || b.prerequisites) && !_checkPrereqs(b); } catch(e) {}
+      try { aFail = (a.prereq_group_id || a.prerequisites) && !_checkPrereqs(a); } catch(e) {}
+      try { bFail = (b.prereq_group_id || b.prerequisites) && !_checkPrereqs(b); } catch(e) {}
       if (aFail !== bFail) return aFail ? 1 : -1;
       return 0;
     });
@@ -3029,7 +3053,7 @@ function renderOptions(data) {
 
     // 전제조건 미달 체크
     let prereqFail = false;
-    try { prereqFail = item.feat_level !== undefined && (item.prereqs || item.prerequisites) && !_checkPrereqs(item); } catch(e) {}
+    try { prereqFail = item.feat_level !== undefined && (item.prereq_group_id || item.prerequisites) && !_checkPrereqs(item); } catch(e) {}
 
     const rClass = `r${Math.min(levelNum, 10)}`;
     row.innerHTML = `
@@ -3110,7 +3134,7 @@ function selectOption(item, row) {
         tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${item.feat_level}레벨</span> <span class="tag-meta">${_catKo[item.category]||item.category||''}</span></div>${mfTraits?'<div style="margin-bottom:6px;">'+mfTraits+'</div>':''}`;
         if (item.prerequisites) {
           let _prereqMet = true;
-          try { _prereqMet = !(item.prereqs || item.prerequisites) || _checkPrereqs(item); } catch(e) {}
+          try { _prereqMet = !(item.prereq_group_id || item.prerequisites) || _checkPrereqs(item); } catch(e) {}
           const parts = item.prerequisites.split(/(?<=\.)\s+/);
           const prereqName = parts[0].replace(/\.$/,'');
           const prereqRest = parts.slice(1).join(' ');
@@ -3281,7 +3305,7 @@ function showItemDetail(item) {
     // 선행 요소: 첫 문장만 선행으로, 나머지는 본문에 합침
     if (item.prerequisites) {
       let _prereqMet = true;
-      try { _prereqMet = !(item.prereqs || item.prerequisites) || _checkPrereqs(item); } catch(e) {}
+      try { _prereqMet = !(item.prereq_group_id || item.prerequisites) || _checkPrereqs(item); } catch(e) {}
       const parts = item.prerequisites.split(/(?<=\.)\s+/);
       const prereqName = parts[0].replace(/\.$/,'');
       const prereqRest = parts.slice(1).join(' ');
@@ -4043,7 +4067,7 @@ function _buildBackgroundChoicesUI(bg) {
 
   // 기술 재주
   if (bg.feat_id && typeof FEAT_DB !== 'undefined') {
-    const fd = FEAT_DB.find(f => f && f.id === bg.feat_id);
+    const fd = getFeat(bg.feat_id);
     const featLabel = fd ? fd.name_ko : bg.feat_id;
     html += `<div style="margin-top:4px;">`;
     html += _choiceDropdown('', `기술 재주`, [{value: bg.feat_id, label: featLabel}], true, bg.feat_id);
@@ -4065,8 +4089,8 @@ function _buildBackgroundChoicesUI(bg) {
 // ── 혈통 모달: 언어 선택 ──
 function _buildAncestryChoicesUI(anc) {
   const fixedLangs = anc.languages || ['common'];
-  // PF2e Remaster 룰: 모든 혈통은 기본 보너스 언어 1개 + INT 수정치 (v526~ 컬럼 제거, 상수)
-  const bonusBase = 1;
+  // PF2e Remaster 룰: 인간 1 + INT, 나머지 INT만 (v528~ ANCESTRIES.bonusLangs 데이터 사용)
+  const bonusBase = anc.bonusLangs ?? 0;
   _modalChoices = { type: 'ancestry', fixedLangs, bonusBase, bonusLangs: Array(bonusBase).fill('') };
 
   // ── 이전 선택값 복원: state.languages에서 고정 언���를 제외한 나머지가 보너스 언어 ──
@@ -4092,7 +4116,10 @@ function _buildAncestryChoicesUI(anc) {
   });
 
   // 추가 언어 (active + "+" 버튼)
-  html += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">추가 언어 (기본 ${bonusBase}개, + 버튼으로 추가)</div>`;
+  const bonusLabel = bonusBase > 0
+    ? `추가 언어 (기본 ${bonusBase}개 + INT 수정치, + 버튼으로 추가)`
+    : `추가 언어 (INT 수정치만큼, + 버튼으로 추가)`;
+  html += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">${bonusLabel}</div>`;
   html += `<div id="anc-bonus-langs">`;
   const bonusCount = Math.max(bonusBase, _modalChoices.bonusLangs.length);
   for (let i = 0; i < bonusCount; i++) {
@@ -4502,9 +4529,9 @@ function confirmModal() {
         const traits = modalSelected.traits ? `특성: ${modalSelected.traits.join(', ')}` : '';
         const size = `크기: ${modalSelected.size || '중형'}`;
         const vision = `감각: ${VISION_KO[modalSelected.vision] || modalSelected.vision || '없음'}`;
-        const specials = (modalSelected.specials||[]).join('\n');
         const langLine = `언어: ${allLangs.join(', ')}`;
-        langEl.value = [traits, size, vision, langLine, specials].filter(Boolean).join('\n');
+        const extras = _summarizeAncestryExtras(modalSelected);
+        langEl.value = [traits, size, vision, langLine, extras].filter(Boolean).join('\n');
       }
     }
     // ── 선택값 영속 저장 ──
@@ -4875,6 +4902,23 @@ function applyClassDefaults(cls) {
   recalcSkills();
 }
 
+// 혈통 부가 정보 요약 텍스트 (v528~ specials 컬럼 제거 후 features/grantWeapon에서 파생)
+function _summarizeAncestryExtras(anc) {
+  if (!anc) return '';
+  const lines = [];
+  if (anc.grantWeapon) {
+    const w = (typeof getWeapon === 'function') ? getWeapon(anc.grantWeapon) : null;
+    lines.push(`무료 획득: ${w?.name_ko || anc.grantWeapon}`);
+  }
+  for (const fid of (anc.features || [])) {
+    const f = (typeof getFeat === 'function') ? getFeat(fid) : null;
+    lines.push(`자동 부여: ${f?.name_ko || fid}`);
+  }
+  if (anc.free_boosts) lines.push(`자유 속성 부스트 ${anc.free_boosts}개`);
+  if (anc.bonusLangs) lines.push(`추가 언어 ${anc.bonusLangs}+INT개`);
+  return lines.join('\n');
+}
+
 function applyAncestryDefaults(anc) {
   const speedEl = document.getElementById('speed');
   if (speedEl) speedEl.value = anc.speed;
@@ -4883,7 +4927,14 @@ function applyAncestryDefaults(anc) {
   state.size = anc.size || '중형';
   const langEl = document.getElementById('f-languages');
   if (langEl && !langEl.value) {
-    langEl.value = `특성: ${anc.traits.join(', ')}\n크기: ${anc.size}\n감각: ${anc.vision}\n${anc.specials.join('\n')}`;
+    const visionKo = (typeof VISION_KO !== 'undefined' && VISION_KO[anc.vision]) || anc.vision || '없음';
+    const extras = _summarizeAncestryExtras(anc);
+    langEl.value = [
+      `특성: ${(anc.traits||[]).join(', ')}`,
+      `크기: ${anc.size}`,
+      `감각: ${visionKo}`,
+      extras
+    ].filter(Boolean).join('\n');
   }
   // 정규화된 enum 직접 사용 (boosts=고정, flaws=고정, boost_choices/free_boosts는 모달에서 처리)
   state.boosts.ancFixed = [...(anc.boosts || [])];
@@ -4935,13 +4986,13 @@ function applyBackgroundInfo(bg) {
       ...(bg.choice_skill_groups || []).map(g => g.map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)).join(' 또는 ')),
       ...(bg.fixed_lores || []).map(l => l + ' 지식'),
     ].join(', ');
-    const fd = (bg.feat_id && typeof FEAT_DB !== 'undefined') ? FEAT_DB.find(f => f && f.id === bg.feat_id) : null;
+    const fd = (bg.feat_id && typeof FEAT_DB !== 'undefined') ? getFeat(bg.feat_id) : null;
     const featKo = fd ? fd.name_ko : (bg.feat_id || '—');
     notesEl.value = `[배경: ${bg.name}]\n속성 부스트: ${boostKo}\n기술: ${skillsKo}\n기술 재주: ${featKo}`;
   }
   // growth plan에 배경 재주 저장 (1회성, feat_id 기반)
   if (bg.feat_id && typeof FEAT_DB !== 'undefined') {
-    const fd = FEAT_DB.find(f => f && f.id === bg.feat_id);
+    const fd = getFeat(bg.feat_id);
     if (fd) {
       if (!state.growth[1]) state.growth[1] = {};
       state.growth[1].bgSkillFeat = `${fd.name_ko} (${fd.name_en})`;

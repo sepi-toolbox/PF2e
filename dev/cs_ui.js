@@ -2224,9 +2224,9 @@ function removeFeat(t, i) {
     }
   }
   // 재주로 부여된 지식/기술 숙련 정리
-  if (feat?.name && typeof FEAT_EFFECTS !== 'undefined') {
+  if (feat?.name && typeof _getFeatEffectsDef === 'function') {
     const nameEn = (typeof _extractEnName === 'function') ? _extractEnName(feat.name) : '';
-    const def = nameEn ? FEAT_EFFECTS[nameEn] : null;
+    const def = nameEn ? _getFeatEffectsDef(nameEn) : null;
     if (def?.effects) {
       def.effects.forEach(eff => {
         // grant_lore: 고정 이름 또는 $choice

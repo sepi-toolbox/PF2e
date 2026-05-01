@@ -7968,6 +7968,20 @@ const FEAT_EFFECTS = {
   }
 };
 
+// v528~ Phase 2: FEAT_DB.effects/choice/choiceEffects 통합 후 우선 조회
+//  1. FEAT_DB.name_en === nameEn 인 항목의 effects/choice/choiceEffects 우선
+//  2. 미존재 시 FEAT_EFFECTS legacy fallback (CLASS_FEATURE_NAMES, PC2 등)
+function _getFeatEffectsDef(nameEn) {
+  if (!nameEn) return null;
+  if (typeof FEAT_DB !== 'undefined' && typeof getFeat === 'function') {
+    const f = getFeat(nameEn);
+    if (f && ((Array.isArray(f.effects) && f.effects.length) || f.choice || f.choiceEffects)) {
+      return { effects: f.effects || [], choice: f.choice, choiceEffects: f.choiceEffects };
+    }
+  }
+  return (typeof FEAT_EFFECTS !== 'undefined') ? FEAT_EFFECTS[nameEn] : null;
+}
+
 
 // ═══════════════════════════════════════════════
 //  ENGINE — applyFeatEffects()
@@ -8068,7 +8082,7 @@ function applyFeatEffects() {
     arr.forEach(feat => {
       const nameEn = _extractEnName(feat.name);
       if (!nameEn) return;
-      const def = FEAT_EFFECTS[nameEn];
+      const def = _getFeatEffectsDef(nameEn);
       if (!def || !def.effects) return;
 
       // skill_defaults: choice 미설정 시 기본값 자동 적용
@@ -8394,7 +8408,7 @@ function _getChoiceDisplayName(feat) {
   }
   // muse_pick: SUBCLASS_DB에서 이름 조회
   const nameEn = _extractEnName(feat.name);
-  const def = FEAT_EFFECTS[nameEn];
+  const def = _getFeatEffectsDef(nameEn);
   if (def?.choice?.type === 'muse_pick' && typeof SUBCLASS_DB !== 'undefined') {
     const muse = SUBCLASS_DB.find(s => s.id === feat.choice);
     if (muse) return muse.name_ko + ' ' + (muse.subclass_type || '뮤즈');
@@ -8412,7 +8426,7 @@ function _getChoiceDisplayName(feat) {
 function _hasFeatChoiceIssue(feat) {
   const nameEn = _extractEnName(feat.name);
   if (!nameEn) return false;
-  const def = FEAT_EFFECTS[nameEn];
+  const def = _getFeatEffectsDef(nameEn);
   if (!def?.choice) return false;
   const ch = def.choice;
   if (ch.type === 'skill') {
@@ -8443,7 +8457,7 @@ function _hasFeatPrereqIssue(feat) {
 function _buildFeatChoiceUI(feat, featType, featIndex) {
   const nameEn = _extractEnName(feat.name);
   if (!nameEn) return '';
-  const def = FEAT_EFFECTS[nameEn];
+  const def = _getFeatEffectsDef(nameEn);
   if (!def || !def.choice) return '';
   const ch = def.choice;
   const uid = `fc-${featType}-${featIndex}`;
@@ -9175,7 +9189,7 @@ function _applyFeatChoice(choiceId) {
 
 function checkFeatChoice(featName, featType, featIndex) {
   const nameEn = _extractEnName(featName);
-  const def = FEAT_EFFECTS[nameEn];
+  const def = _getFeatEffectsDef(nameEn);
   if (def && def.choice) {
     const t = def.choice.type;
     // 인라인 컨트롤이 있는 타입은 팝업 생략 → 재주 탭에서 선택

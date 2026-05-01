@@ -19,8 +19,7 @@ const COMMON = {
   price:           '가격 (예: "2 gp", "—")',
   bulk:            '부피 (L=경량, 1, 2, … 또는 "—")',
   category:        '카테고리/분류',
-  prereqs:         '구조화된 전제조건 (JSON, _checkPrereqs가 사용)',
-  prerequisites:   '전제조건 텍스트 (표시용)',
+  prerequisites:   '전제조건 텍스트 (표시용 — 자동화는 PREREQ_GROUPS 사용. v528~)',
   level:           '레벨',
   group:           '무기/방어구 그룹',
 };
@@ -62,8 +61,9 @@ const PER_SHEET = {
     traits:         'TRAIT_DB.id 외래키 배열 (예: ["드워프","인간형"]). v526~ id 참조',
     vision:         '시야 enum (none/low-light/darkvision/greater-darkvision). v526~',
     languages:      'LANGUAGES.id 외래키 배열 (예: ["common","dwarven"]). v526~ id 참조',
-    bonusLangs:     'INT에 더해지는 추가 언어 슬롯 수',
-    specials:       '특수 능력 텍스트 배열',
+    bonusLangs:     'INT에 더해지는 기본 추가 언어 슬롯 수 (인간만 1, 나머지 0). v528~',
+    features:       'FEAT_DB.id 외래키 배열 — 자동 부여 재주 (예: halfling=["keen-eyes"]). v528~',
+    grantWeapon:    'WEAPON_DB.id (무료 획득 무기. dwarf=clan-dagger). v528~',
   },
   LANGUAGES: {
     category:       '카테고리 (common/uncommon/rare). v526~',
@@ -73,6 +73,13 @@ const PER_SHEET = {
   },
   TRAIT_DB: {
     desc:           '특성 효과 설명 (무기 트레이트는 게임 메카닉, 혈통/생물 트레이트는 분류용)',
+    type:           '특성 분류: weapon(무기 메카닉) / damage(피해 종류) / ancestry(혈통) / creature(생물형) / mechanic(범용 메커닉) / rarity(희귀도). v528~',
+  },
+  PREREQ_GROUPS: {
+    group_id:  'PREREQ_GROUPS PK — FEAT_DB.prereq_group_id가 참조. 같은 group_id 행 = 묶인 조건',
+    logic:     'and(기본 — 모두 만족) / or(같은 group_id 내 OR 행끼리 하나만 만족)',
+    type:      '조건 타입: 능력치 enum(str/dex/con/int/wis/cha) / SKILLS.id (religion 등) / perception / lore / feat / ancestry / heritage / subclass / vision',
+    value:     '값: 능력치=최소 부스트(2/4/...) / 기술/지각/lore=숙련도(2/4/6/8) / feat=영문명 / ancestry/heritage/subclass=한글명 / vision=시야 enum',
   },
   BACKGROUNDS: {
     boosts:         '고정 능력치 부스트 enum 배열',
@@ -122,8 +129,13 @@ const PER_SHEET = {
     title:           '신격 칭호',
   },
   FEAT_DB: {
-    feat_level:  '재주 레벨 (1, 2, 4, 6, …)',
-    repeatable:  '여러 번 선택 가능 여부',
+    feat_level:       '재주 레벨 (1, 2, 4, 6, …)',
+    repeatable:       '여러 번 선택 가능 여부',
+    acquisition:      'choice(사용자 선택) / auto(자동 부여). v528~',
+    source:           'auto일 때 출처 ID (혈통/클래스 id). v528~',
+    prereq_group_id:  'PREREQ_GROUPS.group_id 외래키 (빈 문자열=전제조건 없음). v528~',
+    actionCost:       '행동 비용 (1/2/3/reaction/free)',
+    effects:          'Phase 2 자동화 효과 객체 배열 (현재 빈 배열). v528~',
   },
   SPELL_DB: {
     rank:          '랭크 (1~10)',

@@ -331,6 +331,20 @@ function getConditionByEnCi(en) {
   return null;
 }
 
+// PREREQ_GROUPS v528~: group_id로 묶인 1:N 정규화 행 조회
+const _PREREQ_GROUPS_INDEX = new Map();
+function getPrereqRows(groupId) {
+  if (!groupId || typeof PREREQ_GROUPS === 'undefined') return [];
+  if (_PREREQ_GROUPS_INDEX.size === 0 && PREREQ_GROUPS.length) {
+    for (const r of PREREQ_GROUPS) {
+      const arr = _PREREQ_GROUPS_INDEX.get(r.group_id) || [];
+      arr.push(r);
+      _PREREQ_GROUPS_INDEX.set(r.group_id, arr);
+    }
+  }
+  return _PREREQ_GROUPS_INDEX.get(groupId) || [];
+}
+
 // ═══════════════════════════════════════════════
 //  DESC DYNAMIC REFERENCES  {{type:key}}
 // ═══════════════════════════════════════════════
@@ -1280,7 +1294,7 @@ function rebuildCoreEffects() {
 
   // 배경 재주 — feat_id 기반
   if (bg?.feat_id && typeof FEAT_DB !== 'undefined') {
-    const fd = FEAT_DB.find(f => f && f.id === bg.feat_id);
+    const fd = getFeat(bg.feat_id);
     if (fd) {
       if (!state.feats.skill) state.feats.skill = [];
       state.feats.skill.push({

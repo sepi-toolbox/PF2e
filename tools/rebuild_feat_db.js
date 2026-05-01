@@ -252,6 +252,7 @@ const existingDb = fs.readFileSync('feat_db.js', 'utf8');
 const existingByNameEn = {}; // name_en → 객체 (id, prereqs, desc 등 보존)
 const existingArchetype = []; // 보존할 archetype 객체 그대로
 const existingFeatures = []; // 보존할 feature(class_id 있는) 객체
+const existingAutoAncestry = []; // 보존할 auto-acquisition 혈통/일반 자동 부여 항목 (v528~)
 
 try {
   eval(existingDb);
@@ -260,17 +261,18 @@ try {
       if (!f || !f.name_en) continue;
       existingByNameEn[f.name_en] = f;
       if (f.category === 'archetype') existingArchetype.push(f);
-      if (f.cat === 'feature' && f.class_id) existingFeatures.push(f);
+      else if (f.cat === 'feature' && f.class_id) existingFeatures.push(f);
+      else if (f.acquisition === 'auto' && f.source) existingAutoAncestry.push(f);
     }
   }
 } catch(e) {
   console.error('  기존 feat_db.js 로드 실패:', e.message);
   process.exit(1);
 }
-const preservedPrereqs = Object.values(existingByNameEn).filter(f => f.prereqs).length;
+const preservedPrereqGroups = Object.values(existingByNameEn).filter(f => f.prereq_group_id).length;
 const preservedDescRefs = Object.values(existingByNameEn).filter(f => f.desc && /\{\{(spell|feat|condition|trait|action):/.test(f.desc)).length;
 console.error(`  기존 항목 로드: ${Object.keys(existingByNameEn).length}개`);
-console.error(`  prereqs 보존 후보: ${preservedPrereqs}개`);
+console.error(`  prereq_group_id 보존 후보: ${preservedPrereqGroups}개`);
 console.error(`  desc 템플릿 보존 후보: ${preservedDescRefs}개`);
 
 // ── id 슬러그 생성 ──
@@ -355,34 +357,45 @@ for (const ef of existingFeatures) {
   }
   finalFeats.push(ef);
 }
+// v528~ auto-acquisition 혈통 자동 부여 (keen-eyes / plant-nourishment 등) — PlayerCore 파싱 대상 아님
+for (const ef of existingAutoAncestry) {
+  if (!ef.id) ef.id = assignId(ef);
+  finalFeats.push(ef);
+}
 
 // parsed feats
 for (const f of feats) {
   const existing = existingByNameEn[f.name_en];
-  // 출력 객체 — 키 순서: id, name_ko, name_en, feat_level, prereqs, traits, category, prerequisites, summary, desc, repeatable
+  // auto-acquisition 항목은 이미 existingAutoAncestry로 푸시됨 — 중복 방지
+  if (existing && existing.acquisition === 'auto' && existing.source) continue;
+  // 출력 객체 — 키 순서: id, name_ko, name_en, feat_level, category, acquisition, source,
+  //   prereq_group_id, prerequisites, traits, actionCost, desc, summary, repeatable, effects (v528~)
   const obj = {};
   obj.id = assignId(f);
   obj.name_ko = f.name_ko;
   obj.name_en = f.name_en;
   obj.feat_level = f.feat_level;
-  // prereqs 보존
-  if (existing && existing.prereqs) obj.prereqs = existing.prereqs;
-  obj.traits = f.traits;
   obj.category = f.category;
-  if (f.actionCost) obj.actionCost = f.actionCost;
+  // v528~ 신규 필드 (기본값 또는 기존값)
+  obj.acquisition = (existing && existing.acquisition) || 'choice';
+  obj.source = (existing && existing.source) || '';
+  obj.prereq_group_id = (existing && existing.prereq_group_id) || '';
   if (f.prerequisites) obj.prerequisites = f.prerequisites;
-  // summary 300자 제한
-  obj.summary = f.summary.length > 300 ? f.summary.substring(0, 297) + '...' : f.summary;
-  // desc 템플릿 보존: 기존 desc에 {{}} 참조가 있으면 그것을 사용
+  obj.traits = f.traits;
+  if (f.actionCost) obj.actionCost = f.actionCost;
+  // desc 템플릿 보존
   if (existing && existing.desc && /\{\{(spell|feat|condition|trait|action):/.test(existing.desc)) {
     obj.desc = existing.desc;
   } else {
     obj.desc = f.desc;
   }
+  obj.summary = f.summary.length > 300 ? f.summary.substring(0, 297) + '...' : f.summary;
   if (f.repeatable) obj.repeatable = true;
-  // 사용자 정의 추가 컬럼 보존 (actionCost 등 — 명시 처리한 키 외 모든 키)
+  // v528~ effects 자리 (Phase 2에서 채움)
+  obj.effects = (existing && existing.effects) || [];
+  // 사용자 정의 추가 컬럼 보존 (명시 처리한 키 외 모든 키)
   if (existing) {
-    const known = new Set(['id','name_ko','name_en','feat_level','prereqs','traits','category','actionCost','prerequisites','summary','desc','repeatable','cat','class_id']);
+    const known = new Set(['id','name_ko','name_en','feat_level','category','acquisition','source','prereq_group_id','prerequisites','traits','actionCost','desc','summary','repeatable','effects','prereqs','cat','class_id']);
     for (const k of Object.keys(existing)) {
       if (!known.has(k)) obj[k] = existing[k];
     }
