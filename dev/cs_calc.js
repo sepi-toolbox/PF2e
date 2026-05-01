@@ -1453,35 +1453,42 @@ function getStackedBonus(category, target) {
 
 // ── 임시 디버그 (v530, 진단 후 제거 예정) ──
 function _debugShowBonusPool() {
-  let el = document.getElementById('debug-bonus-pool');
-  if (!el) {
-    el = document.createElement('div');
-    el.id = 'debug-bonus-pool';
-    el.style.cssText = 'position:fixed;top:5px;right:5px;background:#000;color:#0f0;padding:8px 10px;font-size:11px;border:1px solid #0f0;z-index:99999;max-width:340px;font-family:monospace;border-radius:4px;cursor:pointer;line-height:1.4';
-    el.title = '클릭하여 닫기';
-    el.onclick = () => el.remove();
-    document.body.appendChild(el);
+  let wrap = document.getElementById('debug-bonus-pool');
+  if (!wrap) {
+    wrap = document.createElement('div');
+    wrap.id = 'debug-bonus-pool';
+    wrap.style.cssText = 'position:fixed;top:5px;right:5px;background:#000;border:1px solid #0f0;z-index:99999;border-radius:4px;font-family:monospace;padding:4px';
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '✕';
+    closeBtn.style.cssText = 'position:absolute;top:2px;right:4px;background:#0f0;color:#000;border:none;width:20px;height:20px;cursor:pointer;font-weight:700;border-radius:2px';
+    closeBtn.onclick = () => wrap.remove();
+    const ta = document.createElement('textarea');
+    ta.id = 'debug-bonus-pool-ta';
+    ta.readOnly = true;
+    ta.style.cssText = 'width:340px;height:200px;background:#000;color:#0f0;border:none;font-size:11px;font-family:monospace;padding:6px;line-height:1.4;resize:both';
+    wrap.appendChild(closeBtn);
+    wrap.appendChild(ta);
+    document.body.appendChild(wrap);
   }
+  const ta = document.getElementById('debug-bonus-pool-ta');
+  if (!ta) return;
   const pool = state._fb?.bonuses || [];
-  let html = '';
+  let lines = [];
   if (!pool.length) {
-    html = '<b>POOL</b>: <span style="color:#f80">empty</span><br>';
+    lines.push('POOL: empty');
   } else {
-    html = '<b>POOL (' + pool.length + ')</b><br>' +
-      pool.map(b => `[${b.category}/${b.target||'-'}] +${b.value} (${b.bonus_type||'-'}) ${b.source||''}`).join('<br>') + '<br>';
+    lines.push('POOL (' + pool.length + ')');
+    pool.forEach(b => lines.push('  [' + b.category + '/' + (b.target||'-') + '] +' + b.value + ' (' + (b.bonus_type||'-') + ') ' + (b.source||'')));
   }
-  // 추가 진단
   const speedExtra = (typeof getStackedBonus === 'function') ? getStackedBonus('speed', null) : {total: '?', picks:[]};
   const speedInput = document.getElementById('speed')?.value;
   const speedDisp = document.getElementById('speed-display');
-  const dispText = speedDisp?.textContent;
-  const dispDataset = speedDisp?.dataset?.bonusPicks;
-  html += '<hr style="border-color:#0a0;margin:4px 0">';
-  html += `<b>SPEED:</b> input=${speedInput} disp="${dispText}"<br>`;
-  html += `getStackedBonus('speed').total=${speedExtra.total}<br>`;
-  html += `dataset.bonusPicks=${dispDataset || 'NONE'}<br>`;
-  html += `getStackedBonus is fn? ${typeof getStackedBonus}`;
-  el.innerHTML = html;
+  lines.push('---');
+  lines.push('SPEED input=' + speedInput + ' disp="' + (speedDisp?.textContent) + '"');
+  lines.push('getStackedBonus(speed).total=' + speedExtra.total);
+  lines.push('dataset.bonusPicks=' + (speedDisp?.dataset?.bonusPicks || 'NONE'));
+  lines.push('getStackedBonus typeof=' + typeof getStackedBonus);
+  ta.value = lines.join('\n');
 }
 
 function applyPenaltyColor(el, base, penalty) {
