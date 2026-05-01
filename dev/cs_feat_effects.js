@@ -7990,25 +7990,15 @@ function _getFeatEffectsDef(nameEn) {
 function applyFeatEffects() {
   const fb = {
     hp: 0,
-    speed: 0,
     extraSpeeds: {},     // {climb:10, swim:20}
-    initiative: 0,
     bulk: 0,
-    dying_threshold: 4,
-    recovery_dc_mod: 0,
     skills: {},          // {athletics: {min_rank:2, bonus:0}}
-    saves: {},           // {fort:{value:0,type:'',cond:''}}
-    ac: 0,
-    actions: [],
     familiarWeapons: [],
     martialExperience: false,
     unburdenedIron: false,
     adoptedAncestries: [],
     extraSenses: [],
-    damage_notes: [],
-    notes: [],
     cantrip_bonus: 0,
-    familiar_abilities: 0,
     bonuses: [],         // 활성 보너스 풀 — {category,target,value,bonus_type,condition,source} (v530~)
   };
 
@@ -8131,17 +8121,15 @@ function _applyOneEffect(fb, eff, feat, level) {
       fb.extraSpeeds[eff.key] = Math.max(fb.extraSpeeds[eff.key] || 0, eff.value);
       break;
     case 'initiative_bonus':
-      fb.initiative = Math.max(fb.initiative, eff.value);
+      // 풀 단일 출처 (v531~) — recalcPerc가 getStackedBonus로 합산
       _pushBonus(fb, 'initiative', null, eff, feat);
       break;
     case 'bulk_bonus':
       fb.bulk += eff.value;
       break;
     case 'dying_threshold':
-      fb.dying_threshold = Math.max(fb.dying_threshold, eff.value);
-      break;
     case 'recovery_dc':
-      fb.recovery_dc_mod += eff.value;
+      // desc 정본 (v531~) — 자동화 보류 (각 1건, 사용자가 desc에서 확인)
       break;
     case 'skill_trained': {
       const sid = _resolveChoice(eff.skill, feat);
@@ -8173,23 +8161,16 @@ function _applyOneEffect(fb, eff, feat, level) {
       break;
     }
     case 'save_bonus': {
+      // 풀 단일 출처 (v531~) — recalcSaves가 getStackedBonus로 합산
       const key = eff.save; // 'fort','ref','will','all'
-      const entry = {value: eff.value, type: eff.bonus_type||'', cond: eff.condition||''};
       if (key === 'all') {
-        ['fort','ref','will'].forEach(s => {
-          if (!fb.saves[s]) fb.saves[s] = [];
-          fb.saves[s].push(entry);
-          _pushBonus(fb, 'save', s, eff, feat);
-        });
+        ['fort','ref','will'].forEach(s => _pushBonus(fb, 'save', s, eff, feat));
       } else {
-        if (!fb.saves[key]) fb.saves[key] = [];
-        fb.saves[key].push(entry);
         _pushBonus(fb, 'save', key, eff, feat);
       }
       break;
     }
     case 'grant_action':
-      if (eff.action && !fb.actions.includes(eff.action)) fb.actions.push(eff.action);
       // summary 기반 동적 행동 (ACTION_DB에 없는 행동) — 레거시
       if (eff.summary && feat.name) {
         if (!fb._customActions) fb._customActions = [];
@@ -8202,22 +8183,9 @@ function _applyOneEffect(fb, eff, feat, level) {
       }
       break;
     case 'damage_note':
-      if (eff.scaling) {
-        let val = '';
-        Object.entries(eff.scaling).forEach(([lv, v]) => {
-          if (level >= parseInt(lv)) val = v;
-        });
-        if (val) fb.damage_notes.push(val + (eff.damage_type ? ' ' + eff.damage_type : ''));
-      } else if (eff.text) {
-        fb.damage_notes.push(eff.text);
-      }
+    case 'display_note':
+      // desc 정본 (v531~) — display_note 713건은 Phase 3a에서 FEAT_DB.auto_note로 흡수 예정
       break;
-    case 'display_note': {
-      let text = eff.text || '';
-      text = text.replace(/\$choice_name/g, _getChoiceDisplayName(feat));
-      fb.notes.push(text);
-      break;
-    }
     case 'ac_bonus':
       _pushBonus(fb, 'ac', null, eff, feat);
       // 자동 합산은 recalcAC에서 풀을 읽어 type별 max 적용 (v530~)
@@ -8226,12 +8194,22 @@ function _applyOneEffect(fb, eff, feat, level) {
       fb.cantrip_bonus += eff.value;
       break;
     case 'familiar_abilities':
-      fb.familiar_abilities += eff.value;
+      // 펫 시스템 통합 보류 (v531~) — desc 정본, 사용자가 펫 카드 maxAbilities 직접 조정
       break;
     case 'armor_upgrade':
-    case 'proficiency':
-      // 숙련도 변경 — syncAllProfRanks에서 처리 예정
+      // 갑옷 카테고리 업그레이드 — _applyFeatChoice/사용자 선택 시 직접 prof DOM 변경 (v531~)
+      // 1건(갑옷 숙련) 사용, choice 시스템 통합은 Phase 3a 이후 별도 작업
       break;
+    case 'proficiency': {
+      // 숙련도 직접 부여 (v531~) — target=DOM id suffix, rank=숫자
+      if (eff.target && typeof eff.rank === 'number') {
+        const profEl = document.getElementById('prof-' + eff.target);
+        if (profEl && parseInt(profEl.value || 0) < eff.rank) {
+          profEl.value = String(eff.rank);
+        }
+      }
+      break;
+    }
     case 'weapon_familiarity': {
       // 해당 무기를 한 카테고리 낮춰 취급 (군용→단순, 고급→군용)
       if (eff.weapons) eff.weapons.forEach(w => {

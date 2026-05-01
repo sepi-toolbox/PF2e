@@ -1628,20 +1628,34 @@ function recalcSaves() {
     ['ref','dex','prof-ref','val-ref', pen.clumsy],
     ['will','wis','prof-will','val-will', 0],
   ];
-  pairs.forEach(([,attr,profId,valId, extraPen]) => {
+  pairs.forEach(([key,attr,profId,valId, extraPen]) => {
     const rank = parseInt(document.getElementById(profId)?.value||0);
     const base = getMod(attr) + (rank>0?rank+lv:0);
+    // 풀 자동 합산: target=key 매칭 + target=null(all) 매칭 (v531~)
+    const saveExtra = getStackedBonus('save', key);
     const totalPen = pen.all + extraPen;
-    applyPenaltyColor(document.getElementById(valId), base, totalPen);
+    const el = document.getElementById(valId);
+    applyPenaltyColor(el, base + saveExtra.total, totalPen);
+    if (el) el.dataset.bonusPicks = JSON.stringify(saveExtra.picks);
   });
 }
 
 function recalcPerc() {
   const total = getMod('wis') + getProfBonus('prof-perc');
-  document.getElementById('val-perc').textContent = fmtBonus(total);
+  // 지각 풀 보너스 자동 합산 (v531~)
+  const percEl = document.getElementById('val-perc');
+  const percExtra = getStackedBonus('perception', null);
+  if (percEl) {
+    percEl.textContent = fmtBonus(total + percExtra.total);
+    percEl.dataset.bonusPicks = JSON.stringify(percExtra.picks);
+  }
+  // 선제 풀 보너스 자동 합산 (v531~ — 풀 단일 출처)
   const initEl = document.getElementById('val-init');
-  const initBonus = state._fb?.initiative || 0;
-  if (initEl) initEl.textContent = fmtBonus(total + initBonus);
+  const initExtra = getStackedBonus('initiative', null);
+  if (initEl) {
+    initEl.textContent = fmtBonus(total + initExtra.total);
+    initEl.dataset.bonusPicks = JSON.stringify(initExtra.picks);
+  }
 }
 
 function getClassKeyAttr() {
