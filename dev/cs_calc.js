@@ -43,8 +43,11 @@ function syncAllProfRanks() {
   const speedVal = document.getElementById('speed');
   if (speedDisp && speedVal) {
     const armorPen = getArmorPenalties();
-    const baseSpeed = parseInt(speedVal.value || '25') + (state._fb?.speed || 0) + armorPen.speed;
+    // 풀 기반 type별 max 합산 (v530~)
+    const speedExtra = (typeof getStackedBonus === 'function') ? getStackedBonus('speed', null) : {total:0, picks:[]};
+    const baseSpeed = parseInt(speedVal.value || '25') + speedExtra.total + armorPen.speed;
     speedDisp.textContent = Math.max(5, baseSpeed);
+    speedDisp.dataset.bonusPicks = JSON.stringify(speedExtra.picks);
   }
   // 감각 표시 (유산 vision이 혈통 vision보다 우선)
   const sensesEl = document.getElementById('char-senses');
@@ -1412,8 +1415,6 @@ function recalcAll() {
   if (document.getElementById('panel-actions')?.classList.contains('active')) renderActions();
   // 재주 탭 갱신 (숙련 변경 → 드롭다운 반영)
   if (typeof renderFeats === 'function') renderFeats();
-  // 임시 디버그 박스 갱신 (v530)
-  _debugShowBonusPool();
 }
 
 function getCondPenalty() {
@@ -1451,45 +1452,6 @@ function getStackedBonus(category, target) {
   return { total, picks };
 }
 
-// ── 임시 디버그 (v530, 진단 후 제거 예정) ──
-function _debugShowBonusPool() {
-  let wrap = document.getElementById('debug-bonus-pool');
-  if (!wrap) {
-    wrap = document.createElement('div');
-    wrap.id = 'debug-bonus-pool';
-    wrap.style.cssText = 'position:fixed;top:5px;right:5px;background:#000;border:1px solid #0f0;z-index:99999;border-radius:4px;font-family:monospace;padding:4px';
-    const closeBtn = document.createElement('button');
-    closeBtn.textContent = '✕';
-    closeBtn.style.cssText = 'position:absolute;top:2px;right:4px;background:#0f0;color:#000;border:none;width:20px;height:20px;cursor:pointer;font-weight:700;border-radius:2px';
-    closeBtn.onclick = () => wrap.remove();
-    const ta = document.createElement('textarea');
-    ta.id = 'debug-bonus-pool-ta';
-    ta.readOnly = true;
-    ta.style.cssText = 'width:340px;height:200px;background:#000;color:#0f0;border:none;font-size:11px;font-family:monospace;padding:6px;line-height:1.4;resize:both';
-    wrap.appendChild(closeBtn);
-    wrap.appendChild(ta);
-    document.body.appendChild(wrap);
-  }
-  const ta = document.getElementById('debug-bonus-pool-ta');
-  if (!ta) return;
-  const pool = state._fb?.bonuses || [];
-  let lines = [];
-  if (!pool.length) {
-    lines.push('POOL: empty');
-  } else {
-    lines.push('POOL (' + pool.length + ')');
-    pool.forEach(b => lines.push('  [' + b.category + '/' + (b.target||'-') + '] +' + b.value + ' (' + (b.bonus_type||'-') + ') ' + (b.source||'')));
-  }
-  const speedExtra = (typeof getStackedBonus === 'function') ? getStackedBonus('speed', null) : {total: '?', picks:[]};
-  const speedInput = document.getElementById('speed')?.value;
-  const speedDisp = document.getElementById('speed-display');
-  lines.push('---');
-  lines.push('SPEED input=' + speedInput + ' disp="' + (speedDisp?.textContent) + '"');
-  lines.push('getStackedBonus(speed).total=' + speedExtra.total);
-  lines.push('dataset.bonusPicks=' + (speedDisp?.dataset?.bonusPicks || 'NONE'));
-  lines.push('getStackedBonus typeof=' + typeof getStackedBonus);
-  ta.value = lines.join('\n');
-}
 
 function applyPenaltyColor(el, base, penalty) {
   if (!el) return;
