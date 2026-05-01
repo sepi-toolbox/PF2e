@@ -448,6 +448,60 @@ function getHeritageEffects(h) {
   return out;
 }
 
+// BACKGROUNDS v535~ Phase 4b: effect_group_id → 기존 컬럼 형태로 변환 (호환층)
+//   호출처(rebuildCoreEffects/cs_modal.js applyBackgroundInfo/배경 모달 등)는 기존 b.fixed_skills 등 형태로 접근.
+//   EFFECT_GROUPS 행을 type별로 집계해 기존 컬럼 형태로 반환.
+const _BACKGROUND_EFFECTS_CACHE = new Map();
+function getBackgroundEffects(b) {
+  if (!b) return {};
+  const id = b.id || '';
+  if (_BACKGROUND_EFFECTS_CACHE.has(id)) return _BACKGROUND_EFFECTS_CACHE.get(id);
+  const out = { boosts: [], boost_choices: [], free_boosts: 0, fixed_skills: [], choice_skill_groups: [], fixed_lores: [], feat_id: null, deity_skill: false, deity_lore: false };
+  if (b.effect_group_id && typeof getEffectRows === 'function') {
+    const _boostGroups = {};   // group_no → [ability...]
+    const _skillGroups = {};   // group_no → [skill_id...]
+    for (const r of getEffectRows(b.effect_group_id)) {
+      switch (r.type) {
+        case 'ability_boost':
+          out.boosts.push(r.target);
+          break;
+        case 'ability_boost_choice': {
+          const g = r.group_no || 1;
+          (_boostGroups[g] = _boostGroups[g] || []).push(r.target);
+          break;
+        }
+        case 'free_boost_slots':
+          out.free_boosts += (r.value || 0);
+          break;
+        case 'skill_trained':
+          out.fixed_skills.push(r.target);
+          break;
+        case 'skill_choice': {
+          const g = r.group_no || 1;
+          (_skillGroups[g] = _skillGroups[g] || []).push(r.target);
+          break;
+        }
+        case 'grant_lore':
+          out.fixed_lores.push(r.target);
+          break;
+        case 'grant_feat':
+          out.feat_id = r.target;
+          break;
+        case 'deity_skill':
+          out.deity_skill = true;
+          break;
+        case 'deity_lore':
+          out.deity_lore = true;
+          break;
+      }
+    }
+    out.boost_choices = Object.keys(_boostGroups).sort((a, b) => +a - +b).map(k => _boostGroups[k]);
+    out.choice_skill_groups = Object.keys(_skillGroups).sort((a, b) => +a - +b).map(k => _skillGroups[k]);
+  }
+  _BACKGROUND_EFFECTS_CACHE.set(id, out);
+  return out;
+}
+
 // EFFECT_GROUPS / CHOICE_OPTIONS v532~ Phase 3a: 1:N 정규화 행 조회
 const _EFFECT_GROUPS_INDEX = new Map();
 function getEffectRows(groupId) {
@@ -1073,9 +1127,9 @@ function renderBoostModal() {
       s.innerHTML = '<div class="boost-section-title">배경 부스트</div><div class="boost-section-desc" style="color:var(--text2);">배경을 먼저 선택하세요.</div>';
       container.appendChild(s);
     } else {
-      // 정규화된 boost_choices/free_boosts 사용
-      const choices = bg.boost_choices || [];
-      const freeCount = bg.free_boosts || 0;
+      const beff = getBackgroundEffects(bg);
+      const choices = beff.boost_choices || [];
+      const freeCount = beff.free_boosts || 0;
       const choiceGroup = choices[0];  // 보통 그룹 1개
 
       if (choiceGroup && choiceGroup.length > 0) {
@@ -1436,9 +1490,11 @@ function rebuildCoreEffects() {
     });
   }
 
+  const beff = bg ? getBackgroundEffects(bg) : null;
+
   // 배경 기술 — 고정 (choice_skill_groups는 모달에서 별도 처리)
-  if (bg && Array.isArray(bg.fixed_skills)) {
-    bg.fixed_skills.forEach(id => {
+  if (beff && beff.fixed_skills.length) {
+    beff.fixed_skills.forEach(id => {
       const el = document.getElementById('sk-prof-' + id);
       if (!el) return;
       const cur = parseInt(el.value || 0);
@@ -1448,8 +1504,8 @@ function rebuildCoreEffects() {
   }
 
   // 배경 지식 (lore) — 한국어 이름 그대로 (외래 DB 없음)
-  if (bg && Array.isArray(bg.fixed_lores)) {
-    bg.fixed_lores.forEach((loreName, i) => {
+  if (beff && beff.fixed_lores.length) {
+    beff.fixed_lores.forEach((loreName, i) => {
       const slot = i === 0 ? 'lore1' : 'lore2';
       const nameEl = document.getElementById('lore-name-' + slot);
       const profEl = document.getElementById('sk-prof-' + slot);
@@ -1464,8 +1520,8 @@ function rebuildCoreEffects() {
   }
 
   // 배경 재주 — feat_id 기반
-  if (bg?.feat_id && typeof FEAT_DB !== 'undefined') {
-    const fd = getFeat(bg.feat_id);
+  if (beff?.feat_id && typeof FEAT_DB !== 'undefined') {
+    const fd = getFeat(beff.feat_id);
     if (fd) {
       if (!state.feats.skill) state.feats.skill = [];
       state.feats.skill.push({

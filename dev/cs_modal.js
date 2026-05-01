@@ -4054,6 +4054,7 @@ function _rebuildTrainableSkillDropdowns() {
 
 // ── 배경 모달: 기술 + 재주 ──
 function _buildBackgroundChoicesUI(bg) {
+  const beff = (typeof getBackgroundEffects === 'function') ? getBackgroundEffects(bg) : {};
   const _savedBgChoice = (state.selectedBackground?.id === bg.id) ? (state.initialChoices?.background?.choiceSkill || null) : null;
   _modalChoices = { type: 'background', skills: {}, choiceSkill: _savedBgChoice, loreName: '' };
 
@@ -4061,14 +4062,14 @@ function _buildBackgroundChoicesUI(bg) {
   html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📋 배경 혜택</div>`;
   // 능력치 부스트 표시
   const bgBoostKo = [
-    ...(bg.boosts || []).map(k => ATTR_KO[k]),
-    ...(bg.boost_choices || []).map(g => g.map(k => ATTR_KO[k]).join(' 또는 ')),
-    ...Array(bg.free_boosts || 0).fill('자유'),
+    ...(beff.boosts || []).map(k => ATTR_KO[k]),
+    ...(beff.boost_choices || []).map(g => g.map(k => ATTR_KO[k]).join(' 또는 ')),
+    ...Array(beff.free_boosts || 0).fill('자유'),
   ].join(', ') || '—';
   html += `<div style="font-size:11px;color:var(--text2);margin-bottom:6px;"><strong>능력치 부스트:</strong> ${bgBoostKo}</div>`;
 
   // 고정 기술
-  (bg.fixed_skills || []).forEach(id => {
+  (beff.fixed_skills || []).forEach(id => {
     const skill = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === id) : null;
     const label = skill ? skill.name : id;
     html += _choiceDropdown('', `기술`, [{value: id, label}], true, id);
@@ -4076,7 +4077,7 @@ function _buildBackgroundChoicesUI(bg) {
 
   // 선택 기술 그룹 (그룹당 1택)
   let hasChoice = false;
-  (bg.choice_skill_groups || []).forEach((group, gi) => {
+  (beff.choice_skill_groups || []).forEach((group, gi) => {
     hasChoice = true;
     const options = group.map(id => {
       const skill = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === id) : null;
@@ -4093,22 +4094,22 @@ function _buildBackgroundChoicesUI(bg) {
   _modalChoices.hasChoiceSkill = hasChoice;
 
   // 고정 지식 (lore) — 한국어 그대로
-  (bg.fixed_lores || []).forEach(loreName => {
+  (beff.fixed_lores || []).forEach(loreName => {
     _modalChoices.loreName = loreName;
     html += _choiceDropdown('', `지식 기술`, [{value: loreName, label: loreName + ' 지식'}], true, loreName);
   });
 
   // 신격 기술/지식 마커 (raised-by-belief)
-  if (bg.deity_skill || bg.deity_lore) {
-    html += `<div style="font-size:10px;color:var(--text2);margin:4px 0;">※ 신격 선택 후 자동 부여 (신격 기술${bg.deity_lore ? ' + 신격 지식' : ''})</div>`;
+  if (beff.deity_skill || beff.deity_lore) {
+    html += `<div style="font-size:10px;color:var(--text2);margin:4px 0;">※ 신격 선택 후 자동 부여 (신격 기술${beff.deity_lore ? ' + 신격 지식' : ''})</div>`;
   }
 
   // 기술 재주
-  if (bg.feat_id && typeof FEAT_DB !== 'undefined') {
-    const fd = getFeat(bg.feat_id);
-    const featLabel = fd ? fd.name_ko : bg.feat_id;
+  if (beff.feat_id && typeof FEAT_DB !== 'undefined') {
+    const fd = getFeat(beff.feat_id);
+    const featLabel = fd ? fd.name_ko : beff.feat_id;
     html += `<div style="margin-top:4px;">`;
-    html += _choiceDropdown('', `기술 재주`, [{value: bg.feat_id, label: featLabel}], true, bg.feat_id);
+    html += _choiceDropdown('', `기술 재주`, [{value: beff.feat_id, label: featLabel}], true, beff.feat_id);
     if (fd) {
       const fdDesc = (fd.desc || fd.summary || '').replace(/<strong>전제조건:<\/strong>[^<]*<br>/i, '');
       html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);margin-top:4px;">
@@ -4116,7 +4117,7 @@ function _buildBackgroundChoicesUI(bg) {
         <div style="font-size:10px;line-height:1.5;color:var(--text2);">${resolveDescRefs(fdDesc)}</div>
       </div>`;
     } else {
-      html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--text2);margin-top:4px;font-size:10px;color:var(--text2);">※ FEAT_DB 미등재 (${bg.feat_id})</div>`;
+      html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--text2);margin-top:4px;font-size:10px;color:var(--text2);">※ FEAT_DB 미등재 (${beff.feat_id})</div>`;
     }
     html += `</div>`;
   }
@@ -5012,26 +5013,27 @@ function applyHeritageEffects(h) {
 }
 
 function applyBackgroundInfo(bg) {
+  const beff = (typeof getBackgroundEffects === 'function') ? getBackgroundEffects(bg) : {};
   // 노트에 배경 정보 표시 (1회성 UI)
   const notesEl = document.getElementById('f-notes');
   if (notesEl && !notesEl.value) {
     const boostKo = [
-      ...(bg.boosts || []).map(k => ATTR_KO[k]),
-      ...(bg.boost_choices || []).map(g => g.map(k => ATTR_KO[k]).join(' 또는 ')),
-      ...Array(bg.free_boosts || 0).fill('자유'),
+      ...(beff.boosts || []).map(k => ATTR_KO[k]),
+      ...(beff.boost_choices || []).map(g => g.map(k => ATTR_KO[k]).join(' 또는 ')),
+      ...Array(beff.free_boosts || 0).fill('자유'),
     ].join(', ');
     const skillsKo = [
-      ...(bg.fixed_skills || []).map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)),
-      ...(bg.choice_skill_groups || []).map(g => g.map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)).join(' 또는 ')),
-      ...(bg.fixed_lores || []).map(l => l + ' 지식'),
+      ...(beff.fixed_skills || []).map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)),
+      ...(beff.choice_skill_groups || []).map(g => g.map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)).join(' 또는 ')),
+      ...(beff.fixed_lores || []).map(l => l + ' 지식'),
     ].join(', ');
-    const fd = (bg.feat_id && typeof FEAT_DB !== 'undefined') ? getFeat(bg.feat_id) : null;
-    const featKo = fd ? fd.name_ko : (bg.feat_id || '—');
+    const fd = (beff.feat_id && typeof FEAT_DB !== 'undefined') ? getFeat(beff.feat_id) : null;
+    const featKo = fd ? fd.name_ko : (beff.feat_id || '—');
     notesEl.value = `[배경: ${bg.name}]\n속성 부스트: ${boostKo}\n기술: ${skillsKo}\n기술 재주: ${featKo}`;
   }
   // growth plan에 배경 재주 저장 (1회성, feat_id 기반)
-  if (bg.feat_id && typeof FEAT_DB !== 'undefined') {
-    const fd = getFeat(bg.feat_id);
+  if (beff.feat_id && typeof FEAT_DB !== 'undefined') {
+    const fd = getFeat(beff.feat_id);
     if (fd) {
       if (!state.growth[1]) state.growth[1] = {};
       state.growth[1].bgSkillFeat = `${fd.name_ko} (${fd.name_en})`;

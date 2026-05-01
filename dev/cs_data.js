@@ -1428,851 +1428,281 @@ const BACKGROUNDS = [
     "id": "acolyte",
     "name": "수도자",
     "en": "Acolyte",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "int",
-        "wis"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "religion"
-    ],
-    "fixed_lores": [
-      "필사"
-    ],
-    "feat_id": "student-of-the-canon",
-    "desc": "종교 수도원이나 수도회에서 어린 시절을 보냈습니다. 종교의 메시지를 전파하기 위해 또는 신앙의 가르침을 버렸기 때문에 세상으로 나갔을 수 있지만, 마음 깊은 곳에서는 항상 배운 교훈을 간직합니다. 속성 부스트: 지능 또는 지혜, 자유 | 기술: 종교, 필사 지식 | 기술 재주: 경전 학도"
+    "desc": "종교 수도원이나 수도회에서 어린 시절을 보냈습니다. 종교의 메시지를 전파하기 위해 또는 신앙의 가르침을 버렸기 때문에 세상으로 나갔을 수 있지만, 마음 깊은 곳에서는 항상 배운 교훈을 간직합니다. 속성 부스트: 지능 또는 지혜, 자유 | 기술: 종교, 필사 지식 | 기술 재주: 경전 학도",
+    "effect_group_id": "eg-bg-acolyte"
   },
   {
     "id": "acrobat",
     "name": "곡예사",
     "en": "Acrobat",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "str",
-        "dex"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "acrobatics"
-    ],
-    "fixed_lores": [
-      "서커스"
-    ],
-    "feat_id": "steady-balance",
-    "desc": "서커스나 거리에서 곡예사로 공연하여 급료를 벌었습니다. 돈이 마르거나 기술을 더 나은 용도로 쓰기로 했을 때 모험가가 되었을 수 있습니다. 속성 부스트: 근력 또는 민첩, 자유 | 기술: 곡예, 서커스 지식 | 기술 재주: 안정된 균형"
+    "desc": "서커스나 거리에서 곡예사로 공연하여 급료를 벌었습니다. 돈이 마르거나 기술을 더 나은 용도로 쓰기로 했을 때 모험가가 되었을 수 있습니다. 속성 부스트: 근력 또는 민첩, 자유 | 기술: 곡예, 서커스 지식 | 기술 재주: 안정된 균형",
+    "effect_group_id": "eg-bg-acrobat"
   },
   {
     "id": "animal-whisperer",
     "name": "동물 소통사",
     "en": "Animal Whisperer",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "wis",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "nature"
-    ],
-    "fixed_lores": [
-      "지형"
-    ],
-    "feat_id": "train-animal",
-    "desc": "항상 동물과 유대를 느꼈고, 그들을 훈련하는 것은 작은 도약이었습니다. 여행하며 다양한 생물을 만나 친구가 됩니다. 속성 부스트: 지혜 또는 매력, 자유 | 기술: 자연학, 지형 지식(동물이 사는 지형) | 기술 재주: 동물 훈련"
+    "desc": "항상 동물과 유대를 느꼈고, 그들을 훈련하는 것은 작은 도약이었습니다. 여행하며 다양한 생물을 만나 친구가 됩니다. 속성 부스트: 지혜 또는 매력, 자유 | 기술: 자연학, 지형 지식(동물이 사는 지형) | 기술 재주: 동물 훈련",
+    "effect_group_id": "eg-bg-animal-whisperer"
   },
   {
     "id": "artisan",
     "name": "장인",
     "en": "Artisan",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "str",
-        "int"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "crafting"
-    ],
-    "fixed_lores": [
-      "길드"
-    ],
-    "feat_id": "specialty-crafting",
-    "desc": "도제로서 건축이나 공예의 특정 형태를 연습하여 전문 기술을 발달시켰습니다. 대장간 도제, 젊은 재단사, 조선공이었을 수 있습니다. 속성 부스트: 근력 또는 지능, 자유 | 기술: 제작, 길드 지식 | 기술 재주: 전문 제작"
+    "desc": "도제로서 건축이나 공예의 특정 형태를 연습하여 전문 기술을 발달시켰습니다. 대장간 도제, 젊은 재단사, 조선공이었을 수 있습니다. 속성 부스트: 근력 또는 지능, 자유 | 기술: 제작, 길드 지식 | 기술 재주: 전문 제작",
+    "effect_group_id": "eg-bg-artisan"
   },
   {
     "id": "artist",
     "name": "예술가",
     "en": "Artist",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "dex",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "crafting"
-    ],
-    "fixed_lores": [
-      "예술"
-    ],
-    "feat_id": "specialty-crafting",
-    "desc": "어떤 형태든 예술이 가장 큰 열정입니다. 모험이 영감을 찾는 데 도움이 되거나, 세계적으로 유명한 예술가가 될 때까지 생존하는 방법일 수 있습니다. 속성 부스트: 민첩 또는 매력, 자유 | 기술: 제작, 예술 지식 | 기술 재주: 전문 제작"
+    "desc": "어떤 형태든 예술이 가장 큰 열정입니다. 모험이 영감을 찾는 데 도움이 되거나, 세계적으로 유명한 예술가가 될 때까지 생존하는 방법일 수 있습니다. 속성 부스트: 민첩 또는 매력, 자유 | 기술: 제작, 예술 지식 | 기술 재주: 전문 제작",
+    "effect_group_id": "eg-bg-artist"
   },
   {
     "id": "bandit",
     "name": "산적",
     "en": "Bandit",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "dex",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "intimidation"
-    ],
-    "fixed_lores": [
-      "지형"
-    ],
-    "feat_id": "group-coercion",
-    "desc": "과거에 적지 않은 시골 산적질이 있었습니다. 지역 귀족의 승인하에든 자발적이든, 결국 모험가의 삶에 빠졌습니다. 속성 부스트: 민첩 또는 매력, 자유 | 기술: 위협, 지형 지식 | 기술 재주: 집단 강요"
+    "desc": "과거에 적지 않은 시골 산적질이 있었습니다. 지역 귀족의 승인하에든 자발적이든, 결국 모험가의 삶에 빠졌습니다. 속성 부스트: 민첩 또는 매력, 자유 | 기술: 위협, 지형 지식 | 기술 재주: 집단 강요",
+    "effect_group_id": "eg-bg-bandit"
   },
   {
     "id": "barkeep",
     "name": "술집 주인",
     "en": "Barkeep",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "con",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "diplomacy"
-    ],
-    "fixed_lores": [
-      "술"
-    ],
-    "feat_id": "hobnobber",
-    "desc": "재주 다섯 가지: 통 들기, 마시기, 잔 닦기, 마시기, 마시기. 술집에서 일하며 주량을 키우고 왁자지껄 사교하는 법을 배웠습니다. 속성 부스트: 건강 또는 매력, 자유 | 기술: 외교, 술 지식 | 기술 재주: 수다쟁이"
+    "desc": "재주 다섯 가지: 통 들기, 마시기, 잔 닦기, 마시기, 마시기. 술집에서 일하며 주량을 키우고 왁자지껄 사교하는 법을 배웠습니다. 속성 부스트: 건강 또는 매력, 자유 | 기술: 외교, 술 지식 | 기술 재주: 수다쟁이",
+    "effect_group_id": "eg-bg-barkeep"
   },
   {
     "id": "barrister",
     "name": "법정 변호사",
     "en": "Barrister",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "int",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "diplomacy"
-    ],
-    "fixed_lores": [
-      "법률"
-    ],
-    "feat_id": "group-impression",
-    "desc": "법률 서적, 엄격한 교사, 법정 경험이 법률 문제를 가르쳤습니다. 기소나 변호가 가능하며, 급히 알아야 할 때를 위해 현지 법률에 정통합니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 외교, 법률 지식 | 기술 재주: 집단 인상"
+    "desc": "법률 서적, 엄격한 교사, 법정 경험이 법률 문제를 가르쳤습니다. 기소나 변호가 가능하며, 급히 알아야 할 때를 위해 현지 법률에 정통합니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 외교, 법률 지식 | 기술 재주: 집단 인상",
+    "effect_group_id": "eg-bg-barrister"
   },
   {
     "id": "bounty-hunter",
     "name": "현상금 사냥꾼",
     "en": "Bounty Hunter",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "str",
-        "wis"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "survival"
-    ],
-    "fixed_lores": [
-      "법률"
-    ],
-    "feat_id": "experienced-tracker",
-    "desc": "범법자를 잡아 주머니를 채웠습니다. 이타적 동기이든 보상금이 동기이든, 범죄자 추적 기술이 모험가의 삶에 쉽게 이전됩니다. 속성 부스트: 근력 또는 지혜, 자유 | 기술: 생존, 법률 지식 | 기술 재주: 숙련된 추적자"
+    "desc": "범법자를 잡아 주머니를 채웠습니다. 이타적 동기이든 보상금이 동기이든, 범죄자 추적 기술이 모험가의 삶에 쉽게 이전됩니다. 속성 부스트: 근력 또는 지혜, 자유 | 기술: 생존, 법률 지식 | 기술 재주: 숙련된 추적자",
+    "effect_group_id": "eg-bg-bounty-hunter"
   },
   {
     "id": "charlatan",
     "name": "사기꾼",
     "en": "Charlatan",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "int",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "deception"
-    ],
-    "fixed_lores": [
-      "뒷세계"
-    ],
-    "feat_id": "charming-liar",
-    "desc": "이곳저곳을 돌아다니며 가짜 운세와 만병통치약을 팔고, 다음 마을에서는 망명 중인 왕족인 척 부유한 후계자를 유혹했습니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 기만, 뒷세계 지식 | 기술 재주: 매력적인 거짓말쟁이"
+    "desc": "이곳저곳을 돌아다니며 가짜 운세와 만병통치약을 팔고, 다음 마을에서는 망명 중인 왕족인 척 부유한 후계자를 유혹했습니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 기만, 뒷세계 지식 | 기술 재주: 매력적인 거짓말쟁이",
+    "effect_group_id": "eg-bg-charlatan"
   },
   {
     "id": "cook",
     "name": "요리사",
     "en": "Cook",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "con",
-        "int"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "survival"
-    ],
-    "fixed_lores": [
-      "요리"
-    ],
-    "feat_id": "seasoned",
-    "desc": "주막이나 식당의 주방에서 자라며 뛰어난 요리사가 되었습니다. 굽기, 요리, 약간의 양조 — 시야 밖에서 많은 시간을 보냈으니, 직접 세상을 볼 때가 되었습니다. 속성 부스트: 건강 또는 지능, 자유 | 기술: 생존, 요리 지식 | 기술 재주: 양념 달인"
+    "desc": "주막이나 식당의 주방에서 자라며 뛰어난 요리사가 되었습니다. 굽기, 요리, 약간의 양조 — 시야 밖에서 많은 시간을 보냈으니, 직접 세상을 볼 때가 되었습니다. 속성 부스트: 건강 또는 지능, 자유 | 기술: 생존, 요리 지식 | 기술 재주: 양념 달인",
+    "effect_group_id": "eg-bg-cook"
   },
   {
     "id": "criminal",
     "name": "범죄자",
     "en": "Criminal",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "dex",
-        "int"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "stealth"
-    ],
-    "fixed_lores": [
-      "뒷세계"
-    ],
-    "feat_id": "experienced-smuggler",
-    "desc": "파렴치한 개인이나 지하 조직의 일원으로 범죄의 삶을 살았습니다. 구원을 찾거나, 법에서 도망치거나, 더 크고 좋은 전리품에 접근하기 위해 모험가가 되었을 수 있습니다. 속성 부스트: 민첩 또는 지능, 자유 | 기술: 은신, 뒷세계 지식 | 기술 재주: 숙련된 밀수꾼"
+    "desc": "파렴치한 개인이나 지하 조직의 일원으로 범죄의 삶을 살았습니다. 구원을 찾거나, 법에서 도망치거나, 더 크고 좋은 전리품에 접근하기 위해 모험가가 되었을 수 있습니다. 속성 부스트: 민첩 또는 지능, 자유 | 기술: 은신, 뒷세계 지식 | 기술 재주: 숙련된 밀수꾼",
+    "effect_group_id": "eg-bg-criminal"
   },
   {
     "id": "cultist",
     "name": "이교도",
     "en": "Cultist",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "int",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "occultism"
-    ],
-    "fixed_lores": [
-      "신격/교단"
-    ],
-    "feat_id": "schooled-in-secrets",
-    "desc": "풍성한 수확을 위한 신성한 춤이나 어둠의 힘을 부르는 끔찍한 의식을 행하는 교단의 (전/현) 구성원입니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 오컬티즘, 신격/교단 관련 지식 | 기술 재주: 비밀 교육"
+    "desc": "풍성한 수확을 위한 신성한 춤이나 어둠의 힘을 부르는 끔찍한 의식을 행하는 교단의 (전/현) 구성원입니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 오컬티즘, 신격/교단 관련 지식 | 기술 재주: 비밀 교육",
+    "effect_group_id": "eg-bg-cultist"
   },
   {
     "id": "detective",
     "name": "탐정",
     "en": "Detective",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "int",
-        "wis"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "society"
-    ],
-    "fixed_lores": [
-      "뒷세계"
-    ],
-    "feat_id": "streetwise",
-    "desc": "경찰 조사관이나 부유한 고객을 위한 사립 탐정으로 범죄를 해결했습니다. 속성 부스트: 지능 또는 지혜, 자유 | 기술: 사회, 뒷세계 지식 | 기술 재주: 거리 지혜"
+    "desc": "경찰 조사관이나 부유한 고객을 위한 사립 탐정으로 범죄를 해결했습니다. 속성 부스트: 지능 또는 지혜, 자유 | 기술: 사회, 뒷세계 지식 | 기술 재주: 거리 지혜",
+    "effect_group_id": "eg-bg-detective"
   },
   {
     "id": "emissary",
     "name": "사절",
     "en": "Emissary",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "int",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "society"
-    ],
-    "fixed_lores": [
-      "도시"
-    ],
-    "feat_id": "multilingual",
-    "desc": "외교관이나 전령으로 멀고 넓게 여행했습니다. 새 사람과 소통하고 동맹을 맺는 것이 생업이었습니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 사회, 도시 지식 | 기술 재주: 다국어"
+    "desc": "외교관이나 전령으로 멀고 넓게 여행했습니다. 새 사람과 소통하고 동맹을 맺는 것이 생업이었습니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 사회, 도시 지식 | 기술 재주: 다국어",
+    "effect_group_id": "eg-bg-emissary"
   },
   {
     "id": "entertainer",
     "name": "연예인",
     "en": "Entertainer",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "dex",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "performance"
-    ],
-    "fixed_lores": [
-      "극장"
-    ],
-    "feat_id": "fascinating-performance",
-    "desc": "예술 교육이나 순전한 끈기 있는 연습을 통해 관중을 즐겁게 하는 법을 배웠습니다. 배우, 무용수, 음악가, 거리 마술사 등이었을 수 있습니다. 속성 부스트: 민첩 또는 매력, 자유 | 기술: 공연, 극장 지식 | 기술 재주: 매혹적 공연"
+    "desc": "예술 교육이나 순전한 끈기 있는 연습을 통해 관중을 즐겁게 하는 법을 배웠습니다. 배우, 무용수, 음악가, 거리 마술사 등이었을 수 있습니다. 속성 부스트: 민첩 또는 매력, 자유 | 기술: 공연, 극장 지식 | 기술 재주: 매혹적 공연",
+    "effect_group_id": "eg-bg-entertainer"
   },
   {
     "id": "farmhand",
     "name": "농부",
     "en": "Farmhand",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "con",
-        "wis"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "athletics"
-    ],
-    "fixed_lores": [
-      "농업"
-    ],
-    "feat_id": "assurance",
-    "desc": "강한 등과 계절 순환에 대한 이해로 땅을 갈고 작물을 돌봤습니다. 침략자가 농장을 불태웠거나, 가족을 잃었거나, 단조로움에 질렸을 수 있습니다. 속성 부스트: 건강 또는 지혜, 자유 | 기술: 운동, 농업 지식 | 기술 재주: 운동 확인"
+    "desc": "강한 등과 계절 순환에 대한 이해로 땅을 갈고 작물을 돌봤습니다. 침략자가 농장을 불태웠거나, 가족을 잃었거나, 단조로움에 질렸을 수 있습니다. 속성 부스트: 건강 또는 지혜, 자유 | 기술: 운동, 농업 지식 | 기술 재주: 운동 확인",
+    "effect_group_id": "eg-bg-farmhand"
   },
   {
     "id": "field-medic",
     "name": "야전 의무관",
     "en": "Field Medic",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "con",
-        "wis"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "medicine"
-    ],
-    "fixed_lores": [
-      "전쟁"
-    ],
-    "feat_id": "battle-medicine",
-    "desc": "전투의 혼란 속에서 급변하는 상황에 적응하며 전투 부상자를 치료했습니다. 속성 부스트: 건강 또는 지혜, 자유 | 기술: 의학, 전쟁 지식 | 기술 재주: 전투 의료"
+    "desc": "전투의 혼란 속에서 급변하는 상황에 적응하며 전투 부상자를 치료했습니다. 속성 부스트: 건강 또는 지혜, 자유 | 기술: 의학, 전쟁 지식 | 기술 재주: 전투 의료",
+    "effect_group_id": "eg-bg-field-medic"
   },
   {
     "id": "fortune-teller",
     "name": "점술사",
     "en": "Fortune Teller",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "int",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "occultism"
-    ],
-    "fixed_lores": [
-      "점술"
-    ],
-    "feat_id": "oddity-identification",
-    "desc": "운명의 실이 분명하며, 평민이 미래를 점칠 수 있는 많은 전통적 방법을 배웠습니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 오컬티즘, 점술 지식 | 기술 재주: 기이한 것 식별"
+    "desc": "운명의 실이 분명하며, 평민이 미래를 점칠 수 있는 많은 전통적 방법을 배웠습니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 오컬티즘, 점술 지식 | 기술 재주: 기이한 것 식별",
+    "effect_group_id": "eg-bg-fortune-teller"
   },
   {
     "id": "gambler",
     "name": "도박꾼",
     "en": "Gambler",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "dex",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "deception"
-    ],
-    "fixed_lores": [
-      "게임"
-    ],
-    "feat_id": "lie-to-me",
-    "desc": "승리의 짜릿함이 당신을 우연의 게임으로 끌어들였습니다. 모험의 진정한 위험에 비하면 수지맞는 부업이었거나, 도박으로 몰락하여 모험을 탈출구로 삼았을 수 있습니다. 속성 부스트: 민첩 또는 매력, 자유 | 기술: 기만, 게임 지식 | 기술 재주: 거짓 간파"
+    "desc": "승리의 짜릿함이 당신을 우연의 게임으로 끌어들였습니다. 모험의 진정한 위험에 비하면 수지맞는 부업이었거나, 도박으로 몰락하여 모험을 탈출구로 삼았을 수 있습니다. 속성 부스트: 민첩 또는 매력, 자유 | 기술: 기만, 게임 지식 | 기술 재주: 거짓 간파",
+    "effect_group_id": "eg-bg-gambler"
   },
   {
     "id": "gladiator",
     "name": "검투사",
     "en": "Gladiator",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "str",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "performance"
-    ],
-    "fixed_lores": [
-      "검투"
-    ],
-    "feat_id": "impressive-performance",
-    "desc": "투기장의 피의 경기가 전투 기술을 가르쳤습니다. 진정한 명성을 얻기 전에 투기장을 떠나거나 탈출하여 세상을 탐험합니다. 속성 부스트: 근력 또는 매력, 자유 | 기술: 공연, 검투 지식 | 기술 재주: 인상적 공연"
+    "desc": "투기장의 피의 경기가 전투 기술을 가르쳤습니다. 진정한 명성을 얻기 전에 투기장을 떠나거나 탈출하여 세상을 탐험합니다. 속성 부스트: 근력 또는 매력, 자유 | 기술: 공연, 검투 지식 | 기술 재주: 인상적 공연",
+    "effect_group_id": "eg-bg-gladiator"
   },
   {
     "id": "guard",
     "name": "경비원",
     "en": "Guard",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "str",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "intimidation"
-    ],
-    "fixed_lores": [
-      "법률"
-    ],
-    "feat_id": "quick-coercion",
-    "desc": "애국심이나 금전적 필요로 경비대에 복무했습니다. 어려운 용의자를 말하게 하는 법을 알고 있습니다. 속성 부스트: 근력 또는 매력, 자유 | 기술: 위협, 법률 지식 또는 전쟁 지식 | 기술 재주: 빠른 강요"
+    "desc": "애국심이나 금전적 필요로 경비대에 복무했습니다. 어려운 용의자를 말하게 하는 법을 알고 있습니다. 속성 부스트: 근력 또는 매력, 자유 | 기술: 위협, 법률 지식 또는 전쟁 지식 | 기술 재주: 빠른 강요",
+    "effect_group_id": "eg-bg-guard"
   },
   {
     "id": "herbalist",
     "name": "약초사",
     "en": "Herbalist",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "con",
-        "wis"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "nature"
-    ],
-    "fixed_lores": [
-      "약초학"
-    ],
-    "feat_id": "natural-medicine",
-    "desc": "정식 약제사나 민간 의약 시골 의사로서, 다양한 약초의 치유 속성을 배웠습니다. 속성 부스트: 건강 또는 지혜, 자유 | 기술: 자연학, 약초학 지식 | 기술 재주: 자연 의학"
+    "desc": "정식 약제사나 민간 의약 시골 의사로서, 다양한 약초의 치유 속성을 배웠습니다. 속성 부스트: 건강 또는 지혜, 자유 | 기술: 자연학, 약초학 지식 | 기술 재주: 자연 의학",
+    "effect_group_id": "eg-bg-herbalist"
   },
   {
     "id": "hermit",
     "name": "은둔자",
     "en": "Hermit",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "con",
-        "int"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [],
-    "fixed_lores": [
-      "지형"
-    ],
-    "feat_id": "dubious-knowledge",
     "desc": "동굴, 외딴 오아시스, 격리된 저택 같은 곳에서 고독한 삶을 살았습니다. 속성 부스트: 건강 또는 지능, 자유 | 기술: 자연학 또는 오컬티즘, 지형 지식 | 기술 재주: 의심스러운 지식",
-    "choice_skill_groups": [
-      [
-        "nature",
-        "occultism"
-      ]
-    ]
+    "effect_group_id": "eg-bg-hermit"
   },
   {
     "id": "hunter",
     "name": "사냥꾼",
     "en": "Hunter",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "dex",
-        "wis"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "survival"
-    ],
-    "fixed_lores": [
-      "무두질"
-    ],
-    "feat_id": "survey-wildlife",
-    "desc": "야생의 동물과 다른 생물을 추적하고 잡았습니다. 가죽 벗기기, 고기 수확, 요리도 훈련의 일부였습니다. 속성 부스트: 민첩 또는 지혜, 자유 | 기술: 생존, 무두질 지식 | 기술 재주: 야생 동물 조사"
+    "desc": "야생의 동물과 다른 생물을 추적하고 잡았습니다. 가죽 벗기기, 고기 수확, 요리도 훈련의 일부였습니다. 속성 부스트: 민첩 또는 지혜, 자유 | 기술: 생존, 무두질 지식 | 기술 재주: 야생 동물 조사",
+    "effect_group_id": "eg-bg-hunter"
   },
   {
     "id": "laborer",
     "name": "노동자",
     "en": "Laborer",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "str",
-        "con"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "athletics"
-    ],
-    "fixed_lores": [
-      "노동"
-    ],
-    "feat_id": "hefty-hauler",
-    "desc": "수년간 고된 육체 노동을 수행했습니다. 어려운 삶이었지만 어떻게든 살아남았습니다. 속성 부스트: 근력 또는 건강, 자유 | 기술: 운동, 노동 지식 | 기술 재주: 무거운 짐꾼"
+    "desc": "수년간 고된 육체 노동을 수행했습니다. 어려운 삶이었지만 어떻게든 살아남았습니다. 속성 부스트: 근력 또는 건강, 자유 | 기술: 운동, 노동 지식 | 기술 재주: 무거운 짐꾼",
+    "effect_group_id": "eg-bg-laborer"
   },
   {
     "id": "martial-disciple",
     "name": "무예 수련생",
     "en": "Martial Disciple",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "str",
-        "dex"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [],
-    "fixed_lores": [
-      "전쟁"
-    ],
-    "feat_id": "cat-fall",
     "desc": "위대한 전사가 되기 위해 강도 높은 훈련과 엄격한 학습에 헌신했습니다. 전통적 수도원, 엘리트 군사 학교, 또는 유명 용병 조직의 지부에서 배웠을 수 있습니다. 속성 부스트: 근력 또는 민첩, 자유 | 기술: 곡예 또는 운동 중 선택, 전쟁 지식 | 기술 재주: 곡예 선택 시 고양이 착지, 운동 선택 시 빠른 점프",
-    "choice_skill_groups": [
-      [
-        "acrobatics",
-        "athletics"
-      ]
-    ]
+    "effect_group_id": "eg-bg-martial-disciple"
   },
   {
     "id": "merchant",
     "name": "상인",
     "en": "Merchant",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "int",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "diplomacy"
-    ],
-    "fixed_lores": [
-      "상업"
-    ],
-    "feat_id": "bargain-hunter",
-    "desc": "먼지투성이 가게, 시장 노점, 또는 상인 대상에서 물건을 동전과 교역품으로 흥정했습니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 외교, 상업 지식 | 기술 재주: 흥정 사냥꾼"
+    "desc": "먼지투성이 가게, 시장 노점, 또는 상인 대상에서 물건을 동전과 교역품으로 흥정했습니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 외교, 상업 지식 | 기술 재주: 흥정 사냥꾼",
+    "effect_group_id": "eg-bg-merchant"
   },
   {
     "id": "miner",
     "name": "광부",
     "en": "Miner",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "str",
-        "wis"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "survival"
-    ],
-    "fixed_lores": [
-      "광업"
-    ],
-    "feat_id": "terrain-expertise",
-    "desc": "빛 없는 대지의 깊은 곳에서 귀중한 광물을 뜯어내어 생계를 유지했습니다. 속성 부스트: 근력 또는 지혜, 자유 | 기술: 생존, 광업 지식 | 기술 재주: 지하 지형 전문가"
+    "desc": "빛 없는 대지의 깊은 곳에서 귀중한 광물을 뜯어내어 생계를 유지했습니다. 속성 부스트: 근력 또는 지혜, 자유 | 기술: 생존, 광업 지식 | 기술 재주: 지하 지형 전문가",
+    "effect_group_id": "eg-bg-miner"
   },
   {
     "id": "noble",
     "name": "귀족",
     "en": "Noble",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "int",
-        "cha"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "society"
-    ],
-    "fixed_lores": [
-      "족보"
-    ],
-    "feat_id": "courtly-graces",
-    "desc": "평민에게 귀족의 삶은 목가적 사치로 보이지만, 귀족이나 야심 찬 신사로 자라면서 현실을 알게 됩니다: 귀족의 운명은 의무와 음모입니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 사회, 족보 지식 또는 문장학 지식 | 기술 재주: 궁정 예절"
+    "desc": "평민에게 귀족의 삶은 목가적 사치로 보이지만, 귀족이나 야심 찬 신사로 자라면서 현실을 알게 됩니다: 귀족의 운명은 의무와 음모입니다. 속성 부스트: 지능 또는 매력, 자유 | 기술: 사회, 족보 지식 또는 문장학 지식 | 기술 재주: 궁정 예절",
+    "effect_group_id": "eg-bg-noble"
   },
   {
     "id": "nomad",
     "name": "유목민",
     "en": "Nomad",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "con",
-        "wis"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "survival"
-    ],
-    "fixed_lores": [
-      "지형"
-    ],
-    "feat_id": "assurance",
-    "desc": "멀리 넓게 여행하며 도로와 미지의 땅에서 살아남는 기본 전술을 배웠습니다. 속성 부스트: 건강 또는 지혜, 자유 | 기술: 생존, 지형 지식 | 기술 재주: 생존 확인"
+    "desc": "멀리 넓게 여행하며 도로와 미지의 땅에서 살아남는 기본 전술을 배웠습니다. 속성 부스트: 건강 또는 지혜, 자유 | 기술: 생존, 지형 지식 | 기술 재주: 생존 확인",
+    "effect_group_id": "eg-bg-nomad"
   },
   {
     "id": "prisoner",
     "name": "수감자",
     "en": "Prisoner",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "str",
-        "con"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "stealth"
-    ],
-    "fixed_lores": [
-      "뒷세계"
-    ],
-    "feat_id": "experienced-smuggler",
-    "desc": "범죄(유죄든 아니든)로 투옥되거나 처벌받았습니다. 형기가 끝나거나 탈옥한 후 새로운 자유를 최대한 활용합니다. 속성 부스트: 근력 또는 건강, 자유 | 기술: 은신, 뒷세계 지식 | 기술 재주: 숙련된 밀수꾼"
+    "desc": "범죄(유죄든 아니든)로 투옥되거나 처벌받았습니다. 형기가 끝나거나 탈옥한 후 새로운 자유를 최대한 활용합니다. 속성 부스트: 근력 또는 건강, 자유 | 기술: 은신, 뒷세계 지식 | 기술 재주: 숙련된 밀수꾼",
+    "effect_group_id": "eg-bg-prisoner"
   },
   {
     "id": "raised-by-belief",
     "name": "신앙에 의해 양육됨",
     "en": "Raised by Belief",
-    "boosts": [],
-    "boost_choices": [],
-    "free_boosts": 1,
-    "fixed_skills": [],
-    "feat_id": "assurance",
     "desc": "수도원, 종교적 가정, 또는 일상생활의 일부로, 특정 신격의 전통에 깊이 젖은 양육을 받았습니다. 속성 부스트: 신격의 신성 속성 중 하나, 자유 | 기술: 신격의 신성 기술, 신격 관련 지식 | 기술 재주: 해당 기술의 확인",
-    "deity_skill": true,
-    "deity_lore": true
+    "effect_group_id": "eg-bg-raised-by-belief"
   },
   {
     "id": "sailor",
     "name": "선원",
     "en": "Sailor",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "str",
-        "dex"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "athletics"
-    ],
-    "fixed_lores": [
-      "항해"
-    ],
-    "feat_id": "underwater-marauder",
-    "desc": "어린 나이에 바다의 부름을 들었습니다. 상선에 올랐거나, 해군에 입대했거나, 해적과 불량배 무리에 합류했을 수 있습니다. 속성 부스트: 근력 또는 민첩, 자유 | 기술: 운동, 항해 지식 | 기술 재주: 수중 약탈자"
+    "desc": "어린 나이에 바다의 부름을 들었습니다. 상선에 올랐거나, 해군에 입대했거나, 해적과 불량배 무리에 합류했을 수 있습니다. 속성 부스트: 근력 또는 민첩, 자유 | 기술: 운동, 항해 지식 | 기술 재주: 수중 약탈자",
+    "effect_group_id": "eg-bg-sailor"
   },
   {
     "id": "scholar",
     "name": "학자",
     "en": "Scholar",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "int",
-        "wis"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [],
-    "fixed_lores": [
-      "학술원"
-    ],
-    "feat_id": "assurance",
     "desc": "배우는 재능이 있어 바깥 세계에서 격리되어 할 수 있는 모든 것을 배웠습니다. 책에서 많은 경이로운 장소와 사물을 읽었고, 결국 호기심이 모험가가 되게 했습니다. 속성 부스트: 지능 또는 지혜, 자유 | 기술: 주문학/자연학/오컬티즘/종교 중 선택, 학술원 지식 | 기술 재주: 선택한 기술의 확인",
-    "choice_skill_groups": [
-      [
-        "arcana",
-        "nature",
-        "occultism",
-        "religion"
-      ]
-    ]
+    "effect_group_id": "eg-bg-scholar"
   },
   {
     "id": "scout",
     "name": "정찰병",
     "en": "Scout",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "dex",
-        "wis"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "survival"
-    ],
-    "fixed_lores": [
-      "지형"
-    ],
-    "feat_id": "forager",
-    "desc": "야생을 고향이라 부르며 길을 찾고 여행자를 안내했습니다. 속성 부스트: 민첩 또는 지혜, 자유 | 기술: 생존, 지형 지식 | 기술 재주: 채집가"
+    "desc": "야생을 고향이라 부르며 길을 찾고 여행자를 안내했습니다. 속성 부스트: 민첩 또는 지혜, 자유 | 기술: 생존, 지형 지식 | 기술 재주: 채집가",
+    "effect_group_id": "eg-bg-scout"
   },
   {
     "id": "street-urchin",
     "name": "거리의 부랑아",
     "en": "Street Urchin",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "dex",
-        "con"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "thievery"
-    ],
-    "fixed_lores": [
-      "도시"
-    ],
-    "feat_id": "pickpocket",
-    "desc": "대도시의 거리에서 소매치기로 근근이 살며 다음 끼니를 어디서 구할지 모르는 생활을 했습니다. 속성 부스트: 민첩 또는 건강, 자유 | 기술: 도둑질, 도시 지식 | 기술 재주: 소매치기"
+    "desc": "대도시의 거리에서 소매치기로 근근이 살며 다음 끼니를 어디서 구할지 모르는 생활을 했습니다. 속성 부스트: 민첩 또는 건강, 자유 | 기술: 도둑질, 도시 지식 | 기술 재주: 소매치기",
+    "effect_group_id": "eg-bg-street-urchin"
   },
   {
     "id": "teacher",
     "name": "교사",
     "en": "Teacher",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "int",
-        "wis"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [],
-    "fixed_lores": [
-      "학술원"
-    ],
-    "feat_id": "experienced-professional",
     "desc": "놀라울 정도로 지식이 풍부하고, 아이와 어른에게 세계와 경이에 대해 가르치는 데 숙련되고 훈련까지 받았을 수 있습니다. 속성 부스트: 지능 또는 지혜, 자유 | 기술: 공연 또는 사회 중 선택, 학술원 지식 | 기술 재주: 숙련된 전문가",
-    "choice_skill_groups": [
-      [
-        "performance",
-        "society"
-      ]
-    ]
+    "effect_group_id": "eg-bg-teacher"
   },
   {
     "id": "tinker",
     "name": "수선공",
     "en": "Tinker",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "dex",
-        "int"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "crafting"
-    ],
-    "fixed_lores": [
-      "공학"
-    ],
-    "feat_id": "specialty-crafting",
-    "desc": "온갖 종류의 소소한 발명품을 만드는 것이 문제 해결 욕구를 충족시킵니다. 엔지니어링 기술이 특히 창의적이며, 다음에 무엇을 만들지 아무도 모릅니다. 속성 부스트: 민첩 또는 지능, 자유 | 기술: 제작, 공학 지식 | 기술 재주: 전문 제작"
+    "desc": "온갖 종류의 소소한 발명품을 만드는 것이 문제 해결 욕구를 충족시킵니다. 엔지니어링 기술이 특히 창의적이며, 다음에 무엇을 만들지 아무도 모릅니다. 속성 부스트: 민첩 또는 지능, 자유 | 기술: 제작, 공학 지식 | 기술 재주: 전문 제작",
+    "effect_group_id": "eg-bg-tinker"
   },
   {
     "id": "warrior",
     "name": "전사",
     "en": "Warrior",
-    "boosts": [],
-    "boost_choices": [
-      [
-        "str",
-        "con"
-      ]
-    ],
-    "free_boosts": 1,
-    "fixed_skills": [
-      "intimidation"
-    ],
-    "fixed_lores": [
-      "전쟁"
-    ],
-    "feat_id": "intimidating-glare",
-    "desc": "젊은 시절에 용병, 유목민을 보호하는 전사, 또는 민병대나 군대의 일원으로 전투에 뛰어들었습니다. 속성 부스트: 근력 또는 건강, 자유 | 기술: 위협, 전쟁 지식 | 기술 재주: 위협적 노려보기"
+    "desc": "젊은 시절에 용병, 유목민을 보호하는 전사, 또는 민병대나 군대의 일원으로 전투에 뛰어들었습니다. 속성 부스트: 근력 또는 건강, 자유 | 기술: 위협, 전쟁 지식 | 기술 재주: 위협적 노려보기",
+    "effect_group_id": "eg-bg-warrior"
   }
 ];
 
@@ -8151,6 +7581,1390 @@ const EFFECT_GROUPS = [
     "group_id": "eg-heritage-dromaar",
     "type": "extra_feat_category",
     "target": "오크"
+  },
+  {
+    "group_id": "eg-bg-acolyte",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-acolyte",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-acolyte",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-acolyte",
+    "type": "skill_trained",
+    "target": "religion"
+  },
+  {
+    "group_id": "eg-bg-acolyte",
+    "type": "grant_lore",
+    "target": "필사"
+  },
+  {
+    "group_id": "eg-bg-acolyte",
+    "type": "grant_feat",
+    "target": "student-of-the-canon"
+  },
+  {
+    "group_id": "eg-bg-acrobat",
+    "type": "ability_boost_choice",
+    "target": "str",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-acrobat",
+    "type": "ability_boost_choice",
+    "target": "dex",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-acrobat",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-acrobat",
+    "type": "skill_trained",
+    "target": "acrobatics"
+  },
+  {
+    "group_id": "eg-bg-acrobat",
+    "type": "grant_lore",
+    "target": "서커스"
+  },
+  {
+    "group_id": "eg-bg-acrobat",
+    "type": "grant_feat",
+    "target": "steady-balance"
+  },
+  {
+    "group_id": "eg-bg-animal-whisperer",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-animal-whisperer",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-animal-whisperer",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-animal-whisperer",
+    "type": "skill_trained",
+    "target": "nature"
+  },
+  {
+    "group_id": "eg-bg-animal-whisperer",
+    "type": "grant_lore",
+    "target": "지형"
+  },
+  {
+    "group_id": "eg-bg-animal-whisperer",
+    "type": "grant_feat",
+    "target": "train-animal"
+  },
+  {
+    "group_id": "eg-bg-artisan",
+    "type": "ability_boost_choice",
+    "target": "str",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-artisan",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-artisan",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-artisan",
+    "type": "skill_trained",
+    "target": "crafting"
+  },
+  {
+    "group_id": "eg-bg-artisan",
+    "type": "grant_lore",
+    "target": "길드"
+  },
+  {
+    "group_id": "eg-bg-artisan",
+    "type": "grant_feat",
+    "target": "specialty-crafting"
+  },
+  {
+    "group_id": "eg-bg-artist",
+    "type": "ability_boost_choice",
+    "target": "dex",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-artist",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-artist",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-artist",
+    "type": "skill_trained",
+    "target": "crafting"
+  },
+  {
+    "group_id": "eg-bg-artist",
+    "type": "grant_lore",
+    "target": "예술"
+  },
+  {
+    "group_id": "eg-bg-artist",
+    "type": "grant_feat",
+    "target": "specialty-crafting"
+  },
+  {
+    "group_id": "eg-bg-bandit",
+    "type": "ability_boost_choice",
+    "target": "dex",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-bandit",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-bandit",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-bandit",
+    "type": "skill_trained",
+    "target": "intimidation"
+  },
+  {
+    "group_id": "eg-bg-bandit",
+    "type": "grant_lore",
+    "target": "지형"
+  },
+  {
+    "group_id": "eg-bg-bandit",
+    "type": "grant_feat",
+    "target": "group-coercion"
+  },
+  {
+    "group_id": "eg-bg-barkeep",
+    "type": "ability_boost_choice",
+    "target": "con",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-barkeep",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-barkeep",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-barkeep",
+    "type": "skill_trained",
+    "target": "diplomacy"
+  },
+  {
+    "group_id": "eg-bg-barkeep",
+    "type": "grant_lore",
+    "target": "술"
+  },
+  {
+    "group_id": "eg-bg-barkeep",
+    "type": "grant_feat",
+    "target": "hobnobber"
+  },
+  {
+    "group_id": "eg-bg-barrister",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-barrister",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-barrister",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-barrister",
+    "type": "skill_trained",
+    "target": "diplomacy"
+  },
+  {
+    "group_id": "eg-bg-barrister",
+    "type": "grant_lore",
+    "target": "법률"
+  },
+  {
+    "group_id": "eg-bg-barrister",
+    "type": "grant_feat",
+    "target": "group-impression"
+  },
+  {
+    "group_id": "eg-bg-bounty-hunter",
+    "type": "ability_boost_choice",
+    "target": "str",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-bounty-hunter",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-bounty-hunter",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-bounty-hunter",
+    "type": "skill_trained",
+    "target": "survival"
+  },
+  {
+    "group_id": "eg-bg-bounty-hunter",
+    "type": "grant_lore",
+    "target": "법률"
+  },
+  {
+    "group_id": "eg-bg-bounty-hunter",
+    "type": "grant_feat",
+    "target": "experienced-tracker"
+  },
+  {
+    "group_id": "eg-bg-charlatan",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-charlatan",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-charlatan",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-charlatan",
+    "type": "skill_trained",
+    "target": "deception"
+  },
+  {
+    "group_id": "eg-bg-charlatan",
+    "type": "grant_lore",
+    "target": "뒷세계"
+  },
+  {
+    "group_id": "eg-bg-charlatan",
+    "type": "grant_feat",
+    "target": "charming-liar"
+  },
+  {
+    "group_id": "eg-bg-cook",
+    "type": "ability_boost_choice",
+    "target": "con",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-cook",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-cook",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-cook",
+    "type": "skill_trained",
+    "target": "survival"
+  },
+  {
+    "group_id": "eg-bg-cook",
+    "type": "grant_lore",
+    "target": "요리"
+  },
+  {
+    "group_id": "eg-bg-cook",
+    "type": "grant_feat",
+    "target": "seasoned"
+  },
+  {
+    "group_id": "eg-bg-criminal",
+    "type": "ability_boost_choice",
+    "target": "dex",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-criminal",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-criminal",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-criminal",
+    "type": "skill_trained",
+    "target": "stealth"
+  },
+  {
+    "group_id": "eg-bg-criminal",
+    "type": "grant_lore",
+    "target": "뒷세계"
+  },
+  {
+    "group_id": "eg-bg-criminal",
+    "type": "grant_feat",
+    "target": "experienced-smuggler"
+  },
+  {
+    "group_id": "eg-bg-cultist",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-cultist",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-cultist",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-cultist",
+    "type": "skill_trained",
+    "target": "occultism"
+  },
+  {
+    "group_id": "eg-bg-cultist",
+    "type": "grant_lore",
+    "target": "신격/교단"
+  },
+  {
+    "group_id": "eg-bg-cultist",
+    "type": "grant_feat",
+    "target": "schooled-in-secrets"
+  },
+  {
+    "group_id": "eg-bg-detective",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-detective",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-detective",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-detective",
+    "type": "skill_trained",
+    "target": "society"
+  },
+  {
+    "group_id": "eg-bg-detective",
+    "type": "grant_lore",
+    "target": "뒷세계"
+  },
+  {
+    "group_id": "eg-bg-detective",
+    "type": "grant_feat",
+    "target": "streetwise"
+  },
+  {
+    "group_id": "eg-bg-emissary",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-emissary",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-emissary",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-emissary",
+    "type": "skill_trained",
+    "target": "society"
+  },
+  {
+    "group_id": "eg-bg-emissary",
+    "type": "grant_lore",
+    "target": "도시"
+  },
+  {
+    "group_id": "eg-bg-emissary",
+    "type": "grant_feat",
+    "target": "multilingual"
+  },
+  {
+    "group_id": "eg-bg-entertainer",
+    "type": "ability_boost_choice",
+    "target": "dex",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-entertainer",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-entertainer",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-entertainer",
+    "type": "skill_trained",
+    "target": "performance"
+  },
+  {
+    "group_id": "eg-bg-entertainer",
+    "type": "grant_lore",
+    "target": "극장"
+  },
+  {
+    "group_id": "eg-bg-entertainer",
+    "type": "grant_feat",
+    "target": "fascinating-performance"
+  },
+  {
+    "group_id": "eg-bg-farmhand",
+    "type": "ability_boost_choice",
+    "target": "con",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-farmhand",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-farmhand",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-farmhand",
+    "type": "skill_trained",
+    "target": "athletics"
+  },
+  {
+    "group_id": "eg-bg-farmhand",
+    "type": "grant_lore",
+    "target": "농업"
+  },
+  {
+    "group_id": "eg-bg-farmhand",
+    "type": "grant_feat",
+    "target": "assurance"
+  },
+  {
+    "group_id": "eg-bg-field-medic",
+    "type": "ability_boost_choice",
+    "target": "con",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-field-medic",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-field-medic",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-field-medic",
+    "type": "skill_trained",
+    "target": "medicine"
+  },
+  {
+    "group_id": "eg-bg-field-medic",
+    "type": "grant_lore",
+    "target": "전쟁"
+  },
+  {
+    "group_id": "eg-bg-field-medic",
+    "type": "grant_feat",
+    "target": "battle-medicine"
+  },
+  {
+    "group_id": "eg-bg-fortune-teller",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-fortune-teller",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-fortune-teller",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-fortune-teller",
+    "type": "skill_trained",
+    "target": "occultism"
+  },
+  {
+    "group_id": "eg-bg-fortune-teller",
+    "type": "grant_lore",
+    "target": "점술"
+  },
+  {
+    "group_id": "eg-bg-fortune-teller",
+    "type": "grant_feat",
+    "target": "oddity-identification"
+  },
+  {
+    "group_id": "eg-bg-gambler",
+    "type": "ability_boost_choice",
+    "target": "dex",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-gambler",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-gambler",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-gambler",
+    "type": "skill_trained",
+    "target": "deception"
+  },
+  {
+    "group_id": "eg-bg-gambler",
+    "type": "grant_lore",
+    "target": "게임"
+  },
+  {
+    "group_id": "eg-bg-gambler",
+    "type": "grant_feat",
+    "target": "lie-to-me"
+  },
+  {
+    "group_id": "eg-bg-gladiator",
+    "type": "ability_boost_choice",
+    "target": "str",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-gladiator",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-gladiator",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-gladiator",
+    "type": "skill_trained",
+    "target": "performance"
+  },
+  {
+    "group_id": "eg-bg-gladiator",
+    "type": "grant_lore",
+    "target": "검투"
+  },
+  {
+    "group_id": "eg-bg-gladiator",
+    "type": "grant_feat",
+    "target": "impressive-performance"
+  },
+  {
+    "group_id": "eg-bg-guard",
+    "type": "ability_boost_choice",
+    "target": "str",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-guard",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-guard",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-guard",
+    "type": "skill_trained",
+    "target": "intimidation"
+  },
+  {
+    "group_id": "eg-bg-guard",
+    "type": "grant_lore",
+    "target": "법률"
+  },
+  {
+    "group_id": "eg-bg-guard",
+    "type": "grant_feat",
+    "target": "quick-coercion"
+  },
+  {
+    "group_id": "eg-bg-herbalist",
+    "type": "ability_boost_choice",
+    "target": "con",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-herbalist",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-herbalist",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-herbalist",
+    "type": "skill_trained",
+    "target": "nature"
+  },
+  {
+    "group_id": "eg-bg-herbalist",
+    "type": "grant_lore",
+    "target": "약초학"
+  },
+  {
+    "group_id": "eg-bg-herbalist",
+    "type": "grant_feat",
+    "target": "natural-medicine"
+  },
+  {
+    "group_id": "eg-bg-hermit",
+    "type": "ability_boost_choice",
+    "target": "con",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-hermit",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-hermit",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-hermit",
+    "type": "skill_choice",
+    "target": "nature",
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-hermit",
+    "type": "skill_choice",
+    "target": "occultism",
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-hermit",
+    "type": "grant_lore",
+    "target": "지형"
+  },
+  {
+    "group_id": "eg-bg-hermit",
+    "type": "grant_feat",
+    "target": "dubious-knowledge"
+  },
+  {
+    "group_id": "eg-bg-hunter",
+    "type": "ability_boost_choice",
+    "target": "dex",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-hunter",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-hunter",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-hunter",
+    "type": "skill_trained",
+    "target": "survival"
+  },
+  {
+    "group_id": "eg-bg-hunter",
+    "type": "grant_lore",
+    "target": "무두질"
+  },
+  {
+    "group_id": "eg-bg-hunter",
+    "type": "grant_feat",
+    "target": "survey-wildlife"
+  },
+  {
+    "group_id": "eg-bg-laborer",
+    "type": "ability_boost_choice",
+    "target": "str",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-laborer",
+    "type": "ability_boost_choice",
+    "target": "con",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-laborer",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-laborer",
+    "type": "skill_trained",
+    "target": "athletics"
+  },
+  {
+    "group_id": "eg-bg-laborer",
+    "type": "grant_lore",
+    "target": "노동"
+  },
+  {
+    "group_id": "eg-bg-laborer",
+    "type": "grant_feat",
+    "target": "hefty-hauler"
+  },
+  {
+    "group_id": "eg-bg-martial-disciple",
+    "type": "ability_boost_choice",
+    "target": "str",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-martial-disciple",
+    "type": "ability_boost_choice",
+    "target": "dex",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-martial-disciple",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-martial-disciple",
+    "type": "skill_choice",
+    "target": "acrobatics",
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-martial-disciple",
+    "type": "skill_choice",
+    "target": "athletics",
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-martial-disciple",
+    "type": "grant_lore",
+    "target": "전쟁"
+  },
+  {
+    "group_id": "eg-bg-martial-disciple",
+    "type": "grant_feat",
+    "target": "cat-fall"
+  },
+  {
+    "group_id": "eg-bg-merchant",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-merchant",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-merchant",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-merchant",
+    "type": "skill_trained",
+    "target": "diplomacy"
+  },
+  {
+    "group_id": "eg-bg-merchant",
+    "type": "grant_lore",
+    "target": "상업"
+  },
+  {
+    "group_id": "eg-bg-merchant",
+    "type": "grant_feat",
+    "target": "bargain-hunter"
+  },
+  {
+    "group_id": "eg-bg-miner",
+    "type": "ability_boost_choice",
+    "target": "str",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-miner",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-miner",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-miner",
+    "type": "skill_trained",
+    "target": "survival"
+  },
+  {
+    "group_id": "eg-bg-miner",
+    "type": "grant_lore",
+    "target": "광업"
+  },
+  {
+    "group_id": "eg-bg-miner",
+    "type": "grant_feat",
+    "target": "terrain-expertise"
+  },
+  {
+    "group_id": "eg-bg-noble",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-noble",
+    "type": "ability_boost_choice",
+    "target": "cha",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-noble",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-noble",
+    "type": "skill_trained",
+    "target": "society"
+  },
+  {
+    "group_id": "eg-bg-noble",
+    "type": "grant_lore",
+    "target": "족보"
+  },
+  {
+    "group_id": "eg-bg-noble",
+    "type": "grant_feat",
+    "target": "courtly-graces"
+  },
+  {
+    "group_id": "eg-bg-nomad",
+    "type": "ability_boost_choice",
+    "target": "con",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-nomad",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-nomad",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-nomad",
+    "type": "skill_trained",
+    "target": "survival"
+  },
+  {
+    "group_id": "eg-bg-nomad",
+    "type": "grant_lore",
+    "target": "지형"
+  },
+  {
+    "group_id": "eg-bg-nomad",
+    "type": "grant_feat",
+    "target": "assurance"
+  },
+  {
+    "group_id": "eg-bg-prisoner",
+    "type": "ability_boost_choice",
+    "target": "str",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-prisoner",
+    "type": "ability_boost_choice",
+    "target": "con",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-prisoner",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-prisoner",
+    "type": "skill_trained",
+    "target": "stealth"
+  },
+  {
+    "group_id": "eg-bg-prisoner",
+    "type": "grant_lore",
+    "target": "뒷세계"
+  },
+  {
+    "group_id": "eg-bg-prisoner",
+    "type": "grant_feat",
+    "target": "experienced-smuggler"
+  },
+  {
+    "group_id": "eg-bg-raised-by-belief",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-raised-by-belief",
+    "type": "grant_feat",
+    "target": "assurance"
+  },
+  {
+    "group_id": "eg-bg-raised-by-belief",
+    "type": "deity_skill"
+  },
+  {
+    "group_id": "eg-bg-raised-by-belief",
+    "type": "deity_lore"
+  },
+  {
+    "group_id": "eg-bg-sailor",
+    "type": "ability_boost_choice",
+    "target": "str",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-sailor",
+    "type": "ability_boost_choice",
+    "target": "dex",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-sailor",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-sailor",
+    "type": "skill_trained",
+    "target": "athletics"
+  },
+  {
+    "group_id": "eg-bg-sailor",
+    "type": "grant_lore",
+    "target": "항해"
+  },
+  {
+    "group_id": "eg-bg-sailor",
+    "type": "grant_feat",
+    "target": "underwater-marauder"
+  },
+  {
+    "group_id": "eg-bg-scholar",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-scholar",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-scholar",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-scholar",
+    "type": "skill_choice",
+    "target": "arcana",
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-scholar",
+    "type": "skill_choice",
+    "target": "nature",
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-scholar",
+    "type": "skill_choice",
+    "target": "occultism",
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-scholar",
+    "type": "skill_choice",
+    "target": "religion",
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-scholar",
+    "type": "grant_lore",
+    "target": "학술원"
+  },
+  {
+    "group_id": "eg-bg-scholar",
+    "type": "grant_feat",
+    "target": "assurance"
+  },
+  {
+    "group_id": "eg-bg-scout",
+    "type": "ability_boost_choice",
+    "target": "dex",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-scout",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-scout",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-scout",
+    "type": "skill_trained",
+    "target": "survival"
+  },
+  {
+    "group_id": "eg-bg-scout",
+    "type": "grant_lore",
+    "target": "지형"
+  },
+  {
+    "group_id": "eg-bg-scout",
+    "type": "grant_feat",
+    "target": "forager"
+  },
+  {
+    "group_id": "eg-bg-street-urchin",
+    "type": "ability_boost_choice",
+    "target": "dex",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-street-urchin",
+    "type": "ability_boost_choice",
+    "target": "con",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-street-urchin",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-street-urchin",
+    "type": "skill_trained",
+    "target": "thievery"
+  },
+  {
+    "group_id": "eg-bg-street-urchin",
+    "type": "grant_lore",
+    "target": "도시"
+  },
+  {
+    "group_id": "eg-bg-street-urchin",
+    "type": "grant_feat",
+    "target": "pickpocket"
+  },
+  {
+    "group_id": "eg-bg-teacher",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-teacher",
+    "type": "ability_boost_choice",
+    "target": "wis",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-teacher",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-teacher",
+    "type": "skill_choice",
+    "target": "performance",
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-teacher",
+    "type": "skill_choice",
+    "target": "society",
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-teacher",
+    "type": "grant_lore",
+    "target": "학술원"
+  },
+  {
+    "group_id": "eg-bg-teacher",
+    "type": "grant_feat",
+    "target": "experienced-professional"
+  },
+  {
+    "group_id": "eg-bg-tinker",
+    "type": "ability_boost_choice",
+    "target": "dex",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-tinker",
+    "type": "ability_boost_choice",
+    "target": "int",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-tinker",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-tinker",
+    "type": "skill_trained",
+    "target": "crafting"
+  },
+  {
+    "group_id": "eg-bg-tinker",
+    "type": "grant_lore",
+    "target": "공학"
+  },
+  {
+    "group_id": "eg-bg-tinker",
+    "type": "grant_feat",
+    "target": "specialty-crafting"
+  },
+  {
+    "group_id": "eg-bg-warrior",
+    "type": "ability_boost_choice",
+    "target": "str",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-warrior",
+    "type": "ability_boost_choice",
+    "target": "con",
+    "value": 1,
+    "group_no": 1
+  },
+  {
+    "group_id": "eg-bg-warrior",
+    "type": "free_boost_slots",
+    "value": 1
+  },
+  {
+    "group_id": "eg-bg-warrior",
+    "type": "skill_trained",
+    "target": "intimidation"
+  },
+  {
+    "group_id": "eg-bg-warrior",
+    "type": "grant_lore",
+    "target": "전쟁"
+  },
+  {
+    "group_id": "eg-bg-warrior",
+    "type": "grant_feat",
+    "target": "intimidating-glare"
   }
 ];
 
