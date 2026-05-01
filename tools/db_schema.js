@@ -57,7 +57,6 @@ const DB_DEFS = [
   { sheet:'RUNE_DB',   var:'RUNE_DB',   file:'equipment_db.js', keyword:'const', shape:'array' },
 
   // cs_feat_effects.js
-  { sheet:'FEAT_EFFECTS', var:'FEAT_EFFECTS', file:'cs_feat_effects.js', keyword:'const', shape:'kv-json' },
 ];
 
 module.exports = { DB_DEFS };

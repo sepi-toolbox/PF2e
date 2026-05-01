@@ -1950,7 +1950,7 @@ function renderResistances() {
     });
   }
 
-  // FEAT_EFFECTS에서 저항 가져오기 (state._fb에 저장된 것)
+  // EFFECT_GROUPS의 resistance type에서 저항 가져오기 (state._fb에 저장된 것)
   // 향후 확장 가능
 
   if (resistances.length === 0) {

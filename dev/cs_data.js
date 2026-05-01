@@ -7905,6 +7905,132 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-arcane-bond-wizard",
     "type": "grant_action"
+  },
+  {
+    "group_id": "eg-leshy-superstition",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-leshy-superstition",
+    "type": "save_bonus",
+    "target": "all",
+    "value": 1,
+    "bonus_type": "circumstance",
+    "condition": "마법 효과"
+  },
+  {
+    "group_id": "eg-seedpod",
+    "type": "grant_weapon",
+    "target": "씨앗 꼬투리",
+    "damage": "1d4 B",
+    "range": 30,
+    "traits": [
+      "비무장",
+      "원거리"
+    ],
+    "weapon_category": "unarmed"
+  },
+  {
+    "group_id": "eg-undaunted",
+    "type": "save_bonus",
+    "target": "will",
+    "value": 1,
+    "bonus_type": "circumstance",
+    "condition": "감정 효과"
+  },
+  {
+    "group_id": "eg-harmlessly-cute",
+    "type": "grant_feat",
+    "target": "뻔뻔한 요청 (Shameless Request)"
+  },
+  {
+    "group_id": "eg-leshy-lore",
+    "type": "skill_trained",
+    "target": "$choice"
+  },
+  {
+    "group_id": "eg-leshy-lore",
+    "type": "grant_feat",
+    "target": "추가 지식 (Additional Lore)",
+    "defaultChoice": "레쉬"
+  },
+  {
+    "group_id": "eg-anchoring-roots",
+    "type": "grant_feat",
+    "target": "안정된 균형 (Steady Balance)"
+  },
+  {
+    "group_id": "eg-anchoring-roots",
+    "type": "grant_action",
+    "actionName": "고정"
+  },
+  {
+    "group_id": "eg-leshy-glide",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-ritual-reversion",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-bark-and-tendril",
+    "type": "grant_innate_spell",
+    "target": "방해 식물",
+    "tradition": "원시",
+    "uses": "하루 1회",
+    "spellType": "spell"
+  },
+  {
+    "group_id": "eg-bark-and-tendril",
+    "type": "grant_innate_spell",
+    "target": "참나무 강인",
+    "tradition": "원시",
+    "uses": "하루 1회",
+    "spellType": "spell"
+  },
+  {
+    "group_id": "eg-lucky-keepsake",
+    "type": "save_bonus",
+    "target": "all",
+    "value": 1,
+    "bonus_type": "circumstance",
+    "condition": "주문/마법 효과"
+  },
+  {
+    "group_id": "eg-call-of-the-green-man",
+    "type": "grant_innate_spell",
+    "target": "식물 형태",
+    "tradition": "원시",
+    "uses": "하루 1회",
+    "spellType": "spell"
+  },
+  {
+    "group_id": "eg-cloak-of-poison",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-flourish-and-ruin",
+    "type": "grant_innate_spell",
+    "target": "생명의 장",
+    "tradition": "원시",
+    "uses": "하루 1회",
+    "spellType": "spell"
+  },
+  {
+    "group_id": "eg-flourish-and-ruin",
+    "type": "grant_innate_spell",
+    "target": "덩굴 뒤엉킴",
+    "tradition": "원시",
+    "uses": "하루 1회",
+    "spellType": "spell"
+  },
+  {
+    "group_id": "eg-regrowth",
+    "type": "grant_innate_spell",
+    "target": "재생",
+    "tradition": "원시",
+    "uses": "하루 1회",
+    "spellType": "spell"
   }
 ];
 
@@ -9217,6 +9343,62 @@ const CHOICE_OPTIONS = [
     "option_name": "균류 + 식물",
     "effect_group_id": "",
     "is_default": false
+  },
+  {
+    "choice_id": "cho-vengeful-hatred",
+    "option_id": "giant",
+    "option_name": "거인",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-vengeful-hatred",
+    "option_id": "orc",
+    "option_name": "오크",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-vengeful-hatred",
+    "option_id": "undead",
+    "option_name": "언데드",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-vengeful-hatred",
+    "option_id": "aberration",
+    "option_name": "기형체",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-vengeful-hatred",
+    "option_id": "fiend",
+    "option_name": "악마",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-vengeful-hatred",
+    "option_id": "dragon",
+    "option_name": "드래곤",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-leshy-lore",
+    "option_id": "nature",
+    "option_name": "nature",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-leshy-lore",
+    "option_id": "stealth",
+    "option_name": "stealth",
+    "effect_group_id": "",
+    "is_default": true
   }
 ];
 

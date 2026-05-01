@@ -229,17 +229,21 @@ const featDbNew = FEAT_DB.map(f => {
   return out;
 });
 
-// ── EFFECT_GROUPS 컬럼 우선순위 정렬 (proposal_v3_export.js의 priority 순서) ──
-//   group_id, type, target, value, bonus_type, condition, tradition, spell_type, uses, default_choice, ...
+// ── EFFECT_GROUPS 컬럼 순서 (시안 _proposals/PF2e_DB_proposal_v3_effects_choice.xlsx 정본) ──
+//   의미적 정렬: group_id → type → target → value → bonus_type → condition → tradition → uses → actionCost
+//                → damage → damage_type → defaultChoice → from → key → name → range → rank → spellType
+//                → summary → traits → weapon_category → weapons
 // JSON 출력 시 key 순서가 컬럼 순서가 됨 → 모든 행에서 동일한 key 순서 유지
 const COL_PRIORITY = [
   'group_id', 'type', 'target',
   'value', 'bonus_type', 'condition',
-  'tradition', 'spell_type', 'uses', 'default_choice',
-  'summary', 'actionCost',
-  'weapon_category', 'damage', 'range', 'traits',
-  'scaling', 'rank', 'key', 'from',
-  'name', 'damage_type',
+  'tradition', 'uses', 'actionCost',
+  'damage', 'damage_type', 'defaultChoice',
+  'from', 'key', 'name', 'range', 'rank',
+  'spellType', 'spell_type',
+  'summary', 'traits',
+  'weapon_category', 'weapons',
+  'feat', 'scaling', 'default_choice',
 ];
 function sortRowKeys(row) {
   const out = {};
