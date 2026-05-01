@@ -1463,12 +1463,25 @@ function _debugShowBonusPool() {
     document.body.appendChild(el);
   }
   const pool = state._fb?.bonuses || [];
+  let html = '';
   if (!pool.length) {
-    el.innerHTML = '<b>BONUS POOL</b>: <span style="color:#f80">empty</span><br><span style="color:#888">state._fb=' + (state._fb ? 'exists' : 'undefined') + '</span>';
+    html = '<b>POOL</b>: <span style="color:#f80">empty</span><br>';
   } else {
-    el.innerHTML = '<b>BONUS POOL (' + pool.length + ')</b><br>' +
-      pool.map(b => `[${b.category}/${b.target||'-'}] +${b.value} (${b.bonus_type||'untyped'}) ${b.source||''}`).join('<br>');
+    html = '<b>POOL (' + pool.length + ')</b><br>' +
+      pool.map(b => `[${b.category}/${b.target||'-'}] +${b.value} (${b.bonus_type||'-'}) ${b.source||''}`).join('<br>') + '<br>';
   }
+  // 추가 진단
+  const speedExtra = (typeof getStackedBonus === 'function') ? getStackedBonus('speed', null) : {total: '?', picks:[]};
+  const speedInput = document.getElementById('speed')?.value;
+  const speedDisp = document.getElementById('speed-display');
+  const dispText = speedDisp?.textContent;
+  const dispDataset = speedDisp?.dataset?.bonusPicks;
+  html += '<hr style="border-color:#0a0;margin:4px 0">';
+  html += `<b>SPEED:</b> input=${speedInput} disp="${dispText}"<br>`;
+  html += `getStackedBonus('speed').total=${speedExtra.total}<br>`;
+  html += `dataset.bonusPicks=${dispDataset || 'NONE'}<br>`;
+  html += `getStackedBonus is fn? ${typeof getStackedBonus}`;
+  el.innerHTML = html;
 }
 
 function applyPenaltyColor(el, base, penalty) {
