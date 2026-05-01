@@ -355,8 +355,40 @@ function openSpeedModal() {
   const inputStyle = 'width:60px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:6px;border-radius:4px;font-size:14px;text-align:center;';
   const types = [['climb','등반 🧗'],['swim','수영 🏊'],['fly','비행 🕊'],['burrow','굴착 ⛏']];
 
+  // 활성 보너스 섹션 (풀에서 category='speed')
+  const speedBonuses = (state._fb?.bonuses || []).filter(b => b.category === 'speed');
+  const TYPES = ['circumstance','status','item',''];
+  const TYPE_KO = {circumstance:'상황', status:'상태', item:'아이템', '':'기타'};
+  const byType = {};
+  for (const b of speedBonuses) {
+    const t = b.bonus_type || '';
+    const v = (b.value === 'level') ? (typeof getLevel==='function'?getLevel():1) : (typeof b.value==='number'?b.value:parseInt(b.value)||0);
+    const cur = byType[t];
+    const curV = cur ? ((cur.value === 'level') ? (typeof getLevel==='function'?getLevel():1) : (typeof cur.value==='number'?cur.value:parseInt(cur.value)||0)) : -Infinity;
+    if (v > curV) byType[t] = b;
+  }
+  let totalApplied = 0;
+  for (const t of TYPES) {
+    if (byType[t]) totalApplied += (byType[t].value === 'level') ? (typeof getLevel==='function'?getLevel():1) : byType[t].value;
+  }
+  const bonusSection = speedBonuses.length ? `
+    <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:12px;background:var(--bg3);">
+      <div style="font-size:12px;color:var(--accent);margin-bottom:8px;font-weight:600;">⚡ 활성 보너스 (자동 합계 ${totalApplied>=0?'+':''}${totalApplied})</div>
+      ${speedBonuses.map(b => {
+        const t = b.bonus_type || '';
+        const isApplied = byType[t] === b;
+        const sign = (typeof b.value==='number' && b.value<0) ? '' : '+';
+        const cond = b.condition ? ` <span style="color:#888;font-size:10px">(${b.condition})</span>` : '';
+        const mark = isApplied ? '<span style="color:#0c0;font-weight:700">★</span> ' : '<span style="color:#666">·</span> ';
+        return `<div style="font-size:12px;padding:2px 0">${mark}<strong>${sign}${b.value}</strong> [${TYPE_KO[t]}] <em style="color:#bbb">${b.source||''}</em>${cond}</div>`;
+      }).join('')}
+      <div style="font-size:10px;color:#888;margin-top:6px">★ = 자동 적용 (type별 max 1개)</div>
+    </div>
+  ` : '';
+
   const container = document.getElementById('modal-options');
   container.innerHTML = `<div style="padding:16px;">
+    ${bonusSection}
     <div style="border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:12px;">
       <div style="font-size:12px;color:var(--text2);margin-bottom:6px;">🏃 기본 이동 속도</div>
       <div style="display:flex;align-items:center;gap:6px;">

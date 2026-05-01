@@ -1415,6 +1415,76 @@ function recalcAll() {
   if (document.getElementById('panel-actions')?.classList.contains('active')) renderActions();
   // 재주 탭 갱신 (숙련 변경 → 드롭다운 반영)
   if (typeof renderFeats === 'function') renderFeats();
+  // 디버그 박스 갱신
+  _debugShowBonusPool();
+}
+
+// ── 보너스 확인 모달 (굴림 없는 stat용 — AC, 이속의 추가 정보 등) ──
+function showBonusInfoModal(category, label) {
+  const pool = state._fb?.bonuses || [];
+  const matched = pool.filter(b => b.category === category);
+  const TYPE_LABEL = {circumstance:'상황 보너스 (Circumstance)', status:'상태 보너스 (Status)', item:'아이템 보너스 (Item)', '':'기타 (untyped)'};
+  const TYPES = ['circumstance', 'status', 'item', ''];
+  const grouped = {};
+  for (const t of TYPES) grouped[t] = matched.filter(b => (b.bonus_type || '') === t);
+
+  const overlay = document.createElement('div');
+  overlay.className = 'bonus-info-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:10001;display:flex;align-items:center;justify-content:center';
+
+  let bodyHtml = '';
+  let totalApplied = 0;
+  const byType = {};
+  for (const b of matched) {
+    const t = b.bonus_type || '';
+    const v = (b.value === 'level') ? getLevel() : (typeof b.value === 'number' ? b.value : parseInt(b.value)||0);
+    if (!byType[t] || ((byType[t].value === 'level' ? getLevel() : byType[t].value) < v)) byType[t] = b;
+  }
+  for (const t of TYPES) {
+    if (byType[t]) totalApplied += (byType[t].value === 'level') ? getLevel() : byType[t].value;
+  }
+  for (const t of TYPES) {
+    const group = grouped[t];
+    if (!group.length && t === '') continue;
+    bodyHtml += `<div style="margin-bottom:10px"><div style="color:var(--gold);font-size:11px;margin-bottom:4px;font-weight:600">${TYPE_LABEL[t] || t}</div>`;
+    if (group.length) {
+      group.forEach(b => {
+        const isApplied = byType[t] === b;
+        const sign = (typeof b.value === 'number' && b.value < 0) ? '' : '+';
+        const cond = b.condition ? ` <span style="color:#888;font-size:11px">(조건: ${b.condition})</span>` : '';
+        const mark = isApplied ? '<span style="color:#0c0;font-weight:700">★</span> ' : '<span style="color:#666">·</span> ';
+        bodyHtml += `<div style="padding:3px 0;font-size:12px">${mark}<strong>${sign}${b.value}</strong> <em style="color:#bbb">${b.source||''}</em>${cond}</div>`;
+      });
+    } else {
+      bodyHtml += '<div style="color:#666;font-size:11px;padding:2px 0 2px 20px">(없음)</div>';
+    }
+    bodyHtml += '</div>';
+  }
+
+  const card = document.createElement('div');
+  card.style.cssText = 'background:var(--bg2);border:1px solid var(--gold);border-radius:8px;width:90vw;max-width:420px;max-height:85vh;display:flex;flex-direction:column;color:var(--text)';
+  card.innerHTML = `
+    <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+      <h3 style="margin:0;color:var(--gold);font-size:14px">${label} — 활성 보너스</h3>
+      <button id="bim-x" style="background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;padding:0 4px">✕</button>
+    </div>
+    <div style="padding:12px 16px;overflow-y:auto;flex:1">
+      <div style="color:#aaa;font-size:11px;margin-bottom:10px">★ = 자동 적용 (type별 max). PF2e 규칙상 같은 type끼리는 비합산.</div>
+      ${bodyHtml}
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);text-align:right;font-size:13px">
+        <span style="color:#aaa">자동 적용 합계:</span> <strong style="color:var(--gold)">${totalApplied >= 0 ? '+' : ''}${totalApplied}</strong>
+      </div>
+    </div>
+    <div style="padding:10px 16px;border-top:1px solid var(--border);display:flex;justify-content:flex-end">
+      <button id="bim-close" style="padding:8px 16px;background:var(--bg3);border:1px solid var(--border2);border-radius:4px;color:var(--text);cursor:pointer">닫기</button>
+    </div>
+  `;
+  overlay.appendChild(card);
+  document.body.appendChild(overlay);
+  const close = () => overlay.remove();
+  card.querySelector('#bim-x').onclick = close;
+  card.querySelector('#bim-close').onclick = close;
+  overlay.onclick = e => { if (e.target === overlay) close(); };
 }
 
 function getCondPenalty() {
@@ -1452,6 +1522,38 @@ function getStackedBonus(category, target) {
   return { total, picks };
 }
 
+
+// ── 디버그 박스 (개발 진단용 — 우상단 textarea, ✕로 닫기) ──
+function _debugShowBonusPool() {
+  let wrap = document.getElementById('debug-bonus-pool');
+  if (!wrap) {
+    wrap = document.createElement('div');
+    wrap.id = 'debug-bonus-pool';
+    wrap.style.cssText = 'position:fixed;top:5px;right:5px;background:#000;border:1px solid #0f0;z-index:99999;border-radius:4px;font-family:monospace;padding:4px';
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '✕';
+    closeBtn.style.cssText = 'position:absolute;top:2px;right:4px;background:#0f0;color:#000;border:none;width:20px;height:20px;cursor:pointer;font-weight:700;border-radius:2px';
+    closeBtn.onclick = () => wrap.remove();
+    const ta = document.createElement('textarea');
+    ta.id = 'debug-bonus-pool-ta';
+    ta.readOnly = true;
+    ta.style.cssText = 'width:340px;height:200px;background:#000;color:#0f0;border:none;font-size:11px;font-family:monospace;padding:6px;line-height:1.4;resize:both';
+    wrap.appendChild(closeBtn);
+    wrap.appendChild(ta);
+    document.body.appendChild(wrap);
+  }
+  const ta = document.getElementById('debug-bonus-pool-ta');
+  if (!ta) return;
+  const pool = state._fb?.bonuses || [];
+  let lines = [];
+  if (!pool.length) {
+    lines.push('POOL: empty');
+  } else {
+    lines.push('POOL (' + pool.length + ')');
+    pool.forEach(b => lines.push('  [' + b.category + '/' + (b.target||'-') + '] +' + b.value + ' (' + (b.bonus_type||'-') + ') ' + (b.source||'')));
+  }
+  ta.value = lines.join('\n');
+}
 
 function applyPenaltyColor(el, base, penalty) {
   if (!el) return;
