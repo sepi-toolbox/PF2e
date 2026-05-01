@@ -369,7 +369,8 @@ for (const f of feats) {
   // auto-acquisition 항목은 이미 existingAutoAncestry로 푸시됨 — 중복 방지
   if (existing && existing.acquisition === 'auto' && existing.source) continue;
   // 출력 객체 — 키 순서: id, name_ko, name_en, feat_level, category, acquisition, source,
-  //   prereq_group_id, prerequisites, traits, actionCost, desc, summary, repeatable, effects (v528~)
+  //   prereq_group_id, auto_note, damage_note, effect_group_id, choice_id, choice_kind, choice_label, choice_filter,
+  //   prerequisites, traits, actionCost, desc, summary, repeatable (v532~ Phase 3a)
   const obj = {};
   obj.id = assignId(f);
   obj.name_ko = f.name_ko;
@@ -380,6 +381,16 @@ for (const f of feats) {
   obj.acquisition = (existing && existing.acquisition) || 'choice';
   obj.source = (existing && existing.source) || '';
   obj.prereq_group_id = (existing && existing.prereq_group_id) || '';
+  // v532~ Phase 3a 신규 필드 (모두 옵셔널 — 있을 때만 보존)
+  if (existing) {
+    if (existing.auto_note) obj.auto_note = existing.auto_note;
+    if (existing.damage_note) obj.damage_note = existing.damage_note;
+    if (existing.effect_group_id) obj.effect_group_id = existing.effect_group_id;
+    if (existing.choice_id) obj.choice_id = existing.choice_id;
+    if (existing.choice_kind) obj.choice_kind = existing.choice_kind;
+    if (existing.choice_label) obj.choice_label = existing.choice_label;
+    if (existing.choice_filter) obj.choice_filter = existing.choice_filter;
+  }
   if (f.prerequisites) obj.prerequisites = f.prerequisites;
   obj.traits = f.traits;
   if (f.actionCost) obj.actionCost = f.actionCost;
@@ -391,11 +402,17 @@ for (const f of feats) {
   }
   obj.summary = f.summary.length > 300 ? f.summary.substring(0, 297) + '...' : f.summary;
   if (f.repeatable) obj.repeatable = true;
-  // v528~ effects 자리 (Phase 2에서 채움)
-  obj.effects = (existing && existing.effects) || [];
   // 사용자 정의 추가 컬럼 보존 (명시 처리한 키 외 모든 키)
   if (existing) {
-    const known = new Set(['id','name_ko','name_en','feat_level','category','acquisition','source','prereq_group_id','prerequisites','traits','actionCost','desc','summary','repeatable','effects','prereqs','cat','class_id']);
+    const known = new Set([
+      'id','name_ko','name_en','feat_level','category',
+      'acquisition','source','prereq_group_id',
+      'auto_note','damage_note','effect_group_id',
+      'choice_id','choice_kind','choice_label','choice_filter',
+      'prerequisites','traits','actionCost','desc','summary','repeatable',
+      // legacy/internal — 새 obj에 옮기지 않음
+      'effects','choice','choiceEffects','prereqs','cat','class_id',
+    ]);
     for (const k of Object.keys(existing)) {
       if (!known.has(k)) obj[k] = existing[k];
     }

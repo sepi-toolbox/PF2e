@@ -7969,14 +7969,52 @@ const FEAT_EFFECTS = {
 };
 
 // v528~ Phase 2: FEAT_DB.effects/choice/choiceEffects 통합 후 우선 조회
-//  1. FEAT_DB.name_en === nameEn 인 항목의 effects/choice/choiceEffects 우선
-//  2. 미존재 시 FEAT_EFFECTS legacy fallback (CLASS_FEATURE_NAMES, PC2 등)
+// v532~ Phase 3a: effect_group_id/auto_note/damage_note + choice_id/CHOICE_OPTIONS 정규화
+//  1. FEAT_DB의 신 컬럼(effect_group_id/auto_note/damage_note/choice_id) 조립
+//  2. 신 컬럼 없으면 FEAT_EFFECTS legacy fallback (PC2 미등재 ~48키)
 function _getFeatEffectsDef(nameEn) {
   if (!nameEn) return null;
   if (typeof FEAT_DB !== 'undefined' && typeof getFeat === 'function') {
     const f = getFeat(nameEn);
-    if (f && ((Array.isArray(f.effects) && f.effects.length) || f.choice || f.choiceEffects)) {
-      return { effects: f.effects || [], choice: f.choice, choiceEffects: f.choiceEffects };
+    if (f && (f.effect_group_id || f.auto_note || f.damage_note || f.choice_id)) {
+      // ── effects 재구성: 공통 효과 + 노트 ──
+      const effects = [];
+      if (f.effect_group_id && typeof getEffectRows === 'function') {
+        for (const r of getEffectRows(f.effect_group_id)) effects.push(_rowToEffect(r));
+      }
+      if (f.auto_note) effects.push({ type: 'display_note', text: f.auto_note });
+      if (f.damage_note) effects.push(Object.assign({ type: 'damage_note' }, f.damage_note));
+
+      // ── choice 재구성 ──
+      let choice = null, choiceEffects = null;
+      if (f.choice_id && typeof getChoiceOptions === 'function') {
+        choice = { type: f.choice_kind || '' };
+        if (f.choice_label) choice.label = f.choice_label;
+        if (f.choice_filter && typeof f.choice_filter === 'object') Object.assign(choice, f.choice_filter);
+
+        const opts = getChoiceOptions(f.choice_id);
+        if (f.choice_kind === 'custom') {
+          choice.options = opts.map(o => ({ id: o.option_id, name: o.option_name }));
+        } else if (f.choice_kind === 'skill_defaults') {
+          choice.defaults = opts.filter(o => o.is_default).map(o => o.option_id);
+        }
+
+        // 옵션별 effect_group_id → choiceEffects
+        for (const o of opts) {
+          if (o.effect_group_id && typeof getEffectRows === 'function') {
+            const arr = getEffectRows(o.effect_group_id).map(_rowToEffect);
+            if (arr.length) {
+              if (!choiceEffects) choiceEffects = {};
+              choiceEffects[o.option_id] = arr;
+            }
+          }
+        }
+      }
+
+      const def = { effects };
+      if (choice) def.choice = choice;
+      if (choiceEffects) def.choiceEffects = choiceEffects;
+      return def;
     }
   }
   return (typeof FEAT_EFFECTS !== 'undefined') ? FEAT_EFFECTS[nameEn] : null;

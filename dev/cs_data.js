@@ -6966,6 +6966,2242 @@ const PREREQ_GROUPS = [
   }
 ];
 
+// ═══════════════════════════════════════════════
+//  EFFECT_GROUPS — FEAT_DB.effect_group_id 1:N 정규화 (v532~ Phase 3a)
+//  공통 효과 + 옵션별 효과 (choiceEffects)를 단일 테이블에 통합.
+//  group_id 패턴: eg-{feat.id} (공통) / eg-{feat.id}-{option.id} (옵션별)
+//  NOTE: display_note/damage_note는 FEAT_DB.auto_note/damage_note 컬럼으로 흡수.
+// ═══════════════════════════════════════════════
+const EFFECT_GROUPS = [
+  {
+    "group_id": "eg-bard-dedication",
+    "type": "skill_trained",
+    "skill": "occultism"
+  },
+  {
+    "group_id": "eg-bard-dedication",
+    "type": "skill_trained",
+    "skill": "performance"
+  },
+  {
+    "group_id": "eg-cleric-dedication",
+    "type": "skill_trained",
+    "skill": "religion"
+  },
+  {
+    "group_id": "eg-druid-dedication",
+    "type": "skill_trained",
+    "skill": "nature"
+  },
+  {
+    "group_id": "eg-fighter-dedication",
+    "type": "skill_trained",
+    "skill": "$choice"
+  },
+  {
+    "group_id": "eg-fighter-resiliency",
+    "type": "hp_bonus",
+    "value": 3
+  },
+  {
+    "group_id": "eg-reactive-striker",
+    "type": "grant_action",
+    "action": "aoo"
+  },
+  {
+    "group_id": "eg-ranger-dedication",
+    "type": "skill_trained",
+    "skill": "survival"
+  },
+  {
+    "group_id": "eg-ranger-dedication",
+    "type": "grant_action",
+    "summary": "[1행동] 사냥감 추적 (Hunt Prey) — 시야 내 생물 1명을 사냥감으로 지정. 사냥감에 대해 무시(Ignore) 지형을 사용하여 추적하고, 추적 속도가 전체 속도가 됩니다.",
+    "actionCost": "1"
+  },
+  {
+    "group_id": "eg-ranger-resiliency",
+    "type": "hp_bonus",
+    "value": 3
+  },
+  {
+    "group_id": "eg-rogue-dedication",
+    "type": "skill_trained",
+    "skill": "stealth"
+  },
+  {
+    "group_id": "eg-rogue-dedication",
+    "type": "skill_trained",
+    "skill": "thievery"
+  },
+  {
+    "group_id": "eg-rogue-dedication",
+    "type": "grant_action",
+    "summary": "기습 공격 (Surprise Attack) — 전투 시작 시 선제를 굴리기 전에 행동한 적이 아닌 모든 생물은 당신에게 무방비(flat-footed)입니다. 첫 턴이 끝나면 해제.",
+    "actionCost": "free"
+  },
+  {
+    "group_id": "eg-witch-dedication",
+    "type": "skill_trained",
+    "skill": "occultism"
+  },
+  {
+    "group_id": "eg-basic-witchcraft",
+    "type": "familiar_abilities",
+    "value": 1
+  },
+  {
+    "group_id": "eg-wizard-dedication",
+    "type": "skill_trained",
+    "skill": "arcana"
+  },
+  {
+    "group_id": "eg-dwarven-lore",
+    "type": "skill_trained",
+    "skill": "$choice"
+  },
+  {
+    "group_id": "eg-dwarven-lore",
+    "type": "grant_feat",
+    "feat": "추가 지식 (Additional Lore)",
+    "defaultChoice": "드워프"
+  },
+  {
+    "group_id": "eg-dwarven-weapon-familiarity",
+    "type": "weapon_familiarity",
+    "weapons": [
+      "전투 도끼",
+      "픽",
+      "워해머"
+    ]
+  },
+  {
+    "group_id": "eg-stonemasons-eye",
+    "type": "skill_trained",
+    "skill": "crafting"
+  },
+  {
+    "group_id": "eg-stonemasons-eye",
+    "type": "grant_feat_if_trained",
+    "skill": "crafting",
+    "feat": "전문 제작 (Specialty Crafting)",
+    "defaultChoice": "stonemasonry"
+  },
+  {
+    "group_id": "eg-unburdened-iron",
+    "type": "unburdened_iron"
+  },
+  {
+    "group_id": "eg-elven-lore",
+    "type": "skill_trained",
+    "skill": "$choice"
+  },
+  {
+    "group_id": "eg-elven-lore",
+    "type": "grant_feat",
+    "feat": "추가 지식 (Additional Lore)",
+    "defaultChoice": "엘프"
+  },
+  {
+    "group_id": "eg-elven-weapon-familiarity",
+    "type": "weapon_trained",
+    "weapons": [
+      "장궁",
+      "단궁",
+      "롱소드",
+      "레이피어"
+    ]
+  },
+  {
+    "group_id": "eg-elven-weapon-familiarity",
+    "type": "weapon_familiarity",
+    "weapons": [
+      "합성 장궁",
+      "합성 단궁"
+    ]
+  },
+  {
+    "group_id": "eg-forlorn",
+    "type": "save_bonus",
+    "save": "will",
+    "value": 1,
+    "bonus_type": "circumstance",
+    "condition": "감정 효과"
+  },
+  {
+    "group_id": "eg-nimble-elf",
+    "type": "speed_bonus",
+    "value": 5
+  },
+  {
+    "group_id": "eg-otherworldly-magic",
+    "type": "grant_innate_spell"
+  },
+  {
+    "group_id": "eg-first-world-magic",
+    "type": "grant_innate_spell"
+  },
+  {
+    "group_id": "eg-gnome-weapon-familiarity",
+    "type": "weapon_familiarity",
+    "weapons": [
+      "글레이브"
+    ]
+  },
+  {
+    "group_id": "eg-gnome-obsession",
+    "type": "grant_feat",
+    "feat": "추가 지식 (Additional Lore)"
+  },
+  {
+    "group_id": "eg-gnome-obsession",
+    "type": "grant_feat",
+    "feat": "확신 (Assurance)"
+  },
+  {
+    "group_id": "eg-goblin-lore",
+    "type": "skill_trained",
+    "skill": "$choice"
+  },
+  {
+    "group_id": "eg-goblin-lore",
+    "type": "grant_feat",
+    "feat": "추가 지식 (Additional Lore)",
+    "defaultChoice": "고블린"
+  },
+  {
+    "group_id": "eg-goblin-scuttle",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-goblin-song",
+    "type": "grant_action",
+    "action": "goblin-song"
+  },
+  {
+    "group_id": "eg-goblin-weapon-familiarity",
+    "type": "weapon_familiarity",
+    "weapons": []
+  },
+  {
+    "group_id": "eg-rough-rider",
+    "type": "grant_feat",
+    "feat": "기마 (Ride)"
+  },
+  {
+    "group_id": "eg-halfling-lore",
+    "type": "skill_trained",
+    "skill": "$choice"
+  },
+  {
+    "group_id": "eg-halfling-lore",
+    "type": "grant_feat",
+    "feat": "추가 지식 (Additional Lore)",
+    "defaultChoice": "하플링"
+  },
+  {
+    "group_id": "eg-halfling-luck",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-halfling-weapon-familiarity",
+    "type": "weapon_familiarity",
+    "weapons": [
+      "쇼트소드",
+      "하플링 투석 지팡이"
+    ]
+  },
+  {
+    "group_id": "eg-prairie-rider",
+    "type": "skill_trained",
+    "skill": "nature"
+  },
+  {
+    "group_id": "eg-natural-skill",
+    "type": "skill_trained",
+    "skill": "$choice"
+  },
+  {
+    "group_id": "eg-unconventional-weaponry",
+    "type": "weapon_familiarity",
+    "weapons": [
+      "$choice"
+    ]
+  },
+  {
+    "group_id": "eg-beast-trainer",
+    "type": "skill_trained",
+    "skill": "nature"
+  },
+  {
+    "group_id": "eg-beast-trainer-pet",
+    "type": "grant_feat",
+    "feat": "반려동물 (Pet)"
+  },
+  {
+    "group_id": "eg-beast-trainer-train",
+    "type": "grant_feat",
+    "feat": "동물 훈련 (Train Animal)"
+  },
+  {
+    "group_id": "eg-orc-ferocity",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-orc-lore",
+    "type": "skill_trained",
+    "skill": "$choice"
+  },
+  {
+    "group_id": "eg-orc-lore",
+    "type": "grant_feat",
+    "feat": "추가 지식 (Additional Lore)",
+    "defaultChoice": "오크"
+  },
+  {
+    "group_id": "eg-hold-mark-sun",
+    "type": "skill_trained",
+    "skill": "diplomacy"
+  },
+  {
+    "group_id": "eg-hold-mark-sun",
+    "type": "save_bonus",
+    "save": "all",
+    "value": 1,
+    "bonus_type": "status",
+    "condition": "비전 주문"
+  },
+  {
+    "group_id": "eg-hold-mark-skull",
+    "type": "skill_trained",
+    "skill": "survival"
+  },
+  {
+    "group_id": "eg-hold-mark-skull",
+    "type": "save_bonus",
+    "save": "all",
+    "value": 1,
+    "bonus_type": "status",
+    "condition": "원시 주문"
+  },
+  {
+    "group_id": "eg-hold-mark-corpse",
+    "type": "skill_trained",
+    "skill": "religion"
+  },
+  {
+    "group_id": "eg-hold-mark-corpse",
+    "type": "save_bonus",
+    "save": "all",
+    "value": 1,
+    "bonus_type": "status",
+    "condition": "신성 주문"
+  },
+  {
+    "group_id": "eg-hold-mark-hand",
+    "type": "skill_trained",
+    "skill": "intimidation"
+  },
+  {
+    "group_id": "eg-hold-mark-hand",
+    "type": "save_bonus",
+    "save": "all",
+    "value": 1,
+    "bonus_type": "status",
+    "condition": "오컬트 주문"
+  },
+  {
+    "group_id": "eg-orc-weapon-familiarity",
+    "type": "weapon_familiarity",
+    "weapons": [
+      "팔치온",
+      "그레이트액스"
+    ]
+  },
+  {
+    "group_id": "eg-tusks",
+    "type": "grant_weapon",
+    "weapon_name": "엄니",
+    "weapon_category": "unarmed",
+    "damage": "1d6 P",
+    "range": 0,
+    "traits": [
+      "비무장",
+      "기교"
+    ]
+  },
+  {
+    "group_id": "eg-changeling-lore",
+    "type": "skill_trained",
+    "skill": "$choice"
+  },
+  {
+    "group_id": "eg-changeling-lore",
+    "type": "grant_feat",
+    "feat": "추가 지식 (Additional Lore)",
+    "defaultChoice": "해그"
+  },
+  {
+    "group_id": "eg-angelkin",
+    "type": "skill_trained",
+    "skill": "society"
+  },
+  {
+    "group_id": "eg-hellspawn",
+    "type": "skill_trained",
+    "skill": "deception"
+  },
+  {
+    "group_id": "eg-pitborn",
+    "type": "skill_trained",
+    "skill": "athletics"
+  },
+  {
+    "group_id": "eg-nephilim-lore",
+    "type": "skill_trained",
+    "skill": "$choice"
+  },
+  {
+    "group_id": "eg-nephilim-lore",
+    "type": "grant_feat",
+    "feat": "추가 지식 (Additional Lore)"
+  },
+  {
+    "group_id": "eg-nimble-hooves",
+    "type": "speed_bonus",
+    "value": 5
+  },
+  {
+    "group_id": "eg-earned-glory",
+    "type": "skill_trained",
+    "skill": "performance"
+  },
+  {
+    "group_id": "eg-defy-the-darkness",
+    "type": "vision_upgrade",
+    "vision": "상위 암시야"
+  },
+  {
+    "group_id": "eg-martial-experience",
+    "type": "martial_experience"
+  },
+  {
+    "group_id": "eg-vandal",
+    "type": "skill_trained",
+    "skill": "thievery"
+  },
+  {
+    "group_id": "eg-cultural-adaptability",
+    "type": "grant_feat",
+    "feat": "양자 혈통 (Adopted Ancestry)"
+  },
+  {
+    "group_id": "eg-cultural-adaptability",
+    "type": "grant_adopted_feat"
+  },
+  {
+    "group_id": "eg-step-lively",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-clever-improviser",
+    "type": "grant_feat",
+    "feat": "비숙련 즉흥연기 (Untrained Improvisation)"
+  },
+  {
+    "group_id": "eg-supernatural-charm",
+    "type": "grant_innate_spell",
+    "spell": "매혹",
+    "tradition": "비전",
+    "spellType": "spell",
+    "uses": "하루 1회"
+  },
+  {
+    "group_id": "eg-echoes-in-stone",
+    "type": "extra_sense",
+    "sense": "진동 감각 20피트 (돌/흙 위, 1행동)"
+  },
+  {
+    "group_id": "eg-mountains-stoutness",
+    "type": "hp_bonus",
+    "value": "level"
+  },
+  {
+    "group_id": "eg-mountains-stoutness",
+    "type": "recovery_dc",
+    "value": -1
+  },
+  {
+    "group_id": "eg-stone-bones",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-stonewalker",
+    "type": "grant_innate_spell",
+    "spell": "돌과 하나",
+    "tradition": "신성",
+    "spellType": "spell",
+    "uses": "하루 1회"
+  },
+  {
+    "group_id": "eg-elf-step",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-tree-climber",
+    "type": "speed_extra",
+    "key": "climb",
+    "value": 10
+  },
+  {
+    "group_id": "eg-life-leap",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-cave-climber",
+    "type": "speed_extra",
+    "key": "climb",
+    "value": 10
+  },
+  {
+    "group_id": "eg-cling",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-unhampered-passage",
+    "type": "grant_innate_spell",
+    "spell": "속박 해제",
+    "tradition": "원시",
+    "spellType": "spell",
+    "uses": "하루 1회"
+  },
+  {
+    "group_id": "eg-hardy-traveler",
+    "type": "bulk_bonus",
+    "value": 1
+  },
+  {
+    "group_id": "eg-pervasive-superstition",
+    "type": "save_bonus",
+    "save": "all",
+    "value": 1,
+    "bonus_type": "circumstance",
+    "condition": "마법 효과"
+  },
+  {
+    "group_id": "eg-divine-wings",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-march-the-mines",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-avenge-ally",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-universal-longevity",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-instinctive-obfuscation",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-bounce-back",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-celestial-mercy",
+    "type": "grant_innate_spell",
+    "spell": "고통 정화",
+    "tradition": "신성",
+    "spellType": "spell",
+    "uses": "하루 2회"
+  },
+  {
+    "group_id": "eg-slip-sideways",
+    "type": "grant_innate_spell",
+    "spell": "순간이동",
+    "tradition": "신성",
+    "spellType": "spell",
+    "uses": "하루 1회"
+  },
+  {
+    "group_id": "eg-stonegate",
+    "type": "grant_innate_spell",
+    "spell": "마법 통로",
+    "tradition": "신성",
+    "spellType": "spell",
+    "uses": "하루 1회"
+  },
+  {
+    "group_id": "eg-stonewall",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-homeward-bound",
+    "type": "grant_innate_spell",
+    "spell": "차원간 순간이동",
+    "tradition": "원시",
+    "spellType": "spell",
+    "uses": "주 2회"
+  },
+  {
+    "group_id": "eg-reckless-abandon",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-shadow-self",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-heroic-presence",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-rampaging-ferocity",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-adopted-ancestry",
+    "type": "adopted_ancestry"
+  },
+  {
+    "group_id": "eg-armor-proficiency",
+    "type": "armor_upgrade",
+    "from": "light"
+  },
+  {
+    "group_id": "eg-diehard",
+    "type": "dying_threshold",
+    "value": 5
+  },
+  {
+    "group_id": "eg-fleet",
+    "type": "speed_bonus",
+    "value": 5
+  },
+  {
+    "group_id": "eg-incredible-initiative",
+    "type": "initiative_bonus",
+    "value": 2,
+    "bonus_type": "circumstance"
+  },
+  {
+    "group_id": "eg-shield-block",
+    "type": "grant_action",
+    "action": "shield-block"
+  },
+  {
+    "group_id": "eg-toughness",
+    "type": "hp_bonus",
+    "value": "level"
+  },
+  {
+    "group_id": "eg-skill-training",
+    "type": "skill_trained",
+    "skill": "$choice"
+  },
+  {
+    "group_id": "eg-hefty-hauler",
+    "type": "bulk_bonus",
+    "value": 2
+  },
+  {
+    "group_id": "eg-battle-medicine",
+    "type": "grant_action",
+    "action": "battle-medicine"
+  },
+  {
+    "group_id": "eg-arcane-sense",
+    "type": "grant_innate_spell",
+    "spell": "마법 탐지",
+    "tradition": "신비",
+    "spellType": "cantrip",
+    "uses": "자유"
+  },
+  {
+    "group_id": "eg-additional-lore",
+    "type": "grant_lore",
+    "name": "$choice"
+  },
+  {
+    "group_id": "eg-bardic-lore",
+    "type": "grant_lore",
+    "name": "바드 지식"
+  },
+  {
+    "group_id": "eg-hymn-of-healing",
+    "type": "grant_focus_spell",
+    "spell": "치유의 찬송"
+  },
+  {
+    "group_id": "eg-hymn-of-healing",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-lingering-composition",
+    "type": "grant_focus_spell",
+    "spell": "잔향 작곡"
+  },
+  {
+    "group_id": "eg-well-versed",
+    "type": "save_bonus",
+    "save": "all",
+    "value": 1,
+    "bonus_type": "circumstance",
+    "condition": "청각/환영/언어/음파/시각 효과"
+  },
+  {
+    "group_id": "eg-cantrip-expansion-witch",
+    "type": "cantrip_slots",
+    "value": 2
+  },
+  {
+    "group_id": "eg-loremasters-etude",
+    "type": "grant_focus_spell",
+    "spell": "달인의 에튀드"
+  },
+  {
+    "group_id": "eg-song-of-strength",
+    "type": "grant_focus_spell",
+    "spell": "힘의 노래"
+  },
+  {
+    "group_id": "eg-uplifting-overture",
+    "type": "grant_focus_spell",
+    "spell": "고양 서곡"
+  },
+  {
+    "group_id": "eg-rallying-anthem",
+    "type": "grant_focus_spell",
+    "spell": "결집의 찬가"
+  },
+  {
+    "group_id": "eg-triple-time",
+    "type": "grant_focus_spell",
+    "spell": "세 박자"
+  },
+  {
+    "group_id": "eg-dirge-of-doom",
+    "type": "grant_focus_spell",
+    "spell": "파멸의 만가"
+  },
+  {
+    "group_id": "eg-song-of-marching",
+    "type": "grant_focus_spell",
+    "spell": "행군의 노래"
+  },
+  {
+    "group_id": "eg-fortissimo-composition",
+    "type": "grant_focus_spell",
+    "spell": "포르티시모 작곡"
+  },
+  {
+    "group_id": "eg-house-of-imaginary-walls",
+    "type": "grant_focus_spell",
+    "spell": "상상의 벽 집"
+  },
+  {
+    "group_id": "eg-ode-to-ouroboros",
+    "type": "grant_focus_spell",
+    "spell": "뱀 물기의 송가"
+  },
+  {
+    "group_id": "eg-symphony-of-the-unfettered-heart",
+    "type": "grant_focus_spell",
+    "spell": "속박 해방의 교향곡"
+  },
+  {
+    "group_id": "eg-allegro",
+    "type": "grant_focus_spell",
+    "spell": "알레그로"
+  },
+  {
+    "group_id": "eg-soothing-ballad",
+    "type": "grant_focus_spell",
+    "spell": "위로의 발라드"
+  },
+  {
+    "group_id": "eg-fatal-aria",
+    "type": "grant_focus_spell",
+    "spell": "치명적 아리아"
+  },
+  {
+    "group_id": "eg-perfect-encore",
+    "type": "spell_slots",
+    "rank": 10,
+    "value": 1
+  },
+  {
+    "group_id": "eg-pied-piping",
+    "type": "grant_focus_spell",
+    "spell": "피리 부는 사나이"
+  },
+  {
+    "group_id": "eg-domain-initiate",
+    "type": "grant_focus_spell",
+    "spell": "$domain_initial"
+  },
+  {
+    "group_id": "eg-cantrip-expansion-witch",
+    "type": "cantrip_slots",
+    "value": 2
+  },
+  {
+    "group_id": "eg-warpriests-armor",
+    "type": "proficiency",
+    "target": "armor-medium",
+    "rank": 2
+  },
+  {
+    "group_id": "eg-advanced-domain",
+    "type": "grant_focus_spell",
+    "spell": "$domain_advanced"
+  },
+  {
+    "group_id": "eg-maker-of-miracles",
+    "type": "spell_slots",
+    "rank": 10,
+    "value": 1
+  },
+  {
+    "group_id": "eg-enhanced-familiar-witch",
+    "type": "familiar_abilities",
+    "value": 4
+  },
+  {
+    "group_id": "eg-poison-resistance",
+    "type": "resistance",
+    "damage_type": "poison",
+    "value": "half_level"
+  },
+  {
+    "group_id": "eg-poison-resistance",
+    "type": "save_bonus",
+    "save": "fort",
+    "value": 1,
+    "bonus_type": "status",
+    "condition": "독 효과"
+  },
+  {
+    "group_id": "eg-timeless-nature",
+    "type": "save_bonus",
+    "save": "all",
+    "value": 2,
+    "bonus_type": "status",
+    "condition": "질병/원시 마법"
+  },
+  {
+    "group_id": "eg-hierophants-power",
+    "type": "spell_slots",
+    "rank": 10,
+    "value": 1
+  },
+  {
+    "group_id": "eg-twin-parry-ranger",
+    "type": "ac_bonus",
+    "value": 1,
+    "bonus_type": "circumstance",
+    "condition": "양손 근접 무기"
+  },
+  {
+    "group_id": "eg-twin-parry-ranger",
+    "type": "ac_bonus",
+    "value": 1,
+    "bonus_type": "circumstance",
+    "condition": "양손 근접 무기"
+  },
+  {
+    "group_id": "eg-inspired-stratagem",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-familiar",
+    "type": "familiar_abilities",
+    "value": 2
+  },
+  {
+    "group_id": "eg-cantrip-expansion-witch",
+    "type": "cantrip_slots",
+    "value": 2
+  },
+  {
+    "group_id": "eg-enhanced-familiar-witch",
+    "type": "familiar_abilities",
+    "value": 4
+  },
+  {
+    "group_id": "eg-secondary-detonation-array",
+    "type": "grant_action"
+  },
+  {
+    "group_id": "eg-cantrip-expansion-witch",
+    "type": "cantrip_slots",
+    "value": 2
+  },
+  {
+    "group_id": "eg-enhanced-familiar-witch",
+    "type": "familiar_abilities",
+    "value": 4
+  },
+  {
+    "group_id": "eg-incredible-familiar",
+    "type": "familiar_abilities",
+    "value": 6
+  },
+  {
+    "group_id": "eg-stitched-familiar",
+    "type": "familiar_abilities",
+    "value": 1
+  },
+  {
+    "group_id": "eg-shield-block-druid",
+    "type": "grant_action",
+    "action": "shield-block"
+  },
+  {
+    "group_id": "eg-reactive-strike-fighter",
+    "type": "grant_action",
+    "action": "aoo"
+  },
+  {
+    "group_id": "eg-shield-block-fighter",
+    "type": "grant_action",
+    "action": "shield-block"
+  },
+  {
+    "group_id": "eg-hunt-prey-ranger",
+    "type": "grant_action",
+    "action": "hunt-prey"
+  },
+  {
+    "group_id": "eg-familiar-witch",
+    "type": "familiar_abilities",
+    "value": 2
+  },
+  {
+    "group_id": "eg-arcane-bond-wizard",
+    "type": "grant_action"
+  }
+];
+
+// ═══════════════════════════════════════════════
+//  CHOICE_OPTIONS — FEAT_DB.choice_id 1:N 정규화 (v532~ Phase 3a)
+//  옵션 행: choice_id, option_id, option_name, effect_group_id, is_default
+//  custom + skill_defaults type만 옵션 행 보유.
+//  나머지 type (skill/lore/spell_cantrip/spell_rank/feat_pick/weapon_pick/ancestry_pick/muse_pick/skill_fixed/skill_multi)은
+//  런타임 쿼리(filter 메타 활용) — 옵션 행 없음.
+// ═══════════════════════════════════════════════
+const CHOICE_OPTIONS = [
+  {
+    "choice_id": "cho-bard-dedication",
+    "option_id": "muse-enigma",
+    "option_name": "수수께끼",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-bard-dedication",
+    "option_id": "muse-maestro",
+    "option_name": "마에스트로",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-bard-dedication",
+    "option_id": "muse-warrior",
+    "option_name": "전사",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-bard-dedication",
+    "option_id": "muse-lore",
+    "option_name": "지식",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-dwarven-lore",
+    "option_id": "crafting",
+    "option_name": "crafting",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-dwarven-lore",
+    "option_id": "religion",
+    "option_name": "religion",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-elven-lore",
+    "option_id": "arcana",
+    "option_name": "arcana",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-elven-lore",
+    "option_id": "nature",
+    "option_name": "nature",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-goblin-lore",
+    "option_id": "nature",
+    "option_name": "nature",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-goblin-lore",
+    "option_id": "stealth",
+    "option_name": "stealth",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-halfling-lore",
+    "option_id": "acrobatics",
+    "option_name": "acrobatics",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-halfling-lore",
+    "option_id": "stealth",
+    "option_name": "stealth",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-beast-trainer",
+    "option_id": "pet",
+    "option_name": "반려동물 (Pet)",
+    "effect_group_id": "eg-beast-trainer-pet",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-beast-trainer",
+    "option_id": "train",
+    "option_name": "동물 훈련 (Train Animal)",
+    "effect_group_id": "eg-beast-trainer-train",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-orc-lore",
+    "option_id": "athletics",
+    "option_name": "athletics",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-orc-lore",
+    "option_id": "survival",
+    "option_name": "survival",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-hold-mark",
+    "option_id": "sun",
+    "option_name": "타오르는 태양 (외교, 비전)",
+    "effect_group_id": "eg-hold-mark-sun",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-hold-mark",
+    "option_id": "skull",
+    "option_name": "죽음의 머리 (생존, 원시)",
+    "effect_group_id": "eg-hold-mark-skull",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-hold-mark",
+    "option_id": "corpse",
+    "option_name": "더럽혀진 시체 (종교학, 신성)",
+    "effect_group_id": "eg-hold-mark-corpse",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-hold-mark",
+    "option_id": "hand",
+    "option_name": "빈 손 (위협, 오컬트)",
+    "effect_group_id": "eg-hold-mark-hand",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-changeling-lore",
+    "option_id": "deception",
+    "option_name": "deception",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-changeling-lore",
+    "option_id": "occultism",
+    "option_name": "occultism",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-nephilim-lore",
+    "option_id": "religion",
+    "option_name": "religion",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-nephilim-lore",
+    "option_id": "diplomacy",
+    "option_name": "diplomacy",
+    "effect_group_id": "",
+    "is_default": true
+  },
+  {
+    "choice_id": "cho-canny-acumen",
+    "option_id": "fort",
+    "option_name": "인내 (Fortitude)",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-canny-acumen",
+    "option_id": "ref",
+    "option_name": "반사 (Reflex)",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-canny-acumen",
+    "option_id": "will",
+    "option_name": "의지 (Will)",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-canny-acumen",
+    "option_id": "perc",
+    "option_name": "지각 (Perception)",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-weapon-proficiency",
+    "option_id": "weapon-martial",
+    "option_name": "군용 무기 1그룹 숙련",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-weapon-proficiency",
+    "option_id": "weapon-simple",
+    "option_name": "단순 무기 숙련 (미숙련→숙련)",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-specialty-crafting",
+    "option_id": "alchemy",
+    "option_name": "연금술",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-specialty-crafting",
+    "option_id": "armor",
+    "option_name": "갑옷",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-specialty-crafting",
+    "option_id": "weapon",
+    "option_name": "무기",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-specialty-crafting",
+    "option_id": "jewelry",
+    "option_name": "보석",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-specialty-crafting",
+    "option_id": "clothing",
+    "option_name": "의복",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-specialty-crafting",
+    "option_id": "woodwork",
+    "option_name": "목공",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-specialty-crafting",
+    "option_id": "stonemasonry",
+    "option_name": "석공",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-specialty-crafting",
+    "option_id": "tailoring",
+    "option_name": "재단",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-virtuosic-performer",
+    "option_id": "singing",
+    "option_name": "노래",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-virtuosic-performer",
+    "option_id": "instruments",
+    "option_name": "악기",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-virtuosic-performer",
+    "option_id": "dancing",
+    "option_name": "춤",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-virtuosic-performer",
+    "option_id": "acting",
+    "option_name": "연기",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-virtuosic-performer",
+    "option_id": "comedy",
+    "option_name": "코미디",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-virtuosic-performer",
+    "option_id": "oratory",
+    "option_name": "연설",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-terrain-stalker",
+    "option_id": "rubble",
+    "option_name": "잔해",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-terrain-stalker",
+    "option_id": "snow",
+    "option_name": "눈",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-terrain-stalker",
+    "option_id": "underbrush",
+    "option_name": "덤불",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-terrain-expertise",
+    "option_id": "aquatic",
+    "option_name": "수중",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-terrain-expertise",
+    "option_id": "arctic",
+    "option_name": "극지",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-terrain-expertise",
+    "option_id": "desert",
+    "option_name": "사막",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-terrain-expertise",
+    "option_id": "forest",
+    "option_name": "숲",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-terrain-expertise",
+    "option_id": "mountain",
+    "option_name": "산",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-terrain-expertise",
+    "option_id": "plains",
+    "option_name": "평원",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-terrain-expertise",
+    "option_id": "sky",
+    "option_name": "하늘",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-terrain-expertise",
+    "option_id": "swamp",
+    "option_name": "늪",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-terrain-expertise",
+    "option_id": "underground",
+    "option_name": "지하",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "air",
+    "option_name": "공기",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "ambition",
+    "option_name": "야망",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "change",
+    "option_name": "변화",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "cities",
+    "option_name": "도시",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "cold",
+    "option_name": "냉기",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "confidence",
+    "option_name": "자신감",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "creation",
+    "option_name": "창조",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "darkness",
+    "option_name": "어둠",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "death",
+    "option_name": "죽음",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "decay",
+    "option_name": "부패",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "delirium",
+    "option_name": "망상",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "destruction",
+    "option_name": "파괴",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "dreams",
+    "option_name": "꿈",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "dust",
+    "option_name": "먼지",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "duty",
+    "option_name": "의무",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "earth",
+    "option_name": "대지",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "family",
+    "option_name": "가족",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "fate",
+    "option_name": "운명",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "fire",
+    "option_name": "화염",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "freedom",
+    "option_name": "자유",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "glyph",
+    "option_name": "문양",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "healing",
+    "option_name": "치유",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "indulgence",
+    "option_name": "탐닉",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "knowledge",
+    "option_name": "지식",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "lightning",
+    "option_name": "번개",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "luck",
+    "option_name": "행운",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "magic",
+    "option_name": "마법",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "might",
+    "option_name": "힘",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "moon",
+    "option_name": "달",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "nature",
+    "option_name": "자연",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "nightmares",
+    "option_name": "악몽",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "pain",
+    "option_name": "고통",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "passion",
+    "option_name": "열정",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "perfection",
+    "option_name": "완벽",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "plague",
+    "option_name": "역병",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "protection",
+    "option_name": "보호",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "repose",
+    "option_name": "안식",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "secrecy",
+    "option_name": "비밀",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "sorrow",
+    "option_name": "슬픔",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "soul",
+    "option_name": "영혼",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "star",
+    "option_name": "별",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "sun",
+    "option_name": "태양",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "swarm",
+    "option_name": "떼",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "time",
+    "option_name": "시간",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "travel",
+    "option_name": "여행",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "trickery",
+    "option_name": "속임수",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "truth",
+    "option_name": "진실",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "tyranny",
+    "option_name": "폭정",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "undeath",
+    "option_name": "언데스",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "vigil",
+    "option_name": "경계",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "void",
+    "option_name": "공허",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "war",
+    "option_name": "전쟁",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "water",
+    "option_name": "물",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "wealth",
+    "option_name": "부",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "wyrmkin",
+    "option_name": "용족",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-domain-initiate",
+    "option_id": "zeal",
+    "option_name": "열의",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "air",
+    "option_name": "공기",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "ambition",
+    "option_name": "야망",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "change",
+    "option_name": "변화",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "cities",
+    "option_name": "도시",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "cold",
+    "option_name": "냉기",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "confidence",
+    "option_name": "자신감",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "creation",
+    "option_name": "창조",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "darkness",
+    "option_name": "어둠",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "death",
+    "option_name": "죽음",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "decay",
+    "option_name": "부패",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "delirium",
+    "option_name": "망상",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "destruction",
+    "option_name": "파괴",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "dreams",
+    "option_name": "꿈",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "dust",
+    "option_name": "먼지",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "duty",
+    "option_name": "의무",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "earth",
+    "option_name": "대지",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "family",
+    "option_name": "가족",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "fate",
+    "option_name": "운명",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "fire",
+    "option_name": "화염",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "freedom",
+    "option_name": "자유",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "glyph",
+    "option_name": "문양",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "healing",
+    "option_name": "치유",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "indulgence",
+    "option_name": "탐닉",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "knowledge",
+    "option_name": "지식",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "lightning",
+    "option_name": "번개",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "luck",
+    "option_name": "행운",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "magic",
+    "option_name": "마법",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "might",
+    "option_name": "힘",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "moon",
+    "option_name": "달",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "nature",
+    "option_name": "자연",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "nightmares",
+    "option_name": "악몽",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "pain",
+    "option_name": "고통",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "passion",
+    "option_name": "열정",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "perfection",
+    "option_name": "완벽",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "plague",
+    "option_name": "역병",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "protection",
+    "option_name": "보호",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "repose",
+    "option_name": "안식",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "secrecy",
+    "option_name": "비밀",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "sorrow",
+    "option_name": "슬픔",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "soul",
+    "option_name": "영혼",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "star",
+    "option_name": "별",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "sun",
+    "option_name": "태양",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "swarm",
+    "option_name": "떼",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "time",
+    "option_name": "시간",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "travel",
+    "option_name": "여행",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "trickery",
+    "option_name": "속임수",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "truth",
+    "option_name": "진실",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "tyranny",
+    "option_name": "폭정",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "undeath",
+    "option_name": "언데스",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "vigil",
+    "option_name": "경계",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "void",
+    "option_name": "공허",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "war",
+    "option_name": "전쟁",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "water",
+    "option_name": "물",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "wealth",
+    "option_name": "부",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "wyrmkin",
+    "option_name": "용족",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-advanced-domain",
+    "option_id": "zeal",
+    "option_name": "열의",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-emblazon-energy",
+    "option_id": "acid",
+    "option_name": "산성",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-emblazon-energy",
+    "option_id": "cold",
+    "option_name": "냉기",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-emblazon-energy",
+    "option_id": "electricity",
+    "option_name": "전기",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-emblazon-energy",
+    "option_id": "fire",
+    "option_name": "화염",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-emblazon-energy",
+    "option_id": "sonic",
+    "option_name": "음파",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-terrain",
+    "option_id": "aquatic",
+    "option_name": "수중",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-terrain",
+    "option_id": "arctic",
+    "option_name": "극지",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-terrain",
+    "option_id": "desert",
+    "option_name": "사막",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-terrain",
+    "option_id": "forest",
+    "option_name": "숲",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-terrain",
+    "option_id": "mountain",
+    "option_name": "산",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-terrain",
+    "option_id": "plains",
+    "option_name": "평원",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-terrain",
+    "option_id": "sky",
+    "option_name": "하늘",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-terrain",
+    "option_id": "swamp",
+    "option_name": "늪",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-terrain",
+    "option_id": "underground",
+    "option_name": "지하",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-prey",
+    "option_id": "animal",
+    "option_name": "동물",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-prey",
+    "option_id": "beast",
+    "option_name": "야수",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-prey",
+    "option_id": "dragon",
+    "option_name": "용",
+    "effect_group_id": "",
+    "is_default": false
+  },
+  {
+    "choice_id": "cho-favored-prey",
+    "option_id": "plant-fungus",
+    "option_name": "균류 + 식물",
+    "effect_group_id": "",
+    "is_default": false
+  }
+];
+
+
+
 
 const CONDITIONS_DATA = [
   {

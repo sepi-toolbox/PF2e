@@ -24,6 +24,8 @@ const DB_DEFS = [
   { sheet:'ACTION_DB',         var:'ACTION_DB',         file:'cs_data.js', keyword:'const', shape:'array' },
   { sheet:'TRAIT_DB',          var:'TRAIT_DB',          file:'cs_data.js', keyword:'const', shape:'array' },
   { sheet:'PREREQ_GROUPS',     var:'PREREQ_GROUPS',     file:'cs_data.js', keyword:'const', shape:'array' },
+  { sheet:'EFFECT_GROUPS',     var:'EFFECT_GROUPS',     file:'cs_data.js', keyword:'const', shape:'array' },
+  { sheet:'CHOICE_OPTIONS',    var:'CHOICE_OPTIONS',    file:'cs_data.js', keyword:'const', shape:'array' },
   { sheet:'ANCESTRY_NAME_MAP', var:'ANCESTRY_NAME_MAP', file:'cs_data.js', keyword:'const', shape:'kv-json' },
   { sheet:'SKILL_NAME_MAP',    var:'SKILL_NAME_MAP',    file:'cs_data.js', keyword:'const', shape:'kv-json' },
   { sheet:'CONDITIONS',        var:'CONDITIONS',        file:'cs_data.js', keyword:'const', shape:'array' },

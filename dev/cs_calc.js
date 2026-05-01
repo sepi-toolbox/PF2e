@@ -399,6 +399,43 @@ function getPrereqRows(groupId) {
   return _PREREQ_GROUPS_INDEX.get(groupId) || [];
 }
 
+// EFFECT_GROUPS / CHOICE_OPTIONS v532~ Phase 3a: 1:N 정규화 행 조회
+const _EFFECT_GROUPS_INDEX = new Map();
+function getEffectRows(groupId) {
+  if (!groupId || typeof EFFECT_GROUPS === 'undefined') return [];
+  if (_EFFECT_GROUPS_INDEX.size === 0 && EFFECT_GROUPS.length) {
+    for (const r of EFFECT_GROUPS) {
+      const arr = _EFFECT_GROUPS_INDEX.get(r.group_id) || [];
+      arr.push(r);
+      _EFFECT_GROUPS_INDEX.set(r.group_id, arr);
+    }
+  }
+  return _EFFECT_GROUPS_INDEX.get(groupId) || [];
+}
+
+const _CHOICE_OPTIONS_INDEX = new Map();
+function getChoiceOptions(choiceId) {
+  if (!choiceId || typeof CHOICE_OPTIONS === 'undefined') return [];
+  if (_CHOICE_OPTIONS_INDEX.size === 0 && CHOICE_OPTIONS.length) {
+    for (const r of CHOICE_OPTIONS) {
+      const arr = _CHOICE_OPTIONS_INDEX.get(r.choice_id) || [];
+      arr.push(r);
+      _CHOICE_OPTIONS_INDEX.set(r.choice_id, arr);
+    }
+  }
+  return _CHOICE_OPTIONS_INDEX.get(choiceId) || [];
+}
+
+// EFFECT_GROUPS row → 기존 effect 객체 형태 (group_id/type 제외, 나머지 키 그대로)
+function _rowToEffect(r) {
+  const e = { type: r.type };
+  for (const k of Object.keys(r)) {
+    if (k === 'group_id' || k === 'type') continue;
+    e[k] = r[k];
+  }
+  return e;
+}
+
 // ═══════════════════════════════════════════════
 //  DESC DYNAMIC REFERENCES  {{type:key}}
 // ═══════════════════════════════════════════════
