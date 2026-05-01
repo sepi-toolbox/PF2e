@@ -13,14 +13,17 @@
 //      - choiceEffects 컬럼 제거 → 옵션이 자기 effect_group_id 보유
 //
 //    EFFECT_GROUPS (cs_data.js 신규 const):
-//      - 공통 효과 + choiceEffects의 옵션별 효과 모두 단일 테이블
-//      - group_id, type, ...sparse 컬럼 (skill, spell, feat, weapons[], ...)
+//      - target 통합 컬럼 (식별자 7-8개를 target 1개로):
+//        skill/spell/feat/action/weapon_name/vision/sense/save → target
+//      - weapons 배열은 행 펼침 (한 그룹에 weapon_familiarity 행 N개)
+//      - 컬럼 우선순위: group_id, type, target, value, bonus_type, condition,
+//                       tradition, spell_type, uses, default_choice, ...
 //      - NOTE_TYPES (display_note/damage_note)는 제외 (FEAT_DB로 흡수됨)
 //
 //    CHOICE_OPTIONS (cs_data.js 신규 const):
 //      - choice_id, option_id, option_name, effect_group_id, is_default
 //      - custom + skill_defaults type만 옵션 펼침
-//      - 그 외 11종 (skill/spell_cantrip 등)은 런타임 쿼리 (옵션 행 없음)
+//      - 그 외 11종은 런타임 쿼리 (옵션 행 없음)
 //
 //  Usage: node tools/migrate_feat_db_v3_phase3a.js [--dry]
 // ═══════════════════════════════════════════════
@@ -54,19 +57,55 @@ console.error(`FEAT_DB rows: ${FEAT_DB.length}`);
 // ── 변환 ──
 const NOTE_TYPES = new Set(['display_note', 'damage_note']);
 
+// 식별자 컬럼 → target 통합 (proposal_v3_export.js와 동일)
+const TARGET_COLS = ['skill','spell','feat','action','weapon_name','vision','sense','save'];
+
+// ── 행 펼침 단계 ──
+// 효과 객체 → 행들로 변환 (target 통합 + weapons 펼침)
+function effectToRows(groupId, e) {
+  if (!e || NOTE_TYPES.has(e.type)) return [];
+  const rows = [];
+
+  // weapons 배열은 행 펼침
+  if (Array.isArray(e.weapons) && e.weapons.length) {
+    for (const w of e.weapons) {
+      const row = { group_id: groupId, type: e.type, target: w };
+      for (const k of Object.keys(e)) {
+        if (k === 'weapons' || k === 'type') continue;
+        if (TARGET_COLS.includes(k)) continue;  // target에 통합되는 컬럼 skip
+        row[k] = e[k];
+      }
+      rows.push(row);
+    }
+    return rows;
+  }
+
+  // 일반: target 통합 (TARGET_COLS 중 첫 매칭 → target에)
+  const row = { group_id: groupId, type: e.type };
+  for (const c of TARGET_COLS) {
+    if (e[c] !== undefined && e[c] !== null && e[c] !== '') {
+      row.target = e[c];
+      break;
+    }
+  }
+  for (const k of Object.keys(e)) {
+    if (k === 'type') continue;
+    if (TARGET_COLS.includes(k)) continue;  // target에 흡수됨
+    row[k] = e[k];
+  }
+  rows.push(row);
+  return rows;
+}
+
 const effectGroups = [];
 const choiceOptions = [];
 
-// 효과 배열 → effectGroups 행들로 펼침 (NOTE_TYPES 제외)
 function pushEffects(groupId, arr) {
   if (!Array.isArray(arr)) return 0;
   let n = 0;
   for (const e of arr) {
-    if (!e || NOTE_TYPES.has(e.type)) continue;
-    const row = { group_id: groupId, type: e.type };
-    for (const k of Object.keys(e)) if (k !== 'type') row[k] = e[k];
-    effectGroups.push(row);
-    n++;
+    const rows = effectToRows(groupId, e);
+    for (const r of rows) { effectGroups.push(r); n++; }
   }
   return n;
 }
@@ -157,7 +196,7 @@ const featDbNew = FEAT_DB.map(f => {
         });
       }
     }
-    // 그 외 11종 type (skill/lore/skill_fixed/skill_multi/spell_cantrip/spell_rank/feat_pick/weapon_pick/ancestry_pick/muse_pick): 옵션 행 없음
+    // 그 외 11종 type: 옵션 행 없음
   }
 
   // ── 새 row 빌드 (정해진 순서로) ──
@@ -190,6 +229,26 @@ const featDbNew = FEAT_DB.map(f => {
   return out;
 });
 
+// ── EFFECT_GROUPS 컬럼 우선순위 정렬 (proposal_v3_export.js의 priority 순서) ──
+//   group_id, type, target, value, bonus_type, condition, tradition, spell_type, uses, default_choice, ...
+// JSON 출력 시 key 순서가 컬럼 순서가 됨 → 모든 행에서 동일한 key 순서 유지
+const COL_PRIORITY = [
+  'group_id', 'type', 'target',
+  'value', 'bonus_type', 'condition',
+  'tradition', 'spell_type', 'uses', 'default_choice',
+  'summary', 'actionCost',
+  'weapon_category', 'damage', 'range', 'traits',
+  'scaling', 'rank', 'key', 'from',
+  'name', 'damage_type',
+];
+function sortRowKeys(row) {
+  const out = {};
+  for (const k of COL_PRIORITY) if (row[k] !== undefined) out[k] = row[k];
+  for (const k of Object.keys(row)) if (out[k] === undefined) out[k] = row[k];
+  return out;
+}
+const effectGroupsSorted = effectGroups.map(sortRowKeys);
+
 // ── 통계 / FK 무결성 ──
 const stats = {
   feats_total: featDbNew.length,
@@ -198,8 +257,8 @@ const stats = {
   feats_with_effect_group_id: featDbNew.filter(f => f.effect_group_id).length,
   feats_with_choice_id: featDbNew.filter(f => f.choice_id).length,
   feats_with_both: featDbNew.filter(f => f.effect_group_id && f.choice_id).length,
-  effect_groups_rows: effectGroups.length,
-  effect_groups_distinct: new Set(effectGroups.map(r => r.group_id)).size,
+  effect_groups_rows: effectGroupsSorted.length,
+  effect_groups_distinct: new Set(effectGroupsSorted.map(r => r.group_id)).size,
   choice_options_rows: choiceOptions.length,
   choice_options_distinct_choice_ids: new Set(choiceOptions.map(r => r.choice_id)).size,
   choice_options_with_effect_group: choiceOptions.filter(c => c.effect_group_id).length,
@@ -207,18 +266,21 @@ const stats = {
 
 // effect type 분포
 const typeCount = {};
-for (const r of effectGroups) typeCount[r.type] = (typeCount[r.type] || 0) + 1;
+for (const r of effectGroupsSorted) typeCount[r.type] = (typeCount[r.type] || 0) + 1;
 stats.effect_type_distribution = Object.fromEntries(
   Object.entries(typeCount).sort((a, b) => b[1] - a[1])
 );
 
-// choice kind 분포
-const choiceKindCount = {};
-for (const f of featDbNew) if (f.choice_kind) choiceKindCount[f.choice_kind] = (choiceKindCount[f.choice_kind] || 0) + 1;
-stats.choice_kind_distribution = choiceKindCount;
+// 컬럼 채움률
+const colFill = {};
+for (const r of effectGroupsSorted) for (const k of Object.keys(r)) colFill[k] = (colFill[k] || 0) + 1;
+stats.column_fill = Object.fromEntries(
+  Object.entries(colFill).sort((a, b) => b[1] - a[1])
+    .map(([k, c]) => [k, `${c} (${((c/effectGroupsSorted.length)*100).toFixed(0)}%)`])
+);
 
 // FK 무결성 검사
-const egIds = new Set(effectGroups.map(r => r.group_id));
+const egIds = new Set(effectGroupsSorted.map(r => r.group_id));
 const featEgRefs = featDbNew.filter(f => f.effect_group_id).map(f => f.effect_group_id);
 const choiceEgRefs = choiceOptions.filter(c => c.effect_group_id).map(c => c.effect_group_id);
 const allEgRefs = [...featEgRefs, ...choiceEgRefs];
@@ -230,7 +292,6 @@ stats.fk_unused_eg = [...egIds].filter(id => !referencedEgs.has(id)).length;
 
 const choiceIds = new Set(choiceOptions.map(c => c.choice_id));
 const featChoiceIds = featDbNew.filter(f => f.choice_id).map(f => f.choice_id);
-// 옵션 행 없는 choice (skill, lore, spell_cantrip 등 11종)는 정상 → orphan 아님
 const referencedChoiceIds = new Set(featChoiceIds);
 stats.fk_unused_choice_id = [...choiceIds].filter(id => !referencedChoiceIds.has(id)).length;
 stats.choice_ids_without_options = featChoiceIds.filter(id => !choiceIds.has(id)).length;
@@ -239,24 +300,12 @@ console.log(JSON.stringify(stats, null, 2));
 
 if (DRY) {
   console.error('\n[dry-run] 파일 미수정.');
-  console.error('\n샘플 EFFECT_GROUPS (앞 5):');
-  console.error(JSON.stringify(effectGroups.slice(0, 5), null, 2));
-  console.error('\n샘플 CHOICE_OPTIONS (앞 5):');
-  console.error(JSON.stringify(choiceOptions.slice(0, 5), null, 2));
-  console.error('\n샘플 FEAT_DB[0] (마이그레이션 후):');
-  console.error(JSON.stringify(featDbNew[0], null, 2));
-  // hold-mark 같은 choiceEffects 보유 항목 샘플
-  const hm = featDbNew.find(f => f.id === 'hold-mark');
-  if (hm) {
-    console.error('\nhold-mark (choiceEffects 분기):');
-    console.error(JSON.stringify(hm, null, 2));
-    const hmOpts = choiceOptions.filter(c => c.choice_id === 'cho-hold-mark');
-    console.error('hold-mark options:');
-    console.error(JSON.stringify(hmOpts, null, 2));
-    const hmEgs = effectGroups.filter(r => r.group_id.startsWith('eg-hold-mark'));
-    console.error('hold-mark effect groups:');
-    console.error(JSON.stringify(hmEgs, null, 2));
-  }
+  console.error('\n샘플 EFFECT_GROUPS — weapon_familiarity 행 펼침 (Adopted Ancestry / Half-Elf Atavism):');
+  console.error(JSON.stringify(effectGroupsSorted.filter(r => r.type === 'weapon_familiarity').slice(0, 6), null, 2));
+  console.error('\n샘플 EFFECT_GROUPS — Bard Dedication (target 통합):');
+  console.error(JSON.stringify(effectGroupsSorted.filter(r => r.group_id === 'eg-bard-dedication'), null, 2));
+  console.error('\n샘플 EFFECT_GROUPS — Hold Mark sun (choiceEffects 분기):');
+  console.error(JSON.stringify(effectGroupsSorted.filter(r => r.group_id === 'eg-hold-mark-sun'), null, 2));
   process.exit(0);
 }
 
@@ -283,13 +332,11 @@ console.error(`✓ ${path.join(DEV_DIR, 'feat_db.js')}`);
 const csDataPath = path.join(DEV_DIR, 'cs_data.js');
 let csDataSrc = fs.readFileSync(csDataPath, 'utf8');
 
-// 이미 삽입돼있으면 교체, 없으면 PREREQ_GROUPS 다음에 신규 삽입
 function replaceOrInsertConst(src, varName, newArr, headerComment, insertAfterVar) {
   const re = new RegExp(`(^const\\s+${varName}\\s*=\\s*)\\[[\\s\\S]*?\\n\\];`, 'm');
   if (re.test(src)) {
     return src.replace(re, `$1${JSON.stringify(newArr, null, 2)};`);
   }
-  // 신규 삽입 — insertAfterVar 다음
   const reAfter = new RegExp(`(^const\\s+${insertAfterVar}\\s*=\\s*\\[[\\s\\S]*?\\n\\];)`, 'm');
   if (!reAfter.test(src)) {
     console.error(`[warn] ${insertAfterVar} 블록을 찾지 못함 — ${varName} 삽입 실패`);
@@ -299,11 +346,14 @@ function replaceOrInsertConst(src, varName, newArr, headerComment, insertAfterVa
   return src.replace(reAfter, `$1${insertText}`);
 }
 
-csDataSrc = replaceOrInsertConst(csDataSrc, 'EFFECT_GROUPS', effectGroups,
+csDataSrc = replaceOrInsertConst(csDataSrc, 'EFFECT_GROUPS', effectGroupsSorted,
   '// ═══════════════════════════════════════════════\n' +
   '//  EFFECT_GROUPS — FEAT_DB.effect_group_id 1:N 정규화 (v532~ Phase 3a)\n' +
   '//  공통 효과 + 옵션별 효과 (choiceEffects)를 단일 테이블에 통합.\n' +
   '//  group_id 패턴: eg-{feat.id} (공통) / eg-{feat.id}-{option.id} (옵션별)\n' +
+  '//  컬럼: group_id, type, target (식별자 통합 — skill/spell/feat/action/weapon_name/vision/sense/save),\n' +
+  '//        value, bonus_type, condition, tradition, ... (sparse)\n' +
+  '//  weapons 배열은 행 펼침 (한 그룹에 weapon_familiarity 행 N개).\n' +
   '//  NOTE: display_note/damage_note는 FEAT_DB.auto_note/damage_note 컬럼으로 흡수.\n' +
   '// ═══════════════════════════════════════════════\n',
   'PREREQ_GROUPS');
@@ -323,8 +373,7 @@ console.error(`✓ ${csDataPath}`);
 
 console.error('\n완료. 다음 단계:');
 console.error('  1. node -c dev/feat_db.js dev/cs_data.js');
-console.error('  2. cs_calc.js: getEffectRows(groupId), getChoiceOptions(choiceId), _rowToEffect(r) 헬퍼 추가');
-console.error('  3. cs_feat_effects.js: _getFeatEffectsDef 갱신 (effect_group_id/choice_id 우선 + FEAT_EFFECTS legacy fallback)');
-console.error('  4. tools/db_schema.js + db_column_dict.js + rebuild_feat_db.js 갱신');
-console.error('  5. node tools/audit_text_lookups.js (HIGH 0 유지)');
-console.error('  6. 버전 범프 v532 + 사용자 회귀 테스트');
+console.error('  2. cs_calc.js: getEffectRows + getChoiceOptions + _rowToEffect 헬퍼 (target → 원래 컬럼 풀기)');
+console.error('  3. cs_feat_effects.js: _getFeatEffectsDef 갱신');
+console.error('  4. node tools/audit_text_lookups.js (HIGH 0 유지)');
+console.error('  5. 사용자 회귀 테스트');

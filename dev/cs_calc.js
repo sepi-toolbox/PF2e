@@ -426,12 +426,42 @@ function getChoiceOptions(choiceId) {
   return _CHOICE_OPTIONS_INDEX.get(choiceId) || [];
 }
 
-// EFFECT_GROUPS row → 기존 effect 객체 형태 (group_id/type 제외, 나머지 키 그대로)
+// EFFECT_GROUPS row → 기존 effect 객체 형태로 변환
+//  - target 통합 컬럼을 type별 원래 컬럼명으로 풀기
+//    skill_trained.target → skill / grant_focus_spell.target → spell / save_bonus.target → save 등
+//  - weapon_familiarity/weapon_trained는 행 펼침되어 있으므로 weapons:[target] 단일 원소 배열로
+//    (한 그룹의 N개 행이 _applyOneEffect를 N번 호출 — 결과적으로 N무기 모두 적용)
+//  - proficiency 등은 target 컬럼명 그대로 사용
+const _EFFECT_TARGET_TO_COL = {
+  skill_trained: 'skill',
+  grant_feat_if_trained: 'skill',  // skill 우선 매핑 (TARGET_COLS 순서 기준), feat은 별도 컬럼 보존
+  grant_focus_spell: 'spell',
+  grant_innate_spell: 'spell',
+  grant_feat: 'feat',
+  grant_adopted_feat: 'feat',
+  grant_action: 'action',
+  grant_weapon: 'weapon_name',
+  grant_lore: 'name',
+  vision_upgrade: 'vision',
+  extra_sense: 'sense',
+  save_bonus: 'save',
+  resistance: 'damage_type',
+};
 function _rowToEffect(r) {
   const e = { type: r.type };
   for (const k of Object.keys(r)) {
     if (k === 'group_id' || k === 'type') continue;
-    e[k] = r[k];
+    if (k === 'target') {
+      const t = r.type;
+      if (t === 'weapon_familiarity' || t === 'weapon_trained') {
+        e.weapons = [r.target];
+      } else {
+        const col = _EFFECT_TARGET_TO_COL[t] || 'target';
+        e[col] = r[k];
+      }
+    } else {
+      e[k] = r[k];
+    }
   }
   return e;
 }

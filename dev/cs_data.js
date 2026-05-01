@@ -6970,33 +6970,36 @@ const PREREQ_GROUPS = [
 //  EFFECT_GROUPS — FEAT_DB.effect_group_id 1:N 정규화 (v532~ Phase 3a)
 //  공통 효과 + 옵션별 효과 (choiceEffects)를 단일 테이블에 통합.
 //  group_id 패턴: eg-{feat.id} (공통) / eg-{feat.id}-{option.id} (옵션별)
+//  컬럼: group_id, type, target (식별자 통합 — skill/spell/feat/action/weapon_name/vision/sense/save),
+//        value, bonus_type, condition, tradition, ... (sparse)
+//  weapons 배열은 행 펼침 (한 그룹에 weapon_familiarity 행 N개).
 //  NOTE: display_note/damage_note는 FEAT_DB.auto_note/damage_note 컬럼으로 흡수.
 // ═══════════════════════════════════════════════
 const EFFECT_GROUPS = [
   {
     "group_id": "eg-bard-dedication",
     "type": "skill_trained",
-    "skill": "occultism"
+    "target": "occultism"
   },
   {
     "group_id": "eg-bard-dedication",
     "type": "skill_trained",
-    "skill": "performance"
+    "target": "performance"
   },
   {
     "group_id": "eg-cleric-dedication",
     "type": "skill_trained",
-    "skill": "religion"
+    "target": "religion"
   },
   {
     "group_id": "eg-druid-dedication",
     "type": "skill_trained",
-    "skill": "nature"
+    "target": "nature"
   },
   {
     "group_id": "eg-fighter-dedication",
     "type": "skill_trained",
-    "skill": "$choice"
+    "target": "$choice"
   },
   {
     "group_id": "eg-fighter-resiliency",
@@ -7006,12 +7009,12 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-reactive-striker",
     "type": "grant_action",
-    "action": "aoo"
+    "target": "aoo"
   },
   {
     "group_id": "eg-ranger-dedication",
     "type": "skill_trained",
-    "skill": "survival"
+    "target": "survival"
   },
   {
     "group_id": "eg-ranger-dedication",
@@ -7027,12 +7030,12 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-rogue-dedication",
     "type": "skill_trained",
-    "skill": "stealth"
+    "target": "stealth"
   },
   {
     "group_id": "eg-rogue-dedication",
     "type": "skill_trained",
-    "skill": "thievery"
+    "target": "thievery"
   },
   {
     "group_id": "eg-rogue-dedication",
@@ -7043,7 +7046,7 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-witch-dedication",
     "type": "skill_trained",
-    "skill": "occultism"
+    "target": "occultism"
   },
   {
     "group_id": "eg-basic-witchcraft",
@@ -7053,38 +7056,43 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-wizard-dedication",
     "type": "skill_trained",
-    "skill": "arcana"
+    "target": "arcana"
   },
   {
     "group_id": "eg-dwarven-lore",
     "type": "skill_trained",
-    "skill": "$choice"
+    "target": "$choice"
   },
   {
     "group_id": "eg-dwarven-lore",
     "type": "grant_feat",
-    "feat": "추가 지식 (Additional Lore)",
+    "target": "추가 지식 (Additional Lore)",
     "defaultChoice": "드워프"
   },
   {
     "group_id": "eg-dwarven-weapon-familiarity",
     "type": "weapon_familiarity",
-    "weapons": [
-      "전투 도끼",
-      "픽",
-      "워해머"
-    ]
+    "target": "전투 도끼"
+  },
+  {
+    "group_id": "eg-dwarven-weapon-familiarity",
+    "type": "weapon_familiarity",
+    "target": "픽"
+  },
+  {
+    "group_id": "eg-dwarven-weapon-familiarity",
+    "type": "weapon_familiarity",
+    "target": "워해머"
   },
   {
     "group_id": "eg-stonemasons-eye",
     "type": "skill_trained",
-    "skill": "crafting"
+    "target": "crafting"
   },
   {
     "group_id": "eg-stonemasons-eye",
     "type": "grant_feat_if_trained",
-    "skill": "crafting",
-    "feat": "전문 제작 (Specialty Crafting)",
+    "target": "crafting",
     "defaultChoice": "stonemasonry"
   },
   {
@@ -7094,36 +7102,48 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-elven-lore",
     "type": "skill_trained",
-    "skill": "$choice"
+    "target": "$choice"
   },
   {
     "group_id": "eg-elven-lore",
     "type": "grant_feat",
-    "feat": "추가 지식 (Additional Lore)",
+    "target": "추가 지식 (Additional Lore)",
     "defaultChoice": "엘프"
   },
   {
     "group_id": "eg-elven-weapon-familiarity",
     "type": "weapon_trained",
-    "weapons": [
-      "장궁",
-      "단궁",
-      "롱소드",
-      "레이피어"
-    ]
+    "target": "장궁"
+  },
+  {
+    "group_id": "eg-elven-weapon-familiarity",
+    "type": "weapon_trained",
+    "target": "단궁"
+  },
+  {
+    "group_id": "eg-elven-weapon-familiarity",
+    "type": "weapon_trained",
+    "target": "롱소드"
+  },
+  {
+    "group_id": "eg-elven-weapon-familiarity",
+    "type": "weapon_trained",
+    "target": "레이피어"
   },
   {
     "group_id": "eg-elven-weapon-familiarity",
     "type": "weapon_familiarity",
-    "weapons": [
-      "합성 장궁",
-      "합성 단궁"
-    ]
+    "target": "합성 장궁"
+  },
+  {
+    "group_id": "eg-elven-weapon-familiarity",
+    "type": "weapon_familiarity",
+    "target": "합성 단궁"
   },
   {
     "group_id": "eg-forlorn",
     "type": "save_bonus",
-    "save": "will",
+    "target": "will",
     "value": 1,
     "bonus_type": "circumstance",
     "condition": "감정 효과"
@@ -7144,29 +7164,27 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-gnome-weapon-familiarity",
     "type": "weapon_familiarity",
-    "weapons": [
-      "글레이브"
-    ]
+    "target": "글레이브"
   },
   {
     "group_id": "eg-gnome-obsession",
     "type": "grant_feat",
-    "feat": "추가 지식 (Additional Lore)"
+    "target": "추가 지식 (Additional Lore)"
   },
   {
     "group_id": "eg-gnome-obsession",
     "type": "grant_feat",
-    "feat": "확신 (Assurance)"
+    "target": "확신 (Assurance)"
   },
   {
     "group_id": "eg-goblin-lore",
     "type": "skill_trained",
-    "skill": "$choice"
+    "target": "$choice"
   },
   {
     "group_id": "eg-goblin-lore",
     "type": "grant_feat",
-    "feat": "추가 지식 (Additional Lore)",
+    "target": "추가 지식 (Additional Lore)",
     "defaultChoice": "고블린"
   },
   {
@@ -7176,7 +7194,7 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-goblin-song",
     "type": "grant_action",
-    "action": "goblin-song"
+    "target": "goblin-song"
   },
   {
     "group_id": "eg-goblin-weapon-familiarity",
@@ -7186,17 +7204,17 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-rough-rider",
     "type": "grant_feat",
-    "feat": "기마 (Ride)"
+    "target": "기마 (Ride)"
   },
   {
     "group_id": "eg-halfling-lore",
     "type": "skill_trained",
-    "skill": "$choice"
+    "target": "$choice"
   },
   {
     "group_id": "eg-halfling-lore",
     "type": "grant_feat",
-    "feat": "추가 지식 (Additional Lore)",
+    "target": "추가 지식 (Additional Lore)",
     "defaultChoice": "하플링"
   },
   {
@@ -7206,42 +7224,42 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-halfling-weapon-familiarity",
     "type": "weapon_familiarity",
-    "weapons": [
-      "쇼트소드",
-      "하플링 투석 지팡이"
-    ]
+    "target": "쇼트소드"
+  },
+  {
+    "group_id": "eg-halfling-weapon-familiarity",
+    "type": "weapon_familiarity",
+    "target": "하플링 투석 지팡이"
   },
   {
     "group_id": "eg-prairie-rider",
     "type": "skill_trained",
-    "skill": "nature"
+    "target": "nature"
   },
   {
     "group_id": "eg-natural-skill",
     "type": "skill_trained",
-    "skill": "$choice"
+    "target": "$choice"
   },
   {
     "group_id": "eg-unconventional-weaponry",
     "type": "weapon_familiarity",
-    "weapons": [
-      "$choice"
-    ]
+    "target": "$choice"
   },
   {
     "group_id": "eg-beast-trainer",
     "type": "skill_trained",
-    "skill": "nature"
+    "target": "nature"
   },
   {
     "group_id": "eg-beast-trainer-pet",
     "type": "grant_feat",
-    "feat": "반려동물 (Pet)"
+    "target": "반려동물 (Pet)"
   },
   {
     "group_id": "eg-beast-trainer-train",
     "type": "grant_feat",
-    "feat": "동물 훈련 (Train Animal)"
+    "target": "동물 훈련 (Train Animal)"
   },
   {
     "group_id": "eg-orc-ferocity",
@@ -7250,23 +7268,23 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-orc-lore",
     "type": "skill_trained",
-    "skill": "$choice"
+    "target": "$choice"
   },
   {
     "group_id": "eg-orc-lore",
     "type": "grant_feat",
-    "feat": "추가 지식 (Additional Lore)",
+    "target": "추가 지식 (Additional Lore)",
     "defaultChoice": "오크"
   },
   {
     "group_id": "eg-hold-mark-sun",
     "type": "skill_trained",
-    "skill": "diplomacy"
+    "target": "diplomacy"
   },
   {
     "group_id": "eg-hold-mark-sun",
     "type": "save_bonus",
-    "save": "all",
+    "target": "all",
     "value": 1,
     "bonus_type": "status",
     "condition": "비전 주문"
@@ -7274,12 +7292,12 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-hold-mark-skull",
     "type": "skill_trained",
-    "skill": "survival"
+    "target": "survival"
   },
   {
     "group_id": "eg-hold-mark-skull",
     "type": "save_bonus",
-    "save": "all",
+    "target": "all",
     "value": 1,
     "bonus_type": "status",
     "condition": "원시 주문"
@@ -7287,12 +7305,12 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-hold-mark-corpse",
     "type": "skill_trained",
-    "skill": "religion"
+    "target": "religion"
   },
   {
     "group_id": "eg-hold-mark-corpse",
     "type": "save_bonus",
-    "save": "all",
+    "target": "all",
     "value": 1,
     "bonus_type": "status",
     "condition": "신성 주문"
@@ -7300,12 +7318,12 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-hold-mark-hand",
     "type": "skill_trained",
-    "skill": "intimidation"
+    "target": "intimidation"
   },
   {
     "group_id": "eg-hold-mark-hand",
     "type": "save_bonus",
-    "save": "all",
+    "target": "all",
     "value": 1,
     "bonus_type": "status",
     "condition": "오컬트 주문"
@@ -7313,15 +7331,17 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-orc-weapon-familiarity",
     "type": "weapon_familiarity",
-    "weapons": [
-      "팔치온",
-      "그레이트액스"
-    ]
+    "target": "팔치온"
+  },
+  {
+    "group_id": "eg-orc-weapon-familiarity",
+    "type": "weapon_familiarity",
+    "target": "그레이트액스"
   },
   {
     "group_id": "eg-tusks",
     "type": "grant_weapon",
-    "weapon_name": "엄니",
+    "target": "엄니",
     "weapon_category": "unarmed",
     "damage": "1d6 P",
     "range": 0,
@@ -7333,38 +7353,38 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-changeling-lore",
     "type": "skill_trained",
-    "skill": "$choice"
+    "target": "$choice"
   },
   {
     "group_id": "eg-changeling-lore",
     "type": "grant_feat",
-    "feat": "추가 지식 (Additional Lore)",
+    "target": "추가 지식 (Additional Lore)",
     "defaultChoice": "해그"
   },
   {
     "group_id": "eg-angelkin",
     "type": "skill_trained",
-    "skill": "society"
+    "target": "society"
   },
   {
     "group_id": "eg-hellspawn",
     "type": "skill_trained",
-    "skill": "deception"
+    "target": "deception"
   },
   {
     "group_id": "eg-pitborn",
     "type": "skill_trained",
-    "skill": "athletics"
+    "target": "athletics"
   },
   {
     "group_id": "eg-nephilim-lore",
     "type": "skill_trained",
-    "skill": "$choice"
+    "target": "$choice"
   },
   {
     "group_id": "eg-nephilim-lore",
     "type": "grant_feat",
-    "feat": "추가 지식 (Additional Lore)"
+    "target": "추가 지식 (Additional Lore)"
   },
   {
     "group_id": "eg-nimble-hooves",
@@ -7374,12 +7394,12 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-earned-glory",
     "type": "skill_trained",
-    "skill": "performance"
+    "target": "performance"
   },
   {
     "group_id": "eg-defy-the-darkness",
     "type": "vision_upgrade",
-    "vision": "상위 암시야"
+    "target": "상위 암시야"
   },
   {
     "group_id": "eg-martial-experience",
@@ -7388,12 +7408,12 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-vandal",
     "type": "skill_trained",
-    "skill": "thievery"
+    "target": "thievery"
   },
   {
     "group_id": "eg-cultural-adaptability",
     "type": "grant_feat",
-    "feat": "양자 혈통 (Adopted Ancestry)"
+    "target": "양자 혈통 (Adopted Ancestry)"
   },
   {
     "group_id": "eg-cultural-adaptability",
@@ -7406,20 +7426,20 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-clever-improviser",
     "type": "grant_feat",
-    "feat": "비숙련 즉흥연기 (Untrained Improvisation)"
+    "target": "비숙련 즉흥연기 (Untrained Improvisation)"
   },
   {
     "group_id": "eg-supernatural-charm",
     "type": "grant_innate_spell",
-    "spell": "매혹",
+    "target": "매혹",
     "tradition": "비전",
-    "spellType": "spell",
-    "uses": "하루 1회"
+    "uses": "하루 1회",
+    "spellType": "spell"
   },
   {
     "group_id": "eg-echoes-in-stone",
     "type": "extra_sense",
-    "sense": "진동 감각 20피트 (돌/흙 위, 1행동)"
+    "target": "진동 감각 20피트 (돌/흙 위, 1행동)"
   },
   {
     "group_id": "eg-mountains-stoutness",
@@ -7438,10 +7458,10 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-stonewalker",
     "type": "grant_innate_spell",
-    "spell": "돌과 하나",
+    "target": "돌과 하나",
     "tradition": "신성",
-    "spellType": "spell",
-    "uses": "하루 1회"
+    "uses": "하루 1회",
+    "spellType": "spell"
   },
   {
     "group_id": "eg-elf-step",
@@ -7450,8 +7470,8 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-tree-climber",
     "type": "speed_extra",
-    "key": "climb",
-    "value": 10
+    "value": 10,
+    "key": "climb"
   },
   {
     "group_id": "eg-life-leap",
@@ -7460,8 +7480,8 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-cave-climber",
     "type": "speed_extra",
-    "key": "climb",
-    "value": 10
+    "value": 10,
+    "key": "climb"
   },
   {
     "group_id": "eg-cling",
@@ -7470,10 +7490,10 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-unhampered-passage",
     "type": "grant_innate_spell",
-    "spell": "속박 해제",
+    "target": "속박 해제",
     "tradition": "원시",
-    "spellType": "spell",
-    "uses": "하루 1회"
+    "uses": "하루 1회",
+    "spellType": "spell"
   },
   {
     "group_id": "eg-hardy-traveler",
@@ -7483,7 +7503,7 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-pervasive-superstition",
     "type": "save_bonus",
-    "save": "all",
+    "target": "all",
     "value": 1,
     "bonus_type": "circumstance",
     "condition": "마법 효과"
@@ -7515,26 +7535,26 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-celestial-mercy",
     "type": "grant_innate_spell",
-    "spell": "고통 정화",
+    "target": "고통 정화",
     "tradition": "신성",
-    "spellType": "spell",
-    "uses": "하루 2회"
+    "uses": "하루 2회",
+    "spellType": "spell"
   },
   {
     "group_id": "eg-slip-sideways",
     "type": "grant_innate_spell",
-    "spell": "순간이동",
+    "target": "순간이동",
     "tradition": "신성",
-    "spellType": "spell",
-    "uses": "하루 1회"
+    "uses": "하루 1회",
+    "spellType": "spell"
   },
   {
     "group_id": "eg-stonegate",
     "type": "grant_innate_spell",
-    "spell": "마법 통로",
+    "target": "마법 통로",
     "tradition": "신성",
-    "spellType": "spell",
-    "uses": "하루 1회"
+    "uses": "하루 1회",
+    "spellType": "spell"
   },
   {
     "group_id": "eg-stonewall",
@@ -7543,10 +7563,10 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-homeward-bound",
     "type": "grant_innate_spell",
-    "spell": "차원간 순간이동",
+    "target": "차원간 순간이동",
     "tradition": "원시",
-    "spellType": "spell",
-    "uses": "주 2회"
+    "uses": "주 2회",
+    "spellType": "spell"
   },
   {
     "group_id": "eg-reckless-abandon",
@@ -7592,7 +7612,7 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-shield-block",
     "type": "grant_action",
-    "action": "shield-block"
+    "target": "shield-block"
   },
   {
     "group_id": "eg-toughness",
@@ -7602,7 +7622,7 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-skill-training",
     "type": "skill_trained",
-    "skill": "$choice"
+    "target": "$choice"
   },
   {
     "group_id": "eg-hefty-hauler",
@@ -7612,15 +7632,15 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-battle-medicine",
     "type": "grant_action",
-    "action": "battle-medicine"
+    "target": "battle-medicine"
   },
   {
     "group_id": "eg-arcane-sense",
     "type": "grant_innate_spell",
-    "spell": "마법 탐지",
+    "target": "마법 탐지",
     "tradition": "신비",
-    "spellType": "cantrip",
-    "uses": "자유"
+    "uses": "자유",
+    "spellType": "cantrip"
   },
   {
     "group_id": "eg-additional-lore",
@@ -7635,7 +7655,7 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-hymn-of-healing",
     "type": "grant_focus_spell",
-    "spell": "치유의 찬송"
+    "target": "치유의 찬송"
   },
   {
     "group_id": "eg-hymn-of-healing",
@@ -7644,12 +7664,12 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-lingering-composition",
     "type": "grant_focus_spell",
-    "spell": "잔향 작곡"
+    "target": "잔향 작곡"
   },
   {
     "group_id": "eg-well-versed",
     "type": "save_bonus",
-    "save": "all",
+    "target": "all",
     "value": 1,
     "bonus_type": "circumstance",
     "condition": "청각/환영/언어/음파/시각 효과"
@@ -7662,88 +7682,88 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-loremasters-etude",
     "type": "grant_focus_spell",
-    "spell": "달인의 에튀드"
+    "target": "달인의 에튀드"
   },
   {
     "group_id": "eg-song-of-strength",
     "type": "grant_focus_spell",
-    "spell": "힘의 노래"
+    "target": "힘의 노래"
   },
   {
     "group_id": "eg-uplifting-overture",
     "type": "grant_focus_spell",
-    "spell": "고양 서곡"
+    "target": "고양 서곡"
   },
   {
     "group_id": "eg-rallying-anthem",
     "type": "grant_focus_spell",
-    "spell": "결집의 찬가"
+    "target": "결집의 찬가"
   },
   {
     "group_id": "eg-triple-time",
     "type": "grant_focus_spell",
-    "spell": "세 박자"
+    "target": "세 박자"
   },
   {
     "group_id": "eg-dirge-of-doom",
     "type": "grant_focus_spell",
-    "spell": "파멸의 만가"
+    "target": "파멸의 만가"
   },
   {
     "group_id": "eg-song-of-marching",
     "type": "grant_focus_spell",
-    "spell": "행군의 노래"
+    "target": "행군의 노래"
   },
   {
     "group_id": "eg-fortissimo-composition",
     "type": "grant_focus_spell",
-    "spell": "포르티시모 작곡"
+    "target": "포르티시모 작곡"
   },
   {
     "group_id": "eg-house-of-imaginary-walls",
     "type": "grant_focus_spell",
-    "spell": "상상의 벽 집"
+    "target": "상상의 벽 집"
   },
   {
     "group_id": "eg-ode-to-ouroboros",
     "type": "grant_focus_spell",
-    "spell": "뱀 물기의 송가"
+    "target": "뱀 물기의 송가"
   },
   {
     "group_id": "eg-symphony-of-the-unfettered-heart",
     "type": "grant_focus_spell",
-    "spell": "속박 해방의 교향곡"
+    "target": "속박 해방의 교향곡"
   },
   {
     "group_id": "eg-allegro",
     "type": "grant_focus_spell",
-    "spell": "알레그로"
+    "target": "알레그로"
   },
   {
     "group_id": "eg-soothing-ballad",
     "type": "grant_focus_spell",
-    "spell": "위로의 발라드"
+    "target": "위로의 발라드"
   },
   {
     "group_id": "eg-fatal-aria",
     "type": "grant_focus_spell",
-    "spell": "치명적 아리아"
+    "target": "치명적 아리아"
   },
   {
     "group_id": "eg-perfect-encore",
     "type": "spell_slots",
-    "rank": 10,
-    "value": 1
+    "value": 1,
+    "rank": 10
   },
   {
     "group_id": "eg-pied-piping",
     "type": "grant_focus_spell",
-    "spell": "피리 부는 사나이"
+    "target": "피리 부는 사나이"
   },
   {
     "group_id": "eg-domain-initiate",
     "type": "grant_focus_spell",
-    "spell": "$domain_initial"
+    "target": "$domain_initial"
   },
   {
     "group_id": "eg-cantrip-expansion-witch",
@@ -7759,13 +7779,13 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-advanced-domain",
     "type": "grant_focus_spell",
-    "spell": "$domain_advanced"
+    "target": "$domain_advanced"
   },
   {
     "group_id": "eg-maker-of-miracles",
     "type": "spell_slots",
-    "rank": 10,
-    "value": 1
+    "value": 1,
+    "rank": 10
   },
   {
     "group_id": "eg-enhanced-familiar-witch",
@@ -7775,13 +7795,13 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-poison-resistance",
     "type": "resistance",
-    "damage_type": "poison",
-    "value": "half_level"
+    "value": "half_level",
+    "damage_type": "poison"
   },
   {
     "group_id": "eg-poison-resistance",
     "type": "save_bonus",
-    "save": "fort",
+    "target": "fort",
     "value": 1,
     "bonus_type": "status",
     "condition": "독 효과"
@@ -7789,7 +7809,7 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-timeless-nature",
     "type": "save_bonus",
-    "save": "all",
+    "target": "all",
     "value": 2,
     "bonus_type": "status",
     "condition": "질병/원시 마법"
@@ -7797,8 +7817,8 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-hierophants-power",
     "type": "spell_slots",
-    "rank": 10,
-    "value": 1
+    "value": 1,
+    "rank": 10
   },
   {
     "group_id": "eg-twin-parry-ranger",
@@ -7860,22 +7880,22 @@ const EFFECT_GROUPS = [
   {
     "group_id": "eg-shield-block-druid",
     "type": "grant_action",
-    "action": "shield-block"
+    "target": "shield-block"
   },
   {
     "group_id": "eg-reactive-strike-fighter",
     "type": "grant_action",
-    "action": "aoo"
+    "target": "aoo"
   },
   {
     "group_id": "eg-shield-block-fighter",
     "type": "grant_action",
-    "action": "shield-block"
+    "target": "shield-block"
   },
   {
     "group_id": "eg-hunt-prey-ranger",
     "type": "grant_action",
-    "action": "hunt-prey"
+    "target": "hunt-prey"
   },
   {
     "group_id": "eg-familiar-witch",
