@@ -156,8 +156,9 @@ function applyFeatEffects() {
   // vision_upgrade: 재주 부여 시야 초기화 → 혈통/유산 기본값 복원 (v526~ enum)
   if (state._featVisionUpgrade) {
     state.vision = state.selectedAncestry?.vision || 'none';
-    if (state.selectedHeritage?.vision) {
-      const hv = state.selectedHeritage.vision;
+    const _hv = (typeof getHeritageEffects === 'function' ? getHeritageEffects(state.selectedHeritage).vision : null);
+    if (_hv) {
+      const hv = _hv;
       if (hv === 'upgrade') {
         // 저광 시야 부여, 이미 저광이면 암시야로 업그레이드
         if (state.vision === 'low-light') state.vision = 'darkvision';

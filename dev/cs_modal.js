@@ -28,7 +28,7 @@ function openRestModal() {
     <div style="display:flex;flex-direction:column;gap:8px;">
       <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);cursor:pointer;">
         <input type="checkbox" id="rest-hp" checked style="accent-color:var(--accent);width:18px;height:18px;">
-        HP를 건강 수정치 × 레벨만큼 회복 (${hpRecover} HP)${state.selectedHeritage?.restBonusHp ? ` + 언덕 하플링 보너스 (${lv} HP)` : ''}
+        HP를 건강 수정치 × 레벨만큼 회복 (${hpRecover} HP)${getHeritageEffects(state.selectedHeritage).restBonusHp ? ` + 언덕 하플링 보너스 (${lv} HP)` : ''}
       </label>
       <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);cursor:pointer;">
         <input type="checkbox" id="rest-fatigue" checked style="accent-color:var(--accent);width:18px;height:18px;">
@@ -137,7 +137,7 @@ function applyRest() {
   if (document.getElementById('rest-hp')?.checked) {
     const conMod = Math.max(1, getMod('con'));
     const lv = getLevel();
-    const hillockBonus = state.selectedHeritage?.restBonusHp ? lv : 0;
+    const hillockBonus = getHeritageEffects(state.selectedHeritage).restBonusHp ? lv : 0;
     const recover = conMod * lv + hillockBonus;
     const curEl = document.getElementById('hp-cur');
     const maxEl = document.getElementById('hp-max');
@@ -2566,7 +2566,7 @@ function getOptionsData(type) {
     const hasVersatile = Object.values(state.feats).flat().some(f => f?.name?.includes('다재다능한 유산'));
     return HERITAGE_DB.filter(h => {
       if (h.ancestry === '*') return true; // 다목적 유산 (네피림, 체인질링 등)은 항상 표시
-      if (h.versatile) return hasVersatile;
+      if (getHeritageEffects(h).versatile) return hasVersatile;
       return !state.selectedAncestry || h.ancestry === state.selectedAncestry.id;
     });
   }
@@ -2683,7 +2683,7 @@ function _checkOnePrereq(cond) {
   // 혈통: {ancestry:'엘프'}
   if (cond.ancestry) {
     if (state.selectedAncestry?.traits?.includes(cond.ancestry)) return true;
-    if (state.selectedHeritage?.extraFeats?.includes(cond.ancestry)) return true;
+    if (getHeritageEffects(state.selectedHeritage).extraFeats?.includes(cond.ancestry)) return true;
     // 양자 혈통
     const adopted = Object.values(state.feats).flat().some(ff =>
       ff?.name?.includes('양자 혈통') && ff.choice && (typeof ANCESTRY_NAME_MAP !== 'undefined') && ANCESTRY_NAME_MAP[ff.choice] === cond.ancestry
@@ -2815,7 +2815,7 @@ function _checkPrereqsText(prereqStr) {
     }
     // 혈통/유산/서브클래스/재주 — 기존 로직 유지
     if (state.selectedAncestry?.traits?.includes(c)) continue;
-    if (state.selectedHeritage?.extraFeats?.includes(c)) continue;
+    if (getHeritageEffects(state.selectedHeritage).extraFeats?.includes(c)) continue;
     if (nameMatches(c, state.selectedHeritage)) continue;
     if (state.selectedSubclass) {
       const sub = state.selectedSubclass;
@@ -2886,7 +2886,8 @@ function filterFeats() {
     let _ancestryTraits = null;
     if (ft === 'ancestry' && state.selectedAncestry) {
       _ancestryTraits = [...(state.selectedAncestry.traits || [])];
-      if (state.selectedHeritage?.extraFeats) _ancestryTraits.push(...state.selectedHeritage.extraFeats);
+      const _hExtra = getHeritageEffects(state.selectedHeritage).extraFeats;
+      if (_hExtra) _ancestryTraits.push(..._hExtra);
       if (state._fb?.adoptedAncestries) _ancestryTraits.push(...state._fb.adoptedAncestries);
       Object.values(state.feats).flat().forEach(ff => {
         if (ff && ff.name && ff.name.includes('양자 혈통') && ff.choice) {
@@ -3016,7 +3017,7 @@ function renderOptions(data) {
   if (modalType === 'heritage') {
     grouped = {};
     data.forEach(item => {
-      const key = item.versatile ? '🌟 다재다능한 유산 / 혼합 혈통' : '🧬 혈통 유산';
+      const key = getHeritageEffects(item).versatile ? '🌟 다재다능한 유산 / 혼합 혈통' : '🧬 혈통 유산';
       if (!grouped[key]) grouped[key] = [];
       grouped[key].push(item);
     });
@@ -4984,10 +4985,11 @@ function applyHeritageEffects(h) {
   if (!h) return;
   try {
   // 캔트립 선택이 필요한 유산만 인터랙티브 모달 열기
-  if (h.innateSpells) {
-    const needsChoice = h.innateSpells.some(sp => sp.tradition === '원시' || sp.tradition === '선택');
+  const _heff = getHeritageEffects(h);
+  if (_heff.innateSpells) {
+    const needsChoice = _heff.innateSpells.some(sp => sp.tradition === '원시' || sp.tradition === '선택');
     if (needsChoice) {
-      const sp = h.innateSpells[0];
+      const sp = _heff.innateSpells[0];
       const trad = sp.tradition === '선택' ? 'any' : 'primal';
       const label = sp.tradition === '선택' ? '전통 캔트립 선택 (비전/신성/오컬트 중)' : '원시(Primal) 캔트립 선택';
       if (!state.feats.other) state.feats.other = [];

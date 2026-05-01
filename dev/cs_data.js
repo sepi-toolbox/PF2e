@@ -2297,12 +2297,7 @@ const HERITAGE_DB = [
     "name_en": "Forge Dwarf",
     "ancestry": "dwarf",
     "summary": "뜨거운 환경에 대한 놀라운 적응력이 있습니다. 레벨 절반만큼의 화염 저항(최소 1)을 얻고, 환경 열 효과를 한 단계 낮게 취급합니다(극심한 열은 극한으로, 극한 열은 심한으로, 등).",
-    "resistances": [
-      {
-        "type": "화염",
-        "formula": "half"
-      }
-    ]
+    "effect_group_id": "eg-heritage-forge-dwarf"
   },
   {
     "id": "rock-dwarf",
@@ -2317,12 +2312,7 @@ const HERITAGE_DB = [
     "name_en": "Strong-Blooded Dwarf",
     "ancestry": "dwarf",
     "summary": "피가 강하고 건강하여 독소를 떨쳐낼 수 있습니다. 레벨 절반만큼의 독 저항(최소 1)을 얻고, 독 고통에 대한 성공적인 내성 굴림은 단계를 2만큼 감소시킵니다(맹독(virulent poison)은 1). 독에 대한 대성공은 단계를 3만큼 감소시킵니다(맹독은 2).",
-    "resistances": [
-      {
-        "type": "독",
-        "formula": "half"
-      }
-    ]
+    "effect_group_id": "eg-heritage-strong-blooded-dwarf"
   },
   {
     "id": "ancient-elf",
@@ -2337,12 +2327,7 @@ const HERITAGE_DB = [
     "name_en": "Arctic Elf",
     "ancestry": "elf",
     "summary": "얼어붙은 북방 깊숙이 거주하며 추운 환경에 대한 놀라운 저항력을 얻었습니다. 레벨 절반만큼의 냉기 저항(최소 1)을 얻고, 환경 추위 효과를 한 단계 낮게 취급합니다(극심한 추위는 극한으로, 극한 추위는 심한으로, 등).",
-    "resistances": [
-      {
-        "type": "냉기",
-        "formula": "half"
-      }
-    ]
+    "effect_group_id": "eg-heritage-arctic-elf"
   },
   {
     "id": "cavern-elf",
@@ -2350,7 +2335,7 @@ const HERITAGE_DB = [
     "name_en": "Cavern Elf",
     "ancestry": "elf",
     "summary": "지하 터널이나 동굴에서 태어났거나 오랜 세월을 보냈으며, 빛이 부족한 곳입니다. <strong>암시야(darkvision)</strong>를 얻습니다.",
-    "vision": "darkvision"
+    "effect_group_id": "eg-heritage-cavern-elf"
   },
   {
     "id": "seer-elf",
@@ -2358,14 +2343,7 @@ const HERITAGE_DB = [
     "name_en": "Seer Elf",
     "ancestry": "elf",
     "summary": "마법 현상을 감지하고 이해하는 타고난 능력이 있습니다. 마법 탐지(detect magic) 캔트립을 비전 선천 주문으로 자유롭게 시전할 수 있습니다. 캔트립은 레벨 절반(올림)과 같은 주문 랭크로 고양됩니다. 추가로, 마법 식별(Identify Magic) 판정과 마법적 성질의 문서 해독(Decipher Writing) 판정에 +1 상황 보너스를 얻습니다. 이 기술 행동은 일반적으로 주문학, 자연학, 오컬티즘, 종교 기술을 사용합니다.",
-    "innateSpells": [
-      {
-        "name": "마법 탐지",
-        "tradition": "비전",
-        "type": "cantrip",
-        "uses": "자유"
-      }
-    ]
+    "effect_group_id": "eg-heritage-seer-elf"
   },
   {
     "id": "whisper-elf",
@@ -2394,14 +2372,7 @@ const HERITAGE_DB = [
     "name_en": "Fey-Touched Gnome",
     "ancestry": "gnome",
     "summary": "페이의 피가 혈관을 흐르며, 마법으로 포화시켜 진정으로 그들 중 하나로 만듭니다. 노움과 인간형 특성에 더하여 페이(fey) 특성을 얻습니다. 원시(Primal) 주문 목록에서 캔트립 1개를 선택합니다. 이 주문을 원시 선천 주문으로 자유롭게 시전할 수 있습니다. 캔트립은 레벨 절반(올림)과 같은 주문 랭크로 고양됩니다. 하루에 1회, 10분간의 명상(집중 특성 있는 활동)으로 첫 번째 세계와 재정렬하여 이 캔트립을 같은 목록의 다른 것으로 변경할 수 있습니다.",
-    "innateSpells": [
-      {
-        "name": "원시 캔트립 1개",
-        "tradition": "원시",
-        "type": "cantrip",
-        "uses": "자유"
-      }
-    ]
+    "effect_group_id": "eg-heritage-fey-touched-gnome"
   },
   {
     "id": "sensate-gnome",
@@ -2409,7 +2380,7 @@ const HERITAGE_DB = [
     "name_en": "Sensate Gnome",
     "ancestry": "gnome",
     "summary": "모든 색을 더 밝게, 모든 소리를 더 풍부하게, 특히 모든 냄새를 놀라운 세부 사항으로 느낍니다. 특수 감각을 얻습니다: <strong>30피트 범위의 부정확 후각(imprecise scent)</strong>. 이것은 후각으로 생물의 정확한 위치를 결정할 수 있다는 의미입니다(434페이지 설명). GM은 일반적으로 바람이 생물로부터 불어오면 범위를 두 배로, 생물로 불어가면 절반으로 합니다.<br>추가로, 후각 범위 내에서 미탐지(undetected) 생물을 찾으려 할 때 지각 판정에 <strong>+2 상황 보너스</strong>를 얻습니다.",
-    "extraSenses": "부정확 후각 30피트"
+    "effect_group_id": "eg-heritage-sensate-gnome"
   },
   {
     "id": "umbral-gnome",
@@ -2417,7 +2388,7 @@ const HERITAGE_DB = [
     "name_en": "Umbral Gnome",
     "ancestry": "gnome",
     "summary": "어둡거나 그림자의 페이와의 연결이든, 드라트넬라르(drathnelar)로 알려진 지하 노움이든, 다른 원천이든, 완전한 어둠에서도 볼 수 있습니다. <strong>암시야(darkvision)</strong>를 얻습니다.",
-    "vision": "darkvision"
+    "effect_group_id": "eg-heritage-umbral-gnome"
   },
   {
     "id": "wellspring-gnome",
@@ -2425,14 +2396,7 @@ const HERITAGE_DB = [
     "name_en": "Wellspring Gnome",
     "ancestry": "gnome",
     "summary": "다른 마법 원천이 페이 혈통의 원시 마법보다 당신을 더 강하게 붙잡고 있습니다. 이 연결은 오컬트 차원이나 고대 오컬트 노래, 신격/천상체/악마, 마법사 전쟁이 남긴 마법 유출물, 또는 고대 룬 마법에서 올 수 있습니다. 비전, 신성, 오컬트 중 하나를 선택합니다. 해당 마법 전통의 주문 목록에서 캔트립 1개를 얻습니다. 이 주문을 선택한 전통의 선천 주문으로 자유롭게 시전할 수 있습니다. 캔트립은 레벨 절반(올림)과 같은 주문 랭크로 고양됩니다. 노움 혈통 재주에서 원시 선천 주문을 얻을 때마다, 그 전통을 원시에서 선택한 전통으로 변경합니다.",
-    "innateSpells": [
-      {
-        "name": "선택한 전통 캔트립 1개",
-        "tradition": "선택",
-        "type": "cantrip",
-        "uses": "자유"
-      }
-    ]
+    "effect_group_id": "eg-heritage-wellspring-gnome"
   },
   {
     "id": "charhide-goblin",
@@ -2440,12 +2404,7 @@ const HERITAGE_DB = [
     "name_en": "Charhide Goblin",
     "ancestry": "goblin",
     "summary": "조상은 항상 불과의 연결과 더 두꺼운 피부를 가져 화상에 저항할 수 있었습니다. 레벨 절반만큼의 화염 저항(최소 1)을 얻습니다. 지속 화염 피해를 제거하기 위한 단순 판정이 DC 15 대신 DC 10이며, 다른 생물이 도우면 DC 5로 줄어듭니다.",
-    "resistances": [
-      {
-        "type": "화염",
-        "formula": "half"
-      }
-    ]
+    "effect_group_id": "eg-heritage-charhide-goblin"
   },
   {
     "id": "irongut-goblin",
@@ -2460,12 +2419,7 @@ const HERITAGE_DB = [
     "name_en": "Razortooth Goblin",
     "ancestry": "goblin",
     "summary": "가족의 이빨은 무시무시한 무기입니다. <strong>1d6 관통 피해</strong>의 턱(jaws) 비무장 공격을 얻습니다. 격투 그룹이며 기교와 비무장 특성을 가집니다.",
-    "grantWeapon": {
-      "name": "턱",
-      "dmg": "1d6 P",
-      "traits": "기교, 비무장",
-      "category": "비무장 근접"
-    }
+    "effect_group_id": "eg-heritage-razortooth-goblin"
   },
   {
     "id": "snow-goblin",
@@ -2473,12 +2427,7 @@ const HERITAGE_DB = [
     "name_en": "Snow Goblin",
     "ancestry": "goblin",
     "summary": "혹한 지역에 적응하여 하늘색~남색 피부와 파란 털을 가집니다. 레벨 절반만큼의 냉기 저항(최소 1)을 얻고, 환경 추위 효과를 한 단계 낮게 취급합니다.",
-    "resistances": [
-      {
-        "type": "냉기",
-        "formula": "half"
-      }
-    ]
+    "effect_group_id": "eg-heritage-snow-goblin"
   },
   {
     "id": "unbreakable-goblin",
@@ -2486,7 +2435,7 @@ const HERITAGE_DB = [
     "name_en": "Unbreakable Goblin",
     "ancestry": "goblin",
     "summary": "두꺼운 두개골, 연골성 뼈, 또는 다른 양날의 축복 덕분에 부상에서 쉽게 회복합니다. 혈통에서 6 대신 <strong>10 HP</strong>를 얻습니다. 추락 시, 절반 거리에서 떨어진 것처럼 피해를 줄입니다.",
-    "hpBonus": 4
+    "effect_group_id": "eg-heritage-unbreakable-goblin"
   },
   {
     "id": "gutsy-halfling",
@@ -2501,7 +2450,7 @@ const HERITAGE_DB = [
     "name_en": "Hillock Halfling",
     "ancestry": "halfling",
     "summary": "언덕의 평화로운 삶에 익숙하여, 특히 안락한 생활을 즐길 때 휴식과 이완이 특히 회복적입니다. 밤새 HP를 회복할 때, <strong>회복된 HP에 레벨을 더합니다</strong>. 누군가 의학으로 상처 치료를 할 때, 간식을 먹으면 <strong>치료로 회복되는 HP에 레벨을 더합니다</strong>.",
-    "restBonusHp": true
+    "effect_group_id": "eg-heritage-hillock-halfling"
   },
   {
     "id": "nomadic-halfling",
@@ -2509,7 +2458,7 @@ const HERITAGE_DB = [
     "name_en": "Nomadic Halfling",
     "ancestry": "halfling",
     "summary": "조상이 세대에 걸쳐 이곳저곳을 여행하며 정착하는 데 만족하지 않았습니다. 사용 가능한 일반/비일반 언어에서 <strong>추가 언어 2개</strong>를 얻고, 다국어(Multilingual) 재주를 가질 때마다 <strong>추가 1개</strong>를 더 얻습니다.",
-    "extraLanguages": 2
+    "effect_group_id": "eg-heritage-nomadic-halfling"
   },
   {
     "id": "twilight-halfling",
@@ -2517,7 +2466,7 @@ const HERITAGE_DB = [
     "name_en": "Twilight Halfling",
     "ancestry": "halfling",
     "summary": "조상이 해질녘의 은폐 속에서 많은 비밀스러운 행동을 했으며, 시간이 지나며 하플링의 일반적인 예리한 시야를 넘어 황혼에서도 볼 수 있는 능력을 발달시켰습니다. <strong>저광 시야(low-light vision)</strong>를 얻습니다.",
-    "vision": "low-light"
+    "effect_group_id": "eg-heritage-twilight-halfling"
   },
   {
     "id": "wildwood-halfling",
@@ -2546,7 +2495,7 @@ const HERITAGE_DB = [
     "name_en": "Fungus Leshy",
     "ancestry": "leshy",
     "summary": "동굴과 나무 그늘에서 자라는 균류로 만들어졌으며, 어둠 동굴과 터널이 편합니다. <strong>암시야(darkvision)</strong>를 얻습니다. 식물 특성을 잃고 <strong>균류(fungus) 특성</strong>을 얻습니다.",
-    "vision": "darkvision"
+    "effect_group_id": "eg-heritage-fungus-leshy"
   },
   {
     "id": "gourd-leshy",
@@ -2582,12 +2531,7 @@ const HERITAGE_DB = [
     "name_en": "Battle-Ready Orc",
     "ancestry": "orc",
     "summary": "두려운 전장 지휘관의 혈통입니다. <strong>위협(Intimidation)에 숙련</strong>되고, <strong>위협적 노려보기(Intimidating Glare)</strong> 기술 재주를 얻습니다.",
-    "grantSkills": [
-      "intimidation"
-    ],
-    "grantFeats": [
-      "intimidating-glare"
-    ]
+    "effect_group_id": "eg-heritage-battle-ready-orc"
   },
   {
     "id": "deep-orc",
@@ -2595,13 +2539,7 @@ const HERITAGE_DB = [
     "name_en": "Deep Orc",
     "ancestry": "orc",
     "summary": "굳은살이 박힌 손과 빨간 눈이 산악 동굴의 깊은 어둠에서 보낸 삶을 말해줍니다. 지하 지형에 대한 <strong>지형 전문가(Terrain Expertise)</strong> 기술 재주와 <strong>전투 등반가(Combat Climber)</strong> 기술 재주를 얻습니다.",
-    "grantFeats": [
-      {
-        "id": "terrain-expertise",
-        "choice": "underground"
-      },
-      "combat-climber"
-    ]
+    "effect_group_id": "eg-heritage-deep-orc"
   },
   {
     "id": "hold-scarred-orc",
@@ -2609,10 +2547,7 @@ const HERITAGE_DB = [
     "name_en": "Hold-Scarred Orc",
     "ancestry": "orc",
     "summary": "의례적 흉터나 문신에 참여하는 오크 공동체의 일원입니다. 혈통에서 10 대신 <strong>12 HP</strong>를 얻습니다. <strong>불굴(Diehard)</strong> 재주도 얻습니다.",
-    "hpBonus": 2,
-    "grantFeats": [
-      "diehard"
-    ]
+    "effect_group_id": "eg-heritage-hold-scarred-orc"
   },
   {
     "id": "rainfall-orc",
@@ -2627,11 +2562,7 @@ const HERITAGE_DB = [
     "name_en": "Changeling",
     "ancestry": "*",
     "summary": "어머니가 해그(hag)입니다. 눈의 홍채이색증이 이 혈통의 가장 명확한 표시입니다.<br><br><b>체인질링(changeling) 특성</b>을 얻습니다. <b>저광 시야</b>를 얻거나, 혈통이 이미 저광 시야가 있으면 <b>암시야</b>를 얻습니다. 혈통 재주를 얻을 때마다 체인질링 재주와 다른 부모 혈통의 재주에서 선택할 수 있습니다.",
-    "vision": "upgrade",
-    "versatile": true,
-    "extraFeats": [
-      "체인질링"
-    ]
+    "effect_group_id": "eg-heritage-changeling"
   },
   {
     "id": "nephilim",
@@ -2639,11 +2570,7 @@ const HERITAGE_DB = [
     "name_en": "Nephilim",
     "ancestry": "*",
     "summary": "필멸자와 불멸 존재의 거래에서 태어난 차원 혈손(planar scions). 다른 차원의 초자연적 정수를 물려받아 독특한 신체적 특징과 초세속적 힘으로 나타납니다. 천사, 악마(fiend), 주시자(monitor) 등에게까지 유산을 추적할 수 있습니다.<br><br>천상체(celestial), 악마, 또는 주시자의 영향을 받은 본성. 황금 눈, 후광, 뿔, 꼬리 같은 특징의 조합. <b>네피림(nephilim) 특성</b>을 얻습니다. <b>저광 시야</b>를 얻거나, 혈통이 이미 저광 시야가 있으면 <b>암시야</b>를 얻습니다. 혈통 재주를 얻을 때마다 네피림 재주와 혈통 재주에서 선택 가능.",
-    "vision": "upgrade",
-    "versatile": true,
-    "extraFeats": [
-      "네피림"
-    ]
+    "effect_group_id": "eg-heritage-nephilim"
   },
   {
     "id": "aiuvarin",
@@ -2651,12 +2578,7 @@ const HERITAGE_DB = [
     "name_en": "Aiuvarin (Half-Elf)",
     "ancestry": "*",
     "summary": "다른 혈통의 사람들과 엘프의 자녀, 그리고 그 자녀의 자녀를 \"아이우바린\"이라 부르며, 이것은 너무 빨리 땅에 떨어지는 잎에 대한 엘프 시입니다. 가장 친숙한 아이우바린은 엘프와 인간 사이에서 태어나며, 흔히 \"하프엘프\"로 불립니다.<br><br>아이우바린의 삶은 어려울 수 있으며, 종종 적응하기 위한 분투로 점철됩니다. 인간 부모가 있는 아이우바린은 보통 약 150년을 삽니다.<br><br>가족 계보에 엘프나 다른 아이우바린이 있습니다. 뾰족한 귀와 엘프 유산의 다른 표시가 있습니다. <b>엘프(elf) 특성</b>, <b>아이우바린(aiuvarin) 특성</b>, <b>저광 시야</b>를 얻습니다. 혈통 재주를 얻을 때 아이우바린과 엘프 재주에서도 선택 가능.",
-    "vision": "low-light",
-    "versatile": true,
-    "extraFeats": [
-      "아이우바린",
-      "엘프"
-    ]
+    "effect_group_id": "eg-heritage-aiuvarin"
   },
   {
     "id": "dromaar",
@@ -2664,12 +2586,7 @@ const HERITAGE_DB = [
     "name_en": "Dromaar (Half-Orc)",
     "ancestry": "*",
     "summary": "벨크젠의 오크가 속삭이는 폭군에 대한 전쟁의 핵심 선봉이 되면서, 다른 혈통의 동맹과 함께 싸우며, 오크 유산과 다른 혈통이 섞인 아이들이 늘었습니다. 이 \"하프오크\"들 중 많은 이가 자신을 \"드로마르\"라 칭하며, 이것은 무리를 전쟁으로 행군시키는 북을 치는 자를 가리키는 오크어입니다.<br><br>인간 부모가 있는 드로마르는 보통 약 70세까지 삽니다.<br><br>오크의 힘이 혈통에 힘을 줍니다. 피부가 녹색 빛을 띠고 오크 유산의 다른 표시가 있습니다. <b>오크(orc) 특성</b>, <b>드로마르(dromaar) 특성</b>, <b>저광 시야</b>를 얻습니다. 혈통 재주를 얻을 때 드로마르와 오크 재주에서도 선택 가능.",
-    "vision": "low-light",
-    "versatile": true,
-    "extraFeats": [
-      "드로마르",
-      "오크"
-    ]
+    "effect_group_id": "eg-heritage-dromaar"
   }
 ];
 
@@ -8031,6 +7948,209 @@ const EFFECT_GROUPS = [
     "tradition": "원시",
     "uses": "하루 1회",
     "spellType": "spell"
+  },
+  {
+    "group_id": "eg-heritage-forge-dwarf",
+    "type": "resistance",
+    "target": "화염",
+    "value": "half"
+  },
+  {
+    "group_id": "eg-heritage-strong-blooded-dwarf",
+    "type": "resistance",
+    "target": "독",
+    "value": "half"
+  },
+  {
+    "group_id": "eg-heritage-arctic-elf",
+    "type": "resistance",
+    "target": "냉기",
+    "value": "half"
+  },
+  {
+    "group_id": "eg-heritage-cavern-elf",
+    "type": "vision_upgrade",
+    "target": "darkvision"
+  },
+  {
+    "group_id": "eg-heritage-seer-elf",
+    "type": "grant_innate_spell",
+    "target": "마법 탐지",
+    "tradition": "비전",
+    "uses": "자유",
+    "spellType": "cantrip"
+  },
+  {
+    "group_id": "eg-heritage-fey-touched-gnome",
+    "type": "grant_innate_spell",
+    "target": "원시 캔트립 1개",
+    "tradition": "원시",
+    "uses": "자유",
+    "spellType": "cantrip"
+  },
+  {
+    "group_id": "eg-heritage-sensate-gnome",
+    "type": "extra_sense",
+    "sense": "부정확 후각 30피트"
+  },
+  {
+    "group_id": "eg-heritage-umbral-gnome",
+    "type": "vision_upgrade",
+    "target": "darkvision"
+  },
+  {
+    "group_id": "eg-heritage-wellspring-gnome",
+    "type": "grant_innate_spell",
+    "target": "선택한 전통 캔트립 1개",
+    "tradition": "선택",
+    "uses": "자유",
+    "spellType": "cantrip"
+  },
+  {
+    "group_id": "eg-heritage-charhide-goblin",
+    "type": "resistance",
+    "target": "화염",
+    "value": "half"
+  },
+  {
+    "group_id": "eg-heritage-razortooth-goblin",
+    "type": "grant_weapon",
+    "target": "턱",
+    "damage": "1d6 P",
+    "traits": "기교, 비무장",
+    "weapon_category": "비무장 근접"
+  },
+  {
+    "group_id": "eg-heritage-snow-goblin",
+    "type": "resistance",
+    "target": "냉기",
+    "value": "half"
+  },
+  {
+    "group_id": "eg-heritage-unbreakable-goblin",
+    "type": "hp_bonus",
+    "value": 4
+  },
+  {
+    "group_id": "eg-heritage-hillock-halfling",
+    "type": "rest_bonus_hp",
+    "value": true
+  },
+  {
+    "group_id": "eg-heritage-nomadic-halfling",
+    "type": "extra_languages",
+    "value": 2
+  },
+  {
+    "group_id": "eg-heritage-twilight-halfling",
+    "type": "vision_upgrade",
+    "target": "low-light"
+  },
+  {
+    "group_id": "eg-heritage-fungus-leshy",
+    "type": "vision_upgrade",
+    "target": "darkvision"
+  },
+  {
+    "group_id": "eg-heritage-battle-ready-orc",
+    "type": "skill_trained",
+    "target": "intimidation"
+  },
+  {
+    "group_id": "eg-heritage-battle-ready-orc",
+    "type": "grant_feat",
+    "target": "intimidating-glare"
+  },
+  {
+    "group_id": "eg-heritage-deep-orc",
+    "type": "grant_feat",
+    "target": "terrain-expertise",
+    "default_choice": "underground"
+  },
+  {
+    "group_id": "eg-heritage-deep-orc",
+    "type": "grant_feat",
+    "target": "combat-climber"
+  },
+  {
+    "group_id": "eg-heritage-hold-scarred-orc",
+    "type": "hp_bonus",
+    "value": 2
+  },
+  {
+    "group_id": "eg-heritage-hold-scarred-orc",
+    "type": "grant_feat",
+    "target": "diehard"
+  },
+  {
+    "group_id": "eg-heritage-changeling",
+    "type": "vision_upgrade",
+    "target": "upgrade"
+  },
+  {
+    "group_id": "eg-heritage-changeling",
+    "type": "versatile_ancestry",
+    "value": true
+  },
+  {
+    "group_id": "eg-heritage-changeling",
+    "type": "extra_feat_category",
+    "target": "체인질링"
+  },
+  {
+    "group_id": "eg-heritage-nephilim",
+    "type": "vision_upgrade",
+    "target": "upgrade"
+  },
+  {
+    "group_id": "eg-heritage-nephilim",
+    "type": "versatile_ancestry",
+    "value": true
+  },
+  {
+    "group_id": "eg-heritage-nephilim",
+    "type": "extra_feat_category",
+    "target": "네피림"
+  },
+  {
+    "group_id": "eg-heritage-aiuvarin",
+    "type": "vision_upgrade",
+    "target": "low-light"
+  },
+  {
+    "group_id": "eg-heritage-aiuvarin",
+    "type": "versatile_ancestry",
+    "value": true
+  },
+  {
+    "group_id": "eg-heritage-aiuvarin",
+    "type": "extra_feat_category",
+    "target": "아이우바린"
+  },
+  {
+    "group_id": "eg-heritage-aiuvarin",
+    "type": "extra_feat_category",
+    "target": "엘프"
+  },
+  {
+    "group_id": "eg-heritage-dromaar",
+    "type": "vision_upgrade",
+    "target": "low-light"
+  },
+  {
+    "group_id": "eg-heritage-dromaar",
+    "type": "versatile_ancestry",
+    "value": true
+  },
+  {
+    "group_id": "eg-heritage-dromaar",
+    "type": "extra_feat_category",
+    "target": "드로마르"
+  },
+  {
+    "group_id": "eg-heritage-dromaar",
+    "type": "extra_feat_category",
+    "target": "오크"
   }
 ];
 

@@ -60,7 +60,7 @@ function syncAllProfRanks() {
     const en = VISION_EN[vision] || '';
     let sensesText = (ko && en) ? `${ko} (${en})` : (ko || '—');
     // 유산 추가 감각
-    const heritageSense = state.selectedHeritage?.extraSenses;
+    const heritageSense = getHeritageEffects(state.selectedHeritage).extraSenses;
     if (heritageSense) sensesText += (sensesText && sensesText !== '—' ? ', ' : '') + heritageSense;
     // 재주 추가 감각
     if (state._fb?.extraSenses?.length) {
@@ -397,6 +397,55 @@ function getPrereqRows(groupId) {
     }
   }
   return _PREREQ_GROUPS_INDEX.get(groupId) || [];
+}
+
+// HERITAGE_DB v534~ Phase 4a: effect_group_id → 기존 컬럼 형태로 변환 (호환층)
+//   호출처(rebuildCoreEffects/recalcResistance/cs_modal.js 등)는 기존 h.hpBonus / h.grantSkills 형태로 접근하므로,
+//   EFFECT_GROUPS 행을 type별로 집계해 기존 컬럼 형태({hpBonus, vision, grantSkills, ...}) 객체로 반환.
+const _HERITAGE_EFFECTS_CACHE = new Map();
+function getHeritageEffects(h) {
+  if (!h) return {};
+  const id = h.id || '';
+  if (_HERITAGE_EFFECTS_CACHE.has(id)) return _HERITAGE_EFFECTS_CACHE.get(id);
+  const out = {};
+  if (h.effect_group_id && typeof getEffectRows === 'function') {
+    for (const r of getEffectRows(h.effect_group_id)) {
+      switch (r.type) {
+        case 'vision_upgrade': out.vision = r.target; break;
+        case 'hp_bonus': out.hpBonus = (out.hpBonus || 0) + (r.value || 0); break;
+        case 'rest_bonus_hp': out.restBonusHp = !!r.value; break;
+        case 'extra_languages': out.extraLanguages = (out.extraLanguages || 0) + (r.value || 0); break;
+        case 'extra_sense':
+          out.extraSenses = (out.extraSenses ? out.extraSenses + ', ' : '') + (r.sense || '');
+          break;
+        case 'resistance':
+          (out.resistances = out.resistances || []).push({ type: r.target, formula: r.value });
+          break;
+        case 'grant_weapon':
+          out.grantWeapon = { name: r.target, dmg: r.damage, traits: r.traits, category: r.weapon_category };
+          break;
+        case 'skill_trained':
+          (out.grantSkills = out.grantSkills || []).push(r.target);
+          break;
+        case 'grant_feat':
+          (out.grantFeats = out.grantFeats || []).push(
+            r.default_choice ? { id: r.target, choice: r.default_choice } : r.target
+          );
+          break;
+        case 'grant_innate_spell':
+          (out.innateSpells = out.innateSpells || []).push({
+            name: r.target, tradition: r.tradition, type: r.spellType || r.spell_type, uses: r.uses
+          });
+          break;
+        case 'versatile_ancestry': out.versatile = !!r.value; break;
+        case 'extra_feat_category':
+          (out.extraFeats = out.extraFeats || []).push(r.target);
+          break;
+      }
+    }
+  }
+  _HERITAGE_EFFECTS_CACHE.set(id, out);
+  return out;
 }
 
 // EFFECT_GROUPS / CHOICE_OPTIONS v532~ Phase 3a: 1:N 정규화 행 조회
@@ -1265,6 +1314,7 @@ function fmtBonus(n) { return n >= 0 ? '+'+n : ''+n; }
 // ═══════════════════════════════════════════════
 function rebuildCoreEffects() {
   const heritage = state.selectedHeritage;
+  const heff = getHeritageEffects(heritage);
   const bg = state.selectedBackground;
 
   // ── CLEAR PHASE ──
@@ -1329,11 +1379,11 @@ function rebuildCoreEffects() {
   // ── REBUILD PHASE ──
 
   // 유산 HP 보너스
-  state._heritageHpBonus = heritage?.hpBonus || 0;
+  state._heritageHpBonus = heff.hpBonus || 0;
 
   // 유산 기술 숙련
-  if (heritage?.grantSkills) {
-    heritage.grantSkills.forEach(sid => {
+  if (heff.grantSkills) {
+    heff.grantSkills.forEach(sid => {
       const el = document.getElementById('sk-prof-' + sid);
       if (!el) return;
       const cur = parseInt(el.value || 0);
@@ -1348,8 +1398,8 @@ function rebuildCoreEffects() {
   }
 
   // 유산 재주 (entry: string=feat_id 또는 {id, choice})
-  if (heritage?.grantFeats) {
-    heritage.grantFeats.forEach(entry => {
+  if (heff.grantFeats) {
+    heff.grantFeats.forEach(entry => {
       const featId = typeof entry === 'string' ? entry : entry.id;
       const presetChoice = typeof entry === 'object' ? entry.choice : undefined;
       const fd = getFeat(featId);
@@ -1366,18 +1416,18 @@ function rebuildCoreEffects() {
   }
 
   // 유산 무기
-  if (heritage?.grantWeapon) {
-    const w = heritage.grantWeapon;
+  if (heff.grantWeapon) {
+    const w = heff.grantWeapon;
     if (typeof addWeapon === 'function') {
       addWeapon({name: w.name, dmg: w.dmg, traits: w.traits, category: w.category, _fromHeritage: true});
     }
   }
 
-  // 유산 선천 주문 (비선택형만 — 선택형��� _heritageCantrip 재주가 관리)
-  if (heritage?.innateSpells) {
+  // 유산 선천 주문 (비선택형만 — 선택형은 _heritageCantrip 재주가 관리)
+  if (heff.innateSpells) {
     if (!state.spells) state.spells = {cantrip:[], known:[], focus:[], innate:[]};
     if (!state.spells.innate) state.spells.innate = [];
-    heritage.innateSpells.forEach(sp => {
+    heff.innateSpells.forEach(sp => {
       const needsChoice = sp.tradition === '원시' || sp.tradition === '선택';
       if (!needsChoice) {
         const _sp = getSpell(sp.name);
@@ -1943,9 +1993,10 @@ function renderResistances() {
 
   // 유산에서 저항 가져오기
   const heritage = state.selectedHeritage;
-  if (heritage?.resistances) {
-    heritage.resistances.forEach(r => {
-      const val = r.formula === 'half' ? halfLv : (r.value || 0);
+  const heff = getHeritageEffects(heritage);
+  if (heff.resistances) {
+    heff.resistances.forEach(r => {
+      const val = r.formula === 'half' ? halfLv : (parseInt(r.formula) || r.value || 0);
       resistances.push({type: r.type, value: val, source: heritage.name_ko});
     });
   }
