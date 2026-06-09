@@ -28,7 +28,7 @@ function openRestModal() {
     <div style="display:flex;flex-direction:column;gap:8px;">
       <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);cursor:pointer;">
         <input type="checkbox" id="rest-hp" checked style="accent-color:var(--accent);width:18px;height:18px;">
-        HP를 건강 수정치 × 레벨만큼 회복 (${hpRecover} HP)${state.selectedHeritage?.restBonusHp ? ` + 언덕 하플링 보너스 (${lv} HP)` : ''}
+        HP를 건강 수정치 × 레벨만큼 회복 (${hpRecover} HP)${getHeritageEffects(state.selectedHeritage).restBonusHp ? ` + 언덕 하플링 보너스 (${lv} HP)` : ''}
       </label>
       <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);cursor:pointer;">
         <input type="checkbox" id="rest-fatigue" checked style="accent-color:var(--accent);width:18px;height:18px;">
@@ -108,7 +108,7 @@ function _reopenAcumenChoice() {
     const fi = arr.findIndex(f => f.name && f.name.includes('이세계 통찰'));
     if (fi >= 0) {
       const nameEn = (typeof _extractEnName === 'function') ? _extractEnName(arr[fi].name) : 'Otherworldly Acumen';
-      const def = (typeof FEAT_EFFECTS !== 'undefined') ? FEAT_EFFECTS[nameEn] : null;
+      const def = (typeof _getFeatEffectsDef === 'function') ? _getFeatEffectsDef(nameEn) : null;
       if (def?.choice && typeof openFeatChoiceModal === 'function') {
         openFeatChoiceModal(type, fi, def.choice);
       }
@@ -137,7 +137,7 @@ function applyRest() {
   if (document.getElementById('rest-hp')?.checked) {
     const conMod = Math.max(1, getMod('con'));
     const lv = getLevel();
-    const hillockBonus = state.selectedHeritage?.restBonusHp ? lv : 0;
+    const hillockBonus = getHeritageEffects(state.selectedHeritage).restBonusHp ? lv : 0;
     const recover = conMod * lv + hillockBonus;
     const curEl = document.getElementById('hp-cur');
     const maxEl = document.getElementById('hp-max');
@@ -214,7 +214,7 @@ function renderConditionList() {
   container.innerHTML = '';
 
   CONDITIONS_DATA.forEach(c => {
-    if (c.name === '파손됨') return; // 장비 상태이므로 제외
+    if (c.id === 'broken') return; // 장비 상태이므로 제외
     if (q && !c.name.includes(q) && !c.en.toLowerCase().includes(q)) return;
     const row = document.createElement('div');
     row.className = 'opt-row';
@@ -354,6 +354,43 @@ function openSpeedModal() {
   const baseSpeed = document.getElementById('speed')?.value || '25';
   const inputStyle = 'width:60px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:6px;border-radius:4px;font-size:14px;text-align:center;';
   const types = [['climb','등반 🧗'],['swim','수영 🏊'],['fly','비행 🕊'],['burrow','굴착 ⛏']];
+
+  // 활성 보너스 섹션 (풀에서 category='speed') — 우측 detail 패널에 표시
+  const speedBonuses = (state._fb?.bonuses || []).filter(b => b.category === 'speed');
+  const TYPES = ['circumstance','status','item',''];
+  const TYPE_KO = {circumstance:'상황', status:'상태', item:'아이템', '':'기타'};
+  const byType = {};
+  for (const b of speedBonuses) {
+    const t = b.bonus_type || '';
+    const v = (b.value === 'level') ? (typeof getLevel==='function'?getLevel():1) : (typeof b.value==='number'?b.value:parseInt(b.value)||0);
+    const cur = byType[t];
+    const curV = cur ? ((cur.value === 'level') ? (typeof getLevel==='function'?getLevel():1) : (typeof cur.value==='number'?cur.value:parseInt(cur.value)||0)) : -Infinity;
+    if (v > curV) byType[t] = b;
+  }
+  let totalApplied = 0;
+  for (const t of TYPES) {
+    if (byType[t]) totalApplied += (byType[t].value === 'level') ? (typeof getLevel==='function'?getLevel():1) : byType[t].value;
+  }
+  const detailEl = document.getElementById('modal-detail');
+  if (detailEl) {
+    detailEl.innerHTML = `
+      <div style="padding:16px;">
+        <div style="color:var(--accent);font-size:14px;font-weight:600;margin-bottom:10px">⚡ 활성 보너스</div>
+        <div style="color:#888;font-size:11px;margin-bottom:12px">★ = 자동 적용 (type별 max 1개). PF2e 규칙상 같은 type 비합산.</div>
+        ${speedBonuses.length ? speedBonuses.map(b => {
+          const t = b.bonus_type || '';
+          const isApplied = byType[t] === b;
+          const sign = (typeof b.value==='number' && b.value<0) ? '' : '+';
+          const cond = b.condition ? ` <span style="color:#888;font-size:11px">(조건: ${b.condition})</span>` : '';
+          const mark = isApplied ? '<span style="color:#0c0;font-weight:700">★</span> ' : '<span style="color:#666">·</span> ';
+          return `<div style="padding:4px 0;font-size:13px">${mark}<strong>${sign}${b.value}</strong> [${TYPE_KO[t]}] <em style="color:#bbb">${b.source||''}</em>${cond}</div>`;
+        }).join('') : '<div style="color:#666;font-size:12px">활성 보너스 없음</div>'}
+        <div style="margin-top:14px;padding-top:10px;border-top:1px solid var(--border);text-align:right;font-size:14px">
+          <span style="color:#aaa">자동 적용 합계:</span> <strong style="color:var(--accent)">${totalApplied>=0?'+':''}${totalApplied}</strong>
+        </div>
+      </div>
+    `;
+  }
 
   const container = document.getElementById('modal-options');
   container.innerHTML = `<div style="padding:16px;">
@@ -628,8 +665,8 @@ function applyClassFeatures() {
   const cp = typeof CLASS_PROF_TABLE !== 'undefined' ? CLASS_PROF_TABLE[cls.id] : null;
   if (cp) { for (const [t, p] of Object.entries(cp)) profs[t] = {...p}; }
 
-  if (state.selectedSubclass && typeof SUBCLASS_PROF_TABLE !== 'undefined') {
-    const sp = SUBCLASS_PROF_TABLE[state.selectedSubclass.id];
+  if (state.selectedSubclass && (state.selectedSubclass && state.selectedSubclass.prof_changes)) {
+    const sp = state.selectedSubclass.prof_changes;
     if (sp) { for (const [t, p] of Object.entries(sp)) profs[t] = {...p}; } // REPLACE
   }
 
@@ -662,16 +699,23 @@ function applyClassFeatures() {
     });
     state.feats[cat] = state.feats[cat].filter(f => !f._auto);
   });
-  // Gather all auto feats (CLASS_AUTO_FEATS + SUBCLASS_AUTO_FEATS)
+  // Gather all auto feats (CLASS_AUTO_FEATS + SUBCLASS_DB.granted_feats)
   const classFeats = CLASS_AUTO_FEATS?.[cls.id] || [];
-  const subFeats = (state.selectedSubclass && SUBCLASS_AUTO_FEATS) ? (SUBCLASS_AUTO_FEATS[state.selectedSubclass.id]||[]) : [];
+  const subFeats = getSubclassAutoFeats(state.selectedSubclass);
   const allAutoFeats = [...classFeats, ...subFeats];
   // Also add CLASS_FEATURE_NAMES as auto-display items in special category
   const featureNames = (typeof CLASS_FEATURE_NAMES !== 'undefined' ? CLASS_FEATURE_NAMES[cls.id] : null) || [];
-  const subFeatureNames = (state.selectedSubclass && typeof SUBCLASS_FEATURE_NAMES !== 'undefined')
-    ? (SUBCLASS_FEATURE_NAMES[state.selectedSubclass.id]||[]) : [];
+  const subFeatureNames = (state.selectedSubclass && true)
+    ? (state.selectedSubclass.features || []) : [];
+  // id/name_en/name_ko 중 하나라도 일치하면 동일 항목으로 간주 (어휘 차이 흡수)
+  const _featMatch = (a, b) => {
+    for (const k of ['id','name_en','name_ko']) {
+      if (a[k] != null && a[k] === b[k]) return true;
+    }
+    return false;
+  };
   [...featureNames, ...subFeatureNames].forEach(f => {
-    if (f.lv <= level && !allAutoFeats.some(a => a.name_ko === f.name_ko || a.name_en === f.name_en)) {
+    if (f.lv <= level && !allAutoFeats.some(a => _featMatch(a, f))) {
       allAutoFeats.push({lv: f.lv, name_ko: f.name_ko, name_en: f.name_en, category: 'special'});
     }
   });
@@ -682,7 +726,8 @@ function applyClassFeatures() {
       const cat = f.category || 'special';
       if (!state.feats[cat]) state.feats[cat] = [];
       if (!state.feats[cat].some(e => e.name === featName)) {
-        const autoFeat = {name: featName, level: f.lv, _auto: true};
+        const _fd = f.id ? null : (getFeat(f.name_en) || getFeat(f.name_ko));
+        const autoFeat = {id: f.id || _fd?.id || null, name: featName, level: f.lv, _auto: true};
         const savedChoice = savedAutoChoices[featName + '_'];
         if (savedChoice) autoFeat.choice = savedChoice;
         state.feats[cat].push(autoFeat);
@@ -697,7 +742,8 @@ function applyClassFeatures() {
       (state.feats[cat]||[]).forEach((f, idx) => {
         if (f._auto && !f.choice) {
           const nameEn = typeof _extractEnName === 'function' ? _extractEnName(f.name) : '';
-          if (nameEn && typeof FEAT_EFFECTS !== 'undefined' && FEAT_EFFECTS[nameEn] && FEAT_EFFECTS[nameEn].choice) {
+          const _def = nameEn && typeof _getFeatEffectsDef === 'function' ? _getFeatEffectsDef(nameEn) : null;
+          if (_def && _def.choice) {
             setTimeout(() => checkFeatChoice(f.name, cat, idx), 0);
           }
         }
@@ -712,25 +758,27 @@ function applyClassFeatures() {
   state.spells.known = (state.spells.known||[]).filter(s => !s?._auto);
   // Gather all auto spells
   const _classAutoSp = (typeof CLASS_AUTO_SPELLS!=='undefined' ? (CLASS_AUTO_SPELLS[cls.id]||[]) : []);
-  const _subAutoSp = (state.selectedSubclass && typeof SUBCLASS_AUTO_SPELLS!=='undefined' ? (SUBCLASS_AUTO_SPELLS[state.selectedSubclass.id]||[]) : []);
+  const _subAutoSp = (state.selectedSubclass && getSubclassAutoSpells(state.selectedSubclass));
   const allAutoSpells = [..._classAutoSp, ..._subAutoSp];
   allAutoSpells.forEach(s => {
     if (s.lv <= level) {
       const spellName = s.name_ko;
+      const _sp = getSpell(spellName) || (s.name_en ? getSpell(s.name_en) : null);
+      const _id = _sp?.id || null;
       // 출처: 서브클래스 주문이면 서브클래스명, 아니면 클래스명
       const src = _subAutoSp.includes(s)
         ? (state.selectedSubclass?.name_ko || cls.name) : cls.name;
       if (s.type === 'cantrip') {
         if (!state.spells.cantrip.some(sp => sp?.name === spellName)) {
-          state.spells.cantrip.push({name: spellName, rank:0, _auto: true, _source: src});
+          state.spells.cantrip.push({id: _id, name: spellName, rank:0, _auto: true, _source: src});
         }
       } else if (s.type === 'focus') {
         if (!state.spells.focus.some(sp => sp?.name === spellName)) {
-          state.spells.focus.push({name: spellName, _auto: true, _source: src});
+          state.spells.focus.push({id: _id, name: spellName, _auto: true, _source: src});
         }
       } else {
         if (!state.spells.known.some(sp => sp?.name === spellName)) {
-          state.spells.known.push({name: spellName, rank: s.rank||1, _auto: true, _source: src});
+          state.spells.known.push({id: _id, name: spellName, rank: s.rank||1, _auto: true, _source: src});
         }
       }
     }
@@ -758,7 +806,7 @@ function openDeityPicker() {
   const items = DEITY_DB.map(d =>
     `<div class="opt-row" onclick="previewDeity('${d.id}',this)" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
       <span class="opt-row-name" style="flex:1;">${d.name_ko} <span style="color:var(--text2);font-size:11px;">${d.name_en}</span></span>
-      <span style="font-size:10px;color:var(--text2);">${d.weapon} / ${d.sanctification.map(s=>s==='holy'?'신성':'불경').join('·')}</span>
+      <span style="font-size:10px;color:var(--text2);">${(typeof WEAPON_DB!=='undefined'&&WEAPON_DB.find(w=>w.id===d.weapon)?.name_ko)||d.weapon} / ${d.sanctification.map(s=>s==='holy'?'신성':'불경').join('·')}</span>
     </div>`).join('');
   document.getElementById('modal-overlay').classList.remove('hidden');
   document.getElementById('modal-title').textContent = '신격 선택';
@@ -795,7 +843,7 @@ function previewDeity(id, row) {
     <div class="modal-detail-en">${d.name_en}</div>
     ${titleStr}
     <div style="margin:12px 0;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.7;">
-      <div><b>선호 무기:</b> ${d.weapon}</div>
+      <div><b>선호 무기:</b> ${(typeof WEAPON_DB!=='undefined'&&WEAPON_DB.find(w=>w.id===d.weapon)?.name_ko)||d.weapon}</div>
       <div><b>신성화:</b> ${sanctLabel}</div>
       <div><b>신격 기술:</b> ${skillName}</div>
       <div><b>영역:</b> ${(d.domains||[]).join(', ')}</div>
@@ -834,7 +882,7 @@ function selectDeity(id) {
   if(d.skill && typeof setSkillTrained==='function') setSkillTrained(d.skill);
   // 선호 무기 숙련 부여: 군용이면 해당 카테고리를 최소 훈련으로
   if(d.weapon && typeof WEAPON_DB !== 'undefined') {
-    const wpn = WEAPON_DB.find(w => w.name_ko === d.weapon);
+    const wpn = WEAPON_DB.find(w => w.id === d.weapon);
     if(wpn) {
       const cat = (wpn.category||'').toLowerCase();
       let profKey = null;
@@ -922,7 +970,7 @@ function previewDivineFont(val, row) {
     ? '최고 랭크 추가 슬롯에 <em>치유(Heal)</em> 주문만 준비할 수 있습니다.'
     : '최고 랭크 추가 슬롯에 <em>해로움(Harm)</em> 주문만 준비할 수 있습니다.';
   const _dfDesc = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
-    ? (CLASS_FEATURE_NAMES.cleric.find(f => f.name_en === 'Divine Font') || {}).desc || '' : '';
+    ? (CLASS_FEATURE_NAMES.cleric.find(f => f.id === 'divine-font') || {}).desc || '' : '';
 
   const detailHtml = `
     <div class="modal-detail-title">${icon} ${label}</div>
@@ -1057,8 +1105,8 @@ function renderGrowthPlan() {
     // Class features at this level (auto-display)
     if (state.selectedClass && typeof CLASS_FEATURE_NAMES !== 'undefined') {
       const classFeats = (CLASS_FEATURE_NAMES[state.selectedClass.id]||[]).filter(f => f.lv === lv);
-      const subFeats = state.selectedSubclass && typeof SUBCLASS_FEATURE_NAMES !== 'undefined'
-        ? (SUBCLASS_FEATURE_NAMES[state.selectedSubclass.id]||[]).filter(f => f.lv === lv) : [];
+      const subFeats = state.selectedSubclass && true
+        ? (state.selectedSubclass.features || []).filter(f => f.lv === lv) : [];
       const allFeats = [...classFeats, ...subFeats];
       if (allFeats.length > 0) {
         html += `<div class="growth-slot" onclick="openClassModalAtLevel(${lv})" style="cursor:pointer;opacity:0.85;border-left:2px solid var(--accent);background:var(--accent-bg);">
@@ -1217,9 +1265,9 @@ function growthClearFeat(lv, key, featType) {
       if (idx >= 0) {
         // 재주로 부여된 지식/기술 숙련 정리
         const removedFeat = arr[idx];
-        if (removedFeat?.name && typeof FEAT_EFFECTS !== 'undefined') {
+        if (removedFeat?.name && typeof _getFeatEffectsDef === 'function') {
           const en = removedFeat.name?.match(/\(([^)]+)\)$/)?.[1] || '';
-          const def = en ? FEAT_EFFECTS[en] : null;
+          const def = en ? _getFeatEffectsDef(en) : null;
           if (def?.effects) {
             def.effects.forEach(eff => {
               if (eff.type === 'grant_lore') {
@@ -1556,8 +1604,8 @@ function getAutoKnownAtLevel(lv) {
       if (s.lv === lv && s.type === 'known') result.push({name: s.name_ko, rank: s.rank || 1});
     });
   }
-  if (typeof SUBCLASS_AUTO_SPELLS !== 'undefined' && sid && SUBCLASS_AUTO_SPELLS[sid]) {
-    SUBCLASS_AUTO_SPELLS[sid].forEach(s => {
+  if (sid && getSubclassAutoSpells(SUBCLASS_DB.find(s => s.id === sid)).length > 0) {
+    getSubclassAutoSpells(SUBCLASS_DB.find(s => s.id === sid)).forEach(s => {
       if (s.lv === lv && s.type === 'known') result.push({name: s.name_ko, rank: s.rank || 1});
     });
   }
@@ -1567,8 +1615,8 @@ function getAutoKnownAtLevel(lv) {
       if (s.lv === lv && s.type === 'cantrip') result.push({name: s.name_ko, rank: 0, isCantrip: true});
     });
   }
-  if (typeof SUBCLASS_AUTO_SPELLS !== 'undefined' && sid && SUBCLASS_AUTO_SPELLS[sid]) {
-    SUBCLASS_AUTO_SPELLS[sid].forEach(s => {
+  if (sid && getSubclassAutoSpells(SUBCLASS_DB.find(s => s.id === sid)).length > 0) {
+    getSubclassAutoSpells(SUBCLASS_DB.find(s => s.id === sid)).forEach(s => {
       if (s.lv === lv && s.type === 'cantrip') result.push({name: s.name_ko, rank: 0, isCantrip: true});
     });
   }
@@ -1584,8 +1632,8 @@ function _getCantripBonusAtLevel(lv) {
     const featName = g[key];
     if (!featName) return;
     const en = typeof _extractEnName === 'function' ? _extractEnName(featName) : '';
-    if (!en || typeof FEAT_EFFECTS === 'undefined') return;
-    const def = FEAT_EFFECTS[en];
+    if (!en || typeof _getFeatEffectsDef !== 'function') return;
+    const def = _getFeatEffectsDef(en);
     if (!def || !def.effects) return;
     def.effects.forEach(eff => {
       if (eff.type === 'cantrip_slots') bonus += (eff.value || 0);
@@ -1853,7 +1901,8 @@ function syncGrowthSpellsToState() {
     if (gs.cantrip) {
       gs.cantrip.forEach(name => {
         if (name && !(state.spells.cantrip||[]).find(c => c?.name === name)) {
-          state.spells.cantrip.push({name, rank: 0});
+          const _sp = getSpell(name);
+          state.spells.cantrip.push({id: _sp?.id || null, name, rank: 0});
         }
       });
     }
@@ -1863,7 +1912,8 @@ function syncGrowthSpellsToState() {
       if (!arr) continue;
       arr.forEach(name => {
         if (name && !(state.spells.known||[]).find(k => k.name === name && k.rank === r)) {
-          state.spells.known.push({name, rank: r});
+          const _sp = getSpell(name);
+          state.spells.known.push({id: _sp?.id || null, name, rank: r});
         }
       });
     }
@@ -2279,7 +2329,7 @@ function _renderMemorizeDetail() {
   const label = isCantrip ? '캔트립' : `${rank}랭크`;
   let html = `<div style="padding:8px;"><div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">슬롯 ${active.idx+1} — ${label} 주문 선택</div>`;
   available.forEach(({name, note}) => {
-    const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === name) : null;
+    const spellData = getSpell(name);
     const actions = typeof getActionIcons === 'function' ? getActionIcons(spellData?.actions) : '';
     html += `<div onclick="_memorizeAssign('${name.replace(/'/g,"\\'")}')" style="display:flex;align-items:center;gap:8px;padding:8px 10px;margin:3px 0;border-radius:6px;cursor:pointer;font-size:13px;background:var(--bg3);border:1px solid var(--border);transition:background 0.1s;" onmouseenter="this.style.background='var(--accent)';this.style.color='#000'" onmouseleave="this.style.background='var(--bg3)';this.style.color=''">
       <span style="flex:1;font-weight:500;">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
@@ -2381,7 +2431,7 @@ function openPrepareSpellForSlot(rank, slotIdx) {
   }
 
   allAvailable.forEach(({name, originalRank}) => {
-    const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === name) : null;
+    const spellData = getSpell(name);
     const actions = typeof getActionIcons === 'function' ? getActionIcons(spellData?.actions) : '';
     const row = document.createElement('div');
     row.className = 'opt-row';
@@ -2516,7 +2566,7 @@ function getOptionsData(type) {
     const hasVersatile = Object.values(state.feats).flat().some(f => f?.name?.includes('다재다능한 유산'));
     return HERITAGE_DB.filter(h => {
       if (h.ancestry === '*') return true; // 다목적 유산 (네피림, 체인질링 등)은 항상 표시
-      if (h.versatile) return hasVersatile;
+      if (getHeritageEffects(h).versatile) return hasVersatile;
       return !state.selectedAncestry || h.ancestry === state.selectedAncestry.id;
     });
   }
@@ -2615,11 +2665,10 @@ function _checkOnePrereq(cond) {
   if (cond.ability) {
     return getMod(cond.ability) >= (cond.min || 0);
   }
-  // 시야: {vision:'darkvision'} or {vision:'low-light'}
+  // 시야: {vision:'darkvision'} or {vision:'low-light'} (v526~ enum)
   if (cond.vision) {
-    const curVision = state.vision || state.selectedAncestry?.vision || '없음';
-    const rank = {'암시야':2,'darkvision':2,'저광 시야':1,'low-light':1,'없음':0};
-    return (rank[curVision]||0) >= (rank[cond.vision]||0);
+    const curVision = state.vision || state.selectedAncestry?.vision || 'none';
+    return (VISION_RANK[curVision]||0) >= (VISION_RANK[cond.vision]||0);
   }
   // 재주 보유: {feat:'Halfling Luck'}
   if (cond.feat) {
@@ -2634,7 +2683,7 @@ function _checkOnePrereq(cond) {
   // 혈통: {ancestry:'엘프'}
   if (cond.ancestry) {
     if (state.selectedAncestry?.traits?.includes(cond.ancestry)) return true;
-    if (state.selectedHeritage?.extraFeats?.includes(cond.ancestry)) return true;
+    if (getHeritageEffects(state.selectedHeritage).extraFeats?.includes(cond.ancestry)) return true;
     // 양자 혈통
     const adopted = Object.values(state.feats).flat().some(ff =>
       ff?.name?.includes('양자 혈통') && ff.choice && (typeof ANCESTRY_NAME_MAP !== 'undefined') && ANCESTRY_NAME_MAP[ff.choice] === cond.ancestry
@@ -2643,26 +2692,26 @@ function _checkOnePrereq(cond) {
   }
   // 유산: {heritage:'천상 혈통'}
   if (cond.heritage) {
-    return state.selectedHeritage?.name_ko === cond.heritage;
+    return nameMatches(cond.heritage, state.selectedHeritage);
   }
-  // 서브클래스: {subclass:'수수께끼 뮤즈'}
+  // 서브클래스: {subclass:'수수께끼 뮤즈'} — name_ko로 시작하면 매칭 (서브클래스 타입 단어 차이 허용)
   if (cond.subclass) {
     const c = cond.subclass;
-    if (state.selectedSubclass) {
-      const sub = state.selectedSubclass;
-      if (sub.name_ko === c || sub.name_en === c) return true;
-      if (sub.subclass_type && c === sub.name_ko + ' ' + sub.subclass_type) return true;
-      if (sub.subclass_type && sub.name_en && c === sub.name_en + ' ' + sub.subclass_type) return true;
-    }
+    const matchSub = (sub) => {
+      if (!sub) return false;
+      if (nameMatches(c, sub)) return true;
+      // "폭풍 결사" / "수수께끼 뮤즈" 등: 첫 단어가 name_ko면 매칭 ('교단'/'결사' 같은 어휘 차이 흡수)
+      const firstWord = c.split(' ')[0];
+      if (sub.name_ko && firstWord === sub.name_ko) return true;
+      if (sub.name_en && firstWord.toLowerCase() === sub.name_en.toLowerCase()) return true;
+      return false;
+    };
+    if (matchSub(state.selectedSubclass)) return true;
     // 추가 서브클래스 (다양한 뮤즈 등)
     if (typeof SUBCLASS_DB !== 'undefined') {
       const match = Object.values(state.feats).flat().some(ff => {
         if (!ff?.choice) return false;
-        const extraSub = SUBCLASS_DB.find(s => s.id === ff.choice);
-        if (!extraSub) return false;
-        if (extraSub.name_ko === c || extraSub.name_en === c) return true;
-        if (extraSub.subclass_type && c === extraSub.name_ko + ' ' + extraSub.subclass_type) return true;
-        return false;
+        return matchSub(SUBCLASS_DB.find(s => s.id === ff.choice));
       });
       if (match) return true;
     }
@@ -2675,13 +2724,36 @@ function _checkOnePrereq(cond) {
   return true; // 알 수 없는 조건 → 통과
 }
 
-// ── 전제조건 체크 (구조화 prereqs 우선, 텍스트 폴백) ──
-function _checkPrereqs(feat) {
-  // prereqs 배열이 있으면 구조화 체크
-  if (feat.prereqs && feat.prereqs.length > 0) {
-    return feat.prereqs.every(cond => _checkOnePrereq(cond));
+// ── PREREQ_GROUPS row → _checkOnePrereq 입력 객체로 변환 (v528~) ──
+function _rowToCond(r) {
+  const t = r.type;
+  if (['str','dex','con','int','wis','cha'].includes(t)) {
+    return { ability: t, min: parseInt(r.value) || 0 };
   }
-  // prereqs가 없으면 텍스트 기반 폴백 (prereqs 미정의 재주용)
+  if (t === 'perception') return { perception: parseInt(r.value) || 0 };
+  if (t === 'lore')       return { lore: parseInt(r.value) || 0 };
+  if (t === 'feat')       return { feat: r.value };
+  if (t === 'ancestry')   return { ancestry: r.value };
+  if (t === 'heritage')   return { heritage: r.value };
+  if (t === 'subclass')   return { subclass: r.value };
+  if (t === 'vision')     return { vision: r.value };
+  // 기본: SKILLS.id 외래키 (기술 숙련도)
+  return { skill: t, rank: parseInt(r.value) || 0 };
+}
+
+// ── 전제조건 체크 (PREREQ_GROUPS 우선, 텍스트 폴백) — v528~ ──
+function _checkPrereqs(feat) {
+  if (feat.prereq_group_id && typeof PREREQ_GROUPS !== 'undefined') {
+    const rows = getPrereqRows(feat.prereq_group_id);
+    if (rows.length > 0) {
+      const andRows = rows.filter(r => r.logic === 'and');
+      const orRows  = rows.filter(r => r.logic === 'or');
+      if (!andRows.every(r => _checkOnePrereq(_rowToCond(r)))) return false;
+      if (orRows.length > 0 && !orRows.some(r => _checkOnePrereq(_rowToCond(r)))) return false;
+      return true;
+    }
+  }
+  // 구조화 데이터 없으면 텍스트 기반 폴백
   return _checkPrereqsText(feat.prerequisites);
 }
 
@@ -2728,26 +2800,32 @@ function _checkPrereqsText(prereqStr) {
       if (getMod(attrMap[attrMatch[1]]) < parseInt(attrMatch[2])) return false;
       continue;
     }
-    // 시야
-    if (c === '암시야' || c === '저광 시야') {
-      const curVision = state.vision || state.selectedAncestry?.vision || '없음';
-      const vr = {'암시야':2,'저광 시야':1,'없음':0};
-      if ((vr[curVision]||0) < (vr[c]||0)) return false;
-      continue;
+    // 시야 — prereq 텍스트는 한글 또는 enum 양쪽 허용 (v526~)
+    {
+      // c 토큰을 enum으로 정규화
+      const visionId = (c === '암시야' || c === 'darkvision') ? 'darkvision'
+                     : (c === '저광 시야' || c === 'low-light') ? 'low-light'
+                     : (c === '상위 암시야' || c === 'greater-darkvision') ? 'greater-darkvision'
+                     : null;
+      if (visionId) {
+        const curVision = state.vision || state.selectedAncestry?.vision || 'none';
+        if ((VISION_RANK[curVision]||0) < (VISION_RANK[visionId]||0)) return false;
+        continue;
+      }
     }
     // 혈통/유산/서브클래스/재주 — 기존 로직 유지
     if (state.selectedAncestry?.traits?.includes(c)) continue;
-    if (state.selectedHeritage?.extraFeats?.includes(c)) continue;
-    if (state.selectedHeritage?.name_ko === c) continue;
+    if (getHeritageEffects(state.selectedHeritage).extraFeats?.includes(c)) continue;
+    if (nameMatches(c, state.selectedHeritage)) continue;
     if (state.selectedSubclass) {
       const sub = state.selectedSubclass;
-      if (sub.name_ko === c || sub.name_en === c) continue;
+      if (nameMatches(c, sub)) continue;
       if (sub.subclass_type && c === sub.name_ko + ' ' + sub.subclass_type) continue;
     }
     if (/\d+레벨/.test(c)) continue;
     if (learnedFeats.has(c)) continue;
-    if (typeof FEAT_DB !== 'undefined') {
-      const found = FEAT_DB.find(f => f && (f.name_ko === c || f.name_en === c));
+    {
+      const found = getFeat(c);
       if (found && (learnedFeats.has(found.name_ko) || learnedFeats.has(found.name_en))) continue;
     }
     if (c === '주문시전 클래스 특성') { if (!state.selectedClass?.tradition) return false; continue; }
@@ -2770,7 +2848,7 @@ function canTakeDedication(f) {
   const allFeats = Object.values(state.feats).flat().filter(ff => ff?.name);
   const ownedDedications = allFeats.filter(ff => {
     const nameKo = ff.name.split(' (')[0].trim();
-    const dbEntry = typeof FEAT_DB !== 'undefined' ? FEAT_DB.find(fd => fd && fd.name_ko === nameKo) : null;
+    const dbEntry = getFeat(nameKo);
     return dbEntry?.traits?.includes('헌신');
   });
   if (ownedDedications.length === 0) return true; // 첫 헌신은 자유
@@ -2783,7 +2861,7 @@ function canTakeDedication(f) {
     const archFeats = allFeats.filter(ff => {
       if (ff.name === ded.name) return false; // 헌신 자체 제외
       const fNameKo = ff.name.split(' (')[0].trim();
-      const fDb = typeof FEAT_DB !== 'undefined' ? FEAT_DB.find(fd => fd && fd.name_ko === fNameKo) : null;
+      const fDb = getFeat(fNameKo);
       return fDb?.category === 'archetype' && fDb?.prerequisites?.includes(classWord);
     });
     if (archFeats.length < 2) return false;
@@ -2808,7 +2886,8 @@ function filterFeats() {
     let _ancestryTraits = null;
     if (ft === 'ancestry' && state.selectedAncestry) {
       _ancestryTraits = [...(state.selectedAncestry.traits || [])];
-      if (state.selectedHeritage?.extraFeats) _ancestryTraits.push(...state.selectedHeritage.extraFeats);
+      const _hExtra = getHeritageEffects(state.selectedHeritage).extraFeats;
+      if (_hExtra) _ancestryTraits.push(..._hExtra);
       if (state._fb?.adoptedAncestries) _ancestryTraits.push(...state._fb.adoptedAncestries);
       Object.values(state.feats).flat().forEach(ff => {
         if (ff && ff.name && ff.name.includes('양자 혈통') && ff.choice) {
@@ -2938,7 +3017,7 @@ function renderOptions(data) {
   if (modalType === 'heritage') {
     grouped = {};
     data.forEach(item => {
-      const key = item.versatile ? '🌟 다재다능한 유산 / 혼합 혈통' : '🧬 혈통 유산';
+      const key = getHeritageEffects(item).versatile ? '🌟 다재다능한 유산 / 혼합 혈통' : '🧬 혈통 유산';
       if (!grouped[key]) grouped[key] = [];
       grouped[key].push(item);
     });
@@ -2953,8 +3032,8 @@ function renderOptions(data) {
     // 전제조건 충족 재주를 상단, 미달 재주를 하단으로 정렬
     data.sort((a, b) => {
       let aFail = false, bFail = false;
-      try { aFail = (a.prereqs || a.prerequisites) && !_checkPrereqs(a); } catch(e) {}
-      try { bFail = (b.prereqs || b.prerequisites) && !_checkPrereqs(b); } catch(e) {}
+      try { aFail = (a.prereq_group_id || a.prerequisites) && !_checkPrereqs(a); } catch(e) {}
+      try { bFail = (b.prereq_group_id || b.prerequisites) && !_checkPrereqs(b); } catch(e) {}
       if (aFail !== bFail) return aFail ? 1 : -1;
       return 0;
     });
@@ -2986,7 +3065,9 @@ function renderOptions(data) {
     const row = document.createElement('div');
     const nameKo = item.name || item.name_ko || '';
     const nameEn = item.en || item.name_en || '';
-    const selected = modalSelected?.id === item.id || modalSelected?.name_ko === item.name_ko;
+    // id 우선 매칭, id 없는 모달 항목(혈통/배경 등 일부)은 name_ko 폴백
+    const _matchKey = modalSelected?.id != null && item?.id != null ? 'id' : 'name_ko';
+    const selected = !!modalSelected && modalSelected[_matchKey] != null && modalSelected[_matchKey] === item?.[_matchKey];
     row.className = 'opt-row' + (selected ? ' selected' : '');
 
     // Level/rank badge
@@ -3010,7 +3091,7 @@ function renderOptions(data) {
 
     // 전제조건 미달 체크
     let prereqFail = false;
-    try { prereqFail = item.feat_level !== undefined && (item.prereqs || item.prerequisites) && !_checkPrereqs(item); } catch(e) {}
+    try { prereqFail = item.feat_level !== undefined && (item.prereq_group_id || item.prerequisites) && !_checkPrereqs(item); } catch(e) {}
 
     const rClass = `r${Math.min(levelNum, 10)}`;
     row.innerHTML = `
@@ -3091,7 +3172,7 @@ function selectOption(item, row) {
         tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${item.feat_level}레벨</span> <span class="tag-meta">${_catKo[item.category]||item.category||''}</span></div>${mfTraits?'<div style="margin-bottom:6px;">'+mfTraits+'</div>':''}`;
         if (item.prerequisites) {
           let _prereqMet = true;
-          try { _prereqMet = !(item.prereqs || item.prerequisites) || _checkPrereqs(item); } catch(e) {}
+          try { _prereqMet = !(item.prereq_group_id || item.prerequisites) || _checkPrereqs(item); } catch(e) {}
           const parts = item.prerequisites.split(/(?<=\.)\s+/);
           const prereqName = parts[0].replace(/\.$/,'');
           const prereqRest = parts.slice(1).join(' ');
@@ -3212,8 +3293,8 @@ function formatDescActions(text, item) {
   nameKo = nameKo.replace(/을$|를$/, '').trim();
 
   // ACTION_DB에 등록된 행동이면 DB 데이터를 그대로 사용
-  if (nameKo && typeof ACTION_DB !== 'undefined') {
-    const dbAction = ACTION_DB.find(a => a.name_ko === nameKo || (nameEn && a.name_en === nameEn));
+  if (nameKo) {
+    const dbAction = getAction(nameKo) || (nameEn ? getAction(nameEn) : null);
     if (dbAction) {
       return (prefixText ? prefixText + '<br>' : '') +
         _buildActionCard(dbAction.cost, dbAction.name_ko, dbAction.name_en, dbAction.traits||[], dbAction.summary);
@@ -3262,7 +3343,7 @@ function showItemDetail(item) {
     // 선행 요소: 첫 문장만 선행으로, 나머지는 본문에 합침
     if (item.prerequisites) {
       let _prereqMet = true;
-      try { _prereqMet = !(item.prereqs || item.prerequisites) || _checkPrereqs(item); } catch(e) {}
+      try { _prereqMet = !(item.prereq_group_id || item.prerequisites) || _checkPrereqs(item); } catch(e) {}
       const parts = item.prerequisites.split(/(?<=\.)\s+/);
       const prereqName = parts[0].replace(/\.$/,'');
       const prereqRest = parts.slice(1).join(' ');
@@ -3304,13 +3385,20 @@ function showItemDetail(item) {
             ${item.hp!==undefined&&item.bt!==undefined?`<span class="tag-meta">HP: ${item.hp} (BT: ${item.bt})</span>`:''}
             ${item.speed_penalty?`<span class="tag-meta" style="color:var(--red-light);">속도: ${item.speed_penalty}</span>`:''}
             <span class="tag-meta">가격: ${item.price||'-'}</span></div>`;
-  } else if (item.hp !== undefined && item.keyAttr !== undefined) {
-    tags = `<span class="tag-meta">HP ${item.hp}+CON</span> <span class="tag-meta">${item.keyAttr}</span>
+  } else if (item.hp !== undefined && item.key_attrs !== undefined) {
+    const keyKo = (item.key_attrs || []).map(k => ATTR_KO[k]).join(' 또는 ');
+    tags = `<span class="tag-meta">HP ${item.hp}+CON</span> <span class="tag-meta">${keyKo}</span>
             ${item.tradition?`<span class="tag">${item.tradition} 주문</span>`:''}`;
-  } else if (item.boosts && item.flaws) {
+  } else if (item.boosts !== undefined && item.flaws !== undefined && item.size !== undefined) {
+    // ANCESTRIES (혈통)
+    const boostKo = [
+      ...(item.boosts || []).map(k => ATTR_KO[k]),
+      ...(item.boost_choices || []).map(g => g.map(k => ATTR_KO[k]).join('/')),
+      ...Array(item.free_boosts || 0).fill('자유'),
+    ];
     tags = `<span class="tag hl">HP ${item.hp}</span>
             <span class="tag">${item.size}/${item.speed}피트</span>
-            ${item.boosts.map(b=>`<span class="tag hl">${b}</span>`).join('')}`;
+            ${boostKo.map(b=>`<span class="tag hl">${b}</span>`).join('')}`;
   } else if (item.subclass_type) {
     tags = `<span class="tag hl">${item.subclass_type}</span>`;
   }
@@ -3444,27 +3532,13 @@ function _buildClassProgressionTable(cls) {
 
 // ── 클래스 모달: 레벨별 통합 UI ──
 function _buildClassChoicesUI(cls) {
-  // ── 기술 파싱 ──
-  const skillParts = (cls.skills || '').split(' + ');
-  const fixedSkills = [];
-  let trainableBase = 0;
-  let deitySkill = false;
-  const choiceSkills = [];
-
-  skillParts.forEach(p => {
-    const m = p.match(/(\d+)\+INT개/);
-    if (m) { trainableBase = parseInt(m[1]); return; }
-    if (p.trim() === '신격기술') { deitySkill = true; return; }
-    p.split(',').forEach(s => {
-      const name = s.trim();
-      if (!name) return;
-      if (name.includes('또는')) {
-        choiceSkills.push(name.split(/\s*또는\s*/).map(c => c.trim()));
-      } else {
-        fixedSkills.push(name);
-      }
-    });
-  });
+  // ── 정규화된 데이터 사용 (CLASSES.fixed_skills/choice_skill_groups/free_skill_count) ──
+  const skillNameById = {};
+  if (typeof SKILLS !== 'undefined') SKILLS.forEach(s => { skillNameById[s.id] = s.name; });
+  const fixedSkills = (cls.fixed_skills || []).map(id => skillNameById[id] || id);
+  const choiceSkills = (cls.choice_skill_groups || []).map(grp => grp.map(id => skillNameById[id] || id));
+  const trainableBase = cls.free_skill_count || 0;
+  const deitySkill = !!cls.deity_skill;
 
   _modalChoices = { type: 'class', fixedSkills, choiceSkills, trainableBase, deitySkill, trainableSkills: Array(trainableBase).fill(''), chosenFixedSkills: Array(choiceSkills.length).fill('') };
 
@@ -3487,8 +3561,8 @@ function _buildClassChoicesUI(cls) {
   const maxLv = getLevel();
   const classFeats = typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []).filter(f => f.lv <= maxLv) : [];
   const subId = state.selectedSubclass?.id;
-  const subFeats = subId && typeof SUBCLASS_FEATURE_NAMES !== 'undefined'
-    ? (SUBCLASS_FEATURE_NAMES[subId] || []).filter(f => f.lv <= maxLv) : [];
+  const subFeats = subId && true
+    ? (SUBCLASS_DB.find(s => s.id === subId)?.features || []).filter(f => f.lv <= maxLv) : [];
   const allFeats = [...classFeats, ...subFeats].sort((a, b) => a.lv - b.lv || a.name_ko.localeCompare(b.name_ko));
   const featsByLv = {};
   allFeats.forEach(f => { (featsByLv[f.lv] = featsByLv[f.lv] || []).push(f); });
@@ -3609,8 +3683,8 @@ function _refreshClassFeaturesPreview() {
   const maxLv = getLevel();
   const classFeats = typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []).filter(f => f.lv <= maxLv) : [];
   const subId = _modalChoices?.doctrine || _modalChoices?.subclass || (state.selectedSubclass?.id);
-  const subFeats = subId && typeof SUBCLASS_FEATURE_NAMES !== 'undefined'
-    ? (SUBCLASS_FEATURE_NAMES[subId] || []).filter(f => f.lv <= maxLv) : [];
+  const subFeats = subId && true
+    ? (SUBCLASS_DB.find(s => s.id === subId)?.features || []).filter(f => f.lv <= maxLv) : [];
 
   // 1레벨 클래스 특성 + 2레벨 이상 전체를 다시 생성
   const allFeats = [...classFeats, ...subFeats].sort((a, b) => a.lv - b.lv || a.name_ko.localeCompare(b.name_ko));
@@ -3651,62 +3725,40 @@ function _refreshClassFeaturesPreview() {
   container.insertAdjacentHTML('beforeend', lv1Html + otherHtml);
 }
 
-// ── 서브클래스 특성을 서브클래스 블록 안에 렌더링 ──
+// ── 서브클래스 특성을 서브클래스 블록 안에 렌더링 (정규화된 SUBCLASS_DB.granted_*) ──
 function _renderSubclassFeatsInBlock(subId, containerId) {
   const container = document.getElementById(containerId);
   if (!container) return;
   if (!subId) { container.innerHTML = ''; return; }
 
+  const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === subId) : null;
+  if (!sub) { container.innerHTML = ''; return; }
+
   let html = '';
   const _cs = 'margin-top:8px;padding:8px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);';
   const _badge = 'font-size:9px;color:var(--accent);background:var(--bg4);padding:1px 5px;border-radius:3px;';
-  // 중복 추적용 Set
   const shownNames = new Set();
   const shownKoNames = new Set();
+  const skillNameById = {};
+  if (typeof SKILLS !== 'undefined') SKILLS.forEach(s => { skillNameById[s.id] = s.name; });
 
-  const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === subId) : null;
-  // HTML 태그 제거한 순수 텍스트 (파싱용) — <br>은 구분자 역할이므로 | 로 치환
-  const plainSummary = sub ? (sub.summary || '').replace(/<br\s*\/?>/gi, ' | ').replace(/<[^>]+>/g, '') : '';
-
-  // ── 1) 기술 — summary에서 추출 ──
-  if (plainSummary) {
-    const skillMatch = plainSummary.match(/(?:결사 기술|기술)\s*[：:]\s*([^|.\n]+)/);
-    if (skillMatch) {
-      const skillNames = skillMatch[1].trim().split(/[,、，]\s*/);
-      html += `<div style="${_cs}">`;
-      html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:4px;">📖 기술 숙련</div>`;
-      skillNames.forEach(name => {
-        const n = name.trim();
-        if (n) html += `<div style="margin-bottom:4px;"><select disabled style="${_selStyle}opacity:0.6;"><option>${n}</option></select></div>`;
-      });
-      html += `</div>`;
-    }
+  // ── 1) 기술 숙련 ──
+  if (Array.isArray(sub.granted_skills) && sub.granted_skills.length) {
+    html += `<div style="${_cs}">`;
+    html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:4px;">📖 기술 숙련</div>`;
+    sub.granted_skills.forEach(sid => {
+      const ko = skillNameById[sid] || sid;
+      html += `<div style="margin-bottom:4px;"><select disabled style="${_selStyle}opacity:0.6;"><option>${ko}</option></select></div>`;
+    });
+    html += `</div>`;
   }
 
-  // ── 2) 자동 부여 재주 — SUBCLASS_AUTO_FEATS + summary 파싱 ──
-  const autoFeats = typeof SUBCLASS_AUTO_FEATS !== 'undefined'
-    ? [...(SUBCLASS_AUTO_FEATS[subId] || []).filter(f => f.lv === 1)] : [];
-
-  // summary에서 "뮤즈 재주:", "드루이드 재주:" 패턴으로 재주명 추출
-  if (plainSummary) {
-    const featMatch = plainSummary.match(/(?:뮤즈 재주|드루이드 재주)\s*[：:]\s*([^|.\n]+)/);
-    if (featMatch) {
-      const rawName = featMatch[1].trim();
-      const koName = rawName.replace(/\([^)]*\)/, '').trim();
-      const enMatch = rawName.match(/\(([^)]+)\)/);
-      const enName = enMatch ? enMatch[1] : '';
-      // SUBCLASS_AUTO_FEATS에 이미 있으면 스킵
-      if (!autoFeats.some(af => af.name_en === enName || af.name_ko === koName)) {
-        autoFeats.push({ lv: 1, name_ko: koName, name_en: enName });
-      }
-    }
-  }
-
+  // ── 2) 자동 부여 재주 (lv=1만 모달 표시) ──
+  const autoFeats = getSubclassAutoFeats(sub).filter(f => f.lv === 1);
   autoFeats.forEach(af => {
     shownNames.add(af.name_en);
     if (af.name_ko) shownKoNames.add(af.name_ko);
-    const feat = typeof FEAT_DB !== 'undefined'
-      ? FEAT_DB.find(f => f.name_en === af.name_en || f.name_ko === af.name_ko) : null;
+    const feat = getFeat(af.name_en) || getFeat(af.name_ko);
     const descHtml = feat?.desc || feat?.summary || '';
     html += `<div style="${_cs}">
       <div style="font-size:11px;font-weight:600;color:var(--text1);margin-bottom:4px;">🎖 ${af.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${af.name_en}</span> <span style="${_badge}">재주</span></div>
@@ -3714,13 +3766,12 @@ function _renderSubclassFeatsInBlock(subId, containerId) {
     </div>`;
   });
 
-  // ── 3) 자동 부여 주문 — SUBCLASS_AUTO_SPELLS ──
-  const autoSpells = typeof SUBCLASS_AUTO_SPELLS !== 'undefined'
-    ? (SUBCLASS_AUTO_SPELLS[subId] || []).filter(s => s.lv === 1) : [];
+  // ── 3) 자동 부여 주문 ──
+  const autoSpells = getSubclassAutoSpells(sub).filter(s => s.lv === 1);
   autoSpells.forEach(sp => {
     shownNames.add(sp.name_en);
-    const spellData = typeof SPELL_DB !== 'undefined'
-      ? SPELL_DB.find(s => s.name_en === sp.name_en || s.name_ko === sp.name_ko) : null;
+    shownKoNames.add(sp.name_ko);
+    const spellData = getSpell(sp.name_en) || getSpell(sp.name_ko);
     const typeLabel = sp.type === 'focus' ? '집중 주문' : sp.type === 'cantrip' ? '캔트립' : `${sp.rank || 1}랭크 주문`;
     html += `<div style="${_cs}">
       <div style="font-size:11px;font-weight:600;color:var(--text1);margin-bottom:4px;">✨ ${sp.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${sp.name_en}</span> <span style="${_badge}">${typeLabel}</span></div>
@@ -3728,21 +3779,15 @@ function _renderSubclassFeatsInBlock(subId, containerId) {
     </div>`;
   });
 
-  // ── 4) 서브클래스 특성 — 재주/주문과 중복되지 않는 것만 ──
-  autoSpells.forEach(sp => shownKoNames.add(sp.name_ko));
-
-  if (typeof SUBCLASS_FEATURE_NAMES !== 'undefined') {
-    (SUBCLASS_FEATURE_NAMES[subId] || []).filter(f => f.lv === 1).forEach(f => {
-      // name_en 직접 일치
-      if (shownNames.has(f.name_en)) return;
-      // name_ko에 이미 표시된 재주/주문 이름이 포함되면 스킵
-      for (const ko of shownKoNames) { if (ko && f.name_ko.includes(ko)) return; }
-      html += `<div style="${_cs}">
-        <div style="font-size:11px;font-weight:600;color:var(--text1);margin-bottom:4px;">⚡ ${f.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${f.name_en}</span></div>
-        <div style="font-size:11px;color:var(--text2);line-height:1.6;">${resolveDescRefs(f.desc||'')}</div>
-      </div>`;
-    });
-  }
+  // ── 4) 서브클래스 특성 (재주/주문과 중복되지 않는 것만) ──
+  (sub.features || []).filter(f => f.lv === 1).forEach(f => {
+    if (shownNames.has(f.name_en)) return;
+    for (const ko of shownKoNames) { if (ko && f.name_ko.includes(ko)) return; }
+    html += `<div style="${_cs}">
+      <div style="font-size:11px;font-weight:600;color:var(--text1);margin-bottom:4px;">⚡ ${f.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${f.name_en}</span></div>
+      <div style="font-size:11px;color:var(--text2);line-height:1.6;">${resolveDescRefs(f.desc||'')}</div>
+    </div>`;
+  });
 
   container.innerHTML = html;
 }
@@ -3826,7 +3871,7 @@ function _onClericDoctrineChange(id) {
   const info = document.getElementById('cls-doctrine-info');
   if (info) {
     const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === id) : null;
-    info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.summary || ''}</div>` : '';
+    info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>` : '';
   }
   _renderSubclassFeatsInBlock(id, 'cls-doctrine-feats');
   _refreshClassFeaturesPreview();
@@ -3869,7 +3914,7 @@ function _onClericDeityChange(id) {
         </div>
         <div style="margin-top:6px;">
           <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">⚔ 선호 무기</div>
-          <select disabled style="${_selStyle}opacity:0.6;"><option>${d.weapon}</option></select>
+          <select disabled style="${_selStyle}opacity:0.6;"><option>${(typeof WEAPON_DB!=='undefined'&&WEAPON_DB.find(w=>w.id===d.weapon)?.name_ko)||d.weapon}</option></select>
         </div>`;
     } else {
       detailsEl.innerHTML = '';
@@ -3910,10 +3955,10 @@ function _onClericFontChange(val) {
     if (!val) { info.innerHTML = ''; _validateInitialChoices(); return; }
     // 신성 원천 기능 설명
     const cfDesc = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
-      ? (CLASS_FEATURE_NAMES.cleric.find(f => f.name_en === 'Divine Font') || {}).desc || '' : '';
+      ? (CLASS_FEATURE_NAMES.cleric.find(f => f.id === 'divine-font') || {}).desc || '' : '';
     // 주문 정보
     const spellName = val === 'heal' ? '치유' : '해로움';
-    const spell = typeof SPELL_DB !== 'undefined' ? SPELL_DB.find(s => s.name_ko === spellName) : null;
+    const spell = getSpell(spellName);
     let spellHtml = '';
     if (spell) {
       spellHtml = `<div style="margin-top:6px;padding:6px 8px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);">
@@ -3951,7 +3996,7 @@ function _onSubclassChange(id) {
   const info = document.getElementById('cls-subclass-info');
   if (info) {
     const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === id) : null;
-    info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.summary || ''}</div>` : '';
+    info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>` : '';
   }
   _renderSubclassFeatsInBlock(id, 'cls-subclass-feats');
   _refreshClassFeaturesPreview();
@@ -4009,61 +4054,70 @@ function _rebuildTrainableSkillDropdowns() {
 
 // ── 배경 모달: 기술 + 재주 ──
 function _buildBackgroundChoicesUI(bg) {
+  const beff = (typeof getBackgroundEffects === 'function') ? getBackgroundEffects(bg) : {};
   const _savedBgChoice = (state.selectedBackground?.id === bg.id) ? (state.initialChoices?.background?.choiceSkill || null) : null;
   _modalChoices = { type: 'background', skills: {}, choiceSkill: _savedBgChoice, loreName: '' };
-  const descText = (bg.desc || '').replace(/\s*속성 부스트:.*$/, '');
 
   let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
   html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📋 배경 혜택</div>`;
-  html += `<div style="font-size:11px;color:var(--text2);margin-bottom:6px;"><strong>능력치 부스트:</strong> ${bg.boosts || '—'}</div>`;
+  // 능력치 부스트 표시
+  const bgBoostKo = [
+    ...(beff.boosts || []).map(k => ATTR_KO[k]),
+    ...(beff.boost_choices || []).map(g => g.map(k => ATTR_KO[k]).join(' 또는 ')),
+    ...Array(beff.free_boosts || 0).fill('자유'),
+  ].join(', ') || '—';
+  html += `<div style="font-size:11px;color:var(--text2);margin-bottom:6px;"><strong>능력치 부스트:</strong> ${bgBoostKo}</div>`;
 
-  // 기술 파싱
-  const skillParts = (bg.skills || '').split(', ');
+  // 고정 기술
+  (beff.fixed_skills || []).forEach(id => {
+    const skill = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === id) : null;
+    const label = skill ? skill.name : id;
+    html += _choiceDropdown('', `기술`, [{value: id, label}], true, id);
+  });
+
+  // 선택 기술 그룹 (그룹당 1택)
   let hasChoice = false;
-  skillParts.forEach((s, i) => {
-    const name = s.trim();
-    if (!name) return;
-    if (name.includes('또는') || name.includes('/') || name.includes('중 선택')) {
-      // 선택 기술
-      hasChoice = true;
-      const choices = name.replace(/\s*중 선택/, '').split(/\s*[\/또는]\s*/).map(c => c.trim()).filter(Boolean);
-      const options = choices.map(c => {
-        const id = skillNameToId(c);
-        return {value: id || c, label: c};
-      });
-      html += `<div style="margin-bottom:6px;">
-        <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 (선택)</div>
-        <select id="bg-choice-skill" onchange="_modalChoices.choiceSkill=this.value;_validateInitialChoices()" style="${_selStyle}">
-          <option value="">— 선택 —</option>
-          ${options.map(o => `<option value="${o.value}"${o.value === _savedBgChoice ? ' selected' : ''}>${o.label}</option>`).join('')}
-        </select>
-      </div>`;
-    } else if (name.endsWith(' 지식') || name.includes('지식')) {
-      // 지식 — 고정이면 disabled, 이름 입력 필요하면 텍스트
-      const loreName = name.replace(' 지식', '').trim();
-      _modalChoices.loreName = loreName;
-      html += _choiceDropdown('', `지식 기술`, [{value: loreName, label: name}], true, loreName);
-    } else {
-      // 고정 기술
-      html += _choiceDropdown('', `기술`, [{value: name, label: name}], true, name);
-    }
+  (beff.choice_skill_groups || []).forEach((group, gi) => {
+    hasChoice = true;
+    const options = group.map(id => {
+      const skill = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === id) : null;
+      return { value: id, label: skill ? skill.name : id };
+    });
+    html += `<div style="margin-bottom:6px;">
+      <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 (선택)</div>
+      <select id="bg-choice-skill${gi||''}" onchange="_modalChoices.choiceSkill=this.value;_validateInitialChoices()" style="${_selStyle}">
+        <option value="">— 선택 —</option>
+        ${options.map(o => `<option value="${o.value}"${o.value === _savedBgChoice ? ' selected' : ''}>${o.label}</option>`).join('')}
+      </select>
+    </div>`;
   });
   _modalChoices.hasChoiceSkill = hasChoice;
 
+  // 고정 지식 (lore) — 한국어 그대로
+  (beff.fixed_lores || []).forEach(loreName => {
+    _modalChoices.loreName = loreName;
+    html += _choiceDropdown('', `지식 기술`, [{value: loreName, label: loreName + ' 지식'}], true, loreName);
+  });
+
+  // 신격 기술/지식 마커 (raised-by-belief)
+  if (beff.deity_skill || beff.deity_lore) {
+    html += `<div style="font-size:10px;color:var(--text2);margin:4px 0;">※ 신격 선택 후 자동 부여 (신격 기술${beff.deity_lore ? ' + 신격 지식' : ''})</div>`;
+  }
+
   // 기술 재주
-  if (bg.feat) {
+  if (beff.feat_id && typeof FEAT_DB !== 'undefined') {
+    const fd = getFeat(beff.feat_id);
+    const featLabel = fd ? fd.name_ko : beff.feat_id;
     html += `<div style="margin-top:4px;">`;
-    html += _choiceDropdown('', `기술 재주`, [{value: bg.feat, label: bg.feat}], true, bg.feat);
-    // 재주 설명 카드
-    if (typeof FEAT_DB !== 'undefined') {
-      const fd = FEAT_DB.find(f => f && f.name_ko === bg.feat.trim());
-      if (fd) {
-        const fdDesc = (fd.desc || fd.summary || '').replace(/<strong>전제조건:<\/strong>[^<]*<br>/i, '');
-        html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);margin-top:4px;">
-          <div style="font-weight:600;font-size:11px;margin-bottom:2px;">${fd.name_ko} <span style="color:var(--text2);font-weight:400;">${fd.name_en||''}</span></div>
-          <div style="font-size:10px;line-height:1.5;color:var(--text2);">${resolveDescRefs(fdDesc)}</div>
-        </div>`;
-      }
+    html += _choiceDropdown('', `기술 재주`, [{value: beff.feat_id, label: featLabel}], true, beff.feat_id);
+    if (fd) {
+      const fdDesc = (fd.desc || fd.summary || '').replace(/<strong>전제조건:<\/strong>[^<]*<br>/i, '');
+      html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);margin-top:4px;">
+        <div style="font-weight:600;font-size:11px;margin-bottom:2px;">${fd.name_ko} <span style="color:var(--text2);font-weight:400;">${fd.name_en||''}</span></div>
+        <div style="font-size:10px;line-height:1.5;color:var(--text2);">${resolveDescRefs(fdDesc)}</div>
+      </div>`;
+    } else {
+      html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--text2);margin-top:4px;font-size:10px;color:var(--text2);">※ FEAT_DB 미등재 (${beff.feat_id})</div>`;
     }
     html += `</div>`;
   }
@@ -4073,8 +4127,9 @@ function _buildBackgroundChoicesUI(bg) {
 
 // ── 혈통 모달: 언어 선택 ──
 function _buildAncestryChoicesUI(anc) {
-  const fixedLangs = anc.languages || ['공통어'];
-  const bonusBase = anc.bonusLangs || 0;
+  const fixedLangs = anc.languages || ['common'];
+  // PF2e Remaster 룰: 인간 1 + INT, 나머지 INT만 (v528~ ANCESTRIES.bonusLangs 데이터 사용)
+  const bonusBase = anc.bonusLangs ?? 0;
   _modalChoices = { type: 'ancestry', fixedLangs, bonusBase, bonusLangs: Array(bonusBase).fill('') };
 
   // ── 이전 선택값 복원: state.languages에서 고정 언���를 제외한 나머지가 보너스 언어 ──
@@ -4093,13 +4148,17 @@ function _buildAncestryChoicesUI(anc) {
   let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
   html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">🗣 언어</div>`;
 
-  // 고정 언어 (disabled)
-  fixedLangs.forEach(lang => {
-    html += _choiceDropdown('', `기본 언어`, [{value: lang, label: lang}], true, lang);
+  // 고정 언어 (disabled) — id로 저장, 라벨은 한글 표시
+  fixedLangs.forEach(langId => {
+    const ko = (typeof getLanguageKo === 'function') ? getLanguageKo(langId) : langId;
+    html += _choiceDropdown('', `기본 언어`, [{value: langId, label: ko}], true, langId);
   });
 
   // 추가 언어 (active + "+" 버튼)
-  html += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">추가 언어 (기본 ${bonusBase}개, + 버튼으로 추가)</div>`;
+  const bonusLabel = bonusBase > 0
+    ? `추가 언어 (기본 ${bonusBase}개 + INT 수정치, + 버튼으로 추가)`
+    : `추가 언어 (INT 수정치만큼, + 버튼으로 추가)`;
+  html += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">${bonusLabel}</div>`;
   html += `<div id="anc-bonus-langs">`;
   const bonusCount = Math.max(bonusBase, _modalChoices.bonusLangs.length);
   for (let i = 0; i < bonusCount; i++) {
@@ -4114,7 +4173,7 @@ function _buildAncestryChoicesUI(anc) {
   // 시야/크기/속도 정보 표시
   html += `<div style="margin-top:10px;font-size:11px;color:var(--text2);line-height:1.7;">`;
   html += `<div><strong>크기:</strong> ${anc.size} | <strong>속도:</strong> ${anc.speed}피트</div>`;
-  html += `<div><strong>감각:</strong> ${anc.vision || '없음'}</div>`;
+  html += `<div><strong>감각:</strong> ${VISION_KO[anc.vision] || anc.vision || '없음'}</div>`;
   html += `</div>`;
 
   html += `</div>`;
@@ -4123,9 +4182,9 @@ function _buildAncestryChoicesUI(anc) {
 
 function _buildBonusLangRow(index, excludeLangs) {
   const allLangs = typeof LANGUAGES !== 'undefined' ? LANGUAGES : [];
-  const exclude = new Set(excludeLangs || []);
+  const exclude = new Set(excludeLangs || []);  // id 배열
   (_modalChoices.bonusLangs || []).forEach((v, i) => { if (v && i !== index) exclude.add(v); });
-  const options = allLangs.filter(l => !exclude.has(l)).map(l => ({value: l, label: l}));
+  const options = allLangs.filter(l => !exclude.has(l.id)).map(l => ({value: l.id, label: l.name_ko}));
   const curVal = (_modalChoices.bonusLangs || [])[index] || '';
   return `<div style="display:flex;gap:4px;align-items:center;margin-bottom:4px;">
     <select onchange="_onBonusLangChange(${index}, this.value)" style="${_selStyle}flex:1;">
@@ -4333,7 +4392,7 @@ function resetFromAncestry() {
     }
   }
   // Reset vision/size/speed
-  state.vision = '없음';
+  state.vision = 'none';
   state.size = '중형';
   const speedEl = document.getElementById('speed');
   if (speedEl) speedEl.value = 25;
@@ -4508,10 +4567,10 @@ function confirmModal() {
       if (langEl) {
         const traits = modalSelected.traits ? `특성: ${modalSelected.traits.join(', ')}` : '';
         const size = `크기: ${modalSelected.size || '중형'}`;
-        const vision = `감각: ${modalSelected.vision || '없음'}`;
-        const specials = (modalSelected.specials||[]).join('\n');
+        const vision = `감각: ${VISION_KO[modalSelected.vision] || modalSelected.vision || '없음'}`;
         const langLine = `언어: ${allLangs.join(', ')}`;
-        langEl.value = [traits, size, vision, langLine, specials].filter(Boolean).join('\n');
+        const extras = _summarizeAncestryExtras(modalSelected);
+        langEl.value = [traits, size, vision, langLine, extras].filter(Boolean).join('\n');
       }
     }
     // ── 선택값 영속 저장 ──
@@ -4566,7 +4625,8 @@ function confirmModal() {
         if (typeof cascadeRemoveFeats === 'function') cascadeRemoveFeats();
       }
       state.growth[gLv][gKey] = featName;
-      state.feats[type].push({name: featName, level: gLv});
+      const _fdG = getFeat(featName) || getFeat(featName.split(' (')[0].trim());
+      state.feats[type].push({id: _fdG?.id || null, name: featName, level: gLv});
       growthPendingLevel = null;
       growthPendingKey = null;
       growthPendingFeatType = null;
@@ -4580,7 +4640,8 @@ function confirmModal() {
       }
       renderGrowthPlan();
     } else {
-      state.feats[type].push({name: featName, level: featLevel});
+      const _fdN = getFeat(featName) || getFeat(featName.split(' (')[0].trim());
+      state.feats[type].push({id: _fdN?.id || null, name: featName, level: featLevel});
       // 선택이 필요한 재주면 선택 모달 열기
       if (typeof checkFeatChoice === 'function' && checkFeatChoice(featName, type, state.feats[type].length - 1)) {
         recalcAll();
@@ -4648,8 +4709,8 @@ function confirmModal() {
     state.selectedSubclass = modalSelected;
     const btn = document.getElementById('btn-subclass');
     if (btn) { btn.textContent = `${modalSelected.subclass_type}: ${modalSelected.name_ko}`; btn.classList.add('filled'); }
-    const _dbgSub = typeof SUBCLASS_AUTO_FEATS !== 'undefined' ? SUBCLASS_AUTO_FEATS[modalSelected.id] : 'UNDEF';
-    const _dbgSpell = typeof SUBCLASS_AUTO_SPELLS !== 'undefined' ? SUBCLASS_AUTO_SPELLS[modalSelected.id] : 'UNDEF';
+    const _dbgSub = getSubclassAutoFeats(modalSelected);
+    const _dbgSpell = getSubclassAutoSpells(modalSelected);
     applyClassFeatures();
     renderFeats();
     renderSpells();
@@ -4868,49 +4929,55 @@ function applyClassDefaults(cls) {
   initArmorProfBadges();
   renderArmorCard();
 
-  // Auto-set class key attribute boost
-  const key = parseAttrKey(cls.keyAttr);
-  if (key) state.boosts.cls = key;
-  // Auto-set fixed class skill proficiencies
-  parseFixedSkills(cls.skills || '').forEach(name => {
-    const id = skillNameToId(name);
-    if (id) setSkillTrained(id);
-  });
-  // Parse trainable skill slot count (e.g. '4+INT개' from '오컬티즘, 공연 + 4+INT개')
-  const skillParts = (cls.skills || '').split(' + ');
-  let trainableSlots = 0;
-  for (const p of skillParts) {
-    const m = p.match(/(\d+)\+INT개/);
-    if (m) { trainableSlots = parseInt(m[1]); break; }
-  }
-  state.trainableSkillSlots = trainableSlots;
+  // 핵심 능력치: 단일 고정이면 자동 설정, OR이면 사용자 선택 대기 (모달에서 setClassKey)
+  const keys = cls.key_attrs || [];
+  if (keys.length === 1) state.boosts.cls = keys[0];
+  // 길이 2+ (OR)는 기존 선택 보존 또는 빈 상태로 둠 (renderBoostModal에서 사용자 선택)
+  // Auto-set fixed class skill proficiencies (정규화된 fixed_skills 사용)
+  (cls.fixed_skills || []).forEach(id => setSkillTrained(id));
+  state.trainableSkillSlots = cls.free_skill_count || 0;
   updateHP();
   updateSpellSlotsForClass();
   recalcSkills();
+}
+
+// 혈통 부가 정보 요약 텍스트 (v528~ specials 컬럼 제거 후 features/grantWeapon에서 파생)
+function _summarizeAncestryExtras(anc) {
+  if (!anc) return '';
+  const lines = [];
+  if (anc.grantWeapon) {
+    const w = (typeof getWeapon === 'function') ? getWeapon(anc.grantWeapon) : null;
+    lines.push(`무료 획득: ${w?.name_ko || anc.grantWeapon}`);
+  }
+  for (const fid of (anc.features || [])) {
+    const f = (typeof getFeat === 'function') ? getFeat(fid) : null;
+    lines.push(`자동 부여: ${f?.name_ko || fid}`);
+  }
+  if (anc.free_boosts) lines.push(`자유 속성 부스트 ${anc.free_boosts}개`);
+  if (anc.bonusLangs) lines.push(`추가 언어 ${anc.bonusLangs}+INT개`);
+  return lines.join('\n');
 }
 
 function applyAncestryDefaults(anc) {
   const speedEl = document.getElementById('speed');
   if (speedEl) speedEl.value = anc.speed;
   // Save vision and size to state
-  state.vision = anc.vision || '없음';
+  state.vision = anc.vision || 'none';
   state.size = anc.size || '중형';
   const langEl = document.getElementById('f-languages');
   if (langEl && !langEl.value) {
-    langEl.value = `특성: ${anc.traits.join(', ')}\n크기: ${anc.size}\n감각: ${anc.vision}\n${anc.specials.join('\n')}`;
+    const visionKo = (typeof VISION_KO !== 'undefined' && VISION_KO[anc.vision]) || anc.vision || '없음';
+    const extras = _summarizeAncestryExtras(anc);
+    langEl.value = [
+      `특성: ${(anc.traits||[]).join(', ')}`,
+      `크기: ${anc.size}`,
+      `감각: ${visionKo}`,
+      extras
+    ].filter(Boolean).join('\n');
   }
-  // Parse ancestry boosts/flaws from format like ['건강(CON)','지혜(WIS)','자유']
-  const fixed = [], flaws = [];
-  for (const b of anc.boosts) {
-    const k = parseAttrKey(b);
-    if (k) fixed.push(k);
-  }
-  for (const f of anc.flaws) {
-    const k = parseAttrKey(f);
-    if (k) flaws.push(k);
-  }
-  state.boosts.ancFixed = fixed;
-  state.boosts.ancFlaw = flaws;
+  // 정규화된 enum 직접 사용 (boosts=고정, flaws=고정, boost_choices/free_boosts는 모달에서 처리)
+  state.boosts.ancFixed = [...(anc.boosts || [])];
+  state.boosts.ancFlaw = [...(anc.flaws || [])];
   state.boosts.ancFree = []; // reset free boost
   updateHP();
 }
@@ -4919,10 +4986,11 @@ function applyHeritageEffects(h) {
   if (!h) return;
   try {
   // 캔트립 선택이 필요한 유산만 인터랙티브 모달 열기
-  if (h.innateSpells) {
-    const needsChoice = h.innateSpells.some(sp => sp.tradition === '원시' || sp.tradition === '선택');
+  const _heff = getHeritageEffects(h);
+  if (_heff.innateSpells) {
+    const needsChoice = _heff.innateSpells.some(sp => sp.tradition === '원시' || sp.tradition === '선택');
     if (needsChoice) {
-      const sp = h.innateSpells[0];
+      const sp = _heff.innateSpells[0];
       const trad = sp.tradition === '선택' ? 'any' : 'primal';
       const label = sp.tradition === '선택' ? '전통 캔트립 선택 (비전/신성/오컬트 중)' : '원시(Primal) 캔트립 선택';
       if (!state.feats.other) state.feats.other = [];
@@ -4945,17 +5013,30 @@ function applyHeritageEffects(h) {
 }
 
 function applyBackgroundInfo(bg) {
+  const beff = (typeof getBackgroundEffects === 'function') ? getBackgroundEffects(bg) : {};
   // 노트에 배경 정보 표시 (1회성 UI)
   const notesEl = document.getElementById('f-notes');
   if (notesEl && !notesEl.value) {
-    notesEl.value = `[배경: ${bg.name}]\n속성 부스트: ${bg.boosts}\n기술: ${bg.skills}\n기술 재주: ${bg.feat}`;
+    const boostKo = [
+      ...(beff.boosts || []).map(k => ATTR_KO[k]),
+      ...(beff.boost_choices || []).map(g => g.map(k => ATTR_KO[k]).join(' 또는 ')),
+      ...Array(beff.free_boosts || 0).fill('자유'),
+    ].join(', ');
+    const skillsKo = [
+      ...(beff.fixed_skills || []).map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)),
+      ...(beff.choice_skill_groups || []).map(g => g.map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)).join(' 또는 ')),
+      ...(beff.fixed_lores || []).map(l => l + ' 지식'),
+    ].join(', ');
+    const fd = (beff.feat_id && typeof FEAT_DB !== 'undefined') ? getFeat(beff.feat_id) : null;
+    const featKo = fd ? fd.name_ko : (beff.feat_id || '—');
+    notesEl.value = `[배경: ${bg.name}]\n속성 부스트: ${boostKo}\n기술: ${skillsKo}\n기술 재주: ${featKo}`;
   }
-  // growth plan에 배경 재주 저장 (1회성)
-  if (bg.feat) {
-    const featName = bg.feat.trim();
-    if (featName && !featName.includes('/') && !featName.includes('또는')) {
+  // growth plan에 배경 재주 저장 (1회성, feat_id 기반)
+  if (beff.feat_id && typeof FEAT_DB !== 'undefined') {
+    const fd = getFeat(beff.feat_id);
+    if (fd) {
       if (!state.growth[1]) state.growth[1] = {};
-      state.growth[1].bgSkillFeat = featName;
+      state.growth[1].bgSkillFeat = `${fd.name_ko} (${fd.name_en})`;
     }
   }
   // 기술/지식/재주 적용은 rebuildCoreEffects()가 매 recalcAll마다 재파생
@@ -5110,11 +5191,8 @@ function renderActions() {
     const learned = getLearnedFeatNames();
     FEAT_DB.forEach(fd => {
       if (!learned.has(fd.name_ko)) return;
-      // summary 시작이 [행동] 또는 traits에 반응이 있는 재주
-      const actionMatch = (fd.summary||'').match(/^\[(?:반응|1행동|2행동|3행동|자유 행동)\]/);
-      const costMap = {'[반응]':'reaction','[1행동]':'1','[2행동]':'2','[3행동]':'3','[자유 행동]':'free'};
-      let cost = null;
-      if (actionMatch) cost = costMap[actionMatch[0]];
+      // actionCost 컬럼 (v523~) — 정규식 fallback 제거
+      const cost = fd.actionCost || null;
       if (!cost) return;
       const id = 'feat-auto-' + fd.name_en;
       if (existingIds.has(id)) return;
@@ -5136,7 +5214,7 @@ function renderActions() {
       // actionName 기반: desc에서 자동 추출 (정본 = feat_db.desc)
       if (ca.actionName) {
         // 부모 재주의 desc에서 행동 섹션 추출
-        const fd = typeof FEAT_DB !== 'undefined' ? FEAT_DB.find(f => f && f.name_ko === featNameKo) : null;
+        const fd = getFeat(featNameKo);
         if (!fd?.desc) return;
         const marker = '<strong>' + ca.actionName + '</strong>';
         const idx = fd.desc.indexOf(marker);
@@ -5162,13 +5240,11 @@ function renderActions() {
         return;
       }
 
-      // 레거시: summary 기반 (하위 호환)
+      // 레거시: summary 기반 (하위 호환) — ca.actionCost는 cs_feat_effects.js에서 부여 (v523~)
       const id = 'custom-' + (ca.featName||'').replace(/\s/g,'-');
       if (existingIds2.has(id)) return;
       existingIds2.add(id);
-      const costMatch = ca.summary.match(/^\[(.+?)\]/);
-      const costMap = {'반응':'reaction','1행동':'1','2행동':'2','3행동':'3','자유행동':'free','자유 행동':'free'};
-      const cost = costMatch ? (costMap[costMatch[1]] || 'free') : 'free';
+      const cost = ca.actionCost || 'free';
       const nameEnMatch = ca.featName.match(/\(([^)]+)\)$/);
       const nameEn = nameEnMatch ? nameEnMatch[1] : '';
       const desc = ca.summary.replace(/^\[.+?\]\s*/, '').replace(/^[^—]*—\s*/, '');

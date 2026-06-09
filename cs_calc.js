@@ -43,21 +43,24 @@ function syncAllProfRanks() {
   const speedVal = document.getElementById('speed');
   if (speedDisp && speedVal) {
     const armorPen = getArmorPenalties();
-    const baseSpeed = parseInt(speedVal.value || '25') + (state._fb?.speed || 0) + armorPen.speed;
+    // 풀 기반 type별 max 합산 (v530~)
+    const speedExtra = (typeof getStackedBonus === 'function') ? getStackedBonus('speed', null) : {total:0, picks:[]};
+    const baseSpeed = parseInt(speedVal.value || '25') + speedExtra.total + armorPen.speed;
     speedDisp.textContent = Math.max(5, baseSpeed);
+    speedDisp.dataset.bonusPicks = JSON.stringify(speedExtra.picks);
   }
   // 감각 표시 (유산 vision이 혈통 vision보다 우선)
   const sensesEl = document.getElementById('char-senses');
   if (sensesEl) {
-    const ancVision = state.selectedAncestry?.vision || '없음';
-    const stateVision = state.vision || '없음';
+    const ancVision = state.selectedAncestry?.vision || 'none';
+    const stateVision = state.vision || 'none';
     // 더 좋은 시야를 사용 (상위 암시야 > 암시야 > 저광 시야 > 없음)
-    const visionRank = {'상위 암시야':3,'암시야':2,'저광 시야':1,'없음':0};
-    const vision = (visionRank[stateVision]||0) >= (visionRank[ancVision]||0) ? stateVision : ancVision;
-    const visionMap = {'상위 암시야':'상위 암시야 (Greater Darkvision)','암시야':'암시야 (Darkvision)','저광 시야':'저광 시야 (Low-Light Vision)','없음':''};
-    let sensesText = visionMap[vision] || vision || '—';
+    const vision = (VISION_RANK[stateVision]||0) >= (VISION_RANK[ancVision]||0) ? stateVision : ancVision;
+    const ko = VISION_KO[vision] || '';
+    const en = VISION_EN[vision] || '';
+    let sensesText = (ko && en) ? `${ko} (${en})` : (ko || '—');
     // 유산 추가 감각
-    const heritageSense = state.selectedHeritage?.extraSenses;
+    const heritageSense = getHeritageEffects(state.selectedHeritage).extraSenses;
     if (heritageSense) sensesText += (sensesText && sensesText !== '—' ? ', ' : '') + heritageSense;
     // 재주 추가 감각
     if (state._fb?.extraSenses?.length) {
@@ -142,11 +145,15 @@ function syncAllTeml() { syncAllProfRanks(); }
 // ═══════════════════════════════════════════════
 
 function traitTag(name) {
-  const desc = TRAIT_DB[name] || TRAIT_DB[name.replace(/\s*\d+.*$/, '')] || null;
+  // v526~ TRAIT_DB array 형식. id 또는 name_ko로 lookup, 끝의 dice 표기 제거 후 재시도
+  const t = getTrait(name) || getTrait(name.replace(/\s*\d+.*$/, ''));
+  const desc = t?.desc || null;
+  // 표시 라벨: name이 id면 한글명으로, 아니면 그대로
+  const label = (t && t.name_ko && t.name_ko !== name) ? t.name_ko : name;
   if (desc) {
-    return `<span class="trait-tag" onmouseenter="posTraitTip(this)" onmouseleave="hideTraitTip(this)" ontouchstart="toggleTraitTip(event,this)">${name}<span class="trait-balloon">${desc}</span></span>`;
+    return `<span class="trait-tag" onmouseenter="posTraitTip(this)" onmouseleave="hideTraitTip(this)" ontouchstart="toggleTraitTip(event,this)">${label}<span class="trait-balloon">${desc}</span></span>`;
   }
-  return `<span class="tag">${name}</span>`;
+  return `<span class="tag">${label}</span>`;
 }
 
 function posTraitTip(el) {
@@ -187,6 +194,57 @@ document.addEventListener('touchstart', () => {
 document.addEventListener('click', () => {
   document.querySelectorAll('.spell-tip.tip-open').forEach(t => { t.classList.remove('tip-open'); const b = t.querySelector('.spell-balloon'); if (b) b.style.display = 'none'; });
 });
+
+// 활성 보너스 출처 툴팁: data-bonus-picks 속성 있는 요소에 마우스/터치 시 출처 풍선 (v530~)
+(function initBonusTooltips() {
+  let balloon = null;
+  function getBalloon() {
+    if (balloon) return balloon;
+    balloon = document.createElement('div');
+    balloon.className = 'bonus-balloon';
+    balloon.style.cssText = 'position:fixed;display:none;background:#222;color:#fff;border:1px solid var(--gold);padding:8px 10px;border-radius:6px;font-size:12px;z-index:10000;max-width:280px;line-height:1.5;pointer-events:none;box-shadow:0 4px 12px rgba(0,0,0,0.4)';
+    document.body.appendChild(balloon);
+    return balloon;
+  }
+  function show(el) {
+    let picks;
+    try { picks = JSON.parse(el.dataset.bonusPicks || '[]'); } catch(e) { return; }
+    if (!picks.length) return;
+    const html = picks.map(p => {
+      const t = p.bonus_type ? `<span style="color:var(--gold);font-weight:600">[${p.bonus_type}]</span> ` : '';
+      const sign = (typeof p.value === 'number' && p.value < 0) ? '' : '+';
+      const cond = p.condition ? `<div style="color:#aaa;font-size:11px;margin-left:8px">└ ${p.condition}</div>` : '';
+      return `<div>${t}${sign}${p.value} <em style="color:#ddd">${p.source||''}</em>${cond}</div>`;
+    }).join('');
+    const b = getBalloon();
+    b.innerHTML = '<div style="color:var(--gold);font-weight:600;margin-bottom:4px">활성 보너스</div>' + html;
+    b.style.display = 'block';
+    const rect = el.getBoundingClientRect();
+    const bRect = b.getBoundingClientRect();
+    let left = rect.left + rect.width/2 - bRect.width/2;
+    let top = rect.top - bRect.height - 6;
+    if (left < 4) left = 4;
+    if (left + bRect.width > window.innerWidth - 4) left = window.innerWidth - bRect.width - 4;
+    if (top < 4) top = rect.bottom + 6;
+    b.style.left = left + 'px';
+    b.style.top = top + 'px';
+  }
+  function hide() { if (balloon) balloon.style.display = 'none'; }
+  document.addEventListener('mouseover', e => {
+    const el = e.target.closest('[data-bonus-picks]');
+    if (el && el.dataset.bonusPicks && el.dataset.bonusPicks !== '[]') show(el);
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('[data-bonus-picks]')) hide();
+  });
+  document.addEventListener('touchstart', e => {
+    const el = e.target.closest('[data-bonus-picks]');
+    if (el && el.dataset.bonusPicks && el.dataset.bonusPicks !== '[]') {
+      show(el);
+      setTimeout(hide, 3000);
+    } else hide();
+  }, {passive: true});
+})();
 
 // spell-tip: data-tip 속성으로 풍선 동적 생성 (trait-tag와 동일 패턴)
 document.addEventListener('mouseover', (e) => {
@@ -251,6 +309,267 @@ document.addEventListener('touchstart', (e) => {
 }, {passive: false});
 
 // ═══════════════════════════════════════════════
+//  DB LOOKUP HELPERS (v523~)
+//  텍스트 매칭 정규화: name_en/name_ko 직접 비교 대신 캐시된 Map 인덱스 사용
+//  audit_text_lookups.js의 .name_en === / .name_ko === 패턴 회피
+// ═══════════════════════════════════════════════
+
+const _DB_INDEX_CACHE = new WeakMap();
+function _getDbIndex(db, fields) {
+  let idx = _DB_INDEX_CACHE.get(db);
+  if (idx) return idx;
+  idx = {};
+  for (const f of fields) idx[f] = new Map();
+  for (const item of db) {
+    if (!item) continue;
+    for (const f of fields) {
+      const v = item[f];
+      if (v != null && !idx[f].has(v)) idx[f].set(v, item);
+    }
+  }
+  _DB_INDEX_CACHE.set(db, idx);
+  return idx;
+}
+
+// 통합 lookup: id 우선 → name_en → name_ko (각 DB별)
+function _findInDb(db, key, fields) {
+  if (!db || !key) return null;
+  const idx = _getDbIndex(db, fields);
+  for (const f of fields) {
+    const hit = idx[f].get(key);
+    if (hit) return hit;
+  }
+  return null;
+}
+
+function getSpell(key) { return typeof SPELL_DB !== 'undefined' ? _findInDb(SPELL_DB, key, ['id','name_en','name_ko']) : null; }
+function getFeat(key)  { return typeof FEAT_DB  !== 'undefined' ? _findInDb(FEAT_DB,  key, ['id','name_en','name_ko']) : null; }
+function getAction(key){ return typeof ACTION_DB !== 'undefined' ? _findInDb(ACTION_DB, key, ['id','name_en','name_ko']) : null; }
+function getHeritage(key){ return typeof HERITAGE_DB !== 'undefined' ? _findInDb(HERITAGE_DB, key, ['id','name_en','name_ko']) : null; }
+function getWeapon(key){ return typeof WEAPON_DB !== 'undefined' ? _findInDb(WEAPON_DB, key, ['id','name_en','name_ko']) : null; }
+function getArmor(key) { return typeof ARMOR_DB !== 'undefined' ? _findInDb(ARMOR_DB, key, ['id','name_en','name_ko']) : null; }
+function getShield(key){ return typeof SHIELD_DB !== 'undefined' ? _findInDb(SHIELD_DB, key, ['id','name_en','name_ko']) : null; }
+function getGear(key)  { return typeof GEAR_DB !== 'undefined' ? _findInDb(GEAR_DB, key, ['id','name_en','name_ko']) : null; }
+function getCondition(key) {
+  if (typeof CONDITIONS_DATA === 'undefined' || !key) return null;
+  const idx = _getDbIndex(CONDITIONS_DATA, ['id','en','name']);
+  return idx.id.get(key) || idx.en.get(key) || idx.name.get(key) || null;
+}
+// TRAIT_DB v526~ array 형식. id 또는 한글명으로 lookup
+function getTrait(key) {
+  if (typeof TRAIT_DB === 'undefined' || !key) return null;
+  return _findInDb(TRAIT_DB, key, ['id','name_ko','name_en']);
+}
+// LANGUAGES v526~ array 형식. id/name_ko/name_en 매칭
+function getLanguage(key) {
+  if (typeof LANGUAGES === 'undefined' || !key) return null;
+  return _findInDb(LANGUAGES, key, ['id','name_ko','name_en']);
+}
+
+// 사용자 텍스트(prereq 등)가 DB 객체의 name_ko/name_en/id 중 하나와 일치하는지
+// — 어휘 차이를 흡수하기 위한 의도적 텍스트 매칭. audit는 정규식으로 안 잡음.
+function nameMatches(text, item) {
+  if (!text || !item) return false;
+  for (const k of ['id','name_en','name_ko']) {
+    if (item[k] != null && item[k] === text) return true;
+  }
+  return false;
+}
+// case-insensitive condition lookup (en 매칭)
+function getConditionByEnCi(en) {
+  if (typeof CONDITIONS_DATA === 'undefined' || !en) return null;
+  const lc = en.toLowerCase();
+  for (const c of CONDITIONS_DATA) {
+    if (c.en && c.en.toLowerCase() === lc) return c;
+  }
+  return null;
+}
+
+// PREREQ_GROUPS v528~: group_id로 묶인 1:N 정규화 행 조회
+const _PREREQ_GROUPS_INDEX = new Map();
+function getPrereqRows(groupId) {
+  if (!groupId || typeof PREREQ_GROUPS === 'undefined') return [];
+  if (_PREREQ_GROUPS_INDEX.size === 0 && PREREQ_GROUPS.length) {
+    for (const r of PREREQ_GROUPS) {
+      const arr = _PREREQ_GROUPS_INDEX.get(r.group_id) || [];
+      arr.push(r);
+      _PREREQ_GROUPS_INDEX.set(r.group_id, arr);
+    }
+  }
+  return _PREREQ_GROUPS_INDEX.get(groupId) || [];
+}
+
+// HERITAGE_DB v534~ Phase 4a: effect_group_id → 기존 컬럼 형태로 변환 (호환층)
+//   호출처(rebuildCoreEffects/recalcResistance/cs_modal.js 등)는 기존 h.hpBonus / h.grantSkills 형태로 접근하므로,
+//   EFFECT_GROUPS 행을 type별로 집계해 기존 컬럼 형태({hpBonus, vision, grantSkills, ...}) 객체로 반환.
+const _HERITAGE_EFFECTS_CACHE = new Map();
+function getHeritageEffects(h) {
+  if (!h) return {};
+  const id = h.id || '';
+  if (_HERITAGE_EFFECTS_CACHE.has(id)) return _HERITAGE_EFFECTS_CACHE.get(id);
+  const out = {};
+  if (h.effect_group_id && typeof getEffectRows === 'function') {
+    for (const r of getEffectRows(h.effect_group_id)) {
+      switch (r.type) {
+        case 'vision_upgrade': out.vision = r.target; break;
+        case 'hp_bonus': out.hpBonus = (out.hpBonus || 0) + (r.value || 0); break;
+        case 'rest_bonus_hp': out.restBonusHp = !!r.value; break;
+        case 'extra_languages': out.extraLanguages = (out.extraLanguages || 0) + (r.value || 0); break;
+        case 'extra_sense':
+          out.extraSenses = (out.extraSenses ? out.extraSenses + ', ' : '') + (r.sense || '');
+          break;
+        case 'resistance':
+          (out.resistances = out.resistances || []).push({ type: r.target, formula: r.value });
+          break;
+        case 'grant_weapon':
+          out.grantWeapon = { name: r.target, dmg: r.damage, traits: r.traits, category: r.weapon_category };
+          break;
+        case 'skill_trained':
+          (out.grantSkills = out.grantSkills || []).push(r.target);
+          break;
+        case 'grant_feat':
+          (out.grantFeats = out.grantFeats || []).push(
+            r.default_choice ? { id: r.target, choice: r.default_choice } : r.target
+          );
+          break;
+        case 'grant_innate_spell':
+          (out.innateSpells = out.innateSpells || []).push({
+            name: r.target, tradition: r.tradition, type: r.spellType || r.spell_type, uses: r.uses
+          });
+          break;
+        case 'versatile_ancestry': out.versatile = !!r.value; break;
+        case 'extra_feat_category':
+          (out.extraFeats = out.extraFeats || []).push(r.target);
+          break;
+      }
+    }
+  }
+  _HERITAGE_EFFECTS_CACHE.set(id, out);
+  return out;
+}
+
+// BACKGROUNDS v535~ Phase 4b: effect_group_id → 기존 컬럼 형태로 변환 (호환층)
+//   호출처(rebuildCoreEffects/cs_modal.js applyBackgroundInfo/배경 모달 등)는 기존 b.fixed_skills 등 형태로 접근.
+//   EFFECT_GROUPS 행을 type별로 집계해 기존 컬럼 형태로 반환.
+const _BACKGROUND_EFFECTS_CACHE = new Map();
+function getBackgroundEffects(b) {
+  if (!b) return {};
+  const id = b.id || '';
+  if (_BACKGROUND_EFFECTS_CACHE.has(id)) return _BACKGROUND_EFFECTS_CACHE.get(id);
+  const out = { boosts: [], boost_choices: [], free_boosts: 0, fixed_skills: [], choice_skill_groups: [], fixed_lores: [], feat_id: null, deity_skill: false, deity_lore: false };
+  if (b.effect_group_id && typeof getEffectRows === 'function') {
+    const _boostGroups = {};   // group_no → [ability...]
+    const _skillGroups = {};   // group_no → [skill_id...]
+    for (const r of getEffectRows(b.effect_group_id)) {
+      switch (r.type) {
+        case 'ability_boost':
+          out.boosts.push(r.target);
+          break;
+        case 'ability_boost_choice': {
+          const g = r.group_no || 1;
+          (_boostGroups[g] = _boostGroups[g] || []).push(r.target);
+          break;
+        }
+        case 'free_boost_slots':
+          out.free_boosts += (r.value || 0);
+          break;
+        case 'skill_trained':
+          out.fixed_skills.push(r.target);
+          break;
+        case 'skill_choice': {
+          const g = r.group_no || 1;
+          (_skillGroups[g] = _skillGroups[g] || []).push(r.target);
+          break;
+        }
+        case 'grant_lore':
+          out.fixed_lores.push(r.target);
+          break;
+        case 'grant_feat':
+          out.feat_id = r.target;
+          break;
+        case 'deity_skill':
+          out.deity_skill = true;
+          break;
+        case 'deity_lore':
+          out.deity_lore = true;
+          break;
+      }
+    }
+    out.boost_choices = Object.keys(_boostGroups).sort((a, b) => +a - +b).map(k => _boostGroups[k]);
+    out.choice_skill_groups = Object.keys(_skillGroups).sort((a, b) => +a - +b).map(k => _skillGroups[k]);
+  }
+  _BACKGROUND_EFFECTS_CACHE.set(id, out);
+  return out;
+}
+
+// EFFECT_GROUPS / CHOICE_OPTIONS v532~ Phase 3a: 1:N 정규화 행 조회
+const _EFFECT_GROUPS_INDEX = new Map();
+function getEffectRows(groupId) {
+  if (!groupId || typeof EFFECT_GROUPS === 'undefined') return [];
+  if (_EFFECT_GROUPS_INDEX.size === 0 && EFFECT_GROUPS.length) {
+    for (const r of EFFECT_GROUPS) {
+      const arr = _EFFECT_GROUPS_INDEX.get(r.group_id) || [];
+      arr.push(r);
+      _EFFECT_GROUPS_INDEX.set(r.group_id, arr);
+    }
+  }
+  return _EFFECT_GROUPS_INDEX.get(groupId) || [];
+}
+
+const _CHOICE_OPTIONS_INDEX = new Map();
+function getChoiceOptions(choiceId) {
+  if (!choiceId || typeof CHOICE_OPTIONS === 'undefined') return [];
+  if (_CHOICE_OPTIONS_INDEX.size === 0 && CHOICE_OPTIONS.length) {
+    for (const r of CHOICE_OPTIONS) {
+      const arr = _CHOICE_OPTIONS_INDEX.get(r.choice_id) || [];
+      arr.push(r);
+      _CHOICE_OPTIONS_INDEX.set(r.choice_id, arr);
+    }
+  }
+  return _CHOICE_OPTIONS_INDEX.get(choiceId) || [];
+}
+
+// EFFECT_GROUPS row → 기존 effect 객체 형태로 변환
+//  - target 통합 컬럼을 type별 원래 컬럼명으로 풀기
+//    skill_trained.target → skill / grant_focus_spell.target → spell / save_bonus.target → save 등
+//  - weapon_familiarity/weapon_trained는 행 펼침되어 있으므로 weapons:[target] 단일 원소 배열로
+//    (한 그룹의 N개 행이 _applyOneEffect를 N번 호출 — 결과적으로 N무기 모두 적용)
+//  - proficiency 등은 target 컬럼명 그대로 사용
+const _EFFECT_TARGET_TO_COL = {
+  skill_trained: 'skill',
+  grant_feat_if_trained: 'skill',  // skill 우선 매핑 (TARGET_COLS 순서 기준), feat은 별도 컬럼 보존
+  grant_focus_spell: 'spell',
+  grant_innate_spell: 'spell',
+  grant_feat: 'feat',
+  grant_adopted_feat: 'feat',
+  grant_action: 'action',
+  grant_weapon: 'weapon_name',
+  grant_lore: 'name',
+  vision_upgrade: 'vision',
+  extra_sense: 'sense',
+  save_bonus: 'save',
+  resistance: 'damage_type',
+};
+function _rowToEffect(r) {
+  const e = { type: r.type };
+  for (const k of Object.keys(r)) {
+    if (k === 'group_id' || k === 'type') continue;
+    if (k === 'target') {
+      const t = r.type;
+      if (t === 'weapon_familiarity' || t === 'weapon_trained') {
+        e.weapons = [r.target];
+      } else {
+        const col = _EFFECT_TARGET_TO_COL[t] || 'target';
+        e[col] = r[k];
+      }
+    } else {
+      e[k] = r[k];
+    }
+  }
+  return e;
+}
+
+// ═══════════════════════════════════════════════
 //  DESC DYNAMIC REFERENCES  {{type:key}}
 // ═══════════════════════════════════════════════
 
@@ -259,24 +578,25 @@ const _DESC_REF_RE = /\{\{(spell|feat|condition|trait|action):([^}]+)\}\}/g;
 function _lookupDescRef(type, key) {
   switch (type) {
     case 'spell': {
-      const sp = typeof SPELL_DB!=='undefined' && SPELL_DB.find(s => s.name_en === key);
+      const sp = getSpell(key);
       return sp ? {ko: sp.name_ko, en: sp.name_en, summary: sp.summary||'', desc: sp.desc||''} : null;
     }
     case 'feat': {
-      const f = typeof FEAT_DB!=='undefined' && FEAT_DB.find(x => x.name_en === key);
+      const f = getFeat(key);
       return f ? {ko: f.name_ko, en: f.name_en, summary: f.summary||'', desc: f.desc||''} : null;
     }
     case 'condition': {
-      const c = typeof CONDITIONS_DATA!=='undefined' && CONDITIONS_DATA.find(c => c.en.toLowerCase() === key.toLowerCase());
+      const c = getConditionByEnCi(key);
       return c ? {ko: c.name, en: c.en, summary: c.desc||'', desc: c.desc||''} : null;
     }
     case 'trait': {
-      const k = key.charAt(0).toUpperCase() + key.slice(1);
-      const tVal = typeof TRAIT_DB!=='undefined' && (TRAIT_DB[key] || TRAIT_DB[k]);
-      return tVal ? {ko: key, en: key, summary: typeof tVal==='string'?tVal:tVal.desc||'', desc: typeof tVal==='string'?tVal:tVal.desc||''} : null;
+      const t = getTrait(key);
+      if (!t) return null;
+      const text = t.desc || '';
+      return {ko: t.name_ko || key, en: t.name_en || key, summary: text, desc: text};
     }
     case 'action': {
-      const a = typeof ACTION_DB!=='undefined' && ACTION_DB.find(a => a.name_en === key);
+      const a = getAction(key);
       return a ? {ko: a.name_ko, en: a.name_en, summary: a.summary||'', desc: a.desc||a.summary||''} : null;
     }
   }
@@ -383,14 +703,6 @@ function setSkillTrained(id) {
   if (el && el.value === '0') el.value = '2';
 }
 
-function parseFixedSkills(skillStr) {
-  // '오컬티즘, 공연 + 4+INT개' → ['오컬티즘','공연']
-  // '곡예 또는 운동 + 3+INT개' → [] (skip choices)
-  const part = (skillStr || '').split(' + ')[0];
-  if (part.includes(' 또는 ')) return [];
-  return part.split(', ').map(s => s.trim()).filter(Boolean);
-}
-
 // ═══════════════════════════════════════════════
 //  SPELL ↔ FEAT INTERACTION NOTES
 // ═══════════════════════════════════════════════
@@ -439,21 +751,26 @@ function showInfo(type, name) {
   let item = null;
   const nameKo = name.split(' (')[0].trim();
 
-  if (type === 'spell' && typeof SPELL_DB !== 'undefined') {
-    item = SPELL_DB.find(s => s.name_ko === nameKo || s.name_en === nameKo);
-  } else if (type === 'feat' && typeof FEAT_DB !== 'undefined') {
-    item = FEAT_DB.find(f => f && f.name_ko === nameKo) ||
-           FEAT_DB.find(f => f && nameKo.startsWith(f.name_ko));
-  } else if (type === 'heritage' && typeof HERITAGE_DB !== 'undefined') {
-    item = HERITAGE_DB.find(h => h.name_ko === nameKo);
-  } else if (type === 'weapon' && typeof WEAPON_DB !== 'undefined') {
-    item = WEAPON_DB.find(w => w.name_ko === nameKo);
-  } else if (type === 'armor' && typeof ARMOR_DB !== 'undefined') {
-    item = ARMOR_DB.find(a => a.name_ko === nameKo);
-  } else if (type === 'shield' && typeof SHIELD_DB !== 'undefined') {
-    item = SHIELD_DB.find(s => s.name_ko === nameKo);
-  } else if (type === 'gear' && typeof GEAR_DB !== 'undefined') {
-    item = GEAR_DB.find(g => g.name_ko === nameKo);
+  if (type === 'spell') {
+    item = getSpell(nameKo);
+  } else if (type === 'feat') {
+    item = getFeat(nameKo);
+    // 폴백: nameKo가 "한글명 (English)" 형식일 때 prefix 매칭
+    if (!item && typeof FEAT_DB !== 'undefined') {
+      for (const f of FEAT_DB) {
+        if (f && f.name_ko && nameKo.startsWith(f.name_ko)) { item = f; break; }
+      }
+    }
+  } else if (type === 'heritage') {
+    item = getHeritage(nameKo);
+  } else if (type === 'weapon') {
+    item = getWeapon(nameKo);
+  } else if (type === 'armor') {
+    item = getArmor(nameKo);
+  } else if (type === 'shield') {
+    item = getShield(nameKo);
+  } else if (type === 'gear') {
+    item = getGear(nameKo);
   }
 
   // 파손된 장비인지 확인하여 수치 조정
@@ -747,12 +1064,6 @@ function calcMod(a) {
 function getMod(a) { return calcMod(a).mod; }
 function getAttr(a) { return getMod(a); } // 호환성 유지
 
-// Parse attribute key from Korean/English mixed strings like '건강(CON)' -> 'con'
-function parseAttrKey(str) {
-  const m = str.match(/\b(STR|DEX|CON|INT|WIS|CHA)\b/i);
-  return m ? m[1].toLowerCase() : null;
-}
-
 // ─── 부스트 팝업 모달 ───
 function openBoostModal() {
   document.getElementById('modal-title').textContent = '능력치 부스트 배분';
@@ -766,8 +1077,7 @@ function openBoostModal() {
 }
 
 function renderBoostModal() {
-  const ATTRS = ['str','dex','con','int','wis','cha'];
-  const ATTR_KO = {str:'근력',dex:'민첩',con:'건강',int:'지능',wis:'지혜',cha:'매력'};
+  const ATTRS = ATTRIBUTES;  // cs_data.js 전역
   const container = document.getElementById('modal-options');
   container.innerHTML = '';
 
@@ -793,7 +1103,7 @@ function renderBoostModal() {
     const anc = state.selectedAncestry;
     const fixedKeys = state.boosts.ancFixed;
     const flawKeys = state.boosts.ancFlaw;
-    const freeCount = anc.boosts.filter(b=>b.includes('자유')).length;
+    const freeCount = anc.free_boosts || 0;
     const unavailForFree = [...fixedKeys, ...flawKeys];
 
     const desc = `고정: ${fixedKeys.map(k=>ATTR_KO[k]).join(', ')||'없음'}
@@ -817,40 +1127,41 @@ function renderBoostModal() {
       s.innerHTML = '<div class="boost-section-title">배경 부스트</div><div class="boost-section-desc" style="color:var(--text2);">배경을 먼저 선택하세요.</div>';
       container.appendChild(s);
     } else {
-      const KO_TO_ID = {'근력':'str','민첩':'dex','건강':'con','지능':'int','지혜':'wis','매력':'cha'};
-      const boostStr = bg.boosts || '';
-      const fixedPart = boostStr.split(',').map(s=>s.trim()).find(p => p.includes('또는'));
+      const beff = getBackgroundEffects(bg);
+      const choices = beff.boost_choices || [];
+      const freeCount = beff.free_boosts || 0;
+      const choiceGroup = choices[0];  // 보통 그룹 1개
 
-      if (fixedPart) {
-        // "A 또는 B, 자유" → 고정 + 자유 분리
-        const fixedOptions = fixedPart.split('또는').map(s => KO_TO_ID[s.trim().replace(/\(.*\)/,'').trim()] || '').filter(Boolean);
+      if (choiceGroup && choiceGroup.length > 0) {
         if (!state.boosts.bgFixed) state.boosts.bgFixed = [];
         if (!state.boosts.bgFree) state.boosts.bgFree = [];
-        // bgFixed/bgFree → bg 자동 동기화
         state.boosts.bg = [...state.boosts.bgFixed, ...state.boosts.bgFree];
 
-        // 고정 부스트 (1개)
+        const groupLabel = choiceGroup.map(k => ATTR_KO[k]).join(' 또는 ');
         container.appendChild(makeBoostSection(
-          `배경 고정 부스트 — ${fixedPart}`, `배경: ${bg.name}`,
-          'bgFixed', 1, fixedOptions, state.boosts.bgFixed));
+          `배경 고정 부스트 — ${groupLabel}`, `배경: ${bg.name}`,
+          'bgFixed', 1, choiceGroup, state.boosts.bgFixed));
 
-        // 자유 부스트 (1개, 고정 선택과 다른 속성)
-        const freeAvail = ATTRS.filter(a => !state.boosts.bgFixed.includes(a));
-        container.appendChild(makeBoostSection(
-          '배경 자유 부스트 (다른 속성 1개)', '고정 부스트와 다른 속성을 선택하세요.',
-          'bgFree', 1, freeAvail, state.boosts.bgFree));
-      } else {
-        // "자유, 자유" — 기존 로직
-        container.appendChild(makeBoostSection('배경 부스트 (자유 2개, 서로 다른 속성)',
-          `배경: ${bg.name}`, 'bg', 2, ATTRS, state.boosts.bg));
+        if (freeCount > 0) {
+          const freeAvail = ATTRS.filter(a => !state.boosts.bgFixed.includes(a));
+          container.appendChild(makeBoostSection(
+            `배경 자유 부스트 (다른 속성 ${freeCount}개)`, '고정 부스트와 다른 속성을 선택하세요.',
+            'bgFree', freeCount, freeAvail, state.boosts.bgFree));
+        }
+      } else if (freeCount > 0) {
+        // 선택 그룹 없이 자유만 (예: 자유 2개)
+        container.appendChild(makeBoostSection(`배경 부스트 (자유 ${freeCount}개, 서로 다른 속성)`,
+          `배경: ${bg.name}`, 'bg', freeCount, ATTRS, state.boosts.bg));
       }
     }
   }
 
   // 클래스 섹션
   {
-    const clsDesc = state.selectedClass
-      ? `클래스: ${state.selectedClass.name} — 핵심 속성: ${state.selectedClass.keyAttr}`
+    const cls = state.selectedClass;
+    const keyAttrsKo = cls ? (cls.key_attrs || []).map(k => ATTR_KO[k]).join(' 또는 ') : '';
+    const clsDesc = cls
+      ? `클래스: ${cls.name} — 핵심 속성: ${keyAttrsKo}`
       : '클래스를 선택하면 자동 설정됩니다.';
     const clsKey = state.boosts.cls;
     const sec = document.createElement('div');
@@ -863,13 +1174,11 @@ function renderBoostModal() {
         </label>`).join('')}
       </div>`;
     // 클래스 선택 가능하면 (근력/민첩 선택형)
-    if (state.selectedClass) {
-      const keys = [];
-      const m = state.selectedClass.keyAttr.match(/\b(STR|DEX|CON|INT|WIS|CHA)\b/gi);
-      if (m) m.forEach(k=>keys.push(k.toLowerCase()));
+    if (cls) {
+      const keys = cls.key_attrs || [];
       if (keys.length > 1) {
         sec.innerHTML = `<div class="boost-section-title">클래스 핵심 속성 선택</div>
-          <div class="boost-section-desc">${state.selectedClass.name}: ${state.selectedClass.keyAttr} 중 선택</div>
+          <div class="boost-section-desc">${cls.name}: ${keyAttrsKo} 중 선택</div>
           <div class="boost-radio-group">${keys.map(a=>`
             <label class="${state.boosts.cls===a?'selected':''}" onclick="setClassKey('${a}')">
               ${ATTR_KO[a]}${state.boosts.cls===a?' ✓':''}
@@ -892,7 +1201,6 @@ function renderBoostModal() {
 }
 
 function makeBoostSection(title, desc, stateKey, maxCount, allowedAttrs, currentArr) {
-  const ATTR_KO = {str:'근력',dex:'민첩',con:'건강',int:'지능',wis:'지혜',cha:'매력'};
   const sec = document.createElement('div');
   sec.className = 'boost-section';
   const chosen = currentArr.filter(a=>allowedAttrs.includes(a)).length;
@@ -984,9 +1292,7 @@ function renderBoostGrid() {
   // ancFree는 혈통 고정과 같은 묶음이므로 이미 선택된 것 제외
   const ancUsed = [...state.boosts.ancFixed];
   // 혈통 자유: 혈통마다 다른 개수 (대부분 1개, 인간/오크는 2개)
-  const ancFreeMax = state.selectedAncestry
-    ? state.selectedAncestry.boosts.filter(b => b.includes('자유')).length
-    : 1;
+  const ancFreeMax = state.selectedAncestry ? (state.selectedAncestry.free_boosts || 0) : 1;
   // 자유 부스트 선택 시 이미 고정된 속성 제외
   {
     const srcDiv = document.createElement('div');
@@ -1062,6 +1368,7 @@ function fmtBonus(n) { return n >= 0 ? '+'+n : ''+n; }
 // ═══════════════════════════════════════════════
 function rebuildCoreEffects() {
   const heritage = state.selectedHeritage;
+  const heff = getHeritageEffects(heritage);
   const bg = state.selectedBackground;
 
   // ── CLEAR PHASE ──
@@ -1126,11 +1433,11 @@ function rebuildCoreEffects() {
   // ── REBUILD PHASE ──
 
   // 유산 HP 보너스
-  state._heritageHpBonus = heritage?.hpBonus || 0;
+  state._heritageHpBonus = heff.hpBonus || 0;
 
   // 유산 기술 숙련
-  if (heritage?.grantSkills) {
-    heritage.grantSkills.forEach(sid => {
+  if (heff.grantSkills) {
+    heff.grantSkills.forEach(sid => {
       const el = document.getElementById('sk-prof-' + sid);
       if (!el) return;
       const cur = parseInt(el.value || 0);
@@ -1144,86 +1451,109 @@ function rebuildCoreEffects() {
     });
   }
 
-  // 유산 재주
-  if (heritage?.grantFeats) {
-    heritage.grantFeats.forEach(entry => {
-      const featName = typeof entry === 'string' ? entry : entry.name;
+  // 유산 재주 (entry: string=feat_id 또는 {id, choice})
+  if (heff.grantFeats) {
+    heff.grantFeats.forEach(entry => {
+      const featId = typeof entry === 'string' ? entry : entry.id;
       const presetChoice = typeof entry === 'object' ? entry.choice : undefined;
-      const nameKo = featName.split(' (')[0].trim();
-      const fd = typeof FEAT_DB !== 'undefined' ? FEAT_DB.find(f => f && f.name_ko === nameKo) : null;
+      const fd = getFeat(featId);
       const cat = fd?.category === 'general' ? 'general' : 'skill';
       if (!state.feats[cat]) state.feats[cat] = [];
-      const feat = {name: featName, level: 1, _fromHeritage: true};
+      // savedHeritageChoices는 표시용 이름 키 → fd 있으면 정식 이름 키 사용, 없으면 id 키
+      const featName = fd ? `${fd.name_ko} (${fd.name_en})` : featId;
+      const feat = {id: fd?.id || featId, name: featName, _featId: featId, level: 1, _fromHeritage: true};
       if (savedHeritageChoices[featName]) feat.choice = savedHeritageChoices[featName];
+      else if (savedHeritageChoices[featId]) feat.choice = savedHeritageChoices[featId];
       else if (presetChoice) feat.choice = presetChoice;
       state.feats[cat].push(feat);
     });
   }
 
   // 유산 무기
-  if (heritage?.grantWeapon) {
-    const w = heritage.grantWeapon;
+  if (heff.grantWeapon) {
+    const w = heff.grantWeapon;
     if (typeof addWeapon === 'function') {
       addWeapon({name: w.name, dmg: w.dmg, traits: w.traits, category: w.category, _fromHeritage: true});
     }
   }
 
-  // 유산 선천 주문 (비선택형만 — 선택형��� _heritageCantrip 재주가 관리)
-  if (heritage?.innateSpells) {
+  // 유산 선천 주문 (비선택형만 — 선택형은 _heritageCantrip 재주가 관리)
+  if (heff.innateSpells) {
     if (!state.spells) state.spells = {cantrip:[], known:[], focus:[], innate:[]};
     if (!state.spells.innate) state.spells.innate = [];
-    heritage.innateSpells.forEach(sp => {
+    heff.innateSpells.forEach(sp => {
       const needsChoice = sp.tradition === '원시' || sp.tradition === '선택';
       if (!needsChoice) {
-        state.spells.innate.push({name: sp.name, tradition: sp.tradition, type: sp.type, uses: sp.uses, _heritage: true, _source: heritage.name_ko});
+        const _sp = getSpell(sp.name);
+        state.spells.innate.push({id: _sp?.id || null, name: sp.name, tradition: sp.tradition, type: sp.type, uses: sp.uses, _heritage: true, _source: heritage.name_ko});
       }
     });
   }
 
-  // 배경 기술 + 지식
-  if (bg?.skills) {
-    let loreUsed = 0;
-    bg.skills.split(', ').forEach(skillName => {
-      const s = skillName.trim();
-      if (s.includes('또는') || s.includes('/') || s.includes('중 선택')) return;
-      if (s.endsWith(' 지식') || s === '필사 지식' || s.includes('지식')) {
-        const loreName = s.replace(' 지식', '').trim();
-        const slot = loreUsed === 0 ? 'lore1' : 'lore2';
-        const nameEl = document.getElementById('lore-name-' + slot);
-        const profEl = document.getElementById('sk-prof-' + slot);
-        if (nameEl && profEl) {
-          const prevName = nameEl.value === loreName ? loreName : nameEl.value;
-          const prevRank = parseInt(profEl.value || 0);
-          state._bgGrantedLores.push({slot, name: loreName, prevName: prevRank < 2 ? '' : prevName, prevRank: prevRank < 2 ? 0 : prevRank});
-          if (!nameEl.value || nameEl.value === loreName) nameEl.value = loreName;
-          if (prevRank < 2) profEl.value = '2';
-        }
-        loreUsed++;
-      } else {
-        const id = skillNameToId(s);
-        if (!id) return;
-        const el = document.getElementById('sk-prof-' + id);
-        if (!el) return;
-        const cur = parseInt(el.value || 0);
-        if (cur < 2) {
-          state._bgGrantedSkills.push({skill: id, rank: 2, prevRank: cur});
-          el.value = '2';
-        } else {
-          state._bgGrantedSkills.push({skill: id, rank: 2, prevRank: cur});
-        }
+  const beff = bg ? getBackgroundEffects(bg) : null;
+
+  // 배경 기술 — 고정 (choice_skill_groups는 모달에서 별도 처리)
+  if (beff && beff.fixed_skills.length) {
+    beff.fixed_skills.forEach(id => {
+      const el = document.getElementById('sk-prof-' + id);
+      if (!el) return;
+      const cur = parseInt(el.value || 0);
+      state._bgGrantedSkills.push({skill: id, rank: 2, prevRank: cur});
+      if (cur < 2) el.value = '2';
+    });
+  }
+
+  // 배경 지식 (lore) — 한국어 이름 그대로 (외래 DB 없음)
+  if (beff && beff.fixed_lores.length) {
+    beff.fixed_lores.forEach((loreName, i) => {
+      const slot = i === 0 ? 'lore1' : 'lore2';
+      const nameEl = document.getElementById('lore-name-' + slot);
+      const profEl = document.getElementById('sk-prof-' + slot);
+      if (nameEl && profEl) {
+        const prevName = nameEl.value === loreName ? loreName : nameEl.value;
+        const prevRank = parseInt(profEl.value || 0);
+        state._bgGrantedLores.push({slot, name: loreName, prevName: prevRank < 2 ? '' : prevName, prevRank: prevRank < 2 ? 0 : prevRank});
+        if (!nameEl.value || nameEl.value === loreName) nameEl.value = loreName;
+        if (prevRank < 2) profEl.value = '2';
       }
     });
   }
 
-  // 배경 재주
-  if (bg?.feat) {
-    const featName = bg.feat.trim();
-    if (featName && !featName.includes('/') && !featName.includes('또는')) {
+  // 배경 재주 — feat_id 기반
+  if (beff?.feat_id && typeof FEAT_DB !== 'undefined') {
+    const fd = getFeat(beff.feat_id);
+    if (fd) {
       if (!state.feats.skill) state.feats.skill = [];
-      state.feats.skill.push({name: featName, level: 1, _fromBackground: true});
+      state.feats.skill.push({
+        name: `${fd.name_ko} (${fd.name_en})`,
+        _featId: fd.id,
+        level: 1,
+        _fromBackground: true
+      });
     }
   }
 }
+
+// ── 서브클래스 효과 헬퍼 (SUBCLASS_DB.granted_*에서 호환 형태로 변환) ──
+function getSubclassAutoFeats(sub) {
+  if (!sub || !Array.isArray(sub.granted_feats)) return [];
+  return sub.granted_feats.map(fid => {
+    const f = (typeof FEAT_DB !== 'undefined') ? FEAT_DB.find(x => x.id === fid) : null;
+    return f ? { lv: 1, name_ko: f.name_ko, name_en: f.name_en, category: f.category } : null;
+  }).filter(Boolean);
+}
+function getSubclassAutoSpells(sub) {
+  if (!sub || !Array.isArray(sub.granted_spells)) return [];
+  return sub.granted_spells.map(g => {
+    const sp = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(x => x.id === g.spell_id) : null;
+    if (!sp) return null;
+    const r = { lv: g.lv, type: g.type, name_ko: sp.name_ko, name_en: sp.name_en };
+    if (g.rank !== undefined) r.rank = g.rank;
+    return r;
+  }).filter(Boolean);
+}
+function getSubclassFeatures(sub) { return (sub && sub.features) || []; }
+function getSubclassProfChanges(sub) { return (sub && sub.prof_changes) || {}; }
 
 function recalcAll() {
   // 빌더 핵심 선택 재파생 (유산/배경)
@@ -1260,6 +1590,74 @@ function recalcAll() {
   if (typeof renderFeats === 'function') renderFeats();
 }
 
+// ── 보너스 확인 모달 (굴림 없는 stat용 — AC, 이속의 추가 정보 등) ──
+function showBonusInfoModal(category, label) {
+  const pool = state._fb?.bonuses || [];
+  const matched = pool.filter(b => b.category === category);
+  const TYPE_LABEL = {circumstance:'상황 보너스 (Circumstance)', status:'상태 보너스 (Status)', item:'아이템 보너스 (Item)', '':'기타 (untyped)'};
+  const TYPES = ['circumstance', 'status', 'item', ''];
+  const grouped = {};
+  for (const t of TYPES) grouped[t] = matched.filter(b => (b.bonus_type || '') === t);
+
+  const overlay = document.createElement('div');
+  overlay.className = 'bonus-info-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:10001;display:flex;align-items:center;justify-content:center';
+
+  let bodyHtml = '';
+  let totalApplied = 0;
+  const byType = {};
+  for (const b of matched) {
+    const t = b.bonus_type || '';
+    const v = (b.value === 'level') ? getLevel() : (typeof b.value === 'number' ? b.value : parseInt(b.value)||0);
+    if (!byType[t] || ((byType[t].value === 'level' ? getLevel() : byType[t].value) < v)) byType[t] = b;
+  }
+  for (const t of TYPES) {
+    if (byType[t]) totalApplied += (byType[t].value === 'level') ? getLevel() : byType[t].value;
+  }
+  for (const t of TYPES) {
+    const group = grouped[t];
+    if (!group.length && t === '') continue;
+    bodyHtml += `<div style="margin-bottom:10px"><div style="color:var(--gold);font-size:11px;margin-bottom:4px;font-weight:600">${TYPE_LABEL[t] || t}</div>`;
+    if (group.length) {
+      group.forEach(b => {
+        const isApplied = byType[t] === b;
+        const sign = (typeof b.value === 'number' && b.value < 0) ? '' : '+';
+        const cond = b.condition ? ` <span style="color:#888;font-size:11px">(조건: ${b.condition})</span>` : '';
+        const mark = isApplied ? '<span style="color:#0c0;font-weight:700">★</span> ' : '<span style="color:#666">·</span> ';
+        bodyHtml += `<div style="padding:3px 0;font-size:12px">${mark}<strong>${sign}${b.value}</strong> <em style="color:#bbb">${b.source||''}</em>${cond}</div>`;
+      });
+    } else {
+      bodyHtml += '<div style="color:#666;font-size:11px;padding:2px 0 2px 20px">(없음)</div>';
+    }
+    bodyHtml += '</div>';
+  }
+
+  const card = document.createElement('div');
+  card.style.cssText = 'background:var(--bg2);border:1px solid var(--gold);border-radius:8px;width:90vw;max-width:420px;max-height:85vh;display:flex;flex-direction:column;color:var(--text)';
+  card.innerHTML = `
+    <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+      <h3 style="margin:0;color:var(--gold);font-size:14px">${label} — 활성 보너스</h3>
+      <button id="bim-x" style="background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;padding:0 4px">✕</button>
+    </div>
+    <div style="padding:12px 16px;overflow-y:auto;flex:1">
+      <div style="color:#aaa;font-size:11px;margin-bottom:10px">★ = 자동 적용 (type별 max). PF2e 규칙상 같은 type끼리는 비합산.</div>
+      ${bodyHtml}
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);text-align:right;font-size:13px">
+        <span style="color:#aaa">자동 적용 합계:</span> <strong style="color:var(--gold)">${totalApplied >= 0 ? '+' : ''}${totalApplied}</strong>
+      </div>
+    </div>
+    <div style="padding:10px 16px;border-top:1px solid var(--border);display:flex;justify-content:flex-end">
+      <button id="bim-close" style="padding:8px 16px;background:var(--bg3);border:1px solid var(--border2);border-radius:4px;color:var(--text);cursor:pointer">닫기</button>
+    </div>
+  `;
+  overlay.appendChild(card);
+  document.body.appendChild(overlay);
+  const close = () => overlay.remove();
+  card.querySelector('#bim-x').onclick = close;
+  card.querySelector('#bim-close').onclick = close;
+  overlay.onclick = e => { if (e.target === overlay) close(); };
+}
+
 function getCondPenalty() {
   const frightened = parseInt(state.conditions['공포'] || 0);
   const sickened = parseInt(state.conditions['메스꺼움'] || 0);
@@ -1271,6 +1669,30 @@ function getCondPenalty() {
     clumsy, enfeebled, stupefied
   };
 }
+
+// 활성 보너스 풀에서 category/target에 매칭되는 보너스를 type별 max 1개로 합산 (v530~)
+//   각 type(circumstance/status/item/'')별 최댓값 1개만 적용 — PF2e 보너스 합산 규칙
+//   반환: {total: 합산값, picks: [{value, bonus_type, source, condition}, ...]}
+//   picks는 실제 적용된 보너스 (툴팁용 출처 표시)
+//   value === 'level' 키워드는 현재 레벨로 해석
+function getStackedBonus(category, target) {
+  const pool = state._fb?.bonuses || [];
+  const matched = pool.filter(b => b.category === category && (target == null || b.target == null || b.target === target));
+  if (!matched.length) return { total: 0, picks: [] };
+  const lv = getLevel();
+  const resolveVal = v => (v === 'level' ? lv : (typeof v === 'number' ? v : parseInt(v) || 0));
+  // type별 그룹 → 각 그룹에서 value 최대 1개
+  const byType = {};
+  for (const b of matched) {
+    const t = b.bonus_type || '';
+    const v = resolveVal(b.value);
+    if (!byType[t] || resolveVal(byType[t].value) < v) byType[t] = b;
+  }
+  const picks = Object.values(byType);
+  const total = picks.reduce((sum, b) => sum + resolveVal(b.value), 0);
+  return { total, picks };
+}
+
 
 function applyPenaltyColor(el, base, penalty) {
   if (!el) return;
@@ -1311,9 +1733,15 @@ function recalcAC() {
   const shieldBonus = (state.shieldRaised && !state.shieldStowed && !shieldBroken) ? parseInt(document.getElementById('shield-ac')?.value||0) : 0;
   const pen = getCondPenalty();
   const acPenalty = pen.all + pen.clumsy;
-  const ac = 10 + effectiveDex + effectiveArmor + effectiveProf + shieldBonus - acPenalty;
+  // 활성 보너스 풀에서 AC 보너스 (type별 1개) — 마법 효과/재주 등 (v530~)
+  const acExtra = getStackedBonus('ac', null);
+  const ac = 10 + effectiveDex + effectiveArmor + effectiveProf + shieldBonus + acExtra.total - acPenalty;
   const acEl = document.getElementById('val-ac');
-  if (acEl) { acEl.textContent = ac; acEl.style.color = acPenalty > 0 ? 'var(--red-light)' : ''; }
+  if (acEl) {
+    acEl.textContent = ac;
+    acEl.style.color = acPenalty > 0 ? 'var(--red-light)' : '';
+    acEl.dataset.bonusPicks = JSON.stringify(acExtra.picks);  // 툴팁용
+  }
 
   // Update AC breakdown display
   const itemDisp = document.getElementById('ac-item-display');
@@ -1339,27 +1767,41 @@ function recalcSaves() {
     ['ref','dex','prof-ref','val-ref', pen.clumsy],
     ['will','wis','prof-will','val-will', 0],
   ];
-  pairs.forEach(([,attr,profId,valId, extraPen]) => {
+  pairs.forEach(([key,attr,profId,valId, extraPen]) => {
     const rank = parseInt(document.getElementById(profId)?.value||0);
     const base = getMod(attr) + (rank>0?rank+lv:0);
+    // 풀 자동 합산: target=key 매칭 + target=null(all) 매칭 (v531~)
+    const saveExtra = getStackedBonus('save', key);
     const totalPen = pen.all + extraPen;
-    applyPenaltyColor(document.getElementById(valId), base, totalPen);
+    const el = document.getElementById(valId);
+    applyPenaltyColor(el, base + saveExtra.total, totalPen);
+    if (el) el.dataset.bonusPicks = JSON.stringify(saveExtra.picks);
   });
 }
 
 function recalcPerc() {
   const total = getMod('wis') + getProfBonus('prof-perc');
-  document.getElementById('val-perc').textContent = fmtBonus(total);
+  // 지각 풀 보너스 자동 합산 (v531~)
+  const percEl = document.getElementById('val-perc');
+  const percExtra = getStackedBonus('perception', null);
+  if (percEl) {
+    percEl.textContent = fmtBonus(total + percExtra.total);
+    percEl.dataset.bonusPicks = JSON.stringify(percExtra.picks);
+  }
+  // 선제 풀 보너스 자동 합산 (v531~ — 풀 단일 출처)
   const initEl = document.getElementById('val-init');
-  const initBonus = state._fb?.initiative || 0;
-  if (initEl) initEl.textContent = fmtBonus(total + initBonus);
+  const initExtra = getStackedBonus('initiative', null);
+  if (initEl) {
+    initEl.textContent = fmtBonus(total + initExtra.total);
+    initEl.dataset.bonusPicks = JSON.stringify(initExtra.picks);
+  }
 }
 
 function getClassKeyAttr() {
-  if (state.selectedClass) {
-    const k = parseAttrKey(state.selectedClass.keyAttr);
-    if (k) return k;
-  }
+  // 사용자 선택값(state.boosts.cls) 우선, 없으면 첫 번째 key_attrs
+  if (state.boosts.cls) return state.boosts.cls;
+  const keys = state.selectedClass?.key_attrs;
+  if (Array.isArray(keys) && keys.length) return keys[0];
   return 'wis';
 }
 
@@ -1573,14 +2015,15 @@ function renderResistances() {
 
   // 유산에서 저항 가져오기
   const heritage = state.selectedHeritage;
-  if (heritage?.resistances) {
-    heritage.resistances.forEach(r => {
-      const val = r.formula === 'half' ? halfLv : (r.value || 0);
+  const heff = getHeritageEffects(heritage);
+  if (heff.resistances) {
+    heff.resistances.forEach(r => {
+      const val = r.formula === 'half' ? halfLv : (parseInt(r.formula) || r.value || 0);
       resistances.push({type: r.type, value: val, source: heritage.name_ko});
     });
   }
 
-  // FEAT_EFFECTS에서 저항 가져오기 (state._fb에 저장된 것)
+  // EFFECT_GROUPS의 resistance type에서 저항 가져오기 (state._fb에 저장된 것)
   // 향후 확장 가능
 
   if (resistances.length === 0) {
@@ -1667,11 +2110,14 @@ function recalcSpeed(isEncumbered) {
   const baseSpeed = parseInt(speedEl?.value||25);
   const hasUI = state._fb?.unburdenedIron || false;
   const encPenalty = isEncumbered ? (hasUI ? 5 : 10) : 0;
-  const effSpeed = Math.max(5, baseSpeed - encPenalty);
+  // 활성 보너스 풀에서 이속 보너스 (type별 1개) — 재주/주문 효과 (v530~)
+  const speedExtra = getStackedBonus('speed', null);
+  const effSpeed = Math.max(5, baseSpeed + speedExtra.total - encPenalty);
   const dispEl = document.getElementById('speed-display');
   if (dispEl) {
     dispEl.textContent = effSpeed;
     dispEl.style.color = isEncumbered ? '#ffaa00' : '';
+    dispEl.dataset.bonusPicks = JSON.stringify(speedExtra.picks);  // 툴팁용
   }
   const effLabel = document.getElementById('speed-enc-label');
   if (effLabel) {

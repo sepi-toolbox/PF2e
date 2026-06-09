@@ -347,7 +347,14 @@ function loadData(d) {
     }
     if (d.containers) { state.containers = d.containers; if (typeof renderContainers === 'function') renderContainers(); }
     if (d.formulas) { state.formulas = d.formulas; if (typeof renderFormulas === 'function') renderFormulas(); }
-    if (d.languages) { state.languages = d.languages; if (typeof renderLanguages === 'function') renderLanguages(); }
+    if (d.languages) {
+      // v526~: 한글 이름 → id 마이그레이션 (LANGUAGES.name_ko 매칭)
+      state.languages = d.languages.map(l => {
+        const found = (typeof getLanguage === 'function') ? getLanguage(l) : null;
+        return found ? found.id : l;
+      });
+      if (typeof renderLanguages === 'function') renderLanguages();
+    }
     if (d.pets) { state.pets = d.pets; if (typeof renderPets === 'function') renderPets(); }
     if (d.extraSpeeds) state.extraSpeeds = d.extraSpeeds;
     if (d.shieldRaised) state.shieldRaised = d.shieldRaised;
@@ -358,6 +365,14 @@ function loadData(d) {
       if (!state.spells.known) state.spells.known = [];
       if (!state.spells.focus) state.spells.focus = [];
       if (!state.spells.innate) state.spells.innate = [];
+      // v524~: id 마이그레이션 (id 없는 항목에 SPELL_DB lookup으로 자동 부여)
+      for (const k of ['cantrip','known','focus','innate']) {
+        for (const it of state.spells[k]) {
+          if (!it || it.id || !it.name) continue;
+          const sp = (typeof getSpell === 'function') ? getSpell(it.name) : null;
+          if (sp) it.id = sp.id;
+        }
+      }
     }
     if (d.spellSlots) {
       state.spellSlots = {};
@@ -408,6 +423,20 @@ function loadData(d) {
           seen.add(key);
         }
       });
+      // v524~: id 마이그레이션 (id 없는 항목에 FEAT_DB lookup으로 자동 부여)
+      // archetype 재주는 name_ko가 "한글 (English)" 형식이라 전체 매칭 우선,
+      // 일반 카테고리는 한글만 들어있어 split 후 매칭으로 폴백
+      Object.keys(state.feats).forEach(cat => {
+        for (const it of state.feats[cat]) {
+          if (!it || it.id || !it.name) continue;
+          let fd = (typeof getFeat === 'function') ? getFeat(it.name) : null;
+          if (!fd && typeof getFeat === 'function') {
+            const nameKo = it.name.split(' (')[0].trim();
+            fd = getFeat(nameKo);
+          }
+          if (fd) it.id = fd.id;
+        }
+      });
       renderFeats();
     }
     if (d.growth) { state.growth = d.growth; }
@@ -429,7 +458,11 @@ function loadData(d) {
       buildConditions();
     }
     // Restore extra state fields
-    if (d.vision) state.vision = d.vision;
+    if (d.vision) {
+      // v526~: 한글 → enum 마이그레이션
+      const _vMig = {'없음':'none','저광 시야':'low-light','암시야':'darkvision','상위 암시야':'greater-darkvision'};
+      state.vision = _vMig[d.vision] || d.vision;
+    }
     if (d.size) state.size = d.size;
     if (d.trainableSkillSlots !== undefined) state.trainableSkillSlots = d.trainableSkillSlots;
     // Class-specific choices

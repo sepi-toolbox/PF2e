@@ -46,8 +46,8 @@ function initArmorProfBadges() {
 
 // ── Armor category detection ──
 function getArmorCategory(name) {
-  if (!name || typeof ARMOR_DB === 'undefined') return 'unarmored';
-  const armor = ARMOR_DB.find(a => a.name_ko === name || a.name_en === name);
+  if (!name) return 'unarmored';
+  const armor = getArmor(name);
   if (!armor) return 'unarmored';
   const cat = armor.category || '';
   if (cat.includes('경갑') || cat.toLowerCase().includes('light')) return 'light';
@@ -270,7 +270,7 @@ function calcWeaponDamage(w) {
   if (typeMap[dmgType]) dmgType = typeMap[dmgType];
 
   // 치명적 단순함(Deadly Simplicity): 신격 선호 무기가 단순/비무장 & d6이하 → 주사위 +1단계
-  if (state._deityWeapon && (w.name||'') === state._deityWeapon) {
+  if (state._deityWeapon && (w._dbData?.id || '') === state._deityWeapon) {
     const wpCat = getWeaponCategory(w);
     if ((wpCat === 'simple' || wpCat === 'unarmed') && dieSizeBase > 0 && dieSizeBase <= 6) {
       const stepUp = {4:6, 6:8};
@@ -1296,8 +1296,19 @@ function removeFormula(i) {
 }
 
 // ── 언어 ──
-const COMMON_LANGUAGES = ['공용어','드워프어','엘프어','노움어','고블린어','하플링어','요툰어','오크어'];
-const UNCOMMON_LANGUAGES = ['아클로어','크토니안어','드라코닉어','천상어','페이어','콜로어','네크릴어','페트란어','사크브로스어','숲요정어'];
+// v526~ LANGUAGES 객체 배열에서 category로 동적 분류 (id 배열)
+const COMMON_LANGUAGES = (typeof LANGUAGES !== 'undefined') ? LANGUAGES.filter(l => l.category === 'common').map(l => l.id) : [];
+const UNCOMMON_LANGUAGES = (typeof LANGUAGES !== 'undefined') ? LANGUAGES.filter(l => l.category === 'uncommon').map(l => l.id) : [];
+const RARE_LANGUAGES = (typeof LANGUAGES !== 'undefined') ? LANGUAGES.filter(l => l.category === 'rare').map(l => l.id) : [];
+
+// 언어 id → 한글 이름 lookup (UI 표시용) — getLanguage 헬퍼 (cs_calc.js) 사용
+function getLanguageKo(id) {
+  if (typeof getLanguage === 'function') {
+    const lang = getLanguage(id);
+    return lang ? lang.name_ko : id;
+  }
+  return id;
+}
 
 function getMaxLanguages() {
   const intMod = Math.max(0, getMod('int'));
@@ -1341,29 +1352,34 @@ function renderLanguagePickList() {
   const titleEl = document.getElementById('modal-title');
   if (titleEl) titleEl.textContent = `언어 선택 (${selected.length}/${maxLangs})`;
 
-  const addSection = (title, langs) => {
-    const items = langs.filter(l => !q || l.toLowerCase().includes(q));
+  const addSection = (title, langIds) => {
+    // langIds는 LANGUAGES.id 배열. 검색은 한글 이름과 id 양쪽으로
+    const items = langIds.filter(id => {
+      if (!q) return true;
+      const ko = getLanguageKo(id).toLowerCase();
+      return id.toLowerCase().includes(q) || ko.includes(q);
+    });
     if (items.length === 0) return;
     const header = document.createElement('div');
     header.className = 'opt-section-header';
     header.textContent = title;
     container.appendChild(header);
-    items.forEach(l => {
-      const isSelected = selected.includes(l);
+    items.forEach(id => {
+      const isSelected = selected.includes(id);
       const row = document.createElement('div');
       row.className = 'opt-row' + (isSelected ? ' selected' : '');
       if (!isSelected && isFull) row.style.opacity = '0.4';
       row.innerHTML = `
         <div class="opt-row-icon">${isSelected ? '✓' : '🗣'}</div>
-        <span class="opt-row-name">${l}</span>`;
+        <span class="opt-row-name">${getLanguageKo(id)}</span>`;
       row.style.cursor = (isSelected || !isFull) ? 'pointer' : 'default';
       if (isSelected || !isFull) {
         row.addEventListener('click', (e) => {
           e.stopPropagation();
           if (isSelected) {
-            state.languages = state.languages.filter(x => x !== l);
+            state.languages = state.languages.filter(x => x !== id);
           } else {
-            state.languages.push(l);
+            state.languages.push(id);
           }
           renderLanguagePickList();
           renderGrowthPlan();
@@ -1375,6 +1391,7 @@ function renderLanguagePickList() {
   };
   addSection('일반 언어', COMMON_LANGUAGES);
   addSection('비일반 언어', UNCOMMON_LANGUAGES);
+  addSection('희귀 언어', RARE_LANGUAGES);
 
   const searchEl = document.getElementById('modal-search');
   if (searchEl && !searchEl._langBound) {
@@ -1394,9 +1411,9 @@ function renderLanguages() {
   if (!state.languages) state.languages = [];
   const html = state.languages.length === 0
     ? '<div style="font-size:10px;color:var(--text2);text-align:center;padding:4px;">언어를 추가하세요</div>'
-    : state.languages.map((l, i) =>
+    : state.languages.map((id, i) =>
       `<div style="display:flex;align-items:center;gap:4px;padding:2px 4px;font-size:12px;border-bottom:1px solid var(--border);">
-        <span style="flex:1;color:var(--text);">${l}</span>
+        <span style="flex:1;color:var(--text);">${getLanguageKo(id)}</span>
         <span class="spell-del" onclick="removeLanguage(${i})" style="cursor:pointer;">✕</span>
       </div>`).join('');
   ['language-list','language-list-mobile'].forEach(id => {
@@ -1508,7 +1525,7 @@ function renderSpells() {
       innateList.innerHTML = '';
       if (!state.innateSpellsUsed) state.innateSpellsUsed = {};
       innateArr.forEach((s, i) => {
-        const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
+        const spellData = getSpell(s.name);
         const actions = getActionIcons(spellData?.actions);
         const isCantrip = s.type === 'cantrip';
         const rankLabel = isCantrip ? `[캔트립 ${heightenedLevel}랭크]` : (s.rank ? `[${s.rank}랭크]` : '');
@@ -1609,7 +1626,7 @@ function renderSpells() {
         const row = document.createElement('div');
         row.className = 'spell-slot-row';
         if (name) {
-          const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === name) : null;
+          const spellData = getSpell(name);
           const actions = getActionIcons(spellData?.actions);
           row.innerHTML = `
             <span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
@@ -1629,7 +1646,7 @@ function renderSpells() {
         row.className = 'spell-slot-row';
         if (isAuto) row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
         if (spell) {
-          const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
+          const spellData = getSpell(spell.name);
           const actions = getActionIcons(spellData?.actions);
           const srcLabel = isAuto && spell._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${spell._source}</span>` : '';
           row.innerHTML = `
@@ -1650,7 +1667,7 @@ function renderSpells() {
   // 집중 캔트립과 집중 주문 분리 렌더링 (SPELL_DB의 is_cantrip 기반)
   const focusCantrips = (state.spells.focus || []).filter(s => {
     if (!s) return false;
-    const spData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
+    const spData = getSpell(s.name);
     return spData ? spData.is_cantrip : (s.name || '').includes('캔트립');
   });
   const focusRegular = (state.spells.focus || []).filter(s => s && !focusCantrips.includes(s));
@@ -1782,7 +1799,7 @@ function renderSpells() {
 
       // 정식으로 배운 주문
       allAtRank.forEach(spell => {
-        const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
+        const spellData = getSpell(spell.name);
         const actions = getActionIcons(spellData?.actions);
         const isAuto = spell._auto;
         const isSig = sigs[r] === spell.name;
@@ -1806,7 +1823,7 @@ function renderSpells() {
 
       // 시그니처 고양 주문 (낮은 랭크에서 올라온 것)
       sigHeightened.forEach(sig => {
-        const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === sig.name) : null;
+        const spellData = getSpell(sig.name);
         const actions = getActionIcons(spellData?.actions);
         const row = document.createElement('div');
         row.className = 'spell-slot-row';
@@ -1826,7 +1843,7 @@ function renderSpells() {
         row.className = 'spell-slot-row';
         if (isCast) row.style.opacity = '0.35';
         if (name) {
-          const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === name) : null;
+          const spellData = getSpell(name);
           const actions = getActionIcons(spellData?.actions);
           const fireIcon = `<span class="spell-slot-fire${isCast?' used':''}" onclick="togglePreparedCast(${r},${i})" style="cursor:pointer;font-size:14px;margin-right:4px;" title="${isCast?'슬롯 복원':'시전 (소모)'}">\uD83D\uDD25</span>`;
           row.innerHTML = `
@@ -1860,7 +1877,7 @@ function renderSpells() {
         row.className = 'spell-slot-row' + (isCast ? ' slot-used' : '');
         if (spell) {
           const globalIdx = state.spells.known.indexOf(spell);
-          const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
+          const spellData = getSpell(spell.name);
           const actions = getActionIcons(spellData?.actions);
           row.innerHTML = `
             <span class="spell-cast-label${isCast?' cast-used':''}" onclick="toggleSpellCast(${r},${i})">Cast</span>
@@ -1880,7 +1897,7 @@ function renderSpells() {
       }
       // _auto 주문
       autoAtRank.forEach(spell => {
-        const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === spell.name) : null;
+        const spellData = getSpell(spell.name);
         const actions = getActionIcons(spellData?.actions);
         const row = document.createElement('div');
         row.className = 'spell-slot-row';
@@ -1955,7 +1972,7 @@ function renderSpellSlotList(elId, arr, type, heightenedLevel) {
   el.innerHTML = '';
   arr.forEach((s, i) => {
     const isAuto = s?._auto;
-    const spellData = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(sp => sp.name_ko === s.name) : null;
+    const spellData = getSpell(s.name);
     const actions = getActionIcons(spellData?.actions);
     // 집중 주문 랭크 표시: 캔트립은 heightenedLevel로, 일반 집중주문도 heightenedLevel
     let rankLabel = '';
@@ -2000,11 +2017,14 @@ function addFeat(type) {
   if (!name) return;
   // DB에서 영문명 매칭
   let fullName = name;
-  if (typeof FEAT_DB !== 'undefined' && !name.includes('(')) {
-    const found = FEAT_DB.find(f => f && f.name_ko === name.trim());
-    if (found?.name_en) fullName = `${found.name_ko} (${found.name_en})`;
+  let _fd = null;
+  if (!name.includes('(')) {
+    _fd = getFeat(name.trim());
+    if (_fd?.name_en) fullName = `${_fd.name_ko} (${_fd.name_en})`;
+  } else {
+    _fd = getFeat(name) || getFeat(name.split(' (')[0].trim());
   }
-  state.feats[type].push({name: fullName, level:getLevel()});
+  state.feats[type].push({id: _fd?.id || null, name: fullName, level:getLevel()});
   // 선택이 필요한 재주면 선택 모달 열기
   if (typeof checkFeatChoice === 'function' && checkFeatChoice(fullName, type, state.feats[type].length - 1)) {
     recalcAll();
@@ -2059,15 +2079,15 @@ function renderFeats() {
       // DB에서 설명 가져오기
       const fNameKo = f.name.split(' (')[0].trim();
       const fNameEn = (f.name.match(/\(([^)]+)\)/)||[])[1] || '';
-      let featData = (typeof FEAT_DB !== 'undefined') ? FEAT_DB.find(fd => fd && fd.name_ko === fNameKo) : null;
-      // 클래스 특성은 CLASS_FEATURE_NAMES / SUBCLASS_FEATURE_NAMES에서 desc 보충
+      let featData = getFeat(fNameKo);
+      // 클래스 특성은 CLASS_FEATURE_NAMES / SUBCLASS_DB.features에서 desc 보충
       let classFeatureDesc = '';
       if (t === 'special' && typeof CLASS_FEATURE_NAMES !== 'undefined') {
         const clsId = state.selectedClass?.id;
-        const subId = state.selectedSubclass?.id;
         const allCF = [...(clsId && CLASS_FEATURE_NAMES[clsId] || []),
-                       ...(subId && typeof SUBCLASS_FEATURE_NAMES !== 'undefined' ? SUBCLASS_FEATURE_NAMES[subId] || [] : [])];
-        const cfMatch = allCF.find(cf => cf.name_ko === fNameKo || cf.name_en === fNameEn);
+                       ...(state.selectedSubclass?.features || [])];
+        // 어휘 매칭 (사용자 데이터 vs DB 객체) — _findInDb로 처리
+        const cfMatch = _findInDb(allCF, fNameKo, ['name_ko','name_en']) || _findInDb(allCF, fNameEn, ['name_ko','name_en']);
         if (cfMatch?.desc) classFeatureDesc = cfMatch.desc;
       }
       const desc = featData?.desc || featData?.summary || classFeatureDesc || '';
@@ -2134,7 +2154,7 @@ function cascadeRemoveFeats() {
         const f = arr[j];
         if (!f?.name) continue;
         const fNameKo = f.name.split(' (')[0].trim();
-        const fData = FEAT_DB.find(fd => fd && fd.name_ko === fNameKo);
+        const fData = getFeat(fNameKo);
         if (fData?.prerequisites && !_checkPrereqs(fData.prerequisites)) {
           if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== f.name);
           // 성장에서도 제거
@@ -2204,9 +2224,9 @@ function removeFeat(t, i) {
     }
   }
   // 재주로 부여된 지식/기술 숙련 정리
-  if (feat?.name && typeof FEAT_EFFECTS !== 'undefined') {
+  if (feat?.name && typeof _getFeatEffectsDef === 'function') {
     const nameEn = (typeof _extractEnName === 'function') ? _extractEnName(feat.name) : '';
-    const def = nameEn ? FEAT_EFFECTS[nameEn] : null;
+    const def = nameEn ? _getFeatEffectsDef(nameEn) : null;
     if (def?.effects) {
       def.effects.forEach(eff => {
         // grant_lore: 고정 이름 또는 $choice
@@ -3831,7 +3851,7 @@ function renderPetCondList(i) {
   container.innerHTML = '';
 
   CONDITIONS_DATA.forEach(c => {
-    if (c.name === '파손됨') return; // 장비 상태이므로 제외
+    if (c.id === 'broken') return; // 장비 상태이므로 제외
     if (q && !c.name.includes(q) && !c.en.toLowerCase().includes(q)) return;
     const current = p.conditions[c.name] || 0;
     const isActive = c.valued ? current > 0 : !!current;
