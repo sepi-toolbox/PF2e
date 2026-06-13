@@ -78,8 +78,8 @@ const PER_SHEET = {
   PREREQ_GROUPS: {
     group_id:  'PREREQ_GROUPS PK — FEAT_DB.prereq_group_id가 참조. 같은 group_id 행 = 묶인 조건',
     logic:     'and(기본 — 모두 만족) / or(같은 group_id 내 OR 행끼리 하나만 만족)',
-    type:      '조건 타입: 능력치 enum(str/dex/con/int/wis/cha) / SKILLS.id (religion 등) / perception / lore / feat / ancestry / heritage / subclass / vision',
-    value:     '값: 능력치=최소 부스트(2/4/...) / 기술/지각/lore=숙련도(2/4/6/8) / feat=영문명 / ancestry/heritage/subclass=한글명 / vision=시야 enum',
+    type:      '조건 타입: 능력치 enum(str/dex/con/int/wis/cha) / SKILLS.id (religion 등) / perception / lore / feat / ancestry / heritage / subclass / vision / divine_font',
+    value:     '값: 능력치=최소 부스트(2/4/...) / 기술/지각/lore=숙련도(2/4/6/8) / feat=영문명 / ancestry/heritage/subclass=한글명 / vision=시야 enum / divine_font=heal|harm|either enum (state.divineFont)',
   },
   EFFECT_GROUPS: {
     group_id:        'EFFECT_GROUPS PK — FEAT_DB.effect_group_id 또는 CHOICE_OPTIONS.effect_group_id가 참조. eg-{feat.id} (공통) / eg-{feat.id}-{option.id} (옵션별)',

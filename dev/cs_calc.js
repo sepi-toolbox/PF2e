@@ -1697,7 +1697,9 @@ function getStackedBonus(category, target) {
 
 
 // ── 디버그 박스 (개발 진단용 — 우상단 textarea, ✕로 닫기) ──
+// dev 경로(/dev/) 또는 ?debug=1 쿼리에서만 활성화 — 운영에서는 자동 비활성화
 function _debugShowBonusPool() {
+  if (!location.pathname.includes('/dev/') && !location.search.includes('debug=1')) return;
   let wrap = document.getElementById('debug-bonus-pool');
   if (!wrap) {
     wrap = document.createElement('div');

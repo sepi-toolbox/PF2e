@@ -2670,6 +2670,13 @@ function _checkOnePrereq(cond) {
     const curVision = state.vision || state.selectedAncestry?.vision || 'none';
     return (VISION_RANK[curVision]||0) >= (VISION_RANK[cond.vision]||0);
   }
+  // 신성 원천 선택: {divineFont:'heal' | 'harm' | 'either'} — state.divineFont 직접 비교
+  if (cond.divineFont) {
+    const cur = state.divineFont;
+    if (!cur) return false;
+    if (cond.divineFont === 'either') return cur === 'heal' || cur === 'harm';
+    return cur === cond.divineFont;
+  }
   // 재주 보유: {feat:'Halfling Luck'}
   if (cond.feat) {
     const allFeats = Object.values(state.feats).flat().filter(ff => ff?.name);
@@ -2737,6 +2744,7 @@ function _rowToCond(r) {
   if (t === 'heritage')   return { heritage: r.value };
   if (t === 'subclass')   return { subclass: r.value };
   if (t === 'vision')     return { vision: r.value };
+  if (t === 'divine_font') return { divineFont: r.value };
   // 기본: SKILLS.id 외래키 (기술 숙련도)
   return { skill: t, rank: parseInt(r.value) || 0 };
 }
