@@ -492,6 +492,11 @@ function startSessionListeners() {
         }
       });
     });
+
+  // ── 맵/토큰 실시간 동기화 (Phase A~) ──
+  if (typeof MapSync !== 'undefined') {
+    MapSync.start(_currentSession.id, { isGM: false, uid: currentUser.uid });
+  }
 }
 
 function stopSessionListeners() {
@@ -511,6 +516,8 @@ function stopSessionListeners() {
   if (typeof DiceRoller !== 'undefined' && DiceRoller.onRoll) {
     DiceRoller.onRoll(null);
   }
+  // 맵/토큰 동기화 해제
+  if (typeof MapSync !== 'undefined') MapSync.stop();
 }
 
 // ═══════════════════════════════════════════════
@@ -798,6 +805,11 @@ async function enterGMSessionMode(sessionId) {
           }
         });
       });
+
+    // ── 맵/토큰 실시간 동기화 (GM) ──
+    if (typeof MapSync !== 'undefined') {
+      MapSync.start(sessionId, { isGM: true, uid: currentUser.uid });
+    }
 
     // 첫 번째 플레이어 탭 자동 선택
     const uids = Object.keys(_currentSession.players);

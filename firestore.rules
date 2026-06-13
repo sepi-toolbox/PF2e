@@ -36,6 +36,32 @@ service cloud.firestore {
         allow delete: if request.auth != null
           && request.auth.uid == get(/databases/$(database)/documents/sessions/$(sessionId)).data.gmUid;
       }
+
+      // ── 전술 맵 상태 (배경/안개/그리드) ──
+      match /map/{docId} {
+        // 세션 참가자(로그인 사용자) 읽기 가능
+        allow read: if request.auth != null;
+        // GM만 쓰기 (배경 업로드 / 안개 / 그리드)
+        allow write: if request.auth != null
+          && request.auth.uid == get(/databases/$(database)/documents/sessions/$(sessionId)).data.gmUid;
+      }
+
+      // ── 토큰 ──
+      match /tokens/{tokenId} {
+        function gmUid() {
+          return get(/databases/$(database)/documents/sessions/$(sessionId)).data.gmUid;
+        }
+        // 세션 참가자 읽기 가능
+        allow read: if request.auth != null;
+        // 생성: GM이거나, 본인 소유(ownerUid==uid) 토큰
+        allow create: if request.auth != null
+          && (request.auth.uid == gmUid()
+              || request.resource.data.ownerUid == request.auth.uid);
+        // 수정/삭제: GM이거나, 기존 토큰 소유자
+        allow update, delete: if request.auth != null
+          && (request.auth.uid == gmUid()
+              || resource.data.ownerUid == request.auth.uid);
+      }
     }
   }
 }
