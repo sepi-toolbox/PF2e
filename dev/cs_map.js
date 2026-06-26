@@ -27,23 +27,31 @@ var MapSync = (function() {
   const RECONNECT_MS  = 3000;        // onSnapshot 에러 후 재연결 대기 (cs_session.js와 동일)
 
   // ── 로컬 캐시 ──
-  let _sessionId   = null;
-  let _isGM        = false;
-  let _uid         = null;
-  let _mapState    = null;           // map/state doc 데이터 (없으면 null)
-  let _tokens      = new Map();      // tokenId → {id, ownerUid, name, x, y, ...}
-  let _mapUnsub    = null;
-  let _tokensUnsub = null;
-  let _tokensReady = false;          // 초기 스냅샷 구분
-  let _pingsUnsub  = null;
-  let _pingsReady  = false;
-  let _changeCb    = null;           // 렌더러 구독 콜백 (Phase B~)
+  let _sessionId    = null;
+  let _isGM         = false;
+  let _uid          = null;
+  let _activeMapId  = null;           // 현재 활성 맵 id (session.activeMapId 추종)
+  let _maps         = new Map();      // mapId → {id, name, order, ...} (드로어용, GM)
+  let _mapsReady    = false;
+  let _mapState     = null;           // 활성 맵 doc 데이터 (배경/안개/그리드; 없으면 null)
+  let _tokens       = new Map();      // tokenId → {id, ownerUid, name, x, y, ...}
+  let _sessionUnsub = null;           // session doc 감시 (activeMapId)
+  let _mapsUnsub    = null;           // maps 컬렉션 감시 (GM 드로어)
+  let _mapUnsub     = null;           // 활성 맵 doc 감시
+  let _tokensUnsub  = null;           // 활성 맵 tokens 감시
+  let _tokensReady  = false;          // 초기 스냅샷 구분
+  let _pingsUnsub   = null;
+  let _pingsReady   = false;
+  let _changeCb     = null;           // 렌더러 구독 콜백
+  let _ensuringDefault = false;       // GM 기본 맵 자동생성 중복 방지
 
   function _db()        { return (typeof db !== 'undefined') ? db : null; }
   function _ts()        { return firebase.firestore.FieldValue.serverTimestamp(); }
-  function _mapDoc()    { return _db().collection('sessions').doc(_sessionId).collection('map').doc('state'); }
-  function _tokensCol() { return _db().collection('sessions').doc(_sessionId).collection('tokens'); }
-  function _pingsCol()  { return _db().collection('sessions').doc(_sessionId).collection('pings'); }
+  function _sessDoc()   { return _db().collection('sessions').doc(_sessionId); }
+  function _mapsCol()   { return _sessDoc().collection('maps'); }
+  function _mapDoc()    { return _mapsCol().doc(_activeMapId); }     // 활성 맵 doc (배경/안개/그리드)
+  function _tokensCol() { return _mapDoc().collection('tokens'); }  // 활성 맵 토큰
+  function _pingsCol()  { return _sessDoc().collection('pings'); }  // 핑은 세션 레벨 (변경 없음)
 
   function _emit(kind, payload) {
     if (typeof _changeCb === 'function') {
@@ -54,41 +62,46 @@ var MapSync = (function() {
   // ───────────────────────────────────────────
   //  시작 / 정지 — 세션 수명주기에 연동 (cs_session.js)
   // ───────────────────────────────────────────
+  function _reconnect() {
+    setTimeout(function() { if (_sessionId) start(_sessionId, { isGM: _isGM, uid: _uid }); }, RECONNECT_MS);
+  }
+
   function start(sessionId, opts) {
     opts = opts || {};
     _stopListeners();          // 재진입 idempotent (중복 구독 방지)
     _sessionId = sessionId;
     _isGM = !!opts.isGM;
     _uid  = opts.uid || ((typeof currentUser !== 'undefined' && currentUser) ? currentUser.uid : null);
+    _activeMapId = null;
+    _maps.clear();
+    _mapsReady = false;
     _mapState = null;
     _tokens.clear();
     _tokensReady = false;
     if (!_db() || !_sessionId) { console.warn('[MapSync] db/sessionId 없음 — 시작 취소'); return; }
 
-    // 맵 상태(배경/안개/그리드) 감시
-    _mapUnsub = _mapDoc().onSnapshot(function(doc) {
-      _mapState = doc.exists ? doc.data() : null;
-      _emit('map', _mapState);
-    }, function(err) {
-      console.error('[MapSync map listener]', err);
-      setTimeout(function() { if (_sessionId) start(_sessionId, { isGM: _isGM, uid: _uid }); }, RECONNECT_MS);
-    });
+    // 세션 doc 감시 → activeMapId 변경 시 활성 맵 재바인딩 (전원: 플레이어는 이걸로만 추종)
+    _sessionUnsub = _sessDoc().onSnapshot(function(doc) {
+      var aid = doc.exists ? (doc.data().activeMapId || null) : null;
+      if (aid !== _activeMapId) _bindMap(aid);
+    }, function(err) { console.error('[MapSync session listener]', err); _reconnect(); });
 
-    // 토큰 감시 (rolls 패턴 — docChanges 증분 적용)
-    _tokensReady = false;
-    _tokensUnsub = _tokensCol().onSnapshot(function(snap) {
-      snap.docChanges().forEach(function(change) {
-        var id = change.doc.id;
-        if (change.type === 'removed') { _tokens.delete(id); }
-        else { _tokens.set(id, Object.assign({ id: id }, change.doc.data())); }
-      });
-      var first = !_tokensReady;
-      _tokensReady = true;
-      _emit(first ? 'tokens-init' : 'tokens', Array.from(_tokens.values()));
-    }, function(err) {
-      console.error('[MapSync tokens listener]', err);
-      setTimeout(function() { if (_sessionId) start(_sessionId, { isGM: _isGM, uid: _uid }); }, RECONNECT_MS);
-    });
+    // 맵 목록 감시 (GM 드로어용). 플레이어는 목록 불필요 — 읽기 절약 위해 GM만 구독.
+    if (_isGM) {
+      _mapsUnsub = _mapsCol().onSnapshot(function(snap) {
+        _maps.clear();
+        snap.forEach(function(d) { _maps.set(d.id, Object.assign({ id: d.id }, d.data())); });
+        _mapsReady = true;
+        _emit('maps', getMaps());
+        // GM인데 저장된 맵이 0개면 기본 맵 자동 생성 + 활성화 (1회만)
+        if (_maps.size === 0 && !_ensuringDefault) {
+          _ensuringDefault = true;
+          createMap('지도 1').then(function(id) { return setActiveMap(id); })
+            .catch(function(e) { console.warn('[MapSync default map]', e); })
+            .then(function() { _ensuringDefault = false; });
+        }
+      }, function(err) { console.error('[MapSync maps listener]', err); });
+    }
 
     // 핑 감시 (롱프레스 → 일시적 마커. rolls 패턴: 초기 스냅샷 무시 + added만 처리)
     _pingsReady = false;
@@ -100,15 +113,51 @@ var MapSync = (function() {
     }, function(err) { console.error('[MapSync pings listener]', err); });
   }
 
-  function _stopListeners() {
+  // 활성 맵 바인딩 — 맵 전환 시 기존 맵 doc/토큰 리스너 해제 후 재구독
+  function _bindMap(mapId) {
     if (_mapUnsub)    { _mapUnsub();    _mapUnsub = null; }
     if (_tokensUnsub) { _tokensUnsub(); _tokensUnsub = null; }
-    if (_pingsUnsub)  { _pingsUnsub();  _pingsUnsub = null; }
+    _activeMapId = mapId || null;
+    _mapState = null;
+    _tokens.clear();
+    _tokensReady = false;
+    _emit('active', _activeMapId);            // 뷰 리셋(자동맞춤 재개/편집기 닫기)
+    if (!_activeMapId) { _emit('map', null); _emit('tokens-init', []); return; }
+
+    // 활성 맵 상태(배경/안개/그리드) 감시
+    _mapUnsub = _mapDoc().onSnapshot(function(doc) {
+      _mapState = doc.exists ? doc.data() : null;
+      _emit('map', _mapState);
+    }, function(err) { console.error('[MapSync map listener]', err); _reconnect(); });
+
+    // 활성 맵 토큰 감시 (rolls 패턴 — docChanges 증분 적용)
+    _tokensReady = false;
+    _tokensUnsub = _tokensCol().onSnapshot(function(snap) {
+      snap.docChanges().forEach(function(change) {
+        var id = change.doc.id;
+        if (change.type === 'removed') { _tokens.delete(id); }
+        else { _tokens.set(id, Object.assign({ id: id }, change.doc.data())); }
+      });
+      var first = !_tokensReady;
+      _tokensReady = true;
+      _emit(first ? 'tokens-init' : 'tokens', Array.from(_tokens.values()));
+    }, function(err) { console.error('[MapSync tokens listener]', err); _reconnect(); });
+  }
+
+  function _stopListeners() {
+    if (_sessionUnsub) { _sessionUnsub(); _sessionUnsub = null; }
+    if (_mapsUnsub)    { _mapsUnsub();    _mapsUnsub = null; }
+    if (_mapUnsub)     { _mapUnsub();     _mapUnsub = null; }
+    if (_tokensUnsub)  { _tokensUnsub();  _tokensUnsub = null; }
+    if (_pingsUnsub)   { _pingsUnsub();   _pingsUnsub = null; }
   }
 
   function stop() {
     _stopListeners();
     _sessionId = null;
+    _activeMapId = null;
+    _maps.clear();
+    _mapsReady = false;
     _mapState = null;
     _tokens.clear();
     _tokensReady = false;
@@ -117,7 +166,14 @@ var MapSync = (function() {
   // ───────────────────────────────────────────
   //  조회 (렌더러용 — Phase B~)
   // ───────────────────────────────────────────
-  function getMapState() { return _mapState; }
+  function getMapState()   { return _mapState; }
+  function getActiveMapId(){ return _activeMapId; }
+  function hasActiveMap()  { return !!_activeMapId; }
+  function getMaps()       {                              // 드로어용 — order, createdAt 순 정렬
+    return Array.from(_maps.values()).sort(function(a, b) {
+      return (a.order || 0) - (b.order || 0) || String(a.id).localeCompare(String(b.id));
+    });
+  }
   function getTokens()   { return Array.from(_tokens.values()); }
   function getToken(id)  { return _tokens.get(id) || null; }
   function myToken()     { for (var t of _tokens.values()) { if (t.ownerUid === _uid) return t; } return null; }
@@ -131,6 +187,7 @@ var MapSync = (function() {
   // ───────────────────────────────────────────
   function setBackground(dataUrl, w, h) {
     if (!_isGM) { console.warn('[MapSync] GM만 배경 설정 가능'); return Promise.reject('not-gm'); }
+    if (!_activeMapId) return Promise.reject('no-active-map');
     return _mapDoc().set({
       bgImage: dataUrl || null, bgW: w || 0, bgH: h || 0,
       updatedAt: _ts(), updatedBy: _uid
@@ -138,11 +195,13 @@ var MapSync = (function() {
   }
   function setGridSize(px) {
     if (!_isGM) return Promise.reject('not-gm');
+    if (!_activeMapId) return Promise.reject('no-active-map');
     return _mapDoc().set({ gridSize: px || 50, updatedAt: _ts(), updatedBy: _uid }, { merge: true });
   }
   // 안개 마스크 (Phase D — GM 드로잉 결과 동기화)
   function setFogMask(maskDataUrl, mw, mh, enabled) {
     if (!_isGM) return Promise.reject('not-gm');
+    if (!_activeMapId) return Promise.reject('no-active-map');
     return _mapDoc().set({
       fogMask: maskDataUrl || null, maskW: mw || 0, maskH: mh || 0,
       fogEnabled: enabled !== false, updatedAt: _ts(), updatedBy: _uid
@@ -154,6 +213,7 @@ var MapSync = (function() {
   // ───────────────────────────────────────────
   function createToken(fields) {
     fields = fields || {};
+    if (!_activeMapId) return Promise.reject('no-active-map');
     var ref = _tokensCol().doc();
     return ref.set({
       ownerUid: fields.ownerUid || _uid,
@@ -163,6 +223,8 @@ var MapSync = (function() {
       img:   fields.img   || null,
       color: fields.color || '#c0a062',
       size:  fields.size  || 1,
+      npc:   !!fields.npc,
+      sizeCat: fields.sizeCat || null,
       hidden: !!fields.hidden,
       updatedAt: _ts(), updatedBy: _uid
     }).then(function() { return ref.id; });
@@ -186,9 +248,71 @@ var MapSync = (function() {
   }
   // 플레이어 입장 시 자기 토큰 보장 (Phase C에서 호출) — 이미 있으면 그 id 반환
   function ensureMyToken(fields) {
+    if (!_activeMapId) return Promise.reject('no-active-map');
     var mine = myToken();
     if (mine) return Promise.resolve(mine.id);
     return createToken(Object.assign({ ownerUid: _uid }, fields || {}));
+  }
+
+  // ───────────────────────────────────────────
+  //  쓰기: 맵 관리 (GM 전용) — 멀티맵 저장/전환
+  // ───────────────────────────────────────────
+  function _nextOrder() {
+    var m = 0; _maps.forEach(function(x) { if ((x.order || 0) > m) m = x.order; });
+    return m + 1;
+  }
+  function createMap(name) {
+    if (!_isGM) return Promise.reject('not-gm');
+    var ref = _mapsCol().doc();
+    return ref.set({
+      name: name || '새 지도', order: _nextOrder(),
+      bgImage: null, bgW: 0, bgH: 0, gridSize: 50,
+      fogEnabled: false, fogMask: null, maskW: 0, maskH: 0,
+      createdAt: _ts(), updatedAt: _ts(), updatedBy: _uid
+    }).then(function() { return ref.id; });
+  }
+  function renameMap(id, name) {
+    if (!_isGM) return Promise.reject('not-gm');
+    return _mapsCol().doc(id).set({ name: name || '', updatedAt: _ts(), updatedBy: _uid }, { merge: true });
+  }
+  function setActiveMap(id) {
+    if (!_isGM) return Promise.reject('not-gm');
+    return _sessDoc().set({ activeMapId: id || null }, { merge: true });
+  }
+  function deleteMap(id) {
+    if (!_isGM) return Promise.reject('not-gm');
+    if (_maps.size <= 1) return Promise.reject('last-map');   // 마지막 1개는 삭제 금지
+    var mref = _mapsCol().doc(id);
+    // 하위 tokens 서브컬렉션 best-effort 정리(클라 배치) 후 맵 doc 삭제
+    return mref.collection('tokens').get().then(function(snap) {
+      if (snap.empty) return null;
+      var batch = _db().batch();
+      snap.forEach(function(d) { batch.delete(d.ref); });
+      return batch.commit();
+    }).catch(function() {}).then(function() {
+      return mref.delete();
+    }).then(function() {
+      if (_activeMapId === id) {                              // 활성 맵을 지웠으면 다른 맵으로 전환
+        var next = null;
+        getMaps().forEach(function(x) { if (x.id !== id && !next) next = x.id; });
+        return setActiveMap(next);
+      }
+    });
+  }
+
+  // GM NPC 토큰 생성 — 활성 맵에 (ownerUid=gm, npc:true)
+  function createNpc(fields) {
+    if (!_isGM) return Promise.reject('not-gm');
+    if (!_activeMapId) return Promise.reject('no-active-map');
+    fields = fields || {};
+    return createToken({
+      ownerUid: _uid, npc: true,
+      name: fields.name || 'NPC',
+      x: fields.x || 0, y: fields.y || 0,
+      img: fields.img || null, color: fields.color || '#b03030',
+      size: fields.size || 1, sizeCat: fields.sizeCat || 'medium',
+      hidden: !!fields.hidden
+    });
   }
 
   // ── 핑 (롱프레스) — 일시적 마커. 작성 후 5초 뒤 자동 삭제(누적 방지) ──
@@ -243,13 +367,16 @@ var MapSync = (function() {
     // 수명주기
     start: start, stop: stop, isActive: isActive, isGM: isGM, onChange: onChange,
     // 조회
-    getMapState: getMapState, getTokens: getTokens, getToken: getToken,
+    getMapState: getMapState, getActiveMapId: getActiveMapId, hasActiveMap: hasActiveMap,
+    getMaps: getMaps, getTokens: getTokens, getToken: getToken,
     myToken: myToken, canControl: canControl,
+    // 맵 관리 (GM) — 멀티맵 저장/전환
+    createMap: createMap, renameMap: renameMap, deleteMap: deleteMap, setActiveMap: setActiveMap,
     // 맵 쓰기 (GM)
     setBackground: setBackground, setGridSize: setGridSize, setFogMask: setFogMask,
     // 토큰 쓰기
     createToken: createToken, upsertToken: upsertToken, moveToken: moveToken,
-    removeToken: removeToken, ensureMyToken: ensureMyToken,
+    removeToken: removeToken, ensureMyToken: ensureMyToken, createNpc: createNpc,
     // 핑
     dropPing: dropPing,
     // 이미지 헬퍼
@@ -357,6 +484,8 @@ var MapView = (function() {
     if (typeof MapSync !== 'undefined') {
       MapSync.onChange(function(kind, payload) {
         if (kind === 'map') { _onMapState(payload); }
+        else if (kind === 'active') { _onActiveMapChange(); }   // 활성 맵 전환 → 뷰 리셋
+        else if (kind === 'maps') { _renderDrawer(); }          // 맵 목록 변경 → 드로어 갱신(GM)
         else if (kind === 'tokens-init') { _maybeProvision(); _markDirty(); }
         else if (kind === 'ping') { _addPing(payload); }
         else { _markDirty(); }            // 'tokens' 증분 변경
@@ -516,6 +645,11 @@ var MapView = (function() {
     if (modeBtn) modeBtn.textContent = (_brush.mode === 'reveal') ? '지우개(공개)' : '덮기(가림)';
     const sizeLbl = document.getElementById('map-brush-size');
     if (sizeLbl) sizeLbl.textContent = BRUSH_LABELS[_brushIdx];
+    // GM 전용(Map.html): NPC 배치 + 멀티맵 드로어
+    const npcBtn = document.getElementById('map-npc-btn');
+    if (npcBtn) npcBtn.style.display = gm ? '' : 'none';
+    const drawerBtn = document.getElementById('map-drawer-btn');
+    if (drawerBtn) drawerBtn.style.display = gm ? '' : 'none';
     // 시트 플레이 뷰 전용: '내 토큰 놓기' 버튼 (관리기능 없음, 이동·내토큰·핑만)
     const placeBtn = document.getElementById('map-place-btn');
     if (placeBtn) placeBtn.style.display = _playMode ? '' : 'none';
@@ -617,7 +751,13 @@ var MapView = (function() {
     if (!_tokenDrag) return;
     const d = _tokenDrag; _tokenDrag = null;
     if (typeof MapSync === 'undefined') { _markDirty(); return; }
-    if (d.moved < 5) { _markDirty(); return; }          // 거의 안 움직임 = 탭 → 아무것도 안 함(편집 비활성)
+    if (d.moved < 5) {                                  // 거의 안 움직임 = 탭
+      if (_effGM()) {                                   // GM(Map.html): NPC 탭 → 편집기 열기
+        var tt = MapSync.getToken(d.id);
+        if (tt && tt.npc) _openNpcEditor(d.id);
+      }
+      _markDirty(); return;
+    }
     MapSync.moveToken(d.id, Math.round(d.x), Math.round(d.y))
       .catch(function(err) { console.warn('[MapView moveToken]', err); _markDirty(); });
     _markDirty();
@@ -1095,6 +1235,154 @@ var MapView = (function() {
   }
   function _cancelPress() { if (_press) { clearTimeout(_press.timer); _press = null; } }
 
+  // ═══════════════════════════════════════════
+  //  GM 멀티맵 드로어 + NPC 편집기 (Map.html GM 뷰 전용 — 마크업 없으면 모두 no-op)
+  // ═══════════════════════════════════════════
+  // PF2e 표준 크기 → 격자 점유(칸 지름). 작음=1칸 미만, 소형/중형=1칸, 대형=2, 거대=3, 초대형=4.
+  const NPC_SIZES = [
+    { cat: 'tiny',       ko: '작음 (Tiny)',         cells: 0.5 },
+    { cat: 'small',      ko: '소형 (Small)',        cells: 1 },
+    { cat: 'medium',     ko: '중형 (Medium)',       cells: 1 },
+    { cat: 'large',      ko: '대형 (Large)',        cells: 2 },
+    { cat: 'huge',       ko: '거대 (Huge)',         cells: 3 },
+    { cat: 'gargantuan', ko: '초대형 (Gargantuan)', cells: 4 }
+  ];
+  function _cellsForCat(cat) {
+    for (var i = 0; i < NPC_SIZES.length; i++) if (NPC_SIZES[i].cat === cat) return NPC_SIZES[i].cells;
+    return 1;
+  }
+
+  // 활성 맵 전환 시: 자동맞춤 재개 + 보간 캐시 비움 + 편집기 닫기 + 드로어 강조 갱신
+  function _onActiveMapChange() {
+    _userMoved = false;
+    _disp.clear();
+    npcClose();
+    _renderDrawer();
+    _markDirty();
+  }
+
+  // ── 좌측 드로어: 저장된 지도 목록 (GM) ──
+  function toggleDrawer() {
+    const d = document.getElementById('map-drawer'); if (!d) return;
+    const open = !d.classList.contains('open');
+    d.classList.toggle('open', open);
+    const btn = document.getElementById('map-drawer-btn');
+    if (btn) btn.classList.toggle('on', open);
+    if (open) _renderDrawer();
+  }
+  function _renderDrawer() {
+    const list = document.getElementById('map-drawer-list');
+    if (!list || typeof MapSync === 'undefined') return;
+    const maps = MapSync.getMaps();
+    const active = MapSync.getActiveMapId();
+    list.innerHTML = '';
+    maps.forEach(function(m) {
+      const row = document.createElement('div');
+      row.className = 'md-row' + (m.id === active ? ' active' : '');
+      const nm = document.createElement('button');
+      nm.className = 'md-name'; nm.textContent = m.name || '(이름 없음)';
+      nm.onclick = function() { MapSync.setActiveMap(m.id).catch(function(e) { console.warn('[setActiveMap]', e); }); };
+      const ren = document.createElement('button');
+      ren.className = 'md-act'; ren.title = '이름 변경'; ren.textContent = '✎';
+      ren.onclick = function(ev) {
+        ev.stopPropagation();
+        const nn = prompt('지도 이름', m.name || '');
+        if (nn != null) MapSync.renameMap(m.id, nn.trim()).catch(function() {});
+      };
+      const del = document.createElement('button');
+      del.className = 'md-act md-del'; del.title = '삭제'; del.textContent = '🗑';
+      del.onclick = function(ev) {
+        ev.stopPropagation();
+        if (maps.length <= 1) { alert('마지막 지도는 삭제할 수 없습니다.'); return; }
+        if (confirm('"' + (m.name || '') + '" 지도를 삭제할까요? (배치한 토큰도 함께 삭제됩니다)'))
+          MapSync.deleteMap(m.id).catch(function(e) { alert('삭제 실패: ' + e); });
+      };
+      row.appendChild(nm); row.appendChild(ren); row.appendChild(del);
+      list.appendChild(row);
+    });
+  }
+  function addMap() {
+    if (typeof MapSync === 'undefined') return;
+    const nn = prompt('새 지도 이름', '지도 ' + (MapSync.getMaps().length + 1));
+    if (nn == null) return;
+    MapSync.createMap((nn.trim() || '새 지도')).then(function(id) { return MapSync.setActiveMap(id); })
+      .catch(function(e) { alert('지도 생성 실패: ' + e); });
+  }
+
+  // ── NPC 편집기 (GM) — 이름/크기(PF2e)/초상/숨김 ──
+  let _npcEditId = null;
+  let _np = null;
+  function _npcRefs() {
+    if (_np) return _np;
+    _np = {
+      box:    document.getElementById('map-npc-editor'),
+      name:   document.getElementById('np-name'),
+      size:   document.getElementById('np-size'),
+      hidden: document.getElementById('np-hidden'),
+      portraitInput: document.getElementById('np-portrait-input')
+    };
+    if (_np.size && !_np.size.options.length) {     // 크기 드롭다운 1회 채움
+      NPC_SIZES.forEach(function(s) {
+        const o = document.createElement('option'); o.value = s.cat; o.textContent = s.ko; _np.size.appendChild(o);
+      });
+    }
+    if (_np.portraitInput) _np.portraitInput.addEventListener('change', _onNpcPortrait);
+    return _np;
+  }
+  function _openNpcEditor(id) {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    const t = MapSync.getToken(id); if (!t) return;
+    const e = _npcRefs(); if (!e.box) return;
+    _npcEditId = id;
+    if (e.name)   e.name.value = t.name || '';
+    if (e.size)   e.size.value = t.sizeCat || 'medium';
+    if (e.hidden) e.hidden.checked = !!t.hidden;
+    e.box.style.display = 'block';
+  }
+  // ➕ NPC: 화면 중앙에 새 NPC 생성 후 편집기 열기
+  function openNpcCreate() {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    if (!MapSync.hasActiveMap()) { alert('먼저 좌측 목록에서 지도를 선택/생성하세요.'); return; }
+    const c = _screenToWorld(_cssW / 2, _cssH / 2);
+    let x = c.x, y = c.y;
+    if (_bg.loaded) { x = _clamp(x, 0, _bg.w); y = _clamp(y, 0, _bg.h); }
+    MapSync.createNpc({ name: 'NPC', x: Math.round(x), y: Math.round(y), size: 1, sizeCat: 'medium' })
+      .then(function(id) { _openNpcEditor(id); })
+      .catch(function(err) { console.warn('[openNpcCreate]', err); alert('NPC 생성 실패: ' + err); });
+  }
+  function npcApply() {
+    if (!_npcEditId || !_effGM() || typeof MapSync === 'undefined') return;
+    const e = _npcRefs();
+    const cat = e.size ? e.size.value : 'medium';
+    MapSync.upsertToken(_npcEditId, {
+      name: e.name ? e.name.value : '',
+      size: _cellsForCat(cat), sizeCat: cat,
+      hidden: e.hidden ? !!e.hidden.checked : false
+    }).catch(function(err) { console.warn('[npcApply]', err); });
+    _markDirty();
+  }
+  function npcDelete() {
+    if (!_npcEditId || !_effGM() || typeof MapSync === 'undefined') return;
+    if (!confirm('이 NPC를 삭제할까요?')) return;
+    MapSync.removeToken(_npcEditId).catch(function(err) { console.warn('[npcDelete]', err); });
+    _disp.delete(_npcEditId);
+    npcClose();
+  }
+  function npcClose() {
+    _npcEditId = null;
+    const e = _npcRefs(); if (e.box) e.box.style.display = 'none';
+  }
+  function npcPickPortrait() {
+    const e = _npcRefs(); if (e.portraitInput) { e.portraitInput.value = ''; e.portraitInput.click(); }
+  }
+  function _onNpcPortrait(ev) {
+    const file = ev.target.files && ev.target.files[0];
+    if (!file || !_npcEditId || typeof MapSync === 'undefined') return;
+    MapSync.resizeTokenImage(file)
+      .then(function(r) { return MapSync.upsertToken(_npcEditId, { img: r.dataUrl }); })
+      .catch(function(err) { console.warn('[npc portrait]', err); });
+  }
+
   return {
     init: init, show: show, hide: hide,
     toggleFullscreen: toggleFullscreen, openFullscreen: openFullscreen, closeFullscreen: closeFullscreen,
@@ -1102,6 +1390,11 @@ var MapView = (function() {
     // 안개 (GM)
     toggleFog: toggleFog, toggleBrush: toggleBrush, toggleBrushMode: toggleBrushMode,
     brushSize: brushSize, revealAll: revealAll, coverAll: coverAll,
+    // GM 멀티맵 드로어 (Map.html)
+    toggleDrawer: toggleDrawer, addMap: addMap,
+    // GM NPC 편집기 (Map.html)
+    openNpcCreate: openNpcCreate, npcApply: npcApply, npcDelete: npcDelete,
+    npcClose: npcClose, npcPickPortrait: npcPickPortrait,
     // 시트 플레이 뷰
     placeMyToken: placeMyToken
   };
