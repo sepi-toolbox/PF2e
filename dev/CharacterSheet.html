@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=538"></script>
-<script src="feat_db.js?v=538"></script>
-<script src="SPELL_DB.js?v=538"></script>
-<script src="class_features_db.js?v=538"></script>
+<script src="equipment_db.js?v=539"></script>
+<script src="feat_db.js?v=539"></script>
+<script src="SPELL_DB.js?v=539"></script>
+<script src="class_features_db.js?v=539"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -225,6 +225,18 @@ body{
 .panel.active{display:block;}
 
 /* ══════════════════════════════════
+   캐릭터 초상 (헤더 아바타)
+   ══════════════════════════════════ */
+#char-portrait{
+  width:40px;height:40px;flex-shrink:0;border-radius:50%;
+  background:var(--bg3) center/cover no-repeat;
+  border:2px solid var(--accent);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+#char-portrait #char-portrait-ph{color:var(--text2);font-size:18px;line-height:1;}
+#char-portrait.has-img #char-portrait-ph{display:none;}
+
+/* ══════════════════════════════════
    세션 전용 탭 (지도) — 세션 모드에서만 노출
    ══════════════════════════════════ */
 .tab-session-only{display:none;}
@@ -242,7 +254,7 @@ body.map-open #right-content{padding:0;overflow:hidden;}
   background:#0c0c0c;overflow:hidden;touch-action:none;
   -webkit-user-select:none;user-select:none;
 }
-#map-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+#map-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;}
 #map-empty{
   position:absolute;inset:0;display:none;align-items:center;justify-content:center;
   color:var(--text2);font-size:13px;text-align:center;padding:24px;line-height:1.6;pointer-events:none;
@@ -1359,7 +1371,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v538</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v539</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1401,6 +1413,10 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <!-- 캐릭터 정보 (이름/레벨/XP + 능력치 + 이동/크기) -->
     <div class="box" style="padding:8px 10px;">
       <div style="display:flex;align-items:flex-end;gap:8px;margin-bottom:6px;">
+        <div id="char-portrait" onclick="onPickPortrait()" title="초상 업로드 (맵 토큰에 사용)">
+          <span id="char-portrait-ph">＋</span>
+        </div>
+        <input id="portrait-input" type="file" accept="image/*" style="display:none;" onchange="onPortraitFile(event)">
         <div style="flex:1;">
           <label style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;">캐릭터 이름</label>
           <input id="f-name" placeholder="이름..." oninput="save()" style="width:100%;background:var(--bg3);border:none;border-bottom:2px solid var(--accent);color:var(--text);padding:4px 6px;font-size:15px;font-weight:700;">
@@ -1944,15 +1960,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=538"></script>
-<script src="cs_calc.js?v=538"></script>
-<script src="cs_ui.js?v=538"></script>
-<script src="cs_modal.js?v=538"></script>
-<script src="cs_feat_effects.js?v=538"></script>
-<script src="cs_save.js?v=538"></script>
-<script src="cs_session.js?v=538"></script>
-<script src="cs_dice.js?v=538"></script>
-<script src="cs_map.js?v=538"></script>
+<script src="cs_data.js?v=539"></script>
+<script src="cs_calc.js?v=539"></script>
+<script src="cs_ui.js?v=539"></script>
+<script src="cs_modal.js?v=539"></script>
+<script src="cs_feat_effects.js?v=539"></script>
+<script src="cs_save.js?v=539"></script>
+<script src="cs_session.js?v=539"></script>
+<script src="cs_dice.js?v=539"></script>
+<script src="cs_map.js?v=539"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->

@@ -11907,6 +11907,7 @@ let state = {
   selectedAncestry: null,
   selectedBackground: null,
   selectedHeritage: null,
+  portrait: null,   // base64 초상 (시트 표시 + 맵 토큰 img 출처)
   // PF2e Remaster boost tracking
   boosts: {
     ancFixed: [],    // fixed from ancestry (auto)

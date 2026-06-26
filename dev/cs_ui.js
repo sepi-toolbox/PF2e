@@ -4142,3 +4142,37 @@ function toggleFamiliarAbility(petIdx, abilityId) {
   renderFamiliarAbilityList(petIdx);
 }
 
+// ═══════════════════════════════════════════════
+//  캐릭터 초상 (state.portrait) — 시트 아바타 + 맵 토큰 img 출처
+// ═══════════════════════════════════════════════
+function onPickPortrait() {
+  const inp = document.getElementById('portrait-input');
+  if (inp) { inp.value = ''; inp.click(); }
+}
+function onPortraitFile(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  if (typeof MapSync === 'undefined') { alert('이미지 처리를 불러올 수 없습니다.'); return; }
+  MapSync.resizeTokenImage(file).then(function(r) {
+    state.portrait = r.dataUrl;
+    renderPortrait();
+    save();
+    // 세션 중 내 토큰이 있으면 초상 즉시 반영
+    if (MapSync.isActive && MapSync.isActive() && !MapSync.isGM()) {
+      const mine = MapSync.myToken();
+      if (mine) MapSync.upsertToken(mine.id, { img: r.dataUrl });
+    }
+  }).catch(function(err) { console.error('[portrait]', err); alert('초상 업로드 실패: ' + err); });
+}
+function renderPortrait() {
+  const el = document.getElementById('char-portrait');
+  if (!el) return;
+  if (state.portrait) {
+    el.style.backgroundImage = 'url(' + state.portrait + ')';
+    el.classList.add('has-img');
+  } else {
+    el.style.backgroundImage = '';
+    el.classList.remove('has-img');
+  }
+}
+

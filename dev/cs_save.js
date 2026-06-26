@@ -112,6 +112,7 @@ function collectData() {
     familiarSpells: state.familiarSpells || null,
     preparedSpells: state.preparedSpells || null,
     initialChoices: state.initialChoices || null,
+    portrait: state.portrait || null,
   };
   SKILLS.forEach(sk => {
     data.skillProfs[sk.id] = document.getElementById('sk-prof-'+sk.id)?.value;
@@ -178,6 +179,8 @@ function loadData(d) {
     if (d.boosts) {
       Object.assign(state.boosts, d.boosts);
     }
+    state.portrait = d.portrait || null;
+    if (typeof renderPortrait === 'function') renderPortrait();
     if (d.fields) {
       ['name','level','xp','notes','languages','speed'].forEach(f => {
         const el = document.getElementById('f-'+f) || document.getElementById(f);
@@ -560,6 +563,8 @@ window.onload = function() {
   renderPets();
   recalcAll();
   renderGrowthPlan();
+  renderPortrait();
+  if (typeof MapView !== 'undefined') MapView.init();  // 지도 onChange/프로비저닝 구독 (세션 입장 시 동작)
   _uiReady = true;
   _checkReady();
 };
