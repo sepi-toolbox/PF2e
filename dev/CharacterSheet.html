@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=548"></script>
-<script src="feat_db.js?v=548"></script>
-<script src="SPELL_DB.js?v=548"></script>
-<script src="class_features_db.js?v=548"></script>
+<script src="equipment_db.js?v=549"></script>
+<script src="feat_db.js?v=549"></script>
+<script src="SPELL_DB.js?v=549"></script>
+<script src="class_features_db.js?v=549"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -247,6 +247,8 @@ body.in-session .map-toggle-only{display:inline-flex;align-items:center;}
 }
 #map-toggle-btn:hover{background:var(--accent);color:#1a1a1a;}
 #map-toggle-btn.on{background:var(--accent);color:#1a1a1a;}
+/* 플레이어 시점 미리보기 표시 */
+body.map-view-player #map-toggle-btn::after{content:" · 플레이어 시점";font-weight:400;}
 
 /* ══════════════════════════════════
    전체화면 지도 — 상단 바 제외 전체 토글 (position:fixed 오버레이)
@@ -1412,7 +1414,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v548</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v549</span>
     <button id="map-toggle-btn" class="map-toggle-only" onclick="MapView.toggleFullscreen()">🗺 지도</button>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
@@ -2029,15 +2031,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=548"></script>
-<script src="cs_calc.js?v=548"></script>
-<script src="cs_ui.js?v=548"></script>
-<script src="cs_modal.js?v=548"></script>
-<script src="cs_feat_effects.js?v=548"></script>
-<script src="cs_save.js?v=548"></script>
-<script src="cs_session.js?v=548"></script>
-<script src="cs_dice.js?v=548"></script>
-<script src="cs_map.js?v=548"></script>
+<script src="cs_data.js?v=549"></script>
+<script src="cs_calc.js?v=549"></script>
+<script src="cs_ui.js?v=549"></script>
+<script src="cs_modal.js?v=549"></script>
+<script src="cs_feat_effects.js?v=549"></script>
+<script src="cs_save.js?v=549"></script>
+<script src="cs_session.js?v=549"></script>
+<script src="cs_dice.js?v=549"></script>
+<script src="cs_map.js?v=549"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->

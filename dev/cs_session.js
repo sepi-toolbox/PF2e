@@ -91,20 +91,8 @@ async function joinSession(code) {
   const doc = snap.docs[0];
   const data = doc.data();
 
-  // GM이 자기 세션에 참가 시도하면 GM 모드로 전환
-  if (data.gmUid === currentUser.uid) {
-    _currentSession = { id: doc.id, name: data.name, joinCode: data.joinCode, gmUid: data.gmUid, players: data.players || {} };
-    _sessionMode = true;
-    _isGM = true;
-    _gmEditTarget = null;
-    localStorage.setItem('pf2e_sessionId', doc.id);
-    localStorage.setItem('pf2e_sessionRole', 'gm');
-    enterSessionUI();
-    startSessionListeners();
-    closeSessionModal();
-    return;
-  }
-
+  // 참가 코드로 들어오면 계정이 GM이어도 '플레이어'로 참가 (GM 모드는 GMSheet '시작하기'로만).
+  // → 같은 계정으로도 플레이어 화면(안개 가림/메뉴 없음)을 그대로 테스트/플레이 가능.
   _currentSession = { id: doc.id, name: data.name, joinCode: data.joinCode, gmUid: data.gmUid, players: data.players || {} };
   _sessionMode = true;
   _isGM = false;
@@ -140,7 +128,8 @@ async function restoreSession() {
     }
     _currentSession = { id: doc.id, name: data.name, joinCode: data.joinCode, gmUid: data.gmUid, players: data.players || {} };
     _sessionMode = true;
-    _isGM = isGM;
+    // 역할은 '계정==gmUid'가 아니라 입장 시 저장된 역할로 결정 (같은 계정이 플레이어로 참가 가능)
+    _isGM = localStorage.getItem('pf2e_sessionRole') === 'gm';
     _gmEditTarget = null;
     enterSessionUI();
     startSessionListeners();
@@ -813,8 +802,11 @@ async function enterGMSessionMode(sessionId) {
       });
 
     // ── 맵/토큰 실시간 동기화 (GM) ──
+    // ?mapview=player 면 지도를 플레이어 시점으로 렌더(안개 불투명·GM 지도메뉴 없음) — GM이 플레이어 화면 확인용
     if (typeof MapSync !== 'undefined') {
-      MapSync.start(sessionId, { isGM: true, uid: currentUser.uid });
+      var _mapAsPlayer = new URLSearchParams(window.location.search).get('mapview') === 'player';
+      MapSync.start(sessionId, { isGM: !_mapAsPlayer, uid: currentUser.uid });
+      if (_mapAsPlayer) document.body.classList.add('map-view-player');
     }
 
     // 첫 번째 플레이어 탭 자동 선택
