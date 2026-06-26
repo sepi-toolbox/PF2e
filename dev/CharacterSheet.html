@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=544"></script>
-<script src="feat_db.js?v=544"></script>
-<script src="SPELL_DB.js?v=544"></script>
-<script src="class_features_db.js?v=544"></script>
+<script src="equipment_db.js?v=545"></script>
+<script src="feat_db.js?v=545"></script>
+<script src="SPELL_DB.js?v=545"></script>
+<script src="class_features_db.js?v=545"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -237,21 +237,29 @@ body{
 #char-portrait.has-img #char-portrait-ph{display:none;}
 
 /* ══════════════════════════════════
-   세션 전용 탭 (지도) — 세션 모드에서만 노출
+   세션 전용 지도 토글 버튼 (상단 바)
    ══════════════════════════════════ */
-.tab-session-only{display:none;}
-body.in-session .tab-session-only{display:block;}
-.bnav-session-only{display:none !important;}
-body.in-session .bnav-session-only{display:flex !important;}
+.map-toggle-only{display:none;}
+body.in-session .map-toggle-only{display:inline-flex;align-items:center;}
+#map-toggle-btn{
+  margin-left:6px;background:var(--bg4);color:var(--accent);border:1px solid var(--accent);
+  border-radius:5px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;
+}
+#map-toggle-btn:hover{background:var(--accent);color:#1a1a1a;}
+#map-toggle-btn.on{background:var(--accent);color:#1a1a1a;}
 
 /* ══════════════════════════════════
-   지도(맵) 뷰 — 전체화면 캔버스
+   전체화면 지도 — 상단 바 제외 전체 토글 (position:fixed 오버레이)
+   top은 JS(_positionFullscreen)가 #auth-bar 하단으로 지정
    ══════════════════════════════════ */
-body.map-open #right-content{padding:0;overflow:hidden;}
-/* 높이는 JS(_resize)가 뷰포트 기준으로 #map-stage에 직접 지정 — 모바일 height:auto 그리드에서도 안 찌그러짐 */
-#panel-map.active{display:block;}
+body.map-open{overflow:hidden;}
+#map-fullscreen{
+  position:fixed;left:0;right:0;bottom:0;top:0;z-index:10000;display:none;background:#0c0c0c;
+}
+#map-fullscreen.open{display:block;}
+/* 높이는 JS(_resize)가 뷰포트 기준으로 #map-stage에 직접 지정 (모바일 대응) */
 #map-stage{
-  position:relative;width:100%;height:70vh;  /* JS가 정확한 px로 덮어씀 (70vh는 폴백) */
+  position:relative;width:100%;height:100%;
   background:#0c0c0c;overflow:hidden;touch-action:none;
   -webkit-user-select:none;user-select:none;
 }
@@ -1404,7 +1412,8 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v544</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v545</span>
+    <button id="map-toggle-btn" class="map-toggle-only" onclick="MapView.toggleFullscreen()">🗺 지도</button>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1617,7 +1626,6 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <div class="tab" onclick="switchTab('pets',this)">동료</div>
     <div class="tab" onclick="switchTab('feats',this)">재주</div>
     <div class="tab" onclick="switchTab('actions',this)">행동</div>
-    <div class="tab tab-session-only" onclick="switchTab('map',this)">지도</div>
   </div>
 
   <!-- Tab content panels -->
@@ -1943,56 +1951,57 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <div id="panel-info" class="panel">
     </div><!-- /#panel-info -->
 
-    <!-- ── 지도 Map (세션 전용, Phase B) ── -->
-    <div id="panel-map" class="panel">
-      <div id="map-stage">
-        <canvas id="map-canvas"></canvas>
-        <div id="map-empty"></div>
-        <div id="map-toolbar">
-          <button id="map-upload-btn" style="display:none;" onclick="MapView.pickBg()">🖼 배경</button>
-          <button onclick="MapView.fit()">⤢ 맞춤</button>
-          <button id="map-snap-btn" class="on" onclick="MapView.toggleSnap()">⊞ 격자</button>
-          <button id="map-addtoken-btn" style="display:none;" onclick="MapView.addToken()">＋토큰</button>
-          <button id="map-fog-btn" style="display:none;" onclick="MapView.toggleFog()">🌫 안개</button>
-        </div>
-        <div id="map-fog-bar" style="display:none;">
-          <button id="map-brush-btn" onclick="MapView.toggleBrush()">✏️ 그리기</button>
-          <button id="map-brush-mode" onclick="MapView.toggleBrushMode()">지우개(공개)</button>
-          <span class="map-fog-size">붓 <button onclick="MapView.brushSize(-1)">－</button><b id="map-brush-size">중</b><button onclick="MapView.brushSize(1)">＋</button></span>
-          <button onclick="MapView.revealAll()">전체공개</button>
-          <button onclick="MapView.coverAll()">전체가림</button>
-        </div>
-        <div id="map-zoom">
-          <button onclick="MapView.zoomIn()" aria-label="확대">＋</button>
-          <button onclick="MapView.zoomOut()" aria-label="축소">－</button>
-        </div>
-        <input id="map-bg-input" type="file" accept="image/*" style="display:none;">
-
-        <!-- GM 토큰 편집기 (탭하면 열림) -->
-        <div id="map-token-editor" style="display:none;">
-          <div class="te-row"><label>이름</label><input id="te-name" type="text" onchange="MapView.editorApply()"></div>
-          <div class="te-row">
-            <label>색</label><input id="te-color" type="color" onchange="MapView.editorApply()">
-            <label style="margin-left:8px;">크기</label>
-            <select id="te-size" onchange="MapView.editorApply()">
-              <option value="1">1·중형</option><option value="2">2·대형</option>
-              <option value="3">3·거대</option><option value="4">4·초대형</option>
-            </select>
-          </div>
-          <div class="te-row"><label class="te-check"><input id="te-hidden" type="checkbox" onchange="MapView.editorApply()"> 숨김 (플레이어에게 안 보임)</label></div>
-          <div class="te-row te-actions">
-            <button onclick="MapView.editorPickPortrait()">🖼 초상</button>
-            <button class="te-del" onclick="MapView.editorDelete()">삭제</button>
-            <button onclick="MapView.editorClose()">닫기</button>
-          </div>
-          <input id="te-portrait-input" type="file" accept="image/*" style="display:none;">
-        </div>
-      </div>
-    </div><!-- /#panel-map -->
-
   </div><!-- /#right-content -->
 
 </div><!-- /#app-layout -->
+
+<!-- ═══════════════ 전체화면 지도 (상단 바 제외 전체 토글) ═══════════════ -->
+<div id="map-fullscreen">
+  <div id="map-stage">
+    <canvas id="map-canvas"></canvas>
+    <div id="map-empty"></div>
+    <div id="map-toolbar">
+      <button id="map-upload-btn" style="display:none;" onclick="MapView.pickBg()">🖼 배경</button>
+      <button onclick="MapView.fit()">⤢ 맞춤</button>
+      <button id="map-snap-btn" class="on" onclick="MapView.toggleSnap()">⊞ 격자</button>
+      <button id="map-addtoken-btn" style="display:none;" onclick="MapView.addToken()">＋토큰</button>
+      <button id="map-fog-btn" style="display:none;" onclick="MapView.toggleFog()">🌫 안개</button>
+      <button id="map-close-btn" onclick="MapView.toggleFullscreen()" title="지도 닫기">✕ 닫기</button>
+    </div>
+    <div id="map-fog-bar" style="display:none;">
+      <button id="map-brush-btn" onclick="MapView.toggleBrush()">✏️ 그리기</button>
+      <button id="map-brush-mode" onclick="MapView.toggleBrushMode()">지우개(공개)</button>
+      <span class="map-fog-size">붓 <button onclick="MapView.brushSize(-1)">－</button><b id="map-brush-size">중</b><button onclick="MapView.brushSize(1)">＋</button></span>
+      <button onclick="MapView.revealAll()">전체공개</button>
+      <button onclick="MapView.coverAll()">전체가림</button>
+    </div>
+    <div id="map-zoom">
+      <button onclick="MapView.zoomIn()" aria-label="확대">＋</button>
+      <button onclick="MapView.zoomOut()" aria-label="축소">－</button>
+    </div>
+    <input id="map-bg-input" type="file" accept="image/*" style="display:none;">
+
+    <!-- GM 토큰 편집기 (탭하면 열림) -->
+    <div id="map-token-editor" style="display:none;">
+      <div class="te-row"><label>이름</label><input id="te-name" type="text" onchange="MapView.editorApply()"></div>
+      <div class="te-row">
+        <label>색</label><input id="te-color" type="color" onchange="MapView.editorApply()">
+        <label style="margin-left:8px;">크기</label>
+        <select id="te-size" onchange="MapView.editorApply()">
+          <option value="1">1·중형</option><option value="2">2·대형</option>
+          <option value="3">3·거대</option><option value="4">4·초대형</option>
+        </select>
+      </div>
+      <div class="te-row"><label class="te-check"><input id="te-hidden" type="checkbox" onchange="MapView.editorApply()"> 숨김 (플레이어에게 안 보임)</label></div>
+      <div class="te-row te-actions">
+        <button onclick="MapView.editorPickPortrait()">🖼 초상</button>
+        <button class="te-del" onclick="MapView.editorDelete()">삭제</button>
+        <button onclick="MapView.editorClose()">닫기</button>
+      </div>
+      <input id="te-portrait-input" type="file" accept="image/*" style="display:none;">
+    </div>
+  </div>
+</div><!-- /#map-fullscreen -->
 
 <!-- ═══════════════ MODAL ═══════════════ -->
 <div class="modal-overlay hidden" id="modal-overlay">
@@ -2023,15 +2032,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=544"></script>
-<script src="cs_calc.js?v=544"></script>
-<script src="cs_ui.js?v=544"></script>
-<script src="cs_modal.js?v=544"></script>
-<script src="cs_feat_effects.js?v=544"></script>
-<script src="cs_save.js?v=544"></script>
-<script src="cs_session.js?v=544"></script>
-<script src="cs_dice.js?v=544"></script>
-<script src="cs_map.js?v=544"></script>
+<script src="cs_data.js?v=545"></script>
+<script src="cs_calc.js?v=545"></script>
+<script src="cs_ui.js?v=545"></script>
+<script src="cs_modal.js?v=545"></script>
+<script src="cs_feat_effects.js?v=545"></script>
+<script src="cs_save.js?v=545"></script>
+<script src="cs_session.js?v=545"></script>
+<script src="cs_dice.js?v=545"></script>
+<script src="cs_map.js?v=545"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -2247,7 +2256,6 @@ function mobileNavSwitch(id) {
   <button class="bnav-btn" data-tab="pets" onclick="mobileNavSwitch('pets')"><span class="bnav-icon">🐾</span>펫</button>
   <button class="bnav-btn" data-tab="feats" onclick="mobileNavSwitch('feats')"><span class="bnav-icon">⭐</span>재주</button>
   <button class="bnav-btn" data-tab="actions" onclick="mobileNavSwitch('actions')"><span class="bnav-icon">▶️</span>행동</button>
-  <button class="bnav-btn bnav-session-only" data-tab="map" onclick="mobileNavSwitch('map')"><span class="bnav-icon">🗺️</span>지도</button>
 </nav>
 
 </body>

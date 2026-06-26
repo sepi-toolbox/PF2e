@@ -516,12 +516,7 @@ function switchTab(id, el) {
   }
 
   if (id === 'actions') renderActions();
-
-  // ── 지도 뷰 활성/비활성 (세션 전용) ──
-  document.body.classList.toggle('map-open', id === 'map');
-  if (typeof MapView !== 'undefined') {
-    if (id === 'map') MapView.show(); else MapView.hide();
-  }
+  // 지도는 탭이 아니라 상단 바의 전체화면 토글(MapView.toggleFullscreen)로 이동됨 (v545~)
 }
 
 // Fix recalcAll to also update mobile mirror attribute displays + auto-save

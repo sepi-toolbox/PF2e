@@ -549,13 +549,9 @@ function enterSessionUI() {
 function exitSessionUI() {
   const bar = document.getElementById('session-bar');
   if (bar) bar.style.display = 'none';
-  document.body.classList.remove('in-session');   // 지도 탭 숨김
-  // 지도 탭을 보던 중 세션 종료 시 기본 탭(무기)으로 복귀
-  if (document.body.classList.contains('map-open')) {
-    const wt = Array.from(document.querySelectorAll('#right-tabs .tab'))
-      .find(t => t.textContent.trim() === '무기');
-    switchTab('weapons', wt || null);
-  }
+  document.body.classList.remove('in-session');   // 지도 토글 버튼 숨김
+  // 전체화면 지도를 보던 중 세션 종료 시 닫기
+  if (typeof MapView !== 'undefined' && MapView.closeFullscreen) MapView.closeFullscreen();
   // 일반 플레이어 모드로 복귀
   if (currentUser) {
     const slotBar = document.getElementById('slot-bar');

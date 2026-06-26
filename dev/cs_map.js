@@ -343,10 +343,41 @@ var MapView = (function() {
     // ── GM 배경 업로드 ──
     if (_fileInput) _fileInput.addEventListener('change', _onPickBg);
 
-    window.addEventListener('resize', function() { if (_active) { _resize(); } });
+    window.addEventListener('resize', function() { if (_active) { _positionFullscreen(); _resize(); } });
   }
 
-  // ── 패널 표시/숨김 (switchTab에서 호출) ──
+  // ── 전체화면 토글 (상단 바의 🗺 지도 버튼) ──
+  // 상단 #auth-bar를 제외한 전체를 덮는 fixed 오버레이. top은 auth-bar 하단으로 맞춤.
+  function _positionFullscreen() {
+    const bar = document.getElementById('auth-bar');
+    const fs = document.getElementById('map-fullscreen');
+    if (fs) fs.style.top = (bar ? Math.round(bar.getBoundingClientRect().bottom) : 0) + 'px';
+  }
+  function toggleFullscreen() {
+    const fs = document.getElementById('map-fullscreen');
+    if (!fs) return;
+    const open = !fs.classList.contains('open');
+    const btn = document.getElementById('map-toggle-btn');
+    if (open) {
+      window.scrollTo(0, 0);              // 스크롤 상태에서도 auth-bar 하단 정확히 측정
+      _positionFullscreen();
+      fs.classList.add('open');
+      document.body.classList.add('map-open');
+      if (btn) btn.classList.add('on');
+      show();
+    } else {
+      fs.classList.remove('open');
+      document.body.classList.remove('map-open');
+      if (btn) btn.classList.remove('on');
+      hide();
+    }
+  }
+  function closeFullscreen() {
+    const fs = document.getElementById('map-fullscreen');
+    if (fs && fs.classList.contains('open')) toggleFullscreen();
+  }
+
+  // ── 표시/숨김 (toggleFullscreen에서 호출) ──
   function show() {
     init();
     if (!_inited) return;
@@ -367,15 +398,12 @@ var MapView = (function() {
     if (_pinch) _pinch = null;
   }
 
-  // ── 캔버스 픽셀 크기 = 뷰포트 잔여 높이 (모바일 height:auto 그리드 대응) ──
-  // CSS 높이 체인(height:100%/flex)에 의존하지 않고 JS가 스테이지 높이를 직접 px로 지정.
+  // ── 캔버스 픽셀 크기 = 뷰포트 잔여 높이 ──
+  // 전체화면 오버레이(상단 바 제외 전체)라 하단 내비까지 덮음 → 스테이지 상단부터 화면 끝까지.
   function _resize() {
     if (!_stage) return;
     const rect = _stage.getBoundingClientRect();
-    const nav = document.getElementById('mobile-bottom-nav');
-    const navH = (nav && getComputedStyle(nav).display !== 'none') ? nav.offsetHeight : 0;
-    // 스테이지 상단(rect.top)부터 화면 하단(하단 내비 제외)까지 = 지도 영역
-    let h = window.innerHeight - rect.top - navH;
+    let h = window.innerHeight - rect.top;
     if (!(h > 120)) h = 120;
     _stage.style.height = h + 'px';
 
@@ -1009,6 +1037,7 @@ var MapView = (function() {
 
   return {
     init: init, show: show, hide: hide,
+    toggleFullscreen: toggleFullscreen, closeFullscreen: closeFullscreen,
     fit: fit, zoomIn: zoomIn, zoomOut: zoomOut, pickBg: pickBg,
     // 안개 (GM)
     toggleFog: toggleFog, toggleBrush: toggleBrush, toggleBrushMode: toggleBrushMode,
