@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=543"></script>
-<script src="feat_db.js?v=543"></script>
-<script src="SPELL_DB.js?v=543"></script>
-<script src="class_features_db.js?v=543"></script>
+<script src="equipment_db.js?v=544"></script>
+<script src="feat_db.js?v=544"></script>
+<script src="SPELL_DB.js?v=544"></script>
+<script src="class_features_db.js?v=544"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -248,9 +248,10 @@ body.in-session .bnav-session-only{display:flex !important;}
    지도(맵) 뷰 — 전체화면 캔버스
    ══════════════════════════════════ */
 body.map-open #right-content{padding:0;overflow:hidden;}
-#panel-map.active{display:flex;flex-direction:column;height:100%;min-height:0;}
+/* 높이는 JS(_resize)가 뷰포트 기준으로 #map-stage에 직접 지정 — 모바일 height:auto 그리드에서도 안 찌그러짐 */
+#panel-map.active{display:block;}
 #map-stage{
-  position:relative;flex:1;min-height:0;width:100%;
+  position:relative;width:100%;height:70vh;  /* JS가 정확한 px로 덮어씀 (70vh는 폴백) */
   background:#0c0c0c;overflow:hidden;touch-action:none;
   -webkit-user-select:none;user-select:none;
 }
@@ -1403,7 +1404,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v543</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v544</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -2022,15 +2023,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=543"></script>
-<script src="cs_calc.js?v=543"></script>
-<script src="cs_ui.js?v=543"></script>
-<script src="cs_modal.js?v=543"></script>
-<script src="cs_feat_effects.js?v=543"></script>
-<script src="cs_save.js?v=543"></script>
-<script src="cs_session.js?v=543"></script>
-<script src="cs_dice.js?v=543"></script>
-<script src="cs_map.js?v=543"></script>
+<script src="cs_data.js?v=544"></script>
+<script src="cs_calc.js?v=544"></script>
+<script src="cs_ui.js?v=544"></script>
+<script src="cs_modal.js?v=544"></script>
+<script src="cs_feat_effects.js?v=544"></script>
+<script src="cs_save.js?v=544"></script>
+<script src="cs_session.js?v=544"></script>
+<script src="cs_dice.js?v=544"></script>
+<script src="cs_map.js?v=544"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->

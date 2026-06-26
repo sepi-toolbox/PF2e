@@ -262,7 +262,7 @@ var MapView = (function() {
 
   // 배경 이미지 캐시
   let _bg = { url: null, img: null, w: 0, h: 0, loaded: false };
-  let _needFit = false;     // 새 배경 로드 후 캔버스 크기 확정 시 1회 자동 맞춤
+  let _userMoved = false;   // 사용자가 직접 팬/줌 했나 (true면 자동 맞춤 중단 — 시점 유지)
 
   // 토큰 초상 이미지 캐시 (base64 url → {img, loaded})
   let _tokenImgs = new Map();
@@ -353,10 +353,12 @@ var MapView = (function() {
     _active = true;
     _refreshToolbar();
     _onMapState(typeof MapSync !== 'undefined' ? MapSync.getMapState() : null);
-    _resize();                            // 캔버스 크기 확정 + 첫 draw
-    _applyPendingFit();
+    _resize();                            // 캔버스 크기 확정 + 첫 draw (_autoFit 포함)
     _maybeProvision();                    // 토큰 동기화 후 진입했다면 보강
     _loop();
+    // 모바일: 헤더/주소창 높이가 늦게 잡히는 경우 대비 — 다음 프레임 + 짧은 지연 재측정(_resize가 _autoFit 포함)
+    requestAnimationFrame(function() { if (_active) _resize(); });
+    setTimeout(function() { if (_active) _resize(); }, 250);
   }
   function hide() {
     _active = false;
@@ -365,28 +367,30 @@ var MapView = (function() {
     if (_pinch) _pinch = null;
   }
 
-  // ── 캔버스 픽셀 크기 = 스테이지 크기 (모바일 하단 내비 제외) ──
+  // ── 캔버스 픽셀 크기 = 뷰포트 잔여 높이 (모바일 height:auto 그리드 대응) ──
+  // CSS 높이 체인(height:100%/flex)에 의존하지 않고 JS가 스테이지 높이를 직접 px로 지정.
   function _resize() {
     if (!_stage) return;
     const rect = _stage.getBoundingClientRect();
     const nav = document.getElementById('mobile-bottom-nav');
     const navH = (nav && getComputedStyle(nav).display !== 'none') ? nav.offsetHeight : 0;
-    // 스테이지가 하단 내비 밑으로 흐르면 잘라냄
-    let h = Math.min(rect.height, window.innerHeight - rect.top - navH);
-    if (!(h > 80)) h = Math.max(120, window.innerHeight - rect.top - navH);
+    // 스테이지 상단(rect.top)부터 화면 하단(하단 내비 제외)까지 = 지도 영역
+    let h = window.innerHeight - rect.top - navH;
+    if (!(h > 120)) h = 120;
     _stage.style.height = h + 'px';
 
     _dpr  = window.devicePixelRatio || 1;
-    _cssW = _stage.clientWidth;
-    _cssH = _stage.clientHeight;
+    _cssW = _stage.clientWidth  || Math.round(rect.width) || 1;
+    _cssH = _stage.clientHeight || h;
     _cv.width  = Math.max(1, Math.round(_cssW * _dpr));
     _cv.height = Math.max(1, Math.round(_cssH * _dpr));
-    _applyPendingFit();
+    _autoFit();
     _markDirty();
   }
 
-  function _applyPendingFit() {
-    if (_needFit && _bg.loaded && _cssW && _cssH) { fit(); _needFit = false; }
+  // 사용자가 아직 손대지 않았으면 전체 맞춤 (모바일에서 크기 늦게 확정돼도 최종 크기에 맞춰짐)
+  function _autoFit() {
+    if (_bg.loaded && !_userMoved && _cssW && _cssH) fit();
   }
 
   // ── 배경 상태 변경 처리 ──
@@ -394,14 +398,14 @@ var MapView = (function() {
     const url = state && state.bgImage ? state.bgImage : null;
     if (url !== _bg.url) {
       _bg = { url: url, img: null, w: 0, h: 0, loaded: false };
+      _userMoved = false;                 // 새 배경 → 자동 맞춤 재개
       if (url) {
         const img = new Image();
         img.onload = function() {
           _bg.img = img; _bg.loaded = true;
           _bg.w = (state && state.bgW) || img.naturalWidth;
           _bg.h = (state && state.bgH) || img.naturalHeight;
-          _needFit = true;                // 새 배경 → 캔버스 사이즈 확정 시 자동 맞춤
-          _applyPendingFit();             // 이미 표시 중이면 즉시 맞춤
+          _autoFit();                     // 캔버스 크기 확정돼 있으면 전체 맞춤
           _refreshEmpty();
           _markDirty();
         };
@@ -573,6 +577,7 @@ var MapView = (function() {
   function _zoomAt(sx, sy, factor) {
     const ns = _clamp(_view.scale * factor, MIN_SCALE, MAX_SCALE);
     if (ns === _view.scale) return;
+    _userMoved = true;                    // 사용자 줌 → 자동 맞춤 중단
     const w = _screenToWorld(sx, sy);
     _view.scale = ns;
     _view.offX = sx - w.x * ns;
@@ -595,7 +600,7 @@ var MapView = (function() {
     else if (_tokenDrag) { _dragTokenTo(p); }
     else if (_drag) {
       _view.offX += p.x - _drag.x; _view.offY += p.y - _drag.y;
-      _drag = p; _markDirty();
+      _drag = p; _userMoved = true; _markDirty();
     }
   }
   function _onMouseUp() { _endStroke(); _endTokenDrag(); _drag = null; }
@@ -628,14 +633,14 @@ var MapView = (function() {
       _view.scale = ns;
       _view.offX = midX - _pinch.worldMid.x * ns;
       _view.offY = midY - _pinch.worldMid.y * ns;
-      _markDirty();
+      _userMoved = true; _markDirty();
     } else if (e.touches.length === 1) {
       const p = _touchLocal(e.touches[0]);
       if (_stroke) { _strokeMove(p); }
       else if (_tokenDrag) { _dragTokenTo(p); }
       else if (_drag) {
         _view.offX += p.x - _drag.x; _view.offY += p.y - _drag.y;
-        _drag = p; _markDirty();
+        _drag = p; _userMoved = true; _markDirty();
       }
     }
     e.preventDefault();
