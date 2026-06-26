@@ -272,6 +272,18 @@ var MapView = (function() {
   let _pinch = null;        // 2터치 줌: {dist, mid, worldMid, scale}
   let _tokenDrag = null;    // 토큰 끌기: {id, x, y, grabX, grabY} (x,y=현재 월드 위치)
 
+  // ── 전장의 안개 (Phase D) ──
+  let _fogEnabled = false;
+  let _maskCv = null, _maskCtx = null, _maskW = 0, _maskH = 0;  // 공개 마스크(저해상도): 불투명=공개
+  let _maskUrl = null;      // 마지막 로드/기록한 fogMask data url (자기 echo 스킵)
+  let _maskLoadTok = 0;     // 비동기 마스크 로드 경합 방지 토큰
+  let _fogCanvas = null, _fogCtx = null;  // 화면 크기 안개 합성용 오프스크린
+  const BRUSH_SIZES = [40, 80, 160, 320];
+  const BRUSH_LABELS = ['소', '중', '대', '특'];
+  let _brushIdx = 1;
+  let _brush = { paint: false, mode: 'reveal', size: BRUSH_SIZES[1] };  // size=월드 px 지름, mode: reveal|recover
+  let _stroke = null;       // 그리는 중: {last:{x,y}}
+
   function _clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
   function _markDirty() { _dirty = true; }
 
@@ -393,7 +405,11 @@ var MapView = (function() {
       // 같은 배경, 치수만 갱신 가능
       _bg.w = state.bgW || _bg.w; _bg.h = state.bgH || _bg.h;
     }
+    // 안개 (Phase D)
+    _fogEnabled = !!(state && state.fogEnabled);
+    _loadMaskFromState(state);
     _refreshEmpty();
+    _refreshToolbar();
     _markDirty();
   }
 
@@ -410,6 +426,17 @@ var MapView = (function() {
   function _refreshToolbar() {
     const gm = (typeof MapSync !== 'undefined' && MapSync.isGM());
     if (_uploadBtn) _uploadBtn.style.display = gm ? '' : 'none';
+    // 안개 컨트롤 (GM 전용)
+    const fogBtn = document.getElementById('map-fog-btn');
+    if (fogBtn) { fogBtn.style.display = gm ? '' : 'none'; fogBtn.classList.toggle('on', _fogEnabled); }
+    const fogBar = document.getElementById('map-fog-bar');
+    if (fogBar) fogBar.style.display = (gm && _fogEnabled) ? 'flex' : 'none';
+    const brushBtn = document.getElementById('map-brush-btn');
+    if (brushBtn) brushBtn.classList.toggle('on', _brush.paint);
+    const modeBtn = document.getElementById('map-brush-mode');
+    if (modeBtn) modeBtn.textContent = (_brush.mode === 'reveal') ? '지우개(공개)' : '덮기(가림)';
+    const sizeLbl = document.getElementById('map-brush-size');
+    if (sizeLbl) sizeLbl.textContent = BRUSH_LABELS[_brushIdx];
   }
 
   // ───────────────────────────────────────────
@@ -535,18 +562,20 @@ var MapView = (function() {
   // ── 마우스 ──
   function _onMouseDown(e) {
     const p = _localXY(e);
-    if (!_tryStartTokenDrag(p)) _drag = p;   // 토큰 못 잡으면 팬
+    if (_isPainting()) { _startStroke(p); return; }   // 안개 브러시 우선
+    if (!_tryStartTokenDrag(p)) _drag = p;            // 토큰 못 잡으면 팬
   }
   function _onMouseMove(e) {
     if (!_active) return;
     const p = _localXY(e);
-    if (_tokenDrag) { _dragTokenTo(p); }
+    if (_stroke) { _strokeMove(p); }
+    else if (_tokenDrag) { _dragTokenTo(p); }
     else if (_drag) {
       _view.offX += p.x - _drag.x; _view.offY += p.y - _drag.y;
       _drag = p; _markDirty();
     }
   }
-  function _onMouseUp() { _endTokenDrag(); _drag = null; }
+  function _onMouseUp() { _endStroke(); _endTokenDrag(); _drag = null; }
   function _onWheel(e) {
     e.preventDefault();
     const p = _localXY(e);
@@ -558,9 +587,11 @@ var MapView = (function() {
     if (e.touches.length === 1) {
       _pinch = null;
       const p = _touchLocal(e.touches[0]);
-      if (!_tryStartTokenDrag(p)) _drag = p;     // 내 토큰 위면 끌기, 아니면 팬
+      if (_isPainting()) { _startStroke(p); }          // 안개 브러시 우선
+      else if (!_tryStartTokenDrag(p)) _drag = p;       // 내 토큰 위면 끌기, 아니면 팬
     } else if (e.touches.length >= 2) {
-      _drag = null; _tokenDrag = null;           // 두 손가락 → 핀치줌 (토큰 끌기 취소)
+      _endStroke();                                     // 그리는 중이었으면 마무리(커밋)
+      _drag = null; _tokenDrag = null;                  // 두 손가락 → 핀치줌
       _startPinch(e.touches[0], e.touches[1]);
     }
     e.preventDefault();
@@ -577,7 +608,8 @@ var MapView = (function() {
       _markDirty();
     } else if (e.touches.length === 1) {
       const p = _touchLocal(e.touches[0]);
-      if (_tokenDrag) { _dragTokenTo(p); }
+      if (_stroke) { _strokeMove(p); }
+      else if (_tokenDrag) { _dragTokenTo(p); }
       else if (_drag) {
         _view.offX += p.x - _drag.x; _view.offY += p.y - _drag.y;
         _drag = p; _markDirty();
@@ -586,8 +618,8 @@ var MapView = (function() {
     e.preventDefault();
   }
   function _onTouchEnd(e) {
-    if (e.touches.length === 0) { _endTokenDrag(); _drag = null; _pinch = null; }
-    else if (e.touches.length === 1) { _pinch = null; if (!_tokenDrag) _drag = _touchLocal(e.touches[0]); }
+    if (e.touches.length === 0) { _endStroke(); _endTokenDrag(); _drag = null; _pinch = null; }
+    else if (e.touches.length === 1) { _pinch = null; if (!_stroke && !_tokenDrag) _drag = _touchLocal(e.touches[0]); }
   }
   function _startPinch(t0, t1) {
     const a = _touchLocal(t0), b = _touchLocal(t1);
@@ -631,7 +663,7 @@ var MapView = (function() {
       _ctx.strokeRect(_view.offX + 0.5, _view.offY + 0.5, w, h);
     }
     _drawTokens();        // 토큰 레이어 (Phase C)
-    // 안개 레이어는 Phase D
+    _drawFog();           // 안개 오버레이 (Phase D)
   }
 
   // ── 토큰 렌더 (원형 초상/색원 + 테두리 + 이름표) ──
@@ -713,9 +745,162 @@ var MapView = (function() {
     _ctx.restore();
   }
 
+  // ───────────────────────────────────────────
+  //  전장의 안개 (Phase D) — GM 수동 브러시, 저해상도 마스크
+  // ───────────────────────────────────────────
+  function _maskScale() {
+    return (typeof MapSync !== 'undefined' && MapSync.consts && MapSync.consts.MASK_SCALE) || 8;
+  }
+  function _ensureMask(mw, mh) {
+    mw = Math.max(1, mw | 0); mh = Math.max(1, mh | 0);
+    if (!_maskCv) { _maskCv = document.createElement('canvas'); _maskCtx = _maskCv.getContext('2d'); }
+    if (_maskCv.width !== mw || _maskCv.height !== mh) { _maskCv.width = mw; _maskCv.height = mh; }  // 리사이즈=비워짐(전체 가림)
+    _maskW = mw; _maskH = mh;
+  }
+  function _ensureMaskFromBg() {
+    if (!_bg.loaded) return;
+    const sc = _maskScale();
+    _ensureMask(Math.ceil(_bg.w / sc), Math.ceil(_bg.h / sc));
+  }
+  // map/state의 fogMask를 로컬 마스크 캔버스로 로드 (자기 echo/그리는 중엔 스킵)
+  function _loadMaskFromState(state) {
+    const url = (state && state.fogMask) ? state.fogMask : null;
+    if (url) {
+      if (url === _maskUrl || _stroke) return;          // 이미 보유 or 그리는 중
+      const mw = (state.maskW | 0), mh = (state.maskH | 0);
+      const tok = ++_maskLoadTok;
+      const img = new Image();
+      img.onload = function() {
+        if (tok !== _maskLoadTok || _stroke) return;    // 더 최신 로드/그리는 중이면 폐기
+        _ensureMask(mw || img.naturalWidth, mh || img.naturalHeight);
+        _maskCtx.clearRect(0, 0, _maskW, _maskH);
+        _maskCtx.drawImage(img, 0, 0, _maskW, _maskH);
+        _maskUrl = url;
+        _markDirty();
+      };
+      img.onerror = function() {};
+      img.src = url;
+    } else if (_fogEnabled) {
+      _ensureMaskFromBg(); _maskUrl = null;             // 마스크 없음 + 안개 ON → 전체 가림
+    }
+  }
+
+  // 안개 오버레이 렌더 (배경/그리드/토큰 위)
+  function _drawFog() {
+    if (!_fogEnabled || !_bg.loaded) return;
+    const gm = (typeof MapSync !== 'undefined' && MapSync.isGM());
+    if (!_fogCanvas) { _fogCanvas = document.createElement('canvas'); _fogCtx = _fogCanvas.getContext('2d'); }
+    if (_fogCanvas.width !== _cssW || _fogCanvas.height !== _cssH) { _fogCanvas.width = _cssW; _fogCanvas.height = _cssH; }
+    const fx = _fogCtx;
+    fx.setTransform(1, 0, 0, 1, 0, 0);
+    fx.clearRect(0, 0, _cssW, _cssH);
+    const x = _view.offX, y = _view.offY, w = _bg.w * _view.scale, h = _bg.h * _view.scale;
+    fx.globalCompositeOperation = 'source-over';
+    fx.fillStyle = gm ? 'rgba(10,12,20,0.5)' : 'rgba(4,5,9,1)';   // GM=투시 반투명 / 플레이어=불투명
+    fx.fillRect(x, y, w, h);
+    if (_maskCv) {                                                 // 공개부(마스크 불투명)만큼 구멍
+      fx.globalCompositeOperation = 'destination-out';
+      fx.imageSmoothingEnabled = true;
+      fx.drawImage(_maskCv, x, y, w, h);
+      fx.globalCompositeOperation = 'source-over';
+    }
+    _ctx.drawImage(_fogCanvas, 0, 0, _cssW, _cssH);
+  }
+
+  // ── 브러시 페인트 ──
+  function _isPainting() {
+    return (typeof MapSync !== 'undefined') && MapSync.isGM() && _fogEnabled && _brush.paint;
+  }
+  function _paintDab(worldX, worldY) {
+    if (!_maskCtx) return;
+    const sc = _maskScale();
+    const r = Math.max(0.5, (_brush.size / 2) / sc);
+    _maskCtx.globalCompositeOperation = (_brush.mode === 'reveal') ? 'source-over' : 'destination-out';
+    _maskCtx.fillStyle = '#fff';
+    _maskCtx.beginPath(); _maskCtx.arc(worldX / sc, worldY / sc, r, 0, Math.PI * 2); _maskCtx.fill();
+    _maskCtx.globalCompositeOperation = 'source-over';
+  }
+  function _paintLine(fromScreen, toScreen) {
+    const a = _screenToWorld(fromScreen.x, fromScreen.y);
+    const b = _screenToWorld(toScreen.x, toScreen.y);
+    const stepWorld = Math.max(1, (_brush.size / 2) * 0.5);       // 겹치게 보간
+    const dist = Math.hypot(b.x - a.x, b.y - a.y);
+    const n = Math.max(1, Math.ceil(dist / stepWorld));
+    for (let i = 0; i <= n; i++) {
+      const t = i / n;
+      _paintDab(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t);
+    }
+  }
+  function _startStroke(p) {
+    if (!_maskCv) _ensureMaskFromBg();
+    if (!_maskCv) return false;
+    _stroke = { last: p };
+    const w = _screenToWorld(p.x, p.y);
+    _paintDab(w.x, w.y);
+    _markDirty();
+    return true;
+  }
+  function _strokeMove(p) {
+    if (!_stroke) return;
+    _paintLine(_stroke.last, p);
+    _stroke.last = p;
+    _markDirty();
+  }
+  function _endStroke() {
+    if (!_stroke) return;
+    _stroke = null;
+    _commitMask();
+  }
+  function _commitMask() {
+    if (!_maskCv || typeof MapSync === 'undefined') return;
+    const url = _maskCv.toDataURL('image/png');
+    _maskUrl = url;                                  // 자기 echo 스킵
+    MapSync.setFogMask(url, _maskW, _maskH, _fogEnabled).catch(function(err) { console.warn('[MapView fog]', err); });
+  }
+
+  // ── 공개 안개 컨트롤 (GM 툴바) ──
+  function toggleFog() {
+    if (typeof MapSync === 'undefined' || !MapSync.isGM()) return;
+    if (!_bg.loaded) { alert('먼저 배경을 업로드하세요.'); return; }
+    const next = !_fogEnabled;
+    if (next) _ensureMaskFromBg();                   // 없으면 전체 가림 마스크
+    _fogEnabled = next;
+    if (!next) _brush.paint = false;
+    const url = _maskCv ? _maskCv.toDataURL('image/png') : null;
+    _maskUrl = url;
+    MapSync.setFogMask(url, _maskW, _maskH, next).catch(function(err) { console.warn('[fog toggle]', err); });
+    _refreshToolbar(); _markDirty();
+  }
+  function toggleBrush() {
+    if (typeof MapSync === 'undefined' || !MapSync.isGM() || !_fogEnabled) return;
+    _brush.paint = !_brush.paint;
+    _refreshToolbar(); _markDirty();
+  }
+  function toggleBrushMode() { _brush.mode = (_brush.mode === 'reveal') ? 'recover' : 'reveal'; _refreshToolbar(); }
+  function brushSize(delta) {
+    _brushIdx = _clamp(_brushIdx + delta, 0, BRUSH_SIZES.length - 1);
+    _brush.size = BRUSH_SIZES[_brushIdx];
+    _refreshToolbar();
+  }
+  function _fillMask(reveal) {
+    if (typeof MapSync === 'undefined' || !MapSync.isGM() || !_bg.loaded) return;
+    _ensureMaskFromBg();
+    if (!_maskCv) return;
+    if (reveal) { _maskCtx.globalCompositeOperation = 'source-over'; _maskCtx.fillStyle = '#fff'; _maskCtx.fillRect(0, 0, _maskW, _maskH); }
+    else { _maskCtx.clearRect(0, 0, _maskW, _maskH); }
+    if (!_fogEnabled) _fogEnabled = true;            // 전체공개/가림은 안개 활성 전제
+    _commitMask();
+    _refreshToolbar(); _markDirty();
+  }
+  function revealAll() { _fillMask(true); }
+  function coverAll()  { _fillMask(false); }
+
   return {
     init: init, show: show, hide: hide,
-    fit: fit, zoomIn: zoomIn, zoomOut: zoomOut, pickBg: pickBg
+    fit: fit, zoomIn: zoomIn, zoomOut: zoomOut, pickBg: pickBg,
+    // 안개 (GM)
+    toggleFog: toggleFog, toggleBrush: toggleBrush, toggleBrushMode: toggleBrushMode,
+    brushSize: brushSize, revealAll: revealAll, coverAll: coverAll
   };
 })();
 
