@@ -285,7 +285,7 @@ var MapView = (function() {
   let _stroke = null;       // 그리는 중: {last:{x,y}}
 
   // ── 다듬기 (Phase E) ──
-  let _snap = true;         // 토큰 드롭 시 격자 스냅 (클라이언트별)
+  let _snap = false;        // 격자 스냅 기능 제거 — 항상 자유 이동 (토글 버튼 없음)
   let _disp = new Map();    // tokenId → {x,y} 화면 표시 위치 (원격 이동 보간용)
   let _animActive = false;  // 이번 프레임에 보간 진행 중 (다음 프레임 재draw)
   let _editId = null;       // 편집기 대상 토큰 id (GM)
@@ -476,11 +476,7 @@ var MapView = (function() {
     if (modeBtn) modeBtn.textContent = (_brush.mode === 'reveal') ? '지우개(공개)' : '덮기(가림)';
     const sizeLbl = document.getElementById('map-brush-size');
     if (sizeLbl) sizeLbl.textContent = BRUSH_LABELS[_brushIdx];
-    // 토큰: 모두 '이동'만 — 추가/편집/삭제 비활성. ＋토큰 숨김, 격자(이동 보조)는 전원 노출.
-    const addBtn = document.getElementById('map-addtoken-btn');
-    if (addBtn) addBtn.style.display = 'none';
-    const snapBtn = document.getElementById('map-snap-btn');
-    if (snapBtn) { snapBtn.style.display = ''; snapBtn.classList.toggle('on', _snap); }
+    // 토큰: 모두 '이동'만. 추가/편집/삭제/맞춤/격자 버튼은 제거됨(없음).
   }
 
   // ───────────────────────────────────────────

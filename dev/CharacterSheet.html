@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=547"></script>
-<script src="feat_db.js?v=547"></script>
-<script src="SPELL_DB.js?v=547"></script>
-<script src="class_features_db.js?v=547"></script>
+<script src="equipment_db.js?v=548"></script>
+<script src="feat_db.js?v=548"></script>
+<script src="SPELL_DB.js?v=548"></script>
+<script src="class_features_db.js?v=548"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1412,7 +1412,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v547</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v548</span>
     <button id="map-toggle-btn" class="map-toggle-only" onclick="MapView.toggleFullscreen()">🗺 지도</button>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
@@ -1961,12 +1961,9 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <canvas id="map-canvas"></canvas>
     <div id="map-empty"></div>
     <div id="map-toolbar">
+      <!-- GM 전용: 배경/안개만. 플레이어는 메뉴 없음. 맞춤·격자·＋토큰·닫기 제거(닫기는 상단 '지도' 탭 재클릭) -->
       <button id="map-upload-btn" style="display:none;" onclick="MapView.pickBg()">🖼 배경</button>
-      <button onclick="MapView.fit()">⤢ 맞춤</button>
-      <button id="map-snap-btn" class="on" onclick="MapView.toggleSnap()">⊞ 격자</button>
-      <button id="map-addtoken-btn" style="display:none;" onclick="MapView.addToken()">＋토큰</button>
       <button id="map-fog-btn" style="display:none;" onclick="MapView.toggleFog()">🌫 안개</button>
-      <button id="map-close-btn" onclick="MapView.toggleFullscreen()" title="지도 닫기">✕ 닫기</button>
     </div>
     <div id="map-fog-bar" style="display:none;">
       <button id="map-brush-btn" onclick="MapView.toggleBrush()">✏️ 그리기</button>
@@ -2032,15 +2029,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=547"></script>
-<script src="cs_calc.js?v=547"></script>
-<script src="cs_ui.js?v=547"></script>
-<script src="cs_modal.js?v=547"></script>
-<script src="cs_feat_effects.js?v=547"></script>
-<script src="cs_save.js?v=547"></script>
-<script src="cs_session.js?v=547"></script>
-<script src="cs_dice.js?v=547"></script>
-<script src="cs_map.js?v=547"></script>
+<script src="cs_data.js?v=548"></script>
+<script src="cs_calc.js?v=548"></script>
+<script src="cs_ui.js?v=548"></script>
+<script src="cs_modal.js?v=548"></script>
+<script src="cs_feat_effects.js?v=548"></script>
+<script src="cs_save.js?v=548"></script>
+<script src="cs_session.js?v=548"></script>
+<script src="cs_dice.js?v=548"></script>
+<script src="cs_map.js?v=548"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
