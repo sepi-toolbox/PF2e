@@ -390,12 +390,13 @@ async function kickPlayer(sessionId, uid, name) {
 // ═══════════════════════════════════════════════
 function startSession() {
   if (!selectedSessionId) { alert('세션을 선택하세요.'); return; }
-  window.location.href = 'CharacterSheet.html?gmsession=' + selectedSessionId;
+  // _cb: HTML 캐시버스터 — CharacterSheet.html 자체가 옛 버전으로 캐시되는 것 방지(항상 최신 스크립트 로드)
+  window.location.href = 'CharacterSheet.html?gmsession=' + selectedSessionId + '&_cb=' + Date.now();
 }
 // 플레이어 시점으로 보기 — 같은 GM 세션이지만 지도를 플레이어처럼 렌더(안개 불투명, GM 지도메뉴 없음)
 function startSessionAsPlayer() {
   if (!selectedSessionId) { alert('세션을 선택하세요.'); return; }
-  window.location.href = 'CharacterSheet.html?gmsession=' + selectedSessionId + '&mapview=player';
+  window.location.href = 'CharacterSheet.html?gmsession=' + selectedSessionId + '&mapview=player&_cb=' + Date.now();
 }
 
 // ═══════════════════════════════════════════════

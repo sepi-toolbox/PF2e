@@ -816,6 +816,8 @@ async function enterGMSessionMode(sessionId) {
     } else {
       _showEmptyPartyMessage();
     }
+    // '지도 보기' 입장 → 시트가 아니라 전체화면 지도로 바로 진입
+    setTimeout(function() { if (typeof MapView !== 'undefined') MapView.openFullscreen(); }, 200);
   } catch(e) {
     console.error('[enterGMSessionMode]', e);
     alert('세션 로드 실패: ' + e.message);

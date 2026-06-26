@@ -372,6 +372,10 @@ var MapView = (function() {
       hide();
     }
   }
+  function openFullscreen() {
+    const fs = document.getElementById('map-fullscreen');
+    if (fs && !fs.classList.contains('open')) toggleFullscreen();
+  }
   function closeFullscreen() {
     const fs = document.getElementById('map-fullscreen');
     if (fs && fs.classList.contains('open')) toggleFullscreen();
@@ -1030,7 +1034,7 @@ var MapView = (function() {
 
   return {
     init: init, show: show, hide: hide,
-    toggleFullscreen: toggleFullscreen, closeFullscreen: closeFullscreen,
+    toggleFullscreen: toggleFullscreen, openFullscreen: openFullscreen, closeFullscreen: closeFullscreen,
     fit: fit, zoomIn: zoomIn, zoomOut: zoomOut, pickBg: pickBg,
     // 안개 (GM)
     toggleFog: toggleFog, toggleBrush: toggleBrush, toggleBrushMode: toggleBrushMode,
