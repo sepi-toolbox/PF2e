@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=551"></script>
-<script src="feat_db.js?v=551"></script>
-<script src="SPELL_DB.js?v=551"></script>
-<script src="class_features_db.js?v=551"></script>
+<script src="equipment_db.js?v=552"></script>
+<script src="feat_db.js?v=552"></script>
+<script src="SPELL_DB.js?v=552"></script>
+<script src="class_features_db.js?v=552"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1414,7 +1414,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v551</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v552</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1962,7 +1962,8 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <canvas id="map-canvas"></canvas>
     <div id="map-empty"></div>
     <div id="map-toolbar">
-      <!-- GM 전용: 배경/안개만. 플레이어는 메뉴 없음. 맞춤·격자·＋토큰·닫기 제거(닫기는 상단 '지도' 탭 재클릭) -->
+      <!-- 시트 플레이 뷰: '내 토큰 놓기'만 (관리기능 없음). 배경/안개는 독립 Map.html(GM)에서만. -->
+      <button id="map-place-btn" style="display:none;" onclick="MapView.placeMyToken()">📍 내 토큰 놓기</button>
       <button id="map-upload-btn" style="display:none;" onclick="MapView.pickBg()">🖼 배경</button>
       <button id="map-fog-btn" style="display:none;" onclick="MapView.toggleFog()">🌫 안개</button>
     </div>
@@ -2030,15 +2031,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=551"></script>
-<script src="cs_calc.js?v=551"></script>
-<script src="cs_ui.js?v=551"></script>
-<script src="cs_modal.js?v=551"></script>
-<script src="cs_feat_effects.js?v=551"></script>
-<script src="cs_save.js?v=551"></script>
-<script src="cs_session.js?v=551"></script>
-<script src="cs_dice.js?v=551"></script>
-<script src="cs_map.js?v=551"></script>
+<script src="cs_data.js?v=552"></script>
+<script src="cs_calc.js?v=552"></script>
+<script src="cs_ui.js?v=552"></script>
+<script src="cs_modal.js?v=552"></script>
+<script src="cs_feat_effects.js?v=552"></script>
+<script src="cs_save.js?v=552"></script>
+<script src="cs_session.js?v=552"></script>
+<script src="cs_dice.js?v=552"></script>
+<script src="cs_map.js?v=552"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->

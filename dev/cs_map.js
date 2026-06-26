@@ -35,12 +35,15 @@ var MapSync = (function() {
   let _mapUnsub    = null;
   let _tokensUnsub = null;
   let _tokensReady = false;          // 초기 스냅샷 구분
+  let _pingsUnsub  = null;
+  let _pingsReady  = false;
   let _changeCb    = null;           // 렌더러 구독 콜백 (Phase B~)
 
   function _db()        { return (typeof db !== 'undefined') ? db : null; }
   function _ts()        { return firebase.firestore.FieldValue.serverTimestamp(); }
   function _mapDoc()    { return _db().collection('sessions').doc(_sessionId).collection('map').doc('state'); }
   function _tokensCol() { return _db().collection('sessions').doc(_sessionId).collection('tokens'); }
+  function _pingsCol()  { return _db().collection('sessions').doc(_sessionId).collection('pings'); }
 
   function _emit(kind, payload) {
     if (typeof _changeCb === 'function') {
@@ -86,11 +89,21 @@ var MapSync = (function() {
       console.error('[MapSync tokens listener]', err);
       setTimeout(function() { if (_sessionId) start(_sessionId, { isGM: _isGM, uid: _uid }); }, RECONNECT_MS);
     });
+
+    // 핑 감시 (롱프레스 → 일시적 마커. rolls 패턴: 초기 스냅샷 무시 + added만 처리)
+    _pingsReady = false;
+    _pingsUnsub = _pingsCol().onSnapshot(function(snap) {
+      if (!_pingsReady) { _pingsReady = true; return; }   // 입장 전 누적분 무시
+      snap.docChanges().forEach(function(change) {
+        if (change.type === 'added') { _emit('ping', Object.assign({ id: change.doc.id }, change.doc.data())); }
+      });
+    }, function(err) { console.error('[MapSync pings listener]', err); });
   }
 
   function _stopListeners() {
     if (_mapUnsub)    { _mapUnsub();    _mapUnsub = null; }
     if (_tokensUnsub) { _tokensUnsub(); _tokensUnsub = null; }
+    if (_pingsUnsub)  { _pingsUnsub();  _pingsUnsub = null; }
   }
 
   function stop() {
@@ -178,6 +191,17 @@ var MapSync = (function() {
     return createToken(Object.assign({ ownerUid: _uid }, fields || {}));
   }
 
+  // ── 핑 (롱프레스) — 일시적 마커. 작성 후 5초 뒤 자동 삭제(누적 방지) ──
+  function dropPing(x, y, color) {
+    if (!_db() || !_sessionId) return Promise.reject('no-session');
+    var ref = _pingsCol().doc();
+    return ref.set({ x: x, y: y, uid: _uid, color: color || '#ffd24a', createdAt: _ts() })
+      .then(function() {
+        setTimeout(function() { ref.delete().catch(function(){}); }, 5000);
+        return ref.id;
+      });
+  }
+
   // ───────────────────────────────────────────
   //  이미지 → base64 (클라이언트 리사이즈/압축)
   //  File → Promise<{dataUrl, w, h, quality}>
@@ -226,6 +250,8 @@ var MapSync = (function() {
     // 토큰 쓰기
     createToken: createToken, upsertToken: upsertToken, moveToken: moveToken,
     removeToken: removeToken, ensureMyToken: ensureMyToken,
+    // 핑
+    dropPing: dropPing,
     // 이미지 헬퍼
     resizeMapImage: resizeMapImage, resizeTokenImage: resizeTokenImage,
     resizeImageToBase64: resizeImageToBase64,
@@ -291,8 +317,19 @@ var MapView = (function() {
   let _editId = null;       // 편집기 대상 토큰 id (GM)
   let _ed = null;           // 편집기 DOM refs
 
+  // ── 시트 플레이 뷰 (관리기능 없음: 이동·내토큰·핑만) + 핑 ──
+  let _playMode = false;    // true=시트 오버레이(플레이 뷰): GM 도구/투시 안개 비활성, 핑/내토큰 활성
+  let _pings = [];          // [{x,y,color,t0}] 진행 중인 핑 (t0=performance.now())
+  let _press = null;        // 롱프레스 추적 {x,y,timer,fired}
+  const PING_MS = 2600;     // 핑 애니메이션 지속(ms)
+  const LONGPRESS_MS = 1000;// 1초 홀드 → 핑
+  const PRESS_MOVE_TOL = 8; // 이만큼 움직이면 롱프레스 취소(=드래그/팬)
+
   function _clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
   function _markDirty() { _dirty = true; }
+  function _now() { return (typeof performance !== 'undefined' && performance.now) ? performance.now() : 0; }
+  // 시트 플레이 뷰에선 GM 권한 무력화(관리기능 없음)
+  function _effGM() { return !_playMode && (typeof MapSync !== 'undefined') && MapSync.isGM(); }
 
   // ── 좌표 변환 ──
   function _screenToWorld(sx, sy) {
@@ -324,6 +361,7 @@ var MapView = (function() {
       MapSync.onChange(function(kind, payload) {
         if (kind === 'map') { _onMapState(payload); }
         else if (kind === 'tokens-init') { _maybeProvision(); _markDirty(); }
+        else if (kind === 'ping') { _addPing(payload); }
         else { _markDirty(); }            // 'tokens' 증분 변경
       });
     }
@@ -359,6 +397,7 @@ var MapView = (function() {
     const open = !fs.classList.contains('open');
     const btn = document.getElementById('map-fab');
     if (open) {
+      _playMode = true;                   // 시트 오버레이 = 플레이 뷰(관리기능 없음, 이동·내토큰·핑만)
       window.scrollTo(0, 0);              // 스크롤 상태에서도 auth-bar 하단 정확히 측정
       _positionFullscreen();
       fs.classList.add('open');
@@ -460,14 +499,14 @@ var MapView = (function() {
     if (!_empty) return;
     if (_bg.loaded) { _empty.style.display = 'none'; return; }
     _empty.style.display = 'flex';
-    const gm = (typeof MapSync !== 'undefined' && MapSync.isGM());
+    const gm = _effGM();
     _empty.textContent = gm
       ? '배경 이미지를 업로드하면 모든 참가자에게 표시됩니다.'
       : 'GM이 지도를 준비하면 여기에 표시됩니다.';
   }
 
   function _refreshToolbar() {
-    const gm = (typeof MapSync !== 'undefined' && MapSync.isGM());
+    const gm = _effGM();
     if (_uploadBtn) _uploadBtn.style.display = gm ? '' : 'none';
     // 안개 컨트롤 (GM 전용)
     const fogBtn = document.getElementById('map-fog-btn');
@@ -480,7 +519,9 @@ var MapView = (function() {
     if (modeBtn) modeBtn.textContent = (_brush.mode === 'reveal') ? '지우개(공개)' : '덮기(가림)';
     const sizeLbl = document.getElementById('map-brush-size');
     if (sizeLbl) sizeLbl.textContent = BRUSH_LABELS[_brushIdx];
-    // 토큰: 모두 '이동'만. 추가/편집/삭제/맞춤/격자 버튼은 제거됨(없음).
+    // 시트 플레이 뷰 전용: '내 토큰 놓기' 버튼 (관리기능 없음, 이동·내토큰·핑만)
+    const placeBtn = document.getElementById('map-place-btn');
+    if (placeBtn) placeBtn.style.display = _playMode ? '' : 'none';
   }
 
   // ───────────────────────────────────────────
@@ -495,8 +536,8 @@ var MapView = (function() {
 
   function _visibleTokens() {
     if (typeof MapSync === 'undefined') return [];
-    const gm = MapSync.isGM();
-    return MapSync.getTokens().filter(function(t) { return gm || !t.hidden; });  // 플레이어는 hidden 토큰 안 보임
+    const gm = _effGM();
+    return MapSync.getTokens().filter(function(t) { return gm || !t.hidden; });  // 플레이어/플레이뷰는 hidden 토큰 안 보임
   }
   function _tokenWorld(t) {
     if (_tokenDrag && _tokenDrag.id === t.id) return { x: _tokenDrag.x, y: _tokenDrag.y };  // 끌기 중 로컬 위치
@@ -538,7 +579,9 @@ var MapView = (function() {
   }
 
   // ── 플레이어 자동 토큰 보장 (입장 시 1회, GM 제외) ──
+  // 시트 플레이 뷰에선 자동 생성 안 함 — '내 토큰 놓기' 버튼으로 수동 배치(placeMyToken).
   function _maybeProvision() {
+    if (_playMode) return;
     if (typeof window !== 'undefined' && window._mapNoProvision) return;  // 독립 지도(GM/미리보기 뷰)는 토큰 생성 안 함
     if (typeof MapSync === 'undefined' || !MapSync.isActive() || MapSync.isGM()) return;
     const portrait = (typeof state !== 'undefined' && state.portrait) ? state.portrait : null;
@@ -618,10 +661,12 @@ var MapView = (function() {
     const p = _localXY(e);
     if (_isPainting()) { _startStroke(p); return; }   // 안개 브러시 우선
     if (!_tryStartTokenDrag(p)) _drag = p;            // 토큰 못 잡으면 팬
+    _startPress(p);                                   // 롱프레스(1초) → 핑
   }
   function _onMouseMove(e) {
     if (!_active) return;
     const p = _localXY(e);
+    _movePress(p);
     if (_stroke) { _strokeMove(p); }
     else if (_tokenDrag) { _dragTokenTo(p); }
     else if (_drag) {
@@ -629,7 +674,7 @@ var MapView = (function() {
       _drag = p; _userMoved = true; _markDirty();
     }
   }
-  function _onMouseUp() { _endStroke(); _endTokenDrag(); _drag = null; }
+  function _onMouseUp() { _cancelPress(); _endStroke(); _endTokenDrag(); _drag = null; }
   function _onWheel(e) {
     e.preventDefault();
     const p = _localXY(e);
@@ -643,7 +688,9 @@ var MapView = (function() {
       const p = _touchLocal(e.touches[0]);
       if (_isPainting()) { _startStroke(p); }          // 안개 브러시 우선
       else if (!_tryStartTokenDrag(p)) _drag = p;       // 내 토큰 위면 끌기, 아니면 팬
+      _startPress(p);                                   // 롱프레스(1초) → 핑
     } else if (e.touches.length >= 2) {
+      _cancelPress();                                   // 두 손가락 → 핑 취소
       _endStroke();                                     // 그리는 중이었으면 마무리(커밋)
       _drag = null; _tokenDrag = null;                  // 두 손가락 → 핀치줌
       _startPinch(e.touches[0], e.touches[1]);
@@ -662,6 +709,7 @@ var MapView = (function() {
       _userMoved = true; _markDirty();
     } else if (e.touches.length === 1) {
       const p = _touchLocal(e.touches[0]);
+      _movePress(p);
       if (_stroke) { _strokeMove(p); }
       else if (_tokenDrag) { _dragTokenTo(p); }
       else if (_drag) {
@@ -672,7 +720,7 @@ var MapView = (function() {
     e.preventDefault();
   }
   function _onTouchEnd(e) {
-    if (e.touches.length === 0) { _endStroke(); _endTokenDrag(); _drag = null; _pinch = null; }
+    if (e.touches.length === 0) { _cancelPress(); _endStroke(); _endTokenDrag(); _drag = null; _pinch = null; }
     else if (e.touches.length === 1) { _pinch = null; if (!_stroke && !_tokenDrag) _drag = _touchLocal(e.touches[0]); }
   }
   function _startPinch(t0, t1) {
@@ -716,8 +764,10 @@ var MapView = (function() {
       _ctx.lineWidth = 1;
       _ctx.strokeRect(_view.offX + 0.5, _view.offY + 0.5, w, h);
     }
-    _drawTokens();        // 토큰 레이어 (Phase C)
-    _drawFog();           // 안개 오버레이 (Phase D)
+    _drawTokens();          // 토큰 레이어 (Phase C)
+    _drawFog();             // 안개 오버레이 (Phase D)
+    _drawOwnTokenOnTop();   // 내 토큰은 안개 위에도 보이게
+    _drawPings();           // 핑 (안개 위)
   }
 
   // 화면 표시 위치 — 내가 끌면 즉시, 그 외(원격 이동)는 보간(exponential smoothing)
@@ -733,54 +783,88 @@ var MapView = (function() {
     return d;
   }
 
-  // ── 토큰 렌더 (원형 초상/색원 + 테두리 + 이름표) ──
+  // 토큰 1개 렌더 (원형 초상/색원 + 테두리 + 이름표)
+  function _drawOneToken(t, myUid) {
+    const pos = _displayPos(t);
+    const sx = pos.x * _view.scale + _view.offX;
+    const sy = pos.y * _view.scale + _view.offY;
+    let r = _tokenRadiusWorld(t) * _view.scale;
+    if (r < 9) r = 9;                                  // 최소 가시 크기
+    if (sx + r < 0 || sx - r > _cssW || sy + r < 0 || sy - r > _cssH) return;  // 화면 밖 컬링
+    _ctx.save();
+    if (t.hidden) _ctx.globalAlpha = 0.55;             // GM 뷰에서 숨김 토큰 반투명
+    const img = _getTokenImg(t.img);
+    if (img) {
+      _ctx.save();
+      _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2); _ctx.clip();
+      _ctx.drawImage(img, sx - r, sy - r, r * 2, r * 2);
+      _ctx.restore();
+    } else {
+      _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2);
+      _ctx.fillStyle = t.color || '#c0a062'; _ctx.fill();
+      _ctx.fillStyle = '#1a1a1a';
+      _ctx.font = 'bold ' + Math.round(r * 0.95) + 'px sans-serif';
+      _ctx.textAlign = 'center'; _ctx.textBaseline = 'middle';
+      _ctx.fillText(((t.name || '?').trim().charAt(0) || '?'), sx, sy);
+    }
+    // 테두리: 내 토큰=골드 / 남=흰색, 숨김=점선
+    _ctx.lineWidth = 2;
+    _ctx.strokeStyle = (myUid && t.ownerUid === myUid) ? '#f5c518' : 'rgba(255,255,255,0.85)';
+    if (t.hidden) _ctx.setLineDash([4, 3]);
+    _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2); _ctx.stroke();
+    _ctx.restore();
+    if (t.name && r >= 12) {                            // 이름표
+      _ctx.save();
+      _ctx.font = '11px sans-serif'; _ctx.textAlign = 'center'; _ctx.textBaseline = 'top';
+      const ty = sy + r + 2, tw = _ctx.measureText(t.name).width;
+      _ctx.fillStyle = 'rgba(0,0,0,0.6)';
+      _ctx.fillRect(sx - tw / 2 - 3, ty, tw + 6, 14);
+      _ctx.fillStyle = '#fff';
+      _ctx.fillText(t.name, sx, ty + 1);
+      _ctx.restore();
+    }
+  }
+
+  // ── 토큰 레이어 (안개 아래) ──
   function _drawTokens() {
     if (typeof MapSync === 'undefined') return;
     _animActive = false;
     const ts = _visibleTokens();
     if (!ts.length) return;
     const myUid = _myUid();
-    for (const t of ts) {
-      const pos = _displayPos(t);
-      const sx = pos.x * _view.scale + _view.offX;
-      const sy = pos.y * _view.scale + _view.offY;
-      let r = _tokenRadiusWorld(t) * _view.scale;
-      if (r < 9) r = 9;                                  // 최소 가시 크기
-      if (sx + r < 0 || sx - r > _cssW || sy + r < 0 || sy - r > _cssH) continue;  // 화면 밖 컬링
+    for (const t of ts) _drawOneToken(t, myUid);
+  }
+
+  // ── 내 토큰은 안개 위에도 보이게 (안개 레이어 뒤에 한 번 더 그림) ──
+  function _drawOwnTokenOnTop() {
+    if (!_fogEnabled || typeof MapSync === 'undefined') return;
+    const mine = MapSync.myToken();
+    if (mine) _drawOneToken(mine, _myUid());
+  }
+
+  // ── 핑 (확장하며 사라지는 링) ──
+  function _drawPings() {
+    if (!_pings.length) return;
+    const now = _now();
+    for (let i = _pings.length - 1; i >= 0; i--) {
+      const p = _pings[i];
+      const age = now - p.t0;
+      if (age >= PING_MS) { _pings.splice(i, 1); continue; }
+      _animActive = true;                                // 핑 진행 중 → 연속 재draw
+      const f = age / PING_MS;                            // 0..1
+      const sx = p.x * _view.scale + _view.offX;
+      const sy = p.y * _view.scale + _view.offY;
+      const baseR = 22 + 22 * f;                          // 확장
       _ctx.save();
-      if (t.hidden) _ctx.globalAlpha = 0.55;             // GM 뷰에서 숨김 토큰 반투명
-      // 초상 or 색원 + 이니셜
-      const img = _getTokenImg(t.img);
-      if (img) {
-        _ctx.save();
-        _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2); _ctx.clip();
-        _ctx.drawImage(img, sx - r, sy - r, r * 2, r * 2);
-        _ctx.restore();
-      } else {
-        _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2);
-        _ctx.fillStyle = t.color || '#c0a062'; _ctx.fill();
-        _ctx.fillStyle = '#1a1a1a';
-        _ctx.font = 'bold ' + Math.round(r * 0.95) + 'px sans-serif';
-        _ctx.textAlign = 'center'; _ctx.textBaseline = 'middle';
-        _ctx.fillText(((t.name || '?').trim().charAt(0) || '?'), sx, sy);
-      }
-      // 테두리: 내 토큰=골드 / 남=흰색, 숨김=점선
-      _ctx.lineWidth = 2;
-      _ctx.strokeStyle = (myUid && t.ownerUid === myUid) ? '#f5c518' : 'rgba(255,255,255,0.85)';
-      if (t.hidden) _ctx.setLineDash([4, 3]);
-      _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2); _ctx.stroke();
+      _ctx.globalAlpha = 1 - f;
+      _ctx.strokeStyle = p.color || '#ffd24a';
+      _ctx.lineWidth = 3;
+      _ctx.beginPath(); _ctx.arc(sx, sy, baseR, 0, Math.PI * 2); _ctx.stroke();
+      _ctx.beginPath(); _ctx.arc(sx, sy, baseR * 0.55, 0, Math.PI * 2); _ctx.stroke();
+      _ctx.globalAlpha = (1 - f) * 0.9;                   // 중심 점
+      _ctx.fillStyle = p.color || '#ffd24a';
+      _ctx.beginPath(); _ctx.arc(sx, sy, 4, 0, Math.PI * 2); _ctx.fill();
       _ctx.restore();
-      // 이름표
-      if (t.name && r >= 12) {
-        _ctx.save();
-        _ctx.font = '11px sans-serif'; _ctx.textAlign = 'center'; _ctx.textBaseline = 'top';
-        const ty = sy + r + 2, tw = _ctx.measureText(t.name).width;
-        _ctx.fillStyle = 'rgba(0,0,0,0.6)';
-        _ctx.fillRect(sx - tw / 2 - 3, ty, tw + 6, 14);
-        _ctx.fillStyle = '#fff';
-        _ctx.fillText(t.name, sx, ty + 1);
-        _ctx.restore();
-      }
     }
   }
 
@@ -856,7 +940,7 @@ var MapView = (function() {
   // 안개 오버레이 렌더 (배경/그리드/토큰 위)
   function _drawFog() {
     if (!_fogEnabled || !_bg.loaded) return;
-    const gm = (typeof MapSync !== 'undefined' && MapSync.isGM());
+    const gm = _effGM();
     if (!_fogCanvas) { _fogCanvas = document.createElement('canvas'); _fogCtx = _fogCanvas.getContext('2d'); }
     if (_fogCanvas.width !== _cssW || _fogCanvas.height !== _cssH) { _fogCanvas.width = _cssW; _fogCanvas.height = _cssH; }
     const fx = _fogCtx;
@@ -877,7 +961,7 @@ var MapView = (function() {
 
   // ── 브러시 페인트 ──
   function _isPainting() {
-    return (typeof MapSync !== 'undefined') && MapSync.isGM() && _fogEnabled && _brush.paint;
+    return _effGM() && _fogEnabled && _brush.paint;
   }
   function _paintDab(worldX, worldY) {
     if (!_maskCtx) return;
@@ -964,6 +1048,56 @@ var MapView = (function() {
   function coverAll()  { _fillMask(false); }
 
   // ───────────────────────────────────────────
+  //  시트 플레이 뷰 — 내 토큰 배치 + 핑(롱프레스)
+  // ───────────────────────────────────────────
+  // 지금 보고 있는 시트 캐릭터의 토큰을 화면 중앙에 배치(없으면 생성, 있으면 이동+정보 갱신)
+  function placeMyToken() {
+    if (typeof MapSync === 'undefined' || !MapSync.isActive()) return;
+    const nameEl = document.getElementById('f-name');
+    const name = (nameEl && nameEl.value.trim()) || '플레이어';
+    const portrait = (typeof state !== 'undefined' && state.portrait) ? state.portrait : null;
+    const c = _screenToWorld(_cssW / 2, _cssH / 2);
+    let x = c.x, y = c.y;
+    if (_bg.loaded) { x = _clamp(x, 0, _bg.w); y = _clamp(y, 0, _bg.h); }
+    x = Math.round(x); y = Math.round(y);
+    const mine = MapSync.myToken();
+    if (mine) {
+      MapSync.upsertToken(mine.id, { x: x, y: y, name: name, img: portrait }).catch(function(e) { console.warn('[placeMyToken]', e); });
+    } else {
+      MapSync.createToken({ ownerUid: _myUid(), name: name, img: portrait, x: x, y: y, color: _colorForUid(_myUid()) })
+        .catch(function(e) { console.warn('[placeMyToken]', e); });
+    }
+    _markDirty();
+  }
+
+  // 핑 등록(원격/로컬) + 롱프레스 처리
+  function _addPing(p) {
+    if (!p || typeof p.x !== 'number') return;
+    _pings.push({ x: p.x, y: p.y, color: p.color || '#ffd24a', t0: _now() });
+    if (_pings.length > 30) _pings.shift();
+    _markDirty();
+  }
+  function _dropPingAt(sx, sy) {
+    const w = _screenToWorld(sx, sy);
+    _addPing({ x: w.x, y: w.y, color: '#ffd24a' });            // 로컬 즉시 표시
+    if (typeof MapSync !== 'undefined') MapSync.dropPing(Math.round(w.x), Math.round(w.y), '#ffd24a').catch(function() {});
+  }
+  function _startPress(p) {
+    _cancelPress();
+    _press = { x: p.x, y: p.y, fired: false, timer: setTimeout(function() {
+      if (!_press) return;
+      _press.fired = true;
+      _drag = null; _tokenDrag = null;                         // 롱프레스 발동 → 팬/토큰끌기 취소
+      _dropPingAt(_press.x, _press.y);
+    }, LONGPRESS_MS) };
+  }
+  function _movePress(p) {
+    if (!_press || _press.fired) return;
+    if (Math.hypot(p.x - _press.x, p.y - _press.y) > PRESS_MOVE_TOL) _cancelPress();
+  }
+  function _cancelPress() { if (_press) { clearTimeout(_press.timer); _press = null; } }
+
+  // ───────────────────────────────────────────
   //  다듬기 (Phase E) — 격자 스냅 + GM 토큰 편집기/NPC
   // ───────────────────────────────────────────
   function toggleSnap() { _snap = !_snap; _refreshToolbar(); }
@@ -1042,7 +1176,9 @@ var MapView = (function() {
     brushSize: brushSize, revealAll: revealAll, coverAll: coverAll,
     // 다듬기 (Phase E)
     toggleSnap: toggleSnap, addToken: addToken,
-    editorApply: editorApply, editorDelete: editorDelete, editorClose: editorClose, editorPickPortrait: editorPickPortrait
+    editorApply: editorApply, editorDelete: editorDelete, editorClose: editorClose, editorPickPortrait: editorPickPortrait,
+    // 시트 플레이 뷰
+    placeMyToken: placeMyToken
   };
 })();
 
