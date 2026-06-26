@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=550"></script>
-<script src="feat_db.js?v=550"></script>
-<script src="SPELL_DB.js?v=550"></script>
-<script src="class_features_db.js?v=550"></script>
+<script src="equipment_db.js?v=551"></script>
+<script src="feat_db.js?v=551"></script>
+<script src="SPELL_DB.js?v=551"></script>
+<script src="class_features_db.js?v=551"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -237,18 +237,18 @@ body{
 #char-portrait.has-img #char-portrait-ph{display:none;}
 
 /* ══════════════════════════════════
-   세션 전용 지도 토글 버튼 (상단 바)
+   세션 전용 지도 FAB (주사위 위젯 옆 — 세션 모드에서만)
    ══════════════════════════════════ */
-.map-toggle-only{display:none;}
-body.in-session .map-toggle-only{display:inline-flex;align-items:center;}
-#map-toggle-btn{
-  margin-left:6px;background:var(--bg4);color:var(--accent);border:1px solid var(--accent);
-  border-radius:5px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;
+#map-fab{
+  display:none;position:fixed;bottom:138px;right:16px;z-index:9000;
+  width:48px;height:48px;border-radius:50%;border:none;
+  background:var(--bg4);color:var(--accent);font-size:22px;cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,.4);transition:transform .2s,box-shadow .2s;
 }
-#map-toggle-btn:hover{background:var(--accent);color:#1a1a1a;}
-#map-toggle-btn.on{background:var(--accent);color:#1a1a1a;}
-/* 플레이어 시점 미리보기 표시 */
-body.map-view-player #map-toggle-btn::after{content:" · 플레이어 시점";font-weight:400;}
+#map-fab:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(0,0,0,.5);}
+#map-fab.on{background:var(--accent);color:#1a1a1a;}
+body.in-session #map-fab{display:block;}
+@media(max-width:900px){ #map-fab{bottom:122px;right:10px;width:42px;height:42px;font-size:20px;} }
 
 /* ══════════════════════════════════
    전체화면 지도 — 상단 바 제외 전체 토글 (position:fixed 오버레이)
@@ -1414,8 +1414,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v550</span>
-    <button id="map-toggle-btn" class="map-toggle-only" onclick="MapView.toggleFullscreen()">🗺 지도</button>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v551</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -2031,15 +2030,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=550"></script>
-<script src="cs_calc.js?v=550"></script>
-<script src="cs_ui.js?v=550"></script>
-<script src="cs_modal.js?v=550"></script>
-<script src="cs_feat_effects.js?v=550"></script>
-<script src="cs_save.js?v=550"></script>
-<script src="cs_session.js?v=550"></script>
-<script src="cs_dice.js?v=550"></script>
-<script src="cs_map.js?v=550"></script>
+<script src="cs_data.js?v=551"></script>
+<script src="cs_calc.js?v=551"></script>
+<script src="cs_ui.js?v=551"></script>
+<script src="cs_modal.js?v=551"></script>
+<script src="cs_feat_effects.js?v=551"></script>
+<script src="cs_save.js?v=551"></script>
+<script src="cs_session.js?v=551"></script>
+<script src="cs_dice.js?v=551"></script>
+<script src="cs_map.js?v=551"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -2243,6 +2242,9 @@ function mobileNavSwitch(id) {
   window.scrollTo(0, 0);
 }
 </script>
+
+<!-- 지도 FAB (주사위 위젯 옆 · 세션 모드에서만) — 시트 내 '지도 보기' 토글 -->
+<button id="map-fab" onclick="MapView.toggleFullscreen()" title="지도 보기" aria-label="지도 보기">🗺</button>
 
 <!-- ═══ MOBILE BOTTOM NAVIGATION ═══ -->
 <nav id="mobile-bottom-nav">

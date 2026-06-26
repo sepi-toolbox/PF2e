@@ -801,12 +801,9 @@ async function enterGMSessionMode(sessionId) {
         });
       });
 
-    // ── 맵/토큰 실시간 동기화 (GM) ──
-    // ?mapview=player 면 지도를 플레이어 시점으로 렌더(안개 불투명·GM 지도메뉴 없음) — GM이 플레이어 화면 확인용
+    // ── 맵/토큰 실시간 동기화 (GM) ── (시트 내 지도 FAB 오버레이용. 독립 지도는 Map.html)
     if (typeof MapSync !== 'undefined') {
-      var _mapAsPlayer = new URLSearchParams(window.location.search).get('mapview') === 'player';
-      MapSync.start(sessionId, { isGM: !_mapAsPlayer, uid: currentUser.uid });
-      if (_mapAsPlayer) document.body.classList.add('map-view-player');
+      MapSync.start(sessionId, { isGM: true, uid: currentUser.uid });
     }
 
     // 첫 번째 플레이어 탭 자동 선택
@@ -816,8 +813,6 @@ async function enterGMSessionMode(sessionId) {
     } else {
       _showEmptyPartyMessage();
     }
-    // '지도 보기' 입장 → 시트가 아니라 전체화면 지도로 바로 진입
-    setTimeout(function() { if (typeof MapView !== 'undefined') MapView.openFullscreen(); }, 200);
   } catch(e) {
     console.error('[enterGMSessionMode]', e);
     alert('세션 로드 실패: ' + e.message);

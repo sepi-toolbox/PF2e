@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>전술 지도 · Pathforge</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+firebase.initializeApp({
+  apiKey: "AIzaSyCM0_tctWtlRY08fVmcBaVrk2-mNb--SQM",
+  authDomain: "pf2e-sheets.firebaseapp.com",
+  projectId: "pf2e-sheets",
+  storageBucket: "pf2e-sheets.firebasestorage.app",
+  messagingSenderId: "967668320246",
+  appId: "1:967668320246:web:6e012c3069d4fd2f33e9d7"
+});
+const auth = firebase.auth();
+const db = firebase.firestore();
+</script>
+<style>
+:root{
+  --bg:#1c1c1c; --bg2:#222; --bg3:#2a2a2a; --bg4:#333; --text:#ddd; --text2:#999;
+  --border:#444; --border2:#555; --accent:#c9a84c; --gold:#c9a84c;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden;}
+
+/* 상단 바 (지도 전용 — 캐릭터 시트와 독립) */
+#map-topbar{
+  position:fixed;top:0;left:0;right:0;height:44px;z-index:20;
+  display:flex;align-items:center;gap:10px;padding:0 12px;
+  background:#161616;border-bottom:1px solid var(--border);
+}
+#map-topbar .mt-back{
+  background:var(--bg4);color:var(--text);border:1px solid var(--border);
+  border-radius:5px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;
+}
+#map-topbar .mt-back:hover{background:var(--accent);color:#1a1a1a;}
+#map-topbar .mt-title{color:var(--accent);font-weight:700;font-size:14px;}
+#map-topbar .mt-role{color:var(--text2);font-size:12px;margin-left:auto;}
+
+/* 지도 영역 (상단 바 아래 전체) — 높이는 cs_map.js _resize가 px로 지정 */
+#map-stage{
+  position:fixed;top:44px;left:0;right:0;bottom:0;
+  background:#0c0c0c;overflow:hidden;touch-action:none;
+  -webkit-user-select:none;user-select:none;
+}
+#map-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;}
+#map-empty{
+  position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  color:var(--text2);font-size:13px;text-align:center;padding:24px;line-height:1.6;pointer-events:none;
+}
+#map-toolbar{position:absolute;top:8px;left:8px;display:flex;gap:6px;flex-wrap:wrap;z-index:5;}
+#map-toolbar button{
+  background:rgba(20,20,20,.82);color:var(--text);border:1px solid var(--border);
+  border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;
+}
+#map-toolbar button:hover{background:rgba(42,42,42,.95);color:var(--accent);}
+#map-toolbar button:disabled{opacity:.6;cursor:default;}
+#map-toolbar button.on{background:var(--accent);color:#1a1a1a;border-color:var(--accent);font-weight:700;}
+#map-fog-bar{
+  position:absolute;top:42px;left:8px;z-index:5;
+  display:flex;gap:6px;flex-wrap:wrap;align-items:center;
+  background:rgba(16,16,16,.86);border:1px solid var(--border);border-radius:8px;padding:5px 7px;
+}
+#map-fog-bar button{
+  background:rgba(40,40,40,.9);color:var(--text);border:1px solid var(--border);
+  border-radius:6px;padding:5px 9px;font-size:12px;cursor:pointer;
+}
+#map-fog-bar button:hover{color:var(--accent);}
+#map-fog-bar button.on{background:var(--accent);color:#1a1a1a;border-color:var(--accent);font-weight:700;}
+#map-fog-bar .map-fog-size{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--text2);}
+#map-fog-bar .map-fog-size b{color:var(--text);min-width:14px;text-align:center;}
+#map-zoom{position:absolute;right:8px;bottom:8px;display:flex;flex-direction:column;gap:6px;z-index:5;}
+#map-zoom button{
+  width:38px;height:38px;font-size:18px;line-height:1;
+  background:rgba(20,20,20,.82);color:var(--text);border:1px solid var(--border);
+  border-radius:8px;cursor:pointer;
+}
+#map-zoom button:active{background:var(--bg4);}
+</style>
+</head>
+<body>
+
+<div id="map-topbar">
+  <button class="mt-back" onclick="location.href='GMSheet.html'">← 로비</button>
+  <span class="mt-title" id="map-title">세션</span>
+  <span class="mt-role" id="map-role"></span>
+</div>
+
+<!-- 지도 (세션 종속 독립 뷰) -->
+<div id="map-stage">
+  <canvas id="map-canvas"></canvas>
+  <div id="map-empty"></div>
+  <div id="map-toolbar">
+    <!-- GM 전용: 배경/안개 (플레이어 시점이면 숨김) -->
+    <button id="map-upload-btn" style="display:none;" onclick="MapView.pickBg()">🖼 배경</button>
+    <button id="map-fog-btn" style="display:none;" onclick="MapView.toggleFog()">🌫 안개</button>
+  </div>
+  <div id="map-fog-bar" style="display:none;">
+    <button id="map-brush-btn" onclick="MapView.toggleBrush()">✏️ 그리기</button>
+    <button id="map-brush-mode" onclick="MapView.toggleBrushMode()">지우개(공개)</button>
+    <span class="map-fog-size">붓 <button onclick="MapView.brushSize(-1)">－</button><b id="map-brush-size">중</b><button onclick="MapView.brushSize(1)">＋</button></span>
+    <button onclick="MapView.revealAll()">전체공개</button>
+    <button onclick="MapView.coverAll()">전체가림</button>
+  </div>
+  <div id="map-zoom">
+    <button onclick="MapView.zoomIn()" aria-label="확대">＋</button>
+    <button onclick="MapView.zoomOut()" aria-label="축소">－</button>
+  </div>
+  <input id="map-bg-input" type="file" accept="image/*" style="display:none;">
+</div>
+
+<script src="cs_map.js?v=551"></script>
+<script>
+// ── 지도 전용 글루 (캐릭터 시트와 독립) ──
+let currentUser = null;
+var state = { portrait: null };          // cs_map.js가 state.portrait 참조 (GM 뷰는 토큰 생성 안 함)
+window._mapNoProvision = true;           // 독립 지도 = GM/미리보기 뷰 → 토큰 자동생성 안 함
+
+const _params = new URLSearchParams(location.search);
+const _sessionId = _params.get('session');
+const _role = _params.get('role') || 'gm';
+
+auth.onAuthStateChanged(async function(user) {
+  const emptyEl = document.getElementById('map-empty');
+  if (!user) {
+    emptyEl.style.display = 'flex';
+    emptyEl.textContent = '로그인이 필요합니다. 로비(GMSheet)에서 로그인 후 다시 진입하세요.';
+    return;
+  }
+  currentUser = user;
+  if (!_sessionId) { alert('세션 ID가 없습니다.'); location.href = 'GMSheet.html'; return; }
+  let data;
+  try {
+    const doc = await db.collection('sessions').doc(_sessionId).get();
+    if (!doc.exists) { alert('세션을 찾을 수 없습니다.'); location.href = 'GMSheet.html'; return; }
+    data = doc.data();
+  } catch (e) { console.error('[Map session]', e); alert('세션 로드 실패: ' + e.message); location.href = 'GMSheet.html'; return; }
+
+  document.getElementById('map-title').textContent = data.name || '세션';
+  const isGM = (_role === 'gm');
+  document.getElementById('map-role').textContent = isGM ? 'GM 시점' : '플레이어 시점';
+
+  if (typeof MapSync !== 'undefined') MapSync.start(_sessionId, { isGM: isGM, uid: user.uid });
+  if (typeof MapView !== 'undefined') { MapView.init(); MapView.show(); }
+});
+</script>
+</body>
+</html>

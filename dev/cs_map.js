@@ -357,7 +357,7 @@ var MapView = (function() {
     const fs = document.getElementById('map-fullscreen');
     if (!fs) return;
     const open = !fs.classList.contains('open');
-    const btn = document.getElementById('map-toggle-btn');
+    const btn = document.getElementById('map-fab');
     if (open) {
       window.scrollTo(0, 0);              // 스크롤 상태에서도 auth-bar 하단 정확히 측정
       _positionFullscreen();
@@ -539,6 +539,7 @@ var MapView = (function() {
 
   // ── 플레이어 자동 토큰 보장 (입장 시 1회, GM 제외) ──
   function _maybeProvision() {
+    if (typeof window !== 'undefined' && window._mapNoProvision) return;  // 독립 지도(GM/미리보기 뷰)는 토큰 생성 안 함
     if (typeof MapSync === 'undefined' || !MapSync.isActive() || MapSync.isGM()) return;
     const portrait = (typeof state !== 'undefined' && state.portrait) ? state.portrait : null;
     const mine = MapSync.myToken();
