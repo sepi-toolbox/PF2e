@@ -284,6 +284,13 @@ var MapView = (function() {
   let _brush = { paint: false, mode: 'reveal', size: BRUSH_SIZES[1] };  // size=월드 px 지름, mode: reveal|recover
   let _stroke = null;       // 그리는 중: {last:{x,y}}
 
+  // ── 다듬기 (Phase E) ──
+  let _snap = true;         // 토큰 드롭 시 격자 스냅 (클라이언트별)
+  let _disp = new Map();    // tokenId → {x,y} 화면 표시 위치 (원격 이동 보간용)
+  let _animActive = false;  // 이번 프레임에 보간 진행 중 (다음 프레임 재draw)
+  let _editId = null;       // 편집기 대상 토큰 id (GM)
+  let _ed = null;           // 편집기 DOM refs
+
   function _clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
   function _markDirty() { _dirty = true; }
 
@@ -437,6 +444,11 @@ var MapView = (function() {
     if (modeBtn) modeBtn.textContent = (_brush.mode === 'reveal') ? '지우개(공개)' : '덮기(가림)';
     const sizeLbl = document.getElementById('map-brush-size');
     if (sizeLbl) sizeLbl.textContent = BRUSH_LABELS[_brushIdx];
+    // 다듬기 (Phase E)
+    const addBtn = document.getElementById('map-addtoken-btn');
+    if (addBtn) addBtn.style.display = gm ? '' : 'none';
+    const snapBtn = document.getElementById('map-snap-btn');
+    if (snapBtn) snapBtn.classList.toggle('on', _snap);
   }
 
   // ───────────────────────────────────────────
@@ -516,7 +528,7 @@ var MapView = (function() {
     const w = _screenToWorld(p.x, p.y);
     const t = _hitToken(w.x, w.y);
     if (!t) return false;
-    _tokenDrag = { id: t.id, x: t.x, y: t.y, grabX: t.x - w.x, grabY: t.y - w.y };
+    _tokenDrag = { id: t.id, x: t.x, y: t.y, grabX: t.x - w.x, grabY: t.y - w.y, startScreen: { x: p.x, y: p.y }, moved: 0 };
     _markDirty();
     return true;
   }
@@ -524,15 +536,26 @@ var MapView = (function() {
     const w = _screenToWorld(p.x, p.y);
     _tokenDrag.x = w.x + _tokenDrag.grabX;
     _tokenDrag.y = w.y + _tokenDrag.grabY;
+    const dx = p.x - _tokenDrag.startScreen.x, dy = p.y - _tokenDrag.startScreen.y;
+    _tokenDrag.moved = Math.max(_tokenDrag.moved, Math.hypot(dx, dy));
     _markDirty();
+  }
+  function _snapWorld(x, y) {
+    if (!_snap) return { x: x, y: y };
+    const c = _cell();
+    return { x: (Math.floor(x / c) + 0.5) * c, y: (Math.floor(y / c) + 0.5) * c };  // 가장 가까운 셀 중심
   }
   function _endTokenDrag() {
     if (!_tokenDrag) return;
     const d = _tokenDrag; _tokenDrag = null;
-    if (typeof MapSync !== 'undefined') {
-      MapSync.moveToken(d.id, Math.round(d.x), Math.round(d.y))
-        .catch(function(err) { console.warn('[MapView moveToken]', err); _markDirty(); });
+    if (typeof MapSync === 'undefined') { _markDirty(); return; }
+    if (d.moved < 5) {                                  // 거의 안 움직임 = 탭 → GM은 편집기, 이동 없음
+      if (MapSync.isGM()) _openTokenEditor(d.id);
+      _markDirty(); return;
     }
+    const s = _snapWorld(d.x, d.y);
+    MapSync.moveToken(d.id, Math.round(s.x), Math.round(s.y))
+      .catch(function(err) { console.warn('[MapView moveToken]', err); _markDirty(); });
     _markDirty();
   }
 
@@ -640,10 +663,10 @@ var MapView = (function() {
       .then(function() { if (_uploadBtn) { _uploadBtn.disabled = false; _uploadBtn.textContent = '🖼 배경'; } });
   }
 
-  // ── 렌더 루프 (dirty-flag) ──
+  // ── 렌더 루프 (dirty-flag + 보간 중 연속 재draw) ──
   function _loop() {
     if (!_active) return;
-    if (_dirty) { _dirty = false; _render(); }
+    if (_dirty) { _dirty = false; _render(); if (_animActive) _dirty = true; }  // 보간 진행 중이면 다음 프레임 예약
     _raf = requestAnimationFrame(_loop);
   }
 
@@ -666,14 +689,28 @@ var MapView = (function() {
     _drawFog();           // 안개 오버레이 (Phase D)
   }
 
+  // 화면 표시 위치 — 내가 끌면 즉시, 그 외(원격 이동)는 보간(exponential smoothing)
+  function _displayPos(t) {
+    const target = (_tokenDrag && _tokenDrag.id === t.id) ? { x: _tokenDrag.x, y: _tokenDrag.y } : { x: t.x, y: t.y };
+    let d = _disp.get(t.id);
+    if (!d) { d = { x: target.x, y: target.y }; _disp.set(t.id, d); return d; }
+    if (_tokenDrag && _tokenDrag.id === t.id) { d.x = target.x; d.y = target.y; return d; }  // 내 드래그=즉시
+    const k = 0.28;
+    d.x += (target.x - d.x) * k; d.y += (target.y - d.y) * k;
+    if (Math.abs(target.x - d.x) < 0.5 && Math.abs(target.y - d.y) < 0.5) { d.x = target.x; d.y = target.y; }
+    else { _animActive = true; }                          // 아직 이동 중 → 다음 프레임 재draw
+    return d;
+  }
+
   // ── 토큰 렌더 (원형 초상/색원 + 테두리 + 이름표) ──
   function _drawTokens() {
     if (typeof MapSync === 'undefined') return;
+    _animActive = false;
     const ts = _visibleTokens();
     if (!ts.length) return;
     const myUid = _myUid();
     for (const t of ts) {
-      const pos = _tokenWorld(t);
+      const pos = _displayPos(t);
       const sx = pos.x * _view.scale + _view.offX;
       const sy = pos.y * _view.scale + _view.offY;
       let r = _tokenRadiusWorld(t) * _view.scale;
@@ -895,12 +932,85 @@ var MapView = (function() {
   function revealAll() { _fillMask(true); }
   function coverAll()  { _fillMask(false); }
 
+  // ───────────────────────────────────────────
+  //  다듬기 (Phase E) — 격자 스냅 + GM 토큰 편집기/NPC
+  // ───────────────────────────────────────────
+  function toggleSnap() { _snap = !_snap; _refreshToolbar(); }
+
+  // GM: 화면 중앙에 NPC 토큰 생성 후 편집기 열기
+  function addToken() {
+    if (typeof MapSync === 'undefined' || !MapSync.isGM()) return;
+    const c = _screenToWorld(_cssW / 2, _cssH / 2);
+    let x = c.x, y = c.y;
+    if (_bg.loaded) { x = _clamp(x, 0, _bg.w); y = _clamp(y, 0, _bg.h); }
+    MapSync.createToken({ ownerUid: _myUid(), name: 'NPC', x: Math.round(x), y: Math.round(y), color: '#b03030', size: 1, hidden: true })
+      .then(function(id) { _openTokenEditor(id); })
+      .catch(function(err) { console.warn('[MapView addToken]', err); });
+  }
+
+  function _edRefs() {
+    if (_ed) return _ed;
+    _ed = {
+      box:    document.getElementById('map-token-editor'),
+      name:   document.getElementById('te-name'),
+      color:  document.getElementById('te-color'),
+      size:   document.getElementById('te-size'),
+      hidden: document.getElementById('te-hidden'),
+      portraitInput: document.getElementById('te-portrait-input')
+    };
+    if (_ed.portraitInput) _ed.portraitInput.addEventListener('change', _onEditorPortrait);
+    return _ed;
+  }
+  function _openTokenEditor(id) {
+    if (typeof MapSync === 'undefined' || !MapSync.isGM()) return;
+    const t = MapSync.getToken(id);
+    if (!t) return;
+    const e = _edRefs();
+    if (!e.box) return;
+    _editId = id;
+    if (e.name)   e.name.value = t.name || '';
+    if (e.color)  e.color.value = /^#[0-9a-fA-F]{6}$/.test(t.color || '') ? t.color : '#cccccc';
+    if (e.size)   e.size.value = String(t.size || 1);
+    if (e.hidden) e.hidden.checked = !!t.hidden;
+    e.box.style.display = 'block';
+  }
+  function editorApply() {
+    if (!_editId || typeof MapSync === 'undefined') return;
+    const e = _edRefs();
+    MapSync.upsertToken(_editId, {
+      name:  e.name ? e.name.value : '',
+      color: e.color ? e.color.value : '#cccccc',
+      size:  e.size ? (parseInt(e.size.value, 10) || 1) : 1,
+      hidden: e.hidden ? !!e.hidden.checked : false
+    }).catch(function(err) { console.warn('[MapView editorApply]', err); });
+    _markDirty();
+  }
+  function editorDelete() {
+    if (!_editId || typeof MapSync === 'undefined') return;
+    if (!confirm('이 토큰을 삭제할까요?')) return;
+    MapSync.removeToken(_editId).catch(function(err) { console.warn('[MapView editorDelete]', err); });
+    _disp.delete(_editId);
+    editorClose();
+  }
+  function editorClose() { _editId = null; const e = _edRefs(); if (e.box) e.box.style.display = 'none'; }
+  function editorPickPortrait() { const e = _edRefs(); if (e.portraitInput) { e.portraitInput.value = ''; e.portraitInput.click(); } }
+  function _onEditorPortrait(ev) {
+    const file = ev.target.files && ev.target.files[0];
+    if (!file || !_editId || typeof MapSync === 'undefined') return;
+    MapSync.resizeTokenImage(file)
+      .then(function(r) { return MapSync.upsertToken(_editId, { img: r.dataUrl }); })
+      .catch(function(err) { console.warn('[MapView editor portrait]', err); });
+  }
+
   return {
     init: init, show: show, hide: hide,
     fit: fit, zoomIn: zoomIn, zoomOut: zoomOut, pickBg: pickBg,
     // 안개 (GM)
     toggleFog: toggleFog, toggleBrush: toggleBrush, toggleBrushMode: toggleBrushMode,
-    brushSize: brushSize, revealAll: revealAll, coverAll: coverAll
+    brushSize: brushSize, revealAll: revealAll, coverAll: coverAll,
+    // 다듬기 (Phase E)
+    toggleSnap: toggleSnap, addToken: addToken,
+    editorApply: editorApply, editorDelete: editorDelete, editorClose: editorClose, editorPickPortrait: editorPickPortrait
   };
 })();
 
