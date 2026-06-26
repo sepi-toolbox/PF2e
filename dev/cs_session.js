@@ -494,8 +494,9 @@ function startSessionListeners() {
     });
 
   // ── 맵/토큰 실시간 동기화 (Phase A~) ──
+  // _isGM 반영: GM이 세션 생성/복원으로 이 경로를 타도 맵 GM 권한 유지 (배경/안개 업로드)
   if (typeof MapSync !== 'undefined') {
-    MapSync.start(_currentSession.id, { isGM: false, uid: currentUser.uid });
+    MapSync.start(_currentSession.id, { isGM: _isGM, uid: currentUser.uid });
   }
 }
 
