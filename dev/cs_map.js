@@ -476,11 +476,11 @@ var MapView = (function() {
     if (modeBtn) modeBtn.textContent = (_brush.mode === 'reveal') ? '지우개(공개)' : '덮기(가림)';
     const sizeLbl = document.getElementById('map-brush-size');
     if (sizeLbl) sizeLbl.textContent = BRUSH_LABELS[_brushIdx];
-    // 다듬기 (Phase E)
+    // 다듬기 (Phase E) — ＋토큰/격자 모두 GM 전용 (플레이어는 메뉴 자체 없음, 이동만)
     const addBtn = document.getElementById('map-addtoken-btn');
     if (addBtn) addBtn.style.display = gm ? '' : 'none';
     const snapBtn = document.getElementById('map-snap-btn');
-    if (snapBtn) snapBtn.classList.toggle('on', _snap);
+    if (snapBtn) { snapBtn.style.display = gm ? '' : 'none'; snapBtn.classList.toggle('on', _snap); }
   }
 
   // ───────────────────────────────────────────
@@ -1008,7 +1008,7 @@ var MapView = (function() {
     e.box.style.display = 'block';
   }
   function editorApply() {
-    if (!_editId || typeof MapSync === 'undefined') return;
+    if (!_editId || typeof MapSync === 'undefined' || !MapSync.isGM()) return;  // GM 전용
     const e = _edRefs();
     MapSync.upsertToken(_editId, {
       name:  e.name ? e.name.value : '',
@@ -1019,7 +1019,7 @@ var MapView = (function() {
     _markDirty();
   }
   function editorDelete() {
-    if (!_editId || typeof MapSync === 'undefined') return;
+    if (!_editId || typeof MapSync === 'undefined' || !MapSync.isGM()) return;  // GM 전용
     if (!confirm('이 토큰을 삭제할까요?')) return;
     MapSync.removeToken(_editId).catch(function(err) { console.warn('[MapView editorDelete]', err); });
     _disp.delete(_editId);
