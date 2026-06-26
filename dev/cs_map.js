@@ -108,7 +108,7 @@ var MapSync = (function() {
   function getTokens()   { return Array.from(_tokens.values()); }
   function getToken(id)  { return _tokens.get(id) || null; }
   function myToken()     { for (var t of _tokens.values()) { if (t.ownerUid === _uid) return t; } return null; }
-  function canControl(t) { return _isGM || !!(t && t.ownerUid === _uid); }
+  function canControl(t) { return !!t; }   // 이동은 모두에게 — 세션 내 보이는 토큰은 누구나 이동 가능
   function isGM()        { return _isGM; }
   function isActive()    { return !!_sessionId; }
   function onChange(cb)  { _changeCb = cb; }
@@ -476,11 +476,11 @@ var MapView = (function() {
     if (modeBtn) modeBtn.textContent = (_brush.mode === 'reveal') ? '지우개(공개)' : '덮기(가림)';
     const sizeLbl = document.getElementById('map-brush-size');
     if (sizeLbl) sizeLbl.textContent = BRUSH_LABELS[_brushIdx];
-    // 다듬기 (Phase E) — ＋토큰/격자 모두 GM 전용 (플레이어는 메뉴 자체 없음, 이동만)
+    // 토큰: 모두 '이동'만 — 추가/편집/삭제 비활성. ＋토큰 숨김, 격자(이동 보조)는 전원 노출.
     const addBtn = document.getElementById('map-addtoken-btn');
-    if (addBtn) addBtn.style.display = gm ? '' : 'none';
+    if (addBtn) addBtn.style.display = 'none';
     const snapBtn = document.getElementById('map-snap-btn');
-    if (snapBtn) { snapBtn.style.display = gm ? '' : 'none'; snapBtn.classList.toggle('on', _snap); }
+    if (snapBtn) { snapBtn.style.display = ''; snapBtn.classList.toggle('on', _snap); }
   }
 
   // ───────────────────────────────────────────
@@ -581,10 +581,7 @@ var MapView = (function() {
     if (!_tokenDrag) return;
     const d = _tokenDrag; _tokenDrag = null;
     if (typeof MapSync === 'undefined') { _markDirty(); return; }
-    if (d.moved < 5) {                                  // 거의 안 움직임 = 탭 → GM은 편집기, 이동 없음
-      if (MapSync.isGM()) _openTokenEditor(d.id);
-      _markDirty(); return;
-    }
+    if (d.moved < 5) { _markDirty(); return; }          // 거의 안 움직임 = 탭 → 아무것도 안 함(편집 비활성)
     const s = _snapWorld(d.x, d.y);
     MapSync.moveToken(d.id, Math.round(s.x), Math.round(s.y))
       .catch(function(err) { console.warn('[MapView moveToken]', err); _markDirty(); });

@@ -47,24 +47,20 @@ service cloud.firestore {
       }
 
       // ── 토큰 ──
+      // 정책: 이동은 모두에게(누구나 어떤 토큰이든 이동). 임의 추가/삭제는 비활성(지도엔 추가/편집/삭제 UI 없음).
       match /tokens/{tokenId} {
         function gmUid() {
           return get(/databases/$(database)/documents/sessions/$(sessionId)).data.gmUid;
         }
-        function isGM() { return request.auth.uid == gmUid(); }
-        // 세션 참가자 읽기 가능
+        // 세션 참가자 읽기
         allow read: if request.auth != null;
-        // 생성: GM이거나, 본인 소유(ownerUid==uid) 토큰 (자동 프로비저닝 — 플레이어는 자기 토큰만)
+        // 생성: 자기 소유 토큰만 (입장 시 자동 프로비저닝 — 임의 추가 UI는 없음)
         allow create: if request.auth != null
-          && (isGM() || request.resource.data.ownerUid == request.auth.uid);
-        // 수정: GM은 전체. 플레이어(소유자)는 '이동(x,y)'만 허용 — 이름/색/크기/숨김/소유자 변경 불가
-        allow update: if request.auth != null
-          && (isGM()
-              || (resource.data.ownerUid == request.auth.uid
-                  && request.resource.data.diff(resource.data).affectedKeys()
-                       .hasOnly(['x', 'y', 'updatedAt', 'updatedBy'])));
-        // 삭제: GM 전용 (플레이어는 토큰 삭제 불가)
-        allow delete: if request.auth != null && isGM();
+          && request.resource.data.ownerUid == request.auth.uid;
+        // 수정(이동): 세션 참가자 모두 (초상 동기화 포함)
+        allow update: if request.auth != null;
+        // 삭제: GM 전용 (지도엔 삭제 UI 없음 — 세션 정리용)
+        allow delete: if request.auth != null && request.auth.uid == gmUid();
       }
     }
   }
