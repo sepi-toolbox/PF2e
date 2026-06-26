@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=537"></script>
-<script src="feat_db.js?v=537"></script>
-<script src="SPELL_DB.js?v=537"></script>
-<script src="class_features_db.js?v=537"></script>
+<script src="equipment_db.js?v=538"></script>
+<script src="feat_db.js?v=538"></script>
+<script src="SPELL_DB.js?v=538"></script>
+<script src="class_features_db.js?v=538"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -223,6 +223,44 @@ body{
    ══════════════════════════════════ */
 .panel{display:none;}
 .panel.active{display:block;}
+
+/* ══════════════════════════════════
+   세션 전용 탭 (지도) — 세션 모드에서만 노출
+   ══════════════════════════════════ */
+.tab-session-only{display:none;}
+body.in-session .tab-session-only{display:block;}
+.bnav-session-only{display:none !important;}
+body.in-session .bnav-session-only{display:flex !important;}
+
+/* ══════════════════════════════════
+   지도(맵) 뷰 — 전체화면 캔버스
+   ══════════════════════════════════ */
+body.map-open #right-content{padding:0;overflow:hidden;}
+#panel-map.active{display:flex;flex-direction:column;height:100%;min-height:0;}
+#map-stage{
+  position:relative;flex:1;min-height:0;width:100%;
+  background:#0c0c0c;overflow:hidden;touch-action:none;
+  -webkit-user-select:none;user-select:none;
+}
+#map-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+#map-empty{
+  position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  color:var(--text2);font-size:13px;text-align:center;padding:24px;line-height:1.6;pointer-events:none;
+}
+#map-toolbar{position:absolute;top:8px;left:8px;display:flex;gap:6px;flex-wrap:wrap;z-index:5;}
+#map-toolbar button{
+  background:rgba(20,20,20,.82);color:var(--text);border:1px solid var(--border);
+  border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;
+}
+#map-toolbar button:hover{background:rgba(42,42,42,.95);color:var(--accent);}
+#map-toolbar button:disabled{opacity:.6;cursor:default;}
+#map-zoom{position:absolute;right:8px;bottom:8px;display:flex;flex-direction:column;gap:6px;z-index:5;}
+#map-zoom button{
+  width:38px;height:38px;font-size:18px;line-height:1;
+  background:rgba(20,20,20,.82);color:var(--text);border:1px solid var(--border);
+  border-radius:8px;cursor:pointer;
+}
+#map-zoom button:active{background:var(--bg4);}
 
 /* ══════════════════════════════════
    CARD / BOX
@@ -1321,7 +1359,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v537</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v538</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1530,6 +1568,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <div class="tab" onclick="switchTab('pets',this)">동료</div>
     <div class="tab" onclick="switchTab('feats',this)">재주</div>
     <div class="tab" onclick="switchTab('actions',this)">행동</div>
+    <div class="tab tab-session-only" onclick="switchTab('map',this)">🗺️ 지도</div>
   </div>
 
   <!-- Tab content panels -->
@@ -1855,6 +1894,23 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
     <div id="panel-info" class="panel">
     </div><!-- /#panel-info -->
 
+    <!-- ── 지도 Map (세션 전용, Phase B) ── -->
+    <div id="panel-map" class="panel">
+      <div id="map-stage">
+        <canvas id="map-canvas"></canvas>
+        <div id="map-empty"></div>
+        <div id="map-toolbar">
+          <button id="map-upload-btn" style="display:none;" onclick="MapView.pickBg()">🖼 배경</button>
+          <button onclick="MapView.fit()">⤢ 맞춤</button>
+        </div>
+        <div id="map-zoom">
+          <button onclick="MapView.zoomIn()" aria-label="확대">＋</button>
+          <button onclick="MapView.zoomOut()" aria-label="축소">－</button>
+        </div>
+        <input id="map-bg-input" type="file" accept="image/*" style="display:none;">
+      </div>
+    </div><!-- /#panel-map -->
+
   </div><!-- /#right-content -->
 
 </div><!-- /#app-layout -->
@@ -1888,15 +1944,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=537"></script>
-<script src="cs_calc.js?v=537"></script>
-<script src="cs_ui.js?v=537"></script>
-<script src="cs_modal.js?v=537"></script>
-<script src="cs_feat_effects.js?v=537"></script>
-<script src="cs_save.js?v=537"></script>
-<script src="cs_session.js?v=537"></script>
-<script src="cs_dice.js?v=537"></script>
-<script src="cs_map.js?v=537"></script>
+<script src="cs_data.js?v=538"></script>
+<script src="cs_calc.js?v=538"></script>
+<script src="cs_ui.js?v=538"></script>
+<script src="cs_modal.js?v=538"></script>
+<script src="cs_feat_effects.js?v=538"></script>
+<script src="cs_save.js?v=538"></script>
+<script src="cs_session.js?v=538"></script>
+<script src="cs_dice.js?v=538"></script>
+<script src="cs_map.js?v=538"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -2112,6 +2168,7 @@ function mobileNavSwitch(id) {
   <button class="bnav-btn" data-tab="pets" onclick="mobileNavSwitch('pets')"><span class="bnav-icon">🐾</span>펫</button>
   <button class="bnav-btn" data-tab="feats" onclick="mobileNavSwitch('feats')"><span class="bnav-icon">⭐</span>재주</button>
   <button class="bnav-btn" data-tab="actions" onclick="mobileNavSwitch('actions')"><span class="bnav-icon">▶️</span>행동</button>
+  <button class="bnav-btn bnav-session-only" data-tab="map" onclick="mobileNavSwitch('map')"><span class="bnav-icon">🗺️</span>지도</button>
 </nav>
 
 </body>

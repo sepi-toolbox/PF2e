@@ -524,6 +524,7 @@ function stopSessionListeners() {
 //  UI: 세션 모드 전환
 // ═════════════════════════════════════════��═════
 function enterSessionUI() {
+  document.body.classList.add('in-session');   // 지도 탭 노출 (세션 전용)
   if (_isGM) {
     if (typeof renderGMDashboard === 'function') renderGMDashboard();
   } else {
@@ -547,6 +548,13 @@ function enterSessionUI() {
 function exitSessionUI() {
   const bar = document.getElementById('session-bar');
   if (bar) bar.style.display = 'none';
+  document.body.classList.remove('in-session');   // 지도 탭 숨김
+  // 지도 탭을 보던 중 세션 종료 시 기본 탭(무기)으로 복귀
+  if (document.body.classList.contains('map-open')) {
+    const wt = Array.from(document.querySelectorAll('#right-tabs .tab'))
+      .find(t => t.textContent.trim() === '무기');
+    switchTab('weapons', wt || null);
+  }
   // 일반 플레이어 모드로 복귀
   if (currentUser) {
     const slotBar = document.getElementById('slot-bar');
@@ -735,6 +743,7 @@ async function enterGMSessionMode(sessionId) {
     _currentSession = { id: doc.id, name: data.name, joinCode: data.joinCode, gmUid: data.gmUid, players: data.players || {} };
     _sessionMode = true;
     _isGM = true;
+    document.body.classList.add('in-session');   // 지도 탭 노출 (GM)
 
     // 이전 세션의 누적 rolls 정리 (read 비용 절감)
     try {

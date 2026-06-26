@@ -513,6 +513,12 @@ function switchTab(id, el) {
   }
 
   if (id === 'actions') renderActions();
+
+  // ── 지도 뷰 활성/비활성 (세션 전용) ──
+  document.body.classList.toggle('map-open', id === 'map');
+  if (typeof MapView !== 'undefined') {
+    if (id === 'map') MapView.show(); else MapView.hide();
+  }
 }
 
 // Fix recalcAll to also update mobile mirror attribute displays + auto-save
