@@ -766,7 +766,8 @@ var MapView = (function() {
     }
     _drawTokens();          // 토큰 레이어 (Phase C)
     _drawFog();             // 안개 오버레이 (Phase D)
-    _drawOwnTokenOnTop();   // 내 토큰은 안개 위에도 보이게
+    if (typeof window !== 'undefined' && window._mapTokensAboveFog) _drawAllTokensOnTop();  // GM 플레이어 미리보기: 모든 토큰 안개 위
+    else _drawOwnTokenOnTop();   // 시트 플레이: 내 토큰만 안개 위
     _drawPings();           // 핑 (안개 위)
   }
 
@@ -840,6 +841,12 @@ var MapView = (function() {
     if (!_fogEnabled || typeof MapSync === 'undefined') return;
     const mine = MapSync.myToken();
     if (mine) _drawOneToken(mine, _myUid());
+  }
+  // ── 모든 토큰을 안개 위에 (GM '플레이어 모드로 보기' = 안개 무시하고 토큰 전부 보임) ──
+  function _drawAllTokensOnTop() {
+    if (!_fogEnabled || typeof MapSync === 'undefined') return;
+    const myUid = _myUid();
+    for (const t of _visibleTokens()) _drawOneToken(t, myUid);
   }
 
   // ── 핑 (확장하며 사라지는 링) ──

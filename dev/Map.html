@@ -113,7 +113,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   <input id="map-bg-input" type="file" accept="image/*" style="display:none;">
 </div>
 
-<script src="cs_map.js?v=552"></script>
+<script src="cs_map.js?v=553"></script>
 <script>
 // ── 지도 전용 글루 (캐릭터 시트와 독립) ──
 let currentUser = null;
@@ -123,6 +123,8 @@ window._mapNoProvision = true;           // 독립 지도 = GM/미리보기 뷰 
 const _params = new URLSearchParams(location.search);
 const _sessionId = _params.get('session');
 const _role = _params.get('role') || 'gm';
+// GM '플레이어 모드로 보기'(role=player) = 플레이어 시점 안개 + 토큰은 전부 안개 위로(GM이 위치 확인)
+window._mapTokensAboveFog = (_role === 'player');
 
 auth.onAuthStateChanged(async function(user) {
   const emptyEl = document.getElementById('map-empty');
