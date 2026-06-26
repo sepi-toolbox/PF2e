@@ -310,12 +310,9 @@ var MapView = (function() {
   let _brush = { paint: false, mode: 'reveal', size: BRUSH_SIZES[1] };  // size=월드 px 지름, mode: reveal|recover
   let _stroke = null;       // 그리는 중: {last:{x,y}}
 
-  // ── 다듬기 (Phase E) ──
-  let _snap = false;        // 격자 스냅 기능 제거 — 항상 자유 이동 (토글 버튼 없음)
+  // ── 원격 이동 보간 (Phase E) ──
   let _disp = new Map();    // tokenId → {x,y} 화면 표시 위치 (원격 이동 보간용)
   let _animActive = false;  // 이번 프레임에 보간 진행 중 (다음 프레임 재draw)
-  let _editId = null;       // 편집기 대상 토큰 id (GM)
-  let _ed = null;           // 편집기 DOM refs
 
   // ── 시트 플레이 뷰 (관리기능 없음: 이동·내토큰·핑만) + 핑 ──
   let _playMode = false;    // true=시트 오버레이(플레이 뷰): GM 도구/투시 안개 비활성, 핑/내토큰 활성
@@ -616,18 +613,12 @@ var MapView = (function() {
     _tokenDrag.moved = Math.max(_tokenDrag.moved, Math.hypot(dx, dy));
     _markDirty();
   }
-  function _snapWorld(x, y) {
-    if (!_snap) return { x: x, y: y };
-    const c = _cell();
-    return { x: (Math.floor(x / c) + 0.5) * c, y: (Math.floor(y / c) + 0.5) * c };  // 가장 가까운 셀 중심
-  }
   function _endTokenDrag() {
     if (!_tokenDrag) return;
     const d = _tokenDrag; _tokenDrag = null;
     if (typeof MapSync === 'undefined') { _markDirty(); return; }
     if (d.moved < 5) { _markDirty(); return; }          // 거의 안 움직임 = 탭 → 아무것도 안 함(편집 비활성)
-    const s = _snapWorld(d.x, d.y);
-    MapSync.moveToken(d.id, Math.round(s.x), Math.round(s.y))
+    MapSync.moveToken(d.id, Math.round(d.x), Math.round(d.y))
       .catch(function(err) { console.warn('[MapView moveToken]', err); _markDirty(); });
     _markDirty();
   }
@@ -1104,76 +1095,6 @@ var MapView = (function() {
   }
   function _cancelPress() { if (_press) { clearTimeout(_press.timer); _press = null; } }
 
-  // ───────────────────────────────────────────
-  //  다듬기 (Phase E) — 격자 스냅 + GM 토큰 편집기/NPC
-  // ───────────────────────────────────────────
-  function toggleSnap() { _snap = !_snap; _refreshToolbar(); }
-
-  // GM: 화면 중앙에 NPC 토큰 생성 후 편집기 열기
-  function addToken() {
-    if (typeof MapSync === 'undefined' || !MapSync.isGM()) return;
-    const c = _screenToWorld(_cssW / 2, _cssH / 2);
-    let x = c.x, y = c.y;
-    if (_bg.loaded) { x = _clamp(x, 0, _bg.w); y = _clamp(y, 0, _bg.h); }
-    MapSync.createToken({ ownerUid: _myUid(), name: 'NPC', x: Math.round(x), y: Math.round(y), color: '#b03030', size: 1, hidden: true })
-      .then(function(id) { _openTokenEditor(id); })
-      .catch(function(err) { console.warn('[MapView addToken]', err); });
-  }
-
-  function _edRefs() {
-    if (_ed) return _ed;
-    _ed = {
-      box:    document.getElementById('map-token-editor'),
-      name:   document.getElementById('te-name'),
-      color:  document.getElementById('te-color'),
-      size:   document.getElementById('te-size'),
-      hidden: document.getElementById('te-hidden'),
-      portraitInput: document.getElementById('te-portrait-input')
-    };
-    if (_ed.portraitInput) _ed.portraitInput.addEventListener('change', _onEditorPortrait);
-    return _ed;
-  }
-  function _openTokenEditor(id) {
-    if (typeof MapSync === 'undefined' || !MapSync.isGM()) return;
-    const t = MapSync.getToken(id);
-    if (!t) return;
-    const e = _edRefs();
-    if (!e.box) return;
-    _editId = id;
-    if (e.name)   e.name.value = t.name || '';
-    if (e.color)  e.color.value = /^#[0-9a-fA-F]{6}$/.test(t.color || '') ? t.color : '#cccccc';
-    if (e.size)   e.size.value = String(t.size || 1);
-    if (e.hidden) e.hidden.checked = !!t.hidden;
-    e.box.style.display = 'block';
-  }
-  function editorApply() {
-    if (!_editId || typeof MapSync === 'undefined' || !MapSync.isGM()) return;  // GM 전용
-    const e = _edRefs();
-    MapSync.upsertToken(_editId, {
-      name:  e.name ? e.name.value : '',
-      color: e.color ? e.color.value : '#cccccc',
-      size:  e.size ? (parseInt(e.size.value, 10) || 1) : 1,
-      hidden: e.hidden ? !!e.hidden.checked : false
-    }).catch(function(err) { console.warn('[MapView editorApply]', err); });
-    _markDirty();
-  }
-  function editorDelete() {
-    if (!_editId || typeof MapSync === 'undefined' || !MapSync.isGM()) return;  // GM 전용
-    if (!confirm('이 토큰을 삭제할까요?')) return;
-    MapSync.removeToken(_editId).catch(function(err) { console.warn('[MapView editorDelete]', err); });
-    _disp.delete(_editId);
-    editorClose();
-  }
-  function editorClose() { _editId = null; const e = _edRefs(); if (e.box) e.box.style.display = 'none'; }
-  function editorPickPortrait() { const e = _edRefs(); if (e.portraitInput) { e.portraitInput.value = ''; e.portraitInput.click(); } }
-  function _onEditorPortrait(ev) {
-    const file = ev.target.files && ev.target.files[0];
-    if (!file || !_editId || typeof MapSync === 'undefined') return;
-    MapSync.resizeTokenImage(file)
-      .then(function(r) { return MapSync.upsertToken(_editId, { img: r.dataUrl }); })
-      .catch(function(err) { console.warn('[MapView editor portrait]', err); });
-  }
-
   return {
     init: init, show: show, hide: hide,
     toggleFullscreen: toggleFullscreen, openFullscreen: openFullscreen, closeFullscreen: closeFullscreen,
@@ -1181,9 +1102,6 @@ var MapView = (function() {
     // 안개 (GM)
     toggleFog: toggleFog, toggleBrush: toggleBrush, toggleBrushMode: toggleBrushMode,
     brushSize: brushSize, revealAll: revealAll, coverAll: coverAll,
-    // 다듬기 (Phase E)
-    toggleSnap: toggleSnap, addToken: addToken,
-    editorApply: editorApply, editorDelete: editorDelete, editorClose: editorClose, editorPickPortrait: editorPickPortrait,
     // 시트 플레이 뷰
     placeMyToken: placeMyToken
   };

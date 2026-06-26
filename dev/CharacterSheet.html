@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=553"></script>
-<script src="feat_db.js?v=553"></script>
-<script src="SPELL_DB.js?v=553"></script>
-<script src="class_features_db.js?v=553"></script>
+<script src="equipment_db.js?v=554"></script>
+<script src="feat_db.js?v=554"></script>
+<script src="SPELL_DB.js?v=554"></script>
+<script src="class_features_db.js?v=554"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -292,23 +292,6 @@ body.map-open{overflow:hidden;}
 #map-fog-bar button.on{background:var(--accent);color:#1a1a1a;border-color:var(--accent);font-weight:700;}
 #map-fog-bar .map-fog-size{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--text2);}
 #map-fog-bar .map-fog-size b{color:var(--text);min-width:14px;text-align:center;}
-/* GM 토큰 편집기 */
-#map-token-editor{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:6;
-  background:rgba(20,20,22,.96);border:1px solid var(--border);border-radius:10px;
-  padding:12px 14px;width:min(280px,86%);box-shadow:0 8px 28px rgba(0,0,0,.55);
-}
-#map-token-editor .te-row{display:flex;align-items:center;gap:6px;margin-bottom:9px;font-size:12px;color:var(--text2);}
-#map-token-editor .te-row label{color:var(--text2);}
-#map-token-editor input[type=text]{flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:5px 7px;font-size:13px;}
-#map-token-editor select{background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:4px;font-size:12px;}
-#map-token-editor input[type=color]{width:34px;height:26px;padding:0;border:1px solid var(--border);border-radius:5px;background:none;cursor:pointer;}
-#map-token-editor .te-check{display:flex;align-items:center;gap:6px;color:var(--text);cursor:pointer;}
-#map-token-editor .te-actions{justify-content:flex-end;gap:8px;margin-bottom:0;}
-#map-token-editor .te-actions button{background:rgba(40,40,40,.9);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:6px 11px;font-size:12px;cursor:pointer;}
-#map-token-editor .te-actions button:hover{color:var(--accent);}
-#map-token-editor .te-actions .te-del{color:#e07070;border-color:#5a2a2a;}
-#map-token-editor .te-actions .te-del:hover{background:#5a2a2a;color:#fff;}
 #map-zoom{position:absolute;right:8px;bottom:8px;display:flex;flex-direction:column;gap:6px;z-index:5;}
 #map-zoom button{
   width:38px;height:38px;font-size:18px;line-height:1;
@@ -1414,7 +1397,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v553</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v554</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1979,26 +1962,6 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
       <button onclick="MapView.zoomOut()" aria-label="축소">－</button>
     </div>
     <input id="map-bg-input" type="file" accept="image/*" style="display:none;">
-
-    <!-- GM 토큰 편집기 (탭하면 열림) -->
-    <div id="map-token-editor" style="display:none;">
-      <div class="te-row"><label>이름</label><input id="te-name" type="text" onchange="MapView.editorApply()"></div>
-      <div class="te-row">
-        <label>색</label><input id="te-color" type="color" onchange="MapView.editorApply()">
-        <label style="margin-left:8px;">크기</label>
-        <select id="te-size" onchange="MapView.editorApply()">
-          <option value="1">1·중형</option><option value="2">2·대형</option>
-          <option value="3">3·거대</option><option value="4">4·초대형</option>
-        </select>
-      </div>
-      <div class="te-row"><label class="te-check"><input id="te-hidden" type="checkbox" onchange="MapView.editorApply()"> 숨김 (플레이어에게 안 보임)</label></div>
-      <div class="te-row te-actions">
-        <button onclick="MapView.editorPickPortrait()">🖼 초상</button>
-        <button class="te-del" onclick="MapView.editorDelete()">삭제</button>
-        <button onclick="MapView.editorClose()">닫기</button>
-      </div>
-      <input id="te-portrait-input" type="file" accept="image/*" style="display:none;">
-    </div>
   </div>
 </div><!-- /#map-fullscreen -->
 
@@ -2031,15 +1994,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=553"></script>
-<script src="cs_calc.js?v=553"></script>
-<script src="cs_ui.js?v=553"></script>
-<script src="cs_modal.js?v=553"></script>
-<script src="cs_feat_effects.js?v=553"></script>
-<script src="cs_save.js?v=553"></script>
-<script src="cs_session.js?v=553"></script>
-<script src="cs_dice.js?v=553"></script>
-<script src="cs_map.js?v=553"></script>
+<script src="cs_data.js?v=554"></script>
+<script src="cs_calc.js?v=554"></script>
+<script src="cs_ui.js?v=554"></script>
+<script src="cs_modal.js?v=554"></script>
+<script src="cs_feat_effects.js?v=554"></script>
+<script src="cs_save.js?v=554"></script>
+<script src="cs_session.js?v=554"></script>
+<script src="cs_dice.js?v=554"></script>
+<script src="cs_map.js?v=554"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
