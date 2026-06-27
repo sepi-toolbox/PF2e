@@ -93,7 +93,26 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 #map-drawer .md-head .md-x{background:none;border:none;color:var(--text2);font-size:16px;cursor:pointer;line-height:1;}
 #map-drawer .md-head .md-x:hover{color:var(--accent);}
-#map-drawer .md-list{flex:1;overflow-y:auto;padding:6px;}
+#map-drawer .md-scroll{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
+#map-drawer .md-sect-h{padding:9px 12px 3px;font-size:11px;font-weight:700;color:var(--text2);}
+#map-drawer .md-sect-h .md-sect-hint{font-weight:400;color:var(--border2);}
+#map-drawer .md-list{padding:0 6px;}
+#map-drawer .tp-list{padding:0 6px;}
+#map-drawer .tp-empty{padding:8px 10px;font-size:11px;color:var(--text2);line-height:1.5;}
+#map-drawer .tp-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;padding:4px;border-radius:6px;
+  background:var(--bg3);border:1px solid var(--border);cursor:grab;touch-action:none;}
+#map-drawer .tp-row:hover{border-color:var(--accent);}
+#map-drawer .tp-row:active{cursor:grabbing;}
+#map-drawer .tp-thumb{width:30px;height:30px;border-radius:50%;flex:0 0 auto;background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#1a1a1a;border:1px solid var(--border2);}
+#map-drawer .tp-name{flex:1;font-size:12px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#map-drawer .tp-act{background:rgba(40,40,40,.9);color:var(--text2);border:1px solid var(--border);border-radius:5px;
+  width:26px;height:28px;font-size:11px;cursor:pointer;flex:0 0 auto;}
+#map-drawer .tp-act:hover{color:var(--accent);}
+#map-drawer .tp-act.tp-del:hover{color:#e07070;border-color:#5a2a2a;}
+.tpl-ghost{position:fixed;z-index:9999;transform:translate(-50%,-50%);pointer-events:none;
+  background:rgba(201,168,76,.92);color:#1a1a1a;font-size:12px;font-weight:700;padding:5px 10px;border-radius:14px;
+  box-shadow:0 4px 14px rgba(0,0,0,.5);white-space:nowrap;}
 #map-drawer .md-row{display:flex;align-items:center;gap:4px;margin-bottom:4px;border-radius:6px;padding:2px;}
 #map-drawer .md-row.active{background:rgba(201,168,76,.16);outline:1px solid rgba(201,168,76,.5);}
 #map-drawer .md-name{flex:1;text-align:left;background:var(--bg3);color:var(--text);border:1px solid var(--border);
@@ -151,9 +170,15 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 
 <!-- GM 멀티맵 드로어 (좌측, 토글) -->
 <div id="map-drawer">
-  <div class="md-head"><span>저장된 지도</span><button class="md-x" onclick="MapView.toggleDrawer()" title="닫기">✕</button></div>
-  <div class="md-list" id="map-drawer-list"></div>
-  <button class="md-add" onclick="MapView.addMap()">＋ 새 지도</button>
+  <div class="md-head"><span>지도 · 토큰</span><button class="md-x" onclick="MapView.toggleDrawer()" title="닫기">✕</button></div>
+  <div class="md-scroll">
+    <div class="md-sect-h">저장된 지도</div>
+    <div class="md-list" id="map-drawer-list"></div>
+    <button class="md-add" onclick="MapView.addMap()">＋ 새 지도</button>
+    <div class="md-sect-h">토큰 팔레트 <span class="md-sect-hint">— 끌어서 배치</span></div>
+    <div class="tp-list" id="map-tpl-list"></div>
+    <button class="md-add" onclick="MapView.addTemplate()">＋ 토큰 추가</button>
+  </div>
 </div>
 
 <!-- 지도 (세션 종속 독립 뷰) -->
@@ -191,7 +216,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 
   <!-- GM NPC 편집기 (NPC 탭하면 열림 / ➕ NPC로 생성) -->
   <div id="map-npc-editor" style="display:none;">
-    <div class="ne-title">NPC 편집</div>
+    <div class="ne-title" id="np-title">NPC 편집</div>
     <div class="ne-row"><label>이름</label><input id="np-name" type="text" onchange="MapView.npcApply()"></div>
     <div class="ne-row"><label>크기</label><select id="np-size" onchange="MapView.npcApply()"></select></div>
     <div class="ne-row"><label class="ne-check"><input id="np-hidden" type="checkbox" onchange="MapView.npcApply()"> 숨김 (플레이어에게 안 보임)</label></div>
@@ -204,7 +229,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_map.js?v=560"></script>
+<script src="cs_map.js?v=561"></script>
 <script>
 // ── 지도 전용 글루 (캐릭터 시트와 독립) ──
 let currentUser = null;
