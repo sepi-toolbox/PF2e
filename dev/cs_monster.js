@@ -16,6 +16,12 @@
   const DEFAULT_PACKS = ['monster-core', 'monster-core-2', 'npc-core',
     'bestiary', 'bestiary-2', 'bestiary-3', 'hazards', 'npc-gallery'];
 
+  // 시스템 통합 용어 사전(PF2e-KR lang 기반): skill/sense/condition/ability/save/trait slug→한글.
+  // tools/rebase/build_glossary.mjs 로 생성. 미로드 시 slug 폴백(graceful).
+  let _gloss = { skill: {}, sense: {}, condition: {}, ability: {}, save: {}, trait: {} };
+  const RARITY_KO = { uncommon: '비범', rare: '희귀', unique: '고유', common: '일반' };
+  function _g(cat, slug) { const m = _gloss[cat]; const v = m && m[slug]; return v != null ? v : slug; }
+
   async function load(opts) {
     opts = opts || {};
     const dir = opts.dir || 'data/creatures/';
@@ -36,6 +42,13 @@
         _ingest(base, ko);
       } catch (e) { console.warn(`[MonsterDB] 팩 로드 실패 스킵: ${p} — ${e && e.message}`); }
     }
+    // 시스템 용어 사전 1회 로드(실패해도 slug 폴백)
+    try {
+      let gl = null;
+      if (useFetch) gl = await fetch(`${dir}_glossary.ko.json`).then(r => r.ok ? r.json() : null).catch(() => null);
+      else { try { gl = JSON.parse(require('fs').readFileSync(`${dir}_glossary.ko.json`, 'utf8')); } catch (e) {} }
+      if (gl) for (const k in _gloss) if (gl[k]) _gloss[k] = gl[k];
+    } catch (e) { console.warn('[MonsterDB] 글로서리 로드 실패:', e && e.message); }
     return _loaded;
   }
   function ingest(baseArr, koObj) { _ingest(baseArr, koObj); return _loaded; } // 직접 주입(테스트/번들)
@@ -196,6 +209,12 @@
   function resolveFoundryRefs(html){
     if(!html) return '';
     let s = String(html);
+    // 인라인 굴림 매크로 [[/gmr 1d4 #hours]]{라벨} → 라벨, 없으면 주사위식만
+    s = s.replace(/\[\[([^\]]*)\]\](?:\{([^}]*)\})?/g, (m,body,label)=>{
+      if(label) return `<span class="ref-roll">${_esc(label)}</span>`;
+      const dice = body.replace(/^\s*\/[a-z]+\s*/i,'').replace(/#.*$/,'').trim();
+      return `<span class="ref-roll">${_esc(dice||body)}</span>`;
+    });
     s = s.replace(/@Damage\[((?:[^\[\]]|\[[^\]]*\])*)\](\{[^}]*\})?/g, (m,body)=>{
       const parts=body.split(/,(?![^\[]*\])/).map(p=>{ const mm=p.match(/\(?\s*([0-9dD()+\-* ]+?)\s*\)?\s*\[([^\]]+)\]/);
         if(!mm) return p.replace(/[\[\]]/g,' ').trim();
@@ -204,7 +223,11 @@
         return `${mm[1].trim()} ${persistent?'지속 ':''}${dts.join(' ')}`.replace(/\s+/g,' ').trim(); });
       return `<span class="ref-dmg">${parts.join(' + ')}</span>`; });
     s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m,body)=>{ const type=Object.keys(SAVE_KO2).find(k=>new RegExp('\\b'+k+'\\b').test(body))||''; const dc=(body.match(/dc:(\d+)/)||[])[1]; const basic=/basic/.test(body)?'기본 ':''; return `<span class="ref-check">${dc?`DC ${dc} `:''}${basic}${SAVE_KO2[type]||type}</span>`; });
-    s = s.replace(/@UUID\[[^\]]+\](?:\{([^}]*)\})?/g, (m,label)=> label?`<span class="ref-link">${_esc(label)}</span>`:'');
+    s = s.replace(/@UUID\[([^\]]+)\](?:\{([^}]*)\})?/g, (m,uuid,label)=>{
+      if(!label) return '';
+      if(/conditionitems/.test(uuid)){ const c=_gloss.condition[label.toLowerCase().replace(/\s+/g,'-')]; if(c) label=c; }  // 상태이상 @UUID 라벨 한글화
+      return `<span class="ref-link">${_esc(label)}</span>`;
+    });
     s = s.replace(/@Template\[([^\]]+)\](\{[^}]*\})?/g, (m,body)=>{ const d=(body.match(/distance:(\d+)/)||[])[1]; const SH={emanation:'발산',burst:'폭발',cone:'원뿔',line:'직선'}; const ty=(body.match(/type:(\w+)/)||[])[1]; return `<span class="ref-area">${d||''}피트 ${SH[ty]||ty||''}</span>`; });
     s = s.replace(/@Localize\[[^\]]+\]/g,'');
     s = s.replace(/@[A-Za-z]+\[[^\]]*\](?:\{([^}]*)\})?/g, (m,l)=> l||'');
@@ -224,17 +247,17 @@
     const sign=n=>`${n>=0?'+':''}${n}`;
     let h='<div class="sb">';
     h+=`<div class="sb-hd"><span class="sb-name">${_esc(v.name.ko)}</span> <span class="sb-en">${_esc(v.name.en)}</span><span class="sb-lv">생물 ${v.level}</span></div>`;
-    h+=`<div class="sb-traits">${[v.traits.rarity!=='common'?v.traits.rarity:'',v.traits.sizeKo,...v.traits.value].filter(Boolean).map(t=>`<span class="trait">${_esc(t)}</span>`).join('')}</div><hr/>`;
-    h+=`<div class="sb-row"><b>지각</b> <span class="roll" data-roll="perception" data-mod="${v.perception.mod}" data-label="지각">${sign(v.perception.mod)}</span>${v.perception.senses.length?'; '+v.perception.senses.map(_esc).join(', '):''}</div>`;
+    h+=`<div class="sb-traits">${[v.traits.rarity!=='common'?(RARITY_KO[v.traits.rarity]||v.traits.rarity):'',v.traits.sizeKo,...v.traits.value.map(t=>_g('trait',t))].filter(Boolean).map(t=>`<span class="trait">${_esc(t)}</span>`).join('')}</div><hr/>`;
+    h+=`<div class="sb-row"><b>지각</b> <span class="roll" data-roll="perception" data-mod="${v.perception.mod}" data-label="지각">${sign(v.perception.mod)}</span>${v.perception.senses.length?'; '+v.perception.senses.map(s=>_esc(_g('sense',s))).join(', '):''}</div>`;
     if(e&&e.languages) h+=`<div class="sb-row"><b>언어</b> ${_esc(e.languages)}</div>`;
-    if(v.skills.length) h+=`<div class="sb-row"><b>기술</b> ${v.skills.map(s=>`<span class="roll" data-roll="skill" data-key="${s.key}" data-mod="${s.mod}" data-label="${_esc(s.key)}">${_esc(s.key)} ${sign(s.mod)}</span>`).join(', ')}</div>`;
+    if(v.skills.length) h+=`<div class="sb-row"><b>기술</b> ${v.skills.map(s=>{const ko=_g('skill',s.key);return `<span class="roll" data-roll="skill" data-key="${s.key}" data-mod="${s.mod}" data-label="${_esc(ko)}">${_esc(ko)} ${sign(s.mod)}</span>`;}).join(', ')}</div>`;
     h+=`<div class="sb-row sb-abil">${v.abilities.map(a=>`<b>${a.ko}</b> ${sign(a.mod)}`).join('&nbsp;&nbsp;')}</div><hr/>`;
     h+=`<div class="sb-row"><b>AC</b> ${v.ac}; ${v.saves.map(s=>`<b>${s.ko}</b> <span class="roll" data-roll="save" data-key="${s.key}" data-mod="${s.mod}" data-label="${s.ko} 내성">${sign(s.mod)}</span>`).join(', ')}</div>`;
     h+=`<div class="sb-row"><b>HP</b> ${v.hp.value}${v.hp.details?', '+_esc(v.hp.details):''}${imm.length?'; <b>면역</b> '+imm.map(_esc).join(', '):''}${res.length?'; <b>저항</b> '+res.map(_esc).join(', '):''}${wk.length?'; <b>약점</b> '+wk.map(_esc).join(', '):''}</div><hr/>`;
     h+=`<div class="sb-row"><b>이동속도</b> ${v.speeds.map(s=>`${SPK[s.type]!==undefined?SPK[s.type]:s.type+' '}${s.value}피트`).join(', ')}</div>`;
     for(const st of v.strikes){
       const dmg=st.damage.map(d=>`${d.formula} ${DMG_KO[d.type]!==undefined?DMG_KO[d.type]:d.type}`).join(' + ');
-      h+=`<div class="sb-row"><b>${st.range?'원거리':'근접'}</b> <span class="roll" data-roll="attack" data-mod="${st.bonus}" data-label="${_esc(st.name.ko)}">${_esc(st.name.ko)} ${sign(st.bonus)}</span>${st.range?` (사거리 ${st.range}피트)`:''}${st.traits.length?` <span class="sb-tr">${st.traits.map(_esc).join(', ')}</span>`:''}, <b>피해</b> <span class="roll" data-roll="damage" data-formula="${_esc(st.damage.map(d=>d.formula).join('+'))}" data-label="${_esc(st.name.ko)}">${dmg||'—'}</span></div>`;
+      h+=`<div class="sb-row"><b>${st.range?'원거리':'근접'}</b> <span class="roll" data-roll="attack" data-mod="${st.bonus}" data-label="${_esc(st.name.ko)}">${_esc(st.name.ko)} ${sign(st.bonus)}</span>${st.range?` (사거리 ${st.range}피트)`:''}${st.traits.length?` <span class="sb-tr">${st.traits.map(t=>_esc(_g('trait',t))).join(', ')}</span>`:''}, <b>피해</b> <span class="roll" data-roll="damage" data-formula="${_esc(st.damage.map(d=>d.formula).join('+'))}" data-label="${_esc(st.name.ko)}">${dmg||'—'}</span></div>`;
     }
     for(const sc of v.spellcasting){
       h+=`<div class="sb-row"><b>${_esc(sc.name.ko)}</b>${sc.dc!=null?` DC ${sc.dc}`:''}${sc.attack!=null?`, 명중 ${sign(sc.attack)}`:''}${sc.spells.length?'; '+sc.spells.map(sp=>_esc(sp.name.ko)).join(', '):''}</div>`;
