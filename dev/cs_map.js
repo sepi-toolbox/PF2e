@@ -1322,35 +1322,7 @@ var MapView = (function() {
   }
 
   // ── 공개 안개 컨트롤 (GM 툴바) ──
-  function toggleFog() {
-    if (typeof MapSync === 'undefined' || !MapSync.isGM()) return;
-    if (!_bg.loaded) { alert('먼저 배경을 업로드하세요.'); return; }
-    const next = !_fogEnabled;
-    if (next) _ensureMaskFromBg();                   // 없으면 전체 가림 마스크
-    _fogEnabled = next;
-    if (!next) _brush.paint = false;
-    const url = _maskCv ? _maskCv.toDataURL('image/png') : null;
-    _maskUrl = url;
-    MapSync.setFogMask(url, _maskW, _maskH, next).catch(function(err) { console.warn('[fog toggle]', err); });
-    _refreshToolbar(); _markDirty();
-  }
-  function toggleBrush() {
-    if (typeof MapSync === 'undefined' || !MapSync.isGM() || !_fogEnabled) return;
-    _brush.paint = !_brush.paint;
-    _refreshToolbar(); _markDirty();
-  }
-  function toggleBrushMode() { _brush.mode = (_brush.mode === 'reveal') ? 'recover' : 'reveal'; _refreshToolbar(); }
-  function brushSize(delta) {
-    _brushIdx = _clamp(_brushIdx + delta, 0, BRUSH_SIZES.length - 1);
-    _brush.size = BRUSH_SIZES[_brushIdx];
-    _refreshToolbar();
-  }
-  // 안개 도형: 자유(free)/사각(rect)/원(circle) — 도형 선택 시 그리기 자동 on
-  function setBrushShape(shape) {
-    _brush.shape = (shape === 'rect' || shape === 'circle') ? shape : 'free';
-    if (_brush.shape !== 'free' && _fogEnabled) _brush.paint = true;
-    _refreshToolbar(); _markDirty();
-  }
+  // (안개 on/off·브러시·모드·크기·도형 토글은 v564 공개/제거 툴바로 대체 — setFogTool/toggleFogMenu 참조)
   function _fillMask(reveal) {
     if (typeof MapSync === 'undefined' || !MapSync.isGM() || !_bg.loaded) return;
     _ensureMaskFromBg();
@@ -1763,7 +1735,7 @@ var MapView = (function() {
     toggleFullscreen: toggleFullscreen, openFullscreen: openFullscreen, closeFullscreen: closeFullscreen,
     fit: fit, zoomIn: zoomIn, zoomOut: zoomOut, pickBg: pickBg,
     // 안개 (GM): 공개/제거 도구 + 확장 메뉴
-    toggleFogMenu: toggleFogMenu, setFogTool: setFogTool, brushSize: brushSize,
+    toggleFogMenu: toggleFogMenu, setFogTool: setFogTool,
     revealAll: revealAll, coverAll: coverAll,
     // 격자 + 지도 편집기 (GM, 드로어 ✎)
     toggleGrid: toggleGrid, gridRangeInput: gridRangeInput, gridRangeChange: gridRangeChange,
