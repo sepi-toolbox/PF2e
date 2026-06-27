@@ -1516,7 +1516,9 @@ var MapView = (function() {
       row.onpointerdown = function (ev) { _startCreatureDrag(c.id, ev); };
       const thumb = document.createElement('div');
       thumb.className = 'tp-thumb'; thumb.style.background = (kind === 'hazards' ? '#6a5320' : '#3a2a4a');
-      thumb.textContent = (n.ko || '?').trim().charAt(0) || '?';
+      const _ico = (kind !== 'hazards' && MDB.creatureIcon) ? MDB.creatureIcon(c) : '';
+      if (_ico) { thumb.style.backgroundImage = 'url(' + _ico + ')'; thumb.style.backgroundSize = 'cover'; thumb.style.backgroundPosition = 'center'; }
+      else { thumb.textContent = (n.ko || '?').trim().charAt(0) || '?'; }
       const nm = document.createElement('span'); nm.className = 'tp-name';
       nm.innerHTML = '<b>' + _esc(n.ko) + '</b> <span class="db-lv">Lv ' + lv + (tr && tr.size ? ' · ' + _sizeKo(SIZECAT[tr.size] || 'medium') : '') + '</span>';
       row.appendChild(thumb); row.appendChild(nm);
@@ -1563,7 +1565,8 @@ var MapView = (function() {
     let x = w.x, y = w.y;
     if (_bg.loaded) { x = _clamp(x, 0, _bg.w); y = _clamp(y, 0, _bg.h); }
     if (_gridEnabled) { const s = _snapWorld(x, y, cells); x = s.x; y = s.y; }
-    MapSync.createNpc({ name: n.ko, size: cells, sizeCat: cat, x: Math.round(x), y: Math.round(y), monsterId: c.id, monsterName: n.ko, hpMax: hpMax })
+    const _ico = (MDB.creatureIcon && MDB.creatureIcon(c)) || null;
+    MapSync.createNpc({ name: n.ko, size: cells, sizeCat: cat, x: Math.round(x), y: Math.round(y), monsterId: c.id, monsterName: n.ko, hpMax: hpMax, img: _ico })
       .catch(function (e) { console.warn('[placeCreature]', e); });
   }
   function _renderDrawer() {
