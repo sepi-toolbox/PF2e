@@ -1517,8 +1517,11 @@ var MapView = (function() {
       const thumb = document.createElement('div');
       thumb.className = 'tp-thumb'; thumb.style.background = (kind === 'hazards' ? '#6a5320' : '#3a2a4a');
       const _ico = (kind !== 'hazards' && MDB.creatureIcon) ? MDB.creatureIcon(c) : '';
-      if (_ico) { thumb.style.backgroundImage = 'url(' + _ico + ')'; thumb.style.backgroundSize = 'cover'; thumb.style.backgroundPosition = 'center'; }
-      else { thumb.textContent = (n.ko || '?').trim().charAt(0) || '?'; }
+      if (_ico) {                                   // 트림된 토큰 아트: 어두운 중립 배경 위 cover
+        thumb.style.backgroundColor = '#15110d';
+        thumb.style.backgroundImage = 'url(' + _ico + ')';
+        thumb.style.backgroundSize = 'cover'; thumb.style.backgroundPosition = 'center';
+      } else { thumb.textContent = (n.ko || '?').trim().charAt(0) || '?'; }
       const nm = document.createElement('span'); nm.className = 'tp-name';
       nm.innerHTML = '<b>' + _esc(n.ko) + '</b> <span class="db-lv">Lv ' + lv + (tr && tr.size ? ' · ' + _sizeKo(SIZECAT[tr.size] || 'medium') : '') + '</span>';
       row.appendChild(thumb); row.appendChild(nm);

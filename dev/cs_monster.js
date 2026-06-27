@@ -25,11 +25,12 @@
   // 크리처 토큰 아이콘: { [source]: { [baseId]: "<file>.webp" } }. tools/build_creature_icons.mjs 로 생성.
   // pf2e-tokens-{monster,npc}-core 모듈 토큰을 256px 벤더링(dev/data/creature-icons/). 미로드 시 아이콘 생략.
   let _iconMap = null, _ICON_BASE = 'data/creature-icons/';
-  function creatureIcon(c) {                       // 토큰 파일명(상대경로) — 없으면 ''
+  const _ICON_VER = 2;                             // 아이콘 재빌드 시 ++ (이미지 URL 동일·내용변경 캐시버스트)
+  function creatureIcon(c) {                        // 토큰 파일명(상대경로) — 없으면 ''
     if (!c || !_iconMap) return '';
     const bucket = _iconMap[c.source];             // c.id 는 교차팩 충돌 시 'id--source'로 변형 → 원본 id 복원
     const file = bucket && bucket[String(c.id).split('--')[0]];
-    return file ? _ICON_BASE + file : '';
+    return file ? _ICON_BASE + file + '?ic=' + _ICON_VER : '';
   }
 
   async function load(opts) {

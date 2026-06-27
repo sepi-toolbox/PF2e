@@ -60,14 +60,27 @@ for (const [mod, mapKey, sysPack, baseFile] of PACKS){
   for (const [aid, entry] of Object.entries(mapping)){
     const slug = i2s[aid];
     if (!slug || !ours.has(slug)) continue;
-    const src = entry.token?.texture?.src;
+    // subject(링 없는 순수 크리처 아트) 우선 — 캔버스/CSS 테두리가 유일한 링이 되도록.
+    // 토큰 텍스처는 Foundry 다이내믹 링용이라 여백이 47~87%로 제각각 → trim 정규화 필요.
+    const src = entry.token?.ring?.subject?.texture || entry.token?.texture?.src;
     if (!src) continue;
     const basename = path.basename(src);
     const absSrc = path.join(MOD, src.replace(/^modules\//,''));
     if (!fs.existsSync(absSrc)) continue;
     if (!doneFiles.has(basename)){
       const out = path.join(OUT_DIR, basename);
-      await sharp(absSrc).resize(SIZE, SIZE, { fit:'inside', withoutEnlargement:true }).webp({ quality:QUALITY }).toFile(out);
+      // 투명 여백 trim → 정사각 패딩(중앙, 6% 여유) → 256px. 모든 크리처가 원 안을 균일하게 채움.
+      const t = await sharp(absSrc).trim({ threshold: 1 }).toBuffer({ resolveWithObject: true }).catch(() => null);
+      if (t) {
+        // ⚠ sharp는 한 파이프라인에서 resize를 extend보다 먼저 적용 → 정사각 패딩과 분리(2단계) 필수.
+        const w = t.info.width, h = t.info.height, side = Math.round(Math.max(w, h) * 1.06);
+        const sq = await sharp(t.data)
+          .extend({ top:Math.floor((side-h)/2), bottom:Math.ceil((side-h)/2), left:Math.floor((side-w)/2), right:Math.ceil((side-w)/2), background:{ r:0,g:0,b:0,alpha:0 } })
+          .toBuffer();
+        await sharp(sq).resize(SIZE, SIZE).webp({ quality:QUALITY }).toFile(out);
+      } else {
+        await sharp(absSrc).resize(SIZE, SIZE, { fit:'inside' }).webp({ quality:QUALITY }).toFile(out);
+      }
       doneFiles.add(basename); copied++; bytes += fs.statSync(out).size;
     }
     (map[source] = map[source] || {})[slug] = basename;
