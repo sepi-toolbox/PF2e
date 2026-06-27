@@ -115,7 +115,52 @@
     return out;
   }
 
-  const API = { buildActor, deriveStats, _resolveFeatDoc, STAT_KEY };
+  /* ── 패리티 하니스 (P4-full 1단계: 신 BASE+RE vs 레거시 대조, 표시값 미변경) ──
+   * 완전 모델링된 5종(내성3·지각·클래스DC)만. AC/기술/주문은 방어구·전통 통합 후 확대.
+   * parityCompare(legacy, opts): 순수 비교(헤드리스 검증 가능).
+   *   legacy = {fortitude,reflex,will,perception,classDC} 숫자(없으면 null=스킵)
+   *   opts = {state, level, abilityMods, contribs:{fort,ref,will,perc,classdc}, keyAttr}
+   */
+  function parityCompare(legacy, opts) {
+    opts = opts || {}; legacy = legacy || {};
+    const { actor, miss } = buildActor(opts.state || {}, opts);
+    const ab = opts.abilityMods || {}; const lv = opts.level || 1; const c = opts.contribs || {};
+    const computed = {
+      fortitude: S.computeSave('fortitude', { level: lv, abilityMod: ab.con || 0, contrib: c.fort || 0, reActor: actor }).total,
+      reflex: S.computeSave('reflex', { level: lv, abilityMod: ab.dex || 0, contrib: c.ref || 0, reActor: actor }).total,
+      will: S.computeSave('will', { level: lv, abilityMod: ab.wis || 0, contrib: c.will || 0, reActor: actor }).total,
+      perception: S.computePerception({ level: lv, abilityMod: ab.wis || 0, contrib: c.perc || 0, reActor: actor }).total,
+      classDC: S.computeClassDC({ level: lv, abilityMod: ab[opts.keyAttr || 'str'] || 0, contrib: c.classdc || 0, reActor: actor }).total,
+    };
+    const rows = []; let allMatch = true;
+    for (const k of Object.keys(computed)) {
+      const L = legacy[k] == null ? null : legacy[k], C = computed[k];
+      const match = L == null ? null : L === C; if (match === false) allMatch = false;
+      rows.push({ stat: k, legacy: L == null ? '—' : L, computed: C, diff: L == null ? '' : C - L, match: match == null ? '(skip)' : (match ? '✓' : '✗') });
+    }
+    return { rows, allMatch, missCount: miss.length, miss };
+  }
+
+  // 라이브 DOM에서 레거시 값/숙련기여 읽어 대조(브라우저 콘솔용). 표시값은 건드리지 않음.
+  function parityReportLive() {
+    if (isNode) return null;
+    if (typeof getMod !== 'function' || typeof getLevel !== 'function') { (root.console || console).warn('[PF2e parity] 레거시 calc 함수 미로드'); return null; }
+    const g = id => document.getElementById(id);
+    const num = el => { if (!el) return null; const t = (el.textContent || '').replace(/[+\s]/g, ''); const n = parseInt(t); return Number.isNaN(n) ? null : n; };
+    const pv = id => parseInt((g(id) || {}).value || 0) || 0;
+    const level = getLevel();
+    const ab = {}; ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(a => ab[a] = getMod(a));
+    const contribs = { fort: pv('prof-fort'), ref: pv('prof-ref'), will: pv('prof-will'), perc: pv('prof-perc'), classdc: pv('prof-classdc') };
+    const keyAttr = (typeof getClassKeyAttr === 'function' ? getClassKeyAttr() : 'str') || 'str';
+    const legacy = { fortitude: num(g('val-fort')), reflex: num(g('val-ref')), will: num(g('val-will')), perception: num(g('val-perc')), classDC: num(g('val-classdc')) };
+    const st = (typeof state !== 'undefined') ? state : {};
+    const r = parityCompare(legacy, { state: st, level, abilityMods: ab, contribs, keyAttr });
+    try { console.table(r.rows); } catch (e) { console.log(JSON.stringify(r.rows, null, 1)); }
+    console.log(`[PF2e parity] ${r.allMatch ? '✅ 전부 일치' : '⚠ 불일치 있음'} | 미해소 재주 ${r.missCount}` + (r.miss.length ? ' → ' + r.miss.slice(0, 10).join(', ') : ''));
+    return r;
+  }
+
+  const API = { buildActor, deriveStats, parityCompare, parityReportLive, _resolveFeatDoc, STAT_KEY };
   root.PF2eActor = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
