@@ -44,12 +44,18 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .player-card .name{font-weight:700;font-size:13px;}
 .player-card .info{color:var(--text2);font-size:11px;}
 .kick-btn{background:var(--red);color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;flex-shrink:0;}
-/* 버튼 */
-.btn{border:none;padding:8px 18px;border-radius:4px;cursor:pointer;font-size:13px;font-weight:700;}
+/* 버튼 — 모든 색은 클래스로(인라인 색 금지) */
+.btn{border:none;padding:8px 18px;border-radius:4px;cursor:pointer;font-size:13px;font-weight:700;transition:filter .12s,background .12s;}
 .btn-gold{background:var(--gold);color:#000;}
 .btn-red{background:var(--red);color:#fff;}
 .btn-gray{background:#444;color:#ccc;}
+.btn-blue{background:var(--blue);color:#fff;}
+.btn-green{background:var(--green);color:#fff;}
+.btn-google{background:#fff;color:#3c4043;font-weight:700;}
 .btn-small{padding:4px 12px;font-size:11px;}
+.btn:hover,.btn-gold:hover,.btn-red:hover,.btn-gray:hover,.btn-blue:hover,.btn-green:hover,.btn-google:hover,.kick-btn:hover,#auth-area button:hover{filter:brightness(1.12);}
+#auth-area button{transition:filter .12s;}
+.kick-btn{transition:filter .12s;}
 /* 입력 */
 .input{width:100%;padding:8px;background:#222;border:1px solid #555;color:#fff;border-radius:4px;font-size:14px;}
 /* 모달 */
@@ -86,7 +92,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <div id="top-bar">
   <h1 style="color:#ff8c42;">Pathforge - GM (dev)</h1>
   <div id="auth-area">
-    <button onclick="googleLogin()" style="background:#4285f4;color:#fff;">Google 로그인</button>
+    <button class="btn-google" onclick="googleLogin()">Google 로그인</button>
   </div>
 </div>
 
@@ -160,13 +166,13 @@ auth.onAuthStateChanged(user => {
   const main = document.getElementById('main');
   const prompt = document.getElementById('login-prompt');
   if (user) {
-    area.innerHTML = '<span style="color:#aaa;">' + (user.displayName || user.email) + '</span>' +
-      '<button onclick="auth.signOut()" style="background:#555;color:#fff;">로그아웃</button>';
+    area.innerHTML = '<span style="color:var(--text2);">' + (user.displayName || user.email) + '</span>' +
+      '<button class="btn-gray" onclick="auth.signOut()">로그아웃</button>';
     prompt.style.display = 'none';
     main.style.display = '';
     startListening();
   } else {
-    area.innerHTML = '<button onclick="googleLogin()" style="background:#4285f4;color:#fff;">Google 로그인</button>';
+    area.innerHTML = '<button class="btn-google" onclick="googleLogin()">Google 로그인</button>';
     prompt.style.display = 'flex';
     main.style.display = 'none';
     stopListening();
@@ -265,8 +271,8 @@ function renderSessionDetail(s) {
       ' <button class="btn btn-gray btn-small" onclick="navigator.clipboard.writeText(\'' + s.joinCode + '\').then(()=>alert(\'복사됨!\'))">복사</button></div>' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
         '<button class="btn btn-gold" onclick="startSession()">GM 모드로 보기 →</button>' +
-        '<button class="btn" style="background:#3498db;color:#fff;" onclick="startSessionAsPlayer()">플레이어 모드로 보기 →</button>' +
-        '<button class="btn" style="background:#27ae60;color:#fff;" onclick="startGMSheets()">🎭 시트 관리 →</button>' +
+        '<button class="btn btn-blue" onclick="startSessionAsPlayer()">플레이어 모드로 보기 →</button>' +
+        '<button class="btn btn-green" onclick="startGMSheets()">🎭 시트 관리 →</button>' +
       '</div>' +
     '</div>';
 
@@ -468,7 +474,7 @@ function showRemoteToast(data) {
 }
 </script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=565"></script>
-<script src="cs_i18n.js?v=565"></script>
+<script src="cs_locale.js?v=566"></script>
+<script src="cs_i18n.js?v=566"></script>
 </body>
 </html>
