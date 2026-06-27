@@ -853,7 +853,7 @@ function _renderEquipRow(list, e, i, hasContainers) {
   </select>`;
 
   row.innerHTML = `
-    <span style="flex:1;font-size:12px;color:${e._broken?'var(--red-light)':'var(--text)'};cursor:pointer;display:flex;align-items:center;" onclick="showInfo('${eqType}','${eqEscName}')">${iconImg('equipment', e)}<span>${e._broken?'\uD30C\uC190\uB41C ':''}${e.name||'\uC544\uC774\uD15C'}</span></span>
+    <span class="item-name-cell" style="flex:1;font-size:12px;color:${e._broken?'var(--red-light)':'var(--text)'};cursor:pointer;" onclick="showInfo('${eqType}','${eqEscName}')">${iconImg('equipment', e)}<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${e._broken?'\uD30C\uC190\uB41C ':''}${e.name||'\uC544\uC774\uD15C'}</span></span>
     <span style="width:30px;text-align:center;font-size:10px;color:var(--text2);">${bulkDisplay}</span>
     <span style="width:70px;display:flex;align-items:center;justify-content:center;gap:2px;">
       <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},-1)">\u2212</button>
