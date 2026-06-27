@@ -22,6 +22,16 @@
   const RARITY_KO = { uncommon: '비범', rare: '희귀', unique: '고유', common: '일반' };
   function _g(cat, slug) { const m = _gloss[cat]; const v = m && m[slug]; return v != null ? v : slug; }
 
+  // 크리처 토큰 아이콘: { [source]: { [baseId]: "<file>.webp" } }. tools/build_creature_icons.mjs 로 생성.
+  // pf2e-tokens-{monster,npc}-core 모듈 토큰을 256px 벤더링(dev/data/creature-icons/). 미로드 시 아이콘 생략.
+  let _iconMap = null, _ICON_BASE = 'data/creature-icons/';
+  function creatureIcon(c) {                       // 토큰 파일명(상대경로) — 없으면 ''
+    if (!c || !_iconMap) return '';
+    const bucket = _iconMap[c.source];             // c.id 는 교차팩 충돌 시 'id--source'로 변형 → 원본 id 복원
+    const file = bucket && bucket[String(c.id).split('--')[0]];
+    return file ? _ICON_BASE + file : '';
+  }
+
   async function load(opts) {
     opts = opts || {};
     const dir = opts.dir || 'data/creatures/';
@@ -49,6 +59,13 @@
       else { try { gl = JSON.parse(require('fs').readFileSync(`${dir}_glossary.ko.json`, 'utf8')); } catch (e) {} }
       if (gl) for (const k in _gloss) if (gl[k]) _gloss[k] = gl[k];
     } catch (e) { console.warn('[MonsterDB] 글로서리 로드 실패:', e && e.message); }
+    // 크리처 토큰 아이콘 맵 1회 로드(실패해도 아이콘만 생략)
+    try {
+      const base = dir.replace(/creatures\/?$/, '');          // 'data/creatures/' → 'data/'
+      _ICON_BASE = base + 'creature-icons/';
+      if (useFetch) _iconMap = await fetch(`${base}creature_icon_map.json`).then(r => r.ok ? r.json() : null).catch(() => null);
+      else { try { _iconMap = JSON.parse(require('fs').readFileSync(`${base}creature_icon_map.json`, 'utf8')); } catch (e) {} }
+    } catch (e) { console.warn('[MonsterDB] 아이콘 맵 로드 실패:', e && e.message); }
     return _loaded;
   }
   function ingest(baseArr, koObj) { _ingest(baseArr, koObj); return _loaded; } // 직접 주입(테스트/번들)
@@ -246,7 +263,8 @@
     const SPK={land:'',fly:'비행 ',swim:'수영 ',climb:'등반 ',burrow:'굴파기 '};
     const sign=n=>`${n>=0?'+':''}${n}`;
     let h='<div class="sb">';
-    h+=`<div class="sb-hd"><span class="sb-name">${_esc(v.name.ko)}</span> <span class="sb-en">${_esc(v.name.en)}</span><span class="sb-lv">생물 ${v.level}</span></div>`;
+    const _ico = creatureIcon(c);
+    h+=`<div class="sb-hd">${_ico?`<img class="sb-portrait" src="${_ico}" alt="" loading="lazy">`:''}<span class="sb-name">${_esc(v.name.ko)}</span> <span class="sb-en">${_esc(v.name.en)}</span><span class="sb-lv">생물 ${v.level}</span></div>`;
     h+=`<div class="sb-traits">${[v.traits.rarity!=='common'?(RARITY_KO[v.traits.rarity]||v.traits.rarity):'',v.traits.sizeKo,...v.traits.value.map(t=>_g('trait',t))].filter(Boolean).map(t=>`<span class="trait">${_esc(t)}</span>`).join('')}</div><hr/>`;
     h+=`<div class="sb-row"><b>지각</b> <span class="roll" data-roll="perception" data-mod="${v.perception.mod}" data-label="지각">${sign(v.perception.mod)}</span>${v.perception.senses.length?'; '+v.perception.senses.map(s=>_esc(_g('sense',s))).join(', '):''}</div>`;
     if(e&&e.languages) h+=`<div class="sb-row"><b>언어</b> ${_esc(e.languages)}</div>`;
@@ -303,6 +321,7 @@
 .sb{font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:13px;line-height:1.55;color:#e8e3d8;background:#1b1814;border:1px solid #4a3f2e;border-radius:10px;padding:14px 16px;}
 .sb hr{border:0;border-top:1px solid #4a3f2e;margin:7px 0;}
 .sb-hd{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+.sb-portrait{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:0 0 auto;align-self:center;background:#0e0c09;border:1px solid #0e0c09;box-shadow:0 0 0 2px #9f725b,inset 0 0 6px rgba(0,0,0,.5);}
 .sb-name{font-size:19px;font-weight:800;color:#e0b35c;}
 .sb-en{font-size:12px;color:#9a8f7a;font-style:italic;}
 .sb-lv{margin-left:auto;font-size:12px;font-weight:700;color:#c9b896;background:#2c2519;padding:2px 9px;border-radius:10px;}
@@ -332,7 +351,7 @@
   const API = { load, ingest, getCreature, all, search, view,
     name, level, traits, abilities, ac, hp, perception, saves, speeds, skills,
     strikes, abilitiesList, spellcasting, resolveFoundryRefs, renderStatBlock,
-    bindRolls, injectStyles, STYLES };
+    bindRolls, injectStyles, STYLES, creatureIcon };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.MonsterDB = API;
 })(typeof window !== 'undefined' ? window : globalThis);
