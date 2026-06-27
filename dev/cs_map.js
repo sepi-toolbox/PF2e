@@ -1418,13 +1418,29 @@ var MapView = (function() {
   }
 
   // ── 좌측 드로어: 저장된 지도 목록 (GM) ──
+  let _drawerTab = 'maps';   // 드로어 탭: 'maps' | 'tokens'
   function toggleDrawer() {
     const d = document.getElementById('map-drawer'); if (!d) return;
     const open = !d.classList.contains('open');
     d.classList.toggle('open', open);
     const btn = document.getElementById('map-drawer-btn');
     if (btn) btn.classList.toggle('on', open);
-    if (open) { _renderDrawer(); _renderTplPalette(); }
+    if (open) _refreshDrawerTabs();
+  }
+  function setDrawerTab(tab) {
+    _drawerTab = (tab === 'tokens') ? 'tokens' : 'maps';
+    _refreshDrawerTabs();
+  }
+  function _refreshDrawerTabs() {
+    const pm = document.getElementById('md-panel-maps');
+    const pt = document.getElementById('md-panel-tokens');
+    if (pm) pm.style.display = (_drawerTab === 'maps') ? '' : 'none';
+    if (pt) pt.style.display = (_drawerTab === 'tokens') ? '' : 'none';
+    const tm = document.getElementById('md-tab-maps');
+    const tt = document.getElementById('md-tab-tokens');
+    if (tm) tm.classList.toggle('on', _drawerTab === 'maps');
+    if (tt) tt.classList.toggle('on', _drawerTab === 'tokens');
+    if (_drawerTab === 'maps') _renderDrawer(); else _renderTplPalette();
   }
   function _renderDrawer() {
     const list = document.getElementById('map-drawer-list');
@@ -1682,7 +1698,7 @@ var MapView = (function() {
     // 격자 (GM): 배치 on/off + 0~100% 비율
     toggleGrid: toggleGrid, gridRangeInput: gridRangeInput, gridRangeChange: gridRangeChange,
     // GM 멀티맵 드로어 (Map.html)
-    toggleDrawer: toggleDrawer, addMap: addMap,
+    toggleDrawer: toggleDrawer, setDrawerTab: setDrawerTab, addMap: addMap,
     // GM NPC 편집기 (Map.html)
     openNpcCreate: openNpcCreate, npcApply: npcApply, npcDelete: npcDelete,
     npcClose: npcClose, npcPickPortrait: npcPickPortrait,

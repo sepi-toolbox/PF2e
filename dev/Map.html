@@ -93,6 +93,13 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 #map-drawer .md-head .md-x{background:none;border:none;color:var(--text2);font-size:16px;cursor:pointer;line-height:1;}
 #map-drawer .md-head .md-x:hover{color:var(--accent);}
+#map-drawer .md-tabs{display:flex;border-bottom:1px solid var(--border);flex:0 0 auto;}
+#map-drawer .md-tab{flex:1;background:none;border:none;color:var(--text2);font-size:12px;font-weight:700;
+  padding:9px 0;cursor:pointer;border-bottom:2px solid transparent;}
+#map-drawer .md-tab:hover{color:var(--text);}
+#map-drawer .md-tab.on{color:var(--accent);border-bottom-color:var(--accent);}
+#map-drawer .md-panel{display:flex;flex-direction:column;}
+#map-drawer .md-hint{padding:8px 12px 2px;font-size:11px;color:var(--text2);line-height:1.5;}
 #map-drawer .md-scroll{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
 #map-drawer .md-sect-h{padding:9px 12px 3px;font-size:11px;font-weight:700;color:var(--text2);}
 #map-drawer .md-sect-h .md-sect-hint{font-weight:400;color:var(--border2);}
@@ -170,14 +177,21 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 
 <!-- GM 멀티맵 드로어 (좌측, 토글) -->
 <div id="map-drawer">
-  <div class="md-head"><span>지도 · 토큰</span><button class="md-x" onclick="MapView.toggleDrawer()" title="닫기">✕</button></div>
+  <div class="md-head"><span>드로어</span><button class="md-x" onclick="MapView.toggleDrawer()" title="닫기">✕</button></div>
+  <div class="md-tabs">
+    <button id="md-tab-maps" class="md-tab on" onclick="MapView.setDrawerTab('maps')">🗺 지도</button>
+    <button id="md-tab-tokens" class="md-tab" onclick="MapView.setDrawerTab('tokens')">🎭 토큰</button>
+  </div>
   <div class="md-scroll">
-    <div class="md-sect-h">저장된 지도</div>
-    <div class="md-list" id="map-drawer-list"></div>
-    <button class="md-add" onclick="MapView.addMap()">＋ 새 지도</button>
-    <div class="md-sect-h">토큰 팔레트 <span class="md-sect-hint">— 끌어서 배치</span></div>
-    <div class="tp-list" id="map-tpl-list"></div>
-    <button class="md-add" onclick="MapView.addTemplate()">＋ 토큰 추가</button>
+    <div id="md-panel-maps" class="md-panel">
+      <div class="md-list" id="map-drawer-list"></div>
+      <button class="md-add" onclick="MapView.addMap()">＋ 새 지도</button>
+    </div>
+    <div id="md-panel-tokens" class="md-panel" style="display:none;">
+      <div class="md-hint">토큰을 만들어 지도로 끌어다 놓으세요.</div>
+      <div class="tp-list" id="map-tpl-list"></div>
+      <button class="md-add" onclick="MapView.addTemplate()">＋ 토큰 추가</button>
+    </div>
   </div>
 </div>
 
@@ -229,7 +243,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_map.js?v=561"></script>
+<script src="cs_map.js?v=562"></script>
 <script>
 // ── 지도 전용 글루 (캐릭터 시트와 독립) ──
 let currentUser = null;
