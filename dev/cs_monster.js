@@ -18,7 +18,7 @@
 
   // 시스템 통합 용어 사전(PF2e-KR lang 기반): skill/sense/condition/ability/save/trait slug→한글.
   // tools/rebase/build_glossary.mjs 로 생성. 미로드 시 slug 폴백(graceful).
-  let _gloss = { skill: {}, sense: {}, condition: {}, ability: {}, save: {}, trait: {} };
+  let _gloss = { skill: {}, sense: {}, condition: {}, ability: {}, save: {}, trait: {}, attackEffect: {} };
   const RARITY_KO = { uncommon: '비범', rare: '희귀', unique: '고유', common: '일반' };
   function _g(cat, slug) { const m = _gloss[cat]; const v = m && m[slug]; return v != null ? v : slug; }
 
@@ -255,9 +255,12 @@
     h+=`<div class="sb-row"><b>AC</b> ${v.ac}; ${v.saves.map(s=>`<b>${s.ko}</b> <span class="roll" data-roll="save" data-key="${s.key}" data-mod="${s.mod}" data-label="${s.ko} 내성">${sign(s.mod)}</span>`).join(', ')}</div>`;
     h+=`<div class="sb-row"><b>HP</b> ${v.hp.value}${v.hp.details?', '+_esc(v.hp.details):''}${imm.length?'; <b>면역</b> '+imm.map(_esc).join(', '):''}${res.length?'; <b>저항</b> '+res.map(_esc).join(', '):''}${wk.length?'; <b>약점</b> '+wk.map(_esc).join(', '):''}</div><hr/>`;
     h+=`<div class="sb-row"><b>이동속도</b> ${v.speeds.map(s=>`${SPK[s.type]!==undefined?SPK[s.type]:s.type+' '}${s.value}피트`).join(', ')}</div>`;
+    const _abMap={}; (v.abilitiesList||[]).forEach(a=>{ if(a.slug) _abMap[a.slug]=a.name.ko; });
+    const _effKo=s=> _abMap[s] || _gloss.attackEffect[s] || _gloss.condition[s] || _g('trait',s);  // 라이더 효과: 크리처 고유→표준→상태→특성→slug
     for(const st of v.strikes){
       const dmg=st.damage.map(d=>`${d.formula} ${DMG_KO[d.type]!==undefined?DMG_KO[d.type]:d.type}`).join(' + ');
-      h+=`<div class="sb-row"><b>${st.range?'원거리':'근접'}</b> <span class="roll" data-roll="attack" data-mod="${st.bonus}" data-label="${_esc(st.name.ko)}">${_esc(st.name.ko)} ${sign(st.bonus)}</span>${st.range?` (사거리 ${st.range}피트)`:''}${st.traits.length?` <span class="sb-tr">${st.traits.map(t=>_esc(_g('trait',t))).join(', ')}</span>`:''}, <b>피해</b> <span class="roll" data-roll="damage" data-formula="${_esc(st.damage.map(d=>d.formula).join('+'))}" data-label="${_esc(st.name.ko)}">${dmg||'—'}</span></div>`;
+      const eff=(st.effects||[]).map(s=>_esc(_effKo(s)));
+      h+=`<div class="sb-row"><b>${st.range?'원거리':'근접'}</b> <span class="roll" data-roll="attack" data-mod="${st.bonus}" data-label="${_esc(st.name.ko)}">${_esc(st.name.ko)} ${sign(st.bonus)}</span>${st.range?` (사거리 ${st.range}피트)`:''}${st.traits.length?` <span class="sb-tr">${st.traits.map(t=>_esc(_g('trait',t))).join(', ')}</span>`:''}, <b>피해</b> <span class="roll" data-roll="damage" data-formula="${_esc(st.damage.map(d=>d.formula).join('+'))}" data-label="${_esc(st.name.ko)}">${dmg||'—'}</span>${eff.length?` <span class="sb-plus">＋ ${eff.join(', ')}</span>`:''}</div>`;
     }
     for(const sc of v.spellcasting){
       h+=`<div class="sb-row"><b>${_esc(sc.name.ko)}</b>${sc.dc!=null?` DC ${sc.dc}`:''}${sc.attack!=null?`, 명중 ${sign(sc.attack)}`:''}${sc.spells.length?'; '+sc.spells.map(sp=>_esc(sp.name.ko)).join(', '):''}</div>`;
@@ -309,6 +312,7 @@
 .sb-row b{color:#d4c4a0;}
 .sb-abil b{color:#c9b896;}
 .sb-tr{font-size:11px;color:#9a8f7a;}
+.sb-plus{color:#c98a6a;font-weight:600;}
 .sb-ab{margin:5px 0;padding-top:5px;border-top:1px dashed #3a3226;}
 .sb-ab b{color:#e0b35c;}
 .sb .roll{cursor:pointer;border-bottom:1px dotted #e0b35c;color:#f0e6d2;transition:color .15s,background .15s;padding:0 1px;border-radius:3px;}

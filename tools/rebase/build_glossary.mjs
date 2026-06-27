@@ -13,7 +13,7 @@ const flat = {};
 
 const kebab = s => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2').toLowerCase();
 
-const out = { skill: {}, sense: {}, condition: {}, ability: {}, save: {}, trait: {} };
+const out = { skill: {}, sense: {}, condition: {}, ability: {}, save: {}, trait: {}, attackEffect: {} };
 
 for (const key in flat) {
   const val = flat[key];
@@ -24,6 +24,7 @@ for (const key in flat) {
   else if ((m = key.match(/^ConditionType([A-Za-z]+)$/))) out.condition[kebab(m[1])] = val;
   else if ((m = key.match(/^Ability(Str|Dex|Con|Int|Wis|Cha)$/))) out.ability[m[1].toLowerCase()] = val;
   else if ((m = key.match(/^Saves?(Fortitude|Reflex|Will)(?:Label)?$/))) out.save[m[1].toLowerCase()] = val;
+  else if ((m = key.match(/^AttackEffect([A-Za-z]+)$/))) out.attackEffect[kebab(m[1])] = val;
 }
 // 저장(save) 폴백 — 키 패턴이 다를 수 있어 직접 보강
 const SAVE = { fortitude: flat['Fortitude'] || flat['SavesFortitude'] || '인내', reflex: flat['Reflex'] || flat['SavesReflex'] || '반사', will: flat['Will'] || flat['SavesWill'] || '의지' };
