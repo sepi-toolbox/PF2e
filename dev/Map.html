@@ -52,7 +52,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   position:absolute;inset:0;display:none;align-items:center;justify-content:center;
   color:var(--text2);font-size:13px;text-align:center;padding:24px;line-height:1.6;pointer-events:none;
 }
-#map-toolbar{position:absolute;top:8px;left:8px;display:flex;gap:6px;flex-wrap:wrap;z-index:5;}
+#map-toolbar{position:absolute;top:8px;left:8px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;z-index:6;}
 #map-toolbar button{
   background:rgba(20,20,20,.82);color:var(--text);border:1px solid var(--border);
   border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;
@@ -81,6 +81,30 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   border-radius:8px;cursor:pointer;
 }
 #map-zoom button:active{background:var(--bg4);}
+
+/* ── 안개 공개/제거 확장 메뉴 (툴바 오른쪽 플라이아웃) ── */
+.fog-menu{position:absolute;top:8px;left:104px;z-index:6;display:flex;flex-direction:column;gap:5px;
+  background:rgba(16,16,16,.92);border:1px solid var(--border);border-radius:8px;padding:6px;}
+.fog-menu button{background:rgba(40,40,40,.95);color:var(--text);border:1px solid var(--border);
+  border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;text-align:left;white-space:nowrap;}
+.fog-menu button:hover{color:var(--accent);}
+.fog-menu button.on{background:var(--accent);color:#1a1a1a;border-color:var(--accent);font-weight:700;}
+
+/* ── 지도 편집기 (드로어 ✎) ── */
+#map-map-editor{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:16;
+  background:rgba(20,20,22,.97);border:1px solid var(--border);border-radius:10px;
+  padding:12px 14px;width:min(330px,92%);box-shadow:0 8px 28px rgba(0,0,0,.6);}
+#map-map-editor .mme-title{color:var(--accent);font-weight:700;font-size:13px;margin-bottom:10px;}
+#map-map-editor .mme-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;font-size:12px;color:var(--text2);}
+#map-map-editor .mme-row label{min-width:34px;}
+#map-map-editor input[type=text]{flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:6px 8px;font-size:13px;}
+#map-map-editor input[type=range]{flex:1;accent-color:var(--accent);}
+#map-map-editor button{background:rgba(45,45,48,.95);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;}
+#map-map-editor button:hover{color:var(--accent);}
+#map-map-editor .mme-check{display:flex;align-items:center;gap:6px;color:var(--text);cursor:pointer;}
+#map-map-editor b{color:var(--accent);font-size:12px;min-width:34px;text-align:right;}
+#map-map-editor .mme-status{font-size:11px;color:var(--text2);}
+#map-map-editor .mme-actions{justify-content:flex-end;margin-bottom:0;margin-top:2px;}
 
 /* ── GM 멀티맵 좌측 드로어 ── */
 #map-drawer{
@@ -209,26 +233,24 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   <canvas id="map-canvas"></canvas>
   <div id="map-empty"></div>
   <div id="map-toolbar">
-    <!-- GM 전용: 멀티맵 드로어 / NPC 배치 / 배경 / 안개 (플레이어 시점이면 숨김) -->
+    <!-- GM 전용, 세로 배치 (플레이어 시점이면 숨김). 배경/격자는 드로어 ✎ 지도 편집기로 이동 -->
     <button id="map-drawer-btn" style="display:none;" onclick="MapView.toggleDrawer()">☰ 지도</button>
-    <button id="map-upload-btn" style="display:none;" onclick="MapView.pickBg()">🖼 배경</button>
-    <button id="map-grid-btn" style="display:none;" onclick="MapView.toggleGrid()">⊞ 격자</button>
-    <button id="map-fog-btn" style="display:none;" onclick="MapView.toggleFog()">🌫 안개</button>
+    <button id="fog-btn-reveal" style="display:none;" onclick="MapView.toggleFogMenu('reveal')">🔆 공개 ▸</button>
+    <button id="fog-btn-recover" style="display:none;" onclick="MapView.toggleFogMenu('recover')">🌑 제거 ▸</button>
   </div>
-  <div id="map-fog-bar" style="display:none;">
-    <button id="map-brush-btn" onclick="MapView.toggleBrush()">✏️ 그리기</button>
-    <button id="map-brush-mode" onclick="MapView.toggleBrushMode()">지우개(공개)</button>
-    <span class="map-shape-grp">모양 <button id="map-shape-free" class="on" onclick="MapView.setBrushShape('free')">✏ 자유</button><button id="map-shape-rect" onclick="MapView.setBrushShape('rect')">▭ 사각</button><button id="map-shape-circle" onclick="MapView.setBrushShape('circle')">◯ 원</button></span>
-    <span class="map-fog-size">붓 <button onclick="MapView.brushSize(-1)">－</button><b id="map-brush-size">중</b><button onclick="MapView.brushSize(1)">＋</button></span>
-    <button onclick="MapView.revealAll()">전체공개</button>
-    <button onclick="MapView.coverAll()">전체가림</button>
+  <!-- 안개 공개 확장 메뉴 (자유/원/사각/전체) -->
+  <div id="fog-menu-reveal" class="fog-menu" style="display:none;">
+    <button data-fs="reveal:free" onclick="MapView.setFogTool('reveal','free')">✏ 자유</button>
+    <button data-fs="reveal:circle" onclick="MapView.setFogTool('reveal','circle')">◯ 원</button>
+    <button data-fs="reveal:rect" onclick="MapView.setFogTool('reveal','rect')">▭ 사각</button>
+    <button onclick="MapView.revealAll()">⬜ 전체공개</button>
   </div>
-  <div id="map-grid-bar" style="display:none;">
-    <span class="map-grid-lbl">격자 비율</span>
-    <input id="map-grid-range" type="range" min="0" max="100" value="20"
-           oninput="MapView.gridRangeInput(this.value)" onchange="MapView.gridRangeChange(this.value)">
-    <b id="map-grid-val">20%</b>
-    <span id="map-grid-info" class="map-grid-info"></span>
+  <!-- 안개 제거 확장 메뉴 (자유/원/사각/전체) -->
+  <div id="fog-menu-recover" class="fog-menu" style="display:none;">
+    <button data-fs="recover:free" onclick="MapView.setFogTool('recover','free')">✏ 자유</button>
+    <button data-fs="recover:circle" onclick="MapView.setFogTool('recover','circle')">◯ 원</button>
+    <button data-fs="recover:rect" onclick="MapView.setFogTool('recover','rect')">▭ 사각</button>
+    <button onclick="MapView.coverAll()">⬛ 전체제거</button>
   </div>
   <div id="map-zoom">
     <button onclick="MapView.zoomIn()" aria-label="확대">＋</button>
@@ -255,9 +277,21 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
     <button id="mta-hide" onclick="MapView.tokenActionHide()">🙈 숨기기</button>
     <button id="mta-del" onclick="MapView.tokenActionRemove()">🗑 제거</button>
   </div>
+
+  <!-- GM 지도 편집기 (드로어 ✎로 열림 — 이름/배경/격자) -->
+  <div id="map-map-editor" style="display:none;">
+    <div class="mme-title">지도 편집</div>
+    <div class="mme-row"><label>이름</label><input id="mme-name" type="text" onchange="MapView.mapRename()"></div>
+    <div class="mme-row"><label>배경</label><button id="map-upload-btn" onclick="MapView.pickBg()">🖼 이미지 선택</button><span id="mme-bg-status" class="mme-status"></span></div>
+    <div class="mme-row"><label class="mme-check"><input id="mme-grid-on" type="checkbox" onchange="MapView.toggleGrid()"> 격자 표시</label></div>
+    <div class="mme-row"><label>비율</label>
+      <input id="map-grid-range" type="range" min="0" max="100" value="20" oninput="MapView.gridRangeInput(this.value)" onchange="MapView.gridRangeChange(this.value)">
+      <b id="map-grid-val">20%</b> <span id="map-grid-info" class="mme-status"></span></div>
+    <div class="mme-row mme-actions"><button onclick="MapView.mapEditClose()">닫기</button></div>
+  </div>
 </div>
 
-<script src="cs_map.js?v=563"></script>
+<script src="cs_map.js?v=564"></script>
 <script>
 // ── 지도 전용 글루 (캐릭터 시트와 독립) ──
 let currentUser = null;

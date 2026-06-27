@@ -692,34 +692,58 @@ var MapView = (function() {
 
   function _refreshToolbar() {
     const gm = _effGM();
-    if (_uploadBtn) _uploadBtn.style.display = gm ? '' : 'none';
-    // 안개 컨트롤 (GM 전용)
-    const fogBtn = document.getElementById('map-fog-btn');
-    if (fogBtn) { fogBtn.style.display = gm ? '' : 'none'; fogBtn.classList.toggle('on', _fogEnabled); }
-    const fogBar = document.getElementById('map-fog-bar');
-    if (fogBar) fogBar.style.display = (gm && _fogEnabled) ? 'flex' : 'none';
-    const brushBtn = document.getElementById('map-brush-btn');
-    if (brushBtn) brushBtn.classList.toggle('on', _brush.paint);
-    const modeBtn = document.getElementById('map-brush-mode');
-    if (modeBtn) modeBtn.textContent = (_brush.mode === 'reveal') ? '지우개(공개)' : '덮기(가림)';
-    const sizeLbl = document.getElementById('map-brush-size');
-    if (sizeLbl) sizeLbl.textContent = BRUSH_LABELS[_brushIdx];
-    ['free', 'rect', 'circle'].forEach(function(s) {                  // 안개 도형 선택 하이라이트
-      const b = document.getElementById('map-shape-' + s);
-      if (b) b.classList.toggle('on', _brush.shape === s);
-    });
-    // GM 전용(Map.html): 멀티맵 드로어
     const drawerBtn = document.getElementById('map-drawer-btn');
     if (drawerBtn) drawerBtn.style.display = gm ? '' : 'none';
-    // 격자 컨트롤 (GM 전용): 토글 버튼 + 비율 슬라이더 바
-    const gridBtn = document.getElementById('map-grid-btn');
-    if (gridBtn) { gridBtn.style.display = gm ? '' : 'none'; gridBtn.classList.toggle('on', _gridEnabled); }
-    const gridBar = document.getElementById('map-grid-bar');
-    if (gridBar) gridBar.style.display = (gm && _gridEnabled) ? 'flex' : 'none';
-    if (gm) _refreshGridBar();
-    // 시트 플레이 뷰 전용: '내 토큰 놓기' 버튼 (관리기능 없음, 이동·내토큰·핑만)
+    _refreshFogToolbar();           // 공개/제거 버튼 + 확장 메뉴 (GM)
+    if (gm) _refreshMapEditor();    // 배경/격자는 드로어 지도 편집기로 이동
+    // 시트 플레이 뷰 전용: '내 토큰 놓기' 버튼
     const placeBtn = document.getElementById('map-place-btn');
     if (placeBtn) placeBtn.style.display = _playMode ? '' : 'none';
+  }
+  // 안개 공개/제거 툴바 (세로 메인 버튼 + 확장 메뉴: 자유/원/사각/전체)
+  let _fogMenu = null;              // 열린 메뉴: 'reveal' | 'recover' | null
+  function _refreshFogToolbar() {
+    const gm = _effGM();
+    const rv = document.getElementById('fog-btn-reveal');
+    const rc = document.getElementById('fog-btn-recover');
+    if (rv) { rv.style.display = gm ? '' : 'none'; rv.classList.toggle('on', _fogMenu === 'reveal'); }
+    if (rc) { rc.style.display = gm ? '' : 'none'; rc.classList.toggle('on', _fogMenu === 'recover'); }
+    const mr = document.getElementById('fog-menu-reveal');
+    const mc = document.getElementById('fog-menu-recover');
+    if (mr) mr.style.display = (gm && _fogMenu === 'reveal') ? 'flex' : 'none';
+    if (mc) mc.style.display = (gm && _fogMenu === 'recover') ? 'flex' : 'none';
+    const active = _brush.paint ? (_brush.mode + ':' + _brush.shape) : '';
+    const btns = document.querySelectorAll('#fog-menu-reveal [data-fs],#fog-menu-recover [data-fs]');
+    for (let i = 0; i < btns.length; i++) btns[i].classList.toggle('on', btns[i].getAttribute('data-fs') === active);
+  }
+  function toggleFogMenu(mode) {
+    if (!_effGM()) return;
+    _fogMenu = (_fogMenu === mode) ? null : (mode === 'recover' ? 'recover' : 'reveal');
+    _refreshFogToolbar();
+  }
+  function _enableFog() {
+    if (_fogEnabled || !_bg.loaded || typeof MapSync === 'undefined') return;
+    _ensureMaskFromBg();
+    if (_maskCtx) {                              // 처음 켤 땐 전체 공개(보임) — 이후 '제거'로 가림
+      _maskCtx.globalCompositeOperation = 'source-over';
+      _maskCtx.fillStyle = '#fff';
+      _maskCtx.fillRect(0, 0, _maskW, _maskH);
+    }
+    _fogEnabled = true;
+    const url = _maskCv ? _maskCv.toDataURL('image/png') : null;
+    _maskUrl = url;
+    MapSync.setFogMask(url, _maskW, _maskH, true).catch(function(e) { console.warn('[enableFog]', e); });
+  }
+  // 안개 도구 선택: mode(reveal=공개 / recover=제거) + shape(free/rect/circle). 선택 시 안개 자동 활성+그리기 on
+  function setFogTool(mode, shape) {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    if (!_bg.loaded) { alert('먼저 드로어 ✎ 지도 편집에서 배경 이미지를 넣어주세요.'); return; }
+    _enableFog();
+    _brush.mode = (mode === 'recover') ? 'recover' : 'reveal';
+    _brush.shape = (shape === 'rect' || shape === 'circle') ? shape : 'free';
+    _brush.paint = true;
+    _refreshFogToolbar();
+    _markDirty();
   }
 
   // ───────────────────────────────────────────
@@ -949,7 +973,7 @@ var MapView = (function() {
     MapSync.resizeMapImage(file)
       .then(function(r) { return MapSync.setBackground(r.dataUrl, r.w, r.h); })
       .catch(function(err) { console.error('[MapView upload]', err); alert('배경 업로드 실패: ' + err); })
-      .then(function() { if (_uploadBtn) { _uploadBtn.disabled = false; _uploadBtn.textContent = '🖼 배경'; } });
+      .then(function() { if (_uploadBtn) { _uploadBtn.disabled = false; _uploadBtn.textContent = '🖼 이미지 선택'; } });
   }
 
   // ── 렌더 루프 (dirty-flag + 보간 중 연속 재draw) ──
@@ -1413,6 +1437,8 @@ var MapView = (function() {
     _disp.clear();
     npcClose();
     _hideTokenActions();
+    _fogMenu = null;
+    if (_mapEditId && _mapEditId !== MapSync.getActiveMapId()) mapEditClose();
     _renderDrawer();
     _markDirty();
   }
@@ -1455,12 +1481,8 @@ var MapView = (function() {
       nm.className = 'md-name'; nm.textContent = m.name || '(이름 없음)';
       nm.onclick = function() { MapSync.setActiveMap(m.id).catch(function(e) { console.warn('[setActiveMap]', e); }); };
       const ren = document.createElement('button');
-      ren.className = 'md-act'; ren.title = '이름 변경'; ren.textContent = '✎';
-      ren.onclick = function(ev) {
-        ev.stopPropagation();
-        const nn = prompt('지도 이름', m.name || '');
-        if (nn != null) MapSync.renameMap(m.id, nn.trim()).catch(function() {});
-      };
+      ren.className = 'md-act'; ren.title = '편집(이름/배경/격자)'; ren.textContent = '✎';
+      ren.onclick = function(ev) { ev.stopPropagation(); openMapEdit(m.id); };
       const del = document.createElement('button');
       del.className = 'md-act md-del'; del.title = '삭제'; del.textContent = '🗑';
       del.onclick = function(ev) {
@@ -1705,15 +1727,47 @@ var MapView = (function() {
     if (_effGM() && typeof MapSync !== 'undefined') MapSync.setGrid(true, _gridPx).catch(function(e) { console.warn('[gridRange]', e); });
   }
 
+  // ── 드로어 지도 편집기 (이름/배경 이미지/격자) — 활성 맵 대상 ──
+  let _mapEditId = null;
+  function openMapEdit(id) {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    const m = MapSync.getMaps().find(function(x) { return x.id === id; });
+    _mapEditId = id;
+    if (MapSync.getActiveMapId() !== id) MapSync.setActiveMap(id).catch(function(e) { console.warn('[openMapEdit]', e); });
+    const box = document.getElementById('map-map-editor'); if (!box) return;
+    const nm = document.getElementById('mme-name'); if (nm) nm.value = m ? (m.name || '') : '';
+    box.style.display = 'block';
+    _refreshMapEditor();
+  }
+  function mapEditClose() {
+    _mapEditId = null;
+    const box = document.getElementById('map-map-editor'); if (box) box.style.display = 'none';
+  }
+  function mapRename() {
+    if (!_mapEditId || typeof MapSync === 'undefined') return;
+    const nm = document.getElementById('mme-name');
+    MapSync.renameMap(_mapEditId, nm ? nm.value.trim() : '').catch(function(e) { console.warn('[mapRename]', e); });
+  }
+  function _refreshMapEditor() {
+    const box = document.getElementById('map-map-editor');
+    if (!box || box.style.display === 'none') return;
+    const chk = document.getElementById('mme-grid-on');
+    if (chk) chk.checked = _gridEnabled;
+    _refreshGridBar();   // 슬라이더 + 라벨 (#map-grid-range / #map-grid-val / #map-grid-info)
+    const bg = document.getElementById('mme-bg-status');
+    if (bg) bg.textContent = _bg.loaded ? '✓ 있음 (다시 선택해 교체)' : '없음';
+  }
+
   return {
     init: init, show: show, hide: hide,
     toggleFullscreen: toggleFullscreen, openFullscreen: openFullscreen, closeFullscreen: closeFullscreen,
     fit: fit, zoomIn: zoomIn, zoomOut: zoomOut, pickBg: pickBg,
-    // 안개 (GM)
-    toggleFog: toggleFog, toggleBrush: toggleBrush, toggleBrushMode: toggleBrushMode,
-    brushSize: brushSize, setBrushShape: setBrushShape, revealAll: revealAll, coverAll: coverAll,
-    // 격자 (GM): 배치 on/off + 0~100% 비율
+    // 안개 (GM): 공개/제거 도구 + 확장 메뉴
+    toggleFogMenu: toggleFogMenu, setFogTool: setFogTool, brushSize: brushSize,
+    revealAll: revealAll, coverAll: coverAll,
+    // 격자 + 지도 편집기 (GM, 드로어 ✎)
     toggleGrid: toggleGrid, gridRangeInput: gridRangeInput, gridRangeChange: gridRangeChange,
+    openMapEdit: openMapEdit, mapEditClose: mapEditClose, mapRename: mapRename,
     // GM 멀티맵 드로어 (Map.html)
     toggleDrawer: toggleDrawer, setDrawerTab: setDrawerTab, addMap: addMap,
     // GM 토큰 편집기(드로어 템플릿) + 배치 토큰 빠른 액션
