@@ -2,6 +2,37 @@
 //  DYNAMIC LISTS
 // ═══════════════════════════════════════════════
 
+// ── FVTT 아이템 아이콘 (data/icon_map.json: scope→{id|영문명|한글명 → 상대경로}) ──
+let _ICON_MAP = null;
+function _loadIconMap() {
+  if (_ICON_MAP) return;
+  fetch('data/icon_map.json').then(r => r.ok ? r.json() : null).then(m => {
+    if (!m) return;
+    _ICON_MAP = m;
+    // 이미 그려진 탭에 아이콘 소급 적용
+    ['renderEquip', 'renderWeapons', 'renderSpells', 'renderFeats'].forEach(fn => {
+      try { if (typeof window[fn] === 'function') window[fn](); } catch (e) {}
+    });
+  }).catch(() => {});
+}
+function _iconRel(scope, item) {
+  if (!_ICON_MAP || !item) return null;
+  const m = _ICON_MAP[scope]; if (!m) return null;
+  const d = item._data || item._dbData || {};
+  const lc = v => v ? String(v).toLowerCase() : null;
+  const cands = [d.id, item.id, lc(d.name_en), lc(item.name_en),
+    lc(item.name_ko), lc(d.name_ko), lc(item.name)];
+  for (const c of cands) { if (c && m[c]) return m[c]; }
+  return null;
+}
+// 카드 앞 썸네일 HTML (없으면 빈 문자열). cls: ico-sm | ico-lg
+function iconImg(scope, item, cls) {
+  const rel = _iconRel(scope, item);
+  if (!rel) return '';
+  return '<img class="item-icon' + (cls ? ' ' + cls : '') + '" src="data/icons/' +
+    rel.replace(/"/g, '%22') + '" loading="lazy" onerror="this.style.display=\'none\'">';
+}
+
 function addWeapon(data) {
   const d = data || {name:'',atk:'',dmg:'',traits:''};
   const id = 'w-'+Date.now();
@@ -479,8 +510,8 @@ function renderWeapons() {
       </div>
       <div class="weapon-card-body">
         <div class="weapon-card-stats">
-          <div class="weapon-card-name" onclick="showInfo('weapon','${escapedName}')">
-            \u2694 ${w._broken?'<span style="color:var(--red-light);">파손된 </span>':''}${w.name||'무기'}${runeInfo}${isDropped ? '<span style="font-size:9px;color:var(--red-light,#c66);margin-left:4px;">[바닥]</span>' : ''}${w._twoHand ? '<span style="font-size:9px;color:var(--accent);margin-left:4px;">[양손]</span>' : ''}
+          <div class="weapon-card-name" onclick="showInfo('weapon','${escapedName}')" style="display:flex;align-items:center;flex-wrap:wrap;">
+            ${iconImg('equipment', w) || '\u2694 '}${w._broken?'<span style="color:var(--red-light);">파손된 </span>':''}${w.name||'무기'}${runeInfo}${isDropped ? '<span style="font-size:9px;color:var(--red-light,#c66);margin-left:4px;">[바닥]</span>' : ''}${w._twoHand ? '<span style="font-size:9px;color:var(--accent);margin-left:4px;">[양손]</span>' : ''}
           </div>
           ${wpProfVal > 0 ? `<div style="font-size:9px;color:var(--text2);margin-top:-2px;margin-bottom:2px;"><span class="weapon-prof-badge ${wpProfCls}" style="font-size:7px;width:12px;height:12px;display:inline-flex;align-items:center;justify-content:center;">${wpTemlLetter}</span> ${wpCatLabel} 무기 ${wpProfName}</div>` : `<div style="font-size:9px;color:var(--red-light);margin-top:-2px;margin-bottom:2px;">⚠ ${wpCatLabel} 무기 미숙련</div>`}
           <div class="weapon-stat">
@@ -822,7 +853,7 @@ function _renderEquipRow(list, e, i, hasContainers) {
   </select>`;
 
   row.innerHTML = `
-    <span style="flex:1;font-size:12px;color:${e._broken?'var(--red-light)':'var(--text)'};cursor:pointer;" onclick="showInfo('${eqType}','${eqEscName}')">${e._broken?'\uD30C\uC190\uB41C ':''}${e.name||'\uC544\uC774\uD15C'}</span>
+    <span style="flex:1;font-size:12px;color:${e._broken?'var(--red-light)':'var(--text)'};cursor:pointer;display:flex;align-items:center;" onclick="showInfo('${eqType}','${eqEscName}')">${iconImg('equipment', e)}<span>${e._broken?'\uD30C\uC190\uB41C ':''}${e.name||'\uC544\uC774\uD15C'}</span></span>
     <span style="width:30px;text-align:center;font-size:10px;color:var(--text2);">${bulkDisplay}</span>
     <span style="width:70px;display:flex;align-items:center;justify-content:center;gap:2px;">
       <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},-1)">\u2212</button>
@@ -1547,7 +1578,7 @@ function renderSpells() {
         row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
         const srcName = s._source ? s._source.split(' (')[0].trim() : '';
         row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${(s.name||'').replace(/'/g,"\\'")}')">${s.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="showInfo('spell','${(s.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', s)}${s.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           <span style="font-size:10px;color:var(--accent);margin-left:4px;">${rankLabel}</span>
           ${usesHtml}
           <span style="font-size:10px;color:var(--text2);margin-left:auto;">${s.tradition || ''} · ${usesLabel}</span>
@@ -1629,7 +1660,7 @@ function renderSpells() {
           const spellData = getSpell(name);
           const actions = getActionIcons(spellData?.actions);
           row.innerHTML = `
-            <span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${iconImg('spell', {name})}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
             <span class="spell-slot-del" onclick="unprepareSlot(0,${i})" title="준비 해제">✕</span>`;
         } else {
           row.innerHTML = `<span class="spell-slot-name empty" onclick="openPrepareSpellForSlot(0,${i})">준비 안 됨</span><span style="width:20px;"></span>`;
@@ -1650,7 +1681,7 @@ function renderSpells() {
           const actions = getActionIcons(spellData?.actions);
           const srcLabel = isAuto && spell._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${spell._source}</span>` : '';
           row.innerHTML = `
-            <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
             ${srcLabel}
             ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpellFromSlot('cantrip',${i})">✕</span>`}`;
         } else if (i < cantripSlots) {
@@ -1816,7 +1847,7 @@ function renderSpells() {
         const srcFeat = spell._sourceFeat ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${spell._sourceFeat.split(' (')[0]}</span>` : '';
 
         row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${(spell.name||'').replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="showInfo('spell','${(spell.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           ${badges}${srcFeat}`;
         section.appendChild(row);
       });
@@ -1829,7 +1860,7 @@ function renderSpells() {
         row.className = 'spell-slot-row';
         row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(212,175,55,0.08);';
         row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${(sig.name||'').replace(/'/g,"\\'")}')">${sig.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="showInfo('spell','${(sig.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', sig)}${sig.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           <span style="font-size:9px;color:var(--accent);margin-left:auto;">★ ${sig.originalRank}랭크에서 고양</span>`;
         section.appendChild(row);
       });
@@ -1847,7 +1878,7 @@ function renderSpells() {
           const actions = getActionIcons(spellData?.actions);
           const fireIcon = `<span class="spell-slot-fire${isCast?' used':''}" onclick="togglePreparedCast(${r},${i})" style="cursor:pointer;font-size:14px;margin-right:4px;" title="${isCast?'슬롯 복원':'시전 (소모)'}">\uD83D\uDD25</span>`;
           row.innerHTML = `
-            ${fireIcon}<span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}${isCast ? ' <span style="font-size:9px;color:var(--text2);">(시전됨)</span>' : ''}</span>`;
+            ${fireIcon}<span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${iconImg('spell', {name})}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}${isCast ? ' <span style="font-size:9px;color:var(--text2);">(시전됨)</span>' : ''}</span>`;
         } else {
           row.innerHTML = `<span style="font-size:14px;margin-right:4px;opacity:0.2;">🔥</span><span class="spell-slot-name" style="color:var(--text2);font-size:12px;">준비 안 됨</span>`;
         }
@@ -1881,7 +1912,7 @@ function renderSpells() {
           const actions = getActionIcons(spellData?.actions);
           row.innerHTML = `
             <span class="spell-cast-label${isCast?' cast-used':''}" onclick="toggleSpellCast(${r},${i})">Cast</span>
-            <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
             <span class="spell-slot-dur">\u2014</span>
             <span class="spell-slot-range">\u2014</span>
             <span class="spell-slot-del" onclick="removeSpell('known',${globalIdx})">✕</span>`;
@@ -1904,7 +1935,7 @@ function renderSpells() {
         row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
         const srcName = spell._source ? spell._source.split(' (')[0].trim() : '';
         row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${(spell.name||'').replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="showInfo('spell','${(spell.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           <span style="font-size:9px;color:var(--accent);margin-left:auto;">${srcName || '클래스 부여'}</span>`;
         section.appendChild(row);
       });
@@ -2112,7 +2143,7 @@ function renderFeats() {
         : hasPrereqIssue ? '<span style="font-size:11px;color:#ff9800;flex-shrink:0;line-height:1;" title="선행 조건 미충족">⚠</span>' : '';
       div.innerHTML = `
         <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
-          <span style="color:var(--text);font-size:12px;">${f.name || labels[t] + ' 재주'}</span>${redDot}
+          <span style="color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${iconImg('feat', featData)}${f.name || labels[t] + ' 재주'}</span>${redDot}
           <span style="flex:1;"></span>
           ${choiceBadge ? `<span style="font-size:10px;color:var(--accent);flex-shrink:0;">[${choiceBadge}]</span>` : ''}
         </div>
@@ -4234,4 +4265,7 @@ function renderPortrait() {
     el.classList.remove('has-img');
   }
 }
+
+// 아이콘 맵 선로딩 (fetch는 DOM 불필요 — 즉시 시작, 로드 후 열린 탭 소급 렌더)
+_loadIconMap();
 
