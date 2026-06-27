@@ -13,7 +13,8 @@
   const _byId = Object.create(null);      // id → creature
   const _koById = Object.create(null);    // id → 오버레이 (이름충돌 방지: id 고정)
   let _loaded = false;
-  const DEFAULT_PACKS = ['monster-core', 'monster-core-2', 'npc-core'];
+  const DEFAULT_PACKS = ['monster-core', 'monster-core-2', 'npc-core',
+    'bestiary', 'bestiary-2', 'bestiary-3', 'hazards', 'npc-gallery'];
 
   async function load(opts) {
     opts = opts || {};
@@ -22,17 +23,18 @@
     const useFetch = typeof window !== 'undefined' && typeof fetch === 'function';
     for (const p of packs) {
       let base, ko;
-      if (useFetch) {
-        [base, ko] = await Promise.all([
-          fetch(`${dir}${p}.base.json`).then(r => r.json()),
-          fetch(`${dir}${p}.ko.json`).then(r => r.json())
-        ]);
-      } else {
-        const fs = require('fs');
-        base = JSON.parse(fs.readFileSync(`${dir}${p}.base.json`, 'utf8'));
-        ko = JSON.parse(fs.readFileSync(`${dir}${p}.ko.json`, 'utf8'));
-      }
-      _ingest(base, ko);
+      try {
+        if (useFetch) {
+          base = await fetch(`${dir}${p}.base.json`).then(r => r.ok ? r.json() : null);
+          if (!base) { console.warn(`[MonsterDB] BASE 없음 스킵: ${p}`); continue; }
+          ko = await fetch(`${dir}${p}.ko.json`).then(r => r.ok ? r.json() : null).catch(() => null) || {};
+        } else {
+          const fs = require('fs');
+          base = JSON.parse(fs.readFileSync(`${dir}${p}.base.json`, 'utf8'));
+          try { ko = JSON.parse(fs.readFileSync(`${dir}${p}.ko.json`, 'utf8')); } catch (e) { ko = {}; }
+        }
+        _ingest(base, ko);
+      } catch (e) { console.warn(`[MonsterDB] 팩 로드 실패 스킵: ${p} — ${e && e.message}`); }
     }
     return _loaded;
   }
