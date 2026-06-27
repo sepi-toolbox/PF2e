@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=570"></script>
-<script src="feat_db.js?v=570"></script>
-<script src="SPELL_DB.js?v=570"></script>
-<script src="class_features_db.js?v=570"></script>
+<script src="equipment_db.js?v=571"></script>
+<script src="feat_db.js?v=571"></script>
+<script src="SPELL_DB.js?v=571"></script>
+<script src="class_features_db.js?v=571"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1397,7 +1397,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v570</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v571</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1416,11 +1416,6 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div class="hdr-actions">
     <button onclick="openRestModal()" style="background:var(--bg4);color:var(--accent2);border:1px solid var(--border2);padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600;">🛏 휴식</button>
     <button onclick="openConditionModal()" style="background:var(--bg4);color:var(--red-light);border:1px solid var(--border2);padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600;">⚠ 상태이상</button>
-    <button class="btn btn-confirm" onclick="exportJSON()">⬇ JSON</button>
-    <label class="btn btn-cancel" style="cursor:pointer;text-align:center;">
-      ⬆ JSON
-      <input type="file" accept=".json" style="display:none;" onchange="importJSON(event)">
-    </label>
     <button onclick="openResetModal()" style="background:none;border:1px solid var(--red);color:var(--red-light);padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px;">🗑 초기화</button>
   </div>
 </div>
@@ -1994,24 +1989,24 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=570"></script>
-<script src="cs_calc.js?v=570"></script>
+<script src="cs_data.js?v=571"></script>
+<script src="cs_calc.js?v=571"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=570"></script>
-<script src="cs_re_engine.js?v=570"></script>
-<script src="cs_pf2e_stats.js?v=570"></script>
-<script src="cs_pf2e_equip.js?v=570"></script>
-<script src="cs_pf2e_actor.js?v=570"></script>
-<script src="cs_ui.js?v=570"></script>
-<script src="cs_modal.js?v=570"></script>
-<script src="cs_feat_effects.js?v=570"></script>
-<script src="cs_save.js?v=570"></script>
-<script src="cs_session.js?v=570"></script>
-<script src="cs_dice.js?v=570"></script>
-<script src="cs_map.js?v=570"></script>
+<script src="cs_pf2e.js?v=571"></script>
+<script src="cs_re_engine.js?v=571"></script>
+<script src="cs_pf2e_stats.js?v=571"></script>
+<script src="cs_pf2e_equip.js?v=571"></script>
+<script src="cs_pf2e_actor.js?v=571"></script>
+<script src="cs_ui.js?v=571"></script>
+<script src="cs_modal.js?v=571"></script>
+<script src="cs_feat_effects.js?v=571"></script>
+<script src="cs_save.js?v=571"></script>
+<script src="cs_session.js?v=571"></script>
+<script src="cs_dice.js?v=571"></script>
+<script src="cs_map.js?v=571"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=570"></script>
-<script src="cs_i18n.js?v=570"></script>
+<script src="cs_locale.js?v=571"></script>
+<script src="cs_i18n.js?v=571"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -2166,30 +2161,85 @@ function switchSlot(slot) {
   }
 }
 
+// 슬롯 메타데이터 캐시: {1:{name:'...', hasSession:bool}, ...}
+var _slotInfo = {};
+
+function _slotLabel(num) {
+  var info = _slotInfo[num];
+  var name = info && info.name && info.name !== '이름 없음' ? info.name : '';
+  var label = name ? name : '빈 슬롯';
+  if (info && info.hasSession) label += ' 🎮';
+  return label;
+}
+
+// 슬롯 바: 단일 "저장 슬롯" 버튼 하나만 노출 (누르면 5개 슬롯 선택 팝업)
 function updateSlotBar() {
   var slotBar = document.getElementById('slot-bar');
   if (!slotBar) return;
-  slotBar.innerHTML = '<span style="color:#888;">캐릭터 슬롯:</span>';
-  for (var i = 1; i <= 5; i++) {
-    var active = currentSlot === 'slot' + i ? 'background:#f5c518;color:#000;' : 'background:#333;color:#ccc;';
-    slotBar.innerHTML += '<button onclick="switchSlot(\'slot' + i + '\')" style="border:none;padding:3px 10px;border-radius:3px;cursor:pointer;font-size:11px;' + active + '" id="slot-btn-' + i + '">슬롯 ' + i + '</button>';
-  }
+  var num = (typeof currentSlot !== 'undefined' ? currentSlot : 'slot1').replace('slot', '');
+  slotBar.innerHTML = '<button onclick="openSlotModal()" class="active-slot" '
+    + 'style="display:inline-flex;align-items:center;gap:6px;">'
+    + '💾 저장 슬롯 ' + num + ' · <span style="color:var(--text);">' + _slotLabel(num) + '</span>'
+    + ' <span style="color:var(--text2);font-size:10px;">▾</span></button>';
 }
 
 function loadSlotNames(uid) {
-  db.collection('users').doc(uid).collection('characters').get().then(function(snap) {
+  return db.collection('users').doc(uid).collection('characters').get().then(function(snap) {
     snap.forEach(function(doc) {
       var d = doc.data();
       var slotNum = doc.id.replace('slot', '');
-      var btn = document.getElementById('slot-btn-' + slotNum);
-      if (btn) {
-        var charName = d.name && d.name !== '이름 없음' ? d.name : '';
-        var label = charName ? charName : '슬롯 ' + slotNum;
-        if (d.sessionId) label += ' 🎮';
-        btn.textContent = label;
-      }
+      _slotInfo[slotNum] = { name: d.name || '', hasSession: !!d.sessionId };
     });
+    updateSlotBar();
+    // 슬롯 선택 팝업이 열려 있으면 다시 렌더
+    if (typeof modalType !== 'undefined' && modalType === 'slot-picker') openSlotModal();
   });
+}
+
+// 저장 슬롯 선택 팝업 — 5개 슬롯 중 하나를 골라 전환
+function openSlotModal() {
+  var overlay = document.getElementById('modal-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('hidden');
+  modalType = 'slot-picker';
+  document.getElementById('modal-title').textContent = '💾 저장 슬롯 선택';
+  var searchEl = document.getElementById('modal-search');
+  if (searchEl) searchEl.style.display = 'none';
+  var fbar = document.getElementById('modal-filterbar');
+  if (fbar) fbar.innerHTML = '';
+  var confirmBtn = document.querySelector('.btn-confirm');
+  if (confirmBtn) confirmBtn.style.display = 'none';
+  var listEl = document.querySelector('.modal-list');
+  if (listEl) listEl.style.display = '';
+  var detail = document.getElementById('modal-detail');
+  if (detail) detail.innerHTML = '';
+
+  var cur = (typeof currentSlot !== 'undefined' ? currentSlot : 'slot1').replace('slot', '');
+  var rows = '';
+  for (var i = 1; i <= 5; i++) {
+    var isCur = String(i) === String(cur);
+    var info = _slotInfo[i];
+    var hasChar = info && info.name && info.name !== '이름 없음';
+    var nameHtml = hasChar
+      ? '<span style="color:var(--text);font-weight:600;">' + info.name + '</span>' + (info.hasSession ? ' <span title="세션 진행 중">🎮</span>' : '')
+      : '<span style="color:var(--text2);font-style:italic;">빈 슬롯</span>';
+    var border = isCur ? 'border-color:var(--accent);background:var(--accent-bg);' : 'border-color:var(--border2);background:var(--bg3);';
+    var badge = isCur ? '<span style="margin-left:auto;font-size:10px;color:var(--accent);font-weight:700;">● 현재</span>' : '<span style="margin-left:auto;color:var(--text2);font-size:14px;">›</span>';
+    rows += '<button onclick="selectSlot(\'slot' + i + '\')" '
+      + 'style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:12px 14px;border:1px solid;border-radius:6px;cursor:pointer;' + border + '">'
+      + '<span style="font-size:11px;color:var(--text2);min-width:42px;">슬롯 ' + i + '</span>'
+      + nameHtml + badge + '</button>';
+  }
+  var container = document.getElementById('modal-options');
+  container.innerHTML = '<div style="display:flex;flex-direction:column;gap:8px;padding:14px;">'
+    + '<div style="font-size:12px;color:var(--text2);margin-bottom:4px;line-height:1.5;">전환할 슬롯을 선택하세요. 현재 슬롯은 자동 저장된 뒤 전환됩니다.</div>'
+    + rows + '</div>';
+}
+
+// 팝업에서 슬롯 선택 → 전환 후 닫기
+function selectSlot(slot) {
+  closeModal();
+  switchSlot(slot);
 }
 
 // 자동 저장은 save() 디바운스(일반 2초/세션 0.5초)가 담당.

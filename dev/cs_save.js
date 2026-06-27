@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════
-//  SAVE / LOAD  (in-memory only; use JSON 내보내기/불러오기)
+//  SAVE / LOAD  (Firebase 슬롯 자동저장)
 // ═══════════════════════════════════════════════
 
 let _autoSaveDebounce = null;
@@ -132,40 +132,6 @@ function collectData() {
     }
   }
   return data;
-}
-
-function exportJSON() {
-  const data = collectData();
-  const charName = (document.getElementById('f-name')?.value || 'character').replace(/[^\w가-힣]/g,'_');
-  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${charName}_pf2e.json`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  const st = document.getElementById('save-status');
-  st.textContent = 'JSON 내보냄';
-  st.classList.add('show');
-  setTimeout(() => { st.classList.remove('show'); st.textContent = '저장됨'; }, 2000);
-}
-
-function importJSON(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    try {
-      loadData(JSON.parse(e.target.result));
-      recalcAll();
-    } catch(err) {
-      alert('JSON 파일을 읽을 수 없습니다:\n' + err.message);
-    }
-  };
-  reader.readAsText(file);
-  event.target.value = '';
 }
 
 function loadData(d) {
