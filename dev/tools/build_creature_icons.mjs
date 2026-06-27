@@ -60,9 +60,9 @@ for (const [mod, mapKey, sysPack, baseFile] of PACKS){
   for (const [aid, entry] of Object.entries(mapping)){
     const slug = i2s[aid];
     if (!slug || !ours.has(slug)) continue;
-    // subject(링 없는 순수 크리처 아트) 우선 — 캔버스/CSS 테두리가 유일한 링이 되도록.
-    // 토큰 텍스처는 Foundry 다이내믹 링용이라 여백이 47~87%로 제각각 → trim 정규화 필요.
-    const src = entry.token?.ring?.subject?.texture || entry.token?.texture?.src;
+    // token(베이크된 링·배경 포함 완성 아트) 우선 — 이 자체가 프레임. 캔버스 테두리는 cs_map에서 미표시.
+    // 토큰 텍스처는 캔버스 여백이 47~87%로 제각각 → trim+정사각 패딩으로 프레임이 원을 균일하게 채우도록 정규화.
+    const src = entry.token?.texture?.src || entry.token?.ring?.subject?.texture;
     if (!src) continue;
     const basename = path.basename(src);
     const absSrc = path.join(MOD, src.replace(/^modules\//,''));
@@ -73,7 +73,7 @@ for (const [mod, mapKey, sysPack, baseFile] of PACKS){
       const t = await sharp(absSrc).trim({ threshold: 1 }).toBuffer({ resolveWithObject: true }).catch(() => null);
       if (t) {
         // ⚠ sharp는 한 파이프라인에서 resize를 extend보다 먼저 적용 → 정사각 패딩과 분리(2단계) 필수.
-        const w = t.info.width, h = t.info.height, side = Math.round(Math.max(w, h) * 1.06);
+        const w = t.info.width, h = t.info.height, side = Math.round(Math.max(w, h) * 1.04);
         const sq = await sharp(t.data)
           .extend({ top:Math.floor((side-h)/2), bottom:Math.ceil((side-h)/2), left:Math.floor((side-w)/2), right:Math.ceil((side-w)/2), background:{ r:0,g:0,b:0,alpha:0 } })
           .toBuffer();

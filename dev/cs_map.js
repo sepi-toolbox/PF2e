@@ -1049,11 +1049,17 @@ var MapView = (function() {
       _ctx.textAlign = 'center'; _ctx.textBaseline = 'middle';
       _ctx.fillText(((t.name || '?').trim().charAt(0) || '?'), sx, sy);
     }
-    // 테두리: 내 토큰=골드 / 남=흰색, 숨김=점선
-    _ctx.lineWidth = 2;
-    _ctx.strokeStyle = (myUid && t.ownerUid === myUid) ? '#f5c518' : 'rgba(255,255,255,0.85)';
-    if (t.hidden) _ctx.setLineDash([4, 3]);
-    _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2); _ctx.stroke();
+    // 테두리: 이미지 토큰은 아트 자체의 링이 프레임 → 기본 테두리 미표시(숨김 상태만 점선 힌트).
+    //         글자/색원 토큰만 골드(내토큰)/흰색 테두리.
+    if (!img) {
+      _ctx.lineWidth = 2;
+      _ctx.strokeStyle = (myUid && t.ownerUid === myUid) ? '#f5c518' : 'rgba(255,255,255,0.85)';
+      if (t.hidden) _ctx.setLineDash([4, 3]);
+      _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2); _ctx.stroke();
+    } else if (t.hidden) {                              // 숨김 이미지 토큰: 점선만(GM 식별용)
+      _ctx.lineWidth = 2; _ctx.strokeStyle = 'rgba(255,255,255,0.7)'; _ctx.setLineDash([4, 3]);
+      _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2); _ctx.stroke();
+    }
     _ctx.restore();
     if (t.hpMax > 0 && _effGM()) {                      // HP 바 (GM 뷰, 몬스터 연결 토큰)
       const cur = (t.hp != null ? t.hp : t.hpMax), ratio = Math.max(0, Math.min(1, cur / t.hpMax));

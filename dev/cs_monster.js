@@ -25,7 +25,7 @@
   // 크리처 토큰 아이콘: { [source]: { [baseId]: "<file>.webp" } }. tools/build_creature_icons.mjs 로 생성.
   // pf2e-tokens-{monster,npc}-core 모듈 토큰을 256px 벤더링(dev/data/creature-icons/). 미로드 시 아이콘 생략.
   let _iconMap = null, _ICON_BASE = 'data/creature-icons/';
-  const _ICON_VER = 2;                             // 아이콘 재빌드 시 ++ (이미지 URL 동일·내용변경 캐시버스트)
+  const _ICON_VER = 3;                             // 아이콘 재빌드 시 ++ (이미지 URL 동일·내용변경 캐시버스트)
   function creatureIcon(c) {                        // 토큰 파일명(상대경로) — 없으면 ''
     if (!c || !_iconMap) return '';
     const bucket = _iconMap[c.source];             // c.id 는 교차팩 충돌 시 'id--source'로 변형 → 원본 id 복원
@@ -322,7 +322,7 @@
 .sb{font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:13px;line-height:1.55;color:#e8e3d8;background:#1b1814;border:1px solid #4a3f2e;border-radius:10px;padding:14px 16px;}
 .sb hr{border:0;border-top:1px solid #4a3f2e;margin:7px 0;}
 .sb-hd{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
-.sb-portrait{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:0 0 auto;align-self:center;background:#0e0c09;border:1px solid #0e0c09;box-shadow:0 0 0 2px #9f725b,inset 0 0 6px rgba(0,0,0,.5);}
+.sb-portrait{width:48px;height:48px;border-radius:50%;object-fit:cover;flex:0 0 auto;align-self:center;}
 .sb-name{font-size:19px;font-weight:800;color:#e0b35c;}
 .sb-en{font-size:12px;color:#9a8f7a;font-style:italic;}
 .sb-lv{margin-left:auto;font-size:12px;font-weight:700;color:#c9b896;background:#2c2519;padding:2px 9px;border-radius:10px;}
