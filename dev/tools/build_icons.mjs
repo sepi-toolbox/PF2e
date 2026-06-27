@@ -31,16 +31,24 @@ function loadLegacy(files) {
 const sb = loadLegacy(['equipment_db.js', 'SPELL_DB.js', 'feat_db.js', 'class_features_db.js', 'cs_data.js']);
 
 // ── BASE 인덱스: system.slug → img, name(lower) → img ──
+// 정규화: 소문자 + 아포스트로피 제거 + 비영숫자→하이픈
+function norm(s) { return String(s).toLowerCase().replace(/['’ʼ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); }
+// 클래스/원형 접미사(재주 id가 base slug + '-bard' 형태인 경우)
+const CLASS_SUFFIX = new Set(['alchemist','barbarian','bard','champion','cleric','druid','fighter','monk','ranger','rogue','sorcerer','wizard','witch','oracle','investigator','swashbuckler','gunslinger','inventor','magus','summoner','psychic','thaumaturge','kineticist','animist','exemplar','runesmith','commander','guardian']);
+function stripClass(id) { if (!id) return null; const i = id.lastIndexOf('-'); return (i > 0 && CLASS_SUFFIX.has(id.slice(i + 1))) ? id.slice(0, i) : null; }
+
+// 평탄 인덱스: slug · norm(slug) · norm(name) → img
 function baseIndex(file) {
-  const slug = {}, name = {};
-  if (!fs.existsSync(file)) return { slug, name };
+  const m = {};
+  if (!fs.existsSync(file)) return m;
   for (const it of JSON.parse(fs.readFileSync(file, 'utf8'))) {
     if (!it.img) continue;
     const s = it.system && it.system.slug;
-    if (s && !(s in slug)) slug[s] = it.img;
-    if (it.name && !(it.name.toLowerCase() in name)) name[it.name.toLowerCase()] = it.img;
+    const add = k => { if (k && !(k in m)) m[k] = it.img; };
+    if (s) { add(s); add(norm(s)); }
+    if (it.name) add(norm(it.name));
   }
-  return { slug, name };
+  return m;
 }
 const BASE = {
   equipment: baseIndex('data/base/equipment.base.json'),
@@ -53,6 +61,32 @@ const BASE = {
   deity: baseIndex('data/base/deities.base.json'),
   condition: baseIndex('data/base/conditions.base.json'),
 };
+// 교차 카테고리 폴백(행동 = 실제로 재주/주문/장비인 경우 많음)
+const GLOBAL = Object.assign({}, BASE.action, BASE.equipment, BASE.spell, BASE.feat);
+// 장비 명명 차이 변환(수량/단위 제거, 도구→toolkit, wood→wooden, +armor 등)
+function equipVariants(id) {
+  if (!id) return [];
+  const v = new Set();
+  const qty = id.replace(/-\d+(-(ft|feet|weeks?|days?|hours?))?$/, '').replace(/-\d+$/, '');
+  v.add(qty);
+  v.add(id.replace(/-tools$/, '-toolkit'));
+  v.add(id.replace(/-wood$/, '-wooden'));
+  v.add(id.replace(/-waraxe$/, '-war-axe'));
+  v.add(id + '-armor');
+  v.delete(id);
+  return [...v];
+}
+function resolveImg(scope, it) {
+  const idx = BASE[scope] || {};
+  const nEn = it.name_en || it.en, nKo = it.name_ko || it.name;
+  const sc = stripClass(it.id);
+  const tries = [it.id, norm(it.id || ''), nEn && norm(nEn), nKo && norm(nKo), sc, sc && norm(sc)];
+  if (scope === 'equipment') for (const ev of equipVariants(it.id)) { tries.push(ev, norm(ev)); }
+  const list = tries.filter(Boolean);
+  for (const t of list) if (idx[t]) return idx[t];
+  if (scope === 'action' || scope === 'feat') for (const t of list) if (GLOBAL[t]) return GLOBAL[t];
+  return null;
+}
 
 // ── 복사 ──
 const copied = new Set(), missingFiles = [];
@@ -73,7 +107,6 @@ const map = { equipment: {}, spell: {}, feat: {}, action: {}, heritage: {}, ance
 const stat = {};
 function feed(scope, arr) {
   if (!Array.isArray(arr)) return;
-  const idx = BASE[scope];
   let total = 0, matched = 0;
   for (const it of arr) {
     // 키 정규화: 일부 배열은 name_ko/name_en, 일부는 name(한)/en(영) 사용
@@ -81,8 +114,7 @@ function feed(scope, arr) {
     const nKo = it && (it.name_ko || it.name);
     if (!it || (!it.id && !nEn && !nKo)) continue;
     total++;
-    let img = (it.id && idx.slug[it.id]) ||
-              (nEn && idx.name[String(nEn).toLowerCase()]) || null;
+    let img = resolveImg(scope, it);
     if (!img) continue;
     if (!copyIcon(img)) continue;
     matched++;

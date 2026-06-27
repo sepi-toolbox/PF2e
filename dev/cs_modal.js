@@ -805,6 +805,7 @@ function openDeityPicker() {
   if (typeof DEITY_DB === 'undefined') return;
   const items = DEITY_DB.map(d =>
     `<div class="opt-row" onclick="previewDeity('${d.id}',this)" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
+      ${typeof iconImg==='function'&&iconImg('deity',d)?`<div class="opt-row-icon" style="background:none;">${iconImg('deity',d)}</div>`:''}
       <span class="opt-row-name" style="flex:1;">${d.name_ko} <span style="color:var(--text2);font-size:11px;">${d.name_en}</span></span>
       <span style="font-size:10px;color:var(--text2);">${(typeof WEAPON_DB!=='undefined'&&WEAPON_DB.find(w=>w.id===d.weapon)?.name_ko)||d.weapon} / ${d.sanctification.map(s=>s==='holy'?'신성':'불경').join('·')}</span>
     </div>`).join('');
@@ -1083,11 +1084,11 @@ function renderGrowthPlan() {
   html += `<div class="growth-core-header">핵심 빌드<span style="font-size:10px;color:var(--text2);font-weight:400;margin-left:6px;">Core Build</span></div>`;
   // Ancestry selector
   html += growthSlotWithClearHTML('ancestry-sel', '🧬', '혈통 Ancestry',
-    state.selectedAncestry ? `${state.selectedAncestry.name} (${state.selectedAncestry.en})` : null,
+    state.selectedAncestry ? _slotIco('ancestry', state.selectedAncestry) + `${state.selectedAncestry.name} (${state.selectedAncestry.en})` : null,
     "openModal('ancestry')", state.selectedAncestry ? "clearCoreSelection('ancestry')" : null);
   // Background selector
   html += growthSlotWithClearHTML('background-sel', '📜', '배경 Background',
-    state.selectedBackground ? `${state.selectedBackground.name} (${state.selectedBackground.en})` : null,
+    state.selectedBackground ? _slotIco('background', state.selectedBackground) + `${state.selectedBackground.name} (${state.selectedBackground.en})` : null,
     "openModal('background')", state.selectedBackground ? "clearCoreSelection('background')" : null);
   // Class selector
   html += growthSlotWithClearHTML('class-sel', '⚔', '클래스 Class',
@@ -1124,7 +1125,7 @@ function renderGrowthPlan() {
       // Heritage (only if ancestry selected)
       if (state.selectedAncestry) {
         html += growthSlotWithClearHTML('heritage-sel', '🛡', '유산 Heritage',
-          state.selectedHeritage ? state.selectedHeritage.name_ko : null,
+          state.selectedHeritage ? _slotIco('heritage', state.selectedHeritage) + state.selectedHeritage.name_ko : null,
           "openModal('heritage')", state.selectedHeritage ? "clearCoreSelection('heritage')" : null);
       }
       // 언어/서브클래스/후원자 전통은 각 모달에서 처리
@@ -1196,6 +1197,10 @@ function renderGrowthPlan() {
   } catch(e) { console.error('renderGrowthPlan error:', e); container.innerHTML = '<div style="color:red;padding:8px;">성장 플랜 렌더링 오류: '+e.message+'</div>'; }
 }
 
+// 빌드슬롯 값 앞 아이템 아이콘(없으면 빈 문자열)
+function _slotIco(scope, item) {
+  return (typeof iconImg === 'function') ? iconImg(scope, item, 'ico-sm') : '';
+}
 function growthSlotHTML(lv, key, icon, label, value, onclickStr) {
   const filled = value ? 'filled' : '';
   const display = value || '선택 안 됨';
@@ -3102,8 +3107,12 @@ function renderOptions(data) {
     try { prereqFail = item.feat_level !== undefined && (item.prereq_group_id || item.prerequisites) && !_checkPrereqs(item); } catch(e) {}
 
     const rClass = `r${Math.min(levelNum, 10)}`;
+    // FVTT 아이콘: modalType→scope 매핑 (없으면 📄)
+    const _scope = {spell:'spell',feat:'feat',heritage:'heritage',ancestry:'ancestry',background:'background',deity:'deity'}[modalType]
+      || ((modalType||'').startsWith('equip') ? 'equipment' : null);
+    const _ico = _scope && typeof iconImg === 'function' ? iconImg(_scope, item) : '';
     row.innerHTML = `
-      <div class="opt-row-icon">📄</div>
+      ${_ico ? `<div class="opt-row-icon" style="background:none;">${_ico}</div>` : '<div class="opt-row-icon">📄</div>'}
       <span class="opt-row-name" ${prereqFail ? 'style="opacity:0.5;"' : ''}>${nameKo}</span>
       ${prereqFail ? '<span style="font-size:10px;color:#f44336;flex-shrink:0;" title="선행 조건 미충족">⚠</span>' : ''}
       ${actionsHtml ? `<span class="opt-row-actions">${actionsHtml}</span>` : ''}
