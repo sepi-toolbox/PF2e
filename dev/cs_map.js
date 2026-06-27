@@ -504,6 +504,8 @@ var MapView = (function() {
 
   // ── 시트 플레이 뷰 (관리기능 없음: 이동·내토큰·핑만) + 핑 ──
   let _playMode = false;    // true=시트 오버레이(플레이 뷰): GM 도구/투시 안개 비활성, 핑/내토큰 활성
+  let _displayPlayer = false; // true=플레이어 디스플레이 창/CCTV(?display=player): 진짜 플레이어 시점·무조작·카메라는 동기화로만 제어
+  let _pendingCam = null;   // 캔버스 준비 전 도착한 동기화 카메라 (resize 후 적용)
   let _pings = [];          // [{x,y,color,t0}] 진행 중인 핑 (t0=performance.now())
   let _press = null;        // 롱프레스 추적 {x,y,timer,fired}
   const PING_MS = 2600;     // 핑 애니메이션 지속(ms)
@@ -513,8 +515,8 @@ var MapView = (function() {
   function _clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
   function _markDirty() { _dirty = true; }
   function _now() { return (typeof performance !== 'undefined' && performance.now) ? performance.now() : 0; }
-  // 시트 플레이 뷰에선 GM 권한 무력화(관리기능 없음)
-  function _effGM() { return !_playMode && (typeof MapSync !== 'undefined') && MapSync.isGM(); }
+  // 시트 플레이 뷰·플레이어 디스플레이에선 GM 권한 무력화(불투명 안개+숨김토큰 숨김+도구 없음)
+  function _effGM() { return !_playMode && !_displayPlayer && (typeof MapSync !== 'undefined') && MapSync.isGM(); }
 
   // ── 좌표 변환 ──
   function _screenToWorld(sx, sy) {
@@ -539,6 +541,7 @@ var MapView = (function() {
     _uploadBtn = document.getElementById('map-upload-btn');
     if (!_cv || !_stage) return;          // 마크업 없으면 보류
     _ctx = _cv.getContext('2d');
+    if (typeof window !== 'undefined' && window._mapDisplayPlayer) _displayPlayer = true;
     _inited = true;
 
     // MapSync 데이터 변경 → 재draw
@@ -644,6 +647,7 @@ var MapView = (function() {
     _cv.width  = Math.max(1, Math.round(_cssW * _dpr));
     _cv.height = Math.max(1, Math.round(_cssH * _dpr));
     _autoFit();
+    if (_displayPlayer && _pendingCam) _applyCamNow(_pendingCam);  // 동기화된 카메라 유지(autoFit 덮어쓰기 방지)
     _markDirty();
   }
 
@@ -893,8 +897,23 @@ var MapView = (function() {
   function zoomIn()  { _zoomAt(_cssW / 2, _cssH / 2, 1.25); }
   function zoomOut() { _zoomAt(_cssW / 2, _cssH / 2, 1 / 1.25); }
 
+  // ── 카메라 공유 (듀얼모니터 동기화: 해상도 독립 — 월드 중심점 + 줌배율) ──
+  function getCameraShare() {
+    if (!_cssW || !_cssH || !_view.scale) return null;
+    return { cx: (_cssW / 2 - _view.offX) / _view.scale, cy: (_cssH / 2 - _view.offY) / _view.scale, scale: _view.scale };
+  }
+  function _applyCamNow(c) {
+    if (!c || !_cssW || !_cssH || !c.scale) return false;
+    _view.scale = c.scale;
+    _view.offX = _cssW / 2 - c.cx * c.scale;
+    _view.offY = _cssH / 2 - c.cy * c.scale;
+    _userMoved = true; _markDirty(); return true;     // userMoved=true → autoFit이 동기화 시점을 덮지 않음
+  }
+  function applyCameraShare(c) { _pendingCam = c || null; _applyCamNow(c); }
+
   // ── 마우스 ──
   function _onMouseDown(e) {
+    if (_displayPlayer) return;                       // 플레이어 디스플레이=무조작(카메라는 동기화로만)
     const p = _localXY(e);
     _hideTokenActions();                              // 새 상호작용 → 토큰 액션 팝업 닫기
     if (_isPainting()) { _startStroke(p); return; }   // 안개 브러시 우선
@@ -914,6 +933,7 @@ var MapView = (function() {
   }
   function _onMouseUp() { _cancelPress(); _endStroke(); _endTokenDrag(); _drag = null; }
   function _onWheel(e) {
+    if (_displayPlayer) return;                       // 플레이어 디스플레이=무조작
     e.preventDefault();
     const p = _localXY(e);
     _zoomAt(p.x, p.y, e.deltaY < 0 ? 1.1 : 1 / 1.1);
@@ -921,6 +941,7 @@ var MapView = (function() {
 
   // ── 터치 (1손가락=팬, 2손가락=핀치줌+팬) ──
   function _onTouchStart(e) {
+    if (_displayPlayer) return;                       // 플레이어 디스플레이=무조작
     if (e.touches.length === 1) {
       _pinch = null;
       const p = _touchLocal(e.touches[0]);
@@ -1931,6 +1952,7 @@ var MapView = (function() {
     init: init, show: show, hide: hide,
     toggleFullscreen: toggleFullscreen, openFullscreen: openFullscreen, closeFullscreen: closeFullscreen,
     fit: fit, zoomIn: zoomIn, zoomOut: zoomOut, pickBg: pickBg,
+    getCameraShare: getCameraShare, applyCameraShare: applyCameraShare,   // 듀얼모니터 카메라 동기화
     // 안개 (GM): 공개/제거 도구 + 확장 메뉴
     toggleFogMenu: toggleFogMenu, setFogTool: setFogTool,
     revealAll: revealAll, coverAll: coverAll,

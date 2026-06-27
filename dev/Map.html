@@ -243,7 +243,19 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 <div id="map-topbar">
   <button class="mt-back" onclick="location.href='GMSheet.html'">← 로비</button>
   <span class="mt-title" id="map-title">세션</span>
+  <span id="map-gm-tools" style="display:none;">
+    <button id="mt-popout" onclick="MapGlue.openPlayerWindow()" title="플레이어 모니터용 별도 창(플레이어 시점) 열기">🖥 플레이어 창</button>
+    <button id="mt-sync" onclick="MapGlue.syncNow()" title="플레이어 화면을 지금 내 카메라로 전환">🔄 동기화</button>
+    <label id="mt-follow" title="내 카메라 이동을 플레이어 화면이 계속 따라감"><input type="checkbox" onchange="MapGlue.setFollow(this.checked)"> 📡 따라가기</label>
+    <button id="mt-cctv" onclick="MapGlue.cctvToggle()" title="플레이어 화면 미리보기(CCTV) 켜기/끄기">📺 CCTV</button>
+  </span>
   <span class="mt-role" id="map-role"></span>
+</div>
+
+<!-- 플레이어 화면 CCTV (GM 우하단 미리보기 — 팝아웃과 동일 플레이어 시점) -->
+<div id="map-cctv" style="display:none;">
+  <div id="map-cctv-hd"><span>📺 플레이어 화면</span><button onclick="MapGlue.cctvToggle(false)" title="닫기">✕</button></div>
+  <iframe id="map-cctv-frame" title="플레이어 미리보기"></iframe>
 </div>
 
 <!-- GM 멀티맵 드로어 (좌측, 토글) -->
@@ -359,7 +371,25 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 <script src="cs_monster.js?v=575"></script>
 <script src="cs_locale.js?v=570"></script>
 <script src="cs_i18n.js?v=570"></script>
-<script src="cs_map.js?v=582"></script>
+<script src="cs_map.js?v=583"></script>
+<style>
+/* 듀얼모니터: GM 도구 + 플레이어 CCTV */
+#map-gm-tools{margin-left:12px;display:inline-flex;gap:6px;align-items:center;}
+#map-gm-tools button,#mt-follow{font-size:12px;padding:4px 9px;background:var(--bg3,#2a2620);color:var(--text,#e8e3d8);border:1px solid var(--border,#4a3f2e);border-radius:6px;cursor:pointer;white-space:nowrap;}
+#map-gm-tools button:hover{border-color:var(--accent,#c0a062);}
+#mt-follow{gap:4px;}#mt-follow input{margin:0;}
+#mt-cctv.on{background:#3a2f1a;border-color:var(--accent,#c0a062);}
+#map-cctv{position:fixed;right:14px;bottom:14px;width:320px;z-index:60;background:#0c0a07;border:1px solid var(--accent,#9f725b);border-radius:8px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.6);}
+#map-cctv-hd{display:flex;align-items:center;justify-content:space-between;padding:3px 6px 3px 9px;font-size:11px;color:#c9b896;background:#1a1510;border-bottom:1px solid #3a3226;}
+#map-cctv-hd button{background:none;border:0;color:#9a8f7a;cursor:pointer;font-size:13px;}
+#map-cctv-frame{display:block;width:100%;height:200px;border:0;background:#000;}
+/* 플레이어 디스플레이/CCTV iframe: GM 크롬 전부 숨김 + 스테이지 전체 채움 */
+body.map-display{margin:0;overflow:hidden;background:#000;}
+body.map-display #map-topbar,body.map-display #map-toolbar,body.map-display #map-zoom,
+body.map-display #map-drawer,body.map-display #map-npc-editor,body.map-display #map-cctv,
+body.map-display .fog-menu{display:none !important;}
+body.map-display #map-stage{top:0 !important;}            /* 상단 바 없음 → 전체 채움 */
+</style>
 <script>
 // ── 지도 전용 글루 (캐릭터 시트와 독립) ──
 let currentUser = null;
@@ -369,8 +399,16 @@ window._mapNoProvision = true;           // 독립 지도 = GM/미리보기 뷰 
 const _params = new URLSearchParams(location.search);
 const _sessionId = _params.get('session');
 const _role = _params.get('role') || 'gm';
+const _isDisplay = (_params.get('display') === 'player');   // 플레이어 디스플레이 창/CCTV
+const _isMini = (_params.get('mini') === '1');              // CCTV 작은 미리보기
 // GM '플레이어 모드로 보기'(role=player) = 플레이어 시점 안개 + 토큰은 전부 안개 위로(GM이 위치 확인)
-window._mapTokensAboveFog = (_role === 'player');
+// 단, 디스플레이 창은 진짜 플레이어 시점(안개 가려진 것/숨김 토큰 안 보임) — 위로 띄우지 않음.
+window._mapTokensAboveFog = (_role === 'player' && !_isDisplay);
+if (_isDisplay) {
+  window._mapDisplayPlayer = true;                          // cs_map: 진짜 플레이어 렌더 + 무조작
+  document.body.classList.add('map-display');
+  if (_isMini) document.body.classList.add('map-mini');
+}
 
 auth.onAuthStateChanged(async function(user) {
   const emptyEl = document.getElementById('map-empty');
@@ -394,7 +432,55 @@ auth.onAuthStateChanged(async function(user) {
 
   if (typeof MapSync !== 'undefined') MapSync.start(_sessionId, { isGM: isGM, uid: user.uid });
   if (typeof MapView !== 'undefined') { MapView.init(); MapView.show(); }
+
+  // GM 도구(플레이어 창/동기화/따라가기/CCTV)는 진짜 GM 뷰에서만
+  if (isGM && !_isDisplay) { const g = document.getElementById('map-gm-tools'); if (g) g.style.display = 'inline-flex'; }
+  MapGlue.init();
 });
+
+// ── 듀얼모니터 글루: GM 카메라 ↔ 플레이어 디스플레이/CCTV (같은 브라우저 BroadcastChannel) ──
+window.MapGlue = (function () {
+  const bc = (typeof BroadcastChannel !== 'undefined' && _sessionId) ? new BroadcastChannel('pf2e-mapcam-' + _sessionId) : null;
+  let _follow = false, _followRAF = 0, _lastKey = '';
+  let _popWin = null;
+  function _cam() { return (typeof MapView !== 'undefined' && MapView.getCameraShare) ? MapView.getCameraShare() : null; }
+  function _post() { const c = _cam(); if (bc && c) bc.postMessage({ type: 'cam', cam: c }); }
+  function syncNow() { _post(); }
+  function setFollow(on) {
+    _follow = on;
+    if (on) { _lastKey = ''; _loop(); } else if (_followRAF) { cancelAnimationFrame(_followRAF); _followRAF = 0; }
+  }
+  function _loop() {                                   // 따라가기: 카메라 변할 때만 방송(throttle)
+    if (!_follow) return;
+    const c = _cam();
+    if (c) { const k = c.cx.toFixed(1) + ',' + c.cy.toFixed(1) + ',' + c.scale.toFixed(3);
+      if (k !== _lastKey) { _lastKey = k; if (bc) bc.postMessage({ type: 'cam', cam: c }); } }
+    _followRAF = requestAnimationFrame(_loop);
+  }
+  function openPlayerWindow() {
+    const u = 'Map.html?session=' + encodeURIComponent(_sessionId) + '&display=player';
+    _popWin = window.open(u, 'pf2ePlayerView', 'popup,width=1280,height=800');
+    if (!_popWin) { alert('팝업이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 누르세요.'); return; }
+    cctvToggle(true);                                  // 팝아웃 열면 GM 우하단 CCTV도 자동 표시
+    setTimeout(_post, 800);                            // 새 창이 카메라 요청 못 받아도 한 번 밀어줌
+  }
+  function cctvToggle(force) {
+    const el = document.getElementById('map-cctv'), fr = document.getElementById('map-cctv-frame'), btn = document.getElementById('mt-cctv');
+    if (!el) return;
+    const show = (force === undefined) ? (el.style.display === 'none' || !el.style.display) : !!force;
+    if (show) { if (fr && !fr.src) fr.src = 'Map.html?session=' + encodeURIComponent(_sessionId) + '&display=player&mini=1'; el.style.display = 'block'; if (btn) btn.classList.add('on'); }
+    else { el.style.display = 'none'; if (btn) btn.classList.remove('on'); }
+  }
+  function init() {
+    if (bc) bc.onmessage = function (e) {
+      const m = e.data || {};
+      if (_isDisplay) { if (m.type === 'cam' && m.cam && MapView.applyCameraShare) MapView.applyCameraShare(m.cam); }
+      else if (m.type === 'req') { _post(); }          // 새 디스플레이가 진입 시 현재 카메라 요청 → 응답
+    };
+    if (_isDisplay && bc) setTimeout(function () { bc.postMessage({ type: 'req' }); }, 700);  // 진입 시 현재 카메라 받아오기
+  }
+  return { init: init, syncNow: syncNow, setFollow: setFollow, openPlayerWindow: openPlayerWindow, cctvToggle: cctvToggle };
+})();
 </script>
 
 <!-- ── 몬스터 연결 글루: 토큰 ↔ MonsterDB (지연 로드 26MB, 검색·스탯 팝오버·굴림) ── -->
