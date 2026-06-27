@@ -1430,30 +1430,141 @@ var MapView = (function() {
     _markDirty();
   }
 
-  // ── 좌측 드로어: 저장된 지도 목록 (GM) ──
-  let _drawerTab = 'maps';   // 드로어 탭: 'maps' | 'tokens'
+  // ── 좌측 드로어: 지도/토큰/크리처/해저드 (GM) ──
+  const DRAWER_TABS = ['maps', 'tokens', 'creatures', 'hazards'];
+  let _drawerTab = 'maps';
   function toggleDrawer() {
     const d = document.getElementById('map-drawer'); if (!d) return;
     const open = !d.classList.contains('open');
     d.classList.toggle('open', open);
     const btn = document.getElementById('map-drawer-btn');
     if (btn) btn.classList.toggle('on', open);
-    if (open) _refreshDrawerTabs();
+    if (open) { _bindDrawerScroll(); _refreshDrawerTabs(); }
   }
   function setDrawerTab(tab) {
-    _drawerTab = (tab === 'tokens') ? 'tokens' : 'maps';
+    _drawerTab = DRAWER_TABS.indexOf(tab) >= 0 ? tab : 'maps';
     _refreshDrawerTabs();
   }
   function _refreshDrawerTabs() {
-    const pm = document.getElementById('md-panel-maps');
-    const pt = document.getElementById('md-panel-tokens');
-    if (pm) pm.style.display = (_drawerTab === 'maps') ? '' : 'none';
-    if (pt) pt.style.display = (_drawerTab === 'tokens') ? '' : 'none';
-    const tm = document.getElementById('md-tab-maps');
-    const tt = document.getElementById('md-tab-tokens');
-    if (tm) tm.classList.toggle('on', _drawerTab === 'maps');
-    if (tt) tt.classList.toggle('on', _drawerTab === 'tokens');
-    if (_drawerTab === 'maps') _renderDrawer(); else _renderTplPalette();
+    DRAWER_TABS.forEach(function (t) {
+      const panel = document.getElementById('md-panel-' + t);
+      if (panel) panel.style.display = (_drawerTab === t) ? '' : 'none';
+      const btn = document.getElementById('md-tab-' + t);
+      if (btn) btn.classList.toggle('on', _drawerTab === t);
+    });
+    if (_drawerTab === 'maps') _renderDrawer();
+    else if (_drawerTab === 'tokens') _renderTplPalette();
+    else _renderDbList(_drawerTab, false);
+  }
+
+  // ── 크리처/해저드 DB 브라우저 (전체 목록 + 청크 무한스크롤 + 드래그 배치) ──
+  const DB_CHUNK = 60;
+  const _dbState = { creatures: { cursor: 0, q: '', filtered: null }, hazards: { cursor: 0, q: '', filtered: null } };
+  const _dbKindType = { creatures: 'npc', hazards: 'hazard' };
+  const SIZECAT = { tiny: 'tiny', sm: 'small', med: 'medium', lg: 'large', huge: 'huge', grg: 'gargantuan' };
+  let _dbScrollBound = false;
+
+  function _bindDrawerScroll() {
+    if (_dbScrollBound) return;
+    const sc = document.getElementById('md-scroll'); if (!sc) return;
+    sc.addEventListener('scroll', function () {
+      if (_drawerTab !== 'creatures' && _drawerTab !== 'hazards') return;
+      if (sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 80) _renderDbList(_drawerTab, true);  // 바닥 근처 → 다음 청크
+    });
+    _dbScrollBound = true;
+  }
+  function dbSearch(kind, q) {
+    const st = _dbState[kind]; if (!st) return;
+    st.q = (q || '').trim().toLowerCase(); st.filtered = null;
+    _renderDbList(kind, false);
+  }
+  function _dbCompute(kind) {
+    const st = _dbState[kind];
+    const type = _dbKindType[kind];
+    const MDB = window.MonsterDB;
+    let arr = (MDB && MDB.all) ? MDB.all().filter(function (c) { return c.type === type; }) : [];
+    if (st.q) arr = arr.filter(function (c) {
+      const n = MDB.name(c);
+      return (n.ko || '').toLowerCase().indexOf(st.q) >= 0 || (n.en || '').toLowerCase().indexOf(st.q) >= 0;
+    });
+    arr.sort(function (a, b) { return (MDB.level(a) - MDB.level(b)) || MDB.name(a).ko.localeCompare(MDB.name(b).ko, 'ko'); });
+    st.filtered = arr;
+  }
+  function _renderDbList(kind, append) {
+    const listEl = document.getElementById(kind === 'creatures' ? 'md-crit-list' : 'md-haz-list');
+    const moreEl = document.getElementById(kind === 'creatures' ? 'md-crit-more' : 'md-haz-more');
+    if (!listEl) return;
+    const MDB = window.MonsterDB, MLK = window.MonsterLink;
+    // 데이터 미로드 → 지연 로드 후 재렌더
+    if (!MDB || !MDB.all || !MDB.all().length) {
+      listEl.innerHTML = '<div class="tp-empty">크리처 데이터 불러오는 중…</div>';
+      const ensure = MLK && MLK.ensure ? MLK.ensure() : (MDB && MDB.load ? MDB.load({ dir: 'data/creatures/' }) : Promise.reject(new Error('MonsterDB 없음')));
+      ensure.then(function () { _dbState[kind].filtered = null; _renderDbList(kind, false); })
+        .catch(function (e) { listEl.innerHTML = '<div class="tp-empty">로드 실패: ' + (e && e.message) + '</div>'; });
+      return;
+    }
+    const st = _dbState[kind];
+    if (!append) { st.cursor = 0; listEl.innerHTML = ''; st.filtered = null; }
+    if (!st.filtered) _dbCompute(kind);
+    const all = st.filtered;
+    if (!all.length) { listEl.innerHTML = '<div class="tp-empty">결과 없음</div>'; if (moreEl) moreEl.textContent = ''; return; }
+    const end = Math.min(st.cursor + DB_CHUNK, all.length);
+    for (let i = st.cursor; i < end; i++) {
+      const c = all[i]; const n = MDB.name(c); const lv = MDB.level(c); const tr = MDB.traits(c);
+      const row = document.createElement('div');
+      row.className = 'tp-row db-row'; row.title = '드래그=배치 · 클릭=정보';
+      row.onpointerdown = function (ev) { _startCreatureDrag(c.id, ev); };
+      const thumb = document.createElement('div');
+      thumb.className = 'tp-thumb'; thumb.style.background = (kind === 'hazards' ? '#6a5320' : '#3a2a4a');
+      thumb.textContent = (n.ko || '?').trim().charAt(0) || '?';
+      const nm = document.createElement('span'); nm.className = 'tp-name';
+      nm.innerHTML = '<b>' + _esc(n.ko) + '</b> <span class="db-lv">Lv ' + lv + (tr && tr.size ? ' · ' + _sizeKo(SIZECAT[tr.size] || 'medium') : '') + '</span>';
+      row.appendChild(thumb); row.appendChild(nm);
+      listEl.appendChild(row);
+    }
+    st.cursor = end;
+    if (moreEl) moreEl.textContent = end < all.length ? ('▾ ' + end + ' / ' + all.length + ' (스크롤하면 더 보기)') : (all.length + '종');
+  }
+  function _esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  // 크리처 행 드래그: 이동=맵 배치, 비이동(클릭)=스탯 시트 표시
+  function _startCreatureDrag(creatureId, ev) {
+    if (!_effGM()) return;
+    const MDB = window.MonsterDB; if (!MDB) return;
+    const c = MDB.getCreature(creatureId); if (!c) return;
+    if (ev && ev.preventDefault) ev.preventDefault();
+    const nm = MDB.name(c);
+    const ghost = document.createElement('div');
+    ghost.className = 'tpl-ghost'; ghost.textContent = nm.ko || '토큰';
+    document.body.appendChild(ghost);
+    const place = function (x, y) { ghost.style.left = x + 'px'; ghost.style.top = y + 'px'; };
+    place(ev.clientX, ev.clientY);
+    let moved = false;
+    const onMove = function (e) { if (Math.abs(e.clientX - ev.clientX) + Math.abs(e.clientY - ev.clientY) > 5) moved = true; place(e.clientX, e.clientY); };
+    const onUp = function (e) {
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+      if (ghost.parentNode) ghost.parentNode.removeChild(ghost);
+      if (moved) _placeCreatureAtClient(e.clientX, e.clientY, c);
+      else if (window.MonsterLink && window.MonsterLink.showStat) window.MonsterLink.showStat(creatureId);  // 클릭=정보 시트
+    };
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+  }
+  function _placeCreatureAtClient(clientX, clientY, c) {
+    if (!_cv || typeof MapSync === 'undefined') return;
+    const r = _cv.getBoundingClientRect();
+    if (clientX < r.left || clientX > r.right || clientY < r.top || clientY > r.bottom) return;
+    if (!MapSync.hasActiveMap()) { alert('먼저 지도를 선택하세요.'); return; }
+    const MDB = window.MonsterDB; const n = MDB.name(c); const tr = MDB.traits(c);
+    const cat = SIZECAT[tr && tr.size] || 'medium'; const cells = _cellsForCat(cat);
+    const hpMax = (MDB.hp(c) || {}).max || 0;
+    const w = _screenToWorld(clientX - r.left, clientY - r.top);
+    let x = w.x, y = w.y;
+    if (_bg.loaded) { x = _clamp(x, 0, _bg.w); y = _clamp(y, 0, _bg.h); }
+    if (_gridEnabled) { const s = _snapWorld(x, y, cells); x = s.x; y = s.y; }
+    MapSync.createNpc({ name: n.ko, size: cells, sizeCat: cat, x: Math.round(x), y: Math.round(y), monsterId: c.id, monsterName: n.ko, hpMax: hpMax })
+      .catch(function (e) { console.warn('[placeCreature]', e); });
   }
   function _renderDrawer() {
     const list = document.getElementById('map-drawer-list');
@@ -1524,6 +1635,29 @@ var MapView = (function() {
     if (e.hidden) e.hidden.checked = !!t.hidden;
     if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.onEditOpen(id, t);  // 몬스터 연결 UI 동기화
     e.box.style.display = 'block';
+  }
+  // 배치된 토큰 편집기 열기 (이름/크기/숨김 + 연결 몬스터 정보) — FVTT식 토큰 시트
+  function openNpcEdit(id) {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    const t = MapSync.getToken(id); if (!t) return;
+    const e = _npcRefs(); if (!e.box) return;
+    _editKind = 'npc'; _npcEditId = id;
+    if (e.title)  e.title.textContent = '토큰 시트';
+    if (e.name)   e.name.value = t.name || '';
+    if (e.size)   e.size.value = t.sizeCat || 'medium';
+    if (e.hidden) e.hidden.checked = !!t.hidden;
+    if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.onEditOpen(id, t);  // 연결 몬스터 라벨/검색 동기화
+    const sb = document.getElementById('np-statbtn');
+    if (sb) sb.style.display = t.monsterId ? '' : 'none';   // 연결 몬스터 있으면 정보 버튼 노출
+    e.box.style.display = 'block';
+    _hideTokenActions();
+  }
+  // 편집기에서 연결 몬스터 스탯블록 보기
+  function npcShowStat() {
+    if (!_npcEditId || typeof MapSync === 'undefined') return;
+    const t = MapSync.getToken(_npcEditId) || (typeof MapSync.getTemplate === 'function' ? MapSync.getTemplate(_npcEditId) : null);
+    const mid = t && t.monsterId; if (!mid) { alert('연결된 몬스터가 없습니다.'); return; }
+    if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.showStat(mid, (t && (t.monsterName || t.name)) || '');
   }
   // ＋토큰 추가: 새 템플릿 생성 후 편집기 열기
   function openTplCreate() {
@@ -1639,6 +1773,10 @@ var MapView = (function() {
     const hpEl = document.getElementById('mta-hp'); if (hpEl) hpEl.textContent = 'HP ' + next + '/' + t.hpMax;
     if (amtEl) amtEl.value = '';
     _markDirty();
+  }
+  function tokenActionEdit() {
+    if (!_actionTokenId) return;
+    openNpcEdit(_actionTokenId);
   }
   function tokenActionDamage() { _applyHp(-1); }
   function tokenActionHeal() { _applyHp(1); }
@@ -1788,14 +1926,15 @@ var MapView = (function() {
     toggleGrid: toggleGrid, gridRangeInput: gridRangeInput, gridRangeChange: gridRangeChange,
     openMapEdit: openMapEdit, mapEditClose: mapEditClose, mapRename: mapRename,
     // GM 멀티맵 드로어 (Map.html)
-    toggleDrawer: toggleDrawer, setDrawerTab: setDrawerTab, addMap: addMap,
+    toggleDrawer: toggleDrawer, setDrawerTab: setDrawerTab, addMap: addMap, dbSearch: dbSearch,
     // GM 토큰 편집기(드로어 템플릿) + 배치 토큰 빠른 액션
     npcApply: npcApply, npcDelete: npcDelete,
     npcClose: npcClose, npcPickPortrait: npcPickPortrait,
     tokenActionHide: tokenActionHide, tokenActionRemove: tokenActionRemove, tokenActionStat: tokenActionStat,
-    tokenActionDamage: tokenActionDamage, tokenActionHeal: tokenActionHeal,
+    tokenActionDamage: tokenActionDamage, tokenActionHeal: tokenActionHeal, tokenActionEdit: tokenActionEdit,
+    npcShowStat: npcShowStat,
     // GM 토큰 팔레트(드로어 + 드래그앤드롭)
-    addTemplate: addTemplate, openTplEdit: openTplEdit,
+    addTemplate: addTemplate, openTplEdit: openTplEdit, openNpcEdit: openNpcEdit,
     // 시트 플레이 뷰
     placeMyToken: placeMyToken
   };

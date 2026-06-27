@@ -123,6 +123,13 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 #map-drawer .tp-thumb{width:30px;height:30px;border-radius:50%;flex:0 0 auto;background-size:cover;background-position:center;
   display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#1a1a1a;border:1px solid var(--border2);}
 #map-drawer .tp-name{flex:1;font-size:12px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#map-drawer .db-panel .md-db-search{margin:8px 8px 6px;padding:6px 8px;background:var(--bg3);color:var(--text);
+  border:1px solid var(--border);border-radius:6px;font-size:12px;outline:none;}
+#map-drawer .db-panel .md-db-search:focus{border-color:var(--accent);}
+#map-drawer .md-db-list{flex:1;}
+#map-drawer .db-row{cursor:grab;}
+#map-drawer .db-row .db-lv{color:var(--text2);font-size:10px;font-weight:400;}
+#map-drawer .md-db-more{padding:6px 12px 12px;font-size:10px;color:var(--border2);text-align:center;}
 #map-drawer .tp-act{background:rgba(40,40,40,.9);color:var(--text2);border:1px solid var(--border);border-radius:5px;
   width:26px;height:28px;font-size:11px;cursor:pointer;flex:0 0 auto;}
 #map-drawer .tp-act:hover{color:var(--accent);}
@@ -245,8 +252,10 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   <div class="md-tabs">
     <button id="md-tab-maps" class="md-tab on" onclick="MapView.setDrawerTab('maps')">🗺 지도</button>
     <button id="md-tab-tokens" class="md-tab" onclick="MapView.setDrawerTab('tokens')">🎭 토큰</button>
+    <button id="md-tab-creatures" class="md-tab" onclick="MapView.setDrawerTab('creatures')">🐉 크리처</button>
+    <button id="md-tab-hazards" class="md-tab" onclick="MapView.setDrawerTab('hazards')">⚠ 해저드</button>
   </div>
-  <div class="md-scroll">
+  <div class="md-scroll" id="md-scroll">
     <div id="md-panel-maps" class="md-panel">
       <div class="md-list" id="map-drawer-list"></div>
       <button class="md-add" onclick="MapView.addMap()">＋ 새 지도</button>
@@ -255,6 +264,16 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
       <div class="md-hint">토큰을 만들어 지도로 끌어다 놓으세요.</div>
       <div class="tp-list" id="map-tpl-list"></div>
       <button class="md-add" onclick="MapView.addTemplate()">＋ 토큰 추가</button>
+    </div>
+    <div id="md-panel-creatures" class="md-panel db-panel" style="display:none;">
+      <input id="md-crit-search" class="md-db-search" type="text" placeholder="크리처 검색 (한/영)…" autocomplete="off" oninput="MapView.dbSearch('creatures', this.value)">
+      <div class="tp-list md-db-list" id="md-crit-list"></div>
+      <div class="md-db-more" id="md-crit-more"></div>
+    </div>
+    <div id="md-panel-hazards" class="md-panel db-panel" style="display:none;">
+      <input id="md-haz-search" class="md-db-search" type="text" placeholder="해저드 검색 (한/영)…" autocomplete="off" oninput="MapView.dbSearch('hazards', this.value)">
+      <div class="tp-list md-db-list" id="md-haz-list"></div>
+      <div class="md-db-more" id="md-haz-more"></div>
     </div>
   </div>
 </div>
@@ -303,6 +322,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
     </div>
     <div class="ne-row"><label class="ne-check"><input id="np-hidden" type="checkbox" onchange="MapView.npcApply()"> 숨김 (플레이어에게 안 보임)</label></div>
     <div class="ne-row ne-actions">
+      <button id="np-statbtn" style="display:none;" onclick="MapView.npcShowStat()">📋 정보</button>
       <button onclick="MapView.npcPickPortrait()">🖼 이미지</button>
       <button class="ne-del" onclick="MapView.npcDelete()">삭제</button>
       <button onclick="MapView.npcClose()">닫기</button>
@@ -317,6 +337,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
     <button id="mta-dmg" style="display:none;" onclick="MapView.tokenActionDamage()">−피해</button>
     <button id="mta-heal" style="display:none;" onclick="MapView.tokenActionHeal()">＋회복</button>
     <button id="mta-stat" style="display:none;" onclick="MapView.tokenActionStat()">📋 스탯</button>
+    <button id="mta-edit" onclick="MapView.tokenActionEdit()">✎ 편집</button>
     <button id="mta-hide" onclick="MapView.tokenActionHide()">🙈 숨기기</button>
     <button id="mta-del" onclick="MapView.tokenActionRemove()">🗑 제거</button>
   </div>
@@ -334,11 +355,11 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_dice.js?v=565"></script>
-<script src="cs_monster.js?v=569"></script>
-<script src="cs_locale.js?v=565"></script>
-<script src="cs_i18n.js?v=565"></script>
-<script src="cs_map.js?v=565"></script>
+<script src="cs_dice.js?v=570"></script>
+<script src="cs_monster.js?v=570"></script>
+<script src="cs_locale.js?v=570"></script>
+<script src="cs_i18n.js?v=570"></script>
+<script src="cs_map.js?v=570"></script>
 <script>
 // ── 지도 전용 글루 (캐릭터 시트와 독립) ──
 let currentUser = null;
