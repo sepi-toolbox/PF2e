@@ -33,6 +33,14 @@ function iconImg(scope, item, cls) {
     rel.replace(/"/g, '%22') + '" loading="lazy" onerror="this.style.display=\'none\'">';
 }
 
+// 빌더 슬롯 원형 아이콘: 선택된 아이템 이미지를 원에 채움(없으면 이모지 폴백)
+function iconCircle(scope, item, fallback) {
+  const rel = _iconRel(scope, item);
+  if (!rel) return fallback || '';
+  return '<img class="slot-img" src="data/icons/' + rel.replace(/"/g, '%22') +
+    '" loading="lazy" onerror="this.replaceWith(document.createTextNode(\'' + (fallback || '') + '\'))">';
+}
+
 function addWeapon(data) {
   const d = data || {name:'',atk:'',dmg:'',traits:''};
   const id = 'w-'+Date.now();

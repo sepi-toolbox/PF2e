@@ -61,6 +61,10 @@ const BASE = {
   deity: baseIndex('data/base/deities.base.json'),
   condition: baseIndex('data/base/conditions.base.json'),
 };
+// 클래스/혈통 특성 보조 인덱스 병합(features-extra = class-features+ancestry-features 팩 추출)
+// → feats.base에 없는 클래스 특성 아이콘 보강. (재생성: /tmp/iconwork/extract.mjs, classic-level 필요)
+const featExtra = baseIndex('data/base/features-extra.base.json');
+for (const k in featExtra) if (!(k in BASE.feat)) BASE.feat[k] = featExtra[k];
 // 교차 카테고리 폴백(행동 = 실제로 재주/주문/장비인 경우 많음)
 const GLOBAL = Object.assign({}, BASE.action, BASE.equipment, BASE.spell, BASE.feat);
 // 장비 명명 차이 변환(수량/단위 제거, 도구→toolkit, wood→wooden, +armor 등)
@@ -103,7 +107,7 @@ function copyIcon(img) {
 }
 
 // ── 레거시 → BASE 매칭 후 맵 적재 ──
-const map = { equipment: {}, spell: {}, feat: {}, action: {}, heritage: {}, ancestry: {}, background: {}, deity: {}, condition: {} };
+const map = { equipment: {}, spell: {}, feat: {}, action: {}, heritage: {}, ancestry: {}, background: {}, deity: {}, condition: {}, class: {} };
 const stat = {};
 function feed(scope, arr) {
   if (!Array.isArray(arr)) return;
@@ -139,6 +143,21 @@ feed('ancestry', sb.ANCESTRIES);
 feed('background', sb.BACKGROUNDS);
 feed('deity', sb.DEITY_DB);
 feed('condition', sb.CONDITIONS_DATA);
+
+// class 스코프: BASE classes 직접(레거시 배열 없음 — slug=fighter 등 런타임 selectedClass.id와 일치)
+{
+  let total = 0, matched = 0;
+  for (const it of JSON.parse(fs.readFileSync('data/base/classes.base.json', 'utf8'))) {
+    if (!it.img) continue;
+    total++;
+    if (!copyIcon(it.img)) continue;
+    matched++;
+    const rel = decodeURIComponent(it.img);
+    const s = it.system && it.system.slug;
+    for (const k of [s, s && norm(s), it.name && it.name.toLowerCase()]) if (k && !(k in map.class)) map.class[k] = rel;
+  }
+  stat.class = { total, matched };
+}
 
 fs.writeFileSync('data/icon_map.json', JSON.stringify(map));
 const mapKB = (fs.statSync('data/icon_map.json').size / 1024).toFixed(0);

@@ -1083,15 +1083,18 @@ function renderGrowthPlan() {
   html += `<div class="growth-core-section">`;
   html += `<div class="growth-core-header">핵심 빌드<span style="font-size:10px;color:var(--text2);font-weight:400;margin-left:6px;">Core Build</span></div>`;
   // Ancestry selector
-  html += growthSlotWithClearHTML('ancestry-sel', '🧬', '혈통 Ancestry',
-    state.selectedAncestry ? _slotIco('ancestry', state.selectedAncestry) + `${state.selectedAncestry.name} (${state.selectedAncestry.en})` : null,
+  html += growthSlotWithClearHTML('ancestry-sel',
+    state.selectedAncestry ? _slotCircle('ancestry', state.selectedAncestry, '🧬') : '🧬', '혈통 Ancestry',
+    state.selectedAncestry ? `${state.selectedAncestry.name} (${state.selectedAncestry.en})` : null,
     "openModal('ancestry')", state.selectedAncestry ? "clearCoreSelection('ancestry')" : null);
   // Background selector
-  html += growthSlotWithClearHTML('background-sel', '📜', '배경 Background',
-    state.selectedBackground ? _slotIco('background', state.selectedBackground) + `${state.selectedBackground.name} (${state.selectedBackground.en})` : null,
+  html += growthSlotWithClearHTML('background-sel',
+    state.selectedBackground ? _slotCircle('background', state.selectedBackground, '📜') : '📜', '배경 Background',
+    state.selectedBackground ? `${state.selectedBackground.name} (${state.selectedBackground.en})` : null,
     "openModal('background')", state.selectedBackground ? "clearCoreSelection('background')" : null);
   // Class selector
-  html += growthSlotWithClearHTML('class-sel', '⚔', '클래스 Class',
+  html += growthSlotWithClearHTML('class-sel',
+    state.selectedClass ? _slotCircle('class', state.selectedClass, '⚔') : '⚔', '클래스 Class',
     state.selectedClass ? `${state.selectedClass.name} (${state.selectedClass.en})` : null,
     "openModal('class')", state.selectedClass ? "clearCoreSelection('class')" : null);
   html += `</div>`;
@@ -1124,8 +1127,9 @@ function renderGrowthPlan() {
     if (lv === 1) {
       // Heritage (only if ancestry selected)
       if (state.selectedAncestry) {
-        html += growthSlotWithClearHTML('heritage-sel', '🛡', '유산 Heritage',
-          state.selectedHeritage ? _slotIco('heritage', state.selectedHeritage) + state.selectedHeritage.name_ko : null,
+        html += growthSlotWithClearHTML('heritage-sel',
+          state.selectedHeritage ? _slotCircle('heritage', state.selectedHeritage, '🛡') : '🛡', '유산 Heritage',
+          state.selectedHeritage ? state.selectedHeritage.name_ko : null,
           "openModal('heritage')", state.selectedHeritage ? "clearCoreSelection('heritage')" : null);
       }
       // 언어/서브클래스/후원자 전통은 각 모달에서 처리
@@ -1197,9 +1201,9 @@ function renderGrowthPlan() {
   } catch(e) { console.error('renderGrowthPlan error:', e); container.innerHTML = '<div style="color:red;padding:8px;">성장 플랜 렌더링 오류: '+e.message+'</div>'; }
 }
 
-// 빌드슬롯 값 앞 아이템 아이콘(없으면 빈 문자열)
-function _slotIco(scope, item) {
-  return (typeof iconImg === 'function') ? iconImg(scope, item, 'ico-sm') : '';
+// 빌드슬롯 원형 아이콘: 선택된 아이템 이미지로 원을 채움(없으면 이모지 폴백)
+function _slotCircle(scope, item, emoji) {
+  return (typeof iconCircle === 'function') ? iconCircle(scope, item, emoji) : emoji;
 }
 function growthSlotHTML(lv, key, icon, label, value, onclickStr) {
   const filled = value ? 'filled' : '';
@@ -1231,6 +1235,9 @@ function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
   const filled = value ? 'filled' : '';
   const display = value || '선택 안 됨';
   const clickAction = value ? `showInfo('feat','${(value||'').replace(/'/g,"\\'")}')` : `growthPickFeat(${lv},'${key}','${featType}')`;
+  // 선택된 재주 아이콘으로 원 교체
+  const _fd = value && typeof getFeat === 'function' ? (getFeat(value) || getFeat(value.split(' (')[0].trim())) : null;
+  const circleIco = value ? _slotCircle('feat', _fd || { name: value }, icon) : icon;
   // 선택된 재주의 전제조건 미달 체크
   let prereqWarn = '';
   if (value && typeof _hasFeatPrereqIssue === 'function') {
@@ -1239,7 +1246,7 @@ function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
     } catch(e) { console.warn('prereq check error:', e); }
   }
   return `<div class="growth-slot ${filled}" onclick="${clickAction}">
-    <div class="growth-slot-icon">${icon}</div>
+    <div class="growth-slot-icon">${circleIco}</div>
     <div class="growth-slot-body">
       <div class="growth-slot-label">${label}</div>
       <div class="growth-slot-value">${display}</div>${prereqWarn}
