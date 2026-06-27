@@ -28,7 +28,7 @@ function loadLegacy(files) {
   }
   return sb;
 }
-const sb = loadLegacy(['equipment_db.js', 'SPELL_DB.js', 'feat_db.js', 'cs_data.js']);
+const sb = loadLegacy(['equipment_db.js', 'SPELL_DB.js', 'feat_db.js', 'class_features_db.js', 'cs_data.js']);
 
 // ── BASE 인덱스: system.slug → img, name(lower) → img ──
 function baseIndex(file) {
@@ -47,6 +47,11 @@ const BASE = {
   spell: baseIndex('data/base/spells.base.json'),
   feat: baseIndex('data/base/feats.base.json'),
   action: baseIndex('data/base/actions.base.json'),
+  heritage: baseIndex('data/base/heritages.base.json'),
+  ancestry: baseIndex('data/base/ancestries.base.json'),
+  background: baseIndex('data/base/backgrounds.base.json'),
+  deity: baseIndex('data/base/deities.base.json'),
+  condition: baseIndex('data/base/conditions.base.json'),
 };
 
 // ── 복사 ──
@@ -64,22 +69,25 @@ function copyIcon(img) {
 }
 
 // ── 레거시 → BASE 매칭 후 맵 적재 ──
-const map = { equipment: {}, spell: {}, feat: {}, action: {} };
+const map = { equipment: {}, spell: {}, feat: {}, action: {}, heritage: {}, ancestry: {}, background: {}, deity: {}, condition: {} };
 const stat = {};
 function feed(scope, arr) {
   if (!Array.isArray(arr)) return;
   const idx = BASE[scope];
   let total = 0, matched = 0;
   for (const it of arr) {
-    if (!it || (!it.id && !it.name_en && !it.name_ko)) continue;
+    // 키 정규화: 일부 배열은 name_ko/name_en, 일부는 name(한)/en(영) 사용
+    const nEn = it && (it.name_en || it.en);
+    const nKo = it && (it.name_ko || it.name);
+    if (!it || (!it.id && !nEn && !nKo)) continue;
     total++;
     let img = (it.id && idx.slug[it.id]) ||
-              (it.name_en && idx.name[String(it.name_en).toLowerCase()]) || null;
+              (nEn && idx.name[String(nEn).toLowerCase()]) || null;
     if (!img) continue;
     if (!copyIcon(img)) continue;
     matched++;
     const rel = decodeURIComponent(img);
-    for (const k of [it.id, it.name_en && String(it.name_en).toLowerCase(), it.name_ko && String(it.name_ko).toLowerCase()]) {
+    for (const k of [it.id, nEn && String(nEn).toLowerCase(), nKo && String(nKo).toLowerCase()]) {
       if (k && !(k in map[scope])) map[scope][k] = rel;
     }
   }
@@ -94,6 +102,11 @@ feed('equipment', sb.GEAR_DB);
 feed('spell', sb.SPELL_DB);
 feed('feat', sb.FEAT_DB);
 feed('action', sb.ACTION_DB);
+feed('heritage', sb.HERITAGE_DB);
+feed('ancestry', sb.ANCESTRIES);
+feed('background', sb.BACKGROUNDS);
+feed('deity', sb.DEITY_DB);
+feed('condition', sb.CONDITIONS_DATA);
 
 fs.writeFileSync('data/icon_map.json', JSON.stringify(map));
 const mapKB = (fs.statSync('data/icon_map.json').size / 1024).toFixed(0);

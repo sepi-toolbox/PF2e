@@ -964,7 +964,7 @@ function renderActiveConditions() {
       ? `<span style="color:var(--text2);font-size:10px;opacity:0.3;" title="부피 줄여야 해제">🔒</span>`
       : `<span style="cursor:pointer;color:var(--text2);font-size:10px;" onclick="state.conditions['${c.name}']=0;buildConditions();save();">✕</span>`;
     return `<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--border);font-size:12px;">
-      <span style="color:var(--red-light);font-weight:600;min-width:60px;">⚠ ${c.name}${valText}</span>
+      <span style="color:var(--red-light);font-weight:600;min-width:60px;display:inline-flex;align-items:center;">${typeof iconImg==='function'?iconImg('condition',c,'ico-sm'):'⚠ '}${c.name}${valText}</span>
       <span style="color:var(--text2);font-size:10px;flex:1;">${c.desc.substring(0, 80)}...</span>
       ${removeBtn}
     </div>`;

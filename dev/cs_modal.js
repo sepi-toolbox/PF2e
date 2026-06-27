@@ -5303,6 +5303,7 @@ function renderActions() {
       html += `<div class="action-card" style="${opacity}${grantedStyle}">
         <div class="action-card-head">
           <span class="action-cost">${costIcon}</span>
+          ${typeof iconImg==='function'?iconImg(a.cat==='feat'?'feat':'action',a):''}
           <div style="flex:1;min-width:0;">
             <div class="action-name-ko">${a.name_ko}</div>
             <div class="action-name-en">${a.name_en}</div>

@@ -2081,7 +2081,7 @@ function renderFeats() {
       const hAncestry = h.ancestry === '*' ? '다목적 유산' : h.ancestry || '';
       div.innerHTML = `
         <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
-          <span style="flex:1;color:var(--text);font-size:12px;">${h.name_ko} (${h.name_en||''})</span>
+          <span style="flex:1;color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${iconImg('heritage', h)}${h.name_ko} (${h.name_en||''})</span>
         </div>
         <div class="feat-src"><span class="tag-meta">유산</span> <span class="tag-meta">${hAncestry}</span></div>
         <div class="feat-detail">
