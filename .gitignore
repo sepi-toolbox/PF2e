@@ -2,7 +2,7 @@ PF2e_DB.xlsx
 _db_cache.json
 firebase.json
 .firebaserc
-node_modules/
+node_modules
 tools/node_modules/
 tools/package-lock.json
 tools/pf2e/node_modules/
