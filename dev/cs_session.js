@@ -527,10 +527,10 @@ function enterSessionUI() {
     // auth-area에서 "세션 참가" → "세션 나가기"로 변경
     const area = document.getElementById('auth-area');
     if (area) {
-      area.innerHTML = '<span style="color:#aaa;margin-right:8px;">' + (currentUser.displayName || currentUser.email) + '</span>' +
-        '<button onclick="saveToCloud()" style="background:#2980b9;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;">저장</button>' +
-        '<button onclick="leaveSession()" style="background:#c0392b;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:700;margin-right:4px;">세션 나가기</button>' +
-        '<button onclick="googleLogout()" style="background:#555;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;">로그아웃</button>';
+      area.innerHTML = '<span class="auth-user">' + (currentUser.displayName || currentUser.email) + '</span>' +
+        '<button class="btn btn-confirm" onclick="saveToCloud()">저장</button>' +
+        '<button class="btn btn-danger" onclick="leaveSession()">세션 나가기</button>' +
+        '<button class="btn btn-ghost" onclick="googleLogout()">로그아웃</button>';
     }
   }
 }
@@ -551,11 +551,11 @@ function exitSessionUI() {
     // auth-area 복원
     const area = document.getElementById('auth-area');
     if (area) {
-      area.innerHTML = '<span style="color:#aaa;margin-right:8px;">' + (currentUser.displayName || currentUser.email) + '</span>' +
-        '<button onclick="loadFromCloud()" style="background:#27ae60;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;">불러오기</button>' +
-        '<button onclick="saveToCloud()" style="background:#2980b9;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;margin-right:4px;">저장</button>' +
-        '<button onclick="if(typeof openJoinSessionModal===\'function\')openJoinSessionModal()" style="background:#3498db;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:700;margin-right:4px;">세션 참가</button>' +
-        '<button onclick="googleLogout()" style="background:#555;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;">로그아웃</button>';
+      area.innerHTML = '<span class="auth-user">' + (currentUser.displayName || currentUser.email) + '</span>' +
+        '<button class="btn btn-ghost" onclick="loadFromCloud()">불러오기</button>' +
+        '<button class="btn btn-confirm" onclick="saveToCloud()">저장</button>' +
+        '<button class="btn btn-green" onclick="if(typeof openJoinSessionModal===\'function\')openJoinSessionModal()">세션 참가</button>' +
+        '<button class="btn btn-ghost" onclick="googleLogout()">로그아웃</button>';
     }
   }
 }
@@ -576,7 +576,7 @@ function updateSessionBar() {
       roleLabel +
       midInfo +
       '<span style="color:#888;font-size:11px;">참가자 ' + playerCount + '명</span>' +
-      '<button onclick="leaveSession()" style="background:#c0392b;color:#fff;border:none;padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px;margin-left:auto;">' + (_isGM ? '세션 삭제' : '세션 나가기') + '</button>' +
+      '<button class="btn btn-danger" onclick="leaveSession()" style="margin-left:auto;">' + (_isGM ? '세션 삭제' : '세션 나가기') + '</button>' +
     '</div>';
 }
 
