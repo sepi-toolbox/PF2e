@@ -922,12 +922,12 @@ var MapView = (function() {
       const w = _bg.w * _view.scale, h = _bg.h * _view.scale;
       _ctx.imageSmoothingEnabled = true;
       _ctx.drawImage(_bg.img, _view.offX, _view.offY, w, h);
-      _drawGrid();
       // 맵 경계
       _ctx.strokeStyle = 'rgba(192,160,98,0.55)';
       _ctx.lineWidth = 1;
       _ctx.strokeRect(_view.offX + 0.5, _view.offY + 0.5, w, h);
     }
+    _drawGrid();            // 격자 (배경 유무와 무관 — 빈 지도에도 표시 + 스냅)
     _drawTokens();          // 토큰 레이어 (Phase C)
     _drawFog();             // 안개 오버레이 (Phase D)
     if (typeof window !== 'undefined' && window._mapTokensAboveFog) _drawAllTokensOnTop();  // GM 플레이어 미리보기: 모든 토큰 안개 위
@@ -1046,23 +1046,33 @@ var MapView = (function() {
     if (!gs) return;
     const step = gs * _view.scale;
     if (step < GRID_MIN_PX) return;       // 너무 촘촘하면 생략
-    const x0 = _view.offX, y0 = _view.offY;
-    const x1 = x0 + _bg.w * _view.scale, y1 = y0 + _bg.h * _view.scale;
+    // 격자 범위: 배경 있으면 배경 영역, 없으면 화면에 보이는 월드 전체(빈 지도)
+    let wMinX, wMinY, wMaxX, wMaxY, cx0, cy0, cx1, cy1;
+    if (_bg.loaded) {
+      wMinX = 0; wMinY = 0; wMaxX = _bg.w; wMaxY = _bg.h;
+      cx0 = _view.offX; cy0 = _view.offY;
+      cx1 = _view.offX + _bg.w * _view.scale; cy1 = _view.offY + _bg.h * _view.scale;
+    } else {
+      const tl = _screenToWorld(0, 0), br = _screenToWorld(_cssW, _cssH);
+      wMinX = Math.floor(tl.x / gs) * gs; wMinY = Math.floor(tl.y / gs) * gs;
+      wMaxX = Math.ceil(br.x / gs) * gs;  wMaxY = Math.ceil(br.y / gs) * gs;
+      cx0 = 0; cy0 = 0; cx1 = _cssW; cy1 = _cssH;
+    }
     _ctx.save();
     _ctx.beginPath();
-    _ctx.rect(Math.max(0, x0), Math.max(0, y0),
-              Math.min(_cssW, x1) - Math.max(0, x0), Math.min(_cssH, y1) - Math.max(0, y0));
+    _ctx.rect(Math.max(0, cx0), Math.max(0, cy0),
+              Math.min(_cssW, cx1) - Math.max(0, cx0), Math.min(_cssH, cy1) - Math.max(0, cy0));
     _ctx.clip();
-    _ctx.strokeStyle = 'rgba(255,255,255,0.14)';
+    _ctx.strokeStyle = 'rgba(255,255,255,0.18)';
     _ctx.lineWidth = 1;
     _ctx.beginPath();
-    for (let wx = 0; wx <= _bg.w + 0.5; wx += gs) {
-      const sx = Math.round(x0 + wx * _view.scale) + 0.5;
-      _ctx.moveTo(sx, y0); _ctx.lineTo(sx, y1);
+    for (let wx = wMinX; wx <= wMaxX + 0.5; wx += gs) {
+      const sx = Math.round(_view.offX + wx * _view.scale) + 0.5;
+      _ctx.moveTo(sx, cy0); _ctx.lineTo(sx, cy1);
     }
-    for (let wy = 0; wy <= _bg.h + 0.5; wy += gs) {
-      const sy = Math.round(y0 + wy * _view.scale) + 0.5;
-      _ctx.moveTo(x0, sy); _ctx.lineTo(x1, sy);
+    for (let wy = wMinY; wy <= wMaxY + 0.5; wy += gs) {
+      const sy = Math.round(_view.offY + wy * _view.scale) + 0.5;
+      _ctx.moveTo(cx0, sy); _ctx.lineTo(cx1, sy);
     }
     _ctx.stroke();
     _ctx.restore();
