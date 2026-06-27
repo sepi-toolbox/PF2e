@@ -155,6 +155,15 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 #map-npc-editor .ne-actions .ne-del{color:#e07070;border-color:#5a2a2a;}
 #map-npc-editor .ne-actions .ne-del:hover{background:#5a2a2a;color:#fff;}
 
+/* ── 배치된 토큰 빠른 액션(숨기기/제거) ── */
+#map-token-actions{position:absolute;z-index:16;display:flex;gap:5px;white-space:nowrap;
+  background:rgba(20,20,22,.96);border:1px solid var(--border);border-radius:8px;padding:5px;
+  box-shadow:0 6px 20px rgba(0,0,0,.5);}
+#map-token-actions button{background:rgba(45,45,48,.95);color:var(--text);border:1px solid var(--border);
+  border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;}
+#map-token-actions button:hover{color:var(--accent);}
+#map-token-actions #mta-del:hover{color:#e07070;border-color:#5a2a2a;}
+
 /* ── 격자 비율 바 (좌하단) ── */
 #map-grid-bar{
   position:absolute;bottom:8px;left:8px;z-index:5;
@@ -202,7 +211,6 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   <div id="map-toolbar">
     <!-- GM 전용: 멀티맵 드로어 / NPC 배치 / 배경 / 안개 (플레이어 시점이면 숨김) -->
     <button id="map-drawer-btn" style="display:none;" onclick="MapView.toggleDrawer()">☰ 지도</button>
-    <button id="map-npc-btn" style="display:none;" onclick="MapView.openNpcCreate()">➕ NPC</button>
     <button id="map-upload-btn" style="display:none;" onclick="MapView.pickBg()">🖼 배경</button>
     <button id="map-grid-btn" style="display:none;" onclick="MapView.toggleGrid()">⊞ 격자</button>
     <button id="map-fog-btn" style="display:none;" onclick="MapView.toggleFog()">🌫 안개</button>
@@ -228,9 +236,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
   <input id="map-bg-input" type="file" accept="image/*" style="display:none;">
 
-  <!-- GM NPC 편집기 (NPC 탭하면 열림 / ➕ NPC로 생성) -->
+  <!-- GM 토큰 편집기 (드로어 팔레트 전용 — 토큰 만들기/편집) -->
   <div id="map-npc-editor" style="display:none;">
-    <div class="ne-title" id="np-title">NPC 편집</div>
+    <div class="ne-title" id="np-title">토큰 편집</div>
     <div class="ne-row"><label>이름</label><input id="np-name" type="text" onchange="MapView.npcApply()"></div>
     <div class="ne-row"><label>크기</label><select id="np-size" onchange="MapView.npcApply()"></select></div>
     <div class="ne-row"><label class="ne-check"><input id="np-hidden" type="checkbox" onchange="MapView.npcApply()"> 숨김 (플레이어에게 안 보임)</label></div>
@@ -241,9 +249,15 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
     </div>
     <input id="np-portrait-input" type="file" accept="image/*" style="display:none;">
   </div>
+
+  <!-- 배치된 토큰 탭 → 숨기기/제거 빠른 버튼 -->
+  <div id="map-token-actions" style="display:none;">
+    <button id="mta-hide" onclick="MapView.tokenActionHide()">🙈 숨기기</button>
+    <button id="mta-del" onclick="MapView.tokenActionRemove()">🗑 제거</button>
+  </div>
 </div>
 
-<script src="cs_map.js?v=562"></script>
+<script src="cs_map.js?v=563"></script>
 <script>
 // ── 지도 전용 글루 (캐릭터 시트와 독립) ──
 let currentUser = null;
