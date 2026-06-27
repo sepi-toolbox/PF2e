@@ -488,17 +488,17 @@ function renderWeapons() {
     const canGrip = isHeld && (w._dbData?.hands) !== 2 && !w._isShield;
     let actionBtns = '';
     if (isDropped) {
-      actionBtns = `<button class="weapon-btn" onclick="pickUpWeapon(${i})" title="줍기 (행동 1)">줍기<span class="weapon-btn action-cost">\u25C6</span></button>`;
+      actionBtns = `<button class="weapon-btn" onclick="pickUpWeapon(${i})" title="줍기 (행동 1)">줍기<span class="weapon-btn action-cost action-glyph">1</span></button>`;
     } else if (w._stowed) {
-      actionBtns = `<button class="weapon-btn" onclick="drawWeapon(${i})" title="들기 (행동 1)">들기<span class="weapon-btn action-cost">\u25C6</span></button>`;
+      actionBtns = `<button class="weapon-btn" onclick="drawWeapon(${i})" title="들기 (행동 1)">들기<span class="weapon-btn action-cost action-glyph">1</span></button>`;
     } else {
       // 손에 든 상태
-      actionBtns = `<button class="weapon-btn" onclick="stowWeapon(${i})" title="넣기 (행동 1)">넣기<span class="weapon-btn action-cost">\u25C6</span></button>`;
-      actionBtns += `<button class="weapon-btn" onclick="dropWeapon(${i})" title="떨구기 (자유 행동)">떨구기<span class="weapon-btn action-cost">\u25C7</span></button>`;
+      actionBtns = `<button class="weapon-btn" onclick="stowWeapon(${i})" title="넣기 (행동 1)">넣기<span class="weapon-btn action-cost action-glyph">1</span></button>`;
+      actionBtns += `<button class="weapon-btn" onclick="dropWeapon(${i})" title="떨구기 (자유 행동)">떨구기<span class="weapon-btn action-cost action-glyph">F</span></button>`;
       if (canGrip) {
         actionBtns += w._twoHand
-          ? `<button class="weapon-btn" onclick="toggleGrip(${i})" title="한손 전환 (자유 행동)">한손<span class="weapon-btn action-cost">\u25C7</span></button>`
-          : `<button class="weapon-btn" onclick="toggleGrip(${i})" title="양손 전환 (행동 1)">양손<span class="weapon-btn action-cost">\u25C6</span></button>`;
+          ? `<button class="weapon-btn" onclick="toggleGrip(${i})" title="한손 전환 (자유 행동)">한손<span class="weapon-btn action-cost action-glyph">F</span></button>`
+          : `<button class="weapon-btn" onclick="toggleGrip(${i})" title="양손 전환 (행동 1)">양손<span class="weapon-btn action-cost action-glyph">1</span></button>`;
       }
     }
 
@@ -1494,7 +1494,7 @@ let _spellSlotPending = null;
 
 function getActionIcons(actions) {
   if (!actions) return '';
-  const map = {'1':'◆','2':'◆◆','3':'◆◆◆','reaction':'↩','free':'⟡'};
+  const map = {'1':'<span class="action-glyph">1</span>','2':'<span class="action-glyph">2</span>','3':'<span class="action-glyph">3</span>','reaction':'<span class="action-glyph">R</span>','free':'<span class="action-glyph">F</span>'};
   return map[String(actions)] || actions;
 }
 

@@ -1,4 +1,4 @@
-// ═════════════════════════════════���═════════════
+// ═════════════════════════════════════════════════
 //  SESSION SYSTEM — 멀티플레이어 세션 (GM + 플레이어)
 // ═══════════════════════════════════════════════
 
@@ -41,7 +41,7 @@ function generateJoinCode() {
   return code;
 }
 
-// ══════════════════════���═══════════════════���════
+// ═══════════════════════════════════════════════════
 //  세션 생성 (GM)
 // ═══════════════════════════════════════════════
 async function createSession(name) {
@@ -79,14 +79,14 @@ async function createSession(name) {
 
 // ═══════════════════════════════════════════════
 //  세션 참가 (플레이어)
-// ═══════════��═══════════════════════════════════
+// ════════════════════════════════════════════════
 async function joinSession(code) {
   if (!currentUser) { alert('로그인이 필요합니다.'); return; }
   code = code.toUpperCase().trim();
   if (code.length !== SESSION_CODE_LEN) { alert('참가 코드는 ' + SESSION_CODE_LEN + '자리입니다.'); return; }
 
   const snap = await db.collection('sessions').where('joinCode', '==', code).get();
-  if (snap.empty) { alert('세션을 ���을 수 없습니다.'); return; }
+  if (snap.empty) { alert('세션을 찾을 수 없습니다.'); return; }
 
   const doc = snap.docs[0];
   const data = doc.data();
@@ -105,9 +105,9 @@ async function joinSession(code) {
   openCharacterChoiceModal();
 }
 
-// ═════════════════════════════════════���═════════
+// ═════════════════════════════════════════════════
 //  세션 복귀 (새로고침/재접속)
-// ═══���═══════════════��═══════════════════════════
+// ══════════════════════════════════════════════════
 async function restoreSession() {
   const sid = localStorage.getItem('pf2e_sessionId');
   if (!sid || !currentUser) return false;
@@ -155,9 +155,9 @@ function clearSessionStorage() {
   localStorage.removeItem('pf2e_sessionRole');
 }
 
-// ════════��═══════════════════════���══════════════
+// ══════════════════════════════════════════════════
 //  세션 나가기
-// ══��════════════════════════════════════════════
+// ════════════════════════════════════════════════
 async function leaveSession() {
   if (!_currentSession) return;
   if (_isGM) {
@@ -203,9 +203,9 @@ async function leaveSession() {
   exitSessionUI();
 }
 
-// ══════��════════════════════════════��═══════════
+// ═════════════════════════════════════════════════
 //  세션 캐릭터 저장/로드
-// ══════════��═════════════════���══════════════════
+// ══════════════════════════════════════════════════
 function sessionSaveNow() {
   if (!_currentSession || !currentUser) return;
   // GM이 파티 뷰(편집 대상 없음)이면 저장 불필요
@@ -230,10 +230,10 @@ function sessionSaveNow() {
   // 변경 없음 — write 스킵 (직전 저장과 동일하면 firestore 호출 안 함)
   var prevJson = (targetUid === currentUser.uid) ? _lastSavedData : (_isGM ? _gmLastSavedData : null);
   if (jsonData === prevJson) {
-    if (st) { st.textContent = '저장완료'; st.style.color = '#27ae60'; }
+    if (st) { st.textContent = '저장완료'; st.style.color = 'var(--green)'; }
     return;
   }
-  if (st) { st.textContent = '저장 중...'; st.style.color = '#f5c518'; }
+  if (st) { st.textContent = '저장 중...'; st.style.color = 'var(--accent)'; }
   // 저장 데이터 기록 — onSnapshot에서 자기 반응 스킵용
   if (targetUid === currentUser.uid) _lastSavedData = jsonData;
   else if (_isGM) _gmLastSavedData = jsonData;
@@ -245,7 +245,7 @@ function sessionSaveNow() {
       sessionId: _currentSession.id,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     }).then(() => {
-      if (st) { st.textContent = '저장완료'; st.style.color = '#27ae60'; }
+      if (st) { st.textContent = '저장완료'; st.style.color = 'var(--green)'; }
       _saveRetryCount = 0;
       if (_saveRetryTimer) { clearTimeout(_saveRetryTimer); _saveRetryTimer = null; }
     }).catch((e) => {
@@ -253,11 +253,11 @@ function sessionSaveNow() {
       _saveRetryCount++;
       if (_saveRetryCount <= _SAVE_RETRY_MAX) {
         var delay = _SAVE_RETRY_DELAYS[Math.min(_saveRetryCount - 1, _SAVE_RETRY_DELAYS.length - 1)];
-        if (st) { st.textContent = '저장 실패 — ' + Math.round(delay/1000) + '초 후 재시도 (' + _saveRetryCount + '/' + _SAVE_RETRY_MAX + ')'; st.style.color = '#e74c3c'; }
+        if (st) { st.textContent = '저장 실패 — ' + Math.round(delay/1000) + '초 후 재시도 (' + _saveRetryCount + '/' + _SAVE_RETRY_MAX + ')'; st.style.color = 'var(--red-light)'; }
         if (_saveRetryTimer) clearTimeout(_saveRetryTimer);
         _saveRetryTimer = setTimeout(function() { _saveRetryTimer = null; sessionSaveNow(); }, delay);
       } else {
-        if (st) { st.textContent = '저장 실패 — 네트워크를 확인하세요'; st.style.color = '#e74c3c'; }
+        if (st) { st.textContent = '저장 실패 — 네트워크를 확인하세요'; st.style.color = 'var(--red-light)'; }
         _saveRetryCount = 0;
       }
     });
@@ -265,11 +265,11 @@ function sessionSaveNow() {
 
 function loadSessionCharacter(uid) {
   const st = document.getElementById('save-status');
-  if (st) { st.textContent = '불러오는 중...'; st.style.color = '#f5c518'; }
+  if (st) { st.textContent = '불러오는 중...'; st.style.color = 'var(--accent)'; }
   // 세션 players map에서 해당 플레이어의 슬롯 확인
   const slotId = _currentSession.players[uid]?.slotId;
   if (!slotId) {
-    if (st) { st.textContent = '슬롯 미지정'; st.style.color = '#888'; }
+    if (st) { st.textContent = '슬롯 미지정'; st.style.color = 'var(--text2)'; }
     _cloudResolved = true; _checkReady();
     return;
   }
@@ -282,14 +282,14 @@ function loadSessionCharacter(uid) {
         _rebuildAllUI();
         _cloudResolved = true; _checkReady();
         recalcAll();
-        if (st) { st.textContent = '✓ 불러오기 완료'; st.style.color = '#27ae60'; }
+        if (st) { st.textContent = '✓ 불러오기 완료'; st.style.color = 'var(--green)'; }
       } else {
-        if (st) { st.textContent = '빈 캐릭터'; st.style.color = '#888'; }
+        if (st) { st.textContent = '빈 캐릭터'; st.style.color = 'var(--text2)'; }
         _cloudResolved = true; _checkReady();
       }
     }).catch(e => {
       console.error('[loadSessionChar]', e);
-      if (st) { st.textContent = '로드 실패'; st.style.color = '#e74c3c'; }
+      if (st) { st.textContent = '로드 실패'; st.style.color = 'var(--red-light)'; }
       _cloudResolved = true; _checkReady();
     });
 }
@@ -356,9 +356,9 @@ async function selectSlotForSession(slotId) {
 
 
 
-// ════════════════��═════════════════��════════════
+// ═════════════════════════════════════════════════
 //  onSnapshot 리스너
-// ══════════��═════════════════════��══════════════
+// ═════════════════════════════════════════════════
 function startSessionListeners() {
   if (!_currentSession) return;
 
@@ -512,7 +512,7 @@ function stopSessionListeners() {
 
 // ═══════════════════════════════════════════════
 //  UI: 세션 모드 전환
-// ═════════════════════════════════════════��═════
+// ════════════════════════════════════════════════
 function enterSessionUI() {
   document.body.classList.add('in-session');   // 지도 탭 노출 (세션 전용)
   if (_isGM) {
@@ -584,19 +584,19 @@ function updateSessionButtons() {
   // (no-op — 버튼은 모드 선택으로 이동됨)
 }
 
-// ════��═══════════════════════════════════���══════
+// ══════════════════════════════════════════════════
 //  UI: 세션 모달
-// ══════════════════════════════��════════════════
+// ════════════════════════════════════════════════
 function openCreateSessionModal() {
   if (!currentUser) { alert('로그인이 필요합니다.'); return; }
   const overlay = _getOrCreateSessionOverlay();
   overlay.innerHTML =
     '<div class="session-modal">' +
-      '<h3 style="color:#f5c518;margin:0 0 16px;">새 세션 만���기</h3>' +
+      '<h3 style="color:#f5c518;margin:0 0 16px;">새 세션 만들기</h3>' +
       '<input id="session-name-input" type="text" placeholder="세션 이름 (예: 멸망의 시대)" maxlength="30" style="width:100%;padding:8px;background:#222;border:1px solid #555;color:#fff;border-radius:4px;font-size:14px;box-sizing:border-box;">' +
       '<div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">' +
-        '<button onclick="closeSessionModal()" style="background:#555;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;">취소</button>' +
-        '<button onclick="createSession(document.getElementById(\'session-name-input\').value)" style="background:#f5c518;color:#000;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-weight:700;">만들��</button>' +
+        '<button class="btn btn-ghost" onclick="closeSessionModal()">취소</button>' +
+        '<button class="btn btn-confirm" onclick="createSession(document.getElementById(\'session-name-input\').value)">만들기</button>' +
       '</div>' +
     '</div>';
   overlay.classList.remove('hidden');
@@ -611,8 +611,8 @@ function openJoinSessionModal() {
       '<h3 style="color:#3498db;margin:0 0 16px;">세션 참가</h3>' +
       '<input id="session-code-input" type="text" placeholder="참가 코드 (6자리)" maxlength="6" style="width:100%;padding:8px;background:#222;border:1px solid #555;color:#fff;border-radius:4px;font-size:18px;text-align:center;letter-spacing:4px;font-family:monospace;box-sizing:border-box;text-transform:uppercase;">' +
       '<div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">' +
-        '<button onclick="closeSessionModal()" style="background:#555;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;">취소</button>' +
-        '<button onclick="joinSession(document.getElementById(\'session-code-input\').value)" style="background:#3498db;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-weight:700;">참가</button>' +
+        '<button class="btn btn-ghost" onclick="closeSessionModal()">취소</button>' +
+        '<button class="btn btn-green" onclick="joinSession(document.getElementById(\'session-code-input\').value)">참가</button>' +
       '</div>' +
     '</div>';
   overlay.classList.remove('hidden');
@@ -628,7 +628,7 @@ function openCharacterChoiceModal() {
       '<p style="color:#aaa;font-size:12px;margin:0 0 12px;">개인 슬롯의 캐릭터를 그대로 세션에서 사용합니다.</p>' +
       '<div id="session-slot-list" style="display:flex;flex-direction:column;gap:4px;">로딩 중...</div>' +
       '<div style="border-top:1px solid #444;margin:12px 0 8px;"></div>' +
-      '<button onclick="closeSessionModal();_sessionMode=false;_currentSession=null;clearSessionStorage();" style="background:#555;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;width:100%;">취소</button>' +
+      '<button class="btn btn-ghost" onclick="closeSessionModal();_sessionMode=false;_currentSession=null;clearSessionStorage();" style="width:100%;justify-content:center;">취소</button>' +
     '</div>';
   overlay.innerHTML = html;
   overlay.classList.remove('hidden');
@@ -688,9 +688,9 @@ function openGMSessionChoiceModal() {
   overlay.classList.remove('hidden');
 }
 
-// ══���════════════════════════════���═══════════════
+// ═══════════════════════════════════════════════════
 //  autoSaveNow 오버라이드
-// ═══════════════��═══════════════════════════════
+// ════════════════════════════════════════════════
 const _origAutoSaveNow = autoSaveNow;
 autoSaveNow = function() {
   // GM이 플레이어 편집 중이면 세션 저장 경로
@@ -990,15 +990,15 @@ function _showGMSyncStatus(status) {
   }
   if (status === 'pending') {
     el.textContent = '⏳ 동기화 대기...';
-    el.style.color = '#f5c518';
+    el.style.color = 'var(--accent)';
   } else if (status === 'error') {
     el.textContent = '⚠ 동기화 오류';
-    el.style.color = '#e74c3c';
+    el.style.color = 'var(--red-light)';
   } else if (status === 'done') {
     var now = new Date();
     var time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0') + ':' + now.getSeconds().toString().padStart(2,'0');
     el.textContent = '✓ ' + time + ' 동기화됨';
-    el.style.color = '#27ae60';
+    el.style.color = 'var(--green)';
   }
 }
 

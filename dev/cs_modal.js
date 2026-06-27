@@ -3089,11 +3089,11 @@ function renderOptions(data) {
     let actionsHtml = '';
     if (item.actions) {
       const a = item.actions;
-      if (a.includes('1행동') || a === '1') actionsHtml = '◆';
-      else if (a.includes('2행동') || a === '2') actionsHtml = '◆◆';
-      else if (a.includes('3행동') || a === '3') actionsHtml = '◆◆◆';
-      else if (a.includes('반응')) actionsHtml = '↩';
-      else if (a.includes('자유')) actionsHtml = '⟡';
+      if (a.includes('1행동') || a === '1') actionsHtml = '<span class="action-glyph">1</span>';
+      else if (a.includes('2행동') || a === '2') actionsHtml = '<span class="action-glyph">2</span>';
+      else if (a.includes('3행동') || a === '3') actionsHtml = '<span class="action-glyph">3</span>';
+      else if (a.includes('반응')) actionsHtml = '<span class="action-glyph">R</span>';
+      else if (a.includes('자유')) actionsHtml = '<span class="action-glyph">F</span>';
       else actionsHtml = a;
     }
 
@@ -3501,7 +3501,7 @@ function _buildClassProgressionTable(cls) {
     const plan = gt[lv] || {};
     const parts = [];
 
-    // 클래��� 특성
+    // 클래스 특성
     const feats = cfn.filter(f => f.lv === lv);
     feats.forEach(f => parts.push(f.name_ko));
 
@@ -3699,7 +3699,7 @@ function _refreshClassFeaturesPreview() {
   const featsByLv = {};
   allFeats.forEach(f => { (featsByLv[f.lv] = featsByLv[f.lv] || []).push(f); });
 
-  // 발전 �� 갱신 (레벨 변경 시 미래 레벨 시각 구분 반영)
+  // 발전 표 갱신 (레벨 변경 시 미래 레벨 시각 구분 반영)
   const progTable = document.getElementById('class-progression-table');
   if (progTable && cls) {
     progTable.outerHTML = _buildClassProgressionTable(cls);
@@ -4140,7 +4140,7 @@ function _buildAncestryChoicesUI(anc) {
   const bonusBase = anc.bonusLangs ?? 0;
   _modalChoices = { type: 'ancestry', fixedLangs, bonusBase, bonusLangs: Array(bonusBase).fill('') };
 
-  // ── 이전 선택값 복원: state.languages에서 고정 언���를 제외한 나머지가 보너스 언어 ──
+  // ── 이전 선택값 복원: state.languages에서 고정 언어를 제외한 나머지가 보너스 언어 ──
   if (state.selectedAncestry?.id === anc.id && state.languages?.length) {
     const fixedSet = new Set(fixedLangs);
     const savedBonus = state.languages.filter(l => !fixedSet.has(l));
@@ -5116,7 +5116,7 @@ function setActionFilter(f, btn) {
   renderActions();
 }
 
-const COST_ICON = {'1':'◆','2':'◆◆','3':'◆◆◆','reaction':'↺','free':'◇','passive':'—','varies':'✦','10min':'10분','1min':'1분','1h':'1시간','1day':'1일','8h':'8시간'};
+const COST_ICON = {'1':'<span class="action-glyph">1</span>','2':'<span class="action-glyph">2</span>','3':'<span class="action-glyph">3</span>','reaction':'<span class="action-glyph">R</span>','free':'<span class="action-glyph">F</span>','passive':'—','varies':'✦','10min':'10분','1min':'1분','1h':'1시간','1day':'1일','8h':'8시간'};
 
 function getActionCostIcon(cost) {
   return COST_ICON[cost] || cost;

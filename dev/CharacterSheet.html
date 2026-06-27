@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=576"></script>
-<script src="feat_db.js?v=576"></script>
-<script src="SPELL_DB.js?v=576"></script>
-<script src="class_features_db.js?v=576"></script>
+<script src="equipment_db.js?v=577"></script>
+<script src="feat_db.js?v=577"></script>
+<script src="SPELL_DB.js?v=577"></script>
+<script src="class_features_db.js?v=577"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -892,6 +892,9 @@ body.map-open{overflow:hidden;}
 .action-card:hover{border-color:var(--border2);}
 .action-card-head{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
 .action-cost{font-size:13px;color:var(--accent);flex-shrink:0;min-width:20px;}
+/* ── pf2e 행동 심볼 폰트 (시스템 내장 리소스) — 1/2/3=행동, F=자유, R=반응 ── */
+@font-face{font-family:"Pathfinder2eActions";src:url("fonts/pathfinder-2e-actions.woff2") format("woff2");font-display:swap;}
+.action-glyph{font-family:"Pathfinder2eActions",sans-serif;font-weight:normal;font-style:normal;letter-spacing:0;}
 .action-name-ko{font-size:13px;font-weight:700;color:var(--text);flex:1;}
 .action-name-en{font-size:10px;color:var(--text2);}
 .action-traits{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px;}
@@ -1401,7 +1404,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 <div id="auth-bar">
   <div style="display:flex;align-items:center;gap:8px;">
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;">v576</span>
+    <span style="font-size:9px;color:#555;">v577</span>
   </div>
   <div id="auth-area">
     <button class="btn btn-google" onclick="googleLogin()">Google 로그인</button>
@@ -1992,24 +1995,24 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=576"></script>
-<script src="cs_calc.js?v=576"></script>
+<script src="cs_data.js?v=577"></script>
+<script src="cs_calc.js?v=577"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=576"></script>
-<script src="cs_re_engine.js?v=576"></script>
-<script src="cs_pf2e_stats.js?v=576"></script>
-<script src="cs_pf2e_equip.js?v=576"></script>
-<script src="cs_pf2e_actor.js?v=576"></script>
-<script src="cs_ui.js?v=576"></script>
-<script src="cs_modal.js?v=576"></script>
-<script src="cs_feat_effects.js?v=576"></script>
-<script src="cs_save.js?v=576"></script>
-<script src="cs_session.js?v=576"></script>
-<script src="cs_dice.js?v=576"></script>
-<script src="cs_map.js?v=576"></script>
+<script src="cs_pf2e.js?v=577"></script>
+<script src="cs_re_engine.js?v=577"></script>
+<script src="cs_pf2e_stats.js?v=577"></script>
+<script src="cs_pf2e_equip.js?v=577"></script>
+<script src="cs_pf2e_actor.js?v=577"></script>
+<script src="cs_ui.js?v=577"></script>
+<script src="cs_modal.js?v=577"></script>
+<script src="cs_feat_effects.js?v=577"></script>
+<script src="cs_save.js?v=577"></script>
+<script src="cs_session.js?v=577"></script>
+<script src="cs_dice.js?v=577"></script>
+<script src="cs_map.js?v=577"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=576"></script>
-<script src="cs_i18n.js?v=576"></script>
+<script src="cs_locale.js?v=577"></script>
+<script src="cs_i18n.js?v=577"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -2098,7 +2101,7 @@ function loadFromCloud() {
   }
   var status = document.getElementById('save-status');
   status.textContent = '불러오는 중...';
-  status.style.color = '#f5c518';
+  status.style.color = 'var(--accent)';
   db.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot).get().then(function(doc) {
     if (doc.exists && doc.data().data) {
       var data = JSON.parse(doc.data().data);
@@ -2120,16 +2123,16 @@ function loadFromCloud() {
       _cloudResolved = true; _checkReady();
       recalcAll();
       status.textContent = '✓ 불러오기 완료';
-      status.style.color = '#27ae60';
+      status.style.color = 'var(--green)';
     } else {
       status.textContent = '이 슬롯은 비어있습니다.';
-      status.style.color = '#888';
+      status.style.color = 'var(--text2)';
       _cloudResolved = true; _checkReady();
       recalcAll();
     }
   }).catch(function(e) {
     status.textContent = '새 캐릭터';
-    status.style.color = '#888';
+    status.style.color = 'var(--text2)';
     console.warn('[loadFromCloud] empty or error:', e);
     _cloudResolved = true; _checkReady();
     recalcAll();
