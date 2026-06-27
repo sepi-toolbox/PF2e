@@ -173,6 +173,61 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;}
 #map-token-actions button:hover{color:var(--accent);}
 #map-token-actions #mta-del:hover{color:#e07070;border-color:#5a2a2a;}
+#map-token-actions .mta-hp{display:flex;align-items:center;font-size:12px;font-weight:700;color:#e0b35c;padding:0 4px;}
+#map-token-actions #mta-hp-amt{width:46px;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:5px 6px;font-size:12px;}
+#map-token-actions #mta-dmg{color:#e07070;border-color:#5a2a2a;}
+#map-token-actions #mta-dmg:hover{background:#5a2a2a;color:#fff;}
+#map-token-actions #mta-heal{color:#7fc97f;border-color:#2a5a2a;}
+#map-token-actions #mta-heal:hover{background:#2a5a2a;color:#fff;}
+
+/* ── 몬스터 연결 (토큰 편집기) ── */
+#map-npc-editor .ne-monster{align-items:flex-start;}
+.ne-monster .ml-wrap{position:relative;flex:1;}
+#ml-current{font-size:12px;color:#c9b896;margin-bottom:4px;}
+#ml-current #ml-clear{background:none;border:1px solid var(--border);color:#e07070;border-radius:4px;font-size:10px;padding:1px 5px;cursor:pointer;margin-left:4px;}
+#ml-search{width:100%;}
+.ml-results{position:absolute;left:0;right:0;top:100%;z-index:50;max-height:240px;overflow-y:auto;background:#1b1814;border:1px solid var(--border);border-radius:8px;margin-top:3px;box-shadow:0 8px 24px rgba(0,0,0,.5);}
+.ml-item{padding:6px 9px;cursor:pointer;font-size:12px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #2c2519;}
+.ml-item:last-child{border-bottom:none;}
+.ml-item:hover{background:#2c2519;}
+.ml-item b{color:var(--text);} .ml-item i{color:#9a8f7a;font-size:11px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ml-item .ml-lv{color:#e0b35c;font-size:10px;font-weight:700;}
+.ml-empty{padding:8px;color:#9a8f7a;font-size:12px;text-align:center;}
+/* ── 스탯 팝오버 ── */
+#ml-stat-overlay{position:fixed;inset:0;z-index:10010;display:none;align-items:flex-start;justify-content:center;background:rgba(0,0,0,.55);padding:24px 12px;overflow-y:auto;}
+#ml-stat-card{position:relative;max-width:760px;width:100%;margin:auto;}
+#ml-stat-close{position:absolute;top:-12px;right:-8px;z-index:2;width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:#221e18;color:var(--text);font-size:15px;cursor:pointer;}
+#ml-stat-close:hover{color:var(--accent);}
+/* ── 다이스 피드백 (cs_dice.js) ── */
+#dice-toast-container{position:fixed;top:12px;right:12px;z-index:99999;display:flex;flex-direction:column;gap:6px;pointer-events:none;max-height:60vh;overflow:hidden;}
+.dice-toast{pointer-events:auto;min-width:180px;max-width:260px;background:#1e1e1e;border:1px solid #444;border-left:3px solid #3498db;border-radius:10px;padding:10px 14px;box-shadow:0 6px 24px rgba(0,0,0,.5);transform:translateX(120%);opacity:0;transition:all .35s cubic-bezier(.22,1,.36,1);}
+.dice-toast.show{transform:translateX(0);opacity:1;}
+.dice-toast.hide{transform:translateX(120%);opacity:0;}
+.dice-toast.nat20{border-color:#f1c40f;box-shadow:0 0 20px rgba(241,196,15,.4);}
+.dice-toast.nat1{border-color:#e74c3c;box-shadow:0 0 20px rgba(231,76,60,.3);}
+.dice-toast-header{display:flex;justify-content:space-between;align-items:center;}
+.dice-toast-label{font-size:11px;color:#999;font-weight:600;}
+.dice-toast-total{font-size:22px;font-weight:900;color:#3498db;}
+.dice-toast.nat20 .dice-toast-total{color:#f1c40f;}
+.dice-toast.nat1 .dice-toast-total{color:#e74c3c;}
+.dice-toast-detail{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;}
+.dice-result-chip{display:inline-block;padding:1px 5px;border-radius:4px;font-size:10px;font-weight:700;color:#fff;}
+.dice-result-chip.dice-max{box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);}
+.dice-result-chip.dice-min{opacity:.6;}
+#dice-anim-overlay{position:fixed;inset:0;z-index:10020;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .25s;}
+#dice-anim-overlay.active{opacity:1;pointer-events:auto;}
+#dice-anim-overlay.hidden{opacity:0;pointer-events:none;}
+.dice-3d{width:64px;height:64px;position:relative;animation:diceRoll .8s cubic-bezier(.17,.67,.32,1.2) both;perspective:400px;}
+.dice-3d-face{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff;background:var(--color,#9b59b6);border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.4),inset 0 2px 4px rgba(255,255,255,.2);animation:diceSpin .7s cubic-bezier(.17,.67,.32,1.2) both;animation-delay:inherit;}
+.dice-3d-label{position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--color,#999);opacity:.7;}
+@keyframes diceRoll{0%{transform:translateY(-80px) scale(0.3);opacity:0}40%{transform:translateY(10px) scale(1.1);opacity:1}60%{transform:translateY(-5px) scale(0.98)}100%{transform:translateY(0) scale(1)}}
+@keyframes diceSpin{0%{transform:rotateX(720deg) rotateZ(360deg)}100%{transform:rotateX(0) rotateZ(0)}}
+.dice-anim-total{position:absolute;bottom:24%;left:50%;transform:translateX(-50%);text-align:center;animation:totalPop .4s .6s both;}
+.dice-anim-total-num{display:block;font-size:48px;font-weight:900;color:var(--accent,#d4a04a);text-shadow:0 2px 16px rgba(0,0,0,.6);}
+.dice-anim-total.nat20 .dice-anim-total-num{color:#f1c40f;text-shadow:0 0 24px rgba(241,196,15,.6);}
+.dice-anim-total.nat1 .dice-anim-total-num{color:#e74c3c;}
+.dice-anim-total-label{font-size:12px;color:var(--text2,#999);}
+@keyframes totalPop{0%{transform:translateX(-50%) scale(0);opacity:0}60%{transform:translateX(-50%) scale(1.15)}100%{transform:translateX(-50%) scale(1);opacity:1}}
 
 </style>
 </head>
@@ -239,6 +294,13 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
     <div class="ne-title" id="np-title">토큰 편집</div>
     <div class="ne-row"><label>이름</label><input id="np-name" type="text" onchange="MapView.npcApply()"></div>
     <div class="ne-row"><label>크기</label><select id="np-size" onchange="MapView.npcApply()"></select></div>
+    <div class="ne-row ne-monster"><label>몬스터</label>
+      <div class="ml-wrap">
+        <div id="ml-current" class="ml-current"><span id="ml-current-text">연결 안 됨</span> <button type="button" id="ml-clear" onclick="MonsterLink.clearLink()" style="display:none;">해제</button></div>
+        <input id="ml-search" type="text" placeholder="몬스터 검색 (한/영)…" autocomplete="off" oninput="MonsterLink.onSearch(this.value)" onfocus="MonsterLink.ensure()">
+        <div id="ml-results" class="ml-results" style="display:none;"></div>
+      </div>
+    </div>
     <div class="ne-row"><label class="ne-check"><input id="np-hidden" type="checkbox" onchange="MapView.npcApply()"> 숨김 (플레이어에게 안 보임)</label></div>
     <div class="ne-row ne-actions">
       <button onclick="MapView.npcPickPortrait()">🖼 이미지</button>
@@ -250,6 +312,11 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 
   <!-- 배치된 토큰 탭 → 숨기기/제거 빠른 버튼 -->
   <div id="map-token-actions" style="display:none;">
+    <span id="mta-hp" class="mta-hp" style="display:none;"></span>
+    <input id="mta-hp-amt" type="number" min="0" inputmode="numeric" placeholder="값" style="display:none;" onkeydown="if(event.key==='Enter')MapView.tokenActionDamage()">
+    <button id="mta-dmg" style="display:none;" onclick="MapView.tokenActionDamage()">−피해</button>
+    <button id="mta-heal" style="display:none;" onclick="MapView.tokenActionHeal()">＋회복</button>
+    <button id="mta-stat" style="display:none;" onclick="MapView.tokenActionStat()">📋 스탯</button>
     <button id="mta-hide" onclick="MapView.tokenActionHide()">🙈 숨기기</button>
     <button id="mta-del" onclick="MapView.tokenActionRemove()">🗑 제거</button>
   </div>
@@ -267,6 +334,10 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
+<script src="cs_dice.js?v=565"></script>
+<script src="cs_monster.js?v=565"></script>
+<script src="cs_locale.js?v=565"></script>
+<script src="cs_i18n.js?v=565"></script>
 <script src="cs_map.js?v=565"></script>
 <script>
 // ── 지도 전용 글루 (캐릭터 시트와 독립) ──
@@ -303,6 +374,98 @@ auth.onAuthStateChanged(async function(user) {
   if (typeof MapSync !== 'undefined') MapSync.start(_sessionId, { isGM: isGM, uid: user.uid });
   if (typeof MapView !== 'undefined') { MapView.init(); MapView.show(); }
 });
+</script>
+
+<!-- ── 몬스터 연결 글루: 토큰 ↔ MonsterDB (지연 로드 26MB, 검색·스탯 팝오버·굴림) ── -->
+<script>
+window.MonsterLink = (function () {
+  'use strict';
+  let _loaded = false, _loading = null, _sel = null;
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+  function ensure() {                              // 첫 사용 시에만 26MB 로드(지도 진입은 가볍게 유지)
+    if (_loaded) return Promise.resolve();
+    if (_loading) return _loading;
+    if (typeof MonsterDB === 'undefined') return Promise.reject(new Error('MonsterDB 모듈 없음'));
+    MonsterDB.injectStyles();
+    _loading = MonsterDB.load({ dir: 'data/creatures/' }).then(() => { _loaded = true; })
+      .catch(e => { _loading = null; throw e; });
+    return _loading;
+  }
+
+  function _setLabel(text, linked) {
+    const t = document.getElementById('ml-current-text'); if (t) t.textContent = text;
+    const clr = document.getElementById('ml-clear'); if (clr) clr.style.display = linked ? '' : 'none';
+  }
+  function onEditOpen(id, t) {                     // 편집기 열릴 때 cs_map.js가 호출
+    _sel = { monsterId: (t && t.monsterId) || null, monsterName: (t && t.monsterName) || null, hpMax: (t && t.hpMax) || 0 };
+    _setLabel(_sel.monsterName ? ('🔗 ' + _sel.monsterName + (_sel.hpMax ? ' (HP ' + _sel.hpMax + ')' : '')) : '연결 안 됨', !!_sel.monsterId);
+    const s = document.getElementById('ml-search'); if (s) s.value = '';
+    const r = document.getElementById('ml-results'); if (r) { r.style.display = 'none'; r.innerHTML = ''; }
+  }
+  function getSelection() { return _sel; }         // npcApply가 저장 직전에 호출
+
+  function onSearch(q) {
+    const r = document.getElementById('ml-results'); if (!r) return;
+    q = (q || '').trim();
+    if (!q) { r.style.display = 'none'; r.innerHTML = ''; return; }
+    r.innerHTML = '<div class="ml-empty">불러오는 중…</div>'; r.style.display = 'block';
+    ensure().then(() => {
+      const hits = MonsterDB.search(q).slice(0, 40);
+      if (!hits.length) { r.innerHTML = '<div class="ml-empty">결과 없음</div>'; return; }
+      r.innerHTML = hits.map(c => {
+        const n = MonsterDB.name(c), lv = MonsterDB.level(c);
+        return '<div class="ml-item" data-id="' + esc(c.id) + '" data-nm="' + esc(n.ko) +
+               '"><b>' + esc(n.ko) + '</b> <i>' + esc(n.en) + '</i><span class="ml-lv">Lv ' + lv + '</span></div>';
+      }).join('');
+      r.querySelectorAll('.ml-item').forEach(el => el.onclick = () => pick(el.getAttribute('data-id'), el.getAttribute('data-nm')));
+    }).catch(e => { r.innerHTML = '<div class="ml-empty">로드 실패: ' + esc(e.message) + '</div>'; });
+  }
+
+  function pick(id, nm) {
+    let hpMax = 0;
+    try {                                            // 연결 몬스터 기준 크기·HP 자동 + 이름 비어있으면 채움
+      const c = MonsterDB.getCreature(id);
+      if (c) {
+        const SIZECAT = { tiny:'tiny', sm:'small', med:'medium', lg:'large', huge:'huge', grg:'gargantuan' };
+        const tr = MonsterDB.traits(c), sizeSel = document.getElementById('np-size');
+        if (sizeSel && tr.size && SIZECAT[tr.size]) sizeSel.value = SIZECAT[tr.size];
+        const nameInp = document.getElementById('np-name');
+        if (nameInp && !nameInp.value.trim()) nameInp.value = nm;
+        hpMax = (MonsterDB.hp(c) || {}).max || 0;
+      }
+    } catch (e) {}
+    _sel = { monsterId: id, monsterName: nm, hpMax: hpMax };
+    const r = document.getElementById('ml-results'); if (r) { r.style.display = 'none'; r.innerHTML = ''; }
+    const s = document.getElementById('ml-search'); if (s) s.value = '';
+    _setLabel('🔗 ' + nm + (hpMax ? ' (HP ' + hpMax + ')' : ''), true);
+    if (typeof MapView !== 'undefined' && MapView.npcApply) MapView.npcApply();   // monsterId+크기+이름+hpMax 저장
+  }
+
+  function clearLink() {
+    _sel = { monsterId: null, monsterName: null, hpMax: 0 };
+    _setLabel('연결 안 됨', false);
+    if (typeof MapView !== 'undefined' && MapView.npcApply) MapView.npcApply();
+  }
+
+  function showStat(id) {                           // 배치 토큰 📋 → 스탯블록 팝오버 + 굴림
+    ensure().then(() => {
+      let ov = document.getElementById('ml-stat-overlay');
+      if (!ov) {
+        ov = document.createElement('div'); ov.id = 'ml-stat-overlay';
+        ov.innerHTML = '<div id="ml-stat-card"><button id="ml-stat-close" title="닫기">✕</button><div id="ml-stat-body"></div></div>';
+        document.body.appendChild(ov);
+        ov.addEventListener('click', e => { if (e.target === ov) ov.style.display = 'none'; });
+        ov.querySelector('#ml-stat-close').onclick = () => ov.style.display = 'none';
+        MonsterDB.bindRolls(ov.querySelector('#ml-stat-body'));      // 위임 바인드 1회(재렌더 안전)
+      }
+      ov.querySelector('#ml-stat-body').innerHTML = MonsterDB.renderStatBlock(id);
+      ov.style.display = 'flex';
+    }).catch(e => alert('몬스터 데이터 로드 실패: ' + e.message));
+  }
+
+  return { ensure, onEditOpen, getSelection, onSearch, pick, clearLink, showStat };
+})();
 </script>
 </body>
 </html>

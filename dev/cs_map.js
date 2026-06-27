@@ -248,6 +248,10 @@ var MapSync = (function() {
       npc:   !!fields.npc,
       sizeCat: fields.sizeCat || null,
       hidden: !!fields.hidden,
+      monsterId:   fields.monsterId   || null,    // MonsterDB 연결(스탯블록/굴림)
+      monsterName: fields.monsterName || null,
+      hpMax: fields.hpMax || 0,                    // 0이면 HP 추적 안 함
+      hp:    (fields.hp != null ? fields.hp : (fields.hpMax || 0)),
       updatedAt: _ts(), updatedBy: _uid
     }).then(function() { return ref.id; });
   }
@@ -333,7 +337,9 @@ var MapSync = (function() {
       x: fields.x || 0, y: fields.y || 0,
       img: fields.img || null, color: fields.color || '#b03030',
       size: fields.size || 1, sizeCat: fields.sizeCat || 'medium',
-      hidden: !!fields.hidden
+      hidden: !!fields.hidden,
+      monsterId: fields.monsterId || null, monsterName: fields.monsterName || null,
+      hpMax: fields.hpMax || 0, hp: (fields.hp != null ? fields.hp : (fields.hpMax || 0))
     });
   }
 
@@ -1049,6 +1055,15 @@ var MapView = (function() {
     if (t.hidden) _ctx.setLineDash([4, 3]);
     _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2); _ctx.stroke();
     _ctx.restore();
+    if (t.hpMax > 0 && _effGM()) {                      // HP 바 (GM 뷰, 몬스터 연결 토큰)
+      const cur = (t.hp != null ? t.hp : t.hpMax), ratio = Math.max(0, Math.min(1, cur / t.hpMax));
+      const bw = Math.max(24, r * 1.6), bh = 5, bx = sx - bw / 2, by = sy - r - 9;
+      _ctx.save();
+      _ctx.fillStyle = 'rgba(0,0,0,0.7)'; _ctx.fillRect(bx - 1, by - 1, bw + 2, bh + 2);
+      _ctx.fillStyle = ratio > 0.5 ? '#4caf50' : ratio > 0.25 ? '#f1c40f' : '#e74c3c';
+      _ctx.fillRect(bx, by, bw * ratio, bh);
+      _ctx.restore();
+    }
     if (t.name && r >= 12) {                            // 이름표
       _ctx.save();
       _ctx.font = '11px sans-serif'; _ctx.textAlign = 'center'; _ctx.textBaseline = 'top';
@@ -1507,6 +1522,7 @@ var MapView = (function() {
     if (e.name)   e.name.value = t.name || '';
     if (e.size)   e.size.value = t.sizeCat || 'medium';
     if (e.hidden) e.hidden.checked = !!t.hidden;
+    if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.onEditOpen(id, t);  // 몬스터 연결 UI 동기화
     e.box.style.display = 'block';
   }
   // ＋토큰 추가: 새 템플릿 생성 후 편집기 열기
@@ -1525,6 +1541,10 @@ var MapView = (function() {
       size: _cellsForCat(cat), sizeCat: cat,
       hidden: e.hidden ? !!e.hidden.checked : false
     };
+    if (typeof window !== 'undefined' && window.MonsterLink && window.MonsterLink.getSelection) {
+      const lk = window.MonsterLink.getSelection();      // 글루가 보유한 현재 편집 대상의 몬스터 연결
+      if (lk) { fields.monsterId = lk.monsterId || null; fields.monsterName = lk.monsterName || null; fields.hpMax = lk.hpMax || 0; }
+    }
     const p = (_editKind === 'tpl') ? MapSync.updateTemplate(_npcEditId, fields) : MapSync.upsertToken(_npcEditId, fields);
     p.catch(function(err) { console.warn('[npcApply]', err); });
     _markDirty();
@@ -1572,6 +1592,12 @@ var MapView = (function() {
     else { box.style.top = Math.round(syC - r) + 'px'; box.style.transform = 'translate(-50%, calc(-100% - 8px))'; }
     const hb = document.getElementById('mta-hide');
     if (hb) hb.textContent = t.hidden ? '👁 보이기' : '🙈 숨기기';
+    const stb = document.getElementById('mta-stat');
+    if (stb) stb.style.display = t.monsterId ? '' : 'none';   // 몬스터 연결된 토큰만 스탯 버튼
+    const hasHp = t.hpMax > 0;                                // HP 추적 토큰만 피해/회복
+    const hpEl = document.getElementById('mta-hp');
+    if (hpEl) { hpEl.style.display = hasHp ? '' : 'none'; if (hasHp) hpEl.textContent = 'HP ' + (t.hp != null ? t.hp : t.hpMax) + '/' + t.hpMax; }
+    ['mta-hp-amt', 'mta-dmg', 'mta-heal'].forEach(function (id) { const el = document.getElementById(id); if (el) el.style.display = hasHp ? '' : 'none'; });
     box.style.display = 'flex';
   }
   function _hideTokenActions() {
@@ -1595,6 +1621,27 @@ var MapView = (function() {
     _hideTokenActions();
     _markDirty();
   }
+  function tokenActionStat() {
+    if (!_actionTokenId || typeof MapSync === 'undefined') return;
+    const t = MapSync.getToken(_actionTokenId); if (!t) return;
+    if (!t.monsterId) { alert('이 토큰에 연결된 몬스터가 없습니다.'); return; }
+    if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.showStat(t.monsterId, t.monsterName || t.name);
+    else alert('몬스터 데이터 모듈이 로드되지 않았습니다.');
+  }
+  function _applyHp(sign) {                                   // 피해(-1)/회복(+1)
+    if (!_actionTokenId || typeof MapSync === 'undefined') return;
+    const t = MapSync.getToken(_actionTokenId); if (!t || !t.hpMax) return;
+    const amtEl = document.getElementById('mta-hp-amt');
+    const amt = Math.abs(parseInt(amtEl && amtEl.value, 10) || 0); if (!amt) return;
+    const cur = (t.hp != null ? t.hp : t.hpMax);
+    const next = Math.max(0, Math.min(t.hpMax, cur + sign * amt));
+    MapSync.upsertToken(_actionTokenId, { hp: next }).catch(function (e) { console.warn('[hp]', e); });
+    const hpEl = document.getElementById('mta-hp'); if (hpEl) hpEl.textContent = 'HP ' + next + '/' + t.hpMax;
+    if (amtEl) amtEl.value = '';
+    _markDirty();
+  }
+  function tokenActionDamage() { _applyHp(-1); }
+  function tokenActionHeal() { _applyHp(1); }
 
   // ── 토큰 팔레트(드로어) + 드래그앤드롭 배치 (GM) ──
   function _sizeKo(cat) { for (var i = 0; i < NPC_SIZES.length; i++) if (NPC_SIZES[i].cat === cat) return NPC_SIZES[i].ko.split(' ')[0]; return '중형'; }
@@ -1659,7 +1706,7 @@ var MapView = (function() {
     let x = w.x, y = w.y;
     if (_bg.loaded) { x = _clamp(x, 0, _bg.w); y = _clamp(y, 0, _bg.h); }
     if (_gridEnabled) { const s = _snapWorld(x, y, tpl.size); x = s.x; y = s.y; }
-    MapSync.createNpc({ name: tpl.name, img: tpl.img, color: tpl.color, size: tpl.size, sizeCat: tpl.sizeCat, hidden: tpl.hidden, x: Math.round(x), y: Math.round(y) })
+    MapSync.createNpc({ name: tpl.name, img: tpl.img, color: tpl.color, size: tpl.size, sizeCat: tpl.sizeCat, hidden: tpl.hidden, x: Math.round(x), y: Math.round(y), monsterId: tpl.monsterId, monsterName: tpl.monsterName, hpMax: tpl.hpMax })
       .catch(function(e) { console.warn('[placeTemplate]', e); });
   }
 
@@ -1745,7 +1792,8 @@ var MapView = (function() {
     // GM 토큰 편집기(드로어 템플릿) + 배치 토큰 빠른 액션
     npcApply: npcApply, npcDelete: npcDelete,
     npcClose: npcClose, npcPickPortrait: npcPickPortrait,
-    tokenActionHide: tokenActionHide, tokenActionRemove: tokenActionRemove,
+    tokenActionHide: tokenActionHide, tokenActionRemove: tokenActionRemove, tokenActionStat: tokenActionStat,
+    tokenActionDamage: tokenActionDamage, tokenActionHeal: tokenActionHeal,
     // GM 토큰 팔레트(드로어 + 드래그앤드롭)
     addTemplate: addTemplate, openTplEdit: openTplEdit,
     // 시트 플레이 뷰

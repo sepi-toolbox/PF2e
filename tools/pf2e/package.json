@@ -1,0 +1,1 @@
+{ "name": "pf2e-extract", "private": true, "type": "module", "dependencies": { "classic-level": "^1.4.1" } }

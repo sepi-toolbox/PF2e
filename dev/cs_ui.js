@@ -2635,8 +2635,13 @@ function switchEquipTab(tab) {
 
   const subContainer = document.getElementById('equip-subtabs');
   let cats = [];
-  if (tab === 'weapon') cats = [...new Set(WEAPON_DB.map(w => w.category))];
-  else if (tab === 'armor') cats = [...new Set(ARMOR_DB.map(a => a.category))];
+  if (_equipUseFvtt()) {
+    if (tab === 'weapon') cats = [...new Set(PF2eEquip.legacyList({type:'weapon'}).map(w => w.category))];
+    else if (tab === 'armor') cats = [...new Set(PF2eEquip.legacyList({type:'armor'}).map(a => a.category))];
+  } else {
+    if (tab === 'weapon') cats = [...new Set(WEAPON_DB.map(w => w.category))];
+    else if (tab === 'armor') cats = [...new Set(ARMOR_DB.map(a => a.category))];
+  }
 
   if (cats.length > 0) {
     subContainer.innerHTML = `<div class="equip-subtab active" onclick="switchEquipSubTab('')">전체</div>` +
@@ -2660,13 +2665,57 @@ function switchEquipSubTab(sub) {
   renderEquipBrowseItems();
 }
 
+// ── FVTT 장비 카탈로그 로드 게이트 (P3) ──
+let _equipDataReady = false;
+let _equipDataPromise = null;
+function _equipUseFvtt() { return typeof PF2eEquip !== 'undefined' && typeof PF2eData !== 'undefined' && _equipDataReady; }
+function _ensureEquipData() {
+  if (_equipDataReady) return Promise.resolve(true);
+  if (_equipDataPromise) return _equipDataPromise;
+  if (typeof PF2eData === 'undefined' || typeof PF2eEquip === 'undefined') return Promise.resolve(false);
+  _equipDataPromise = Promise.all([PF2eData.loadCategory('equipment'), PF2eEquip.init()])
+    .then(() => { _equipDataReady = true; return true; })
+    .catch(e => { console.warn('FVTT 장비 데이터 로드 실패 → 레거시 DB 사용', e); return false; });
+  return _equipDataPromise;
+}
+
 function renderEquipBrowseItems() {
+  // FVTT 카탈로그 사용 가능: 미로드면 로드 후 재렌더(로딩 표시), 로드됨이면 변환목록
+  if (typeof PF2eEquip !== 'undefined' && typeof PF2eData !== 'undefined') {
+    if (!_equipDataReady) {
+      const opts = document.getElementById('modal-options');
+      if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">장비 데이터 불러오는 중… (' + (typeof PF2eEquip.typeCounts === 'function' && _equipDataReady ? '' : '5,600여 종') + ')</div>';
+      _ensureEquipData().then(ok => { if (ok) renderEquipBrowseItems(); else _renderEquipBrowseLegacy(); });
+      return;
+    }
+    const q = (document.getElementById('modal-search')?.value || '').toLowerCase();
+    let items;
+    if (equipBrowseTab === 'weapon') items = PF2eEquip.legacyList({ type: 'weapon', search: q });
+    else if (equipBrowseTab === 'armor') items = PF2eEquip.legacyList({ type: 'armor', search: q });
+    else if (equipBrowseTab === 'shield') items = PF2eEquip.legacyList({ type: 'shield', search: q });
+    else { // gear: FVTT 일반 장비/소비품/보물/탄약/용기 + 레거시 룬(부착 시스템 보존)
+      items = PF2eEquip.legacyList({ search: q }).filter(i => i.damage === undefined && i.ac_bonus === undefined && i.hardness === undefined);
+      if (typeof RUNE_DB !== 'undefined') {
+        let runes = RUNE_DB;
+        if (q) runes = runes.filter(i => (i.name_ko || '').toLowerCase().includes(q) || (i.name_en || '').toLowerCase().includes(q));
+        items = [...runes, ...items];
+      }
+    }
+    if (equipBrowseSubTab) items = items.filter(i => i.category === equipBrowseSubTab);
+    renderOptions(items);
+    return;
+  }
+  _renderEquipBrowseLegacy();
+}
+
+// 레거시 DB 폴백 (PF2eEquip 미로드/로드실패 시)
+function _renderEquipBrowseLegacy() {
   let items = [];
   if (equipBrowseTab === 'weapon') items = [...WEAPON_DB];
   else if (equipBrowseTab === 'armor') items = [...ARMOR_DB];
   else if (equipBrowseTab === 'shield') items = [...SHIELD_DB];
   else if (equipBrowseTab === 'gear') items = [...GEAR_DB, ...(typeof RUNE_DB !== 'undefined' ? RUNE_DB : [])];
-  else items = [...GEAR_DB]; // fallback
+  else items = [...GEAR_DB];
 
   if (equipBrowseSubTab) items = items.filter(i => i.category === equipBrowseSubTab);
 

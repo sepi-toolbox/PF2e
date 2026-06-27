@@ -1,0 +1,13575 @@
+[
+ {
+  "ko": "-1 감소",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "— 능력 선택 (",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "— 마갑 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "— 상태이상",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "— 스킬",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "\" 삭제?",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "\" 지도를 삭제할까요? (배치한 토큰도 함께 삭제됩니다)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "(과적 -10)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "(과적 -5, 가혹한 근면)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "(과적 기준, 한계=근력+10)",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "(보스)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "(비일반)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "(스파이크)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "(이름 없음)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "(임시 숙련)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "(최대",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "[1행동]",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "[2행동]",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "[3행동]",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "[반응]",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "[배경:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "[자유 행동]",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "[행동] 나머지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "[MapSync] 토큰 소유권 없음:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "[MapSync] db/sessionId 없음 — 시작 취소",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "[MapSync] GM만 배경 설정 가능",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "[MapView] 배경 로드 실패",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "← 로비",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "+ 동료 추가",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "+ 사역마 추가",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "+ 새 세션",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "GMSheet.html"
+  ]
+ },
+ {
+  "ko": "＋ 새 지도",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "+ 신격 기술",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "+ 신격 지식",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "＋ 토큰 추가",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "＋ 토큰 추가로 만든 뒤 지도로 끌어다 놓으세요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "+1 증가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "+임시",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "~를 얻어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "⏳ 동기화 대기...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "▭ 사각",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "◯ 원",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "⚔ 무기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "⚠ 과적 (서투름 1, 속도 -10ft)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "⚠ 동기화 오류",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "⚠ 상태이상",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "⚠ 슬롯 초기화",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "⚡ 클래스 특성 Class Features",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "⛔ 소지 불가! (한계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "⛲ 신성 원천",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "✏️ 그리기",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "✏ 자유",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "✓ 불러오기 완료",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "✓ 있음 (다시 선택해 교체)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "✨ 신성 Holy — 선한 힘에 축성됨",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "⬛ 전체제거",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "⬜ 전체공개",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "☰ 지도",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "🌑 제거 ▸",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "🌟 다재다능한 유산 / 혼합 혈통",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "🌫 안개",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "🎭 토큰",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "🐱 사역마 추가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "🐾 동료 추가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "👁 보이기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "📋 주문 기억",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "📍 내 토큰 놓기",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "📖 주문 기억 — 일일 준비",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "📖 주문 배우기",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "📦 배낭 추가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "📦 장비",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "🔄 동기화됨",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "🔆 공개 ▸",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "🔥 불경 Unholy — 악한 힘에 축성됨",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "🖼 배경",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "🖼 이미지",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "🖼 이미지 선택",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html",
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "🗑 제거",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "🗑 초기화",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "🗺 지도",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "🧬 혈통 유산",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "🙈 숨기기",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html",
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "🛏 휴식",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "🛡 방어구",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "🛡 방패",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "🛡 방패 내리기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "🛡 방패 들기",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "½ 부스트",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "10단계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "10분",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "10피트 사거리 증분으로 투척할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "1단계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "1랭크",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "1레벨 혈통 재주 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "1분",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "1시간",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "1일",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "1턴 이상 소요되는 활동으로, 보통 탐험 모드에서만 사용 가능합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "1행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "1행동으로 인간형 변신. 손재주+말하기 능력 필요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "1행동으로 작은 식물로 변신. 식물 특성 필요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "20피트 사거리 증분으로 투척할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "20피트 이내 청각을 정밀 감각으로 사용할 수 있습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "25피트 등반 속도를 얻습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "25피트 비행 속도를 얻습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "2단계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "2배 이동 속도로 달려가 스트라이크를 가합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "2번째 공격 시 피해 주사위 1개 추가, 3번째 이후 2개 추가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "2행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "2d8+4 참격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "30피트 사거리 증분으로 투척할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "30피트 이내 대상 공격 시 -2 페널티.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "30피트 이내 부정확 후각 감각을 얻습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "3단계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "3행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "4개를 서로 다른 속성에 배분하세요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "4단계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "5단계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "5피트 굴착 속도를 얻어 작은 구멍을 팝니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "5피트 이동(반응 유발 안 함)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "6단계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "7단계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "8단계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "8시간",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "9단계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "가룬디어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "가벼운 부피의 도구를 운반. 인접 시 도구 사용 가능. 손재주 필요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "가속",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "가장 간단하고 가장 일반적인 행동 유형. 조우에서 자신의 턴에 원하는 순서로 3개의 단일 행동을 사용할 수 있습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "가족",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "가죽",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "가죽 마갑",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "가지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "감각",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "감각 노움",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "감각 능력 Senses",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "감정",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "감정 효과",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "감지(Sense Motive)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "갑옷",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "강공격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "강력",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "강력(Flourish). 턴당 1회만 사용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "강요",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "강인",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "강제 개방",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "강타",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "강혈 드워프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "강화 +1",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "강화 +2",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "강화 +3",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "같은 종의 동물과 대화 가능. 말하기 능력 + 6레벨 이상 필요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "개 선택 완료",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "개방",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "거대 (Huge)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "거리의 부랑아",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "거인",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "거짓말",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "건강",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "건강 기반 판정에 페널티. 최대 HP가 레벨 x 수치만큼 감소. 장기 휴식 시 1 감소.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "건강 내성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "건강 CON",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "건달",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "건달 라켓",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "검색...",
+  "kind": "html-attr",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "검투",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "검투사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "게임",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "격자 표시",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "결사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "결집의 찬가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "경갑",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "경계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "경계 학파",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "경도:",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "경비원",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "경험치 XP",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "계략",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "계열:",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "고급",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "고급 근접",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "고급 무기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "고급 원거리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "고대 엘프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "고대의 피에 호소",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "고대혈 드워프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "고블린",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "고블린 노래",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "고블린어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "고양 서곡",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "고양이",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "고정",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "고정 기술",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "고정 부스트와 다른 속성을 선택하세요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "고통",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "고통 정화",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "곡예",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "곡예 또는 운동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "곡예 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "곡예→스닉 어택 기회",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "곡예사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "곡예사 라켓: 곡예(Tumble Through) 성공 시 대상이 턴 끝까지 무방비 상태가 됩니다. 곡예에 훈련됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공간의 한 지점에서 다른 지점으로 즉시 이동시키는 효과. 이동 기반 반응을 보통 유발하지 않습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공격 숙련도 전문가화, 반격 타격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공격에 근력 수정치를 사용하고, 피해에 근력 수정치의 절반 추가 (양수일 때).",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공기(Air) 원소 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공룡 (드로메오사우루스)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공연",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공연 판정 시 사역마가 함께 연주하여 +1 상황 보너스 (+2 달인 이상).",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "공연 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공연돈 벌기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공연으로 적의 지각/의지에 -1 상태 페널티.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공예",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "공중 기동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공통어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공포",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공포의 감정을 유발하는 효과. 항상 정신(mental)과 감정(emotion) 특성도 가집니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공학",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공허",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공허 에너지 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "공허(Void) 에너지. 산 것에 피해, 언데드를 치유.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "과적",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "관통",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "광부",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "광업",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "교단",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "교리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "교묘",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "교사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "구속",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "구조체",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "군용",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "군용 근접",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "군용 무기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "군용 무기 1그룹 숙련",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "군용 무기 훈련",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "군용 무기/평갑 훈련",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "군용 원거리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "굴착",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "굴착 ⛏",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "귀머거리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "귀먹음",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "귀족",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "균류",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "균류 + 식물",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "균류 레쉬",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "균형 잡기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "균형 잡기, 덤블 통과기동 비행, 빠른 비집기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "그레이트액스",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "그림자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "그림자(Shadow) 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "극소형",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "극장",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "극지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "극지 엘프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "근력",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "근력 STR",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "근원 주문시전(캔트립), 결사 선택, 야생노래",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "근접 또는 원거리 무기로 공격 1회를 가합니다. 다중 공격 페널티가 적용됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "근접은 비워두세요",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "글레이브",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "금화 GP",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "기교",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기교, 비무장",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기마 (Ride)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기마 드레이크",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "기만",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기만 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기만/도둑질로 도움 시 자동 성공 (달인이면 대성공).",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "기만/위협→무방비",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기본",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "기본 피해 유형 대신 관통(P) 피해 유형을 선택할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기본 피해 유형 대신 둔기(B) 피해 유형을 선택할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기본 피해 유형 대신 참격(S) 피해 유형을 선택할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기본 행동",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기술",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "기술 숙련",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "기술 재주",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "기술 재주 Skill Feat",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "기술 재주 Skill Feats",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "기술 증가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "기술 증가 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "기술 행동",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "기술 Skills",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "기습 공격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기습 라운드 +2d6",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기절",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기초 교리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기타",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "기타 (untyped)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "기타 능력 Other Abilities",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "기형체",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "기회 공격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "길드",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "꼬리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "날개",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "내 세션",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "GMSheet.html"
+  ]
+ },
+ {
+  "ko": "내 토큰 놓기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "내성 유형 1개 선택. 해당 내성에 성공하면 피해를 받지 않음 (다른 효과는 적용).",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "냉기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "냉기 피해 또는 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "넓이뛰기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "넘어 지나가기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "넘어뜨리기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "넘어짐",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "넘어짐 상태를 해제하고 일어납니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "넣기 (행동 1)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "네크릴어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "네피림",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "네피림(Nephilim) 다목적 유산. 차원 혈손.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "노동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "노동자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "노래",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "노움",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "노움어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "농부",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "농업",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "높이뛰기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "놓기(Release)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "눈 고블린",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "눈멈",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "눈부심",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "늑대",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "능력치 부스트",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "능력치 부스트 배분",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "다른 생물이 당신의 행동을 완전히 지배함.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다른 생물이 행동을 지배. 반응 사용 불가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다목적 유산",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "다양한 뮤즈",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "다용도 B",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다용도 P",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다용도 S",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다음에 시전하는 주문의 형태를 변경.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다재다능한 공연",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다재다능한 유산",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "다재다능한 인간",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다중 공격 페널티 감소",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다중 공격 페널티가 -5/-10 대신 -4/-8로 감소.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다중 클래스 원형 재주.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다중 클래스 전용 재주.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다중 클래스 헌신 재주. 헌신 2개 이상 전에 원형 재주 2개 필요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "다중클래스",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "단궁",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "단순",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "단순 근접",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "단순 무기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "단순 무기 숙련 (미숙련→숙련)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "단순 원거리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "단조 드워프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "닫기",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "달인",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "달인 주문시전자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "달인의 에튀드",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "당신에 대해 중립적. 외교 보너스/페널티 없음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "당신에게 우호적. 요청에 응할 가능성 높음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "당신을 돕기를 원함. 도움 요청 성공 가능성 높음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "당신을 비우호적으로 봄. 외교 -1 상황 페널티.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "당신의 존재 자체를 모름.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "대담한 하플링",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "대지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "대지(Earth) 원소 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "대형",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "대형 (Large)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "더럽혀진 시체 (종교학, 신성)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "덤불",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "덩굴 뒤엉킴",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "덩굴 레쉬",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "데모닉어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "도구 운반",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "도달",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "도둑",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "도둑 라켓",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "도둑질",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "도둑질 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "도박꾼",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "도시",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "도움",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "도적 라켓: 은밀 공격 피해에 기교(Finesse) 무기 사용 시 민첩 수정치를 피해에 추가합니다. 도적질(Thievery)에 훈련됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "도주",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "도주중",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "독 치료",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "독 효과",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "독립",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "독수리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "독을 전달하거나 독 피해를 가하는 효과. 이 특성을 가진 아이템은 독성이 있으며 질환을 유발할 수 있습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "돌격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "돌과 하나",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "돌로 변함. 무의식이며 피해 면역. 돌 상태에서만 피해 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "돌로 변함. 행동/감각 불가. AC 9, 경도 8, HP 50.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "돕기(Aid)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "동굴 엘프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "동기화됨",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "동료",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "동료 이름:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "동료의 판정이나 AC에 +1~+3 보너스를 줍니다. 전 라운드에 준비해야 합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "동물",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "동물 결사에 가입하여 동물 친구(Animal Companion)를 얻습니다. 자연학에 훈련되며, 동물 친구가 전투와 탐험에서 함께합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "동물 동료 Animal Companions",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "동물 명령, 지식 회상마법 식별, 주문 학습",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "동물 소통사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "동물 지시",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "동물 친구 습득",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "동물 특성 대신 구조체 특성. 사망/질병/탈진/피로/치유/마비/독/메스꺼움/의식불명/공허 면역. 강인 능력 필요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "동물 특성 대신 균류 특성을 얻습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "동물 특성 대신 드래곤 특성을 얻습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "동물 특성 대신 식물 특성을 얻습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "동물 특성 대신 원소 특성. 공기/땅/불/금속/물/나무 중 선택. 출혈/마비/독/수면/해당 원소 면역.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "동물 훈련 (Train Animal)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "동시에 하나의 변신만 적용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "동족어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "동화 CP",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "두 행동을 소모하여 추가 피해 주사위 1개를 더한 스트라이크를 가합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "둔화",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "뒷세계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "드래곤",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "드래그해서 지도에 배치",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "드로마르",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "드로마르 (반오크)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "드로마르(Dromaar) 다목적 유산. 반오크.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "드로마에오사우루스",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "드로어",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "드루이드",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "드루이드 헌신",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "드루이드(Druid) 클래스의 능력을 나타내는 특성.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "드워프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "드워프어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "들고 있는 물체를 놓음",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "들기 (행동 1)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "등반",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "등반 🧗",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "등반, 억지로 열기, 붙잡기, 높이뛰기, 멀리뛰기, 재배치, 밀기, 수영, 넘어뜨리기무장 해제",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "떨구기 (자유 행동)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "또는",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "랭크",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "랭크 주문",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "레벨",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "레벨 1 (4개)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "레벨 10 (4개)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "레벨 15 (4개)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "레벨 20 (4개)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "레벨 5 (4개)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "레벨당 최대 HP가 2 증가합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "레쉬",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "레이피어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "레인저",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "레인저 헌신",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "레인저(Ranger) 클래스의 능력을 나타내는 특성.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "로그",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "로그 헌신",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "로그(Rogue) 클래스의 능력을 나타내는 특성.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "로그인 필요",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js"
+  ]
+ },
+ {
+  "ko": "로그인이 필요합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "로드 실패",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "로딩 중...",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "GMSheet.html"
+  ]
+ },
+ {
+  "ko": "롱소드",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "룬 마법의 후원자. 신비(Arcane) 전통. 주술: 룬 저주(Pact of Doom). 변환·방호 관련 주문.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "룬 후원자가 비전 전통의 주문시전 능력을 부여합니다. 비밀 간파(Discern Secrets) 주술 집중 주문을 습득합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "마귀 혈통",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "마법",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "마법 손",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "마법 탐지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "마법 통로",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "마법 효과",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "마법 효과에 대한 내성 굴림 전 반응. 유발 내성과 이 턴 종료까지 마법 효과 내성에 +1 상황 보너스.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "마법의 완벽한 숙달을 이루었습니다. 주문 명중과 주문 DC의 숙련도가 전설로 증가합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "마비",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "마에스트로",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "마에스트로 뮤즈",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "마음대로 시전 가능하며 레벨의 절반(올림)으로 자동 강화되는 주문.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "마지막 지도는 삭제할 수 없습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "막기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "만들기",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "GMSheet.html"
+  ]
+ },
+ {
+  "ko": "만물박사로, 기술과 추구 사이를 오갑니다. 다양한 주제에 관심이 있지만 하나에 전념하는 일은 드물며, 모든 것을 시도하고 싶어합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "말하기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "망상",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "매 턴 최대한 멀리 이동 필수. 다른 행동 불가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "매 턴 추가 행동 1개(보통 용도 제한). 여러 가속은 누적 불가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "매 턴 행동이 1개 추가됨. 추가 행동은 특정 행동에만 사용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "매력",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "매력 CHA",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "매혹",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "매혹 원인 외 감지/기술에 -2. 주의를 돌리는 행동 불가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "먼저 드로어 ✎ 지도 편집에서 배경 이미지를 넣어주세요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "먼저 좌측 목록에서 지도를 선택/생성하세요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "먼저 지도를 선택하세요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "먼지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "멀티클래스",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "멍청함",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "메스꺼움",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js",
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "멧돼지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "면도이빨 고블린",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "명령하지 않아도 매 라운드 1행동을 자체적으로 사용합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "명중",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "명중 굴림에 근력 대신 민첩 수정치를 사용할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "명중 당할 때 반응으로 방패 올리기를 사용합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "모든 판정/DC에 -1 상황 페널티. 방어구 착용 중 이동 속도 5피트 감소. 휴식 후 해제.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "모든 항목을 선택하세요",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "모든 행동을 공포원에서 도망치는 데 사용.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "목공",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "무관심",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "무기",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_dice.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "무기 및 방패",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "무기 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "무기 정보",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "무기 추가 (인벤토리)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "무기나 비무장으로 공격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "무두질",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "무력화",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "무방비",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "무예 수련생",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "무의식",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "무작위 행동. 가장 가까운 생물 공격 등. 매 턴 끝에 의지로 탈출 시도.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "무장해제",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "문법 학파",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "문양",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "물(Water) 원소 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "물건 숨기기, 숨기, 잠행—",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "물건을 넣는 간단한 자루.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "물건을 집거나, 장비를 꺼내거나, 문을 열거나, 간단한 조작을 합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "물체 잡기, 놓기, 문 열기 등",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "뮤즈",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "미감지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "미숙련",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "미저장",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js"
+  ]
+ },
+ {
+  "ko": "민첩",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "민첩 DEX",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "민첩→피해 (기교 무기)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "민카이어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "밀기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "밀물과 썰물",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "바닥에 누움. 무방비 + 공격에 -2. 일어나기에 1행동. 원거리 공격에 +1 AC.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "바드",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "바드 지식",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "바드 지식 (자유 지식 기술)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "바드 캔트립. 아군의 명중 굴림과 피해 굴림에 +1 사기 보너스.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "바드 캔트립. 아군의 AC와 내성에 +1 사기 보너스.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "바드 헌신",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "바드(Bard) 클래스의 능력을 나타내는 특성.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "바알간어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "바위 드워프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "박쥐",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "박학다식",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "박학다식 뮤즈",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "반려동물 (Pet)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "반사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "반사 (Reflex)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "반사 내성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "반사 전문가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "반사 Reflex",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "반응",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "반응 방패",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "반응 행동을 유발하지 않고 5피트 이동합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "반주자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "반투어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "반판 마갑",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "반향정위",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "반향정위 20피트, 저광 시야",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "발각됨",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "발견됨. 은신 시도 전 상태.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "발굽",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "발굽 1d6 둔기탑승 전용, 돌진 지원",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "발동 조건을 설정하고 반응으로 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "발사체",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "발톱",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "밤 후원자가 오컬트 전통의 주문시전 능력을 부여합니다. 밤의 장막(Shroud of Night) 주술 집중 주문을 습득합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "방어",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "방어 고취",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "방어 능력",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "방어구 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "방어구 정보",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "방어구 추가 (인벤토리)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "방어도 (AC)",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "방어적 회복",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "방패",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "방패 막기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "방패 막기(Shield Block) 일반 재주(262페이지)를 얻습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "방패 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "방패 올리기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "방패 올리기(Raise a Shield)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "방패 정보",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "방패 추가 (인벤토리)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "방패 AC:",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "방패를 들어 AC에 방패 보너스를 적용합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "방패의 AC 보너스를 다음 턴까지 적용",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "방해 식물",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "방향 감각, 생존추적, 은폐 흔적",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "방향 감지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "방호",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "배경",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "배경 (2개)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "배경 보너스",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "배경 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "배경 선택...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "배경 업로드 실패:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "배경 이미지를 업로드하면 모든 참가자에게 표시됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "배경 Background",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "배경을 변경하면 배경 관련 선택이 초기화됩니다. 계속하시겠습니까?",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "배낭",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "배낭 추가",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "배낭을 삭제합니까?",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "배낭이 없습니다. \"배낭 추가\"로 추가하세요.",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "배수",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "백금 PP",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "뱀 물기의 송가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "번개",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "범죄 동료",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "범죄자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "법률",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "법정 변호사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "벨트 주머니",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "변신",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "변이",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "변장",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "변형 학파",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "변형과 변환의 마법. 학파 주문: 몸 뒤섞기(Scramble Body) / 변형(Shifting Form). 교과: gouging claw 등.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "변화",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "변환",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "보관",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "보물",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "보석",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "보이지 않음. 대상 지정 불가(위치 알면 DC 11 단순 판정).",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "보폭(Stride)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "보호",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "볼트 매거진을 장전하여 사용하는 무기. 재장전 없이 연속 발사 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "봉헌",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "봉헌(Consecration) 효과. 신성 의식.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "부리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "부리 1d6 관통, 발톱 1d4 참격비행, 시야 지원",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "부분 부스트",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "부상",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "부상 치료",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "부서지지 않는 고블린",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "부정",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "부정확 후각 30피트",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "부패",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "부피",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "부피 줄여야 해제",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "부피가 5+근력 수정치 초과. 서투름 1, 이동 속도 10피트 감소. 부피 줄이면 자동 해제.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "부피에 따라 자동 적용/해제",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "불경",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "불경 (Unholy)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "불경(Unholy)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "불러오는 중...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "불운",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "붓",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "붙잡기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "붙잡히거나 속박된 상태에서 벗어납니다. 운동 또는 곡예 또는 명중 굴림.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "붙잡힘",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "붙잡힘 + 고정 상태. 이동 속도 0.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비무장",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비무장 공격. 무장해제 불가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비무장 근접",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비밀",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비숙련 즉흥연기 (Untrained Improvisation)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비우호적",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비율",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "비의",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "비일반",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비일반 언어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "비전",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_modal.js",
+   "cs_feat_effects.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비전 전통 / 주술: 비밀 간파",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비전 주문",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비전 주문시전(캔트립), 주문서, 비전 학파",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비전 트릭스터",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비전 학파",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비집고 들어가기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비치명",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비틀거림",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "비행",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "비행 🕊",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "비활성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "빈 손 (위협, 오컬트)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "빈 슬롯",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "빈 캐릭터",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "빈사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "빈사 상태 대상의 빈사 값을 줄여 의식 불명 상태를 유지합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "빈사 시 빈사 수치에 부상 수치 추가. 전체 HP 회복 시 해소.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "빈사 판정 DC가 파멸 수치만큼 증가. 휴식마다 1 감소.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "빈사 판정 DC에 부상 수치가 누적. 치유 후 휴식으로 1 감소.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "빛 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "빠른 이동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "빠른 채널",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "뻔뻔한 요청 (Shameless Request)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사거리",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "사거리 이내 근접 목표에 공격 시 -2 페널티.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사거리 증분",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사기 꺾기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사기 저하, 강요—",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사기꾼",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사기꾼 라켓",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사기꾼 라켓: 기만(Feint) 성공 시 대상이 다음 턴 시작까지 무방비 상태가 됩니다. 기만과 외교에 훈련됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사냥 목표 AC +1",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사냥 방식",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사냥감 지정",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사냥감 추적, 기질 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사냥꾼",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사막",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사망 수치가 운명 수치만큼 감소. 장기 휴식 시 1 감소.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사슬 마갑",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "사악",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사역마",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "사역마 주문 습득 Familiar Learns",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "사역마 주문 Familiar Spells",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "사역마가 이 랭크의 주문을 모릅니다. 빌더에서 먼저 주문을 배우세요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "사우리안어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사절",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사크리어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사회",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "사회학",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "삭제",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html",
+   "cs_ui.js",
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "삭제 실패:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "산, 냉기, 전기, 불, 독, 음파 중 2개 선택. 레벨 절반 저항 (최소 1).",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "산성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "산성 피해 또는 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "산적",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "살금살금 이동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "살포 30ft",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "삼림 엘프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "상급",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "상상의 벽 집",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "상어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "상업",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "상위 강타",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "상위 암시야",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "상위 저항",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "상위 탄력 (+2)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "상인",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "상태",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "상태 보너스 (Status)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js",
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "상태이상",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "상태이상 추가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "상호작용",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "상호작용(Interact)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "상황",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "상황 보너스 (Circumstance)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js",
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "새 세션",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "새 세션 만들기",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "GMSheet.html"
+  ]
+ },
+ {
+  "ko": "새 지도",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "새 지도 이름",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "새 지식 분야...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "생과 사의 경계. 매 턴 회복 판정(DC 10+빈사 수치). 빈사 4 도달 시 사망.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "생명의 장",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "생물의 몸을 회복시키는 효과. 보통 히트 포인트를 회복하지만, 때때로 질병이나 다른 약화 효과를 제거합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "생물의 의도를 지각 판정으로 파악",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "생사의 기로. 매 턴 회복 굴림. 0이 되면 의식불명, 4가 되면 사망.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "생존",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "생존 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "서기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "서브클래스",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "서브클래스 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "서브클래스 선택...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "서브클래스...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "서커스",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "서커스나 거리에서 곡예사로 공연하여 급료를 벌었습니다. 돈이 마르거나 기술을 더 나은 용도로 쓰기로 했을 때 모험가가 되었을 수 있습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "서투름",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js",
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "석공",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "석화",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "선원",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "선제",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "선제 순서를 늦춤",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "선천적 주문",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "선택",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_calc.js",
+   "cs_feat_effects.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "선택 안 됨",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "선택 확정",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "선택적 에너지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "선택하기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "선택한 전통 캔트립 1개",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "설명 없음",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "성별화",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "성별화 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "성별화(Sanctified). 신성 또는 불경 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "성장",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "세 박자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "세션",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html",
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "세션 나가기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "세션 로드 실패:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "세션 삭제",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "GMSheet.html",
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "세션 상세",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "GMSheet.html"
+  ]
+ },
+ {
+  "ko": "세션 이름 (예: 멸망의 시대)",
+  "kind": "html-attr",
+  "dyn": false,
+  "files": [
+   "GMSheet.html"
+  ]
+ },
+ {
+  "ko": "세션 참가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "세션 참가 실패:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "세션에서 퇴장되었습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "세션을 삭제하시겠습니까?",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "세션을 찾을 수 없습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "세션을 ���을 수 없습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "세션이 종료되었습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "셀레스티아어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "소리에 의존하는 행동/효과. 대상이 들을 수 있어야 효과 적용.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "소매치기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "소멸",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "소모품",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "소지금이 부족합니다! (필요:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "소형",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "소형 (Small)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "소환",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "소환됨",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "속도 중 하나가 25피트에서 40피트로 증가합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "속박 + 무방비. 탈출(Escape)로 빠져나옴.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "속박 해방의 교향곡",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "속박 해제",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "속삭임 엘프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "속성 수정치",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "속임수",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "속행",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "손이나 도구로 물체를 다루는 행동. 기회 공격을 유발할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "손재주",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "손재주, 훔치기장치 해제, 자물쇠 열기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "송곳니 1d8 관통독 지원, 붙잡기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "쇼안티어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "쇼트소드",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수감자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수도승",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수도승 재주의 일부가 이 무기에 적용됨.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수도원 성직자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수도자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수륙양생",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "수리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수목 묘목",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "수생어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수선공",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수수께끼",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수수께끼 뮤즈",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수영",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수영 🏊",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "수입 창출(제작)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수중",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "수치",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "숙련",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "숙련 :",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "숙련된 인간",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "순간이동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "순교자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "술집 주인",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "숨겨진 것을 지각 판정으로 찾기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "숨겨짐",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "숨기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "숨김 (플레이어에게 안 보임)",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "숨은 상태로 이동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "숯가죽 고블린",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "스트라이크",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "슬롯",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "슬롯 미지정",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "슬픔",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "시각",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "시각 기반 대상이 은폐 취급.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "시각 완전 상실. 모든 지형이 험지. 시각 필요 판정에 대실패.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "시각 완전 상실. 시각 기반 판정 자동 대실패. 대상 지정 시 DC 11 단순 판정 필요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "시각 의존 대상이 은폐(concealed)로 취급.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "시각 효과는 대상이 볼 수 있어야만 효과가 적용됩니다. 효과의 시각적 부분에만 적용되며, 구체적인 판단은 GM이 합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "시각으로 감지 불가. 미탐지 상태(시각에 대해).",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "시간",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "시민 마법 학파",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "시작 HP(혈통분), 크기, 속도, 감각, 혈통 재주 1개",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "시작하기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "시전:",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "시전자가 매 턴 지속(Sustained) 행동으로 유지해야 함.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "시종",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "식물",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "식물 형태",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "식물(Plant) 생물 분류. 일반 식물과 구별됨.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "신격 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "신격/교단",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "신비",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "신비(Arcane) 마법 전통. 비전 마법.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "신성",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_modal.js",
+   "cs_feat_effects.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "신성 (Holy)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "신성 시전 에너지를 무기 타격에 담아 발사합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "신성 원천 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "신성 전통 / 주술: 심장 격려",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "신성 주문",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "신성 주문시전(캔트립), 신격 선택, 신성 원천",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "신성 주입",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "신성(Divine) 마법 전통. 신격에서 힘을 얻음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "신성(Holy)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "신성력",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "신성한 헌신의 후원자. 신성(Divine) 전통. 주술: 정화의 불꽃(Stoke the Heart). 치유·강화 관련 주문.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "신앙에 의해 양육됨",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "실명",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "실반어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "심연 오크",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "심연어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "쓸기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "씨앗 꼬투리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "아군의 판정에 보너스 제공",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "아우란어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "아이우바린",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "아이우바린 (반엘프)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "아이우바린(Aiuvarin) 다목적 유산. 반엘프.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "아이템",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "아이템 보너스 (Item)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js",
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "아이템 이름",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "아이템 이름:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "아이템 HP가 파손 기준값 이하. 무기 -2 공격, 갑옷은 AC 보너스 절반.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "아이템의 특수 효과나 설명",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "악기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "악마",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "악몽",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "악어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "안도란어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "안식",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "안정된 균형 (Steady Balance)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "안정화",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "알레그로",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "알케나즈어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "암살자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "암살자 라켓: 첫 라운드에 행동하지 않은 적에게 은밀 공격 시 추가 피해 주사위를 1d6 더 굴립니다. 은신과 기만에 훈련됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "암시야",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "암시야를 얻습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "암영 노움",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "압박",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "앞발 2개를 손처럼 사용하여 조작 행동을 할 수 있습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "야망",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "야생",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "야생 결사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "야생 결사에 가입하여 야생 해방(Untamed Form) 집중 주문을 습득합니다. 위협에 훈련됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "야생 후원자가 원시 전통의 주문시전 능력을 부여합니다. 야생의 말(Wilding Word) 주술 집중 주문을 습득합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "야생림 하플링",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "야수",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "야수와 강한 유대가 있어 항상 그들을 이해한다고(그들도 당신을) 느꼈습니다. 자연의 동물을 대변하며, 강력한 동물 동료가 곁에 있습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "야전 의무관",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "약초사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "약초학",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "약화",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js",
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "양손",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "양손 근접 무기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "양손 무기로 두 번 스트라이크를 가합니다. 두 번째 타격의 다중 공격 페널티 감소.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "양손 전환 (행동 1)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "양손 d10",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "양손 d12",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "양손 d6",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "양손 d8",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "양자 혈통",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "양자 혈통 (Adopted Ancestry)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "어둠",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "어둠과 꿈의 후원자. 오컬트(Occult) 전통. 주술: 마녀의 포옹(Witch's Cauldron). 환상·공포 관련 주문.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "어둠에서는 암시야 없이 눈멈 상태. 생물/물체가 숨겨짐 또는 미탐지.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "억제",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "언덕 하플링",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "언데드",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "언데스",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "언어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "언어 이해에 의존하는 효과. 대상이 사용하는 언어를 이해해야 효과가 적용됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "엄니",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "엄폐",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "엄폐(Take Cover)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "엄폐/은폐 뒤에 숨기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "엄폐를 더 효과적으로 사용",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "업로드 중…",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "없으면 비움",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "없음",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_calc.js",
+   "cs_save.js",
+   "cs_map.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "엎드려짐",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "엎드리기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "에서 +",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "엘프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "엘프어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "여행",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "역병",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "연금술",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "연기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "연발 d6",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "연사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "연설",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "연예인",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "연타",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "열의",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "열정",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "열정 후원자가 신성 전통의 주문시전 능력을 부여합니다. 심장 격려(Stoke the Heart) 주술 집중 주문을 습득합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "영역",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "영역 입문",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "영웅 점수",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "영원한 축복",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "영혼",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "예: 1d8 S",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "예: 5gp",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "예: 가죽",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "예: 칼",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "예술",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "예술가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "예언자 엘프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "예지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "예측",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "예측(Fortune/Misfortune) 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "오라",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "오소리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "오시리안어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "오컬트",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_feat_effects.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "오컬트 전통 / 주술: 밤의 장막",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "오컬트 전통 / 주술: 사악한 눈",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "오컬트 전통 / 주술: 운명 조정",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "오컬트 주문",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "오컬트 주문시전(캔트립 2개 + 레퍼토리), 뮤즈 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "오컬트(Occult) 마법 전통. 우주의 신비를 탐구.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "오컬티즘",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "오크",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "오크어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "완료",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "완벽",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "완전히 움직일 수 없음. 무방비. 순수 정신 행동만 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "외교",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "외교 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "외형:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "요리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "요리사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "요청",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "요티아어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "용기 고취",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "용어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "용족",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "우림 오크",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "우호적",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "운동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "운동 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "운명",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "운명 후원자가 오컬트 전통의 주문시전 능력을 부여합니다. 운명 조정(Nudge Fate) 주술 집중 주문을 습득합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "운명의 실을 다루는 후원자. 오컬트(Occult) 전통. 주술: 운명의 실(Thread of Fate). 예지 관련 주문 확장.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "워해머",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "원거리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "원소",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "원시",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_modal.js",
+   "cs_calc.js",
+   "cs_feat_effects.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "원시 전통 / 주술: 야생의 말",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "원시 주문",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "원시 캔트립 1개",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "원시(Primal) 마법 전통. 자연의 힘.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "원시(Primal) 캔트립 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "원천",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "원천 노움",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "원형",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "원형 재주 Archetype Feats",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "위로의 발라드",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "위저드",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "위저드 헌신",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "위저드(Wizard) 클래스의 능력을 나타내는 특성.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "위치",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "위치 변경",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "위치 헌신",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "위치(Witch) 클래스의 능력을 나타내는 특성.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "위치는 알지만 볼 수 없음. 대상 지정 시 DC 11 단순 판정.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "위협",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "위협 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "유리 (2d20↑)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "유목 하플링",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "유목민",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "유산 부여",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "유산 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "유산 정보",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "유산 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "유산 Heritage",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "유산, 혈통, 재주 등에 의해 부여된 선천적 주문입니다. 자유롭게 시전하거나 하루 횟수 제한이 있습니다.",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "유산...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "유인원",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "유지 가능한 주문의 효과를 한 라운드 더 지속합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "유지 주문이나 효과를 계속 유지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "유지(Sustain)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "육지와 수중 모두 호흡 가능. 가장 높은 육상/수영 속도와 같은 육상 속도와 수영 속도를 얻습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "으로 감소.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "은둔자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "은밀",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "은밀 공격 1d6, 기습, 추가 기술",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "은밀(Subtle). 주문 시전의 시각/청각 표시가 없음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "은신",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "은신 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "은신(Hide)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "은폐",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "은화 SP",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "을(를) 제거하시겠습니까?",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "음파",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "음파 피해 또는 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "응급 처치",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "응급 처치, 지식 회상질병 치료, 독 치료, 상처 치료",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "의 이름:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "의무",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "의복",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "의식",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "의식 없음. AC -4, 감지 -4, 무방비+눈멈. 행동 불가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "의식 주문은 추후 지원 예정입니다.",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "의식불명",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "의지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "의지 (Will)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "의지 내성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "의지 Will",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "의학",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "의학 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 랭크에 사용 가능한 주문이 없습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "이 무기는 손을 차지하지 않아 다른 용도로 사용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 무기로 넘어뜨리기 특수 공격을 시도할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 무기로 넘어뜨리기(Trip) 특수 공격을 시도할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 무기로 무장해제 특수 공격을 시도할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 무기로 무장해제(Disarm) 특수 공격을 시도할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 무기로 밀기(Shove) 특수 공격을 시도할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 무기로 입힌 피해는 대상을 죽이지 않음 (기절 0으로 만듦).",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 무기를 장비한 채 막기(Parry) 행동을 사용할 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 무기의 근접 도달이 10피트로 증가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 무기의 사거리 증분 거리만큼 원거리 공격 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 세션의 GM이 아닙니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "이 재주 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "이 캔트립 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "이 토큰 템플릿을 삭제할까요?",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "이 토큰을 제거할까요?",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 능력은 공격을 포함합니다. 턴에서 첫 번째 이후의 각 공격에 대해 다중 공격 페널티가 적용됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 생물은 고블린 혈통입니다. 이 특성의 능력은 고블린만 사용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 생물은 노움 혈통입니다. 이 특성의 능력은 노움만 사용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 생물은 드워프 혈통입니다. 이 특성의 능력은 드워프만 사용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 생물은 레쉬 혈통입니다. 식물 또는 균류 생물. 이 특성의 능력은 레쉬만 사용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 생물은 엘프 혈통입니다. 이 특성의 능력은 엘프만 사용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 생물은 오크 혈통입니다. 이 특성의 능력은 오크만 사용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 생물은 인간 혈통입니다. 이 특성의 능력은 인간만 사용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 생물은 하플링 혈통입니다. 이 특성의 능력은 하플링만 사용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 행동은 너무 큰 노력을 필요로 하여 자주 수행할 수 없습니다. 라운드당 화려함 특성 행동을 1회만 사용할 수 있습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 행동은 턴에 첫 번째 공격으로만 사용할 수 있습니다. 다중 공격 페널티가 적용되기 전에만 사용 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 행동은 한 칸에서 다른 칸으로의 이동을 포함합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 특성을 가진 효과는 HP를 0으로 줄이면 즉사시킵니다. 일부 죽음 효과는 HP를 줄이지 않고 직접 사망시킵니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이 NPC를 삭제할까요?",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "이교도",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이그난어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이동 불가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이동 불가 + 무방비 + 조작에 DC 5 단순 판정. 탈출로 빠져나옴.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이동 속도",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "이동 속도 0. 탈출 행동으로 종료 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이동 속도 0. 회전은 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이동 속도 관리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "이동 속도까지 이동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이동 속도만큼 이동합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이름",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "이름 [행동] 나머지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "이름 없음",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js",
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "이름...",
+  "kind": "html-attr",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "이름(English) [행동] 나머지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "이름을 입력하세요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "이미지 처리를 불러올 수 없습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "이번 턴에 이전 대상을 명중했으면 후속 공격에 +1 상황 보너스.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "이세계 통찰",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "이중 참격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "인간",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "인간형",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "인간형(Humanoid) 생물 분류. 직립 보행, 팔 2개 다리 2개.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "인내",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "인내 (Fortitude)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "인내 Fortitude",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "인벤토리",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "인상 심기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "일반",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "일반 기술",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "일반 기술 재주.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "일반 언어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "일반 재주",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "일반 재주 General Feat",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "일반 재주 General Feats",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "일반적인 모험가 배낭.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "잎 결사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "잎 결사에 가입하여 축제의 뿔피리(Cornucopia) 집중 주문을 습득합니다. 외교에 훈련됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "잎 레쉬",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자루",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "자리입니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "자물쇠 따기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자물쇠나 막힌 문, 상자, 족쇄 등을 힘으로 열거나 부숩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자발적으로 넘어짐 상태가 됩니다. 원거리 공격에 대한 은폐를 얻습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자세",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자신감",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자신의 턴을 나중으로 미룹니다. 그 전까지 아무 행동도 하지 않습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자연",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자연 야생의 후원자. 원시(Primal) 전통. 주술: 야생의 분노(Wilding Word). 자연·동물 관련 주문.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자연 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자연학",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자유",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_feat_effects.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자유 손",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "자유 시전",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "자유 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "작곡",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "작곡(Composition) 작곡 주문. 바드 전용.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "작음 (Tiny)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "잔해",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "잔향 작곡",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "잘 보이지 않음. 공격 시 DC 5 단순 판정 필요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "잠재력",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "잠행(Sneak)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "잡힘",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "장궁",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "장기적 고통을 주는 마법 효과. 저주를 직접 대상으로 하는 효과로만 제거 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "장비",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "장비 정보",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "장비 추가",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "장비 추가 (인벤토리)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "장애물 뒤에 몸을 숨겨 은폐(+2 AC, Reflex, Stealth)를 얻습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "장인",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "장착",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "장치 해제",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "재단",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "재생",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "재주",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "재주 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "재주 정보",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "재주 행동",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "재주:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "재주/능력 이름:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "재집중 시 사역마가 레벨당 HP 1점 회복합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "저광 시야",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "저광 시야, 후각(부정확 30피트)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "저장 실패",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js"
+  ]
+ },
+ {
+  "ko": "저장 실패 —",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "저장 실패 — 네트워크를 확인하세요",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "저장 중...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js",
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "저장됨",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js"
+  ]
+ },
+ {
+  "ko": "저장완료",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js",
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "저주",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "저주 후원자가 오컬트 전통의 주문시전 능력을 부여합니다. 사악한 눈(Evil Eye) 주술 집중 주문을 습득합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "저주의 힘을 부여하는 후원자. 오컬트(Occult) 전통. 주술: 악의 눈(Evil Eye). 저주·조종 관련 주문 확장.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "저항",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "저항 능력의 저항값이 레벨과 같아집니다. 8레벨 이상 필요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "저항 Resistances",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "적용",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "적용 중",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "적이 원거리 공격, 기술 행동, 이동 시 트리거하여 근접 스트라이크를 가합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전갈",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "전기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전기 피해 또는 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전문",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전문가",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전문가 주문시전자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전문가의 장수",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "전사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전사 뮤즈",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전사 뮤즈의 영감으로 군용 무기에 훈련됩니다. 군용 무기 숙련도가 훈련(Trained)으로 증가합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전설",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전설 주문시전자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전술 지도 · Pathforge",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "전쟁",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전체",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "전체가림",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "전체공개",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "전통 캔트립 선택 (비전/신성/오컬트 중)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "전투 경험을 통해 반사신경이 향상됩니다. 반사 내성 숙련도가 전문가로 증가합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전투 도끼",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전투 마법 학파",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전투 사제",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전투 사제 교의",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전투 수치",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전투 의학",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전투 준비 오크",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전투 중 부상 치료. 1일 1회/대상. 숙련 2d8, 전문가 2d8+10, 달인 4d8+30, 전설 4d8+50.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "전투 중 시전 불가. 특수 소재 필요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "점술",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "점술사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "접촉",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "접촉 거리 내 목표에게만 시전 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "접촉 텔레파시",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "접촉으로 주인과 텔레파시 소통. 말하기 능력 있으면 같은 언어 사용자와도 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "정밀",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "정밀(Precision) 피해. 같은 대상에 1라운드 1회만.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "정보",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "정보 수집",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "정보 수집, 인상 만들기, 요청—",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "정상",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "정신",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "정신 학파",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "정신 효과는 대상의 마음을 변경합니다. 물체나 지성 없는 생물에게는 효과가 없습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "정신적 집중과 규율이 필요한 행동.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "정찰병",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "제거",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "제작",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "제작 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "제조법",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "제조법 기록",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "제조법 이름 (아이템 이름):",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "제조법 추가",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "제조법은 이미 기록되어 있습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "조상의 장수",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "조작",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "조종",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "조준",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "족보",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "존재는 알려졌지만 위치 모름. 발견하려면 DC 9 단순 판정 필요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "존재미인지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "존재와 위치 모두 알려지지 않음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "종교학",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주 2회",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주먹",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "주먹 1d8 둔기등반 25피트, 위협적 표시",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주문",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주문 기억",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "주문 명중",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "주문 목록",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주문 배우기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "주문 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "주문 시전 능력이 한 단계 더 발전했습니다. 주문 명중과 주문 DC의 숙련도가 전문가로 증가합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주문 시전에 대한 달인급 숙달을 달성했습니다. 주문 명중과 주문 DC의 숙련도가 달인으로 증가합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주문 정보",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "주문 지속",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주문/마법 효과",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주문→스닉 어택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주문변형",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주문서 습득 Spellbook Learns",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "주문서 Spellbook",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "주문서에 이 랭크의 주문이 없습니다. 빌더에서 먼저 주문을 배우세요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "주문시전",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "주문시전 클래스 특성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "주문이나 효과를 종료",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주문학",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주문형성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주변 30피트(원뿔 15피트) 내의 숨겨진 존재나 물체를 탐지합니다. 지각 판정.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주사위 굴리기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "주의 분산",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주의 분산, 변장, 거짓말속임",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "주인의 형상",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "주인이 아는 언어 1개를 이해하고 말할 수 있습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "주제...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "죽음",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "죽음 감시자 드워프",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "죽음의 머리 (생존, 원시)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "준비",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "준비 완료",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "준비 해제",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "준비(Ready)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "준비형",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "줍기 (행동 1)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "중",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "중갑",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "중형",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_modal.js",
+   "cs_calc.js",
+   "cs_map.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "중형 (Medium)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "즉흥형",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "지각",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "지각 (Perception)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지각 Perception",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "지능",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지능 INT",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "지도",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "지도 1",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "지도 보기",
+  "kind": "html-attr",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "지도 생성 실패:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "지도 편집",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "지략가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지략가 라켓",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지배",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지배됨",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지속",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지속 피해의 한 유형. 턴 종료 시 피해를 받고 DC 15 단순 판정으로 종료 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지속적으로 주변에 영향을 미치는 발산 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 1",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 2",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 분야 입력",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "지식 분야 입력...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "지식 행동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 확인→무방비",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 회상, 생존문서 해독, 위조 생성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 회상, 수리제작, 돈 벌기, 연금술 식별",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 회상(사회)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 회상(오컬티즘)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 회상(자연학)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 회상(종교학)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 회상(주문학)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 회상돈 벌기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 회상문서 해독, 마법 식별, 주문 학습",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지식 회상비전 주문 빌리기, 문서 해독, 마법 식별, 주문 학습",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지연",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지연(Delay)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지옥어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지우개(공개)",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "지하",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지하공통어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지혈(피를 흘리는 상태 해제) 또는 공포에 빠진 동료를 깨웁니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지형",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지혜",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "지혜 WIS",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "직접 입력...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "진동 감각 20피트 (돌/흙 위, 1행동)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "진실",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "질병",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "질병 면역 생물에게 효과 없음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "질병 치료",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "질병/원시 마법",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "집게",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "집중",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "집중 주문",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "집중 주문 이름:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "집중 주문: 야생 해방",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "집중 주문: 축제의 뿔피리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "집중 주문: 폭풍 쇄도",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "집중 캔트립",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "집중 포인트",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "집중 회복",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "집착적 연구",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "차원간 순간이동",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "참가 코드는",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "참격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "참나무 강인",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "창조",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "채널 강타",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "채널 차단",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "천상 혈통",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "천상어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "철위장 고블린",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "첫 타 정밀 피해 +1d8",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "청각",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "청각 상실. 청각 기반 지각에 자동 대실패. 주문시전 시 DC 5 단순 판정.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "청각 상실. 청각 기반 판정 자동 대실패. 음성 주문 시전 불가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "청각/환영/언어/음파/시각 효과",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "체인질링",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "체인질링(Changeling) 다목적 유산. 해그의 후손.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "초 후 재시도 (",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "초기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "초기 숙련도",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "초대형 (Gargantuan)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "초상 업로드 (맵 토큰에 사용)",
+  "kind": "html-attr",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "초상 업로드 실패:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "최상 탄력 (+3)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "최상위 강타",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "최종 속성 수정치",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "추가 기술 숙련 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "추가 뮤즈 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "추가 지식 (Additional Lore)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "추방",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "추방 실패:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "추적",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "추진",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "축복",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "축소",
+  "kind": "html-attr",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "출혈",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "충격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "취소",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "GMSheet.html"
+  ]
+ },
+ {
+  "ko": "치명 d10",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치명 d12",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치명 d6",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치명 d8",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치명적 아리아",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치명타 발생 시 추가로 1d6 관통 피해를 입힘.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치명타 시 1d10 크기의 추가 피해 주사위를 굴림.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치명타 시 1d12 크기의 추가 피해 주사위를 굴림.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치명타 시 1d6 크기의 추가 피해 주사위를 굴림.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치명타 시 1d8 크기의 추가 피해 주사위를 굴림.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치명타 시 피해 주사위를 d10으로 바꾸고 1d10을 추가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치명타 시 피해 주사위를 d12로 바꾸고 1d12을 추가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치사 d10",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치사 d12",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치유",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_calc.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "치유 (Heal)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "치유 원천",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "치유의 손",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "치유의 찬송",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "카멜레온 노움",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "캐릭터 아이디어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "캐릭터 완성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "캐릭터 이름",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "캐릭터를 완전히 전투 불능으로 만들 수 있는 능력. 주문의 경우, 주문 랭크×2보다 높은 레벨의 생물은 판정 결과가 한 단계 나아집니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "캔트립",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_calc.js",
+   "cs_feat_effects.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "캔트립 (강화 랭크 1)",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "캔트립 준비",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "커스텀",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "켈리쉬어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "코미디",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "크기",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "클래스",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "클래스 능력",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "클래스 무관 선택 가능한 재주.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "클래스 부여",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "클래스 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "클래스 선택...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "클래스 재주",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "클래스 재주 Class Feat",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "클래스 재주 Class Feats",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "클래스 특성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "클래스 Class",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "클래스 DC",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "클래스를 변경하면 모든 빌드 선택이 초기화됩니다. 계속하시겠습니까?",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "클래스를 선택하면 자동 설정됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "클레릭",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "클레릭 헌신",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "클레릭(Cleric) 클래스의 능력을 나타내는 특성.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "타격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "타격(Strike)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "타오르는 태양 (외교, 비전)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "탄력 (회피 +1)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "탄환",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "탈다네어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "탈진",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "탈출",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "탐닉",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "탐색",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "탐색(Seek)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "탐정",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "탐지",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "탐지(Detection) 효과. 무언가의 존재를 감지.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "탐험",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "태양",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "턱 1d6 관통, 발톱 1d4 참격민첩, 은밀 지원",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "턱 1d8 관통, 발톱 1d6 참격민첩, 도약 공격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "턱 1d8 관통, 발톱 1d6 참격탑승 가능, 포옹 공격",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "턱 1d8 관통넘어뜨리기 지원",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "턴 시작 시 행동이 수치만큼 감소.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "턴 종료 전 2회까지 가벼운 부피 아이템을 가져와 주인 빈 손에 놓을 수 있습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "테란어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "토큰",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "토큰 \"",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "토큰 생성 실패:",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "토큰 편집",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html",
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "토큰을 만들어 지도로 끌어다 놓으세요.",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "통합 이론 학파",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "통합 이론: 유연한 주문",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "통합이론학파(Unified Theory)를 선택합니다. 학파 주문 대신 추가 교과과정 주문 슬롯과 유연한 주문 준비 이점을 얻습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "투명",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "투시",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "투시(Scrying) 효과. 원거리에서 대상을 관찰.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "투척 10ft",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "투척 20ft",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "투척 30ft",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "특별한 접근이나 GM 허가가 필요한 아이템/주문/재주.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "특성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "특수 효과나 설명",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "특정 생물에게 우호적 감정을 느낌. 그 생물을 해치는 행동에 제한.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "특정 유발 조건에 반응하여 사용하는 행동. 턴당 1회.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "특정 조건이 발생했을 때 반응으로 1행동 또는 자유 행동을 취합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "특정 학파에 전문화하지 않고 모든 학파에서 자유롭게 습득. 교과 주문 없음, 대신 유연성 확보.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "파괴",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "파멸",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "파멸의 만가",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "파손된",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "파손됨",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "파이터",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "파이터 헌신",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "파이터(Fighter) 클래스의 능력을 나타내는 특성.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "팔치온",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "패딩",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "패딩 마갑",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "페이혈 노움",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "페인트",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "펫",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "편집",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "편집(이름/배경/격자)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "평갑",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "평원",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "포르티시모 작곡",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "폭정",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "폭풍",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "폭풍 결사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "폭풍 결사에 가입하여 폭풍 쇄도(Tempest Surge) 집중 주문을 습득합니다. 곡예에 훈련됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "프로테안어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "플레이어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js",
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "플레이어 모드로 보기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "플레이어 전환",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_session.js"
+  ]
+ },
+ {
+  "ko": "피냄새, 후각(부정확 60피트)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "피로",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "피리 부는 사나이",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "피트",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "피해",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "피해 회피",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "피해에 근력 수정치의 절반을 추가 (양수일 때).",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "필사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "하늘",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "하루 1회",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "하루 1회 주문 시전 가능 (최고 랭크보다 5 낮은 주문). 6랭크 이상 필요.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "하루 2회",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "하수인",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "하플링",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "하플링 투석 지팡이",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "하플링어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "학술원",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "학자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "학파 주문: 대지 공사",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "학파 주문: 매혹의 밀침",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "학파 주문: 몸 뒤섞기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "학파 주문: 보호의 결계",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "학파 주문: 소환 강화",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "학파 주문: 힘의 화살",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "한 걸음(Step)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "한 손으로 사용 가능. 두 손으로 잡으면 피해 주사위가 d10로 증가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "한 손으로 사용 가능. 두 손으로 잡으면 피해 주사위가 d12로 증가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "한 손으로 사용 가능. 두 손으로 잡으면 피해 주사위가 d6로 증가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "한 손으로 사용 가능. 두 손으로 잡으면 피해 주사위가 d8로 증가.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "한글 (English)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js"
+  ]
+ },
+ {
+  "ko": "한글명 (English)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "한손 전환 (자유 행동)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "합성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "합성 단궁",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "합성 마갑",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "합성 장궁",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "항목을 선택하면 상세 정보가 표시됩니다.",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "항해",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "해그",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "해로운 손",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "해로움",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "해로움 (Harm)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "해악 원천",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "해제",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "해제(Dismiss)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "행군의 노래",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "행동",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "행동 수치가 기절 값만큼 소모됨. 매 턴 기절 수치만큼 행동 손실.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "행동 제어 불가. 무작위로 행동(공격, 이동 등). 매 턴 종료 시 의지 굴림으로 탈출 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "행동/반응 불가. 수치가 있으면 해당 수만큼 행동 소실.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "행동/반응 불가. AC -4, 지각 -4, 실명+귀머거리. 피해 받으면 깨날 수 있음.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "행동/반응 불가. AC에 -2 상황 페널티. 무방비 상태.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "행운",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "허리 가방",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "허리에 차는 작은 주머니.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "허리에 착용하는 가방.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "헌신",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js",
+   "cs_feat_effects.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "현기증",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js",
+   "cs_save.js",
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "현상금 사냥꾼",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "현재 슬롯 초기화",
+  "kind": "html-attr",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "현재 위치에서 이동 불가. 이동 불필요 행동은 가능.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "현혹됨",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "혈통",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "혈통 결함",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "혈통 고정",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "혈통 선택",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "혈통 선택...",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "혈통 자유",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "혈통 자유 부스트 —",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "혈통 재주",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "혈통 재주 Ancestry Feat",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "혈통 재주 Ancestry Feats",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "혈통 Ancestry",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "혈통과 배경",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "혈통을 변경하면 혈통 관련 선택이 초기화됩니다. 계속하시겠습니까?",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "협력적",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "호박 레쉬",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "혼란",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "화려함",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "화염",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "화염 피해 또는 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "확대",
+  "kind": "html-attr",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "Map.html"
+  ]
+ },
+ {
+  "ko": "확신 (Assurance)",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "확인",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_feat_effects.js"
+  ]
+ },
+ {
+  "ko": "환상",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "환영",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "환영(Illusion) 효과. 감각을 속입니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "활력",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "활력 에너지 효과.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "활력(Vitality) 에너지. 산 것을 치유하고 언데드에 피해.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "활성",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js",
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "활성 상태이상 Active Conditions",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html"
+  ]
+ },
+ {
+  "ko": "황무지 오크",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "황혼 하플링",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "후각",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "후원자",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "후원자 전통의 주문시전(캔트립), 사역마",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "휴식 Rest",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "흉터 오크",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "흔적 지우기",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "희귀 언어",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_ui.js"
+  ]
+ },
+ {
+  "ko": "힘(Force) 에너지.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "힘의 노래",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "Abjuration 마법 계열.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "AC에 -2 상황 페널티. 협공, 넘어뜨려짐, 은신 공격 등으로 발생.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "AC에 -2 상황 페널티. 협공, 넘어짐, 은신 공격 등으로 발생.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "AC와 내성에 -1 상태 페널티. 탐험 활동 선택 불가. 8시간 휴식으로 해소.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "Conjuration 마법 계열.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "DB에 상세 정보가 없습니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_calc.js"
+  ]
+ },
+ {
+  "ko": "DiceRoller.rollQuick(20,1,0,'인스피')",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_dice.js"
+  ]
+ },
+ {
+  "ko": "Divination 마법 계열.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "Enchantment 마법 계열.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "Evocation 마법 계열.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "GM이 이 능력의 판정을 비밀리에 굴립니다. 플레이어는 결과를 직접 알지 못합니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "GM이 지도를 준비하면 여기에 표시됩니다.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "Google 로그인",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "CharacterSheet.html",
+   "GMSheet.html"
+  ]
+ },
+ {
+  "ko": "Google 로그인이 필요합니다.",
+  "kind": "html-text",
+  "dyn": false,
+  "files": [
+   "GMSheet.html"
+  ]
+ },
+ {
+  "ko": "HP 관리",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_modal.js"
+  ]
+ },
+ {
+  "ko": "Illusion 마법 계열.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ },
+ {
+  "ko": "JSON 내보냄",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_save.js"
+  ]
+ },
+ {
+  "ko": "px/칸",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_map.js"
+  ]
+ },
+ {
+  "ko": "Transmutation 마법 계열.",
+  "kind": "js",
+  "dyn": false,
+  "files": [
+   "cs_data.js"
+  ]
+ }
+]

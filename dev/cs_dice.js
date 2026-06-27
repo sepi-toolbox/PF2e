@@ -100,6 +100,21 @@ const DiceRoller = (() => {
     return rollPool(label || dmgStr, mod);
   }
 
+  // 전체 피해식 굴림 — 여러 주사위 그룹 + 상수 합산 ("2d8+6+2d6", "1d8+4", "3d6" 등)
+  function rollFormula(formula, label, extraMod) {
+    formula = String(formula || '');
+    const groups = [];
+    const dre = /(\d+)\s*[dD]\s*(\d+)/g; let m;
+    while ((m = dre.exec(formula))) groups.push({ sides: parseInt(m[2]) || 6, count: parseInt(m[1]) || 1 });
+    let flat = (extraMod || 0);
+    const rest = formula.replace(/(\d+)\s*[dD]\s*(\d+)/g, ' ');   // 주사위 항 제거 → 남은 상수만 합산
+    const fre = /[+-]?\s*\d+/g;
+    while ((m = fre.exec(rest))) { const n = parseInt(m[0].replace(/\s/g, ''), 10); if (!isNaN(n)) flat += n; }
+    if (!groups.length && !flat) return;
+    pool = groups;                              // 그룹이 비면 상수만(rollPool가 modifier로 처리)
+    return rollPool(label || formula, flat);
+  }
+
   // ══ 활성 보너스 굴림 모달 (v530~) ══
   // 굴림 진입점에서 호출 — 사용자가 type별 1개씩 보너스 선택 + 임시 보너스 입력
   function openBonusRollModal(opts) {
@@ -572,7 +587,7 @@ const DiceRoller = (() => {
   // ── Public API ──
   return {
     addToPool, removeFromPool, clearPool,
-    rollPool, rollQuick, rollCheck,
+    rollPool, rollQuick, rollCheck, rollDamage, rollFormula,
     toggleTray, toggleLog, clearLog,
     onRoll, showRemoteToast,
   };

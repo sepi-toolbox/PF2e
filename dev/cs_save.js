@@ -560,6 +560,7 @@ window.onload = function() {
   renderGrowthPlan();
   renderPortrait();
   if (typeof MapView !== 'undefined') MapView.init();  // 지도 onChange/프로비저닝 구독 (세션 입장 시 동작)
+  if (typeof _ensureEquipData === 'function') _ensureEquipData();  // FVTT 장비 카탈로그 사전 로드 (첫 브라우즈 즉시 표시)
   _uiReady = true;
   _checkReady();
 };
