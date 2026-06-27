@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=558"></script>
-<script src="feat_db.js?v=558"></script>
-<script src="SPELL_DB.js?v=558"></script>
-<script src="class_features_db.js?v=558"></script>
+<script src="equipment_db.js?v=559"></script>
+<script src="feat_db.js?v=559"></script>
+<script src="SPELL_DB.js?v=559"></script>
+<script src="class_features_db.js?v=559"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -240,7 +240,7 @@ body{
    세션 전용 지도 FAB (주사위 위젯 옆 — 세션 모드에서만)
    ══════════════════════════════════ */
 #map-fab{
-  display:none;position:fixed;bottom:138px;right:16px;z-index:9000;
+  display:none;position:fixed;bottom:138px;right:16px;z-index:10010;
   width:48px;height:48px;border-radius:50%;border:none;
   background:var(--bg4);color:var(--accent);font-size:22px;cursor:pointer;
   box-shadow:0 4px 16px rgba(0,0,0,.4);transition:transform .2s,box-shadow .2s;
@@ -1264,9 +1264,9 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 #mobile-bottom-nav{display:none;}
 
 /* ══ 주사위 시스템 ══ */
-#dice-fab{position:fixed;bottom:80px;right:16px;z-index:9000;width:48px;height:48px;border-radius:50%;border:none;background:var(--accent,#d4a04a);color:#fff;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.4);transition:transform .2s,box-shadow .2s;}
+#dice-fab{position:fixed;bottom:80px;right:16px;z-index:10010;width:48px;height:48px;border-radius:50%;border:none;background:var(--accent,#d4a04a);color:#fff;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.4);transition:transform .2s,box-shadow .2s;}
 #dice-fab:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(0,0,0,.5);}
-#dice-tray{position:fixed;bottom:80px;right:16px;z-index:9001;width:280px;background:var(--bg2,#1e1e1e);border:1px solid var(--border,#444);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.6);transform:translateY(20px) scale(.95);opacity:0;pointer-events:none;transition:all .25s ease;}
+#dice-tray{position:fixed;bottom:80px;right:16px;z-index:10012;width:280px;background:var(--bg2,#1e1e1e);border:1px solid var(--border,#444);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.6);transform:translateY(20px) scale(.95);opacity:0;pointer-events:none;transition:all .25s ease;}
 #dice-tray.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto;}
 #dice-tray.open+#dice-fab{opacity:0;pointer-events:none;}
 .dice-tray-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;font-size:14px;font-weight:700;color:var(--accent,#d4a04a);border-bottom:1px solid var(--border,#444);}
@@ -1329,7 +1329,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 }
 
 /* 3D 애니메이션 오버레이 */
-#dice-anim-overlay{position:fixed;inset:0;z-index:9020;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .25s;}
+#dice-anim-overlay{position:fixed;inset:0;z-index:10020;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .25s;}
 #dice-anim-overlay.active{opacity:1;pointer-events:auto;}
 #dice-anim-overlay.hidden{opacity:0;pointer-events:none;}
 .dice-3d{width:64px;height:64px;position:relative;animation:diceRoll .8s cubic-bezier(.17,.67,.32,1.2) both;perspective:400px;}
@@ -1397,7 +1397,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
   <div style="display:flex;align-items:center;gap:8px;">
     <span class="brand"></span>
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;margin-left:8px;">v558</span>
+    <span style="font-size:9px;color:#555;margin-left:8px;">v559</span>
   </div>
   <div id="auth-area" style="display:flex;align-items:center;gap:6px;">
     <button onclick="googleLogin()" style="background:#4285f4;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;">Google 로그인</button>
@@ -1994,15 +1994,15 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=558"></script>
-<script src="cs_calc.js?v=558"></script>
-<script src="cs_ui.js?v=558"></script>
-<script src="cs_modal.js?v=558"></script>
-<script src="cs_feat_effects.js?v=558"></script>
-<script src="cs_save.js?v=558"></script>
-<script src="cs_session.js?v=558"></script>
-<script src="cs_dice.js?v=558"></script>
-<script src="cs_map.js?v=558"></script>
+<script src="cs_data.js?v=559"></script>
+<script src="cs_calc.js?v=559"></script>
+<script src="cs_ui.js?v=559"></script>
+<script src="cs_modal.js?v=559"></script>
+<script src="cs_feat_effects.js?v=559"></script>
+<script src="cs_save.js?v=559"></script>
+<script src="cs_session.js?v=559"></script>
+<script src="cs_dice.js?v=559"></script>
+<script src="cs_map.js?v=559"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -2035,6 +2035,7 @@ function updateAuthUI(user) {
     slotBar.style.display = 'flex';
     updateSlotBar();
     loadSlotNames(user.uid);
+    document.body.classList.remove('in-session');   // 세션 미소속 기본 — 지도 위젯 숨김 (restoreSession 성공 시 enterSessionUI가 재부여)
     // 이전 세션이 있으면 복귀, 없으면 일반 로드
     if (typeof restoreSession === 'function' && localStorage.getItem('pf2e_sessionId')) {
       restoreSession().then(function(ok) { if (!ok) loadFromCloud(); });
