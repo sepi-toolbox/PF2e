@@ -1063,18 +1063,23 @@ var MapView = (function() {
     _ctx.rect(Math.max(0, cx0), Math.max(0, cy0),
               Math.min(_cssW, cx1) - Math.max(0, cx0), Math.min(_cssH, cy1) - Math.max(0, cy0));
     _ctx.clip();
-    _ctx.strokeStyle = 'rgba(255,255,255,0.18)';
     _ctx.lineWidth = 1;
-    _ctx.beginPath();
-    for (let wx = wMinX; wx <= wMaxX + 0.5; wx += gs) {
-      const sx = Math.round(_view.offX + wx * _view.scale) + 0.5;
-      _ctx.moveTo(sx, cy0); _ctx.lineTo(sx, cy1);
-    }
-    for (let wy = wMinY; wy <= wMaxY + 0.5; wy += gs) {
-      const sy = Math.round(_view.offY + wy * _view.scale) + 0.5;
-      _ctx.moveTo(cx0, sy); _ctx.lineTo(cx1, sy);
-    }
-    _ctx.stroke();
+    // 밝은 맵·어두운 맵 모두에서 보이도록 어두운 선 + 밝은 선을 1px 어긋나게 겹침(엠보싱)
+    const _gridLines = function(off, color) {
+      _ctx.strokeStyle = color;
+      _ctx.beginPath();
+      for (let wx = wMinX; wx <= wMaxX + 0.5; wx += gs) {
+        const sx = Math.round(_view.offX + wx * _view.scale) + off;
+        _ctx.moveTo(sx, cy0); _ctx.lineTo(sx, cy1);
+      }
+      for (let wy = wMinY; wy <= wMaxY + 0.5; wy += gs) {
+        const sy = Math.round(_view.offY + wy * _view.scale) + off;
+        _ctx.moveTo(cx0, sy); _ctx.lineTo(cx1, sy);
+      }
+      _ctx.stroke();
+    };
+    _gridLines(0.5, 'rgba(20,22,30,0.5)');     // 어두운 선 — 밝은 맵에서 보임
+    _gridLines(1.5, 'rgba(255,255,255,0.4)');  // 밝은 선 — 어두운 맵에서 보임
     _ctx.restore();
   }
 
@@ -1427,8 +1432,9 @@ var MapView = (function() {
   }
 
   // ── 격자 컨트롤 (GM) — 배치 on/off + 0~100% 비율 슬라이더 ──
-  function _pctToPx(pct) { return Math.round(GRID_UI_MIN + (GRID_UI_MAX - GRID_UI_MIN) * (_clamp(pct, 0, 100) / 100)); }
-  function _pxToPct(px)  { return Math.round(_clamp((px - GRID_UI_MIN) / (GRID_UI_MAX - GRID_UI_MIN) * 100, 0, 100)); }
+  // 비율 ↔ 셀 px (반비례: 높은 %일수록 촘촘한 격자 = 작은 셀). 0%=가장 성김, 100%=가장 촘촘.
+  function _pctToPx(pct) { return Math.round(GRID_UI_MAX - (GRID_UI_MAX - GRID_UI_MIN) * (_clamp(pct, 0, 100) / 100)); }
+  function _pxToPct(px)  { return Math.round(_clamp((GRID_UI_MAX - px) / (GRID_UI_MAX - GRID_UI_MIN) * 100, 0, 100)); }
   function toggleGrid() {
     if (!_effGM() || typeof MapSync === 'undefined') return;
     if (!MapSync.hasActiveMap()) { alert('먼저 좌측 목록에서 지도를 선택/생성하세요.'); return; }
