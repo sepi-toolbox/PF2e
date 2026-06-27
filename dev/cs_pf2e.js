@@ -100,6 +100,32 @@
   function nameKo(doc) { return doc && (doc.name_ko || doc.name); }
   function descKo(doc) { return doc && (doc._desc_ko || (doc.system && doc.system.description && doc.system.description.value)); }
 
+  // FVTT 인라인 @참조(@UUID/@Damage/@Check/@Template/@Localize…) → 한글 가독 렌더.
+  // 시트의 모든 FVTT desc 표시 공통 진입점(장비/재주/주문). 미인식 @X[..]는 라벨만 남김.
+  const _DMG_KO = { piercing: '관통', slashing: '참격', bludgeoning: '타격', fire: '화염', cold: '냉기', acid: '산성', electricity: '전기', sonic: '음향', mental: '정신', poison: '독', void: '공허', spirit: '정신력', vitality: '생명력', force: '역장', bleed: '출혈', untyped: '', precision: '정밀' };
+  const _SAVE_KO = { fortitude: '인내', reflex: '반사', will: '의지' };
+  function _escDesc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+  function enrichDesc(html) {
+    if (!html) return '';
+    let s = String(html);
+    s = s.replace(/@Damage\[((?:[^\[\]]|\[[^\]]*\])*)\](\{[^}]*\})?/g, (m, body) => {
+      const parts = body.split(/,(?![^\[]*\])/).map(p => {
+        const mm = p.match(/\(?\s*([0-9dD()+\-* ]+?)\s*\)?\s*\[([^\]]+)\]/);
+        if (!mm) return p.replace(/[\[\]]/g, ' ').trim();
+        const types = mm[2].split(',').map(t => t.trim()); const persistent = types.includes('persistent');
+        const dts = types.filter(t => t !== 'persistent').map(t => _DMG_KO[t] !== undefined ? _DMG_KO[t] : t).filter(Boolean);
+        return `${mm[1].trim()} ${persistent ? '지속 ' : ''}${dts.join(' ')}`.replace(/\s+/g, ' ').trim();
+      });
+      return `<span class="ref-dmg">${parts.join(' + ')}</span>`;
+    });
+    s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const type = Object.keys(_SAVE_KO).find(k => new RegExp('\\b' + k + '\\b').test(body)) || ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_SAVE_KO[type] || type}</span>`; });
+    s = s.replace(/@UUID\[[^\]]+\](?:\{([^}]*)\})?/g, (m, label) => label ? `<span class="ref-link">${_escDesc(label)}</span>` : '');
+    s = s.replace(/@Template\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const d = (body.match(/distance:(\d+)/) || [])[1]; const SH = { emanation: '발산', burst: '폭발', cone: '원뿔', line: '직선' }; const ty = (body.match(/type:(\w+)/) || [])[1]; return `<span class="ref-area">${d || ''}피트 ${SH[ty] || ty || ''}</span>`; });
+    s = s.replace(/@Localize\[[^\]]+\]/g, '');
+    s = s.replace(/@[A-Za-z]+\[[^\]]*\](?:\{([^}]*)\})?/g, (m, l) => l || '');
+    return s;
+  }
+
   /* ====== Predicate 엔진 (pf2e 포맷) ======
    * predicate: 배열. 원소 = 문자열(옵션 존재) | {not} | {and} | {or} | {nor} | {nand}
    *           | {lt|gt|lte|gte|eq:[a,b]} | {xor} | {iff}
@@ -190,7 +216,7 @@
   function _dig(obj, path) { return path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj); }
 
   const API = {
-    CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo,
+    CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc,
     testPredicate, _testStatement, getByUuid, resolveBrackets,
     _state: { base: _baseCache, ovl: _ovlCache, index: _index },
   };

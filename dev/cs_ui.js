@@ -2771,11 +2771,21 @@ function showEquipDetail(item) {
     </div>`;
   }
 
+  // 플레이버/설명 (FVTT desc 또는 레거시 룬 desc). @UUID/@Damage 인라인 태그는 정리.
+  let descRaw = item.desc || item._desc || (item._runeData && item._runeData.desc) || '';
+  let descHtml = '';
+  if (descRaw) {
+    if (typeof PF2eData !== 'undefined' && PF2eData.enrichDesc) { try { descRaw = PF2eData.enrichDesc(descRaw); } catch (e) {} }
+    const rendered = (typeof resolveDescRefs === 'function') ? resolveDescRefs(descRaw) : descRaw;
+    descHtml = `<div class="modal-detail-desc" style="margin-top:10px;font-size:12px;line-height:1.6;border-top:1px solid var(--border);padding-top:10px;">${rendered}</div>`;
+  }
+
   detail.innerHTML = `
     <div class="modal-detail-back" onclick="document.getElementById('modal-body').classList.remove('detail-open')">← 목록으로</div>
     <div class="modal-detail-title">${nameKo}</div>
     <div class="modal-detail-en">${nameEn}</div>
     ${infoHtml}
+    ${descHtml}
     <div class="equip-give-buy">
       ${modalType === 'formula-pick'
         ? `<button class="btn-give" onclick="recordFormula('${nameKo.replace(/'/g,"\\'")}')">📜 제조법 기록</button>`

@@ -107,7 +107,7 @@
   function toLegacy(doc) {
     if (!doc) return null;
     const s = doc.system || {};
-    const base = { id: s.slug || doc._id, name_ko: doc.name_ko || doc.name, name_en: doc.name_en || doc.name, price: formatPrice(s.price), bulk: _bulkNum(s.bulk), level: (s.level && s.level.value) || 0 };
+    const base = { id: s.slug || doc._id, name_ko: doc.name_ko || doc.name, name_en: doc.name_en || doc.name, price: formatPrice(s.price), bulk: _bulkNum(s.bulk), level: (s.level && s.level.value) || 0, desc: PF.descKo(doc) || '' };
     switch (doc.type) {
       case 'weapon':
         return Object.assign(base, { category: WCAT_LEGACY[s.category] || s.category || '단순', damage: _weaponDamageStr(s), hands: ((s.traits && s.traits.value) || []).some(t => t.startsWith('two-hand')) ? 2 : 1, range: (s.range && (s.range.increment || s.range.max)) || (typeof s.range === 'number' ? s.range : null), reload: (s.reload && s.reload.value) != null ? Number(s.reload.value) : null, group: (_loadLang().weaponGroup || {})[s.group] || s.group || '', traits: _traitsKo(s) });
