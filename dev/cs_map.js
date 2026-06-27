@@ -448,8 +448,9 @@ var MapView = (function() {
   const BRUSH_SIZES = [40, 80, 160, 320];
   const BRUSH_LABELS = ['소', '중', '대', '특'];
   let _brushIdx = 1;
-  let _brush = { paint: false, mode: 'reveal', size: BRUSH_SIZES[1] };  // size=월드 px 지름, mode: reveal|recover
-  let _stroke = null;       // 그리는 중: {last:{x,y}}
+  let _brush = { paint: false, mode: 'reveal', size: BRUSH_SIZES[1], shape: 'free' };  // shape: free|rect|circle
+  let _stroke = null;       // 그리는 중(자유곡선): {last:{x,y}}
+  let _shapeDrag = null;    // 그리는 중(사각/원): {start:{x,y}, cur:{x,y}} (스크린 좌표)
 
   // ── 원격 이동 보간 (Phase E) ──
   let _disp = new Map();    // tokenId → {x,y} 화면 표시 위치 (원격 이동 보간용)
@@ -662,6 +663,10 @@ var MapView = (function() {
     if (modeBtn) modeBtn.textContent = (_brush.mode === 'reveal') ? '지우개(공개)' : '덮기(가림)';
     const sizeLbl = document.getElementById('map-brush-size');
     if (sizeLbl) sizeLbl.textContent = BRUSH_LABELS[_brushIdx];
+    ['free', 'rect', 'circle'].forEach(function(s) {                  // 안개 도형 선택 하이라이트
+      const b = document.getElementById('map-shape-' + s);
+      if (b) b.classList.toggle('on', _brush.shape === s);
+    });
     // GM 전용(Map.html): NPC 배치 + 멀티맵 드로어
     const npcBtn = document.getElementById('map-npc-btn');
     if (npcBtn) npcBtn.style.display = gm ? '' : 'none';
@@ -831,7 +836,7 @@ var MapView = (function() {
     if (!_active) return;
     const p = _localXY(e);
     _movePress(p);
-    if (_stroke) { _strokeMove(p); }
+    if (_stroke || _shapeDrag) { _paintMove(p); }
     else if (_tokenDrag) { _dragTokenTo(p); }
     else if (_drag) {
       _view.offX += p.x - _drag.x; _view.offY += p.y - _drag.y;
@@ -855,7 +860,8 @@ var MapView = (function() {
       _startPress(p);                                   // 롱프레스(1초) → 핑
     } else if (e.touches.length >= 2) {
       _cancelPress();                                   // 두 손가락 → 핑 취소
-      _endStroke();                                     // 그리는 중이었으면 마무리(커밋)
+      _cancelShape();                                   // 그리던 도형은 취소(미적용)
+      _endStroke();                                     // 자유곡선 그리는 중이었으면 마무리(커밋)
       _drag = null; _tokenDrag = null;                  // 두 손가락 → 핀치줌
       _startPinch(e.touches[0], e.touches[1]);
     }
@@ -874,7 +880,7 @@ var MapView = (function() {
     } else if (e.touches.length === 1) {
       const p = _touchLocal(e.touches[0]);
       _movePress(p);
-      if (_stroke) { _strokeMove(p); }
+      if (_stroke || _shapeDrag) { _paintMove(p); }
       else if (_tokenDrag) { _dragTokenTo(p); }
       else if (_drag) {
         _view.offX += p.x - _drag.x; _view.offY += p.y - _drag.y;
@@ -885,7 +891,7 @@ var MapView = (function() {
   }
   function _onTouchEnd(e) {
     if (e.touches.length === 0) { _cancelPress(); _endStroke(); _endTokenDrag(); _drag = null; _pinch = null; }
-    else if (e.touches.length === 1) { _pinch = null; if (!_stroke && !_tokenDrag) _drag = _touchLocal(e.touches[0]); }
+    else if (e.touches.length === 1) { _pinch = null; if (!_stroke && !_shapeDrag && !_tokenDrag) _drag = _touchLocal(e.touches[0]); }
   }
   function _startPinch(t0, t1) {
     const a = _touchLocal(t0), b = _touchLocal(t1);
@@ -933,6 +939,7 @@ var MapView = (function() {
     if (typeof window !== 'undefined' && window._mapTokensAboveFog) _drawAllTokensOnTop();  // GM 플레이어 미리보기: 모든 토큰 안개 위
     else _drawOwnTokenOnTop();   // 시트 플레이: 내 토큰만 안개 위
     _drawPings();           // 핑 (안개 위)
+    _drawShapePreview();    // 안개 도형 러버밴드 미리보기 (최상단)
   }
 
   // 화면 표시 위치 — 내가 끌면 즉시, 그 외(원격 이동)는 보간(exponential smoothing)
@@ -1172,11 +1179,20 @@ var MapView = (function() {
   function _startStroke(p) {
     if (!_maskCv) _ensureMaskFromBg();
     if (!_maskCv) return false;
+    if (_brush.shape === 'rect' || _brush.shape === 'circle') {   // 사각/원: 러버밴드 시작
+      _shapeDrag = { start: p, cur: p };
+      _markDirty();
+      return true;
+    }
     _stroke = { last: p };
     const w = _screenToWorld(p.x, p.y);
     _paintDab(w.x, w.y);
     _markDirty();
     return true;
+  }
+  function _paintMove(p) {                          // 자유=칠하기 / 사각·원=러버밴드 갱신
+    if (_stroke) { _strokeMove(p); }
+    else if (_shapeDrag) { _shapeDrag.cur = p; _markDirty(); }
   }
   function _strokeMove(p) {
     if (!_stroke) return;
@@ -1184,10 +1200,55 @@ var MapView = (function() {
     _stroke.last = p;
     _markDirty();
   }
-  function _endStroke() {
+  function _cancelShape() { if (_shapeDrag) { _shapeDrag = null; _markDirty(); } }
+  function _endStroke() {                            // 페인트 종료(자유/도형 공통 진입점)
+    if (_shapeDrag) { _endShape(); return; }
     if (!_stroke) return;
     _stroke = null;
     _commitMask();
+  }
+  function _endShape() {
+    const d = _shapeDrag; _shapeDrag = null;
+    if (!d || !_maskCv) { _markDirty(); return; }
+    if (Math.hypot(d.cur.x - d.start.x, d.cur.y - d.start.y) < 3) { _markDirty(); return; }  // 거의 안 끌었으면 무시
+    _applyShapeToMask(d.start, d.cur);
+    _commitMask();
+    _markDirty();
+  }
+  // 사각/원 영역을 마스크에 적용 (reveal=공개 흰칠 / recover=가림 지움)
+  function _applyShapeToMask(aScreen, bScreen) {
+    if (!_maskCtx) return;
+    const sc = _maskScale();
+    const a = _screenToWorld(aScreen.x, aScreen.y), b = _screenToWorld(bScreen.x, bScreen.y);
+    const x0 = Math.min(a.x, b.x) / sc, y0 = Math.min(a.y, b.y) / sc;
+    const x1 = Math.max(a.x, b.x) / sc, y1 = Math.max(a.y, b.y) / sc;
+    _maskCtx.globalCompositeOperation = (_brush.mode === 'reveal') ? 'source-over' : 'destination-out';
+    _maskCtx.fillStyle = '#fff';
+    _maskCtx.beginPath();
+    if (_brush.shape === 'circle') {
+      _maskCtx.ellipse((x0 + x1) / 2, (y0 + y1) / 2, Math.max(0.5, (x1 - x0) / 2), Math.max(0.5, (y1 - y0) / 2), 0, 0, Math.PI * 2);
+    } else {
+      _maskCtx.rect(x0, y0, Math.max(0.5, x1 - x0), Math.max(0.5, y1 - y0));
+    }
+    _maskCtx.fill();
+    _maskCtx.globalCompositeOperation = 'source-over';
+  }
+  // 도형 러버밴드 미리보기 (메인 캔버스, 스크린 좌표)
+  function _drawShapePreview() {
+    if (!_shapeDrag) return;
+    const a = _shapeDrag.start, b = _shapeDrag.cur;
+    const x0 = Math.min(a.x, b.x), y0 = Math.min(a.y, b.y);
+    const w = Math.abs(b.x - a.x), h = Math.abs(b.y - a.y);
+    const reveal = (_brush.mode === 'reveal');
+    _ctx.save();
+    _ctx.lineWidth = 2; _ctx.setLineDash([6, 4]);
+    _ctx.strokeStyle = reveal ? 'rgba(245,197,24,0.95)' : 'rgba(110,150,255,0.95)';
+    _ctx.fillStyle   = reveal ? 'rgba(245,197,24,0.16)' : 'rgba(110,150,255,0.16)';
+    _ctx.beginPath();
+    if (_brush.shape === 'circle') _ctx.ellipse(x0 + w / 2, y0 + h / 2, Math.max(1, w / 2), Math.max(1, h / 2), 0, 0, Math.PI * 2);
+    else _ctx.rect(x0, y0, w, h);
+    _ctx.fill(); _ctx.stroke();
+    _ctx.restore();
   }
   function _commitMask() {
     if (!_maskCv || typeof MapSync === 'undefined') return;
@@ -1219,6 +1280,12 @@ var MapView = (function() {
     _brushIdx = _clamp(_brushIdx + delta, 0, BRUSH_SIZES.length - 1);
     _brush.size = BRUSH_SIZES[_brushIdx];
     _refreshToolbar();
+  }
+  // 안개 도형: 자유(free)/사각(rect)/원(circle) — 도형 선택 시 그리기 자동 on
+  function setBrushShape(shape) {
+    _brush.shape = (shape === 'rect' || shape === 'circle') ? shape : 'free';
+    if (_brush.shape !== 'free' && _fogEnabled) _brush.paint = true;
+    _refreshToolbar(); _markDirty();
   }
   function _fillMask(reveal) {
     if (typeof MapSync === 'undefined' || !MapSync.isGM() || !_bg.loaded) return;
@@ -1473,7 +1540,7 @@ var MapView = (function() {
     fit: fit, zoomIn: zoomIn, zoomOut: zoomOut, pickBg: pickBg,
     // 안개 (GM)
     toggleFog: toggleFog, toggleBrush: toggleBrush, toggleBrushMode: toggleBrushMode,
-    brushSize: brushSize, revealAll: revealAll, coverAll: coverAll,
+    brushSize: brushSize, setBrushShape: setBrushShape, revealAll: revealAll, coverAll: coverAll,
     // 격자 (GM): 배치 on/off + 0~100% 비율
     toggleGrid: toggleGrid, gridRangeInput: gridRangeInput, gridRangeChange: gridRangeChange,
     // GM 멀티맵 드로어 (Map.html)
