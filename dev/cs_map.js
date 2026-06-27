@@ -198,6 +198,15 @@ var MapSync = (function() {
     if (!_activeMapId) return Promise.reject('no-active-map');
     return _mapDoc().set({ gridSize: px || 50, updatedAt: _ts(), updatedBy: _uid }, { merge: true });
   }
+  // 격자 on/off + 셀 크기(px) — GM. enabled/px 중 지정된 것만 갱신.
+  function setGrid(enabled, px) {
+    if (!_isGM) return Promise.reject('not-gm');
+    if (!_activeMapId) return Promise.reject('no-active-map');
+    var patch = { updatedAt: _ts(), updatedBy: _uid };
+    if (typeof enabled === 'boolean') patch.gridEnabled = enabled;
+    if (typeof px === 'number' && px > 0) patch.gridSize = Math.round(px);
+    return _mapDoc().set(patch, { merge: true });
+  }
   // 안개 마스크 (Phase D — GM 드로잉 결과 동기화)
   function setFogMask(maskDataUrl, mw, mh, enabled) {
     if (!_isGM) return Promise.reject('not-gm');
@@ -266,7 +275,7 @@ var MapSync = (function() {
     var ref = _mapsCol().doc();
     return ref.set({
       name: name || '새 지도', order: _nextOrder(),
-      bgImage: null, bgW: 0, bgH: 0, gridSize: 50,
+      bgImage: null, bgW: 0, bgH: 0, gridSize: 50, gridEnabled: false,
       fogEnabled: false, fogMask: null, maskW: 0, maskH: 0,
       createdAt: _ts(), updatedAt: _ts(), updatedBy: _uid
     }).then(function() { return ref.id; });
@@ -373,7 +382,7 @@ var MapSync = (function() {
     // 맵 관리 (GM) — 멀티맵 저장/전환
     createMap: createMap, renameMap: renameMap, deleteMap: deleteMap, setActiveMap: setActiveMap,
     // 맵 쓰기 (GM)
-    setBackground: setBackground, setGridSize: setGridSize, setFogMask: setFogMask,
+    setBackground: setBackground, setGridSize: setGridSize, setGrid: setGrid, setFogMask: setFogMask,
     // 토큰 쓰기
     createToken: createToken, upsertToken: upsertToken, moveToken: moveToken,
     removeToken: removeToken, ensureMyToken: ensureMyToken, createNpc: createNpc,
@@ -401,6 +410,11 @@ var MapView = (function() {
 
   const MIN_SCALE = 0.05, MAX_SCALE = 16;
   const GRID_MIN_PX = 6;   // 화면상 셀이 이보다 작으면 그리드 생략(모아레 방지)
+  // 격자 (배치 + 스냅 + 0~100% 비율). 슬라이더 0~100% ↔ 셀 크기 px 선형 매핑.
+  const GRID_UI_MIN = 16, GRID_UI_MAX = 200;
+  let _gridEnabled = false;   // 격자 표시 + 토큰 스냅 (맵 state.gridEnabled 동기화)
+  let _gridPx = 50;           // 셀 크기 px (맵 state.gridSize 동기화) — _cell()/토큰크기/스냅의 단일 출처
+  let _gridDragging = false;  // 슬라이딩 중(로컬 미리보기, Firestore 쓰기 보류)
 
   let _inited  = false;
   let _active  = false;     // 지도 패널이 표시 중인가
@@ -616,6 +630,9 @@ var MapView = (function() {
     // 안개 (Phase D)
     _fogEnabled = !!(state && state.fogEnabled);
     _loadMaskFromState(state);
+    // 격자 (배치 + 스냅) — 슬라이딩 중이 아니면 state로 동기화
+    _gridEnabled = !!(state && state.gridEnabled);
+    if (!_gridDragging) _gridPx = (state && state.gridSize) ? state.gridSize : 50;
     _refreshEmpty();
     _refreshToolbar();
     _markDirty();
@@ -650,6 +667,12 @@ var MapView = (function() {
     if (npcBtn) npcBtn.style.display = gm ? '' : 'none';
     const drawerBtn = document.getElementById('map-drawer-btn');
     if (drawerBtn) drawerBtn.style.display = gm ? '' : 'none';
+    // 격자 컨트롤 (GM 전용): 토글 버튼 + 비율 슬라이더 바
+    const gridBtn = document.getElementById('map-grid-btn');
+    if (gridBtn) { gridBtn.style.display = gm ? '' : 'none'; gridBtn.classList.toggle('on', _gridEnabled); }
+    const gridBar = document.getElementById('map-grid-bar');
+    if (gridBar) gridBar.style.display = (gm && _gridEnabled) ? 'flex' : 'none';
+    if (gm) _refreshGridBar();
     // 시트 플레이 뷰 전용: '내 토큰 놓기' 버튼 (관리기능 없음, 이동·내토큰·핑만)
     const placeBtn = document.getElementById('map-place-btn');
     if (placeBtn) placeBtn.style.display = _playMode ? '' : 'none';
@@ -658,10 +681,7 @@ var MapView = (function() {
   // ───────────────────────────────────────────
   //  토큰 — 기하/가시성/히트테스트/이미지 캐시
   // ───────────────────────────────────────────
-  function _cell() {
-    const st = (typeof MapSync !== 'undefined') ? MapSync.getMapState() : null;
-    return (st && st.gridSize) ? st.gridSize : 50;     // gridSize 없으면 기본 50px/셀
-  }
+  function _cell() { return _gridPx || 50; }   // 셀 크기(px) — 격자/스냅/토큰크기 단일 출처
   function _tokenRadiusWorld(t) { return ((t.size || 1) * _cell()) / 2; }
   function _myUid() { return (typeof currentUser !== 'undefined' && currentUser) ? currentUser.uid : null; }
 
@@ -747,6 +767,13 @@ var MapView = (function() {
     _tokenDrag.moved = Math.max(_tokenDrag.moved, Math.hypot(dx, dy));
     _markDirty();
   }
+  // 격자 스냅 — 점유 칸수(size)에 맞춰: 홀수칸=셀 중심, 짝수칸=격자 교차점
+  function _snapWorld(x, y, size) {
+    const c = _cell();
+    const n = Math.max(1, Math.round(size || 1));       // 점유 칸수(작음 0.5→1)
+    if (n % 2 === 1) return { x: (Math.floor(x / c) + 0.5) * c, y: (Math.floor(y / c) + 0.5) * c };
+    return { x: Math.round(x / c) * c, y: Math.round(y / c) * c };
+  }
   function _endTokenDrag() {
     if (!_tokenDrag) return;
     const d = _tokenDrag; _tokenDrag = null;
@@ -758,7 +785,13 @@ var MapView = (function() {
       }
       _markDirty(); return;
     }
-    MapSync.moveToken(d.id, Math.round(d.x), Math.round(d.y))
+    var tx = d.x, ty = d.y;
+    if (_gridEnabled) {                                 // 격자 켜짐 → 점유 칸수에 맞춰 스냅
+      var tk = MapSync.getToken(d.id);
+      var s = _snapWorld(d.x, d.y, tk && tk.size);
+      tx = s.x; ty = s.y;
+    }
+    MapSync.moveToken(d.id, Math.round(tx), Math.round(ty))
       .catch(function(err) { console.warn('[MapView moveToken]', err); _markDirty(); });
     _markDirty();
   }
@@ -1006,10 +1039,10 @@ var MapView = (function() {
     }
   }
 
-  // ── 그리드 (gridSize px/셀) ──
+  // ── 그리드 (격자 배치: gridEnabled일 때만, _gridPx px/셀) ──
   function _drawGrid() {
-    const st = (typeof MapSync !== 'undefined') ? MapSync.getMapState() : null;
-    const gs = st && st.gridSize ? st.gridSize : 0;
+    if (!_gridEnabled) return;
+    const gs = _gridPx || 0;
     if (!gs) return;
     const step = gs * _view.scale;
     if (step < GRID_MIN_PX) return;       // 너무 촘촘하면 생략
@@ -1383,6 +1416,41 @@ var MapView = (function() {
       .catch(function(err) { console.warn('[npc portrait]', err); });
   }
 
+  // ── 격자 컨트롤 (GM) — 배치 on/off + 0~100% 비율 슬라이더 ──
+  function _pctToPx(pct) { return Math.round(GRID_UI_MIN + (GRID_UI_MAX - GRID_UI_MIN) * (_clamp(pct, 0, 100) / 100)); }
+  function _pxToPct(px)  { return Math.round(_clamp((px - GRID_UI_MIN) / (GRID_UI_MAX - GRID_UI_MIN) * 100, 0, 100)); }
+  function toggleGrid() {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    if (!MapSync.hasActiveMap()) { alert('먼저 좌측 목록에서 지도를 선택/생성하세요.'); return; }
+    MapSync.setGrid(!_gridEnabled, _gridPx).catch(function(e) { console.warn('[toggleGrid]', e); });
+  }
+  function _refreshGridLabel() {
+    const v = document.getElementById('map-grid-val');
+    if (v) v.textContent = _pxToPct(_gridPx) + '%';
+    const info = document.getElementById('map-grid-info');
+    if (info) info.textContent = _bg.loaded
+      ? ('≈ ' + Math.max(1, Math.round(_bg.w / _gridPx)) + '×' + Math.max(1, Math.round(_bg.h / _gridPx)) + '칸')
+      : (_gridPx + 'px/칸');
+  }
+  function _refreshGridBar() {
+    const range = document.getElementById('map-grid-range');
+    if (range && !_gridDragging) range.value = _pxToPct(_gridPx);
+    _refreshGridLabel();
+  }
+  function gridRangeInput(pct) {            // 슬라이딩 중 — 로컬 미리보기만(Firestore 쓰기 0)
+    _gridDragging = true;
+    _gridPx = _pctToPx(+pct);
+    _refreshGridLabel();
+    _markDirty();
+  }
+  function gridRangeChange(pct) {           // 놓을 때 — 1회 쓰기 (안개 stroke-end 철학과 동일)
+    _gridDragging = false;
+    _gridPx = _pctToPx(+pct);
+    _refreshGridLabel();
+    _markDirty();
+    if (_effGM() && typeof MapSync !== 'undefined') MapSync.setGrid(true, _gridPx).catch(function(e) { console.warn('[gridRange]', e); });
+  }
+
   return {
     init: init, show: show, hide: hide,
     toggleFullscreen: toggleFullscreen, openFullscreen: openFullscreen, closeFullscreen: closeFullscreen,
@@ -1390,6 +1458,8 @@ var MapView = (function() {
     // 안개 (GM)
     toggleFog: toggleFog, toggleBrush: toggleBrush, toggleBrushMode: toggleBrushMode,
     brushSize: brushSize, revealAll: revealAll, coverAll: coverAll,
+    // 격자 (GM): 배치 on/off + 0~100% 비율
+    toggleGrid: toggleGrid, gridRangeInput: gridRangeInput, gridRangeChange: gridRangeChange,
     // GM 멀티맵 드로어 (Map.html)
     toggleDrawer: toggleDrawer, addMap: addMap,
     // GM NPC 편집기 (Map.html)

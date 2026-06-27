@@ -127,6 +127,17 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 #map-npc-editor .ne-actions button:hover{color:var(--accent);}
 #map-npc-editor .ne-actions .ne-del{color:#e07070;border-color:#5a2a2a;}
 #map-npc-editor .ne-actions .ne-del:hover{background:#5a2a2a;color:#fff;}
+
+/* ── 격자 비율 바 (좌하단) ── */
+#map-grid-bar{
+  position:absolute;bottom:8px;left:8px;z-index:5;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(16,16,16,.88);border:1px solid var(--border);border-radius:8px;padding:6px 10px;
+}
+#map-grid-bar .map-grid-lbl{font-size:11px;color:var(--text2);white-space:nowrap;}
+#map-grid-bar input[type=range]{width:130px;accent-color:var(--accent);}
+#map-grid-bar b{color:var(--accent);font-size:12px;min-width:34px;text-align:right;}
+#map-grid-bar .map-grid-info{font-size:11px;color:var(--text2);white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -153,6 +164,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
     <button id="map-drawer-btn" style="display:none;" onclick="MapView.toggleDrawer()">☰ 지도</button>
     <button id="map-npc-btn" style="display:none;" onclick="MapView.openNpcCreate()">➕ NPC</button>
     <button id="map-upload-btn" style="display:none;" onclick="MapView.pickBg()">🖼 배경</button>
+    <button id="map-grid-btn" style="display:none;" onclick="MapView.toggleGrid()">⊞ 격자</button>
     <button id="map-fog-btn" style="display:none;" onclick="MapView.toggleFog()">🌫 안개</button>
   </div>
   <div id="map-fog-bar" style="display:none;">
@@ -161,6 +173,13 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
     <span class="map-fog-size">붓 <button onclick="MapView.brushSize(-1)">－</button><b id="map-brush-size">중</b><button onclick="MapView.brushSize(1)">＋</button></span>
     <button onclick="MapView.revealAll()">전체공개</button>
     <button onclick="MapView.coverAll()">전체가림</button>
+  </div>
+  <div id="map-grid-bar" style="display:none;">
+    <span class="map-grid-lbl">격자 비율</span>
+    <input id="map-grid-range" type="range" min="0" max="100" value="20"
+           oninput="MapView.gridRangeInput(this.value)" onchange="MapView.gridRangeChange(this.value)">
+    <b id="map-grid-val">20%</b>
+    <span id="map-grid-info" class="map-grid-info"></span>
   </div>
   <div id="map-zoom">
     <button onclick="MapView.zoomIn()" aria-label="확대">＋</button>
@@ -183,7 +202,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_map.js?v=555"></script>
+<script src="cs_map.js?v=556"></script>
 <script>
 // ── 지도 전용 글루 (캐릭터 시트와 독립) ──
 let currentUser = null;
