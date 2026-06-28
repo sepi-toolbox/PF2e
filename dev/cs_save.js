@@ -5,6 +5,51 @@
 let _autoSaveDebounce = null;
 let _lastSavedJson = null; // 직전 저장 JSON — 동일 데이터 중복 write 방지
 
+// ── 동시편집 보호 (stale/파괴적 덮어쓰기 방지) ──────────────────────
+// 현재 편집 중인 캐릭터 슬롯의 마지막으로 본 클라우드 버전(서버 updatedAt millis)
+let _baseUpdatedAt = 0;
+let _lastWrittenJson = null;      // 내가 마지막으로 성공 저장한 json (내 쓰기 에코 식별용)
+function _docUpdatedMillis(d) { try { var t = d && d.updatedAt; return (t && t.toMillis) ? t.toMillis() : 0; } catch (e) { return 0; } }
+function noteCloudVersion(doc) { try { if (doc && doc.exists) { var m = _docUpdatedMillis(doc.data()); if (m > _baseUpdatedAt) _baseUpdatedAt = m; } } catch (e) {} }
+function resetCloudVersion(doc) { try { _baseUpdatedAt = (doc && doc.exists) ? _docUpdatedMillis(doc.data()) : 0; if (doc && doc.exists && doc.data().data) _lastWrittenJson = doc.data().data; } catch (e) { _baseUpdatedAt = 0; } }
+
+// 캐릭터 데이터 풍부도 — 파괴적(전체 손실급) 덮어쓰기 감지용
+function _charRichness(data) {
+  if (typeof data === 'string') { try { data = JSON.parse(data); } catch (e) { return 0; } }
+  if (!data || typeof data !== 'object') return 0;
+  var s = 0;
+  var nm = data.fields && data.fields.name; if (nm && String(nm).trim()) s += 2;
+  if (data.selectedClass) s += 3; if (data.selectedAncestry) s += 1; if (data.selectedHeritage) s += 1;
+  var lv = parseInt(data.fields && data.fields.level) || 1; if (lv > 1) s += Math.min(lv, 20);
+  function cnt(o) { var n = 0; if (o && typeof o === 'object') for (var k in o) if (Array.isArray(o[k])) n += o[k].length; return n; }
+  s += cnt(data.feats) + cnt(data.spells) + cnt(data.boosts);
+  if (Array.isArray(data.weapons)) s += data.weapons.length;
+  if (Array.isArray(data.equip)) s += data.equip.length;
+  if (data.growth && typeof data.growth === 'object') s += Object.keys(data.growth).length;
+  return s;
+}
+
+// 트랜잭션 안전 저장: (1)클라우드가 내가 본 버전보다 최신이면 stale → 덮어쓰지 않음(들어오는 onSnapshot이 동기화)
+//                    (2)기존이 풍부한데 새 데이터가 절반 미만으로 급감하면 파괴적 → 차단.
+// resolve → {skipped:false|'stale'|'destructive', oldR, newR}
+function safeSaveCharacter(ref, payload) {
+  return firebase.firestore().runTransaction(function (tx) {
+    return tx.get(ref).then(function (snap) {
+      var cloudMs = snap.exists ? _docUpdatedMillis(snap.data()) : 0;
+      var cloudData = snap.exists ? snap.data().data : null;
+      if (snap.exists && cloudMs > _baseUpdatedAt + 200 && cloudData !== _lastWrittenJson) {
+        return { skipped: 'stale' };
+      }
+      if (cloudData) {
+        var oldR = _charRichness(cloudData), newR = _charRichness(payload.data);
+        if (oldR >= 8 && newR < Math.ceil(oldR * 0.5)) return { skipped: 'destructive', oldR: oldR, newR: newR };
+      }
+      tx.set(ref, payload);
+      return { skipped: false };
+    });
+  });
+}
+
 function save() {
   const st = document.getElementById('save-status');
   if (st) { st.textContent = '미저장'; st.style.color = '#f5c518'; }
@@ -29,12 +74,15 @@ function autoSaveNow() {
   }
   if (st) { st.textContent = '저장 중...'; st.style.color = '#f5c518'; }
   const db2 = firebase.firestore();
-  db2.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot).set({
+  const ref = db2.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot);
+  safeSaveCharacter(ref, {
     data: json,
     name: data.name || '이름 없음',
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-  }).then(() => {
-    _lastSavedJson = json;
+  }).then((res) => {
+    if (res.skipped === 'stale') { if (st) { st.textContent = '다른 기기 변경 감지 — 동기화 중'; st.style.color = '#f5c518'; } return; }
+    if (res.skipped === 'destructive') { console.warn('[autoSave] 파괴적 저장 차단', res); if (st) { st.textContent = '⚠ 빈 데이터 저장 차단됨'; st.style.color = '#e74c3c'; } return; }
+    _lastSavedJson = json; _lastWrittenJson = json;
     if (st) { st.textContent = '저장완료'; st.style.color = '#27ae60'; }
   }).catch((e) => {
     if (st) { st.textContent = '저장 실패'; st.style.color = '#e74c3c'; }

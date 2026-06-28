@@ -234,17 +234,20 @@ function sessionSaveNow() {
     return;
   }
   if (st) { st.textContent = '저장 중...'; st.style.color = 'var(--accent)'; }
-  // 저장 데이터 기록 — onSnapshot에서 자기 반응 스킵용
+  // 자기-반응 스킵용은 write 전 설정(3초 디바운스 자기-되돌림 레이스 방지). 스킵돼도 무해:
+  // 내 jsonData와 일치하는 스냅샷은 실제로 안 오고, 타 기기 스냅샷(다른 데이터)은 정상 적용됨.
   if (targetUid === currentUser.uid) _lastSavedData = jsonData;
   else if (_isGM) _gmLastSavedData = jsonData;
-
-  db.collection('users').doc(targetUid)
-    .collection('characters').doc(targetSlot).set({
+  const _saveRef = db.collection('users').doc(targetUid).collection('characters').doc(targetSlot);
+  safeSaveCharacter(_saveRef, {
       data: jsonData,
       name: data.name || '이름 없음',
       sessionId: _currentSession.id,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(() => {
+    }).then((res) => {
+      if (res.skipped === 'stale') { if (st) { st.textContent = '다른 곳 변경 감지 — 동기화 중'; st.style.color = 'var(--accent)'; } return; }
+      if (res.skipped === 'destructive') { console.warn('[sessionSave] 파괴적 저장 차단 — 빈/축소 데이터로 덮어쓰기 거부', res); if (st) { st.textContent = '⚠ 데이터 손실 방지 — 저장 보류'; st.style.color = 'var(--red-light)'; } return; }
+      _lastWrittenJson = jsonData;   // _lastSavedData/_gmLastSavedData 는 write 전 설정됨
       if (st) { st.textContent = '저장완료'; st.style.color = 'var(--green)'; }
       _saveRetryCount = 0;
       if (_saveRetryTimer) { clearTimeout(_saveRetryTimer); _saveRetryTimer = null; }
@@ -277,6 +280,7 @@ function loadSessionCharacter(uid) {
     .collection('characters').doc(slotId).get().then(doc => {
       if (doc.exists && doc.data().data) {
         const data = JSON.parse(doc.data().data);
+        if (typeof resetCloudVersion === 'function') resetCloudVersion(doc);   // 동시편집 보호: 기준 버전 기록
         _loadComplete = false;
         loadData(data);
         _rebuildAllUI();
@@ -442,6 +446,7 @@ function startSessionListeners() {
       .collection('characters').doc(mySlot)
       .onSnapshot(doc => {
         if (!doc.exists || !doc.data().data) return;
+        if (typeof noteCloudVersion === 'function') noteCloudVersion(doc);   // 동시편집 보호: 최신 버전 추적
         const remoteData = doc.data().data;
         // 자기가 방금 저장한 데이터면 스킵 (무한 루프 방지)
         if (remoteData === _lastSavedData) return;
@@ -866,6 +871,10 @@ function gmSwitchTab(uid) {
     sessionSaveNow();
   }
 
+  // 로드 갭 가드: 새 슬롯 비동기 로드 완료 전까지 자동저장 봉쇄(이전 state로 새 슬롯 덮어쓰기 방지)
+  _loadComplete = false;
+  _baseUpdatedAt = 0; _lastWrittenJson = null;   // 새 캐릭터 기준 버전은 loadSessionCharacter가 재설정
+
   _gmActiveTab = uid;
   _gmEditTarget = uid;
 
@@ -908,6 +917,7 @@ function _startGMCharListener(uid) {
     .collection('characters').doc(slotId)
     .onSnapshot(doc => {
       if (!doc.exists || !doc.data().data) return;
+      if (typeof noteCloudVersion === 'function') noteCloudVersion(doc);   // 동시편집 보호: 최신 버전 추적
       const remoteData = doc.data().data;
       // GM이 방금 저장한 데이터면 스킵 (자기 반응 방지)
       if (remoteData === _gmLastSavedData) return;

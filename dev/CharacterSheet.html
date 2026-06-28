@@ -20,10 +20,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=588"></script>
-<script src="feat_db.js?v=588"></script>
-<script src="SPELL_DB.js?v=588"></script>
-<script src="class_features_db.js?v=588"></script>
+<script src="equipment_db.js?v=589"></script>
+<script src="feat_db.js?v=589"></script>
+<script src="SPELL_DB.js?v=589"></script>
+<script src="class_features_db.js?v=589"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1409,7 +1409,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 <div id="auth-bar">
   <div style="display:flex;align-items:center;gap:8px;">
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;">v588</span>
+    <span style="font-size:9px;color:#555;">v589</span>
   </div>
   <div id="auth-area">
     <button class="btn btn-google" onclick="googleLogin()">Google 로그인</button>
@@ -2000,24 +2000,24 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=588"></script>
-<script src="cs_calc.js?v=588"></script>
+<script src="cs_data.js?v=589"></script>
+<script src="cs_calc.js?v=589"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=588"></script>
-<script src="cs_re_engine.js?v=588"></script>
-<script src="cs_pf2e_stats.js?v=588"></script>
-<script src="cs_pf2e_equip.js?v=588"></script>
-<script src="cs_pf2e_actor.js?v=588"></script>
-<script src="cs_ui.js?v=588"></script>
-<script src="cs_modal.js?v=588"></script>
-<script src="cs_feat_effects.js?v=588"></script>
-<script src="cs_save.js?v=588"></script>
-<script src="cs_session.js?v=588"></script>
-<script src="cs_dice.js?v=588"></script>
-<script src="cs_map.js?v=588"></script>
+<script src="cs_pf2e.js?v=589"></script>
+<script src="cs_re_engine.js?v=589"></script>
+<script src="cs_pf2e_stats.js?v=589"></script>
+<script src="cs_pf2e_equip.js?v=589"></script>
+<script src="cs_pf2e_actor.js?v=589"></script>
+<script src="cs_ui.js?v=589"></script>
+<script src="cs_modal.js?v=589"></script>
+<script src="cs_feat_effects.js?v=589"></script>
+<script src="cs_save.js?v=589"></script>
+<script src="cs_session.js?v=589"></script>
+<script src="cs_dice.js?v=589"></script>
+<script src="cs_map.js?v=589"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=588"></script>
-<script src="cs_i18n.js?v=588"></script>
+<script src="cs_locale.js?v=589"></script>
+<script src="cs_i18n.js?v=589"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -2110,6 +2110,7 @@ function loadFromCloud() {
   db.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot).get().then(function(doc) {
     if (doc.exists && doc.data().data) {
       var data = JSON.parse(doc.data().data);
+      if (typeof resetCloudVersion === 'function') resetCloudVersion(doc);   // 동시편집 보호: 기준 버전 기록
       loadData(data);
       // 모든 UI 재구축
       if (typeof buildSkills === 'function') buildSkills();
