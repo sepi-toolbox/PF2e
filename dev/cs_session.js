@@ -1083,7 +1083,7 @@ function _ensureGMSwitchFab() {
   }
   var count = Object.keys(_currentSession.players || {}).length;
   fab.innerHTML = '👥<span class="gm-fab-badge">' + count + '</span>';
-  fab.style.display = '';
+  fab.style.display = 'flex';   // CSS 기본값 display:none 을 인라인으로 덮어 노출 (''로는 none 유지됨)
   _updateGMSwitchPopup();
 }
 
