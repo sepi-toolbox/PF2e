@@ -533,7 +533,7 @@ function enterSessionUI() {
     const area = document.getElementById('auth-area');
     if (area) {
       area.innerHTML = '<span class="auth-user">' + (currentUser.displayName || currentUser.email) + '</span>' +
-        '<button class="btn btn-confirm" onclick="saveToCloud()">저장</button>' +
+        /* 저장 버튼은 톱니 메뉴로 이동 */ '' +
         '<button class="btn btn-danger" onclick="leaveSession()">세션 나가기</button>' +
         '<button class="btn btn-ghost" onclick="googleLogout()">로그아웃</button>';
     }
@@ -558,7 +558,7 @@ function exitSessionUI() {
     if (area) {
       area.innerHTML = '<span class="auth-user">' + (currentUser.displayName || currentUser.email) + '</span>' +
         '<button class="btn btn-ghost" onclick="loadFromCloud()">불러오기</button>' +
-        '<button class="btn btn-confirm" onclick="saveToCloud()">저장</button>' +
+        /* 저장 버튼은 톱니 메뉴로 이동 */ '' +
         '<button class="btn btn-green" onclick="if(typeof openJoinSessionModal===\'function\')openJoinSessionModal()">세션 참가</button>' +
         '<button class="btn btn-ghost" onclick="googleLogout()">로그아웃</button>';
     }

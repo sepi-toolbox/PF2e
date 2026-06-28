@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=604"></script>
-<script src="feat_db.js?v=604"></script>
-<script src="SPELL_DB.js?v=604"></script>
-<script src="class_features_db.js?v=604"></script>
+<script src="equipment_db.js?v=605"></script>
+<script src="feat_db.js?v=605"></script>
+<script src="SPELL_DB.js?v=605"></script>
+<script src="class_features_db.js?v=605"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -157,12 +157,15 @@ body{
 #hdr-gear{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);width:30px;height:28px;border-radius:5px;cursor:pointer;font-size:16px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:border-color .12s,color .12s,transform .2s;}
 #hdr-gear:hover{border-color:var(--accent);color:var(--accent);}
 #hdr-gear.open{transform:rotate(60deg);border-color:var(--accent);color:var(--accent);}
-#gear-menu{position:fixed;top:46px;right:10px;z-index:10050;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.45);min-width:240px;max-width:320px;padding:12px;display:none;flex-direction:column;gap:12px;}
+#gear-menu{position:fixed;top:46px;right:10px;z-index:10050;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.45);width:240px;max-width:calc(100vw - 20px);padding:12px;display:none;flex-direction:column;gap:14px;}
 #gear-menu.open{display:flex;}
-.gear-menu-section{display:flex;flex-direction:column;gap:7px;}
-.gear-menu-label{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;}
-#gear-menu #auth-area{display:flex;flex-wrap:wrap;gap:6px;}
-#gear-menu #slot-bar{background:transparent !important;padding:0 !important;display:flex;flex-wrap:wrap;gap:6px;}
+.gear-menu-section{display:flex;flex-direction:column;gap:6px;}
+.gear-menu-label{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);padding-bottom:3px;}
+/* 팝업 안 모든 동작 버튼 = 전체폭 세로 스택 (한 줄 늘어짐 방지) */
+#gear-menu .btn{width:100%;justify-content:center;margin:0;}
+#gear-menu #auth-area{display:flex;flex-direction:column;align-items:stretch;gap:6px;}
+#gear-menu .auth-user{max-width:none;margin:0 0 2px;text-align:center;font-size:12px;color:var(--text);}
+#gear-menu #slot-bar{background:transparent !important;padding:0 !important;display:flex;flex-direction:column;align-items:stretch;gap:6px;}
 /* ── 방어 능력 박스 헤더의 아이콘 버튼 (휴식/상태이상) ── */
 .def-icon-btn{background:var(--bg4);border:1px solid var(--border2);color:var(--text2);width:26px;height:24px;border-radius:5px;cursor:pointer;font-size:13px;line-height:1;display:inline-flex;align-items:center;justify-content:center;margin-left:4px;transition:border-color .12s,color .12s;}
 .def-icon-btn:hover{border-color:var(--accent);color:var(--accent);}
@@ -1586,7 +1589,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 <div id="header">
   <span style="color:#ff8c42;font-size:13px;font-weight:700;">Pathforge (dev)</span>
   <span id="save-status" style="font-size:11px;"></span>
-  <span style="font-size:9px;color:#888;">v604</span>
+  <span style="font-size:9px;color:#888;">v605</span>
   <div style="flex:1;"></div>
   <div class="hdr-actions">
     <button id="hdr-gear" onclick="toggleGearMenu(event)" title="계정 · 세션 · 저장 슬롯 · 초기화" aria-label="설정">⚙</button>
@@ -1599,6 +1602,10 @@ input::placeholder{ color:rgba(80,66,44,.55); }
   <div class="gear-menu-section">
     <div class="gear-menu-label">계정</div>
     <div id="auth-area"><button class="btn btn-google" onclick="googleLogin()">Google 로그인</button></div>
+  </div>
+  <div class="gear-menu-section">
+    <div class="gear-menu-label">저장</div>
+    <button class="btn btn-confirm" style="width:100%;justify-content:center;" onclick="saveToCloud();">💾 지금 저장 (클라우드)</button>
   </div>
   <div class="gear-menu-section">
     <div class="gear-menu-label">저장 슬롯</div>
@@ -2183,24 +2190,24 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=604"></script>
-<script src="cs_calc.js?v=604"></script>
+<script src="cs_data.js?v=605"></script>
+<script src="cs_calc.js?v=605"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=604"></script>
-<script src="cs_re_engine.js?v=604"></script>
-<script src="cs_pf2e_stats.js?v=604"></script>
-<script src="cs_pf2e_equip.js?v=604"></script>
-<script src="cs_pf2e_actor.js?v=604"></script>
-<script src="cs_ui.js?v=604"></script>
-<script src="cs_modal.js?v=604"></script>
-<script src="cs_feat_effects.js?v=604"></script>
-<script src="cs_save.js?v=604"></script>
-<script src="cs_session.js?v=604"></script>
-<script src="cs_dice.js?v=604"></script>
-<script src="cs_map.js?v=604"></script>
+<script src="cs_pf2e.js?v=605"></script>
+<script src="cs_re_engine.js?v=605"></script>
+<script src="cs_pf2e_stats.js?v=605"></script>
+<script src="cs_pf2e_equip.js?v=605"></script>
+<script src="cs_pf2e_actor.js?v=605"></script>
+<script src="cs_ui.js?v=605"></script>
+<script src="cs_modal.js?v=605"></script>
+<script src="cs_feat_effects.js?v=605"></script>
+<script src="cs_save.js?v=605"></script>
+<script src="cs_session.js?v=605"></script>
+<script src="cs_dice.js?v=605"></script>
+<script src="cs_map.js?v=605"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=604"></script>
-<script src="cs_i18n.js?v=604"></script>
+<script src="cs_locale.js?v=605"></script>
+<script src="cs_i18n.js?v=605"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -2243,14 +2250,14 @@ function updateAuthUI(user) {
     var gmSessionId = new URLSearchParams(window.location.search).get('gmsession');
     if (gmSessionId && typeof enterGMSessionMode === 'function') {
       area.innerHTML = '<span class="auth-user">' + (user.displayName || user.email) + '</span>' +
-        '<button class="btn btn-confirm" onclick="saveToCloud()">저장</button>' +
+        /* 저장 버튼은 톱니 메뉴로 이동 */ '' +
         '<button class="btn btn-ghost" onclick="googleLogout()">로그아웃</button>';
       enterGMSessionMode(gmSessionId);
       return;
     }
     // 플레이어 모드 — 세션 복귀 시도
     area.innerHTML = '<span class="auth-user">' + (user.displayName || user.email) + '</span>' +
-      '<button class="btn btn-confirm" onclick="saveToCloud()">저장</button>' +
+      /* 저장 버튼은 톱니 메뉴로 이동 */ '' +
       '<button class="btn btn-green" onclick="if(typeof openJoinSessionModal===\'function\')openJoinSessionModal()">세션 참가</button>' +
       '<button class="btn btn-ghost" onclick="googleLogout()">로그아웃</button>';
     slotBar.style.display = 'flex';
