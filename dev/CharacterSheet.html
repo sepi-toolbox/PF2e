@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=589"></script>
-<script src="feat_db.js?v=589"></script>
-<script src="SPELL_DB.js?v=589"></script>
-<script src="class_features_db.js?v=589"></script>
+<script src="equipment_db.js?v=590"></script>
+<script src="feat_db.js?v=590"></script>
+<script src="SPELL_DB.js?v=590"></script>
+<script src="class_features_db.js?v=590"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -58,27 +58,28 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
    ═══════════════════════════════════════════ */
 :root {
-  --bg:       #1c1c1c;
-  --bg2:      #222222;
-  --bg3:      #2a2a2a;
-  --bg4:      #333333;
-  --bg5:      #3a3a3a;
-  --text:     #dddddd;
-  --text2:    #999999;
-  --border:   #444444;
-  --border2:  #555555;
-  --accent:   #c9a84c;
-  --accent2:  #e8d5a3;
-  --accent-bg:#2a2010;
-  --red:      #d4543a;
-  --red-bg:   #2a1010;
-  --green:    #4a8a4a;
-  --teal:     #2a3a2a;
-  --modal-bg: rgba(0,0,0,0.85);
+  /* FVTT pf2e 라이트 양피지 테마 (v590~ 리스킨) — 다크값은 _legacy 주석 보존 */
+  --bg:       #ece1c7;  /* parchment 본문 _legacy #1c1c1c */
+  --bg2:      #e4d6b5;  /* 패널/박스 _legacy #222 */
+  --bg3:      #d9c8a2;  /* hover/detail _legacy #2a2a2a */
+  --bg4:      #ccb78c;  /* _legacy #333 */
+  --bg5:      #c1a877;  /* _legacy #3a3a3a */
+  --text:     #2b2117;  /* 잉크 _legacy #ddd */
+  --text2:    #6e5c40;  /* muted brown _legacy #999 */
+  --border:   #bfa572;  /* parchment border _legacy #444 */
+  --border2:  #a3884e;  /* _legacy #555 */
+  --accent:   #6e1414;  /* deep red (제목/활성/방패) _legacy gold #c9a84c */
+  --accent2:  #8f2b2b;  /* _legacy #e8d5a3 */
+  --accent-bg:#f3e7cd;  /* _legacy #2a2010 */
+  --red:      #8a1a1a;  /* _legacy #d4543a */
+  --red-bg:   #f1dcc6;  /* _legacy #2a1010 */
+  --green:    #3f7a3f;  /* _legacy #4a8a4a */
+  --teal:     #e7ddc0;  /* _legacy #2a3a2a */
+  --modal-bg: rgba(35,24,12,0.55);  /* _legacy rgba(0,0,0,.85) */
   /* legacy compat aliases */
-  --gold:       #c9a84c;
-  --gold-light: #e8d5a3;
-  --red-light:  #e06050;
+  --gold:       #8a6a1f;  /* parchment 위 가독 골드 _legacy #c9a84c */
+  --gold-light: #b5912f;  /* _legacy #e8d5a3 */
+  --red-light:  #b34030;  /* _legacy #e06050 */
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
@@ -1410,6 +1411,67 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 .gm-tab-wrap{display:inline-flex;align-items:stretch;position:relative;}
 .gm-tab-kick{background:#c0392b;color:#fff;border:none;padding:0 6px;font-size:13px;cursor:pointer;border-radius:0 4px 0 0;opacity:.5;transition:opacity .15s;}
 .gm-tab-kick:hover{opacity:1;}
+
+/* ════════════════════════════════════════════════════════════
+   FVTT 양피지 리스킨 (v590~) — 라이트 테마 마감 오버라이드
+   기존 다크 하드코딩 surface 보정 + 폰트 + 텍스처
+   ════════════════════════════════════════════════════════════ */
+@font-face{font-family:"Eczar";font-weight:600;font-display:swap;src:url("fonts/eczar-v16-latin-ext_latin-600.woff2") format("woff2");}
+@font-face{font-family:"Eczar";font-weight:700;font-display:swap;src:url("fonts/eczar-v16-latin-ext_latin-700.woff2") format("woff2");}
+@font-face{font-family:"Gelasio";font-weight:400;font-display:swap;src:url("fonts/gelasio-v9-latin-ext_latin-regular.woff2") format("woff2");}
+@font-face{font-family:"Gelasio";font-weight:700;font-display:swap;src:url("fonts/gelasio-v9-latin-ext_latin-700.woff2") format("woff2");}
+
+/* 본문 양피지 텍스처 */
+body{
+  background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat !important;
+  color:var(--text);
+}
+#center-col,#right-content{ background:transparent; }
+#app-layout{ background:rgba(255,250,240,.25); }
+
+/* 박스/패널: 살짝 더 진한 양피지 + 골드 테두리 */
+.box{ background:linear-gradient(180deg,rgba(255,250,238,.55),rgba(231,216,184,.55)),#e7d8b6; border-color:var(--border); box-shadow:inset 0 0 0 1px rgba(255,255,255,.35); }
+.box-title{ color:var(--accent); font-family:"Eczar",var(--bs,serif); letter-spacing:1px; border-bottom-color:var(--border); }
+
+/* 메인 헤더 = FVTT 붉은 배너 */
+#header{
+  background:#5e0000 url("data/fvtt-assets/sheet/red_bg.webp") repeat !important;
+  border-top:1px solid #7a1d1d;
+  border-bottom:2px solid var(--gold);
+  color:#f3e2c2;
+}
+#header .btn-ghost{ color:#f3e2c2; }
+
+/* 상단 유틸 바(auth/slot/session): 양피지 톤으로 통일 */
+#auth-bar,#slot-bar{ background:#d9c8a2 !important; color:var(--text); border-bottom:1px solid var(--border); }
+#save-status{ color:var(--text2); }
+
+/* 우측 탭바 / 좌측·중앙 컬럼 경계 */
+#right-tabs{ background:rgba(231,216,184,.6); border-bottom:1px solid var(--border); }
+.tab{ color:var(--text2); }
+.tab.active{ color:var(--accent); border-bottom-color:var(--accent); }
+#sidebar{ background:rgba(231,216,184,.45); }
+
+/* 헤딩 세리프 */
+.modal-header h2,.modal-detail-title,.box-title{ font-family:"Eczar",var(--bs,serif); }
+
+/* 모달: 양피지 */
+.modal{ background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat; color:var(--text); border:1px solid var(--border2); }
+.modal-detail{ background:rgba(217,200,162,.5); }
+
+/* 입력류: 라이트 배경 가독성 */
+input,select,textarea{ color:var(--text); }
+input::placeholder{ color:rgba(80,66,44,.55); }
+
+/* 모바일 하단 네비: 붉은 배너 + 밝은 글자 */
+#mobile-bottom-nav{ background:#5e0000 url("data/fvtt-assets/sheet/red_bg.webp") repeat !important; border-top:1px solid var(--gold); }
+.bnav-btn{ color:#e7c98f; }
+.bnav-btn.active{ color:#fff; }
+
+/* 다크 잔재 위젯(주사위 트레이/GM 팝업/세션 모달)도 양피지로 */
+#dice-tray,.dice-toast,#gm-switch-popup{ background:#ece1c7 !important; color:var(--text) !important; border-color:var(--border2) !important; }
+.session-modal{ background:#ece1c7 !important; color:var(--text); border-color:var(--gold) !important; }
+.gm-tab-active{ background:#5e0000 !important; color:var(--gold) !important; border-color:var(--gold) !important; }
 </style>
 </head>
 <body>
@@ -1418,7 +1480,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 <div id="auth-bar">
   <div style="display:flex;align-items:center;gap:8px;">
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;">v589</span>
+    <span style="font-size:9px;color:#555;">v590</span>
   </div>
   <div id="auth-area">
     <button class="btn btn-google" onclick="googleLogin()">Google 로그인</button>
@@ -2009,24 +2071,24 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=589"></script>
-<script src="cs_calc.js?v=589"></script>
+<script src="cs_data.js?v=590"></script>
+<script src="cs_calc.js?v=590"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=589"></script>
-<script src="cs_re_engine.js?v=589"></script>
-<script src="cs_pf2e_stats.js?v=589"></script>
-<script src="cs_pf2e_equip.js?v=589"></script>
-<script src="cs_pf2e_actor.js?v=589"></script>
-<script src="cs_ui.js?v=589"></script>
-<script src="cs_modal.js?v=589"></script>
-<script src="cs_feat_effects.js?v=589"></script>
-<script src="cs_save.js?v=589"></script>
-<script src="cs_session.js?v=589"></script>
-<script src="cs_dice.js?v=589"></script>
-<script src="cs_map.js?v=589"></script>
+<script src="cs_pf2e.js?v=590"></script>
+<script src="cs_re_engine.js?v=590"></script>
+<script src="cs_pf2e_stats.js?v=590"></script>
+<script src="cs_pf2e_equip.js?v=590"></script>
+<script src="cs_pf2e_actor.js?v=590"></script>
+<script src="cs_ui.js?v=590"></script>
+<script src="cs_modal.js?v=590"></script>
+<script src="cs_feat_effects.js?v=590"></script>
+<script src="cs_save.js?v=590"></script>
+<script src="cs_session.js?v=590"></script>
+<script src="cs_dice.js?v=590"></script>
+<script src="cs_map.js?v=590"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=589"></script>
-<script src="cs_i18n.js?v=589"></script>
+<script src="cs_locale.js?v=590"></script>
+<script src="cs_i18n.js?v=590"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
