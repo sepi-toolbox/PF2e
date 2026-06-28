@@ -799,10 +799,10 @@ function renderEquip() {
     const idxs = groups[cat.id] || [];
 
     const section = document.createElement('div');
-    section.className = 'spell-rank-section';
+    section.className = 'equip-cat-section';
 
     const hdr = document.createElement('div');
-    hdr.className = 'spell-rank-header';
+    hdr.className = 'equip-cat-header';
     hdr.innerHTML = `${cat.icon} ${cat.label} <span style="font-size:10px;font-weight:400;color:var(--text2);">${idxs.length}</span>`;
     // + 생성 버튼
     const addBtn = document.createElement('span');
@@ -814,8 +814,8 @@ function renderEquip() {
 
     if (idxs.length === 0) {
       const empty = document.createElement('div');
-      empty.className = 'spell-slot-row';
-      empty.innerHTML = `<span class="spell-slot-name empty">\u2014</span>`;
+      empty.className = 'equip-empty';
+      empty.innerHTML = `\u2014`;
       section.appendChild(empty);
     } else {
       idxs.forEach(i => {
@@ -846,7 +846,8 @@ function _renderEquipRow(list, e, i, hasContainers) {
   }
 
   const isDropTarget = e._type === 'weapon' || e._type === 'armor' || e._type === 'shield';
-  row.className = 'spell-slot-row' + (isDropTarget ? ' equip-drop-target' : '');
+  // 무기 카드 클래스 재사용 → 무기 탭과 동일한 「헤더 바 + 본문」 카드
+  row.className = 'weapon-card equip-item-card' + (isDropTarget ? ' equip-drop-target' : '') + (e._broken ? ' dropped' : '');
   if (isDropTarget) {
     row.dataset.equipIdx = i;
     row.addEventListener('dragover', _onRuneDragOver);
@@ -867,34 +868,37 @@ function _renderEquipRow(list, e, i, hasContainers) {
   </select>`;
 
   row.innerHTML = `
-    <span class="item-name-cell" style="flex:1;font-size:12px;color:${e._broken?'var(--red-light)':'var(--text)'};cursor:pointer;" onclick="showInfo('${eqType}','${eqEscName}')">${iconImg('equipment', e)}<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${e._broken?'\uD30C\uC190\uB41C ':''}${e.name||'\uC544\uC774\uD15C'}</span></span>
-    <span style="width:30px;text-align:center;font-size:10px;color:var(--text2);">${bulkDisplay}</span>
-    <span style="width:70px;display:flex;align-items:center;justify-content:center;gap:2px;">
-      <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},-1)">\u2212</button>
-      <span style="min-width:16px;text-align:center;font-size:13px;font-weight:600;color:var(--text);">${e.qty||1}</span>
-      <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},1)">+</button>
-    </span>
-    <span style="width:80px;text-align:center;">${holdSelectHtml}</span>
-    <span style="width:28px;text-align:center;">
+    <div class="weapon-card-header">
+      <span style="min-width:84px;">${holdSelectHtml}</span>
+      <span style="display:flex;align-items:center;gap:2px;margin-left:auto;">
+        <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},-1)">−</button>
+        <span style="min-width:16px;text-align:center;font-size:13px;font-weight:600;color:var(--text);">${e.qty||1}</span>
+        <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},1)">+</button>
+      </span>
       ${hasContainers ? `<span class="move-wrap"><select onchange="if(this.value!=='')moveToContainer(${i},parseInt(this.value));this.value=''">
         <option value=""></option>
         ${state.containers.map((c,ci) => `<option value="${ci}">${c.name}</option>`).join('')}
       </select></span>` : ''}
-    </span>`;
+    </div>
+    <div class="weapon-card-body">
+      <div class="weapon-card-name" style="color:${e._broken?'var(--red-light)':'var(--text)'};" onclick="showInfo('${eqType}','${eqEscName}')">${iconImg('equipment', e)}<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${e._broken?'파손된 ':''}${e.name||'아이템'}</span></div>
+      <div class="weapon-card-stats"><span class="weapon-stat"><span class="stat-label">부피</span> <span class="stat-val dmg">${bulkDisplay}</span></span></div>
+    </div>`;
   list.appendChild(row);
 
-  // ── 부착된 룬 ──
+  // 부착된 룬 (카드 본문 안에 표시)
+  const bodyEl = row.querySelector('.weapon-card-body');
   const attachedIdxs = _getAttachedRuneIndices(i);
   attachedIdxs.forEach(ri => {
     const r = state.equip[ri];
     if (!r) return;
     const runeRow = document.createElement('div');
-    runeRow.className = 'spell-slot-row equip-rune-attached';
-    runeRow.style.cssText = 'display:flex;align-items:center;gap:6px;';
+    runeRow.className = 'equip-rune-attached';
+    runeRow.style.cssText = 'display:flex;align-items:center;gap:6px;margin-top:4px;padding-top:4px;border-top:1px solid var(--border);';
     runeRow.innerHTML = `
-      <span style="flex:1;min-width:0;font-size:11px;padding-left:20px;display:inline-flex;align-items:center;cursor:pointer;" onclick="showInfo('rune','${(r.name||'').replace(/'/g,"\\'")}')">${iconImg('equipment', r, 'ico-sm')||'\u2728 '}<span style="color:var(--accent);white-space:nowrap;flex-shrink:0;">${r.name||'\uB8EC'}</span><span style="font-size:9px;color:var(--text2);margin-left:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;">${r._runeData?.desc||''}</span></span>
-      <button class="equip-toggle" onclick="event.stopPropagation();detachRune(${ri})" style="flex-shrink:0;font-size:9px;padding:2px 8px;">\uD574\uC81C</button>`;
-    list.appendChild(runeRow);
+      <span style="flex:1;min-width:0;font-size:11px;display:inline-flex;align-items:center;cursor:pointer;" onclick="showInfo('rune','${(r.name||'').replace(/'/g,"\\'")}')">${iconImg('equipment', r, 'ico-sm')||'✨ '}<span style="color:var(--accent);white-space:nowrap;flex-shrink:0;">${r.name||'룬'}</span><span style="font-size:9px;color:var(--text2);margin-left:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;">${r._runeData?.desc||''}</span></span>
+      <button class="equip-toggle" onclick="event.stopPropagation();detachRune(${ri})" style="flex-shrink:0;font-size:9px;padding:2px 8px;">해제</button>`;
+    (bodyEl||row).appendChild(runeRow);
   });
 }
 
