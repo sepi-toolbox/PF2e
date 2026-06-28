@@ -465,6 +465,7 @@ var MapView = (function() {
   let _inited  = false;
   let _active  = false;     // 지도 패널이 표시 중인가
   let _dirty   = true;      // 다시 그려야 하는가 (rAF dirty-flag)
+  let _onRenderCb = null;   // 실제 렌더(화면 변화) 발생 시 호출 — CCTV 프레임 캡처용
   let _raf      = null;
   let _cv = null, _ctx = null, _stage = null, _empty = null, _fileInput = null;
   let _uploadBtn = null;
@@ -1027,7 +1028,7 @@ var MapView = (function() {
   // ── 렌더 루프 (dirty-flag + 보간 중 연속 재draw) ──
   function _loop() {
     if (!_active) return;
-    if (_dirty) { _dirty = false; _render(); if (_animActive) _dirty = true; }  // 보간 진행 중이면 다음 프레임 예약
+    if (_dirty) { _dirty = false; _render(); if (_onRenderCb) { try { _onRenderCb(); } catch (e) {} } if (_animActive) _dirty = true; }  // 보간 진행 중이면 다음 프레임 예약
     _raf = requestAnimationFrame(_loop);
   }
 
@@ -1974,6 +1975,7 @@ var MapView = (function() {
     toggleFullscreen: toggleFullscreen, openFullscreen: openFullscreen, closeFullscreen: closeFullscreen,
     fit: fit, zoomIn: zoomIn, zoomOut: zoomOut, pickBg: pickBg,
     getCameraShare: getCameraShare, applyCameraShare: applyCameraShare,   // 듀얼모니터 카메라 동기화
+    onRender: function (cb) { _onRenderCb = cb; },                         // 화면 변화 시 콜백(CCTV 캡처용)
     // 안개 (GM): 공개/제거 도구 + 확장 메뉴
     toggleFogMenu: toggleFogMenu, setFogTool: setFogTool,
     revealAll: revealAll, coverAll: coverAll,

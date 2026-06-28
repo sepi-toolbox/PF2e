@@ -389,7 +389,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 
 <script src="cs_dice.js?v=618"></script>
 <script src="cs_monster.js?v=575"></script>
-<script src="cs_map.js?v=620"></script>
+<script src="cs_map.js?v=621"></script>
 <style>
 /* 듀얼모니터: GM 도구 + 플레이어 CCTV */
 #map-gm-tools{margin-left:12px;display:inline-flex;gap:6px;align-items:center;}
@@ -480,12 +480,14 @@ window.MapGlue = (function () {
   // 디스플레이(팝아웃/플레이어 창) → GM CCTV: 캔버스를 축소 캡처해 ~4fps 방송
   function _startFrames() {
     if (_frameTimer || !bc) return;
-    // 고정 크기 프레임(320x180)로 캡처 → CCTV에서 비율 변동 없이 안정(움찔 방지)
+    _frameTimer = 1;                                     // 시작 가드(중복 방지)
+    // 고정 크기 프레임(320x180). 변화(렌더)가 있을 때만 캡처·전송 → 정지화면은 재전송 안 함(움찔 없음)
     const FW = 320, FH = 180;
     _off = document.createElement('canvas');
     _off.width = FW; _off.height = FH;
     const ctx = _off.getContext('2d');
-    _frameTimer = setInterval(function () {
+    let _last = 0, _pending = false;
+    function capture() {
       try {
         if (document.hidden) return;
         const cv = document.getElementById('map-canvas');
@@ -495,8 +497,15 @@ window.MapGlue = (function () {
         const dw = Math.round(cv.width * sc), dh = Math.round(cv.height * sc);
         ctx.drawImage(cv, Math.round((FW - dw) / 2), Math.round((FH - dh) / 2), dw, dh);
         bc.postMessage({ type: 'frame', img: _off.toDataURL('image/jpeg', 0.6) });
-      } catch (e) { clearInterval(_frameTimer); _frameTimer = 0; console.warn('[CCTV] 캡처 중단:', e && e.message); }
-    }, 250);
+      } catch (e) { console.warn('[CCTV] 캡처 실패:', e && e.message); }
+    }
+    function onChange() {                                // 화면 변화 시에만(애니메이션은 ~10fps throttle)
+      const now = Date.now();
+      if (now - _last >= 100) { _last = now; capture(); }
+      else if (!_pending) { _pending = true; setTimeout(function () { _pending = false; _last = Date.now(); capture(); }, 100); }
+    }
+    if (typeof MapView !== 'undefined' && MapView.onRender) MapView.onRender(onChange);
+    setTimeout(capture, 400);                            // 초기 1프레임
   }
   function _onFrame(data) {                            // GM: 수신 프레임을 CCTV에 표시
     const el = document.getElementById('map-cctv'), img = document.getElementById('map-cctv-img'), emp = document.getElementById('map-cctv-empty');
