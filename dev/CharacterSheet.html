@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=610"></script>
-<script src="feat_db.js?v=610"></script>
-<script src="SPELL_DB.js?v=610"></script>
-<script src="class_features_db.js?v=610"></script>
+<script src="equipment_db.js?v=611"></script>
+<script src="feat_db.js?v=611"></script>
+<script src="SPELL_DB.js?v=611"></script>
+<script src="class_features_db.js?v=611"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1619,7 +1619,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <div class="gear-menu-label">캐릭터</div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v610</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v611</span></div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2195,24 +2195,24 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=610"></script>
-<script src="cs_calc.js?v=610"></script>
+<script src="cs_data.js?v=611"></script>
+<script src="cs_calc.js?v=611"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=610"></script>
-<script src="cs_re_engine.js?v=610"></script>
-<script src="cs_pf2e_stats.js?v=610"></script>
-<script src="cs_pf2e_equip.js?v=610"></script>
-<script src="cs_pf2e_actor.js?v=610"></script>
-<script src="cs_ui.js?v=610"></script>
-<script src="cs_modal.js?v=610"></script>
-<script src="cs_feat_effects.js?v=610"></script>
-<script src="cs_save.js?v=610"></script>
-<script src="cs_session.js?v=610"></script>
-<script src="cs_dice.js?v=610"></script>
-<script src="cs_map.js?v=610"></script>
+<script src="cs_pf2e.js?v=611"></script>
+<script src="cs_re_engine.js?v=611"></script>
+<script src="cs_pf2e_stats.js?v=611"></script>
+<script src="cs_pf2e_equip.js?v=611"></script>
+<script src="cs_pf2e_actor.js?v=611"></script>
+<script src="cs_ui.js?v=611"></script>
+<script src="cs_modal.js?v=611"></script>
+<script src="cs_feat_effects.js?v=611"></script>
+<script src="cs_save.js?v=611"></script>
+<script src="cs_session.js?v=611"></script>
+<script src="cs_dice.js?v=611"></script>
+<script src="cs_map.js?v=611"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=610"></script>
-<script src="cs_i18n.js?v=610"></script>
+<script src="cs_locale.js?v=611"></script>
+<script src="cs_i18n.js?v=611"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -2246,6 +2246,9 @@ document.addEventListener('click', function(e) {
   closeGearMenu();
 });
 
+// 헤더 기본 로고 텍스트 캡처(세션 미소속 시 복원용). 운영 배포 시 (dev) 제거는 정적 HTML 기준.
+var _defaultBrand = (document.getElementById('hdr-brand') || {}).textContent || 'Pathforge';
+
 function updateAuthUI(user) {
   const area = document.getElementById('auth-area');
   const slotBar = document.getElementById('slot-bar');
@@ -2257,9 +2260,7 @@ function updateAuthUI(user) {
       area.innerHTML = '<span class="auth-user">' + (user.displayName || user.email) + '</span>' +
         /* 저장 버튼은 톱니 메뉴로 이동 */ '' +
         '<button class="btn btn-ghost" onclick="googleLogout()">로그아웃</button>';
-      // GM 시트 모드: 헤더 브랜드를 "Pathforge for GM"으로
-      var _brand = document.getElementById('hdr-brand');
-      if (_brand) _brand.textContent = 'Pathforge for GM (dev)';
+      // 헤더 브랜드는 enterGMSessionMode→_buildPlayerTabBar에서 "세션명 (GM)"으로 설정됨
       enterGMSessionMode(gmSessionId);
       return;
     }

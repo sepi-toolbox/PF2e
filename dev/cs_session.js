@@ -544,6 +544,9 @@ function exitSessionUI() {
   const bar = document.getElementById('session-bar');
   if (bar) bar.style.display = 'none';
   document.body.classList.remove('in-session');   // 지도 토글 버튼 숨김
+  // 헤더 로고를 기본값으로 복원 (세션 미소속)
+  var _b = document.getElementById('hdr-brand');
+  if (_b) _b.textContent = (typeof _defaultBrand !== 'undefined' && _defaultBrand) ? _defaultBrand : 'Pathforge';
   // 전체화면 지도를 보던 중 세션 종료 시 닫기
   if (typeof MapView !== 'undefined' && MapView.closeFullscreen) MapView.closeFullscreen();
   // 일반 플레이어 모드로 복귀
@@ -566,6 +569,7 @@ function exitSessionUI() {
 }
 
 function updateSessionBar() {
+  if (typeof _updateHeaderBrand === 'function') _updateHeaderBrand();
   const bar = document.getElementById('session-bar');
   if (!bar || !_currentSession) return;
   const playerCount = Object.keys(_currentSession.players || {}).length;
@@ -824,11 +828,24 @@ async function enterGMSessionMode(sessionId) {
   }
 }
 
+// 헤더 로고 자리: 소속 세션명(플레이어) / "세션명 (GM)"(GM) / 미소속 시 기본 로고
+function _updateHeaderBrand() {
+  var el = document.getElementById('hdr-brand');
+  if (!el) return;
+  var def = (typeof _defaultBrand !== 'undefined' && _defaultBrand) ? _defaultBrand : 'Pathforge';
+  if (_currentSession && _currentSession.name) {
+    el.textContent = _isGM ? (_currentSession.name + ' (GM)') : _currentSession.name;
+  } else {
+    el.textContent = def;
+  }
+}
+
 function _buildPlayerTabBar() {
   // 상단 플레이어 탭 바 폐지 — GM 시트 전환은 👥 FAB 위젯(_ensureGMSwitchFab)으로 일원화.
   // (이전 버전이 #slot-bar 뒤에 삽입하던 #gm-tab-bar가 남아 있으면 제거)
   const old = document.getElementById('gm-tab-bar');
   if (old) old.remove();
+  _updateHeaderBrand();
 
   const players = _currentSession.players || {};
   const uids = Object.keys(players);
