@@ -110,7 +110,10 @@ body{background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;colo
 <body>
 
 <div id="top-bar">
-  <h1 style="color:#ff8c42;">Pathforge - GM (dev)</h1>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <button class="btn btn-gray btn-small" onclick="(window.top||window).location.href='CharacterSheet.html'">← 모드 선택</button>
+    <h1 style="color:#ff8c42;">Pathforge - GM (dev)</h1>
+  </div>
   <div id="auth-area">
     <button class="btn-google" onclick="googleLogin()">Google 로그인</button>
   </div>
@@ -416,18 +419,20 @@ async function kickPlayer(sessionId, uid, name) {
 //  세션 시작 → CharacterSheet.html?gmsession=ID
 // ═══════════════════════════════════════════════
 // 지도는 캐릭터 시트와 독립된 Map.html로 직행 (_cb: HTML 캐시버스터)
+// 임베드(iframe)일 수 있으므로 항상 최상위 창을 이동시킨다
+var _topNav = function(url) { (window.top || window).location.href = url; };
 function startSession() {
   if (!selectedSessionId) { alert('세션을 선택하세요.'); return; }
-  window.location.href = 'Map.html?session=' + selectedSessionId + '&role=gm&_cb=' + Date.now();
+  _topNav('Map.html?session=' + selectedSessionId + '&role=gm&_cb=' + Date.now());
 }
 function startSessionAsPlayer() {
   if (!selectedSessionId) { alert('세션을 선택하세요.'); return; }
-  window.location.href = 'Map.html?session=' + selectedSessionId + '&role=player&_cb=' + Date.now();
+  _topNav('Map.html?session=' + selectedSessionId + '&role=player&_cb=' + Date.now());
 }
 // GM 시트 관리 → CharacterSheet.html?gmsession=ID (플레이어 시트 탭 전환·편집). _cb: HTML 캐시버스터
 function startGMSheets() {
   if (!selectedSessionId) { alert('세션을 선택하세요.'); return; }
-  window.location.href = 'CharacterSheet.html?gmsession=' + selectedSessionId + '&_cb=' + Date.now();
+  _topNav('CharacterSheet.html?gmsession=' + selectedSessionId + '&_cb=' + Date.now());
 }
 
 // ═══════════════════════════════════════════════
