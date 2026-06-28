@@ -2497,8 +2497,9 @@ function _refreshLearnSpellsList() {
     const row = document.createElement('div');
     row.className = 'opt-row' + (isLearned ? ' selected' : '');
     const actions = (typeof getActionIcons === 'function') ? getActionIcons(sp.actions) : '';
+    const ic = (typeof iconImg === 'function') ? iconImg('spell', sp) : '';
     row.innerHTML = `
-      <span class="opt-row-name" style="flex:1;">${sp.name_ko} <span style="color:var(--text2);font-size:11px;">${sp.name_en}</span></span>
+      <span class="opt-row-name" style="flex:1;display:inline-flex;align-items:center;min-width:0;">${ic}<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${sp.name_ko} <span style="color:var(--text2);font-size:11px;">${sp.name_en}</span></span></span>
       ${actions ? `<span style="font-size:11px;color:var(--accent);margin-right:6px;">${actions}</span>` : ''}
       <button class="ls-learn-btn${isLearned ? ' learned' : ''}">${isLearned ? '✓ 취소' : '배우기'}</button>
       <span class="ls-chevron">▾</span>`;

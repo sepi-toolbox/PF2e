@@ -2259,7 +2259,7 @@ function _renderMemorizeSlots() {
       color:${isActive ? '#000' : 'var(--text1)'};
       border:1px solid ${isActive ? 'var(--accent)' : 'var(--border)'};">
       <span style="font-size:10px;min-width:18px;color:${isActive?'#000':'var(--text2)'};">${i+1}.</span>
-      <span style="flex:1;">${name || '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
+      <span style="flex:1;display:inline-flex;align-items:center;min-width:0;">${name ? ((typeof iconImg==='function'?iconImg('spell',getSpell(name)):'')+name) : '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
       ${name ? `<span onclick="event.stopPropagation();_memorizeClearSlot(0,${i})" style="color:${isActive?'#000':'var(--red)'};font-size:12px;padding:0 2px;cursor:pointer;">✕</span>` : ''}
     </div>`;
   }
@@ -2279,7 +2279,7 @@ function _renderMemorizeSlots() {
         color:${isActive ? '#000' : 'var(--text1)'};
         border:1px solid ${isActive ? 'var(--accent)' : 'var(--border)'};">
         <span style="font-size:10px;min-width:18px;color:${isActive?'#000':'var(--text2)'};">${i+1}.</span>
-        <span style="flex:1;">${name || '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
+        <span style="flex:1;display:inline-flex;align-items:center;min-width:0;">${name ? ((typeof iconImg==='function'?iconImg('spell',getSpell(name)):'')+name) : '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
         ${name ? `<span onclick="event.stopPropagation();_memorizeClearSlot(${r},${i})" style="color:${isActive?'#000':'var(--red)'};font-size:12px;padding:0 2px;cursor:pointer;">✕</span>` : ''}
       </div>`;
     }
@@ -2350,9 +2350,10 @@ function _renderMemorizeDetail() {
     const actions = typeof getActionIcons === 'function' ? getActionIcons(spellData?.actions) : '';
     const wrap = document.createElement('div');
     wrap.className = 'mem-spell';
+    const ic = (typeof iconImg === 'function') ? iconImg('spell', spellData || {name}) : '';
     wrap.innerHTML = `
       <div class="mem-spell-row">
-        <span class="mem-spell-name">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+        <span class="mem-spell-name">${ic}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
         ${note ? `<span class="mem-spell-note">${note}</span>` : ''}
         <button class="mem-prep-btn">준비</button>
         <span class="ls-chevron">▾</span>
