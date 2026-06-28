@@ -891,7 +891,7 @@ function _renderEquipRow(list, e, i, hasContainers) {
     const runeRow = document.createElement('div');
     runeRow.className = 'spell-slot-row equip-rune-attached';
     runeRow.innerHTML = `
-      <span style="flex:1;font-size:11px;color:var(--accent);padding-left:20px;">\u2728 ${r.name||'\uB8EC'} <span style="font-size:9px;color:var(--text2);">${r._runeData?.desc||''}</span></span>
+      <span style="flex:1;font-size:11px;color:var(--accent);padding-left:20px;display:inline-flex;align-items:center;">${iconImg('equipment', r, 'ico-sm')||'\u2728 '}${r.name||'\uB8EC'} <span style="font-size:9px;color:var(--text2);margin-left:4px;">${r._runeData?.desc||''}</span></span>
       <span style="width:30px;"></span>
       <span style="width:70px;"></span>
       <span style="width:80px;text-align:center;"><button class="equip-toggle" onclick="event.stopPropagation();detachRune(${ri})" style="font-size:9px;padding:2px 6px;">\uD574\uC81C</button></span>
