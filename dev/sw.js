@@ -1,6 +1,6 @@
 // Pathforge PWA 서비스워커 — 앱셸 캐싱 + 오프라인 폴백.
 // 캐싱 정책 변경 시 CACHE 버전 올릴 것(구 캐시 자동 정리).
-const CACHE = 'pathforge-v1';
+const CACHE = 'pathforge-v2';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();   // 새 SW 즉시 대기 해제(업데이트 빠르게 반영)
@@ -33,7 +33,7 @@ async function networkFirst(req) {
     const hit = await c.match(req);
     if (hit) return hit;
     if (req.mode === 'navigate') {                        // 오프라인 + 미캐시 네비게이션
-      const shell = await c.match('CharacterSheet.html');
+      const shell = await c.match('Pathforge.html') || await c.match('CharacterSheet.html');
       if (shell) return shell;
       return new Response('<meta charset="utf-8"><body style="background:#0c0c0c;color:#c9a84c;font-family:sans-serif;text-align:center;padding:60px;">오프라인입니다. 네트워크 연결 후 다시 시도하세요.</body>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
     }

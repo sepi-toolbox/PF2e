@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""dev/_preview.html 생성기 — CharacterSheet.html에서 Firebase를 스텁하고
+"""dev/_preview.html 생성기 — Pathforge.html에서 Firebase를 스텁하고
 샘플 캐릭터로 모든 탭을 스택 렌더하는 오프라인 미리보기를 만든다(검증용).
 사용: cd dev && python3 ../tools/make_preview.py  (→ dev/_preview.html)"""
 import re, os
-base = os.path.join(os.path.dirname(__file__), '..', 'dev', 'CharacterSheet.html')
+base = os.path.join(os.path.dirname(__file__), '..', 'dev', 'Pathforge.html')
 src = open(base, encoding='utf-8').read()
 src = re.sub(r'<script src="https://www\.gstatic\.com/firebasejs/[^"]+"></script>\s*', '', src)
 stub = '''<script>
