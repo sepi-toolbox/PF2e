@@ -2434,9 +2434,11 @@ function _renderLearnSpellsModal() {
 
   if (fbar) fbar.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:2px;padding:4px 0;">${tabHtml}</div>`;
 
-  // 상세 패널 초기화 (최초 열기 시만)
+  // 인라인 아코디언 방식 — 우측 상세 패널 숨기고 목록을 전체폭으로 (closeModal이 초기화)
   const detail = document.getElementById('modal-detail');
-  if (detail) detail.innerHTML = '<div class="modal-detail-empty">주문을 클릭하여 배우거나 취소할 수 있습니다.</div>';
+  if (detail) detail.style.display = 'none';
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) { listEl.style.width = '100%'; listEl.style.borderRight = 'none'; }
 
   _refreshLearnSpellsList();
   modalType = 'learn-spells';
@@ -2486,24 +2488,80 @@ function _refreshLearnSpellsList() {
   const container = document.getElementById('modal-options');
   if (!container) return;
   container.innerHTML = '';
+  if (!filtered.length) {
+    container.innerHTML = '<div style="padding:24px 16px;text-align:center;color:var(--text2);font-size:13px;">해당 조건에 맞는 주문이 없습니다.</div>';
+    return;
+  }
   filtered.forEach(sp => {
     const isLearned = learnedNames.has(sp.name_ko);
     const row = document.createElement('div');
     row.className = 'opt-row' + (isLearned ? ' selected' : '');
-    if (isLearned) row.style.opacity = '0.5';
     const actions = (typeof getActionIcons === 'function') ? getActionIcons(sp.actions) : '';
     row.innerHTML = `
       <span class="opt-row-name" style="flex:1;">${sp.name_ko} <span style="color:var(--text2);font-size:11px;">${sp.name_en}</span></span>
-      ${actions ? `<span style="font-size:11px;color:var(--accent);margin-right:4px;">${actions}</span>` : ''}
-      ${isLearned ? '<span style="font-size:10px;color:var(--accent);">습득됨</span>' : ''}`;
-    row.onclick = () => {
+      ${actions ? `<span style="font-size:11px;color:var(--accent);margin-right:6px;">${actions}</span>` : ''}
+      <button class="ls-learn-btn${isLearned ? ' learned' : ''}">${isLearned ? '✓ 취소' : '배우기'}</button>
+      <span class="ls-chevron">▾</span>`;
+    // 습득/취소 — 행 펼침과 분리 (정보만 보고 싶을 때 습득되지 않도록)
+    const btn = row.querySelector('.ls-learn-btn');
+    if (btn) btn.onclick = (e) => {
+      e.stopPropagation();
       if (isLearned) _unlearnSpellFromModal(sp, r);
       else _learnSpellFromModal(sp, r);
-      showItemDetail(sp);
     };
+    // 행 클릭 → 인라인 아코디언 펼침/접힘 (재주 탭과 동일)
+    row.onclick = () => _toggleLearnSpellRow(row, sp);
     container.appendChild(row);
   });
 
+}
+
+// 주문 한 항목 아코디언 토글 (재주 탭 패턴 — 인라인 상세, 데스크톱/모바일 공통)
+function _toggleLearnSpellRow(row, sp) {
+  const existing = row.nextElementSibling;
+  if (existing && existing.classList.contains('opt-row-detail') && existing.classList.contains('open')) {
+    existing.classList.remove('open');
+    row.classList.remove('expanded');
+    return;
+  }
+  const container = document.getElementById('modal-options');
+  if (container) {
+    container.querySelectorAll('.opt-row-detail.open').forEach(d => d.classList.remove('open'));
+    container.querySelectorAll('.opt-row.expanded').forEach(rr => rr.classList.remove('expanded'));
+  }
+  row.classList.add('expanded');
+  let dd = row.nextElementSibling;
+  if (!dd || !dd.classList.contains('opt-row-detail')) {
+    dd = document.createElement('div');
+    dd.className = 'opt-row-detail';
+    row.after(dd);
+  }
+  dd.innerHTML = _learnSpellDetailHtml(sp);
+  dd.classList.add('open');
+}
+
+// 주문 상세 HTML (showItemDetail의 주문 분기와 동일 포맷 — 메타 + 본문)
+function _learnSpellDetailHtml(item) {
+  const _tt = (t) => (typeof traitTag === 'function') ? traitTag(t) : `<span class="tag">${t}</span>`;
+  const rankStr = item.is_cantrip ? '캔트립' : item.is_focus ? '집중' : `랭크 ${item.rank}`;
+  const spTraits = [...(item.traditions || []), ...(item.traits || [])].map(_tt).join('');
+  const tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${rankStr}</span> <span class="spell-actions">${item.actions || ''}</span></div>${spTraits ? '<div style="margin-bottom:6px;">' + spTraits + '</div>' : ''}`;
+  let spellMeta = '';
+  if (item.castTime) spellMeta += `<div><strong>시전:</strong> ${item.castTime}</div>`;
+  if (item.range) spellMeta += `<div><strong>사거리:</strong> ${item.range}${item.area ? ` | <strong>영역:</strong> ${item.area}` : ''}</div>`;
+  if (item.target) spellMeta += `<div><strong>대상:</strong> ${item.target}</div>`;
+  if (item.defense) spellMeta += `<div><strong>방어:</strong> ${item.defense}</div>`;
+  if (item.duration) spellMeta += `<div><strong>지속 시간:</strong> ${item.duration}</div>`;
+  if (item.frequency) spellMeta += `<div><strong>빈도:</strong> ${item.frequency}</div>`;
+  if (item.trigger) spellMeta += `<div><strong>유발 조건:</strong> ${item.trigger}</div>`;
+  if (item.requirements) spellMeta += `<div><strong>요구사항:</strong> ${item.requirements}</div>`;
+  if (item.cost) spellMeta += `<div><strong>비용:</strong> ${item.cost}</div>`;
+  if (spellMeta) spellMeta = `<div style="font-size:12px;line-height:1.6;padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--border);color:var(--text2);">${spellMeta}</div>`;
+  let desc = item.desc || item.summary || '';
+  desc = desc.replace(/<strong>(?:사거리|영역|대상|방어|지속 ?시간|빈도|유발 조건|요구사항|비용|시전):<\/strong>[^<]*(?:<br>)?/g, '').replace(/^\s*<br>/, '');
+  const spellNotes = (typeof getSpellFeatNotes === 'function') ? getSpellFeatNotes(item.name_ko || '') : '';
+  const body = (typeof formatDescActions === 'function') ? formatDescActions(desc, item) : desc;
+  return `${tags}${spellMeta}<div style="font-size:13px;line-height:1.6;">${body}${spellNotes}</div>`;
 }
 
 function _learnSpellFromModal(sp, rank) {

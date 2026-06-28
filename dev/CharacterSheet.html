@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=598"></script>
-<script src="feat_db.js?v=598"></script>
-<script src="SPELL_DB.js?v=598"></script>
-<script src="class_features_db.js?v=598"></script>
+<script src="equipment_db.js?v=599"></script>
+<script src="feat_db.js?v=599"></script>
+<script src="SPELL_DB.js?v=599"></script>
+<script src="class_features_db.js?v=599"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -980,6 +980,14 @@ body.map-open{overflow:hidden;}
 .opt-row-level.r8{background:#7f8c8d;}
 .opt-row-level.r9{background:#f39c12;}
 .opt-row-level.r10{background:#e74c3c;}
+/* 인라인 아코디언 상세 (주문 배우기 등 — 데스크톱에서도 펼침). 모바일은 @media 블록에서 동일 정의 */
+.opt-row-detail{display:none;}
+.opt-row-detail.open{display:block;padding:12px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6;}
+.opt-row.expanded{background:var(--accent-bg);border-left:3px solid var(--accent);}
+.ls-learn-btn{flex-shrink:0;padding:4px 12px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:#fff;}
+.ls-learn-btn.learned{background:var(--bg4);color:var(--text2);border-color:var(--border2);}
+.ls-chevron{flex-shrink:0;margin-left:8px;color:var(--text2);font-size:11px;transition:transform .15s;}
+.opt-row.expanded .ls-chevron{transform:rotate(180deg);}
 /* Section header in list */
 .opt-section-header{padding:6px 12px;font-size:12px;font-weight:700;color:var(--accent);background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1;}
 /* Legacy compat */
@@ -1549,7 +1557,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 <div id="auth-bar">
   <div style="display:flex;align-items:center;gap:8px;">
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;">v598</span>
+    <span style="font-size:9px;color:#555;">v599</span>
   </div>
   <div id="auth-area">
     <button class="btn btn-google" onclick="googleLogin()">Google 로그인</button>
@@ -2140,24 +2148,24 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=598"></script>
-<script src="cs_calc.js?v=598"></script>
+<script src="cs_data.js?v=599"></script>
+<script src="cs_calc.js?v=599"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=598"></script>
-<script src="cs_re_engine.js?v=598"></script>
-<script src="cs_pf2e_stats.js?v=598"></script>
-<script src="cs_pf2e_equip.js?v=598"></script>
-<script src="cs_pf2e_actor.js?v=598"></script>
-<script src="cs_ui.js?v=598"></script>
-<script src="cs_modal.js?v=598"></script>
-<script src="cs_feat_effects.js?v=598"></script>
-<script src="cs_save.js?v=598"></script>
-<script src="cs_session.js?v=598"></script>
-<script src="cs_dice.js?v=598"></script>
-<script src="cs_map.js?v=598"></script>
+<script src="cs_pf2e.js?v=599"></script>
+<script src="cs_re_engine.js?v=599"></script>
+<script src="cs_pf2e_stats.js?v=599"></script>
+<script src="cs_pf2e_equip.js?v=599"></script>
+<script src="cs_pf2e_actor.js?v=599"></script>
+<script src="cs_ui.js?v=599"></script>
+<script src="cs_modal.js?v=599"></script>
+<script src="cs_feat_effects.js?v=599"></script>
+<script src="cs_save.js?v=599"></script>
+<script src="cs_session.js?v=599"></script>
+<script src="cs_dice.js?v=599"></script>
+<script src="cs_map.js?v=599"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=598"></script>
-<script src="cs_i18n.js?v=598"></script>
+<script src="cs_locale.js?v=599"></script>
+<script src="cs_i18n.js?v=599"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
