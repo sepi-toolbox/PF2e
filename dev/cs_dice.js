@@ -45,36 +45,52 @@ const DiceRoller = (() => {
   }
 
   // ── 핵심 굴림 ──
-  function rollPool(label, modifier) {
-    if (pool.length === 0 && modifier === undefined) return;
-    const mod = modifier || 0;
+  function _rollLocalDice(poolCopy) {
     const results = [];
-    let total = 0;
-    pool.forEach(d => {
-      for (let i = 0; i < d.count; i++) {
-        const val = roll(d.sides);
-        results.push({sides: d.sides, value: val});
-        total += val;
-      }
-    });
-    total += mod;
-
+    poolCopy.forEach(d => { for (let i = 0; i < d.count; i++) results.push({ sides: d.sides, value: roll(d.sides) }); });
+    return results;
+  }
+  function _buildEntry(label, mod, results) {
+    let total = 0; results.forEach(r => total += r.value); total += mod;
     const entry = {
       label: label || poolLabel(),
-      dice: results,
-      modifier: mod,
-      total,
-      time: new Date(),
+      dice: results, modifier: mod, total, time: new Date(),
       isNat20: results.length === 1 && results[0].sides === 20 && results[0].value === 20,
       isNat1: results.length === 1 && results[0].sides === 20 && results[0].value === 1,
     };
     rollLog.unshift(entry);
     if (rollLog.length > MAX_LOG) rollLog.pop();
-
-    showRollAnimation(entry, () => showToast(entry));
+    return entry;
+  }
+  function _emitEntry(entry, animate) {
+    if (animate) showRollAnimation(entry, () => showToast(entry));
+    else showToast(entry);
     if (_rollCallback) try { _rollCallback(entry); } catch(e) { console.warn('[DiceRoller] onRoll error', e); }
-    clearPool();
     if (logOpen) renderLog();
+  }
+
+  function rollPool(label, modifier) {
+    if (pool.length === 0 && modifier === undefined) return;
+    const mod = modifier || 0;
+    const poolCopy = pool.map(d => ({ sides: d.sides, count: d.count }));
+    clearPool();
+
+    // 3D 물리 주사위 우선 (가능 시) — dice-box가 굴린 실제 결과값을 사용. 실패하면 2D 폴백
+    if (typeof window !== 'undefined' && window.PFDice && window.PFDice.available && window.PFDice.available()) {
+      const notation = poolCopy.map(d => ({ qty: d.count, sides: d.sides }));
+      window.PFDice.roll(notation).then(res => {
+        if (!res || !res.length) throw new Error('빈 결과');
+        _emitEntry(_buildEntry(label, mod, res), false);   // 3D가 이미 굴렀으니 2D 애니 생략
+        setTimeout(() => { try { window.PFDice.clear(); } catch(e) {} }, 4500);
+      }).catch(e => {
+        console.warn('[DiceRoller] 3D 실패 → 2D 폴백', e);
+        _emitEntry(_buildEntry(label, mod, _rollLocalDice(poolCopy)), true);
+      });
+      return;   // 호출부는 반환값 미사용 (비동기 처리)
+    }
+
+    const entry = _buildEntry(label, mod, _rollLocalDice(poolCopy));
+    _emitEntry(entry, true);
     return entry;
   }
 

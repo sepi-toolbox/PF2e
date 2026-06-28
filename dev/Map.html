@@ -256,6 +256,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 </head>
 <body>
 
+<!-- 3D 물리 주사위 캔버스 (@3d-dice/dice-box, 오프라인 벤더링) -->
+<div id="pf-dice-box" style="position:fixed;inset:0;z-index:10015;pointer-events:none;"></div>
+
 <div id="map-topbar">
   <button class="mt-back" onclick="location.href='GMSheet.html'">← 로비</button>
   <span class="mt-title" id="map-title">세션</span>
@@ -384,7 +387,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_dice.js?v=570"></script>
+<script src="cs_dice.js?v=616"></script>
 <script src="cs_monster.js?v=575"></script>
 <script src="cs_map.js?v=583"></script>
 <style>
@@ -619,6 +622,22 @@ window.MonsterLink = (function () {
 
   return { ensure, onEditOpen, getSelection, onSearch, pick, clearLink, showStat };
 })();
+</script>
+
+<!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
+<script type="module">
+  try {
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=616');
+    const assetPath = new URL('dice/assets/', document.baseURI).pathname;
+    const box = new DiceBox({ container: '#pf-dice-box', assetPath, theme: 'default', offscreen: false, scale: 6 });
+    let ready = false;
+    box.init().then(() => { ready = true; }).catch(e => console.warn('[PFDice] init 실패(2D 폴백):', e));
+    window.PFDice = {
+      available() { return ready && localStorage.getItem('pf2e_dice3d') !== 'off'; },
+      async roll(notation) { const res = await box.roll(notation); return (res || []).map(r => ({ sides: Number(r.sides), value: r.value })); },
+      clear() { try { box.clear(); } catch (e) {} },
+    };
+  } catch (e) { console.warn('[PFDice] 모듈 로드 실패(2D 폴백):', e); }
 </script>
 </body>
 </html>

@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=615"></script>
-<script src="feat_db.js?v=615"></script>
-<script src="SPELL_DB.js?v=615"></script>
-<script src="class_features_db.js?v=615"></script>
+<script src="equipment_db.js?v=616"></script>
+<script src="feat_db.js?v=616"></script>
+<script src="SPELL_DB.js?v=616"></script>
+<script src="class_features_db.js?v=616"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1339,6 +1339,9 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 #mobile-bottom-nav{display:none;}
 
 /* ══ 주사위 시스템 ══ */
+/* 3D 주사위 캔버스 — 전체화면, 클릭 통과 */
+#pf-dice-box{position:fixed;inset:0;z-index:10015;pointer-events:none;}
+#pf-dice-box canvas{width:100%;height:100%;}
 #dice-fab{position:fixed;bottom:80px;right:16px;z-index:10010;width:48px;height:48px;border-radius:50%;border:none;background:var(--accent,#d4a04a);color:#fff;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.4);transition:transform .2s,box-shadow .2s;}
 #dice-fab:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(0,0,0,.5);}
 #dice-tray{position:fixed;bottom:80px;right:16px;z-index:10012;width:280px;background:var(--bg2,#1e1e1e);border:1px solid var(--border,#444);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.6);transform:translateY(20px) scale(.95);opacity:0;pointer-events:none;transition:all .25s ease;}
@@ -1607,6 +1610,9 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 </head>
 <body>
 
+<!-- 3D 물리 주사위 캔버스 (@3d-dice/dice-box, 오프라인 벤더링) -->
+<div id="pf-dice-box"></div>
+
 <!-- ═══════════════ 모드 선택 (진입 통합: GM / 플레이어) ═══════════════ -->
 <div id="mode-select">
   <div class="mode-select-inner">
@@ -1665,7 +1671,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <div class="gear-menu-label">캐릭터</div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v615</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v616</span></div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2241,24 +2247,51 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=615"></script>
-<script src="cs_calc.js?v=615"></script>
+<script src="cs_data.js?v=616"></script>
+<script src="cs_calc.js?v=616"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=615"></script>
-<script src="cs_re_engine.js?v=615"></script>
-<script src="cs_pf2e_stats.js?v=615"></script>
-<script src="cs_pf2e_equip.js?v=615"></script>
-<script src="cs_pf2e_actor.js?v=615"></script>
-<script src="cs_ui.js?v=615"></script>
-<script src="cs_modal.js?v=615"></script>
-<script src="cs_feat_effects.js?v=615"></script>
-<script src="cs_save.js?v=615"></script>
-<script src="cs_session.js?v=615"></script>
-<script src="cs_dice.js?v=615"></script>
-<script src="cs_map.js?v=615"></script>
+<script src="cs_pf2e.js?v=616"></script>
+<script src="cs_re_engine.js?v=616"></script>
+<script src="cs_pf2e_stats.js?v=616"></script>
+<script src="cs_pf2e_equip.js?v=616"></script>
+<script src="cs_pf2e_actor.js?v=616"></script>
+<script src="cs_ui.js?v=616"></script>
+<script src="cs_modal.js?v=616"></script>
+<script src="cs_feat_effects.js?v=616"></script>
+<script src="cs_save.js?v=616"></script>
+<script src="cs_session.js?v=616"></script>
+<script src="cs_dice.js?v=616"></script>
+<script src="cs_map.js?v=616"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=615"></script>
-<script src="cs_i18n.js?v=615"></script>
+<script src="cs_locale.js?v=616"></script>
+<script src="cs_i18n.js?v=616"></script>
+
+<!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
+<script type="module">
+  try {
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=616');
+    const assetPath = new URL('dice/assets/', document.baseURI).pathname;
+    // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
+    const box = new DiceBox({
+      container: '#pf-dice-box',
+      assetPath, theme: 'default', offscreen: false, scale: 6,
+    });
+    let ready = false;
+    box.init().then(() => { ready = true; console.log('[PFDice] 3D 주사위 준비'); })
+       .catch(e => console.warn('[PFDice] init 실패(2D 폴백):', e));
+    window.PFDice = {
+      available() { return ready && localStorage.getItem('pf2e_dice3d') !== 'off'; },
+      // notation: [{qty, sides}] → 물리 굴림 후 [{sides, value}] 반환
+      async roll(notation) {
+        const res = await box.roll(notation);
+        return (res || []).map(r => ({ sides: Number(r.sides), value: r.value }));
+      },
+      clear() { try { box.clear(); } catch (e) {} },
+    };
+  } catch (e) {
+    console.warn('[PFDice] 모듈 로드 실패(2D 폴백):', e);
+  }
+</script>
 
 
 <!-- Firebase Auth + Cloud Save -->
