@@ -1117,11 +1117,10 @@ function _updateGMSwitchPopup() {
   uids.forEach(function(uid) {
     var p = players[uid];
     var isActive = uid === _gmActiveTab;
-    var safeName = (p.displayName || '???').replace(/'/g, "\\'");
+    // 추방은 이 위젯에서 제거 — GM 로비(GMSheet)에서만 가능
     html += '<div class="gm-popup-item' + (isActive ? ' active' : '') + '" onclick="_gmFabSwitchTo(\'' + uid + '\')">' +
       '<span class="gm-popup-who"><span>' + (p.displayName || '???') + '</span>' +
       '<span class="gm-popup-char" id="gm-fab-char-' + uid + '">...</span></span>' +
-      '<button class="gm-popup-kick" onclick="event.stopPropagation();gmKickPlayer(\'' + uid + '\',\'' + safeName + '\')" title="추방">×</button>' +
     '</div>';
   });
   html += lobbyLink;
