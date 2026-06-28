@@ -29,48 +29,59 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
 <style>
-:root{--bg:#0e0e0e;--card:#1a1a1a;--border:#333;--gold:#f5c518;--text:#eee;--text2:#888;--blue:#3498db;--red:#c0392b;--green:#27ae60;}
+/* FVTT 양피지 테마 — CharacterSheet.html과 통일 */
+:root{
+  --bg:#ece1c7;--bg2:#e4d6b5;--bg3:#d9c8a2;--bg4:#ccb78c;
+  --card:#e7d8b6;--border:#bfa572;--border2:#a3884e;
+  --text:#2b2117;--text2:#574021;
+  --accent:#6e1414;--accent-bg:#f3e7cd;
+  --gold:#8a6a1f;--blue:#2f5d7a;--red:#8a1a1a;--green:#3f7a3f;
+  --bs:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+}
+@font-face{font-family:"Eczar";font-weight:600;font-display:swap;src:url("fonts/eczar-v16-latin-ext_latin-600.woff2") format("woff2");}
+@font-face{font-family:"Eczar";font-weight:700;font-display:swap;src:url("fonts/eczar-v16-latin-ext_latin-700.woff2") format("woff2");}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;}
-#top-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:#111;border-bottom:1px solid var(--border);}
-#top-bar h1{color:var(--gold);font-size:16px;font-weight:700;}
+body{background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;color:var(--text);font-family:var(--bs);font-size:13px;min-height:100vh;}
+/* 상단 = FVTT 붉은 배너 (CharacterSheet 헤더와 동일 톤) */
+#top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#5e0000 url("data/fvtt-assets/sheet/red_bg.webp") repeat;border-bottom:2px solid var(--gold);}
+#top-bar h1{color:#f3e7cd;font-family:"Eczar",var(--bs);font-size:18px;font-weight:700;letter-spacing:1px;}
 #auth-area{display:flex;align-items:center;gap:8px;font-size:12px;}
-#auth-area button{border:none;padding:5px 14px;border-radius:4px;cursor:pointer;font-size:11px;}
-#main{max-width:700px;margin:0 auto;padding:24px 16px;}
+#auth-area .auth-user{color:#f3e7cd;}
+#auth-area button{border:1px solid var(--border2);background:var(--bg3);color:var(--text);padding:5px 14px;border-radius:5px;cursor:pointer;font-size:11px;transition:filter .12s;}
+#auth-area .btn-google{background:#fff;border-color:#dadce0;color:#3c4043;font-weight:700;}
+#main{max-width:720px;margin:0 auto;padding:24px 16px;}
 .section{margin-bottom:32px;}
-.section h2{color:var(--gold);font-size:15px;margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:6px;}
-#login-prompt{display:flex;align-items:center;justify-content:center;min-height:60vh;}
-/* 세션 카드 */
-.session-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:10px;cursor:pointer;transition:border-color .2s;}
-.session-card:hover{border-color:var(--gold);}
-.session-card.active{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold);}
+.section h2{color:var(--accent);font-family:"Eczar",var(--bs);font-size:17px;margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:6px;letter-spacing:.5px;}
+#login-prompt{display:flex;align-items:center;justify-content:center;min-height:60vh;color:var(--text2);}
+/* 세션 카드 = 양피지 박스 */
+.session-card{background:linear-gradient(180deg,rgba(255,250,238,.55),rgba(231,216,184,.55)),var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:10px;cursor:pointer;transition:border-color .2s,box-shadow .2s;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);}
+.session-card:hover{border-color:var(--accent);}
+.session-card.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),inset 0 0 0 1px rgba(255,255,255,.35);}
 .sc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.sc-name{font-weight:700;font-size:14px;}
-.sc-code{font-family:monospace;letter-spacing:2px;color:var(--gold);font-size:13px;}
+.sc-name{font-weight:700;font-size:14px;color:var(--text);}
+.sc-code{font-family:monospace;letter-spacing:2px;color:var(--accent);font-size:13px;}
 .sc-meta{color:var(--text2);font-size:11px;}
 /* 플레이어 카드 */
-.player-card{background:#222;border:1px solid #444;border-radius:6px;padding:10px 14px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
-.player-card .name{font-weight:700;font-size:13px;}
+.player-card{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
+.player-card .name{font-weight:700;font-size:13px;color:var(--text);}
 .player-card .info{color:var(--text2);font-size:11px;}
-.kick-btn{background:var(--red);color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;flex-shrink:0;}
-/* 버튼 — 모든 색은 클래스로(인라인 색 금지) */
-.btn{border:none;padding:8px 18px;border-radius:4px;cursor:pointer;font-size:13px;font-weight:700;transition:filter .12s,background .12s;}
-.btn-gold{background:var(--gold);color:#000;}
-.btn-red{background:var(--red);color:#fff;}
-.btn-gray{background:#444;color:#ccc;}
-.btn-blue{background:var(--blue);color:#fff;}
-.btn-green{background:var(--green);color:#fff;}
-.btn-google{background:#fff;color:#3c4043;font-weight:700;}
+.kick-btn{background:var(--red);color:#fff;border:1px solid var(--red);padding:4px 10px;border-radius:4px;cursor:pointer;font-size:11px;flex-shrink:0;transition:filter .12s;}
+/* 버튼 — 양피지 테마 시맨틱 색 */
+.btn{border:1px solid;padding:8px 18px;border-radius:5px;cursor:pointer;font-size:13px;font-weight:700;transition:filter .12s,background .12s,border-color .12s;font-family:var(--bs);}
+.btn-gold{background:#6e1414 url("data/fvtt-assets/sheet/red_bg.webp") repeat;border-color:#7a1d1d;color:#f3e7cd;}
+.btn-red{background:var(--red);border-color:var(--red);color:#fff;}
+.btn-gray{background:var(--bg3);border-color:var(--border2);color:var(--text2);}
+.btn-blue{background:var(--blue);border-color:var(--blue);color:#fff;}
+.btn-green{background:var(--green);border-color:var(--green);color:#fff;}
+.btn-google{background:#fff;border-color:#dadce0;color:#3c4043;font-weight:700;}
 .btn-small{padding:4px 12px;font-size:11px;}
-.btn:hover,.btn-gold:hover,.btn-red:hover,.btn-gray:hover,.btn-blue:hover,.btn-green:hover,.btn-google:hover,.kick-btn:hover,#auth-area button:hover{filter:brightness(1.12);}
-#auth-area button{transition:filter .12s;}
-.kick-btn{transition:filter .12s;}
+.btn:hover,.kick-btn:hover,#auth-area button:hover{filter:brightness(1.08);}
 /* 입력 */
-.input{width:100%;padding:8px;background:#222;border:1px solid #555;color:#fff;border-radius:4px;font-size:14px;}
+.input{width:100%;padding:9px;background:var(--accent-bg);border:1px solid var(--border2);color:var(--text);border-radius:5px;font-size:14px;}
 /* 모달 */
-.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:999;display:flex;align-items:center;justify-content:center;}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(35,24,12,0.55);z-index:999;display:flex;align-items:center;justify-content:center;}
 .modal-overlay.hidden{display:none;}
-.modal-box{background:var(--card);border:1px solid var(--gold);border-radius:8px;padding:24px;min-width:300px;max-width:90vw;}
+.modal-box{background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border:1px solid var(--border2);border-radius:10px;padding:24px;min-width:300px;max-width:90vw;color:var(--text);}
 /* empty */
 .empty{color:var(--text2);font-size:13px;text-align:center;padding:20px;}
 /* 주사위 토스트 — CharacterSheet.html과 동일 */

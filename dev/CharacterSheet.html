@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=612"></script>
-<script src="feat_db.js?v=612"></script>
-<script src="SPELL_DB.js?v=612"></script>
-<script src="class_features_db.js?v=612"></script>
+<script src="equipment_db.js?v=613"></script>
+<script src="feat_db.js?v=613"></script>
+<script src="SPELL_DB.js?v=613"></script>
+<script src="class_features_db.js?v=613"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1656,7 +1656,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <div class="gear-menu-label">캐릭터</div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v612</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v613</span></div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2232,24 +2232,24 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=612"></script>
-<script src="cs_calc.js?v=612"></script>
+<script src="cs_data.js?v=613"></script>
+<script src="cs_calc.js?v=613"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=612"></script>
-<script src="cs_re_engine.js?v=612"></script>
-<script src="cs_pf2e_stats.js?v=612"></script>
-<script src="cs_pf2e_equip.js?v=612"></script>
-<script src="cs_pf2e_actor.js?v=612"></script>
-<script src="cs_ui.js?v=612"></script>
-<script src="cs_modal.js?v=612"></script>
-<script src="cs_feat_effects.js?v=612"></script>
-<script src="cs_save.js?v=612"></script>
-<script src="cs_session.js?v=612"></script>
-<script src="cs_dice.js?v=612"></script>
-<script src="cs_map.js?v=612"></script>
+<script src="cs_pf2e.js?v=613"></script>
+<script src="cs_re_engine.js?v=613"></script>
+<script src="cs_pf2e_stats.js?v=613"></script>
+<script src="cs_pf2e_equip.js?v=613"></script>
+<script src="cs_pf2e_actor.js?v=613"></script>
+<script src="cs_ui.js?v=613"></script>
+<script src="cs_modal.js?v=613"></script>
+<script src="cs_feat_effects.js?v=613"></script>
+<script src="cs_save.js?v=613"></script>
+<script src="cs_session.js?v=613"></script>
+<script src="cs_dice.js?v=613"></script>
+<script src="cs_map.js?v=613"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=612"></script>
-<script src="cs_i18n.js?v=612"></script>
+<script src="cs_locale.js?v=613"></script>
+<script src="cs_i18n.js?v=613"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
@@ -2292,7 +2292,14 @@ function selectMode(mode) {
   try { localStorage.setItem('pf2e_mode', 'player'); } catch (e) {}
   var ms = document.getElementById('mode-select');
   if (ms) ms.classList.add('hidden');
+  // 뒤로가기 시 앱을 벗어나(404) 버리지 않고 모드 선택으로 돌아오도록 history 항목 추가
+  try { history.pushState({ pf2eMode: 'player' }, ''); } catch (e) {}
 }
+// 뒤로가기 → 모드 선택 화면 다시 표시 (404 방지)
+window.addEventListener('popstate', function() {
+  var ms = document.getElementById('mode-select');
+  if (ms) ms.classList.remove('hidden');
+});
 function showModeSelect() {
   if (typeof closeGearMenu === 'function') closeGearMenu();
   var ms = document.getElementById('mode-select');
