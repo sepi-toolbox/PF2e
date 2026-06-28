@@ -825,39 +825,21 @@ async function enterGMSessionMode(sessionId) {
 }
 
 function _buildPlayerTabBar() {
-  let bar = document.getElementById('gm-tab-bar');
-  if (!bar) {
-    bar = document.createElement('div');
-    bar.id = 'gm-tab-bar';
-    const slotBar = document.getElementById('slot-bar');
-    slotBar.parentNode.insertBefore(bar, slotBar.nextSibling);
-  }
-  bar.style.display = 'flex';
+  // 상단 플레이어 탭 바 폐지 — GM 시트 전환은 👥 FAB 위젯(_ensureGMSwitchFab)으로 일원화.
+  // (이전 버전이 #slot-bar 뒤에 삽입하던 #gm-tab-bar가 남아 있으면 제거)
+  const old = document.getElementById('gm-tab-bar');
+  if (old) old.remove();
 
   const players = _currentSession.players || {};
   const uids = Object.keys(players);
   _gmPlayerTabs = uids.map(uid => ({ uid, displayName: players[uid].displayName || '???' }));
-
-  bar.innerHTML =
-    '<span style="color:var(--gold);font-weight:700;font-size:12px;padding:0 8px;">🎮 ' + (_currentSession.name || '세션') + '</span>' +
-    uids.map(uid => {
-      const p = players[uid];
-      const active = uid === _gmActiveTab;
-      return '<span class="gm-tab-wrap">' +
-        '<button class="gm-tab' + (active ? ' gm-tab-active' : '') + '" onclick="gmSwitchTab(\'' + uid + '\')">' +
-          (p.displayName || '???') +
-        '</button>' +
-        '<button class="gm-tab-kick" onclick="event.stopPropagation();gmKickPlayer(\'' + uid + '\',\'' + (p.displayName || '???').replace(/'/g, "\\'") + '\')" title="추방">×</button>' +
-      '</span>';
-    }).join('') +
-    '<a href="GMSheet.html" style="margin-left:auto;color:#888;font-size:11px;padding:0 12px;text-decoration:none;align-self:center;">← 로비</a>';
 
   // 플레이어가 새로 참가했을 때 자동 선택
   if (!_gmActiveTab && uids.length > 0) {
     gmSwitchTab(uids[0]);
   }
 
-  // 플레이어 전환 FAB 업데이트
+  // 플레이어 전환 FAB (👥) — 유일한 전환 UI
   _ensureGMSwitchFab();
 }
 
@@ -996,6 +978,10 @@ function _showGMSyncStatus(status) {
       var lobby = bar.querySelector('a[href="GMSheet.html"]');
       if (lobby) bar.insertBefore(el, lobby);
       else bar.appendChild(el);
+    } else {
+      // 탭 바 폐지(FAB 일원화) — 헤더 액션 영역(톱니 옆)에 표시
+      var host = document.querySelector('#header .hdr-actions') || document.getElementById('header');
+      if (host) host.insertBefore(el, host.firstChild);
     }
   }
   if (status === 'pending') {
@@ -1118,21 +1104,27 @@ function _updateGMSwitchPopup() {
   if (!popup || !_currentSession) return;
   var players = _currentSession.players || {};
   var uids = Object.keys(players);
+  var sessName = (_currentSession.name || '세션');
+  var lobbyLink = '<a class="gm-popup-lobby" href="GMSheet.html">← 로비로</a>';
   if (!uids.length) {
-    popup.innerHTML = '<div class="gm-popup-header">플레이어 전환</div><div style="padding:12px;color:#666;font-size:12px;text-align:center;">참가자 없음</div>';
+    popup.innerHTML = '<div class="gm-popup-header">🎮 ' + sessName + '</div>' +
+      '<div style="padding:12px;color:#666;font-size:12px;text-align:center;">참가자 없음</div>' + lobbyLink;
     return;
   }
 
   // 캐릭터 이름을 비동기로 로드하여 표시
-  var html = '<div class="gm-popup-header">플레이어 전환</div>';
+  var html = '<div class="gm-popup-header">🎮 ' + sessName + '</div>';
   uids.forEach(function(uid) {
     var p = players[uid];
     var isActive = uid === _gmActiveTab;
+    var safeName = (p.displayName || '???').replace(/'/g, "\\'");
     html += '<div class="gm-popup-item' + (isActive ? ' active' : '') + '" onclick="_gmFabSwitchTo(\'' + uid + '\')">' +
-      '<span>' + (p.displayName || '???') + '</span>' +
-      '<span class="gm-popup-char" id="gm-fab-char-' + uid + '">...</span>' +
+      '<span class="gm-popup-who"><span>' + (p.displayName || '???') + '</span>' +
+      '<span class="gm-popup-char" id="gm-fab-char-' + uid + '">...</span></span>' +
+      '<button class="gm-popup-kick" onclick="event.stopPropagation();gmKickPlayer(\'' + uid + '\',\'' + safeName + '\')" title="추방">×</button>' +
     '</div>';
   });
+  html += lobbyLink;
   popup.innerHTML = html;
 
   // 캐릭터 이름 비동기 로드 (개인 슬롯에서)
