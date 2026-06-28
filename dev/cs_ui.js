@@ -2095,7 +2095,7 @@ function renderFeats() {
       const desc = h.summary || h.desc || '';
       const hAncestry = h.ancestry === '*' ? '다목적 유산' : h.ancestry || '';
       div.innerHTML = `
-        <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
+        <div class="feat-card-header" style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
           <span style="flex:1;color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${iconImg('heritage', h)}${h.name_ko} (${h.name_en||''})</span>
         </div>
         <div class="feat-src"><span class="tag-meta">유산</span> <span class="tag-meta">${hAncestry}</span></div>
@@ -2157,7 +2157,7 @@ function renderFeats() {
       const redDot = hasChoiceIssue ? '<span style="font-size:11px;color:#f44336;flex-shrink:0;line-height:1;" title="선택 필요">⚠</span>'
         : hasPrereqIssue ? '<span style="font-size:11px;color:#ff9800;flex-shrink:0;line-height:1;" title="선행 조건 미충족">⚠</span>' : '';
       div.innerHTML = `
-        <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
+        <div class="feat-card-header" style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
           <span style="color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${iconImg('feat', featData)}${f.name || labels[t] + ' 재주'}</span>${redDot}
           <span style="flex:1;"></span>
           ${choiceBadge ? `<span style="font-size:10px;color:var(--accent);flex-shrink:0;">[${choiceBadge}]</span>` : ''}
