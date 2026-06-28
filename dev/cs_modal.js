@@ -2339,17 +2339,46 @@ function _renderMemorizeDetail() {
   }
 
   const label = isCantrip ? '캔트립' : `${rank}랭크`;
-  let html = `<div style="padding:8px;"><div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">슬롯 ${active.idx+1} — ${label} 주문 선택</div>`;
+  detail.innerHTML = `<div style="padding:8px;">
+    <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">슬롯 ${active.idx+1} — ${label} 주문 선택
+      <span style="font-weight:400;color:var(--text2);font-size:11px;">(이름을 누르면 상세 · 「준비」로 슬롯 배치)</span></div>
+    <div id="mem-spell-list"></div></div>`;
+  const listEl = detail.querySelector('#mem-spell-list');
+  if (!listEl) return;
   available.forEach(({name, note}) => {
     const spellData = getSpell(name);
     const actions = typeof getActionIcons === 'function' ? getActionIcons(spellData?.actions) : '';
-    html += `<div onclick="_memorizeAssign('${name.replace(/'/g,"\\'")}')" style="display:flex;align-items:center;gap:8px;padding:8px 10px;margin:3px 0;border-radius:6px;cursor:pointer;font-size:13px;background:var(--bg3);border:1px solid var(--border);transition:background 0.1s;" onmouseenter="this.style.background='var(--accent)';this.style.color='#000'" onmouseleave="this.style.background='var(--bg3)';this.style.color=''">
-      <span style="flex:1;font-weight:500;">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
-      ${note ? `<span style="font-size:9px;opacity:0.7;">${note}</span>` : ''}
-    </div>`;
+    const wrap = document.createElement('div');
+    wrap.className = 'mem-spell';
+    wrap.innerHTML = `
+      <div class="mem-spell-row">
+        <span class="mem-spell-name">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+        ${note ? `<span class="mem-spell-note">${note}</span>` : ''}
+        <button class="mem-prep-btn">준비</button>
+        <span class="ls-chevron">▾</span>
+      </div>
+      <div class="mem-spell-detail"></div>`;
+    const row = wrap.querySelector('.mem-spell-row');
+    const btn = wrap.querySelector('.mem-prep-btn');
+    const dd = wrap.querySelector('.mem-spell-detail');
+    // 「준비」 버튼 — 슬롯 배치 (펼침과 분리)
+    if (btn) btn.onclick = (e) => { e.stopPropagation(); _memorizeAssign(name); };
+    // 이름 행 클릭 — 인라인 아코디언으로 주문 상세 펼침/접힘
+    if (row) row.onclick = () => {
+      const wasOpen = wrap.classList.contains('expanded');
+      listEl.querySelectorAll('.mem-spell.expanded').forEach(w => w.classList.remove('expanded'));
+      if (!wasOpen) {
+        if (dd && !dd.dataset.filled) {
+          dd.innerHTML = (typeof _learnSpellDetailHtml === 'function' && spellData)
+            ? _learnSpellDetailHtml(spellData)
+            : (spellData?.desc || '<span style="color:var(--text2);">설명 없음</span>');
+          dd.dataset.filled = '1';
+        }
+        wrap.classList.add('expanded');
+      }
+    };
+    listEl.appendChild(wrap);
   });
-  html += '</div>';
-  detail.innerHTML = html;
 }
 
 function _memorizeSelectSlot(rank, idx) {

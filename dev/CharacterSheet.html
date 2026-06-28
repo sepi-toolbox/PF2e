@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=599"></script>
-<script src="feat_db.js?v=599"></script>
-<script src="SPELL_DB.js?v=599"></script>
-<script src="class_features_db.js?v=599"></script>
+<script src="equipment_db.js?v=600"></script>
+<script src="feat_db.js?v=600"></script>
+<script src="SPELL_DB.js?v=600"></script>
+<script src="class_features_db.js?v=600"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -988,6 +988,17 @@ body.map-open{overflow:hidden;}
 .ls-learn-btn.learned{background:var(--bg4);color:var(--text2);border-color:var(--border2);}
 .ls-chevron{flex-shrink:0;margin-left:8px;color:var(--text2);font-size:11px;transition:transform .15s;}
 .opt-row.expanded .ls-chevron{transform:rotate(180deg);}
+/* 주문 기억 모달 — 우측 주문 목록 아코디언 */
+.mem-spell{border:1px solid var(--border);border-radius:6px;margin:4px 0;background:var(--bg3);overflow:hidden;}
+.mem-spell-row{display:flex;align-items:center;gap:8px;padding:8px 10px;cursor:pointer;}
+.mem-spell:hover{border-color:var(--border2);}
+.mem-spell.expanded{border-color:var(--accent);}
+.mem-spell.expanded .ls-chevron{transform:rotate(180deg);}
+.mem-spell-name{flex:1;font-weight:500;font-size:13px;color:var(--text);}
+.mem-spell-note{font-size:9px;opacity:0.7;flex-shrink:0;}
+.mem-prep-btn{flex-shrink:0;padding:4px 12px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:#fff;}
+.mem-spell-detail{display:none;padding:10px 12px;border-top:1px solid var(--border);font-size:12px;line-height:1.6;background:var(--bg2);}
+.mem-spell.expanded .mem-spell-detail{display:block;}
 /* Section header in list */
 .opt-section-header{padding:6px 12px;font-size:12px;font-weight:700;color:var(--accent);background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1;}
 /* Legacy compat */
@@ -1557,7 +1568,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 <div id="auth-bar">
   <div style="display:flex;align-items:center;gap:8px;">
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;">v599</span>
+    <span style="font-size:9px;color:#555;">v600</span>
   </div>
   <div id="auth-area">
     <button class="btn btn-google" onclick="googleLogin()">Google 로그인</button>
@@ -2148,24 +2159,24 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=599"></script>
-<script src="cs_calc.js?v=599"></script>
+<script src="cs_data.js?v=600"></script>
+<script src="cs_calc.js?v=600"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=599"></script>
-<script src="cs_re_engine.js?v=599"></script>
-<script src="cs_pf2e_stats.js?v=599"></script>
-<script src="cs_pf2e_equip.js?v=599"></script>
-<script src="cs_pf2e_actor.js?v=599"></script>
-<script src="cs_ui.js?v=599"></script>
-<script src="cs_modal.js?v=599"></script>
-<script src="cs_feat_effects.js?v=599"></script>
-<script src="cs_save.js?v=599"></script>
-<script src="cs_session.js?v=599"></script>
-<script src="cs_dice.js?v=599"></script>
-<script src="cs_map.js?v=599"></script>
+<script src="cs_pf2e.js?v=600"></script>
+<script src="cs_re_engine.js?v=600"></script>
+<script src="cs_pf2e_stats.js?v=600"></script>
+<script src="cs_pf2e_equip.js?v=600"></script>
+<script src="cs_pf2e_actor.js?v=600"></script>
+<script src="cs_ui.js?v=600"></script>
+<script src="cs_modal.js?v=600"></script>
+<script src="cs_feat_effects.js?v=600"></script>
+<script src="cs_save.js?v=600"></script>
+<script src="cs_session.js?v=600"></script>
+<script src="cs_dice.js?v=600"></script>
+<script src="cs_map.js?v=600"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=599"></script>
-<script src="cs_i18n.js?v=599"></script>
+<script src="cs_locale.js?v=600"></script>
+<script src="cs_i18n.js?v=600"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
