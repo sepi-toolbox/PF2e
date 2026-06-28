@@ -506,6 +506,7 @@ var MapView = (function() {
   let _playMode = false;    // true=시트 오버레이(플레이 뷰): GM 도구/투시 안개 비활성, 핑/내토큰 활성
   let _displayPlayer = false; // true=플레이어 디스플레이 창/CCTV(?display=player): 진짜 플레이어 시점·무조작·카메라는 동기화로만 제어
   let _pendingCam = null;   // 캔버스 준비 전 도착한 동기화 카메라 (resize 후 적용)
+  let _resizeDeb = 0;       // 플레이어 디스플레이 리사이즈 디바운스 타이머
   let _pings = [];          // [{x,y,color,t0}] 진행 중인 핑 (t0=performance.now())
   let _press = null;        // 롱프레스 추적 {x,y,timer,fired}
   const PING_MS = 2600;     // 핑 애니메이션 지속(ms)
@@ -572,7 +573,13 @@ var MapView = (function() {
     // ── GM 배경 업로드 ──
     if (_fileInput) _fileInput.addEventListener('change', _onPickBg);
 
-    window.addEventListener('resize', function() { if (_active) { _positionFullscreen(); _resize(); } });
+    window.addEventListener('resize', function() {
+      if (!_active) return;
+      _positionFullscreen();
+      // 플레이어 디스플레이 창: 최대화 시 resize가 연속 발생 → 디바운스로 합쳐 깜빡임 방지
+      if (_displayPlayer) { clearTimeout(_resizeDeb); _resizeDeb = setTimeout(_resize, 130); }
+      else _resize();
+    });
   }
 
   // ── 전체화면 토글 (상단 바의 🗺 지도 버튼) ──
@@ -900,13 +907,26 @@ var MapView = (function() {
   // ── 카메라 공유 (듀얼모니터 동기화: 해상도 독립 — 월드 중심점 + 줌배율) ──
   function getCameraShare() {
     if (!_cssW || !_cssH || !_view.scale) return null;
-    return { cx: (_cssW / 2 - _view.offX) / _view.scale, cy: (_cssH / 2 - _view.offY) / _view.scale, scale: _view.scale };
+    // 해상도 독립: 월드 중심 + 가시 월드영역(vw/vh) 전달 → 수신측이 자기 창 크기에 맞춰 스케일 계산
+    return {
+      cx: (_cssW / 2 - _view.offX) / _view.scale,
+      cy: (_cssH / 2 - _view.offY) / _view.scale,
+      vw: _cssW / _view.scale,
+      vh: _cssH / _view.scale,
+      scale: _view.scale,   // 구버전 폴백용
+    };
   }
   function _applyCamNow(c) {
-    if (!c || !_cssW || !_cssH || !c.scale) return false;
-    _view.scale = c.scale;
-    _view.offX = _cssW / 2 - c.cx * c.scale;
-    _view.offY = _cssH / 2 - c.cy * c.scale;
+    if (!c || !_cssW || !_cssH) return false;
+    // GM 가시영역(vw/vh)을 내 창에 contain(전부 보이게) → 큰 창이면 그만큼 확대돼 꽉 참
+    let scale;
+    if (c.vw && c.vh) scale = Math.min(_cssW / c.vw, _cssH / c.vh);
+    else if (c.scale) scale = c.scale;   // 구버전 폴백
+    else return false;
+    scale = _clamp(scale, MIN_SCALE, MAX_SCALE);
+    _view.scale = scale;
+    _view.offX = _cssW / 2 - c.cx * scale;
+    _view.offY = _cssH / 2 - c.cy * scale;
     _userMoved = true; _markDirty(); return true;     // userMoved=true → autoFit이 동기화 시점을 덮지 않음
   }
   function applyCameraShare(c) { _pendingCam = c || null; _applyCamNow(c); }
