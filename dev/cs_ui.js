@@ -1509,8 +1509,18 @@ let _spellSlotPending = null;
 
 function getActionIcons(actions) {
   if (!actions) return '';
-  const map = {'1':'<span class="action-glyph">1</span>','2':'<span class="action-glyph">2</span>','3':'<span class="action-glyph">3</span>','reaction':'<span class="action-glyph">R</span>','free':'<span class="action-glyph">F</span>'};
-  return map[String(actions)] || actions;
+  const s = String(actions).trim();
+  const G = c => '<span class="action-glyph">' + c + '</span>';
+  // 정규 코드(1/2/3/reaction/free)
+  const direct = {'1':'1','2':'2','3':'3','reaction':'R','free':'F'};
+  if (direct[s]) return G(direct[s]);
+  // 한글 액션 텍스트: 반응 / 자유 행동 / N행동 / 1~3행동 / 1행동~2행동
+  if (s.includes('반응')) return G('R');
+  if (s.includes('자유')) return G('F');
+  const digits = s.match(/[123]/g);
+  if (digits && digits.length >= 2) return G(digits[0]) + '~' + G(digits[digits.length - 1]);
+  if (digits && digits.length === 1) return G(digits[0]);
+  return s; // 폴백: 원문
 }
 
 function switchSpellSubtab(tab) {
