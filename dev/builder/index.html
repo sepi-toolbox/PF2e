@@ -30,6 +30,14 @@
     <button data-tab="biography" aria-label="일대기"><i class="fa-solid fa-book-reader"></i><span>일대기</span></button>
   </nav>
 
+  <!-- 데이터층 + RE 엔진 (FVTT-Native 레이어, ../ 공유 모듈) -->
+  <script>window.PF2eDataConfig = { dataRoot: "../data" };</script>
+  <script src="../cs_pf2e.js"></script>
+  <script src="../cs_re_engine.js"></script>
+  <script src="../cs_pf2e_stats.js"></script>
+  <script src="../class_features_db.js"></script>
+  <script src="../cs_pf2e_actor.js"></script>
+
   <script src="vendor/handlebars.min.js"></script>
   <script src="hbs_helpers.js"></script>
   <script src="context_adapter.js"></script>
@@ -37,11 +45,18 @@
   (async function () {
     try {
       const tmpl = await window.BuilderHbs.loadTemplates();
-      const ctx = window.BuilderContext.buildContext(); // M0: 빈 캐릭터
+      // 빌더에 필요한 BASE 카테고리 선로드 (get() 동기 접근 가능해짐)
+      if (window.PF2eData) {
+        await Promise.all(["classes", "ancestries", "backgrounds", "heritages", "deities"]
+          .map((c) => window.PF2eData.loadCategory(c).catch((e) => console.warn("데이터 로드 실패", c, e))));
+      }
+      const useSample = new URLSearchParams(location.search).has("sample");
+      const state = useSample ? window.BuilderContext.sampleState() : undefined;
+      const ctx = window.BuilderContext.buildContext(state);
       const root = document.getElementById("sheet-root");
       root.innerHTML = tmpl(ctx);
       wireInteractions(root);
-      console.log("[builder] 렌더 완료");
+      console.log("[builder] 렌더 완료", useSample ? "(샘플)" : "(빈 캐릭터)", ctx._derived ? "deriveStats✓" : "base폴백");
     } catch (e) {
       console.error("[builder] 렌더 실패:", e);
       document.getElementById("sheet-root").innerHTML =
