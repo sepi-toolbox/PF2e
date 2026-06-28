@@ -501,7 +501,8 @@ window.MapGlue = (function () {
     img.src = data; if (emp) emp.style.display = 'none'; _lastFrame = Date.now();
   }
   function openPlayerWindow() {
-    const u = 'Map.html?session=' + encodeURIComponent(_sessionId) + '&display=player';
+    const u = 'Map.html?session=' + encodeURIComponent(_sessionId) + '&display=player&_cb=' + Date.now();
+    try { if (_popWin && !_popWin.closed) _popWin.close(); } catch (e) {}   // 기존 창 닫고 최신 코드로 새로 열기(캐시 우회)
     _popWin = window.open(u, 'pf2ePlayerView', 'popup,width=1280,height=800');
     if (!_popWin) { alert('팝업이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 누르세요.'); return; }
     _cctvClosed = false; cctvToggle(true);             // 팝아웃 열면 GM 우하단 CCTV도 자동 표시(프레임 도착 시 채워짐)
@@ -626,6 +627,10 @@ window.MonsterLink = (function () {
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
+  // 플레이어 디스플레이 창(display=player)은 수동 뷰 → 3D 주사위/추가 WebGL 캔버스 불필요(리사이즈 충돌 방지)
+  if (new URLSearchParams(location.search).get('display') === 'player') {
+    const _b = document.getElementById('pf-dice-box'); if (_b) _b.remove();
+  } else {
   try {
     const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=618');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
@@ -639,6 +644,7 @@ window.MonsterLink = (function () {
       clear() { try { box.clear(); } catch (e) {} },
     };
   } catch (e) { console.warn('[PFDice] 모듈 로드 실패(2D 폴백):', e); }
+  }
 </script>
 </body>
 </html>
