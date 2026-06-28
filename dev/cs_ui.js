@@ -27,15 +27,20 @@ function _iconRel(scope, item) {
 }
 // 카드 앞 썸네일 HTML (없으면 빈 문자열). cls: ico-sm | ico-lg
 function iconImg(scope, item, cls) {
-  const rel = _iconRel(scope, item);
+  const rel = _iconRel(scope, item) || _iconImgField(item);   // icon_map 우선, 없으면 BASE 아이템 자체 img(FVTT 경로)
   if (!rel) return '';
   return '<img class="item-icon' + (cls ? ' ' + cls : '') + '" src="data/icons/' +
     rel.replace(/"/g, '%22') + '" loading="lazy" onerror="this.style.display=\'none\'">';
 }
+// BASE/FVTT 아이템은 img 필드(아이콘 경로)를 직접 보유 → icon_map 미커버분 폴백
+function _iconImgField(item) {
+  if (!item) return null;
+  return item.img || (item._data && item._data.img) || (item._dbData && item._dbData.img) || null;
+}
 
 // 빌더 슬롯 원형 아이콘: 선택된 아이템 이미지를 원에 채움(없으면 이모지 폴백)
 function iconCircle(scope, item, fallback) {
-  const rel = _iconRel(scope, item);
+  const rel = _iconRel(scope, item) || _iconImgField(item);
   if (!rel) return fallback || '';
   return '<img class="slot-img" src="data/icons/' + rel.replace(/"/g, '%22') +
     '" loading="lazy" onerror="this.replaceWith(document.createTextNode(\'' + (fallback || '') + '\'))">';
@@ -133,6 +138,7 @@ function renderArmorCard() {
     </div>
     <div class="defense-card-body">
       <div class="defense-card-name">
+        ${(typeof iconImg==='function' ? iconImg('equipment', (typeof getArmor==='function' && getArmor(name)) || {name:name}) : '')}
         <span class="weapon-prof-badge ${profCls}" style="font-size:8px;width:14px;height:14px;">${profLetter}</span>
         ${name}
         ${potency > 0 ? `<span class="tag" style="font-size:9px;">+${potency}</span>` : ''}
