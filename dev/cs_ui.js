@@ -890,13 +890,10 @@ function _renderEquipRow(list, e, i, hasContainers) {
     if (!r) return;
     const runeRow = document.createElement('div');
     runeRow.className = 'spell-slot-row equip-rune-attached';
+    runeRow.style.cssText = 'display:flex;align-items:center;gap:6px;';
     runeRow.innerHTML = `
-      <span style="flex:1;font-size:11px;color:var(--accent);padding-left:20px;display:inline-flex;align-items:center;">${iconImg('equipment', r, 'ico-sm')||'\u2728 '}${r.name||'\uB8EC'} <span style="font-size:9px;color:var(--text2);margin-left:4px;">${r._runeData?.desc||''}</span></span>
-      <span style="width:30px;"></span>
-      <span style="width:70px;"></span>
-      <span style="width:80px;text-align:center;"><button class="equip-toggle" onclick="event.stopPropagation();detachRune(${ri})" style="font-size:9px;padding:2px 6px;">\uD574\uC81C</button></span>
-      <span style="width:40px;"></span>
-      <span style="width:28px;"></span>`;
+      <span style="flex:1;min-width:0;font-size:11px;padding-left:20px;display:inline-flex;align-items:center;cursor:pointer;" onclick="showInfo('rune','${(r.name||'').replace(/'/g,"\\'")}')">${iconImg('equipment', r, 'ico-sm')||'\u2728 '}<span style="color:var(--accent);white-space:nowrap;flex-shrink:0;">${r.name||'\uB8EC'}</span><span style="font-size:9px;color:var(--text2);margin-left:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;">${r._runeData?.desc||''}</span></span>
+      <button class="equip-toggle" onclick="event.stopPropagation();detachRune(${ri})" style="flex-shrink:0;font-size:9px;padding:2px 8px;">\uD574\uC81C</button>`;
     list.appendChild(runeRow);
   });
 }

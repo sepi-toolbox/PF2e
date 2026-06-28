@@ -164,12 +164,12 @@
       _observer = new MutationObserver(_onMutations);
       _observer.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: TRANS_ATTRS });
     }
-    if (opts.toggle !== false) _injectToggle();
+    if (opts.toggle === true) _injectToggle();   // 기본 미주입(좌하단 위젯 제거) — 필요 시 I18n.injectToggle()로 원하는 위치에 추가
     setEnabled((typeof PFLocale !== 'undefined' ? PFLocale.getLang() : 'ko') === 'en');
     _syncToggle();
   }
 
-  const API = { init, setLang, getLang, setEnabled, retranslate };
+  const API = { init, setLang, getLang, setEnabled, retranslate, injectToggle: _injectToggle };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.I18n = API;
 

@@ -769,8 +769,9 @@ function showInfo(type, name) {
     item = getArmor(nameKo);
   } else if (type === 'shield') {
     item = getShield(nameKo);
-  } else if (type === 'gear') {
+  } else if (type === 'gear' || type === 'rune') {
     item = getGear(nameKo);
+    if (!item && typeof RUNE_DB !== 'undefined') item = RUNE_DB.find(r => r && (r.name_ko === nameKo || r.name_en === nameKo || r.id === nameKo));
   }
 
   // 파손된 장비인지 확인하여 수치 조정
