@@ -578,7 +578,7 @@ var MapView = (function() {
   // ── 전체화면 토글 (상단 바의 🗺 지도 버튼) ──
   // 상단 #auth-bar를 제외한 전체를 덮는 fixed 오버레이. top은 auth-bar 하단으로 맞춤.
   function _positionFullscreen() {
-    const bar = document.getElementById('auth-bar');
+    const bar = document.getElementById('header') || document.getElementById('auth-bar');
     const fs = document.getElementById('map-fullscreen');
     if (fs) fs.style.top = (bar ? Math.round(bar.getBoundingClientRect().bottom) : 0) + 'px';
   }
