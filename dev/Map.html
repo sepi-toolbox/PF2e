@@ -480,17 +480,21 @@ window.MapGlue = (function () {
   // 디스플레이(팝아웃/플레이어 창) → GM CCTV: 캔버스를 축소 캡처해 ~4fps 방송
   function _startFrames() {
     if (_frameTimer || !bc) return;
+    // 고정 크기 프레임(320x180)로 캡처 → CCTV에서 비율 변동 없이 안정(움찔 방지)
+    const FW = 320, FH = 180;
     _off = document.createElement('canvas');
+    _off.width = FW; _off.height = FH;
+    const ctx = _off.getContext('2d');
     _frameTimer = setInterval(function () {
       try {
         if (document.hidden) return;
         const cv = document.getElementById('map-canvas');
         if (!cv || !cv.width || !cv.height) return;
-        const s = Math.min(1, 360 / cv.width);
-        _off.width = Math.max(1, Math.round(cv.width * s));
-        _off.height = Math.max(1, Math.round(cv.height * s));
-        _off.getContext('2d').drawImage(cv, 0, 0, _off.width, _off.height);
-        bc.postMessage({ type: 'frame', img: _off.toDataURL('image/jpeg', 0.5) });
+        ctx.fillStyle = '#000'; ctx.fillRect(0, 0, FW, FH);
+        const sc = Math.min(FW / cv.width, FH / cv.height);   // contain (비율 유지)
+        const dw = Math.round(cv.width * sc), dh = Math.round(cv.height * sc);
+        ctx.drawImage(cv, Math.round((FW - dw) / 2), Math.round((FH - dh) / 2), dw, dh);
+        bc.postMessage({ type: 'frame', img: _off.toDataURL('image/jpeg', 0.6) });
       } catch (e) { clearInterval(_frameTimer); _frameTimer = 0; console.warn('[CCTV] 캡처 중단:', e && e.message); }
     }, 250);
   }
