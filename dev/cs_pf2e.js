@@ -6,8 +6,12 @@
 (function (root) {
   'use strict';
   const isNode = typeof window === 'undefined';
-  const BASE_DIR = 'data/base';
-  const OVL_DIR = 'data/overlay';
+  // 데이터 디렉토리: 기본 'data/...'(운영 시트 기준). 다른 폴더(예: builder/)에서 로드 시
+  // window.PF2eDataConfig = {dataRoot:'../data'} 로 override (하위호환 — 미설정 시 기존 동작).
+  const _cfg = (!isNode && root.PF2eDataConfig) || {};
+  const _dataRoot = _cfg.dataRoot || 'data';
+  const BASE_DIR = _cfg.baseDir || (_dataRoot + '/base');
+  const OVL_DIR = _cfg.ovlDir || (_dataRoot + '/overlay');
 
   // 비크리처 카테고리(단일 파일). 크리처는 별도(팩 분할 + _index).
   const CATEGORIES = ['equipment', 'spells', 'feats', 'actions', 'backgrounds',
