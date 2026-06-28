@@ -387,7 +387,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_dice.js?v=617"></script>
+<script src="cs_dice.js?v=618"></script>
 <script src="cs_monster.js?v=575"></script>
 <script src="cs_map.js?v=583"></script>
 <style>
@@ -627,14 +627,15 @@ window.MonsterLink = (function () {
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=617');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=618');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     const box = new DiceBox({ container: '#pf-dice-box', assetPath, theme: 'default', offscreen: false, scale: 6 });
     let ready = false;
     box.init().then(() => { ready = true; }).catch(e => console.warn('[PFDice] init 실패(2D 폴백):', e));
+    const _ls = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
     window.PFDice = {
-      available() { return ready && localStorage.getItem('pf2e_dice3d') !== 'off'; },
-      async roll(notation) { const res = await box.roll(notation); return (res || []).map(r => ({ sides: Number(r.sides), value: r.value })); },
+      available() { return ready && _ls('pf2e_dice3d') !== 'off'; },
+      async roll(notation) { const color = _ls('pf2e_dice_color') || undefined; const res = await box.roll(notation, color ? { themeColor: color } : undefined); return (res || []).map(r => ({ sides: Number(r.sides), value: r.value })); },
       clear() { try { box.clear(); } catch (e) {} },
     };
   } catch (e) { console.warn('[PFDice] 모듈 로드 실패(2D 폴백):', e); }

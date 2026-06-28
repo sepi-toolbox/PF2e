@@ -408,8 +408,9 @@ const DiceRoller = (() => {
       const diceStr = e.dice.map(d => `d${d.sides}:${d.value}`).join(', ');
       const modStr = e.modifier ? ` ${fmtMod(e.modifier)}` : '';
       const cls = e.isNat20 ? 'nat20' : e.isNat1 ? 'nat1' : '';
-      html += `<div class="dice-log-entry ${cls}">
-        <div class="dice-log-top"><span class="dice-log-label">${e.label}</span><span class="dice-log-total">${e.total}</span></div>
+      const whoStr = e.who ? `<span class="dice-log-who">${e.who}</span> ` : '';
+      html += `<div class="dice-log-entry ${cls}${e._remote ? ' remote' : ''}">
+        <div class="dice-log-top"><span class="dice-log-label">${whoStr}${e.label}</span><span class="dice-log-total">${e.total}</span></div>
         <div class="dice-log-bottom"><span class="dice-log-detail">[${diceStr}]${modStr}</span><span class="dice-log-time">${timeStr}</span></div>
       </div>`;
     });
@@ -598,6 +599,16 @@ const DiceRoller = (() => {
       toast.classList.add('hide');
       setTimeout(() => toast.remove(), 400);
     }, 5000);
+
+    // 굴림 기록에도 남김 (누가 + 무엇을 위해) — 같은 세션 플레이어 전원 공유
+    rollLog.unshift({
+      label: data.label || '', dice: data.dice || [], modifier: data.modifier || 0,
+      total: data.total, time: new Date(),
+      isNat20: !!data.isNat20, isNat1: !!data.isNat1,
+      who: data.characterName || '???', _remote: true,
+    });
+    if (rollLog.length > MAX_LOG) rollLog.pop();
+    if (logOpen) renderLog();
   }
 
   // ── Public API ──

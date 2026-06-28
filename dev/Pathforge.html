@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=617"></script>
-<script src="feat_db.js?v=617"></script>
-<script src="SPELL_DB.js?v=617"></script>
-<script src="class_features_db.js?v=617"></script>
+<script src="equipment_db.js?v=618"></script>
+<script src="feat_db.js?v=618"></script>
+<script src="SPELL_DB.js?v=618"></script>
+<script src="class_features_db.js?v=618"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1341,6 +1341,14 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 /* ══ 주사위 시스템 ══ */
 /* 3D 주사위 캔버스 — 전체화면, 클릭 통과 */
 #pf-dice-box{position:fixed;inset:0;z-index:10015;pointer-events:none;}
+/* 톱니 메뉴 주사위 색상 스와치 */
+.dice-swatches{display:flex;flex-wrap:wrap;gap:6px;}
+.dice-sw{width:26px;height:26px;border-radius:50%;border:2px solid var(--border2);cursor:pointer;padding:0;transition:transform .1s,border-color .1s;}
+.dice-sw:hover{transform:scale(1.12);}
+.dice-sw.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent);}
+/* 굴림 기록 — 누가(원격) */
+.dice-log-who{color:#3498db;font-weight:700;font-size:11px;margin-right:3px;}
+.dice-log-entry.remote{border-left:3px solid #3498db;}
 #pf-dice-box canvas{width:100%;height:100%;}
 #dice-fab{position:fixed;bottom:80px;right:16px;z-index:10010;width:48px;height:48px;border-radius:50%;border:none;background:var(--accent,#d4a04a);color:#fff;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.4);transition:transform .2s,box-shadow .2s;}
 #dice-fab:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(0,0,0,.5);}
@@ -1668,10 +1676,27 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="showModeSelect();">🔁 모드 변경 (GM / 플레이어)</button>
   </div>
   <div class="gear-menu-section">
+    <div class="gear-menu-label">3D 주사위 색상</div>
+    <div id="dice-color-swatches" class="dice-swatches">
+      <button class="dice-sw" data-c="" style="background:linear-gradient(135deg,#d9c8a2 50%,#8a6a1f 50%)" onclick="setDiceColor('')" title="테마 기본"></button>
+      <button class="dice-sw" data-c="#6e1414" style="background:#6e1414" onclick="setDiceColor('#6e1414')" title="딥레드"></button>
+      <button class="dice-sw" data-c="#b5912f" style="background:#b5912f" onclick="setDiceColor('#b5912f')" title="골드"></button>
+      <button class="dice-sw" data-c="#2f5d7a" style="background:#2f5d7a" onclick="setDiceColor('#2f5d7a')" title="블루"></button>
+      <button class="dice-sw" data-c="#3f7a3f" style="background:#3f7a3f" onclick="setDiceColor('#3f7a3f')" title="그린"></button>
+      <button class="dice-sw" data-c="#6b3fa0" style="background:#6b3fa0" onclick="setDiceColor('#6b3fa0')" title="퍼플"></button>
+      <button class="dice-sw" data-c="#1f1f24" style="background:#1f1f24" onclick="setDiceColor('#1f1f24')" title="블랙"></button>
+      <button class="dice-sw" data-c="#efe9da" style="background:#efe9da" onclick="setDiceColor('#efe9da')" title="화이트"></button>
+    </div>
+  </div>
+  <div class="gear-menu-section">
+    <div class="gear-menu-label">앱</div>
+    <button id="pwa-install-btn" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="pfInstallApp()">📲 웹앱 설치</button>
+  </div>
+  <div class="gear-menu-section">
     <div class="gear-menu-label">캐릭터</div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v617</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v618</span></div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2247,29 +2272,29 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=617"></script>
-<script src="cs_calc.js?v=617"></script>
+<script src="cs_data.js?v=618"></script>
+<script src="cs_calc.js?v=618"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=617"></script>
-<script src="cs_re_engine.js?v=617"></script>
-<script src="cs_pf2e_stats.js?v=617"></script>
-<script src="cs_pf2e_equip.js?v=617"></script>
-<script src="cs_pf2e_actor.js?v=617"></script>
-<script src="cs_ui.js?v=617"></script>
-<script src="cs_modal.js?v=617"></script>
-<script src="cs_feat_effects.js?v=617"></script>
-<script src="cs_save.js?v=617"></script>
-<script src="cs_session.js?v=617"></script>
-<script src="cs_dice.js?v=617"></script>
-<script src="cs_map.js?v=617"></script>
+<script src="cs_pf2e.js?v=618"></script>
+<script src="cs_re_engine.js?v=618"></script>
+<script src="cs_pf2e_stats.js?v=618"></script>
+<script src="cs_pf2e_equip.js?v=618"></script>
+<script src="cs_pf2e_actor.js?v=618"></script>
+<script src="cs_ui.js?v=618"></script>
+<script src="cs_modal.js?v=618"></script>
+<script src="cs_feat_effects.js?v=618"></script>
+<script src="cs_save.js?v=618"></script>
+<script src="cs_session.js?v=618"></script>
+<script src="cs_dice.js?v=618"></script>
+<script src="cs_map.js?v=618"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=617"></script>
-<script src="cs_i18n.js?v=617"></script>
+<script src="cs_locale.js?v=618"></script>
+<script src="cs_i18n.js?v=618"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=617');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=618');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2279,11 +2304,13 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     let ready = false;
     box.init().then(() => { ready = true; console.log('[PFDice] 3D 주사위 준비'); })
        .catch(e => console.warn('[PFDice] init 실패(2D 폴백):', e));
+    const _ls = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
     window.PFDice = {
-      available() { return ready && localStorage.getItem('pf2e_dice3d') !== 'off'; },
+      available() { return ready && _ls('pf2e_dice3d') !== 'off'; },
       // notation: [{qty, sides}] → 물리 굴림 후 [{sides, value}] 반환
       async roll(notation) {
-        const res = await box.roll(notation);
+        const color = _ls('pf2e_dice_color') || undefined;
+        const res = await box.roll(notation, color ? { themeColor: color } : undefined);
         return (res || []).map(r => ({ sides: Number(r.sides), value: r.value }));
       },
       clear() { try { box.clear(); } catch (e) {} },
@@ -2310,6 +2337,7 @@ function toggleGearMenu(ev) {
   if (!m) return;
   const open = m.classList.toggle('open');
   if (g) g.classList.toggle('open', open);
+  if (open && typeof _markDiceColorActive === 'function') _markDiceColorActive();
 }
 function closeGearMenu() {
   const m = document.getElementById('gear-menu');
@@ -2359,6 +2387,31 @@ function showModeSelect() {
   if (lv) lv.classList.add('hidden');
   var ms = document.getElementById('mode-select');
   if (ms) ms.classList.remove('hidden');
+}
+
+// ── 3D 주사위 색상 선택 ──
+function setDiceColor(c) {
+  try { if (c) localStorage.setItem('pf2e_dice_color', c); else localStorage.removeItem('pf2e_dice_color'); } catch (e) {}
+  _markDiceColorActive();
+}
+function _markDiceColorActive() {
+  var cur = '';
+  try { cur = localStorage.getItem('pf2e_dice_color') || ''; } catch (e) {}
+  document.querySelectorAll('#dice-color-swatches .dice-sw').forEach(function(b) {
+    b.classList.toggle('active', (b.getAttribute('data-c') || '') === cur);
+  });
+}
+
+// ── PWA 웹앱 설치 ──
+var _pfDeferredInstall = null;
+window.addEventListener('beforeinstallprompt', function(e) { e.preventDefault(); _pfDeferredInstall = e; });
+function pfInstallApp() {
+  if (_pfDeferredInstall) {
+    _pfDeferredInstall.prompt();
+    _pfDeferredInstall.userChoice.finally(function() { _pfDeferredInstall = null; });
+  } else {
+    alert('이미 설치되었거나 이 브라우저는 자동 설치를 지원하지 않습니다.\n\n• iPhone(Safari): 공유 → "홈 화면에 추가"\n• Android/데스크톱(Chrome): 주소창 메뉴 → "앱 설치"');
+  }
 }
 // GM 시트 관리 모드(?gmsession)로 들어오면 선택 화면 건너뜀 (이미 GM 흐름)
 (function() {
