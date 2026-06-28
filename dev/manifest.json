@@ -1,0 +1,25 @@
+{
+  "name": "Pathforge — PF2e 캐릭터 시트",
+  "short_name": "Pathforge",
+  "description": "Pathfinder 2e 한국어 캐릭터 시트 · 빌더 · 세션 전술 지도",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "CharacterSheet.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0c0c0c",
+  "theme_color": "#17130d",
+  "categories": ["games", "utilities"],
+  "icons": [
+    { "src": "pwa/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "pwa/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "pwa/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "pwa/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "GM 로비", "url": "GMSheet.html" },
+    { "name": "전술 지도", "url": "Map.html" },
+    { "name": "수록집(Bestiary)", "url": "Bestiary.html" }
+  ]
+}
