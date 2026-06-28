@@ -8,3 +8,4 @@ tools/package-lock.json
 tools/pf2e/node_modules/
 # FVTT pf2e 추출/파생 데이터 — 공개자료 기반이므로 공개 커밋 허용(사용자 방침, 2026-06-27).
 # (추출기 tools/pf2e/*.mjs 로 재생성 가능)
+dev/_preview.html
