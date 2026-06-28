@@ -24,6 +24,7 @@ function runPreview(){try{
  state.feats={special:[],ancestry:[{name:'드워프 특성'}],class:[{name:'주문 레퍼토리'}],general:[],skill:[{name:'재빠른 소집'}],archetype:[],other:[]};
  state.spells={cantrip:['빛','산성 물줄기'],known:[{rank:1,name:'마법 화살'},{rank:1,name:'방패'},{rank:2,name:'타오르는 손'}],focus:[],innate:[]};
  state.spellSlots={1:3,2:2};
+ state.pets=[{name:'늑대',type:'동물 동료',ac:16,hp:{cur:20,max:24,temp:0},speed:40,size:'중형',senses:'예리한 후각',conditions:{}}];
  if(typeof recalcAll==='function')try{recalcAll();}catch(e){console.warn('recalc',e);}
  ['renderWeapons','renderArmorCard','renderShieldCard','renderEquip','renderContainers','renderFormulas','renderSpells','renderFeats','renderPets','buildSkills','buildConditions'].forEach(function(fn){if(typeof window[fn]==='function'){try{window[fn]();}catch(e){console.warn(fn,e);}}});
  if(typeof switchSpellSubtab==='function'){try{switchSpellSubtab('class');}catch(e){}}

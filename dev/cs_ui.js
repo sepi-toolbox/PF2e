@@ -3689,8 +3689,8 @@ function renderPets() {
     const bardingCheckPen = bd ? bd.check : 0;
     const bardingDexCap = bd ? bd.dex : 99;
     el.innerHTML += `
-    <div class="box" style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+    <div class="box pet-card" style="margin-bottom:10px;">
+      <div class="pet-card-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
         <div>
           <span style="font-size:14px;font-weight:700;color:var(--accent);">${p.name}</span>
           <span style="font-size:10px;color:var(--text2);margin-left:6px;">${p.type||''}</span>
