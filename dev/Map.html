@@ -29,26 +29,33 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
 <style>
+/* FVTT 양피지 테마 — Pathforge 본체와 통일 (지도 캔버스만 어둡게 유지) */
 :root{
-  --bg:#1c1c1c; --bg2:#222; --bg3:#2a2a2a; --bg4:#333; --text:#ddd; --text2:#999;
-  --border:#444; --border2:#555; --accent:#c9a84c; --gold:#c9a84c;
+  --bg:#ece1c7; --bg2:#e4d6b5; --bg3:#d9c8a2; --bg4:#ccb78c; --text:#2b2117; --text2:#574021;
+  --border:#bfa572; --border2:#a3884e; --accent:#6e1414; --gold:#8a6a1f; --cream:#f3e7cd;
+  --bs:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
 }
+@font-face{font-family:"Eczar";font-weight:700;font-display:swap;src:url("fonts/eczar-v16-latin-ext_latin-700.woff2") format("woff2");}
 *{box-sizing:border-box;}
-html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden;}
+html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:var(--bs);overflow:hidden;}
+/* 양피지 패널 공통 (지도 위 플로팅 = 본체 모달과 동일 언어) */
+.pf-panel{background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border:1px solid var(--border2);box-shadow:0 8px 28px rgba(0,0,0,.45);}
 
 /* 상단 바 (지도 전용 — 캐릭터 시트와 독립) */
 #map-topbar{
   position:fixed;top:0;left:0;right:0;height:44px;z-index:20;
   display:flex;align-items:center;gap:10px;padding:0 12px;
-  background:#161616;border-bottom:1px solid var(--border);
+  background:#5e0000 url("data/fvtt-assets/sheet/red_bg.webp") repeat;border-bottom:2px solid var(--gold);
 }
 #map-topbar .mt-back{
-  background:var(--bg4);color:var(--text);border:1px solid var(--border);
+  background:var(--bg3);color:var(--text);border:1px solid var(--border2);
   border-radius:5px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;
 }
-#map-topbar .mt-back:hover{background:var(--accent);color:#1a1a1a;}
-#map-topbar .mt-title{color:var(--accent);font-weight:700;font-size:14px;}
-#map-topbar .mt-role{color:var(--text2);font-size:12px;margin-left:auto;}
+#map-topbar .mt-back:hover{border-color:var(--cream);color:#000;}
+#map-topbar .mt-title{color:var(--cream);font-family:"Eczar",var(--bs);font-weight:700;font-size:15px;letter-spacing:.5px;}
+#map-topbar .mt-role{color:#e8d3b0;font-size:12px;margin-left:auto;}
+#map-topbar #map-gm-tools button,#map-topbar #map-gm-tools label{background:var(--bg3);color:var(--text);border:1px solid var(--border2);border-radius:5px;padding:4px 9px;font-size:11px;cursor:pointer;}
+#map-topbar #map-gm-tools button:hover{border-color:var(--cream);}
 
 /* 지도 영역 (상단 바 아래 전체) — 높이는 cs_map.js _resize가 px로 지정 */
 #map-stage{
@@ -59,43 +66,43 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 #map-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;}
 #map-empty{
   position:absolute;inset:0;display:none;align-items:center;justify-content:center;
-  color:var(--text2);font-size:13px;text-align:center;padding:24px;line-height:1.6;pointer-events:none;
+  color:#b8a888;font-size:13px;text-align:center;padding:24px;line-height:1.6;pointer-events:none;
 }
 #map-toolbar{position:absolute;top:8px;left:8px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;z-index:6;}
 #map-toolbar button{
-  background:rgba(20,20,20,.82);color:var(--text);border:1px solid var(--border);
-  border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;
+  background:rgba(236,225,199,.94);color:var(--text);border:1px solid var(--border2);
+  border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.35);
 }
-#map-toolbar button:hover{background:rgba(42,42,42,.95);color:var(--accent);}
+#map-toolbar button:hover{border-color:var(--accent);color:var(--accent);}
 #map-toolbar button:disabled{opacity:.6;cursor:default;}
-#map-toolbar button.on{background:var(--accent);color:#1a1a1a;border-color:var(--accent);font-weight:700;}
+#map-toolbar button.on{background:#6e1414;color:var(--cream);border-color:#7a1d1d;font-weight:700;}
 #map-zoom{position:absolute;right:8px;bottom:8px;display:flex;flex-direction:column;gap:6px;z-index:5;}
 #map-zoom button{
   width:38px;height:38px;font-size:18px;line-height:1;
-  background:rgba(20,20,20,.82);color:var(--text);border:1px solid var(--border);
-  border-radius:8px;cursor:pointer;
+  background:rgba(236,225,199,.94);color:var(--text);border:1px solid var(--border2);
+  border-radius:8px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.35);
 }
 #map-zoom button:active{background:var(--bg4);}
 
 /* ── 안개 공개/제거 확장 메뉴 (툴바 오른쪽 플라이아웃) ── */
 .fog-menu{position:absolute;top:8px;left:104px;z-index:6;display:flex;flex-direction:column;gap:5px;
-  background:rgba(16,16,16,.92);border:1px solid var(--border);border-radius:8px;padding:6px;}
-.fog-menu button{background:rgba(40,40,40,.95);color:var(--text);border:1px solid var(--border);
+  background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border:1px solid var(--border2);border-radius:8px;padding:6px;box-shadow:0 6px 20px rgba(0,0,0,.4);}
+.fog-menu button{background:var(--bg3);color:var(--text);border:1px solid var(--border2);
   border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;text-align:left;white-space:nowrap;}
-.fog-menu button:hover{color:var(--accent);}
-.fog-menu button.on{background:var(--accent);color:#1a1a1a;border-color:var(--accent);font-weight:700;}
+.fog-menu button:hover{color:var(--accent);border-color:var(--accent);}
+.fog-menu button.on{background:#6e1414;color:var(--cream);border-color:#7a1d1d;font-weight:700;}
 
 /* ── 지도 편집기 (드로어 ✎) ── */
 #map-map-editor{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:16;
-  background:rgba(20,20,22,.97);border:1px solid var(--border);border-radius:10px;
-  padding:12px 14px;width:min(330px,92%);box-shadow:0 8px 28px rgba(0,0,0,.6);}
-#map-map-editor .mme-title{color:var(--accent);font-weight:700;font-size:13px;margin-bottom:10px;}
+  background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border:1px solid var(--border2);border-radius:10px;
+  padding:12px 14px;width:min(330px,92%);box-shadow:0 8px 28px rgba(0,0,0,.55);}
+#map-map-editor .mme-title{color:var(--accent);font-family:"Eczar",var(--bs);font-weight:700;font-size:14px;margin-bottom:10px;}
 #map-map-editor .mme-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;font-size:12px;color:var(--text2);}
 #map-map-editor .mme-row label{min-width:34px;}
 #map-map-editor input[type=text]{flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:6px 8px;font-size:13px;}
 #map-map-editor input[type=range]{flex:1;accent-color:var(--accent);}
-#map-map-editor button{background:rgba(45,45,48,.95);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;}
-#map-map-editor button:hover{color:var(--accent);}
+#map-map-editor button{background:var(--bg3);color:var(--text);border:1px solid var(--border2);border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;}
+#map-map-editor button:hover{color:var(--accent);border-color:var(--accent);}
 #map-map-editor .mme-check{display:flex;align-items:center;gap:6px;color:var(--text);cursor:pointer;}
 #map-map-editor b{color:var(--accent);font-size:12px;min-width:34px;text-align:right;}
 #map-map-editor .mme-status{font-size:11px;color:var(--text2);}
@@ -104,7 +111,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 /* ── GM 멀티맵 좌측 드로어 ── */
 #map-drawer{
   position:fixed;top:44px;left:0;bottom:0;width:232px;z-index:15;
-  background:#141414;border-right:1px solid var(--border);
+  background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border-right:1px solid var(--border2);
   display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .18s ease;
 }
 #map-drawer.open{transform:translateX(0);box-shadow:4px 0 18px rgba(0,0,0,.5);}
@@ -139,23 +146,23 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 #map-drawer .db-row{cursor:grab;}
 #map-drawer .db-row .db-lv{color:var(--text2);font-size:10px;font-weight:400;}
 #map-drawer .md-db-more{padding:6px 12px 12px;font-size:10px;color:var(--border2);text-align:center;}
-#map-drawer .tp-act{background:rgba(40,40,40,.9);color:var(--text2);border:1px solid var(--border);border-radius:5px;
+#map-drawer .tp-act{background:var(--bg3);color:var(--text2);border:1px solid var(--border2);border-radius:5px;
   width:26px;height:28px;font-size:11px;cursor:pointer;flex:0 0 auto;}
-#map-drawer .tp-act:hover{color:var(--accent);}
-#map-drawer .tp-act.tp-del:hover{color:#e07070;border-color:#5a2a2a;}
+#map-drawer .tp-act:hover{color:var(--accent);border-color:var(--accent);}
+#map-drawer .tp-act.tp-del:hover{color:#fff;background:var(--accent);border-color:var(--accent);}
 .tpl-ghost{position:fixed;z-index:9999;transform:translate(-50%,-50%);pointer-events:none;
-  background:rgba(201,168,76,.92);color:#1a1a1a;font-size:12px;font-weight:700;padding:5px 10px;border-radius:14px;
+  background:#6e1414;color:var(--cream);font-size:12px;font-weight:700;padding:5px 10px;border-radius:14px;
   box-shadow:0 4px 14px rgba(0,0,0,.5);white-space:nowrap;}
 #map-drawer .md-row{display:flex;align-items:center;gap:4px;margin-bottom:4px;border-radius:6px;padding:2px;}
-#map-drawer .md-row.active{background:rgba(201,168,76,.16);outline:1px solid rgba(201,168,76,.5);}
+#map-drawer .md-row.active{background:rgba(110,20,20,.12);outline:1px solid rgba(110,20,20,.4);}
 #map-drawer .md-name{flex:1;text-align:left;background:var(--bg3);color:var(--text);border:1px solid var(--border);
   border-radius:5px;padding:7px 9px;font-size:13px;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 #map-drawer .md-row.active .md-name{color:var(--accent);font-weight:700;}
 #map-drawer .md-name:hover{border-color:var(--accent);}
-#map-drawer .md-act{background:rgba(40,40,40,.9);color:var(--text2);border:1px solid var(--border);
+#map-drawer .md-act{background:var(--bg3);color:var(--text2);border:1px solid var(--border2);
   border-radius:5px;width:28px;height:30px;font-size:12px;cursor:pointer;}
-#map-drawer .md-act:hover{color:var(--accent);}
-#map-drawer .md-act.md-del:hover{color:#e07070;border-color:#5a2a2a;}
+#map-drawer .md-act:hover{color:var(--accent);border-color:var(--accent);}
+#map-drawer .md-act.md-del:hover{color:#fff;background:var(--accent);border-color:var(--accent);}
 #map-drawer .md-add{margin:6px;padding:9px;background:var(--bg4);color:var(--text);border:1px dashed var(--border2);
   border-radius:6px;font-size:12px;cursor:pointer;}
 #map-drawer .md-add:hover{color:var(--accent);border-color:var(--accent);}
@@ -163,10 +170,10 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 /* ── GM NPC 편집기 ── */
 #map-npc-editor{
   position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:16;
-  background:rgba(20,20,22,.97);border:1px solid var(--border);border-radius:10px;
-  padding:14px 16px;width:min(300px,88%);box-shadow:0 8px 28px rgba(0,0,0,.6);
+  background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border:1px solid var(--border2);border-radius:10px;
+  padding:14px 16px;width:min(300px,88%);box-shadow:0 8px 28px rgba(0,0,0,.55);
 }
-#map-npc-editor .ne-title{color:var(--accent);font-weight:700;font-size:13px;margin-bottom:10px;}
+#map-npc-editor .ne-title{color:var(--accent);font-family:"Eczar",var(--bs);font-weight:700;font-size:14px;margin-bottom:10px;}
 #map-npc-editor .ne-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:12px;color:var(--text2);}
 #map-npc-editor .ne-row label{min-width:34px;}
 #map-npc-editor input[type=text]{flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);
@@ -175,45 +182,45 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   border-radius:5px;padding:5px;font-size:13px;}
 #map-npc-editor .ne-check{display:flex;align-items:center;gap:6px;color:var(--text);cursor:pointer;}
 #map-npc-editor .ne-actions{justify-content:flex-end;gap:8px;margin-bottom:0;margin-top:4px;}
-#map-npc-editor .ne-actions button{background:rgba(40,40,40,.9);color:var(--text);border:1px solid var(--border);
+#map-npc-editor .ne-actions button{background:var(--bg3);color:var(--text);border:1px solid var(--border2);
   border-radius:6px;padding:7px 12px;font-size:12px;cursor:pointer;}
-#map-npc-editor .ne-actions button:hover{color:var(--accent);}
-#map-npc-editor .ne-actions .ne-del{color:#e07070;border-color:#5a2a2a;}
-#map-npc-editor .ne-actions .ne-del:hover{background:#5a2a2a;color:#fff;}
+#map-npc-editor .ne-actions button:hover{color:var(--accent);border-color:var(--accent);}
+#map-npc-editor .ne-actions .ne-del{color:var(--red,#8a1a1a);border-color:#c98;}
+#map-npc-editor .ne-actions .ne-del:hover{background:#8a1a1a;color:#fff;border-color:#8a1a1a;}
 
 /* ── 배치된 토큰 빠른 액션(숨기기/제거) ── */
 #map-token-actions{position:absolute;z-index:16;display:flex;gap:5px;white-space:nowrap;
-  background:rgba(20,20,22,.96);border:1px solid var(--border);border-radius:8px;padding:5px;
-  box-shadow:0 6px 20px rgba(0,0,0,.5);}
-#map-token-actions button{background:rgba(45,45,48,.95);color:var(--text);border:1px solid var(--border);
+  background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border:1px solid var(--border2);border-radius:8px;padding:5px;
+  box-shadow:0 6px 20px rgba(0,0,0,.45);}
+#map-token-actions button{background:var(--bg3);color:var(--text);border:1px solid var(--border2);
   border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;}
-#map-token-actions button:hover{color:var(--accent);}
-#map-token-actions #mta-del:hover{color:#e07070;border-color:#5a2a2a;}
-#map-token-actions .mta-hp{display:flex;align-items:center;font-size:12px;font-weight:700;color:#e0b35c;padding:0 4px;}
+#map-token-actions button:hover{color:var(--accent);border-color:var(--accent);}
+#map-token-actions #mta-del:hover{color:#fff;background:#8a1a1a;border-color:#8a1a1a;}
+#map-token-actions .mta-hp{display:flex;align-items:center;font-size:12px;font-weight:700;color:#8a1a1a;padding:0 4px;}
 #map-token-actions #mta-hp-amt{width:46px;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:5px 6px;font-size:12px;}
-#map-token-actions #mta-dmg{color:#e07070;border-color:#5a2a2a;}
-#map-token-actions #mta-dmg:hover{background:#5a2a2a;color:#fff;}
-#map-token-actions #mta-heal{color:#7fc97f;border-color:#2a5a2a;}
-#map-token-actions #mta-heal:hover{background:#2a5a2a;color:#fff;}
+#map-token-actions #mta-dmg{color:#8a1a1a;border-color:#c98;}
+#map-token-actions #mta-dmg:hover{background:#8a1a1a;color:#fff;border-color:#8a1a1a;}
+#map-token-actions #mta-heal{color:#3f7a3f;border-color:#9c9;}
+#map-token-actions #mta-heal:hover{background:#3f7a3f;color:#fff;border-color:#3f7a3f;}
 
 /* ── 몬스터 연결 (토큰 편집기) ── */
 #map-npc-editor .ne-monster{align-items:flex-start;}
 .ne-monster .ml-wrap{position:relative;flex:1;}
-#ml-current{font-size:12px;color:#c9b896;margin-bottom:4px;}
-#ml-current #ml-clear{background:none;border:1px solid var(--border);color:#e07070;border-radius:4px;font-size:10px;padding:1px 5px;cursor:pointer;margin-left:4px;}
+#ml-current{font-size:12px;color:var(--text2);margin-bottom:4px;}
+#ml-current #ml-clear{background:none;border:1px solid var(--border2);color:#8a1a1a;border-radius:4px;font-size:10px;padding:1px 5px;cursor:pointer;margin-left:4px;}
 #ml-search{width:100%;}
-.ml-results{position:absolute;left:0;right:0;top:100%;z-index:50;max-height:240px;overflow-y:auto;background:#1b1814;border:1px solid var(--border);border-radius:8px;margin-top:3px;box-shadow:0 8px 24px rgba(0,0,0,.5);}
-.ml-item{padding:6px 9px;cursor:pointer;font-size:12px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #2c2519;}
+.ml-results{position:absolute;left:0;right:0;top:100%;z-index:50;max-height:240px;overflow-y:auto;background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border:1px solid var(--border2);border-radius:8px;margin-top:3px;box-shadow:0 8px 24px rgba(0,0,0,.45);}
+.ml-item{padding:6px 9px;cursor:pointer;font-size:12px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border);}
 .ml-item:last-child{border-bottom:none;}
-.ml-item:hover{background:#2c2519;}
-.ml-item b{color:var(--text);} .ml-item i{color:#9a8f7a;font-size:11px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.ml-item .ml-lv{color:#e0b35c;font-size:10px;font-weight:700;}
-.ml-empty{padding:8px;color:#9a8f7a;font-size:12px;text-align:center;}
+.ml-item:hover{background:var(--bg3);}
+.ml-item b{color:var(--text);} .ml-item i{color:var(--text2);font-size:11px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ml-item .ml-lv{color:#8a1a1a;font-size:10px;font-weight:700;}
+.ml-empty{padding:8px;color:var(--text2);font-size:12px;text-align:center;}
 /* ── 스탯 팝오버 ── */
 #ml-stat-overlay{position:fixed;inset:0;z-index:10010;display:none;align-items:flex-start;justify-content:center;background:rgba(0,0,0,.55);padding:24px 12px;overflow-y:auto;}
 #ml-stat-card{position:relative;max-width:760px;width:100%;margin:auto;}
-#ml-stat-close{position:absolute;top:-12px;right:-8px;z-index:2;width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:#221e18;color:var(--text);font-size:15px;cursor:pointer;}
-#ml-stat-close:hover{color:var(--accent);}
+#ml-stat-close{position:absolute;top:-12px;right:-8px;z-index:2;width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:15px;cursor:pointer;}
+#ml-stat-close:hover{color:var(--accent);border-color:var(--accent);}
 /* ── 다이스 피드백 (cs_dice.js) ── */
 #dice-toast-container{position:fixed;top:12px;right:12px;z-index:99999;display:flex;flex-direction:column;gap:6px;pointer-events:none;max-height:60vh;overflow:hidden;}
 .dice-toast{pointer-events:auto;min-width:180px;max-width:260px;background:#1e1e1e;border:1px solid #444;border-left:3px solid #3498db;border-radius:10px;padding:10px 14px;box-shadow:0 6px 24px rgba(0,0,0,.5);transform:translateX(120%);opacity:0;transition:all .35s cubic-bezier(.22,1,.36,1);}
