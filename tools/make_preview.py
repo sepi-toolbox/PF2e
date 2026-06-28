@@ -22,9 +22,11 @@ function runPreview(){try{
  state.weapons=[{name:'롱소드',damage:'1d8',dmgType:'참격',hands:1,_held:true,category:'군용',group:'검',traits:['다용도 P']}];
  state.equip=[{name:'풀 플레이트',_type:'armor',_data:{ac_bonus:6,dex_cap:0,category:'중량'},qty:1,bulk:4}];
  state.feats={special:[],ancestry:[{name:'드워프 특성'}],class:[{name:'주문 레퍼토리'}],general:[],skill:[{name:'재빠른 소집'}],archetype:[],other:[]};
- state.spells={cantrip:['빛','산성 물줄기'],known:[],focus:[],innate:[]};
+ state.spells={cantrip:['빛','산성 물줄기'],known:[{rank:1,name:'마법 화살'},{rank:1,name:'방패'},{rank:2,name:'타오르는 손'}],focus:[],innate:[]};
+ state.spellSlots={1:3,2:2};
  if(typeof recalcAll==='function')try{recalcAll();}catch(e){console.warn('recalc',e);}
  ['renderWeapons','renderArmorCard','renderShieldCard','renderEquip','renderContainers','renderFormulas','renderSpells','renderFeats','renderPets','buildSkills','buildConditions'].forEach(function(fn){if(typeof window[fn]==='function'){try{window[fn]();}catch(e){console.warn(fn,e);}}});
+ if(typeof switchSpellSubtab==='function'){try{switchSpellSubtab('class');}catch(e){}}
  document.querySelectorAll('.panel').forEach(function(p){p.style.display='block';p.style.borderBottom='3px solid var(--accent)';var t=document.createElement('div');t.textContent='▼ '+p.id;t.style.cssText='font-size:11px;color:var(--accent);font-weight:700;padding:6px 4px;';p.insertBefore(t,p.firstChild);});
  var rc=document.getElementById('right-content');if(rc){rc.style.overflow='visible';rc.style.height='auto';}
  var al=document.getElementById('app-layout');if(al){al.style.height='auto';al.style.overflow='visible';}

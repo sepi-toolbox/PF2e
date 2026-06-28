@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=594"></script>
-<script src="feat_db.js?v=594"></script>
-<script src="SPELL_DB.js?v=594"></script>
-<script src="class_features_db.js?v=594"></script>
+<script src="equipment_db.js?v=595"></script>
+<script src="feat_db.js?v=595"></script>
+<script src="SPELL_DB.js?v=595"></script>
+<script src="class_features_db.js?v=595"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1507,6 +1507,12 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 /* 상단 탭/헤더 바: 양피지 프레임 톤 일관 */
 .spell-subtabs, .equip-tabs, .weapon-prof-bar, .armor-prof-bar{ background:var(--bg2); }
 .spell-header-bar, .equip-subtabs, .spell-controls-row, .spell-breakdown{ background:var(--bg3); }
+
+/* ── 주문 탭 카드화: 랭크/캔트립 섹션 = 「헤더 바 + 본문」 카드 (무기 카드와 동일 언어) ── */
+.spell-rank-section{ border:1px solid var(--border); border-radius:6px; margin:8px 0 0; overflow:hidden; background:var(--bg3); }
+.spell-rank-header{ background:var(--bg4); border-bottom:1px solid var(--border); text-align:left; padding:6px 10px; font-size:13px; }
+.spell-slots-used{ padding:4px 10px; }
+.spell-rank-section .spell-slot-row:last-child{ border-bottom:none; }
 </style>
 </head>
 <body>
@@ -1515,7 +1521,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 <div id="auth-bar">
   <div style="display:flex;align-items:center;gap:8px;">
     <span id="save-status"></span>
-    <span style="font-size:9px;color:#555;">v594</span>
+    <span style="font-size:9px;color:#555;">v595</span>
   </div>
   <div id="auth-area">
     <button class="btn btn-google" onclick="googleLogin()">Google 로그인</button>
@@ -2106,24 +2112,24 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=594"></script>
-<script src="cs_calc.js?v=594"></script>
+<script src="cs_data.js?v=595"></script>
+<script src="cs_calc.js?v=595"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=594"></script>
-<script src="cs_re_engine.js?v=594"></script>
-<script src="cs_pf2e_stats.js?v=594"></script>
-<script src="cs_pf2e_equip.js?v=594"></script>
-<script src="cs_pf2e_actor.js?v=594"></script>
-<script src="cs_ui.js?v=594"></script>
-<script src="cs_modal.js?v=594"></script>
-<script src="cs_feat_effects.js?v=594"></script>
-<script src="cs_save.js?v=594"></script>
-<script src="cs_session.js?v=594"></script>
-<script src="cs_dice.js?v=594"></script>
-<script src="cs_map.js?v=594"></script>
+<script src="cs_pf2e.js?v=595"></script>
+<script src="cs_re_engine.js?v=595"></script>
+<script src="cs_pf2e_stats.js?v=595"></script>
+<script src="cs_pf2e_equip.js?v=595"></script>
+<script src="cs_pf2e_actor.js?v=595"></script>
+<script src="cs_ui.js?v=595"></script>
+<script src="cs_modal.js?v=595"></script>
+<script src="cs_feat_effects.js?v=595"></script>
+<script src="cs_save.js?v=595"></script>
+<script src="cs_session.js?v=595"></script>
+<script src="cs_dice.js?v=595"></script>
+<script src="cs_map.js?v=595"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=594"></script>
-<script src="cs_i18n.js?v=594"></script>
+<script src="cs_locale.js?v=595"></script>
+<script src="cs_i18n.js?v=595"></script>
 
 
 <!-- Firebase Auth + Cloud Save -->
