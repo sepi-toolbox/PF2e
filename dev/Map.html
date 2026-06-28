@@ -252,10 +252,11 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   <span class="mt-role" id="map-role"></span>
 </div>
 
-<!-- 플레이어 화면 CCTV (GM 우하단 미리보기 — 팝아웃과 동일 플레이어 시점) -->
+<!-- 플레이어 화면 CCTV (GM 우하단 — 팝아웃 창 캔버스를 실시간 미러링) -->
 <div id="map-cctv" style="display:none;">
   <div id="map-cctv-hd"><span>📺 플레이어 화면</span><button onclick="MapGlue.cctvToggle(false)" title="닫기">✕</button></div>
-  <iframe id="map-cctv-frame" title="플레이어 미리보기"></iframe>
+  <img id="map-cctv-img" alt="">
+  <div id="map-cctv-empty">플레이어 창을 열면<br>여기 실시간 표시됩니다</div>
 </div>
 
 <!-- GM 멀티맵 드로어 (좌측, 토글) -->
@@ -369,8 +370,6 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 
 <script src="cs_dice.js?v=570"></script>
 <script src="cs_monster.js?v=575"></script>
-<script src="cs_locale.js?v=570"></script>
-<script src="cs_i18n.js?v=570"></script>
 <script src="cs_map.js?v=583"></script>
 <style>
 /* 듀얼모니터: GM 도구 + 플레이어 CCTV */
@@ -382,7 +381,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 #map-cctv{position:fixed;right:14px;bottom:14px;width:320px;z-index:60;background:#0c0a07;border:1px solid var(--accent,#9f725b);border-radius:8px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.6);}
 #map-cctv-hd{display:flex;align-items:center;justify-content:space-between;padding:3px 6px 3px 9px;font-size:11px;color:#c9b896;background:#1a1510;border-bottom:1px solid #3a3226;}
 #map-cctv-hd button{background:none;border:0;color:#9a8f7a;cursor:pointer;font-size:13px;}
-#map-cctv-frame{display:block;width:100%;height:200px;border:0;background:#000;}
+#map-cctv-img{display:block;width:100%;max-height:260px;object-fit:contain;background:#000;}
+#map-cctv-img[src=""],#map-cctv-img:not([src]){display:none;}
+#map-cctv-empty{padding:26px 10px;text-align:center;font-size:11px;color:#7a7164;line-height:1.6;}
 /* 플레이어 디스플레이/CCTV iframe: GM 크롬 전부 숨김 + 스테이지 전체 채움 */
 body.map-display{margin:0;overflow:hidden;background:#000;}
 body.map-display #map-topbar,body.map-display #map-toolbar,body.map-display #map-zoom,
@@ -442,7 +443,7 @@ auth.onAuthStateChanged(async function(user) {
 window.MapGlue = (function () {
   const bc = (typeof BroadcastChannel !== 'undefined' && _sessionId) ? new BroadcastChannel('pf2e-mapcam-' + _sessionId) : null;
   let _follow = false, _followRAF = 0, _lastKey = '';
-  let _popWin = null;
+  let _popWin = null, _cctvClosed = false, _frameTimer = 0, _off = null, _lastFrame = 0;
   function _cam() { return (typeof MapView !== 'undefined' && MapView.getCameraShare) ? MapView.getCameraShare() : null; }
   function _post() { const c = _cam(); if (bc && c) bc.postMessage({ type: 'cam', cam: c }); }
   function syncNow() { _post(); }
@@ -457,27 +458,56 @@ window.MapGlue = (function () {
       if (k !== _lastKey) { _lastKey = k; if (bc) bc.postMessage({ type: 'cam', cam: c }); } }
     _followRAF = requestAnimationFrame(_loop);
   }
+  // 디스플레이(팝아웃/플레이어 창) → GM CCTV: 캔버스를 축소 캡처해 ~4fps 방송
+  function _startFrames() {
+    if (_frameTimer || !bc) return;
+    _off = document.createElement('canvas');
+    _frameTimer = setInterval(function () {
+      try {
+        if (document.hidden) return;
+        const cv = document.getElementById('map-canvas');
+        if (!cv || !cv.width || !cv.height) return;
+        const s = Math.min(1, 360 / cv.width);
+        _off.width = Math.max(1, Math.round(cv.width * s));
+        _off.height = Math.max(1, Math.round(cv.height * s));
+        _off.getContext('2d').drawImage(cv, 0, 0, _off.width, _off.height);
+        bc.postMessage({ type: 'frame', img: _off.toDataURL('image/jpeg', 0.5) });
+      } catch (e) { clearInterval(_frameTimer); _frameTimer = 0; console.warn('[CCTV] 캡처 중단:', e && e.message); }
+    }, 250);
+  }
+  function _onFrame(data) {                            // GM: 수신 프레임을 CCTV에 표시
+    const el = document.getElementById('map-cctv'), img = document.getElementById('map-cctv-img'), emp = document.getElementById('map-cctv-empty');
+    if (!el || !img || _cctvClosed) return;
+    if (el.style.display === 'none' || !el.style.display) { el.style.display = 'block'; const b = document.getElementById('mt-cctv'); if (b) b.classList.add('on'); }
+    img.src = data; if (emp) emp.style.display = 'none'; _lastFrame = Date.now();
+  }
   function openPlayerWindow() {
     const u = 'Map.html?session=' + encodeURIComponent(_sessionId) + '&display=player';
     _popWin = window.open(u, 'pf2ePlayerView', 'popup,width=1280,height=800');
     if (!_popWin) { alert('팝업이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 누르세요.'); return; }
-    cctvToggle(true);                                  // 팝아웃 열면 GM 우하단 CCTV도 자동 표시
+    _cctvClosed = false; cctvToggle(true);             // 팝아웃 열면 GM 우하단 CCTV도 자동 표시(프레임 도착 시 채워짐)
     setTimeout(_post, 800);                            // 새 창이 카메라 요청 못 받아도 한 번 밀어줌
   }
   function cctvToggle(force) {
-    const el = document.getElementById('map-cctv'), fr = document.getElementById('map-cctv-frame'), btn = document.getElementById('mt-cctv');
+    const el = document.getElementById('map-cctv'), btn = document.getElementById('mt-cctv');
     if (!el) return;
     const show = (force === undefined) ? (el.style.display === 'none' || !el.style.display) : !!force;
-    if (show) { if (fr && !fr.src) fr.src = 'Map.html?session=' + encodeURIComponent(_sessionId) + '&display=player&mini=1'; el.style.display = 'block'; if (btn) btn.classList.add('on'); }
-    else { el.style.display = 'none'; if (btn) btn.classList.remove('on'); }
+    if (show) { _cctvClosed = false; el.style.display = 'block'; if (btn) btn.classList.add('on'); }
+    else { _cctvClosed = true; el.style.display = 'none'; if (btn) btn.classList.remove('on'); }
   }
   function init() {
     if (bc) bc.onmessage = function (e) {
       const m = e.data || {};
       if (_isDisplay) { if (m.type === 'cam' && m.cam && MapView.applyCameraShare) MapView.applyCameraShare(m.cam); }
-      else if (m.type === 'req') { _post(); }          // 새 디스플레이가 진입 시 현재 카메라 요청 → 응답
+      else {                                           // GM 측 수신
+        if (m.type === 'req') _post();                 // 새 디스플레이 진입 → 현재 카메라 응답
+        else if (m.type === 'frame') _onFrame(m.img);  // 플레이어 창 화면 미러
+      }
     };
-    if (_isDisplay && bc) setTimeout(function () { bc.postMessage({ type: 'req' }); }, 700);  // 진입 시 현재 카메라 받아오기
+    if (_isDisplay && bc) {
+      setTimeout(function () { bc.postMessage({ type: 'req' }); }, 700);  // 진입 시 현재 카메라 받아오기
+      _startFrames();                                  // 내 캔버스를 GM CCTV로 방송
+    }
   }
   return { init: init, syncNow: syncNow, setFollow: setFollow, openPlayerWindow: openPlayerWindow, cctvToggle: cctvToggle };
 })();
