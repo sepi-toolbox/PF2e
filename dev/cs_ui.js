@@ -1759,19 +1759,19 @@ function renderSpells() {
       const totalSlots = getDivineFontSlots();
       const used = Math.min(state.divineFontUsed || 0, totalSlots);
       document.getElementById('divine-font-label').textContent = isHeal ? 'Divine Font — Heal' : 'Divine Font — Harm';
+      // 신성 원천 주문은 일반 주문과 동일한 행 형식으로 표시 (범주만 다를 뿐). 슬롯은 영웅점수식 pip.
+      const dfSpell = getSpell(isHeal ? '치유' : '해로움');
+      const dfActions = getActionIcons(dfSpell?.actions);
       let fires = '';
       for (let i = 0; i < totalSlots; i++) {
         const isUsed = i >= (totalSlots - used);
-        fires += `<span class="spell-slot-fire${isUsed?' used':''}" style="cursor:pointer;font-size:16px;" onclick="toggleDivineFontSlot(${i})">\uD83D\uDD25</span>`;
+        fires += `<span class="spell-slot-fire${isUsed?' used':''}" style="cursor:pointer;" onclick="toggleDivineFontSlot(${i})" title="${isUsed?'슬롯 복원':'슬롯 사용'}"></span>`;
       }
       dfBody.innerHTML = `
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-          <span style="font-size:20px;">${isHeal?'💚':'💀'}</span>
-          <span style="font-size:14px;font-weight:600;color:var(--accent);cursor:pointer;text-decoration:underline;" onclick="showInfo('spell','${isHeal?'치유':'해로움'}')">${spellName}</span>
-          <span style="font-size:11px;color:var(--text2);margin-left:auto;">${used}/${totalSlots} 사용</span>
-        </div>
-        <div style="display:flex;gap:2px;flex-wrap:wrap;">${fires}</div>
-        <div style="font-size:10px;color:var(--text2);margin-top:4px;">일반 주문 슬롯과 별도로 관리됩니다. 🔥을 클릭하여 사용/미사용 전환</div>`;
+        <div class="spell-slot-row">
+          <span class="spell-slot-name" onclick="showInfo('spell','${isHeal?'치유':'해로움'}')">${iconImg('spell', dfSpell || {name:spellName})}${spellName}${dfActions ? ' <span class="spell-actions-inline">'+dfActions+'</span>' : ''}</span>
+          <span class="spell-slot-fires" style="margin-left:auto;">${fires}</span>
+        </div>`;
     } else {
       dfSection.style.display = 'none';
     }
@@ -1905,7 +1905,7 @@ function renderSpells() {
           row.innerHTML = `
             ${fireIcon}<span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${iconImg('spell', {name})}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}${isCast ? ' <span style="font-size:9px;color:var(--text2);">(시전됨)</span>' : ''}</span>`;
         } else {
-          row.innerHTML = `<span style="font-size:14px;margin-right:4px;opacity:0.2;">🔥</span><span class="spell-slot-name" style="color:var(--text2);font-size:12px;">준비 안 됨</span>`;
+          row.innerHTML = `<span class="spell-slot-fire used" style="margin-right:4px;opacity:0.35;"></span><span class="spell-slot-name" style="color:var(--text2);font-size:12px;">준비 안 됨</span>`;
         }
         section.appendChild(row);
       }

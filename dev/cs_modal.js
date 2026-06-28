@@ -2231,6 +2231,10 @@ function openMemorizeModal() {
   _memorizeActiveSlot = null;
   if (!state.preparedSpells) state.preparedSpells = {cantrip: []};
 
+  // 모바일에서 주문 선택 목록(modal-detail)이 숨겨지지 않도록 마커 클래스 부여
+  const bodyEl = document.getElementById('modal-body');
+  if (bodyEl) bodyEl.classList.add('mem-modal');
+
   _renderMemorizeSlots();
   _renderMemorizeDetail();
 
@@ -2294,7 +2298,7 @@ function _renderMemorizeDetail() {
   if (!detail) return;
   const active = _memorizeActiveSlot;
   if (!active) {
-    detail.innerHTML = '<div class="modal-detail-empty">왼쪽에서 슬롯을 선택하세요.</div>';
+    detail.innerHTML = '<div class="modal-detail-empty">슬롯을 선택하면 준비할 주문 목록이 표시됩니다.</div>';
     return;
   }
 
@@ -2386,6 +2390,11 @@ function _memorizeSelectSlot(rank, idx) {
   _memorizeActiveSlot = {rank, idx};
   _renderMemorizeSlots();
   _renderMemorizeDetail();
+  // 모바일: 슬롯 아래로 쌓이는 주문 선택 목록이 보이도록 스크롤
+  if (window.innerWidth <= 900) {
+    const detail = document.getElementById('modal-detail');
+    if (detail) detail.scrollIntoView({behavior:'smooth', block:'start'});
+  }
 }
 
 function _memorizeAssign(spellName) {
@@ -4862,9 +4871,9 @@ function closeModal() {
   if (detailEl) { detailEl.style.display = ''; detailEl.innerHTML = '<div class="modal-detail-empty">항목을 선택하면 상세 정보가 표시됩니다.</div>'; }
   const searchEl = document.getElementById('modal-search');
   if (searchEl) searchEl.style.display = '';
-  // Mobile: reset detail-open
+  // Mobile: reset detail-open + 주문 기억 마커
   const body = document.getElementById('modal-body');
-  if (body) body.classList.remove('detail-open');
+  if (body) { body.classList.remove('detail-open'); body.classList.remove('mem-modal'); }
   // 부스트 모달 닫을 때 성장 계획 + 수치 갱신
   if (wasBoost) { renderGrowthPlan(); recalcAll(); }
 }
