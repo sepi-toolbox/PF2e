@@ -660,7 +660,7 @@ var MapView = (function() {
 
   // 사용자가 아직 손대지 않았으면 전체 맞춤 (모바일에서 크기 늦게 확정돼도 최종 크기에 맞춰짐)
   function _autoFit() {
-    if (_bg.loaded && !_userMoved && _cssW && _cssH) fit();
+    if (_bg.loaded && !_userMoved && _cssW && _cssH) fit(_displayPlayer);  // 플레이어 디스플레이=꽉 채움(cover)
   }
 
   // ── 배경 상태 변경 처리 ──
@@ -880,10 +880,10 @@ var MapView = (function() {
     _markDirty();
   }
 
-  // ── 전체 맵을 화면에 맞춤 (중앙 정렬) ──
-  function fit() {
+  // ── 맵을 화면에 맞춤 (중앙 정렬). cover=true면 창을 꽉 채움(여백 없음, 넘침은 잘림) ──
+  function fit(cover) {
     if (!_bg.loaded || !_cssW || !_cssH) return;
-    const s = Math.min(_cssW / _bg.w, _cssH / _bg.h);
+    const s = cover ? Math.max(_cssW / _bg.w, _cssH / _bg.h) : Math.min(_cssW / _bg.w, _cssH / _bg.h);
     _view.scale = _clamp(s, MIN_SCALE, MAX_SCALE);
     _view.offX = (_cssW - _bg.w * _view.scale) / 2;
     _view.offY = (_cssH - _bg.h * _view.scale) / 2;
@@ -920,7 +920,8 @@ var MapView = (function() {
     if (!c || !_cssW || !_cssH) return false;
     // GM 가시영역(vw/vh)을 내 창에 contain(전부 보이게) → 큰 창이면 그만큼 확대돼 꽉 참
     let scale;
-    if (c.vw && c.vh) scale = Math.min(_cssW / c.vw, _cssH / c.vh);
+    // 플레이어 디스플레이=cover(창을 꽉 채움), 그 외(미리보기 등)=contain(GM 시야 전부 보임)
+    if (c.vw && c.vh) scale = (_displayPlayer ? Math.max : Math.min)(_cssW / c.vw, _cssH / c.vh);
     else if (c.scale) scale = c.scale;   // 구버전 폴백
     else return false;
     scale = _clamp(scale, MIN_SCALE, MAX_SCALE);
