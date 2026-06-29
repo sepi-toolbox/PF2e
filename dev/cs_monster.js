@@ -36,6 +36,7 @@
   // 임베디드 아이템(타격/능력/주문) FVTT 아이콘: { [item._id]: "systems/pf2e/icons/..." 또는 "icons/..." }.
   // tools/rebase/extract_item_icons.mjs 로 추출 → dev/data/icons/ 아래 벤더링. 미로드 시 타입별 기본 아이콘.
   let _itemImg = null, _ITEM_ICON_BASE = 'data/icons/';
+  let _iconLookup = null;                 // 플레이어 시트 icon_map.json(scope→slug/name→path) 재사용(장비/주문 보강)
   const _IIMG_VER = 636;
   // FVTT가 "고유 아트 없음"에 쓰는 제네릭(행동비용·기본) img — 깔끔한 타입별 SVG로 대체할 대상
   const _GENERIC_IMG = new Set([
@@ -51,11 +52,58 @@
     action: 'systems/pf2e/icons/default-icons/action.svg',
     spell: 'systems/pf2e/icons/default-icons/spell.svg'
   };
-  // 아이템 아이콘 URL: 고유 아트면 그것, 제네릭/누락이면 타입별 깔끔한 기본
-  function itemIcon(id, type) {
-    const img = id && _itemImg && _itemImg[id];
-    const use = (img && !_GENERIC_IMG.has(img)) ? img : (_TYPE_DEFAULT[type] || _TYPE_DEFAULT.action);
-    return _ITEM_ICON_BASE + use + '?v=' + _IIMG_VER;
+  // FVTT가 고유 아트를 안 주는 자연무기/능력에 의미 기반 테마 아이콘 부여(이름 키워드 매칭, 순서=우선순위)
+  const _NAT_ICONS = [
+    ['claw','icons/skills/melee/strike-blade-claw-red.webp'],['talon','icons/skills/melee/strike-blade-claw-red.webp'],
+    ['jaw','icons/creatures/abilities/fangs-teeth-bite.webp'],['maw','icons/creatures/abilities/mouth-teeth-rows-red.webp'],
+    ['fang','icons/creatures/abilities/fang-tooth-blood-red.webp'],['tooth','icons/creatures/abilities/fang-tooth-blood-red.webp'],
+    ['teeth','icons/creatures/abilities/fang-tooth-blood-red.webp'],['bite','icons/creatures/abilities/fangs-teeth-bite.webp'],
+    ['tail','icons/creatures/abilities/tail-swipe-green.webp'],['sting','icons/creatures/abilities/stinger-poison-green.webp'],
+    ['wing','icons/creatures/abilities/wing-batlike-purple-blue.webp'],['beak','icons/creatures/abilities/mouth-teeth-sharp.webp'],
+    ['horn','icons/creatures/abilities/bull-head-horns-glowing.webp'],['gore','icons/creatures/abilities/bull-head-horns-glowing.webp'],
+    ['tusk','icons/creatures/abilities/bull-head-horns-glowing.webp'],['antler','icons/creatures/abilities/bull-head-horns-glowing.webp'],
+    ['pincer','icons/creatures/claws/pincer-crab-brown.webp'],['mandible','icons/creatures/invertebrates/spider-mandibles-brown.webp'],
+    ['tongue','icons/creatures/abilities/mouth-teeth-tongue-purple.webp'],
+    ['tentacle','icons/creatures/tentacles/tentacles-eyes-poisoned-green.webp'],['tendril','icons/creatures/tentacles/tentacles-eyes-poisoned-green.webp'],
+    ['trunk','icons/creatures/tentacles/tentacles-eyes-poisoned-green.webp'],['pseudopod','icons/creatures/tentacles/tentacles-eyes-poisoned-green.webp'],
+    ['hoof','icons/creatures/abilities/paw-print-tan.webp'],['paw','icons/creatures/abilities/paw-print-tan.webp'],
+    ['trample','icons/creatures/abilities/paw-print-tan.webp'],['foot','icons/creatures/abilities/paw-print-tan.webp'],
+    ['leg','icons/creatures/abilities/paw-print-tan.webp'],
+    ['fist','icons/skills/melee/unarmed-punch-fist-yellow-red.webp'],['punch','icons/skills/melee/unarmed-punch-fist-yellow-red.webp'],
+    ['hand','icons/skills/melee/unarmed-punch-fist-yellow-red.webp'],['slam','icons/skills/melee/unarmed-punch-fist-yellow-red.webp']
+  ];
+  const _ABIL_ICONS = [
+    ['breath','icons/creatures/abilities/dragon-breath-purple.webp'],
+    ['frightful','icons/creatures/abilities/lion-roar-yellow.webp'],['fear','icons/creatures/abilities/lion-roar-yellow.webp'],
+    ['terror','icons/creatures/abilities/lion-roar-yellow.webp'],['roar','icons/creatures/abilities/lion-roar-yellow.webp'],
+    ['howl','icons/creatures/abilities/lion-roar-yellow.webp'],
+    ['swallow','icons/creatures/abilities/mouth-teeth-rows-red.webp'],['engulf','icons/creatures/abilities/mouth-teeth-rows-red.webp'],
+    ['grab','icons/skills/melee/unarmed-punch-fist-yellow-red.webp'],['constrict','icons/creatures/tentacles/tentacles-eyes-poisoned-green.webp'],
+    ['regenerat','icons/magic/nature/root-vine-caduceus-healing.webp'],['fast healing','icons/magic/nature/root-vine-caduceus-healing.webp'],
+    ['healing','icons/magic/nature/root-vine-caduceus-healing.webp'],
+    ['gaze','icons/magic/perception/eye-tendrils-web-purple.webp'],['sight','icons/magic/perception/eye-tendrils-web-purple.webp'],
+    ['vision','icons/magic/perception/eye-tendrils-web-purple.webp'],['darkvision','icons/magic/perception/eye-tendrils-web-purple.webp'],
+    ['aura','icons/magic/control/silhouette-aura-energy.webp'],['emanation','icons/magic/control/silhouette-aura-energy.webp'],
+    ['telepathy','icons/magic/control/silhouette-aura-energy.webp'],['mental','icons/magic/control/silhouette-aura-energy.webp'],
+    ['psychic','icons/magic/control/silhouette-aura-energy.webp'],
+    ['poison','icons/magic/death/skull-poison-green.webp'],['venom','icons/magic/death/skull-poison-green.webp'],
+    ['spell','systems/pf2e/icons/default-icons/spell.svg']
+  ];
+  function _kwIcon(map, name) { for (const [kw, p] of map) if (name.indexOf(kw) >= 0) return p; return null; }
+  function _imLook(scope, slug, nameEn) { const m = _iconLookup && _iconLookup[scope]; if (!m) return null; return m[slug] || m[nameEn] || null; }
+
+  // 아이템 아이콘 URL: ① FVTT 고유 아트 ② 타입별 보강(장비/주문맵·자연무기/능력 키워드) ③ 타입 기본
+  function itemIcon(obj, type) {
+    const o = (obj && typeof obj === 'object') ? obj : { id: obj };
+    const img = o.id && _itemImg && _itemImg[o.id];
+    if (img && !_GENERIC_IMG.has(img)) return _ITEM_ICON_BASE + img + '?v=' + _IIMG_VER;  // 고유 아트
+    const nameEn = ((o.name && o.name.en) || '').toLowerCase();
+    const slug = o.slug || '';
+    let use = null;
+    if (type === 'spell') use = _imLook('spell', slug, nameEn);
+    else if (type === 'melee') use = _imLook('equipment', slug, nameEn) || _kwIcon(_NAT_ICONS, nameEn);
+    else if (type === 'action') use = _kwIcon(_ABIL_ICONS, nameEn);
+    return _ITEM_ICON_BASE + (use || _TYPE_DEFAULT[type] || _TYPE_DEFAULT.action) + '?v=' + _IIMG_VER;
   }
 
   async function load(opts) {
@@ -98,6 +146,10 @@
       _ITEM_ICON_BASE = base + 'icons/';
       if (useFetch) _itemImg = await fetch(`${dir}_item_icons.json?v=${_IIMG_VER}`).then(r => r.ok ? r.json() : null).catch(() => null);
       else { try { _itemImg = JSON.parse(require('fs').readFileSync(`${dir}_item_icons.json`, 'utf8')); } catch (e) {} }
+      // 장비/주문 보강용 icon_map(플레이어 시트 공용)
+      const ibase = dir.replace(/creatures\/?$/, '');
+      if (useFetch) _iconLookup = await fetch(`${ibase}icon_map.json?v=${_IIMG_VER}`).then(r => r.ok ? r.json() : null).catch(() => null);
+      else { try { _iconLookup = JSON.parse(require('fs').readFileSync(`${ibase}icon_map.json`, 'utf8')); } catch (e) {} }
     } catch (e) { console.warn('[MonsterDB] 아이템 아이콘 로드 실패:', e && e.message); }
     return _loaded;
   }
@@ -364,7 +416,7 @@
         const eff=(st.effects||[]).map(s=>_esc(_effKo(s)));
         const lbl=_esc(st.name.ko);
         h+=`<div class="mon-strike">`;
-        h+=`<div class="mon-strike-hd"><img class="mon-ico" src="${itemIcon(st.id,'melee')}" alt="" loading="lazy"><span class="mon-strike-type">${st.range?'원거리':'근접'}</span><span class="mon-strike-name roll" data-roll="attack" data-mod="${st.bonus}" data-label="${lbl}">${lbl}</span><span class="mon-strike-atk roll" data-roll="attack" data-mod="${st.bonus}" data-label="${lbl}">${sign(st.bonus)}</span></div>`;
+        h+=`<div class="mon-strike-hd"><img class="mon-ico" src="${itemIcon(st,'melee')}" alt="" loading="lazy"><span class="mon-strike-type">${st.range?'원거리':'근접'}</span><span class="mon-strike-name roll" data-roll="attack" data-mod="${st.bonus}" data-label="${lbl}">${lbl}</span><span class="mon-strike-atk roll" data-roll="attack" data-mod="${st.bonus}" data-label="${lbl}">${sign(st.bonus)}</span></div>`;
         h+=`<div class="mon-strike-bd"><span class="mon-strike-dmg roll" data-roll="damage" data-formula="${_esc(st.damage.map(d=>d.formula).join('+'))}" data-label="${lbl}">${dmg||'—'}</span>`;
         if(st.range) h+=`<span class="mon-strike-rng">사거리 ${st.range}피트${st.reload!=null?` · 재장전 ${st.reload}`:''}</span>`;
         h+=`</div>`;
@@ -382,7 +434,7 @@
       const byRank={};
       sc.spells.forEach(sp=>{ (byRank[sp.rank]=byRank[sp.rank]||[]).push(sp); });
       Object.keys(byRank).map(Number).sort((a,b)=>b-a).forEach(r=>{
-        h+=`<div class="mon-spell-row"><span class="mon-spell-rank">${r===0?'캔트립':r+'레벨'}</span><span class="mon-spell-list">${byRank[r].map(sp=>`<span class="mon-spell"><img class="mon-ico mon-ico-sm" src="${itemIcon(sp.id,'spell')}" alt="" loading="lazy">${_esc(sp.name.ko)}</span>`).join('')}</span></div>`;
+        h+=`<div class="mon-spell-row"><span class="mon-spell-rank">${r===0?'캔트립':r+'레벨'}</span><span class="mon-spell-list">${byRank[r].map(sp=>`<span class="mon-spell"><img class="mon-ico mon-ico-sm" src="${itemIcon(sp,'spell')}" alt="" loading="lazy">${_esc(sp.name.ko)}</span>`).join('')}</span></div>`;
       });
       h+=`</div>`;
     }
@@ -395,9 +447,9 @@
         const trs=(ab.traits||[]).map(t=>`<span class="mon-trait sm">${_esc(_g('trait',t))}</span>`).join('');
         const desc=ab.desc.ko?resolveFoundryRefs(ab.desc.ko):'';
         if(desc){
-          h+=`<details class="mon-ab"><summary class="mon-ab-hd"><img class="mon-ico" src="${itemIcon(ab.id,'action')}" alt="" loading="lazy">${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}<span class="mon-ab-caret">▾</span></summary><div class="mon-ab-bd">${desc}</div></details>`;
+          h+=`<details class="mon-ab"><summary class="mon-ab-hd"><img class="mon-ico" src="${itemIcon(ab,'action')}" alt="" loading="lazy">${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}<span class="mon-ab-caret">▾</span></summary><div class="mon-ab-bd">${desc}</div></details>`;
         } else {
-          h+=`<div class="mon-ab no-desc"><div class="mon-ab-hd"><img class="mon-ico" src="${itemIcon(ab.id,'action')}" alt="" loading="lazy">${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}</div></div>`;
+          h+=`<div class="mon-ab no-desc"><div class="mon-ab-hd"><img class="mon-ico" src="${itemIcon(ab,'action')}" alt="" loading="lazy">${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}</div></div>`;
         }
       }
       h+=`</div>`;
