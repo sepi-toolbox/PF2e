@@ -3211,7 +3211,15 @@ function selectOption(item, row) {
       const d = i.damage ? `<div><strong>피해:</strong> ${i.damage}</div>` : '';
       const ac = i.ac_bonus!==undefined ? `<div><strong>AC:</strong> +${i.ac_bonus}</div>` : '';
       const traits = (i.traits||[]).length ? `<div style="margin-top:4px;">${i.traits.map(t=>traitTag(t)).join(' ')}</div>` : '';
-      detailHtml = `${p}${b}${d}${ac}${traits}
+      // 설명(desc) — 데스크톱 showEquipDetail과 동일하게 모바일 아코디언에도 표시 (누락 버그 수정)
+      let _descRaw = i.desc || i._desc || (i._runeData && i._runeData.desc) || '';
+      let _descHtml = '';
+      if (_descRaw) {
+        if (typeof PF2eData !== 'undefined' && PF2eData.enrichDesc) { try { _descRaw = PF2eData.enrichDesc(_descRaw); } catch (e) {} }
+        const _rendered = (typeof resolveDescRefs === 'function') ? resolveDescRefs(_descRaw) : _descRaw;
+        _descHtml = `<div class="opt-row-desc" style="margin-top:8px;font-size:12px;line-height:1.6;border-top:1px solid var(--border);padding-top:8px;">${_rendered}</div>`;
+      }
+      detailHtml = `${p}${b}${d}${ac}${traits}${_descHtml}
         <div style="display:flex;gap:6px;margin-top:8px;">
           ${modalType === 'formula-pick'
             ? `<button onclick="recordFormula('${(item.name_ko||item.name||'').replace(/'/g,"\\\\'")}')" style="flex:1;padding:8px;background:var(--accent-bg);border:1px solid var(--accent);border-radius:4px;color:var(--accent);cursor:pointer;">📜 제조법 기록</button>`
