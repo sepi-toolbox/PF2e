@@ -251,43 +251,127 @@
     s = s.replace(/@[A-Za-z]+\[[^\]]*\](?:\{([^}]*)\})?/g, (m,l)=> l||'');
     return s;
   }
-  function _glyph(a){ const x=String(a); return ({reaction:'⟲',free:'◇','1':'◆','2':'◆◆','3':'◆◆◆'})[x]||''; }
+  // 행동비용 글리프 (Pathfinder2eActions 폰트: 1/2/3=행동, F=자유, R=반응)
+  function _glyph(a){ const x=String(a==null?'':a); return ({reaction:'R',free:'F','1':'1','2':'2','3':'3'})[x]||''; }
+  function _actGlyph(ab){
+    const ch=_glyph(ab.actions!=null?ab.actions:ab.actionType);
+    return ch?`<span class="action-glyph">${ch}</span>`:'';
+  }
+  // 면역/저항/약점 enum 한글화 (피해형 → 상태이상 → 특성 → slug)
+  function _resName(slug){
+    if(DMG_KO[slug]!==undefined && DMG_KO[slug]) return DMG_KO[slug];
+    if(_gloss.condition[slug]) return _gloss.condition[slug];
+    return _g('trait',slug);
+  }
 
-  // ─── 스탯블록 HTML 렌더 ────────────────────────────────────────
+  // ─── 스탯블록 HTML 렌더 (FVTT 양피지 카드 스타일) ───────────────
   function renderStatBlock(id){
-    const c = getCreature(id); if(!c) return '<div class="sb-empty">생물을 찾을 수 없습니다.</div>';
+    const c = getCreature(id); if(!c) return '<div class="mon-empty">생물을 찾을 수 없습니다.</div>';
     const v = view(id), sys = c.system||{}, e=_koOf(c);
-    const fmt=arr=>arr.map(x=>x.value!=null?`${x.type} ${x.value}`:x.type);
-    const imm=(sys.attributes?.immunities||[]).map(x=>x.type);
-    const res=fmt(sys.attributes?.resistances||[]);
-    const wk=fmt(sys.attributes?.weaknesses||[]);
+    const imm=(sys.attributes?.immunities||[]).map(x=>_resName(x.type));
+    const res=(sys.attributes?.resistances||[]).map(x=>`${_resName(x.type)}${x.value!=null?' '+x.value:''}`);
+    const wk=(sys.attributes?.weaknesses||[]).map(x=>`${_resName(x.type)}${x.value!=null?' '+x.value:''}`);
     const SPK={land:'',fly:'비행 ',swim:'수영 ',climb:'등반 ',burrow:'굴파기 '};
     const sign=n=>`${n>=0?'+':''}${n}`;
-    let h='<div class="sb">';
     const _ico = creatureIcon(c);
-    h+=`<div class="sb-hd">${_ico?`<img class="sb-portrait" src="${_ico}" alt="" loading="lazy">`:''}<span class="sb-name">${_esc(v.name.ko)}</span> <span class="sb-en">${_esc(v.name.en)}</span><span class="sb-lv">생물 ${v.level}</span></div>`;
-    h+=`<div class="sb-traits">${[v.traits.rarity!=='common'?(RARITY_KO[v.traits.rarity]||v.traits.rarity):'',v.traits.sizeKo,...v.traits.value.map(t=>_g('trait',t))].filter(Boolean).map(t=>`<span class="trait">${_esc(t)}</span>`).join('')}</div><hr/>`;
-    h+=`<div class="sb-row"><b>지각</b> <span class="roll" data-roll="perception" data-mod="${v.perception.mod}" data-label="지각">${sign(v.perception.mod)}</span>${v.perception.senses.length?'; '+v.perception.senses.map(s=>_esc(_g('sense',s))).join(', '):''}</div>`;
-    if(e&&e.languages) h+=`<div class="sb-row"><b>언어</b> ${_esc(e.languages)}</div>`;
-    if(v.skills.length) h+=`<div class="sb-row"><b>기술</b> ${v.skills.map(s=>{const ko=_g('skill',s.key);return `<span class="roll" data-roll="skill" data-key="${s.key}" data-mod="${s.mod}" data-label="${_esc(ko)}">${_esc(ko)} ${sign(s.mod)}</span>`;}).join(', ')}</div>`;
-    h+=`<div class="sb-row sb-abil">${v.abilities.map(a=>`<b>${a.ko}</b> ${sign(a.mod)}`).join('&nbsp;&nbsp;')}</div><hr/>`;
-    h+=`<div class="sb-row"><b>AC</b> ${v.ac}; ${v.saves.map(s=>`<b>${s.ko}</b> <span class="roll" data-roll="save" data-key="${s.key}" data-mod="${s.mod}" data-label="${s.ko} 내성">${sign(s.mod)}</span>`).join(', ')}</div>`;
-    h+=`<div class="sb-row"><b>HP</b> ${v.hp.value}${v.hp.details?', '+_esc(v.hp.details):''}${imm.length?'; <b>면역</b> '+imm.map(_esc).join(', '):''}${res.length?'; <b>저항</b> '+res.map(_esc).join(', '):''}${wk.length?'; <b>약점</b> '+wk.map(_esc).join(', '):''}</div><hr/>`;
-    h+=`<div class="sb-row"><b>이동속도</b> ${v.speeds.map(s=>`${SPK[s.type]!==undefined?SPK[s.type]:s.type+' '}${s.value}피트`).join(', ')}</div>`;
+
+    let h='<div class="mon">';
+    // ── 헤더 (FVTT 붉은 배너) ──
+    h+=`<div class="mon-head">`;
+    h+= _ico?`<img class="mon-portrait" src="${_ico}" alt="" loading="lazy">`:`<div class="mon-portrait mon-portrait-ph">🐉</div>`;
+    h+=`<div class="mon-titles"><div class="mon-name">${_esc(v.name.ko)}</div><div class="mon-en">${_esc(v.name.en)}</div></div>`;
+    h+=`<div class="mon-lv"><span>생물</span><b>${v.level}</b></div>`;
+    h+=`</div>`;
+
+    h+=`<div class="mon-body">`;
+    // ── 특성 칩 ──
+    const traitChips=[];
+    if(v.traits.rarity!=='common') traitChips.push({t:RARITY_KO[v.traits.rarity]||v.traits.rarity, c:' rar-'+v.traits.rarity});
+    if(v.traits.sizeKo) traitChips.push({t:v.traits.sizeKo,c:''});
+    v.traits.value.forEach(t=>traitChips.push({t:_g('trait',t),c:''}));
+    if(traitChips.length) h+=`<div class="mon-traits">${traitChips.map(o=>`<span class="mon-trait${o.c}">${_esc(o.t)}</span>`).join('')}</div>`;
+
+    // ── 방어 타일 (AC/HP/내성/지각) ──
+    h+=`<div class="mon-def">`;
+    h+=`<div class="mon-stat mon-ac"><div class="mon-stat-lbl">AC</div><div class="mon-stat-val">${v.ac}</div></div>`;
+    h+=`<div class="mon-stat mon-hp"><div class="mon-stat-lbl">HP</div><div class="mon-stat-val">${v.hp.value}</div></div>`;
+    v.saves.forEach(s=>{ h+=`<div class="mon-stat roll" data-roll="save" data-key="${s.key}" data-mod="${s.mod}" data-label="${s.ko} 내성"><div class="mon-stat-lbl">${s.ko}</div><div class="mon-stat-val">${sign(s.mod)}</div></div>`; });
+    h+=`<div class="mon-stat roll" data-roll="perception" data-mod="${v.perception.mod}" data-label="지각"><div class="mon-stat-lbl">지각</div><div class="mon-stat-val">${sign(v.perception.mod)}</div></div>`;
+    h+=`</div>`;
+
+    // ── 능력치 타일 ──
+    h+=`<div class="mon-abils">${v.abilities.map(a=>`<div class="mon-abil"><div class="mon-abil-k">${a.ko}</div><div class="mon-abil-v">${sign(a.mod)}</div></div>`).join('')}</div>`;
+
+    // ── 부가 정보 라인 (이동/감각/언어/면역·저항·약점) ──
+    const senses=v.perception.senses.map(s=>_g('sense',s));
+    h+=`<div class="mon-lines">`;
+    h+=`<div class="mon-line"><b>이동</b> ${v.speeds.map(s=>`${SPK[s.type]!==undefined?SPK[s.type]:s.type+' '}${s.value}피트`).join(', ')}</div>`;
+    const senseTxt=[senses.map(_esc).join(', '), v.perception.details?_esc(v.perception.details):''].filter(Boolean).join('; ');
+    if(senseTxt) h+=`<div class="mon-line"><b>감각</b> ${senseTxt}</div>`;
+    if(e&&e.languages) h+=`<div class="mon-line"><b>언어</b> ${_esc(e.languages)}</div>`;
+    const dw=[];
+    if(imm.length) dw.push(`<b>면역</b> ${imm.map(_esc).join(', ')}`);
+    if(res.length) dw.push(`<b>저항</b> ${res.map(_esc).join(', ')}`);
+    if(wk.length) dw.push(`<b>약점</b> ${wk.map(_esc).join(', ')}`);
+    if(dw.length) h+=`<div class="mon-line">${dw.join('; ')}</div>`;
+    if(v.hp.details) h+=`<div class="mon-line"><b>HP 비고</b> ${_esc(v.hp.details)}</div>`;
+    h+=`</div>`;
+
+    // ── 기술 칩 (클릭 굴림) ──
+    if(v.skills.length) h+=`<div class="mon-skills">${v.skills.map(s=>{const ko=_g('skill',s.key);return `<span class="mon-skill roll" data-roll="skill" data-key="${s.key}" data-mod="${s.mod}" data-label="${_esc(ko)}">${_esc(ko)} <b>${sign(s.mod)}</b></span>`;}).join('')}</div>`;
+
+    // 라이더 효과 한글화 준비
     const _abMap={}; (v.abilitiesList||[]).forEach(a=>{ if(a.slug) _abMap[a.slug]=a.name.ko; });
-    const _effKo=s=> _abMap[s] || _gloss.attackEffect[s] || _gloss.condition[s] || _g('trait',s);  // 라이더 효과: 크리처 고유→표준→상태→특성→slug
-    for(const st of v.strikes){
-      const dmg=st.damage.map(d=>`${d.formula} ${DMG_KO[d.type]!==undefined?DMG_KO[d.type]:d.type}`).join(' + ');
-      const eff=(st.effects||[]).map(s=>_esc(_effKo(s)));
-      h+=`<div class="sb-row"><b>${st.range?'원거리':'근접'}</b> <span class="roll" data-roll="attack" data-mod="${st.bonus}" data-label="${_esc(st.name.ko)}">${_esc(st.name.ko)} ${sign(st.bonus)}</span>${st.range?` (사거리 ${st.range}피트)`:''}${st.traits.length?` <span class="sb-tr">${st.traits.map(t=>_esc(_g('trait',t))).join(', ')}</span>`:''}, <b>피해</b> <span class="roll" data-roll="damage" data-formula="${_esc(st.damage.map(d=>d.formula).join('+'))}" data-label="${_esc(st.name.ko)}">${dmg||'—'}</span>${eff.length?` <span class="sb-plus">＋ ${eff.join(', ')}</span>`:''}</div>`;
+    const _effKo=s=> _abMap[s] || _gloss.attackEffect[s] || _gloss.condition[s] || _g('trait',s);
+
+    // ── 공격(타격) 카드 ──
+    if(v.strikes.length){
+      h+=`<div class="mon-sec"><div class="mon-sec-hd">공격</div>`;
+      for(const st of v.strikes){
+        const dmg=st.damage.map(d=>`${d.formula} ${DMG_KO[d.type]!==undefined&&DMG_KO[d.type]?DMG_KO[d.type]:d.type}`).join(' + ');
+        const eff=(st.effects||[]).map(s=>_esc(_effKo(s)));
+        const lbl=_esc(st.name.ko);
+        h+=`<div class="mon-strike">`;
+        h+=`<div class="mon-strike-hd"><span class="mon-strike-type">${st.range?'원거리':'근접'}</span><span class="mon-strike-name roll" data-roll="attack" data-mod="${st.bonus}" data-label="${lbl}">${lbl}</span><span class="mon-strike-atk roll" data-roll="attack" data-mod="${st.bonus}" data-label="${lbl}">${sign(st.bonus)}</span></div>`;
+        h+=`<div class="mon-strike-bd"><span class="mon-strike-dmg roll" data-roll="damage" data-formula="${_esc(st.damage.map(d=>d.formula).join('+'))}" data-label="${lbl}">${dmg||'—'}</span>`;
+        if(st.range) h+=`<span class="mon-strike-rng">사거리 ${st.range}피트${st.reload!=null?` · 재장전 ${st.reload}`:''}</span>`;
+        h+=`</div>`;
+        if(st.traits.length||eff.length){
+          h+=`<div class="mon-strike-tr">${st.traits.map(t=>`<span class="mon-trait sm">${_esc(_g('trait',t))}</span>`).join('')}${eff.length?`<span class="mon-plus">＋ ${eff.join(', ')}</span>`:''}</div>`;
+        }
+        h+=`</div>`;
+      }
+      h+=`</div>`;
     }
+
+    // ── 시전(주문) 섹션 ──
     for(const sc of v.spellcasting){
-      h+=`<div class="sb-row"><b>${_esc(sc.name.ko)}</b>${sc.dc!=null?` DC ${sc.dc}`:''}${sc.attack!=null?`, 명중 ${sign(sc.attack)}`:''}${sc.spells.length?'; '+sc.spells.map(sp=>_esc(sp.name.ko)).join(', '):''}</div>`;
+      h+=`<div class="mon-sec"><div class="mon-sec-hd">${_esc(sc.name.ko)}${sc.dc!=null?`<span class="mon-sc-dc">DC ${sc.dc}</span>`:''}${sc.attack!=null?`<span class="mon-sc-dc">명중 ${sign(sc.attack)}</span>`:''}</div>`;
+      const byRank={};
+      sc.spells.forEach(sp=>{ (byRank[sp.rank]=byRank[sp.rank]||[]).push(sp); });
+      Object.keys(byRank).map(Number).sort((a,b)=>b-a).forEach(r=>{
+        h+=`<div class="mon-spell-row"><span class="mon-spell-rank">${r===0?'캔트립':r+'레벨'}</span><span class="mon-spell-list">${byRank[r].map(sp=>`<span class="mon-spell">${_esc(sp.name.ko)}</span>`).join(', ')}</span></div>`;
+      });
+      h+=`</div>`;
     }
-    for(const ab of v.abilitiesList){
-      h+=`<div class="sb-ab"><b>${_esc(ab.name.ko)}</b> ${_glyph(ab.actions||ab.actionType)}${ab.desc.ko?' '+resolveFoundryRefs(ab.desc.ko):''}</div>`;
+
+    // ── 능력(행동) 카드 (설명 있으면 펼침 아코디언) ──
+    if(v.abilitiesList.length){
+      h+=`<div class="mon-sec"><div class="mon-sec-hd">능력</div>`;
+      for(const ab of v.abilitiesList){
+        const g=_actGlyph(ab);
+        const trs=(ab.traits||[]).map(t=>`<span class="mon-trait sm">${_esc(_g('trait',t))}</span>`).join('');
+        const desc=ab.desc.ko?resolveFoundryRefs(ab.desc.ko):'';
+        if(desc){
+          h+=`<details class="mon-ab"><summary class="mon-ab-hd">${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}<span class="mon-ab-caret">▾</span></summary><div class="mon-ab-bd">${desc}</div></details>`;
+        } else {
+          h+=`<div class="mon-ab no-desc"><div class="mon-ab-hd">${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}</div></div>`;
+        }
+      }
+      h+=`</div>`;
     }
-    return h+'</div>';
+
+    return h+'</div></div>';
   }
 
   // ─── 굴림 배선: 스탯블록 .roll 클릭 → DiceRoller (이벤트 위임 → 재렌더 안전) ──
@@ -317,31 +401,90 @@
     });
   }
 
-  // ─── 스탯블록 스타일 (호스트 독립 — 어느 페이지에 박아도 동일) ──────
+  // ─── 스탯블록 스타일 (호스트 독립 — FVTT 양피지 카드, 어느 페이지에 박아도 동일) ──────
   const STYLES = `
-.sb{font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:13px;line-height:1.55;color:#e8e3d8;background:#1b1814;border:1px solid #4a3f2e;border-radius:10px;padding:14px 16px;}
-.sb hr{border:0;border-top:1px solid #4a3f2e;margin:7px 0;}
-.sb-hd{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
-.sb-portrait{width:48px;height:48px;border-radius:50%;object-fit:cover;flex:0 0 auto;align-self:center;}
-.sb-name{font-size:19px;font-weight:800;color:#e0b35c;}
-.sb-en{font-size:12px;color:#9a8f7a;font-style:italic;}
-.sb-lv{margin-left:auto;font-size:12px;font-weight:700;color:#c9b896;background:#2c2519;padding:2px 9px;border-radius:10px;}
-.sb-traits{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
-.sb-traits .trait{font-size:10px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:#e8dcc0;background:#5a1f1f;border:1px solid #7a3030;padding:2px 7px;border-radius:3px;}
-.sb-row{margin:3px 0;}
-.sb-row b{color:#d4c4a0;}
-.sb-abil b{color:#c9b896;}
-.sb-tr{font-size:11px;color:#9a8f7a;}
-.sb-plus{color:#c98a6a;font-weight:600;}
-.sb-ab{margin:5px 0;padding-top:5px;border-top:1px dashed #3a3226;}
-.sb-ab b{color:#e0b35c;}
-.sb .roll{cursor:pointer;border-bottom:1px dotted #e0b35c;color:#f0e6d2;transition:color .15s,background .15s;padding:0 1px;border-radius:3px;}
-.sb .roll:hover{color:#fff;background:#3a2f1a;}
-.sb .ref-dmg{color:#e07b5c;font-weight:600;}
-.sb .ref-check{color:#7cb3e0;font-weight:600;}
-.sb .ref-area{color:#9b8fd0;font-weight:600;}
-.sb .ref-link{color:#c9b896;}
-.sb-empty{padding:30px;text-align:center;color:#9a8f7a;}`;
+@font-face{font-family:"Pathfinder2eActions";src:url("fonts/pathfinder-2e-actions.woff2") format("woff2");font-display:swap;}
+@font-face{font-family:"EczarMon";font-weight:700;font-display:swap;src:url("fonts/eczar-v16-latin-ext_latin-700.woff2") format("woff2");}
+.mon{
+  --m-bg:#ece1c7;--m-bg2:#e4d6b5;--m-bg3:#d9c8a2;--m-bg4:#ccb78c;
+  --m-text:#2b2117;--m-text2:#574021;--m-border:#bfa572;--m-border2:#a3884e;
+  --m-accent:#6e1414;--m-accent2:#8f2b2b;--m-gold:#8a6a1f;
+  font-family:-apple-system,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+  font-size:13px;line-height:1.55;color:var(--m-text);
+  background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;
+  border:1px solid var(--m-border2);border-radius:10px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(60,40,15,.2);
+}
+.mon-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#5e0000 url("data/fvtt-assets/sheet/red_bg.webp") repeat;border-bottom:2px solid var(--m-gold);color:#f3e2c2;}
+.mon-portrait{width:52px;height:52px;border-radius:8px;object-fit:cover;flex:0 0 auto;border:2px solid var(--m-gold);background:#2b1a1a;}
+.mon-portrait-ph{display:flex;align-items:center;justify-content:center;font-size:26px;}
+.mon-titles{min-width:0;flex:1;}
+.mon-name{font-size:19px;font-weight:800;color:#f7e8c8;line-height:1.15;}
+.mon-en{font-size:11px;color:#d8b48a;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mon-lv{display:flex;flex-direction:column;align-items:center;background:rgba(0,0,0,.28);border:1px solid var(--m-gold);border-radius:8px;padding:3px 11px;flex:0 0 auto;}
+.mon-lv span{font-size:8px;letter-spacing:.5px;opacity:.85;}
+.mon-lv b{font-size:18px;line-height:1;color:#fff;}
+.mon-body{padding:12px 14px;}
+.mon-traits{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:11px;}
+.mon-trait{font-size:10px;font-weight:700;letter-spacing:.3px;color:#f3e2c2;background:var(--m-accent);border:1px solid var(--m-accent2);padding:2px 7px;border-radius:3px;}
+.mon-trait.sm{font-size:9px;padding:1px 5px;letter-spacing:0;}
+.mon-trait.rar-uncommon{background:#9c5a12;border-color:#b06d1d;}
+.mon-trait.rar-rare{background:#1f4d7a;border-color:#2c6396;}
+.mon-trait.rar-unique{background:#5b2d7a;border-color:#774099;}
+.mon-def{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px;}
+.mon-stat{flex:1 1 56px;min-width:52px;text-align:center;background:var(--m-bg2);border:1px solid var(--m-border);border-radius:7px;padding:5px 4px;}
+.mon-stat-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--m-text2);}
+.mon-stat-val{font-size:18px;font-weight:800;color:var(--m-accent);line-height:1.2;}
+.mon-ac .mon-stat-val,.mon-hp .mon-stat-val{color:var(--m-text);}
+.mon-stat.roll{cursor:pointer;transition:border-color .12s,background .12s;}
+.mon-stat.roll:hover{border-color:var(--m-accent);background:var(--m-bg3);}
+.mon-abils{display:flex;gap:5px;margin-bottom:11px;}
+.mon-abil{flex:1;text-align:center;background:var(--m-bg3);border:1px solid var(--m-border);border-radius:7px;padding:4px 2px;}
+.mon-abil-k{font-size:10px;font-weight:700;color:var(--m-text2);}
+.mon-abil-v{font-size:15px;font-weight:800;color:var(--m-text);}
+.mon-lines{margin-bottom:10px;}
+.mon-line{margin:3px 0;font-size:12.5px;}
+.mon-line b{color:var(--m-accent);font-weight:700;}
+.mon-skills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px;}
+.mon-skill{font-size:11.5px;background:var(--m-bg2);border:1px solid var(--m-border);border-radius:14px;padding:3px 10px;cursor:pointer;transition:border-color .12s,background .12s;}
+.mon-skill b{color:var(--m-accent);}
+.mon-skill:hover{border-color:var(--m-accent);background:var(--m-bg3);}
+.mon-sec{margin-top:13px;}
+.mon-sec-hd{font-size:13px;font-weight:800;color:var(--m-accent);font-family:"EczarMon",serif;letter-spacing:.5px;border-bottom:2px solid var(--m-border);padding-bottom:3px;margin-bottom:7px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.mon-sc-dc{font-size:11px;font-weight:700;color:var(--m-text2);background:var(--m-bg2);border:1px solid var(--m-border);border-radius:4px;padding:1px 6px;font-family:inherit;letter-spacing:0;}
+.mon-strike{border:1px solid var(--m-border);border-radius:6px;background:var(--m-bg2);margin-bottom:6px;overflow:hidden;}
+.mon-strike-hd{display:flex;align-items:center;gap:8px;padding:5px 10px;background:var(--m-bg4);border-bottom:1px solid var(--m-border);}
+.mon-strike-type{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#fff;background:var(--m-accent);border-radius:3px;padding:2px 6px;flex:0 0 auto;}
+.mon-strike-name{font-size:13px;font-weight:700;color:var(--m-text);flex:1;cursor:pointer;min-width:0;}
+.mon-strike-name:hover{color:var(--m-accent);}
+.mon-strike-atk{font-size:15px;font-weight:800;color:var(--m-accent);cursor:pointer;background:var(--m-bg);border:1px solid var(--m-border);border-radius:5px;padding:1px 9px;flex:0 0 auto;transition:.12s;}
+.mon-strike-atk:hover{background:var(--m-accent);color:#fff;border-color:var(--m-accent);}
+.mon-strike-bd{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:6px 10px;}
+.mon-strike-dmg{font-size:13px;font-weight:700;color:var(--m-text);cursor:pointer;}
+.mon-strike-dmg:hover{color:var(--m-accent);}
+.mon-strike-rng{font-size:11px;color:var(--m-text2);}
+.mon-strike-tr{display:flex;flex-wrap:wrap;gap:3px;align-items:center;padding:0 10px 7px;}
+.mon-plus{font-size:11px;color:var(--m-accent2);font-weight:600;}
+.mon-spell-row{display:flex;gap:8px;margin:4px 0;font-size:12.5px;}
+.mon-spell-rank{flex:0 0 52px;font-weight:700;color:var(--m-accent);}
+.mon-spell-list{flex:1;min-width:0;}
+.mon-ab{border:1px solid var(--m-border);border-radius:6px;background:var(--m-bg2);margin-bottom:6px;overflow:hidden;}
+.mon-ab-hd{display:flex;align-items:center;gap:6px;padding:6px 10px;cursor:pointer;list-style:none;}
+.mon-ab-hd::-webkit-details-marker{display:none;}
+.mon-ab.no-desc .mon-ab-hd{cursor:default;}
+.mon-ab-name{font-weight:700;color:var(--m-accent);}
+.mon-ab-caret{margin-left:auto;color:var(--m-text2);font-size:10px;transition:transform .15s;}
+details.mon-ab[open] .mon-ab-caret{transform:rotate(180deg);}
+details.mon-ab[open] .mon-ab-hd{background:var(--m-bg4);border-bottom:1px solid var(--m-border);}
+.mon-ab-bd{padding:7px 10px;font-size:12.5px;}
+.action-glyph{font-family:"Pathfinder2eActions",sans-serif;font-weight:normal;font-style:normal;color:var(--m-accent);font-size:15px;flex:0 0 auto;}
+.mon .roll{position:relative;}
+.mon .ref-dmg{color:var(--m-accent);font-weight:600;}
+.mon .ref-check{color:#1f4d7a;font-weight:600;}
+.mon .ref-area{color:#5b2d7a;font-weight:600;}
+.mon .ref-link{color:var(--m-gold);font-weight:600;}
+.mon .ref-roll{color:var(--m-accent);font-weight:600;}
+.mon-empty{padding:30px;text-align:center;color:#574021;font-family:-apple-system,sans-serif;}`;
   function injectStyles(doc) {
     doc = doc || (typeof document !== 'undefined' ? document : null);
     if (!doc || doc.getElementById('monsterdb-styles')) return;
