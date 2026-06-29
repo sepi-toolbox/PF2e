@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=635"></script>
-<script src="feat_db.js?v=635"></script>
-<script src="SPELL_DB.js?v=635"></script>
-<script src="class_features_db.js?v=635"></script>
+<script src="equipment_db.js?v=636"></script>
+<script src="feat_db.js?v=636"></script>
+<script src="SPELL_DB.js?v=636"></script>
+<script src="class_features_db.js?v=636"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1124,6 +1124,11 @@ body.map-open{overflow:hidden;}
 }
 @media(min-width:901px){
   .modal-detail-back{display:none;}
+  /* 데스크톱: 상단 크롬(헤더/세션바) 실제 높이만큼만 차지하고 본문이 나머지를 정확히 채움.
+     기존 height:calc(100vh - 100px)는 헤더를 100px로 가정 → 헤더가 더 짧아 하단에 빈 공간/잘림.
+     body를 flex 컬럼으로 두면 매직넘버 없이 본문이 뷰포트 바닥까지 채워짐(오버레이는 전부 position:fixed). */
+  body{height:100vh;height:100dvh;overflow:hidden;display:flex;flex-direction:column;}
+  #app-layout{height:auto;flex:1 1 auto;min-height:0;}
 }
 
 /* ══════════════════════════════════
@@ -1811,7 +1816,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <div class="gear-menu-label">캐릭터</div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v635</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v636</span></div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2309,7 +2314,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=635" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=636" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2386,29 +2391,29 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=635"></script>
-<script src="cs_calc.js?v=635"></script>
+<script src="cs_data.js?v=636"></script>
+<script src="cs_calc.js?v=636"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=635"></script>
-<script src="cs_re_engine.js?v=635"></script>
-<script src="cs_pf2e_stats.js?v=635"></script>
-<script src="cs_pf2e_equip.js?v=635"></script>
-<script src="cs_pf2e_actor.js?v=635"></script>
-<script src="cs_ui.js?v=635"></script>
-<script src="cs_modal.js?v=635"></script>
-<script src="cs_feat_effects.js?v=635"></script>
-<script src="cs_save.js?v=635"></script>
-<script src="cs_session.js?v=635"></script>
-<script src="cs_dice.js?v=635"></script>
-<script src="cs_map.js?v=635"></script>
+<script src="cs_pf2e.js?v=636"></script>
+<script src="cs_re_engine.js?v=636"></script>
+<script src="cs_pf2e_stats.js?v=636"></script>
+<script src="cs_pf2e_equip.js?v=636"></script>
+<script src="cs_pf2e_actor.js?v=636"></script>
+<script src="cs_ui.js?v=636"></script>
+<script src="cs_modal.js?v=636"></script>
+<script src="cs_feat_effects.js?v=636"></script>
+<script src="cs_save.js?v=636"></script>
+<script src="cs_session.js?v=636"></script>
+<script src="cs_dice.js?v=636"></script>
+<script src="cs_map.js?v=636"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=635"></script>
-<script src="cs_i18n.js?v=635"></script>
+<script src="cs_locale.js?v=636"></script>
+<script src="cs_i18n.js?v=636"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=635');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=636');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
