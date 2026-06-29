@@ -19,8 +19,30 @@
   // 시스템 통합 용어 사전(PF2e-KR lang 기반): skill/sense/condition/ability/save/trait slug→한글.
   // tools/rebase/build_glossary.mjs 로 생성. 미로드 시 slug 폴백(graceful).
   let _gloss = { skill: {}, sense: {}, condition: {}, ability: {}, save: {}, trait: {}, attackEffect: {} };
+  let _traitDesc = {};                     // PascalKey→한글 특성 설명(_trait_desc.ko.json). 칩 클릭 팝오버용.
   const RARITY_KO = { uncommon: '비범', rare: '희귀', unique: '고유', common: '일반' };
   function _g(cat, slug) { const m = _gloss[cat]; const v = m && m[slug]; return v != null ? v : slug; }
+  // 특성 설명 조회: slug→PascalCase 키. 미스 시 값접미사를 한 단계씩 떼며 베이스 특성으로 폴백
+  //   (reach-10→Reach, two-hand-d8→TwoHand, range-increment-20→RangeIncrement→Range).
+  function _pascalTrait(s) { return String(s || '').split('-').map(x => x.charAt(0).toUpperCase() + x.slice(1)).join(''); }
+  function _traitDescOf(slug) {
+    let s = String(slug || '');
+    while (s) {
+      const d = _traitDesc[_pascalTrait(s)];
+      if (d) return d;
+      const i = s.lastIndexOf('-');
+      if (i < 0) break;
+      s = s.slice(0, i);
+    }
+    return '';
+  }
+  // 특성 칩 HTML(설명 있으면 클릭 가능 .info + data-trait). cls: 추가 클래스(예 'sm').
+  function _traitChip(slug, cls) {
+    const ko = _esc(_g('trait', slug));
+    const klass = 'mon-trait' + (cls ? ' ' + cls : '');
+    if (!_traitDescOf(slug)) return `<span class="${klass}">${ko}</span>`;
+    return `<span class="${klass} info" data-trait="${_esc(slug)}" title="눌러서 설명 보기">${ko}</span>`;
+  }
 
   // 크리처 토큰 아이콘: { [source]: { [baseId]: "<file>.webp" } }. tools/build_creature_icons.mjs 로 생성.
   // pf2e-tokens-{monster,npc}-core 모듈 토큰을 256px 벤더링(dev/data/creature-icons/). 미로드 시 아이콘 생략.
@@ -37,7 +59,7 @@
   // tools/rebase/extract_item_icons.mjs 로 추출 → dev/data/icons/ 아래 벤더링. 미로드 시 타입별 기본 아이콘.
   let _itemImg = null, _ITEM_ICON_BASE = 'data/icons/';
   let _iconLookup = null;                 // 플레이어 시트 icon_map.json(scope→slug/name→path) 재사용(장비/주문 보강)
-  const _IIMG_VER = 636;
+  const _IIMG_VER = 640;
   // FVTT가 "고유 아트 없음"에 쓰는 제네릭(행동비용·기본) img — 깔끔한 타입별 SVG로 대체할 대상
   const _GENERIC_IMG = new Set([
     'systems/pf2e/icons/actions/Passive.webp','systems/pf2e/icons/actions/OneAction.webp',
@@ -156,6 +178,13 @@
       else { try { gl = JSON.parse(require('fs').readFileSync(`${dir}_glossary.ko.json`, 'utf8')); } catch (e) {} }
       if (gl) for (const k in _gloss) if (gl[k]) _gloss[k] = gl[k];
     } catch (e) { console.warn('[MonsterDB] 글로서리 로드 실패:', e && e.message); }
+    // 특성 설명 사전 1회 로드(실패해도 칩은 비클릭으로 graceful)
+    try {
+      let td = null;
+      if (useFetch) td = await fetch(`${dir}_trait_desc.ko.json?v=${_IIMG_VER}`).then(r => r.ok ? r.json() : null).catch(() => null);
+      else { try { td = JSON.parse(require('fs').readFileSync(`${dir}_trait_desc.ko.json`, 'utf8')); } catch (e) {} }
+      if (td) _traitDesc = td;
+    } catch (e) { console.warn('[MonsterDB] 특성 설명 로드 실패:', e && e.message); }
     // 크리처 토큰 아이콘 맵 1회 로드(실패해도 아이콘만 생략)
     try {
       const base = dir.replace(/creatures\/?$/, '');          // 'data/creatures/' → 'data/'
@@ -393,10 +422,10 @@
     h+=`<div class="mon-body">`;
     // ── 특성 칩 ──
     const traitChips=[];
-    if(v.traits.rarity!=='common') traitChips.push({t:RARITY_KO[v.traits.rarity]||v.traits.rarity, c:' rar-'+v.traits.rarity});
-    if(v.traits.sizeKo) traitChips.push({t:v.traits.sizeKo,c:''});
-    v.traits.value.forEach(t=>traitChips.push({t:_g('trait',t),c:''}));
-    if(traitChips.length) h+=`<div class="mon-traits">${traitChips.map(o=>`<span class="mon-trait${o.c}">${_esc(o.t)}</span>`).join('')}</div>`;
+    if(v.traits.rarity!=='common') traitChips.push(`<span class="mon-trait rar-${v.traits.rarity}">${_esc(RARITY_KO[v.traits.rarity]||v.traits.rarity)}</span>`);
+    if(v.traits.sizeKo) traitChips.push(`<span class="mon-trait">${_esc(v.traits.sizeKo)}</span>`);
+    v.traits.value.forEach(t=>traitChips.push(_traitChip(t)));
+    if(traitChips.length) h+=`<div class="mon-traits">${traitChips.join('')}</div>`;
 
     // ── 방어 타일 (AC/HP/내성/지각) ──
     h+=`<div class="mon-def">`;
@@ -444,7 +473,7 @@
         if(st.range) h+=`<span class="mon-strike-rng">사거리 ${st.range}피트${st.reload!=null?` · 재장전 ${st.reload}`:''}</span>`;
         h+=`</div>`;
         if(st.traits.length||eff.length){
-          h+=`<div class="mon-strike-tr">${st.traits.map(t=>`<span class="mon-trait sm">${_esc(_g('trait',t))}</span>`).join('')}${eff.length?`<span class="mon-plus">＋ ${eff.join(', ')}</span>`:''}</div>`;
+          h+=`<div class="mon-strike-tr">${st.traits.map(t=>_traitChip(t,'sm')).join('')}${eff.length?`<span class="mon-plus">＋ ${eff.join(', ')}</span>`:''}</div>`;
         }
         h+=`</div>`;
       }
@@ -474,7 +503,7 @@
           : (ch ? `<span class="mon-ico mon-ico-glyph action-glyph">${ch}</span>`
                 : `<img class="mon-ico" src="${itemIcon(ab,'action')}" alt="" loading="lazy">`);
         const g = themed ? _actGlyph(ab) : '';   // 테마 이미지일 때만 행동경제 글리프 별도 표기(배지면 중복 생략)
-        const trs=(ab.traits||[]).map(t=>`<span class="mon-trait sm">${_esc(_g('trait',t))}</span>`).join('');
+        const trs=(ab.traits||[]).map(t=>_traitChip(t,'sm')).join('');
         const desc=ab.desc.ko?resolveFoundryRefs(ab.desc.ko):'';
         if(desc){
           h+=`<details class="mon-ab"><summary class="mon-ab-hd">${ico}${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}<span class="mon-ab-caret">▾</span></summary><div class="mon-ab-bd">${desc}</div></details>`;
@@ -499,6 +528,13 @@
         || (root && root.DiceRoller) || null;
     }
     rootEl.addEventListener('click', function (ev) {
+      // 특성 칩 클릭 → 설명 팝오버 (굴림보다 먼저; <summary> 내부면 아코디언 토글 차단)
+      const tr = ev.target.closest && ev.target.closest('.mon-trait.info');
+      if (tr && rootEl.contains(tr)) {
+        ev.preventDefault(); ev.stopPropagation();
+        _showTraitPopover(tr);
+        return;
+      }
       const el = ev.target.closest && ev.target.closest('.roll');
       if (!el || !rootEl.contains(el)) return;
       const DR = _roller(); if (!DR) return;
@@ -513,6 +549,54 @@
         if (DR.rollCheck) DR.rollCheck(mod, label);          // d20 + 보정
       }
     });
+  }
+
+  // ─── 특성 설명 팝오버 (호스트 독립, body 부착 싱글톤) ──────────────
+  let _traitPop = null, _traitPopFor = null, _traitPopOff = null;
+  function _closeTraitPop() {
+    if (_traitPopOff) { _traitPopOff(); _traitPopOff = null; }
+    if (_traitPop) { _traitPop.remove(); _traitPop = null; _traitPopFor = null; }
+  }
+  function _showTraitPopover(chipEl) {
+    if (typeof document === 'undefined') return;
+    if (_traitPop && _traitPopFor === chipEl) { _closeTraitPop(); return; } // 같은 칩 재클릭 = 닫기(토글)
+    _closeTraitPop();
+    const slug = chipEl.getAttribute('data-trait');
+    const ko = _g('trait', slug);
+    const desc = resolveFoundryRefs(_traitDescOf(slug) || '');
+    const pop = document.createElement('div');
+    pop.className = 'mon-trait-pop';
+    pop.innerHTML = `<div class="mon-trait-pop-hd">${_esc(ko)}</div><div class="mon-trait-pop-bd">${desc || '설명이 없습니다.'}</div>`;
+    document.body.appendChild(pop);
+    _traitPop = pop; _traitPopFor = chipEl;
+    // 위치: 칩 아래(공간 부족 시 위), 가로는 뷰포트 내 클램프
+    const r = chipEl.getBoundingClientRect();
+    const sx = window.scrollX || window.pageXOffset || 0;
+    const sy = window.scrollY || window.pageYOffset || 0;
+    const pw = pop.offsetWidth, ph = pop.offsetHeight, vw = window.innerWidth;
+    let left = r.left + sx;
+    if (left + pw > sx + vw - 8) left = sx + vw - pw - 8;
+    if (left < sx + 8) left = sx + 8;
+    let top = r.bottom + sy + 6;
+    if (r.bottom + ph + 6 > window.innerHeight && r.top - ph - 6 > 0) top = r.top + sy - ph - 6; // 위로 뒤집기
+    pop.style.left = left + 'px';
+    pop.style.top = top + 'px';
+    // 바깥 클릭/ESC/스크롤 시 닫기 (캡처 단계). _traitPopOff로 일괄 해제 → 누수 없음.
+    const onDoc = (e) => { if (_traitPop && !_traitPop.contains(e.target) && e.target !== chipEl) _closeTraitPop(); };
+    const onKey = (e) => { if (e.key === 'Escape') _closeTraitPop(); };
+    _traitPopOff = () => {
+      document.removeEventListener('mousedown', onDoc, true);
+      document.removeEventListener('touchstart', onDoc, true);
+      document.removeEventListener('keydown', onKey, true);
+      window.removeEventListener('scroll', _closeTraitPop, true);
+    };
+    setTimeout(() => {
+      if (!_traitPop) return;                       // 그 사이 닫혔으면 등록 생략
+      document.addEventListener('mousedown', onDoc, true);
+      document.addEventListener('touchstart', onDoc, true);
+      document.addEventListener('keydown', onKey, true);
+      window.addEventListener('scroll', _closeTraitPop, true);
+    }, 0);
   }
 
   // ─── 스탯블록 스타일 (호스트 독립 — FVTT 양피지 카드, 어느 페이지에 박아도 동일) ──────
@@ -545,6 +629,13 @@
 .mon-trait.rar-uncommon{background:#9c5a12;border-color:#b06d1d;}
 .mon-trait.rar-rare{background:#1f4d7a;border-color:#2c6396;}
 .mon-trait.rar-unique{background:#5b2d7a;border-color:#774099;}
+.mon-trait.info{cursor:pointer;border-bottom-style:dotted;border-bottom-width:2px;}
+.mon-trait.info:hover{filter:brightness(1.12);}
+.mon-trait.info:active{filter:brightness(.92);}
+.mon-trait-pop{position:absolute;z-index:99999;max-width:300px;font-family:-apple-system,'Segoe UI',Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;color:#2b2117;border:1px solid #a3884e;border-radius:8px;box-shadow:0 4px 18px rgba(40,25,8,.38);overflow:hidden;animation:monTraitPop .1s ease-out;}
+@keyframes monTraitPop{from{opacity:0;transform:translateY(-3px);}to{opacity:1;transform:none;}}
+.mon-trait-pop-hd{font-size:12px;font-weight:800;letter-spacing:.3px;color:#f3e2c2;background:#6e1414;padding:5px 11px;border-bottom:1px solid #8a6a1f;}
+.mon-trait-pop-bd{font-size:12px;line-height:1.55;padding:8px 11px;}
 .mon-def{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px;}
 .mon-stat{flex:1 1 56px;min-width:52px;text-align:center;background:var(--m-bg2);border:1px solid var(--m-border);border-radius:7px;padding:5px 4px;}
 .mon-stat-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--m-text2);}
