@@ -130,7 +130,7 @@ function collectData() {
     shield: {name:document.getElementById('shield-name')?.value, ac:document.getElementById('shield-ac')?.value,  hard:document.getElementById('shield-hard')?.value, hp:document.getElementById('shield-hp')?.value},
     spell:  {tradition:document.getElementById('spell-tradition')?.value, type:document.getElementById('spell-type')?.value, fpCur:document.getElementById('fp-cur')?.value, fpMax:document.getElementById('fp-max')?.value},
     spellSlots: {},
-    currency: {gp:document.getElementById('cur-gp')?.value, sp:document.getElementById('cur-sp')?.value, cp:document.getElementById('cur-cp')?.value, pp:document.getElementById('cur-pp')?.value},
+    currency: {gp:parseInt(document.getElementById('cur-gp')?.value)||0, sp:parseInt(document.getElementById('cur-sp')?.value)||0, cp:parseInt(document.getElementById('cur-cp')?.value)||0, pp:parseInt(document.getElementById('cur-pp')?.value)||0},
     selectedClass:      state.selectedClass?.id      || null,
     selectedSubclass:   state.selectedSubclass?.id   || null,
     selectedAncestry:   state.selectedAncestry?.id   || null,
@@ -303,7 +303,7 @@ function loadData(d) {
     if (d.currency) {
       ['gp','sp','cp','pp'].forEach(c => {
         const el = document.getElementById('cur-'+c);
-        if (el && d.currency[c] !== undefined) el.value = d.currency[c];
+        if (el && d.currency[c] !== undefined) el.value = parseInt(d.currency[c]) || 0;  // 앞자리 0 제거
       });
     }
     // State objects

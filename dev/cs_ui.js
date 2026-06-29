@@ -54,6 +54,12 @@ function coinIcon(code, px) {
   const c = (code || '').toLowerCase();
   return `<img class="coin-ic" src="data/icons/${rel}" alt="${c}" title="${CURRENCY_LABELS[c] || ''} ${c.toUpperCase()}" style="width:${s}px;height:${s}px;" loading="lazy">`;
 }
+// 재화 입력: 불필요한 앞자리 0 제거("023"→"23", "0"·""은 유지) 후 재계산/저장
+function _curInput(el) {
+  if (el) el.value = el.value.replace(/^0+(?=\d)/, '');
+  if (typeof recalcBulk === 'function') recalcBulk();
+  if (typeof save === 'function') save();
+}
 // 가격 문자열("10gp","1,060gp","5sp")의 단위를 동전 아이콘으로 치환
 function priceWithIcons(priceStr, px) {
   if (!priceStr || typeof priceStr !== 'string') return priceStr || '';
@@ -869,8 +875,10 @@ function _renderEquipRow(list, e, i, hasContainers) {
   }
 
   const isDropTarget = e._type === 'weapon' || e._type === 'armor' || e._type === 'shield';
-  // 무기 카드 클래스 재사용 → 무기 탭과 동일한 「헤더 바 + 본문」 카드
-  row.className = 'weapon-card equip-item-card' + (isDropTarget ? ' equip-drop-target' : '') + (e._broken ? ' dropped' : '');
+  const hm = e._holdMode || 'stowed';
+  // FVTT식 카드: 들고/착용=사용중(좌측 강조), 보관=흐림, 떨구기=점선, 파손=적색
+  const stateCls = hm === 'dropped' ? 'dropped' : (hm === 'stowed' ? 'stowed' : 'held');
+  row.className = 'equip-card ' + stateCls + (e._broken ? ' broken' : '') + (isDropTarget ? ' equip-drop-target' : '');
   if (isDropTarget) {
     row.dataset.equipIdx = i;
     row.addEventListener('dragover', _onRuneDragOver);
@@ -878,9 +886,9 @@ function _renderEquipRow(list, e, i, hasContainers) {
     row.addEventListener('drop', ev => _onRuneDrop(i, ev));
   }
 
-  const hm = e._holdMode || 'stowed';
   const isArmor = e._type === 'armor';
   const isTwoOnly = e._type === 'weapon' && e._data && e._data.hands === 2;
+  const HOLD_LABEL = { stowed:'보관', one:'한손', two:'양손', worn:'착용', dropped:'떨어뜨림' };
 
   let holdSelectHtml = `<select class="equip-hold-select${hm!=='stowed'?' active':''}" onchange="event.stopPropagation();changeHoldMode(${i},this.value)">
     <option value="stowed"${hm==='stowed'?' selected':''}>보관</option>
@@ -890,38 +898,37 @@ function _renderEquipRow(list, e, i, hasContainers) {
     <option value="dropped"${hm==='dropped'?' selected':''}>떨구기</option>
   </select>`;
 
+  const moveHtml = hasContainers ? `<span class="move-wrap"><select onchange="event.stopPropagation();if(this.value!=='')moveToContainer(${i},parseInt(this.value));this.value=''">
+      <option value=""></option>
+      ${state.containers.map((c,ci) => `<option value="${ci}">${c.name}</option>`).join('')}
+    </select></span>` : '';
+
+  const iconHtml = iconImg('equipment', e) || '<span class="equip-fig-ph">▫</span>';
+
   row.innerHTML = `
-    <div class="weapon-card-header">
-      <span style="min-width:84px;">${holdSelectHtml}</span>
-      <span style="display:flex;align-items:center;gap:2px;margin-left:auto;">
-        <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},-1)">−</button>
-        <span style="min-width:16px;text-align:center;font-size:13px;font-weight:600;color:var(--text);">${e.qty||1}</span>
-        <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},1)">+</button>
-      </span>
-      ${hasContainers ? `<span class="move-wrap"><select onchange="if(this.value!=='')moveToContainer(${i},parseInt(this.value));this.value=''">
-        <option value=""></option>
-        ${state.containers.map((c,ci) => `<option value="${ci}">${c.name}</option>`).join('')}
-      </select></span>` : ''}
+    <div class="equip-card-fig">${iconHtml}</div>
+    <div class="equip-card-main" onclick="showInfo('${eqType}','${eqEscName}')">
+      <div class="equip-card-name">${e._broken?'파손된 ':''}${e.name||'아이템'}</div>
+      <div class="equip-card-sub"><span class="equip-tag hold">${HOLD_LABEL[hm]||HOLD_LABEL.stowed}</span><span class="equip-tag">부피 ${bulkDisplay}</span></div>
     </div>
-    <div class="weapon-card-body">
-      <div class="weapon-card-name" style="color:${e._broken?'var(--red-light)':'var(--text)'};" onclick="showInfo('${eqType}','${eqEscName}')">${iconImg('equipment', e)}<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${e._broken?'파손된 ':''}${e.name||'아이템'}</span></div>
-      <div class="weapon-card-stats"><span class="weapon-stat"><span class="stat-label">부피</span> <span class="stat-val dmg">${bulkDisplay}</span></span></div>
+    <div class="equip-card-ctrls">
+      ${holdSelectHtml}
+      <span class="equip-qty"><button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},-1)">−</button><b>${e.qty||1}</b><button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},1)">+</button></span>
+      ${moveHtml}
     </div>`;
   list.appendChild(row);
 
-  // 부착된 룬 (카드 본문 안에 표시)
-  const bodyEl = row.querySelector('.weapon-card-body');
+  // 부착된 룬 (카드 하단 전체폭 행으로 펼침)
   const attachedIdxs = _getAttachedRuneIndices(i);
   attachedIdxs.forEach(ri => {
     const r = state.equip[ri];
     if (!r) return;
     const runeRow = document.createElement('div');
     runeRow.className = 'equip-rune-attached';
-    runeRow.style.cssText = 'display:flex;align-items:center;gap:6px;margin-top:4px;padding-top:4px;border-top:1px solid var(--border);';
     runeRow.innerHTML = `
       <span style="flex:1;min-width:0;font-size:11px;display:inline-flex;align-items:center;cursor:pointer;" onclick="showInfo('rune','${(r.name||'').replace(/'/g,"\\'")}')">${iconImg('equipment', r, 'ico-sm')||'✨ '}<span style="color:var(--accent);white-space:nowrap;flex-shrink:0;">${r.name||'룬'}</span><span style="font-size:9px;color:var(--text2);margin-left:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;">${r._runeData?.desc||''}</span></span>
       <button class="equip-toggle" onclick="event.stopPropagation();detachRune(${ri})" style="flex-shrink:0;font-size:9px;padding:2px 8px;">해제</button>`;
-    (bodyEl||row).appendChild(runeRow);
+    row.appendChild(runeRow);
   });
 }
 
