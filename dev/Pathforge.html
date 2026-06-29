@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=627"></script>
-<script src="feat_db.js?v=627"></script>
-<script src="SPELL_DB.js?v=627"></script>
-<script src="class_features_db.js?v=627"></script>
+<script src="equipment_db.js?v=628"></script>
+<script src="feat_db.js?v=628"></script>
+<script src="SPELL_DB.js?v=628"></script>
+<script src="class_features_db.js?v=628"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -883,8 +883,14 @@ body.map-open{overflow:hidden;}
   background:transparent;border:none;color:var(--text);font-size:18px;
   font-weight:700;width:100%;text-align:center;outline:none;
 }
+/* 화폐(좌) + 과적(우) 한 줄 배치 */
+.equip-topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.bulk-inline{font-size:12px;color:var(--text2);white-space:nowrap;text-align:right;margin-left:auto;}
+.bulk-inline .bulk-num{font-size:16px;font-weight:700;color:var(--accent);}
+.bulk-inline .bulk-note{font-size:10px;margin-left:2px;}
+@media(max-width:600px){ .equip-topbar{gap:6px;} .bulk-inline .bulk-note{display:none;} }
 /* 컴팩트 재화 칩: 동전 아이콘 + 소지 수량(좁은 입력) */
-.currency-row{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;}
+.currency-row{display:flex;gap:8px;justify-content:flex-start;align-items:center;flex-wrap:wrap;}
 .currency-chip{display:inline-flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border2);border-radius:7px;padding:3px 8px 3px 5px;}
 .currency-input.cc-in{width:46px;font-size:15px;text-align:left;}
 @media(max-width:600px){ .currency-row{gap:6px;} .currency-chip{padding:2px 6px 2px 4px;} .currency-input.cc-in{width:40px;font-size:14px;} }
@@ -1740,7 +1746,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <div class="gear-menu-label">캐릭터</div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v627</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v628</span></div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2139,22 +2145,21 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
     <!-- ── 장비 Gear ── -->
     <div id="panel-equip" class="panel">
-      <!-- 화폐 상단 (컴팩트: 동전 아이콘 + 소지 수량) -->
+      <!-- 화폐(좌) + 과적/부피(우) 한 줄 -->
       <div class="box" style="padding:6px 10px;">
-        <div class="currency-row">
-          <div class="currency-chip" title="백금 PP"><img class="coin-ic" src="data/icons/systems/pf2e/icons/equipment/treasure/currency/platinum-pieces.webp" alt="PP" style="width:22px;height:22px;"><input id="cur-pp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input cc-in"></div>
-          <div class="currency-chip" title="금화 GP"><img class="coin-ic" src="data/icons/systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp" alt="GP" style="width:22px;height:22px;"><input id="cur-gp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input cc-in" style="color:#caa23a;"></div>
-          <div class="currency-chip" title="은화 SP"><img class="coin-ic" src="data/icons/systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp" alt="SP" style="width:22px;height:22px;"><input id="cur-sp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input cc-in"></div>
-          <div class="currency-chip" title="동화 CP"><img class="coin-ic" src="data/icons/systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp" alt="CP" style="width:22px;height:22px;"><input id="cur-cp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input cc-in" style="color:#cd7f32;"></div>
+        <div class="equip-topbar">
+          <div class="currency-row">
+            <div class="currency-chip" title="백금 PP"><img class="coin-ic" src="data/icons/systems/pf2e/icons/equipment/treasure/currency/platinum-pieces.webp" alt="PP" style="width:22px;height:22px;"><input id="cur-pp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input cc-in"></div>
+            <div class="currency-chip" title="금화 GP"><img class="coin-ic" src="data/icons/systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp" alt="GP" style="width:22px;height:22px;"><input id="cur-gp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input cc-in" style="color:#caa23a;"></div>
+            <div class="currency-chip" title="은화 SP"><img class="coin-ic" src="data/icons/systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp" alt="SP" style="width:22px;height:22px;"><input id="cur-sp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input cc-in"></div>
+            <div class="currency-chip" title="동화 CP"><img class="coin-ic" src="data/icons/systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp" alt="CP" style="width:22px;height:22px;"><input id="cur-cp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input cc-in" style="color:#cd7f32;"></div>
+          </div>
+          <div class="bulk-inline" title="과적 기준, 한계=근력+10">
+            부피 <span class="bulk-num" id="bulk-total">0</span><span style="color:var(--text2);"> / </span><span id="bulk-max">5</span>
+            <span class="bulk-note">(한계=근력+10)</span>
+            <span id="bulk-status" style="font-size:11px;font-weight:bold;margin-left:4px;"></span>
+          </div>
         </div>
-      </div>
-      <!-- 부피 -->
-      <div style="text-align:center;padding:4px 0;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border);">
-        부피 <span style="font-size:16px;font-weight:700;color:var(--accent);" id="bulk-total">0</span>
-        <span style="color:var(--text2);"> / </span>
-        <span id="bulk-max">5</span>
-        <span style="font-size:10px;margin-left:4px;">(과적 기준, 한계=근력+10)</span>
-        <div id="bulk-status" style="font-size:11px;font-weight:bold;min-height:14px;margin-top:2px;"></div>
       </div>
       <!-- 탭 바 -->
       <div class="spell-subtabs" id="equip-inv-tabs">
@@ -2316,29 +2321,29 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=627"></script>
-<script src="cs_calc.js?v=627"></script>
+<script src="cs_data.js?v=628"></script>
+<script src="cs_calc.js?v=628"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=627"></script>
-<script src="cs_re_engine.js?v=627"></script>
-<script src="cs_pf2e_stats.js?v=627"></script>
-<script src="cs_pf2e_equip.js?v=627"></script>
-<script src="cs_pf2e_actor.js?v=627"></script>
-<script src="cs_ui.js?v=627"></script>
-<script src="cs_modal.js?v=627"></script>
-<script src="cs_feat_effects.js?v=627"></script>
-<script src="cs_save.js?v=627"></script>
-<script src="cs_session.js?v=627"></script>
-<script src="cs_dice.js?v=627"></script>
-<script src="cs_map.js?v=627"></script>
+<script src="cs_pf2e.js?v=628"></script>
+<script src="cs_re_engine.js?v=628"></script>
+<script src="cs_pf2e_stats.js?v=628"></script>
+<script src="cs_pf2e_equip.js?v=628"></script>
+<script src="cs_pf2e_actor.js?v=628"></script>
+<script src="cs_ui.js?v=628"></script>
+<script src="cs_modal.js?v=628"></script>
+<script src="cs_feat_effects.js?v=628"></script>
+<script src="cs_save.js?v=628"></script>
+<script src="cs_session.js?v=628"></script>
+<script src="cs_dice.js?v=628"></script>
+<script src="cs_map.js?v=628"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=627"></script>
-<script src="cs_i18n.js?v=627"></script>
+<script src="cs_locale.js?v=628"></script>
+<script src="cs_i18n.js?v=628"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=627');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=628');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
