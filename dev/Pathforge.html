@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=641"></script>
-<script src="feat_db.js?v=641"></script>
-<script src="SPELL_DB.js?v=641"></script>
-<script src="class_features_db.js?v=641"></script>
+<script src="equipment_db.js?v=642"></script>
+<script src="feat_db.js?v=642"></script>
+<script src="SPELL_DB.js?v=642"></script>
+<script src="class_features_db.js?v=642"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -160,6 +160,10 @@ body{
 /* ── 모드 선택 진입 화면 (GM / 플레이어 통합 진입) ── */
 #mode-select{position:fixed;inset:0;z-index:100000;background:var(--bg2);display:flex;flex-direction:column;}
 .mode-select-body{flex:1;display:flex;align-items:center;justify-content:center;padding:20px;min-height:0;}
+/* 로비 하단 크레딧 — 옵션창 버전표시와 동일 규격(10px·#888·중앙) */
+.lobby-credit{text-align:center;font-size:10px;color:#888;line-height:1.7;padding:0 16px 16px;}
+.lobby-credit a{color:#888;text-decoration:underline;}
+.lobby-credit a:hover{color:var(--accent);}
 #mode-select.hidden{display:none;}
 .mode-select-inner{text-align:center;max-width:760px;width:100%;}
 .mode-select-title{color:var(--accent);font-family:"Eczar",var(--bs,serif);font-size:40px;margin:0 0 6px;letter-spacing:2px;}
@@ -1784,6 +1788,10 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
   </div>
   </div><!-- /.mode-select-body -->
+  <div class="lobby-credit">
+    제작자: 네이버 TRPG 카페 Sepi<br>
+    번역 참조: <a href="https://github.com/Rutz179/PF2e-KR" target="_blank" rel="noopener">https://github.com/Rutz179/PF2e-KR</a>
+  </div>
 </div>
 
 <!-- ═══════════════ GM 로비 (임베드 — GMSheet.html을 전체화면으로) ═══════════════ -->
@@ -1831,7 +1839,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v641</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v642</span></div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2329,7 +2337,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=641" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=642" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2406,29 +2414,29 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=641"></script>
-<script src="cs_calc.js?v=641"></script>
+<script src="cs_data.js?v=642"></script>
+<script src="cs_calc.js?v=642"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=641"></script>
-<script src="cs_re_engine.js?v=641"></script>
-<script src="cs_pf2e_stats.js?v=641"></script>
-<script src="cs_pf2e_equip.js?v=641"></script>
-<script src="cs_pf2e_actor.js?v=641"></script>
-<script src="cs_ui.js?v=641"></script>
-<script src="cs_modal.js?v=641"></script>
-<script src="cs_feat_effects.js?v=641"></script>
-<script src="cs_save.js?v=641"></script>
-<script src="cs_session.js?v=641"></script>
-<script src="cs_dice.js?v=641"></script>
-<script src="cs_map.js?v=641"></script>
+<script src="cs_pf2e.js?v=642"></script>
+<script src="cs_re_engine.js?v=642"></script>
+<script src="cs_pf2e_stats.js?v=642"></script>
+<script src="cs_pf2e_equip.js?v=642"></script>
+<script src="cs_pf2e_actor.js?v=642"></script>
+<script src="cs_ui.js?v=642"></script>
+<script src="cs_modal.js?v=642"></script>
+<script src="cs_feat_effects.js?v=642"></script>
+<script src="cs_save.js?v=642"></script>
+<script src="cs_session.js?v=642"></script>
+<script src="cs_dice.js?v=642"></script>
+<script src="cs_map.js?v=642"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=641"></script>
-<script src="cs_i18n.js?v=641"></script>
+<script src="cs_locale.js?v=642"></script>
+<script src="cs_i18n.js?v=642"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=641');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=642');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
