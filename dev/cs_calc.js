@@ -1629,6 +1629,8 @@ function recalcAll() {
   if (typeof renderFeats === 'function') renderFeats();
   // 디버그 박스 갱신
   _debugShowBonusPool();
+  // 세션 중이면 활성 상태이상을 내 맵 토큰에 동기화(변경 시에만 write) → GM 지도에 표시
+  if (typeof syncTokenConditions === 'function') syncTokenConditions();
 }
 
 // ── 보너스 확인 모달 (굴림 없는 stat용 — AC, 이속의 추가 정보 등) ──

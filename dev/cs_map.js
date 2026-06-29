@@ -272,6 +272,13 @@ var MapSync = (function() {
     if (t && !canControl(t)) return Promise.reject('no-perm');
     return _tokensCol().doc(id).delete();
   }
+  // 내 토큰에 활성 상태이상 목록 기록 → GM/타인 지도에 아이콘 표시. list=[{id,name,val,img}]
+  function setMyConditions(list) {
+    if (!_activeMapId) return Promise.resolve();
+    var mine = myToken();
+    if (!mine) return Promise.resolve();
+    return upsertToken(mine.id, { conditions: (list && list.length) ? list : [] }).catch(function(){});
+  }
   // 플레이어 입장 시 자기 토큰 보장 (Phase C에서 호출) — 이미 있으면 그 id 반환
   function ensureMyToken(fields) {
     if (!_activeMapId) return Promise.reject('no-active-map');
@@ -429,6 +436,7 @@ var MapSync = (function() {
     // 토큰 쓰기
     createToken: createToken, upsertToken: upsertToken, moveToken: moveToken,
     removeToken: removeToken, ensureMyToken: ensureMyToken, createNpc: createNpc,
+    setMyConditions: setMyConditions,
     // 토큰 템플릿(팔레트, GM)
     getTemplates: getTemplates, getTemplate: getTemplate,
     createTemplate: createTemplate, updateTemplate: updateTemplate, deleteTemplate: deleteTemplate,
@@ -480,6 +488,8 @@ var MapView = (function() {
 
   // 토큰 초상 이미지 캐시 (base64 url → {img, loaded})
   let _tokenImgs = new Map();
+  // 상태이상 아이콘 캐시 (상대경로 → {img, loaded})
+  let _condImgs = new Map();
 
   // 포인터 상태
   let _drag = null;         // 마우스/단일터치 팬: {x,y}
@@ -804,6 +814,56 @@ var MapView = (function() {
     return e.loaded ? e.img : null;
   }
 
+  // 상태이상 아이콘 로더 (icon_map 상대경로 → data/icons/ 기준 URL)
+  function _getCondImg(rel) {
+    if (!rel) return null;
+    var url = /^(data:|https?:|\/|data\/icons\/)/.test(rel) ? rel : ('data/icons/' + rel);
+    var e = _condImgs.get(url);
+    if (!e) {
+      e = { img: new Image(), loaded: false };
+      e.img.onload  = function() { e.loaded = true; _markDirty(); };
+      e.img.onerror = function() { e.loaded = false; };
+      e.img.src = url;
+      _condImgs.set(url, e);
+    }
+    return e.loaded ? e.img : null;
+  }
+
+  // 토큰 둘레에 상태이상 아이콘 원형 배치 (FVTT 토큰 효과 스타일 — 골드 링 배지)
+  function _drawTokenConditions(t, sx, sy, r) {
+    var conds = t.conditions;
+    if (!conds || !conds.length) return;
+    var n = Math.min(conds.length, 8);                       // 최대 8개 표시
+    var ri = Math.max(6, r * 0.34);                          // 배지 반지름
+    var a0 = Math.PI * 0.70, a1 = Math.PI * 1.30;            // 왼쪽 호(위→아래)
+    for (var i = 0; i < n; i++) {
+      var c = conds[i] || {};
+      var ang = (n === 1) ? Math.PI : a0 + (a1 - a0) * (i / (n - 1));
+      var cx = sx + Math.cos(ang) * (r + ri * 0.10);
+      var cy = sy + Math.sin(ang) * (r + ri * 0.10);
+      _ctx.save();
+      _ctx.beginPath(); _ctx.arc(cx, cy, ri, 0, Math.PI * 2);
+      _ctx.fillStyle = '#ece4d2'; _ctx.fill();               // 밝은 중심
+      var img = _getCondImg(c.img);
+      if (img) {
+        _ctx.save(); _ctx.beginPath(); _ctx.arc(cx, cy, ri - 1, 0, Math.PI * 2); _ctx.clip();
+        _ctx.drawImage(img, cx - ri, cy - ri, ri * 2, ri * 2); _ctx.restore();
+      }
+      _ctx.lineWidth = Math.max(1.5, ri * 0.18); _ctx.strokeStyle = '#c9a44a';  // 골드 링
+      _ctx.beginPath(); _ctx.arc(cx, cy, ri, 0, Math.PI * 2); _ctx.stroke();
+      var v = parseInt(c.val || 0);
+      if (v > 0) {                                           // 수치 배지(우하단)
+        var bx = cx + ri * 0.72, by = cy + ri * 0.72, br = ri * 0.58;
+        _ctx.fillStyle = 'rgba(110,20,20,0.95)';
+        _ctx.beginPath(); _ctx.arc(bx, by, br, 0, Math.PI * 2); _ctx.fill();
+        _ctx.fillStyle = '#fff'; _ctx.font = 'bold ' + Math.round(br * 1.3) + 'px sans-serif';
+        _ctx.textAlign = 'center'; _ctx.textBaseline = 'middle';
+        _ctx.fillText(String(v), bx, by);
+      }
+      _ctx.restore();
+    }
+  }
+
   // 색/스폰 위치 — uid 해시로 결정 (플레이어별 분산)
   function _hashStr(s) { let h = 0; s = s || ''; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return h; }
   function _colorForUid(uid) { const hue = ((_hashStr(uid) % 360) + 360) % 360; return 'hsl(' + hue + ',55%,55%)'; }
@@ -1123,6 +1183,7 @@ var MapView = (function() {
       _ctx.fillText(t.name, sx, ty + 1);
       _ctx.restore();
     }
+    _drawTokenConditions(t, sx, sy, r);                 // 상태이상 아이콘 배지(토큰 둘레)
   }
 
   // ── 토큰 레이어 (안개 아래) ──

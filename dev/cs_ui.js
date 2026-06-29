@@ -25,6 +25,10 @@ function _iconRel(scope, item) {
   for (const c of cands) { if (c && m[c]) return m[c]; }
   return null;
 }
+// 아이콘 상대경로만 반환(<img> 아닌 path) — 캔버스 등 외부 렌더용 (예: 맵 토큰 상태이상)
+function iconRelPath(scope, item) {
+  return _iconRel(scope, item) || _iconImgField(item) || null;
+}
 // 카드 앞 썸네일 HTML (없으면 빈 문자열). cls: ico-sm | ico-lg
 function iconImg(scope, item, cls) {
   const rel = _iconRel(scope, item) || _iconImgField(item);   // icon_map 우선, 없으면 BASE 아이템 자체 img(FVTT 경로)

@@ -8,6 +8,30 @@ let _currentSession = null;   // {id, name, joinCode, gmUid, players}
 let _isGM = false;
 let _gmEditTarget = null;     // GM이 편집 중인 플레이어 uid (null이면 파티 뷰)
 
+/* ── 맵 토큰 상태이상 동기화 (recalcAll → 변경 시에만 firestore write) ── */
+let _lastTokenCondJson = '';
+function syncTokenConditions() {
+  if (typeof MapSync === 'undefined' || !MapSync.isActive || !MapSync.isActive()) return;
+  if (MapSync.isGM && MapSync.isGM()) return;                 // GM은 자기 토큰 없음
+  if (!MapSync.myToken || !MapSync.myToken()) return;         // 토큰 미배치면 skip
+  const conds = (typeof state !== 'undefined' && state.conditions) ? state.conditions : {};
+  const list = [];
+  if (typeof CONDITIONS_DATA !== 'undefined') {
+    CONDITIONS_DATA.forEach(c => {
+      const v = parseInt(conds[c.name] || 0);
+      const on = c.valued ? v > 0 : !!v;
+      if (!on) return;
+      let img = (typeof iconRelPath === 'function') ? iconRelPath('condition', c) : null;
+      if (!img && c.id) img = 'systems/pf2e/icons/conditions/' + c.id + '.webp';  // 폴백
+      list.push({ id: c.id || c.name, name: c.name, val: c.valued ? v : 0, img: img || '' });
+    });
+  }
+  const json = JSON.stringify(list);
+  if (json === _lastTokenCondJson) return;                   // 변경 없으면 write skip
+  _lastTokenCondJson = json;
+  if (MapSync.setMyConditions) MapSync.setMyConditions(list);
+}
+
 /* ── onSnapshot 리스너 해제 함수 ── */
 let _sessionDocUnsub = null;
 let _charDocUnsub = null;
