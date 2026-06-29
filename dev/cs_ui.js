@@ -2043,7 +2043,7 @@ function renderSpellSlotList(elId, arr, type, heightenedLevel) {
     if (isAuto) row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
     const srcLabel = isAuto && s._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${s._source}</span>` : '';
     row.innerHTML = `
-      <span class="spell-slot-name" onclick="showInfo('spell','${s.name.replace(/'/g,"\\'")}')">${s.name}${rankLabel}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+      <span class="spell-slot-name" onclick="showInfo('spell','${s.name.replace(/'/g,"\\'")}')">${iconImg('spell', spellData || s)}${s.name}${rankLabel}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
       ${srcLabel}
       ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpell('${type}',${i})">✕</span>`}`;
     el.appendChild(row);
