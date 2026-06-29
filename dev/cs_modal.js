@@ -5168,12 +5168,38 @@ function updateSpellSlotsForClass() {
 // ═══════════════════════════════════════════════
 
 let _actionFilter = 'all';
+let _actionAvailOnly = false;   // 행동: 사용 가능한 것만
+let _condActiveOnly = false;    // 상태이상: 적용 중인 것만
 
 function setActionFilter(f, btn) {
   _actionFilter = f;
-  document.querySelectorAll('#action-filter-bar button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#action-filter-bar button.af-ico').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderActions();
+}
+
+// 우측 끝 체크박스: 행동 탭이면 "사용 가능한 것만", 상태이상 탭이면 "적용 중인 것만"
+function toggleActionExtraFilter(cb) {
+  if (_actionFilter === 'conditions') _condActiveOnly = cb.checked;
+  else _actionAvailOnly = cb.checked;
+  renderActions();
+}
+
+// 컨텍스트(행동/상태이상)에 따라 체크박스 라벨·상태 동기화
+function _syncActionExtraFilter() {
+  const lbl = document.getElementById('action-extra-label');
+  const cb = document.getElementById('action-extra-check');
+  const wrap = document.getElementById('action-extra-filter');
+  if (!lbl || !cb) return;
+  if (_actionFilter === 'conditions') {
+    lbl.textContent = '적용 중인 것만';
+    cb.checked = _condActiveOnly;
+    if (wrap) wrap.title = '적용 중인 상태이상만 표시';
+  } else {
+    lbl.textContent = '사용 가능한 것만';
+    cb.checked = _actionAvailOnly;
+    if (wrap) wrap.title = '사용 가능한 행동만 표시';
+  }
 }
 
 const COST_ICON = {'1':'<span class="action-glyph">1</span>','2':'<span class="action-glyph">2</span>','3':'<span class="action-glyph">3</span>','reaction':'<span class="action-glyph">R</span>','free':'<span class="action-glyph">F</span>','passive':'—','varies':'✦','10min':'10분','1min':'1분','1h':'1시간','1day':'1일','8h':'8시간'};
@@ -5219,22 +5245,38 @@ function renderActions() {
   const container = document.getElementById('actions-content');
   if (!container) return;
 
-  // Conditions reference tab
+  _syncActionExtraFilter();
+
+  // Conditions reference tab — 행동 카드 형식 + FVTT 상태이상 아이콘
   if (_actionFilter === 'conditions') {
-    let html = '';
-    CONDITIONS_DATA.forEach(c => {
+    const rows = CONDITIONS_DATA.map(c => {
       const val = state.conditions[c.name] || 0;
       const isActive = c.valued ? val > 0 : !!val;
+      return { c, val, isActive };
+    }).filter(o => !_condActiveOnly || o.isActive);
+
+    let html = '<div class="actions-grid">';
+    rows.forEach(({ c, val, isActive }) => {
       const maxStr = c.valued ? ` (최대 ${c.max||4})` : '';
-      html += `<div style="padding:8px 10px;border-bottom:1px solid var(--border);${isActive?'background:var(--red-bg);border-left:3px solid var(--red);':''}">
-        <div style="display:flex;align-items:center;gap:6px;">
-          <strong style="font-size:13px;${isActive?'color:var(--red-light);':''}">${c.name}</strong>
-          <span style="font-size:11px;color:var(--text2);">${c.en}${maxStr}</span>
-          ${isActive?`<span style="margin-left:auto;font-size:11px;color:var(--red);font-weight:700;">${c.valued?'수치 '+val:'적용 중'}</span>`:''}
+      const ico = (typeof iconImg === 'function' && iconImg('condition', c)) ||
+        '<span class="item-icon" style="display:inline-flex;align-items:center;justify-content:center;font-size:14px;background:var(--bg4);">⚠</span>';
+      const activeStyle = isActive ? 'border-left:3px solid var(--red);background:var(--red-bg);' : '';
+      const dimStyle = isActive ? '' : 'opacity:0.78;';
+      const desc = (typeof resolveDescRefs === 'function') ? resolveDescRefs(c.desc) : c.desc;
+      html += `<div class="action-card" style="${dimStyle}${activeStyle}">
+        <div class="action-card-head">
+          ${ico}
+          <div style="flex:1;min-width:0;">
+            <div class="action-name-ko"${isActive?' style="color:var(--red-light);"':''}>${c.name}${(c.valued&&val)?' '+val:''}</div>
+            <div class="action-name-en">${c.en}${maxStr}</div>
+          </div>
+          ${isActive?`<span style="font-size:10px;color:var(--red);font-weight:700;flex-shrink:0;">${c.valued?'수치 '+val:'적용 중'}</span>`:''}
         </div>
-        <div style="font-size:12px;color:var(--text);line-height:1.6;margin-top:4px;">${c.desc}</div>
+        <div class="action-summary">${desc}</div>
       </div>`;
     });
+    html += '</div>';
+    if (!rows.length) html = `<div style="color:var(--text2);padding:16px;">${_condActiveOnly?'적용 중인 상태이상이 없습니다.':'상태이상 데이터가 없습니다.'}</div>`;
     container.innerHTML = html;
     return;
   }
@@ -5339,7 +5381,7 @@ function renderActions() {
 
   orderedGroups.forEach(label => {
     const g = groups[label];
-    const all = [...g.available, ...g.locked];
+    const all = _actionAvailOnly ? [...g.available] : [...g.available, ...g.locked];
     if (!all.length) return;
     html += `<div style="margin-bottom:12px;"><div class="action-group-title">${label}</div><div class="actions-grid">`;
     all.forEach(a => {

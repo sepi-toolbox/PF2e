@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=630"></script>
-<script src="feat_db.js?v=630"></script>
-<script src="SPELL_DB.js?v=630"></script>
-<script src="class_features_db.js?v=630"></script>
+<script src="equipment_db.js?v=631"></script>
+<script src="feat_db.js?v=631"></script>
+<script src="SPELL_DB.js?v=631"></script>
+<script src="class_features_db.js?v=631"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -933,13 +933,28 @@ body.map-open{overflow:hidden;}
 /* ══════════════════════════════════
    ACTIONS TAB
    ══════════════════════════════════ */
-.action-filter-bar{display:flex;gap:6px;flex-wrap:wrap;padding:0 0 8px;}
+.action-filter-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:0 0 8px;}
 .action-filter-bar button{
   background:var(--bg3);border:1px solid var(--border2);color:var(--text2);
   padding:3px 10px;border-radius:12px;font-size:11px;cursor:pointer;
 }
 .action-filter-bar button:hover{border-color:var(--accent);color:var(--accent);}
 .action-filter-bar button.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent);}
+/* 아이콘 필터 버튼 (텍스트 대신 아이콘) */
+.action-filter-bar button.af-ico{
+  width:34px;height:30px;padding:0;display:inline-flex;align-items:center;justify-content:center;
+  font-size:16px;line-height:1;border-radius:8px;
+}
+.action-filter-bar button.af-ico .action-glyph{font-size:17px;}
+@media(max-width:900px){.action-filter-bar button.af-ico{width:38px;height:34px;font-size:17px;}}
+/* 우측 끝 추가 필터 체크박스 (사용 가능/적용중인 것만) */
+.action-extra-filter{
+  margin-left:auto;display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;color:var(--text2);cursor:pointer;user-select:none;
+  padding:3px 8px;border:1px solid var(--border2);border-radius:12px;background:var(--bg3);white-space:nowrap;
+}
+.action-extra-filter:hover{border-color:var(--accent);color:var(--accent);}
+.action-extra-filter input{accent-color:var(--accent);width:14px;height:14px;cursor:pointer;margin:0;}
 .action-group-title{
   font-size:9px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;
   border-bottom:1px solid var(--border);padding-bottom:4px;margin-bottom:6px;
@@ -1782,7 +1797,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <div class="gear-menu-label">캐릭터</div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v630</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v631</span></div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2279,12 +2294,16 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <!-- ── 행동 Actions ── -->
     <div id="panel-actions" class="panel">
       <div class="action-filter-bar" id="action-filter-bar">
-        <button class="active" data-filter="all" onclick="setActionFilter('all',this)">전체</button>
-        <button data-filter="basic" onclick="setActionFilter('basic',this)">기본 행동</button>
-        <button data-filter="skill" onclick="setActionFilter('skill',this)">기술 행동</button>
-        <button data-filter="feat" onclick="setActionFilter('feat',this)">재주 행동</button>
-        <button data-filter="reaction" onclick="setActionFilter('reaction',this)">반응</button>
-        <button data-filter="conditions" onclick="setActionFilter('conditions',this)">상태이상</button>
+        <button class="active af-ico" data-filter="all" onclick="setActionFilter('all',this)" title="전체" aria-label="전체">☰</button>
+        <button class="af-ico" data-filter="basic" onclick="setActionFilter('basic',this)" title="기본 행동" aria-label="기본 행동">⚔️</button>
+        <button class="af-ico" data-filter="skill" onclick="setActionFilter('skill',this)" title="기술 행동" aria-label="기술 행동">🎯</button>
+        <button class="af-ico" data-filter="feat" onclick="setActionFilter('feat',this)" title="재주 행동" aria-label="재주 행동">⭐</button>
+        <button class="af-ico" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
+        <button class="af-ico" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상">⚠️</button>
+        <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
+          <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
+          <span id="action-extra-label">사용 가능한 것만</span>
+        </label>
       </div>
       <div id="actions-content"></div>
     </div><!-- /#panel-actions -->
@@ -2357,29 +2376,29 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=630"></script>
-<script src="cs_calc.js?v=630"></script>
+<script src="cs_data.js?v=631"></script>
+<script src="cs_calc.js?v=631"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=630"></script>
-<script src="cs_re_engine.js?v=630"></script>
-<script src="cs_pf2e_stats.js?v=630"></script>
-<script src="cs_pf2e_equip.js?v=630"></script>
-<script src="cs_pf2e_actor.js?v=630"></script>
-<script src="cs_ui.js?v=630"></script>
-<script src="cs_modal.js?v=630"></script>
-<script src="cs_feat_effects.js?v=630"></script>
-<script src="cs_save.js?v=630"></script>
-<script src="cs_session.js?v=630"></script>
-<script src="cs_dice.js?v=630"></script>
-<script src="cs_map.js?v=630"></script>
+<script src="cs_pf2e.js?v=631"></script>
+<script src="cs_re_engine.js?v=631"></script>
+<script src="cs_pf2e_stats.js?v=631"></script>
+<script src="cs_pf2e_equip.js?v=631"></script>
+<script src="cs_pf2e_actor.js?v=631"></script>
+<script src="cs_ui.js?v=631"></script>
+<script src="cs_modal.js?v=631"></script>
+<script src="cs_feat_effects.js?v=631"></script>
+<script src="cs_save.js?v=631"></script>
+<script src="cs_session.js?v=631"></script>
+<script src="cs_dice.js?v=631"></script>
+<script src="cs_map.js?v=631"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=630"></script>
-<script src="cs_i18n.js?v=630"></script>
+<script src="cs_locale.js?v=631"></script>
+<script src="cs_i18n.js?v=631"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=630');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=631');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
