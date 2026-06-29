@@ -1603,7 +1603,7 @@ function renderSpells() {
         row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
         const srcName = s._source ? s._source.split(' (')[0].trim() : '';
         row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${(s.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', s)}${s.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${(s.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', s)}${s.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           <span style="font-size:10px;color:var(--accent);margin-left:4px;">${rankLabel}</span>
           ${usesHtml}
           <span style="font-size:10px;color:var(--text2);margin-left:auto;">${s.tradition || ''} · ${usesLabel}</span>
@@ -1685,7 +1685,7 @@ function renderSpells() {
           const spellData = getSpell(name);
           const actions = getActionIcons(spellData?.actions);
           row.innerHTML = `
-            <span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${iconImg('spell', {name})}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-name" onclick="toggleSpellInline(this,'${name.replace(/'/g,"\\'")}')">${iconImg('spell', {name})}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
             <span class="spell-slot-del" onclick="unprepareSlot(0,${i})" title="준비 해제">✕</span>`;
         } else {
           row.innerHTML = `<span class="spell-slot-name empty" onclick="openPrepareSpellForSlot(0,${i})">준비 안 됨</span><span style="width:20px;"></span>`;
@@ -1706,7 +1706,7 @@ function renderSpells() {
           const actions = getActionIcons(spellData?.actions);
           const srcLabel = isAuto && spell._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${spell._source}</span>` : '';
           row.innerHTML = `
-            <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-name" onclick="toggleSpellInline(this,'${spell.name.replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
             ${srcLabel}
             ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpellFromSlot('cantrip',${i})">✕</span>`}`;
         } else if (i < cantripSlots) {
@@ -1769,7 +1769,7 @@ function renderSpells() {
       }
       dfBody.innerHTML = `
         <div class="spell-slot-row">
-          <span class="spell-slot-name" onclick="showInfo('spell','${isHeal?'치유':'해로움'}')">${iconImg('spell', dfSpell || {name:spellName})}${spellName}${dfActions ? ' <span class="spell-actions-inline">'+dfActions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${isHeal?'치유':'해로움'}')">${iconImg('spell', dfSpell || {name:spellName})}${spellName}${dfActions ? ' <span class="spell-actions-inline">'+dfActions+'</span>' : ''}</span>
           <span class="spell-slot-fires" style="margin-left:auto;">${fires}</span>
         </div>`;
     } else {
@@ -1872,7 +1872,7 @@ function renderSpells() {
         const srcFeat = spell._sourceFeat ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${spell._sourceFeat.split(' (')[0]}</span>` : '';
 
         row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${(spell.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${(spell.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           ${badges}${srcFeat}`;
         section.appendChild(row);
       });
@@ -1885,7 +1885,7 @@ function renderSpells() {
         row.className = 'spell-slot-row';
         row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(212,175,55,0.08);';
         row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${(sig.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', sig)}${sig.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${(sig.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', sig)}${sig.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           <span style="font-size:9px;color:var(--accent);margin-left:auto;">★ ${sig.originalRank}랭크에서 고양</span>`;
         section.appendChild(row);
       });
@@ -1903,7 +1903,7 @@ function renderSpells() {
           const actions = getActionIcons(spellData?.actions);
           const fireIcon = `<span class="spell-slot-fire${isCast?' used':''}" onclick="togglePreparedCast(${r},${i})" style="cursor:pointer;font-size:14px;margin-right:4px;" title="${isCast?'슬롯 복원':'시전 (소모)'}">\uD83D\uDD25</span>`;
           row.innerHTML = `
-            ${fireIcon}<span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${iconImg('spell', {name})}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}${isCast ? ' <span style="font-size:9px;color:var(--text2);">(시전됨)</span>' : ''}</span>`;
+            ${fireIcon}<span class="spell-slot-name" onclick="toggleSpellInline(this,'${name.replace(/'/g,"\\'")}')">${iconImg('spell', {name})}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}${isCast ? ' <span style="font-size:9px;color:var(--text2);">(시전됨)</span>' : ''}</span>`;
         } else {
           row.innerHTML = `<span class="spell-slot-fire used" style="margin-right:4px;opacity:0.35;"></span><span class="spell-slot-name" style="color:var(--text2);font-size:12px;">준비 안 됨</span>`;
         }
@@ -1937,7 +1937,7 @@ function renderSpells() {
           const actions = getActionIcons(spellData?.actions);
           row.innerHTML = `
             <span class="spell-cast-label${isCast?' cast-used':''}" onclick="toggleSpellCast(${r},${i})">Cast</span>
-            <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-name" onclick="toggleSpellInline(this,'${spell.name.replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
             <span class="spell-slot-dur">\u2014</span>
             <span class="spell-slot-range">\u2014</span>
             <span class="spell-slot-del" onclick="removeSpell('known',${globalIdx})">✕</span>`;
@@ -1960,7 +1960,7 @@ function renderSpells() {
         row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
         const srcName = spell._source ? spell._source.split(' (')[0].trim() : '';
         row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${(spell.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${(spell.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           <span style="font-size:9px;color:var(--accent);margin-left:auto;">${srcName || '클래스 부여'}</span>`;
         section.appendChild(row);
       });
@@ -2043,7 +2043,7 @@ function renderSpellSlotList(elId, arr, type, heightenedLevel) {
     if (isAuto) row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
     const srcLabel = isAuto && s._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${s._source}</span>` : '';
     row.innerHTML = `
-      <span class="spell-slot-name" onclick="showInfo('spell','${s.name.replace(/'/g,"\\'")}')">${iconImg('spell', spellData || s)}${s.name}${rankLabel}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+      <span class="spell-slot-name" onclick="toggleSpellInline(this,'${s.name.replace(/'/g,"\\'")}')">${iconImg('spell', spellData || s)}${s.name}${rankLabel}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
       ${srcLabel}
       ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpell('${type}',${i})">✕</span>`}`;
     el.appendChild(row);
@@ -2573,6 +2573,33 @@ function _learnSpellDetailHtml(item) {
   const spellNotes = (typeof getSpellFeatNotes === 'function') ? getSpellFeatNotes(item.name_ko || '') : '';
   const body = (typeof formatDescActions === 'function') ? formatDescActions(desc, item) : desc;
   return `${tags}${spellMeta}<div style="font-size:13px;line-height:1.6;">${body}${spellNotes}</div>`;
+}
+
+// 주문 행 클릭 시 팝업 대신 인라인 아코디언으로 상세 펼침/접힘 (형식 통일: 주문 배우기/기억 모달과 동일)
+function toggleSpellInline(nameEl, name) {
+  const row = nameEl.closest('.spell-slot-row');
+  if (!row) { if (typeof showInfo === 'function') showInfo('spell', name); return; }
+  const sib = row.nextElementSibling;
+  // 이미 펼쳐져 있으면 접기
+  if (sib && sib.classList && sib.classList.contains('spell-inline-detail')) {
+    sib.remove();
+    row.classList.remove('spell-row-open');
+    return;
+  }
+  // 같은 컨테이너 내 다른 펼침은 닫기 (한 번에 하나)
+  const cont = row.parentElement;
+  if (cont) cont.querySelectorAll(':scope > .spell-inline-detail').forEach(d => {
+    if (d.previousElementSibling) d.previousElementSibling.classList.remove('spell-row-open');
+    d.remove();
+  });
+  const sp = getSpell(name) || getSpell((name || '').split(' (')[0].trim());
+  const detail = document.createElement('div');
+  detail.className = 'spell-inline-detail';
+  detail.innerHTML = (sp && typeof _learnSpellDetailHtml === 'function')
+    ? _learnSpellDetailHtml(sp)
+    : '<span style="color:var(--text2);font-size:12px;">상세 정보가 없습니다.</span>';
+  row.classList.add('spell-row-open');
+  row.insertAdjacentElement('afterend', detail);
 }
 
 function _learnSpellFromModal(sp, rank) {
