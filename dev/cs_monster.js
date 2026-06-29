@@ -33,6 +33,31 @@
     return file ? _ICON_BASE + file + '?ic=' + _ICON_VER : '';
   }
 
+  // 임베디드 아이템(타격/능력/주문) FVTT 아이콘: { [item._id]: "systems/pf2e/icons/..." 또는 "icons/..." }.
+  // tools/rebase/extract_item_icons.mjs 로 추출 → dev/data/icons/ 아래 벤더링. 미로드 시 타입별 기본 아이콘.
+  let _itemImg = null, _ITEM_ICON_BASE = 'data/icons/';
+  const _IIMG_VER = 636;
+  // FVTT가 "고유 아트 없음"에 쓰는 제네릭(행동비용·기본) img — 깔끔한 타입별 SVG로 대체할 대상
+  const _GENERIC_IMG = new Set([
+    'systems/pf2e/icons/actions/Passive.webp','systems/pf2e/icons/actions/OneAction.webp',
+    'systems/pf2e/icons/actions/TwoActions.webp','systems/pf2e/icons/actions/ThreeActions.webp',
+    'systems/pf2e/icons/actions/Reaction.webp','systems/pf2e/icons/actions/FreeAction.webp',
+    'systems/pf2e/icons/default-icons/action.svg','systems/pf2e/icons/default-icons/melee.svg',
+    'systems/pf2e/icons/default-icons/spellcastingEntry.svg','systems/pf2e/icons/default-icons/lore.svg',
+    'icons/svg/mystery-man.svg','systems/pf2e/icons/default-icons/npc.svg'
+  ]);
+  const _TYPE_DEFAULT = {
+    melee: 'systems/pf2e/icons/default-icons/melee.svg',
+    action: 'systems/pf2e/icons/default-icons/action.svg',
+    spell: 'systems/pf2e/icons/default-icons/spell.svg'
+  };
+  // 아이템 아이콘 URL: 고유 아트면 그것, 제네릭/누락이면 타입별 깔끔한 기본
+  function itemIcon(id, type) {
+    const img = id && _itemImg && _itemImg[id];
+    const use = (img && !_GENERIC_IMG.has(img)) ? img : (_TYPE_DEFAULT[type] || _TYPE_DEFAULT.action);
+    return _ITEM_ICON_BASE + use + '?v=' + _IIMG_VER;
+  }
+
   async function load(opts) {
     opts = opts || {};
     const dir = opts.dir || 'data/creatures/';
@@ -67,6 +92,13 @@
       if (useFetch) _iconMap = await fetch(`${base}creature_icon_map.json`).then(r => r.ok ? r.json() : null).catch(() => null);
       else { try { _iconMap = JSON.parse(require('fs').readFileSync(`${base}creature_icon_map.json`, 'utf8')); } catch (e) {} }
     } catch (e) { console.warn('[MonsterDB] 아이콘 맵 로드 실패:', e && e.message); }
+    // 임베디드 아이템 FVTT 아이콘 사이드카(_id→img) 1회 로드(실패해도 타입별 기본 폴백)
+    try {
+      const base = dir.replace(/creatures\/?$/, '');
+      _ITEM_ICON_BASE = base + 'icons/';
+      if (useFetch) _itemImg = await fetch(`${dir}_item_icons.json?v=${_IIMG_VER}`).then(r => r.ok ? r.json() : null).catch(() => null);
+      else { try { _itemImg = JSON.parse(require('fs').readFileSync(`${dir}_item_icons.json`, 'utf8')); } catch (e) {} }
+    } catch (e) { console.warn('[MonsterDB] 아이템 아이콘 로드 실패:', e && e.message); }
     return _loaded;
   }
   function ingest(baseArr, koObj) { _ingest(baseArr, koObj); return _loaded; } // 직접 주입(테스트/번들)
@@ -150,7 +182,7 @@
       const damage = Object.values(s.damageRolls || {}).map(d => ({ formula: d.damage, type: d.damageType }));
       const ko = _koItem(e, it.slug);
       return {
-        slug: it.slug,
+        id: it._id, slug: it.slug,
         name: { ko: (ko && ko.name) || it.name, en: it.name },
         bonus: s.bonus?.value ?? 0,
         damage,                                   // [{formula:'1d6', type:'piercing'}]
@@ -168,7 +200,7 @@
     return _items(c, 'action').map(it => {
       const s = it.system || {}; const ko = _koItem(e, it.slug);
       return {
-        slug: it.slug,
+        id: it._id, slug: it.slug,
         name: { ko: (ko && ko.name) || it.name, en: it.name },
         actionType: s.actionType?.value || 'passive',  // passive/reaction/free/action
         actions: s.actions?.value ?? null,             // 1/2/3
@@ -201,7 +233,7 @@
       if (!target) continue;
       const ko = _koItem(e, it.slug);
       target.spells.push({
-        slug: it.slug,
+        id: it._id, slug: it.slug,
         name: { ko: (ko && ko.name) || it.name, en: it.name },
         rank: s.level?.value ?? 0
       });
@@ -332,7 +364,7 @@
         const eff=(st.effects||[]).map(s=>_esc(_effKo(s)));
         const lbl=_esc(st.name.ko);
         h+=`<div class="mon-strike">`;
-        h+=`<div class="mon-strike-hd"><span class="mon-strike-type">${st.range?'원거리':'근접'}</span><span class="mon-strike-name roll" data-roll="attack" data-mod="${st.bonus}" data-label="${lbl}">${lbl}</span><span class="mon-strike-atk roll" data-roll="attack" data-mod="${st.bonus}" data-label="${lbl}">${sign(st.bonus)}</span></div>`;
+        h+=`<div class="mon-strike-hd"><img class="mon-ico" src="${itemIcon(st.id,'melee')}" alt="" loading="lazy"><span class="mon-strike-type">${st.range?'원거리':'근접'}</span><span class="mon-strike-name roll" data-roll="attack" data-mod="${st.bonus}" data-label="${lbl}">${lbl}</span><span class="mon-strike-atk roll" data-roll="attack" data-mod="${st.bonus}" data-label="${lbl}">${sign(st.bonus)}</span></div>`;
         h+=`<div class="mon-strike-bd"><span class="mon-strike-dmg roll" data-roll="damage" data-formula="${_esc(st.damage.map(d=>d.formula).join('+'))}" data-label="${lbl}">${dmg||'—'}</span>`;
         if(st.range) h+=`<span class="mon-strike-rng">사거리 ${st.range}피트${st.reload!=null?` · 재장전 ${st.reload}`:''}</span>`;
         h+=`</div>`;
@@ -350,7 +382,7 @@
       const byRank={};
       sc.spells.forEach(sp=>{ (byRank[sp.rank]=byRank[sp.rank]||[]).push(sp); });
       Object.keys(byRank).map(Number).sort((a,b)=>b-a).forEach(r=>{
-        h+=`<div class="mon-spell-row"><span class="mon-spell-rank">${r===0?'캔트립':r+'레벨'}</span><span class="mon-spell-list">${byRank[r].map(sp=>`<span class="mon-spell">${_esc(sp.name.ko)}</span>`).join(', ')}</span></div>`;
+        h+=`<div class="mon-spell-row"><span class="mon-spell-rank">${r===0?'캔트립':r+'레벨'}</span><span class="mon-spell-list">${byRank[r].map(sp=>`<span class="mon-spell"><img class="mon-ico mon-ico-sm" src="${itemIcon(sp.id,'spell')}" alt="" loading="lazy">${_esc(sp.name.ko)}</span>`).join('')}</span></div>`;
       });
       h+=`</div>`;
     }
@@ -363,9 +395,9 @@
         const trs=(ab.traits||[]).map(t=>`<span class="mon-trait sm">${_esc(_g('trait',t))}</span>`).join('');
         const desc=ab.desc.ko?resolveFoundryRefs(ab.desc.ko):'';
         if(desc){
-          h+=`<details class="mon-ab"><summary class="mon-ab-hd">${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}<span class="mon-ab-caret">▾</span></summary><div class="mon-ab-bd">${desc}</div></details>`;
+          h+=`<details class="mon-ab"><summary class="mon-ab-hd"><img class="mon-ico" src="${itemIcon(ab.id,'action')}" alt="" loading="lazy">${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}<span class="mon-ab-caret">▾</span></summary><div class="mon-ab-bd">${desc}</div></details>`;
         } else {
-          h+=`<div class="mon-ab no-desc"><div class="mon-ab-hd">${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}</div></div>`;
+          h+=`<div class="mon-ab no-desc"><div class="mon-ab-hd"><img class="mon-ico" src="${itemIcon(ab.id,'action')}" alt="" loading="lazy">${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}</div></div>`;
         }
       }
       h+=`</div>`;
@@ -453,6 +485,9 @@
 .mon-sec-hd{font-size:13px;font-weight:800;color:var(--m-accent);font-family:"EczarMon",serif;letter-spacing:.5px;border-bottom:2px solid var(--m-border);padding-bottom:3px;margin-bottom:7px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
 .mon-sc-dc{font-size:11px;font-weight:700;color:var(--m-text2);background:var(--m-bg2);border:1px solid var(--m-border);border-radius:4px;padding:1px 6px;font-family:inherit;letter-spacing:0;}
 .mon-strike{border:1px solid var(--m-border);border-radius:6px;background:var(--m-bg2);margin-bottom:6px;overflow:hidden;}
+.mon-ico{width:26px;height:26px;flex:0 0 auto;border-radius:5px;object-fit:cover;background:#f3e7cd;border:1px solid var(--m-border2);box-shadow:0 0 0 1px rgba(255,255,255,.4) inset,0 1px 2px rgba(60,40,15,.25);}
+.mon-ico-sm{width:18px;height:18px;border-radius:4px;vertical-align:middle;margin-right:4px;}
+.mon-spell{display:inline-flex;align-items:center;background:var(--m-bg2);border:1px solid var(--m-border);border-radius:14px;padding:2px 8px 2px 3px;margin:2px 4px 2px 0;}
 .mon-strike-hd{display:flex;align-items:center;gap:8px;padding:5px 10px;background:var(--m-bg4);border-bottom:1px solid var(--m-border);}
 .mon-strike-type{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#fff;background:var(--m-accent);border-radius:3px;padding:2px 6px;flex:0 0 auto;}
 .mon-strike-name{font-size:13px;font-weight:700;color:var(--m-text);flex:1;cursor:pointer;min-width:0;}
@@ -495,7 +530,7 @@ details.mon-ab[open] .mon-ab-hd{background:var(--m-bg4);border-bottom:1px solid 
   const API = { load, ingest, getCreature, all, search, view,
     name, level, traits, abilities, ac, hp, perception, saves, speeds, skills,
     strikes, abilitiesList, spellcasting, resolveFoundryRefs, renderStatBlock,
-    bindRolls, injectStyles, STYLES, creatureIcon };
+    bindRolls, injectStyles, STYLES, creatureIcon, itemIcon };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.MonsterDB = API;
 })(typeof window !== 'undefined' ? window : globalThis);
