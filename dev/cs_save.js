@@ -77,7 +77,7 @@ function autoSaveNow() {
   const ref = db2.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot);
   safeSaveCharacter(ref, {
     data: json,
-    name: data.name || '이름 없음',
+    name: (data.fields && data.fields.name) || '이름 없음',   // 실제 캐릭터 이름은 fields.name (이전엔 data.name=undefined라 항상 '이름 없음' 저장되던 버그)
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
   }).then((res) => {
     if (res.skipped === 'stale') { if (st) { st.textContent = '다른 기기 변경 감지 — 동기화 중'; st.style.color = '#f5c518'; } return; }

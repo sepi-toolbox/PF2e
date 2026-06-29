@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=643"></script>
-<script src="feat_db.js?v=643"></script>
-<script src="SPELL_DB.js?v=643"></script>
-<script src="class_features_db.js?v=643"></script>
+<script src="equipment_db.js?v=644"></script>
+<script src="feat_db.js?v=644"></script>
+<script src="SPELL_DB.js?v=644"></script>
+<script src="class_features_db.js?v=644"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -188,7 +188,7 @@ body{
 #hdr-gear, .hdr-gear-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);width:30px;height:28px;border-radius:5px;cursor:pointer;font-size:16px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:border-color .12s,color .12s,transform .2s;}
 #hdr-gear:hover, .hdr-gear-btn:hover{border-color:var(--accent);color:var(--accent);}
 #hdr-gear.open{transform:rotate(60deg);border-color:var(--accent);color:var(--accent);}
-#gear-menu{position:fixed;top:46px;right:10px;z-index:100001;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.45);width:240px;max-width:calc(100vw - 20px);padding:12px;display:none;flex-direction:column;gap:7px;}
+#gear-menu{position:fixed;top:46px;right:10px;z-index:100001;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.45);width:240px;max-width:calc(100vw - 20px);max-height:calc(100vh - 56px);overflow-y:auto;padding:12px;display:none;flex-direction:column;gap:7px;}
 #gear-menu.open{display:flex;}
 .gear-menu-section{display:flex;flex-direction:column;gap:6px;}
 .gear-menu-label{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);padding-bottom:3px;}
@@ -199,6 +199,19 @@ body{
 /* 박스로 묶는 컨트롤 그룹(주사위 색상 등) */
 .gear-box{border:1px solid var(--border);border-radius:8px;padding:8px;background:var(--bg3);display:flex;flex-direction:column;gap:7px;}
 .gear-box-label{font-size:10px;font-weight:700;color:var(--text2);letter-spacing:.5px;}
+/* 저장 슬롯 드롭다운(모달 대체) */
+.slot-caret{color:var(--text2);font-size:10px;}
+.slot-dropdown{display:flex;flex-direction:column;gap:4px;max-height:46vh;overflow-y:auto;padding:4px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;}
+.slot-dd-row{display:flex;flex-direction:column;gap:2px;width:100%;text-align:left;padding:7px 9px;border:1px solid var(--border2);border-radius:6px;background:var(--bg2);cursor:pointer;color:var(--text);font-family:inherit;}
+.slot-dd-row:hover{border-color:var(--accent);}
+.slot-dd-row.cur{border-color:var(--accent);background:var(--accent-bg);}
+.slot-dd-top{display:flex;align-items:center;gap:6px;}
+.slot-dd-num{font-size:10px;color:var(--text2);min-width:38px;flex-shrink:0;}
+.slot-dd-name{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.slot-dd-empty{font-size:12px;color:var(--text2);font-style:italic;}
+.slot-dd-cur{margin-left:auto;font-size:10px;color:var(--accent);font-weight:700;flex-shrink:0;}
+.slot-dd-arrow{margin-left:auto;color:var(--text2);font-size:14px;flex-shrink:0;}
+.slot-dd-meta{font-size:10px;color:var(--text2);padding-left:44px;line-height:1.4;}
 /* 팝업 안 모든 동작 버튼 = 전체폭 세로 스택 (한 줄 늘어짐 방지) */
 #gear-menu .btn{width:100%;justify-content:center;margin:0;}
 #gear-menu #auth-area{display:flex;flex-direction:column;align-items:stretch;gap:6px;}
@@ -1842,7 +1855,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v643</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v644</span></div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2340,7 +2353,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=643" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=644" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2417,29 +2430,29 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=643"></script>
-<script src="cs_calc.js?v=643"></script>
+<script src="cs_data.js?v=644"></script>
+<script src="cs_calc.js?v=644"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=643"></script>
-<script src="cs_re_engine.js?v=643"></script>
-<script src="cs_pf2e_stats.js?v=643"></script>
-<script src="cs_pf2e_equip.js?v=643"></script>
-<script src="cs_pf2e_actor.js?v=643"></script>
-<script src="cs_ui.js?v=643"></script>
-<script src="cs_modal.js?v=643"></script>
-<script src="cs_feat_effects.js?v=643"></script>
-<script src="cs_save.js?v=643"></script>
-<script src="cs_session.js?v=643"></script>
-<script src="cs_dice.js?v=643"></script>
-<script src="cs_map.js?v=643"></script>
+<script src="cs_pf2e.js?v=644"></script>
+<script src="cs_re_engine.js?v=644"></script>
+<script src="cs_pf2e_stats.js?v=644"></script>
+<script src="cs_pf2e_equip.js?v=644"></script>
+<script src="cs_pf2e_actor.js?v=644"></script>
+<script src="cs_ui.js?v=644"></script>
+<script src="cs_modal.js?v=644"></script>
+<script src="cs_feat_effects.js?v=644"></script>
+<script src="cs_save.js?v=644"></script>
+<script src="cs_session.js?v=644"></script>
+<script src="cs_dice.js?v=644"></script>
+<script src="cs_map.js?v=644"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=643"></script>
-<script src="cs_i18n.js?v=643"></script>
+<script src="cs_locale.js?v=644"></script>
+<script src="cs_i18n.js?v=644"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=643');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=644');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2500,6 +2513,7 @@ function toggleGearMenu(ev) {
   const g = document.getElementById('hdr-gear');
   if (!m) return;
   updateGearMenuSections();
+  const dd = document.getElementById('slot-dropdown'); if (dd) dd.style.display = 'none';  // 슬롯 드롭다운은 항상 닫힌 채로 열기
   const open = m.classList.toggle('open');
   if (g) g.classList.toggle('open', open);
   if (open && typeof _markDiceColorActive === 'function') _markDiceColorActive();
@@ -2749,14 +2763,81 @@ function _slotLabel(num) {
   return label;
 }
 
-// 슬롯 바: 단일 "저장 슬롯" 버튼 하나만 노출 (누르면 5개 슬롯 선택 팝업)
+// 저장 시기 → 상대시간(방금/N분/N시간/N일 전) 또는 날짜
+function _slotTimeAgo(ts) {
+  if (!ts) return '';
+  var ms = 0;
+  try { ms = ts.toMillis ? ts.toMillis() : (ts.seconds ? ts.seconds * 1000 : 0); } catch (e) {}
+  if (!ms) return '';
+  var diff = Date.now() - ms;
+  var min = Math.floor(diff / 60000);
+  if (min < 1) return '방금 전';
+  if (min < 60) return min + '분 전';
+  var hr = Math.floor(min / 60);
+  if (hr < 24) return hr + '시간 전';
+  var day = Math.floor(hr / 24);
+  if (day < 7) return day + '일 전';
+  var dt = new Date(ms), pad = function (n) { return n < 10 ? '0' + n : n; };
+  return dt.getFullYear() + '-' + pad(dt.getMonth() + 1) + '-' + pad(dt.getDate());
+}
+// 슬롯 메타 줄: Lv N · 혈통 클래스 · 저장 N분 전
+function _slotMetaLine(info) {
+  if (!info) return '';
+  var parts = [];
+  if (info.level) parts.push('Lv ' + info.level);
+  var ac = [];
+  if (info.ancestry && typeof ANCESTRIES !== 'undefined') { var a = ANCESTRIES.find(function (x) { return x.id === info.ancestry; }); if (a) ac.push(a.name || a.en || ''); }
+  if (info.cls && typeof CLASSES !== 'undefined') { var c = CLASSES.find(function (x) { return x.id === info.cls; }); if (c) ac.push(c.name || c.en || ''); }
+  ac = ac.filter(Boolean);
+  if (ac.length) parts.push(ac.join(' '));
+  var t = _slotTimeAgo(info.updatedAt);
+  if (t) parts.push('저장 ' + t);
+  return parts.join(' · ');
+}
+
+// 슬롯 바: 현재 슬롯 버튼(누르면 인라인 드롭다운으로 5개 슬롯 전환) — 모달 아님
 function updateSlotBar() {
   var slotBar = document.getElementById('slot-bar');
   if (!slotBar) return;
+  slotBar.style.display = 'flex';
+  slotBar.style.flexDirection = 'column';
+  slotBar.style.gap = '4px';
   var num = (typeof currentSlot !== 'undefined' ? currentSlot : 'slot1').replace('slot', '');
-  slotBar.innerHTML = '<button class="btn btn-ghost" onclick="openSlotModal()">'
+  slotBar.innerHTML = '<button class="btn btn-ghost slot-current-btn" onclick="toggleSlotDropdown(event)">'
     + '💾 저장 슬롯 ' + num + ' · <span style="color:var(--text);">' + _slotLabel(num) + '</span>'
-    + ' <span style="color:var(--text2);font-size:10px;">▾</span></button>';
+    + ' <span class="slot-caret">▾</span></button>'
+    + '<div id="slot-dropdown" class="slot-dropdown" style="display:none;"></div>';
+}
+
+// 드롭다운 토글 + 렌더
+function toggleSlotDropdown(ev) {
+  if (ev) ev.stopPropagation();
+  var dd = document.getElementById('slot-dropdown');
+  if (!dd) return;
+  var open = (dd.style.display === 'none' || !dd.style.display);
+  if (open) { renderSlotDropdown(); dd.style.display = 'block'; }
+  else dd.style.display = 'none';
+}
+function renderSlotDropdown() {
+  var dd = document.getElementById('slot-dropdown');
+  if (!dd) return;
+  var cur = (typeof currentSlot !== 'undefined' ? currentSlot : 'slot1').replace('slot', '');
+  var html = '';
+  for (var i = 1; i <= 5; i++) {
+    var isCur = String(i) === String(cur);
+    var info = _slotInfo[i];
+    var hasChar = info && info.name && info.name !== '이름 없음';
+    var nameHtml = hasChar
+      ? '<span class="slot-dd-name">' + info.name + '</span>' + (info.hasSession ? ' <span title="세션 진행 중">🎮</span>' : '')
+      : '<span class="slot-dd-empty">빈 슬롯</span>';
+    var meta = hasChar ? _slotMetaLine(info) : '';
+    html += '<button class="slot-dd-row' + (isCur ? ' cur' : '') + '" onclick="selectSlot(\'slot' + i + '\')">'
+      + '<div class="slot-dd-top"><span class="slot-dd-num">슬롯 ' + i + '</span>' + nameHtml
+      + (isCur ? '<span class="slot-dd-cur">● 현재</span>' : '<span class="slot-dd-arrow">›</span>') + '</div>'
+      + (meta ? '<div class="slot-dd-meta">' + meta + '</div>' : '')
+      + '</button>';
+  }
+  dd.innerHTML = html;
 }
 
 function loadSlotNames(uid) {
@@ -2764,60 +2845,26 @@ function loadSlotNames(uid) {
     snap.forEach(function(doc) {
       var d = doc.data();
       var slotNum = doc.id.replace('slot', '');
-      _slotInfo[slotNum] = { name: d.name || '', hasSession: !!d.sessionId };
+      var parsed = {};
+      try { parsed = JSON.parse(d.data || '{}'); } catch (e) {}
+      var nm = (parsed.fields && parsed.fields.name) || (d.name && d.name !== '이름 없음' ? d.name : '') || '';
+      _slotInfo[slotNum] = {
+        name: nm,
+        level: (parsed.fields && parsed.fields.level) || null,
+        ancestry: parsed.selectedAncestry || null,
+        cls: parsed.selectedClass || null,
+        updatedAt: d.updatedAt || null,
+        hasSession: !!d.sessionId
+      };
     });
     updateSlotBar();
-    // 슬롯 선택 팝업이 열려 있으면 다시 렌더
-    if (typeof modalType !== 'undefined' && modalType === 'slot-picker') openSlotModal();
   });
 }
 
-// 저장 슬롯 선택 팝업 — 5개 슬롯 중 하나를 골라 전환
-function openSlotModal() {
-  var overlay = document.getElementById('modal-overlay');
-  if (!overlay) return;
-  overlay.classList.remove('hidden');
-  modalType = 'slot-picker';
-  document.getElementById('modal-title').textContent = '💾 저장 슬롯 선택';
-  var searchEl = document.getElementById('modal-search');
-  if (searchEl) searchEl.style.display = 'none';
-  var fbar = document.getElementById('modal-filterbar');
-  if (fbar) fbar.innerHTML = '';
-  var confirmBtn = document.querySelector('.btn-confirm');
-  if (confirmBtn) confirmBtn.style.display = 'none';
-  var listEl = document.querySelector('.modal-list');
-  if (listEl) { listEl.style.display = ''; listEl.style.width = '100%'; listEl.style.borderRight = 'none'; }
-  var detail = document.getElementById('modal-detail');
-  if (detail) { detail.innerHTML = ''; detail.style.display = 'none'; }   // 우측 상세 패널 불필요 — 숨김
-  // 콤팩트 크기(분할 모달 기본 95vw×85vh는 과대) — closeModal이 인라인 maxWidth/height 리셋
-  var modalEl = document.querySelector('.modal');
-  if (modalEl) { modalEl.style.maxWidth = '460px'; modalEl.style.height = 'auto'; }
-
-  var cur = (typeof currentSlot !== 'undefined' ? currentSlot : 'slot1').replace('slot', '');
-  var rows = '';
-  for (var i = 1; i <= 5; i++) {
-    var isCur = String(i) === String(cur);
-    var info = _slotInfo[i];
-    var hasChar = info && info.name && info.name !== '이름 없음';
-    var nameHtml = hasChar
-      ? '<span style="color:var(--text);font-weight:600;">' + info.name + '</span>' + (info.hasSession ? ' <span title="세션 진행 중">🎮</span>' : '')
-      : '<span style="color:var(--text2);font-style:italic;">빈 슬롯</span>';
-    var border = isCur ? 'border-color:var(--accent);background:var(--accent-bg);' : 'border-color:var(--border2);background:var(--bg3);';
-    var badge = isCur ? '<span style="margin-left:auto;font-size:10px;color:var(--accent);font-weight:700;">● 현재</span>' : '<span style="margin-left:auto;color:var(--text2);font-size:14px;">›</span>';
-    rows += '<button onclick="selectSlot(\'slot' + i + '\')" '
-      + 'style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:12px 14px;border:1px solid;border-radius:6px;cursor:pointer;' + border + '">'
-      + '<span style="font-size:11px;color:var(--text2);min-width:42px;">슬롯 ' + i + '</span>'
-      + nameHtml + badge + '</button>';
-  }
-  var container = document.getElementById('modal-options');
-  container.innerHTML = '<div style="display:flex;flex-direction:column;gap:8px;padding:14px;">'
-    + '<div style="font-size:12px;color:var(--text2);margin-bottom:4px;line-height:1.5;">전환할 슬롯을 선택하세요. 현재 슬롯은 자동 저장된 뒤 전환됩니다.</div>'
-    + rows + '</div>';
-}
-
-// 팝업에서 슬롯 선택 → 전환 후 닫기
+// 드롭다운에서 슬롯 선택 → 기어 메뉴 닫고 전환
 function selectSlot(slot) {
-  closeModal();
+  var dd = document.getElementById('slot-dropdown'); if (dd) dd.style.display = 'none';
+  if (typeof closeGearMenu === 'function') closeGearMenu();
   switchSlot(slot);
 }
 
