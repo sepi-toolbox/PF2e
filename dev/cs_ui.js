@@ -907,7 +907,7 @@ function _renderEquipRow(list, e, i, hasContainers) {
 
   row.innerHTML = `
     <div class="equip-card-fig">${iconHtml}</div>
-    <div class="equip-card-main" onclick="showInfo('${eqType}','${eqEscName}')">
+    <div class="equip-card-main" onclick="toggleEquipInline(this,${i})">
       <div class="equip-card-name">${e._broken?'파손된 ':''}${e.name||'아이템'}</div>
       <div class="equip-card-sub"><span class="equip-tag hold">${HOLD_LABEL[hm]||HOLD_LABEL.stowed}</span><span class="equip-tag">부피 ${bulkDisplay}</span></div>
     </div>
@@ -2630,6 +2630,34 @@ function toggleSpellInline(nameEl, name) {
     : '<span style="color:var(--text2);font-size:12px;">상세 정보가 없습니다.</span>';
   row.classList.add('spell-row-open');
   row.insertAdjacentElement('afterend', detail);
+}
+
+// 장비 카드 클릭 시 팝업 대신 인라인 아코디언으로 상세 펼침/접힘 (주문과 동일 언어)
+function toggleEquipInline(mainEl, idx) {
+  const card = mainEl.closest('.equip-card');
+  const e = state.equip[idx];
+  const eqType = !e ? 'gear' : (e._type === 'weapon' ? 'weapon' : (e._type === 'armor' ? 'armor' : (e._type === 'shield' ? 'shield' : 'gear')));
+  if (!card) { if (typeof showInfo === 'function') showInfo(eqType, e?.name || ''); return; }
+  // 부착된 룬 행은 카드의 자식 → 카드 다음 형제 중 inline-detail만 탐색
+  let sib = card.nextElementSibling;
+  if (sib && sib.classList && sib.classList.contains('equip-inline-detail')) {
+    sib.remove();
+    card.classList.remove('equip-open');
+    return;
+  }
+  // 전체 장비 목록에서 다른 펼침 닫기 (한 번에 하나)
+  const listEl = document.getElementById('equip-list');
+  if (listEl) listEl.querySelectorAll('.equip-inline-detail').forEach(d => {
+    if (d.previousElementSibling) d.previousElementSibling.classList.remove('equip-open');
+    d.remove();
+  });
+  const detail = document.createElement('div');
+  detail.className = 'equip-inline-detail';
+  detail.innerHTML = (typeof infoCardHtml === 'function' && typeof _infoResolveItem === 'function')
+    ? infoCardHtml(_infoResolveItem(eqType, e?.name || ''), eqType, false)
+    : '<span style="color:var(--text2);font-size:12px;">상세 정보가 없습니다.</span>';
+  card.classList.add('equip-open');
+  card.insertAdjacentElement('afterend', detail);
 }
 
 function _learnSpellFromModal(sp, rank) {
