@@ -2759,10 +2759,10 @@ function openEquipBrowse() {
   // Replace footer with currency
   const footer = document.querySelector('.modal-footer');
   footer.innerHTML = `<div class="modal-currency" id="modal-currency">
-    <div class="modal-currency-item"><span class="coin coin-pp"></span><span class="coin-label">백금</span><span class="coin-val" id="mc-pp">${document.getElementById('cur-pp')?.value||0}</span></div>
-    <div class="modal-currency-item"><span class="coin coin-gp"></span><span class="coin-label">금화</span><span class="coin-val" id="mc-gp">${document.getElementById('cur-gp')?.value||0}</span></div>
-    <div class="modal-currency-item"><span class="coin coin-sp"></span><span class="coin-label">은화</span><span class="coin-val" id="mc-sp">${document.getElementById('cur-sp')?.value||0}</span></div>
-    <div class="modal-currency-item"><span class="coin coin-cp"></span><span class="coin-label">동화</span><span class="coin-val" id="mc-cp">${document.getElementById('cur-cp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('pp',20)}<span class="coin-val" id="mc-pp">${document.getElementById('cur-pp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('gp',20)}<span class="coin-val" id="mc-gp">${document.getElementById('cur-gp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('sp',20)}<span class="coin-val" id="mc-sp">${document.getElementById('cur-sp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('cp',20)}<span class="coin-val" id="mc-cp">${document.getElementById('cur-cp')?.value||0}</span></div>
   </div>
   <button class="btn btn-cancel" onclick="closeModal()" style="width:100%;padding:12px;font-size:14px;margin-top:6px;">닫기</button>`;
 

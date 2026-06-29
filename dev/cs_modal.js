@@ -3163,7 +3163,11 @@ function renderOptions(data) {
       <span class="opt-row-name" ${prereqFail ? 'style="opacity:0.5;"' : ''}>${nameKo}</span>
       ${prereqFail ? '<span style="font-size:10px;color:#f44336;flex-shrink:0;" title="선행 조건 미충족">⚠</span>' : ''}
       ${actionsHtml ? `<span class="opt-row-actions">${actionsHtml}</span>` : ''}
-      ${levelText !== '' ? `<span class="opt-row-level ${rClass}">${levelText}</span>` : ''}`;
+      ${levelText !== '' ? (
+        (modalType === 'equip-browse' && item.price && item.price !== '—')
+          ? `<span class="opt-row-price">${typeof priceWithIcons==='function'?priceWithIcons(item.price,14):levelText}</span>`
+          : `<span class="opt-row-level ${rClass}">${levelText}</span>`
+      ) : ''}`;
 
     row.onclick = () => selectOption(item, row);
     return row;
