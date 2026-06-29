@@ -70,7 +70,26 @@
     ['trample','icons/creatures/abilities/paw-print-tan.webp'],['foot','icons/creatures/abilities/paw-print-tan.webp'],
     ['leg','icons/creatures/abilities/paw-print-tan.webp'],
     ['fist','icons/skills/melee/unarmed-punch-fist-yellow-red.webp'],['punch','icons/skills/melee/unarmed-punch-fist-yellow-red.webp'],
-    ['hand','icons/skills/melee/unarmed-punch-fist-yellow-red.webp'],['slam','icons/skills/melee/unarmed-punch-fist-yellow-red.webp']
+    ['hand','icons/skills/melee/unarmed-punch-fist-yellow-red.webp'],['slam','icons/skills/melee/unarmed-punch-fist-yellow-red.webp'],
+    // 무기류(자연무기 매칭 후순위) — 능력 이름에도 재사용
+    ['scimitar','icons/skills/melee/strike-blade-blood-red.webp'],['sword','icons/skills/melee/strike-blade-blood-red.webp'],
+    ['blade','icons/skills/melee/strike-blade-blood-red.webp'],['dagger','icons/skills/melee/strike-blade-blood-red.webp'],
+    ['rapier','icons/skills/melee/strike-blade-blood-red.webp'],['glaive','icons/skills/melee/strike-blade-blood-red.webp'],
+    ['axe','icons/skills/melee/strike-axe-red.webp'],['pick','icons/skills/melee/strike-axe-red.webp'],
+    ['spear','icons/skills/melee/spear-tips-three-green.webp'],['lance','icons/skills/melee/spear-tips-three-green.webp'],
+    ['pike','icons/skills/melee/spear-tips-three-green.webp'],['trident','icons/skills/melee/spear-tips-three-green.webp'],
+    ['halberd','icons/skills/melee/spear-tips-three-green.webp'],['javelin','icons/skills/melee/spear-tips-three-green.webp'],
+    ['hammer','icons/skills/melee/hand-grip-hammer-spiked-blue.webp'],['maul','icons/skills/melee/hand-grip-hammer-spiked-blue.webp'],
+    ['mace','icons/weapons/maces/mace-flanged-steel-grey.webp'],['morningstar','icons/weapons/maces/mace-flanged-steel-grey.webp'],
+    ['club','icons/skills/melee/strike-club-red.webp'],['cudgel','icons/skills/melee/strike-club-red.webp'],
+    ['staff','icons/skills/melee/strike-club-red.webp'],['flail','icons/weapons/maces/mace-flanged-steel-grey.webp'],
+    ['whip','icons/skills/melee/strike-chain-whip-blue.webp'],['chain','icons/skills/melee/strike-chain-whip-blue.webp'],
+    ['lash','icons/skills/melee/strike-chain-whip-blue.webp'],
+    ['rock','icons/weapons/thrown/throwing-rock.webp'],['stone','icons/weapons/thrown/throwing-rock.webp'],
+    ['boulder','icons/weapons/thrown/throwing-rock.webp'],
+    ['vine','icons/magic/nature/vines-thorned-entwined-glow-green.webp'],['branch','icons/magic/nature/vines-thorned-entwined-glow-green.webp'],
+    ['root','icons/magic/nature/vines-thorned-entwined-glow-green.webp'],['thorn','icons/magic/nature/vines-thorned-entwined-glow-green.webp'],
+    ['strike','icons/skills/melee/strike-blade-blood-red.webp']
   ];
   const _ABIL_ICONS = [
     ['breath','icons/creatures/abilities/dragon-breath-purple.webp'],
@@ -87,9 +106,13 @@
     ['telepathy','icons/magic/control/silhouette-aura-energy.webp'],['mental','icons/magic/control/silhouette-aura-energy.webp'],
     ['psychic','icons/magic/control/silhouette-aura-energy.webp'],
     ['poison','icons/magic/death/skull-poison-green.webp'],['venom','icons/magic/death/skull-poison-green.webp'],
+    ['lifesense','icons/magic/perception/eye-tendrils-web-purple.webp'],['scent','icons/magic/perception/eye-tendrils-web-purple.webp'],
+    ['tremorsense','icons/magic/perception/eye-tendrils-web-purple.webp'],['sense','icons/magic/perception/eye-tendrils-web-purple.webp'],
     ['spell','systems/pf2e/icons/default-icons/spell.svg']
   ];
   function _kwIcon(map, name) { for (const [kw, p] of map) if (name.indexOf(kw) >= 0) return p; return null; }
+  // 능력 테마 아이콘: 능력 키워드 → 자연무기/무기 키워드(능력 이름에 신체부위·무기 자주 등장)
+  function _abilThemeIcon(nameEn) { return _kwIcon(_ABIL_ICONS, nameEn) || _kwIcon(_NAT_ICONS, nameEn); }
   function _imLook(scope, slug, nameEn) { const m = _iconLookup && _iconLookup[scope]; if (!m) return null; return m[slug] || m[nameEn] || null; }
 
   // 아이템 아이콘 URL: ① FVTT 고유 아트 ② 타입별 보강(장비/주문맵·자연무기/능력 키워드) ③ 타입 기본
@@ -102,7 +125,7 @@
     let use = null;
     if (type === 'spell') use = _imLook('spell', slug, nameEn);
     else if (type === 'melee') use = _imLook('equipment', slug, nameEn) || _kwIcon(_NAT_ICONS, nameEn);
-    else if (type === 'action') use = _kwIcon(_ABIL_ICONS, nameEn);
+    else if (type === 'action') use = _abilThemeIcon(nameEn);
     return _ITEM_ICON_BASE + (use || _TYPE_DEFAULT[type] || _TYPE_DEFAULT.action) + '?v=' + _IIMG_VER;
   }
 
@@ -443,13 +466,20 @@
     if(v.abilitiesList.length){
       h+=`<div class="mon-sec"><div class="mon-sec-hd">능력</div>`;
       for(const ab of v.abilitiesList){
-        const g=_actGlyph(ab);
+        // 아이콘: 테마 매칭되면 이미지, 아니면 깔끔한 행동비용 글리프 배지(밋밋한 기본 대신)
+        const themed=_abilThemeIcon((ab.name.en||'').toLowerCase());
+        const ch=_glyph(ab.actions!=null?ab.actions:ab.actionType);
+        const ico = themed
+          ? `<img class="mon-ico" src="${_ITEM_ICON_BASE+themed}?v=${_IIMG_VER}" alt="" loading="lazy">`
+          : (ch ? `<span class="mon-ico mon-ico-glyph action-glyph">${ch}</span>`
+                : `<img class="mon-ico" src="${itemIcon(ab,'action')}" alt="" loading="lazy">`);
+        const g = themed ? _actGlyph(ab) : '';   // 테마 이미지일 때만 행동경제 글리프 별도 표기(배지면 중복 생략)
         const trs=(ab.traits||[]).map(t=>`<span class="mon-trait sm">${_esc(_g('trait',t))}</span>`).join('');
         const desc=ab.desc.ko?resolveFoundryRefs(ab.desc.ko):'';
         if(desc){
-          h+=`<details class="mon-ab"><summary class="mon-ab-hd"><img class="mon-ico" src="${itemIcon(ab,'action')}" alt="" loading="lazy">${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}<span class="mon-ab-caret">▾</span></summary><div class="mon-ab-bd">${desc}</div></details>`;
+          h+=`<details class="mon-ab"><summary class="mon-ab-hd">${ico}${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}<span class="mon-ab-caret">▾</span></summary><div class="mon-ab-bd">${desc}</div></details>`;
         } else {
-          h+=`<div class="mon-ab no-desc"><div class="mon-ab-hd"><img class="mon-ico" src="${itemIcon(ab,'action')}" alt="" loading="lazy">${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}</div></div>`;
+          h+=`<div class="mon-ab no-desc"><div class="mon-ab-hd">${ico}${g}<span class="mon-ab-name">${_esc(ab.name.ko)}</span>${trs}</div></div>`;
         }
       }
       h+=`</div>`;
@@ -539,6 +569,7 @@
 .mon-strike{border:1px solid var(--m-border);border-radius:6px;background:var(--m-bg2);margin-bottom:6px;overflow:hidden;}
 .mon-ico{width:26px;height:26px;flex:0 0 auto;border-radius:5px;object-fit:cover;background:#f3e7cd;border:1px solid var(--m-border2);box-shadow:0 0 0 1px rgba(255,255,255,.4) inset,0 1px 2px rgba(60,40,15,.25);}
 .mon-ico-sm{width:18px;height:18px;border-radius:4px;vertical-align:middle;margin-right:4px;}
+.mon-ico-glyph{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#f3e7cd,#e4d6b5);color:var(--m-accent);font-size:14px;line-height:1;}
 .mon-spell{display:inline-flex;align-items:center;background:var(--m-bg2);border:1px solid var(--m-border);border-radius:14px;padding:2px 8px 2px 3px;margin:2px 4px 2px 0;}
 .mon-strike-hd{display:flex;align-items:center;gap:8px;padding:5px 10px;background:var(--m-bg4);border-bottom:1px solid var(--m-border);}
 .mon-strike-type{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#fff;background:var(--m-accent);border-radius:3px;padding:2px 6px;flex:0 0 auto;}
