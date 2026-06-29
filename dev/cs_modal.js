@@ -5202,6 +5202,31 @@ function _syncActionExtraFilter() {
   }
 }
 
+// ── 상태이상 탭: 카드 클릭으로 on/off, 수치형은 스테퍼로 횟수 증감 ──
+function _afterCondChange() {
+  if (typeof recalcAll === 'function') recalcAll();   // 상태이상이 파생 스탯에 반영(공포/메스꺼움/서투름/약화/현기증 등)
+  else if (typeof buildConditions === 'function') buildConditions();
+  if (typeof save === 'function') save();
+  renderActions();                                    // 상태이상 탭 갱신
+}
+function toggleCardCondition(name) {
+  const c = CONDITIONS_DATA.find(x => x.name === name);
+  if (!c || c.auto) return;
+  const cur = parseInt(state.conditions[name] || 0);
+  const isOn = c.valued ? cur > 0 : !!cur;
+  state.conditions[name] = isOn ? 0 : 1;              // 끄기 → 0, 켜기 → 1(수치형 시작값 1)
+  _afterCondChange();
+}
+function stepCardCondition(name, delta) {
+  const c = CONDITIONS_DATA.find(x => x.name === name);
+  if (!c || !c.valued || c.auto) return;
+  const maxN = c.max || 4;
+  let cur = parseInt(state.conditions[name] || 0);
+  cur = Math.max(0, Math.min(maxN, cur + delta));     // 0이면 자동으로 꺼짐
+  state.conditions[name] = cur;
+  _afterCondChange();
+}
+
 const COST_ICON = {'1':'<span class="action-glyph">1</span>','2':'<span class="action-glyph">2</span>','3':'<span class="action-glyph">3</span>','reaction':'<span class="action-glyph">R</span>','free':'<span class="action-glyph">F</span>','passive':'—','varies':'✦','10min':'10분','1min':'1분','1h':'1시간','1day':'1일','8h':'8시간'};
 
 function getActionCostIcon(cost) {
@@ -5257,20 +5282,37 @@ function renderActions() {
 
     let html = '<div class="actions-grid">';
     rows.forEach(({ c, val, isActive }) => {
-      const maxStr = c.valued ? ` (최대 ${c.max||4})` : '';
+      const maxN = c.max || 4;
+      const maxStr = c.valued ? ` (최대 ${maxN})` : '';
       const ico = (typeof iconImg === 'function' && iconImg('condition', c)) ||
         '<span class="item-icon" style="display:inline-flex;align-items:center;justify-content:center;font-size:14px;background:var(--bg4);">⚠</span>';
       const activeStyle = isActive ? 'border-left:3px solid var(--red);background:var(--red-bg);' : '';
-      const dimStyle = isActive ? '' : 'opacity:0.78;';
+      const dimStyle = isActive ? '' : 'opacity:0.7;';
       const desc = (typeof resolveDescRefs === 'function') ? resolveDescRefs(c.desc) : c.desc;
-      html += `<div class="action-card" style="${dimStyle}${activeStyle}">
+      const clickable = !c.auto;          // 과적 등 자동 상태이상은 클릭 토글 불가(부피로 관리)
+      const onClick = clickable ? ` onclick="toggleCardCondition('${c.name}')"` : '';
+      const cursorStyle = clickable ? 'cursor:pointer;' : 'cursor:default;';
+      // 우측: 자동=잠금 / 수치형 활성=스테퍼 / 단순 활성=적용 중
+      let statusHtml = '';
+      if (c.auto) {
+        statusHtml = `<span style="font-size:10px;color:var(--text2);flex-shrink:0;" title="부피에 따라 자동 적용/해제">🔒 자동${isActive?' 적용':''}</span>`;
+      } else if (isActive && c.valued) {
+        statusHtml = `<span class="cond-stepper" style="flex-shrink:0;">`
+          + `<button onclick="event.stopPropagation();stepCardCondition('${c.name}',-1)" title="감소">−</button>`
+          + `<span class="cond-stepper-val">${val}</span>`
+          + `<button onclick="event.stopPropagation();stepCardCondition('${c.name}',1)"${val>=maxN?' disabled':''} title="증가">＋</button>`
+          + `</span>`;
+      } else if (isActive) {
+        statusHtml = `<span style="font-size:10px;color:var(--red);font-weight:700;flex-shrink:0;">적용 중</span>`;
+      }
+      html += `<div class="action-card cond-card${isActive?' on':''}" style="${dimStyle}${activeStyle}${cursorStyle}"${onClick}>
         <div class="action-card-head">
           ${ico}
           <div style="flex:1;min-width:0;">
             <div class="action-name-ko"${isActive?' style="color:var(--red-light);"':''}>${c.name}${(c.valued&&val)?' '+val:''}</div>
             <div class="action-name-en">${c.en}${maxStr}</div>
           </div>
-          ${isActive?`<span style="font-size:10px;color:var(--red);font-weight:700;flex-shrink:0;">${c.valued?'수치 '+val:'적용 중'}</span>`:''}
+          ${statusHtml}
         </div>
         <div class="action-summary">${desc}</div>
       </div>`;

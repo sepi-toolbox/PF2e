@@ -6,11 +6,11 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=586').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=634').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
-    // 이미 그려진 탭에 아이콘 소급 적용
-    ['renderEquip', 'renderWeapons', 'renderSpells', 'renderFeats'].forEach(fn => {
+    // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
+    ['renderEquip', 'renderWeapons', 'renderSpells', 'renderFeats', 'renderGrowthPlan'].forEach(fn => {
       try { if (typeof window[fn] === 'function') window[fn](); } catch (e) {}
     });
   }).catch(() => {});
