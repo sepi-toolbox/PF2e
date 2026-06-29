@@ -43,8 +43,9 @@ const db = firebase.firestore();
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;color:var(--text);font-family:var(--bs);font-size:13px;min-height:100vh;}
 /* 상단 = FVTT 붉은 배너 (CharacterSheet 헤더와 동일 톤) */
-#top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#5e0000 url("data/fvtt-assets/sheet/red_bg.webp") repeat;border-bottom:2px solid var(--gold);}
-#top-bar h1{color:#f3e7cd;font-family:"Eczar",var(--bs);font-size:18px;font-weight:700;letter-spacing:1px;}
+/* 플레이어/로비 헤더(.app-header)와 동일 치수로 통일 */
+#top-bar{display:flex;align-items:center;gap:12px;justify-content:space-between;padding:8px 16px;background:#5e0000 url("data/fvtt-assets/sheet/red_bg.webp") repeat;border-top:1px solid #7a1d1d;border-bottom:2px solid var(--gold);}
+#top-bar h1{color:#ff8c42;font-family:inherit;font-size:13px;font-weight:700;letter-spacing:0;}
 #auth-area{display:flex;align-items:center;gap:8px;font-size:12px;}
 #auth-area .auth-user{color:#f3e7cd;}
 #auth-area button{border:1px solid var(--border2);background:var(--bg3);color:var(--text);padding:5px 14px;border-radius:5px;cursor:pointer;font-size:11px;transition:filter .12s;}

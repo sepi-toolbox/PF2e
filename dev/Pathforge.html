@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=637"></script>
-<script src="feat_db.js?v=637"></script>
-<script src="SPELL_DB.js?v=637"></script>
-<script src="class_features_db.js?v=637"></script>
+<script src="equipment_db.js?v=638"></script>
+<script src="feat_db.js?v=638"></script>
+<script src="SPELL_DB.js?v=638"></script>
+<script src="class_features_db.js?v=638"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -116,7 +116,7 @@ body{
 /* ══════════════════════════════════
    MAIN HEADER (name/class bar)
    ══════════════════════════════════ */
-#header{
+#header, .app-header{
   background:#1a1a1a;
   border-top:1px solid var(--border);
   border-bottom:2px solid var(--accent);
@@ -158,7 +158,8 @@ body{
 #gm-lobby-view.hidden{display:none;}
 #gm-lobby-frame{width:100%;height:100%;border:none;display:block;}
 /* ── 모드 선택 진입 화면 (GM / 플레이어 통합 진입) ── */
-#mode-select{position:fixed;inset:0;z-index:100000;background:var(--bg2);display:flex;align-items:center;justify-content:center;padding:20px;}
+#mode-select{position:fixed;inset:0;z-index:100000;background:var(--bg2);display:flex;flex-direction:column;}
+.mode-select-body{flex:1;display:flex;align-items:center;justify-content:center;padding:20px;min-height:0;}
 #mode-select.hidden{display:none;}
 .mode-select-inner{text-align:center;max-width:760px;width:100%;}
 .mode-select-title{color:var(--accent);font-family:"Eczar",var(--bs,serif);font-size:40px;margin:0 0 6px;letter-spacing:2px;}
@@ -177,10 +178,10 @@ body{
 .mode-card.gm-locked .gm-lock-badge{display:block;}
 @media(max-width:600px){ .mode-cards{flex-direction:column;align-items:center;} .mode-card{width:100%;max-width:none;padding:28px 20px;} .mode-select-title{font-size:32px;} }
 /* ── 헤더 톱니 버튼 + 설정 팝업 (계정/세션/저장슬롯/초기화) ── */
-#hdr-gear{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);width:30px;height:28px;border-radius:5px;cursor:pointer;font-size:16px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:border-color .12s,color .12s,transform .2s;}
-#hdr-gear:hover{border-color:var(--accent);color:var(--accent);}
+#hdr-gear, .hdr-gear-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);width:30px;height:28px;border-radius:5px;cursor:pointer;font-size:16px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:border-color .12s,color .12s,transform .2s;}
+#hdr-gear:hover, .hdr-gear-btn:hover{border-color:var(--accent);color:var(--accent);}
 #hdr-gear.open{transform:rotate(60deg);border-color:var(--accent);color:var(--accent);}
-#gear-menu{position:fixed;top:46px;right:10px;z-index:10050;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.45);width:240px;max-width:calc(100vw - 20px);padding:12px;display:none;flex-direction:column;gap:14px;}
+#gear-menu{position:fixed;top:46px;right:10px;z-index:100001;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.45);width:240px;max-width:calc(100vw - 20px);padding:12px;display:none;flex-direction:column;gap:14px;}
 #gear-menu.open{display:flex;}
 .gear-menu-section{display:flex;flex-direction:column;gap:6px;}
 .gear-menu-label{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);padding-bottom:3px;}
@@ -1564,14 +1565,14 @@ body{
 .box{ background:linear-gradient(180deg,rgba(255,250,238,.55),rgba(231,216,184,.55)),#e7d8b6; border-color:var(--border); box-shadow:inset 0 0 0 1px rgba(255,255,255,.35); }
 .box-title{ color:var(--accent); font-family:"Eczar",var(--bs,serif); letter-spacing:1px; border-bottom-color:var(--border); }
 
-/* 메인 헤더 = FVTT 붉은 배너 */
-#header{
+/* 메인 헤더 = FVTT 붉은 배너 (플레이어·로비 공통 .app-header) */
+#header, .app-header{
   background:#5e0000 url("data/fvtt-assets/sheet/red_bg.webp") repeat !important;
   border-top:1px solid #7a1d1d;
   border-bottom:2px solid var(--gold);
   color:#f3e2c2;
 }
-#header .btn-ghost{ color:#f3e2c2; }
+#header .btn-ghost, .app-header .btn-ghost{ color:#f3e2c2; }
 
 /* 상단 유틸 바(auth/slot/session): 양피지 톤으로 통일 */
 #auth-bar,#slot-bar{ background:#d9c8a2 !important; color:var(--text); border-bottom:1px solid var(--border); }
@@ -1749,6 +1750,15 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 <!-- ═══════════════ 모드 선택 (진입 통합: GM / 플레이어) ═══════════════ -->
 <div id="mode-select">
+  <!-- 메인 로비 헤더 = 플레이어 헤더와 동일 스타일(.app-header 공유) -->
+  <div class="app-header" id="lobby-header">
+    <span style="color:#ff8c42;font-size:13px;font-weight:700;">Pathforge (dev)</span>
+    <div style="flex:1;"></div>
+    <div class="hdr-actions">
+      <button class="hdr-gear-btn" onclick="toggleGearMenu(event)" title="계정 · 세션 · 저장 슬롯 · 초기화" aria-label="설정">⚙</button>
+    </div>
+  </div>
+  <div class="mode-select-body">
   <div class="mode-select-inner">
     <h1 class="mode-select-title">Pathforge <span style="font-size:14px;color:#ff8c42;">(dev)</span></h1>
     <p class="mode-select-sub">모드를 선택하세요</p>
@@ -1766,6 +1776,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
       </button>
     </div>
   </div>
+  </div><!-- /.mode-select-body -->
 </div>
 
 <!-- ═══════════════ GM 로비 (임베드 — GMSheet.html을 전체화면으로) ═══════════════ -->
@@ -1823,7 +1834,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <div class="gear-menu-label">캐릭터</div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v637</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v638</span></div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2321,7 +2332,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=637" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=638" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2398,29 +2409,29 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=637"></script>
-<script src="cs_calc.js?v=637"></script>
+<script src="cs_data.js?v=638"></script>
+<script src="cs_calc.js?v=638"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=637"></script>
-<script src="cs_re_engine.js?v=637"></script>
-<script src="cs_pf2e_stats.js?v=637"></script>
-<script src="cs_pf2e_equip.js?v=637"></script>
-<script src="cs_pf2e_actor.js?v=637"></script>
-<script src="cs_ui.js?v=637"></script>
-<script src="cs_modal.js?v=637"></script>
-<script src="cs_feat_effects.js?v=637"></script>
-<script src="cs_save.js?v=637"></script>
-<script src="cs_session.js?v=637"></script>
-<script src="cs_dice.js?v=637"></script>
-<script src="cs_map.js?v=637"></script>
+<script src="cs_pf2e.js?v=638"></script>
+<script src="cs_re_engine.js?v=638"></script>
+<script src="cs_pf2e_stats.js?v=638"></script>
+<script src="cs_pf2e_equip.js?v=638"></script>
+<script src="cs_pf2e_actor.js?v=638"></script>
+<script src="cs_ui.js?v=638"></script>
+<script src="cs_modal.js?v=638"></script>
+<script src="cs_feat_effects.js?v=638"></script>
+<script src="cs_save.js?v=638"></script>
+<script src="cs_session.js?v=638"></script>
+<script src="cs_dice.js?v=638"></script>
+<script src="cs_map.js?v=638"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=637"></script>
-<script src="cs_i18n.js?v=637"></script>
+<script src="cs_locale.js?v=638"></script>
+<script src="cs_i18n.js?v=638"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=637');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=638');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
