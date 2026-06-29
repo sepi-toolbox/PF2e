@@ -5173,7 +5173,7 @@ let _condActiveOnly = false;    // 상태이상: 적용 중인 것만
 
 function setActionFilter(f, btn) {
   _actionFilter = f;
-  document.querySelectorAll('#action-filter-bar button.af-ico').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#action-filter-bar button.af-eco').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderActions();
 }
@@ -5281,19 +5281,8 @@ function renderActions() {
     return;
   }
 
-  // Filter
-  let visible = ACTION_DB.filter(a => {
-    if (_actionFilter !== 'all') {
-      if (_actionFilter === 'reaction') {
-        if (a.cost !== 'reaction') return false;
-      } else if (_actionFilter === 'feat') {
-        if (a.cat !== 'feat' && a.cat !== 'heritage') return false;
-      } else if (_actionFilter !== a.cat) {
-        return false;
-      }
-    }
-    return true;
-  });
+  // 풀: 전체 행동(ACTION_DB) — 비용 필터는 동적 추가(재주/커스텀)까지 합친 뒤 마지막에 적용
+  let visible = [...ACTION_DB];
 
   // 보유 재주 중 행동인 것 동적 추가 (ACTION_DB에 없는 것만)
   if (typeof FEAT_DB !== 'undefined') {
@@ -5364,6 +5353,12 @@ function renderActions() {
         summary: desc
       });
     });
+  }
+
+  // 행동경제(비용) 필터 — _actionFilter 값('1'|'2'|'3'|'free'|'reaction')이 곧 a.cost
+  // 그 외(1min/10min/passive/varies 등)는 '전체'에서만 노출. 그룹 분류(기본/기술/재주)는 그대로 유지.
+  if (_actionFilter !== 'all') {
+    visible = visible.filter(a => a.cost === _actionFilter);
   }
 
   // Group by cat_label, separate available vs locked
