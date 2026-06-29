@@ -158,6 +158,7 @@ body{background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;colo
 // ═══════════════════════════════════════════════
 //  상태
 // ═══════════════════════════════════════════════
+const PF2E_OWNER_UID = 'D11melTRb6VFObMbKvkP4t3Flgv2';  // GM 도구 소유자(bsg9072@gmail.com). 실제 잠금은 firestore.rules.
 let currentUser = null;
 let mySessions = [];       // [{id, name, joinCode, gmUid, players, createdAt}]
 let selectedSessionId = null;
@@ -191,6 +192,16 @@ auth.onAuthStateChanged(user => {
   if (user) {
     area.innerHTML = '<span style="color:var(--text2);">' + (user.displayName || user.email) + '</span>' +
       '<button class="btn-gray" onclick="auth.signOut()">로그아웃</button>';
+    // GM 도구는 소유자 전용 — 비소유자는 차단(진짜 잠금은 firestore.rules). UX 차원 게이트.
+    if (user.uid !== PF2E_OWNER_UID) {
+      prompt.innerHTML = '<p style="color:#888;">🔒 GM 도구는 소유자 전용입니다.</p>';
+      prompt.style.display = 'flex';
+      main.style.display = 'none';
+      stopListening();
+      mySessions = [];
+      selectedSessionId = null;
+      return;
+    }
     prompt.style.display = 'none';
     main.style.display = '';
     startListening();

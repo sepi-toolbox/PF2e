@@ -2,6 +2,12 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // GM 소유자(bsg9072@gmail.com) — GM은 이 계정만. uid 기준(불변·위조불가).
+    function isOwner() {
+      return request.auth != null
+        && request.auth.uid == 'D11melTRb6VFObMbKvkP4t3Flgv2';
+    }
+
     // ── 개인 캐릭터 (5슬롯) ──
     match /users/{userId}/characters/{slotId} {
       // 본인은 항상 읽기/쓰기 가능
@@ -17,12 +23,15 @@ service cloud.firestore {
     match /sessions/{sessionId} {
       // 누구나 읽기 가능 (참가 코드 검증용)
       allow read: if request.auth != null;
-      // GM만 생성
-      allow create: if request.auth != null;
-      // 로그인 사용자가 수정 가능 (참가/퇴장 — players map 자기 항목만 변경)
-      allow update: if request.auth != null;
-      // GM만 삭제
-      allow delete: if request.auth != null
+      // GM 세션 생성 = 소유자 전용. gmUid도 반드시 소유자 본인.
+      allow create: if isOwner()
+        && request.resource.data.gmUid == request.auth.uid;
+      // 로그인 사용자가 수정 가능 (참가/퇴장 — players map 변경).
+      // 단 gmUid는 불변 — 남이 내 세션을 가로채 GM이 되는 구멍 차단.
+      allow update: if request.auth != null
+        && request.resource.data.gmUid == resource.data.gmUid;
+      // GM(=소유자)만 삭제
+      allow delete: if isOwner()
         && resource.data.gmUid == request.auth.uid;
 
       // ── 주사위 굴림 ──

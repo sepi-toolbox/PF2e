@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=636"></script>
-<script src="feat_db.js?v=636"></script>
-<script src="SPELL_DB.js?v=636"></script>
-<script src="class_features_db.js?v=636"></script>
+<script src="equipment_db.js?v=637"></script>
+<script src="feat_db.js?v=637"></script>
+<script src="SPELL_DB.js?v=637"></script>
+<script src="class_features_db.js?v=637"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -169,6 +169,12 @@ body{
 .mode-card-icon{font-size:56px;line-height:1;}
 .mode-card-title{font-size:22px;font-weight:700;color:var(--accent);font-family:"Eczar",var(--bs,serif);}
 .mode-card-desc{font-size:13px;color:var(--text2);line-height:1.7;}
+/* GM 카드 잠금(소유자 전용) — 숨기지 않고 비활성 외형 유지 */
+.mode-card{position:relative;}
+.mode-card.gm-locked{opacity:.55;filter:grayscale(.5);cursor:not-allowed;}
+.mode-card.gm-locked:hover{transform:none;border-color:var(--border2);box-shadow:none;}
+.gm-lock-badge{display:none;position:absolute;top:10px;right:10px;font-size:11px;font-weight:700;color:var(--text2);background:rgba(0,0,0,.35);border:1px solid var(--border2);border-radius:20px;padding:3px 9px;}
+.mode-card.gm-locked .gm-lock-badge{display:block;}
 @media(max-width:600px){ .mode-cards{flex-direction:column;align-items:center;} .mode-card{width:100%;max-width:none;padding:28px 20px;} .mode-select-title{font-size:32px;} }
 /* ── 헤더 톱니 버튼 + 설정 팝업 (계정/세션/저장슬롯/초기화) ── */
 #hdr-gear{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);width:30px;height:28px;border-radius:5px;cursor:pointer;font-size:16px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:border-color .12s,color .12s,transform .2s;}
@@ -1747,7 +1753,8 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <h1 class="mode-select-title">Pathforge <span style="font-size:14px;color:#ff8c42;">(dev)</span></h1>
     <p class="mode-select-sub">모드를 선택하세요</p>
     <div class="mode-cards">
-      <button class="mode-card" onclick="selectMode('gm')">
+      <button class="mode-card gm-locked" id="gm-mode-card" onclick="selectMode('gm')">
+        <div class="gm-lock-badge">🔒 소유자 전용</div>
         <div class="mode-card-icon">🎭</div>
         <div class="mode-card-title">GM 모드</div>
         <div class="mode-card-desc">세션을 만들고<br>플레이어 시트를 관리합니다</div>
@@ -1816,7 +1823,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <div class="gear-menu-label">캐릭터</div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v636</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v637</span></div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2314,7 +2321,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=636" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=637" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2391,29 +2398,29 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=636"></script>
-<script src="cs_calc.js?v=636"></script>
+<script src="cs_data.js?v=637"></script>
+<script src="cs_calc.js?v=637"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=636"></script>
-<script src="cs_re_engine.js?v=636"></script>
-<script src="cs_pf2e_stats.js?v=636"></script>
-<script src="cs_pf2e_equip.js?v=636"></script>
-<script src="cs_pf2e_actor.js?v=636"></script>
-<script src="cs_ui.js?v=636"></script>
-<script src="cs_modal.js?v=636"></script>
-<script src="cs_feat_effects.js?v=636"></script>
-<script src="cs_save.js?v=636"></script>
-<script src="cs_session.js?v=636"></script>
-<script src="cs_dice.js?v=636"></script>
-<script src="cs_map.js?v=636"></script>
+<script src="cs_pf2e.js?v=637"></script>
+<script src="cs_re_engine.js?v=637"></script>
+<script src="cs_pf2e_stats.js?v=637"></script>
+<script src="cs_pf2e_equip.js?v=637"></script>
+<script src="cs_pf2e_actor.js?v=637"></script>
+<script src="cs_ui.js?v=637"></script>
+<script src="cs_modal.js?v=637"></script>
+<script src="cs_feat_effects.js?v=637"></script>
+<script src="cs_save.js?v=637"></script>
+<script src="cs_session.js?v=637"></script>
+<script src="cs_dice.js?v=637"></script>
+<script src="cs_map.js?v=637"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=636"></script>
-<script src="cs_i18n.js?v=636"></script>
+<script src="cs_locale.js?v=637"></script>
+<script src="cs_i18n.js?v=637"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=636');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=637');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2448,6 +2455,16 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 let currentUser = null;
 let currentSlot = localStorage.getItem('pf2e_lastSlot') || 'slot1';
 
+// GM 모드는 소유자(bsg9072@gmail.com) 전용 — 실제 잠금은 firestore.rules(세션 create=이 uid),
+// 여기 게이트는 UX(클라이언트는 우회 가능하므로 보안 경계 아님).
+const PF2E_OWNER_UID = 'D11melTRb6VFObMbKvkP4t3Flgv2';
+function isOwnerUser() { return !!currentUser && currentUser.uid === PF2E_OWNER_UID; }
+function updateGmCardVisibility() {
+  // 숨기지 않고 잠금 토글(레이아웃 유지). 소유자 로그인 시에만 잠금 해제.
+  var card = document.getElementById('gm-mode-card');
+  if (card) card.classList.toggle('gm-locked', !isOwnerUser());
+}
+
 // ── 설정/계정 톱니 팝업 ──
 function toggleGearMenu(ev) {
   if (ev) ev.stopPropagation();
@@ -2479,6 +2496,9 @@ var _defaultBrand = (document.getElementById('hdr-brand') || {}).textContent || 
 function selectMode(mode) {
   var ms = document.getElementById('mode-select');
   if (mode === 'gm') {
+    // 소유자 전용 게이트 (UX 차원 — 진짜 잠금은 firestore.rules). 콘솔로 우회해도 규칙이 세션 생성 차단.
+    if (!currentUser) { alert('GM 모드는 소유자 전용입니다. 먼저 소유자 계정으로 로그인하세요.'); return; }
+    if (!isOwnerUser()) { alert('GM 모드는 소유자 전용입니다.'); return; }
     // GM 로비를 같은 페이지에 임베드(전체화면 iframe) — 별도 링크 없이 통합
     var lv = document.getElementById('gm-lobby-view');
     var fr = document.getElementById('gm-lobby-frame');
@@ -2543,6 +2563,7 @@ function updateAuthUI(user) {
   const slotBar = document.getElementById('slot-bar');
   if (user) {
     currentUser = user;
+    updateGmCardVisibility();   // 소유자면 모드선택에 GM 카드 노출
     // GM 세션 모드 감지 (?gmsession=ID)
     var gmSessionId = new URLSearchParams(window.location.search).get('gmsession');
     if (gmSessionId && typeof enterGMSessionMode === 'function') {
@@ -2570,6 +2591,7 @@ function updateAuthUI(user) {
     }
   } else {
     currentUser = null;
+    updateGmCardVisibility();   // 로그아웃/비로그인 시 GM 카드 숨김
     area.innerHTML = '<button class="btn btn-google" onclick="googleLogin()">Google 로그인</button>';
     slotBar.style.display = 'none';
     if (typeof closeSessionModal === 'function') closeSessionModal();
