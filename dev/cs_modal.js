@@ -2225,7 +2225,8 @@ function openMemorizeModal() {
   if (searchEl) searchEl.style.display = 'none';
   const fbar = document.getElementById('modal-filterbar');
   if (fbar) fbar.innerHTML = '';
-  const confirmBtn = document.querySelector('.btn-confirm');
+  // 모달 푸터의 확인 버튼으로 스코프 (기어 메뉴의 .btn-confirm을 잘못 잡던 버그 수정)
+  const confirmBtn = document.querySelector('.modal-footer .btn-confirm');
   if (confirmBtn) { confirmBtn.style.display = ''; confirmBtn.textContent = '준비 완료'; }
 
   _memorizeActiveSlot = null;
@@ -3201,7 +3202,7 @@ function selectOption(item, row) {
     let detailHtml = '';
     if (modalType === 'equip-browse' || modalType === 'formula-pick') {
       const i = item;
-      const p = i.price && i.price !== '—' ? `<div><strong>가격:</strong> ${i.price}</div>` : '';
+      const p = i.price && i.price !== '—' ? `<div style="display:flex;align-items:center;gap:4px;"><strong>가격:</strong> ${typeof priceWithIcons==='function'?priceWithIcons(i.price,16):i.price}</div>` : '';
       const b = `<div><strong>부피:</strong> ${i.bulk==='L'?'L':i.bulk==='—'?'—':i.bulk}</div>`;
       const d = i.damage ? `<div><strong>피해:</strong> ${i.damage}</div>` : '';
       const ac = i.ac_bonus!==undefined ? `<div><strong>AC:</strong> +${i.ac_bonus}</div>` : '';
@@ -3248,7 +3249,7 @@ function selectOption(item, row) {
         }
       }
       else if (item.rank !== undefined) tags = `<span class="tag-meta">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span>`;
-      else if (item.damage) tags = `<span class="tag-meta">${item.damage}</span> <span class="tag-meta">가격: ${item.price||'-'}</span>`;
+      else if (item.damage) tags = `<span class="tag-meta">${item.damage}</span> <span class="tag-meta">가격: ${item.price?(typeof priceWithIcons==='function'?priceWithIcons(item.price):item.price):'-'}</span>`;
       else if (item.ac_bonus !== undefined) tags = `<span class="tag-meta">AC+${item.ac_bonus}</span>`;
       const mSpellNotes = (item.rank !== undefined && typeof getSpellFeatNotes === 'function') ? getSpellFeatNotes(item.name||item.name_ko||'') : '';
       detailHtml = `${tags?'<div style="margin-bottom:6px;">'+tags+'</div>':''}
@@ -3440,14 +3441,14 @@ function showItemDetail(item) {
     desc = spellMeta + desc;
   } else if (item.damage !== undefined) {
     const wpTraits = (item.traits||[]).map(t=>traitTag(t)).join('');
-    tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${item.damage||''}</span> <span class="tag-meta">${item.category||''}</span> <span class="tag-meta">가격: ${item.price||'-'}</span></div>${wpTraits?'<div style="margin-bottom:6px;">'+wpTraits+'</div>':''}`;
+    tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${item.damage||''}</span> <span class="tag-meta">${item.category||''}</span> <span class="tag-meta">가격: ${item.price?(typeof priceWithIcons==='function'?priceWithIcons(item.price):item.price):'-'}</span></div>${wpTraits?'<div style="margin-bottom:6px;">'+wpTraits+'</div>':''}`;
   } else if (item.ac_bonus !== undefined) {
     tags = `<div style="margin-bottom:4px;"><span class="tag-meta">AC+${item.ac_bonus}</span> <span class="tag-meta">${item.category||''}</span>
             ${item.dex_cap!==null&&item.dex_cap!==undefined?`<span class="tag-meta">DEX상한: ${item.dex_cap}</span>`:''}
             ${item.hardness!==undefined?`<span class="tag-meta">경도: ${item.hardness}</span>`:''}
             ${item.hp!==undefined&&item.bt!==undefined?`<span class="tag-meta">HP: ${item.hp} (BT: ${item.bt})</span>`:''}
             ${item.speed_penalty?`<span class="tag-meta" style="color:var(--red-light);">속도: ${item.speed_penalty}</span>`:''}
-            <span class="tag-meta">가격: ${item.price||'-'}</span></div>`;
+            <span class="tag-meta">가격: ${item.price?(typeof priceWithIcons==='function'?priceWithIcons(item.price):item.price):'-'}</span></div>`;
   } else if (item.hp !== undefined && item.key_attrs !== undefined) {
     const keyKo = (item.key_attrs || []).map(k => ATTR_KO[k]).join(' 또는 ');
     tags = `<span class="tag-meta">HP ${item.hp}+CON</span> <span class="tag-meta">${keyKo}</span>

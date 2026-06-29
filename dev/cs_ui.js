@@ -38,6 +38,29 @@ function _iconImgField(item) {
   return item.img || (item._data && item._data.img) || (item._dbData && item._dbData.img) || null;
 }
 
+// ── 재화(통화) FVTT 아이콘 (PF2e treasure/currency 동전 더미) ──
+const CURRENCY_ICON_REL = {
+  pp: 'systems/pf2e/icons/equipment/treasure/currency/platinum-pieces.webp',
+  gp: 'systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp',
+  sp: 'systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp',
+  cp: 'systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp',
+};
+const CURRENCY_LABELS = { pp: '백금', gp: '금화', sp: '은화', cp: '동화' };
+// 단일 동전 아이콘 <img> (px=크기). code: pp|gp|sp|cp
+function coinIcon(code, px) {
+  const rel = CURRENCY_ICON_REL[(code || '').toLowerCase()];
+  if (!rel) return '';
+  const s = px || 16;
+  const c = (code || '').toLowerCase();
+  return `<img class="coin-ic" src="data/icons/${rel}" alt="${c}" title="${CURRENCY_LABELS[c] || ''} ${c.toUpperCase()}" style="width:${s}px;height:${s}px;" loading="lazy">`;
+}
+// 가격 문자열("10gp","1,060gp","5sp")의 단위를 동전 아이콘으로 치환
+function priceWithIcons(priceStr, px) {
+  if (!priceStr || typeof priceStr !== 'string') return priceStr || '';
+  return priceStr.replace(/([\d,]+)\s*(pp|gp|sp|cp)\b/gi, (m, num, den) =>
+    `${num} ${coinIcon(den, px || 15)}`);
+}
+
 // 빌더 슬롯 원형 아이콘: 선택된 아이템 이미지를 원에 채움(없으면 이모지 폴백)
 function iconCircle(scope, item, fallback) {
   const rel = _iconRel(scope, item) || _iconImgField(item);

@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=625"></script>
-<script src="feat_db.js?v=625"></script>
-<script src="SPELL_DB.js?v=625"></script>
-<script src="class_features_db.js?v=625"></script>
+<script src="equipment_db.js?v=626"></script>
+<script src="feat_db.js?v=626"></script>
+<script src="SPELL_DB.js?v=626"></script>
+<script src="class_features_db.js?v=626"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -875,7 +875,9 @@ body.map-open{overflow:hidden;}
   flex:1;border:1px solid var(--border2);border-radius:6px;
   padding:6px 4px;text-align:center;background:var(--bg3);
 }
-.currency-label{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;}
+.currency-label{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;display:flex;align-items:center;justify-content:center;gap:3px;font-weight:600;}
+/* 재화 동전 아이콘 (FVTT treasure/currency) — 프레임 없는 인라인 아이콘 */
+.coin-ic{display:inline-block;vertical-align:middle;object-fit:contain;}
 .currency-input{
   background:transparent;border:none;color:var(--text);font-size:18px;
   font-weight:700;width:100%;text-align:center;outline:none;
@@ -1065,6 +1067,9 @@ body.map-open{overflow:hidden;}
   /* 주문 기억 모달은 2단(슬롯/주문선택) 구조 — 모바일에선 상세 패널에 주문 목록이 들어가므로 숨기면 안 됨.
      슬롯 아래로 쌓여서 표시. (기본 .modal-detail display:none 예외) */
   .modal-body.mem-modal .modal-detail{display:block !important;background:var(--bg2);border-top:2px solid var(--border);}
+  /* 주문 기억은 즉시 적용형 → 모바일에선 확정(준비 완료) 버튼만 노출, 취소(닫기)는 헤더 ✕로 충분하므로 숨김 */
+  .modal-body.mem-modal ~ .modal-footer .btn-confirm{ display:block !important; width:100%; padding:12px; font-size:14px; }
+  .modal-body.mem-modal ~ .modal-footer .btn-cancel{ display:none !important; }
   /* 아코디언 상세 */
   .opt-row-detail{display:none;padding:10px 12px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:12px;line-height:1.6;}
   .opt-row-detail.open{display:block;}
@@ -1726,7 +1731,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <div class="gear-menu-label">캐릭터</div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v625</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;">Pathforge (dev) · <span>v626</span></div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2128,10 +2133,10 @@ input::placeholder{ color:rgba(80,66,44,.55); }
       <!-- 화폐 상단 -->
       <div class="box" style="padding:8px 12px;">
         <div style="display:flex;gap:6px;justify-content:center;align-items:stretch;">
-          <div class="currency-card"><div class="currency-label">백금 PP</div><input id="cur-pp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input"></div>
-          <div class="currency-card" style="border-color:#f5c518;"><div class="currency-label" style="color:#f5c518;">금화 GP</div><input id="cur-gp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input" style="color:#f5c518;"></div>
-          <div class="currency-card"><div class="currency-label">은화 SP</div><input id="cur-sp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input"></div>
-          <div class="currency-card"><div class="currency-label" style="color:#cd7f32;">동화 CP</div><input id="cur-cp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input" style="color:#cd7f32;"></div>
+          <div class="currency-card"><div class="currency-label"><img class="coin-ic" src="data/icons/systems/pf2e/icons/equipment/treasure/currency/platinum-pieces.webp" alt="PP" title="백금 PP" style="width:20px;height:20px;">PP</div><input id="cur-pp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input"></div>
+          <div class="currency-card" style="border-color:#f5c518;"><div class="currency-label" style="color:#f5c518;"><img class="coin-ic" src="data/icons/systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp" alt="GP" title="금화 GP" style="width:20px;height:20px;">GP</div><input id="cur-gp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input" style="color:#f5c518;"></div>
+          <div class="currency-card"><div class="currency-label"><img class="coin-ic" src="data/icons/systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp" alt="SP" title="은화 SP" style="width:20px;height:20px;">SP</div><input id="cur-sp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input"></div>
+          <div class="currency-card"><div class="currency-label" style="color:#cd7f32;"><img class="coin-ic" src="data/icons/systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp" alt="CP" title="동화 CP" style="width:20px;height:20px;">CP</div><input id="cur-cp" type="number" value="0" min="0" oninput="recalcBulk();save()" class="currency-input" style="color:#cd7f32;"></div>
         </div>
       </div>
       <!-- 부피 -->
@@ -2302,29 +2307,29 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=625"></script>
-<script src="cs_calc.js?v=625"></script>
+<script src="cs_data.js?v=626"></script>
+<script src="cs_calc.js?v=626"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=625"></script>
-<script src="cs_re_engine.js?v=625"></script>
-<script src="cs_pf2e_stats.js?v=625"></script>
-<script src="cs_pf2e_equip.js?v=625"></script>
-<script src="cs_pf2e_actor.js?v=625"></script>
-<script src="cs_ui.js?v=625"></script>
-<script src="cs_modal.js?v=625"></script>
-<script src="cs_feat_effects.js?v=625"></script>
-<script src="cs_save.js?v=625"></script>
-<script src="cs_session.js?v=625"></script>
-<script src="cs_dice.js?v=625"></script>
-<script src="cs_map.js?v=625"></script>
+<script src="cs_pf2e.js?v=626"></script>
+<script src="cs_re_engine.js?v=626"></script>
+<script src="cs_pf2e_stats.js?v=626"></script>
+<script src="cs_pf2e_equip.js?v=626"></script>
+<script src="cs_pf2e_actor.js?v=626"></script>
+<script src="cs_ui.js?v=626"></script>
+<script src="cs_modal.js?v=626"></script>
+<script src="cs_feat_effects.js?v=626"></script>
+<script src="cs_save.js?v=626"></script>
+<script src="cs_session.js?v=626"></script>
+<script src="cs_dice.js?v=626"></script>
+<script src="cs_map.js?v=626"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=625"></script>
-<script src="cs_i18n.js?v=625"></script>
+<script src="cs_locale.js?v=626"></script>
+<script src="cs_i18n.js?v=626"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=625');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=626');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
