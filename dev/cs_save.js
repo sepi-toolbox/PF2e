@@ -83,6 +83,7 @@ function autoSaveNow() {
     if (res.skipped === 'stale') { if (st) { st.textContent = '다른 기기 변경 감지 — 동기화 중'; st.style.color = '#f5c518'; } return; }
     if (res.skipped === 'destructive') { console.warn('[autoSave] 파괴적 저장 차단', res); if (st) { st.textContent = '⚠ 빈 데이터 저장 차단됨'; st.style.color = '#e74c3c'; } return; }
     _lastSavedJson = json; _lastWrittenJson = json;
+    if (typeof _refreshCurrentSlotMeta === 'function') _refreshCurrentSlotMeta(data);  // 슬롯 표시(이름·시간) 즉시 갱신
     if (st) { st.textContent = '저장완료'; st.style.color = '#27ae60'; }
   }).catch((e) => {
     if (st) { st.textContent = '저장 실패'; st.style.color = '#e74c3c'; }
