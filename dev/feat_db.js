@@ -15843,7 +15843,7 @@ var FEAT_DB = [
     "source": "rogue",
     "prereq_group_id": "",
     "traits": [],
-    "desc": "로그의 접근법과 기술 분야를 결정하는 라켓을 선택합니다.<br><strong>두뇌파:</strong> 지식회상 성공 시 대상이 무방비.<br><strong>건달:</strong> 모든 무기로 은밀 공격 가능(d8 이하).<br><strong>사기꾼:</strong> 기만(Feint) 성공 시 대상이 무방비.<br><strong>도적:</strong> 도적질에 숙련, 위협과 외교에 숙련."
+    "desc": "로그의 접근법과 기술 분야를 결정하는 라켓을 선택합니다.<br><strong>두뇌파:</strong> 사회에 숙련; 지식회상 성공 시 대상이 무방비.<br><strong>건달:</strong> 위협에 숙련; 단순 무기로도 은밀 공격(d8 이하), 중갑 착용 가능.<br><strong>사기꾼:</strong> 기만·외교에 숙련; 기만(Feint) 성공 시 대상이 무방비.<br><strong>도적:</strong> 도적질에 숙련; 기교 근접 무기 피해에 민첩 수정치 추가.<br><strong>비전 트릭스터:</strong> 주문시전 멀티클래스 필요; 주문·주문 명중으로 은밀 공격을 유발."
   },
   {
     "id": "deny-advantage-rogue",

@@ -644,50 +644,6 @@ const SUBCLASS_DB = [
     "prof_changes": {}
   },
   {
-    "id": "racket-acrobat",
-    "class_id": "rogue",
-    "subclass_type": "전문",
-    "name_ko": "곡예사",
-    "name_en": "Acrobat",
-    "desc": "서커스나 거리에서 곡예사로 공연하여 급료를 벌었습니다. 돈이 마르거나 기술을 더 나은 용도로 쓰기로 했을 때 모험가가 되었을 수 있습니다.",
-    "granted_skills": [
-      "acrobatics"
-    ],
-    "granted_feats": [],
-    "granted_spells": [],
-    "features": [
-      {
-        "lv": 1,
-        "name_ko": "곡예→스닉 어택 기회",
-        "name_en": "Acrobat",
-        "desc": "곡예사 라켓: 곡예(Tumble Through) 성공 시 대상이 턴 끝까지 무방비 상태가 됩니다. 곡예에 훈련됩니다."
-      }
-    ],
-    "prof_changes": {}
-  },
-  {
-    "id": "racket-assassin",
-    "class_id": "rogue",
-    "subclass_type": "전문",
-    "name_ko": "암살자",
-    "name_en": "Assassin",
-    "desc": "불의의 기습에 특화된 치명적 살수입니다.<br>첫 라운드 은밀 공격 추가 +2d6. 독 제조/사용에 특화.",
-    "granted_skills": [
-      "stealth"
-    ],
-    "granted_feats": [],
-    "granted_spells": [],
-    "features": [
-      {
-        "lv": 1,
-        "name_ko": "기습 라운드 +2d6",
-        "name_en": "Assassin",
-        "desc": "암살자 라켓: 첫 라운드에 행동하지 않은 적에게 은밀 공격 시 추가 피해 주사위를 1d6 더 굴립니다. 은신과 기만에 훈련됩니다."
-      }
-    ],
-    "prof_changes": {}
-  },
-  {
     "id": "racket-eldritch-trickster",
     "class_id": "rogue",
     "subclass_type": "전문",
