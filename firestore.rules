@@ -8,6 +8,13 @@ service cloud.firestore {
         && request.auth.uid == 'D11melTRb6VFObMbKvkP4t3Flgv2';
     }
 
+    // ── 버그 제보 (로그인 사용자 생성 / 소유자만 열람·관리) ──
+    match /bug_reports/{reportId} {
+      allow create: if request.auth != null
+        && request.resource.data.uid == request.auth.uid;
+      allow read, update, delete: if isOwner();
+    }
+
     // ════════════════════════ 운영(prod) ════════════════════════
 
     // ── 개인 캐릭터 (5슬롯) ──
