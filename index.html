@@ -44,10 +44,10 @@ window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters'
                   sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
 window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
-<script src="equipment_db.js?v=0.1"></script>
-<script src="feat_db.js?v=0.1"></script>
-<script src="SPELL_DB.js?v=0.1"></script>
-<script src="class_features_db.js?v=0.1"></script>
+<script src="equipment_db.js?v=0.12"></script>
+<script src="feat_db.js?v=0.12"></script>
+<script src="SPELL_DB.js?v=0.12"></script>
+<script src="class_features_db.js?v=0.12"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -68,6 +68,7 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
   console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
 }
 </script>
+<link rel="stylesheet" href="app-shell.css?v=0.12">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -120,7 +121,7 @@ body{
   font-size:12px;
 }
 #save-status{color:var(--text2);font-size:11px;}
-#auth-area{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+/* #auth-area · .auth-user · .btn-google → app-shell.css(공유) */
 #slot-bar{
   background:#141414;
   padding:4px 16px 6px;
@@ -128,16 +129,7 @@ body{
   display:flex;align-items:center;gap:6px;flex-wrap:wrap;
 }
 
-/* ══════════════════════════════════
-   MAIN HEADER (name/class bar)
-   ══════════════════════════════════ */
-#header, .app-header{
-  background:#1a1a1a;
-  border-top:1px solid var(--border);
-  border-bottom:2px solid var(--accent);
-  padding:8px 16px;
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-}
+/* MAIN HEADER (#header, .app-header) → app-shell.css(공유) */
 .btn-select{
   background:transparent;border:1px solid var(--border2);color:var(--text2);
   padding:3px 8px;border-radius:4px;font-size:11px;cursor:pointer;
@@ -150,7 +142,7 @@ body{
   border-radius:3px;padding:2px 8px;font-size:10px;color:var(--text2);cursor:pointer;margin-top:2px;
 }
 .heritage-chip.filled{border-color:var(--accent);color:var(--accent);}
-.hdr-actions{display:flex;gap:6px;margin-left:auto;flex-shrink:0;align-items:center;}
+/* .hdr-actions → app-shell.css(공유) */
 .btn{padding:5px 12px;border-radius:4px;cursor:pointer;font-size:11px;border:1px solid;line-height:1.2;transition:background .12s,border-color .12s,color .12s;display:inline-flex;align-items:center;gap:5px;}
 .btn-confirm{background:var(--accent-bg);border-color:var(--accent);color:var(--accent);}
 .btn-confirm:hover{background:#3a2200;}
@@ -162,15 +154,11 @@ body{
 /* ── 공통 시맨틱 버튼 (상단 바·헤더 액션) ── */
 .btn-accent{background:var(--accent-bg);border-color:var(--accent);color:var(--accent);}
 .btn-accent:hover{background:#3a2200;}
-.btn-ghost{background:var(--bg3);border-color:var(--border2);color:var(--text2);}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+/* .btn-ghost → app-shell.css(공유) */
 .btn-danger{background:var(--red-bg);border-color:var(--red);color:var(--red-light);}
 .btn-danger:hover{background:#3a1410;border-color:var(--red-light);}
 .btn-green{background:var(--teal);border-color:var(--green);color:#8fce8f;}
 .btn-green:hover{background:#1f2e1f;border-color:#5fa85f;color:#aee0ae;}
-.btn-google{background:#fff;border-color:#dadce0;color:#3c4043;font-weight:700;}
-.btn-google:hover{background:#f1f3f4;}
-.auth-user{color:var(--text2);font-size:11px;margin-right:2px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 /* ── GM 로비 임베드(전체화면 iframe) ── */
 #gm-lobby-view{position:fixed;inset:0;z-index:99990;background:var(--bg);}
 #gm-lobby-view.hidden{display:none;}
@@ -199,16 +187,10 @@ body{
 .gm-lock-badge{display:none;position:absolute;top:10px;right:10px;font-size:11px;font-weight:700;color:var(--text2);background:rgba(0,0,0,.35);border:1px solid var(--border2);border-radius:20px;padding:3px 9px;}
 .mode-card.gm-locked .gm-lock-badge{display:block;}
 @media(max-width:600px){ .mode-cards{flex-direction:column;align-items:center;} .mode-card{width:100%;max-width:none;padding:28px 20px;} .mode-select-title{font-size:32px;} }
-/* ── 헤더 톱니 버튼 + 설정 팝업 (계정/세션/저장슬롯/초기화) ── */
-#hdr-gear, .hdr-gear-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);width:30px;height:28px;border-radius:5px;cursor:pointer;font-size:16px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:border-color .12s,color .12s,transform .2s;}
-#hdr-gear:hover, .hdr-gear-btn:hover{border-color:var(--accent);color:var(--accent);}
-#hdr-gear.open{transform:rotate(60deg);border-color:var(--accent);color:var(--accent);}
-#gear-menu{position:fixed;top:46px;right:10px;z-index:100001;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.45);width:240px;max-width:calc(100vw - 20px);max-height:calc(100vh - 56px);overflow-y:auto;padding:12px;display:none;flex-direction:column;gap:7px;}
-#gear-menu.open{display:flex;}
+/* ── 헤더 톱니(⚙) 버튼 + 기어 팝업(#hdr-gear/.hdr-gear-btn, #gear-menu) → app-shell.css(공유) ── */
 .gear-menu-section{display:flex;flex-direction:column;gap:6px;}
 .gear-menu-label{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);padding-bottom:3px;}
-/* 섹터 헤더(범용 / 플레이어 시트) — 유일한 레이블 */
-.gear-sec-head{font-size:11px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid var(--border2);padding-bottom:5px;margin-bottom:1px;}
+/* .gear-sec-head → app-shell.css(공유) */
 #gear-sec-player{display:flex;flex-direction:column;gap:7px;margin-top:4px;}
 #gear-sec-player .gear-sec-head{margin-top:2px;}
 /* 박스로 묶는 컨트롤 그룹(주사위 색상 등) */
@@ -227,10 +209,7 @@ body{
 .slot-dd-cur{margin-left:auto;font-size:10px;color:var(--accent);font-weight:700;flex-shrink:0;}
 .slot-dd-arrow{margin-left:auto;color:var(--text2);font-size:14px;flex-shrink:0;}
 .slot-dd-meta{font-size:10px;color:var(--text2);padding-left:44px;line-height:1.4;}
-/* 팝업 안 모든 동작 버튼 = 전체폭 세로 스택 (한 줄 늘어짐 방지) */
-#gear-menu .btn{width:100%;justify-content:center;margin:0;}
-#gear-menu #auth-area{display:flex;flex-direction:column;align-items:stretch;gap:6px;}
-#gear-menu .auth-user{max-width:none;margin:0 0 2px;text-align:center;font-size:12px;color:var(--text);}
+/* #gear-menu .btn · #gear-menu #auth-area · #gear-menu .auth-user → app-shell.css(공유) */
 #gear-menu #slot-bar{background:transparent !important;padding:0 !important;display:flex;flex-direction:column;align-items:stretch;gap:6px;}
 /* ═══ 업데이트 로그 모달 ═══ */
 #changelog-modal{position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;}
@@ -240,7 +219,7 @@ body{
 .cl-title{font-weight:800;font-size:15px;color:var(--accent);}
 .cl-close{background:transparent;border:none;color:var(--text2);font-size:18px;cursor:pointer;line-height:1;padding:2px 4px;}
 .cl-close:hover{color:var(--accent);}
-.cl-content{padding:14px 16px;overflow-y:auto;}
+.cl-content{padding:14px 16px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1 1 auto;min-height:0;overscroll-behavior:contain;}
 .cl-info{text-align:center;font-size:12px;color:var(--text2);line-height:1.8;padding-bottom:12px;margin-bottom:10px;border-bottom:1px dashed var(--border);}
 .cl-info-row a{color:var(--text2);text-decoration:underline;}
 .cl-info-row a:hover{color:var(--accent);}
@@ -253,9 +232,7 @@ body{
 .cl-date{font-size:10px;color:#888;}
 .cl-items{margin:0;padding-left:18px;font-size:12.5px;color:var(--text);line-height:1.6;}
 .cl-items li{margin:1px 0;}
-.gear-update-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#e03131;margin-left:5px;vertical-align:middle;}
-#hdr-gear.has-update, .hdr-gear-btn.has-update{position:relative;}
-#hdr-gear.has-update::after, .hdr-gear-btn.has-update::after{content:'';position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:#e03131;border:1px solid var(--bg2);}
+/* .gear-update-dot · 톱니 has-update 레드닷 → app-shell.css(공유) */
 /* ── 방어 능력 박스 헤더의 아이콘 버튼 (휴식/상태이상) ── */
 .def-icon-btn{background:var(--bg4);border:1px solid var(--border2);color:var(--text2);width:26px;height:24px;border-radius:5px;cursor:pointer;font-size:13px;line-height:1;display:inline-flex;align-items:center;justify-content:center;margin-left:4px;transition:border-color .12s,color .12s;}
 .def-icon-btn:hover{border-color:var(--accent);color:var(--accent);}
@@ -1631,14 +1608,7 @@ body{
 .box{ background:linear-gradient(180deg,rgba(255,250,238,.55),rgba(231,216,184,.55)),#e7d8b6; border-color:var(--border); box-shadow:inset 0 0 0 1px rgba(255,255,255,.35); }
 .box-title{ color:var(--accent); font-family:"Eczar",var(--bs,serif); letter-spacing:1px; border-bottom-color:var(--border); }
 
-/* 메인 헤더 = FVTT 붉은 배너 (플레이어·로비 공통 .app-header) */
-#header, .app-header{
-  background:#5e0000 url("data/fvtt-assets/sheet/red_bg.webp") repeat !important;
-  border-top:1px solid #7a1d1d;
-  border-bottom:2px solid var(--gold);
-  color:#f3e2c2;
-}
-#header .btn-ghost, .app-header .btn-ghost{ color:#f3e2c2; }
+/* 메인 헤더 붉은 배너(#header/.app-header) → app-shell.css(공유) */
 
 /* 상단 유틸 바(auth/slot/session): 양피지 톤으로 통일 */
 #auth-bar,#slot-bar{ background:#d9c8a2 !important; color:var(--text); border-bottom:1px solid var(--border); }
@@ -1736,6 +1706,23 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 .spell-inline-detail .spell-actions{ color:var(--accent); }
 @keyframes spellAccIn{ from{ opacity:0; } to{ opacity:1; } }
 
+/* ── 클래스 모달: 클래스/서브클래스 특성 = 표준 아코디언 박스 + 아이콘 (.cfb-*) ── */
+.cfb-card{ border:1px solid var(--border); border-radius:6px; margin-bottom:6px; background:var(--bg2); overflow:hidden; }
+.cfb-head{ display:flex; align-items:center; gap:8px; padding:7px 10px; }
+.cfb-head.cfb-clickable{ cursor:pointer; }
+.cfb-head.cfb-clickable:hover{ background:var(--bg3); }
+.cfb-icon{ flex:0 0 auto; display:inline-flex; align-items:center; }
+.cfb-icon .item-icon,.cfb-icon img.cfb-ic{ width:30px; height:30px; }
+.cfb-emoji{ width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center; font-size:15px; }
+.cfb-name{ flex:1; font-size:12px; font-weight:600; color:var(--text); line-height:1.35; }
+.cfb-en{ font-weight:400; color:var(--text2); font-size:10px; }
+.cfb-subtag{ flex:0 0 auto; font-size:9px; color:var(--accent); background:var(--bg3); padding:1px 5px; border-radius:3px; }
+.cfb-chev{ flex:0 0 auto; color:var(--text2); font-size:11px; transition:transform .15s ease; }
+.cfb-head-open .cfb-chev{ transform:rotate(180deg); }
+.cfb-body{ display:none; padding:8px 10px 10px; border-top:1px solid var(--border); font-size:11px; color:var(--text2); line-height:1.6; animation:spellAccIn .12s ease; }
+.cfb-body.cfb-open{ display:block; }
+.cfb-desc{ font-size:11px; color:var(--text2); line-height:1.6; }
+
 /* ── 장비 탭: 카테고리=가벼운 섹션(헤더 라벨) + 아이템=FVTT식 컴팩트 카드 ── */
 .equip-cat-section{ margin:10px 0 0; }
 .equip-cat-header{ position:relative; display:flex; align-items:center; gap:6px; padding:6px 4px; font-size:13px; font-weight:700; color:var(--accent); border-bottom:1px solid var(--border); margin-bottom:4px; }
@@ -1818,7 +1805,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 <div id="mode-select">
   <!-- 메인 로비 헤더 = 플레이어 헤더와 동일 스타일(.app-header 공유) -->
   <div class="app-header" id="lobby-header">
-    <span style="color:var(--gold-light);font-size:13px;font-weight:700;">Pathforge</span>
+    <span class="app-brand">Pathforge</span>
     <div style="flex:1;"></div>
     <div class="hdr-actions">
       <button class="hdr-gear-btn" onclick="toggleGearMenu(event)" title="계정 · 세션 · 저장 슬롯 · 초기화" aria-label="설정">⚙</button>
@@ -1856,7 +1843,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 <!-- ═══════════════ CHARACTER HEADER (단일 통합 바) ═══════════════ -->
 <div id="header">
-  <span id="hdr-brand" style="color:var(--gold-light);font-size:13px;font-weight:700;">Pathforge</span>
+  <span id="hdr-brand" class="app-brand">Pathforge</span>
   <div style="flex:1;"></div>
   <div class="hdr-actions">
     <span id="save-status" style="font-size:11px;"></span>
@@ -1901,7 +1888,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.1</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.12</span></div>
 </div>
 
 <!-- ═══ 업데이트 로그 모달 ═══ -->
@@ -2410,7 +2397,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.1" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.12" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2487,29 +2474,35 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.1"></script>
-<script src="cs_calc.js?v=0.1"></script>
+<script src="cs_data.js?v=0.12"></script>
+<script src="cs_calc.js?v=0.12"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.1"></script>
-<script src="cs_re_engine.js?v=0.1"></script>
-<script src="cs_pf2e_stats.js?v=0.1"></script>
-<script src="cs_pf2e_equip.js?v=0.1"></script>
-<script src="cs_pf2e_actor.js?v=0.1"></script>
-<script src="cs_ui.js?v=0.1"></script>
-<script src="cs_modal.js?v=0.1"></script>
-<script src="cs_feat_effects.js?v=0.1"></script>
-<script src="cs_save.js?v=0.1"></script>
-<script src="cs_session.js?v=0.1"></script>
-<script src="cs_dice.js?v=0.1"></script>
-<script src="cs_map.js?v=0.1"></script>
+<script src="cs_pf2e.js?v=0.12"></script>
+<script src="cs_re_engine.js?v=0.12"></script>
+<script src="cs_pf2e_stats.js?v=0.12"></script>
+<script src="cs_pf2e_equip.js?v=0.12"></script>
+<script src="cs_pf2e_anc.js?v=0.12"></script>
+<script src="cs_pf2e_bg.js?v=0.12"></script>
+<script src="cs_pf2e_spell.js?v=0.12"></script>
+<script src="cs_pf2e_deity.js?v=0.12"></script>
+<script src="cs_pf2e_feat.js?v=0.12"></script>
+<script src="cs_pf2e_class.js?v=0.12"></script>
+<script src="cs_pf2e_actor.js?v=0.12"></script>
+<script src="cs_ui.js?v=0.12"></script>
+<script src="cs_modal.js?v=0.12"></script>
+<script src="cs_feat_effects.js?v=0.12"></script>
+<script src="cs_save.js?v=0.12"></script>
+<script src="cs_session.js?v=0.12"></script>
+<script src="cs_dice.js?v=0.12"></script>
+<script src="cs_map.js?v=0.12"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.1"></script>
-<script src="cs_i18n.js?v=0.1"></script>
+<script src="cs_locale.js?v=0.12"></script>
+<script src="cs_i18n.js?v=0.12"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.1');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.12');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2593,6 +2586,49 @@ document.addEventListener('click', function(e) {
 // ═══ 업데이트 로그 / 공지 (기어 메뉴) ═══
 // 최신순. 새 버전 작업 시 맨 앞에 {v, date, items:[...]} 추가(사용자 친화적 한글 문장).
 const CHANGELOG = [
+  { v: '0.12', date: '2026-06-30', items: [
+    '업데이트 로그에 현재 버전대의 모든 변경 이력이 표시됩니다(이전 10개 제한 폐기). 항목이 많으면 모달 안에서 스크롤됩니다(모바일 포함).',
+  ] },
+  { v: '0.11', date: '2026-06-30', items: [
+    '신격(신성)을 핵심 빌드에서 별도로 선택할 수 있습니다 — 클레릭뿐 아니라 모든 캐릭터가 신격을 정할 수 있고, 수록 신격이 20종 → 478종으로 늘었습니다(이름·영역으로 검색, 아이콘 표시). 클레릭은 기존대로 신격 기술·선호 무기 숙련이 자동 적용됩니다.',
+    '클래스 선택 모달의 클래스/서브클래스 특성이 표준 “아코디언 박스 + 아이콘” 형태로 바뀌었습니다 — 각 특성에 PF2e 아이콘이 붙고, 클릭하면 설명이 펼쳐집니다(스펠스트라이크·아케인 캐스케이드 등).',
+  ] },
+  { v: '0.10', date: '2026-06-30', items: [
+    '신규 클래스의 레벨별 클래스 특성이 표시됩니다(바바리안 본능·분노·저거너트 등 27클래스 전부, 한글).',
+    '신규 클래스 서브클래스 선택이 가능합니다 — 바바리안 본능(10), 소서러 혈통(18), 오라클 신비(11) 등 약 120종을 빌더에서 고를 수 있습니다.',
+    '시전자 클래스 주문 슬롯이 적용됩니다 — 소서러·오라클·애니미스트는 전수 시전(전 랭크), 매서·소환사·사이킥은 제한 시전. (혈통 주문 등 서브클래스 고유 주문 자동부여는 FVTT 데이터에 없어 수동 추가 — 후속 검수 대상).',
+  ] },
+  { v: '0.9', date: '2026-06-30', items: [
+    '클래스가 8종 → 27종으로 늘었습니다(알케미스트·바바리안·챔피언·몽크·소서러·오라클·소드댄서 등 전 클래스). 각 클래스의 HP·핵심 능력치·숙련 진행(레벨별 내성/지각/공격/방어/클래스DC)이 PF2e 정본대로 정확히 계산됩니다.',
+    '※ 신규 19개 클래스의 서브클래스 선택·레벨별 클래스 특성 자동적용·시전자 주문 슬롯표는 다음 단계로 진행됩니다(현재는 능력치/숙련 중심).',
+  ] },
+  { v: '0.8', date: '2026-06-30', items: [
+    '재주 데이터를 FVTT 정식 데이터로 대폭 보강했습니다. 선택 가능한 재주가 약 1,000종 → 7,000여 종으로 늘었습니다(클래스·혈통·기술·일반·아키타입·클래스 특성 전부).',
+    '재주 간 연계가 정상 작동합니다 — 특정 재주를 얻으면 연계된 재주(예: 바람의 베개→강력한 도약)나 주문(예: 해로우어 헌신→해로우 카드 점술)이 자동으로 함께 부여되고, 다른 재주의 선행조건도 충족됩니다.',
+    '새 재주 아이콘을 FVTT 정식 아이콘으로 채웠습니다.',
+  ] },
+  { v: '0.7', date: '2026-06-30', items: [
+    '주문 데이터를 FVTT 정식 데이터로 전면 교체했습니다. 주문이 417종 → 1,796종으로 늘었고, 전통·랭크·특성·사거리·범위·방어 정보가 모두 반영됩니다. 주문 배우기/기억 목록도 전체 주문에서 선택할 수 있습니다.',
+    '새 주문 아이콘을 FVTT 정식 아이콘으로 채웠습니다.',
+  ] },
+  { v: '0.6', date: '2026-06-30', items: [
+    '배경 데이터를 FVTT 정식 데이터로 전면 교체했습니다. 선택 가능한 배경이 40종 → 490종으로 늘었고, 각 배경의 능력치 부스트·훈련 기술·지식·기술 재주가 자동 적용됩니다.',
+    '새로 추가된 혈통·유산·배경의 아이콘을 모두 FVTT 정식 아이콘으로 채웠습니다(혈통 50종·유산 322종 아이콘 매칭 완료).',
+  ] },
+  { v: '0.5', date: '2026-06-30', items: [
+    '혈통과 유산 데이터를 FVTT(파운드리) 정식 데이터로 전면 교체했습니다. 선택 가능한 혈통이 8종 → 50종, 유산이 41종 → 322종으로 대폭 늘었습니다.',
+    '유산 자동화를 FVTT 룰 엘리먼트 엔진으로 재구성했습니다. 저항(예: 대장간 드워프의 화염 저항 = 레벨 절반)·시야·추가 감각·보너스 HP·부여 재주가 레벨에 맞춰 자동 계산됩니다.',
+    '유산이 부여하는 시야(예: 동굴 엘프의 암시야)가 캐릭터 시트 감각란에 제대로 반영되지 않던 문제를 수정했습니다.',
+  ] },
+  { v: '0.4', date: '2026-06-30', items: [
+    '헤더·설정(⚙) 메뉴 스타일을 모든 화면(플레이어 시트·메인 로비·GM 로비)이 공유 스타일시트 하나로 쓰도록 정리해, 버튼 크기·글꼴 등이 화면마다 미묘하게 달라지던 문제를 없앴습니다.',
+  ] },
+  { v: '0.3', date: '2026-06-30', items: [
+    'GM 로비 헤더를 플레이어 시트·메인 로비와 완전히 동일한 스타일로 통일했습니다 (붉은 배너 + 우측 ⚙ 메뉴, 모드 선택·로그인은 ⚙ 메뉴 안으로 이동).',
+  ] },
+  { v: '0.2', date: '2026-06-30', items: [
+    '클래스 선택 모달의 목록에 클래스 아이콘이 표시되도록 고쳤습니다 (이전엔 📄 기본 아이콘만 나오고, 선택한 뒤에야 아이콘이 보였습니다).',
+  ] },
   { v: '0.1', date: '2026-06-30', items: [
     'Pathforge 첫 공개 버전 — 전용 도메인(pathforge.kr)으로 오픈했습니다.',
     '캐릭터 데이터 백업/복원 기능을 추가했습니다 (기어 메뉴 → 데이터 백업/복원: 현재 슬롯을 JSON 파일로 내보내고, 파일에서 다시 불러올 수 있습니다).',
@@ -2601,6 +2637,7 @@ const CHANGELOG = [
 ];
 const CHANGELOG_SEEN_KEY = 'pf2e_changelog_seen';
 function _changelogLatest() { return CHANGELOG.length ? CHANGELOG[0].v : 0; }
+function _changelogMajor() { return String(_changelogLatest()).split('.')[0]; }
 function _changelogUnseen() {
   try { return String(localStorage.getItem(CHANGELOG_SEEN_KEY) || '') !== String(_changelogLatest()); }
   catch (e) { return false; }
@@ -2623,7 +2660,8 @@ function renderChangelog() {
   </div>
   <div class="cl-log-head">업데이트 로그</div>
   <div class="cl-log">`;
-  CHANGELOG.slice(0, 10).forEach(e => {
+  const _maj = _changelogMajor();  // 현재 메이저 버전 하위의 마이너 버전 로그는 전부 표시(10개 제한 폐기)
+  CHANGELOG.filter(e => String(e.v).split('.')[0] === _maj).forEach(e => {
     html += `<div class="cl-entry">
       <div class="cl-entry-head"><span class="cl-ver">v${e.v}</span><span class="cl-date">${esc(e.date || '')}</span></div>
       <ul class="cl-items">${(e.items || []).map(it => `<li>${esc(it)}</li>`).join('')}</ul>

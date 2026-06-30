@@ -309,7 +309,9 @@ function loadData(d) {
     }
     // State objects
     if (d.selectedClass) {
-      state.selectedClass = CLASSES.find(c=>c.id===d.selectedClass)||null;
+      state.selectedClass = CLASSES.find(c=>c.id===d.selectedClass)
+        || ((typeof PF2eClass !== 'undefined' && PF2eClass.ready && PF2eClass.ready() && PF2eClass.getClassLegacy(d.selectedClass)))
+        || null;
       if (state.selectedClass) {
         const btn = document.getElementById('btn-class');
         if (btn) { btn.textContent = `${state.selectedClass.name} (${state.selectedClass.en})`; btn.classList.add('filled'); }
@@ -330,22 +332,23 @@ function loadData(d) {
         }
       }
     }
+    const _ancReady = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready());
     if (d.selectedAncestry) {
-      state.selectedAncestry = ANCESTRIES.find(a=>a.id===d.selectedAncestry)||null;
+      state.selectedAncestry = (_ancReady && PF2eAnc.getAncestryLegacy(d.selectedAncestry)) || ANCESTRIES.find(a=>a.id===d.selectedAncestry)||null;
       if (state.selectedAncestry) {
         const btn = document.getElementById('btn-ancestry');
         if (btn) { btn.textContent = `${state.selectedAncestry.name} (${state.selectedAncestry.en})`; btn.classList.add('filled'); }
       }
     }
     if (d.selectedBackground) {
-      state.selectedBackground = BACKGROUNDS.find(b=>b.id===d.selectedBackground)||null;
+      state.selectedBackground = ((typeof PF2eBg !== 'undefined' && PF2eBg.ready && PF2eBg.ready() && PF2eBg.getBackgroundLegacy(d.selectedBackground))) || BACKGROUNDS.find(b=>b.id===d.selectedBackground)||null;
       if (state.selectedBackground) {
         const btn = document.getElementById('btn-background');
         if (btn) { btn.textContent = `${state.selectedBackground.name} (${state.selectedBackground.en})`; btn.classList.add('filled'); }
       }
     }
     if (d.selectedHeritage) {
-      state.selectedHeritage = HERITAGE_DB.find(h=>h.id===d.selectedHeritage)||null;
+      state.selectedHeritage = (_ancReady && PF2eAnc.getHeritageLegacy(d.selectedHeritage)) || HERITAGE_DB.find(h=>h.id===d.selectedHeritage)||null;
       if (state.selectedHeritage) {
         const btn = document.getElementById('btn-heritage');
         if (btn) { btn.textContent = state.selectedHeritage.name_ko; btn.classList.add('filled'); }
@@ -576,6 +579,13 @@ window.onload = function() {
   renderPortrait();
   if (typeof MapView !== 'undefined') MapView.init();  // 지도 onChange/프로비저닝 구독 (세션 입장 시 동작)
   if (typeof _ensureEquipData === 'function') _ensureEquipData();  // FVTT 장비 카탈로그 사전 로드 (첫 브라우즈 즉시 표시)
+  if (typeof _ensureAncData === 'function') _ensureAncData();      // FVTT 혈통/유산/배경 카탈로그 사전 로드 (P4, 캐릭터 생성 1단계)
+  if (typeof PF2eSpell !== 'undefined') PF2eSpell.init().catch(()=>{});  // FVTT 주문 카탈로그 사전 로드 (P4)
+  if (typeof PF2eDeity !== 'undefined') PF2eDeity.init().then(()=>{ if (typeof renderGrowthPlan==='function') renderGrowthPlan(); }).catch(()=>{});  // FVTT 신격 478 사전 로드 (P4 후속) — ready 후 핵심 빌드 슬롯 재렌더
+  if (typeof PF2eFeat !== 'undefined') PF2eFeat.init().then(() => {        // FVTT 재주 카탈로그 + 교차참조 카테고리 (P4)
+    // GrantItem(재주→재주/주문/효과/행동) getByUuid 해소용 — 자동화 전 인덱스 보장
+    if (typeof PF2eData !== 'undefined') { PF2eData.loadCategory('effects').catch(()=>{}); PF2eData.loadCategory('actions').catch(()=>{}); }
+  }).catch(()=>{});
   _uiReady = true;
   _checkReady();
 };

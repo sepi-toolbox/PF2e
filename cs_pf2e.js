@@ -219,9 +219,30 @@
   }
   function _dig(obj, path) { return path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj); }
 
+  // ---- FVTT 수식 평가: "max(1,floor(@actor.level/2))" / "@actor.level" / "floor(@actor.abilities.str.mod/2)" ----
+  // ctx.actor = { level, abilities:{str..cha = mod 숫자} }. 미지원 형태(삼항 등)는 NaN(graceful).
+  function evalFormula(val, ctx) {
+    if (typeof val === 'number') return val;
+    if (typeof val !== 'string') return NaN;
+    let s = resolveBrackets(val.trim(), ctx || {});
+    if (s === '') return NaN;
+    const actor = (ctx && ctx.actor) || {};
+    s = s.replace(/@actor\.level\b/g, String(actor.level || 0));
+    s = s.replace(/@actor\.abilities\.(\w+)\.mod\b/g, (m, ab) => String((actor.abilities && actor.abilities[ab]) || 0));
+    s = s.replace(/@[\w.]+/g, '0'); // 미지원 @참조 → 0 (graceful)
+    // 식별자 화이트리스트: 허용 함수만 남기고 제거 후 잔여 글자 있으면 거부
+    const residue = s.replace(/\b(max|min|floor|ceil|abs|round|sign)\b/g, '').replace(/[0-9+\-*/%(),.\s]/g, '');
+    if (residue.length) return NaN; // 알 수 없는 식별자/연산 → 거부
+    try {
+      const fn = new Function('max', 'min', 'floor', 'ceil', 'abs', 'round', 'sign', 'return (' + s + ');');
+      const r = fn(Math.max, Math.min, Math.floor, Math.ceil, Math.abs, Math.round, Math.sign);
+      return (typeof r === 'number' && isFinite(r)) ? r : NaN;
+    } catch (e) { return NaN; }
+  }
+
   const API = {
     CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc,
-    testPredicate, _testStatement, getByUuid, resolveBrackets,
+    testPredicate, _testStatement, getByUuid, resolveBrackets, evalFormula,
     _state: { base: _baseCache, ovl: _ovlCache, index: _index },
   };
   root.PF2eData = API;

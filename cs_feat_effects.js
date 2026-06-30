@@ -36,9 +36,28 @@
 // v533~ FEAT_EFFECTS 완전 제거 — 모든 효과는 FEAT_DB 신 컬럼에서 조립
 //  FEAT_DB row의 effect_group_id/auto_note/damage_note/choice_id를 조립해 def 객체 반환
 //  미등재(row 없음/효과 컬럼 모두 빈 값)면 null
+const _FVTT_FEAT_DEF_CACHE = new Map();
+function _fvttFeatDef(f) {
+  // FVTT-only 재주: system.rules → RE 엔진 → 레거시 effects 배열 (레벨/혈통/클래스 캐시키)
+  const lv = (typeof getLevel === 'function') ? getLevel() : 1;
+  const anc = state.selectedAncestry, cls = state.selectedClass;
+  const key = f.id + ':' + lv + ':' + (anc && anc.id) + ':' + (cls && cls.id);
+  if (_FVTT_FEAT_DEF_CACHE.has(key)) return _FVTT_FEAT_DEF_CACHE.get(key);
+  const abilities = {};
+  if (typeof getMod === 'function') for (const ab of ['str','dex','con','int','wis','cha']) abilities[ab] = getMod(ab);
+  const ctx = {
+    level: lv, abilities, ancestrySlug: anc && anc.id, classSlug: cls && cls.id,
+    ancestryTraits: (anc && anc._doc && anc._doc.system && anc._doc.system.traits && anc._doc.system.traits.value) || [],
+    choices: {},
+  };
+  let def = null;
+  try { const effects = PF2eFeat.featEffects(f._doc, ctx); if (effects && effects.length) def = { effects }; } catch (e) {}
+  _FVTT_FEAT_DEF_CACHE.set(key, def);
+  return def;
+}
 function _getFeatEffectsDef(nameEn) {
   if (!nameEn) return null;
-  if (typeof FEAT_DB !== 'undefined' && typeof getFeat === 'function') {
+  if (typeof getFeat === 'function') {
     const f = getFeat(nameEn);
     if (f && (f.effect_group_id || f.auto_note || f.damage_note || f.choice_id)) {
       // ── effects 재구성: 공통 효과 + 노트 ──
@@ -79,6 +98,10 @@ function _getFeatEffectsDef(nameEn) {
       if (choice) def.choice = choice;
       if (choiceEffects) def.choiceEffects = choiceEffects;
       return def;
+    }
+    // 레거시 효과 없음 + FVTT 재주(_reEffects) → RE 엔진으로 effects 조립
+    if (f && f._reEffects && typeof PF2eFeat !== 'undefined' && PF2eFeat.featEffects) {
+      return _fvttFeatDef(f);
     }
   }
   return null;
@@ -153,21 +176,17 @@ function applyFeatEffects() {
     }
   });
 
-  // vision_upgrade: 재주 부여 시야 초기화 → 혈통/유산 기본값 복원 (v526~ enum)
-  if (state._featVisionUpgrade) {
-    state.vision = state.selectedAncestry?.vision || 'none';
+  // 시야: 매 사이클 혈통 기본 → 유산 업그레이드 재적용 (재주 시야는 아래 효과 루프에서 max로 적용)
+  // (v0.5 P4: 유산 단독 시야[동굴 엘프 등]가 _featVisionUpgrade 게이트에 막혀 미적용되던 버그 수정 — 항상 재계산)
+  state.vision = state.selectedAncestry?.vision || 'none';
+  {
     const _hv = (typeof getHeritageEffects === 'function' ? getHeritageEffects(state.selectedHeritage).vision : null);
-    if (_hv) {
-      const hv = _hv;
-      if (hv === 'upgrade') {
-        // 저광 시야 부여, 이미 저광이면 암시야로 업그레이드
-        if (state.vision === 'low-light') state.vision = 'darkvision';
-        else if (state.vision !== 'darkvision') state.vision = 'low-light';
-      } else {
-        if ((VISION_RANK[hv]||0) > (VISION_RANK[state.vision]||0)) state.vision = hv;
-      }
+    if (_hv === 'upgrade') {
+      if (state.vision === 'low-light') state.vision = 'darkvision';
+      else if (state.vision !== 'darkvision') state.vision = 'low-light';
+    } else if (_hv && (VISION_RANK[_hv]||0) > (VISION_RANK[state.vision]||0)) {
+      state.vision = _hv;
     }
-    state._featVisionUpgrade = false;
   }
 
   // 모든 재주 카테고리 순회
@@ -379,8 +398,8 @@ function _applyOneEffect(fb, eff, feat, level) {
       break;
     }
     case 'vision_upgrade': {
-      state.vision = eff.vision;
-      state._featVisionUpgrade = true;
+      // 재주 시야는 현재 시야(혈통/유산 포함)보다 높을 때만 적용 (다운그레이드 방지)
+      if ((VISION_RANK[eff.vision]||0) > (VISION_RANK[state.vision]||0)) state.vision = eff.vision;
       break;
     }
     case 'unburdened_iron': {
@@ -863,13 +882,13 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
   } else if (choiceDef.type === 'custom' && choiceDef.options) {
     // 영역 입문: 신격 영역으로 필터링
     let filteredOpts = choiceDef.options;
-    if (choiceDef.label && choiceDef.label.includes('영역') && state.deity && typeof DEITY_DB !== 'undefined') {
-      const deity = DEITY_DB.find(d => d.id === state.deity);
+    if (choiceDef.label && choiceDef.label.includes('영역') && state.deity && typeof _getDeity === 'function') {
+      const deity = _getDeity(state.deity);
       if (deity && deity.domains && deity.domains.length > 0) {
         filteredOpts = choiceDef.options.filter(opt => deity.domains.includes(opt.name));
         const note = document.createElement('div');
         note.style.cssText = 'font-size:11px;color:var(--accent);padding:8px 12px;border-bottom:1px solid var(--border);';
-        note.textContent = `${deity.name_ko}의 영역: ${deity.domains.join(', ')}`;
+        note.textContent = `${deity.name_ko}의 영역: ${(deity.domains_ko&&deity.domains_ko.length?deity.domains_ko:deity.domains).join(', ')}`;
         container.appendChild(note);
       }
     }
@@ -893,8 +912,8 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     } else if (choiceDef.label && choiceDef.label.includes('영역')) {
       // Domain Initiate: 신격의 4개 영역만 선택 가능 (PF2e 룰 PC1 p.113)
       // state.deity = 신격 id, DEITY_DB.domains = 영역 id 배열 (외래키)
-      if (state.deity && typeof DEITY_DB !== 'undefined') {
-        const deity = DEITY_DB.find(d => d.id === state.deity);
+      if (state.deity && typeof _getDeity === 'function') {
+        const deity = _getDeity(state.deity);
         if (deity && Array.isArray(deity.domains) && deity.domains.length) {
           filteredOpts = filteredOpts.filter(opt => deity.domains.includes(opt.id));
         }
@@ -927,7 +946,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
           const isAdvanced = !!choiceDef.filterByInitiated;
           // DOMAIN_DB는 SPELL_DB.id 외래키 → SPELL_DB lookup
           const spellId = dom ? (isAdvanced ? dom.advanced : dom.initial) : null;
-          const spell = spellId && typeof SPELL_DB !== 'undefined' ? SPELL_DB.find(s => s.id === spellId) : null;
+          const spell = spellId && typeof getSpell === 'function' ? getSpell(spellId) : null;
           const spellName = spell ? spell.name_ko : null;
           if (detail2) {
             if (spell) {
@@ -955,18 +974,19 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
         container.appendChild(row);
       });
     }
-  } else if ((choiceDef.type === 'spell_cantrip' || choiceDef.type === 'spell_rank') && typeof SPELL_DB !== 'undefined') {
+  } else if ((choiceDef.type === 'spell_cantrip' || choiceDef.type === 'spell_rank') && typeof _allSpells === 'function' && _allSpells().length) {
     const tradition = choiceDef.tradition || 'arcane';
     const isRankSpell = choiceDef.type === 'spell_rank';
     const targetRank = choiceDef.rank || 1;
+    const _sp = _allSpells();
     let cantrips;
     if (isRankSpell) {
-      cantrips = SPELL_DB.filter(sp => !sp.is_cantrip && !sp.is_focus && sp.rank && sp.rank <= targetRank && sp.traditions && sp.traditions.includes(tradition));
+      cantrips = _sp.filter(sp => !sp.is_cantrip && !sp.is_focus && sp.rank && sp.rank <= targetRank && sp.traditions && sp.traditions.includes(tradition));
     } else if (tradition === 'any' || tradition === '$other') {
       const classTrad = state.selectedClass?.tradition || '';
-      cantrips = SPELL_DB.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && (!classTrad || !sp.traditions.includes(classTrad)));
+      cantrips = _sp.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && (!classTrad || !sp.traditions.includes(classTrad)));
     } else {
-      cantrips = SPELL_DB.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && sp.traditions.includes(tradition));
+      cantrips = _sp.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && sp.traditions.includes(tradition));
     }
     cantrips.sort((a,b) => (a.name_ko||'').localeCompare(b.name_ko||''));
 
@@ -1030,13 +1050,14 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       };
       container.appendChild(row);
     });
-  } else if (choiceDef.type === 'ancestry_pick' && typeof ANCESTRIES !== 'undefined') {
+  } else if (choiceDef.type === 'ancestry_pick' && (typeof PF2eAnc !== 'undefined' || typeof ANCESTRIES !== 'undefined')) {
     // 혈통 선택 모달 — 이미 선택한 혈통과 내 혈통 제외
+    const _ancAll = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready()) ? PF2eAnc.ancestryList() : ANCESTRIES;
     const myAnc = state.selectedAncestry?.id || '';
     const alreadyAdopted = Object.values(state.feats).flat()
       .filter(f => f && f.name && f.name.includes('양자 혈통') && f.choice)
       .map(f => f.choice);
-    const available = ANCESTRIES.filter(a => a.id !== myAnc && !alreadyAdopted.includes(a.id));
+    const available = _ancAll.filter(a => a.id !== myAnc && !alreadyAdopted.includes(a.id));
 
     if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; searchEl.oninput = () => {
       const q = searchEl.value.toLowerCase();

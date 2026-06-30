@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.1').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.12').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2508,7 +2508,7 @@ function _refreshLearnSpellsList() {
     classTrad = PATRON_TRADITION[state.selectedSubclass.id] || classTrad;
   }
 
-  const filtered = (typeof SPELL_DB !== 'undefined' ? SPELL_DB : []).filter(sp => {
+  const filtered = (typeof _allSpells === 'function' ? _allSpells() : (typeof SPELL_DB !== 'undefined' ? SPELL_DB : [])).filter(sp => {
     if (classTrad && classTrad !== 'any' && sp.traditions && !sp.traditions.includes(classTrad)) return false;
     if (r === 0) { if (!sp.is_cantrip) return false; }
     else { if (sp.is_cantrip || sp.is_focus) return false; if (sp.rank !== r) return false; }
@@ -2881,6 +2881,23 @@ function _ensureEquipData() {
     .then(() => { _equipDataReady = true; return true; })
     .catch(e => { console.warn('FVTT 장비 데이터 로드 실패 → 레거시 DB 사용', e); return false; });
   return _equipDataPromise;
+}
+
+// FVTT 혈통/유산/배경/클래스 카탈로그 사전 로드 (P4) — 미준비 시 모달이 레거시 폴백
+let _ancDataPromise = null;
+function _ensureAncData() {
+  if (typeof PF2eAnc === 'undefined' || typeof PF2eData === 'undefined' || typeof REEngine === 'undefined') return Promise.resolve(false);
+  const bgReady = (typeof PF2eBg === 'undefined') || PF2eBg.ready();
+  const clsReady = (typeof PF2eClass === 'undefined') || PF2eClass.ready();
+  if (PF2eAnc.ready() && bgReady && clsReady) return Promise.resolve(true);
+  if (_ancDataPromise) return _ancDataPromise;
+  _ancDataPromise = Promise.all([
+    PF2eAnc.init(),
+    (typeof PF2eBg !== 'undefined' ? PF2eBg.init() : Promise.resolve()),
+    (typeof PF2eClass !== 'undefined' ? PF2eClass.init() : Promise.resolve()),
+  ]).then(() => true)
+    .catch(e => { console.warn('FVTT 혈통/유산/배경/클래스 데이터 로드 실패 → 레거시 DB 사용', e); return false; });
+  return _ancDataPromise;
 }
 
 function renderEquipBrowseItems() {
