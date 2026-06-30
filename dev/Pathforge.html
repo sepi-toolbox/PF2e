@@ -29,10 +29,10 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-<script src="equipment_db.js?v=646"></script>
-<script src="feat_db.js?v=646"></script>
-<script src="SPELL_DB.js?v=646"></script>
-<script src="class_features_db.js?v=646"></script>
+<script src="equipment_db.js?v=647"></script>
+<script src="feat_db.js?v=647"></script>
+<script src="SPELL_DB.js?v=647"></script>
+<script src="class_features_db.js?v=647"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -217,6 +217,30 @@ body{
 #gear-menu #auth-area{display:flex;flex-direction:column;align-items:stretch;gap:6px;}
 #gear-menu .auth-user{max-width:none;margin:0 0 2px;text-align:center;font-size:12px;color:var(--text);}
 #gear-menu #slot-bar{background:transparent !important;padding:0 !important;display:flex;flex-direction:column;align-items:stretch;gap:6px;}
+/* ═══ 업데이트 로그 모달 ═══ */
+#changelog-modal{position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;}
+#changelog-modal.open{display:flex;}
+#changelog-modal .cl-panel{background:var(--bg2);border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.5);width:420px;max-width:100%;max-height:85vh;display:flex;flex-direction:column;overflow:hidden;}
+.cl-header{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--border);}
+.cl-title{font-weight:800;font-size:15px;color:var(--accent);}
+.cl-close{background:transparent;border:none;color:var(--text2);font-size:18px;cursor:pointer;line-height:1;padding:2px 4px;}
+.cl-close:hover{color:var(--accent);}
+.cl-content{padding:14px 16px;overflow-y:auto;}
+.cl-info{text-align:center;font-size:12px;color:var(--text2);line-height:1.8;padding-bottom:12px;margin-bottom:10px;border-bottom:1px dashed var(--border);}
+.cl-info-row a{color:var(--text2);text-decoration:underline;}
+.cl-info-row a:hover{color:var(--accent);}
+.cl-info-thanks{margin-top:6px;color:var(--text);font-weight:600;}
+.cl-log-head{font-size:11px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.cl-entry{padding:8px 0;border-bottom:1px solid var(--border2);}
+.cl-entry:last-child{border-bottom:none;}
+.cl-entry-head{display:flex;align-items:baseline;gap:8px;margin-bottom:3px;}
+.cl-ver{font-weight:800;color:var(--accent);font-size:13px;}
+.cl-date{font-size:10px;color:#888;}
+.cl-items{margin:0;padding-left:18px;font-size:12.5px;color:var(--text);line-height:1.6;}
+.cl-items li{margin:1px 0;}
+.gear-update-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#e03131;margin-left:5px;vertical-align:middle;}
+#hdr-gear.has-update, .hdr-gear-btn.has-update{position:relative;}
+#hdr-gear.has-update::after, .hdr-gear-btn.has-update::after{content:'';position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:#e03131;border:1px solid var(--bg2);}
 /* ── 방어 능력 박스 헤더의 아이콘 버튼 (휴식/상태이상) ── */
 .def-icon-btn{background:var(--bg4);border:1px solid var(--border2);color:var(--text2);width:26px;height:24px;border-radius:5px;cursor:pointer;font-size:13px;line-height:1;display:inline-flex;align-items:center;justify-content:center;margin-left:4px;transition:border-color .12s,color .12s;}
 .def-icon-btn:hover{border-color:var(--accent);color:var(--accent);}
@@ -1833,6 +1857,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
   <div id="auth-area"><button class="btn btn-google" onclick="googleLogin()">Google 로그인</button></div>
   <button id="gear-sec-lobby" class="btn btn-ghost" style="width:100%;justify-content:center;display:none;" onclick="showModeSelect();">🔁 로비로 돌아가기</button>
   <button id="pwa-install-btn" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="pfInstallApp()">📲 웹앱 설치</button>
+  <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="openChangelog()">📋 업데이트 로그<span id="gear-changelog-dot" class="gear-update-dot" style="display:none;"></span></button>
 
   <!-- ═══ 플레이어 시트 (플레이어 모드에서만) ═══ -->
   <div id="gear-sec-player" style="display:none;">
@@ -1855,7 +1880,18 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v646</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v647</span></div>
+</div>
+
+<!-- ═══ 업데이트 로그 모달 ═══ -->
+<div id="changelog-modal" onclick="if(event.target===this)closeChangelog()">
+  <div class="cl-panel">
+    <div class="cl-header">
+      <span class="cl-title">📋 업데이트 &amp; 공지</span>
+      <button class="cl-close" onclick="closeChangelog()" aria-label="닫기">✕</button>
+    </div>
+    <div id="changelog-body" class="cl-content"></div>
+  </div>
 </div>
 
 <!-- ═══════════════ 3-COLUMN APP LAYOUT ═══════════════ -->
@@ -2353,7 +2389,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=646" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=647" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2430,29 +2466,29 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=646"></script>
-<script src="cs_calc.js?v=646"></script>
+<script src="cs_data.js?v=647"></script>
+<script src="cs_calc.js?v=647"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=646"></script>
-<script src="cs_re_engine.js?v=646"></script>
-<script src="cs_pf2e_stats.js?v=646"></script>
-<script src="cs_pf2e_equip.js?v=646"></script>
-<script src="cs_pf2e_actor.js?v=646"></script>
-<script src="cs_ui.js?v=646"></script>
-<script src="cs_modal.js?v=646"></script>
-<script src="cs_feat_effects.js?v=646"></script>
-<script src="cs_save.js?v=646"></script>
-<script src="cs_session.js?v=646"></script>
-<script src="cs_dice.js?v=646"></script>
-<script src="cs_map.js?v=646"></script>
+<script src="cs_pf2e.js?v=647"></script>
+<script src="cs_re_engine.js?v=647"></script>
+<script src="cs_pf2e_stats.js?v=647"></script>
+<script src="cs_pf2e_equip.js?v=647"></script>
+<script src="cs_pf2e_actor.js?v=647"></script>
+<script src="cs_ui.js?v=647"></script>
+<script src="cs_modal.js?v=647"></script>
+<script src="cs_feat_effects.js?v=647"></script>
+<script src="cs_save.js?v=647"></script>
+<script src="cs_session.js?v=647"></script>
+<script src="cs_dice.js?v=647"></script>
+<script src="cs_map.js?v=647"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=646"></script>
-<script src="cs_i18n.js?v=646"></script>
+<script src="cs_locale.js?v=647"></script>
+<script src="cs_i18n.js?v=647"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=646');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=647');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2513,6 +2549,7 @@ function toggleGearMenu(ev) {
   const g = document.getElementById('hdr-gear');
   if (!m) return;
   updateGearMenuSections();
+  if (typeof updateChangelogDot === 'function') updateChangelogDot();
   const dd = document.getElementById('slot-dropdown'); if (dd) dd.style.display = 'none';  // 슬롯 드롭다운은 항상 닫힌 채로 열기
   const open = m.classList.toggle('open');
   if (g) g.classList.toggle('open', open);
@@ -2531,6 +2568,68 @@ document.addEventListener('click', function(e) {
   if (e.target.closest && (e.target.closest('#gear-menu') || e.target.closest('#hdr-gear'))) return;
   closeGearMenu();
 });
+
+// ═══ 업데이트 로그 / 공지 (기어 메뉴) ═══
+// 최신순. 새 버전 작업 시 맨 앞에 {v, date, items:[...]} 추가(사용자 친화적 한글 문장).
+const CHANGELOG = [
+  { v: 647, date: '2026-06-30', items: ['업데이트 로그(이 창)를 추가했습니다. 기어 메뉴에서 확인하세요.'] },
+  { v: 646, date: '2026-06-30', items: ['주사위 위젯의 유리/불리 굴림에 3D 물리 주사위를 적용했습니다.'] },
+  { v: 645, date: '2026-06-30', items: ['주사위 위젯 하단을 유리·불리·기록으로 정리했습니다.'] },
+  { v: 644, date: '2026-06-30', items: ['저장 슬롯을 드롭다운으로 개선하고, 슬롯 이름 표시 버그를 고쳤습니다.'] },
+  { v: 642, date: '2026-06-29', items: ['로비 화면에 제작자·번역 참조 정보를 추가했습니다.'] },
+  { v: 641, date: '2026-06-29', items: ['기어 메뉴(설정) 구조를 정리했습니다.'] },
+  { v: 640, date: '2026-06-29', items: ['몬스터 시트에서 특성을 클릭하면 한글 설명이 표시됩니다.'] },
+  { v: 638, date: '2026-06-29', items: ['로비·GM·플레이어 화면의 헤더 디자인을 통일했습니다.'] },
+  { v: 637, date: '2026-06-29', items: ['GM 모드를 소유자 전용으로 잠갔습니다.'] },
+  { v: 636, date: '2026-06-29', items: ['데스크톱 화면 하단이 잘리던 문제를 고쳤습니다.'] },
+];
+const CHANGELOG_SEEN_KEY = 'pf2e_changelog_seen';
+function _changelogLatest() { return CHANGELOG.length ? CHANGELOG[0].v : 0; }
+function _changelogUnseen() {
+  try { return String(localStorage.getItem(CHANGELOG_SEEN_KEY) || '') !== String(_changelogLatest()); }
+  catch (e) { return false; }
+}
+function updateChangelogDot() {
+  const unseen = _changelogUnseen();
+  document.querySelectorAll('#hdr-gear, .hdr-gear-btn').forEach(b => b.classList.toggle('has-update', unseen));
+  const d = document.getElementById('gear-changelog-dot');
+  if (d) d.style.display = unseen ? '' : 'none';
+}
+function renderChangelog() {
+  const body = document.getElementById('changelog-body');
+  if (!body) return;
+  const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  let html = `<div class="cl-info">
+    <div class="cl-info-row">제작자: 네이버 TRPG 카페 Sepi</div>
+    <div class="cl-info-row">번역 참조: <a href="https://github.com/Rutz179/PF2e-KR" target="_blank" rel="noopener">github.com/Rutz179/PF2e-KR</a></div>
+    <div class="cl-info-row">현재 버전: v${_changelogLatest()}</div>
+    <div class="cl-info-thanks">사용해주셔서 감사합니다.</div>
+  </div>
+  <div class="cl-log-head">업데이트 로그</div>
+  <div class="cl-log">`;
+  CHANGELOG.slice(0, 10).forEach(e => {
+    html += `<div class="cl-entry">
+      <div class="cl-entry-head"><span class="cl-ver">v${e.v}</span><span class="cl-date">${esc(e.date || '')}</span></div>
+      <ul class="cl-items">${(e.items || []).map(it => `<li>${esc(it)}</li>`).join('')}</ul>
+    </div>`;
+  });
+  html += '</div>';
+  body.innerHTML = html;
+}
+function openChangelog() {
+  closeGearMenu();
+  const ov = document.getElementById('changelog-modal');
+  if (!ov) return;
+  renderChangelog();
+  ov.classList.add('open');
+  try { localStorage.setItem(CHANGELOG_SEEN_KEY, String(_changelogLatest())); } catch (e) {}
+  updateChangelogDot();
+}
+function closeChangelog() {
+  const ov = document.getElementById('changelog-modal');
+  if (ov) ov.classList.remove('open');
+}
+updateChangelogDot();
 
 // 헤더 기본 로고 텍스트 캡처(세션 미소속 시 복원용). 운영 배포 시 (dev) 제거는 정적 HTML 기준.
 var _defaultBrand = (document.getElementById('hdr-brand') || {}).textContent || 'Pathforge';
