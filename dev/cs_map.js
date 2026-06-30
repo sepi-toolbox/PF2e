@@ -49,7 +49,7 @@ var MapSync = (function() {
 
   function _db()        { return (typeof db !== 'undefined') ? db : null; }
   function _ts()        { return firebase.firestore.FieldValue.serverTimestamp(); }
-  function _sessDoc()   { return _db().collection('sessions').doc(_sessionId); }
+  function _sessDoc()   { return _db().collection(PF_COL.sessions).doc(_sessionId); }
   function _mapsCol()   { return _sessDoc().collection('maps'); }
   function _tplCol()    { return _sessDoc().collection('tokenTemplates'); }  // 토큰 템플릿(세션 레벨)
   function _mapDoc()    { return _mapsCol().doc(_activeMapId); }     // 활성 맵 doc (배경/안개/그리드)

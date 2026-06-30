@@ -326,7 +326,7 @@ function executeReset() {
   // Firebase에서도 삭제
   if (typeof currentUser !== 'undefined' && currentUser && typeof currentSlot !== 'undefined') {
     const db2 = firebase.firestore();
-    db2.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot).delete().then(() => {
+    db2.collection('users').doc(currentUser.uid).collection(PF_COL.characters).doc(currentSlot).delete().then(() => {
       location.reload();
     }).catch(() => {
       location.reload();

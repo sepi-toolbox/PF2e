@@ -8,12 +8,11 @@ service cloud.firestore {
         && request.auth.uid == 'D11melTRb6VFObMbKvkP4t3Flgv2';
     }
 
+    // ════════════════════════ 운영(prod) ════════════════════════
+
     // ── 개인 캐릭터 (5슬롯) ──
     match /users/{userId}/characters/{slotId} {
-      // 본인은 항상 읽기/쓰기 가능
       allow read, write: if request.auth != null && request.auth.uid == userId;
-      // GM이 세션 참가자의 캐릭터를 편집할 수 있도록
-      // (캐릭터 doc에 sessionId가 있으면 해당 세션의 GM에게 허용)
       allow read, write: if request.auth != null
         && resource.data.sessionId != null
         && get(/databases/$(database)/documents/sessions/$(resource.data.sessionId)).data.gmUid == request.auth.uid;
@@ -21,70 +20,88 @@ service cloud.firestore {
 
     // ── 세션 ──
     match /sessions/{sessionId} {
-      // 누구나 읽기 가능 (참가 코드 검증용)
       allow read: if request.auth != null;
-      // GM 세션 생성 = 소유자 전용. gmUid도 반드시 소유자 본인.
-      allow create: if isOwner()
-        && request.resource.data.gmUid == request.auth.uid;
-      // 로그인 사용자가 수정 가능 (참가/퇴장 — players map 변경).
-      // 단 gmUid는 불변 — 남이 내 세션을 가로채 GM이 되는 구멍 차단.
+      allow create: if isOwner() && request.resource.data.gmUid == request.auth.uid;
       allow update: if request.auth != null
         && request.resource.data.gmUid == resource.data.gmUid;
-      // GM(=소유자)만 삭제
-      allow delete: if isOwner()
-        && resource.data.gmUid == request.auth.uid;
+      allow delete: if isOwner() && resource.data.gmUid == request.auth.uid;
 
-      // ── 주사위 굴림 ──
       match /rolls/{rollId} {
-        // 세션 참가자면 읽기 가능
         allow read: if request.auth != null;
-        // 로그인한 사용자가 자기 uid로만 생성 가능
-        allow create: if request.auth != null
-          && request.resource.data.uid == request.auth.uid;
-        // GM만 삭제 (정리용)
+        allow create: if request.auth != null && request.resource.data.uid == request.auth.uid;
         allow delete: if request.auth != null
           && request.auth.uid == get(/databases/$(database)/documents/sessions/$(sessionId)).data.gmUid;
       }
-
-      // ── 전술 맵 (멀티맵): 저장된 지도 = 배경/안개/그리드 + 하위 토큰 ──
       match /maps/{mapId} {
-        function gmUid() {
-          return get(/databases/$(database)/documents/sessions/$(sessionId)).data.gmUid;
-        }
-        // 세션 참가자(로그인 사용자) 읽기
+        function gmUid() { return get(/databases/$(database)/documents/sessions/$(sessionId)).data.gmUid; }
         allow read: if request.auth != null;
-        // GM만 맵 생성/수정/삭제 (배경 업로드 / 안개 / 그리드 / 이름·순서)
         allow write: if request.auth != null && request.auth.uid == gmUid();
-
-        // ── 토큰 (맵별 서브컬렉션) ──
-        // 정책: 이동은 모두에게. 생성=자기 소유(플레이어 자동배치) 또는 GM(NPC). 삭제=GM.
         match /tokens/{tokenId} {
-          // 세션 참가자 읽기
           allow read: if request.auth != null;
-          // 생성: 자기 소유 토큰(플레이어 배치) 또는 GM(NPC)
           allow create: if request.auth != null
-            && (request.resource.data.ownerUid == request.auth.uid
-                || request.auth.uid == gmUid());
-          // 수정(이동/초상/NPC편집): 세션 참가자 모두 (NPC 편집은 클라가 GM 게이트)
+            && (request.resource.data.ownerUid == request.auth.uid || request.auth.uid == gmUid());
           allow update: if request.auth != null;
-          // 삭제: GM 전용 (NPC 삭제 / 맵 삭제 정리)
           allow delete: if request.auth != null && request.auth.uid == gmUid();
         }
       }
-
-      // ── 핑 (롱프레스 일시 마커) ──
       match /pings/{pingId} {
-        allow read: if request.auth != null;                                  // 세션 참가자 모두
-        allow create: if request.auth != null
-          && request.resource.data.uid == request.auth.uid;                   // 자기 uid로만 생성
-        allow delete: if request.auth != null;                                // 작성자 자동삭제(5초) — 참가자 누구나 정리 허용
+        allow read: if request.auth != null;
+        allow create: if request.auth != null && request.resource.data.uid == request.auth.uid;
+        allow delete: if request.auth != null;
       }
-
-      // ── 토큰 템플릿 (드로어 팔레트, 세션 레벨 — GM 전용 작성) ──
       match /tokenTemplates/{tid} {
-        allow read: if request.auth != null;                                  // 세션 참가자 읽기(GM UI 전용이나 무해)
+        allow read: if request.auth != null;
         allow write: if request.auth != null
           && request.auth.uid == get(/databases/$(database)/documents/sessions/$(sessionId)).data.gmUid;
+      }
+    }
+
+    // ════════════════════════ 데브(dev) ════════════════════════
+    // /dev/ 빌드 전용 — 운영과 데이터 격리. 규칙은 운영과 동일, 경로만 *_dev.
+
+    // ── 데브 개인 캐릭터 ──
+    match /users/{userId}/characters_dev/{slotId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if request.auth != null
+        && resource.data.sessionId != null
+        && get(/databases/$(database)/documents/sessions_dev/$(resource.data.sessionId)).data.gmUid == request.auth.uid;
+    }
+
+    // ── 데브 세션 ──
+    match /sessions_dev/{sessionId} {
+      allow read: if request.auth != null;
+      allow create: if isOwner() && request.resource.data.gmUid == request.auth.uid;
+      allow update: if request.auth != null
+        && request.resource.data.gmUid == resource.data.gmUid;
+      allow delete: if isOwner() && resource.data.gmUid == request.auth.uid;
+
+      match /rolls/{rollId} {
+        allow read: if request.auth != null;
+        allow create: if request.auth != null && request.resource.data.uid == request.auth.uid;
+        allow delete: if request.auth != null
+          && request.auth.uid == get(/databases/$(database)/documents/sessions_dev/$(sessionId)).data.gmUid;
+      }
+      match /maps/{mapId} {
+        function gmUid() { return get(/databases/$(database)/documents/sessions_dev/$(sessionId)).data.gmUid; }
+        allow read: if request.auth != null;
+        allow write: if request.auth != null && request.auth.uid == gmUid();
+        match /tokens/{tokenId} {
+          allow read: if request.auth != null;
+          allow create: if request.auth != null
+            && (request.resource.data.ownerUid == request.auth.uid || request.auth.uid == gmUid());
+          allow update: if request.auth != null;
+          allow delete: if request.auth != null && request.auth.uid == gmUid();
+        }
+      }
+      match /pings/{pingId} {
+        allow read: if request.auth != null;
+        allow create: if request.auth != null && request.resource.data.uid == request.auth.uid;
+        allow delete: if request.auth != null;
+      }
+      match /tokenTemplates/{tid} {
+        allow read: if request.auth != null;
+        allow write: if request.auth != null
+          && request.auth.uid == get(/databases/$(database)/documents/sessions_dev/$(sessionId)).data.gmUid;
       }
     }
   }

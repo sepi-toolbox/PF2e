@@ -27,6 +27,12 @@ firebase.initializeApp({
 });
 const auth = firebase.auth();
 const db = firebase.firestore();
+
+// ── 운영/데브 세이브 격리: /dev/ 경로면 별도 컬렉션·localStorage 네임스페이스 ──
+window.PF_ENV = location.pathname.includes('/dev/') ? 'dev' : 'prod';
+window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters',
+                  sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
+window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
 <style>
 /* FVTT 양피지 테마 — Pathforge 본체와 통일 (지도 캔버스만 어둡게 유지) */
@@ -387,9 +393,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_dice.js?v=618"></script>
-<script src="cs_monster.js?v=640"></script>
-<script src="cs_map.js?v=635"></script>
+<script src="cs_dice.js?v=0.1"></script>
+<script src="cs_monster.js?v=0.1"></script>
+<script src="cs_map.js?v=0.1"></script>
 <style>
 /* 듀얼모니터: GM 도구 + 플레이어 CCTV */
 #map-gm-tools{margin-left:12px;display:inline-flex;gap:6px;align-items:center;}
@@ -441,7 +447,7 @@ auth.onAuthStateChanged(async function(user) {
   if (!_sessionId) { alert('세션 ID가 없습니다.'); location.href = 'GMSheet.html'; return; }
   let data;
   try {
-    const doc = await db.collection('sessions').doc(_sessionId).get();
+    const doc = await db.collection(PF_COL.sessions).doc(_sessionId).get();
     if (!doc.exists) { alert('세션을 찾을 수 없습니다.'); location.href = 'GMSheet.html'; return; }
     data = doc.data();
   } catch (e) { console.error('[Map session]', e); alert('세션 로드 실패: ' + e.message); location.href = 'GMSheet.html'; return; }
@@ -645,7 +651,7 @@ window.MonsterLink = (function () {
     const _b = document.getElementById('pf-dice-box'); if (_b) _b.remove();
   } else {
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=618');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.1');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     const box = new DiceBox({ container: '#pf-dice-box', assetPath, theme: 'default', offscreen: false, scale: 6 });
     let ready = false;

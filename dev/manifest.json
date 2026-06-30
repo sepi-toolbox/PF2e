@@ -4,7 +4,7 @@
   "description": "Pathfinder 2e 한국어 캐릭터 시트 · 빌더 · 세션 전술 지도",
   "lang": "ko",
   "dir": "ltr",
-  "start_url": "Pathforge.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",

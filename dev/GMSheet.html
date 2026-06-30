@@ -27,6 +27,12 @@ firebase.initializeApp({
 });
 const auth = firebase.auth();
 const db = firebase.firestore();
+
+// ── 운영/데브 세이브 격리: /dev/ 경로면 별도 컬렉션·localStorage 네임스페이스 ──
+window.PF_ENV = location.pathname.includes('/dev/') ? 'dev' : 'prod';
+window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters',
+                  sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
+window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
 <style>
 /* FVTT 양피지 테마 — CharacterSheet.html과 통일 */
@@ -112,7 +118,7 @@ body{background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;colo
 
 <div id="top-bar">
   <div style="display:flex;align-items:center;gap:12px;">
-    <button class="btn btn-gray btn-small" onclick="(window.top||window).location.href='Pathforge.html'">← 모드 선택</button>
+    <button class="btn btn-gray btn-small" onclick="(window.top||window).location.href='./'">← 모드 선택</button>
     <h1 style="color:#ff8c42;">Pathforge - GM (dev)</h1>
   </div>
   <div id="auth-area">
@@ -221,7 +227,7 @@ auth.onAuthStateChanged(user => {
 // ═══════════════════════════════════════════════
 function startListening() {
   if (!currentUser) return;
-  _sessionsUnsub = db.collection('sessions')
+  _sessionsUnsub = db.collection(PF_COL.sessions)
     .where('gmUid', '==', currentUser.uid)
     .orderBy('createdAt', 'desc')
     .onSnapshot(snap => {
@@ -247,7 +253,7 @@ function startListening() {
 }
 
 function startListeningFallback() {
-  _sessionsUnsub = db.collection('sessions')
+  _sessionsUnsub = db.collection(PF_COL.sessions)
     .where('gmUid', '==', currentUser.uid)
     .onSnapshot(snap => {
       mySessions = [];
@@ -329,7 +335,7 @@ function renderSessionDetail(s) {
   uids.forEach(uid => {
     const slotId = players[uid]?.slotId;
     if (!slotId) { const el2 = document.getElementById('pc-info-' + uid); if (el2) el2.textContent = '슬롯 미지정'; return; }
-    db.collection('users').doc(uid).collection('characters').doc(slotId).get().then(doc => {
+    db.collection('users').doc(uid).collection(PF_COL.characters).doc(slotId).get().then(doc => {
       const el = document.getElementById('pc-info-' + uid);
       if (!el) return;
       if (doc.exists && doc.data().data) {
@@ -361,10 +367,10 @@ async function doCreateSession() {
   const name = document.getElementById('new-session-name').value.trim() || '새 세션';
   const code = genCode();
   // 충돌 검사
-  const dup = await db.collection('sessions').where('joinCode', '==', code).get();
+  const dup = await db.collection(PF_COL.sessions).where('joinCode', '==', code).get();
   if (!dup.empty) return doCreateSession();
 
-  await db.collection('sessions').add({
+  await db.collection(PF_COL.sessions).add({
     gmUid: currentUser.uid,
     joinCode: code,
     name: name,
@@ -385,10 +391,10 @@ async function deleteCurrentSession() {
   if (!confirm('"' + (s.name||'세션') + '"을 삭제하시겠습니까?')) return;
   try {
     // rolls 서브컬렉션 삭제
-    const rollSnap = await db.collection('sessions').doc(selectedSessionId).collection('rolls').get();
+    const rollSnap = await db.collection(PF_COL.sessions).doc(selectedSessionId).collection('rolls').get();
     const batch = db.batch();
     rollSnap.forEach(d => batch.delete(d.ref));
-    batch.delete(db.collection('sessions').doc(selectedSessionId));
+    batch.delete(db.collection(PF_COL.sessions).doc(selectedSessionId));
     await batch.commit();
     // 플레이어 캐릭터의 sessionId는 각 클라이언트의 onSnapshot에서 자동 정리됨
   } catch(e) {
@@ -406,19 +412,19 @@ async function kickPlayer(sessionId, uid, name) {
   if (!confirm('"' + name + '"을(를) 세션에서 추방하시겠습니까?\n캐릭터는 해당 플레이어의 개인 슬롯에 그대로 유지됩니다.')) return;
   try {
     // 세션 doc에서 해당 플레이어의 slotId 확인 후 sessionId 제거
-    const sessDoc = await db.collection('sessions').doc(sessionId).get();
+    const sessDoc = await db.collection(PF_COL.sessions).doc(sessionId).get();
     if (sessDoc.exists) {
       const slotId = sessDoc.data().players?.[uid]?.slotId;
       if (slotId) {
         await db.collection('users').doc(uid)
-          .collection('characters').doc(slotId).update({
+          .collection(PF_COL.characters).doc(slotId).update({
             sessionId: firebase.firestore.FieldValue.delete()
           });
       }
     }
     // 세션 players map에서 제거
     const playerField = 'players.' + uid;
-    await db.collection('sessions').doc(sessionId).update({
+    await db.collection(PF_COL.sessions).doc(sessionId).update({
       [playerField]: firebase.firestore.FieldValue.delete()
     });
   } catch(e) {
@@ -444,7 +450,7 @@ function startSessionAsPlayer() {
 // GM 시트 관리 → CharacterSheet.html?gmsession=ID (플레이어 시트 탭 전환·편집). _cb: HTML 캐시버스터
 function startGMSheets() {
   if (!selectedSessionId) { alert('세션을 선택하세요.'); return; }
-  _topNav('Pathforge.html?gmsession=' + selectedSessionId + '&_cb=' + Date.now());
+  _topNav('./?gmsession=' + selectedSessionId + '&_cb=' + Date.now());
 }
 
 // ═══════════════════════════════════════════════
@@ -457,7 +463,7 @@ let _rollsReady = false;
 function startRollsListener(sessionId) {
   stopRollsListener();
   _rollsReady = false;
-  _rollsUnsub = db.collection('sessions').doc(sessionId)
+  _rollsUnsub = db.collection(PF_COL.sessions).doc(sessionId)
     .collection('rolls')
     .limit(100)
     .onSnapshot(function(snap) {
@@ -511,7 +517,7 @@ function showRemoteToast(data) {
 }
 </script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=566"></script>
-<script src="cs_i18n.js?v=588"></script>
+<script src="cs_locale.js?v=0.1"></script>
+<script src="cs_i18n.js?v=0.1"></script>
 </body>
 </html>

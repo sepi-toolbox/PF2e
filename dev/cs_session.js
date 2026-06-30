@@ -72,10 +72,10 @@ async function createSession(name) {
   if (!currentUser) { alert('로그인이 필요합니다.'); return; }
   const code = generateJoinCode();
   // 충돌 검사
-  const existing = await db.collection('sessions').where('joinCode', '==', code).get();
+  const existing = await db.collection(PF_COL.sessions).where('joinCode', '==', code).get();
   if (!existing.empty) return createSession(name); // 재귀 재시도 (확률 극소)
 
-  const docRef = await db.collection('sessions').add({
+  const docRef = await db.collection(PF_COL.sessions).add({
     gmUid: currentUser.uid,
     joinCode: code,
     name: name || '새 세션',
@@ -93,8 +93,8 @@ async function createSession(name) {
   _isGM = true;
   _gmEditTarget = null;
   // localStorage 저장
-  localStorage.setItem('pf2e_sessionId', docRef.id);
-  localStorage.setItem('pf2e_sessionRole', 'gm');
+  localStorage.setItem(PF_LS('pf2e_sessionId'), docRef.id);
+  localStorage.setItem(PF_LS('pf2e_sessionRole'), 'gm');
   // UI 전환
   enterSessionUI();
   startSessionListeners();
@@ -109,7 +109,7 @@ async function joinSession(code) {
   code = code.toUpperCase().trim();
   if (code.length !== SESSION_CODE_LEN) { alert('참가 코드는 ' + SESSION_CODE_LEN + '자리입니다.'); return; }
 
-  const snap = await db.collection('sessions').where('joinCode', '==', code).get();
+  const snap = await db.collection(PF_COL.sessions).where('joinCode', '==', code).get();
   if (snap.empty) { alert('세션을 찾을 수 없습니다.'); return; }
 
   const doc = snap.docs[0];
@@ -121,8 +121,8 @@ async function joinSession(code) {
   _sessionMode = true;
   _isGM = false;
   _gmEditTarget = null;
-  localStorage.setItem('pf2e_sessionId', doc.id);
-  localStorage.setItem('pf2e_sessionRole', 'player');
+  localStorage.setItem(PF_LS('pf2e_sessionId'), doc.id);
+  localStorage.setItem(PF_LS('pf2e_sessionRole'), 'player');
 
   closeSessionModal();
   // 슬롯 선택 모달 — 선택 완료 시 세션 참가 처리
@@ -133,11 +133,11 @@ async function joinSession(code) {
 //  세션 복귀 (새로고침/재접속)
 // ══════════════════════════════════════════════════
 async function restoreSession() {
-  const sid = localStorage.getItem('pf2e_sessionId');
+  const sid = localStorage.getItem(PF_LS('pf2e_sessionId'));
   if (!sid || !currentUser) return false;
 
   try {
-    const doc = await db.collection('sessions').doc(sid).get();
+    const doc = await db.collection(PF_COL.sessions).doc(sid).get();
     if (!doc.exists) {
       clearSessionStorage();
       return false;
@@ -153,7 +153,7 @@ async function restoreSession() {
     _currentSession = { id: doc.id, name: data.name, joinCode: data.joinCode, gmUid: data.gmUid, players: data.players || {} };
     _sessionMode = true;
     // 역할은 '계정==gmUid'가 아니라 입장 시 저장된 역할로 결정 (같은 계정이 플레이어로 참가 가능)
-    _isGM = localStorage.getItem('pf2e_sessionRole') === 'gm';
+    _isGM = localStorage.getItem(PF_LS('pf2e_sessionRole')) === 'gm';
     _gmEditTarget = null;
     enterSessionUI();
     startSessionListeners();
@@ -162,7 +162,7 @@ async function restoreSession() {
       const myInfo = data.players[currentUser.uid];
       if (myInfo && myInfo.slotId) {
         currentSlot = myInfo.slotId;
-        localStorage.setItem('pf2e_lastSlot', currentSlot);
+        localStorage.setItem(PF_LS('pf2e_lastSlot'), currentSlot);
       }
       loadSessionCharacter(currentUser.uid);
     }
@@ -175,8 +175,8 @@ async function restoreSession() {
 }
 
 function clearSessionStorage() {
-  localStorage.removeItem('pf2e_sessionId');
-  localStorage.removeItem('pf2e_sessionRole');
+  localStorage.removeItem(PF_LS('pf2e_sessionId'));
+  localStorage.removeItem(PF_LS('pf2e_sessionRole'));
 }
 
 // ══════════════════════════════════════════════════
@@ -188,10 +188,10 @@ async function leaveSession() {
     if (!confirm('세션을 삭제하시겠습니까?')) return;
     try {
       // rolls 서브컬렉션 삭제
-      const rollSnap = await db.collection('sessions').doc(_currentSession.id).collection('rolls').get();
+      const rollSnap = await db.collection(PF_COL.sessions).doc(_currentSession.id).collection('rolls').get();
       const batch = db.batch();
       rollSnap.forEach(d => batch.delete(d.ref));
-      batch.delete(db.collection('sessions').doc(_currentSession.id));
+      batch.delete(db.collection(PF_COL.sessions).doc(_currentSession.id));
       await batch.commit();
       // 플레이어 캐릭터의 sessionId는 각 클라이언트의 onSnapshot에서 자동 정리됨
     } catch (e) {
@@ -205,13 +205,13 @@ async function leaveSession() {
       const mySlot = _currentSession.players[currentUser.uid]?.slotId;
       if (mySlot) {
         await db.collection('users').doc(currentUser.uid)
-          .collection('characters').doc(mySlot).update({
+          .collection(PF_COL.characters).doc(mySlot).update({
             sessionId: firebase.firestore.FieldValue.delete()
           });
       }
       // players map에서 제거
       const playerField = 'players.' + currentUser.uid;
-      await db.collection('sessions').doc(_currentSession.id).update({
+      await db.collection(PF_COL.sessions).doc(_currentSession.id).update({
         [playerField]: firebase.firestore.FieldValue.delete()
       });
     } catch (e) {
@@ -262,7 +262,7 @@ function sessionSaveNow() {
   // 내 jsonData와 일치하는 스냅샷은 실제로 안 오고, 타 기기 스냅샷(다른 데이터)은 정상 적용됨.
   if (targetUid === currentUser.uid) _lastSavedData = jsonData;
   else if (_isGM) _gmLastSavedData = jsonData;
-  const _saveRef = db.collection('users').doc(targetUid).collection('characters').doc(targetSlot);
+  const _saveRef = db.collection('users').doc(targetUid).collection(PF_COL.characters).doc(targetSlot);
   safeSaveCharacter(_saveRef, {
       data: jsonData,
       name: data.name || '이름 없음',
@@ -301,7 +301,7 @@ function loadSessionCharacter(uid) {
     return;
   }
   db.collection('users').doc(uid)
-    .collection('characters').doc(slotId).get().then(doc => {
+    .collection(PF_COL.characters).doc(slotId).get().then(doc => {
       if (doc.exists && doc.data().data) {
         const data = JSON.parse(doc.data().data);
         if (typeof resetCloudVersion === 'function') resetCloudVersion(doc);   // 동시편집 보호: 기준 버전 기록
@@ -347,20 +347,20 @@ async function selectSlotForSession(slotId) {
     const prevSlot = _currentSession.players[currentUser.uid]?.slotId;
     if (prevSlot && prevSlot !== slotId) {
       await db.collection('users').doc(currentUser.uid)
-        .collection('characters').doc(prevSlot).update({
+        .collection(PF_COL.characters).doc(prevSlot).update({
           sessionId: firebase.firestore.FieldValue.delete()
         }).catch(function() {});
     }
     // 세션 players map에 slotId 등록
     const playerField = 'players.' + currentUser.uid;
-    await db.collection('sessions').doc(_currentSession.id).update({
+    await db.collection(PF_COL.sessions).doc(_currentSession.id).update({
       [playerField + '.displayName']: currentUser.displayName || currentUser.email || '???',
       [playerField + '.joinedAt']: firebase.firestore.FieldValue.serverTimestamp(),
       [playerField + '.slotId']: slotId
     });
     // 캐릭터 doc에 sessionId 기록
     await db.collection('users').doc(currentUser.uid)
-      .collection('characters').doc(slotId).set({
+      .collection(PF_COL.characters).doc(slotId).set({
         sessionId: _currentSession.id
       }, { merge: true });
     // 로컬 상태 설정
@@ -369,7 +369,7 @@ async function selectSlotForSession(slotId) {
       slotId: slotId
     };
     currentSlot = slotId;
-    localStorage.setItem('pf2e_lastSlot', slotId);
+    localStorage.setItem(PF_LS('pf2e_lastSlot'), slotId);
     // 세션 UI 활성화
     enterSessionUI();
     startSessionListeners();
@@ -400,7 +400,7 @@ function startSessionListeners() {
     DiceRoller.onRoll(function(entry) {
       if (!_sessionMode || !_currentSession || !currentUser) return;
       var charName = (typeof state !== 'undefined' && state.name) || currentUser.displayName || '???';
-      db.collection('sessions').doc(_currentSession.id).collection('rolls').add({
+      db.collection(PF_COL.sessions).doc(_currentSession.id).collection('rolls').add({
         uid: currentUser.uid,
         characterName: charName,
         label: entry.label,
@@ -415,7 +415,7 @@ function startSessionListeners() {
   }
 
   // 세션 문서 실시간 감시 (players 변경 등)
-  _sessionDocUnsub = db.collection('sessions').doc(_currentSession.id)
+  _sessionDocUnsub = db.collection(PF_COL.sessions).doc(_currentSession.id)
     .onSnapshot(doc => {
       if (!doc.exists) {
         // 세션이 삭제됨 (GM이 삭제)
@@ -424,7 +424,7 @@ function startSessionListeners() {
           const mySlot = currentSlot;
           if (mySlot && currentUser) {
             db.collection('users').doc(currentUser.uid)
-              .collection('characters').doc(mySlot).update({
+              .collection(PF_COL.characters).doc(mySlot).update({
                 sessionId: firebase.firestore.FieldValue.delete()
               }).catch(function() {});
           }
@@ -467,7 +467,7 @@ function startSessionListeners() {
   if (!_isGM) {
     const mySlot = _currentSession.players[currentUser.uid]?.slotId || currentSlot;
     _charDocUnsub = db.collection('users').doc(currentUser.uid)
-      .collection('characters').doc(mySlot)
+      .collection(PF_COL.characters).doc(mySlot)
       .onSnapshot(doc => {
         if (!doc.exists || !doc.data().data) return;
         if (typeof noteCloudVersion === 'function') noteCloudVersion(doc);   // 동시편집 보호: 최신 버전 추적
@@ -496,7 +496,7 @@ function startSessionListeners() {
 
   // ── 주사위 공유 리스너 ──
   _rollsReady = false;
-  _rollsUnsub = db.collection('sessions').doc(_currentSession.id)
+  _rollsUnsub = db.collection(PF_COL.sessions).doc(_currentSession.id)
     .collection('rolls')
     .limit(100)
     .onSnapshot(function(snap) {
@@ -666,7 +666,7 @@ function openCharacterChoiceModal() {
   overlay.innerHTML = html;
   overlay.classList.remove('hidden');
   // 개인 슬롯 목록 로드
-  db.collection('users').doc(currentUser.uid).collection('characters').get().then(snap => {
+  db.collection('users').doc(currentUser.uid).collection(PF_COL.characters).get().then(snap => {
     const list = document.getElementById('session-slot-list');
     if (!list) return;
     let items = '';
@@ -754,7 +754,7 @@ let _pendingGMSession = null;
 
 async function enterGMSessionMode(sessionId) {
   try {
-    const doc = await db.collection('sessions').doc(sessionId).get();
+    const doc = await db.collection(PF_COL.sessions).doc(sessionId).get();
     if (!doc.exists) { alert('세션을 찾을 수 없습니다.'); return; }
     const data = doc.data();
     if (data.gmUid !== currentUser.uid) { alert('이 세션의 GM이 아닙니다.'); return; }
@@ -766,7 +766,7 @@ async function enterGMSessionMode(sessionId) {
 
     // 이전 세션의 누적 rolls 정리 (read 비용 절감)
     try {
-      const oldRolls = await db.collection('sessions').doc(sessionId).collection('rolls').get();
+      const oldRolls = await db.collection(PF_COL.sessions).doc(sessionId).collection('rolls').get();
       if (!oldRolls.empty) {
         const batch = db.batch();
         oldRolls.forEach(d => batch.delete(d.ref));
@@ -782,7 +782,7 @@ async function enterGMSessionMode(sessionId) {
     _buildPlayerTabBar();
 
     // 세션 문서 실시간 감시 (플레이어 참가/퇴장 → 탭 갱신)
-    _sessionDocUnsub = db.collection('sessions').doc(sessionId)
+    _sessionDocUnsub = db.collection(PF_COL.sessions).doc(sessionId)
       .onSnapshot(snap => {
         if (!snap.exists) return;
         const d = snap.data();
@@ -794,7 +794,7 @@ async function enterGMSessionMode(sessionId) {
         if (_sessionMode && _currentSession) {
           setTimeout(function() {
             if (!_sessionMode || !_currentSession) return;
-            _sessionDocUnsub = db.collection('sessions').doc(_currentSession.id)
+            _sessionDocUnsub = db.collection(PF_COL.sessions).doc(_currentSession.id)
               .onSnapshot(snap => {
                 if (!snap.exists) return;
                 const d2 = snap.data();
@@ -810,7 +810,7 @@ async function enterGMSessionMode(sessionId) {
       DiceRoller.onRoll(function(entry) {
         if (!_sessionMode || !_currentSession || !currentUser) return;
         var charName = 'GM';
-        db.collection('sessions').doc(_currentSession.id).collection('rolls').add({
+        db.collection(PF_COL.sessions).doc(_currentSession.id).collection('rolls').add({
           uid: currentUser.uid, characterName: charName,
           label: entry.label, dice: entry.dice, modifier: entry.modifier || 0,
           total: entry.total, isNat20: !!entry.isNat20, isNat1: !!entry.isNat1,
@@ -819,7 +819,7 @@ async function enterGMSessionMode(sessionId) {
       });
     }
     _rollsReady = false;
-    _rollsUnsub = db.collection('sessions').doc(sessionId)
+    _rollsUnsub = db.collection(PF_COL.sessions).doc(sessionId)
       .collection('rolls')
       .limit(100)
       .onSnapshot(function(snap) {
@@ -937,7 +937,7 @@ function _startGMCharListener(uid) {
   const slotId = _currentSession.players[uid]?.slotId;
   if (!slotId) return;
   _charDocUnsub = db.collection('users').doc(uid)
-    .collection('characters').doc(slotId)
+    .collection(PF_COL.characters).doc(slotId)
     .onSnapshot(doc => {
       if (!doc.exists || !doc.data().data) return;
       if (typeof noteCloudVersion === 'function') noteCloudVersion(doc);   // 동시편집 보호: 최신 버전 추적
@@ -1048,13 +1048,13 @@ async function gmKickPlayer(uid, name) {
     const slotId = _currentSession.players[uid]?.slotId;
     if (slotId) {
       await db.collection('users').doc(uid)
-        .collection('characters').doc(slotId).update({
+        .collection(PF_COL.characters).doc(slotId).update({
           sessionId: firebase.firestore.FieldValue.delete()
         });
     }
     // 세션 players map에서 제거
     const playerField = 'players.' + uid;
-    await db.collection('sessions').doc(_currentSession.id).update({
+    await db.collection(PF_COL.sessions).doc(_currentSession.id).update({
       [playerField]: firebase.firestore.FieldValue.delete()
     });
     // 추방된 플레이어가 현재 보고 있는 탭이면 다른 탭으로 전환
@@ -1172,7 +1172,7 @@ function _updateGMSwitchPopup() {
     var slotId = players[uid]?.slotId;
     if (!slotId) { var el2 = document.getElementById('gm-fab-char-' + uid); if (el2) el2.textContent = '슬롯 미지정'; return; }
     db.collection('users').doc(uid)
-      .collection('characters').doc(slotId).get().then(function(doc) {
+      .collection(PF_COL.characters).doc(slotId).get().then(function(doc) {
         var el = document.getElementById('gm-fab-char-' + uid);
         if (!el) return;
         if (doc.exists && doc.data().data) {
