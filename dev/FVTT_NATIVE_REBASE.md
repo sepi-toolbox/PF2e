@@ -1,6 +1,6 @@
 # Pathforge → FVTT-Native 전면 재기반 설계
 
-작성: 2026-06-27 / 상태: **P0~P3 완료, P4 파일럿(혈통+유산) 완료(v0.5). P4 확장(배경·클래스·주문·재주) 대기**
+작성: 2026-06-27 / 상태: **P0~P4 완료(v0.9). 5개 엔티티(혈통·유산·배경·주문·재주) FVTT-네이티브 + 클래스 콘텐츠/숙련. 잔여=클래스 서브클래스/특성/주문슬롯, RE v2 키**
 선행: `PATHFORGE_REBASE_DESIGN.md`(크리처 BASE+OVERLAY) 의 Phase 3를 본 문서가 대체.
 
 ## 0. 사용자 확정 결정
@@ -91,7 +91,14 @@ RE 인스턴스 총 17,216개 / 고유 key 38개 / RE 보유 문서 7,879개. **
     - **배선(레거시 폴백 병존)**: `getOptionsData`(모달 목록)·`getHeritage`/`getHeritageEffects`(cs_calc, `h._reEffects`면 RE 분기, 레벨/능력치 캐시키)·save 복원·`ancestry_pick` → `PF2eAnc.ready()` 우선. onload `_ensureAncData()` 사전로드 + 모달 미준비 시 재오픈.
     - **버그수정**: 유산 단독 시야(동굴 엘프 암시야 등)가 `state._featVisionUpgrade`(재주만 셋) 게이트에 막혀 미적용 → 시야 **항상 재계산**(혈통base→유산upgrade→재주 max). 레거시 유산에도 영향.
     - **남은 갭(graceful no-op)**: 미구현 RE 47유산(ItemAlteration/Strike/AdjustDegreeOfSuccess 등 상황형, 설명문이 커버) + 선택의존 GrantItem 5(고대 엘프·다재다능 인간 등 — 재주선택 UI 필요). 혈통 자체 RE(13/50, 대부분 조건부)는 구조필드 위주라 후속.
-    - **확장 패턴**: 동일 어댑터(toLegacy + RE→레거시효과 + `_reEffects` 분기 + ready 폴백)를 배경(40→490)·클래스(8→27)·주문(417→1796)·재주(1036→7398)에 복제. ⏳ 대기.
+    - **확장 패턴**: 동일 어댑터(toLegacy + RE→레거시효과 + `_reEffects` 분기 + ready 폴백)를 배경·클래스·주문·재주에 복제. ✅ 완료.
+  - ✅ **P4 확장 완료 (v0.6~0.9, 2026-06-30)**: 동일 패턴으로 4개 엔티티 추가.
+    - **배경(v0.6)** `cs_pf2e_bg.js`: 40→490. 구조필드(부스트/기술/지식/재주) 직접매핑(레벨무관 _effects). getBackgroundEffects/모달/save 배선.
+    - **주문(v0.7)** `cs_pf2e_spell.js`: 417→1796. 데이터카탈로그(rank/cantrip/focus/traditions/traits/range·area·defense 한글변환). getSpell 폴백 + `_allSpells()` 머지접근자(filterSpells/learn·memorize/choice).
+    - **재주(v0.8)** `cs_pf2e_feat.js`: 1036→7398 **머지**(레거시 검증효과 우선, 미등재 6851 보강). featEffects(RE→레거시 effects). getFeat 폴백 + `_allFeats()` + `_getFeatEffectsDef` RE분기(`_fvttFeatDef`). **교차참조 ✅**: GrantItem getByUuid(effects/actions onload 프리로드) → 재주→재주(414)·재주→주문 grant 발동; 선행조건 feat-name 매칭. 라이브검증: 바람의베개→강력한도약, 해로우어헌신→해로우카드점술, 사우멘카르의왕관 prereq 협약헌신 보유 후 충족.
+    - **클래스(v0.9)** `cs_pf2e_class.js`: 8→27. ⚠ **숙련진행이 FVTT 컴펜디움에 없음**(파운드리 시스템 TS 코드 전용, 데이터화 안 됨) → 신규 19클래스 `CLASS_PROF_EXT` **수작업**(PF2e PC1/PC2 정본, L1 contrib는 classes.base 앵커검증 173match). 레거시 8은 기존 CLASS_PROF_TABLE 유지. classToLegacy(hp/key_attrs/saves/perc/skills/casting). applyClassFeatures cp폴백 + 모달머지 + save. **잔여(후속)**: 신규클래스 서브클래스(SUBCLASS_DB)·레벨별특성(CLASS_FEATURE_NAMES)·시전 주문슬롯표(CLASS_SPELL_TABLE).
+    - **아이콘 벤더링** `tools/build_pf4_icons.mjs`: 신규 엔티티 img(혈통42·유산194·주문789·재주365)를 로컬 Foundry(pf2e system + 코어 public)에서 data/icons/ 복사. iconImg img-폴백 해소.
+    - **RE 엔진 v1.1 보강**: evalFormula(@actor.level)·ChoiceSet rollOption 시드·predicate 준수(AELike/Sense/GrantItem)·dataChanges/grantedDocs. 시야 게이트 버그 수정.
 - **P5** 크리처 전량(7633) + hazard 시트/지도 연동(기존 cs_monster 확장). OVERLAY 병합.
 - **P6** OVERLAY 검수·품질수정 로그(OVERLAY_FIXES.md), 미번역 채움.
 
