@@ -3371,7 +3371,8 @@ function _buildFeatActionCard(item) {
   const costKey = costMap[costMatch[1]] || '1';
   const costIcon = (typeof getActionCostIcon==='function') ? getActionCostIcon(costKey) : costMatch[0];
   const traits = (item.traits||[]).map(t => typeof traitTag==='function' ? traitTag(t) : `<span class="tag">${t}</span>`).join(' ');
-  const rawDesc = (item.desc||item.summary||'').replace(/^\[(?:반응|1행동|2행동|3행동|자유 행동)\]\s*/, '');
+  let rawDesc = (item.desc||item.summary||'').replace(/^\[(?:반응|1행동|2행동|3행동|자유 행동)\]\s*/, '');
+  rawDesc = _stripTraitLine(rawDesc);
   const desc = typeof resolveDescRefs==='function' ? resolveDescRefs(rawDesc) : rawDesc;
   return `<div class="action-card" style="margin:8px 0;max-width:320px;">
     <div class="action-card-head">
@@ -3448,9 +3449,16 @@ function formatDescActions(text, item) {
     _buildActionCard(costKey, nameKo, nameEn, itemTraits, restText);
 }
 
+// summary 본문 맨 앞에 박혀 있는 "특성: ..." 텍스트 줄 제거 (칩으로 일원화).
+// ACTION_DB 등 일부 summary가 `<strong>특성:</strong> 이동<br>...` 형태로 시작.
+function _stripTraitLine(s) {
+  return (s || '').replace(/^\s*<strong>특성:<\/strong>[^<]*(?:<br>\s*)+/, '');
+}
+
 function _buildActionCard(costKey, nameKo, nameEn, traits, summary) {
   const costIcon = getActionCostIcon(costKey);
-  const traitsHtml = (traits||[]).map(t => `<span class="tag">${t}</span>`).join('');
+  const traitsHtml = (traits||[]).map(t => typeof traitTag==='function' ? traitTag(t) : `<span class="tag">${t}</span>`).join('');
+  summary = _stripTraitLine(summary);
   return `<div class="action-card" style="margin:8px 0;max-width:320px;">
     <div class="action-card-head">
       <span class="action-cost">${costIcon}</span>
@@ -5566,7 +5574,7 @@ function renderActions() {
       const opacity = avail ? '' : 'opacity:0.45;';
       const grantedStyle = granted ? 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);' : '';
       const costIcon = getActionCostIcon(a.cost);
-      const traitsHtml = (a.traits||[]).map(t => `<span class="tag">${t}</span>`).join('');
+      const traitsHtml = (a.traits||[]).map(t => typeof traitTag==='function' ? traitTag(t) : `<span class="tag">${t}</span>`).join('');
       let reqHtml = '';
       if (!avail) {
         if (a.req_feat) reqHtml = `<div class="action-req">재주 필요: ${a.req_feat}</div>`;
@@ -5588,7 +5596,7 @@ function renderActions() {
           </div>
         </div>
         ${traitsHtml ? `<div class="action-traits">${traitsHtml}</div>` : ''}
-        <div class="action-summary">${typeof resolveDescRefs==='function'?resolveDescRefs(a.summary):a.summary}</div>
+        <div class="action-summary">${(s=>typeof resolveDescRefs==='function'?resolveDescRefs(s):s)(_stripTraitLine(a.summary))}</div>
         ${sourceHtml}${reqHtml}
       </div>`;
     });
