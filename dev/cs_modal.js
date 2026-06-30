@@ -3696,8 +3696,10 @@ function _buildClassChoicesUI(cls) {
   // ── 클래스 특성 수집 ──
   const maxLv = getLevel();
   const classFeats = typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []).filter(f => f.lv <= maxLv) : [];
-  const subId = state.selectedSubclass?.id;
-  const subFeats = subId && true
+  // ⚠ 현재 선택된 서브클래스가 '이 클래스' 소속일 때만 사용(타 클래스 잔류 방지 — 클레릭 교의가 챔피언에 새던 버그)
+  const _selSub = state.selectedSubclass;
+  const subId = (_selSub && _selSub.class_id === cls.id) ? _selSub.id : null;
+  const subFeats = subId
     ? (SUBCLASS_DB.find(s => s.id === subId)?.features || []).filter(f => f.lv <= maxLv) : [];
   const allFeats = [...classFeats, ...subFeats].sort((a, b) => a.lv - b.lv || a.name_ko.localeCompare(b.name_ko));
   const featsByLv = {};
@@ -3870,8 +3872,10 @@ function _refreshClassFeaturesPreview() {
   // → 레벨 2+ 섹션을 다시 렌더링
   const maxLv = getLevel();
   const classFeats = typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []).filter(f => f.lv <= maxLv) : [];
-  const subId = _modalChoices?.doctrine || _modalChoices?.subclass || (state.selectedSubclass?.id);
-  const subFeats = subId && true
+  // 이 클래스 소속 서브클래스만 (타 클래스 잔류분 무시)
+  const _stSub = (state.selectedSubclass && state.selectedSubclass.class_id === cls.id) ? state.selectedSubclass.id : null;
+  const subId = _modalChoices?.doctrine || _modalChoices?.subclass || _stSub;
+  const subFeats = (subId && (!SUBCLASS_DB.find(s => s.id === subId) || SUBCLASS_DB.find(s => s.id === subId).class_id === cls.id))
     ? (SUBCLASS_DB.find(s => s.id === subId)?.features || []).filter(f => f.lv <= maxLv) : [];
 
   // 1레벨 클래스 특성 + 2레벨 이상 전체를 다시 생성
@@ -4161,7 +4165,10 @@ function _onClericFontChange(val) {
 
 // ── 범용 서브클래스 선택 UI (클레릭 제외) ──
 function _buildSubclassChoiceUI(classId, label, subs) {
-  const _savedSub = state.selectedSubclass?.id || '';
+  // ⚠ 현재 선택된 서브클래스가 '이 클래스(subs)' 소속일 때만 복원 — 타 클래스 서브클래스가
+  //    잔류해 _restoreInitialChoicesUI가 엉뚱한 특성(예: 클레릭 영역 입문)을 렌더하던 버그 방지
+  const _curSub = state.selectedSubclass?.id || '';
+  const _savedSub = subs.some(s => s.id === _curSub) ? _curSub : '';
   _modalChoices.subclass = _savedSub;
   let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">`;
   html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">⚙ ${label}</div>`;
