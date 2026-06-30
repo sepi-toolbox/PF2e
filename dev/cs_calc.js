@@ -146,14 +146,21 @@ function syncAllTeml() { syncAllProfRanks(); }
 
 function traitTag(name) {
   // v526~ TRAIT_DB array 형식. id 또는 name_ko로 lookup, 끝의 dice 표기 제거 후 재시도
-  const t = getTrait(name) || getTrait(name.replace(/\s*\d+.*$/, ''));
+  let t = getTrait(name) || getTrait(name.replace(/\s*\d+.*$/, ''));
+  // FVTT-네이티브 데이터는 트레잇/시전전통이 슬러그(arcane 등)로 들어올 수 있음.
+  // 글로서리(PF2eAnc._glossary.traitKo: slug→한글)로 한글화 후 재조회하여 설명을 해소.
+  const gloss = (typeof PF2eAnc !== 'undefined' && PF2eAnc._glossary && PF2eAnc._glossary.traitKo) ? PF2eAnc._glossary.traitKo : null;
+  if (!t && gloss) { const ko = gloss(name); if (ko && ko !== name) t = getTrait(ko); }
   const desc = t?.desc || null;
-  // 표시 라벨: name이 id면 한글명으로, 아니면 그대로
-  const label = (t && t.name_ko && t.name_ko !== name) ? t.name_ko : name;
+  // 표시 라벨: 한글 우선. TRAIT_DB name_ko가 영문 슬러그(arcane 등)면 글로서리 한글명으로 대체.
+  const _hangul = s => /[가-힣]/.test(s || '');
+  let label = (t && _hangul(t.name_ko)) ? t.name_ko : name;
+  if (!_hangul(label) && gloss) { const ko = gloss(label); if (ko && ko !== label) label = ko; }
   if (desc) {
     return `<span class="trait-tag" onmouseenter="posTraitTip(this)" onmouseleave="hideTraitTip(this)" ontouchstart="toggleTraitTip(event,this)">${label}<span class="trait-balloon">${desc}</span></span>`;
   }
-  return `<span class="tag">${label}</span>`;
+  // 설명이 없어도 동일한 칩 형태(.trait-tag)로 통일 — plain .tag로 떨어져 "칩 아닌 것"이 섞이지 않도록.
+  return `<span class="trait-tag">${label}</span>`;
 }
 
 function posTraitTip(el) {
