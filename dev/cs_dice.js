@@ -104,6 +104,23 @@ const DiceRoller = (() => {
     return rollPool(label, modifier);
   }
 
+  // 유리/불리 굴림 — 2d20 중 높은(유리)/낮은(불리) 값 채택
+  function rollAdvDis(isDis) {
+    const r1 = roll(20), r2 = roll(20);
+    const best = isDis ? Math.min(r1, r2) : Math.max(r1, r2);
+    const entry = {
+      label: isDis ? '불리 (2d20↓)' : '유리 (2d20↑)',
+      dice: [{sides:20,value:r1},{sides:20,value:r2}],
+      modifier: 0, total: best, time: new Date(),
+      isNat20: best === 20, isNat1: best === 1
+    };
+    rollLog.unshift(entry); if (rollLog.length > MAX_LOG) rollLog.pop();
+    showRollAnimation(entry, () => showToast(entry));
+    if (_rollCallback) try { _rollCallback(entry); } catch(e) {}
+    if (logOpen) renderLog();
+    return entry;
+  }
+
   // "2d8+4 참격" 같은 문자열 파싱 → 굴림
   function rollDamage(dmgStr, label, extraMod) {
     const match = dmgStr.match(/(\d+)d(\d+)/);
@@ -353,31 +370,12 @@ const DiceRoller = (() => {
 
     // 빠른 굴리기
     html += `<div class="dice-quick">
-      <button class="dice-quick-btn" onclick="DiceRoller.rollQuick(20,1,0,'d20')">d20</button>
-      <button class="dice-quick-btn" onclick="DiceRoller.rollQuick(20,1,0,'인스피')" style="font-size:10px">2d20↑</button>
-      <button class="dice-quick-btn" onclick="DiceRoller.rollQuick(6,4,0,'4d6')">4d6</button>
+      <button class="dice-quick-btn" onclick="DiceRoller.rollAdvDis(false)" style="font-size:10px">유리 2d20↑</button>
+      <button class="dice-quick-btn" onclick="DiceRoller.rollAdvDis(true)" style="font-size:10px">불리 2d20↓</button>
       <button class="dice-quick-btn dice-log-toggle ${logOpen?'active':''}" onclick="DiceRoller.toggleLog()">📜 기록</button>
     </div>`;
 
     body.innerHTML = html;
-
-    // 인스피 버튼 2d20 유리 수정
-    const inspBtn = body.querySelector('.dice-quick-btn:nth-child(2)');
-    if (inspBtn) {
-      inspBtn.onclick = () => {
-        const r1 = roll(20), r2 = roll(20);
-        const best = Math.max(r1, r2);
-        const entry = {
-          label: '유리 (2d20↑)', dice: [{sides:20,value:r1},{sides:20,value:r2}],
-          modifier: 0, total: best, time: new Date(),
-          isNat20: best === 20, isNat1: false
-        };
-        rollLog.unshift(entry); if (rollLog.length > MAX_LOG) rollLog.pop();
-        showRollAnimation(entry, () => showToast(entry));
-        if (_rollCallback) try { _rollCallback(entry); } catch(e) {}
-        if (logOpen) renderLog();
-      };
-    }
   }
 
   // ── 로그 패널 ──
@@ -614,7 +612,7 @@ const DiceRoller = (() => {
   // ── Public API ──
   return {
     addToPool, removeFromPool, clearPool,
-    rollPool, rollQuick, rollCheck, rollDamage, rollFormula,
+    rollPool, rollQuick, rollCheck, rollDamage, rollFormula, rollAdvDis,
     toggleTray, toggleLog, clearLog,
     onRoll, showRemoteToast,
   };
