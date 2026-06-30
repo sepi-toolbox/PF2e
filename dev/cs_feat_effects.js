@@ -882,13 +882,13 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
   } else if (choiceDef.type === 'custom' && choiceDef.options) {
     // 영역 입문: 신격 영역으로 필터링
     let filteredOpts = choiceDef.options;
-    if (choiceDef.label && choiceDef.label.includes('영역') && state.deity && typeof DEITY_DB !== 'undefined') {
-      const deity = DEITY_DB.find(d => d.id === state.deity);
+    if (choiceDef.label && choiceDef.label.includes('영역') && state.deity && typeof _getDeity === 'function') {
+      const deity = _getDeity(state.deity);
       if (deity && deity.domains && deity.domains.length > 0) {
         filteredOpts = choiceDef.options.filter(opt => deity.domains.includes(opt.name));
         const note = document.createElement('div');
         note.style.cssText = 'font-size:11px;color:var(--accent);padding:8px 12px;border-bottom:1px solid var(--border);';
-        note.textContent = `${deity.name_ko}의 영역: ${deity.domains.join(', ')}`;
+        note.textContent = `${deity.name_ko}의 영역: ${(deity.domains_ko&&deity.domains_ko.length?deity.domains_ko:deity.domains).join(', ')}`;
         container.appendChild(note);
       }
     }
@@ -912,8 +912,8 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     } else if (choiceDef.label && choiceDef.label.includes('영역')) {
       // Domain Initiate: 신격의 4개 영역만 선택 가능 (PF2e 룰 PC1 p.113)
       // state.deity = 신격 id, DEITY_DB.domains = 영역 id 배열 (외래키)
-      if (state.deity && typeof DEITY_DB !== 'undefined') {
-        const deity = DEITY_DB.find(d => d.id === state.deity);
+      if (state.deity && typeof _getDeity === 'function') {
+        const deity = _getDeity(state.deity);
         if (deity && Array.isArray(deity.domains) && deity.domains.length) {
           filteredOpts = filteredOpts.filter(opt => deity.domains.includes(opt.id));
         }
