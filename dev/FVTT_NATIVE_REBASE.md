@@ -1,6 +1,6 @@
 # Pathforge → FVTT-Native 전면 재기반 설계
 
-작성: 2026-06-27 / 상태: **P0~P4 완료(v0.9). 5개 엔티티(혈통·유산·배경·주문·재주) FVTT-네이티브 + 클래스 콘텐츠/숙련. 잔여=클래스 서브클래스/특성/주문슬롯, RE v2 키**
+작성: 2026-06-27 / 상태: **P0~P4 완료(v0.10). 6개 엔티티(혈통·유산·배경·주문·재주·클래스) FVTT-네이티브 + 클래스 특성/서브클래스/시전슬롯. 잔여=서브클래스 고유주문(데이터부재→수작업)·제한시전 슬롯검수·RE v2 키**
 선행: `PATHFORGE_REBASE_DESIGN.md`(크리처 BASE+OVERLAY) 의 Phase 3를 본 문서가 대체.
 
 ## 0. 사용자 확정 결정
@@ -96,7 +96,8 @@ RE 인스턴스 총 17,216개 / 고유 key 38개 / RE 보유 문서 7,879개. **
     - **배경(v0.6)** `cs_pf2e_bg.js`: 40→490. 구조필드(부스트/기술/지식/재주) 직접매핑(레벨무관 _effects). getBackgroundEffects/모달/save 배선.
     - **주문(v0.7)** `cs_pf2e_spell.js`: 417→1796. 데이터카탈로그(rank/cantrip/focus/traditions/traits/range·area·defense 한글변환). getSpell 폴백 + `_allSpells()` 머지접근자(filterSpells/learn·memorize/choice).
     - **재주(v0.8)** `cs_pf2e_feat.js`: 1036→7398 **머지**(레거시 검증효과 우선, 미등재 6851 보강). featEffects(RE→레거시 effects). getFeat 폴백 + `_allFeats()` + `_getFeatEffectsDef` RE분기(`_fvttFeatDef`). **교차참조 ✅**: GrantItem getByUuid(effects/actions onload 프리로드) → 재주→재주(414)·재주→주문 grant 발동; 선행조건 feat-name 매칭. 라이브검증: 바람의베개→강력한도약, 해로우어헌신→해로우카드점술, 사우멘카르의왕관 prereq 협약헌신 보유 후 충족.
-    - **클래스(v0.9)** `cs_pf2e_class.js`: 8→27. ⚠ **숙련진행이 FVTT 컴펜디움에 없음**(파운드리 시스템 TS 코드 전용, 데이터화 안 됨) → 신규 19클래스 `CLASS_PROF_EXT` **수작업**(PF2e PC1/PC2 정본, L1 contrib는 classes.base 앵커검증 173match). 레거시 8은 기존 CLASS_PROF_TABLE 유지. classToLegacy(hp/key_attrs/saves/perc/skills/casting). applyClassFeatures cp폴백 + 모달머지 + save. **잔여(후속)**: 신규클래스 서브클래스(SUBCLASS_DB)·레벨별특성(CLASS_FEATURE_NAMES)·시전 주문슬롯표(CLASS_SPELL_TABLE).
+    - **클래스(v0.9)** `cs_pf2e_class.js`: 8→27. ⚠ **숙련진행이 FVTT 컴펜디움에 없음**(파운드리 시스템 TS 코드 전용, 데이터화 안 됨) → 신규 19클래스 `CLASS_PROF_EXT` **수작업**(PF2e PC1/PC2 정본, L1 contrib는 classes.base 앵커검증 173match). 레거시 8은 기존 CLASS_PROF_TABLE 유지. classToLegacy(hp/key_attrs/saves/perc/skills/casting). applyClassFeatures cp폴백 + 모달머지 + save.
+    - **클래스 후속(v0.10)**: `_mergeIntoGlobals`로 신규클래스 데이터를 기존 전역에 병합 → ① **레벨별 특성** CLASS_FEATURE_NAMES(system.items→한글) ② **서브클래스** SUBCLASS_DB 33→153(tag feat: 바바리안 본능10·소서러 혈통18·오라클 신비11 등 120, RE grants 부분) ③ **시전 슬롯** CLASS_SPELL_TABLE(전수=_FULL_CASTER_TABLE 재사용[소서러/오라클/애니미스트], 제한=매서/소환사/사이킥 근사). ⚠ **SUBCLASS_DB는 top-level const→window 미부착, bare name+typeof 가드 필수**(v622). **잔여**: 서브클래스 고유 주문목록(혈통주문 등)·기계효과는 FVTT 데이터 부재(시스템코드 전용) → 수작업 필요. 제한시전 슬롯수 정본검수.
     - **아이콘 벤더링** `tools/build_pf4_icons.mjs`: 신규 엔티티 img(혈통42·유산194·주문789·재주365)를 로컬 Foundry(pf2e system + 코어 public)에서 data/icons/ 복사. iconImg img-폴백 해소.
     - **RE 엔진 v1.1 보강**: evalFormula(@actor.level)·ChoiceSet rollOption 시드·predicate 준수(AELike/Sense/GrantItem)·dataChanges/grantedDocs. 시야 게이트 버그 수정.
 - **P5** 크리처 전량(7633) + hazard 시트/지도 연동(기존 cs_monster 확장). OVERLAY 병합.
