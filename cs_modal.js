@@ -3371,7 +3371,8 @@ function _buildFeatActionCard(item) {
   const costKey = costMap[costMatch[1]] || '1';
   const costIcon = (typeof getActionCostIcon==='function') ? getActionCostIcon(costKey) : costMatch[0];
   const traits = (item.traits||[]).map(t => typeof traitTag==='function' ? traitTag(t) : `<span class="tag">${t}</span>`).join(' ');
-  const rawDesc = (item.desc||item.summary||'').replace(/^\[(?:반응|1행동|2행동|3행동|자유 행동)\]\s*/, '');
+  let rawDesc = (item.desc||item.summary||'').replace(/^\[(?:반응|1행동|2행동|3행동|자유 행동)\]\s*/, '');
+  rawDesc = _stripTraitLine(rawDesc);
   const desc = typeof resolveDescRefs==='function' ? resolveDescRefs(rawDesc) : rawDesc;
   return `<div class="action-card" style="margin:8px 0;max-width:320px;">
     <div class="action-card-head">
@@ -3448,9 +3449,16 @@ function formatDescActions(text, item) {
     _buildActionCard(costKey, nameKo, nameEn, itemTraits, restText);
 }
 
+// summary 본문 맨 앞에 박혀 있는 "특성: ..." 텍스트 줄 제거 (칩으로 일원화).
+// ACTION_DB 등 일부 summary가 `<strong>특성:</strong> 이동<br>...` 형태로 시작.
+function _stripTraitLine(s) {
+  return (s || '').replace(/^\s*<strong>특성:<\/strong>[^<]*(?:<br>\s*)+/, '');
+}
+
 function _buildActionCard(costKey, nameKo, nameEn, traits, summary) {
   const costIcon = getActionCostIcon(costKey);
-  const traitsHtml = (traits||[]).map(t => `<span class="tag">${t}</span>`).join('');
+  const traitsHtml = (traits||[]).map(t => typeof traitTag==='function' ? traitTag(t) : `<span class="tag">${t}</span>`).join('');
+  summary = _stripTraitLine(summary);
   return `<div class="action-card" style="margin:8px 0;max-width:320px;">
     <div class="action-card-head">
       <span class="action-cost">${costIcon}</span>
@@ -5479,31 +5487,43 @@ function renderActions() {
     state._fb._customActions.forEach(ca => {
       const featNameKo = ca.featName.split(' (')[0].trim();
 
-      // actionName 기반: desc에서 자동 추출 (정본 = feat_db.desc)
+      // actionName 기반: 행동 DB(카탈로그) 우선, 미스 시 부모 재주 desc 정규식 폴백
       if (ca.actionName) {
-        // 부모 재주의 desc에서 행동 섹션 추출
+        // 보조 추출: 부모 재주 desc에서 영문명/비용/본문(폴백 + DB 키 확보)
         const fd = getFeat(featNameKo);
-        if (!fd?.desc) return;
-        const marker = '<strong>' + ca.actionName + '</strong>';
-        const idx = fd.desc.indexOf(marker);
-        if (idx < 0) return;
-        const section = fd.desc.substring(idx + marker.length);
-        // 영문명 추출: (EnglishName) 패턴
-        const enMatch = section.match(/^\(([^)]+)\)/);
-        const nameEn = enMatch ? enMatch[1] : '';
-        // 비용 파싱
-        const costMatch = section.match(/\[([^\]]+)\]/);
-        const costMap = {'반응':'reaction','1행동':'1','2행동':'2','3행동':'3','자유 행동':'free'};
-        const cost = costMatch ? (costMap[costMatch[1]] || 'free') : 'free';
-        // 본문: [N행동] 이후 <br> 다음부터
-        const body = section.replace(/^[^]*?\[.+?\]\s*(?:<br\s*\/?>)?\s*/, '');
-        const id = 'custom-' + (nameEn||ca.actionName).replace(/\s/g,'-');
+        let nameEn = '', cost = 'free', body = '';
+        if (fd && fd.desc) {
+          const marker = '<strong>' + ca.actionName + '</strong>';
+          const idx = fd.desc.indexOf(marker);
+          if (idx >= 0) {
+            const section = fd.desc.substring(idx + marker.length);
+            const enMatch = section.match(/^\(([^)]+)\)/);
+            nameEn = enMatch ? enMatch[1] : '';
+            const costMatch = section.match(/\[([^\]]+)\]/);
+            const costMap = {'반응':'reaction','1행동':'1','2행동':'2','3행동':'3','자유 행동':'free'};
+            cost = costMatch ? (costMap[costMatch[1]] || 'free') : 'free';
+            body = section.replace(/^[^]*?\[.+?\]\s*(?:<br\s*\/?>)?\s*/, '');
+          }
+        }
+        // DB 우선: 영문명(안정적) → 한글명 순으로 카탈로그 조회
+        let fv = null;
+        if (typeof PF2eAction !== 'undefined' && PF2eAction.ready && PF2eAction.ready()) {
+          fv = (nameEn && PF2eAction.getActionLegacy(nameEn)) || PF2eAction.getActionLegacy(ca.actionName) || null;
+        }
+        // DB도 없고 desc 추출도 실패면 표시 안 함(기존 동작)
+        if (!fv && !body) return;
+        const name_ko = (fv && fv.name_ko) || ca.actionName;
+        const name_en = (fv && fv.name_en) || nameEn;
+        const finalCost = (fv && fv.cost) || cost;
+        const summary = (fv && fv.desc) || body;
+        const traits = (fv && fv.traits) || [];
+        const id = 'custom-' + (name_en || name_ko).replace(/\s/g,'-');
         if (existingIds2.has(id)) return;
         existingIds2.add(id);
         visible.push({
-          id, cat:'feat', cat_label:'재주 행동', name_ko: ca.actionName, name_en: nameEn,
-          cost, traits:[], req_skill:null, req_rank:0, req_feat: featNameKo,
-          summary: body
+          id, cat:'feat', cat_label:'재주 행동', name_ko, name_en,
+          cost: finalCost, traits, req_skill:null, req_rank:0, req_feat: featNameKo,
+          summary
         });
         return;
       }
@@ -5554,7 +5574,7 @@ function renderActions() {
       const opacity = avail ? '' : 'opacity:0.45;';
       const grantedStyle = granted ? 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);' : '';
       const costIcon = getActionCostIcon(a.cost);
-      const traitsHtml = (a.traits||[]).map(t => `<span class="tag">${t}</span>`).join('');
+      const traitsHtml = (a.traits||[]).map(t => typeof traitTag==='function' ? traitTag(t) : `<span class="tag">${t}</span>`).join('');
       let reqHtml = '';
       if (!avail) {
         if (a.req_feat) reqHtml = `<div class="action-req">재주 필요: ${a.req_feat}</div>`;
@@ -5569,14 +5589,14 @@ function renderActions() {
       html += `<div class="action-card" style="${opacity}${grantedStyle}">
         <div class="action-card-head">
           <span class="action-cost">${costIcon}</span>
-          ${typeof iconImg==='function'?iconImg(a.cat==='feat'?'feat':'action',a):''}
+          ${a.cat==='feat' && typeof iconImg==='function' ? iconImg('feat',a) : ''}
           <div style="flex:1;min-width:0;">
             <div class="action-name-ko">${a.name_ko}</div>
             <div class="action-name-en">${a.name_en}</div>
           </div>
         </div>
         ${traitsHtml ? `<div class="action-traits">${traitsHtml}</div>` : ''}
-        <div class="action-summary">${typeof resolveDescRefs==='function'?resolveDescRefs(a.summary):a.summary}</div>
+        <div class="action-summary">${(s=>typeof resolveDescRefs==='function'?resolveDescRefs(s):s)(_stripTraitLine(a.summary))}</div>
         ${sourceHtml}${reqHtml}
       </div>`;
     });
