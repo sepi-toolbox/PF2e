@@ -662,7 +662,9 @@ function applyClassFeatures() {
 
   // Build combined prof table: class base + subclass overrides
   const profs = {};
-  const cp = typeof CLASS_PROF_TABLE !== 'undefined' ? CLASS_PROF_TABLE[cls.id] : null;
+  // 레거시 CLASS_PROF_TABLE 우선, 미등재(신규 FVTT 클래스)면 PF2eClass 수작업 진행표
+  let cp = typeof CLASS_PROF_TABLE !== 'undefined' ? CLASS_PROF_TABLE[cls.id] : null;
+  if (!cp && typeof PF2eClass !== 'undefined' && PF2eClass.classProfTable) cp = PF2eClass.classProfTable(cls.id);
   if (cp) { for (const [t, p] of Object.entries(cp)) profs[t] = {...p}; }
 
   if (state.selectedSubclass && (state.selectedSubclass && state.selectedSubclass.prof_changes)) {
@@ -2551,10 +2553,10 @@ function openModal(type, ctx) {
   // 부스트 모달은 별도 처리
   if (type === 'boost') { openBoostModal(); return; }
 
-  // FVTT 혈통/유산/배경 데이터 미준비 시: 폴백으로 일단 열고, 로드 완료되면 FVTT 전체 목록으로 재오픈
-  if ((type === 'ancestry' || type === 'heritage' || type === 'background') && typeof _ensureAncData === 'function') {
-    const _need = (type === 'background')
-      ? (typeof PF2eBg !== 'undefined' && PF2eBg.ready && !PF2eBg.ready())
+  // FVTT 혈통/유산/배경/클래스 데이터 미준비 시: 폴백으로 일단 열고, 로드 완료되면 FVTT 전체 목록으로 재오픈
+  if ((type === 'ancestry' || type === 'heritage' || type === 'background' || type === 'class') && typeof _ensureAncData === 'function') {
+    const _need = (type === 'background') ? (typeof PF2eBg !== 'undefined' && PF2eBg.ready && !PF2eBg.ready())
+      : (type === 'class') ? (typeof PF2eClass !== 'undefined' && PF2eClass.ready && !PF2eClass.ready())
       : (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && !PF2eAnc.ready());
     if (_need) _ensureAncData().then(ok => { if (ok && modalType === type) openModal(type, ctx); });
   }
@@ -2620,7 +2622,14 @@ function _searchFilter(arr) {
 
 function getOptionsData(type) {
   const _ancReady = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready());
-  if (type==='class') return CLASSES;
+  if (type==='class') {
+    // 레거시 8클래스(완전 데이터) + 신규 FVTT 클래스(스탯). 슬러그 중복은 레거시 우선.
+    if (typeof PF2eClass !== 'undefined' && PF2eClass.ready && PF2eClass.ready()) {
+      const have = new Set(CLASSES.map(c => c.id));
+      return CLASSES.concat(PF2eClass.classList().filter(c => !have.has(c.id)));
+    }
+    return CLASSES;
+  }
   if (type==='ancestry') return _ancReady ? PF2eAnc.ancestryList() : ANCESTRIES;
   if (type==='background') return (typeof PF2eBg !== 'undefined' && PF2eBg.ready && PF2eBg.ready()) ? PF2eBg.backgroundList() : BACKGROUNDS;
   if (type==='heritage') {

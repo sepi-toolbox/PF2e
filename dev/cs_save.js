@@ -309,7 +309,9 @@ function loadData(d) {
     }
     // State objects
     if (d.selectedClass) {
-      state.selectedClass = CLASSES.find(c=>c.id===d.selectedClass)||null;
+      state.selectedClass = CLASSES.find(c=>c.id===d.selectedClass)
+        || ((typeof PF2eClass !== 'undefined' && PF2eClass.ready && PF2eClass.ready() && PF2eClass.getClassLegacy(d.selectedClass)))
+        || null;
       if (state.selectedClass) {
         const btn = document.getElementById('btn-class');
         if (btn) { btn.textContent = `${state.selectedClass.name} (${state.selectedClass.en})`; btn.classList.add('filled'); }
