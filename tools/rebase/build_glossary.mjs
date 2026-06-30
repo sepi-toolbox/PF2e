@@ -3,7 +3,7 @@
 // trait은 기존 dev/data/overlay/_lang.ko.json(1224) 재사용 병합.
 // 사용: node tools/rebase/build_glossary.mjs
 import fs from 'fs';
-const KR = '/tmp/PF2e-KR/lang/ko.json';
+const KR = process.env.PF2E_KR_SRC ? process.env.PF2E_KR_SRC + '/lang/ko.json' : '/tmp/PF2e-KR/lang/ko.json';
 const LANG = '/tmp/PF2e-publish/dev/data/overlay/_lang.ko.json';
 const OUT = '/tmp/PF2e-publish/dev/data/creatures/_glossary.ko.json';
 

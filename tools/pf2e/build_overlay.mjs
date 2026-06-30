@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 const BASE = "/tmp/PF2e-publish/dev/data/base";
-const KR = "/Users/sepi/Library/Application Support/FoundryVTT/Data/modules/PF2e-KR/compendium/ko";
+const KR = process.env.PF2E_KR_SRC ? process.env.PF2E_KR_SRC + "/compendium/ko" : "/Users/sepi/Library/Application Support/FoundryVTT/Data/modules/PF2e-KR/compendium/ko";
 const OUT = "/tmp/PF2e-publish/dev/data/overlay";
 mkdirSync(OUT, { recursive:true });
 

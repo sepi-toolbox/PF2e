@@ -11,6 +11,7 @@ const HOME = process.env.HOME;
 const EN = process.env.PF2E_EN
   || `${HOME}/Library/Application Support/FoundryVTT/Data/systems/pf2e/lang/en.json`;
 const KO = process.env.PF2E_KO
+  || (process.env.PF2E_KR_SRC ? process.env.PF2E_KR_SRC + '/lang/ko.json' : null)
   || `${HOME}/Library/Application Support/FoundryVTT/Data/modules/PF2e-KR/lang/ko.json`;
 const OUT = process.argv[2]
   || path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..', 'dev', 'data', 'creatures', '_trait_desc.ko.json');

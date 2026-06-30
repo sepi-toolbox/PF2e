@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
-const LANG = "/Users/sepi/Library/Application Support/FoundryVTT/Data/modules/PF2e-KR/lang";
+const LANG = process.env.PF2E_KR_SRC ? process.env.PF2E_KR_SRC + "/lang" : "/Users/sepi/Library/Application Support/FoundryVTT/Data/modules/PF2e-KR/lang";
 const OUT = "/tmp/PF2e-publish/dev/data/overlay";
 mkdirSync(OUT, { recursive:true });
 const all = {};

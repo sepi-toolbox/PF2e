@@ -1,6 +1,6 @@
 // BASE creature + PF2e-KR → KO overlay (다층 해소 v2). 미해소는 TODO.
 import fs from 'fs';
-const KR='/tmp/PF2e-KR/compendium', PACK=process.argv[2], DATA=process.argv[3], OUT=process.argv[4], TODO=process.argv[5];
+const KR=(process.env.PF2E_KR_SRC ? process.env.PF2E_KR_SRC + '/compendium' : '/tmp/PF2e-KR/compendium'), PACK=process.argv[2], DATA=process.argv[3], OUT=process.argv[4], TODO=process.argv[5];
 const ld=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 const ldKo=name=>ld(`${KR}/ko/${name}.json`).entries;
 const creatures = ld(DATA);
