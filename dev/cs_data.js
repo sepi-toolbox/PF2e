@@ -714,7 +714,9 @@ const SUBCLASS_DB = [
     "name_ko": "지략가",
     "name_en": "Mastermind",
     "desc": "지능에 의지하여 정교한 계략을 세우며, 다른 이가 3수 앞을 볼 때 10수 앞을 봅니다. 지식 회상으로 생물을 성공적으로 식별하면 다음 턴 시작까지 당신의 공격에 <strong>무방비</strong>; 대성공이면 1분간.",
-    "granted_skills": [],
+    "granted_skills": [
+      "society"
+    ],
     "granted_feats": [],
     "granted_spells": [],
     "features": [
@@ -735,7 +737,8 @@ const SUBCLASS_DB = [
     "name_en": "Scoundrel",
     "desc": "재빠른 말솜씨, 아첨, 날카로운 혀로 위험을 피하고 곤란한 상황을 탈출합니다. 기만으로 성공적으로 속임(Feint) 시 다음 턴 종료까지 당신의 근접 공격에 <strong>무방비</strong>; 대성공이면 모든 근접 공격에. 민첩/기교 근접 무기를 들고 속이면 즉시 <strong>자유 행동으로 한 걸음</strong>.",
     "granted_skills": [
-      "deception"
+      "deception",
+      "diplomacy"
     ],
     "granted_feats": [],
     "granted_spells": [],
@@ -771,7 +774,9 @@ const SUBCLASS_DB = [
     "name_ko": "도둑",
     "name_en": "Thief",
     "desc": "남의 것을 가져가는 짜릿함을 즐깁니다. 기교 근접 무기나 비무장 공격으로 공격 시 피해 굴림에 근력 대신 <strong>민첩 수정치를 추가</strong>.",
-    "granted_skills": [],
+    "granted_skills": [
+      "thievery"
+    ],
     "granted_feats": [],
     "granted_spells": [],
     "features": [
@@ -923,7 +928,13 @@ const SUBCLASS_DB = [
     "desc": "자연 야생의 후원자. 원시(Primal) 전통. 주술: 야생의 분노(Wilding Word). 자연·동물 관련 주문.",
     "granted_skills": [],
     "granted_feats": [],
-    "granted_spells": [],
+    "granted_spells": [
+      {
+        "lv": 1,
+        "type": "focus",
+        "spell_id": "wilding-word"
+      }
+    ],
     "features": [
       {
         "lv": 1,
