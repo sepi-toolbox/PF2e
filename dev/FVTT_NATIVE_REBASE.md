@@ -1,6 +1,6 @@
 # Pathforge → FVTT-Native 전면 재기반 설계
 
-작성: 2026-06-27 / 상태: **Phase 0(데이터 추출) 완료, Rule Element 엔진 착수 대기**
+작성: 2026-06-27 / 상태: **P0~P3 완료, P4 파일럿(혈통+유산) 완료(v0.5). P4 확장(배경·클래스·주문·재주) 대기**
 선행: `PATHFORGE_REBASE_DESIGN.md`(크리처 BASE+OVERLAY) 의 Phase 3를 본 문서가 대체.
 
 ## 0. 사용자 확정 결정
@@ -85,6 +85,13 @@ RE 인스턴스 총 17,216개 / 고유 key 38개 / RE 보유 문서 7,879개. **
   - ⏳ 남은 장비고도화(후속): 룬을 FVTT rune아이템으로 통합(현재 레거시 RUNE_DB 유지), @Damage/@UUID desc 인라인참조 해소(cs_monster resolveFoundryRefs 재사용), 장비 RE(저항/보너스)를 P2 엔진과 연결.
   - ⚠ 용어: PF2e-KR이 일부 음역(longsword=롱소드, 기존 Pathforge=장검 가능). P6 OVERLAY 검수에서 용어집과 reconcile.
 - **P4** 주문/재주/혈통/배경/클래스/신격 빌더 연결. 기존 커스텀 DB(EFFECT_GROUPS 등) → BASE+RE로 이행.
+  - ✅ **P4 파일럿 = 혈통+유산 (v0.5, 2026-06-30)**: 빌더 혈통(8→50)·유산(41→322)을 FVTT BASE⊕OVERLAY로 전면 교체. 유산 자동화 = RE 엔진(EFFECT_GROUPS 폐기 경로).
+    - 신규 `dev/cs_pf2e_anc.js`(`PF2eAnc`): `ancestryToLegacy`(구조필드 boosts/flaws/hp/speed/size/vision/languages/grantWeapon 직접 매핑)·`heritageToLegacy`·`heritageEffects(herDoc,ctx)`(RE 엔진 → 레거시 `getHeritageEffects` 형태: vision/extraSenses/hpBonus/resistances/grantFeats/grantSkills). PF2eEquip 패턴 차용. node/브라우저 양용.
+    - **RE 엔진 보강(cs_re_engine.js)**: ① `_num`+`PF2eData.evalFormula`(@actor.level·floor/max 수식 평가 → 저항 레벨스케일) ② ChoiceSet `rollOption` 시드(선택의존 predicate 발동, 예 warden-human hp/fort/armor) ③ AELike/Sense/GrantItem `predicate` 준수 ④ `dataChanges`(비능력치 AELike 경로)·`grantedDocs` 수집. **솔로 정전대조 37/37**.
+    - **배선(레거시 폴백 병존)**: `getOptionsData`(모달 목록)·`getHeritage`/`getHeritageEffects`(cs_calc, `h._reEffects`면 RE 분기, 레벨/능력치 캐시키)·save 복원·`ancestry_pick` → `PF2eAnc.ready()` 우선. onload `_ensureAncData()` 사전로드 + 모달 미준비 시 재오픈.
+    - **버그수정**: 유산 단독 시야(동굴 엘프 암시야 등)가 `state._featVisionUpgrade`(재주만 셋) 게이트에 막혀 미적용 → 시야 **항상 재계산**(혈통base→유산upgrade→재주 max). 레거시 유산에도 영향.
+    - **남은 갭(graceful no-op)**: 미구현 RE 47유산(ItemAlteration/Strike/AdjustDegreeOfSuccess 등 상황형, 설명문이 커버) + 선택의존 GrantItem 5(고대 엘프·다재다능 인간 등 — 재주선택 UI 필요). 혈통 자체 RE(13/50, 대부분 조건부)는 구조필드 위주라 후속.
+    - **확장 패턴**: 동일 어댑터(toLegacy + RE→레거시효과 + `_reEffects` 분기 + ready 폴백)를 배경(40→490)·클래스(8→27)·주문(417→1796)·재주(1036→7398)에 복제. ⏳ 대기.
 - **P5** 크리처 전량(7633) + hazard 시트/지도 연동(기존 cs_monster 확장). OVERLAY 병합.
 - **P6** OVERLAY 검수·품질수정 로그(OVERLAY_FIXES.md), 미번역 채움.
 
