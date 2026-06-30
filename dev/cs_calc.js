@@ -1626,7 +1626,7 @@ function rebuildCoreEffects() {
 function getSubclassAutoFeats(sub) {
   if (!sub || !Array.isArray(sub.granted_feats)) return [];
   return sub.granted_feats.map(fid => {
-    const f = (typeof FEAT_DB !== 'undefined') ? FEAT_DB.find(x => x.id === fid) : null;
+    const f = (typeof getFeat === 'function') ? getFeat(fid) : ((typeof FEAT_DB !== 'undefined') ? FEAT_DB.find(x => x.id === fid) : null);
     return f ? { lv: 1, name_ko: f.name_ko, name_en: f.name_en, category: f.category } : null;
   }).filter(Boolean);
 }

@@ -9,6 +9,7 @@
   'use strict';
   const isNode = typeof window === 'undefined';
   const PF = root.PF2eData || (isNode ? require('/tmp/PF2e-publish/dev/cs_pf2e.js') : null);
+  const RE = root.REEngine || (isNode ? require('/tmp/PF2e-publish/dev/cs_re_engine.js') : null);
 
   let _ready = false, _index = null, _list = null;
 
@@ -44,11 +45,106 @@
     exemplar: { fort:{1:4,9:6,17:8}, ref:{1:2,9:4}, will:{1:4,15:6}, perc:{1:2,7:4}, classdc:{1:2,9:4,17:6}, 'weapon-simple':{1:2,5:4,13:6}, 'weapon-martial':{1:2,5:4,13:6}, 'weapon-unarmed':{1:2,5:4,13:6}, 'armor-light':{1:2,11:4}, 'armor-medium':{1:2,11:4}, 'armor-unarmored':{1:2,11:4} },
   };
 
+  // 시전자: 전수(full)=공유 _FULL_CASTER_TABLE, 제한(limited)=하단 표. champion=집중주문(슬롯표 없음).
+  const FULL_CASTERS = new Set(['sorcerer', 'oracle', 'animist']);
+  // 제한 시전자 슬롯표(PF2e 정본 근사 — 검수 대상). cantrips + ranks[1..10]
+  function _limitedTable(slotsByLv, cantrips) {
+    const t = {};
+    for (let lv = 1; lv <= 20; lv++) t[lv] = { cantrips: cantrips, slots: (slotsByLv[lv] || slotsByLv[lv - 1] || [0,0,0,0,0,0,0,0,0,0]).slice() };
+    return t;
+  }
+  // 매서/소환사/사이킥: 2슬롯/랭크(상위 랭크 진행). 정본 슬롯수와 차이 가능 → 후속 검수.
+  const MAGUS_SLOTS = { 1:[2,0,0,0,0,0,0,0,0,0],2:[2,0,0,0,0,0,0,0,0,0],3:[2,2,0,0,0,0,0,0,0,0],4:[2,2,0,0,0,0,0,0,0,0],5:[2,2,2,0,0,0,0,0,0,0],6:[2,2,2,0,0,0,0,0,0,0],7:[2,2,2,2,0,0,0,0,0,0],8:[2,2,2,2,0,0,0,0,0,0],9:[2,2,2,2,2,0,0,0,0,0],10:[2,2,2,2,2,0,0,0,0,0],11:[2,2,2,2,2,2,0,0,0,0],12:[2,2,2,2,2,2,0,0,0,0],13:[2,2,2,2,2,2,2,0,0,0],14:[2,2,2,2,2,2,2,0,0,0],15:[2,2,2,2,2,2,2,2,0,0],16:[2,2,2,2,2,2,2,2,0,0],17:[2,2,2,2,2,2,2,2,2,0],18:[2,2,2,2,2,2,2,2,2,0],19:[2,2,2,2,2,2,2,2,2,1],20:[2,2,2,2,2,2,2,2,2,1] };
+
+  function spellTable(slug) {
+    if (FULL_CASTERS.has(slug)) {
+      if (typeof _FULL_CASTER_TABLE !== 'undefined') return _FULL_CASTER_TABLE();   // bare name(함수선언=전역)
+      if (typeof root._FULL_CASTER_TABLE === 'function') return root._FULL_CASTER_TABLE();
+    }
+    if (slug === 'magus' || slug === 'summoner' || slug === 'psychic') return _limitedTable(MAGUS_SLOTS, 5);
+    return null;
+  }
+
+  // 레벨별 클래스 특성 (CLASS_FEATURE_NAMES 형태) — system.items에서 도출, 한글 해소
+  function classFeatures(doc) {
+    const items = (doc.system && doc.system.items) || {};
+    const out = [];
+    for (const it of Object.values(items)) {
+      let d = null; try { d = it.uuid ? PF.getByUuid(it.uuid) : null; } catch (e) {}
+      out.push({ lv: it.level || 1, name_ko: d ? PF.nameKo(d) : it.name, name_en: (d && (d.name_en || d.name)) || it.name });
+    }
+    return out.sort((a, b) => a.lv - b.lv);
+  }
+
+  // 서브클래스 메타: ChoiceSet 특성에서 tag + 유형명 추출
+  function _subclassMeta(doc) {
+    const items = (doc.system && doc.system.items) || {};
+    for (const it of Object.values(items)) {
+      let d = null; try { d = it.uuid ? PF.getByUuid(it.uuid) : null; } catch (e) {}
+      if (!d) continue;
+      for (const r of (d.system && d.system.rules) || []) {
+        if (r.key !== 'ChoiceSet' || !r.choices) continue;
+        let filt = Array.isArray(r.choices.filter) ? r.choices.filter : (Array.isArray(r.choices) ? r.choices : null);
+        if (!filt) continue;
+        const tagStr = filt.find(x => typeof x === 'string' && x.indexOf('item:tag:') === 0);
+        if (tagStr) return { tag: tagStr.replace('item:tag:', ''), typeKo: PF.nameKo(d), typeEn: d.name_en || d.name };
+      }
+    }
+    return null;
+  }
+
+  // 서브클래스 목록 (SUBCLASS_DB 형태) — tag 일치 feat에서. grants는 RE로 추출(best-effort).
+  function subclassList(doc) {
+    const slug = doc.system.slug;
+    const meta = _subclassMeta(doc);
+    if (!meta || !RE) return [];
+    const out = [];
+    for (const f of PF.all('feats')) {
+      const ot = (f.system && f.system.traits && f.system.traits.otherTags) || [];
+      if (!ot.includes(meta.tag)) continue;
+      let granted_feats = [], granted_spells = [], prof_changes = {};
+      try {
+        const a = RE.build({ level: 20, abilities: { str:4,dex:4,con:4,int:4,wis:4,cha:4 }, class: slug, items: [{ doc: f, choices: {} }] });
+        for (const g of (a.grantedDocs || [])) {
+          if (!g) continue;
+          const gslug = (g.system && g.system.slug) || g._id;
+          if (g.type === 'feat') granted_feats.push(gslug);  // getSubclassAutoFeats가 슬러그로 조회
+          else if (g.type === 'spell') granted_spells.push({ spell_id: gslug, lv: (g.system.level && g.system.level.value) || 1, type: 'spell' });
+        }
+      } catch (e) {}
+      out.push({
+        id: f.system.slug, class_id: slug, subclass_type: meta.typeKo,
+        name_ko: PF.nameKo(f), name_en: f.name_en || f.name,
+        desc: PF.enrichDesc(PF.descKo(f) || ''),
+        granted_skills: [], granted_feats, granted_spells, features: [], prof_changes,
+      });
+    }
+    return out;
+  }
+
+  // 신규 클래스 데이터를 기존 전역 구조(CLASS_FEATURE_NAMES/CLASS_SPELL_TABLE/SUBCLASS_DB)에 병합 → 모든 소비처 자동 동작
+  function _mergeIntoGlobals() {
+    // ⚠ top-level const(SUBCLASS_DB)은 window에 안 붙음 → bare name + typeof 가드로 접근(v622 교훈)
+    const FN = (typeof CLASS_FEATURE_NAMES !== 'undefined') ? CLASS_FEATURE_NAMES : (root.CLASS_FEATURE_NAMES || null);
+    const ST = (typeof CLASS_SPELL_TABLE !== 'undefined') ? CLASS_SPELL_TABLE : (root.CLASS_SPELL_TABLE || null);
+    const SD = (typeof SUBCLASS_DB !== 'undefined') ? SUBCLASS_DB : (root.SUBCLASS_DB || null);
+    for (const doc of PF.all('classes')) {
+      const slug = doc.system && doc.system.slug; if (!slug || LEGACY.has(slug)) continue;
+      if (FN && !FN[slug]) FN[slug] = classFeatures(doc);
+      if (ST && !ST[slug]) { const t = spellTable(slug); if (t) ST[slug] = t; }
+      if (SD && Array.isArray(SD) && !SD.some(s => s.class_id === slug)) {
+        for (const sub of subclassList(doc)) SD.push(sub);
+      }
+    }
+  }
+
   async function init() {
     if (_ready) return;
-    if (isNode) PF.loadCategorySync('classes');
-    else await PF.loadCategory('classes');
+    // 서브클래스 grants/특성은 feats·spells 카테고리 필요(getByUuid·tag 조회)
+    if (isNode) { PF.loadCategorySync('classes'); PF.loadCategorySync('feats'); PF.loadCategorySync('spells'); }
+    else await Promise.all([PF.loadCategory('classes'), PF.loadCategory('feats'), PF.loadCategory('spells')]);
     _build();
+    try { _mergeIntoGlobals(); } catch (e) { if (typeof console !== 'undefined') console.warn('PF2eClass 전역 병합 실패', e); }
     _ready = true;
   }
   function ready() { return _ready; }
@@ -89,7 +185,7 @@
   function classList() { return _list ? _list.slice() : []; }
   function getClassLegacy(slug) { return _index ? _index.get(slug) || null : null; }
 
-  const API = { init, ready, classList, getClassLegacy, classToLegacy, classProfTable, isLegacy, CLASS_PROF_EXT };
+  const API = { init, ready, classList, getClassLegacy, classToLegacy, classProfTable, isLegacy, CLASS_PROF_EXT, classFeatures, subclassList, spellTable };
   root.PF2eClass = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
