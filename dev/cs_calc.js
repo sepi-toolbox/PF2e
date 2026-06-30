@@ -830,8 +830,11 @@ function _infoResolveItem(type, name) {
     if (!item && typeof RUNE_DB !== 'undefined') item = RUNE_DB.find(r => r && (r.name_ko === nameKo || r.name_en === nameKo || r.id === nameKo));
   }
 
+  // 장비 인스턴스 매칭: 전체 이름 우선(등급 괄호 "(상급)" 등 보존), 실패 시 괄호 제거된 nameKo로.
+  // (BASE 소비품의 ~49%는 한글명에 등급 괄호가 있어 ' (' split만으로는 매칭 실패 → "DB에 정보 없음" 버그)
+  const _eqByName = (n) => state.equip?.find(e => e.name === n);
   // 파손된 장비인지 확인하여 수치 조정
-  const brokenEquip = state.equip?.find(e => e.name === nameKo && e._broken);
+  const brokenEquip = state.equip?.find(e => (e.name === name || e.name === nameKo) && e._broken);
   if (item && brokenEquip) {
     item = {...item}; // 원본 보존을 위해 복사
     item.name_ko = '파손된 ' + item.name_ko;
@@ -847,8 +850,8 @@ function _infoResolveItem(type, name) {
   // DB에 없으면 커스텀 장비 데이터 확인 후 임시 카드
   if (!item) {
     const nameEn = (name.match(/\(([^)]+)\)/) || [])[1] || '';
-    // 커스텀 장비: state.equip에서 _data 또는 _desc 활용
-    const eqMatch = state.equip?.find(e => e.name === nameKo);
+    // 커스텀/BASE 장비: state.equip에서 _data 또는 _desc 활용 (전체 이름 우선 매칭)
+    const eqMatch = _eqByName(name) || _eqByName(nameKo);
     if (eqMatch && eqMatch._data) {
       item = {...eqMatch._data, name_ko: eqMatch._data.name_ko || nameKo, name_en: eqMatch._data.name_en || nameEn};
     } else if (eqMatch && eqMatch._desc) {
@@ -866,7 +869,7 @@ function _infoResolveItem(type, name) {
   // 장비: DB 항목에 설명이 없으면 보유 중인 장비 인스턴스의 _desc로 보강
   // (GEAR_DB 등 최소 스키마에는 설명이 없으나 BASE 브라우즈로 추가한 항목은 _desc 보유)
   if (item && !item.desc && !item.summary && ['gear','rune','weapon','armor','shield'].includes(type)) {
-    const eqInst = state.equip?.find(e => e.name === nameKo);
+    const eqInst = _eqByName(name) || _eqByName(nameKo);
     const d = eqInst && (eqInst._desc || eqInst._data?._desc || eqInst._data?.desc || eqInst._data?.description);
     if (d) item = {...item, summary: d};
   }

@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.22').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.23').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -3081,7 +3081,8 @@ function equipBrowseGive() {
     addEquip({name: item.name_ko, qty:1, bulk, _isRune: true, _runeData: {attachTo: item.attachTo, runeType: item.runeType, runeValue: item.runeValue}, _attachedTo: null, _broken: isBroken});
   } else {
     const invCat = item.invCat || null;
-    addEquip({name: item.name_ko, qty:1, bulk, _type: type, _data: type ? item : undefined, _invCat: invCat, _broken: isBroken});
+    // _data는 무기/갑옷/방패뿐 아니라 일반 장비(포션·소비품·보물 등)에도 저장 — 추가 후 정보 카드(_infoResolveItem)가 BASE 항목 설명을 해소하도록(미저장 시 "DB에 정보 없음").
+    addEquip({name: item.name_ko, qty:1, bulk, _type: type, _data: item, _invCat: invCat, _broken: isBroken});
   }
   recalcAll();
   save();

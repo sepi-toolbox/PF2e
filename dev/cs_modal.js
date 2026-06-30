@@ -4962,7 +4962,7 @@ function confirmModal() {
     addEquip({name: s.name_ko, qty:1, bulk: typeof s.bulk==='number'?s.bulk:(s.bulk==='L'?0.1:0), _type:'shield', _data:s});
   } else if (modalType==='equip-gear') {
     const g = modalSelected;
-    addEquip({name: g.name_ko, qty:1, bulk: typeof g.bulk==='number'?g.bulk:(g.bulk==='L'?0.1:0)});
+    addEquip({name: g.name_ko, qty:1, bulk: typeof g.bulk==='number'?g.bulk:(g.bulk==='L'?0.1:0), _data:g});
   }
   try { recalcAll(); } catch(e) { console.error('confirmModal recalcAll error:', e); }
   closeModal();
