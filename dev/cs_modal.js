@@ -2551,10 +2551,12 @@ function openModal(type, ctx) {
   // 부스트 모달은 별도 처리
   if (type === 'boost') { openBoostModal(); return; }
 
-  // FVTT 혈통/유산 데이터 미준비 시: 폴백으로 일단 열고, 로드 완료되면 FVTT 전체 목록으로 재오픈
-  if ((type === 'ancestry' || type === 'heritage') && typeof PF2eAnc !== 'undefined'
-      && PF2eAnc.ready && !PF2eAnc.ready() && typeof _ensureAncData === 'function') {
-    _ensureAncData().then(ok => { if (ok && PF2eAnc.ready() && modalType === type) openModal(type, ctx); });
+  // FVTT 혈통/유산/배경 데이터 미준비 시: 폴백으로 일단 열고, 로드 완료되면 FVTT 전체 목록으로 재오픈
+  if ((type === 'ancestry' || type === 'heritage' || type === 'background') && typeof _ensureAncData === 'function') {
+    const _need = (type === 'background')
+      ? (typeof PF2eBg !== 'undefined' && PF2eBg.ready && !PF2eBg.ready())
+      : (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && !PF2eAnc.ready());
+    if (_need) _ensureAncData().then(ok => { if (ok && modalType === type) openModal(type, ctx); });
   }
 
   document.getElementById('modal-overlay').classList.remove('hidden');
@@ -2620,7 +2622,7 @@ function getOptionsData(type) {
   const _ancReady = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready());
   if (type==='class') return CLASSES;
   if (type==='ancestry') return _ancReady ? PF2eAnc.ancestryList() : ANCESTRIES;
-  if (type==='background') return BACKGROUNDS;
+  if (type==='background') return (typeof PF2eBg !== 'undefined' && PF2eBg.ready && PF2eBg.ready()) ? PF2eBg.backgroundList() : BACKGROUNDS;
   if (type==='heritage') {
     if (_ancReady) {
       const ancId = state.selectedAncestry && state.selectedAncestry.id;

@@ -477,6 +477,8 @@ function getHeritageEffects(h) {
 const _BACKGROUND_EFFECTS_CACHE = new Map();
 function getBackgroundEffects(b) {
   if (!b) return {};
+  // FVTT-native(P4): 구조필드에서 미리 계산된 _effects 직접 반환
+  if (b._fvtt && b._effects) return b._effects;
   const id = b.id || '';
   if (_BACKGROUND_EFFECTS_CACHE.has(id)) return _BACKGROUND_EFFECTS_CACHE.get(id);
   const out = { boosts: [], boost_choices: [], free_boosts: 0, fixed_skills: [], choice_skill_groups: [], fixed_lores: [], feat_id: null, deity_skill: false, deity_lore: false };

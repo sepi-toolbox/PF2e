@@ -339,7 +339,7 @@ function loadData(d) {
       }
     }
     if (d.selectedBackground) {
-      state.selectedBackground = BACKGROUNDS.find(b=>b.id===d.selectedBackground)||null;
+      state.selectedBackground = ((typeof PF2eBg !== 'undefined' && PF2eBg.ready && PF2eBg.ready() && PF2eBg.getBackgroundLegacy(d.selectedBackground))) || BACKGROUNDS.find(b=>b.id===d.selectedBackground)||null;
       if (state.selectedBackground) {
         const btn = document.getElementById('btn-background');
         if (btn) { btn.textContent = `${state.selectedBackground.name} (${state.selectedBackground.en})`; btn.classList.add('filled'); }
