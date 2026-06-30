@@ -326,7 +326,7 @@ function executeReset() {
   // Firebase에서도 삭제
   if (typeof currentUser !== 'undefined' && currentUser && typeof currentSlot !== 'undefined') {
     const db2 = firebase.firestore();
-    db2.collection('users').doc(currentUser.uid).collection('characters').doc(currentSlot).delete().then(() => {
+    db2.collection('users').doc(currentUser.uid).collection(PF_COL.characters).doc(currentSlot).delete().then(() => {
       location.reload();
     }).catch(() => {
       location.reload();
@@ -805,6 +805,7 @@ function openDeityPicker() {
   if (typeof DEITY_DB === 'undefined') return;
   const items = DEITY_DB.map(d =>
     `<div class="opt-row" onclick="previewDeity('${d.id}',this)" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
+      ${typeof iconImg==='function'&&iconImg('deity',d)?`<div class="opt-row-icon" style="background:none;">${iconImg('deity',d)}</div>`:''}
       <span class="opt-row-name" style="flex:1;">${d.name_ko} <span style="color:var(--text2);font-size:11px;">${d.name_en}</span></span>
       <span style="font-size:10px;color:var(--text2);">${(typeof WEAPON_DB!=='undefined'&&WEAPON_DB.find(w=>w.id===d.weapon)?.name_ko)||d.weapon} / ${d.sanctification.map(s=>s==='holy'?'신성':'불경').join('·')}</span>
     </div>`).join('');
@@ -1082,15 +1083,18 @@ function renderGrowthPlan() {
   html += `<div class="growth-core-section">`;
   html += `<div class="growth-core-header">핵심 빌드<span style="font-size:10px;color:var(--text2);font-weight:400;margin-left:6px;">Core Build</span></div>`;
   // Ancestry selector
-  html += growthSlotWithClearHTML('ancestry-sel', '🧬', '혈통 Ancestry',
+  html += growthSlotWithClearHTML('ancestry-sel',
+    state.selectedAncestry ? _slotCircle('ancestry', state.selectedAncestry, '🧬') : '🧬', '혈통 Ancestry',
     state.selectedAncestry ? `${state.selectedAncestry.name} (${state.selectedAncestry.en})` : null,
     "openModal('ancestry')", state.selectedAncestry ? "clearCoreSelection('ancestry')" : null);
   // Background selector
-  html += growthSlotWithClearHTML('background-sel', '📜', '배경 Background',
+  html += growthSlotWithClearHTML('background-sel',
+    state.selectedBackground ? _slotCircle('background', state.selectedBackground, '📜') : '📜', '배경 Background',
     state.selectedBackground ? `${state.selectedBackground.name} (${state.selectedBackground.en})` : null,
     "openModal('background')", state.selectedBackground ? "clearCoreSelection('background')" : null);
   // Class selector
-  html += growthSlotWithClearHTML('class-sel', '⚔', '클래스 Class',
+  html += growthSlotWithClearHTML('class-sel',
+    state.selectedClass ? _slotCircle('class', state.selectedClass, '⚔') : '⚔', '클래스 Class',
     state.selectedClass ? `${state.selectedClass.name} (${state.selectedClass.en})` : null,
     "openModal('class')", state.selectedClass ? "clearCoreSelection('class')" : null);
   html += `</div>`;
@@ -1123,7 +1127,8 @@ function renderGrowthPlan() {
     if (lv === 1) {
       // Heritage (only if ancestry selected)
       if (state.selectedAncestry) {
-        html += growthSlotWithClearHTML('heritage-sel', '🛡', '유산 Heritage',
+        html += growthSlotWithClearHTML('heritage-sel',
+          state.selectedHeritage ? _slotCircle('heritage', state.selectedHeritage, '🛡') : '🛡', '유산 Heritage',
           state.selectedHeritage ? state.selectedHeritage.name_ko : null,
           "openModal('heritage')", state.selectedHeritage ? "clearCoreSelection('heritage')" : null);
       }
@@ -1196,6 +1201,10 @@ function renderGrowthPlan() {
   } catch(e) { console.error('renderGrowthPlan error:', e); container.innerHTML = '<div style="color:red;padding:8px;">성장 플랜 렌더링 오류: '+e.message+'</div>'; }
 }
 
+// 빌드슬롯 원형 아이콘: 선택된 아이템 이미지로 원을 채움(없으면 이모지 폴백)
+function _slotCircle(scope, item, emoji) {
+  return (typeof iconCircle === 'function') ? iconCircle(scope, item, emoji) : emoji;
+}
 function growthSlotHTML(lv, key, icon, label, value, onclickStr) {
   const filled = value ? 'filled' : '';
   const display = value || '선택 안 됨';
@@ -1226,6 +1235,9 @@ function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
   const filled = value ? 'filled' : '';
   const display = value || '선택 안 됨';
   const clickAction = value ? `showInfo('feat','${(value||'').replace(/'/g,"\\'")}')` : `growthPickFeat(${lv},'${key}','${featType}')`;
+  // 선택된 재주 아이콘으로 원 교체
+  const _fd = value && typeof getFeat === 'function' ? (getFeat(value) || getFeat(value.split(' (')[0].trim())) : null;
+  const circleIco = value ? _slotCircle('feat', _fd || { name: value }, icon) : icon;
   // 선택된 재주의 전제조건 미달 체크
   let prereqWarn = '';
   if (value && typeof _hasFeatPrereqIssue === 'function') {
@@ -1234,7 +1246,7 @@ function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
     } catch(e) { console.warn('prereq check error:', e); }
   }
   return `<div class="growth-slot ${filled}" onclick="${clickAction}">
-    <div class="growth-slot-icon">${icon}</div>
+    <div class="growth-slot-icon">${circleIco}</div>
     <div class="growth-slot-body">
       <div class="growth-slot-label">${label}</div>
       <div class="growth-slot-value">${display}</div>${prereqWarn}
@@ -2213,11 +2225,16 @@ function openMemorizeModal() {
   if (searchEl) searchEl.style.display = 'none';
   const fbar = document.getElementById('modal-filterbar');
   if (fbar) fbar.innerHTML = '';
-  const confirmBtn = document.querySelector('.btn-confirm');
+  // 모달 푸터의 확인 버튼으로 스코프 (기어 메뉴의 .btn-confirm을 잘못 잡던 버그 수정)
+  const confirmBtn = document.querySelector('.modal-footer .btn-confirm');
   if (confirmBtn) { confirmBtn.style.display = ''; confirmBtn.textContent = '준비 완료'; }
 
   _memorizeActiveSlot = null;
   if (!state.preparedSpells) state.preparedSpells = {cantrip: []};
+
+  // 모바일에서 주문 선택 목록(modal-detail)이 숨겨지지 않도록 마커 클래스 부여
+  const bodyEl = document.getElementById('modal-body');
+  if (bodyEl) bodyEl.classList.add('mem-modal');
 
   _renderMemorizeSlots();
   _renderMemorizeDetail();
@@ -2247,7 +2264,7 @@ function _renderMemorizeSlots() {
       color:${isActive ? '#000' : 'var(--text1)'};
       border:1px solid ${isActive ? 'var(--accent)' : 'var(--border)'};">
       <span style="font-size:10px;min-width:18px;color:${isActive?'#000':'var(--text2)'};">${i+1}.</span>
-      <span style="flex:1;">${name || '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
+      <span style="flex:1;display:inline-flex;align-items:center;min-width:0;">${name ? ((typeof iconImg==='function'?iconImg('spell',getSpell(name)):'')+name) : '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
       ${name ? `<span onclick="event.stopPropagation();_memorizeClearSlot(0,${i})" style="color:${isActive?'#000':'var(--red)'};font-size:12px;padding:0 2px;cursor:pointer;">✕</span>` : ''}
     </div>`;
   }
@@ -2267,7 +2284,7 @@ function _renderMemorizeSlots() {
         color:${isActive ? '#000' : 'var(--text1)'};
         border:1px solid ${isActive ? 'var(--accent)' : 'var(--border)'};">
         <span style="font-size:10px;min-width:18px;color:${isActive?'#000':'var(--text2)'};">${i+1}.</span>
-        <span style="flex:1;">${name || '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
+        <span style="flex:1;display:inline-flex;align-items:center;min-width:0;">${name ? ((typeof iconImg==='function'?iconImg('spell',getSpell(name)):'')+name) : '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
         ${name ? `<span onclick="event.stopPropagation();_memorizeClearSlot(${r},${i})" style="color:${isActive?'#000':'var(--red)'};font-size:12px;padding:0 2px;cursor:pointer;">✕</span>` : ''}
       </div>`;
     }
@@ -2282,7 +2299,7 @@ function _renderMemorizeDetail() {
   if (!detail) return;
   const active = _memorizeActiveSlot;
   if (!active) {
-    detail.innerHTML = '<div class="modal-detail-empty">왼쪽에서 슬롯을 선택하세요.</div>';
+    detail.innerHTML = '<div class="modal-detail-empty">슬롯을 선택하면 준비할 주문 목록이 표시됩니다.</div>';
     return;
   }
 
@@ -2327,23 +2344,58 @@ function _renderMemorizeDetail() {
   }
 
   const label = isCantrip ? '캔트립' : `${rank}랭크`;
-  let html = `<div style="padding:8px;"><div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">슬롯 ${active.idx+1} — ${label} 주문 선택</div>`;
+  detail.innerHTML = `<div style="padding:8px;">
+    <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">슬롯 ${active.idx+1} — ${label} 주문 선택
+      <span style="font-weight:400;color:var(--text2);font-size:11px;">(이름을 누르면 상세 · 「준비」로 슬롯 배치)</span></div>
+    <div id="mem-spell-list"></div></div>`;
+  const listEl = detail.querySelector('#mem-spell-list');
+  if (!listEl) return;
   available.forEach(({name, note}) => {
     const spellData = getSpell(name);
     const actions = typeof getActionIcons === 'function' ? getActionIcons(spellData?.actions) : '';
-    html += `<div onclick="_memorizeAssign('${name.replace(/'/g,"\\'")}')" style="display:flex;align-items:center;gap:8px;padding:8px 10px;margin:3px 0;border-radius:6px;cursor:pointer;font-size:13px;background:var(--bg3);border:1px solid var(--border);transition:background 0.1s;" onmouseenter="this.style.background='var(--accent)';this.style.color='#000'" onmouseleave="this.style.background='var(--bg3)';this.style.color=''">
-      <span style="flex:1;font-weight:500;">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
-      ${note ? `<span style="font-size:9px;opacity:0.7;">${note}</span>` : ''}
-    </div>`;
+    const wrap = document.createElement('div');
+    wrap.className = 'mem-spell';
+    const ic = (typeof iconImg === 'function') ? iconImg('spell', spellData || {name}) : '';
+    wrap.innerHTML = `
+      <div class="mem-spell-row">
+        <span class="mem-spell-name">${ic}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+        ${note ? `<span class="mem-spell-note">${note}</span>` : ''}
+        <button class="mem-prep-btn">준비</button>
+        <span class="ls-chevron">▾</span>
+      </div>
+      <div class="mem-spell-detail"></div>`;
+    const row = wrap.querySelector('.mem-spell-row');
+    const btn = wrap.querySelector('.mem-prep-btn');
+    const dd = wrap.querySelector('.mem-spell-detail');
+    // 「준비」 버튼 — 슬롯 배치 (펼침과 분리)
+    if (btn) btn.onclick = (e) => { e.stopPropagation(); _memorizeAssign(name); };
+    // 이름 행 클릭 — 인라인 아코디언으로 주문 상세 펼침/접힘
+    if (row) row.onclick = () => {
+      const wasOpen = wrap.classList.contains('expanded');
+      listEl.querySelectorAll('.mem-spell.expanded').forEach(w => w.classList.remove('expanded'));
+      if (!wasOpen) {
+        if (dd && !dd.dataset.filled) {
+          dd.innerHTML = (typeof _learnSpellDetailHtml === 'function' && spellData)
+            ? _learnSpellDetailHtml(spellData)
+            : (spellData?.desc || '<span style="color:var(--text2);">설명 없음</span>');
+          dd.dataset.filled = '1';
+        }
+        wrap.classList.add('expanded');
+      }
+    };
+    listEl.appendChild(wrap);
   });
-  html += '</div>';
-  detail.innerHTML = html;
 }
 
 function _memorizeSelectSlot(rank, idx) {
   _memorizeActiveSlot = {rank, idx};
   _renderMemorizeSlots();
   _renderMemorizeDetail();
+  // 모바일: 슬롯 아래로 쌓이는 주문 선택 목록이 보이도록 스크롤
+  if (window.innerWidth <= 900) {
+    const detail = document.getElementById('modal-detail');
+    if (detail) detail.scrollIntoView({behavior:'smooth', block:'start'});
+  }
 }
 
 function _memorizeAssign(spellName) {
@@ -2670,6 +2722,13 @@ function _checkOnePrereq(cond) {
     const curVision = state.vision || state.selectedAncestry?.vision || 'none';
     return (VISION_RANK[curVision]||0) >= (VISION_RANK[cond.vision]||0);
   }
+  // 신성 원천 선택: {divineFont:'heal' | 'harm' | 'either'} — state.divineFont 직접 비교
+  if (cond.divineFont) {
+    const cur = state.divineFont;
+    if (!cur) return false;
+    if (cond.divineFont === 'either') return cur === 'heal' || cur === 'harm';
+    return cur === cond.divineFont;
+  }
   // 재주 보유: {feat:'Halfling Luck'}
   if (cond.feat) {
     const allFeats = Object.values(state.feats).flat().filter(ff => ff?.name);
@@ -2737,6 +2796,7 @@ function _rowToCond(r) {
   if (t === 'heritage')   return { heritage: r.value };
   if (t === 'subclass')   return { subclass: r.value };
   if (t === 'vision')     return { vision: r.value };
+  if (t === 'divine_font') return { divineFont: r.value };
   // 기본: SKILLS.id 외래키 (기술 숙련도)
   return { skill: t, rank: parseInt(r.value) || 0 };
 }
@@ -3081,11 +3141,11 @@ function renderOptions(data) {
     let actionsHtml = '';
     if (item.actions) {
       const a = item.actions;
-      if (a.includes('1행동') || a === '1') actionsHtml = '◆';
-      else if (a.includes('2행동') || a === '2') actionsHtml = '◆◆';
-      else if (a.includes('3행동') || a === '3') actionsHtml = '◆◆◆';
-      else if (a.includes('반응')) actionsHtml = '↩';
-      else if (a.includes('자유')) actionsHtml = '⟡';
+      if (a.includes('1행동') || a === '1') actionsHtml = '<span class="action-glyph">1</span>';
+      else if (a.includes('2행동') || a === '2') actionsHtml = '<span class="action-glyph">2</span>';
+      else if (a.includes('3행동') || a === '3') actionsHtml = '<span class="action-glyph">3</span>';
+      else if (a.includes('반응')) actionsHtml = '<span class="action-glyph">R</span>';
+      else if (a.includes('자유')) actionsHtml = '<span class="action-glyph">F</span>';
       else actionsHtml = a;
     }
 
@@ -3094,12 +3154,20 @@ function renderOptions(data) {
     try { prereqFail = item.feat_level !== undefined && (item.prereq_group_id || item.prerequisites) && !_checkPrereqs(item); } catch(e) {}
 
     const rClass = `r${Math.min(levelNum, 10)}`;
+    // FVTT 아이콘: modalType→scope 매핑 (없으면 📄)
+    const _scope = {spell:'spell',feat:'feat',heritage:'heritage',ancestry:'ancestry',background:'background',deity:'deity'}[modalType]
+      || ((modalType||'').startsWith('equip') ? 'equipment' : null);
+    const _ico = _scope && typeof iconImg === 'function' ? iconImg(_scope, item) : '';
     row.innerHTML = `
-      <div class="opt-row-icon">📄</div>
+      ${_ico ? `<div class="opt-row-icon" style="background:none;">${_ico}</div>` : '<div class="opt-row-icon">📄</div>'}
       <span class="opt-row-name" ${prereqFail ? 'style="opacity:0.5;"' : ''}>${nameKo}</span>
       ${prereqFail ? '<span style="font-size:10px;color:#f44336;flex-shrink:0;" title="선행 조건 미충족">⚠</span>' : ''}
       ${actionsHtml ? `<span class="opt-row-actions">${actionsHtml}</span>` : ''}
-      ${levelText !== '' ? `<span class="opt-row-level ${rClass}">${levelText}</span>` : ''}`;
+      ${levelText !== '' ? (
+        (modalType === 'equip-browse' && item.price && item.price !== '—')
+          ? `<span class="opt-row-price">${typeof priceWithIcons==='function'?priceWithIcons(item.price,14):levelText}</span>`
+          : `<span class="opt-row-level ${rClass}">${levelText}</span>`
+      ) : ''}`;
 
     row.onclick = () => selectOption(item, row);
     return row;
@@ -3138,12 +3206,20 @@ function selectOption(item, row) {
     let detailHtml = '';
     if (modalType === 'equip-browse' || modalType === 'formula-pick') {
       const i = item;
-      const p = i.price && i.price !== '—' ? `<div><strong>가격:</strong> ${i.price}</div>` : '';
+      const p = i.price && i.price !== '—' ? `<div style="display:flex;align-items:center;gap:4px;"><strong>가격:</strong> ${typeof priceWithIcons==='function'?priceWithIcons(i.price,16):i.price}</div>` : '';
       const b = `<div><strong>부피:</strong> ${i.bulk==='L'?'L':i.bulk==='—'?'—':i.bulk}</div>`;
       const d = i.damage ? `<div><strong>피해:</strong> ${i.damage}</div>` : '';
       const ac = i.ac_bonus!==undefined ? `<div><strong>AC:</strong> +${i.ac_bonus}</div>` : '';
       const traits = (i.traits||[]).length ? `<div style="margin-top:4px;">${i.traits.map(t=>traitTag(t)).join(' ')}</div>` : '';
-      detailHtml = `${p}${b}${d}${ac}${traits}
+      // 설명(desc) — 데스크톱 showEquipDetail과 동일하게 모바일 아코디언에도 표시 (누락 버그 수정)
+      let _descRaw = i.desc || i._desc || (i._runeData && i._runeData.desc) || '';
+      let _descHtml = '';
+      if (_descRaw) {
+        if (typeof PF2eData !== 'undefined' && PF2eData.enrichDesc) { try { _descRaw = PF2eData.enrichDesc(_descRaw); } catch (e) {} }
+        const _rendered = (typeof resolveDescRefs === 'function') ? resolveDescRefs(_descRaw) : _descRaw;
+        _descHtml = `<div class="opt-row-desc" style="margin-top:8px;font-size:12px;line-height:1.6;border-top:1px solid var(--border);padding-top:8px;">${_rendered}</div>`;
+      }
+      detailHtml = `${p}${b}${d}${ac}${traits}${_descHtml}
         <div style="display:flex;gap:6px;margin-top:8px;">
           ${modalType === 'formula-pick'
             ? `<button onclick="recordFormula('${(item.name_ko||item.name||'').replace(/'/g,"\\\\'")}')" style="flex:1;padding:8px;background:var(--accent-bg);border:1px solid var(--accent);border-radius:4px;color:var(--accent);cursor:pointer;">📜 제조법 기록</button>`
@@ -3185,7 +3261,7 @@ function selectOption(item, row) {
         }
       }
       else if (item.rank !== undefined) tags = `<span class="tag-meta">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span>`;
-      else if (item.damage) tags = `<span class="tag-meta">${item.damage}</span> <span class="tag-meta">가격: ${item.price||'-'}</span>`;
+      else if (item.damage) tags = `<span class="tag-meta">${item.damage}</span> <span class="tag-meta">가격: ${item.price?(typeof priceWithIcons==='function'?priceWithIcons(item.price):item.price):'-'}</span>`;
       else if (item.ac_bonus !== undefined) tags = `<span class="tag-meta">AC+${item.ac_bonus}</span>`;
       const mSpellNotes = (item.rank !== undefined && typeof getSpellFeatNotes === 'function') ? getSpellFeatNotes(item.name||item.name_ko||'') : '';
       detailHtml = `${tags?'<div style="margin-bottom:6px;">'+tags+'</div>':''}
@@ -3377,14 +3453,14 @@ function showItemDetail(item) {
     desc = spellMeta + desc;
   } else if (item.damage !== undefined) {
     const wpTraits = (item.traits||[]).map(t=>traitTag(t)).join('');
-    tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${item.damage||''}</span> <span class="tag-meta">${item.category||''}</span> <span class="tag-meta">가격: ${item.price||'-'}</span></div>${wpTraits?'<div style="margin-bottom:6px;">'+wpTraits+'</div>':''}`;
+    tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${item.damage||''}</span> <span class="tag-meta">${item.category||''}</span> <span class="tag-meta">가격: ${item.price?(typeof priceWithIcons==='function'?priceWithIcons(item.price):item.price):'-'}</span></div>${wpTraits?'<div style="margin-bottom:6px;">'+wpTraits+'</div>':''}`;
   } else if (item.ac_bonus !== undefined) {
     tags = `<div style="margin-bottom:4px;"><span class="tag-meta">AC+${item.ac_bonus}</span> <span class="tag-meta">${item.category||''}</span>
             ${item.dex_cap!==null&&item.dex_cap!==undefined?`<span class="tag-meta">DEX상한: ${item.dex_cap}</span>`:''}
             ${item.hardness!==undefined?`<span class="tag-meta">경도: ${item.hardness}</span>`:''}
             ${item.hp!==undefined&&item.bt!==undefined?`<span class="tag-meta">HP: ${item.hp} (BT: ${item.bt})</span>`:''}
             ${item.speed_penalty?`<span class="tag-meta" style="color:var(--red-light);">속도: ${item.speed_penalty}</span>`:''}
-            <span class="tag-meta">가격: ${item.price||'-'}</span></div>`;
+            <span class="tag-meta">가격: ${item.price?(typeof priceWithIcons==='function'?priceWithIcons(item.price):item.price):'-'}</span></div>`;
   } else if (item.hp !== undefined && item.key_attrs !== undefined) {
     const keyKo = (item.key_attrs || []).map(k => ATTR_KO[k]).join(' 또는 ');
     tags = `<span class="tag-meta">HP ${item.hp}+CON</span> <span class="tag-meta">${keyKo}</span>
@@ -3493,7 +3569,7 @@ function _buildClassProgressionTable(cls) {
     const plan = gt[lv] || {};
     const parts = [];
 
-    // 클래��� 특성
+    // 클래스 특성
     const feats = cfn.filter(f => f.lv === lv);
     feats.forEach(f => parts.push(f.name_ko));
 
@@ -3691,7 +3767,7 @@ function _refreshClassFeaturesPreview() {
   const featsByLv = {};
   allFeats.forEach(f => { (featsByLv[f.lv] = featsByLv[f.lv] || []).push(f); });
 
-  // 발전 �� 갱신 (레벨 변경 시 미래 레벨 시각 구분 반영)
+  // 발전 표 갱신 (레벨 변경 시 미래 레벨 시각 구분 반영)
   const progTable = document.getElementById('class-progression-table');
   if (progTable && cls) {
     progTable.outerHTML = _buildClassProgressionTable(cls);
@@ -4132,7 +4208,7 @@ function _buildAncestryChoicesUI(anc) {
   const bonusBase = anc.bonusLangs ?? 0;
   _modalChoices = { type: 'ancestry', fixedLangs, bonusBase, bonusLangs: Array(bonusBase).fill('') };
 
-  // ── 이전 선택값 복원: state.languages에서 고정 언���를 제외한 나머지가 보너스 언어 ──
+  // ── 이전 선택값 복원: state.languages에서 고정 언어를 제외한 나머지가 보너스 언어 ──
   if (state.selectedAncestry?.id === anc.id && state.languages?.length) {
     const fixedSet = new Set(fixedLangs);
     const savedBonus = state.languages.filter(l => !fixedSet.has(l));
@@ -4808,9 +4884,9 @@ function closeModal() {
   if (detailEl) { detailEl.style.display = ''; detailEl.innerHTML = '<div class="modal-detail-empty">항목을 선택하면 상세 정보가 표시됩니다.</div>'; }
   const searchEl = document.getElementById('modal-search');
   if (searchEl) searchEl.style.display = '';
-  // Mobile: reset detail-open
+  // Mobile: reset detail-open + 주문 기억 마커
   const body = document.getElementById('modal-body');
-  if (body) body.classList.remove('detail-open');
+  if (body) { body.classList.remove('detail-open'); body.classList.remove('mem-modal'); }
   // 부스트 모달 닫을 때 성장 계획 + 수치 갱신
   if (wasBoost) { renderGrowthPlan(); recalcAll(); }
 }
@@ -5100,15 +5176,66 @@ function updateSpellSlotsForClass() {
 // ═══════════════════════════════════════════════
 
 let _actionFilter = 'all';
+let _actionAvailOnly = false;   // 행동: 사용 가능한 것만
+let _condActiveOnly = false;    // 상태이상: 적용 중인 것만
 
 function setActionFilter(f, btn) {
   _actionFilter = f;
-  document.querySelectorAll('#action-filter-bar button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#action-filter-bar button.af-eco').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderActions();
 }
 
-const COST_ICON = {'1':'◆','2':'◆◆','3':'◆◆◆','reaction':'↺','free':'◇','passive':'—','varies':'✦','10min':'10분','1min':'1분','1h':'1시간','1day':'1일','8h':'8시간'};
+// 우측 끝 체크박스: 행동 탭이면 "사용 가능한 것만", 상태이상 탭이면 "적용 중인 것만"
+function toggleActionExtraFilter(cb) {
+  if (_actionFilter === 'conditions') _condActiveOnly = cb.checked;
+  else _actionAvailOnly = cb.checked;
+  renderActions();
+}
+
+// 컨텍스트(행동/상태이상)에 따라 체크박스 라벨·상태 동기화
+function _syncActionExtraFilter() {
+  const lbl = document.getElementById('action-extra-label');
+  const cb = document.getElementById('action-extra-check');
+  const wrap = document.getElementById('action-extra-filter');
+  if (!lbl || !cb) return;
+  if (_actionFilter === 'conditions') {
+    lbl.textContent = '적용 중인 것만';
+    cb.checked = _condActiveOnly;
+    if (wrap) wrap.title = '적용 중인 상태이상만 표시';
+  } else {
+    lbl.textContent = '사용 가능한 것만';
+    cb.checked = _actionAvailOnly;
+    if (wrap) wrap.title = '사용 가능한 행동만 표시';
+  }
+}
+
+// ── 상태이상 탭: 카드 클릭으로 on/off, 수치형은 스테퍼로 횟수 증감 ──
+function _afterCondChange() {
+  if (typeof recalcAll === 'function') recalcAll();   // 상태이상이 파생 스탯에 반영(공포/메스꺼움/서투름/약화/현기증 등)
+  else if (typeof buildConditions === 'function') buildConditions();
+  if (typeof save === 'function') save();
+  renderActions();                                    // 상태이상 탭 갱신
+}
+function toggleCardCondition(name) {
+  const c = CONDITIONS_DATA.find(x => x.name === name);
+  if (!c || c.auto) return;
+  const cur = parseInt(state.conditions[name] || 0);
+  const isOn = c.valued ? cur > 0 : !!cur;
+  state.conditions[name] = isOn ? 0 : 1;              // 끄기 → 0, 켜기 → 1(수치형 시작값 1)
+  _afterCondChange();
+}
+function stepCardCondition(name, delta) {
+  const c = CONDITIONS_DATA.find(x => x.name === name);
+  if (!c || !c.valued || c.auto) return;
+  const maxN = c.max || 4;
+  let cur = parseInt(state.conditions[name] || 0);
+  cur = Math.max(0, Math.min(maxN, cur + delta));     // 0이면 자동으로 꺼짐
+  state.conditions[name] = cur;
+  _afterCondChange();
+}
+
+const COST_ICON = {'1':'<span class="action-glyph">1</span>','2':'<span class="action-glyph">2</span>','3':'<span class="action-glyph">3</span>','reaction':'<span class="action-glyph">R</span>','free':'<span class="action-glyph">F</span>','passive':'—','varies':'✦','10min':'10분','1min':'1분','1h':'1시간','1day':'1일','8h':'8시간'};
 
 function getActionCostIcon(cost) {
   return COST_ICON[cost] || cost;
@@ -5151,39 +5278,61 @@ function renderActions() {
   const container = document.getElementById('actions-content');
   if (!container) return;
 
-  // Conditions reference tab
+  _syncActionExtraFilter();
+
+  // Conditions reference tab — 행동 카드 형식 + FVTT 상태이상 아이콘
   if (_actionFilter === 'conditions') {
-    let html = '';
-    CONDITIONS_DATA.forEach(c => {
+    const rows = CONDITIONS_DATA.map(c => {
       const val = state.conditions[c.name] || 0;
       const isActive = c.valued ? val > 0 : !!val;
-      const maxStr = c.valued ? ` (최대 ${c.max||4})` : '';
-      html += `<div style="padding:8px 10px;border-bottom:1px solid var(--border);${isActive?'background:var(--red-bg);border-left:3px solid var(--red);':''}">
-        <div style="display:flex;align-items:center;gap:6px;">
-          <strong style="font-size:13px;${isActive?'color:var(--red-light);':''}">${c.name}</strong>
-          <span style="font-size:11px;color:var(--text2);">${c.en}${maxStr}</span>
-          ${isActive?`<span style="margin-left:auto;font-size:11px;color:var(--red);font-weight:700;">${c.valued?'수치 '+val:'적용 중'}</span>`:''}
+      return { c, val, isActive };
+    }).filter(o => !_condActiveOnly || o.isActive);
+
+    let html = '<div class="actions-grid">';
+    rows.forEach(({ c, val, isActive }) => {
+      const maxN = c.max || 4;
+      const maxStr = c.valued ? ` (최대 ${maxN})` : '';
+      const ico = (typeof iconImg === 'function' && iconImg('condition', c)) ||
+        '<span class="item-icon" style="display:inline-flex;align-items:center;justify-content:center;font-size:14px;background:var(--bg4);">⚠</span>';
+      const activeStyle = isActive ? 'border-left:3px solid var(--red);background:var(--red-bg);' : '';
+      const dimStyle = isActive ? '' : 'opacity:0.7;';
+      const desc = (typeof resolveDescRefs === 'function') ? resolveDescRefs(c.desc) : c.desc;
+      const clickable = !c.auto;          // 과적 등 자동 상태이상은 클릭 토글 불가(부피로 관리)
+      const onClick = clickable ? ` onclick="toggleCardCondition('${c.name}')"` : '';
+      const cursorStyle = clickable ? 'cursor:pointer;' : 'cursor:default;';
+      // 우측: 자동=잠금 / 수치형 활성=스테퍼 / 단순 활성=적용 중
+      let statusHtml = '';
+      if (c.auto) {
+        statusHtml = `<span style="font-size:10px;color:var(--text2);flex-shrink:0;" title="부피에 따라 자동 적용/해제">🔒 자동${isActive?' 적용':''}</span>`;
+      } else if (isActive && c.valued) {
+        statusHtml = `<span class="cond-stepper" style="flex-shrink:0;">`
+          + `<button onclick="event.stopPropagation();stepCardCondition('${c.name}',-1)" title="감소">−</button>`
+          + `<span class="cond-stepper-val">${val}</span>`
+          + `<button onclick="event.stopPropagation();stepCardCondition('${c.name}',1)"${val>=maxN?' disabled':''} title="증가">＋</button>`
+          + `</span>`;
+      } else if (isActive) {
+        statusHtml = `<span style="font-size:10px;color:var(--red);font-weight:700;flex-shrink:0;">적용 중</span>`;
+      }
+      html += `<div class="action-card cond-card${isActive?' on':''}" style="${dimStyle}${activeStyle}${cursorStyle}"${onClick}>
+        <div class="action-card-head">
+          ${ico}
+          <div style="flex:1;min-width:0;">
+            <div class="action-name-ko"${isActive?' style="color:var(--red-light);"':''}>${c.name}${(c.valued&&val)?' '+val:''}</div>
+            <div class="action-name-en">${c.en}${maxStr}</div>
+          </div>
+          ${statusHtml}
         </div>
-        <div style="font-size:12px;color:var(--text);line-height:1.6;margin-top:4px;">${c.desc}</div>
+        <div class="action-summary">${desc}</div>
       </div>`;
     });
+    html += '</div>';
+    if (!rows.length) html = `<div style="color:var(--text2);padding:16px;">${_condActiveOnly?'적용 중인 상태이상이 없습니다.':'상태이상 데이터가 없습니다.'}</div>`;
     container.innerHTML = html;
     return;
   }
 
-  // Filter
-  let visible = ACTION_DB.filter(a => {
-    if (_actionFilter !== 'all') {
-      if (_actionFilter === 'reaction') {
-        if (a.cost !== 'reaction') return false;
-      } else if (_actionFilter === 'feat') {
-        if (a.cat !== 'feat' && a.cat !== 'heritage') return false;
-      } else if (_actionFilter !== a.cat) {
-        return false;
-      }
-    }
-    return true;
-  });
+  // 풀: 전체 행동(ACTION_DB) — 비용 필터는 동적 추가(재주/커스텀)까지 합친 뒤 마지막에 적용
+  let visible = [...ACTION_DB];
 
   // 보유 재주 중 행동인 것 동적 추가 (ACTION_DB에 없는 것만)
   if (typeof FEAT_DB !== 'undefined') {
@@ -5256,6 +5405,12 @@ function renderActions() {
     });
   }
 
+  // 행동경제(비용) 필터 — _actionFilter 값('1'|'2'|'3'|'free'|'reaction')이 곧 a.cost
+  // 그 외(1min/10min/passive/varies 등)는 '전체'에서만 노출. 그룹 분류(기본/기술/재주)는 그대로 유지.
+  if (_actionFilter !== 'all') {
+    visible = visible.filter(a => a.cost === _actionFilter);
+  }
+
   // Group by cat_label, separate available vs locked
   const groups = {};
   visible.forEach(a => {
@@ -5271,7 +5426,7 @@ function renderActions() {
 
   orderedGroups.forEach(label => {
     const g = groups[label];
-    const all = [...g.available, ...g.locked];
+    const all = _actionAvailOnly ? [...g.available] : [...g.available, ...g.locked];
     if (!all.length) return;
     html += `<div style="margin-bottom:12px;"><div class="action-group-title">${label}</div><div class="actions-grid">`;
     all.forEach(a => {
@@ -5295,6 +5450,7 @@ function renderActions() {
       html += `<div class="action-card" style="${opacity}${grantedStyle}">
         <div class="action-card-head">
           <span class="action-cost">${costIcon}</span>
+          ${typeof iconImg==='function'?iconImg(a.cat==='feat'?'feat':'action',a):''}
           <div style="flex:1;min-width:0;">
             <div class="action-name-ko">${a.name_ko}</div>
             <div class="action-name-en">${a.name_en}</div>

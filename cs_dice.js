@@ -45,36 +45,52 @@ const DiceRoller = (() => {
   }
 
   // ── 핵심 굴림 ──
-  function rollPool(label, modifier) {
-    if (pool.length === 0 && modifier === undefined) return;
-    const mod = modifier || 0;
+  function _rollLocalDice(poolCopy) {
     const results = [];
-    let total = 0;
-    pool.forEach(d => {
-      for (let i = 0; i < d.count; i++) {
-        const val = roll(d.sides);
-        results.push({sides: d.sides, value: val});
-        total += val;
-      }
-    });
-    total += mod;
-
+    poolCopy.forEach(d => { for (let i = 0; i < d.count; i++) results.push({ sides: d.sides, value: roll(d.sides) }); });
+    return results;
+  }
+  function _buildEntry(label, mod, results) {
+    let total = 0; results.forEach(r => total += r.value); total += mod;
     const entry = {
       label: label || poolLabel(),
-      dice: results,
-      modifier: mod,
-      total,
-      time: new Date(),
+      dice: results, modifier: mod, total, time: new Date(),
       isNat20: results.length === 1 && results[0].sides === 20 && results[0].value === 20,
       isNat1: results.length === 1 && results[0].sides === 20 && results[0].value === 1,
     };
     rollLog.unshift(entry);
     if (rollLog.length > MAX_LOG) rollLog.pop();
-
-    showRollAnimation(entry, () => showToast(entry));
+    return entry;
+  }
+  function _emitEntry(entry, animate) {
+    if (animate) showRollAnimation(entry, () => showToast(entry));
+    else showToast(entry);
     if (_rollCallback) try { _rollCallback(entry); } catch(e) { console.warn('[DiceRoller] onRoll error', e); }
-    clearPool();
     if (logOpen) renderLog();
+  }
+
+  function rollPool(label, modifier) {
+    if (pool.length === 0 && modifier === undefined) return;
+    const mod = modifier || 0;
+    const poolCopy = pool.map(d => ({ sides: d.sides, count: d.count }));
+    clearPool();
+
+    // 3D 물리 주사위 우선 (가능 시) — dice-box가 굴린 실제 결과값을 사용. 실패하면 2D 폴백
+    if (typeof window !== 'undefined' && window.PFDice && window.PFDice.available && window.PFDice.available()) {
+      const notation = poolCopy.map(d => ({ qty: d.count, sides: d.sides }));
+      window.PFDice.roll(notation).then(res => {
+        if (!res || !res.length) throw new Error('빈 결과');
+        _emitEntry(_buildEntry(label, mod, res), false);   // 3D가 이미 굴렀으니 2D 애니 생략
+        setTimeout(() => { try { window.PFDice.clear(); } catch(e) {} }, 4500);
+      }).catch(e => {
+        console.warn('[DiceRoller] 3D 실패 → 2D 폴백', e);
+        _emitEntry(_buildEntry(label, mod, _rollLocalDice(poolCopy)), true);
+      });
+      return;   // 호출부는 반환값 미사용 (비동기 처리)
+    }
+
+    const entry = _buildEntry(label, mod, _rollLocalDice(poolCopy));
+    _emitEntry(entry, true);
     return entry;
   }
 
@@ -88,6 +104,36 @@ const DiceRoller = (() => {
     return rollPool(label, modifier);
   }
 
+  // 유리/불리 굴림 — 2d20 중 높은(유리)/낮은(불리) 값 채택 (합이 아니라 max/min)
+  function _buildAdvEntry(isDis, r1, r2) {
+    const best = isDis ? Math.min(r1, r2) : Math.max(r1, r2);
+    const entry = {
+      label: isDis ? '불리 (2d20↓)' : '유리 (2d20↑)',
+      dice: [{sides:20,value:r1},{sides:20,value:r2}],
+      modifier: 0, total: best, time: new Date(),
+      isNat20: best === 20, isNat1: best === 1,
+    };
+    rollLog.unshift(entry); if (rollLog.length > MAX_LOG) rollLog.pop();
+    return entry;
+  }
+  function rollAdvDis(isDis) {
+    // 3D 물리 주사위 우선 (가능 시) — dice-box가 굴린 실제 d20 두 값을 사용. 실패하면 2D 폴백
+    if (typeof window !== 'undefined' && window.PFDice && window.PFDice.available && window.PFDice.available()) {
+      window.PFDice.roll([{ qty: 2, sides: 20 }]).then(res => {
+        if (!res || res.length < 2) throw new Error('빈 결과');
+        _emitEntry(_buildAdvEntry(isDis, res[0].value, res[1].value), false);   // 3D가 이미 굴렀으니 2D 애니 생략
+        setTimeout(() => { try { window.PFDice.clear(); } catch(e) {} }, 4500);
+      }).catch(e => {
+        console.warn('[DiceRoller] 3D 유리/불리 실패 → 2D 폴백', e);
+        _emitEntry(_buildAdvEntry(isDis, roll(20), roll(20)), true);
+      });
+      return;   // 비동기 처리 — 반환값 미사용
+    }
+    const entry = _buildAdvEntry(isDis, roll(20), roll(20));
+    _emitEntry(entry, true);
+    return entry;
+  }
+
   // "2d8+4 참격" 같은 문자열 파싱 → 굴림
   function rollDamage(dmgStr, label, extraMod) {
     const match = dmgStr.match(/(\d+)d(\d+)/);
@@ -98,6 +144,21 @@ const DiceRoller = (() => {
     const mod = (modMatch ? parseInt(modMatch[1].replace(/\s/g, '')) : 0) + (extraMod || 0);
     pool = [{sides, count}];
     return rollPool(label || dmgStr, mod);
+  }
+
+  // 전체 피해식 굴림 — 여러 주사위 그룹 + 상수 합산 ("2d8+6+2d6", "1d8+4", "3d6" 등)
+  function rollFormula(formula, label, extraMod) {
+    formula = String(formula || '');
+    const groups = [];
+    const dre = /(\d+)\s*[dD]\s*(\d+)/g; let m;
+    while ((m = dre.exec(formula))) groups.push({ sides: parseInt(m[2]) || 6, count: parseInt(m[1]) || 1 });
+    let flat = (extraMod || 0);
+    const rest = formula.replace(/(\d+)\s*[dD]\s*(\d+)/g, ' ');   // 주사위 항 제거 → 남은 상수만 합산
+    const fre = /[+-]?\s*\d+/g;
+    while ((m = fre.exec(rest))) { const n = parseInt(m[0].replace(/\s/g, ''), 10); if (!isNaN(n)) flat += n; }
+    if (!groups.length && !flat) return;
+    pool = groups;                              // 그룹이 비면 상수만(rollPool가 modifier로 처리)
+    return rollPool(label || formula, flat);
   }
 
   // ══ 활성 보너스 굴림 모달 (v530~) ══
@@ -322,31 +383,12 @@ const DiceRoller = (() => {
 
     // 빠른 굴리기
     html += `<div class="dice-quick">
-      <button class="dice-quick-btn" onclick="DiceRoller.rollQuick(20,1,0,'d20')">d20</button>
-      <button class="dice-quick-btn" onclick="DiceRoller.rollQuick(20,1,0,'인스피')" style="font-size:10px">2d20↑</button>
-      <button class="dice-quick-btn" onclick="DiceRoller.rollQuick(6,4,0,'4d6')">4d6</button>
+      <button class="dice-quick-btn" onclick="DiceRoller.rollAdvDis(false)" style="font-size:10px">유리 2d20↑</button>
+      <button class="dice-quick-btn" onclick="DiceRoller.rollAdvDis(true)" style="font-size:10px">불리 2d20↓</button>
       <button class="dice-quick-btn dice-log-toggle ${logOpen?'active':''}" onclick="DiceRoller.toggleLog()">📜 기록</button>
     </div>`;
 
     body.innerHTML = html;
-
-    // 인스피 버튼 2d20 유리 수정
-    const inspBtn = body.querySelector('.dice-quick-btn:nth-child(2)');
-    if (inspBtn) {
-      inspBtn.onclick = () => {
-        const r1 = roll(20), r2 = roll(20);
-        const best = Math.max(r1, r2);
-        const entry = {
-          label: '유리 (2d20↑)', dice: [{sides:20,value:r1},{sides:20,value:r2}],
-          modifier: 0, total: best, time: new Date(),
-          isNat20: best === 20, isNat1: false
-        };
-        rollLog.unshift(entry); if (rollLog.length > MAX_LOG) rollLog.pop();
-        showRollAnimation(entry, () => showToast(entry));
-        if (_rollCallback) try { _rollCallback(entry); } catch(e) {}
-        if (logOpen) renderLog();
-      };
-    }
   }
 
   // ── 로그 패널 ──
@@ -377,8 +419,9 @@ const DiceRoller = (() => {
       const diceStr = e.dice.map(d => `d${d.sides}:${d.value}`).join(', ');
       const modStr = e.modifier ? ` ${fmtMod(e.modifier)}` : '';
       const cls = e.isNat20 ? 'nat20' : e.isNat1 ? 'nat1' : '';
-      html += `<div class="dice-log-entry ${cls}">
-        <div class="dice-log-top"><span class="dice-log-label">${e.label}</span><span class="dice-log-total">${e.total}</span></div>
+      const whoStr = e.who ? `<span class="dice-log-who">${e.who}</span> ` : '';
+      html += `<div class="dice-log-entry ${cls}${e._remote ? ' remote' : ''}">
+        <div class="dice-log-top"><span class="dice-log-label">${whoStr}${e.label}</span><span class="dice-log-total">${e.total}</span></div>
         <div class="dice-log-bottom"><span class="dice-log-detail">[${diceStr}]${modStr}</span><span class="dice-log-time">${timeStr}</span></div>
       </div>`;
     });
@@ -567,12 +610,22 @@ const DiceRoller = (() => {
       toast.classList.add('hide');
       setTimeout(() => toast.remove(), 400);
     }, 5000);
+
+    // 굴림 기록에도 남김 (누가 + 무엇을 위해) — 같은 세션 플레이어 전원 공유
+    rollLog.unshift({
+      label: data.label || '', dice: data.dice || [], modifier: data.modifier || 0,
+      total: data.total, time: new Date(),
+      isNat20: !!data.isNat20, isNat1: !!data.isNat1,
+      who: data.characterName || '???', _remote: true,
+    });
+    if (rollLog.length > MAX_LOG) rollLog.pop();
+    if (logOpen) renderLog();
   }
 
   // ── Public API ──
   return {
     addToPool, removeFromPool, clearPool,
-    rollPool, rollQuick, rollCheck,
+    rollPool, rollQuick, rollCheck, rollDamage, rollFormula, rollAdvDis,
     toggleTray, toggleLog, clearLog,
     onRoll, showRemoteToast,
   };

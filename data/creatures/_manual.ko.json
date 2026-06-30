@@ -1,0 +1,1218 @@
+{
+ "items": {
+  "Shield Bash": {
+   "name": "방패 가격"
+  },
+  "Stone Longsword": {
+   "name": "돌 장검"
+  },
+  "Wave": {
+   "name": "파도"
+  },
+  "Offal": {
+   "name": "내장"
+  },
+  "Spores": {
+   "name": "포자"
+  },
+  "Binding Contract": {
+   "name": "구속 계약"
+  },
+  "Flaming Sword": {
+   "name": "화염 검"
+  },
+  "Mental Blast": {
+   "name": "정신 강타"
+  },
+  "Hand Of Fate": {
+   "name": "운명의 손"
+  },
+  "Norn Shears": {
+   "name": "노른의 가위"
+  },
+  "Piercing Hymn": {
+   "name": "꿰뚫는 찬가"
+  },
+  "Phantom Sword": {
+   "name": "환영 검"
+  },
+  "Phantom Bow": {
+   "name": "환영 활"
+  },
+  "Headbutt": {
+   "name": "박치기"
+  },
+  "Tendrils": {
+   "name": "덩굴손"
+  },
+  "Splinter": {
+   "name": "파편"
+  },
+  "Web": {
+   "name": "거미줄"
+  },
+  "Spore Pod": {
+   "name": "포자 꼬투리"
+  },
+  "Alchemical Grenade": {
+   "name": "연금술 수류탄"
+  },
+  "Ice Dart": {
+   "name": "얼음 다트"
+  },
+  "Aqueous Fist": {
+   "name": "물의 주먹"
+  },
+  "Water Orb": {
+   "name": "물 구체"
+  },
+  "Corpse": {
+   "name": "시체"
+  },
+  "Hunk Of Meat": {
+   "name": "고깃덩어리"
+  },
+  "Holy Lance": {
+   "name": "신성한 창"
+  },
+  "Keen Returning Hatchet": {
+   "name": "예리한 회귀 손도끼"
+  },
+  "Keen Longsword": {
+   "name": "예리한 장검"
+  },
+  "Tongue of Flame": {
+   "name": "화염의 혀"
+  },
+  "Wraith Touch": {
+   "name": "망령의 손길"
+  },
+  "Holy Warhammer": {
+   "name": "신성한 전쟁망치"
+  },
+  "Touch of Destruction": {
+   "name": "파괴의 손길"
+  },
+  "Touch of Creation": {
+   "name": "창조의 손길"
+  },
+  "Flaming Coal": {
+   "name": "불타는 석탄"
+  },
+  "Stone Fist": {
+   "name": "돌 주먹"
+  },
+  "Shock Maw": {
+   "name": "충격 아가리"
+  },
+  "Acid Maw": {
+   "name": "산성 아가리"
+  },
+  "Tail Lash": {
+   "name": "꼬리 후려치기"
+  },
+  "Flame Maw": {
+   "name": "화염 아가리"
+  },
+  "Frost Greatsword": {
+   "name": "냉기 대검"
+  },
+  "Frost Fist": {
+   "name": "냉기 주먹"
+  },
+  "Frost Composite Longbow": {
+   "name": "냉기 합성 장궁"
+  },
+  "Crashing Wind": {
+   "name": "몰아치는 바람"
+  },
+  "Water Spout": {
+   "name": "물기둥"
+  },
+  "Taravari": {
+   "name": "타라바리"
+  },
+  "Snake Fangs": {
+   "name": "뱀 송곳니"
+  },
+  "Flame of Justice": {
+   "name": "정의의 화염"
+  },
+  "Baton": {
+   "name": "경봉"
+  },
+  "Tentacle Arm": {
+   "name": "촉수 팔"
+  },
+  "Larval Spit": {
+   "name": "유충 침"
+  },
+  "Euphoric Spark": {
+   "name": "황홀경 불꽃"
+  },
+  "Acid Spit": {
+   "name": "산성 침"
+  },
+  "Digestive Spew": {
+   "name": "소화액 분출"
+  },
+  "Thunderbolt": {
+   "name": "벼락"
+  },
+  "Keen Scythe": {
+   "name": "예리한 낫"
+  },
+  "Hand": {
+   "name": "손"
+  },
+  "Gust": {
+   "name": "돌풍"
+  },
+  "Phantom Horn": {
+   "name": "환영 뿔"
+  },
+  "Sting": {
+   "name": "쏘기"
+  },
+  "Snout": {
+   "name": "주둥이"
+  },
+  "Mandible": {
+   "name": "큰턱"
+  },
+  "Lion Jaws": {
+   "name": "사자 턱"
+  },
+  "Dragon Jaws": {
+   "name": "용 턱"
+  },
+  "Goat Horns": {
+   "name": "염소 뿔"
+  },
+  "Arm": {
+   "name": "팔"
+  },
+  "Skull": {
+   "name": "두개골"
+  },
+  "Fire Ray": {
+   "name": "화염 광선"
+  },
+  "Bomb": {
+   "name": "폭탄"
+  },
+  "Syringe": {
+   "name": "주사기"
+  },
+  "Seed": {
+   "name": "씨앗"
+  },
+  "Iron Boot": {
+   "name": "철 장화"
+  },
+  "Quill": {
+   "name": "가시"
+  },
+  "Leaves": {
+   "name": "잎사귀"
+  },
+  "Silver Rapier": {
+   "name": "은 레이피어"
+  },
+  "Sludge Tendril": {
+   "name": "진흙 덩굴손"
+  },
+  "Slime Ball": {
+   "name": "점액 덩어리"
+  },
+  "Starlight Ray": {
+   "name": "별빛 광선"
+  },
+  "Black Flame Knife": {
+   "name": "검은 화염 칼"
+  },
+  "Acid Glob": {
+   "name": "산성 덩어리"
+  },
+  "Leaf": {
+   "name": "잎"
+  },
+  "Leachate": {
+   "name": "침출액"
+  },
+  "Luminous Spark": {
+   "name": "빛나는 불꽃"
+  },
+  "Animated Weapon": {
+   "name": "활성화된 무기"
+  },
+  "Scrap Ball": {
+   "name": "고철 덩어리"
+  },
+  "Corpse Wave": {
+   "name": "시체 파도"
+  },
+  "Flame Jet": {
+   "name": "화염 분사"
+  },
+  "Lightning Lash": {
+   "name": "번개 채찍"
+  },
+  "Pliers": {
+   "name": "펜치"
+  },
+  "Flame": {
+   "name": "화염"
+  },
+  "Wounding Scimitar": {
+   "name": "상처입히는 시미터"
+  },
+  "Caustic Blood": {
+   "name": "부식성 피"
+  },
+  "Slime Squirt": {
+   "name": "점액 분사"
+  },
+  "Seedpod": {
+   "name": "씨앗 꼬투리"
+  },
+  "Regurgitate": {
+   "name": "게워내기"
+  },
+  "Eye Ray": {
+   "name": "눈 광선"
+  },
+  "Adamantine Claw": {
+   "name": "아다만틴 발톱"
+  },
+  "Adamantine Fangs": {
+   "name": "아다만틴 송곳니"
+  },
+  "Bristles": {
+   "name": "뻣뻣한 털"
+  },
+  "Web Wrappings": {
+   "name": "거미줄 포박"
+  },
+  "Bone Javelin": {
+   "name": "뼈 투창"
+  },
+  "Telekinetic Object": {
+   "name": "염력 물체"
+  },
+  "Candy Cane Claw": {
+   "name": "사탕지팡이 발톱"
+  },
+  "Shovel": {
+   "name": "삽"
+  },
+  "Modular Prosthesis": {
+   "name": "모듈식 의수"
+  },
+  "Fungal Spores": {
+   "name": "균류 포자"
+  },
+  "Staff of Office": {
+   "name": "직권의 지팡이"
+  },
+  "Cutlass": {
+   "name": "커틀러스"
+  },
+  "Cold Iron Elven Branched Spear": {
+   "name": "냉철 엘프 가지창"
+  },
+  "Spirit Pitch": {
+   "name": "영혼 역청"
+  },
+  "Ghost Claw": {
+   "name": "유령 발톱"
+  },
+  "Textbook": {
+   "name": "교과서"
+  },
+  "Pitchfork": {
+   "name": "쇠스랑"
+  },
+  "Quill Pen": {
+   "name": "깃펜"
+  },
+  "Wooden Sword": {
+   "name": "목검"
+  },
+  "Broom": {
+   "name": "빗자루"
+  },
+  "Pewter Mug": {
+   "name": "백랍 잔"
+  },
+  "Pen": {
+   "name": "펜"
+  },
+  "Cleaver": {
+   "name": "식칼"
+  },
+  "Medical Textbook": {
+   "name": "의학 교과서"
+  },
+  "Book": {
+   "name": "책"
+  },
+  "Decorative Sword of Station": {
+   "name": "신분 장식검"
+  },
+  "Fruit or Vegetable": {
+   "name": "과일이나 채소"
+  },
+  "Heavy Wrench": {
+   "name": "무거운 렌치"
+  },
+  "Grave Pulse": {
+   "name": "무덤 진동"
+  },
+  "Decaying Frost Scythe": {
+   "name": "부패하는 냉기 낫"
+  },
+  "Decaying Frost Fist": {
+   "name": "부패하는 냉기 주먹"
+  },
+  "Fishing Line": {
+   "name": "낚싯줄"
+  },
+  "Journal": {
+   "name": "일지"
+  },
+  "Integrated Weapon": {
+   "name": "내장 무기"
+  },
+  "Plated Fist": {
+   "name": "판금 주먹"
+  },
+  "Dragon-Headed Cane": {
+   "name": "용머리 지팡이"
+  },
+  "Arcane Beam": {
+   "name": "비전 광선"
+  },
+  "Inkwell": {
+   "name": "잉크병"
+  },
+  "Trowel": {
+   "name": "모종삽"
+  },
+  "Card": {
+   "name": "카드"
+  },
+  "Bottle": {
+   "name": "병"
+  },
+  "Naval Pike": {
+   "name": "해군 파이크"
+  },
+  "Cold Iron Wakizashi": {
+   "name": "냉철 와키자시"
+  },
+  "Enchanting Wisps": {
+   "name": "매혹하는 빛무리"
+  },
+  "Shiv": {
+   "name": "사제칼"
+  },
+  "Apple": {
+   "name": "사과"
+  },
+  "Spectral Roar": {
+   "name": "유령의 포효"
+  },
+  "Hot Frying Pan": {
+   "name": "뜨거운 프라이팬"
+  },
+  "Frost Dagger": {
+   "name": "냉기 단검"
+  },
+  "Acid Flask": {
+   "name": "산성 플라스크"
+  },
+  "Stone Pestle": {
+   "name": "돌 절굿공이"
+  },
+  "Scalpel": {
+   "name": "메스"
+  },
+  "Fleshwarping Concoction": {
+   "name": "살 변형 조제물"
+  },
+  "Brick": {
+   "name": "벽돌"
+  },
+  "Alchemical Bomb": {
+   "name": "연금술 폭탄"
+  },
+  "Elemental Blast": {
+   "name": "원소 강타"
+  },
+  "Bonesaw": {
+   "name": "뼈톱"
+  },
+  "Musket Staff": {
+   "name": "머스킷 지팡이"
+  },
+  "Embalming Flask": {
+   "name": "방부처리 플라스크"
+  },
+  "Fearsome Greataxe": {
+   "name": "무시무시한 대도끼"
+  },
+  "Entrenching Tool": {
+   "name": "야전삽"
+  },
+  "Gavel": {
+   "name": "의사봉"
+  },
+  "+2 to Sense Motive": {
+   "name": "동기 간파 +2"
+  },
+  "+10 to Sense Motive": {
+   "name": "동기 간파 +10"
+  },
+  "DC 19 Against Stealing": {
+   "name": "도둑질에 대해 DC 19"
+  },
+  "–2 To All Saves vs. Curses": {
+   "name": "저주에 대한 모든 내성 –2"
+  },
+  "+2 to Reflex vs. Damaging Effects": {
+   "name": "피해 효과에 대한 반사 +2"
+  },
+  "Knockdown (Animal Shape)": {
+   "name": "넘어뜨리기 (동물 형태)"
+  },
+  "Acrobatic Specialist": {
+   "name": "곡예 전문가",
+   "description": "<p>곡예 및 유사 활동의 대결이 포함된 조우에서, 이 곡예사는 5레벨 도전 상대입니다.</p>"
+  },
+  "Political Specialist": {
+   "name": "정치 전문가",
+   "description": "<p>정치적 호의를 구하는 것이 포함된 조우에서, 이 시장은 6레벨 도전 상대입니다.</p>"
+  },
+  "Sailing Specialist": {
+   "name": "항해 전문가",
+   "description": "<p>항해나 조선이 포함된 조우에서, 이 항해사는 4레벨 도전 상대입니다.</p>"
+  },
+  "Dance Specialist": {
+   "name": "무용 전문가",
+   "description": "<p>무용 대결이 포함된 조우에서, 이 무용수는 5레벨 도전 상대입니다.</p>"
+  },
+  "Swarming": {
+   "name": "군집",
+   "description": "<p>이소키는 이 능력을 가진 아군과 같은 칸에서 이동을 마칠 수 있습니다. 그런 생물은 최대 둘까지만 같은 공간을 공유할 수 있습니다.</p>"
+  },
+  "Skittish": {
+   "name": "겁많음",
+   "description": "<p><strong>발동</strong> 표류자가 타격으로 피해를 받는다. <strong>효과</strong> 표류자가 타격의 근원에서 멀어지는 쪽으로 이동(Step)합니다.</p>"
+  },
+  "Strong Lungs": {
+   "name": "강한 폐",
+   "description": "<p>이 잠수부는 최대 5분(50라운드) 동안 숨을 참을 수 있습니다.</p>"
+  },
+  "Pulse of the Electorate": {
+   "name": "유권자의 맥박",
+   "description": "<p>이 시장은 신속하게 정보를 알아낼 수 있으며, 정착지의 누군가가 어떤 사건이나 활동을 인지한 지 1시간이 지나면 시장도 그것을 인지하게 됩니다. 단, 주민들과 어울릴 시간이 있었던 경우에 한합니다.</p>"
+  },
+  "Puppet Type": {
+   "name": "꼭두각시 유형"
+  },
+  "Religious Symbol of Ydersius": {
+   "name": "이데르시우스의 종교 상징",
+   "description": "<p>이 나무 또는 은으로 만든 물건에는 신을 상징하는 형상이 새겨져 있습니다. 클레릭과 같은 일부 신성 시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 사용하거나 일부 주문을 시전할 수 있습니다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 들 수 있습니다.</p>"
+  },
+  "Crab Cage": {
+   "name": "게 우리"
+  },
+  "Defiled Religious Symbol of Pharasma (Wooden)": {
+   "name": "더럽혀진 파라스마의 종교 상징 (목제)",
+   "description": "<p>이 나무 또는 은으로 만든 물건에는 신을 상징하는 형상이 새겨져 있습니다. 클레릭과 같은 일부 신성 시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 사용하거나 일부 주문을 시전할 수 있습니다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 들 수 있습니다.</p>"
+  },
+  "Wineskin": {
+   "name": "가죽 물병"
+  },
+  "Panpipes": {
+   "name": "팬파이프",
+   "description": "<p>휴대용 악기에는 백파이프, 작은 종 세트, 작은 북, 피들과 비올, 플루트와 리코더, 작은 하프, 류트, 트럼펫, 그리고 이와 비슷한 크기의 악기가 포함됩니다. GM은 특히 큰 휴대용 악기(예: 튜바)에 더 높은 부피를 적용할 수 있습니다. 큰 북, 종 세트 전체, 건반 악기와 같은 무거운 악기는 휴대성이 떨어지며 일반적으로 연주하는 동안 고정되어 있어야 합니다.</p>"
+  },
+  "Spellbook Containing Their Prepared Spells": {
+   "name": "준비한 주문이 담긴 주문서",
+   "description": "<p>소마법</p>\n<ul>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl]{마법 탐지}</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.IxhGEKl63R4QBvkj]{서리 물기}</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.Qw3fnUlaUbnn7ipC]{손재주}</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.TVKNbcgTee19PXZR]{방패}</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.mAMEt4FFbdqoRnkN]{공허 뒤틀기}</li>\n</ul>\n<p>1환</p>\n<ul>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.aIHY2DArKFweIrpf]{명령}</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.gKKqvLohtrSJj3BM]{역장 탄막}</li>\n<li>@UUID[Compendium.pf2e.spells-srd.Item.k34hDOfIIMAxNL4a]{음산한 덩굴손}</li>\n</ul>\n<hr />\n<p>주문서는 다양한 주문을 익히고 준비하는 데 필요한 기록된 지식을 담고 있으며, 위저드(보통 하나를 무료로 받습니다)에게는 필수품이고 추가 주문을 배우려는 다른 시전자에게는 유용한 사치품입니다. 각 주문서에는 최대 100개의 주문을 담을 수 있습니다. 표시된 가격은 빈 주문서의 가격입니다.</p>"
+  },
+  "Iron Boots": {
+   "name": "철 부츠"
+  },
+  "Red Cap": {
+   "name": "붉은 모자"
+  },
+  "Virtuoso Harp": {
+   "name": "거장의 하프",
+   "description": "<p>휴대용 악기에는 백파이프, 작은 종 세트, 작은 북, 피들과 비올, 플루트와 리코더, 작은 하프, 류트, 트럼펫, 그리고 이와 비슷한 크기의 악기가 포함됩니다. GM은 특히 큰 휴대용 악기(예: 튜바)에 더 높은 부피를 적용할 수 있습니다. 큰 북, 종 세트 전체, 건반 악기와 같은 무거운 악기는 휴대성이 떨어지며 일반적으로 연주하는 동안 고정되어 있어야 합니다.</p>\n<p>거장의 악기는 더 정교하게 제작되어 해당 악기를 사용한 공연 판정에 +1 아이템 보너스를 줍니다.</p>"
+  },
+  "Sandals": {
+   "name": "샌들"
+  },
+  "Common runes of 9th level or lower etched upon their scales": {
+   "name": "비늘에 새겨진 9레벨 이하의 일반 룬"
+  },
+  "Satchel for Holding Rocks": {
+   "name": "돌을 담는 가방"
+  },
+  "Legal Ledgers": {
+   "name": "법률 장부"
+  },
+  "Countless Religious Symbols": {
+   "name": "수많은 종교 상징",
+   "description": "<p>이 나무 또는 은으로 만든 물건에는 신을 상징하는 형상이 새겨져 있습니다. 클레릭과 같은 일부 신성 시전자는 자신이 섬기는 신의 종교 상징을 신성 매개체로 사용하여 특정 능력을 사용하거나 일부 주문을 시전할 수 있습니다. 종교 상징은 사용하려면 한 손에 들고 있어야 합니다.</p>"
+  },
+  "Common runes of 14th level or lower etched upon their scales": {
+   "name": "비늘에 새겨진 14레벨 이하의 일반 룬"
+  },
+  "Common runes of 5th level or lower etched upon their scales": {
+   "name": "비늘에 새겨진 5레벨 이하의 일반 룬"
+  },
+  "Spiritual Rope": {
+   "name": "영적인 밧줄"
+  },
+  "Soul Gem": {
+   "name": "영혼 보석"
+  },
+  "Outrageous Hat": {
+   "name": "터무니없는 모자"
+  },
+  "Memory Crystal": {
+   "name": "기억 수정"
+  },
+  "Flawless Celestial Shawl": {
+   "name": "완벽한 천상의 숄",
+   "description": "<p>각각의 <em>완벽한 천상의 숄</em>은 특정 텐닌에게만 작동하며 그들의 불멸의 수행이 결실을 맺은 산물입니다. 이 띠는 아다만틴보다 강하면서도 거미줄보다 가벼운 천상의 비단실로 만들어졌습니다. 텐닌은 <em>완벽한 천상의 숄</em>에서 실을 뽑아내 @UUID[Compendium.pf2e.equipment-srd.Item.0QgniSjpzksm5riV]{최상급 장인 도구}와 작업장으로 삼아 @UUID[Compendium.pf2e.actionspf2e.Item.rmwa3OyhTZ2i2AHl]{제작}을 할 수 있습니다. 이 띠는 어떤 등급의 귀중한 재료로도 작업할 수 있습니다. 텐닌이 이 숄을 사용하여 시도하는 모든 제작 판정에서, 그들은 주사위 결과보다 한 단계 더 나은 성공 단계의 결과를 사용합니다.</p><hr /><p><strong>활성화—재직조</strong> <span class=\"action-glyph\">3</span> 텐닌은 이 띠를 사용하여 아이템을 @UUID[Compendium.pf2e.actionspf2e.Item.bT3skovyLUtP22ME]{수리}합니다. 이 수리 활동은 탐사 특성을 잃습니다.</p>"
+  },
+  "Tambourine (Handheld Musical Instrument)": {
+   "name": "탬버린 (휴대용 악기)",
+   "description": "<p>휴대용 악기에는 백파이프, 작은 종 세트, 작은 북, 피들과 비올, 플루트와 리코더, 작은 하프, 류트, 트럼펫, 그리고 이와 비슷한 크기의 악기가 포함됩니다. GM은 특히 큰 휴대용 악기(예: 튜바)에 더 높은 부피를 적용할 수 있습니다. 큰 북, 종 세트 전체, 건반 악기와 같은 무거운 악기는 휴대성이 떨어지며 일반적으로 연주하는 동안 고정되어 있어야 합니다.</p>"
+  },
+  "Religious Text of Dagon": {
+   "name": "다곤의 경전",
+   "description": "<p>이 문서에는 특정 종교의 경전이 담겨 있습니다. 클레릭과 같은 일부 신성 시전자는 경전을 사용하여 특정 능력을 사용할 수 있습니다. 경전은 사용하려면 한 손에 들고 있어야 합니다.</p>"
+  },
+  "Religious Symbol of Dagon": {
+   "name": "다곤의 종교 상징",
+   "description": "<p>이 나무 또는 은으로 만든 물건에는 신을 상징하는 형상이 새겨져 있습니다. 클레릭과 같은 일부 신성 시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 사용하거나 일부 주문을 시전할 수 있습니다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 들 수 있습니다.</p>"
+  },
+  "Flute": {
+   "name": "플루트",
+   "description": "<p>휴대용 악기에는 백파이프, 작은 종 세트, 작은 북, 피들과 비올, 플루트와 리코더, 작은 하프, 류트, 트럼펫, 그리고 이와 비슷한 크기의 악기가 포함됩니다. GM은 특히 큰 휴대용 악기(예: 튜바)에 더 높은 부피를 적용할 수 있습니다. 큰 북, 종 세트 전체, 건반 악기와 같은 무거운 악기는 휴대성이 떨어지며 일반적으로 연주하는 동안 고정되어 있어야 합니다.</p>"
+  },
+  "Forceful Quartz Bracelet": {
+   "name": "강력한 석영 팔찌",
+   "description": "<p>각각의 야마는 우주를 반영하는 석영 보석이 박힌 맞춤형 팔찌를 착용합니다. 이 팔찌는 보이지 않는 마법으로 힘을 얻으며, 야마가 8시간 휴식을 취하면 재충전됩니다. 이 팔찌는 각각의 야마와 고유한 신성한 연결을 가지고 있어, 그 야마에게만 작동합니다. 때때로 야마는 이 팔찌를 필멸자에게 선물하기도 하는데, 이는 힘을 나누려는 시도라기보다는 신뢰의 상징이자 그 개인이 보호받고 있다는 표시입니다.</p>"
+  },
+  "Gem (Charged)": {
+   "name": "보석 (충전됨)"
+  },
+  "Gem": {
+   "name": "보석"
+  },
+  "Religious Symbol (Wooden) of Pharasma": {
+   "name": "파라스마의 종교 상징 (목제)",
+   "description": "<p>이 나무 또는 은으로 만든 물건에는 신을 상징하는 형상이 새겨져 있습니다. 클레릭과 같은 일부 신성 시전자는 자신이 섬기는 신의 종교 상징을 신성 매개체로 사용하여 특정 능력을 사용하거나 일부 주문을 시전할 수 있습니다. 종교 상징은 사용하려면 한 손에 들고 있어야 합니다.</p>"
+  },
+  "Handwraps": {
+   "name": "손싸개"
+  },
+  "Small Harp": {
+   "name": "작은 하프",
+   "description": "<p>휴대용 악기에는 백파이프, 작은 종 세트, 작은 북, 피들과 비올, 플루트와 리코더, 작은 하프, 류트, 트럼펫, 그리고 이와 비슷한 크기의 악기가 포함됩니다. GM은 특히 큰 휴대용 악기(예: 튜바)에 더 높은 부피를 적용할 수 있습니다. 큰 북, 종 세트 전체, 건반 악기와 같은 무거운 악기는 휴대성이 떨어지며 일반적으로 연주하는 동안 고정되어 있어야 합니다.</p>"
+  },
+  "Puppet": {
+   "name": "꼭두각시 인형"
+  },
+  "Battle Standard (Attached to Ranseur)": {
+   "name": "전투 군기 (랜수어에 부착됨)"
+  },
+  "Lyre (Moderate Maestro's Instrument)": {
+   "name": "리라 (중급 명연주가의 악기)",
+   "description": "<p><em>명연주가의 악기</em>는 다양한 종류의 휴대용 악기 형태로 제작될 수 있습니다. <em>명연주가의 악기</em>는 그 악기로 음악을 연주하는 동안 공연 판정에 +2 아이템 보너스를 줍니다.</p><hr /><p><strong>활성화—매혹적인 공연</strong> <span class=\"action-glyph\">2</span> (조작)</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 당신은 악기를 연주하여 DC 27의 4환 @UUID[Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6]{매혹} 주문을 시전하게 합니다.</p><hr /><p><strong>제작 요구사항</strong> 적절한 환의 <em>매혹</em> 시전을 제공해야 합니다.</p>"
+  },
+  "Cooking Pot": {
+   "name": "요리 냄비"
+  },
+  "Medicine Bag (Functions as a Healer's Toolkit)": {
+   "name": "약 주머니 (치유사 도구로 기능)",
+   "description": "<p>붕대, 약초, 봉합 도구로 이루어진 이 키트는 @UUID[Compendium.pf2e.actionspf2e.Item.MHLuKy4nQO2Z4Am1]{응급 처치}, @UUID[Compendium.pf2e.actionspf2e.Item.TC7OcDa7JlWbqMaN]{질병 치료}, @UUID[Compendium.pf2e.actionspf2e.Item.KjoCEEmPGTeFE4hh]{독 치료}, 또는 @UUID[Compendium.pf2e.actionspf2e.Item.1kGNdIIhuglAjIp9]{부상 치료}를 위한 의료 판정에 필요합니다. 치유사 도구를 착용하고 있으면, 그것을 사용하는 행동의 일부로 도구를 꺼내고 다시 넣을 수 있습니다.</p>"
+  },
+  "Keyring": {
+   "name": "열쇠고리"
+  },
+  "Late Homework Assignment": {
+   "name": "늦은 숙제"
+  },
+  "Book of Fables": {
+   "name": "우화집"
+  },
+  "Book of Translations": {
+   "name": "번역서"
+  },
+  "Bones for fortune telling": {
+   "name": "점치는 뼈"
+  },
+  "Ledger": {
+   "name": "장부"
+  },
+  "Badge": {
+   "name": "배지"
+  },
+  "Ritual Materials": {
+   "name": "의식 재료",
+   "description": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Ti4gWILk69LPxKuU]{양초}, @UUID[Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb]{분필}, 잉크, 양피지, 깃펜, 피가 담긴 약병.</p>"
+  },
+  "Religious Symbol of Sarenrae": {
+   "name": "사렌라에의 종교 상징",
+   "description": "<p>이 나무 또는 은으로 만든 물건에는 신을 상징하는 형상이 새겨져 있습니다. 클레릭과 같은 일부 신성 시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 사용하거나 일부 주문을 시전할 수 있습니다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 들 수 있습니다.</p>"
+  },
+  "Occult Text": {
+   "name": "오컬트 문헌"
+  },
+  "Soapbox": {
+   "name": "연설대"
+  },
+  "Political Pamphlets": {
+   "name": "정치 팸플릿"
+  },
+  "Court Garb (Functions as Fine Clothing)": {
+   "name": "궁정 의상 (고급 의복으로 기능)",
+   "description": "<p>귀족이나 왕족에게 어울리는 고급 의복은 값비싼 직물, 귀금속, 정교한 문양으로 만들어집니다.</p>"
+  },
+  "Pouches": {
+   "name": "주머니"
+  },
+  "Wicker Baskets": {
+   "name": "고리버들 바구니"
+  },
+  "Enchanted Hand Mirror": {
+   "name": "마법이 깃든 손거울"
+  },
+  "Assorted Knives": {
+   "name": "각종 칼"
+  },
+  "Indecipherable Book of Sigils (Spellbook)": {
+   "name": "해독 불가능한 인장의 책 (주문서)",
+   "description": "<p>주문서는 다양한 주문을 익히고 준비하는 데 필요한 기록된 지식을 담고 있으며, 위저드(보통 하나를 무료로 받는다)에게는 필수품이고 추가 주문을 익히려는 다른 주문시전자에게는 유용한 사치품이다. 각 주문서는 최대 100개의 주문을 담을 수 있다. 표시된 가격은 비어 있는 주문서의 가격이다.</p>"
+  },
+  "Religious Symbol of Iomedae": {
+   "name": "이오메다에의 종교 상징",
+   "description": "<p>이 나무 또는 은으로 된 물건에는 신을 나타내는 형상이 새겨져 있다. 클레릭 같은 일부 신성 주문시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 발휘하고 일부 주문을 시전할 수 있다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 쥘 수 있다.</p>"
+  },
+  "Alchemist's Tools (Used as \"Blessed Items\" to Fool Marks)": {
+   "name": "연금술사의 도구 (표적을 속이기 위한 \"축복받은 물건\"으로 사용)",
+   "description": "<p>이 휴대용 약병과 화학 약품 모음은 간단한 연금술 작업에 사용할 수 있다. 연금술사의 도구함을 착용하고 있다면, 이를 사용하는 행동의 일부로서 꺼내고 다시 넣을 수 있다.</p>"
+  },
+  "Cloak": {
+   "name": "망토",
+   "description": "<p>평범한 의복은 농민 복장, 몽크의 로브, 작업복처럼 기본적인 재단으로 만들어진 기능적인 옷이다.</p>"
+  },
+  "Scroll Case": {
+   "name": "두루마리 통"
+  },
+  "Animal Treats": {
+   "name": "동물 간식"
+  },
+  "Religious Symbol of Shelyn": {
+   "name": "셸린의 종교 상징",
+   "description": "<p>이 나무 또는 은으로 된 물건에는 신을 나타내는 형상이 새겨져 있다. 클레릭 같은 일부 신성 주문시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 발휘하고 일부 주문을 시전할 수 있다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 쥘 수 있다.</p>"
+  },
+  "Assorted Maps": {
+   "name": "잡다한 지도 모음",
+   "description": "<p>지도는 비범 물품이다. 구할 수 있는 대부분의 지도는 단순하고 기능적이다. 측량 지도는 단일 장소를 매우 상세하게 묘사한다. 이러한 지도 하나는 지도에 묘사된 장소와 관련된 판정인 경우 생존 판정과 지식 회상을 위한 모든 기술 판정에 +1 물품 보너스를 부여한다. GM이 어떤 지도를 구할 수 있는지 결정한다.</p>"
+  },
+  "Somewhat Disheveled Accolade Robe": {
+   "name": "다소 헝클어진 영예의 로브",
+   "description": "<p>모든 위저드가 정규 훈련을 거친 것은 아니지만, 그 고된 훈련을 상징하는 로브에 마법을 부여하고 자신이 얻은 영예로 장식하는 것이 전통이 되었다. 일반적으로 <em>영예의 로브</em>는 단일 위저드 학파를 본떠 만들어지며, 그에 맞는 색상과 상징을 갖춘다. 이 로브를 착용하면 비전학 판정에 +2 물품 보너스를 받는다.</p>\n<p>로브의 주머니는 가벼운 부피보다 무겁지 않은 물품 1 부피를 담을 수 있는 차원 외 공간과 연결되어 있다. 물품은 주문시전 및 학문과 관련된 것이어야 한다—주문서, 두루마리, 마법봉, 학술지, 그 외 GM이 허용하는 학문 용품. 이 물품들은 당신의 부피 한도에 포함되지 않는다. 평소처럼 상호작용하여 물품을 꺼내거나 넣을 수 있다.</p>\n<hr />\n<p><strong>발동—복습</strong> <span class=\"action-glyph\">1</span> (집중, 조작)</p>\n<p><strong>효과</strong> 로브의 보관 공간에서 원하는 물품 하나를 꺼낸 다음, 지식을 회상한다.</p>\n<hr />\n<p><strong>발동—추가 학점</strong> <span class=\"action-glyph\">F</span> (집중)</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 집중점 1점을 얻으며, 이는 학파 주문을 시전하는 데에만 사용할 수 있다. 이번 턴이 끝날 때까지 이 집중점을 사용하지 않으면 사라진다.</p>\n<hr />\n<p><strong>제작 요구사항</strong> 당신은 해당 학파의 위저드여야 한다.</p>"
+  },
+  "Court Record": {
+   "name": "법정 기록"
+  },
+  "Empty Bottle": {
+   "name": "빈 병"
+  },
+  "Tax Documents in Scroll Case": {
+   "name": "두루마리 통에 든 세금 서류"
+  },
+  "Collection of Expired Documents with Intact Seals": {
+   "name": "봉인이 온전한 만료된 서류 모음",
+   "description": "<p>봉인이 온전한 만료된 서류</p>"
+  },
+  "Astrolabe": {
+   "name": "아스트롤라베"
+  },
+  "Ornate Ritual Book": {
+   "name": "화려한 의식서"
+  },
+  "Lasso": {
+   "name": "올가미 밧줄"
+  },
+  "Maestro's Instrument (Lesser) (Hand Drum)": {
+   "name": "거장의 악기 (하급) (손북)",
+   "description": "<p><em>거장의 악기</em>는 휴대용 악기 중 어떤 종류의 형태로도 제작될 수 있다. <em>거장의 악기</em>는 그 악기로 음악을 연주하는 동안 공연 판정에 +1 물품 보너스를 부여한다.</p><hr /><p><strong>발동—매혹적인 공연</strong> <span class=\"action-glyph\">2</span> (조작)</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 악기를 연주하여 DC 17의 @UUID[Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6]{매혹} 주문을 시전하게 한다.</p><hr /><p><strong>제작 요구사항</strong> 적절한 등급의 <em>매혹</em> 시전을 제공해야 한다.</p>"
+  },
+  "Ceremonial Skull Mask": {
+   "name": "의식용 해골 가면"
+  },
+  "Religious Symbol of Pharasma": {
+   "name": "파라스마의 종교 상징",
+   "description": "<p>이 나무 또는 은으로 된 물건에는 신을 나타내는 형상이 새겨져 있다. 클레릭 같은 일부 신성 주문시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 발휘하고 일부 주문을 시전할 수 있다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 쥘 수 있다.</p>"
+  },
+  "Religious Text of Pharasma": {
+   "name": "파라스마의 경전",
+   "description": "<p>이 사본에는 특정 종교의 경문이 담겨 있다. 클레릭 같은 일부 신성 주문시전자는 경전을 사용하여 특정 능력을 발휘할 수 있다. 경전은 사용하려면 한 손에 들고 있어야 한다.</p>"
+  },
+  "Religious Text of Iomedae": {
+   "name": "이오메다에의 경전",
+   "description": "<p>이 사본에는 특정 종교의 경문이 담겨 있다. 클레릭 같은 일부 신성 주문시전자는 경전을 사용하여 특정 능력을 발휘할 수 있다. 경전은 사용하려면 한 손에 들고 있어야 한다.</p>"
+  },
+  "Animal Claw Necklace (Primal Symbol)": {
+   "name": "동물 발톱 목걸이 (원시 상징)",
+   "description": "<p>원시 주문시전자, 특히 드루이드는 자연과의 연결을 상징하기 위해 자연 재료로 만든 장신구를 자주 착용한다. 엮은 식물로 만든 반지, 동물의 일부로 만든 토큰, 또는 드루이드 교단이나 자연 철학과 관련된 그 외의 상징 등이 이에 해당한다.</p>"
+  },
+  "Cauldron": {
+   "name": "가마솥"
+  },
+  "Chef's Hat": {
+   "name": "요리사 모자"
+  },
+  "Artisan's Tools": {
+   "name": "장인의 도구",
+   "description": "<p>제작 기술로 원재료에서 물품을 만들려면 이 도구가 필요하다. GM이 결정하는 바에 따라 작업마다 다른 세트가 필요하다. 예를 들어, 대장장이의 도구함은 목공의 도구함과 다르다. 장인의 도구함을 착용하고 있다면, 이를 사용하는 행동의 일부로서 꺼내고 다시 넣을 수 있다.</p>"
+  },
+  "Construction Schematics": {
+   "name": "건축 설계도"
+  },
+  "Tax Ledgers": {
+   "name": "세금 장부"
+  },
+  "Notebook Filled with Sketches of Wild Animals and Ancient Ruins": {
+   "name": "야생 동물과 고대 유적 스케치로 가득 찬 공책"
+  },
+  "Mortar and Pestle": {
+   "name": "절구와 절굿공이"
+  },
+  "Fiendish Hypotheses and Protections from Same (Spellbook)": {
+   "name": "악마적 가설과 그에 대한 방어 (주문서)",
+   "description": "<p>주문서는 다양한 주문을 익히고 준비하는 데 필요한 기록된 지식을 담고 있으며, 위저드(보통 하나를 무료로 받는다)에게는 필수품이고 추가 주문을 익히려는 다른 주문시전자에게는 유용한 사치품이다. 각 주문서는 최대 100개의 주문을 담을 수 있다. 표시된 가격은 비어 있는 주문서의 가격이다.</p>"
+  },
+  "Chain (30 feet)": {
+   "name": "사슬 (30피트)",
+   "description": "<p>30피트 길이의 사슬.</p>"
+  },
+  "Rat Trap": {
+   "name": "쥐덫"
+  },
+  "Silver Flask": {
+   "name": "은 플라스크"
+  },
+  "Loaded Dice": {
+   "name": "조작된 주사위",
+   "description": "<p>이 주사위는 한쪽 면이 무겁게 만들어져 항상 원하는 숫자가 위를 향하도록 떨어진다. 조작된 주사위는 그 주사위로 도박할 때 게임 지식 판정에 +1 물품 보너스를 부여한다.</p>\n<p>주사위를 직접 만지면서 비밀 @Check[perception|dc:20|traits:secret] 판정에 성공하면 주사위가 조작되었음을 알아낼 수 있다. 주사위를 만지지 않고 조작 여부를 알아내는 것은 더 어려운데, 특히 영리한 사기꾼은 조작된 주사위를 바꿔치기하여 같은 숫자가 의심스럽게 계속 나오지 않도록 하기 때문이다. 이 경우, 관찰자는 던지는 사람의 게임 지식 또는 손기술 DC에 대항하는 비밀 감지 판정에 성공해야 바꿔치기나 패턴을 알아챌 수 있다.</p><hr /><p>@Check[perception|defense:games-lore|traits:secret] (게임 지식 DC)</p>\n<p>@Check[perception|defense:thievery|traits:secret] (손기술 DC)</p>"
+  },
+  "Bricks": {
+   "name": "벽돌"
+  },
+  "Map (depicting landmarks above and below ground in 1 square mile)": {
+   "name": "지도 (1제곱마일 내 지상 및 지하의 주요 지형을 묘사)"
+  },
+  "Pouch of Rocks (10)": {
+   "name": "돌멩이 주머니 (10개)",
+   "description": "<p>이 주머니에는 돌멩이 10개가 들어 있다.</p>"
+  },
+  "Manifesto (Functions as a Religious Text)": {
+   "name": "선언문 (경전으로 기능)",
+   "description": "<p>이 사본에는 특정 종교의 경문이 담겨 있다. 클레릭 같은 일부 신성 주문시전자는 경전을 사용하여 특정 능력을 발휘할 수 있다. 경전은 사용하려면 한 손에 들고 있어야 한다.</p>"
+  },
+  "Servant's Uniform": {
+   "name": "하인 제복",
+   "description": "<p>평범한 의복은 농민 복장, 몽크의 로브, 작업복처럼 기본적인 재단으로 만들어진 기능적인 옷이다.</p>"
+  },
+  "Religious Symbol of Zon-Kuthon": {
+   "name": "존쿠손의 종교 상징",
+   "description": "<p>이 나무 또는 은으로 된 물건에는 신을 나타내는 형상이 새겨져 있다. 클레릭 같은 일부 신성 주문시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 발휘하고 일부 주문을 시전할 수 있다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 쥘 수 있다.</p>"
+  },
+  "Scroll Case with Ship's Charts": {
+   "name": "선박 해도가 든 두루마리 통"
+  },
+  "Religious Symbol of Abadar": {
+   "name": "아바다르의 종교 상징",
+   "description": "<p>이 나무 또는 은으로 된 물건에는 신을 나타내는 형상이 새겨져 있다. 클레릭 같은 일부 신성 주문시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 발휘하고 일부 주문을 시전할 수 있다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 쥘 수 있다.</p>"
+  },
+  "Healer's Tools": {
+   "name": "치료사의 도구",
+   "description": "<p>붕대, 약초, 봉합 도구로 이루어진 이 키트는 응급 처치, 질병 치료, 독 치료, 상처 치료를 위한 의학 판정에 필요하다.</p>"
+  },
+  "Hood": {
+   "name": "두건",
+   "description": "<p>평범한 의복은 농민 복장, 몽크의 로브, 작업복처럼 기본적인 재단으로 만들어진 기능적인 옷이다.</p>"
+  },
+  "Maps": {
+   "name": "지도",
+   "description": "<p>지도는 비범 물품이다. 구할 수 있는 대부분의 지도는 단순하고 기능적이다. 측량 지도는 단일 장소를 매우 상세하게 묘사한다. 이러한 지도 하나는 지도에 묘사된 장소와 관련된 판정인 경우 생존 판정과 지식 회상을 위한 모든 기술 판정에 +1 물품 보너스를 부여한다. GM이 어떤 지도를 구할 수 있는지 결정한다.</p>"
+  },
+  "Jewelry and Clothes": {
+   "name": "보석과 의복",
+   "description": "<p>귀족이나 왕족에게 어울리는 고급 의복은 값비싼 직물, 귀금속, 정교한 무늬로 만들어진다.</p>"
+  },
+  "Art Supplies": {
+   "name": "미술 용품"
+  },
+  "Religious Symbol of Calistria": {
+   "name": "칼리스트리아의 종교 상징",
+   "description": "<p>이 나무 또는 은으로 된 물건에는 신을 나타내는 형상이 새겨져 있다. 클레릭 같은 일부 신성 주문시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 발휘하고 일부 주문을 시전할 수 있다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 쥘 수 있다.</p>"
+  },
+  "Judge's Robes": {
+   "name": "판사의 로브",
+   "description": "<p>귀족이나 왕족에게 어울리는 고급 의복은 값비싼 직물, 귀금속, 정교한 무늬로 만들어진다.</p>"
+  },
+  "Face Paints": {
+   "name": "얼굴 분장 물감"
+  },
+  "Battered Crown (or other symbol of authority)": {
+   "name": "낡은 왕관 (또는 그 외 권위의 상징)"
+  },
+  "Satchel of Mail": {
+   "name": "우편물 가방"
+  },
+  "Religious Symbol of Irori": {
+   "name": "이로리의 종교 상징",
+   "description": "<p>이 나무 또는 은으로 된 물건에는 신을 나타내는 형상이 새겨져 있다. 클레릭 같은 일부 신성 주문시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 발휘하고 일부 주문을 시전할 수 있다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 쥘 수 있다.</p>"
+  },
+  "Large Bark Shield": {
+   "name": "대형 나무껍질 방패"
+  },
+  "Trash Shield": {
+   "name": "쓰레기 방패",
+   "description": "<p>유충 오팔스의 쓰레기 방패는 강도 5와 20 히트 포인트를 가진다.</p>"
+  },
+  "Alchemical Grenade (Fire)": {
+   "name": "연금술 수류탄 (화염)",
+   "description": "<p>척탄병은 산성, 냉기, 또는 화염 피해와 더불어 같은 유형의 지속 피해 2점과 비산 피해 2점을 입히는 연금술 수류탄 6개를 휴대한다(보통 각 유형 2개씩). 척탄병은 주워 모은 재료를 사용해 매일 이를 보충한다.</p>"
+  },
+  "Alchemical Grenade (Cold)": {
+   "name": "연금술 수류탄 (냉기)",
+   "description": "<p>척탄병은 산성, 냉기, 또는 화염 피해와 더불어 같은 유형의 지속 피해 2점과 비산 피해 2점을 입히는 연금술 수류탄 6개를 휴대한다(보통 각 유형 2개씩). 척탄병은 주워 모은 재료를 사용해 매일 이를 보충한다.</p>"
+  },
+  "Alchemical Grenade (Acid)": {
+   "name": "연금술 수류탄 (산성)",
+   "description": "<p>척탄병은 산성, 냉기, 또는 화염 피해와 더불어 같은 유형의 지속 피해 2점과 비산 피해 2점을 입히는 연금술 수류탄 6개를 휴대한다(보통 각 유형 2개씩). 척탄병은 주워 모은 재료를 사용해 매일 이를 보충한다.</p>"
+  },
+  "Baton (Light Mace)": {
+   "name": "경봉 (경철퇴)",
+   "description": "<p>경철퇴는 짧은 나무 또는 금속 자루 끝에 조밀한 금속 머리가 달려 있다. 곤봉과 거의 같은 방식으로 사용되어 묵직한 타격 일격을 가하지만, 머리의 금속 능선이나 가시에서 추가적인 힘을 얻는다.</p>"
+  },
+  "Herbal Sachet": {
+   "name": "약초 향낭",
+   "description": "<p>이것들은 보통 철 또는 납으로 된 작은 금속 구슬로, 투석구의 탄환으로 사용하도록 설계되었다.</p>"
+  },
+  "Bola Bolts": {
+   "name": "볼라 볼트",
+   "description": "<p>이 탄환은 피해를 입히지 않지만, 명중 시 대상은 @Check[reflex|dc:16]에 성공해야 하며, 실패하면 [[/act escape dc=15]] DC 15 판정에 성공해 풀려날 때까지 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어짐} 및 @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{부동} 상태가 된다. 이 판정은 대상 또는 대상에 인접한 크리처가 시도할 수 있다.</p>"
+  },
+  "Fan Bolts": {
+   "name": "팬 볼트",
+   "description": "<p>전통적인 화살보다 짧지만 구조는 비슷한 볼트는 쇠뇌가 사용하는 탄환이다.</p>"
+  },
+  "Voidglass Kukri": {
+   "name": "공허유리 쿠크리",
+   "description": "<p>이 1피트 길이 칼의 칼날은 안쪽으로 휘어 있으며 손잡이에 코등이가 없다.</p>"
+  },
+  "Piggy Clod": {
+   "name": "돼지 흙덩이"
+  },
+  "Graveknight's Shield": {
+   "name": "무덤기사의 방패",
+   "description": "<p>뛰어난 설계와 탁월한 세공으로, 이 강철 방패는 비마법적 동급품보다 높은 강도를 지녀 부수고 파괴하기가 더 어렵다.</p>\n<p>이 방패는 강도 8, HP 64, BT 32를 가진다.</p>"
+  },
+  "Stone Shield": {
+   "name": "돌 방패"
+  },
+  "Leather Apron": {
+   "name": "가죽 앞치마",
+   "description": "<p>이 갑옷은 단순히 무겁고 누빈 천 한 겹이지만, 매우 저렴하기 때문에 때때로 사용된다. 누빔 갑옷은 다른 종류의 갑옷보다 손상되고 파괴되기 쉽다. 중장갑은 가격에 누빔 갑옷 안감이 포함되어 있지만, 중장갑 아래에 착용하면 편안함 특성을 잃는다. 잠잘 때, 중장갑이 파괴되었을 때, 또는 그 외에 완전한 중장갑을 착용하지 않을 때 그 누빔 갑옷 안감만 착용할 수 있다. 이를 통해 마법 갑옷을 봉납 상태로 유지하고 관련 중장갑에 새겨진 룬의 효과를 누릴 수 있지만, 다른 누구도 누빔 안감 없이는 당신의 중장갑을 착용할 수 없다.</p>"
+  },
+  "Chain Mail with Palace Insignia": {
+   "name": "궁전 문장이 달린 사슬 갑옷",
+   "description": "<p>사슬 갑옷 한 벌은 작은 금속 고리들을 보호용 그물망으로 엮어 만든 여러 부위의 갑옷으로 구성된다. 보통 사슬 셔츠, 다리 보호대, 한 쌍의 팔 보호대, 그리고 두건이 포함되어 몸의 대부분을 보호한다.</p>"
+  },
+  "Hooded Robe": {
+   "name": "두건 달린 로브",
+   "description": "<p>탐험가의 의복은 갑옷 한 벌은 아니지만 당신을 보호하도록 보강될 수 있을 만큼 튼튼하다. 여러 형태가 있지만, 가장 흔한 종류는 성직자의 제의, 수도자의 의복, 또는 마법사의 로브처럼 생겼는데, 이 세 직업의 구성원 모두 갑옷 착용을 기피할 가능성이 높기 때문이다.</p>"
+  },
+  "Ceremonial Robes": {
+   "name": "의식용 로브",
+   "description": "<p>탐험가의 의복은 갑옷 한 벌은 아니지만 당신을 보호하도록 보강될 수 있을 만큼 튼튼하다. 여러 형태가 있지만, 가장 흔한 종류는 성직자의 제의, 수도자의 의복, 또는 마법사의 로브처럼 생겼는데, 이 세 직업의 구성원 모두 갑옷 착용을 기피할 가능성이 높기 때문이다.</p>"
+  },
+  "Juggernaut Armor": {
+   "name": "저거너트 갑옷"
+  },
+  "Rugged Clothes with Tool Belt": {
+   "name": "공구 벨트가 달린 거친 옷",
+   "description": "<p>이 갑옷은 단순히 무겁고 누빈 천 한 겹이지만, 매우 저렴하기 때문에 때때로 사용된다. 누빔 갑옷은 다른 종류의 갑옷보다 손상되고 파괴되기 쉽다. 중장갑은 가격에 누빔 갑옷 안감이 포함되어 있지만, 중장갑 아래에 착용하면 편안함 특성을 잃는다. 잠잘 때, 중장갑이 파괴되었을 때, 또는 그 외에 완전한 중장갑을 착용하지 않을 때 그 누빔 갑옷 안감만 착용할 수 있다. 이를 통해 마법 갑옷을 봉납 상태로 유지하고 관련 중장갑에 새겨진 룬의 효과를 누릴 수 있지만, 다른 누구도 누빔 안감 없이는 당신의 중장갑을 착용할 수 없다.</p>"
+  },
+  "Overalls (Function as Leather Armor)": {
+   "name": "멜빵바지 (가죽 갑옷으로 취급)",
+   "description": "<p>유연한 가죽과 성형한 삶은 가죽을 섞어 만든 이 종류의 갑옷 한 벌은 최대한의 유연성과 함께 어느 정도 보호를 제공한다.</p>"
+  },
+  "Mummer's Costume": {
+   "name": "광대의 의상",
+   "description": "<p>갑옷을 착용하지 않는 모험가들은 튼튼한 의복을 입고 이동한다. 갑옷은 아니며 비무장 방어 숙련도를 사용하지만, 여전히 민첩 한계치를 가지며 위력 룬이 새겨지면 AC에 물품 보너스를 부여할 수 있다.</p>"
+  },
+  "Guildmaster's Uniform": {
+   "name": "길드장의 제복",
+   "description": "<p>모피, 튼튼한 생가죽, 그리고 때로는 성형한 삶은 가죽을 섞어 만든 이 갑옷은 여러 겹의 가죽 덕분에 보호를 제공하지만, 부피 때문에 착용자가 느려지고 기동성이 떨어진다.</p>"
+  },
+  "Trident with 50 feet of line": {
+   "name": "50피트 밧줄이 달린 삼지창",
+   "description": "<p>이 세 갈래의 창 같은 무기는 보통 4피트 자루를 가진다. 창처럼 한 손으로 휘두르거나 던질 수 있다.</p>"
+  },
+  "Staff of Office (Functions as +1 Flaming Striking Staff)": {
+   "name": "직무의 지팡이 (+1 화염 강타 지팡이로 취급)",
+   "description": "<p>이 긴 나무 막대는 보행을 돕고 강력한 일격을 가할 수 있다.</p>"
+  },
+  "Cutlass (Functions as a Scimitar)": {
+   "name": "커틀러스 (시미터로 취급)",
+   "description": "<p>이 한손 곡도는 한쪽 면이 날카롭다.</p>"
+  },
+  "Pitchfork (as longspear)": {
+   "name": "쇠스랑 (장창으로 취급)",
+   "description": "<p>때때로 파이크라고도 불리는 이 매우 긴 창은 던지기보다는 순전히 찌르기용이다. 많은 병사와 도시 경비대가 군중 통제와 돌격하는 적에 대한 방어에 사용하며, 두 손으로 휘둘러야 한다.</p>"
+  },
+  "Quill Pen (Functions as a Dart)": {
+   "name": "깃펜 (다트로 취급)",
+   "description": "<p>이 투척 무기는 화살보다 크지만 투창보다 짧다. 보통 짧은 나무 자루 끝에 금속 촉이 달려 있으며, 때때로 깃털이나 털로 안정화된다.</p>"
+  },
+  "Wooden Sword (Functions as a Light Mace)": {
+   "name": "목검 (경철퇴로 취급)",
+   "description": "<p>경철퇴는 짧은 나무 또는 금속 자루 끝에 조밀한 금속 머리가 달려 있다. 곤봉과 거의 같은 방식으로 사용되어 묵직한 타격 일격을 가하지만, 머리의 금속 능선이나 가시에서 추가적인 힘을 얻는다.</p>"
+  },
+  "Broom (Functions as a Staff)": {
+   "name": "빗자루 (지팡이로 취급)",
+   "description": "<p>이 긴 나무 막대는 보행을 돕고 강력한 일격을 가할 수 있다.</p>"
+  },
+  "Heavy Wrench (Functions as a Mace)": {
+   "name": "무거운 렌치 (철퇴로 취급)",
+   "description": "<p>튼튼한 자루와 무거운 금속 머리를 가진 철퇴는 견고하여 사용자가 강력한 일격을 가하고 갑옷을 찌그러뜨릴 수 있게 한다.</p>"
+  },
+  "Dragon-Headed Cane (Functions as a Staff)": {
+   "name": "용 머리 지팡이 (지팡이로 취급)",
+   "description": "<p>이 긴 나무 막대는 보행을 돕고 강력한 일격을 가할 수 있다.</p>"
+  },
+  "Trowel (Functions as a Sickle)": {
+   "name": "모종삽 (낫으로 취급)",
+   "description": "<p>본래 곡물을 베는 데 쓰이던 농기구인 이 한손 무기는 짧은 나무 손잡이 끝에 휘어진 칼날이 달려 있으며, 때때로 양쪽이 날카롭게 갈려 있다.</p>"
+  },
+  "Naval Pike (Functions as a Spear)": {
+   "name": "해군 파이크 (창으로 취급)",
+   "description": "<p>긴 금속 자루 끝에 금속 촉이 달린 창은 근접 무기로 한 손으로 사용할 수 있으며 던질 수도 있다.</p>"
+  },
+  "+1 Broom (Functions as a Staff)": {
+   "name": "+1 빗자루 (지팡이로 취급)",
+   "description": "<p>이 긴 나무 막대는 보행을 돕고 강력한 일격을 가할 수 있다.</p>"
+  },
+  "+1 Scalpel (Functions as a Dagger)": {
+   "name": "+1 메스 (단검으로 취급)",
+   "description": "<p>이 작은 날붙이 무기는 한 손으로 쥐고 근접 전투에서 크리처를 찌르는 데 사용된다. 던질 수도 있다.</p>"
+  },
+  "Sledgehammer (Functions as a Maul)": {
+   "name": "대형 망치 (대형 워해머로 취급)",
+   "description": "<p>대형 워해머는 두 손으로 휘둘러야 하는 거대한 전투 망치다.</p>"
+  },
+  "Bonesaw (Functions as a Temple Sword)": {
+   "name": "뼈톱 (사원검으로 취급)",
+   "description": "<p>이 묵직한 검은 종교 시설의 수호자들이 선호한다. 낫과 검을 섞어 놓은 듯한 독특한 초승달 모양 칼날을 가진다. 종종 칼날이나 손잡이 끝에 구멍을 뚫어 종이나 다른 신성한 장신구를 무기에 부착할 수 있다.</p>"
+  },
+  "Entrenching Tool (Functions as a Pick)": {
+   "name": "참호 도구 (곡괭이로 취급)",
+   "description": "<p>오로지 전투용으로 설계된 곡괭이는 튼튼한 나무 자루와 무겁고 뾰족한 머리를 가져 파괴적인 일격을 가한다.</p>"
+  },
+  "Gavel (Functions as a Club)": {
+   "name": "의사봉 (곤봉으로 취급)",
+   "description": "<p>이것은 적을 후려치도록 다듬거나 용도를 바꾼 튼튼한 나무 조각이다. 곤봉은 정교하게 조각된 무술 작품일 수도 있고 나뭇가지나 나무 조각처럼 단순할 수도 있다.</p>"
+  },
+  "Walking Stick (Functions as a Staff)": {
+   "name": "지팡이 (지팡이로 취급)",
+   "description": "<p>이 긴 나무 막대는 보행을 돕고 강력한 일격을 가할 수 있다.</p>"
+  },
+  "Punchout Bolts": {
+   "name": "펀치아웃 볼트",
+   "description": "<p>전통적인 화살보다 짧지만 구조는 비슷한 볼트는 쇠뇌가 사용하는 탄환이다.</p>"
+  },
+  "Dawnsilver Bolts": {
+   "name": "여명은 볼트",
+   "description": "<p>전통적인 화살보다 짧지만 구조는 비슷한 볼트는 쇠뇌가 사용하는 탄환이다.</p>"
+  },
+  "Cold Iron Bolts": {
+   "name": "냉철 볼트",
+   "description": "<p>전통적인 화살보다 짧지만 구조는 비슷한 볼트는 쇠뇌가 사용하는 탄환이다.</p>"
+  },
+  "Rounds (Big Boom Gun)": {
+   "name": "탄환 (빅 붐 건)",
+   "description": "<p>화기는 발사체와 흑색 화약으로 구성된 탄약이 필요하다. 한 발의 탄약은 구성이 다양할 수 있지만, 보통 충전재, 탄두, 흑색 화약을 포함한 사전 포장된 종이 약포이거나 수동으로 채워 넣는 낱알 탄환이다. 핸드 캐넌이나 나팔총 같은 일부 무기는 다른 재료를 발사할 수 있지만, 그 탄약은 흑색 화약 비용 때문에 같은 가격을 가진다. 화기 탄약을 만들려면 흑색 화약을 제조해야 하므로, 이를 만들기 위해서는 @UUID[Compendium.pf2e.feats-srd.Item.is3Oz9wt11lNq62K]{연금술 제작} 기술 재주가 필요하다. 화기 탄환은 화살이나 볼트와 마찬가지로 마법 탄약의 유효한 선택지다. 마법 화기 탄약을 제작하려면 연금술 물품과 마법 물품을 모두 제작할 수 있어야 한다.</p>"
+  },
+  "Serving Platter": {
+   "name": "쟁반",
+   "description": "<p>이 매우 작은 방패는 결투가와 가볍게 무장한 민첩한 전사들이 애용한다. 보통 강철로 만들어 팔뚝에 묶는다. 그 손이 비어 있거나 그 손에 무기가 아닌 가벼운 물건을 들고 있는 한 버클러로 방패 들기를 할 수 있다.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>강도</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>6</td>\n<td>3</td>\n</tr>\n</tbody>\n</table>"
+  },
+  "Lore (any one subcategory)": {
+   "name": "지식 (하위 분류 중 하나)"
+  },
+  "Lore (any one region or settlement)": {
+   "name": "지식 (지역 또는 정착지 중 하나)"
+  },
+  "Lore (All)": {
+   "name": "지식 (전체)"
+  },
+  "Dwelling Lore (applies to the place the ghost is bound to)": {
+   "name": "거처 지식 (유령이 묶인 장소에 적용)"
+  },
+  "Lore (all subcategories)": {
+   "name": "지식 (모든 하위 분류)"
+  },
+  "Sack": {
+   "name": "자루",
+   "description": "<p>자루는 최대 8 부피만큼의 물품을 담을 수 있습니다. 2 부피 이하를 담은 자루는 보통 허리띠에 끼워 몸에 착용할 수 있습니다. 자루는 한 손으로 들 수 있지만, 물품을 넣고 빼려면 두 손을 사용해야 합니다.</p>"
+  },
+  "Silver Virtuoso Flute": {
+   "name": "은제 명연주자의 플루트"
+  },
+  "Gemstone": {
+   "name": "보석"
+  },
+  "Leng Ruby": {
+   "name": "렝 루비"
+  },
+  "Confiscated Texts": {
+   "name": "압수된 문헌"
+  },
+  "Black Onyx Gems": {
+   "name": "흑요석"
+  },
+  "Rock": {
+   "name": "돌"
+  },
+  "Clockwork Wand": {
+   "name": "태엽 마법봉",
+   "description": "<p>태엽 마법봉은 태엽 마법사가 마지막으로 시전한 2랭크 내재 주문을 담고 있는 <em>@UUID[Compendium.pf2e.equipment-srd.Item.vJZ49cgi8szuQXAD]{마법 마법봉}</em>입니다(자격을 갖춘 주문을 시전한 적이 없다면 GM이 주문을 무작위로 결정합니다). 이 주문들은 마법사가 만들어질 때 마법봉 안에 들어가며, 제작자는 적절한 랭크의 다른 비전 주문으로 대체할 수 있습니다.</p>\n<hr />\n<p>이 지팡이는 길이가 약 30센티미터이며 단일 주문을 담고 있습니다. 외형은 일반적으로 안에 담긴 주문과 관련이 있습니다.</p>\n<p><strong>발동</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루에 한 번, 추가로 과충전</p>\n<hr />\n<p><strong>효과</strong> 지정된 레벨로 해당 주문을 시전합니다.</p>\n<p><strong>제작 요건</strong> 명시된 레벨의 해당 주문 시전을 제공해야 합니다.</p>\n<hr />\n<p><em>참고: 특정 주문의 두루마리나 마법봉을 만들려면, 그 주문을 컴펜디엄이나 컴펜디엄 브라우저에서 PC, NPC, 또는 전리품 액터의 소지품으로 끌어다 놓으십시오.</em></p>"
+  },
+  "Paint": {
+   "name": "물감 주문"
+  },
+  "Poetry Book": {
+   "name": "시집"
+  },
+  "Textbooks": {
+   "name": "교과서"
+  },
+  "Letter of Diplomatic Status": {
+   "name": "외교 신임장"
+  },
+  "Jewelry": {
+   "name": "보석류"
+  },
+  "Supplies for the Boss": {
+   "name": "두목에게 전할 물자"
+  },
+  "Entirely Too Many Books": {
+   "name": "지나치게 많은 책들"
+  },
+  "Collection of Fake Relics": {
+   "name": "가짜 유물 모음"
+  },
+  "Copy of a Book That They Wrote": {
+   "name": "그들이 쓴 책의 사본"
+  },
+  "Bottle (containing fine alcohol to throw overboard as an offering)": {
+   "name": "병 (제물로 뱃전 너머에 던질 고급 술이 담긴)",
+   "description": "<p>제물로 뱃전 너머에 던질 고급 술이 담겨 있습니다.</p>"
+  },
+  "Law and Rhetoric Book": {
+   "name": "법률 및 수사학 서적"
+  },
+  "Poisonous Herb": {
+   "name": "독초"
+  },
+  "Wand of Environmental Endurance (Rank 2)": {
+   "name": "환경 적응 마법봉 (2랭크)",
+   "description": "<p>@UUID[Compendium.pf2e.spells-srd.Item.5esP2GVzvxWsMgaX]{환경 적응}</p><hr /><p>이 지팡이는 길이가 약 30센티미터이며 단일 주문을 담고 있습니다. 외형은 일반적으로 안에 담긴 주문과 관련이 있습니다.</p>\n<p><strong>발동</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루에 한 번, 추가로 과충전</p>\n<hr />\n<p><strong>효과</strong> 지정된 랭크로 해당 주문을 시전합니다.</p>\n<p><strong>제작 요건</strong> 명시된 랭크의 해당 주문 시전을 제공해야 합니다.</p>\n<hr />\n<p><em>참고: 특정 주문의 두루마리나 마법봉을 만들려면, 그 주문을 컴펜디엄이나 컴펜디엄 브라우저에서 PC, NPC, 또는 전리품 액터의 소지품으로 끌어다 놓으십시오.</em></p>"
+  },
+  "Pickles": {
+   "name": "절임"
+  },
+  "Dynamite": {
+   "name": "다이너마이트"
+  },
+  "Wall Charge": {
+   "name": "벽 폭약"
+  },
+  "Mine": {
+   "name": "지뢰"
+  },
+  "Whiskey": {
+   "name": "위스키",
+   "description": "<p>술은 놀라울 만큼 다양하게 구할 수 있는 일반 물질입니다. 술 1회분의 가격은 구체적인 음료에 따라 달라집니다. 술에 의한 매스꺼움 상태는 술로 인해 영향받는 동안에는 회복할 수 없습니다.</p>\n<p>최초 내성 굴림 외의 술에 대한 내성 굴림에 실패하더라도 질환의 단계는 증가하지 않습니다. 술 질환의 단계를 증가시키는 유일한 방법은 술을 더 마시는 것입니다.</p>\n<hr />\n<p><strong>발동</strong> <span class=\"action-glyph\">A</span> 상호작용 (섭취)</p>\n<p><strong>내성 굴림</strong> @Check[fortitude|dc:12]</p>\n<p><strong>발현</strong> 10분</p>\n<p><strong>1단계</strong> 공포에 대한 내성 굴림에 +1 물품 보너스 (10분)</p>\n<p><strong>2단계</strong> @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비}, 공포 효과에 대한 내성 굴림에 +1 물품 보너스 (10분)</p>\n<p><strong>3단계</strong> @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{서투름 1}, 무방비, @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 2} (10분)</p>\n<p><strong>4단계</strong> @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{서투름 2} 및 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{매스꺼움 2} (10분)</p>\n<p><strong>5단계</strong> 서투름 2, 매스꺼움 2, 멍함 2 (10분)</p>\n<p><strong>6단계</strong> @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{무의식} (8시간)</p>\n<p><strong>7단계</strong> 사망</p>"
+  },
+  "Herbs and Spices": {
+   "name": "허브와 향신료"
+  },
+  "Bundle of Herbs": {
+   "name": "허브 묶음"
+  },
+  "Lore (any one related to their trade)": {
+   "name": "지식 (생업과 관련된 것 중 하나)"
+  },
+  "Cult Lore (for the cultist's own cult)": {
+   "name": "교단 지식 (해당 교단 전용)"
+  },
+  "Cult Lore (applies to the leader's own cult)": {
+   "name": "교단 지식 (지도자의 교단에 적용)"
+  },
+  "Lore about a magical creature type": {
+   "name": "마법 생물 유형에 관한 지식"
+  },
+  "Lore (any one subcategory related to their job, such as Alcohol Lore, Baking Lore, or Household Lore)": {
+   "name": "지식 (직업과 관련된 하위 분류 중 하나, 예를 들어 술 지식, 제빵 지식, 가사 지식 등)"
+  },
+  "Lore (home region or settlement)": {
+   "name": "지식 (고향 지역 또는 정착지)"
+  },
+  "Art Lore (+13 for visual arts)": {
+   "name": "예술 지식 (시각 예술에 대해 +13)"
+  },
+  "Bag of Explosives": {
+   "name": "폭발물 가방",
+   "description": "<p>배낭은 최대 4 부피의 물품을 담을 수 있으며, 그중 처음 2 부피의 물품은 부피 한도에 포함되지 않습니다. 배낭을 등에 메지 않고 손에 들거나 보관하고 있다면, 그 부피는 무시할 수 있는 수준 대신 가벼움이 됩니다</p>"
+  },
+  "Backpack": {
+   "name": "배낭",
+   "description": "<p>배낭은 최대 4 부피의 물품을 담을 수 있으며, 그중 처음 2 부피의 물품은 부피 한도에 포함되지 않습니다. 배낭을 등에 메지 않고 손에 들거나 보관하고 있다면, 그 부피는 무시할 수 있는 수준 대신 가벼움이 됩니다</p>"
+  },
+  "Crimefighting Pouches (Function as Sleeves of Storage)": {
+   "name": "범죄 퇴치 주머니 (보관의 소매로 기능)",
+   "description": "<p>이 헐렁한 로브에는 넓고 풍성한 소매가 달려 있으며, 각 소매에는 차원외 공간이 들어 있습니다. 이 공간들은 각각 @UUID[Compendium.pf2e.equipment-srd.Item.jaEEvuQ32GjAa8jy]{널찍한 주머니 (유형 I)}처럼 기능하여 최대 5 부피의 물품을 담을 수 있으나(총 10 부피), 개별 물품은 1 부피를 초과할 수 없습니다. 소매는 최대 용량에 다다를수록 약간 무거워집니다. 한 손을 비운 채로 상호작용 행동을 사용하여 소매에서 물품을 넣거나 뺄 수 있습니다.</p>\n<p>소매가 완전히 비어 있으면, 자신의 사역마를 그 차원외 공간에 넣을 수 있습니다. 사역마는 소매 안에서 최대 1시간 동안 편안하게 생존할 수 있으며, 그 이후에는 <em>질식</em>하기 시작합니다. 소매 안에 있는 동안 사역마는 어떤 효과로도 영향받거나 표적이 되지 않지만, 주인은 어떠한 주인 능력의 이득도 받지 못합니다. 사역마는 <em>조작</em> 및 <em>이동</em> 특성을 지닌 단일 행동으로 자신의 의지에 따라 소매에서 나올 수 있습니다. 다른 어떤 생물도 소매에 넣을 수 없으며, 사역마가 초소형보다 크다면 소매에 넣을 수 없습니다. 사역마가 소매 안에 있으면 소매에 어떤 물품도 넣을 수 없습니다.</p>"
+  }
+ },
+ "creatures": {
+  "Giant Leech": {
+   "blood-drain": {
+    "name": "피 흡수",
+    "description": "<p><strong>요구조건</strong> 거대 거머리가 살아있는 생물을 @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{잡힘} 또는 @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{구속} 상태로 만들고 있다.</p><hr /><p><strong>효과</strong> 거대 거머리가 붙잡거나 구속한 생물의 피를 빨아들인다. 이는 @Damage[2d4[piercing]] 피해를 입힌다(@Check[fortitude|dc:18|basic] 내성). 거대 거머리에게 피를 빨려 피해를 입은 생물은 어떤 종류나 양이든 치유를 받을 때까지 @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{탈진 1} 상태가 된다.</p>"
+   }
+  },
+  "Thousand Thieves": {
+   "squirming-injection": {
+    "name": "꿈틀거리는 주사",
+    "description": "<p>군집 보행자가 이동(Stride)한다. 이동을 마칠 때 생물과 같은 공간을 공유하게 되면, 그 생물에게 @Damage[6d6[piercing]] 피해를 입히고 @Check[reflex|dc:37|basic] 내성을 시키며, 대상을 액체 섬망에 노출시킨다. 군집 보행자는 해당 이동 유형을 가지고 있다면 이동 대신 굴파기(Burrow)·등반(Climb)·비행(Fly)·수영(Swim)을 할 수 있다.</p>"
+   }
+  }
+ }
+}

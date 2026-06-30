@@ -1,0 +1,22 @@
+{
+ "armor": [
+  "barkeep:Barkeep's Apron"
+ ],
+ "consumable": [
+  "barkeep:Flask of Whiskey"
+ ],
+ "spell": [
+  "antipaladin:Touch of Corruption",
+  "priest-of-pharasma:Gentle Repose",
+  "priest-of-pharasma:Disrupt Undead",
+  "priest-of-pharasma:Disrupting Weapons",
+  "priest-of-pharasma:Searing Light",
+  "acolyte-of-nethys:Chill Touch",
+  "acolyte-of-nethys:Magic Missile"
+ ],
+ "equipment": [
+  "server:Serving Tray",
+  "acolyte-of-nethys:Religious Symbol of Nethys",
+  "acolyte-of-nethys:Religious Text of Nethys"
+ ]
+}

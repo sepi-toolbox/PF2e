@@ -746,10 +746,10 @@ function getSpellFeatNotes(spellNameKo) {
 //  INFO POPUP (feat / spell)
 // ═══════════════════════════════════════════════
 
-function showInfo(type, name) {
-  if (!name) return;
+// 정보 아이템 해석 (showInfo 모달 + 인라인 아코디언 공용)
+function _infoResolveItem(type, name) {
   let item = null;
-  const nameKo = name.split(' (')[0].trim();
+  const nameKo = (name || '').split(' (')[0].trim();
 
   if (type === 'spell') {
     item = getSpell(nameKo);
@@ -769,8 +769,9 @@ function showInfo(type, name) {
     item = getArmor(nameKo);
   } else if (type === 'shield') {
     item = getShield(nameKo);
-  } else if (type === 'gear') {
+  } else if (type === 'gear' || type === 'rune') {
     item = getGear(nameKo);
+    if (!item && typeof RUNE_DB !== 'undefined') item = RUNE_DB.find(r => r && (r.name_ko === nameKo || r.name_en === nameKo || r.id === nameKo));
   }
 
   // 파손된 장비인지 확인하여 수치 조정
@@ -806,6 +807,76 @@ function showInfo(type, name) {
     }
   }
 
+  // 장비: DB 항목에 설명이 없으면 보유 중인 장비 인스턴스의 _desc로 보강
+  // (GEAR_DB 등 최소 스키마에는 설명이 없으나 BASE 브라우즈로 추가한 항목은 _desc 보유)
+  if (item && !item.desc && !item.summary && ['gear','rune','weapon','armor','shield'].includes(type)) {
+    const eqInst = state.equip?.find(e => e.name === nameKo);
+    const d = eqInst && (eqInst._desc || eqInst._data?._desc || eqInst._data?.desc || eqInst._data?.description);
+    if (d) item = {...item, summary: d};
+  }
+  return item;
+}
+
+// 정보 카드 본문 HTML (모달 모바일 + 인라인 아코디언 공용). showHeading=true면 이름 헤딩 포함.
+function infoCardHtml(item, type, showHeading) {
+  if (!item) return '<span style="color:var(--text2);font-size:12px;">상세 정보가 없습니다.</span>';
+  const _tt = (t) => (typeof traitTag === 'function') ? traitTag(t) : `<span class="tag">${t}</span>`;
+  const nameKoD = item.name || item.name_ko || '';
+  const nameEnD = item.en || item.name_en || '';
+  let desc = item.desc || item.summary || '';
+  let tags = '';
+  let metaBlock = '';
+
+  if (item.feat_level !== undefined) {
+    tags = `<span class="tag-meta">${item.feat_level}레벨</span> <span class="tag-meta">${item.category||''}</span>`;
+  } else if (item.rank !== undefined) {
+    // 주문
+    tags = `<span class="tag-meta">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span> <span class="spell-actions">${item.actions||''}</span>`;
+    const spTraits = [...(item.traditions||[]),...(item.traits||[])].map(_tt).join('');
+    if (spTraits) metaBlock += `<div style="margin-bottom:6px;">${spTraits}</div>`;
+    let metaLines = '';
+    if (item.castTime) metaLines += `<div><strong>시전:</strong> ${item.castTime}</div>`;
+    if (item.range) metaLines += `<div><strong>사거리:</strong> ${item.range}${item.area ? ` | <strong>영역:</strong> ${item.area}` : ''}</div>`;
+    if (item.target) metaLines += `<div><strong>대상:</strong> ${item.target}</div>`;
+    if (item.defense) metaLines += `<div><strong>방어:</strong> ${item.defense}</div>`;
+    if (item.duration) metaLines += `<div><strong>지속 시간:</strong> ${item.duration}</div>`;
+    if (item.trigger) metaLines += `<div><strong>유발 조건:</strong> ${item.trigger}</div>`;
+    if (metaLines) metaBlock += `<div style="font-size:12px;line-height:1.6;padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--border);color:var(--text2);">${metaLines}</div>`;
+    desc = desc.replace(/<strong>(?:사거리|영역|대상|방어|지속 ?시간|빈도|유발 조건|요구사항|비용|시전):<\/strong>[^<]*(?:<br>)?/g, '').replace(/^\s*<br>/, '');
+  } else {
+    // 장비(무기/방어구/방패/장비/룬): 특성 + 수치 메타
+    const tr = item.traits || [];
+    if (tr.length) metaBlock += `<div style="margin-bottom:6px;">${tr.map(_tt).join('')}</div>`;
+    let ml = '';
+    const addm = (l, v) => { if (v !== undefined && v !== null && v !== '' && v !== '—') ml += `<div><strong>${l}:</strong> ${v}</div>`; };
+    if (item.damage !== undefined || item.group !== undefined) {            // 무기
+      addm('피해', item.damage); addm('무기군', item.group); addm('분류', item.category);
+      addm('손', item.hands); addm('사거리', item.range ? item.range + ' ft.' : ''); addm('재장전', item.reload);
+    } else if (item.dex_cap !== undefined || item.check_penalty !== undefined) {  // 방어구
+      addm('AC 보너스', item.ac_bonus !== undefined ? '+' + item.ac_bonus : ''); addm('민첩 상한', item.dex_cap !== undefined ? '+' + item.dex_cap : '');
+      addm('판정 페널티', item.check_penalty); addm('이동 페널티', item.speed_penalty); addm('근력', item.strength); addm('분류', item.category);
+    } else if (item.hardness !== undefined || item.bt !== undefined) {       // 방패
+      addm('AC 보너스', item.ac_bonus !== undefined ? '+' + item.ac_bonus : ''); addm('견고도', item.hardness); addm('HP', item.hp); addm('파손 한계', item.bt);
+    }
+    addm('가격', item.price); addm('부피', item.bulk);
+    if (ml) metaBlock += `<div style="font-size:12px;line-height:1.6;padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--border);color:var(--text2);">${ml}</div>`;
+  }
+
+  const spellNotes = (item.rank !== undefined) ? getSpellFeatNotes(nameKoD) : '';
+  const body = (typeof formatDescActions === 'function') ? formatDescActions(desc, item) : desc;
+  let heading = '';
+  if (showHeading) {
+    heading = `<div style="font-size:16px;font-weight:700;margin-bottom:2px;">${nameKoD}</div><div style="font-size:12px;color:var(--text2);margin-bottom:10px;">${nameEnD}</div>`;
+  } else if (nameEnD) {
+    heading = `<div style="font-size:11px;color:var(--text2);margin-bottom:6px;">${nameEnD}</div>`;
+  }
+  return `${heading}${tags ? `<div style="margin-bottom:10px;">${tags}</div>` : ''}${metaBlock}<div style="font-size:13px;line-height:1.7;">${body}${spellNotes}</div>`;
+}
+
+function showInfo(type, name) {
+  if (!name) return;
+  const item = _infoResolveItem(type, name);
+
   const titleMap = {spell:'주문 정보', feat:'재주 정보', heritage:'유산 정보', weapon:'무기 정보', armor:'방어구 정보', shield:'방패 정보', gear:'장비 정보'};
   document.getElementById('modal-overlay').classList.remove('hidden');
   const searchEl = document.getElementById('modal-search');
@@ -820,39 +891,7 @@ function showInfo(type, name) {
   // Mobile: detail을 list 영역에 직접 표시
   if (window.innerWidth <= 900) {
     const listItems = document.getElementById('modal-options');
-    if (listItems) {
-      const nameKoD = item.name || item.name_ko || '';
-      const nameEnD = item.en || item.name_en || '';
-      let desc = item.desc || item.summary || '';
-      let tags = '';
-      if (item.feat_level !== undefined) tags = `<span class="tag-meta">${item.feat_level}레벨</span> <span class="tag-meta">${item.category||''}</span>`;
-      else if (item.rank !== undefined) tags = `<span class="tag-meta">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span> <span class="spell-actions">${item.actions||''}</span>`;
-      else if (item.damage) tags = `<span class="tag-meta">${item.damage}</span> <span class="tag-meta">${item.price||''}</span>`;
-      else if (item.ac_bonus !== undefined) tags = `<span class="tag-meta">AC+${item.ac_bonus}</span>`;
-      // 주문 메타 구조화
-      let spellMeta = '';
-      if (item.rank !== undefined) {
-        const spTraits = [...(item.traditions||[]),...(item.traits||[])].map(t => typeof traitTag==='function'?traitTag(t):`<span class="tag">${t}</span>`).join('');
-        if (spTraits) spellMeta += `<div style="margin-bottom:6px;">${spTraits}</div>`;
-        let metaLines = '';
-        if (item.castTime) metaLines += `<div><strong>시전:</strong> ${item.castTime}</div>`;
-        if (item.range) metaLines += `<div><strong>사거리:</strong> ${item.range}${item.area ? ` | <strong>영역:</strong> ${item.area}` : ''}</div>`;
-        if (item.target) metaLines += `<div><strong>대상:</strong> ${item.target}</div>`;
-        if (item.defense) metaLines += `<div><strong>방어:</strong> ${item.defense}</div>`;
-        if (item.duration) metaLines += `<div><strong>지속 시간:</strong> ${item.duration}</div>`;
-        if (item.trigger) metaLines += `<div><strong>유발 조건:</strong> ${item.trigger}</div>`;
-        if (metaLines) spellMeta += `<div style="font-size:12px;line-height:1.6;padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--border);color:var(--text2);">${metaLines}</div>`;
-        desc = desc.replace(/<strong>(?:사거리|영역|대상|방어|지속 ?시간|빈도|유발 조건|요구사항|비용|시전):<\/strong>[^<]*(?:<br>)?/g, '').replace(/^\s*<br>/, '');
-      }
-      const spellNotes = (item.rank !== undefined) ? getSpellFeatNotes(nameKoD) : '';
-      listItems.innerHTML = `<div style="padding:16px;">
-        <div style="font-size:16px;font-weight:700;margin-bottom:2px;">${nameKoD}</div>
-        <div style="font-size:12px;color:var(--text2);margin-bottom:10px;">${nameEnD}</div>
-        <div style="margin-bottom:10px;">${tags}</div>
-        ${spellMeta}
-        <div style="font-size:13px;line-height:1.7;">${typeof formatDescActions==='function'?formatDescActions(desc,item):desc}${spellNotes}</div>
-      </div>`;
-    }
+    if (listItems) listItems.innerHTML = `<div style="padding:16px;">${infoCardHtml(item, type, true)}</div>`;
   } else {
     const listEl = document.querySelector('.modal-list');
     if (listEl) listEl.style.display = 'none';
@@ -964,7 +1003,7 @@ function renderActiveConditions() {
       ? `<span style="color:var(--text2);font-size:10px;opacity:0.3;" title="부피 줄여야 해제">🔒</span>`
       : `<span style="cursor:pointer;color:var(--text2);font-size:10px;" onclick="state.conditions['${c.name}']=0;buildConditions();save();">✕</span>`;
     return `<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--border);font-size:12px;">
-      <span style="color:var(--red-light);font-weight:600;min-width:60px;">⚠ ${c.name}${valText}</span>
+      <span style="color:var(--red-light);font-weight:600;min-width:60px;display:inline-flex;align-items:center;">${typeof iconImg==='function'?iconImg('condition',c,'ico-sm'):'⚠ '}${c.name}${valText}</span>
       <span style="color:var(--text2);font-size:10px;flex:1;">${c.desc.substring(0, 80)}...</span>
       ${removeBtn}
     </div>`;
@@ -1588,6 +1627,10 @@ function recalcAll() {
   if (document.getElementById('panel-actions')?.classList.contains('active')) renderActions();
   // 재주 탭 갱신 (숙련 변경 → 드롭다운 반영)
   if (typeof renderFeats === 'function') renderFeats();
+  // 디버그 박스 갱신
+  _debugShowBonusPool();
+  // 세션 중이면 활성 상태이상을 내 맵 토큰에 동기화(변경 시에만 write) → GM 지도에 표시
+  if (typeof syncTokenConditions === 'function') syncTokenConditions();
 }
 
 // ── 보너스 확인 모달 (굴림 없는 stat용 — AC, 이속의 추가 정보 등) ──
@@ -1693,6 +1736,40 @@ function getStackedBonus(category, target) {
   return { total, picks };
 }
 
+
+// ── 디버그 박스 (개발 진단용 — 우상단 textarea, ✕로 닫기) ──
+// ?debug=1 쿼리에서만 활성화 (dev 경로 자동 표시 제거 — 평소엔 안 뜸)
+function _debugShowBonusPool() {
+  if (!location.search.includes('debug=1')) return;
+  let wrap = document.getElementById('debug-bonus-pool');
+  if (!wrap) {
+    wrap = document.createElement('div');
+    wrap.id = 'debug-bonus-pool';
+    wrap.style.cssText = 'position:fixed;top:5px;right:5px;background:#000;border:1px solid #0f0;z-index:99999;border-radius:4px;font-family:monospace;padding:4px';
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '✕';
+    closeBtn.style.cssText = 'position:absolute;top:2px;right:4px;background:#0f0;color:#000;border:none;width:20px;height:20px;cursor:pointer;font-weight:700;border-radius:2px';
+    closeBtn.onclick = () => wrap.remove();
+    const ta = document.createElement('textarea');
+    ta.id = 'debug-bonus-pool-ta';
+    ta.readOnly = true;
+    ta.style.cssText = 'width:340px;height:200px;background:#000;color:#0f0;border:none;font-size:11px;font-family:monospace;padding:6px;line-height:1.4;resize:both';
+    wrap.appendChild(closeBtn);
+    wrap.appendChild(ta);
+    document.body.appendChild(wrap);
+  }
+  const ta = document.getElementById('debug-bonus-pool-ta');
+  if (!ta) return;
+  const pool = state._fb?.bonuses || [];
+  let lines = [];
+  if (!pool.length) {
+    lines.push('POOL: empty');
+  } else {
+    lines.push('POOL (' + pool.length + ')');
+    pool.forEach(b => lines.push('  [' + b.category + '/' + (b.target||'-') + '] +' + b.value + ' (' + (b.bonus_type||'-') + ') ' + (b.source||'')));
+  }
+  ta.value = lines.join('\n');
+}
 
 function applyPenaltyColor(el, base, penalty) {
   if (!el) return;

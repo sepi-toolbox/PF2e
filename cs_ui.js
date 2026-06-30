@@ -2,6 +2,83 @@
 //  DYNAMIC LISTS
 // ═══════════════════════════════════════════════
 
+// ── FVTT 아이템 아이콘 (data/icon_map.json: scope→{id|영문명|한글명 → 상대경로}) ──
+let _ICON_MAP = null;
+function _loadIconMap() {
+  if (_ICON_MAP) return;
+  fetch('data/icon_map.json?v=1.0').then(r => r.ok ? r.json() : null).then(m => {
+    if (!m) return;
+    _ICON_MAP = m;
+    // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
+    ['renderEquip', 'renderWeapons', 'renderSpells', 'renderFeats', 'renderGrowthPlan'].forEach(fn => {
+      try { if (typeof window[fn] === 'function') window[fn](); } catch (e) {}
+    });
+  }).catch(() => {});
+}
+function _iconRel(scope, item) {
+  if (!_ICON_MAP || !item) return null;
+  const m = _ICON_MAP[scope]; if (!m) return null;
+  const d = item._data || item._dbData || {};
+  const lc = v => v ? String(v).toLowerCase() : null;
+  const cands = [d.id, item.id, lc(d.name_en), lc(item.name_en),
+    lc(item.name_ko), lc(d.name_ko), lc(item.name)];
+  for (const c of cands) { if (c && m[c]) return m[c]; }
+  return null;
+}
+// 아이콘 상대경로만 반환(<img> 아닌 path) — 캔버스 등 외부 렌더용 (예: 맵 토큰 상태이상)
+function iconRelPath(scope, item) {
+  return _iconRel(scope, item) || _iconImgField(item) || null;
+}
+// 카드 앞 썸네일 HTML (없으면 빈 문자열). cls: ico-sm | ico-lg
+function iconImg(scope, item, cls) {
+  const rel = _iconRel(scope, item) || _iconImgField(item);   // icon_map 우선, 없으면 BASE 아이템 자체 img(FVTT 경로)
+  if (!rel) return '';
+  return '<img class="item-icon' + (cls ? ' ' + cls : '') + '" src="data/icons/' +
+    rel.replace(/"/g, '%22') + '" loading="lazy" onerror="this.style.display=\'none\'">';
+}
+// BASE/FVTT 아이템은 img 필드(아이콘 경로)를 직접 보유 → icon_map 미커버분 폴백
+function _iconImgField(item) {
+  if (!item) return null;
+  return item.img || (item._data && item._data.img) || (item._dbData && item._dbData.img) || null;
+}
+
+// ── 재화(통화) FVTT 아이콘 (PF2e treasure/currency 동전 더미) ──
+const CURRENCY_ICON_REL = {
+  pp: 'systems/pf2e/icons/equipment/treasure/currency/platinum-pieces.webp',
+  gp: 'systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp',
+  sp: 'systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp',
+  cp: 'systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp',
+};
+const CURRENCY_LABELS = { pp: '백금', gp: '금화', sp: '은화', cp: '동화' };
+// 단일 동전 아이콘 <img> (px=크기). code: pp|gp|sp|cp
+function coinIcon(code, px) {
+  const rel = CURRENCY_ICON_REL[(code || '').toLowerCase()];
+  if (!rel) return '';
+  const s = px || 16;
+  const c = (code || '').toLowerCase();
+  return `<img class="coin-ic" src="data/icons/${rel}" alt="${c}" title="${CURRENCY_LABELS[c] || ''} ${c.toUpperCase()}" style="width:${s}px;height:${s}px;" loading="lazy">`;
+}
+// 재화 입력: 불필요한 앞자리 0 제거("023"→"23", "0"·""은 유지) 후 재계산/저장
+function _curInput(el) {
+  if (el) el.value = el.value.replace(/^0+(?=\d)/, '');
+  if (typeof recalcBulk === 'function') recalcBulk();
+  if (typeof save === 'function') save();
+}
+// 가격 문자열("10gp","1,060gp","5sp")의 단위를 동전 아이콘으로 치환
+function priceWithIcons(priceStr, px) {
+  if (!priceStr || typeof priceStr !== 'string') return priceStr || '';
+  return priceStr.replace(/([\d,]+)\s*(pp|gp|sp|cp)\b/gi, (m, num, den) =>
+    `${num} ${coinIcon(den, px || 15)}`);
+}
+
+// 빌더 슬롯 원형 아이콘: 선택된 아이템 이미지를 원에 채움(없으면 이모지 폴백)
+function iconCircle(scope, item, fallback) {
+  const rel = _iconRel(scope, item) || _iconImgField(item);
+  if (!rel) return fallback || '';
+  return '<img class="slot-img" src="data/icons/' + rel.replace(/"/g, '%22') +
+    '" loading="lazy" onerror="this.replaceWith(document.createTextNode(\'' + (fallback || '') + '\'))">';
+}
+
 function addWeapon(data) {
   const d = data || {name:'',atk:'',dmg:'',traits:''};
   const id = 'w-'+Date.now();
@@ -94,6 +171,7 @@ function renderArmorCard() {
     </div>
     <div class="defense-card-body">
       <div class="defense-card-name">
+        ${(typeof iconImg==='function' ? iconImg('equipment', (typeof getArmor==='function' && getArmor(name)) || {name:name}) : '')}
         <span class="weapon-prof-badge ${profCls}" style="font-size:8px;width:14px;height:14px;">${profLetter}</span>
         ${name}
         ${potency > 0 ? `<span class="tag" style="font-size:9px;">+${potency}</span>` : ''}
@@ -457,17 +535,17 @@ function renderWeapons() {
     const canGrip = isHeld && (w._dbData?.hands) !== 2 && !w._isShield;
     let actionBtns = '';
     if (isDropped) {
-      actionBtns = `<button class="weapon-btn" onclick="pickUpWeapon(${i})" title="줍기 (행동 1)">줍기<span class="weapon-btn action-cost">\u25C6</span></button>`;
+      actionBtns = `<button class="weapon-btn" onclick="pickUpWeapon(${i})" title="줍기 (행동 1)">줍기<span class="wb-glyph action-glyph">1</span></button>`;
     } else if (w._stowed) {
-      actionBtns = `<button class="weapon-btn" onclick="drawWeapon(${i})" title="들기 (행동 1)">들기<span class="weapon-btn action-cost">\u25C6</span></button>`;
+      actionBtns = `<button class="weapon-btn" onclick="drawWeapon(${i})" title="들기 (행동 1)">들기<span class="wb-glyph action-glyph">1</span></button>`;
     } else {
       // 손에 든 상태
-      actionBtns = `<button class="weapon-btn" onclick="stowWeapon(${i})" title="넣기 (행동 1)">넣기<span class="weapon-btn action-cost">\u25C6</span></button>`;
-      actionBtns += `<button class="weapon-btn" onclick="dropWeapon(${i})" title="떨구기 (자유 행동)">떨구기<span class="weapon-btn action-cost">\u25C7</span></button>`;
+      actionBtns = `<button class="weapon-btn" onclick="stowWeapon(${i})" title="넣기 (행동 1)">넣기<span class="wb-glyph action-glyph">1</span></button>`;
+      actionBtns += `<button class="weapon-btn" onclick="dropWeapon(${i})" title="떨구기 (자유 행동)">떨구기<span class="wb-glyph action-glyph">F</span></button>`;
       if (canGrip) {
         actionBtns += w._twoHand
-          ? `<button class="weapon-btn" onclick="toggleGrip(${i})" title="한손 전환 (자유 행동)">한손<span class="weapon-btn action-cost">\u25C7</span></button>`
-          : `<button class="weapon-btn" onclick="toggleGrip(${i})" title="양손 전환 (행동 1)">양손<span class="weapon-btn action-cost">\u25C6</span></button>`;
+          ? `<button class="weapon-btn" onclick="toggleGrip(${i})" title="한손 전환 (자유 행동)">한손<span class="wb-glyph action-glyph">F</span></button>`
+          : `<button class="weapon-btn" onclick="toggleGrip(${i})" title="양손 전환 (행동 1)">양손<span class="wb-glyph action-glyph">1</span></button>`;
       }
     }
 
@@ -479,8 +557,8 @@ function renderWeapons() {
       </div>
       <div class="weapon-card-body">
         <div class="weapon-card-stats">
-          <div class="weapon-card-name" onclick="showInfo('weapon','${escapedName}')">
-            \u2694 ${w._broken?'<span style="color:var(--red-light);">파손된 </span>':''}${w.name||'무기'}${runeInfo}${isDropped ? '<span style="font-size:9px;color:var(--red-light,#c66);margin-left:4px;">[바닥]</span>' : ''}${w._twoHand ? '<span style="font-size:9px;color:var(--accent);margin-left:4px;">[양손]</span>' : ''}
+          <div class="weapon-card-name" onclick="showInfo('weapon','${escapedName}')" style="display:flex;align-items:center;flex-wrap:wrap;">
+            ${iconImg('equipment', w) || '\u2694 '}${w._broken?'<span style="color:var(--red-light);">파손된 </span>':''}${w.name||'무기'}${runeInfo}${isDropped ? '<span style="font-size:9px;color:var(--red-light,#c66);margin-left:4px;">[바닥]</span>' : ''}${w._twoHand ? '<span style="font-size:9px;color:var(--accent);margin-left:4px;">[양손]</span>' : ''}
           </div>
           ${wpProfVal > 0 ? `<div style="font-size:9px;color:var(--text2);margin-top:-2px;margin-bottom:2px;"><span class="weapon-prof-badge ${wpProfCls}" style="font-size:7px;width:12px;height:12px;display:inline-flex;align-items:center;justify-content:center;">${wpTemlLetter}</span> ${wpCatLabel} 무기 ${wpProfName}</div>` : `<div style="font-size:9px;color:var(--red-light);margin-top:-2px;margin-bottom:2px;">⚠ ${wpCatLabel} 무기 미숙련</div>`}
           <div class="weapon-stat">
@@ -754,10 +832,10 @@ function renderEquip() {
     const idxs = groups[cat.id] || [];
 
     const section = document.createElement('div');
-    section.className = 'spell-rank-section';
+    section.className = 'equip-cat-section';
 
     const hdr = document.createElement('div');
-    hdr.className = 'spell-rank-header';
+    hdr.className = 'equip-cat-header';
     hdr.innerHTML = `${cat.icon} ${cat.label} <span style="font-size:10px;font-weight:400;color:var(--text2);">${idxs.length}</span>`;
     // + 생성 버튼
     const addBtn = document.createElement('span');
@@ -769,8 +847,8 @@ function renderEquip() {
 
     if (idxs.length === 0) {
       const empty = document.createElement('div');
-      empty.className = 'spell-slot-row';
-      empty.innerHTML = `<span class="spell-slot-name empty">\u2014</span>`;
+      empty.className = 'equip-empty';
+      empty.innerHTML = `\u2014`;
       section.appendChild(empty);
     } else {
       idxs.forEach(i => {
@@ -801,7 +879,10 @@ function _renderEquipRow(list, e, i, hasContainers) {
   }
 
   const isDropTarget = e._type === 'weapon' || e._type === 'armor' || e._type === 'shield';
-  row.className = 'spell-slot-row' + (isDropTarget ? ' equip-drop-target' : '');
+  const hm = e._holdMode || 'stowed';
+  // FVTT식 카드: 들고/착용=사용중(좌측 강조), 보관=흐림, 떨구기=점선, 파손=적색
+  const stateCls = hm === 'dropped' ? 'dropped' : (hm === 'stowed' ? 'stowed' : 'held');
+  row.className = 'equip-card ' + stateCls + (e._broken ? ' broken' : '') + (isDropTarget ? ' equip-drop-target' : '');
   if (isDropTarget) {
     row.dataset.equipIdx = i;
     row.addEventListener('dragover', _onRuneDragOver);
@@ -809,9 +890,9 @@ function _renderEquipRow(list, e, i, hasContainers) {
     row.addEventListener('drop', ev => _onRuneDrop(i, ev));
   }
 
-  const hm = e._holdMode || 'stowed';
   const isArmor = e._type === 'armor';
   const isTwoOnly = e._type === 'weapon' && e._data && e._data.hands === 2;
+  const HOLD_LABEL = { stowed:'보관', one:'한손', two:'양손', worn:'착용', dropped:'떨어뜨림' };
 
   let holdSelectHtml = `<select class="equip-hold-select${hm!=='stowed'?' active':''}" onchange="event.stopPropagation();changeHoldMode(${i},this.value)">
     <option value="stowed"${hm==='stowed'?' selected':''}>보관</option>
@@ -821,38 +902,37 @@ function _renderEquipRow(list, e, i, hasContainers) {
     <option value="dropped"${hm==='dropped'?' selected':''}>떨구기</option>
   </select>`;
 
+  const moveHtml = hasContainers ? `<span class="move-wrap"><select onchange="event.stopPropagation();if(this.value!=='')moveToContainer(${i},parseInt(this.value));this.value=''">
+      <option value=""></option>
+      ${state.containers.map((c,ci) => `<option value="${ci}">${c.name}</option>`).join('')}
+    </select></span>` : '';
+
+  const iconHtml = iconImg('equipment', e) || '<span class="equip-fig-ph">▫</span>';
+
   row.innerHTML = `
-    <span style="flex:1;font-size:12px;color:${e._broken?'var(--red-light)':'var(--text)'};cursor:pointer;" onclick="showInfo('${eqType}','${eqEscName}')">${e._broken?'\uD30C\uC190\uB41C ':''}${e.name||'\uC544\uC774\uD15C'}</span>
-    <span style="width:30px;text-align:center;font-size:10px;color:var(--text2);">${bulkDisplay}</span>
-    <span style="width:70px;display:flex;align-items:center;justify-content:center;gap:2px;">
-      <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},-1)">\u2212</button>
-      <span style="min-width:16px;text-align:center;font-size:13px;font-weight:600;color:var(--text);">${e.qty||1}</span>
-      <button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},1)">+</button>
-    </span>
-    <span style="width:80px;text-align:center;">${holdSelectHtml}</span>
-    <span style="width:28px;text-align:center;">
-      ${hasContainers ? `<span class="move-wrap"><select onchange="if(this.value!=='')moveToContainer(${i},parseInt(this.value));this.value=''">
-        <option value=""></option>
-        ${state.containers.map((c,ci) => `<option value="${ci}">${c.name}</option>`).join('')}
-      </select></span>` : ''}
-    </span>`;
+    <div class="equip-card-fig">${iconHtml}</div>
+    <div class="equip-card-main" onclick="toggleEquipInline(this,${i})">
+      <div class="equip-card-name">${e._broken?'파손된 ':''}${e.name||'아이템'}</div>
+      <div class="equip-card-sub"><span class="equip-tag hold">${HOLD_LABEL[hm]||HOLD_LABEL.stowed}</span><span class="equip-tag">부피 ${bulkDisplay}</span></div>
+    </div>
+    <div class="equip-card-ctrls">
+      ${holdSelectHtml}
+      <span class="equip-qty"><button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},-1)">−</button><b>${e.qty||1}</b><button class="qty-btn" onclick="event.stopPropagation();changeQty(${i},1)">+</button></span>
+      ${moveHtml}
+    </div>`;
   list.appendChild(row);
 
-  // ── 부착된 룬 ──
+  // 부착된 룬 (카드 하단 전체폭 행으로 펼침)
   const attachedIdxs = _getAttachedRuneIndices(i);
   attachedIdxs.forEach(ri => {
     const r = state.equip[ri];
     if (!r) return;
     const runeRow = document.createElement('div');
-    runeRow.className = 'spell-slot-row equip-rune-attached';
+    runeRow.className = 'equip-rune-attached';
     runeRow.innerHTML = `
-      <span style="flex:1;font-size:11px;color:var(--accent);padding-left:20px;">\u2728 ${r.name||'\uB8EC'} <span style="font-size:9px;color:var(--text2);">${r._runeData?.desc||''}</span></span>
-      <span style="width:30px;"></span>
-      <span style="width:70px;"></span>
-      <span style="width:80px;text-align:center;"><button class="equip-toggle" onclick="event.stopPropagation();detachRune(${ri})" style="font-size:9px;padding:2px 6px;">\uD574\uC81C</button></span>
-      <span style="width:40px;"></span>
-      <span style="width:28px;"></span>`;
-    list.appendChild(runeRow);
+      <span style="flex:1;min-width:0;font-size:11px;display:inline-flex;align-items:center;cursor:pointer;" onclick="showInfo('rune','${(r.name||'').replace(/'/g,"\\'")}')">${iconImg('equipment', r, 'ico-sm')||'✨ '}<span style="color:var(--accent);white-space:nowrap;flex-shrink:0;">${r.name||'룬'}</span><span style="font-size:9px;color:var(--text2);margin-left:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;">${r._runeData?.desc||''}</span></span>
+      <button class="equip-toggle" onclick="event.stopPropagation();detachRune(${ri})" style="flex-shrink:0;font-size:9px;padding:2px 8px;">해제</button>`;
+    row.appendChild(runeRow);
   });
 }
 
@@ -1463,8 +1543,18 @@ let _spellSlotPending = null;
 
 function getActionIcons(actions) {
   if (!actions) return '';
-  const map = {'1':'◆','2':'◆◆','3':'◆◆◆','reaction':'↩','free':'⟡'};
-  return map[String(actions)] || actions;
+  const s = String(actions).trim();
+  const G = c => '<span class="action-glyph">' + c + '</span>';
+  // 정규 코드(1/2/3/reaction/free)
+  const direct = {'1':'1','2':'2','3':'3','reaction':'R','free':'F'};
+  if (direct[s]) return G(direct[s]);
+  // 한글 액션 텍스트: 반응 / 자유 행동 / N행동 / 1~3행동 / 1행동~2행동
+  if (s.includes('반응')) return G('R');
+  if (s.includes('자유')) return G('F');
+  const digits = s.match(/[123]/g);
+  if (digits && digits.length >= 2) return G(digits[0]) + '~' + G(digits[digits.length - 1]);
+  if (digits && digits.length === 1) return G(digits[0]);
+  return s; // 폴백: 원문
 }
 
 function switchSpellSubtab(tab) {
@@ -1547,7 +1637,7 @@ function renderSpells() {
         row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
         const srcName = s._source ? s._source.split(' (')[0].trim() : '';
         row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${(s.name||'').replace(/'/g,"\\'")}')">${s.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${(s.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', s)}${s.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           <span style="font-size:10px;color:var(--accent);margin-left:4px;">${rankLabel}</span>
           ${usesHtml}
           <span style="font-size:10px;color:var(--text2);margin-left:auto;">${s.tradition || ''} · ${usesLabel}</span>
@@ -1629,7 +1719,7 @@ function renderSpells() {
           const spellData = getSpell(name);
           const actions = getActionIcons(spellData?.actions);
           row.innerHTML = `
-            <span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-name" onclick="toggleSpellInline(this,'${name.replace(/'/g,"\\'")}')">${iconImg('spell', {name})}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
             <span class="spell-slot-del" onclick="unprepareSlot(0,${i})" title="준비 해제">✕</span>`;
         } else {
           row.innerHTML = `<span class="spell-slot-name empty" onclick="openPrepareSpellForSlot(0,${i})">준비 안 됨</span><span style="width:20px;"></span>`;
@@ -1650,7 +1740,7 @@ function renderSpells() {
           const actions = getActionIcons(spellData?.actions);
           const srcLabel = isAuto && spell._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${spell._source}</span>` : '';
           row.innerHTML = `
-            <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-name" onclick="toggleSpellInline(this,'${spell.name.replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
             ${srcLabel}
             ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpellFromSlot('cantrip',${i})">✕</span>`}`;
         } else if (i < cantripSlots) {
@@ -1703,19 +1793,19 @@ function renderSpells() {
       const totalSlots = getDivineFontSlots();
       const used = Math.min(state.divineFontUsed || 0, totalSlots);
       document.getElementById('divine-font-label').textContent = isHeal ? 'Divine Font — Heal' : 'Divine Font — Harm';
+      // 신성 원천 주문은 일반 주문과 동일한 행 형식으로 표시 (범주만 다를 뿐). 슬롯은 영웅점수식 pip.
+      const dfSpell = getSpell(isHeal ? '치유' : '해로움');
+      const dfActions = getActionIcons(dfSpell?.actions);
       let fires = '';
       for (let i = 0; i < totalSlots; i++) {
         const isUsed = i >= (totalSlots - used);
-        fires += `<span class="spell-slot-fire${isUsed?' used':''}" style="cursor:pointer;font-size:16px;" onclick="toggleDivineFontSlot(${i})">\uD83D\uDD25</span>`;
+        fires += `<span class="spell-slot-fire${isUsed?' used':''}" style="cursor:pointer;" onclick="toggleDivineFontSlot(${i})" title="${isUsed?'슬롯 복원':'슬롯 사용'}"></span>`;
       }
       dfBody.innerHTML = `
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-          <span style="font-size:20px;">${isHeal?'💚':'💀'}</span>
-          <span style="font-size:14px;font-weight:600;color:var(--accent);cursor:pointer;text-decoration:underline;" onclick="showInfo('spell','${isHeal?'치유':'해로움'}')">${spellName}</span>
-          <span style="font-size:11px;color:var(--text2);margin-left:auto;">${used}/${totalSlots} 사용</span>
-        </div>
-        <div style="display:flex;gap:2px;flex-wrap:wrap;">${fires}</div>
-        <div style="font-size:10px;color:var(--text2);margin-top:4px;">일반 주문 슬롯과 별도로 관리됩니다. 🔥을 클릭하여 사용/미사용 전환</div>`;
+        <div class="spell-slot-row">
+          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${isHeal?'치유':'해로움'}')">${iconImg('spell', dfSpell || {name:spellName})}${spellName}${dfActions ? ' <span class="spell-actions-inline">'+dfActions+'</span>' : ''}</span>
+          <span class="spell-slot-fires" style="margin-left:auto;">${fires}</span>
+        </div>`;
     } else {
       dfSection.style.display = 'none';
     }
@@ -1816,7 +1906,7 @@ function renderSpells() {
         const srcFeat = spell._sourceFeat ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${spell._sourceFeat.split(' (')[0]}</span>` : '';
 
         row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${(spell.name||'').replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${(spell.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           ${badges}${srcFeat}`;
         section.appendChild(row);
       });
@@ -1829,7 +1919,7 @@ function renderSpells() {
         row.className = 'spell-slot-row';
         row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(212,175,55,0.08);';
         row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${(sig.name||'').replace(/'/g,"\\'")}')">${sig.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${(sig.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', sig)}${sig.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           <span style="font-size:9px;color:var(--accent);margin-left:auto;">★ ${sig.originalRank}랭크에서 고양</span>`;
         section.appendChild(row);
       });
@@ -1847,9 +1937,9 @@ function renderSpells() {
           const actions = getActionIcons(spellData?.actions);
           const fireIcon = `<span class="spell-slot-fire${isCast?' used':''}" onclick="togglePreparedCast(${r},${i})" style="cursor:pointer;font-size:14px;margin-right:4px;" title="${isCast?'슬롯 복원':'시전 (소모)'}">\uD83D\uDD25</span>`;
           row.innerHTML = `
-            ${fireIcon}<span class="spell-slot-name" onclick="showInfo('spell','${name.replace(/'/g,"\\'")}')">${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}${isCast ? ' <span style="font-size:9px;color:var(--text2);">(시전됨)</span>' : ''}</span>`;
+            ${fireIcon}<span class="spell-slot-name" onclick="toggleSpellInline(this,'${name.replace(/'/g,"\\'")}')">${iconImg('spell', {name})}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}${isCast ? ' <span style="font-size:9px;color:var(--text2);">(시전됨)</span>' : ''}</span>`;
         } else {
-          row.innerHTML = `<span style="font-size:14px;margin-right:4px;opacity:0.2;">🔥</span><span class="spell-slot-name" style="color:var(--text2);font-size:12px;">준비 안 됨</span>`;
+          row.innerHTML = `<span class="spell-slot-fire used" style="margin-right:4px;opacity:0.35;"></span><span class="spell-slot-name" style="color:var(--text2);font-size:12px;">준비 안 됨</span>`;
         }
         section.appendChild(row);
       }
@@ -1881,7 +1971,7 @@ function renderSpells() {
           const actions = getActionIcons(spellData?.actions);
           row.innerHTML = `
             <span class="spell-cast-label${isCast?' cast-used':''}" onclick="toggleSpellCast(${r},${i})">Cast</span>
-            <span class="spell-slot-name" onclick="showInfo('spell','${spell.name.replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-name" onclick="toggleSpellInline(this,'${spell.name.replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
             <span class="spell-slot-dur">\u2014</span>
             <span class="spell-slot-range">\u2014</span>
             <span class="spell-slot-del" onclick="removeSpell('known',${globalIdx})">✕</span>`;
@@ -1904,7 +1994,7 @@ function renderSpells() {
         row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
         const srcName = spell._source ? spell._source.split(' (')[0].trim() : '';
         row.innerHTML = `
-          <span class="spell-slot-name" onclick="showInfo('spell','${(spell.name||'').replace(/'/g,"\\'")}')">${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${(spell.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
           <span style="font-size:9px;color:var(--accent);margin-left:auto;">${srcName || '클래스 부여'}</span>`;
         section.appendChild(row);
       });
@@ -1987,7 +2077,7 @@ function renderSpellSlotList(elId, arr, type, heightenedLevel) {
     if (isAuto) row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
     const srcLabel = isAuto && s._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${s._source}</span>` : '';
     row.innerHTML = `
-      <span class="spell-slot-name" onclick="showInfo('spell','${s.name.replace(/'/g,"\\'")}')">${s.name}${rankLabel}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+      <span class="spell-slot-name" onclick="toggleSpellInline(this,'${s.name.replace(/'/g,"\\'")}')">${iconImg('spell', spellData || s)}${s.name}${rankLabel}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
       ${srcLabel}
       ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpell('${type}',${i})">✕</span>`}`;
     el.appendChild(row);
@@ -2049,8 +2139,8 @@ function renderFeats() {
       const desc = h.summary || h.desc || '';
       const hAncestry = h.ancestry === '*' ? '다목적 유산' : h.ancestry || '';
       div.innerHTML = `
-        <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
-          <span style="flex:1;color:var(--text);font-size:12px;">${h.name_ko} (${h.name_en||''})</span>
+        <div class="feat-card-header" style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
+          <span style="flex:1;color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${iconImg('heritage', h)}${h.name_ko} (${h.name_en||''})</span>
         </div>
         <div class="feat-src"><span class="tag-meta">유산</span> <span class="tag-meta">${hAncestry}</span></div>
         <div class="feat-detail">
@@ -2111,8 +2201,8 @@ function renderFeats() {
       const redDot = hasChoiceIssue ? '<span style="font-size:11px;color:#f44336;flex-shrink:0;line-height:1;" title="선택 필요">⚠</span>'
         : hasPrereqIssue ? '<span style="font-size:11px;color:#ff9800;flex-shrink:0;line-height:1;" title="선행 조건 미충족">⚠</span>' : '';
       div.innerHTML = `
-        <div style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
-          <span style="color:var(--text);font-size:12px;">${f.name || labels[t] + ' 재주'}</span>${redDot}
+        <div class="feat-card-header" style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
+          <span style="color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${iconImg('feat', featData)}${f.name || labels[t] + ' 재주'}</span>${redDot}
           <span style="flex:1;"></span>
           ${choiceBadge ? `<span style="font-size:10px;color:var(--accent);flex-shrink:0;">[${choiceBadge}]</span>` : ''}
         </div>
@@ -2388,9 +2478,11 @@ function _renderLearnSpellsModal() {
 
   if (fbar) fbar.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:2px;padding:4px 0;">${tabHtml}</div>`;
 
-  // 상세 패널 초기화 (최초 열기 시만)
+  // 인라인 아코디언 방식 — 우측 상세 패널 숨기고 목록을 전체폭으로 (closeModal이 초기화)
   const detail = document.getElementById('modal-detail');
-  if (detail) detail.innerHTML = '<div class="modal-detail-empty">주문을 클릭하여 배우거나 취소할 수 있습니다.</div>';
+  if (detail) detail.style.display = 'none';
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) { listEl.style.width = '100%'; listEl.style.borderRight = 'none'; }
 
   _refreshLearnSpellsList();
   modalType = 'learn-spells';
@@ -2440,24 +2532,136 @@ function _refreshLearnSpellsList() {
   const container = document.getElementById('modal-options');
   if (!container) return;
   container.innerHTML = '';
+  if (!filtered.length) {
+    container.innerHTML = '<div style="padding:24px 16px;text-align:center;color:var(--text2);font-size:13px;">해당 조건에 맞는 주문이 없습니다.</div>';
+    return;
+  }
   filtered.forEach(sp => {
     const isLearned = learnedNames.has(sp.name_ko);
     const row = document.createElement('div');
     row.className = 'opt-row' + (isLearned ? ' selected' : '');
-    if (isLearned) row.style.opacity = '0.5';
     const actions = (typeof getActionIcons === 'function') ? getActionIcons(sp.actions) : '';
+    const ic = (typeof iconImg === 'function') ? iconImg('spell', sp) : '';
     row.innerHTML = `
-      <span class="opt-row-name" style="flex:1;">${sp.name_ko} <span style="color:var(--text2);font-size:11px;">${sp.name_en}</span></span>
-      ${actions ? `<span style="font-size:11px;color:var(--accent);margin-right:4px;">${actions}</span>` : ''}
-      ${isLearned ? '<span style="font-size:10px;color:var(--accent);">습득됨</span>' : ''}`;
-    row.onclick = () => {
+      <span class="opt-row-name" style="flex:1;display:inline-flex;align-items:center;min-width:0;">${ic}<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${sp.name_ko} <span style="color:var(--text2);font-size:11px;">${sp.name_en}</span></span></span>
+      ${actions ? `<span style="font-size:11px;color:var(--accent);margin-right:6px;">${actions}</span>` : ''}
+      <button class="ls-learn-btn${isLearned ? ' learned' : ''}">${isLearned ? '✓ 취소' : '배우기'}</button>
+      <span class="ls-chevron">▾</span>`;
+    // 습득/취소 — 행 펼침과 분리 (정보만 보고 싶을 때 습득되지 않도록)
+    const btn = row.querySelector('.ls-learn-btn');
+    if (btn) btn.onclick = (e) => {
+      e.stopPropagation();
       if (isLearned) _unlearnSpellFromModal(sp, r);
       else _learnSpellFromModal(sp, r);
-      showItemDetail(sp);
     };
+    // 행 클릭 → 인라인 아코디언 펼침/접힘 (재주 탭과 동일)
+    row.onclick = () => _toggleLearnSpellRow(row, sp);
     container.appendChild(row);
   });
 
+}
+
+// 주문 한 항목 아코디언 토글 (재주 탭 패턴 — 인라인 상세, 데스크톱/모바일 공통)
+function _toggleLearnSpellRow(row, sp) {
+  const existing = row.nextElementSibling;
+  if (existing && existing.classList.contains('opt-row-detail') && existing.classList.contains('open')) {
+    existing.classList.remove('open');
+    row.classList.remove('expanded');
+    return;
+  }
+  const container = document.getElementById('modal-options');
+  if (container) {
+    container.querySelectorAll('.opt-row-detail.open').forEach(d => d.classList.remove('open'));
+    container.querySelectorAll('.opt-row.expanded').forEach(rr => rr.classList.remove('expanded'));
+  }
+  row.classList.add('expanded');
+  let dd = row.nextElementSibling;
+  if (!dd || !dd.classList.contains('opt-row-detail')) {
+    dd = document.createElement('div');
+    dd.className = 'opt-row-detail';
+    row.after(dd);
+  }
+  dd.innerHTML = _learnSpellDetailHtml(sp);
+  dd.classList.add('open');
+}
+
+// 주문 상세 HTML (showItemDetail의 주문 분기와 동일 포맷 — 메타 + 본문)
+function _learnSpellDetailHtml(item) {
+  const _tt = (t) => (typeof traitTag === 'function') ? traitTag(t) : `<span class="tag">${t}</span>`;
+  const rankStr = item.is_cantrip ? '캔트립' : item.is_focus ? '집중' : `랭크 ${item.rank}`;
+  const spTraits = [...(item.traditions || []), ...(item.traits || [])].map(_tt).join('');
+  const tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${rankStr}</span> <span class="spell-actions">${item.actions || ''}</span></div>${spTraits ? '<div style="margin-bottom:6px;">' + spTraits + '</div>' : ''}`;
+  let spellMeta = '';
+  if (item.castTime) spellMeta += `<div><strong>시전:</strong> ${item.castTime}</div>`;
+  if (item.range) spellMeta += `<div><strong>사거리:</strong> ${item.range}${item.area ? ` | <strong>영역:</strong> ${item.area}` : ''}</div>`;
+  if (item.target) spellMeta += `<div><strong>대상:</strong> ${item.target}</div>`;
+  if (item.defense) spellMeta += `<div><strong>방어:</strong> ${item.defense}</div>`;
+  if (item.duration) spellMeta += `<div><strong>지속 시간:</strong> ${item.duration}</div>`;
+  if (item.frequency) spellMeta += `<div><strong>빈도:</strong> ${item.frequency}</div>`;
+  if (item.trigger) spellMeta += `<div><strong>유발 조건:</strong> ${item.trigger}</div>`;
+  if (item.requirements) spellMeta += `<div><strong>요구사항:</strong> ${item.requirements}</div>`;
+  if (item.cost) spellMeta += `<div><strong>비용:</strong> ${item.cost}</div>`;
+  if (spellMeta) spellMeta = `<div style="font-size:12px;line-height:1.6;padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--border);color:var(--text2);">${spellMeta}</div>`;
+  let desc = item.desc || item.summary || '';
+  desc = desc.replace(/<strong>(?:사거리|영역|대상|방어|지속 ?시간|빈도|유발 조건|요구사항|비용|시전):<\/strong>[^<]*(?:<br>)?/g, '').replace(/^\s*<br>/, '');
+  const spellNotes = (typeof getSpellFeatNotes === 'function') ? getSpellFeatNotes(item.name_ko || '') : '';
+  const body = (typeof formatDescActions === 'function') ? formatDescActions(desc, item) : desc;
+  return `${tags}${spellMeta}<div style="font-size:13px;line-height:1.6;">${body}${spellNotes}</div>`;
+}
+
+// 주문 행 클릭 시 팝업 대신 인라인 아코디언으로 상세 펼침/접힘 (형식 통일: 주문 배우기/기억 모달과 동일)
+function toggleSpellInline(nameEl, name) {
+  const row = nameEl.closest('.spell-slot-row');
+  if (!row) { if (typeof showInfo === 'function') showInfo('spell', name); return; }
+  const sib = row.nextElementSibling;
+  // 이미 펼쳐져 있으면 접기
+  if (sib && sib.classList && sib.classList.contains('spell-inline-detail')) {
+    sib.remove();
+    row.classList.remove('spell-row-open');
+    return;
+  }
+  // 같은 컨테이너 내 다른 펼침은 닫기 (한 번에 하나)
+  const cont = row.parentElement;
+  if (cont) cont.querySelectorAll(':scope > .spell-inline-detail').forEach(d => {
+    if (d.previousElementSibling) d.previousElementSibling.classList.remove('spell-row-open');
+    d.remove();
+  });
+  const sp = getSpell(name) || getSpell((name || '').split(' (')[0].trim());
+  const detail = document.createElement('div');
+  detail.className = 'spell-inline-detail';
+  detail.innerHTML = (sp && typeof _learnSpellDetailHtml === 'function')
+    ? _learnSpellDetailHtml(sp)
+    : '<span style="color:var(--text2);font-size:12px;">상세 정보가 없습니다.</span>';
+  row.classList.add('spell-row-open');
+  row.insertAdjacentElement('afterend', detail);
+}
+
+// 장비 카드 클릭 시 팝업 대신 인라인 아코디언으로 상세 펼침/접힘 (주문과 동일 언어)
+function toggleEquipInline(mainEl, idx) {
+  const card = mainEl.closest('.equip-card');
+  const e = state.equip[idx];
+  const eqType = !e ? 'gear' : (e._type === 'weapon' ? 'weapon' : (e._type === 'armor' ? 'armor' : (e._type === 'shield' ? 'shield' : 'gear')));
+  if (!card) { if (typeof showInfo === 'function') showInfo(eqType, e?.name || ''); return; }
+  // 부착된 룬 행은 카드의 자식 → 카드 다음 형제 중 inline-detail만 탐색
+  let sib = card.nextElementSibling;
+  if (sib && sib.classList && sib.classList.contains('equip-inline-detail')) {
+    sib.remove();
+    card.classList.remove('equip-open');
+    return;
+  }
+  // 전체 장비 목록에서 다른 펼침 닫기 (한 번에 하나)
+  const listEl = document.getElementById('equip-list');
+  if (listEl) listEl.querySelectorAll('.equip-inline-detail').forEach(d => {
+    if (d.previousElementSibling) d.previousElementSibling.classList.remove('equip-open');
+    d.remove();
+  });
+  const detail = document.createElement('div');
+  detail.className = 'equip-inline-detail';
+  detail.innerHTML = (typeof infoCardHtml === 'function' && typeof _infoResolveItem === 'function')
+    ? infoCardHtml(_infoResolveItem(eqType, e?.name || ''), eqType, false)
+    : '<span style="color:var(--text2);font-size:12px;">상세 정보가 없습니다.</span>';
+  card.classList.add('equip-open');
+  card.insertAdjacentElement('afterend', detail);
 }
 
 function _learnSpellFromModal(sp, rank) {
@@ -2594,10 +2798,10 @@ function openEquipBrowse() {
   // Replace footer with currency
   const footer = document.querySelector('.modal-footer');
   footer.innerHTML = `<div class="modal-currency" id="modal-currency">
-    <div class="modal-currency-item"><span class="coin coin-pp"></span><span class="coin-label">백금</span><span class="coin-val" id="mc-pp">${document.getElementById('cur-pp')?.value||0}</span></div>
-    <div class="modal-currency-item"><span class="coin coin-gp"></span><span class="coin-label">금화</span><span class="coin-val" id="mc-gp">${document.getElementById('cur-gp')?.value||0}</span></div>
-    <div class="modal-currency-item"><span class="coin coin-sp"></span><span class="coin-label">은화</span><span class="coin-val" id="mc-sp">${document.getElementById('cur-sp')?.value||0}</span></div>
-    <div class="modal-currency-item"><span class="coin coin-cp"></span><span class="coin-label">동화</span><span class="coin-val" id="mc-cp">${document.getElementById('cur-cp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('pp',20)}<span class="coin-val" id="mc-pp">${document.getElementById('cur-pp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('gp',20)}<span class="coin-val" id="mc-gp">${document.getElementById('cur-gp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('sp',20)}<span class="coin-val" id="mc-sp">${document.getElementById('cur-sp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('cp',20)}<span class="coin-val" id="mc-cp">${document.getElementById('cur-cp')?.value||0}</span></div>
   </div>
   <button class="btn btn-cancel" onclick="closeModal()" style="width:100%;padding:12px;font-size:14px;margin-top:6px;">닫기</button>`;
 
@@ -2635,8 +2839,13 @@ function switchEquipTab(tab) {
 
   const subContainer = document.getElementById('equip-subtabs');
   let cats = [];
-  if (tab === 'weapon') cats = [...new Set(WEAPON_DB.map(w => w.category))];
-  else if (tab === 'armor') cats = [...new Set(ARMOR_DB.map(a => a.category))];
+  if (_equipUseFvtt()) {
+    if (tab === 'weapon') cats = [...new Set(PF2eEquip.legacyList({type:'weapon'}).map(w => w.category))];
+    else if (tab === 'armor') cats = [...new Set(PF2eEquip.legacyList({type:'armor'}).map(a => a.category))];
+  } else {
+    if (tab === 'weapon') cats = [...new Set(WEAPON_DB.map(w => w.category))];
+    else if (tab === 'armor') cats = [...new Set(ARMOR_DB.map(a => a.category))];
+  }
 
   if (cats.length > 0) {
     subContainer.innerHTML = `<div class="equip-subtab active" onclick="switchEquipSubTab('')">전체</div>` +
@@ -2660,13 +2869,57 @@ function switchEquipSubTab(sub) {
   renderEquipBrowseItems();
 }
 
+// ── FVTT 장비 카탈로그 로드 게이트 (P3) ──
+let _equipDataReady = false;
+let _equipDataPromise = null;
+function _equipUseFvtt() { return typeof PF2eEquip !== 'undefined' && typeof PF2eData !== 'undefined' && _equipDataReady; }
+function _ensureEquipData() {
+  if (_equipDataReady) return Promise.resolve(true);
+  if (_equipDataPromise) return _equipDataPromise;
+  if (typeof PF2eData === 'undefined' || typeof PF2eEquip === 'undefined') return Promise.resolve(false);
+  _equipDataPromise = Promise.all([PF2eData.loadCategory('equipment'), PF2eEquip.init()])
+    .then(() => { _equipDataReady = true; return true; })
+    .catch(e => { console.warn('FVTT 장비 데이터 로드 실패 → 레거시 DB 사용', e); return false; });
+  return _equipDataPromise;
+}
+
 function renderEquipBrowseItems() {
+  // FVTT 카탈로그 사용 가능: 미로드면 로드 후 재렌더(로딩 표시), 로드됨이면 변환목록
+  if (typeof PF2eEquip !== 'undefined' && typeof PF2eData !== 'undefined') {
+    if (!_equipDataReady) {
+      const opts = document.getElementById('modal-options');
+      if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">장비 데이터 불러오는 중… (' + (typeof PF2eEquip.typeCounts === 'function' && _equipDataReady ? '' : '5,600여 종') + ')</div>';
+      _ensureEquipData().then(ok => { if (ok) renderEquipBrowseItems(); else _renderEquipBrowseLegacy(); });
+      return;
+    }
+    const q = (document.getElementById('modal-search')?.value || '').toLowerCase();
+    let items;
+    if (equipBrowseTab === 'weapon') items = PF2eEquip.legacyList({ type: 'weapon', search: q });
+    else if (equipBrowseTab === 'armor') items = PF2eEquip.legacyList({ type: 'armor', search: q });
+    else if (equipBrowseTab === 'shield') items = PF2eEquip.legacyList({ type: 'shield', search: q });
+    else { // gear: FVTT 일반 장비/소비품/보물/탄약/용기 + 레거시 룬(부착 시스템 보존)
+      items = PF2eEquip.legacyList({ search: q }).filter(i => i.damage === undefined && i.ac_bonus === undefined && i.hardness === undefined);
+      if (typeof RUNE_DB !== 'undefined') {
+        let runes = RUNE_DB;
+        if (q) runes = runes.filter(i => (i.name_ko || '').toLowerCase().includes(q) || (i.name_en || '').toLowerCase().includes(q));
+        items = [...runes, ...items];
+      }
+    }
+    if (equipBrowseSubTab) items = items.filter(i => i.category === equipBrowseSubTab);
+    renderOptions(items);
+    return;
+  }
+  _renderEquipBrowseLegacy();
+}
+
+// 레거시 DB 폴백 (PF2eEquip 미로드/로드실패 시)
+function _renderEquipBrowseLegacy() {
   let items = [];
   if (equipBrowseTab === 'weapon') items = [...WEAPON_DB];
   else if (equipBrowseTab === 'armor') items = [...ARMOR_DB];
   else if (equipBrowseTab === 'shield') items = [...SHIELD_DB];
   else if (equipBrowseTab === 'gear') items = [...GEAR_DB, ...(typeof RUNE_DB !== 'undefined' ? RUNE_DB : [])];
-  else items = [...GEAR_DB]; // fallback
+  else items = [...GEAR_DB];
 
   if (equipBrowseSubTab) items = items.filter(i => i.category === equipBrowseSubTab);
 
@@ -2722,11 +2975,21 @@ function showEquipDetail(item) {
     </div>`;
   }
 
+  // 플레이버/설명 (FVTT desc 또는 레거시 룬 desc). @UUID/@Damage 인라인 태그는 정리.
+  let descRaw = item.desc || item._desc || (item._runeData && item._runeData.desc) || '';
+  let descHtml = '';
+  if (descRaw) {
+    if (typeof PF2eData !== 'undefined' && PF2eData.enrichDesc) { try { descRaw = PF2eData.enrichDesc(descRaw); } catch (e) {} }
+    const rendered = (typeof resolveDescRefs === 'function') ? resolveDescRefs(descRaw) : descRaw;
+    descHtml = `<div class="modal-detail-desc" style="margin-top:10px;font-size:12px;line-height:1.6;border-top:1px solid var(--border);padding-top:10px;">${rendered}</div>`;
+  }
+
   detail.innerHTML = `
     <div class="modal-detail-back" onclick="document.getElementById('modal-body').classList.remove('detail-open')">← 목록으로</div>
     <div class="modal-detail-title">${nameKo}</div>
     <div class="modal-detail-en">${nameEn}</div>
     ${infoHtml}
+    ${descHtml}
     <div class="equip-give-buy">
       ${modalType === 'formula-pick'
         ? `<button class="btn-give" onclick="recordFormula('${nameKo.replace(/'/g,"\\'")}')">📜 제조법 기록</button>`
@@ -3584,8 +3847,8 @@ function renderPets() {
     const bardingCheckPen = bd ? bd.check : 0;
     const bardingDexCap = bd ? bd.dex : 99;
     el.innerHTML += `
-    <div class="box" style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+    <div class="box pet-card" style="margin-bottom:10px;">
+      <div class="pet-card-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
         <div>
           <span style="font-size:14px;font-weight:700;color:var(--accent);">${p.name}</span>
           <span style="font-size:10px;color:var(--text2);margin-left:6px;">${p.type||''}</span>
@@ -4141,4 +4404,41 @@ function toggleFamiliarAbility(petIdx, abilityId) {
   renderPets(); save();
   renderFamiliarAbilityList(petIdx);
 }
+
+// ═══════════════════════════════════════════════
+//  캐릭터 초상 (state.portrait) — 시트 아바타 + 맵 토큰 img 출처
+// ═══════════════════════════════════════════════
+function onPickPortrait() {
+  const inp = document.getElementById('portrait-input');
+  if (inp) { inp.value = ''; inp.click(); }
+}
+function onPortraitFile(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  if (typeof MapSync === 'undefined') { alert('이미지 처리를 불러올 수 없습니다.'); return; }
+  MapSync.resizeTokenImage(file).then(function(r) {
+    state.portrait = r.dataUrl;
+    renderPortrait();
+    save();
+    // 세션 중 내 토큰이 있으면 초상 즉시 반영
+    if (MapSync.isActive && MapSync.isActive() && !MapSync.isGM()) {
+      const mine = MapSync.myToken();
+      if (mine) MapSync.upsertToken(mine.id, { img: r.dataUrl });
+    }
+  }).catch(function(err) { console.error('[portrait]', err); alert('초상 업로드 실패: ' + err); });
+}
+function renderPortrait() {
+  const el = document.getElementById('char-portrait');
+  if (!el) return;
+  if (state.portrait) {
+    el.style.backgroundImage = 'url(' + state.portrait + ')';
+    el.classList.add('has-img');
+  } else {
+    el.style.backgroundImage = '';
+    el.classList.remove('has-img');
+  }
+}
+
+// 아이콘 맵 선로딩 (fetch는 DOM 불필요 — 즉시 시작, 로드 후 열린 탭 소급 렌더)
+_loadIconMap();
 

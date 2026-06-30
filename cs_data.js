@@ -5300,20 +5300,20 @@ const PREREQ_GROUPS = [
   {
     "group_id": "gid-harming-hands",
     "logic": "and",
-    "type": "feat",
-    "value": "해로운 원천"
+    "type": "divine_font",
+    "value": "harm"
   },
   {
     "group_id": "gid-healing-hands",
     "logic": "and",
-    "type": "feat",
-    "value": "치유 원천"
+    "type": "divine_font",
+    "value": "heal"
   },
   {
     "group_id": "gid-versatile-font",
     "logic": "and",
-    "type": "feat",
-    "value": "해로운/치유 원천"
+    "type": "divine_font",
+    "value": "either"
   },
   {
     "group_id": "gid-warpriests-armor",
@@ -5324,8 +5324,8 @@ const PREREQ_GROUPS = [
   {
     "group_id": "gid-sacred-ground",
     "logic": "and",
-    "type": "feat",
-    "value": "해로운/치유 원천"
+    "type": "divine_font",
+    "value": "either"
   },
   {
     "group_id": "gid-magic-hands",
@@ -5348,8 +5348,8 @@ const PREREQ_GROUPS = [
   {
     "group_id": "gid-restorative-channel",
     "logic": "and",
-    "type": "feat",
-    "value": "치유 원천"
+    "type": "divine_font",
+    "value": "heal"
   },
   {
     "group_id": "gid-castigating-weapon",
@@ -5360,8 +5360,8 @@ const PREREQ_GROUPS = [
   {
     "group_id": "gid-heroic-recovery",
     "logic": "and",
-    "type": "feat",
-    "value": "치유 원천"
+    "type": "divine_font",
+    "value": "heal"
   },
   {
     "group_id": "gid-shared-avoidance",
@@ -5414,8 +5414,8 @@ const PREREQ_GROUPS = [
   {
     "group_id": "gid-fast-channel",
     "logic": "and",
-    "type": "feat",
-    "value": "해로운/치유 원천"
+    "type": "divine_font",
+    "value": "either"
   },
   {
     "group_id": "gid-lasting-armament",
@@ -11907,6 +11907,7 @@ let state = {
   selectedAncestry: null,
   selectedBackground: null,
   selectedHeritage: null,
+  portrait: null,   // base64 초상 (시트 표시 + 맵 토큰 img 출처)
   // PF2e Remaster boost tracking
   boosts: {
     ancFixed: [],    // fixed from ancestry (auto)
