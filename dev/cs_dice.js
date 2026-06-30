@@ -104,20 +104,33 @@ const DiceRoller = (() => {
     return rollPool(label, modifier);
   }
 
-  // 유리/불리 굴림 — 2d20 중 높은(유리)/낮은(불리) 값 채택
-  function rollAdvDis(isDis) {
-    const r1 = roll(20), r2 = roll(20);
+  // 유리/불리 굴림 — 2d20 중 높은(유리)/낮은(불리) 값 채택 (합이 아니라 max/min)
+  function _buildAdvEntry(isDis, r1, r2) {
     const best = isDis ? Math.min(r1, r2) : Math.max(r1, r2);
     const entry = {
       label: isDis ? '불리 (2d20↓)' : '유리 (2d20↑)',
       dice: [{sides:20,value:r1},{sides:20,value:r2}],
       modifier: 0, total: best, time: new Date(),
-      isNat20: best === 20, isNat1: best === 1
+      isNat20: best === 20, isNat1: best === 1,
     };
     rollLog.unshift(entry); if (rollLog.length > MAX_LOG) rollLog.pop();
-    showRollAnimation(entry, () => showToast(entry));
-    if (_rollCallback) try { _rollCallback(entry); } catch(e) {}
-    if (logOpen) renderLog();
+    return entry;
+  }
+  function rollAdvDis(isDis) {
+    // 3D 물리 주사위 우선 (가능 시) — dice-box가 굴린 실제 d20 두 값을 사용. 실패하면 2D 폴백
+    if (typeof window !== 'undefined' && window.PFDice && window.PFDice.available && window.PFDice.available()) {
+      window.PFDice.roll([{ qty: 2, sides: 20 }]).then(res => {
+        if (!res || res.length < 2) throw new Error('빈 결과');
+        _emitEntry(_buildAdvEntry(isDis, res[0].value, res[1].value), false);   // 3D가 이미 굴렀으니 2D 애니 생략
+        setTimeout(() => { try { window.PFDice.clear(); } catch(e) {} }, 4500);
+      }).catch(e => {
+        console.warn('[DiceRoller] 3D 유리/불리 실패 → 2D 폴백', e);
+        _emitEntry(_buildAdvEntry(isDis, roll(20), roll(20)), true);
+      });
+      return;   // 비동기 처리 — 반환값 미사용
+    }
+    const entry = _buildAdvEntry(isDis, roll(20), roll(20));
+    _emitEntry(entry, true);
     return entry;
   }
 
