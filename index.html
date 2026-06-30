@@ -44,10 +44,10 @@ window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters'
                   sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
 window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
-<script src="equipment_db.js?v=0.13"></script>
-<script src="feat_db.js?v=0.13"></script>
-<script src="SPELL_DB.js?v=0.13"></script>
-<script src="class_features_db.js?v=0.13"></script>
+<script src="equipment_db.js?v=0.14"></script>
+<script src="feat_db.js?v=0.14"></script>
+<script src="SPELL_DB.js?v=0.14"></script>
+<script src="class_features_db.js?v=0.14"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -68,7 +68,7 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
   console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.13">
+<link rel="stylesheet" href="app-shell.css?v=0.14">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -232,6 +232,31 @@ body{
 .cl-date{font-size:10px;color:#888;}
 .cl-items{margin:0;padding-left:18px;font-size:12.5px;color:var(--text);line-height:1.6;}
 .cl-items li{margin:1px 0;}
+/* ═══ 버그 제보 모달 ═══ */
+#bugreport-modal{position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;}
+#bugreport-modal.open{display:flex;}
+#bugreport-modal .br-panel{background:var(--bg2);border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.5);width:440px;max-width:100%;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;}
+.br-header{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--border);}
+.br-title{font-weight:800;font-size:15px;color:var(--accent);}
+.br-close{background:transparent;border:none;color:var(--text2);font-size:18px;cursor:pointer;line-height:1;padding:2px 4px;}
+.br-close:hover{color:var(--accent);}
+.br-content{padding:14px 16px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1 1 auto;min-height:0;overscroll-behavior:contain;}
+.br-intro{font-size:12px;color:var(--text);line-height:1.7;background:var(--bg3);border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:6px;padding:10px 12px;margin-bottom:14px;}
+.br-label{display:block;font-size:11px;font-weight:700;color:var(--accent);margin:10px 0 4px;}
+.br-opt{font-weight:400;color:var(--text2);}
+.br-input,.br-textarea{width:100%;box-sizing:border-box;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;padding:8px 10px;font-family:inherit;}
+.br-input:focus,.br-textarea:focus{outline:none;border-color:var(--accent);}
+.br-textarea{resize:vertical;line-height:1.6;}
+.br-file{width:100%;font-size:12px;color:var(--text2);margin-top:2px;}
+.br-preview{margin-top:8px;}
+.br-preview img{max-width:100%;max-height:180px;border:1px solid var(--border);border-radius:6px;display:block;}
+.br-preview .br-imgmeta{font-size:10px;color:var(--text2);margin-top:3px;}
+.br-submit{width:100%;justify-content:center;margin-top:14px;background:var(--accent);color:#fff;border:none;font-weight:700;padding:10px;border-radius:6px;cursor:pointer;font-size:13px;}
+.br-submit:hover{filter:brightness(1.08);}
+.br-submit:disabled{opacity:.5;cursor:default;}
+.br-status{font-size:12px;text-align:center;margin-top:10px;min-height:16px;line-height:1.5;}
+.br-status.ok{color:#2e9e5b;}
+.br-status.err{color:#d05050;}
 /* .gear-update-dot · 톱니 has-update 레드닷 → app-shell.css(공유) */
 /* ── 방어 능력 박스 헤더의 아이콘 버튼 (휴식/상태이상) ── */
 .def-icon-btn{background:var(--bg4);border:1px solid var(--border2);color:var(--text2);width:26px;height:24px;border-radius:5px;cursor:pointer;font-size:13px;line-height:1;display:inline-flex;align-items:center;justify-content:center;margin-left:4px;transition:border-color .12s,color .12s;}
@@ -1860,6 +1885,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
   <button id="gear-sec-lobby" class="btn btn-ghost" style="width:100%;justify-content:center;display:none;" onclick="showModeSelect();">🔁 로비로 돌아가기</button>
   <button id="pwa-install-btn" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="pfInstallApp()">📲 웹앱 설치</button>
   <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="openChangelog()">📋 업데이트 로그<span id="gear-changelog-dot" class="gear-update-dot" style="display:none;"></span></button>
+  <button id="gear-bug-btn" class="btn btn-ghost" style="width:100%;justify-content:center;display:none;" onclick="openBugReport()">🐞 버그 제보</button>
 
   <!-- ═══ 플레이어 시트 (플레이어 모드에서만) ═══ -->
   <div id="gear-sec-player" style="display:none;">
@@ -1888,7 +1914,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.13</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.14</span></div>
 </div>
 
 <!-- ═══ 업데이트 로그 모달 ═══ -->
@@ -1899,6 +1925,28 @@ input::placeholder{ color:rgba(80,66,44,.55); }
       <button class="cl-close" onclick="closeChangelog()" aria-label="닫기">✕</button>
     </div>
     <div id="changelog-body" class="cl-content"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ 버그 제보 모달 (로그인 시) ═══════════════ -->
+<div id="bugreport-modal" onclick="if(event.target===this)closeBugReport()">
+  <div class="br-panel">
+    <div class="br-header">
+      <span class="br-title">🐞 버그 제보</span>
+      <button class="br-close" onclick="closeBugReport()" aria-label="닫기">✕</button>
+    </div>
+    <div class="br-content">
+      <div class="br-intro">각종 재주는 1인 개발이라 플레이테스트가 충분히 이루어지지 않은 상태라 많은 제보 부탁드립니다. 항상 감사합니다 :)</div>
+      <label class="br-label" for="br-name">제보자 이름</label>
+      <input id="br-name" class="br-input" type="text" maxlength="40" placeholder="닉네임 또는 이름">
+      <label class="br-label" for="br-body">내용</label>
+      <textarea id="br-body" class="br-textarea" rows="6" maxlength="3000" placeholder="어떤 화면에서, 무엇을 하다가, 어떤 문제가 생겼는지 적어주세요. (재현 방법이 있으면 큰 도움이 됩니다)"></textarea>
+      <label class="br-label" for="br-image">첨부 이미지 <span class="br-opt">(선택)</span></label>
+      <input id="br-image" class="br-file" type="file" accept="image/*" onchange="_onBugImage(event)">
+      <div id="br-image-preview" class="br-preview"></div>
+      <button id="br-submit" class="btn br-submit" onclick="submitBugReport()">제보 보내기</button>
+      <div id="br-status" class="br-status"></div>
+    </div>
   </div>
 </div>
 
@@ -2397,7 +2445,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.13" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.14" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2474,35 +2522,35 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.13"></script>
-<script src="cs_calc.js?v=0.13"></script>
+<script src="cs_data.js?v=0.14"></script>
+<script src="cs_calc.js?v=0.14"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.13"></script>
-<script src="cs_re_engine.js?v=0.13"></script>
-<script src="cs_pf2e_stats.js?v=0.13"></script>
-<script src="cs_pf2e_equip.js?v=0.13"></script>
-<script src="cs_pf2e_anc.js?v=0.13"></script>
-<script src="cs_pf2e_bg.js?v=0.13"></script>
-<script src="cs_pf2e_spell.js?v=0.13"></script>
-<script src="cs_pf2e_deity.js?v=0.13"></script>
-<script src="cs_pf2e_feat.js?v=0.13"></script>
-<script src="cs_pf2e_class.js?v=0.13"></script>
-<script src="cs_pf2e_actor.js?v=0.13"></script>
-<script src="cs_ui.js?v=0.13"></script>
-<script src="cs_modal.js?v=0.13"></script>
-<script src="cs_feat_effects.js?v=0.13"></script>
-<script src="cs_save.js?v=0.13"></script>
-<script src="cs_session.js?v=0.13"></script>
-<script src="cs_dice.js?v=0.13"></script>
-<script src="cs_map.js?v=0.13"></script>
+<script src="cs_pf2e.js?v=0.14"></script>
+<script src="cs_re_engine.js?v=0.14"></script>
+<script src="cs_pf2e_stats.js?v=0.14"></script>
+<script src="cs_pf2e_equip.js?v=0.14"></script>
+<script src="cs_pf2e_anc.js?v=0.14"></script>
+<script src="cs_pf2e_bg.js?v=0.14"></script>
+<script src="cs_pf2e_spell.js?v=0.14"></script>
+<script src="cs_pf2e_deity.js?v=0.14"></script>
+<script src="cs_pf2e_feat.js?v=0.14"></script>
+<script src="cs_pf2e_class.js?v=0.14"></script>
+<script src="cs_pf2e_actor.js?v=0.14"></script>
+<script src="cs_ui.js?v=0.14"></script>
+<script src="cs_modal.js?v=0.14"></script>
+<script src="cs_feat_effects.js?v=0.14"></script>
+<script src="cs_save.js?v=0.14"></script>
+<script src="cs_session.js?v=0.14"></script>
+<script src="cs_dice.js?v=0.14"></script>
+<script src="cs_map.js?v=0.14"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.13"></script>
-<script src="cs_i18n.js?v=0.13"></script>
+<script src="cs_locale.js?v=0.14"></script>
+<script src="cs_i18n.js?v=0.14"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.13');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.14');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2586,6 +2634,9 @@ document.addEventListener('click', function(e) {
 // ═══ 업데이트 로그 / 공지 (기어 메뉴) ═══
 // 최신순. 새 버전 작업 시 맨 앞에 {v, date, items:[...]} 추가(사용자 친화적 한글 문장).
 const CHANGELOG = [
+  { v: '0.14', date: '2026-06-30', items: [
+    '톱니(옵션) 메뉴에 “🐞 버그 제보”가 추가되었습니다(로그인 시 표시). 제보자 이름·내용과 함께 이미지를 첨부해 보낼 수 있습니다. 1인 개발이라 플레이테스트가 부족하니 많은 제보 부탁드립니다 :)',
+  ] },
   { v: '0.13', date: '2026-06-30', items: [
     '[버그 수정] 클래스 선택 모달에서 다른 클래스를 둘러볼 때, 직전에 선택해 둔 서브클래스(예: 클레릭 교의)의 특성(영역 입문 등)이 엉뚱한 클래스(챔피언 등)에 잘못 표시되던 문제를 고쳤습니다.',
   ] },
@@ -2688,6 +2739,83 @@ function closeChangelog() {
 }
 updateChangelogDot();
 
+// ═══════════════ 버그 제보 (Firestore 저장, 이미지 압축 포함) ═══════════════
+var _bugImageData = null;  // 압축된 dataURL (선택)
+function openBugReport() {
+  closeGearMenu();
+  if (!currentUser) { alert('버그 제보는 로그인 후 이용할 수 있습니다.'); return; }
+  const ov = document.getElementById('bugreport-modal');
+  if (!ov) return;
+  _bugImageData = null;
+  const nameEl = document.getElementById('br-name');
+  if (nameEl && !nameEl.value) nameEl.value = currentUser.displayName || '';
+  const bodyEl = document.getElementById('br-body'); if (bodyEl) bodyEl.value = '';
+  const imgEl = document.getElementById('br-image'); if (imgEl) imgEl.value = '';
+  const prev = document.getElementById('br-image-preview'); if (prev) prev.innerHTML = '';
+  const st = document.getElementById('br-status'); if (st) { st.textContent = ''; st.className = 'br-status'; }
+  const sub = document.getElementById('br-submit'); if (sub) { sub.disabled = false; sub.textContent = '제보 보내기'; }
+  ov.classList.add('open');
+}
+function closeBugReport() {
+  const ov = document.getElementById('bugreport-modal');
+  if (ov) ov.classList.remove('open');
+}
+function _onBugImage(event) {
+  const file = event.target.files && event.target.files[0];
+  const prev = document.getElementById('br-image-preview');
+  if (!file) { _bugImageData = null; if (prev) prev.innerHTML = ''; return; }
+  if (typeof MapSync === 'undefined' || !MapSync.resizeMapImage) {
+    // 압축기 없으면 원본 그대로(작은 파일만)
+    const r = new FileReader();
+    r.onload = () => { _bugImageData = r.result; if (prev) prev.innerHTML = '<img src="' + r.result + '">'; };
+    r.readAsDataURL(file); return;
+  }
+  if (prev) prev.innerHTML = '<span style="font-size:11px;color:var(--text2);">이미지 처리 중…</span>';
+  MapSync.resizeMapImage(file).then(function (res) {
+    _bugImageData = res.dataUrl;
+    const kb = Math.round((_bugImageData.length * 0.75) / 1024);
+    if (prev) prev.innerHTML = '<img src="' + _bugImageData + '"><div class="br-imgmeta">첨부됨 · 약 ' + kb + 'KB (자동 압축)</div>';
+  }).catch(function (err) {
+    console.error('[bug-image]', err);
+    _bugImageData = null;
+    if (prev) prev.innerHTML = '<span style="font-size:11px;color:#d05050;">이미지 처리 실패</span>';
+  });
+}
+function submitBugReport() {
+  const st = document.getElementById('br-status');
+  const sub = document.getElementById('br-submit');
+  const setStatus = (msg, cls) => { if (st) { st.textContent = msg; st.className = 'br-status' + (cls ? ' ' + cls : ''); } };
+  if (!currentUser) { setStatus('로그인이 필요합니다.', 'err'); return; }
+  const name = (document.getElementById('br-name')?.value || '').trim();
+  const body = (document.getElementById('br-body')?.value || '').trim();
+  if (!body) { setStatus('내용을 입력해주세요.', 'err'); return; }
+  // Firestore 문서 1MB 한도 — 이미지 포함 시 가드(약 900KB 초과면 제외)
+  let image = _bugImageData || null;
+  if (image && image.length > 920000) { image = null; setStatus('이미지가 너무 커서 제외하고 전송합니다…', ''); }
+  if (sub) { sub.disabled = true; sub.textContent = '전송 중…'; }
+  const payload = {
+    uid: currentUser.uid,
+    reporter: name || (currentUser.displayName || currentUser.email || '익명'),
+    email: currentUser.email || null,
+    body: body,
+    image: image,
+    env: (typeof PF_ENV !== 'undefined' ? PF_ENV : 'prod'),
+    version: String(typeof _changelogLatest === 'function' ? _changelogLatest() : ''),
+    ua: navigator.userAgent,
+    page: location.pathname,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  };
+  db.collection('bug_reports').add(payload).then(function () {
+    setStatus('제보가 접수되었습니다. 감사합니다! :)', 'ok');
+    if (sub) sub.textContent = '전송 완료';
+    setTimeout(closeBugReport, 1400);
+  }).catch(function (err) {
+    console.error('[bug-report]', err);
+    setStatus('전송 실패: ' + (err && err.message ? err.message : err), 'err');
+    if (sub) { sub.disabled = false; sub.textContent = '다시 시도'; }
+  });
+}
+
 // 헤더 기본 로고 텍스트 캡처(세션 미소속 시 복원용). 운영 배포 시 제거는 정적 HTML 기준.
 var _defaultBrand = (document.getElementById('hdr-brand') || {}).textContent || 'Pathforge';
 
@@ -2766,6 +2894,7 @@ function updateAuthUI(user) {
   const slotBar = document.getElementById('slot-bar');
   if (user) {
     currentUser = user;
+    { const _bb = document.getElementById('gear-bug-btn'); if (_bb) _bb.style.display = ''; }  // 버그 제보: 로그인 시 노출
     updateGmCardVisibility();   // 소유자면 모드선택에 GM 카드 노출
     // GM 세션 모드 감지 (?gmsession=ID)
     var gmSessionId = new URLSearchParams(window.location.search).get('gmsession');
@@ -2793,6 +2922,7 @@ function updateAuthUI(user) {
     }
   } else {
     currentUser = null;
+    { const _bb = document.getElementById('gear-bug-btn'); if (_bb) _bb.style.display = 'none'; }  // 버그 제보: 비로그인 숨김
     updateGmCardVisibility();   // 로그아웃/비로그인 시 GM 카드 숨김
     area.innerHTML = '<button class="btn btn-google" onclick="googleLogin()">Google 로그인</button>';
     slotBar.style.display = 'none';
