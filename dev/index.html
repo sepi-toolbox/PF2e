@@ -44,10 +44,10 @@ window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters'
                   sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
 window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
-<script src="equipment_db.js?v=0.2"></script>
-<script src="feat_db.js?v=0.2"></script>
-<script src="SPELL_DB.js?v=0.2"></script>
-<script src="class_features_db.js?v=0.2"></script>
+<script src="equipment_db.js?v=0.3"></script>
+<script src="feat_db.js?v=0.3"></script>
+<script src="SPELL_DB.js?v=0.3"></script>
+<script src="class_features_db.js?v=0.3"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1901,7 +1901,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.2</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.3</span></div>
 </div>
 
 <!-- ═══ 업데이트 로그 모달 ═══ -->
@@ -2410,7 +2410,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.2" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.3" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2487,29 +2487,29 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.2"></script>
-<script src="cs_calc.js?v=0.2"></script>
+<script src="cs_data.js?v=0.3"></script>
+<script src="cs_calc.js?v=0.3"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.2"></script>
-<script src="cs_re_engine.js?v=0.2"></script>
-<script src="cs_pf2e_stats.js?v=0.2"></script>
-<script src="cs_pf2e_equip.js?v=0.2"></script>
-<script src="cs_pf2e_actor.js?v=0.2"></script>
-<script src="cs_ui.js?v=0.2"></script>
-<script src="cs_modal.js?v=0.2"></script>
-<script src="cs_feat_effects.js?v=0.2"></script>
-<script src="cs_save.js?v=0.2"></script>
-<script src="cs_session.js?v=0.2"></script>
-<script src="cs_dice.js?v=0.2"></script>
-<script src="cs_map.js?v=0.2"></script>
+<script src="cs_pf2e.js?v=0.3"></script>
+<script src="cs_re_engine.js?v=0.3"></script>
+<script src="cs_pf2e_stats.js?v=0.3"></script>
+<script src="cs_pf2e_equip.js?v=0.3"></script>
+<script src="cs_pf2e_actor.js?v=0.3"></script>
+<script src="cs_ui.js?v=0.3"></script>
+<script src="cs_modal.js?v=0.3"></script>
+<script src="cs_feat_effects.js?v=0.3"></script>
+<script src="cs_save.js?v=0.3"></script>
+<script src="cs_session.js?v=0.3"></script>
+<script src="cs_dice.js?v=0.3"></script>
+<script src="cs_map.js?v=0.3"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.2"></script>
-<script src="cs_i18n.js?v=0.2"></script>
+<script src="cs_locale.js?v=0.3"></script>
+<script src="cs_i18n.js?v=0.3"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.2');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.3');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2593,6 +2593,9 @@ document.addEventListener('click', function(e) {
 // ═══ 업데이트 로그 / 공지 (기어 메뉴) ═══
 // 최신순. 새 버전 작업 시 맨 앞에 {v, date, items:[...]} 추가(사용자 친화적 한글 문장).
 const CHANGELOG = [
+  { v: '0.3', date: '2026-06-30', items: [
+    'GM 로비 헤더를 플레이어 시트·메인 로비와 완전히 동일한 스타일로 통일했습니다 (붉은 배너 + 우측 ⚙ 메뉴, 모드 선택·로그인은 ⚙ 메뉴 안으로 이동).',
+  ] },
   { v: '0.2', date: '2026-06-30', items: [
     '클래스 선택 모달의 목록에 클래스 아이콘이 표시되도록 고쳤습니다 (이전엔 📄 기본 아이콘만 나오고, 선택한 뒤에야 아이콘이 보였습니다).',
   ] },
