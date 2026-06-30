@@ -36,9 +36,28 @@
 // v533~ FEAT_EFFECTS 완전 제거 — 모든 효과는 FEAT_DB 신 컬럼에서 조립
 //  FEAT_DB row의 effect_group_id/auto_note/damage_note/choice_id를 조립해 def 객체 반환
 //  미등재(row 없음/효과 컬럼 모두 빈 값)면 null
+const _FVTT_FEAT_DEF_CACHE = new Map();
+function _fvttFeatDef(f) {
+  // FVTT-only 재주: system.rules → RE 엔진 → 레거시 effects 배열 (레벨/혈통/클래스 캐시키)
+  const lv = (typeof getLevel === 'function') ? getLevel() : 1;
+  const anc = state.selectedAncestry, cls = state.selectedClass;
+  const key = f.id + ':' + lv + ':' + (anc && anc.id) + ':' + (cls && cls.id);
+  if (_FVTT_FEAT_DEF_CACHE.has(key)) return _FVTT_FEAT_DEF_CACHE.get(key);
+  const abilities = {};
+  if (typeof getMod === 'function') for (const ab of ['str','dex','con','int','wis','cha']) abilities[ab] = getMod(ab);
+  const ctx = {
+    level: lv, abilities, ancestrySlug: anc && anc.id, classSlug: cls && cls.id,
+    ancestryTraits: (anc && anc._doc && anc._doc.system && anc._doc.system.traits && anc._doc.system.traits.value) || [],
+    choices: {},
+  };
+  let def = null;
+  try { const effects = PF2eFeat.featEffects(f._doc, ctx); if (effects && effects.length) def = { effects }; } catch (e) {}
+  _FVTT_FEAT_DEF_CACHE.set(key, def);
+  return def;
+}
 function _getFeatEffectsDef(nameEn) {
   if (!nameEn) return null;
-  if (typeof FEAT_DB !== 'undefined' && typeof getFeat === 'function') {
+  if (typeof getFeat === 'function') {
     const f = getFeat(nameEn);
     if (f && (f.effect_group_id || f.auto_note || f.damage_note || f.choice_id)) {
       // ── effects 재구성: 공통 효과 + 노트 ──
@@ -79,6 +98,10 @@ function _getFeatEffectsDef(nameEn) {
       if (choice) def.choice = choice;
       if (choiceEffects) def.choiceEffects = choiceEffects;
       return def;
+    }
+    // 레거시 효과 없음 + FVTT 재주(_reEffects) → RE 엔진으로 effects 조립
+    if (f && f._reEffects && typeof PF2eFeat !== 'undefined' && PF2eFeat.featEffects) {
+      return _fvttFeatDef(f);
     }
   }
   return null;

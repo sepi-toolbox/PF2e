@@ -2977,7 +2977,7 @@ function filterFeats() {
       if (ff && ff.name) _learnedNames.add(ff.name);
     });
 
-    return FEAT_DB.filter(f => {
+    return (typeof _allFeats === 'function' ? _allFeats() : FEAT_DB).filter(f => {
       if (!f) return false;
       if (q && !f.name_ko.includes(q) && !(f.name_en||'').toLowerCase().includes(q) && !(f.summary||'').includes(q)) return false;
       if (f.feat_level > maxLv) return false;
@@ -3007,7 +3007,7 @@ function filterFeats() {
   // 일반 모달 (재주 탭에서 직접 열기)
   const cat = document.getElementById('filter-feat-cat')?.value||'';
   const lv = parseInt(document.getElementById('filter-feat-lv')?.value||0);
-  return FEAT_DB.filter(f =>
+  return (typeof _allFeats === 'function' ? _allFeats() : FEAT_DB).filter(f =>
     (!cat || f.category===cat) &&
     (!lv || f.feat_level<=lv) &&
     (!q || f.name_ko.includes(q) || (f.name_en||'').toLowerCase().includes(q) || (f.summary||'').includes(q))

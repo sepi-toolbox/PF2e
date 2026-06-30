@@ -353,7 +353,21 @@ function getSpell(key) {
   }
   return typeof SPELL_DB !== 'undefined' ? _findInDb(SPELL_DB, key, ['id','name_en','name_ko']) : null;
 }
-function getFeat(key)  { return typeof FEAT_DB  !== 'undefined' ? _findInDb(FEAT_DB,  key, ['id','name_en','name_ko']) : null; }
+function getFeat(key)  {
+  // 레거시 FEAT_DB(검증된 효과) 우선, 미등재면 FVTT 재주 보강(P4 병합)
+  const leg = typeof FEAT_DB !== 'undefined' ? _findInDb(FEAT_DB, key, ['id','name_en','name_ko']) : null;
+  if (leg) return leg;
+  if (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) return PF2eFeat.getFeatLegacy(key);
+  return null;
+}
+// 병합 재주풀: 레거시 FEAT_DB + FVTT-only(슬러그 미중복). 모달/필터용.
+function _allFeats() {
+  const leg = (typeof FEAT_DB !== 'undefined') ? FEAT_DB : [];
+  if (typeof PF2eFeat === 'undefined' || !PF2eFeat.ready || !PF2eFeat.ready()) return leg;
+  const have = new Set(leg.map(f => f && f.id));
+  const extra = PF2eFeat.featList().filter(f => !have.has(f.id));
+  return leg.concat(extra);
+}
 function getAction(key){ return typeof ACTION_DB !== 'undefined' ? _findInDb(ACTION_DB, key, ['id','name_en','name_ko']) : null; }
 function getHeritage(key){
   // FVTT-native(P4) 우선, 미준비 시 레거시 HERITAGE_DB 폴백

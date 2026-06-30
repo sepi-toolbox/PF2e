@@ -579,6 +579,10 @@ window.onload = function() {
   if (typeof _ensureEquipData === 'function') _ensureEquipData();  // FVTT 장비 카탈로그 사전 로드 (첫 브라우즈 즉시 표시)
   if (typeof _ensureAncData === 'function') _ensureAncData();      // FVTT 혈통/유산/배경 카탈로그 사전 로드 (P4, 캐릭터 생성 1단계)
   if (typeof PF2eSpell !== 'undefined') PF2eSpell.init().catch(()=>{});  // FVTT 주문 카탈로그 사전 로드 (P4)
+  if (typeof PF2eFeat !== 'undefined') PF2eFeat.init().then(() => {        // FVTT 재주 카탈로그 + 교차참조 카테고리 (P4)
+    // GrantItem(재주→재주/주문/효과/행동) getByUuid 해소용 — 자동화 전 인덱스 보장
+    if (typeof PF2eData !== 'undefined') { PF2eData.loadCategory('effects').catch(()=>{}); PF2eData.loadCategory('actions').catch(()=>{}); }
+  }).catch(()=>{});
   _uiReady = true;
   _checkReady();
 };
