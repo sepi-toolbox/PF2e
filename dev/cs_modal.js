@@ -3155,7 +3155,7 @@ function renderOptions(data) {
 
     const rClass = `r${Math.min(levelNum, 10)}`;
     // FVTT 아이콘: modalType→scope 매핑 (없으면 📄)
-    const _scope = {spell:'spell',feat:'feat',heritage:'heritage',ancestry:'ancestry',background:'background',deity:'deity'}[modalType]
+    const _scope = {spell:'spell',feat:'feat',heritage:'heritage',ancestry:'ancestry',background:'background',deity:'deity',class:'class'}[modalType]
       || ((modalType||'').startsWith('equip') ? 'equipment' : null);
     const _ico = _scope && typeof iconImg === 'function' ? iconImg(_scope, item) : '';
     row.innerHTML = `
