@@ -12,6 +12,15 @@
 <meta name="apple-mobile-web-app-title" content="Pathforge">
 <link rel="apple-touch-icon" href="pwa/apple-touch-180.png">
 <link rel="icon" type="image/png" href="pwa/favicon-32.png">
+<script>
+/* 데브 빌드(/dev/)면 D 아이콘·매니페스트로 교체 — 운영(루트)은 P 유지 */
+if (location.pathname.includes('/dev/')) {
+  var _m=document.querySelector('link[rel="manifest"]'); if(_m)_m.href='manifest.dev.json';
+  var _i=document.querySelector('link[rel="icon"]'); if(_i)_i.href='pwa/favicon-dev-32.png';
+  var _a=document.querySelector('link[rel="apple-touch-icon"]'); if(_a)_a.href='pwa/apple-touch-dev-180.png';
+  var _t=document.querySelector('meta[name="apple-mobile-web-app-title"]'); if(_t)_t.content='Pathforge D';
+}
+</script>
 <script>if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(e){console.warn('[PWA SW]',e);});});</script>
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
