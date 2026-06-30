@@ -44,10 +44,10 @@ window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters'
                   sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
 window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
-<script src="equipment_db.js?v=1.0"></script>
-<script src="feat_db.js?v=1.0"></script>
-<script src="SPELL_DB.js?v=1.0"></script>
-<script src="class_features_db.js?v=1.0"></script>
+<script src="equipment_db.js?v=0.1"></script>
+<script src="feat_db.js?v=0.1"></script>
+<script src="SPELL_DB.js?v=0.1"></script>
+<script src="class_features_db.js?v=0.1"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -1881,6 +1881,12 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <button class="btn btn-save-now" style="width:100%;justify-content:center;" onclick="saveToCloud();">💾 지금 저장 (클라우드)</button>
     <div id="slot-bar" style="display:none;"></div>
     <div class="gear-box">
+      <div class="gear-box-label">데이터 백업 / 복원</div>
+      <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="exportCharacterBackup();">⬇ 현재 슬롯 내보내기 (JSON)</button>
+      <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="importCharacterBackup();">⬆ 파일에서 불러오기</button>
+      <input type="file" id="char-import-file" accept="application/json,.json" style="display:none;" onchange="_onImportFileSelected(event)">
+    </div>
+    <div class="gear-box">
       <div class="gear-box-label">3D 주사위 색상</div>
       <div id="dice-color-swatches" class="dice-swatches">
         <button class="dice-sw" data-c="" style="background:linear-gradient(135deg,#d9c8a2 50%,#8a6a1f 50%)" onclick="setDiceColor('')" title="테마 기본"></button>
@@ -1895,7 +1901,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v1.0</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.1</span></div>
 </div>
 
 <!-- ═══ 업데이트 로그 모달 ═══ -->
@@ -2404,7 +2410,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=1.0" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.1" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2481,29 +2487,29 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=1.0"></script>
-<script src="cs_calc.js?v=1.0"></script>
+<script src="cs_data.js?v=0.1"></script>
+<script src="cs_calc.js?v=0.1"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=1.0"></script>
-<script src="cs_re_engine.js?v=1.0"></script>
-<script src="cs_pf2e_stats.js?v=1.0"></script>
-<script src="cs_pf2e_equip.js?v=1.0"></script>
-<script src="cs_pf2e_actor.js?v=1.0"></script>
-<script src="cs_ui.js?v=1.0"></script>
-<script src="cs_modal.js?v=1.0"></script>
-<script src="cs_feat_effects.js?v=1.0"></script>
-<script src="cs_save.js?v=1.0"></script>
-<script src="cs_session.js?v=1.0"></script>
-<script src="cs_dice.js?v=1.0"></script>
-<script src="cs_map.js?v=1.0"></script>
+<script src="cs_pf2e.js?v=0.1"></script>
+<script src="cs_re_engine.js?v=0.1"></script>
+<script src="cs_pf2e_stats.js?v=0.1"></script>
+<script src="cs_pf2e_equip.js?v=0.1"></script>
+<script src="cs_pf2e_actor.js?v=0.1"></script>
+<script src="cs_ui.js?v=0.1"></script>
+<script src="cs_modal.js?v=0.1"></script>
+<script src="cs_feat_effects.js?v=0.1"></script>
+<script src="cs_save.js?v=0.1"></script>
+<script src="cs_session.js?v=0.1"></script>
+<script src="cs_dice.js?v=0.1"></script>
+<script src="cs_map.js?v=0.1"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=1.0"></script>
-<script src="cs_i18n.js?v=1.0"></script>
+<script src="cs_locale.js?v=0.1"></script>
+<script src="cs_i18n.js?v=0.1"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=1.0');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.1');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2587,9 +2593,10 @@ document.addEventListener('click', function(e) {
 // ═══ 업데이트 로그 / 공지 (기어 메뉴) ═══
 // 최신순. 새 버전 작업 시 맨 앞에 {v, date, items:[...]} 추가(사용자 친화적 한글 문장).
 const CHANGELOG = [
-  { v: '1.0', date: '2026-06-30', items: [
-    'Pathforge를 정식 버전으로 출시하고 전용 도메인(pathforge.kr)을 연결했습니다.',
-    '버전 표기를 개편했습니다 — 개발본은 0.x, 운영 출시본은 1.0부터 매겨집니다.',
+  { v: '0.1', date: '2026-06-30', items: [
+    'Pathforge 첫 공개 버전 — 전용 도메인(pathforge.kr)으로 오픈했습니다.',
+    '캐릭터 데이터 백업/복원 기능을 추가했습니다 (기어 메뉴 → 데이터 백업/복원: 현재 슬롯을 JSON 파일로 내보내고, 파일에서 다시 불러올 수 있습니다).',
+    '저장하면 저장 슬롯의 이름·시간 표시가 즉시 갱신되도록 고쳤습니다 (이전엔 새로고침해야 반영됨).',
   ] },
 ];
 const CHANGELOG_SEEN_KEY = 'pf2e_changelog_seen';
@@ -2946,6 +2953,73 @@ function renderSlotDropdown() {
       + '</button>';
   }
   dd.innerHTML = html;
+}
+
+// ── 저장 직후 현재 슬롯 메타 즉시 갱신 (껐다 켜야 갱신되던 문제 수정) ──
+function _refreshCurrentSlotMeta(data) {
+  try {
+    var num = (typeof currentSlot !== 'undefined' ? currentSlot : 'slot1').replace('slot', '');
+    var prev = _slotInfo[num] || {};
+    _slotInfo[num] = {
+      name: (data && data.fields && data.fields.name) || '',
+      level: (data && data.fields && data.fields.level) || null,
+      ancestry: (data && data.selectedAncestry) || null,
+      cls: (data && data.selectedClass) || null,
+      updatedAt: firebase.firestore.Timestamp.now(),
+      hasSession: prev.hasSession || false
+    };
+    updateSlotBar();
+    var dd = document.getElementById('slot-dropdown');
+    if (dd && dd.style.display === 'block') renderSlotDropdown();
+  } catch (e) { console.warn('[slotMeta]', e); }
+}
+
+// ── 데이터 백업: 현재 슬롯 캐릭터를 JSON 파일로 내보내기 ──
+function exportCharacterBackup() {
+  try {
+    if (typeof collectData !== 'function') return;
+    var data = collectData();
+    var name = (data.fields && data.fields.name) || '캐릭터';
+    var payload = { _pathforge: 'character', _format: 1, exportedAt: new Date().toISOString(), data: data };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var d = new Date(), p = function (n) { return n < 10 ? '0' + n : n; };
+    var stamp = '' + d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate());
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'pathforge_' + String(name).replace(/[^\w가-힣]+/g, '_') + '_' + stamp + '.json';
+    document.body.appendChild(a); a.click();
+    setTimeout(function () { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+    if (typeof closeGearMenu === 'function') closeGearMenu();
+  } catch (e) { alert('내보내기 실패: ' + e.message); }
+}
+
+// ── 데이터 복원: 파일 선택 → 현재 슬롯에 로드 ──
+function importCharacterBackup() {
+  var inp = document.getElementById('char-import-file');
+  if (inp) { inp.value = ''; inp.click(); }
+}
+function _onImportFileSelected(ev) {
+  var file = ev.target.files && ev.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function () {
+    var parsed;
+    try { parsed = JSON.parse(reader.result); } catch (e) { alert('JSON 파일을 읽을 수 없습니다.'); return; }
+    var data = (parsed && parsed.data && parsed.data.fields) ? parsed.data : parsed;  // 백업 래퍼 또는 raw data 모두 허용
+    if (!data || typeof data !== 'object' || !data.fields) { alert('올바른 캐릭터 백업 파일이 아닙니다.'); return; }
+    var nm = (data.fields && data.fields.name) || '이름 없음';
+    var curNum = (typeof currentSlot !== 'undefined' ? currentSlot : 'slot1').replace('slot', '');
+    if (!confirm('현재 슬롯 ' + curNum + '에 "' + nm + '" 데이터를 불러옵니다.\n현재 슬롯의 기존 내용은 덮어써집니다. 계속할까요?')) return;
+    try {
+      loadData(data);
+      if (typeof recalcAll === 'function') recalcAll();
+      setTimeout(function () { if (typeof autoSaveNow === 'function') autoSaveNow(); }, 60);  // 즉시 저장(슬롯 메타도 갱신)
+      if (typeof closeGearMenu === 'function') closeGearMenu();
+      alert('"' + nm + '" 불러오기 완료 (슬롯 ' + curNum + ').');
+    } catch (e) { alert('불러오기 실패: ' + e.message); console.error(e); }
+  };
+  reader.readAsText(file);
 }
 
 function loadSlotNames(uid) {
