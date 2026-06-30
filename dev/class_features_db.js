@@ -668,8 +668,8 @@ var DOMAIN_DB = {
   },
   "protection": {
     "name": "보호",
-    "initial": "protector-sacrifice",
-    "advanced": "protector-sphere"
+    "initial": "protectors-sacrifice",
+    "advanced": "protectors-sphere"
   },
   "secrecy": {
     "name": "비밀",
@@ -726,6 +726,110 @@ var DOMAIN_DB = {
     "name": "열의",
     "initial": "weapon-surge",
     "advanced": "zeal-for-battle"
+  },
+  "repose": {
+    "name": "휴식",
+    "initial": "share-burden",
+    "advanced": "font-of-serenity"
+  },
+  "sorrow": {
+    "name": "슬픔",
+    "initial": "lament",
+    "advanced": "overflowing-sorrow"
+  },
+  "star": {
+    "name": "스타",
+    "initial": "zenith-star",
+    "advanced": "asterism"
+  },
+  "duty": {
+    "name": "의무",
+    "initial": "oathkeepers-insignia",
+    "advanced": "dutiful-challenge"
+  },
+  "change": {
+    "name": "변경",
+    "initial": "adapt-self",
+    "advanced": "adaptive-ablation"
+  },
+  "vigil": {
+    "name": "비질",
+    "initial": "object-memory",
+    "advanced": "remember-the-lost"
+  },
+  "glyph": {
+    "name": "글리프",
+    "initial": "redact",
+    "advanced": "ghostly-transcription"
+  },
+  "time": {
+    "name": "시간",
+    "initial": "delay-consequence",
+    "advanced": "stasis"
+  },
+  "wyrmkin": {
+    "name": "웜킨",
+    "initial": "draconic-barrage"
+  },
+  "lightning": {
+    "name": "라이트닝",
+    "initial": "charged-javelin",
+    "advanced": "bottle-the-storm"
+  },
+  "cold": {
+    "name": "추위",
+    "initial": "winter-bolt",
+    "advanced": "diamond-dust"
+  },
+  "dust": {
+    "name": "먼지",
+    "initial": "parch",
+    "advanced": "dust-storm"
+  },
+  "toil": {
+    "name": "근면",
+    "initial": "practice-makes-perfect",
+    "advanced": "tireless-worker"
+  },
+  "naga": {
+    "name": "나가",
+    "initial": "split-the-tongue",
+    "advanced": "ordained-purpose"
+  },
+  "introspection": {
+    "name": "자기 성찰"
+  },
+  "decay": {
+    "name": "부패",
+    "initial": "withering-grasp",
+    "advanced": "fallow-field"
+  },
+  "plague": {
+    "name": "전염병",
+    "initial": "divine-plagues",
+    "advanced": "foul-miasma"
+  },
+  "swarm": {
+    "name": "무리",
+    "initial": "swarmsense",
+    "advanced": "swarm-form"
+  },
+  "delirium": {
+    "name": "섬망",
+    "advanced": "ephemeral-hazards"
+  },
+  "metal": {
+    "name": "금속",
+    "initial": "serrate",
+    "advanced": "repel-metal"
+  },
+  "wood": {
+    "name": "목재"
+  },
+  "abomination": {
+    "name": "혐오",
+    "initial": "lift-natures-caul",
+    "advanced": "fearful-feast"
   }
 };
 
