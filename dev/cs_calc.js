@@ -342,7 +342,17 @@ function _findInDb(db, key, fields) {
   return null;
 }
 
-function getSpell(key) { return typeof SPELL_DB !== 'undefined' ? _findInDb(SPELL_DB, key, ['id','name_en','name_ko']) : null; }
+// FVTT-native(P4) 주문 카탈로그 우선, 미준비 시 레거시 SPELL_DB 폴백
+function _allSpells() {
+  if (typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && PF2eSpell.ready()) return PF2eSpell.spellList();
+  return (typeof SPELL_DB !== 'undefined') ? SPELL_DB : [];
+}
+function getSpell(key) {
+  if (typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && PF2eSpell.ready()) {
+    const sp = PF2eSpell.getSpellLegacy(key); if (sp) return sp;
+  }
+  return typeof SPELL_DB !== 'undefined' ? _findInDb(SPELL_DB, key, ['id','name_en','name_ko']) : null;
+}
 function getFeat(key)  { return typeof FEAT_DB  !== 'undefined' ? _findInDb(FEAT_DB,  key, ['id','name_en','name_ko']) : null; }
 function getAction(key){ return typeof ACTION_DB !== 'undefined' ? _findInDb(ACTION_DB, key, ['id','name_en','name_ko']) : null; }
 function getHeritage(key){
@@ -1609,7 +1619,7 @@ function getSubclassAutoFeats(sub) {
 function getSubclassAutoSpells(sub) {
   if (!sub || !Array.isArray(sub.granted_spells)) return [];
   return sub.granted_spells.map(g => {
-    const sp = (typeof SPELL_DB !== 'undefined') ? SPELL_DB.find(x => x.id === g.spell_id) : null;
+    const sp = (typeof getSpell === 'function') ? getSpell(g.spell_id) : null;
     if (!sp) return null;
     const r = { lv: g.lv, type: g.type, name_ko: sp.name_ko, name_en: sp.name_en };
     if (g.rank !== undefined) r.rank = g.rank;

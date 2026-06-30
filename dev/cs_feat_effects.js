@@ -923,7 +923,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
           const isAdvanced = !!choiceDef.filterByInitiated;
           // DOMAIN_DB는 SPELL_DB.id 외래키 → SPELL_DB lookup
           const spellId = dom ? (isAdvanced ? dom.advanced : dom.initial) : null;
-          const spell = spellId && typeof SPELL_DB !== 'undefined' ? SPELL_DB.find(s => s.id === spellId) : null;
+          const spell = spellId && typeof getSpell === 'function' ? getSpell(spellId) : null;
           const spellName = spell ? spell.name_ko : null;
           if (detail2) {
             if (spell) {
@@ -951,18 +951,19 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
         container.appendChild(row);
       });
     }
-  } else if ((choiceDef.type === 'spell_cantrip' || choiceDef.type === 'spell_rank') && typeof SPELL_DB !== 'undefined') {
+  } else if ((choiceDef.type === 'spell_cantrip' || choiceDef.type === 'spell_rank') && typeof _allSpells === 'function' && _allSpells().length) {
     const tradition = choiceDef.tradition || 'arcane';
     const isRankSpell = choiceDef.type === 'spell_rank';
     const targetRank = choiceDef.rank || 1;
+    const _sp = _allSpells();
     let cantrips;
     if (isRankSpell) {
-      cantrips = SPELL_DB.filter(sp => !sp.is_cantrip && !sp.is_focus && sp.rank && sp.rank <= targetRank && sp.traditions && sp.traditions.includes(tradition));
+      cantrips = _sp.filter(sp => !sp.is_cantrip && !sp.is_focus && sp.rank && sp.rank <= targetRank && sp.traditions && sp.traditions.includes(tradition));
     } else if (tradition === 'any' || tradition === '$other') {
       const classTrad = state.selectedClass?.tradition || '';
-      cantrips = SPELL_DB.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && (!classTrad || !sp.traditions.includes(classTrad)));
+      cantrips = _sp.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && (!classTrad || !sp.traditions.includes(classTrad)));
     } else {
-      cantrips = SPELL_DB.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && sp.traditions.includes(tradition));
+      cantrips = _sp.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && sp.traditions.includes(tradition));
     }
     cantrips.sort((a,b) => (a.name_ko||'').localeCompare(b.name_ko||''));
 

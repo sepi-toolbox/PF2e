@@ -2321,13 +2321,13 @@ function _renderMemorizeDetail() {
         });
       }
     }
-  } else if (typeof SPELL_DB !== 'undefined') {
+  } else if (typeof _allSpells === 'function' && _allSpells().length) {
     // 클레릭/드루이드: 전통 목록 전체에서 선택
     let trad = state.selectedClass?.tradition || '';
     if (trad === 'any' && state.selectedSubclass && typeof PATRON_TRADITION !== 'undefined') {
       trad = PATRON_TRADITION[state.selectedSubclass.id] || trad;
     }
-    SPELL_DB.forEach(sp => {
+    _allSpells().forEach(sp => {
       if (sp.is_focus) return;
       if (isCantrip && !sp.is_cantrip) return;
       if (!isCantrip && (sp.is_cantrip || sp.rank > rank)) return;
@@ -3015,7 +3015,8 @@ function filterFeats() {
 }
 
 function filterSpells() {
-  if (typeof SPELL_DB==='undefined') return [];
+  const _spells = (typeof _allSpells === 'function') ? _allSpells() : (typeof SPELL_DB!=='undefined'?SPELL_DB:[]);
+  if (!_spells.length) return [];
   const q = document.getElementById('modal-search')?.value.toLowerCase()||'';
   // 위치: 후원자 전통 사용, 그 외: 클래스 전통
   let classTrad = state.selectedClass?.tradition || '';
@@ -3043,7 +3044,7 @@ function filterSpells() {
     }
   }
 
-  return SPELL_DB.filter(sp => {
+  return _spells.filter(sp => {
     // 클래스 전통 필터 (any면 모두 허용)
     if (classTrad && classTrad !== 'any' && sp.traditions && !sp.traditions.includes(classTrad)) return false;
     // 슬롯 타입별 필터
