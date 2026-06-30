@@ -833,6 +833,35 @@ function _infoResolveItem(type, name) {
   // 장비 인스턴스 매칭: 전체 이름 우선(등급 괄호 "(상급)" 등 보존), 실패 시 괄호 제거된 nameKo로.
   // (BASE 소비품의 ~49%는 한글명에 등급 괄호가 있어 ' (' split만으로는 매칭 실패 → "DB에 정보 없음" 버그)
   const _eqByName = (n) => state.equip?.find(e => e.name === n);
+  const nameEn0 = (name.match(/\(([^)]+)\)/) || [])[1] || '';
+
+  // ── 장비 설명 보장 (모달=획득 후 동일 정보) ──
+  // 획득 모달은 BASE 항목을 직접 보여주므로 설명이 있다. 획득 후엔 _infoResolveItem이
+  // 레거시 DB를 먼저 보는데, 레거시에 desc가 없으면 설명이 비어 "DB에 정보 없음"이 떴다.
+  // → 인스턴스 _data(획득 시 저장한 모달 원본) → BASE 카탈로그(PF2eEquip) 순으로 항상 설명을 채운다.
+  if (['gear', 'rune', 'weapon', 'armor', 'shield'].includes(type)) {
+    const inst = _eqByName(name) || _eqByName(nameKo);
+    const lacksDesc = !item || (!item.desc && !item.summary);
+    // 1) 인스턴스 _data 우선
+    if (lacksDesc && inst && inst._data) {
+      const dd = inst._data;
+      if (dd.desc || dd._desc || dd.summary) {
+        item = { ...(item || {}), ...dd, name_ko: (item && item.name_ko) || dd.name_ko || nameKo, name_en: (item && item.name_en) || dd.name_en || nameEn0, desc: dd.desc || dd._desc || dd.summary };
+      }
+    } else if (lacksDesc && inst && inst._desc) {
+      item = { ...(item || { name_ko: nameKo, name_en: nameEn0 }), summary: inst._desc };
+    }
+    // 2) 그래도 설명 없으면 BASE 카탈로그에서 이름으로 조회 (구버전 저장·_data 미보유 커버)
+    if ((!item || (!item.desc && !item.summary)) && typeof PF2eEquip !== 'undefined' && typeof PF2eEquip.legacyList === 'function') {
+      try {
+        const cand = PF2eEquip.legacyList({ search: nameKo });
+        const hit = cand.find(c => c.name_ko === name) || cand.find(c => c.name_ko === nameKo)
+                 || cand.find(c => (c.name_ko || '').startsWith(nameKo)) || (cand.length === 1 ? cand[0] : null);
+        if (hit && (hit.desc || hit._desc)) item = { ...(item || {}), ...hit, name_ko: (item && item.name_ko) || hit.name_ko, name_en: (item && item.name_en) || hit.name_en || nameEn0, desc: hit.desc || hit._desc };
+      } catch (e) {}
+    }
+  }
+
   // 파손된 장비인지 확인하여 수치 조정
   const brokenEquip = state.equip?.find(e => (e.name === name || e.name === nameKo) && e._broken);
   if (item && brokenEquip) {

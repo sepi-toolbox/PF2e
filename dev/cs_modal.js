@@ -4648,6 +4648,9 @@ function clearCoreSelection(type) {
     resetFromClass();
     const btn = document.getElementById('btn-class');
     if (btn) { btn.textContent = '클래스 선택...'; btn.classList.remove('filled'); }
+    // 파생 스탯·재주 탭 갱신 — 안 하면 클래스 특성/숙련도 잔상이 남음(예: 메이거스 해제 후에도 특성 잔류)
+    recalcAll();
+    renderFeats();
     renderGrowthPlan();
     save();
   } else if (type === 'ancestry') {
@@ -4656,6 +4659,8 @@ function clearCoreSelection(type) {
     resetFromAncestry();
     const btn = document.getElementById('btn-ancestry');
     if (btn) { btn.textContent = '혈통 선택...'; btn.classList.remove('filled'); }
+    recalcAll();
+    renderFeats();
     renderGrowthPlan();
     save();
   } else if (type === 'background') {
@@ -4664,6 +4669,8 @@ function clearCoreSelection(type) {
     resetFromBackground();
     const btn = document.getElementById('btn-background');
     if (btn) { btn.textContent = '배경 선택...'; btn.classList.remove('filled'); }
+    recalcAll();
+    renderFeats();
     renderGrowthPlan();
     save();
   } else if (type === 'heritage') {
