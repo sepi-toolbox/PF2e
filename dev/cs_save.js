@@ -330,8 +330,9 @@ function loadData(d) {
         }
       }
     }
+    const _ancReady = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready());
     if (d.selectedAncestry) {
-      state.selectedAncestry = ANCESTRIES.find(a=>a.id===d.selectedAncestry)||null;
+      state.selectedAncestry = (_ancReady && PF2eAnc.getAncestryLegacy(d.selectedAncestry)) || ANCESTRIES.find(a=>a.id===d.selectedAncestry)||null;
       if (state.selectedAncestry) {
         const btn = document.getElementById('btn-ancestry');
         if (btn) { btn.textContent = `${state.selectedAncestry.name} (${state.selectedAncestry.en})`; btn.classList.add('filled'); }
@@ -345,7 +346,7 @@ function loadData(d) {
       }
     }
     if (d.selectedHeritage) {
-      state.selectedHeritage = HERITAGE_DB.find(h=>h.id===d.selectedHeritage)||null;
+      state.selectedHeritage = (_ancReady && PF2eAnc.getHeritageLegacy(d.selectedHeritage)) || HERITAGE_DB.find(h=>h.id===d.selectedHeritage)||null;
       if (state.selectedHeritage) {
         const btn = document.getElementById('btn-heritage');
         if (btn) { btn.textContent = state.selectedHeritage.name_ko; btn.classList.add('filled'); }
@@ -576,6 +577,7 @@ window.onload = function() {
   renderPortrait();
   if (typeof MapView !== 'undefined') MapView.init();  // 지도 onChange/프로비저닝 구독 (세션 입장 시 동작)
   if (typeof _ensureEquipData === 'function') _ensureEquipData();  // FVTT 장비 카탈로그 사전 로드 (첫 브라우즈 즉시 표시)
+  if (typeof _ensureAncData === 'function') _ensureAncData();      // FVTT 혈통/유산 카탈로그 사전 로드 (P4, 캐릭터 생성 1단계)
   _uiReady = true;
   _checkReady();
 };

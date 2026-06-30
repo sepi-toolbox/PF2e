@@ -153,21 +153,17 @@ function applyFeatEffects() {
     }
   });
 
-  // vision_upgrade: 재주 부여 시야 초기화 → 혈통/유산 기본값 복원 (v526~ enum)
-  if (state._featVisionUpgrade) {
-    state.vision = state.selectedAncestry?.vision || 'none';
+  // 시야: 매 사이클 혈통 기본 → 유산 업그레이드 재적용 (재주 시야는 아래 효과 루프에서 max로 적용)
+  // (v0.5 P4: 유산 단독 시야[동굴 엘프 등]가 _featVisionUpgrade 게이트에 막혀 미적용되던 버그 수정 — 항상 재계산)
+  state.vision = state.selectedAncestry?.vision || 'none';
+  {
     const _hv = (typeof getHeritageEffects === 'function' ? getHeritageEffects(state.selectedHeritage).vision : null);
-    if (_hv) {
-      const hv = _hv;
-      if (hv === 'upgrade') {
-        // 저광 시야 부여, 이미 저광이면 암시야로 업그레이드
-        if (state.vision === 'low-light') state.vision = 'darkvision';
-        else if (state.vision !== 'darkvision') state.vision = 'low-light';
-      } else {
-        if ((VISION_RANK[hv]||0) > (VISION_RANK[state.vision]||0)) state.vision = hv;
-      }
+    if (_hv === 'upgrade') {
+      if (state.vision === 'low-light') state.vision = 'darkvision';
+      else if (state.vision !== 'darkvision') state.vision = 'low-light';
+    } else if (_hv && (VISION_RANK[_hv]||0) > (VISION_RANK[state.vision]||0)) {
+      state.vision = _hv;
     }
-    state._featVisionUpgrade = false;
   }
 
   // 모든 재주 카테고리 순회
@@ -379,8 +375,8 @@ function _applyOneEffect(fb, eff, feat, level) {
       break;
     }
     case 'vision_upgrade': {
-      state.vision = eff.vision;
-      state._featVisionUpgrade = true;
+      // 재주 시야는 현재 시야(혈통/유산 포함)보다 높을 때만 적용 (다운그레이드 방지)
+      if ((VISION_RANK[eff.vision]||0) > (VISION_RANK[state.vision]||0)) state.vision = eff.vision;
       break;
     }
     case 'unburdened_iron': {
@@ -1030,13 +1026,14 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       };
       container.appendChild(row);
     });
-  } else if (choiceDef.type === 'ancestry_pick' && typeof ANCESTRIES !== 'undefined') {
+  } else if (choiceDef.type === 'ancestry_pick' && (typeof PF2eAnc !== 'undefined' || typeof ANCESTRIES !== 'undefined')) {
     // 혈통 선택 모달 — 이미 선택한 혈통과 내 혈통 제외
+    const _ancAll = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready()) ? PF2eAnc.ancestryList() : ANCESTRIES;
     const myAnc = state.selectedAncestry?.id || '';
     const alreadyAdopted = Object.values(state.feats).flat()
       .filter(f => f && f.name && f.name.includes('양자 혈통') && f.choice)
       .map(f => f.choice);
-    const available = ANCESTRIES.filter(a => a.id !== myAnc && !alreadyAdopted.includes(a.id));
+    const available = _ancAll.filter(a => a.id !== myAnc && !alreadyAdopted.includes(a.id));
 
     if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; searchEl.oninput = () => {
       const q = searchEl.value.toLowerCase();

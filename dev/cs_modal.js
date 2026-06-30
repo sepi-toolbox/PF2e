@@ -2551,6 +2551,12 @@ function openModal(type, ctx) {
   // 부스트 모달은 별도 처리
   if (type === 'boost') { openBoostModal(); return; }
 
+  // FVTT 혈통/유산 데이터 미준비 시: 폴백으로 일단 열고, 로드 완료되면 FVTT 전체 목록으로 재오픈
+  if ((type === 'ancestry' || type === 'heritage') && typeof PF2eAnc !== 'undefined'
+      && PF2eAnc.ready && !PF2eAnc.ready() && typeof _ensureAncData === 'function') {
+    _ensureAncData().then(ok => { if (ok && PF2eAnc.ready() && modalType === type) openModal(type, ctx); });
+  }
+
   document.getElementById('modal-overlay').classList.remove('hidden');
   document.getElementById('modal-search').value = '';
 
@@ -2611,10 +2617,16 @@ function _searchFilter(arr) {
 }
 
 function getOptionsData(type) {
+  const _ancReady = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready());
   if (type==='class') return CLASSES;
-  if (type==='ancestry') return ANCESTRIES;
+  if (type==='ancestry') return _ancReady ? PF2eAnc.ancestryList() : ANCESTRIES;
   if (type==='background') return BACKGROUNDS;
   if (type==='heritage') {
+    if (_ancReady) {
+      const ancId = state.selectedAncestry && state.selectedAncestry.id;
+      // ancestry==null = 다목적 유산(네피림/체인질링/댐피르 등) → 항상 노출. 연결형은 선택 혈통 매칭
+      return PF2eAnc.heritageList().filter(h => h.ancestry == null || !ancId || h.ancestry === ancId);
+    }
     const hasVersatile = Object.values(state.feats).flat().some(f => f?.name?.includes('다재다능한 유산'));
     return HERITAGE_DB.filter(h => {
       if (h.ancestry === '*') return true; // 다목적 유산 (네피림, 체인질링 등)은 항상 표시
@@ -5023,7 +5035,9 @@ function _summarizeAncestryExtras(anc) {
   const lines = [];
   if (anc.grantWeapon) {
     const w = (typeof getWeapon === 'function') ? getWeapon(anc.grantWeapon) : null;
-    lines.push(`무료 획득: ${w?.name_ko || anc.grantWeapon}`);
+    // FVTT 혈통 내장 items가 무기가 아닐 수 있음 → 무기로 해소될 때만 표시(레거시 데이터는 항상 표시)
+    if (w) lines.push(`무료 획득: ${w.name_ko}`);
+    else if (!anc._fvtt) lines.push(`무료 획득: ${anc.grantWeapon}`);
   }
   for (const fid of (anc.features || [])) {
     const f = (typeof getFeat === 'function') ? getFeat(fid) : null;

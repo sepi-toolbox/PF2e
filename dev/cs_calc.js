@@ -345,7 +345,14 @@ function _findInDb(db, key, fields) {
 function getSpell(key) { return typeof SPELL_DB !== 'undefined' ? _findInDb(SPELL_DB, key, ['id','name_en','name_ko']) : null; }
 function getFeat(key)  { return typeof FEAT_DB  !== 'undefined' ? _findInDb(FEAT_DB,  key, ['id','name_en','name_ko']) : null; }
 function getAction(key){ return typeof ACTION_DB !== 'undefined' ? _findInDb(ACTION_DB, key, ['id','name_en','name_ko']) : null; }
-function getHeritage(key){ return typeof HERITAGE_DB !== 'undefined' ? _findInDb(HERITAGE_DB, key, ['id','name_en','name_ko']) : null; }
+function getHeritage(key){
+  // FVTT-native(P4) 우선, 미준비 시 레거시 HERITAGE_DB 폴백
+  if (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready()) {
+    const h = PF2eAnc.getHeritageLegacy(key) || _findInDb(PF2eAnc.heritageList(), key, ['id','name_en','name_ko']);
+    if (h) return h;
+  }
+  return typeof HERITAGE_DB !== 'undefined' ? _findInDb(HERITAGE_DB, key, ['id','name_en','name_ko']) : null;
+}
 function getWeapon(key){ return typeof WEAPON_DB !== 'undefined' ? _findInDb(WEAPON_DB, key, ['id','name_en','name_ko']) : null; }
 function getArmor(key) { return typeof ARMOR_DB !== 'undefined' ? _findInDb(ARMOR_DB, key, ['id','name_en','name_ko']) : null; }
 function getShield(key){ return typeof SHIELD_DB !== 'undefined' ? _findInDb(SHIELD_DB, key, ['id','name_en','name_ko']) : null; }
@@ -405,6 +412,22 @@ function getPrereqRows(groupId) {
 const _HERITAGE_EFFECTS_CACHE = new Map();
 function getHeritageEffects(h) {
   if (!h) return {};
+  // ── FVTT-native(P4): system.rules → RE 엔진. 레벨/능력치 의존이라 입력값 캐시키 ──
+  if (h._reEffects && typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready()) {
+    const lv = (typeof getLevel === 'function') ? getLevel() : 1;
+    const abilities = {};
+    if (typeof getMod === 'function') for (const ab of ['str','dex','con','int','wis','cha']) abilities[ab] = getMod(ab);
+    const anc = state.selectedAncestry;
+    const ancTraitsV = (anc && anc._doc && anc._doc.system && anc._doc.system.traits && anc._doc.system.traits.value) || [];
+    const key = 're:' + (h.id || '') + ':' + lv + ':' + abilities.con + ':' + abilities.int;
+    if (_HERITAGE_EFFECTS_CACHE.has(key)) return _HERITAGE_EFFECTS_CACHE.get(key);
+    const herDoc = h._doc || (PF2eAnc.getHeritageLegacy(h.id || '') || {})._doc;
+    const out = herDoc ? PF2eAnc.heritageEffects(herDoc, {
+      level: lv, abilities, ancestrySlug: anc && anc.id, ancestryTraits: ancTraitsV, choices: state._heritageChoices || {},
+    }) : {};
+    _HERITAGE_EFFECTS_CACHE.set(key, out);
+    return out;
+  }
   const id = h.id || '';
   if (_HERITAGE_EFFECTS_CACHE.has(id)) return _HERITAGE_EFFECTS_CACHE.get(id);
   const out = {};
@@ -2104,6 +2127,7 @@ function renderResistances() {
   // 향후 확장 가능
 
   if (resistances.length === 0) {
+    list.innerHTML = '';   // 이전 유산의 잔여 저항 태그 제거 (유산 변경 시 stale 방지)
     wrap.style.display = 'none';
     return;
   }
