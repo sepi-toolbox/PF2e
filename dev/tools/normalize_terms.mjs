@@ -39,6 +39,7 @@ const G = {
   skill: parseSection('기술 (Skills)'),
   attribute: parseSection('능력치 (Attributes)'),
   creatureType: parseSection('생물 유형'),
+  action: parseSection('주요 행동'),
   save: {}, // 내성: 아래 수동(용어집 "기본 내성" 형식이라 개별 없음)
 };
 // 능력치 En→약어 매핑(cs_data는 con/dex... 슬러그 사용)
@@ -111,17 +112,55 @@ const writes = {}; // path -> new content
   writes.__nameMap = nameMap;
 }
 
+// (e) overlay/actions.ko.json : name = 용어집 주요행동
+{
+  const p = 'data/overlay/actions.ko.json'; const j = JSON.parse(fs.readFileSync(path.join(DEV, p), 'utf8'));
+  const actBySlug = {}; for (const en in G.action) actBySlug[slugify(en)] = G.action[en];
+  for (const slug in j) { const ko = actBySlug[slug]; if (ko && j[slug] && j[slug].name) j[slug].name = chg(p, 'action', slug, j[slug].name, ko); }
+  writes[p] = JSON.stringify(j, null, 1) + '\n';
+}
+// (f) data/derived/system_terms.json : name_ko(damage_type/skill/ability/rarity)
+{
+  const p = 'data/derived/system_terms.json'; const j = JSON.parse(fs.readFileSync(path.join(DEV, p), 'utf8'));
+  const rarityBySlug = {}; for (const en of ['Rare', 'Uncommon', 'Common', 'Unique']) if (G.trait[en]) rarityBySlug[en.toLowerCase()] = G.trait[en];
+  for (const r of j.rows) {
+    const k = r.type, en = (r.name_en || '').trim(), sl = r.slug; let ko = null;
+    if (k === 'damage_type') ko = damageBySlug[sl] || G.damage[en];
+    else if (k === 'skill') { const e = Object.keys(G.skill).find(x => slugify(x) === sl); ko = e && G.skill[e]; }
+    else if (k === 'ability') ko = abilityBySlug[sl];
+    else if (k === 'rarity') ko = rarityBySlug[sl];
+    if (ko && r.name_ko) r.name_ko = chg(p, k, sl, r.name_ko, ko);
+  }
+  writes[p] = JSON.stringify(j, null, 1) + '\n';
+}
+// (g) 조건 @UUID 라벨 정본화: 라벨을 id→slug→용어집 정본으로 교체.
+// ⚠ 안전: 라벨 내부에 중괄호/대괄호({},[])가 없는 '단순 텍스트 라벨'만 매칭([[/act ...]] 매크로 임베드 라벨은 건드리지 않음 — 경계오인 손상 방지).
+const condId = {}; for (const x of baseArr('data/base/conditions.base.json')) { if (x._id && x.system && x.system.slug) condId[x._id] = x.system.slug; }
+const canonBySlug = {}; for (const slug in condSlugEn) { const ko = G.condition[condSlugEn[slug]]; if (ko) canonBySlug[slug] = ko; }
+let labelCount = 0;
+function labelSweep(text) {
+  return text.replace(/@UUID\[Compendium\.pf2e\.conditionitems\.Item\.(\w+)\]\{([^{}\[\]]*)\}/g, (m, id, label) => {
+    const slug = condId[id]; const canon = slug && canonBySlug[slug]; if (!canon) return m;
+    const num = label.match(/\s(\d+)\s*$/); const nl = canon + (num ? ' ' + num[1] : '');
+    if (nl !== label) labelCount++;
+    return `@UUID[Compendium.pf2e.conditionitems.Item.${id}]{${nl}}`;
+  });
+}
+const LABEL_FILES = ['data/overlay/feats.ko.json', 'data/overlay/spells.ko.json', 'data/overlay/actions.ko.json', 'data/overlay/effects.ko.json', 'data/overlay/equipment.ko.json', 'data/overlay/conditions.ko.json', 'data/overlay/heritages.ko.json', 'data/overlay/backgrounds.ko.json', 'data/overlay/deities.ko.json', 'data/overlay/ancestries.ko.json', 'data/overlay/classes.ko.json', 'data/derived/localize.ko.json', 'data/derived/traits.json', 'data/creatures/_trait_desc.ko.json', 'data/creatures/_glossary.ko.json', 'cs_data.js', 'data/overlay/_lang.ko.json'];
+for (const p of LABEL_FILES) { let t = writes[p] !== undefined ? writes[p] : fs.readFileSync(path.join(DEV, p), 'utf8'); writes[p] = labelSweep(t); }
+
 // ── 4) 로그 출력 ──
 const byCat = {}; for (const l of LOG) byCat[l.cat] = (byCat[l.cat] || 0) + 1;
 console.log('=== 정본 용어집 파싱 ===');
 console.log('condition', Object.keys(G.condition).length, '· trait', Object.keys(G.trait).length, '· damage', Object.keys(G.damage).length, '· skill', Object.keys(G.skill).length, '· creatureType', Object.keys(G.creatureType).length);
 console.log('=== 변경 예정', LOG.length, '건 ===', JSON.stringify(byCat));
 for (const l of LOG) console.log(`  [${l.cat}] ${l.file} :: ${l.key} : "${l.from}" → "${l.to}"`);
+console.log('=== 조건 @UUID 라벨(단순) 정본화:', labelCount, '건 ===');
 
 if (APPLY) {
   const stamp = process.env.NORM_DATE || '2026-07-01';
   let logMd = `# 번역 정규화 로그 (핵심 기계용어 → 정본 용어집)\n\n정본 = _glossary/Pathfinder2e.md. 생성 = tools/normalize_terms.mjs. 날짜 ${stamp}.\n\n`;
-  logMd += `총 ${LOG.length}건. 카테고리별: ${JSON.stringify(byCat)}\n\n`;
+  logMd += `총 ${LOG.length}건(name). 카테고리별: ${JSON.stringify(byCat)}\n조건 @UUID 단순라벨 정본화: ${labelCount}건.\n\n`;
   const grp = {}; for (const l of LOG) (grp[l.cat] = grp[l.cat] || []).push(l);
   for (const cat in grp) { logMd += `## ${cat} (${grp[cat].length})\n\n| 파일 | 키 | 기존 | 정본 |\n|---|---|---|---|\n`; for (const l of grp[cat]) logMd += `| ${l.file} | ${l.key} | ${l.from} | ${l.to} |\n`; logMd += '\n'; }
   delete writes.__nameMap;
