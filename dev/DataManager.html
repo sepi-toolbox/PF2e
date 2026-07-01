@@ -127,7 +127,16 @@ const DM = (function(){
        cols:['slug','class','subclass_type','name_en','name_ko','grants','rules_n'], editable:['name_ko']},
     {id:'class_progression', label:'클래스성장(파생)', kind:'derived', src:'data/derived/class_progression.json', shape:'rows',
        cols:['class','cp_name','level','perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting','_src']},
-    {id:'config',     label:'config',   config:true, cols:[]},
+    {id:'creatures',  label:'크리처',   kind:'derived', src:'data/derived/creatures.json', shape:'rows',
+       cols:['id','name_en','name_ko','level','size','ac','hp','fort','ref','will','perception','traits','n_strikes','n_abilities','n_spells','pack']},
+    {id:'hazards',    label:'해저드',   kind:'derived', src:'data/derived/hazards.json', shape:'rows',
+       cols:['id','name_en','name_ko','level','complex','ac','hardness','hp','stealth','fort','ref','will','traits']},
+    {id:'creature_strikes', label:'크리처공격', kind:'derived', src:'data/derived/creature_strikes.json', shape:'rows',
+       cols:['owner','owner_ko','strike','strike_ko','type','bonus','damage','traits','pack']},
+    {id:'creature_abilities', label:'크리처능력', kind:'derived', src:'data/derived/creature_abilities.json', shape:'rows',
+       cols:['owner','owner_ko','ability','ability_ko','actions','category','traits','pack']},
+    {id:'system_terms', label:'시스템용어', kind:'derived', src:'data/derived/system_terms.json', shape:'rows',
+       cols:['type','slug','name_en','name_ko','desc','ref']},
   ];
 
   // ---- 컬럼 메타(라벨/폭/정렬유형) ----
@@ -149,6 +158,12 @@ const DM = (function(){
     desc_ko:{h:'설명',w:340,edit:true}, has_desc:{h:'설명有',w:56,cls:'num'},
     class:{h:'클래스',w:100,cls:'key'}, cp_name:{h:'한글명',w:100}, _src:{h:'증가원(특성)',w:220},
     subclass_type:{h:'서브클래스종류',w:120}, is_subclass:{h:'서브',w:44,cls:'num'}, grants:{h:'부여',w:44,cls:'num'}, tag:{h:'태그',w:140,cls:'key'},
+    id:{h:'id',w:150,cls:'key'}, pack:{h:'팩',w:110,cls:'key'}, traits:{h:'특성',w:200}, size:{h:'크기',w:56}, ac:{h:'AC',w:44,cls:'num'},
+    fort:{h:'인내',w:44,cls:'num'}, n_strikes:{h:'공격',w:44,cls:'num'}, n_abilities:{h:'능력',w:44,cls:'num'}, n_spells:{h:'주문',w:44,cls:'num'},
+    complex:{h:'복합',w:44,cls:'num'}, hardness:{h:'경도',w:44,cls:'num'}, stealth:{h:'은신',w:44,cls:'num'},
+    owner:{h:'소유(크리처)',w:150,cls:'key'}, owner_ko:{h:'크리처(한글)',w:130}, strike:{h:'공격명',w:130}, strike_ko:{h:'공격(한글)',w:120},
+    bonus:{h:'명중',w:50,cls:'num'}, ability:{h:'능력명',w:150}, ability_ko:{h:'능력(한글)',w:140},
+    type:{h:'유형',w:110}, desc:{h:'설명',w:340}, ref:{h:'부가',w:80},
     fortitude:{h:'인내',w:44,cls:'num'}, reflex:{h:'반사',w:44,cls:'num'}, will:{h:'의지',w:44,cls:'num'},
     simple:{h:'단순',w:44,cls:'num'}, martial:{h:'군용',w:44,cls:'num'}, unarmed:{h:'비무장',w:52,cls:'num'}, advanced:{h:'고급',w:44,cls:'num'},
     unarmored:{h:'미착용',w:52,cls:'num'}, light:{h:'경장',w:44,cls:'num'}, medium:{h:'중장',w:44,cls:'num'}, heavy:{h:'중장갑',w:52,cls:'num'},
@@ -247,7 +262,13 @@ const DM = (function(){
   function tabKey(){ return curTab.ovKey || curTab.cat || ('@'+curTab.id); }
   function isEditable(key){ return curTab.editable ? curTab.editable.includes(key) : EDITABLE.has(key); }
   function rowSlug(r){ return r._flat ? (r.slug||'') : ACC.slug(r); }
-  function rawVal(r,key){ if(r._flat){ const v=r[key]; return key==='has_desc'?(v?'✓':''):(v==null?'':v);} const fn=ACC[key]; return fn?fn(r):''; }
+  function rawVal(r,key){
+    if(r._flat){ let v=r[key];
+      if(key==='traits'&&typeof v==='string'&&v) v=v.split(', ').map(koTrait).join(', ');  // slug→한글 표시(데이터는 slug)
+      return key==='has_desc'?(v?'✓':''):(v==null?'':v);
+    }
+    const fn=ACC[key]; return fn?fn(r):'';
+  }
   // 편집 반영값(override 우선)
   function cellVal(r,key){
     if(isEditable(key)){ const o=ovGet(tabKey(),rowSlug(r),key); if(o!=null) return o; }
