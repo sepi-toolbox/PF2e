@@ -138,6 +138,7 @@ const DM = (function(){
     {id:'system_terms', label:'시스템용어', kind:'derived', src:'data/derived/system_terms.json', shape:'rows',
        cols:['type','slug','name_en','name_ko','desc','ref']},
     {id:'ui_terms', label:'UI용어집', kind:'derived', src:'data/derived/localize.ko.json', shape:'kv', cols:['slug','text']},
+    {id:'enrichers', label:'변환자 사전', ref:true, cols:[]},
   ];
 
   // ---- 컬럼 메타(라벨/폭/정렬유형) ----
@@ -169,6 +170,28 @@ const DM = (function(){
     simple:{h:'단순',w:44,cls:'num'}, martial:{h:'군용',w:44,cls:'num'}, unarmed:{h:'비무장',w:52,cls:'num'}, advanced:{h:'고급',w:44,cls:'num'},
     unarmored:{h:'미착용',w:52,cls:'num'}, light:{h:'경장',w:44,cls:'num'}, medium:{h:'중장',w:44,cls:'num'}, heavy:{h:'중장갑',w:52,cls:'num'},
     classDC:{h:'클래스DC',w:64,cls:'num'}, spellcasting:{h:'시전',w:44,cls:'num'},
+  };
+  // 컬럼별 입력 가이드 (헤더 툴팁 ⓘ + 편집 시 하단 안내)
+  const COLGUIDE={
+    slug:'고유 키(slug). 편집 불가 — 모든 매칭·참조의 기준.',
+    _id:'FVTT 문서 id(보조키). 편집 불가.',
+    name_en:'영문 원본명(BASE). 편집 불가.',
+    name_ko:'한글 표시명. 편집 시 OVERRIDE에 기록. 게임 용어는 정본 유지, 병기 스타일 일관.',
+    desc_ko:'한글 설명(HTML). @UUID·@Check·@Damage·@Localize 등 변환자 사용 가능(→「변환자 사전」탭). HTML 태그 보존.',
+    desc:'설명 텍스트. 변환자 토큰 사용 가능(→「변환자 사전」탭).',
+    text:'UI 문자열(HTML). @변환자 사용 가능.',
+    traits_ko:'특성 — slug로 저장·매칭, 한글은 표시용. 편집은 「특성」 레지스트리 탭에서(slug 단일편집).',
+    traits:'특성 — slug로 저장·매칭, 한글은 표시용. 편집은 「특성」 레지스트리 탭에서.',
+    level:'정수 레벨(0~).', rank:'주문 랭크(0=캔트립 ~ 10).',
+    type:'유형/분류 enum(slug).', category:'분류 enum(slug).',
+    ability:'핵심 능력치 slug (str/dex/con/int/wis/cha).',
+    actions:'행동 비용 (1/2/3 · free · reaction).', frequency:'사용 빈도(max/per).',
+    price:'가격 (예: 10gp, 1,060gp).', bulk:'부피 (숫자 또는 L=경량).',
+    rules_n:'RE 룰 개수(기계효과 지표). 편집 불가.',
+    perception:'숙련 rank (U/T/E/M/L).', saves:'내성 숙련 F/R/W (rank).', attacks:'무기 숙련 rank.', defenses:'방어 숙련 rank.',
+    is_subclass:'서브클래스 옵션 여부(✓).', subclass_type:'서브클래스 종류(muse/bloodline/instinct…).', grants:'GrantItem 부여 개수.',
+    ref:'부가정보(기술=핵심능력치 등).', tag:'FVTT otherTags(서브클래스 식별 태그).',
+    ac:'방어도(정수).', hp:'체력(정수).', damage:'피해식 (예: 2d6 화염).',
   };
 
   // ---- 필드 접근자 (row = base⊕overlay 조인된 FVTT 문서) ----
@@ -291,6 +314,9 @@ const DM = (function(){
   async function selectTab(t){
     curTab=t; selSlug=null; closeDetail(); search=''; document.getElementById('dm-search').value='';
     renderTabs();
+    if(t.ref){ rows=[];view=[]; await ensureTerms(); if(window.PF2eData&&PF2eData.loadLocalize)await PF2eData.loadLocalize();
+      try{ await PF2eData.loadCategory('conditions'); await PF2eData.loadCategory('actions'); }catch(e){}  // 예시 @UUID/@Embed 정본해소용
+      renderEnrichers(); return; }
     if(t.config){ rows=[];view=[]; renderPlaceholder(t); return; }
     await ensureTerms();
     if(t.kind==='derived') await ensureDerived(t);
@@ -342,7 +368,9 @@ const DM = (function(){
     curTab.cols.forEach(c=>{
       const m=COLMETA[c]||{h:c,w:100};
       const th=document.createElement('th'); th.style.width=m.w+'px';
-      th.innerHTML=m.h+(sortKey===c?'<span class="arr">'+(sortDir>0?'▲':'▼')+'</span>':'');
+      const g=COLGUIDE[c];
+      th.innerHTML=m.h+(g?' <span style="color:var(--gold2);font-size:9px" title="'+esc(g)+'">ⓘ</span>':'')+(sortKey===c?'<span class="arr">'+(sortDir>0?'▲':'▼')+'</span>':'');
+      if(g) th.title=m.h+' — '+g;
       th.onclick=()=>{ if(sortKey===c)sortDir*=-1; else{sortKey=c;sortDir=1;} applyView(); };
       tr.appendChild(th);
     });
@@ -380,6 +408,34 @@ const DM = (function(){
     });
     return '<tr class="'+sel+'" data-slug="'+esc(slug)+'" data-i="'+i+'">'+tds+'</tr>';
   }
+  // 변환자(enricher) 사전 — 설명에 입력 가능한 @/중괄호 토큰 레퍼런스
+  const ENRICHERS=[
+    {t:'@UUID',        s:'@UUID[Compendium.pf2e.&lt;pack&gt;.Item.&lt;id&gt;]{라벨}', d:'다른 항목(조건·재주·주문·행동 등) 참조. 라벨 대신 참조 항목의 <b>정본 한글명으로 자동 해소</b>(로드된 카테고리).', e:'@UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard}', live:true},
+    {t:'@Check',       s:'@Check[type:&lt;기술|내성|perception|flat|X-lore&gt;|dc:&lt;숫자&gt;|basic]', d:'판정 요구. 기술/내성/지각/단순/지식을 자동 한글화. <code>basic</code>=기본 내성.', e:'@Check[type:athletics|dc:20]', live:true},
+    {t:'@Damage',      s:'@Damage[&lt;식&gt;[&lt;피해유형&gt;]]', d:'피해 굴림. 여러 유형·지속(persistent) 지원.', e:'@Damage[2d6[fire]]', live:true},
+    {t:'@Template',    s:'@Template[type:&lt;burst|emanation|cone|line&gt;|distance:&lt;피트&gt;]', d:'범위 템플릿.', e:'@Template[type:burst|distance:30]', live:true},
+    {t:'@Localize',    s:'@Localize[PF2E.&lt;키&gt;]', d:'UI 문자열/글로서리(NPC 능력 등) 삽입. <b>localize 사전</b>에서 해소(치환문 내 @UUID도 이어서 렌더).', e:'@Localize[PF2E.NPC.Abilities.Glossary.Grab]', live:true},
+    {t:'@Embed',       s:'@Embed[Compendium.pf2e.&lt;pack&gt;.Item.&lt;id&gt; inline]', d:'항목 내용 인라인 임베드(현재 참조 항목 명칭으로 해소).', e:'@Embed[Compendium.pf2e.actionspf2e.Item.Zt9bo3FYLQihmpAz inline]', live:true},
+    {t:'{item|경로}',  s:'{item|system.&lt;경로&gt;} · {item|name} · {item|flags.system.rulesSelections.&lt;flag&gt;}', d:'이 항목의 속성/룰 선택값 치환. (렌더 시 액터 컨텍스트 필요 — 시트에서 해소)', e:'{item|name}', live:false},
+    {t:'{actor|경로}', s:'{actor|level} · {actor|abilities.str.mod}', d:'캐릭터(액터) 속성 치환. (시트 렌더 시 해소)', e:'{actor|level}', live:false},
+    {t:'{{condition:X}}', s:'{{condition:Off-Guard}} · {{spell:X}} · {{feat:X}}', d:'<b>레거시 앱 전용</b> 토큰(레거시 JS DB에만). FVTT 이관 시 @UUID로 대체 예정 — 신규 작성에는 사용하지 말 것.', e:'', live:false, legacy:true},
+  ];
+  function renderEnrichers(){
+    document.getElementById('dm-head').innerHTML='';
+    const enr=s=>(window.PF2eData&&PF2eData.enrichDesc)?PF2eData.enrichDesc(s):s;
+    const cards=ENRICHERS.map(x=>{
+      const example = x.e ? '<div style="margin-top:6px"><span style="color:var(--text2);font-size:11px">예시</span> <code style="background:#f0e7d0;padding:1px 5px;border-radius:3px">'+esc(x.e)+'</code>'
+        + (x.live?' <span style="color:var(--gold)">→</span> '+enr(x.e):'') + '</div>' : '';
+      return '<div style="border:1px solid var(--line2);border-radius:6px;padding:10px 12px;margin:8px 0;background:'+(x.legacy?'#f3e8e8':'#fff')+'">'
+        + '<div style="font-weight:700;color:var(--accent);font-size:14px;font-family:ui-monospace,monospace">'+x.t+(x.legacy?' <span style="color:var(--warn);font-size:11px">(레거시)</span>':'')+'</div>'
+        + '<div style="font-family:ui-monospace,monospace;font-size:11px;color:var(--text2);margin:4px 0">'+x.s+'</div>'
+        + '<div style="font-size:12px;line-height:1.5">'+x.d+'</div>'+example+'</div>';
+    }).join('');
+    document.getElementById('dm-rows').innerHTML='<tr><td style="padding:0"><div style="max-width:820px;margin:0 auto;padding:14px">'
+      + '<div style="color:var(--text2);font-size:12px;margin-bottom:6px">설명(desc)·요약 필드에 입력할 수 있는 변환자 토큰. @변환자는 렌더 시 한글/링크로 해소되고, 중괄호는 시트 렌더 시 값으로 치환됩니다.</div>'
+      + cards + '</div></td></tr>';
+    document.getElementById('dm-status').textContent='변환자 사전 · '+ENRICHERS.length+'종';
+  }
   function renderPlaceholder(t){
     document.getElementById('dm-head').innerHTML='';
     document.getElementById('dm-rows').innerHTML='<tr><td class="dm-empty">'+
@@ -400,6 +456,7 @@ const DM = (function(){
     const r=rows.find(x=>rowSlug(x)===slug); const orig=r?(''+(rawVal(r,field)||'')):'';
     td.setAttribute('contenteditable','true'); td.classList.remove('empty-ko');
     if(td.textContent==='(미번역)')td.textContent='';
+    document.getElementById('dm-status').innerHTML='✏ 편집 <b>'+esc(field)+'</b> — '+esc(COLGUIDE[field]||'')+'  (Enter=확정, Esc=취소)';
     td.focus(); document.execCommand&&document.execCommand('selectAll',false,null);
     const done=()=>{
       td.removeAttribute('contenteditable');

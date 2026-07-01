@@ -112,6 +112,9 @@
   // 시트의 모든 FVTT desc 표시 공통 진입점(장비/재주/주문). 미인식 @X[..]는 라벨만 남김.
   const _DMG_KO = { piercing: '관통', slashing: '참격', bludgeoning: '타격', fire: '화염', cold: '냉기', acid: '산성', electricity: '전기', sonic: '음향', mental: '정신', poison: '독', void: '공허', spirit: '정신력', vitality: '생명력', force: '역장', bleed: '출혈', untyped: '', precision: '정밀' };
   const _SAVE_KO = { fortitude: '인내', reflex: '반사', will: '의지' };
+  const _SKILL_KO = { acrobatics: '곡예', arcana: '주문학', athletics: '운동', crafting: '제작', deception: '기만', diplomacy: '외교', intimidation: '협박', medicine: '의학', nature: '자연학', occultism: '오컬티즘', performance: '공연', religion: '종교학', society: '사회학', stealth: '은신', survival: '생존', thievery: '도둑질' };
+  const _CHECK_KO = Object.assign({ perception: '지각', flat: '단순', spell: '주문' }, _SAVE_KO, _SKILL_KO);
+  function _checkTypeKo(t) { if (_CHECK_KO[t]) return _CHECK_KO[t]; const m = /^(.*)-lore$/.exec(t); if (m) return m[1].replace(/-/g, ' ') + ' 지식'; return t; }
   function _escDesc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
   function enrichDesc(html) {
     if (!html) return '';
@@ -129,8 +132,11 @@
       });
       return `<span class="ref-dmg">${parts.join(' + ')}</span>`;
     });
-    s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const type = Object.keys(_SAVE_KO).find(k => new RegExp('\\b' + k + '\\b').test(body)) || ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_SAVE_KO[type] || type}</span>`; });
-    s = s.replace(/@UUID\[[^\]]+\](?:\{([^}]*)\})?/g, (m, label) => label ? `<span class="ref-link">${_escDesc(label)}</span>` : '');
+    s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_checkTypeKo(type)}</span>`; });
+    // @UUID: 참조 엔티티 정본 한글명으로 해소(로드된 카테고리 한정, 미해소 시 라벨 폴백)
+    s = s.replace(/@UUID\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, uuid, label) => { let name = ''; try { const t = getByUuid((uuid || '').trim().split(/\s+/)[0]); if (t) name = t.name_ko || t.name; } catch (e) {} const shown = name || label; return shown ? `<span class="ref-link">${_escDesc(shown)}</span>` : ''; });
+    // @Embed: 인라인 임베드 → 참조 엔티티 정본명(전체 임베드 대신 명칭 링크)
+    s = s.replace(/@Embed\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, body, label) => { let name = ''; try { const t = getByUuid((body || '').trim().split(/\s+/)[0]); if (t) name = t.name_ko || t.name; } catch (e) {} const shown = label || name; return shown ? `<span class="ref-link">${_escDesc(shown)}</span>` : ''; });
     s = s.replace(/@Template\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const d = (body.match(/distance:(\d+)/) || [])[1]; const SH = { emanation: '발산', burst: '폭발', cone: '원뿔', line: '직선' }; const ty = (body.match(/type:(\w+)/) || [])[1]; return `<span class="ref-area">${d || ''}피트 ${SH[ty] || ty || ''}</span>`; });
     s = s.replace(/@[A-Za-z]+\[[^\]]*\](?:\{([^}]*)\})?/g, (m, l) => l || '');
     return s;
