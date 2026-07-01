@@ -93,7 +93,7 @@
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm1"></script>
+<script src="cs_pf2e.js?v=dm2"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -137,6 +137,7 @@ const DM = (function(){
        cols:['owner','owner_ko','ability','ability_ko','actions','category','traits','pack']},
     {id:'system_terms', label:'시스템용어', kind:'derived', src:'data/derived/system_terms.json', shape:'rows',
        cols:['type','slug','name_en','name_ko','desc','ref']},
+    {id:'ui_terms', label:'UI용어집', kind:'derived', src:'data/derived/localize.ko.json', shape:'kv', cols:['slug','text']},
   ];
 
   // ---- 컬럼 메타(라벨/폭/정렬유형) ----
@@ -163,7 +164,7 @@ const DM = (function(){
     complex:{h:'복합',w:44,cls:'num'}, hardness:{h:'경도',w:44,cls:'num'}, stealth:{h:'은신',w:44,cls:'num'},
     owner:{h:'소유(크리처)',w:150,cls:'key'}, owner_ko:{h:'크리처(한글)',w:130}, strike:{h:'공격명',w:130}, strike_ko:{h:'공격(한글)',w:120},
     bonus:{h:'명중',w:50,cls:'num'}, ability:{h:'능력명',w:150}, ability_ko:{h:'능력(한글)',w:140},
-    type:{h:'유형',w:110}, desc:{h:'설명',w:340}, ref:{h:'부가',w:80},
+    type:{h:'유형',w:110}, desc:{h:'설명',w:340}, ref:{h:'부가',w:80}, text:{h:'한글 / HTML',w:600},
     fortitude:{h:'인내',w:44,cls:'num'}, reflex:{h:'반사',w:44,cls:'num'}, will:{h:'의지',w:44,cls:'num'},
     simple:{h:'단순',w:44,cls:'num'}, martial:{h:'군용',w:44,cls:'num'}, unarmed:{h:'비무장',w:52,cls:'num'}, advanced:{h:'고급',w:44,cls:'num'},
     unarmored:{h:'미착용',w:52,cls:'num'}, light:{h:'경장',w:44,cls:'num'}, medium:{h:'중장',w:44,cls:'num'}, heavy:{h:'중장갑',w:52,cls:'num'},
@@ -262,9 +263,11 @@ const DM = (function(){
   function tabKey(){ return curTab.ovKey || curTab.cat || ('@'+curTab.id); }
   function isEditable(key){ return curTab.editable ? curTab.editable.includes(key) : EDITABLE.has(key); }
   function rowSlug(r){ return r._flat ? (r.slug||'') : ACC.slug(r); }
+  const TYPE_KO={ability:'능력치',skill:'기술',sense:'감각',save:'내성',damage_type:'피해유형',weapon_group:'무기군',armor_group:'갑옷군',armor_category:'갑옷종류',weapon_category:'무기종류',size:'크기',rarity:'희귀도',language:'언어'};
   function rawVal(r,key){
     if(r._flat){ let v=r[key];
       if(key==='traits'&&typeof v==='string'&&v) v=v.split(', ').map(koTrait).join(', ');  // slug→한글 표시(데이터는 slug)
+      if(key==='type'&&curTab.id==='system_terms'&&TYPE_KO[v]) v=TYPE_KO[v];               // 유형 한글
       return key==='has_desc'?(v?'✓':''):(v==null?'':v);
     }
     const fn=ACC[key]; return fn?fn(r):'';
@@ -312,8 +315,9 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm2').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
+      else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
         slug:r.slug||((r.class!=null&&r.level!=null)?r.class+':L'+r.level:'row'+i)}));
       loaded[key]._meta=j.note||'';
@@ -433,6 +437,18 @@ const DM = (function(){
           '<div class="sec"><div class="sec-h">숙련 (U/T/E/M/L)</div><div class="layer">'+
           order.map(k=>'<b>'+(COLMETA[k]?COLMETA[k].h:k)+'</b><span>'+esc(r[k])+'</span>').join('')+'</div></div>'+
           (r._src?'<div class="sec"><div class="sec-h">이 레벨 숙련증가 특성</div><div>'+esc(r._src)+'</div></div>':'');
+      } else {
+        // 범용 파생행 상세 (크리처/해저드/공격/능력/시스템용어/UI용어집/클래스특성/서브클래스)
+        const enr=s=>(window.PF2eData&&PF2eData.enrichDesc)?PF2eData.enrichDesc(s):esc(s);
+        const koName=r.name_ko||r.name_en||r.owner_ko||r.owner||r.strike||r.ability||r.slug||'';
+        const flds=curTab.cols.filter(c=>!['desc','text','name_ko','name_en'].includes(c));
+        inner.innerHTML=close+'<h3>'+esc(koName)+'</h3>'+
+          (r.name_en?'<div class="slug">'+esc(r.name_en)+(r.slug?' · '+esc(r.slug):'')+'</div>':(r.slug?'<div class="slug">'+esc(r.slug)+'</div>':''))+
+          '<div class="sec"><div class="sec-h">필드</div><div class="layer">'+
+            flds.map(c=>'<b>'+esc(COLMETA[c]?COLMETA[c].h:c)+'</b><span>'+esc(rawVal(r,c))+'</span>').join('')+
+          '</div></div>'+
+          (r.desc?'<div class="sec"><div class="sec-h">설명</div><div class="descbox">'+enr(r.desc)+'</div></div>':'')+
+          (r.text?'<div class="sec"><div class="sec-h">UI 문자열 (HTML 렌더)</div><div class="descbox">'+enr(r.text)+'</div></div>':'');
       }
       return;
     }
@@ -473,7 +489,7 @@ const DM = (function(){
   function onSearch(v){ search=v; if(rows.length)applyView(); }
 
   // ---- init ----
-  function init(){ updateDiff(); renderTabs(); const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
+  function init(){ updateDiff(); renderTabs(); if(window.PF2eData&&PF2eData.loadLocalize)PF2eData.loadLocalize(); const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, revertAll, closeDetail };
 })();

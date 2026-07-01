@@ -21,6 +21,10 @@
   const _baseCache = {};   // cat → array
   const _ovlCache = {};    // cat → {slug→{name,description,traits}}
   const _index = {};       // cat → Map(slug→doc) (조인 결과)
+  let _localize = null;    // @Localize 사전: {PF2E.key → 한글}
+
+  function _ensureLocalizeSync() { if (_localize) return _localize; if (isNode) _localize = _readJSON(`${_dataRoot}/derived/localize.ko.json`) || {}; return _localize; }
+  async function loadLocalize() { if (_localize) return _localize; if (isNode) return _ensureLocalizeSync(); _localize = (await _fetchJSON(`${_dataRoot}/derived/localize.ko.json`)) || {}; return _localize; }
 
   function _readJSON(relPath) {
     if (isNode) {
@@ -112,6 +116,9 @@
   function enrichDesc(html) {
     if (!html) return '';
     let s = String(html);
+    // @Localize[PF2E.key] → 사전 한글로 치환(먼저 처리 → 치환된 내용의 @UUID/@Check 등도 이어서 렌더)
+    const _loc = _localize || (isNode ? _ensureLocalizeSync() : null);
+    s = s.replace(/@Localize\[([^\]]+)\]/g, (m, key) => { const t = _loc && _loc[key]; return t != null ? String(t) : ''; });
     s = s.replace(/@Damage\[((?:[^\[\]]|\[[^\]]*\])*)\](\{[^}]*\})?/g, (m, body) => {
       const parts = body.split(/,(?![^\[]*\])/).map(p => {
         const mm = p.match(/\(?\s*([0-9dD()+\-* ]+?)\s*\)?\s*\[([^\]]+)\]/);
@@ -125,7 +132,6 @@
     s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const type = Object.keys(_SAVE_KO).find(k => new RegExp('\\b' + k + '\\b').test(body)) || ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_SAVE_KO[type] || type}</span>`; });
     s = s.replace(/@UUID\[[^\]]+\](?:\{([^}]*)\})?/g, (m, label) => label ? `<span class="ref-link">${_escDesc(label)}</span>` : '');
     s = s.replace(/@Template\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const d = (body.match(/distance:(\d+)/) || [])[1]; const SH = { emanation: '발산', burst: '폭발', cone: '원뿔', line: '직선' }; const ty = (body.match(/type:(\w+)/) || [])[1]; return `<span class="ref-area">${d || ''}피트 ${SH[ty] || ty || ''}</span>`; });
-    s = s.replace(/@Localize\[[^\]]+\]/g, '');
     s = s.replace(/@[A-Za-z]+\[[^\]]*\](?:\{([^}]*)\})?/g, (m, l) => l || '');
     return s;
   }
@@ -241,7 +247,7 @@
   }
 
   const API = {
-    CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc,
+    CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc, loadLocalize,
     testPredicate, _testStatement, getByUuid, resolveBrackets, evalFormula,
     _state: { base: _baseCache, ovl: _ovlCache, index: _index },
   };
