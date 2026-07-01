@@ -2794,7 +2794,13 @@ function _checkOnePrereq(cond) {
     if (cond.divineFont === 'either') return cur === 'heal' || cur === 'harm';
     return cur === cond.divineFont;
   }
-  // 재주 보유: {feat:'Halfling Luck'}
+  // 재주 보유: {feat, featSlug}. ★ featSlug 있으면 슬러그로만 체크(번역명 무관, slug 원칙).
+  if (cond.featSlug) {
+    const fs2 = cond.featSlug;
+    return Object.values(state.feats).flat().some(ff =>
+      ff && ff.id && (ff.id === fs2 || (typeof featSlug === 'function' && featSlug(ff.id) === fs2)));
+  }
+  // 레거시(PREREQ_GROUPS, featSlug 없음): 이름 매칭 폴백
   if (cond.feat) {
     const allFeats = Object.values(state.feats).flat().filter(ff => ff?.name);
     return allFeats.some(ff => {
@@ -2878,8 +2884,15 @@ function _checkPrereqs(feat) {
       return true;
     }
   }
-  // 구조화 데이터 없으면 텍스트 기반 폴백
-  return _checkPrereqsText(feat.prerequisites);
+  // FVTT 파싱 구조화 conds(prereqs_db.js) — 기계판정 가능한 조건만 검사.
+  // 내러티브 조건("100살 이상" 등 미파싱)은 conds에 미포함 = 자동 달성(미달 안내 없음).
+  const _slug = feat && (feat.id || feat.slug);
+  if (_slug && typeof PREREQ_STRUCT !== 'undefined' && PREREQ_STRUCT[_slug]) {
+    return PREREQ_STRUCT[_slug].every(c => _checkOnePrereq(c));
+  }
+  // 구조화 없음(순수 내러티브/조건없음) → 항상 달성.
+  // (구 텍스트 정규식 폴백 _checkPrereqsText은 내러티브 오판이 많아 미사용 — 차후 복구용으로 함수는 보존)
+  return true;
 }
 
 // ── 텍스트 기반 전제조건 체크 (폴백) ──

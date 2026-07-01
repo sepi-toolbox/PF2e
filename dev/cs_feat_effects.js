@@ -532,15 +532,18 @@ function _hasFeatChoiceIssue(feat) {
   return false;
 }
 
-// 이미 선택된 재주의 전제조건이 현재 미달인지 체크
+// 이미 선택된 재주의 전제조건이 현재 미달인지 체크 (★ slug 기준)
 function _hasFeatPrereqIssue(feat) {
-  if (typeof FEAT_DB === 'undefined' || typeof _checkPrereqs !== 'function') return false;
-  const nameKo = feat.name?.split(' (')[0]?.trim();
-  if (!nameKo) return false;
-  const fd = getFeat(nameKo);
-  if (!fd) return false;
-  if (!fd.prereqs && !fd.prerequisites) return false;
-  return !_checkPrereqs(fd);
+  if (typeof _checkPrereqs !== 'function') return false;
+  const slug = feat.id || (typeof featSlug === 'function' ? featSlug(feat.name?.split(' (')[0]?.trim()) : null);
+  if (!slug) return false;
+  // 기계판정 가능한 구조화 조건(파싱 PREREQ_STRUCT 또는 레거시 prereq_group_id)이 있을 때만 판정.
+  // 순수 내러티브(구조화 없음)는 항상 달성 → 이슈 없음.
+  const hasStruct = typeof PREREQ_STRUCT !== 'undefined' && PREREQ_STRUCT[slug];
+  const fd = typeof getFeat === 'function' ? getFeat(slug) : null;
+  const hasLegacy = fd && fd.prereq_group_id;
+  if (!hasStruct && !hasLegacy) return false;
+  return !_checkPrereqs({ id: slug, prereq_group_id: hasLegacy ? fd.prereq_group_id : undefined });
 }
 
 function _buildFeatChoiceUI(feat, featType, featIndex) {

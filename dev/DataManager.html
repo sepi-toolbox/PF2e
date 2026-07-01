@@ -111,6 +111,8 @@ const DM = (function(){
     {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'category','effect_group_id','actions','prerequisites','frequency','rules_n']},
     {id:'effects', label:'효과(자동화)', kind:'derived', src:'data/derived/effects.json', shape:'rows',
        cols:['owner_kind','owner_slug','owner_name','origin','effect_group_id','re_key','src','type','target','value','bonus_type','condition','actionCost','summary','note','choice','option','option_name']},
+    {id:'prereqs', label:'선행조건', kind:'derived', src:'data/derived/prereqs.json', shape:'rows',
+       cols:['slug','text','parsed','conds']},
     {id:'spells',     label:'주문',     cat:'spells',     cols:['slug','name_en','name_ko','rank','traits_ko','range','area','defense','duration','rules_n','source']},
     {id:'equipment',  label:'장비',     cat:'equipment',  cols:['slug','name_en','name_ko','level','type','price','bulk','damage','traits_ko','source']},
     {id:'classes',    label:'클래스',   cat:'classes',    cols:['slug','name_en','name_ko','keyAbility','hp','perception','saves','attacks','defenses','source']},
