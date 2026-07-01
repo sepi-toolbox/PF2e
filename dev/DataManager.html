@@ -110,7 +110,7 @@ const DM = (function(){
   const TABS = [
     {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'category','effect_group_id','actions','prerequisites','frequency','rules_n']},
     {id:'effects', label:'효과(자동화)', kind:'derived', src:'data/derived/effects.json', shape:'rows',
-       cols:['owner_kind','owner_slug','owner_name','effect_group_id','src','type','target','value','bonus_type','condition','actionCost','summary','note','choice','option','option_name']},
+       cols:['owner_kind','owner_slug','owner_name','origin','effect_group_id','re_key','src','type','target','value','bonus_type','condition','actionCost','summary','note','choice','option','option_name']},
     {id:'spells',     label:'주문',     cat:'spells',     cols:['slug','name_en','name_ko','rank','traits_ko','range','area','defense','duration','rules_n','source']},
     {id:'equipment',  label:'장비',     cat:'equipment',  cols:['slug','name_en','name_ko','level','type','price','bulk','damage','traits_ko','source']},
     {id:'classes',    label:'클래스',   cat:'classes',    cols:['slug','name_en','name_ko','keyAbility','hp','perception','saves','attacks','defenses','source']},
@@ -176,6 +176,7 @@ const DM = (function(){
     classDC:{h:'클래스DC',w:64,cls:'num'}, spellcasting:{h:'시전',w:44,cls:'num'},
     // 효과(자동화 정본 통합 테이블)
     owner_kind:{h:'소속',w:74}, owner_slug:{h:'엔티티',w:160,cls:'key'}, owner_name:{h:'엔티티(한글)',w:160},
+    origin:{h:'출처',w:60}, re_key:{h:'FVTT룰',w:130,cls:'key'},
     effect_group_id:{h:'효과그룹(FK)',w:190,cls:'key'}, src:{h:'구분',w:74},
     target:{h:'대상',w:130}, value:{h:'값',w:64}, bonus_type:{h:'보너스종류',w:92}, condition:{h:'조건',w:150},
     actionCost:{h:'행동비용',w:64}, summary:{h:'요약',w:280}, note:{h:'노트',w:300},
@@ -204,6 +205,8 @@ const DM = (function(){
     ac:'방어도(정수).', hp:'체력(정수).', damage:'피해식 (예: 2d6 화염).',
     // 효과(자동화 정본 통합 테이블) — 소스=재주/유산/배경 effect_group_id ⨝ EFFECT_GROUPS(+CHOICE_OPTIONS)
     owner_kind:'소속 엔티티 종류: feat(재주)/heritage(유산)/background(배경).',
+    origin:'효과 출처: legacy(EFFECT_GROUPS 큐레이션) / fvtt(엔티티 FVTT system.rules[]에서 추출). 기술·지식·내성·시야·저항·부여 등 레거시 미등록 자동화는 fvtt로 커버.',
+    re_key:'FVTT Rule Element 키(fvtt 출처 행): FlatModifier/ActiveEffectLike/Sense/Resistance/GrantItem/BaseSpeed/DamageDice/Note/ChoiceSet 등.',
     owner_slug:'효과가 속한 엔티티 slug(정본 키).', owner_name:'엔티티 한글명(표시용).',
     effect_group_id:'참조 효과그룹 FK(entity→effect 연결키). 같은 값=한 그룹으로 묶인 효과. 엔티티 탭에도 이 컬럼으로 역참조 표시.',
     src:'행 구분: effect(직접 기계효과)/choice·choice_opt(선택지·옵션)/note(자동 노트).',
