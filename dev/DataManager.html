@@ -119,6 +119,10 @@ const DM = (function(){
     {id:'effects',    label:'효과',     cat:'effects',    cols:['slug','name_en','name_ko','level','traits_ko','duration','rules_n','source']},
     {id:'traits',     label:'특성',     kind:'derived', src:'data/derived/traits.json', shape:'map',
        cols:['slug','name_en','name_ko','desc_ko','has_desc'], editable:['name_ko','desc_ko']},
+    {id:'classfeatures', label:'클래스특성', kind:'derived', src:'data/derived/class_features.json', shape:'rows', ovKey:'feats',
+       cols:['slug','class','name_en','name_ko','level','is_subclass','subclass_type','grants','rules_n'], editable:['name_ko']},
+    {id:'subclasses', label:'서브클래스', kind:'derived', src:'data/derived/subclasses.json', shape:'rows', ovKey:'feats',
+       cols:['slug','class','subclass_type','name_en','name_ko','grants','rules_n'], editable:['name_ko']},
     {id:'class_progression', label:'클래스성장(파생)', kind:'derived', src:'data/derived/class_progression.json', shape:'rows',
        cols:['class','cp_name','level','perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting','_src']},
     {id:'config',     label:'config',   config:true, cols:[]},
@@ -141,7 +145,8 @@ const DM = (function(){
     ancestry:{h:'혈통',w:110}, boosts:{h:'능력증가',w:150}, trainedSkills:{h:'훈련기술',w:170},
     attribute:{h:'능력치',w:110}, domains:{h:'영역',w:160}, font:{h:'신성원천',w:90}, sanctification:{h:'성별화',w:100},
     desc_ko:{h:'설명',w:340,edit:true}, has_desc:{h:'설명有',w:56,cls:'num'},
-    class:{h:'클래스',w:110,cls:'key'}, cp_name:{h:'한글명',w:100}, _src:{h:'증가원(특성)',w:220},
+    class:{h:'클래스',w:100,cls:'key'}, cp_name:{h:'한글명',w:100}, _src:{h:'증가원(특성)',w:220},
+    subclass_type:{h:'서브클래스종류',w:120}, is_subclass:{h:'서브',w:44,cls:'num'}, grants:{h:'부여',w:44,cls:'num'}, tag:{h:'태그',w:140,cls:'key'},
     fortitude:{h:'인내',w:44,cls:'num'}, reflex:{h:'반사',w:44,cls:'num'}, will:{h:'의지',w:44,cls:'num'},
     simple:{h:'단순',w:44,cls:'num'}, martial:{h:'군용',w:44,cls:'num'}, unarmed:{h:'비무장',w:52,cls:'num'}, advanced:{h:'고급',w:44,cls:'num'},
     unarmored:{h:'미착용',w:52,cls:'num'}, light:{h:'경장',w:44,cls:'num'}, medium:{h:'중장',w:44,cls:'num'}, heavy:{h:'중장갑',w:52,cls:'num'},
@@ -237,7 +242,7 @@ const DM = (function(){
   function updateDiff(){ const n=diffCount(); const b=document.getElementById('dm-diff'); b.textContent='변경 '+n; b.classList.toggle('on',n>0); }
 
   // 탭 키/편집대상/행 slug 헬퍼 (FVTT vs 파생 flat 공용)
-  function tabKey(){ return curTab.cat || ('@'+curTab.id); }
+  function tabKey(){ return curTab.ovKey || curTab.cat || ('@'+curTab.id); }
   function isEditable(key){ return curTab.editable ? curTab.editable.includes(key) : EDITABLE.has(key); }
   function rowSlug(r){ return r._flat ? (r.slug||'') : ACC.slug(r); }
   function rawVal(r,key){ if(r._flat){ const v=r[key]; return key==='has_desc'?(v?'✓':''):(v==null?'':v);} const fn=ACC[key]; return fn?fn(r):''; }
@@ -286,7 +291,8 @@ const DM = (function(){
     try{
       const j=await fetch(t.src+'?v=dm').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
-      else loaded[key]=(j.rows||[]).map(r=>({...r,_flat:true, cp_name:r.name_ko, name_en:r.class}));
+      else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
+        slug:r.slug||((r.class!=null&&r.level!=null)?r.class+':L'+r.level:'row'+i)}));
       loaded[key]._meta=j.note||'';
     }catch(e){ loaded[key]=[]; console.error(e); }
     document.getElementById('dm-loading').style.display='none';
