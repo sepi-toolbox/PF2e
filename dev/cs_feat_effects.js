@@ -33,28 +33,8 @@
 // choice.repeatable: true면 같은 재주 여러번 선택 가능
 
 // v532~ Phase 3a: effect_group_id/auto_note/damage_note + choice_id/CHOICE_OPTIONS 정규화
-// v533~ FEAT_EFFECTS 완전 제거 — 모든 효과는 FEAT_DB 신 컬럼에서 조립
-//  FEAT_DB row의 effect_group_id/auto_note/damage_note/choice_id를 조립해 def 객체 반환
-//  미등재(row 없음/효과 컬럼 모두 빈 값)면 null
-const _FVTT_FEAT_DEF_CACHE = new Map();
-function _fvttFeatDef(f) {
-  // FVTT-only 재주: system.rules → RE 엔진 → 레거시 effects 배열 (레벨/혈통/클래스 캐시키)
-  const lv = (typeof getLevel === 'function') ? getLevel() : 1;
-  const anc = state.selectedAncestry, cls = state.selectedClass;
-  const key = f.id + ':' + lv + ':' + (anc && anc.id) + ':' + (cls && cls.id);
-  if (_FVTT_FEAT_DEF_CACHE.has(key)) return _FVTT_FEAT_DEF_CACHE.get(key);
-  const abilities = {};
-  if (typeof getMod === 'function') for (const ab of ['str','dex','con','int','wis','cha']) abilities[ab] = getMod(ab);
-  const ctx = {
-    level: lv, abilities, ancestrySlug: anc && anc.id, classSlug: cls && cls.id,
-    ancestryTraits: (anc && anc._doc && anc._doc.system && anc._doc.system.traits && anc._doc.system.traits.value) || [],
-    choices: {},
-  };
-  let def = null;
-  try { const effects = PF2eFeat.featEffects(f._doc, ctx); if (effects && effects.length) def = { effects }; } catch (e) {}
-  _FVTT_FEAT_DEF_CACHE.set(key, def);
-  return def;
-}
+// v0.28~ 효과 단일화: 모든 효과는 EFFECTS_DB(effects_db.js, slug 단일 소스)에서 조립.
+//  (구 RE-브리지 _fvttFeatDef 제거 — fvtt 효과는 build_effects.mjs가 EFFECTS_DB에 baked.)
 // v0.28~ 효과 단일화: EFFECTS_DB(effects_db.js) slug 단일 소스. 레거시 EFFECT_GROUPS 경로 + RE-브리지 폐기.
 // override(effect_groups.json, slug 키)는 getEffectRows(slug)가 반영 → def.effects에 자동 적용.
 function _getFeatEffectsDef(nameEn) {
