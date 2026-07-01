@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.25').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.26').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -1717,9 +1717,10 @@ function renderSpells() {
         row.className = 'spell-slot-row';
         if (name) {
           const spellData = getSpell(name);
+          const disp = (typeof spellDisplay === 'function') ? spellDisplay(name) : name;
           const actions = getActionIcons(spellData?.actions);
           row.innerHTML = `
-            <span class="spell-slot-name" onclick="toggleSpellInline(this,'${name.replace(/'/g,"\\'")}')">${iconImg('spell', {name})}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-name" onclick="toggleSpellInline(this,'${String(name).replace(/'/g,"\\'")}')">${iconImg('spell', spellData||{name})}${disp}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
             <span class="spell-slot-del" onclick="unprepareSlot(0,${i})" title="준비 해제">✕</span>`;
         } else {
           row.innerHTML = `<span class="spell-slot-name empty" onclick="openPrepareSpellForSlot(0,${i})">준비 안 됨</span><span style="width:20px;"></span>`;
@@ -1873,9 +1874,9 @@ function renderSpells() {
       for (let sr = 1; sr < r; sr++) {
         const sigName = sigs[sr];
         if (!sigName) continue;
-        // 이미 이 랭크에 같은 이름으로 배운 게 없을 때만
-        if (!allAtRank.some(s => s.name === sigName)) {
-          sigHeightened.push({name: sigName, originalRank: sr});
+        // 이미 이 랭크에 같은 주문을 배운 게 없을 때만 (slug 비교)
+        if (!allAtRank.some(s => spellSame(s, sigName))) {
+          sigHeightened.push({id: sigName, name: spellDisplay(sigName), originalRank: sr});
         }
       }
 
@@ -1892,7 +1893,7 @@ function renderSpells() {
         const spellData = getSpell(spell.name);
         const actions = getActionIcons(spellData?.actions);
         const isAuto = spell._auto;
-        const isSig = sigs[r] === spell.name;
+        const isSig = sigs[r] ? spellSame(sigs[r], spell) : false;
         const row = document.createElement('div');
         row.className = 'spell-slot-row';
         if (isAuto) row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
@@ -1939,7 +1940,7 @@ function renderSpells() {
           const actions = getActionIcons(spellData?.actions);
           const fireIcon = `<span class="spell-slot-fire${isCast?' used':''}" onclick="togglePreparedCast(${r},${i})" style="cursor:pointer;font-size:14px;margin-right:4px;" title="${isCast?'슬롯 복원':'시전 (소모)'}">\uD83D\uDD25</span>`;
           row.innerHTML = `
-            ${fireIcon}<span class="spell-slot-name" onclick="toggleSpellInline(this,'${name.replace(/'/g,"\\'")}')">${iconImg('spell', {name})}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}${isCast ? ' <span style="font-size:9px;color:var(--text2);">(시전됨)</span>' : ''}</span>`;
+            ${fireIcon}<span class="spell-slot-name" onclick="toggleSpellInline(this,'${String(name).replace(/'/g,"\\'")}')">${iconImg('spell', spellData||{name})}${(typeof spellDisplay==='function')?spellDisplay(name):name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}${isCast ? ' <span style="font-size:9px;color:var(--text2);">(시전됨)</span>' : ''}</span>`;
         } else {
           row.innerHTML = `<span class="spell-slot-fire used" style="margin-right:4px;opacity:0.35;"></span><span class="spell-slot-name" style="color:var(--text2);font-size:12px;">준비 안 됨</span>`;
         }
