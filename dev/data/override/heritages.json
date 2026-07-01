@@ -1,1 +1,13 @@
-{}
+{
+  "house-drake": { "name_ko": "가문 드레이크" },
+  "homing-drake": { "name_ko": "귀소 드레이크" },
+  "weaver-jotunborn": { "name_ko": "직조 요툰본" },
+  "plane-hopper-jotunborn": { "name_ko": "차원 도약 요툰본" },
+  "sage-jotunborn": { "name_ko": "현자 요툰본" },
+  "tidepool-dragonet": { "name_ko": "조수 웅덩이 드래고넷" },
+  "pearl-dragonet": { "name_ko": "진주 드래고넷" },
+  "fey-dragonet": { "name_ko": "요정 드래고넷" },
+  "keeper-jotunborn": { "name_ko": "수호 요툰본" },
+  "ambitious-human": { "name_ko": "야심찬 인간" },
+  "warrior-jotunborn": { "name_ko": "전사 요툰본" }
+}
