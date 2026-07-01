@@ -104,7 +104,9 @@ const DM = (function(){
 
   // ---- 스키마: 탭 정의 + 컬럼 (공통 엔벨로프 + 카테고리 고유) ----
   const COMMON = ['slug','name_en','name_ko','level','traits_ko','source'];
-  const EDITABLE = new Set(['name_ko','desc_ko','traits_ko']); // OVERRIDE 대상
+  // OVERRIDE 편집 대상. traits_ko는 제외 — 특성 번역은 '특성' 레지스트리 탭에서 slug 기준 단일편집,
+  // 다른 표의 특성 컬럼은 slug→레지스트리 읽기전용 표시(표시 레이어 분리).
+  const EDITABLE = new Set(['name_ko','desc_ko']);
   const TABS = [
     {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'category','actions','prerequisites','frequency','rules_n']},
     {id:'spells',     label:'주문',     cat:'spells',     cols:['slug','name_en','name_ko','rank','traits_ko','range','area','defense','duration','rules_n','source']},
