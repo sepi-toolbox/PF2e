@@ -161,16 +161,18 @@ function applyFeatEffects() {
     state.spells.innate = state.spells.innate.filter(s => !s._sourceFeat);
   }
 
-  // grant_weapon: 부모 재주 생존 확인 — 부모 없으면 제거 (사용자 룬 설정 보존)
-  const allFeatNames = Object.values(state.feats).flat().filter(f => f).map(f => _extractEnName(f.name));
-  state.weapons = (state.weapons || []).filter(w => !w._fromFeat || allFeatNames.includes(w._fromFeat));
+  // 부모 재주 생존 확인 — slug 기준(번역명 변경에도 부여관계 유지). featSlug는 name·id·객체·en명 모두 허용.
+  const _fslug = (typeof featSlug === 'function') ? featSlug : (x => (x && (x.id || x.name)) || x);
+  const allFeatSlugs = new Set(Object.values(state.feats).flat().filter(f => f).map(f => _fslug(f)));
 
-  // grant_feat: 부모 재주 생존 확인 — 부모 없으면 제거 (사용자 choice 보존)
-  const allFeatFullNames = Object.values(state.feats).flat().filter(f => f).map(f => f.name);
+  // grant_weapon: 부모 없으면 제거 (사용자 룬 설정 보존)
+  state.weapons = (state.weapons || []).filter(w => !w._fromFeat || allFeatSlugs.has(_fslug(w._fromFeat)));
+
+  // grant_feat: 부모 없으면 제거 (사용자 choice 보존)
   Object.values(state.feats).forEach(arr => {
     if (!arr) return;
     for (let i = arr.length - 1; i >= 0; i--) {
-      if (arr[i]?._grantedBy && !allFeatFullNames.includes(arr[i]._grantedBy)) {
+      if (arr[i]?._grantedBy && !allFeatSlugs.has(_fslug(arr[i]._grantedBy))) {
         arr.splice(i, 1);
       }
     }
@@ -366,7 +368,7 @@ function _applyOneEffect(fb, eff, feat, level) {
         const alreadyHas = Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(grantName.split(' (')[0]));
         if (!alreadyHas) {
           if (!state.feats.general) state.feats.general = [];
-          const entry = {name: grantName, level: 1, _auto: true, _grantedBy: feat.name};
+          const entry = {name: grantName, level: 1, _auto: true, _grantedBy: feat.id || feat.name};
           // defaultChoice: 자식 재주의 초기 choice 설정 (사용자 변경 가능)
           if (eff.defaultChoice) entry.choice = eff.defaultChoice;
           state.feats.general.push(entry);
@@ -385,7 +387,7 @@ function _applyOneEffect(fb, eff, feat, level) {
           const alreadyHas = Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(grantName.split(' (')[0]));
           if (!alreadyHas) {
             if (!state.feats.skill) state.feats.skill = [];
-            const entry = {name: grantName, level: 1, _auto: true, _grantedBy: feat.name};
+            const entry = {name: grantName, level: 1, _auto: true, _grantedBy: feat.id || feat.name};
             if (eff.defaultChoice) entry.choice = eff.defaultChoice;
             state.feats.skill.push(entry);
           }
@@ -415,13 +417,14 @@ function _applyOneEffect(fb, eff, feat, level) {
       // 고정 선천 주문 부여 (선택 불필요)
       if (eff.spell && feat.name) {
         if (!state.spells.innate) state.spells.innate = [];
-        const existing = state.spells.innate.find(s => s._sourceFeat === feat.name && s.name === eff.spell);
+        const _pk = feat.id || feat.name;
+        const existing = state.spells.innate.find(s => s._sourceFeat === _pk && s.name === eff.spell);
         if (!existing) {
           const _sp = getSpell(eff.spell);
           state.spells.innate.push({
             id: _sp?.id || null,
             name: eff.spell, tradition: eff.tradition || '', type: eff.spellType || 'spell',
-            uses: eff.uses || '하루 1회', _sourceFeat: feat.name, _source: feat.name
+            uses: eff.uses || '하루 1회', _sourceFeat: _pk, _source: feat.name
           });
         }
       }
@@ -443,9 +446,10 @@ function _applyOneEffect(fb, eff, feat, level) {
       }
       if (spellName && !spellName.startsWith('$') && feat.name) {
         if (!state.spells.focus) state.spells.focus = [];
-        const existing = state.spells.focus.find(s => s._sourceFeat === feat.name && s.name === spellName);
+        const _pk = feat.id || feat.name;
+        const existing = state.spells.focus.find(s => s._sourceFeat === _pk && s.name === spellName);
         if (!existing) {
-          state.spells.focus.push({id: spellId, name: spellName, _auto: true, _sourceFeat: feat.name, _source: feat.name.split(' (')[0].trim()});
+          state.spells.focus.push({id: spellId, name: spellName, _auto: true, _sourceFeat: _pk, _source: feat.name.split(' (')[0].trim()});
         }
       }
       break;
@@ -1246,7 +1250,8 @@ function _applyFeatChoice(choiceId) {
       state.feats[featType][featIndex].choice = choiceId;
     }
     const grantTo = choiceDef.grantTo || 'general';
-    const grantedBy = choiceDef._grantedBy || (state.feats[featType]?.[featIndex]?.name || '');
+    const _pf2 = state.feats[featType]?.[featIndex];
+    const grantedBy = choiceDef._grantedBy || (_pf2 && (_pf2.id || _pf2.name)) || ''; // slug 우선
     if (!state.feats[grantTo]) state.feats[grantTo] = [];
     const _fdC = getFeat(choiceId.split(' (')[0].trim());
     state.feats[grantTo].push({id: _fdC?.id || null, name: choiceId, level: 1, _grantedBy: grantedBy});
@@ -1268,15 +1273,17 @@ function _applyFeatChoice(choiceId) {
   if (choiceDef?.type === 'spell_cantrip' || choiceDef?.type === 'spell_rank') {
     const tradition = choiceDef.tradition || 'arcane';
     const tradKo = {arcane:'비전',divine:'신성',occult:'오컬트',primal:'원시'}[tradition] || tradition;
-    const featName = state.feats[featType][featIndex].name || '';
+    const _pFeat = state.feats[featType][featIndex];
+    const featName = _pFeat.name || '';
+    const _pk = _pFeat.id || featName; // _sourceFeat = slug 저장(번역명 무관)
     // 기존에 이 재주로 추가된 선천 주문 제거
     if (!state.spells.innate) state.spells.innate = [];
-    state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== featName);
+    state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(_pk));
     // 새 선천 주문 추가
     const spType = choiceDef.type === 'spell_rank' ? 'spell' : 'cantrip';
     const spUses = choiceDef.type === 'spell_rank' ? '하루 1회' : '자유';
     const _spCh = getSpell(choiceId);
-    state.spells.innate.push({id: _spCh?.id || null, name: choiceId, tradition: tradKo, type: spType, uses: spUses, _sourceFeat: featName, _source: featName});
+    state.spells.innate.push({id: _spCh?.id || null, name: choiceId, tradition: tradKo, type: spType, uses: spUses, _sourceFeat: _pk, _source: featName});
     if (typeof renderSpells === 'function') renderSpells();
     // 선천적 주문 탭으로 자동 전환
     if (typeof switchSpellSubtab === 'function') switchSpellSubtab('innate');
@@ -1293,7 +1300,7 @@ function _applyFeatChoice(choiceId) {
     if (grantedByFeat?._grantedBy) {
       const parentFeatName = grantedByFeat._grantedBy;
       const traitName = ANCESTRY_NAME_MAP[choiceId] || choiceId;
-      const alreadyGranted = (state.feats.ancestry||[]).some(f => f && f._grantedBy === parentFeatName);
+      const alreadyGranted = (state.feats.ancestry||[]).some(f => f && featSlug(f._grantedBy) === featSlug(parentFeatName));
       if (!alreadyGranted) {
         openFeatChoiceModal(null, null, {
           type: 'feat_pick',

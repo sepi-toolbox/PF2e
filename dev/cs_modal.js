@@ -1348,9 +1348,9 @@ function growthClearFeat(lv, key, featType) {
         arr.splice(idx, 1);
       }
     }
-    // 선천 주문 + 집중 주문 제거
-    if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== oldName);
-    if (state.spells?.focus) state.spells.focus = state.spells.focus.filter(s => s._sourceFeat !== oldName);
+    // 선천 주문 + 집중 주문 제거 (slug 기준 — _sourceFeat는 slug 저장)
+    if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(oldName));
+    if (state.spells?.focus) state.spells.focus = state.spells.focus.filter(s => featSlug(s._sourceFeat) !== featSlug(oldName));
     // 재주로 부여된 무기 제거 (grant_weapon)
     const _fEN = oldName?.match(/\(([^)]+)\)$/)?.[1] || '';
     if (_fEN) {
@@ -4827,8 +4827,8 @@ function confirmModal() {
       if (oldName) {
         const arr = state.feats[gType];
         if (arr) { const idx = arr.findIndex(f => f.name === oldName && f.level === gLv); if (idx >= 0) arr.splice(idx, 1); }
-        // 선천 주문 제거
-        if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== oldName);
+        // 선천 주문 제거 (slug 기준)
+        if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(oldName));
         // 연쇄 제거
         if (typeof cascadeRemoveFeats === 'function') cascadeRemoveFeats();
       }

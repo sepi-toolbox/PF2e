@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.24').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.25').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -1903,7 +1903,9 @@ function renderSpells() {
           const srcName = spell._source ? spell._source.split(' (')[0].trim() : '클래스 부여';
           badges += `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${srcName}</span>`;
         }
-        const srcFeat = spell._sourceFeat ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${spell._sourceFeat.split(' (')[0]}</span>` : '';
+        // _sourceFeat는 이제 slug — 표시는 _source(부여 재주명) 또는 getFeat로 재해소
+        const _sfName = spell._source || (typeof getFeat === 'function' && getFeat(spell._sourceFeat)?.name_ko) || spell._sourceFeat || '';
+        const srcFeat = spell._sourceFeat ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${String(_sfName).split(' (')[0]}</span>` : '';
 
         row.innerHTML = `
           <span class="spell-slot-name" onclick="toggleSpellInline(this,'${(spell.name||'').replace(/'/g,"\\'")}')">${iconImg('spell', spell)}${spell.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
@@ -2246,7 +2248,7 @@ function cascadeRemoveFeats() {
         const fNameKo = f.name.split(' (')[0].trim();
         const fData = getFeat(fNameKo);
         if (fData?.prerequisites && !_checkPrereqs(fData.prerequisites)) {
-          if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== f.name);
+          if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(f));
           // 성장에서도 제거
           for (const lv of Object.keys(state.growth || {})) {
             for (const k of Object.keys(state.growth[lv] || {})) {
@@ -2259,24 +2261,25 @@ function cascadeRemoveFeats() {
       }
     }
   }
-  // grant_feat / feat_pick으로 부여된 재주 연쇄 정리 (A→B→C 재귀)
+  // grant_feat / feat_pick으로 부여된 재주 연쇄 정리 (A→B→C 재귀). slug 기준(번역명 무관).
+  const _fslug = (typeof featSlug === 'function') ? featSlug : (x => (x && (x.id || x.name)) || x);
   let grantChanged = true;
   while (grantChanged) {
     grantChanged = false;
-    const allFeatNames = new Set();
+    const allFeatSlugs = new Set();
     for (const arr of Object.values(state.feats)) {
-      if (Array.isArray(arr)) arr.forEach(f => { if (f?.name) allFeatNames.add(f.name); });
+      if (Array.isArray(arr)) arr.forEach(f => { if (f?.name || f?.id) allFeatSlugs.add(_fslug(f)); });
     }
     for (const type of Object.keys(state.feats)) {
       const arr = state.feats[type];
       if (!Array.isArray(arr)) continue;
       for (let j = arr.length - 1; j >= 0; j--) {
-        if (arr[j]?._grantedBy && !allFeatNames.has(arr[j]._grantedBy)) {
-          // 선천 주문도 함께 제거
+        if (arr[j]?._grantedBy && !allFeatSlugs.has(_fslug(arr[j]._grantedBy))) {
+          // 선천 주문도 함께 제거 (slug 기준)
           if (arr[j].name && state.spells?.innate) {
-            state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== arr[j].name);
+            state.spells.innate = state.spells.innate.filter(s => _fslug(s._sourceFeat) !== _fslug(arr[j]));
           }
-          // 성장에서도 제거
+          // 성장에서도 제거 (growth는 name 키 — 내부 정합 유지)
           for (const lv of Object.keys(state.growth || {})) {
             for (const k of Object.keys(state.growth[lv] || {})) {
               if (state.growth[lv][k] === arr[j].name) delete state.growth[lv][k];
@@ -2288,13 +2291,13 @@ function cascadeRemoveFeats() {
       }
     }
   }
-  // 선천 주문 최종 정리
+  // 선천 주문 최종 정리 (slug 기준)
   if (state.spells?.innate) {
-    const allNames2 = new Set();
+    const allSlugs2 = new Set();
     for (const arr of Object.values(state.feats)) {
-      if (Array.isArray(arr)) arr.forEach(f => { if (f?.name) allNames2.add(f.name); });
+      if (Array.isArray(arr)) arr.forEach(f => { if (f?.name || f?.id) allSlugs2.add(_fslug(f)); });
     }
-    state.spells.innate = state.spells.innate.filter(s => !s._sourceFeat || allNames2.has(s._sourceFeat));
+    state.spells.innate = state.spells.innate.filter(s => !s._sourceFeat || allSlugs2.has(_fslug(s._sourceFeat)));
   }
 }
 
@@ -2303,8 +2306,8 @@ function removeFeat(t, i) {
   const featName = feat?.name?.split(' (')[0].trim() || '';
   // 재주로 얻은 선천 주문 + 집중 주문 제거
   if (feat?.name) {
-    if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== feat.name);
-    if (state.spells?.focus) state.spells.focus = state.spells.focus.filter(s => s._sourceFeat !== feat.name);
+    if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(feat));
+    if (state.spells?.focus) state.spells.focus = state.spells.focus.filter(s => featSlug(s._sourceFeat) !== featSlug(feat));
   }
   // 재주로 부여된 무기 제거 (grant_weapon)
   if (feat?.name) {
@@ -2517,16 +2520,17 @@ function _refreshLearnSpellsList() {
     return true;
   });
 
-  // 이미 배운 주문 표시
+  // 이미 배운 주문 표시 (slug 기준 — 번역명 무관)
+  const _sSlug = (typeof spellSlug === 'function') ? spellSlug : (x => (x && x.name) || x);
   const learnedNames = new Set();
   const isSpellbook = state.selectedClass?.casting === 'prepared';
   if (isSpellbook) {
     // 주문서 캐스터: familiarSpells에서 확인
-    if (r === 0) { (state.familiarSpells?.cantrip || []).forEach(n => { if (n) learnedNames.add(n); }); }
-    else { (state.familiarSpells?.[r] || []).forEach(n => { if (n) learnedNames.add(n); }); }
+    if (r === 0) { (state.familiarSpells?.cantrip || []).forEach(n => { if (n) learnedNames.add(_sSlug(n)); }); }
+    else { (state.familiarSpells?.[r] || []).forEach(n => { if (n) learnedNames.add(_sSlug(n)); }); }
   } else {
-    if (r === 0) { (state.spells.cantrip || []).forEach(s => { if (s?.name) learnedNames.add(s.name); }); }
-    else { (state.spells.known || []).filter(s => s.rank === r).forEach(s => { if (s?.name) learnedNames.add(s.name); }); }
+    if (r === 0) { (state.spells.cantrip || []).forEach(s => { if (s?.name || s?.id) learnedNames.add(_sSlug(s)); }); }
+    else { (state.spells.known || []).filter(s => s.rank === r).forEach(s => { if (s?.name || s?.id) learnedNames.add(_sSlug(s)); }); }
   }
 
   const container = document.getElementById('modal-options');
@@ -2537,7 +2541,7 @@ function _refreshLearnSpellsList() {
     return;
   }
   filtered.forEach(sp => {
-    const isLearned = learnedNames.has(sp.name_ko);
+    const isLearned = learnedNames.has(_sSlug(sp));
     const row = document.createElement('div');
     row.className = 'opt-row' + (isLearned ? ' selected' : '');
     const actions = (typeof getActionIcons === 'function') ? getActionIcons(sp.actions) : '';
@@ -2672,21 +2676,23 @@ function _learnSpellFromModal(sp, rank) {
     if (!state.familiarSpells) state.familiarSpells = {};
     const key = rank === 0 ? 'cantrip' : rank;
     if (!state.familiarSpells[key]) state.familiarSpells[key] = [];
-    if (!state.familiarSpells[key].includes(sp.name_ko)) {
+    // (familiarSpells는 아직 name 기반 저장 — growth 파생과 정합 유지. slug 전환은 growth 서브시스템 동시 이관 필요=후속)
+    const _sameSp = (a, b) => (typeof spellSame === 'function') ? spellSame(a, b) : (a?.name || a) === (b?.name || b);
+    if (!state.familiarSpells[key].some(x => _sameSp(x, sp))) {
       state.familiarSpells[key].push(sp.name_ko);
     }
   } else {
-    // 즉흥형: spells에 추가
+    // 즉흥형: spells에 추가 (id=slug 저장, name=표시캐시)
     if (rank === 0) {
       const cantripSlots = state.cantripSlots || 5;
       const cantrips = state.spells.cantrip || [];
       let idx = cantrips.findIndex(s => !s);
       if (idx < 0 && cantrips.length < cantripSlots) idx = cantrips.length;
       if (idx < 0) return;
-      state.spells.cantrip[idx] = {name: sp.name_ko, rank: 0};
+      state.spells.cantrip[idx] = {id: sp.id, name: sp.name_ko, rank: 0};
     } else {
       if (!state.spells.known) state.spells.known = [];
-      state.spells.known.push({name: sp.name_ko, rank: rank});
+      state.spells.known.push({id: sp.id, name: sp.name_ko, rank: rank});
     }
   }
 
@@ -2698,18 +2704,19 @@ function _learnSpellFromModal(sp, rank) {
 function _unlearnSpellFromModal(sp, rank) {
   const isSpellbook = state.selectedClass?.casting === 'prepared';
 
+  const _same = (a, b) => (typeof spellSame === 'function') ? spellSame(a, b) : (a?.name || a) === (b?.name || b);
   if (isSpellbook) {
     const key = rank === 0 ? 'cantrip' : rank;
     if (state.familiarSpells?.[key]) {
-      const idx = state.familiarSpells[key].indexOf(sp.name_ko);
+      const idx = state.familiarSpells[key].findIndex(x => _same(x, sp));
       if (idx >= 0) state.familiarSpells[key].splice(idx, 1);
     }
   } else {
     if (rank === 0) {
-      const idx = (state.spells.cantrip || []).findIndex(s => s?.name === sp.name_ko && !s._auto);
+      const idx = (state.spells.cantrip || []).findIndex(s => s && _same(s, sp) && !s._auto);
       if (idx >= 0) state.spells.cantrip.splice(idx, 1);
     } else {
-      const idx = (state.spells.known || []).findIndex(s => s?.name === sp.name_ko && s.rank === rank && !s._auto);
+      const idx = (state.spells.known || []).findIndex(s => s && _same(s, sp) && s.rank === rank && !s._auto);
       if (idx >= 0) state.spells.known.splice(idx, 1);
     }
   }

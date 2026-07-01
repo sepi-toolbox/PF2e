@@ -44,10 +44,10 @@ window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters'
                   sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
 window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
-<script src="equipment_db.js?v=0.24"></script>
-<script src="feat_db.js?v=0.24"></script>
-<script src="SPELL_DB.js?v=0.24"></script>
-<script src="class_features_db.js?v=0.24"></script>
+<script src="equipment_db.js?v=0.25"></script>
+<script src="feat_db.js?v=0.25"></script>
+<script src="SPELL_DB.js?v=0.25"></script>
+<script src="class_features_db.js?v=0.25"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -68,7 +68,7 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
   console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.24">
+<link rel="stylesheet" href="app-shell.css?v=0.25">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -1914,7 +1914,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.24</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.25</span></div>
 </div>
 
 <!-- ═══ 업데이트 로그 모달 ═══ -->
@@ -2445,7 +2445,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.24" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.25" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2522,36 +2522,36 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.24"></script>
-<script src="cs_calc.js?v=0.24"></script>
+<script src="cs_data.js?v=0.25"></script>
+<script src="cs_calc.js?v=0.25"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.24"></script>
-<script src="cs_re_engine.js?v=0.24"></script>
-<script src="cs_pf2e_stats.js?v=0.24"></script>
-<script src="cs_pf2e_equip.js?v=0.24"></script>
-<script src="cs_pf2e_anc.js?v=0.24"></script>
-<script src="cs_pf2e_bg.js?v=0.24"></script>
-<script src="cs_pf2e_spell.js?v=0.24"></script>
-<script src="cs_pf2e_deity.js?v=0.24"></script>
-<script src="cs_pf2e_action.js?v=0.24"></script>
-<script src="cs_pf2e_feat.js?v=0.24"></script>
-<script src="cs_pf2e_class.js?v=0.24"></script>
-<script src="cs_pf2e_actor.js?v=0.24"></script>
-<script src="cs_ui.js?v=0.24"></script>
-<script src="cs_modal.js?v=0.24"></script>
-<script src="cs_feat_effects.js?v=0.24"></script>
-<script src="cs_save.js?v=0.24"></script>
-<script src="cs_session.js?v=0.24"></script>
-<script src="cs_dice.js?v=0.24"></script>
-<script src="cs_map.js?v=0.24"></script>
+<script src="cs_pf2e.js?v=0.25"></script>
+<script src="cs_re_engine.js?v=0.25"></script>
+<script src="cs_pf2e_stats.js?v=0.25"></script>
+<script src="cs_pf2e_equip.js?v=0.25"></script>
+<script src="cs_pf2e_anc.js?v=0.25"></script>
+<script src="cs_pf2e_bg.js?v=0.25"></script>
+<script src="cs_pf2e_spell.js?v=0.25"></script>
+<script src="cs_pf2e_deity.js?v=0.25"></script>
+<script src="cs_pf2e_action.js?v=0.25"></script>
+<script src="cs_pf2e_feat.js?v=0.25"></script>
+<script src="cs_pf2e_class.js?v=0.25"></script>
+<script src="cs_pf2e_actor.js?v=0.25"></script>
+<script src="cs_ui.js?v=0.25"></script>
+<script src="cs_modal.js?v=0.25"></script>
+<script src="cs_feat_effects.js?v=0.25"></script>
+<script src="cs_save.js?v=0.25"></script>
+<script src="cs_session.js?v=0.25"></script>
+<script src="cs_dice.js?v=0.25"></script>
+<script src="cs_map.js?v=0.25"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.24"></script>
-<script src="cs_i18n.js?v=0.24"></script>
+<script src="cs_locale.js?v=0.25"></script>
+<script src="cs_i18n.js?v=0.25"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.24');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.25');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2635,6 +2635,10 @@ document.addEventListener('click', function(e) {
 // ═══ 업데이트 로그 / 공지 (기어 메뉴) ═══
 // 최신순. 새 버전 작업 시 맨 앞에 {v, date, items:[...]} 추가(사용자 친화적 한글 문장).
 const CHANGELOG = [
+  { v: '0.25', date: '2026-07-01', items: [
+    '데이터 관리 도구에서 수정한 번역(이름·설명)이 실제 캐릭터 시트에 바로 반영되도록 연결했습니다(내부 데이터 계층 정비 — 재주·주문·장비 등 전 항목).',
+    '재주·주문의 내부 연결을 이름이 아닌 고유 식별자 기준으로 바꿔, 앞으로 번역 이름을 고쳐도 자동 부여 효과나 저장된 캐릭터가 깨지지 않도록 했습니다.',
+  ] },
   { v: '0.24', date: '2026-07-01', items: [
     '클래스/혈통/배경을 해제했을 때 해당 특성·숙련도가 화면에 그대로 남던 문제를 고쳤습니다 — 해제 즉시 능력치와 재주 목록이 갱신됩니다(예: 메이거스 해제 후에도 메이거스 특성이 보이던 현상).',
     '장비 정보 "DB에 정보 없음"을 더 확실히 고쳤습니다 — 획득 후 정보를 항상 획득 모달과 동일한 원본 설명으로 표시하고, 예전에 저장해둔 장비도 카탈로그에서 설명을 다시 찾아 보여줍니다.',

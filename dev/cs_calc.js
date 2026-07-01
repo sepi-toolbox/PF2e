@@ -367,6 +367,32 @@ function getFeat(key)  {
   if (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) return PF2eFeat.getFeatLegacy(key);
   return null;
 }
+// ── slug 디커플링 헬퍼 (번역명 결합 제거) ──────────────────────────────
+// 저장·매칭은 slug(id)로 정규화, 표시는 항상 현재 name_ko로 재해소.
+// 인자는 이름(구 저장)·slug(신 저장)·객체({id,name}) 모두 허용 → 하위호환.
+// 미해소 시 원문 유지(graceful): 정본 DB에 없는 커스텀/희귀 항목 보존.
+function _refKey(x) { return (x != null && typeof x === 'object') ? (x.id || x.name) : x; }
+function spellSlug(x) {
+  if (x == null || x === '') return '';
+  const sp = getSpell(_refKey(x));
+  return sp ? sp.id : (typeof x === 'object' ? (x.id || x.name || '') : String(x));
+}
+function spellDisplay(x) {
+  if (x == null || x === '') return '';
+  const sp = getSpell(_refKey(x));
+  if (sp) return sp.name_ko || sp.name_en || sp.name;
+  return (typeof x === 'object') ? (x.name || x.id || '') : String(x);
+}
+function featSlug(x) {
+  if (x == null || x === '') return '';
+  const k = _refKey(x);
+  const f = getFeat(k) || (typeof k === 'string' ? getFeat(k.split(' (')[0].trim()) : null);
+  return f ? f.id : (typeof x === 'object' ? (x.id || x.name || '') : String(x));
+}
+// 두 참조가 같은 항목인지 (slug 우선, 미해소 시 원문 비교)
+function spellSame(a, b) { return spellSlug(a) === spellSlug(b); }
+function featSame(a, b) { return featSlug(a) === featSlug(b); }
+
 // 병합 재주풀: 레거시 FEAT_DB + FVTT-only(슬러그 미중복). 모달/필터용.
 function _allFeats() {
   const leg = (typeof FEAT_DB !== 'undefined') ? FEAT_DB : [];

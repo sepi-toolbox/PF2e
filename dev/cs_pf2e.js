@@ -12,6 +12,7 @@
   const _dataRoot = _cfg.dataRoot || 'data';
   const BASE_DIR = _cfg.baseDir || (_dataRoot + '/base');
   const OVL_DIR = _cfg.ovlDir || (_dataRoot + '/overlay');
+  const OVR_DIR = _cfg.ovrDir || (_dataRoot + '/override'); // L3 OVERRIDE(관리툴 편집본, 최종 적용)
 
   // 비크리처 카테고리(단일 파일). 크리처는 별도(팩 분할 + _index).
   const CATEGORIES = ['equipment', 'spells', 'feats', 'actions', 'backgrounds',
@@ -20,6 +21,7 @@
   // ---- 로더 (지연, 카테고리 단위 캐시) ----
   const _baseCache = {};   // cat → array
   const _ovlCache = {};    // cat → {slug→{name,description,traits}}
+  const _ovrCache = {};    // cat → {slug→{name_ko,desc_ko,...}} (L3 OVERRIDE)
   const _index = {};       // cat → Map(slug→doc) (조인 결과)
   let _localize = null;    // @Localize 사전: {PF2E.key → 한글}
 
@@ -49,23 +51,26 @@
     if (_index[cat]) return _index[cat];
     const base = _readJSON(`${BASE_DIR}/${cat}.base.json`) || [];
     const ovl = _readJSON(`${OVL_DIR}/${cat}.ko.json`) || {};
-    _baseCache[cat] = base; _ovlCache[cat] = ovl;
-    return _buildIndex(cat, base, ovl);
+    const ovr = _readJSON(`${OVR_DIR}/${cat}.json`) || {}; // 없으면 {} (선택적)
+    _baseCache[cat] = base; _ovlCache[cat] = ovl; _ovrCache[cat] = ovr;
+    return _buildIndex(cat, base, ovl, ovr);
   }
   async function loadCategory(cat) {
     if (_index[cat]) return _index[cat];
     if (isNode) return loadCategorySync(cat);
-    const [base, ovl] = await Promise.all([
+    const [base, ovl, ovr] = await Promise.all([
       _fetchJSON(`${BASE_DIR}/${cat}.base.json`),
       _fetchJSON(`${OVL_DIR}/${cat}.ko.json`),
+      _fetchJSON(`${OVR_DIR}/${cat}.json`), // 파일 없으면 404 → null → {}
     ]);
-    _baseCache[cat] = base || []; _ovlCache[cat] = ovl || {};
-    return _buildIndex(cat, base || [], ovl || {});
+    _baseCache[cat] = base || []; _ovlCache[cat] = ovl || {}; _ovrCache[cat] = ovr || {};
+    return _buildIndex(cat, base || [], ovl || {}, ovr || {});
   }
 
   function _slugOf(d) { return (d.system && d.system.slug) || d._id; }
 
-  function _buildIndex(cat, base, ovl) {
+  function _buildIndex(cat, base, ovl, ovr) {
+    ovr = ovr || {};
     const m = new Map();
     for (const d of base) {
       const slug = _slugOf(d);
@@ -83,11 +88,27 @@
       } else {
         joined.name_en = d.name; joined.name_ko = d.name;
       }
+      // L3 OVERRIDE 적용(관리툴 편집본이 최종). 기계효과(rules/slug/_id)엔 손대지 않음.
+      _applyOverride(joined, ovr[slug]);
       m.set(slug, joined);
       m.set(d._id, joined);
     }
     _index[cat] = m;
     return m;
+  }
+
+  // OVERRIDE 부분필드 적용. name_ko/desc_ko는 조인 필드에 매핑, 그 외는 관리툴이 쓴 필드명 그대로 부착(구조 편집 대비).
+  function _applyOverride(joined, ov) {
+    if (!ov || typeof ov !== 'object') return;
+    for (const f in ov) {
+      const v = ov[f];
+      if (v == null || v === '') continue;      // 빈값=미설정(BASE/OVERLAY 유지)
+      if (f === 'name_ko') joined.name_ko = v;
+      else if (f === 'desc_ko') {               // 설명 오버라이드 → 조인 desc 필드
+        if (joined._desc_en == null) joined._desc_en = joined.system && joined.system.description && joined.system.description.value;
+        joined._desc_ko = v;
+      } else joined[f] = v;                      // 기타 필드(향후 구조 override)
+    }
   }
 
   // 단건 조회: key=slug|_id|영문명. cat 미지정 시 전 카테고리 탐색은 비권장(명시 권장).
@@ -255,7 +276,7 @@
   const API = {
     CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc, loadLocalize,
     testPredicate, _testStatement, getByUuid, resolveBrackets, evalFormula,
-    _state: { base: _baseCache, ovl: _ovlCache, index: _index },
+    _state: { base: _baseCache, ovl: _ovlCache, ovr: _ovrCache, index: _index },
   };
   root.PF2eData = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
