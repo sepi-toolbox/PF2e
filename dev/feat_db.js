@@ -12,7 +12,7 @@
 var FEAT_DB = [
   {
     "id": "bard-dedication",
-    "name_ko": "바드 헌신 (Bard Dedication)",
+    "name_ko": "바드 헌신",
     "name_en": "Bard Dedication",
     "feat_level": 2,
     "category": "archetype",
@@ -34,7 +34,7 @@ var FEAT_DB = [
   },
   {
     "id": "basic-bard-spellcasting",
-    "name_ko": "기초 바드 주문시전 (Basic Bard Spellcasting)",
+    "name_ko": "기초 바드 주문시전",
     "name_en": "Basic Bard Spellcasting",
     "feat_level": 4,
     "category": "archetype",
@@ -50,7 +50,7 @@ var FEAT_DB = [
   },
   {
     "id": "basic-muses-whispers",
-    "name_ko": "기초 뮤즈의 속삭임 (Basic Muse's Whispers)",
+    "name_ko": "기초 뮤즈의 속삭임",
     "name_en": "Basic Muse's Whispers",
     "feat_level": 4,
     "category": "archetype",
@@ -66,7 +66,7 @@ var FEAT_DB = [
   },
   {
     "id": "counter-perform",
-    "name_ko": "대항 공연 (Counter Perform)",
+    "name_ko": "대항 공연",
     "name_en": "Counter Perform",
     "feat_level": 6,
     "category": "archetype",
@@ -82,7 +82,7 @@ var FEAT_DB = [
   },
   {
     "id": "anthemic-performance",
-    "name_ko": "찬가 공연 (Anthemic Performance)",
+    "name_ko": "찬가 공연",
     "name_en": "Anthemic Performance",
     "feat_level": 8,
     "category": "archetype",
@@ -98,7 +98,7 @@ var FEAT_DB = [
   },
   {
     "id": "occult-breadth",
-    "name_ko": "오컬트 확장 (Occult Breadth)",
+    "name_ko": "오컬트 확장",
     "name_en": "Occult Breadth",
     "feat_level": 8,
     "category": "archetype",
@@ -114,7 +114,7 @@ var FEAT_DB = [
   },
   {
     "id": "expert-bard-spellcasting",
-    "name_ko": "전문가 바드 주문시전 (Expert Bard Spellcasting)",
+    "name_ko": "전문가 바드 주문시전",
     "name_en": "Expert Bard Spellcasting",
     "feat_level": 12,
     "category": "archetype",
@@ -130,7 +130,7 @@ var FEAT_DB = [
   },
   {
     "id": "master-bard-spellcasting",
-    "name_ko": "달인 바드 주문시전 (Master Bard Spellcasting)",
+    "name_ko": "달인 바드 주문시전",
     "name_en": "Master Bard Spellcasting",
     "feat_level": 18,
     "category": "archetype",
@@ -146,7 +146,7 @@ var FEAT_DB = [
   },
   {
     "id": "cleric-dedication",
-    "name_ko": "클레릭 헌신 (Cleric Dedication)",
+    "name_ko": "클레릭 헌신",
     "name_en": "Cleric Dedication",
     "feat_level": 2,
     "category": "archetype",
@@ -165,7 +165,7 @@ var FEAT_DB = [
   },
   {
     "id": "basic-cleric-spellcasting",
-    "name_ko": "기초 클레릭 주문시전 (Basic Cleric Spellcasting)",
+    "name_ko": "기초 클레릭 주문시전",
     "name_en": "Basic Cleric Spellcasting",
     "feat_level": 4,
     "category": "archetype",
@@ -181,7 +181,7 @@ var FEAT_DB = [
   },
   {
     "id": "basic-dogma",
-    "name_ko": "기초 교리 (Basic Dogma)",
+    "name_ko": "기초 교리",
     "name_en": "Basic Dogma",
     "feat_level": 4,
     "category": "archetype",
@@ -197,7 +197,7 @@ var FEAT_DB = [
   },
   {
     "id": "advanced-dogma",
-    "name_ko": "고급 교리 (Advanced Dogma)",
+    "name_ko": "고급 교리",
     "name_en": "Advanced Dogma",
     "feat_level": 6,
     "category": "archetype",
@@ -214,7 +214,7 @@ var FEAT_DB = [
   },
   {
     "id": "divine-breadth",
-    "name_ko": "신성 확장 (Divine Breadth)",
+    "name_ko": "신성 확장",
     "name_en": "Divine Breadth",
     "feat_level": 8,
     "category": "archetype",
@@ -230,7 +230,7 @@ var FEAT_DB = [
   },
   {
     "id": "expert-cleric-spellcasting",
-    "name_ko": "전문가 클레릭 주문시전 (Expert Cleric Spellcasting)",
+    "name_ko": "전문가 클레릭 주문시전",
     "name_en": "Expert Cleric Spellcasting",
     "feat_level": 12,
     "category": "archetype",
@@ -246,7 +246,7 @@ var FEAT_DB = [
   },
   {
     "id": "master-cleric-spellcasting",
-    "name_ko": "달인 클레릭 주문시전 (Master Cleric Spellcasting)",
+    "name_ko": "달인 클레릭 주문시전",
     "name_en": "Master Cleric Spellcasting",
     "feat_level": 18,
     "category": "archetype",
@@ -262,7 +262,7 @@ var FEAT_DB = [
   },
   {
     "id": "druid-dedication",
-    "name_ko": "드루이드 헌신 (Druid Dedication)",
+    "name_ko": "드루이드 헌신",
     "name_en": "Druid Dedication",
     "feat_level": 2,
     "category": "archetype",
@@ -281,7 +281,7 @@ var FEAT_DB = [
   },
   {
     "id": "basic-druid-spellcasting",
-    "name_ko": "기초 드루이드 주문시전 (Basic Druid Spellcasting)",
+    "name_ko": "기초 드루이드 주문시전",
     "name_en": "Basic Druid Spellcasting",
     "feat_level": 4,
     "category": "archetype",
@@ -297,7 +297,7 @@ var FEAT_DB = [
   },
   {
     "id": "basic-wilding",
-    "name_ko": "기초 야성 (Basic Wilding)",
+    "name_ko": "기초 야성",
     "name_en": "Basic Wilding",
     "feat_level": 4,
     "category": "archetype",
@@ -313,7 +313,7 @@ var FEAT_DB = [
   },
   {
     "id": "order-spell",
-    "name_ko": "교단 주문 (Order Spell)",
+    "name_ko": "교단 주문",
     "name_en": "Order Spell",
     "feat_level": 4,
     "category": "archetype",
@@ -329,7 +329,7 @@ var FEAT_DB = [
   },
   {
     "id": "advanced-wilding",
-    "name_ko": "고급 야성 (Advanced Wilding)",
+    "name_ko": "고급 야성",
     "name_en": "Advanced Wilding",
     "feat_level": 6,
     "category": "archetype",
@@ -346,7 +346,7 @@ var FEAT_DB = [
   },
   {
     "id": "primal-breadth",
-    "name_ko": "원시 확장 (Primal Breadth)",
+    "name_ko": "원시 확장",
     "name_en": "Primal Breadth",
     "feat_level": 8,
     "category": "archetype",
@@ -362,7 +362,7 @@ var FEAT_DB = [
   },
   {
     "id": "expert-druid-spellcasting",
-    "name_ko": "전문가 드루이드 주문시전 (Expert Druid Spellcasting)",
+    "name_ko": "전문가 드루이드 주문시전",
     "name_en": "Expert Druid Spellcasting",
     "feat_level": 12,
     "category": "archetype",
@@ -378,7 +378,7 @@ var FEAT_DB = [
   },
   {
     "id": "master-druid-spellcasting",
-    "name_ko": "달인 드루이드 주문시전 (Master Druid Spellcasting)",
+    "name_ko": "달인 드루이드 주문시전",
     "name_en": "Master Druid Spellcasting",
     "feat_level": 18,
     "category": "archetype",
@@ -394,7 +394,7 @@ var FEAT_DB = [
   },
   {
     "id": "fighter-dedication",
-    "name_ko": "파이터 헌신 (Fighter Dedication)",
+    "name_ko": "파이터 헌신",
     "name_en": "Fighter Dedication",
     "feat_level": 2,
     "category": "archetype",
@@ -424,7 +424,7 @@ var FEAT_DB = [
   },
   {
     "id": "basic-maneuver",
-    "name_ko": "기초 기동 (Basic Maneuver)",
+    "name_ko": "기초 기동",
     "name_en": "Basic Maneuver",
     "feat_level": 4,
     "category": "archetype",
@@ -440,7 +440,7 @@ var FEAT_DB = [
   },
   {
     "id": "fighter-resiliency",
-    "name_ko": "파이터 회복력 (Fighter Resiliency)",
+    "name_ko": "파이터 회복력",
     "name_en": "Fighter Resiliency",
     "feat_level": 4,
     "category": "archetype",
@@ -457,7 +457,7 @@ var FEAT_DB = [
   },
   {
     "id": "reactive-striker",
-    "name_ko": "반격 타격 (Reactive Striker)",
+    "name_ko": "반격 타격",
     "name_en": "Reactive Striker",
     "feat_level": 4,
     "category": "archetype",
@@ -474,7 +474,7 @@ var FEAT_DB = [
   },
   {
     "id": "advanced-maneuver",
-    "name_ko": "고급 기동 (Advanced Maneuver)",
+    "name_ko": "고급 기동",
     "name_en": "Advanced Maneuver",
     "feat_level": 6,
     "category": "archetype",
@@ -491,7 +491,7 @@ var FEAT_DB = [
   },
   {
     "id": "diverse-weapon-expert",
-    "name_ko": "다양한 무기 전문가 (Diverse Weapon Expert)",
+    "name_ko": "다양한 무기 전문가",
     "name_en": "Diverse Weapon Expert",
     "feat_level": 12,
     "category": "archetype",
@@ -507,7 +507,7 @@ var FEAT_DB = [
   },
   {
     "id": "ranger-dedication",
-    "name_ko": "레인저 헌신 (Ranger Dedication)",
+    "name_ko": "레인저 헌신",
     "name_en": "Ranger Dedication",
     "feat_level": 2,
     "category": "archetype",
@@ -526,7 +526,7 @@ var FEAT_DB = [
   },
   {
     "id": "ranger-resiliency",
-    "name_ko": "레인저 회복력 (Ranger Resiliency)",
+    "name_ko": "레인저 회복력",
     "name_en": "Ranger Resiliency",
     "feat_level": 4,
     "category": "archetype",
@@ -543,7 +543,7 @@ var FEAT_DB = [
   },
   {
     "id": "master-spotter",
-    "name_ko": "달인 감시자 (Master Spotter)",
+    "name_ko": "달인 감시자",
     "name_en": "Master Spotter",
     "feat_level": 12,
     "category": "archetype",
@@ -559,7 +559,7 @@ var FEAT_DB = [
   },
   {
     "id": "rogue-dedication",
-    "name_ko": "로그 헌신 (Rogue Dedication)",
+    "name_ko": "로그 헌신",
     "name_en": "Rogue Dedication",
     "feat_level": 2,
     "category": "archetype",
@@ -578,7 +578,7 @@ var FEAT_DB = [
   },
   {
     "id": "basic-trickery",
-    "name_ko": "기초 속임수 (Basic Trickery)",
+    "name_ko": "기초 속임수",
     "name_en": "Basic Trickery",
     "feat_level": 4,
     "category": "archetype",
@@ -594,7 +594,7 @@ var FEAT_DB = [
   },
   {
     "id": "sneak-attacker",
-    "name_ko": "은밀 공격자 (Sneak Attacker)",
+    "name_ko": "은밀 공격자",
     "name_en": "Sneak Attacker",
     "feat_level": 4,
     "category": "archetype",
@@ -617,7 +617,7 @@ var FEAT_DB = [
   },
   {
     "id": "advanced-trickery",
-    "name_ko": "고급 속임수 (Advanced Trickery)",
+    "name_ko": "고급 속임수",
     "name_en": "Advanced Trickery",
     "feat_level": 6,
     "category": "archetype",
@@ -634,7 +634,7 @@ var FEAT_DB = [
   },
   {
     "id": "skill-mastery",
-    "name_ko": "기술 달인 (Skill Mastery)",
+    "name_ko": "기술 달인",
     "name_en": "Skill Mastery",
     "feat_level": 8,
     "category": "archetype",
@@ -651,7 +651,7 @@ var FEAT_DB = [
   },
   {
     "id": "uncanny-dodge",
-    "name_ko": "이점 부정 (Uncanny Dodge)",
+    "name_ko": "이점 부정",
     "name_en": "Uncanny Dodge",
     "feat_level": 10,
     "category": "archetype",
@@ -667,7 +667,7 @@ var FEAT_DB = [
   },
   {
     "id": "evasiveness",
-    "name_ko": "회피 (Evasiveness)",
+    "name_ko": "회피",
     "name_en": "Evasiveness",
     "feat_level": 12,
     "category": "archetype",
@@ -683,7 +683,7 @@ var FEAT_DB = [
   },
   {
     "id": "witch-dedication",
-    "name_ko": "위치 헌신 (Witch Dedication)",
+    "name_ko": "위치 헌신",
     "name_en": "Witch Dedication",
     "feat_level": 2,
     "category": "archetype",
@@ -702,7 +702,7 @@ var FEAT_DB = [
   },
   {
     "id": "basic-witch-spellcasting",
-    "name_ko": "기초 위치 주문시전 (Basic Witch Spellcasting)",
+    "name_ko": "기초 위치 주문시전",
     "name_en": "Basic Witch Spellcasting",
     "feat_level": 4,
     "category": "archetype",
@@ -718,7 +718,7 @@ var FEAT_DB = [
   },
   {
     "id": "basic-witchcraft",
-    "name_ko": "기초 마녀술 (Basic Witchcraft)",
+    "name_ko": "기초 마녀술",
     "name_en": "Basic Witchcraft",
     "feat_level": 4,
     "category": "archetype",
@@ -735,7 +735,7 @@ var FEAT_DB = [
   },
   {
     "id": "advanced-witchcraft",
-    "name_ko": "고급 마녀술 (Advanced Witchcraft)",
+    "name_ko": "고급 마녀술",
     "name_en": "Advanced Witchcraft",
     "feat_level": 6,
     "category": "archetype",
@@ -752,7 +752,7 @@ var FEAT_DB = [
   },
   {
     "id": "expert-witch-spellcasting",
-    "name_ko": "전문가 위치 주문시전 (Expert Witch Spellcasting)",
+    "name_ko": "전문가 위치 주문시전",
     "name_en": "Expert Witch Spellcasting",
     "feat_level": 12,
     "category": "archetype",
@@ -768,7 +768,7 @@ var FEAT_DB = [
   },
   {
     "id": "master-witch-spellcasting",
-    "name_ko": "달인 위치 주문시전 (Master Witch Spellcasting)",
+    "name_ko": "달인 위치 주문시전",
     "name_en": "Master Witch Spellcasting",
     "feat_level": 18,
     "category": "archetype",
@@ -784,7 +784,7 @@ var FEAT_DB = [
   },
   {
     "id": "wizard-dedication",
-    "name_ko": "위저드 헌신 (Wizard Dedication)",
+    "name_ko": "위저드 헌신",
     "name_en": "Wizard Dedication",
     "feat_level": 2,
     "category": "archetype",
@@ -803,7 +803,7 @@ var FEAT_DB = [
   },
   {
     "id": "arcane-school-spell",
-    "name_ko": "비전 학파 주문 (Arcane School Spell)",
+    "name_ko": "비전 학파 주문",
     "name_en": "Arcane School Spell",
     "feat_level": 4,
     "category": "archetype",
@@ -819,7 +819,7 @@ var FEAT_DB = [
   },
   {
     "id": "basic-arcana",
-    "name_ko": "기초 비전학 (Basic Arcana)",
+    "name_ko": "기초 비전학",
     "name_en": "Basic Arcana",
     "feat_level": 4,
     "category": "archetype",
@@ -835,7 +835,7 @@ var FEAT_DB = [
   },
   {
     "id": "basic-wizard-spellcasting",
-    "name_ko": "기초 위저드 주문시전 (Basic Wizard Spellcasting)",
+    "name_ko": "기초 위저드 주문시전",
     "name_en": "Basic Wizard Spellcasting",
     "feat_level": 4,
     "category": "archetype",
@@ -851,7 +851,7 @@ var FEAT_DB = [
   },
   {
     "id": "advanced-arcana",
-    "name_ko": "고급 비전학 (Advanced Arcana)",
+    "name_ko": "고급 비전학",
     "name_en": "Advanced Arcana",
     "feat_level": 6,
     "category": "archetype",
@@ -868,7 +868,7 @@ var FEAT_DB = [
   },
   {
     "id": "arcane-breadth",
-    "name_ko": "비전 확장 (Arcane Breadth)",
+    "name_ko": "비전 확장",
     "name_en": "Arcane Breadth",
     "feat_level": 8,
     "category": "archetype",
@@ -884,7 +884,7 @@ var FEAT_DB = [
   },
   {
     "id": "expert-wizard-spellcasting",
-    "name_ko": "전문가 위저드 주문시전 (Expert Wizard Spellcasting)",
+    "name_ko": "전문가 위저드 주문시전",
     "name_en": "Expert Wizard Spellcasting",
     "feat_level": 12,
     "category": "archetype",
@@ -900,7 +900,7 @@ var FEAT_DB = [
   },
   {
     "id": "master-wizard-spellcasting",
-    "name_ko": "달인 위저드 주문시전 (Master Wizard Spellcasting)",
+    "name_ko": "달인 위저드 주문시전",
     "name_en": "Master Wizard Spellcasting",
     "feat_level": 18,
     "category": "archetype",

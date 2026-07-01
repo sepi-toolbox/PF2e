@@ -3850,7 +3850,7 @@
   "description": "<p>당신은 <em>Unsinkable's</em>의 선원들이 Qxal의 현현에 대포를 발사하도록 돕습니다. 대포는 100피트 거리에서 대포알이나 작살을 발사할 수 있습니다. 창조에 대해 [[/r {1d20+17} #공격 굴림]]{공격 굴림에 +17 보너스}를 시도합니다. </p> <hr /> <p><strong>대성공</strong> 성공과 동일하지만, 창조는 두 배의 피해를 받습니다. 작살에 맞으면, 창조물은 <em>Unsinkable</em> 쪽으로 30피트 끌려갑니다. <p><strong>성공</strong> 창조물은 포탄에 맞으면 @Damage[(4d8+7)[bludgeoning] 피해, 작살에 맞으면 @Damage[(2d8+3)[piercing] 피해를 받고, 작살에 맞으면 <em>Unsinkable</em> 쪽으로 15 피트 끌려갑니다. </p> <p><strong>실패</strong> 공격은 피해를 주지 않습니다. </p> <p><strong>대실패</strong> 공격은 피해를 주지 않으며, 다음 라운드에는 대포를 다시 발사할 수 없습니다. </p>"
  },
  "shattered-earth": {
-  "name": "Shattered Earth",
+  "name": "부서진 대지",
   "description": "<p><strong>측면</strong> earth</p> <p><strong>활성화</strong> <span class=\\“action-glyph\\”>2</span> 명령, 상호 작용</p> <p><strong>빈도</strong> 시간당 한 번</p> <hr /> <p><strong>효과</strong> 유물의 지진파가 주변의 땅을 파동으로 퍼져 나가며 날카로운 파편을 표면으로 흔듭니다. 60피트 이내의 반경 10피트에 있는 돌이나 흙이 어려운 지형으로 변합니다. 이동 행동 중에 영향을 받은 칸에 들어가는 생물은 곡예 체크 또는 반사 내성에 성공하지 않으면 @Damage[1d6[piercing]]의 피해를 받습니다. 여러 칸을 이동하더라도 이동 행동 당 한 번만 굴림합니다. 6 레벨과 그 이후 4 레벨마다 피해가 [[/r 1d6]] 증가합니다. </p>"
  },
  "searing-wave": {
@@ -4318,7 +4318,7 @@
   "description": "<p><strong>요구 사항</strong> 공예 (마스터), 특수 공예 (어떤 것이든), 또는 고용된 전문가; 조직된 전문가들</p> <hr /> <p>Citadel Altaerein에서 @UUID[Compendium.pf2e.feats-srd.Item.QLeMH5mQgh28sa5o]{Specialty Crafting} 피트에 나열된 제작 전문 기술 중 하나에서 선택한 특정 제작 기술의 제작 공간으로 사용할 방을 선택하세요. 여러 개의 워크숍을 가질 수 있으며, 각 워크숍은 각자의 기술에 전념합니다. 작업장을 사용하면 제작 체크에 +1의 상황 보너스가, 해당 작업장의 전문 기술과 관련된 제작 스킬 체크에 +3의 상황 보너스가 부여됩니다. 이 업그레이드는 완료까지 20일의 작업과 @Check[crafting|dc:25] 체크가 필요합니다.</p>"
  },
  "de-animating-gestures-false": {
-  "name": "De-Animating Gestures (False)",
+  "name": "생기 앗는 몸짓 (가짜)",
   "description": "<p>당신이 보고 들을 수 있는 30피트 이내의 단일 구조물을 지정합니다. 그 구조물은 1분 동안 @UUID[Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl]{가속 1}이 되고, 24시간 동안 이 능력에 일시적으로 면역이 됩니다. 추가 행동은 Stride 또는 Strike에만 사용할 수 있습니다.</p>"
  },
  "de-animating-gestures-true": {
@@ -4354,7 +4354,7 @@
   "description": "<p><strong>발동 빈도</strong> 시즌에 한 번만 발동합니다. </p> <p><strong>발동 조건</strong> 지식 회상 체크를 굴림 직전입니다. </p> <hr /> <p><strong>효과</strong> 오래된 비유, 잘 알려지지 않은 전설, 또는 당면한 주제와 관련된 이야기를 떠올리면서 순간적인 통찰력이 생깁니다. 이 지식 회상 체크는 비밀 특성을 잃게 됩니다. 지식 회상 체크의 결과를 성공 등급 1 단계 증가시킵니다.</p>"
  },
  "blend-in": {
-  "name": "Blend In",
+  "name": "섞여들기",
   "description": "<p><strong>Overcome</strong> @Check[deception|dc:35], @Check[society|dc:37], @Check[stealth|dc:35]</p> <hr /> <p>붐비는 파티를 통과하기 위한 최선의 방법은 자연스럽게 행동하고 군중 속에 섞이는 것입니다.</p> <p>PC가 성공적으로 블렌드 인에 성공하면, 비밀 @Check[perception|dc:34|traits:secret]을 굴려, 그 PC가 손님 중 한 명에게 뭔가 이상한 점이 있다는 것을 알아차리도록 합니다. 성공하면, 그 PC에게 변장 해제 기회(Dispel a Disguise Opportunity)에 대해 알려줍니다.</p>"
  },
  "rescue-citizens": {
