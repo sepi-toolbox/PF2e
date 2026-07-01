@@ -108,17 +108,17 @@ const DM = (function(){
   // 다른 표의 특성 컬럼은 slug→레지스트리 읽기전용 표시(표시 레이어 분리).
   const EDITABLE = new Set(['name_ko','desc_ko']);
   const TABS = [
-    {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'category','actions','prerequisites','frequency','rules_n']},
-    {id:'feat_effects', label:'재주 효과', kind:'derived', src:'data/derived/feat_effects.json', shape:'rows',
-       cols:['feat_slug','feat_name','src','type','target','value','bonus_type','condition','actionCost','summary','note','choice','option','option_name']},
+    {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'category','effect_group_id','actions','prerequisites','frequency','rules_n']},
+    {id:'effects', label:'효과(자동화)', kind:'derived', src:'data/derived/effects.json', shape:'rows',
+       cols:['owner_kind','owner_slug','owner_name','effect_group_id','src','type','target','value','bonus_type','condition','actionCost','summary','note','choice','option','option_name']},
     {id:'spells',     label:'주문',     cat:'spells',     cols:['slug','name_en','name_ko','rank','traits_ko','range','area','defense','duration','rules_n','source']},
     {id:'equipment',  label:'장비',     cat:'equipment',  cols:['slug','name_en','name_ko','level','type','price','bulk','damage','traits_ko','source']},
     {id:'classes',    label:'클래스',   cat:'classes',    cols:['slug','name_en','name_ko','keyAbility','hp','perception','saves','attacks','defenses','source']},
     {id:'conditions', label:'조건',     cat:'conditions', cols:['slug','name_en','name_ko','valued','group','rules_n','source']},
     {id:'actions',    label:'행동',     cat:'actions',    cols:[...COMMON.slice(0,3),'category','actions','frequency','traits_ko','rules_n']},
     {id:'ancestries', label:'혈통',     cat:'ancestries', cols:['slug','name_en','name_ko','hp','size','speed','vision','languages','source']},
-    {id:'backgrounds',label:'배경',     cat:'backgrounds',cols:['slug','name_en','name_ko','boosts','trainedSkills','rules_n','source']},
-    {id:'heritages',  label:'유산',     cat:'heritages',  cols:['slug','name_en','name_ko','ancestry','traits_ko','rules_n','source']},
+    {id:'backgrounds',label:'배경',     cat:'backgrounds',cols:['slug','name_en','name_ko','effect_group_id','boosts','trainedSkills','rules_n','source']},
+    {id:'heritages',  label:'유산',     cat:'heritages',  cols:['slug','name_en','name_ko','effect_group_id','ancestry','traits_ko','rules_n','source']},
     {id:'deities',    label:'신격',     cat:'deities',    cols:['slug','name_en','name_ko','category','attribute','domains','font','sanctification','source']},
     {id:'effects',    label:'효과',     cat:'effects',    cols:['slug','name_en','name_ko','level','traits_ko','duration','rules_n','source']},
     {id:'traits',     label:'특성',     kind:'derived', src:'data/derived/traits.json', shape:'map',
@@ -174,8 +174,9 @@ const DM = (function(){
     simple:{h:'단순',w:44,cls:'num'}, martial:{h:'군용',w:44,cls:'num'}, unarmed:{h:'비무장',w:52,cls:'num'}, advanced:{h:'고급',w:44,cls:'num'},
     unarmored:{h:'미착용',w:52,cls:'num'}, light:{h:'경장',w:44,cls:'num'}, medium:{h:'중장',w:44,cls:'num'}, heavy:{h:'중장갑',w:52,cls:'num'},
     classDC:{h:'클래스DC',w:64,cls:'num'}, spellcasting:{h:'시전',w:44,cls:'num'},
-    // 재주 효과(자동화 정본 테이블)
-    feat_slug:{h:'재주',w:150,cls:'key'}, feat_name:{h:'재주(한글)',w:150}, src:{h:'구분',w:74},
+    // 효과(자동화 정본 통합 테이블)
+    owner_kind:{h:'소속',w:74}, owner_slug:{h:'엔티티',w:160,cls:'key'}, owner_name:{h:'엔티티(한글)',w:160},
+    effect_group_id:{h:'효과그룹(FK)',w:190,cls:'key'}, src:{h:'구분',w:74},
     target:{h:'대상',w:130}, value:{h:'값',w:64}, bonus_type:{h:'보너스종류',w:92}, condition:{h:'조건',w:150},
     actionCost:{h:'행동비용',w:64}, summary:{h:'요약',w:280}, note:{h:'노트',w:300},
     choice:{h:'선택지ID',w:130,cls:'key'}, option:{h:'옵션ID',w:130,cls:'key'}, option_name:{h:'옵션명',w:150},
@@ -201,8 +202,10 @@ const DM = (function(){
     is_subclass:'서브클래스 옵션 여부(✓).', subclass_type:'서브클래스 종류(muse/bloodline/instinct…).', grants:'GrantItem 부여 개수.',
     ref:'부가정보(기술=핵심능력치 등).', tag:'FVTT otherTags(서브클래스 식별 태그).',
     ac:'방어도(정수).', hp:'체력(정수).', damage:'피해식 (예: 2d6 화염).',
-    // 재주 효과(자동화 정본 테이블) — 소스=FEAT_DB.effect_group_id ⨝ EFFECT_GROUPS(+CHOICE_OPTIONS)
-    feat_slug:'효과가 속한 재주 slug(정본 키).', feat_name:'재주 한글명(표시용).',
+    // 효과(자동화 정본 통합 테이블) — 소스=재주/유산/배경 effect_group_id ⨝ EFFECT_GROUPS(+CHOICE_OPTIONS)
+    owner_kind:'소속 엔티티 종류: feat(재주)/heritage(유산)/background(배경).',
+    owner_slug:'효과가 속한 엔티티 slug(정본 키).', owner_name:'엔티티 한글명(표시용).',
+    effect_group_id:'참조 효과그룹 FK(entity→effect 연결키). 같은 값=한 그룹으로 묶인 효과. 엔티티 탭에도 이 컬럼으로 역참조 표시.',
     src:'행 구분: effect(직접 기계효과)/choice·choice_opt(선택지·옵션)/note(자동 노트).',
     type:'효과 유형(enum): skill_trained·save_bonus·grant_feat·grant_focus_spell·grant_action·resistance… raw 그대로.',
     target:'효과 대상(slug/enum): 기술id·능력치·주문명·무기명·피해유형 등 type별.',
@@ -258,7 +261,11 @@ const DM = (function(){
     domains:r=>{const d=r.system&&r.system.domains&&r.system.domains.primary; return Array.isArray(d)?d.join(', '):'';},
     font:r=>{const f=r.system&&r.system.font; return Array.isArray(f)?f.join('/'):(f||'');},
     sanctification:r=>{const s=r.system&&r.system.sanctification; return s&&s.modal||'';},
+    // 엔티티(재주/유산/배경) → 참조 효과그룹 FK (effect_refs.json 역참조 인덱스, 현재 탭 cat 기준)
+    effect_group_id:r=>{ const cat=curTab&&curTab.cat; const slug=ACC.slug(r); return (cat&&EFF_REF[cat]&&EFF_REF[cat][slug])||''; },
   };
+  // 효과그룹 역참조 인덱스 {feats:{slug:eg},heritages:{...},backgrounds:{...}} — init에서 로드
+  let EFF_REF={feats:{},heritages:{},backgrounds:{}};
   function rankOf(o){ if(!o)return''; const v=(typeof o==='object')?o.value:o; return RANK[v|0]!==undefined?RANK[v|0]:''; }
 
   // ---- 용어 사전(slug→한글): 특성/기술/조건/감각/피해유형/무기군 + 특성설명 ----
@@ -565,7 +572,10 @@ const DM = (function(){
   function onSearch(v){ search=v; if(rows.length)applyView(); }
 
   // ---- init ----
-  function init(){ updateDiff(); renderTabs(); if(window.PF2eData&&PF2eData.loadLocalize)PF2eData.loadLocalize(); const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
+  function init(){ updateDiff(); renderTabs(); if(window.PF2eData&&PF2eData.loadLocalize)PF2eData.loadLocalize();
+    // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
+    fetch('data/derived/effect_refs.json?v=dm2').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, revertAll, closeDetail };
 })();
