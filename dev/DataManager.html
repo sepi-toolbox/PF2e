@@ -116,7 +116,11 @@ const DM = (function(){
     {id:'backgrounds',label:'배경',     cat:'backgrounds',cols:['slug','name_en','name_ko','boosts','trainedSkills','rules_n','source']},
     {id:'heritages',  label:'유산',     cat:'heritages',  cols:['slug','name_en','name_ko','ancestry','traits_ko','rules_n','source']},
     {id:'deities',    label:'신격',     cat:'deities',    cols:['slug','name_en','name_ko','category','attribute','domains','font','sanctification','source']},
-    {id:'class_progression', label:'클래스성장(파생)', derived:true, cols:[]},
+    {id:'effects',    label:'효과',     cat:'effects',    cols:['slug','name_en','name_ko','level','traits_ko','duration','rules_n','source']},
+    {id:'traits',     label:'특성',     kind:'derived', src:'data/derived/traits.json', shape:'map',
+       cols:['slug','name_en','name_ko','desc_ko','has_desc'], editable:['name_ko','desc_ko']},
+    {id:'class_progression', label:'클래스성장(파생)', kind:'derived', src:'data/derived/class_progression.json', shape:'rows',
+       cols:['class','cp_name','level','perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting','_src']},
     {id:'config',     label:'config',   config:true, cols:[]},
   ];
 
@@ -136,6 +140,12 @@ const DM = (function(){
     size:{h:'크기',w:60}, speed:{h:'속도',w:56,cls:'num'}, vision:{h:'시야',w:90}, languages:{h:'언어',w:150},
     ancestry:{h:'혈통',w:110}, boosts:{h:'능력증가',w:150}, trainedSkills:{h:'훈련기술',w:170},
     attribute:{h:'능력치',w:110}, domains:{h:'영역',w:160}, font:{h:'신성원천',w:90}, sanctification:{h:'성별화',w:100},
+    desc_ko:{h:'설명',w:340,edit:true}, has_desc:{h:'설명有',w:56,cls:'num'},
+    class:{h:'클래스',w:110,cls:'key'}, cp_name:{h:'한글명',w:100}, _src:{h:'증가원(특성)',w:220},
+    fortitude:{h:'인내',w:44,cls:'num'}, reflex:{h:'반사',w:44,cls:'num'}, will:{h:'의지',w:44,cls:'num'},
+    simple:{h:'단순',w:44,cls:'num'}, martial:{h:'군용',w:44,cls:'num'}, unarmed:{h:'비무장',w:52,cls:'num'}, advanced:{h:'고급',w:44,cls:'num'},
+    unarmored:{h:'미착용',w:52,cls:'num'}, light:{h:'경장',w:44,cls:'num'}, medium:{h:'중장',w:44,cls:'num'}, heavy:{h:'중장갑',w:52,cls:'num'},
+    classDC:{h:'클래스DC',w:64,cls:'num'}, spellcasting:{h:'시전',w:44,cls:'num'},
   };
 
   // ---- 필드 접근자 (row = base⊕overlay 조인된 FVTT 문서) ----
@@ -184,7 +194,30 @@ const DM = (function(){
     sanctification:r=>{const s=r.system&&r.system.sanctification; return s&&s.modal||'';},
   };
   function rankOf(o){ if(!o)return''; const v=(typeof o==='object')?o.value:o; return RANK[v|0]!==undefined?RANK[v|0]:''; }
-  function traitsKo(r){ const t=r.system&&r.system.traits&&r.system.traits.value; if(!Array.isArray(t))return''; return t.join(', '); }
+
+  // ---- 용어 사전(slug→한글): 특성/기술/조건/감각/피해유형/무기군 + 특성설명 ----
+  let TERM={trait:{},skill:{},condition:{},sense:{},damageType:{},weaponGroup:{}}, TRAITDESC={};
+  const _norm=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+  async function ensureTerms(){
+    if(TERM._loaded)return;
+    try{
+      const [g,l,td]=await Promise.all([
+        fetch('data/creatures/_glossary.ko.json').then(r=>r.json()).catch(()=>({})),
+        fetch('data/overlay/_lang.ko.json').then(r=>r.json()).catch(()=>({})),
+        fetch('data/creatures/_trait_desc.ko.json').then(r=>r.json()).catch(()=>({})),
+      ]);
+      TERM.trait={...(l.traits||{}),...(g.trait||{})};
+      TERM.skill={...(g.skill||{})}; TERM.condition={...(g.condition||{})}; TERM.sense={...(g.sense||{})};
+      TERM.damageType={...(l.damageType||{})}; TERM.weaponGroup={...(l.weaponGroup||{})};
+      for(const k in td) TRAITDESC[_norm(k)]=td[k];
+      TERM._loaded=true;
+    }catch(e){ console.warn('term load 실패',e); TERM._loaded=true; }
+  }
+  const koTrait=s=>TERM.trait[s]||s;
+  const koSkill=s=>TERM.skill[s]||s;
+  const koDamage=s=>TERM.damageType[s]||s;
+  const traitDescOf=s=>TRAITDESC[_norm(s)]||'';
+  function traitsKo(r){ const t=r.system&&r.system.traits&&r.system.traits.value; if(!Array.isArray(t))return''; return t.map(koTrait).join(', '); }
 
   // ---- 상태 ----
   let curTab=TABS[0], rows=[], view=[], sortKey='slug', sortDir=1, search='', selSlug=null;
@@ -203,11 +236,15 @@ const DM = (function(){
   function diffCount(){ let n=0; for(const c in overrides) for(const s in overrides[c]) n+=Object.keys(overrides[c][s]).length; return n; }
   function updateDiff(){ const n=diffCount(); const b=document.getElementById('dm-diff'); b.textContent='변경 '+n; b.classList.toggle('on',n>0); }
 
+  // 탭 키/편집대상/행 slug 헬퍼 (FVTT vs 파생 flat 공용)
+  function tabKey(){ return curTab.cat || ('@'+curTab.id); }
+  function isEditable(key){ return curTab.editable ? curTab.editable.includes(key) : EDITABLE.has(key); }
+  function rowSlug(r){ return r._flat ? (r.slug||'') : ACC.slug(r); }
+  function rawVal(r,key){ if(r._flat){ const v=r[key]; return key==='has_desc'?(v?'✓':''):(v==null?'':v);} const fn=ACC[key]; return fn?fn(r):''; }
   // 편집 반영값(override 우선)
   function cellVal(r,key){
-    const cat=curTab.cat, slug=ACC.slug(r);
-    if(EDITABLE.has(key)){ const o=ovGet(cat,slug,key); if(o!=null) return o; }
-    const fn=ACC[key]; return fn?fn(r):'';
+    if(isEditable(key)){ const o=ovGet(tabKey(),rowSlug(r),key); if(o!=null) return o; }
+    return rawVal(r,key);
   }
 
   // ---- 렌더 ----
@@ -215,16 +252,20 @@ const DM = (function(){
     const el=document.getElementById('dm-tabs'); el.innerHTML='';
     TABS.forEach(t=>{
       const d=document.createElement('div'); d.className='dm-tab'+(t===curTab?' active':'');
-      d.innerHTML=t.label+(loaded[t.cat]?'<span class="cnt">'+loaded[t.cat].length+'</span>':'');
+      const lk=t.cat||('@'+t.id); const arr=loaded[lk];
+      d.innerHTML=t.label+(arr?'<span class="cnt">'+arr.length+'</span>':'');
       d.onclick=()=>selectTab(t); el.appendChild(d);
     });
   }
   async function selectTab(t){
     curTab=t; selSlug=null; closeDetail(); search=''; document.getElementById('dm-search').value='';
     renderTabs();
-    if(t.derived||t.config){ rows=[];view=[]; renderPlaceholder(t); return; }
-    await ensureLoaded(t.cat);
-    rows=loaded[t.cat]; sortKey=t.cols[0]; sortDir=1;
+    if(t.config){ rows=[];view=[]; renderPlaceholder(t); return; }
+    await ensureTerms();
+    if(t.kind==='derived') await ensureDerived(t);
+    else await ensureLoaded(t.cat);
+    rows = t.kind==='derived' ? loaded['@'+t.id] : loaded[t.cat];
+    sortKey=t.cols[0]; sortDir=1;
     applyView();
   }
   async function ensureLoaded(cat){
@@ -238,17 +279,30 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='none';
     renderTabs();
   }
+  async function ensureDerived(t){
+    const key='@'+t.id; if(loaded[key])return;
+    document.getElementById('dm-loading').style.display='block';
+    document.getElementById('dm-rows').innerHTML='';
+    try{
+      const j=await fetch(t.src+'?v=dm').then(r=>r.json());
+      if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
+      else loaded[key]=(j.rows||[]).map(r=>({...r,_flat:true, cp_name:r.name_ko, name_en:r.class}));
+      loaded[key]._meta=j.note||'';
+    }catch(e){ loaded[key]=[]; console.error(e); }
+    document.getElementById('dm-loading').style.display='none';
+    renderTabs();
+  }
   function applyView(){
     const q=search.trim().toLowerCase();
     view = q ? rows.filter(r=>{
-      return ACC.slug(r).toLowerCase().includes(q) || (r.name_en||r.name||'').toLowerCase().includes(q)
-        || (cellVal(r,'name_ko')||'').toLowerCase().includes(q) || (r._desc_ko||'').toLowerCase().includes(q);
+      const slug=rowSlug(r).toLowerCase(), en=(r.name_en||r.name||'').toLowerCase();
+      const ko=(''+(cellVal(r,'name_ko')||'')).toLowerCase(), d=(''+(r._desc_ko||r.desc_ko||'')).toLowerCase();
+      return slug.includes(q)||en.includes(q)||ko.includes(q)||d.includes(q);
     }) : rows.slice();
-    const fn=ACC[sortKey]||ACC.slug;
-    view.sort((a,b)=>{ let x=cellSort(a,fn),y=cellSort(b,fn); return (x<y?-1:x>y?1:0)*sortDir; });
+    view.sort((a,b)=>{ let x=cellSort(a,sortKey),y=cellSort(b,sortKey); return (x<y?-1:x>y?1:0)*sortDir; });
     renderHead(); renderRows(); updateStatus();
   }
-  function cellSort(r,fn){ const v=fn(r); return typeof v==='number'?v:String(v==null?'':v).toLowerCase(); }
+  function cellSort(r,key){ const v=rawVal(r,key); return typeof v==='number'?v:String(v==null?'':v).toLowerCase(); }
   function renderHead(){
     const head=document.getElementById('dm-head'); head.innerHTML='';
     const tr=document.createElement('tr');
@@ -281,12 +335,12 @@ const DM = (function(){
   }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
   function rowHtml(r,i){
-    const slug=ACC.slug(r), sel=slug===selSlug?' sel':'';
+    const slug=rowSlug(r), sel=slug===selSlug?' sel':'';
     let tds='';
     curTab.cols.forEach(c=>{
       const m=COLMETA[c]||{}; const v=cellVal(r,c);
-      const edit = m.edit && EDITABLE.has(c);
-      const edited = edit && ovGet(curTab.cat,slug,c)!=null;
+      const edit = m.edit && isEditable(c);
+      const edited = edit && ovGet(tabKey(),slug,c)!=null;
       const emptyKo = c==='name_ko'&&!v;
       let cls=(m.cls||'')+(edit?' editable':'')+(edited?' edited':'')+(emptyKo?' empty-ko':'');
       tds+='<td class="'+cls+'"'+(edit?' data-edit="'+c+'" data-slug="'+esc(slug)+'"':'')+' title="'+esc(v)+'">'+esc(emptyKo?'(미번역)':v)+'</td>';
@@ -310,15 +364,15 @@ const DM = (function(){
   document.addEventListener('dblclick',e=>{
     const td=e.target.closest('td.editable'); if(!td)return;
     const field=td.getAttribute('data-edit'), slug=td.getAttribute('data-slug'); if(!field)return;
-    const r=rows.find(x=>ACC.slug(x)===slug); const orig=r?(ACC[field]?ACC[field](r):''):'';
+    const r=rows.find(x=>rowSlug(x)===slug); const orig=r?(''+(rawVal(r,field)||'')):'';
     td.setAttribute('contenteditable','true'); td.classList.remove('empty-ko');
     if(td.textContent==='(미번역)')td.textContent='';
     td.focus(); document.execCommand&&document.execCommand('selectAll',false,null);
     const done=()=>{
       td.removeAttribute('contenteditable');
       const val=td.textContent.trim();
-      ovSet(curTab.cat,slug,field, val===orig?'':val);
-      td.classList.toggle('edited', ovGet(curTab.cat,slug,field)!=null);
+      ovSet(tabKey(),slug,field, val===orig?'':val);
+      td.classList.toggle('edited', ovGet(tabKey(),slug,field)!=null);
       if(field==='name_ko'&&!val){ td.classList.add('empty-ko'); td.textContent='(미번역)'; }
       updateStatus();
     };
@@ -332,24 +386,39 @@ const DM = (function(){
     if(e.target.closest('td.editable')&&e.detail>1)return;
     const slug=tr.getAttribute('data-slug'); if(e.target.closest('td[data-edit]'))return;
     selSlug=slug; document.querySelectorAll('#dm-rows tr.sel').forEach(x=>x.classList.remove('sel')); tr.classList.add('sel');
-    openDetail(rows.find(r=>ACC.slug(r)===slug));
+    openDetail(rows.find(r=>rowSlug(r)===slug));
   });
+  const traitChip=t=>{ const d=traitDescOf(t); return '<span class="dm-chip"'+(d?' title="'+esc(d)+'"':'')+'>'+esc(koTrait(t))+(d?' ⓘ':'')+'</span>'; };
   function openDetail(r){
     if(!r){closeDetail();return;}
-    const d=document.getElementById('dm-detail'); d.classList.add('open');
-    const slug=ACC.slug(r), koName=cellVal(r,'name_ko')||'(미번역)';
+    const d=document.getElementById('dm-detail'); d.classList.add('open'); const inner=document.getElementById('dm-detail-inner');
+    const close='<span class="close" onclick="DM.closeDetail()">✕</span>';
+    if(r._flat){
+      if(curTab.id==='traits'){
+        inner.innerHTML=close+'<h3>'+esc(cellVal(r,'name_ko'))+'</h3><div class="slug">'+esc(r.name_en)+' · '+esc(r.slug)+'</div>'+
+          (r.desc_ko?'<div class="sec"><div class="sec-h">특성 설명</div><div class="descbox">'+esc(r.desc_ko)+'</div></div>'
+            :'<div class="sec"><div class="dm-empty">설명 없음 (PF2e-KR 원본에 미수록)</div></div>');
+      } else if(curTab.id==='class_progression'){
+        const order=['perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting'];
+        inner.innerHTML=close+'<h3>'+esc(r.name_ko)+' <small style="color:var(--text2)">L'+esc(r.level)+'</small></h3><div class="slug">'+esc(r.class)+'</div>'+
+          '<div class="sec"><div class="sec-h">숙련 (U/T/E/M/L)</div><div class="layer">'+
+          order.map(k=>'<b>'+(COLMETA[k]?COLMETA[k].h:k)+'</b><span>'+esc(r[k])+'</span>').join('')+'</div></div>'+
+          (r._src?'<div class="sec"><div class="sec-h">이 레벨 숙련증가 특성</div><div>'+esc(r._src)+'</div></div>':'');
+      }
+      return;
+    }
+    const slug=rowSlug(r), koName=cellVal(r,'name_ko')||'(미번역)';
     const traits=(r.system&&r.system.traits&&r.system.traits.value)||[];
     const rules=(r.system&&r.system.rules)||[];
     const descKo=r._desc_ko||'', descEn=(r.system&&r.system.description&&r.system.description.value)||'';
-    document.getElementById('dm-detail-inner').innerHTML =
-      '<span class="close" onclick="DM.closeDetail()">✕</span>'+
+    inner.innerHTML = close+
       '<h3>'+esc(koName)+'</h3><div class="slug">'+esc(r.name_en||r.name||'')+' · '+esc(slug)+'</div>'+
       '<div class="sec"><div class="sec-h">레이어</div><div class="layer">'+
         '<b>BASE</b><span>'+esc(r.name_en||r.name||'')+'</span>'+
         '<b>OVL</b><span>'+esc(r.name_ko&&r.name_ko!==r.name_en?r.name_ko:'—')+'</span>'+
-        '<b>OVR</b><span>'+esc(ovGet(curTab.cat,slug,'name_ko')||'—')+'</span>'+
+        '<b>OVR</b><span>'+esc(ovGet(tabKey(),slug,'name_ko')||'—')+'</span>'+
       '</div></div>'+
-      (traits.length?'<div class="sec"><div class="sec-h">특성 ('+traits.length+')</div>'+traits.map(t=>'<span class="dm-chip">'+esc(t)+'</span>').join('')+'</div>':'')+
+      (traits.length?'<div class="sec"><div class="sec-h">특성 ('+traits.length+')</div>'+traits.map(traitChip).join('')+'</div>':'')+
       (descKo?'<div class="sec"><div class="sec-h">설명 (한글)</div><div class="descbox">'+descKo+'</div></div>':'')+
       (descEn?'<div class="sec"><div class="sec-h">설명 (영문)</div><div class="descbox">'+descEn+'</div></div>':'')+
       '<div class="sec"><div class="sec-h">기계효과 rules[] ('+rules.length+') — 읽기전용</div><pre>'+esc(JSON.stringify(rules,null,1))+'</pre></div>';
@@ -375,7 +444,8 @@ const DM = (function(){
   function onSearch(v){ search=v; if(rows.length)applyView(); }
 
   // ---- init ----
-  function init(){ updateDiff(); renderTabs(); selectTab(TABS[0]); }
+  function init(){ updateDiff(); renderTabs(); const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
+    window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, revertAll, closeDetail };
 })();
 window.addEventListener('DOMContentLoaded', DM.init);
