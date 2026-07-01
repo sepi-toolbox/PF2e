@@ -22,9 +22,10 @@ const ctx = { console, document: { getElementById: () => null, querySelectorAll:
 ctx.window = ctx; vm.createContext(ctx);
 function load(f, expose) { let s = fs.readFileSync(path.join(DEV, f), 'utf8'); if (expose) s += '\n;' + expose; vm.runInContext(s, ctx); }
 load('feat_db.js', 'globalThis.FEAT_DB=FEAT_DB;');
-load('cs_data.js', 'globalThis.EFFECT_GROUPS=(typeof EFFECT_GROUPS!=="undefined"?EFFECT_GROUPS:[]);globalThis.CHOICE_OPTIONS=(typeof CHOICE_OPTIONS!=="undefined"?CHOICE_OPTIONS:[]);globalThis.HERITAGE_DB=(typeof HERITAGE_DB!=="undefined"?HERITAGE_DB:[]);globalThis.BACKGROUNDS=(typeof BACKGROUNDS!=="undefined"?BACKGROUNDS:[]);');
-const { FEAT_DB, EFFECT_GROUPS, CHOICE_OPTIONS, HERITAGE_DB, BACKGROUNDS } = ctx;
-PF.loadCategorySync('feats'); PF.loadCategorySync('heritages'); PF.loadCategorySync('backgrounds');
+load('cs_data.js', 'globalThis.EFFECT_GROUPS=(typeof EFFECT_GROUPS!=="undefined"?EFFECT_GROUPS:[]);globalThis.CHOICE_OPTIONS=(typeof CHOICE_OPTIONS!=="undefined"?CHOICE_OPTIONS:[]);globalThis.HERITAGE_DB=(typeof HERITAGE_DB!=="undefined"?HERITAGE_DB:[]);globalThis.BACKGROUNDS=(typeof BACKGROUNDS!=="undefined"?BACKGROUNDS:[]);globalThis.CONDITIONS_DATA=(typeof CONDITIONS_DATA!=="undefined"?CONDITIONS_DATA:[]);');
+load('class_features_db.js', 'globalThis.DEITY_DB=(typeof DEITY_DB!=="undefined"?DEITY_DB:[]);');
+const { FEAT_DB, EFFECT_GROUPS, CHOICE_OPTIONS, HERITAGE_DB, BACKGROUNDS, CONDITIONS_DATA, DEITY_DB } = ctx;
+PF.loadCategorySync('feats'); PF.loadCategorySync('heritages'); PF.loadCategorySync('backgrounds'); PF.loadCategorySync('deities'); PF.loadCategorySync('conditions');
 
 const egIdx = {}; for (const r of EFFECT_GROUPS) (egIdx[r.group_id] = egIdx[r.group_id] || []).push(r);
 const coIdx = {}; for (const o of CHOICE_OPTIONS) (coIdx[o.choice_id] = coIdx[o.choice_id] || []).push(o);
@@ -35,7 +36,7 @@ const legBg = {}; for (const b of BACKGROUNDS) if (b) legBg[b.id] = b;
 function egFields(r) { const o = {}; for (const k of Object.keys(r)) { if (k === 'group_id') continue; const v = r[k]; o[k] = Array.isArray(v) ? v.join(', ') : v; } return o; }
 
 const rows = [];
-const refs = { feats: {}, heritages: {}, backgrounds: {} };
+const refs = { feats: {}, heritages: {}, backgrounds: {}, conditions: {}, deities: {} };
 const stat = { legacy: 0, fvtt: 0 };
 // 런타임 단일 소스: slug → { source, rows:[raw effect rows], auto_note?, damage_note?, choice? } (legacy 우선)
 const dbBySlug = {};
@@ -132,18 +133,46 @@ function fvttRuleRows(doc) {
 // 표시 테이블엔 남기되 런타임 소스엔 넣지 않음(applyFeatEffects 미처리 → 무의미 + 부정확 방지).
 const APPLY_TYPES = new Set(['hp_bonus', 'skill_trained', 'skill_bonus', 'save_bonus', 'ac_bonus', 'vision_upgrade',
   'extra_sense', 'resistance', 'grant_feat', 'grant_lore', 'grant_innate_spell', 'grant_focus_spell', 'speed_extra', 'proficiency', 'bulk_bonus', 'initiative_bonus']);
-function emitFvtt(base, doc) {
+function emitFvtt(base, doc, bake = true) {
   if (!doc) return;
   const rr = fvttRuleRows(doc);
   if (!rr.length) return;
   const b = { ...base, effect_group_id: '', origin: 'fvtt', src: 'rule' }; delete b._refKey;
   for (const r of rr) { rows.push({ ...b, ...r }); stat.fvtt++; }
   // 런타임 단일 소스: legacy 우선(이미 있으면 스킵). 적용가능 type + 무조건(predicate 없음) + 브래킷 미포함만.
-  if (dbBySlug[base.owner_slug]) return;
+  // bake=false(조건/신격 등): 표시 테이블·FK만, 런타임 EFFECTS_DB엔 넣지 않음(적용 모델이 다름 — 조건=conditionMod, 신격=selectDeity).
+  if (!bake || dbBySlug[base.owner_slug]) return;
   const runRows = rr.filter(r => APPLY_TYPES.has(r.type) && !r.condition
     && !/[{}]/.test(String(r.target == null ? '' : r.target)) && !/[{}]/.test(String(r.value == null ? '' : r.value)))
     .map(r => { const o = { type: r.type }; if (r.target !== '' && r.target != null) o.target = r.target; if (r.value !== '' && r.value != null) o.value = r.value; if (r.bonus_type) o.bonus_type = r.bonus_type; return o; });
   if (runRows.length) dbBySlug[base.owner_slug] = { source: 'fvtt', rows: runRows };
+}
+
+// ── 신격 효과행 파생(deities.base엔 rules[] 없음 → 구조화 필드에서 효과행 도출) ──
+const legDeity = {}; for (const d of DEITY_DB) if (d) legDeity[d.id] = d;
+function arrf(v) { return Array.isArray(v) ? v : (v == null || v === '' ? [] : [v]); }
+function deityRows(doc, leg) {
+  const s = doc.system || {}; const out = [];
+  for (const a of arrf(s.attribute)) out.push({ type: 'attribute_boost', target: a }); // 신봉 능력치
+  for (const sk of (arrf(s.skill).length ? arrf(s.skill) : arrf(leg && leg.skill))) out.push({ type: 'skill_trained', target: sk, condition: '클레릭 숙련' }); // 신성 기술
+  for (const w of (arrf(s.weapons).length ? arrf(s.weapons) : arrf(leg && leg.weapon))) out.push({ type: 'favored_weapon', target: w }); // 선호 무기
+  const font = arrf(s.font); if (font.length) out.push({ type: 'divine_font', target: font.join(', ') }); // 신성 원천
+  const sanc = s.sanctification ? (Array.isArray(s.sanctification.what) ? s.sanctification.what : arrf(s.sanctification.what)) : arrf(leg && leg.sanctification);
+  if (sanc.length) out.push({ type: 'sanctification', target: sanc.join(', '), bonus_type: (s.sanctification && s.sanctification.modal) || '' }); // 성별화
+  const dom = s.domains || {}; const prim = arrf(dom.primary).length ? arrf(dom.primary) : arrf(leg && leg.domains);
+  for (const d of prim) out.push({ type: 'domain', target: d, bonus_type: 'primary' });
+  for (const d of arrf(dom.alternate)) out.push({ type: 'domain', target: d, bonus_type: 'alternate' });
+  if (s.spells && typeof s.spells === 'object') for (const rk of Object.keys(s.spells)) { // 신격 부여 클레릭 주문
+    let nm = s.spells[rk]; try { const g = PF.getByUuid(String(nm).trim()); if (g) nm = g.name_ko || g.name; } catch (e) {}
+    out.push({ type: 'grant_spell', target: nm, value: rk, condition: '신격 주문' });
+  }
+  return out;
+}
+function emitDeity(base, doc, leg) {
+  const rr = deityRows(doc, leg); if (!rr.length) return;
+  refs.deities[base.owner_slug] = base.owner_slug; // FK 마커(양방향 가시화)
+  const b = { ...base, effect_group_id: '', origin: 'fvtt', src: 'field' }; delete b._refKey;
+  for (const r of rr) { rows.push({ ...b, ...r }); stat.fvtt++; }
 }
 
 // ── 소스 순회: FVTT 문서 풀 기준(전량) + 레거시 조인 ──
@@ -170,6 +199,22 @@ for (const doc of PF.all('backgrounds')) {
   const leg = legBg[slug]; if (leg) emitLegacy({ ...base, owner_name: leg.name || name }, leg);
   emitFvtt(base, doc);
 }
+// 조건(CONDITIONS.auto): FVTT 조건 문서의 rules[](FlatModifier 등)=조건 보유 시 자동 기계효과. 표시·FK만(런타임=conditionMod).
+for (const doc of PF.all('conditions')) {
+  const s = doc.system || {}; const slug = s.slug; if (!slug) continue;
+  const name = PF.nameKo(doc) || slug;
+  const base = ownerBase('condition', 'conditions', doc, slug, name, '', s.group || '');
+  const before = rows.length;
+  emitFvtt(base, doc, false);
+  if (rows.length > before) refs.conditions[slug] = slug; // 효과행 생겼을 때만 FK 마커
+}
+// 신격(DEITY): 구조화 필드 → 효과행(신성기술/선호무기/신성원천/성별화/영역/부여주문). 표시·FK만(런타임=selectDeity).
+for (const doc of PF.all('deities')) {
+  const s = doc.system || {}; const slug = s.slug; if (!slug) continue;
+  const name = PF.nameKo(doc) || slug;
+  const base = ownerBase('deity', 'deities', doc, slug, name, '', s.category || 'deity');
+  emitDeity(base, doc, legDeity[slug]);
+}
 // 레거시 전용(FVTT 문서 없는 slug, 예: *-witch 서브클래스 변형)도 누락 없이
 for (const [tbl, refKey, kind] of [[legFeat, 'feats', 'feat'], [legHer, 'heritages', 'heritage'], [legBg, 'backgrounds', 'background']]) {
   const pfCat = refKey; const seen = new Set(PF.all(pfCat).map(d => d.system && d.system.slug));
@@ -183,7 +228,8 @@ for (const [tbl, refKey, kind] of [[legFeat, 'feats', 'feat'], [legHer, 'heritag
 const byType = {}; for (const r of rows) if (r.type) byType[r.type] = (byType[r.type] || 0) + 1;
 const byOrigin = {}; for (const r of rows) byOrigin[r.origin] = (byOrigin[r.origin] || 0) + 1;
 const note = `자동화 정본 효과 테이블(통합·전량). 효과행 ${rows.length} (legacy ${byOrigin.legacy || 0}·fvtt ${byOrigin.fvtt || 0}) · ${Object.keys(byType).length} type. `
-  + `origin=legacy(EFFECT_GROUPS 큐레이션)/fvtt(system.rules[]). owner_kind=소속(feat/heritage/background), effect_group_id=레거시 FK, re_key=FVTT 룰키. `
+  + `origin=legacy(EFFECT_GROUPS 큐레이션)/fvtt(system.rules[]·신격 구조필드). owner_kind=소속(feat/heritage/background/condition/deity), effect_group_id=레거시 FK, re_key=FVTT 룰키. `
+  + `condition=조건 보유 시 자동효과(CONDITIONS.auto, 런타임=conditionMod)·deity=신격 신봉효과(런타임=selectDeity) — 둘 다 표시/감사·FK만(런타임 EFFECTS_DB 미편입, 적용모델 상이). `
   + `raw slug/enum 표시(치환 금지). 재생성=node tools/derive/build_effects.mjs.`;
 
 fs.writeFileSync(path.join(DEV, 'data/derived/effects.json'), JSON.stringify({ rows, note, _types: byType, _origin: byOrigin }, null, 1) + '\n');

@@ -93,7 +93,7 @@
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm2"></script>
+<script src="cs_pf2e.js?v=dm3"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -114,12 +114,12 @@ const DM = (function(){
     {id:'spells',     label:'주문',     cat:'spells',     cols:['slug','name_en','name_ko','rank','traits_ko','range','area','defense','duration','rules_n','source']},
     {id:'equipment',  label:'장비',     cat:'equipment',  cols:['slug','name_en','name_ko','level','type','price','bulk','damage','traits_ko','source']},
     {id:'classes',    label:'클래스',   cat:'classes',    cols:['slug','name_en','name_ko','keyAbility','hp','perception','saves','attacks','defenses','source']},
-    {id:'conditions', label:'조건',     cat:'conditions', cols:['slug','name_en','name_ko','valued','group','rules_n','source']},
+    {id:'conditions', label:'조건',     cat:'conditions', cols:['slug','name_en','name_ko','effect_group_id','valued','group','rules_n','source']},
     {id:'actions',    label:'행동',     cat:'actions',    cols:[...COMMON.slice(0,3),'category','actions','frequency','traits_ko','rules_n']},
     {id:'ancestries', label:'혈통',     cat:'ancestries', cols:['slug','name_en','name_ko','hp','size','speed','vision','languages','source']},
     {id:'backgrounds',label:'배경',     cat:'backgrounds',cols:['slug','name_en','name_ko','effect_group_id','boosts','trainedSkills','rules_n','source']},
     {id:'heritages',  label:'유산',     cat:'heritages',  cols:['slug','name_en','name_ko','effect_group_id','ancestry','traits_ko','rules_n','source']},
-    {id:'deities',    label:'신격',     cat:'deities',    cols:['slug','name_en','name_ko','category','attribute','domains','font','sanctification','source']},
+    {id:'deities',    label:'신격',     cat:'deities',    cols:['slug','name_en','name_ko','effect_group_id','category','attribute','domains','font','sanctification','source']},
     {id:'effects',    label:'효과',     cat:'effects',    cols:['slug','name_en','name_ko','level','traits_ko','duration','rules_n','source']},
     {id:'traits',     label:'특성',     kind:'derived', src:'data/derived/traits.json', shape:'map',
        cols:['slug','name_en','name_ko','desc_ko','has_desc'], editable:['name_ko','desc_ko']},
@@ -203,8 +203,8 @@ const DM = (function(){
     is_subclass:'서브클래스 옵션 여부(✓).', subclass_type:'서브클래스 종류(muse/bloodline/instinct…).', grants:'GrantItem 부여 개수.',
     ref:'부가정보(기술=핵심능력치 등).', tag:'FVTT otherTags(서브클래스 식별 태그).',
     ac:'방어도(정수).', hp:'체력(정수).', damage:'피해식 (예: 2d6 화염).',
-    // 효과(자동화 정본 통합 테이블) — 소스=재주/유산/배경 effect_group_id ⨝ EFFECT_GROUPS(+CHOICE_OPTIONS)
-    owner_kind:'소속 엔티티 종류: feat(재주)/heritage(유산)/background(배경).',
+    // 효과(자동화 정본 통합 테이블) — 소스=재주/유산/배경 effect_group_id ⨝ EFFECT_GROUPS(+CHOICE_OPTIONS) + 조건/신격 편입
+    owner_kind:'소속 엔티티 종류: feat(재주)/heritage(유산)/background(배경)/condition(조건 자동효과, 런타임=conditionMod)/deity(신격 신봉효과, 런타임=selectDeity). 조건·신격은 표시/감사·FK만(런타임 EFFECTS_DB 미편입).',
     origin:'효과 출처: legacy(EFFECT_GROUPS 큐레이션) / fvtt(엔티티 FVTT system.rules[]에서 추출). 기술·지식·내성·시야·저항·부여 등 레거시 미등록 자동화는 fvtt로 커버.',
     re_key:'FVTT Rule Element 키(fvtt 출처 행): FlatModifier/ActiveEffectLike/Sense/Resistance/GrantItem/BaseSpeed/DamageDice/Note/ChoiceSet 등.',
     owner_slug:'효과가 속한 엔티티 slug(정본 키).', owner_name:'엔티티 한글명(표시용).',
@@ -268,7 +268,7 @@ const DM = (function(){
     effect_group_id:r=>{ const cat=curTab&&curTab.cat; const slug=ACC.slug(r); return (cat&&EFF_REF[cat]&&EFF_REF[cat][slug])||''; },
   };
   // 효과그룹 역참조 인덱스 {feats:{slug:eg},heritages:{...},backgrounds:{...}} — init에서 로드
-  let EFF_REF={feats:{},heritages:{},backgrounds:{}};
+  let EFF_REF={feats:{},heritages:{},backgrounds:{},conditions:{},deities:{}};
   // 편집용 raw 효과그룹 {group_id:[EG rows]} — 효과 override 편집기 소스(init에서 로드)
   let EG_RAW=null;
   function rankOf(o){ if(!o)return''; const v=(typeof o==='object')?o.value:o; return RANK[v|0]!==undefined?RANK[v|0]:''; }
@@ -370,7 +370,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm2').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm3').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -611,8 +611,8 @@ const DM = (function(){
   // ---- init ----
   function init(){ updateDiff(); renderTabs(); if(window.PF2eData&&PF2eData.loadLocalize)PF2eData.loadLocalize();
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm2').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm2').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm3').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm3').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, revertAll, closeDetail, saveEffectGroupOverride, clearEffectGroupOverride };
