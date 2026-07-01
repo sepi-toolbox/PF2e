@@ -90,10 +90,15 @@
   function spellList() { return _list ? _list.slice() : []; }
   function getSpellLegacy(key) {
     if (!_index) return null;
-    if (_index.has(key)) return _index.get(key);
+    if (_index.has(key)) return _index.get(key);          // slug/id 정확 일치(고유)
     const lc = String(key || '').toLowerCase();
-    for (const sp of _list) { if ((sp.name_en || '').toLowerCase() === lc || (sp.name_ko || '') === key) return sp; }
-    return null;
+    // 1순위: name_en 정확 일치(고유 식별자)
+    for (const sp of _list) { if ((sp.name_en || '').toLowerCase() === lc) return sp; }
+    // 2순위: name_ko — 오버레이 한글명 충돌(17명 35주문) 대비, 모호(복수 매치)하면 추측 금지=null.
+    //   첫매치 반환 시 충돌 '패자' 오해소 + spellSlug 경유 저장본이 엉뚱한 주문으로 영구 변환됨(마이그레이션 오염).
+    let match = null, count = 0;
+    for (const sp of _list) { if ((sp.name_ko || '') === key) { match = sp; if (++count > 1) break; } }
+    return count === 1 ? match : null;
   }
 
   const API = { init, ready, spellList, getSpellLegacy, spellToLegacy };

@@ -821,7 +821,7 @@ function openDeityPicker() {
     `<div class="opt-row" data-s="${((d.name_ko||'')+' '+(d.name_en||'')+' '+(d.domains_ko||[]).join(' ')).toLowerCase()}" onclick="previewDeity('${d.id}',this)" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
       ${typeof iconImg==='function'&&iconImg('deity',d)?`<div class="opt-row-icon" style="background:none;">${iconImg('deity',d)}</div>`:''}
       <span class="opt-row-name" style="flex:1;">${d.name_ko} <span style="color:var(--text2);font-size:11px;">${d.name_en}</span></span>
-      <span style="font-size:10px;color:var(--text2);">${(typeof WEAPON_DB!=='undefined'&&WEAPON_DB.find(w=>w.id===d.weapon)?.name_ko)||d.weapon||''} / ${(d.sanctification||[]).map(s=>s==='holy'?'신성':'불경').join('·')}</span>
+      <span style="font-size:10px;color:var(--text2);">${(typeof getWeapon==='function'&&getWeapon(d.weapon)?.name_ko)||d.weapon||''} / ${(d.sanctification||[]).map(s=>s==='holy'?'신성':'불경').join('·')}</span>
     </div>`).join('');
   document.getElementById('modal-overlay').classList.remove('hidden');
   document.getElementById('modal-title').textContent = `신격 선택 (${_deities.length})`;
@@ -869,7 +869,7 @@ function previewDeity(id, row) {
     <div class="modal-detail-en">${d.name_en}</div>
     ${titleStr}
     <div style="margin:12px 0;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.7;">
-      <div><b>선호 무기:</b> ${(typeof WEAPON_DB!=='undefined'&&WEAPON_DB.find(w=>w.id===d.weapon)?.name_ko)||d.weapon||'없음'}</div>
+      <div><b>선호 무기:</b> ${(typeof getWeapon==='function'&&getWeapon(d.weapon)?.name_ko)||d.weapon||'없음'}</div>
       <div><b>신성화:</b> ${sanctLabel}</div>
       <div><b>신격 기술:</b> ${skillName}</div>
       <div><b>영역:</b> ${domainsStr||'—'}</div>
@@ -912,8 +912,8 @@ function selectDeity(id) {
     // 신격 기술 훈련
     if(d.skill && typeof setSkillTrained==='function') setSkillTrained(d.skill);
     // 선호 무기 숙련 부여: 군용이면 해당 카테고리를 최소 훈련으로
-    if(d.weapon && typeof WEAPON_DB !== 'undefined') {
-      const wpn = WEAPON_DB.find(w => w.id === d.weapon);
+    if(d.weapon && typeof getWeapon === 'function') {
+      const wpn = getWeapon(d.weapon);
       if(wpn) {
         const cat = (wpn.category||'').toLowerCase();
         let profKey = null;
@@ -4142,7 +4142,7 @@ function _onClericDeityChange(id) {
         </div>
         <div style="margin-top:6px;">
           <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">⚔ 선호 무기</div>
-          <select disabled style="${_selStyle}opacity:0.6;"><option>${(typeof WEAPON_DB!=='undefined'&&WEAPON_DB.find(w=>w.id===d.weapon)?.name_ko)||d.weapon}</option></select>
+          <select disabled style="${_selStyle}opacity:0.6;"><option>${(typeof getWeapon==='function'&&getWeapon(d.weapon)?.name_ko)||d.weapon}</option></select>
         </div>`;
     } else {
       detailsEl.innerHTML = '';

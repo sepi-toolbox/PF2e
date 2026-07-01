@@ -528,11 +528,10 @@ function loadData(d) {
     if (d.tempSkillExpert) state.tempSkillExpert = d.tempSkillExpert;
     if (d.deity) {
       state.deity = d.deity;
-      // 선호 무기 복원
-      if (typeof DEITY_DB !== 'undefined') {
-        const dty = DEITY_DB.find(x=>x.id===d.deity);
-        if (dty) state._deityWeapon = dty.weapon;
-      }
+      // 선호 무기 복원 — FVTT 신격(478) 폴백 포함(레거시 DEITY_DB 20만 보면 FVTT 신격은 무기 유실)
+      const dty = (typeof _getDeity === 'function') ? _getDeity(d.deity)
+                : (typeof DEITY_DB !== 'undefined') ? DEITY_DB.find(x=>x.id===d.deity) : null;
+      if (dty) state._deityWeapon = dty.weapon;
     }
     if (d.divineFont) state.divineFont = d.divineFont;
     if (d.sanctification) state.sanctification = d.sanctification;

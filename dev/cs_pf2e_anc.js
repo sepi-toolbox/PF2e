@@ -94,7 +94,8 @@
       id: doc.system.slug, name: PF.nameKo(doc), en: doc.name_en || doc.name,
       hp: s.hp || 0, size: _sizeKo(s.size), speed: (typeof s.speed === 'number' ? s.speed : (s.speed && s.speed.value) || 25),
       boosts, flaws, boost_choices, flaw_choices, free_boosts, free_flaws,
-      traits: ((s.traits && s.traits.value) || []).map(_traitKo),
+      // self-slug를 트레잇에 항상 포함 → 혈통 재주/선행조건/시야 게이팅이 self-멤버십으로 매칭(FVTT 일부 doc이 self-slug 누락: dragonet/poppet/fleshwarp)
+      traits: [...new Set([doc.system.slug, ...((s.traits && s.traits.value) || [])])].map(_traitKo),
       vision, languages: langs.slice(), bonusLangs: addl.count || 0,
       desc: PF.enrichDesc(PF.descKo(doc) || ''), features: [], grantWeapon,
       rarity: (s.traits && s.traits.rarity) || 'common',
@@ -145,6 +146,15 @@
     // 부여 재주 (GrantItem 해소 doc 중 feat 타입 → 레거시 슬러그)
     const feats = (a.grantedDocs || []).filter(d => d && d.type === 'feat');
     if (feats.length) out.grantFeats = feats.map(d => (d.system && d.system.slug) || d._id);
+    // 선천 주문 (GrantItem 해소 doc 중 spell 타입) — 레거시 grant_innate_spell 패리티. 서브클래스 어댑터와 동일 스캔.
+    const spellDocs = (a.grantedDocs || []).filter(d => d && d.type === 'spell');
+    if (spellDocs.length) out.innateSpells = spellDocs.map(d => {
+      const trads = (d.system && d.system.traits && d.system.traits.traditions) || [];
+      return { name: PF.nameKo(d), tradition: trads.length ? _traitKo(trads[0]) : '선천', type: '선천', uses: '하루 1회' };
+    });
+    // 부여 무기 (GrantItem 해소 doc 중 weapon 타입) — 레거시 grant_weapon 패리티
+    const wpn = (a.grantedDocs || []).find(d => d && d.type === 'weapon');
+    if (wpn) out.grantWeapon = { name: PF.nameKo(wpn), category: (wpn.system && wpn.system.category) || null };
     // 숙련 rank 변경 (ActiveEffectLike system.skills.X.rank → grantSkills)
     for (const path of Object.keys(a.dataChanges || {})) {
       const m = path.match(/^system\.skills\.([a-z-]+)\.rank$/);

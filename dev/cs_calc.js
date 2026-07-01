@@ -410,7 +410,15 @@ function getHeritage(key){
   }
   return typeof HERITAGE_DB !== 'undefined' ? _findInDb(HERITAGE_DB, key, ['id','name_en','name_ko']) : null;
 }
-function getWeapon(key){ return typeof WEAPON_DB !== 'undefined' ? _findInDb(WEAPON_DB, key, ['id','name_en','name_ko']) : null; }
+function getWeapon(key){
+  const leg = (typeof WEAPON_DB !== 'undefined') ? _findInDb(WEAPON_DB, key, ['id','name_en','name_ko']) : null;
+  if (leg) return leg;
+  // FVTT 장비 폴백 — 신격 선호무기 등 레거시 WEAPON_DB(50) 밖 슬러그를 FVTT base 전량에서 해소(소스 무관 통일)
+  if (typeof PF2eEquip !== 'undefined' && PF2eEquip.toLegacy && typeof PF2eData !== 'undefined') {
+    try { const doc = PF2eData.get('equipment', key); if (doc) return PF2eEquip.toLegacy(doc); } catch (e) {}
+  }
+  return null;
+}
 function getArmor(key) { return typeof ARMOR_DB !== 'undefined' ? _findInDb(ARMOR_DB, key, ['id','name_en','name_ko']) : null; }
 function getShield(key){ return typeof SHIELD_DB !== 'undefined' ? _findInDb(SHIELD_DB, key, ['id','name_en','name_ko']) : null; }
 function getGear(key)  { return typeof GEAR_DB !== 'undefined' ? _findInDb(GEAR_DB, key, ['id','name_en','name_ko']) : null; }
@@ -591,7 +599,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.45').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.46').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
