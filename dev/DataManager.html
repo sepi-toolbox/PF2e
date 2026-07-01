@@ -109,6 +109,8 @@ const DM = (function(){
   const EDITABLE = new Set(['name_ko','desc_ko']);
   const TABS = [
     {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'category','actions','prerequisites','frequency','rules_n']},
+    {id:'feat_effects', label:'재주 효과', kind:'derived', src:'data/derived/feat_effects.json', shape:'rows',
+       cols:['feat_slug','feat_name','src','type','target','value','bonus_type','condition','actionCost','summary','note','choice','option','option_name']},
     {id:'spells',     label:'주문',     cat:'spells',     cols:['slug','name_en','name_ko','rank','traits_ko','range','area','defense','duration','rules_n','source']},
     {id:'equipment',  label:'장비',     cat:'equipment',  cols:['slug','name_en','name_ko','level','type','price','bulk','damage','traits_ko','source']},
     {id:'classes',    label:'클래스',   cat:'classes',    cols:['slug','name_en','name_ko','keyAbility','hp','perception','saves','attacks','defenses','source']},
@@ -172,6 +174,11 @@ const DM = (function(){
     simple:{h:'단순',w:44,cls:'num'}, martial:{h:'군용',w:44,cls:'num'}, unarmed:{h:'비무장',w:52,cls:'num'}, advanced:{h:'고급',w:44,cls:'num'},
     unarmored:{h:'미착용',w:52,cls:'num'}, light:{h:'경장',w:44,cls:'num'}, medium:{h:'중장',w:44,cls:'num'}, heavy:{h:'중장갑',w:52,cls:'num'},
     classDC:{h:'클래스DC',w:64,cls:'num'}, spellcasting:{h:'시전',w:44,cls:'num'},
+    // 재주 효과(자동화 정본 테이블)
+    feat_slug:{h:'재주',w:150,cls:'key'}, feat_name:{h:'재주(한글)',w:150}, src:{h:'구분',w:74},
+    target:{h:'대상',w:130}, value:{h:'값',w:64}, bonus_type:{h:'보너스종류',w:92}, condition:{h:'조건',w:150},
+    actionCost:{h:'행동비용',w:64}, summary:{h:'요약',w:280}, note:{h:'노트',w:300},
+    choice:{h:'선택지ID',w:130,cls:'key'}, option:{h:'옵션ID',w:130,cls:'key'}, option_name:{h:'옵션명',w:150},
   };
   // 컬럼별 입력 가이드 (헤더 툴팁 ⓘ + 편집 시 하단 안내)
   const COLGUIDE={
@@ -194,6 +201,17 @@ const DM = (function(){
     is_subclass:'서브클래스 옵션 여부(✓).', subclass_type:'서브클래스 종류(muse/bloodline/instinct…).', grants:'GrantItem 부여 개수.',
     ref:'부가정보(기술=핵심능력치 등).', tag:'FVTT otherTags(서브클래스 식별 태그).',
     ac:'방어도(정수).', hp:'체력(정수).', damage:'피해식 (예: 2d6 화염).',
+    // 재주 효과(자동화 정본 테이블) — 소스=FEAT_DB.effect_group_id ⨝ EFFECT_GROUPS(+CHOICE_OPTIONS)
+    feat_slug:'효과가 속한 재주 slug(정본 키).', feat_name:'재주 한글명(표시용).',
+    src:'행 구분: effect(직접 기계효과)/choice·choice_opt(선택지·옵션)/note(자동 노트).',
+    type:'효과 유형(enum): skill_trained·save_bonus·grant_feat·grant_focus_spell·grant_action·resistance… raw 그대로.',
+    target:'효과 대상(slug/enum): 기술id·능력치·주문명·무기명·피해유형 등 type별.',
+    value:'수치 또는 특수값(예: level). type별 의미(HP/보너스/저항량 등).',
+    bonus_type:'보너스 종류(circumstance/status/item/untyped) — 스태킹 규칙.',
+    condition:'적용 조건(있을 때만). 표시용 텍스트.',
+    actionCost:'grant_action 행동비용(1/2/3/free/reaction).', summary:'grant_action 등 행동 요약(HTML).',
+    note:'display_note/damage_note 본문(자동 표시 노트).',
+    choice:'선택지 그룹 id(choice_id).', option:'선택 옵션 id.', option_name:'선택 옵션 표시명.',
   };
 
   // ---- 필드 접근자 (row = base⊕overlay 조인된 FVTT 문서) ----
@@ -355,7 +373,9 @@ const DM = (function(){
     view = q ? rows.filter(r=>{
       const slug=rowSlug(r).toLowerCase(), en=(r.name_en||r.name||'').toLowerCase();
       const ko=(''+(cellVal(r,'name_ko')||'')).toLowerCase(), d=(''+(r._desc_ko||r.desc_ko||'')).toLowerCase();
-      return slug.includes(q)||en.includes(q)||ko.includes(q)||d.includes(q);
+      if(slug.includes(q)||en.includes(q)||ko.includes(q)||d.includes(q)) return true;
+      // 파생 테이블: 표시 컬럼 값 전반 검색(재주효과·크리처공격 등 name_ko 없는 표)
+      return (curTab.cols||[]).some(c=>(''+(cellVal(r,c)==null?'':cellVal(r,c))).toLowerCase().includes(q));
     }) : rows.slice();
     view.sort((a,b)=>{ let x=cellSort(a,sortKey),y=cellSort(b,sortKey); return (x<y?-1:x>y?1:0)*sortDir; });
     renderHead(); renderRows(); updateStatus();
