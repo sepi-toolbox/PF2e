@@ -137,7 +137,9 @@ const DM = (function(){
        cols:['owner','owner_ko','ability','ability_ko','actions','category','traits','pack']},
     {id:'system_terms', label:'시스템용어', kind:'derived', src:'data/derived/system_terms.json', shape:'rows',
        cols:['type','slug','name_en','name_ko','desc','ref']},
-    {id:'ui_terms', label:'UI용어집', kind:'derived', src:'data/derived/localize.ko.json', shape:'kv', cols:['slug','text']},
+    {id:'familiar_abilities', label:'사역마능력', kind:'derived', src:'data/derived/familiar_abilities.json', shape:'rows', ovKey:'@familiar', editable:['name_ko','desc_ko'], cols:['slug','name_en','name_ko','traits','desc_ko']},
+    {id:'ui_terms', label:'UI용어집', kind:'derived', src:'data/derived/ui_glossary.json', shape:'rows', cols:['slug','name_ko']},
+    {id:'npc_abilities', label:'NPC능력', kind:'derived', src:'data/derived/localize.ko.json', shape:'kv', cols:['slug','text']},
     {id:'enrichers', label:'변환자 사전', ref:true, cols:[]},
   ];
 
@@ -204,7 +206,7 @@ const DM = (function(){
     name_ko:r=>r.name_ko||'',
     level:r=>{const l=digV(r,'level'); return l==null?'':l;},
     rank:r=>{const l=digV(r,'level'); return l==null?'':l;},
-    traits_ko:r=>traitsKo(r),
+    traits_ko:r=>{const t=r.system&&r.system.traits&&r.system.traits.value;return Array.isArray(t)?t.join(', '):'';}, // slug 그대로(매칭 키). 한글은 hover 툴팁
     source:r=>{const p=r.system&&r.system.publication; return p&&p.title||'';},
     category:r=>r.system&&r.system.category||'',
     type:r=>r.system&&r.system.category||'',
@@ -287,12 +289,9 @@ const DM = (function(){
   function isEditable(key){ return curTab.editable ? curTab.editable.includes(key) : EDITABLE.has(key); }
   function rowSlug(r){ return r._flat ? (r.slug||'') : ACC.slug(r); }
   const TYPE_KO={ability:'능력치',skill:'기술',sense:'감각',save:'내성',damage_type:'피해유형',weapon_group:'무기군',armor_group:'갑옷군',armor_category:'갑옷종류',weapon_category:'무기종류',size:'크기',rarity:'희귀도',language:'언어'};
+  // 데이터 관리 툴 — 저장된 raw 값(slug/enum) 그대로 표시. 치환 없음(한글은 hover 툴팁으로만 보조).
   function rawVal(r,key){
-    if(r._flat){ let v=r[key];
-      if(key==='traits'&&typeof v==='string'&&v) v=v.split(', ').map(koTrait).join(', ');  // slug→한글 표시(데이터는 slug)
-      if(key==='type'&&curTab.id==='system_terms'&&TYPE_KO[v]) v=TYPE_KO[v];               // 유형 한글
-      return key==='has_desc'?(v?'✓':''):(v==null?'':v);
-    }
+    if(r._flat){ const v=r[key]; return key==='has_desc'?(v?'✓':''):(v==null?'':v); }
     const fn=ACC[key]; return fn?fn(r):'';
   }
   // 편집 반영값(override 우선)
@@ -478,7 +477,7 @@ const DM = (function(){
     selSlug=slug; document.querySelectorAll('#dm-rows tr.sel').forEach(x=>x.classList.remove('sel')); tr.classList.add('sel');
     openDetail(rows.find(r=>rowSlug(r)===slug));
   });
-  const traitChip=t=>{ const d=traitDescOf(t); return '<span class="dm-chip"'+(d?' title="'+esc(d)+'"':'')+'>'+esc(koTrait(t))+(d?' ⓘ':'')+'</span>'; };
+  const traitChip=t=>{ const ko=koTrait(t), d=traitDescOf(t); const tip=ko+(d?' — '+d:''); return '<span class="dm-chip" title="'+esc(tip)+'">'+esc(t)+'</span>'; }; // slug 표시, 한글·설명은 툴팁
   function openDetail(r){
     if(!r){closeDetail();return;}
     const d=document.getElementById('dm-detail'); d.classList.add('open'); const inner=document.getElementById('dm-detail-inner');
