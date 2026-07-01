@@ -1,0 +1,3081 @@
+{
+ "eg-bard-dedication": [
+  {
+   "group_id": "eg-bard-dedication",
+   "type": "skill_trained",
+   "target": "occultism"
+  },
+  {
+   "group_id": "eg-bard-dedication",
+   "type": "skill_trained",
+   "target": "performance"
+  }
+ ],
+ "eg-cleric-dedication": [
+  {
+   "group_id": "eg-cleric-dedication",
+   "type": "skill_trained",
+   "target": "religion"
+  }
+ ],
+ "eg-druid-dedication": [
+  {
+   "group_id": "eg-druid-dedication",
+   "type": "skill_trained",
+   "target": "nature"
+  }
+ ],
+ "eg-fighter-dedication": [
+  {
+   "group_id": "eg-fighter-dedication",
+   "type": "skill_trained",
+   "target": "$choice"
+  }
+ ],
+ "eg-fighter-resiliency": [
+  {
+   "group_id": "eg-fighter-resiliency",
+   "type": "hp_bonus",
+   "value": 3
+  }
+ ],
+ "eg-reactive-striker": [
+  {
+   "group_id": "eg-reactive-striker",
+   "type": "grant_action",
+   "target": "aoo"
+  }
+ ],
+ "eg-ranger-dedication": [
+  {
+   "group_id": "eg-ranger-dedication",
+   "type": "skill_trained",
+   "target": "survival"
+  },
+  {
+   "group_id": "eg-ranger-dedication",
+   "type": "grant_action",
+   "summary": "[1행동] 사냥감 추적 (Hunt Prey) — 시야 내 생물 1명을 사냥감으로 지정. 사냥감에 대해 무시(Ignore) 지형을 사용하여 추적하고, 추적 속도가 전체 속도가 됩니다.",
+   "actionCost": "1"
+  }
+ ],
+ "eg-ranger-resiliency": [
+  {
+   "group_id": "eg-ranger-resiliency",
+   "type": "hp_bonus",
+   "value": 3
+  }
+ ],
+ "eg-rogue-dedication": [
+  {
+   "group_id": "eg-rogue-dedication",
+   "type": "skill_trained",
+   "target": "stealth"
+  },
+  {
+   "group_id": "eg-rogue-dedication",
+   "type": "skill_trained",
+   "target": "thievery"
+  },
+  {
+   "group_id": "eg-rogue-dedication",
+   "type": "grant_action",
+   "summary": "기습 공격 (Surprise Attack) — 전투 시작 시 선제를 굴리기 전에 행동한 적이 아닌 모든 생물은 당신에게 무방비(flat-footed)입니다. 첫 턴이 끝나면 해제.",
+   "actionCost": "free"
+  }
+ ],
+ "eg-witch-dedication": [
+  {
+   "group_id": "eg-witch-dedication",
+   "type": "skill_trained",
+   "target": "occultism"
+  }
+ ],
+ "eg-basic-witchcraft": [
+  {
+   "group_id": "eg-basic-witchcraft",
+   "type": "familiar_abilities",
+   "value": 1
+  }
+ ],
+ "eg-wizard-dedication": [
+  {
+   "group_id": "eg-wizard-dedication",
+   "type": "skill_trained",
+   "target": "arcana"
+  }
+ ],
+ "eg-dwarven-lore": [
+  {
+   "group_id": "eg-dwarven-lore",
+   "type": "skill_trained",
+   "target": "$choice"
+  },
+  {
+   "group_id": "eg-dwarven-lore",
+   "type": "grant_feat",
+   "target": "추가 지식 (Additional Lore)",
+   "defaultChoice": "드워프"
+  }
+ ],
+ "eg-dwarven-weapon-familiarity": [
+  {
+   "group_id": "eg-dwarven-weapon-familiarity",
+   "type": "weapon_familiarity",
+   "target": "전투 도끼"
+  },
+  {
+   "group_id": "eg-dwarven-weapon-familiarity",
+   "type": "weapon_familiarity",
+   "target": "픽"
+  },
+  {
+   "group_id": "eg-dwarven-weapon-familiarity",
+   "type": "weapon_familiarity",
+   "target": "워해머"
+  }
+ ],
+ "eg-stonemasons-eye": [
+  {
+   "group_id": "eg-stonemasons-eye",
+   "type": "skill_trained",
+   "target": "crafting"
+  },
+  {
+   "group_id": "eg-stonemasons-eye",
+   "type": "grant_feat_if_trained",
+   "target": "crafting",
+   "defaultChoice": "stonemasonry"
+  }
+ ],
+ "eg-unburdened-iron": [
+  {
+   "group_id": "eg-unburdened-iron",
+   "type": "unburdened_iron"
+  }
+ ],
+ "eg-elven-lore": [
+  {
+   "group_id": "eg-elven-lore",
+   "type": "skill_trained",
+   "target": "$choice"
+  },
+  {
+   "group_id": "eg-elven-lore",
+   "type": "grant_feat",
+   "target": "추가 지식 (Additional Lore)",
+   "defaultChoice": "엘프"
+  }
+ ],
+ "eg-elven-weapon-familiarity": [
+  {
+   "group_id": "eg-elven-weapon-familiarity",
+   "type": "weapon_trained",
+   "target": "장궁"
+  },
+  {
+   "group_id": "eg-elven-weapon-familiarity",
+   "type": "weapon_trained",
+   "target": "단궁"
+  },
+  {
+   "group_id": "eg-elven-weapon-familiarity",
+   "type": "weapon_trained",
+   "target": "롱소드"
+  },
+  {
+   "group_id": "eg-elven-weapon-familiarity",
+   "type": "weapon_trained",
+   "target": "레이피어"
+  },
+  {
+   "group_id": "eg-elven-weapon-familiarity",
+   "type": "weapon_familiarity",
+   "target": "합성 장궁"
+  },
+  {
+   "group_id": "eg-elven-weapon-familiarity",
+   "type": "weapon_familiarity",
+   "target": "합성 단궁"
+  }
+ ],
+ "eg-forlorn": [
+  {
+   "group_id": "eg-forlorn",
+   "type": "save_bonus",
+   "target": "will",
+   "value": 1,
+   "bonus_type": "circumstance",
+   "condition": "감정 효과"
+  }
+ ],
+ "eg-nimble-elf": [
+  {
+   "group_id": "eg-nimble-elf",
+   "type": "speed_bonus",
+   "value": 5
+  }
+ ],
+ "eg-otherworldly-magic": [
+  {
+   "group_id": "eg-otherworldly-magic",
+   "type": "grant_innate_spell"
+  }
+ ],
+ "eg-first-world-magic": [
+  {
+   "group_id": "eg-first-world-magic",
+   "type": "grant_innate_spell"
+  }
+ ],
+ "eg-gnome-weapon-familiarity": [
+  {
+   "group_id": "eg-gnome-weapon-familiarity",
+   "type": "weapon_familiarity",
+   "target": "글레이브"
+  }
+ ],
+ "eg-gnome-obsession": [
+  {
+   "group_id": "eg-gnome-obsession",
+   "type": "grant_feat",
+   "target": "추가 지식 (Additional Lore)"
+  },
+  {
+   "group_id": "eg-gnome-obsession",
+   "type": "grant_feat",
+   "target": "확신 (Assurance)"
+  }
+ ],
+ "eg-goblin-lore": [
+  {
+   "group_id": "eg-goblin-lore",
+   "type": "skill_trained",
+   "target": "$choice"
+  },
+  {
+   "group_id": "eg-goblin-lore",
+   "type": "grant_feat",
+   "target": "추가 지식 (Additional Lore)",
+   "defaultChoice": "고블린"
+  }
+ ],
+ "eg-goblin-scuttle": [
+  {
+   "group_id": "eg-goblin-scuttle",
+   "type": "grant_action"
+  }
+ ],
+ "eg-goblin-song": [
+  {
+   "group_id": "eg-goblin-song",
+   "type": "grant_action",
+   "target": "goblin-song"
+  }
+ ],
+ "eg-goblin-weapon-familiarity": [
+  {
+   "group_id": "eg-goblin-weapon-familiarity",
+   "type": "weapon_familiarity",
+   "weapons": []
+  }
+ ],
+ "eg-rough-rider": [
+  {
+   "group_id": "eg-rough-rider",
+   "type": "grant_feat",
+   "target": "기마 (Ride)"
+  }
+ ],
+ "eg-halfling-lore": [
+  {
+   "group_id": "eg-halfling-lore",
+   "type": "skill_trained",
+   "target": "$choice"
+  },
+  {
+   "group_id": "eg-halfling-lore",
+   "type": "grant_feat",
+   "target": "추가 지식 (Additional Lore)",
+   "defaultChoice": "하플링"
+  }
+ ],
+ "eg-halfling-luck": [
+  {
+   "group_id": "eg-halfling-luck",
+   "type": "grant_action"
+  }
+ ],
+ "eg-halfling-weapon-familiarity": [
+  {
+   "group_id": "eg-halfling-weapon-familiarity",
+   "type": "weapon_familiarity",
+   "target": "쇼트소드"
+  },
+  {
+   "group_id": "eg-halfling-weapon-familiarity",
+   "type": "weapon_familiarity",
+   "target": "하플링 투석 지팡이"
+  }
+ ],
+ "eg-prairie-rider": [
+  {
+   "group_id": "eg-prairie-rider",
+   "type": "skill_trained",
+   "target": "nature"
+  }
+ ],
+ "eg-natural-skill": [
+  {
+   "group_id": "eg-natural-skill",
+   "type": "skill_trained",
+   "target": "$choice"
+  }
+ ],
+ "eg-unconventional-weaponry": [
+  {
+   "group_id": "eg-unconventional-weaponry",
+   "type": "weapon_familiarity",
+   "target": "$choice"
+  }
+ ],
+ "eg-beast-trainer": [
+  {
+   "group_id": "eg-beast-trainer",
+   "type": "skill_trained",
+   "target": "nature"
+  }
+ ],
+ "eg-beast-trainer-pet": [
+  {
+   "group_id": "eg-beast-trainer-pet",
+   "type": "grant_feat",
+   "target": "반려동물 (Pet)"
+  }
+ ],
+ "eg-beast-trainer-train": [
+  {
+   "group_id": "eg-beast-trainer-train",
+   "type": "grant_feat",
+   "target": "동물 훈련 (Train Animal)"
+  }
+ ],
+ "eg-orc-ferocity": [
+  {
+   "group_id": "eg-orc-ferocity",
+   "type": "grant_action"
+  }
+ ],
+ "eg-orc-lore": [
+  {
+   "group_id": "eg-orc-lore",
+   "type": "skill_trained",
+   "target": "$choice"
+  },
+  {
+   "group_id": "eg-orc-lore",
+   "type": "grant_feat",
+   "target": "추가 지식 (Additional Lore)",
+   "defaultChoice": "오크"
+  }
+ ],
+ "eg-hold-mark-sun": [
+  {
+   "group_id": "eg-hold-mark-sun",
+   "type": "skill_trained",
+   "target": "diplomacy"
+  },
+  {
+   "group_id": "eg-hold-mark-sun",
+   "type": "save_bonus",
+   "target": "all",
+   "value": 1,
+   "bonus_type": "status",
+   "condition": "비전 주문"
+  }
+ ],
+ "eg-hold-mark-skull": [
+  {
+   "group_id": "eg-hold-mark-skull",
+   "type": "skill_trained",
+   "target": "survival"
+  },
+  {
+   "group_id": "eg-hold-mark-skull",
+   "type": "save_bonus",
+   "target": "all",
+   "value": 1,
+   "bonus_type": "status",
+   "condition": "원시 주문"
+  }
+ ],
+ "eg-hold-mark-corpse": [
+  {
+   "group_id": "eg-hold-mark-corpse",
+   "type": "skill_trained",
+   "target": "religion"
+  },
+  {
+   "group_id": "eg-hold-mark-corpse",
+   "type": "save_bonus",
+   "target": "all",
+   "value": 1,
+   "bonus_type": "status",
+   "condition": "신성 주문"
+  }
+ ],
+ "eg-hold-mark-hand": [
+  {
+   "group_id": "eg-hold-mark-hand",
+   "type": "skill_trained",
+   "target": "intimidation"
+  },
+  {
+   "group_id": "eg-hold-mark-hand",
+   "type": "save_bonus",
+   "target": "all",
+   "value": 1,
+   "bonus_type": "status",
+   "condition": "오컬트 주문"
+  }
+ ],
+ "eg-orc-weapon-familiarity": [
+  {
+   "group_id": "eg-orc-weapon-familiarity",
+   "type": "weapon_familiarity",
+   "target": "팔치온"
+  },
+  {
+   "group_id": "eg-orc-weapon-familiarity",
+   "type": "weapon_familiarity",
+   "target": "그레이트액스"
+  }
+ ],
+ "eg-tusks": [
+  {
+   "group_id": "eg-tusks",
+   "type": "grant_weapon",
+   "target": "엄니",
+   "weapon_category": "unarmed",
+   "damage": "1d6 P",
+   "range": 0,
+   "traits": [
+    "비무장",
+    "기교"
+   ]
+  }
+ ],
+ "eg-changeling-lore": [
+  {
+   "group_id": "eg-changeling-lore",
+   "type": "skill_trained",
+   "target": "$choice"
+  },
+  {
+   "group_id": "eg-changeling-lore",
+   "type": "grant_feat",
+   "target": "추가 지식 (Additional Lore)",
+   "defaultChoice": "해그"
+  }
+ ],
+ "eg-angelkin": [
+  {
+   "group_id": "eg-angelkin",
+   "type": "skill_trained",
+   "target": "society"
+  }
+ ],
+ "eg-hellspawn": [
+  {
+   "group_id": "eg-hellspawn",
+   "type": "skill_trained",
+   "target": "deception"
+  }
+ ],
+ "eg-pitborn": [
+  {
+   "group_id": "eg-pitborn",
+   "type": "skill_trained",
+   "target": "athletics"
+  }
+ ],
+ "eg-nephilim-lore": [
+  {
+   "group_id": "eg-nephilim-lore",
+   "type": "skill_trained",
+   "target": "$choice"
+  },
+  {
+   "group_id": "eg-nephilim-lore",
+   "type": "grant_feat",
+   "target": "추가 지식 (Additional Lore)"
+  }
+ ],
+ "eg-nimble-hooves": [
+  {
+   "group_id": "eg-nimble-hooves",
+   "type": "speed_bonus",
+   "value": 5
+  }
+ ],
+ "eg-earned-glory": [
+  {
+   "group_id": "eg-earned-glory",
+   "type": "skill_trained",
+   "target": "performance"
+  }
+ ],
+ "eg-defy-the-darkness": [
+  {
+   "group_id": "eg-defy-the-darkness",
+   "type": "vision_upgrade",
+   "target": "상위 암시야"
+  }
+ ],
+ "eg-martial-experience": [
+  {
+   "group_id": "eg-martial-experience",
+   "type": "martial_experience"
+  }
+ ],
+ "eg-vandal": [
+  {
+   "group_id": "eg-vandal",
+   "type": "skill_trained",
+   "target": "thievery"
+  }
+ ],
+ "eg-cultural-adaptability": [
+  {
+   "group_id": "eg-cultural-adaptability",
+   "type": "grant_feat",
+   "target": "양자 혈통 (Adopted Ancestry)"
+  },
+  {
+   "group_id": "eg-cultural-adaptability",
+   "type": "grant_adopted_feat"
+  }
+ ],
+ "eg-step-lively": [
+  {
+   "group_id": "eg-step-lively",
+   "type": "grant_action"
+  }
+ ],
+ "eg-clever-improviser": [
+  {
+   "group_id": "eg-clever-improviser",
+   "type": "grant_feat",
+   "target": "비숙련 즉흥연기 (Untrained Improvisation)"
+  }
+ ],
+ "eg-supernatural-charm": [
+  {
+   "group_id": "eg-supernatural-charm",
+   "type": "grant_innate_spell",
+   "target": "매혹",
+   "tradition": "비전",
+   "uses": "하루 1회",
+   "spellType": "spell"
+  }
+ ],
+ "eg-echoes-in-stone": [
+  {
+   "group_id": "eg-echoes-in-stone",
+   "type": "extra_sense",
+   "target": "진동 감각 20피트 (돌/흙 위, 1행동)"
+  }
+ ],
+ "eg-mountains-stoutness": [
+  {
+   "group_id": "eg-mountains-stoutness",
+   "type": "hp_bonus",
+   "value": "level"
+  },
+  {
+   "group_id": "eg-mountains-stoutness",
+   "type": "recovery_dc",
+   "value": -1
+  }
+ ],
+ "eg-stone-bones": [
+  {
+   "group_id": "eg-stone-bones",
+   "type": "grant_action"
+  }
+ ],
+ "eg-stonewalker": [
+  {
+   "group_id": "eg-stonewalker",
+   "type": "grant_innate_spell",
+   "target": "돌과 하나",
+   "tradition": "신성",
+   "uses": "하루 1회",
+   "spellType": "spell"
+  }
+ ],
+ "eg-elf-step": [
+  {
+   "group_id": "eg-elf-step",
+   "type": "grant_action"
+  }
+ ],
+ "eg-tree-climber": [
+  {
+   "group_id": "eg-tree-climber",
+   "type": "speed_extra",
+   "value": 10,
+   "key": "climb"
+  }
+ ],
+ "eg-life-leap": [
+  {
+   "group_id": "eg-life-leap",
+   "type": "grant_action"
+  }
+ ],
+ "eg-cave-climber": [
+  {
+   "group_id": "eg-cave-climber",
+   "type": "speed_extra",
+   "value": 10,
+   "key": "climb"
+  }
+ ],
+ "eg-cling": [
+  {
+   "group_id": "eg-cling",
+   "type": "grant_action"
+  }
+ ],
+ "eg-unhampered-passage": [
+  {
+   "group_id": "eg-unhampered-passage",
+   "type": "grant_innate_spell",
+   "target": "속박 해제",
+   "tradition": "원시",
+   "uses": "하루 1회",
+   "spellType": "spell"
+  }
+ ],
+ "eg-hardy-traveler": [
+  {
+   "group_id": "eg-hardy-traveler",
+   "type": "bulk_bonus",
+   "value": 1
+  }
+ ],
+ "eg-pervasive-superstition": [
+  {
+   "group_id": "eg-pervasive-superstition",
+   "type": "save_bonus",
+   "target": "all",
+   "value": 1,
+   "bonus_type": "circumstance",
+   "condition": "마법 효과"
+  }
+ ],
+ "eg-divine-wings": [
+  {
+   "group_id": "eg-divine-wings",
+   "type": "grant_action"
+  }
+ ],
+ "eg-march-the-mines": [
+  {
+   "group_id": "eg-march-the-mines",
+   "type": "grant_action"
+  }
+ ],
+ "eg-avenge-ally": [
+  {
+   "group_id": "eg-avenge-ally",
+   "type": "grant_action"
+  }
+ ],
+ "eg-universal-longevity": [
+  {
+   "group_id": "eg-universal-longevity",
+   "type": "grant_action"
+  }
+ ],
+ "eg-instinctive-obfuscation": [
+  {
+   "group_id": "eg-instinctive-obfuscation",
+   "type": "grant_action"
+  }
+ ],
+ "eg-bounce-back": [
+  {
+   "group_id": "eg-bounce-back",
+   "type": "grant_action"
+  }
+ ],
+ "eg-celestial-mercy": [
+  {
+   "group_id": "eg-celestial-mercy",
+   "type": "grant_innate_spell",
+   "target": "고통 정화",
+   "tradition": "신성",
+   "uses": "하루 2회",
+   "spellType": "spell"
+  }
+ ],
+ "eg-slip-sideways": [
+  {
+   "group_id": "eg-slip-sideways",
+   "type": "grant_innate_spell",
+   "target": "순간이동",
+   "tradition": "신성",
+   "uses": "하루 1회",
+   "spellType": "spell"
+  }
+ ],
+ "eg-stonegate": [
+  {
+   "group_id": "eg-stonegate",
+   "type": "grant_innate_spell",
+   "target": "마법 통로",
+   "tradition": "신성",
+   "uses": "하루 1회",
+   "spellType": "spell"
+  }
+ ],
+ "eg-stonewall": [
+  {
+   "group_id": "eg-stonewall",
+   "type": "grant_action"
+  }
+ ],
+ "eg-homeward-bound": [
+  {
+   "group_id": "eg-homeward-bound",
+   "type": "grant_innate_spell",
+   "target": "차원간 순간이동",
+   "tradition": "원시",
+   "uses": "주 2회",
+   "spellType": "spell"
+  }
+ ],
+ "eg-reckless-abandon": [
+  {
+   "group_id": "eg-reckless-abandon",
+   "type": "grant_action"
+  }
+ ],
+ "eg-shadow-self": [
+  {
+   "group_id": "eg-shadow-self",
+   "type": "grant_action"
+  }
+ ],
+ "eg-heroic-presence": [
+  {
+   "group_id": "eg-heroic-presence",
+   "type": "grant_action"
+  }
+ ],
+ "eg-rampaging-ferocity": [
+  {
+   "group_id": "eg-rampaging-ferocity",
+   "type": "grant_action"
+  }
+ ],
+ "eg-adopted-ancestry": [
+  {
+   "group_id": "eg-adopted-ancestry",
+   "type": "adopted_ancestry"
+  }
+ ],
+ "eg-armor-proficiency": [
+  {
+   "group_id": "eg-armor-proficiency",
+   "type": "armor_upgrade",
+   "from": "light"
+  }
+ ],
+ "eg-diehard": [
+  {
+   "group_id": "eg-diehard",
+   "type": "dying_threshold",
+   "value": 5
+  }
+ ],
+ "eg-fleet": [
+  {
+   "group_id": "eg-fleet",
+   "type": "speed_bonus",
+   "value": 5
+  }
+ ],
+ "eg-incredible-initiative": [
+  {
+   "group_id": "eg-incredible-initiative",
+   "type": "initiative_bonus",
+   "value": 2,
+   "bonus_type": "circumstance"
+  }
+ ],
+ "eg-shield-block": [
+  {
+   "group_id": "eg-shield-block",
+   "type": "grant_action",
+   "target": "shield-block"
+  }
+ ],
+ "eg-toughness": [
+  {
+   "group_id": "eg-toughness",
+   "type": "hp_bonus",
+   "value": "level"
+  }
+ ],
+ "eg-skill-training": [
+  {
+   "group_id": "eg-skill-training",
+   "type": "skill_trained",
+   "target": "$choice"
+  }
+ ],
+ "eg-hefty-hauler": [
+  {
+   "group_id": "eg-hefty-hauler",
+   "type": "bulk_bonus",
+   "value": 2
+  }
+ ],
+ "eg-battle-medicine": [
+  {
+   "group_id": "eg-battle-medicine",
+   "type": "grant_action",
+   "target": "battle-medicine"
+  }
+ ],
+ "eg-arcane-sense": [
+  {
+   "group_id": "eg-arcane-sense",
+   "type": "grant_innate_spell",
+   "target": "마법 탐지",
+   "tradition": "신비",
+   "uses": "자유",
+   "spellType": "cantrip"
+  }
+ ],
+ "eg-additional-lore": [
+  {
+   "group_id": "eg-additional-lore",
+   "type": "grant_lore",
+   "name": "$choice"
+  }
+ ],
+ "eg-bardic-lore": [
+  {
+   "group_id": "eg-bardic-lore",
+   "type": "grant_lore",
+   "name": "바드 지식"
+  }
+ ],
+ "eg-hymn-of-healing": [
+  {
+   "group_id": "eg-hymn-of-healing",
+   "type": "grant_focus_spell",
+   "target": "치유의 찬송"
+  },
+  {
+   "group_id": "eg-hymn-of-healing",
+   "type": "grant_action"
+  }
+ ],
+ "eg-lingering-composition": [
+  {
+   "group_id": "eg-lingering-composition",
+   "type": "grant_focus_spell",
+   "target": "잔향 작곡"
+  }
+ ],
+ "eg-well-versed": [
+  {
+   "group_id": "eg-well-versed",
+   "type": "save_bonus",
+   "target": "all",
+   "value": 1,
+   "bonus_type": "circumstance",
+   "condition": "청각/환영/언어/음파/시각 효과"
+  }
+ ],
+ "eg-cantrip-expansion-witch": [
+  {
+   "group_id": "eg-cantrip-expansion-witch",
+   "type": "cantrip_slots",
+   "value": 2
+  },
+  {
+   "group_id": "eg-cantrip-expansion-witch",
+   "type": "cantrip_slots",
+   "value": 2
+  },
+  {
+   "group_id": "eg-cantrip-expansion-witch",
+   "type": "cantrip_slots",
+   "value": 2
+  },
+  {
+   "group_id": "eg-cantrip-expansion-witch",
+   "type": "cantrip_slots",
+   "value": 2
+  }
+ ],
+ "eg-loremasters-etude": [
+  {
+   "group_id": "eg-loremasters-etude",
+   "type": "grant_focus_spell",
+   "target": "달인의 에튀드"
+  }
+ ],
+ "eg-song-of-strength": [
+  {
+   "group_id": "eg-song-of-strength",
+   "type": "grant_focus_spell",
+   "target": "힘의 노래"
+  }
+ ],
+ "eg-uplifting-overture": [
+  {
+   "group_id": "eg-uplifting-overture",
+   "type": "grant_focus_spell",
+   "target": "고양 서곡"
+  }
+ ],
+ "eg-rallying-anthem": [
+  {
+   "group_id": "eg-rallying-anthem",
+   "type": "grant_focus_spell",
+   "target": "결집의 찬가"
+  }
+ ],
+ "eg-triple-time": [
+  {
+   "group_id": "eg-triple-time",
+   "type": "grant_focus_spell",
+   "target": "세 박자"
+  }
+ ],
+ "eg-dirge-of-doom": [
+  {
+   "group_id": "eg-dirge-of-doom",
+   "type": "grant_focus_spell",
+   "target": "파멸의 만가"
+  }
+ ],
+ "eg-song-of-marching": [
+  {
+   "group_id": "eg-song-of-marching",
+   "type": "grant_focus_spell",
+   "target": "행군의 노래"
+  }
+ ],
+ "eg-fortissimo-composition": [
+  {
+   "group_id": "eg-fortissimo-composition",
+   "type": "grant_focus_spell",
+   "target": "포르티시모 작곡"
+  }
+ ],
+ "eg-house-of-imaginary-walls": [
+  {
+   "group_id": "eg-house-of-imaginary-walls",
+   "type": "grant_focus_spell",
+   "target": "상상의 벽 집"
+  }
+ ],
+ "eg-ode-to-ouroboros": [
+  {
+   "group_id": "eg-ode-to-ouroboros",
+   "type": "grant_focus_spell",
+   "target": "뱀 물기의 송가"
+  }
+ ],
+ "eg-symphony-of-the-unfettered-heart": [
+  {
+   "group_id": "eg-symphony-of-the-unfettered-heart",
+   "type": "grant_focus_spell",
+   "target": "속박 해방의 교향곡"
+  }
+ ],
+ "eg-allegro": [
+  {
+   "group_id": "eg-allegro",
+   "type": "grant_focus_spell",
+   "target": "알레그로"
+  }
+ ],
+ "eg-soothing-ballad": [
+  {
+   "group_id": "eg-soothing-ballad",
+   "type": "grant_focus_spell",
+   "target": "위로의 발라드"
+  }
+ ],
+ "eg-fatal-aria": [
+  {
+   "group_id": "eg-fatal-aria",
+   "type": "grant_focus_spell",
+   "target": "치명적 아리아"
+  }
+ ],
+ "eg-perfect-encore": [
+  {
+   "group_id": "eg-perfect-encore",
+   "type": "spell_slots",
+   "value": 1,
+   "rank": 10
+  }
+ ],
+ "eg-pied-piping": [
+  {
+   "group_id": "eg-pied-piping",
+   "type": "grant_focus_spell",
+   "target": "피리 부는 사나이"
+  }
+ ],
+ "eg-domain-initiate": [
+  {
+   "group_id": "eg-domain-initiate",
+   "type": "grant_focus_spell",
+   "target": "$domain_initial"
+  }
+ ],
+ "eg-warpriests-armor": [
+  {
+   "group_id": "eg-warpriests-armor",
+   "type": "proficiency",
+   "target": "armor-medium",
+   "rank": 2
+  }
+ ],
+ "eg-advanced-domain": [
+  {
+   "group_id": "eg-advanced-domain",
+   "type": "grant_focus_spell",
+   "target": "$domain_advanced"
+  }
+ ],
+ "eg-maker-of-miracles": [
+  {
+   "group_id": "eg-maker-of-miracles",
+   "type": "spell_slots",
+   "value": 1,
+   "rank": 10
+  }
+ ],
+ "eg-enhanced-familiar-witch": [
+  {
+   "group_id": "eg-enhanced-familiar-witch",
+   "type": "familiar_abilities",
+   "value": 4
+  },
+  {
+   "group_id": "eg-enhanced-familiar-witch",
+   "type": "familiar_abilities",
+   "value": 4
+  },
+  {
+   "group_id": "eg-enhanced-familiar-witch",
+   "type": "familiar_abilities",
+   "value": 4
+  }
+ ],
+ "eg-poison-resistance": [
+  {
+   "group_id": "eg-poison-resistance",
+   "type": "resistance",
+   "value": "half_level",
+   "damage_type": "poison"
+  },
+  {
+   "group_id": "eg-poison-resistance",
+   "type": "save_bonus",
+   "target": "fort",
+   "value": 1,
+   "bonus_type": "status",
+   "condition": "독 효과"
+  }
+ ],
+ "eg-timeless-nature": [
+  {
+   "group_id": "eg-timeless-nature",
+   "type": "save_bonus",
+   "target": "all",
+   "value": 2,
+   "bonus_type": "status",
+   "condition": "질병/원시 마법"
+  }
+ ],
+ "eg-hierophants-power": [
+  {
+   "group_id": "eg-hierophants-power",
+   "type": "spell_slots",
+   "value": 1,
+   "rank": 10
+  }
+ ],
+ "eg-twin-parry-ranger": [
+  {
+   "group_id": "eg-twin-parry-ranger",
+   "type": "ac_bonus",
+   "value": 1,
+   "bonus_type": "circumstance",
+   "condition": "양손 근접 무기"
+  },
+  {
+   "group_id": "eg-twin-parry-ranger",
+   "type": "ac_bonus",
+   "value": 1,
+   "bonus_type": "circumstance",
+   "condition": "양손 근접 무기"
+  }
+ ],
+ "eg-inspired-stratagem": [
+  {
+   "group_id": "eg-inspired-stratagem",
+   "type": "grant_action"
+  }
+ ],
+ "eg-familiar": [
+  {
+   "group_id": "eg-familiar",
+   "type": "familiar_abilities",
+   "value": 2
+  }
+ ],
+ "eg-secondary-detonation-array": [
+  {
+   "group_id": "eg-secondary-detonation-array",
+   "type": "grant_action"
+  }
+ ],
+ "eg-incredible-familiar": [
+  {
+   "group_id": "eg-incredible-familiar",
+   "type": "familiar_abilities",
+   "value": 6
+  }
+ ],
+ "eg-stitched-familiar": [
+  {
+   "group_id": "eg-stitched-familiar",
+   "type": "familiar_abilities",
+   "value": 1
+  }
+ ],
+ "eg-shield-block-druid": [
+  {
+   "group_id": "eg-shield-block-druid",
+   "type": "grant_action",
+   "target": "shield-block"
+  }
+ ],
+ "eg-reactive-strike-fighter": [
+  {
+   "group_id": "eg-reactive-strike-fighter",
+   "type": "grant_action",
+   "target": "aoo"
+  }
+ ],
+ "eg-shield-block-fighter": [
+  {
+   "group_id": "eg-shield-block-fighter",
+   "type": "grant_action",
+   "target": "shield-block"
+  }
+ ],
+ "eg-hunt-prey-ranger": [
+  {
+   "group_id": "eg-hunt-prey-ranger",
+   "type": "grant_action",
+   "target": "hunt-prey"
+  }
+ ],
+ "eg-familiar-witch": [
+  {
+   "group_id": "eg-familiar-witch",
+   "type": "familiar_abilities",
+   "value": 2
+  }
+ ],
+ "eg-arcane-bond-wizard": [
+  {
+   "group_id": "eg-arcane-bond-wizard",
+   "type": "grant_action"
+  }
+ ],
+ "eg-leshy-superstition": [
+  {
+   "group_id": "eg-leshy-superstition",
+   "type": "grant_action"
+  },
+  {
+   "group_id": "eg-leshy-superstition",
+   "type": "save_bonus",
+   "target": "all",
+   "value": 1,
+   "bonus_type": "circumstance",
+   "condition": "마법 효과"
+  }
+ ],
+ "eg-seedpod": [
+  {
+   "group_id": "eg-seedpod",
+   "type": "grant_weapon",
+   "target": "씨앗 꼬투리",
+   "damage": "1d4 B",
+   "range": 30,
+   "traits": [
+    "비무장",
+    "원거리"
+   ],
+   "weapon_category": "unarmed"
+  }
+ ],
+ "eg-undaunted": [
+  {
+   "group_id": "eg-undaunted",
+   "type": "save_bonus",
+   "target": "will",
+   "value": 1,
+   "bonus_type": "circumstance",
+   "condition": "감정 효과"
+  }
+ ],
+ "eg-harmlessly-cute": [
+  {
+   "group_id": "eg-harmlessly-cute",
+   "type": "grant_feat",
+   "target": "뻔뻔한 요청 (Shameless Request)"
+  }
+ ],
+ "eg-leshy-lore": [
+  {
+   "group_id": "eg-leshy-lore",
+   "type": "skill_trained",
+   "target": "$choice"
+  },
+  {
+   "group_id": "eg-leshy-lore",
+   "type": "grant_feat",
+   "target": "추가 지식 (Additional Lore)",
+   "defaultChoice": "레쉬"
+  }
+ ],
+ "eg-anchoring-roots": [
+  {
+   "group_id": "eg-anchoring-roots",
+   "type": "grant_feat",
+   "target": "안정된 균형 (Steady Balance)"
+  },
+  {
+   "group_id": "eg-anchoring-roots",
+   "type": "grant_action",
+   "actionName": "고정"
+  }
+ ],
+ "eg-leshy-glide": [
+  {
+   "group_id": "eg-leshy-glide",
+   "type": "grant_action"
+  }
+ ],
+ "eg-ritual-reversion": [
+  {
+   "group_id": "eg-ritual-reversion",
+   "type": "grant_action"
+  }
+ ],
+ "eg-bark-and-tendril": [
+  {
+   "group_id": "eg-bark-and-tendril",
+   "type": "grant_innate_spell",
+   "target": "방해 식물",
+   "tradition": "원시",
+   "uses": "하루 1회",
+   "spellType": "spell"
+  },
+  {
+   "group_id": "eg-bark-and-tendril",
+   "type": "grant_innate_spell",
+   "target": "참나무 강인",
+   "tradition": "원시",
+   "uses": "하루 1회",
+   "spellType": "spell"
+  }
+ ],
+ "eg-lucky-keepsake": [
+  {
+   "group_id": "eg-lucky-keepsake",
+   "type": "save_bonus",
+   "target": "all",
+   "value": 1,
+   "bonus_type": "circumstance",
+   "condition": "주문/마법 효과"
+  }
+ ],
+ "eg-call-of-the-green-man": [
+  {
+   "group_id": "eg-call-of-the-green-man",
+   "type": "grant_innate_spell",
+   "target": "식물 형태",
+   "tradition": "원시",
+   "uses": "하루 1회",
+   "spellType": "spell"
+  }
+ ],
+ "eg-cloak-of-poison": [
+  {
+   "group_id": "eg-cloak-of-poison",
+   "type": "grant_action"
+  }
+ ],
+ "eg-flourish-and-ruin": [
+  {
+   "group_id": "eg-flourish-and-ruin",
+   "type": "grant_innate_spell",
+   "target": "생명의 장",
+   "tradition": "원시",
+   "uses": "하루 1회",
+   "spellType": "spell"
+  },
+  {
+   "group_id": "eg-flourish-and-ruin",
+   "type": "grant_innate_spell",
+   "target": "덩굴 뒤엉킴",
+   "tradition": "원시",
+   "uses": "하루 1회",
+   "spellType": "spell"
+  }
+ ],
+ "eg-regrowth": [
+  {
+   "group_id": "eg-regrowth",
+   "type": "grant_innate_spell",
+   "target": "재생",
+   "tradition": "원시",
+   "uses": "하루 1회",
+   "spellType": "spell"
+  }
+ ],
+ "eg-heritage-forge-dwarf": [
+  {
+   "group_id": "eg-heritage-forge-dwarf",
+   "type": "resistance",
+   "target": "화염",
+   "value": "half"
+  }
+ ],
+ "eg-heritage-strong-blooded-dwarf": [
+  {
+   "group_id": "eg-heritage-strong-blooded-dwarf",
+   "type": "resistance",
+   "target": "독",
+   "value": "half"
+  }
+ ],
+ "eg-heritage-arctic-elf": [
+  {
+   "group_id": "eg-heritage-arctic-elf",
+   "type": "resistance",
+   "target": "냉기",
+   "value": "half"
+  }
+ ],
+ "eg-heritage-cavern-elf": [
+  {
+   "group_id": "eg-heritage-cavern-elf",
+   "type": "vision_upgrade",
+   "target": "darkvision"
+  }
+ ],
+ "eg-heritage-seer-elf": [
+  {
+   "group_id": "eg-heritage-seer-elf",
+   "type": "grant_innate_spell",
+   "target": "마법 탐지",
+   "tradition": "비전",
+   "uses": "자유",
+   "spellType": "cantrip"
+  }
+ ],
+ "eg-heritage-fey-touched-gnome": [
+  {
+   "group_id": "eg-heritage-fey-touched-gnome",
+   "type": "grant_innate_spell",
+   "target": "원시 캔트립 1개",
+   "tradition": "원시",
+   "uses": "자유",
+   "spellType": "cantrip"
+  }
+ ],
+ "eg-heritage-sensate-gnome": [
+  {
+   "group_id": "eg-heritage-sensate-gnome",
+   "type": "extra_sense",
+   "sense": "부정확 후각 30피트"
+  }
+ ],
+ "eg-heritage-umbral-gnome": [
+  {
+   "group_id": "eg-heritage-umbral-gnome",
+   "type": "vision_upgrade",
+   "target": "darkvision"
+  }
+ ],
+ "eg-heritage-wellspring-gnome": [
+  {
+   "group_id": "eg-heritage-wellspring-gnome",
+   "type": "grant_innate_spell",
+   "target": "선택한 전통 캔트립 1개",
+   "tradition": "선택",
+   "uses": "자유",
+   "spellType": "cantrip"
+  }
+ ],
+ "eg-heritage-charhide-goblin": [
+  {
+   "group_id": "eg-heritage-charhide-goblin",
+   "type": "resistance",
+   "target": "화염",
+   "value": "half"
+  }
+ ],
+ "eg-heritage-razortooth-goblin": [
+  {
+   "group_id": "eg-heritage-razortooth-goblin",
+   "type": "grant_weapon",
+   "target": "턱",
+   "damage": "1d6 P",
+   "traits": "기교, 비무장",
+   "weapon_category": "비무장 근접"
+  }
+ ],
+ "eg-heritage-snow-goblin": [
+  {
+   "group_id": "eg-heritage-snow-goblin",
+   "type": "resistance",
+   "target": "냉기",
+   "value": "half"
+  }
+ ],
+ "eg-heritage-unbreakable-goblin": [
+  {
+   "group_id": "eg-heritage-unbreakable-goblin",
+   "type": "hp_bonus",
+   "value": 4
+  }
+ ],
+ "eg-heritage-hillock-halfling": [
+  {
+   "group_id": "eg-heritage-hillock-halfling",
+   "type": "rest_bonus_hp",
+   "value": true
+  }
+ ],
+ "eg-heritage-nomadic-halfling": [
+  {
+   "group_id": "eg-heritage-nomadic-halfling",
+   "type": "extra_languages",
+   "value": 2
+  }
+ ],
+ "eg-heritage-twilight-halfling": [
+  {
+   "group_id": "eg-heritage-twilight-halfling",
+   "type": "vision_upgrade",
+   "target": "low-light"
+  }
+ ],
+ "eg-heritage-fungus-leshy": [
+  {
+   "group_id": "eg-heritage-fungus-leshy",
+   "type": "vision_upgrade",
+   "target": "darkvision"
+  }
+ ],
+ "eg-heritage-battle-ready-orc": [
+  {
+   "group_id": "eg-heritage-battle-ready-orc",
+   "type": "skill_trained",
+   "target": "intimidation"
+  },
+  {
+   "group_id": "eg-heritage-battle-ready-orc",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
+  }
+ ],
+ "eg-heritage-deep-orc": [
+  {
+   "group_id": "eg-heritage-deep-orc",
+   "type": "grant_feat",
+   "target": "terrain-expertise",
+   "default_choice": "underground"
+  },
+  {
+   "group_id": "eg-heritage-deep-orc",
+   "type": "grant_feat",
+   "target": "combat-climber"
+  }
+ ],
+ "eg-heritage-hold-scarred-orc": [
+  {
+   "group_id": "eg-heritage-hold-scarred-orc",
+   "type": "hp_bonus",
+   "value": 2
+  },
+  {
+   "group_id": "eg-heritage-hold-scarred-orc",
+   "type": "grant_feat",
+   "target": "diehard"
+  }
+ ],
+ "eg-heritage-changeling": [
+  {
+   "group_id": "eg-heritage-changeling",
+   "type": "vision_upgrade",
+   "target": "upgrade"
+  },
+  {
+   "group_id": "eg-heritage-changeling",
+   "type": "versatile_ancestry",
+   "value": true
+  },
+  {
+   "group_id": "eg-heritage-changeling",
+   "type": "extra_feat_category",
+   "target": "체인질링"
+  }
+ ],
+ "eg-heritage-nephilim": [
+  {
+   "group_id": "eg-heritage-nephilim",
+   "type": "vision_upgrade",
+   "target": "upgrade"
+  },
+  {
+   "group_id": "eg-heritage-nephilim",
+   "type": "versatile_ancestry",
+   "value": true
+  },
+  {
+   "group_id": "eg-heritage-nephilim",
+   "type": "extra_feat_category",
+   "target": "네피림"
+  }
+ ],
+ "eg-heritage-aiuvarin": [
+  {
+   "group_id": "eg-heritage-aiuvarin",
+   "type": "vision_upgrade",
+   "target": "low-light"
+  },
+  {
+   "group_id": "eg-heritage-aiuvarin",
+   "type": "versatile_ancestry",
+   "value": true
+  },
+  {
+   "group_id": "eg-heritage-aiuvarin",
+   "type": "extra_feat_category",
+   "target": "아이우바린"
+  },
+  {
+   "group_id": "eg-heritage-aiuvarin",
+   "type": "extra_feat_category",
+   "target": "엘프"
+  }
+ ],
+ "eg-heritage-dromaar": [
+  {
+   "group_id": "eg-heritage-dromaar",
+   "type": "vision_upgrade",
+   "target": "low-light"
+  },
+  {
+   "group_id": "eg-heritage-dromaar",
+   "type": "versatile_ancestry",
+   "value": true
+  },
+  {
+   "group_id": "eg-heritage-dromaar",
+   "type": "extra_feat_category",
+   "target": "드로마르"
+  },
+  {
+   "group_id": "eg-heritage-dromaar",
+   "type": "extra_feat_category",
+   "target": "오크"
+  }
+ ],
+ "eg-bg-acolyte": [
+  {
+   "group_id": "eg-bg-acolyte",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-acolyte",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-acolyte",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-acolyte",
+   "type": "skill_trained",
+   "target": "religion"
+  },
+  {
+   "group_id": "eg-bg-acolyte",
+   "type": "grant_lore",
+   "target": "필사"
+  },
+  {
+   "group_id": "eg-bg-acolyte",
+   "type": "grant_feat",
+   "target": "student-of-the-canon"
+  }
+ ],
+ "eg-bg-acrobat": [
+  {
+   "group_id": "eg-bg-acrobat",
+   "type": "ability_boost_choice",
+   "target": "str",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-acrobat",
+   "type": "ability_boost_choice",
+   "target": "dex",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-acrobat",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-acrobat",
+   "type": "skill_trained",
+   "target": "acrobatics"
+  },
+  {
+   "group_id": "eg-bg-acrobat",
+   "type": "grant_lore",
+   "target": "서커스"
+  },
+  {
+   "group_id": "eg-bg-acrobat",
+   "type": "grant_feat",
+   "target": "steady-balance"
+  }
+ ],
+ "eg-bg-animal-whisperer": [
+  {
+   "group_id": "eg-bg-animal-whisperer",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-animal-whisperer",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-animal-whisperer",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-animal-whisperer",
+   "type": "skill_trained",
+   "target": "nature"
+  },
+  {
+   "group_id": "eg-bg-animal-whisperer",
+   "type": "grant_lore",
+   "target": "지형"
+  },
+  {
+   "group_id": "eg-bg-animal-whisperer",
+   "type": "grant_feat",
+   "target": "train-animal"
+  }
+ ],
+ "eg-bg-artisan": [
+  {
+   "group_id": "eg-bg-artisan",
+   "type": "ability_boost_choice",
+   "target": "str",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-artisan",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-artisan",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-artisan",
+   "type": "skill_trained",
+   "target": "crafting"
+  },
+  {
+   "group_id": "eg-bg-artisan",
+   "type": "grant_lore",
+   "target": "길드"
+  },
+  {
+   "group_id": "eg-bg-artisan",
+   "type": "grant_feat",
+   "target": "specialty-crafting"
+  }
+ ],
+ "eg-bg-artist": [
+  {
+   "group_id": "eg-bg-artist",
+   "type": "ability_boost_choice",
+   "target": "dex",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-artist",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-artist",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-artist",
+   "type": "skill_trained",
+   "target": "crafting"
+  },
+  {
+   "group_id": "eg-bg-artist",
+   "type": "grant_lore",
+   "target": "예술"
+  },
+  {
+   "group_id": "eg-bg-artist",
+   "type": "grant_feat",
+   "target": "specialty-crafting"
+  }
+ ],
+ "eg-bg-bandit": [
+  {
+   "group_id": "eg-bg-bandit",
+   "type": "ability_boost_choice",
+   "target": "dex",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-bandit",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-bandit",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-bandit",
+   "type": "skill_trained",
+   "target": "intimidation"
+  },
+  {
+   "group_id": "eg-bg-bandit",
+   "type": "grant_lore",
+   "target": "지형"
+  },
+  {
+   "group_id": "eg-bg-bandit",
+   "type": "grant_feat",
+   "target": "group-coercion"
+  }
+ ],
+ "eg-bg-barkeep": [
+  {
+   "group_id": "eg-bg-barkeep",
+   "type": "ability_boost_choice",
+   "target": "con",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-barkeep",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-barkeep",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-barkeep",
+   "type": "skill_trained",
+   "target": "diplomacy"
+  },
+  {
+   "group_id": "eg-bg-barkeep",
+   "type": "grant_lore",
+   "target": "술"
+  },
+  {
+   "group_id": "eg-bg-barkeep",
+   "type": "grant_feat",
+   "target": "hobnobber"
+  }
+ ],
+ "eg-bg-barrister": [
+  {
+   "group_id": "eg-bg-barrister",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-barrister",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-barrister",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-barrister",
+   "type": "skill_trained",
+   "target": "diplomacy"
+  },
+  {
+   "group_id": "eg-bg-barrister",
+   "type": "grant_lore",
+   "target": "법률"
+  },
+  {
+   "group_id": "eg-bg-barrister",
+   "type": "grant_feat",
+   "target": "group-impression"
+  }
+ ],
+ "eg-bg-bounty-hunter": [
+  {
+   "group_id": "eg-bg-bounty-hunter",
+   "type": "ability_boost_choice",
+   "target": "str",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-bounty-hunter",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-bounty-hunter",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-bounty-hunter",
+   "type": "skill_trained",
+   "target": "survival"
+  },
+  {
+   "group_id": "eg-bg-bounty-hunter",
+   "type": "grant_lore",
+   "target": "법률"
+  },
+  {
+   "group_id": "eg-bg-bounty-hunter",
+   "type": "grant_feat",
+   "target": "experienced-tracker"
+  }
+ ],
+ "eg-bg-charlatan": [
+  {
+   "group_id": "eg-bg-charlatan",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-charlatan",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-charlatan",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-charlatan",
+   "type": "skill_trained",
+   "target": "deception"
+  },
+  {
+   "group_id": "eg-bg-charlatan",
+   "type": "grant_lore",
+   "target": "뒷세계"
+  },
+  {
+   "group_id": "eg-bg-charlatan",
+   "type": "grant_feat",
+   "target": "charming-liar"
+  }
+ ],
+ "eg-bg-cook": [
+  {
+   "group_id": "eg-bg-cook",
+   "type": "ability_boost_choice",
+   "target": "con",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-cook",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-cook",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-cook",
+   "type": "skill_trained",
+   "target": "survival"
+  },
+  {
+   "group_id": "eg-bg-cook",
+   "type": "grant_lore",
+   "target": "요리"
+  },
+  {
+   "group_id": "eg-bg-cook",
+   "type": "grant_feat",
+   "target": "seasoned"
+  }
+ ],
+ "eg-bg-criminal": [
+  {
+   "group_id": "eg-bg-criminal",
+   "type": "ability_boost_choice",
+   "target": "dex",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-criminal",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-criminal",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-criminal",
+   "type": "skill_trained",
+   "target": "stealth"
+  },
+  {
+   "group_id": "eg-bg-criminal",
+   "type": "grant_lore",
+   "target": "뒷세계"
+  },
+  {
+   "group_id": "eg-bg-criminal",
+   "type": "grant_feat",
+   "target": "experienced-smuggler"
+  }
+ ],
+ "eg-bg-cultist": [
+  {
+   "group_id": "eg-bg-cultist",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-cultist",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-cultist",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-cultist",
+   "type": "skill_trained",
+   "target": "occultism"
+  },
+  {
+   "group_id": "eg-bg-cultist",
+   "type": "grant_lore",
+   "target": "신격/교단"
+  },
+  {
+   "group_id": "eg-bg-cultist",
+   "type": "grant_feat",
+   "target": "schooled-in-secrets"
+  }
+ ],
+ "eg-bg-detective": [
+  {
+   "group_id": "eg-bg-detective",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-detective",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-detective",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-detective",
+   "type": "skill_trained",
+   "target": "society"
+  },
+  {
+   "group_id": "eg-bg-detective",
+   "type": "grant_lore",
+   "target": "뒷세계"
+  },
+  {
+   "group_id": "eg-bg-detective",
+   "type": "grant_feat",
+   "target": "streetwise"
+  }
+ ],
+ "eg-bg-emissary": [
+  {
+   "group_id": "eg-bg-emissary",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-emissary",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-emissary",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-emissary",
+   "type": "skill_trained",
+   "target": "society"
+  },
+  {
+   "group_id": "eg-bg-emissary",
+   "type": "grant_lore",
+   "target": "도시"
+  },
+  {
+   "group_id": "eg-bg-emissary",
+   "type": "grant_feat",
+   "target": "multilingual"
+  }
+ ],
+ "eg-bg-entertainer": [
+  {
+   "group_id": "eg-bg-entertainer",
+   "type": "ability_boost_choice",
+   "target": "dex",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-entertainer",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-entertainer",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-entertainer",
+   "type": "skill_trained",
+   "target": "performance"
+  },
+  {
+   "group_id": "eg-bg-entertainer",
+   "type": "grant_lore",
+   "target": "극장"
+  },
+  {
+   "group_id": "eg-bg-entertainer",
+   "type": "grant_feat",
+   "target": "fascinating-performance"
+  }
+ ],
+ "eg-bg-farmhand": [
+  {
+   "group_id": "eg-bg-farmhand",
+   "type": "ability_boost_choice",
+   "target": "con",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-farmhand",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-farmhand",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-farmhand",
+   "type": "skill_trained",
+   "target": "athletics"
+  },
+  {
+   "group_id": "eg-bg-farmhand",
+   "type": "grant_lore",
+   "target": "농업"
+  },
+  {
+   "group_id": "eg-bg-farmhand",
+   "type": "grant_feat",
+   "target": "assurance"
+  }
+ ],
+ "eg-bg-field-medic": [
+  {
+   "group_id": "eg-bg-field-medic",
+   "type": "ability_boost_choice",
+   "target": "con",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-field-medic",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-field-medic",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-field-medic",
+   "type": "skill_trained",
+   "target": "medicine"
+  },
+  {
+   "group_id": "eg-bg-field-medic",
+   "type": "grant_lore",
+   "target": "전쟁"
+  },
+  {
+   "group_id": "eg-bg-field-medic",
+   "type": "grant_feat",
+   "target": "battle-medicine"
+  }
+ ],
+ "eg-bg-fortune-teller": [
+  {
+   "group_id": "eg-bg-fortune-teller",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-fortune-teller",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-fortune-teller",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-fortune-teller",
+   "type": "skill_trained",
+   "target": "occultism"
+  },
+  {
+   "group_id": "eg-bg-fortune-teller",
+   "type": "grant_lore",
+   "target": "점술"
+  },
+  {
+   "group_id": "eg-bg-fortune-teller",
+   "type": "grant_feat",
+   "target": "oddity-identification"
+  }
+ ],
+ "eg-bg-gambler": [
+  {
+   "group_id": "eg-bg-gambler",
+   "type": "ability_boost_choice",
+   "target": "dex",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-gambler",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-gambler",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-gambler",
+   "type": "skill_trained",
+   "target": "deception"
+  },
+  {
+   "group_id": "eg-bg-gambler",
+   "type": "grant_lore",
+   "target": "게임"
+  },
+  {
+   "group_id": "eg-bg-gambler",
+   "type": "grant_feat",
+   "target": "lie-to-me"
+  }
+ ],
+ "eg-bg-gladiator": [
+  {
+   "group_id": "eg-bg-gladiator",
+   "type": "ability_boost_choice",
+   "target": "str",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-gladiator",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-gladiator",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-gladiator",
+   "type": "skill_trained",
+   "target": "performance"
+  },
+  {
+   "group_id": "eg-bg-gladiator",
+   "type": "grant_lore",
+   "target": "검투"
+  },
+  {
+   "group_id": "eg-bg-gladiator",
+   "type": "grant_feat",
+   "target": "impressive-performance"
+  }
+ ],
+ "eg-bg-guard": [
+  {
+   "group_id": "eg-bg-guard",
+   "type": "ability_boost_choice",
+   "target": "str",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-guard",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-guard",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-guard",
+   "type": "skill_trained",
+   "target": "intimidation"
+  },
+  {
+   "group_id": "eg-bg-guard",
+   "type": "grant_lore",
+   "target": "법률"
+  },
+  {
+   "group_id": "eg-bg-guard",
+   "type": "grant_feat",
+   "target": "quick-coercion"
+  }
+ ],
+ "eg-bg-herbalist": [
+  {
+   "group_id": "eg-bg-herbalist",
+   "type": "ability_boost_choice",
+   "target": "con",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-herbalist",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-herbalist",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-herbalist",
+   "type": "skill_trained",
+   "target": "nature"
+  },
+  {
+   "group_id": "eg-bg-herbalist",
+   "type": "grant_lore",
+   "target": "약초학"
+  },
+  {
+   "group_id": "eg-bg-herbalist",
+   "type": "grant_feat",
+   "target": "natural-medicine"
+  }
+ ],
+ "eg-bg-hermit": [
+  {
+   "group_id": "eg-bg-hermit",
+   "type": "ability_boost_choice",
+   "target": "con",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-hermit",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-hermit",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-hermit",
+   "type": "skill_choice",
+   "target": "nature",
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-hermit",
+   "type": "skill_choice",
+   "target": "occultism",
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-hermit",
+   "type": "grant_lore",
+   "target": "지형"
+  },
+  {
+   "group_id": "eg-bg-hermit",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
+  }
+ ],
+ "eg-bg-hunter": [
+  {
+   "group_id": "eg-bg-hunter",
+   "type": "ability_boost_choice",
+   "target": "dex",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-hunter",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-hunter",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-hunter",
+   "type": "skill_trained",
+   "target": "survival"
+  },
+  {
+   "group_id": "eg-bg-hunter",
+   "type": "grant_lore",
+   "target": "무두질"
+  },
+  {
+   "group_id": "eg-bg-hunter",
+   "type": "grant_feat",
+   "target": "survey-wildlife"
+  }
+ ],
+ "eg-bg-laborer": [
+  {
+   "group_id": "eg-bg-laborer",
+   "type": "ability_boost_choice",
+   "target": "str",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-laborer",
+   "type": "ability_boost_choice",
+   "target": "con",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-laborer",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-laborer",
+   "type": "skill_trained",
+   "target": "athletics"
+  },
+  {
+   "group_id": "eg-bg-laborer",
+   "type": "grant_lore",
+   "target": "노동"
+  },
+  {
+   "group_id": "eg-bg-laborer",
+   "type": "grant_feat",
+   "target": "hefty-hauler"
+  }
+ ],
+ "eg-bg-martial-disciple": [
+  {
+   "group_id": "eg-bg-martial-disciple",
+   "type": "ability_boost_choice",
+   "target": "str",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-martial-disciple",
+   "type": "ability_boost_choice",
+   "target": "dex",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-martial-disciple",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-martial-disciple",
+   "type": "skill_choice",
+   "target": "acrobatics",
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-martial-disciple",
+   "type": "skill_choice",
+   "target": "athletics",
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-martial-disciple",
+   "type": "grant_lore",
+   "target": "전쟁"
+  },
+  {
+   "group_id": "eg-bg-martial-disciple",
+   "type": "grant_feat",
+   "target": "cat-fall"
+  }
+ ],
+ "eg-bg-merchant": [
+  {
+   "group_id": "eg-bg-merchant",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-merchant",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-merchant",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-merchant",
+   "type": "skill_trained",
+   "target": "diplomacy"
+  },
+  {
+   "group_id": "eg-bg-merchant",
+   "type": "grant_lore",
+   "target": "상업"
+  },
+  {
+   "group_id": "eg-bg-merchant",
+   "type": "grant_feat",
+   "target": "bargain-hunter"
+  }
+ ],
+ "eg-bg-miner": [
+  {
+   "group_id": "eg-bg-miner",
+   "type": "ability_boost_choice",
+   "target": "str",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-miner",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-miner",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-miner",
+   "type": "skill_trained",
+   "target": "survival"
+  },
+  {
+   "group_id": "eg-bg-miner",
+   "type": "grant_lore",
+   "target": "광업"
+  },
+  {
+   "group_id": "eg-bg-miner",
+   "type": "grant_feat",
+   "target": "terrain-expertise"
+  }
+ ],
+ "eg-bg-noble": [
+  {
+   "group_id": "eg-bg-noble",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-noble",
+   "type": "ability_boost_choice",
+   "target": "cha",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-noble",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-noble",
+   "type": "skill_trained",
+   "target": "society"
+  },
+  {
+   "group_id": "eg-bg-noble",
+   "type": "grant_lore",
+   "target": "족보"
+  },
+  {
+   "group_id": "eg-bg-noble",
+   "type": "grant_feat",
+   "target": "courtly-graces"
+  }
+ ],
+ "eg-bg-nomad": [
+  {
+   "group_id": "eg-bg-nomad",
+   "type": "ability_boost_choice",
+   "target": "con",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-nomad",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-nomad",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-nomad",
+   "type": "skill_trained",
+   "target": "survival"
+  },
+  {
+   "group_id": "eg-bg-nomad",
+   "type": "grant_lore",
+   "target": "지형"
+  },
+  {
+   "group_id": "eg-bg-nomad",
+   "type": "grant_feat",
+   "target": "assurance"
+  }
+ ],
+ "eg-bg-prisoner": [
+  {
+   "group_id": "eg-bg-prisoner",
+   "type": "ability_boost_choice",
+   "target": "str",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-prisoner",
+   "type": "ability_boost_choice",
+   "target": "con",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-prisoner",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-prisoner",
+   "type": "skill_trained",
+   "target": "stealth"
+  },
+  {
+   "group_id": "eg-bg-prisoner",
+   "type": "grant_lore",
+   "target": "뒷세계"
+  },
+  {
+   "group_id": "eg-bg-prisoner",
+   "type": "grant_feat",
+   "target": "experienced-smuggler"
+  }
+ ],
+ "eg-bg-raised-by-belief": [
+  {
+   "group_id": "eg-bg-raised-by-belief",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-raised-by-belief",
+   "type": "grant_feat",
+   "target": "assurance"
+  },
+  {
+   "group_id": "eg-bg-raised-by-belief",
+   "type": "deity_skill"
+  },
+  {
+   "group_id": "eg-bg-raised-by-belief",
+   "type": "deity_lore"
+  }
+ ],
+ "eg-bg-sailor": [
+  {
+   "group_id": "eg-bg-sailor",
+   "type": "ability_boost_choice",
+   "target": "str",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-sailor",
+   "type": "ability_boost_choice",
+   "target": "dex",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-sailor",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-sailor",
+   "type": "skill_trained",
+   "target": "athletics"
+  },
+  {
+   "group_id": "eg-bg-sailor",
+   "type": "grant_lore",
+   "target": "항해"
+  },
+  {
+   "group_id": "eg-bg-sailor",
+   "type": "grant_feat",
+   "target": "underwater-marauder"
+  }
+ ],
+ "eg-bg-scholar": [
+  {
+   "group_id": "eg-bg-scholar",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-scholar",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-scholar",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-scholar",
+   "type": "skill_choice",
+   "target": "arcana",
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-scholar",
+   "type": "skill_choice",
+   "target": "nature",
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-scholar",
+   "type": "skill_choice",
+   "target": "occultism",
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-scholar",
+   "type": "skill_choice",
+   "target": "religion",
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-scholar",
+   "type": "grant_lore",
+   "target": "학술원"
+  },
+  {
+   "group_id": "eg-bg-scholar",
+   "type": "grant_feat",
+   "target": "assurance"
+  }
+ ],
+ "eg-bg-scout": [
+  {
+   "group_id": "eg-bg-scout",
+   "type": "ability_boost_choice",
+   "target": "dex",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-scout",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-scout",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-scout",
+   "type": "skill_trained",
+   "target": "survival"
+  },
+  {
+   "group_id": "eg-bg-scout",
+   "type": "grant_lore",
+   "target": "지형"
+  },
+  {
+   "group_id": "eg-bg-scout",
+   "type": "grant_feat",
+   "target": "forager"
+  }
+ ],
+ "eg-bg-street-urchin": [
+  {
+   "group_id": "eg-bg-street-urchin",
+   "type": "ability_boost_choice",
+   "target": "dex",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-street-urchin",
+   "type": "ability_boost_choice",
+   "target": "con",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-street-urchin",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-street-urchin",
+   "type": "skill_trained",
+   "target": "thievery"
+  },
+  {
+   "group_id": "eg-bg-street-urchin",
+   "type": "grant_lore",
+   "target": "도시"
+  },
+  {
+   "group_id": "eg-bg-street-urchin",
+   "type": "grant_feat",
+   "target": "pickpocket"
+  }
+ ],
+ "eg-bg-teacher": [
+  {
+   "group_id": "eg-bg-teacher",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-teacher",
+   "type": "ability_boost_choice",
+   "target": "wis",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-teacher",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-teacher",
+   "type": "skill_choice",
+   "target": "performance",
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-teacher",
+   "type": "skill_choice",
+   "target": "society",
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-teacher",
+   "type": "grant_lore",
+   "target": "학술원"
+  },
+  {
+   "group_id": "eg-bg-teacher",
+   "type": "grant_feat",
+   "target": "experienced-professional"
+  }
+ ],
+ "eg-bg-tinker": [
+  {
+   "group_id": "eg-bg-tinker",
+   "type": "ability_boost_choice",
+   "target": "dex",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-tinker",
+   "type": "ability_boost_choice",
+   "target": "int",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-tinker",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-tinker",
+   "type": "skill_trained",
+   "target": "crafting"
+  },
+  {
+   "group_id": "eg-bg-tinker",
+   "type": "grant_lore",
+   "target": "공학"
+  },
+  {
+   "group_id": "eg-bg-tinker",
+   "type": "grant_feat",
+   "target": "specialty-crafting"
+  }
+ ],
+ "eg-bg-warrior": [
+  {
+   "group_id": "eg-bg-warrior",
+   "type": "ability_boost_choice",
+   "target": "str",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-warrior",
+   "type": "ability_boost_choice",
+   "target": "con",
+   "value": 1,
+   "group_no": 1
+  },
+  {
+   "group_id": "eg-bg-warrior",
+   "type": "free_boost_slots",
+   "value": 1
+  },
+  {
+   "group_id": "eg-bg-warrior",
+   "type": "skill_trained",
+   "target": "intimidation"
+  },
+  {
+   "group_id": "eg-bg-warrior",
+   "type": "grant_lore",
+   "target": "전쟁"
+  },
+  {
+   "group_id": "eg-bg-warrior",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
+  }
+ ]
+}

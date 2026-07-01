@@ -165,6 +165,8 @@ const note = `자동화 정본 효과 테이블(통합·전량). 효과행 ${row
 
 fs.writeFileSync(path.join(DEV, 'data/derived/effects.json'), JSON.stringify({ rows, note, _types: byType, _origin: byOrigin }, null, 1) + '\n');
 fs.writeFileSync(path.join(DEV, 'data/derived/effect_refs.json'), JSON.stringify(refs, null, 1) + '\n');
+// 편집용 raw 효과그룹 원본({group_id:[EG rows]}) — DataManager 효과그룹 override 편집기 소스.
+fs.writeFileSync(path.join(DEV, 'data/derived/effect_groups_raw.json'), JSON.stringify(egIdx, null, 1) + '\n');
 try { fs.unlinkSync(path.join(DEV, 'data/derived/feat_effects.json')); } catch (e) {}
 console.log('wrote effects.json + effect_refs.json');
 console.log('rows:', rows.length, 'origin:', JSON.stringify(byOrigin), 'types:', Object.keys(byType).length);

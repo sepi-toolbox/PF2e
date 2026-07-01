@@ -42,11 +42,20 @@ async function handleCommit(req, res) {
         const file = path.join(OVR_DIR, `${cat}.json`);
         let cur = {};
         try { cur = JSON.parse(fs.readFileSync(file, 'utf8')); } catch (e) {}
-        for (const slug of Object.keys(overrides[cat])) {
-          cur[slug] = { ...(cur[slug] || {}), ...overrides[cat][slug] };
-          // 빈 필드 정리
-          for (const f of Object.keys(cur[slug])) if (cur[slug][f] === '' || cur[slug][f] == null) delete cur[slug][f];
-          if (!Object.keys(cur[slug]).length) delete cur[slug];
+        if (cat === 'effect_groups') {
+          // 효과그룹 override: 값=효과행 배열(그룹 단위 교체). null/[]=override 제거(base 복귀).
+          for (const gid of Object.keys(overrides[cat])) {
+            const v = overrides[cat][gid];
+            if (v == null || (Array.isArray(v) && v.length === 0)) delete cur[gid];
+            else cur[gid] = v;
+          }
+        } else {
+          for (const slug of Object.keys(overrides[cat])) {
+            cur[slug] = { ...(cur[slug] || {}), ...overrides[cat][slug] };
+            // 빈 필드 정리
+            for (const f of Object.keys(cur[slug])) if (cur[slug][f] === '' || cur[slug][f] == null) delete cur[slug][f];
+            if (!Object.keys(cur[slug]).length) delete cur[slug];
+          }
         }
         fs.writeFileSync(file, JSON.stringify(cur, null, 2) + '\n');
         written.push(path.relative(DEV, file));
