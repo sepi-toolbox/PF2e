@@ -183,6 +183,38 @@ function collectData() {
   return data;
 }
 
+// ── slug 디커플링: 이름 키 주문 저장소를 slug로 정규화 (번역 편집 안전화) ──
+// 대상: growth[*].spells / growth[*].familiarSpells / signatureSpells / familiarSpells / preparedSpells.
+// 미해소 값은 원문 유지(graceful). 표시는 렌더 시 spellDisplay로 재해소.
+function _slugArr(a) { if (!Array.isArray(a)) return a; return a.map(x => x ? (typeof spellSlug === 'function' ? spellSlug(x) : x) : x); }
+function _migrateGrowthStoresToSlug() {
+  if (typeof spellSlug !== 'function' || !state.growth) return;
+  for (const lv in state.growth) {
+    const g = state.growth[lv]; if (!g) continue;
+    if (g.spells) for (const k in g.spells) g.spells[k] = _slugArr(g.spells[k]);
+    if (g.familiarSpells) {
+      const gf = g.familiarSpells;
+      for (const k in gf) {
+        if (k === 'free') { // free = [{name,rank}|slug] → [{id,rank}]
+          gf.free = (gf.free || []).map(e => {
+            if (!e) return e;
+            if (typeof e === 'object') return { id: spellSlug(e.id || e.name), rank: e.rank };
+            return { id: spellSlug(e), rank: 0 };
+          });
+        } else gf[k] = _slugArr(gf[k]);
+      }
+    }
+  }
+}
+function _migrateDerivedSpellStoresToSlug() {
+  if (typeof spellSlug !== 'function') return;
+  if (state.signatureSpells) for (const r in state.signatureSpells) { const v = state.signatureSpells[r]; if (v) state.signatureSpells[r] = spellSlug(v); }
+  for (const store of [state.familiarSpells, state.preparedSpells]) {
+    if (!store) continue;
+    for (const k in store) if (Array.isArray(store[k])) store[k] = _slugArr(store[k]);
+  }
+}
+
 function loadData(d) {
   const wasLoadComplete = _loadComplete;
   try {
@@ -386,12 +418,13 @@ function loadData(d) {
       if (!state.spells.known) state.spells.known = [];
       if (!state.spells.focus) state.spells.focus = [];
       if (!state.spells.innate) state.spells.innate = [];
-      // v524~: id 마이그레이션 (id 없는 항목에 SPELL_DB lookup으로 자동 부여)
+      // v524~: id 마이그레이션. v0.25~: slug 정규화 + 표시명(name_ko) 재해소
+      // → 저장 키는 slug(id), name은 현재 번역으로 재파생(번역 편집이 매칭에 영향 0).
       for (const k of ['cantrip','known','focus','innate']) {
         for (const it of state.spells[k]) {
-          if (!it || it.id || !it.name) continue;
-          const sp = (typeof getSpell === 'function') ? getSpell(it.name) : null;
-          if (sp) it.id = sp.id;
+          if (!it || !(it.id || it.name)) continue;
+          const sp = (typeof getSpell === 'function') ? getSpell(it.id || it.name) : null;
+          if (sp) { it.id = sp.id; it.name = sp.name_ko || sp.name_en || it.name; }
         }
       }
     }
@@ -456,11 +489,14 @@ function loadData(d) {
             fd = getFeat(nameKo);
           }
           if (fd) it.id = fd.id;
+          // v0.25~: id 확정 시 표시명 재파생(번역 편집 반영). 아키타입은 name_ko가 "한글 (English)" 형식 유지.
+          if (fd && fd.name_ko) it.name = fd.name_ko;
         }
       });
       renderFeats();
     }
     if (d.growth) { state.growth = d.growth; }
+    _migrateGrowthStoresToSlug(); // 동기화 전에 growth를 slug로 정규화 → sync가 slug로 파생
     applyClassFeatures();
     if (typeof syncGrowthSpellsToState === 'function') syncGrowthSpellsToState();
     if (typeof syncFamiliarSpellsToState === 'function') syncFamiliarSpellsToState();
@@ -504,6 +540,9 @@ function loadData(d) {
     if (d.signatureSpells) state.signatureSpells = d.signatureSpells;
     if (d.familiarSpells) state.familiarSpells = d.familiarSpells;
     if (d.preparedSpells) state.preparedSpells = d.preparedSpells;
+    // v0.26~: 파생 주문 저장소(signature/familiar/prepared)도 slug로 정규화.
+    // (familiarSpells는 위 sync가 growth에서 slug로 재구축하지만, 저장본 우선 로드 케이스도 커버)
+    _migrateDerivedSpellStoresToSlug();
     if (d.initialChoices) state.initialChoices = d.initialChoices;
   } catch(e) { console.warn('Load failed',e); }
   // 로드 완료 — 자동저장 복원 + 진행 중인 debounce 취소

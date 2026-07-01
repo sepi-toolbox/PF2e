@@ -12,6 +12,7 @@
   const _dataRoot = _cfg.dataRoot || 'data';
   const BASE_DIR = _cfg.baseDir || (_dataRoot + '/base');
   const OVL_DIR = _cfg.ovlDir || (_dataRoot + '/overlay');
+  const OVR_DIR = _cfg.ovrDir || (_dataRoot + '/override'); // L3 OVERRIDE(관리툴 편집본, 최종 적용)
 
   // 비크리처 카테고리(단일 파일). 크리처는 별도(팩 분할 + _index).
   const CATEGORIES = ['equipment', 'spells', 'feats', 'actions', 'backgrounds',
@@ -20,7 +21,12 @@
   // ---- 로더 (지연, 카테고리 단위 캐시) ----
   const _baseCache = {};   // cat → array
   const _ovlCache = {};    // cat → {slug→{name,description,traits}}
+  const _ovrCache = {};    // cat → {slug→{name_ko,desc_ko,...}} (L3 OVERRIDE)
   const _index = {};       // cat → Map(slug→doc) (조인 결과)
+  let _localize = null;    // @Localize 사전: {PF2E.key → 한글}
+
+  function _ensureLocalizeSync() { if (_localize) return _localize; if (isNode) _localize = _readJSON(`${_dataRoot}/derived/localize.ko.json`) || {}; return _localize; }
+  async function loadLocalize() { if (_localize) return _localize; if (isNode) return _ensureLocalizeSync(); _localize = (await _fetchJSON(`${_dataRoot}/derived/localize.ko.json`)) || {}; return _localize; }
 
   function _readJSON(relPath) {
     if (isNode) {
@@ -45,23 +51,26 @@
     if (_index[cat]) return _index[cat];
     const base = _readJSON(`${BASE_DIR}/${cat}.base.json`) || [];
     const ovl = _readJSON(`${OVL_DIR}/${cat}.ko.json`) || {};
-    _baseCache[cat] = base; _ovlCache[cat] = ovl;
-    return _buildIndex(cat, base, ovl);
+    const ovr = _readJSON(`${OVR_DIR}/${cat}.json`) || {}; // 없으면 {} (선택적)
+    _baseCache[cat] = base; _ovlCache[cat] = ovl; _ovrCache[cat] = ovr;
+    return _buildIndex(cat, base, ovl, ovr);
   }
   async function loadCategory(cat) {
     if (_index[cat]) return _index[cat];
     if (isNode) return loadCategorySync(cat);
-    const [base, ovl] = await Promise.all([
+    const [base, ovl, ovr] = await Promise.all([
       _fetchJSON(`${BASE_DIR}/${cat}.base.json`),
       _fetchJSON(`${OVL_DIR}/${cat}.ko.json`),
+      _fetchJSON(`${OVR_DIR}/${cat}.json`), // 파일 없으면 404 → null → {}
     ]);
-    _baseCache[cat] = base || []; _ovlCache[cat] = ovl || {};
-    return _buildIndex(cat, base || [], ovl || {});
+    _baseCache[cat] = base || []; _ovlCache[cat] = ovl || {}; _ovrCache[cat] = ovr || {};
+    return _buildIndex(cat, base || [], ovl || {}, ovr || {});
   }
 
   function _slugOf(d) { return (d.system && d.system.slug) || d._id; }
 
-  function _buildIndex(cat, base, ovl) {
+  function _buildIndex(cat, base, ovl, ovr) {
+    ovr = ovr || {};
     const m = new Map();
     for (const d of base) {
       const slug = _slugOf(d);
@@ -79,11 +88,27 @@
       } else {
         joined.name_en = d.name; joined.name_ko = d.name;
       }
+      // L3 OVERRIDE 적용(관리툴 편집본이 최종). 기계효과(rules/slug/_id)엔 손대지 않음.
+      _applyOverride(joined, ovr[slug]);
       m.set(slug, joined);
       m.set(d._id, joined);
     }
     _index[cat] = m;
     return m;
+  }
+
+  // OVERRIDE 부분필드 적용. name_ko/desc_ko는 조인 필드에 매핑, 그 외는 관리툴이 쓴 필드명 그대로 부착(구조 편집 대비).
+  function _applyOverride(joined, ov) {
+    if (!ov || typeof ov !== 'object') return;
+    for (const f in ov) {
+      const v = ov[f];
+      if (v == null || v === '') continue;      // 빈값=미설정(BASE/OVERLAY 유지)
+      if (f === 'name_ko') joined.name_ko = v;
+      else if (f === 'desc_ko') {               // 설명 오버라이드 → 조인 desc 필드
+        if (joined._desc_en == null) joined._desc_en = joined.system && joined.system.description && joined.system.description.value;
+        joined._desc_ko = v;
+      } else joined[f] = v;                      // 기타 필드(향후 구조 override)
+    }
   }
 
   // 단건 조회: key=slug|_id|영문명. cat 미지정 시 전 카테고리 탐색은 비권장(명시 권장).
@@ -108,10 +133,16 @@
   // 시트의 모든 FVTT desc 표시 공통 진입점(장비/재주/주문). 미인식 @X[..]는 라벨만 남김.
   const _DMG_KO = { piercing: '관통', slashing: '참격', bludgeoning: '타격', fire: '화염', cold: '냉기', acid: '산성', electricity: '전기', sonic: '음향', mental: '정신', poison: '독', void: '공허', spirit: '정신력', vitality: '생명력', force: '역장', bleed: '출혈', untyped: '', precision: '정밀' };
   const _SAVE_KO = { fortitude: '인내', reflex: '반사', will: '의지' };
+  const _SKILL_KO = { acrobatics: '곡예', arcana: '주문학', athletics: '운동', crafting: '제작', deception: '기만', diplomacy: '외교', intimidation: '협박', medicine: '의학', nature: '자연학', occultism: '오컬티즘', performance: '공연', religion: '종교학', society: '사회학', stealth: '은신', survival: '생존', thievery: '도둑질' };
+  const _CHECK_KO = Object.assign({ perception: '지각', flat: '단순', spell: '주문' }, _SAVE_KO, _SKILL_KO);
+  function _checkTypeKo(t) { if (_CHECK_KO[t]) return _CHECK_KO[t]; const m = /^(.*)-lore$/.exec(t); if (m) return m[1].replace(/-/g, ' ') + ' 지식'; return t; }
   function _escDesc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
   function enrichDesc(html) {
     if (!html) return '';
     let s = String(html);
+    // @Localize[PF2E.key] → 사전 한글로 치환(먼저 처리 → 치환된 내용의 @UUID/@Check 등도 이어서 렌더)
+    const _loc = _localize || (isNode ? _ensureLocalizeSync() : null);
+    s = s.replace(/@Localize\[([^\]]+)\]/g, (m, key) => { const t = _loc && _loc[key]; return t != null ? String(t) : ''; });
     s = s.replace(/@Damage\[((?:[^\[\]]|\[[^\]]*\])*)\](\{[^}]*\})?/g, (m, body) => {
       const parts = body.split(/,(?![^\[]*\])/).map(p => {
         const mm = p.match(/\(?\s*([0-9dD()+\-* ]+?)\s*\)?\s*\[([^\]]+)\]/);
@@ -122,10 +153,12 @@
       });
       return `<span class="ref-dmg">${parts.join(' + ')}</span>`;
     });
-    s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const type = Object.keys(_SAVE_KO).find(k => new RegExp('\\b' + k + '\\b').test(body)) || ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_SAVE_KO[type] || type}</span>`; });
-    s = s.replace(/@UUID\[[^\]]+\](?:\{([^}]*)\})?/g, (m, label) => label ? `<span class="ref-link">${_escDesc(label)}</span>` : '');
+    s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_checkTypeKo(type)}</span>`; });
+    // @UUID: 참조 엔티티 정본 한글명으로 해소(로드된 카테고리 한정, 미해소 시 라벨 폴백)
+    s = s.replace(/@UUID\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, uuid, label) => { let name = ''; try { const t = getByUuid((uuid || '').trim().split(/\s+/)[0]); if (t) name = t.name_ko || t.name; } catch (e) {} const shown = name || label; return shown ? `<span class="ref-link">${_escDesc(shown)}</span>` : ''; });
+    // @Embed: 인라인 임베드 → 참조 엔티티 정본명(전체 임베드 대신 명칭 링크)
+    s = s.replace(/@Embed\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, body, label) => { let name = ''; try { const t = getByUuid((body || '').trim().split(/\s+/)[0]); if (t) name = t.name_ko || t.name; } catch (e) {} const shown = label || name; return shown ? `<span class="ref-link">${_escDesc(shown)}</span>` : ''; });
     s = s.replace(/@Template\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const d = (body.match(/distance:(\d+)/) || [])[1]; const SH = { emanation: '발산', burst: '폭발', cone: '원뿔', line: '직선' }; const ty = (body.match(/type:(\w+)/) || [])[1]; return `<span class="ref-area">${d || ''}피트 ${SH[ty] || ty || ''}</span>`; });
-    s = s.replace(/@Localize\[[^\]]+\]/g, '');
     s = s.replace(/@[A-Za-z]+\[[^\]]*\](?:\{([^}]*)\})?/g, (m, l) => l || '');
     return s;
   }
@@ -241,9 +274,9 @@
   }
 
   const API = {
-    CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc,
+    CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc, loadLocalize,
     testPredicate, _testStatement, getByUuid, resolveBrackets, evalFormula,
-    _state: { base: _baseCache, ovl: _ovlCache, index: _index },
+    _state: { base: _baseCache, ovl: _ovlCache, ovr: _ovrCache, index: _index },
   };
   root.PF2eData = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;

@@ -1,0 +1,1869 @@
+{
+ "rows": [
+  {
+   "type": "ability",
+   "slug": "cha",
+   "name_en": "Cha",
+   "name_ko": "매력",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "ability",
+   "slug": "con",
+   "name_en": "Con",
+   "name_ko": "건강",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "ability",
+   "slug": "dex",
+   "name_en": "Dex",
+   "name_ko": "민첩",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "ability",
+   "slug": "int",
+   "name_en": "Int",
+   "name_ko": "지능",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "ability",
+   "slug": "str",
+   "name_en": "Str",
+   "name_ko": "근력",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "ability",
+   "slug": "wis",
+   "name_en": "Wis",
+   "name_ko": "지혜",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "armor_category",
+   "slug": "heavy",
+   "name_en": "Heavy",
+   "name_ko": "중갑옷",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "armor_category",
+   "slug": "light",
+   "name_en": "Light",
+   "name_ko": "경갑옷",
+   "desc": "빛 효과는 해당 지역의 비마법적인 어둠을 극복하고, 마법 어둠을 반격할 수 있습니다. 일반적으로 어둠 마법을 반격하려면 빛 마법으로 직접 어둠 마법을 공격해야 하지만, 일부 빛 주문은 자동으로 어둠 마법을 반격하려고 시도합니다.",
+   "ref": ""
+  },
+  {
+   "type": "armor_category",
+   "slug": "medium",
+   "name_en": "Medium",
+   "name_ko": "평갑옷",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "armor_category",
+   "slug": "unarmored",
+   "name_en": "Unarmored",
+   "name_ko": "비무장",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "armor_group",
+   "slug": "chain",
+   "name_en": "Chain",
+   "name_ko": "체인",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "armor_group",
+   "slug": "cloth",
+   "name_en": "Cloth",
+   "name_ko": "천",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "armor_group",
+   "slug": "composite",
+   "name_en": "Composite",
+   "name_ko": "합성",
+   "desc": "복합 충동은 여러 요소가 결합된 것입니다. 키네틱 요소에 임펄스의 특성에 나열된 모든 요소가 포함되어 있어야만 복합 특성을 가진 임펄스를 획득할 수 있습니다.",
+   "ref": ""
+  },
+  {
+   "type": "armor_group",
+   "slug": "leather",
+   "name_en": "Leather",
+   "name_ko": "가죽",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "armor_group",
+   "slug": "plate",
+   "name_en": "Plate",
+   "name_ko": "플레이트",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "armor_group",
+   "slug": "skeletal",
+   "name_en": "Skeletal",
+   "name_ko": "스켈레탈",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "armor_group",
+   "slug": "wood",
+   "name_en": "Wood",
+   "name_ko": "목재",
+   "desc": "나무 특성을 가진 효과는 나무를 소환하거나 조작합니다. 나무를 조종하는 효과는 나무가 없는 지역에서는 효과가 없습니다. 이 특성을 가진 생물은 주로 나무로 이루어져 있거나 마법의 나무와 관련이 있습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "acid",
+   "name_en": "Acid",
+   "name_ko": "산성",
+   "desc": "이 특성을 가진 효과는 산성 피해를 입힙니다. 이 특성을 가진 생물은 산과 마법적인 관련이 있습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "air",
+   "name_en": "Air",
+   "name_ko": "공기",
+   "desc": "공기 특성을 가진 이펙트는 공기를 조작하거나 공기를 만들어냅니다. 공기를 조작하는 효과는 진공 상태나 공기가 없는 곳에서는 효과가 없습니다. 이 특성을 가진 생물은 주로 공기로 구성되어 있거나 해당 원소와 마법적으로 연결되어 있습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "bleed",
+   "name_en": "Bleed",
+   "name_ko": "출혈",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "bludgeoning",
+   "name_en": "Bludgeoning",
+   "name_ko": "타격",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "cold",
+   "name_en": "Cold",
+   "name_ko": "냉기",
+   "desc": "이 특성을 가진 효과는 냉기 피해를 줍니다. 이 특성을 가진 생물은 마법의 냉기와 관련이 있습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "earth",
+   "name_en": "Earth",
+   "name_ko": "대지",
+   "desc": "대지 특성을 가진 효과는 대지를 조작하거나 생성합니다. 대지를 조작하는 효과는 대지가 없는 지역에서는 효과가 없습니다. 이 특성을 가진 생물은 주로 흙으로 구성되거나 해당 원소와 마법적으로 연결되어 있습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "electricity",
+   "name_en": "Electricity",
+   "name_ko": "전기",
+   "desc": "이 특성을 가진 효과는 전기 피해를 입힙니다. 이 특성을 가진 생물은 전기와 마법적으로 연결되어 있습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "fire",
+   "name_en": "Fire",
+   "name_ko": "화염",
+   "desc": "화염 특성을 가진 효과는 화염 피해를 주거나 화염을 소환하거나 조작합니다. 불을 조종하는 효과는 불이 없는 지역에서는 효과가 없습니다. 이 특성을 가진 생물은 주로 불로 이루어져 있거나 해당 원소와 마법적으로 연결되어 있습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "force",
+   "name_en": "Force",
+   "name_ko": "힘",
+   "desc": "이 특성을 가진 효과는 힘 피해를 입히거나 순수한 마법의 힘으로 만들어진 물체를 생성합니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "mental",
+   "name_en": "Mental",
+   "name_ko": "정신",
+   "desc": "정신 효과는 대상의 마음을 바꿀 수 있습니다. 물체나 정신이 없는 생명체에는 영향을 미치지 않습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "metal",
+   "name_en": "Metal",
+   "name_ko": "금속",
+   "desc": "금속 특성을 가진 효과는 금속을 조작하거나 소환합니다. 금속을 조작하는 효과는 금속이 없는 지역에서는 효과가 없습니다. 이 특성을 가진 생물은 주로 금속으로 이루어져 있거나 해당 원소와 마법적으로 연결되어 있습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "persistent",
+   "name_en": "Persistent",
+   "name_ko": "지속적 {damageType}",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "piercing",
+   "name_en": "Piercing",
+   "name_ko": "관통",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "poison",
+   "name_en": "Poison",
+   "name_ko": "독",
+   "desc": "이 특성을 가진 효과는 독을 전달하거나 독 피해를 입힙니다. 이 특성이 있는 아이템은 독성이 있으며 고통을 유발할 수 있습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "precision",
+   "name_en": "Precision",
+   "name_ko": "정밀",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "slashing",
+   "name_en": "Slashing",
+   "name_ko": "참격",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "sonic",
+   "name_en": "Sonic",
+   "name_ko": "음파",
+   "desc": "음파 특성이 있는 효과는 소리를 낼 때만 작동하므로 고요한 공간이나 진공 상태에서는 효과가 없습니다. 이는 대상이 들을 수 있을 때만 효과가 있는 청각 주문과는 다릅니다. 음파 효과는 음파 피해를 입힐 수 있습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "spirit",
+   "name_en": "Spirit",
+   "name_ko": "영혼",
+   "desc": "이 특성이 있는 효과는 영적 본질을 가진 생물에게 영향을 미칠 수 있으며 영혼 피해를 입힐 수도 있습니다. 이 특성을 가진 생물은 영적 본질로 정의됩니다. 정령 생물은 종종 물질적 형태를 갖지 않습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "splash",
+   "name_en": "Splash",
+   "name_ko": "방사",
+   "desc": "방사 특성이 있는 투척 무기를 사용할 때는 피해 굴림에 자신의 근력 수정치를 더하지 않습니다. 방사무기로 공격이 실패하거나, 성공하거나, 대성공하면 대상(대상 포함)으로부터 5피트 이내에 있는 모든 생물이 나열된 방사 피해를 받습니다. 공격이 실패해도(대실패는 아님) 공격 대상은 여전히 방사 피해를 받습니다. 방사 피해는 대상의 약점이나 저항을 적용하기 전에 대상에 대한 초기 피해와 합산합니다. 치명타에 대한 방사 피해는 곱하지 않습니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "untyped",
+   "name_en": "Untyped",
+   "name_ko": "유형 없음",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "vitality",
+   "name_en": "Vitality",
+   "name_ko": "활력",
+   "desc": "이 특성을 사용하면 창조의 대장간에서 얻은 에너지로 생명체를 치유하거나, 언데드에게 생명력 피해를 입히거나, 생명력을 조작합니다.",
+   "ref": ""
+  },
+  {
+   "type": "damage_type",
+   "slug": "void",
+   "name_en": "Void",
+   "name_ko": "공허",
+   "desc": "이 특성을 가진 효과는 공허 에너지로 언데드 생물을 치유하거나, 살아있는 생물에게 공허 피해를 주거나, 공허 에너지를 조작합니다.",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "adlet",
+   "name_en": "Adlet",
+   "name_ko": "고귀한",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "aishmayar",
+   "name_en": "Aishmayar",
+   "name_ko": "아시마야",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "akitonian",
+   "name_en": "Akitonian",
+   "name_ko": "아키토니안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "aklo",
+   "name_en": "Aklo",
+   "name_ko": "아클로",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "alghollthu",
+   "name_en": "Alghollthu",
+   "name_ko": "알고투",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "amurrun",
+   "name_en": "Amurrun",
+   "name_ko": "아무룬",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "anadi",
+   "name_en": "Anadi",
+   "name_ko": "아나디",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "ancient-osiriani",
+   "name_en": "Ancient Osiriani",
+   "name_ko": "고대 오시리아니",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "androffan",
+   "name_en": "Androffan",
+   "name_ko": "안드로팬",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "anugobu",
+   "name_en": "Anugobu",
+   "name_ko": "아누고부",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "arboreal",
+   "name_en": "Arboreal",
+   "name_ko": "수목",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "arcadian",
+   "name_en": "Arcadian",
+   "name_ko": "아르카디안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "azlanti",
+   "name_en": "Azlanti",
+   "name_ko": "아즐란티",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "boggard",
+   "name_en": "Boggard",
+   "name_ko": "보가드",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "calda",
+   "name_en": "Calda",
+   "name_ko": "칼다",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "caligni",
+   "name_en": "Caligni",
+   "name_ko": "칼리니",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "chthonian",
+   "name_en": "Chthonian",
+   "name_ko": "크토니안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "common",
+   "name_en": "Common",
+   "name_ko": "흔한",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "cyclops",
+   "name_en": "Cyclops",
+   "name_ko": "사이클롭스",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "daemonic",
+   "name_en": "Daemonic",
+   "name_ko": "데이모닉",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "destrachan",
+   "name_en": "Destrachan",
+   "name_ko": "데스트라찬",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "diabolic",
+   "name_en": "Diabolic",
+   "name_ko": "디아볼릭",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "draconic",
+   "name_en": "Draconic",
+   "name_ko": "드라코닉",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "drooni",
+   "name_en": "Drooni",
+   "name_ko": "드루니",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "dwarven",
+   "name_en": "Dwarven",
+   "name_ko": "드워븐",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "dziriak",
+   "name_en": "Dziriak",
+   "name_ko": "디지리악",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "ekujae",
+   "name_en": "Ekujae",
+   "name_ko": "에쿠재",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "elder-thing",
+   "name_en": "Elder Thing",
+   "name_ko": "엘더 씽",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "elven",
+   "name_en": "Elven",
+   "name_ko": "엘븐",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "empyrean",
+   "name_en": "Empyrean",
+   "name_ko": "엠피리언",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "erutaki",
+   "name_en": "Erutaki",
+   "name_ko": "에루타키",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "fey",
+   "name_en": "Fey",
+   "name_ko": "페이",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "formian",
+   "name_en": "Formian",
+   "name_ko": "포미안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "garundi",
+   "name_en": "Garundi",
+   "name_ko": "가룬디",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "girtablilu",
+   "name_en": "Girtablilu",
+   "name_ko": "기르타빌루",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "gnomish",
+   "name_en": "Gnomish",
+   "name_ko": "노움",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "goblin",
+   "name_en": "Goblin",
+   "name_ko": "고블린",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "goloma",
+   "name_en": "Goloma",
+   "name_ko": "골로마",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "grioth",
+   "name_en": "Grioth",
+   "name_ko": "그리오스",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "grippli",
+   "name_en": "Grippli",
+   "name_ko": "그리플리",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "halfling",
+   "name_en": "Halfling",
+   "name_ko": "하플링",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "hallit",
+   "name_en": "Hallit",
+   "name_ko": "할리트",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "hwan",
+   "name_en": "Hwan",
+   "name_ko": "환",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "iblydan",
+   "name_en": "Iblydan",
+   "name_ko": "이블리단",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "ikeshti",
+   "name_en": "Ikeshti",
+   "name_ko": "이케슈티",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "immolis",
+   "name_en": "Immolis",
+   "name_ko": "이몰리스",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "iruxi",
+   "name_en": "Iruxi",
+   "name_ko": "이루시",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "jistkan",
+   "name_en": "Jistkan",
+   "name_ko": "지스트칸",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "jotun",
+   "name_en": "Jotun",
+   "name_ko": "요툰",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "jyoti",
+   "name_en": "Jyoti",
+   "name_ko": "조티",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "kaava",
+   "name_en": "Kaava",
+   "name_ko": "카바",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "kashrishi",
+   "name_en": "Kashrishi",
+   "name_ko": "카쉬리시",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "kelish",
+   "name_en": "Kelish",
+   "name_ko": "켈리쉬",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "khattibi",
+   "name_en": "Khattibi",
+   "name_ko": "카티비",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "kholo",
+   "name_en": "Kholo",
+   "name_ko": "콜로",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "kibwani",
+   "name_en": "Kibwani",
+   "name_ko": "키브와니",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "kitsune",
+   "name_en": "Kitsune",
+   "name_ko": "키츠네",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "kovintal",
+   "name_en": "Kovintal",
+   "name_ko": "코빈탈",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "lashunta",
+   "name_en": "Lashunta",
+   "name_ko": "라슌타",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "lirgeni",
+   "name_en": "Lirgeni",
+   "name_ko": "리르게니",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "mahwek",
+   "name_en": "Mahwek",
+   "name_ko": "마웩",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "migo",
+   "name_en": "Migo",
+   "name_ko": "미-고",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "minaten",
+   "name_en": "Minaten",
+   "name_ko": "미나탄",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "minkaian",
+   "name_en": "Minkaian",
+   "name_ko": "민카이안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "muan",
+   "name_en": "Muan",
+   "name_ko": "무안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "munavri",
+   "name_en": "Munavri",
+   "name_ko": "무나브리",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "mwangi",
+   "name_en": "Mwangi",
+   "name_ko": "므왕기",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "mzunu",
+   "name_en": "Mzunu",
+   "name_ko": "음주누",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "nagaji",
+   "name_en": "Nagaji",
+   "name_ko": "나가지",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "necril",
+   "name_en": "Necril",
+   "name_ko": "네크릴",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "ninshaburian",
+   "name_en": "Ninshaburian",
+   "name_ko": "닌샤브리안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "ocotan",
+   "name_en": "Ocotan",
+   "name_ko": "오코탄",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "okaiyan",
+   "name_en": "Okaiyan",
+   "name_ko": "오카이얀",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "old-keleshite",
+   "name_en": "Old Keleshite",
+   "name_ko": "고대 켈레시테",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "orcish",
+   "name_en": "Orcish",
+   "name_ko": "오키쉬",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "orvian",
+   "name_en": "Orvian",
+   "name_ko": "오르비안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "osiriani",
+   "name_en": "Osiriani",
+   "name_ko": "오시리아니",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "petran",
+   "name_en": "Petran",
+   "name_ko": "페트라",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "protean",
+   "name_en": "Protean",
+   "name_ko": "프로테안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "pyric",
+   "name_en": "Pyric",
+   "name_ko": "파이릭",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "rasu",
+   "name_en": "Rasu",
+   "name_ko": "라수",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "ratajin",
+   "name_en": "Ratajin",
+   "name_ko": "라타진",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "razatlani",
+   "name_en": "Razatlani",
+   "name_ko": "라자틀라니",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "requian",
+   "name_en": "Requian",
+   "name_ko": "레퀴안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "russian",
+   "name_en": "Russian",
+   "name_ko": "러시안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "sakvroth",
+   "name_en": "Sakvroth",
+   "name_ko": "삭브로스",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "samsaran",
+   "name_en": "Samsaran",
+   "name_ko": "삼사란",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "sasquatch",
+   "name_en": "Sasquatch",
+   "name_ko": "사스콰치",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "senzar",
+   "name_en": "Senzar",
+   "name_ko": "센자르",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "shadowtongue",
+   "name_en": "Shadowtongue",
+   "name_ko": "섀도 텅",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "shae",
+   "name_en": "Shae",
+   "name_ko": "셰이",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "shisk",
+   "name_en": "Shisk",
+   "name_ko": "시스크",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "shoanti",
+   "name_en": "Shoanti",
+   "name_ko": "쇼안티",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "shobhad",
+   "name_en": "Shobhad",
+   "name_ko": "쇼바드",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "shoony",
+   "name_en": "Shoony",
+   "name_ko": "슈니",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "shory",
+   "name_en": "Shory",
+   "name_ko": "쇼리",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "skald",
+   "name_en": "Skald",
+   "name_ko": "스칼드",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "sphinx",
+   "name_en": "Sphinx",
+   "name_ko": "스핑크스",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "strix",
+   "name_en": "Strix",
+   "name_ko": "스트릭스",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "surki",
+   "name_en": "Surki",
+   "name_ko": "수르키",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "sussuran",
+   "name_en": "Sussuran",
+   "name_ko": "수수란",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "taldane",
+   "name_en": "Taldane",
+   "name_ko": "탈다네",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "talican",
+   "name_en": "Talican",
+   "name_ko": "탈리칸",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "tang",
+   "name_en": "Tang",
+   "name_ko": "탕",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "tanuki",
+   "name_en": "Tanuki",
+   "name_ko": "타누키",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "tekritanin",
+   "name_en": "Tekritanin",
+   "name_ko": "테크리타닌",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "tengu",
+   "name_en": "Tengu",
+   "name_ko": "텐구",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "thalassic",
+   "name_en": "Thalassic",
+   "name_ko": "탈라식",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "thassilonian",
+   "name_en": "Thassilonian",
+   "name_ko": "타실로니안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "thokol",
+   "name_en": "Thokol",
+   "name_ko": "토콜",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "tidespeech",
+   "name_en": "Tidespeech",
+   "name_ko": "물결어",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "tien",
+   "name_en": "Tien",
+   "name_ko": "티엔",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "utopian",
+   "name_en": "Utopian",
+   "name_ko": "유토피아",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "vanara",
+   "name_en": "Vanara",
+   "name_ko": "바나라",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "varisian",
+   "name_en": "Varisian",
+   "name_ko": "바리시안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "varki",
+   "name_en": "Varki",
+   "name_ko": "바키",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "vishkanyan",
+   "name_en": "Vishkanyan",
+   "name_ko": "비슈카냥",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "vudrani",
+   "name_en": "Vudrani",
+   "name_ko": "부드라니",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "wayang",
+   "name_en": "Wayang",
+   "name_ko": "와양",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "wildsong",
+   "name_en": "Wildsong",
+   "name_ko": "와일드송",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "wyrwood",
+   "name_en": "Wyrwood",
+   "name_ko": "와이어우드",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "xanmba",
+   "name_en": "Xanmba",
+   "name_ko": "잔바",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "yaksha",
+   "name_en": "Yaksha",
+   "name_ko": "야크샤",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "yithian",
+   "name_en": "Yithian",
+   "name_ko": "이티안",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "language",
+   "slug": "ysoki",
+   "name_en": "Ysoki",
+   "name_ko": "이소키",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "rarity",
+   "slug": "common",
+   "name_en": "Common",
+   "name_ko": "일반",
+   "desc": "다른 희귀도 특성(드문, 희귀, 고유)이 표시되지 않은 모든 것은 자동으로 흔한 특성을 갖습니다. 이 희귀도는 해당 능력, 아이템, 주문의 전제 조건을 충족하는 모든 플레이어가 사용할 수 있음을 나타냅니다. 이 희귀도를 가진 생물은 일반적으로 알려져 있으며 적절한 소환 주문으로 소환할 수 있습니다.",
+   "ref": ""
+  },
+  {
+   "type": "rarity",
+   "slug": "rare",
+   "name_en": "Rare",
+   "name_ko": "희귀",
+   "desc": "이 희귀도는 게임 세계에서 규칙 요소를 찾기가 매우 어렵다는 것을 나타냅니다. 희귀 재주, 주문, 아이템 등은 GM이 게임에 포함하기로 결정한 경우에만 플레이어가 사용할 수 있으며, 일반적으로 플레이 중 발견을 통해 획득할 수 있습니다. 이 특성을 가진 생물은 희귀합니다. 일반적으로 소환할 수 없습니다. 이 생물과 관련된 지식 기억 체크의 DC는 5만큼 증가합니다.",
+   "ref": ""
+  },
+  {
+   "type": "rarity",
+   "slug": "uncommon",
+   "name_en": "Uncommon",
+   "name_ko": "비일상",
+   "desc": "드문 희귀성은 특별한 훈련이 필요하거나 특정 문화권 또는 세계의 일부에서 유래한 것입니다. 일부 캐릭터 선택에 따라 희귀 옵션에 접근할 수 있으며, GM은 누구나 접근할 수 있도록 허용할 수 있습니다. 드문 생물은 일반 생물에 비해 알려진 정보가 적습니다. 일반적으로 소환할 수 없습니다. 이 생물과 관련된 지식 기억 체크의 DC는 2만큼 증가합니다.",
+   "ref": ""
+  },
+  {
+   "type": "rarity",
+   "slug": "unique",
+   "name_en": "Unique",
+   "name_ko": "고유",
+   "desc": "이 특성을 가진 규칙 요소는 유일무이합니다. 이 특성을 가진 생물과 관련된 지식 회상 체크의 DC가 10 증가합니다.",
+   "ref": ""
+  },
+  {
+   "type": "save",
+   "slug": "fortitude",
+   "name_en": "Fortitude",
+   "name_ko": "인내",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "save",
+   "slug": "reflex",
+   "name_en": "Reflex",
+   "name_ko": "반사",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "save",
+   "slug": "will",
+   "name_en": "Will",
+   "name_ko": "의지",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "bloodsense",
+   "name_en": "Bloodsense",
+   "name_ko": "혈액 감지",
+   "desc": "혈액 감지",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "darkvision",
+   "name_en": "Darkvision",
+   "name_ko": "암흑 시야",
+   "desc": "암흑 시야",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "echolocation",
+   "name_en": "Echolocation",
+   "name_ko": "반향정위",
+   "desc": "반향정위",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "greater-darkvision",
+   "name_en": "Greater Darkvision",
+   "name_ko": "향상된 암흑 시야",
+   "desc": "향상된 암흑 시야",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "hearing",
+   "name_en": "Hearing",
+   "name_ko": "청각",
+   "desc": "청각",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "infrared-vision",
+   "name_en": "Infrared Vision",
+   "name_ko": "적외선 시야",
+   "desc": "적외선 시야",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "lifesense",
+   "name_en": "Lifesense",
+   "name_ko": "생명 감지",
+   "desc": "생명 감지",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "low-light-vision",
+   "name_en": "Low Light Vision",
+   "name_ko": "저조도 시야",
+   "desc": "저조도 시야",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "magicsense",
+   "name_en": "Magicsense",
+   "name_ko": "마법 감지",
+   "desc": "마법 감지",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "motion-sense",
+   "name_en": "Motion Sense",
+   "name_ko": "동작 감지",
+   "desc": "동작 감지",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "scent",
+   "name_en": "Scent",
+   "name_ko": "후각",
+   "desc": "후각",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "see-invisibility",
+   "name_en": "See Invisibility",
+   "name_ko": "투명체 감지",
+   "desc": "투명체 감지",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "spiritsense",
+   "name_en": "Spiritsense",
+   "name_ko": "스피릿센스",
+   "desc": "스피릿센스",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "thoughtsense",
+   "name_en": "Thoughtsense",
+   "name_ko": "생각 감지",
+   "desc": "생각 감지",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "tremorsense",
+   "name_en": "Tremorsense",
+   "name_ko": "진동 감지",
+   "desc": "진동 감지",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "truesight",
+   "name_en": "Truesight",
+   "name_ko": "진시야",
+   "desc": "진시야",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "vision",
+   "name_en": "Vision",
+   "name_ko": "시야",
+   "desc": "시야",
+   "ref": ""
+  },
+  {
+   "type": "sense",
+   "slug": "wavesense",
+   "name_en": "Wavesense",
+   "name_ko": "파동 감지",
+   "desc": "파동 감지",
+   "ref": ""
+  },
+  {
+   "type": "size",
+   "slug": "gargantuan",
+   "name_en": "Gargantuan",
+   "name_ko": "매우 거대한",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "size",
+   "slug": "huge",
+   "name_en": "Huge",
+   "name_ko": "거대한",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "size",
+   "slug": "large",
+   "name_en": "Large",
+   "name_ko": "큰",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "size",
+   "slug": "medium",
+   "name_en": "Medium",
+   "name_ko": "중간",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "size",
+   "slug": "small",
+   "name_en": "Small",
+   "name_ko": "작은",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "size",
+   "slug": "tiny",
+   "name_en": "Tiny",
+   "name_ko": "매우 작은",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "skill",
+   "slug": "acrobatics",
+   "name_en": "Acrobatics",
+   "name_ko": "곡예",
+   "desc": "",
+   "ref": "dex"
+  },
+  {
+   "type": "skill",
+   "slug": "arcana",
+   "name_en": "Arcana",
+   "name_ko": "주문학",
+   "desc": "",
+   "ref": "int"
+  },
+  {
+   "type": "skill",
+   "slug": "athletics",
+   "name_en": "Athletics",
+   "name_ko": "운동",
+   "desc": "",
+   "ref": "str"
+  },
+  {
+   "type": "skill",
+   "slug": "crafting",
+   "name_en": "Crafting",
+   "name_ko": "제작",
+   "desc": "",
+   "ref": "int"
+  },
+  {
+   "type": "skill",
+   "slug": "deception",
+   "name_en": "Deception",
+   "name_ko": "기만",
+   "desc": "",
+   "ref": "cha"
+  },
+  {
+   "type": "skill",
+   "slug": "diplomacy",
+   "name_en": "Diplomacy",
+   "name_ko": "외교",
+   "desc": "",
+   "ref": "cha"
+  },
+  {
+   "type": "skill",
+   "slug": "intimidation",
+   "name_en": "Intimidation",
+   "name_ko": "위협",
+   "desc": "",
+   "ref": "cha"
+  },
+  {
+   "type": "skill",
+   "slug": "medicine",
+   "name_en": "Medicine",
+   "name_ko": "의학",
+   "desc": "",
+   "ref": "wis"
+  },
+  {
+   "type": "skill",
+   "slug": "nature",
+   "name_en": "Nature",
+   "name_ko": "자연학",
+   "desc": "",
+   "ref": "wis"
+  },
+  {
+   "type": "skill",
+   "slug": "occultism",
+   "name_en": "Occultism",
+   "name_ko": "오컬티즘",
+   "desc": "",
+   "ref": "int"
+  },
+  {
+   "type": "skill",
+   "slug": "performance",
+   "name_en": "Performance",
+   "name_ko": "공연",
+   "desc": "",
+   "ref": "cha"
+  },
+  {
+   "type": "skill",
+   "slug": "religion",
+   "name_en": "Religion",
+   "name_ko": "종교학",
+   "desc": "",
+   "ref": "wis"
+  },
+  {
+   "type": "skill",
+   "slug": "society",
+   "name_en": "Society",
+   "name_ko": "사회",
+   "desc": "",
+   "ref": "int"
+  },
+  {
+   "type": "skill",
+   "slug": "stealth",
+   "name_en": "Stealth",
+   "name_ko": "은신",
+   "desc": "",
+   "ref": "dex"
+  },
+  {
+   "type": "skill",
+   "slug": "survival",
+   "name_en": "Survival",
+   "name_ko": "생존",
+   "desc": "",
+   "ref": "wis"
+  },
+  {
+   "type": "skill",
+   "slug": "thievery",
+   "name_en": "Thievery",
+   "name_ko": "도둑질",
+   "desc": "",
+   "ref": "dex"
+  },
+  {
+   "type": "weapon_category",
+   "slug": "advanced",
+   "name_en": "Advanced",
+   "name_ko": "고급",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_category",
+   "slug": "martial",
+   "name_en": "Martial",
+   "name_ko": "군용",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_category",
+   "slug": "simple",
+   "name_en": "Simple",
+   "name_ko": "단순",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_category",
+   "slug": "unarmed",
+   "name_en": "Unarmed",
+   "name_ko": "비무장",
+   "desc": "비무장 공격은 제조된 무기가 아닌 자신의 신체를 사용합니다. 비무장 공격은 무기는 아니지만 무기 그룹에 따라 무기로 분류되며 무기 특성을 가질 수 있습니다. 비무장 공격은 신체의 일부이므로 무장 해제할 수 없습니다. 또한 손을 사용하지 않지만 주먹이나 기타 잡는 부속물은 자유형 무기와 동일한 규칙을 따릅니다.",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "axe",
+   "name_en": "Axe",
+   "name_ko": "도끼",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "bomb",
+   "name_en": "Bomb",
+   "name_ko": "폭탄",
+   "desc": "연금술 폭탄은 휘발성 연금술 성분을 결합하여 생물이나 물체에 부딪히면 폭발합니다. 대부분의 연금술 폭탄은 피해를 입히지만, 일부 폭탄은 다른 효과를 생성하기도 합니다.",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "bow",
+   "name_en": "Bow",
+   "name_ko": "활",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "brawling",
+   "name_en": "Brawling",
+   "name_ko": "난투",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "club",
+   "name_en": "Club",
+   "name_ko": "클럽",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "crossbow",
+   "name_en": "Crossbow",
+   "name_ko": "쇠뇌",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "dart",
+   "name_en": "Dart",
+   "name_ko": "다트",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "firearm",
+   "name_en": "Firearm",
+   "name_ko": "총기",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "flail",
+   "name_en": "Flail",
+   "name_ko": "플레일",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "hammer",
+   "name_en": "Hammer",
+   "name_ko": "해머",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "knife",
+   "name_en": "Knife",
+   "name_ko": "나이프",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "pick",
+   "name_en": "Pick",
+   "name_ko": "픽",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "polearm",
+   "name_en": "Polearm",
+   "name_ko": "폴암",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "s",
+   "name_en": "S",
+   "name_ko": "무기 그룹",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "shield",
+   "name_en": "Shield",
+   "name_ko": "방패",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "sling",
+   "name_en": "Sling",
+   "name_ko": "슬링",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "spear",
+   "name_en": "Spear",
+   "name_ko": "스피어",
+   "desc": "",
+   "ref": ""
+  },
+  {
+   "type": "weapon_group",
+   "slug": "sword",
+   "name_en": "Sword",
+   "name_ko": "소드",
+   "desc": "",
+   "ref": ""
+  }
+ ],
+ "note": "시스템 용어 통합 (유형·이름·설명). 조건은 별도 conditions 엔티티"
+}

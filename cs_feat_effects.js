@@ -33,78 +33,41 @@
 // choice.repeatable: true면 같은 재주 여러번 선택 가능
 
 // v532~ Phase 3a: effect_group_id/auto_note/damage_note + choice_id/CHOICE_OPTIONS 정규화
-// v533~ FEAT_EFFECTS 완전 제거 — 모든 효과는 FEAT_DB 신 컬럼에서 조립
-//  FEAT_DB row의 effect_group_id/auto_note/damage_note/choice_id를 조립해 def 객체 반환
-//  미등재(row 없음/효과 컬럼 모두 빈 값)면 null
-const _FVTT_FEAT_DEF_CACHE = new Map();
-function _fvttFeatDef(f) {
-  // FVTT-only 재주: system.rules → RE 엔진 → 레거시 effects 배열 (레벨/혈통/클래스 캐시키)
-  const lv = (typeof getLevel === 'function') ? getLevel() : 1;
-  const anc = state.selectedAncestry, cls = state.selectedClass;
-  const key = f.id + ':' + lv + ':' + (anc && anc.id) + ':' + (cls && cls.id);
-  if (_FVTT_FEAT_DEF_CACHE.has(key)) return _FVTT_FEAT_DEF_CACHE.get(key);
-  const abilities = {};
-  if (typeof getMod === 'function') for (const ab of ['str','dex','con','int','wis','cha']) abilities[ab] = getMod(ab);
-  const ctx = {
-    level: lv, abilities, ancestrySlug: anc && anc.id, classSlug: cls && cls.id,
-    ancestryTraits: (anc && anc._doc && anc._doc.system && anc._doc.system.traits && anc._doc.system.traits.value) || [],
-    choices: {},
-  };
-  let def = null;
-  try { const effects = PF2eFeat.featEffects(f._doc, ctx); if (effects && effects.length) def = { effects }; } catch (e) {}
-  _FVTT_FEAT_DEF_CACHE.set(key, def);
-  return def;
-}
+// v0.28~ 효과 단일화: 모든 효과는 EFFECTS_DB(effects_db.js, slug 단일 소스)에서 조립.
+//  (구 RE-브리지 _fvttFeatDef 제거 — fvtt 효과는 build_effects.mjs가 EFFECTS_DB에 baked.)
+// v0.28~ 효과 단일화: EFFECTS_DB(effects_db.js) slug 단일 소스. 레거시 EFFECT_GROUPS 경로 + RE-브리지 폐기.
+// override(effect_groups.json, slug 키)는 getEffectRows(slug)가 반영 → def.effects에 자동 적용.
 function _getFeatEffectsDef(nameEn) {
   if (!nameEn) return null;
-  if (typeof getFeat === 'function') {
-    const f = getFeat(nameEn);
-    if (f && (f.effect_group_id || f.auto_note || f.damage_note || f.choice_id)) {
-      // ── effects 재구성: 공통 효과 + 노트 ──
-      const effects = [];
-      if (f.effect_group_id && typeof getEffectRows === 'function') {
-        for (const r of getEffectRows(f.effect_group_id)) effects.push(_rowToEffect(r));
-      }
-      if (f.auto_note) effects.push({ type: 'display_note', text: f.auto_note });
-      if (f.damage_note) effects.push(Object.assign({ type: 'damage_note' }, f.damage_note));
+  if (typeof getFeat !== 'function') return null;
+  const f = getFeat(nameEn); if (!f) return null;
+  const slug = f.id; if (!slug) return null;
+  const entry = (typeof EFFECTS_DB !== 'undefined') ? EFFECTS_DB[slug] : null;
+  // override(있으면 base rows 대체) 반영 — getEffectRows가 slug 키로 처리
+  const rows = (typeof getEffectRows === 'function') ? getEffectRows(slug) : (entry && entry.rows) || [];
+  const autoNote = entry && entry.auto_note, dmgNote = entry && entry.damage_note, choiceE = entry && entry.choice;
+  if (!rows.length && !autoNote && !dmgNote && !choiceE) return null;
 
-      // ── choice 재구성 ──
-      let choice = null, choiceEffects = null;
-      if (f.choice_id && typeof getChoiceOptions === 'function') {
-        choice = { type: f.choice_kind || '' };
-        if (f.choice_label) choice.label = f.choice_label;
-        if (f.choice_filter && typeof f.choice_filter === 'object') Object.assign(choice, f.choice_filter);
+  const effects = rows.map(_rowToEffect);
+  if (autoNote) effects.push({ type: 'display_note', text: autoNote });
+  if (dmgNote) effects.push(Object.assign({ type: 'damage_note' }, dmgNote));
 
-        const opts = getChoiceOptions(f.choice_id);
-        if (f.choice_kind === 'custom') {
-          choice.options = opts.map(o => ({ id: o.option_id, name: o.option_name }));
-        } else if (f.choice_kind === 'skill_defaults') {
-          choice.defaults = opts.filter(o => o.is_default).map(o => o.option_id);
-        }
-
-        // 옵션별 effect_group_id → choiceEffects
-        for (const o of opts) {
-          if (o.effect_group_id && typeof getEffectRows === 'function') {
-            const arr = getEffectRows(o.effect_group_id).map(_rowToEffect);
-            if (arr.length) {
-              if (!choiceEffects) choiceEffects = {};
-              choiceEffects[o.option_id] = arr;
-            }
-          }
-        }
-      }
-
-      const def = { effects };
-      if (choice) def.choice = choice;
-      if (choiceEffects) def.choiceEffects = choiceEffects;
-      return def;
-    }
-    // 레거시 효과 없음 + FVTT 재주(_reEffects) → RE 엔진으로 effects 조립
-    if (f && f._reEffects && typeof PF2eFeat !== 'undefined' && PF2eFeat.featEffects) {
-      return _fvttFeatDef(f);
+  let choice = null, choiceEffects = null;
+  if (choiceE) {
+    choice = { type: choiceE.kind || '' };
+    if (choiceE.label) choice.label = choiceE.label;
+    if (choiceE.filter && typeof choiceE.filter === 'object') Object.assign(choice, choiceE.filter);
+    const opts = choiceE.options || [];
+    if (choiceE.kind === 'custom') choice.options = opts.map(o => ({ id: o.option_id, name: o.option_name }));
+    else if (choiceE.kind === 'skill_defaults') choice.defaults = opts.filter(o => o.is_default).map(o => o.option_id);
+    for (const o of opts) {
+      if (o.rows && o.rows.length) { (choiceEffects = choiceEffects || {})[o.option_id] = o.rows.map(_rowToEffect); }
     }
   }
-  return null;
+  const def = { effects };
+  if (choice) def.choice = choice;
+  if (choiceEffects) def.choiceEffects = choiceEffects;
+  return def;
 }
 
 
@@ -161,16 +124,18 @@ function applyFeatEffects() {
     state.spells.innate = state.spells.innate.filter(s => !s._sourceFeat);
   }
 
-  // grant_weapon: 부모 재주 생존 확인 — 부모 없으면 제거 (사용자 룬 설정 보존)
-  const allFeatNames = Object.values(state.feats).flat().filter(f => f).map(f => _extractEnName(f.name));
-  state.weapons = (state.weapons || []).filter(w => !w._fromFeat || allFeatNames.includes(w._fromFeat));
+  // 부모 재주 생존 확인 — slug 기준(번역명 변경에도 부여관계 유지). featSlug는 name·id·객체·en명 모두 허용.
+  const _fslug = (typeof featSlug === 'function') ? featSlug : (x => (x && (x.id || x.name)) || x);
+  const allFeatSlugs = new Set(Object.values(state.feats).flat().filter(f => f).map(f => _fslug(f)));
 
-  // grant_feat: 부모 재주 생존 확인 — 부모 없으면 제거 (사용자 choice 보존)
-  const allFeatFullNames = Object.values(state.feats).flat().filter(f => f).map(f => f.name);
+  // grant_weapon: 부모 없으면 제거 (사용자 룬 설정 보존)
+  state.weapons = (state.weapons || []).filter(w => !w._fromFeat || allFeatSlugs.has(_fslug(w._fromFeat)));
+
+  // grant_feat: 부모 없으면 제거 (사용자 choice 보존)
   Object.values(state.feats).forEach(arr => {
     if (!arr) return;
     for (let i = arr.length - 1; i >= 0; i--) {
-      if (arr[i]?._grantedBy && !allFeatFullNames.includes(arr[i]._grantedBy)) {
+      if (arr[i]?._grantedBy && !allFeatSlugs.has(_fslug(arr[i]._grantedBy))) {
         arr.splice(i, 1);
       }
     }
@@ -366,7 +331,7 @@ function _applyOneEffect(fb, eff, feat, level) {
         const alreadyHas = Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(grantName.split(' (')[0]));
         if (!alreadyHas) {
           if (!state.feats.general) state.feats.general = [];
-          const entry = {name: grantName, level: 1, _auto: true, _grantedBy: feat.name};
+          const entry = {name: grantName, level: 1, _auto: true, _grantedBy: feat.id || feat.name};
           // defaultChoice: 자식 재주의 초기 choice 설정 (사용자 변경 가능)
           if (eff.defaultChoice) entry.choice = eff.defaultChoice;
           state.feats.general.push(entry);
@@ -385,7 +350,7 @@ function _applyOneEffect(fb, eff, feat, level) {
           const alreadyHas = Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(grantName.split(' (')[0]));
           if (!alreadyHas) {
             if (!state.feats.skill) state.feats.skill = [];
-            const entry = {name: grantName, level: 1, _auto: true, _grantedBy: feat.name};
+            const entry = {name: grantName, level: 1, _auto: true, _grantedBy: feat.id || feat.name};
             if (eff.defaultChoice) entry.choice = eff.defaultChoice;
             state.feats.skill.push(entry);
           }
@@ -415,13 +380,14 @@ function _applyOneEffect(fb, eff, feat, level) {
       // 고정 선천 주문 부여 (선택 불필요)
       if (eff.spell && feat.name) {
         if (!state.spells.innate) state.spells.innate = [];
-        const existing = state.spells.innate.find(s => s._sourceFeat === feat.name && s.name === eff.spell);
+        const _pk = feat.id || feat.name;
+        const existing = state.spells.innate.find(s => s._sourceFeat === _pk && s.name === eff.spell);
         if (!existing) {
           const _sp = getSpell(eff.spell);
           state.spells.innate.push({
             id: _sp?.id || null,
             name: eff.spell, tradition: eff.tradition || '', type: eff.spellType || 'spell',
-            uses: eff.uses || '하루 1회', _sourceFeat: feat.name, _source: feat.name
+            uses: eff.uses || '하루 1회', _sourceFeat: _pk, _source: feat.name
           });
         }
       }
@@ -443,9 +409,10 @@ function _applyOneEffect(fb, eff, feat, level) {
       }
       if (spellName && !spellName.startsWith('$') && feat.name) {
         if (!state.spells.focus) state.spells.focus = [];
-        const existing = state.spells.focus.find(s => s._sourceFeat === feat.name && s.name === spellName);
+        const _pk = feat.id || feat.name;
+        const existing = state.spells.focus.find(s => s._sourceFeat === _pk && s.name === spellName);
         if (!existing) {
-          state.spells.focus.push({id: spellId, name: spellName, _auto: true, _sourceFeat: feat.name, _source: feat.name.split(' (')[0].trim()});
+          state.spells.focus.push({id: spellId, name: spellName, _auto: true, _sourceFeat: _pk, _source: feat.name.split(' (')[0].trim()});
         }
       }
       break;
@@ -565,15 +532,18 @@ function _hasFeatChoiceIssue(feat) {
   return false;
 }
 
-// 이미 선택된 재주의 전제조건이 현재 미달인지 체크
+// 이미 선택된 재주의 전제조건이 현재 미달인지 체크 (★ slug 기준)
 function _hasFeatPrereqIssue(feat) {
-  if (typeof FEAT_DB === 'undefined' || typeof _checkPrereqs !== 'function') return false;
-  const nameKo = feat.name?.split(' (')[0]?.trim();
-  if (!nameKo) return false;
-  const fd = getFeat(nameKo);
-  if (!fd) return false;
-  if (!fd.prereqs && !fd.prerequisites) return false;
-  return !_checkPrereqs(fd);
+  if (typeof _checkPrereqs !== 'function') return false;
+  const slug = feat.id || (typeof featSlug === 'function' ? featSlug(feat.name?.split(' (')[0]?.trim()) : null);
+  if (!slug) return false;
+  // 기계판정 가능한 구조화 조건(파싱 PREREQ_STRUCT 또는 레거시 prereq_group_id)이 있을 때만 판정.
+  // 순수 내러티브(구조화 없음)는 항상 달성 → 이슈 없음.
+  const hasStruct = typeof PREREQ_STRUCT !== 'undefined' && PREREQ_STRUCT[slug];
+  const fd = typeof getFeat === 'function' ? getFeat(slug) : null;
+  const hasLegacy = fd && fd.prereq_group_id;
+  if (!hasStruct && !hasLegacy) return false;
+  return !_checkPrereqs({ id: slug, prereq_group_id: hasLegacy ? fd.prereq_group_id : undefined });
 }
 
 function _buildFeatChoiceUI(feat, featType, featIndex) {
@@ -1246,7 +1216,8 @@ function _applyFeatChoice(choiceId) {
       state.feats[featType][featIndex].choice = choiceId;
     }
     const grantTo = choiceDef.grantTo || 'general';
-    const grantedBy = choiceDef._grantedBy || (state.feats[featType]?.[featIndex]?.name || '');
+    const _pf2 = state.feats[featType]?.[featIndex];
+    const grantedBy = choiceDef._grantedBy || (_pf2 && (_pf2.id || _pf2.name)) || ''; // slug 우선
     if (!state.feats[grantTo]) state.feats[grantTo] = [];
     const _fdC = getFeat(choiceId.split(' (')[0].trim());
     state.feats[grantTo].push({id: _fdC?.id || null, name: choiceId, level: 1, _grantedBy: grantedBy});
@@ -1268,15 +1239,17 @@ function _applyFeatChoice(choiceId) {
   if (choiceDef?.type === 'spell_cantrip' || choiceDef?.type === 'spell_rank') {
     const tradition = choiceDef.tradition || 'arcane';
     const tradKo = {arcane:'비전',divine:'신성',occult:'오컬트',primal:'원시'}[tradition] || tradition;
-    const featName = state.feats[featType][featIndex].name || '';
+    const _pFeat = state.feats[featType][featIndex];
+    const featName = _pFeat.name || '';
+    const _pk = _pFeat.id || featName; // _sourceFeat = slug 저장(번역명 무관)
     // 기존에 이 재주로 추가된 선천 주문 제거
     if (!state.spells.innate) state.spells.innate = [];
-    state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== featName);
+    state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(_pk));
     // 새 선천 주문 추가
     const spType = choiceDef.type === 'spell_rank' ? 'spell' : 'cantrip';
     const spUses = choiceDef.type === 'spell_rank' ? '하루 1회' : '자유';
     const _spCh = getSpell(choiceId);
-    state.spells.innate.push({id: _spCh?.id || null, name: choiceId, tradition: tradKo, type: spType, uses: spUses, _sourceFeat: featName, _source: featName});
+    state.spells.innate.push({id: _spCh?.id || null, name: choiceId, tradition: tradKo, type: spType, uses: spUses, _sourceFeat: _pk, _source: featName});
     if (typeof renderSpells === 'function') renderSpells();
     // 선천적 주문 탭으로 자동 전환
     if (typeof switchSpellSubtab === 'function') switchSpellSubtab('innate');
@@ -1293,7 +1266,7 @@ function _applyFeatChoice(choiceId) {
     if (grantedByFeat?._grantedBy) {
       const parentFeatName = grantedByFeat._grantedBy;
       const traitName = ANCESTRY_NAME_MAP[choiceId] || choiceId;
-      const alreadyGranted = (state.feats.ancestry||[]).some(f => f && f._grantedBy === parentFeatName);
+      const alreadyGranted = (state.feats.ancestry||[]).some(f => f && featSlug(f._grantedBy) === featSlug(parentFeatName));
       if (!alreadyGranted) {
         openFeatChoiceModal(null, null, {
           type: 'feat_pick',

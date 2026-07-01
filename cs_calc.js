@@ -367,6 +367,32 @@ function getFeat(key)  {
   if (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) return PF2eFeat.getFeatLegacy(key);
   return null;
 }
+// ── slug 디커플링 헬퍼 (번역명 결합 제거) ──────────────────────────────
+// 저장·매칭은 slug(id)로 정규화, 표시는 항상 현재 name_ko로 재해소.
+// 인자는 이름(구 저장)·slug(신 저장)·객체({id,name}) 모두 허용 → 하위호환.
+// 미해소 시 원문 유지(graceful): 정본 DB에 없는 커스텀/희귀 항목 보존.
+function _refKey(x) { return (x != null && typeof x === 'object') ? (x.id || x.name) : x; }
+function spellSlug(x) {
+  if (x == null || x === '') return '';
+  const sp = getSpell(_refKey(x));
+  return sp ? sp.id : (typeof x === 'object' ? (x.id || x.name || '') : String(x));
+}
+function spellDisplay(x) {
+  if (x == null || x === '') return '';
+  const sp = getSpell(_refKey(x));
+  if (sp) return sp.name_ko || sp.name_en || sp.name;
+  return (typeof x === 'object') ? (x.name || x.id || '') : String(x);
+}
+function featSlug(x) {
+  if (x == null || x === '') return '';
+  const k = _refKey(x);
+  const f = getFeat(k) || (typeof k === 'string' ? getFeat(k.split(' (')[0].trim()) : null);
+  return f ? f.id : (typeof x === 'object' ? (x.id || x.name || '') : String(x));
+}
+// 두 참조가 같은 항목인지 (slug 우선, 미해소 시 원문 비교)
+function spellSame(a, b) { return spellSlug(a) === spellSlug(b); }
+function featSame(a, b) { return featSlug(a) === featSlug(b); }
+
 // 병합 재주풀: 레거시 FEAT_DB + FVTT-only(슬러그 미중복). 모달/필터용.
 function _allFeats() {
   const leg = (typeof FEAT_DB !== 'undefined') ? FEAT_DB : [];
@@ -462,8 +488,8 @@ function getHeritageEffects(h) {
   const id = h.id || '';
   if (_HERITAGE_EFFECTS_CACHE.has(id)) return _HERITAGE_EFFECTS_CACHE.get(id);
   const out = {};
-  if (h.effect_group_id && typeof getEffectRows === 'function') {
-    for (const r of getEffectRows(h.effect_group_id)) {
+  if (typeof getEffectRows === 'function') {
+    for (const r of getEffectRows(h.id)) { // slug 단일 소스
       switch (r.type) {
         case 'vision_upgrade': out.vision = r.target; break;
         case 'hp_bonus': out.hpBonus = (out.hpBonus || 0) + (r.value || 0); break;
@@ -513,10 +539,10 @@ function getBackgroundEffects(b) {
   const id = b.id || '';
   if (_BACKGROUND_EFFECTS_CACHE.has(id)) return _BACKGROUND_EFFECTS_CACHE.get(id);
   const out = { boosts: [], boost_choices: [], free_boosts: 0, fixed_skills: [], choice_skill_groups: [], fixed_lores: [], feat_id: null, deity_skill: false, deity_lore: false };
-  if (b.effect_group_id && typeof getEffectRows === 'function') {
+  if (typeof getEffectRows === 'function') {
     const _boostGroups = {};   // group_no → [ability...]
     const _skillGroups = {};   // group_no → [skill_id...]
-    for (const r of getEffectRows(b.effect_group_id)) {
+    for (const r of getEffectRows(b.id)) { // slug 단일 소스
       switch (r.type) {
         case 'ability_boost':
           out.boosts.push(r.target);
@@ -560,16 +586,23 @@ function getBackgroundEffects(b) {
 
 // EFFECT_GROUPS / CHOICE_OPTIONS v532~ Phase 3a: 1:N 정규화 행 조회
 const _EFFECT_GROUPS_INDEX = new Map();
-function getEffectRows(groupId) {
-  if (!groupId || typeof EFFECT_GROUPS === 'undefined') return [];
-  if (_EFFECT_GROUPS_INDEX.size === 0 && EFFECT_GROUPS.length) {
-    for (const r of EFFECT_GROUPS) {
-      const arr = _EFFECT_GROUPS_INDEX.get(r.group_id) || [];
-      arr.push(r);
-      _EFFECT_GROUPS_INDEX.set(r.group_id, arr);
-    }
-  }
-  return _EFFECT_GROUPS_INDEX.get(groupId) || [];
+// L3 효과 override (data/override/effect_groups.json = {group_id:[rows...]}). 그룹 단위 교체(있으면 base 대체).
+// 재주/유산/배경 자동화 전부 getEffectRows 경유 → 이 훅 하나로 3소스 override 반영.
+let _EFFECT_OVERRIDE = null;
+function _loadEffectOverride() {
+  if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
+  fetch('data/override/effect_groups.json?v=0.42').then(r => r.ok ? r.json() : null).then(m => {
+    if (!m || typeof m !== 'object') return;
+    _EFFECT_OVERRIDE = m;
+    try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
+  }).catch(() => {});
+}
+// v0.28~ 효과 단일화: slug 기준 EFFECTS_DB(effects_db.js) 단일 소스. override(effect_groups.json)도 slug 키.
+// (구 EFFECT_GROUPS/group_id 경로 폐기. 재주/유산/배경 모두 이 함수로 slug→효과행.)
+function getEffectRows(slug) {
+  if (!slug) return [];
+  if (_EFFECT_OVERRIDE && Object.prototype.hasOwnProperty.call(_EFFECT_OVERRIDE, slug)) return _EFFECT_OVERRIDE[slug] || [];
+  return (typeof EFFECTS_DB !== 'undefined' && EFFECTS_DB[slug] && EFFECTS_DB[slug].rows) || [];
 }
 
 const _CHOICE_OPTIONS_INDEX = new Map();
@@ -830,8 +863,40 @@ function _infoResolveItem(type, name) {
     if (!item && typeof RUNE_DB !== 'undefined') item = RUNE_DB.find(r => r && (r.name_ko === nameKo || r.name_en === nameKo || r.id === nameKo));
   }
 
+  // 장비 인스턴스 매칭: 전체 이름 우선(등급 괄호 "(상급)" 등 보존), 실패 시 괄호 제거된 nameKo로.
+  // (BASE 소비품의 ~49%는 한글명에 등급 괄호가 있어 ' (' split만으로는 매칭 실패 → "DB에 정보 없음" 버그)
+  const _eqByName = (n) => state.equip?.find(e => e.name === n);
+  const nameEn0 = (name.match(/\(([^)]+)\)/) || [])[1] || '';
+
+  // ── 장비 설명 보장 (모달=획득 후 동일 정보) ──
+  // 획득 모달은 BASE 항목을 직접 보여주므로 설명이 있다. 획득 후엔 _infoResolveItem이
+  // 레거시 DB를 먼저 보는데, 레거시에 desc가 없으면 설명이 비어 "DB에 정보 없음"이 떴다.
+  // → 인스턴스 _data(획득 시 저장한 모달 원본) → BASE 카탈로그(PF2eEquip) 순으로 항상 설명을 채운다.
+  if (['gear', 'rune', 'weapon', 'armor', 'shield'].includes(type)) {
+    const inst = _eqByName(name) || _eqByName(nameKo);
+    const lacksDesc = !item || (!item.desc && !item.summary);
+    // 1) 인스턴스 _data 우선
+    if (lacksDesc && inst && inst._data) {
+      const dd = inst._data;
+      if (dd.desc || dd._desc || dd.summary) {
+        item = { ...(item || {}), ...dd, name_ko: (item && item.name_ko) || dd.name_ko || nameKo, name_en: (item && item.name_en) || dd.name_en || nameEn0, desc: dd.desc || dd._desc || dd.summary };
+      }
+    } else if (lacksDesc && inst && inst._desc) {
+      item = { ...(item || { name_ko: nameKo, name_en: nameEn0 }), summary: inst._desc };
+    }
+    // 2) 그래도 설명 없으면 BASE 카탈로그에서 이름으로 조회 (구버전 저장·_data 미보유 커버)
+    if ((!item || (!item.desc && !item.summary)) && typeof PF2eEquip !== 'undefined' && typeof PF2eEquip.legacyList === 'function') {
+      try {
+        const cand = PF2eEquip.legacyList({ search: nameKo });
+        const hit = cand.find(c => c.name_ko === name) || cand.find(c => c.name_ko === nameKo)
+                 || cand.find(c => (c.name_ko || '').startsWith(nameKo)) || (cand.length === 1 ? cand[0] : null);
+        if (hit && (hit.desc || hit._desc)) item = { ...(item || {}), ...hit, name_ko: (item && item.name_ko) || hit.name_ko, name_en: (item && item.name_en) || hit.name_en || nameEn0, desc: hit.desc || hit._desc };
+      } catch (e) {}
+    }
+  }
+
   // 파손된 장비인지 확인하여 수치 조정
-  const brokenEquip = state.equip?.find(e => e.name === nameKo && e._broken);
+  const brokenEquip = state.equip?.find(e => (e.name === name || e.name === nameKo) && e._broken);
   if (item && brokenEquip) {
     item = {...item}; // 원본 보존을 위해 복사
     item.name_ko = '파손된 ' + item.name_ko;
@@ -847,8 +912,8 @@ function _infoResolveItem(type, name) {
   // DB에 없으면 커스텀 장비 데이터 확인 후 임시 카드
   if (!item) {
     const nameEn = (name.match(/\(([^)]+)\)/) || [])[1] || '';
-    // 커스텀 장비: state.equip에서 _data 또는 _desc 활용
-    const eqMatch = state.equip?.find(e => e.name === nameKo);
+    // 커스텀/BASE 장비: state.equip에서 _data 또는 _desc 활용 (전체 이름 우선 매칭)
+    const eqMatch = _eqByName(name) || _eqByName(nameKo);
     if (eqMatch && eqMatch._data) {
       item = {...eqMatch._data, name_ko: eqMatch._data.name_ko || nameKo, name_en: eqMatch._data.name_en || nameEn};
     } else if (eqMatch && eqMatch._desc) {
@@ -866,7 +931,7 @@ function _infoResolveItem(type, name) {
   // 장비: DB 항목에 설명이 없으면 보유 중인 장비 인스턴스의 _desc로 보강
   // (GEAR_DB 등 최소 스키마에는 설명이 없으나 BASE 브라우즈로 추가한 항목은 _desc 보유)
   if (item && !item.desc && !item.summary && ['gear','rune','weapon','armor','shield'].includes(type)) {
-    const eqInst = state.equip?.find(e => e.name === nameKo);
+    const eqInst = _eqByName(name) || _eqByName(nameKo);
     const d = eqInst && (eqInst._desc || eqInst._data?._desc || eqInst._data?.desc || eqInst._data?.description);
     if (d) item = {...item, summary: d};
   }

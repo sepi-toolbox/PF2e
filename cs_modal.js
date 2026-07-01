@@ -1348,9 +1348,9 @@ function growthClearFeat(lv, key, featType) {
         arr.splice(idx, 1);
       }
     }
-    // 선천 주문 + 집중 주문 제거
-    if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== oldName);
-    if (state.spells?.focus) state.spells.focus = state.spells.focus.filter(s => s._sourceFeat !== oldName);
+    // 선천 주문 + 집중 주문 제거 (slug 기준 — _sourceFeat는 slug 저장)
+    if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(oldName));
+    if (state.spells?.focus) state.spells.focus = state.spells.focus.filter(s => featSlug(s._sourceFeat) !== featSlug(oldName));
     // 재주로 부여된 무기 제거 (grant_weapon)
     const _fEN = oldName?.match(/\(([^)]+)\)$/)?.[1] || '';
     if (_fEN) {
@@ -1772,10 +1772,11 @@ function growthSpellCardHTML(lv) {
       });
       // 사용자 선택 슬롯
       for (let i = 0; i < s.userCount; i++) {
-        const name = (gs[s.key] || [])[i] || null;
+        const stored = (gs[s.key] || [])[i] || null;
+        const name = stored ? spellDisplay(stored) : null; // slug → 표시명
         const rank = s.key === 'cantrip' ? 0 : parseInt(s.key.replace('rank',''));
         if (name) {
-          html += `<div class="growth-spell-slot" style="display:flex;align-items:center;gap:6px;padding:3px 6px;background:var(--bg2);margin:2px 0;border-radius:4px;font-size:12px;cursor:pointer;" onclick="event.stopPropagation();showInfo('spell','${name.replace(/'/g,"\\'")}')">
+          html += `<div class="growth-spell-slot" style="display:flex;align-items:center;gap:6px;padding:3px 6px;background:var(--bg2);margin:2px 0;border-radius:4px;font-size:12px;cursor:pointer;" onclick="event.stopPropagation();showInfo('spell','${String(stored).replace(/'/g,"\\'")}')">
             <span style="flex:1;">${name}</span>
             <span class="spell-del" onclick="event.stopPropagation();growthRemoveSpell(${lv},'${s.key}',${i});" style="color:var(--red);font-size:12px;cursor:pointer;">✕</span>
           </div>`;
@@ -1830,20 +1831,22 @@ function growthSignatureCardHTML(lv) {
     });
   }
   allAutoKnown.forEach(a => {
+    const sl = spellSlug(a.name); // knownByRank는 slug 보관
     if (!knownByRank[a.rank]) knownByRank[a.rank] = [];
-    if (!knownByRank[a.rank].includes(a.name)) knownByRank[a.rank].push(a.name);
+    if (!knownByRank[a.rank].includes(sl)) knownByRank[a.rank].push(sl);
   });
-  // growth known
+  // growth known (이미 slug 저장)
   for (let l = 1; l <= lv; l++) {
     const gs = state.growth[l]?.spells;
     if (!gs) continue;
     for (let r = 1; r <= 10; r++) {
       const arr = gs['rank'+r];
       if (!arr) continue;
-      arr.forEach(name => {
-        if (!name) return;
+      arr.forEach(nm => {
+        if (!nm) return;
+        const sl = spellSlug(nm);
         if (!knownByRank[r]) knownByRank[r] = [];
-        if (!knownByRank[r].includes(name)) knownByRank[r].push(name);
+        if (!knownByRank[r].includes(sl)) knownByRank[r].push(sl);
       });
     }
   }
@@ -1871,7 +1874,7 @@ function growthSignatureCardHTML(lv) {
       <span style="min-width:50px;color:var(--accent);font-weight:600;">${r}랭크</span>
       <select onchange="setSignatureSpell(${r},this.value)" style="flex:1;font-size:12px;background:var(--bg2);color:var(--text1);border:1px solid var(--border);border-radius:4px;padding:2px 4px;">
         <option value="">— 선택 안 됨 —</option>
-        ${spells.map(name => `<option value="${name.replace(/"/g,'&quot;')}"${curSig===name?' selected':''}>${name}</option>`).join('')}
+        ${spells.map(sl => `<option value="${String(sl).replace(/"/g,'&quot;')}"${curSig===sl?' selected':''}>${spellDisplay(sl)}</option>`).join('')}
       </select>
     </div>`;
   });
@@ -1883,7 +1886,7 @@ function growthSignatureCardHTML(lv) {
 function setSignatureSpell(rank, spellName) {
   if (!state.signatureSpells) state.signatureSpells = {};
   if (spellName) {
-    state.signatureSpells[rank] = spellName;
+    state.signatureSpells[rank] = (typeof spellSlug === 'function') ? spellSlug(spellName) : spellName; // slug 저장
   } else {
     delete state.signatureSpells[rank];
   }
@@ -1909,7 +1912,7 @@ function applyGrowthSpellSelection(spellName) {
   if (!state.growth[lv]) state.growth[lv] = {};
   if (!state.growth[lv].spells) state.growth[lv].spells = {};
   if (!state.growth[lv].spells[slotKey]) state.growth[lv].spells[slotKey] = [];
-  state.growth[lv].spells[slotKey][slotIdx] = spellName;
+  state.growth[lv].spells[slotKey][slotIdx] = (typeof spellSlug === 'function') ? spellSlug(spellName) : spellName; // slug 저장
   _growthSpellPending = null;
   syncGrowthSpellsToState();
   renderGrowthPlan();
@@ -1949,10 +1952,10 @@ function syncGrowthSpellsToState() {
     if (!gs) continue;
     // 캔트립
     if (gs.cantrip) {
-      gs.cantrip.forEach(name => {
-        if (name && !(state.spells.cantrip||[]).find(c => c?.name === name)) {
-          const _sp = getSpell(name);
-          state.spells.cantrip.push({id: _sp?.id || null, name, rank: 0});
+      gs.cantrip.forEach(nm => {
+        if (nm && !(state.spells.cantrip||[]).find(c => spellSame(c, nm))) {
+          const _sp = getSpell(nm);
+          state.spells.cantrip.push({id: _sp?.id || spellSlug(nm), name: spellDisplay(nm), rank: 0});
         }
       });
     }
@@ -1960,10 +1963,10 @@ function syncGrowthSpellsToState() {
     for (let r = 1; r <= 10; r++) {
       const arr = gs['rank'+r];
       if (!arr) continue;
-      arr.forEach(name => {
-        if (name && !(state.spells.known||[]).find(k => k.name === name && k.rank === r)) {
-          const _sp = getSpell(name);
-          state.spells.known.push({id: _sp?.id || null, name, rank: r});
+      arr.forEach(nm => {
+        if (nm && !(state.spells.known||[]).find(k => spellSame(k, nm) && k.rank === r)) {
+          const _sp = getSpell(nm);
+          state.spells.known.push({id: _sp?.id || spellSlug(nm), name: spellDisplay(nm), rank: r});
         }
       });
     }
@@ -2090,8 +2093,8 @@ function growthFamiliarSpellCardHTML(lv) {
 
     // 선택된 주문 표시
     const display = freeArr.filter(n=>n).map(n => {
-      const parts = typeof n === 'object' ? n : {name: n, rank: '?'};
-      return typeof n === 'string' ? n : `${n.name} (${n.rank}랭크)`;
+      if (typeof n === 'object') return `${spellDisplay(n.id||n.name)} (${n.rank}랭크)`;
+      return spellDisplay(n);
     }).join(', ');
 
     const isWiz = cid === 'wizard';
@@ -2111,10 +2114,11 @@ function growthFamiliarSpellCardHTML(lv) {
       html += `<div style="font-size:10px;color:var(--text2);margin:4px 0 2px;">접근 가능한 아무 랭크에서 2개 선택 (최대 ${maxRank}랭크)</div>`;
       for (let i = 0; i < slots._free; i++) {
         const entry = freeArr[i] || null;
-        const name = entry ? (typeof entry === 'object' ? entry.name : entry) : null;
+        const storedF = entry ? (typeof entry === 'object' ? (entry.id || entry.name) : entry) : null;
+        const name = storedF ? spellDisplay(storedF) : null;
         const rank = entry ? (typeof entry === 'object' ? entry.rank : 0) : 0;
         if (name) {
-          html += `<div class="growth-spell-slot" style="display:flex;align-items:center;gap:6px;padding:3px 6px;background:var(--bg2);margin:2px 0;border-radius:4px;font-size:12px;cursor:pointer;" onclick="event.stopPropagation();showInfo('spell','${name.replace(/'/g,"\\'")}')">
+          html += `<div class="growth-spell-slot" style="display:flex;align-items:center;gap:6px;padding:3px 6px;background:var(--bg2);margin:2px 0;border-radius:4px;font-size:12px;cursor:pointer;" onclick="event.stopPropagation();showInfo('spell','${String(storedF).replace(/'/g,"\\'")}')">
             <span style="flex:1;">${name} <span style="font-size:9px;color:var(--text2);">(${rank}랭크)</span></span>
             <span class="spell-del" onclick="event.stopPropagation();growthRemoveFamiliarSpell(${lv},${i});" style="color:var(--red);font-size:12px;cursor:pointer;">✕</span>
           </div>`;
@@ -2131,9 +2135,10 @@ function growthFamiliarSpellCardHTML(lv) {
   return '';
 }
 
-function _familiarSlotHTML(lv, key, idx, name, rank) {
-  if (name) {
-    return `<div class="growth-spell-slot" style="display:flex;align-items:center;gap:6px;padding:3px 6px;background:var(--bg2);margin:2px 0;border-radius:4px;font-size:12px;cursor:pointer;" onclick="event.stopPropagation();showInfo('spell','${name.replace(/'/g,"\\'")}')">
+function _familiarSlotHTML(lv, key, idx, stored, rank) {
+  if (stored) {
+    const name = spellDisplay(stored); // slug → 표시명
+    return `<div class="growth-spell-slot" style="display:flex;align-items:center;gap:6px;padding:3px 6px;background:var(--bg2);margin:2px 0;border-radius:4px;font-size:12px;cursor:pointer;" onclick="event.stopPropagation();showInfo('spell','${String(stored).replace(/'/g,"\\'")}')">
       <span style="flex:1;">${name}</span>
       <span class="spell-del" onclick="event.stopPropagation();growthRemoveFamiliarInitSpell(${lv},'${key}',${idx});" style="color:var(--red);font-size:12px;cursor:pointer;">✕</span>
     </div>`;
@@ -2177,10 +2182,10 @@ function applyGrowthFamiliarSelection(spellObj) {
 
   if (p.mode === 'init') {
     if (!gf[p.key]) gf[p.key] = [];
-    gf[p.key][p.idx] = spellObj.name_ko;
+    gf[p.key][p.idx] = spellObj.id || spellObj.name_ko; // slug 저장
   } else if (p.mode === 'free') {
     if (!gf.free) gf.free = [];
-    gf.free[p.idx] = {name: spellObj.name_ko, rank: spellObj.is_cantrip ? 0 : (spellObj.rank || 1)};
+    gf.free[p.idx] = {id: spellObj.id || spellObj.name_ko, rank: spellObj.is_cantrip ? 0 : (spellObj.rank || 1)};
   }
   syncFamiliarSpellsToState();
   renderGrowthPlan();
@@ -2226,21 +2231,22 @@ function syncFamiliarSpellsToState() {
     if (gf.free) {
       gf.free.forEach(entry => {
         if (!entry) return;
-        const name = typeof entry === 'object' ? entry.name : entry;
+        const sl = typeof entry === 'object' ? (entry.id || spellSlug(entry.name)) : spellSlug(entry); // slug
         const rank = typeof entry === 'object' ? entry.rank : 1;
         const key = rank === 0 ? 'cantrip' : rank;
         if (!fs[key]) fs[key] = [];
-        if (!fs[key].includes(name)) fs[key].push(name);
+        if (!fs[key].includes(sl)) fs[key].push(sl);
       });
     }
   }
 
-  // 자동 부여 주문 (후원자 교훈 등)
+  // 자동 부여 주문 (후원자 교훈 등) — slug 보관
   for (let lv = 1; lv <= curLevel; lv++) {
     getAutoKnownAtLevel(lv).forEach(a => {
       const key = a.isCantrip ? 'cantrip' : (a.rank || 1);
+      const sl = spellSlug(a.name);
       if (!fs[key]) fs[key] = [];
-      if (!fs[key].includes(a.name)) fs[key].push(a.name);
+      if (!fs[key].includes(sl)) fs[key].push(sl);
     });
   }
 
@@ -2302,7 +2308,7 @@ function _renderMemorizeSlots() {
       color:${isActive ? '#000' : 'var(--text1)'};
       border:1px solid ${isActive ? 'var(--accent)' : 'var(--border)'};">
       <span style="font-size:10px;min-width:18px;color:${isActive?'#000':'var(--text2)'};">${i+1}.</span>
-      <span style="flex:1;display:inline-flex;align-items:center;min-width:0;">${name ? ((typeof iconImg==='function'?iconImg('spell',getSpell(name)):'')+name) : '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
+      <span style="flex:1;display:inline-flex;align-items:center;min-width:0;">${name ? ((typeof iconImg==='function'?iconImg('spell',getSpell(name)):'')+spellDisplay(name)) : '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
       ${name ? `<span onclick="event.stopPropagation();_memorizeClearSlot(0,${i})" style="color:${isActive?'#000':'var(--red)'};font-size:12px;padding:0 2px;cursor:pointer;">✕</span>` : ''}
     </div>`;
   }
@@ -2322,7 +2328,7 @@ function _renderMemorizeSlots() {
         color:${isActive ? '#000' : 'var(--text1)'};
         border:1px solid ${isActive ? 'var(--accent)' : 'var(--border)'};">
         <span style="font-size:10px;min-width:18px;color:${isActive?'#000':'var(--text2)'};">${i+1}.</span>
-        <span style="flex:1;display:inline-flex;align-items:center;min-width:0;">${name ? ((typeof iconImg==='function'?iconImg('spell',getSpell(name)):'')+name) : '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
+        <span style="flex:1;display:inline-flex;align-items:center;min-width:0;">${name ? ((typeof iconImg==='function'?iconImg('spell',getSpell(name)):'')+spellDisplay(name)) : '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
         ${name ? `<span onclick="event.stopPropagation();_memorizeClearSlot(${r},${i})" style="color:${isActive?'#000':'var(--red)'};font-size:12px;padding:0 2px;cursor:pointer;">✕</span>` : ''}
       </div>`;
     }
@@ -2371,7 +2377,7 @@ function _renderMemorizeDetail() {
       if (!isCantrip && (sp.is_cantrip || sp.rank > rank)) return;
       if (trad && trad !== 'any' && sp.traditions && !sp.traditions.includes(trad)) return;
       const note = (!isCantrip && sp.rank < rank) ? `${sp.rank}랭크 고양` : '';
-      available.push({name: sp.name_ko, note});
+      available.push({name: sp.id || sp.name_ko, note}); // slug 저장(표시는 아래 spellDisplay)
     });
   }
 
@@ -2396,7 +2402,7 @@ function _renderMemorizeDetail() {
     const ic = (typeof iconImg === 'function') ? iconImg('spell', spellData || {name}) : '';
     wrap.innerHTML = `
       <div class="mem-spell-row">
-        <span class="mem-spell-name">${ic}${name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+        <span class="mem-spell-name">${ic}${spellDisplay(name)}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
         ${note ? `<span class="mem-spell-note">${note}</span>` : ''}
         <button class="mem-prep-btn">준비</button>
         <span class="ls-chevron">▾</span>
@@ -2528,7 +2534,7 @@ function openPrepareSpellForSlot(rank, slotIdx) {
     const rankNote = (!isCantrip && originalRank < rank) ? ` <span style="font-size:9px;color:var(--accent);">(${originalRank}랭크에서 고양)</span>` : '';
     row.innerHTML = `
       <div class="opt-row-icon">📖</div>
-      <span class="opt-row-name">${name}${rankNote}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>`;
+      <span class="opt-row-name">${spellDisplay(name)}${rankNote}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>`;
     row.onclick = () => {
       // 슬롯에 준비
       if (!state.preparedSpells) state.preparedSpells = {cantrip:[]};
@@ -2788,7 +2794,13 @@ function _checkOnePrereq(cond) {
     if (cond.divineFont === 'either') return cur === 'heal' || cur === 'harm';
     return cur === cond.divineFont;
   }
-  // 재주 보유: {feat:'Halfling Luck'}
+  // 재주 보유: {feat, featSlug}. ★ featSlug 있으면 슬러그로만 체크(번역명 무관, slug 원칙).
+  if (cond.featSlug) {
+    const fs2 = cond.featSlug;
+    return Object.values(state.feats).flat().some(ff =>
+      ff && ff.id && (ff.id === fs2 || (typeof featSlug === 'function' && featSlug(ff.id) === fs2)));
+  }
+  // 레거시(PREREQ_GROUPS, featSlug 없음): 이름 매칭 폴백
   if (cond.feat) {
     const allFeats = Object.values(state.feats).flat().filter(ff => ff?.name);
     return allFeats.some(ff => {
@@ -2872,8 +2884,15 @@ function _checkPrereqs(feat) {
       return true;
     }
   }
-  // 구조화 데이터 없으면 텍스트 기반 폴백
-  return _checkPrereqsText(feat.prerequisites);
+  // FVTT 파싱 구조화 conds(prereqs_db.js) — 기계판정 가능한 조건만 검사.
+  // 내러티브 조건("100살 이상" 등 미파싱)은 conds에 미포함 = 자동 달성(미달 안내 없음).
+  const _slug = feat && (feat.id || feat.slug);
+  if (_slug && typeof PREREQ_STRUCT !== 'undefined' && PREREQ_STRUCT[_slug]) {
+    return PREREQ_STRUCT[_slug].every(c => _checkOnePrereq(c));
+  }
+  // 구조화 없음(순수 내러티브/조건없음) → 항상 달성.
+  // (구 텍스트 정규식 폴백 _checkPrereqsText은 내러티브 오판이 많아 미사용 — 차후 복구용으로 함수는 보존)
+  return true;
 }
 
 // ── 텍스트 기반 전제조건 체크 (폴백) ──
@@ -4648,6 +4667,9 @@ function clearCoreSelection(type) {
     resetFromClass();
     const btn = document.getElementById('btn-class');
     if (btn) { btn.textContent = '클래스 선택...'; btn.classList.remove('filled'); }
+    // 파생 스탯·재주 탭 갱신 — 안 하면 클래스 특성/숙련도 잔상이 남음(예: 메이거스 해제 후에도 특성 잔류)
+    recalcAll();
+    renderFeats();
     renderGrowthPlan();
     save();
   } else if (type === 'ancestry') {
@@ -4656,6 +4678,8 @@ function clearCoreSelection(type) {
     resetFromAncestry();
     const btn = document.getElementById('btn-ancestry');
     if (btn) { btn.textContent = '혈통 선택...'; btn.classList.remove('filled'); }
+    recalcAll();
+    renderFeats();
     renderGrowthPlan();
     save();
   } else if (type === 'background') {
@@ -4664,6 +4688,8 @@ function clearCoreSelection(type) {
     resetFromBackground();
     const btn = document.getElementById('btn-background');
     if (btn) { btn.textContent = '배경 선택...'; btn.classList.remove('filled'); }
+    recalcAll();
+    renderFeats();
     renderGrowthPlan();
     save();
   } else if (type === 'heritage') {
@@ -4820,8 +4846,8 @@ function confirmModal() {
       if (oldName) {
         const arr = state.feats[gType];
         if (arr) { const idx = arr.findIndex(f => f.name === oldName && f.level === gLv); if (idx >= 0) arr.splice(idx, 1); }
-        // 선천 주문 제거
-        if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => s._sourceFeat !== oldName);
+        // 선천 주문 제거 (slug 기준)
+        if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(oldName));
         // 연쇄 제거
         if (typeof cascadeRemoveFeats === 'function') cascadeRemoveFeats();
       }
@@ -4962,7 +4988,7 @@ function confirmModal() {
     addEquip({name: s.name_ko, qty:1, bulk: typeof s.bulk==='number'?s.bulk:(s.bulk==='L'?0.1:0), _type:'shield', _data:s});
   } else if (modalType==='equip-gear') {
     const g = modalSelected;
-    addEquip({name: g.name_ko, qty:1, bulk: typeof g.bulk==='number'?g.bulk:(g.bulk==='L'?0.1:0)});
+    addEquip({name: g.name_ko, qty:1, bulk: typeof g.bulk==='number'?g.bulk:(g.bulk==='L'?0.1:0), _data:g});
   }
   try { recalcAll(); } catch(e) { console.error('confirmModal recalcAll error:', e); }
   closeModal();

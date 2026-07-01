@@ -44,10 +44,12 @@ window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters'
                   sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
 window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
-<script src="equipment_db.js?v=0.18"></script>
-<script src="feat_db.js?v=0.18"></script>
-<script src="SPELL_DB.js?v=0.18"></script>
-<script src="class_features_db.js?v=0.18"></script>
+<script src="equipment_db.js?v=0.42"></script>
+<script src="feat_db.js?v=0.42"></script>
+<script src="SPELL_DB.js?v=0.42"></script>
+<script src="class_features_db.js?v=0.42"></script>
+<script src="effects_db.js?v=0.42"></script>
+<script src="prereqs_db.js?v=0.42"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -68,7 +70,7 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
   console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.18">
+<link rel="stylesheet" href="app-shell.css?v=0.42">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -1914,7 +1916,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.18</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.42</span></div>
 </div>
 
 <!-- ═══ 업데이트 로그 모달 ═══ -->
@@ -2445,7 +2447,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.18" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.42" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2522,36 +2524,36 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.18"></script>
-<script src="cs_calc.js?v=0.18"></script>
+<script src="cs_data.js?v=0.42"></script>
+<script src="cs_calc.js?v=0.42"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.18"></script>
-<script src="cs_re_engine.js?v=0.18"></script>
-<script src="cs_pf2e_stats.js?v=0.18"></script>
-<script src="cs_pf2e_equip.js?v=0.18"></script>
-<script src="cs_pf2e_anc.js?v=0.18"></script>
-<script src="cs_pf2e_bg.js?v=0.18"></script>
-<script src="cs_pf2e_spell.js?v=0.18"></script>
-<script src="cs_pf2e_deity.js?v=0.18"></script>
-<script src="cs_pf2e_action.js?v=0.18"></script>
-<script src="cs_pf2e_feat.js?v=0.18"></script>
-<script src="cs_pf2e_class.js?v=0.18"></script>
-<script src="cs_pf2e_actor.js?v=0.18"></script>
-<script src="cs_ui.js?v=0.18"></script>
-<script src="cs_modal.js?v=0.18"></script>
-<script src="cs_feat_effects.js?v=0.18"></script>
-<script src="cs_save.js?v=0.18"></script>
-<script src="cs_session.js?v=0.18"></script>
-<script src="cs_dice.js?v=0.18"></script>
-<script src="cs_map.js?v=0.18"></script>
+<script src="cs_pf2e.js?v=0.42"></script>
+<script src="cs_re_engine.js?v=0.42"></script>
+<script src="cs_pf2e_stats.js?v=0.42"></script>
+<script src="cs_pf2e_equip.js?v=0.42"></script>
+<script src="cs_pf2e_anc.js?v=0.42"></script>
+<script src="cs_pf2e_bg.js?v=0.42"></script>
+<script src="cs_pf2e_spell.js?v=0.42"></script>
+<script src="cs_pf2e_deity.js?v=0.42"></script>
+<script src="cs_pf2e_action.js?v=0.42"></script>
+<script src="cs_pf2e_feat.js?v=0.42"></script>
+<script src="cs_pf2e_class.js?v=0.42"></script>
+<script src="cs_pf2e_actor.js?v=0.42"></script>
+<script src="cs_ui.js?v=0.42"></script>
+<script src="cs_modal.js?v=0.42"></script>
+<script src="cs_feat_effects.js?v=0.42"></script>
+<script src="cs_save.js?v=0.42"></script>
+<script src="cs_session.js?v=0.42"></script>
+<script src="cs_dice.js?v=0.42"></script>
+<script src="cs_map.js?v=0.42"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.18"></script>
-<script src="cs_i18n.js?v=0.18"></script>
+<script src="cs_locale.js?v=0.42"></script>
+<script src="cs_i18n.js?v=0.42"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.18');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.42');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2635,6 +2637,78 @@ document.addEventListener('click', function(e) {
 // ═══ 업데이트 로그 / 공지 (기어 메뉴) ═══
 // 최신순. 새 버전 작업 시 맨 앞에 {v, date, items:[...]} 추가(사용자 친화적 한글 문장).
 const CHANGELOG = [
+  { v: '0.42', date: '2026-07-02', items: [
+    '효과(Effect) 아이템 약 2,000건의 이름과 설명을 한글로 번역했습니다 — 재주·주문·능력이 부여하는 지속 효과 표시. 이름은 원본 능력명을 재사용해 "효과: OO" 형태로, 설명은 정본 용어로 새로 번역했습니다. 이로써 화면에 나오는 모든 항목이 한글로 표시됩니다.',
+  ] },
+  { v: '0.41', date: '2026-07-02', items: [
+    '설명문 속 "마스터"·"특기"를 문맥에 맞춰 정본으로 통일했습니다 — 숙련도 "마스터"→"달인", 재주를 뜻하는 "특기"→"재주" 약 620곳. 사역마 주인·스승·"마스터 제작(명품)" 등 뜻이 다른 경우는 문맥을 구분해 그대로 두었습니다.',
+  ] },
+  { v: '0.40', date: '2026-07-02', items: [
+    '설명문 속 규칙 용어를 정본으로 마저 통일했습니다 — "공격 굴림"→"명중 굴림", "오프 가드"→"무방비" 약 1,400곳. 규칙 참조와 수치는 그대로이며 표시 용어만 정본 용어집에 맞췄습니다.',
+  ] },
+  { v: '0.39', date: '2026-07-02', items: [
+    '번역이 비어 영어로만 나오던 이름·설명 약 1,700건을 한글로 새로 번역했습니다 — 재주 826개, 행동 636개, 장비 145개, 배경 31개, 주문 12개와 신격·혈통·용 관련 설명 등. 원본(PF2e-KR)에도 번역이 없던 항목이라 정본 용어집(상태·피해 유형·기술·특성 등)을 적용해 번역했으며, 규칙 링크(@참조)와 서식은 그대로 보존했습니다. 이제 화면에 노출되는 항목은 사실상 전부 한글로 표시됩니다.',
+  ] },
+  { v: '0.38', date: '2026-07-01', items: [
+    '번역이 비어 영어로만 나오던 고유명사 이름을 한글로 채웠습니다 — 신격 25종(파리미아, 정수의 무용수, 혼돈의 조수 등), 혈통 11종(가문 드레이크, 진주 드래고넷 등), 종족 2종(드래고넷, 요툰본). 원본(PF2e-KR)에도 번역이 없는 항목이라 음역/의역으로 채웠으며, 추후 정본 용어로 다듬을 수 있습니다.',
+  ] },
+  { v: '0.37', date: '2026-07-01', items: [
+    '재주 선행조건 판정을 서브클래스·유산까지 확장했습니다. "수수께끼 뮤즈", "도둑 전문", "용비늘 코볼트 유산" 같은 조건도 실제 선택 여부를 확인해 충족/미충족을 표시합니다. 실제로 존재하는 서브클래스·유산으로 확인되는 조건만 판정하므로, 자격이 있는데 잘못 미충족으로 뜨는 일은 없습니다.',
+  ] },
+  { v: '0.36', date: '2026-07-01', items: [
+    '재주 선행조건을 기계적으로 판정합니다(고유 식별자 기준). "기만 전설", "OO 헌신 보유" 같은 실제 조건은 충족 여부를 확인하고, "100살 이상" 같은 서사적 조건은 항상 충족으로 처리해 잘못된 미충족 표시가 뜨지 않습니다. 조건 문구 자체는 그대로 보여줍니다.',
+    '혈통 설명도 클래스와 같이 일반 텍스트로 통일했습니다(플레이버 이탤릭 제거). 숙련등급 재주 이름을 정본 용어로 맞췄습니다(예: "마스터 바드 주문 시전"→"달인 바드 주문 시전").',
+  ] },
+  { v: '0.35', date: '2026-07-01', items: [
+    '재주 이름 뒤에 붙어 있던 영어 병기(예: "바드 헌신 (Bard Dedication)")를 정리해 한글 이름만 표시합니다.',
+    '번역이 비어 영어로만 나오던 항목 5개(부서진 대지, 섞여들기, 악마에게 쫓김 등)를 한글로 채웠습니다.',
+  ] },
+  { v: '0.33', date: '2026-07-01', items: [
+    '클래스 설명을 일반 텍스트로 통일했습니다(들쭉날쭉하던 이탤릭 제거).',
+    '설명문 속 상태이상 표기(값 동반·나머지 "…상태" 형태 약 200건)를 정본 이름으로 마저 맞췄습니다(예: "병약 2"→"구역질 2", "실명 상태"→"눈멈 상태").',
+  ] },
+  { v: '0.32', date: '2026-07-01', items: [
+    '클래스·혈통·재주 설명 끝에 링크 원본만 남아 이름이 한 번 더 표시되던 줄(예: 쏘마터지 설명 아래 "쏘마터지")을 정리했습니다. 문장 속 참조는 그대로 둡니다.',
+  ] },
+  { v: '0.31', date: '2026-07-01', items: [
+    '용어 정합 3차: 설명문 속 "…상태" 형태의 상태이상 표기 약 500건을 정본 이름으로 맞췄습니다(예: "서투른 상태"→"둔함 상태", "가려진 상태"→"은폐 상태").',
+  ] },
+  { v: '0.30', date: '2026-07-01', items: [
+    '용어 정합 2차: 주요 행동(보폭·걸음·사기 꺾기 등)과 피해 유형(산성·냉기·참격 등) 이름을 정본 용어집으로 통일하고, 설명문 곳곳의 상태이상 참조 라벨 4천여 건을 정본 이름과 일치시켰습니다.',
+  ] },
+  { v: '0.29', date: '2026-07-01', items: [
+    '핵심 용어(상태이상·특성·생물 유형 등)를 정본 용어집 기준으로 통일했습니다. 예) "오프-가드"로 섞여 있던 상태이상을 모든 화면에서 "무방비"로 일치시켰고, 상태이상/특성 이름을 참조하는 곳은 데이터의 정본 이름을 따르도록 정합했습니다.',
+    '신격·상태이상의 자동 효과를 데이터 관리 도구의 효과 테이블에 편입해, 어떤 신격/조건이 어떤 효과를 주는지 한눈에 볼 수 있게 했습니다.',
+  ] },
+  { v: '0.28', date: '2026-07-01', items: [
+    '재주·유산·배경의 자동 적용 효과를 하나의 데이터로 통합했습니다(내부 구조 정리). 기존 효과는 그대로 동작하며, FVTT 원본에만 있던 기술 훈련·내성·시야 등 일부 자동화가 추가로 반영됩니다.',
+  ] },
+  { v: '0.27', date: '2026-07-01', items: [
+    '주문 저장(레퍼토리·시그니처·주문서/사역마·준비 슬롯)을 고유 식별자 기준으로 바꿔, 번역 이름을 고쳐도 저장된 주문이 어긋나지 않도록 마무리했습니다. 기존 캐릭터는 불러올 때 자동 변환됩니다.',
+  ] },
+  { v: '0.25', date: '2026-07-01', items: [
+    '데이터 관리 도구에서 수정한 번역(이름·설명)이 실제 캐릭터 시트에 바로 반영되도록 연결했습니다(내부 데이터 계층 정비 — 재주·주문·장비 등 전 항목).',
+    '재주·주문의 내부 연결을 이름이 아닌 고유 식별자 기준으로 바꿔, 앞으로 번역 이름을 고쳐도 자동 부여 효과나 저장된 캐릭터가 깨지지 않도록 했습니다.',
+  ] },
+  { v: '0.24', date: '2026-07-01', items: [
+    '클래스/혈통/배경을 해제했을 때 해당 특성·숙련도가 화면에 그대로 남던 문제를 고쳤습니다 — 해제 즉시 능력치와 재주 목록이 갱신됩니다(예: 메이거스 해제 후에도 메이거스 특성이 보이던 현상).',
+    '장비 정보 "DB에 정보 없음"을 더 확실히 고쳤습니다 — 획득 후 정보를 항상 획득 모달과 동일한 원본 설명으로 표시하고, 예전에 저장해둔 장비도 카탈로그에서 설명을 다시 찾아 보여줍니다.',
+  ] },
+  { v: '0.23', date: '2026-07-01', items: [
+    '장비 추가 후 정보를 누르면 "DB에 정보 없음"이 뜨던 문제를 고쳤습니다 — 포션·소비품·보물 등 일반 장비도 추가 시 설명을 함께 저장하고, 이름에 등급 표기「(상급)」가 있는 아이템도 정보를 올바르게 찾도록 했습니다.',
+  ] },
+  { v: '0.22', date: '2026-07-01', items: [
+    '도적 전문(라켓) 목록을 PF2e 정본 5종으로 정리했습니다 — 정본 라켓이 아닌 「곡예사·암살자」(아키타입을 라켓으로 잘못 등록한 항목)를 제거하고, 「라켓」 설명에 누락됐던 「비전 트릭스터」를 추가하고, 각 라켓의 훈련 기술 설명과 한글 명칭(지략가·도둑)을 드롭다운과 일치시켰습니다.',
+  ] },
+  { v: '0.20', date: '2026-07-01', items: [
+    '제한 시전자(매서·소환사·사이킥)의 주문 슬롯 수를 정본대로 수정했습니다 — 매서·소환사는 최상위 2개 랭크에만 슬롯(10랭크 없음), 사이킥은 별도 진행에 소마법 3개로 바로잡았습니다(이전엔 셋 다 모든 랭크에 슬롯이 뜨던 오류).',
+    '도적 전문(라켓)의 누락된 훈련 기술을 보강했습니다 — 도둑→도둑질, 무뢰한(scoundrel)→외교, 지략가→사회.',
+    '마녀 “야생” 후원자가 집중 주문 “야생의 분노(Wilding Word)”를 받지 못하던 문제를 고쳤습니다.',
+  ] },
+  { v: '0.19', date: '2026-06-30', items: [
+    '특성 칩을 누르면 나오는 설명을 대폭 보강했습니다 — 그동안 설명이 없던 특성 390여 종(예: “치명적이지 않음”, “방사”, “주문형상”, “신성한” 등)에 공식 한글 설명을 추가했습니다.',
+    '시전 전통(아케인/디바인/오컬트/원시의) 특성의 설명을 공식 정본 설명으로 교체했습니다.',
+  ] },
   { v: '0.18', date: '2026-06-30', items: [
     '특성 칩을 모두 동일한 칩 형태로 통일했습니다 — 설명이 없는 특성(예: “치명적이지 않음”)이 칩이 아닌 일반 텍스트처럼 섞여 보이던 문제를 고쳤습니다.',
     '주문의 시전 전통이 영문(arcane/divine)으로 보이던 것을 한글(아케인/디바인)로 표시하고, 누르면 설명도 나오도록 했습니다.',
