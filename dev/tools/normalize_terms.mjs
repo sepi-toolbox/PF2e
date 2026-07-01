@@ -160,6 +160,16 @@ function proseSweep(text) {
 const PROSE_FILES = ['data/overlay/feats.ko.json', 'data/overlay/spells.ko.json', 'data/overlay/effects.ko.json', 'data/overlay/equipment.ko.json', 'data/overlay/conditions.ko.json', 'data/overlay/heritages.ko.json', 'data/overlay/backgrounds.ko.json', 'data/overlay/deities.ko.json', 'data/overlay/ancestries.ko.json', 'data/overlay/actions.ko.json'];
 for (const p of PROSE_FILES) { let t = writes[p] !== undefined ? writes[p] : fs.readFileSync(path.join(DEV, p), 'utf8'); writes[p] = proseSweep(t); }
 
+// (i) 설명문 평문 고정구 정본화 — 게임 고정 용어구라 앵커 불필요(일반 산문 오탐 없음).
+// ⚠ '마스터'(일반어/이름)·'특기'(일반어)·'대가'(일반어)는 문맥판단 필요라 제외(별도 정밀 패스).
+const TERM_MAP = { '공격 굴림': '명중 굴림', '오프-가드': '무방비', '오프 가드': '무방비' };
+let termCount = 0;
+function termSweep(text) {
+  for (const o in TERM_MAP) { const re = new RegExp(o, 'g'); text = text.replace(re, () => { termCount++; return TERM_MAP[o]; }); }
+  return text;
+}
+for (const p of PROSE_FILES) { let t = writes[p] !== undefined ? writes[p] : fs.readFileSync(path.join(DEV, p), 'utf8'); writes[p] = termSweep(t); }
+
 // ── 4) 로그 출력 ──
 const byCat = {}; for (const l of LOG) byCat[l.cat] = (byCat[l.cat] || 0) + 1;
 console.log('=== 정본 용어집 파싱 ===');
@@ -168,6 +178,7 @@ console.log('=== 변경 예정', LOG.length, '건 ===', JSON.stringify(byCat));
 for (const l of LOG) console.log(`  [${l.cat}] ${l.file} :: ${l.key} : "${l.from}" → "${l.to}"`);
 console.log('=== 조건 @UUID 라벨(단순) 정본화:', labelCount, '건 ===');
 console.log('=== 설명문 "X 상태" 조건 평문 정본화:', proseCount, '건 ===');
+console.log('=== 설명문 고정구 정본화(공격굴림→명중굴림, 오프가드→무방비):', termCount, '건 ===');
 
 if (APPLY) {
   const stamp = process.env.NORM_DATE || '2026-07-01';
