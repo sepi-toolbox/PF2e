@@ -1,5 +1,5 @@
 {
- "note": "재주 선행조건 구조화(파싱). 조건보유 3791 · 완전구조화 2842 · 부분 314 · 텍스트폴백 635. conds 포맷=_checkOnePrereq({skill,rank}/{lore}/{perception}/{feat,featSlug}/{or:[...]}). 문자열(text)은 표시 유지. 재생성=node tools/derive/build_prereqs.mjs.",
+ "note": "재주 선행조건 구조화(파싱). 조건보유 3791 · 완전구조화 2942 · 부분 303 · 텍스트폴백 546. conds 포맷=_checkOnePrereq({skill,rank}/{lore}/{perception}/{feat,featSlug}/{subclass}/{heritage}/{or:[...]}). 서브클래스·유산은 실존 엔티티 해소분만(미해소=자동달성). 문자열(text)은 표시 유지. 재생성=node tools/derive/build_prereqs.mjs.",
  "rows": [
   {
    "slug": "way-of-the-spellshot",
@@ -292,8 +292,8 @@
   {
    "slug": "warpriests-armor",
    "text": "warpriest doctrine",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"전투 사제\",\"subclass_en\":\"Warpriest\"}]"
   },
   {
    "slug": "champion-dedication",
@@ -418,8 +418,8 @@
   {
    "slug": "hard-tail",
    "text": "tailed goblin heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Tailed Goblin\"},{\"heritage\":\"꼬리 고블린\"}]}]"
   },
   {
    "slug": "remote-detonation",
@@ -676,8 +676,8 @@
   {
    "slug": "kaijus-footfalls",
    "text": "mightyfall kobold heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Mightyfall Kobold\"},{\"heritage\":\"마이티폴 코볼트\"}]}]"
   },
   {
    "slug": "big-game-trapper",
@@ -706,8 +706,8 @@
   {
    "slug": "know-it-all",
    "text": "enigma muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"수수께끼\",\"subclass_en\":\"Enigma\"}]"
   },
   {
    "slug": "undying-beast",
@@ -766,8 +766,8 @@
   {
    "slug": "harmonize",
    "text": "maestro muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"마에스트로\",\"subclass_en\":\"Maestro\"}]"
   },
   {
    "slug": "root-magic",
@@ -952,8 +952,8 @@
   {
    "slug": "extra-squishy",
    "text": "unbreakable goblin heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Unbreakable Goblin\"},{\"heritage\":\"불굴의 고블린\"}]}]"
   },
   {
    "slug": "weight-of-guilt",
@@ -1030,8 +1030,8 @@
   {
    "slug": "fierce-grasp",
    "text": "climbing animal heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Climbing Animal\"},{\"heritage\":\"등반 동물\"}]}]"
   },
   {
    "slug": "you-cant-keep-us-down",
@@ -1510,8 +1510,8 @@
   {
    "slug": "esoteric-polymath",
    "text": "polymath muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"박학다식\",\"subclass_en\":\"Polymath\"}]"
   },
   {
    "slug": "enhanced-psychopomp-familiar",
@@ -1588,8 +1588,8 @@
   {
    "slug": "embodied-dreadnought-subjectivity",
    "text": "cataphract fleshwarp heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Cataphract Fleshwarp\"},{\"heritage\":\"카타프랙트 플레시워프\"}]}]"
   },
   {
    "slug": "hobnobber",
@@ -1672,8 +1672,8 @@
   {
    "slug": "unbalancing-blow",
    "text": "thief racket",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"도둑\",\"subclass_en\":\"Thief\"}]"
   },
   {
    "slug": "heavens-step-offense",
@@ -1780,8 +1780,8 @@
   {
    "slug": "defensive-coordination",
    "text": "warrior muse, Rallying Anthem",
-   "parsed": "",
-   "conds": "[{\"feat\":\"Rallying Anthem\",\"feat_ko\":\"집결의 찬가\",\"featSlug\":\"rallying-anthem\"}]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"전사\",\"subclass_en\":\"Warrior\"},{\"feat\":\"Rallying Anthem\",\"feat_ko\":\"집결의 찬가\",\"featSlug\":\"rallying-anthem\"}]"
   },
   {
    "slug": "ghost-dedication",
@@ -2116,8 +2116,8 @@
   {
    "slug": "embodied-legionary-subjectivity",
    "text": "cataphract fleshwarp heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Cataphract Fleshwarp\"},{\"heritage\":\"카타프랙트 플레시워프\"}]}]"
   },
   {
    "slug": "orthographic-mastery",
@@ -2272,8 +2272,8 @@
   {
    "slug": "in-tune",
    "text": "maestro muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"마에스트로\",\"subclass_en\":\"Maestro\"}]"
   },
   {
    "slug": "medical-researcher",
@@ -2296,8 +2296,8 @@
   {
    "slug": "pounding-leap",
    "text": "warrior jotunborn heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"heritage\":\"Warrior Jotunborn\"}]"
   },
   {
    "slug": "borrow-time",
@@ -2464,8 +2464,8 @@
   {
    "slug": "fisheye",
    "text": "kijimuna gnome heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Kijimuna Gnome\"},{\"heritage\":\"키지무나 노움\"}]}]"
   },
   {
    "slug": "master-eldritch-archer-spellcasting",
@@ -3316,8 +3316,8 @@
   {
    "slug": "unbreakable-er-goblin",
    "text": "unbreakable goblin heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Unbreakable Goblin\"},{\"heritage\":\"불굴의 고블린\"}]}]"
   },
   {
    "slug": "emergency-medical-assistance",
@@ -3586,8 +3586,8 @@
   {
    "slug": "benefactors-strike",
    "text": "dragonscaled kobold heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dragonscaled Kobold\"},{\"heritage\":\"용비늘 코볼트\"}]}]"
   },
   {
    "slug": "helts-spelldance",
@@ -3760,8 +3760,8 @@
   {
    "slug": "speak-with-bats",
    "text": "nyktera heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Nyktera\"},{\"heritage\":\"닉테라\"}]}]"
   },
   {
    "slug": "stone-guardian",
@@ -3838,8 +3838,8 @@
   {
    "slug": "roll-with-it",
    "text": "unbreakable goblin heritage, Bouncy Goblin",
-   "parsed": "",
-   "conds": "[{\"feat\":\"Bouncy Goblin\",\"feat_ko\":\"탄력 고블린\",\"featSlug\":\"bouncy-goblin\"}]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Unbreakable Goblin\"},{\"heritage\":\"불굴의 고블린\"}]},{\"feat\":\"Bouncy Goblin\",\"feat_ko\":\"탄력 고블린\",\"featSlug\":\"bouncy-goblin\"}]"
   },
   {
    "slug": "harrow-casting",
@@ -3970,8 +3970,8 @@
   {
    "slug": "bouncy-goblin",
    "text": "unbreakable goblin heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Unbreakable Goblin\"},{\"heritage\":\"불굴의 고블린\"}]}]"
   },
   {
    "slug": "redirect-elements",
@@ -3994,8 +3994,8 @@
   {
    "slug": "stone-passage",
    "text": "slabsoul minotaur heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Slabsoul Minotaur\"},{\"heritage\":\"슬랩소울 미노타우로스\"}]}]"
   },
   {
    "slug": "unkillable",
@@ -4024,8 +4024,8 @@
   {
    "slug": "courageous-assault",
    "text": "warrior muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"전사\",\"subclass_en\":\"Warrior\"}]"
   },
   {
    "slug": "rejuvenation",
@@ -4114,8 +4114,8 @@
   {
    "slug": "energy-blessed",
    "text": "elemental heart dwarf heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Elemental Heart Dwarf\"},{\"heritage\":\"원소 심장 드워프\"}]}]"
   },
   {
    "slug": "basic-spellcasting",
@@ -4246,8 +4246,8 @@
   {
    "slug": "waxed-feathers",
    "text": "wavediver tengu heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Wavediver Tengu\"},{\"heritage\":\"웨이브다이버 텐구\"}]}]"
   },
   {
    "slug": "mineral-deposits",
@@ -4325,7 +4325,7 @@
    "slug": "insulated-poppet",
    "text": "tsukumogami poppet heritage, you have a metal or ceramic body",
    "parsed": "",
-   "conds": "[]"
+   "conds": "[{\"or\":[{\"heritage\":\"Tsukumogami Poppet\"},{\"heritage\":\"츠쿠모가미 인형\"}]}]"
   },
   {
    "slug": "fulu-familiar",
@@ -4354,8 +4354,8 @@
   {
    "slug": "solidarity",
    "text": "tsukumogami poppet heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Tsukumogami Poppet\"},{\"heritage\":\"츠쿠모가미 인형\"}]}]"
   },
   {
    "slug": "duelists-edge",
@@ -4396,8 +4396,8 @@
   {
    "slug": "imperial-dragon-potion",
    "text": "heavenscribe kobold heritage, expert in Crafting",
-   "parsed": "",
-   "conds": "[{\"skill\":\"crafting\",\"rank\":4}]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Heavenscribe Kobold\"},{\"heritage\":\"천상의 필사자 코볼드\"}]},{\"skill\":\"crafting\",\"rank\":4}]"
   },
   {
    "slug": "shadow-master",
@@ -4606,8 +4606,8 @@
   {
    "slug": "dragonscaled-lore",
    "text": "dragonscaled kobold heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dragonscaled Kobold\"},{\"heritage\":\"용비늘 코볼트\"}]}]"
   },
   {
    "slug": "janatimos-lessons",
@@ -4720,8 +4720,8 @@
   {
    "slug": "methodical-debilitations",
    "text": "mastermind racket, Debilitating Strike",
-   "parsed": "",
-   "conds": "[{\"feat\":\"Debilitating Strike\",\"feat_ko\":\"무력화 타격\",\"featSlug\":\"debilitating-strike\"}]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"지략가\",\"subclass_en\":\"Mastermind\"},{\"feat\":\"Debilitating Strike\",\"feat_ko\":\"무력화 타격\",\"featSlug\":\"debilitating-strike\"}]"
   },
   {
    "slug": "beastmasters-trance",
@@ -4852,8 +4852,8 @@
   {
    "slug": "clever-gambit",
    "text": "mastermind racket",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"지략가\",\"subclass_en\":\"Mastermind\"}]"
   },
   {
    "slug": "sonic-strafe",
@@ -4924,8 +4924,8 @@
   {
    "slug": "benefactors-resistance",
    "text": "dragonscaled kobold heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dragonscaled Kobold\"},{\"heritage\":\"용비늘 코볼트\"}]}]"
   },
   {
    "slug": "mighty-dragon-shape",
@@ -5050,8 +5050,8 @@
   {
    "slug": "ritual-researcher",
    "text": "enigma muse, expert in Occultism",
-   "parsed": "",
-   "conds": "[{\"skill\":\"occultism\",\"rank\":4}]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"수수께끼\",\"subclass_en\":\"Enigma\"},{\"skill\":\"occultism\",\"rank\":4}]"
   },
   {
    "slug": "guided-hover",
@@ -5068,8 +5068,8 @@
   {
    "slug": "brutal-beating",
    "text": "ruffian racket",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"건달\",\"subclass_en\":\"Ruffian\"}]"
   },
   {
    "slug": "rapid-recharge",
@@ -5218,8 +5218,8 @@
   {
    "slug": "winter-cat-senses",
    "text": "Winter Catfolk Heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Winter Catfolk\"},{\"heritage\":\"겨울 캣포크\"}]}]"
   },
   {
    "slug": "shattered-sacrament",
@@ -5668,8 +5668,8 @@
   {
    "slug": "renewing-quills",
    "text": "quillcoat shisk heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Quillcoat Shisk\"},{\"heritage\":\"퀼코트 시스크\"}]}]"
   },
   {
    "slug": "greater-transformation",
@@ -5740,8 +5740,8 @@
   {
    "slug": "mooneater",
    "text": "bakuwa lizardfolk heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Bakuwa Lizardfolk\"},{\"heritage\":\"바쿠와 리자드포크\"}]}]"
   },
   {
    "slug": "drifters-juke",
@@ -5836,8 +5836,8 @@
   {
    "slug": "breath-like-honey",
    "text": "sweetbreath kholo heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Sweetbreath Kholo\"},{\"heritage\":\"스윗브레스 콜로\"}]}]"
   },
   {
    "slug": "contact-with-the-enemy",
@@ -5890,14 +5890,14 @@
   {
    "slug": "fortissimo-composition",
    "text": "maestro muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"마에스트로\",\"subclass_en\":\"Maestro\"}]"
   },
   {
    "slug": "song-of-strength",
    "text": "warrior muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"전사\",\"subclass_en\":\"Warrior\"}]"
   },
   {
    "slug": "adaptive-mask-familiar",
@@ -7810,8 +7810,8 @@
   {
    "slug": "freeze-it",
    "text": "snow goblin heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Snow Goblin\"},{\"heritage\":\"스노우 고블린\"}]}]"
   },
   {
    "slug": "unlimited-ghost-flight",
@@ -8152,8 +8152,8 @@
   {
    "slug": "phantom-charm",
    "text": "ghost bull minotaur heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Ghost Bull Minotaur\"},{\"heritage\":\"유령 황소 미노타우로스\"}]}]"
   },
   {
    "slug": "weapon-improviser-dedication",
@@ -8704,8 +8704,8 @@
   {
    "slug": "camouflage-coat",
    "text": "mottle-coat centaur heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Mottle-Coat Centaur\"},{\"heritage\":\"얼룩무늬 켄타우로스\"}]}]"
   },
   {
    "slug": "favorable-winds",
@@ -8842,8 +8842,8 @@
   {
    "slug": "goblin-club",
    "text": "dokkaebi goblin heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dokkaebi Goblin\"},{\"heritage\":\"도깨비 고블린\"}]}]"
   },
   {
    "slug": "incredible-dragon-companion",
@@ -8986,8 +8986,8 @@
   {
    "slug": "distant-cackle",
    "text": "witch kholo heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Witch Kholo\"},{\"heritage\":\"마녀 콜로\"}]}]"
   },
   {
    "slug": "convergent-tides",
@@ -9136,8 +9136,8 @@
   {
    "slug": "kobold-breath",
    "text": "dragonscaled kobold heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dragonscaled Kobold\"},{\"heritage\":\"용비늘 코볼트\"}]}]"
   },
   {
    "slug": "additional-follower",
@@ -9502,8 +9502,8 @@
   {
    "slug": "studious-capacity",
    "text": "enigma muse, legendary in Occultism",
-   "parsed": "",
-   "conds": "[{\"skill\":\"occultism\",\"rank\":8}]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"수수께끼\",\"subclass_en\":\"Enigma\"},{\"skill\":\"occultism\",\"rank\":8}]"
   },
   {
    "slug": "formation-master",
@@ -9574,8 +9574,8 @@
   {
    "slug": "ultimate-polymath",
    "text": "polymath muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"박학다식\",\"subclass_en\":\"Polymath\"}]"
   },
   {
    "slug": "tempo-duelist",
@@ -9844,8 +9844,8 @@
   {
    "slug": "phantom-visage",
    "text": "dokkaebi goblin heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dokkaebi Goblin\"},{\"heritage\":\"도깨비 고블린\"}]}]"
   },
   {
    "slug": "hindquarter-kick",
@@ -9862,8 +9862,8 @@
   {
    "slug": "triumphant-inspiration",
    "text": "warrior muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"전사\",\"subclass_en\":\"Warrior\"}]"
   },
   {
    "slug": "instinctual-interception",
@@ -10354,8 +10354,8 @@
   {
    "slug": "dragons-presence",
    "text": "dragonscaled kobold heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dragonscaled Kobold\"},{\"heritage\":\"용비늘 코볼트\"}]}]"
   },
   {
    "slug": "battlefield-arcana",
@@ -10684,8 +10684,8 @@
   {
    "slug": "eclectic-skill",
    "text": "polymath muse, master in Occultism",
-   "parsed": "",
-   "conds": "[{\"skill\":\"occultism\",\"rank\":6}]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"박학다식\",\"subclass_en\":\"Polymath\"},{\"skill\":\"occultism\",\"rank\":6}]"
   },
   {
    "slug": "deepening-devotion",
@@ -10828,8 +10828,8 @@
   {
    "slug": "soaring-flight",
    "text": "skyborn tengu heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Skyborn Tengu\"},{\"heritage\":\"스카이본 텐구\"}]}]"
   },
   {
    "slug": "feast",
@@ -10966,8 +10966,8 @@
   {
    "slug": "torch-goblin",
    "text": "charhide goblin heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Charhide Goblin\"},{\"heritage\":\"숯불 고블린\"}]}]"
   },
   {
    "slug": "corpse-stench",
@@ -11260,8 +11260,8 @@
   {
    "slug": "friend-of-the-family",
    "text": "heavenscribe kobold heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Heavenscribe Kobold\"},{\"heritage\":\"천상의 필사자 코볼드\"}]}]"
   },
   {
    "slug": "form-up",
@@ -11530,8 +11530,8 @@
   {
    "slug": "loremasters-etude",
    "text": "enigma muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"수수께끼\",\"subclass_en\":\"Enigma\"}]"
   },
   {
    "slug": "broad-snare",
@@ -12094,8 +12094,8 @@
   {
    "slug": "awaken-the-obake",
    "text": "tsukumogami poppet heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Tsukumogami Poppet\"},{\"heritage\":\"츠쿠모가미 인형\"}]}]"
   },
   {
    "slug": "intimidating-prowess",
@@ -12268,8 +12268,8 @@
   {
    "slug": "tactical-debilitations",
    "text": "scoundrel racket, Debilitating Strike",
-   "parsed": "",
-   "conds": "[{\"feat\":\"Debilitating Strike\",\"feat_ko\":\"무력화 타격\",\"featSlug\":\"debilitating-strike\"}]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"사기꾼\",\"subclass_en\":\"Scoundrel\"},{\"feat\":\"Debilitating Strike\",\"feat_ko\":\"무력화 타격\",\"featSlug\":\"debilitating-strike\"}]"
   },
   {
    "slug": "cloud-walk",
@@ -12340,8 +12340,8 @@
   {
    "slug": "true-hypercognition",
    "text": "enigma muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"수수께끼\",\"subclass_en\":\"Enigma\"}]"
   },
   {
    "slug": "advanced-shooting",
@@ -13096,8 +13096,8 @@
   {
    "slug": "nothing-but-fluff",
    "text": "Stuffed poppet heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Stuffed Poppet\"},{\"heritage\":\"박제된 퍼펫\"}]}]"
   },
   {
    "slug": "tactical-excellence",
@@ -13288,8 +13288,8 @@
   {
    "slug": "take-flight",
    "text": "flying animal heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Flying Animal\"},{\"heritage\":\"비행 동물\"}]}]"
   },
   {
    "slug": "accelerating-touch",
@@ -13373,7 +13373,7 @@
    "slug": "irriseni-ice-witch",
    "text": "Jadwiga ethnicity, wintertouched human heritage",
    "parsed": "",
-   "conds": "[]"
+   "conds": "[{\"or\":[{\"heritage\":\"Wintertouched Human\"},{\"heritage\":\"겨울의 손길 인간\"}]}]"
   },
   {
    "slug": "acknowledge-fan",
@@ -13870,8 +13870,8 @@
   {
    "slug": "assured-knowledge",
    "text": "enigma muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"수수께끼\",\"subclass_en\":\"Enigma\"}]"
   },
   {
    "slug": "chorus-companion",
@@ -14704,8 +14704,8 @@
   {
    "slug": "uplifting-overture",
    "text": "maestro muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"마에스트로\",\"subclass_en\":\"Maestro\"}]"
   },
   {
    "slug": "dormant-eruption",
@@ -14740,8 +14740,8 @@
   {
    "slug": "steelhoof",
    "text": "ironhoof centaur heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Ironhoof Centaur\"},{\"heritage\":\"강철발굽 켄타우로스\"}]}]"
   },
   {
    "slug": "grave-sense",
@@ -15004,8 +15004,8 @@
   {
    "slug": "protective-claws",
    "text": "vicious goloma heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Vicious Goloma\"},{\"heritage\":\"사악한 골로마\"}]}]"
   },
   {
    "slug": "incredible-ricochet",
@@ -15208,8 +15208,8 @@
   {
    "slug": "towering-growth",
    "text": "Pine Leshy heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Pine Leshy\"},{\"heritage\":\"소나무 레시\"}]}]"
   },
   {
    "slug": "windborne-shove",
@@ -15454,8 +15454,8 @@
   {
    "slug": "dokkaebi-fire",
    "text": "dokkaebi goblin heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dokkaebi Goblin\"},{\"heritage\":\"도깨비 고블린\"}]}]"
   },
   {
    "slug": "grovel",
@@ -15784,8 +15784,8 @@
   {
    "slug": "distracting-feint",
    "text": "scoundrel racket",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"사기꾼\",\"subclass_en\":\"Scoundrel\"}]"
   },
   {
    "slug": "wyrmling-flight",
@@ -16078,8 +16078,8 @@
   {
    "slug": "plague-sniffer",
    "text": "longsnout rat heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Longsnout Rat\"},{\"heritage\":\"긴주둥이 랫\"}]}]"
   },
   {
    "slug": "leverage-connections",
@@ -16180,8 +16180,8 @@
   {
    "slug": "deep-lore",
    "text": "enigma muse, legendary in Occultism",
-   "parsed": "",
-   "conds": "[{\"skill\":\"occultism\",\"rank\":8}]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"수수께끼\",\"subclass_en\":\"Enigma\"},{\"skill\":\"occultism\",\"rank\":8}]"
   },
   {
    "slug": "beautiful-knifework",
@@ -16438,8 +16438,8 @@
   {
    "slug": "versatile-performance",
    "text": "polymath muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"박학다식\",\"subclass_en\":\"Polymath\"}]"
   },
   {
    "slug": "mixed-maneuver",
@@ -16588,8 +16588,8 @@
   {
    "slug": "made-for-combat",
    "text": "tsukumogami poppet heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Tsukumogami Poppet\"},{\"heritage\":\"츠쿠모가미 인형\"}]}]"
   },
   {
    "slug": "share-eidolon-magic",
@@ -16894,8 +16894,8 @@
   {
    "slug": "eldritch-debilitations",
    "text": "eldritch trickster racket, Debilitating Strike",
-   "parsed": "",
-   "conds": "[{\"feat\":\"Debilitating Strike\",\"feat_ko\":\"무력화 타격\",\"featSlug\":\"debilitating-strike\"}]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"비전 트릭스터\",\"subclass_en\":\"Eldritch Trickster\"},{\"feat\":\"Debilitating Strike\",\"feat_ko\":\"무력화 타격\",\"featSlug\":\"debilitating-strike\"}]"
   },
   {
    "slug": "master-siege-engineer",
@@ -16978,8 +16978,8 @@
   {
    "slug": "rabid-sprint",
    "text": "dog kholo heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dog Kholo\"},{\"heritage\":\"개 콜로\"}]}]"
   },
   {
    "slug": "once-and-future",
@@ -17308,8 +17308,8 @@
   {
    "slug": "dracomancer",
    "text": "dragonscaled kobold heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dragonscaled Kobold\"},{\"heritage\":\"용비늘 코볼트\"}]}]"
   },
   {
    "slug": "my-reputation-precedes-me",
@@ -17320,8 +17320,8 @@
   {
    "slug": "briny-beverage",
    "text": "kijimuna gnome heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Kijimuna Gnome\"},{\"heritage\":\"키지무나 노움\"}]}]"
   },
   {
    "slug": "specialized-spirit-companion",
@@ -17350,8 +17350,8 @@
   {
    "slug": "resounding-finale",
    "text": "maestro muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"마에스트로\",\"subclass_en\":\"Maestro\"}]"
   },
   {
    "slug": "devout-blessing",
@@ -17434,8 +17434,8 @@
   {
    "slug": "iivlars-deflection",
    "text": "keeper jotunborn heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"heritage\":\"Keeper Jotunborn\"}]"
   },
   {
    "slug": "runescarred-dedication",
@@ -17920,8 +17920,8 @@
   {
    "slug": "scarlet-strands",
    "text": "kijimuna gnome heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Kijimuna Gnome\"},{\"heritage\":\"키지무나 노움\"}]}]"
   },
   {
    "slug": "cozy-campfire",
@@ -17992,8 +17992,8 @@
   {
    "slug": "reflexive-courage",
    "text": "warrior muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"전사\",\"subclass_en\":\"Warrior\"}]"
   },
   {
    "slug": "titans-stature",
@@ -18010,8 +18010,8 @@
   {
    "slug": "hoarders-craw",
    "text": "dragonscaled kobold heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dragonscaled Kobold\"},{\"heritage\":\"용비늘 코볼트\"}]}]"
   },
   {
    "slug": "contagious-rage",
@@ -18448,8 +18448,8 @@
   {
    "slug": "tomb-watchers-glare",
    "text": "death warden dwarf heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Death Warden Dwarf\"},{\"heritage\":\"죽음의 감시자 드워프\"}]}]"
   },
   {
    "slug": "aegis-for-the-innocent",
@@ -19024,8 +19024,8 @@
   {
    "slug": "martial-performance",
    "text": "warrior muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"전사\",\"subclass_en\":\"Warrior\"}]"
   },
   {
    "slug": "clawdancer-dedication",
@@ -19180,8 +19180,8 @@
   {
    "slug": "whispers-in-the-night",
    "text": "dokkaebi goblin heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dokkaebi Goblin\"},{\"heritage\":\"도깨비 고블린\"}]}]"
   },
   {
    "slug": "shifting-faces",
@@ -19474,8 +19474,8 @@
   {
    "slug": "glorious-gamtu",
    "text": "dokkaebi goblin heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dokkaebi Goblin\"},{\"heritage\":\"도깨비 고블린\"}]}]"
   },
   {
    "slug": "unusual-treatment",
@@ -19582,8 +19582,8 @@
   {
    "slug": "tail-spin",
    "text": "tailed goblin heritage, Hard Tail",
-   "parsed": "",
-   "conds": "[{\"feat\":\"Hard Tail\",\"feat_ko\":\"단단한 꼬리\",\"featSlug\":\"hard-tail\"}]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Tailed Goblin\"},{\"heritage\":\"꼬리 고블린\"}]},{\"feat\":\"Hard Tail\",\"feat_ko\":\"단단한 꼬리\",\"featSlug\":\"hard-tail\"}]"
   },
   {
    "slug": "homing-shot",
@@ -19606,8 +19606,8 @@
   {
    "slug": "river-adaptation",
    "text": "makari lizardfolk heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Makari Lizardfolk\"},{\"heritage\":\"마카리 리자드포크\"}]}]"
   },
   {
    "slug": "impossible-snares",
@@ -19786,8 +19786,8 @@
   {
    "slug": "lingering-composition",
    "text": "maestro muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"마에스트로\",\"subclass_en\":\"Maestro\"}]"
   },
   {
    "slug": "expert-druid-spellcasting",
@@ -19924,8 +19924,8 @@
   {
    "slug": "courageous-advance",
    "text": "warrior muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"전사\",\"subclass_en\":\"Warrior\"}]"
   },
   {
    "slug": "blood-calls-blood",
@@ -20152,8 +20152,8 @@
   {
    "slug": "sudden-terror",
    "text": "tsukumogami poppet heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Tsukumogami Poppet\"},{\"heritage\":\"츠쿠모가미 인형\"}]}]"
   },
   {
    "slug": "environmental-adaptability",
@@ -20224,14 +20224,14 @@
   {
    "slug": "versatile-signature",
    "text": "polymath muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"박학다식\",\"subclass_en\":\"Polymath\"}]"
   },
   {
    "slug": "unusual-composition",
    "text": "polymath muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"박학다식\",\"subclass_en\":\"Polymath\"}]"
   },
   {
    "slug": "ghost-blade",
@@ -20284,8 +20284,8 @@
   {
    "slug": "vibrant-display",
    "text": "chameleon gnome heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Chameleon Gnome\"},{\"heritage\":\"카멜레온 노움\"}]}]"
   },
   {
    "slug": "butterfly-blade-dedication",
@@ -20488,8 +20488,8 @@
   {
    "slug": "bardic-lore",
    "text": "enigma muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"수수께끼\",\"subclass_en\":\"Enigma\"}]"
   },
   {
    "slug": "emergency-targe",
@@ -21166,8 +21166,8 @@
   {
    "slug": "kneel-for-no-god",
    "text": "ancient-blooded dwarf heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Ancient-Blooded Dwarf\"},{\"heritage\":\"고대 혈통 드워프\"}]}]"
   },
   {
    "slug": "obscured-terrain",
@@ -21316,8 +21316,8 @@
   {
    "slug": "dogfang-bite",
    "text": "dogtooth tengu heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Dogtooth Tengu\"},{\"heritage\":\"개 이빨 텐구\"}]}]"
   },
   {
    "slug": "specialized-mount",
@@ -21418,8 +21418,8 @@
   {
    "slug": "precise-debilitations",
    "text": "thief racket, Debilitating Strike",
-   "parsed": "",
-   "conds": "[{\"feat\":\"Debilitating Strike\",\"feat_ko\":\"무력화 타격\",\"featSlug\":\"debilitating-strike\"}]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"도둑\",\"subclass_en\":\"Thief\"},{\"feat\":\"Debilitating Strike\",\"feat_ko\":\"무력화 타격\",\"featSlug\":\"debilitating-strike\"}]"
   },
   {
    "slug": "wing-shove",
@@ -21754,8 +21754,8 @@
   {
    "slug": "no-hands-no-problem",
    "text": "tsukumogami poppet heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Tsukumogami Poppet\"},{\"heritage\":\"츠쿠모가미 인형\"}]}]"
   },
   {
    "slug": "basic-skysage-divination",
@@ -21832,8 +21832,8 @@
   {
    "slug": "eternal-composition",
    "text": "maestro muse",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"마에스트로\",\"subclass_en\":\"Maestro\"}]"
   },
   {
    "slug": "controlled-blast",
@@ -22012,8 +22012,8 @@
   {
    "slug": "iruxi-glide",
    "text": "cloudleaper lizardfolk heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Cloudleaper Lizardfolk\"},{\"heritage\":\"클라우드리퍼 리자드포크\"}]}]"
   },
   {
    "slug": "great-bear",
@@ -22342,8 +22342,8 @@
   {
    "slug": "grim-insight",
    "text": "umbral gnome heritage",
-   "parsed": "",
-   "conds": "[]"
+   "parsed": 1,
+   "conds": "[{\"or\":[{\"heritage\":\"Umbral Gnome\"},{\"heritage\":\"움브렐 노움\"}]}]"
   },
   {
    "slug": "lucky-keepsake",
@@ -22354,8 +22354,8 @@
   {
    "slug": "vicious-debilitations",
    "text": "ruffian racket, Debilitating Strike",
-   "parsed": "",
-   "conds": "[{\"feat\":\"Debilitating Strike\",\"feat_ko\":\"무력화 타격\",\"featSlug\":\"debilitating-strike\"}]"
+   "parsed": 1,
+   "conds": "[{\"subclass\":\"건달\",\"subclass_en\":\"Ruffian\"},{\"feat\":\"Debilitating Strike\",\"feat_ko\":\"무력화 타격\",\"featSlug\":\"debilitating-strike\"}]"
   },
   {
    "slug": "advanced-element-control",
