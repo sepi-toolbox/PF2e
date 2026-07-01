@@ -55,56 +55,39 @@ function _fvttFeatDef(f) {
   _FVTT_FEAT_DEF_CACHE.set(key, def);
   return def;
 }
+// v0.28~ 효과 단일화: EFFECTS_DB(effects_db.js) slug 단일 소스. 레거시 EFFECT_GROUPS 경로 + RE-브리지 폐기.
+// override(effect_groups.json, slug 키)는 getEffectRows(slug)가 반영 → def.effects에 자동 적용.
 function _getFeatEffectsDef(nameEn) {
   if (!nameEn) return null;
-  if (typeof getFeat === 'function') {
-    const f = getFeat(nameEn);
-    if (f && (f.effect_group_id || f.auto_note || f.damage_note || f.choice_id)) {
-      // ── effects 재구성: 공통 효과 + 노트 ──
-      const effects = [];
-      if (f.effect_group_id && typeof getEffectRows === 'function') {
-        for (const r of getEffectRows(f.effect_group_id)) effects.push(_rowToEffect(r));
-      }
-      if (f.auto_note) effects.push({ type: 'display_note', text: f.auto_note });
-      if (f.damage_note) effects.push(Object.assign({ type: 'damage_note' }, f.damage_note));
+  if (typeof getFeat !== 'function') return null;
+  const f = getFeat(nameEn); if (!f) return null;
+  const slug = f.id; if (!slug) return null;
+  const entry = (typeof EFFECTS_DB !== 'undefined') ? EFFECTS_DB[slug] : null;
+  // override(있으면 base rows 대체) 반영 — getEffectRows가 slug 키로 처리
+  const rows = (typeof getEffectRows === 'function') ? getEffectRows(slug) : (entry && entry.rows) || [];
+  const autoNote = entry && entry.auto_note, dmgNote = entry && entry.damage_note, choiceE = entry && entry.choice;
+  if (!rows.length && !autoNote && !dmgNote && !choiceE) return null;
 
-      // ── choice 재구성 ──
-      let choice = null, choiceEffects = null;
-      if (f.choice_id && typeof getChoiceOptions === 'function') {
-        choice = { type: f.choice_kind || '' };
-        if (f.choice_label) choice.label = f.choice_label;
-        if (f.choice_filter && typeof f.choice_filter === 'object') Object.assign(choice, f.choice_filter);
+  const effects = rows.map(_rowToEffect);
+  if (autoNote) effects.push({ type: 'display_note', text: autoNote });
+  if (dmgNote) effects.push(Object.assign({ type: 'damage_note' }, dmgNote));
 
-        const opts = getChoiceOptions(f.choice_id);
-        if (f.choice_kind === 'custom') {
-          choice.options = opts.map(o => ({ id: o.option_id, name: o.option_name }));
-        } else if (f.choice_kind === 'skill_defaults') {
-          choice.defaults = opts.filter(o => o.is_default).map(o => o.option_id);
-        }
-
-        // 옵션별 effect_group_id → choiceEffects
-        for (const o of opts) {
-          if (o.effect_group_id && typeof getEffectRows === 'function') {
-            const arr = getEffectRows(o.effect_group_id).map(_rowToEffect);
-            if (arr.length) {
-              if (!choiceEffects) choiceEffects = {};
-              choiceEffects[o.option_id] = arr;
-            }
-          }
-        }
-      }
-
-      const def = { effects };
-      if (choice) def.choice = choice;
-      if (choiceEffects) def.choiceEffects = choiceEffects;
-      return def;
-    }
-    // 레거시 효과 없음 + FVTT 재주(_reEffects) → RE 엔진으로 effects 조립
-    if (f && f._reEffects && typeof PF2eFeat !== 'undefined' && PF2eFeat.featEffects) {
-      return _fvttFeatDef(f);
+  let choice = null, choiceEffects = null;
+  if (choiceE) {
+    choice = { type: choiceE.kind || '' };
+    if (choiceE.label) choice.label = choiceE.label;
+    if (choiceE.filter && typeof choiceE.filter === 'object') Object.assign(choice, choiceE.filter);
+    const opts = choiceE.options || [];
+    if (choiceE.kind === 'custom') choice.options = opts.map(o => ({ id: o.option_id, name: o.option_name }));
+    else if (choiceE.kind === 'skill_defaults') choice.defaults = opts.filter(o => o.is_default).map(o => o.option_id);
+    for (const o of opts) {
+      if (o.rows && o.rows.length) { (choiceEffects = choiceEffects || {})[o.option_id] = o.rows.map(_rowToEffect); }
     }
   }
-  return null;
+  const def = { effects };
+  if (choice) def.choice = choice;
+  if (choiceEffects) def.choiceEffects = choiceEffects;
+  return def;
 }
 
 

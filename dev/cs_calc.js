@@ -488,8 +488,8 @@ function getHeritageEffects(h) {
   const id = h.id || '';
   if (_HERITAGE_EFFECTS_CACHE.has(id)) return _HERITAGE_EFFECTS_CACHE.get(id);
   const out = {};
-  if (h.effect_group_id && typeof getEffectRows === 'function') {
-    for (const r of getEffectRows(h.effect_group_id)) {
+  if (typeof getEffectRows === 'function') {
+    for (const r of getEffectRows(h.id)) { // slug 단일 소스
       switch (r.type) {
         case 'vision_upgrade': out.vision = r.target; break;
         case 'hp_bonus': out.hpBonus = (out.hpBonus || 0) + (r.value || 0); break;
@@ -539,10 +539,10 @@ function getBackgroundEffects(b) {
   const id = b.id || '';
   if (_BACKGROUND_EFFECTS_CACHE.has(id)) return _BACKGROUND_EFFECTS_CACHE.get(id);
   const out = { boosts: [], boost_choices: [], free_boosts: 0, fixed_skills: [], choice_skill_groups: [], fixed_lores: [], feat_id: null, deity_skill: false, deity_lore: false };
-  if (b.effect_group_id && typeof getEffectRows === 'function') {
+  if (typeof getEffectRows === 'function') {
     const _boostGroups = {};   // group_no → [ability...]
     const _skillGroups = {};   // group_no → [skill_id...]
-    for (const r of getEffectRows(b.effect_group_id)) {
+    for (const r of getEffectRows(b.id)) { // slug 단일 소스
       switch (r.type) {
         case 'ability_boost':
           out.boosts.push(r.target);
@@ -591,24 +591,18 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.27').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.28').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
   }).catch(() => {});
 }
-function getEffectRows(groupId) {
-  if (!groupId) return [];
-  if (_EFFECT_OVERRIDE && Object.prototype.hasOwnProperty.call(_EFFECT_OVERRIDE, groupId)) return _EFFECT_OVERRIDE[groupId] || [];
-  if (typeof EFFECT_GROUPS === 'undefined') return [];
-  if (_EFFECT_GROUPS_INDEX.size === 0 && EFFECT_GROUPS.length) {
-    for (const r of EFFECT_GROUPS) {
-      const arr = _EFFECT_GROUPS_INDEX.get(r.group_id) || [];
-      arr.push(r);
-      _EFFECT_GROUPS_INDEX.set(r.group_id, arr);
-    }
-  }
-  return _EFFECT_GROUPS_INDEX.get(groupId) || [];
+// v0.28~ 효과 단일화: slug 기준 EFFECTS_DB(effects_db.js) 단일 소스. override(effect_groups.json)도 slug 키.
+// (구 EFFECT_GROUPS/group_id 경로 폐기. 재주/유산/배경 모두 이 함수로 slug→효과행.)
+function getEffectRows(slug) {
+  if (!slug) return [];
+  if (_EFFECT_OVERRIDE && Object.prototype.hasOwnProperty.call(_EFFECT_OVERRIDE, slug)) return _EFFECT_OVERRIDE[slug] || [];
+  return (typeof EFFECTS_DB !== 'undefined' && EFFECTS_DB[slug] && EFFECTS_DB[slug].rows) || [];
 }
 
 const _CHOICE_OPTIONS_INDEX = new Map();

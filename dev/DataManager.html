@@ -561,31 +561,33 @@ const DM = (function(){
 
   // ── 효과그룹 override 편집기(레거시 효과행) ──
   function _effectEditorHtml(r){
-    if(!(curTab.id==='effects' && r.origin==='legacy' && r.effect_group_id)) return '';
-    const gid=r.effect_group_id;
-    const ov=overrides.effect_groups && overrides.effect_groups[gid];
-    const src=ov || (EG_RAW && EG_RAW[gid]) || [];
-    return '<div class="sec"><div class="sec-h">효과그룹 override 편집 · '+esc(gid)+'</div>'+
-      '<div style="font-size:10px;color:var(--text2);margin-bottom:4px;line-height:1.4;">효과행 배열(JSON). 저장 시 이 그룹을 override로 <b>그룹 단위 교체</b> → 런타임(getEffectRows) 반영. 빈 배열 <code>[]</code>=원본 복귀. raw slug/enum 유지. (FVTT 출처 행은 여기서 편집 불가 — system.rules[] 소관)</div>'+
+    // 효과 탭 행 → 그 엔티티(slug)의 런타임 효과행 override 편집. legacy·fvtt 모두 slug 단일 키.
+    if(curTab.id!=='effects' || !r.owner_slug) return '';
+    const slug=r.owner_slug;
+    const ov=overrides.effect_groups && overrides.effect_groups[slug];
+    const baked=(EG_RAW && EG_RAW[slug] && EG_RAW[slug].rows) || [];
+    const src=ov || baked;
+    return '<div class="sec"><div class="sec-h">효과 override 편집 · '+esc(slug)+'</div>'+
+      '<div style="font-size:10px;color:var(--text2);margin-bottom:4px;line-height:1.4;">이 엔티티의 <b>런타임 효과행 배열</b>(JSON). 저장 시 override로 <b>통째 교체</b> → 실제 자동화(getEffectRows→applyFeatEffects) 반영. 빈 배열 <code>[]</code>=원본 복귀. 각 행 <code>{type, target?, value?, ...}</code> raw slug/enum. (표시 테이블의 fvtt 파생행 중 조건부·비적용 type은 런타임 소스에 없을 수 있음 — 여기 보이는 게 실제 적용분)</div>'+
       '<textarea id="eg-edit" spellcheck="false" style="width:100%;height:200px;font:11px ui-monospace,monospace;background:#2b2118;color:#e8dcc0;border:1px solid var(--line2);border-radius:5px;padding:8px;box-sizing:border-box;">'+esc(JSON.stringify(src,null,1))+'</textarea>'+
-      '<div style="margin-top:6px;"><button class="dm-btn primary" onclick="DM.saveEffectGroupOverride(\''+esc(gid).replace(/'/g,"\\'")+'\')">override 저장(세션)</button>'+
-      (ov?' <span style="color:var(--gold);font-size:10px">● override 있음</span> <button class="dm-btn" onclick="DM.clearEffectGroupOverride(\''+esc(gid).replace(/'/g,"\\'")+'\')">되돌리기</button>':'')+
+      '<div style="margin-top:6px;"><button class="dm-btn primary" onclick="DM.saveEffectGroupOverride(\''+esc(slug).replace(/'/g,"\\'")+'\')">override 저장(세션)</button>'+
+      (ov?' <span style="color:var(--gold);font-size:10px">● override 있음</span> <button class="dm-btn" onclick="DM.clearEffectGroupOverride(\''+esc(slug).replace(/'/g,"\\'")+'\')">되돌리기</button>':'')+
       '</div></div>';
   }
-  function saveEffectGroupOverride(gid){
+  function saveEffectGroupOverride(slug){
     const ta=document.getElementById('eg-edit'); if(!ta)return;
     let arr; try{ arr=JSON.parse(ta.value); }catch(e){ alert('JSON 파싱 오류: '+e.message); return; }
     if(!Array.isArray(arr)){ alert('효과행 배열(JSON array)이어야 합니다.'); return; }
-    for(const x of arr){ if(!x||typeof x!=='object'||!x.type){ alert('각 행은 {type:...} 객체여야 합니다.'); return; } if(!x.group_id) x.group_id=gid; }
+    for(const x of arr){ if(!x||typeof x!=='object'||!x.type){ alert('각 행은 {type:...} 객체여야 합니다.'); return; } }
     overrides.effect_groups=overrides.effect_groups||{};
-    overrides.effect_groups[gid]=arr; saveOverrides();
+    overrides.effect_groups[slug]=arr; saveOverrides();
     alert('override 저장됨(세션 '+arr.length+'행). 상단 "dev 커밋"으로 data/override/effect_groups.json 반영.');
-    const r=view.find(x=>x.effect_group_id===gid&&x.origin==='legacy'); if(r)openDetail(r);
+    const r=view.find(x=>x.owner_slug===slug); if(r)openDetail(r);
   }
-  function clearEffectGroupOverride(gid){
-    if(overrides.effect_groups){ delete overrides.effect_groups[gid]; if(!Object.keys(overrides.effect_groups).length)delete overrides.effect_groups; }
+  function clearEffectGroupOverride(slug){
+    if(overrides.effect_groups){ delete overrides.effect_groups[slug]; if(!Object.keys(overrides.effect_groups).length)delete overrides.effect_groups; }
     saveOverrides();
-    const r=view.find(x=>x.effect_group_id===gid&&x.origin==='legacy'); if(r)openDetail(r);
+    const r=view.find(x=>x.owner_slug===slug); if(r)openDetail(r);
   }
 
   // ---- 커밋(컴패니언 서버) / 되돌리기 ----
@@ -610,7 +612,7 @@ const DM = (function(){
   function init(){ updateDiff(); renderTabs(); if(window.PF2eData&&PF2eData.loadLocalize)PF2eData.loadLocalize();
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
     fetch('data/derived/effect_refs.json?v=dm2').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effect_groups_raw.json?v=dm2').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm2').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, revertAll, closeDetail, saveEffectGroupOverride, clearEffectGroupOverride };

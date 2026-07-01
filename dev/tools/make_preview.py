@@ -75,6 +75,23 @@ function runDiag(){
    try{ if(typeof window[fn]==='function') window[fn](); }catch(e){ err.push(fn+':'+e.message); }
   });
   log('renderers ran');
+
+  // ── 효과 단일화(EFFECTS_DB) 검증 ──
+  ok('EFFECTS_DB loaded', typeof EFFECTS_DB!=='undefined' && Object.keys(EFFECTS_DB).length>1000);
+  ok('EFFECT_GROUPS emptied (레거시 제거)', typeof EFFECT_GROUPS!=='undefined' && EFFECT_GROUPS.length===0);
+  // 레거시 재주 효과가 EFFECTS_DB 경유로 나오나
+  var bd = _getFeatEffectsDef('Bard Dedication');
+  ok('feat def via EFFECTS_DB (Bard Dedication)', !!(bd && bd.effects && bd.effects.some(function(e){return e.type==='skill_trained';})));
+  // 유산(legacy) 효과
+  var hv = getHeritageEffects({id:'forge-dwarf'});
+  ok('heritage effects via EFFECTS_DB (forge-dwarf)', !!(hv && (hv.resistances||hv.hpBonus!=null||hv.vision)));
+  // 배경(legacy) 효과
+  var bg = getBackgroundEffects({id:'acolyte'});
+  ok('background effects via EFFECTS_DB (acolyte)', !!(bg && (bg.fixed_skills.length||bg.fixed_lores.length||bg.boosts.length)));
+  // fvtt-only 재주도 효과 나오나(있으면)
+  var anySlug=Object.keys(EFFECTS_DB).find(function(s){return EFFECTS_DB[s].source==='fvtt';});
+  ok('fvtt-origin entity has runtime rows', !!(anySlug && EFFECTS_DB[anySlug].rows.length));
+  log('EFFECTS_DB slugs='+Object.keys(EFFECTS_DB).length);
  }catch(e){ err.push('FATAL:'+e.message+' | '+(e.stack||'')); }
  function show(){
   var d=document.createElement('div'); d.id='preview-diag';

@@ -37,12 +37,24 @@ function egFields(r) { const o = {}; for (const k of Object.keys(r)) { if (k ===
 const rows = [];
 const refs = { feats: {}, heritages: {}, backgrounds: {} };
 const stat = { legacy: 0, fvtt: 0 };
+// 런타임 단일 소스: slug → { source, rows:[raw effect rows], auto_note?, damage_note?, choice? } (legacy 우선)
+const dbBySlug = {};
 
 // ── 레거시 효과행 ──
 function emitLegacy(base, f) {
   const eg = f.effect_group_id, ch = f.choice_id;
   if (!(eg || ch || f.auto_note || f.damage_note)) return false;
   if (eg) refs[base._refKey][base.owner_slug] = eg;
+  // 런타임 단일 소스(legacy 우선): raw 효과행 + choice 원형 보존 (_getFeatEffectsDef가 그대로 조립 → 파리티 보장)
+  const def = { source: 'legacy', rows: (egIdx[eg] || []).map(r => { const o = {}; for (const k in r) if (k !== 'group_id') o[k] = r[k]; return o; }) };
+  if (f.auto_note) def.auto_note = f.auto_note;
+  if (f.damage_note) def.damage_note = f.damage_note;
+  if (ch) {
+    def.choice = { id: ch, kind: f.choice_kind || '', label: f.choice_label || '', filter: f.choice_filter || null,
+      options: (coIdx[ch] || []).map(o => ({ option_id: o.option_id, option_name: o.option_name, is_default: !!o.is_default,
+        rows: (egIdx[o.effect_group_id] || []).map(r => { const x = {}; for (const k in r) if (k !== 'group_id') x[k] = r[k]; return x; }) })) };
+  }
+  dbBySlug[base.owner_slug] = def;
   const b = { ...base, effect_group_id: eg || '', origin: 'legacy', re_key: '' }; delete b._refKey;
   for (const r of (egIdx[eg] || [])) { rows.push({ ...b, src: 'effect', choice: '', option: '', ...egFields(r) }); stat.legacy++; }
   if (f.auto_note) { rows.push({ ...b, src: 'note', type: 'display_note', note: f.auto_note }); stat.legacy++; }
@@ -115,12 +127,23 @@ function fvttRuleRows(doc) {
   }
   return out;
 }
+// 런타임 적용 가능한 효과 type(applyFeatEffects switch가 처리하는 것). 그 외 fvtt 룰(strike/item_alteration/
+// roll_option/adjust_modifier/note/choice/ael/modifier/attack_bonus/perception_bonus/weakness/immunity/damage_dice)은
+// 표시 테이블엔 남기되 런타임 소스엔 넣지 않음(applyFeatEffects 미처리 → 무의미 + 부정확 방지).
+const APPLY_TYPES = new Set(['hp_bonus', 'skill_trained', 'skill_bonus', 'save_bonus', 'ac_bonus', 'vision_upgrade',
+  'extra_sense', 'resistance', 'grant_feat', 'grant_lore', 'grant_innate_spell', 'grant_focus_spell', 'speed_extra', 'proficiency', 'bulk_bonus', 'initiative_bonus']);
 function emitFvtt(base, doc) {
   if (!doc) return;
   const rr = fvttRuleRows(doc);
   if (!rr.length) return;
   const b = { ...base, effect_group_id: '', origin: 'fvtt', src: 'rule' }; delete b._refKey;
   for (const r of rr) { rows.push({ ...b, ...r }); stat.fvtt++; }
+  // 런타임 단일 소스: legacy 우선(이미 있으면 스킵). 적용가능 type + 무조건(predicate 없음) + 브래킷 미포함만.
+  if (dbBySlug[base.owner_slug]) return;
+  const runRows = rr.filter(r => APPLY_TYPES.has(r.type) && !r.condition
+    && !/[{}]/.test(String(r.target == null ? '' : r.target)) && !/[{}]/.test(String(r.value == null ? '' : r.value)))
+    .map(r => { const o = { type: r.type }; if (r.target !== '' && r.target != null) o.target = r.target; if (r.value !== '' && r.value != null) o.value = r.value; if (r.bonus_type) o.bonus_type = r.bonus_type; return o; });
+  if (runRows.length) dbBySlug[base.owner_slug] = { source: 'fvtt', rows: runRows };
 }
 
 // ── 소스 순회: FVTT 문서 풀 기준(전량) + 레거시 조인 ──
@@ -165,9 +188,19 @@ const note = `자동화 정본 효과 테이블(통합·전량). 효과행 ${row
 
 fs.writeFileSync(path.join(DEV, 'data/derived/effects.json'), JSON.stringify({ rows, note, _types: byType, _origin: byOrigin }, null, 1) + '\n');
 fs.writeFileSync(path.join(DEV, 'data/derived/effect_refs.json'), JSON.stringify(refs, null, 1) + '\n');
-// 편집용 raw 효과그룹 원본({group_id:[EG rows]}) — DataManager 효과그룹 override 편집기 소스.
-fs.writeFileSync(path.join(DEV, 'data/derived/effect_groups_raw.json'), JSON.stringify(egIdx, null, 1) + '\n');
+// 런타임 단일 소스(slug→def). EFFECT_GROUPS/CHOICE_OPTIONS/RE-브리지를 대체.
+fs.writeFileSync(path.join(DEV, 'data/derived/effects_db.json'), JSON.stringify(dbBySlug) + '\n');
+// 동기 로드용 JS 상수(오프라인·타이밍 안전, feat_db.js 패턴). index.html이 script로 로드.
+fs.writeFileSync(path.join(DEV, 'effects_db.js'),
+  '/* effects_db.js — 자동화 정본 단일 소스(slug→{source,rows,auto_note?,damage_note?,choice?}).\n'
+  + ' * 생성물: node tools/derive/build_effects.mjs. 수기 편집 금지. EFFECT_GROUPS/CHOICE_OPTIONS/RE-브리지 대체(효과 단일화). */\n'
+  + 'const EFFECTS_DB = ' + JSON.stringify(dbBySlug) + ';\n'
+  + "if (typeof window !== 'undefined') window.EFFECTS_DB = EFFECTS_DB;\n"
+  + "if (typeof module !== 'undefined') module.exports = EFFECTS_DB;\n");
+const dbStat = { total: Object.keys(dbBySlug).length, legacy: 0, fvtt: 0 };
+for (const s in dbBySlug) dbStat[dbBySlug[s].source]++;
 try { fs.unlinkSync(path.join(DEV, 'data/derived/feat_effects.json')); } catch (e) {}
-console.log('wrote effects.json + effect_refs.json');
+console.log('wrote effects.json + effect_refs.json + effects_db.json');
+console.log('effects_db slugs:', dbStat.total, JSON.stringify(dbStat));
 console.log('rows:', rows.length, 'origin:', JSON.stringify(byOrigin), 'types:', Object.keys(byType).length);
 console.log('refs feats=' + Object.keys(refs.feats).length, 'heritages=' + Object.keys(refs.heritages).length, 'backgrounds=' + Object.keys(refs.backgrounds).length);
