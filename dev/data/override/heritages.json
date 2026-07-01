@@ -1,13 +1,46 @@
 {
-  "house-drake": { "name_ko": "가문 드레이크" },
-  "homing-drake": { "name_ko": "귀소 드레이크" },
-  "weaver-jotunborn": { "name_ko": "직조 요툰본" },
-  "plane-hopper-jotunborn": { "name_ko": "차원 도약 요툰본" },
-  "sage-jotunborn": { "name_ko": "현자 요툰본" },
-  "tidepool-dragonet": { "name_ko": "조수 웅덩이 드래고넷" },
-  "pearl-dragonet": { "name_ko": "진주 드래고넷" },
-  "fey-dragonet": { "name_ko": "요정 드래고넷" },
-  "keeper-jotunborn": { "name_ko": "수호 요툰본" },
-  "ambitious-human": { "name_ko": "야심찬 인간" },
-  "warrior-jotunborn": { "name_ko": "전사 요툰본" }
+ "house-drake": {
+  "name_ko": "가문 드레이크",
+  "desc_ko": "<p>당신은 밝은 파란색과 보라색 비늘을 지녔으며, 이빨과 발톱은 은빛입니다. 당신의 턱은 은으로 취급되며, 악마(fiend)에 대한 피해 굴림에 +1 상황 보너스를 받습니다. 당신은 아는 언어 목록에 디아볼릭(Diabolic)을 추가합니다.</p>"
+ },
+ "homing-drake": {
+  "name_ko": "귀소 드레이크",
+  "desc_ko": "<p>당신은 짧고 뭉툭한 코와 머리카락처럼 보이는 작은 가시들을 지녔습니다. 선명한 색의 비늘을 지녔거나 칙칙한 갈색일 수도 있습니다. 당신은 @UUID[Compendium.pf2e.spells-srd.Item.tXa5vOu5giBNCjdR]{길을 알기} 캔트립을 비전 선천 주문으로 마음껏 시전할 수 있습니다. 캔트립은 당신 레벨의 절반(올림)과 같은 주문 랭크로 강화됩니다.</p>\n<p>또한, 당신은 항상 자신의 집까지의 거리와 방향을 압니다. 어떤 장소에서 1주일을 보낸 뒤 그곳을 새로운 집으로 지정할 수 있지만, 한 번에 하나의 지정된 집만 가질 수 있습니다.</p>"
+ },
+ "weaver-jotunborn": {
+  "name_ko": "직조 요툰본",
+  "desc_ko": "<p>당신은 세심한 주의를 요하는 기법인 이블라르(iivlar) 비단 직조 기술을 통달했습니다. 당신은 제작에 숙련되어 있습니다. 비밀 문이나 함정 같은 숨겨진 세부 요소를 찾기 위해 @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{탐색}할 때 지각 판정에 +1 상황 보너스를 받습니다.</p>"
+ },
+ "plane-hopper-jotunborn": {
+  "name_ko": "차원 도약 요툰본",
+  "desc_ko": "<p>당신은 차원 문턱 사이를 쉽게 이동할 수 있는 작은 체구 덕분에 선택되었습니다. 당신은 주로 전령이나 정찰병으로 활동하며, 차원에 노출되면서 마법적 힘의 불꽃을 얻었습니다. 당신의 크기는 대형(Large) 대신 중형(Medium)입니다. 당신은 비학 주문 목록에서 캔트립 하나를 얻습니다. 이 주문을 비학 선천 주문으로 마음껏 시전할 수 있습니다. 캔트립은 당신 레벨의 절반(올림)과 같은 주문 랭크로 강화됩니다.</p>"
+ },
+ "sage-jotunborn": {
+  "name_ko": "현자 요툰본",
+  "desc_ko": "<p>당신은 가족, 씨족, 심지어 정착지 전체를 위해 구전 및 실로 엮은 역사를 보존하는 임무를 맡았습니다. 당신은 사회에 숙련되어 있습니다. 또한 당신이 선택한 지식 기술에 대해 @UUID[Compendium.pf2e.feats-srd.Item.BocFD2KV0qgUC76x]{추가 지식} 일반 재주를 얻습니다.</p>"
+ },
+ "tidepool-dragonet": {
+  "name_ko": "조수 웅덩이 드래고넷",
+  "desc_ko": "<p>당신은 하늘색 비늘로 덮인 뱀장어 같은 날씬한 몸을 지녔습니다. 당신의 날개는 거대한 지느러미처럼 몸을 따라 뻗어 있어, 물이 있는 지형에 잘 적응되어 있습니다.</p>\n<p>당신은 수륙양용(amphibious) 특성을 얻고, 15피트의 수영 이동력을 얻습니다. 당신은 아는 언어 목록에 탈라식(Thalassic)을 추가합니다.</p>"
+ },
+ "pearl-dragonet": {
+  "name_ko": "진주 드래고넷",
+  "desc_ko": "<p>당신은 진주빛 비늘과 둥근 몸, 짧은 다리, 작은 날개, 그리고 긴 꼬리를 지녔습니다. 당신의 몸 형태는 타격을 흡수하고 굴러서 벗어날 수 있게 해 줍니다.</p>\n<p><strong>@UUID[Compendium.pf2e.actionspf2e.Item.OpiIzr7h1EKY8wKh]{튕겨 나가기}</strong><span class=\"action-glyph\">r</span></p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.OpiIzr7h1EKY8wKh inline]</p>"
+ },
+ "fey-dragonet": {
+  "name_ko": "요정 드래고넷",
+  "desc_ko": "<p>당신은 나이가 들수록 더 윤기가 흐르는 반짝이는 비늘로 덮인 밝은 색의 몸과 무지갯빛 나비 날개를 지녔습니다. 당신은 단일 행동으로 날개의 색과 무늬를 바꿔 주변 환경에 섞여 들 수 있습니다.</p>\n<p>당신의 날개가 주변 환경과 일치할 때, 주변의 색이나 무늬가 바뀔 때까지 은신 판정에 +2 상황 보너스를 받습니다. 당신은 페이(fey) 특성을 얻고 아는 언어 목록에 페이(Fey)를 추가합니다.</p>"
+ },
+ "keeper-jotunborn": {
+  "name_ko": "수호 요툰본",
+  "desc_ko": "<p>이블라르(iivlar) 관리자로서의 일은 이 신성한 생물들에 대한 더 깊은 이해와, 그것들이 아무리 잡기 어렵더라도 추적할 수 있는 능력을 당신에게 주었습니다. 당신은 생존에 숙련되어 있으며, @UUID[Compendium.pf2e.feats-srd.Item.tGIXuk0XeWmG04CX]{야생 조사} 기술 재주를 얻습니다. 당신은 동물을 @UUID[Compendium.pf2e.actionspf2e.Item.EA5vuSgJfiHH7plD]{추적}할 때 +1 상황 보너스를 받습니다.</p>"
+ },
+ "ambitious-human": {
+  "name_ko": "야심찬 인간",
+  "desc_ko": "<p>당신은 야심가로, 동료들보다 더 많은 것을 이루었고 항상 앞으로 나아갑니다. 당신은 평소보다 일찍 두 개의 클래스 능력을 얻습니다. 이 능력들을 일찍 얻기 때문에, 나중 레벨에서 다시 선택할 수 없습니다. 하나의 능력은 @UUID[Compendium.pf2e.feats-srd.Item.Ux73dmoF8KnavyUD]{신속} 일반 재주입니다. 두 번째 능력은 당신의 클래스에 따라 달라집니다.</p><ul><li><strong>바바리안:</strong> @UUID[Compendium.pf2e.feats-srd.Item.XseJI9XhKNtZN8pv]{격노의 위협}</li><li><strong>바드:</strong> @UUID[Compendium.pf2e.feats-srd.Item.iX5HEqRImhKzfPR2]{박식함}</li><li><strong>몽크:</strong> @UUID[Compendium.pf2e.feats-srd.Item.AmP0qu7c5dlBSath]{강인함}</li><li><strong>소서러:</strong> @UUID[Compendium.pf2e.feats-srd.Item.A7ofsoPva0UtjqrX]{캔트립 확장}</li></ul><p><em>참고: 이 혈통은 비기너 박스에서 나온 것으로 비표준 혈통 특성을 지닙니다.</em></p>"
+ },
+ "warrior-jotunborn": {
+  "name_ko": "전사 요툰본",
+  "desc_ko": "<p>당신의 더 강인한 몸은 당신을 전투에 완벽한 신병으로 만들었습니다. 당신의 주먹 피해 주사위가 1d6으로 증가합니다. 당신은 주먹으로 치명적인 공격을 할 때 페널티를 받지 않습니다.</p>"
+ }
 }
