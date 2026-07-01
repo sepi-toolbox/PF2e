@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.43').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.44').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2667,6 +2667,19 @@ function toggleEquipInline(mainEl, idx) {
     : '<span style="color:var(--text2);font-size:12px;">상세 정보가 없습니다.</span>';
   card.classList.add('equip-open');
   card.insertAdjacentElement('afterend', detail);
+}
+
+// 행동 카드 클릭 시 팝업 대신 인라인 아코디언으로 전체 설명 펼침/접힘 (주문·장비와 동일 언어, v0.44 FVTT 이행)
+function toggleActionInline(cardEl) {
+  const detail = cardEl.nextElementSibling;
+  if (!detail || !detail.classList || !detail.classList.contains('action-inline-detail')) return;
+  const isOpen = detail.classList.contains('open');
+  // 한 번에 하나 (탭 전체)
+  document.querySelectorAll('.action-inline-detail.open').forEach(d => {
+    d.classList.remove('open');
+    if (d.previousElementSibling) d.previousElementSibling.classList.remove('action-card-open');
+  });
+  if (!isOpen) { detail.classList.add('open'); cardEl.classList.add('action-card-open'); }
 }
 
 function _learnSpellFromModal(sp, rank) {

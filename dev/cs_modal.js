@@ -5487,6 +5487,27 @@ function renderActions() {
   // 풀: 전체 행동(ACTION_DB) — 비용 필터는 동적 추가(재주/커스텀)까지 합친 뒤 마지막에 적용
   let visible = [...ACTION_DB];
 
+  // FVTT 이행(v0.44): 큐레이션 74개의 표시데이터를 FVTT actions 오버레이 단일 소스에서 해소.
+  //   그룹/비용요건/기술게이트(cat_label·req_*)는 큐레이션 유지, 이름·비용·특성·설명은 FVTT.
+  //   활동시간(1min/10min 등)은 FVTT actionType 미표현 → 표준 행동경제값만 교체(폴백=레거시).
+  //   매칭 실패(재주 파생 등)는 레거시 필드 그대로 폴백. _fvttDesc=클릭 시 펼칠 전체 설명.
+  if (typeof PF2eAction !== 'undefined' && PF2eAction.ready && PF2eAction.ready()) {
+    const _STD_COST = new Set(['1', '2', '3', 'free', 'reaction']);
+    visible = visible.map(a => {
+      const fv = a.name_en && PF2eAction.getActionLegacy(a.name_en);
+      if (!fv) return a;
+      // FVTT desc가 텍스트 없는 스텁(<p></p> 등, 실제 설명이 재주쪽인 경우)이면 레거시 summary 유지
+      const _fvHasText = fv.desc && fv.desc.replace(/<[^>]+>/g, '').trim();
+      return Object.assign({}, a, {
+        name_ko: fv.name_ko || a.name_ko,
+        cost: _STD_COST.has(fv.cost) ? fv.cost : a.cost,
+        traits: (fv.traits && fv.traits.length) ? fv.traits : a.traits,
+        _fvttDesc: _fvHasText ? fv.desc : '',
+        _fvtt: true,
+      });
+    });
+  }
+
   // 보유 재주 중 행동인 것 동적 추가 (ACTION_DB에 없는 것만)
   if (typeof FEAT_DB !== 'undefined') {
     const existingIds = new Set(visible.map(a => a.id));
@@ -5612,7 +5633,11 @@ function renderActions() {
         }
       }
       const sourceHtml = granted ? `<div style="font-size:9px;color:var(--accent);margin-top:2px;">${a.req_heritage ? '유산 부여' : a.req_feat ? '재주: '+a.req_feat : ''}</div>` : '';
-      html += `<div class="action-card" style="${opacity}${grantedStyle}">
+      // FVTT 이행: 전체 설명=FVTT desc(폴백 레거시 summary). 카드=컴팩트 프리뷰 + 클릭 시 인라인 아코디언.
+      const descFull = (s=>typeof resolveDescRefs==='function'?resolveDescRefs(s):s)(_stripTraitLine(a._fvttDesc || a.summary || ''));
+      const previewText = descFull.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+      const preview = previewText.slice(0,76) + (previewText.length>76 ? '…' : '');
+      html += `<div class="action-card action-card-click" onclick="typeof toggleActionInline==='function'&&toggleActionInline(this)" style="${opacity}${grantedStyle}">
         <div class="action-card-head">
           <span class="action-cost">${costIcon}</span>
           ${a.cat==='feat' && typeof iconImg==='function' ? iconImg('feat',a) : ''}
@@ -5622,9 +5647,10 @@ function renderActions() {
           </div>
         </div>
         ${traitsHtml ? `<div class="action-traits">${traitsHtml}</div>` : ''}
-        <div class="action-summary">${(s=>typeof resolveDescRefs==='function'?resolveDescRefs(s):s)(_stripTraitLine(a.summary))}</div>
+        ${preview ? `<div class="action-summary">${preview}</div>` : ''}
         ${sourceHtml}${reqHtml}
-      </div>`;
+      </div>
+      <div class="action-inline-detail">${descFull || '<span style="color:var(--text2);">상세 설명이 없습니다.</span>'}</div>`;
     });
     html += `</div></div>`;
   });

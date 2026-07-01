@@ -624,7 +624,7 @@ window.onload = function() {
   if (typeof PF2eFeat !== 'undefined') PF2eFeat.init().then(() => {        // FVTT 재주 카탈로그 + 교차참조 카테고리 (P4)
     // GrantItem(재주→재주/주문/효과/행동) getByUuid 해소용 — 자동화 전 인덱스 보장
     if (typeof PF2eData !== 'undefined') { PF2eData.loadCategory('effects').catch(()=>{}); PF2eData.loadCategory('actions').catch(()=>{}); }
-    if (typeof PF2eAction !== 'undefined') PF2eAction.init().catch(()=>{});  // FVTT 행동 1340 단일소스 룩업(이미 로드된 actions 인덱싱, 비용≈0)
+    if (typeof PF2eAction !== 'undefined') PF2eAction.init().then(()=>{ if (typeof renderActions==='function') renderActions(); }).catch(()=>{});  // FVTT 행동 1340 단일소스 룩업 → 준비되면 행동 탭 재렌더(FVTT 표시데이터 반영, v0.44)
   }).catch(()=>{});
   _uiReady = true;
   _checkReady();
