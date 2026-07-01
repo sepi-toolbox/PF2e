@@ -45,7 +45,7 @@
  },
  "concealed": {
   "name": "은폐",
-  "description": "<p>짙은 안개나 다른 가려지는 재주로 인해 한 마리 이상의 생물이 나를 보기 어렵습니다. 일부 생물에게는 가려질 수 있지만 다른 생물에게는 보일 수 있습니다. 가려진 상태에서도 @UUID[Compendium.pf2e.conditionitems.Item.1wQY3JYyhMYeeV2G]{발각됨}이 될 수 있지만, 대상이 되기 더 어렵습니다. 가려진 생물을 목표로 공격, 주문, 또는 다른 효과를 굴릴 때 먼저 @Check[type:flat|showDC:all|dc:5]에 성공해야 합니다. 체크에 실패하면 액션의 영향을 받지 않습니다. 단, 범위 효과는 이 플랫 체크의 대상이 아닙니다.</p>"
+  "description": "<p>짙은 안개나 다른 가려지는 재주로 인해 한 마리 이상의 생물이 나를 보기 어렵습니다. 일부 생물에게는 가려질 수 있지만 다른 생물에게는 보일 수 있습니다. 은폐 상태에서도 @UUID[Compendium.pf2e.conditionitems.Item.1wQY3JYyhMYeeV2G]{발각됨}이 될 수 있지만, 대상이 되기 더 어렵습니다. 가려진 생물을 목표로 공격, 주문, 또는 다른 효과를 굴릴 때 먼저 @Check[type:flat|showDC:all|dc:5]에 성공해야 합니다. 체크에 실패하면 액션의 영향을 받지 않습니다. 단, 범위 효과는 이 플랫 체크의 대상이 아닙니다.</p>"
  },
  "fatigued": {
   "name": "피로",
@@ -89,7 +89,7 @@
  },
  "stunned": {
   "name": "기절",
-  "description": "<p>당신은 기절했습니다. 현재 기절 수치만큼 이번 라운드에 행동을 잃습니다. 액션을 되찾을 때마다 기절 수치만큼 되찾은 액션 수를 줄인 다음, 잃은 액션 수만큼 기절 수치를 줄입니다. 예를 들어, 기절 4를 당했다면 자신의 턴에 3개의 액션을 모두 잃고 기절 1로 감소하며, 다음 턴에는 액션을 1개 더 잃고 남은 2개의 액션을 정상적으로 사용할 수 있습니다. 기절은 대신 \"1분 동안 기절\"과 같이 지속 시간을 가질 수도 있으며, 해당 지속 시간 동안 모든 액션을 잃게 됩니다.</p>\n<p>기절은 @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{둔화}를 무효화합니다. 기절 상태의 지속 시간이 느려진 상태에서 종료되면 기절 상태로 인해 손실된 액션을 느려짐으로 인해 손실된 액션으로 계산합니다. 따라서 자신의 턴이 시작될 때 기절 1, 느려짐 2 상태였다면, 기절로 액션 1개를 잃고 느려짐으로 추가 액션 1개만 잃게 되므로 해당 턴에 사용할 수 있는 액션이 여전히 1개 남게 됩니다.</p>"
+  "description": "<p>당신은 기절했습니다. 현재 기절 수치만큼 이번 라운드에 행동을 잃습니다. 액션을 되찾을 때마다 기절 수치만큼 되찾은 액션 수를 줄인 다음, 잃은 액션 수만큼 기절 수치를 줄입니다. 예를 들어, 기절 4를 당했다면 자신의 턴에 3개의 액션을 모두 잃고 기절 1로 감소하며, 다음 턴에는 액션을 1개 더 잃고 남은 2개의 액션을 정상적으로 사용할 수 있습니다. 기절은 대신 \"1분 동안 기절\"과 같이 지속 시간을 가질 수도 있으며, 해당 지속 시간 동안 모든 액션을 잃게 됩니다.</p>\n<p>기절은 @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{둔화}를 무효화합니다. 기절 상태의 지속 시간이 느려진 상태에서 종료되면 기절 상태로 인해 손실된 액션을 느려짐으로 인해 손실된 액션으로 계산합니다. 따라서 자신의 턴이 시작될 때 기절 1, 둔화 2 상태였다면, 기절로 액션 1개를 잃고 느려짐으로 추가 액션 1개만 잃게 되므로 해당 턴에 사용할 수 있는 액션이 여전히 1개 남게 됩니다.</p>"
  },
  "stupefied": {
   "name": "멍청함",
@@ -97,7 +97,7 @@
  },
  "immobilized": {
   "name": "이동 불가",
-  "description": "<p>움직일 수 없습니다. 이동 특성이 있는 액션을 사용할 수 없습니다. 자신을 고정하고 있는 무언가에 의해 고정된 상태에서 외부의 힘으로 자신의 공간 밖으로 이동하려는 경우, 그 힘은 자신을 고정하고 있는 효과의 DC 또는 자신을 고정하고 있는 몬스터의 관련 방어력(보통 인내 DC)에 대한 체크에서 성공해야 합니다.</p>"
+  "description": "<p>움직일 수 없습니다. 이동 특성이 있는 액션을 사용할 수 없습니다. 자신을 고정하고 있는 무언가에 의해 이동 불가 상태에서 외부의 힘으로 자신의 공간 밖으로 이동하려는 경우, 그 힘은 자신을 고정하고 있는 효과의 DC 또는 자신을 고정하고 있는 몬스터의 관련 방어력(보통 인내 DC)에 대한 체크에서 성공해야 합니다.</p>"
  },
  "unconscious": {
   "name": "무의식",
@@ -121,7 +121,7 @@
  },
  "prone": {
   "name": "넘어뜨려짐",
-  "description": "<p>당신은 바닥에 누워 있습니다. 당신은 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태이며 공격 굴림에 -2의 상황 페널티를 받습니다. 엎드린 상태에서 사용할 수 있는 이동 액션은 @UUID[Compendium.pf2e.actionspf2e.Item.Tj055UcNm6UEgtCg]{기어가기}와 @UUID[Compendium.pf2e.actionspf2e.Item.OdIUybJ3ddfL7wzj]{일어서기}뿐입니다. 일어서는 것은 엎드린 상태를 종료하는 것입니다. 엎드린 상태에서 @UUID[Compendium.pf2e.actionspf2e.Item.ust1jJSCZQUhBZIz]{엄폐}를 사용하면 뒤에 숨을 물체가 없더라도 원거리 공격에 대한 엄폐력이 향상되며, 원거리 공격에 대한 상황 보너스 +4를 받습니다(단, 무방비 상태는 유지됨).</p>\n<p>@UUID[Compendium.pf2e.actionspf2e.Item.pprgrYQ1QnIDGZiy]{오르기} 또는 @UUID[pf2e.actionspf2e.Item.cS9nfDRGD83bNU1p]{비행} 상태인 동안 엎드려 있으면 낙하합니다. @UUID[Compendium.pf2e.actionspf2e.Item.c8TGiZ48ygoSPofx]{수영} 중에는 엎드린 상태가 될 수 없습니다.</p>"
+  "description": "<p>당신은 바닥에 누워 있습니다. 당신은 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태이며 공격 굴림에 -2의 상황 페널티를 받습니다. 넘어뜨려짐 상태에서 사용할 수 있는 이동 액션은 @UUID[Compendium.pf2e.actionspf2e.Item.Tj055UcNm6UEgtCg]{기어가기}와 @UUID[Compendium.pf2e.actionspf2e.Item.OdIUybJ3ddfL7wzj]{일어서기}뿐입니다. 일어서는 것은 넘어뜨려짐 상태를 종료하는 것입니다. 넘어뜨려짐 상태에서 @UUID[Compendium.pf2e.actionspf2e.Item.ust1jJSCZQUhBZIz]{엄폐}를 사용하면 뒤에 숨을 물체가 없더라도 원거리 공격에 대한 엄폐력이 향상되며, 원거리 공격에 대한 상황 보너스 +4를 받습니다(단, 무방비 상태는 유지됨).</p>\n<p>@UUID[Compendium.pf2e.actionspf2e.Item.pprgrYQ1QnIDGZiy]{오르기} 또는 @UUID[pf2e.actionspf2e.Item.cS9nfDRGD83bNU1p]{비행} 상태인 동안 엎드려 있으면 낙하합니다. @UUID[Compendium.pf2e.actionspf2e.Item.c8TGiZ48ygoSPofx]{수영} 중에는 넘어뜨려짐 상태가 될 수 없습니다.</p>"
  },
  "grabbed": {
   "name": "조이기",

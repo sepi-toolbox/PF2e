@@ -149,6 +149,17 @@ function labelSweep(text) {
 const LABEL_FILES = ['data/overlay/feats.ko.json', 'data/overlay/spells.ko.json', 'data/overlay/actions.ko.json', 'data/overlay/effects.ko.json', 'data/overlay/equipment.ko.json', 'data/overlay/conditions.ko.json', 'data/overlay/heritages.ko.json', 'data/overlay/backgrounds.ko.json', 'data/overlay/deities.ko.json', 'data/overlay/ancestries.ko.json', 'data/overlay/classes.ko.json', 'data/derived/localize.ko.json', 'data/derived/traits.json', 'data/creatures/_trait_desc.ko.json', 'data/creatures/_glossary.ko.json', 'cs_data.js', 'data/overlay/_lang.ko.json'];
 for (const p of LABEL_FILES) { let t = writes[p] !== undefined ? writes[p] : fs.readFileSync(path.join(DEV, p), 'utf8'); writes[p] = labelSweep(t); }
 
+// (h) 설명문 평문 조건 참조 — "X 상태" 앵커 안전 치환(옛 FVTT어→정본). 상태(=조건) 접미가 게임 조건을 강하게 지시.
+// ⚠ 공통명사성 강한 옛어(실명/부서진/부러진/투명한)는 제외(일반 산문 오탐 위험). 값 미동반 평문(예 "병약 2와")은 미처리(정밀 패스).
+const PROSE_MAP = { '가려진': '은폐', '서투른': '둔함', '병약': '구역질', '느려짐': '둔화', '엎드린': '넘어뜨려짐', '붙잡힌': '조이기', '흡수됨': '생명력 고갈', '눈부신': '눈부심', '고정된': '이동 불가', '혼미': '멍청함', '구속됨': '억제', '제어됨': '지배됨', '신속': '가속', '매혹된': '매혹', '피곤함': '피로' };
+let proseCount = 0;
+function proseSweep(text) {
+  for (const oldk in PROSE_MAP) { const re = new RegExp(oldk + '( \\d+)? 상태', 'g'); text = text.replace(re, (m, num) => { proseCount++; return PROSE_MAP[oldk] + (num || '') + ' 상태'; }); }
+  return text;
+}
+const PROSE_FILES = ['data/overlay/feats.ko.json', 'data/overlay/spells.ko.json', 'data/overlay/effects.ko.json', 'data/overlay/equipment.ko.json', 'data/overlay/conditions.ko.json', 'data/overlay/heritages.ko.json', 'data/overlay/backgrounds.ko.json', 'data/overlay/deities.ko.json', 'data/overlay/ancestries.ko.json', 'data/overlay/actions.ko.json'];
+for (const p of PROSE_FILES) { let t = writes[p] !== undefined ? writes[p] : fs.readFileSync(path.join(DEV, p), 'utf8'); writes[p] = proseSweep(t); }
+
 // ── 4) 로그 출력 ──
 const byCat = {}; for (const l of LOG) byCat[l.cat] = (byCat[l.cat] || 0) + 1;
 console.log('=== 정본 용어집 파싱 ===');
@@ -156,6 +167,7 @@ console.log('condition', Object.keys(G.condition).length, '· trait', Object.key
 console.log('=== 변경 예정', LOG.length, '건 ===', JSON.stringify(byCat));
 for (const l of LOG) console.log(`  [${l.cat}] ${l.file} :: ${l.key} : "${l.from}" → "${l.to}"`);
 console.log('=== 조건 @UUID 라벨(단순) 정본화:', labelCount, '건 ===');
+console.log('=== 설명문 "X 상태" 조건 평문 정본화:', proseCount, '건 ===');
 
 if (APPLY) {
   const stamp = process.env.NORM_DATE || '2026-07-01';
