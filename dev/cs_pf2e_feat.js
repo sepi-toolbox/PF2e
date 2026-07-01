@@ -14,6 +14,9 @@
 
   // FVTT category → 레거시 category. 빌더 무관 카테고리는 제외.
   const CAT_MAP = { class: 'class', ancestry: 'ancestry', skill: 'skill', general: 'general', classfeature: 'feature', ancestryfeature: 'feature', bonus: 'general' };
+  // 클래스 소속 = FVTT 트레잇(영문 slug). 클래스 재주 필터가 category(레거시=classid)와 함께 이걸로도 매칭 → 소스 무관 통일.
+  // 다중클래스 재주(공유 스펠셰이프 등)는 슬러그 여러 개 → 단일 category로 불가능한 케이스까지 커버.
+  const CLASS_SLUGS = new Set(['alchemist','animist','barbarian','bard','champion','cleric','commander','druid','exemplar','fighter','guardian','gunslinger','inventor','investigator','kineticist','magus','monk','oracle','psychic','ranger','rogue','sorcerer','summoner','swashbuckler','thaumaturge','witch','wizard']);
   const SKIP = new Set(['deityboon', 'pfsboon', 'curse', 'calling', 'kingdom-feature', 'kingdom-activity', 'kingdom-feat', 'army-war-action', 'army-tactic']);
   const VISION_MAP = { 'low-light-vision': 'low-light', 'low-light': 'low-light', darkvision: 'darkvision', 'greater-darkvision': 'greater-darkvision' };
   const VISION_RANK = { none: 0, 'low-light': 1, darkvision: 2, 'greater-darkvision': 3 };
@@ -63,9 +66,11 @@
     cat = cat || _legacyCat(doc) || 'general';
     const traitsV = (s.traits && s.traits.value) || [];
     const isAuto = (s.category === 'classfeature' || s.category === 'ancestryfeature');
+    const clsSlugs = traitsV.filter(t => CLASS_SLUGS.has(t));  // 클래스 소속(영문 slug) — 필터 통일용
     return {
       id: s.slug, name_ko: PF.nameKo(doc), name_en: doc.name_en || doc.name,
       category: cat, feat_level: (s.level && s.level.value) || 0,
+      _classSlugs: clsSlugs.length ? clsSlugs : undefined,
       traits: traitsV.map(_traitKo), rarity: (s.traits && s.traits.rarity) || 'common',
       prerequisites: _prereqText(doc),
       desc: PF.enrichDesc(PF.descKo(doc) || ''),

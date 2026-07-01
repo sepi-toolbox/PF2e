@@ -3061,8 +3061,9 @@ function filterFeats() {
         return true;
       }
       // 클래스 재주 슬롯: 해당 클래스 재주 + archetype 재주도 포함
+      // ★ 소스 무관 통일: 레거시(category=classid) + FVTT(category='class' + _classSlugs 트레잇) 동일 취급
       if (ft === 'class') {
-        return f.category === cat || f.category === 'archetype';
+        return _featInClass(f, cat) || f.category === 'archetype';
       }
       return f.category === cat;
     });
@@ -3071,11 +3072,21 @@ function filterFeats() {
   // 일반 모달 (재주 탭에서 직접 열기)
   const cat = document.getElementById('filter-feat-cat')?.value||'';
   const lv = parseInt(document.getElementById('filter-feat-lv')?.value||0);
+  const _isClassCat = cat && typeof CLASSES !== 'undefined' && !['ancestry','general','skill','archetype','feature','other','class'].includes(cat);
   return (typeof _allFeats === 'function' ? _allFeats() : FEAT_DB).filter(f =>
-    (!cat || f.category===cat) &&
+    (!cat || (_isClassCat ? _featInClass(f, cat) : f.category===cat)) &&
     (!lv || f.feat_level<=lv) &&
     (!q || f.name_ko.includes(q) || (f.name_en||'').toLowerCase().includes(q) || (f.summary||'').includes(q))
   );
+}
+
+// 재주의 클래스 소속 판정 — 소스(레거시/FVTT) 무관 통일.
+//   레거시: category=classid ('fighter' 등). FVTT: category='class' + _classSlugs 트레잇(다중클래스 포함).
+function _featInClass(f, classId) {
+  if (!f || !classId) return false;
+  if (f.category === classId) return true;
+  if (f._classSlugs && f._classSlugs.indexOf(classId) !== -1) return true;
+  return false;
 }
 
 function filterSpells() {
