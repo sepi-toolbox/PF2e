@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.26').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.27').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -4467,4 +4467,6 @@ function renderPortrait() {
 
 // 아이콘 맵 선로딩 (fetch는 DOM 불필요 — 즉시 시작, 로드 후 열린 탭 소급 렌더)
 _loadIconMap();
+// L3 효과 override 선로딩 (data/override/effect_groups.json — 재주/유산/배경 자동화 override)
+if (typeof _loadEffectOverride === 'function') _loadEffectOverride();
 

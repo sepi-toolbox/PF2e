@@ -586,8 +586,21 @@ function getBackgroundEffects(b) {
 
 // EFFECT_GROUPS / CHOICE_OPTIONS v532~ Phase 3a: 1:N 정규화 행 조회
 const _EFFECT_GROUPS_INDEX = new Map();
+// L3 효과 override (data/override/effect_groups.json = {group_id:[rows...]}). 그룹 단위 교체(있으면 base 대체).
+// 재주/유산/배경 자동화 전부 getEffectRows 경유 → 이 훅 하나로 3소스 override 반영.
+let _EFFECT_OVERRIDE = null;
+function _loadEffectOverride() {
+  if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
+  fetch('data/override/effect_groups.json?v=0.27').then(r => r.ok ? r.json() : null).then(m => {
+    if (!m || typeof m !== 'object') return;
+    _EFFECT_OVERRIDE = m;
+    try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
+  }).catch(() => {});
+}
 function getEffectRows(groupId) {
-  if (!groupId || typeof EFFECT_GROUPS === 'undefined') return [];
+  if (!groupId) return [];
+  if (_EFFECT_OVERRIDE && Object.prototype.hasOwnProperty.call(_EFFECT_OVERRIDE, groupId)) return _EFFECT_OVERRIDE[groupId] || [];
+  if (typeof EFFECT_GROUPS === 'undefined') return [];
   if (_EFFECT_GROUPS_INDEX.size === 0 && EFFECT_GROUPS.length) {
     for (const r of EFFECT_GROUPS) {
       const arr = _EFFECT_GROUPS_INDEX.get(r.group_id) || [];
