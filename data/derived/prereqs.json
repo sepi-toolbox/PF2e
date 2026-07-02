@@ -101,7 +101,7 @@
    "slug": "polished-distraction",
    "text": "Golden Legionnaire Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"Golden Legionnaire Dedication\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
+   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"황금 군단병 전념\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
   },
   {
    "slug": "combat-climber",
@@ -197,7 +197,7 @@
    "slug": "sailfish-strike",
    "text": "Undersea Privateer Dedication, Propelled Leap",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"Undersea Privateer Dedication\",\"featSlug\":\"undersea-privateer-dedication\"},{\"feat\":\"Propelled Leap\",\"feat_ko\":\"Propelled Leap\",\"featSlug\":\"propelled-leap\"}]"
+   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"심해 사략선원 전념\",\"featSlug\":\"undersea-privateer-dedication\"},{\"feat\":\"Propelled Leap\",\"feat_ko\":\"추진 도약\",\"featSlug\":\"propelled-leap\"}]"
   },
   {
    "slug": "shattering-spellstrike",
@@ -305,7 +305,7 @@
    "slug": "hells-bane",
    "text": "Devil You Know",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Devil You Know\",\"feat_ko\":\"Devil You Know\",\"featSlug\":\"devil-you-know\"}]"
+   "conds": "[{\"feat\":\"Devil You Know\",\"feat_ko\":\"아는 악마가 낫다\",\"featSlug\":\"devil-you-know\"}]"
   },
   {
    "slug": "invented-vulnerability",
@@ -323,7 +323,7 @@
    "slug": "willing-runes",
    "text": "Avenging Runelord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"Avenging Runelord Dedication\",\"featSlug\":\"avenging-runelord-dedication\"}]"
+   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"복수하는 룬로드 헌신\",\"featSlug\":\"avenging-runelord-dedication\"}]"
   },
   {
    "slug": "ice-crafter",
@@ -341,7 +341,7 @@
    "slug": "echoing-fury",
    "text": "Temporal Fury",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Temporal Fury\",\"feat_ko\":\"Temporal Fury\",\"featSlug\":\"temporal-fury\"}]"
+   "conds": "[{\"feat\":\"Temporal Fury\",\"feat_ko\":\"시간의 분노\",\"featSlug\":\"temporal-fury\"}]"
   },
   {
    "slug": "snare-specialist",
@@ -395,7 +395,7 @@
    "slug": "swallow-pain",
    "text": "Nidalese Horselord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"Nidalese Horselord Dedication\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
+   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"니달 기마군주 헌신\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
   },
   {
    "slug": "tut-tut",
@@ -425,7 +425,7 @@
    "slug": "remote-detonation",
    "text": "Brastlewark Snare Engineering",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Brastlewark Snare Engineering\",\"feat_ko\":\"Brastlewark Snare Engineering\",\"featSlug\":\"brastlewark-snare-engineering\"}]"
+   "conds": "[{\"feat\":\"Brastlewark Snare Engineering\",\"feat_ko\":\"브래슬워크 함정 공학\",\"featSlug\":\"brastlewark-snare-engineering\"}]"
   },
   {
    "slug": "execution",
@@ -635,7 +635,7 @@
    "slug": "greater-deific-power",
    "text": "Advanced Deific Power",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Advanced Deific Power\",\"feat_ko\":\"Advanced Deific Power\",\"featSlug\":\"advanced-deific-power\"}]"
+   "conds": "[{\"feat\":\"Advanced Deific Power\",\"feat_ko\":\"상급 신성한 힘\",\"featSlug\":\"advanced-deific-power\"}]"
   },
   {
    "slug": "stonebound-magic",
@@ -791,7 +791,7 @@
    "slug": "hellbreakers-resolve",
    "text": "Hellbreaker Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"Hellbreaker Dedication\",\"featSlug\":\"hellbreaker-dedication\"}]"
+   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"지옥파괴자 헌신\",\"featSlug\":\"hellbreaker-dedication\"}]"
   },
   {
    "slug": "call-from-deaths-door",
@@ -839,7 +839,7 @@
    "slug": "legions-aim",
    "text": "Golden Legionnaire Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"Golden Legionnaire Dedication\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
+   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"황금 군단병 전념\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
   },
   {
    "slug": "guardian-resiliency",
@@ -1223,7 +1223,7 @@
    "slug": "swift-support",
    "text": "Nidalese Horselord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"Nidalese Horselord Dedication\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
+   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"니달 기마군주 헌신\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
   },
   {
    "slug": "channel-divine-spark",
@@ -1337,13 +1337,13 @@
    "slug": "fabricated-credentials",
    "text": "Twilight Talon Dedication, master in Deception",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"Twilight Talon Dedication\",\"featSlug\":\"twilight-talon-dedication\"},{\"skill\":\"deception\",\"rank\":6}]"
+   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"황혼의 발톱 헌신\",\"featSlug\":\"twilight-talon-dedication\"},{\"skill\":\"deception\",\"rank\":6}]"
   },
   {
    "slug": "shake-off-the-gods",
    "text": "Pure Legion Enforcer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"Pure Legion Enforcer Dedication\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
+   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"순수 군단 집행관 헌신\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
   },
   {
    "slug": "alter-ego-dedication",
@@ -1763,7 +1763,7 @@
    "slug": "masked-casting",
    "text": "Hellknight Signifer Preferment",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellknight Signifer Preferment\",\"feat_ko\":\"Hellknight Signifer Preferment\",\"featSlug\":\"hellknight-signifer-preferment\"}]"
+   "conds": "[{\"feat\":\"Hellknight Signifer Preferment\",\"feat_ko\":\"헬나이트 시니퍼 승진\",\"featSlug\":\"hellknight-signifer-preferment\"}]"
   },
   {
    "slug": "you-cant-hide-from-us",
@@ -1853,7 +1853,7 @@
    "slug": "eyes-of-night",
    "text": "low-light vision",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"Low-Light Vision\",\"featSlug\":\"low-light-vision\"}]"
+   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"저광 시야\",\"featSlug\":\"low-light-vision\"}]"
   },
   {
    "slug": "breached-defenses",
@@ -2039,7 +2039,7 @@
    "slug": "thorn-in-hells-side",
    "text": "Defy Hell",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Defy Hell\",\"feat_ko\":\"Defy Hell\",\"featSlug\":\"defy-hell\"}]"
+   "conds": "[{\"feat\":\"Defy Hell\",\"feat_ko\":\"지옥에 맞서기\",\"featSlug\":\"defy-hell\"}]"
   },
   {
    "slug": "animist-dedication",
@@ -2135,7 +2135,7 @@
    "slug": "draconic-resilience",
    "text": "Draconic Acolyte Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"Draconic Acolyte Dedication\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
+   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"용의 시종 헌신\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
   },
   {
    "slug": "lunging-spellstrike",
@@ -2267,7 +2267,7 @@
    "slug": "elemental-eyes",
    "text": "low-light vision",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"Low-Light Vision\",\"featSlug\":\"low-light-vision\"}]"
+   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"저광 시야\",\"featSlug\":\"low-light-vision\"}]"
   },
   {
    "slug": "in-tune",
@@ -2297,7 +2297,7 @@
    "slug": "pounding-leap",
    "text": "warrior jotunborn heritage",
    "parsed": 1,
-   "conds": "[{\"heritage\":\"Warrior Jotunborn\"}]"
+   "conds": "[{\"or\":[{\"heritage\":\"Warrior Jotunborn\"},{\"heritage\":\"전사 요툰본\"}]}]"
   },
   {
    "slug": "borrow-time",
@@ -2741,7 +2741,7 @@
    "slug": "lasting-protection",
    "text": "Commitment to Protection",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Commitment to Protection\",\"feat_ko\":\"Commitment to Protection\",\"featSlug\":\"commitment-to-protection\"}]"
+   "conds": "[{\"feat\":\"Commitment to Protection\",\"feat_ko\":\"보호에 대한 헌신\",\"featSlug\":\"commitment-to-protection\"}]"
   },
   {
    "slug": "fascinating-performance",
@@ -2855,7 +2855,7 @@
    "slug": "call-draconic-ally",
    "text": "Draconic Acolyte Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"Draconic Acolyte Dedication\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
+   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"용의 시종 헌신\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
   },
   {
    "slug": "gossip-lore",
@@ -2915,7 +2915,7 @@
    "slug": "daunting-spell",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "devastating-duelist",
@@ -3311,7 +3311,7 @@
    "slug": "battle-scars",
    "text": "Hellbreaker Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"Hellbreaker Dedication\",\"featSlug\":\"hellbreaker-dedication\"}]"
+   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"지옥파괴자 헌신\",\"featSlug\":\"hellbreaker-dedication\"}]"
   },
   {
    "slug": "unbreakable-er-goblin",
@@ -3491,7 +3491,7 @@
    "slug": "armed-and-armored",
    "text": "Golden Legionnaire Dedication, trained in martial firearms",
    "parsed": "",
-   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"Golden Legionnaire Dedication\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
+   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"황금 군단병 전념\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
   },
   {
    "slug": "rampaging-ferocity",
@@ -3503,7 +3503,7 @@
    "slug": "draconic-familiar",
    "text": "Draconic Acolyte Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"Draconic Acolyte Dedication\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
+   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"용의 시종 헌신\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
   },
   {
    "slug": "rend-mimicry",
@@ -3521,7 +3521,7 @@
    "slug": "watch-your-back-golden-legionnaire",
    "text": "Golden Legionnaire Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"Golden Legionnaire Dedication\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
+   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"황금 군단병 전념\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
   },
   {
    "slug": "know-the-beat",
@@ -3539,7 +3539,7 @@
    "slug": "anchor-stance",
    "text": "Undersea Privateer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"Undersea Privateer Dedication\",\"featSlug\":\"undersea-privateer-dedication\"}]"
+   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"심해 사략선원 전념\",\"featSlug\":\"undersea-privateer-dedication\"}]"
   },
   {
    "slug": "and-will-do-so-once-more",
@@ -3707,7 +3707,7 @@
    "slug": "writhing-runelord-weapon",
    "text": "Avenging Runelord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"Avenging Runelord Dedication\",\"featSlug\":\"avenging-runelord-dedication\"}]"
+   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"복수하는 룬로드 헌신\",\"featSlug\":\"avenging-runelord-dedication\"}]"
   },
   {
    "slug": "such-a-disgrace",
@@ -4079,7 +4079,7 @@
    "slug": "mischievous-tail",
    "text": "Skillful Tail",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Skillful Tail\",\"feat_ko\":\"Skillful Tail\",\"featSlug\":\"skillful-tail\"}]"
+   "conds": "[{\"feat\":\"Skillful Tail\",\"feat_ko\":\"능숙한 꼬리\",\"featSlug\":\"skillful-tail\"}]"
   },
   {
    "slug": "mobile-magical-combat",
@@ -4109,7 +4109,7 @@
    "slug": "opportune-trickster",
    "text": "Hellbreaker Dedication, trained in Deception",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"Hellbreaker Dedication\",\"featSlug\":\"hellbreaker-dedication\"},{\"skill\":\"deception\",\"rank\":2}]"
+   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"지옥파괴자 헌신\",\"featSlug\":\"hellbreaker-dedication\"},{\"skill\":\"deception\",\"rank\":2}]"
   },
   {
    "slug": "energy-blessed",
@@ -4193,7 +4193,7 @@
    "slug": "golden-erinys-stance",
    "text": "Sister of the Golden Erinys Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Sister of the Golden Erinys Dedication\",\"feat_ko\":\"Sister of the Golden Erinys Dedication\",\"featSlug\":\"sister-of-the-golden-erinys-dedication\"}]"
+   "conds": "[{\"feat\":\"Sister of the Golden Erinys Dedication\",\"feat_ko\":\"황금 에리니스 자매단 전념\",\"featSlug\":\"sister-of-the-golden-erinys-dedication\"}]"
   },
   {
    "slug": "aldori-swordlord",
@@ -4217,7 +4217,7 @@
    "slug": "death-dive",
    "text": "Flair Rider Stance, Wing Rider",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Flair Rider Stance\",\"feat_ko\":\"Flair Rider Stance\",\"featSlug\":\"flair-rider-stance\"},{\"feat\":\"Wing Rider\",\"feat_ko\":\"Wing Rider\",\"featSlug\":\"wing-rider\"}]"
+   "conds": "[{\"feat\":\"Flair Rider Stance\",\"feat_ko\":\"화려한 기수 자세\",\"featSlug\":\"flair-rider-stance\"},{\"feat\":\"Wing Rider\",\"feat_ko\":\"날개 기수\",\"featSlug\":\"wing-rider\"}]"
   },
   {
    "slug": "spark-fist",
@@ -4253,7 +4253,7 @@
    "slug": "mineral-deposits",
    "text": "Terra Dragonblood",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Terra Dragonblood\",\"feat_ko\":\"Terra Dragonblood\",\"featSlug\":\"terra-dragonblood\"}]"
+   "conds": "[{\"feat\":\"Terra Dragonblood\",\"feat_ko\":\"대지 용혈\",\"featSlug\":\"terra-dragonblood\"}]"
   },
   {
    "slug": "snare-expert",
@@ -4319,7 +4319,7 @@
    "slug": "bolstered-recovery",
    "text": "Timewracked Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"Timewracked Dedication\",\"featSlug\":\"timewracked-dedication\"}]"
+   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"시간에 찢긴 자 헌신\",\"featSlug\":\"timewracked-dedication\"}]"
   },
   {
    "slug": "insulated-poppet",
@@ -4391,7 +4391,7 @@
    "slug": "final-shot-knows-the-way",
    "text": "Warshard Warrior Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"Warshard Warrior Dedication\",\"featSlug\":\"warshard-warrior-dedication\"}]"
+   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"전쟁파편 전사 헌신\",\"featSlug\":\"warshard-warrior-dedication\"}]"
   },
   {
    "slug": "imperial-dragon-potion",
@@ -4439,7 +4439,7 @@
    "slug": "boarding-party",
    "text": "Undersea Privateer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"Undersea Privateer Dedication\",\"featSlug\":\"undersea-privateer-dedication\"}]"
+   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"심해 사략선원 전념\",\"featSlug\":\"undersea-privateer-dedication\"}]"
   },
   {
    "slug": "spellshot-dedication",
@@ -4487,7 +4487,7 @@
    "slug": "holy-flower",
    "text": "Holy Bloom",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Holy Bloom\",\"feat_ko\":\"Holy Bloom\",\"featSlug\":\"holy-bloom\"}]"
+   "conds": "[{\"feat\":\"Holy Bloom\",\"feat_ko\":\"신성한 개화\",\"featSlug\":\"holy-bloom\"}]"
   },
   {
    "slug": "overpowering-charge",
@@ -4499,7 +4499,7 @@
    "slug": "divide-and-conquer",
    "text": "Warshard Warrior Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"Warshard Warrior Dedication\",\"featSlug\":\"warshard-warrior-dedication\"}]"
+   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"전쟁파편 전사 헌신\",\"featSlug\":\"warshard-warrior-dedication\"}]"
   },
   {
    "slug": "studious-adept",
@@ -4739,7 +4739,7 @@
    "slug": "steadfast-grip",
    "text": "Warshard Warrior Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"Warshard Warrior Dedication\",\"featSlug\":\"warshard-warrior-dedication\"}]"
+   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"전쟁파편 전사 헌신\",\"featSlug\":\"warshard-warrior-dedication\"}]"
   },
   {
    "slug": "spirit-walk",
@@ -5021,13 +5021,13 @@
    "slug": "tidal-wave",
    "text": "Undersea Privateer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"Undersea Privateer Dedication\",\"featSlug\":\"undersea-privateer-dedication\"}]"
+   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"심해 사략선원 전념\",\"featSlug\":\"undersea-privateer-dedication\"}]"
   },
   {
    "slug": "larcenous-tail",
    "text": "Skillful Tail",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Skillful Tail\",\"feat_ko\":\"Skillful Tail\",\"featSlug\":\"skillful-tail\"}]"
+   "conds": "[{\"feat\":\"Skillful Tail\",\"feat_ko\":\"능숙한 꼬리\",\"featSlug\":\"skillful-tail\"}]"
   },
   {
    "slug": "orichalcum-bond",
@@ -5057,7 +5057,7 @@
    "slug": "guided-hover",
    "text": "Wing Rider",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Wing Rider\",\"feat_ko\":\"Wing Rider\",\"featSlug\":\"wing-rider\"}]"
+   "conds": "[{\"feat\":\"Wing Rider\",\"feat_ko\":\"날개 기수\",\"featSlug\":\"wing-rider\"}]"
   },
   {
    "slug": "channel-the-godmind",
@@ -5105,7 +5105,7 @@
    "slug": "shadowpiercing-charge",
    "text": "Nidalese Horselord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"Nidalese Horselord Dedication\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
+   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"니달 기마군주 헌신\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
   },
   {
    "slug": "deadly-simplicity",
@@ -5135,7 +5135,7 @@
    "slug": "lightless-sight",
    "text": "Warshard Warrior Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"Warshard Warrior Dedication\",\"featSlug\":\"warshard-warrior-dedication\"}]"
+   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"전쟁파편 전사 헌신\",\"featSlug\":\"warshard-warrior-dedication\"}]"
   },
   {
    "slug": "read-the-stars",
@@ -5207,7 +5207,7 @@
    "slug": "devil-you-know",
    "text": "Hellbreaker Dedication, expert in Devil Lore or Hellknight Lore",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"Hellbreaker Dedication\",\"featSlug\":\"hellbreaker-dedication\"},{\"lore\":4}]"
+   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"지옥파괴자 헌신\",\"featSlug\":\"hellbreaker-dedication\"},{\"lore\":4}]"
   },
   {
    "slug": "tempest-clouds-speed",
@@ -5249,7 +5249,7 @@
    "slug": "wrath-against-the-divine",
    "text": "Pure Legion Enforcer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"Pure Legion Enforcer Dedication\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
+   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"순수 군단 집행관 헌신\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
   },
   {
    "slug": "tactile-magic-feedback",
@@ -5333,7 +5333,7 @@
    "slug": "earthbond",
    "text": "Terra Dragonblood",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Terra Dragonblood\",\"feat_ko\":\"Terra Dragonblood\",\"featSlug\":\"terra-dragonblood\"}]"
+   "conds": "[{\"feat\":\"Terra Dragonblood\",\"feat_ko\":\"대지 용혈\",\"featSlug\":\"terra-dragonblood\"}]"
   },
   {
    "slug": "rip-and-tear",
@@ -5795,7 +5795,7 @@
    "slug": "frightening-indignation",
    "text": "Steel Falcon Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Steel Falcon Dedication\",\"feat_ko\":\"Steel Falcon Dedication\",\"featSlug\":\"steel-falcon-dedication\"}]"
+   "conds": "[{\"feat\":\"Steel Falcon Dedication\",\"feat_ko\":\"강철 매 헌신\",\"featSlug\":\"steel-falcon-dedication\"}]"
   },
   {
    "slug": "wind-jump",
@@ -5945,7 +5945,7 @@
    "slug": "inhale-exhale",
    "text": "Dragonet Breath",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Dragonet Breath\",\"feat_ko\":\"Dragonet Breath\",\"featSlug\":\"dragonet-breath\"}]"
+   "conds": "[{\"feat\":\"Dragonet Breath\",\"feat_ko\":\"새끼 용 브레스\",\"featSlug\":\"dragonet-breath\"}]"
   },
   {
    "slug": "spell-swipe",
@@ -5975,7 +5975,7 @@
    "slug": "shroud-of-the-seas",
    "text": "Undersea Privateer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"Undersea Privateer Dedication\",\"featSlug\":\"undersea-privateer-dedication\"}]"
+   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"심해 사략선원 전념\",\"featSlug\":\"undersea-privateer-dedication\"}]"
   },
   {
    "slug": "scattering-shout",
@@ -6005,7 +6005,7 @@
    "slug": "defy-the-darkness",
    "text": "darkvision",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Darkvision\",\"feat_ko\":\"Darkvision\",\"featSlug\":\"darkvision\"}]"
+   "conds": "[{\"feat\":\"Darkvision\",\"feat_ko\":\"암시야\",\"featSlug\":\"darkvision\"}]"
   },
   {
    "slug": "redirecting-draft",
@@ -6047,7 +6047,7 @@
    "slug": "second-sight",
    "text": "Timewracked Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"Timewracked Dedication\",\"featSlug\":\"timewracked-dedication\"}]"
+   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"시간에 찢긴 자 헌신\",\"featSlug\":\"timewracked-dedication\"}]"
   },
   {
    "slug": "mask-familiar",
@@ -6251,7 +6251,7 @@
    "slug": "cruel-piercing",
    "text": "Golden Erinys Stance",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Golden Erinys Stance\",\"feat_ko\":\"Golden Erinys Stance\",\"featSlug\":\"golden-erinys-stance\"}]"
+   "conds": "[{\"feat\":\"Golden Erinys Stance\",\"feat_ko\":\"황금 에리니스 자세\",\"featSlug\":\"golden-erinys-stance\"}]"
   },
   {
    "slug": "hybrid-study-spell",
@@ -6359,7 +6359,7 @@
    "slug": "reliable-magic",
    "text": "Avenging Runelord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"Avenging Runelord Dedication\",\"featSlug\":\"avenging-runelord-dedication\"}]"
+   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"복수하는 룬로드 헌신\",\"featSlug\":\"avenging-runelord-dedication\"}]"
   },
   {
    "slug": "natural-illusionist",
@@ -6467,7 +6467,7 @@
    "slug": "ships-shadow",
    "text": "Undersea Privateer Dedication, expert in Stealth",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"Undersea Privateer Dedication\",\"featSlug\":\"undersea-privateer-dedication\"},{\"skill\":\"stealth\",\"rank\":4}]"
+   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"심해 사략선원 전념\",\"featSlug\":\"undersea-privateer-dedication\"},{\"skill\":\"stealth\",\"rank\":4}]"
   },
   {
    "slug": "lethargy-poisoner",
@@ -6623,7 +6623,7 @@
    "slug": "now-you-see-me",
    "text": "Timewracked Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"Timewracked Dedication\",\"featSlug\":\"timewracked-dedication\"}]"
+   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"시간에 찢긴 자 헌신\",\"featSlug\":\"timewracked-dedication\"}]"
   },
   {
    "slug": "stellas-stab-and-snag",
@@ -6683,7 +6683,7 @@
    "slug": "denounce-tyranny",
    "text": "Steel Falcon Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Steel Falcon Dedication\",\"feat_ko\":\"Steel Falcon Dedication\",\"featSlug\":\"steel-falcon-dedication\"}]"
+   "conds": "[{\"feat\":\"Steel Falcon Dedication\",\"feat_ko\":\"강철 매 헌신\",\"featSlug\":\"steel-falcon-dedication\"}]"
   },
   {
    "slug": "elemental-existence",
@@ -6773,13 +6773,13 @@
    "slug": "mortal-possibility",
    "text": "Pure Legion Enforcer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"Pure Legion Enforcer Dedication\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
+   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"순수 군단 집행관 헌신\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
   },
   {
    "slug": "heart-of-earth",
    "text": "Terra Dragonblood",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Terra Dragonblood\",\"feat_ko\":\"Terra Dragonblood\",\"featSlug\":\"terra-dragonblood\"}]"
+   "conds": "[{\"feat\":\"Terra Dragonblood\",\"feat_ko\":\"대지 용혈\",\"featSlug\":\"terra-dragonblood\"}]"
   },
   {
    "slug": "quick-identification",
@@ -6791,7 +6791,7 @@
    "slug": "high-alert",
    "text": "Hellbreaker Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"Hellbreaker Dedication\",\"featSlug\":\"hellbreaker-dedication\"}]"
+   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"지옥파괴자 헌신\",\"featSlug\":\"hellbreaker-dedication\"}]"
   },
   {
    "slug": "dire-growth",
@@ -6803,7 +6803,7 @@
    "slug": "avoid-fates-gaze",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "swift-sneak",
@@ -6881,7 +6881,7 @@
    "slug": "momentary-respite",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "stormy-heart",
@@ -6917,13 +6917,13 @@
    "slug": "hells-armaments",
    "text": "Hellknight Preferment, expert in at least one of your order's favored weapons",
    "parsed": "",
-   "conds": "[{\"feat\":\"Hellknight Preferment\",\"feat_ko\":\"Hellknight Preferment\",\"featSlug\":\"hellknight-preferment\"}]"
+   "conds": "[{\"feat\":\"Hellknight Preferment\",\"feat_ko\":\"헬나이트 서임\",\"featSlug\":\"hellknight-preferment\"}]"
   },
   {
    "slug": "essence-overflow",
    "text": "Draconic Acolyte Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"Draconic Acolyte Dedication\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
+   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"용의 시종 헌신\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
   },
   {
    "slug": "pupils-guard",
@@ -7019,7 +7019,7 @@
    "slug": "advanced-runelord-magic",
    "text": "Expanded Runelord Magic",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Expanded Runelord Magic\",\"feat_ko\":\"Expanded Runelord Magic\",\"featSlug\":\"expanded-runelord-magic\"}]"
+   "conds": "[{\"feat\":\"Expanded Runelord Magic\",\"feat_ko\":\"확장된 룬로드 마법\",\"featSlug\":\"expanded-runelord-magic\"}]"
   },
   {
    "slug": "basic-muses-whispers",
@@ -7073,7 +7073,7 @@
    "slug": "norgorbers-secret",
    "text": "Starstone Aspirant Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"Starstone Aspirant Dedication\",\"featSlug\":\"starstone-aspirant-dedication\"}]"
+   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"스타스톤 지망자 전념\",\"featSlug\":\"starstone-aspirant-dedication\"}]"
   },
   {
    "slug": "base-kinesis",
@@ -7229,7 +7229,7 @@
    "slug": "fast-swimmer",
    "text": "Undersea Privateer Dedication, you have a swim Speed",
    "parsed": "",
-   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"Undersea Privateer Dedication\",\"featSlug\":\"undersea-privateer-dedication\"}]"
+   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"심해 사략선원 전념\",\"featSlug\":\"undersea-privateer-dedication\"}]"
   },
   {
    "slug": "beast-dynamo-howl",
@@ -7337,7 +7337,7 @@
    "slug": "horselords-bond",
    "text": "Nidalese Horselord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"Nidalese Horselord Dedication\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
+   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"니달 기마군주 헌신\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
   },
   {
    "slug": "scour-the-library",
@@ -7439,7 +7439,7 @@
    "slug": "subjugation",
    "text": "Avenging Runelord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"Avenging Runelord Dedication\",\"featSlug\":\"avenging-runelord-dedication\"}]"
+   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"복수하는 룬로드 헌신\",\"featSlug\":\"avenging-runelord-dedication\"}]"
   },
   {
    "slug": "elemental-familiar",
@@ -7877,7 +7877,7 @@
    "slug": "commitment-to-valor",
    "text": "Golden Legionnaire Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"Golden Legionnaire Dedication\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
+   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"황금 군단병 전념\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
   },
   {
    "slug": "electrify-armor",
@@ -7895,7 +7895,7 @@
    "slug": "propelled-leap",
    "text": "Undersea Privateer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"Undersea Privateer Dedication\",\"featSlug\":\"undersea-privateer-dedication\"}]"
+   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"심해 사략선원 전념\",\"featSlug\":\"undersea-privateer-dedication\"}]"
   },
   {
    "slug": "crimson-shroud",
@@ -8075,7 +8075,7 @@
    "slug": "libertys-promise",
    "text": "Steel Falcon Dedication, trained in Religion",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Steel Falcon Dedication\",\"feat_ko\":\"Steel Falcon Dedication\",\"featSlug\":\"steel-falcon-dedication\"},{\"skill\":\"religion\",\"rank\":2}]"
+   "conds": "[{\"feat\":\"Steel Falcon Dedication\",\"feat_ko\":\"강철 매 헌신\",\"featSlug\":\"steel-falcon-dedication\"},{\"skill\":\"religion\",\"rank\":2}]"
   },
   {
    "slug": "lock-on",
@@ -8099,13 +8099,13 @@
    "slug": "gaze-of-veracity",
    "text": "Hellknight Signifer Preferment",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellknight Signifer Preferment\",\"feat_ko\":\"Hellknight Signifer Preferment\",\"featSlug\":\"hellknight-signifer-preferment\"}]"
+   "conds": "[{\"feat\":\"Hellknight Signifer Preferment\",\"feat_ko\":\"헬나이트 시니퍼 승진\",\"featSlug\":\"hellknight-signifer-preferment\"}]"
   },
   {
    "slug": "march-of-law",
    "text": "Hellknight Preferment",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellknight Preferment\",\"feat_ko\":\"Hellknight Preferment\",\"featSlug\":\"hellknight-preferment\"}]"
+   "conds": "[{\"feat\":\"Hellknight Preferment\",\"feat_ko\":\"헬나이트 서임\",\"featSlug\":\"hellknight-preferment\"}]"
   },
   {
    "slug": "tactical-entry",
@@ -8201,7 +8201,7 @@
    "slug": "warshard-rune",
    "text": "Warshard Warrior Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"Warshard Warrior Dedication\",\"featSlug\":\"warshard-warrior-dedication\"}]"
+   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"전쟁파편 전사 헌신\",\"featSlug\":\"warshard-warrior-dedication\"}]"
   },
   {
    "slug": "coffin-bound",
@@ -8285,7 +8285,7 @@
    "slug": "benefactors-wings",
    "text": "Draconic Acolyte Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"Draconic Acolyte Dedication\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
+   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"용의 시종 헌신\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
   },
   {
    "slug": "shadow-mark",
@@ -8357,7 +8357,7 @@
    "slug": "caydens-freedom",
    "text": "Starstone Aspirant Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"Starstone Aspirant Dedication\",\"featSlug\":\"starstone-aspirant-dedication\"}]"
+   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"스타스톤 지망자 전념\",\"featSlug\":\"starstone-aspirant-dedication\"}]"
   },
   {
    "slug": "concentrated-assault",
@@ -8423,7 +8423,7 @@
    "slug": "pierce-the-darkness",
    "text": "low-light vision",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"Low-Light Vision\",\"featSlug\":\"low-light-vision\"}]"
+   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"저광 시야\",\"featSlug\":\"low-light-vision\"}]"
   },
   {
    "slug": "stone-soul-siblings",
@@ -8567,7 +8567,7 @@
    "slug": "uncanny-prediction",
    "text": "Steel Falcon Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Steel Falcon Dedication\",\"feat_ko\":\"Steel Falcon Dedication\",\"featSlug\":\"steel-falcon-dedication\"}]"
+   "conds": "[{\"feat\":\"Steel Falcon Dedication\",\"feat_ko\":\"강철 매 헌신\",\"featSlug\":\"steel-falcon-dedication\"}]"
   },
   {
    "slug": "impressive-mount",
@@ -8621,7 +8621,7 @@
    "slug": "gather-disciples",
    "text": "Starstone Aspirant Dedication, master in Religion",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"Starstone Aspirant Dedication\",\"featSlug\":\"starstone-aspirant-dedication\"},{\"skill\":\"religion\",\"rank\":6}]"
+   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"스타스톤 지망자 전념\",\"featSlug\":\"starstone-aspirant-dedication\"},{\"skill\":\"religion\",\"rank\":6}]"
   },
   {
    "slug": "consistent-surge",
@@ -8789,7 +8789,7 @@
    "slug": "shining-runes",
    "text": "Avenging Runelord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"Avenging Runelord Dedication\",\"featSlug\":\"avenging-runelord-dedication\"}]"
+   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"복수하는 룬로드 헌신\",\"featSlug\":\"avenging-runelord-dedication\"}]"
   },
   {
    "slug": "shoulder-catastrophe",
@@ -8849,7 +8849,7 @@
    "slug": "incredible-dragon-companion",
    "text": "Mature Dragon Companion",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Mature Dragon Companion\",\"feat_ko\":\"Mature Dragon Companion\",\"featSlug\":\"mature-dragon-companion\"}]"
+   "conds": "[{\"feat\":\"Mature Dragon Companion\",\"feat_ko\":\"성숙한 용 동료\",\"featSlug\":\"mature-dragon-companion\"}]"
   },
   {
    "slug": "discerning-strike",
@@ -8939,7 +8939,7 @@
    "slug": "determined-lore-seeker",
    "text": "Lore Seeker",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Lore Seeker\",\"feat_ko\":\"로어 탐구자\",\"featSlug\":\"lore-seeker\"}]"
+   "conds": "[{\"feat\":\"Lore Seeker\",\"feat_ko\":\"지식 탐구자\",\"featSlug\":\"lore-seeker\"}]"
   },
   {
    "slug": "furious-vengeance",
@@ -9425,7 +9425,7 @@
    "slug": "rend-armor",
    "text": "Hellbreaker Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"Hellbreaker Dedication\",\"featSlug\":\"hellbreaker-dedication\"}]"
+   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"지옥파괴자 헌신\",\"featSlug\":\"hellbreaker-dedication\"}]"
   },
   {
    "slug": "headshot",
@@ -9683,7 +9683,7 @@
    "slug": "repel-darkness",
    "text": "Nidalese Horselord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"Nidalese Horselord Dedication\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
+   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"니달 기마군주 헌신\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
   },
   {
    "slug": "pathfinder-agent-dedication",
@@ -9731,7 +9731,7 @@
    "slug": "telling-blow",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "exhort-the-faithful",
@@ -9749,7 +9749,7 @@
    "slug": "vengeance-strike",
    "text": "Sister of the Golden Erinys Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Sister of the Golden Erinys Dedication\",\"feat_ko\":\"Sister of the Golden Erinys Dedication\",\"featSlug\":\"sister-of-the-golden-erinys-dedication\"}]"
+   "conds": "[{\"feat\":\"Sister of the Golden Erinys Dedication\",\"feat_ko\":\"황금 에리니스 자매단 전념\",\"featSlug\":\"sister-of-the-golden-erinys-dedication\"}]"
   },
   {
    "slug": "ranger-dedication",
@@ -9833,7 +9833,7 @@
    "slug": "jotuns-eyes",
    "text": "low-light vision",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"Low-Light Vision\",\"featSlug\":\"low-light-vision\"}]"
+   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"저광 시야\",\"featSlug\":\"low-light-vision\"}]"
   },
   {
    "slug": "harden-flesh",
@@ -10025,7 +10025,7 @@
    "slug": "wing-rider",
    "text": "Winged Leap",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Winged Leap\",\"feat_ko\":\"Winged Leap\",\"featSlug\":\"winged-leap\"}]"
+   "conds": "[{\"feat\":\"Winged Leap\",\"feat_ko\":\"날개 도약\",\"featSlug\":\"winged-leap\"}]"
   },
   {
    "slug": "disillusionment",
@@ -10055,7 +10055,7 @@
    "slug": "iomedaes-valor",
    "text": "Starstone Aspirant Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"Starstone Aspirant Dedication\",\"featSlug\":\"starstone-aspirant-dedication\"}]"
+   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"스타스톤 지망자 전념\",\"featSlug\":\"starstone-aspirant-dedication\"}]"
   },
   {
    "slug": "pivot-strike",
@@ -10211,13 +10211,13 @@
    "slug": "arodens-innovation",
    "text": "Starstone Aspirant Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"Starstone Aspirant Dedication\",\"featSlug\":\"starstone-aspirant-dedication\"}]"
+   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"스타스톤 지망자 전념\",\"featSlug\":\"starstone-aspirant-dedication\"}]"
   },
   {
    "slug": "autonomous-arms",
    "text": "Avenging Runelord Dedication, expert proficiency in a spear or polearm",
    "parsed": "",
-   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"Avenging Runelord Dedication\",\"featSlug\":\"avenging-runelord-dedication\"}]"
+   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"복수하는 룬로드 헌신\",\"featSlug\":\"avenging-runelord-dedication\"}]"
   },
   {
    "slug": "ward-mind",
@@ -10247,7 +10247,7 @@
    "slug": "orc-sight",
    "text": "low-light vision",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"Low-Light Vision\",\"featSlug\":\"low-light-vision\"}]"
+   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"저광 시야\",\"featSlug\":\"low-light-vision\"}]"
   },
   {
    "slug": "aura-expertise",
@@ -10307,7 +10307,7 @@
    "slug": "advanced-deific-power",
    "text": "Minor Deific Power",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Minor Deific Power\",\"feat_ko\":\"Minor Deific Power\",\"featSlug\":\"minor-deific-power\"}]"
+   "conds": "[{\"feat\":\"Minor Deific Power\",\"feat_ko\":\"하급 신성한 힘\",\"featSlug\":\"minor-deific-power\"}]"
   },
   {
    "slug": "swordmaster-dedication",
@@ -10349,7 +10349,7 @@
    "slug": "vigorous-victor",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "dragons-presence",
@@ -10553,7 +10553,7 @@
    "slug": "make-do",
    "text": "Twilight Talon Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"Twilight Talon Dedication\",\"featSlug\":\"twilight-talon-dedication\"}]"
+   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"황혼의 발톱 헌신\",\"featSlug\":\"twilight-talon-dedication\"}]"
   },
   {
    "slug": "make-em-sweat",
@@ -10691,7 +10691,7 @@
    "slug": "deepening-devotion",
    "text": "Draconic Acolyte Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"Draconic Acolyte Dedication\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
+   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"용의 시종 헌신\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
   },
   {
    "slug": "thorned-seedpod",
@@ -10709,7 +10709,7 @@
    "slug": "minor-deific-power",
    "text": "Starstone Aspirant Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"Starstone Aspirant Dedication\",\"featSlug\":\"starstone-aspirant-dedication\"}]"
+   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"스타스톤 지망자 전념\",\"featSlug\":\"starstone-aspirant-dedication\"}]"
   },
   {
    "slug": "cloud-jump",
@@ -10901,7 +10901,7 @@
    "slug": "signifers-sight",
    "text": "Hellknight Signifer Preferment",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellknight Signifer Preferment\",\"feat_ko\":\"Hellknight Signifer Preferment\",\"featSlug\":\"hellknight-signifer-preferment\"}]"
+   "conds": "[{\"feat\":\"Hellknight Signifer Preferment\",\"feat_ko\":\"헬나이트 시니퍼 승진\",\"featSlug\":\"hellknight-signifer-preferment\"}]"
   },
   {
    "slug": "decree-of-banishment",
@@ -11123,7 +11123,7 @@
    "slug": "expanded-runelord-magic",
    "text": "Avenging Runelord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"Avenging Runelord Dedication\",\"featSlug\":\"avenging-runelord-dedication\"}]"
+   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"복수하는 룬로드 헌신\",\"featSlug\":\"avenging-runelord-dedication\"}]"
   },
   {
    "slug": "palatine-enchantment",
@@ -11225,7 +11225,7 @@
    "slug": "feign-innocence",
    "text": "Twilight Talon Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"Twilight Talon Dedication\",\"featSlug\":\"twilight-talon-dedication\"}]"
+   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"황혼의 발톱 헌신\",\"featSlug\":\"twilight-talon-dedication\"}]"
   },
   {
    "slug": "noxious-odor",
@@ -11417,13 +11417,13 @@
    "slug": "fiendish-brand",
    "text": "Sister of the Golden Erinys Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Sister of the Golden Erinys Dedication\",\"feat_ko\":\"Sister of the Golden Erinys Dedication\",\"featSlug\":\"sister-of-the-golden-erinys-dedication\"}]"
+   "conds": "[{\"feat\":\"Sister of the Golden Erinys Dedication\",\"feat_ko\":\"황금 에리니스 자매단 전념\",\"featSlug\":\"sister-of-the-golden-erinys-dedication\"}]"
   },
   {
    "slug": "internal-dialogue",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "impose-order-psychic",
@@ -11567,7 +11567,7 @@
    "slug": "instant-credentials",
    "text": "Fabricated Credentials, Talon’s Mark",
    "parsed": "",
-   "conds": "[{\"feat\":\"Fabricated Credentials\",\"feat_ko\":\"Fabricated Credentials\",\"featSlug\":\"fabricated-credentials\"}]"
+   "conds": "[{\"feat\":\"Fabricated Credentials\",\"feat_ko\":\"날조된 신원\",\"featSlug\":\"fabricated-credentials\"}]"
   },
   {
    "slug": "cavaliers-charge",
@@ -11777,7 +11777,7 @@
    "slug": "be-right-back",
    "text": "Timewracked Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"Timewracked Dedication\",\"featSlug\":\"timewracked-dedication\"}]"
+   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"시간에 찢긴 자 헌신\",\"featSlug\":\"timewracked-dedication\"}]"
   },
   {
    "slug": "blade-of-the-crimson-oath",
@@ -11873,7 +11873,7 @@
    "slug": "prescient-parry",
    "text": "Warshard Warrior Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"Warshard Warrior Dedication\",\"featSlug\":\"warshard-warrior-dedication\"}]"
+   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"전쟁파편 전사 헌신\",\"featSlug\":\"warshard-warrior-dedication\"}]"
   },
   {
    "slug": "soaring-form",
@@ -11903,7 +11903,7 @@
    "slug": "unassailable-enforcer",
    "text": "Pure Legion Enforcer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"Pure Legion Enforcer Dedication\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
+   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"순수 군단 집행관 헌신\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
   },
   {
    "slug": "transcendent-deflection",
@@ -12197,7 +12197,7 @@
    "slug": "talons-mark",
    "text": "Twilight Talon Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"Twilight Talon Dedication\",\"featSlug\":\"twilight-talon-dedication\"}]"
+   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"황혼의 발톱 헌신\",\"featSlug\":\"twilight-talon-dedication\"}]"
   },
   {
    "slug": "choking-smoke",
@@ -12263,7 +12263,7 @@
    "slug": "zip-zoom",
    "text": "Take Wing",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Take Wing\",\"feat_ko\":\"Take Wing\",\"featSlug\":\"take-wing\"}]"
+   "conds": "[{\"feat\":\"Take Wing\",\"feat_ko\":\"비상\",\"featSlug\":\"take-wing\"}]"
   },
   {
    "slug": "tactical-debilitations",
@@ -12389,7 +12389,7 @@
    "slug": "indomitable-shot",
    "text": "Warshard Warrior Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"Warshard Warrior Dedication\",\"featSlug\":\"warshard-warrior-dedication\"}]"
+   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"전쟁파편 전사 헌신\",\"featSlug\":\"warshard-warrior-dedication\"}]"
   },
   {
    "slug": "iron-repercussions",
@@ -12503,7 +12503,7 @@
    "slug": "arcane-eye",
    "text": "low-light vision",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"Low-Light Vision\",\"featSlug\":\"low-light-vision\"}]"
+   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"저광 시야\",\"featSlug\":\"low-light-vision\"}]"
   },
   {
    "slug": "soulsight-sorcerer",
@@ -12695,7 +12695,7 @@
    "slug": "promise-of-pain",
    "text": "Sister of the Golden Erinys Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Sister of the Golden Erinys Dedication\",\"feat_ko\":\"Sister of the Golden Erinys Dedication\",\"featSlug\":\"sister-of-the-golden-erinys-dedication\"}]"
+   "conds": "[{\"feat\":\"Sister of the Golden Erinys Dedication\",\"feat_ko\":\"황금 에리니스 자매단 전념\",\"featSlug\":\"sister-of-the-golden-erinys-dedication\"}]"
   },
   {
    "slug": "black-powder-blaze",
@@ -12719,7 +12719,7 @@
    "slug": "winged-leap",
    "text": "Drake Rider Dedication, dragon companion with the mount special ability",
    "parsed": "",
-   "conds": "[{\"feat\":\"Drake Rider Dedication\",\"feat_ko\":\"Drake Rider Dedication\",\"featSlug\":\"drake-rider-dedication\"}]"
+   "conds": "[{\"feat\":\"Drake Rider Dedication\",\"feat_ko\":\"드레이크 기수 헌신\",\"featSlug\":\"drake-rider-dedication\"}]"
   },
   {
    "slug": "esoteric-spellcasting",
@@ -12737,7 +12737,7 @@
    "slug": "gallop-across-shadow",
    "text": "Nidalese Horselord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"Nidalese Horselord Dedication\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
+   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"니달 기마군주 헌신\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
   },
   {
    "slug": "occult-breadth",
@@ -12773,7 +12773,7 @@
    "slug": "domino-effect",
    "text": "Brastlewark Snare Engineering",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Brastlewark Snare Engineering\",\"feat_ko\":\"Brastlewark Snare Engineering\",\"featSlug\":\"brastlewark-snare-engineering\"}]"
+   "conds": "[{\"feat\":\"Brastlewark Snare Engineering\",\"feat_ko\":\"브래슬워크 함정 공학\",\"featSlug\":\"brastlewark-snare-engineering\"}]"
   },
   {
    "slug": "greater-armament",
@@ -12887,7 +12887,7 @@
    "slug": "officers-protection",
    "text": "Commitment to Protection",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Commitment to Protection\",\"feat_ko\":\"Commitment to Protection\",\"featSlug\":\"commitment-to-protection\"}]"
+   "conds": "[{\"feat\":\"Commitment to Protection\",\"feat_ko\":\"보호에 대한 헌신\",\"featSlug\":\"commitment-to-protection\"}]"
   },
   {
    "slug": "shared-dream",
@@ -13217,7 +13217,7 @@
    "slug": "deceptive-deduction",
    "text": "Twilight Talon Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"Twilight Talon Dedication\",\"featSlug\":\"twilight-talon-dedication\"}]"
+   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"황혼의 발톱 헌신\",\"featSlug\":\"twilight-talon-dedication\"}]"
   },
   {
    "slug": "lonely-army",
@@ -13271,7 +13271,7 @@
    "slug": "mature-dragon-companion",
    "text": "Drake Rider Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Drake Rider Dedication\",\"feat_ko\":\"Drake Rider Dedication\",\"featSlug\":\"drake-rider-dedication\"}]"
+   "conds": "[{\"feat\":\"Drake Rider Dedication\",\"feat_ko\":\"드레이크 기수 헌신\",\"featSlug\":\"drake-rider-dedication\"}]"
   },
   {
    "slug": "share-burden",
@@ -13301,7 +13301,7 @@
    "slug": "nephilim-eyes",
    "text": "low-light vision",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"Low-Light Vision\",\"featSlug\":\"low-light-vision\"}]"
+   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"저광 시야\",\"featSlug\":\"low-light-vision\"}]"
   },
   {
    "slug": "spinning-stand",
@@ -13391,7 +13391,7 @@
    "slug": "unbalancing-appearance",
    "text": "Rose Warden Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Rose Warden Dedication\",\"feat_ko\":\"Rose Warden Dedication\",\"featSlug\":\"rose-warden-dedication\"}]"
+   "conds": "[{\"feat\":\"Rose Warden Dedication\",\"feat_ko\":\"장미 파수꾼 헌신\",\"featSlug\":\"rose-warden-dedication\"}]"
   },
   {
    "slug": "hair-trigger",
@@ -13745,7 +13745,7 @@
    "slug": "stealthy-as-an-octopus",
    "text": "Undersea Privateer Dedication, expert in Stealth",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"Undersea Privateer Dedication\",\"featSlug\":\"undersea-privateer-dedication\"},{\"skill\":\"stealth\",\"rank\":4}]"
+   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"심해 사략선원 전념\",\"featSlug\":\"undersea-privateer-dedication\"},{\"skill\":\"stealth\",\"rank\":4}]"
   },
   {
    "slug": "ceremony-of-strengthened-hand",
@@ -14003,7 +14003,7 @@
    "slug": "timelessness",
    "text": "Timewracked Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"Timewracked Dedication\",\"featSlug\":\"timewracked-dedication\"}]"
+   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"시간에 찢긴 자 헌신\",\"featSlug\":\"timewracked-dedication\"}]"
   },
   {
    "slug": "velstrac-magic",
@@ -14135,7 +14135,7 @@
    "slug": "perplex",
    "text": "Steel Falcon Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Steel Falcon Dedication\",\"feat_ko\":\"Steel Falcon Dedication\",\"featSlug\":\"steel-falcon-dedication\"}]"
+   "conds": "[{\"feat\":\"Steel Falcon Dedication\",\"feat_ko\":\"강철 매 헌신\",\"featSlug\":\"steel-falcon-dedication\"}]"
   },
   {
    "slug": "emerald-boughs-hideaway",
@@ -14291,7 +14291,7 @@
    "slug": "blessed-thorn-strike",
    "text": "Rose Warden Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Rose Warden Dedication\",\"feat_ko\":\"Rose Warden Dedication\",\"featSlug\":\"rose-warden-dedication\"}]"
+   "conds": "[{\"feat\":\"Rose Warden Dedication\",\"feat_ko\":\"장미 파수꾼 헌신\",\"featSlug\":\"rose-warden-dedication\"}]"
   },
   {
    "slug": "bard-dedication",
@@ -14399,7 +14399,7 @@
    "slug": "infernal-interference",
    "text": "Hellknight Preferment",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellknight Preferment\",\"feat_ko\":\"Hellknight Preferment\",\"featSlug\":\"hellknight-preferment\"}]"
+   "conds": "[{\"feat\":\"Hellknight Preferment\",\"feat_ko\":\"헬나이트 서임\",\"featSlug\":\"hellknight-preferment\"}]"
   },
   {
    "slug": "terrified-retreat",
@@ -14543,7 +14543,7 @@
    "slug": "flair-rider-stance",
    "text": "Drake Rider Dedication, trained in Acrobatics",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Drake Rider Dedication\",\"feat_ko\":\"Drake Rider Dedication\",\"featSlug\":\"drake-rider-dedication\"},{\"skill\":\"acrobatics\",\"rank\":2}]"
+   "conds": "[{\"feat\":\"Drake Rider Dedication\",\"feat_ko\":\"드레이크 기수 헌신\",\"featSlug\":\"drake-rider-dedication\"},{\"skill\":\"acrobatics\",\"rank\":2}]"
   },
   {
    "slug": "bless-toxin",
@@ -14585,7 +14585,7 @@
    "slug": "reflexive-devotion",
    "text": "Draconic Acolyte Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"Draconic Acolyte Dedication\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
+   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"용의 시종 헌신\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
   },
   {
    "slug": "swashbuckler-dedication",
@@ -14753,7 +14753,7 @@
    "slug": "temporal-fury",
    "text": "Timewracked Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"Timewracked Dedication\",\"featSlug\":\"timewracked-dedication\"}]"
+   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"시간에 찢긴 자 헌신\",\"featSlug\":\"timewracked-dedication\"}]"
   },
   {
    "slug": "twin-distraction",
@@ -14957,7 +14957,7 @@
    "slug": "reactive-resilience",
    "text": "Draconic Resilience",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Draconic Resilience\",\"feat_ko\":\"Draconic Resilience\",\"featSlug\":\"draconic-resilience\"}]"
+   "conds": "[{\"feat\":\"Draconic Resilience\",\"feat_ko\":\"용의 회복력\",\"featSlug\":\"draconic-resilience\"}]"
   },
   {
    "slug": "influence-nature",
@@ -15095,7 +15095,7 @@
    "slug": "draconic-fury",
    "text": "Draconic Acolyte Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"Draconic Acolyte Dedication\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
+   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"용의 시종 헌신\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
   },
   {
    "slug": "supertaster",
@@ -15107,13 +15107,13 @@
    "slug": "rise-up",
    "text": "Rose Warden Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Rose Warden Dedication\",\"feat_ko\":\"Rose Warden Dedication\",\"featSlug\":\"rose-warden-dedication\"}]"
+   "conds": "[{\"feat\":\"Rose Warden Dedication\",\"feat_ko\":\"장미 파수꾼 헌신\",\"featSlug\":\"rose-warden-dedication\"}]"
   },
   {
    "slug": "burn-identity",
    "text": "Twilight Talon Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"Twilight Talon Dedication\",\"featSlug\":\"twilight-talon-dedication\"}]"
+   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"황혼의 발톱 헌신\",\"featSlug\":\"twilight-talon-dedication\"}]"
   },
   {
    "slug": "digger",
@@ -15197,7 +15197,7 @@
    "slug": "into-the-sky",
    "text": "Zip! Zoom!",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Zip! Zoom!\",\"feat_ko\":\"Zip! Zoom!\",\"featSlug\":\"zip-zoom\"}]"
+   "conds": "[{\"feat\":\"Zip! Zoom!\",\"feat_ko\":\"휙! 슝!\",\"featSlug\":\"zip-zoom\"}]"
   },
   {
    "slug": "accursed-magic",
@@ -15347,13 +15347,13 @@
    "slug": "commitment-to-protection",
    "text": "Golden Legionnaire Dedication, expert in Warfare Lore",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"Golden Legionnaire Dedication\",\"featSlug\":\"golden-legionnaire-dedication\"},{\"lore\":4}]"
+   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"황금 군단병 전념\",\"featSlug\":\"golden-legionnaire-dedication\"},{\"lore\":4}]"
   },
   {
    "slug": "repelling-enforcer",
    "text": "Pure Legion Enforcer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"Pure Legion Enforcer Dedication\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
+   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"순수 군단 집행관 헌신\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
   },
   {
    "slug": "nothing-personal",
@@ -15509,7 +15509,7 @@
    "slug": "craft-runewell",
    "text": "Avenging Runelord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"Avenging Runelord Dedication\",\"featSlug\":\"avenging-runelord-dedication\"}]"
+   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"복수하는 룬로드 헌신\",\"featSlug\":\"avenging-runelord-dedication\"}]"
   },
   {
    "slug": "pact-of-the-rune-dragon",
@@ -15551,7 +15551,7 @@
    "slug": "apocalyptic-visions",
    "text": "Avenging Runelord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"Avenging Runelord Dedication\",\"featSlug\":\"avenging-runelord-dedication\"}]"
+   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"복수하는 룬로드 헌신\",\"featSlug\":\"avenging-runelord-dedication\"}]"
   },
   {
    "slug": "eternal-elixir",
@@ -15755,7 +15755,7 @@
    "slug": "conjure-hell",
    "text": "Hellknight Signifer Preferment",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellknight Signifer Preferment\",\"feat_ko\":\"Hellknight Signifer Preferment\",\"featSlug\":\"hellknight-signifer-preferment\"}]"
+   "conds": "[{\"feat\":\"Hellknight Signifer Preferment\",\"feat_ko\":\"헬나이트 시니퍼 승진\",\"featSlug\":\"hellknight-signifer-preferment\"}]"
   },
   {
    "slug": "peerless-mascot-companion",
@@ -15923,7 +15923,7 @@
    "slug": "commitment-to-vigilance",
    "text": "Golden Legionnaire Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"Golden Legionnaire Dedication\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
+   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"황금 군단병 전념\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
   },
   {
    "slug": "wither-away",
@@ -15971,7 +15971,7 @@
    "slug": "war-rider-stance",
    "text": "Drake Rider Dedication, expert in martial weapons, dragon companion with a support benefit that includes damage",
    "parsed": "",
-   "conds": "[{\"feat\":\"Drake Rider Dedication\",\"feat_ko\":\"Drake Rider Dedication\",\"featSlug\":\"drake-rider-dedication\"}]"
+   "conds": "[{\"feat\":\"Drake Rider Dedication\",\"feat_ko\":\"드레이크 기수 헌신\",\"featSlug\":\"drake-rider-dedication\"}]"
   },
   {
    "slug": "coordinated-tactics",
@@ -15983,7 +15983,7 @@
    "slug": "gravesight",
    "text": "low-light vision",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"Low-Light Vision\",\"featSlug\":\"low-light-vision\"}]"
+   "conds": "[{\"feat\":\"Low-Light Vision\",\"feat_ko\":\"저광 시야\",\"featSlug\":\"low-light-vision\"}]"
   },
   {
    "slug": "verduran-shadow-dedication",
@@ -16193,7 +16193,7 @@
    "slug": "fracture-timeflow",
    "text": "Timewracked Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"Timewracked Dedication\",\"featSlug\":\"timewracked-dedication\"}]"
+   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"시간에 찢긴 자 헌신\",\"featSlug\":\"timewracked-dedication\"}]"
   },
   {
    "slug": "legend-of-combat",
@@ -16421,7 +16421,7 @@
    "slug": "hell-lancer-shot",
    "text": "Golden Legionnaire Dedication, trained in martial firearms",
    "parsed": "",
-   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"Golden Legionnaire Dedication\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
+   "conds": "[{\"feat\":\"Golden Legionnaire Dedication\",\"feat_ko\":\"황금 군단병 전념\",\"featSlug\":\"golden-legionnaire-dedication\"}]"
   },
   {
    "slug": "greater-magical-edification",
@@ -16565,7 +16565,7 @@
    "slug": "athletes-ally",
    "text": "Warshard Warrior Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"Warshard Warrior Dedication\",\"featSlug\":\"warshard-warrior-dedication\"}]"
+   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"전쟁파편 전사 헌신\",\"featSlug\":\"warshard-warrior-dedication\"}]"
   },
   {
    "slug": "one-inch-punch",
@@ -16697,7 +16697,7 @@
    "slug": "salt-kissed",
    "text": "Gray Corsair Training",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Gray Corsair Training\",\"feat_ko\":\"Gray Corsair Training\",\"featSlug\":\"gray-corsair-training\"}]"
+   "conds": "[{\"feat\":\"Gray Corsair Training\",\"feat_ko\":\"회색 해적 훈련\",\"featSlug\":\"gray-corsair-training\"}]"
   },
   {
    "slug": "worm-form",
@@ -16799,7 +16799,7 @@
    "slug": "to-thine-own-self",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "blessed-denial",
@@ -16937,7 +16937,7 @@
    "slug": "live-off-borrowed-time",
    "text": "Timewracked Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"Timewracked Dedication\",\"featSlug\":\"timewracked-dedication\"}]"
+   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"시간에 찢긴 자 헌신\",\"featSlug\":\"timewracked-dedication\"}]"
   },
   {
    "slug": "vaulting-gallop",
@@ -16955,7 +16955,7 @@
    "slug": "eternal-hero",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "ambush-tactics",
@@ -17087,7 +17087,7 @@
    "slug": "on-my-best-day",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "open-the-blazing-eye",
@@ -17189,7 +17189,7 @@
    "slug": "slippery-as-an-eel",
    "text": "Undersea Privateer Dedication, trained in Acrobatics",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"Undersea Privateer Dedication\",\"featSlug\":\"undersea-privateer-dedication\"},{\"skill\":\"acrobatics\",\"rank\":2}]"
+   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"심해 사략선원 전념\",\"featSlug\":\"undersea-privateer-dedication\"},{\"skill\":\"acrobatics\",\"rank\":2}]"
   },
   {
    "slug": "stunning-surprise",
@@ -17315,7 +17315,7 @@
    "slug": "my-reputation-precedes-me",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "briny-beverage",
@@ -17435,7 +17435,7 @@
    "slug": "iivlars-deflection",
    "text": "keeper jotunborn heritage",
    "parsed": 1,
-   "conds": "[{\"heritage\":\"Keeper Jotunborn\"}]"
+   "conds": "[{\"or\":[{\"heritage\":\"Keeper Jotunborn\"},{\"heritage\":\"수호 요툰본\"}]}]"
   },
   {
    "slug": "runescarred-dedication",
@@ -17549,7 +17549,7 @@
    "slug": "frightening-power",
    "text": "Draconic Acolyte Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"Draconic Acolyte Dedication\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
+   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"용의 시종 헌신\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
   },
   {
    "slug": "resounding-cascade",
@@ -17693,13 +17693,13 @@
    "slug": "not-this-time",
    "text": "Timewracked Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"Timewracked Dedication\",\"featSlug\":\"timewracked-dedication\"}]"
+   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"시간에 찢긴 자 헌신\",\"featSlug\":\"timewracked-dedication\"}]"
   },
   {
    "slug": "i-am-the-weapon",
    "text": "Warshard Warrior Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"Warshard Warrior Dedication\",\"featSlug\":\"warshard-warrior-dedication\"}]"
+   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"전쟁파편 전사 헌신\",\"featSlug\":\"warshard-warrior-dedication\"}]"
   },
   {
    "slug": "dueling-riposte",
@@ -17951,7 +17951,7 @@
    "slug": "transmute-weapon",
    "text": "Warshard Warrior Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"Warshard Warrior Dedication\",\"featSlug\":\"warshard-warrior-dedication\"}]"
+   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"전쟁파편 전사 헌신\",\"featSlug\":\"warshard-warrior-dedication\"}]"
   },
   {
    "slug": "storm-shroud",
@@ -18113,7 +18113,7 @@
    "slug": "no-gods-only-mortals",
    "text": "Pure Legion Enforcer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"Pure Legion Enforcer Dedication\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
+   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"순수 군단 집행관 헌신\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
   },
   {
    "slug": "phase-bullet",
@@ -18149,7 +18149,7 @@
    "slug": "throw-and-catch",
    "text": "Warshard Warrior Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"Warshard Warrior Dedication\",\"featSlug\":\"warshard-warrior-dedication\"}]"
+   "conds": "[{\"feat\":\"Warshard Warrior Dedication\",\"feat_ko\":\"전쟁파편 전사 헌신\",\"featSlug\":\"warshard-warrior-dedication\"}]"
   },
   {
    "slug": "monk-resiliency",
@@ -18317,7 +18317,7 @@
    "slug": "let-death-be-my-weapon",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "performers-treatment",
@@ -18569,7 +18569,7 @@
    "slug": "major-deific-power",
    "text": "Greater Deific Power",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Greater Deific Power\",\"feat_ko\":\"Greater Deific Power\",\"featSlug\":\"greater-deific-power\"}]"
+   "conds": "[{\"feat\":\"Greater Deific Power\",\"feat_ko\":\"상급 신성한 권능\",\"featSlug\":\"greater-deific-power\"}]"
   },
   {
    "slug": "battle-hardened-companion",
@@ -18635,7 +18635,7 @@
    "slug": "return-to-the-pit",
    "text": "Hellbreaker Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"Hellbreaker Dedication\",\"featSlug\":\"hellbreaker-dedication\"}]"
+   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"지옥파괴자 헌신\",\"featSlug\":\"hellbreaker-dedication\"}]"
   },
   {
    "slug": "eldritch-archer-dedication",
@@ -18695,7 +18695,7 @@
    "slug": "holy-bloom",
    "text": "Rose Warden Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Rose Warden Dedication\",\"feat_ko\":\"Rose Warden Dedication\",\"featSlug\":\"rose-warden-dedication\"}]"
+   "conds": "[{\"feat\":\"Rose Warden Dedication\",\"feat_ko\":\"장미 파수꾼 헌신\",\"featSlug\":\"rose-warden-dedication\"}]"
   },
   {
    "slug": "primadonna",
@@ -18713,13 +18713,13 @@
    "slug": "vindictive-thoughts",
    "text": "Avenging Runelord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"Avenging Runelord Dedication\",\"featSlug\":\"avenging-runelord-dedication\"}]"
+   "conds": "[{\"feat\":\"Avenging Runelord Dedication\",\"feat_ko\":\"복수하는 룬로드 헌신\",\"featSlug\":\"avenging-runelord-dedication\"}]"
   },
   {
    "slug": "strafing-breath",
    "text": "War Rider Stance",
    "parsed": 1,
-   "conds": "[{\"feat\":\"War Rider Stance\",\"feat_ko\":\"War Rider Stance\",\"featSlug\":\"war-rider-stance\"}]"
+   "conds": "[{\"feat\":\"War Rider Stance\",\"feat_ko\":\"전쟁 기수 태세\",\"featSlug\":\"war-rider-stance\"}]"
   },
   {
    "slug": "gird-champion",
@@ -18755,7 +18755,7 @@
    "slug": "for-the-fallen",
    "text": "Starstone Aspirant Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"Starstone Aspirant Dedication\",\"featSlug\":\"starstone-aspirant-dedication\"}]"
+   "conds": "[{\"feat\":\"Starstone Aspirant Dedication\",\"feat_ko\":\"스타스톤 지망자 전념\",\"featSlug\":\"starstone-aspirant-dedication\"}]"
   },
   {
    "slug": "aerobatics-mastery",
@@ -18839,7 +18839,7 @@
    "slug": "home-in-the-deep",
    "text": "Aqueous Dragonblood",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Aqueous Dragonblood\",\"feat_ko\":\"Aqueous Dragonblood\",\"featSlug\":\"aqueous-dragonblood\"}]"
+   "conds": "[{\"feat\":\"Aqueous Dragonblood\",\"feat_ko\":\"수생 용혈\",\"featSlug\":\"aqueous-dragonblood\"}]"
   },
   {
    "slug": "basic-field-training",
@@ -18851,7 +18851,7 @@
    "slug": "edict-of-mortality",
    "text": "Pure Legion Enforcer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"Pure Legion Enforcer Dedication\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
+   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"순수 군단 집행관 헌신\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
   },
   {
    "slug": "horizon-walker-dedication",
@@ -19055,7 +19055,7 @@
    "slug": "defy-chains",
    "text": "Nidalese Horselord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"Nidalese Horselord Dedication\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
+   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"니달 기마군주 헌신\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
   },
   {
    "slug": "coughing-dragon-display",
@@ -19085,7 +19085,7 @@
    "slug": "hidden-intentions",
    "text": "Twilight Talon Dedication, master in Deception",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"Twilight Talon Dedication\",\"featSlug\":\"twilight-talon-dedication\"},{\"skill\":\"deception\",\"rank\":6}]"
+   "conds": "[{\"feat\":\"Twilight Talon Dedication\",\"feat_ko\":\"황혼의 발톱 헌신\",\"featSlug\":\"twilight-talon-dedication\"},{\"skill\":\"deception\",\"rank\":6}]"
   },
   {
    "slug": "heavens-thunder",
@@ -19469,7 +19469,7 @@
    "slug": "defy-hell",
    "text": "Hellbreaker Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"Hellbreaker Dedication\",\"featSlug\":\"hellbreaker-dedication\"}]"
+   "conds": "[{\"feat\":\"Hellbreaker Dedication\",\"feat_ko\":\"지옥파괴자 헌신\",\"featSlug\":\"hellbreaker-dedication\"}]"
   },
   {
    "slug": "glorious-gamtu",
@@ -19841,7 +19841,7 @@
    "slug": "no-need-to-fear",
    "text": "Commitment to Valor",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Commitment to Valor\",\"feat_ko\":\"Commitment to Valor\",\"featSlug\":\"commitment-to-valor\"}]"
+   "conds": "[{\"feat\":\"Commitment to Valor\",\"feat_ko\":\"용맹에의 헌신\",\"featSlug\":\"commitment-to-valor\"}]"
   },
   {
    "slug": "denier-of-destruction",
@@ -20009,7 +20009,7 @@
    "slug": "blade-of-law",
    "text": "Hellknight Preferment",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Hellknight Preferment\",\"feat_ko\":\"Hellknight Preferment\",\"featSlug\":\"hellknight-preferment\"}]"
+   "conds": "[{\"feat\":\"Hellknight Preferment\",\"feat_ko\":\"헬나이트 서임\",\"featSlug\":\"hellknight-preferment\"}]"
   },
   {
    "slug": "smoke-through-bamboo",
@@ -20051,7 +20051,7 @@
    "slug": "face-your-fears",
    "text": "Nidalese Horselord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"Nidalese Horselord Dedication\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
+   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"니달 기마군주 헌신\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
   },
   {
    "slug": "survey-wildlife",
@@ -20165,7 +20165,7 @@
    "slug": "gray-corsair-training",
    "text": "Steel Falcon Dedication, trained in Intimidation",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Steel Falcon Dedication\",\"feat_ko\":\"Steel Falcon Dedication\",\"featSlug\":\"steel-falcon-dedication\"},{\"skill\":\"intimidation\",\"rank\":2}]"
+   "conds": "[{\"feat\":\"Steel Falcon Dedication\",\"feat_ko\":\"강철 매 헌신\",\"featSlug\":\"steel-falcon-dedication\"},{\"skill\":\"intimidation\",\"rank\":2}]"
   },
   {
    "slug": "world-wise-vigilance",
@@ -20267,7 +20267,7 @@
    "slug": "fear-no-pain",
    "text": "Nidalese Horselord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"Nidalese Horselord Dedication\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
+   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"니달 기마군주 헌신\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
   },
   {
    "slug": "elementalist-dedication",
@@ -20825,7 +20825,7 @@
    "slug": "throttle-the-divine",
    "text": "Pure Legion Enforcer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"Pure Legion Enforcer Dedication\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
+   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"순수 군단 집행관 헌신\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
   },
   {
    "slug": "vindicator-dedication",
@@ -20897,7 +20897,7 @@
    "slug": "to-me",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "environmental-explorer",
@@ -20981,7 +20981,7 @@
    "slug": "preserve-the-moment",
    "text": "Timewracked Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"Timewracked Dedication\",\"featSlug\":\"timewracked-dedication\"}]"
+   "conds": "[{\"feat\":\"Timewracked Dedication\",\"feat_ko\":\"시간에 찢긴 자 헌신\",\"featSlug\":\"timewracked-dedication\"}]"
   },
   {
    "slug": "duel-spell-advantage",
@@ -21113,7 +21113,7 @@
    "slug": "trained-swimmer",
    "text": "Undersea Privateer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"Undersea Privateer Dedication\",\"featSlug\":\"undersea-privateer-dedication\"}]"
+   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"심해 사략선원 전념\",\"featSlug\":\"undersea-privateer-dedication\"}]"
   },
   {
    "slug": "ulfen-guard-dedication",
@@ -21275,7 +21275,7 @@
    "slug": "dragonet-immunities",
    "text": "Dragonet Resistances",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Dragonet Resistances\",\"feat_ko\":\"Dragonet Resistances\",\"featSlug\":\"dragonet-resistances\"}]"
+   "conds": "[{\"feat\":\"Dragonet Resistances\",\"feat_ko\":\"드래고넷 저항\",\"featSlug\":\"dragonet-resistances\"}]"
   },
   {
    "slug": "battle-medicine",
@@ -21509,7 +21509,7 @@
    "slug": "wall-of-roses",
    "text": "Rose Warden Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Rose Warden Dedication\",\"feat_ko\":\"Rose Warden Dedication\",\"featSlug\":\"rose-warden-dedication\"}]"
+   "conds": "[{\"feat\":\"Rose Warden Dedication\",\"feat_ko\":\"장미 파수꾼 헌신\",\"featSlug\":\"rose-warden-dedication\"}]"
   },
   {
    "slug": "close-contract",
@@ -21635,7 +21635,7 @@
    "slug": "eye-for-smugglers",
    "text": "Gray Corsair Training",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Gray Corsair Training\",\"feat_ko\":\"Gray Corsair Training\",\"featSlug\":\"gray-corsair-training\"}]"
+   "conds": "[{\"feat\":\"Gray Corsair Training\",\"feat_ko\":\"회색 해적 훈련\",\"featSlug\":\"gray-corsair-training\"}]"
   },
   {
    "slug": "fortunate-blow",
@@ -21821,7 +21821,7 @@
    "slug": "eye-for-weakness",
    "text": "Sister of the Golden Erinys Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Sister of the Golden Erinys Dedication\",\"feat_ko\":\"Sister of the Golden Erinys Dedication\",\"featSlug\":\"sister-of-the-golden-erinys-dedication\"}]"
+   "conds": "[{\"feat\":\"Sister of the Golden Erinys Dedication\",\"feat_ko\":\"황금 에리니스 자매단 전념\",\"featSlug\":\"sister-of-the-golden-erinys-dedication\"}]"
   },
   {
    "slug": "klingegeist",
@@ -21971,7 +21971,7 @@
    "slug": "wrathful-presence",
    "text": "Sister of the Golden Erinys Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Sister of the Golden Erinys Dedication\",\"feat_ko\":\"Sister of the Golden Erinys Dedication\",\"featSlug\":\"sister-of-the-golden-erinys-dedication\"}]"
+   "conds": "[{\"feat\":\"Sister of the Golden Erinys Dedication\",\"feat_ko\":\"황금 에리니스 자매단 전념\",\"featSlug\":\"sister-of-the-golden-erinys-dedication\"}]"
   },
   {
    "slug": "diverse-recognition",
@@ -21989,7 +21989,7 @@
    "slug": "riptide-undersea-privateer",
    "text": "Anchor Stance",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Anchor Stance\",\"feat_ko\":\"Anchor Stance\",\"featSlug\":\"anchor-stance\"}]"
+   "conds": "[{\"feat\":\"Anchor Stance\",\"feat_ko\":\"닻 자세\",\"featSlug\":\"anchor-stance\"}]"
   },
   {
    "slug": "alchemical-assessment",
@@ -22031,7 +22031,7 @@
    "slug": "traces-of-the-divine",
    "text": "Pure Legion Enforcer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"Pure Legion Enforcer Dedication\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
+   "conds": "[{\"feat\":\"Pure Legion Enforcer Dedication\",\"feat_ko\":\"순수 군단 집행관 헌신\",\"featSlug\":\"pure-legion-enforcer-dedication\"}]"
   },
   {
    "slug": "maelstrom-flow",
@@ -22085,7 +22085,7 @@
    "slug": "reincarnated-companion",
    "text": "Heroic Scion Dedication, familiar or nimble or savage animal companion",
    "parsed": "",
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "aura-of-determination",
@@ -22163,7 +22163,7 @@
    "slug": "hidden-hoard",
    "text": "Draconic Acolyte Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"Draconic Acolyte Dedication\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
+   "conds": "[{\"feat\":\"Draconic Acolyte Dedication\",\"feat_ko\":\"용의 시종 헌신\",\"featSlug\":\"draconic-acolyte-dedication\"}]"
   },
   {
    "slug": "butterflys-kiss",
@@ -22283,7 +22283,7 @@
    "slug": "float-free",
    "text": "Undersea Privateer Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"Undersea Privateer Dedication\",\"featSlug\":\"undersea-privateer-dedication\"}]"
+   "conds": "[{\"feat\":\"Undersea Privateer Dedication\",\"feat_ko\":\"심해 사략선원 전념\",\"featSlug\":\"undersea-privateer-dedication\"}]"
   },
   {
    "slug": "dual-thrower",
@@ -22313,7 +22313,7 @@
    "slug": "ive-been-here-before",
    "text": "Heroic Scion Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"Heroic Scion Dedication\",\"featSlug\":\"heroic-scion-dedication\"}]"
+   "conds": "[{\"feat\":\"Heroic Scion Dedication\",\"feat_ko\":\"영웅의 후예 헌신\",\"featSlug\":\"heroic-scion-dedication\"}]"
   },
   {
    "slug": "gravel-guts",
@@ -22373,7 +22373,7 @@
    "slug": "dismounting-strike",
    "text": "Nidalese Horselord Dedication",
    "parsed": 1,
-   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"Nidalese Horselord Dedication\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
+   "conds": "[{\"feat\":\"Nidalese Horselord Dedication\",\"feat_ko\":\"니달 기마군주 헌신\",\"featSlug\":\"nidalese-horselord-dedication\"}]"
   },
   {
    "slug": "tunnel-wall",

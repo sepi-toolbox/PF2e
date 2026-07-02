@@ -4,8 +4,10 @@
 //  설계: memory/pf2e-charsheet/project_map_token_system.md
 //
 //  데이터 모델 (Firestore):
-//    sessions/{id}/map/state          ← 맵 1개 doc: bgImage(base64), bgW/H, gridSize,
-//                                        fogEnabled, fogMask(다운스케일 PNG), maskW/H
+//    sessions/{id}/map/state          ← 맵 1개 doc: bgImage(base64) 또는 bgUrl(참조),
+//                                        bgW/H, gridSize, fogEnabled, fogMask(다운스케일 PNG), maskW/H
+//    배경 2모드: bgImage=업로드(1MiB 문서 한도 내 축소저장) / bgUrl=URL 참조(원본 해상도,
+//                repo maps/ 권장 — 같은 오리진이라 CORS·캔버스 taint 없음). bgUrl 우선.
 //    sessions/{id}/tokens/{tokenId}   ← 토큰당 doc: ownerUid, name, x, y, img(초상),
 //                                        color, size, hidden
 //
@@ -202,7 +204,17 @@ var MapSync = (function() {
     if (!_isGM) { console.warn('[MapSync] GM만 배경 설정 가능'); return Promise.reject('not-gm'); }
     if (!_activeMapId) return Promise.reject('no-active-map');
     return _mapDoc().set({
-      bgImage: dataUrl || null, bgW: w || 0, bgH: h || 0,
+      bgImage: dataUrl || null, bgUrl: null, bgW: w || 0, bgH: h || 0,
+      updatedAt: _ts(), updatedBy: _uid
+    }, { merge: true });
+  }
+  // URL 참조 배경 (GM) — Firestore엔 URL만 저장 → 문서 한도 무관, 원본 해상도.
+  // url null이면 URL 배경 해제. 업로드(bgImage)와 상호배타(설정 시 반대편 비움).
+  function setBackgroundUrl(url, w, h) {
+    if (!_isGM) { console.warn('[MapSync] GM만 배경 설정 가능'); return Promise.reject('not-gm'); }
+    if (!_activeMapId) return Promise.reject('no-active-map');
+    return _mapDoc().set({
+      bgUrl: url || null, bgImage: null, bgW: w || 0, bgH: h || 0,
       updatedAt: _ts(), updatedBy: _uid
     }, { merge: true });
   }
@@ -299,7 +311,7 @@ var MapSync = (function() {
     var ref = _mapsCol().doc();
     return ref.set({
       name: name || '새 지도', order: _nextOrder(),
-      bgImage: null, bgW: 0, bgH: 0, gridSize: 50, gridEnabled: false,
+      bgImage: null, bgUrl: null, bgW: 0, bgH: 0, gridSize: 50, gridEnabled: false,
       fogEnabled: false, fogMask: null, maskW: 0, maskH: 0,
       createdAt: _ts(), updatedAt: _ts(), updatedBy: _uid
     }).then(function() { return ref.id; });
@@ -432,7 +444,8 @@ var MapSync = (function() {
     // 맵 관리 (GM) — 멀티맵 저장/전환
     createMap: createMap, renameMap: renameMap, deleteMap: deleteMap, setActiveMap: setActiveMap,
     // 맵 쓰기 (GM)
-    setBackground: setBackground, setGridSize: setGridSize, setGrid: setGrid, setFogMask: setFogMask,
+    setBackground: setBackground, setBackgroundUrl: setBackgroundUrl,
+    setGridSize: setGridSize, setGrid: setGrid, setFogMask: setFogMask,
     // 토큰 쓰기
     createToken: createToken, upsertToken: upsertToken, moveToken: moveToken,
     removeToken: removeToken, ensureMyToken: ensureMyToken, createNpc: createNpc,
@@ -675,23 +688,36 @@ var MapView = (function() {
   }
 
   // ── 배경 상태 변경 처리 ──
+  // bgUrl(참조) 우선, 없으면 bgImage(base64 업로드). URL은 crossOrigin='anonymous'로 시도
+  // (같은 오리진 maps/는 무조건 OK, 외부 호스트는 ACAO 필요) → 실패 시 CORS 없이 재시도
+  // (표시는 되나 캔버스 taint → CCTV 캡처만 불가, try/catch로 무해).
   function _onMapState(state) {
-    const url = state && state.bgImage ? state.bgImage : null;
+    const url = state ? (state.bgUrl || state.bgImage || null) : null;
     if (url !== _bg.url) {
       _bg = { url: url, img: null, w: 0, h: 0, loaded: false };
       _userMoved = false;                 // 새 배경 → 자동 맞춤 재개
       if (url) {
-        const img = new Image();
-        img.onload = function() {
-          _bg.img = img; _bg.loaded = true;
-          _bg.w = (state && state.bgW) || img.naturalWidth;
-          _bg.h = (state && state.bgH) || img.naturalHeight;
-          _autoFit();                     // 캔버스 크기 확정돼 있으면 전체 맞춤
-          _refreshEmpty();
-          _markDirty();
+        const isRef = url.indexOf('data:') !== 0;
+        const load = function(useCors) {
+          const img = new Image();
+          if (useCors) img.crossOrigin = 'anonymous';
+          img.onload = function() {
+            if (_bg.url !== url) return;  // 로딩 중 배경이 또 바뀐 경우 무시
+            _bg.img = img; _bg.loaded = true;
+            _bg.w = (state && state.bgW) || img.naturalWidth;
+            _bg.h = (state && state.bgH) || img.naturalHeight;
+            _autoFit();                   // 캔버스 크기 확정돼 있으면 전체 맞춤
+            _refreshEmpty();
+            _refreshMapEditor();
+            _markDirty();
+          };
+          img.onerror = function() {
+            if (useCors) { console.warn('[MapView] 배경 CORS 로드 실패 → 무CORS 재시도(CCTV 캡처 불가)'); load(false); }
+            else console.warn('[MapView] 배경 로드 실패:', url.slice(0, 120));
+          };
+          img.src = url;
         };
-        img.onerror = function() { console.warn('[MapView] 배경 로드 실패'); };
-        img.src = url;
+        load(isRef);
       }
     } else if (url && _bg.loaded && state) {
       // 같은 배경, 치수만 갱신 가능
@@ -2037,8 +2063,115 @@ var MapView = (function() {
     const chk = document.getElementById('mme-grid-on');
     if (chk) chk.checked = _gridEnabled;
     _refreshGridBar();   // 슬라이더 + 라벨 (#map-grid-range / #map-grid-val / #map-grid-info)
+    const st = (typeof MapSync !== 'undefined') ? MapSync.getMapState() : null;
+    const urlIn = document.getElementById('mme-bg-url');
+    if (urlIn && document.activeElement !== urlIn) urlIn.value = (st && st.bgUrl) || '';
     const bg = document.getElementById('mme-bg-status');
-    if (bg) bg.textContent = _bg.loaded ? '✓ 있음 (다시 선택해 교체)' : '없음';
+    if (bg) {
+      if (st && st.bgUrl) bg.textContent = _bg.loaded ? ('✓ URL 배경 (' + _bg.w + '×' + _bg.h + ', 원본 해상도)') : 'URL 로딩 중…';
+      else if (st && st.bgImage) bg.textContent = _bg.loaded ? ('✓ 업로드 배경 (' + _bg.w + '×' + _bg.h + ', 축소 저장)') : '업로드 로딩 중…';
+      else bg.textContent = '없음';
+    }
+  }
+
+  // ── 원본 업로드(리포 커밋) — 브라우저에서 GitHub Contents API로 dev/maps/에 커밋,
+  //    raw.githubusercontent.com URL(커밋 즉시 사용 가능, ACAO:*)을 배경으로 자동 적용.
+  //    토큰(PAT)은 이 브라우저 localStorage에만 저장(Firestore/서버 전송 없음), 401 시 재입력.
+  const GH_REPO = 'sepi-toolbox/PF2e', GH_DIR = 'dev/maps', GH_TOKEN_KEY = 'pf2e_gh_pat';
+  function _ghToken(forceAsk) {
+    let t = null;
+    try { t = localStorage.getItem(GH_TOKEN_KEY); } catch (e) {}
+    if (!t || forceAsk) {
+      t = prompt('GitHub 토큰(PAT)을 붙여넣으세요 — 원본 업로드는 리포(' + GH_REPO + ')에 커밋하는 방식입니다.\n\n발급: github.com → Settings → Developer settings → Fine-grained tokens\n  · Resource owner: sepi-toolbox / 대상 리포: PF2e만\n  · Repository permissions → Contents: Read and write\n\n이 브라우저에만 저장되며 외부로 전송되지 않습니다(GitHub API 제외).');
+      if (t) { t = t.trim(); try { localStorage.setItem(GH_TOKEN_KEY, t); } catch (e) {} }
+    }
+    return t || null;
+  }
+  function uploadBgOriginal() {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = function() { const f = inp.files && inp.files[0]; if (f) _repoUpload(f); };
+    inp.click();
+  }
+  function _repoUpload(file) {
+    const stEl = document.getElementById('mme-bg-status');
+    const say = function(t) { if (stEl) stEl.textContent = t; };
+    if (file.size > 40 * 1024 * 1024) { say('✗ 40MB 초과 — 웹용은 5~20MB JPEG/WebP 권장'); return; }
+    const tok = _ghToken(false);
+    if (!tok) { say('✗ 토큰 없음 — 업로드 취소'); return; }
+    say('리포 커밋 중… (' + (Math.round(file.size / 1024 / 102.4) / 10) + 'MB)');
+    const rd = new FileReader();
+    rd.onerror = function() { say('✗ 파일 읽기 실패'); };
+    rd.onload = function() {
+      const b64 = String(rd.result).split(',')[1] || '';
+      const m = file.name.match(/^(.*?)(\.(png|jpe?g|webp|gif|avif))?$/i);
+      const base = (m[1] || 'bg').replace(/[^a-zA-Z0-9_-]+/g, '').slice(0, 24) || 'bg';
+      const ext = (m[3] || 'jpg').toLowerCase();
+      const d = new Date(), p = function(n) { return (n < 10 ? '0' : '') + n; };
+      const name = base + '_' + d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + '_' + p(d.getHours()) + p(d.getMinutes()) + p(d.getSeconds()) + '.' + ext;
+      fetch('https://api.github.com/repos/' + GH_REPO + '/contents/' + GH_DIR + '/' + name, {
+        method: 'PUT',
+        headers: { 'Authorization': 'Bearer ' + tok, 'Accept': 'application/vnd.github+json' },
+        body: JSON.stringify({ message: '지도 배경 업로드: ' + name + ' (지도 편집기 원본 업로드)', content: b64 })
+      }).then(function(res) {
+        if (res.status === 401 || res.status === 403) {
+          try { localStorage.removeItem(GH_TOKEN_KEY); } catch (e) {}
+          say('✗ 토큰 인증 실패 — 버튼을 다시 누르면 토큰을 새로 물어봅니다');
+          throw 'auth';
+        }
+        if (!res.ok) { say('✗ 커밋 실패 (HTTP ' + res.status + ')'); throw 'http-' + res.status; }
+        return res.json();
+      }).then(function() {
+        // raw URL은 커밋 직후 수 초 내 서빙됨 — cb 프로브로 확인 후(404 CDN 캐시 오염 방지) 클린 URL 저장
+        const url = 'https://raw.githubusercontent.com/' + GH_REPO + '/main/' + GH_DIR + '/' + name;
+        let tries = 0;
+        const probe = function() {
+          say('반영 확인 중…' + (tries ? ' (' + tries + ')' : ''));
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = function() {
+            MapSync.setBackgroundUrl(url, img.naturalWidth, img.naturalHeight)
+              .catch(function(e) { say('저장 실패: ' + e); });
+          };
+          img.onerror = function() {
+            if (++tries < 10) setTimeout(probe, 3000);
+            else say('✗ 반영 확인 실패 — 잠시 후 URL 칸에 직접 적용: ' + url);
+          };
+          img.src = url + '?cb=' + Date.now();
+        };
+        probe();
+      }).catch(function(e) { if (e !== 'auth') console.warn('[MapView repoUpload]', e); });
+    };
+    rd.readAsDataURL(file);
+  }
+
+  // URL 배경 적용 — 먼저 클라에서 로드해 원본 치수 확보 후 Firestore엔 URL만 저장.
+  // 빈 입력 + 적용 = URL 배경 해제. 상대경로(maps/x.jpg)는 페이지 기준 해석(데브/운영 각자 정합).
+  function applyBgUrl() {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    const urlIn = document.getElementById('mme-bg-url');
+    const stEl  = document.getElementById('mme-bg-status');
+    const url = urlIn ? urlIn.value.trim() : '';
+    if (!url) {
+      MapSync.setBackgroundUrl(null, 0, 0).catch(function(e) { console.warn('[applyBgUrl]', e); });
+      return;
+    }
+    if (stEl) stEl.textContent = '확인 중…';
+    const probe = function(useCors) {
+      const img = new Image();
+      if (useCors) img.crossOrigin = 'anonymous';
+      img.onload = function() {
+        MapSync.setBackgroundUrl(url, img.naturalWidth, img.naturalHeight)
+          .catch(function(e) { console.warn('[applyBgUrl]', e); if (stEl) stEl.textContent = '저장 실패: ' + e; });
+      };
+      img.onerror = function() {
+        if (useCors) { probe(false); return; }   // 외부 호스트 무CORS 폴백(표시는 됨, CCTV 캡처만 불가)
+        if (stEl) stEl.textContent = '✗ 이미지를 불러올 수 없습니다 (URL 확인)';
+      };
+      img.src = url;
+    };
+    probe(true);
   }
 
   return {
@@ -2053,6 +2186,7 @@ var MapView = (function() {
     // 격자 + 지도 편집기 (GM, 드로어 ✎)
     toggleGrid: toggleGrid, gridRangeInput: gridRangeInput, gridRangeChange: gridRangeChange,
     openMapEdit: openMapEdit, mapEditClose: mapEditClose, mapRename: mapRename,
+    applyBgUrl: applyBgUrl, uploadBgOriginal: uploadBgOriginal,
     // GM 멀티맵 드로어 (Map.html)
     toggleDrawer: toggleDrawer, setDrawerTab: setDrawerTab, addMap: addMap, dbSearch: dbSearch,
     // GM 토큰 편집기(드로어 템플릿) + 배치 토큰 빠른 액션
