@@ -1,6 +1,6 @@
 /* cs_pf2e_feat.js — 재주(Feat) ACCESS 어댑터 (P4, 최대 엔티티)
- * FVTT feats.base(7398) ⊕ 한글 OVERLAY → 빌더 재주풀 보강(레거시 FEAT_DB와 병합) + RE 자동화.
- * 정책: 레거시 FEAT_DB(검증된 효과)는 그대로, 미등재 FVTT 재주만 보강. 효과는 RE 엔진 → 레거시 effects 형태.
+ * FVTT feats.base(7398) ⊕ 한글 OVERLAY → 빌더 재주풀 단일 소스 + RE 자동화.
+ * 정책: 재주 카탈로그는 FVTT 단일 소스, 효과는 effects_db(getEffectRows), 선행조건은 prereqs_db.
  * 교차참조 핵심: GrantItem(재주→재주/주문) RE 해소(getByUuid) + 선행조건 feat-name 매칭(getFeat 병합).
  * 의존: cs_pf2e.js(PF2eData), cs_re_engine.js(REEngine). DOM 무관.
  */
@@ -126,7 +126,7 @@
     return effects;
   }
 
-  // FVTT-only 재주만(레거시 FEAT_DB 미등재). dedup은 호출처(_allFeats)에서.
+  // 전 FVTT 재주(카테고리 필터 통과분). 재주풀 단일 소스.
   function featList() { return _list ? _list.slice() : []; }
   function getFeatLegacy(key) {
     if (!_index) return null;

@@ -28,7 +28,7 @@ function loadLegacy(files) {
   }
   return sb;
 }
-const sb = loadLegacy(['equipment_db.js', 'feat_db.js', 'class_features_db.js', 'cs_data.js']);
+const sb = loadLegacy(['equipment_db.js', 'class_features_db.js', 'cs_data.js']);
 
 // ── BASE 인덱스: system.slug → img, name(lower) → img ──
 // 정규화: 소문자 + 아포스트로피 제거 + 비영숫자→하이픈
@@ -134,9 +134,8 @@ function feed(scope, arr) {
 // 무기/방어구/방패/장비·주문 아이콘은 FVTT doc.img → runtime iconImg img-폴백으로 해소
 // (카탈로그=PF2eEquip/PF2eSpell 단일 소스, BASE 아이콘 벤더링=build_equip_icons.mjs)
 feed('equipment', sb.RUNE_DB);
-feed('feat', sb.FEAT_DB);
 feed('action', sb.ACTION_DB);
-// 혈통/유산/배경/신격 아이콘은 FVTT doc.img → runtime iconImg img-폴백으로 해소(단일 소스 어댑터)
+// 재주/혈통/유산/배경/신격 아이콘은 FVTT doc.img → runtime iconImg img-폴백으로 해소(단일 소스 어댑터)
 feed('condition', sb.CONDITIONS_DATA);
 
 // class 스코프: BASE classes 직접(레거시 배열 없음 — slug=fighter 등 런타임 selectedClass.id와 일치)

@@ -2704,7 +2704,7 @@ function buildFeatFilters(ctx) {
     // 성장 빌더에서 호출 시 필터 UI 숨김 (사용자 변경 불가)
     fbar.innerHTML = '';
   } else {
-    const cats = [...new Set((typeof FEAT_DB!=='undefined'?FEAT_DB:[]).map(f=>f.category))].sort();
+    const cats = [...new Set((typeof _allFeats === 'function' ? _allFeats() : []).map(f=>f.category))].sort();
     fbar.innerHTML = `
       <select id="filter-feat-cat" onchange="renderOptions(getOptionsData('feat'))">
         <option value="">전체 분류</option>
@@ -3007,7 +3007,7 @@ function canTakeDedication(f) {
 }
 
 function filterFeats() {
-  if (typeof FEAT_DB==='undefined') return [];
+  if (typeof _allFeats !== 'function') return [];
   const q = document.getElementById('modal-search')?.value.toLowerCase()||'';
   const fromGrowth = !!growthPendingKey;
 
@@ -3040,7 +3040,7 @@ function filterFeats() {
       if (ff && ff.name) _learnedNames.add(ff.name);
     });
 
-    return (typeof _allFeats === 'function' ? _allFeats() : FEAT_DB).filter(f => {
+    return _allFeats().filter(f => {
       if (!f) return false;
       if (q && !f.name_ko.includes(q) && !(f.name_en||'').toLowerCase().includes(q) && !(f.summary||'').includes(q)) return false;
       if (f.feat_level > maxLv) return false;
@@ -3071,8 +3071,8 @@ function filterFeats() {
   // 일반 모달 (재주 탭에서 직접 열기)
   const cat = document.getElementById('filter-feat-cat')?.value||'';
   const lv = parseInt(document.getElementById('filter-feat-lv')?.value||0);
-  const _isClassCat = cat && typeof CLASSES !== 'undefined' && !['ancestry','general','skill','archetype','feature','other','class'].includes(cat);
-  return (typeof _allFeats === 'function' ? _allFeats() : FEAT_DB).filter(f =>
+  const _isClassCat = cat && !['ancestry','general','skill','archetype','feature','other','class'].includes(cat);
+  return _allFeats().filter(f =>
     (!cat || (_isClassCat ? _featInClass(f, cat) : f.category===cat)) &&
     (!lv || f.feat_level<=lv) &&
     (!q || f.name_ko.includes(q) || (f.name_en||'').toLowerCase().includes(q) || (f.summary||'').includes(q))
@@ -4332,7 +4332,7 @@ function _buildBackgroundChoicesUI(bg) {
   }
 
   // 기술 재주
-  if (beff.feat_id && typeof FEAT_DB !== 'undefined') {
+  if (beff.feat_id) {
     const fd = getFeat(beff.feat_id);
     const featLabel = fd ? fd.name_ko : beff.feat_id;
     html += `<div style="margin-top:4px;">`;
@@ -4344,7 +4344,7 @@ function _buildBackgroundChoicesUI(bg) {
         <div style="font-size:10px;line-height:1.5;color:var(--text2);">${resolveDescRefs(fdDesc)}</div>
       </div>`;
     } else {
-      html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--text2);margin-top:4px;font-size:10px;color:var(--text2);">※ FEAT_DB 미등재 (${beff.feat_id})</div>`;
+      html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--text2);margin-top:4px;font-size:10px;color:var(--text2);">※ 카탈로그 미등재 (${beff.feat_id})</div>`;
     }
     html += `</div>`;
   }
@@ -5263,12 +5263,12 @@ function applyBackgroundInfo(bg) {
       ...(beff.choice_skill_groups || []).map(g => g.map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)).join(' 또는 ')),
       ...(beff.fixed_lores || []).map(l => l + ' 지식'),
     ].join(', ');
-    const fd = (beff.feat_id && typeof FEAT_DB !== 'undefined') ? getFeat(beff.feat_id) : null;
+    const fd = beff.feat_id ? getFeat(beff.feat_id) : null;
     const featKo = fd ? fd.name_ko : (beff.feat_id || '—');
     notesEl.value = `[배경: ${bg.name}]\n속성 부스트: ${boostKo}\n기술: ${skillsKo}\n기술 재주: ${featKo}`;
   }
   // growth plan에 배경 재주 저장 (1회성, feat_id 기반)
-  if (beff.feat_id && typeof FEAT_DB !== 'undefined') {
+  if (beff.feat_id) {
     const fd = getFeat(beff.feat_id);
     if (fd) {
       if (!state.growth[1]) state.growth[1] = {};
@@ -5515,14 +5515,17 @@ function renderActions() {
     });
   }
 
-  // 보유 재주 중 행동인 것 동적 추가 (ACTION_DB에 없는 것만)
-  if (typeof FEAT_DB !== 'undefined') {
+  // 보유 재주 중 행동인 것 동적 추가 (ACTION_DB에 없는 것만) — 보유 재주만 카탈로그 조회
+  if (typeof getLearnedFeatNames === 'function' && typeof getFeat === 'function') {
     const existingIds = new Set(visible.map(a => a.id));
     const learned = getLearnedFeatNames();
-    FEAT_DB.forEach(fd => {
-      if (!learned.has(fd.name_ko)) return;
-      // actionCost 컬럼 (v523~) — 정규식 fallback 제거
-      const cost = fd.actionCost || null;
+    learned.forEach(nameKo => {
+      const fd = getFeat(nameKo);
+      if (!fd) return;
+      // 행동 비용: 레거시 actionCost 또는 FVTT actionType/actions에서 도출
+      const cost = fd.actionCost || (fd.actionType === 'reaction' ? 'reaction'
+        : fd.actionType === 'free' ? 'free'
+        : (fd.actions != null ? String(fd.actions) + '행동' : null));
       if (!cost) return;
       const id = 'feat-auto-' + fd.name_en;
       if (existingIds.has(id)) return;

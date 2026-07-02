@@ -21,7 +21,7 @@ const norm = s => lc(s).replace(/\([^)]*\)/g, '').replace(/[^a-z0-9]+/g, '').tri
 const sb = { window: {}, console };
 sb.document = { addEventListener() {}, getElementById() { return null; }, createElement() { return { appendChild() {}, style: {}, classList: { add() {} } }; }, body: { appendChild() {} } };
 vm.createContext(sb);
-for (const f of ['cs_data.js', 'equipment_db.js', 'feat_db.js']) {
+for (const f of ['cs_data.js', 'equipment_db.js']) {
   let s = fs.readFileSync(path.join(DEV, f), 'utf8').replace(/^const /gm, 'var ').replace(/^let /gm, 'var ');
   try { vm.runInContext(s, sb, { filename: f }); } catch (e) { console.log('load warn', f, e.message); }
 }
@@ -83,11 +83,7 @@ function fill(scope, dbArr, label, resolve) {
   console.log(`${label.padEnd(10)} +real ${real} | +generic ${generic}` + (novendor ? ` | vendor실패 ${novendor}` : ''));
 }
 
-// FEAT_DB: BASE 재주 매칭 → 실패 시 제네릭 책
-fill('feat', sb.FEAT_DB, 'FEAT', it => {
-  const m = cascade(it, FEAT);
-  return m ? { img: m, isGeneric: m === GENERIC_FEAT } : { img: GENERIC_FEAT, isGeneric: true };
-});
+// 재주 아이콘은 FVTT doc.img → runtime iconImg img-폴백으로 해소(카탈로그=PF2eFeat 단일 소스)
 // RUNE_DB: BASE 장비(룬) 매칭(greater/major 접두사 제거 폴백) → 실패 시 제네릭 룬
 fill('equipment', sb.RUNE_DB, 'RUNE', it => {
   const extra = [it.id && it.id.replace(RUNE_PREFIX, ''), it.name_en && norm(it.name_en.replace(RUNE_PREFIX, '').replace(/\b(greater|major|lesser|moderate|minor|true)\b/gi, ''))];

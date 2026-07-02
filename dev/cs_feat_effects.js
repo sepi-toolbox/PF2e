@@ -1109,7 +1109,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       };
       container.appendChild(row);
     });
-  } else if (choiceDef.type === 'feat_pick' && typeof FEAT_DB !== 'undefined') {
+  } else if (choiceDef.type === 'feat_pick' && typeof _allFeats === 'function') {
     // ── 범용 재주 선택 모달 (적응력, 자연 야심, 고급 일반 훈련 등) ──
     let pickCat = choiceDef.pickCategory || 'general';
     if (pickCat === '$class' && state.selectedClass) pickCat = state.selectedClass.id;
@@ -1129,9 +1129,12 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     const myClassName = state.selectedClass?.name || '';
     const myClassEn = state.selectedClass?.en || '';
 
-    const candidates = FEAT_DB.filter(f => {
+    // 소스 무관 통일: 클래스 pickCat은 _featInClass(FVTT category='class'+_classSlugs)로 판정
+    const _isClassPick = pickCat && !['ancestry','general','skill','archetype','feature','other','class'].includes(pickCat);
+    const candidates = _allFeats().filter(f => {
       if (!f) return false;
-      if (f.category !== pickCat) return false;
+      if (_isClassPick) { if (!(typeof _featInClass === 'function' ? _featInClass(f, pickCat) : f.category === pickCat) && f.category !== 'archetype') return false; }
+      else if (f.category !== pickCat) return false;
       if (f.feat_level > pickMax) return false;
       if (pickTraits && !(f.traits && f.traits.some(t => pickTraits.includes(t)))) return false;
       // 헌신 재주: 자기 클래스 헌신 제외

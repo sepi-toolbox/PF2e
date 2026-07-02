@@ -357,11 +357,8 @@ function getSpell(key) {
   return (typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && PF2eSpell.ready()) ? PF2eSpell.getSpellLegacy(key) : null;
 }
 function getFeat(key)  {
-  // 레거시 FEAT_DB(검증된 효과) 우선, 미등재면 FVTT 재주 보강(P4 병합)
-  const leg = typeof FEAT_DB !== 'undefined' ? _findInDb(FEAT_DB, key, ['id','name_en','name_ko']) : null;
-  if (leg) return leg;
-  if (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) return PF2eFeat.getFeatLegacy(key);
-  return null;
+  // 재주 카탈로그 = FVTT 단일 소스(PF2eFeat). 효과는 effects_db, 선행조건은 prereqs_db.
+  return (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) ? PF2eFeat.getFeatLegacy(key) : null;
 }
 // ── slug 디커플링 헬퍼 (번역명 결합 제거) ──────────────────────────────
 // 저장·매칭은 slug(id)로 정규화, 표시는 항상 현재 name_ko로 재해소.
@@ -389,13 +386,9 @@ function featSlug(x) {
 function spellSame(a, b) { return spellSlug(a) === spellSlug(b); }
 function featSame(a, b) { return featSlug(a) === featSlug(b); }
 
-// 병합 재주풀: 레거시 FEAT_DB + FVTT-only(슬러그 미중복). 모달/필터용.
+// 재주풀 = FVTT 단일 소스(PF2eFeat.featList). 모달/필터용.
 function _allFeats() {
-  const leg = (typeof FEAT_DB !== 'undefined') ? FEAT_DB : [];
-  if (typeof PF2eFeat === 'undefined' || !PF2eFeat.ready || !PF2eFeat.ready()) return leg;
-  const have = new Set(leg.map(f => f && f.id));
-  const extra = PF2eFeat.featList().filter(f => !have.has(f.id));
-  return leg.concat(extra);
+  return (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) ? PF2eFeat.featList() : [];
 }
 function getAction(key){ return typeof ACTION_DB !== 'undefined' ? _findInDb(ACTION_DB, key, ['id','name_en','name_ko']) : null; }
 function getHeritage(key){
@@ -588,7 +581,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.53').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.54').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
@@ -842,8 +835,8 @@ function _infoResolveItem(type, name) {
   } else if (type === 'feat') {
     item = getFeat(nameKo);
     // 폴백: nameKo가 "한글명 (English)" 형식일 때 prefix 매칭
-    if (!item && typeof FEAT_DB !== 'undefined') {
-      for (const f of FEAT_DB) {
+    if (!item && typeof _allFeats === 'function') {
+      for (const f of _allFeats()) {
         if (f && f.name_ko && nameKo.startsWith(f.name_ko)) { item = f; break; }
       }
     }
@@ -1677,7 +1670,7 @@ function rebuildCoreEffects() {
   }
 
   // 배경 재주 — feat_id 기반
-  if (beff?.feat_id && typeof FEAT_DB !== 'undefined') {
+  if (beff?.feat_id) {
     const fd = getFeat(beff.feat_id);
     if (fd) {
       if (!state.feats.skill) state.feats.skill = [];
@@ -1695,7 +1688,7 @@ function rebuildCoreEffects() {
 function getSubclassAutoFeats(sub) {
   if (!sub || !Array.isArray(sub.granted_feats)) return [];
   return sub.granted_feats.map(fid => {
-    const f = (typeof getFeat === 'function') ? getFeat(fid) : ((typeof FEAT_DB !== 'undefined') ? FEAT_DB.find(x => x.id === fid) : null);
+    const f = (typeof getFeat === 'function') ? getFeat(fid) : null;
     return f ? { lv: 1, name_ko: f.name_ko, name_en: f.name_en, category: f.category } : null;
   }).filter(Boolean);
 }
