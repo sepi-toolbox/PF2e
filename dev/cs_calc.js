@@ -399,12 +399,11 @@ function _allFeats() {
 }
 function getAction(key){ return typeof ACTION_DB !== 'undefined' ? _findInDb(ACTION_DB, key, ['id','name_en','name_ko']) : null; }
 function getHeritage(key){
-  // FVTT-native(P4) 우선, 미준비 시 레거시 HERITAGE_DB 폴백
+  // 유산 카탈로그 = FVTT 단일 소스(PF2eAnc)
   if (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready()) {
-    const h = PF2eAnc.getHeritageLegacy(key) || _findInDb(PF2eAnc.heritageList(), key, ['id','name_en','name_ko']);
-    if (h) return h;
+    return PF2eAnc.getHeritageLegacy(key) || _findInDb(PF2eAnc.heritageList(), key, ['id','name_en','name_ko']) || null;
   }
-  return typeof HERITAGE_DB !== 'undefined' ? _findInDb(HERITAGE_DB, key, ['id','name_en','name_ko']) : null;
+  return null;
 }
 // 장비 카탈로그 = FVTT 단일 소스(PF2eEquip). key=slug/name_en/name_ko 모두 해소(구 저장 하위호환).
 function _getEquip(key, type) { return (typeof PF2eEquip !== 'undefined' && PF2eEquip.getEquipLegacy) ? PF2eEquip.getEquipLegacy(key, type) : null; }
@@ -589,7 +588,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.52').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.53').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}

@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.52').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.53').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2915,8 +2915,31 @@ function _ensureAncData() {
     (typeof PF2eBg !== 'undefined' ? PF2eBg.init() : Promise.resolve()),
     (typeof PF2eClass !== 'undefined' ? PF2eClass.init() : Promise.resolve()),
   ]).then(() => true)
-    .catch(e => { console.warn('FVTT 혈통/유산/배경/클래스 데이터 로드 실패 → 레거시 DB 사용', e); return false; });
+    .catch(e => { console.warn('FVTT 혈통/유산/배경/클래스 데이터 로드 실패', e); return false; });
   return _ancDataPromise;
+}
+
+// ── 전 카탈로그 로딩 게이트 (레거시 폴백 제거의 전제) ──
+// 모든 FVTT 어댑터(장비/혈통/유산/배경/클래스/신격/주문/재주/행동)를 한 번에 준비.
+// 캐릭터 복원(loadData)·모달·스탯계산이 카탈로그를 필요로 하므로, 준비 전엔 복원을 지연 후 재실행.
+let _catalogsReady = false, _catalogsPromise = null;
+function catalogsReady() { return _catalogsReady; }
+function _ensureAllCatalogs() {
+  if (_catalogsReady) return Promise.resolve(true);
+  if (_catalogsPromise) return _catalogsPromise;
+  const tasks = [];
+  const push = (p) => { if (p && p.then) tasks.push(p.catch(e => { console.warn('카탈로그 init 실패', e); })); };
+  if (typeof PF2eData !== 'undefined') push(PF2eData.loadCategory('equipment'));
+  if (typeof PF2eEquip !== 'undefined') push(PF2eEquip.init());
+  if (typeof PF2eAnc !== 'undefined') push(PF2eAnc.init());
+  if (typeof PF2eBg !== 'undefined') push(PF2eBg.init());
+  if (typeof PF2eClass !== 'undefined') push(PF2eClass.init());
+  if (typeof PF2eDeity !== 'undefined') push(PF2eDeity.init());
+  if (typeof PF2eSpell !== 'undefined') push(PF2eSpell.init());
+  if (typeof PF2eFeat !== 'undefined') push(PF2eFeat.init());
+  if (typeof PF2eAction !== 'undefined') push(PF2eAction.init());
+  _catalogsPromise = Promise.all(tasks).then(() => { _equipDataReady = true; _catalogsReady = true; return true; });
+  return _catalogsPromise;
 }
 
 function renderEquipBrowseItems() {

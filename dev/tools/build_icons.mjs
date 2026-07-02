@@ -136,10 +136,7 @@ function feed(scope, arr) {
 feed('equipment', sb.RUNE_DB);
 feed('feat', sb.FEAT_DB);
 feed('action', sb.ACTION_DB);
-feed('heritage', sb.HERITAGE_DB);
-feed('ancestry', sb.ANCESTRIES);
-feed('background', sb.BACKGROUNDS);
-feed('deity', sb.DEITY_DB);
+// 혈통/유산/배경/신격 아이콘은 FVTT doc.img → runtime iconImg img-폴백으로 해소(단일 소스 어댑터)
 feed('condition', sb.CONDITIONS_DATA);
 
 // class 스코프: BASE classes 직접(레거시 배열 없음 — slug=fighter 등 런타임 selectedClass.id와 일치)

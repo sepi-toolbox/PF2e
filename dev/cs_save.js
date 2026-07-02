@@ -216,6 +216,13 @@ function _migrateDerivedSpellStoresToSlug() {
 }
 
 function loadData(d) {
+  if (!d) return;
+  // 로딩 게이트: 카탈로그(혈통/배경/클래스/신격/장비/주문/재주 등) 미준비면 준비 후 재실행.
+  // (복원이 FVTT 카탈로그로 state 객체를 재구성 — 레거시 폴백 없이 안전하게)
+  if (typeof _ensureAllCatalogs === 'function' && typeof catalogsReady === 'function' && !catalogsReady()) {
+    _ensureAllCatalogs().then(() => loadData(d));
+    return;
+  }
   const wasLoadComplete = _loadComplete;
   try {
     if (!d) return;
@@ -364,23 +371,22 @@ function loadData(d) {
         }
       }
     }
-    const _ancReady = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready());
     if (d.selectedAncestry) {
-      state.selectedAncestry = (_ancReady && PF2eAnc.getAncestryLegacy(d.selectedAncestry)) || ANCESTRIES.find(a=>a.id===d.selectedAncestry)||null;
+      state.selectedAncestry = (typeof PF2eAnc !== 'undefined' && PF2eAnc.getAncestryLegacy(d.selectedAncestry)) || null;
       if (state.selectedAncestry) {
         const btn = document.getElementById('btn-ancestry');
         if (btn) { btn.textContent = `${state.selectedAncestry.name} (${state.selectedAncestry.en})`; btn.classList.add('filled'); }
       }
     }
     if (d.selectedBackground) {
-      state.selectedBackground = ((typeof PF2eBg !== 'undefined' && PF2eBg.ready && PF2eBg.ready() && PF2eBg.getBackgroundLegacy(d.selectedBackground))) || BACKGROUNDS.find(b=>b.id===d.selectedBackground)||null;
+      state.selectedBackground = (typeof PF2eBg !== 'undefined' && PF2eBg.getBackgroundLegacy(d.selectedBackground)) || null;
       if (state.selectedBackground) {
         const btn = document.getElementById('btn-background');
         if (btn) { btn.textContent = `${state.selectedBackground.name} (${state.selectedBackground.en})`; btn.classList.add('filled'); }
       }
     }
     if (d.selectedHeritage) {
-      state.selectedHeritage = (_ancReady && PF2eAnc.getHeritageLegacy(d.selectedHeritage)) || HERITAGE_DB.find(h=>h.id===d.selectedHeritage)||null;
+      state.selectedHeritage = (typeof PF2eAnc !== 'undefined' && PF2eAnc.getHeritageLegacy(d.selectedHeritage)) || null;
       if (state.selectedHeritage) {
         const btn = document.getElementById('btn-heritage');
         if (btn) { btn.textContent = state.selectedHeritage.name_ko; btn.classList.add('filled'); }
@@ -528,9 +534,8 @@ function loadData(d) {
     if (d.tempSkillExpert) state.tempSkillExpert = d.tempSkillExpert;
     if (d.deity) {
       state.deity = d.deity;
-      // 선호 무기 복원 — FVTT 신격(478) 폴백 포함(레거시 DEITY_DB 20만 보면 FVTT 신격은 무기 유실)
-      const dty = (typeof _getDeity === 'function') ? _getDeity(d.deity)
-                : (typeof DEITY_DB !== 'undefined') ? DEITY_DB.find(x=>x.id===d.deity) : null;
+      // 선호 무기 복원 — 신격 카탈로그(FVTT 478) 단일 소스
+      const dty = (typeof _getDeity === 'function') ? _getDeity(d.deity) : null;
       if (dty) state._deityWeapon = dty.weapon;
     }
     if (d.divineFont) state.divineFont = d.divineFont;

@@ -803,14 +803,12 @@ function applyClassFeatures() {
 //  CLASS-SPECIFIC BUILD CHOICES (Deity, Font, etc.)
 // ═══════════════════════════════════════════════
 
-// 신격 조회: FVTT 어댑터(478) 우선, 미준비 시 레거시 DEITY_DB(20) 폴백 (P4 후속)
+// 신격 조회 = FVTT 신격 카탈로그(478) 단일 소스
 function _allDeities() {
-  if (typeof PF2eDeity !== 'undefined' && PF2eDeity.ready && PF2eDeity.ready()) return PF2eDeity.deityList();
-  return (typeof DEITY_DB !== 'undefined') ? DEITY_DB : [];
+  return (typeof PF2eDeity !== 'undefined' && PF2eDeity.ready && PF2eDeity.ready()) ? PF2eDeity.deityList() : [];
 }
 function _getDeity(id) {
-  if (typeof PF2eDeity !== 'undefined' && PF2eDeity.ready && PF2eDeity.ready()) { const d = PF2eDeity.getDeityLegacy(id); if (d) return d; }
-  return (typeof DEITY_DB !== 'undefined') ? (DEITY_DB.find(x => x.id === id) || null) : null;
+  return (typeof PF2eDeity !== 'undefined' && PF2eDeity.ready && PF2eDeity.ready()) ? (PF2eDeity.getDeityLegacy(id) || null) : null;
 }
 
 function openDeityPicker() {
@@ -2678,20 +2676,13 @@ function getOptionsData(type) {
     }
     return CLASSES;
   }
-  if (type==='ancestry') return _ancReady ? PF2eAnc.ancestryList() : ANCESTRIES;
-  if (type==='background') return (typeof PF2eBg !== 'undefined' && PF2eBg.ready && PF2eBg.ready()) ? PF2eBg.backgroundList() : BACKGROUNDS;
+  if (type==='ancestry') return _ancReady ? PF2eAnc.ancestryList() : [];
+  if (type==='background') return (typeof PF2eBg !== 'undefined' && PF2eBg.ready && PF2eBg.ready()) ? PF2eBg.backgroundList() : [];
   if (type==='heritage') {
-    if (_ancReady) {
-      const ancId = state.selectedAncestry && state.selectedAncestry.id;
-      // ancestry==null = 다목적 유산(네피림/체인질링/댐피르 등) → 항상 노출. 연결형은 선택 혈통 매칭
-      return PF2eAnc.heritageList().filter(h => h.ancestry == null || !ancId || h.ancestry === ancId);
-    }
-    const hasVersatile = Object.values(state.feats).flat().some(f => f?.name?.includes('다재다능한 유산'));
-    return HERITAGE_DB.filter(h => {
-      if (h.ancestry === '*') return true; // 다목적 유산 (네피림, 체인질링 등)은 항상 표시
-      if (getHeritageEffects(h).versatile) return hasVersatile;
-      return !state.selectedAncestry || h.ancestry === state.selectedAncestry.id;
-    });
+    if (!_ancReady) return [];   // 미준비 시 openModal 게이트가 로드 후 재오픈
+    const ancId = state.selectedAncestry && state.selectedAncestry.id;
+    // ancestry==null = 다목적 유산(네피림/체인질링/댐피르 등) → 항상 노출. 연결형은 선택 혈통 매칭
+    return PF2eAnc.heritageList().filter(h => h.ancestry == null || !ancId || h.ancestry === ancId);
   }
   if (type==='subclass') return state.selectedClass ? SUBCLASS_DB.filter(s => s.class_id === state.selectedClass.id) : [];
   if (type==='feat') return filterFeats();

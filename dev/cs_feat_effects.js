@@ -1020,9 +1020,9 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       };
       container.appendChild(row);
     });
-  } else if (choiceDef.type === 'ancestry_pick' && (typeof PF2eAnc !== 'undefined' || typeof ANCESTRIES !== 'undefined')) {
-    // 혈통 선택 모달 — 이미 선택한 혈통과 내 혈통 제외
-    const _ancAll = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready()) ? PF2eAnc.ancestryList() : ANCESTRIES;
+  } else if (choiceDef.type === 'ancestry_pick' && typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready()) {
+    // 혈통 선택 모달 — 이미 선택한 혈통과 내 혈통 제외 (FVTT 혈통 카탈로그 단일 소스)
+    const _ancAll = PF2eAnc.ancestryList();
     const myAnc = state.selectedAncestry?.id || '';
     const alreadyAdopted = Object.values(state.feats).flat()
       .filter(f => f && f.name && f.name.includes('양자 혈통') && f.choice)

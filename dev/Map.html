@@ -393,9 +393,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_dice.js?v=0.52"></script>
-<script src="cs_monster.js?v=0.52"></script>
-<script src="cs_map.js?v=0.52"></script>
+<script src="cs_dice.js?v=0.53"></script>
+<script src="cs_monster.js?v=0.53"></script>
+<script src="cs_map.js?v=0.53"></script>
 <style>
 /* 듀얼모니터: GM 도구 + 플레이어 CCTV */
 #map-gm-tools{margin-left:12px;display:inline-flex;gap:6px;align-items:center;}
@@ -651,7 +651,7 @@ window.MonsterLink = (function () {
     const _b = document.getElementById('pf-dice-box'); if (_b) _b.remove();
   } else {
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.52');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.53');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     const box = new DiceBox({ container: '#pf-dice-box', assetPath, theme: 'default', offscreen: false, scale: 6 });
     let ready = false;
