@@ -1,0 +1,73 @@
+{
+ "fixes": [
+  {
+   "slug": "RgYpzTk3XapgVeXZ",
+   "desc_ko": "<p>스켈레톤은 자신의 흉곽에서 갈비뼈 하나를 뽑아 화살이나 투창으로 사용한다. 스켈레톤은 자기 레벨과 같은 HP(최소 1)를 잃은 다음, 원거리 타격을 실행한다.</p>\n<p>이것은 스켈레톤의 다른 타격 중 명중 보너스가 가장 높은 것의 명중 보너스를 사용하며, 그 타격의 피해에 스켈레톤의 레벨(최소 1)을 더한 만큼의 관통 피해를 입힌다.</p>",
+   "reason": "ribcage 오역(갈비뼈에서 갈비뼈 → 흉곽에서 갈비뼈)"
+  },
+  {
+   "slug": "STynsk9Ro0kAQTxr",
+   "desc_ko": "<p>용이 동물 특성을 지닌 생물에게 @UUID[Compendium.pf2e.spells-srd.Item.OsOhx3TGIZ7AhD0P]{지배}를 시전하면, 대상의 내성 굴림 결과가 한 단계 나빠진다. 이 주문으로 용이 통제하는 동물은 용언을 말할 수 있으며, @UUID[Compendium.pf2e.conditionitems.Item.9qGBRpbX9NEwtAAr]{지배됨} 상태인 동안 시도하는 지능, 지혜, 매력 기반 기술 판정에 +2 상태 보너스를 얻는다.</p>",
+   "reason": "status bonus 용어 오류(위상 보너스 → 상태 보너스)"
+  },
+  {
+   "slug": "Tro2ZR9B7SgFbZps",
+   "desc_ko": "<p>용은 살아있는 단일 필멸자를 위한 계약서를 만들어낸다. 이 계약서는 필멸자가 지닌 지식 한 조각과 맞바꾸어, 용의 힘에 따라 그 범위가 달라지는 단일 은혜나 능력을 부여할 수 있다. 필멸자는 자발적으로 자신의 진명과, 넘겨주고자 하는 지식을 계약서에 서명해야 한다. 서명하는 순간 필멸자는 거래한 정보를 잊어버리며, 이는 @UUID[Compendium.pf2e.spells-srd.Item.6dDtGIUerazSHIOu]{소원} 의식이 아니고서는 어떤 수단으로도 되돌릴 수 없다. 이 지식을 되찾으면, 필멸자는 계약서가 부여한 은혜를 잃는다.</p>",
+   "reason": "'any means short of Wish' 오역 — '소원 의식 이하'는 소원까지 불가능한 것으로 읽힘"
+  },
+  {
+   "slug": "XHut4MN0JBgm7WaN",
+   "desc_ko": "<p><strong>요구조건</strong> @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기}, @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{마비}, @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{억제}, @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{무의식} 상태이거나 자발적인 생물이 뱀파이어의 사정거리 내에 있음.</p>\n<hr />\n<p><strong>효과</strong> 뱀파이어는 그 생물에게 송곳니를 박아 넣어 피를 빤다. 희생자가 조이기 상태라면 희생자의 강인함 DC에 대해 @Check[athletics|defense:fortitude] 판정이 필요하며, 다른 상태 중 하나라면 자동으로 성공한다.</p>\n<p>희생자는 @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{생명력 고갈 2}가 되고, 뱀파이어는 최대 HP의 10%에 해당하는 HP를 회복하며, 초과분은 임시 HP로 얻는다. 이미 생명력이 고갈된 생물로부터 흡혈하면 뱀파이어에게 HP를 회복시키지 못하지만, 희생자의 생명력 고갈 수치가 1 증가하며, 생명력 고갈 5에 이르면 희생자가 죽는다. 뱀파이어는 그릇에 담긴 피를 마셔 영양을 섭취할 수도 있지만, 그것으로는 HP를 얻지 못한다.</p>\n<p>희생자의 생명력 고갈 상태는 주당 1씩 감소한다. 수혈은 @Check[medicine|dc:20|name:Blood Transfusion] 판정과 충분한 피 또는 헌혈자가 필요하며, 10분 후에 고갈을 1 줄인다.</p>",
+   "reason": "Fortitude DC 오역(건강 → 강인함)"
+  },
+  {
+   "slug": "XbHMVjHtbPaPr9P5",
+   "desc_ko": "<p>레이브너는 명중 굴림이 성공인 한, 19나 20이 나온 명중 굴림을 치명타로 취급한다. 추가로, 레이브너가 자신의 타격으로 치명타를 낼 때마다, 목표는 @Check[fortitude|dc:|name:Vicious Criticals] 내성에 성공해야 하며, 그렇지 못하면 @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{생명력 고갈 1} 상태를 얻는다. 목표가 이미 0보다 큰 생명력 고갈 수치를 지니고 있다면, 대신 생명력 고갈 수치가 최대 생명력 고갈 4까지 1 증가한다.</p>\n<p>레이브너가 이 방식으로 생물에게 고갈을 적용할 때마다, 그들의 영혼 방벽이 5 HP를 얻는다.</p>",
+   "reason": "Attack Roll 정본 용어(공격 굴림 → 명중 굴림)"
+  },
+  {
+   "slug": "Z7BKGKMsvkZBg9XN",
+   "desc_ko": "<p>하루가 시작될 때, 용은 10분간의 의식을 수행해 그날 벌어질 수 있는 모든 싸움에 대비할 수 있다. 용은 다음 효과 중 하나를 선택하며, 이는 24시간 동안 지속된다.</p><ul><li><p><strong>확정된 운명</strong> (행운) 전조의 용이 선제력을 굴릴 때, 굴리는 대신 결과를 13 + 자신의 선제력 수정치와 같게 정할 수 있다.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.ggqCmAH0a7cmAdA3]{효과: 확정된 운명}</p></li><li><p><strong>본능적 도전</strong> 조우 중, 운명의 용은 자기 턴이 시작될 때 운명 도전에만 사용할 수 있는 추가 반응을 얻는다.</p></li></ul>",
+   "reason": "Initiative 정본 용어(우선권 → 선제력)"
+  },
+  {
+   "slug": "apVBHJT95t9Fhxpb",
+   "desc_ko": "<p>좀비의 살은 우글거리는 해충으로 가득하다. 좀비가 치명타를 맞거나 파괴되면, 그 떼가 풀려난다. 그 선제력은 좀비의 바로 다음이다. 떼가 좀비보다 레벨이 4 이상 낮으면, XP 가치가 없다(그리고 조우 예산에 XP를 더하지 않는다).</p>",
+   "reason": "Initiative 정본 용어(우선권 → 선제력)"
+  }
+ ],
+ "flags": [
+  {
+   "slug": "UQ2ZvIag5gPL2QiU",
+   "note": "Path Maiden 역어 불일치: SPNfbhNa46L3V2NQ는 '길의 처녀', UQ2ZvIag5gPL2QiU/VupsXjJEpavg5ByS는 '운명길 처녀' — 정본 확인 후 통일 필요"
+  },
+  {
+   "slug": "ZMTnwyXjyfy7Ryi6",
+   "note": "Vampire, True 역어 불일치: XHut4MN0JBgm7WaN '(뱀파이어, 진성)' vs ZMTnwyXjyfy7Ryi6 '(뱀파이어, 진정한)'"
+  },
+  {
+   "slug": "YVw626nVHlWwm4ej",
+   "note": "Skeleton 역어 불일치: 스켈레톤(RgYpzTk3XapgVeXZ, W77QhVNE46WDyMXi) vs 해골(YVw626nVHlWwm4ej, ZRHUnhaHK2w1el8f) — 이름·본문 모두"
+  },
+  {
+   "slug": "ZIFaA4jDQjM0vq8q",
+   "note": "Graveknight 역어 불일치: W5fD1ebH6Ri8HNzh '무덤기사' vs ZIFaA4jDQjM0vq8q '묘지기사'"
+  },
+  {
+   "slug": "YQmf1Otd4xoxsSGU",
+   "note": "Mana Wastes Mutant 역어 불일치: SFDNK6AauPO6io5B '돌연변이' vs YQmf1Otd4xoxsSGU/Yv0mQAeVuQ2Id9vk '변종'; Cryptid Mutant도 SEU4K3QRAUHEMRl2/WLmFKSzR6Xz9RqAu '돌연변이' vs ZUxt6s54TMgydXoW '변종'"
+  },
+  {
+   "slug": "Zu6feO9NUZJlsKuc",
+   "note": "Worm That Walks 역어 불일치: X2mdpb1Dhl890YbA '걷는 벌레' vs Zu6feO9NUZJlsKuc '걷는 벌레 무리'; Cryptid Rumored도 '소문'(XpGCN9KJN0CCIlzU) vs '소문의'(a7SNHoP22SBoOAmA)"
+  },
+  {
+   "slug": "YXaiRbK6LFSHP5fV",
+   "note": "Failed Prophet을 '타락한 예언자'로 번역 — Failed는 '실패한'에 가까움. 의도적 의역일 수 있어 미수정"
+  },
+  {
+   "slug": "Sj1IGDjUmlwFpC35",
+   "note": "weapon potency rune을 '강화 룬'으로 번역 — striking rune(강타 룬)과 구분되나 potency의 통용 역어(위력 룬 등) 확인 필요"
+  }
+ ]
+}

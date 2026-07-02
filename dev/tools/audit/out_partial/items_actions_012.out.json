@@ -1,0 +1,212 @@
+{
+ "fixes": [
+  {
+   "slug": "awJY2ylrsVEJNTFi",
+   "reason": "Intimidation 협박→위협, 공격 롤→명중 굴림, 행동명 관중을 달래기/선동 불일치 통일",
+   "desc_ko": "<p><strong>요건</strong> 이 행동은 검투사 경기에서 당신의 첫 번째 행동이거나, 검투사 경기에서 싸우며 적에게 피해를 입혔거나 눈에 띄게 방해한 경우입니다. </p> <hr /> <p>조롱하는 제스처, 승리의 포즈, 대담한 도전으로 관중을 흥분시켜 당신을 응원하게 만듭니다. 곡예, 운동, 위협, 또는 공연 체크를 시도하세요. DC는 일반적으로 조우의 레벨에 따라 정해집니다. 그러나 관중들은 반복에 지루함을 느끼기 때문에, 누군가가 이 행동을 마지막으로 사용한 것과 동일한 스킬을 사용하여 관중 부추기기를 시도하면 체크에 -2의 상황 페널티가 적용됩니다. 이 턴에 명중 굴림에서 대성공을 거두었다면, 관중 부추기기 시도에 +2의 상황 보너스를 얻습니다. </p> <hr /> <p><strong>대성공</strong> 관중들이 열광합니다! 다음 턴이 끝날 때까지 명중 굴림, 피해 굴림, 내성 굴림, 스킬 체크에 +3의 상태 보너스를 받거나, 다음 턴이 끝날 때까지 자신과 모든 아군에게 동일한 굴림에 +2의 상태 보너스를 줄 수 있습니다. </p> <p><strong>성공</strong> 당신은 관중을 매료시킵니다. 대성공과 동일하지만, 보너스는 당신에게만 +2, 또는 당신과 당신의 아군에게 +1이 적용됩니다. </p> <p><strong>실패</strong> 당신은 인상을 남기지 못합니다. </p> <p><strong>대실패</strong> 당신의 아첨은 웃음거리가 되고, 관중은 당신의 적들을 편들기 시작합니다. 다음에 관중 부추기기를 시도하는, 당신에게 적대적인 생물은 체크에 +4의 상황 보너스를 얻습니다.</p>"
+  },
+  {
+   "slug": "b3rRsVrO7qM1kN6c",
+   "reason": "body of water '물체(水體)' 오역→수역",
+   "desc_ko": "<p><strong>양상</strong> 물</p>\n<hr />\n<p><strong>발동</strong> <span class=\"action-glyph\">1</span> (조작)</p>\n<p><strong>효과</strong> 당신의 유물은 물을 흡수하고 방출할 수 있으며, 끝없는 저수지에 저장합니다. 당신은 유물을 인접한 수역에 접촉시켜 1갤런의 물을 저수지로 흡수하거나, 저수지에서 1갤런의 액체를 방출합니다. 발동에 행동을 하나 더 추가하여, 물 정령처럼 전적으로 물로 이루어진 접촉한 크리처로부터 물을 흡수할 수 있습니다. 그렇게 하면, 그것은 유물 레벨마다 @Damage[1d6] 피해를 받습니다(@Check[fortitude|against:class-spell|basic] 내성).</p>\n<hr />\n<p><strong>발동</strong> <span class=\"action-glyph\">r</span> (조작)</p>\n<p><strong>발동조건</strong> 당신이 산성 또는 물 효과의 대상이 됨</p>\n<p><strong>효과</strong> 당신의 유물이 저장된 액체 1갤런을 소모하여 그 효과를 상쇄하려 시도합니다. GM의 재량에 따라, 피처럼 다른 액체로 이루어진 효과에 이 능력을 사용할 수 있습니다.</p>"
+  },
+  {
+   "slug": "b5BwpJVxTQNDr9E4",
+   "reason": "Frequency를 '발동 조건'으로 오기→빈도",
+   "desc_ko": "<p><strong>빈도</strong> 한 시즌에 한 번만</p> <p><strong>트리거</strong> 파티의 사우스뱅크에 대한 명성이 증가합니다</p> <hr /> <p><strong>효과</strong> 파티의 사우스뱅크에 대한 명성을 추가로 2점 증가시킵니다 (GM은 윌로우쇼어 명성에 대한 정보를 가지고 있습니다).</p>"
+  },
+  {
+   "slug": "bweyCSaXUjmcSTAO",
+   "reason": "UUID가 원문과 다름(구 bestiary-3)→원문 UUID 복원, flint 부싯깃→부싯돌, light Bulk '빛나는 벌크' 오역, pint '퀸트' 오기, 위습는/위습를 조사 오류, 소환체 지칭 오류(유물이 나타남)",
+   "desc_ko": "<p><strong>양상</strong> 대장간</p> <p><strong>발동</strong> 2 명령, 상호작용</p> <p><strong>빈도</strong> 하루에 한 번</p> <hr /> <p><strong>효과</strong> 유물을 부싯돌에 부딪혀 @UUID[Compendium.pf2e.pathfinder-monster-core-2.Actor.micllXbcz1eBcAoz]{화염 위습}을 소환해 도움을 받습니다. 위습은 당신 옆의 빈 칸에 나타납니다. 화염 위습은 전투에서는 행동하지 않지만, 당신이 아이템을 제작할 때 도움을 줄 수 있습니다. 대장장이 일과 일반 금속 세공에 관련된 제작 체크에 +1 보너스를 받으며, 이 보너스는 9레벨에 +2, 17레벨에 +3으로 증가합니다. 하루에 한 번, 대장장이 일과 관련된 제작 체크에서 대실패를 굴리면 대신 실패로 처리됩니다. 위습은 대장장이 작업 시 화로의 필요성을 대체하지만, 다른 장비와 도구는 여전히 필요합니다. 위습은 최대 10분 동안, 또는 당신이 해제할 때까지 남아 있습니다. 위습에게 가벼움(L) 부피 1 분량의 숯이나 장작, 또는 기름 1파인트를 먹이면 이 지속 시간을 10분 추가로 연장할 수 있습니다.</p>"
+  },
+  {
+   "slug": "cNJ83EsE9OeCCpaE",
+   "reason": "worn item '낡은 아이템' 오역→착용 아이템, 주문 등급→랭크, rounded down 반올림→내림, 원문에 없는 문장 삭제, 손상된 따옴표 복구",
+   "desc_ko": "<p><strong>양상</strong> 야수</p> <p><strong>선행조건</strong> 유물이 착용 아이템입니다.</p> <p><strong>발동</strong> <span class=\"action-glyph\">2</span> (집중)</p> <p><strong>빈도</strong> 하루에 두 번</p> <hr /> <p><strong>효과</strong> 내면의 야수성을 불러내어 동물의 모습으로 변신합니다. 유물은 @UUID[Compendium.pf2e.spells-srd.Item.wp09USMB3GIW1qbp]{동물 형태}를 당신에게 시전하여, 이 은혜를 얻을 때 선택한 동일한 유형의 동물로 매번 변신시킵니다. 주문 랭크는 아이템 레벨의 절반(내림)입니다.</p>"
+  },
+  {
+   "slug": "cp8eFBCr1n7xIaxq",
+   "reason": "Battlements '전장' 오역→흉벽",
+   "name_ko": "흉벽 재건",
+   "desc_ko": "<p><strong>요구 사항</strong> 제작 (전문가), 특수 제작 (석공), 또는 고용된 석공, 조직된 노동자</p> <hr /> <p>중앙 탑의 북쪽 부분을 따라 무너진 흉벽을 재건하고 복원합니다. 이 작업에는 28일의 작업과 @Check[crafting|dc:20] 체크가 필요합니다.</p>"
+  },
+  {
+   "slug": "dqE9pP9Pv0JG9d8X",
+   "reason": "<strong>특별</strong> 닫는 태그 누락으로 HTML 구조 손상",
+   "desc_ko": "<p><strong>극복</strong> @Check[stealth|dc:33]</p> <hr /> <p>PC들은 저택으로 향하는 수레, 와인 통 또는 기타 대형 용기에 몸을 숨깁니다. 이렇게 하면 저택 벽 안으로 들어갈 수 있지만 저택에서 멀리 떨어진 곳에 도착하게 됩니다. </p> <hr /> <p><strong>특별</strong> 이 과정으로 참여 PC는 단정하지 못한 모습으로 변하게 되며, 단정하거나 전문적인 모습과 관련된 체크에 -1의 상황 페널티가 적용됩니다.</p>"
+  },
+  {
+   "slug": "fSX1Ccn4GVD7OGzV",
+   "reason": "action-glyph 따옴표 손상 복구, 문서 끝 '</p>>' 잉여 문자 제거, spirit '정신력'→기운(사기 의미)",
+   "desc_ko": "<p><strong>양상</strong> 천상</p> <p><strong>발동</strong> <span class=\"action-glyph\">2</span> 명령, 상호작용</p> <p><strong>빈도</strong> 한 시간에 한 번</p><hr /><p><strong>효과</strong> 자신이나 아군에게 손을 얹어 상처를 치유하고 기운을 북돋웁니다. 대상은 아이템 레벨당 @Damage[1d8[healing]] HP를 회복하고 자신의 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포} 값을 1 감소시킵니다.</p>"
+  },
+  {
+   "slug": "fUNCyoyLgpIYFLe1",
+   "reason": "명칭 오역: Influence Guild(동사구)를 '영향력 길드'로 직역",
+   "name_ko": "길드에 영향력 행사"
+  },
+  {
+   "slug": "hQ5BAIjAKpp2dYhR",
+   "reason": "성공/대실패 문단이 대성공 문단에 병합되고 라벨 소실→구조 복원, 스킬 피트→기술 재주, 명칭 '연결을 구축하세요'→인맥 쌓기",
+   "name_ko": "인맥 쌓기",
+   "desc_ko": "<p>당신은 높은 지위에 있는 사람들과 친분을 쌓기 위해 하루를 바칩니다. 보통 파티에 스스로 끼어들어 참석하거나, 나중에 보답받을 작은 호의를 베풀거나, 자신감과 능력이 넘치는 분위기를 발산하는 식입니다. @Check[crafting|dc:36], @Check[diplomacy|dc:36], @Check[performance|dc:36] 또는 적절한 지식 체크를 시도하세요. 결과에 따라 당신의 노력의 영향력이 결정됩니다. @UUID[Compendium.pf2e.feats-srd.Item.iCv8KTZ5PcF4GqeV]{인맥 활용} 기술 재주를 가지고 있고 성공을 굴리면, 대신 대성공을 얻습니다.</p> <hr /> <p><strong>대성공</strong> 1개월 동안, 여기에 나열된 다운타임 활동을 수행하기 위한 스킬 체크에 +1의 상황 보너스를 받습니다. 또한, 자신이나 함께 일하는 아군이 이러한 다운타임 행동 중 하나에 대한 스킬 체크를 시도할 때 사용할 수 있는 호의 하나를 얻습니다. 그 생물은 굴림을 두 번 하고 더 좋은 결과를 사용할 수 있으며, 그 후 호의는 상환된 것으로 간주됩니다. 호의를 요청하는 것은 행운 효과입니다.</p> <p><strong>성공</strong> 1주일 동안, 여기에 나열된 다운타임 활동에 대한 스킬 체크에 +1의 상황 보너스를 얻습니다.</p> <p><strong>대실패</strong> 실수로 망신을 당하고, 그 사건이 소문으로 널리 퍼집니다. 3일 동안, 여기에 나열된 다운타임 활동에 대한 스킬 체크에 -1의 상황 페널티를 받습니다.</p>"
+  },
+  {
+   "slug": "hq5KwJRPbTVcoD3k",
+   "reason": "성공/실패/대실패 문단 병합·라벨 소실→구조 복원, 미번역 영어(Blending In/Cunning Disguise) 처리, counteract→상쇄",
+   "desc_ko": "<p><strong>요건</strong> 섞여들기(Blending In)나 교묘한 변장(Cunning Disguise)을 사용하는 중에, PC가 어느 손님에게서 뭔가 이상한 점을 발견했습니다.</p> <p><strong>극복</strong> @Check[arcana|dc:35], @Check[occultism|dc:33], @Check[perception|dc:37]</p> <hr /> <p>PC는 에프미니아 팔스파르 남작 부인이 겉으로 보이는 것 이상의 존재라고 확신합니다. 그 직감은 맞습니다. 그녀는 변장한 라크샤사, 릴룬입니다!</p> <hr /> <p><strong>대성공</strong> PC는 변장을 꿰뚫어보고 마법 없이 라크샤사의 정체를 밝힐 방법을 찾습니다. 라크샤사가 이곳에서 환영받지 못하는 존재는 아니지만, 릴룬의 본모습이 갑자기 드러나고 그녀가 당황하며 소리를 지르자 많은 파티 손님들의 시선이 집중됩니다. 인식도를 2 감소시킵니다(최소 0).</p> <p><strong>성공</strong> PC가 마법 변장을 감지합니다. 이 기회를 극복하려면, PC는 마법으로 변장을 상쇄하거나 @Check[deception|dc:40] 또는 @Check[intimidation|dc:40] 체크에 성공하여 남작 부인의 집중을 흔들어 잠시 그녀의 변장을 방해해야 합니다. 그러면 대성공에 설명된 대로 그녀의 정체가 드러납니다.</p> <p><strong>실패</strong> PC는 변장의 흔적을 발견하지 못합니다.</p> <p><strong>대실패</strong> PC는 변장의 흔적을 발견하지 못하고, 그 면밀한 관찰 탓에 남작 부인에게 큰 소리로 질책을 당합니다.</p>"
+  },
+  {
+   "slug": "iQfHTjg9dNLbuzr8",
+   "reason": "Trained '훈련된'→숙련(정본), drain '흡수' 오역→물을 빼서",
+   "desc_ko": "<p><strong>요건</strong> 제작 (숙련) 또는 고용된 석공; 조직된 노동자</p> <hr /> <p>당신은 무너진 북쪽 벽을 수리하고, 침수되어 내려앉은 구역의 물을 빼서 메우고, 잡초를 제거하는 작업을 합니다. 이 활동에는 6일의 작업과 @Check[crafting|dc:15] 체크가 필요합니다.</p>"
+  },
+  {
+   "slug": "jwo5CvftA5puYp7i",
+   "reason": "성공 항목이 요건 문단에 병합, 대실패 문단 누락(1라운드 매혹 내용 소실)→구조 복원",
+   "desc_ko": "<p><strong>요건</strong> 동반자의 마지막 행동이 @UUID[Compendium.pf2e.actionspf2e.Item.EEDElIyin4z60PXx]{공연}을 위한 공연 체크에 성공한 것이어야 합니다. 동반자는 공연을 유지하여, 성공적인 공연을 목격한 30피트 이내의 단일 대상을 사로잡으려 합니다. 대상은 의지 내성 굴림을 시도해야 합니다.</p> <hr /> <p><strong>성공</strong> 대상은 영향을 받지 않고 1시간 동안 일시적으로 면역이 됩니다.</p> <p><strong>실패</strong> 대상은 자신의 다음 행동 동안 동반자에게 @UUID[Compendium.pf2e.conditionitems.Item.AdPVz7rbaVSRxHFg]{매혹} 상태가 되고, 그 후 1시간 동안 일시적으로 면역이 됩니다.</p> <p><strong>대실패</strong> 대상은 1라운드 동안 동반자에게 매혹됩니다. 매혹 상태로 남아 있는 동안 반응을 사용할 수 없습니다.</p>"
+  },
+  {
+   "slug": "k1uJji3XkGe1rZ5z",
+   "reason": "Frequency를 '발동 조건'으로 오기→빈도",
+   "desc_ko": "<p><strong>빈도</strong> 시즌당 1회만</p> <p><strong>트리거</strong> 파티의 노스리지 평판이 상승합니다.</p> <hr /> <p><strong>효과</strong> 파티의 노스리지 평판을 추가로 2점 증가시킵니다 (GM은 윌로우쇼어 평판에 대한 정보를 보유하고 있습니다).</p>"
+  },
+  {
+   "slug": "k2YHPUydoyEKdhmP",
+   "reason": "action-glyph 따옴표 손상 복구, Strike 공격→타격",
+   "desc_ko": "<p><strong>양상</strong> 천상</p> <p><strong>선행조건</strong> 유물이 무기입니다.</p> <p><strong>발동</strong> <span class=\"action-glyph\">2</span> 명령</p> <hr /> <p><strong>효과</strong> 신성한 분노를 끌어내어, 지난 라운드 동안 당신이나 아군에게 피해를 입힌 대상 하나를 지목하고 유물을 그에 대한 신성한 복수로 채웁니다. 그 적에게 타격을 가하며, 명중 시 추가 피해 주사위 하나를 더합니다. 대상이 악하다면, 명중 시 당신의 다음 턴이 시작될 때까지 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 1} 상태도 됩니다 (대성공 명중 시 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 2}).</p>"
+  },
+  {
+   "slug": "kfmEGGs8DbIL9JuF",
+   "reason": "Strikes '공격'→타격(정본)",
+   "desc_ko": "<p><strong>트리거</strong> 생물이 당신에게 타격을 가합니다</p> <hr /> <p><strong>효과</strong> 그 생물은 @Damage[2d6[fire]]의 피해를 받습니다 (@Check[reflex|against:class-spell|basic] 내성).</p>"
+  },
+  {
+   "slug": "lD2RA75awEu4cG7e",
+   "reason": "대성공 '두 배' 누락, 실패/대실패 문단 통째 누락→복원, 기대감/기대치 용어 통일",
+   "desc_ko": "<p>당신은 2일 연속으로 마을에서 다음 서커스 공연에 대한 기대감을 높입니다. @Check[society] 체크를 시도하세요. 이 체크의 DC는 파티의 레벨에 해당하는 DC와 동일합니다. 다른 PC 한 명이 2일의 다운타임을 사용하여 당신을 지원할 수 있으며, @Check[society|dc:20] 체크에 성공하면 당신의 사회 체크에 +2의 상황 보너스를 제공합니다. </p> <hr /> <p><strong>대성공</strong> 당신은 당신의 레벨과 카리스마 수정자를 합한 값의 두 배(최소 2)에 해당하는 기대감을 생성합니다.</p> <p><strong>성공</strong> 당신은 당신의 레벨과 카리스마 수정자를 합한 값(최소 1)에 해당하는 기대감을 생성합니다.</p> <p><strong>실패</strong> 당신은 기대감 1을 생성합니다.</p> <p><strong>대실패</strong> 당신은 기대감을 생성하지 못합니다.</p>"
+  },
+  {
+   "slug": "lySoX0VbIaEEEnDZ",
+   "reason": "미번역 'Citadel Altaerein'→알타레인 성채(코퍼스 내 기존 역어)",
+   "desc_ko": "<p>당신은 하루를 청소하며 보냅니다. 부서진 가구를 옮기고, 쓰레기를 처리하고, 수리를 시작할 수 있도록 방을 깨끗하게 정리합니다. 알타레인 성채는 다른 기본 수리 작업을 시작하기 전에 8일간의 청소가 필요합니다. 청소는 제작 체크가 필요하지 않으며, 금화도 들지 않습니다.</p>"
+  },
+  {
+   "slug": "m9Si1ygkv9ISjKVN",
+   "reason": "명칭 미번역(Steamgrotto)→스팀그로토, Nature 자연→자연학, Perception 지각력→지각(정본)",
+   "name_ko": "스팀그로토 탐색",
+   "desc_ko": "<p>스팀그로토에서 간헐천 분출의 패턴을 관찰한 다음, 위험에 노출되지 않도록 이 지역을 통과할 경로를 최대한 잘 계획합니다. 자연학, 지각, 생존을 사용하여 스팀그로토 탐색을 시도할 수 있으며, DC 35 체크에 성공해야 합니다. 하지만 지각을 사용하면 위험의 본질에 대해 더 깊은 통찰을 얻지 못하며, 그 결과 -4의 상황 페널티를 받습니다.</p> <hr /> <p><strong>대성공</strong> 위험을 피하고, 전문가를 따르는 모든 사람은 그 활동으로 얻는 굴림 보너스의 두 배를 얻습니다. </p> <p><strong>성공</strong> 위험을 피합니다. </p> <p><strong>실패</strong> 몇몇 간헐천에 너무 가까이 다가가고, 움직임의 타이밍을 놓칩니다. @Damage[10d6[fire]]의 피해를 받습니다 (@Check[reflex|dc:36|basic]).</p> <p><strong>대실패</strong> 당신의 움직임을 심하게 잘못 판단하여 간헐천에 정면으로 맞습니다. @Damage[20d6[fire]]의 피해를 받습니다 (@Check[reflex|dc:36|basic]).</p>"
+  },
+  {
+   "slug": "m9UGL3VWfg9r6xHQ",
+   "reason": "미번역 'earth'/'Wall of Stone', 주문 5등급→5랭크(정본), action-glyph 따옴표 손상 복구",
+   "desc_ko": "<p><strong>양상</strong> 흙</p> <p><strong>발동</strong> <span class=\"action-glyph\">2</span> 명령, 상호작용</p> <p><strong>빈도</strong> 하루에 한 번</p> <hr /> <p><strong>효과</strong> 당신의 유물이 주변의 땅을 재구성합니다. 당신은 5랭크 @UUID[Compendium.pf2e.spells-srd.Item.kOa055FIrO9Smnya]{돌벽}을 시전합니다.</p>"
+  },
+  {
+   "slug": "mluc8JLd20HjGrqu",
+   "reason": "인명 표기 불일치(멘카레/멩카레) 통일",
+   "name_ko": "멩카레 설득하기",
+   "desc_ko": "<p>당신은 골드 드래곤 멩카레와 몇 분 동안 토론을 하고, 그의 의심 점수를 높여 약속의 시민들을 희생시키려는 그의 계획을 재고하게 할 수 있는 정보를 제시했습니다. 당신이 한 주장과 관련된 핵심 스킬 중 하나를 선택하고, 그 스킬로 체크를 시도하세요. 필요한 DC는 영광에 대항하는 주장 섹션에 표시된 대로, 사용한 스킬에 따라 다릅니다.</p> <hr /> <p><strong>대성공</strong> 멩카레의 의심을 2 증가시킵니다. </p> <p><strong>성공</strong> 멩카레의 의심을 1 증가시킵니다. </p> <p><strong>실패</strong> 멩카레의 의심을 증가시키지 못합니다. </p> <p><strong>대실패</strong> 당신의 주장을 스스로 무너뜨립니다. 멩카레의 의심을 1 감소시킵니다.</p>"
+  },
+  {
+   "slug": "nLLgAxo4IHebsyg1",
+   "reason": "의미 오류: 함정이 소동을 일으키도록 설치된 것인데 PC가 소동을 일으키는 것으로 번역됨",
+   "desc_ko": "<p><strong>극복</strong> 2회 성공; @Check[arcana|dc:34] 또는 @Check[thievery|dc:34]</p> <hr /> <p>PC들은 예비 도둑을 죽이고 요란한 폭발 소동을 일으키도록 설치된 위험한 함정들을 억제하거나 무력화합니다.</p> <p><strong>특별</strong> PC가 이 장면을 극복하기 위한 체크에 실패하면, 해당 PC에게 @Damage[16d6[untyped]]의 피해를 주는 함정이 발동됩니다 (@Check[reflex|dc:36|basic]). PC가 대실패를 하면, 이 장면에 있는 모든 PC에게 이 피해가 적용됩니다. </p>"
+  },
+  {
+   "slug": "nVdoKUIWaJ47xMuB",
+   "reason": "대성공 문단·<hr /> 소실(대성공 본문이 누락되고 마지막 문장만 서두에 붙음)→구조 복원",
+   "desc_ko": "<p>특정 경비병 무리를 순찰 경로나 근무 위치에서 벗어나게 하려 시도합니다. @Check[deception|dc:41] 체크를 시도하거나, 주문 효과를 사용하는 경우 @Check[arcana|dc:41], @Check[nature|dc:41], @Check[occultism|dc:41] 또는 @Check[religion|dc:41] 체크를 (적절한 것으로) 시도하여 성공 여부를 결정합니다. 경비병의 주의를 분산시키려는 각 시도는 처음 주의를 끄는 순간부터 경비병이 반응할 때까지 1분이 소요됩니다.</p> <hr /> <p><strong>대성공</strong> 당신은 경비병들을 순찰 지역이나 근무지에서 크게 벗어나게 하여 성채 내 당신이 원하는 지역으로 유인합니다. 경비병들은 1시간이 지나면 원래 위치로 돌아갑니다.</p> <p><strong>성공</strong> 당신은 경비병들을 순찰 지역이나 근무지에서 벗어나게 하여 성채 내 원하는 지역으로 유인합니다. 경비병들은 20분이 지나면 원래 위치로 돌아갑니다.</p> <p><strong>실패</strong> 당신은 경비병들의 주의를 분산시키지 못합니다. 다음 10분 동안 같은 경비병들의 주의를 돌리려는 모든 시도는 체크에 -2의 페널티를 받습니다.</p> <p><strong>대실패</strong> 위의 실패와 같지만, 경비병들이 당신이 그들의 주의를 돌리려 하는 것을 알아차리고 당신을 건물 밖으로 데리고 나갑니다. 그 특정 경비병 무리에 대한 세 번째 대실패라면, 경비병은 대신 당신을 체포합니다.</p>"
+  },
+  {
+   "slug": "nmgmPqExUZt5u5Wr",
+   "reason": "대성공 문장 중복, 성공 문단 누락(1회전), 대실패 라벨 소실 및 '비틀거려 바퀴를 놓침·위험 요소 발동' 문장 누락→전체 복원",
+   "desc_ko": "<p>캐릭터는 시간을 들여 바퀴를 돌립니다. 이 작업은 매우 힘들어서, 라운드가 끝날 때 PC는 @Check[fortitude|dc:25] 내성 굴림을 시도해야 합니다. 이 내성의 DC는 바퀴 돌리기 시도가 진행될수록 증가합니다. 총 7회전을 완료하면 이 방의 양쪽 이중문이 모두 열립니다(24시간 후에 자동으로 닫힙니다).</p> <hr /> <p><strong>대성공</strong> 바퀴가 2회전합니다. 바퀴 돌리기 DC가 1 증가합니다.</p> <p><strong>성공</strong> 바퀴가 1회전합니다. 바퀴 돌리기 DC가 1 증가합니다.</p> <p><strong>실패</strong> 캐릭터는 1회전을 완료하지 못합니다. 바퀴 돌리기 DC가 2 증가합니다.</p> <p><strong>대실패</strong> 캐릭터가 비틀거리며 바퀴를 놓쳐, 인내의 시험 위험 요소를 발동시킵니다. 바퀴가 풀려서 회전 수가 0으로, DC가 25로 재설정됩니다.</p>"
+  },
+  {
+   "slug": "o3u4snDwjBDcNlG3",
+   "reason": "본문 문단·<hr /> 하나 소실(쓰러뜨리기 시도 문장이 요건에 병합)→구조 복원",
+   "desc_ko": "<p><strong>요건</strong> 당신은 상자 기둥에 인접해 있습니다.</p> <hr /> <p>당신은 무거운 상자 더미를 적에게 쓰러뜨리려 시도합니다. @Check[athletics|dc:22] 체크를 시도하세요.</p> <hr /> <p><strong>성공</strong> 상자 더미를 기둥에서 @Template[line|distance:15]{15피트 선} 내의 목표물 쪽으로 쓰러뜨립니다. 떨어지는 상자는 @Damage[(3d10+6)[bludgeoning]] 피해를 입히며, @Check[reflex|dc:26|basic] 내성을 굴립니다. 대실패한 생물은 또한 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태가 됩니다. 상자가 떨어진 모든 칸은 험한 지형이 됩니다.</p> <p><strong>실패</strong> 상자를 쓰러뜨리지 못합니다.</p> <p><strong>대실패</strong> 상자가 대신 당신에게 쓰러져, 성공과 동일한 효과가 발생하지만 당신과 당신의 칸에만 영향을 미칩니다.</p>"
+  },
+  {
+   "slug": "o6hu1my40jfcLHqD",
+   "reason": "명칭 '호스트 이벤트' 직역→행사 주최, 성공/대실패 라벨 소실·문장 중복, 'The party is a disaster'(행사가 엉망) 오역",
+   "name_ko": "행사 주최",
+   "desc_ko": "<p>당신은 잔치, 작은 축제, 공개 공연 등 특별한 행사를 계획하고 주최하기 위해 하루를 바칩니다. 이를 위해서는 250gp의 지출이 필요합니다. @Check[diplomacy|dc:36], @Check[performance|dc:36], @Check[society|dc:36] 또는 적절한 지식 체크를 시도하세요. 결과에 따라 당신의 노력이 미치는 영향이 결정됩니다. 이 체크에 대해, 행사에 추가로 지출한 250gp마다 누적 +1의 상황 보너스를 얻습니다 (최대 +4).</p> <hr /> <p><strong>대성공</strong> 각 PC는 다음 3일 동안 다운타임 활동을 수행하는 스킬 체크에 +2의 상황 보너스를 얻습니다. 또한, 선택한 서로 다른 두 길드의 지원 포인트를 1씩 감소시킵니다.</p> <p><strong>성공</strong> 각 PC는 다음 날 다운타임 활동을 수행하는 스킬 체크에 +1의 상황 보너스를 얻습니다. 또한, 선택한 길드 하나의 지원 포인트를 1 감소시킵니다.</p> <p><strong>대실패</strong> 행사는 엉망진창이 됩니다. 각 PC는 다음 날 다운타임 활동을 수행하는 스킬 체크에 -2의 상황 페널티를 받습니다.</p>"
+  },
+  {
+   "slug": "p4CE62CG9S9RpU5F",
+   "reason": "lawful damage '법에 따른 피해' 오역→질서 피해, '약점이 10 증가'→약점 10 획득, action-glyph 따옴표 손상 복구, 미번역 영어 잔존(scintillating pattern 등) 처리",
+   "desc_ko": "<p><strong>양상</strong> 천상</p> <p><strong>발동</strong> <span class=\"action-glyph\">2</span> 명령, 상호작용</p> <p><strong>빈도</strong> 하루에 한 번</p> <hr /> <p><strong>효과</strong> <em>모나크</em>는 데스나의 궁전 시노슈어로 통하는 통로를 열고, 그곳에서 춤추며 뛰노는 아자타들의 은총을 당신의 영혼에 불어넣습니다. 당신은 추가 생명력 50을 얻어 최대 생명력과 현재 생명력이 모두 증가하며, 질서 피해에 대한 약점 10도 얻습니다. 또한 @UUID[Compendium.pf2e.adventure-specific-actions.Item.EbF9U21iMu0JkTzG]{정의로운 부름} 은혜의 효과를 그 은혜의 일일 사용 횟수를 소모하지 않고 얻습니다.</p> <p>당신은 이 효과를 해제할 수 있습니다. 그렇게 하면 무지개 같은 빛의 파동 형태로 혼돈의 힘이 터져 나오며, 유물이 @UUID[Compendium.pf2e.spells-srd.Item.uEyfLoFQsRKBRIcB]{혼란스러운 색채}를 시전합니다. 이렇게 시전된 <em>현란한 문양</em>의 효과는 당신의 아군에게는 영향을 미치지 않습니다.</p>"
+  },
+  {
+   "slug": "pWxRtCeAw4XnyzoM",
+   "reason": "'턴이 끝날 때'를 '전투가 끝날 때'로 오역, drew archers '유인'→차출 오역, 지붕/나무 위 위치 누락, 명칭을 참조 명칭(저격수 배치)과 통일, Strike→타격",
+   "name_ko": "저격수 배치",
+   "desc_ko": "<p>나르마치 워든은 숙련된 사냥꾼입니다. 이 궁수들 중 몇 명을 군대 대열에서 빼내어 전장 곳곳의 지붕 위나 나무 위 @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{숨겨짐} 위치에 배치하면, PC들은 그들의 잠재력을 극대화할 수 있습니다.</p> <hr /> <p><strong>대성공</strong> 저격수들이 여러 주요 위치에 배치됩니다. 타츠포드 전투 중 턴이 끝날 때, 교전 중이 아닌 아무 군대에 대해 [[/r 1d20+18 #Ranged Strike]]{+18} 원거리 타격을 시도합니다. 저격수는 명중 시 1점의 피해를 입힙니다 (대성공 명중 시 2점). 저격수는 타츠포드 전투 동안 이 보너스 공격을 최대 3회까지 수행할 수 있지만, 어느 한 턴이 끝날 때 1회를 초과할 수 없습니다.</p> <p><strong>성공</strong> 대성공과 동일하지만, 저격수는 전투 중에 보너스 공격을 한 번만 수행할 수 있습니다.</p> <p><strong>대실패</strong> 저격수들이 배치된 지역이 유리하지 않은 것으로 드러날 뿐 아니라, PC들이 대열에서 너무 많은 궁수를 빼냈습니다. 나르마치 헌터는 타츠포드 전투 동안 원거리 공격에 -2의 페널티를 받습니다.</p>"
+  },
+  {
+   "slug": "pqTq0yi330rXewMb",
+   "reason": "피트→재주(정본), action-glyph 따옴표 손상 복구",
+   "desc_ko": "<p><strong>양상</strong> 정신</p> <p>드워프의 영혼들이 이 유물에 이끌리며, 당신은 그들을 불러내어 당신과 아군에게 깃들게 해 선조의 비밀을 전수받을 수 있습니다. 이 은혜를 얻을 때, 일반 등급 1레벨 드워프 선조 재주 세 가지를 선택하세요.</p> <p><strong>발동</strong> <span class=\"action-glyph\">1</span> 상상</p> <p><strong>빈도</strong> 한 시간에 한 번</p> <hr /> <p><strong>효과</strong> 세 가지 선조 재주 중 하나를 선택하세요. 당신과, 당신을 중심으로 한 반경 10피트 폭발 범위 내의 각 아군은 1분 동안 그 재주와 드워프 특성을 얻습니다.</p>"
+  },
+  {
+   "slug": "qL44lR8sZMWgY1r7",
+   "reason": "action-glyph 따옴표 손상 복구, 미번역 라벨 {Fly}→{비행}",
+   "desc_ko": "<p><strong>양상</strong> 공기</p> <p><strong>발동</strong> <span class=\"action-glyph\">2</span> 명령, 상호작용</p> <p><strong>빈도</strong> 한 시간에 한 번</p> <hr /> <p><strong>효과</strong> 유물이 당신을 대상으로 @UUID[Compendium.pf2e.spells-srd.Item.A2JfEKe6BZcTG1S8]{비행}을 시전합니다.</p>"
+  },
+  {
+   "slug": "rI9qKyONeMPtajZ8",
+   "reason": "Crafting 공예→제작(정본), 피트→재주, 미번역(Citadel Altaerein, Specialty Crafting 라벨), 명칭 '빌드 워크숍' 직역 교정",
+   "name_ko": "작업장 건설 (제작)",
+   "desc_ko": "<p><strong>요구 사항</strong> 제작 (달인), 특수 제작 (아무거나), 또는 아무 고용된 전문가; 조직된 전문가들</p> <hr /> <p>알타레인 성채에서 @UUID[Compendium.pf2e.feats-srd.Item.QLeMH5mQgh28sa5o]{특수 제작} 재주에 나열된 제작 전문 분야 중 하나에 해당하는 특정 제작 기술을 위한 제작 공간으로 사용할 방 하나를 선택하세요. 여러 개의 작업장을 가질 수 있으며, 각 작업장은 각자의 기술에 전념합니다. 작업장을 사용하면 제작 체크에 +1의 상황 보너스를, 해당 작업장의 전문 분야와 관련된 제작 기술 체크에는 +3의 상황 보너스를 얻습니다. 이 업그레이드는 완료까지 20일의 작업과 @Check[crafting|dc:25] 체크가 필요합니다.</p>"
+  },
+  {
+   "slug": "rKWfjflS15KEB3Yt",
+   "reason": "원문 라벨 {Quickened}에 없는 값 '1' 추가됨→{가속}, 미번역 Stride/Strike→보폭/타격, '보고 들을'→'보거나 들을'",
+   "desc_ko": "<p>당신이 보거나 들을 수 있는 30피트 이내의 구조물 하나를 지정합니다. 그 구조물은 1분 동안 @UUID[Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl]{가속} 상태가 되고, 24시간 동안 이 능력에 일시적으로 면역이 됩니다. 그 구조물은 추가 행동을 보폭 또는 타격에만 사용할 수 있습니다.</p>"
+  },
+  {
+   "slug": "rR8UYHHpo2Rffi1p",
+   "reason": "짝 항목(가짜)과 명칭 불일치→통일",
+   "name_ko": "생기 앗는 몸짓 (진짜)"
+  },
+  {
+   "slug": "sWTvJahHpdz4CC6E",
+   "reason": "의미 반전: 선제력 보너스가 '적군'이 아니라 아군 군대에 부여됨. 이니셔티브→선제력, 성공 라벨 소실 복원, 타일라신 표기 3종 불일치·'광에 빠진/얽히고설킨' 오역, Nature 자연→자연학, 훈련→숙련, 타츠르포드 오타",
+   "desc_ko": "<p>타츠포드 주변 숲에는 상당수의 야생 동물이 서식하고 있습니다. 동물들을 실제 군대로 조직할 수는 없지만, PC들은 자신의 기술을 활용해 현지 야생 동물을 유리하게 이용하려 시도할 수 있습니다. 야생 동물을 모집하려면 자연학 (전문가) 체크가 필요합니다. PC가 야생 공감 능력을 가지고 있거나 동물과의 대화 같은 주문을 시전할 수 있다면, 대신 외교 (숙련)를 사용하여 이 체크를 시도할 수 있습니다.</p> <hr /> <p><strong>대성공</strong> PC들은 적군의 접근에 대한 동물들의 반응을 해석하여, 아군 군대가 타츠포드 전투에서 하는 선제력 판정에 +3의 상황 보너스를 부여합니다. 또한, 전투 중 어느 한 시점에 굶주린 덤불 타일라신 무리가 적군 하나를 공격합니다. 이 공격은 파티가 선택한 턴이 끝날 때 이루어지며, 이때 PC는 교전 중이 아닌 아무 군대에 대해 [[/r {1d20+20} #melee strike]]{+20} 근접 타격을 시도할 수 있습니다. 타일라신은 명중 시 그 군대에 1점의 피해를 입히고 (대성공 명중 시 2점), 그 후 동물들은 숲으로 도망칩니다.</p> <p><strong>성공</strong> 대성공과 동일하지만(타일라신 공격 포함), 선제력 판정에 대한 상황 보너스는 +1입니다.</p> <p><strong>대실패</strong> 지역 동물들이 도움을 거부할 뿐만 아니라, PC들의 행동 탓에 미쳐 날뛰는 덤불 타일라신 무리가 마을로 몰려들어 공격합니다. 타츠포드 마을 경비대가 공격을 물리치지만, 전쟁 조우를 1점의 피해를 입은 상태로 시작합니다.</p>"
+  },
+  {
+   "slug": "tN8ChaJweDy1lT0s",
+   "reason": "slashing 베기→참격(정본), 닫는 </p> 누락 복구, action-glyph 따옴표 손상 복구",
+   "desc_ko": "<p><strong>양상</strong> 야수</p> <p><strong>선행조건</strong> 유물이 착용 아이템입니다.</p> <p><strong>발동</strong> <span class=\"action-glyph\">1</span> (집중)</p> <hr /> <p><strong>효과</strong> 당신의 손이 한 쌍의 발톱으로 변합니다. 이 발톱은 1d6 참격 피해를 입히고 민첩과 기교 특성을 지닌 발톱 비무장 공격을 부여합니다. 이 효과는 당신이 해제할 때까지 지속됩니다.</p>"
+  }
+ ],
+ "flags": [
+  {
+   "slug": "mluc8JLd20HjGrqu",
+   "note": "'약속의 시민들' — 도시명 Promise의 역어(약속/프로미스) 확신 없어 유지"
+  },
+  {
+   "slug": "hi80qyUsXbaq2Wf4",
+   "note": "name_ko '모호함' 및 darkvision '암시력'(통용 '암시야') — 스타일 판단이라 미수정"
+  },
+  {
+   "slug": "p4CE62CG9S9RpU5F",
+   "note": "UUID 라벨 {정의로운 부름}/{혼란스러운 색채} 및 <em>현란한 문양</em>은 실제 번역본 주문/은혜 명칭과 대조 필요"
+  },
+  {
+   "slug": "bweyCSaXUjmcSTAO",
+   "note": "desc_ko의 UUID를 desc_en 기준(pathfinder-monster-core-2)으로 교체함 — 배포 모듈이 구 컴펜디움을 쓰면 재확인 필요"
+  },
+  {
+   "slug": "sWTvJahHpdz4CC6E",
+   "note": "원문 Success가 'As success'로 표기(원문 오기 추정) — 문맥상 '대성공과 동일'로 처리"
+  },
+  {
+   "slug": "_corpus",
+   "note": "코퍼스 전반: 체크/판정, 스킬/기술, Aspect 라벨(양상·측면·특성·아스펙트) 혼용 — 전량 통일은 최소 수정 원칙상 보류, 별도 일괄 패스 권장"
+  }
+ ]
+}

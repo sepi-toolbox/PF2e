@@ -1,0 +1,45 @@
+{
+ "fixes": [
+  {
+   "slug": "6isn9nqnvfRrC1wW",
+   "name_ko": "(묘지기사) 무기의 달인",
+   "desc_ko": "<p>묘지기사는 자신이 사용하는 어떤 무기의 치명 특화 효과에도 접근할 수 있다.</p>",
+   "reason": "Graveknight 표기 통일: 같은 파일 내 다른 3개 항목이 «묘지기사» 사용, 이 항목만 «무덤기사»"
+  },
+  {
+   "slug": "AkkmaixGqzw75h7W",
+   "desc_ko": "<p>묘지기사가 선제력을 굴릴 때, 그들은 두 번 굴려 더 나은 결과를 취한다. 그들은 선제력을 굴린 후 첫 라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl]{가속} 상태이며, 이 추가 행동을 걸음, 보폭, 또는 타격에 사용할 수 있다.</p>",
+   "reason": "Initiative 정본 용어 위반: «우선권» → «선제력» (2회)"
+  },
+  {
+   "slug": "9LwWHRazIImJYvD3",
+   "desc_ko": "<p>용이 자신의 몸 주위의 보물을 조정하여 일종의 방패로 기능하게 한다. 그들은 다음 턴이 시작될 때까지 AC에 +2 상황 보너스를 얻으며 방패 막기 반응을 사용할 수 있다. 이 방패는 용 레벨의 견고한 방패의 경도, 히트 포인트, BT를 가진다. 방패가 파손되면, 용의 부의 분배 능력 효과가 발동한다.</p>",
+   "reason": "Hardness 정본 용어 위반: «견고도» → «경도»"
+  },
+  {
+   "slug": "Bds5RP9grJxhZALW",
+   "desc_ko": "<p>각 별창자 히드라는 특정 하늘금속을 섭취하고 그 특성을 내재화한 결과로 최소 하나의 변형을 지닌다.</p>\n<p><strong>아다만틴</strong> 별창자 히드라의 타격은 경도를 무시하며 아다만틴으로 취급된다. 별창자 히드라는 물리 피해(아다만틴 제외)에 대해 저항 10을 얻는다.</p>",
+   "reason": "Hardness 정본 용어 위반: «견고도» → «경도»"
+  },
+  {
+   "slug": "Acal6RaZleMsVwCw",
+   "name_ko": "(포자태생) 전염성 포자",
+   "desc_ko": "<p>포자태생이 계속해서 생물을 @UUID[Compendium.pf2e.bestiary-family-ability-glossary.Item.EosAqVmnYlxMEGdT]{포자태생 감염}으로 감염시켜, 자신과 같은 존재를 더 많이 만들어낸다.</p>",
+   "reason": "Sporeborn 표기 통일: 같은 파일 내 다른 3개 항목 및 참조 대상 항목명(포자태생 감염)이 «포자태생» 사용; UUID 라벨도 실제 항목명과 일치하도록 수정"
+  }
+ ],
+ "flags": [
+  {
+   "slug": "FsqVhavMWAoFro1L",
+   "note": "'vicious criticals'가 «흉악한 급소 공격»으로 번역됨 — criticals는 치명타(대성공) 의미이므로 «급소 공격»(정밀 피해 뉘앙스)은 오역 의심. 해당 능력의 정본 번역명 미확인이라 미수정."
+  },
+  {
+   "slug": "BgbSHRdkGH7raOgA",
+   "note": "스탯라인의 Fort가 «인내»로 표기 — 이 파일 내 다른 항목들은 Fortitude를 «건강»(건강 DC/건강 내성)으로 번역. 코퍼스 전체 기준 불명확하여 미수정."
+  },
+  {
+   "slug": "GgmLWLBLGaFvunTS",
+   "note": "'non-mindless creatures' → «정신이 없지 않은 모든 생물»: 의미는 정확하나 이중부정 직역투로 어색. 스타일 문제라 미수정."
+  }
+ ]
+}

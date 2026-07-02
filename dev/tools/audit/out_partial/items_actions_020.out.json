@@ -1,0 +1,33 @@
+{
+  "fixes": [
+    {
+      "slug": "cT5octWchU4gjrhP",
+      "name_ko": "손재주",
+      "reason": "Toolbearer(uUrsZ4WvhjKjFjnt) desc가 이 능력을 «손재주 능력»으로 참조하는데 능력명이 «손 놀림»이라 교차참조 불일치. 띄어쓰기도 비표준이라 «손재주»로 통일"
+    },
+    {
+      "slug": "jdlefpPcSCIe27vO",
+      "desc_ko": "<p>하루에 한 번, 당신의 사역마는 집중 특성을 지닌 행동 2회를 사용해 당신의 집중 저장고에 집중점 1점을 평소 최대치까지 회복시킬 수 있다. 이를 선택하려면 당신에게 집중 저장고가 있어야 한다.</p>",
+      "reason": "Focus Point 정본 용어는 «집중점»인데 «집중 점수»로 표기됨"
+    },
+    {
+      "slug": "ou91pzf9TlOnIjYn",
+      "desc_ko": "<p>당신의 사역마는 안온한 빛으로 빛난다. 반경 30피트에 밝은 빛을, 그 너머 30피트에 어둑한 빛을 발한다. 집중 특성을 지닌 행동을 사용해 이 빛을 억제하거나 재개할 수 있다.</p>",
+      "reason": "dim light가 «어두운 빛»으로 오역(자기모순적 표현). 같은 코퍼스의 Darkeater(dpjf1CyMEILpJWyp)는 «어둑한 빛» 사용 — 이에 맞춰 교정"
+    }
+  ],
+  "flags": [
+    {
+      "slug": "YptMhsztTS9dYGAY",
+      "note": "hex 번역이 코퍼스 내 불일치: 이 항목과 ZCze1FY3Rmnvd6Dx는 «저주», mu9OL8v4rmr9311e·onye3PN84lmca11D·t6nzeTpsTJDwAUFZ·uFsWy6Ii1WxA0u0w·xH7lvZkYYAAuxR62·xXMPZXcwQgKRAu38은 «사악한 술법». 정본 확인 후 한쪽으로 통일 필요 (용어집에 hex 항목 없어 미수정)"
+    },
+    {
+      "slug": "ZHSzNt3NxkXbj1mI",
+      "note": "name_ko «비행체»는 무생물 비행 물체 뉘앙스 — Climber=등반가, Burrower=굴착자 패턴상 «비행가» 등이 자연스러우나 명백한 오역은 아니어서 미수정"
+    },
+    {
+      "slug": "cy7bdQqVANipyljS",
+      "note": "minion 번역 불일치: 이 항목·fmsVItn94FeY5Q3X는 «부하», j9vOSbF9kLibhSIf·v7zE3tKQb9G6PaYU는 «하수인». 정본 용어 미확인이라 미수정"
+    }
+  ]
+}

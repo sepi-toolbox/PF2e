@@ -1,0 +1,92 @@
+{
+ "fixes": [
+  {
+   "slug": "mrFrAaCFB4ZhnkCT",
+   "desc_ko": "<p>하플링은 자신으로부터 30피트 이내의 @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{숨겨짐} 또는 미탐지 크리처를 찾기 위해 @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{탐색} 행동을 사용할 때 +2 상황 보너스를 얻는다. 하플링이 자신에게 @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 또는 숨겨진 크리처를 목표로 할 때마다, 은폐된 대상에 대한 단순 판정 DC는 3으로, 숨겨진 대상에 대해서는 9로 감소한다.</p>",
+   "reason": "Flat Check 정본 용어 위반(플랫 판정→단순 판정)"
+  },
+  {
+   "slug": "qI1dHuib2vuitFMJ",
+   "desc_ko": "<p>90피트. 이 오라 안에서는 불꽃이 수중에서도 타오르며 마법이 아닌 물로는 끌 수 없다. 이 오라 안의 생물이 지속 화염 피해를 종료하기 위해 단순 판정을 시도할 때, 두 번 굴려 더 나쁜 결과를 취해야 한다.</p>",
+   "reason": "Flat Check 정본 용어 위반(평판정→단순 판정)"
+  },
+  {
+   "slug": "nJBaRtGMGVcQNg6Z",
+   "desc_ko": "<p><strong>발동</strong> 해로우킨이 선제력을 굴리려 한다</p>\n<hr />\n<p><strong>효과</strong> 해로우킨이 운명을 다시 쓰려 시도한다. 1d6을 굴려 무늬를 결정한다. 해로우킨은 1분간 그 무늬의 효과를 얻는다. 무늬가 해로우킨 자신의 무늬와 일치하면, 그 값이 두 배가 된다.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.8tCNgEE9OsQE9Xnh]{효과: 카드 읽기}</p>\n<p><strong>망치</strong> 해로우킨은 피해 굴림에 +2 상태 보너스를 얻는다.</p>\n<p><strong>열쇠</strong> 해로우킨은 AC에 +1 상태 보너스를 얻는다.</p>\n<p><strong>방패</strong> 해로우킨은 고속 치유 5를 얻는다.</p>\n<p><strong>책</strong> 해로우킨은 기술 판정에 +1 상태 보너스를 얻는다.</p>\n<p><strong>별</strong> 해로우킨은 내성 굴림에 +1 상태 보너스를 얻는다.</p>\n<p><strong>왕관</strong> 해로우킨은 다음 1분 이내에 판정 하나를 다시 굴려 더 높은 결과를 취할 수 있다. 이는 행운 효과다.</p>\n<hr />\n<p><em>참고: 이 효과는 배치 시 d6을 자동으로 굴린다.</em></p>",
+   "reason": "Initiative 정본 용어 위반(우선권→선제력)"
+  },
+  {
+   "slug": "qZnZriRRtjK7FtP8",
+   "desc_ko": "<p>좀비가 근접 또는 원거리 타격으로 처음 결정타를 맞으면, 사지 하나가 몸에서 떨어져 나가 계속 공격한다. 그 사지는 좀비의 선제력에 따라 행동한다; 매 라운드 좀비 이동 속도의 절반까지 보폭하고 타격을 할 수 있다. 그 사지는 좀비의 다중공격 페널티를 사용하며 그것에 기여한다.</p>",
+   "reason": "Initiative 정본 용어 위반(우선권→선제력)"
+  },
+  {
+   "slug": "ndN9zEIheRZGOEUW",
+   "desc_ko": "<p>비밀 결사 구성원은 같은 결사의 다른 구성원(비밀 결사 구성원 조정치와 이 능력을 지녔든 아니든)과 함께할 때 가장 잘 싸운다. 적이 비밀 결사 구성원의 간격와 같은 결사 소속 아군 크리처 하나의 간격 양쪽 모두에 있는 한, 어떤 크리처든 협공으로 인해 비밀 결사 구성원의 근접 공격에 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태가 된다. 같은 비밀 결사 소속 아군 크리처 둘 이상의 간격 안에 있는 크리처를 상대로는, 비밀 결사 구성원의 타격이 추가 1d6 정밀 피해를 입힌다.</p>",
+   "reason": "reach를 사거리로 오역(코퍼스 표준 간격); 3회 정정"
+  },
+  {
+   "slug": "mqai5e7YAuK2tbB9",
+   "desc_ko": "<p><strong>발동</strong> 크리처가 근접 비무장 타격 또는 간격 없는 근접 타격으로 돌연변이에게 대성공 명중한다</p>\n<hr />\n<p><strong>효과</strong> 돌연변이가 발동시킨 크리처를 향해 아가리 타격을 한다.</p>",
+   "reason": "non-reach melee Strike의 reach를 사거리로 오역(간격)"
+  },
+  {
+   "slug": "px2XMvw2s5RLV0X1",
+   "desc_ko": "<p>리치는 만연한 초자연적 부패에 둘러싸여 있다. 리치로부터 30피트 이내의 소지자 없는 음식과 음료는 즉시 상한다. 이 지역 안에서 먹거나 마시려는 자는 누구든 @Check[flat|dc:5]에 성공해야 하며, 그러지 못하면 섭취되기 전에 자양분이 상하여 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 1} 상태가 된다(물약 및 기타 마법 음식과 음료를 망침). 이 오라 안에 1분 넘게 머무는 평범한 식물은 시들며 죽기 시작한다(크기에 따라 이는 상당히 더 오래 걸릴 수 있다).</p>",
+   "reason": "unattended(소지자 없는)를 손대지 않은(untouched)으로 오역"
+  },
+  {
+   "slug": "tEP4ajRcD7cr644Z",
+   "name_ko": "(숲의 축복받은 자) 반응성 방출",
+   "desc_ko": "<p><strong>발동</strong> 숲의 축복받은 자가 자신의 간격 내 생물에게 피해를 입음</p>\n<hr />\n<p><strong>효과</strong> 고통에 정신이 흐트러져 숲의 축복받은 자의 집중이 풀리고, 체내의 이계 에너지에 대한 통제를 일시적으로 잃으면서 몸에서 가시가 돋아난다. 발동시킨 생물과 숲의 축복받은 자 모두 @Damage[1d6[piercing]] 피해 + 숲의 축복받은 자가 지닌 2레벨마다 1d6 피해를 받으며, 숲의 축복받은 자의 주문 DC에 대한 @Check[reflex|dc:|basic] 내성을 굴린다.</p>",
+   "reason": "Woodblessed 표기 불일치(숲축복받은자→숲의 축복받은 자, 동일 파일 내 타 항목 표기와 통일)"
+  },
+  {
+   "slug": "tQY2xmcIhzCM7oCC",
+   "name_ko": "(멜페시 몬스터) 폭류 전진",
+   "desc_ko": "<p>멜페시 몬스터이 균사 다발로 녹아내려 앞으로 밀려간다. 이는 @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.UNah0bxXxkcZjxO3]{짓밟기}(중형 이하, 사지, @Check[reflex|dc:21|basic|name:Trample] 내성)를 사용하며, 이동한 칸에 다음 턴이 끝날 때까지 지속되는 포자 구름을 남긴다. 그 구름에 들어가거나 그 안에서 턴을 시작하는 생물은 포자를 흡입하고 @Check[fortitude|dc:21|name:Torrential Advance] 내성에 성공해야 하며 실패하면 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 1}(대실패 시 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 2}) 상태가 된다. 이 능력은 감싸기와 포자 구름을 대체한다.</p>",
+   "reason": "Melfesh Monster 표기 불일치(멜페쉬 괴물→멜페시 몬스터, 동일 파일 내 2개 항목과 통일)"
+  },
+  {
+   "slug": "sECjzfaYaW68vbLV",
+   "name_ko": "(뱀파이어, 브리콜라카스 마스터) 형태 변화",
+   "reason": "Change Shape 명칭 불일치(형태 변형→형태 변화, 동일 파일 용 항목과 통일)"
+  },
+  {
+   "slug": "tKixfds07IRH2nnh",
+   "name_ko": "(뱀파이어, 브리콜라카스 마스터) 밤의 아이들",
+   "desc_ko": "<p>브리콜라카스 마스터의 존재는 야만적인 생물들이 그 명령을 따르도록 기어 나오게 하며, 여기에는 @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.6wPW2dvpt86Ou6bL]{쥐 떼}, @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.x7Aa4Tvr9eBaHryF]{와그}, @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Hg7nCvltRBQOiijQ]{늑대인간} 및 유사한 생물이 포함된다.</p>\n<p>브리콜라카스 마스터은 100피트 내의 이러한 생물들에게 텔레파시로 명령을 내릴 수 있지만, 그들은 되받아 소통할 수 없다.</p>",
+   "reason": "Vrykolakas Master 표기 통일(주인→마스터, 파일 내 2개 항목 기준), Children of the Night 통일(밤의 자식들→밤의 아이들), Werewolf 오역(인간늑대→늑대인간), Rat Swarms 라벨 통일(쥐 무리→쥐 떼)"
+  }
+ ],
+ "flags": [
+  {
+   "slug": "mZpX54PgTxPta5y4",
+   "note": "Graveknight 표기가 파일 내 불일치: 이 항목은 무덤기사, pxiSbjfWaKCG1xLD는 그레이브나이트. 코퍼스 정본이 어느 쪽인지 미확인이라 미수정."
+  },
+  {
+   "slug": "rdQzd5ClgGPP4Qmt",
+   "note": "Skeleton 표기 불일치: 이 항목 스켈레톤 vs sajLbVE6VpCsR0Kl 해골. 코퍼스 정본 미확인."
+  },
+  {
+   "slug": "njqGmYb9I0QakRWD",
+   "note": "Floodslain 표기 불일치: 이 항목 수몰 망자 vs oFLIc3Rnm68rEm72 홍수살해체. 코퍼스 정본 미확인."
+  },
+  {
+   "slug": "sNRLmAcKLm1lwMRo",
+   "note": "영문 원문 자체가 손상됨('Effect s that target only...' — Effects 분절). 번역은 문맥을 보완해 정상. name_ko 띄어쓰기(특수 부대)가 mgN3gKfdR2jPb4ge(특수부대)와 불일치."
+  },
+  {
+   "slug": "ndN9zEIheRZGOEUW",
+   "note": "name_ko '협공'(Tag Team)이 Flanking 정본 용어 협공과 충돌. 리네임 필요 여부 판단 보류."
+  },
+  {
+   "slug": "oXRnrQQ04oi8OkDG",
+   "note": "Cleanse Affliction의 UUID 라벨 '질병 정화' — affliction은 질병보다 넓은 개념(고통 정화 등 검토 여지). 주문명 코퍼스 표준 미확인이라 미수정."
+  },
+  {
+   "slug": "sajLbVE6VpCsR0Kl",
+   "note": "critical hit 번역이 파일 내 혼재: 이 항목·mqai5e7YAuK2tbB9는 '대성공 명중', qZnZriRRtjK7FtP8·rB3msRRnN5M9z5Vm은 '결정타'. 코퍼스 표준 미확인."
+  }
+ ]
+}

@@ -1,0 +1,91 @@
+{
+ "fixes": [
+  {
+   "slug": "bpoyTnJ7zn3kG6Y9",
+   "desc_ko": "<p><strong>빈도</strong> 하루 1회</p>\n<p><strong>요구조건</strong> 해로우킨이 선제력을 굴렸음</p>\n<hr />\n<p><strong>효과</strong> 현재 라운드가 끝날 때, 현재 선제력 순서에 있는 모든 크리처가 원래 선제력 굴림과 같은 수정치를 사용해 선제력을 다시 굴리고, 이후의 모든 라운드에 새 선제력 수치를 사용한다.</p>",
+   "reason": "Initiative 정본 용어는 선제력(우선권 오용)"
+  },
+  {
+   "slug": "cfqRc4clMniqQNsl",
+   "desc_ko": "<p>변종 크립티드의 죽음은 마지막 놀라움을 드러내며, 화염, 산성, 유독성 점액 더미, 혹은 더욱 기이한 무언가로 폭발한다. 변종 크립티드에 어울리는 피해 유형을 선택한다. 죽을 때 폭발해, @Template[type:emanation|distance:10] 내의 각 크리처에게 선택한 유형의 @Damage[1d6[untyped]|options:area-damage] 피해를 입히며, 크리처 레벨의 표준 DC에 대한 기본 반사 내성을 적용한다. 피해는 3레벨에 1d6 증가하며, 이후 홀수 레벨마다 1d6씩 증가한다.</p>",
+   "reason": "증가 폭(1d6씩) 누락된 미완 문장 보완"
+  },
+  {
+   "slug": "fh7ar6QrFT8YWgQ9",
+   "desc_ko": "<p><strong>요구조건</strong> @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기}, @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{마비}, @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{억제}, @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{무의식} 상태이거나 자발적인 생물이 스트리고이의 사정거리 안에 있어야 한다</p>\n<hr />\n<p><strong>효과</strong> 스트리고이 시조는 대상 생물에게 송곳니를 박아 넣어 피를 빨고 그 생명 정수를 끌어낸다. 생물이 조이기 상태라면 그 생물의 인내 DC를 상대로 @Check[athletics|against:fortitude] 판정이 필요하며, 그 외 조건일 경우 자동으로 성공한다. 생물은 @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{생명력 고갈 2} 및 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 2} 상태가 되며, 스트리고이는 자신의 최대 HP의 10%와 같은 HP를 회복하고, 초과분은 임시 히트 포인트로 얻는다. 이미 생명력이 고갈되었거나 멍청함 상태인 생물에게서 정수를 흡수하면 HP는 회복되지 않지만, 그 생물의 생명력 고갈 조건 값이나 멍청함 조건 값 중 하나를 1 증가시킨다(더 낮은 값을 증가시킨다. 두 값이 같으면 스트리고이가 어느 조건의 값을 증가시킬지 선택한다).</p>\n<p>피해자의 생명력 고갈 조건은 주당 1씩 감소한다. 성공적인 @Check[medicine|dc:20] 판정과 충분한 피 또는 헌혈자가 필요한 수혈은 10분 후 생명력 고갈 값을 1 감소시킨다.</p>\n<p>피해자의 멍청함 조건은 일일 준비를 수행한 후 일당 1씩 감소한다. 일일 준비를 완전한 햇빛 아래에서 수행하면 멍청함 조건이 완전히 제거된다.</p>",
+   "reason": "Fortitude DC 역어 혼용(건강→인내, 동일 코퍼스 다수 표기)"
+  },
+  {
+   "slug": "hjToSb8qs12q0K3M",
+   "desc_ko": "<p><strong>빈도</strong> 시간당 한 번</p><hr /><p><strong>효과</strong> 위상 용은 비물질이 되어 비물질 특성을 얻고, 모든 피해(힘, 유령 접촉, 영혼 피해 제외)에 자기 레벨의 절반과 같은 저항(비마법적 피해에 대해서는 저항 두 배)을 얻으며, 정밀 피해에 면역이 된다. 용이 AC에 상황 보너스(방패나 엄폐 등)를 지닌 생물을 상대로 타격을 시도할 경우, 그 보너스를 2 감소시킨다. 이 효과는 1분 동안 또는 위상 용이 해제할 때까지 지속된다.</p>",
+   "reason": "Dismiss는 효과 해제이지 소멸이 아님"
+  },
+  {
+   "slug": "hwrZQSADT36TjDdv",
+   "desc_ko": "<p>강시는 자신의 이마에 붙은 부적을 타락시켰다. 강시는 두루마리나 완드처럼 주문 슬롯을 소비하지 않고 마법 물품에서 시전되는 주문에 면역이다. 생물은 강시의 지각 DC를 상대로 굴려 부적을 @UUID[Compendium.pf2e.actionspf2e.Item.RDXXE7wMrSPCLv5k]{훔치기}하여 제거할 수 있다. 이는 이러한 효과에 대한 강시의 면역을 즉시 끝낸다. 이후 생물이 상호작용 행동으로 제거한 부적을 파괴하면, 강시는 빠른 치유 능력도 잃는다. 강시는 필기구로 종이(또는 유사한 것) 한 조각에 글씨를 새기는 데 방해받지 않은 1시간을 들여 대체 부적을 만들 수 있다.</p>",
+   "reason": "wand를 지팡이(staff)로 오역"
+  },
+  {
+   "slug": "i7m74TphAiFYvzPL",
+   "desc_ko": "<p>30피트. 유령 주위로 30피트 사거리까지 바람이 감싼다. 이 바람은 작은 비마법적 불을 끄고, 안개와 박무를 흩어버리며, 부피 경 이하의 물체를 이리저리 날리고, 더 큰 물체를 밀어낸다. 유령의 오라 안의 칸들은 험지이며, 비행 생물은 항상 바람을 거슬러 이동하는 것으로 간주된다.</p>\n<p>유령은 집중 특성을 지닌 행동으로 바람을 소멸시키거나 재개할 수 있다.</p>",
+   "reason": "mist를 아지랑이로 오역"
+  },
+  {
+   "slug": "ipGBYIXk4u47Mp1D",
+   "desc_ko": "<p>좀비가 @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{억제} 또는 @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{무의식} 상태의 크리처, 혹은 지난 한 시간 이내에 죽은 시체에 인접해 있다면, 좀비는 그 살을 뜯어먹어 스스로를 치유할 수 있다.</p>\n<p>이는 좀비의 레벨과 같은 양의 히트 포인트를 회복시킨다. 대상 크리처가 살아 있다면, 좀비는 자신의 턱, 주먹, 또는 발톱 피해와 같은 피해를 입힌다.</p>",
+   "reason": "Hit Points 역어 혼용(생명점→히트 포인트)"
+  },
+  {
+   "slug": "ixPqVlqLaYTB1b23",
+   "desc_ko": "<p><strong>요구조건</strong> 구울이 지난 한 시간 이내에 죽은 크리처의 시체에 인접해 있다.</p><hr /><p><strong>효과</strong> 구울이 시체 한 덩어리를 뜯어삼켜 @Damage[(1+(max(0,floor(@actor.level/2))))d6[healing]] 히트 포인트에 더해 자신의 레벨 2당 1d6만큼을 추가로 회복한다.</p>\n<p>어떤 특정 시체로부터는 단 한 번만 히트 포인트를 회복할 수 있다.</p>",
+   "reason": "Hit Points 역어 혼용(생명점→히트 포인트)"
+  },
+  {
+   "slug": "lD9Onw05RxdcmM2e",
+   "desc_ko": "<p>60피트. 돌연변이의 외모 세부는 극도로 섬뜩하고 부자연스럽다. 돌연변이가 아닌 살아 있는 크리처가 돌연변이로부터 60피트 이내에서 턴을 시작하면 인내 내성에 성공해야 하며, 그러지 못하면 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 2} 상태가 된다. 내성에 성공한 크리처는 이후 24시간 동안 이 오라에 일시적으로 면역이 된다.</p>",
+   "reason": "Fortitude 역어 혼용(건강→인내), disturbing을 불안으로 오역"
+  }
+ ],
+ "flags": [
+  {
+   "slug": "hA6HsM4i4yPfEsDH",
+   "note": "Ghast 역어 불일치: 본 항목·링크 라벨은 구울귀족, bVZ6KizWVTLJUBXi(Ghast Paralysis)는 구울망령. 정본 확인 후 통일 필요"
+  },
+  {
+   "slug": "fmUBaLklyVmNt3VD",
+   "note": "Graveknight 역어 불일치: 본 항목 무덤기사 vs bTJnxBQjr7G8yr30 묘지기사"
+  },
+  {
+   "slug": "i4WBOAb7CmY53doM",
+   "note": "Melfesh Monster 역어 불일치: 본 항목·iiIhLkjuPYJ93Upw는 멜페시 괴물 vs d6eWuFd6pw6ffvPC는 멜페시 몬스터"
+  },
+  {
+   "slug": "jciRdEHgGNGFXLsg",
+   "note": "Siabrae 표기 불일치: 본 항목 시아브레 vs gbKpCw21tEmehq6e 시아브래"
+  },
+  {
+   "slug": "glb03wxLyMzzeH13",
+   "note": "Nemesis 역어 불일치: 본 항목·hrX8wChrtscSGkkN은 네메시스 vs dYDrrBn5sNgoo4Au·d5gy2aWgkM95fTN4는 숙적"
+  },
+  {
+   "slug": "kew9yPbf83smsCyL",
+   "note": "Mana Wastes Mutant 역어 불일치: 본 항목·lD9Onw05RxdcmM2e는 돌연변이 vs fOpw4k05kayaL13a는 돌연변이체"
+  },
+  {
+   "slug": "d6eWuFd6pw6ffvPC",
+   "note": "크기 용어 충돌: 여기서 Huge=초대형인데 edpWHUorHAO5Z7SF에서 Gargantuan=거대. 둘 중 하나는 오역(통상 Huge=거대형, Gargantuan=초대형). 정본 크기 용어 확인 필요"
+  },
+  {
+   "slug": "hNwFT7H3Zd2eHsi4",
+   "note": "Adamantine Dragon을 강철 용으로 번역(강철=steel). 아다만틴 정본 여부 확인 필요; desc 내 '강철로 석화'도 동일"
+  },
+  {
+   "slug": "bAYATJsZVkQw636K",
+   "note": "Fortune Dragon=운명의 용 번역 의문(fortune=행운). greater cover=강화된 엄폐물도 정본 용어(상급 엄폐?) 확인 필요"
+  },
+  {
+   "slug": "lAnJ25DSs44Ya8jg",
+   "note": "Fade=소멸 명칭 의문: 효과는 투명화이므로 소멸(파괴 어감)은 오해 소지"
+  }
+ ]
+}

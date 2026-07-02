@@ -1,0 +1,63 @@
+{
+ "fixes": [
+  {
+   "slug": "ICnpftxZEilrYjn0",
+   "desc_ko": "<p>이 저주는 인간형에게만 영향을 미친다.</p>\n<hr />\n<p><strong>내성</strong> @Check[fortitude|dc:] DC는 웨어크리처의 새 레벨에 대한 보통 주문 DC이다.</p>\n<p>매 보름달마다, 저주받은 생물은 또 다른 강인함 내성에 성공하지 못하면 동틀 녘까지 같은 종류의 웨어크리처로 변한다.</p>\n<p>그 생물은 GM의 통제를 받으며 밤의 절반 동안 광란을 벌이다가 동틀 녘까지 무의식 상태로 쓰러진다.</p>",
+   "reason": "Fortitude save 역어 통일: 건강 내성→강인함 내성"
+  },
+  {
+   "slug": "IvTJfaZqfGupUMvd",
+   "name_ko": "(산란 소울라이더) 주시자 탈출",
+   "reason": "Monitor 정본 역어=주시자(감시자 아님)"
+  },
+  {
+   "slug": "LKxsPOf0hAS32Sp8",
+   "name_ko": "(뱀파이어, 노스페라투 노예) 정신 결속",
+   "desc_ko": "<p>노스페라투 주인은 자기 노예의 정신에 대해 강력한 지배력을 행사한다. 노예의 주인이 아닌 다른 생물이 노예를 @UUID[Compendium.pf2e.conditionitems.Item.9qGBRpbX9NEwtAAr]{지배됨} 상태를 부여하는 효과의 대상으로 삼으면, 노예의 주인은 자신의 지배 DC -10을 상쇄 판정 수정치로 사용하여 그에 대항하는 상쇄 판정을 굴린다.</p>",
+   "reason": "Thrall 역어 통일(노예, 동일 시리즈 다수) + '노예를 ~대상으로 삼으면' 조사 교정"
+  },
+  {
+   "slug": "LZsABXwRruB99A0k",
+   "desc_ko": "<p>모든 황폐는 @UUID[Compendium.pf2e.spells-srd.Item.OsOhx3TGIZ7AhD0P]{지배}를 선천 원시 주문으로 시전할 수 있으나, 그들의 저주받은 영역 내부에 있는 동물, 야수, 균류, 점액체, 또는 식물만을 대상으로 삼을 수 있다. 이 주문에 지배당한 생물이 저주받은 영역을 벗어나면 <em>지배</em>의 효과가 즉시 끝나지만, 지배당한 생물이 저주받은 영역에 머무는 한 지속시간은 무제한이다. 황폐가 정신 없는 균류, 점액체, 또는 식물을 대상으로 삼으면, 그 <em>지배</em> 주문은 정신 특성을 잃는다.</p>",
+   "reason": "Ooze 정본 역어=점액체"
+  },
+  {
+   "slug": "MAC97gjFcdiqLyhp",
+   "desc_ko": "<p>스켈레톤이 자기 두개골을 떼어내 던지며, 사거리 20피트의 턱 공격을 가한다. 그런 다음 대상의 10피트 이내에 있는 각 적에게 @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{사기 꺾기}를 시도한다.</p>\n<p>머리는 튕기거나 구르거나 심지어 날아서 되돌아오며, 다음 자기 턴 시작 시 스켈레톤에게 돌아온다. 그때까지 스켈레톤은 @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{눈멈} 상태다.</p>",
+   "reason": "'적을 ~로 시도한다' 비문 교정"
+  },
+  {
+   "slug": "OgtpOXZuyzuSyZ1j",
+   "desc_ko": "<p><strong>빈도</strong> 10분당 1회</p><hr /><p><strong>효과</strong> 위상 용은 자신의 위치 주변을 빠르게 연속으로 도약하며 순간이동하여, 진짜와 구별하기 어려운 세 개의 환영 이미지를 만들어낸다. 위상 용을 공격의 대상으로 삼는 적은 먼저 @Check[flat|dc:15]에 성공해야 한다. 실패 시, 위상 용은 영향을 받지 않고 환영 복제본 중 하나가 부서진다. 다음 잔상 도약에 대한 단순 판정의 DC는 5만큼 감소한다. 남은 이미지는 용의 다음 차례가 시작될 때 사라진다.</p>\n<p>@Check[flat|dc:10] @Check[flat|dc:5]</p>",
+   "reason": "Flat Check 정본 역어=단순 판정"
+  },
+  {
+   "slug": "QlrbnkeZu6M4kvOy",
+   "desc_ko": "<p>걷는 벌레떼가 0 HP로 감소하면, 그것은 분산되고 그 몸을 이루는 구성 벌레들이 사방으로 흩어진다. 단 한 마리의 벌레라도 탈출한다면, 걷는 벌레떼는 결국 일반적으로 [[/gmr 1d10 #Re-Form]]{1d10일}이 걸리는 과정을 통해 다시 형성된다.</p>\n<p>정확한 상황과 주변 환경이 걷는 벌레떼의 적들이 도망치는 벌레들을 처치할 수 있는 시간을 결정하지만, 보통 적들에게는 단 한 라운드만 주어진다.</p>\n<p>일반적으로 이것은 걷는 벌레떼가 무너진 공간에 1라운드 이내에 범위 효과나 튀김 무기를 적용해야 한다. 그 공간에 임의의 양의 범위 또는 튀김 피해가 가해진 후, 피해를 입힌 캐릭터는 @Check[flat|dc:15|showDC:owner] 판정을 시도해야 한다. 그 지역에 수행되는 이후의 각 범위 또는 튀김 피해 효과는 이 단순 판정의 DC를 2씩 감소시키며, 최소 DC 5까지 내려간다. 이 단순 판정 중 하나라도 성공하면, 벌레는 한 마리도 탈출하지 못하고 걷는 벌레떼가 영구히 파괴된다.</p>\n<p>GM의 재량에 따라, 이 해충들을 가두거나 붙잡아 두는 영리한 방법이 걷는 벌레떼를 처치하는 데 허용되는 시간을 연장할 수도 있다.</p>",
+   "reason": "Flat Check 정본 역어=단순 판정(2곳)"
+  },
+  {
+   "slug": "QMlQ5AvcunCvjlfM",
+   "desc_ko": "<p><strong>요구조건</strong> @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기}, @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{마비}, @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{억제}, @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{무의식} 상태이거나 자발적인 생물이 강시의 간격 이내에 있을 때</p>\n<hr />\n<p><strong>효과</strong> 강시는 자신의 호흡을 통해 희생자의 생명 에너지, 즉 기를 흡수한다. 희생자가 조이기 상태라면 희생자의 강인함 DC를 상대로 @Check[athletics|defense:fortitude] 판정을 요구하며, 다른 조건 중 하나에 해당한다면 자동으로 성공한다. 희생자는 @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{생명력 고갈 1} 상태가 되고 강시는 최대 HP의 10%와 같은 HP를 회복하며, 초과분은 임시 히트 포인트로 얻는다. 이미 생명력이 고갈된 생물에게서 기를 흡수하면 강시의 HP는 회복되지 않지만 희생자의 생명력 고갈 수치가 1 증가하며, 생명력 고갈 5에 도달하면 희생자가 사망한다. 희생자가 기 주문을 시전할 수 있다면, 집중점 1점을 소모해 생명력 고갈 상태가 되는 것을 피할 수 있다. 이것은 현재 공격으로부터만 보호하며, 이후의 기 흡수 시도로부터는 보호하지 않는다.</p>\n<p>희생자의 생명력 고갈 수치는 매주 1씩 감소한다. 생물이 최소 1일 동안 식사를 찹쌀로 제한하고 10분 동안 춤추기, 조깅, 또는 그 밖의 격렬한 신체 활동을 하며 @Check[athletics|dc:25] 판정에 성공하면, 생명력 고갈을 1 감소시킨다.</p>",
+   "reason": "Focus Point 정본 역어=집중점"
+  }
+ ],
+ "flags": [
+  {
+   "slug": "KcUHCVhHnkMD8j3k",
+   "note": "Greater Barghest 표기 불일치: 이 항목 '바그헤스트' vs OD3VPUalSKDTYFmF '바르게스트' (1:1 동수라 파일 내 다수 결정 불가, 코퍼스 기준 통일 필요)"
+  },
+  {
+   "slug": "PUMypO3XfoRmuNsf",
+   "note": "Swarm Strider 역어 불일치: 이 항목 '군체 보행자' vs JSNZab0XFa4KMXki '군체 활보자' (1:1 동수, 코퍼스 기준 통일 필요)"
+  },
+  {
+   "slug": "KwmYKsaXHKfZgB2c",
+   "note": "고유 행동 Vault를 '도약'으로 번역 — Leap(도약, O6AXB9aZB0K14sS5 등)과 역어 충돌 소지 ('뜀넘기' 등 별도 역어 검토)"
+  },
+  {
+   "slug": "N7UV5CZXtcoxDxCF",
+   "note": "HP 역어 혼용(히트 포인트/체력/HP)이 파일 전반에 존재 — 코퍼스 차원 통일 사안이라 개별 수정 보류"
+  }
+ ]
+}

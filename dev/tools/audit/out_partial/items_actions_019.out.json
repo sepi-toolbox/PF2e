@@ -1,0 +1,65 @@
+{
+ "fixes": [
+  {
+   "slug": "xS8ybzuqPSi3Jb8k",
+   "desc_ko": "<p>24시간, [[/act disable-device dc=0]], 대기</p><hr /><p>태엽 장치가 작동하려면, 다른 생물이 고유한 열쇠로 태엽을 감아야 한다. 이는 1분이 걸린다. 일단 태엽이 감기면, 명시된 시간 동안(대개 24시간) 작동 상태를 유지하며, 그 시간이 지나면 주변을 인지하지 못하게 되고 다시 태엽을 감을 때까지 행동할 수 없다. 일부 태엽 장치의 능력은 남은 작동 시간의 일부를 소비할 것을 요구한다. 그들은 가진 것보다 더 많이 소비할 수 없으며 남은 시간이 0이 되는 즉시 정지한다. 태엽 장치가 마지막으로 언제 감겼는지 불분명하다면, 대부분의 태엽 관리자는 정해진 시간(대개 오전 8시)에 모든 태엽 장치를 감는다.</p>\n<p>태엽 감기 항목에 대기가 기재된 태엽 장치는 3행동 활동으로 대기 모드에 들어갈 수 있다. 대기 중에는 작동 시간이 감소하지 않지만, 주변을 감지할 수 있다(지각에 -2 페널티). 한 가지 예외를 제외하고는 행동할 수 없다: 생물을 인지하면, 반응으로 대기에서 벗어날 수 있다(적절하다면 선제력 굴림).</p>\n<p>생물은 장치 무력화를 시도해 태엽 장치의 태엽을 풀 수 있다(태엽 감기 항목에 기재된 DC). 성공할 때마다, 태엽 장치는 작동 시간 1시간을 잃는다. 이는 태엽 장치가 대기 모드에 있어도 할 수 있다.</p>",
+   "reason": "Initiative 정본 용어 위반: 우선권 → 선제력"
+  },
+  {
+   "slug": "5eqcXtPsYunphMOZ",
+   "desc_ko": "<p>당신의 사역마는 동물 특성 대신 구조물 특성을 가진다. 사역마는 죽음 효과, 질병, 파멸, 생명력 고갈, 피로, 치유, 비살상 공격, 마비, 독, 구역질, 영혼, 무의식, 활력, 공허에 면역이다. 이것을 선택하려면 당신의 사역마가 @UUID[Compendium.pf2e.familiar-abilities.Item.Le8UWr5BU8rV3iBf]{강인함} 펫 능력을 가지고 있어야 한다.</p>",
+   "reason": "animal trait 오역: 야수(beast) → 동물(animal)"
+  },
+  {
+   "slug": "Fouq5RMNS8P1CDzx",
+   "desc_ko": "<p>당신의 사역마는 항상 얇은 눈 층으로 덮여 있으며, 필요할 때 이를 떨쳐낸다. 당신이 흑주술을 시전하거나 유지할 때, 사역마가 있는 칸을 중심으로 @Template[type:burst|distance:5] 범위에 눈이 달라붙어 쏟아지게 할 수 있다. 이 눈보라는 당신의 다음 턴 시작까지 유지되며, 그동안 이 칸에 들어온 적은 당신의 다음 턴 시작까지 @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{눈부심} 상태가 된다.</p><hr /><p><em>PFS 참고:</em> 이 능력의 경우, 폭발의 중심으로 사역마 칸의 모서리 하나를 선택한다.</p>",
+   "reason": "hex를 저주(curse)로 오역 — 동일 배치 내 다수 용례(흑주술)로 통일"
+  },
+  {
+   "slug": "HNoR0D2sKQaDNh5Z",
+   "desc_ko": "<p>당신의 사역마는 도움이 될 온갖 재주를 알고 있다! 당신이 흑주술을 시전하거나 유지하고 사역마가 아군에 인접해 있으면, 그 아군은 당신의 다음 턴 시작 전에 시도하는 다음 번 비공격 기술 판정에 +2 상태 보너스를 얻는다.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.IgLMAwovQ9roTsRN]{효과: 북돋는 지원의 사역마}</p>",
+   "reason": "hex를 저주(curse)로 오역 — 흑주술로 통일"
+  },
+  {
+   "slug": "J5Wyh1EPmk848ivR",
+   "desc_ko": "<p>당신의 사역마는 실제로는 꽤 건강함에도 여위고 영양실조에 걸린 듯, 혹은 죽음의 문턱에 있는 것처럼 보인다. 당신이 흑주술을 시전하거나 유지할 때, 사역마는 다른 존재의 쇠약해지는 힘을 끌어와 스스로를 지탱할 수 있다. 사역마로부터 15피트 이내에 있는 최대 히트 포인트의 절반 미만인 생물 하나는 당신의 주문 DC에 대한 @Check[fortitude] 내성 굴림에 성공하지 못하는 한 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 1} 상태가 된다.</p>",
+   "reason": "hex를 저주(curse)로 오역 — 흑주술로 통일"
+  },
+  {
+   "slug": "JRP2bdkdCdj2JDrq",
+   "desc_ko": "<p>당신의 사역마는 단일 행동으로 모습을 바꿔, 자신의 진짜 모습과 같은 나이·성별·체격을 지닌 당신 혈통의 인간형으로 변신할 수 있다. 다만 고양이의 눈이나 뱀의 혀처럼 그 본성을 드러내는 명백히 부자연스러운 흔적은 항상 남는다. 이 모습은 이 능력을 사용할 때마다 언제나 동일하다. 그 외에는 @UUID[Compendium.pf2e.spells-srd.Item.2qGqa33E4GPUCbMV]{인간형 형상}의 효과를 사용하되, 변화는 순전히 외형뿐이다. 인간형으로 보이기만 할 뿐 새로운 능력은 얻지 않는다. 이를 선택하려면 사역마에게 손재주 능력과 언어 능력이 있어야 한다.</p>",
+   "reason": "Manual Dexterity 능력명 불일치: 손 놀림 → 손재주(컴펜디움 라벨과 일치)"
+  },
+  {
+   "slug": "Ms8EVO2mNbr4Zp1i",
+   "desc_ko": "<p>당신의 사역마가 당신에게 인접해 있으면, 그것에게 명령하여 아이템을 전달하게 할 수 있다. 일반적인 2개의 행동 대신, 당신의 사역마는 상호작용하여 당신이 들고 있는 가벼운 부피 이하의 아이템을 받고, 이동 행동 하나를 취한 다음, 마지막으로 상호작용하여 그 아이템을 다른 자발적인 생물에게 건넨다.</p>\n<p>대신 사역마는 1개의 행동으로 할 수 있고 적절한 종류의 아이템(예: 연금술 물약)을 가지고 있다면 그 아이템을 생물에게 투여할 수도 있다. 당신의 사역마가 이번 턴에 대상에 도달하지 못하면, 달리 명령받을 때까지 아이템을 들고 있는다. 이를 선택하려면 사역마에게 손재주 능력이 있어야 한다.</p>",
+   "reason": "Manual Dexterity 능력명 불일치: 손 놀림 → 손재주"
+  }
+ ],
+ "flags": [
+  {
+   "slug": "v14HanKkdPGQd7Km",
+   "note": "Blackfrost 표기 불일치: 이 항목은 «흑서리 망자», yR9VLXIjJ2iOX77z·ydrDZ7lqioLPWRlB는 «흑상 망자»/«흑상». 정본 표기 확인 후 통일 필요"
+  },
+  {
+   "slug": "yfcqbMRmCkfPWV9O",
+   "note": "Ulgrem-Axaan 음차 불일치: 이 항목은 «울그렘-악산», xk59gaht1NBNxvgi는 «울그렘-아사안». 통일 필요"
+  },
+  {
+   "slug": "wtyCnF83CCxeeCIw",
+   "note": "Dirty Fighting 표기 불일치: 이 항목은 «야비한 격투», yTtnzqVA1yYnJiQB는 «비열한 싸움». 통일 필요"
+  },
+  {
+   "slug": "yfNDFjz7VBvvLwee",
+   "note": "moderate DC를 «보통 DC»로 번역 — 같은 배치의 다른 항목들(v6he7HLxYGzaMnvL, yDE3ZEoxRUqQmAsX)은 «중간 DC». 통일 검토"
+  },
+  {
+   "slug": "43xB5UnexISlfRa5",
+   "note": "Leshy Familiar Secrets 라벨 불일치: 이 항목은 {레시 사역마 비법}, LUBS9csNNgRTui4p·SKIS1xexaOvrecdV는 {레쉬 사역마 비밀}. 정본 확인 후 통일 필요"
+  },
+  {
+   "slug": "D0ltNUJnN7UjJpA1",
+   "note": "ancestry feat을 «종족 재주»로 번역 — JRP2bdkdCdj2JDrq는 ancestry를 «혈통»으로. ancestry 역어 통일 검토"
+  }
+ ]
+}

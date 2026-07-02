@@ -1,0 +1,224 @@
+{
+  "fixes": [
+    {
+      "slug": "I19VNyhXYaFCpsxl",
+      "name_ko": "듄섀도 정찰",
+      "desc_ko": "<p>듄섀도는 카타페시 북중부의 넓은 영역을 돌아다니는 것으로 알려져 있으며, PC들은 먼저 그의 현재 위치를 몇 마일 이내로 좁혀야 합니다. 전체 정찰 시도에는 4시간이 소요되며, 그동안 각 PC는 정찰 방식에 따라 다음 옵션 중 하나를 선택하여 스킬 체크를 시도합니다. @Check[diplomacy|dc:40](지역 유목민들에게 목격 정보를 묻기 위해) 또는 @Check[nature|dc:36](낙타의 행동과 듄섀도를 찾을 수 있는 가장 좋은 장소를 알기 위해). GM의 재량에 따라, PC는 이러한 스킬을 적절한 지식 스킬로 대체할 수 있으며, 이 경우 DC가 2 감소합니다.</p> <p>낙타의 흔적을 찾으려면 파티는 듄섀도 정찰을 3번 성공해야 합니다. 대성공은 2번의 성공으로 간주되고, 대실패는 1번의 성공을 무효화합니다. 모든 PC가 이 임무를 포기하고 듄섀도를 정찰하는 사람이 아무도 없으면, 누적된 성공 횟수는 0으로 재설정됩니다. @UUID[Compendium.pf2e.spells-srd.Item.CeSh8QcVnqP5OlLj]{Pinpoint} 같은 마법은 듄섀도를 찾는 데 두 번의 성공을 부여하지만, 그는 너무 자주, 그리고 너무 이상한 방식으로 이동하기 때문에 @UUID[Compendium.pf2e.spells-srd.Item.69L70wKfGDY66Mk9]{Teleport}에 걸리는 10분 사이에도 그의 흔적만 남게 됩니다. 3번의 성공을 거두면, PC들은 그를 @UUID[Compendium.pf2e.actionspf2e.Item.EA5vuSgJfiHH7plD]{Track} 할 수 있습니다 (@Check[survival|dc:40]). 2번 연속으로 성공하거나 1번 대성공을 거두어야 하며, 실패한 경우 다시 시도할 수 있습니다. 대실패를 하면, PC들은 최소 24시간을 기다린 후에야 다시 듄섀도를 정찰할 수 있습니다.</p>",
+      "reason": "이름 절반 미번역(스카웃 Duneshadow), GM 재량을 PC 재량으로 오귀속, 'Magic such as' 누락, 고유명 듄섀도 통일"
+    },
+    {
+      "slug": "IQewgylxmkmBYcoY",
+      "desc_ko": "<p><strong>극복</strong> @Check[diplomacy|dc:35], @Check[society|dc:35]</p> <hr /> <p>PC는 판매할 의사가 있는 초대장을 가진 사람을 찾습니다.</p> <hr /> <p><strong>대성공</strong> PC는 초대장 소지자를 찾아내어 그에게 초대장을 무료로 넘겨달라고 설득합니다. PC는 1개의 엣지 포인트를 얻습니다.</p> <p><strong>성공</strong> PC는 250 gp에 초대장을 팔려는 사람을 찾습니다. 대금을 지불하면, 파티는 1개의 엣지 포인트를 얻습니다. 대신 초대장을 훔치려고 시도할 수도 있지만 (@Check[thievery|dc:34]), 그렇게 할 경우, 2단계: 침투 시작 시 인식을 2 증가시킵니다.</p> <p><strong>실패</strong> PC는 초대장을 찾을 수 없습니다.</p>",
+      "reason": "실패 단락 헤더 누락(성공 단락에 병합됨), 두 번째 <hr /> 및 </p> 닫힘 태그 소실 복원"
+    },
+    {
+      "slug": "IuD5u9tSTabZ0KD1",
+      "name_ko": "도서관 건설",
+      "reason": "Library를 외래어 '라이브러리'로 번역(본문은 도서관 사용), Build Infirmary(의무실 건설)와 일관성"
+    },
+    {
+      "slug": "JDotze7IlwSWlOzg",
+      "desc_ko": "<p><strong>측면</strong> 행운</p> <p><strong>활성화</strong> <span class=\"action-glyph\">r</span> 구상</p> <p><strong>사용 빈도</strong> 하루에 한 번</p> <p><strong>발동 조건</strong> 미숙련인 d20 굴림을 시도합니다</p> <hr /> <p><strong>효과</strong> 숙련 보너스를 레벨의 절반으로 취급하거나, 유물이 7레벨 이상인 경우 레벨과 같게 취급합니다. 그런 다음 두 번 굴려 두 결과 중 더 좋은 결과를 사용합니다. 이것이 스킬의 숙련 전용 행동을 사용할 수 있게 해 주지는 않습니다.</p>",
+      "reason": "action-glyph 따옴표 손상(\\“ \\”) 복구, Untrained=미숙련 용어, 마지막 문장 의미 반전(사용 불가하게 됨→사용을 허용하지 않음), envision 미번역"
+    },
+    {
+      "slug": "KmpPAOjNP980NuCY",
+      "name_ko": "헌터게이트 수리",
+      "desc_ko": "<p><strong>전제 조건</strong> 제작 또는 도둑질에 숙련되어 있어야 합니다</p> <p><strong>요구 사항</strong> 헌터게이트 포털 키 (@UUID[Compendium.pf2e.equipment-srd.Item.JCGsj7iY88o9uTP5]{헌터의 화살촉})를 소지하고 있어야 합니다.</p> <hr /> <p>헌터의 화살촉을 사용하여 헌터게이트의 어긋난 마법을 돌의 복잡한 조각과 장식을 통해 올바른 경로로 안내합니다. @Check[crafting|dc:24] 체크를 통해 수리(이 경우 헌터의 화살촉이 이 활동에 필요한 수리 키트 역할을 함)를 시도하거나, @Check[thievery|dc:24] 체크를 통해 자물쇠 따기(이 경우 헌터의 화살촉이 이 활동에 필요한 도둑 도구 역할을 함)를 시도해야 합니다. 사용한 스킬에 상관없이, 이 활동은 1시간이 소요되며, 체크의 DC는 24이고, 다음의 효과가 있습니다.</p> <hr /> <p><strong>대성공</strong> 헌터게이트가 수리되고, 헌터게이트 중간 역 내부의 다하크의 환영 위험 요소의 힘이 약화됩니다. 위험 요소의 수정치와 DC를 모두 2 감소시킵니다.</p> <p><strong>성공</strong> 헌터게이트가 수리됩니다.</p> <p><strong>실패</strong> 헌터게이트는 수리되지 않고, 수리를 시도한 캐릭터는 주황색 마법 에너지의 섬광이 몸을 고통스럽게 꿰뚫으며 1시간 동안 @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 2}가 됩니다. 24시간 동안은 포털 수리를 다시 시도할 수 없습니다.</p> <p><strong>대실패</strong> 실패와 동일하지만, 마법의 역류가 수리를 시도한 캐릭터에게 @Damage[6d6[fire]] 피해도 입힙니다.</p>",
+      "reason": "이름 '리페어' 미번역, 성공·대실패(6d6 화염 피해) 단락 통째 누락, Crafting=제작(공예 오류), 헌터/사냥꾼 혼용 통일"
+    },
+    {
+      "slug": "KsYvgnBNvdC23gnC",
+      "desc_ko": "<p>벽, 골목, 심지어 거리에 있는 열린 틈은 목재, 나무, 통, 수레, 쓰레기, 심지어 날카롭게 깎은 말뚝 등을 사용하여 바리케이드로 강화하여 마을로의 쉬운 진입을 막을 수 있습니다. 바리케이드를 세우려면 제작 체크가 필요합니다. 이 활동은 여러 PC가 수행하여 여러 개의 바리케이드를 만들 수 있습니다.</p> <hr /> <p><strong>대성공</strong> 바리케이드가 성공적으로 세워집니다. 방어하는 군대가 경비 행동을 취하면 기동 체크에 +2의 아이템 보너스를 받습니다. 바리케이드는 적의 공격에 의해 파괴되기 전까지 이 보너스를 두 번만 부여할 수 있습니다.</p> <p><strong>성공</strong> 대성공과 동일하지만, 바리케이드는 한 번의 경비 행동에만 유효합니다.</p> <p><strong>대실패</strong> 치명적인 사고가 발생합니다! 바리케이드가 파괴될 뿐만 아니라, 바리케이드를 세우려던 PC는 @Damage[10d6[bludgeoning]]의 피해를 받습니다 (@Check[reflex|dc:25|basic]).</p>",
+      "reason": "대성공 헤더 및 <hr /> 누락(대성공 내용이 서두 단락에 병합되어 있었음)"
+    },
+    {
+      "slug": "LRuwz61jNmIfQYby",
+      "desc_ko": "<p><strong>트리거</strong> 내성 굴림에 실패하거나 대실패하거나, 타격에 맞거나, 빈사 상태 값이 증가하려 할 경우.</p> <p><strong>요건</strong> 당신은 시간의 끝의 집(니리사의 우화 포함)에 있으며, 현재 헬릭스 정리의 보호를 받고 있습니다. 현재 차지하고 있는 타임라인을 벗어났다가, 트리거 사건이 지나가면 다시 돌아갑니다. 정확한 효과는 아래에 설명된 대로 트리거 효과의 성격에 따라 다릅니다. 당신은 더 이상 헬릭스 정리의 보호를 받지 않습니다. 이 보호는 한번 상실되면 다시 얻을 수 없습니다.</p> <hr /> <ul> <li><strong>내성 굴림 실패.</strong> 트리거가 된 내성 굴림의 성공 정도를 실패에서 성공으로, 또는 대실패에서 실패로 한 단계 올립니다.</li> <li><strong>타격에 맞음.</strong> 트리거가 된 타격이 대성공이었다면 성공으로 변경합니다. 트리거가 된 타격이 성공이었다면 실패로 변경합니다.</li> <li><strong>빈사 상태 증가</strong>. 빈사 상태가 증가하는 대신, 빈사 상태를 잃습니다.</li> </ul>",
+      "reason": "두 번째 목록 항목(타격에 맞음) 헤더·대성공→성공 문장 누락, </strong> 소실, Dying=빈사(죽음 오류), Strike=타격, 잘못된 </ul></p> 중첩 수정"
+    },
+    {
+      "slug": "LuUOQ5HvoFK9xUs4",
+      "desc_ko": "<p><strong>어스펙트</strong> 그림자</p> <p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 상호 작용</p> <hr /> <p><strong>효과</strong> 당신의 유물은 주변의 그림자를 끌어당겨 단순 무기, 또는 로프나 지렛대 같은 간단한 도구나 아이템의 모양으로 변형시킵니다. 이 효과는 단일 활동에 사용될 때까지, 그림자 대장장이를 다시 사용할 때까지, 또는 1분이 지날 때까지 중 먼저 오는 시점까지 지속되며, 그 후 사라집니다.</p>",
+      "reason": "action-glyph 따옴표 손상 복구, simple weapon=단순 무기 용어"
+    },
+    {
+      "slug": "M1DXVrZlCTfm8PQs",
+      "desc_ko": "<p><strong>측면</strong> 화염</p> <p><strong>활성화</strong> <span class=\"action-glyph\">2</span> (집중, 조작)</p> <hr /> <p><strong>효과</strong> 유물에서 불꽃의 화살이 뻗어 나갑니다. 유물로 30피트 이내의 대상에게 주문 명중 굴림을 합니다. 화살은 유물의 레벨 2당 @Damage[1d6[fire]]의 피해를 입힙니다 (최소 1d6).</p> <p><strong>대성공</strong> 화살은 두 배의 피해를 입히고, 유물 레벨당 @Damage[1[persistent,fire]] 피해를 입힙니다.</p> <p><strong>성공</strong> 화살은 전체 피해를 입힙니다.</p>",
+      "reason": "action-glyph 따옴표 손상 복구, 대성공의 @Damage[1[persistent,fire]] 마크업 소실 복원, 'fire' 미번역"
+    },
+    {
+      "slug": "MFyKaQVMMphwpHut",
+      "desc_ko": "<p><strong>희귀</strong></p> <hr /> <p>당신은 아슬린의 요새를 돌아다니며 탐험합니다. 전기 성을 탐험할 때, 탐색하는 지역에서 표시된 스킬 중 하나를 선택하여 스킬 체크를 시도합니다. GM의 재량에 따라 다른 지식 체크가 적절할 수도 있습니다. 대부분의 스킬 체크의 DC는 23입니다 (레벨 9-10의 경우 DC 26). 적절한 지식 스킬을 사용하는 체크의 경우 DC를 20으로 낮추세요 (레벨 9-10의 경우 DC 23). 스킬 체크를 시도하는 대신 @UUID[Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz]{주문 시전}을 사용할 수 있습니다. 작업에 적합한 캔트립이 아닌 주문을 사용하면 성공을 얻게 되며, 주문이 3랭크 이상(레벨 9~10의 경우 4랭크 이상)이면 대성공을 얻게 됩니다. 시전할 수 있는 주문의 예로는 몰래 움직이는 데 도움이 되는 투명화나 안개, 통로를 열기 위한 나무나 돌의 형태 변화, 어려운 지역을 이동하기 위한 거미의 등반이나 차원 문 등이 있습니다. 체크 결과에 따라 방에 도착하고 탐색하는 데 걸리는 시간을 결정합니다. </p> <hr /> <p><strong>대성공</strong> 소요 시간을 5분 단축합니다(최소 15분).</p> <p><strong>성공</strong> 소요 시간이 증가하지 않습니다.</p> <p><strong>실패</strong> 소요 시간을 5분 증가시킵니다. </p> <p><strong>대실패</strong> 소요 시간을 10분 증가시킵니다 (최대 1시간까지).</p>",
+      "reason": "Spell Rank=랭크(주문 '등급' 금지) 위반 2건 정정"
+    },
+    {
+      "slug": "MgSwLes5lp3TE1ZV",
+      "name_ko": "정신 수호",
+      "reason": "Mental Ward의 Ward는 수호/방호 의미인데 '병동'으로 오역"
+    },
+    {
+      "slug": "Mr0acrql7LqT5wam",
+      "desc_ko": "<p><strong>측면</strong> 행운</p> <p><strong>활성화</strong> <span class=\"action-glyph\">r</span> 구상</p> <p><strong>사용 빈도</strong> 하루에 한 번</p> <p><strong>발동 조건</strong> 당신이나 당신으로부터 30피트 이내의 생물이 행운 또는 불행 효과를 위해 두 개의 d20을 굴리고, 당신이 그중 더 높은 굴림 결과를 원합니다</p> <hr /> <p><strong>효과</strong> 발동 대상이 굴린 두 숫자 중 더 높은 숫자를 훔칩니다. 대상은 다른 결과를 사용해야 합니다. 다음 일일 준비를 할 때까지, 적, 위험 요소, 또는 환경이 만든 효과에 대해 해야 하는 내성 굴림이나 스킬 체크의 d20 굴림 하나를 그 숫자로 대체할 수 있습니다. 이렇게 하는 것은 행운 효과입니다. 다음 일일 준비 전까지 그렇게 하지 않으면, 저장된 숫자를 잃습니다.</p>",
+      "reason": "action-glyph 따옴표 손상, 빈도·트리거 </strong> 소실, <hr />·효과 헤더 누락, '더 높은 숫자를 훔친다' 문장 누락, 대체 방향 반전(숫자를 굴림으로→굴림을 숫자로), luck/envision 미번역"
+    },
+    {
+      "slug": "O4MWAxAYxNkndVnt",
+      "desc_ko": "<p>육로로 이동할 때, 지역에 대한 지식이나 자연 지형을 활용하여 짐승이 다니는 길, 빠른 물살, 또는 다른 자연 지름길을 이용해 최적의 경로를 찾아 이동합니다. DC 20 (서브티어 7-8에서는 DC 22)의 자연, 정찰 지식 또는 관련 지식 체크 (예: 누메리아 지식)를 시도합니다. 이 활동을 사용하는 PC 중 한 명만 체크를 시도할 수 있으며, 다른 PC는 지원 (DC 20)을 시도할 수 있습니다.</p> <table class=\"pf2e\"> <thead> <tr> <th>티어 1-2</th> <th>티어 3-4</th> </tr> </thead> <tbody> <tr> <td> <p>@Check[nature|dc:20]</p> </td> <td>@Check[nature|dc:22]</td> </tr> <tr> <td>@Check[scouting-lore|dc:20]{정찰 지식}</td> <td>@Check[scouting-lore|dc:22]</td> </tr> <tr> <td>@Check[numeria-lore|dc:20]{누메리아 지식}</td> <td>@Check[numeria-lore|dc:22]{누메리아 지식}</td> </tr> </tbody> </table> <p><strong>대성공</strong> 시간을 크게 절약할 수 있는 길을 찾았습니다. 탐험 포인트 2점을 얻습니다.</p> <p><strong>성공</strong> 지름길을 찾았습니다. 탐험 포인트 1점을 얻습니다.</p> <p><strong>대실패</strong> 특히 위험한 지형에 빠졌습니다. 탐험 포인트 1점을 잃습니다.</p>",
+      "reason": "table class 따옴표 손상 복구, game trail='게임 트레일' 오역(짐승이 다니는 길), Aid=지원(보조 오류), 표 헤더 Tier 미번역"
+    },
+    {
+      "slug": "OSFi8oH5ndLgnksD",
+      "desc_ko": "<p>웃는 정글의 코리르 강 지류를 따라 여행하는 동안, 이 지역에 대한 지식이나 자연 지형을 활용하여 길을 찾고, 최상의 경로를 찾고, 주민들의 흔적을 찾습니다. DC 18 자연, 정찰 지식, 사회 또는 정글 지식이나 강 지식과 같은 기타 관련 지식 체크를 시도합니다 (레벨 5-6의 경우 DC 20).</p> <table class=\"pf2e\"> <thead> <tr> <th>스킬</th> <th>티어 3-4</th> <th>티어 5-6</th> </tr> </thead> <tbody> <tr> <td>자연</td> <td>@Check[nature|dc:18]</td> <td>@Check[nature|dc:20]</td> </tr> <tr> <td>사회</td> <td>@Check[society|dc:18]</td> <td>@Check[society|dc:20]</td> </tr> <tr> <td>정찰 지식</td> <td>@Check[scouting-lore|dc:18]</td> <td>@Check[scouting-lore|dc:20]</td> </tr> <tr> <td>정글 지식</td> <td>@Check[jungle-lore|dc:18]</td> <td>@Check[jungle-lore|dc:20]</td> </tr> <tr> <td>강 지식</td> <td>@Check[river-lore|dc:18]</td> <td>@Check[river-lore|dc:20]</td> </tr> </tbody> </table> <hr /> <p><strong>대성공</strong> 수색이 크게 진전되었습니다. 탐험 포인트 2점을 얻습니다.</p> <p><strong>성공</strong> 수색이 약간 진전되었습니다. 탐험 포인트 1점을 얻습니다.</p> <p><strong>대실패</strong> 실수를 저질러 시간을 낭비했습니다. 탐험 포인트 1점을 잃습니다.</p>",
+      "reason": "table class 따옴표 손상 복구, 육상 이동에 '항해' 오역, Tier를 '단계'로 번역한 것을 티어로"
+    },
+    {
+      "slug": "OV77buFW6zHl4Smo",
+      "desc_ko": "<p><strong>극복</strong> @Check[acrobatics|dc:37], @Check[athletics|dc:35], @Check[nature|dc:35], @Check[stealth|dc:35], @Check[thievery|dc:35]</p> <hr /> <p>PC들은 벽을 오르고, 경비견을 진정시키고, 경비병들로부터 숨고, 문에 걸린 자물쇠를 따냅니다.</p> <hr /> <p><strong>특별</strong> PC가 침입에 성공하면, @Check[perception|dc:35|traits:secret]을 시도하여 경비병이 지니고 있거나 다소 손이 닿기 어려운 곳에 놓여 있는 열쇠 꾸러미를 발견할 수 있으며, 이 경우 해당 PC는 @UUID[Compendium.pf2e.adventure-specific-actions.Item.XUNM9eqfhnSaPVov]{열쇠 훔치기} 기회를 얻게 됩니다.</p>",
+      "reason": "'Steal Keys'의 @UUID 링크 마크업 소실 복원"
+    },
+    {
+      "slug": "Oko8SYegarqBkxhM",
+      "desc_ko": "<p><strong>측면</strong> 땅</p> <p>당신의 유물은 발아래 땅에서 힘을 끌어내어 짐을 가볍게 합니다. 유물을 몸에 지니고 있고 땅 위에 서 있는 한, 과적 상태가 되기 전에 평소보다 1 더 많은 부피를 운반할 수 있으며, 최대 부피가 2 증가합니다. 6레벨과 그 이후 4레벨마다, 과적 상태가 되기 전에 운반할 수 있는 부피가 1 증가하고 최대 부피가 2 증가합니다.</p>",
+      "reason": "Encumbered=과적('부담' 오류), Aspect에 Trait 용어 '특성' 사용 충돌 해소, '유물이 몸에' 조사 오류"
+    },
+    {
+      "slug": "OxRT8qhujKG9Rhb2",
+      "name_ko": "의무실 건설",
+      "reason": "Build Infirmary가 '건물 의무실'로 어순 오역"
+    },
+    {
+      "slug": "PZGE4lLJ8DHbGIUI",
+      "desc_ko": "<p><strong>사용 빈도</strong> 하루에 한 번</p> <hr /> <p>경기장에서 함께 싸우며 서로를 이해하게 된 파이터들 사이에는 그 어떤 것보다 강한 유대감이 생깁니다. 당신이 다른 토너먼트 팀 중 한 팀과의 감정적 유대에 집중하면, 그 팀의 힘이 불붙은 줄처럼 당신에게 전해집니다. 원래 팀에서 획득한 다음 능력을 사용합니다.</p> <hr /> <p>당신의 심장은 동료들의 심장과 조화를 이루며 한 번의 엄청난 충격파를 일으킵니다. @Template[cone|distance:60] 범위 내에 @Damage[18d4[sonic]]의 피해를 입힙니다. 적들은 당신의 직업 DC 또는 주문 DC 중 더 높은 쪽과 동일한 DC로 @Check[fortitude|against:class-spell|basic] 내성을 시도할 수 있습니다. 당신에게 인접한 아군이 1명 이상인 경우 @Damage[18d6[sonic]]{18d6}의 피해를 입히고, 인접한 아군이 2명 이상인 경우 @Damage[18d8[sonic]]{18d8}의 피해를 입힙니다.</p>",
+      "reason": "@Damage[18d6[sonic]]{18d6] 라벨 중괄호 손상({18d6}로 복구), 어색한 문장('연결된 팀에 포커스를 맞추면') 교정"
+    },
+    {
+      "slug": "Pw8VOyhZP1RW7LNM",
+      "desc_ko": "<p><strong>사용 빈도</strong> 하루에 한 번</p> <hr /> <p>경기장에서 함께 타격을 주고받으며 서로를 이해하게 된 파이터들 사이의 유대감에 비할 만한 것은 거의 없습니다. 당신이 다른 토너먼트 팀 중 한 팀과의 감정적 유대에 집중하면, 그 팀의 힘이 불붙은 줄처럼 당신에게 전해집니다. 원래 팀에서 획득한 다음 능력을 사용합니다.</p> <hr /> <p>빙하의 냉혹한 움직임을 흉내 냅니다. 이동 속도만큼 보폭 이동을 하고 근접 타격을 합니다. 공격이 적중하든 아니든, 보폭 이동 경로는 9랭크 @UUID[Compendium.pf2e.spells-srd.Item.R5FHRv7VqyRnxg2t]{Wall of Ice}로 채워집니다.</p>",
+      "reason": "첫 문장 의미 반전('유대감이 거의 없습니다'), '이동를' 오탈자, Stride=보폭·Strike=타격 용어, Spell Rank=랭크(9등급 오류)"
+    },
+    {
+      "slug": "Qkm7jcKPA3elk9Nx",
+      "name_ko": "관리",
+      "desc_ko": "<p>당신은 알타레인 성채를 운영하는 데 필요한 행정 업무를 처리하는 데 하루를 보냅니다. 관리 활동은 기만 또는 위협을 사용하여 노동력을 조직하는 과정에서 발생한 나쁜 평판을 되돌리는 데 사용할 수 있지만, Age of Ashes 캠페인 동안 접촉한 집단과의 관계를 유지하는 데도 사용됩니다.</p> <p>하루에 한 명만 관리를 시도할 수 있으며(다른 사람은 핵심 규칙서에 설명된 대로 지원할 수 있습니다), 성채가 관리된 후에는 결과에 지정된 기간이 지나기 전까지 다른 누구도 관리를 수행할 수 없습니다. 그러나 GM은 예를 들어 일행이 모험을 떠나기 직전에 자신들이 없는 동안 성채가 원활하게 운영되도록 하고 싶어 하는 경우 등에는 예외를 허용할 수 있습니다.</p> <p>알타레인 성채가 성공적으로 관리되지 않은 상태에서 성채와 관련된 다운타임 활동을 수행하면, 체크에 -4의 상황 페널티가 적용됩니다.</p> <p>관리에는 @Check[society|dc:20] 체크 성공이 필요합니다(다만 어드벤처 패스 후반의 특수 행동의 경우, 이 DC는 변경될 수 있습니다). 시종장에게 비용을 지불하여 알타레인 성채의 행정 업무를 맡길 수 있습니다. 시종장에게 대가를 지불하는 한, 주간 관리 요구 사항은 자동으로 성공합니다(단, 대성공은 될 수 없습니다).</p> <hr /> <p><strong>대성공</strong> 당신은 성채의 번영을 촉진합니다. 성채는 1개월 동안 원활하게 기능합니다. 또한, 이 기간 동안 노동력 조직에 대한 모든 체크에 +2 상황 보너스를 얻습니다.</p> <p><strong>성공</strong> 알타레인 성채는 1주일 동안 원활하게 운영됩니다.</p> <p><strong>실패</strong> 알타레인 성채는 관리되지 않지만, 다음 날 다시 시도할 수 있습니다.</p> <p><strong>대실패</strong> 알타레인 성채는 관리되지 않습니다. 브레이칠의 일부 시민들 사이에서 관계가 틀어지고 감정이 격해져 1주일 동안 다시 관리를 시도할 수 없습니다.</p>",
+      "reason": "이름 오역(활동명 Administer=관리인데 직책 '행정관'), Deception/Intimidate 스킬명 미번역(기만/위협), Citadel Altaerein 표기 혼재 통일(알타레인 성채)"
+    },
+    {
+      "slug": "R90HXdiRwl0Fa4wb",
+      "desc_ko": "<p><strong>요건</strong> PC들이 '감방 찾기' 장애물을 극복하여 지하실에 도달했습니다.</p> <p><strong>극복</strong> 2회 성공: @Check[arcana|dc:33], @Check[perception|dc:35], @Check[thievery|dc:35]</p> <hr /> <p>포로들 외에도 스칼렛 트라이어드는 저택의 지하실에 수많은 보물을 보관해 두었습니다. PC들은 몇 분에 걸쳐 금고를 열고 훔치기 가장 좋은 물건들을 확인합니다. 이 기회는 두 번 완료할 수 있습니다. 첫 번째에는 PC들이 @UUID[Compendium.pf2e.equipment-srd.Item.EKXRigmEZgqmFA62]{네티시안 방벽}, 이비스 문양의 파이앙스 장식이 새겨진 넓은 크리스탈 그릇(300 gp 가치), 그리고 네티스의 오닉스와 대리석 조각상(200 gp 가치)을 회수합니다. 또한 PC들은 스칼렛 트라이어드의 수많은 거래 내역을 상세히 기록한 장부도 발견합니다. @Check[guild-lore|dc:28] 또는 @Check[society|dc:35] 체크에 성공하면, 장부를 살펴본 PC는 스칼렛 트라이어드가 세금을 회피하고, 경쟁자를 저가로 몰아내고, 매우 빠르게 큰돈을 축적하려 시도하고 있으며, 이 모든 것이 플레시몽거 연맹, 아스피스 컨소시엄, 아바다르 교회에 은밀히 해를 끼치는 방식으로 이루어지고 있다는 것을 알아냅니다. 각 길드당 한 번씩, PC는 길드에 영향력을 행사할 때 장부를 사용하여 해당 조직의 지원 포인트를 추가로 2점 감소시킬 수 있습니다. PC들이 이 기회를 두 번째로 완료하면, @UUID[Compendium.pf2e.equipment-srd.Item.K2rMmiBlzcysNuj6]{재생 벨트}와 함께, 그 안에 @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.GyigGu36XLPV72nW]{Djinni} 비지르인 현자 팔카리가 봉인된 설화 석고와 은으로 만든 암포리스코스 향수병을 회수합니다. 스칼렛 트라이어드는 팔카리를 가두고 세 가지 소원을 대가로 자유를 제안했습니다. 우리 잔디바르는 이 소원 중 두 개를 골드 드래곤 종족의 오브 수리를 돕는 데 이미 사용했지만, 마지막 소원은 사용하지 않고 남겨 두었습니다. 팔카리는 PC들이 그의 탈출을 돕는다면 이 마지막 소원을 PC들에게 들어줄 의향이 있습니다. 그 전까지 그는 자신의 암포리스코스에서 20피트 이상 떨어질 수 없으며, 스스로 그것을 옮길 수도 없습니다. 이 소원은 모든 노예를 자동으로 구출하는 데 사용할 수 있지만, PC들은 여전히 스스로 탈출해야 합니다. 팔카리는 공기의 차원으로 돌아가기를 간절히 원하지만, GM의 재량에 따라 모험 후반에 반복적으로 등장하는 아군이 될 수도 있습니다.</p> <p><strong>대실패</strong> PC들이 경비병 무리에게 발각됩니다. 매 전투 라운드가 끝날 때마다 인식이 1씩 증가합니다.</p>",
+      "reason": "'극복 2회 성공' 헤더 누락, '온yx' 문자 손상(오닉스), 향수병/지니 문장 비문(주어 붕괴) 재구성, at your discretion을 '플레이어의 재량'으로 오귀속(GM), 대실패 구어체 교정"
+    },
+    {
+      "slug": "RDS7V0K5i8x4pvTY",
+      "desc_ko": "<p><strong>발동 빈도</strong> 시즌당 1회만 발동됩니다</p> <p><strong>트리거</strong> 파티 구성원이 윌로우쇼어의 NPC를 친근하게 만듭니다</p> <hr /> <p><strong>효과</strong> NPC에게 영향력을 행사하려 시도한 사람이 당신이 아니더라도, 당신의 명성이 앞서갑니다. 그 NPC는 친근한 상태 대신 도움이 되는 상태가 됩니다. NPC를 도움이 되는 상태로 만들면 윌로우쇼어의 해당 위치에서 추가 지원을 얻을 수 있습니다—GM이 이 메커니즘에 대한 자세한 정보를 가지고 있습니다.</p>",
+      "reason": "Frequency를 '발동 조건'으로 오표기, 'even if you aren't the one making the attempt'를 '시도를 하지 않아도 됩니다'로 오역"
+    },
+    {
+      "slug": "RX62MAyEUtuHMNBm",
+      "desc_ko": "<p>PC는 하루를 소비하고 DC 30 스킬 체크를 시도하여 길드에 대한 조사를 진행합니다. </p>\n<hr />\n<p><strong>대성공</strong> PC의 조사 결과, 브리그벤이 불량 무기의 배후 범인이라는 확실한 증거가 발견되고, 그의 상점 위치가 PC에게 드러납니다. 이 증거로 인해 PC들이 브리그벤의 가게에서 그를 직면하자마자 브리그벤은 PC들이 자백을 강요하지 않아도 바로 포기합니다. </p>\n<p><strong>성공</strong> 조사를 통해 브리그벤이 조잡한 무기의 배후라는 것이 드러나고, PC들에게 브리그벤의 가게 위치가 밝혀집니다. </p>\n<p><strong>실패</strong> 조사는 아무런 결과도 얻지 못하지만, 브리그벤은 위협을 감지하지 못합니다.</p>\n<p><strong>대실패</strong> 조사 결과 아무 성과도 없지만, 브리그벤은 PC들이 자신을 추적하고 있다는 사실을 알게 됩니다. 그는 자신의 상점을 버리고 히든 포지로 도망쳐 다른 드로스카르 숭배자들과 함께 피난처를 찾습니다. 이 경우, PC들은 D2 지역에서 브리그벤을 만날 수 있습니다. 그 만남에서 브리그벤은 테아의 능력치로 표현할 수 있습니다.</p>",
+      "reason": "대실패 헤더의 </strong> 닫힘 태그 소실 복구"
+    },
+    {
+      "slug": "ReTbL6UDEkkdkHAY",
+      "desc_ko": "<p><strong>측면</strong> 천상</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">2</span> 명령, 상호 작용</p>\n<hr />\n<p><strong>효과</strong> 당신의 유물이 신성한 빛으로 빛납니다. 이로 인해 아이템 주변 @Template[emanation|distance:30]에 밝은 빛이 생성됩니다. 영역 내의 악한 생물은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1} 상태가 되며, 빛 안에 머무는 동안 공포 값을 1 미만으로 낮출 수 없습니다. 영역 내의 악마는 자신이 지닌 성스러움에 대한 약점을 5만큼 증가시킵니다. 이 활성화 상태를 최대 1분 동안 유지할 수 있습니다.</p>",
+      "reason": "'below 1'을 '1 이하'로 오역(1 미만이 정확), Aspect를 '모습'으로 오역, holy 약점 문장 명확화"
+    },
+    {
+      "slug": "TM4pOPSM9r7XEM64",
+      "name_ko": "영혼 수호",
+      "desc_ko": "<p><strong>발동 빈도</strong> 1회</p> <p><strong>발동 조건</strong> 당신이 @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{무의식} 또는 @UUID[Compendium.pf2e.conditionitems.Item.yZRUzMqrMmfLu0V1]{빈사} 상태가 되거나 파괴되려 할 경우</p><hr /><p><strong>효과</strong> 당신은 최대 체력까지 @Damage[200[healing]]의 체력을 회복합니다. 게브가 당신에게 부여한 모든 저항력과 임시 체력은 즉시 종료됩니다.</p>",
+      "reason": "이름 미번역 음차(소울 워드→영혼 수호, 정신 수호와 일관), 트리거 비문('당신은 파괴됩니다') 교정"
+    },
+    {
+      "slug": "TspxQ2di6yfPrRnP",
+      "name_ko": "아지랑이",
+      "desc_ko": "<p><strong>속성</strong> 화염</p> <hr /> <p>유물의 열이 주변 공기를 쾌적하게 따뜻하게 유지합니다. 유물을 들고 있거나 착용하고 있는 동안, 유물은 혹독한 환경 추위로부터 당신을 보호합니다. 9레벨이 되면 극한의 추위로부터도 보호하고, 17레벨이 되면 상상을 초월하는 추위로부터도 보호합니다. 4레벨이 되면 유물은 다음 활성화 효과도 얻습니다.</p> <p><strong>활성화</strong> <span class=\"action-glyph\">2</span> (집중)</p> <p><strong>빈도</strong> 하루에 한 번</p> <p><strong>효과</strong> 유물이 주변의 기온을 불규칙하게 상승시켜 아지랑이를 만들어 당신의 모습을 왜곡시키고, 1분 동안 @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 상태를 부여합니다. 이 효과의 특성상 당신의 위치는 여전히 명백하므로, 이 은폐를 @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{숨기}나 @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{은밀 이동}에 사용할 수 없습니다.</p>",
+      "reason": "본문에 중국어 '您的位置' 혼입 손상 복구, action-glyph 따옴표 손상, 이름 Heat Haze=아지랑이('열기'는 의미 소실), 'fire' 미번역"
+    },
+    {
+      "slug": "UEBVXi4VSQf70ggQ",
+      "desc_ko": "<p><strong>속성</strong> 공기</p> <p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 집중</p> <hr /> <p><strong>효과</strong> 보이지 않는 공기의 장벽이 원거리 공격을 빗나가게 하여, 당신의 다음 턴이 시작될 때까지 원거리 공격에 대한 AC에 +2의 상황 보너스를 부여합니다. 13레벨이 되면, 이 보너스는 원거리 공격에 대한 AC에 +3 상황 보너스로 증가합니다.</p>",
+      "reason": "action-glyph 따옴표 손상 복구, deflect='반사' 오역(빗나가게 함)"
+    },
+    {
+      "slug": "URZRO1ROM9VOS1nN",
+      "desc_ko": "<p><strong>측면</strong> 대장간</p> <p><strong>전제 조건</strong> 크리에이티브 스파크 선물</p> <hr /> <p>크리에이티브 스파크를 활성화할 때, 파이어 위습에 더해 당신 옆의 점유되지 않은 칸에 @UUID[Compendium.pf2e.pathfinder-monster-core-2.Actor.Q6oMLXjmGqF6dxzp]{에어 위습}, @UUID[Compendium.pf2e.pathfinder-monster-core-2.Actor.PV8ex8ivTfD7bzEP]{워터 위습}, @UUID[Compendium.pf2e.pathfinder-monster-core-2.Actor.5YmEdbkqk1IYWL7B]{어스 위습}을 소환하도록 선택할 수 있습니다. 일반적인 어스 위습과 달리, 소환된 어스 위습은 모루와 뿔 달린 딱정벌레를 합친 듯한 작은 철제 생물의 형태를 하고 있습니다. 파이어 위습과 마찬가지로, 이 추가 위습들은 전투에서는 행동하지 않지만, 당신이 아이템을 제작하는 동안 도울 수 있습니다. 네 위습이 모두 당신을 돕고 있는 동안, 크리에이티브 스파크에서 얻는 보너스가 두 배가 되고, 대장장이 일과 관련된 제작 체크의 성공 단계가 굴림 결과보다 한 단계 더 좋아집니다. 또한, 네 위습 모두의 도움을 받으면 금속 아이템을 제작할 때 대장장이 도구 이외의 다른 장비가 필요 없습니다. 위습은 최대 10분 동안, 또는 당신이 행동으로 모두 함께 해제할 때까지 지속됩니다. 파이어 위습의 지속 시간을 연장하면 다른 위습의 지속 시간도 연장됩니다.</p>",
+      "reason": "@UUID 3개가 영문 원문과 다른 컴펜디엄(bestiary-3)을 가리키고 있어 원문 UUID(monster-core-2)로 복원, '빈 칸에·파이어 위습에 더해' 구절 누락, 위습 뒤 조사 전면 오류(위습와/위습는/위습가), forge/creative spark 미번역"
+    },
+    {
+      "slug": "VF2Gw89uNHSUIiFr",
+      "desc_ko": "<p>4일 동안 다음 요소들을 행렬에 포함시킵니다 (최대 4개까지). 행렬에 포함하기로 선택한 각 요소에 대해 나열된 스킬 중 하나를 선택하여 스킬 체크를 시도합니다. 이 체크의 결과에 따라 획득하는 준비 포인트가 결정됩니다.</p> <p><strong>테마</strong>: 행렬에 필수적인 하나의 테마를 정하고, 그 테마를 행사의 모든 측면에 어떻게 반영할지 결정합니다. 다음 스킬 체크 중 하나를 시도하세요: 지식 (주제와 관련된 지식을 활용하는 경우), 종교 (주제가 종교적 영감을 포함하거나 어떤 식으로든 언데드에 크게 의존하는 경우), 사회 (게브의 역사, 정치, 시대 정신에 포커스를 두는 경우).</p> <p><strong>전시물</strong>: 행진식 전시물의 물리적 요소를 제작하거나 배치합니다. 예를 들어, 공중에 들어올리는 조각상이나 아이콘, 장식된 수레, 화려한 인형극, 훈련된 동물 등이 포함됩니다. 다음 스킬 체크 중 하나를 시도하십시오: 운동 (육체 노동을 하는 경우), 제작 (인형, 조각상, 장식용 차량을 만드는 경우) 또는 자연 (행렬에 참여할 동물을 훈련하는 경우).</p> <p><strong>화려한 행렬</strong>: 행렬에 참여하는 사람들이 착용하거나 들고 있는 의상과 액세서리를 만듭니다. 다음 스킬 체크 중 하나를 시도하세요: 제작 (의상이나 소지품을 디자인하는 경우), 기만 (의상이 특정 인물을 변장한 것으로 인식될 수 있도록 의도하는 경우), 또는 공연 (춤을 안무하거나 오리지널 음악을 작곡하는 경우).</p> <p><strong>축제의 참가자</strong>: 행렬에 참여할 많은 지역 주민들을 모집합니다. 다음 스킬 체크 중 하나를 시도하세요: 외교 (사람들을 행렬에 참여하도록 설득하기 위해), 위협 (참여하지 않으면 끔찍한 결과를 초래할 것이라고 위협하기 위해), 또는 공연 (사람들이 당신의 예술적 비전을 공유하도록 영감을 주기 위해).</p> <hr /> <p><strong>대성공</strong> 파티에 준비 포인트 2점을 얻습니다.</p> <p><strong>성공</strong> 파티에 준비 포인트 1점을 얻습니다.</p> <p><strong>대실패</strong> 파티에 준비 포인트 1점을 잃습니다.</p>",
+      "reason": "Intimidation='협박' 용어 위반(위협), 대성공 </strong> 소실, 서두 단락 </p> 누락"
+    },
+    {
+      "slug": "WDSbI48ikMbO9ZLJ",
+      "desc_ko": "<p><strong>발동 빈도</strong> 시즌에 한 번만 발동합니다.</p> <p><strong>발동 조건</strong> 당신(또는 인접한 PC)이 회복 체크를 굴리려 합니다.</p> <hr /> <p><strong>효과</strong> 당신의 건강한 체격, 끈질긴 태도, 또는 그저 평범한 행운이 어린 시절처럼 당신을 도와 살아남게 해, 회복 체크를 굴리지 않고 자동으로 대성공을 거두게 됩니다. 회복 체크를 굴리려는 PC와 인접해 있는 경우, 대신 이 특전을 사용하여 그 PC에게 이 효과를 부여할 수 있습니다.</p>",
+      "reason": "첫 두 단락 </p> 닫힘 태그 소실 복구"
+    },
+    {
+      "slug": "WKFZlmmuZGnucRen",
+      "desc_ko": "<p><strong>요건</strong> PC들이 이 단계의 다른 세 가지 장애물을 극복했습니다.</p> <p><strong>극복</strong> 2회 성공; @Check[athletics|dc:37], @Check[thievery|dc:33]</p> <hr /> <p>포로들은 철창에 갇혀 벽에 사슬로 묶여 있습니다. PC들은 가능한 한 조용히 이 결박을 풀어줍니다. PC들이 이 장애물을 극복하면 엑사비수와 그녀의 조수 중 한 명을 구출한 것이며, 4단계: 탈출을 시작할 수 있습니다. “그게 전부가 아니다” 복잡 상황을 참조하세요.</p>",
+      "reason": "요건 단락 </p> 누락 복구, Phase 4: Extraction '추출' 어색 번역(탈출), Complication '복잡성' 교정"
+    },
+    {
+      "slug": "WlXmO2kwyWGgAuOv",
+      "desc_ko": "<p>섭정의 성격을 해석하고, 드워프 전통에 대해 아는 바를 활용하고, 합리적인 추측을 통해 드워프 섭정의 길드가 가장 중시하는 기술 유형을 짐작하고, 이를 통해 그 섭정의 호감을 살 가능성이 가장 높은 기술 유형을 유추합니다. 전통 추론이 정확한 결과를 내려면 @Check[perception|dc:30] 또는 @Check[society|dc:25] 체크에 성공해야 합니다.</p> <hr /> <p><strong>대성공</strong> 길드가 선호하는 기술 중 하나를 알아내고, 그 섭정의 회의론 값도 알게 됩니다.</p> <p><strong>성공</strong> 길드가 선호하는 기술 중 하나를 알아냅니다.</p> <p><strong>실패</strong> 길드가 선호하는 기술을 하나도 알아내지 못합니다.</p> <p><strong>대실패</strong> 잘못된 선호 기술을 알게 됩니다.</p>",
+      "reason": "learn을 '기술을 배웁니다'로 오역(어떤 기술이 선호되는지 알아내는 것), 섭정관/섭정 혼용 통일"
+    },
+    {
+      "slug": "Ys6rFLuyxocQy2hA",
+      "desc_ko": "<p><strong>요구 사항</strong> 숨겨진 대장간 단서 1개 이상.</p> <hr /> <p>숨겨진 대장간 단서를 조사하고, 현지인과 상담하며, 코블라르 지도를 연구하고, 기타 방법으로 미스터리를 조사하는 데 하루를 보냄으로써 PC는 드워프 도시 내 드로스카르의 비밀 신전 위치를 파악하려고 시도합니다. 캐릭터는 지각, 사회, 또는 생존 체크로 단서를 해석할 수 있습니다. 단서를 해석하는 데 사용되는 체크에 상관없이 DC는 36으로 유지됩니다. 이 DC는 첫 번째 단서 이후에 보유한 숨겨진 대장간 단서마다 2씩 감소합니다. 따라서, 캐릭터가 두 개의 숨겨진 대장간 단서를 가지고 있는 경우, DC는 34로 감소하고, 캐릭터가 8개의 숨겨진 대장간 단서를 가지고 있는 경우, DC는 최대 22까지 감소합니다.</p> <hr /> <p><strong>대성공</strong> PC가 숨겨진 대장간 입구를 정확히 찾아냅니다.</p> <p><strong>성공</strong> PC가 숨겨진 대장간의 위치를 파악하는 데 상당한 진전을 보이며, 다음 숨겨진 대장간 찾기 체크에 +4의 상황 보너스를 얻습니다.</p> <p><strong>실패</strong> PC는 단서에서 유용한 정보를 파악하지 못합니다.</p> <p><strong>대실패</strong> 실패와 동일하지만, 드로스카르 교도들이 수사를 눈치채고 방어를 준비할 수 있게 됩니다.</p>",
+      "reason": "Perception/Society/Survival을 '지각력/사회성/생존력'으로 표기(정본: 지각/사회/생존), 대실패 </strong> 소실 복구"
+    },
+    {
+      "slug": "YvSjpOAI9bCDQU5h",
+      "desc_ko": "<p>당신은 엘프 사냥꾼들이 동물의 흔적을 찾도록 도와줍니다. @Check[nature|dc:17] 체크 또는 @Check[perception|dc:17]을 시도하세요.</p> <hr /> <p><strong>대성공</strong> 당신은 특히 건강하고 (따라서 성질이 나쁜) 붉은 강 멧돼지 무리나 날카로운 뿔을 가진 큰 워터벅과 같은 인상적이고 잠재적으로 위험한 것을 발견합니다. 또한, 인상적이고 맛있는 발견물보다 사냥하기 안전한 동물의 흔적도 발견합니다.</p> <p><strong>성공</strong> 사냥하기에 안전한 동물의 흔적을 발견합니다.</p> <p><strong>실패</strong> 당신의 노력으로 최고의 사냥감이 겁을 먹고 도망가 버렸기 때문에 사냥대는 강거북과 박쥐를 사냥 대상으로 삼아야 합니다.</p> <p><strong>대실패</strong> 당신의 노력으로 너무 많은 동물들이 겁을 먹고 도망가 버렸기 때문에 사냥대는 잡을 사냥감이 거의 남아 있지 않습니다. 파티는 IP 2점을 잃습니다.</p>",
+      "reason": "성공 단락 통째 누락 복원"
+    },
+    {
+      "slug": "ZFM7vgRwRqdNOelg",
+      "desc_ko": "<p><strong>속성</strong> 땅</p> <hr /> <p>당신의 유물은 무기를 강화하는 금속과 돌을 생성합니다. 매일 일일 준비 중, 유물은 은, 냉철, 금, 또는 당신이 선택한 귀하지 않은 돌이나 금속 재료(예: 청동이나 화강암)의 마법 조각을 소환합니다. 유물이 무기인 경우, 유물은 즉시 조각을 흡수하여 다음 일일 준비까지 해당 금속이나 돌의 마법적인 광채를 얻습니다. 유물이 무기가 아닌 경우, 조각은 즉시 사용되지 않으며, 상호작용 행동을 사용하여 돌이나 금속 무기에 조각을 접촉시켜 10분 동안 해당 금속이나 돌의 마법적인 광채를 부여할 수 있습니다. 마법적인 광채로 덮여 있는 동안 무기는 자체 재료가 아니라 조각의 돌이나 금속으로 만들어진 것처럼 약점, 저항력 등과 상호작용합니다. 광채와 조각은 명백히 마법적 성질을 지니며, 조각을 사용하지 않으면 다음 일일 준비 시 사라집니다. 17레벨에 도달하면 사용 가능한 옵션에 아다만틴과 던실버를 추가합니다.</p>",
+      "reason": "'아다마린' 오탈자(adamantine=아다만틴), 'non-precious stone or metal'에서 돌 누락('비귀금속 또는 금속')"
+    },
+    {
+      "slug": "aCFKA59YgGDNnSJ8",
+      "desc_ko": "<p><strong>사용 빈도</strong> 1시간에 한 번</p> <p><strong>요건</strong> 지난 1분 이내에 흡입형 독의 범위 안에 있었어야 합니다; @UUID[Compendium.pf2e.feats-srd.Item.8PMxl8o5YXET58Pn]{철 폐}</p> <hr /> <p>당신은 이전에 당신을 둘러싸고 있던 독을 @Template[cone|distance:15] 범위로 날카롭게 내뿜습니다. 해당 범위 내의 생물들은 독의 영향을 받으며, 독의 DC와 효과는 변하지 않습니다.</p>",
+      "reason": "inhaled poison(흡입형 독 유형)을 '흡입한 독'으로 오역"
+    },
+    {
+      "slug": "aw2JzLBAsmO8dD3r",
+      "desc_ko": "<p>당신은 <em>Unsinkable</em>의 선원들이 Qxal의 현현을 향해 함선의 대포를 발사하는 것을 돕습니다. 대포는 100피트 거리까지 대포알이나 작살을 발사할 수 있습니다. 현현에 대해 [[/r {1d20+17} #Attack roll]]{+17 보너스 명중 굴림}을 시도하세요.</p> <hr /> <p><strong>대성공</strong> 성공과 동일하지만, 현현은 두 배의 피해를 받습니다. 작살에 맞으면 현현은 <em>Unsinkable</em> 쪽으로 30피트 끌려갑니다.</p> <p><strong>성공</strong> 현현은 대포알에 맞으면 @Damage[(2d8+9)[bludgeoning]] 피해를 받고, 작살에 맞으면 @Damage[(1d8+4)[piercing]] 피해를 받으며 <em>Unsinkable</em> 쪽으로 15피트 끌려갑니다.</p> <p><strong>실패</strong> 공격은 피해를 주지 않습니다.</p> <p><strong>대실패</strong> 공격은 피해를 주지 않으며, 다음 라운드에는 대포를 다시 발사할 수 없습니다.</p>",
+      "reason": "@Damage 닫는 대괄호 2건 소실 복구, manifestation을 '창조물'로 오역(앞에서는 현현), Attack Roll=명중 굴림('공격 롤'), '대포에 맞으면'→대포알, '작살에 맞으면' 중복, 대성공 </p> 누락, 'Unsinkable's' 소유격 잔존"
+    }
+  ],
+  "flags": [
+    {
+      "slug": "ZFM7vgRwRqdNOelg",
+      "note": "cold iron='냉철', dawnsilver='던실버' 표기가 정본 재료명인지 확신 없어 유지함"
+    },
+    {
+      "slug": "aUgAKW3SWhU9ATl8",
+      "note": "'Court of the Nail'을 '못의 법정'으로 번역했는데 안뜰(courtyard)일 가능성 있음 — 원작 확인 필요"
+    },
+    {
+      "slug": "LVSGvlzI1rGWtGJA",
+      "note": "name_ko '집결 표시'는 Rallying Display의 어색한 직역('결집 과시'가 자연스러움)이나 스타일 판단이라 미수정"
+    },
+    {
+      "slug": "I19VNyhXYaFCpsxl",
+      "note": "{Pinpoint}/{Teleport}/{Track} UUID 라벨 영어 잔존 — 정본 주문/행동명 확신 없어 유지(Track은 '추적'일 가능성)"
+    },
+    {
+      "slug": "URZRO1ROM9VOS1nN",
+      "note": "relic gift='선물', creative spark='크리에이티브 스파크' 음차 유지 — 유물 규칙 정본 용어 확인 필요"
+    },
+    {
+      "slug": "Pw8VOyhZP1RW7LNM",
+      "note": "(Affinity Ablaze) 접두가 22번 항목은 '(친화력 불타는)', 23번은 '(친화력 불꽃)'으로 불일치 — 정본 표기 미상이라 미수정. {Wall of Ice} 라벨 영어 잔존도 정본명 확신 없어 유지"
+    },
+    {
+      "slug": "IQewgylxmkmBYcoY",
+      "note": "코퍼스 전반이 check/skill을 '체크/스킬'로 표기(정본은 판정/기술). 파일 전체에 걸친 스타일이라 개별 수정하지 않고 전량 일괄 치환 여부는 상위 결정 필요"
+    }
+  ]
+}

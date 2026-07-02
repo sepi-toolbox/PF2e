@@ -1,0 +1,97 @@
+{
+ "actions": [
+  "scout-location",
+  "visions-of-sin"
+ ],
+ "effects": [
+  "effect-hag-blood-magic",
+  "effect-the-bigger-they-are-commander",
+  "effect-dissolutions-sight",
+  "effect-imperial-blood-magic"
+ ],
+ "equipment": [
+  "four-tiger-blade",
+  "boots-of-free-running-lesser",
+  "oculus-of-abaddon",
+  "guiding-star-orb-heroic",
+  "silver-chunk",
+  "holy-steam-ball",
+  "fairy-bullet",
+  "choker-of-elocution",
+  "chivalric-emblem",
+  "orb-shard",
+  "steel-shield",
+  "eye-of-the-wise",
+  "midday-lantern-greater",
+  "presentable",
+  "noqual-ingot",
+  "st-alkitarems-eye",
+  "cape-of-justice"
+ ],
+ "feats": [
+  "ghost-hunter",
+  "moray-eel-mount",
+  "tricksters-ace",
+  "commitment-to-equality",
+  "submission-hold",
+  "sacred-defense",
+  "combat-reading",
+  "cannibalize-magic",
+  "improved-swift-banishment",
+  "glory-on-high",
+  "iruxi-spirit-strike"
+ ],
+ "spells": [
+  "rouse-skeletons",
+  "shadow-blast",
+  "delusional-pride",
+  "perfection-of-essence",
+  "pillars-of-sand",
+  "savor-the-sting"
+ ],
+ "creatures/bestiary-2.ko.json": [
+  "Invidiak",
+  "Xill"
+ ],
+ "creatures/bestiary-3.ko.json": [
+  "Terra-Cotta Garrison",
+  "Maharaja",
+  "Terra-Cotta Soldier"
+ ],
+ "creatures/bestiary.ko.json": [
+  "Drow Priestess",
+  "Night Hag",
+  "Aasimar Redeemer",
+  "Raja Rakshasa",
+  "Centaur",
+  "Quelaunt"
+ ],
+ "creatures/monster-core-2.ko.json": [
+  "Owb Prophet",
+  "Shokasura",
+  "Owb",
+  "Oread Guard",
+  "Phasmadaemon",
+  "Eremite"
+ ],
+ "creatures/monster-core.ko.json": [
+  "Skeletal Champion",
+  "Quelaunt",
+  "Umbral Gnome Warrior",
+  "Dwarf Warrior",
+  "Iron Warden",
+  "Raja-Krodha"
+ ],
+ "creatures/npc-core.ko.json": [
+  "Mage Knight",
+  "Zealot of Asmodeus",
+  "Dynamo",
+  "Mirror Seer",
+  "Deific Champion of Iomedae",
+  "Dwarf General",
+  "Knight",
+  "Watch Officer",
+  "Rancorous Priesthood",
+  "Captain Of The Guard"
+ ]
+}

@@ -1,0 +1,250 @@
+{
+ "fixes": [
+  {
+   "slug": "ZhVJ7EUTJngrIO2Z",
+   "desc_ko": "<p>불가능한 양의 에너지가 머리 위 구형으로 타오르다가 무기로 압축됩니다. 한 생물을 타격합니다. 이 타격은 추가로 3d8 영혼 피해와 3d8 공허 피해를 입힙니다. 생물의 체력이 0이 되면 즉시 죽어 재로 변합니다. 다만 현재가 아닌 최근 과거에서 사라지며, 그로 인해 최근 행동의 결과가 지워집니다.</p>\n<p>소각된 대상의 행동으로 인해 지난 라운드 내에 사망한 생물이 있다면, 그 생물은 사망이 소급 취소되며 사망한 위치에서 @Damage[5d8[healing]] 체력으로 부활합니다.</p>",
+   "reason": "round→턴 오역, Strike→타격, 경어체 통일"
+  },
+  {
+   "slug": "a47Npi5XHXo47y49",
+   "desc_ko": "<p><strong>발동 빈도</strong> 하루에 한 번</p>\n<p><strong>발동 조건</strong> 단일 공격으로 40 이상의 물리적 피해를 입을 때</p>\n<hr />\n<p><strong>효과</strong> 최대 3라운드 동안 회오리치는 눈보라로 변신합니다. 이 기간 동안 물리 피해에 대한 저항력 10과 힘 피해에 대한 약점 10을 얻습니다. 40피트의 비행 속도를 얻지만, 취할 수 있는 행동은 @UUID[Compendium.pf2e.actionspf2e.Item.cS9nfDRGD83bNU1p]{비행}뿐입니다. 신체가 해체된 상태에서 매 라운드마다 다른 생물의 공간에 처음 진입하거나, 생물이 당신의 공간에 처음 진입할 때마다 해당 생물은 @Damage[4d8[cold]]의 피해를 입으며, 당신의 직업 DC 또는 주문 DC 중 더 높은 쪽에 대한 @Check[fortitude|against:class-spell] 내성 굴림에서 성공해야 합니다. 그렇지 않으면 @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{기절 1} 상태가 됩니다. 자신의 턴 시작 시, 이 효과를 자유 행동으로 종료할 수 있습니다.</p>",
+   "reason": "경어체 통일(합니다체 다수)"
+  },
+  {
+   "slug": "a8d5iIf1up9W0gVg",
+   "desc_ko": "<p><strong>요구 사항</strong> 당신은 워샤드 무기를 들고 있지 않으며, 워샤드 무기를 휘두를 수 있도록 한 손 또는 양손이 자유로워야 합니다.</p><hr /><p><strong>효과</strong> 당신과 당신의 워샤드 무기가 같은 행성에 있는 한, 워샤드 무기가 당신의 손으로 순간이동합니다. 15레벨에 도달하면 워샤드 무기와 같은 차원에만 있으면 소환할 수 있으며, 18레벨에 도달하면 어떤 거리에서도 워샤드 무기를 소환할 수 있습니다. 당신의 워샤드 무기가 당신보다 높은 레벨의 신화적 생물이 소유하고 있거나 순간이동 마법이 작동하지 않는 지역에 놓여 있다면, @Check[flat|dc:16]을 시도하십시오. 성공 시, 당신의 워샤드 무기는 여전히 당신의 손으로 순간이동합니다.</p>",
+   "reason": "미번역 라벨"
+  },
+  {
+   "slug": "a9PzINjFTO5GvAJN",
+   "desc_ko": "<p><strong>발동 조건</strong> 선제력을 굴립니다.</p>\n<p><strong>요구 사항</strong> 당신은 @UUID[Compendium.pf2e.conditionitems.Item.D5mg6Tc7Jzrj6ro7]{과적} 상태가 아니며, 중갑을 착용하고 있지 않아야 합니다.</p><hr /><p>자유롭게 움직일 수 있는 한, 당신의 분노는 본능적이고 즉각적입니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.Ah5g9pDwWF9b9VW9]{분노}합니다.</p>",
+   "reason": "Initiative→선제력, 요구조건 부정 범위 오역(과적 상태 금지 누락)"
+  },
+  {
+   "slug": "aBQ8ajvEBByv45yz",
+   "desc_ko": "<p>주문은 주문의 통계 블록에 표시된 대로 시전에 필요한 행동 수가 서로 다를 수 있습니다. 캔트립, 주문 슬롯의 주문, 집중 주문은 모두 같은 절차로 시전하지만, 주문 슬롯의 주문을 시전할 때는 그 주문을 소모해야 하고, 집중 주문을 시전하려면 집중점 1점을 소모해야 합니다. 일부 규칙은 \"다음에 사용하는 행동이 주문 시전이라면\"과 같이 주문 시전 활동을 언급합니다. 모든 주문은 주문 시전 활동에 해당하며, 그 활동의 모든 특징은 당신이 시전하는 특정 주문의 것을 따릅니다.</p>\n<p><strong>비용과 로커스</strong> 일부 주문은 비용을 지불하거나 로커스를 갖출 것을 요구합니다. 주문에 비용이 명시되어 있다면, 주문을 시전하기 위해 명시된 금전, 값진 재료, 기타 자원(보석이나 마법 시약 등)이 있어야 하며, 이는 시전 중에 소모됩니다.</p>\n<p><strong>로커스</strong>는 주문의 마법 에너지를 모으거나 이끄는 물건으로, 시전 중에 소모되지 않습니다. 주문 시전의 일부로 (필요하다면, 그리고 빈손이 있다면) 로커스를 꺼내며, 원한다면 다시 집어넣을 수 있습니다. 로커스는 대체로 값이 비싸고 주문을 시전하려면 미리 구해 두어야 하지만, 비용처럼 소모되지는 않습니다. 별도의 언급이 없는 한 로커스의 부피는 무시할 수 있는 수준입니다.</p>\n<p><strong>장시간</strong> <strong>시전</strong> 일부 주문은 시전에 몇 분 또는 몇 시간이 걸립니다. 이런 주문을 시전하는 동안에는 다른 행동이나 반응을 사용할 수 없지만, GM의 재량에 따라 몇 마디 정도는 말할 수 있습니다. 오랜 시간이 걸리는 다른 활동과 마찬가지로 이 주문들은 탐색 특성을 가지며, 조우 중에는 시전할 수 없습니다. 시전 중에 전투가 벌어지면 주문이 방해받습니다.</p>\n<p><strong>방해받아 소실된 주문</strong> 일부 능력과 주문은 주문을 방해하여 아무 효과도 없이 소실되게 만들 수 있습니다. 주문이 소실되면 이미 주문 슬롯을 소모했고 주문의 비용과 행동도 지출한 상태입니다. @UUID[Compendium.pf2e.actionspf2e.Item.3f5DMFu8fPiqHpRg]{주문 유지} 행동 중에 주문이 방해받으면, 해당 주문은 즉시 종료됩니다.</p>",
+   "reason": "구판(레거시) 규칙 텍스트를 번역한 것으로 원문(리마스터: 비용과 로커스 등)과 내용 불일치 — 전면 재번역"
+  },
+  {
+   "slug": "am7GMqh4t7m7bbaW",
+   "desc_ko": "<p><strong>비용</strong> 영혼의 불꽃 1개</p><hr /><p><strong>효과</strong> 당신은 즉시 영혼을 정화하며, 영혼이 떠나기 전에 당신에게 보호의 축복을 부여합니다. 다음 행동이 평온의 주문을 시전하는 것이라면, 당신은 내성 굴림에 +1 상태 보너스를 얻으며, 평온의 주문 랭크에 해당하는 공허 피해에 대한 저항력을 얻습니다. 이 효과는 1라운드 동안 지속됩니다.</p>",
+   "reason": "saving throws→내성 굴림, Rank→랭크(등급 금지)"
+  },
+  {
+   "slug": "b3h3QqvwS5fnaiu1",
+   "desc_ko": "<p><strong>발동 조건</strong> 30피트 내 생물이 집중 발동으로 주문을 시전하거나 아이템을 활성화할 때</p><hr /><p><strong>효과</strong> 당신은 생물 근처에서 큰 비명 소리와 함께 폭발하는 불꽃을 터뜨립니다. 생물은 @Check[will|against:class-spell] 내성 굴림을 시도해야 합니다.</p>\n<p><strong>성공</strong> 생물은 영향을 받지 않습니다.</p>\n<p><strong>실패</strong> 해당 생물은 유발 행동이나 활동에 추가 행동을 사용해야 하며, 그렇지 않으면 방해받습니다.</p>\n<p><strong>대실패</strong> 유발 행동이 방해받습니다.</p>",
+   "reason": "원문에 없는 비용 문구 잔존(구판), 원문에 없는 <hr /> 추가 제거, 경어체 통일"
+  },
+  {
+   "slug": "b6CanpXyUKJgxEwq",
+   "desc_ko": "<p><strong>발동 빈도</strong> 하루에 한 번</p>\n<p><strong>발동 조건</strong> 피가 있고 최대 체력이 아닌 생물이 근접 타격으로 당신을 명중시킬 때</p>\n<hr />\n<p><strong>효과</strong> 당신은 피 속에 있는 소금과 염수를 생물의 상처로 흘려보냅니다. 생물은 당신의 직업 DC 또는 주문 DC 중 더 높은 값을 사용해 @Check[fortitude|against:class-spell]를 시도해야 합니다. 실패 시, 생물은 @Damage[1d6[persistent,acid]]의 피해를 입으며 고통으로 인해 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 1} 상태가 됩니다. 대실패 시, 대신 @Damage[2d6[persistent,acid]]의 피해를 입으며 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 2} 상태가 됩니다.</p>",
+   "reason": "melee Strike→근접 타격, '주문 DC(DC)' 오기, 경어체 통일"
+  },
+  {
+   "slug": "bAXkEXAlnBx78S7t",
+   "desc_ko": "<p>당신의 지시로 인해 당신과 아군들이 위험한 지형을 오르기 쉬워집니다. 모든 분대원에게 신호를 보내세요. 다음 차례가 끝날 때까지 당신과 각 아군은 등반 속도 20피트를 얻습니다.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.IPznWmsoaoT2zhgU]{효과: 등반 훈련}</p><hr /><p><strong>특수</strong> 이 전술을 준비한 경우, 등반 판정 시 운동 대신 [[/act climb skill=warfare-lore]]{전쟁 지식}을 사용할 수 있습니다.</p>",
+   "reason": "미번역 라벨, Lore→지식, Check→판정, 경어체 통일"
+  },
+  {
+   "slug": "bCDMuu3tE4d6KHrJ",
+   "desc_ko": "<p><strong>요구 사항</strong> 한 손으로 사용하는 화기나 한 손으로 사용하는 석궁을 장비하고 있어야 합니다.</p>\n<p><strong>발동 조건</strong> 당신이 휘두르는 한손 화기 또는 한손 석궁의 첫 사거리 구간 내에 있는 적이 당신을 상대로 한 명중 굴림에서 대실패합니다.</p>\n<hr />\n<p>당신은 적의 실패를 한 발로 응징합니다. 발동 대상 적에게 한손 화기 또는 한손 석궁으로 타격을 가합니다.</p>",
+   "reason": "Strike→타격, 경어체 통일"
+  },
+  {
+   "slug": "bG91dbtbgOnw7Ofx",
+   "desc_ko": "<p><strong>요구 사항</strong> 탑승하려는 차량의 진입 지점과 인접해 있어야 합니다.</p>\n<p>차량의 열린 지붕, 문, 출입구 또는 해치를 통해 탑승합니다. 이미 탑승 중이라면, 이 행동을 사용하여 차량 진입 지점 바로 옆의 빈 공간으로 하차할 수도 있습니다. 차량이 움직이는 동안 이 행동을 사용하려면 차량의 AC와 동일한 난이도(DC)의 곡예 또는 운동 판정 성공이 필요합니다.</p>",
+   "name_ko": "탑승",
+   "reason": "Check→판정; 이름 Board(탑승 행동)를 '보드'로 음차한 오역"
+  },
+  {
+   "slug": "bT3skovyLUtP22ME",
+   "desc_ko": "<p><strong>요구 사항</strong> @UUID[Compendium.pf2e.equipment-srd.Item.vLGDUFrg4yGzpTQX]{수리 키트}를 소지하거나 착용 중이어야 합니다</p>\n<hr />\n<p>피해를 입은 아이템을 고치려고 10분 동안 시도합니다. 아이템을 안정된 표면에 놓고 양손으로 수리 키트를 사용합니다. GM이 난이도(DC)를 설정하지만, 일반적으로 특정 아이템을 수리하는 난이도는 처음 제작할 때와 비슷합니다. 파괴된 아이템은 수리할 수 없습니다.</p>\n<hr />\n<p><strong>대성공</strong> 아이템의 체력을 10 회복시키고, 제작 숙련도 등급당 추가로 10 체력을 회복시킵니다(숙련이라면 총 20 HP, 전문가라면 30 HP, 달인이라면 40 HP, 전설이라면 50 HP).</p>\n<p><strong>성공</strong> 당신은 아이템의 체력을 5 회복시키고, 제작 숙련도 등급당 추가로 5를 회복시킵니다(숙련자라면 총 10 HP, 전문가라면 15 HP, 달인이라면 20 HP, 전설이라면 25 HP).</p>\n<p><strong>대실패</strong> 아이템에 [[/r {2d6}]]{2d6 피해}를 입힙니다. 이 피해에 아이템의 경도를 적용합니다.</p>",
+   "reason": "</p> 위치 파손 복구, Trained→숙련, '달인라면' 오타, 미번역 라벨"
+  },
+  {
+   "slug": "bUgSKcdHyEKbtXhl",
+   "desc_ko": "<p><strong>발동 조건</strong> 30피트 이내에 있는 당신이 인지한 데몬이 자신의 죄악 약점에 시달리거나 정신 효과에 대한 내성 굴림에서 대실패를 할 때</p><hr /><p>당신은 데몬의 순간적 불리함을 이용해 날카로운 비아냥을 날립니다. 데몬은 당신의 직업 DC에 대한 @Check[will|against:class] 내성 굴림을 시도해야 합니다.</p><hr /><p><strong>대성공</strong> 데몬은 영향을 받지 않으며, 이후 전투에서 당신에게 주의를 집중할 가능성이 높습니다.</p>\n<p><strong>성공</strong> 데몬은 @Damage[2d6[mental]]의 피해를 입습니다.</p>\n<p><strong>실패</strong> 데몬은 @Damage[4d6[mental]]의 피해를 입으며 다음 턴 시작까지 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태가 됩니다.</p>\n<p><strong>대실패</strong> 실패와 동일하나, 무방비 상태는 다음 라운드 종료까지 지속됩니다. 데몬은 또한 @Damage[2d6[persistent,mental]]의 피해를 입습니다.</p>",
+   "reason": "경어체 통일, 내성 굴림 표기, 'focus' 직역 교정"
+  },
+  {
+   "slug": "bp0Up04x3dzGK5bB",
+   "desc_ko": "<p><strong>발동</strong> 당신의 타격이 무방비 상태의 생물을 명중시켜 피해를 입힙니다</p><hr /><p>다음 중 하나의 약화 효과를 적용하며, 이는 당신의 다음 턴이 끝날 때까지 지속됩니다:</p><ul><li><strong>약화 효과</strong> 대상은 이동 속도에 -10피트 상태 페널티를 받습니다.</li><li><strong>약화 효과</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 1} 상태가 됩니다.</li></ul>",
+   "reason": "의미 반전(off-guard 생물이 대상인데 '무방비를 취하지 않은'으로 오역), Strike→타격, 띄어쓰기"
+  },
+  {
+   "slug": "bwXH0zItp8p8sSjn",
+   "desc_ko": "<p><strong>발동</strong> 당신의 턴이 시작됩니다</p>\n<p><strong>요구 사항</strong> 당신은 '죽음이 나의 무기가 되리라'로부터 받는 피해 보너스를 획득합니다</p><hr /><p><strong>효과</strong> 신화 점수 1점을 소모합니다. '죽음이 나의 무기가 되리라'에서 받는 피해 보너스의 두 배에 해당하는 상태 보너스를 1분 동안 얻습니다. 이 시간 동안, 당신의 파멸, 빈사 또는 부상 상태의 수치가 감소하거나 증가해도 이 상태 보너스는 감소하거나 증가하지 않습니다.</p>",
+   "reason": "Doomed→파멸/Dying→빈사 용어 위반, Mythic Point 표기 통일"
+  },
+  {
+   "slug": "c40APnn4a7bWhtcZ",
+   "desc_ko": "<p>당신은 60피트 이내의 적을 영웅적 시험 대상으로 선언합니다. 1분 동안, 해당 적은 당신을 대상으로 성공한 타격이나 주문을 사용할 때마다 추가로 10의 영혼 피해를 입힙니다.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.pUXV4sks4p9Jc8Wb]{효과: 영웅을 위한 도전 (적)}</p>\n<p>해당 적이 당신에게 영혼 피해를 입힐 때마다, 근접 공격 범위 내에 있는 모든 아군은 평소에는 해당 반응을 가지지 않더라도 그 적에게 @UUID[Compendium.pf2e.actionspf2e.Item.KAVf7AmRnbCAHrkT]{반응 타격}을 시도할 수 있습니다. 이 효과로 인해 아군이 반응 타격으로 적을 처치하는 데 성공하면, 해당 아군은 즉시 당신의 레벨과 동일한 임시 체력을 얻으며, 이는 1분 동안 지속됩니다.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Fky50BHCHmRTnHas]{효과: 영웅을 위한 도전 (동료)}</p>",
+   "reason": "Reactive Strike 역어 통일(반응 타격), '시도하다' 비문 교정"
+  },
+  {
+   "slug": "c5jVVnNYlP5HB6Ob",
+   "desc_ko": "<p>팀원들이 협력하여 적을 잔혹한 공격에 노출시킵니다. 도달 범위 내에 적이 있는 한 명의 분대원에게 신호를 보냅니다. 해당 아군은 @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.lOE4yjUnETTdaf2T]{재위치}를 자유 행동으로 수행할 수 있습니다. 동료의 작전이 성공하고 대상이 다른 분대원 인접 위치로 이동을 종료하면, 두 번째 분대원은 반응 행동으로 해당 대상에게 근접 타격을 시도할 수 있습니다.</p>",
+   "reason": "melee Strike→근접 타격, 경어체 통일"
+  },
+  {
+   "slug": "c8TGiZ48ygoSPofx",
+   "desc_ko": "<p>물속에서 최대 10피트까지 이동하기 위해 [[/act swim]]{운동} 판정을 시도합니다. GM은 물의 난류나 위험도에 따라 난이도(DC)를 결정합니다. 대부분의 잔잔한 물에서는 자동으로 대성공을 얻습니다. 지상 속도가 40피트 이상일 경우, 20피트를 초과하는 속도 20피트마다 최대 거리에 5피트씩 증가시킵니다.</p>\n<p>턴 종료 시 물속에 있고 해당 턴에 수영 행동에 성공하지 못했다면, GM의 판단에 따라 10피트 가라앉거나 물살에 휩쓸려 이동합니다. 턴 마지막 행동이 물에 들어가는 것이었다면 이 규칙은 적용되지 않습니다.</p><hr /><p><strong>대성공</strong> 물속을 이동하며 최대 거리를 5피트 증가시킵니다.</p>\n<p><strong>성공</strong> 물속을 이동합니다.</p>\n<p><strong>대실패</strong> 아무런 진전이 없습니다. 숨을 참고 있다면, 1라운드 분량의 공기를 잃습니다.</p><h2>수영 과제 예시</h2><p><strong>미숙련</strong> 호수 또는 기타 잔잔한 물</p>\n<p><strong>숙련</strong> 강과 같은 흐르는 물</p>\n<p><strong>전문가</strong> 급류</p>\n<p><strong>달인</strong> 폭풍우 치는 바다</p>\n<p><strong>전설</strong> 소용돌이, 폭포</p>",
+   "reason": "굴림 매크로 골격 훼손([[/act 수영]]) 복구, Check→판정, Trained→숙련/Legendary→전설"
+  },
+  {
+   "slug": "cCCOjU9ihfrn0spp",
+   "desc_ko": "<p><strong>요구 사항</strong> 이전 행동이 @UUID[Compendium.pf2e.classfeatures.Item.Jm8L7uSM01pJxSiW]{실패하지 않는 활}로 타격한 것이어야 합니다</p><hr /><p><strong>효과</strong> 동일한 동작을 정확히 반복하여, 공격이 이전 발사와 동일한 위치에 명중합니다. 동일한 대상에게 타격을 가합니다. d20 주사위 결과는 요구 사항의 발사 결과와 동일하나, 다중 공격 페널티 등 모든 페널티는 이 발사에 정상 적용되며, 초기 굴림이 자연값 1 또는 20일 경우 성공 정도를 자동 조정하지 않습니다.</p>",
+   "name_ko": "화살이 화살을 가르다",
+   "reason": "</p> 위치 파손·미번역 라벨, natural 1/20 오역, Strike→타격; 이름 '화살 분할 화살' 비문 교정"
+  },
+  {
+   "slug": "cGCQkCz14sF238gE",
+   "desc_ko": "<p>당신은 언어를 초월한 기이한 공안을 말하며, 30피트 내의 단 하나의 생물만이 이를 이해합니다. 대상은 당신의 클래스 DC에 대한 @Check[will|against:exemplar] 내성 굴림을 시도해야 합니다. 이후 1시간 동안 이 능력에 면역이 됩니다.</p><hr /><p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1} 상태가 됩니다.</p>\n<p><strong>실패</strong> 대상은 [[/gmr 1d4 #rounds]]{1d4 라운드} 동안 멍청함 1 상태가 됩니다.</p>\n<p><strong>대실패</strong> 대상은 [[/gmr 1d4 #rounds]]{1d4 라운드} 동안 멍청함 1 상태와 @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{혼란} 상태가 됩니다.</p>",
+   "reason": "성공 단계 '1라운드 동안' 누락, 매크로 골격 훼손(#라운드) 복구, 경어체 통일"
+  },
+  {
+   "slug": "cS9nfDRGD83bNU1p",
+   "desc_ko": "<p><strong>요구 사항</strong> 당신은 비행 속도를 가지고 있어야 합니다.</p>\n<hr />\n<p>공중을 최대 비행 속도만큼 이동합니다. 위쪽(수직 또는 대각선)으로 이동할 때는 어려운 지형 이동 규칙이 적용됩니다. 5피트 이동할 때마다 10피트 수직 하강할 수 있습니다. 지면까지 비행하면 낙하 피해를 입지 않습니다. 행동을 사용해 0피트 비행으로 제자리 공중 정지할 수 있습니다. 턴 종료 시 공중에 떠 있고 이번 라운드에 비행 행동을 사용하지 않았다면 추락합니다.</p>",
+   "reason": "fly Speed를 '파리 속도'로 오역"
+  },
+  {
+   "slug": "cYdz2grcOcRt4jk6",
+   "desc_ko": "<p>이 행동은 함정이나 다른 복잡한 장치를 무력화할 수 있게 합니다. 장치의 구조와 복잡성에 따라, 해제되기 전에 여러 번의 성공이 필요한 경우가 많습니다. @UUID[Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc]{도둑 도구 세트}는 장치 해제에 유용하며, GM의 판단에 따라 때로는 필수적일 수 있습니다. 또한 장치 해제에 더 높은 도둑질 숙련도 등급이 요구되는 경우도 있습니다.</p>\n<p>[[/act disable-device]]{도둑질} 판정 결과가 진행도를 결정합니다.</p><hr /><p><strong>대성공</strong> 장치를 해제하거나, 두 번 이상의 성공이 필요한 장치 해제에 두 번의 성공을 달성합니다. 조작 흔적을 남기지 않으며, 해당 장치 유형이 재설정이 가능한 경우 나중에 재설정할 수 있습니다.</p>\n<p><strong>성공</strong> 장치를 무력화하거나, 여러 번의 성공이 필요한 장치의 무력화에 한 번의 성공을 달성합니다.</p>\n<p><strong>대실패</strong> 장치를 작동시켰습니다.</p>",
+   "reason": "잔존 중괄호 토큰 제거, Check→판정"
+  },
+  {
+   "slug": "cfQb0mBbyrjhyGf5",
+   "desc_ko": "<p>상대방 몸속에서 자신의 이콘 조각을 떼어내며, 수많은 가시로 터져 나올 듯 위협한다. 이콘으로 타격을 가한다. 성공 시, 가시가 대상의 몸을 채우며, 해당 생물이 자신의 턴마다 이동 행동을 사용할 때마다 무기 피해 주사위 2개를 입힌다. 가시는 무기 이콘과 동일한 재료로 만들어지며, 이에 따라 저항력 등을 무시한다(예: 냉철 창은 냉철 가시를 생성함). 가시는 [[/gmr 1d4 #rounds]]{1d4 라운드} 동안 지속된다. 가시가 몸속에 남아 있는 상태에서 대상이 죽으면, 가시가 폭발하여 생물의 공간을 가시덤불로 뒤덮는다. 이 가시덤불은 매우 어려운 지형이며, 이동한 칸마다 당신 레벨의 절반에 해당하는 관통 피해를 입힌다.</p>",
+   "reason": "매크로 골격 훼손 복구, 'your level'을 '네 레벨'로 오역, '만들어되며' 오타, Strike→타격, 경어체 통일(한다체 다수)"
+  },
+  {
+   "slug": "cwBsPU24715fUCub",
+   "desc_ko": "<p><strong>발동 빈도</strong> 하루에 한 번</p><hr /><p><strong>효과</strong> 당신은 타인을 억압하고 있다고 믿는 생물과 그 명령을 따르는 모든 이에게 최후통첩을 선포합니다. 당신의 최후통첩을 듣거나 나중에 알게 된 다른 모든 생물(당신을 포함)은 당신의 말에 용기를 얻어 1일간, 억압하는 생물과 그 동맹이 일으키는 효과에 대한 의지 내성에 +2 상태 보너스를 얻습니다. 당신으로부터 30피트 이내에 있을 경우 이 보너스는 +3으로 증가합니다.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.RPfpy4WzUzdwTeo0]{효과: 해방의 최후통첩}</p>\n<p>또한, 해당 생물과 그 동맹들이 하루에 처음으로 당신에게서 30피트 이내에 접근할 때마다, 그들은 당신의 직업 DC 또는 주문 DC(둘 중 높은 쪽)에 대한 @Check[will|against:class-spell|traits:emotion,fear,mental] 내성 굴림에 성공해야 하며, 실패 시 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1} 상태가 됩니다(대실패 시 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2} 상태가 됨). 이 두 번째 효과는 감정, 공포, 정신 특성을 지닙니다. 억압하는 생물은 진심으로 억압을 영구히 끝내기로 동의하는 자유 행동으로 모든 효과를 종료할 수 있습니다. 그렇지 않으면, 당신의 해방 최후통첩은 지속 시간이 없으나, 한 번에 하나의 해방 최후통첩만 활성화될 수 있습니다. 두 번째 해방 최후통첩을 선언하면 첫 번째 효과는 종료됩니다.</p>",
+   "reason": "'대실패 시' 조건 누락, oppressing(억압하는)→억압받는 의미 반전"
+  },
+  {
+   "slug": "cx0juTYewwBmrYWv",
+   "desc_ko": "<p>당신의 에이돌론이 앞으로 돌진하며, 그 추진력을 이용해 공격력을 증폭시킵니다. 에이돌론은 보폭을 두 번 사용한 후 타격합니다. 에이돌론이 시작 위치에서 최소 20피트 이상 직선으로 이동했다면, 이 명중 굴림에 +1 상황 보너스를 얻습니다.</p>",
+   "reason": "Stride→보폭, Strike→타격"
+  },
+  {
+   "slug": "cx5tBTy6weK6YSw9",
+   "desc_ko": "<p><strong>발동 빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 당신은 열 에너지를 집중시켜 바깥쪽으로 폭발시킵니다. @Template[type:emanation|distance:20] 범위 내 모든 생물은 @Damage[14d6[fire]|options:area-damage]의 피해를 입으며 기본 반사 내성을 시도합니다. 이후, 다음 일일 준비 시까지 잠복 분출 재주의 모든 효과를 상실합니다.</p>",
+   "reason": "@Template 골격 누락(type:) 복구, Feat→재주(피트 금지), 경어체 통일"
+  },
+  {
+   "slug": "cyl7y8GcGjd8ENC7",
+   "desc_ko": "<p><strong>발동</strong> 30피트 내의 아군이 @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기}, @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{이동 불가}, @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비}, @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐}, 또는 @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{억제}</p><hr /><p><strong>효과</strong> 당신은 과거 어느 시점에 아군에게 제안했던 특수 기술에 대해 재빨리 상기시켜 주어, 아군이 발동 효과를 완전히 피할 수 있게 합니다.</p>",
+   "reason": "미번역 'or'/'Effect', 누락 쉼표, ally 역어 통일(아군)"
+  },
+  {
+   "slug": "d5I6018Mci2SWokk",
+   "desc_ko": "<p>짧은 수평 또는 수직 점프를 수행합니다. 더 먼 거리를 점프하려면 @UUID[Compendium.pf2e.actionspf2e.Item.2HJ4yuEFY1Cast4h]{높이뛰기} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.JUvAvruz7yRQXfz2]{멀리뛰기}를 위해 운동 기술을 사용해야 합니다.</p><ul><li><strong>수평</strong> 이동 속도가 15피트 이상일 경우 최대 10피트 수평 점프, 30피트 이상일 경우 최대 15피트 수평 점프가 가능합니다. 도약이 끝나는 위치에 착지합니다(즉, 일반적으로 5피트 간격을 넘을 수 있으며, 이동 속도가 30피트 이상일 경우 10피트 간격도 넘을 수 있습니다). 이동 속도가 15피트 미만일 경우 수평 도약은 불가능합니다.</li><li><strong>수직</strong> 높이 3피트, 수평 5피트까지 점프하여 높은 지면으로 이동합니다.</li></ul>",
+   "reason": "Athletics skill→운동 기술, 경어체 통일"
+  },
+  {
+   "slug": "d9gbpiQjChYDYA2L",
+   "desc_ko": "<p>복잡한 글씨나 난해한 주제의 문헌을 해독하려고 시도합니다. 일반적으로 텍스트 한 페이지당 1분이 소요되나, 더 오래 걸릴 수 있습니다(암호 해독 등은 보통 한 페이지당 1시간). 문서는 당신이 읽을 수 있는 언어로 되어 있어야 하지만, GM이 허용할 경우 [[/act decipher-writing statistic=society]]{사회}를 사용하여 익숙하지 않은 언어로 쓰인 문서를 해독하려고 시도할 수도 있습니다.</p>\n<p>DC는 문서의 상태나 복잡성에 따라 GM이 결정합니다. GM은 짧은 텍스트의 경우 한 번의 굴림을, 긴 텍스트의 경우 각 섹션마다 별도의 판정을 요구할 수 있습니다.</p><table class=\"pf2e remaster\"><tbody><tr><th><p>기술</p></th><th><p>주로 사용되는 용도</p></th></tr><tr><td><p>[[/act decipher-writing statistic=arcana]]{주문학}</p></td><td><p>마법이나 과학에 관한 글</p></td></tr><tr><td><p>[[/act decipher-writing statistic=occultism]]{오컬티즘}</p></td><td><p>신비와 철학에 관한 난해한 문헌</p></td></tr><tr><td><p>[[/act decipher-writing statistic=religion]]{종교학}</p></td><td><p>경전</p></td></tr><tr><td><p>[[/act decipher-writing statistic=society]]{사회}</p></td><td><p>암호화된 메시지 또는 고대 문서</p></td></tr></tbody></table><hr /><p><strong>대성공</strong> 당신은 그 텍스트의 진정한 의미를 이해합니다.</p>\n<p><strong>성공</strong> 당신은 텍스트의 진정한 의미를 이해합니다. 암호화된 문서였다면, 대략적인 의미는 알지만 단어별 번역은 아닐 수 있습니다.</p>\n<p><strong>실패</strong> 텍스트를 이해할 수 없으며, 이를 해독하기 위한 추가 판정 시 상황 페널티 -2를 받습니다.</p>\n<p><strong>대실패</strong> 해당 페이지의 내용을 이해했다고 생각하지만, 실제로는 메시지를 오해한 상태입니다.</p><hr /><section class=\"sample-tasks\"><h2>암호 해독 작업 예시</h2><p><strong>숙련</strong> 초급 철학 논문</p>\n<p><strong>전문가</strong> 암호와 같은 복잡한 코드</p>\n<p><strong>달인</strong> 스파이 마스터의 암호나 고급 연구 노트</p>\n<p><strong>전설</strong> 고대 천상체가 은유로 쓴 난해한 이계 문헌</p></section>",
+   "reason": "매크로 골격 훼손(statistic=주문학/오컬트) 복구, 표 내 미번역 라벨 다수, Trained→숙련, Check→판정, 경어체 통일"
+  },
+  {
+   "slug": "dCuvfq3r2K9wXY9g",
+   "desc_ko": "<p>당신은 우아하면서도 치명적인 공격을 가합니다. 타격을 가하세요. 명중하고 무기가 @UUID[Compendium.pf2e.classfeatures.Item.RQH6vigvhmiYKKjg]{정밀 타격} 조건을 충족한다면, 정밀 타격으로 인한 [[/r {1d6}]]{1d6 피해}를 모두 입힙니다.</p>",
+   "reason": "Make a Strike를 '공격 검사'로 오역"
+  },
+  {
+   "slug": "dLgAMt3TbkmLkUqE",
+   "desc_ko": "<p>당신은 자신의 턴 외에 발생할 행동을 준비합니다. 사용할 수 있는 행동 하나 또는 자유 행동을 선택하고, 발동 조건을 지정합니다. 그러면 당신의 턴이 종료됩니다. 지정한 발동 조건이 다음 턴 시작 전에 발생하면, 선택한 행동을 반응으로 사용할 수 있습니다(해당 행동 사용 요건을 여전히 충족하는 경우에 한함). 이미 발동 조건이 설정된 자유 행동은 준비할 수 없습니다.</p>\n<p>다중 공격 페널티가 적용되는 상태에서 준비한 행동이 공격 행동인 경우, 준비한 공격은 준비를 사용한 시점의 다중 공격 페널티를 적용받습니다. 이는 자신의 턴이 아닐 때 다중 공격 페널티가 적용되는 몇 안 되는 경우 중 하나입니다.</p>",
+   "reason": "경어체 통일, '액션'→'행동'"
+  },
+  {
+   "slug": "djULKW76BbSoN3zb",
+   "desc_ko": "<p>자발적 트랜스에 진입하여 신체적 한계를 뛰어넘습니다. 당신은 레벨에 건강 수정자를 더한 만큼의 임시 체력을 얻습니다. 이 트랜스는 1분 동안 지속되며, 그 전에 @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{무의식} 상태가 되거나 당신이 해제하면 그 시점에 종료됩니다.</p>\n<p>이 트랜스 상태에서는 인내 내성과 의지 내성에 +1 상태 보너스를 얻으며, 근접 타격은 추가로 1의 영혼 피해를 입힙니다. 다른 능력들은 영혼 트랜스 상태를 요구할 수 있습니다. 트랜스가 종료되면 '영혼 트랜스 진입'으로 얻은 임시 체력을 모두 잃으며, 1분 동안 영혼 트랜스에 다시 진입할 수 없습니다.</p>",
+   "reason": "spirit trance 역어 혼용(정신/영혼 트랜스) 통일, whichever comes first 의미 보강, melee Strike→근접 타격"
+  },
+  {
+   "slug": "dnaPJfA0CDLNrWcW",
+   "desc_ko": "<p><strong>발동 조건</strong> 당신의 '약점 악용' 대상이 집중, 조작, 이동 행동을 사용하거나, 사용 중인 이동 행동 중 칸을 떠날 때.</p>\n<p><strong>요구 사항</strong> 당신은 무기 도구를 들고 있으며, 한 생물에 대해 약점 악용 효과를 받고 있습니다. 근접 무기를 휘두르고 있다면 해당 생물은 당신의 도달 범위 내에 있어야 하며, 원거리 무기를 휘두르고 있다면 10피트 이내에 있어야 합니다.</p>\n<hr />\n<p>무기가 상대의 약점을 감지하고 당신의 손을 이끌어 적을 강타합니다. 무기 도구를 사용해 발동 대상 생물에게 타격을 가하세요. 공격이 대명중일 경우 발동 행동을 방해합니다. 이 타격은 다중 공격 페널티 계산에 포함되지 않으며, 다중 공격 페널티도 이 타격에 적용되지 않습니다.</p>",
+   "reason": "critical hit 역어(대명중) 통일, Strike→타격"
+  },
+  {
+   "slug": "dwA0wfUaRf4aT0eB",
+   "desc_ko": "<p><strong>발동 빈도</strong> 라운드당 1회</p><hr /><p><strong>효과</strong> 당신의 오스틸리가 30피트 내의 표적을 향해 마법의 다트를 토해내며 붉게 번쩍입니다. 이 마법 다트는 @Damage[((1+floor((@actor.level -2)/4))d6)[piercing]]의 피해를 입힙니다(@Check[reflex|against:class-spell|basic] 당신의 직업 DC와 주문 DC 중 높은 쪽에 대한 내성 굴림). 이 피해는 6레벨에 1d6씩 증가하며, 이후 4레벨마다 추가로 증가합니다.</p>",
+   "name_ko": "주변 마법 뱉기",
+   "reason": "저항 검사→내성 굴림, 경어체 통일; 이름 어순 오역(Spit Ambient Magic) 교정"
+  },
+  {
+   "slug": "dypCcXb9mwVbg6xD",
+   "desc_ko": "<p><strong>효과</strong> 비행 중 경로상의 어느 지점에서든 타격을 가할 수 있습니다.</p>",
+   "reason": "Strike→타격"
+  },
+  {
+   "slug": "e2ePMDa7ixbLRryj",
+   "desc_ko": "<p><strong>전제 조건</strong> 외교 숙련</p>\n<p><strong>요구 사항</strong> 대상 아군이 지난 라운드에 스태미나 포인트를 잃었음</p>\n<hr />\n<p>30피트 이내의 아군에게 짧은 격려의 말을 건네 회복을 돕습니다. 외교 판정을 시도하세요. DC는 보통 15이지만, GM이 상황에 따라 조정할 수 있습니다. 외교에 전문가 숙련도를 가진 경우, 대신 DC 20 판정을 시도하여 회복되는 스태미나 포인트를 5 증가시킬 수 있습니다. 달인 숙련도를 가진 경우, DC 30 판정을 시도하여 스태미나 포인트를 15 증가시킬 수 있습니다. 전설 숙련도를 가진 경우, DC 40 판정을 시도하여 스태미나 포인트를 25 증가시킬 수 있습니다. 결과와 상관없이, 아군은 @UUID[Compendium.pf2e.actionspf2e.Item.qc0VsZ0UesnurUUB]{휴식 취하기}를 하거나 하루 동안 휴식을 취할 때까지 격려의 말에 일시적으로 면역됩니다.</p>\n<hr />\n<p><strong>대성공</strong> 아군이 [[/r {2d8} #Stamina Points]]{2d8 스태미나 포인트}를 회복합니다.</p>\n<p><strong>성공</strong> 아군이 [[/r {1d8} #Stamina Points]]{1d8 스태미나 포인트}를 회복합니다.</p>\n<p><strong>대실패</strong> 아군은 @Damage[1d8[mental]]의 피해를 입지만, 이는 스태미나 포인트만 감소시킬 수 있으며 체력은 절대 감소시키지 않습니다.</p>",
+   "reason": "Stamina Points를 '체력 포인트'로 오역(HP와 혼동 유발), expert를 '숙련'으로 오역(전문가), Check→판정"
+  },
+  {
+   "slug": "e5JscXqvBUC867oo",
+   "desc_ko": "<p><strong>발동 조건</strong> 주문이나 마법 효과에 대한 내성 굴림을 시도했으나 아직 굴리지 않았습니다.</p><hr /><p><strong>효과</strong> 마법의 결함을 발견하고 그 허점을 이용해 효과로부터 자신을 보호합니다. 해당 효과를 유발하는 마법에 대한 내성 굴림에 +1 상황 보너스를 얻습니다. 만약 그 효과가 신성하고, 당신이 원한을 품은 신을 숭배하는 자로부터 비롯된 것이라면, 이 상황 보너스는 +2로 증가합니다.</p>",
+   "reason": "미번역 라벨"
+  },
+  {
+   "slug": "ePfdZYZRmycMpSWU",
+   "desc_ko": "<p><strong>요구 사항</strong> 활성 상태의 해로우 오멘 보유</p>\n<p><strong>발동 조건</strong> 당신의 해로우 오멘의 문양과 관련된 판정에서 실패하거나 대실패할 때</p>\n<hr />\n<p><strong>효과</strong> 실패를 성공으로, 대실패를 실패로 처리합니다. 더 이상 활성 상태의 해로우 오멘이 없습니다.</p>",
+   "reason": "harrow omen 역어 혼용 통일, '네가 네' 반말·'문양와' 조사 오류, Check→판정"
+  },
+  {
+   "slug": "eReSHVEPCsdkSL4G",
+   "desc_ko": "<p>물품, 장소, 지속 효과의 마법적 성질을 발견한 후 10분을 소모하여 그 마법의 세부 사항을 식별하려고 시도할 수 있습니다. 시도가 방해받으면 처음부터 다시 시작해야 합니다. GM이 판정의 난이도(DC)를 설정합니다. 저주받은 마법이나 난해한 주제는 일반적으로 더 높은 DC를 가지거나, 이 활동만으로는 식별이 불가능할 수도 있습니다. 주문을 강화해도 식별 난이도는 증가하지 않습니다.</p>\n<hr />\n<p><strong>대성공</strong> 마법의 모든 속성을 파악합니다. 효과의 경우 이름, 기능, 발동 방법(아이템이나 장소의 경우), 저주 여부 등이 포함됩니다.</p>\n<p><strong>성공</strong> 아이템이나 장소의 경우, 그 기능과 활성화 방법을 파악합니다. 지속 효과(지속 시간이 있는 주문 등)의 경우, 효과의 이름과 작용 방식을 알게 됩니다. 대성공을 기대하며 재시도할 수 없습니다.</p>\n<p><strong>실패</strong> 마법을 식별하는 데 실패했으며, 1일 동안 다시 시도할 수 없습니다.</p>\n<p><strong>대실패</strong> 마법을 GM이 선택한 다른 것으로 잘못 식별합니다.</p>",
+   "reason": "'체크 검사' 이중 번역, esoteric 음차 교정"
+  },
+  {
+   "slug": "egXlMyYLBthoQSgh",
+   "desc_ko": "<p><strong>요구 사항</strong> 이전 행동이 @UUID[Compendium.pf2e.classfeatures.Item.ktgzHtKoeUZ5H8KA]{그림자 칼집}의 무기로 실패한 타격이었음</p><hr /><p><strong>효과</strong> 던진 그림자 무기가 사라지며, 이는 처음부터 첫 공격의 사각에 숨겨진 두 번째 일격을 위한 위장이었습니다! 상호작용으로 그림자 칼집에서 또 다른 무기를 뽑은 뒤, 실패한 공격과 동일한 다중 공격 페널티로 그 무기로 타격합니다. 상대는 이 공격에 대해 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태입니다.</p>\n<p>이 타격은 다중 공격 페널티 계산에 정상적으로 포함됩니다. 타격이 해결된 후, 상호작용하여 그림자 칼집에서 또 다른 무기를 뽑을 수 있습니다.</p>",
+   "reason": "문장이 태그 경계로 파손(요구 사항 문구가 효과 뒤로 밀림) 복구, Interact 누락 보완, 경어체 통일"
+  },
+  {
+   "slug": "enQieRrITuEQZxx2",
+   "desc_ko": "<p><strong>발동</strong> 당신의 챔피언 오라 내에 있는 적이 당신에게 피해를 입힐 때</p><hr /><p><strong>효과</strong> 이기심이 당신을 보호합니다. 발동된 피해에 대해 2 + 레벨의 절반에 해당하는 저항력을 얻습니다. 피해 유형에 관계없이 적용됩니다.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.h6nyMp4dtPXBfCJc]{효과: 이기적인 방패}</p>\n<p>추가로, 발동 대상 생물에게 가하는 당신의 타격은 다음 턴이 끝날 때까지 영혼 피해 1을 추가로 입힙니다. 이 추가 피해는 9레벨에 2, 16레벨에 3으로 증가합니다.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.2a6fuugiPpICe3Li]{효과: 챔피언의 추가 피해}</p>",
+   "reason": "Strikes→타격"
+  },
+  {
+   "slug": "ev8OHpBO3xq3Zt08",
+   "desc_ko": "<p><strong>발동 빈도</strong> 하루에 한 번</p>\n<p><strong>요구 사항</strong> 관통 또는 참격 무기를 사용 중일 것</p>\n<hr />\n<p>당신은 꼬리의 맹독을 관통 또는 참격 무기에 바릅니다. 다음 턴이 끝나기 전에 그 무기로 가하는 다음 타격이 명중하여 피해를 입히면, 대상에게 당신의 레벨에 해당하는 지속 독 피해를 입힙니다.</p>",
+   "reason": "Slashing→참격(베기 금지), Strike→타격"
+  },
+  {
+   "slug": "ewwCglB7XOPLUz72",
+   "desc_ko": "<p>거짓말로 상대를 속이려 합니다. 최소 1라운드가 소요되며, 거짓말이 정교할수록 더 오래 걸립니다. 단일 [[/act lie]]{기만} 판정을 굴려 속이려는 모든 생물의 지각 DC와 비교합니다. GM은 상황과 거짓말의 성격에 따라 대상에게 상황 보너스를 부여할 수 있습니다. 정교하거나 믿기 어려운 거짓말은 단순하고 믿을 만한 거짓말보다 상대가 믿게 하기가 훨씬 어렵습니다. 또한 어떤 거짓말은 너무 터무니없어 누구도 믿게 할 수 없습니다.</p>\n<p>GM의 재량에 따라, 생물이 처음에 당신의 거짓말을 믿었다면 나중에 지각 판정을 시도하여 @UUID[Compendium.pf2e.actionspf2e.Item.1xRFPTFtWtGJ9ELw]{의도 감지}로 당신의 기만 DC를 상대로 거짓임을 깨닫게 할 수 있습니다. 이는 대개 대상이 당신의 진술을 반박할 만한 충분한 증거를 발견했을 때 발생합니다.</p><hr /><p><strong>성공</strong> 대상은 당신의 거짓말을 믿습니다.</p>\n<p><strong>실패</strong> 대상은 당신의 거짓말을 믿지 않으며, 대화 지속 시간 동안 당신의 거짓말 시도 시 +4 상황 보너스를 얻습니다. 또한 대상은 앞으로 당신을 더 의심할 가능성이 높아집니다.</p>",
+   "reason": "'체크를 굴림하고' 비문, Check→판정"
+  },
+  {
+   "slug": "exuTl8tvVlewxVGJ",
+   "desc_ko": "<p>당신은 죽음의 세계로 스며들어 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.zJxUflt9np0q4yML]{투명} 상태가 되고, 자신의 속도만큼 비행합니다. 이 이동 중 어느 시점에든 당신과 인접한 모든 적은 당신의 클래스 DC에 대한 @Check[fortitude|against:exemplar|options:inflicts:blinded] 내성 굴림에 성공해야 하며, 실패 시 1분 동안 @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{눈멈} 됩니다(대실패 시 영구적).</p>\n<p>이 효과로 인해 눈멈 상태가 된 각 생물마다 부여된 투명화 지속 시간이 1라운드 연장됩니다. 언데드 및 사자의 세계와 강한 유대를 가진 다른 생물들(예: 사이코폼프)은 이 효과에 면역입니다.</p>",
+   "reason": "투명→비행 선후관계 오역 교정, Blinded 역어(눈멈) 통일"
+  },
+  {
+   "slug": "fJImDBQfqfjKJOhk",
+   "desc_ko": "<p>별자리, 태양의 위치, 지형이나 식물의 특징, 동물의 행동 등을 이용해 야생에서 방향을 유지할 수 있습니다. 일반적으로 하루에 한 번만 [[/act sense-direction]]{생존} 판정을 시도하지만, 특정 환경이나 변화로 인해 더 자주 굴려야 할 수도 있습니다. GM이 난이도(DC)와 이 활동에 소요되는 시간(보통 1분 정도)을 결정합니다. 더 특이한 장소나 익숙하지 않은 장소에서는 방향 감지 숙련도 최소 등급이 필요할 수 있습니다. @UUID[Compendium.pf2e.equipment-srd.Item.wob6DB1FFdWs0mbp]{나침반}이 없을 경우, 방향 감지 판정 시 -2 아이템 페널티를 받습니다.</p><hr /><p><strong>대성공</strong> 현재 위치를 탁월하게 파악합니다. 방위 방향이 명확한 환경이라면 정확히 알 수 있습니다.</p>\n<p><strong>성공</strong> 당신은 완전히 길을 잃지 않을 만큼의 방향 감각을 얻습니다. 방위 방향이 명확한 환경에 있다면, 그 방향들을 인지할 수 있습니다.</p><section class=\"sample-tasks\"><h2>방향 감지 과제</h2><ul><li><strong>미숙련</strong> 태양을 이용해 방위를 판단</li><li><strong>숙련</strong> 숲속에서 자란 길을 찾기</li><li><strong>전문가</strong> 울타리로 된 미로를 헤쳐나가기</li><li><strong>달인</strong> 복잡한 미로나 비교적 특징 없는 사막을 헤쳐나가기</li><li><strong>전설</strong> 끊임없이 변화하는 꿈의 세계를 탐험하기</li></ul></section>",
+   "reason": "Trained→숙련/Legendary→전설, Check→판정, 띄어쓰기·명사형 통일, '렐름' 음차 교정"
+  }
+ ],
+ "flags": [
+  {
+   "slug": "ePfdZYZRmycMpSWU",
+   "note": "harrow omen 정본 역어 불확실 — 항목 내 다수 표기인 '해로우 오멘'으로만 통일함. 정본 용어 확정 시 일괄 치환 필요"
+  },
+  {
+   "slug": "e2ePMDa7ixbLRryj",
+   "note": "Stamina Points를 '스태미나 포인트'로 교정했으나 정본 역어 미확정(스태미나 점수 가능성). HP('체력')와의 혼동만 우선 해소"
+  },
+  {
+   "slug": "Zt9bo3FYLQihmpAz",
+   "note": "Hit Points 역어가 코퍼스 내 '체력'/'생명력' 혼용(이 항목은 '생명력'). 코퍼스 전체 통일 사안이라 미수정"
+  },
+  {
+   "slug": "ako5zZwC6o26cfCQ",
+   "note": "'클래스 DC' vs '직업 DC' 혼용(여러 항목). 코퍼스 전체 통일 사안이라 미수정"
+  }
+ ]
+}
