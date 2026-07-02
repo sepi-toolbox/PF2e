@@ -74,7 +74,10 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   position:absolute;inset:0;display:none;align-items:center;justify-content:center;
   color:#b8a888;font-size:13px;text-align:center;padding:24px;line-height:1.6;pointer-events:none;
 }
-#map-toolbar{position:absolute;top:8px;left:8px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;z-index:6;}
+#map-toolbar{position:absolute;top:8px;left:8px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;z-index:6;transition:left .18s ease;}
+/* 드로어 열림 → 툴바/플라이아웃을 드로어 폭만큼 오른쪽으로 밀어냄 (가림 방지) */
+#map-drawer.open ~ #map-stage #map-toolbar{left:240px;}
+#map-drawer.open ~ #map-stage .fog-menu{left:336px;}
 #map-toolbar button{
   background:rgba(236,225,199,.94);color:var(--text);border:1px solid var(--border2);
   border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.35);
@@ -91,7 +94,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 #map-zoom button:active{background:var(--bg4);}
 
 /* ── 안개 공개/제거 확장 메뉴 (툴바 오른쪽 플라이아웃) ── */
-.fog-menu{position:absolute;top:8px;left:104px;z-index:6;display:flex;flex-direction:column;gap:5px;
+.fog-menu{position:absolute;top:8px;left:104px;z-index:6;display:flex;flex-direction:column;gap:5px;transition:left .18s ease;
   background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border:1px solid var(--border2);border-radius:8px;padding:6px;box-shadow:0 6px 20px rgba(0,0,0,.4);}
 .fog-menu button{background:var(--bg3);color:var(--text);border:1px solid var(--border2);
   border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;text-align:left;white-space:nowrap;}
@@ -323,6 +326,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   <div id="map-toolbar">
     <!-- GM 전용, 세로 배치 (플레이어 시점이면 숨김). 배경/격자는 드로어 ✎ 지도 편집기로 이동 -->
     <button id="map-drawer-btn" style="display:none;" onclick="MapView.toggleDrawer()">☰ 지도</button>
+    <button id="fog-btn-select" style="display:none;" onclick="MapView.setSelectTool()">🖐 선택</button>
     <button id="fog-btn-reveal" style="display:none;" onclick="MapView.toggleFogMenu('reveal')">🔆 공개 ▸</button>
     <button id="fog-btn-recover" style="display:none;" onclick="MapView.toggleFogMenu('recover')">🌑 제거 ▸</button>
   </div>
@@ -393,9 +397,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_dice.js?v=0.65"></script>
-<script src="cs_monster.js?v=0.65"></script>
-<script src="cs_map.js?v=0.65"></script>
+<script src="cs_dice.js?v=0.66"></script>
+<script src="cs_monster.js?v=0.66"></script>
+<script src="cs_map.js?v=0.66"></script>
 <style>
 /* 듀얼모니터: GM 도구 + 플레이어 CCTV */
 #map-gm-tools{margin-left:12px;display:inline-flex;gap:6px;align-items:center;}
@@ -651,7 +655,7 @@ window.MonsterLink = (function () {
     const _b = document.getElementById('pf-dice-box'); if (_b) _b.remove();
   } else {
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.65');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.66');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     const box = new DiceBox({ container: '#pf-dice-box', assetPath, theme: 'default', offscreen: false, scale: 6 });
     let ready = false;

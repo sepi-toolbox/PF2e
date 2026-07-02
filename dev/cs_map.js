@@ -732,8 +732,10 @@ var MapView = (function() {
   let _fogMenu = null;              // 열린 메뉴: 'reveal' | 'recover' | null
   function _refreshFogToolbar() {
     const gm = _effGM();
+    const sel = document.getElementById('fog-btn-select');
     const rv = document.getElementById('fog-btn-reveal');
     const rc = document.getElementById('fog-btn-recover');
+    if (sel) { sel.style.display = gm ? '' : 'none'; sel.classList.toggle('on', !_brush.paint); }
     if (rv) { rv.style.display = gm ? '' : 'none'; rv.classList.toggle('on', _fogMenu === 'reveal'); }
     if (rc) { rc.style.display = gm ? '' : 'none'; rc.classList.toggle('on', _fogMenu === 'recover'); }
     const mr = document.getElementById('fog-menu-reveal');
@@ -770,6 +772,14 @@ var MapView = (function() {
     _brush.mode = (mode === 'recover') ? 'recover' : 'reveal';
     _brush.shape = (shape === 'rect' || shape === 'circle') ? shape : 'free';
     _brush.paint = true;
+    _refreshFogToolbar();
+    _markDirty();
+  }
+  // 일반 선택기: 안개 브러시 off → 팬/토큰 이동 등 기본 포인터로 복귀
+  function setSelectTool() {
+    if (!_effGM()) return;
+    _brush.paint = false;
+    _fogMenu = null;
     _refreshFogToolbar();
     _markDirty();
   }
@@ -2038,7 +2048,7 @@ var MapView = (function() {
     getCameraShare: getCameraShare, applyCameraShare: applyCameraShare,   // 듀얼모니터 카메라 동기화
     onRender: function (cb) { _onRenderCb = cb; },                         // 화면 변화 시 콜백(CCTV 캡처용)
     // 안개 (GM): 공개/제거 도구 + 확장 메뉴
-    toggleFogMenu: toggleFogMenu, setFogTool: setFogTool,
+    toggleFogMenu: toggleFogMenu, setFogTool: setFogTool, setSelectTool: setSelectTool,
     revealAll: revealAll, coverAll: coverAll,
     // 격자 + 지도 편집기 (GM, 드로어 ✎)
     toggleGrid: toggleGrid, gridRangeInput: gridRangeInput, gridRangeChange: gridRangeChange,
