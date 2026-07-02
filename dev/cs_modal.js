@@ -2593,18 +2593,23 @@ function openModal(type, ctx) {
   // 부스트 모달은 별도 처리
   if (type === 'boost') { openBoostModal(); return; }
 
-  // FVTT 혈통/유산/배경/클래스 데이터 미준비 시: 폴백으로 일단 열고, 로드 완료되면 FVTT 전체 목록으로 재오픈
-  if ((type === 'ancestry' || type === 'heritage' || type === 'background' || type === 'class') && typeof _ensureAncData === 'function') {
-    const _need = (type === 'background') ? (typeof PF2eBg !== 'undefined' && PF2eBg.ready && !PF2eBg.ready())
-      : (type === 'class') ? (typeof PF2eClass !== 'undefined' && PF2eClass.ready && !PF2eClass.ready())
-      : (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && !PF2eAnc.ready());
-    if (_need) _ensureAncData().then(ok => { if (ok && modalType === type) openModal(type, ctx); });
-  }
-
-  // FVTT 장비 카탈로그(무기/방어구/방패/장비 picker) 미준비 시: 로드 완료되면 재오픈
-  if (['weapon','armor','shield','equip-weapon','equip-armor','equip-shield','equip-gear'].includes(type)
-      && typeof _ensureEquipData === 'function' && typeof _equipUseFvtt === 'function' && !_equipUseFvtt()) {
-    _ensureEquipData().then(ok => { if (ok && modalType === type) openModal(type, ctx); });
+  // ── FVTT 카탈로그 로딩 게이트 ──
+  // 관련 어댑터가 준비 안 됐으면 빈 목록 대신 "로딩 중"을 보여주고 상호작용을 막은 뒤,
+  // 준비되면 재오픈해 정상 렌더. (느린 모바일에서 빈 모달을 만지다 확정이 막히던 문제 방지)
+  const _equipTypes = ['weapon','armor','shield','equip-weapon','equip-armor','equip-shield','equip-gear'];
+  let _dataReady = true;
+  if (type === 'class') _dataReady = !(typeof PF2eClass !== 'undefined' && PF2eClass.ready && !PF2eClass.ready());
+  else if (type === 'background') _dataReady = !(typeof PF2eBg !== 'undefined' && PF2eBg.ready && !PF2eBg.ready());
+  else if (type === 'ancestry' || type === 'heritage') _dataReady = !(typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && !PF2eAnc.ready());
+  else if (type === 'feat') _dataReady = !(typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && !PF2eFeat.ready());
+  else if (type === 'spell') _dataReady = !(typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && !PF2eSpell.ready());
+  else if (_equipTypes.includes(type)) _dataReady = !(typeof _equipUseFvtt === 'function') || _equipUseFvtt();
+  if (!_dataReady) {
+    const _reopen = (ok) => { if (ok !== false && modalType === type) openModal(type, ctx); };
+    if (['class','ancestry','heritage','background'].includes(type) && typeof _ensureAncData === 'function') _ensureAncData().then(_reopen);
+    else if ((type === 'feat' || type === 'spell') && typeof _ensureAllCatalogs === 'function') _ensureAllCatalogs().then(_reopen);
+    else if (_equipTypes.includes(type) && typeof _ensureEquipData === 'function') _ensureEquipData().then(_reopen);
+    else if (typeof _ensureAllCatalogs === 'function') _ensureAllCatalogs().then(_reopen);
   }
 
   document.getElementById('modal-overlay').classList.remove('hidden');
@@ -2637,6 +2642,14 @@ function openModal(type, ctx) {
   // 초기 선택 UI가 있는 타입은 footer 숨김 (자체 확인 버튼 사용)
   const footer = document.querySelector('.modal-footer');
   if (footer) footer.style.display = ['class','ancestry','background'].includes(type) ? 'none' : '';
+
+  // 미준비: 로딩 안내만 표시하고 종료(준비되면 위 게이트가 재오픈해 정상 렌더)
+  if (!_dataReady) {
+    const _opts = document.getElementById('modal-options');
+    if (_opts) _opts.innerHTML = '<div style="padding:28px 16px;text-align:center;color:var(--text2);font-size:13px;line-height:1.7;">데이터를 불러오는 중입니다…<br><span style="font-size:11px;">잠시 후 목록이 표시됩니다.</span></div>';
+    const _det = document.getElementById('modal-detail'); if (_det) _det.innerHTML = '';
+    return;
+  }
 
   renderOptions(getOptionsData(type));
 
