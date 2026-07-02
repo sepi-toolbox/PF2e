@@ -44,10 +44,10 @@ window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters'
                   sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
 window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
-<script src="equipment_db.js?v=0.69"></script>
-<script src="class_features_db.js?v=0.69"></script>
-<script src="effects_db.js?v=0.69"></script>
-<script src="prereqs_db.js?v=0.69"></script>
+<script src="equipment_db.js?v=0.70"></script>
+<script src="class_features_db.js?v=0.70"></script>
+<script src="effects_db.js?v=0.70"></script>
+<script src="prereqs_db.js?v=0.70"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -67,7 +67,7 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
   console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.69">
+<link rel="stylesheet" href="app-shell.css?v=0.70">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -1924,7 +1924,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.69</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.70</span></div>
 </div>
 
 <!-- ═══ 업데이트 로그 모달 ═══ -->
@@ -2455,7 +2455,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.69" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.70" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2532,36 +2532,36 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.69"></script>
-<script src="cs_calc.js?v=0.69"></script>
+<script src="cs_data.js?v=0.70"></script>
+<script src="cs_calc.js?v=0.70"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.69"></script>
-<script src="cs_re_engine.js?v=0.69"></script>
-<script src="cs_pf2e_stats.js?v=0.69"></script>
-<script src="cs_pf2e_equip.js?v=0.69"></script>
-<script src="cs_pf2e_anc.js?v=0.69"></script>
-<script src="cs_pf2e_bg.js?v=0.69"></script>
-<script src="cs_pf2e_spell.js?v=0.69"></script>
-<script src="cs_pf2e_deity.js?v=0.69"></script>
-<script src="cs_pf2e_action.js?v=0.69"></script>
-<script src="cs_pf2e_feat.js?v=0.69"></script>
-<script src="cs_pf2e_class.js?v=0.69"></script>
-<script src="cs_pf2e_actor.js?v=0.69"></script>
-<script src="cs_ui.js?v=0.69"></script>
-<script src="cs_modal.js?v=0.69"></script>
-<script src="cs_feat_effects.js?v=0.69"></script>
-<script src="cs_save.js?v=0.69"></script>
-<script src="cs_session.js?v=0.69"></script>
-<script src="cs_dice.js?v=0.69"></script>
-<script src="cs_map.js?v=0.69"></script>
+<script src="cs_pf2e.js?v=0.70"></script>
+<script src="cs_re_engine.js?v=0.70"></script>
+<script src="cs_pf2e_stats.js?v=0.70"></script>
+<script src="cs_pf2e_equip.js?v=0.70"></script>
+<script src="cs_pf2e_anc.js?v=0.70"></script>
+<script src="cs_pf2e_bg.js?v=0.70"></script>
+<script src="cs_pf2e_spell.js?v=0.70"></script>
+<script src="cs_pf2e_deity.js?v=0.70"></script>
+<script src="cs_pf2e_action.js?v=0.70"></script>
+<script src="cs_pf2e_feat.js?v=0.70"></script>
+<script src="cs_pf2e_class.js?v=0.70"></script>
+<script src="cs_pf2e_actor.js?v=0.70"></script>
+<script src="cs_ui.js?v=0.70"></script>
+<script src="cs_modal.js?v=0.70"></script>
+<script src="cs_feat_effects.js?v=0.70"></script>
+<script src="cs_save.js?v=0.70"></script>
+<script src="cs_session.js?v=0.70"></script>
+<script src="cs_dice.js?v=0.70"></script>
+<script src="cs_map.js?v=0.70"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.69"></script>
-<script src="cs_i18n.js?v=0.69"></script>
+<script src="cs_locale.js?v=0.70"></script>
+<script src="cs_i18n.js?v=0.70"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.69');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.70');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2645,6 +2645,9 @@ document.addEventListener('click', function(e) {
 // ═══ 업데이트 로그 / 공지 (기어 메뉴) ═══
 // 최신순. 새 버전 작업 시 맨 앞에 {v, date, items:[...]} 추가(사용자 친화적 한글 문장).
 const CHANGELOG = [
+  { v: '0.70', date: '2026-07-03', items: [
+    '이름 불일치 — 용어집 규칙으로 확정되는 것 자동 통일: 감각 이름을 정본으로(암시야→암흑 시야, 사고/사념 감지→생각 감지, 생명감지→생명 감지 등), "반응 공격"→"반응 타격"(Strike=타격), "성스러운 빛"→"신성한 빛"(Holy=신성), 띄어쓰기만 다르던 것 통일. 이름이 갈렸던 293건이 이제 118건까지 줄었고, 남은 것은 음역↔의역처럼 취향이 갈리는 항목이라 이후 번역 감수에서 처리합니다.',
+  ] },
   { v: '0.69', date: '2026-07-02', items: [
     'GM 지도 "⬆ 원본 업로드" 버튼 추가 — 지도 편집기에서 파일을 고르면 브라우저가 직접 리포(dev/maps/)에 커밋하고 원본 해상도 URL 배경으로 자동 적용합니다(깃 수동 커밋 불필요). 최초 1회 GitHub 토큰(대상 리포 Contents 권한만)을 물어보며, 토큰은 GM 브라우저에만 저장됩니다.',
     '이름 불일치 추가 정리 — (1) "효과: ○○" 58건을 원본 주문/재주/아이템 이름과 한 번 더 맞췄습니다(변신↔형태, 포션↔물약, 오일↔기름 등). (2) 같은 아이템의 등급 변형(하급/중급/상급…)인데 본체 이름이 서로 달랐던 123개 가족을 하나로 통일했습니다(예: "운동 능력 팔찌"/"운동능력의 팔찌" → 한 이름). 앞서 이름이 갈렸던 293건 중 절반 이상이 자동 정리됐고, 남은 것은 음역↔의역처럼 취향·규칙 판단이 필요한 항목입니다.',

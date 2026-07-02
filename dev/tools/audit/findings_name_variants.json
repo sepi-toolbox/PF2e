@@ -1,6 +1,6 @@
 {
- "generated": "2026-07-03 v0.69",
- "count": 126,
+ "generated": "2026-07-03 v0.70",
+ "count": 118,
  "groups": [
   {
    "en": "Once Bitten",
@@ -78,17 +78,6 @@
     "흡수": [
      "effects:effect-drain-life",
      "spells:drain-life"
-    ]
-   }
-  },
-  {
-   "en": "Reactive Strike",
-   "variants": {
-    "반응 타격": [
-     "actions:reactive-strike"
-    ],
-    "반응 공격": [
-     "feats:reactive-strike"
     ]
    }
   },
@@ -243,29 +232,6 @@
    }
   },
   {
-   "en": "Holy Light",
-   "variants": {
-    "성스러운 빛": [
-     "actions:holy-light"
-    ],
-    "신성한 빛": [
-     "feats:holy-light",
-     "spells:holy-light"
-    ]
-   }
-  },
-  {
-   "en": "Greater Darkvision",
-   "variants": {
-    "상위 암시야": [
-     "actions:greater-darkvision"
-    ],
-    "향상된 암흑 시야": [
-     "feats:greater-darkvision"
-    ]
-   }
-  },
-  {
    "en": "Sneak Attack",
    "variants": {
     "기습 공격": [
@@ -277,17 +243,6 @@
    }
   },
   {
-   "en": "Thoughtsense",
-   "variants": {
-    "사고 감지": [
-     "actions:thoughtsense"
-    ],
-    "사념 감지": [
-     "feats:thoughtsense"
-    ]
-   }
-  },
-  {
    "en": "Telepathy",
    "variants": {
     "정신감응": [
@@ -295,30 +250,6 @@
     ],
     "텔레파시": [
      "spells:telepathy"
-    ]
-   }
-  },
-  {
-   "en": "Darkvision",
-   "variants": {
-    "암시야": [
-     "actions:darkvision",
-     "feats:darkvision"
-    ],
-    "암흑 시야": [
-     "effects:spell-effect-darkvision",
-     "spells:darkvision"
-    ]
-   }
-  },
-  {
-   "en": "Lifesense",
-   "variants": {
-    "생명 감지": [
-     "actions:lifesense"
-    ],
-    "생명감지": [
-     "feats:lifesense"
     ]
    }
   },
@@ -341,18 +272,6 @@
     ],
     "제트": [
      "equipment:jet"
-    ]
-   }
-  },
-  {
-   "en": "Echolocation",
-   "variants": {
-    "반향정위": [
-     "actions:echolocation"
-    ],
-    "반향 위치 파악": [
-     "effects:effect-echolocation",
-     "feats:echolocation"
     ]
    }
   },
@@ -1232,17 +1151,6 @@
     ],
     "에이돌론의 속박 해제": [
      "spells:unfetter-eidolon"
-    ]
-   }
-  },
-  {
-   "en": "Waking Dream",
-   "variants": {
-    "깨어있는 꿈": [
-     "feats:waking-dream"
-    ],
-    "깨어 있는 꿈": [
-     "spells:waking-dream"
     ]
    }
   },
