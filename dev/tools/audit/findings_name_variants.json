@@ -1,0 +1,3416 @@
+{
+ "generated": "2026-07-02 v0.68 후",
+ "note": "동일 영문명(프리픽스·등급 제거 후)이 서로 다른 한글명 — LLM 감수로 통일 필요(효과 자동재동기화 이후 잔존분)",
+ "count": 293,
+ "groups": [
+  {
+   "en": "Once Bitten",
+   "variants": {
+    "한번 물린 자": [
+     "actions:once-bitten"
+    ],
+    "한 번 물린": [
+     "backgrounds:once-bitten"
+    ]
+   }
+  },
+  {
+   "en": "Change Shape",
+   "variants": {
+    "형태 변신": [
+     "actions:change-shape"
+    ],
+    "모양 변화": [
+     "feats:change-shape"
+    ]
+   }
+  },
+  {
+   "en": "Unleash Psyche",
+   "variants": {
+    "정신 해방": [
+     "actions:unleash-psyche"
+    ],
+    "정신의 해방": [
+     "effects:effect-unleash-psyche",
+     "feats:unleash-psyche"
+    ]
+   }
+  },
+  {
+   "en": "Gossip",
+   "variants": {
+    "소문": [
+     "actions:gossip"
+    ],
+    "가십": [
+     "backgrounds:gossip"
+    ]
+   }
+  },
+  {
+   "en": "Steel Your Resolve",
+   "variants": {
+    "결의 다지기": [
+     "actions:steel-your-resolve"
+    ],
+    "강철 같은 결의": [
+     "feats:steel-your-resolve"
+    ]
+   }
+  },
+  {
+   "en": "Call Gun",
+   "variants": {
+    "총 호출": [
+     "actions:call-gun"
+    ],
+    "총기 소환": [
+     "feats:call-gun"
+    ]
+   }
+  },
+  {
+   "en": "Drain Life",
+   "variants": {
+    "생명력 흡수": [
+     "actions:drain-life"
+    ],
+    "흡수": [
+     "effects:effect-drain-life",
+     "spells:drain-life"
+    ]
+   }
+  },
+  {
+   "en": "Reactive Strike",
+   "variants": {
+    "반응 타격": [
+     "actions:reactive-strike"
+    ],
+    "반응 공격": [
+     "feats:reactive-strike"
+    ]
+   }
+  },
+  {
+   "en": "Lucky Break",
+   "variants": {
+    "행운의 기회": [
+     "actions:lucky-break"
+    ],
+    "행운의 돌파구": [
+     "feats:lucky-break"
+    ],
+    "행운의 돌파": [
+     "spells:lucky-break"
+    ]
+   }
+  },
+  {
+   "en": "Patron's Presence",
+   "variants": {
+    "후원자의 현존": [
+     "actions:patrons-presence"
+    ],
+    "후원자의 현현": [
+     "feats:patrons-presence"
+    ]
+   }
+  },
+  {
+   "en": "Plummeting Roll",
+   "variants": {
+    "낙법": [
+     "actions:plummeting-roll"
+    ],
+    "급강하 굴림": [
+     "feats:plummeting-roll"
+    ]
+   }
+  },
+  {
+   "en": "Detect Magic",
+   "variants": {
+    "마법 탐지": [
+     "actions:detect-magic"
+    ],
+    "마법 감지": [
+     "spells:detect-magic"
+    ]
+   }
+  },
+  {
+   "en": "Patron's Claim",
+   "variants": {
+    "후원자의 주장": [
+     "actions:patrons-claim"
+    ],
+    "후원자의 요구": [
+     "feats:patrons-claim"
+    ]
+   }
+  },
+  {
+   "en": "Inspired Stratagem",
+   "variants": {
+    "영감 받은 계략": [
+     "actions:inspired-stratagem"
+    ],
+    "영감의 전략": [
+     "effects:effect-inspired-stratagem",
+     "feats:inspired-stratagem"
+    ]
+   }
+  },
+  {
+   "en": "Quick-Tempered",
+   "variants": {
+    "성급함": [
+     "actions:quick-tempered"
+    ],
+    "급한 성질": [
+     "feats:quick-tempered"
+    ]
+   }
+  },
+  {
+   "en": "Debilitating Strike",
+   "variants": {
+    "쇠약화 타격": [
+     "actions:debilitating-strike"
+    ],
+    "무력화 타격": [
+     "effects:effect-debilitating-strike",
+     "feats:debilitating-strike"
+    ]
+   }
+  },
+  {
+   "en": "Exploit Vulnerability",
+   "variants": {
+    "취약점 악용": [
+     "actions:exploit-vulnerability"
+    ],
+    "약점 악용": [
+     "feats:exploit-vulnerability"
+    ]
+   }
+  },
+  {
+   "en": "Devise a Stratagem",
+   "variants": {
+    "전략 수립": [
+     "actions:devise-a-stratagem"
+    ],
+    "계략을 구상하다": [
+     "effects:effect-devise-a-stratagem",
+     "feats:devise-a-stratagem"
+    ]
+   }
+  },
+  {
+   "en": "Dragon Breath",
+   "variants": {
+    "드래곤의 숨결": [
+     "actions:dragon-breath"
+    ],
+    "드래곤 브레스": [
+     "spells:dragon-breath"
+    ]
+   }
+  },
+  {
+   "en": "Rally",
+   "variants": {
+    "집결": [
+     "actions:rally"
+    ],
+    "결집": [
+     "effects:effect-rally",
+     "feats:rally"
+    ]
+   }
+  },
+  {
+   "en": "Quick Alchemy",
+   "variants": {
+    "빠른 연금술": [
+     "actions:quick-alchemy"
+    ],
+    "신속한 연금술": [
+     "feats:quick-alchemy"
+    ]
+   }
+  },
+  {
+   "en": "Righteous Call",
+   "variants": {
+    "의로운 부름": [
+     "actions:righteous-call",
+     "effects:effect-righteous-call"
+    ],
+    "정의의 부름": [
+     "effects:aura-righteous-call"
+    ]
+   }
+  },
+  {
+   "en": "Holy Light",
+   "variants": {
+    "성스러운 빛": [
+     "actions:holy-light"
+    ],
+    "신성한 빛": [
+     "feats:holy-light",
+     "spells:holy-light"
+    ]
+   }
+  },
+  {
+   "en": "Greater Darkvision",
+   "variants": {
+    "상위 암시야": [
+     "actions:greater-darkvision"
+    ],
+    "향상된 암흑 시야": [
+     "feats:greater-darkvision"
+    ]
+   }
+  },
+  {
+   "en": "Sneak Attack",
+   "variants": {
+    "기습 공격": [
+     "actions:sneak-attack"
+    ],
+    "암습": [
+     "feats:sneak-attack"
+    ]
+   }
+  },
+  {
+   "en": "Thoughtsense",
+   "variants": {
+    "사고 감지": [
+     "actions:thoughtsense"
+    ],
+    "사념 감지": [
+     "feats:thoughtsense"
+    ]
+   }
+  },
+  {
+   "en": "Telepathy",
+   "variants": {
+    "정신감응": [
+     "actions:telepathy"
+    ],
+    "텔레파시": [
+     "spells:telepathy"
+    ]
+   }
+  },
+  {
+   "en": "Darkvision",
+   "variants": {
+    "암시야": [
+     "actions:darkvision",
+     "feats:darkvision"
+    ],
+    "암흑 시야": [
+     "effects:spell-effect-darkvision",
+     "spells:darkvision"
+    ]
+   }
+  },
+  {
+   "en": "Lifesense",
+   "variants": {
+    "생명 감지": [
+     "actions:lifesense"
+    ],
+    "생명감지": [
+     "feats:lifesense"
+    ]
+   }
+  },
+  {
+   "en": "Nimble Dodge",
+   "variants": {
+    "날렵한 회피": [
+     "actions:nimble-dodge"
+    ],
+    "민첩 회피": [
+     "feats:nimble-dodge"
+    ]
+   }
+  },
+  {
+   "en": "Jet",
+   "variants": {
+    "분사": [
+     "actions:jet"
+    ],
+    "제트": [
+     "equipment:jet"
+    ]
+   }
+  },
+  {
+   "en": "Echolocation",
+   "variants": {
+    "반향정위": [
+     "actions:echolocation"
+    ],
+    "반향 위치 파악": [
+     "effects:effect-echolocation",
+     "feats:echolocation"
+    ]
+   }
+  },
+  {
+   "en": "Augury",
+   "variants": {
+    "전조 점술": [
+     "actions:augury"
+    ],
+    "점술": [
+     "spells:augury"
+    ]
+   }
+  },
+  {
+   "en": "Animated",
+   "variants": {
+    "생동": [
+     "actions:animated"
+    ],
+    "살아난": [
+     "equipment:animated"
+    ]
+   }
+  },
+  {
+   "en": "Guard",
+   "variants": {
+    "경비병": [
+     "backgrounds:guard"
+    ],
+    "방어 태세": [
+     "feats:guard"
+    ]
+   }
+  },
+  {
+   "en": "Stargazer",
+   "variants": {
+    "스타게이저": [
+     "backgrounds:stargazer"
+    ],
+    "별을 바라보는 자": [
+     "equipment:stargazer"
+    ]
+   }
+  },
+  {
+   "en": "Demon Slayer",
+   "variants": {
+    "악마 처단자": [
+     "backgrounds:demon-slayer"
+    ],
+    "데몬 사냥꾼": [
+     "feats:demon-slayer"
+    ]
+   }
+  },
+  {
+   "en": "Demon Hunted",
+   "variants": {
+    "악마에게 쫓김": [
+     "backgrounds:demon-hunted"
+    ],
+    "데몬의 추적": [
+     "effects:effect-demon-hunted"
+    ]
+   }
+  },
+  {
+   "en": "Harrow-Chosen",
+   "variants": {
+    "해로우-선택된": [
+     "backgrounds:harrow-chosen"
+    ],
+    "해로우의 선택받은 자": [
+     "effects:effect-harrow-chosen"
+    ]
+   }
+  },
+  {
+   "en": "Charlatan",
+   "variants": {
+    "허풍쟁이": [
+     "backgrounds:charlatan"
+    ],
+    "사기꾼": [
+     "feats:charlatan"
+    ]
+   }
+  },
+  {
+   "en": "Concealed",
+   "variants": {
+    "은폐": [
+     "conditions:concealed"
+    ],
+    "가려진": [
+     "effects:concealed"
+    ]
+   }
+  },
+  {
+   "en": "Faith in the Fallen",
+   "variants": {
+    "타락한 자에 대한 믿음": [
+     "deities:faith-in-the-fallen"
+    ],
+    "타락한 자에 대한 신앙": [
+     "feats:faith-in-the-fallen"
+    ]
+   }
+  },
+  {
+   "en": "Radiant Prism",
+   "variants": {
+    "래디언트 프리즘": [
+     "deities:radiant-prism"
+    ],
+    "광휘 프리즘": [
+     "equipment:radiant-prism-greater",
+     "equipment:radiant-prism-major"
+    ],
+    "빛나는 프리즘": [
+     "equipment:radiant-prism"
+    ]
+   }
+  },
+  {
+   "en": "Aerekostes",
+   "variants": {
+    "아에레코스테스": [
+     "deities:aerekostes"
+    ],
+    "아레코스테스": [
+     "equipment:aerekostes"
+    ]
+   }
+  },
+  {
+   "en": "Oil of Potency",
+   "variants": {
+    "효능의 기름": [
+     "effects:effect-oil-of-potency",
+     "equipment:oil-of-potency"
+    ],
+    "위력 기름": [
+     "equipment:oil-of-potency-major",
+     "equipment:oil-of-potency-greater"
+    ]
+   }
+  },
+  {
+   "en": "Eye of the Unseen",
+   "variants": {
+    "보이지 않는 것의 눈": [
+     "effects:effect-eye-of-the-unseen-greater",
+     "equipment:eye-of-the-unseen-greater"
+    ],
+    "보이지 않는 자의 눈": [
+     "effects:effect-eye-of-the-unseen",
+     "equipment:eye-of-the-unseen"
+    ]
+   }
+  },
+  {
+   "en": "Life-Boosting Oil",
+   "variants": {
+    "생명 촉진 기름": [
+     "effects:effect-life-boosting-oil"
+    ],
+    "생명력 증진 기름": [
+     "equipment:life-boosting-oil-greater",
+     "equipment:life-boosting-oil-moderate",
+     "equipment:life-boosting-oil-lesser",
+     "equipment:life-boosting-oil-major"
+    ]
+   }
+  },
+  {
+   "en": "Searing Blade",
+   "variants": {
+    "작열하는 검": [
+     "effects:aura-searing-blade-greater"
+    ],
+    "불타는 칼날": [
+     "effects:effect-searing-blade-greater",
+     "equipment:searing-blade-greater"
+    ],
+    "불타는 검": [
+     "equipment:searing-blade"
+    ]
+   }
+  },
+  {
+   "en": "Bloodseeker Beak",
+   "variants": {
+    "블러드시커 비크": [
+     "effects:effect-bloodseeker-beak",
+     "equipment:bloodseeker-beak"
+    ],
+    "블러드시커 부리": [
+     "equipment:bloodseeker-beak-greater"
+    ]
+   }
+  },
+  {
+   "en": "Serene Mutagen",
+   "variants": {
+    "평온한 혈청": [
+     "effects:effect-serene-mutagen-lesser"
+    ],
+    "고요한 혈청": [
+     "effects:effect-serene-mutagen-greater",
+     "effects:effect-serene-mutagen-major",
+     "effects:effect-serene-mutagen-moderate",
+     "equipment:serene-mutagen-moderate",
+     "equipment:serene-mutagen-greater",
+     "equipment:serene-mutagen-lesser",
+     "equipment:serene-mutagen-major"
+    ]
+   }
+  },
+  {
+   "en": "Darkvision Elixir",
+   "variants": {
+    "암흑 시야 엘릭서": [
+     "effects:effect-darkvision-elixir-lesser",
+     "effects:effect-darkvision-elixir-greater",
+     "equipment:darkvision-elixir-lesser",
+     "equipment:darkvision-elixir-moderate",
+     "equipment:darkvision-elixir-greater"
+    ],
+    "보통 등급 암흑 시야 엘릭서": [
+     "effects:effect-darkvision-elixir-moderate"
+    ]
+   }
+  },
+  {
+   "en": "Demon's Knot",
+   "variants": {
+    "악마의 매듭": [
+     "effects:aura-demons-knot"
+    ],
+    "데몬의 매듭": [
+     "effects:effect-demons-knot",
+     "equipment:demons-knot"
+    ]
+   }
+  },
+  {
+   "en": "Brewer's Regret",
+   "variants": {
+    "브루어의 후회": [
+     "effects:effect-brewers-regret",
+     "equipment:brewers-regret"
+    ],
+    "양조자의 후회": [
+     "equipment:brewers-regret-greater"
+    ]
+   }
+  },
+  {
+   "en": "Poison Fizz",
+   "variants": {
+    "포이즌 피즈": [
+     "effects:effect-poison-fizz"
+    ],
+    "독 거품": [
+     "equipment:poison-fizz-greater",
+     "equipment:poison-fizz-moderate",
+     "equipment:poison-fizz-lesser"
+    ]
+   }
+  },
+  {
+   "en": "Codex of Unimpeded Sight",
+   "variants": {
+    "방해받지 않는 시야의 대서": [
+     "effects:effect-codex-of-unimpeded-sight-greater",
+     "equipment:codex-of-unimpeded-sight-greater"
+    ],
+    "방해받지 않는 시야의 코덱스": [
+     "equipment:codex-of-unimpeded-sight"
+    ]
+   }
+  },
+  {
+   "en": "Blood-Drinker Blade",
+   "variants": {
+    "피를 마시는 검": [
+     "effects:effect-blood-drinker-blade",
+     "equipment:blood-drinker-blade"
+    ],
+    "혈액 흡수 검": [
+     "equipment:blood-drinker-blade-greater"
+    ]
+   }
+  },
+  {
+   "en": "Fire and Iceberg",
+   "variants": {
+    "불과 빙산": [
+     "effects:effect-fire-and-iceberg",
+     "equipment:fire-and-iceberg"
+    ],
+    "화염과 빙산": [
+     "effects:effect-fire-and-iceberg-greater",
+     "effects:effect-fire-and-iceberg-major",
+     "equipment:fire-and-iceberg-major",
+     "equipment:fire-and-iceberg-greater"
+    ]
+   }
+  },
+  {
+   "en": "Feyfoul",
+   "variants": {
+    "페이풀": [
+     "effects:effect-feyfoul-lesser",
+     "effects:effect-feyfoul-moderate",
+     "equipment:feyfoul-greater",
+     "equipment:feyfoul-lesser",
+     "equipment:feyfoul-moderate"
+    ],
+    "페이파울": [
+     "effects:effect-feyfoul-greater"
+    ]
+   }
+  },
+  {
+   "en": "Life Shot",
+   "variants": {
+    "생명 탄환": [
+     "effects:effect-life-shot"
+    ],
+    "생명탄": [
+     "equipment:life-shot-greater",
+     "equipment:life-shot-minor",
+     "equipment:life-shot-major",
+     "equipment:life-shot-true",
+     "equipment:life-shot-lesser",
+     "equipment:life-shot-moderate"
+    ]
+   }
+  },
+  {
+   "en": "Crackling Bubble Gum",
+   "variants": {
+    "탁탁 튀는 풍선껌": [
+     "effects:effect-crackling-bubble-gum"
+    ],
+    "바스락거리는 풍선껌": [
+     "equipment:crackling-bubble-gum-lesser",
+     "equipment:crackling-bubble-gum-moderate",
+     "equipment:crackling-bubble-gum-greater",
+     "equipment:crackling-bubble-gum-major"
+    ]
+   }
+  },
+  {
+   "en": "Crystal Shards",
+   "variants": {
+    "수정 파편": [
+     "effects:effect-crystal-shards"
+    ],
+    "크리스탈 파편": [
+     "equipment:crystal-shards-major",
+     "equipment:crystal-shards-moderate",
+     "equipment:crystal-shards-greater"
+    ]
+   }
+  },
+  {
+   "en": "Prey Mutagen",
+   "variants": {
+    "먹잇감 혈청": [
+     "effects:effect-prey-mutagen-lesser",
+     "effects:effect-prey-mutagen-moderate",
+     "equipment:prey-mutagen-lesser",
+     "equipment:prey-mutagen-moderate",
+     "equipment:prey-mutagen-major",
+     "equipment:prey-mutagen-greater"
+    ],
+    "사냥감 뮤타젠": [
+     "effects:effect-prey-mutagen"
+    ]
+   }
+  },
+  {
+   "en": "Potion of Minute Echoes",
+   "variants": {
+    "미세한 메아리의 포션": [
+     "effects:effect-potion-of-minute-echoes"
+    ],
+    "미세한 메아리의 물약": [
+     "equipment:potion-of-minute-echoes"
+    ]
+   }
+  },
+  {
+   "en": "Bomber's Eye Elixir",
+   "variants": {
+    "폭격수의 눈 비약": [
+     "effects:effect-bombers-eye-elixir"
+    ],
+    "폭격사의 눈 엘릭서": [
+     "equipment:bombers-eye-elixir-lesser",
+     "equipment:bombers-eye-elixir-greater"
+    ]
+   }
+  },
+  {
+   "en": "Frost Vial",
+   "variants": {
+    "서리 병": [
+     "effects:effect-frost-vial"
+    ],
+    "서리 폭탄": [
+     "equipment:frost-vial-major",
+     "equipment:frost-vial-lesser",
+     "equipment:frost-vial-greater",
+     "equipment:frost-vial-moderate"
+    ]
+   }
+  },
+  {
+   "en": "Blood Booster",
+   "variants": {
+    "혈액 촉진제": [
+     "effects:effect-blood-booster"
+    ],
+    "혈액 증강제": [
+     "equipment:blood-booster-greater",
+     "equipment:blood-booster-lesser",
+     "equipment:blood-booster-moderate"
+    ]
+   }
+  },
+  {
+   "en": "Potion of Swimming",
+   "variants": {
+    "수영의 물약": [
+     "effects:effect-potion-of-swimming-greater",
+     "equipment:potion-of-swimming",
+     "equipment:potion-of-swimming-greater"
+    ],
+    "수영의 포션": [
+     "effects:effect-potion-of-swimming"
+    ]
+   }
+  },
+  {
+   "en": "Shining Symbol",
+   "variants": {
+    "빛나는 성표": [
+     "effects:aura-shining-symbol"
+    ],
+    "빛나는 상징": [
+     "effects:effect-shining-symbol",
+     "equipment:shining-symbol-greater",
+     "equipment:shining-symbol",
+     "equipment:shining-symbol-major"
+    ]
+   }
+  },
+  {
+   "en": "Hexwise Banner",
+   "variants": {
+    "마법의 깃발": [
+     "effects:effect-hexwise-banner",
+     "equipment:hexwise-banner"
+    ],
+    "육각형 깃발": [
+     "effects:effect-hexwise-banner-major",
+     "equipment:hexwise-banner-major"
+    ]
+   }
+  },
+  {
+   "en": "Bracers of Missile Deflection",
+   "variants": {
+    "투사체 방어 팔보호구": [
+     "effects:effect-bracers-of-missile-deflection",
+     "equipment:bracers-of-missile-deflection"
+    ],
+    "투사체 방어 팔보호대": [
+     "equipment:bracers-of-missile-deflection-greater"
+    ]
+   }
+  },
+  {
+   "en": "Demortification Oil",
+   "variants": {
+    "악마화 제거 오일": [
+     "effects:effect-demortification-oil"
+    ],
+    "악마화 제거 기름": [
+     "equipment:demortification-oil"
+    ]
+   }
+  },
+  {
+   "en": "Wand of Fey Flames",
+   "variants": {
+    "페이의 불꽃 지팡이": [
+     "effects:effect-wand-of-fey-flames"
+    ],
+    "페이의 불꽃 완드": [
+     "equipment:wand-of-fey-flames"
+    ]
+   }
+  },
+  {
+   "en": "Eagle Eye Elixir",
+   "variants": {
+    "독수리 눈 비약": [
+     "effects:effect-eagle-eye-elixir"
+    ],
+    "매의 눈 엘릭서": [
+     "equipment:eagle-eye-elixir-lesser",
+     "equipment:eagle-eye-elixir-major",
+     "equipment:eagle-eye-elixir-moderate",
+     "equipment:eagle-eye-elixir-greater"
+    ]
+   }
+  },
+  {
+   "en": "Goz Mask",
+   "variants": {
+    "고즈 마스크": [
+     "effects:effect-goz-mask-major"
+    ],
+    "고즈 가면": [
+     "equipment:goz-mask",
+     "equipment:goz-mask-major",
+     "equipment:goz-mask-greater"
+    ]
+   }
+  },
+  {
+   "en": "Ivory Baton",
+   "variants": {
+    "상아 지휘봉": [
+     "effects:effect-ivory-baton",
+     "equipment:ivory-baton"
+    ],
+    "상아 지팡이": [
+     "equipment:ivory-baton-greater"
+    ]
+   }
+  },
+  {
+   "en": "Fuming Cloak",
+   "variants": {
+    "연기 뿜는 망토": [
+     "effects:effect-fuming-cloak"
+    ],
+    "자욱한 망토": [
+     "effects:aura-fuming-cloak"
+    ]
+   }
+  },
+  {
+   "en": "Chromatic Jellyfish Oil",
+   "variants": {
+    "색채 해파리 기름": [
+     "effects:effect-chromatic-jellyfish-oil"
+    ],
+    "크로마틱 해파리 기름": [
+     "equipment:chromatic-jellyfish-oil-lesser",
+     "equipment:chromatic-jellyfish-oil-greater",
+     "equipment:chromatic-jellyfish-oil-moderate"
+    ]
+   }
+  },
+  {
+   "en": "Gecko Potion",
+   "variants": {
+    "도마뱀 포션": [
+     "effects:effect-gecko-potion"
+    ],
+    "도마뱀 물약": [
+     "equipment:gecko-potion"
+    ]
+   }
+  },
+  {
+   "en": "Bravo's Brew",
+   "variants": {
+    "무뢰한의 양조주": [
+     "effects:effect-bravos-brew"
+    ],
+    "브라보의 양조주": [
+     "equipment:bravos-brew-moderate",
+     "equipment:bravos-brew-greater",
+     "equipment:bravos-brew-lesser"
+    ]
+   }
+  },
+  {
+   "en": "Stalwart's Banner",
+   "variants": {
+    "용맹한 자의 깃발": [
+     "effects:effect-stalwarts-banner",
+     "equipment:stalwarts-banner"
+    ],
+    "위엄의 깃발": [
+     "equipment:stalwarts-banner-greater",
+     "equipment:stalwarts-banner-major"
+    ]
+   }
+  },
+  {
+   "en": "Potion of Acid Resistance",
+   "variants": {
+    "산성 저항의 물약": [
+     "effects:effect-potion-of-acid-resistance"
+    ],
+    "산성 저항 물약": [
+     "equipment:potion-of-acid-resistance-lesser",
+     "equipment:potion-of-acid-resistance-greater",
+     "equipment:potion-of-acid-resistance-moderate"
+    ]
+   }
+  },
+  {
+   "en": "Elixir of Life",
+   "variants": {
+    "생명의 비약": [
+     "effects:effect-elixir-of-life"
+    ],
+    "생명의 엘릭서": [
+     "equipment:elixir-of-life-major",
+     "equipment:elixir-of-life-lesser",
+     "equipment:elixir-of-life-moderate",
+     "equipment:elixir-of-life-minor",
+     "equipment:elixir-of-life-greater",
+     "equipment:elixir-of-life-true"
+    ]
+   }
+  },
+  {
+   "en": "Crimson Godsblood Serum",
+   "variants": {
+    "진홍 신혈 혈청": [
+     "effects:effect-crimson-godsblood-serum"
+    ],
+    "진홍빛 신의 피 세럼": [
+     "equipment:crimson-godsblood-serum-lesser",
+     "equipment:crimson-godsblood-serum-moderate",
+     "equipment:crimson-godsblood-serum-greater"
+    ]
+   }
+  },
+  {
+   "en": "Knave's Standard",
+   "variants": {
+    "나브의 깃발": [
+     "effects:effect-knaves-standard",
+     "equipment:knaves-standard"
+    ],
+    "도적의 깃발": [
+     "equipment:knaves-standard-major",
+     "equipment:knaves-standard-greater"
+    ]
+   }
+  },
+  {
+   "en": "Antiplague",
+   "variants": {
+    "항역병제": [
+     "effects:effect-antiplague"
+    ],
+    "질병방지제": [
+     "equipment:antiplague-greater",
+     "equipment:antiplague-lesser",
+     "equipment:antiplague-moderate",
+     "equipment:antiplague-major"
+    ]
+   }
+  },
+  {
+   "en": "Potion of Sonic Resistance",
+   "variants": {
+    "음파 저항의 물약": [
+     "effects:effect-potion-of-sonic-resistance"
+    ],
+    "소형 음파 저항 물약": [
+     "equipment:potion-of-sonic-resistance-greater",
+     "equipment:potion-of-sonic-resistance-lesser",
+     "equipment:potion-of-sonic-resistance-moderate"
+    ]
+   }
+  },
+  {
+   "en": "Shrinking Potion",
+   "variants": {
+    "축소 포션": [
+     "effects:effect-shrinking-potion"
+    ],
+    "축소 물약": [
+     "effects:effect-shrinking-potion-greater",
+     "equipment:shrinking-potion-greater",
+     "equipment:shrinking-potion"
+    ]
+   }
+  },
+  {
+   "en": "Soothing Tonic",
+   "variants": {
+    "진정 강장제": [
+     "effects:effect-soothing-tonic"
+    ],
+    "진정 토닉": [
+     "equipment:soothing-tonic-greater",
+     "equipment:soothing-tonic-moderate",
+     "equipment:soothing-tonic-major",
+     "equipment:soothing-tonic-lesser"
+    ]
+   }
+  },
+  {
+   "en": "Banner of the Restful",
+   "variants": {
+    "평온의 깃발": [
+     "effects:effect-banner-of-the-restful",
+     "equipment:banner-of-the-restful"
+    ],
+    "안식의 깃발": [
+     "equipment:banner-of-the-restful-major",
+     "equipment:banner-of-the-restful-greater"
+    ]
+   }
+  },
+  {
+   "en": "Tome of Restorative Cleansing",
+   "variants": {
+    "회복의 정화 서적": [
+     "effects:effect-tome-of-restorative-cleansing"
+    ],
+    "회복의 정화서": [
+     "equipment:tome-of-restorative-cleansing-lesser",
+     "equipment:tome-of-restorative-cleansing-moderate",
+     "equipment:tome-of-restorative-cleansing-greater"
+    ]
+   }
+  },
+  {
+   "en": "Ghost Oil",
+   "variants": {
+    "유령 오일": [
+     "effects:effect-ghost-oil"
+    ],
+    "유령 기름": [
+     "equipment:ghost-oil"
+    ]
+   }
+  },
+  {
+   "en": "Blade of Four Energies",
+   "variants": {
+    "사기(四氣)의 검": [
+     "effects:effect-blade-of-four-energies",
+     "equipment:blade-of-four-energies"
+    ],
+    "사원기": [
+     "equipment:blade-of-four-energies-greater"
+    ]
+   }
+  },
+  {
+   "en": "Necrotic Cap",
+   "variants": {
+    "괴사의 갓": [
+     "effects:effect-necrotic-cap"
+    ],
+    "부패의 모자": [
+     "equipment:necrotic-cap-major",
+     "equipment:necrotic-cap-moderate",
+     "equipment:necrotic-cap-greater",
+     "equipment:necrotic-cap-lesser"
+    ]
+   }
+  },
+  {
+   "en": "Oil of Corpse Restoration",
+   "variants": {
+    "시체 회복 오일": [
+     "effects:effect-oil-of-corpse-restoration"
+    ],
+    "시체 회복 기름": [
+     "equipment:oil-of-corpse-restoration"
+    ]
+   }
+  },
+  {
+   "en": "Cloister Robe",
+   "variants": {
+    "수도원 로브": [
+     "effects:effect-cloister-robe"
+    ],
+    "수도원 가운": [
+     "equipment:cloister-robe-moderate",
+     "equipment:cloister-robe-greater",
+     "equipment:cloister-robe-lesser",
+     "equipment:cloister-robe-major"
+    ]
+   }
+  },
+  {
+   "en": "Form a Flock",
+   "variants": {
+    "무리 소집": [
+     "effects:effect-form-a-flock",
+     "feats:form-a-flock"
+    ],
+    "무리 형성": [
+     "effects:aura-form-a-flock"
+    ]
+   }
+  },
+  {
+   "en": "Golden Erinys Stance",
+   "variants": {
+    "황금 에리니에스 자세": [
+     "effects:stance-golden-erinys-stance"
+    ],
+    "황금 에리니스 자세": [
+     "feats:golden-erinys-stance"
+    ]
+   }
+  },
+  {
+   "en": "Hopeful Athamaru",
+   "variants": {
+    "희망의 아타마루": [
+     "effects:effect-hopeful-athamaru"
+    ],
+    "희망찬 아타마루": [
+     "heritages:hopeful-athamaru"
+    ]
+   }
+  },
+  {
+   "en": "Veil of Spirits",
+   "variants": {
+    "영혼의 장막": [
+     "effects:spell-effect-veil-of-spirits"
+    ],
+    "영혼의 베일": [
+     "spells:veil-of-spirits"
+    ]
+   }
+  },
+  {
+   "en": "Spirit Ward",
+   "variants": {
+    "영혼 방호": [
+     "effects:spell-effect-spirit-ward"
+    ],
+    "영혼의 수호부": [
+     "spells:spirit-ward"
+    ]
+   }
+  },
+  {
+   "en": "Dragon Form",
+   "variants": {
+    "용 변신": [
+     "effects:spell-effect-dragon-form"
+    ],
+    "드래곤 형태": [
+     "spells:dragon-form"
+    ]
+   }
+  },
+  {
+   "en": "Protector's Sphere",
+   "variants": {
+    "수호자의 구": [
+     "effects:aura-protectors-sphere"
+    ],
+    "수호자의 영역": [
+     "effects:spell-effect-protectors-sphere",
+     "spells:protectors-sphere"
+    ]
+   }
+  },
+  {
+   "en": "Charming Push",
+   "variants": {
+    "매혹적인 밀침": [
+     "effects:spell-effect-charming-push"
+    ],
+    "매혹의 밀어내기": [
+     "spells:charming-push"
+    ]
+   }
+  },
+  {
+   "en": "Protective Wards",
+   "variants": {
+    "보호의 수호": [
+     "effects:aura-protective-wards"
+    ],
+    "보호의 수호부": [
+     "effects:spell-effect-protective-wards",
+     "spells:protective-wards"
+    ]
+   }
+  },
+  {
+   "en": "Crushing Ground",
+   "variants": {
+    "짓누르는 대지": [
+     "effects:spell-effect-crushing-ground"
+    ],
+    "압도하는 땅": [
+     "spells:crushing-ground"
+    ]
+   }
+  },
+  {
+   "en": "Devil Form",
+   "variants": {
+    "악마 변신": [
+     "effects:spell-effect-devil-form"
+    ],
+    "데빌 형태": [
+     "spells:devil-form"
+    ]
+   }
+  },
+  {
+   "en": "Gentle Breeze",
+   "variants": {
+    "부드러운 산들바람": [
+     "effects:spell-effect-gentle-breeze"
+    ],
+    "부드러운 바람": [
+     "spells:gentle-breeze"
+    ]
+   }
+  },
+  {
+   "en": "Ash-Strewn Ending",
+   "variants": {
+    "잿더미로 뒤덮인 종말": [
+     "effects:spell-effect-ash-strewn-ending"
+    ],
+    "재가 흩뿌려진 종말": [
+     "spells:ash-strewn-ending"
+    ]
+   }
+  },
+  {
+   "en": "Humanoid Form",
+   "variants": {
+    "인간형 변신": [
+     "effects:spell-effect-humanoid-form"
+    ],
+    "인간형 형태": [
+     "spells:humanoid-form"
+    ]
+   }
+  },
+  {
+   "en": "Untwisting Iron Buffer",
+   "variants": {
+    "뒤틀림을 푸는 철의 완충": [
+     "effects:spell-effect-untwisting-iron-buffer"
+    ],
+    "풀림강철 완충막": [
+     "spells:untwisting-iron-buffer"
+    ]
+   }
+  },
+  {
+   "en": "Community Restoration",
+   "variants": {
+    "공동체의 회복": [
+     "effects:spell-effect-community-restoration"
+    ],
+    "지역사회 복구": [
+     "spells:community-restoration"
+    ]
+   }
+  },
+  {
+   "en": "Bit of Luck",
+   "variants": {
+    "약간의 행운": [
+     "effects:spell-effect-bit-of-luck"
+    ],
+    "행운의 조각": [
+     "spells:bit-of-luck"
+    ]
+   }
+  },
+  {
+   "en": "Angel Form",
+   "variants": {
+    "천사 변신": [
+     "effects:spell-effect-angel-form"
+    ],
+    "천사 형태": [
+     "spells:angel-form"
+    ]
+   }
+  },
+  {
+   "en": "Spiral of Horrors",
+   "variants": {
+    "공포의 나선": [
+     "effects:aura-spiral-of-horrors"
+    ],
+    "공포의 소용돌이": [
+     "effects:spell-effect-spiral-of-horrors",
+     "spells:spiral-of-horrors"
+    ]
+   }
+  },
+  {
+   "en": "Triple Time",
+   "variants": {
+    "삼중 속도": [
+     "effects:spell-effect-triple-time",
+     "spells:triple-time"
+    ],
+    "트리플 타임": [
+     "feats:triple-time"
+    ]
+   }
+  },
+  {
+   "en": "Daemon Form",
+   "variants": {
+    "대마 변신": [
+     "effects:spell-effect-daemon-form"
+    ],
+    "데이몬 형태": [
+     "spells:daemon-form"
+    ]
+   }
+  },
+  {
+   "en": "Uplifting Overture",
+   "variants": {
+    "고양의 서곡": [
+     "effects:spell-effect-uplifting-overture",
+     "spells:uplifting-overture"
+    ],
+    "고양시키는 서곡": [
+     "feats:uplifting-overture"
+    ]
+   }
+  },
+  {
+   "en": "Unusual Anatomy",
+   "variants": {
+    "특이한 해부학적 구조": [
+     "effects:spell-effect-unusual-anatomy",
+     "spells:unusual-anatomy"
+    ],
+    "특이한 해부학": [
+     "feats:unusual-anatomy"
+    ]
+   }
+  },
+  {
+   "en": "One with the Land",
+   "variants": {
+    "대지와 하나 되기": [
+     "effects:spell-effect-one-with-the-land",
+     "spells:one-with-the-land"
+    ],
+    "땅과 하나 되기": [
+     "feats:one-with-the-land"
+    ]
+   }
+  },
+  {
+   "en": "Funeral Flames",
+   "variants": {
+    "장례의 화염": [
+     "effects:spell-effect-funeral-flames"
+    ],
+    "장례의 불꽃": [
+     "spells:funeral-flames"
+    ]
+   }
+  },
+  {
+   "en": "Apex Companion",
+   "variants": {
+    "최상위 동반자": [
+     "effects:spell-effect-apex-companion",
+     "spells:apex-companion"
+    ],
+    "정점의 동반자": [
+     "feats:apex-companion"
+    ]
+   }
+  },
+  {
+   "en": "Aberrant Form",
+   "variants": {
+    "이형 변신": [
+     "effects:spell-effect-aberrant-form"
+    ],
+    "이형체 변신": [
+     "spells:aberrant-form"
+    ]
+   }
+  },
+  {
+   "en": "Capital Dividend",
+   "variants": {
+    "자본 배당": [
+     "effects:spell-effect-capital-dividend"
+    ],
+    "생명 배당금": [
+     "spells:capital-dividend"
+    ]
+   }
+  },
+  {
+   "en": "Demon Form",
+   "variants": {
+    "악마 변신": [
+     "effects:spell-effect-demon-form"
+    ],
+    "데몬 형태": [
+     "spells:demon-form"
+    ]
+   }
+  },
+  {
+   "en": "See the Unseen",
+   "variants": {
+    "보이지 않는 것 보기": [
+     "effects:spell-effect-see-the-unseen",
+     "spells:see-the-unseen"
+    ],
+    "보이지 않는 것을 보라": [
+     "feats:see-the-unseen"
+    ]
+   }
+  },
+  {
+   "en": "Bane",
+   "variants": {
+    "베인": [
+     "effects:spell-effect-bane",
+     "spells:bane"
+    ],
+    "억압": [
+     "equipment:bane"
+    ]
+   }
+  },
+  {
+   "en": "Runic Impression",
+   "variants": {
+    "룬 각인": [
+     "effects:spell-effect-runic-impression",
+     "spells:runic-impression"
+    ],
+    "룬 인장": [
+     "feats:runic-impression"
+    ]
+   }
+  },
+  {
+   "en": "Manifest Will",
+   "variants": {
+    "의지 창조": [
+     "effects:spell-effect-manifest-will",
+     "spells:manifest-will"
+    ],
+    "의지의 창조": [
+     "effects:aura-manifest-will"
+    ]
+   }
+  },
+  {
+   "en": "Vicious Howl",
+   "variants": {
+    "흉포한 울부짖음": [
+     "effects:spell-effect-vicious-howl"
+    ],
+    "사나운 울부짖음": [
+     "spells:vicious-howl"
+    ]
+   }
+  },
+  {
+   "en": "Ooze Form",
+   "variants": {
+    "점액체 변신": [
+     "effects:spell-effect-ooze-form"
+    ],
+    "우즈 형태": [
+     "spells:ooze-form"
+    ]
+   }
+  },
+  {
+   "en": "Insect Form",
+   "variants": {
+    "곤충 변신": [
+     "effects:spell-effect-insect-form"
+    ],
+    "곤충 형태": [
+     "spells:insect-form"
+    ]
+   }
+  },
+  {
+   "en": "Elemental Sheath",
+   "variants": {
+    "원소의 외피": [
+     "effects:spell-effect-elemental-sheath"
+    ],
+    "원소의 칼집": [
+     "spells:elemental-sheath"
+    ]
+   }
+  },
+  {
+   "en": "Primal Herd",
+   "variants": {
+    "원시의 무리": [
+     "effects:spell-effect-primal-herd"
+    ],
+    "프라이멀 무리": [
+     "spells:primal-herd"
+    ]
+   }
+  },
+  {
+   "en": "Lifelink Surge",
+   "variants": {
+    "생명력 연결 급증": [
+     "effects:spell-effect-lifelink-surge",
+     "spells:lifelink-surge"
+    ],
+    "생명연결 급증": [
+     "feats:lifelink-surge"
+    ]
+   }
+  },
+  {
+   "en": "Fey Form",
+   "variants": {
+    "요정 변신": [
+     "effects:spell-effect-fey-form"
+    ],
+    "페이 형태": [
+     "spells:fey-form"
+    ]
+   }
+  },
+  {
+   "en": "Instant Armor",
+   "variants": {
+    "즉시 갑옷": [
+     "effects:spell-effect-instant-armor",
+     "spells:instant-armor"
+    ],
+    "순간 갑옷": [
+     "feats:instant-armor"
+    ]
+   }
+  },
+  {
+   "en": "Adapt Self",
+   "variants": {
+    "자기 적응": [
+     "effects:spell-effect-adapt-self"
+    ],
+    "적응": [
+     "spells:adapt-self"
+    ]
+   }
+  },
+  {
+   "en": "Shielding Formation",
+   "variants": {
+    "방패 대형": [
+     "effects:spell-effect-shielding-formation"
+    ],
+    "방패 진형": [
+     "feats:shielding-formation"
+    ],
+    "방패 형성": [
+     "spells:shielding-formation"
+    ]
+   }
+  },
+  {
+   "en": "Aerial Form",
+   "variants": {
+    "비행 변신": [
+     "effects:spell-effect-aerial-form"
+    ],
+    "공중 형태": [
+     "spells:aerial-form"
+    ]
+   }
+  },
+  {
+   "en": "Monstrosity Form",
+   "variants": {
+    "괴수 변신": [
+     "effects:spell-effect-monstrosity-form"
+    ],
+    "괴물 형태": [
+     "spells:monstrosity-form"
+    ]
+   }
+  },
+  {
+   "en": "Magic Hide",
+   "variants": {
+    "마법 가죽": [
+     "effects:spell-effect-magic-hide",
+     "spells:magic-hide"
+    ],
+    "마법 {숨기": [
+     "feats:magic-hide"
+    ]
+   }
+  },
+  {
+   "en": "Murmuration",
+   "variants": {
+    "웅성거림": [
+     "effects:spell-effect-murmuration"
+    ],
+    "무리 비행": [
+     "spells:murmuration"
+    ]
+   }
+  },
+  {
+   "en": "Cosmic Form",
+   "variants": {
+    "우주적 형상": [
+     "effects:spell-effect-cosmic-form"
+    ],
+    "우주적 형태": [
+     "spells:cosmic-form"
+    ]
+   }
+  },
+  {
+   "en": "Warping Pull",
+   "variants": {
+    "뒤틀림의 견인": [
+     "effects:spell-effect-warping-pull"
+    ],
+    "뒤틀림의 끌어당김": [
+     "spells:warping-pull"
+    ]
+   }
+  },
+  {
+   "en": "Flaming Fusillade",
+   "variants": {
+    "화염의 일제 사격": [
+     "effects:spell-effect-flaming-fusillade"
+    ],
+    "불꽃 사격": [
+     "spells:flaming-fusillade"
+    ]
+   }
+  },
+  {
+   "en": "Helpful Reload",
+   "variants": {
+    "도움이 되는 재장전": [
+     "effects:spell-effect-helpful-reload"
+    ],
+    "재장전 지원": [
+     "spells:helpful-reload"
+    ]
+   }
+  },
+  {
+   "en": "Tlil Mask",
+   "variants": {
+    "트릴 마스크": [
+     "equipment:tlil-mask"
+    ],
+    "트릴 가면": [
+     "equipment:tlil-mask-greater"
+    ]
+   }
+  },
+  {
+   "en": "Godrending Ammunition",
+   "variants": {
+    "신성 파괴 탄약": [
+     "equipment:godrending-ammunition"
+    ],
+    "신성 파괴 탄환": [
+     "equipment:godrending-ammunition-greater"
+    ]
+   }
+  },
+  {
+   "en": "Persona Mask",
+   "variants": {
+    "페르소나 마스크": [
+     "equipment:persona-mask-greater"
+    ],
+    "페르소나 가면": [
+     "equipment:persona-mask"
+    ]
+   }
+  },
+  {
+   "en": "Staff of Elemental Power",
+   "variants": {
+    "원소의 힘의 지팡이": [
+     "equipment:staff-of-elemental-power"
+    ],
+    "원소력의 지팡이": [
+     "equipment:staff-of-elemental-power-major",
+     "equipment:staff-of-elemental-power-greater"
+    ]
+   }
+  },
+  {
+   "en": "Carver-cutter",
+   "variants": {
+    "조각칼": [
+     "equipment:carver-cutter"
+    ],
+    "조각사-절단사": [
+     "equipment:carver-cutter-greater",
+     "equipment:carver-cutter-major",
+     "equipment:carver-cutter-true"
+    ]
+   }
+  },
+  {
+   "en": "Tradecraft Tattoo",
+   "variants": {
+    "무역 기술 문신": [
+     "equipment:tradecraft-tattoo-greater"
+    ],
+    "공예 문신": [
+     "equipment:tradecraft-tattoo"
+    ]
+   }
+  },
+  {
+   "en": "Helmsman's Recourse",
+   "variants": {
+    "항해사의 구원": [
+     "equipment:helmsmans-recourse-greater",
+     "equipment:helmsmans-recourse-major"
+    ],
+    "함장의 회귀": [
+     "equipment:helmsmans-recourse"
+    ]
+   }
+  },
+  {
+   "en": "Sailor's Collar",
+   "variants": {
+    "선원용 칼라": [
+     "equipment:sailors-collar"
+    ],
+    "선원의 목걸이": [
+     "equipment:sailors-collar-greater"
+    ]
+   }
+  },
+  {
+   "en": "Rattling Bolt",
+   "variants": {
+    "덜거덕거리는 화살": [
+     "equipment:rattling-bolt"
+    ],
+    "덜거덕 화살": [
+     "equipment:rattling-bolt-greater"
+    ]
+   }
+  },
+  {
+   "en": "Tentacle Cannon",
+   "variants": {
+    "촉수 캐논": [
+     "equipment:tentacle-cannon"
+    ],
+    "촉수 대포": [
+     "equipment:tentacle-cannon-greater",
+     "equipment:tentacle-cannon-major"
+    ]
+   }
+  },
+  {
+   "en": "Pendant of the Occult",
+   "variants": {
+    "오컬트 펜던트": [
+     "equipment:pendant-of-the-occult-greater"
+    ],
+    "오컬트의 펜던트": [
+     "equipment:pendant-of-the-occult"
+    ]
+   }
+  },
+  {
+   "en": "Potion of Disguise",
+   "variants": {
+    "변장 물약": [
+     "equipment:potion-of-disguise-moderate",
+     "equipment:potion-of-disguise-lesser"
+    ],
+    "위장의 물약": [
+     "equipment:potion-of-disguise-greater"
+    ]
+   }
+  },
+  {
+   "en": "Dust of Corpse Animation",
+   "variants": {
+    "시체 소생의 먼지": [
+     "equipment:dust-of-corpse-animation"
+    ],
+    "시체 소생의 가루": [
+     "equipment:dust-of-corpse-animation-greater"
+    ]
+   }
+  },
+  {
+   "en": "Everyneed Pack",
+   "variants": {
+    "만능 팩": [
+     "equipment:everyneed-pack-greater"
+    ],
+    "에브리니드 팩": [
+     "equipment:everyneed-pack"
+    ]
+   }
+  },
+  {
+   "en": "Countering Charm",
+   "variants": {
+    "대항 부적": [
+     "equipment:countering-charm-major",
+     "equipment:countering-charm-greater"
+    ],
+    "반격의 마법": [
+     "equipment:countering-charm"
+    ]
+   }
+  },
+  {
+   "en": "Oil of Ownership",
+   "variants": {
+    "소유권 오일": [
+     "equipment:oil-of-ownership-greater"
+    ],
+    "소유권 기름": [
+     "equipment:oil-of-ownership-lesser",
+     "equipment:oil-of-ownership-moderate"
+    ]
+   }
+  },
+  {
+   "en": "Ration Tonic",
+   "variants": {
+    "배급 강장제": [
+     "equipment:ration-tonic"
+    ],
+    "배급 토닉": [
+     "equipment:ration-tonic-greater"
+    ]
+   }
+  },
+  {
+   "en": "Rhythm Bone",
+   "variants": {
+    "리듬 뼈": [
+     "equipment:rhythm-bone-greater"
+    ],
+    "리듬 본": [
+     "equipment:rhythm-bone"
+    ]
+   }
+  },
+  {
+   "en": "Tales in Timber",
+   "variants": {
+    "목재 속 이야기": [
+     "equipment:tales-in-timber-greater",
+     "equipment:tales-in-timber-major"
+    ],
+    "나무 속 이야기": [
+     "equipment:tales-in-timber"
+    ]
+   }
+  },
+  {
+   "en": "Crown of Witchcraft",
+   "variants": {
+    "마법사 왕관": [
+     "equipment:crown-of-witchcraft-greater"
+    ],
+    "마법의 왕관": [
+     "equipment:crown-of-witchcraft"
+    ]
+   }
+  },
+  {
+   "en": "Killer's Belt",
+   "variants": {
+    "살인자의 벨트": [
+     "equipment:killers-belt"
+    ],
+    "킬러의 벨트": [
+     "equipment:killers-belt-greater"
+    ]
+   }
+  },
+  {
+   "en": "Five-Feather Wreath",
+   "variants": {
+    "오깃털 화환": [
+     "equipment:five-feather-wreath"
+    ],
+    "오깃털 화관": [
+     "equipment:five-feather-wreath-major",
+     "equipment:five-feather-wreath-greater"
+    ]
+   }
+  },
+  {
+   "en": "Polished Demon Horn",
+   "variants": {
+    "광택 처리된 데몬의 뿔": [
+     "equipment:polished-demon-horn-greater",
+     "equipment:polished-demon-horn-major"
+    ],
+    "연마된 악마의 뿔": [
+     "equipment:polished-demon-horn"
+    ]
+   }
+  },
+  {
+   "en": "Oil of Weightlessness",
+   "variants": {
+    "무중력 기름": [
+     "equipment:oil-of-weightlessness"
+    ],
+    "중력 상실 기름": [
+     "equipment:oil-of-weightlessness-greater"
+    ]
+   }
+  },
+  {
+   "en": "Talonstrike Blade",
+   "variants": {
+    "발톱강타검": [
+     "equipment:talonstrike-blade"
+    ],
+    "발톱의 일격 검": [
+     "equipment:talonstrike-blade-greater"
+    ]
+   }
+  },
+  {
+   "en": "Broadleaf Shield",
+   "variants": {
+    "광엽 방패": [
+     "equipment:broadleaf-shield-greater",
+     "equipment:broadleaf-shield-true",
+     "equipment:broadleaf-shield-major"
+    ],
+    "넓은잎 방패": [
+     "equipment:broadleaf-shield"
+    ]
+   }
+  },
+  {
+   "en": "Burrowing Bolt",
+   "variants": {
+    "파고드는 화살": [
+     "equipment:burrowing-bolt"
+    ],
+    "굴착 화살": [
+     "equipment:burrowing-bolt-greater"
+    ]
+   }
+  },
+  {
+   "en": "Spider Gun",
+   "variants": {
+    "거미 총": [
+     "equipment:spider-gun"
+    ],
+    "거미총": [
+     "equipment:spider-gun-greater",
+     "equipment:spider-gun-major"
+    ]
+   }
+  },
+  {
+   "en": "Worldringer",
+   "variants": {
+    "세계의 울림": [
+     "equipment:worldringer"
+    ],
+    "위저드링거": [
+     "equipment:worldringer-greater"
+    ]
+   }
+  },
+  {
+   "en": "Reading Ring",
+   "variants": {
+    "고등 독서 반지": [
+     "equipment:reading-ring-greater"
+    ],
+    "독서 반지": [
+     "equipment:reading-ring"
+    ]
+   }
+  },
+  {
+   "en": "Bagpipes of Turmoil",
+   "variants": {
+    "소란의 백파이프": [
+     "equipment:bagpipes-of-turmoil-greater",
+     "equipment:bagpipes-of-turmoil-major"
+    ],
+    "혼란의 백파이프": [
+     "equipment:bagpipes-of-turmoil"
+    ]
+   }
+  },
+  {
+   "en": "Ring of the Tiger",
+   "variants": {
+    "호랑이의 반지": [
+     "equipment:ring-of-the-tiger-greater"
+    ],
+    "호랑이 반지": [
+     "equipment:ring-of-the-tiger"
+    ]
+   }
+  },
+  {
+   "en": "Anointing Oil",
+   "variants": {
+    "기름 부음 기름": [
+     "equipment:anointing-oil"
+    ],
+    "축성유": [
+     "equipment:anointing-oil-greater"
+    ]
+   }
+  },
+  {
+   "en": "Golden Branding Iron",
+   "variants": {
+    "황금 낙인": [
+     "equipment:golden-branding-iron"
+    ],
+    "황금 낙인 도구": [
+     "equipment:golden-branding-iron-major",
+     "equipment:golden-branding-iron-greater"
+    ]
+   }
+  },
+  {
+   "en": "Transposition Ammunition",
+   "variants": {
+    "변위 탄약": [
+     "equipment:transposition-ammunition-greater"
+    ],
+    "변환 탄약": [
+     "equipment:transposition-ammunition"
+    ]
+   }
+  },
+  {
+   "en": "Knapsack of Halflingkind",
+   "variants": {
+    "하플링의 배낭": [
+     "equipment:knapsack-of-halflingkind-greater"
+    ],
+    "하플링족의 배낭": [
+     "equipment:knapsack-of-halflingkind"
+    ]
+   }
+  },
+  {
+   "en": "Boots of the Secret Blade",
+   "variants": {
+    "비밀의 칼날의 부츠": [
+     "equipment:boots-of-the-secret-blade-greater",
+     "equipment:boots-of-the-secret-blade-major"
+    ],
+    "비밀의 칼날 부츠": [
+     "equipment:boots-of-the-secret-blade"
+    ]
+   }
+  },
+  {
+   "en": "Skeleton Key",
+   "variants": {
+    "스켈레톤 키": [
+     "equipment:skeleton-key-greater"
+    ],
+    "해골 열쇠": [
+     "equipment:skeleton-key"
+    ]
+   }
+  },
+  {
+   "en": "Toadskin Salve",
+   "variants": {
+    "두꺼비 가죽 연고": [
+     "equipment:toadskin-salve"
+    ],
+    "개구리 가죽 연고": [
+     "equipment:toadskin-salve-greater",
+     "equipment:toadskin-salve-major"
+    ]
+   }
+  },
+  {
+   "en": "Staff of the Unblinking Eye",
+   "variants": {
+    "깜빡임 없는 눈의 지팡이": [
+     "equipment:staff-of-the-unblinking-eye-major",
+     "equipment:staff-of-the-unblinking-eye-greater"
+    ],
+    "깜빡이지 않는 눈의 지팡이": [
+     "equipment:staff-of-the-unblinking-eye"
+    ]
+   }
+  },
+  {
+   "en": "Spirit Bulb",
+   "variants": {
+    "영혼 전구": [
+     "equipment:spirit-bulb"
+    ],
+    "영혼 구근": [
+     "equipment:spirit-bulb-major",
+     "equipment:spirit-bulb-greater"
+    ]
+   }
+  },
+  {
+   "en": "Sonic Tuning Mace",
+   "variants": {
+    "음파 튜닝 메이스": [
+     "equipment:sonic-tuning-mace"
+    ],
+    "소닉 튜닝 메이스": [
+     "equipment:sonic-tuning-mace-greater"
+    ]
+   }
+  },
+  {
+   "en": "Devilwing Badge",
+   "variants": {
+    "악마날개 휘장": [
+     "equipment:devilwing-badge-major",
+     "equipment:devilwing-badge-greater"
+    ],
+    "악마 날개 휘장": [
+     "equipment:devilwing-badge"
+    ]
+   }
+  },
+  {
+   "en": "Symbol of Conflict",
+   "variants": {
+    "분쟁의 상징": [
+     "equipment:symbol-of-conflict"
+    ],
+    "갈등의 상징": [
+     "equipment:symbol-of-conflict-major",
+     "equipment:symbol-of-conflict-greater"
+    ]
+   }
+  },
+  {
+   "en": "Clay Sphere",
+   "variants": {
+    "점토 구체": [
+     "equipment:clay-sphere-major",
+     "equipment:clay-sphere-greater"
+    ],
+    "점토 구슬": [
+     "equipment:clay-sphere"
+    ]
+   }
+  },
+  {
+   "en": "Clan Pistol",
+   "variants": {
+    "씨족 권총": [
+     "equipment:clan-pistol"
+    ],
+    "클랜 권총": [
+     "feats:clan-pistol"
+    ]
+   }
+  },
+  {
+   "en": "Oil of Dynamism",
+   "variants": {
+    "역동성 기름": [
+     "equipment:oil-of-dynamism"
+    ],
+    "역동성의 기름": [
+     "equipment:oil-of-dynamism-greater"
+    ]
+   }
+  },
+  {
+   "en": "Splintering Spear",
+   "variants": {
+    "쪼개는 창": [
+     "equipment:splintering-spear"
+    ],
+    "갈라지는 창": [
+     "equipment:splintering-spear-greater",
+     "equipment:splintering-spear-major"
+    ]
+   }
+  },
+  {
+   "en": "Fey Dragonet Liqueur",
+   "variants": {
+    "페이 드래곤 새끼 리큐어": [
+     "equipment:fey-dragonet-liqueur"
+    ],
+    "페이 드래곤릿 리큐어": [
+     "equipment:fey-dragonet-liqueur-lesser",
+     "equipment:fey-dragonet-liqueur-greater"
+    ]
+   }
+  },
+  {
+   "en": "Seer's Flute",
+   "variants": {
+    "예언자의 플루트": [
+     "equipment:seers-flute-greater",
+     "equipment:seers-flute-major"
+    ],
+    "예언자의 피리": [
+     "equipment:seers-flute"
+    ]
+   }
+  },
+  {
+   "en": "Accolade Robe",
+   "variants": {
+    "아콜레이드 로브": [
+     "equipment:accolade-robe"
+    ],
+    "찬사 로브": [
+     "equipment:accolade-robe-greater"
+    ]
+   }
+  },
+  {
+   "en": "Liquid Gold",
+   "variants": {
+    "액체 황금": [
+     "equipment:liquid-gold-greater"
+    ],
+    "액체 금": [
+     "equipment:liquid-gold"
+    ]
+   }
+  },
+  {
+   "en": "Euphoric Loop",
+   "variants": {
+    "유포릭 루프": [
+     "equipment:euphoric-loop"
+    ],
+    "황홀한 순환": [
+     "equipment:euphoric-loop-greater"
+    ]
+   }
+  },
+  {
+   "en": "Volcanic Vigor",
+   "variants": {
+    "화산 활력": [
+     "equipment:volcanic-vigor-greater"
+    ],
+    "화산적 활력": [
+     "equipment:volcanic-vigor"
+    ]
+   }
+  },
+  {
+   "en": "Big Rock Bullet",
+   "variants": {
+    "대형 암석탄": [
+     "equipment:big-rock-bullet-greater",
+     "equipment:big-rock-bullet-major"
+    ],
+    "빅 록 불릿": [
+     "equipment:big-rock-bullet"
+    ]
+   }
+  },
+  {
+   "en": "Flaming Star",
+   "variants": {
+    "불타는 별": [
+     "equipment:flaming-star-greater",
+     "equipment:flaming-star-major"
+    ],
+    "불꽃 별": [
+     "equipment:flaming-star"
+    ]
+   }
+  },
+  {
+   "en": "Armbands of Athleticism",
+   "variants": {
+    "운동 능력 팔찌": [
+     "equipment:armbands-of-athleticism-greater"
+    ],
+    "운동능력의 팔찌": [
+     "equipment:armbands-of-athleticism"
+    ]
+   }
+  },
+  {
+   "en": "Feral Linguist",
+   "variants": {
+    "야생 언어학자": [
+     "equipment:feral-linguist"
+    ],
+    "야성 언어술사": [
+     "equipment:feral-linguist-greater"
+    ]
+   }
+  },
+  {
+   "en": "Banner of Piercing Shards",
+   "variants": {
+    "관통하는 파편의 깃발": [
+     "equipment:banner-of-piercing-shards-greater",
+     "equipment:banner-of-piercing-shards-major"
+    ],
+    "관통 파편의 깃발": [
+     "equipment:banner-of-piercing-shards"
+    ]
+   }
+  },
+  {
+   "en": "Eye Slash",
+   "variants": {
+    "눈의 칼자국": [
+     "equipment:eye-slash"
+    ],
+    "눈의 상처": [
+     "equipment:eye-slash-true",
+     "equipment:eye-slash-greater",
+     "equipment:eye-slash-major"
+    ]
+   }
+  },
+  {
+   "en": "False Death Vial",
+   "variants": {
+    "거짓 죽음의 병": [
+     "equipment:false-death-vial-greater"
+    ],
+    "가짜 죽음의 병": [
+     "equipment:false-death-vial"
+    ]
+   }
+  },
+  {
+   "en": "Rustbringer",
+   "variants": {
+    "녹을 부르는 자": [
+     "equipment:rustbringer-greater"
+    ],
+    "녹 제거자": [
+     "equipment:rustbringer"
+    ]
+   }
+  },
+  {
+   "en": "Brightbloom Posy",
+   "variants": {
+    "밝은꽃다발": [
+     "equipment:brightbloom-posy-greater",
+     "equipment:brightbloom-posy-major"
+    ],
+    "브라이트블룸 포지": [
+     "equipment:brightbloom-posy"
+    ]
+   }
+  },
+  {
+   "en": "Stepping Stone Shot",
+   "variants": {
+    "디딤돌 발사": [
+     "equipment:stepping-stone-shot-greater"
+    ],
+    "디딤돌 발사체": [
+     "equipment:stepping-stone-shot"
+    ]
+   }
+  },
+  {
+   "en": "Messenger's Ring",
+   "variants": {
+    "전령의 반지": [
+     "equipment:messengers-ring"
+    ],
+    "메신저의 반지": [
+     "equipment:messengers-ring-greater"
+    ]
+   }
+  },
+  {
+   "en": "Extradimensional Stash",
+   "variants": {
+    "초차원 보관소": [
+     "equipment:extradimensional-stash"
+    ],
+    "초차원 은닉소": [
+     "feats:extradimensional-stash"
+    ]
+   }
+  },
+  {
+   "en": "Conundrum Spectacles",
+   "variants": {
+    "난해함 안경": [
+     "equipment:conundrum-spectacles-greater"
+    ],
+    "수수께끼 안경": [
+     "equipment:conundrum-spectacles"
+    ]
+   }
+  },
+  {
+   "en": "Unmemorable Mantle",
+   "variants": {
+    "잊혀지는 망토": [
+     "equipment:unmemorable-mantle-major",
+     "equipment:unmemorable-mantle-greater"
+    ],
+    "잊혀진 망토": [
+     "equipment:unmemorable-mantle"
+    ]
+   }
+  },
+  {
+   "en": "Beast Staff",
+   "variants": {
+    "야수의 지팡이": [
+     "equipment:beast-staff"
+    ],
+    "야수 지팡이": [
+     "equipment:beast-staff-major",
+     "equipment:beast-staff-greater"
+    ]
+   }
+  },
+  {
+   "en": "Medic's Armband",
+   "variants": {
+    "의료병 팔찌": [
+     "equipment:medics-armband-greater"
+    ],
+    "의료진 팔찌": [
+     "equipment:medics-armband"
+    ]
+   }
+  },
+  {
+   "en": "Stone of Encouragement",
+   "variants": {
+    "고대의 격려의 돌": [
+     "equipment:stone-of-encouragement-greater"
+    ],
+    "용기의 돌": [
+     "equipment:stone-of-encouragement"
+    ]
+   }
+  },
+  {
+   "en": "Crafter's Eyepiece",
+   "variants": {
+    "장인의 안경": [
+     "equipment:crafters-eyepiece-greater"
+    ],
+    "제작자의 안경": [
+     "equipment:crafters-eyepiece"
+    ]
+   }
+  },
+  {
+   "en": "Holy Prayer Beads",
+   "variants": {
+    "신성한 염주": [
+     "equipment:holy-prayer-beads"
+    ],
+    "신성한 기도 구슬": [
+     "equipment:holy-prayer-beads-greater"
+    ]
+   }
+  },
+  {
+   "en": "Deadlock Mint",
+   "variants": {
+    "데드락 민트": [
+     "equipment:deadlock-mint"
+    ],
+    "데드록 민트": [
+     "equipment:deadlock-mint-greater"
+    ]
+   }
+  },
+  {
+   "en": "Ash Gown",
+   "variants": {
+    "애쉬 가운": [
+     "equipment:ash-gown-greater"
+    ],
+    "재의 가운": [
+     "equipment:ash-gown"
+    ]
+   }
+  },
+  {
+   "en": "Gecko Pads",
+   "variants": {
+    "도마뱀 발바닥": [
+     "equipment:gecko-pads"
+    ],
+    "도마뱀 패드": [
+     "equipment:gecko-pads-greater"
+    ]
+   }
+  },
+  {
+   "en": "Chilled Fire Noodles",
+   "variants": {
+    "냉장 불면면": [
+     "equipment:chilled-fire-noodles-greater"
+    ],
+    "차가운 불의 국수": [
+     "equipment:chilled-fire-noodles"
+    ]
+   }
+  },
+  {
+   "en": "Shell of Easy Breathing",
+   "variants": {
+    "편안한 호흡의 조개": [
+     "equipment:shell-of-easy-breathing"
+    ],
+    "쉬운 호흡의 껍질": [
+     "equipment:shell-of-easy-breathing-greater"
+    ]
+   }
+  },
+  {
+   "en": "Burial Oil",
+   "variants": {
+    "매장용 기름": [
+     "equipment:burial-oil"
+    ],
+    "매장유": [
+     "equipment:burial-oil-greater"
+    ]
+   }
+  },
+  {
+   "en": "Cloak of Repute",
+   "variants": {
+    "명성 망토": [
+     "equipment:cloak-of-repute-major",
+     "equipment:cloak-of-repute-greater"
+    ],
+    "명성의 망토": [
+     "equipment:cloak-of-repute"
+    ]
+   }
+  },
+  {
+   "en": "Tracker's Goggles",
+   "variants": {
+    "추적자의 고글": [
+     "equipment:trackers-goggles-greater"
+    ],
+    "추적자 고글": [
+     "equipment:trackers-goggles"
+    ]
+   }
+  },
+  {
+   "en": "Codebreaker's Parchment",
+   "variants": {
+    "암호 해독자의 양피지": [
+     "equipment:codebreakers-parchment-greater",
+     "equipment:codebreakers-parchment-major"
+    ],
+    "암호 해독가의 양피지": [
+     "equipment:codebreakers-parchment"
+    ]
+   }
+  },
+  {
+   "en": "Trueshape Bomb",
+   "variants": {
+    "진형 폭탄": [
+     "equipment:trueshape-bomb"
+    ],
+    "진정한 형태 폭탄": [
+     "equipment:trueshape-bomb-greater"
+    ]
+   }
+  },
+  {
+   "en": "Librarian Staff",
+   "variants": {
+    "사서 직원": [
+     "equipment:librarian-staff-greater"
+    ],
+    "사서 지팡이": [
+     "equipment:librarian-staff"
+    ]
+   }
+  },
+  {
+   "en": "Called",
+   "variants": {
+    "호출": [
+     "equipment:called"
+    ],
+    "부름": [
+     "feats:called"
+    ]
+   }
+  },
+  {
+   "en": "Lionfish Spear",
+   "variants": {
+    "사자고기 창": [
+     "equipment:lionfish-spear-greater"
+    ],
+    "사자물고기 창": [
+     "equipment:lionfish-spear"
+    ]
+   }
+  },
+  {
+   "en": "Sniper's Bead",
+   "variants": {
+    "저격수 구슬": [
+     "equipment:snipers-bead-greater",
+     "equipment:snipers-bead-major"
+    ],
+    "저격수의 구슬": [
+     "equipment:snipers-bead"
+    ]
+   }
+  },
+  {
+   "en": "Reef Heart",
+   "variants": {
+    "산호초의 심장": [
+     "equipment:reef-heart-greater"
+    ],
+    "산호 심장": [
+     "equipment:reef-heart"
+    ]
+   }
+  },
+  {
+   "en": "Warleader's Bulwark",
+   "variants": {
+    "전쟁 지도자의 방패": [
+     "equipment:warleaders-bulwark"
+    ],
+    "전쟁 지도자의 방벽": [
+     "equipment:warleaders-bulwark-greater"
+    ]
+   }
+  },
+  {
+   "en": "Sash of Prowess",
+   "variants": {
+    "용맹의 허리띠": [
+     "equipment:sash-of-prowess"
+    ],
+    "위엄의 허리띠": [
+     "equipment:sash-of-prowess-greater"
+    ]
+   }
+  },
+  {
+   "en": "Indomitable Keepsake",
+   "variants": {
+    "불굴의 유물": [
+     "equipment:indomitable-keepsake-major",
+     "equipment:indomitable-keepsake-greater"
+    ],
+    "불굴의 유품": [
+     "equipment:indomitable-keepsake"
+    ]
+   }
+  },
+  {
+   "en": "Cooperative Waffles",
+   "variants": {
+    "협동 와플": [
+     "equipment:cooperative-waffles"
+    ],
+    "협력 와플": [
+     "equipment:cooperative-waffles-greater"
+    ]
+   }
+  },
+  {
+   "en": "Smoke Fan",
+   "variants": {
+    "연기 부채": [
+     "equipment:smoke-fan"
+    ],
+    "연기 분사": [
+     "equipment:smoke-fan-greater"
+    ]
+   }
+  },
+  {
+   "en": "Choker of Elocution",
+   "variants": {
+    "웅변의 목걸이": [
+     "equipment:choker-of-elocution"
+    ],
+    "발음의 목걸이": [
+     "equipment:choker-of-elocution-greater"
+    ]
+   }
+  },
+  {
+   "en": "Reinforced Chassis",
+   "variants": {
+    "강화된 섀시": [
+     "equipment:reinforced-chassis"
+    ],
+    "강화된 차체": [
+     "feats:reinforced-chassis"
+    ]
+   }
+  },
+  {
+   "en": "Nexian Sealing Blade",
+   "variants": {
+    "넥시안 봉인 검": [
+     "equipment:nexian-sealing-blade"
+    ],
+    "넥시안 봉인검": [
+     "equipment:nexian-sealing-blade-greater"
+    ]
+   }
+  },
+  {
+   "en": "Magnetite Scope",
+   "variants": {
+    "강철석 조준경": [
+     "equipment:magnetite-scope-greater"
+    ],
+    "자철석 망원경": [
+     "equipment:magnetite-scope"
+    ]
+   }
+  },
+  {
+   "en": "Salve of Antiparalysis",
+   "variants": {
+    "마비 해제 연고": [
+     "equipment:salve-of-antiparalysis"
+    ],
+    "마비 저항 연고": [
+     "equipment:salve-of-antiparalysis-greater"
+    ]
+   }
+  },
+  {
+   "en": "Staff of Nature's Vengeance",
+   "variants": {
+    "자연의 복수 지팡이": [
+     "equipment:staff-of-natures-vengeance"
+    ],
+    "대자연의 복수 지팡이": [
+     "equipment:staff-of-natures-vengeance-greater",
+     "equipment:staff-of-natures-vengeance-major"
+    ]
+   }
+  },
+  {
+   "en": "Stampede Medallion",
+   "variants": {
+    "대혼란 메달리온": [
+     "equipment:stampede-medallion-major",
+     "equipment:stampede-medallion-greater"
+    ],
+    "스탬피드 메달리온": [
+     "equipment:stampede-medallion"
+    ]
+   }
+  },
+  {
+   "en": "Guise of the Smirking Devil",
+   "variants": {
+    "비웃는 악마의 가면": [
+     "equipment:guise-of-the-smirking-devil-greater"
+    ],
+    "비웃는 데빌의 가면": [
+     "equipment:guise-of-the-smirking-devil"
+    ]
+   }
+  },
+  {
+   "en": "Submersible Helmet",
+   "variants": {
+    "잠수용 헬멧": [
+     "equipment:submersible-helmet"
+    ],
+    "잠수 헬멧": [
+     "equipment:submersible-helmet-greater"
+    ]
+   }
+  },
+  {
+   "en": "Grim Trophy",
+   "variants": {
+    "암울한 전리품": [
+     "equipment:grim-trophy"
+    ],
+    "암울한 트로피": [
+     "equipment:grim-trophy-greater"
+    ]
+   }
+  },
+  {
+   "en": "Confabulator",
+   "variants": {
+    "컨파불레이터": [
+     "equipment:confabulator"
+    ],
+    "거짓말쟁이": [
+     "feats:confabulator"
+    ]
+   }
+  },
+  {
+   "en": "Warmaster's Baton",
+   "variants": {
+    "전쟁대가의 지휘봉": [
+     "equipment:warmasters-baton"
+    ],
+    "전투지휘관의 지휘봉": [
+     "equipment:warmasters-baton-greater"
+    ]
+   }
+  },
+  {
+   "en": "Pilgrim's Token",
+   "variants": {
+    "순례자의 토큰": [
+     "equipment:pilgrims-token"
+    ],
+    "순례자의 증표": [
+     "feats:pilgrims-token"
+    ]
+   }
+  },
+  {
+   "en": "Life-Saver Mail",
+   "variants": {
+    "생명 구원 메일": [
+     "equipment:life-saver-mail"
+    ],
+    "생명을 구하는 갑옷": [
+     "equipment:life-saver-mail-greater"
+    ]
+   }
+  },
+  {
+   "en": "Chainbreaker",
+   "variants": {
+    "체인브레이커": [
+     "equipment:chainbreaker-greater"
+    ],
+    "사슬파괴자": [
+     "equipment:chainbreaker"
+    ]
+   }
+  },
+  {
+   "en": "Daredevil Boots",
+   "variants": {
+    "대담한 부츠": [
+     "equipment:daredevil-boots-greater"
+    ],
+    "무모한 부츠": [
+     "equipment:daredevil-boots"
+    ]
+   }
+  },
+  {
+   "en": "Skybearer's Belt",
+   "variants": {
+    "하늘을 지탱하는 벨트": [
+     "equipment:skybearers-belt"
+    ],
+    "하늘을 지탱하는 자의 벨트": [
+     "feats:skybearers-belt"
+    ]
+   }
+  },
+  {
+   "en": "Lucky Keepsake",
+   "variants": {
+    "행운의 부적": [
+     "equipment:lucky-keepsake"
+    ],
+    "행운의 유품": [
+     "feats:lucky-keepsake"
+    ]
+   }
+  },
+  {
+   "en": "Mantis Embrace",
+   "variants": {
+    "사마귀 포옹": [
+     "equipment:mantis-embrace-greater"
+    ],
+    "사마귀의 포옹": [
+     "equipment:mantis-embrace"
+    ]
+   }
+  },
+  {
+   "en": "Ring of the Ram",
+   "variants": {
+    "뿔의 반지": [
+     "equipment:ring-of-the-ram-greater"
+    ],
+    "숫양의 반지": [
+     "equipment:ring-of-the-ram"
+    ]
+   }
+  },
+  {
+   "en": "Alacritous Horseshoes",
+   "variants": {
+    "날렵한 말굽": [
+     "equipment:alacritous-horseshoes"
+    ],
+    "신속한 말굽": [
+     "equipment:alacritous-horseshoes-greater"
+    ]
+   }
+  },
+  {
+   "en": "Floating Shield",
+   "variants": {
+    "부유 방패": [
+     "equipment:floating-shield-greater"
+    ],
+    "플로팅 실드": [
+     "equipment:floating-shield"
+    ]
+   }
+  },
+  {
+   "en": "Mug",
+   "variants": {
+    "머그": [
+     "equipment:mug"
+    ],
+    "머그잔": [
+     "feats:mug"
+    ]
+   }
+  },
+  {
+   "en": "Fetching Bangles",
+   "variants": {
+    "페츨링 팔찌": [
+     "equipment:fetching-bangles"
+    ],
+    "매혹적인 팔찌": [
+     "feats:fetching-bangles"
+    ]
+   }
+  },
+  {
+   "en": "Perfected Mind",
+   "variants": {
+    "완성된 정신": [
+     "feats:perfected-mind"
+    ],
+    "완벽한 정신": [
+     "spells:perfected-mind"
+    ]
+   }
+  },
+  {
+   "en": "Hero's Defiance",
+   "variants": {
+    "영웅의 저항": [
+     "feats:heros-defiance"
+    ],
+    "영웅의 도전": [
+     "spells:heros-defiance"
+    ]
+   }
+  },
+  {
+   "en": "Cackle",
+   "variants": {
+    "삐걱거리는 웃음": [
+     "feats:cackle"
+    ],
+    "깔깔깔": [
+     "spells:cackle"
+    ]
+   }
+  },
+  {
+   "en": "Song of Marching",
+   "variants": {
+    "행군의 노래": [
+     "feats:song-of-marching"
+    ],
+    "행진의 노래": [
+     "spells:song-of-marching"
+    ]
+   }
+  },
+  {
+   "en": "Phantom Orchestra",
+   "variants": {
+    "팬텀 오케스트라": [
+     "feats:phantom-orchestra"
+    ],
+    "유령 오케스트라": [
+     "spells:phantom-orchestra"
+    ]
+   }
+  },
+  {
+   "en": "Unfetter Eidolon",
+   "variants": {
+    "에이돌론의 자유": [
+     "feats:unfetter-eidolon"
+    ],
+    "에이돌론의 속박 해제": [
+     "spells:unfetter-eidolon"
+    ]
+   }
+  },
+  {
+   "en": "Waking Dream",
+   "variants": {
+    "깨어있는 꿈": [
+     "feats:waking-dream"
+    ],
+    "깨어 있는 꿈": [
+     "spells:waking-dream"
+    ]
+   }
+  },
+  {
+   "en": "Song of the Fallen",
+   "variants": {
+    "전사들의 노래": [
+     "feats:song-of-the-fallen"
+    ],
+    "타락한 자들의 노래": [
+     "spells:song-of-the-fallen"
+    ]
+   }
+  },
+  {
+   "en": "Fungal Exhalation",
+   "variants": {
+    "균류의 내뿜기": [
+     "feats:fungal-exhalation"
+    ],
+    "곰팡이 숨결": [
+     "spells:fungal-exhalation"
+    ]
+   }
+  },
+  {
+   "en": "Rallying Banner",
+   "variants": {
+    "집결의 깃발": [
+     "feats:rallying-banner"
+    ],
+    "결집의 깃발": [
+     "spells:rallying-banner"
+    ]
+   }
+  },
+  {
+   "en": "Heal Companion",
+   "variants": {
+    "동료 치유": [
+     "feats:heal-companion"
+    ],
+    "동물 동료 치유": [
+     "spells:heal-companion"
+    ]
+   }
+  },
+  {
+   "en": "Magic Warrior Aspect",
+   "variants": {
+    "마법 전사 특성": [
+     "feats:magic-warrior-aspect"
+    ],
+    "마법 전사 형상": [
+     "spells:magic-warrior-aspect"
+    ]
+   }
+  },
+  {
+   "en": "Soothing Ballad",
+   "variants": {
+    "치유의 발라드": [
+     "feats:soothing-ballad"
+    ],
+    "달래는 발라드": [
+     "spells:soothing-ballad"
+    ]
+   }
+  },
+  {
+   "en": "Pack Attack",
+   "variants": {
+    "무리 공격": [
+     "feats:pack-attack"
+    ],
+    "무리 전술": [
+     "spells:pack-attack"
+    ]
+   }
+  },
+  {
+   "en": "Songbird's Call",
+   "variants": {
+    "노래하는 새의 부름": [
+     "feats:songbirds-call"
+    ],
+    "송버드의 부름": [
+     "spells:songbirds-call"
+    ]
+   }
+  },
+  {
+   "en": "Slither",
+   "variants": {
+    "미끄러짐": [
+     "feats:slither"
+    ],
+    "슬라이더": [
+     "spells:slither"
+    ]
+   }
+  },
+  {
+   "en": "Pied Piping",
+   "variants": {
+    "피드 파이핑": [
+     "feats:pied-piping"
+    ],
+    "피의 파이핑": [
+     "spells:pied-piping"
+    ]
+   }
+  },
+  {
+   "en": "Hedge Prison",
+   "variants": {
+    "울타리 감옥": [
+     "feats:hedge-prison"
+    ],
+    "가시덤불 감옥": [
+     "spells:hedge-prison"
+    ]
+   }
+  },
+  {
+   "en": "Spellmaster's Ward",
+   "variants": {
+    "마법사의 수호부": [
+     "feats:spellmasters-ward"
+    ],
+    "스펠마스터의 수호부": [
+     "spells:spellmasters-ward"
+    ]
+   }
+  },
+  {
+   "en": "Crimson Breath",
+   "variants": {
+    "크림슨 브레스": [
+     "feats:crimson-breath"
+    ],
+    "진홍의 숨결": [
+     "spells:crimson-breath"
+    ]
+   }
+  },
+  {
+   "en": "Share Burden",
+   "variants": {
+    "부담 분담": [
+     "feats:share-burden"
+    ],
+    "짐 나누기": [
+     "spells:share-burden"
+    ]
+   }
+  },
+  {
+   "en": "House of Imaginary Walls",
+   "variants": {
+    "상상의 벽의 집": [
+     "feats:house-of-imaginary-walls"
+    ],
+    "허상의 벽의 집": [
+     "spells:house-of-imaginary-walls"
+    ]
+   }
+  },
+  {
+   "en": "Truespeech",
+   "variants": {
+    "트루스피치": [
+     "feats:truespeech"
+    ],
+    "진실의 언어": [
+     "spells:truespeech"
+    ]
+   }
+  },
+  {
+   "en": "Debilitating Dichotomy",
+   "variants": {
+    "쇠약화하는 양면성": [
+     "feats:debilitating-dichotomy"
+    ],
+    "쇠약화하는 양분": [
+     "spells:debilitating-dichotomy"
+    ]
+   }
+  },
+  {
+   "en": "Hasted Assault",
+   "variants": {
+    "가속 돌격": [
+     "feats:hasted-assault"
+    ],
+    "신속한 돌격": [
+     "spells:hasted-assault"
+    ]
+   }
+  },
+  {
+   "en": "Snare Hopping",
+   "variants": {
+    "올가미 회피": [
+     "feats:snare-hopping"
+    ],
+    "올가미 이동": [
+     "spells:snare-hopping"
+    ]
+   }
+  },
+  {
+   "en": "Force Fang",
+   "variants": {
+    "포스 팡": [
+     "feats:force-fang"
+    ],
+    "역장 가시": [
+     "spells:force-fang"
+    ]
+   }
+  },
+  {
+   "en": "Lingering Composition",
+   "variants": {
+    "지속되는 조성": [
+     "feats:lingering-composition"
+    ],
+    "여운이 남는 구성": [
+     "spells:lingering-composition"
+    ]
+   }
+  },
+  {
+   "en": "Invoke the Crimson Oath",
+   "variants": {
+    "진홍의 맹세 발동": [
+     "feats:invoke-the-crimson-oath"
+    ],
+    "진홍의 맹세 외침": [
+     "spells:invoke-the-crimson-oath"
+    ]
+   }
+  },
+  {
+   "en": "Brain Drain",
+   "variants": {
+    "두뇌 탈취": [
+     "feats:brain-drain"
+    ],
+    "뇌 흡수": [
+     "spells:brain-drain"
+    ]
+   }
+  }
+ ]
+}
