@@ -29,7 +29,7 @@
  },
  "effect-vashus-ninth-life": {
   "name_ko": "효과: 바슈의 아홉 번째 생명",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.8pFegnc8KTHsvQZ0]{바슈의 아홉 번째 목숨}에 의해 부여됨</p>\n<p>바슈의 아홉 번째 목숨이 방어(parry) 특성을 얻고 스스로 방어 자세를 취해, AC에 +1 상황 보너스를 부여합니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.8pFegnc8KTHsvQZ0]{바슈의 아홉 번째 목숨}에 의해 부여됨</p>\n<p>바슈의 아홉 번째 목숨이 방어 특성을 얻고 스스로 방어 자세를 취해, AC에 +1 상황 보너스를 부여합니다.</p>"
  },
  "effect-forgefathers-seal": {
   "name_ko": "효과: 대장장이의 인장",
@@ -37,7 +37,7 @@
  },
  "effect-dragons-blood-pudding-major": {
   "name_ko": "효과: 드래곤 블러드 푸딩 (상급)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.kUvjWSGWpwBvTVax]{용의 피 푸딩 (특대)}에 의해 부여됨</p>\n<p>가속 상태가 됩니다. 추가 행동은 이동(Step), 이동(Stride), 타격(Strike), 사기저하(Demoralize)에 사용할 수 있습니다. 사기저하를 위한 위협 판정에 +4 아이템 보너스를 얻습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.kUvjWSGWpwBvTVax]{용의 피 푸딩 (특대)}에 의해 부여됨</p>\n<p>가속 상태가 됩니다. 추가 행동은 이동, 이동, 타격, 사기저하에 사용할 수 있습니다. 사기저하를 위한 위협 판정에 +4 아이템 보너스를 얻습니다.</p>"
  },
  "effect-therapeutic-snap-peas": {
   "name_ko": "효과: 치료용 스냅 완두콩",
@@ -85,7 +85,7 @@
  },
  "effect-dawnfire-beacon-major": {
   "name_ko": "효과: 새벽불 등대 (상급)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.a0qkmzbhgq6o1eSU]{여명불 봉화 (특대)}에 의해 부여됨</p>\n<p>부정한(unholy) 효과에 대한 내성 굴림에 +1 상태 보너스를 얻습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.a0qkmzbhgq6o1eSU]{여명불 봉화 (특대)}에 의해 부여됨</p>\n<p>부정한 효과에 대한 내성 굴림에 +1 상태 보너스를 얻습니다.</p>"
  },
  "effect-juggernaut-mutagen-lesser": {
   "name_ko": "효과: 저거너트 혈청 (하급)",
@@ -153,7 +153,7 @@
  },
  "effect-mummified-bat": {
   "name_ko": "효과: 미라 박쥐",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.UnDjPxFOs6bldlcM]{미라화된 박쥐}에 의해 부여됨</p>\n<p>맹인 전투(Blind-Fight) 재주를 가지고 있다면, 30피트 범위의 부정확한 반향정위를 얻습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.UnDjPxFOs6bldlcM]{미라화된 박쥐}에 의해 부여됨</p>\n<p>맹인 전투 재주를 가지고 있다면, 30피트 범위의 부정확한 반향정위를 얻습니다.</p>"
  },
  "effect-swift-block-cabochon": {
   "name_ko": "효과: 신속 차단 카보숑",
@@ -265,7 +265,7 @@
  },
  "effect-dueling-cape": {
   "name_ko": "효과: 결투의 망토",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.DA3HgyEBGEbtRNOo]{Dueling Cape}를 사용하여 부여됨</p>\n<p>AC와 페인트(Feint)를 위한 기만 판정에 +1 상황 보너스를 얻는다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.DA3HgyEBGEbtRNOo]{Dueling Cape}를 사용하여 부여됨</p>\n<p>AC와 페인트를 위한 기만 판정에 +1 상황 보너스를 얻는다.</p>"
  },
  "effect-deadweight-mutagen-major": {
   "name_ko": "효과: 데드웨이트 혈청 (상급)",
@@ -297,15 +297,15 @@
  },
  "effect-illuminated-folio": {
   "name_ko": "효과: 조명된 두루마리",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.8anSflDImoYUv2UK]{Illuminated Folio}에 의해 부여됨</p>\n<p>이 소환된 생물들은 살아있는 삽화처럼 나타나며, 자신의 레벨 절반과 동일한 물리 피해 저항과 화염 및 물(water) 특성을 지닌 모든 능력에 대한 약점 5를 얻는다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.8anSflDImoYUv2UK]{Illuminated Folio}에 의해 부여됨</p>\n<p>이 소환된 생물들은 살아있는 삽화처럼 나타나며, 자신의 레벨 절반과 동일한 물리 피해 저항과 화염 및 물 특성을 지닌 모든 능력에 대한 약점 5를 얻는다.</p>"
  },
  "effect-talented-tap-shoes": {
   "name_ko": "효과: 재능 있는 탭슈즈",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.ktzQ3WItAfMk25hM]{Talented Tap Shoes}에 의해 부여됨</p>\n<p>피해를 주는 효과를 회피하기 위한 반사 내성에 성공하거나 대성공하면, 반응으로 이동 속도의 절반만큼 성큼걷기(Stride)를 할 수 있다. 몰래 이동(Sneak)을 위한 은신 판정에 -2 아이템 페널티를 받는다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.ktzQ3WItAfMk25hM]{Talented Tap Shoes}에 의해 부여됨</p>\n<p>피해를 주는 효과를 회피하기 위한 반사 내성에 성공하거나 대성공하면, 반응으로 이동 속도의 절반만큼 성큼걷기를 할 수 있다. 몰래 이동을 위한 은신 판정에 -2 아이템 페널티를 받는다.</p>"
  },
  "effect-valorous-coin": {
   "name_ko": "효과: 용맹의 동전",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.KIkLIYOKBiwd7mNd]{Valorous Coin}에 의해 부여됨</p>\n<p>자신의 레벨과 동일한 임시 히트 포인트를 얻고, 선택한 무기로 하는 타격(Strike)과 피해 굴림에 +1 상황 보너스를 얻는다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.KIkLIYOKBiwd7mNd]{Valorous Coin}에 의해 부여됨</p>\n<p>자신의 레벨과 동일한 임시 히트 포인트를 얻고, 선택한 무기로 하는 타격과 피해 굴림에 +1 상황 보너스를 얻는다.</p>"
  },
  "effect-quicksilver-mutagen-major": {
   "name_ko": "효과: 퀵실버 혈청 (상급)",
@@ -313,7 +313,7 @@
  },
  "effect-silvertongue-mutagen-major": {
   "name_ko": "효과: 은 혀 혈청 (상급)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.uD5vRYVOXNJ53sEE]{Silvertongue Mutagen (Major)}에 의해 부여됨</p>\n<p><strong>이점</strong> 기만, 외교, 위협, 공연 판정에 +4 아이템 보너스를 얻는다. 이들 기술로 하는 대실패는 대신 실패가 된다.</p>\n<p><strong>단점</strong> 주문학, 제작, 지식(Lore), 오컬티즘, 사회 판정에 -2 아이템 페널티를 받는다. 자신이 숙련된 기술 하나를 선택한다. 지속시간 동안 그 기술에 미숙련이 된다. 지식 회상(Recall Knowledge)에서 하는 모든 실패는 대실패가 된다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.uD5vRYVOXNJ53sEE]{Silvertongue Mutagen (Major)}에 의해 부여됨</p>\n<p><strong>이점</strong> 기만, 외교, 위협, 공연 판정에 +4 아이템 보너스를 얻는다. 이들 기술로 하는 대실패는 대신 실패가 된다.</p>\n<p><strong>단점</strong> 주문학, 제작, 지식, 오컬티즘, 사회 판정에 -2 아이템 페널티를 받는다. 자신이 숙련된 기술 하나를 선택한다. 지속시간 동안 그 기술에 미숙련이 된다. 지식 회상에서 하는 모든 실패는 대실패가 된다.</p>"
  },
  "effect-alloy-orb-low-grade": {
   "name_ko": "효과: 합금 구슬 (낮은 등급)",
@@ -321,15 +321,15 @@
  },
  "effect-tritons-conch": {
   "name_ko": "효과: 트리톤의 소라",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.KLWjINVkWwJlOZEX]{Triton's Conch}에 의해 부여됨</p>\n<p>수영(Swim)을 위한 운동 판정에 +2 아이템 보너스를 얻는다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.KLWjINVkWwJlOZEX]{Triton's Conch}에 의해 부여됨</p>\n<p>수영을 위한 운동 판정에 +2 아이템 보너스를 얻는다.</p>"
  },
  "effect-vapor-sphere": {
   "name_ko": "효과: 증기 구체",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.HBlUlkSlIQ0NQA9N]{Vapor Sphere}에 의해 부여됨</p>\n<p>물리 피해에 저항 25를 얻고, 정밀(precision) 피해에 면역이 된다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.HBlUlkSlIQ0NQA9N]{Vapor Sphere}에 의해 부여됨</p>\n<p>물리 피해에 저항 25를 얻고, 정밀 피해에 면역이 된다.</p>"
  },
  "effect-titans-standard": {
   "name_ko": "효과: 거인의 깃발",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.hIDRnAzAACHOoCZS]{Titan's Standard}에 의해 부여됨</p>\n<p>대형(Large) 크기가 되며, 장비도 함께 커진다. 대형인 동안 둔함 1 상태이며, 간격(reach)이 5피트 증가한다(초소형(Tiny)에서 시작했다면 10피트 증가).</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.hIDRnAzAACHOoCZS]{Titan's Standard}에 의해 부여됨</p>\n<p>대형 크기가 되며, 장비도 함께 커진다. 대형인 동안 둔함 1 상태이며, 간격이 5피트 증가한다(초소형에서 시작했다면 10피트 증가).</p>"
  },
  "effect-brewers-regret": {
   "name_ko": "효과: 브루어의 후회",
@@ -337,7 +337,7 @@
  },
  "effect-dragonfly-potion": {
   "name_ko": "효과: 잠자리 물약",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.82f7CTK0HxvitMLP]{Dragonfly Potion}에 의해 부여됨</p>\n<p>지상 이동 속도와 동일한 비행 이동 속도, 저광 시야, 그리고 시각 지각 판정에 +2 아이템 보너스를 얻는다.</p>\n<p>자신보다 높은 레벨의 생물이 아니면 협공(flank)당하지 않는다(다만 낮은 레벨의 생물도 여전히 더 높은 레벨의 아군이 협공하도록 도울 수 있다).</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.82f7CTK0HxvitMLP]{Dragonfly Potion}에 의해 부여됨</p>\n<p>지상 이동 속도와 동일한 비행 이동 속도, 저광 시야, 그리고 시각 지각 판정에 +2 아이템 보너스를 얻는다.</p>\n<p>자신보다 높은 레벨의 생물이 아니면 협공당하지 않는다(다만 낮은 레벨의 생물도 여전히 더 높은 레벨의 아군이 협공하도록 도울 수 있다).</p>"
  },
  "effect-sea-touch-elixir-moderate": {
   "name_ko": "효과: 바다의 손길 엘릭서 (보통)",
@@ -345,7 +345,7 @@
  },
  "effect-force-shield": {
   "name_ko": "효과: 포스 실드",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.DIzZr0K20eCbNzQo]{Force Shield}에 의해 부여됨</p>\n<p>방패가 당신을 힘(force)의 거품으로 감싸 위해로부터 보호하며, 물리 피해에 저항 5를 부여한다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.DIzZr0K20eCbNzQo]{Force Shield}에 의해 부여됨</p>\n<p>방패가 당신을 힘의 거품으로 감싸 위해로부터 보호하며, 물리 피해에 저항 5를 부여한다.</p>"
  },
  "effect-energizing-tea": {
   "name_ko": "효과: 활력 차",
@@ -353,11 +353,11 @@
  },
  "effect-stone-fist-elixir": {
   "name_ko": "효과: 돌주먹의 묘약",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.YcvSw7Zn3oyqlJaw]{Stone Fist Elixir}에 의해 부여됨</p>\n<p>주먹이 1d6 타격 피해를 입히며 비살상(nonlethal) 특성을 잃는다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.YcvSw7Zn3oyqlJaw]{Stone Fist Elixir}에 의해 부여됨</p>\n<p>주먹이 1d6 타격 피해를 입히며 비살상 특성을 잃는다.</p>"
  },
  "effect-dragon-pearl": {
   "name_ko": "효과: 용의 진주",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.g6agII64qc6wuSiP]{Dragon Pearl}에 의해 부여됨</p>\n<p>공허 피해에 저항 15를 얻고, 비무장 공격이 타격(Strike)에 성공하면 추가로 1d6점의 활력 피해를 입힌다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.g6agII64qc6wuSiP]{Dragon Pearl}에 의해 부여됨</p>\n<p>공허 피해에 저항 15를 얻고, 비무장 공격이 타격에 성공하면 추가로 1d6점의 활력 피해를 입힌다.</p>"
  },
  "effect-longnight-tea": {
   "name_ko": "효과: 롱나이트 티",
@@ -365,7 +365,7 @@
  },
  "effect-codex-of-unimpeded-sight-greater": {
   "name_ko": "효과: 방해받지 않는 시야의 대서 (중급)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.nQIIO6LIot0ISQXH]{Codex of Unimpeded Sight (Greater)}에 의해 부여됨</p>\n<p>탐색(Seek)을 위한 지각 판정 또는 지식 회상(Recall Knowledge)을 위한 기술 판정에 +1 아이템 보너스를 얻는다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.nQIIO6LIot0ISQXH]{Codex of Unimpeded Sight (Greater)}에 의해 부여됨</p>\n<p>탐색을 위한 지각 판정 또는 지식 회상을 위한 기술 판정에 +1 아이템 보너스를 얻는다.</p>"
  },
  "effect-war-blood-mutagen-moderate": {
   "name_ko": "효과: 전쟁의 피 혈청 (보통)",
@@ -1077,7 +1077,7 @@
  },
  "effect-cloud-buns-greater": {
   "name_ko": "효과: 구름빵 (중급)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.TioBntQv3VAnS7Wb]{구름 빵 (상급)}에 의해 부여됨</p>\n<p>비행 이동 속도 30피트, 또는 본래 이동 속도 중 더 낮은 값을 얻는다.</p>\n<p>또한 비행 중 조종(Maneuver in Flight) 곡예 판정에 +2 아이템 보너스를 얻는다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.TioBntQv3VAnS7Wb]{구름 빵 (상급)}에 의해 부여됨</p>\n<p>비행 이동 속도 30피트, 또는 본래 이동 속도 중 더 낮은 값을 얻는다.</p>\n<p>또한 비행 중 조종 곡예 판정에 +2 아이템 보너스를 얻는다.</p>"
  },
  "effect-golden-legion-epaulet": {
   "name_ko": "효과: 황금 군단 견장",
@@ -1329,7 +1329,7 @@
  },
  "effect-dragon-breath-scale": {
   "name_ko": "효과: 드래곤 브레스 스케일",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Kmf5F06GucKhY6hK]{용의 숨결 비늘}에서 부여됨</p>\n<p><em>화염 내뿜기(breathe fire)</em> 또는 <em>냉기 분사(chilling spray)</em>의 피해 유형과 특성을 해당하는 용의 숨결의 것으로 변경합니다.</p>\n<p><strong>아다만틴</strong> 타격 또는 화염</p>\n<p><strong>음모</strong> 정신 또는 독</p>\n<p><strong>악마</strong> 화염 또는 영혼</p>\n<p><strong>천상</strong> 영혼</p>\n<p><strong>행운</strong> 힘</p>\n<p><strong>뿔난</strong> 화염 또는 독</p>\n<p><strong>신기루</strong> 힘 또는 정신</p>\n<p><strong>징조</strong> 정신</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Kmf5F06GucKhY6hK]{용의 숨결 비늘}에서 부여됨</p>\n<p><em>화염 내뿜기</em> 또는 <em>냉기 분사</em>의 피해 유형과 특성을 해당하는 용의 숨결의 것으로 변경합니다.</p>\n<p><strong>아다만틴</strong> 타격 또는 화염</p>\n<p><strong>음모</strong> 정신 또는 독</p>\n<p><strong>악마</strong> 화염 또는 영혼</p>\n<p><strong>천상</strong> 영혼</p>\n<p><strong>행운</strong> 힘</p>\n<p><strong>뿔난</strong> 화염 또는 독</p>\n<p><strong>신기루</strong> 힘 또는 정신</p>\n<p><strong>징조</strong> 정신</p>"
  },
  "effect-taper-of-sanctification": {
   "name_ko": "효과: 성화의 촛대",
@@ -1361,7 +1361,7 @@
  },
  "effect-searing-blade-greater": {
   "name_ko": "효과: 불타는 칼날 (중급)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.pvxRcuBexbFawjCg]{작열하는 검 (상급)}에서 부여됨</p>\n<p>범위 내 당신과 아군의 모든 무기 및 비무장 공격이 <em>화염(flaming)</em> 속성 룬의 효과를 얻습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.pvxRcuBexbFawjCg]{작열하는 검 (상급)}에서 부여됨</p>\n<p>범위 내 당신과 아군의 모든 무기 및 비무장 공격이 <em>화염</em> 속성 룬의 효과를 얻습니다.</p>"
  },
  "effect-serene-mutagen-greater": {
   "name_ko": "효과: 고요한 혈청 (중급)",
@@ -1417,7 +1417,7 @@
  },
  "effect-clawed-bracers": {
   "name_ko": "효과: 발톱 팔보호대",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.fVOObByW6XHADQ2J]{발톱 팔보호대}로 부여됨</p>\n<p>20피트의 등반 속도를 얻으며, 민첩(agile)과 정교(finesse) 특성을 가지고 1d6 참격 피해를 주는 발톱 비무장 공격을 얻습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.fVOObByW6XHADQ2J]{발톱 팔보호대}로 부여됨</p>\n<p>20피트의 등반 속도를 얻으며, 민첩과 정교 특성을 가지고 1d6 참격 피해를 주는 발톱 비무장 공격을 얻습니다.</p>"
  },
  "effect-portable-animal-blind": {
   "name_ko": "효과: 휴대용 동물 가리개",
@@ -1693,11 +1693,11 @@
  },
  "effect-topology-protoplasm": {
   "name_ko": "효과: 토폴로지 프로토플라스마",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.PblDdXHm98XWs9ba]{위상 원형질}이(가) 부여함</p>\n<p>비집고 나가기(Squeeze) 판정 시 성공 단계가 한 단계 더 좋은 결과를 사용합니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.PblDdXHm98XWs9ba]{위상 원형질}이(가) 부여함</p>\n<p>비집고 나가기 판정 시 성공 단계가 한 단계 더 좋은 결과를 사용합니다.</p>"
  },
  "effect-jacks-tattered-cape": {
   "name_ko": "효과: 잭의 너덜너덜한 망토",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.QOAjwtH9gycbDZCY]{잭의 너덜너덜한 망토}이(가) 부여함</p>\n<p>숨기(Hide) 또는 몰래 이동(Sneak)을 위한 은신 판정에 +1 아이템 보너스를 받습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.QOAjwtH9gycbDZCY]{잭의 너덜너덜한 망토}이(가) 부여함</p>\n<p>숨기 또는 몰래 이동을 위한 은신 판정에 +1 아이템 보너스를 받습니다.</p>"
  },
  "effect-emerald-fulcrum-lens": {
   "name_ko": "효과: 에메랄드 지렛대 렌즈",
@@ -1709,15 +1709,15 @@
  },
  "effect-bloodhound-mask-moderate": {
   "name_ko": "효과: 블러드하운드 가면 (보통)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.qasFfdiZKIczoZ9p]{블러드하운드 가면 (중급)}이(가) 부여함</p>\n<p>사거리 30피트의 부정확한 후각을 얻으며, 냄새로 생물을 추적(Track)하기 위한 생존 판정에 +2 아이템 보너스를 받습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.qasFfdiZKIczoZ9p]{블러드하운드 가면 (중급)}이(가) 부여함</p>\n<p>사거리 30피트의 부정확한 후각을 얻으며, 냄새로 생물을 추적하기 위한 생존 판정에 +2 아이템 보너스를 받습니다.</p>"
  },
  "effect-krakens-guard": {
   "name_ko": "효과: 크라켄의 수호자",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.f6antZJS94JyijFl]{크라켄의 방벽}이(가) 부여함</p>\n<p>방패를 사용해 붙잡기(Grapple)를 할 때, 운동 판정에 +3 아이템 보너스를 받습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.f6antZJS94JyijFl]{크라켄의 방벽}이(가) 부여함</p>\n<p>방패를 사용해 붙잡기를 할 때, 운동 판정에 +3 아이템 보너스를 받습니다.</p>"
  },
  "effect-spiderfoot-brew-lesser": {
   "name_ko": "효과: 거미발 양조주 (하급)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.HuyWiPnkDZoAVhW9]{거미발 양조액 (하급)}이(가) 부여함</p>\n<p>15피트의 등반 이동 속도를 얻으며, 등반(Climb)을 위한 운동 판정에 +1 아이템 보너스를 받습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.HuyWiPnkDZoAVhW9]{거미발 양조액 (하급)}이(가) 부여함</p>\n<p>15피트의 등반 이동 속도를 얻으며, 등반을 위한 운동 판정에 +1 아이템 보너스를 받습니다.</p>"
  },
  "effect-hyldarfs-fang": {
   "name_ko": "효과: 힐다프의 송곳니",
@@ -1729,7 +1729,7 @@
  },
  "effect-erraticannon": {
   "name_ko": "효과: 불규칙 캐논",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.XOXUFjBGO6azymyb]{변덕포}이(가) 부여함</p>\n<p>이 무기로 공격할 때마다 해당 강타(Strike)의 피해 유형을 결정하기 위해 굴립니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.XOXUFjBGO6azymyb]{변덕포}이(가) 부여함</p>\n<p>이 무기로 공격할 때마다 해당 강타의 피해 유형을 결정하기 위해 굴립니다.</p>"
  },
  "effect-thawing-candle": {
   "name_ko": "효과: 녹는 촛불",
@@ -2727,7 +2727,7 @@
  },
  "effect-instinct-crown": {
   "name_ko": "효과: 본능의 왕관",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.QbCraR5KFlkIJiVA]{본능의 왕관 (동물)}, @UUID[Compendium.pf2e.equipment-srd.Item.a4RIB8GPOliFoN31]{본능의 왕관 (용)}, @UUID[Compendium.pf2e.equipment-srd.Item.hA0o5qdKXcuPJVmn]{본능의 왕관 (거인)}, @UUID[Compendium.pf2e.equipment-srd.Item.MxS9ifx1gr1PKxBl]{본능의 왕관 (영혼)}, @UUID[Compendium.pf2e.equipment-srd.Item.gtDHRMgsyERaxf2c]{본능의 왕관 (미신)}에 의해 부여됨</p>\n<p>왕관이 연결된 본능에 따라 이점을 얻습니다</p><ul><li><strong>동물</strong> 추가로 10 임시 히트 포인트를 얻습니다. 동물 비무장 공격으로 추가 3 피해를 입히며, 그 비무장 공격은 치명적 d8 특성을 얻습니다.</li><li><strong>격노</strong> 가속 상태가 됩니다. 추가 행동은 이동(Stride) 또는 타격(Strike)에만 사용할 수 있습니다.</li><li><strong>거인</strong> 대형이 되고 장비도 함께 커집니다. 간격을 5피트 늘립니다(초소형이었다면 10피트). 더 커진 무기를 사용할 때 추가 2 피해를 입힙니다.</li><li><strong>영혼</strong> 격노 저항이 모든 물리 피해와 독 피해에 적용됩니다. 이 저항은 마법 공격에 대해서는 절반이 됩니다.</li><li><strong>미신</strong> 마법에 대한 내성 굴림을 시도할 때 두 번 굴려 더 높은 결과를 택합니다. 또한 격노 저항이 모든 마법 전통에 적용됩니다.</li></ul>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.QbCraR5KFlkIJiVA]{본능의 왕관 (동물)}, @UUID[Compendium.pf2e.equipment-srd.Item.a4RIB8GPOliFoN31]{본능의 왕관 (용)}, @UUID[Compendium.pf2e.equipment-srd.Item.hA0o5qdKXcuPJVmn]{본능의 왕관 (거인)}, @UUID[Compendium.pf2e.equipment-srd.Item.MxS9ifx1gr1PKxBl]{본능의 왕관 (영혼)}, @UUID[Compendium.pf2e.equipment-srd.Item.gtDHRMgsyERaxf2c]{본능의 왕관 (미신)}에 의해 부여됨</p>\n<p>왕관이 연결된 본능에 따라 이점을 얻습니다</p><ul><li><strong>동물</strong> 추가로 10 임시 히트 포인트를 얻습니다. 동물 비무장 공격으로 추가 3 피해를 입히며, 그 비무장 공격은 치명적 d8 특성을 얻습니다.</li><li><strong>격노</strong> 가속 상태가 됩니다. 추가 행동은 이동 또는 타격에만 사용할 수 있습니다.</li><li><strong>거인</strong> 대형이 되고 장비도 함께 커집니다. 간격을 5피트 늘립니다(초소형이었다면 10피트). 더 커진 무기를 사용할 때 추가 2 피해를 입힙니다.</li><li><strong>영혼</strong> 격노 저항이 모든 물리 피해와 독 피해에 적용됩니다. 이 저항은 마법 공격에 대해서는 절반이 됩니다.</li><li><strong>미신</strong> 마법에 대한 내성 굴림을 시도할 때 두 번 굴려 더 높은 결과를 택합니다. 또한 격노 저항이 모든 마법 전통에 적용됩니다.</li></ul>"
  },
  "effect-rowan-rifle-cold": {
   "name_ko": "효과: 로완 소총 (냉기)",
@@ -2759,7 +2759,7 @@
  },
  "aura-searing-blade-greater": {
   "name_ko": "오라: 작열하는 검 (상급)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.pvxRcuBexbFawjCg]{작열하는 검 (상급)}에 의해 부여됨</p>\n<p><em>상급 작열하는 검</em>에서 화염의 @Template[emanation|distance:10]이 1분 동안 방출됩니다. 해당 범위 내에 있는 당신과 아군의 모든 무기 및 비무장 공격은 <em>화염(flaming)</em> 속성 룬의 효과를 얻습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.pvxRcuBexbFawjCg]{작열하는 검 (상급)}에 의해 부여됨</p>\n<p><em>상급 작열하는 검</em>에서 화염의 @Template[emanation|distance:10]이 1분 동안 방출됩니다. 해당 범위 내에 있는 당신과 아군의 모든 무기 및 비무장 공격은 <em>화염</em> 속성 룬의 효과를 얻습니다.</p>"
  },
  "effect-grit-stage-2": {
   "name_ko": "효과: 투지 (2단계)",
@@ -2811,7 +2811,7 @@
  },
  "effect-focus-on-the-doomed": {
   "name_ko": "효과: 파멸당한 자에게 집중",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.LWMlDUCdDGo1wJnF]{Assassin's Bracers (Type I)}, @UUID[Compendium.pf2e.equipment-srd.Item.dtiYqfBG2BcLHX92]{Assassin's Bracers (Type II)}, @UUID[Compendium.pf2e.equipment-srd.Item.9pUwExXYzndCJFYj]{Assassin's Bracers (Type III)}에 의해 부여됨</p>\n<p>지정된 생물을 페인트(Feint)하거나 위압(Demoralize)하려는 시도에 아이템 보너스를 얻는다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.LWMlDUCdDGo1wJnF]{Assassin's Bracers (Type I)}, @UUID[Compendium.pf2e.equipment-srd.Item.dtiYqfBG2BcLHX92]{Assassin's Bracers (Type II)}, @UUID[Compendium.pf2e.equipment-srd.Item.9pUwExXYzndCJFYj]{Assassin's Bracers (Type III)}에 의해 부여됨</p>\n<p>지정된 생물을 페인트하거나 위압하려는 시도에 아이템 보너스를 얻는다.</p>"
  },
  "effect-poison-fizz": {
   "name_ko": "효과: 포이즌 피즈",
@@ -2823,7 +2823,7 @@
  },
  "effect-spined-shield-spines": {
   "name_ko": "효과: 가시 방패 가시",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.WDh4fb9N86mNLfDV]{Spined Shield}에 의해 부여됨</p>\n<p>이 방패로 방패 막기(Shield Block) 반응을 사용할 때, 가시가 방패 자체보다 먼저 피해를 받는다. 방패가 피해를 받을 때(경도 적용 후), 6 피해마다 가시 하나가 부러지며 피해를 6만큼 감소시킨다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.WDh4fb9N86mNLfDV]{Spined Shield}에 의해 부여됨</p>\n<p>이 방패로 방패 막기 반응을 사용할 때, 가시가 방패 자체보다 먼저 피해를 받는다. 방패가 피해를 받을 때(경도 적용 후), 6 피해마다 가시 하나가 부러지며 피해를 6만큼 감소시킨다.</p>"
  },
  "effect-saurian-spike-armor": {
   "name_ko": "효과: 사우리안 스파이크 - 갑옷",
@@ -3383,7 +3383,7 @@
  },
  "effect-ghostcallers-planchette-weapon": {
   "name_ko": "효과: 유령소환사의 플랜쳇 - 무기",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.v7YHA9UhDgsvQ47Q]{유령소환사의 플랜쳇}, @UUID[Compendium.pf2e.equipment-srd.Item.utRZnCD2XI9Q1dWE]{유령소환사의 플랜쳇 (상급)}에서 부여됨</p>\n<p>부착된 무기는 <em>유령 접촉(ghost touch)</em> 속성 룬과 <em>상급 교란(greater disrupting)</em> 속성 룬(<em>상급</em>)의 효과를 얻습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.v7YHA9UhDgsvQ47Q]{유령소환사의 플랜쳇}, @UUID[Compendium.pf2e.equipment-srd.Item.utRZnCD2XI9Q1dWE]{유령소환사의 플랜쳇 (상급)}에서 부여됨</p>\n<p>부착된 무기는 <em>유령 접촉</em> 속성 룬과 <em>상급 교란</em> 속성 룬(<em>상급</em>)의 효과를 얻습니다.</p>"
  },
  "effect-warding-statuette-weapon": {
   "name_ko": "효과: 수호의 조각상 - 무기",
@@ -3475,7 +3475,7 @@
  },
  "effect-sanguine-fang-armor": {
   "name_ko": "효과: 피의 송곳니 - 방어구",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.j392AMbPfkcRbCw6]{피의 송곳니}, @UUID[Compendium.pf2e.equipment-srd.Item.fdntl5OOhtYIPSBi]{피의 송곳니 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.0AxBSojJ2XhcqMvJ]{피의 송곳니 (특급)}로 부여됨</p>\n<p>지속 출혈 피해에 저항을 얻으며, 공허(void) 특성을 가진 효과에 대한 내성 굴림에 아이템 보너스를 받습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.j392AMbPfkcRbCw6]{피의 송곳니}, @UUID[Compendium.pf2e.equipment-srd.Item.fdntl5OOhtYIPSBi]{피의 송곳니 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.0AxBSojJ2XhcqMvJ]{피의 송곳니 (특급)}로 부여됨</p>\n<p>지속 출혈 피해에 저항을 얻으며, 공허 특성을 가진 효과에 대한 내성 굴림에 아이템 보너스를 받습니다.</p>"
  },
  "effect-antiplague": {
   "name_ko": "효과: 항역병제",
@@ -3627,7 +3627,7 @@
  },
  "effect-the-hammer-of-hooves": {
   "name_ko": "효과: 발굽의 망치",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.c2Uo8HZng1Ne5yV2]{초원의 광구}이(가) 부여함</p>\n<p>동물 지휘(Command an Animal)를 위한 자연학 판정에 +1 상태 보너스를 받습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.c2Uo8HZng1Ne5yV2]{초원의 광구}이(가) 부여함</p>\n<p>동물 지휘를 위한 자연학 판정에 +1 상태 보너스를 받습니다.</p>"
  },
  "effect-heads-up": {
   "name_ko": "효과: 조심해!",
@@ -3659,7 +3659,7 @@
  },
  "stance-defy-hell": {
   "name_ko": "자세: 지옥에 맞서기",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.rLAaQBIgnv6zeNvP]{지옥에 맞서기}에 의해 부여됨.</p>\n<p>이 자세를 취하고 있는 동안, 정신 효과에 대한 내성 굴림에 +2 상태 보너스를 받고 지옥파괴자 강타(Hellbreaker Strike)를 할 수 있습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.rLAaQBIgnv6zeNvP]{지옥에 맞서기}에 의해 부여됨.</p>\n<p>이 자세를 취하고 있는 동안, 정신 효과에 대한 내성 굴림에 +2 상태 보너스를 받고 지옥파괴자 강타를 할 수 있습니다.</p>"
  },
  "effect-iomedaes-valor-temporary-hit-points": {
   "name_ko": "효과: 이오메데의 용맹 (임시 히트 포인트)",
@@ -4011,7 +4011,7 @@
  },
  "spell-effect-cosmic-form": {
   "name_ko": "주문 효과: 우주적 형상",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.IHUs4qn27RrdFQ5Y]{우주적 형상}에 의해 부여됨</p>\n<p>대형 전투 형상으로 변신합니다. 이 전투 형상에서는 손을 가지고 있어 조작(manipulate) 행동을 사용할 수 있습니다. 선택한 형상과 무관하게 다음 수치와 능력을 얻습니다:</p><ul><li>AC = 21 + 당신의 레벨. 방어구의 판정 페널티와 속도 감소를 무시합니다.</li><li>임시 히트 포인트 20점.</li><li>암시야.</li><li>사용하는 전투 형상에 특화된 하나 이상의 공격. 이에 숙련되어 있습니다. 공격 수정치는 +25이며, 명시된 피해를 사용합니다. 근접 공격은 근력 기반이며(예를 들어 약화됨 조건의 목적상), 원거리 공격은 민첩 기반입니다. 당신의 비무장 공격 수정치가 더 높다면 그것을 대신 사용할 수 있습니다.</li><li>운동 수정치 +25, 단 당신 자신의 수치가 더 높다면 그것을 사용합니다.</li></ul><p>또한 천체에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>달</strong> 속도 30피트, 비행 50피트</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹 (민첩, 도달 10피트), <strong>피해</strong> 2d4+10 타격 및 1d6 화염</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 달빛 (사거리 90피트), <strong>피해</strong> 2d4+10 화염; 이 형상의 화염 피해는 저항, 약점 등에 대해 은으로 취급됩니다</li><li>어느 쪽 공격이든 대성공 시, 목표는 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 2}가 됩니다.</li></ul></li><li><p><strong>태양</strong> 속도 30피트, 비행 50피트</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹 (민첩, 도달 10피트), <strong>피해</strong> 2d6+10 화염 및 1d6 지속 화염</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 햇빛 (사거리 90피트), <strong>피해</strong> 1d6+10 화염 및 1d6 지속 화염</li><li>어느 쪽 공격이든 대성공 시, 목표는 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{눈부심}이 됩니다.</li></ul></li></ul>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.IHUs4qn27RrdFQ5Y]{우주적 형상}에 의해 부여됨</p>\n<p>대형 전투 형상으로 변신합니다. 이 전투 형상에서는 손을 가지고 있어 조작 행동을 사용할 수 있습니다. 선택한 형상과 무관하게 다음 수치와 능력을 얻습니다:</p><ul><li>AC = 21 + 당신의 레벨. 방어구의 판정 페널티와 속도 감소를 무시합니다.</li><li>임시 히트 포인트 20점.</li><li>암시야.</li><li>사용하는 전투 형상에 특화된 하나 이상의 공격. 이에 숙련되어 있습니다. 공격 수정치는 +25이며, 명시된 피해를 사용합니다. 근접 공격은 근력 기반이며(예를 들어 약화됨 조건의 목적상), 원거리 공격은 민첩 기반입니다. 당신의 비무장 공격 수정치가 더 높다면 그것을 대신 사용할 수 있습니다.</li><li>운동 수정치 +25, 단 당신 자신의 수치가 더 높다면 그것을 사용합니다.</li></ul><p>또한 천체에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>달</strong> 속도 30피트, 비행 50피트</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹 (민첩, 도달 10피트), <strong>피해</strong> 2d4+10 타격 및 1d6 화염</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 달빛 (사거리 90피트), <strong>피해</strong> 2d4+10 화염; 이 형상의 화염 피해는 저항, 약점 등에 대해 은으로 취급됩니다</li><li>어느 쪽 공격이든 대성공 시, 목표는 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 2}가 됩니다.</li></ul></li><li><p><strong>태양</strong> 속도 30피트, 비행 50피트</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹 (민첩, 도달 10피트), <strong>피해</strong> 2d6+10 화염 및 1d6 지속 화염</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 햇빛 (사거리 90피트), <strong>피해</strong> 1d6+10 화염 및 1d6 지속 화염</li><li>어느 쪽 공격이든 대성공 시, 목표는 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{눈부심}이 됩니다.</li></ul></li></ul>"
  },
  "spell-effect-warping-pull": {
   "name_ko": "주문 효과: 뒤틀림의 견인",
@@ -4027,14 +4027,14 @@
  },
  "spell-effects-divine-dragons-watch": {
   "name_ko": "주문 효과: 신성한 용의 감시",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.BBiO9ZdwyEJ581ES]{신성한 용의 감시}에 의해 부여됨</p>\n<p>용의 보호(Dragon's Protection) 반응을 얻습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.BBiO9ZdwyEJ581ES]{신성한 용의 감시}에 의해 부여됨</p>\n<p>용의 보호 반응을 얻습니다.</p>"
  },
  "spell-effect-helpful-reload": {
   "name_ko": "주문 효과: 도움이 되는 재장전",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.0OFFXFdnMmFVlt8W]{도움이 되는 재장전}에 의해 부여됨</p>\n<p>선택한 무기로 하는 다음 공격에 +1 상태 보너스를 얻습니다.</p>"
  },
  "stance-rushing-goat-stance": {
-  "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.BQWGOK0lVmljCunm]{돌진하는 염소 자세}에 의해 부여됨</p>\n<p>당신이 할 수 있는 유일한 타격은 들이받는 뿔 공격입니다. 이 타격은 1d8 타격 피해를 입히고, 격투(brawling) 그룹에 속하며, 강제(forceful)·비살상(nonlethal)·밀기(shove)·비무장(unarmed) 특성을 가집니다.</p>\n<p>들이받는 뿔 공격을 할 때 직전 행동이 등반, 보폭, 도약 중 하나였다면, 무기 피해 주사위 수와 같은 상황 보너스를 피해에 얻습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.BQWGOK0lVmljCunm]{돌진하는 염소 자세}에 의해 부여됨</p>\n<p>당신이 할 수 있는 유일한 타격은 들이받는 뿔 공격입니다. 이 타격은 1d8 타격 피해를 입히고, 격투 그룹에 속하며, 강제·비살상·밀기·비무장 특성을 가집니다.</p>\n<p>들이받는 뿔 공격을 할 때 직전 행동이 등반, 보폭, 도약 중 하나였다면, 무기 피해 주사위 수와 같은 상황 보너스를 피해에 얻습니다.</p>"
  },
  "effect-lesson-of-the-splintered-aegis": {
   "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.Ry8NYQwxPagKnLKW]{쪼개진 방패의 교훈}에 의해 부여됨</p>\n<p>대상에 대한 다음 타격 또는 주문 명중 굴림을 두 번 굴려 더 나은 결과를 취할 수 있습니다.</p>"
@@ -4049,7 +4049,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.UxjAszOYAhUvCDt2]{벗어날 수 없는 손아귀}에 의해 부여됨</p>\n<p>조이기 상태인 동안 순간이동 주문이나 효과를 사용하려 하면, DC 15 단순 판정에 성공해야 하며 실패 시 주문이 실패합니다.</p>"
  },
  "effect-oversized-throw": {
-  "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.tIE2umG4rQOxm8D8]{특대형 투척}에 의해 부여됨</p>\n<p>원거리 타격을 얻습니다. 이는 1d10 타격 피해를 입히는 단순 원거리 무기이며, 사거리 증가치 20피트를 가지고, 투척(thrown) 무기 특성을 가집니다. 단순 무기에 무기 전문화가 있으면 피해가 2d10 타격으로, 상급 무기 전문화가 있으면 3d10 타격으로 증가합니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.tIE2umG4rQOxm8D8]{특대형 투척}에 의해 부여됨</p>\n<p>원거리 타격을 얻습니다. 이는 1d10 타격 피해를 입히는 단순 원거리 무기이며, 사거리 증가치 20피트를 가지고, 투척 무기 특성을 가집니다. 단순 무기에 무기 전문화가 있으면 피해가 2d10 타격으로, 상급 무기 전문화가 있으면 3d10 타격으로 증가합니다.</p>"
  },
  "effect-selfish-shield": {
   "desc_ko": "<p>@UUID[Compendium.pf2e.actionspf2e.Item.enQieRrITuEQZxx2]{이기적인 방패}에 의해 부여됨</p>\n<p>피해 유형과 무관하게, 발동시킨 피해에 대해 2 + 레벨의 절반과 같은 저항을 얻습니다.</p>"

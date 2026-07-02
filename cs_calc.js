@@ -349,23 +349,16 @@ function _findInDb(db, key, fields) {
   return null;
 }
 
-// FVTT-native(P4) 주문 카탈로그 우선, 미준비 시 레거시 SPELL_DB 폴백
+// 주문 카탈로그 = FVTT 단일 소스(PF2eSpell). 미로드 시 빈 목록(로딩 게이트가 커버).
 function _allSpells() {
-  if (typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && PF2eSpell.ready()) return PF2eSpell.spellList();
-  return (typeof SPELL_DB !== 'undefined') ? SPELL_DB : [];
+  return (typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && PF2eSpell.ready()) ? PF2eSpell.spellList() : [];
 }
 function getSpell(key) {
-  if (typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && PF2eSpell.ready()) {
-    const sp = PF2eSpell.getSpellLegacy(key); if (sp) return sp;
-  }
-  return typeof SPELL_DB !== 'undefined' ? _findInDb(SPELL_DB, key, ['id','name_en','name_ko']) : null;
+  return (typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && PF2eSpell.ready()) ? PF2eSpell.getSpellLegacy(key) : null;
 }
 function getFeat(key)  {
-  // 레거시 FEAT_DB(검증된 효과) 우선, 미등재면 FVTT 재주 보강(P4 병합)
-  const leg = typeof FEAT_DB !== 'undefined' ? _findInDb(FEAT_DB, key, ['id','name_en','name_ko']) : null;
-  if (leg) return leg;
-  if (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) return PF2eFeat.getFeatLegacy(key);
-  return null;
+  // 재주 카탈로그 = FVTT 단일 소스(PF2eFeat). 효과는 effects_db, 선행조건은 prereqs_db.
+  return (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) ? PF2eFeat.getFeatLegacy(key) : null;
 }
 // ── slug 디커플링 헬퍼 (번역명 결합 제거) ──────────────────────────────
 // 저장·매칭은 slug(id)로 정규화, 표시는 항상 현재 name_ko로 재해소.
@@ -393,27 +386,28 @@ function featSlug(x) {
 function spellSame(a, b) { return spellSlug(a) === spellSlug(b); }
 function featSame(a, b) { return featSlug(a) === featSlug(b); }
 
-// 병합 재주풀: 레거시 FEAT_DB + FVTT-only(슬러그 미중복). 모달/필터용.
+// 재주풀 = FVTT 단일 소스(PF2eFeat.featList). 모달/필터용.
 function _allFeats() {
-  const leg = (typeof FEAT_DB !== 'undefined') ? FEAT_DB : [];
-  if (typeof PF2eFeat === 'undefined' || !PF2eFeat.ready || !PF2eFeat.ready()) return leg;
-  const have = new Set(leg.map(f => f && f.id));
-  const extra = PF2eFeat.featList().filter(f => !have.has(f.id));
-  return leg.concat(extra);
+  return (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) ? PF2eFeat.featList() : [];
 }
-function getAction(key){ return typeof ACTION_DB !== 'undefined' ? _findInDb(ACTION_DB, key, ['id','name_en','name_ko']) : null; }
+// 행동 = FVTT 카탈로그(PF2eAction) + 큐레이션(그룹/게이트) 단일 소스. 큐레이션(앱 요약) 우선, 미등재면 FVTT.
+function getAction(key){
+  if (typeof PF2eAction === 'undefined') return null;
+  return (PF2eAction.getCuration && PF2eAction.getCuration(key)) || (PF2eAction.getActionLegacy && PF2eAction.getActionLegacy(key)) || null;
+}
 function getHeritage(key){
-  // FVTT-native(P4) 우선, 미준비 시 레거시 HERITAGE_DB 폴백
+  // 유산 카탈로그 = FVTT 단일 소스(PF2eAnc)
   if (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready()) {
-    const h = PF2eAnc.getHeritageLegacy(key) || _findInDb(PF2eAnc.heritageList(), key, ['id','name_en','name_ko']);
-    if (h) return h;
+    return PF2eAnc.getHeritageLegacy(key) || _findInDb(PF2eAnc.heritageList(), key, ['id','name_en','name_ko']) || null;
   }
-  return typeof HERITAGE_DB !== 'undefined' ? _findInDb(HERITAGE_DB, key, ['id','name_en','name_ko']) : null;
+  return null;
 }
-function getWeapon(key){ return typeof WEAPON_DB !== 'undefined' ? _findInDb(WEAPON_DB, key, ['id','name_en','name_ko']) : null; }
-function getArmor(key) { return typeof ARMOR_DB !== 'undefined' ? _findInDb(ARMOR_DB, key, ['id','name_en','name_ko']) : null; }
-function getShield(key){ return typeof SHIELD_DB !== 'undefined' ? _findInDb(SHIELD_DB, key, ['id','name_en','name_ko']) : null; }
-function getGear(key)  { return typeof GEAR_DB !== 'undefined' ? _findInDb(GEAR_DB, key, ['id','name_en','name_ko']) : null; }
+// 장비 카탈로그 = FVTT 단일 소스(PF2eEquip). key=slug/name_en/name_ko 모두 해소(구 저장 하위호환).
+function _getEquip(key, type) { return (typeof PF2eEquip !== 'undefined' && PF2eEquip.getEquipLegacy) ? PF2eEquip.getEquipLegacy(key, type) : null; }
+function getWeapon(key){ return _getEquip(key, 'weapon'); }
+function getArmor(key) { return _getEquip(key, 'armor'); }
+function getShield(key){ return _getEquip(key, 'shield'); }
+function getGear(key)  { return _getEquip(key); }
 function getCondition(key) {
   if (typeof CONDITIONS_DATA === 'undefined' || !key) return null;
   const idx = _getDbIndex(CONDITIONS_DATA, ['id','en','name']);
@@ -591,7 +585,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.42').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.63').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
@@ -845,8 +839,8 @@ function _infoResolveItem(type, name) {
   } else if (type === 'feat') {
     item = getFeat(nameKo);
     // 폴백: nameKo가 "한글명 (English)" 형식일 때 prefix 매칭
-    if (!item && typeof FEAT_DB !== 'undefined') {
-      for (const f of FEAT_DB) {
+    if (!item && typeof _allFeats === 'function') {
+      for (const f of _allFeats()) {
         if (f && f.name_ko && nameKo.startsWith(f.name_ko)) { item = f; break; }
       }
     }
@@ -929,7 +923,7 @@ function _infoResolveItem(type, name) {
   }
 
   // 장비: DB 항목에 설명이 없으면 보유 중인 장비 인스턴스의 _desc로 보강
-  // (GEAR_DB 등 최소 스키마에는 설명이 없으나 BASE 브라우즈로 추가한 항목은 _desc 보유)
+  // (룬 등 최소 스키마에는 설명이 없으나 FVTT 카탈로그로 추가한 항목은 _desc 보유)
   if (item && !item.desc && !item.summary && ['gear','rune','weapon','armor','shield'].includes(type)) {
     const eqInst = _eqByName(name) || _eqByName(nameKo);
     const d = eqInst && (eqInst._desc || eqInst._data?._desc || eqInst._data?.desc || eqInst._data?.description);
@@ -1663,24 +1657,26 @@ function rebuildCoreEffects() {
     });
   }
 
-  // 배경 지식 (lore) — 한국어 이름 그대로 (외래 DB 없음)
+  // 배경 지식 (lore) — 글로서리로 주제명 한글화(영문/한글 양쪽 매칭으로 정합 유지)
   if (beff && beff.fixed_lores.length) {
     beff.fixed_lores.forEach((loreName, i) => {
       const slot = i === 0 ? 'lore1' : 'lore2';
+      const loreKo = (typeof getLoreKo === 'function') ? getLoreKo(loreName) : loreName;
       const nameEl = document.getElementById('lore-name-' + slot);
       const profEl = document.getElementById('sk-prof-' + slot);
       if (nameEl && profEl) {
-        const prevName = nameEl.value === loreName ? loreName : nameEl.value;
+        const _isGranted = (nameEl.value === loreKo || nameEl.value === loreName);
+        const prevName = _isGranted ? loreKo : nameEl.value;
         const prevRank = parseInt(profEl.value || 0);
-        state._bgGrantedLores.push({slot, name: loreName, prevName: prevRank < 2 ? '' : prevName, prevRank: prevRank < 2 ? 0 : prevRank});
-        if (!nameEl.value || nameEl.value === loreName) nameEl.value = loreName;
+        state._bgGrantedLores.push({slot, name: loreKo, prevName: prevRank < 2 ? '' : prevName, prevRank: prevRank < 2 ? 0 : prevRank});
+        if (!nameEl.value || _isGranted) nameEl.value = loreKo;
         if (prevRank < 2) profEl.value = '2';
       }
     });
   }
 
   // 배경 재주 — feat_id 기반
-  if (beff?.feat_id && typeof FEAT_DB !== 'undefined') {
+  if (beff?.feat_id) {
     const fd = getFeat(beff.feat_id);
     if (fd) {
       if (!state.feats.skill) state.feats.skill = [];
@@ -1697,9 +1693,10 @@ function rebuildCoreEffects() {
 // ── 서브클래스 효과 헬퍼 (SUBCLASS_DB.granted_*에서 호환 형태로 변환) ──
 function getSubclassAutoFeats(sub) {
   if (!sub || !Array.isArray(sub.granted_feats)) return [];
+  // 서브클래스가 부여하는 능력은 클래스 특성('special')으로 묶는다 — 클래스 재주(class)/기술 재주(skill)가 아님.
   return sub.granted_feats.map(fid => {
-    const f = (typeof getFeat === 'function') ? getFeat(fid) : ((typeof FEAT_DB !== 'undefined') ? FEAT_DB.find(x => x.id === fid) : null);
-    return f ? { lv: 1, name_ko: f.name_ko, name_en: f.name_en, category: f.category } : null;
+    const f = (typeof getFeat === 'function') ? getFeat(fid) : null;
+    return f ? { lv: 1, name_ko: f.name_ko, name_en: f.name_en, category: 'special', _subclass: true } : null;
   }).filter(Boolean);
 }
 function getSubclassAutoSpells(sub) {
@@ -1707,7 +1704,9 @@ function getSubclassAutoSpells(sub) {
   return sub.granted_spells.map(g => {
     const sp = (typeof getSpell === 'function') ? getSpell(g.spell_id) : null;
     if (!sp) return null;
-    const r = { lv: g.lv, type: g.type, name_ko: sp.name_ko, name_en: sp.name_en };
+    // 타입 정규화: 'spell'은 집중(traditions 빈값=전통 무소속, 집중캔트립 포함)/일반캔트립/일반으로 분기. 선천 주문은 유산 경로가 별도 시스템.
+    const type = (g.type === 'spell') ? ((!sp.traditions || !sp.traditions.length) ? 'focus' : (sp.is_cantrip ? 'cantrip' : 'known')) : g.type;
+    const r = { lv: g.lv, type, name_ko: sp.name_ko, name_en: sp.name_en };
     if (g.rank !== undefined) r.rank = g.rank;
     return r;
   }).filter(Boolean);

@@ -80,9 +80,12 @@
     return out.sort((a, b) => a.lv - b.lv);
   }
 
-  // 서브클래스 메타: ChoiceSet 특성에서 tag + 유형명 추출
-  function _subclassMeta(doc) {
+  // 서브클래스 메타: ChoiceSet 특성에서 tag + 유형명 추출.
+  // ⚠ 다차원 클래스(사이킥=의식/잠재의식, 에그젬플러=이콘/별칭 등)는 ChoiceSet이 여러 개 → 전부 수집(첫 개만 잡으면 나머지 차원 유실).
+  // ⚠ item:tag: 뿐 아니라 item:trait: 필터도 허용(커맨더 등). kind로 feat 매칭 방식 구분(tag=otherTags, trait=traits.value).
+  function _subclassMetas(doc) {
     const items = (doc.system && doc.system.items) || {};
+    const metas = []; const seen = new Set();
     for (const it of Object.values(items)) {
       let d = null; try { d = it.uuid ? PF.getByUuid(it.uuid) : null; } catch (e) {}
       if (!d) continue;
@@ -90,38 +93,65 @@
         if (r.key !== 'ChoiceSet' || !r.choices) continue;
         let filt = Array.isArray(r.choices.filter) ? r.choices.filter : (Array.isArray(r.choices) ? r.choices : null);
         if (!filt) continue;
-        const tagStr = filt.find(x => typeof x === 'string' && x.indexOf('item:tag:') === 0);
-        if (tagStr) return { tag: tagStr.replace('item:tag:', ''), typeKo: PF.nameKo(d), typeEn: d.name_en || d.name };
+        // ⚠ 서브클래스 = item:tag: ChoiceSet만(에이돌론·의식/잠재의식 등). item:trait: 는 재주선택(진화 재주 등)이라 서브클래스 아님 — 오수집 시 진화재주가 서브클래스로 뜸(v0.46 회귀).
+        for (const x of filt) {
+          if (typeof x !== 'string' || x.indexOf('item:tag:') !== 0) continue;
+          const tag = x.slice('item:tag:'.length);
+          if (!tag || seen.has(tag)) continue;
+          seen.add(tag);
+          metas.push({ tag, kind: 'tag', typeKo: PF.nameKo(d), typeEn: d.name_en || d.name });
+        }
       }
     }
-    return null;
+    return metas;
   }
 
-  // 서브클래스 목록 (SUBCLASS_DB 형태) — tag 일치 feat에서. grants는 RE로 추출(best-effort).
+  // 서브클래스 목록 (SUBCLASS_DB 형태) — 모든 서브클래스 차원의 tag/trait 일치 feat에서. grants는 RE로 추출(best-effort).
   function subclassList(doc) {
     const slug = doc.system.slug;
-    const meta = _subclassMeta(doc);
-    if (!meta || !RE) return [];
-    const out = [];
-    for (const f of PF.all('feats')) {
-      const ot = (f.system && f.system.traits && f.system.traits.otherTags) || [];
-      if (!ot.includes(meta.tag)) continue;
-      let granted_feats = [], granted_spells = [], prof_changes = {};
-      try {
-        const a = RE.build({ level: 20, abilities: { str:4,dex:4,con:4,int:4,wis:4,cha:4 }, class: slug, items: [{ doc: f, choices: {} }] });
-        for (const g of (a.grantedDocs || [])) {
-          if (!g) continue;
-          const gslug = (g.system && g.system.slug) || g._id;
-          if (g.type === 'feat') granted_feats.push(gslug);  // getSubclassAutoFeats가 슬러그로 조회
-          else if (g.type === 'spell') granted_spells.push({ spell_id: gslug, lv: (g.system.level && g.system.level.value) || 1, type: 'spell' });
+    const metas = _subclassMetas(doc);
+    if (!metas.length || !RE) return [];
+    const out = []; const seenFeat = new Set();
+    for (const meta of metas) {
+      for (const f of PF.all('feats')) {
+        const tr = (f.system && f.system.traits) || {};
+        const hit = meta.kind === 'trait' ? (tr.value || []).includes(meta.tag) : (tr.otherTags || []).includes(meta.tag);
+        if (!hit) continue;
+        if (seenFeat.has(f.system.slug)) continue;   // 한 feat이 여러 차원에 걸치면 첫 차원으로 귀속
+        seenFeat.add(f.system.slug);
+        let granted_feats = [], granted_spells = [], prof_changes = {};
+        try {
+          const a = RE.build({ level: 20, abilities: { str:4,dex:4,con:4,int:4,wis:4,cha:4 }, class: slug, items: [{ doc: f, choices: {} }] });
+          for (const g of (a.grantedDocs || [])) {
+            if (!g) continue;
+            const gslug = (g.system && g.system.slug) || g._id;
+            if (g.type === 'feat') granted_feats.push(gslug);  // getSubclassAutoFeats가 슬러그로 조회
+            else if (g.type === 'spell') granted_spells.push({ spell_id: gslug, lv: (g.system.level && g.system.level.value) || 1, type: 'spell' });
+          }
+        } catch (e) {}
+        // 서브클래스 초기 집중 주문(혈통/미스터리/기질/영역/학파/융합 등)은 RE로 안 잡힘 — desc에서 통일 규칙으로 추출(FVTT 시스템 TS 전용 데이터의 유일 추출원).
+        //   ★통일 규칙: desc의 @UUID 주문 참조 중 '집중 주문'(traditions 빈값=전통 무소속)의 첫 번째 = L1 부여분.
+        //   초기(initial)가 advanced/greater보다 먼저 나오므로 첫 것=초기. 레퍼토리 주문(traditions 있음)은 건너뜀.
+        //   is_focus 플래그가 아닌 traditions-빈값으로 판별 → 집중 캔트립(에이돌론 강화·헥스 등 is_focus=false)까지 포함. advanced/greater는 재주로 습득(제외됨).
+        if (!granted_spells.length) {
+          const dv = (f.system && f.system.description && f.system.description.value) || '';
+          for (const mm of dv.matchAll(/@UUID\[([^\]{}]+)\]/g)) {
+            try {
+              const sp = PF.getByUuid(mm[1].trim());
+              if (sp && sp.type === 'spell') {
+                const trads = (sp.system && sp.system.traits && sp.system.traits.traditions) || [];
+                if (!trads.length) { granted_spells.push({ spell_id: (sp.system && sp.system.slug) || sp._id, lv: 1, type: 'focus' }); break; }
+              }
+            } catch (e) {}
+          }
         }
-      } catch (e) {}
-      out.push({
-        id: f.system.slug, class_id: slug, subclass_type: meta.typeKo,
-        name_ko: PF.nameKo(f), name_en: f.name_en || f.name,
-        desc: PF.enrichDesc(PF.descKo(f) || ''),
-        granted_skills: [], granted_feats, granted_spells, features: [], prof_changes,
-      });
+        out.push({
+          id: f.system.slug, class_id: slug, subclass_type: meta.typeKo,
+          name_ko: PF.nameKo(f), name_en: f.name_en || f.name,
+          desc: PF.enrichDesc(PF.descKo(f) || ''),
+          granted_skills: [], granted_feats, granted_spells, features: [], prof_changes,
+        });
+      }
     }
     return out;
   }
@@ -132,8 +162,10 @@
     const FN = (typeof CLASS_FEATURE_NAMES !== 'undefined') ? CLASS_FEATURE_NAMES : (root.CLASS_FEATURE_NAMES || null);
     const ST = (typeof CLASS_SPELL_TABLE !== 'undefined') ? CLASS_SPELL_TABLE : (root.CLASS_SPELL_TABLE || null);
     const SD = (typeof SUBCLASS_DB !== 'undefined') ? SUBCLASS_DB : (root.SUBCLASS_DB || null);
+    // 전 클래스(구 8 legacy 포함) 병합. FEAT_DB 제거 후 CLASS_FEATURE_NAMES는 여기서만 채워짐.
+    // present-only 채우기(!FN[slug]/!ST[slug]/!SD.some) → 큐레이션(CLASS_SPELL_TABLE·SUBCLASS_DB)은 안 덮음.
     for (const doc of PF.all('classes')) {
-      const slug = doc.system && doc.system.slug; if (!slug || LEGACY.has(slug)) continue;
+      const slug = doc.system && doc.system.slug; if (!slug) continue;
       if (FN && !FN[slug]) FN[slug] = classFeatures(doc);
       if (ST && !ST[slug]) { const t = spellTable(slug); if (t) ST[slug] = t; }
       if (SD && Array.isArray(SD) && !SD.some(s => s.class_id === slug)) {

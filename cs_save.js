@@ -216,6 +216,13 @@ function _migrateDerivedSpellStoresToSlug() {
 }
 
 function loadData(d) {
+  if (!d) return;
+  // 로딩 게이트: 카탈로그(혈통/배경/클래스/신격/장비/주문/재주 등) 미준비면 준비 후 재실행.
+  // (복원이 FVTT 카탈로그로 state 객체를 재구성 — 레거시 폴백 없이 안전하게)
+  if (typeof _ensureAllCatalogs === 'function' && typeof catalogsReady === 'function' && !catalogsReady()) {
+    _ensureAllCatalogs().then(() => loadData(d));
+    return;
+  }
   const wasLoadComplete = _loadComplete;
   try {
     if (!d) return;
@@ -341,9 +348,7 @@ function loadData(d) {
     }
     // State objects
     if (d.selectedClass) {
-      state.selectedClass = CLASSES.find(c=>c.id===d.selectedClass)
-        || ((typeof PF2eClass !== 'undefined' && PF2eClass.ready && PF2eClass.ready() && PF2eClass.getClassLegacy(d.selectedClass)))
-        || null;
+      state.selectedClass = (typeof PF2eClass !== 'undefined' && PF2eClass.getClassLegacy(d.selectedClass)) || null;
       if (state.selectedClass) {
         const btn = document.getElementById('btn-class');
         if (btn) { btn.textContent = `${state.selectedClass.name} (${state.selectedClass.en})`; btn.classList.add('filled'); }
@@ -364,23 +369,22 @@ function loadData(d) {
         }
       }
     }
-    const _ancReady = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready());
     if (d.selectedAncestry) {
-      state.selectedAncestry = (_ancReady && PF2eAnc.getAncestryLegacy(d.selectedAncestry)) || ANCESTRIES.find(a=>a.id===d.selectedAncestry)||null;
+      state.selectedAncestry = (typeof PF2eAnc !== 'undefined' && PF2eAnc.getAncestryLegacy(d.selectedAncestry)) || null;
       if (state.selectedAncestry) {
         const btn = document.getElementById('btn-ancestry');
         if (btn) { btn.textContent = `${state.selectedAncestry.name} (${state.selectedAncestry.en})`; btn.classList.add('filled'); }
       }
     }
     if (d.selectedBackground) {
-      state.selectedBackground = ((typeof PF2eBg !== 'undefined' && PF2eBg.ready && PF2eBg.ready() && PF2eBg.getBackgroundLegacy(d.selectedBackground))) || BACKGROUNDS.find(b=>b.id===d.selectedBackground)||null;
+      state.selectedBackground = (typeof PF2eBg !== 'undefined' && PF2eBg.getBackgroundLegacy(d.selectedBackground)) || null;
       if (state.selectedBackground) {
         const btn = document.getElementById('btn-background');
         if (btn) { btn.textContent = `${state.selectedBackground.name} (${state.selectedBackground.en})`; btn.classList.add('filled'); }
       }
     }
     if (d.selectedHeritage) {
-      state.selectedHeritage = (_ancReady && PF2eAnc.getHeritageLegacy(d.selectedHeritage)) || HERITAGE_DB.find(h=>h.id===d.selectedHeritage)||null;
+      state.selectedHeritage = (typeof PF2eAnc !== 'undefined' && PF2eAnc.getHeritageLegacy(d.selectedHeritage)) || null;
       if (state.selectedHeritage) {
         const btn = document.getElementById('btn-heritage');
         if (btn) { btn.textContent = state.selectedHeritage.name_ko; btn.classList.add('filled'); }
@@ -449,19 +453,29 @@ function loadData(d) {
       ['special','ancestry','class','general','skill','archetype','other'].forEach(k => {
         if (!state.feats[k]) state.feats[k] = [];
       });
-      // 유령 재주 정리: growth에 대응되지 않는 비-자동/비-부여 재주 제거
+      // 유령 재주 정리: growth에 대응되지 않는 비-자동/비-부여 재주 제거.
+      // ⚠ growth는 이름/슬러그/개명본이 섞일 수 있음(FVTT 단일소스 이행 후 name_ko 개명 포함) →
+      //    name·id·slug 3중 매칭으로 판정(하나라도 맞으면 유지). 이름만 비교하면 slug-growth가
+      //    실제 재주를 전부 삭제함(회귀 사고). featSlug로 양측을 slug 정규화해 비교.
       if (d.growth) {
-        const growthFeatNames = new Set();
+        const growthRefs = new Set();
         Object.values(d.growth).forEach(g => {
           if (!g || typeof g !== 'object') return;
-          Object.entries(g).forEach(([k,v]) => { if (typeof v === 'string' && k !== 'skillIncrease' && k !== 'skillTraining') growthFeatNames.add(v); });
+          Object.entries(g).forEach(([k,v]) => {
+            if (typeof v === 'string' && k !== 'skillIncrease' && k !== 'skillTraining') {
+              growthRefs.add(v);
+              if (typeof featSlug === 'function') { try { const sl = featSlug(v); if (sl) growthRefs.add(sl); } catch (e) {} }
+            }
+          });
         });
         ['ancestry','class','general','skill','archetype','other'].forEach(cat => {
           const arr = state.feats[cat];
           for (let i = arr.length - 1; i >= 0; i--) {
             const f = arr[i];
             if (!f?.name || f._auto || f._grantedBy) continue;
-            if (!growthFeatNames.has(f.name)) { arr.splice(i, 1); }
+            let keep = growthRefs.has(f.name) || (f.id && growthRefs.has(f.id));
+            if (!keep && typeof featSlug === 'function') { try { const sl = featSlug(f.id || f.name); if (sl && growthRefs.has(sl)) keep = true; } catch (e) {} }
+            if (!keep) arr.splice(i, 1);
           }
         });
       }
@@ -528,11 +542,9 @@ function loadData(d) {
     if (d.tempSkillExpert) state.tempSkillExpert = d.tempSkillExpert;
     if (d.deity) {
       state.deity = d.deity;
-      // 선호 무기 복원
-      if (typeof DEITY_DB !== 'undefined') {
-        const dty = DEITY_DB.find(x=>x.id===d.deity);
-        if (dty) state._deityWeapon = dty.weapon;
-      }
+      // 선호 무기 복원 — 신격 카탈로그(FVTT 478) 단일 소스
+      const dty = (typeof _getDeity === 'function') ? _getDeity(d.deity) : null;
+      if (dty) state._deityWeapon = dty.weapon;
     }
     if (d.divineFont) state.divineFont = d.divineFont;
     if (d.sanctification) state.sanctification = d.sanctification;
@@ -617,6 +629,8 @@ window.onload = function() {
   renderGrowthPlan();
   renderPortrait();
   if (typeof MapView !== 'undefined') MapView.init();  // 지도 onChange/프로비저닝 구독 (세션 입장 시 동작)
+  // 전 카탈로그 로딩 게이트 선제 워밍 — catalogsReady를 미리 세워 loadData 복원이 지연 없이 진행되게(레거시 폴백 없음).
+  if (typeof _ensureAllCatalogs === 'function') _ensureAllCatalogs();
   if (typeof _ensureEquipData === 'function') _ensureEquipData();  // FVTT 장비 카탈로그 사전 로드 (첫 브라우즈 즉시 표시)
   if (typeof _ensureAncData === 'function') _ensureAncData();      // FVTT 혈통/유산/배경 카탈로그 사전 로드 (P4, 캐릭터 생성 1단계)
   if (typeof PF2eSpell !== 'undefined') PF2eSpell.init().catch(()=>{});  // FVTT 주문 카탈로그 사전 로드 (P4)
@@ -624,7 +638,7 @@ window.onload = function() {
   if (typeof PF2eFeat !== 'undefined') PF2eFeat.init().then(() => {        // FVTT 재주 카탈로그 + 교차참조 카테고리 (P4)
     // GrantItem(재주→재주/주문/효과/행동) getByUuid 해소용 — 자동화 전 인덱스 보장
     if (typeof PF2eData !== 'undefined') { PF2eData.loadCategory('effects').catch(()=>{}); PF2eData.loadCategory('actions').catch(()=>{}); }
-    if (typeof PF2eAction !== 'undefined') PF2eAction.init().catch(()=>{});  // FVTT 행동 1340 단일소스 룩업(이미 로드된 actions 인덱싱, 비용≈0)
+    if (typeof PF2eAction !== 'undefined') PF2eAction.init().then(()=>{ if (typeof renderActions==='function') renderActions(); }).catch(()=>{});  // FVTT 행동 1340 단일소스 룩업 → 준비되면 행동 탭 재렌더(FVTT 표시데이터 반영, v0.44)
   }).catch(()=>{});
   _uiReady = true;
   _checkReady();

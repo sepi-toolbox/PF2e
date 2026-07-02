@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.42').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.63').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -1383,11 +1383,26 @@ const RARE_LANGUAGES = (typeof LANGUAGES !== 'undefined') ? LANGUAGES.filter(l =
 
 // 언어 id → 한글 이름 lookup (UI 표시용) — getLanguage 헬퍼 (cs_calc.js) 사용
 function getLanguageKo(id) {
+  // 1) 큐레이션 LANGUAGES(정제된 핵심 언어명) 우선
   if (typeof getLanguage === 'function') {
     const lang = getLanguage(id);
-    return lang ? lang.name_ko : id;
+    if (lang && lang.name_ko && /[가-힣]/.test(lang.name_ko)) return lang.name_ko;
+  }
+  // 2) 시스템 용어 글로서리(FVTT 전체 언어 slug→한글) 폴백 — 이국적 언어(므왕기 등) 해소
+  if (typeof PF2eAnc !== 'undefined' && PF2eAnc._glossary && PF2eAnc._glossary.languageKo) {
+    const ko = PF2eAnc._glossary.languageKo(id);
+    if (ko && ko !== id) return ko;
   }
   return id;
+}
+
+// 지식(Lore) 주제 영문→한글. 글로서리 큐레이션(배경 부여 지식). 미등재(사용자 커스텀)는 원문 유지.
+function getLoreKo(name) {
+  if (!name) return name;
+  if (typeof PF2eAnc !== 'undefined' && PF2eAnc._glossary && PF2eAnc._glossary.loreKo) {
+    return PF2eAnc._glossary.loreKo(name);
+  }
+  return name;
 }
 
 function getMaxLanguages() {
@@ -1755,7 +1770,7 @@ function renderSpells() {
   }
 
   // ── Focus spells ──
-  // 집중 캔트립과 집중 주문 분리 렌더링 (SPELL_DB의 is_cantrip 기반)
+  // 집중 캔트립과 집중 주문 분리 렌더링 (주문 카탈로그의 is_cantrip 기반)
   const focusCantrips = (state.spells.focus || []).filter(s => {
     if (!s) return false;
     const spData = getSpell(s.name);
@@ -2203,6 +2218,16 @@ function renderFeats() {
       }
       const redDot = hasChoiceIssue ? '<span style="font-size:11px;color:#f44336;flex-shrink:0;line-height:1;" title="선택 필요">⚠</span>'
         : hasPrereqIssue ? '<span style="font-size:11px;color:#ff9800;flex-shrink:0;line-height:1;" title="선행 조건 미충족">⚠</span>' : '';
+      // 서브클래스 선택 특성(방법론·교의·기질 등): 선택한 서브클래스만 박스로 표시(모든 옵션 나열 방지)
+      const _sub = state.selectedSubclass;
+      const _isSubChoice = t === 'special' && _sub && _sub.class_id === state.selectedClass?.id
+        && f.name && f.name.split(' (')[0].trim() === (_sub.subclass_type || '').trim();
+      // 서브클래스 선택 특성 desc는 인트로만 남기고 옵션 목록(<ul>)은 선택 박스로 대체
+      const _descShown = _isSubChoice ? String(desc).split(/<ul/i)[0].split(/<hr/i)[0] : desc;
+      const subBox = _isSubChoice ? `<div style="margin-top:8px;padding:8px 10px;background:var(--bg3);border-radius:6px;border-left:3px solid var(--accent);">
+          <div style="font-weight:600;font-size:12px;margin-bottom:3px;display:inline-flex;align-items:center;gap:4px;">${typeof iconImg==='function'?iconImg('feat',_sub):''}${_sub.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${_sub.name_en||''}</span></div>
+          <div style="font-size:11px;line-height:1.6;color:var(--text2);">${typeof resolveDescRefs==='function'?resolveDescRefs(_sub.desc||''):(_sub.desc||'')}</div>
+        </div>` : '';
       div.innerHTML = `
         <div class="feat-card-header" style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
           <span style="color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${iconImg('feat', featData)}${f.name || labels[t] + ' 재주'}</span>${redDot}
@@ -2213,7 +2238,8 @@ function renderFeats() {
         ${fTraits ? `<div class="feat-traits-row">${fTraits}</div>` : ''}
         <div class="feat-detail">
           ${fPrereq}
-          <div style="line-height:1.6;">${typeof formatDescActions==='function'?formatDescActions(desc,featData):desc}</div>
+          <div style="line-height:1.6;">${typeof formatDescActions==='function'?formatDescActions(_descShown,featData):_descShown}</div>
+          ${subBox}
           ${typeof _buildFeatActionCard==='function'?_buildFeatActionCard(featData):''}
           ${choiceUI}
         </div>`;
@@ -2235,7 +2261,7 @@ function _toggleFeatAccordion(div) {
 }
 
 function cascadeRemoveFeats() {
-  if (typeof FEAT_DB === 'undefined') return;
+  if (typeof _checkPrereqs !== 'function') return;
   // _checkPrereqs는 cs_modal.js에 정의 — state.feats 현재 상태 기반으로 판정
   let changed = true;
   while (changed) {
@@ -2327,10 +2353,11 @@ function removeFeat(t, i) {
         if (eff.type === 'grant_lore') {
           const loreName = (eff.name === '$choice') ? feat.choice : eff.name;
           if (loreName) {
+            const loreKo = (typeof getLoreKo === 'function') ? getLoreKo(loreName) : loreName;
             ['lore1','lore2'].forEach(sid => {
               const el = document.getElementById('lore-name-'+sid);
               const profEl = document.getElementById('sk-prof-'+sid);
-              if (el && el.value === loreName) { el.value = ''; if (profEl) profEl.value = '0'; }
+              if (el && (el.value === loreName || el.value === loreKo)) { el.value = ''; if (profEl) profEl.value = '0'; }
             });
           }
         }
@@ -2512,7 +2539,7 @@ function _refreshLearnSpellsList() {
     classTrad = PATRON_TRADITION[state.selectedSubclass.id] || classTrad;
   }
 
-  const filtered = (typeof _allSpells === 'function' ? _allSpells() : (typeof SPELL_DB !== 'undefined' ? SPELL_DB : [])).filter(sp => {
+  const filtered = (typeof _allSpells === 'function' ? _allSpells() : []).filter(sp => {
     if (classTrad && classTrad !== 'any' && sp.traditions && !sp.traditions.includes(classTrad)) return false;
     if (r === 0) { if (!sp.is_cantrip) return false; }
     else { if (sp.is_cantrip || sp.is_focus) return false; if (sp.rank !== r) return false; }
@@ -2667,6 +2694,19 @@ function toggleEquipInline(mainEl, idx) {
     : '<span style="color:var(--text2);font-size:12px;">상세 정보가 없습니다.</span>';
   card.classList.add('equip-open');
   card.insertAdjacentElement('afterend', detail);
+}
+
+// 행동 카드 클릭 시 팝업 대신 인라인 아코디언으로 전체 설명 펼침/접힘 (주문·장비와 동일 언어, v0.44 FVTT 이행)
+function toggleActionInline(cardEl) {
+  const detail = cardEl.nextElementSibling;
+  if (!detail || !detail.classList || !detail.classList.contains('action-inline-detail')) return;
+  const isOpen = detail.classList.contains('open');
+  // 한 번에 하나 (탭 전체)
+  document.querySelectorAll('.action-inline-detail.open').forEach(d => {
+    d.classList.remove('open');
+    if (d.previousElementSibling) d.previousElementSibling.classList.remove('action-card-open');
+  });
+  if (!isOpen) { detail.classList.add('open'); cardEl.classList.add('action-card-open'); }
 }
 
 function _learnSpellFromModal(sp, rank) {
@@ -2850,10 +2890,8 @@ function switchEquipTab(tab) {
   if (_equipUseFvtt()) {
     if (tab === 'weapon') cats = [...new Set(PF2eEquip.legacyList({type:'weapon'}).map(w => w.category))];
     else if (tab === 'armor') cats = [...new Set(PF2eEquip.legacyList({type:'armor'}).map(a => a.category))];
-  } else {
-    if (tab === 'weapon') cats = [...new Set(WEAPON_DB.map(w => w.category))];
-    else if (tab === 'armor') cats = [...new Set(ARMOR_DB.map(a => a.category))];
   }
+  // 미로드 시 cats=[] → renderEquipBrowseItems가 데이터 로드 후 재렌더
 
   if (cats.length > 0) {
     subContainer.innerHTML = `<div class="equip-subtab active" onclick="switchEquipSubTab('')">전체</div>` +
@@ -2904,53 +2942,58 @@ function _ensureAncData() {
     (typeof PF2eBg !== 'undefined' ? PF2eBg.init() : Promise.resolve()),
     (typeof PF2eClass !== 'undefined' ? PF2eClass.init() : Promise.resolve()),
   ]).then(() => true)
-    .catch(e => { console.warn('FVTT 혈통/유산/배경/클래스 데이터 로드 실패 → 레거시 DB 사용', e); return false; });
+    .catch(e => { console.warn('FVTT 혈통/유산/배경/클래스 데이터 로드 실패', e); return false; });
   return _ancDataPromise;
 }
 
-function renderEquipBrowseItems() {
-  // FVTT 카탈로그 사용 가능: 미로드면 로드 후 재렌더(로딩 표시), 로드됨이면 변환목록
-  if (typeof PF2eEquip !== 'undefined' && typeof PF2eData !== 'undefined') {
-    if (!_equipDataReady) {
-      const opts = document.getElementById('modal-options');
-      if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">장비 데이터 불러오는 중… (' + (typeof PF2eEquip.typeCounts === 'function' && _equipDataReady ? '' : '5,600여 종') + ')</div>';
-      _ensureEquipData().then(ok => { if (ok) renderEquipBrowseItems(); else _renderEquipBrowseLegacy(); });
-      return;
-    }
-    const q = (document.getElementById('modal-search')?.value || '').toLowerCase();
-    let items;
-    if (equipBrowseTab === 'weapon') items = PF2eEquip.legacyList({ type: 'weapon', search: q });
-    else if (equipBrowseTab === 'armor') items = PF2eEquip.legacyList({ type: 'armor', search: q });
-    else if (equipBrowseTab === 'shield') items = PF2eEquip.legacyList({ type: 'shield', search: q });
-    else { // gear: FVTT 일반 장비/소비품/보물/탄약/용기 + 레거시 룬(부착 시스템 보존)
-      items = PF2eEquip.legacyList({ search: q }).filter(i => i.damage === undefined && i.ac_bonus === undefined && i.hardness === undefined);
-      if (typeof RUNE_DB !== 'undefined') {
-        let runes = RUNE_DB;
-        if (q) runes = runes.filter(i => (i.name_ko || '').toLowerCase().includes(q) || (i.name_en || '').toLowerCase().includes(q));
-        items = [...runes, ...items];
-      }
-    }
-    if (equipBrowseSubTab) items = items.filter(i => i.category === equipBrowseSubTab);
-    renderOptions(items);
-    return;
-  }
-  _renderEquipBrowseLegacy();
+// ── 전 카탈로그 로딩 게이트 (레거시 폴백 제거의 전제) ──
+// 모든 FVTT 어댑터(장비/혈통/유산/배경/클래스/신격/주문/재주/행동)를 한 번에 준비.
+// 캐릭터 복원(loadData)·모달·스탯계산이 카탈로그를 필요로 하므로, 준비 전엔 복원을 지연 후 재실행.
+let _catalogsReady = false, _catalogsPromise = null;
+function catalogsReady() { return _catalogsReady; }
+function _ensureAllCatalogs() {
+  if (_catalogsReady) return Promise.resolve(true);
+  if (_catalogsPromise) return _catalogsPromise;
+  const tasks = [];
+  const push = (p) => { if (p && p.then) tasks.push(p.catch(e => { console.warn('카탈로그 init 실패', e); })); };
+  if (typeof PF2eData !== 'undefined') push(PF2eData.loadCategory('equipment'));
+  if (typeof PF2eEquip !== 'undefined') push(PF2eEquip.init());
+  if (typeof PF2eAnc !== 'undefined') push(PF2eAnc.init());
+  if (typeof PF2eBg !== 'undefined') push(PF2eBg.init());
+  if (typeof PF2eClass !== 'undefined') push(PF2eClass.init());
+  if (typeof PF2eDeity !== 'undefined') push(PF2eDeity.init());
+  if (typeof PF2eSpell !== 'undefined') push(PF2eSpell.init());
+  if (typeof PF2eFeat !== 'undefined') push(PF2eFeat.init());
+  if (typeof PF2eAction !== 'undefined') push(PF2eAction.init());
+  _catalogsPromise = Promise.all(tasks).then(() => { _equipDataReady = true; _catalogsReady = true; return true; });
+  return _catalogsPromise;
 }
 
-// 레거시 DB 폴백 (PF2eEquip 미로드/로드실패 시)
-function _renderEquipBrowseLegacy() {
-  let items = [];
-  if (equipBrowseTab === 'weapon') items = [...WEAPON_DB];
-  else if (equipBrowseTab === 'armor') items = [...ARMOR_DB];
-  else if (equipBrowseTab === 'shield') items = [...SHIELD_DB];
-  else if (equipBrowseTab === 'gear') items = [...GEAR_DB, ...(typeof RUNE_DB !== 'undefined' ? RUNE_DB : [])];
-  else items = [...GEAR_DB];
-
+function renderEquipBrowseItems() {
+  // 장비 카탈로그 = FVTT 단일 소스. 미로드면 로드 후 재렌더(로딩 표시).
+  const opts = document.getElementById('modal-options');
+  if (!_equipDataReady) {
+    if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">장비 데이터 불러오는 중… (5,600여 종)</div>';
+    _ensureEquipData().then(ok => {
+      if (ok) renderEquipBrowseItems();
+      else if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">장비 데이터를 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.</div>';
+    });
+    return;
+  }
+  const q = (document.getElementById('modal-search')?.value || '').toLowerCase();
+  let items;
+  if (equipBrowseTab === 'weapon') items = PF2eEquip.legacyList({ type: 'weapon', search: q });
+  else if (equipBrowseTab === 'armor') items = PF2eEquip.legacyList({ type: 'armor', search: q });
+  else if (equipBrowseTab === 'shield') items = PF2eEquip.legacyList({ type: 'shield', search: q });
+  else { // gear: FVTT 일반 장비/소비품/보물/탄약/용기 + 룬(부착 시스템 큐레이션 보존)
+    items = PF2eEquip.legacyList({ search: q }).filter(i => i.damage === undefined && i.ac_bonus === undefined && i.hardness === undefined);
+    if (typeof RUNE_DB !== 'undefined') {
+      let runes = RUNE_DB;
+      if (q) runes = runes.filter(i => (i.name_ko || '').toLowerCase().includes(q) || (i.name_en || '').toLowerCase().includes(q));
+      items = [...runes, ...items];
+    }
+  }
   if (equipBrowseSubTab) items = items.filter(i => i.category === equipBrowseSubTab);
-
-  const q = (document.getElementById('modal-search')?.value||'').toLowerCase();
-  if (q) items = items.filter(i => (i.name_ko||'').includes(q) || (i.name_en||'').toLowerCase().includes(q));
-
   renderOptions(items);
 }
 

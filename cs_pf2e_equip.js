@@ -96,7 +96,7 @@
   }
 
   // ===== 레거시 shape 변환 (기존 cs_ui.js 장비 파이프라인 호환) =====
-  // 기존 WEAPON_DB/ARMOR_DB/SHIELD_DB/GEAR_DB와 동일 필드 → _data/_dbData로 그대로 사용.
+  // 무기/방어구/방패/장비 공통 레거시 필드 shape → _data/_dbData로 그대로 사용.
   const WCAT_LEGACY = { simple: '단순', martial: '군용', advanced: '고급', unarmed: '비무장' }; // getWeaponCategory 인식 형태
   const ACAT_LEGACY = { unarmored: '비무장', light: '경장', medium: '중장', heavy: '중량' };
   const DMG_LETTER = { slashing: 'S', piercing: 'P', bludgeoning: 'B' };
@@ -111,7 +111,7 @@
     const base = { id: s.slug || doc._id, name_ko: doc.name_ko || doc.name, name_en: doc.name_en || doc.name, img: doc.img || null, price: formatPrice(s.price), bulk: _bulkNum(s.bulk), level: (s.level && s.level.value) || 0, desc: PF.descKo(doc) || '' };
     switch (doc.type) {
       case 'weapon':
-        return Object.assign(base, { category: WCAT_LEGACY[s.category] || s.category || '단순', damage: _weaponDamageStr(s), hands: ((s.traits && s.traits.value) || []).some(t => t.startsWith('two-hand')) ? 2 : 1, range: (s.range && (s.range.increment || s.range.max)) || (typeof s.range === 'number' ? s.range : null), reload: (s.reload && s.reload.value) != null ? Number(s.reload.value) : null, group: (_loadLang().weaponGroup || {})[s.group] || s.group || '', traits: _traitsKo(s) });
+        return Object.assign(base, { category: WCAT_LEGACY[s.category] || s.category || '단순', rarity: (s.traits && s.traits.rarity) || 'common', damage: _weaponDamageStr(s), hands: ((s.traits && s.traits.value) || []).some(t => t.startsWith('two-hand')) ? 2 : 1, range: (s.range && (s.range.increment || s.range.max)) || (typeof s.range === 'number' ? s.range : null), reload: (s.reload && s.reload.value) != null ? Number(s.reload.value) : null, group: (_loadLang().weaponGroup || {})[s.group] || s.group || '', traits: _traitsKo(s) });
       case 'armor':
         return Object.assign(base, { ac_bonus: s.acBonus || 0, dex_cap: s.dexCap != null ? s.dexCap : null, check_penalty: s.checkPenalty || 0, speed_penalty: s.speedPenalty || 0, strength: s.strength || 0, category: ACAT_LEGACY[s.category] || s.category || '', group: (_loadLang().armorGroup || {})[s.group] || s.group || '', traits: _traitsKo(s) });
       case 'shield':
@@ -128,7 +128,43 @@
     const c = {}; for (const d of PF.all('equipment')) c[d.type] = (c[d.type] || 0) + 1; return c;
   }
 
-  const API = { init, list, card, legacyList, toLegacy, typeCounts, trait, damageTypeKo, formatPrice, formatBulk, ITEMTYPE_KO, RARITY_KO };
+  // ── 단일 소스 리졸버 (getWeapon/getArmor/getShield/getGear 공통) ──
+  // 구 큐레이션 DB(WEAPON/ARMOR/SHIELD/GEAR)가 쓰던 slug·이름 중 FVTT와 어긋나는 것만 매핑.
+  // (구 저장 캐릭터 하위호환용. 대부분은 slug/name_en/name_ko로 직접 해소됨.)
+  const _EQ_ALIAS = {
+    'dwarven-waraxe': 'dwarven-war-axe', 'studded-leather': 'studded-leather-armor',
+    'healers-tools': 'healers-toolkit', 'thieves-tools': 'thieves-toolkit', 'alchemists-tools': 'alchemists-toolkit',
+    'instrument-handheld': 'musical-instrument-handheld', 'religious-symbol-wood': 'religious-symbol-wooden',
+    'rope-50-ft': 'rope', 'repair-kit': 'repair-toolkit', 'rations-2-weeks': 'rations',
+    'primal-focus': 'primal-symbol', 'alchemists-fire': 'alchemists-fire-lesser',
+    'arrows-10': 'arrows', 'bolts-10': 'bolts', 'sling-bullets-10': 'sling-bullets', 'blowgun-darts-10': 'blowgun-darts',
+    // arcane-spellcasting-pouch: 리마스터에서 제거(등가 없음) → null(인스턴스 _data 폴백이 표시 보장)
+  };
+  let _resIdx = null, _resIdxN = -1;
+  function _resolveIndex() {
+    const arr = PF.all('equipment');
+    if (_resIdx && _resIdxN === arr.length) return _resIdx;   // 카테고리 로드되면(길이 변화) 재구축
+    _resIdx = { slug: new Map(), en: new Map(), ko: new Map() };
+    for (const d of arr) {
+      const slug = (d.system && d.system.slug) || d._id;
+      if (slug && !_resIdx.slug.has(slug)) _resIdx.slug.set(slug, d);
+      const en = (d.name_en || d.name || '').toLowerCase(); if (en && !_resIdx.en.has(en)) _resIdx.en.set(en, d);
+      const ko = PF.nameKo(d); if (ko && !_resIdx.ko.has(ko)) _resIdx.ko.set(ko, d);
+    }
+    _resIdxN = arr.length;
+    return _resIdx;
+  }
+  // key = slug / name_en / name_ko(구 저장) 모두 허용. type 지정 시 그 타입만(무기/방어구/방패 오해소 방지).
+  function getEquipLegacy(key, type) {
+    if (!key) return null;
+    const idx = _resolveIndex();
+    const aliased = _EQ_ALIAS[key] || key;
+    let doc = idx.slug.get(aliased) || idx.slug.get(key) || idx.en.get(String(key).toLowerCase()) || idx.ko.get(key) || null;
+    if (doc && type && doc.type !== type) return null;
+    return doc ? toLegacy(doc) : null;
+  }
+
+  const API = { init, list, card, legacyList, toLegacy, getEquipLegacy, typeCounts, trait, damageTypeKo, formatPrice, formatBulk, ITEMTYPE_KO, RARITY_KO };
   root.PF2eEquip = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

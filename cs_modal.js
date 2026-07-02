@@ -730,6 +730,7 @@ function applyClassFeatures() {
       if (!state.feats[cat].some(e => e.name === featName)) {
         const _fd = f.id ? null : (getFeat(f.name_en) || getFeat(f.name_ko));
         const autoFeat = {id: f.id || _fd?.id || null, name: featName, level: f.lv, _auto: true};
+        if (f._subclass) autoFeat._subclass = true;
         const savedChoice = savedAutoChoices[featName + '_'];
         if (savedChoice) autoFeat.choice = savedChoice;
         state.feats[cat].push(autoFeat);
@@ -803,14 +804,12 @@ function applyClassFeatures() {
 //  CLASS-SPECIFIC BUILD CHOICES (Deity, Font, etc.)
 // ═══════════════════════════════════════════════
 
-// 신격 조회: FVTT 어댑터(478) 우선, 미준비 시 레거시 DEITY_DB(20) 폴백 (P4 후속)
+// 신격 조회 = FVTT 신격 카탈로그(478) 단일 소스
 function _allDeities() {
-  if (typeof PF2eDeity !== 'undefined' && PF2eDeity.ready && PF2eDeity.ready()) return PF2eDeity.deityList();
-  return (typeof DEITY_DB !== 'undefined') ? DEITY_DB : [];
+  return (typeof PF2eDeity !== 'undefined' && PF2eDeity.ready && PF2eDeity.ready()) ? PF2eDeity.deityList() : [];
 }
 function _getDeity(id) {
-  if (typeof PF2eDeity !== 'undefined' && PF2eDeity.ready && PF2eDeity.ready()) { const d = PF2eDeity.getDeityLegacy(id); if (d) return d; }
-  return (typeof DEITY_DB !== 'undefined') ? (DEITY_DB.find(x => x.id === id) || null) : null;
+  return (typeof PF2eDeity !== 'undefined' && PF2eDeity.ready && PF2eDeity.ready()) ? (PF2eDeity.getDeityLegacy(id) || null) : null;
 }
 
 function openDeityPicker() {
@@ -821,7 +820,7 @@ function openDeityPicker() {
     `<div class="opt-row" data-s="${((d.name_ko||'')+' '+(d.name_en||'')+' '+(d.domains_ko||[]).join(' ')).toLowerCase()}" onclick="previewDeity('${d.id}',this)" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
       ${typeof iconImg==='function'&&iconImg('deity',d)?`<div class="opt-row-icon" style="background:none;">${iconImg('deity',d)}</div>`:''}
       <span class="opt-row-name" style="flex:1;">${d.name_ko} <span style="color:var(--text2);font-size:11px;">${d.name_en}</span></span>
-      <span style="font-size:10px;color:var(--text2);">${(typeof WEAPON_DB!=='undefined'&&WEAPON_DB.find(w=>w.id===d.weapon)?.name_ko)||d.weapon||''} / ${(d.sanctification||[]).map(s=>s==='holy'?'신성':'불경').join('·')}</span>
+      <span style="font-size:10px;color:var(--text2);">${(typeof getWeapon==='function'&&getWeapon(d.weapon)?.name_ko)||d.weapon||''} / ${(d.sanctification||[]).map(s=>s==='holy'?'신성':'불경').join('·')}</span>
     </div>`).join('');
   document.getElementById('modal-overlay').classList.remove('hidden');
   document.getElementById('modal-title').textContent = `신격 선택 (${_deities.length})`;
@@ -869,7 +868,7 @@ function previewDeity(id, row) {
     <div class="modal-detail-en">${d.name_en}</div>
     ${titleStr}
     <div style="margin:12px 0;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.7;">
-      <div><b>선호 무기:</b> ${(typeof WEAPON_DB!=='undefined'&&WEAPON_DB.find(w=>w.id===d.weapon)?.name_ko)||d.weapon||'없음'}</div>
+      <div><b>선호 무기:</b> ${(typeof getWeapon==='function'&&getWeapon(d.weapon)?.name_ko)||d.weapon||'없음'}</div>
       <div><b>신성화:</b> ${sanctLabel}</div>
       <div><b>신격 기술:</b> ${skillName}</div>
       <div><b>영역:</b> ${domainsStr||'—'}</div>
@@ -912,8 +911,8 @@ function selectDeity(id) {
     // 신격 기술 훈련
     if(d.skill && typeof setSkillTrained==='function') setSkillTrained(d.skill);
     // 선호 무기 숙련 부여: 군용이면 해당 카테고리를 최소 훈련으로
-    if(d.weapon && typeof WEAPON_DB !== 'undefined') {
-      const wpn = WEAPON_DB.find(w => w.id === d.weapon);
+    if(d.weapon && typeof getWeapon === 'function') {
+      const wpn = getWeapon(d.weapon);
       if(wpn) {
         const cat = (wpn.category||'').toLowerCase();
         let profKey = null;
@@ -2595,12 +2594,23 @@ function openModal(type, ctx) {
   // 부스트 모달은 별도 처리
   if (type === 'boost') { openBoostModal(); return; }
 
-  // FVTT 혈통/유산/배경/클래스 데이터 미준비 시: 폴백으로 일단 열고, 로드 완료되면 FVTT 전체 목록으로 재오픈
-  if ((type === 'ancestry' || type === 'heritage' || type === 'background' || type === 'class') && typeof _ensureAncData === 'function') {
-    const _need = (type === 'background') ? (typeof PF2eBg !== 'undefined' && PF2eBg.ready && !PF2eBg.ready())
-      : (type === 'class') ? (typeof PF2eClass !== 'undefined' && PF2eClass.ready && !PF2eClass.ready())
-      : (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && !PF2eAnc.ready());
-    if (_need) _ensureAncData().then(ok => { if (ok && modalType === type) openModal(type, ctx); });
+  // ── FVTT 카탈로그 로딩 게이트 ──
+  // 관련 어댑터가 준비 안 됐으면 빈 목록 대신 "로딩 중"을 보여주고 상호작용을 막은 뒤,
+  // 준비되면 재오픈해 정상 렌더. (느린 모바일에서 빈 모달을 만지다 확정이 막히던 문제 방지)
+  const _equipTypes = ['weapon','armor','shield','equip-weapon','equip-armor','equip-shield','equip-gear'];
+  let _dataReady = true;
+  if (type === 'class') _dataReady = !(typeof PF2eClass !== 'undefined' && PF2eClass.ready && !PF2eClass.ready());
+  else if (type === 'background') _dataReady = !(typeof PF2eBg !== 'undefined' && PF2eBg.ready && !PF2eBg.ready());
+  else if (type === 'ancestry' || type === 'heritage') _dataReady = !(typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && !PF2eAnc.ready());
+  else if (type === 'feat') _dataReady = !(typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && !PF2eFeat.ready());
+  else if (type === 'spell') _dataReady = !(typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && !PF2eSpell.ready());
+  else if (_equipTypes.includes(type)) _dataReady = !(typeof _equipUseFvtt === 'function') || _equipUseFvtt();
+  if (!_dataReady) {
+    const _reopen = (ok) => { if (ok !== false && modalType === type) openModal(type, ctx); };
+    if (['class','ancestry','heritage','background'].includes(type) && typeof _ensureAncData === 'function') _ensureAncData().then(_reopen);
+    else if ((type === 'feat' || type === 'spell') && typeof _ensureAllCatalogs === 'function') _ensureAllCatalogs().then(_reopen);
+    else if (_equipTypes.includes(type) && typeof _ensureEquipData === 'function') _ensureEquipData().then(_reopen);
+    else if (typeof _ensureAllCatalogs === 'function') _ensureAllCatalogs().then(_reopen);
   }
 
   document.getElementById('modal-overlay').classList.remove('hidden');
@@ -2634,6 +2644,14 @@ function openModal(type, ctx) {
   const footer = document.querySelector('.modal-footer');
   if (footer) footer.style.display = ['class','ancestry','background'].includes(type) ? 'none' : '';
 
+  // 미준비: 로딩 안내만 표시하고 종료(준비되면 위 게이트가 재오픈해 정상 렌더)
+  if (!_dataReady) {
+    const _opts = document.getElementById('modal-options');
+    if (_opts) _opts.innerHTML = '<div style="padding:28px 16px;text-align:center;color:var(--text2);font-size:13px;line-height:1.7;">데이터를 불러오는 중입니다…<br><span style="font-size:11px;">잠시 후 목록이 표시됩니다.</span></div>';
+    const _det = document.getElementById('modal-detail'); if (_det) _det.innerHTML = '';
+    return;
+  }
+
   renderOptions(getOptionsData(type));
 
   // ── 이미 선택된 항목이 있으면 자동 선택 + 상세 패널 표시 ──
@@ -2665,35 +2683,25 @@ function _searchFilter(arr) {
 function getOptionsData(type) {
   const _ancReady = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready());
   if (type==='class') {
-    // 레거시 8클래스(완전 데이터) + 신규 FVTT 클래스(스탯). 슬러그 중복은 레거시 우선.
-    if (typeof PF2eClass !== 'undefined' && PF2eClass.ready && PF2eClass.ready()) {
-      const have = new Set(CLASSES.map(c => c.id));
-      return CLASSES.concat(PF2eClass.classList().filter(c => !have.has(c.id)));
-    }
-    return CLASSES;
+    // 클래스 = FVTT 카탈로그(PF2eClass) 단일 소스(27). 미준비 시 openModal 게이트가 재오픈.
+    return (typeof PF2eClass !== 'undefined' && PF2eClass.ready && PF2eClass.ready()) ? PF2eClass.classList() : [];
   }
-  if (type==='ancestry') return _ancReady ? PF2eAnc.ancestryList() : ANCESTRIES;
-  if (type==='background') return (typeof PF2eBg !== 'undefined' && PF2eBg.ready && PF2eBg.ready()) ? PF2eBg.backgroundList() : BACKGROUNDS;
+  if (type==='ancestry') return _ancReady ? PF2eAnc.ancestryList() : [];
+  if (type==='background') return (typeof PF2eBg !== 'undefined' && PF2eBg.ready && PF2eBg.ready()) ? PF2eBg.backgroundList() : [];
   if (type==='heritage') {
-    if (_ancReady) {
-      const ancId = state.selectedAncestry && state.selectedAncestry.id;
-      // ancestry==null = 다목적 유산(네피림/체인질링/댐피르 등) → 항상 노출. 연결형은 선택 혈통 매칭
-      return PF2eAnc.heritageList().filter(h => h.ancestry == null || !ancId || h.ancestry === ancId);
-    }
-    const hasVersatile = Object.values(state.feats).flat().some(f => f?.name?.includes('다재다능한 유산'));
-    return HERITAGE_DB.filter(h => {
-      if (h.ancestry === '*') return true; // 다목적 유산 (네피림, 체인질링 등)은 항상 표시
-      if (getHeritageEffects(h).versatile) return hasVersatile;
-      return !state.selectedAncestry || h.ancestry === state.selectedAncestry.id;
-    });
+    if (!_ancReady) return [];   // 미준비 시 openModal 게이트가 로드 후 재오픈
+    const ancId = state.selectedAncestry && state.selectedAncestry.id;
+    // ancestry==null = 다목적 유산(네피림/체인질링/댐피르 등) → 항상 노출. 연결형은 선택 혈통 매칭
+    return PF2eAnc.heritageList().filter(h => h.ancestry == null || !ancId || h.ancestry === ancId);
   }
   if (type==='subclass') return state.selectedClass ? SUBCLASS_DB.filter(s => s.class_id === state.selectedClass.id) : [];
   if (type==='feat') return filterFeats();
   if (type==='spell') return filterSpells();
   if (type==='weapon' || type==='equip-weapon') return filterWeapons();
-  if (type==='armor' || type==='equip-armor') return _searchFilter(typeof ARMOR_DB!=='undefined' ? ARMOR_DB : []);
-  if (type==='shield' || type==='equip-shield') return _searchFilter(typeof SHIELD_DB!=='undefined' ? SHIELD_DB : []);
-  if (type==='equip-gear') return _searchFilter(typeof GEAR_DB!=='undefined' ? GEAR_DB : []);
+  const _eqList = (t) => (typeof PF2eEquip!=='undefined' && PF2eEquip.legacyList) ? PF2eEquip.legacyList(t ? {type:t} : {}) : [];
+  if (type==='armor' || type==='equip-armor') return _searchFilter(_eqList('armor'));
+  if (type==='shield' || type==='equip-shield') return _searchFilter(_eqList('shield'));
+  if (type==='equip-gear') return _searchFilter(_eqList().filter(i => i.damage===undefined && i.ac_bonus===undefined && i.hardness===undefined));
   return [];
 }
 
@@ -2706,7 +2714,7 @@ function buildFeatFilters(ctx) {
     // 성장 빌더에서 호출 시 필터 UI 숨김 (사용자 변경 불가)
     fbar.innerHTML = '';
   } else {
-    const cats = [...new Set((typeof FEAT_DB!=='undefined'?FEAT_DB:[]).map(f=>f.category))].sort();
+    const cats = [...new Set((typeof _allFeats === 'function' ? _allFeats() : []).map(f=>f.category))].sort();
     fbar.innerHTML = `
       <select id="filter-feat-cat" onchange="renderOptions(getOptionsData('feat'))">
         <option value="">전체 분류</option>
@@ -2744,7 +2752,8 @@ function buildSpellFilters() {
 function buildWeaponFilters() {
   const fbar = document.getElementById('modal-filterbar');
   if (!fbar) return;
-  const cats = [...new Set((typeof WEAPON_DB!=='undefined'?WEAPON_DB:[]).map(w=>w.category))].sort();
+  const _wl = (typeof PF2eEquip!=='undefined' && PF2eEquip.legacyList) ? PF2eEquip.legacyList({type:'weapon'}) : [];
+  const cats = [...new Set(_wl.map(w=>w.category))].sort();
   fbar.innerHTML = `
     <select id="filter-wpn-cat" onchange="renderOptions(getOptionsData('weapon'))">
       <option value="">전체 분류</option>
@@ -3008,7 +3017,7 @@ function canTakeDedication(f) {
 }
 
 function filterFeats() {
-  if (typeof FEAT_DB==='undefined') return [];
+  if (typeof _allFeats !== 'function') return [];
   const q = document.getElementById('modal-search')?.value.toLowerCase()||'';
   const fromGrowth = !!growthPendingKey;
 
@@ -3041,7 +3050,7 @@ function filterFeats() {
       if (ff && ff.name) _learnedNames.add(ff.name);
     });
 
-    return (typeof _allFeats === 'function' ? _allFeats() : FEAT_DB).filter(f => {
+    return _allFeats().filter(f => {
       if (!f) return false;
       if (q && !f.name_ko.includes(q) && !(f.name_en||'').toLowerCase().includes(q) && !(f.summary||'').includes(q)) return false;
       if (f.feat_level > maxLv) return false;
@@ -3061,8 +3070,9 @@ function filterFeats() {
         return true;
       }
       // 클래스 재주 슬롯: 해당 클래스 재주 + archetype 재주도 포함
+      // ★ 소스 무관 통일: 레거시(category=classid) + FVTT(category='class' + _classSlugs 트레잇) 동일 취급
       if (ft === 'class') {
-        return f.category === cat || f.category === 'archetype';
+        return _featInClass(f, cat) || f.category === 'archetype';
       }
       return f.category === cat;
     });
@@ -3071,15 +3081,25 @@ function filterFeats() {
   // 일반 모달 (재주 탭에서 직접 열기)
   const cat = document.getElementById('filter-feat-cat')?.value||'';
   const lv = parseInt(document.getElementById('filter-feat-lv')?.value||0);
-  return (typeof _allFeats === 'function' ? _allFeats() : FEAT_DB).filter(f =>
-    (!cat || f.category===cat) &&
+  const _isClassCat = cat && !['ancestry','general','skill','archetype','feature','other','class'].includes(cat);
+  return _allFeats().filter(f =>
+    (!cat || (_isClassCat ? _featInClass(f, cat) : f.category===cat)) &&
     (!lv || f.feat_level<=lv) &&
     (!q || f.name_ko.includes(q) || (f.name_en||'').toLowerCase().includes(q) || (f.summary||'').includes(q))
   );
 }
 
+// 재주의 클래스 소속 판정 — 소스(레거시/FVTT) 무관 통일.
+//   레거시: category=classid ('fighter' 등). FVTT: category='class' + _classSlugs 트레잇(다중클래스 포함).
+function _featInClass(f, classId) {
+  if (!f || !classId) return false;
+  if (f.category === classId) return true;
+  if (f._classSlugs && f._classSlugs.indexOf(classId) !== -1) return true;
+  return false;
+}
+
 function filterSpells() {
-  const _spells = (typeof _allSpells === 'function') ? _allSpells() : (typeof SPELL_DB!=='undefined'?SPELL_DB:[]);
+  const _spells = (typeof _allSpells === 'function') ? _allSpells() : [];
   if (!_spells.length) return [];
   const q = document.getElementById('modal-search')?.value.toLowerCase()||'';
   // 위치: 후원자 전통 사용, 그 외: 클래스 전통
@@ -3128,13 +3148,10 @@ function filterSpells() {
 }
 
 function filterWeapons() {
-  if (typeof WEAPON_DB==='undefined') return [];
+  if (typeof PF2eEquip==='undefined' || !PF2eEquip.legacyList) return [];
   const q = document.getElementById('modal-search')?.value.toLowerCase()||'';
   const cat = document.getElementById('filter-wpn-cat')?.value||'';
-  return WEAPON_DB.filter(w =>
-    (!cat || w.category===cat) &&
-    (!q || w.name_ko.includes(q) || (w.name_en||'').toLowerCase().includes(q))
-  );
+  return PF2eEquip.legacyList({type:'weapon', search:q}).filter(w => !cat || w.category===cat);
 }
 
 function renderOptions(data) {
@@ -4013,8 +4030,8 @@ function _renderSubclassFeatsInBlock(subId, containerId) {
 function openClassModalAtLevel(targetLv) {
   if (!state.selectedClass) return;
   openModal('class');
-  // 현재 클래스를 자동 선택
-  const cls = CLASSES.find(c => c.id === state.selectedClass.id);
+  // 현재 클래스를 자동 선택 (FVTT 카탈로그)
+  const cls = (typeof PF2eClass !== 'undefined' && PF2eClass.getClassLegacy) ? PF2eClass.getClassLegacy(state.selectedClass.id) : null;
   if (!cls) return;
   modalSelected = cls;
   showItemDetail(cls);
@@ -4131,7 +4148,7 @@ function _onClericDeityChange(id) {
         </div>
         <div style="margin-top:6px;">
           <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">⚔ 선호 무기</div>
-          <select disabled style="${_selStyle}opacity:0.6;"><option>${(typeof WEAPON_DB!=='undefined'&&WEAPON_DB.find(w=>w.id===d.weapon)?.name_ko)||d.weapon}</option></select>
+          <select disabled style="${_selStyle}opacity:0.6;"><option>${(typeof getWeapon==='function'&&getWeapon(d.weapon)?.name_ko)||d.weapon}</option></select>
         </div>`;
     } else {
       detailsEl.innerHTML = '';
@@ -4316,7 +4333,8 @@ function _buildBackgroundChoicesUI(bg) {
   // 고정 지식 (lore) — 한국어 그대로
   (beff.fixed_lores || []).forEach(loreName => {
     _modalChoices.loreName = loreName;
-    html += _choiceDropdown('', `지식 기술`, [{value: loreName, label: loreName + ' 지식'}], true, loreName);
+    const _loreKo = (typeof getLoreKo === 'function') ? getLoreKo(loreName) : loreName;
+    html += _choiceDropdown('', `지식 기술`, [{value: loreName, label: _loreKo + ' 지식'}], true, loreName);
   });
 
   // 신격 기술/지식 마커 (raised-by-belief)
@@ -4325,7 +4343,7 @@ function _buildBackgroundChoicesUI(bg) {
   }
 
   // 기술 재주
-  if (beff.feat_id && typeof FEAT_DB !== 'undefined') {
+  if (beff.feat_id) {
     const fd = getFeat(beff.feat_id);
     const featLabel = fd ? fd.name_ko : beff.feat_id;
     html += `<div style="margin-top:4px;">`;
@@ -4337,7 +4355,7 @@ function _buildBackgroundChoicesUI(bg) {
         <div style="font-size:10px;line-height:1.5;color:var(--text2);">${resolveDescRefs(fdDesc)}</div>
       </div>`;
     } else {
-      html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--text2);margin-top:4px;font-size:10px;color:var(--text2);">※ FEAT_DB 미등재 (${beff.feat_id})</div>`;
+      html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--text2);margin-top:4px;font-size:10px;color:var(--text2);">※ 카탈로그 미등재 (${beff.feat_id})</div>`;
     }
     html += `</div>`;
   }
@@ -4477,8 +4495,11 @@ function _restoreInitialChoicesUI() {
 function _onInitialChoiceChange() { _validateInitialChoices(); }
 
 function _validateInitialChoices() {
-  const btn = document.getElementById('modal-confirm-choice');
-  if (!btn) return;
+  // ⚠ 확정 버튼은 뷰(데스크톱 상세패널 / 모바일 아코디언)마다 렌더돼 같은 id가 여럿 존재할 수 있음.
+  //   getElementById는 첫 매치만 잡아 안 보이는 버튼만 갱신 → 실제 보이는 버튼이 disabled로 남음(모바일 스틱 버그).
+  //   → 모든 [id="modal-confirm-choice"]를 갱신한다.
+  const btns = document.querySelectorAll('[id="modal-confirm-choice"]');
+  if (!btns.length) return;
   let valid = true;
 
   if (_modalChoices.type === 'class') {
@@ -4504,21 +4525,23 @@ function _validateInitialChoices() {
     if (langs.length < (_modalChoices.bonusBase || 0)) valid = false;
   }
 
-  if (valid) {
-    btn.disabled = false;
-    btn.style.background = 'var(--accent)';
-    btn.style.color = '#fff';
-    btn.style.cursor = 'pointer';
-    btn.style.border = 'none';
-    btn.textContent = '선택 확정';
-  } else {
-    btn.disabled = true;
-    btn.style.background = 'var(--bg4)';
-    btn.style.color = 'var(--text2)';
-    btn.style.cursor = 'not-allowed';
-    btn.style.border = '1px solid var(--border)';
-    btn.textContent = '모든 항목을 선택하세요';
-  }
+  btns.forEach(btn => {
+    if (valid) {
+      btn.disabled = false;
+      btn.style.background = 'var(--accent)';
+      btn.style.color = '#fff';
+      btn.style.cursor = 'pointer';
+      btn.style.border = 'none';
+      btn.textContent = '선택 확정';
+    } else {
+      btn.disabled = true;
+      btn.style.background = 'var(--bg4)';
+      btn.style.color = 'var(--text2)';
+      btn.style.cursor = 'not-allowed';
+      btn.style.border = '1px solid var(--border)';
+      btn.textContent = '모든 항목을 선택하세요';
+    }
+  });
 }
 
 //  CASCADE RESET FUNCTIONS
@@ -5254,14 +5277,14 @@ function applyBackgroundInfo(bg) {
     const skillsKo = [
       ...(beff.fixed_skills || []).map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)),
       ...(beff.choice_skill_groups || []).map(g => g.map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)).join(' 또는 ')),
-      ...(beff.fixed_lores || []).map(l => l + ' 지식'),
+      ...(beff.fixed_lores || []).map(l => ((typeof getLoreKo === 'function') ? getLoreKo(l) : l) + ' 지식'),
     ].join(', ');
-    const fd = (beff.feat_id && typeof FEAT_DB !== 'undefined') ? getFeat(beff.feat_id) : null;
+    const fd = beff.feat_id ? getFeat(beff.feat_id) : null;
     const featKo = fd ? fd.name_ko : (beff.feat_id || '—');
     notesEl.value = `[배경: ${bg.name}]\n속성 부스트: ${boostKo}\n기술: ${skillsKo}\n기술 재주: ${featKo}`;
   }
   // growth plan에 배경 재주 저장 (1회성, feat_id 기반)
-  if (beff.feat_id && typeof FEAT_DB !== 'undefined') {
+  if (beff.feat_id) {
     const fd = getFeat(beff.feat_id);
     if (fd) {
       if (!state.growth[1]) state.growth[1] = {};
@@ -5484,17 +5507,41 @@ function renderActions() {
     return;
   }
 
-  // 풀: 전체 행동(ACTION_DB) — 비용 필터는 동적 추가(재주/커스텀)까지 합친 뒤 마지막에 적용
-  let visible = [...ACTION_DB];
+  // 풀: 전체 행동(큐레이션) — 비용 필터는 동적 추가(재주/커스텀)까지 합친 뒤 마지막에 적용
+  let visible = [...((typeof PF2eAction !== 'undefined' && PF2eAction.curatedList) ? PF2eAction.curatedList() : [])];
 
-  // 보유 재주 중 행동인 것 동적 추가 (ACTION_DB에 없는 것만)
-  if (typeof FEAT_DB !== 'undefined') {
+  // FVTT 이행(v0.44): 큐레이션 74개의 표시데이터를 FVTT actions 오버레이 단일 소스에서 해소.
+  //   그룹/비용요건/기술게이트(cat_label·req_*)는 큐레이션 유지, 이름·비용·특성·설명은 FVTT.
+  //   활동시간(1min/10min 등)은 FVTT actionType 미표현 → 표준 행동경제값만 교체(폴백=레거시).
+  //   매칭 실패(재주 파생 등)는 레거시 필드 그대로 폴백. _fvttDesc=클릭 시 펼칠 전체 설명.
+  if (typeof PF2eAction !== 'undefined' && PF2eAction.ready && PF2eAction.ready()) {
+    const _STD_COST = new Set(['1', '2', '3', 'free', 'reaction']);
+    visible = visible.map(a => {
+      const fv = a.name_en && PF2eAction.getActionLegacy(a.name_en);
+      if (!fv) return a;
+      // FVTT desc가 텍스트 없는 스텁(<p></p> 등, 실제 설명이 재주쪽인 경우)이면 레거시 summary 유지
+      const _fvHasText = fv.desc && fv.desc.replace(/<[^>]+>/g, '').trim();
+      return Object.assign({}, a, {
+        name_ko: fv.name_ko || a.name_ko,
+        cost: _STD_COST.has(fv.cost) ? fv.cost : a.cost,
+        traits: (fv.traits && fv.traits.length) ? fv.traits : a.traits,
+        _fvttDesc: _fvHasText ? fv.desc : '',
+        _fvtt: true,
+      });
+    });
+  }
+
+  // 보유 재주 중 행동인 것 동적 추가 (ACTION_DB에 없는 것만) — 보유 재주만 카탈로그 조회
+  if (typeof getLearnedFeatNames === 'function' && typeof getFeat === 'function') {
     const existingIds = new Set(visible.map(a => a.id));
     const learned = getLearnedFeatNames();
-    FEAT_DB.forEach(fd => {
-      if (!learned.has(fd.name_ko)) return;
-      // actionCost 컬럼 (v523~) — 정규식 fallback 제거
-      const cost = fd.actionCost || null;
+    learned.forEach(nameKo => {
+      const fd = getFeat(nameKo);
+      if (!fd) return;
+      // 행동 비용: 레거시 actionCost 또는 FVTT actionType/actions에서 도출
+      const cost = fd.actionCost || (fd.actionType === 'reaction' ? 'reaction'
+        : fd.actionType === 'free' ? 'free'
+        : (fd.actions != null ? String(fd.actions) + '행동' : null));
       if (!cost) return;
       const id = 'feat-auto-' + fd.name_en;
       if (existingIds.has(id)) return;
@@ -5612,7 +5659,11 @@ function renderActions() {
         }
       }
       const sourceHtml = granted ? `<div style="font-size:9px;color:var(--accent);margin-top:2px;">${a.req_heritage ? '유산 부여' : a.req_feat ? '재주: '+a.req_feat : ''}</div>` : '';
-      html += `<div class="action-card" style="${opacity}${grantedStyle}">
+      // FVTT 이행: 전체 설명=FVTT desc(폴백 레거시 summary). 카드=컴팩트 프리뷰 + 클릭 시 인라인 아코디언.
+      const descFull = (s=>typeof resolveDescRefs==='function'?resolveDescRefs(s):s)(_stripTraitLine(a._fvttDesc || a.summary || ''));
+      const previewText = descFull.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+      const preview = previewText.slice(0,76) + (previewText.length>76 ? '…' : '');
+      html += `<div class="action-card action-card-click" onclick="typeof toggleActionInline==='function'&&toggleActionInline(this)" style="${opacity}${grantedStyle}">
         <div class="action-card-head">
           <span class="action-cost">${costIcon}</span>
           ${a.cat==='feat' && typeof iconImg==='function' ? iconImg('feat',a) : ''}
@@ -5622,9 +5673,10 @@ function renderActions() {
           </div>
         </div>
         ${traitsHtml ? `<div class="action-traits">${traitsHtml}</div>` : ''}
-        <div class="action-summary">${(s=>typeof resolveDescRefs==='function'?resolveDescRefs(s):s)(_stripTraitLine(a.summary))}</div>
+        ${preview ? `<div class="action-summary">${preview}</div>` : ''}
         ${sourceHtml}${reqHtml}
-      </div>`;
+      </div>
+      <div class="action-inline-detail">${descFull || '<span style="color:var(--text2);">상세 설명이 없습니다.</span>'}</div>`;
     });
     html += `</div></div>`;
   });

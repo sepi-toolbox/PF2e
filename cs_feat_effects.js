@@ -399,7 +399,7 @@ function _applyOneEffect(fb, eff, feat, level) {
       if (spellName === '$domain_initial' || spellName === '$domain_advanced') {
         const dom = feat.choice && typeof DOMAIN_DB !== 'undefined' ? DOMAIN_DB[feat.choice] : null;
         const id = dom ? (spellName === '$domain_initial' ? dom.initial : dom.advanced) : null;
-        // DOMAIN_DB는 SPELL_DB.id 외래키로 정규화됨 → id로 직접 lookup
+        // DOMAIN_DB는 주문 slug 외래키 → getSpell(카탈로그)로 직접 lookup
         const sp = id ? getSpell(id) : null;
         spellName = sp ? sp.name_ko : '';
         spellId = sp?.id || null;
@@ -914,7 +914,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
           row.style.background = 'var(--accent,#c9a84c)'; row.style.color = '#000';
           const dom = DOMAIN_DB[opt.id];
           const isAdvanced = !!choiceDef.filterByInitiated;
-          // DOMAIN_DB는 SPELL_DB.id 외래키 → SPELL_DB lookup
+          // DOMAIN_DB는 주문 slug 외래키 → getSpell(카탈로그) lookup
           const spellId = dom ? (isAdvanced ? dom.advanced : dom.initial) : null;
           const spell = spellId && typeof getSpell === 'function' ? getSpell(spellId) : null;
           const spellName = spell ? spell.name_ko : null;
@@ -1020,9 +1020,9 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       };
       container.appendChild(row);
     });
-  } else if (choiceDef.type === 'ancestry_pick' && (typeof PF2eAnc !== 'undefined' || typeof ANCESTRIES !== 'undefined')) {
-    // 혈통 선택 모달 — 이미 선택한 혈통과 내 혈통 제외
-    const _ancAll = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready()) ? PF2eAnc.ancestryList() : ANCESTRIES;
+  } else if (choiceDef.type === 'ancestry_pick' && typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready()) {
+    // 혈통 선택 모달 — 이미 선택한 혈통과 내 혈통 제외 (FVTT 혈통 카탈로그 단일 소스)
+    const _ancAll = PF2eAnc.ancestryList();
     const myAnc = state.selectedAncestry?.id || '';
     const alreadyAdopted = Object.values(state.feats).flat()
       .filter(f => f && f.name && f.name.includes('양자 혈통') && f.choice)
@@ -1063,21 +1063,16 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       };
       container.appendChild(row);
     });
-  } else if (choiceDef.type === 'weapon_pick' && typeof WEAPON_DB !== 'undefined') {
-    // ── 비일반 무기 선택 모달 ──
+  } else if (choiceDef.type === 'weapon_pick' && typeof PF2eEquip !== 'undefined' && PF2eEquip.legacyList) {
+    // ── 비일반(uncommon) 무기 선택 모달 (FVTT 카탈로그 단일 소스) ──
     // 군용 무기 전체 숙련 여부 확인
     const martialProf = parseInt(document.getElementById('prof-weapon-martial')?.value || 0);
     const allMartialTrained = martialProf >= 2;
 
-    const candidates = WEAPON_DB.filter(w => {
-      if (!w.category || !w.category.includes('비일반')) return false;
-      if (allMartialTrained) {
-        // 고급 비일반도 허용
-        return true;
-      } else {
-        // 단순/군용 비일반만
-        return w.category.startsWith('단순') || w.category.startsWith('군용');
-      }
+    const candidates = PF2eEquip.legacyList({type:'weapon'}).filter(w => {
+      if (w.rarity !== 'uncommon') return false;           // 비일반 희귀도만
+      if (allMartialTrained) return true;                  // 고급 비일반도 허용
+      return w.category === '단순' || w.category === '군용'; // 그 외 단순/군용 비일반만
     });
 
     if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; searchEl.oninput = () => {
@@ -1114,7 +1109,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       };
       container.appendChild(row);
     });
-  } else if (choiceDef.type === 'feat_pick' && typeof FEAT_DB !== 'undefined') {
+  } else if (choiceDef.type === 'feat_pick' && typeof _allFeats === 'function') {
     // ── 범용 재주 선택 모달 (적응력, 자연 야심, 고급 일반 훈련 등) ──
     let pickCat = choiceDef.pickCategory || 'general';
     if (pickCat === '$class' && state.selectedClass) pickCat = state.selectedClass.id;
@@ -1134,9 +1129,12 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     const myClassName = state.selectedClass?.name || '';
     const myClassEn = state.selectedClass?.en || '';
 
-    const candidates = FEAT_DB.filter(f => {
+    // 소스 무관 통일: 클래스 pickCat은 _featInClass(FVTT category='class'+_classSlugs)로 판정
+    const _isClassPick = pickCat && !['ancestry','general','skill','archetype','feature','other','class'].includes(pickCat);
+    const candidates = _allFeats().filter(f => {
       if (!f) return false;
-      if (f.category !== pickCat) return false;
+      if (_isClassPick) { if (!(typeof _featInClass === 'function' ? _featInClass(f, pickCat) : f.category === pickCat) && f.category !== 'archetype') return false; }
+      else if (f.category !== pickCat) return false;
       if (f.feat_level > pickMax) return false;
       if (pickTraits && !(f.traits && f.traits.some(t => pickTraits.includes(t)))) return false;
       // 헌신 재주: 자기 클래스 헌신 제외

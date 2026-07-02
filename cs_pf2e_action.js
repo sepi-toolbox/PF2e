@@ -35,10 +35,33 @@
     try { const r = await fetch('data/overlay/_lang.ko.json' + q); _lang = await r.json(); } catch (e) { _lang = { traits: {} }; }
   }
 
+  // 행동 큐레이션(그룹/비용요건/기술게이트 — FVTT 컴펜디움 미인코딩 메타). 표시데이터는 FVTT로 오버레이.
+  let _curation = null, _curIndex = null;
+  function _buildCurIndex() {
+    _curIndex = new Map();
+    for (const a of (_curation || [])) {
+      if (a.id) _curIndex.set(a.id, a);
+      if (a.name_en) _curIndex.set(a.name_en.toLowerCase(), a);
+      if (a.name_ko) _curIndex.set(a.name_ko, a);
+    }
+  }
+  function _loadCurationSync() {
+    if (!isNode) return; const fs = require('fs');
+    for (const p of ['data/derived/action_curation.json', 'dev/data/derived/action_curation.json']) { try { _curation = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} }
+    _curation = _curation || []; _buildCurIndex();
+  }
+  async function _loadCurationAsync(ver) {
+    const q = ver ? ('?v=' + ver) : '';
+    try { const r = await fetch('data/derived/action_curation.json' + q); _curation = await r.json(); } catch (e) { _curation = []; }
+    _buildCurIndex();
+  }
+  function curatedList() { return _curation ? _curation.slice() : []; }
+  function getCuration(key) { return (_curIndex && (_curIndex.get(key) || _curIndex.get(String(key || '').toLowerCase()))) || null; }
+
   function init(ver) {
     if (_ready) return Promise.resolve();
-    if (isNode) { PF.loadCategorySync('actions'); _loadLangSync(); _build(); _ready = true; return Promise.resolve(); }
-    return Promise.all([PF.loadCategory('actions'), _loadLangAsync(ver)]).then(() => { _build(); _ready = true; });
+    if (isNode) { PF.loadCategorySync('actions'); _loadLangSync(); _loadCurationSync(); _build(); _ready = true; return Promise.resolve(); }
+    return Promise.all([PF.loadCategory('actions'), _loadLangAsync(ver), _loadCurationAsync(ver)]).then(() => { _build(); _ready = true; });
   }
   function ready() { return _ready; }
 
@@ -74,7 +97,7 @@
     return null;
   }
 
-  const API = { init, ready, actionList, getActionLegacy, actionToLegacy };
+  const API = { init, ready, actionList, getActionLegacy, actionToLegacy, curatedList, getCuration };
   root.PF2eAction = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

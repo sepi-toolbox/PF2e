@@ -104,11 +104,13 @@ const DM = (function(){
 
   // ---- 스키마: 탭 정의 + 컬럼 (공통 엔벨로프 + 카테고리 고유) ----
   const COMMON = ['slug','name_en','name_ko','level','traits_ko','source'];
+  // 클래스 slug 집합 — classes 데이터에서 파생(하드코딩 없음, 단일 소스). 재주 'class' 컬럼이 트레잇을 이걸로 투영.
+  const CLASS_SLUG_SET = new Set();
   // OVERRIDE 편집 대상. traits_ko는 제외 — 특성 번역은 '특성' 레지스트리 탭에서 slug 기준 단일편집,
   // 다른 표의 특성 컬럼은 slug→레지스트리 읽기전용 표시(표시 레이어 분리).
   const EDITABLE = new Set(['name_ko','desc_ko']);
   const TABS = [
-    {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'category','effect_group_id','actions','prerequisites','frequency','rules_n']},
+    {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'class','category','effect_group_id','actions','prerequisites','frequency','rules_n']},
     {id:'effects', label:'효과(자동화)', kind:'derived', src:'data/derived/effects.json', shape:'rows',
        cols:['owner_kind','owner_slug','owner_name','origin','effect_group_id','re_key','src','type','target','value','bonus_type','condition','actionCost','summary','note','choice','option','option_name']},
     {id:'prereqs', label:'선행조건', kind:'derived', src:'data/derived/prereqs.json', shape:'rows',
@@ -153,7 +155,7 @@ const DM = (function(){
     name_en:{h:'영문명',w:170}, name_ko:{h:'한글명',w:180,edit:true},
     level:{h:'Lv',w:44,cls:'num',num:true}, rank:{h:'랭크',w:50,cls:'num',num:true},
     traits_ko:{h:'특성',w:200,edit:false}, source:{h:'출처',w:120},
-    category:{h:'분류',w:110}, type:{h:'종류',w:100}, actions:{h:'비용',w:56,cls:'num'},
+    category:{h:'분류',w:110}, class:{h:'클래스',w:120,edit:false}, type:{h:'종류',w:100}, actions:{h:'비용',w:56,cls:'num'},
     prerequisites:{h:'선행조건',w:200}, frequency:{h:'빈도',w:110}, rules_n:{h:'RE',w:44,cls:'num',num:true},
     range:{h:'사거리',w:80}, area:{h:'범위',w:90}, defense:{h:'방어',w:80}, duration:{h:'지속',w:90},
     price:{h:'가격',w:90}, bulk:{h:'부피',w:56,cls:'num'}, damage:{h:'피해',w:110},
@@ -235,6 +237,8 @@ const DM = (function(){
     traits_ko:r=>{const t=r.system&&r.system.traits&&r.system.traits.value;return Array.isArray(t)?t.join(', '):'';}, // slug 그대로(매칭 키). 한글은 hover 툴팁
     source:r=>{const p=r.system&&r.system.publication; return p&&p.title||'';},
     category:r=>r.system&&r.system.category||'',
+    // 클래스 소속 = 클래스 타입 트레잇 투영(저장 중복 없음, classfeatures/subclasses 테이블과 동일 정규화). CLASS_SLUG_SET은 classes 데이터에서 파생(단일 소스).
+    class:r=>{const t=(r.system&&r.system.traits&&r.system.traits.value)||[];return t.filter(x=>CLASS_SLUG_SET.has(x)).join(', ');},
     type:r=>r.system&&r.system.category||'',
     actions:r=>{const a=r.system&&r.system.actions; return a?(a.value==null?(r.system.actionType&&r.system.actionType.value||''):a.value):'';},
     prerequisites:r=>{const p=r.system&&r.system.prerequisites&&r.system.prerequisites.value; return Array.isArray(p)?p.map(x=>x&&x.value||x).join('; '):'';},
@@ -363,6 +367,8 @@ const DM = (function(){
     try{
       await PF2eData.loadCategory(cat);
       loaded[cat]=PF2eData.all(cat)||[];
+      // 재주 'class' 컬럼용 클래스 slug 집합을 classes 데이터에서 1회 파생(단일 소스)
+      if(cat==='feats' && !CLASS_SLUG_SET.size){ try{ await PF2eData.loadCategory('classes'); (PF2eData.all('classes')||[]).forEach(c=>{const s=c.system&&c.system.slug; if(s)CLASS_SLUG_SET.add(s);}); }catch(e){} }
     }catch(e){ loaded[cat]=[]; console.error(e); }
     document.getElementById('dm-loading').style.display='none';
     renderTabs();
