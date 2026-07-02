@@ -129,19 +129,20 @@
             else if (g.type === 'spell') granted_spells.push({ spell_id: gslug, lv: (g.system.level && g.system.level.value) || 1, type: 'spell' });
           }
         } catch (e) {}
-        // 서브클래스 초기 집중 주문(혈통/미스터리/기질/영역 등)은 RE로 안 잡힘 — desc 구조에서 파싱(FVTT 시스템 TS 전용 데이터의 유일 추출원). advanced/greater는 재주로 습득.
-        //   패턴: "initial: @UUID"(혈통/영역/오라클 Revelation) / "Order Spell @UUID"(드루이드). 라벨과 @UUID 사이 HTML 태그(</strong> 등) 허용. = 집중 주문(선천 아님).
+        // 서브클래스 초기 집중 주문(혈통/미스터리/기질/영역/학파/융합 등)은 RE로 안 잡힘 — desc에서 통일 규칙으로 추출(FVTT 시스템 TS 전용 데이터의 유일 추출원).
+        //   ★통일 규칙: desc의 @UUID 주문 참조 중 '집중 주문'(traditions 빈값=전통 무소속)의 첫 번째 = L1 부여분.
+        //   초기(initial)가 advanced/greater보다 먼저 나오므로 첫 것=초기. 레퍼토리 주문(traditions 있음)은 건너뜀.
+        //   is_focus 플래그가 아닌 traditions-빈값으로 판별 → 집중 캔트립(에이돌론 강화·헥스 등 is_focus=false)까지 포함. advanced/greater는 재주로 습득(제외됨).
         if (!granted_spells.length) {
           const dv = (f.system && f.system.description && f.system.description.value) || '';
-          const pats = [
-            /(?:^|[^a-z])initial:\s*(?:<\/?[^>]+>\s*)*@UUID\[([^\]{}]+)\]/i,   // 혈통/영역/오라클 미스터리(Revelation Spells initial:)
-            /Order Spell\s*(?:<\/?[^>]+>\s*)*@UUID\[([^\]{}]+)\]/i,             // 드루이드 기질
-            /@UUID\[([^\]{}]+)\]\{[^}]*\}\s*(?:<\/?[^>]+>\s*)*hex cantrip/i,     // 위치 후원자 헥스 캔트립
-          ];
-          for (const rx of pats) {
-            const m = dv.match(rx);
-            if (!m) continue;
-            try { const sp = PF.getByUuid(m[1].trim()); if (sp && sp.type === 'spell') { granted_spells.push({ spell_id: (sp.system && sp.system.slug) || sp._id, lv: 1, type: 'focus' }); break; } } catch (e) {}
+          for (const mm of dv.matchAll(/@UUID\[([^\]{}]+)\]/g)) {
+            try {
+              const sp = PF.getByUuid(mm[1].trim());
+              if (sp && sp.type === 'spell') {
+                const trads = (sp.system && sp.system.traits && sp.system.traits.traditions) || [];
+                if (!trads.length) { granted_spells.push({ spell_id: (sp.system && sp.system.slug) || sp._id, lv: 1, type: 'focus' }); break; }
+              }
+            } catch (e) {}
           }
         }
         out.push({
