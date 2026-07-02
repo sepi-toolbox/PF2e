@@ -1908,7 +1908,7 @@
  },
  "bullying-press": {
   "name": "불링 프레스",
-  "description": "<p><strong>발동 조건</strong> 상대방에게 근접 공격을 시도하나 아직 굴림하지 않은 상태일 때.</p>\n<p><strong>요건</strong> 당신은 결투 중이며, 협박 기술에 숙련되어 있고, 이번 라운드에 인니셔티브를 위해 협박 체크를 굴렸습니다.</p>\n<hr />\n<p>명중 시 상대방은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1} 상태가 됩니다. 이 능력이 사용될 때 상대방이 인니셔티브 결정에 지각을 사용 중이라면, 대신 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2} 상태가 됩니다.</p>",
+  "description": "<p><strong>발동 조건</strong> 상대방에게 근접 공격을 시도하나 아직 굴림하지 않은 상태일 때.</p>\n<p><strong>요건</strong> 당신은 결투 중이며, 위협 기술에 숙련되어 있고, 이번 라운드에 인니셔티브를 위해 협박 체크를 굴렸습니다.</p>\n<hr />\n<p>명중 시 상대방은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1} 상태가 됩니다. 이 능력이 사용될 때 상대방이 인니셔티브 결정에 지각을 사용 중이라면, 대신 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2} 상태가 됩니다.</p>",
   "traits": [
    "flourish"
   ]

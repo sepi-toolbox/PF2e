@@ -854,9 +854,9 @@ function previewDeity(id, row) {
   if(row) row.classList.add('selected');
 
   const sanctLabel = (d.sanctification||[]).length ? d.sanctification.map(s=>s==='holy'?'신성(Holy)':'불경(Unholy)').join(' / ') : '없음';
-  const skillMap = {society:'사회학',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
-    intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'공예',
-    nature:'자연',occultism:'신비학',religion:'종교학',diplomacy:'외교',performance:'공연',thievery:'도둑질',lore:'지식'};
+  const skillMap = {society:'사회',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
+    intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',
+    nature:'자연학',occultism:'오컬티즘',religion:'종교학',diplomacy:'외교',performance:'공연',thievery:'도둑질',lore:'지식'};
   const skillName = d.skill_ko || skillMap[d.skill] || d.skill || '';
   const domainsStr = (d.domains_ko && d.domains_ko.length) ? d.domains_ko.join(', ') : (d.domains||[]).join(', ');
   const fontStr = (d.font && d.font.length) ? d.font.map(f=>f==='heal'?'치유':f==='harm'?'해악':f).join(' / ') : '';
@@ -4121,7 +4121,7 @@ function _onClericDeityChange(id) {
 
   if (info) {
     if (d) {
-      const skillMap = {society:'사회학',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
+      const skillMap = {society:'사회',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
         intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',
         nature:'자연학',religion:'종교학',occultism:'오컬티즘',diplomacy:'외교',performance:'공연',thievery:'도둑질'};
       info.innerHTML = `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">
@@ -4137,7 +4137,7 @@ function _onClericDeityChange(id) {
   const detailsEl = document.getElementById('cls-deity-details');
   if (detailsEl) {
     if (d) {
-      const skillMap = {society:'사회학',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
+      const skillMap = {society:'사회',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
         intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',
         nature:'자연학',religion:'종교학',occultism:'오컬티즘',diplomacy:'외교',performance:'공연',thievery:'도둑질'};
       const skillName = d.skill_ko || skillMap[d.skill] || d.skill;
