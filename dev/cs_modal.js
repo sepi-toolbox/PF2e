@@ -2669,12 +2669,8 @@ function _searchFilter(arr) {
 function getOptionsData(type) {
   const _ancReady = (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready());
   if (type==='class') {
-    // 레거시 8클래스(완전 데이터) + 신규 FVTT 클래스(스탯). 슬러그 중복은 레거시 우선.
-    if (typeof PF2eClass !== 'undefined' && PF2eClass.ready && PF2eClass.ready()) {
-      const have = new Set(CLASSES.map(c => c.id));
-      return CLASSES.concat(PF2eClass.classList().filter(c => !have.has(c.id)));
-    }
-    return CLASSES;
+    // 클래스 = FVTT 카탈로그(PF2eClass) 단일 소스(27). 미준비 시 openModal 게이트가 재오픈.
+    return (typeof PF2eClass !== 'undefined' && PF2eClass.ready && PF2eClass.ready()) ? PF2eClass.classList() : [];
   }
   if (type==='ancestry') return _ancReady ? PF2eAnc.ancestryList() : [];
   if (type==='background') return (typeof PF2eBg !== 'undefined' && PF2eBg.ready && PF2eBg.ready()) ? PF2eBg.backgroundList() : [];
@@ -4020,8 +4016,8 @@ function _renderSubclassFeatsInBlock(subId, containerId) {
 function openClassModalAtLevel(targetLv) {
   if (!state.selectedClass) return;
   openModal('class');
-  // 현재 클래스를 자동 선택
-  const cls = CLASSES.find(c => c.id === state.selectedClass.id);
+  // 현재 클래스를 자동 선택 (FVTT 카탈로그)
+  const cls = (typeof PF2eClass !== 'undefined' && PF2eClass.getClassLegacy) ? PF2eClass.getClassLegacy(state.selectedClass.id) : null;
   if (!cls) return;
   modalSelected = cls;
   showItemDetail(cls);
