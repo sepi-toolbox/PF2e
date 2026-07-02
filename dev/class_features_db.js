@@ -154,6 +154,10 @@ var CLASS_AUTO_SPELLS = {
     {lv:1, type:'focus', name_ko:'용기의 찬가', name_en:'Courageous Anthem'},
     {lv:1, type:'focus', name_ko:'대항 공연', name_en:'Counter Performance'},
   ],
+  // Summoner: Boost Eidolon 집중 주문 L1 (FVTT 컴펜디움 미인코딩=시스템 TS 전용 → 수작업 표)
+  summoner: [
+    {lv:1, type:'focus', name_ko:'에이돌론 강화', name_en:'Boost Eidolon'},
+  ],
 };
 
 // ═══════════════════════════════════════════════

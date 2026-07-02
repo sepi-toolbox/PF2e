@@ -599,7 +599,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.48').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.49').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
@@ -1715,7 +1715,9 @@ function getSubclassAutoSpells(sub) {
   return sub.granted_spells.map(g => {
     const sp = (typeof getSpell === 'function') ? getSpell(g.spell_id) : null;
     if (!sp) return null;
-    const r = { lv: g.lv, type: g.type, name_ko: sp.name_ko, name_en: sp.name_en };
+    // 타입 정규화: 서브클래스 부여 주문의 'spell'은 캔트립/집중/일반으로 분기(is_cantrip→집중캔트립도 focus 취급, is_focus→집중). 선천 주문은 유산 경로가 별도 시스템.
+    const type = (g.type === 'spell') ? (sp.is_focus ? 'focus' : (sp.is_cantrip ? 'cantrip' : 'known')) : g.type;
+    const r = { lv: g.lv, type, name_ko: sp.name_ko, name_en: sp.name_en };
     if (g.rank !== undefined) r.rank = g.rank;
     return r;
   }).filter(Boolean);

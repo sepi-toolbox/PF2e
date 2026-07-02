@@ -40,4 +40,12 @@ if (fs.existsSync('cs_monster.js')) {
   console.log('  cs_monster.js: _IIMG_VER');
 }
 
-console.log(`\n✓ 버전 통일 → ${ver} (리터럴 ?v= ${total}곳 + 푸터 + CHANGELOG + _IIMG_VER)`);
+// 4) sw.js — 서비스워커 캐시명에 앱버전 반영(배포마다 구 캐시 무효화 → stale 자산/데이터 방지)
+if (fs.existsSync('sw.js')) {
+  let s = fs.readFileSync('sw.js', 'utf8');
+  s = s.replace(/(const CACHE = ')[^']+(')/, `$1pathforge-${ver}$2`);
+  fs.writeFileSync('sw.js', s);
+  console.log('  sw.js: CACHE 버전');
+}
+
+console.log(`\n✓ 버전 통일 → ${ver} (리터럴 ?v= ${total}곳 + 푸터 + CHANGELOG + _IIMG_VER + sw CACHE)`);

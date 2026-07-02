@@ -129,6 +129,21 @@
             else if (g.type === 'spell') granted_spells.push({ spell_id: gslug, lv: (g.system.level && g.system.level.value) || 1, type: 'spell' });
           }
         } catch (e) {}
+        // 서브클래스 초기 집중 주문(혈통/미스터리/기질/영역 등)은 RE로 안 잡힘 — desc 구조에서 파싱(FVTT 시스템 TS 전용 데이터의 유일 추출원). advanced/greater는 재주로 습득.
+        //   패턴: "initial: @UUID"(혈통/영역/오라클 Revelation) / "Order Spell @UUID"(드루이드). 라벨과 @UUID 사이 HTML 태그(</strong> 등) 허용. = 집중 주문(선천 아님).
+        if (!granted_spells.length) {
+          const dv = (f.system && f.system.description && f.system.description.value) || '';
+          const pats = [
+            /(?:^|[^a-z])initial:\s*(?:<\/?[^>]+>\s*)*@UUID\[([^\]{}]+)\]/i,   // 혈통/영역/오라클 미스터리(Revelation Spells initial:)
+            /Order Spell\s*(?:<\/?[^>]+>\s*)*@UUID\[([^\]{}]+)\]/i,             // 드루이드 기질
+            /@UUID\[([^\]{}]+)\]\{[^}]*\}\s*(?:<\/?[^>]+>\s*)*hex cantrip/i,     // 위치 후원자 헥스 캔트립
+          ];
+          for (const rx of pats) {
+            const m = dv.match(rx);
+            if (!m) continue;
+            try { const sp = PF.getByUuid(m[1].trim()); if (sp && sp.type === 'spell') { granted_spells.push({ spell_id: (sp.system && sp.system.slug) || sp._id, lv: 1, type: 'focus' }); break; } } catch (e) {}
+          }
+        }
         out.push({
           id: f.system.slug, class_id: slug, subclass_type: meta.typeKo,
           name_ko: PF.nameKo(f), name_en: f.name_en || f.name,
