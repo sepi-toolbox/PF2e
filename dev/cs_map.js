@@ -2074,6 +2074,78 @@ var MapView = (function() {
     }
   }
 
+  // ── 원본 업로드(리포 커밋) — 브라우저에서 GitHub Contents API로 dev/maps/에 커밋,
+  //    raw.githubusercontent.com URL(커밋 즉시 사용 가능, ACAO:*)을 배경으로 자동 적용.
+  //    토큰(PAT)은 이 브라우저 localStorage에만 저장(Firestore/서버 전송 없음), 401 시 재입력.
+  const GH_REPO = 'sepi-toolbox/PF2e', GH_DIR = 'dev/maps', GH_TOKEN_KEY = 'pf2e_gh_pat';
+  function _ghToken(forceAsk) {
+    let t = null;
+    try { t = localStorage.getItem(GH_TOKEN_KEY); } catch (e) {}
+    if (!t || forceAsk) {
+      t = prompt('GitHub 토큰(PAT)을 붙여넣으세요 — 원본 업로드는 리포(' + GH_REPO + ')에 커밋하는 방식입니다.\n\n발급: github.com → Settings → Developer settings → Fine-grained tokens\n  · Resource owner: sepi-toolbox / 대상 리포: PF2e만\n  · Repository permissions → Contents: Read and write\n\n이 브라우저에만 저장되며 외부로 전송되지 않습니다(GitHub API 제외).');
+      if (t) { t = t.trim(); try { localStorage.setItem(GH_TOKEN_KEY, t); } catch (e) {} }
+    }
+    return t || null;
+  }
+  function uploadBgOriginal() {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = function() { const f = inp.files && inp.files[0]; if (f) _repoUpload(f); };
+    inp.click();
+  }
+  function _repoUpload(file) {
+    const stEl = document.getElementById('mme-bg-status');
+    const say = function(t) { if (stEl) stEl.textContent = t; };
+    if (file.size > 40 * 1024 * 1024) { say('✗ 40MB 초과 — 웹용은 5~20MB JPEG/WebP 권장'); return; }
+    const tok = _ghToken(false);
+    if (!tok) { say('✗ 토큰 없음 — 업로드 취소'); return; }
+    say('리포 커밋 중… (' + (Math.round(file.size / 1024 / 102.4) / 10) + 'MB)');
+    const rd = new FileReader();
+    rd.onerror = function() { say('✗ 파일 읽기 실패'); };
+    rd.onload = function() {
+      const b64 = String(rd.result).split(',')[1] || '';
+      const m = file.name.match(/^(.*?)(\.(png|jpe?g|webp|gif|avif))?$/i);
+      const base = (m[1] || 'bg').replace(/[^a-zA-Z0-9_-]+/g, '').slice(0, 24) || 'bg';
+      const ext = (m[3] || 'jpg').toLowerCase();
+      const d = new Date(), p = function(n) { return (n < 10 ? '0' : '') + n; };
+      const name = base + '_' + d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + '_' + p(d.getHours()) + p(d.getMinutes()) + p(d.getSeconds()) + '.' + ext;
+      fetch('https://api.github.com/repos/' + GH_REPO + '/contents/' + GH_DIR + '/' + name, {
+        method: 'PUT',
+        headers: { 'Authorization': 'Bearer ' + tok, 'Accept': 'application/vnd.github+json' },
+        body: JSON.stringify({ message: '지도 배경 업로드: ' + name + ' (지도 편집기 원본 업로드)', content: b64 })
+      }).then(function(res) {
+        if (res.status === 401 || res.status === 403) {
+          try { localStorage.removeItem(GH_TOKEN_KEY); } catch (e) {}
+          say('✗ 토큰 인증 실패 — 버튼을 다시 누르면 토큰을 새로 물어봅니다');
+          throw 'auth';
+        }
+        if (!res.ok) { say('✗ 커밋 실패 (HTTP ' + res.status + ')'); throw 'http-' + res.status; }
+        return res.json();
+      }).then(function() {
+        // raw URL은 커밋 직후 수 초 내 서빙됨 — cb 프로브로 확인 후(404 CDN 캐시 오염 방지) 클린 URL 저장
+        const url = 'https://raw.githubusercontent.com/' + GH_REPO + '/main/' + GH_DIR + '/' + name;
+        let tries = 0;
+        const probe = function() {
+          say('반영 확인 중…' + (tries ? ' (' + tries + ')' : ''));
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = function() {
+            MapSync.setBackgroundUrl(url, img.naturalWidth, img.naturalHeight)
+              .catch(function(e) { say('저장 실패: ' + e); });
+          };
+          img.onerror = function() {
+            if (++tries < 10) setTimeout(probe, 3000);
+            else say('✗ 반영 확인 실패 — 잠시 후 URL 칸에 직접 적용: ' + url);
+          };
+          img.src = url + '?cb=' + Date.now();
+        };
+        probe();
+      }).catch(function(e) { if (e !== 'auth') console.warn('[MapView repoUpload]', e); });
+    };
+    rd.readAsDataURL(file);
+  }
+
   // URL 배경 적용 — 먼저 클라에서 로드해 원본 치수 확보 후 Firestore엔 URL만 저장.
   // 빈 입력 + 적용 = URL 배경 해제. 상대경로(maps/x.jpg)는 페이지 기준 해석(데브/운영 각자 정합).
   function applyBgUrl() {
@@ -2113,7 +2185,8 @@ var MapView = (function() {
     revealAll: revealAll, coverAll: coverAll,
     // 격자 + 지도 편집기 (GM, 드로어 ✎)
     toggleGrid: toggleGrid, gridRangeInput: gridRangeInput, gridRangeChange: gridRangeChange,
-    openMapEdit: openMapEdit, mapEditClose: mapEditClose, mapRename: mapRename, applyBgUrl: applyBgUrl,
+    openMapEdit: openMapEdit, mapEditClose: mapEditClose, mapRename: mapRename,
+    applyBgUrl: applyBgUrl, uploadBgOriginal: uploadBgOriginal,
     // GM 멀티맵 드로어 (Map.html)
     toggleDrawer: toggleDrawer, setDrawerTab: setDrawerTab, addMap: addMap, dbSearch: dbSearch,
     // GM 토큰 편집기(드로어 템플릿) + 배치 토큰 빠른 액션

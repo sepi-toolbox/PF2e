@@ -390,9 +390,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   <div id="map-map-editor" style="display:none;">
     <div class="mme-title">지도 편집</div>
     <div class="mme-row"><label>이름</label><input id="mme-name" type="text" onchange="MapView.mapRename()"></div>
-    <div class="mme-row"><label>배경</label><button id="map-upload-btn" onclick="MapView.pickBg()">🖼 이미지 선택</button><span id="mme-bg-status" class="mme-status"></span></div>
+    <div class="mme-row"><label>배경</label><button id="map-upload-btn" onclick="MapView.pickBg()">🖼 이미지 선택</button><button onclick="MapView.uploadBgOriginal()" title="원본 화질 그대로 리포(dev/maps/)에 커밋하고 URL 참조로 적용합니다. GitHub 토큰 필요(최초 1회).">⬆ 원본 업로드</button><span id="mme-bg-status" class="mme-status"></span></div>
     <div class="mme-row"><label>URL</label><input id="mme-bg-url" type="text" placeholder="maps/이름.jpg 또는 https://…" spellcheck="false"><button onclick="MapView.applyBgUrl()">적용</button></div>
-    <div class="mme-row mme-hint">URL 배경은 원본 해상도 그대로(용량 제한 없음). 리포 maps/ 폴더에 이미지를 올리고 <b>maps/파일명</b>으로 참조 권장. 빈 칸+적용=해제.</div>
+    <div class="mme-row mme-hint">이미지 선택=빠른 업로드(1500px 축소) · <b>원본 업로드</b>=리포 커밋 후 원본 해상도 참조(GitHub 토큰 최초 1회) · URL=직접 참조. 빈 칸+적용=해제.</div>
     <div class="mme-row"><label class="mme-check"><input id="mme-grid-on" type="checkbox" onchange="MapView.toggleGrid()"> 격자 표시</label></div>
     <div class="mme-row"><label>비율</label>
       <input id="map-grid-range" type="range" min="0" max="100" value="20" oninput="MapView.gridRangeInput(this.value)" onchange="MapView.gridRangeChange(this.value)">
@@ -401,9 +401,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_dice.js?v=0.68"></script>
-<script src="cs_monster.js?v=0.68"></script>
-<script src="cs_map.js?v=0.68"></script>
+<script src="cs_dice.js?v=0.69"></script>
+<script src="cs_monster.js?v=0.69"></script>
+<script src="cs_map.js?v=0.69"></script>
 <style>
 /* 듀얼모니터: GM 도구 + 플레이어 CCTV */
 #map-gm-tools{margin-left:12px;display:inline-flex;gap:6px;align-items:center;}
@@ -659,7 +659,7 @@ window.MonsterLink = (function () {
     const _b = document.getElementById('pf-dice-box'); if (_b) _b.remove();
   } else {
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.68');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.69');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     const box = new DiceBox({ container: '#pf-dice-box', assetPath, theme: 'default', offscreen: false, scale: 6 });
     let ready = false;
