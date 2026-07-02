@@ -59,7 +59,7 @@
   // tools/rebase/extract_item_icons.mjs 로 추출 → dev/data/icons/ 아래 벤더링. 미로드 시 타입별 기본 아이콘.
   let _itemImg = null, _ITEM_ICON_BASE = 'data/icons/';
   let _iconLookup = null;                 // 플레이어 시트 icon_map.json(scope→slug/name→path) 재사용(장비/주문 보강)
-  const _IIMG_VER = '0.63';
+  const _IIMG_VER = '0.64';
   // FVTT가 "고유 아트 없음"에 쓰는 제네릭(행동비용·기본) img — 깔끔한 타입별 SVG로 대체할 대상
   const _GENERIC_IMG = new Set([
     'systems/pf2e/icons/actions/Passive.webp','systems/pf2e/icons/actions/OneAction.webp',
@@ -357,16 +357,21 @@
   }
 
   // ─── @참조(Foundry inline) → 한글 렌더 ─────────────────────────
-  const DMG_KO = { piercing:'관통', slashing:'참격', bludgeoning:'타격', fire:'화염', cold:'냉기', acid:'산성', electricity:'전기', sonic:'음향', mental:'정신', poison:'독', void:'공허', spirit:'정신력', vitality:'생명력', force:'역장', bleed:'출혈', untyped:'', precision:'정밀' };
+  const DMG_KO = { piercing:'관통', slashing:'참격', bludgeoning:'타격', fire:'화염', cold:'냉기', acid:'산성', electricity:'전기', sonic:'음파', mental:'정신', poison:'독', void:'공허', spirit:'영혼', vitality:'활력', force:'힘', bleed:'출혈', untyped:'', precision:'정밀' };
   const SAVE_KO2 = { fortitude:'인내', reflex:'반사', will:'의지' };
   function _esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
   function resolveFoundryRefs(html){
     if(!html) return '';
     let s = String(html);
-    // 인라인 굴림 매크로 [[/gmr 1d4 #hours]]{라벨} → 라벨, 없으면 주사위식만
-    s = s.replace(/\[\[([^\]]*)\]\](?:\{([^}]*)\})?/g, (m,body,label)=>{
+    // FVTT 전용 '효과 부여'·저널 링크·@Embed 문단 제거(패스포지에 해당 기능 없음 → 죽은 텍스트)
+    s = s.replace(/(<hr\s*\/?>\s*)?<p>(?:\s*@UUID\[Compendium\.pf2e\.(?:[a-z-]*-effects\.Item|journals\.JournalEntry)[^\]]*\](?:\{[^}]*\})?\s*[,;·]?)+\s*<\/p>\s*/g, '');
+    s = s.replace(/(<hr\s*\/?>\s*)?<p>\s*@Embed\[[^\]]+\](?:\{[^}]*\})?\s*<\/p>\s*/g, '');
+    // 인라인 굴림 매크로 [[/gmr 1d4 #hours]]{라벨} → 라벨, 없으면 주사위식([type]→한글 피해유형)
+    s = s.replace(/\[\[((?:[^\[\]]|\[[^\]]*\])*)\]\](?:\{([^}]*)\})?/g, (m,body,label)=>{
       if(label) return `<span class="ref-roll">${_esc(label)}</span>`;
-      const dice = body.replace(/^\s*\/[a-z]+\s*/i,'').replace(/#.*$/,'').trim();
+      let dice = body.replace(/^\s*\/[a-z]+\s*/i,'').replace(/#[^\s\]]*/g,'').replace(/\{([^}]*)\}/g,'$1');
+      dice = dice.replace(/\[([a-z, -]+)\]/g, (mm,tys)=>' '+tys.split(',').map(t=>DMG_KO[t.trim()]!==undefined?DMG_KO[t.trim()]:t.trim()).filter(Boolean).join(' '));
+      dice = dice.replace(/\s+/g,' ').trim();
       return `<span class="ref-roll">${_esc(dice||body)}</span>`;
     });
     s = s.replace(/@Damage\[((?:[^\[\]]|\[[^\]]*\])*)\](\{[^}]*\})?/g, (m,body)=>{

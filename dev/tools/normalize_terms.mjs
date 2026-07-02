@@ -157,12 +157,18 @@ function proseSweep(text) {
   for (const oldk in PROSE_MAP) { const re = new RegExp(oldk + '( \\d+)? 상태', 'g'); text = text.replace(re, (m, num) => { proseCount++; return PROSE_MAP[oldk] + (num || '') + ' 상태'; }); }
   return text;
 }
-const PROSE_FILES = ['data/overlay/feats.ko.json', 'data/overlay/spells.ko.json', 'data/overlay/effects.ko.json', 'data/overlay/equipment.ko.json', 'data/overlay/conditions.ko.json', 'data/overlay/heritages.ko.json', 'data/overlay/backgrounds.ko.json', 'data/overlay/deities.ko.json', 'data/overlay/ancestries.ko.json', 'data/overlay/actions.ko.json'];
+const PROSE_FILES = ['data/overlay/feats.ko.json', 'data/overlay/spells.ko.json', 'data/overlay/effects.ko.json', 'data/overlay/equipment.ko.json', 'data/overlay/conditions.ko.json', 'data/overlay/heritages.ko.json', 'data/overlay/backgrounds.ko.json', 'data/overlay/deities.ko.json', 'data/overlay/ancestries.ko.json', 'data/overlay/actions.ko.json',
+  // 크리처 번역도 동일 스윕(2026-07-02 전수검사부터 포함)
+  ...fs.readdirSync(path.join(DEV, 'data/creatures')).filter(f => /\.ko\.json$/.test(f) && !f.startsWith('_')).map(f => 'data/creatures/' + f)];
 for (const p of PROSE_FILES) { let t = writes[p] !== undefined ? writes[p] : fs.readFileSync(path.join(DEV, p), 'utf8'); writes[p] = proseSweep(t); }
 
 // (i) 설명문 평문 고정구 정본화 — 게임 고정 용어구라 앵커 불필요(일반 산문 오탐 없음).
 // ⚠ '마스터'(일반어/이름)·'특기'(일반어)·'대가'(일반어)는 문맥판단 필요라 제외(별도 정밀 패스).
-const TERM_MAP = { '공격 굴림': '명중 굴림', '오프-가드': '무방비', '오프 가드': '무방비' };
+const TERM_MAP = { '공격 굴림': '명중 굴림', '오프-가드': '무방비', '오프 가드': '무방비',
+  // 피해유형·기술 정본화(2026-07-02 전수검사): 용어집 정본 = force 힘·vitality 활력·spirit 영혼·sonic 음파·Intimidation 위협·Society 사회
+  '역장 피해': '힘 피해', '생명력 피해': '활력 피해', '정신력 피해': '영혼 피해',
+  '협박 판정': '위협 판정', '협박 기술': '위협 기술', '사회학': '사회',
+  '음향 효과': '음파 효과', '음향적 효과': '음파 효과', '음향 특성': '음파 특성' };
 let termCount = 0;
 function termSweep(text) {
   for (const o in TERM_MAP) { const re = new RegExp(o, 'g'); text = text.replace(re, () => { termCount++; return TERM_MAP[o]; }); }

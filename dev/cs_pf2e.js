@@ -131,9 +131,9 @@
 
   // FVTT 인라인 @참조(@UUID/@Damage/@Check/@Template/@Localize…) → 한글 가독 렌더.
   // 시트의 모든 FVTT desc 표시 공통 진입점(장비/재주/주문). 미인식 @X[..]는 라벨만 남김.
-  const _DMG_KO = { piercing: '관통', slashing: '참격', bludgeoning: '타격', fire: '화염', cold: '냉기', acid: '산성', electricity: '전기', sonic: '음향', mental: '정신', poison: '독', void: '공허', spirit: '정신력', vitality: '생명력', force: '역장', bleed: '출혈', untyped: '', precision: '정밀' };
+  const _DMG_KO = { piercing: '관통', slashing: '참격', bludgeoning: '타격', fire: '화염', cold: '냉기', acid: '산성', electricity: '전기', sonic: '음파', mental: '정신', poison: '독', void: '공허', spirit: '영혼', vitality: '활력', force: '힘', bleed: '출혈', untyped: '', precision: '정밀' };
   const _SAVE_KO = { fortitude: '인내', reflex: '반사', will: '의지' };
-  const _SKILL_KO = { acrobatics: '곡예', arcana: '주문학', athletics: '운동', crafting: '제작', deception: '기만', diplomacy: '외교', intimidation: '협박', medicine: '의학', nature: '자연학', occultism: '오컬티즘', performance: '공연', religion: '종교학', society: '사회학', stealth: '은신', survival: '생존', thievery: '도둑질' };
+  const _SKILL_KO = { acrobatics: '곡예', arcana: '주문학', athletics: '운동', crafting: '제작', deception: '기만', diplomacy: '외교', intimidation: '위협', medicine: '의학', nature: '자연학', occultism: '오컬티즘', performance: '공연', religion: '종교학', society: '사회', stealth: '은신', survival: '생존', thievery: '도둑질' };
   const _CHECK_KO = Object.assign({ perception: '지각', flat: '단순', spell: '주문' }, _SAVE_KO, _SKILL_KO);
   function _checkTypeKo(t) { if (_CHECK_KO[t]) return _CHECK_KO[t]; const m = /^(.*)-lore$/.exec(t); if (m) return m[1].replace(/-/g, ' ') + ' 지식'; return t; }
   function _escDesc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
@@ -143,6 +143,30 @@
     // @Localize[PF2E.key] → 사전 한글로 치환(먼저 처리 → 치환된 내용의 @UUID/@Check 등도 이어서 렌더)
     const _loc = _localize || (isNode ? _ensureLocalizeSync() : null);
     s = s.replace(/@Localize\[([^\]]+)\]/g, (m, key) => { const t = _loc && _loc[key]; return t != null ? String(t) : ''; });
+    // FVTT 전용 '효과 부여'·저널 링크 문단 제거: <p>@UUID[…-effects…]{효과: X}</p>, <p>@UUID[…journals…]{…}</p>
+    // — FVTT에선 클릭/드래그 기능, 패스포지엔 없어 죽은 텍스트 → 문단째(선행 <hr> 포함) 삭제. 문장 중간 참조는 하단 @UUID 해소로 유지.
+    s = s.replace(/(<hr\s*\/?>\s*)?<p>(?:\s*@UUID\[Compendium\.pf2e\.(?:[a-z-]*-effects\.Item|journals\.JournalEntry)[^\]]*\](?:\{[^}]*\})?\s*[,;·]?)+\s*<\/p>\s*/g, '');
+    // 문단전용 @Embed 제거(FVTT는 전체 카드 임베드, 패스포지엔 이름만 남는 죽은 줄)
+    s = s.replace(/(<hr\s*\/?>\s*)?<p>\s*@Embed\[[^\]]+\](?:\{[^}]*\})?\s*<\/p>\s*/g, '');
+    // 인라인 행동 매크로 [[/act slug …]]{라벨} → 행동 카탈로그 한글명(FVTT 클릭 굴림 기능 없음 → 텍스트 렌더)
+    s = s.replace(/\[\[\/act\s+([a-z0-9-]+)([^\]]*)\]\](?:\{([^}]*)\})?/g, (m, slug, opts, label) => {
+      let name = label || '';
+      if (!name) { try { const a = get('actions', slug); if (a) name = a.name_ko || a.name; } catch (e) {} }
+      if (!name) name = slug.replace(/-/g, ' ');
+      const dc = (opts.match(/dc[=:](\d+)/) || [])[1];
+      const st = (opts.match(/statistic[=:]([a-z-]+)/) || [])[1];
+      const extra = [st ? _checkTypeKo(st) : '', dc ? `DC ${dc}` : ''].filter(Boolean).join(' ');
+      return `<span class="ref-link">${_escDesc(name)}${extra ? ` (${extra})` : ''}</span>`;
+    });
+    // 인라인 굴림 매크로 [[/r 2d6[fire]]]{라벨} / [[/gmr …]] / [[/br …]] → 라벨, 없으면 주사위식+피해유형 한글
+    s = s.replace(/\[\[\/[a-z]+\s+((?:[^\[\]]|\[[^\]]*\])*)\]\](?:\{([^}]*)\})?/g, (m, body, label) => {
+      if (label) return `<span class="ref-roll">${_escDesc(label)}</span>`;
+      let f = body.replace(/#[^\s\]]*/g, '').replace(/\{([^}]*)\}/g, '$1');
+      f = f.replace(/\[([a-z, -]+)\]/g, (mm, tys) => ' ' + tys.split(',').map(t => _DMG_KO[t.trim()] !== undefined ? _DMG_KO[t.trim()] : t.trim()).filter(Boolean).join(' '));
+      return `<span class="ref-roll">${_escDesc(f.replace(/\s+/g, ' ').trim())}</span>`;
+    });
+    // 잔여 [[…]]{라벨} 폴백
+    s = s.replace(/\[\[((?:[^\[\]]|\[[^\]]*\])*)\]\](?:\{([^}]*)\})?/g, (m, body, label) => `<span class="ref-roll">${_escDesc(label || body.replace(/^\s*\/[a-z]+\s*/i, '').replace(/#.*$/, '').trim())}</span>`);
     s = s.replace(/@Damage\[((?:[^\[\]]|\[[^\]]*\])*)\](\{[^}]*\})?/g, (m, body) => {
       const parts = body.split(/,(?![^\[]*\])/).map(p => {
         const mm = p.match(/\(?\s*([0-9dD()+\-* ]+?)\s*\)?\s*\[([^\]]+)\]/);
