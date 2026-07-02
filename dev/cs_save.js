@@ -453,19 +453,29 @@ function loadData(d) {
       ['special','ancestry','class','general','skill','archetype','other'].forEach(k => {
         if (!state.feats[k]) state.feats[k] = [];
       });
-      // 유령 재주 정리: growth에 대응되지 않는 비-자동/비-부여 재주 제거
+      // 유령 재주 정리: growth에 대응되지 않는 비-자동/비-부여 재주 제거.
+      // ⚠ growth는 이름/슬러그/개명본이 섞일 수 있음(FVTT 단일소스 이행 후 name_ko 개명 포함) →
+      //    name·id·slug 3중 매칭으로 판정(하나라도 맞으면 유지). 이름만 비교하면 slug-growth가
+      //    실제 재주를 전부 삭제함(회귀 사고). featSlug로 양측을 slug 정규화해 비교.
       if (d.growth) {
-        const growthFeatNames = new Set();
+        const growthRefs = new Set();
         Object.values(d.growth).forEach(g => {
           if (!g || typeof g !== 'object') return;
-          Object.entries(g).forEach(([k,v]) => { if (typeof v === 'string' && k !== 'skillIncrease' && k !== 'skillTraining') growthFeatNames.add(v); });
+          Object.entries(g).forEach(([k,v]) => {
+            if (typeof v === 'string' && k !== 'skillIncrease' && k !== 'skillTraining') {
+              growthRefs.add(v);
+              if (typeof featSlug === 'function') { try { const sl = featSlug(v); if (sl) growthRefs.add(sl); } catch (e) {} }
+            }
+          });
         });
         ['ancestry','class','general','skill','archetype','other'].forEach(cat => {
           const arr = state.feats[cat];
           for (let i = arr.length - 1; i >= 0; i--) {
             const f = arr[i];
             if (!f?.name || f._auto || f._grantedBy) continue;
-            if (!growthFeatNames.has(f.name)) { arr.splice(i, 1); }
+            let keep = growthRefs.has(f.name) || (f.id && growthRefs.has(f.id));
+            if (!keep && typeof featSlug === 'function') { try { const sl = featSlug(f.id || f.name); if (sl && growthRefs.has(sl)) keep = true; } catch (e) {} }
+            if (!keep) arr.splice(i, 1);
           }
         });
       }
