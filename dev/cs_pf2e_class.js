@@ -93,14 +93,13 @@
         if (r.key !== 'ChoiceSet' || !r.choices) continue;
         let filt = Array.isArray(r.choices.filter) ? r.choices.filter : (Array.isArray(r.choices) ? r.choices : null);
         if (!filt) continue;
+        // ⚠ 서브클래스 = item:tag: ChoiceSet만(에이돌론·의식/잠재의식 등). item:trait: 는 재주선택(진화 재주 등)이라 서브클래스 아님 — 오수집 시 진화재주가 서브클래스로 뜸(v0.46 회귀).
         for (const x of filt) {
-          if (typeof x !== 'string') continue;
-          let tag = null, kind = null;
-          if (x.indexOf('item:tag:') === 0) { tag = x.slice('item:tag:'.length); kind = 'tag'; }
-          else if (x.indexOf('item:trait:') === 0) { tag = x.slice('item:trait:'.length); kind = 'trait'; }
-          if (!tag || seen.has(kind + ':' + tag)) continue;
-          seen.add(kind + ':' + tag);
-          metas.push({ tag, kind, typeKo: PF.nameKo(d), typeEn: d.name_en || d.name });
+          if (typeof x !== 'string' || x.indexOf('item:tag:') !== 0) continue;
+          const tag = x.slice('item:tag:'.length);
+          if (!tag || seen.has(tag)) continue;
+          seen.add(tag);
+          metas.push({ tag, kind: 'tag', typeKo: PF.nameKo(d), typeEn: d.name_en || d.name });
         }
       }
     }

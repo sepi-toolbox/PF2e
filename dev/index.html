@@ -44,12 +44,12 @@ window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters'
                   sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
 window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
-<script src="equipment_db.js?v=0.46"></script>
-<script src="feat_db.js?v=0.46"></script>
-<script src="SPELL_DB.js?v=0.46"></script>
-<script src="class_features_db.js?v=0.46"></script>
-<script src="effects_db.js?v=0.46"></script>
-<script src="prereqs_db.js?v=0.46"></script>
+<script src="equipment_db.js?v=0.47"></script>
+<script src="feat_db.js?v=0.47"></script>
+<script src="SPELL_DB.js?v=0.47"></script>
+<script src="class_features_db.js?v=0.47"></script>
+<script src="effects_db.js?v=0.47"></script>
+<script src="prereqs_db.js?v=0.47"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -70,7 +70,7 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
   console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.46">
+<link rel="stylesheet" href="app-shell.css?v=0.47">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -1921,7 +1921,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.46</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.47</span></div>
 </div>
 
 <!-- ═══ 업데이트 로그 모달 ═══ -->
@@ -2452,7 +2452,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.46" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.47" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2529,36 +2529,36 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.46"></script>
-<script src="cs_calc.js?v=0.46"></script>
+<script src="cs_data.js?v=0.47"></script>
+<script src="cs_calc.js?v=0.47"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.46"></script>
-<script src="cs_re_engine.js?v=0.46"></script>
-<script src="cs_pf2e_stats.js?v=0.46"></script>
-<script src="cs_pf2e_equip.js?v=0.46"></script>
-<script src="cs_pf2e_anc.js?v=0.46"></script>
-<script src="cs_pf2e_bg.js?v=0.46"></script>
-<script src="cs_pf2e_spell.js?v=0.46"></script>
-<script src="cs_pf2e_deity.js?v=0.46"></script>
-<script src="cs_pf2e_action.js?v=0.46"></script>
-<script src="cs_pf2e_feat.js?v=0.46"></script>
-<script src="cs_pf2e_class.js?v=0.46"></script>
-<script src="cs_pf2e_actor.js?v=0.46"></script>
-<script src="cs_ui.js?v=0.46"></script>
-<script src="cs_modal.js?v=0.46"></script>
-<script src="cs_feat_effects.js?v=0.46"></script>
-<script src="cs_save.js?v=0.46"></script>
-<script src="cs_session.js?v=0.46"></script>
-<script src="cs_dice.js?v=0.46"></script>
-<script src="cs_map.js?v=0.46"></script>
+<script src="cs_pf2e.js?v=0.47"></script>
+<script src="cs_re_engine.js?v=0.47"></script>
+<script src="cs_pf2e_stats.js?v=0.47"></script>
+<script src="cs_pf2e_equip.js?v=0.47"></script>
+<script src="cs_pf2e_anc.js?v=0.47"></script>
+<script src="cs_pf2e_bg.js?v=0.47"></script>
+<script src="cs_pf2e_spell.js?v=0.47"></script>
+<script src="cs_pf2e_deity.js?v=0.47"></script>
+<script src="cs_pf2e_action.js?v=0.47"></script>
+<script src="cs_pf2e_feat.js?v=0.47"></script>
+<script src="cs_pf2e_class.js?v=0.47"></script>
+<script src="cs_pf2e_actor.js?v=0.47"></script>
+<script src="cs_ui.js?v=0.47"></script>
+<script src="cs_modal.js?v=0.47"></script>
+<script src="cs_feat_effects.js?v=0.47"></script>
+<script src="cs_save.js?v=0.47"></script>
+<script src="cs_session.js?v=0.47"></script>
+<script src="cs_dice.js?v=0.47"></script>
+<script src="cs_map.js?v=0.47"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.46"></script>
-<script src="cs_i18n.js?v=0.46"></script>
+<script src="cs_locale.js?v=0.47"></script>
+<script src="cs_i18n.js?v=0.47"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.46');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.47');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2642,6 +2642,9 @@ document.addEventListener('click', function(e) {
 // ═══ 업데이트 로그 / 공지 (기어 메뉴) ═══
 // 최신순. 새 버전 작업 시 맨 앞에 {v, date, items:[...]} 추가(사용자 친화적 한글 문장).
 const CHANGELOG = [
+  { v: '0.47', date: '2026-07-02', items: [
+    '소환사 등에서 서브클래스(에이돌론) 선택지에 "진화 재주"가 잘못 섞여 들어가, 그걸 고르면 클래스 선택 확정 버튼이 계속 잠기던 문제를 고쳤습니다(직전 버전 회귀). 이제 서브클래스 목록에는 진짜 서브클래스만 표시되며, 선택하면 정상적으로 확정됩니다. ※ 클래스마다 서브클래스(에이돌론·본능·연구 분야 등)는 반드시 하나 선택해야 확정 버튼이 활성화됩니다.',
+  ] },
   { v: '0.46', date: '2026-07-02', items: [
     '데이터 "출처(옛 방식/FVTT)"에 따라 기능이 다르게 동작하던 문제들을 전수 점검해 통일했습니다. ① 드래고넷·포펫·플레시워프 혈통이 자기 혈통 재주를 하나도 못 보던 문제 ② 사이킥(의식적 마음)·에그젬플러(이콘 등)·챔피언(축복)처럼 서브클래스 선택지가 여러 갈래인 클래스에서 일부 갈래가 통째로 빠지던 문제 ③ 대부분의 신격(144위)에서 선호 무기 이름이 안 뜨고 클레릭 무기 숙련도 안 주어지던 문제를 고쳤습니다. ④ 서로 다른 주문이 같은 한글명을 갖는 경우(진정·매혹·부활 등) 옛 저장본을 불러올 때 엉뚱한 주문으로 바뀌던 위험을 차단했습니다. 데이터 관리 도구의 재주 표에는 "클래스" 열을 추가했습니다.',
   ] },
