@@ -2000,7 +2000,7 @@
   "description": "<p>내성 굴림에 상태 보너스가 +1 증가합니다.</p>"
  },
  "aura-righteous-call": {
-  "name": "오라: 정의의 부름",
+  "name": "오라: 의로운 부름",
   "description": "<p>무기를 들고 있는 동안 무기와 비무장 공격으로 성스러운 무기 룬을 얻습니다. 또한, 아군이 30피트 이내에 있는 동안 아군에게 가하는 일격은 성스러운 특성을 얻습니다.</p>"
  },
  "effect-improved-reflexes": {
@@ -5555,7 +5555,7 @@
   "description": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Eed8QBWBtpufl1iP]{보복의 기쁨}에 의해 부여됩니다. 반격의 일격으로 적을 성공적으로 명중할 때마다 임시 체력을 얻습니다.</p>"
  },
  "aura-protectors-sphere": {
-  "name": "오라: 수호자의 구",
+  "name": "오라: 수호자의 영역",
   "description": "<p>@UUID[Compendium.pf2e.spells-srd.Item.DH9Y3RQGWO0GzXGU]{Protector's Sphere}에 의해 부여됩니다. 오라에 있는 아군도 이 저항력을 얻습니다.</p>"
  },
  "spell-effect-touch-of-the-moon": {
@@ -5647,7 +5647,7 @@
   "description": "<p>@UUID[Compendium.pf2e.spells-srd.Item.VNAOHrWhNYX3jKdy]{Spectral Advance}에 의해 부여됨</p> <p>당신은 모든 피해에 대해 자신의 레벨과 동일한 저항력을 갖습니다.</p>"
  },
  "aura-protective-wards": {
-  "name": "오라: 보호의 수호",
+  "name": "오라: 보호의 수호부",
   "description": "<p>@UUID[Compendium.pf2e.spells-srd.Item.lY9fOk1qBDDhBT8s]{보호의 수호}에 의해 부여됩니다. </p> <p>당신과 그 영역에 있는 모든 아군은 AC에 +1의 상태 보너스를 받습니다. 당신이 주문을 유지할 때마다, 발산 반경이 5피트씩 증가하여 최대 30피트까지 늘어납니다.</p>"
  },
  "spell-effect-garden-of-death-critical-success": {
@@ -5991,7 +5991,7 @@
   "description": "<p>@UUID[Compendium.pf2e.spells-srd.Item.dR53f0p15EW7D0xC]{Devil Form}에 의해 부여됩니다.</p> <p>당신은 대형 악마 전투 형태로 변신합니다. 이 형태로 있는 동안 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손이 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷 체크의 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력, 물리 피해에 대한 저항력 5 (은을 제외한), 신성한 것에 대한 약점 5. </li><li>불에 대한 저항력 10. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 이 공격에 숙련되어 있습니다. 당신의 공격 수정자는 +20이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 비무장 공격이나 무기에 대한 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>오실루스</strong> 속도 35피트, 비행 30피트;</p><ul><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 턱, <strong>피해</strong> 2d10+10 관통 + 1d6 정신;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 발톱 (민첩, 도달 거리 10 피트), <strong>피해 2d6+10 베기 + 1d6 정신;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 침 (도달 거리 15 피트), <strong>피해 1d10+10 관통 + 1d6 정신 및 1d6 독;</li><li><strong>원거리 <span class=\\\"</p>"
  },
  "aura-spiral-of-horrors": {
-  "name": "오라: 공포의 나선",
+  "name": "오라: 공포의 소용돌이",
   "description": "<p>그림자와 영혼들이 당신 주위를 맴돌며 울부짖고 소용돌이치며, 이를 목격한 모든 이들의 마음에 공포를 불러일으키는 광경을 연출합니다. 이 지역의 적들은 공포 1을 받고, 주문이 지속되는 동안 공포 값이 1 이하로 떨어지지 않습니다.</p>"
  },
  "spell-effect-diadem-of-divine-radiance": {
@@ -6407,7 +6407,7 @@
   "description": "<p>@UUID[Compendium.pf2e.spells-srd.Item.aF7RiG7c8GzSQLYt]{진실의 말}에 의해 부여됩니다. </p> <p>외교 체크에 +2의 상태 보너스를 얻습니다.</p>"
  },
  "aura-manifest-will": {
-  "name": "오라: 의지의 창조",
+  "name": "오라: 의지 창조",
   "description": "<p>@UUID[Compendium.pf2e.spells-srd.Item.IqBfoUaWDennHYoZ]{창조 의지}에 의해 부여됨</p> <p>당신은 10피트의 오라를 발산합니다. 다면적인 의지 피트를 가지고 있다면, 어떤 전통을 선택할 수 있습니다. 당신과 당신의 아군은 그 전통 특성을 가진 주문에 대한 내성에 +1의 상태 보너스를 얻습니다.</p>"
  },
  "spell-effect-kgalaserkes-axes": {

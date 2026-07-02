@@ -294,7 +294,7 @@
   ]
  },
  "persona-mask-greater": {
-  "name": "페르소나 마스크 (중급)",
+  "name": "페르소나 가면 (중급)",
   "description": "<p>얼굴 전체를 가리지만, 이 백옥 가면은 시야나 다른 감각을 방해하지 않습니다. 가면을 착용하면 연기, 연설, 코미디 공연, 노래 부르기 시 공연 능력 체크에서 +2 아이템 보너스를 받습니다.</p>\n<hr />\n<p><strong>활성화-역할 수행</strong> <span class=\"action-glyph\">A</span> (집중)</p>\n<p><strong>효과</strong> 당신은 가면의 외관을 자신이 선택한 극적인 인물의 예술적 표현으로 바꿉니다.</p>\n<hr />\n<p><strong>활성화-역할 희생</strong> <span class=\"action-glyph\">R</span> (집중, 운)</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>발동 조건</strong> 가면의 보너스를 받는 공연 체크에서 실패할 때 </p>\n<hr />\n<p><strong>효과</strong> 마스크의 특성을 변경하고 공연 체크를 재굴림하며, 두 번째 결과를 사용합니다.</p>",
   "traits": [
    "fortune",
@@ -397,7 +397,7 @@
   ]
  },
  "staff-of-elemental-power": {
-  "name": "원소의 힘의 지팡이",
+  "name": "원소력의 지팡이",
   "description": "<p>이 지팡이는 밑부분이 가늘어지고, 꼭대기에는 보석으로 장식된 꼬인 모양으로 조각되어 있습니다. 이 지팡이를 휘두를 때, 원소 생물을 식별하는 체크에서 +2 상황 보너스를 얻습니다.</p>\n<p><strong>활성화</strong> 주문 시전</p>\n<hr />\n<p><strong>효과</strong> 지팡이의 충전량을 소모하여 지팡이 목록의 주문을 시전한다.</p>\n<ul>\n\n<li><strong>1st</strong> @UUID[Compendium.pf2e.spells-srd.Item.y6rAdMK6EFlV6U0t]{불을 뿜다}, @UUID[Compendium.pf2e.spells-srd.Item.Rn2LkoSq1XhLsODV]{잔해 두들기기}, @UUID[Compendium.pf2e.spells-srd.Item.zDJS8E66UI0himqV]{천둥의 일격}</li>\n<li><strong>2nd</strong> @UUID[Compendium.pf2e.spells-srd.Item.ZxHC7V7HtjUsB8zH]{불타는 화살}, @UUID[Compendium.pf2e.spells-srd.Item.Fr58LDSrbndgld9n]{에너지 저항}</li>\n</ul>\n<p><strong>제작 요구 사항</strong> 나열된 모든 랭크의 모든 주문에 대해 한 번의 시전 분량을 공급하십시오.</p>",
   "traits": [
    "magical",
@@ -557,7 +557,7 @@
   ]
  },
  "carver-cutter": {
-  "name": "조각칼",
+  "name": "조각사-절단사",
   "description": "<p>나무의 평면에서 활동하는 숙련된 목각 장인들 중 다수는 전투 기술도 익히는데, 이는 자신의 제작에 사용할 희귀하고 아름다운 목재를 찾아 위험한 지역으로 여행하기 위함이다. <em>조각칼</em>은 무기이자 나무를 베고 조각하는 도구라는 이중 역할을 수행한다. <em>+2 강타 전투 도끼</em>는 정교하게 제작된 나무 베는 도끼처럼 보인다.</p>\n<hr />\n<p><strong>활성화 - 조각 끌</strong> <span class=\"action-glyph\">1</span> (집중, 조작)</p>\n<p><strong>효과</strong> 도끼 손잡이에 보관된 목공용 끌을 꺼낸다. 이 능력을 활성화할 때 상상하는 어떤 표준 끌 모양이든 가질 수 있다. <em>조각칼</em>에서 나온 끌을 목공 제작에 사용할 경우 제작 체크에서 +2 아이템 보너스를 받는다. 이 끌은 메인-고슈(주도검) 역할도 한다. 도끼에 새겨진 모든 룬은 끌에도 동일하게 재현되나, 두 아이템이 동일인에게 장착된 경우에만 적용된다. 상호작용으로 끌을 다시 삽입할 수 있다.</p>\n<hr />\n<p><strong>활성화 - 베기</strong> <span class=\"action-glyph\">2</span></p>\n<p><strong>빈도</strong> 시간당 한 번</p>\n<p><strong>효과</strong> 도끼로 식물 생물이나 주로 나무로 만들어진 생물을 강타한다. 이 공격은 추가로 @Damage[2d6[precision]]의 피해를 입히며, 명중 시 해당 생물은 1분 동안 @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 1} 상태가 됩니다.</p>",
   "traits": [
    "magical",
@@ -692,7 +692,7 @@
   ]
  },
  "tradecraft-tattoo-greater": {
-  "name": "무역 기술 문신 (중급)",
+  "name": "공예 문신 (중급)",
   "description": "<p>공예가들은 자신이 선택한 분야에서 헌신과 기술을 상징하는 문신을 선택합니다. 이러한 문신은 팔, 손가락, 눈 등을 장식할 수 있으며, 예술적인 문양 형태를 띠거나 모루, 붓, 흙손과 같은 직업 도구를 묘사합니다. 제작 체크 시 +3 아이템 보너스를 얻습니다. 또한 @UUID[Compendium.pf2e.actionspf2e.Item.QyzlsLrqM0EEwd7j]{수입 창출}을 위한 제작 체크에서 대실패를 굴렸을 경우, 이를 실패로 처리합니다.</p>\n<p><strong>발동</strong> 1분 (집중, 조작)</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p><hr /><p><strong>효과</strong> 문신은 @UUID[Compendium.pf2e.spells-srd.Item.TUj8eugNqAvB1vVR]{창조} 마법을 발동합니다. 당신은 아이템과 그 외형, 그리고 ' ' 마법의 등급(4등급 또는 5th등급)을 선택합니다. 이 마법의 지속 시간은 무제한이지만, 문신을 다시 활성화하면 종료됩니다.</p>",
   "traits": [
    "invested",
@@ -996,7 +996,7 @@
   ]
  },
  "tentacle-cannon": {
-  "name": "촉수 캐논",
+  "name": "촉수 대포",
   "description": "<p>A <em>촉수 대포</em>는 <em>+1 강타</em> 무기로, 오징어, 크라켄, 때로는 알골투 같은 더 기이한 촉수 생물의 부품을 사용하여 제작된다. 이것은 1d8 관통 피해를 입히는 독특한 유형의 무기 화기입니다. 용량 5, 충격 효과, 치명적 d12 특성을 지니며 사거리 증분은 30피트, 재장전 시간은 2입니다. 무기 자체는 속이 빈 촉수로 만든 다섯 개의 총열을 가진 휴대용 대포 형태를 띱니다.</p><hr /><p><strong>활성화-그라싱 딥 샷</strong> <span class=\"action-glyph\">2</span> (조작)</p>\n<p><strong>효과</strong> 무기의 다섯 개 총신을 이루는 촉수 중 하나가 뻗어나가 15피트 내의 생물을 잡아당겨 붙잡기를 시도합니다. 촉수는 @UUID[Compendium.pf2e.actionspf2e.Item.PMbdMWc2QroouFGD]{그랩}을 시도하다; [[/r 1d20+13 #grapple check]]{+13} 보너스를 받습니다. 크기에 상관없이 모든 생물을 그랩할 수 있습니다. 성공 시, 촉수는 생물을 최대 10피트까지 직접 당신 쪽으로 끌어당겨, 당신과 인접한 칸에 위치하게 합니다.</p><hr /><p><strong>활성화-끊임없는 꽉 잡기</strong> <span class=\"action-glyph\">1</span> 상호작용</p>\n<p><strong>요구 사항</strong> 촉수 대포는 생물을 @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기}</p>\n<p><strong>효과</strong> 당신은 촉수 대포가 붙잡은 한 생물에 대한 제압기를 계속 유지합니다. 생물을 @UUID[Compendium.pf2e.actionspf2e.Item.PMbdMWc2QroouFGD]{그랩}하기 위한 추가 체크를 [[/r 1d20+13 #grapple check]]{+13} 보너스로 시도합니다.</p><hr /><p><strong>활성화-잉크 분사</strong> <span class=\"action-glyph\">2</span> 상호작용</p>\n<p><strong>빈도</strong> 시간당 한 번</p>\n<p><strong>효과</strong> 대포가 @Template[type:cone|distance:15] 범위 내로 잉크를 분사합니다. 해당 영역 내 생물은 @Check[reflex|dc:23] 내성 굴림을 시도해야 합니다. 실패 시, 생물은 잉크에 뒤덮여 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{눈멈} 상태가 되고, 1분 동안 또는 잉크를 제거할 때까지 @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{눈부심} 상태가 됩니다. 대실패 시, 생물은 눈멈 상태와 눈부심 상태가 동시에 발생하며, 두 상태 모두 1분 동안 지속되거나 잉크를 제거할 때까지 유지됩니다. 해당 생물 또는 인접한 생물은 상호작용 행동을 사용하여 눈의 잉크를 제거함으로써 실명 및 눈부심 상태를 해제할 수 있습니다.</p><hr /><p><strong>제작 요건</strong> 초기 원재료에는 촉수 강타와 잉크를 가진 생물의 촉수와 잉크샘이 포함되어야 한다.</p>",
   "traits": [
    "capacity-5",
@@ -1244,7 +1244,7 @@
   ]
  },
  "pendant-of-the-occult-greater": {
-  "name": "오컬트 펜던트 (중급)",
+  "name": "오컬트의 펜던트 (중급)",
   "description": "<p> 이 부적은 속이 비어 있으며 깜빡이지 않는 눈 모양으로 만들어졌다. 속에는 보통 오컬트 문헌의 일부가 들어 있다. 펜던트를 착용 중일 때, 당신은 오컬트 체크에서 +2 아이템 보너스를 얻으며, @UUID[Compendium.pf2e.spells-srd.Item.izcxFQFwf3woCnFs]{가이드} 캔트립을 오컬트 선천적 주문으로 시전할 수 있다.</p>\n<p>이 펜던트는 활성화할 수 있다.</p>\n<p><strong>활성화-꿈 속 메시지</strong> 10분 (집중, 조작)</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 당신은 4랭크 @UUID[Compendium.pf2e.spells-srd.Item.yM3KTTSAIHhyuP14]{꿈의 메시지} 주문을 시전합니다.</p>",
   "traits": [
    "invested",
@@ -2341,7 +2341,7 @@
   ]
  },
  "everyneed-pack-greater": {
-  "name": "만능 팩 (중급)",
+  "name": "에브리니드 팩 (중급)",
   "description": "<p>초록색 소재로 만들어져 흰색 열린 길의 문양으로 장식된 <em>만능 가방</em>은 안쪽에 열두 개 이상의 작은 주머니가 달려 있다. 이 배낭은 마법이 걸려 있어 각 주머니마다 분필, 부싯돌과 강철, 끈 등 5gp 이하의 평범한 일상용품이 들어 있습니다. 갑옷, 방패, 무기, 귀중한 재료로 만든 아이템은 포함되지 않습니다. 배낭에서 꺼낸 장비의 정확한 가치를 기록해 두세요. 가방에서 선택한 아이템을 합계 45gp 상당까지 꺼내면, 가방은 평범한 배낭으로 변합니다.</p><hr /><p><strong>활성화</strong> 1분 (조작)</p>\n<p><strong>사용 빈도</strong> 시간당 1회</p>\n<p><strong>효과</strong> 당신은 가방에서 총 가치가 5gp 이하인 평범한 장비 몇 개를 뽑습니다.</p>",
   "traits": [
    "invested",
@@ -2692,7 +2692,7 @@
   ]
  },
  "oil-of-ownership-greater": {
-  "name": "소유권 오일 (중급)",
+  "name": "소유권 기름 (중급)",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\"> 1</span> (조작)</p><hr /><p>벌크 6 이하의 물체에 소유권 오일, 일명 \"붉은 손자국 오일\"을 발라 둘 수 있습니다. 투명한 이 오일은 발라진 후 24시간 동안 효과가 지속됩니다. 이 기름이 발라진 물건을 만진 사람은 씻어내지 못할 붉은 얼룩이 1개월 동안 남게 된다.</p>",
   "traits": [
    "consumable",
@@ -3175,7 +3175,7 @@
   "description": "<p>간단한 블라인드는 일련의 기둥과 이를 덮는 천으로 구성됩니다. 천 커버는 숲을 위한 녹색과 갈색 잎 및 나무 무늬, 지하 환경을 위한 회색 바위 등 자연 환경을 표현하도록 디자인되었습니다. 이 천은 한쪽에서 볼 수 있을 만큼 얇거나, 때로는 작은 틈이 뚫려 있어 뒤에 있는 사람이 @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{숨겨짐} 상태를 유지하면서 밖의 상황을 볼 수 있게 합니다. 가장 설득력 있는 위장은 아니지만, 지능이 낮은 많은 동물과 생물들을 속이기에는 충분합니다.</p>\n<p>동물용 은신막 설치에는 1분이 소요됩니다. 중간 크기 생물 최대 2마리 또는 대형 생물 1마리가 동시에 은신막을 사용할 수 있습니다. @UUID[Compendium.pf2e.actionspf2e.Item.ust1jJSCZQUhBZIz]{은신}을 위해 블라인드 뒤에 숨으면 엄폐 효과를 얻습니다. 블라인드에 그려진 지형과 주변 환경이 일치할 경우, @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{은신} 스텔스 체크 시 상황 보너스가 +4로 증가합니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.TJXXAp7MunXcZTCP]{효과: 동물용 가림막}</p>"
  },
  "rhythm-bone-greater": {
-  "name": "리듬 뼈 (중급)",
+  "name": "리듬 본 (중급)",
   "description": "<p>이 작은 마법이 걸린 뼈(대부분 턱뼈)는 보통 양 끝에 금속 캡이 달려 있습니다. 단단한 표면에 강타하여 작동시킵니다.</p>\n<hr />\n\n<p><strong>효과</strong> 뼈는 다음 10분 동안 주변 소리(말소리 포함)를 녹음하기 시작하며, 이를 듣기 위해서는 지각 체크 DC 20 이하를 통과해야 합니다. 이 뼈의 녹음 기능은 마법적 청각 효과(주문 시전, 하피의 노래, 밴시의 울음 등)를 복제하지 않습니다. 리듬 뼈가 이 방식으로 활성화되면, 녹음된 소리는 존재하는 동안 유지되며 다시는 이 방식으로 활성화될 수 없습니다.</p>\n<hr />\n\n<p><strong>효과</strong> 뼈가 녹음된 소리를 재생합니다.</p>\n<hr />\n<p><strong>제작 요구 사항</strong> @UUID[Compendium.pf2e.spells-srd.Item.atlgGNI1E1Ox3O3a]{유령 소리}의 주형을 공급하십시오.</p>",
   "traits": [
    "auditory",
@@ -3868,7 +3868,7 @@
   ]
  },
  "crown-of-witchcraft-greater": {
-  "name": "마법사 왕관 (중급)",
+  "name": "마법의 왕관 (중급)",
   "description": "<p>고위 마법계에 오른 마녀를 위한 우아한 장신구인 <em>마법사의 왕관</em>은 일반적으로 붉은색 꽃이 핀 나뭇가지 화환, 보석으로 장식된 머리띠, 또는 고급 직물로 만든 높은 모자 형태를 띤다. 위협 체크 시 +2 아이템 보너스를 얻으며, 마녀라면 후원자 기술에 +3 아이템 보너스를 얻는다.</p>\n<p>패밀리어가 있다면, 왕관의 재질 일부를 패밀리어에 부착할 수 있습니다. 예를 들어 모자 천 조각을 꼬리에 묶거나 천연 재료 가지로 목걸이를 연결하는 식입니다. 패밀리어가 직접 아이템을 장착할 필요는 없습니다. 이렇게 하면 왕관을 착용한 동안 패밀리어가 '강인한 반려동물' 능력을 얻습니다.</p>\n<p><strong>활성화-반항적인 저주</strong> <span class=\"action-glyph\">F</span> (집중)</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 마녀의 저주 주문을 시전할 때만 사용할 수 있는 집중력 1점을 얻습니다. 이 턴이 끝날 때까지 이 점을 사용하지 않으면 소멸됩니다.</p>\n<hr />\n<p><strong>제작 요건</strong> 당신은 마녀입니다.</p>",
   "traits": [
    "focused",
@@ -4462,7 +4462,7 @@
   ]
  },
  "five-feather-wreath": {
-  "name": "오깃털 화환",
+  "name": "오깃털 화관",
   "description": "<p>짚으로 엮어 고정된 이 주문 심장 중앙에서 동일한 깃털들이 방사형으로 뻗어 있습니다. 이 아이템을 활성화하여 시전하는 모든 주문의 명중 굴림은 +8이며, 주문 DC는 18입니다.</p>\n<ul>\n<li><strong>방어구</strong> 곡예 체크 +1 아이템 보너스와 낙하 피해에 대한 저항력 2를 얻습니다.</li>\n<li><strong>Weapon</strong> <em>화환</em>을 활성화하여 공기 마법을 시전한 후, 액션 하나 또는 자유 행동으로 10피트 비행할 수 있습니다. 이는 반드시 다음 행동이어야 하며, 비행 속도가 없는 경우 비행은 단단한 지면에서 종료하거나 추락해야 합니다.</li>\n</ul>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.nQ6vM1CRLyvQdGLG]{효과: 오깃털 화환 - 방어구}</p>\n<hr />\n<p><strong>활성화</strong> 주문 시전</p>\n<p><strong>효과</strong> 당신은 @UUID[Compendium.pf2e.spells-srd.Item.dDiOnjcsBFbAvP6t]{강풍 폭발}을 시전합니다.</p>",
   "traits": [
    "air",
@@ -5392,7 +5392,7 @@
   ]
  },
  "spider-gun": {
-  "name": "거미 총",
+  "name": "거미총",
   "description": "<p>거미 총<em>는 </em>+1 강타<em> 무기이다. 대형 거미의 송곳니와 실샘으로 제작된 독특한 유형의 무기 화기입니다. 30피트 사거리 증가와 재장전 1을 가지며 1d10 독 피해를 입힙니다. 치명타 시 독이 대상에 달라붙어 @Damage[(1d4+@item.system.damage.dice)[persistent,poison]]만큼의 지속 독 피해를 입힙니다. 거미총은 치명타 특화 효과를 추가하지 않습니다. 이 총은 다른 생물을 방해하는 거미줄을 발사하도록 활성화할 수 있습니다.</p><hr /><p><strong>활성화-거미줄 발사</strong> <span class=\"action-glyph\">1</span> (조작)</p>\n<p><strong>빈도</strong> 라운드당 한 번</p>\n<p><strong>효과</strong> 30피트 이내의 한 칸을 향해 거미줄 덩어리를 발사합니다. 해당 칸은 1분 동안 거미줄로 뒤덮입니다. 거미총의 거미줄로 덮인 칸은 최소 @Damage[5[slashing]]의 피해 또는 @Damage[1[fire]]의 피해를 주는 단일 공격이나 효과로 제거될 수 있다. 칸은 AC 5를 가지며, 내성 굴림을 자동으로 실패한다. 거미줄 안에 있는 생물이 매 턴 처음으로 이동 행동을 시작하거나 이동 행동 중에 거미줄 안으로 들어갈 때, DC 20에 대한 @Check[athletics|dc:20]{운동} 체크 또는 @Check[reflex|dc:20]{반사} 내성 굴림을 시도해야 합니다. 성공 시, 거미줄을 정상적으로 통과하며 이번 턴에 들어간 모든 칸의 거미줄을 제거합니다. 실패 시, 해당 턴 동안 거미줄이 있는 칸을 어려운 지형으로 간주하며, 대실패 시 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{이동 불가} 상태가 1라운드 동안 지속되거나, 탈출([[/act escape dc=20]]{DC 20})하거나 거미줄을 파괴할 때까지 유지됩니다.</p><hr /><p><strong>제작 요구 사항</strong> 거대 거미나 다른 대형 거미의 송곳니와 실샘이 거미총 제작의 초기 원재료로 반드시 포함되어야 한다.</p>",
   "traits": [
    "magical"
@@ -5528,7 +5528,7 @@
   "description": "<p>이 나무로 만든 권총 모양의 장치는 100피트 길이의 얇은 금속 줄이 감긴 큰 릴을 갖추고 있으며, 최대 100피트 거리까지 갈고리를 발사할 수 있습니다. 갈고리총을 재장전하려면 릴의 크랭크를 돌려 수동으로 줄을 감은 후 갈고리를 고정해야 합니다. 갈고리총 재장전에는 1분이 소요됩니다.</p>"
  },
  "eye-of-the-unseen-greater": {
-  "name": "보이지 않는 것의 눈 (중급)",
+  "name": "보이지 않는 자의 눈 (중급)",
   "description": "<p>이 의안은 엘프 장인들이 설계했으나 다양한 조상에 맞춰 여러 외형으로 제작됩니다. 이 눈을 착용하면 시각적 지각 체크에서 +2 아이템 보너스를 얻습니다.</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">2</span> 명령어, 상상</p>\n<p><strong>발동 빈도</strong> 하루에 한 번</p><hr /><p><strong>효과</strong> 당신은 보이지 않는 것을 보기 위해 눈에 포커스를 맞춥니다. 그 눈은 당신에게 5랭크 @UUID[Compendium.pf2e.spells-srd.Item.jwK43yKsHTkJQvQ9]{보이지 않는 것을 보라}를 시전합니다.</p>",
   "traits": [
    "invested",
@@ -5682,7 +5682,7 @@
   ]
  },
  "reading-ring-greater": {
-  "name": "고등 독서 반지 (중급)",
+  "name": "독서 반지 (중급)",
   "description": "<p>A <em>고급 독서 반지</em>는 사용자에게 맞춤 제작되며, 모든 문자를 읽을 수 있고 착용자가 읽은 내용을 이해할 수 있게 해줍니다. 각 반지는 고유하며 특정 결합된 사용자 외에는 사용할 수 없습니다. <em>(중급) 독서 반지</em>는 사용자의 내재된 잠재력을 끌어내는 과정을 통해 사용자와 결합됩니다. 이는 투자된 아이템과 유사하지만, 과정은 10분이 소요되며 영구적이며 투자된 아이템 수에 포함되지 않습니다. 반지는 다양한 방식으로 착용할 수 있으며, 손가락에 끼거나 손가락에 착용할 수 없는 경우 체인에 걸어 몸에 지니고 다닐 수 있습니다. <em>(중급) 독서 반지</em>를 사용해 상호작용 행동을 취함으로써 텍스트를 읽을 수 있으며, 반지로 읽는 속도는 시각적 독자와 거의 동일합니다. 이 방식으로 반지를 사용하여 읽는 횟수에는 제한이 없습니다.</p>",
   "traits": [
    "magical"
@@ -6001,7 +6001,7 @@
   ]
  },
  "ring-of-the-tiger-greater": {
-  "name": "호랑이의 반지 (중급)",
+  "name": "호랑이 반지 (중급)",
   "description": "<p>초록빛 나무로 깎아 만든 이 반지에는 초원과 숲을 가로지르며 서로를 쫓는 호랑이들의 조각이 새겨져 있다. <em>호랑이 반지</em>는 전통적으로 아비스탄 북동부의 켈리드족이 제작하며, 정찰병이나 탐험가들이 자주 착용한다. 이 지역 바바리안들은 자신들의 종족이 아닌 사람이 이런 반지를 차는 걸 별로 좋아하지 않지만, 아이러니하게도 자신의 가치를 입증한 외부인에게 이 반지를 선물하기도 해. 이 경우, 그 캐릭터가 반지를 차게 된 경위를 모르는 다른 켈리드 무리를 만나면 앞으로 또 다른 충돌이 생길 수도 있어. <em>호랑이의 반지</em>는 야외 황야 지역에서 수행하는 은신 체크 및 지각 체크 시 +2 아이템 보너스를 부여하며, 활성화 시 착용자의 손을 일시적으로 호랑이 발톱으로 변형시킬 수 있다.</p>\n<hr />\n\n<p><strong>요구사항</strong> 반지를 낀 손에는 아무것도 들고 있지 않아야 함</p>\n<p><strong>효과</strong> 당신의 손이 호랑이 발톱으로 변하며, 2d6 베기 피해를 입히는 기민한 발톱 비무장 공격을 부여합니다. 발톱으로 공격합니다. 추가 피해 주사위는 강타 룬의 추가 피해 주사위와 중복 적용되지 않습니다. 이후 발톱은 정상 상태로 돌아갑니다.</p>",
   "traits": [
    "invested",
@@ -6786,7 +6786,7 @@
   ]
  },
  "rattling-bolt-greater": {
-  "name": "덜거덕 화살 (중급)",
+  "name": "덜거덕거리는 화살 (중급)",
   "description": "<p><strong>탄약</strong> 볼트</p>\n\n<hr />\n<p>언데드 침입을 처리할 때 가끔은 더 교묘한 접근이 필요할 때가 있다. 역설적이게도, 이는 바로 덜거덕거리는 화살이 가장 자주 사용되는 목적이다. 비록 발사될 때마다 흔들리는 사슬처럼 울리지만 말이다. 일단 표적에 명중하면, 그 덜거덕거림은 그 생물의 몸속으로 전달된다. 덜거리는 화살에 피해를 입은 대상은 @Check[fortitude|dc:30] 저항에 성공하지 못하면 1라운드 동안 (치명타 시 1분 동안) @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{귀먹음}과 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1} 상태가 된다. 덜거리는 화살에 맞은 언데드는 귀머거림 상태 지속 시간 동안 기존에 가졌던 생명 감지 능력을 추가로 상실한다.</p>",
   "traits": [
    "arcane",
@@ -6861,7 +6861,7 @@
   ]
  },
  "golden-branding-iron": {
-  "name": "황금 낙인",
+  "name": "황금 낙인 도구",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">f</span> 상상하다</p>\n<p><strong>발동</strong>부착된 무기로 원거리 공격으로 적중 시</p>\n<p><strong>요구 사항</strong> 당신은 부착된 무기의 전문가입니다.</p>\n<hr />\n<p>이 부적은 원거리 무기의 총열에 부착할 수 있는 금도금된 낙인입니다. 황금 낙인 도구를 활성화하면 마법의 문양으로 대상에 낙인을 찍습니다.</p>\n<p>당신은 약 1칸인치 크기의 고유한 마법 문양을 대상 생물의 어느 곳에나 해를 끼치지 않고 새깁니다. 단, 그 위치가 당신에게 보일 수 있어야 합니다. 이 표식은 당신과 최대 6명의 아군만 볼 수 있습니다. 표식은 5분 동안 문지르거나 긁어내면 지울 수 있습니다. 한 달이 지나면 자연스럽게 사라집니다.</p>",
   "traits": [
    "consumable",
@@ -7019,7 +7019,7 @@
   ]
  },
  "transposition-ammunition-greater": {
-  "name": "변위 탄약 (중급)",
+  "name": "변환 탄약 (중급)",
   "description": "<p><strong>탄약</strong> 모든</p>\n\n<hr />\n<p>변위 탄환은 유백색을 띠며 때때로 스스로 미세하게 위치를 이동합니다. 탄환을 활성화할 때, 적에게 공격을 가하는 대신 무기의 첫 번째 사거리 범위 내 시야에 들어오는 비어 있는 칸에 변위 탄환을 발사하며, 명중 굴림 없이 성공합니다. 당신은 자신이 발사한 탄환이 도착한 칸으로 아스트랄 평면을 통해 자신을 이동시키며, 소지한 모든 아이템과 함께 순간이동합니다. 순간이동 시 최대 두 마리의 인접한 동의한 대상들을 동반할 수 있습니다. 이 생물들은 각각 변위 탄환과 인접한 비어 있는 칸에 도착해야 합니다. 둘 모두를 위한 공간이 충분하지 않을 경우, 어느 생물을 순간이동시킬지 선택합니다.</p>",
   "traits": [
    "consumable",
@@ -7310,7 +7310,7 @@
   ]
  },
  "knapsack-of-halflingkind-greater": {
-  "name": "하플링의 배낭 (중급)",
+  "name": "하플링족의 배낭 (중급)",
   "description": "<p>이 튼튼한 가죽 가방은 큰 걸쇠로 고정된 다섯 개의 수납공간을 지녔다. 첫 번째 공간은 파란색 새틴으로 안감이 처리되어 있으며, @UUID[Compendium.pf2e.equipment-srd.Item.JBMBaN9dZLytfFLQ]{넓은 주머니(II형)}에 해당하는 초차원 공간을 포함한다.</p>\n<p>두 번째 구획은 안감이 없습니다. 여기서 조리기구와 식기류를 꺼낼 수 있습니다. 식사 준비에 사용된 후에는 접시와 식기로 변형되며, 식사가 끝나면 남은 음식과 함께 증발합니다. 조리기구는 1시간 후 깨끗한 상태로 구획에 다시 나타납니다. 이 구획은 식기류만 제공하며 음식은 포함하지 않습니다.</p>\n<p>세 번째 구획은 보라색 플러시 벨벳으로 안감이 되어 있으며 양피지에 싸인 베리 타르트가 들어 있습니다. 생물은 상호작용 행동으로 타르트 하나를 뜯어 먹어 @Damage[(4d8+8)[healing]] 체력을 회복할 수 있습니다. 배낭은 하루에 네 개의 타르트를 생산하며, 아침 식사 시간에 나타납니다. 하루가 끝날 때까지 먹지 않은 타르트는 증발합니다.</p>\n<p>네 번째 구획은 황금색 벨벳으로 마감되어 있습니다. 하루에 한 번, 이 구획에서 행운의 마법 슬링탄을 꺼낼 수 있습니다. 이 슬링탄으로 공격할 경우, 명중 굴림과 피해 굴림을 각각 두 번 굴려 더 좋은 결과를 적용합니다. 이는 행운 효과입니다. 돌은 자신의 턴이 끝날 때까지 던지지 않으면 마법이 사라집니다. 활성화된 후 이 구획은 다음 날까지 스스로 봉합됩니다.</p>\n<p>가방의 다섯 번째 수납공간은 검은 양모로 안감이 되어 있습니다. 하루에 한 번, 이 공간을 펼쳐 지면에 지름 5피트의 포털을 생성할 수 있습니다. 인접한 칸에서 포털 안으로 첫 번째로 발을 들여놓은 사람은 순간이동됩니다. 이는 (5th)랭크 @UUID[Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8]{전송} 주문과 동일한 효과를 가지나, 영향을 받은 생물이 배낭을 함께 가져간다는 점이 다릅니다. 포털이 사용된 후 , 또는 사용되지 않은 경우 다음 턴 시작 시, 구획은 자동으로 닫히며 다음 날까지 펼칠 수 없습니다.</p>",
   "traits": [
    "extradimensional",
@@ -7703,7 +7703,7 @@
   ]
  },
  "skeleton-key-greater": {
-  "name": "스켈레톤 키 (중급)",
+  "name": "해골 열쇠 (중급)",
   "description": "<p>이 섬뜩한 열쇠의 손잡이 끝에는 웃는 해골이 장식되어 있습니다. 이 열쇠는 자물쇠 따기를 시도할 때 도둑 도구 키트 대신 사용할 수 있으며, 도둑질 체크 시 +2 아이템 보너스를 부여합니다.</p>\n<p>골격 열쇠가 체크 중 대실패로 인해 파손될 경우, 수리될 때까지 일반 도둑 도구 키트로 작동하며 그 혜택을 상실합니다.</p>\n<p><strong>활성화-자물쇠 풀기</strong> <span class=\"action-glyph\">F</span> (조작)</p>\n<p><strong>빈도</strong> 시간당 한 번</p>\n<p><strong>트리거</strong> 자물쇠 따기를 시도했지만 아직 굴림을 하지 않았습니다</p>\n<hr />\n<p><strong>효과</strong> 열쇠가 따려는 자물쇠에 @UUID[Compendium.pf2e.spells-srd.Item.6Ot4N22t5tPD51BO]{노크}를 시전합니다.</p>",
   "traits": [
    "magical"
@@ -7837,7 +7837,7 @@
   ]
  },
  "toadskin-salve": {
-  "name": "두꺼비 가죽 연고",
+  "name": "개구리 가죽 연고",
   "description": "<p>이 두껍고 기름진 연고는 피부에 바르면 공기와 반응하여 유독한 점액을 분비합니다. 바른 후 아래 설명된 두 가지 방법 중 하나로 연고를 활성화할 수 있습니다. 두 반응 중 하나를 사용한 후에는 남은 점액이 반응성을 잃고 효과가 끝나면서 떨어져 나갑니다. 한 번에 한 번만 도포할 수 있습니다. 두 반응 중 어느 것도 사용하지 않으면 10분 후 점액이 떨어져 나가며 효과가 종료됩니다.</p>\n<hr />\n\n<p><strong>발동</strong> 근접 공격으로 생물을 명중시켰습니다</p>\n<hr />\n<p><strong>효과</strong> 당신은 생물에게 점액을 튕겨 @Damage[1d4[persistent,poison]]의 피해를 입힙니다.</p>\n<hr />\n\n<p><strong>발동</strong> 근접 공격을 받아 물리 피해를 입었습니다</p>\n<hr />\n<p><strong>효과</strong> 점액이 타격을 무디게 하여, 발동 공격에 대해 물리 피해에 대한 저항력 3을 부여합니다.</p>",
   "traits": [
    "alchemical",
@@ -7987,7 +7987,7 @@
   ]
  },
  "blade-of-four-energies-greater": {
-  "name": "사원기 (중급)",
+  "name": "사기(四氣)의 검 (중급)",
   "description": "<p>이 <em>+3 강타 (중급) 이동 숏소드</em>은 빠르게 진동하는 공기와 마법 에너지로 형성되었으나, 철제 무기와 동일한 성능을 지닙니다. 나무 손잡이에는 산성, 냉기, 화염, 전기 에너지를 상징하는 네 개의 보석이 장식되어 있으며, 이 보석들은 무작위 간격으로 순차적으로 반짝인다.</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">f</span> 상호작용</p>\n<p><strong>사용 빈도</strong> 라운드당 1회</p>\n<p><strong>효과</strong> 보석 하나에서 마력을 끌어모읍니다. 1d4를 굴립니다. 다음 차례 시작 전까지 무기는 해당 룬을 얻습니다:</p><ol><li><em>@UUID[Compendium.pf2e.equipment-srd.Item.vQUIUAFOTOWj3ohh]{Greater Corrosive}</em>,</li><li><em>@UUID[Compendium.pf2e.equipment-srd.Item.RSZwUlCzUX7Nb4UA]{Greater Flaming}</em>,</li><li><em>@UUID[Compendium.pf2e.equipment-srd.Item.Sexud7FdxIrg50vU]{강력한 서리}</em>, 또는</li><li><em>@UUID[Compendium.pf2e.equipment-srd.Item.TEa1oKZbwsOvC6TZ]{Greater Shock}</em>.</li></ol><p>@UUID[Compendium.pf2e.equipment-effects.Item.v20pbW7ZabrqqB9U]{효과: 사기(四氣)의 검}</p><hr /><p><strong>발동</strong> <span class=\"action-glyph\">2</span> 명령, 구상</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<p><strong>요구 사항</strong> 검에는 첫 번째 활성화 시 부여된 에너지 룬이 새겨져 있다</p>\n<p><strong>효과</strong> 검에 저장된 에너지를 불러내어 외부로 폭발시킵니다. 네 가지 에너지의 검은 활성화된 룬에 따라 (7th)랭크 주문을 발동한다: </p> <ol> <li>@UUID[Compendium.pf2e.spells-srd.Item.f8hRqLJaxBVhF1u0]{산성 화살}(부식성) <em>, </em>, </li> <li>@UUID[Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd]{화염구} <em>불타는</em>,</li><li>@UUID[Compendium.pf2e.spells-srd.Item.3puDanGfpEt6jK5k]{냉기 원뿔} <em>서리</em>, 또는</li><li>@UUID[Compendium.pf2e.spells-srd.Item.9AAkVUCwF6WVNNY2]{번개 화살}은 <em>충격</em>에 사용됩니다.</li></ol><p>이 주문들의 DC는 38이며 주문 공격 수정자는 [[/r 1d20+28 #Spell Attack Roll]]{+28}입니다.</p>",
   "traits": [
    "agile",
@@ -8088,7 +8088,7 @@
   ]
  },
  "spirit-bulb": {
-  "name": "영혼 전구",
+  "name": "영혼 구근",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">2</span> (집중, 조작)</p>\n<hr />\n<p>이 마법 구근은 프라이멀 식물 마법이 풍부한 고대의 숲에서 채취됩니다. 구근을 활성화할 때, 이를 먹어 자신에게 (5th)랭크 @UUID[Compendium.pf2e.spells-srd.Item.zCcfPS4y5SrZzU2x]{식물 형태} 주문을 시전하거나, 자신의 옆 땅에 심어 (5th)랭크 @UUID[Compendium.pf2e.spells-srd.Item.jSRAyd57kd4WZ4yE]{식물 또는 균류 소환} 주문을 발동할 수 있습니다. 소환 옵션을 선택하면 구근을 심은 위치에 식물이나 균류가 나타나며, 활성화를 지속하면 해당 생물을 계속 제어할 수 있습니다.</p>",
   "traits": [
    "consumable",
@@ -8455,7 +8455,7 @@
   ]
  },
  "symbol-of-conflict": {
-  "name": "분쟁의 상징",
+  "name": "갈등의 상징",
   "description": "<p>이 변색된 목걸이는 신성한 자나 불경한 자만이 조율할 수 있다. 조율하면 신을 모신 자는 자신의 신의 종교적 상징으로, 신을 모시지 않은 자는 개인적 상징으로 변한다. 종교 능력에 +1 아이템 보너스를 받고, 신성한 또는 불경한 효과에 대한 내성에 +1 상황 보너스를 받는다.</p>\n<p><strong>활성화-존재감</strong> <span class=\"action-glyph\">2</span> (집중, 조작)</p>\n<p><strong>발동 빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 이 상징은 @UUID[Compendium.pf2e.spells-srd.Item.7ZinJNzxq0XF0oMx]{저주} 또는 @UUID[Compendium.pf2e.spells-srd.Item.XSujb7EsSwKl19Uu]{축복}을 시전한다.</p>\n<p>이 효과들의 반격 DC는 18이며, 반격 수정자는 +8이다.</p>\n<hr />\n<p><strong>제작 요건</strong> 신성한 존재이거나 불경한 존재여야 합니다.</p>",
   "traits": [
    "divine",
@@ -9202,7 +9202,7 @@
   ]
  },
  "splintering-spear": {
-  "name": "쪼개는 창",
+  "name": "갈라지는 창",
   "description": "<p>이 <em>+2 황혼나무 강타 (중급) spear</em> 전체는 창날을 포함해 낡고 갈라지고 부서진 나무로 만들어졌다. 이 파편들은 무기를 쥘 때는 절대 당신에게 해를 끼치지 않지만, 창으로 타격을 가할 때 파편이 대상에게 박혀 @Damage[1d6[bleed]]의 피해를 입힙니다.</p>\n<hr />\n\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 창을 땅이나 근처 표면에 내리쳐서, 선택한 @Template[cone|distance:30] 또는 @Template[emanation|distance:10] 범위 내에서 수천 개의 황혼나무 파편으로 산산조각낸다. 해당 영역 내 모든 생물은 @Damage[12d6[piercing]|options:area-damage] 피해를 입으며, @Check[reflex|dc:30|basic|options:area-effect] 내성에 성공해야 합니다. 내성에 실패한 생물은 창이 명중 시 입히는 것과 동일한 양의 지속 출혈 피해를 추가로 받습니다. 이 턴이 끝날 때 창은 원래 형태로 재생됩니다.</p>",
   "traits": [
    "magical",
@@ -9641,7 +9641,7 @@
   ]
  },
  "fey-dragonet-liqueur": {
-  "name": "페이 드래곤 새끼 리큐어",
+  "name": "페이 드래곤릿 리큐어",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>각 페이 드래곤릿 리큐어 한 잔은 서로 다른 맛을 지녔다. 마신 후 1시간 동안, 액션 하나로 @Template[type:cone|distance:15] 범위의 황홀한 가스를 내뿜을 수 있습니다. 원뿔 영역 내의 모든 생물은 @Check[will|dc:29] 내성 굴림을 시도해야 합니다. 이 마법 호흡을 내뿜은 후에는 [[/gmr 1d4 #재충전 시간]]{1d4 라운드} 동안 다시 사용할 수 없습니다.</p><hr /><p><strong>대성공</strong> 생물은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 생물은 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1} 상태가 됩니다.</p>\n<p><strong>실패</strong> 생물은 1분 동안 멍청함 상태가 되며, [[/gmr 1d4 #rounds]]{1d4 라운드} 동안 @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{둔화} 상태가 됩니다.</p>\n<p><strong>대실패</strong> 생물은 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 2} 상태가 되며 1분 동안 이동 속도가 {느려짐} 감소합니다.</p>",
   "traits": [
    "consumable",
@@ -9785,7 +9785,7 @@
   ]
  },
  "liquid-gold-greater": {
-  "name": "액체 황금 (중급)",
+  "name": "액체 금 (중급)",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">f</span> 상호작용</p>\n<p><strong>발동</strong> 선공 순서를 결정합니다</p>\n<p><strong>요구 사항</strong> 당신은 은신에 능숙합니다.</p>\n<hr />\n<p>이 액체 금이 담긴 유리병은 가는 금사슬로 무기에 고정되어 있다.</p>\n<p>부착된 무기를 반응 행동 대신 자유 행동으로 뽑아 장전할 수 있습니다.</p>",
   "traits": [
    "consumable",
@@ -9961,7 +9961,7 @@
   ]
  },
  "hexwise-banner-major": {
-  "name": "육각형 깃발 (상급)",
+  "name": "마법의 깃발 (상급)",
   "description": "<p>다채로운 실들이 이 마법 깃발에 엮여 있어, 어떤 빛에서는 보라색으로, 다른 빛에서는 녹색으로 보인다. 이 반짝이는 빛은 강력한 마법사들 앞에서 희망과 안전을 선사한다. 기의 오라 안에 있는 당신과 아군은 주문으로 인한 피해에 대해 저항력 10을 얻는다. @UUID[Compendium.pf2e.spells-srd.Item.gKKqvLohtrSJj3BM]{포스 포격이}처럼 여러 차례 피해를 주는 주문에 대해서는 첫 번째 피해에만 적용된다.</p>",
   "traits": [
    "aura",
@@ -10694,7 +10694,7 @@
   ]
  },
  "oil-of-dynamism-greater": {
-  "name": "역동성의 기름 (중급)",
+  "name": "역동성 기름 (중급)",
   "description": "<p><strong>활성화 </strong> <span class=\"action-glyph\">2</span> (조작)</p><hr /><p> 이 고운 황금빛 기름은 작은 파란색 용기에 담겨 있습니다. 물체에 기름을 조심스럽게 발라주면 같은 종류의 <em>움직이는 사물</em>로 변합니다. 예를 들어, 동상에 뿌리면 <em>움직이는 동상</em>이 됩니다. 생동된 물체의 레벨이 11을 초과할 경우, 기름은 생동시키려 애쓰다가 결국 실패한다.</p>\n<p>이 생동된 물체는 <em>하수인</em> 특성을 지니며, 이는 명령 시 2개의 행동을 사용할 수 있음을 의미한다. 활성화 과정의 일부로 현재 턴에 대한 명령을 내릴 수 있습니다. 이 오브젝트는 1분 동안 움직이다가 움직임을 멈춥니다. 평소와 같이, 최대 4명의 하수인을 제어할 수 있습니다.</p>",
   "traits": [
    "consumable",
@@ -10869,7 +10869,7 @@
   ]
  },
  "volcanic-vigor-greater": {
-  "name": "화산 활력 (중급)",
+  "name": "화산적 활력 (중급)",
   "description": "<p>이 문신은 녹아내린 살점과 연기가 스며 나오는 빈 눈구멍을 가진 근육질 오크의 형상을 띤다. 극심한 열기나 심한 열기로 인한 피해를 받지 않는다. 엄청난 열기에 노출되었을 때, 매분마다 받는 보통 열기 피해 대신 매시간마다 약한 열기 피해만 받는다. 재와 연기를 뚫어볼 수 있다.</p>\n<hr />\n<p><strong>활성화</strong> <span class=\"action-glyph\">2</span> 명령</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 당신은 땅을 밟아 60피트 범위 내에서 지면으로부터 @Template[cylinder|distance:5]{5피트 반경}, 30피트 높이의 용암 원통이 분출하게 합니다. 원통의 반경을 @Template[cylinder|distance:10]{10피트}로 늘릴 수 있다. 마찬가지로 원통의 높이는 60피트로 증가한다. 원통은 @Damage[12d6[fire]|options:area-damage]의 피해를 입힌다. 해당 영역 내 모든 생물은 @Check[reflex|dc:34|basic|options:area-effect] 내성을 시도하다.</p>",
   "traits": [
    "fire",
@@ -10910,7 +10910,7 @@
   "description": "<p>도둑질 기술을 사용하여 @UUID[Compendium.pf2e.actionspf2e.Item.2EE4aF4SZpYf0R6H]{자물쇠 따기} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.cYdz2grcOcRt4jk6]{장치 해제}(일부 유형)를 수행하려면 도둑 도구가 필요합니다. 침투형 도둑 도구는 자물쇠 따기와 장치 해제 체크 시 +1 아이템 보너스를 부여합니다.</p>\n<p>대부분의 도둑 도구 세트보다 작고 튼튼한 재질로 만들어진 이 키트의 아이템들은 숨기기 훨씬 쉽습니다. 이 도구들을 @UUID[Compendium.pf2e.actionspf2e.Item.qVNVSmsgpKFGk9hV]{가려진}하기 위한 은신 체크 시 +1 아이템 보너스를 얻습니다.</p>\n<p>도둑 도구가 파손된 경우, 해당 도구와 호환되는 @UUID[Compendium.pf2e.equipment-srd.Item.TxMFNfkoccirCitP]{교체용 따개}로 교체하여 수리할 수 있습니다. 이때 수리 행동을 사용할 필요가 없습니다.</p>"
  },
  "ration-tonic-greater": {
-  "name": "배급 토닉 (중급)",
+  "name": "배급 강장제 (중급)",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>이 가느다란 병에는 깨끗하고 맑은 물이 담겨 있으며, 은은한 과일 향이 난다. 배급 토닉을 마시면 일주일 분량의 음식과 물을 마법처럼 보충해 주며, 일주일 동안 꾸준히 건강한 영양을 공급합니다. 이 토닉은 은은하고 기분 좋은 맛이 나며, 그 특성은 물약이 제작될 때 선택됩니다.</p>",
   "traits": [
    "consumable",
@@ -11379,7 +11379,7 @@
   ]
  },
  "armbands-of-athleticism-greater": {
-  "name": "운동 능력 팔찌 (중급)",
+  "name": "운동능력의 팔찌 (중급)",
   "description": "<p>숙련된 송곳 작업으로 근육질 역도 선수의 형상이 새겨진 이 계단식 가죽 팔찌는 운동 수행 시 체력과 기술을 향상시켜 줍니다.</p>\n<p>팔뚝에 착용 시, 운동 체크에서 +3 아이템 보너스를 부여합니다.</p>\n<p>또한, 등반이나 수영 행동을 사용해 운동 체크에서 성공할 때마다 이동 거리에 +10피트 아이템 보너스를 추가합니다.</p>",
   "traits": [
    "invested",
@@ -11407,7 +11407,7 @@
   "description": "<p>주문서는 다양한 주문을 배우고 준비하는 데 필요한 기록된 지식을 담고 있으며, 위자드(보통 무료로 하나를 얻음)에게는 필수품이고, 추가 주문을 배우려는 다른 주문 시전자에게는 유용한 사치품이다. 각 주문서는 최대 100개의 주문을 담을 수 있다. 기재된 가격은 빈 주문서의 가격이다.</p>"
  },
  "tlil-mask-greater": {
-  "name": "트릴 가면 (중급)",
+  "name": "트릴 마스크 (중급)",
   "description": "<p>다채로운 구슬로 장식된 <em>틀릴 가면</em>은 먼 대륙 아르카디아에서 흔히 발견되지만, 양 지역 간 교역으로 인해 므왕기 익스팬스에서도 희귀품으로 찾아볼 수 있다. 이 가면들은 대개 꽃무늬를 지니고 있으며, 모든 종류의 식물에 대한 감각을 예민하게 해줍니다.</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (집중)</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 60피트 이내의 시야는 소량의 살아있는 식물성 물질을 투명한 것처럼 꿰뚫어 볼 수 있습니다. 이 효과가 활성화된 동안, 작은 나무, 덩굴, 풀과 같은 살아있는 식물로 인해 생물이 당신에게 @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐}될 수 없습니다. 또한 생물이 살아있는 식물만을 {가려진}이나 엄폐물로 사용하여 당신을 피해 {은밀 이동}하는 것도 방지합니다. {숨기거나 은밀 이동하기 위한 은폐물로 사용할 수 없다는 점 외에는, 이 능력은 식물이 생물에게 은폐를 제공하거나 효과선을 차단하는 것을 막지 않습니다. 또한 건물 목재 벽과 같은 죽은 식물 물질이나, 거대한 살아있는 나무 안에 완전히 지어진 던전 벽과 같은 두꺼운 식물 물질 을 꿰뚫어 볼 수 있게 해주지도 않습니다. 효과는 10분 동안 지속됩니다.</p>",
   "traits": [
    "invested",
@@ -11568,7 +11568,7 @@
   ]
  },
  "eye-slash": {
-  "name": "눈의 칼자국",
+  "name": "눈의 상처",
   "description": "<p>눈 주위의 작은 흉터나 자국은 원거리 시력을 향상시킵니다. 이 흉터는 특히 독수리 발톱 모양의 흉터를 선호하는 오크 정찰병들 사이에서 흔합니다. 당신은 평소보다 네 배 더 멀리 볼 수 있습니다. 암흑 시야를 가진 경우, 피를 색깔 그대로 볼 수 있습니다. 눈의 상처의 고등급 버전은 더 크고 정교한 흉터나 표시로, 눈 주위를 향해 방사형으로 퍼져 나갑니다.</p>",
   "traits": [
    "invested",
@@ -11596,7 +11596,7 @@
   ]
  },
  "false-death-vial-greater": {
-  "name": "거짓 죽음의 병 (중급)",
+  "name": "가짜 죽음의 병 (중급)",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">f</span> (집중)</p>\n<p><strong>발동</strong> 당신은 피해를 받아 체력이 0이 되었지만 즉시 죽지는 않습니다</p>\n<p><strong>요구 사항</strong> 갑옷을 착용하지 않은 상태여야 합니다.</p><hr /><p>이 작은 수정 병에 담긴 기름진 액체는 보통 핀에 부착되거나 고정된 의복에 연결된 끈에 매달려 착용됩니다. 병을 활성화하면 기절을 피하고 1 체력으로 유지되며, @UUID[Compendium.pf2e.conditionitems.Item.Yl48xTdMh3aeQYL2]{부상} 상태가 1 증가하고 부적이 당신에게 @UUID[Compendium.pf2e.spells-srd.Item.scTRIrTfXquVYHGw]{즉사}를 시전합니다. 부적은 120피트 이내에서 볼 수 있는 원하는 빈 공간으로 당신을 순간이동시킵니다. 이 효과는 착용하거나 들고 있는 모든 아이템과 함께, 현재 당신과 접촉 중인 다른 생물 한 마리까지 이동시킵니다-초차원 용기에 넣어 운반 중인 경우도 포함됩니다. 이 효과는 순간이동 특성을 가집니다.</p>",
   "traits": [
    "consumable",
@@ -11735,7 +11735,7 @@
   ]
  },
  "flaming-star": {
-  "name": "불꽃 별",
+  "name": "불타는 별",
   "description": "<p>빛이 닿을 때 이 별 모양의 골드스톤 메달 표면에 붉은 광채가 스친다. 부착된 갑옷이나 무기는 만지면 따뜻하다. 이 아이템을 활성화하여 시전하는 모든 주문의 명중 굴림은 [[/r 1d20+7 #spell attack roll]]{+7}이며, 주문 DC는 17이다.</p>\n<ul>\n<li><strong>갑옷</strong> 불에 대한 저항력 2를 얻습니다.</li>\n<li><strong>무기</strong> <em>별</em>을 활성화하여 화염 주문을 시전한 후, 다음 차례가 끝날 때까지 해당 무기로 가하는 공격에 추가로 1d4 화염 피해를 입힙니다.</li>\n</ul>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.PuWZyFzJCkbq1Inj]{효과: 불타는 별 - 갑옷}</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.OxCVZSvWVJsOGAZN]{효과: 불타는 별 - 무기}</p>\n<hr />\n<p><strong>활성화</strong> 주문 시전</p>\n<p><strong>효과</strong> 당신은 @UUID[Compendium.pf2e.spells-srd.Item.6DfLZBl8wKIV03Iq]{점화}를 시전합니다.</p>",
   "traits": [
    "fire",
@@ -11872,7 +11872,7 @@
   ]
  },
  "rustbringer-greater": {
-  "name": "녹을 부르는 자 (중급)",
+  "name": "녹 제거자 (중급)",
   "description": "<p>이 <em>+3 강타 (중급) 부식 플레일</em>의 손잡이, 사슬, 가시공은 모두 녹이 심하게 슬어 무기가 언뜻 보기엔 작동 불가능해 보인다. 주로 금속으로 이루어진 생물에게 공격 시 치명적인 d10 특성을 획득한다.</p>\n\n<p><strong>발동</strong> 당신은 금속 무기에 대한 플레일 사용 @UUID[Compendium.pf2e.actionspf2e.Item.Dt6B1slsBy8ipJu9]{무장 해제} 시도하다 대성공한다</p>\n<hr />\n<p><strong>효과</strong> 산이 함유된 녹 조각이 무장 해제된 무기에 쌓입니다. 무기는 @Damage[4d6[acid]]{4d6 산성 피해}를 입으며, 무기의 경도를 무시합니다.</p>",
   "traits": [
    "disarm",
@@ -12642,7 +12642,7 @@
   ]
  },
  "stepping-stone-shot-greater": {
-  "name": "디딤돌 발사 (중급)",
+  "name": "디딤돌 발사체 (중급)",
   "description": "<p><strong>탄약</strong> 발</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (집중, 조작)</p><hr /><p>이 탄약은 일련의 작은 돌 원반을 하나의 탄환으로 압축하여 만들어집니다. 활성화된 디딤돌 탄환을 발사하면, 명중 여부와 상관없이 일렬로 이어진 지지대를 생성하여 생물이 마치 단단한 땅 위를 걷듯 이동할 수 있게 합니다. 이 지지대는 45도 각도로 상승하거나 하강할 수 있습니다. 디스크는 무게 제한 없이 지지하지만, 그 외에는 어떠한 장애물도 되지 않습니다. 생물과 공격은 원한다면 이 지지대를 통과할 수 있습니다 . 그러나 무엇이든 이 지지대를 움직이거나 조작하는 시도를 하면 먼지로 부서집니다. 생물은 조작 특성을 가진 두 행동 활동으로 돌 위에서 자신의 이동 속도만큼 스트라이드하며 뒤로 부서지게 할 수 있다. 이 탄약은 산란 특성을 가진 화기에서는 작동하지 않는다. 선의 최대 길이는 탄약 유형에 따라 다르다. 그러나 선은 화기의 공격 최대 거리(보통 화기 사거리 증가량의 6배)를 초과할 수 없다.</p>\n<p>돌들은 최대 250피트까지 뻗어나가며, 아무도 무너지게 하지 않으면 최대 1분 동안 유지됩니다.</p>",
   "traits": [
    "consumable",
@@ -12723,7 +12723,7 @@
   ]
  },
  "burrowing-bolt-greater": {
-  "name": "굴착 화살 (중급)",
+  "name": "파고드는 화살 (중급)",
   "description": "<p><strong>탄약</strong> 화살, 볼트</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p><hr /><p>이 화살들은 드릴 비트처럼 홈이 파인 끝과 각진 깃털을 지녀 발사 시 화살축을 중심으로 빠르게 회전한다. 첫 사거리 구간 내에서 경도 18 이하의 구조물이나 물체를 강타할 경우, 활성화된 굴착 화살은 표면으로 조용히 파고들어 구멍을 남기고 최대 10피트의 재료를 관통한 후 마법적으로 사라진다.</p>",
   "traits": [
    "consumable",
@@ -12993,7 +12993,7 @@
   ]
  },
  "conundrum-spectacles-greater": {
-  "name": "난해함 안경 (중급)",
+  "name": "수수께끼 안경 (중급)",
   "description": "<p>이 철사 안경에는 원형 유리 렌즈가 장착되어 있습니다. 안경을 착용 중일 때, @UUID[Compendium.pf2e.actionspf2e.Item.d9gbpiQjChYDYA2L]{문자 해독} 능력에 +2 아이템 보너스를 얻습니다.</p>\n<hr />\n\n<p><strong>빈도</strong> 하루 세 번</p>\n<p><strong>요구 사항</strong> 이해하지 못하는 언어로 된 내용을 읽으려고 시도하고 있습니다</p>\n<hr />\n<p><strong>효과</strong> 안경 옆면의 작은 토글을 튕겨 렌즈를 안경테 안에서 뒤집습니다. 읽고 있는 언어의 의미를 이해할 수 있게 됩니다. 이는 암호, 수수께끼, 은유 등을 이해하게 해주지는 않습니다(GM의 재량에 따름). 이 효과는 1시간 동안 지속됩니다.</p>",
   "traits": [
    "invested",
@@ -13223,7 +13223,7 @@
   ]
  },
  "beast-staff": {
-  "name": "야수의 지팡이",
+  "name": "야수 지팡이",
   "description": "<p>짐승의 형상이 <em>짐승 지팡이</em>의 칠해진 나무에 새겨져 있으며, 꼭대기에는 큰 머리가 달려 있다. 무기로 사용할 경우, 이 지팡이는 <em>+1 강타 지팡이</em>이다. 준비 상태에서 이 지팡이를 휘두를 때, 당신은 @UUID[Compendium.pf2e.spells-srd.Item.BBvV7qoXGdw09q1C]{동물과 대화하기}의 영향을 받는다. @UUID[Compendium.pf2e.feats-srd.Item.cg816q76S5otM7yD]{동물 공감} 능력을 보유 중일 경우, 해당 능력을 사용한 체크 시 +1 상황 보너스를 얻습니다.</p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>효과</strong> 지팡이의 충전량을 소모하여 해당 목록의 주문을 시전한다.</p><ul><li><strong>Cantrip</strong> @UUID[Compendium.pf2e.spells-srd.Item.MPxbKoR54gkYkqLO]{Gouging Claw}</li><li><strong>1st</strong> @UUID[Compendium.pf2e.spells-srd.Item.gfPjmG6Fe6D3MFjl]{해충 형태}, @UUID[Compendium.pf2e.spells-srd.Item.EE7Q5BHIrfWNCPtT]{룬 바디}</li><li><strong>2nd</strong> @UUID[Compendium.pf2e.spells-srd.Item.wp09USMB3GIW1qbp]{동물 형태}, @UUID[Compendium.pf2e.spells-srd.Item.wzctak6BxOW8xvFV]{확대}</li></ul><hr /><p><strong>제작 요구 사항</strong> 나열된 모든 랭크의 나열된 모든 주문에 대한 시전 1회분을 공급하십시오.</p>",
   "traits": [
    "magical",
@@ -13616,7 +13616,7 @@
   ]
  },
  "sailors-collar-greater": {
-  "name": "선원의 목걸이 (중급)",
+  "name": "선원용 칼라 (중급)",
   "description": "<p>베테랑 선원들은 앞쪽에 작은 리본을 묶고 벨트에 집어넣은 이 경쾌한 파란색 칼라를 즐겨 착용한다. 물에 빠졌을 때 목숨을 구할 수도 있다. 이 선원 칼라를 착용하면 운동 체크에서 +2 아이템 보너스를 얻는다.</p>\n<p><strong>발동-숨 가쁘게 헐떡거리기</strong> <span class=\"action-glyph\">r</span> (공기, 집중)</p>\n<p><strong>발동 빈도</strong> 하루에 한 번</p>\n<p><strong>발동 조건</strong> 수영 체크 실패 시</p><hr /><p><strong>효과</strong> 목걸이가 부풀어 올라 숨 쉴 수 있게 해줍니다. 물속에서 숨을 쉴 수 있으며, 1분 동안 수영 속도가 10피트 증가합니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.rkirKFneWDdCjU7a]{효과: 숨 가쁘게 숨 쉼}</p>",
   "traits": [
    "invested",
@@ -13657,7 +13657,7 @@
   ]
  },
  "ivory-baton-greater": {
-  "name": "상아 지팡이 (중급)",
+  "name": "상아 지휘봉 (중급)",
   "description": "<p>이 하얗고 가느다란 막대에는 보이지 않는 커맨더에게 절하며 춤추는 웅장한 동물들의 정교한 부조가 새겨져 있다. 이 지휘봉은 당신으로 하여금 구조물을 지휘할 수 있게 한다.</p>\n<hr />\n<p><strong>활성화</strong> <span class=\"action-glyph\">2</span> 명령, 상호작용 (마법 부여, 무력화)</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 당신은 구조물을 조종합니다. 이 효과는 DC 39의 9등급 @UUID[Compendium.pf2e.spells-srd.Item.OsOhx3TGIZ7AhD0P]{지배} 효과를 가지나, 구조물에만 영향을 미칩니다. 정신적 특성이 없으며 무의식적 구조체에도 작용한다. 대상이 가진 골렘 안티매직도 무시한다. 지휘봉이 파괴되거나 1분 이상 소유에서 벗어날 경우 효과가 종료되며, 지휘봉을 들고 있을 때만 대상에게 명령을 내릴 수 있다.</p>\n<hr />\n\n<p><strong>사용 빈도</strong> 라운드당 1회</p>\n<hr />\n<p><strong>효과</strong> 당신은 60피트 이내에서 볼 수 있고 통제하는 하나의 구조물의 행동을 세밀하게 지시합니다. 해당 구조물은 명중 굴림, 피해 굴림, 내성 굴림(상아 지팡이에 대한 내성 굴림 제외)에 +1 상태 보너스를 얻습니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.WXsWkFosSGBrptwF]{효과: 상아 지팡이}</p>",
   "traits": [
    "magical"
@@ -13859,7 +13859,7 @@
   ]
  },
  "godrending-ammunition-greater": {
-  "name": "신성 파괴 탄환 (중급)",
+  "name": "신성 파괴 탄약 (중급)",
   "description": "<p>이 탄환에는 반짝이는 전쟁의 파편 조각이 박혀 있다. 활성화된 신성파괴 탄환이 목표물을 명중하면, 맞은 생물의 몸이 스스로를 찢어발기려 시도하며 역겨운 고통을 유발한다. 이 탄환은 일반적인 피해 대신 @Damage[15d8[slashing]]의 피해를 입힌다. 표적은 @Check[fortitude|dc:38] 내성 굴림을 시도할 수 있다. 공격이 치명타였을 경우 이 내성에 -2 상황 페널티를 받는다.</p><hr /><p><strong>대성공</strong> 적에게 15d8 베기 피해 대신 탄약의 일반 피해가 적용됩니다.</p>\n<p><strong>성공</strong> 적에게 절반의 피해가 적용됩니다.</p>\n<p><strong>실패</strong> 적에게 전체 피해가 적용되며 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 1} 상태가 됩니다.</p>\n<p><strong>대실패</strong> 적에게 두 배의 피해를 입히고 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 2} 상태가 됩니다. 이 피해로 체력이 0이 된 생물은 사지가 찢겨져 즉시 사망하며, 장비는 남습니다.</p>",
   "traits": [
    "consumable",
@@ -13921,7 +13921,7 @@
   ]
  },
  "medics-armband-greater": {
-  "name": "의료병 팔찌 (중급)",
+  "name": "의료진 팔찌 (중급)",
   "description": "<p>이 밝은 파란색 상징이 새겨진 흰색 암밴드를 착용하면 전투 의무병으로 인식됩니다. 질병에 걸리거나 중독된, 그리고 @UUID[Compendium.pf2e.conditionitems.Item.Yl48xTdMh3aeQYL2]{부상} 생물의 태도를 바꾸기 위한 외교 체크에서 +1 아이템 보너스를 얻습니다.</p>\n<p>@UUID[Compendium.pf2e.actionspf2e.Item.MHLuKy4nQO2Z4Am1]{응급처치} 및 @UUID[Compendium.pf2e.actionspf2e.Item.1kGNdIIhuglAjIp9]{상처 치료} 의학 체크 시 +2 아이템 보너스를 얻습니다.</p><hr /><p> <strong>활성화-해가 되지 않게 하라</strong> <span class=\"action-glyph\">f</span> (집중)</p>\n<p><strong> 사용 빈도</strong> 하루에 한 번</p>\n<p><strong>발동 조건</strong> 30피트 내의 적이 당신을 대상으로 공격 또는 피해를 주는 주문을 사용합니다</p>\n<p><strong>효과</strong> 당신의 팔찌가 빛나며, 당신이 전투원이 아닌 의료진으로 이곳에 있음을 나타냅니다. 발동한 적과 당신 모두 다음 턴이 끝날 때까지 피해 굴림에 -8 상태 페널티를 받습니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.BEou3aEkDXsQaTp3]{효과: 해를 끼치지 않음}</p>",
   "traits": [
    "invested",
@@ -14280,7 +14280,7 @@
   ]
  },
  "stone-of-encouragement-greater": {
-  "name": "고대의 격려의 돌 (중급)",
+  "name": "용기의 돌 (중급)",
   "description": "<p>이 매끄럽고 둥근 회색 돌은 손바닥에 딱 맞으며, 손의 크기와 모양에 상관없이 편안하게 잡을 수 있습니다. 돌을 쥐고 있는 동안, 돌은 \"할 수 있어!\"나 \"가자!\"와 같은 일반적인 격려의 말을 일정한 간격으로 텔레파시로 당신에게 전합니다. 이 격려의 말은 당신의 내적 독백의 목소리로 창조되거나, 당신이 신뢰하는 누군가의 목소리 특성을 띱니다. 유사함에도 불구하고, 당신은 돌이 텔레파시로 목소리를 투사하고 있음을 인지하며, 돌의 목소리와 당신의 내적 독백 또는 신뢰하는 사람의 목소리를 구분할 수 있습니다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 명령</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 당신은 돌에게 임무에 대한 도움을 요청합니다. 돌은 당면한 임무와 관련된 몇 마디 격려의 말을 건네며, 이는 1분 이내에 시도하는 첫 번째 기술 체크에서 +2 아이템 보너스를 부여합니다. 1일간 모든 <em>격려의 돌</em>의 효과에 일시적으로 면역이 됩니다. 활성화한 돌 이외의 다른 돌들도 포함됩니다. 다른 돌을 손에 쥐고 있으면 격려의 말을 들을 수는 있지만, 어떤 혜택도 제공하지 않습니다.</p>",
   "traits": [
    "magical"
@@ -14345,7 +14345,7 @@
   ]
  },
  "crafters-eyepiece-greater": {
-  "name": "장인의 안경 (중급)",
+  "name": "제작자의 안경 (중급)",
   "description": "<p>칸 무늬가 새겨진 이 견고한 금속 안경은 한쪽 눈에 착용하도록 설계되었습니다. 렌즈를 돌리면 제작하거나 수리하려는 아이템의 희미한 입체 윤곽이 나타나며, 구성 부품에 유용한 라벨이 표시됩니다.</p>\n<p>제작 체크 시 +2 아이템 보너스를 얻습니다. 아이템을 수리할 때, 성공 시 회복되는 체력을 10 + 숙련도 등급당 10, 대성공 시 15 + 숙련도 등급당 15로 증가시킵니다.</p>\n<hr />\n<p><strong>활성화-프로토타입</strong> 1분 (조작)</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 당신은 접안경을 보정하여 1분 동안 (5th)랭크 @UUID[Compendium.pf2e.spells-srd.Item.TUj8eugNqAvB1vVR]{창조} 주문을 발동해 임시 아이템을 제작합니다.</p>",
   "traits": [
    "invested",
@@ -15247,7 +15247,7 @@
   ]
  },
  "fire-and-iceberg": {
-  "name": "불과 빙산",
+  "name": "화염과 빙산",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 상호작용</p>\n<hr />\n<p>불타는 아눌라이트 파프리카, 일출 계피, 그리고 겨울의 매운맛이 이 샐러드의 반투명한 잎 속에 숨겨져 있어, 한 입 한 입마다 눈의 차가움과 증기의 열기를 선사합니다. 이 상반된 감각은 어떤 식객은 땀을 흘리게 하고 다른 이는 오한을 느끼게 하지만, 모두에게 남는 것은 다른 어떤 것보다도 강렬한 열기와 냉기의 감각이다. 이 샐러드를 섭취하면 1분 동안 화염과 냉기에 대한 저항력 5를 얻는다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.FOZXp7QQDnny1600]{효과: 불과 얼음산}</p>",
   "traits": [
    "alchemical",
@@ -15512,7 +15512,7 @@
   ]
  },
  "ash-gown-greater": {
-  "name": "애쉬 가운 (중급)",
+  "name": "재의 가운 (중급)",
   "description": "<p><em>(중급) 재의 가운</em>은 불의 평면에서 채취한 연기, 재, 탄소로 짠 정장입니다. 일반적으로 바닥까지 내려오는 풍성한 드레스나 3피스 수트 형태이지만, 구체적인 디자인과 상관없이 <em>중급 재의 가운</em>은 항상 화염계의 권력에 대한 부와 충성심의 과시적인 표현이다. 이 드레스는 원소 군주들의 궁정과 메디나 무디아의 상류 사회에서 특히 인기가 높다. 이 드레스는 화염에 대한 저항력 10과 협박 체크 시 +2 아이템 보너스를 부여한다.</p>\n<hr />\n<p><strong>활성화-불타는 산책로</strong> <span class=\"action-glyph\">2</span> (조작)</p>\n<p><strong>빈도</strong> 10분마다 한 번</p>\n<p><strong>효과</strong> <em>대형 재의 가운</em>이 맹렬한 불길에 휩싸여, 불꽃이 바닥을 핥고 춤추는 망토처럼 뒤를 따라다닌다. 당신은 이동 끝에 스트라이드를 사용해 공격을 가한다. 스트라이드 동안 당신의 불꽃은 경로상의 사소한 장애물을 태워 없애며, 비마법적 어려운 지형을 무시하고 통과하는 모든 지형을 파괴한다. 이동 중 어느 시점에서든 당신과 인접한 생물은 @Damage[4d6[fire]] 피해를 입으며 @Check[reflex|dc:28|basic] 내성 굴림을 시도할 수 있다. 당신이 여러 번 지나가더라도, 생물은 이 내성을 한 번 이상 시도할 필요가 없습니다.</p>",
   "traits": [
    "fire",
@@ -16043,7 +16043,7 @@
   ]
  },
  "chilled-fire-noodles-greater": {
-  "name": "냉장 불면면 (중급)",
+  "name": "차가운 불의 국수 (중급)",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">3</span> (조작)</p>\n<p><strong>접근</strong>티엔 샤 기원</p><hr /><p>이 시원한 국수는 진한 발효 소스와 식초를 곁들인 후 매운 고추기름과 함께 버무려 제공됩니다.</p>\n<p>이 국수를 섭취하면 4시간 동안 @UUID[Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw]{피로} 상태로 인해 발생하는 AC와 내성 굴림에 대한 -1 상태 페널티를 일시적으로 무시합니다.</p>",
   "traits": [
    "consumable",
@@ -16354,7 +16354,7 @@
   ]
  },
  "brightbloom-posy": {
-  "name": "브라이트블룸 포지",
+  "name": "밝은꽃다발",
   "description": "<p>따온 날처럼 생생한 이 꽃다발은 작은 스프레이 형태로 묶여 있으며, 빨간 새틴 리본으로 묶여 있습니다. 이 아이템을 활성화하여 시전하는 모든 주문의 주문 DC는 24입니다.</p>\n<ul>\n<li><strong>방어구</strong> 꽃과 대화할 수 있는 능력을 얻습니다. @UUID[Compendium.pf2e.spells-srd.Item.qvwIwJ9QBihy8R0t]{식물과 대화하기}와 동일합니다.</li>\n<li><strong>무기</strong> (질병) 꽃다발을 활성화하여 식물 마법을 시전한 후, 꽃가루가 무기에 묻습니다. 다음 공격이 명중하면 대상은 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 1} 상태가 됩니다 (@UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 2} 상태가 됨). 대상이 회복을 시도하면 구토 대신 재채기를 한다(주문 심장의 주문 DC 대항). 다음 턴 종료까지 공격을 성공시키지 못하면 꽃가루는 무력화된다. 식물 생물은 면역이다.</li>\n</ul>\n<p><strong>활성화</strong> 주문 시전</p>\n<hr />\n<p><strong>효과</strong> 당신은 @UUID[Compendium.pf2e.spells-srd.Item.uZK2BYzPnxUBnDjr]{얽힌 덩굴}을 시전합니다.</p>\n<hr />\n<p><strong>활성화</strong> 주문을 시전한다</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 당신은 @UUID[Compendium.pf2e.spells-srd.Item.5XUn9NADr05IyiVw]{진정하는 꽃잎}을 시전합니다.</p>",
   "traits": [
    "magical",
@@ -17835,7 +17835,7 @@
   ]
  },
  "worldringer-greater": {
-  "name": "위저드링거 (중급)",
+  "name": "세계의 울림 (중급)",
   "description": "<p>이 <em>+2 강타 (중급) 카카라</em>의 꼭대기에는 동물 동료와 함께 있는 작은 체구의 여행자를 묘사한 화려한 장식물이 달려 있다.  의 카카라 종소리는 일반적으로 자신의 존재를 알리기 위한 것이지만, <em>월드링거</em>의 마법은 그 종소리를 강화하여 듣는 이들에게 간청하는 효과를 줍니다.</p>\n<p><strong>활성화-커맨더의 종소리</strong> <span class=\"action-glyph\">3</span> (조작)</p>\n<p><strong>발동 빈도</strong> 하루에 한 번</p><hr /><p><strong>효과</strong> 당신은 이 차원 또는 다른 차원의 존재들에게 당신의 부름을 듣도록 요청합니다. @UUID[Compendium.pf2e.spells-srd.Item.B0FZLkoHsiRgw7gv]{소환: 하급 시종} 또는 @UUID[Compendium.pf2e.spells-srd.Item.aIHY2DArKFweIrpf]{명령} 중 하나를 선택하십시오. 선택한 주문을 5th(DC 33)으로 시전한다. <em>소환 하급 시종</em>을 이 방식으로 시전할 때는 반드시 마법 동물을 소환하도록 선택해야 한다.</p>",
   "traits": [
    "magical",
@@ -18061,7 +18061,7 @@
   ]
  },
  "holy-prayer-beads-greater": {
-  "name": "신성한 기도 구슬 (중급)",
+  "name": "신성한 염주 (중급)",
   "description": "<p>이 평범해 보이는 염주 한 줄은 신성 마법을 처음 시전할 때 부드러운 빛을 발하며 만지면 따뜻해집니다. 이때 염주는 당신의 신과 조화를 이루며 형태와 상징을 변화시켜 당신의 신의 종교적 상징과 아이콘을 두드러지게 반영합니다. 악의적인 주문 시전자에게는 구슬이 변형되거나 기능을 발휘하지 않는다.</p>\n<p>이 염주를 쥔 상태에서 자신의 주문 슬롯으로 신성 주문을 시전할 때마다 @Damage[1d4[vitality,healing]] 체력을 회복한다. 이는 활력 치유 효과이다. 시전한 주문이 치유 주문인 경우, 이 추가 치유 효과를 자신 대신 해당 주문의 대상 중 한 명에게 부여할 수 있습니다.</p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>효과</strong> @UUID[Compendium.pf2e.spells-srd.Item.XSujb7EsSwKl19Uu]{축복}, @UUID[Compendium.pf2e.spells-srd.Item.hVU9msO9yGkxKZ3J]{신성한 분노}, @UUID[Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs]{치유}, 또는 @UUID[Compendium.pf2e.spells-srd.Item.SUKaxVZW2TlM8lu0]{고통 정화}를 각각 하루에 한 번씩 시전한다.</p><hr /><p><strong>제작 요건</strong> 신성 전통을 가진 주문 시전 클래스 특성을 보유해야 합니다.</p>",
   "traits": [
    "divine",
@@ -18311,7 +18311,7 @@
   ]
  },
  "trackers-goggles-greater": {
-  "name": "추적자의 고글 (중급)",
+  "name": "추적자 고글 (중급)",
   "description": "<p>이 숲빛 녹색 유리 렌즈는 거친 가죽으로 감싸져 있으며 투박한 끈으로 꿰매어져 있다.</p>\n<p>이 고글을 착용하면 방향 감지 및 추적 생존 체크에서 +2 보너스를 얻습니다.</p>\n<p>추적 체크 실패 시, 1시간이 아닌 15분 후에 재시도할 수 있습니다.</p>",
   "traits": [
    "invested",
@@ -18602,7 +18602,7 @@
   ]
  },
  "unmemorable-mantle": {
-  "name": "잊혀진 망토",
+  "name": "잊혀지는 망토",
   "description": "<p>이 길고 허술한 망토에는 후드와 단순한 황동 걸쇠가 달려 있습니다. 이 망토를 착용하면 특정 인물을 사칭하는 기만 체크 및 그 인물로 변장한 상태에서 거짓말하는 기만 체크에서 +1 아이템 보너스를 얻습니다.</p>\n<hr />\n<p><strong>활성화</strong> 1분 (상상, 상호작용)</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>요구 사항</strong> 타인 사칭</p>\n<hr />\n<p><strong>효과</strong> 다른 생물과 대화하거나 일상적으로 교류할 때, 망토의 걸쇠를 조정하여 해당 생물들이 당신과의 교류 마지막 5분간을 기억하는 방식을 수정할 수 있습니다. 각 생물은 @Check[will|dc:25] 내성을 시도해야 합니다.</p>\n<hr />\n<p><strong></strong> 생물은 상호작용을 명확히 기억하며 당신이 그들의 기억을 바꾸려 했다는 사실을 깨닫습니다.</p>\n<p><strong>성공</strong> 생물은 상호작용을 선명하게 기억합니다.</p>\n<p><strong>실패</strong> 당신이 생물이 그 상호작용을 기억하는지 여부를 결정합니다. 또한 GM이 결정한 대로 시간, 장소, 상호작용이 유리했는지 여부와 같은 생물이 기억하는 상호작용의 사소한 세부 사항도 변경할 수 있습니다.</p>\n<p><strong>대실패</strong> 생물이 상호작용을 기억하는지 여부를 결정합니다. 또한 생물이 상호작용에 대해 기억하는 주요 세부사항(예: 당신을 다른 개인으로 오인하거나 생물이 호의를 약속했다고 믿는 등)을 GM이 결정하여 변경할 수 있습니다.</p>",
   "traits": [
    "illusion",
@@ -18736,7 +18736,7 @@
   ]
  },
  "bracers-of-missile-deflection-greater": {
-  "name": "투사체 방어 팔보호대 (중급)",
+  "name": "투사체 방어 팔보호구 (중급)",
   "description": "<p>이 팔보호대는 내구성 있는 던실버 판으로 만들어져 여름 햇살처럼 반짝인다.</p>\n\n<p><strong>빈도</strong> 10분마다 한 번</p>\n<p><strong>발동</strong> 원거리 무기 공격이 적중했으나 치명타는 아님</p>\n<p><strong>요건</strong> 당신은 공격을 인지하고 있으며 무방비 상태가 아닙니다</p>\n<hr />\n<p><strong>효과</strong> 팔보호대가 투사체의 궤도를 이탈시킵니다. 발동 공격에 대해 AC에 +2 상황 보너스를 얻습니다. 이로 인해 공격이 실패하게 되면, 공격은 당신을 빗나갑니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.PeiuJ951kkBPTCSM]{효과: 투사체 회피 팔보호구}</p>",
   "traits": [
    "invested",
@@ -19520,7 +19520,7 @@
   "description": "<p>문양 복사 세트를 사용하면 탐험 중 발견한 조각이나 에칭을 빠르게 복사하여 정확하게 재현하기 쉽게 만들 수 있습니다. 이 키트는 방수 가죽 케이스에 담긴 얇은 양파껍질 종이 굴림, 여러 개의 두꺼운 왁스 크레용, 그리고 문양을 찍을 때 종이를 임시로 고정하기 위해 녹여 사용할 수 있는 봉인 왁스 막대기로 구성됩니다. 키트 사용 시 재료가 소모되며, 표면에 새겨지거나 에칭되거나 물리적으로 추가된 예술 작품이나 글씨를 기록하거나 재현하는 데 필요한 체크에서 +1 아이템 보너스를 제공합니다.</p>"
  },
  "librarian-staff-greater": {
-  "name": "사서 직원 (중급)",
+  "name": "사서 지팡이 (중급)",
   "description": "<p>A <em>사서 직원</em>은 수천 장의 책 페이지가 서로 얽히고 압축되어 소용돌이치며 얇은 기둥을 이루고 있으며, 표면에는 뒤섞인 글자들이 쏟아져 내리고 있다. 지팡이가 움직일 때면 종이 찢어지는 소리가 들린다.</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">3</span> (집중, 조작)</p><hr /><p><strong>효과</strong> 지팡이 내 초차원 공간에 벌크 1 이하의 휴대용 텍스트 하나(일반적으로 책이나 두루마리)를 저장합니다. 이 활성화로 지팡이에 저장된 텍스트 하나를 회수할 수도 있습니다. 지팡이는 최대 100개의 텍스트를 저장할 수 있습니다.</p><hr /><p><strong>활성화</strong> 주문 시전</p><hr /><p><strong>효과</strong> 지팡이의 충전량을 소모하여 지팡이 목록의 주문을 시전합니다.</p><ul><li><strong>캔트립</strong> @UUID[Compendium.pf2e.spells-srd.Item.EqdSKqr8Qj5TUhMR]{대략적인}, @UUID[Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA]{오라 읽기}</li><li><strong>1레벨</strong> @UUID[Compendium.pf2e.spells-srd.Item.TjWHgXqPv5jywMti]{포켓 도서관}, @UUID[Compendium.pf2e.spells-srd.Item.F23T5tHPo3WsFiHW]{빠른 정렬}, @UUID[Compendium.pf2e.spells-srd.Item.nXmC2Xx9WmS5NsAo]{지식 지식}</li><li><strong>2nd</strong> @UUID[Compendium.pf2e.spells-srd.Item.OhgfPzB5gymZ0IZM]{적시 튜터}, @UUID[Compendium.pf2e.spells-srd.Item.vTQvfYu2llKQedmY]{번역}</li><li><strong>3rd</strong> @UUID[Compendium.pf2e.spells-srd.Item.TjWHgXqPv5jywMti]{포켓 라이브러리}, @UUID[Compendium.pf2e.spells-srd.Item.F23T5tHPo3WsFiHW]{퀵 정렬}, @UUID[Compendium.pf2e.spells-srd.Item.nXmC2Xx9WmS5NsAo]{지식 지식}, @UUID[Compendium.pf2e.spells-srd.Item.vTQvfYu2llKQedmY]{번역}</li><li><strong>4th</strong> @UUID[Compendium.pf2e.spells-srd.Item.vTQvfYu2llKQedmY]{번역}</li><li><strong>5th</strong> @UUID[Compendium.pf2e.spells-srd.Item.F23T5tHPo3WsFiHW]{퀵 정렬}, @UUID[Compendium.pf2e.spells-srd.Item.nXmC2Xx9WmS5NsAo]{지식}</li></ul><hr /><p><strong>제작 요구 사항</strong> 나열된 모든 랭크의 모든 주문에 대해 한 번의 시전 분량을 공급하십시오.</p>",
   "traits": [
    "extradimensional",
@@ -19832,7 +19832,7 @@
   ]
  },
  "shell-of-easy-breathing-greater": {
-  "name": "쉬운 호흡의 껍질 (중급)",
+  "name": "편안한 호흡의 조개 (중급)",
   "description": "<p>이 커다란 소금 덩어리가 붙은 조개껍데기는 지름이 2피트 이상이며, 가장자리에는 심해 생물들의 형상이 새겨져 있다.</p>\n<hr />\n<p><strong>활성화-조개껍데기 채우기</strong> <span class=\"action-glyph\">1</span> (조작)</p>\n<p><strong>효과</strong> 당신은 조개를 평평한 표면에 놓고 그 안에 물 몇 방울을 뿌립니다. 조개는 1분 동안 천천히 바닷물로 채워집니다. 그러면 조개껍데기의 마법이 활성화되며, 꾸준한 기포 흐름으로 이를 알립니다. 조개껍데기를 움직이면 내용물이 교란되어 아이템이 비활성화되고 내부의 물이 증발합니다. 그렇지 않으면 무제한으로 활성화 상태를 유지합니다. 조개껍데기가 활성화된 동안 생물은 3-액션 활동으로 머리를 잠그고 물과 기포가 코와 입(또는 호흡에 사용하는 신체 부위)을 채우도록 할 수 있습니다. 이후 8시간 동안 해당 생물은 수중에서 호흡할 수 있습니다. 또한 다음 일일 준비를 할 때까지 <em>쉬운 호흡의 껍질</em>의 효과에 대해 일시적으로 면역 상태가 됩니다.</p>",
   "traits": [
    "magical",
@@ -20225,7 +20225,7 @@
   ]
  },
  "lionfish-spear-greater": {
-  "name": "사자고기 창 (중급)",
+  "name": "사자물고기 창 (중급)",
   "description": "<p>화려한 줄무늬와 흘러내리는 리본이 이 <em>+2 강타 (중급) 수중 상처 입히는 창</em>을 독이 있는 사자물고기와 같은 모습으로 만들어 줍니다. 이 창을 들고 있을 때, @UUID[Compendium.pf2e.actionspf2e.Item.c8TGiZ48ygoSPofx]{수영}에 대한 운동 체크에서 +2 아이템 보너스를 얻습니다.</p>\n<p>이 무기로 공격 시 추가로 1d6 독 피해를 입힙니다.</p>\n<hr />\n<p><strong>활성화-사자고기 독</strong> <span class=\"action-glyph\">R</span> (농축액)</p>\n<p><strong>빈도</strong> 시간당 한 번</p>\n<p><strong>발동 조건</strong> 당신이 <em>사자고기 창</em>으로 생물을 성공적으로 공격했을 때</p>\n<p><strong>효과</strong> 창이 대상에게 사자고기 독을 주입합니다</p>\n<p><strong>내성 굴림</strong> @Check[fortitude|dc:31]</p>\n<p><strong>최대 지속 시간</strong> 6 라운드</p>\n<p><strong>1단계</strong> @Damage[3d6[poison]] 피해 및 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 1}(1 라운드)</p>\n<p><strong>2단계</strong> @Damage[5d6[poison]] 피해 및 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 2}(1 라운드)</p>\n<p><strong>3단계</strong> @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF][[/br 2d4 #시간]] 동안 {마비} 상태{2d4시간}</p>",
   "traits": [
    "magical",
@@ -20500,7 +20500,7 @@
   ]
  },
  "brewers-regret-greater": {
-  "name": "양조자의 후회 (중급)",
+  "name": "브루어의 후회 (중급)",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 상호작용</p><hr /><p> 양조사가 마시기 싫은 걸 만들면, 종종 끓여서 졸이고 몰약, 쑥 추출물, 보라색 소금을 넣은 뒤 싸구려 샌드위치 속재료를 찾는 요리사들에게 판다. 진하고 짠 신맛이 대부분의 음식 맛을 망치지만, 다른 걸 맛보고 싶다는 강한 욕구도 불러일으킨다. 섭취 후 1시간 동안 죽음 및 공허 효과에 대한 내성에 +3 아이템 보너스를 얻습니다. 또한 운명 수치가 1 감소합니다(최소 0). 양조자의 후회로 운명 상태를 하루에 한 번만 감소시킬 수 있으며, 이를 사용한 후에는 같은 날 @UUID[Compendium.pf2e.spells-srd.Item.SnaLVgxZ9ryUFmUr]{회복} 주문으로 운명 상태를 감소시킬 수 없습니다(반대의 경우도 마찬가지).</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.9e6iVkPpGqJYwMyb]{효과: 양조자의 후회}</p>",
   "traits": [
    "alchemical",
@@ -20511,7 +20511,7 @@
   "name": "청석"
  },
  "reef-heart-greater": {
-  "name": "산호초의 심장 (중급)",
+  "name": "산호 심장 (중급)",
   "description": "<p>이 <em>+2 탄력성 산호 갑옷</em>은 어인족과 수중 엘프의 동맹들이 자주 선호하는 것으로, 바다 깊은 곳에서 신중하게 채취한 살아있는 산호로 만들어졌다. 전설에는 각기 다른 힘을 지닌 유사한 산호 갑옷들이 존재한다고 전해지지만, 육지 거주자들은 <em>산호초 심장</em>을 바다 속을 더 쉽게 여행할 수 있게 해주는 마법 갑옷으로 알고 있다. <em>산호 심장</em>은 수중에서 호흡할 수 있게 해주며, 지상 속도 및 동일한 수영 속도를 부여합니다.</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">3</span> (집중, 조작)</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 7랭크 @UUID[Compendium.pf2e.spells-srd.Item.h7RtKSKGViNtD5o4]{산호 분출}을 시전합니다. 수중에서 산호를 소환하면 1분 후 피해를 주지 않지만 지속 시간은 무제한이다. 마법 산호가 1년간 제자리에 남아 있으면 비마법 산호로 변해 산호초가 자랄 수 있다.</p>",
   "traits": [
    "aquadynamic",
@@ -20937,7 +20937,7 @@
   ]
  },
  "oil-of-weightlessness-greater": {
-  "name": "중력 상실 기름 (중급)",
+  "name": "무중력 기름 (중급)",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p>\n<hr />\n<p>이 반짝이는 오일을 벌크 2 이하의 물건에 발라 무게를 느끼지 못하게 할 수 있습니다. 8시간 동안 벌크가 무시할 수 있을 정도로 줄어듭니다.</p>",
   "traits": [
    "consumable",
@@ -22282,7 +22282,7 @@
   ]
  },
  "potion-of-disguise-greater": {
-  "name": "위장의 물약 (중급)",
+  "name": "변장 물약 (중급)",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>이 물약을 마시면 [[/br 2d12 #시간]]{2d12시간} 동안 특정 종류의 생물 외형을 취합니다. 생물 종류는 물약 제작 시 결정됩니다. 예를 들어, <em>엘프 변장 물약</em>이나 <em>개구리 변장 물약</em>을 가질 수 있습니다. 물약을 마셔도 효과가 얼마나 지속되는지 알 수 없으며, GM이 비밀리에 지속 시간을 굴림합니다. </p>\n<p>변장은 당신의 특성이나 능력치를 변경하지 않으며, 모방하는 생물의 특수 능력도 부여하지 않습니다. 다만 소지하거나 착용할 수 있는 아이템에 영향을 미칠 수 있습니다(예: 새 형태에 엄지손가락이 없을 수 있음). 이 물약은 당신을 최소 소형 크기로 축소시키거나, 대상 생물이 당신보다 클 경우 최대 대형 크기로 증가시킵니다. 이는 당신의 능력치를 변경하지 않으며, 소형 생물로서 도달 거리가 0으로 감소하는 것만 예외입니다. 대상 생물은 \"고양이\"가 아닌 \"표범\"이나 \"사자\"처럼 특정 종류여야 하며, \"거인\"이 아닌 \"불거인\"이나 \"오우거\"처럼 특정 종류여야 합니다. 다만 특정 개체를 모방하도록 만들 수는 없습니다.</p>\n<p>이 물약의 효과는 기만의 @UUID[Compendium.pf2e.actionspf2e.Item.AJstokjdG6iDjVjE]{변장} 활동과 동일한 규칙을 적용합니다. 주변 사람들은 적극적으로 탐색하지 않는 한 항상 당신이 선택한 유형의 생물이라고 가정합니다. 당신은 그러한 지각 체크에 대한 기만 DC에 +4 상태 보너스를 얻으며, 훈련받지 않았더라도 자신의 레벨을 추가합니다.</p>\n<p> <em>위장 대약</em>을 마시는 동안 변신하고자 하는 구체적인 형태를 상상하면, 약이 당신을 그 형태로 변화시킵니다. 특정 개인을 사칭하려고 시도할 수 있지만, 여전히 기만 검사 굴림을 해야 합니다.</p>",
   "traits": [
    "consumable",
@@ -22779,7 +22779,7 @@
   ]
  },
  "burial-oil-greater": {
-  "name": "매장유 (중급)",
+  "name": "매장용 기름 (중급)",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>진주빛 액체인 매장 오일을 무기에 바르면 @UUID[Compendium.pf2e.equipment-srd.Item.oVrVzML63VFvVfKk]{중급 강화 활력 부여} 룬의 효과를 1분 동안 부여합니다.</p>",
   "traits": [
    "consumable",
@@ -23851,7 +23851,7 @@
   ]
  },
  "deadlock-mint-greater": {
-  "name": "데드록 민트 (중급)",
+  "name": "데드락 민트 (중급)",
   "description": "<p><strong>활성화</strong> 주문 시전 (행동 1 추가)</p><hr /><p><em>데드록 민트</em>는 작고 푸른 꽃을 가진 민트 종류로, 양측이 균형을 이룬 전장에서 자란다고 전해진다. 꽃가지들은 스스로 만들어낸 바람에 살랑살랑 흔들린다. @UUID[Compendium.pf2e.spells-srd.Item.aAbfKn8maGjJjk2W]{신비한 갑옷}을 <em>데드록 민트</em>로 시전하면, 촉매제의 종류에 따라 크기가 결정되는 충격파를 방출한다. 특정 벌크 한도 내의 방치된 물체는 당신으로부터 밀려난다. 대형 이하 생물은 당신의 주문 DC와 동일한 인내 내성에 성공해야 하며, 그렇지 않으면 당신으로부터 동일한 거리만큼 밀려난다.</p>\n<p>벌크 1 이하의 물체와 내성에 실패한 생물은 10피트 밀려납니다. 벌크 2 이하의 물체는 5피트 밀려나며, 거대 생물은 내성에 성공하지 못하면 5피트 밀려납니다.</p>",
   "traits": [
    "catalyst",
@@ -24209,7 +24209,7 @@
   ]
  },
  "helmsmans-recourse": {
-  "name": "함장의 회귀",
+  "name": "항해사의 구원",
   "description": "<p>이 표준 등급의 황혼나무 운석 방패(경도 7, HP 28, BT 14)는 배의 바퀴입니다. 이 방패를 휘두르는 동안 항해 지식와 수영 운동 체크에서 +1 아이템 보너스를 얻습니다.</p>\n\n<p><strong>빈도</strong> 하루에 한 번</p>\n<p><strong>요구 사항</strong> 물속에 있을 때</p><hr /><p><strong>효과</strong> 10분 동안, 턴에 수영 행동에 성공하지 못해도 가라앉지 않으며, 잠수한 상태라면 턴 종료 시 자동으로 10피트 상승합니다.</p>",
   "traits": [
    "magical",
@@ -24554,7 +24554,7 @@
   ]
  },
  "snipers-bead": {
-  "name": "저격수의 구슬",
+  "name": "저격수 구슬",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">f</span> (집중)</p>\n<p><strong>발동</strong> 주사위 굴리기 전에 부착된 무기로 원거리 공격을 시도합니다;</p>\n<p><strong>요구 사항</strong> 당신은 부착된 무기의 달인입니다.</p><hr /><p>이 평범한 나무 구슬은 부착된 무기의 총열에 매달린 끈에 달려 있습니다. 구슬을 활성화하면 그 마법이 발동 공격에 미치는 거리 효과를 크게 감소시킵니다.</p>\n<p>부착 무기의 첫 두 사거리 구간 내에 있는 대상을 공격할 경우, 공격에 사거리 증가 페널티가 적용되지 않습니다.</p>",
   "traits": [
    "consumable",
@@ -24751,7 +24751,7 @@
   ]
  },
  "clay-sphere": {
-  "name": "점토 구슬",
+  "name": "점토 구체",
   "description": "<p>이 마른 점토 공은 활성화되면 가소성을 띠며 다양한 형태로 변형됩니다. 이 아이템을 활성화하여 시전하는 모든 주문의 명중 굴림은 [[/r 1d20+7 #Spell Attack Roll]]{+7}이며, 주문 DC는 17입니다.</p><ul><li><strong>방어구</strong> 정밀 피해에 대한 저항력 2를 얻으며, 변형 또는 다형 특성을 지닌 효과에 대한 내성 굴림에 +1 아이템 보너스를 받습니다.</li><li><strong>무기</strong> 점토 구체<em>를 활성화하여 변형 또는 다형 주문을 시전한 후, 무기는 가변성이 되어 당신의 의지대로 형태를 바꿉니다. 부착된 무기로 가한 공격은 1분 동안 다용도 타격, 다용도 관통, 다용도 베기 특성을 가집니다. 다음 차례가 끝날 때까지, 부착된 무기로 가한 공격의 피해 주사위가 한 단계 증가한다.</li></ul><p>@UUID[Compendium.pf2e.equipment-effects.Item.fLcp28dxFCOcBibw]{효과: 점토 구체 - 방어구}</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.La2ziyuLYKG0thOj]{효과: 점토 구체 - 무기}</p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>효과</strong> 당신은 @UUID[Compendium.pf2e.spells-srd.Item.MPxbKoR54gkYkqLO]{갈고리 발톱}을 시전합니다.</p>",
   "traits": [
    "magical",
@@ -25101,7 +25101,7 @@
   ]
  },
  "warleaders-bulwark-greater": {
-  "name": "전쟁 지도자의 방벽 (중급)",
+  "name": "전쟁 지도자의 방패 (중급)",
   "description": "<p>이 <em>+2 탄력성 갑옷</em>은 빛나는 청동 위에 충성스러운 병사들의 형상이 새겨진 강화용 황금 패널을 덧댄 것으로 제작되었습니다. 이 갑옷을 착용하면 커맨더 오라를 발산합니다. 외교 능력 체크 시 +3 아이템 보너스를 얻지만, 은신 능력 체크(@UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{숨기})와 잠행 능력 체크(@UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{은밀 이동}), 그리고 기만 체크(@UUID[Compendium.pf2e.actionspf2e.Item.AJstokjdG6iDjVjE]))를 할 때 -3 아이템 패널티를 받습니다.{Impersonate}.</p><hr /><p><strong>Activate-Command Bravery</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>발동 빈도</strong> 하루에 한 번</p><hr /><p><strong>효과</strong> 100피트 내 아군에게 공포 효과에 대한 내성에 +2 상태 보너스를 1분간 부여합니다. 이 능력을 활성화할 때, @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포} 상태인 영향을 받은 아군 각각은 공포 수치를 1 감소시킵니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.G0lG7IIZnCZtYi6v]{효과: 용기 명령}</p>",
   "traits": [
    "invested",
@@ -25800,7 +25800,7 @@
   ]
  },
  "magnetite-scope-greater": {
-  "name": "강철석 조준경 (중급)",
+  "name": "자철석 망원경 (중급)",
   "description": "<p>이 작은 자철 원통은 망원경이라기보다 현장 투사기에 가깝습니다. 산탄 무기의 파편을 무기 본연의 능력보다 더 멀리 퍼뜨리고 가속시키도록 마법이 걸려 있습니다. 또한, 스코프 구조 내부에 떠다니는 일부 자철석은 아군 위치를 파악하려고 시도할 때 도움을 줄 수 있다. 이 스코프를 항해 보조 수단으로 사용할 경우, 방향 감지 생존 체크 시 +3 아이템 보너스를 부여한다. 본 스코프는 산탄 특성을 지닌 화기에만 장착 가능하다. </p>\n<p><strong> 활성화-확장</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p><strong>효과 </strong> 이번 라운드에 조준경이 장착된 총으로 가하는 다음 공격의 산란 반경이 10피트 증가합니다.</p>",
   "traits": [
    "magical"
@@ -26818,7 +26818,7 @@
   ]
  },
  "accolade-robe-greater": {
-  "name": "찬사 로브 (중급)",
+  "name": "아콜레이드 로브 (중급)",
   "description": "<p>모든 위자드가 정식 수련을 거친 것은 아니지만, 고된 수련을 상징하는 로브에 마법을 걸고 획득한 영예를 장식하는 것이 전통이 되었다. 일반적으로 <em>명예의 로브</em>는 특정 위자드 학교의 색상과 상징을 반영한 디자인이다. 이 로브를 착용하면 주문학 능력 체크 시 +3 아이템 보너스를 받는다.</p>\n<p>로브의 주머니는 초차원 공간과 연결되어 있으며, 최대 1벌크의 아이템을 보관할 수 있다. 보관 가능한 아이템은 모두 경량 벌크를 초과할 수 없으며, 주문 시전 및 학문과 관련된 것들-주문서, 두루마리, 지팡이, 학술 저널, GM이 허용하는 기타 학문적 용품-이어야 한다. 이 아이템들은 벌크 제한에 포함되지 않는다. 아이템을 꺼내거나 넣을 때는 평소처럼 상호작용을 사용하면 된다.</p>\n<hr />\n<p><strong>활성화-검토</strong> <span class=\"action-glyph\">1</span> (집중, 조작)</p>\n<p><strong>효과</strong> 당신은 로브의 저장 공간에서 선택한 아이템 하나를 꺼낸 후, 지식 회상 능력을 사용합니다.</p>\n<p>1분에 한 번씩 자유 행동으로 로브의 '복습' 능력을 발동할 수 있다.</p>\n<hr />\n<p><strong>활성화-추가 크레딧</strong> <span class=\"action-glyph\">F</span> (집중)</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 포커스 포인트 1을 얻습니다. 이 포인트는 특정 학파의 주문을 시전할 때만 사용할 수 있습니다. 이번 턴이 끝날 때까지 이 포커스 포인트를 사용하지 않으면 소멸됩니다.</p>\n<hr />\n<p><strong>제작 요건</strong> 당신은 해당 학파의 위자드여야 합니다.</p>",
   "traits": [
    "arcane",
@@ -27405,7 +27405,7 @@
   ]
  },
  "staff-of-natures-vengeance": {
-  "name": "자연의 복수 지팡이",
+  "name": "대자연의 복수 지팡이",
   "description": "<p>이 튼튼한 지팡이는 울퉁불퉁한 산사나무로 만들어졌습니다. 무기로 사용할 때, <em>자연의 복수 지팡이</em>는 영구적으로 @UUID[Compendium.pf2e.spells-srd.Item.s3abwDbTV43pGFFW]{실레라}</p>의 효과를 지닌다.\n<p><strong>활성화</strong> 주문 시전</p>\n<p><strong>효과</strong> 지팡이의 충전량을 소모하여 지팡이 목록의 주문을 시전한다.</p>\n<hr />\n<ul>\n<li><strong>캔트립</strong> @UUID[Compendium.pf2e.spells-srd.Item.uZK2BYzPnxUBnDjr]{얽힌 덩굴}</li>\n<li><strong>1st</strong> @UUID[Compendium.pf2e.spells-srd.Item.r3NeUnsgt9mS03Sn]{Shocking Grasp}, @UUID[Compendium.pf2e.spells-srd.Item.DYdvMZ8G2LiSLVWw]{Spider Sting}</li>\n<li><strong>2번째</strong> @UUID[Compendium.pf2e.spells-srd.Item.2ZdHjnpEQJuqOYSG]{떠다니는 불꽃}, @UUID[Compendium.pf2e.spells-srd.Item.cB17yFc9456Pyfec]{구토 떼}</li>\n<li><strong>3rd</strong> @UUID[Compendium.pf2e.spells-srd.Item.gPvtmKMRpg9I9D7H]{대지의 속박}, @UUID[Compendium.pf2e.spells-srd.Item.KsWhliKfUs3IpW3c]{가시의 벽}</li>\n<li><strong>4th</strong> @UUID[Compendium.pf2e.spells-srd.Item.VuPDHoVEPLbMfCJC]{짐승의 저주}, @UUID[Compendium.pf2e.spells-srd.Item.3xD8DYrr8YDVYGg7]{가시 돌}</li>\n</ul>\n<hr />\n<p><strong>제작 요구 사항</strong> 나열된 모든 랭크의 주문 1회 시전분과 <em>실레라</em> 1회 시전분을 공급하십시오.</p>",
   "traits": [
    "magical",
@@ -27674,7 +27674,7 @@
   ]
  },
  "sonic-tuning-mace-greater": {
-  "name": "소닉 튜닝 메이스 (중급)",
+  "name": "음파 튜닝 메이스 (중급)",
   "description": "<p>이 <em>+2 강타 (중급) 우레빛 광선 메이스</em>는 적을 강타할 때 공명하도록 완벽하게 간격을 둔 쌍두 끝을 지녔다.</p>\n<hr />\n<p><strong>활성화</strong> <span class=\"action-glyph\">2</span> 명령어, 상호작용</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 당신은 근처 표면에 튜닝 메이스로 두드려 DC 30의 6th랭크 @UUID[Compendium.pf2e.spells-srd.Item.wzLkNU3AAqOSKFPR]{소음 폭발}을 시전합니다.</p>",
   "traits": [
    "agile",
@@ -27841,7 +27841,7 @@
   ]
  },
  "cooperative-waffles-greater": {
-  "name": "협력 와플 (중급)",
+  "name": "협동 와플 (중급)",
   "description": "<p><strong>활성화</strong> 10분 (조작)</p><hr /><p>와플 기계에 순간 조리하고 연금술 시럽과 복합 버터를 뿌린 협동 와플은 한 번에 한 와플을 나누어 먹는 이들의 협력 영혼을 고취합니다. 와플을 다른 생물 한 마리와 나눌 수 있습니다. 둘 다 와플의 절반을 먹어 활성화한 후, 한 명이 '전문가 따르기'를 사용해 다른 이를 따라갈 때 부여되는 상황 보너스가 1 증가합니다. 이 와플의 효과는 한 쪽이 상대방의 기술 체크 시도에 성공적으로 '지원'을 제공할 때도 적용됩니다. 와플의 효과는 24시간 동안 지속되거나, 다음 일일 준비를 할 때까지 중 먼저 도래하는 시점까지 유지됩니다. 한 번에 한 생물체와만 이 방식으로 연결될 수 있습니다. 양측 중 한 쪽이 다시 협동 와플을 먹으면 이전 와플의 효과는 종료됩니다.</p>",
   "traits": [
    "alchemical",
@@ -27920,7 +27920,7 @@
   ]
  },
  "guise-of-the-smirking-devil-greater": {
-  "name": "비웃는 악마의 가면 (중급)",
+  "name": "비웃는 데빌의 가면 (중급)",
   "description": "<p>이 얼음빛 하프 마스크는 착용자의 입을 가리는 사악한 은색 미소로 장식되어 있으며, 얼굴의 나머지 부분은 드러나 있습니다. 협박 체크에서 +3 아이템 보너스를 얻습니다.</p>\n<p><strong>활성화-끔찍한 울부짖음</strong> <span class=\"action-glyph\">2</span> (집중, 조작)</p>\n<p><strong>발동 빈도</strong> 하루에 한 번</p><hr /><p><strong>효과</strong> 가면은 (9th) @UUID[Compendium.pf2e.spells-srd.Item.FEsuyf203wTNE2et]{저주받은 자들의 통곡}</p>\n<p>영역 내 모든 생명체는 @Damage[8d10[void]|options:area-damage]의 피해를 입으며 @Check[fortitude|dc:41|options:area-effect,damaging-effect] 내성 굴림을 시도하다.</p>\n<p><strong>대성공</strong> 생물은 영향을 받지 않는다.</p>\n<p><strong>성공</strong> 생물은 전체 피해를 받습니다.</p>\n<p><strong>실패</strong> 생물은 전체 피해를 입으며 @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{생명력 고갈} [[/r 1d4]] 상태가 됩니다.</p>\n<p><strong>대실패</strong> 생물은 두 배의 피해를 입으며 @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{생명력 고갈 4} 상태가 됩니다.</p>",
   "traits": [
    "auditory",
@@ -27962,7 +27962,7 @@
   ]
  },
  "messengers-ring-greater": {
-  "name": "메신저의 반지 (중급)",
+  "name": "전령의 반지 (중급)",
   "description": "<p>이 은 인장 반지는 당신이 섬기는 영주나 조직의 휘장(혹은 다른 이를 섬기지 않는다면 당신의 얼굴)과 일치하도록 변합니다. 이 반지는 외교 체크에서 +3 아이템 보너스를 부여하며, @UUID[Compendium.pf2e.spells-srd.Item.vLzFcIaSXs7YTIqJ]{메시지}를 마음대로 아케인 선천적 주문으로 시전할 수 있게 합니다. </p>\n<hr />\n<p><strong>활성화-전령 파견</strong> 1분 (집중) </p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 반지는 당신의 지시에 따라 @UUID[Compendium.pf2e.spells-srd.Item.yhz9fF69uwRhnHix]{동물 메신저}를 소환합니다. 이 동물은 반지에서 튀어나오는 마법 생물로, 그 외모는 반지가 대표하는 영주나 조직의 상징이나 문장에 어울립니다. </p>\n<hr />\n<p><strong>활성화-전달</strong> <span class=\"action-glyph\">3</span> 명령</p>\n<p><strong>빈도</strong> 시간당 한 번</p>\n<hr />\n<p><strong>효과</strong> 반지가 @UUID[Compendium.pf2e.spells-srd.Item.R9xqCBblkS5KE4y7]{전송}을 귀하의 지정에 따라 발동합니다.</p>",
   "traits": [
    "invested",
@@ -28547,7 +28547,7 @@
   ]
  },
  "choker-of-elocution-greater": {
-  "name": "발음의 목걸이 (중급)",
+  "name": "웅변의 목걸이 (중급)",
   "description": "<p>이 백금 목걸이는 세 가지 언어의 알파벳 문자를 새기고 있으며, 해당 언어와 관련된 문화의 관습에 대한 지식을 부여합니다.</p>\n<p>사회성 체크에서 +2 아이템 보너스를 얻으며, 선택한 언어를 이해하고 말하고 쓸 수 있는 능력을 얻습니다.</p>\n<p>뛰어난 발음 능력으로 인해, 귀가 먹먹한 상태에서 청각 관련 행동을 수행할 때 플랫 체크의 DC가 5에서 3으로 감소합니다.</p>\n<p><strong>제작 요건</strong> 목걸이가 부여하는 언어를 알고 있습니다.</p>",
   "traits": [
    "invested",
@@ -29242,7 +29242,7 @@
   ]
  },
  "nexian-sealing-blade-greater": {
-  "name": "넥시안 봉인검 (중급)",
+  "name": "넥시안 봉인 검 (중급)",
   "description": "<p>흔히 \"비명검\"이라는 별명으로 불리는 <em>넥시안 봉인검</em>은 넥스의 아크로드들이 게비트 침입자와 암살자를 수호부하기 위한 특수 도구로 개발했습니다. 비명검은 <em>+2 강타 (중급) 은제 장검</em>에 몇 가지 추가 능력이 더해진 무기다. 각 넥시안 봉인검은 60피트 내의 언데드를 감지할 수 있으며, 해당 범위 내에 언데드가 사라질 때까지 큰 비명을 지른다. 필요 시 이 비명을 [sonic] 폭발로 발사할 수도 있다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">2</span> 상호작용</p>\n<p><strong> Frequency</strong> 하루에 한 번</p>\n<hr />\n<p><strong>Effect</strong> 비명검은 가장 잘하는 일을 하며 귀를 찢는 비명을 지른다. @Template[cone|distance:30] 내의 모든 생물은 @Damage[10d6[sonic]]의 피해를 받습니다 (@Check[fortitude|dc:31|basic] 내성). 내성에 실패한 생물은 1 라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{귀먹음}가 됩니다. 또는 대실패 시 1시간 동안 귀머거리가 됩니다</p>",
   "traits": [
    "arcane",
@@ -29399,7 +29399,7 @@
   ]
  },
  "boots-of-the-secret-blade": {
-  "name": "비밀의 칼날 부츠",
+  "name": "비밀의 칼날의 부츠",
   "description": "<p>어떤 상황에도 대비해 무기를 완벽히 갖추고 있다는 점을 자랑스럽게 생각한다. 짙은 회색 부츠는 평범해 보이지만, 언제든 비밀의 칼날을 소환할 수 있음을 알고 있다. 아무리 철저히 수색해도 아직 존재하지 않는 칼은 찾을 수 없다.</p>\n<p><strong>활성화-비밀의 칼 뽑기</strong> <span class=\"action-glyph\">1</span> (조작)</p>\n<p><strong>발동 빈도</strong> 시간당 1회</p><hr /><p><strong>효과</strong> 부츠를 내려다보고, 그 안에서 단검을 뽑아 원거리 또는 근접 공격을 가한다. 이 단검은 마법으로 생성되며 뽑기 전에는 존재하지 않는다. 단검은 다음에 '비밀의 칼 뽑기'를 사용할 때까지 물리적 물체로 남아 있으며, 새로운 칼이 생성되면 사라진다.</p>",
   "traits": [
    "invested",
@@ -29649,7 +29649,7 @@
   ]
  },
  "broadleaf-shield": {
-  "name": "넓은잎 방패",
+  "name": "광엽 방패",
   "description": "<p>나무에서 막 딴 거대한 잎사귀처럼 보이지만, <em>넓은잎 방패</em>는 매우 튼튼하다. 또한 재생 속도가 빨라, 부서진 후 햇빛 아래 10분 연속 노출 시 완전히 복구된다.</p>\n<p>매일 새벽마다 잎은 계절에 맞는 모습으로 변합니다. 방패를 휘두르는 동안 방패의 색상에 따라 특정 피해 유형에 대한 저항력 3을 얻습니다. 방패를 든 상태에서는 이 저항력이 두 배로 증가합니다.</p>\n<ul>\n<li><strong>분홍색</strong> (공극 저항성) 봄에는 잎이 섬세한 꽃잎 같은 분홍색을 띠며 생명의 에너지를 발산합니다.</li>\n<li><strong>녹색</strong> (내화성) 여름에는 잎이 왁스 코팅이 된 깊고 풍부한 녹색을 띱니다.</li>\n<li><strong>주황색</strong> (독성 저항성) 가을에는 잎이 주황색, 빨간색 또는 노란색으로 변하며 약간 탈수됩니다.</li>\n<li><strong>갈색</strong> (내한성) 겨울에는 잎이 마르고 갈색으로 변하며 죽은 상태가 됩니다.</li>\n</ul>\n<hr />\n<p><strong>활성화 - 계절 변경</strong> <span class=\"action-glyph\">1</span> (농축)</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 방패가 순간적으로 계절을 거치는 듯 변하며, 선택한 색상으로 5분간 유지됩니다.</p>",
   "traits": [
    "magical",
@@ -29788,7 +29788,7 @@
   ]
  },
  "stalwarts-banner": {
-  "name": "용맹한 자의 깃발",
+  "name": "위엄의 깃발",
   "description": "<p>이 마법 깃발은 여름 풀의 진한 녹색을 닮았다. 굳건한 자의 깃발을 들고 있을 때, 다음 능력을 사용할 수 있다.</p>\n<p><strong>활성화-굳건히 버티기</strong> <span class=\"action-glyph\">1</span> (집중)</p>\n<p><strong>발동 빈도</strong> 분당 1회</p><hr /><p><strong>효과</strong> 당신과 당신의 깃발 오라 안에 있는 아군들은 5의 임시 체력을 얻으며, 당신을 이동시키거나 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐}로 만드는 모든 효과에 대해 체력 인내 DC와 반사 신경 DC에 +1 상태 보너스를 받는다. 이 효과는 1라운드 동안 지속된다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.f2r7r0t8n7LKuj6C]{효과: 불굴의 깃발}</p>",
   "traits": [
    "aura",
@@ -30033,7 +30033,7 @@
   ]
  },
  "countering-charm": {
-  "name": "반격의 마법",
+  "name": "대항 부적",
   "description": "<p>이 반짝이는 부적은 납 같은 내포물이 있는 결함이 있는 보석으로 만들어졌다. 주문 시전자는 자신이 투자했거나 동의한 대상이 투자한 <em>대응 부적</em>에 주문을 시전할 수 있다. 주문의 효과는 발동되지 않으며, 대신 그 힘이 부적 안에 저장되어 기존에 있던 주문을 대체한다. 이 부적은 주문 슬롯에서 시전된 주문만 저장할 수 있으며, 캔트립이나 포커스 주문은 저장할 수 없다. 부적이 투여된 동안, 투여한 생물은 부적 안에 저장된 주문을 알고 있으며, 해당 주문이 시전될 때 자동으로 식별한다.</p>\n\n<p><strong>발동</strong> 당신이 부적에 저장된 주문의 대상이 되거나 그 범위 내에 있을 때</p>\n<p><strong>요구 사항</strong> 빈 손이어야 합니다</p>\n<hr />\n<p><strong>효과</strong> 당신은 부적을 제시하고, 부적에 저장된 주문의 랭크과 [[/r 1d20+20 #Counteract]]{+20}의 반격 수정자를 사용하여 발동된 주문을 반격하려 시도합니다. 이로 인해 부적에 저장된 주문이 소모됩니다.</p>",
   "traits": [
    "invested",
@@ -30360,7 +30360,7 @@
   ]
  },
  "seers-flute": {
-  "name": "예언자의 피리",
+  "name": "예언자의 플루트",
   "description": "<p>이 상아 플루트에는 수많은 눈 조각이 새겨져 있습니다. 각 눈동자는 옥으로, 홍채는 반보석으로 만들어졌습니다. 플루트를 연주할 때 눈들이 펄럭이며 뜨고 감기는데, 마치 수많은 독립된 존재들의 눈을 담고 있는 듯합니다. 이 피리를 연주할 때, 지각 체크 및 공연 체크에서 +1 아이템 보너스를 얻습니다. </p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>효과</strong> 이 도구의 충전량을 소모하여 해당 목록의 주문을 시전한다.</p><ul><li><strong>캔트립</strong> @UUID[Compendium.pf2e.spells-srd.Item.izcxFQFwf3woCnFs]{가이드}, @UUID[Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA]{오라 읽기}</li><li><strong>1레벨</strong> @UUID[Compendium.pf2e.spells-srd.Item.5LYi9Efs6cko4GGL]{물건 읽기}</li></ul><hr /><p><strong>제작 요건</strong> 나열된 모든 주문 랭크의 시전 1회분을 공급하십시오.</p>",
   "traits": [
    "coda",
@@ -31175,7 +31175,7 @@
   "name": "비단 의식용 갑옷"
  },
  "stampede-medallion": {
-  "name": "스탬피드 메달리온",
+  "name": "대혼란 메달리온",
   "description": "<p>이 메달리온을 에이돌론에게 투자하면, 에이돌론의 심장 바로 위에 마법으로 부착된, 에이돌론의 작은 보석 장식 모형으로 형태 변신합니다. 에이돌론이 메달리온을 착용하는 동안, 밀치기 또는 걸어 넘어뜨리기 운동 체크에서 +2 아이템 보너스를 얻습니다.</p>\n<hr />\n\n<p><strong>빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 당신의 에이돌론이 메달리온과 당신과의 연결에 집중하여, 순간적으로 수십 개의 자신의 복제체로 이루어진 돌진 군단을 창조합니다. 이 돌진은 사방으로 난폭하게 퍼져 나가며, 당신의 에이돌론을 중심으로 반경이 에이돌론의 이동 속도와 동일한 범위 내에서 지면에 있는 적을 짓밟고 아군을 피해 지나간다. 이 적들은 각각 @Damage[8d6[bludgeoning]|options:area-damage]의 피해를 입으며, @Check[reflex|dc:29|basic|name:Eidolon Stampede|options:area-effect] 내성에 성공할 수 있다. 대실패 시, 적들은 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태로 넘어진다. 피해를 입힌 후, 에이돌론들의 돌진은 나타난 것처럼 순식간에 사라진다.</p>",
   "traits": [
    "eidolon",
@@ -32019,7 +32019,7 @@
   ]
  },
  "tales-in-timber": {
-  "name": "나무 속 이야기",
+  "name": "목재 속 이야기",
   "description": "<p>수십 개의 그림 이야기-나무 조각, 그림, 또는 불로 새긴 그림으로 표현된-이 <em>+1 탄력성 목제 흉갑</em>의 모든 외부 표면을 장식하고 있다. 모두 오래되었으며, 상당수는 진정 고대적이라 수억 년 전 나무의 평면에서 펼쳐진 이야기를 묘사한다. 지식 회상 능력에 대한 자연 체크 시 +2 아이템 보너스를 얻는다. @UUID[Compendium.pf2e.spells-srd.Item.hp6Q64dl7xbdn4gQ]{집단 기억} 의식을 알고 있다면, 주 시전자인 경우 오컬트 대신 자연을 사용할 수 있다.</p>\n<hr />\n\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 갑옷은 1시간 동안 갑옷에 새겨진 생물 중 하나의 나무 조각상 모습으로 변하게 합니다. 이는 (3rd) @UUID[Compendium.pf2e.spells-srd.Item.i35dpZFI7jZcRoBo]{환상 변장}이지만, 갑옷에 새겨진 어떤 생물체로도 변신할 수 있습니다. 이 효과는 당신의 크기나 신체 능력을 변경하지 않으며, 생물체의 외형을 당신의 크기에 맞게 조정합니다. 활성화를 해제할 수 있습니다. 이 변장은 당신을 나무 생물과 다소 유사하게 만들 정도로만 현실적입니다. 지속되는 동안 두 가지 주문이 적용됩니다: @UUID[Compendium.pf2e.spells-srd.Item.YWrfKetOqDwVFut7]{오크의 회복력}과 @UUID[Compendium.pf2e.spells-srd.Item.qvwIwJ9QBihy8R0t]{식물과 대화하기}. 정지 상태를 유지하면, <em>환상적 변장</em>의 상태 보너스에 더해, 기만 체크 및 무생물 목조 조각상으로 보이기 위한 난이도(DC)에 +2 아이템 보너스를 얻습니다.</p>",
   "traits": [
    "invested",
@@ -32749,7 +32749,7 @@
   ]
  },
  "chainbreaker-greater": {
-  "name": "체인브레이커 (중급)",
+  "name": "사슬파괴자 (중급)",
   "description": "<p>이 <em>+2 강타용 곡괭이</em>의 머리 부분에는 날개를 펼친 독수리의 정교한 조각이 새겨져 있다. 이 도구를 사용하여 수갑이나 감옥의 철창처럼 구속하거나 가두기 위한 목적으로 제작된 방치된 물체를 강타할 때, 해당 물체의 경도 첫 10점을 무시합니다.</p><hr /><p><strong>Activate-Liberating Strike</strong> <span class=\"action-glyph\">2</span></p>\n<p><strong>발동 빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 당신은 <em>체인브레이커</em>로 생물을 강타합니다. 명중하여 피해를 입힌 경우, 대상으로부터 60피트 이내에 있는 @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기} 또는 @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{억제} 아군 한 명이 반응을 사용해 @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{탈출}을 시도할 수 있다.</p>",
   "traits": [
    "fatal-d10",
@@ -33233,7 +33233,7 @@
   ]
  },
  "feral-linguist-greater": {
-  "name": "야성 언어술사 (중급)",
+  "name": "야생 언어학자 (중급)",
   "description": "<p><strong>활성화</strong> 주문 시전 (행동 1회 추가)</p>\n<hr />\n<p>이 나무 휘슬은 솜으로 채워져 있으며 울부짖는 사슴, 짖는 늑대, 지저귀는 새의 모습이 새겨져 있습니다. 이 휘슬을 불어 @UUID[Compendium.pf2e.spells-srd.Item.wp09USMB3GIW1qbp]{동물 형태} 주문을 시전할 때 촉매로 사용할 수 있습니다. 이때 말할 수 있는 능력을 유지합니다.</p>\n<p>주문 지속 시간 동안 한 번, 전투 형태로 있을 때 주문을 시전할 수 없다는 제한을 무시하고 4랭크 이하의 주문이나 모든 레벨의 캔트립을 시전할 수 있습니다.</p>",
   "traits": [
    "catalyst",
@@ -33350,7 +33350,7 @@
   ]
  },
  "indomitable-keepsake": {
-  "name": "불굴의 유품",
+  "name": "불굴의 유물",
   "description": "<p><strong>사용법</strong> 갑옷에 부착</p>\n\n<p><strong>발동</strong> 화기 공격으로 치명타를 입었습니다.</p><hr /><p>이 부적은 보통 주머니에 넣거나 갑옷 안쪽에 부착하는 작은 정서적 물건 형태를 띱니다. 활성화하면 공격 속도가 느려지고, 부적이 파괴되면서 치명타로 인한 피해를 10 감소시킵니다. 이 효과는 치명타로 인한 추가 피해만 감소시키며, 일반 공격 시 입히는 피해량 이하로 낮출 수는 없습니다.</p>",
   "traits": [
    "consumable",
@@ -33619,7 +33619,7 @@
   ]
  },
  "knaves-standard": {
-  "name": "나브의 깃발",
+  "name": "도적의 깃발",
   "description": "<p>이 마법 깃발은 검정에서 빨강으로 그라데이션 처리된 딥다이 염색으로 얼룩지고 고르지 않게 물들여져 있다. 깃발의 오라 내에 있는 당신이나 아군이 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태의 대상에게 대성공으로 공격에 성공할 때마다, 해당 공격은 추가로 1d4 정밀 피해를 입힌다.</p>",
   "traits": [
    "aura",
@@ -33694,7 +33694,7 @@
   ]
  },
  "oil-of-potency": {
-  "name": "효능의 기름",
+  "name": "위력 기름",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p> <hr /><p>이 두껍고 점성이 강한 오일을 무기나 갑옷에 바르면 해당 아이템은 즉시 마법적으로 강력해집니다. 아이템이 무기일 경우 일시적으로 <em>+1 강타 무기</em>가 되며, 갑옷일 경우 일시적으로 <em>+1 탄력성 갑옷</em>이 됩니다. 이 효과는 1분 동안 지속됩니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.1OLlwExJz7ii2Lu2]{효과: 효능의 기름} </p>",
   "traits": [
    "consumable",
@@ -34369,7 +34369,7 @@
   ]
  },
  "smoke-fan-greater": {
-  "name": "연기 분사 (중급)",
+  "name": "연기 부채 (중급)",
   "description": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>연기 팬을 활성화하면 색깔 있는 연기 구름이 생성됩니다. 연기는 반경 20피트를 채웁니다. 창조자는 연기 팬 생성 시 연기의 색상을 선택하거나, 여러 색상이 혼합된 연기로 만들 수 있습니다. 연기 영역 내의 생물들은 @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 상태가 되며, 그들에게는 다른 모든 생물들이 가려집니다. 연기는 1분 동안 지속되거나 강한 바람에 흩어질 때까지 유지됩니다.</p>",
   "traits": [
    "consumable",
@@ -35020,7 +35020,7 @@
   ]
  },
  "daredevil-boots-greater": {
-  "name": "대담한 부츠 (중급)",
+  "name": "무모한 부츠 (중급)",
   "description": "<p>이 화려한 색상의 부드러운 밑창 부츠는 위험한 묘기를 수행하도록 동기를 부여하며 성공할 수 있는 기민함을 부여합니다. 이 부츠는 곡예 체크 시 +3 아이템 보너스를, 적의 공간을 회피 돌파하는 체크 시 +2 상황 보너스를 부여합니다.</p>\n<p>이 부츠는 단단한 표면을 움켜잡아 추락을 피할 수 있게 해주며, 손이 자유롭지 않은 상황에서도 '가장자리 붙잡기' 반응을 사용할 수 있게 합니다. 추락 거리를 10피트 줄여 계산하거나, '고양이 추락' 재주를 보유한 경우 해당 재주의 효과를 결정할 때 곡예 숙련도 등급을 한 단계 높게 적용합니다. '고양이 추락' 재주를 보유한 상태에서 곡예 숙련도가 전설적인 수준이라면, 라운드당 60피트에서 정상 추락 속도까지 추락 속도를 선택할 수 있습니다.</p>\n<p><strong>활성화-무모한 임펄스</strong> <span class=\"action-glyph\">2</span> (집중)</p>\n<p><strong>발동 빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 부츠가 당신에게 @UUID[Compendium.pf2e.spells-srd.Item.aqRYNoSvxsVfqglH]{자유로운 이동}을 부여합니다.</p>",
   "traits": [
    "invested",
@@ -35622,7 +35622,7 @@
   ]
  },
  "grim-trophy-greater": {
-  "name": "암울한 트로피 (중급)",
+  "name": "암울한 전리품 (중급)",
   "description": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (집중)</p><hr /><p>이 부적은 다양한 형태로 존재하며, 가장 흔한 형태는 인간형 생물의 잘린 부위를 끔찍한 방식으로 전시한 것입니다. 이 트로피를 활성화할 때, 최대 세 명의 대상에게 @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{사기 저하} 효과를 주기 위해 협박 체크를 수행하십시오. 당신의 협박 체크 결과를 대상들의 DC 세 개 모두와 비교합니다.</p>",
   "traits": [
    "consumable",
@@ -36567,7 +36567,7 @@
   ]
  },
  "submersible-helmet-greater": {
-  "name": "잠수 헬멧 (중급)",
+  "name": "잠수용 헬멧 (중급)",
   "description": "<p>A <em>중급 잠수 헬멧</em>은 바이저와 플랜지형 후면이 달린 유선형 살렛입니다. 바이저를 내린 상태로 헬멧을 착용하면 수중에서 선명하게 보고, 듣고, 말할 수 있습니다. 또한 수영 운동 체크 시 +2 아이템 보너스를 받습니다.</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">3</span> (집중, 조작)</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 물속에서 8시간 동안 숨을 쉴 수 있습니다. 이 시간 동안 수영 속도는 지상 속도와 동일합니다.</p>",
   "traits": [
    "invested",
@@ -36935,7 +36935,7 @@
   ]
  },
  "codex-of-unimpeded-sight-greater": {
-  "name": "방해받지 않는 시야의 대서 (중급)",
+  "name": "방해받지 않는 시야의 코덱스 (중급)",
   "description": "<p>이 위엄 있는 두꺼운 서적 표지에는 눈가리개를 한 여성의 모습이 비쳐 보인다.</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">f</span> 예지</p>\n<p><strong>발동 빈도</strong> 시간당 한 번</p>\n<p><strong>요구 사항</strong> 마지막 행동이 이 마법서에서 준비한 점술 주문을 시전한 것이어야 함</p><hr /><p><strong>효과</strong> 이 마법서는 사물의 진실을 엿볼 수 있게 해줍니다. 지식 탐색 또는 회상. 이를 사용할 때, 지식 탐색을 위한 지각 체크 또는 지식 회상을 위한 기술 체크에서 +1 아이템 보너스를 얻습니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.ApGnHnZEK7nv3IqL]{효과: 방해받지 않는 시야의 코덱스 (중급)}</p>",
   "traits": [
    "grimoire",
@@ -37661,7 +37661,7 @@
   ]
  },
  "cloak-of-repute": {
-  "name": "명성의 망토",
+  "name": "명성 망토",
   "description": "<p>화려하고 사치스러운 이 망토는 눈부신 보석과 모피 장식으로 장식되어 있다. 이 망토를 착용하면 즉각적인 명성과 주목도를 얻어, 인상을 남기기 위한 외교 기술 체크 시 +1 아이템 보너스를 받는다. 당신에 대해 알아내려고 시도하는 생물들은 당신에 대한 정보 수집 시 동일한 보너스를 받는다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">2</span> 명령</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 당신은 자신의 위엄을 이용해 생물에게 요청을 합니다. 체크에서 성공을 굴리면 대신 대성공을 얻습니다.</p>",
   "traits": [
    "invested",
@@ -37774,7 +37774,7 @@
   ]
  },
  "mantis-embrace-greater": {
-  "name": "사마귀 포옹 (중급)",
+  "name": "사마귀의 포옹 (중급)",
   "description": "<p>이 세련된 붉은 장갑은 곤충의 키틴을 닮도록 처리된 가죽 판으로 제작되었으며, 착용자는 이 장갑을 착용하면 @UUID[Compendium.pf2e.actionspf2e.Item.PMbdMWc2QroouFGD]{그랩} 체킹 시 +3 아이템 보너스를 얻는다. @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기}에 +3 아이템 보너스를 부여합니다.</p>\n<p><strong>활성화-분쇄 포옹</strong> <span class=\"action-glyph\">1</span> (조작) </p>\n<p><strong>사용 빈도</strong> 시간당 한 번</p>\n<p><strong>요구 사항</strong> 당신은 생물을 그랩하고 있다</p><hr /><p><strong>효과</strong> 당신이 그랩하고 있는 생물을 근접 무기나 비무장 공격으로 강타한다. 이 강타는 추가로 5d6 정밀 피해를 입히며 죽음 특성을 얻는다. 분쇄 포옹으로 살해된 생물의 시체는 너무 끔찍하게 피해를 입어, @UUID[Compendium.pf2e.spells-srd.Item.FM3SmEW8N1FCRjqt]{말하는 시체} 주문과 같이 온전한 시체가 필요한 효과를 시체에 적용할 수 없습니다.</p>",
   "traits": [
    "invested",
@@ -37903,7 +37903,7 @@
   ]
  },
  "life-saver-mail-greater": {
-  "name": "생명을 구하는 갑옷 (중급)",
+  "name": "생명 구원 메일 (중급)",
   "description": "<p>이 갑옷은 <em>+3 대강화 대탄력성 강철 갑옷</em>으로, 눈에 띄는 위치에 커다란 녹색 보석이 박혀 있습니다. 이 갑옷을 착용하면 극한 상황에서도 자신을 보호해 줄 것이라는 안도감을 느끼게 됩니다. 보석은 생명력으로 빛나며 횃불처럼 밝은 녹색 빛을 발산한다. 집중 특성을 지닌 액션 하나로 이 빛을 억제하거나 재개할 수 있다.</p>\n<hr />\n<p><strong>활성화-두 번째 기회</strong> <span class=\"action-glyph\">R</span> (집중)</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<p><strong>발동 조건</strong> 당신이 죽을 때</p>\n<p><strong>효과</strong> 갑옷의 보석이 회색으로 변하며 생명 에너지를 당신과 공유합니다. 갑옷이 당신에게 @UUID[Compendium.pf2e.spells-srd.Item.Hnc7eGi7vyZenAIm]{생명의 숨결}을 시전합니다.</p>\n<hr />\n<p><strong>활성화-보호의 빛</strong> <span class=\"action-glyph\">2</span> (집중, 조작)</p>\n<p><strong>효과</strong> 보석에 손가락을 탭하여 녹색 빛의 보호막을 생성합니다. (9th)랭크 @UUID[Compendium.pf2e.spells-srd.Item.TVKNbcgTee19PXZR]{Shield} 주문을 시전합니다. 이 주문은 일반적인 규칙에 따라, 방패막기로 사용한 경우 10분 동안 (이번 활성화나 다른 방법을 통해) <em>shield</em>를 다시 시전할 수 없습니다.</p>",
   "traits": [
    "invested",
@@ -37937,7 +37937,7 @@
   ]
  },
  "ring-of-the-ram-greater": {
-  "name": "뿔의 반지 (중급)",
+  "name": "숫양의 반지 (중급)",
   "description": "<p>이 무거운 철제 고리는 곱슬거리는 뿔을 가진 숫양의 머리 모양으로 제작되었습니다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">A</span> 이상 (상호작용)</p>\n<p><strong>빈도</strong> 분당 1회</p>\n<hr />\n<p><strong>효과</strong> 60피트 내 시야에 있는 적 한 명을 향해 뿔 모양의 충격파가 내리꽂힌다. 이 아이템을 활성화하는 데 소모하는 행동 수(1~3)에 따라 충격파의 강도가 결정된다.</p>\n<p>이 타격은 사용한 행동당 3d6 역장 피해를 입히고, 사용한 행동당 5피트씩 대상을 밀쳐낸다. 대상은 @Check[fortitude|dc:32|name:Greater Ring of the Ram] 내성을 시도해야 한다.</p>\n<p>반지를 3회 행동으로 활성화할 경우, 60피트 내 단일 대상 대신 @Template[cone|distance:30] 내 모든 생물을 대상으로 하는 다수의 마법 돌격으로 힘을 분산시킬 수 있습니다.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[3d6[force]] 피해</p>\n<p><span class=\"action-glyph\">2</span> @Damage[6d6[force]] 피해</p>\n<p><span class=\"action-glyph\">3</span> @Damage[9d6[force]] 피해</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 절반의 피해를 입으며 절반의 거리만큼 밀려납니다.</p>\n<p><strong>실패</strong> 대상은 전체 피해를 입으며 전체 거리만큼 밀려납니다.</p>\n<p><strong>대실패</strong> 대상은 두 배의 피해를 입으며 두 배의 거리만큼 밀려난다.</p>",
   "traits": [
    "force",
@@ -37963,7 +37963,7 @@
   ]
  },
  "bloodseeker-beak-greater": {
-  "name": "블러드시커 부리 (중급)",
+  "name": "블러드시커 비크 (중급)",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">F</span> (집중)</p>\n<p><strong>Trigger</strong> 당신은 부착된 무기로 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태의 생물을 공격합니다.</p><hr /><p>이 길고 속이 빈 주둥이는 악명 높은 블러드시커 짐승에게서 채취한 것으로, 피가 조금씩 흘러내립니다.</p>\n<p>이 부리를 활성화하면, 피해 주사위 굴림에 추가로 2d4 정밀 피해를 입힙니다. 해당 생물에게 암습 피해를 입힐 경우, @Damage[2d4[bleed]]도 추가로 입힙니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.5XdkHIUgc6psBxQq]{효과: 블러드시커 부리}</p>",
   "traits": [
    "consumable",
@@ -38921,7 +38921,7 @@
   ]
  },
  "codebreakers-parchment": {
-  "name": "암호 해독가의 양피지",
+  "name": "암호 해독자의 양피지",
   "description": "<p>이 정교하게 제작된 평범해 보이는 양피지는 기밀 문서 작성에 유용합니다. 이 양피지에 글자를 쓰면 즉시 알아볼 수 없는 문자로 뒤섞여, 해독 기술 DC 20 체크가 필요합니다.</p>\n<hr />\n<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 명령</p>\n<hr />\n<p><strong>효과</strong> 뒤섞인 글자들이 원래 쓰여진 문장으로 정렬된다. 양피지를 식별해 보면 명령어로 활성화할 수 있지만, 그 명령어를 알아내기 위해서는 마법 식별에 대성공을 거둬야 한다.</p>\n<hr />\n\n<hr />\n<p><strong>효과</strong> 양피지에 불을 붙여 글자를 태워 없애지만, 양피지는 손상되지 않고 새로운 글씨를 쓸 수 있게 됩니다.</p>",
   "traits": [
    "illusion",
@@ -39025,7 +39025,7 @@
   ]
  },
  "searing-blade-greater": {
-  "name": "불타는 칼날 (중급)",
+  "name": "불타는 검 (중급)",
   "description": "<p>이 <em>+3 강타 (중급) @UUID[Compendium.pf2e.equipment-srd.Item.RSZwUlCzUX7Nb4UA]{대형 화염} 장검</em>은 화려한 황동 손잡이와 양식화된 불꽃 모양의 칼날을 지녔다. 이 검을 휘두를 때, 검날은 반짝이는 불빛을 닮은 광채를 발산하며 10피트 반경 내에 희미한 빛을 내뿜는다.</p>\n<hr />\n<p><strong>활성화-불 쏘기</strong> <span class=\"action-glyph\">2</span> (집중, 조작)</p>\n<hr />\n<p><strong>효과</strong> 당신은 검으로부터 @UUID[Compendium.pf2e.spells-srd.Item.6DfLZBl8wKIV03Iq]{점화} 캔트립을 (9th)랭크 아케인 마법으로 시전하며, 근접 공격 수정자를 사용합니다. <em>불타는 칼날</em>을 마법 공격 수정자로 삼습니다.</p>\n<hr />\n<p><strong>활성화-불꽃 방사</strong> <span class=\"action-glyph\">A</span> (오라, 집중, 불)</p>\n<p><strong>발동 빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> @Template[emanation|distance:10]의 불꽃이 <em>중급 불타는 검</em>에서 1분 동안 발산됩니다. 영역 내의 당신과 아군의 모든 무기 및 비무장 공격은 <em>불타는</em> 속성 룬의 효과를 얻습니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.4XO5mkjnh5riwZPM]{오라: 더 큰 불타는 칼날 (중급)}</p>",
   "traits": [
    "fire",
@@ -39978,7 +39978,7 @@
   ]
  },
  "banner-of-piercing-shards": {
-  "name": "관통 파편의 깃발",
+  "name": "관통하는 파편의 깃발",
   "description": "<p>이 마법 깃발 표면에는 마치 깨진 거울처럼 복잡하게 수놓인 파편과 균열 무늬가 새겨져 있다. 만져보면 항상 건조하지만, 거리에서 보면 마치 적의 피로 살짝 물든 듯 붉게 빛난다. 관통 파편의 깃발을 들고 있을 때 다음 능력을 사용할 수 있다.</p>\n<p><strong>활성화-파편이 상처를 찾아다닌다</strong> <span class=\"action-glyph\">1</span> (집중)</p>\n<p><strong>발동 빈도</strong> 분당 1회</p><hr /><p><strong>효과</strong> 날카롭게 갈린 유리 조각들이 마법의 깃발에서 근처 적의 새로 생긴 상처 속으로 격렬하게 쏘아집니다. 마법의 깃발은 @Damage[1d4[persistent,bleed]]의 피해를 깃발의 오라 내에 있는, 당신의 마지막 턴이 끝난 이후 피해를 입은 적에게 입힙니다.</p>",
   "traits": [
    "aura",
@@ -39986,7 +39986,7 @@
   ]
  },
  "gecko-pads-greater": {
-  "name": "도마뱀 패드 (중급)",
+  "name": "도마뱀 발바닥 (중급)",
   "description": "<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (조작)</p><hr /><p>도마뱀 발판은 손바닥 모양의 얇은 시계 장치로, 기존 장갑이나 생물의 손에 부착할 수 있습니다. 작동 시 회전하며 표면에 대한 그립력을 향상시키고, 장치 표면에 저장된 점성 물질을 서서히 방출하여 등반을 돕습니다. 손이 자유로운 한, 이 패드는 이동 속도와 동일한 등반 속도를 부여합니다.</p>\n<p>이 등반 속도는 1시간 동안 지속됩니다.</p>",
   "traits": [
    "clockwork",
@@ -40489,7 +40489,7 @@
   ]
  },
  "polished-demon-horn": {
-  "name": "연마된 악마의 뿔",
+  "name": "광택 처리된 데몬의 뿔",
   "description": "<p> 이 주문 심장은 매끄럽고 반짝이도록 연마된 데몬 뿔의 끝부분으로 만들어졌다. 이 아이템을 활성화하여 시전하는 모든 주문의 주문 DC는 17이다.</p><ul><li><strong>갑옷 </strong> 당신은 불경한 공격에 대한 저항력 2를 얻습니다.</li><li> <strong>무기</strong> <em>뿔</em>을 활성화하여 마법 부여 주문을 시전한 후, 해당 무기로 가하는 공격은 다음 차례가 끝날 때까지 추가로 1d4 정신 피해를 입힙니다.</li> </ul><p>@UUID[Compendium.pf2e.equipment-effects.Item.ft5LjQSa8mZkklhM]{효과: 연마된 데몬의 뿔 - 방어구}</p>\n<p> @UUID[Compendium.pf2e.equipment-effects.Item.WARLTi8unmPgmnNw]{효과: 연마된 데몬의 뿔 - 무기}</p><hr /><p><strong>활성화</strong> 주문 시전 </p>\n<p><strong>효과</strong> 당신은 @UUID[Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4]{혼란}(@Check[will|dc:17|basic|traits:cantrip,spell,mental,nonlethal])을 시전합니다.</p>",
   "traits": [
    "divine",
@@ -41139,7 +41139,7 @@
   "name": "결정화된 용의 심장"
  },
  "alacritous-horseshoes-greater": {
-  "name": "신속한 말굽 (중급)",
+  "name": "날렵한 말굽 (중급)",
   "description": "<p>이 단순한 철제 말굽을 일반 말이나 네 발 달린 동물 동료의 발굽에 부착하고 동물 동료가 이를 착용하면, 해당 생물은 지상 속도에 +10피트 아이템 보너스를 얻으며, 높이뛰기와 멀리뛰기 운동 체크에서 +3 아이템 보너스를 얻습니다.</p>\n<p>또한, 도약할 때 수평으로 점프하면 5피트 더 멀리 이동하거나 수직으로 점프하면 3피트 더 높이 도약할 수 있습니다.</p>",
   "traits": [
    "companion",
@@ -42148,7 +42148,7 @@
   "name": "황동 발찌"
  },
  "floating-shield-greater": {
-  "name": "부유 방패 (중급)",
+  "name": "플로팅 실드 (중급)",
   "description": "<p>A <em>부유 방패</em>는 보통 날개 문양으로 조각되어 있습니다. 이 버클러(경도 6, HP 24, BT 12)는 단독으로도 당신을 보호할 수 있습니다.</p>\n\n<p><strong>빈도</strong> 자유롭게</p>\n<hr />\n<p><strong>효과</strong> 방패가 마법처럼 스스로 풀려 팔에서 떨어져 옆 공중에 떠다니며, 마치 방패를 들어 올린 것처럼 자동으로 보너스를 부여합니다.</p>\n<p>방패를 휘두르지 않으므로 방패로 방패 막기 같은 반응을 사용할 수 없지만, 양손을 사용할 때도 그 혜택을 얻습니다.</p>\n<p>1분이 지나면 방패는 땅에 떨어지며 공중에 떠 있는 효과가 종료됩니다. 방패가 당신과 인접해 있을 때, 상호작용을 통해 잡으면 공중에 떠 있는 효과를 조기에 종료할 수 있습니다.</p>",
   "traits": [
    "magical"
@@ -42435,7 +42435,7 @@
   ]
  },
  "big-rock-bullet": {
-  "name": "빅 록 불릿",
+  "name": "대형 암석탄",
   "description": "<p><strong>탄약</strong> 슬링 탄환</p>\n\n<hr />\n<p>큰 바위 탄환은 무거운 화강암으로 만들어진 슬링 탄환이지만, 각 탄환은 보이는 것보다 훨씬 더 무겁게 느껴집니다. 활성화되면 큰 바위 탄환은 목표물에 맞기 직전에 거대한 바위로 변합니다. 성공 시 대상은 @Damage[4d6[bludgeoning]]의 피해를 입습니다. 명중 굴림에 실패하더라도(대실패 제외) 대상은 @Damage[2d6[bludgeoning]]의 피해를 입습니다. @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.uG0Z8PsyZtsYuvGR]{바위 잡기} 반응을 가진 생물은 큰 바위 탄에 대해 이를 사용할 수 있습니다.</p>",
   "traits": [
    "consumable",
@@ -42513,7 +42513,7 @@
   "description": "<p>다운타임 동안 연금술 아이템 제작을 위해서는 연금술사의 실험실이 필요합니다.</p>\n<p>확장된 연금술사 실험실은 연금술 아이템 제작 시 제작 체크 능력치에 +1 아이템 보너스를 부여합니다.</p>"
  },
  "staff-of-the-unblinking-eye": {
-  "name": "깜빡이지 않는 눈의 지팡이",
+  "name": "깜빡임 없는 눈의 지팡이",
   "description": "<p>이 매끈한 나무 지팡이의 돌로 된 머리 부분은 눈꺼풀 없는 눈처럼 조각되어 있다. 이 지팡이를 휘두를 때, 이니셔티브를 위한 지각 체크에서 +1 상태 보너스를 얻는다.</p>\n<p><strong>활성화</strong> 주문 시전</p>\n<hr />\n<p><strong>효과</strong> 지팡이의 충전량을 소모하여 지팡이 목록에 있는 주문을 시전한다.</p>\n<ul>\n<li><strong>캔트립</strong> @UUID[Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl]{마법 탐지}</li>\n<li><strong>1레벨</strong> @UUID[Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh]{정확한 타격}</li>\n<li><strong>2차</strong> @UUID[Compendium.pf2e.spells-srd.Item.pZTqGY1MLRjgKasV]{암흑 시야}, @UUID[Compendium.pf2e.spells-srd.Item.jwK43yKsHTkJQvQ9]{보이지 않는 것 보기}, @UUID[Compendium.pf2e.spells-srd.Item.vTQvfYu2llKQedmY]{번역}</li>\n</ul>\n<p><strong>제작 요건</strong> 나열된 모든 계급의 모든 주문에 대해 한 번의 시전 기회를 공급하십시오.</p>",
   "traits": [
    "magical",
@@ -42537,7 +42537,7 @@
   ]
  },
  "sash-of-prowess-greater": {
-  "name": "위엄의 허리띠 (중급)",
+  "name": "용맹의 허리띠 (중급)",
   "description": "<p>이 소박한 띠는 허리나 가슴에 두를 수 있습니다. 기량 띠는 종종 수련한 사원을 상징하는 색상이나 문양을 지니지만, 이로리의 열린 손과 같은 종교적 상징을 나타내기도 합니다. 곡예과 운동 기술 체크에서 +3 아이템 보너스를 얻습니다.</p><hr /><p><strong>활성화-수월한 숙련</strong> <span class=\"action-glyph\">f</span> (집중)</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<p><strong>Trigger</strong> 곡예 또는 운동 능력 체크에서 성공할 때</p><hr /><p><strong>효과</strong> 대신 대성공합니다.</p>\n<p><strong>활성화-내면의 힘의 비축</strong> <span class=\"action-glyph\">f</span> (집중)</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p><hr /><p><strong>효과</strong> 1점의 포커스를 얻습니다. 이 포커스는 기 주문을 시전할 때만 사용할 수 있습니다. 이번 턴이 끝날 때까지 이 포커스를 사용하지 않으면 소멸됩니다.</p><hr /><p><strong>제작 요구 사항</strong> 당신은 기 주문을 시전할 수 있는 몽크입니다.</p>",
   "traits": [
    "focused",
@@ -43082,7 +43082,7 @@
   ]
  },
  "euphoric-loop-greater": {
-  "name": "황홀한 순환 (중급)",
+  "name": "유포릭 루프 (중급)",
   "description": "<p><strong>활성화</strong> 주문 시전</p><hr /><p>이 촉매제는 보름달 아래에서 채취한 뒤틀린 묘목 껍질로 만들어집니다. @UUID[Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6]{매혹} 주문을 시전할 때 사용하면, 주문 대상 모두에게 황홀한 경험을 선사합니다. 주문이 끝날 때, 주문 해제를 시도하더라도, 매혹 상태와 현실 사이의 갑작스러운 정신적 불협화음으로 인해 <em>매혹</em> 주문의 모든 대상은 당신의 주문 DC에 맞서 의지 내성을 시도해야 합니다.</p><hr /><p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{기절 1} 상태가 되거나, 적대적 행동으로 인해 주문이 종료된 경우 @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{혼란} 상태가 1라운드 동안 지속됩니다.</p>\n<p><strong>실패</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{기절 2} 상태가 되거나, 적대적 행동으로 인해 주문이 종료된 경우 1라운드 동안 혼란 상태가 됩니다.</p>\n<p><strong>대실패</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{기절 3} 상태가 되거나, 적대적 행동으로 인해 주문이 종료된 경우 2라운드 동안 혼란 상태가 됩니다.</p>",
   "traits": [
    "catalyst",
@@ -43428,7 +43428,7 @@
   ]
  },
  "blood-drinker-blade-greater": {
-  "name": "혈액 흡수 검 (중급)",
+  "name": "피를 마시는 검 (중급)",
   "description": "<p>이 <em>+1 강타 상처 숏소드</em>은 손잡이에 이빨이 난 입 모양이 새겨져 있다. 칼날이 피를 흘릴 때마다, 마치 피의 맛에 힘을 얻은 듯 칙칙한 붉은 에너지로 빛난다.</p><hr /><p><strong>활성화-생명 흡수</strong> <span class=\"action-glyph\">2</span> (집중)</p>\n<p><strong>발동 빈도</strong> 시간당 1회</p>\n<p><strong>효과</strong> 피를 빨아먹는 칼날이 당신의 손을 이끌어 적을 베게 하고, 그들의 피로 당신을 먹여 살립니다. 이 칼날로 공격을 가하세요. 명중 시, 공격은 추가로 1d8 지속 출혈 피해를 입힙니다. 또한 1분 동안 1d8의 임시 체력을 얻습니다.</p>\n\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>요구 사항</strong> 가장 최근에 취한 행동은 생명 흡수로 생물에게 지속 출혈 피해를 성공적으로 입힌 것입니다</p>\n<p><strong>효과</strong> 칼날의 힘이 희생자에게서 더 많은 피를 뽑아낸다. 대상 생물은 @Damage[6d6[bleed]]의 피해를 입는다. 당신은 해당 생물이 입은 출혈 피해의 절반(저항력 등을 적용한 후)에 해당하는 임시 체력을 얻는다. 1분 후 남은 임시 체력은 소멸한다.</p>",
   "traits": [
    "agile",
@@ -43640,7 +43640,7 @@
   ]
  },
  "killers-belt-greater": {
-  "name": "킬러의 벨트 (중급)",
+  "name": "살인자의 벨트 (중급)",
   "description": "<p>이 검은 가죽 벨트에는 작은 핏빛 루비들이 장식되어 있으며, 가장 잔혹한 병사들만을 위한 패션 액세서리이다. 이 벨트를 착용하면 협박 체크에서 +2 아이템 보너스를 얻는다.</p>\n<p><strong>활성화-피 흘리는 루비</strong> <span class=\"action-glyph\">1</span> (조작)</p>\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>요구 사항</strong> 빈 손이고, 마지막 행동이 강타 또는 주문 명중 굴림으로 적에게 피해를 입힌 경우</p><hr /><p><strong>효과</strong> 당신은 허리띠에서 루비를 뽑아 가루로 부숴 버립니다. 이 가루가 방금 상처를 입힌 적에게 닿자마자 피부에 박혀 피를 흘리게 합니다. 대상은 @Damage[2d6[persistent,bleed]]의 피해를 입습니다. 루비는 24시간 후에 허리띠에 다시 나타납니다.</p>",
   "traits": [
    "invested",
@@ -44009,7 +44009,7 @@
   ]
  },
  "trueshape-bomb-greater": {
-  "name": "진정한 형태 폭탄 (중급)",
+  "name": "진형 폭탄 (중급)",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 타격</p>\n<hr />\n<p>진정한 모습 폭탄은 농축된 늑대풀과 기타 변신 방지 시약으로 채워집니다. 이 폭탄은 명중 굴림에 +3 아이템 보너스를 부여하며, 4d6 독 피해, 4d4 지속 독 피해, 그리고 4의 독 방사 피해를 입힙니다. 주 대상이 변형 또는 다형 효과의 영향을 받고 있다면, @Check[fortitude|dc:40] 내성 굴림에서 성공해야 하며, 그렇지 않으면 효과가 종료되고 생물은 원래 형태로 돌아갑니다. 이 폭탄으로부터 지속성 독 피해를 입은 대상은 동일한 DC로 또 다른 인내 내성 굴림에 성공해야만 변형 또는 다형 효과를 사용하여 형태 변신할 수 있습니다. 지속성 피해는 최대 1분 동안 지속될 수 있습니다.</p>",
   "traits": [
    "alchemical",
@@ -44683,7 +44683,7 @@
   ]
  },
  "banner-of-the-restful": {
-  "name": "평온의 깃발",
+  "name": "안식의 깃발",
   "description": "<p>이 복숭아빛 마법 깃발은 편안한 감시와 숙면을 약속합니다. 깃발의 오라 안에 있는 당신과 아군은 지각 DC에 +1 아이템 보너스를 얻으며, 극심한 추위와 더위로부터 보호받습니다.</p>",
   "traits": [
    "aura",
@@ -44804,7 +44804,7 @@
   ]
  },
  "radiant-prism": {
-  "name": "빛나는 프리즘",
+  "name": "광휘 프리즘",
   "description": "<p>이 유리 프리즘은 그 이름의 유래가 된 신전-사렌래, 데스나, 쉘린의 빛나는 프리즘-에 경의를 표합니다. 이 프리즘이 부착된 갑옷이나 무기는 부드러운 색빛으로 빛난다. 이 아이템을 활성화하여 시전하는 모든 주문의 DC는 35이다.</p><ul><li><strong>갑옷</strong> (빛) 프리즘을 활성화하여 캐스트 캔트립이 아닌 주문을 시전한 후, 당신은 @UUID[Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS]{횃불}과 같은 빛을 발하며 다채로운 반짝이는 색조로 희미한 빛을 내뿜어, @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 상태가 됩니다.</li><li><p><strong>무기</strong> 프리즘을 활성화하여 캐스트 캔트립이 아닌 주문을 시전한 후, 해당 무기로 가하는 공격은 다음 턴이 끝날 때까지 @UUID[Compendium.pf2e.equipment-srd.Item.LbdnZFlyLFdAE617]{빛나는} 속성 룬을 얻습니다.</p></li></ul><p><strong>활성화</strong> 주문 시전</p><hr /><p><strong>효과</strong> 당신은 @UUID[Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4]{빛}을 시전합니다.</p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>발동 빈도</strong> 하루에 한 번</p><hr /><p><strong>효과</strong> 당신은 @UUID[Compendium.pf2e.spells-srd.Item.XS7Wyh5YC0NWeWyB]{불꽃의 몸}</p>을 시전합니다",
   "traits": [
    "magical",
@@ -45039,7 +45039,7 @@
   ]
  },
  "bagpipes-of-turmoil": {
-  "name": "혼란의 백파이프",
+  "name": "소란의 백파이프",
   "description": "<p>백파이프를 좋아하는 이들이 이 회색 갈대와 검은 가죽으로 만든 악기의 소리를 좋아할지 모르나, 그 진정한 목적은 연주자의 적들에게 혼란을 퍼뜨려 각 음표마다 불화를 조장하는 것이다. 백파이프를 연주하는 동안, 당신은 공연 능력 체크 및 적에게 @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{사기 저하}.</p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>효과</strong> 이 도구의 충전량을 소모하여 해당 목록의 주문을 시전한다.</p><ul><li><strong>Cantrip</strong> @UUID[Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4]{Daze}</li><li><strong>1st</strong> @UUID[Compendium.pf2e.spells-srd.Item.7ZinJNzxq0XF0oMx]{Bane}</li></ul><hr /><p><strong>제작 요구 사항</strong> 나열된 모든 랭크의 나열된 모든 주문에 대해 한 번의 시전분을 공급하십시오.</p>",
   "traits": [
    "coda",
@@ -45206,7 +45206,7 @@
   ]
  },
  "dust-of-corpse-animation-greater": {
-  "name": "시체 소생의 가루 (중급)",
+  "name": "시체 소생의 먼지 (중급)",
   "description": "<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (조종)</p><hr /><p>이 검은 주머니에는 고운 뼈 가루로 보이는 것이 들어 있다. 시체 위에 특별한 패턴으로 이 가루를 뿌리면 언데드 생물로 변한다. 생겨나는 언데드의 종류는 시체의 상태에 따라 달라지며, <em>해골</em> 또는 <em>좀비</em>가 됩니다. 언데드의 레벨이 11을 초과할 경우, 이 가루는 시체를 움직이게 하지 못합니다. 시체는 생성하려는 언데드에 적합한 크기와 유형이어야 합니다. 예를 들어, <em>해골 말</em>을 소생시키려면 말의 해골에 가루를 뿌려야 합니다. 해당 레벨 범위에 적합한 언데드가 여러 종류인 경우(중형 휴머노이드 해골의 경우 <em>해골 경비병</em> 또는 <em>스켈레톤 챔피언</em> 등), 원하는 언데드를 선택한다.</p>\n<p>생동하는 언데드는 <em>하수인</em> 특성을 지니며, 커맨더 시 2개의 행동을 사용할 수 있습니다. 현재 턴에 명령을 내리는 것은 활성화 과정의 일부입니다. 언데드 생물은 1분 동안 움직이다가 시체 형태로 붕괴됩니다. 평소와 같이, 최대 4명의 하수인을 통제할 수 있습니다.</p>",
   "traits": [
    "consumable",
@@ -45371,7 +45371,7 @@
   ]
  },
  "salve-of-antiparalysis-greater": {
-  "name": "마비 저항 연고 (중급)",
+  "name": "마비 해제 연고 (중급)",
   "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p>\n<hr />\n<p>이 얇은 연고를 생물에게 바르면 마법적 마비를 극복하는 데 도움이 됩니다. 생물이 석화된 상태라면 정상으로 돌아오며, 마비 해제에 있어 연고의 반격 수정자는 [[/r 1d20+31 #Counteract]]{+31}이고 반격 등급은 (6th)입니다.</p>",
   "traits": [
    "consumable",
@@ -46256,7 +46256,7 @@
   ]
  },
  "anointing-oil-greater": {
-  "name": "축성유 (중급)",
+  "name": "기름 부음 기름 (중급)",
   "description": "<p>라스트월의 많은 기사들이 휴대하는 이 호박색의 향기로운 기름은 전투에서 쓰러진 자들이 언데드로 부활하는 것을 막기 위한 것이다. <em>기름 부음</em>을 시체에 바르면 5등급 @UUID[Compendium.pf2e.spells-srd.Item.xRgU9rrhmGAgG4Rc]{평안한 안식}이 시체에 걸린다. 효과는 24시간 지속된다. 라스트월 기사단의 장례 의식에는 매장될 시신에 이 기름을 바르는 관습이 포함되기도 한다.</p>\n<p>이 기름은 언데드에게 혐오감을 유발한다. 이 기름으로 처리된 시체를 접촉한 언데드 생물은 접촉이 끊어지거나 기름의 효과가 사라질 때까지 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 1} 상태가 된다.</p>",
   "traits": [
    "consumable",
@@ -46325,7 +46325,7 @@
   ]
  },
  "talonstrike-blade-greater": {
-  "name": "발톱의 일격 검 (중급)",
+  "name": "발톱강타검 (중급)",
   "description": "<p><strong>사용권한</strong> 독수리 기사단의 일원인 캐릭터는 이 무기를 사용할 수 있습니다.</p><hr /><p>안도란 서부 국경을 체락시아 침공으로부터 지키는 임무를 맡은 독수리 기사단은 종종 이 <em>+2 강타 (중급) 표준 등급 은제 반검</em>을 휴대하는데, 이는 핀드와의 전투 시 더 큰 효용을 제공하도록 마법이 부여되었다. 강화된 발톱 타격 검은 '악마의 발톱' 발동 효과를 얻습니다.</p><hr /><p><strong>활성화-자유의 수호</strong> <span class=\"action-glyph\">r</span></p>\n<p><strong>발동 빈도</strong> 시간당 1회</p>\n<p><strong>발동 조건</strong> 당신이나 당신의 탈것이 물리 근접 또는 원거리 공격을 받는 경우</p>\n<p><strong>요구 사항</strong> 공격을 인지하고 있으며 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태가 아닙니다</p>\n<p><strong>효과</strong> 당신 또는 당신의 탈것은 해당 공격에 대해 AC에 +2 상황 보너스를 얻습니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.51PsXKJFe6XQ9WEX]{효과: 자유의 수호}</p><hr /><p><strong>활성화-악의 발톱</strong> <span class=\"action-glyph\">r</span> (아케인)</p>\n<p><strong>발동 빈도</strong> 하루에 한 번</p>\n<p><strong>발동 조건</strong> 그레이터 탈론스트라이크 블레이드로 근접 공격을 명중시키고 피해를 입힐 때</p>\n<p><strong>효과</strong> 방금 피해를 입힌 생물에게 (5th) @UUID[Compendium.pf2e.spells-srd.Item.ksLCg62cLOojw3gN]{평면 묶음}을 시전합니다. DC는 34입니다.</p><hr /><p><strong>제작 요구 사항</strong> 그레이터 탈론스트라이크 블레이드를 제작하려면 평면 묶음 주문을 한 번 시전해야 합니다.</p>",
   "traits": [
    "magical",

@@ -80,7 +80,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.aaua3vcUXyBFpRe9]{비상하는 날개}, @UUID[Compendium.pf2e.equipment-srd.Item.oCwTZg3JuwLSA7Yj]{비상하는 날개 (상급)}에 의해 부여됨</p>\n<p>지상 이동 속도 또는 20피트 중 더 큰 값과 같은 비행 이동 속도를 얻습니다.</p>"
  },
  "effect-eye-of-the-unseen-greater": {
-  "name_ko": "효과: 보이지 않는 것의 눈 (중급)",
+  "name_ko": "효과: 보이지 않는 자의 눈 (중급)",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.7CCGLWYzsRuodCMM]{보이지 않는 자의 눈 (상급)}에 의해 부여됨</p>\n<p>시각 지각 판정에 +2 아이템 보너스를 얻습니다.</p>"
  },
  "effect-dawnfire-beacon-major": {
@@ -364,7 +364,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.n5xlR7ApXgfJRkbF]{Longnight Tea}에 의해 부여됨</p>\n<p>수면 효과에 대한 내성 굴림에 +1 아이템 보너스를 얻는다.</p>"
  },
  "effect-codex-of-unimpeded-sight-greater": {
-  "name_ko": "효과: 방해받지 않는 시야의 대서 (중급)",
+  "name_ko": "효과: 방해받지 않는 시야의 코덱스 (중급)",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.nQIIO6LIot0ISQXH]{Codex of Unimpeded Sight (Greater)}에 의해 부여됨</p>\n<p>탐색을 위한 지각 판정 또는 지식 회상을 위한 기술 판정에 +1 아이템 보너스를 얻는다.</p>"
  },
  "effect-war-blood-mutagen-moderate": {
@@ -536,7 +536,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.60DuFyGQoZhPj4To]{먹잇감 뮤타젠 (하급)}으로 부여됨</p>\n<p>이동력에 +10 상태 보너스를 얻고 시의적절한 회피 반응을 얻는다. 동물과 야수는 당신을 상대로 하는 명중 굴림에 +2 상황 보너스를 얻는다.</p>"
  },
  "effect-potion-of-minute-echoes": {
-  "name_ko": "효과: 미세한 메아리의 포션",
+  "name_ko": "효과: 미세한 메아리의 물약",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.PTSdJqjiybZDxi4r]{미세한 메아리 물약}으로 부여됨</p>\n<p>듣기 위한 지각 판정에 +2 상태 보너스를 얻는다.</p>"
  },
  "effect-aeon-stone-pink-rhomboid": {
@@ -876,7 +876,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.SjbenbdzV4rgGxZP]{회의론자의 엘릭서 (상급)}에 의해 부여됨</p>\n<p>거짓말이든 글로 쓴 기만이든, 거짓을 알아차리기 위한 지각 판정과 지각 DC에 +3 아이템 보너스를 얻습니다. 의지 내성 굴림에도 동일한 아이템 보너스를 얻습니다.</p>"
  },
  "effect-demortification-oil": {
-  "name_ko": "효과: 악마화 제거 오일",
+  "name_ko": "효과: 악마화 제거 기름",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Cu2zf4wi8UGzsyVC]{탈사화 기름}에 의해 부여됨</p>\n<p>방어도(AC)에 +1 아이템 보너스를 얻습니다.</p>"
  },
  "effect-red-rib-gill-mask-lesser": {
@@ -916,7 +916,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.4DXupoMmwenFn4Kc]{죽음 흡수}에 의해 부여됨</p>\n<p>당신이 죽인 생물이 살아있었다면 명중 굴림과 피해 굴림에 +1 아이템 보너스를 얻습니다. 당신이 파괴한 생물이 언데드였다면 당신의 레벨의 두 배에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-wand-of-fey-flames": {
-  "name_ko": "효과: 페이의 불꽃 지팡이",
+  "name_ko": "효과: 페이의 불꽃 완드",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.QgNp6uyKuV2PiNbf]{요정 화염의 마법봉}에 의해 부여됨</p>\n<p>매혹 및 환영 주문에 대한 의지 내성 굴림에 -2 상태 페널티를 받습니다.</p>"
  },
  "effect-quicksilver-mutagen-moderate": {
@@ -928,7 +928,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.P1hk0BO89ihEAw8g]{블러드하운드 후각 자극기}에 의해 부여됨</p>\n<p>사거리 30피트의 부정확한 후각을 얻습니다.</p>"
  },
  "effect-goz-mask-major": {
-  "name_ko": "효과: 고즈 마스크 (상급)",
+  "name_ko": "효과: 고즈 가면 (상급)",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.qixSKcFT1OA4mIkp]{고즈 가면 (최상급)}에 의해 부여됨</p>\n<p>암시야를 얻습니다.</p>"
  },
  "effect-ethereal-crescent": {
@@ -940,7 +940,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.q5Hr2nZr8RQ9DSZM]{화염}에 의해 부여됨</p>\n<p>화염 효과에 대한 내성 굴림에 +1 아이템 보너스를 얻습니다.</p>"
  },
  "effect-fire-and-iceberg-greater": {
-  "name_ko": "효과: 화염과 빙산 (중급)",
+  "name_ko": "효과: 불과 빙산 (중급)",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.jNdAX4hBp0pzWalL]{불과 빙산 (상급)}에 의해 부여됨</p>\n<p>화염과 냉기에 대한 저항 10을 얻습니다.</p>"
  },
  "effect-predators-claw": {
@@ -952,7 +952,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.skBa6D1uxb0b2USn]{거미 등반 슬리퍼}에 의해 부여됨</p>\n<p>등반 속도 20피트를 얻습니다.</p>"
  },
  "effect-potion-of-swimming": {
-  "name_ko": "효과: 수영의 포션",
+  "name_ko": "효과: 수영의 물약",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Eb4dEuV22QVlMumS]{수영의 물약}에 의해 부여됨</p>\n<p>지상 이동 속도와 동일한 수영 속도를 얻습니다.</p>"
  },
  "effect-potion-of-stable-form-greater": {
@@ -1104,7 +1104,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.NRXhQD5bLM3H9YGR]{탈도지스 배지}에 의해 부여됨</p>\n<p>에우트로피아의 지지자를 상대로 하는 외교 판정에 +2 상황 보너스를 얻는다.</p>"
  },
  "effect-gecko-potion": {
-  "name_ko": "효과: 도마뱀 포션",
+  "name_ko": "효과: 도마뱀 물약",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.hGw7Q1y2IEXRGAfv]{게코 물약}에 의해 부여됨</p>\n<p>기어오르기 및 물체 감추기 판정과, 무장 해제 시도에 대한 반사 DC에 +1 아이템 보너스를 얻는다.</p>"
  },
  "effect-energy-robe-of-electricity": {
@@ -1360,7 +1360,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.isWSWeuJR2cYVdfi]{태고의 포효 군기}에서 부여됨</p>\n<p>20피트 방사 범위 내의 크리처는 선제 판정에 +1 아이템 보너스를 얻습니다.</p>"
  },
  "effect-searing-blade-greater": {
-  "name_ko": "효과: 불타는 칼날 (중급)",
+  "name_ko": "효과: 불타는 검 (중급)",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.pvxRcuBexbFawjCg]{작열하는 검 (상급)}에서 부여됨</p>\n<p>범위 내 당신과 아군의 모든 무기 및 비무장 공격이 <em>화염</em> 속성 룬의 효과를 얻습니다.</p>"
  },
  "effect-serene-mutagen-greater": {
@@ -1464,7 +1464,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.wWXnr3xw5TzDL1M7]{드로스카르의 손아귀}로 부여됨</p>\n<p>모든 운동 판정에 +1 아이템 보너스를 받습니다.</p>"
  },
  "effect-shrinking-potion": {
-  "name_ko": "효과: 축소 포션",
+  "name_ko": "효과: 축소 물약",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.FqbDpztscJfM4XMe]{축소의 물약}으로 부여됨</p>\n<p><em>축소</em> 주문의 효과를 얻습니다.</p>"
  },
  "effect-theatrical-mutagen-greater": {
@@ -1512,7 +1512,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.JG7p7yI12cAPuJ8X]{거미 하네스}와 @UUID[Compendium.pf2e.equipment-srd.Item.NIyJqiW1Wci6gP9m]{거미 하네스 (상급)}으로 부여됨</p>\n<p>지상 이동력의 절반과 같은 등반 이동력을 얻으며, 등반하는 동안 사지가 자유롭다. 등반을 돕는 데 모든 자유로운 사지를 사용하면, 등반 이동력이 지상 이동력과 같아진다.</p>"
  },
  "effect-hexwise-banner-major": {
-  "name_ko": "효과: 육각형 깃발 (상급)",
+  "name_ko": "효과: 마법의 깃발 (상급)",
   "desc_ko": "<p>주문으로 인한 피해에 저항 10을 얻는다. @UUID[Compendium.pf2e.spells-srd.Item.gKKqvLohtrSJj3BM]{힘의 탄막}처럼 여러 차례의 피해를 가하는 주문의 경우, 이는 첫 번째 피해에만 적용된다.</p>"
  },
  "effect-thousand-year-dragonroot": {
@@ -1608,7 +1608,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.azZNewz2sEWwZwtZ]{굳건한 정신 감개}(으)로 부여됨</p>\n<p>정신 피해에 저항 10을 얻습니다.</p>"
  },
  "effect-ghost-oil": {
-  "name_ko": "효과: 유령 오일",
+  "name_ko": "효과: 유령 기름",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.MIP28AmODXgyF2D2]{유령 기름}(으)로 부여됨</p>\n<p>선택한 무기가 <em>유령 접촉</em> 룬의 효과를 얻습니다.</p>"
  },
  "effect-serene-mutagen-major": {
@@ -1760,11 +1760,11 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.0RTsyWutvO42O0zK]{애플리드 뮤타젠 (하급)}이(가) 부여함</p>\n<p><strong>이점</strong> 운동 판정에 +2 아이템 보너스를 받고 이동 속도에 +10피트 상태 보너스를 받습니다. 또한 한 단계 더 큰 크기로 성장하지만, 커진 크기는 공간 변화의 가능성 외에 추가 효과를 갖지 않습니다.</p>\n<p><strong>단점</strong> AC에 -1 페널티, 반사 내성에 -2 페널티를 받습니다.</p>"
  },
  "effect-oil-of-corpse-restoration": {
-  "name_ko": "효과: 시체 회복 오일",
+  "name_ko": "효과: 시체 회복 기름",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Ja0KlgXV8DsOEkif]{시체 복원 기름}이(가) 부여함</p>\n<p>살아있는 생물처럼 보이기 위한 기만 판정에 +2 상황 보너스를 받습니다.</p>"
  },
  "effect-fire-and-iceberg-major": {
-  "name_ko": "효과: 화염과 빙산 (상급)",
+  "name_ko": "효과: 불과 빙산 (상급)",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.9Fps57Xc1XxxWK0j]{불과 빙산 (최상급)}이(가) 부여함</p>\n<p>화염과 냉기에 저항 15를 얻습니다.</p>"
  },
  "effect-sanguine-mutagen-major": {
@@ -2758,7 +2758,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.AFFaFaAW3IbbYqkL]{생명 촉진 기름 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.9zyrMZF76hMxwizY]{생명 촉진 기름 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.3kELQauVoYunyFcd]{생명 촉진 기름 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.UOH0A4xNSMnpV6i4]{생명 촉진 기름 (최상급)}에 의해 부여됨</p>\n<p>빠른 치유를 얻습니다.</p>"
  },
  "aura-searing-blade-greater": {
-  "name_ko": "오라: 작열하는 검 (상급)",
+  "name_ko": "오라: 불타는 검 (상급)",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.pvxRcuBexbFawjCg]{작열하는 검 (상급)}에 의해 부여됨</p>\n<p><em>상급 작열하는 검</em>에서 화염의 @Template[emanation|distance:10]이 1분 동안 방출됩니다. 해당 범위 내에 있는 당신과 아군의 모든 무기 및 비무장 공격은 <em>화염</em> 속성 룬의 효과를 얻습니다.</p>"
  },
  "effect-grit-stage-2": {
@@ -2798,7 +2798,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Gyi4IVrAVJRPJF2s]{Deck of Many Things}의 에우리알레(저주)에 의해 부여됨</p>\n<p>모든 내성 굴림에 영구적인 -1 상태 페널티를 얻는다.</p>"
  },
  "aura-demons-knot": {
-  "name_ko": "오라: 악마의 매듭",
+  "name_ko": "오라: 데몬의 매듭",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.2TANKQXO6xntX5MT]{Demon's Knot}에 의해 부여됨</p>\n<p>의지 내성에 -1 상태 페널티를 받는다.</p>"
  },
  "effect-rowan-rifle-electricity": {
@@ -3042,7 +3042,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.xBf7GSdt555t7IAm]{위상 삼지창}에 의해 순간 효과로 부여됨</p>\n<p>시전자가 당신에게 가하는 타격은 모든 엄폐와 방패로 인한 AC의 상황 보너스를 무시한다.</p>"
  },
  "aura-shining-symbol": {
-  "name_ko": "오라: 빛나는 성표",
+  "name_ko": "오라: 빛나는 상징",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.YVtXlsEWb3NIkDyy]{빛나는 성표}, @UUID[Compendium.pf2e.equipment-srd.Item.M7c4uXraP05HYNXs]{빛나는 성표 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.etnis6HOeGZEbScD]{빛나는 성표 (특급)}에 의해 부여됨</p>\n<p>성표가 발하는 빛이 밝은 빛이 된다. 그 빛 안에 있는 생물은 기만과 은신 판정에 상태 페널티를 받으며, 당신의 적들은 영혼 피해에 약점을 얻는다.</p>"
  },
  "effect-deadweight-snare-success": {
@@ -3650,7 +3650,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.qwCefJjr7AJSqYay]{서큐버스의 입맞춤}에 의해 부여됨</p>\n<p>이 생물은 선제 굴림 판정과 감정 및 정신 효과에 대한 모든 내성 굴림에 +2 아이템 보너스를 받습니다.</p>"
  },
  "stance-golden-erinys-stance": {
-  "name_ko": "자세: 황금 에리니에스 자세",
+  "name_ko": "자세: 황금 에리니스 자세",
   "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.BE5YNJooh0jfVVfM]{황금 에리니에스 자세}에 의해 부여됨</p>\n<p>분노의 송곳니 비무장 공격을 할 수 있습니다. 이 공격은 1d6 관통 피해를 주며, 격투 그룹에 속하고, 민첩, 등찌르기, 정교함, 강력, 비살상, 비무장 특성을 가집니다.</p>\n<p>이 자세를 취한 동안, 관통 피해를 주는 근접 강타로 대성공 명중하면 목표는 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 1}(제거 DC는 당신의 클래스 DC와 동일) 상태가 됩니다. 이는 이 공격으로 얻을 수 있는 대성공 전문화 효과에 추가됩니다.</p>"
  },
  "effect-iomedaes-valor-ac-bonus": {
@@ -3698,7 +3698,7 @@
   "desc_ko": "<p>피와 영혼에 의해 부여됨</p>\n<p>자신이 사용 중인 관통 또는 참격 무기를 하나 선택합니다. 선택한 특성에 따라, 그 무기로 하는 강타는 신성 또는 사악 특성을 지닌 영혼 피해 1d6을 추가로 입힙니다.</p>"
  },
  "aura-form-a-flock": {
-  "name_ko": "오라: 무리 형성",
+  "name_ko": "오라: 무리 소집",
   "desc_ko": "<p>무리 형성에 의해 부여됨</p>\n<p>10피트 오라와 25의 임시 히트 포인트를 얻고, 범위 및 튀김 피해에 대한 약점 5를 얻습니다. 오라 안의 적들은 눈부심 상태가 됩니다.</p>"
  },
  "aura-wrathful-presence": {
@@ -3794,11 +3794,11 @@
   "desc_ko": "<p><strong>@UUID[Compendium.pf2e.criticaldeck.JournalEntry.maXudTqcDiAj86Ym]{크리티컬 히트 덱 #6}, @UUID[Compendium.pf2e.criticaldeck.JournalEntry.A0gsgMjgDpkOXtYp]{크리티컬 히트 덱 #12}, @UUID[Compendium.pf2e.criticaldeck.JournalEntry.wHwwHq9RcOUvwFeB]{크리티컬 히트 덱 #22}, @UUID[Compendium.pf2e.criticaldeck.JournalEntry.wCsoyffDxSWQ2c8o]{크리티컬 히트 덱 #46}로 적용된 효과</strong></p>\n<p>지상 이동속도에 –10피트 상태 페널티</p>"
  },
  "spell-effect-veil-of-spirits": {
-  "name_ko": "주문 효과: 영혼의 장막",
+  "name_ko": "주문 효과: 영혼의 베일",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.lQbfgAu9uVJQC7x4]{영혼의 장막}으로 부여됨</p>\n<p>당신은 눈부심 상태가 됩니다. 실패 또는 대실패 시, 당신은 영혼 피해에 약점을 얻습니다.</p>"
  },
  "spell-effect-spirit-ward": {
-  "name_ko": "주문 효과: 영혼 방호",
+  "name_ko": "주문 효과: 영혼의 수호부",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.MFtXn7t5vApQXqlq]{영혼 방호}로 부여됨</p>\n<p>당신은 영혼 특성을 가진 크리처와 원귀가 유발하는 주문 및 효과에 대한 내성 굴림에 상태 보너스를 얻습니다.</p>"
  },
  "spell-effect-valiant-anthem": {
@@ -3806,7 +3806,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.nRsBM1zkhMmV3VST]{용맹의 찬가}로 부여됨</p>\n<p>당신은 모든 이동속도에 +10피트 상태 보너스와 명중 굴림에 +1 상태 보너스를 얻습니다.</p>"
  },
  "spell-effect-dragon-form": {
-  "name_ko": "주문 효과: 용 변신",
+  "name_ko": "주문 효과: 드래곤 형태",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.5c692cCcTDXjSEzk]{용 변신}으로 부여됨</p>\n<p>당신은 대형 용 전투 형상을 얻습니다. 용의 종류 하나를 선택합니다. 이 형상 동안 당신은 용 특성을 얻습니다. 이 전투 형상에서 당신은 손을 가지며 조작 행동을 취할 수 있습니다. 당신은 이 주문을 해제할 수 있습니다.</p>\n<p>어느 전투 형상을 선택하든 다음의 수치와 능력을 얻습니다:</p><ul><li><p>AC = 18 + 당신의 레벨. 갑옷의 판정 페널티와 이동속도 감소를 무시합니다.</p></li><li><p>임시 히트 포인트 10점.</p></li><li><p>이동속도 40피트, 비행 100피트. 선택한 용이 가진 다음 이동속도 중 어느 것이든 얻되, 명시된 수치로 얻습니다: 굴착 20피트, 등반 40피트, 수영 60피트.</p></li><li><p>당신의 용의 숨결의 피해 유형에 대한 저항 10.</p></li><li><p>암시야와 부정확한 후각 60피트.</p></li><li><p>다음의 비무장 근접 공격들. 이것이 당신이 타격할 수 있는 유일한 공격입니다. 당신은 이것들에 숙련되어 있습니다. 당신의 명중 수정치는 +22이고, 피해 보너스는 +6입니다. 이 공격들은 근력 기반입니다(예를 들어 약화됨 조건의 목적상). 당신의 비무장 명중 수정치가 더 높다면 대신 그것을 사용할 수 있습니다. 이 공격들에 대한 자세한 내용은 아래를 참조하십시오.</p><ul><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 턱, <strong>피해</strong> 2d12 관통 및 당신의 용의 숨결과 같은 피해 유형의 2d6 피해;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 발톱 (민첩), <strong>피해</strong> 3d10 참격;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 꼬리 (도달 10피트), <strong>피해</strong> 3d10 타격.</p></li></ul></li><li><p>운동 수정치 +23, 당신 자신의 수정치가 더 높지 않은 한.</p></li><li><p><strong>용의 숨결</strong> <span class=\"action-glyph\">2</span> 당신은 한 영역에 치명적인 마법 에너지를 내뿜어, 영역 안의 각 크리처에게 당신의 주문 DC에 대한 기본 내성으로 10d6 피해를 입힙니다. 형상, 피해 유형, 내성 유형은 선택한 용의 숨결과 일치합니다. 선택한 용의 숨결이 두 종류 이상의 피해를 입힐 수 있다면, 용 변신을 시전할 때 하나를 선택합니다. 형상은 30피트 원뿔 또는 100피트 직선입니다. 한 번 발동되면, 용의 숨결은 1d4 라운드 동안 다시 사용할 수 없습니다. 용의 숨결은 용의 종류와 일치하는 전통 특성과, 해당되는 경우 입히는 피해 유형과 일치하는 피해 특성을 가집니다.</p></li><li><p><strong>전통 저항</strong> 용의 마법 전통이 당신의 용 변신 주문의 전통과 일치하면, 명시된 능력을 얻습니다. <strong>비전</strong> 마법에 대한 저항 5; <strong>신성</strong> 영혼, 활력, 공허에 대한 저항 10; <strong>오컬트</strong> 정신에 대한 저항 10; <strong>원시</strong> 물리 피해에 대한 저항 5.</p></li></ul><hr /><p><strong>상승 시전 (8랭크)</strong> 당신의 전투 형상은 초대형이 되고, 비행 이동속도에 +20피트 상태 보너스를 얻으며, 당신의 공격은 10피트 도달을 가집니다(또는 이전에 10피트 도달을 가졌다면 15피트 도달). 대신 AC = 21 + 당신의 레벨, 임시 HP 15점, 명중 수정치 +28, 피해 보너스 +12, 운동 +28을 얻습니다. 당신의 용의 숨결은 추가로 4d6 피해를 입힙니다.</p>"
  },
  "spell-effect-filter-air": {
@@ -3818,7 +3818,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.IKb9EOfsrhScO3GO]{환영의 주인공}으로 부여됨</p>\n<p>당신은 임시 히트 포인트를 얻습니다.</p>"
  },
  "spell-effect-charming-push": {
-  "name_ko": "주문 효과: 매혹적인 밀침",
+  "name_ko": "주문 효과: 매혹의 밀어내기",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.KMFRKzNCq7hVNH7H]{매혹적인 밀침}으로 부여됨</p>\n<p>당신은 근원에 대한 명중 굴림과 피해 굴림에 –1 상황 페널티를 받습니다.</p>"
  },
  "spell-effect-wings-of-the-valkyrie": {
@@ -3830,31 +3830,31 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.JyxTmqjYYn63V5LY]{달콤한 말}로 부여됨</p>\n<p>당신은 거짓말하기를 위한 기만 판정에 +4 상태 보너스를 얻으며, 미숙련이어도 당신의 레벨을 더합니다.</p>"
  },
  "spell-effect-crushing-ground": {
-  "name_ko": "주문 효과: 짓누르는 대지",
+  "name_ko": "주문 효과: 압도하는 땅",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.AiWtiVmyasyL42J8]{짓누르는 대지}로 부여됨</p>\n<p>당신은 무방비 상태가 됩니다. 내성에 실패하면, 이동속도에 –10피트 상황 페널티도 받습니다. 대실패 시에는 대신 이동 불가 상태가 됩니다.</p>"
  },
  "spell-effect-devil-form": {
-  "name_ko": "주문 효과: 악마 변신",
+  "name_ko": "주문 효과: 데빌 형태",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.dR53f0p15EW7D0xC]{악마 변신}으로 부여됨</p>\n<p>당신은 악마 전투 형상으로 변신합니다. 이 형상 동안 당신은 악마와 악귀 특성을 얻습니다. 이 전투 형상에서 당신은 손을 가지며 조작 행동을 사용할 수 있습니다. 어느 형상을 선택하든 다음의 수치와 능력을 얻습니다:</p><ul><li>AC = 22 + 당신의 레벨. 갑옷의 판정 페널티와 이동속도 감소를 무시합니다.</li><li>임시 히트 포인트 5점, 물리 피해(은 제외)에 대한 저항 5, 신성에 대한 약점 5.</li><li>화염에 대한 저항 10.</li><li>암시야.</li><li>당신이 사용하는 전투 형상에 특유한 하나 이상의 공격. 당신은 이것들에 숙련되어 있습니다. 당신의 명중 수정치는 +20이고, 명시된 피해를 사용합니다. 이 공격들은 근력 기반입니다(예를 들어 약화됨 조건의 목적상). 해당 비무장 공격이나 무기에 대한 당신의 명중 수정치가 더 높다면, 대신 그것을 사용할 수 있습니다.</li><li>운동 수정치 +23, 당신 자신의 수정치가 더 높지 않은 한.</li></ul><p>당신은 또한 선택한 악마의 종류에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>코아르티</strong> 중형 크기, 이동속도 25피트, 비행 40피트;</p><ul><li><strong>크기</strong> 중형</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 모닝스타 (마법, 부정, 다용도 P), <strong>피해</strong> 2d6+12 타격 및 1d6 영혼;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 날개 (민첩, 부정, 다용도 P), <strong>피해</strong> 1d6+12 타격 및 1d6 화염.</li></ul></li><li><p><strong>레발로크</strong> 이동속도 30피트, 등반 30피트; 밀치기당하는 것에 대한 건강 DC와 자신의 의지에 반해 이동당하는 것에 저항하는 기타 내성 굴림에 +2 상황 보너스;</p><ul><li><strong>크기</strong> 대형</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 삼지창 (마법, 부정) <strong>피해</strong> 2d8+10 관통;</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 삼지창 (마법, 투척 20피트, 부정), <strong>피해</strong> 2d8+10 관통; 모든 근접 타격은 둔함, 약화됨, 이동 불가, 또는 억제된 크리처에게 추가로 2d6 정밀 피해를 입힙니다.</li></ul></li><li><p><strong>사르글라곤</strong> 이동속도 25피트, 비행 25피트, 수영 30피트;</p><ul><li><strong>크기</strong> 대형</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 송곳니 (마법, 부정), <strong>피해</strong> 2d10+10 관통;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 촉수 팔 (민첩, 마법, 부정), <strong>피해</strong> 1d8+10 타격 및 1d6 독.</li></ul></li><li><p><strong>보르딘</strong> 이동속도 25피트;</p><ul><li><strong>크기</strong> 중형</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 삼지창 (마법, 부정) <strong>피해</strong> 2d8+12 관통;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발굽 (민첩, 마법, 부정), <strong>피해</strong> 1d4+12 및 1d6 화염;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 채찍 (무장 해제, 마법, 비살상, 도달 10피트, 넘어뜨리기, 부정), <strong>피해</strong> 2d4+10 참격;</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 삼지창 (마법, 투척 20피트, 부정), <strong>피해</strong> 2d8+12 관통.</li></ul></li></ul>"
  },
  "spell-effect-gentle-breeze": {
-  "name_ko": "주문 효과: 부드러운 산들바람",
+  "name_ko": "주문 효과: 부드러운 바람",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.C0D2eqzTAhiKm4j9]{부드러운 산들바람}으로 부여됨</p>\n<p>영역 안의 살아있는 크리처에게 이롭게 하기 위해 시도한 의술 판정은 +2 상태 보너스를 얻습니다. 영역 안의 살아있는 크리처는 또한 질환에 대한 내성 굴림에 +2 상태 보너스를 얻습니다.</p>"
  },
  "spell-effect-ash-strewn-ending": {
-  "name_ko": "주문 효과: 잿더미로 뒤덮인 종말",
+  "name_ko": "주문 효과: 재가 흩뿌려진 종말",
   "desc_ko": "<p>잿더미로 뒤덮인 종말로 부여됨</p>\n<p>당신은 공허 피해에 대한 저항과 죽음 효과에 대한 내성 굴림에 상태 보너스를 얻습니다. 의식이 대실패였다면 대신 이 판정들에 약점과 페널티를 얻습니다.</p>"
  },
  "spell-effect-humanoid-form": {
-  "name_ko": "주문 효과: 인간형 변신",
+  "name_ko": "주문 효과: 인간형 형태",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.2qGqa33E4GPUCbMV]{인간형 변신}으로 부여됨</p>\n<p>당신의 외형을 소형 또는 중형 인간형으로 변형한다. 당신은 인간형 특성을 얻는다. 이 변형으로 크기가 줄어들면, 그에 따라 간격도 줄어든다(대개 5피트로). 당신은 선택한 종족의 일반적인 일원으로 위장하기 위한 기만 판정에 +4 상태 보너스를 얻으며, 미숙련이더라도 레벨을 더한다. 다만 특정 인물처럼 보이게 만들 수는 없다.</p>\n<p><strong>상승 (3랭크)</strong> 취한 형태가 해당 능력을 가지고 있다면 당신은 암시 또는 저광 시야를 얻는다.</p>\n<p><strong>상승 (5랭크)</strong> 대형 인간형의 외형을 취할 수 있다. 이로 인해 크기가 커지면, 당신은 확대 주문의 효과를 얻는다.</p>"
  },
  "spell-effect-untwisting-iron-buffer": {
-  "name_ko": "주문 효과: 뒤틀림을 푸는 철의 완충",
+  "name_ko": "주문 효과: 풀림강철 완충막",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.FPnkOYyWIaOzkmqn]{뒤틀림을 푸는 철의 완충}으로 부여됨</p>\n<p>당신은 임시 히트 포인트를 얻는다.</p>"
  },
  "spell-effect-community-restoration": {
-  "name_ko": "주문 효과: 공동체의 회복",
+  "name_ko": "주문 효과: 지역사회 복구",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.6RNymgUvS87lmQOj]{공동체의 회복}으로 부여됨</p>\n<p>당신은 발동시킨 주문의 랭크당 임시 히트 포인트 2점을 얻는다.</p>"
  },
  "spell-effect-crown-of-prophets": {
@@ -3862,7 +3862,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.h2DLv8TQV0Z83tQp]{예언자의 왕관}으로 부여됨</p>\n<p>당신은 1d6 관통 피해를 주며 민첩, 정교, 다목적 독 특성을 가진 송곳니 비무장 공격을 얻는다.</p>"
  },
  "spell-effect-bit-of-luck": {
-  "name_ko": "주문 효과: 약간의 행운",
+  "name_ko": "주문 효과: 행운의 조각",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Fr2CGvWcgSyLcUi7]{약간의 행운}으로 부여됨</p>\n<p>내성 굴림을 시도할 때, 당신은 두 번 굴려 더 나은 결과를 사용할 수 있다. 한 번 이렇게 하면 주문이 종료된다.</p>"
  },
  "spell-effect-frozen-fog": {
@@ -3870,7 +3870,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.nOVSmPZsCm1C1sI3]{얼어붙은 안개}로 부여됨</p>\n<p>당신은 둔함 1(대실패 시 둔함 2)이 되며 이동 속도에 –10피트 상태 페널티를 받는다.</p>"
  },
  "spell-effect-angel-form": {
-  "name_ko": "주문 효과: 천사 변신",
+  "name_ko": "주문 효과: 천사 형태",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.E3zIZ4pjlOuWeGRz]{천사 변신}으로 부여됨</p>\n<p>당신은 천사 전투 형태로 변형한다. 당신은 천사 및 천상 특성을 얻는다. 이 전투 형태에서는 손이 있다. 당신은 선택한 형태와 무관하게 다음 수치와 능력을 얻는다:</p><ul><li>AC = 22 + 당신의 레벨. 당신의 갑옷 판정 페널티와 이동 속도 감소를 무시한다.</li><li>임시 히트 포인트 40점, 그리고 부정에 대한 약점 10.</li><li>암시.</li><li>선택한 전투 형태에 특화된 하나 이상의 공격. 당신은 이에 숙련되어 있다. 당신의 공격 수정치는 +25이며, 기재된 피해를 사용한다. 근접 공격은 근력 기반이며(예를 들어 약화됨 조건을 판단할 때), 원거리 공격은 민첩 기반이다. 해당 비무장 공격이나 무기의 공격 수정치가 더 높다면, 그것을 대신 사용할 수 있다.</li><li>당신 자신의 수정치가 더 높지 않은 한, 운동 수정치 +25.</li></ul><p>당신은 또한 선택한 천사의 종류에 따라 특정 능력을 얻는다:</p><ul><li><p><strong>발리스</strong> 이동 속도 30피트, 비행 40피트; 당신 자신의 수정치가 더 높지 않은 한, 거짓말과 환영을 감지하기 위한 지각 수정치 +26</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 시미터(화염, 강력, 성스러움, 마법, 휩쓸기), <strong>피해</strong> 2d6+12 참격 및 2d6 화염.</li></ul></li><li><p><strong>코랄</strong> 이동 속도 30피트, 비행 40피트; 음파와 청각에 대한 AC 및 내성에 +1 상태 보너스</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹(민첩), <strong>피해</strong> 2d6+12 타격 및 1d6 영혼;</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 관통하는 찬가(사거리 90피트), <strong>피해</strong> 1d6+12 음파 및 1d6 영혼, 그리고 결정타 시 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{귀먹음}.</li></ul></li><li><p><strong>쿠리부</strong> 이동 속도 25피트, 비행 40피트; 전기와 화염에 대한 저항 10</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹(민첩, 성스러움, 마법), <strong>피해</strong> 3d4+12 타격.</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 합성 단궁(치명 2d10, 성스러움, 마법, 추진, 사거리 증가분 60피트) <strong>피해</strong> 3d6+12 관통</li></ul></li><li><p><strong>텐닌</strong> 이동 속도 30피트, 비행 60피트; 어려운 지형으로 발디딤할 수 있고 발디딤에 지상 및 비행 이동 속도를 사용할 수 있다;</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹(민첩, 성스러움, 마법, 비살상), <strong>피해</strong> 1d6+12 타격 및 1d6 냉기 및 1d6 영혼.</li></ul></li></ul><hr /><p><strong>상승 (9랭크)</strong> 당신의 전투 형태는 대형이 된다. 확장할 공간이 있어야 하며, 그렇지 않으면 주문이 소실된다. 당신은 대신 임시 히트 포인트 60점, 부정에 대한 약점 15, 공격 수정치 +30, 피해 보너스 +20, 운동 +33을 얻는다.</p>"
  },
  "spell-effect-equal-footing-success": {
@@ -3878,7 +3878,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Z2oSFY2fT8zLkK4P]{대등한 입장}으로 부여됨</p>\n<p>당신은 모든 이동 속도에 –10피트 상태 페널티를 받는다.</p>"
  },
  "spell-effect-daemon-form": {
-  "name_ko": "주문 효과: 대마 변신",
+  "name_ko": "주문 효과: 데이몬 형태",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.aSDfGcUOUVGU5m1g]{대마 변신}으로 부여됨</p>\n<p>당신은 대마 전투 형태로 변형한다. 이 형태에 있는 동안, 당신은 대마 및 악마 특성을 얻는다. 이 전투 형태에서는 손이 있어 조작 행동을 사용할 수 있다. 당신은 선택한 형태와 무관하게 다음 수치와 능력을 얻는다:</p><ul><li>AC = 21 + 당신의 레벨. 당신의 갑옷 판정 페널티와 이동 속도 감소를 무시한다.</li><li>임시 히트 포인트 15점, 그리고 성스러움에 대한 약점 5.</li><li>죽음 효과에 대한 모든 내성 굴림에 +2 상태 보너스.</li><li>독에 대한 저항 10.</li><li>암시.</li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 이에 숙련되어 있다. 당신의 공격 수정치는 +21이며, 기재된 피해를 사용한다. 이 공격들은 근력 기반이다(예를 들어 약화됨 조건을 판단할 때). 당신의 비무장 공격 수정치가 더 높다면, 그것을 대신 사용할 수 있다.</li><li>당신 자신의 수정치가 더 높지 않은 한, 운동 수정치 +23.</li></ul><p>당신은 또한 선택한 대마의 종류에 따라 특정 능력을 얻는다:</p><ul><li><p><strong>라크리대몬</strong> 크기 중형, 이동 속도 25피트, 비행 40피트 냉기에 대한 저항 10</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 턱(마법, 부정), <strong>피해</strong> 1d8+12 관통 및 1d6 냉기 및 1d4 독</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발톱(민첩, 마법, 부정), <strong>피해</strong> 1d6+12 참격 및 1d6 냉기.</li></ul></li><li><p><strong>레우코대몬</strong> 크기 대형, 이동 속도 25피트, 비행 40피트 질병에 대한 내성에 +2 상태 보너스</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 턱(마법, 간격 10피트, 부정), <strong>피해</strong> 2d10+12 관통</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발톱(민첩, 마법, 간격 10피트, 부정), <strong>피해</strong> 2d6+12 참격;</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 합성 장궁(치명 1d10, 마법, 추진, 사거리 증가분 100피트, 부정, 일제사격), <strong>피해</strong> 2d8+12 관통.</li></ul></li><li><p><strong>멜라대몬</strong> 크기 대형, 이동 속도 25피트, 비행 40피트</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 턱(마법, 간격 10피트, 부정), <strong>피해</strong> 2d10+12 관통</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발톱(민첩, 마법, 간격 10피트, 부정, 공허), <strong>피해</strong> 1d6+12 참격 및 1d6 공허, 그리고 명중 후 행동을 소비하여 대상을 조이기 시도할 수 있다.</li></ul></li><li><p><strong>베네대몬</strong> 크기 중형, 이동 속도 25피트 60피트 내의 마법 물품과 활성 주문을 부정확 감각으로 감지한다</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 촉수(민첩, 마법, 간격 10피트, 부정), <strong>피해</strong> 2d6+12 타격.</li></ul></li></ul>"
  },
  "spell-effect-rite-of-cleansing-flame-failure": {
@@ -3894,15 +3894,15 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Z2oSFY2fT8zLkK4P]{대등한 입장}으로 부여됨</p>\n<p>당신은 모든 이동 속도에 –15피트 상태 페널티를 받으며, 이동 속도에 대한 보너스의 이득을 얻을 수 없고 이동 속도에 대한 다른 페널티도 받을 수 없다.</p>"
  },
  "spell-effect-funeral-flames": {
-  "name_ko": "주문 효과: 장례의 화염",
+  "name_ko": "주문 효과: 장례의 불꽃",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.5KmyO4YSGEAUdgAS]{장례의 화염}으로 부여됨</p>\n<p>당신이 대상 무기를 휘두르는 동안, 그것은 +1 무기가 되고, 다목적 화염 특성을 얻으며, 횃불만큼 밝게 빛을 발한다. 그 무기로 생물을 상대로 성공적으로 강타할 때마다, 자유 행동으로 주문을 해제하여 대상에게 1d6 지속 화염 피해를 줄 수 있다. 대상이 언데드라면, 지속 피해 주사위를 d8로 증가시킨다.</p>"
  },
  "spell-effect-aberrant-form": {
-  "name_ko": "주문 효과: 이형 변신",
+  "name_ko": "주문 효과: 이형체 변신",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Fu8Ml47ZfXpSYe7E]{이형 변신}으로 부여됨</p>\n<p>당신은 자신을 대형 이형체로 변형한다. 당신은 이형 특성과 더불어 다음 수치와 능력을 얻는다:</p><ul><li>AC = 18 + 당신의 레벨. 당신의 갑옷 판정 페널티와 이동 속도 감소를 무시한다.</li><li>임시 히트 포인트 13점.</li><li>암시.</li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격으로, 이것이 당신이 강타할 수 있는 유일한 공격이다. 당신은 이에 숙련되어 있다. 당신의 공격 수정치는 +18이며, 기재된 피해를 사용한다. 이 공격들은 근력 기반이다(예를 들어 약화됨 조건을 판단할 때). 당신의 비무장 공격 수정치가 더 높다면, 그것을 대신 사용할 수 있다.</li><li>당신 자신의 수정치가 더 높지 않은 한, 운동 수정치 +20.</li></ul><p>당신은 또한 선택한 이형체의 종류에 따라 특정 능력을 얻는다:</p><ul><li><p><strong>츌</strong></p><ul><li>이동 속도 30피트, 수영 25피트</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발톱(간격 10피트) <strong>피해</strong> 2d8+8 타격, 그리고 명중 후 행동을 소비하여 대상을 조이기할 수 있다.</li></ul></li><li><p><strong>고기테스</strong></p><ul><li>이동 속도 40피트, 등반 30피트;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 턱, <strong>피해</strong> 2d10+8 관통, 그리고 명중 후 행동을 소비하여 대상을 조이기할 수 있다;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 다리(민첩, 간격 10피트), <strong>피해</strong> 2d6+8 관통</li></ul></li><li><p><strong>거그</strong></p><ul><li>이동 속도 40피트, 등반 20피트;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 턱(간격 10피트), <strong>피해</strong> 2d12+8 관통;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발톱(민첩, 간격 10피트), <strong>피해</strong> 2d8+8 참격;</li><li>당신의 여러 관절 덕분에 중형 생물인 것처럼 좁은 공간을 통과할 수 있다.</li></ul></li><li><p><strong>오티어</strong></p><ul><li>질병에 대한 내성에 +2 상황 보너스;</li><li>이동 속도 20피트;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 턱, <strong>피해</strong> 3d6+8 관통;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 촉수(민첩, 간격 10피트), <strong>피해</strong> 2d6+8 타격.</li></ul></li></ul><hr /><p><strong>상승 (6랭크)</strong> 당신의 전투 형태는 초대형이 되고, 공격의 간격이 5피트 증가한다. 확장할 공간이 있어야 하며, 그렇지 않으면 주문이 소실된다. 당신은 대신 AC = 21 + 당신의 레벨, 임시 HP 26점, 공격 수정치 +22, 피해 보너스 +13, 운동 +23을 얻는다.</p>"
  },
  "spell-effect-capital-dividend": {
-  "name_ko": "주문 효과: 자본 배당",
+  "name_ko": "주문 효과: 생명 배당금",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.jXcsCpko8qNrWZ4x]{자본 배당}으로 부여됨</p>\n<p>당신은 치유 효과로부터 추가 히트 포인트를 회복한다.</p>"
  },
  "spell-effect-curse-of-recoil-critical-failure": {
@@ -3910,7 +3910,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.9uSBfK8EUVBrcNYx]{반동의 저주}로 부여됨</p>\n<p>당신은 원거리 공격에 –2 상태 페널티를 받으며 무방비 상태가 된다.</p>"
  },
  "spell-effect-demon-form": {
-  "name_ko": "주문 효과: 악마 변신",
+  "name_ko": "주문 효과: 데몬 형태",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.dKbv80rlAWVpz83C]{악마 변신}으로 부여됨</p>\n<p>당신은 악마 전투 형태로 변형한다. 이 형태에 있는 동안, 당신은 악마 및 마귀 특성을 얻는다. 이 전투 형태에서는 손이 있어 조작 행동을 사용할 수 있다. 당신은 선택한 형태와 무관하게 다음 수치와 능력을 얻는다:</p><ul><li>AC = 20 + 당신의 레벨. 당신의 갑옷 판정 페널티와 이동 속도 감소를 무시한다.</li><li>임시 히트 포인트 30점, 냉철 (냉철된 철)에 대한 약점 5, 그리고 성스러움에 대한 약점 5.</li><li>암시.</li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 이에 숙련되어 있다. 당신의 공격 수정치는 +22이며, 기재된 피해를 사용한다. 이 공격들은 근력 기반이다(예를 들어 약화됨 조건을 판단할 때). 해당 비무장 공격이나 무기의 공격 수정치가 더 높다면, 그것을 대신 사용할 수 있다.</li><li>당신 자신의 수정치가 더 높지 않은 한, 운동 수정치 +23.</li></ul><p>당신은 또한 선택한 악마의 종류에 따라 특정 능력을 얻는다:</p><ul><li><p><strong>아브리칸딜루</strong> 이동 속도 25피트;</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 턱(마법, 부정), <strong>피해</strong> 2d6+12 관통, 그리고 결정타 시 1분 동안 둔함 1;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발톱(민첩, 마법, 부정), <strong>피해</strong> 2d6+12 참격;</li><li><strong>원거리</strong><span class=\"action-glyph\">1</span> 던진 잔해(사거리 증가분 20피트, 부정), 피해 2d6+6 타격.</li></ul></li><li><p><strong>브리모락</strong> 이동 속도 30피트;</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 불타는 검(마법, 부정), <strong>피해</strong> 2d8+10 참격 및 1d6 화염;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발굽(민첩, 부정), <strong>피해</strong> 2d4+10 타격 및 1d6 화염.</li></ul></li><li><p><strong>키탕지안</strong> 크기 대형, 이동 속도 30피트;</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 집게(마법, 간격 10피트, 부정), <strong>피해</strong> 1d12+12 참격, 그리고 명중 후 행동을 소비하여 대상을 조이기 시도할 수 있다</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 침(민첩, 마법, 간격 10피트, 부정), <strong>피해</strong> 1d8+12 관통; 모든 근접 강타는 동물에게 2d6 추가 정밀 피해를 준다.</li></ul></li><li><p><strong>블로리아크</strong> 이동 속도 25피트; 산성에 대한 저항 10;</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발톱(부정), 피해 2d6+12 관통 및 1d6 영혼;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 혀(민첩, 간격 10피트, 부정), 피해 1d6+12 산성 및 1d6 영혼.</li></ul></li></ul>"
  },
  "spell-effect-outcasts-curse-failure": {
@@ -3946,23 +3946,23 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.KAWQ5x2j4tUJ91ry]{반짝이는 피부}로 부여됨</p>\n<p>당신은 주의 돌리기 및 속임수를 위한 기만 판정과, 시각 특성을 가진 연기하기를 위한 연기 판정에 +2 상태 보너스를 얻는다.</p>\n<p>당신이 피해를 받을 때, 5피트 발산 내의 생물은 강인 내성을 시도해야 한다.</p>\n<p><strong>실패</strong> 그 생물은 1라운드 동안 눈부심 상태가 된다.</p>\n<p><strong>대실패</strong> 그 생물은 3라운드 동안 눈부심 상태가 된다.</p>"
  },
  "spell-effect-vicious-howl": {
-  "name_ko": "주문 효과: 흉포한 울부짖음",
+  "name_ko": "주문 효과: 사나운 울부짖음",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.z9pIChNg9PmPmn31]{흉포한 울부짖음}으로 부여됨</p>\n<p>당신은 당신의 레벨과 동일한 임시 히트 포인트와 피해에 +4 상황 보너스를 얻는다.</p>"
  },
  "spell-effect-ooze-form": {
-  "name_ko": "주문 효과: 점액체 변신",
+  "name_ko": "주문 효과: 우즈 형태",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.0gdZrT9lwO17EIxc]{점액체 변신}으로 부여됨</p>\n<p>당신은 중형 점액체 전투 형태로 변형한다. 이 형태에 있는 동안, 당신은 점액체 특성을 얻는다. 당신은 어떤 전투 형태를 선택하든 무관하게 다음 수치와 능력을 얻는다:</p><ul><li>AC = 7 + 당신의 레벨. 당신의 갑옷 판정 페널티와 이동 속도 감소를 무시한다.</li><li>임시 히트 포인트 20점.</li><li>당신은 결정타, 정밀 피해, 시각 효과에 면역이다.</li><li>산성, 관통, 참격 피해에 대한 저항 5.</li><li>시야 없음 및 동작 감각 30피트. 당신은 진동과 공기 흐름을 통해 주변의 동작을 정밀 감각으로 감지할 수 있다.</li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격으로, 이것이 당신이 강타할 수 있는 유일한 공격이다. 당신은 이에 숙련되어 있다. 당신의 공격 수정치는 +14이며, 기재된 피해를 사용한다. 이 공격들은 근력 기반이다(예를 들어 약화됨 조건을 판단할 때). 당신의 비무장 공격 수정치가 더 높다면, 그것을 대신 사용할 수 있다.</li><li>당신 자신의 것이 더 높지 않은 한, 운동 수정치 +14.</li></ul><p>당신은 또한 점액체에 따라 특정 능력을 얻는다:</p><ul><li><p><strong>흑색 푸딩</strong> 이동 속도 15피트, 등반 15피트;</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 위족, <strong>피해</strong> 2d6+5 타격 및 1d8 산성.</li></ul></li><li><p><strong>젤라틴 큐브</strong> 이동 속도 15피트;</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 정육면체 면, <strong>피해</strong> 1d6+5 산성;</li><li>당신의 정육면체 면 강타에 맞은 생물은 당신의 주문 DC에 대한 강인 내성에 성공해야 하며, 그렇지 못하면 @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{기절 1}이 된다(대실패 시 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{마비}); 이 내성은 무력화 특성을 가진다.</li></ul></li><li><p><strong>회색 점액체</strong> 이동 속도 15피트, 등반 15피트, 수영 15피트</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 위족, <strong>피해</strong> 1d6+5 타격 및 1d6 산성, 그리고 명중 후 행동을 소비하여 대상을 @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr]{조이기}할 수 있다.</li></ul></li></ul><ul><li><p><strong>황토색 젤리</strong> 이동 속도 15피트, 등반 10피트; 전기에 대한 저항 5;</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 위족, <strong>피해</strong> 1d8+5 타격 및 1d8 산성, 그리고 명중 후 행동을 소비하여 대상을 @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr]{조이기}할 수 있다.</li></ul></li></ul><hr /><p><strong>상승 (4랭크)</strong> 당신의 전투 형태는 대형이 되고, 공격은 10피트 간격을 가진다. 확장할 충분한 공간이 있어야 하며, 그렇지 않으면 주문이 소실된다. 당신은 대신 임시 HP 30점; 산성, 관통, 참격에 대한 저항 7; 공격 수정치 +16; 피해 보너스 +9; 운동 +16을 얻는다. 당신의 동작 감각은 사거리 40피트를 가진다.</p>\n<p><strong>상승 (5랭크)</strong> 당신의 전투 형태는 초대형이 되고, 공격은 15피트 간격을 가진다. 확장할 충분한 공간이 있어야 하며, 그렇지 않으면 주문이 소실된다. 당신은 대신 임시 HP 40점; 산성, 관통, 참격에 대한 저항 10; 공격 수정치 +18; 피해 보너스 +6 및 두 배 피해 주사위; 운동 +20을 얻는다. 당신의 동작 감각은 사거리 60피트를 가진다.</p>\n<p><strong>상승 (8랭크)</strong> 당신의 전투 형태는 거대형(20피트 × 20피트 공간)이 되고, 공격은 20피트 간격을 가진다. 확장할 충분한 공간이 있어야 하며, 그렇지 않으면 주문이 소실된다. 당신은 대신 임시 HP 60점; 산성, 관통, 참격에 대한 저항 12; 공격 수정치 +28; 피해 보너스 +13 및 두 배 피해 주사위; 운동 +29를 얻는다. 당신의 동작 감각은 사거리 60피트를 가진다.</p>"
  },
  "spell-effect-insect-form": {
-  "name_ko": "주문 효과: 곤충 변신",
+  "name_ko": "주문 효과: 곤충 형태",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.XI6Lzd2B5pernkPd]{곤충 변신}으로 부여됨</p>\n<p>당신은 중형 동물 전투 형태로 변형한다. 이 형태에 있는 동안, 당신은 동물 특성을 얻는다. 당신은 어떤 전투 형태를 선택하든 무관하게 다음 수치와 능력을 얻는다:</p><ul><li><p>AC = 18 + 당신의 레벨. 당신의 갑옷 판정 페널티와 이동 속도 감소를 무시한다.</p></li><li><p>임시 히트 포인트 10점.</p></li><li><p>저광 시야.</p></li><li><p>선택한 전투 형태에 특화된 하나 이상의 공격으로, 이것이 당신이 강타할 수 있는 유일한 공격이다. 당신은 이에 숙련되어 있다. 당신의 공격 수정치는 +13이며, 피해 보너스는 +2다. 이 공격들은 근력 기반이다(@UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨} 조건을 판단할 때). 당신의 비무장 공격 수정치가 더 높다면, 그것을 대신 사용할 수 있다.</p></li><li><p>당신 자신의 것이 더 높지 않은 한, 운동 수정치 +13.</p></li></ul><p>당신은 또한 선택한 형태에 따라 특정 능력을 얻는다:</p><ul><li><p><strong>개미</strong></p><ul><li><p>이동 속도 30피트, 등반 속도 30피트;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 큰턱, <strong>피해</strong> 2d6 타격.</p></li></ul></li><li><p><strong>딱정벌레</strong></p><ul><li><p>이동 속도 25피트;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 큰턱, <strong>피해</strong> 2d10 타격.</p></li></ul></li><li><p><strong>지네</strong></p><ul><li><p>이동 속도 25피트, 등반 속도 25피트; 암시;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 큰턱, <strong>피해</strong> 1d8 관통 및 1d4 지속 독.</p></li></ul></li><li><p><strong>사마귀</strong></p><ul><li><p>이동 속도 40피트; 부정확 후각 30피트;</p></li><li><p>근접 <span class=\"action-glyph\">1</span> 앞다리, <strong>피해</strong> 2d8 관통.</p></li></ul></li><li><p><strong>전갈</strong></p><ul><li><p>이동 속도 40피트; 암시, 부정확 진동 감지 60피트;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 침, <strong>피해</strong> 1d8 관통 및 1d4 지속 독;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 집게(민첩), <strong>피해</strong> 1d6 타격.</p></li></ul></li><li><p><strong>거미</strong></p><ul><li><p>이동 속도 25피트, 등반 속도 25피트; 암시;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 송곳니, <strong>피해</strong> 1d6 관통 및 1d4 지속 독;</p></li><li><p><strong>원거리</strong> <span class=\"action-glyph\">1</span> 거미줄(사거리 증가분 20피트), <strong>피해</strong> 1라운드 동안 또는 탈출할 때까지 대상을 이동 불가로 만든다.</p></li></ul></li></ul><hr /><p><strong>상승 (4랭크)</strong> 당신의 전투 형태는 대형이 되고, 공격은 10피트 간격을 가진다. 확장할 충분한 공간이 있어야 하며, 그렇지 않으면 주문이 소실된다. 당신은 대신 임시 HP 15점, 공격 수정치 +16, 피해 보너스 +6, 운동 +16을 얻는다.</p>\n<p><strong>상승 (5랭크)</strong> 당신의 전투 형태는 초대형이 되고, 공격은 15피트 간격을 가진다. 확장할 충분한 공간이 있어야 하며, 그렇지 않으면 주문이 소실된다. 당신은 대신 임시 HP 20점, 공격 수정치 +18, 피해 보너스 +2 및 두 배 피해 주사위(지속 피해 포함), 운동 +20을 얻는다.</p>"
  },
  "spell-effect-elemental-sheath": {
-  "name_ko": "주문 효과: 원소의 외피",
+  "name_ko": "주문 효과: 원소의 칼집",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.WkqamCF8r4O5Gh0n]{원소의 외피}로 부여됨</p>\n<p>공기, 대지, 화염, 금속, 물, 나무 중 하나를 선택한다; 주문은 그 특성을 얻는다. 당신은 AC에 +1 상황 보너스와 선택한 원소에 따른 두 종류의 피해에 대한 저항을 얻는다.</p>\n<p><strong>공기</strong> 타격과 전기</p>\n<p><strong>대지</strong> 타격과 독</p>\n<p><strong>화염</strong> 화염과 참격</p>\n<p><strong>금속</strong> 산성과 참격</p>\n<p><strong>물</strong> 냉기와 관통</p>\n<p><strong>나무</strong> 관통과 공허.</p>"
  },
  "spell-effect-primal-herd": {
-  "name_ko": "주문 효과: 원시의 무리",
+  "name_ko": "주문 효과: 프라이멀 무리",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.pmP8HhXvvEKP3LqU]{원시의 무리}로 부여됨</p>\n<p>당신은 매머드로 변형하며, 초대형 전투 형태를 취한다. 당신은 동물 특성을 얻는다. 변형된 동안 당신은 다음을 얻는다.</p><ul><li><p>AC = 22 + 당신의 레벨. 모든 갑옷 판정 페널티와 이동 속도 감소를 무시한다.</p></li><li><p>임시 히트 포인트 20점.</p></li><li><p>이동 속도 40피트.</p></li><li><p>저광 시야.</p></li><li><p>다음의 비무장 근접 공격으로, 이것이 당신이 강타에 사용할 수 있는 유일한 공격이다. 이 공격으로 강타할 때, 당신은 가장 유리한 무기나 비무장 강타의 숙련도 및 물품 보너스와 함께 당신의 공격 수정치를 사용하며, 피해는 각 공격에 대해 기재되어 있다. 이 공격들은 근력 기반이다(예를 들어 약화됨 조건을 판단할 때).</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 엄니(간격 15피트), <strong>피해</strong> 4d8+19 관통</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 코(민첩, 간격 15피트), <strong>피해</strong> 4d6+16 타격</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발(민첩, 간격 15피트), <strong>피해</strong> 4d6+13 타격.</li></ul></li><li><p>당신 자신의 수정치가 더 높지 않은 한, 운동 수정치 +30.</p></li><li><p>당신은 짓밟기 행동을 사용할 수 있다.</p><ul><li><strong>짓밟기</strong> <span class=\"action-glyph\">3</span> 당신은 이동 속도의 두 배까지 이동하며 대형 이하 생물의 공간을 통과하고, 당신이 진입한 공간의 각 생물을 짓밟는다. 짓밟힌 생물은 @Check[reflex|basic|dc:19] 내성에 따라 당신의 발 강타로부터 피해를 받는다.</li></ul></li></ul>"
  },
  "spell-effect-outcasts-curse-success": {
@@ -3974,19 +3974,19 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.KwDyrUIlnOrpdxYi]{정화의 화염 의식}으로 부여됨</p>\n<p>당신은 감정 및 정신 효과에 대해 +1 상태 보너스를 얻는다.</p>"
  },
  "spell-effect-fey-form": {
-  "name_ko": "주문 효과: 요정 변신",
+  "name_ko": "주문 효과: 페이 형태",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Qu4IThrk1wpONwjT]{요정 변신}으로 부여됨</p>\n<p>당신은 중형 요정 전투 형태로 변형한다. 이 형태에 있는 동안, 당신은 요정 특성을 얻는다. 엘라난크스나 유니콘을 선택하지 않는 한, 이 전투 형태에서는 손이 있어 조작 행동을 사용할 수 있다.</p>\n<p>당신은 선택한 형태와 무관하게 다음 수치와 능력을 얻는다:</p><ul><li>AC = 19 + 당신의 레벨. 당신의 갑옷 판정 페널티와 이동 속도 감소를 무시한다.</li><li>임시 히트 포인트 15점, 그리고 냉철에 대한 약점 5.</li><li>저광 시야.</li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격으로, 이것이 당신이 강타할 수 있는 유일한 공격이다. 당신은 이에 숙련되어 있다. 당신의 공격 수정치는 +16이며, 기재된 피해를 사용한다. 이 공격들은 민첩 기반이다. 해당 비무장 공격이나 무기의 공격 수정치가 더 높다면, 그것을 대신 사용할 수 있다.</li><li>당신 자신의 수정치가 더 높지 않은 한, 곡예 수정치 +16.</li></ul><p>당신은 또한 요정의 종류에 따라 특정 능력을 얻는다:</p><ul><li><p><strong>드라이어드</strong> 중형 크기; 얻는 임시 HP는 30으로 증가한다; 이동 속도 25피트; 화염에 대한 약점 5</p><ul><li><strong>크기</strong> 중형</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 나뭇가지, <strong>피해</strong> 1d12+8 타격.</li></ul></li><li><p><strong>엘라난크스</strong> 중형 크기; 이동 속도 30피트; 화염에 대한 저항 5</p><ul><li><strong>크기</strong> 중형</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 턱, <strong>피해</strong> 1d6+8 관통 및 1d6 화염;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발톱(민첩), <strong>피해</strong> 1d6+8 참격.</li></ul></li><li><p><strong>나이아드</strong> 중형 크기; 이동 속도 25피트, 수영 25피트;</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 물의 주먹(물), <strong>피해</strong> 1d8+8 타격.</li></ul></li><li><p><strong>레드캡</strong> 이동 속도 40피트;</p><ul><li><strong>크기</strong> 소형;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 큰낫(치명 d10, 넘어뜨리기), <strong>피해</strong> 1d10+8 참격;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 부츠(민첩, 다목적 B), <strong>피해</strong> 1d6+8 관통.</li></ul></li><li><p><strong>유니콘</strong> 요정에 더해 야수 특성을 얻는다; 이동 속도 40피트; 독에 대한 저항 5;</p><ul><li><strong>크기</strong> 대형;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 뿔, <strong>피해</strong> 1d10+8 관통 및 1 영혼;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발굽(민첩), <strong>피해</strong> 1d8+8 타격; 모든 강타는 <em>유령 접촉</em> 속성 룬의 효과를 가진다.</li></ul></li></ul>"
  },
  "spell-effect-adapt-self": {
-  "name_ko": "주문 효과: 자기 적응",
+  "name_ko": "주문 효과: 적응",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.GUnw9YXaW3YyaCAU]{자기 적응}으로 부여됨</p>\n<p>당신은 다음 선택지 중 하나를 얻는다:</p><ul><li><p>당신의 이동 속도의 절반과 동일한 수영 속도.</p></li><li><p>암시</p></li></ul>"
  },
  "spell-effect-shielding-formation": {
-  "name_ko": "주문 효과: 방패 대형",
+  "name_ko": "주문 효과: 방패 형성",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.6QEWTuCKRQQTyoeS]{방패 대형}으로 부여됨</p>\n<p>당신은 AC에 +1 상황 보너스를 얻는다. 이 보너스를 끝내고 모든 피해에 대한 저항 10을 얻을 수 있다.</p>"
  },
  "spell-effect-aerial-form": {
-  "name_ko": "주문 효과: 비행 변신",
+  "name_ko": "주문 효과: 공중 형태",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.NzXpEzcZAjuDTZjK]{비행 변신}으로 부여됨</p>\n<p>당신은 중형 비행 동물 전투 형태로 변형한다. 당신은 동물 특성을 얻고, 어떤 전투 형태를 선택하든 무관하게 다음 수치와 능력을 얻는다:</p><ul><li><p>AC = 18 + 당신의 레벨. 당신의 갑옷 판정 페널티와 이동 속도 감소를 무시한다.</p></li><li><p>임시 히트 포인트 5점.</p></li><li><p>저광 시야.</p></li><li><p>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격으로, 이것이 당신이 강타할 수 있는 유일한 공격이다. 당신은 이에 숙련되어 있다. 당신의 공격 수정치는 +16이며, 피해 보너스는 +5다. 이 공격들은 민첩 기반이다(예를 들어 @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함} 조건을 판단할 때). 민첩 기반 비무장 공격에 대한 당신의 공격 수정치가 더 높다면, 그것을 대신 사용할 수 있다.</p></li><li><p>당신 자신의 수정치가 더 높지 않은 한, 곡예 수정치 +16.</p></li></ul><p>당신은 또한 선택한 형태에 따라 특정 능력을 얻는다:</p><ul><li><p><strong>박쥐</strong></p><ul><li><p>이동 속도 20피트, 비행 속도 30피트; 정밀 반향정위 40피트;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 송곳니, <strong>피해</strong> 2d8 관통;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 날개(민첩), <strong>피해</strong> 2d6 타격.</p></li></ul></li></ul><ul><li><p><strong>새</strong></p><ul><li><p>이동 속도 10피트, 비행 속도 50피트;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 부리, <strong>피해</strong> 2d8 관통;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 발톱(민첩), <strong>피해</strong> 1d10 참격.</p></li></ul></li></ul><ul><li><p><strong>익룡</strong></p><ul><li><p>이동 속도 10피트, 비행 속도 40피트; 부정확 후각 30피트;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 부리, <strong>피해</strong> 3d6 관통.</p></li></ul></li></ul><ul><li><p><strong>말벌</strong></p><ul><li><p>이동 속도 20피트, 비행 속도 40피트;</p></li><li><p><strong>근접</strong> <span class=\"action-glyph\">1</span> 침, <strong>피해</strong> 1d8 관통 및 1d6 지속 독.</p></li></ul></li></ul><hr /><p><strong>상승 (5랭크)</strong> 당신의 전투 형태는 대형이 되고, 당신의 비행 속도는 +10피트 상태 보너스를 얻는다. 확장할 충분한 공간이 있어야 하며, 그렇지 않으면 주문이 소실된다. 당신은 대신 임시 HP 10점, 공격 수정치 +18, 피해 보너스 +8, 곡예 +20을 얻는다.</p>\n<p><strong>상승 (6랭크)</strong> 당신의 전투 형태는 초대형이 되고, 당신의 비행 속도는 +15피트 상태 보너스를 얻으며, 공격은 10피트 간격을 가진다. 확장할 충분한 공간이 있어야 하며, 그렇지 않으면 주문이 소실된다. 당신은 대신 AC = 21 + 당신의 레벨, 임시 HP 15점, 공격 수정치 +21, 피해 보너스 +4 및 두 배 피해 주사위(지속 피해 포함), 곡예 +23을 얻는다.</p>"
  },
  "spell-effect-rapid-retreat": {
@@ -3994,11 +3994,11 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.6sNjsNPipZvQ3BGe]{신속한 후퇴}로 부여됨</p>\n<p>당신은 당신의 레벨과 동일한 모든 피해에 대한 저항을 얻는다.</p>"
  },
  "spell-effect-monstrosity-form": {
-  "name_ko": "주문 효과: 괴수 변신",
+  "name_ko": "주문 효과: 괴물 형태",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.8AMvNVOUEtxBCDvJ]{괴수 변신}으로 부여됨</p>\n<p>당신은 전설적인 괴물의 모습으로 변형하여 초대형 전투 형태를 취한다. 확장할 충분한 공간이 있어야 하며, 그렇지 않으면 주문이 소실된다. 이 형태에 있는 동안, 당신은 (불사조의 경우) 야수 특성 또는 (동굴 벌레나 바다 뱀의 경우) 동물 특성을 얻는다. 당신은 어떤 전투 형태를 선택하든 무관하게 다음 수치와 능력을 얻는다:</p><ul><li>AC = 20 + 당신의 레벨. 당신의 갑옷 판정 페널티와 이동 속도 감소를 무시한다.</li><li>임시 히트 포인트 20점.</li><li>암시.</li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격으로, 이것이 당신이 강타할 수 있는 유일한 공격이다. 당신은 이에 숙련되어 있다. 당신의 공격 수정치는 +28이며, 기재된 피해를 사용한다. 이 공격들은 근력 기반이다(예를 들어 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨} 조건을 판단할 때). 당신의 비무장 공격 수정치가 더 높다면, 그것을 대신 사용할 수 있다.</li><li>당신 자신의 수정치가 더 높지 않은 한, 운동 수정치 +30.</li></ul><p>당신은 또한 선택한 괴물의 종류에 따라 특정 능력을 얻는다:</p><ul><li><p><strong>동굴 벌레</strong></p><ul><li>이동 속도 40피트, 굴착 30피트, 수영 20피트;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 턱(간격 10피트), <strong>피해</strong> 2d12+20 관통;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 침(민첩, 간격 10피트), <strong>피해</strong> 2d8+15 관통 및 2d6 지속 독;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 몸통(간격 10피트) <strong>피해</strong> 2d8+20 타격;</li><li><strong>불굴</strong> 당신은 각 자기 턴이 끝날 때 @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{마비}, @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{둔화}, @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{기절} 조건에서 자동으로 회복한다. 당신은 또한 @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{이동 불가}가 되는 것에 면역이며 어려운 지형과 극심하게 어려운 지형을 무시한다.</li></ul></li></ul><ul><li><p><strong>불사조</strong></p><ul><li>이동 속도 30피트, 비행 90피트;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 부리(간격 15피트), <strong>피해</strong> 2d6+12 관통 및 2d4 화염 및 2d4 지속 화염;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 발톱(민첩, 간격 15피트), <strong>피해</strong> 2d8+12 참격;</li><li><strong>화염의 장막</strong> (오라, 화염, 원시) 20피트. 당신은 자신으로부터 뻗어 나가는 화염의 오라를 얻는다. 오라 안에 진입하거나 오라 안에서 턴을 끝내는 생물은 2d6 화염 피해를 받는다. 생물은 이 피해를 턴당 한 번만 받을 수 있다. 당신은 유지 행동으로 이 오라를 활성화하거나 비활성화할 수 있다.</li></ul></li><li><p><strong>바다 뱀</strong></p><ul><li>이동 속도 20피트, 수영 90피트;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 턱(간격 15피트), <strong>피해</strong> 2d12+20 관통;</li><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 꼬리(간격 25피트), <strong>피해</strong> 2d8+20 타격;</li><li><strong>가시 긁기</strong> <span class=\"action-glyph\">2</span> (이동) 당신은 가시를 뻗고 수영하거나 이동한다. 당신의 이동 중 어느 지점에서든 당신과 인접한 각 생물은 4d8+10 참격 피해를 받는다(당신의 주문 DC에 대한 기본 반사).</li></ul></li></ul><hr /><p><strong>상승 (9랭크)</strong> 당신은 대신 AC = 22 + 당신의 레벨, 임시 HP 25점, 공격 수정치 +31을 얻고, 피해를 피해 주사위 하나만큼 증가시키며, 운동 +33을 얻는다.</p>"
  },
  "spell-effect-murmuration": {
-  "name_ko": "주문 효과: 웅성거림",
+  "name_ko": "주문 효과: 무리 비행",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.4EmLum6EdvXxbxCj]{웅성거림}으로 부여됨</p>\n<p>당신은 명중 굴림 또는 적대적 기술 판정에 –2 상태 페널티를 받는다.</p>"
  },
  "spell-effect-spiritual-renewal": {
@@ -4010,11 +4010,11 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.9uSBfK8EUVBrcNYx]{반동의 저주}에 의해 부여됨</p>\n<p>원거리 명중에 –1 상태 페널티를 받습니다.</p>"
  },
  "spell-effect-cosmic-form": {
-  "name_ko": "주문 효과: 우주적 형상",
+  "name_ko": "주문 효과: 우주적 형태",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.IHUs4qn27RrdFQ5Y]{우주적 형상}에 의해 부여됨</p>\n<p>대형 전투 형상으로 변신합니다. 이 전투 형상에서는 손을 가지고 있어 조작 행동을 사용할 수 있습니다. 선택한 형상과 무관하게 다음 수치와 능력을 얻습니다:</p><ul><li>AC = 21 + 당신의 레벨. 방어구의 판정 페널티와 속도 감소를 무시합니다.</li><li>임시 히트 포인트 20점.</li><li>암시야.</li><li>사용하는 전투 형상에 특화된 하나 이상의 공격. 이에 숙련되어 있습니다. 공격 수정치는 +25이며, 명시된 피해를 사용합니다. 근접 공격은 근력 기반이며(예를 들어 약화됨 조건의 목적상), 원거리 공격은 민첩 기반입니다. 당신의 비무장 공격 수정치가 더 높다면 그것을 대신 사용할 수 있습니다.</li><li>운동 수정치 +25, 단 당신 자신의 수치가 더 높다면 그것을 사용합니다.</li></ul><p>또한 천체에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>달</strong> 속도 30피트, 비행 50피트</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹 (민첩, 도달 10피트), <strong>피해</strong> 2d4+10 타격 및 1d6 화염</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 달빛 (사거리 90피트), <strong>피해</strong> 2d4+10 화염; 이 형상의 화염 피해는 저항, 약점 등에 대해 은으로 취급됩니다</li><li>어느 쪽 공격이든 대성공 시, 목표는 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 2}가 됩니다.</li></ul></li><li><p><strong>태양</strong> 속도 30피트, 비행 50피트</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹 (민첩, 도달 10피트), <strong>피해</strong> 2d6+10 화염 및 1d6 지속 화염</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 햇빛 (사거리 90피트), <strong>피해</strong> 1d6+10 화염 및 1d6 지속 화염</li><li>어느 쪽 공격이든 대성공 시, 목표는 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{눈부심}이 됩니다.</li></ul></li></ul>"
  },
  "spell-effect-warping-pull": {
-  "name_ko": "주문 효과: 뒤틀림의 견인",
+  "name_ko": "주문 효과: 뒤틀림의 끌어당김",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.UtINSoEJ0u630ia4]{뒤틀림의 견인}에 의해 부여됨</p>\n<p>모든 피해에 저항을 얻습니다.</p>"
  },
  "spell-effect-holy-host-garuda": {
@@ -4022,7 +4022,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.BINaRykHRLGn4Qfm]{신성한 군세}에 의해 부여됨</p>\n<p>모든 기술 판정과 DC에 +1 상황 보너스를 얻습니다.</p>"
  },
  "spell-effect-flaming-fusillade": {
-  "name_ko": "주문 효과: 화염의 일제 사격",
+  "name_ko": "주문 효과: 불꽃 사격",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.bynT1UKaDqr8dLNM]{화염의 일제 사격}에 의해 부여됨</p>\n<p>9랭크로 상승 시, <em>점화</em>가 입히는 피해에 <em>화염의 일제 사격</em>의 주문 랭크만큼의 상태 보너스를 얻습니다.</p>"
  },
  "spell-effects-divine-dragons-watch": {
@@ -4030,7 +4030,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.BBiO9ZdwyEJ581ES]{신성한 용의 감시}에 의해 부여됨</p>\n<p>용의 보호 반응을 얻습니다.</p>"
  },
  "spell-effect-helpful-reload": {
-  "name_ko": "주문 효과: 도움이 되는 재장전",
+  "name_ko": "주문 효과: 재장전 지원",
   "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.0OFFXFdnMmFVlt8W]{도움이 되는 재장전}에 의해 부여됨</p>\n<p>선택한 무기로 하는 다음 공격에 +1 상태 보너스를 얻습니다.</p>"
  },
  "stance-rushing-goat-stance": {
