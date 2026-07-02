@@ -233,7 +233,7 @@
   "name_ko": "찢기"
  },
  "greater-darkvision": {
-  "name_ko": "상위 암시야"
+  "name_ko": "향상된 암흑 시야"
  },
  "coven": {
   "name_ko": "마녀회"
@@ -264,7 +264,7 @@
   "name_ko": "빛 실명"
  },
  "thoughtsense": {
-  "name_ko": "사고 감지"
+  "name_ko": "생각 감지"
  },
  "improved-knockdown": {
   "name_ko": "개선된 쓰러뜨리기"
@@ -354,7 +354,7 @@
   "name_ko": "날뛰기"
  },
  "darkvision": {
-  "name_ko": "암시야"
+  "name_ko": "암흑 시야"
  },
  "scent": {
   "name_ko": "후각"
