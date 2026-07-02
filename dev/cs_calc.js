@@ -406,18 +406,12 @@ function getHeritage(key){
   }
   return typeof HERITAGE_DB !== 'undefined' ? _findInDb(HERITAGE_DB, key, ['id','name_en','name_ko']) : null;
 }
-function getWeapon(key){
-  const leg = (typeof WEAPON_DB !== 'undefined') ? _findInDb(WEAPON_DB, key, ['id','name_en','name_ko']) : null;
-  if (leg) return leg;
-  // FVTT 장비 폴백 — 신격 선호무기 등 레거시 WEAPON_DB(50) 밖 슬러그를 FVTT base 전량에서 해소(소스 무관 통일)
-  if (typeof PF2eEquip !== 'undefined' && PF2eEquip.toLegacy && typeof PF2eData !== 'undefined') {
-    try { const doc = PF2eData.get('equipment', key); if (doc) return PF2eEquip.toLegacy(doc); } catch (e) {}
-  }
-  return null;
-}
-function getArmor(key) { return typeof ARMOR_DB !== 'undefined' ? _findInDb(ARMOR_DB, key, ['id','name_en','name_ko']) : null; }
-function getShield(key){ return typeof SHIELD_DB !== 'undefined' ? _findInDb(SHIELD_DB, key, ['id','name_en','name_ko']) : null; }
-function getGear(key)  { return typeof GEAR_DB !== 'undefined' ? _findInDb(GEAR_DB, key, ['id','name_en','name_ko']) : null; }
+// 장비 카탈로그 = FVTT 단일 소스(PF2eEquip). key=slug/name_en/name_ko 모두 해소(구 저장 하위호환).
+function _getEquip(key, type) { return (typeof PF2eEquip !== 'undefined' && PF2eEquip.getEquipLegacy) ? PF2eEquip.getEquipLegacy(key, type) : null; }
+function getWeapon(key){ return _getEquip(key, 'weapon'); }
+function getArmor(key) { return _getEquip(key, 'armor'); }
+function getShield(key){ return _getEquip(key, 'shield'); }
+function getGear(key)  { return _getEquip(key); }
 function getCondition(key) {
   if (typeof CONDITIONS_DATA === 'undefined' || !key) return null;
   const idx = _getDbIndex(CONDITIONS_DATA, ['id','en','name']);
@@ -595,7 +589,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.51').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.52').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
@@ -933,7 +927,7 @@ function _infoResolveItem(type, name) {
   }
 
   // 장비: DB 항목에 설명이 없으면 보유 중인 장비 인스턴스의 _desc로 보강
-  // (GEAR_DB 등 최소 스키마에는 설명이 없으나 BASE 브라우즈로 추가한 항목은 _desc 보유)
+  // (룬 등 최소 스키마에는 설명이 없으나 FVTT 카탈로그로 추가한 항목은 _desc 보유)
   if (item && !item.desc && !item.summary && ['gear','rune','weapon','armor','shield'].includes(type)) {
     const eqInst = _eqByName(name) || _eqByName(nameKo);
     const d = eqInst && (eqInst._desc || eqInst._data?._desc || eqInst._data?.desc || eqInst._data?.description);

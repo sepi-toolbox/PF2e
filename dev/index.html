@@ -44,11 +44,11 @@ window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters'
                   sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
 window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
-<script src="equipment_db.js?v=0.51"></script>
-<script src="feat_db.js?v=0.51"></script>
-<script src="class_features_db.js?v=0.51"></script>
-<script src="effects_db.js?v=0.51"></script>
-<script src="prereqs_db.js?v=0.51"></script>
+<script src="equipment_db.js?v=0.52"></script>
+<script src="feat_db.js?v=0.52"></script>
+<script src="class_features_db.js?v=0.52"></script>
+<script src="effects_db.js?v=0.52"></script>
+<script src="prereqs_db.js?v=0.52"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -69,7 +69,7 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
   console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.51">
+<link rel="stylesheet" href="app-shell.css?v=0.52">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -1920,7 +1920,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.51</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.52</span></div>
 </div>
 
 <!-- ═══ 업데이트 로그 모달 ═══ -->
@@ -2451,7 +2451,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.51" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.52" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2528,36 +2528,36 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.51"></script>
-<script src="cs_calc.js?v=0.51"></script>
+<script src="cs_data.js?v=0.52"></script>
+<script src="cs_calc.js?v=0.52"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.51"></script>
-<script src="cs_re_engine.js?v=0.51"></script>
-<script src="cs_pf2e_stats.js?v=0.51"></script>
-<script src="cs_pf2e_equip.js?v=0.51"></script>
-<script src="cs_pf2e_anc.js?v=0.51"></script>
-<script src="cs_pf2e_bg.js?v=0.51"></script>
-<script src="cs_pf2e_spell.js?v=0.51"></script>
-<script src="cs_pf2e_deity.js?v=0.51"></script>
-<script src="cs_pf2e_action.js?v=0.51"></script>
-<script src="cs_pf2e_feat.js?v=0.51"></script>
-<script src="cs_pf2e_class.js?v=0.51"></script>
-<script src="cs_pf2e_actor.js?v=0.51"></script>
-<script src="cs_ui.js?v=0.51"></script>
-<script src="cs_modal.js?v=0.51"></script>
-<script src="cs_feat_effects.js?v=0.51"></script>
-<script src="cs_save.js?v=0.51"></script>
-<script src="cs_session.js?v=0.51"></script>
-<script src="cs_dice.js?v=0.51"></script>
-<script src="cs_map.js?v=0.51"></script>
+<script src="cs_pf2e.js?v=0.52"></script>
+<script src="cs_re_engine.js?v=0.52"></script>
+<script src="cs_pf2e_stats.js?v=0.52"></script>
+<script src="cs_pf2e_equip.js?v=0.52"></script>
+<script src="cs_pf2e_anc.js?v=0.52"></script>
+<script src="cs_pf2e_bg.js?v=0.52"></script>
+<script src="cs_pf2e_spell.js?v=0.52"></script>
+<script src="cs_pf2e_deity.js?v=0.52"></script>
+<script src="cs_pf2e_action.js?v=0.52"></script>
+<script src="cs_pf2e_feat.js?v=0.52"></script>
+<script src="cs_pf2e_class.js?v=0.52"></script>
+<script src="cs_pf2e_actor.js?v=0.52"></script>
+<script src="cs_ui.js?v=0.52"></script>
+<script src="cs_modal.js?v=0.52"></script>
+<script src="cs_feat_effects.js?v=0.52"></script>
+<script src="cs_save.js?v=0.52"></script>
+<script src="cs_session.js?v=0.52"></script>
+<script src="cs_dice.js?v=0.52"></script>
+<script src="cs_map.js?v=0.52"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.51"></script>
-<script src="cs_i18n.js?v=0.51"></script>
+<script src="cs_locale.js?v=0.52"></script>
+<script src="cs_i18n.js?v=0.52"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.51');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.52');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2641,6 +2641,9 @@ document.addEventListener('click', function(e) {
 // ═══ 업데이트 로그 / 공지 (기어 메뉴) ═══
 // 최신순. 새 버전 작업 시 맨 앞에 {v, date, items:[...]} 추가(사용자 친화적 한글 문장).
 const CHANGELOG = [
+  { v: '0.52', date: '2026-07-02', items: [
+    '내부 정리: 무기·방어구·방패·장비 데이터도 FVTT 단일 소스로 통일했습니다 — 과거 별도로 유지하던 장비 사전(무기 50·방어구 등)을 제거하고, 모든 장비를 하나의 카탈로그(5,600여 종)에서 불러옵니다. 장비 추가 창·검색·정보 표시는 이전과 동일하게 동작하며, 룬 부착 시스템은 그대로 유지됩니다. 예전에 담아둔 장비도 이름으로 계속 인식됩니다.',
+  ] },
   { v: '0.51', date: '2026-07-02', items: [
     '내부 정리: 주문 데이터를 FVTT 단일 소스로 완전히 통일했습니다 — 과거 별도로 유지하던 주문 사전(레거시)을 제거하고, 모든 주문(1,796종)을 하나의 카탈로그에서 불러옵니다. 화면에 보이는 주문 목록·이름·설명은 이전과 동일하며, 데이터가 두 곳에서 관리되던 이중 구조만 없앴습니다.',
   ] },

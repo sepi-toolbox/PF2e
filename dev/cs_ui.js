@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.51').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.52').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2863,10 +2863,8 @@ function switchEquipTab(tab) {
   if (_equipUseFvtt()) {
     if (tab === 'weapon') cats = [...new Set(PF2eEquip.legacyList({type:'weapon'}).map(w => w.category))];
     else if (tab === 'armor') cats = [...new Set(PF2eEquip.legacyList({type:'armor'}).map(a => a.category))];
-  } else {
-    if (tab === 'weapon') cats = [...new Set(WEAPON_DB.map(w => w.category))];
-    else if (tab === 'armor') cats = [...new Set(ARMOR_DB.map(a => a.category))];
   }
+  // 미로드 시 cats=[] → renderEquipBrowseItems가 데이터 로드 후 재렌더
 
   if (cats.length > 0) {
     subContainer.innerHTML = `<div class="equip-subtab active" onclick="switchEquipSubTab('')">전체</div>` +
@@ -2922,48 +2920,30 @@ function _ensureAncData() {
 }
 
 function renderEquipBrowseItems() {
-  // FVTT 카탈로그 사용 가능: 미로드면 로드 후 재렌더(로딩 표시), 로드됨이면 변환목록
-  if (typeof PF2eEquip !== 'undefined' && typeof PF2eData !== 'undefined') {
-    if (!_equipDataReady) {
-      const opts = document.getElementById('modal-options');
-      if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">장비 데이터 불러오는 중… (' + (typeof PF2eEquip.typeCounts === 'function' && _equipDataReady ? '' : '5,600여 종') + ')</div>';
-      _ensureEquipData().then(ok => { if (ok) renderEquipBrowseItems(); else _renderEquipBrowseLegacy(); });
-      return;
-    }
-    const q = (document.getElementById('modal-search')?.value || '').toLowerCase();
-    let items;
-    if (equipBrowseTab === 'weapon') items = PF2eEquip.legacyList({ type: 'weapon', search: q });
-    else if (equipBrowseTab === 'armor') items = PF2eEquip.legacyList({ type: 'armor', search: q });
-    else if (equipBrowseTab === 'shield') items = PF2eEquip.legacyList({ type: 'shield', search: q });
-    else { // gear: FVTT 일반 장비/소비품/보물/탄약/용기 + 레거시 룬(부착 시스템 보존)
-      items = PF2eEquip.legacyList({ search: q }).filter(i => i.damage === undefined && i.ac_bonus === undefined && i.hardness === undefined);
-      if (typeof RUNE_DB !== 'undefined') {
-        let runes = RUNE_DB;
-        if (q) runes = runes.filter(i => (i.name_ko || '').toLowerCase().includes(q) || (i.name_en || '').toLowerCase().includes(q));
-        items = [...runes, ...items];
-      }
-    }
-    if (equipBrowseSubTab) items = items.filter(i => i.category === equipBrowseSubTab);
-    renderOptions(items);
+  // 장비 카탈로그 = FVTT 단일 소스. 미로드면 로드 후 재렌더(로딩 표시).
+  const opts = document.getElementById('modal-options');
+  if (!_equipDataReady) {
+    if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">장비 데이터 불러오는 중… (5,600여 종)</div>';
+    _ensureEquipData().then(ok => {
+      if (ok) renderEquipBrowseItems();
+      else if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">장비 데이터를 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.</div>';
+    });
     return;
   }
-  _renderEquipBrowseLegacy();
-}
-
-// 레거시 DB 폴백 (PF2eEquip 미로드/로드실패 시)
-function _renderEquipBrowseLegacy() {
-  let items = [];
-  if (equipBrowseTab === 'weapon') items = [...WEAPON_DB];
-  else if (equipBrowseTab === 'armor') items = [...ARMOR_DB];
-  else if (equipBrowseTab === 'shield') items = [...SHIELD_DB];
-  else if (equipBrowseTab === 'gear') items = [...GEAR_DB, ...(typeof RUNE_DB !== 'undefined' ? RUNE_DB : [])];
-  else items = [...GEAR_DB];
-
+  const q = (document.getElementById('modal-search')?.value || '').toLowerCase();
+  let items;
+  if (equipBrowseTab === 'weapon') items = PF2eEquip.legacyList({ type: 'weapon', search: q });
+  else if (equipBrowseTab === 'armor') items = PF2eEquip.legacyList({ type: 'armor', search: q });
+  else if (equipBrowseTab === 'shield') items = PF2eEquip.legacyList({ type: 'shield', search: q });
+  else { // gear: FVTT 일반 장비/소비품/보물/탄약/용기 + 룬(부착 시스템 큐레이션 보존)
+    items = PF2eEquip.legacyList({ search: q }).filter(i => i.damage === undefined && i.ac_bonus === undefined && i.hardness === undefined);
+    if (typeof RUNE_DB !== 'undefined') {
+      let runes = RUNE_DB;
+      if (q) runes = runes.filter(i => (i.name_ko || '').toLowerCase().includes(q) || (i.name_en || '').toLowerCase().includes(q));
+      items = [...runes, ...items];
+    }
+  }
   if (equipBrowseSubTab) items = items.filter(i => i.category === equipBrowseSubTab);
-
-  const q = (document.getElementById('modal-search')?.value||'').toLowerCase();
-  if (q) items = items.filter(i => (i.name_ko||'').includes(q) || (i.name_en||'').toLowerCase().includes(q));
-
   renderOptions(items);
 }
 

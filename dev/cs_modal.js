@@ -2603,6 +2603,12 @@ function openModal(type, ctx) {
     if (_need) _ensureAncData().then(ok => { if (ok && modalType === type) openModal(type, ctx); });
   }
 
+  // FVTT 장비 카탈로그(무기/방어구/방패/장비 picker) 미준비 시: 로드 완료되면 재오픈
+  if (['weapon','armor','shield','equip-weapon','equip-armor','equip-shield','equip-gear'].includes(type)
+      && typeof _ensureEquipData === 'function' && typeof _equipUseFvtt === 'function' && !_equipUseFvtt()) {
+    _ensureEquipData().then(ok => { if (ok && modalType === type) openModal(type, ctx); });
+  }
+
   document.getElementById('modal-overlay').classList.remove('hidden');
   document.getElementById('modal-search').value = '';
 
@@ -2691,9 +2697,10 @@ function getOptionsData(type) {
   if (type==='feat') return filterFeats();
   if (type==='spell') return filterSpells();
   if (type==='weapon' || type==='equip-weapon') return filterWeapons();
-  if (type==='armor' || type==='equip-armor') return _searchFilter(typeof ARMOR_DB!=='undefined' ? ARMOR_DB : []);
-  if (type==='shield' || type==='equip-shield') return _searchFilter(typeof SHIELD_DB!=='undefined' ? SHIELD_DB : []);
-  if (type==='equip-gear') return _searchFilter(typeof GEAR_DB!=='undefined' ? GEAR_DB : []);
+  const _eqList = (t) => (typeof PF2eEquip!=='undefined' && PF2eEquip.legacyList) ? PF2eEquip.legacyList(t ? {type:t} : {}) : [];
+  if (type==='armor' || type==='equip-armor') return _searchFilter(_eqList('armor'));
+  if (type==='shield' || type==='equip-shield') return _searchFilter(_eqList('shield'));
+  if (type==='equip-gear') return _searchFilter(_eqList().filter(i => i.damage===undefined && i.ac_bonus===undefined && i.hardness===undefined));
   return [];
 }
 
@@ -2744,7 +2751,8 @@ function buildSpellFilters() {
 function buildWeaponFilters() {
   const fbar = document.getElementById('modal-filterbar');
   if (!fbar) return;
-  const cats = [...new Set((typeof WEAPON_DB!=='undefined'?WEAPON_DB:[]).map(w=>w.category))].sort();
+  const _wl = (typeof PF2eEquip!=='undefined' && PF2eEquip.legacyList) ? PF2eEquip.legacyList({type:'weapon'}) : [];
+  const cats = [...new Set(_wl.map(w=>w.category))].sort();
   fbar.innerHTML = `
     <select id="filter-wpn-cat" onchange="renderOptions(getOptionsData('weapon'))">
       <option value="">전체 분류</option>
@@ -3139,13 +3147,10 @@ function filterSpells() {
 }
 
 function filterWeapons() {
-  if (typeof WEAPON_DB==='undefined') return [];
+  if (typeof PF2eEquip==='undefined' || !PF2eEquip.legacyList) return [];
   const q = document.getElementById('modal-search')?.value.toLowerCase()||'';
   const cat = document.getElementById('filter-wpn-cat')?.value||'';
-  return WEAPON_DB.filter(w =>
-    (!cat || w.category===cat) &&
-    (!q || w.name_ko.includes(q) || (w.name_en||'').toLowerCase().includes(q))
-  );
+  return PF2eEquip.legacyList({type:'weapon', search:q}).filter(w => !cat || w.category===cat);
 }
 
 function renderOptions(data) {

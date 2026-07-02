@@ -1063,21 +1063,16 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       };
       container.appendChild(row);
     });
-  } else if (choiceDef.type === 'weapon_pick' && typeof WEAPON_DB !== 'undefined') {
-    // ── 비일반 무기 선택 모달 ──
+  } else if (choiceDef.type === 'weapon_pick' && typeof PF2eEquip !== 'undefined' && PF2eEquip.legacyList) {
+    // ── 비일반(uncommon) 무기 선택 모달 (FVTT 카탈로그 단일 소스) ──
     // 군용 무기 전체 숙련 여부 확인
     const martialProf = parseInt(document.getElementById('prof-weapon-martial')?.value || 0);
     const allMartialTrained = martialProf >= 2;
 
-    const candidates = WEAPON_DB.filter(w => {
-      if (!w.category || !w.category.includes('비일반')) return false;
-      if (allMartialTrained) {
-        // 고급 비일반도 허용
-        return true;
-      } else {
-        // 단순/군용 비일반만
-        return w.category.startsWith('단순') || w.category.startsWith('군용');
-      }
+    const candidates = PF2eEquip.legacyList({type:'weapon'}).filter(w => {
+      if (w.rarity !== 'uncommon') return false;           // 비일반 희귀도만
+      if (allMartialTrained) return true;                  // 고급 비일반도 허용
+      return w.category === '단순' || w.category === '군용'; // 그 외 단순/군용 비일반만
     });
 
     if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; searchEl.oninput = () => {

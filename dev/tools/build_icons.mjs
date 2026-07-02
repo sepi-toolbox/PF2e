@@ -131,11 +131,9 @@ function feed(scope, arr) {
   stat[scope].total += total; stat[scope].matched += matched;
 }
 
-feed('equipment', sb.ARMOR_DB);
-feed('equipment', sb.SHIELD_DB);
-feed('equipment', sb.WEAPON_DB);
-feed('equipment', sb.GEAR_DB);
-// 주문 아이콘은 FVTT doc.img → runtime iconImg img-폴백으로 해소(카탈로그=PF2eSpell)
+// 무기/방어구/방패/장비·주문 아이콘은 FVTT doc.img → runtime iconImg img-폴백으로 해소
+// (카탈로그=PF2eEquip/PF2eSpell 단일 소스, BASE 아이콘 벤더링=build_equip_icons.mjs)
+feed('equipment', sb.RUNE_DB);
 feed('feat', sb.FEAT_DB);
 feed('action', sb.ACTION_DB);
 feed('heritage', sb.HERITAGE_DB);
