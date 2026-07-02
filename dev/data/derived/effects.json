@@ -4271,7 +4271,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "gathered-lore",
-   "owner_name": "집대성된 로어",
+   "owner_name": "집대성된 지식",
    "owner_level": 1,
    "category": "classfeature",
    "effect_group_id": "",
@@ -6560,7 +6560,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "바드적 로어",
+   "target": "바드 지식",
    "condition": ""
   },
   {
@@ -25034,7 +25034,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "esoteric-lore",
-   "owner_name": "에소테리카 로어",
+   "owner_name": "에소테리카 지식",
    "owner_level": 1,
    "category": "classfeature",
    "effect_group_id": "",
@@ -25050,7 +25050,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "esoteric-lore",
-   "owner_name": "에소테리카 로어",
+   "owner_name": "에소테리카 지식",
    "owner_level": 1,
    "category": "classfeature",
    "effect_group_id": "",
@@ -25066,7 +25066,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "esoteric-lore",
-   "owner_name": "에소테리카 로어",
+   "owner_name": "에소테리카 지식",
    "owner_level": 1,
    "category": "classfeature",
    "effect_group_id": "",
@@ -25082,7 +25082,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "esoteric-lore",
-   "owner_name": "에소테리카 로어",
+   "owner_name": "에소테리카 지식",
    "owner_level": 1,
    "category": "classfeature",
    "effect_group_id": "",
@@ -33098,7 +33098,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "lore",
-   "owner_name": "로어",
+   "owner_name": "지식",
    "owner_level": 1,
    "category": "classfeature",
    "effect_group_id": "",
@@ -33114,7 +33114,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "lore",
-   "owner_name": "로어",
+   "owner_name": "지식",
    "owner_level": 1,
    "category": "classfeature",
    "effect_group_id": "",
@@ -33128,7 +33128,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "lore",
-   "owner_name": "로어",
+   "owner_name": "지식",
    "owner_level": 1,
    "category": "classfeature",
    "effect_group_id": "",
@@ -37402,7 +37402,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "awakened-animal-lore",
-   "owner_name": "각성 동물 로어",
+   "owner_name": "각성 동물 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -37418,7 +37418,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "awakened-animal-lore",
-   "owner_name": "각성 동물 로어",
+   "owner_name": "각성 동물 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -37434,7 +37434,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "awakened-animal-lore",
-   "owner_name": "각성 동물 로어",
+   "owner_name": "각성 동물 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -37442,7 +37442,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -37819,7 +37819,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "hobgoblin-lore",
-   "owner_name": "홉고블린 로어",
+   "owner_name": "홉고블린 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -37835,7 +37835,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "hobgoblin-lore",
-   "owner_name": "홉고블린 로어",
+   "owner_name": "홉고블린 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -37851,7 +37851,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "hobgoblin-lore",
-   "owner_name": "홉고블린 로어",
+   "owner_name": "홉고블린 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -37859,7 +37859,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -38879,7 +38879,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "android-lore",
-   "owner_name": "안드로이드 로어",
+   "owner_name": "안드로이드 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -38895,7 +38895,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "android-lore",
-   "owner_name": "안드로이드 로어",
+   "owner_name": "안드로이드 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -39424,7 +39424,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "orc-lore",
-   "owner_name": "오크 로어",
+   "owner_name": "오크 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -39440,7 +39440,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "orc-lore",
-   "owner_name": "오크 로어",
+   "owner_name": "오크 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -39456,7 +39456,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "orc-lore",
-   "owner_name": "오크 로어",
+   "owner_name": "오크 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -39464,7 +39464,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -39854,7 +39854,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -40671,7 +40671,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -40816,7 +40816,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -43227,7 +43227,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "changeling-lore",
-   "owner_name": "체인질링 로어",
+   "owner_name": "체인질링 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -43243,7 +43243,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "changeling-lore",
-   "owner_name": "체인질링 로어",
+   "owner_name": "체인질링 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -43259,7 +43259,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "changeling-lore",
-   "owner_name": "체인질링 로어",
+   "owner_name": "체인질링 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -43267,7 +43267,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -44491,7 +44491,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "tripkee-lore",
-   "owner_name": "트립키 로어",
+   "owner_name": "트립키 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -44507,7 +44507,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "tripkee-lore",
-   "owner_name": "트립키 로어",
+   "owner_name": "트립키 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -44523,7 +44523,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "tripkee-lore",
-   "owner_name": "트립키 로어",
+   "owner_name": "트립키 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -44531,7 +44531,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -50011,7 +50011,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "dwarven-lore",
-   "owner_name": "드워프의 로어",
+   "owner_name": "드워프의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -50027,7 +50027,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "dwarven-lore",
-   "owner_name": "드워프의 로어",
+   "owner_name": "드워프의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -50043,7 +50043,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "dwarven-lore",
-   "owner_name": "드워프의 로어",
+   "owner_name": "드워프의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -50051,7 +50051,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -51248,7 +51248,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "clan-lore",
-   "owner_name": "씨족의 로어",
+   "owner_name": "씨족의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -51263,7 +51263,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "clan-lore",
-   "owner_name": "씨족의 로어",
+   "owner_name": "씨족의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -51279,7 +51279,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "clan-lore",
-   "owner_name": "씨족의 로어",
+   "owner_name": "씨족의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -53098,7 +53098,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "minotaur-lore",
-   "owner_name": "미노타우루스 로어",
+   "owner_name": "미노타우루스 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -53114,7 +53114,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "minotaur-lore",
-   "owner_name": "미노타우루스 로어",
+   "owner_name": "미노타우루스 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -53130,7 +53130,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "minotaur-lore",
-   "owner_name": "미노타우루스 로어",
+   "owner_name": "미노타우루스 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -53138,7 +53138,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -55102,7 +55102,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "automaton-lore",
-   "owner_name": "오토마톤 로어",
+   "owner_name": "오토마톤 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -55118,7 +55118,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "automaton-lore",
-   "owner_name": "오토마톤 로어",
+   "owner_name": "오토마톤 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -55134,7 +55134,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "automaton-lore",
-   "owner_name": "오토마톤 로어",
+   "owner_name": "오토마톤 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -55150,7 +55150,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "automaton-lore",
-   "owner_name": "오토마톤 로어",
+   "owner_name": "오토마톤 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -55166,7 +55166,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "automaton-lore",
-   "owner_name": "오토마톤 로어",
+   "owner_name": "오토마톤 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -55182,7 +55182,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "automaton-lore",
-   "owner_name": "오토마톤 로어",
+   "owner_name": "오토마톤 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -55198,7 +55198,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "automaton-lore",
-   "owner_name": "오토마톤 로어",
+   "owner_name": "오토마톤 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -55214,7 +55214,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "automaton-lore",
-   "owner_name": "오토마톤 로어",
+   "owner_name": "오토마톤 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -55363,7 +55363,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "merfolk-lore",
-   "owner_name": "어인족 로어",
+   "owner_name": "어인족 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -55379,7 +55379,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "merfolk-lore",
-   "owner_name": "어인족 로어",
+   "owner_name": "어인족 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -55395,7 +55395,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "merfolk-lore",
-   "owner_name": "어인족 로어",
+   "owner_name": "어인족 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -55403,7 +55403,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -55476,7 +55476,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -57677,7 +57677,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "nagaji-lore",
-   "owner_name": "나가지 로어",
+   "owner_name": "나가지 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -57693,7 +57693,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "nagaji-lore",
-   "owner_name": "나가지 로어",
+   "owner_name": "나가지 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -59405,7 +59405,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -59796,7 +59796,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "lizardfolk-lore",
-   "owner_name": "리자드포크 로어",
+   "owner_name": "리자드포크 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -59812,7 +59812,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "lizardfolk-lore",
-   "owner_name": "리자드포크 로어",
+   "owner_name": "리자드포크 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -59828,7 +59828,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "lizardfolk-lore",
-   "owner_name": "리자드포크 로어",
+   "owner_name": "리자드포크 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -59836,7 +59836,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -61052,7 +61052,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "tengu-lore",
-   "owner_name": "텐구 로어",
+   "owner_name": "텐구 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -61068,7 +61068,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "tengu-lore",
-   "owner_name": "텐구 로어",
+   "owner_name": "텐구 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -61084,7 +61084,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "tengu-lore",
-   "owner_name": "텐구 로어",
+   "owner_name": "텐구 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -61092,7 +61092,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -61961,7 +61961,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "strix-lore",
-   "owner_name": "스트릭스 로어",
+   "owner_name": "스트릭스 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -61977,7 +61977,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "strix-lore",
-   "owner_name": "스트릭스 로어",
+   "owner_name": "스트릭스 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -62190,7 +62190,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "sarangay-lore",
-   "owner_name": "사랑가이 로어",
+   "owner_name": "사랑가이 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -62206,7 +62206,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "sarangay-lore",
-   "owner_name": "사랑가이 로어",
+   "owner_name": "사랑가이 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -62222,7 +62222,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "sarangay-lore",
-   "owner_name": "사랑가이 로어",
+   "owner_name": "사랑가이 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -62230,7 +62230,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -63241,7 +63241,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "kobold-lore",
-   "owner_name": "코볼트 로어",
+   "owner_name": "코볼트 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -63257,7 +63257,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "kobold-lore",
-   "owner_name": "코볼트 로어",
+   "owner_name": "코볼트 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -63273,7 +63273,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "kobold-lore",
-   "owner_name": "코볼트 로어",
+   "owner_name": "코볼트 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -63281,7 +63281,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -63388,7 +63388,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "athamaru-lore",
-   "owner_name": "아타마루 로어",
+   "owner_name": "아타마루 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -63404,7 +63404,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "athamaru-lore",
-   "owner_name": "아타마루 로어",
+   "owner_name": "아타마루 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -63420,7 +63420,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "athamaru-lore",
-   "owner_name": "아타마루 로어",
+   "owner_name": "아타마루 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -63428,7 +63428,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -63667,7 +63667,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "jotunborn-lore",
-   "owner_name": "요툰본의 로어",
+   "owner_name": "요툰본의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -63683,7 +63683,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "jotunborn-lore",
-   "owner_name": "요툰본의 로어",
+   "owner_name": "요툰본의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -63699,7 +63699,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "jotunborn-lore",
-   "owner_name": "요툰본의 로어",
+   "owner_name": "요툰본의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -63707,13 +63707,13 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
    "owner_kind": "feat",
    "owner_slug": "jotunborn-lore",
-   "owner_name": "요툰본의 로어",
+   "owner_name": "요툰본의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -63721,7 +63721,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": "[\"heritage:sage-jotunborn\"]"
   },
   {
@@ -65357,7 +65357,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "ghoran-lore",
-   "owner_name": "고란의 로어",
+   "owner_name": "고란의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -65373,7 +65373,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "ghoran-lore",
-   "owner_name": "고란의 로어",
+   "owner_name": "고란의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -65649,7 +65649,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -67294,7 +67294,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "diverse-lore",
-   "owner_name": "다양한 로어",
+   "owner_name": "다양한 지식",
    "owner_level": 1,
    "category": "class",
    "effect_group_id": "",
@@ -67310,7 +67310,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "diverse-lore",
-   "owner_name": "다양한 로어",
+   "owner_name": "다양한 지식",
    "owner_level": 1,
    "category": "class",
    "effect_group_id": "",
@@ -67326,7 +67326,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "diverse-lore",
-   "owner_name": "다양한 로어",
+   "owner_name": "다양한 지식",
    "owner_level": 1,
    "category": "class",
    "effect_group_id": "",
@@ -68365,7 +68365,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -70774,7 +70774,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "progenitor-lore",
-   "owner_name": "선조의 로어",
+   "owner_name": "선조의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -70790,7 +70790,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "progenitor-lore",
-   "owner_name": "선조의 로어",
+   "owner_name": "선조의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -71119,7 +71119,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "duskwalker-lore",
-   "owner_name": "황혼의 방랑자 로어",
+   "owner_name": "황혼의 방랑자 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -71135,7 +71135,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "duskwalker-lore",
-   "owner_name": "황혼의 방랑자 로어",
+   "owner_name": "황혼의 방랑자 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -71151,7 +71151,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "duskwalker-lore",
-   "owner_name": "황혼의 방랑자 로어",
+   "owner_name": "황혼의 방랑자 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -71159,7 +71159,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -71867,7 +71867,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -72442,7 +72442,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "surki-lore",
-   "owner_name": "수르키 로어",
+   "owner_name": "수르키 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -72458,7 +72458,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "surki-lore",
-   "owner_name": "수르키 로어",
+   "owner_name": "수르키 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -72474,7 +72474,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "surki-lore",
-   "owner_name": "수르키 로어",
+   "owner_name": "수르키 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -72482,7 +72482,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -73223,7 +73223,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -75159,7 +75159,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -75279,7 +75279,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "elemental-lore",
-   "owner_name": "원소 로어",
+   "owner_name": "원소 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -75295,7 +75295,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "elemental-lore",
-   "owner_name": "원소 로어",
+   "owner_name": "원소 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -75310,7 +75310,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "elemental-lore",
-   "owner_name": "원소 로어",
+   "owner_name": "원소 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -79081,7 +79081,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -80969,7 +80969,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "halfling-lore",
-   "owner_name": "하플링 로어",
+   "owner_name": "하플링 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -80985,7 +80985,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "halfling-lore",
-   "owner_name": "하플링 로어",
+   "owner_name": "하플링 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -81001,7 +81001,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "halfling-lore",
-   "owner_name": "하플링 로어",
+   "owner_name": "하플링 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -81009,7 +81009,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -84223,7 +84223,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -84359,7 +84359,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "unmistakable-lore",
-   "owner_name": "확실한 로어",
+   "owner_name": "확실한 지식",
    "owner_level": 2,
    "category": "skill",
    "effect_group_id": "",
@@ -84374,7 +84374,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "unmistakable-lore",
-   "owner_name": "확실한 로어",
+   "owner_name": "확실한 지식",
    "owner_level": 2,
    "category": "skill",
    "effect_group_id": "",
@@ -85680,7 +85680,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -88510,7 +88510,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "kitsune-lore",
-   "owner_name": "키츠네 로어",
+   "owner_name": "키츠네 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -88526,7 +88526,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "kitsune-lore",
-   "owner_name": "키츠네 로어",
+   "owner_name": "키츠네 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -91560,7 +91560,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "tanuki-lore",
-   "owner_name": "타누키 로어",
+   "owner_name": "타누키 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -91576,7 +91576,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "tanuki-lore",
-   "owner_name": "타누키 로어",
+   "owner_name": "타누키 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -91592,7 +91592,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "tanuki-lore",
-   "owner_name": "타누키 로어",
+   "owner_name": "타누키 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -91600,7 +91600,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -93312,7 +93312,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "samsaran-lore",
-   "owner_name": "삼사란 로어",
+   "owner_name": "삼사란 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -93328,7 +93328,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "samsaran-lore",
-   "owner_name": "삼사란 로어",
+   "owner_name": "삼사란 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -93344,7 +93344,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "samsaran-lore",
-   "owner_name": "삼사란 로어",
+   "owner_name": "삼사란 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -93352,7 +93352,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -93931,7 +93931,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "axiomatic-lore",
-   "owner_name": "공리적 로어",
+   "owner_name": "공리적 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -93947,7 +93947,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "axiomatic-lore",
-   "owner_name": "공리적 로어",
+   "owner_name": "공리적 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -94517,7 +94517,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "catfolk-lore",
-   "owner_name": "캣포크의 로어",
+   "owner_name": "캣포크의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -94533,7 +94533,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "catfolk-lore",
-   "owner_name": "캣포크의 로어",
+   "owner_name": "캣포크의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -94549,7 +94549,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "catfolk-lore",
-   "owner_name": "캣포크의 로어",
+   "owner_name": "캣포크의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -94557,7 +94557,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -98806,7 +98806,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -99125,7 +99125,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "vampire-lore",
-   "owner_name": "뱀파이어 로어",
+   "owner_name": "뱀파이어 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -99141,7 +99141,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "vampire-lore",
-   "owner_name": "뱀파이어 로어",
+   "owner_name": "뱀파이어 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -99157,7 +99157,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "vampire-lore",
-   "owner_name": "뱀파이어 로어",
+   "owner_name": "뱀파이어 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -99165,7 +99165,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -99399,7 +99399,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "leshy-lore",
-   "owner_name": "레시 로어",
+   "owner_name": "레시 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -99407,13 +99407,13 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
    "owner_kind": "feat",
    "owner_slug": "leshy-lore",
-   "owner_name": "레시 로어",
+   "owner_name": "레시 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -99429,7 +99429,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "leshy-lore",
-   "owner_name": "레시 로어",
+   "owner_name": "레시 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -100740,7 +100740,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "anadi-lore",
-   "owner_name": "아나디 로어",
+   "owner_name": "아나디 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -100756,7 +100756,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "anadi-lore",
-   "owner_name": "아나디 로어",
+   "owner_name": "아나디 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -101942,7 +101942,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "conrasu-lore",
-   "owner_name": "콘라수 로어",
+   "owner_name": "콘라수 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -101958,7 +101958,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "conrasu-lore",
-   "owner_name": "콘라수 로어",
+   "owner_name": "콘라수 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -103007,7 +103007,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -105003,7 +105003,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "ratfolk-lore",
-   "owner_name": "랫포크 로어",
+   "owner_name": "랫포크 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -105019,7 +105019,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "ratfolk-lore",
-   "owner_name": "랫포크 로어",
+   "owner_name": "랫포크 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -105035,7 +105035,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "ratfolk-lore",
-   "owner_name": "랫포크 로어",
+   "owner_name": "랫포크 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -105043,7 +105043,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -105879,7 +105879,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -109450,7 +109450,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -109808,7 +109808,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "vishkanya-lore",
-   "owner_name": "비슈카냐 로어",
+   "owner_name": "비슈카냐 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -109824,7 +109824,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "vishkanya-lore",
-   "owner_name": "비슈카냐 로어",
+   "owner_name": "비슈카냐 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -110269,7 +110269,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -110351,7 +110351,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -111066,7 +111066,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "vanara-lore",
-   "owner_name": "바나라 로어",
+   "owner_name": "바나라 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -111082,7 +111082,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "vanara-lore",
-   "owner_name": "바나라 로어",
+   "owner_name": "바나라 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -111314,7 +111314,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -112499,7 +112499,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "kholo-lore",
-   "owner_name": "콜로 로어",
+   "owner_name": "콜로 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -112515,7 +112515,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "kholo-lore",
-   "owner_name": "콜로 로어",
+   "owner_name": "콜로 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -112531,7 +112531,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "kholo-lore",
-   "owner_name": "콜로 로어",
+   "owner_name": "콜로 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -112539,7 +112539,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -112726,7 +112726,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "wayang-lore",
-   "owner_name": "와양 로어",
+   "owner_name": "와양 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -112742,7 +112742,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "wayang-lore",
-   "owner_name": "와양 로어",
+   "owner_name": "와양 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -112758,7 +112758,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "wayang-lore",
-   "owner_name": "와양 로어",
+   "owner_name": "와양 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -112766,7 +112766,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -113559,7 +113559,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "nephilim-lore",
-   "owner_name": "네필림의 로어",
+   "owner_name": "네필림의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -113575,7 +113575,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "nephilim-lore",
-   "owner_name": "네필림의 로어",
+   "owner_name": "네필림의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -113590,7 +113590,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "nephilim-lore",
-   "owner_name": "네필림의 로어",
+   "owner_name": "네필림의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -113606,7 +113606,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "nephilim-lore",
-   "owner_name": "네필림의 로어",
+   "owner_name": "네필림의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -113614,7 +113614,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -114108,7 +114108,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "goblin-lore",
-   "owner_name": "고블린 로어",
+   "owner_name": "고블린 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -114124,7 +114124,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "goblin-lore",
-   "owner_name": "고블린 로어",
+   "owner_name": "고블린 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -114140,7 +114140,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "goblin-lore",
-   "owner_name": "고블린 로어",
+   "owner_name": "고블린 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -114148,7 +114148,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -115437,7 +115437,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "centaur-lore",
-   "owner_name": "켄타우로스 로어",
+   "owner_name": "켄타우로스 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -115453,7 +115453,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "centaur-lore",
-   "owner_name": "켄타우로스 로어",
+   "owner_name": "켄타우로스 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -115469,7 +115469,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "centaur-lore",
-   "owner_name": "켄타우로스 로어",
+   "owner_name": "켄타우로스 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -115477,7 +115477,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -116387,7 +116387,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -116769,7 +116769,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -116783,7 +116783,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -117172,7 +117172,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "goloma-lore",
-   "owner_name": "골로마 로어",
+   "owner_name": "골로마 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -117188,7 +117188,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "goloma-lore",
-   "owner_name": "골로마 로어",
+   "owner_name": "골로마 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -117577,7 +117577,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "dragon-lore",
-   "owner_name": "용의 로어",
+   "owner_name": "용의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -117593,7 +117593,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "dragon-lore",
-   "owner_name": "용의 로어",
+   "owner_name": "용의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -117609,7 +117609,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "dragon-lore",
-   "owner_name": "용의 로어",
+   "owner_name": "용의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -117617,7 +117617,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -118179,7 +118179,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -119837,7 +119837,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "azarketi-lore",
-   "owner_name": "아자케티 로어",
+   "owner_name": "아자케티 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -119853,7 +119853,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "azarketi-lore",
-   "owner_name": "아자케티 로어",
+   "owner_name": "아자케티 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -120516,7 +120516,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "shoony-lore",
-   "owner_name": "슈니 로어",
+   "owner_name": "슈니 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -120532,7 +120532,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "shoony-lore",
-   "owner_name": "슈니 로어",
+   "owner_name": "슈니 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -122139,7 +122139,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -122942,7 +122942,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "elven-lore",
-   "owner_name": "엘프의 로어",
+   "owner_name": "엘프의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -122958,7 +122958,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "elven-lore",
-   "owner_name": "엘프의 로어",
+   "owner_name": "엘프의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -122974,7 +122974,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "elven-lore",
-   "owner_name": "엘프의 로어",
+   "owner_name": "엘프의 지식",
    "owner_level": 1,
    "category": "ancestry",
    "effect_group_id": "",
@@ -122982,7 +122982,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -127514,7 +127514,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": ""
   },
   {
@@ -132988,7 +132988,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_feat",
-   "target": "추가 로어",
+   "target": "추가 지식",
    "condition": "[{\"or\":[\"background-variant:none\",\"background-variant:family:typical\"]}]"
   },
   {
@@ -225650,7 +225650,7 @@
    "re_key": "",
    "src": "note",
    "type": "display_note",
-   "note": "[1행동] 사역마를 비물질로 전환/복귀. 물리 피해 저항, 힘 피해에 약함"
+   "note": "[1행동] 사역마를 비물질로 전환/복귀. 물리 피해 저항, 역장 피해에 약함"
   },
   {
    "owner_kind": "feat",
