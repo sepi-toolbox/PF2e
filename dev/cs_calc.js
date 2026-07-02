@@ -390,7 +390,11 @@ function featSame(a, b) { return featSlug(a) === featSlug(b); }
 function _allFeats() {
   return (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) ? PF2eFeat.featList() : [];
 }
-function getAction(key){ return typeof ACTION_DB !== 'undefined' ? _findInDb(ACTION_DB, key, ['id','name_en','name_ko']) : null; }
+// 행동 = FVTT 카탈로그(PF2eAction) + 큐레이션(그룹/게이트) 단일 소스. 큐레이션(앱 요약) 우선, 미등재면 FVTT.
+function getAction(key){
+  if (typeof PF2eAction === 'undefined') return null;
+  return (PF2eAction.getCuration && PF2eAction.getCuration(key)) || (PF2eAction.getActionLegacy && PF2eAction.getActionLegacy(key)) || null;
+}
 function getHeritage(key){
   // 유산 카탈로그 = FVTT 단일 소스(PF2eAnc)
   if (typeof PF2eAnc !== 'undefined' && PF2eAnc.ready && PF2eAnc.ready()) {
@@ -581,7 +585,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.54').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.55').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}

@@ -5491,8 +5491,8 @@ function renderActions() {
     return;
   }
 
-  // 풀: 전체 행동(ACTION_DB) — 비용 필터는 동적 추가(재주/커스텀)까지 합친 뒤 마지막에 적용
-  let visible = [...ACTION_DB];
+  // 풀: 전체 행동(큐레이션) — 비용 필터는 동적 추가(재주/커스텀)까지 합친 뒤 마지막에 적용
+  let visible = [...((typeof PF2eAction !== 'undefined' && PF2eAction.curatedList) ? PF2eAction.curatedList() : [])];
 
   // FVTT 이행(v0.44): 큐레이션 74개의 표시데이터를 FVTT actions 오버레이 단일 소스에서 해소.
   //   그룹/비용요건/기술게이트(cat_label·req_*)는 큐레이션 유지, 이름·비용·특성·설명은 FVTT.
