@@ -619,6 +619,8 @@ window.onload = function() {
   renderGrowthPlan();
   renderPortrait();
   if (typeof MapView !== 'undefined') MapView.init();  // 지도 onChange/프로비저닝 구독 (세션 입장 시 동작)
+  // 전 카탈로그 로딩 게이트 선제 워밍 — catalogsReady를 미리 세워 loadData 복원이 지연 없이 진행되게(레거시 폴백 없음).
+  if (typeof _ensureAllCatalogs === 'function') _ensureAllCatalogs();
   if (typeof _ensureEquipData === 'function') _ensureEquipData();  // FVTT 장비 카탈로그 사전 로드 (첫 브라우즈 즉시 표시)
   if (typeof _ensureAncData === 'function') _ensureAncData();      // FVTT 혈통/유산/배경 카탈로그 사전 로드 (P4, 캐릭터 생성 1단계)
   if (typeof PF2eSpell !== 'undefined') PF2eSpell.init().catch(()=>{});  // FVTT 주문 카탈로그 사전 로드 (P4)

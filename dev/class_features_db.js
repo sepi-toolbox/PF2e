@@ -103,22 +103,9 @@ var CLASS_PROF_TABLE = {
 //  type: 'feat' = auto-granted feat, undefined = display-only
 // ═══════════════════════════════════════════════
 
-var CLASS_FEATURE_NAMES = (function() {
-  // v528~ Phase 2D: FEAT_DB에서 파생 (category='feature' + acquisition='auto' + source=class_id)
-  const out = {};
-  if (typeof FEAT_DB === 'undefined') return out;
-  for (const f of FEAT_DB) {
-    if (!f || f.category !== 'feature' || f.acquisition !== 'auto' || !f.source) continue;
-    if (!out[f.source]) out[f.source] = [];
-    const entry = { lv: f.feat_level, name_ko: f.name_ko, name_en: f.name_en, desc: f.desc };
-    if (f.feature_legacy_id) entry.id = f.feature_legacy_id;
-    if (f.feature_type) entry.type = f.feature_type;
-    out[f.source].push(entry);
-  }
-  // 레벨 정렬
-  for (const k of Object.keys(out)) out[k].sort((a, b) => a.lv - b.lv);
-  return out;
-})();
+// 클래스 레벨별 특성명. 전 클래스(27) PF2eClass._mergeIntoGlobals가 classFeatures(doc)로 채운다.
+// (FVTT 클래스 doc의 system.items에서 도출 — 단일 소스. 초기값 빈 객체.)
+var CLASS_FEATURE_NAMES = {};
 
 // ═══════════════════════════════════════════════
 //  AUTO-GRANTED FEATS — class features that grant feats

@@ -162,8 +162,10 @@
     const FN = (typeof CLASS_FEATURE_NAMES !== 'undefined') ? CLASS_FEATURE_NAMES : (root.CLASS_FEATURE_NAMES || null);
     const ST = (typeof CLASS_SPELL_TABLE !== 'undefined') ? CLASS_SPELL_TABLE : (root.CLASS_SPELL_TABLE || null);
     const SD = (typeof SUBCLASS_DB !== 'undefined') ? SUBCLASS_DB : (root.SUBCLASS_DB || null);
+    // 전 클래스(구 8 legacy 포함) 병합. FEAT_DB 제거 후 CLASS_FEATURE_NAMES는 여기서만 채워짐.
+    // present-only 채우기(!FN[slug]/!ST[slug]/!SD.some) → 큐레이션(CLASS_SPELL_TABLE·SUBCLASS_DB)은 안 덮음.
     for (const doc of PF.all('classes')) {
-      const slug = doc.system && doc.system.slug; if (!slug || LEGACY.has(slug)) continue;
+      const slug = doc.system && doc.system.slug; if (!slug) continue;
       if (FN && !FN[slug]) FN[slug] = classFeatures(doc);
       if (ST && !ST[slug]) { const t = spellTable(slug); if (t) ST[slug] = t; }
       if (SD && Array.isArray(SD) && !SD.some(s => s.class_id === slug)) {
