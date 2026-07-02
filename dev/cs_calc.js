@@ -585,7 +585,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.61').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.62').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
@@ -1693,9 +1693,10 @@ function rebuildCoreEffects() {
 // ── 서브클래스 효과 헬퍼 (SUBCLASS_DB.granted_*에서 호환 형태로 변환) ──
 function getSubclassAutoFeats(sub) {
   if (!sub || !Array.isArray(sub.granted_feats)) return [];
+  // 서브클래스가 부여하는 능력은 클래스 특성('special')으로 묶는다 — 클래스 재주(class)/기술 재주(skill)가 아님.
   return sub.granted_feats.map(fid => {
     const f = (typeof getFeat === 'function') ? getFeat(fid) : null;
-    return f ? { lv: 1, name_ko: f.name_ko, name_en: f.name_en, category: f.category } : null;
+    return f ? { lv: 1, name_ko: f.name_ko, name_en: f.name_en, category: 'special', _subclass: true } : null;
   }).filter(Boolean);
 }
 function getSubclassAutoSpells(sub) {

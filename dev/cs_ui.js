@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.61').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.62').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2218,6 +2218,16 @@ function renderFeats() {
       }
       const redDot = hasChoiceIssue ? '<span style="font-size:11px;color:#f44336;flex-shrink:0;line-height:1;" title="선택 필요">⚠</span>'
         : hasPrereqIssue ? '<span style="font-size:11px;color:#ff9800;flex-shrink:0;line-height:1;" title="선행 조건 미충족">⚠</span>' : '';
+      // 서브클래스 선택 특성(방법론·교의·기질 등): 선택한 서브클래스만 박스로 표시(모든 옵션 나열 방지)
+      const _sub = state.selectedSubclass;
+      const _isSubChoice = t === 'special' && _sub && _sub.class_id === state.selectedClass?.id
+        && f.name && f.name.split(' (')[0].trim() === (_sub.subclass_type || '').trim();
+      // 서브클래스 선택 특성 desc는 인트로만 남기고 옵션 목록(<ul>)은 선택 박스로 대체
+      const _descShown = _isSubChoice ? String(desc).split(/<ul/i)[0].split(/<hr/i)[0] : desc;
+      const subBox = _isSubChoice ? `<div style="margin-top:8px;padding:8px 10px;background:var(--bg3);border-radius:6px;border-left:3px solid var(--accent);">
+          <div style="font-weight:600;font-size:12px;margin-bottom:3px;display:inline-flex;align-items:center;gap:4px;">${typeof iconImg==='function'?iconImg('feat',_sub):''}${_sub.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${_sub.name_en||''}</span></div>
+          <div style="font-size:11px;line-height:1.6;color:var(--text2);">${typeof resolveDescRefs==='function'?resolveDescRefs(_sub.desc||''):(_sub.desc||'')}</div>
+        </div>` : '';
       div.innerHTML = `
         <div class="feat-card-header" style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
           <span style="color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${iconImg('feat', featData)}${f.name || labels[t] + ' 재주'}</span>${redDot}
@@ -2228,7 +2238,8 @@ function renderFeats() {
         ${fTraits ? `<div class="feat-traits-row">${fTraits}</div>` : ''}
         <div class="feat-detail">
           ${fPrereq}
-          <div style="line-height:1.6;">${typeof formatDescActions==='function'?formatDescActions(desc,featData):desc}</div>
+          <div style="line-height:1.6;">${typeof formatDescActions==='function'?formatDescActions(_descShown,featData):_descShown}</div>
+          ${subBox}
           ${typeof _buildFeatActionCard==='function'?_buildFeatActionCard(featData):''}
           ${choiceUI}
         </div>`;

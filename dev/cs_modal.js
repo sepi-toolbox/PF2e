@@ -730,6 +730,7 @@ function applyClassFeatures() {
       if (!state.feats[cat].some(e => e.name === featName)) {
         const _fd = f.id ? null : (getFeat(f.name_en) || getFeat(f.name_ko));
         const autoFeat = {id: f.id || _fd?.id || null, name: featName, level: f.lv, _auto: true};
+        if (f._subclass) autoFeat._subclass = true;
         const savedChoice = savedAutoChoices[featName + '_'];
         if (savedChoice) autoFeat.choice = savedChoice;
         state.feats[cat].push(autoFeat);

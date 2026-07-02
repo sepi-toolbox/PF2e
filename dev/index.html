@@ -44,10 +44,10 @@ window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters'
                   sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
 window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
-<script src="equipment_db.js?v=0.61"></script>
-<script src="class_features_db.js?v=0.61"></script>
-<script src="effects_db.js?v=0.61"></script>
-<script src="prereqs_db.js?v=0.61"></script>
+<script src="equipment_db.js?v=0.62"></script>
+<script src="class_features_db.js?v=0.62"></script>
+<script src="effects_db.js?v=0.62"></script>
+<script src="prereqs_db.js?v=0.62"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -67,7 +67,7 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
   console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.61">
+<link rel="stylesheet" href="app-shell.css?v=0.62">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -1918,7 +1918,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.61</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.62</span></div>
 </div>
 
 <!-- ═══ 업데이트 로그 모달 ═══ -->
@@ -2449,7 +2449,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.61" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.62" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2526,36 +2526,36 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.61"></script>
-<script src="cs_calc.js?v=0.61"></script>
+<script src="cs_data.js?v=0.62"></script>
+<script src="cs_calc.js?v=0.62"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.61"></script>
-<script src="cs_re_engine.js?v=0.61"></script>
-<script src="cs_pf2e_stats.js?v=0.61"></script>
-<script src="cs_pf2e_equip.js?v=0.61"></script>
-<script src="cs_pf2e_anc.js?v=0.61"></script>
-<script src="cs_pf2e_bg.js?v=0.61"></script>
-<script src="cs_pf2e_spell.js?v=0.61"></script>
-<script src="cs_pf2e_deity.js?v=0.61"></script>
-<script src="cs_pf2e_action.js?v=0.61"></script>
-<script src="cs_pf2e_feat.js?v=0.61"></script>
-<script src="cs_pf2e_class.js?v=0.61"></script>
-<script src="cs_pf2e_actor.js?v=0.61"></script>
-<script src="cs_ui.js?v=0.61"></script>
-<script src="cs_modal.js?v=0.61"></script>
-<script src="cs_feat_effects.js?v=0.61"></script>
-<script src="cs_save.js?v=0.61"></script>
-<script src="cs_session.js?v=0.61"></script>
-<script src="cs_dice.js?v=0.61"></script>
-<script src="cs_map.js?v=0.61"></script>
+<script src="cs_pf2e.js?v=0.62"></script>
+<script src="cs_re_engine.js?v=0.62"></script>
+<script src="cs_pf2e_stats.js?v=0.62"></script>
+<script src="cs_pf2e_equip.js?v=0.62"></script>
+<script src="cs_pf2e_anc.js?v=0.62"></script>
+<script src="cs_pf2e_bg.js?v=0.62"></script>
+<script src="cs_pf2e_spell.js?v=0.62"></script>
+<script src="cs_pf2e_deity.js?v=0.62"></script>
+<script src="cs_pf2e_action.js?v=0.62"></script>
+<script src="cs_pf2e_feat.js?v=0.62"></script>
+<script src="cs_pf2e_class.js?v=0.62"></script>
+<script src="cs_pf2e_actor.js?v=0.62"></script>
+<script src="cs_ui.js?v=0.62"></script>
+<script src="cs_modal.js?v=0.62"></script>
+<script src="cs_feat_effects.js?v=0.62"></script>
+<script src="cs_save.js?v=0.62"></script>
+<script src="cs_session.js?v=0.62"></script>
+<script src="cs_dice.js?v=0.62"></script>
+<script src="cs_map.js?v=0.62"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.61"></script>
-<script src="cs_i18n.js?v=0.61"></script>
+<script src="cs_locale.js?v=0.62"></script>
+<script src="cs_i18n.js?v=0.62"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.61');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.62');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2639,6 +2639,9 @@ document.addEventListener('click', function(e) {
 // ═══ 업데이트 로그 / 공지 (기어 메뉴) ═══
 // 최신순. 새 버전 작업 시 맨 앞에 {v, date, items:[...]} 추가(사용자 친화적 한글 문장).
 const CHANGELOG = [
+  { v: '0.62', date: '2026-07-02', items: [
+    '재주 탭의 서브클래스 표시를 개선했습니다 — (1) 서브클래스가 주는 능력이 "클래스 재주"나 "기술 재주"에 섞이던 것을 "클래스 특성"으로 올바르게 묶었습니다(서브클래스는 클래스 재주가 아님). (2) 방법론·교의·기질처럼 서브클래스를 고르는 특성은 모든 선택지를 나열하지 않고, 고른 서브클래스만 요약 박스로 보여줍니다.',
+  ] },
   { v: '0.61', date: '2026-07-02', items: [
     '지식(Lore) 기술 주제가 영문으로 나오던 문제를 고쳤습니다 — 배경이 주는 지식(전쟁·항해·학계·지하세계 등 166종)을 시스템 용어 사전에 추가해 한글로 표시합니다. 골라리온 고유명(앱살롬·고룸 등)도 정본 표기로 나오며, 직접 입력한 지식 주제는 그대로 유지됩니다.',
   ] },
