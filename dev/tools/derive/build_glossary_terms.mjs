@@ -31,8 +31,15 @@ for (const slug of Object.keys(enLang)) {
   n++;
 }
 
+// ── lore: 배경 부여 지식 주제(영문→한글) 큐레이션. 소스=tools/derive/lore_ko.json ──
+// (PF2e-KR lang엔 개별 Lore 주제 번역이 없어 골라리온 정본 표기로 큐레이션. 배경 trainedSkills.lore와 대조.)
+let lore = {};
+try { lore = JSON.parse(fs.readFileSync('tools/derive/lore_ko.json', 'utf8')); } catch (e) { console.warn('lore_ko.json 없음, lore 스킵'); }
+
 const gloss = JSON.parse(fs.readFileSync(GLOSS, 'utf8'));
 gloss.language = language;
+if (Object.keys(lore).length) gloss.lore = lore;
 fs.writeFileSync(GLOSS, JSON.stringify(gloss, null, 0));
+console.log(`glossary.lore 병합: ${Object.keys(lore).length}개`);
 console.log(`glossary.language 병합: ${n}개 (예: elven=${language.elven}, mwangi=${language.mwangi}, tengu=${language.tengu})`);
 console.log('전체 섹션:', Object.keys(gloss).map(k => k + ':' + (typeof gloss[k] === 'object' ? Object.keys(gloss[k]).length : '?')).join(', '));

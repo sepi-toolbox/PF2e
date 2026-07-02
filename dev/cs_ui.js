@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.60').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.61').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -1396,6 +1396,15 @@ function getLanguageKo(id) {
   return id;
 }
 
+// 지식(Lore) 주제 영문→한글. 글로서리 큐레이션(배경 부여 지식). 미등재(사용자 커스텀)는 원문 유지.
+function getLoreKo(name) {
+  if (!name) return name;
+  if (typeof PF2eAnc !== 'undefined' && PF2eAnc._glossary && PF2eAnc._glossary.loreKo) {
+    return PF2eAnc._glossary.loreKo(name);
+  }
+  return name;
+}
+
 function getMaxLanguages() {
   const intMod = Math.max(0, getMod('int'));
   return 2 + intMod; // 공용어 + 혈통어 + INT 수정치
@@ -2333,10 +2342,11 @@ function removeFeat(t, i) {
         if (eff.type === 'grant_lore') {
           const loreName = (eff.name === '$choice') ? feat.choice : eff.name;
           if (loreName) {
+            const loreKo = (typeof getLoreKo === 'function') ? getLoreKo(loreName) : loreName;
             ['lore1','lore2'].forEach(sid => {
               const el = document.getElementById('lore-name-'+sid);
               const profEl = document.getElementById('sk-prof-'+sid);
-              if (el && el.value === loreName) { el.value = ''; if (profEl) profEl.value = '0'; }
+              if (el && (el.value === loreName || el.value === loreKo)) { el.value = ''; if (profEl) profEl.value = '0'; }
             });
           }
         }

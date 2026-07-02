@@ -585,7 +585,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.60').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.61').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
@@ -1657,17 +1657,19 @@ function rebuildCoreEffects() {
     });
   }
 
-  // 배경 지식 (lore) — 한국어 이름 그대로 (외래 DB 없음)
+  // 배경 지식 (lore) — 글로서리로 주제명 한글화(영문/한글 양쪽 매칭으로 정합 유지)
   if (beff && beff.fixed_lores.length) {
     beff.fixed_lores.forEach((loreName, i) => {
       const slot = i === 0 ? 'lore1' : 'lore2';
+      const loreKo = (typeof getLoreKo === 'function') ? getLoreKo(loreName) : loreName;
       const nameEl = document.getElementById('lore-name-' + slot);
       const profEl = document.getElementById('sk-prof-' + slot);
       if (nameEl && profEl) {
-        const prevName = nameEl.value === loreName ? loreName : nameEl.value;
+        const _isGranted = (nameEl.value === loreKo || nameEl.value === loreName);
+        const prevName = _isGranted ? loreKo : nameEl.value;
         const prevRank = parseInt(profEl.value || 0);
-        state._bgGrantedLores.push({slot, name: loreName, prevName: prevRank < 2 ? '' : prevName, prevRank: prevRank < 2 ? 0 : prevRank});
-        if (!nameEl.value || nameEl.value === loreName) nameEl.value = loreName;
+        state._bgGrantedLores.push({slot, name: loreKo, prevName: prevRank < 2 ? '' : prevName, prevRank: prevRank < 2 ? 0 : prevRank});
+        if (!nameEl.value || _isGranted) nameEl.value = loreKo;
         if (prevRank < 2) profEl.value = '2';
       }
     });

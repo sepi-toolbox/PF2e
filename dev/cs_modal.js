@@ -4332,7 +4332,8 @@ function _buildBackgroundChoicesUI(bg) {
   // 고정 지식 (lore) — 한국어 그대로
   (beff.fixed_lores || []).forEach(loreName => {
     _modalChoices.loreName = loreName;
-    html += _choiceDropdown('', `지식 기술`, [{value: loreName, label: loreName + ' 지식'}], true, loreName);
+    const _loreKo = (typeof getLoreKo === 'function') ? getLoreKo(loreName) : loreName;
+    html += _choiceDropdown('', `지식 기술`, [{value: loreName, label: _loreKo + ' 지식'}], true, loreName);
   });
 
   // 신격 기술/지식 마커 (raised-by-belief)
@@ -5270,7 +5271,7 @@ function applyBackgroundInfo(bg) {
     const skillsKo = [
       ...(beff.fixed_skills || []).map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)),
       ...(beff.choice_skill_groups || []).map(g => g.map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)).join(' 또는 ')),
-      ...(beff.fixed_lores || []).map(l => l + ' 지식'),
+      ...(beff.fixed_lores || []).map(l => ((typeof getLoreKo === 'function') ? getLoreKo(l) : l) + ' 지식'),
     ].join(', ');
     const fd = beff.feat_id ? getFeat(beff.feat_id) : null;
     const featKo = fd ? fd.name_ko : (beff.feat_id || '—');
