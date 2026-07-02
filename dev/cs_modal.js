@@ -4495,8 +4495,11 @@ function _restoreInitialChoicesUI() {
 function _onInitialChoiceChange() { _validateInitialChoices(); }
 
 function _validateInitialChoices() {
-  const btn = document.getElementById('modal-confirm-choice');
-  if (!btn) return;
+  // ⚠ 확정 버튼은 뷰(데스크톱 상세패널 / 모바일 아코디언)마다 렌더돼 같은 id가 여럿 존재할 수 있음.
+  //   getElementById는 첫 매치만 잡아 안 보이는 버튼만 갱신 → 실제 보이는 버튼이 disabled로 남음(모바일 스틱 버그).
+  //   → 모든 [id="modal-confirm-choice"]를 갱신한다.
+  const btns = document.querySelectorAll('[id="modal-confirm-choice"]');
+  if (!btns.length) return;
   let valid = true;
 
   if (_modalChoices.type === 'class') {
@@ -4522,21 +4525,23 @@ function _validateInitialChoices() {
     if (langs.length < (_modalChoices.bonusBase || 0)) valid = false;
   }
 
-  if (valid) {
-    btn.disabled = false;
-    btn.style.background = 'var(--accent)';
-    btn.style.color = '#fff';
-    btn.style.cursor = 'pointer';
-    btn.style.border = 'none';
-    btn.textContent = '선택 확정';
-  } else {
-    btn.disabled = true;
-    btn.style.background = 'var(--bg4)';
-    btn.style.color = 'var(--text2)';
-    btn.style.cursor = 'not-allowed';
-    btn.style.border = '1px solid var(--border)';
-    btn.textContent = '모든 항목을 선택하세요';
-  }
+  btns.forEach(btn => {
+    if (valid) {
+      btn.disabled = false;
+      btn.style.background = 'var(--accent)';
+      btn.style.color = '#fff';
+      btn.style.cursor = 'pointer';
+      btn.style.border = 'none';
+      btn.textContent = '선택 확정';
+    } else {
+      btn.disabled = true;
+      btn.style.background = 'var(--bg4)';
+      btn.style.color = 'var(--text2)';
+      btn.style.cursor = 'not-allowed';
+      btn.style.border = '1px solid var(--border)';
+      btn.textContent = '모든 항목을 선택하세요';
+    }
+  });
 }
 
 //  CASCADE RESET FUNCTIONS
