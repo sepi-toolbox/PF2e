@@ -1,7 +1,7 @@
 /* cs_pf2e_spell.js — 주문(Spell) ACCESS 어댑터 (P4)
- * FVTT spells.base(1796) ⊕ 한글 OVERLAY → 빌더가 쓰는 레거시 SPELL_DB 형태로 노출(데이터 카탈로그).
+ * FVTT spells.base(1796) ⊕ 한글 OVERLAY → 빌더가 쓰는 주문 카탈로그 형태로 노출(단일 소스).
  * 주문은 시트 스탯 자동화 없음(레퍼토리/준비 목록 콘텐츠). 메타(range/area/defense)는 한글 단위 변환.
- * 의존: cs_pf2e.js(PF2eData). DOM 무관. 미준비 시 레거시 SPELL_DB 폴백.
+ * 의존: cs_pf2e.js(PF2eData). DOM 무관. 미로드 시 빈 목록(로딩 게이트가 커버).
  */
 (function (root) {
   'use strict';

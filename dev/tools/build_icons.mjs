@@ -28,7 +28,7 @@ function loadLegacy(files) {
   }
   return sb;
 }
-const sb = loadLegacy(['equipment_db.js', 'SPELL_DB.js', 'feat_db.js', 'class_features_db.js', 'cs_data.js']);
+const sb = loadLegacy(['equipment_db.js', 'feat_db.js', 'class_features_db.js', 'cs_data.js']);
 
 // ── BASE 인덱스: system.slug → img, name(lower) → img ──
 // 정규화: 소문자 + 아포스트로피 제거 + 비영숫자→하이픈
@@ -135,7 +135,7 @@ feed('equipment', sb.ARMOR_DB);
 feed('equipment', sb.SHIELD_DB);
 feed('equipment', sb.WEAPON_DB);
 feed('equipment', sb.GEAR_DB);
-feed('spell', sb.SPELL_DB);
+// 주문 아이콘은 FVTT doc.img → runtime iconImg img-폴백으로 해소(카탈로그=PF2eSpell)
 feed('feat', sb.FEAT_DB);
 feed('action', sb.ACTION_DB);
 feed('heritage', sb.HERITAGE_DB);

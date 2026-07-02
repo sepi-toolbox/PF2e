@@ -3090,7 +3090,7 @@ function _featInClass(f, classId) {
 }
 
 function filterSpells() {
-  const _spells = (typeof _allSpells === 'function') ? _allSpells() : (typeof SPELL_DB!=='undefined'?SPELL_DB:[]);
+  const _spells = (typeof _allSpells === 'function') ? _allSpells() : [];
   if (!_spells.length) return [];
   const q = document.getElementById('modal-search')?.value.toLowerCase()||'';
   // 위치: 후원자 전통 사용, 그 외: 클래스 전통

@@ -349,16 +349,12 @@ function _findInDb(db, key, fields) {
   return null;
 }
 
-// FVTT-native(P4) 주문 카탈로그 우선, 미준비 시 레거시 SPELL_DB 폴백
+// 주문 카탈로그 = FVTT 단일 소스(PF2eSpell). 미로드 시 빈 목록(로딩 게이트가 커버).
 function _allSpells() {
-  if (typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && PF2eSpell.ready()) return PF2eSpell.spellList();
-  return (typeof SPELL_DB !== 'undefined') ? SPELL_DB : [];
+  return (typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && PF2eSpell.ready()) ? PF2eSpell.spellList() : [];
 }
 function getSpell(key) {
-  if (typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && PF2eSpell.ready()) {
-    const sp = PF2eSpell.getSpellLegacy(key); if (sp) return sp;
-  }
-  return typeof SPELL_DB !== 'undefined' ? _findInDb(SPELL_DB, key, ['id','name_en','name_ko']) : null;
+  return (typeof PF2eSpell !== 'undefined' && PF2eSpell.ready && PF2eSpell.ready()) ? PF2eSpell.getSpellLegacy(key) : null;
 }
 function getFeat(key)  {
   // 레거시 FEAT_DB(검증된 효과) 우선, 미등재면 FVTT 재주 보강(P4 병합)
@@ -599,7 +595,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.50').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.51').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}

@@ -399,7 +399,7 @@ function _applyOneEffect(fb, eff, feat, level) {
       if (spellName === '$domain_initial' || spellName === '$domain_advanced') {
         const dom = feat.choice && typeof DOMAIN_DB !== 'undefined' ? DOMAIN_DB[feat.choice] : null;
         const id = dom ? (spellName === '$domain_initial' ? dom.initial : dom.advanced) : null;
-        // DOMAIN_DB는 SPELL_DB.id 외래키로 정규화됨 → id로 직접 lookup
+        // DOMAIN_DB는 주문 slug 외래키 → getSpell(카탈로그)로 직접 lookup
         const sp = id ? getSpell(id) : null;
         spellName = sp ? sp.name_ko : '';
         spellId = sp?.id || null;
@@ -914,7 +914,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
           row.style.background = 'var(--accent,#c9a84c)'; row.style.color = '#000';
           const dom = DOMAIN_DB[opt.id];
           const isAdvanced = !!choiceDef.filterByInitiated;
-          // DOMAIN_DB는 SPELL_DB.id 외래키 → SPELL_DB lookup
+          // DOMAIN_DB는 주문 slug 외래키 → getSpell(카탈로그) lookup
           const spellId = dom ? (isAdvanced ? dom.advanced : dom.initial) : null;
           const spell = spellId && typeof getSpell === 'function' ? getSpell(spellId) : null;
           const spellName = spell ? spell.name_ko : null;
