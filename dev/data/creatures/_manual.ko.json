@@ -757,7 +757,7 @@
   },
   "Maestro's Instrument (Lesser) (Hand Drum)": {
    "name": "거장의 악기 (하급) (손북)",
-   "description": "<p><em>거장의 악기</em>는 휴대용 악기 중 어떤 종류의 형태로도 제작될 수 있다. <em>거장의 악기</em>는 그 악기로 음악을 연주하는 동안 공연 판정에 +1 물품 보너스를 부여한다.</p><hr /><p><strong>발동—매혹적인 공연</strong> <span class=\"action-glyph\">2</span> (조작)</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 악기를 연주하여 DC 17의 @UUID[Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6]{매혹} 주문을 시전하게 한다.</p><hr /><p><strong>제작 요구사항</strong> 적절한 등급의 <em>매혹</em> 시전을 제공해야 한다.</p>"
+   "description": "<p><em>거장의 악기</em>는 휴대용 악기 중 어떤 종류의 형태로도 제작될 수 있다. <em>거장의 악기</em>는 그 악기로 음악을 연주하는 동안 공연 판정에 +1 물품 보너스를 부여한다.</p><hr /><p><strong>발동—매혹적인 공연</strong> <span class=\"action-glyph\">2</span> (조작)</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<p><strong>효과</strong> 악기를 연주하여 DC 17의 @UUID[Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6]{매혹} 주문을 시전하게 한다.</p><hr /><p><strong>제작 요구사항</strong> 적절한 랭크의 <em>매혹</em> 시전을 제공해야 한다.</p>"
   },
   "Ceremonial Skull Mask": {
    "name": "의식용 해골 가면"

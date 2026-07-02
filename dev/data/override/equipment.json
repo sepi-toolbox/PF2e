@@ -1,10 +1,10 @@
 {
  "robe-of-the-erinys-major": {
-  "name_ko": "에리니스의 로브 (대형)",
+  "name_ko": "에리니스의 로브 (상급)",
   "desc_ko": "<p>악마와 그 무기들을 황금빛으로 수놓은 이 정교한 진홍색 로브는 은둔 수도회인 황금 에리니스 수녀회의 복장을 본떠 만들어졌다. 로브의 허리띠는 뱀처럼 보이도록 수놓여 있으며, 금속 송곳니까지 갖추고 있다.</p>\n<p><strong>발동—무는 허리띠</strong> <span class=\"action-glyph\">2</span> (집중, 조작)</p>\n<p><strong>빈도</strong> 하루 한 번</p><hr /><p><strong>효과</strong> 로브의 허리띠를 풀어 사거리 내의 적을 향해 후려친다. 이때 허리띠가 잠시 살아 움직이며 그 적을 물어 @Damage[6d8[poison]] 피해를 주며, 기본 @Check[fortitude|dc:31] 내성 굴림을 요구한다. 대실패 시 대상은 추가로 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 1}이 된다.</p>"
  },
  "shacklebreaker-greater": {
-  "name_ko": "족쇄파괴자 (상급)",
+  "name_ko": "족쇄파괴자 (중급)",
   "desc_ko": "<p>이 팔찌에는 단검, 방패, 장미를 묘사한 세 개의 장식이 달려 있다. 이 팔찌를 착용하는 동안 도둑질 판정에 +2 아이템 보너스를 받는다. 수갑에서 누군가를 풀어주기 위한 판정에서 성공을 굴릴 때마다, 그것은 두 번의 성공으로 간주된다(대성공 시 세 번).</p>\n<p><strong>발동—사슬 없음</strong> <span class=\"action-glyph\">r</span> (조작)</p><hr /><p><strong>빈도</strong> 하루 한 번</p>\n<p><strong>발동</strong> 어떤 생물이 당신을 @UUID[Compendium.pf2e.actionspf2e.Item.PMbdMWc2QroouFGD]{붙잡기}하려 할 때</p>\n<p><strong>요구조건</strong> 당신이 그 생물을 인지하고 있으며 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태가 아니어야 한다</p><hr /><p><strong>효과</strong> 팔찌가 당신의 몸을 한 방향으로 홱 잡아당겨 공격자의 손아귀를 떨쳐내려 한다. 촉발한 붙잡기에 대한 당신의 건강 DC에 +2 상황 보너스를 받는다.</p>"
  },
  "floppy-rag-doll": {
@@ -27,7 +27,7 @@
   "desc_ko": "<p>드루마의 칼리스토크라트들은 헬브레이커와 헬나이트 양측 모두에게 무기를 팔아 이익을 챙기는 한편, 첩보와 방첩 활동에 적합한 선택지도 제공한다. 이 백금 반지는 주로 수치나 수학적 성격을 지닌 문서를 @UUID[Compendium.pf2e.actionspf2e.Item.OX4fy22hQgUHDr0q]{인상 남기기} 및 @UUID[Compendium.pf2e.actionspf2e.Item.tHCqgwjtQtzNqVvd]{강요}로 당신의 판단이 공정하거나 정확함을 남들에게 납득시키는 기술 판정에도 +1 아이템 보너스를 준다.</p>\n<p><strong>발동—공정한 평가</strong> <span class=\"action-glyph\">2</span> (집중, 조작, 정신)</p>\n<p><strong>빈도</strong> 한 시간에 한 번</p><hr /><p><strong>효과</strong> 칼리스트레이드의 예언이 당신에게 부의 비밀을 드러내니, 이는 오직 당신만이 볼 수 있는 숫자로 된 대차대조표로 나타난다. 30피트 이내에서 최대 1세제곱피트의 구역을 선택한다. 그 구역 내 어떤 물품이든 금화 단위의 가치를 추정할 수 있다. 어떤 생물이 착용하거나 소지한 물품의 가치를 추정하려 한다면, 그 생물의 의지 DC를 상대로 사회 판정으로 문서 해독하기에 성공해야 한다.</p>"
  },
  "warpriests-cascade-major": {
-  "name_ko": "전투사제의 물세례 (대형)",
+  "name_ko": "전투사제의 폭포 (상급)",
   "desc_ko": "<p>본래 상징적 헌주를 뿌리기 위해 케이든 신도 사제가 제작한 이 철제 향로는 늘일 수 있는 자루 끝에 매달려 흔들리며, 그 내용물을 부대 전체에 뿌릴 수 있게 해준다.</p>\n<p>향로의 용기에는 전투사제의 물세례의 아이템 레벨까지의 마법 물약을 담을 수 있으며, 1분에 걸쳐 그 내용물을 부대 전체에 뿌린다. 그러나 물약을 널리 뿌리면 지속시간이 줄어든다. 지속시간이 1시간 이상인 물약은 부대에 10분만 영향을 미치고, 지속시간이 8시간 이상인 물약은 부대에 1시간만 영향을 미친다. 지속시간이 1시간 미만인 물약은 전투사제의 물세례 안에서는 작동하지 않는다.</p>"
  },
  "lifebloom": {
@@ -83,7 +83,7 @@
   "desc_ko": "<p><strong>발동</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>신 타실론의 상당 부분이 코다르 산맥의 험준한 고지대에 위치한 만큼, 이 엘릭서들은 그 지역을 자주 오가는 이들 사이에서 인기를 얻었다. 산악 지형에 있는 동안 이 엘릭서를 마시면 1시간 동안 극심한 추위의 영향으로부터 보호되며, 등반하기, @UUID[Compendium.pf2e.actionspf2e.Item.2HJ4yuEFY1Cast4h]{높이뛰기}, @UUID[Compendium.pf2e.actionspf2e.Item.JUvAvruz7yRQXfz2]{멀리뛰기}를 위한 운동 판정과 더불어 고도의 영향에 대한 내성 굴림에 +1 아이템 보너스를 얻는다.</p>"
  },
  "dragon-scute-greater": {
-  "name_ko": "용린판 (상급)",
+  "name_ko": "용의 비늘판 (중급)",
   "desc_ko": "<p><strong>발동</strong> 주문 시전</p><hr /><p>용의 갑옷에서 가장 강한 지점을 이루는 두꺼운 판은 강력한 방어 촉매로 쓸 수 있다. 이 비늘 중 하나를 사용해 @UUID[Compendium.pf2e.spells-srd.Item.2BV2yYPfVJ5zirZt]{산의 회복력}을 시전하면 대상의 피부에 두꺼운 용비늘 층이 자라난다. 주문의 일반 효과 대신, 대상은 유형과 용의 전통에 따른 피해 저항을 얻는다.</p>\n<p>이 비늘은 10랭크 이상의 <em>산의 회복력</em>과 함께 사용할 수 있다.</p>\n<p><strong>비전</strong> 주문으로 인한 모든 피해에 대해 저항 10</p>\n<p><strong>신성</strong> 영혼, 활력, 공허에 대해 저항 20</p>\n<p><strong>비학</strong> 정신에 대해 저항 20</p>\n<p><strong>원시</strong> 타격, 관통, 참격, 독에 대해 저항 15</p>"
  },
  "dreamcrusher": {
@@ -99,15 +99,15 @@
   "desc_ko": "<p><strong>발동</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>발동하면 이 축소상은 겉보기에 평범한 참새로 변한다. 참새는 당신이 볼 수 있는 200피트 이내의 원하는 목적지로 날아가, 당신의 지각 수정치를 사용해 @Template[type:burst|distance:30] 범위에서 [[/act seek]]{탐색}한 뒤 돌아온다. 그런 다음 참새는 자신이 인지한 지역의 작은 지도로 풀려나며, 여기에는 목격한 생물들도 포함된다. 이 지도는 조잡하며 참새가 인지하지 못한 것은 아무것도 드러내지 않는다.</p>"
  },
  "devilwing-badge-major": {
-  "name_ko": "악마날개 휘장 (대형)",
+  "name_ko": "악마날개 휘장 (상급)",
   "desc_ko": "<p>악마 날개의 이 작은 조각은 성수로 정화된 뒤 은 휘장에 부착되었다. 이 물품을 발동하여 시전하는 모든 주문의 주문 명중 수정치는 +19이며, 주문 DC는 29다.</p><ul><li><strong>갑옷</strong> 화염과 불경에 대해 저항 10을 얻는다.</li><li><strong>무기</strong> <em>악마날개 휘장</em>을 발동하여 주문을 시전한 후, 그 무기로 하는 타격은 당신의 다음 턴이 끝날 때까지 추가로 1d8 영혼 피해를 준다.</li></ul><p>@UUID[Compendium.pf2e.equipment-effects.Item.IdlSIN88G5Ca7TLe]{효과: 악마날개 휘장 (갑옷)}</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.JuyEDBlFwyDguEzG]{효과: 악마날개 휘장 (무기)}</p><hr /><p><strong>발동</strong> 주문 시전</p>\n<p><strong>효과</strong> @UUID[Compendium.pf2e.spells-srd.Item.qwZBXN6zBoB9BHXE]{신성한 창}을 시전한다.</p><hr /><p><strong>발동</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루 한 번</p>\n<p><strong>효과</strong> 4랭크 @UUID[Compendium.pf2e.spells-srd.Item.3x6eUCm17n6ROzUa]{신앙의 위기}를 시전한다.</p><hr /><p><strong>발동</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루 한 번</p>\n<p><strong>효과</strong> @UUID[Compendium.pf2e.spells-srd.Item.hVU9msO9yGkxKZ3J]{신성한 진노}를 시전한다.</p>"
  },
  "cyrusian-wand-7th-rank-spell": {
-  "name_ko": "키루스식 마법봉 (7랭크 주문)",
+  "name_ko": "키루스식 완드 (7랭크 주문)",
   "desc_ko": "<p>룬군주 잰더굴은 자신이 즐겨 쓰는 환영 주문에 대한 접근을 강화하기 위해 <em>키루스식 마법봉</em>을 자주 제작했다. 모든 <em>키루스식 마법봉</em>은 색채, 형태, 반짝이는 보석 장식이 저마다 다르지만 하나같이 대담하다.</p>\n<p><em>키루스식 마법봉</em>에는 언제나 환영 특성을 지닌 비전 주문 하나만 담긴다.</p><hr /><p><strong>발동</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루 한 번, 그리고 과충전</p>\n<p><strong>효과</strong> 표시된 랭크로 주문을 시전한다. 이 발동의 일부로 신화 점수 1점을 소비하면, 신화 숙련도로 주문의 효과를 처리한다.</p><hr /><p><strong>발동—성공 확정</strong> <span class=\"action-glyph\">r</span></p>\n<p><strong>빈도</strong> 하루 한 번</p>\n<p><strong>발동</strong> 마법봉을 과충전할 때 @Check[flat|dc:10]에 실패했을 때</p>\n<p><strong>효과</strong> 당신은 자신의 실패를 믿지 않고, 그 판정을 성공으로 만들려 한다. 신화 점수 1점을 소비하고 평면 판정을 다시 굴린 뒤, 신화 숙련도로 주문의 효과를 처리한다.</p><hr /><p><strong>제작 요구조건</strong> 명시된 랭크로 그 주문을 시전할 수 있는 신화 비전 주문시전자여야 한다.</p>"
  },
  "bortled-favorite-moderate": {
-  "name_ko": "보트식 별미 (중급)",
+  "name_ko": "보틀드 페이버릿 (보통)",
   "desc_ko": "<p><strong>발동</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>에트란의 어리석음에서 온 이스거의 특산품인 이 뿌리채소 죽은 드워프 상인 보트 바르기스의 이름을 따 명명되었다. 이 죽을 먹으면, 탐험 중에 추가로 20분 동안 @UUID[Compendium.pf2e.actionspf2e.Item.JuqmIAnkL9hVGai8]{서두르기}를 할 수 있다. 이는 24시간 동안, 또는 다음 일일 준비를 할 때까지 중 먼저 오는 것까지 지속된다.</p>"
  },
  "shacklebreaker": {
@@ -115,11 +115,11 @@
   "desc_ko": "<p>이 팔찌에는 단검, 방패, 장미를 묘사한 세 개의 장식이 달려 있다. 이 팔찌를 착용하는 동안 도둑질 판정에 +1 아이템 보너스를 받는다. 수갑에서 누군가를 풀어주기 위한 판정에서 성공을 굴릴 때마다, 그것은 두 번의 성공으로 간주된다(대성공 시 세 번).</p>\n<p><strong>발동—사슬 없음</strong> <span class=\"action-glyph\">r</span> (조작)</p><hr /><p><strong>빈도</strong> 하루 한 번</p>\n<p><strong>발동</strong> 어떤 생물이 당신을 @UUID[Compendium.pf2e.actionspf2e.Item.PMbdMWc2QroouFGD]{붙잡기}하려 할 때</p>\n<p><strong>요구조건</strong> 당신이 그 생물을 인지하고 있으며 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태가 아니어야 한다</p><hr /><p><strong>효과</strong> 팔찌가 당신의 몸을 한 방향으로 홱 잡아당겨 공격자의 손아귀를 떨쳐내려 한다. 촉발한 붙잡기에 대한 당신의 건강 DC에 +1 상황 보너스를 받는다.</p>"
  },
  "silverscrap-bomb-greater": {
-  "name_ko": "은조각 폭탄 (상급)",
+  "name_ko": "은편 폭탄 (중급)",
   "desc_ko": "<p><strong>발동</strong> <span class=\"action-glyph\">1</span> 타격</p><hr /><p>은조각 폭탄은 충돌 시 폭발하여 주변의 모든 것을 갈기갈기 찢는 은 파편의 촘촘한 뭉치다. 이 폭탄은 명중 굴림에 +3 아이템 보너스를 주며 4d4 관통 피해와 4 관통 비산 피해를 준다. 폭탄의 모든 피해는 약점, 저항 등의 목적에서 은으로 취급된다.</p>"
  },
  "cyrusian-wand-5th-rank-spell": {
-  "name_ko": "키루스식 마법봉 (5랭크 주문)",
+  "name_ko": "키루스식 완드 (5랭크 주문)",
   "desc_ko": "<p>룬군주 잰더굴은 자신이 즐겨 쓰는 환영 주문에 대한 접근을 강화하기 위해 <em>키루스식 마법봉</em>을 자주 제작했다. 모든 <em>키루스식 마법봉</em>은 색채, 형태, 반짝이는 보석 장식이 저마다 다르지만 하나같이 대담하다.</p>\n<p><em>키루스식 마법봉</em>에는 언제나 환영 특성을 지닌 비전 주문 하나만 담긴다.</p><hr /><p><strong>발동</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루 한 번, 그리고 과충전</p>\n<p><strong>효과</strong> 표시된 랭크로 주문을 시전한다. 이 발동의 일부로 신화 점수 1점을 소비하면, 신화 숙련도로 주문의 효과를 처리한다.</p><hr /><p><strong>발동—성공 확정</strong> <span class=\"action-glyph\">r</span></p>\n<p><strong>빈도</strong> 하루 한 번</p>\n<p><strong>발동</strong> 마법봉을 과충전할 때 @Check[flat|dc:10]에 실패했을 때</p>\n<p><strong>효과</strong> 당신은 자신의 실패를 믿지 않고, 그 판정을 성공으로 만들려 한다. 신화 점수 1점을 소비하고 평면 판정을 다시 굴린 뒤, 신화 숙련도로 주문의 효과를 처리한다.</p><hr /><p><strong>제작 요구조건</strong> 명시된 랭크로 그 주문을 시전할 수 있는 신화 비전 주문시전자여야 한다.</p>"
  },
  "atrophy-bomb-lesser": {
@@ -127,7 +127,7 @@
   "desc_ko": "<p><strong>발동</strong> <span class=\"action-glyph\">1</span> 타격</p>\n<p>위축 폭탄에는 우르가토아 신도 연금술사들이 개발한 강력한 화학물질이 담겨 있어, 살아 있는 생물의 힘을 앗아가고 그 에너지를 고갈시킨다. 이 폭탄은 1d4 지속 공허 피해와 1 공허 비산 피해를 주며, 대상은 당신의 다음 턴이 시작될 때까지 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 1}이 된다.</p>"
  },
  "devilwing-badge-greater": {
-  "name_ko": "악마날개 휘장 (상급)",
+  "name_ko": "악마날개 휘장 (중급)",
   "desc_ko": "<p>악마 날개의 이 작은 조각은 성수로 정화된 뒤 은 휘장에 부착되었다. 이 물품을 발동하여 시전하는 모든 주문의 주문 명중 수정치는 +14이며, 주문 DC는 24다.</p><ul><li><strong>갑옷</strong> 화염과 불경에 대해 저항 5를 얻는다.</li><li><strong>무기</strong> <em>악마날개 휘장</em>을 발동하여 주문을 시전한 후, 그 무기로 하는 타격은 당신의 다음 턴이 끝날 때까지 추가로 1d6 영혼 피해를 준다.</li></ul><p>@UUID[Compendium.pf2e.equipment-effects.Item.IdlSIN88G5Ca7TLe]{효과: 악마날개 휘장 (갑옷)}</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.JuyEDBlFwyDguEzG]{효과: 악마날개 휘장 (무기)}</p><hr /><p><strong>발동</strong> 주문 시전</p>\n<p><strong>효과</strong> @UUID[Compendium.pf2e.spells-srd.Item.qwZBXN6zBoB9BHXE]{신성한 창}을 시전한다.</p><hr /><p><strong>발동</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루 한 번</p>\n<p><strong>효과</strong> @UUID[Compendium.pf2e.spells-srd.Item.3x6eUCm17n6ROzUa]{신앙의 위기}를 시전한다.</p>"
  },
  "warding-paste": {
@@ -167,11 +167,11 @@
   "desc_ko": "<p>이 <em>+1 상처입히기 강타 낫</em>은 정교하게 장식된 검게 그을린 금속과 광택 나는 표면으로 이루어진 무기다. 본래 탈도르 이전 이스거에서 가을의 전령으로서의 우르가토아를 기리기 위해 만들어졌으나, 최근에는 더욱 사악한 의미를 얻게 되었다. 낫을 손에 든 우르가토아는 차갑고 황량한 겨울을 불러오는 축제를 위해 수확물을 베어냈다고 전해진다. 우르가토아의 전설이 더 어두운 색채를 띠게 되면서, 이 낫 자체의 전설은 에라스틸과 파라스마를 기리는 것으로 되찾아졌고, 이제 그 명절의 이름을 따르게 되었다.</p>"
  },
  "atrophy-bomb-major": {
-  "name_ko": "위축 폭탄 (특대)",
+  "name_ko": "위축 폭탄 (상급)",
   "desc_ko": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 타격</p>\n<p>위축 폭탄에는 우르가토아 신봉 연금술사들이 개발한 강력한 화학물질이 담겨 있어 살아있는 생물의 힘을 빼앗고 그 활력을 고갈시킨다. 이 폭탄은 4d4 지속 공허 피해와 4 공허 비산 피해를 입히며, 대상은 당신의 다음 턴 시작까지 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 2} 상태가 된다. 당신은 이 폭탄의 명중 굴림에 +3 아이템 보너스를 얻는다.</p>"
  },
  "atrophy-bomb-moderate": {
-  "name_ko": "위축 폭탄 (중급)",
+  "name_ko": "위축 폭탄 (보통)",
   "desc_ko": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 타격</p>\n<p>위축 폭탄에는 우르가토아 신봉 연금술사들이 개발한 강력한 화학물질이 담겨 있어 살아있는 생물의 힘을 빼앗고 그 활력을 고갈시킨다. 이 폭탄은 2d4 지속 공허 피해와 2 공허 비산 피해를 입히며, 대상은 당신의 다음 턴 시작까지 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 1} 상태가 된다. 당신은 이 폭탄의 명중 굴림에 +1 아이템 보너스를 얻는다.</p>"
  },
  "apocalypse-seed": {
@@ -199,7 +199,7 @@
   "desc_ko": "<p><strong>활성화</strong> <span class=\"action-glyph\">F</span> (집중)</p>\n<p><strong>발동</strong> 당신이 0 히트 포인트로 감소하지만 즉시 죽지는 않을 때.</p><hr /><p>이 장미 모양의 수정 브로치는 반투명한 핏빛이다. 이 부적은 전장에서 수많은 병사의 목숨을 구해왔다. <em>수호의 장미</em>를 활성화하면, 당신은 기절하는 것을 피하고 @Damage[(2d8+5)[healing]] 히트 포인트를 회복한다. 그러나 이는 당신의 몸에 무리를 주어, 당신은 다음 턴 종료까지 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 1} 상태가 된다.</p>"
  },
  "chromatic-robe-greater": {
-  "name_ko": "색채의 로브 (상급)",
+  "name_ko": "색채의 로브 (중급)",
   "desc_ko": "<p>이 로브의 직물에는 끊임없이 변화하는 마법 에너지가 스며들어 있다. 이 로브는 산성, 냉기, 전기, 화염 피해에 대해 저항 10을 부여한다.</p>\n<p><strong>활성화—에너지 정렬</strong> <span class=\"action-glyph\">1</span> (집중)</p><hr /><p><strong>효과</strong> 신화 점수 1점을 소비한다. 당신은 로브의 마법 에너지를 정렬하여 특정 피해 유형에 대한 강화된 보호를 제공하되, 다른 모든 유형에 대한 보호를 희생한다. 산성, 냉기, 전기, 화염 중 하나를 선택한다. 로브는 선택한 피해 유형에 대해 저항 20을 부여하지만 나머지 세 유형에는 저항을 부여하지 않는다. 이 효과는 다음 일일 준비를 할 때까지(그 시점에 로브는 정상으로 돌아온다) 또는 이 활성화를 다시 사용할 때까지 지속된다.</p>"
  },
  "mocking-mirror-snare": {
@@ -214,7 +214,7 @@
   "desc_ko": "<p>이 두꺼운 천 의복은 <em>+2 회복력 탐험가 의복</em> 한 벌로 기능한다. 여러 겹의 세련된 층, 풍성한 소매, 그리고 밑단을 따라 늘어선 긴 타실론 룬 문양이 특징이다. 이 로브는 강력한 환영 마법을 부려, 착용자와 모든 공격자에게 치명적인 일격이 그저 살짝 스친 상처에 불과하다고 믿게 만들 정도로 충분하다.</p><hr /><p><strong>활성화—빈 로브</strong> <span class=\"action-glyph\">1</span> (집중)</p>\n<p><strong>빈도</strong> 시간당 1회</p>\n<p><strong>효과</strong> 착용자는 1분 동안 로브 안에서 @UUID[Compendium.pf2e.conditionitems.Item.zJxUflt9np0q4yML]{투명} 상태가 된다. 착용자의 장비(로브 포함)는 계속 보이므로, 그들은 @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 상태가 되지는 않지만, 관찰자가 투명한 생물을 볼 수 있지 않는 한 시각적으로 식별될 수 없다. 이 효과의 불안한 성질은 로브가 비어 있는 것처럼 보이는 동안 이루어진 위협 판정에 착용자에게 +2 아이템 보너스를 부여한다.</p><hr /><p><strong>활성화—텅 빈 표적</strong> <span class=\"action-glyph\">r</span> (집중)</p>\n<p><strong>요구조건</strong> 빈 로브가 발동 중일 때</p>\n<p><strong>발동</strong> 당신이 타격으로부터 지속 피해 또는 치명타를 입을 때</p>\n<p><strong>효과</strong> 신화 점수 1점을 소비한다. 당신은 잠시 자신을 환영 복제체로 변모시켜, 유발한 피해나 타격에 대해 자신을 \"텅 빈\" 상태로 만든다. 치명타 타격으로 인한 피해가 0으로 감소한다. 당신이 현재 입고 있는 모든 지속 피해가 끝난다.</p><hr /><p><strong>활성화—보이지 않는 마법</strong> <span class=\"action-glyph\">1</span> (주문형성)</p>\n<p><strong>요구조건</strong> 빈 로브가 발동 중일 때</p>\n<p><strong>효과</strong> 당신의 다음 행동이 조작 특성이 없는 주문을 시전하는 것이라면, 그 주문은 은밀 특성을 얻는다.</p><hr /><p><strong>제작 요구조건</strong> 당신은 투명화를 시전할 수 있는 신화 비전 주문시전자여야 한다.</p>"
  },
  "atrophy-bomb-greater": {
-  "name_ko": "위축 폭탄 (상급)",
+  "name_ko": "위축 폭탄 (중급)",
   "desc_ko": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 타격</p>\n<p>위축 폭탄에는 우르가토아 신봉 연금술사들이 개발한 강력한 화학물질이 담겨 있어 살아있는 생물의 힘을 빼앗고 그 활력을 고갈시킨다. 이 폭탄은 3d4 지속 공허 피해와 3 공허 비산 피해를 입히며, 대상은 당신의 다음 턴 시작까지 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 2} 상태가 된다. 당신은 이 폭탄의 명중 굴림에 +2 아이템 보너스를 얻는다.</p>"
  },
  "chromatic-robe": {
@@ -234,7 +234,7 @@
   "desc_ko": "<p><strong>활성화</strong> 주문 시전</p><hr /><p>용의 갑옷에서 가장 강한 지점을 이루는 두꺼운 판은 강력한 방어 촉매로 사용될 수 있다. 이 비늘 중 하나를 사용하여 @UUID[Compendium.pf2e.spells-srd.Item.2BV2yYPfVJ5zirZt]{산의 회복력}을 시전하면 대상의 피부에 두꺼운 용비늘 층이 자라난다. 주문의 일반 효과 대신, 대상은 그 유형과 용의 전통에 따른 피해 저항을 얻는다.</p>\n<p>이 비늘은 6랭크 이상의 <em>산의 회복력</em>과 함께 사용할 수 있다.</p>\n<p><strong>비전</strong> 주문으로부터의 모든 피해에 대한 저항 5</p>\n<p><strong>신성</strong> 영혼, 활력, 공허에 대한 저항 10</p>\n<p><strong>비학</strong> 정신에 대한 저항 10</p>\n<p><strong>원시</strong> 타격, 관통, 참격, 독에 대한 저항 7</p>"
  },
  "robe-of-the-erinys-greater": {
-  "name_ko": "에리니스의 로브 (상급)",
+  "name_ko": "에리니스의 로브 (중급)",
   "desc_ko": "<p>악마와 그 무기의 금빛 묘사가 수놓인 이 정교한 진홍색 로브는 은둔 수도회인 황금 에리니스 자매회의 복장을 본떠 만들어졌다. 로브의 벨트는 금속 송곳니까지 갖춘 뱀처럼 보이도록 수놓여 있다.</p>\n<p><strong>활성화—무는 벨트</strong> <span class=\"action-glyph\">2</span> (집중, 조작)</p>\n<p><strong>빈도</strong> 하루 1회</p><hr /><p><strong>효과</strong> 당신은 로브의 벨트를 풀어 사거리 내의 적에게 휘두른다. 그렇게 하면, 벨트가 잠시 살아 움직여 그 적을 물어, 기본 @Check[fortitude|dc:24] 내성으로 @Damage[4d8[poison]] 피해를 입힌다. 대실패 시, 대상은 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 1} 상태이기도 하다.</p>"
  },
  "banner-of-common-cause": {
@@ -262,11 +262,11 @@
   "desc_ko": "<p>이 도자기 찻주전자는 여행자들에게 높이 평가된다. 찻주전자에 물이 채워져 있는 동안, 생물은 집중 특성을 지닌 단일 행동을 사용하여 물을 즉시 끓는점까지 가열할 수 있으며, 그 시점에 주전자가 휘파람 소리를 내고 안의 물은 정상 속도로 식기 시작한다. 물이 가열된 상태로 유지되는 동안 그것은 펄펄 끓으며, 그것을 뒤집어쓴 생물은 @Damage[1d4[fire]|traits:nonlethal]{1d4 비살상 화염 피해}를 입는다. 찻주전자에 물을 채우는 대신, 4레벨 이하의 엘릭서를 주전자에 부어 다음 활성화를 사용할 수 있다.</p>\n<p><strong>활성화—우려낸 것 나누기</strong> 10분 (집중)</p>\n<p><strong>빈도</strong> 하루 1회</p><hr /><p><strong>효과</strong> 찻주전자는 넣은 엘릭서의 부피를 마법적으로 늘려 같은 엘릭서 4회 분량을 만든다. 일단 이런 식으로 찻주전자에서 엘릭서를 우려내면, 그날 다른 엘릭서를 우려내려는 이후의 시도는 넣은 액체를 못 쓰게 만든다. 우려낸 엘릭서 중 식을 때(대개 10분)까지 소비되지 않은 것은 그 연금술적 속성을 잃는다.</p>"
  },
  "sihedron-ring-greater": {
-  "name_ko": "시헤드론 반지 (상급)",
+  "name_ko": "시헤드론 반지 (중급)",
   "desc_ko": "<p>겉모습은 단순하지만, 시헤드론 반지는 지난날 룬로드가 첩자에게 하사하던 가장 소중한 징표 중 하나였다. 더 흔한 시헤드론 메달과 마찬가지로, 원래의 룬로드가 만든 시헤드론 반지는 착용자를 더 쉽게 염탐하고 그들을 통해 말할 수 있게 해준다. 현대에 만들어진 시헤드론 반지에는 이런 단점이 없다.</p>\n<p>투자되어 있는 한, 시헤드론 반지는 착용자를 극심한 환경으로부터 보호하여 극심한 추위와 더위에 면역이 되게 한다. 이 반지는 또한 반응 중에 이루어진 공격에 대한 AC에 +2 상태 보너스를 부여한다.</p>\n<p><strong>활성화—복장 변경</strong> <span class=\"action-glyph\">1</span> (집중)</p><hr /><p><strong>효과</strong> 당신은 자신이 착용한 갑옷이나 의복의 형태와 외양을 바꾸어 당신이 상상하는 평범하거나 화려한 의복 또는 갑옷처럼 보이게 한다. 당신이 착용한 것의 실제 수치는 바뀌지 않는다. 진실시야나 유사한 효과의 혜택을 받는 생물만이 DC 29로 이 환영을 믿지 않으려 시도할 수 있다.</p>"
  },
  "sihedron-medallion-major": {
-  "name_ko": "시헤드론 메달 (특대)",
+  "name_ko": "시헤드론 메달 (상급)",
   "desc_ko": "<p>이 부적은 한때 룬로드와 그들이 총애하는 첩자 사이의 충성의 징표로 쓰였다. 외양은 각기 다르지만, 모두 공통된 디자인을 공유한다—시헤드론으로 알려진 일곱 갈래 별이 새겨진 금속 원반에 가죽 또는 금속 끈이 달린 것이다. 지각변동 이전에 만들어진 원본 <em>시헤드론 메달</em>의 경우, 고대 타실론의 룬로드(룬로드 아키타입을 지닌 캐릭터가 아님)는 <em>시헤드론 메달</em>을 착용한 생물에 대해 시전하는 @UUID[Compendium.pf2e.spells-srd.Item.r784cIz17eWujtQj]{염탐} 주문의 DC를, 대상을 한 번도 만난 적이 없거나 대상의 정체를 모르더라도 감소시키지 않는다. 그러한 룬로드가 원본 <em>시헤드론 메달</em>을 착용한 생물을 성공적으로 염탐하면, 착용자의 목소리를 이용해 주변 사람들에게 메시지를 전할 수 있다. 더 현대에 만들어진 <em>시헤드론 메달</em>에는 이런 단점이 없다.</p>\n<p><em>시헤드론 메달</em>을 착용한 시체는 부패하지 않으며, 벌레나 (구더기 같은) 다른 해충이 유해를 갉아먹는 것이 방지되지만, @UUID[Compendium.pf2e.spells-srd.Item.xRgU9rrhmGAgG4Rc]{평온한 안식}의 효과와 달리, 이는 언데드화에 대한 어떤 보호도 제공하지 않으며, 시체가 특정 시간 안에 죽었어야 하는 주문에도 영향을 주지 않는다.</p>\n<p><strong>활성화—육신 강화</strong> <span class=\"action-glyph\">2</span> (집중, 조작)</p>\n<p><strong>빈도</strong> 하루 1회</p><hr /><p><strong>효과</strong> 당신의 육신이 마법적 활력으로 강화된다. 당신은 8시간 동안 내성 굴림에 +2 아이템 보너스와 25 임시 히트 포인트를 얻는다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.gKnoF5VKTCyl4JaN]{효과: 육신 강화}</p>"
  },
  "bortled-favorite-lesser": {
@@ -306,7 +306,7 @@
   "desc_ko": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>이스거 전역에서 발견되는 약초와 말린 열매로 만든 이 습포는 첼리아스의 사악한 침략에 맞서 싸우던 이들과 세계상흔에서 악마와 전쟁을 벌이던 이들이 발명한 것이다. 당신은 악마로부터 지속 피해를 입고 있는 생물에게 푸른 습포를 사용할 수 있다. 지속 피해를 유발한 효과의 DC에 대해 +1 아이템 보너스로 @Check[nature] 판정을 시도한다. 성공 시, 그 지속 피해가 끝난다.</p>"
  },
  "sihedron-medallion-greater": {
-  "name_ko": "시헤드론 메달 (상급)",
+  "name_ko": "시헤드론 메달 (중급)",
   "desc_ko": "<p>이 부적은 한때 룬로드와 그들이 총애하는 첩자 사이의 충성의 징표로 쓰였다. 외양은 각기 다르지만, 모두 공통된 디자인을 공유한다—시헤드론으로 알려진 일곱 갈래 별이 새겨진 금속 원반에 가죽 또는 금속 끈이 달린 것이다. 지각변동 이전에 만들어진 원본 <em>시헤드론 메달</em>의 경우, 고대 타실론의 룬로드(룬로드 아키타입을 지닌 캐릭터가 아님)는 <em>시헤드론 메달</em>을 착용한 생물에 대해 시전하는 @UUID[Compendium.pf2e.spells-srd.Item.r784cIz17eWujtQj]{염탐} 주문의 DC를, 대상을 한 번도 만난 적이 없거나 대상의 정체를 모르더라도 감소시키지 않는다. 그러한 룬로드가 원본 <em>시헤드론 메달</em>을 착용한 생물을 성공적으로 염탐하면, 착용자의 목소리를 이용해 주변 사람들에게 메시지를 전할 수 있다. 더 현대에 만들어진 <em>시헤드론 메달</em>에는 이런 단점이 없다.</p>\n<p><em>시헤드론 메달</em>을 착용한 시체는 부패하지 않으며, 벌레나 (구더기 같은) 다른 해충이 유해를 갉아먹는 것이 방지되지만, @UUID[Compendium.pf2e.spells-srd.Item.xRgU9rrhmGAgG4Rc]{평온한 안식}의 효과와 달리, 이는 언데드화에 대한 어떤 보호도 제공하지 않으며, 시체가 특정 시간 안에 죽었어야 하는 주문에도 영향을 주지 않는다.</p>\n<p><strong>활성화—육신 강화</strong> <span class=\"action-glyph\">2</span> (집중, 조작)</p>\n<p><strong>빈도</strong> 하루 1회</p><hr /><p><strong>효과</strong> 당신의 육신이 마법적 활력으로 강화된다. 당신은 8시간 동안 내성 굴림에 +1 아이템 보너스와 16 임시 히트 포인트를 얻는다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.gKnoF5VKTCyl4JaN]{효과: 육신 강화}</p>"
  },
  "dream-hunters-lodge": {
@@ -326,7 +326,7 @@
   "desc_ko": "<p>각각의 <em>종말의 문</em>은 겉모습이 제각각이지만, 모두 단단히 고정된 아치에 부착된 거대한 목제 관문이다. 모든 <em>종말의 문</em>은 두 가지 활성화 방법을 갖고 있으며, 두 방법 모두 휴식 시간 활동이고, 어느 활성화를 사용하는 동안에도 다른 휴식 시간 활동이나 탐험 활동을 수행할 수 없다.</p>\n<p><strong>활성화—문 조율</strong> 1주 (집중, 휴식 시간)</p>\n<p><strong>효과</strong> 당신은 <em>종말의 문</em>을 파괴와 연관된 장소, 이를테면 활화산의 심장부 같은 곳에 조율한다. 당신은 그 장소가 존재한다는 것을 알고 있어야 한다. 그 장소가 다른 차원에 있다면 차원 열쇠가 있어야 한다.</p>\n<p>조율에 소비하는 매일마다, 당신은 신화 점수 1점을 소비해야 하며, 그러지 않으면 당신의 파멸 상태 수치가 1 증가한다. 이 의식을 돕는 크리처가 대신 신화 점수를 소비할 수 있으며, GM이 정한 대로 적절한 희생을 바침으로써 신화 점수 소비를 피할 수도 있다.</p>\n<p>7일이 지나면 <em>종말의 문</em>은 당신이 선택한 장소에 조율되고 나서 닫힌다. 그때까지는 이 활동으로 문을 다른 장소에 다시 조율할 수 있다. 또한 이 활성화로 <em>종말의 문</em>의 현재 조율을 무효화할 수도 있다.</p><hr /><p><strong>활성화—문 열기</strong> 1주 (집중, 휴식 시간)</p>\n<p><strong>요구조건</strong> <em>종말의 문</em>이 조율되어 있다</p>\n<p><strong>효과</strong> 당신은 <em>종말의 문</em>을 열기 위한 장기 의식을 거행한다. 의식을 거행하는 매일마다, 당신은 신화 점수 1점을 소비해야 하며, 그러지 않으면 당신의 파멸 상태 수치가 1 증가한다. 이 의식을 돕는 크리처가 대신 신화 점수를 소비할 수 있으며, GM이 정한 대로 적절한 희생을 바침으로써 신화 점수 소비를 피할 수도 있다.</p>\n<p>7일이 지나면 <em>종말의 문</em>이 열리며, 문이 조율된 장소와 관련된 종말을 방출한다. 그 결과는 GM이 정하지만 언제나 광역적이고 멀리까지 미친다. 예를 들어 공허에 조율된 <em>종말의 문</em>은 수백 마일 반경의 죽은 자들이 무덤에서 일어나게 하는 에너지 폭발을 방출할 수 있다.</p><hr /><p><strong>파괴</strong> <em>종말의 문</em>은 문 조율 활성화를 사용해 창조적 잠재력이 큰 특정 장소에 조율한 뒤, 문을 열어 이 종말의 대극(對極)이 관문을 통해 흘러들게 함으로써 파괴할 수 있다.</p>"
  },
  "silverscrap-bomb-moderate": {
-  "name_ko": "은편 폭탄 (중급)",
+  "name_ko": "은편 폭탄 (보통)",
   "desc_ko": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 타격</p><hr /><p>은편 폭탄은 충돌 시 폭발하여 주변의 모든 것을 갈기갈기 찢는 은 파편의 조밀한 뭉치다. 이 폭탄은 명중 굴림에 +2 아이템 보너스를 부여하고 3d4 관통 피해와 3의 관통 비산 피해를 입힌다. 이 폭탄의 모든 피해는 약점, 저항 등의 목적에서 은으로 취급한다.</p>"
  },
  "signifers-mask": {
@@ -334,7 +334,7 @@
   "desc_ko": "<p>이 가면에는 대개 눈구멍이나 다른 장식적 특징이 없다. 이 가면은 당신의 시야를 가리지 않지만, 다른 이들이 당신의 눈을 볼 수 없게 만든다. 당신의 시그니퍼 가면을 착용하는 동안, 당신은 [[/act lie]]하기 위한 기만 판정, [[/act coerce]]하기 위한 위협 판정, 그리고 [[/act sense-motive]]에 대항하는 기만 DC에 +1 상황 보너스를 얻는다.</p>"
  },
  "anti-dragon-barding-greater": {
-  "name_ko": "대용 마갑 (상급)",
+  "name_ko": "대용 마갑 (중급)",
   "desc_ko": "<p>가벼운 마갑에서 뻗어 나온 긴 강철 가시로 이루어진 대용 마갑은, 용과 그리핀, 로크를 비롯한 거대한 공중 포식자로부터 취약한 탈것과 가축을 보호하는 데 도움을 준다.</p>\n<p>대용 마갑을 착용한 동물 동료는 자신을 [[/act grapple]], [[/act reposition]], [[/act shove]], [[/act trip]]하려는 시도에 대한 인내 DC와 반사 DC에 +4 아이템 보너스를 얻으며, 이 동물 동료를 붙잡기에 성공한 크리처는 @Damage[3d4[piercing]] 피해를 입는다.</p>"
  },
  "calamity": {
@@ -346,11 +346,11 @@
   "desc_ko": "<p>질투의 룬로드가 걸치던 전통 예복인 이 로브는 <em>+3 상급 회복 반마법 상급 에너지 저항 탐험가 의복</em>으로 기능한다. 이 로브가 부여하는 에너지 저항은 당신이 매일 준비를 수행할 때 산성, 냉기, 전기, 화염 중에서 선택할 수 있으며—이 준비를 하지 않으면 로브는 기본적으로 냉기 저항이 된다. 로브의 주머니는 @UUID[Compendium.pf2e.equipment-srd.Item.V1XhLQPWjdQz759K]{회수 벨트 (대형)}로 기능한다.</p>"
  },
  "elixir-of-the-peaks-major": {
-  "name_ko": "봉우리의 비약 (대형)",
+  "name_ko": "봉우리의 엘릭서 (상급)",
   "desc_ko": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>새로운 타실론의 상당 부분이 코다르 산맥의 험준한 고지에 위치한 까닭에, 이 비약들은 그 지역을 자주 여행하는 이들 사이에서 인기를 끌게 되었다. 산악 지형에서 이 비약을 마시면 7일 동안 극심한 냉기의 영향으로부터 당신을 보호하고, 등반, @UUID[Compendium.pf2e.actionspf2e.Item.2HJ4yuEFY1Cast4h]{높이뛰기}, @UUID[Compendium.pf2e.actionspf2e.Item.JUvAvruz7yRQXfz2]{멀리뛰기}를 위한 운동 판정과 고지대의 영향에 대한 내성 굴림에 +3 아이템 보너스를 부여한다. 이 비약은 극한의 냉기로부터도 보호한다.</p>"
  },
  "cyrusian-wand-2nd-rank-spell": {
-  "name_ko": "시루시아 마법봉 (2랭크 주문)",
+  "name_ko": "시루시아 완드 (2랭크 주문)",
   "desc_ko": "<p>룬로드 잔더굴은 자신이 좋아하는 환영 주문에 대한 접근성을 강화하기 위해 <em>시루시아 마법봉</em>을 자주 제작했다. 모든 <em>시루시아 마법봉</em>은 색상과 형태, 반짝이는 보석 장식이 서로 다르지만 하나같이 대담하다.</p>\n<p><em>시루시아 마법봉</em>은 언제나 환영 특성을 가진 비전 주문만을 담는다.</p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루 1회, 추가로 과충전</p>\n<p><strong>효과</strong> 당신은 명시된 랭크로 주문을 시전한다. 이 활성화의 일부로 신화 점수 1점을 소비하면, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>활성화—성공 확신</strong> <span class=\"action-glyph\">r</span></p>\n<p><strong>빈도</strong> 하루 1회</p>\n<p><strong>발동</strong> 마법봉을 과충전할 때 @Check[flat|dc:10]에 실패한다</p>\n<p><strong>효과</strong> 당신은 자신의 실패를 믿지 않으며, 판정을 성공으로 만들려는 의지를 발휘한다. 신화 점수 1점을 소비하고 평판정을 다시 굴린 다음, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>제작 요구조건</strong> 당신은 명시된 랭크로 해당 주문의 시전을 공급할 수 있는 신화 비전 주문시전자여야 한다.</p>"
  },
  "hagbane-biscuit": {
@@ -358,7 +358,7 @@
   "desc_ko": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>이 생강빵 비스킷은 위협적인 마녀 모양으로 찍혀 있으며, 그 이목구비는 아니스와 회향 씨앗으로 장식되어 있다. 이 비스킷을 먹으면 그 매운 향신료가 10분 동안 당신의 몸을 따뜻하게 데워, 마녀의 변장을 꿰뚫는 지각 판정, 마녀에 관한 @UUID[Compendium.pf2e.actionspf2e.Item.1OagaWtBpVXExToo]{지식 회상}을 위한 기술 판정, 그리고 마녀의 능력과 주문에 대항하는 내성 굴림에 +1 상태 보너스를 부여한다. 이 시간 동안, 당신이 휘두르는 무기는 마녀를 상대로 한 모든 물리 공격에 대해 냉철로 취급한다.</p>\n<p>이 비스킷은 마녀, 체인질링, 그리고 그 밖의 마녀와 관련된 크리처(이를테면 마녀 혈통을 가진 소서러)에게 특히 쓴맛이 난다. 그러한 크리처가 이 비스킷을 먹으려 하면, @Check[fortitude|dc:18|options:inflicts:sickened] 내성에 성공해야 하며, 실패하면 행동을 낭비하게 된다(대실패 시 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질 1}에 걸린다).</p>"
  },
  "cyrusian-wand-8th-rank-spell": {
-  "name_ko": "시루시아 마법봉 (8랭크 주문)",
+  "name_ko": "시루시아 완드 (8랭크 주문)",
   "desc_ko": "<p>룬로드 잔더굴은 자신이 좋아하는 환영 주문에 대한 접근성을 강화하기 위해 <em>시루시아 마법봉</em>을 자주 제작했다. 모든 <em>시루시아 마법봉</em>은 색상과 형태, 반짝이는 보석 장식이 서로 다르지만 하나같이 대담하다.</p>\n<p><em>시루시아 마법봉</em>은 언제나 환영 특성을 가진 비전 주문만을 담는다.</p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루 1회, 추가로 과충전</p>\n<p><strong>효과</strong> 당신은 명시된 랭크로 주문을 시전한다. 이 활성화의 일부로 신화 점수 1점을 소비하면, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>활성화—성공 확신</strong> <span class=\"action-glyph\">r</span></p>\n<p><strong>빈도</strong> 하루 1회</p>\n<p><strong>발동</strong> 마법봉을 과충전할 때 @Check[flat|dc:10]에 실패한다</p>\n<p><strong>효과</strong> 당신은 자신의 실패를 믿지 않으며, 판정을 성공으로 만들려는 의지를 발휘한다. 신화 점수 1점을 소비하고 평판정을 다시 굴린 다음, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>제작 요구조건</strong> 당신은 명시된 랭크로 해당 주문의 시전을 공급할 수 있는 신화 비전 주문시전자여야 한다.</p>"
  },
  "anti-dragon-barding": {
@@ -390,7 +390,7 @@
   "desc_ko": "<p>이 <em>+1 마법 몰</em>의 머리 부분을 서리가 뒤덮고 있다. 이 몰로 명중할 때마다 추가로 1의 냉기 피해를 입힌다. 특수 행동을 사용해 서리를 거대한 고드름으로 변형시킬 수 있다.</p><hr /><p><strong>활성화—고드름 자라나기</strong> <span class=\"action-glyph\">1</span> (집중) 당신의 턴이 끝날 때까지, 이 몰은 1이 아닌 추가로 1d6 냉기 피해를 입힌다. 빙하 망치를 활성화한 후에는 10분 동안 다시 활성화할 수 없다.</p>"
  },
  "dragons-tongue-major": {
-  "name_ko": "용의 혀 (대형)",
+  "name_ko": "용의 혀 (상급)",
   "desc_ko": "<p>이 <em>+3 대형 강타 장창</em>은 저명한 괴물 사냥꾼이 제작한 것으로, 그는 사악한 용의 뼈와 비늘로 원형을 설계했다. 고룡의 드라시리칸 주름, 곧 마법 숨결을 생성하는 기관은 이 창의 작동에 핵심적이다. 이 무기의 기계 장치는 대체로 주입 창을 기반으로 한다. 안전장치를 해제하고 보조 레버를 쥐면, 창의 속이 빈 끝부분에서 용의 숨결 같은 마법 효과가 발생한다.</p>\n<p><strong>활성화—창의 숨결</strong> <span class=\"action-glyph\">2</span> (집중, 조작) 용의 혀는 @Template[type:cone|distance:30]로 나타나는 에너지 폭발을 방출하여, @Damage[10d6[untyped]|options:area-damage] 피해를 입히고 @Check[reflex|dc:43|basic|options:area-effect] 내성으로 이를 완화한다. [[/r 1d4 #Recharge Breath of the Spear]]{1d4 라운드} 동안 이 활성화를 다시 사용할 수 없다. 피해 유형은 무기를 만든 용의 숨결과 일치하며, 이 활성화는 그에 대응하는 특성을 갖는다.</p><hr /><p><strong>제작 요구조건</strong> 초기 원자재에는 용의 드라시리칸 주름이 포함되어야 한다.</p>"
  },
  "pact-of-the-herald-and-host": {
@@ -410,7 +410,7 @@
   "desc_ko": "<p>겉모습은 단순하지만, 시헤드론 반지는 과거 룬로드가 대리인에게 하사하던 가장 귀중한 징표에 속했다. 더 흔한 시헤드론 메달리온처럼, 원래의 룬로드들이 만든 시헤드론 반지는 착용자를 더 쉽게 염탐하고 착용자를 통해 말할 수 있게 해준다. 현대에 만들어진 시헤드론 반지에는 이러한 단점이 없다.</p>\n<p>투자되어 있는 한, 시헤드론 반지는 착용자를 환경적 극한으로부터 보호하여, 극심한 냉기와 열기에 면역이 되게 한다. 이 반지는 또한 반응 중에 이루어진 공격에 대한 AC에 +1 상태 보너스를 부여한다.</p>\n<p><strong>활성화—의상 변경</strong> <span class=\"action-glyph\">1</span> (집중)</p><hr /><p><strong>효과</strong> 당신은 착용한 갑옷이나 의복의 모양과 겉모습을 당신이 상상하는 평범하거나 화려한 의복 또는 갑옷으로 바꾼다. 착용하고 있는 것의 실제 수치는 바뀌지 않는다. 진실시야나 유사한 효과의 이점을 받는 크리처만이 DC 20으로 이 환영을 불신하려 시도할 수 있다.</p>"
  },
  "cyrusian-wand-4th-rank-spell": {
-  "name_ko": "시루시아 마법봉 (4랭크 주문)",
+  "name_ko": "시루시아 완드 (4랭크 주문)",
   "desc_ko": "<p>룬로드 잔더굴은 자신이 좋아하는 환영 주문에 대한 접근성을 강화하기 위해 <em>시루시아 마법봉</em>을 자주 제작했다. 모든 <em>시루시아 마법봉</em>은 색상과 형태, 반짝이는 보석 장식이 서로 다르지만 하나같이 대담하다.</p>\n<p><em>시루시아 마법봉</em>은 언제나 환영 특성을 가진 비전 주문만을 담는다.</p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루 1회, 추가로 과충전</p>\n<p><strong>효과</strong> 당신은 명시된 랭크로 주문을 시전한다. 이 활성화의 일부로 신화 점수 1점을 소비하면, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>활성화—성공 확신</strong> <span class=\"action-glyph\">r</span></p>\n<p><strong>빈도</strong> 하루 1회</p>\n<p><strong>발동</strong> 마법봉을 과충전할 때 @Check[flat|dc:10]에 실패한다</p>\n<p><strong>효과</strong> 당신은 자신의 실패를 믿지 않으며, 판정을 성공으로 만들려는 의지를 발휘한다. 신화 점수 1점을 소비하고 평판정을 다시 굴린 다음, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>제작 요구조건</strong> 당신은 명시된 랭크로 해당 주문의 시전을 공급할 수 있는 신화 비전 주문시전자여야 한다.</p>"
  },
  "unassuming-face-paint": {
@@ -418,7 +418,7 @@
   "desc_ko": "<p><strong>활성화</strong> <span class=\"action-glyph\">3</span> (조작)</p><hr /><p>이 칙칙한 안료를 얼굴에 바르면, 당신은 10분 동안 평범하고 눈에 띄지 않는 모습이 된다. 이 시간 동안 군중 속에 섞여들 때 당신은 은신 판정과 DC에 +2 아이템 보너스를 얻는다. 적대적 행동을 취하면 <em>눈에 띄지 않는 페이스페인트</em>의 효과가 즉시 끝난다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.aA2JwRWclQJbfVMT]{효과: 눈에 띄지 않는 페이스페인트}</p>"
  },
  "elixir-of-the-peaks-moderate": {
-  "name_ko": "봉우리의 비약 (중급)",
+  "name_ko": "봉우리의 엘릭서 (보통)",
   "desc_ko": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>새로운 타실론의 상당 부분이 코다르 산맥의 험준한 고지에 위치한 까닭에, 이 비약들은 그 지역을 자주 여행하는 이들 사이에서 인기를 끌게 되었다. 산악 지형에서 이 비약을 마시면 1일 동안 극심한 냉기의 영향으로부터 당신을 보호하고, 등반, @UUID[Compendium.pf2e.actionspf2e.Item.2HJ4yuEFY1Cast4h]{높이뛰기}, @UUID[Compendium.pf2e.actionspf2e.Item.JUvAvruz7yRQXfz2]{멀리뛰기}를 위한 운동 판정과 고지대의 영향에 대한 내성 굴림에 +2 아이템 보너스를 부여한다.</p>"
  },
  "devilwing-badge": {
@@ -426,7 +426,7 @@
   "desc_ko": "<p>악마 날개의 이 작은 조각은 은 휘장에 부착되기 전에 성수로 정화되었다. 이 아이템을 활성화하여 시전하는 모든 주문의 주문 명중 수정치는 +8이고, 주문 DC는 18이다.</p><ul><li><strong>갑옷</strong> 당신은 화염과 불경에 저항 2를 얻는다.</li><li><strong>무기</strong> <em>악마 날개 휘장</em>을 활성화하여 주문을 시전한 후, 당신의 다음 턴이 끝날 때까지 그 무기로 하는 타격은 추가로 1d4 영혼 피해를 입힌다.</li></ul><p>@UUID[Compendium.pf2e.equipment-effects.Item.IdlSIN88G5Ca7TLe]{효과: 악마 날개 휘장 (갑옷)}</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.JuyEDBlFwyDguEzG]{효과: 악마 날개 휘장 (무기)}</p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>효과</strong> 당신은 @UUID[Compendium.pf2e.spells-srd.Item.qwZBXN6zBoB9BHXE]{신성한 창}을 시전한다.</p>"
  },
  "thorn-of-milani-moderate": {
-  "name_ko": "밀라니의 가시 (중급)",
+  "name_ko": "밀라니의 가시 (보통)",
   "desc_ko": "<p><strong>활성화</strong> <span class=\"action-glyph\">F</span> (집중)</p>\n<p><strong>발동</strong> 당신이 부착된 무기로 크리처를 명중시킨다.</p><hr /><p>이 순백의 가시는 정의의 영혼으로 밝게 빛난다. 이 가시를 활성화하면, 당신은 신성 특성을 가진 추가 2d4 영혼 피해를 입힌다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.XjMGlQTXx13OMAkN]{효과: 밀라니의 가시 (영혼 피해)}</p>"
  },
  "ten-days-breath": {
@@ -438,11 +438,11 @@
   "desc_ko": "<p>각각의 <em>완벽한 천상의 숄</em>은 특정 텐닌에게만 작동하며, 그들의 불멸의 수양의 정점이다. 이 숄은 아다만틴보다 강하면서도 거미줄보다 가벼운 천상의 비단실로 만들어졌다. 텐닌은 <em>완벽한 천상의 숄</em>에서 실을 뽑아 @UUID[Compendium.pf2e.equipment-srd.Item.0QgniSjpzksm5riV]{순은 장인 도구 세트}와 제작 작업장으로 삼아 @UUID[Compendium.pf2e.actionspf2e.Item.rmwa3OyhTZ2i2AHl]{제작}할 수 있다. 이 숄은 어떤 등급의 귀중한 재료로 작업하는 데에도 사용할 수 있다. 텐닌이 이 숄을 사용해 시도하는 모든 제작 판정에서, 그들은 굴림 결과보다 한 단계 높은 성공 단계를 사용한다.</p><hr /><p><strong>활성화—재직조</strong> <span class=\"action-glyph\">3</span></p>\n<p>텐닌은 이 숄을 사용해 아이템을 @UUID[Compendium.pf2e.actionspf2e.Item.bT3skovyLUtP22ME]{수리}한다. 이 수리 활동은 탐험 특성을 잃는다.</p>"
  },
  "cyrusian-wand-9th-rank-spell": {
-  "name_ko": "시루시아 마법봉 (9랭크 주문)",
+  "name_ko": "시루시아 완드 (9랭크 주문)",
   "desc_ko": "<p>룬로드 잔더굴은 자신이 좋아하는 환영 주문에 대한 접근성을 강화하기 위해 <em>시루시아 마법봉</em>을 자주 제작했다. 모든 <em>시루시아 마법봉</em>은 색상과 형태, 반짝이는 보석 장식이 서로 다르지만 하나같이 대담하다.</p>\n<p><em>시루시아 마법봉</em>은 언제나 환영 특성을 가진 비전 주문만을 담는다.</p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루 1회, 추가로 과충전</p>\n<p><strong>효과</strong> 당신은 명시된 랭크로 주문을 시전한다. 이 활성화의 일부로 신화 점수 1점을 소비하면, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>활성화—성공 확신</strong> <span class=\"action-glyph\">r</span></p>\n<p><strong>빈도</strong> 하루 1회</p>\n<p><strong>발동</strong> 마법봉을 과충전할 때 @Check[flat|dc:10]에 실패한다</p>\n<p><strong>효과</strong> 당신은 자신의 실패를 믿지 않으며, 판정을 성공으로 만들려는 의지를 발휘한다. 신화 점수 1점을 소비하고 평판정을 다시 굴린 다음, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>제작 요구조건</strong> 당신은 명시된 랭크로 해당 주문의 시전을 공급할 수 있는 신화 비전 주문시전자여야 한다.</p>"
  },
  "cyrusian-wand-6th-rank-spell": {
-  "name_ko": "시루시아 마법봉 (6랭크 주문)",
+  "name_ko": "시루시아 완드 (6랭크 주문)",
   "desc_ko": "<p>룬로드 잔더굴은 자신이 좋아하는 환영 주문에 대한 접근성을 강화하기 위해 <em>시루시아 마법봉</em>을 자주 제작했다. 모든 <em>시루시아 마법봉</em>은 색상과 형태, 반짝이는 보석 장식이 서로 다르지만 하나같이 대담하다.</p>\n<p><em>시루시아 마법봉</em>은 언제나 환영 특성을 가진 비전 주문만을 담는다.</p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루 1회, 추가로 과충전</p>\n<p><strong>효과</strong> 당신은 명시된 랭크로 주문을 시전한다. 이 활성화의 일부로 신화 점수 1점을 소비하면, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>활성화—성공 확신</strong> <span class=\"action-glyph\">r</span></p>\n<p><strong>빈도</strong> 하루 1회</p>\n<p><strong>발동</strong> 마법봉을 과충전할 때 @Check[flat|dc:10]에 실패한다</p>\n<p><strong>효과</strong> 당신은 자신의 실패를 믿지 않으며, 판정을 성공으로 만들려는 의지를 발휘한다. 신화 점수 1점을 소비하고 평판정을 다시 굴린 다음, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>제작 요구조건</strong> 당신은 명시된 랭크로 해당 주문의 시전을 공급할 수 있는 신화 비전 주문시전자여야 한다.</p>"
  },
  "beloveds-bracelets": {
@@ -454,7 +454,7 @@
   "desc_ko": "<p><strong>탄약</strong> 사보 플레셰트 (10 gp, 5 부피)</p><hr /><p><strong>사용법</strong> 거치식;</p>\n<p><strong>공간</strong> 길이 30피트, 너비 20피트, 높이 12피트</p>\n<p><strong>승무원</strong> 3~4명; <strong>숙련도</strong> 상급</p><hr /><p><strong>AC</strong> 30; <strong>인내</strong> +22, <strong>반사</strong> +16</p>\n<p><strong>경도</strong> 15, <strong>HP</strong> 200 (BT 100);</p>\n<p><strong>면역</strong> 물체 면역</p><hr /><p><strong>속도</strong> 5피트 (밀거나 당김)</p><hr /><p>라치칸의 지스트카 유적에서 발굴된 이 공성 무기는 포신에 회오리바람 문양이 새겨져 있으며, 현대에 사용할 수 있도록 수리되었다. 포신은 장전된 발사체를 추진하는 공기의 소용돌이를 만들어낸다: 발사체는 안정핀이 달린 플레셰트를 담은 첼락스 공학의 금속 사보로, 지스트카 발명가들이 상상했던 것보다 더 먼 사거리와 파괴력을 달성한다.</p>\n<p><strong>조준</strong> <span class=\"action-glyph\">3</span> 45° 회전</p>\n<p><strong>장전</strong> <span class=\"action-glyph\">3</span> (조작) 2회, @Check[arcana|dc:21], @Check[athletics|dc:21], @Check[nature|dc:21], @Check[religion|dc:21] 판정에 성공해야 함</p>\n<p><strong>발사</strong> <span class=\"action-glyph\">1</span> (공격, 조작) 9d10 관통, @Template[type:line|distance:250], @Check[reflex|dc:31], 물체 경도 5점을 무시</p>"
  },
  "whispering-wire-greater": {
-  "name_ko": "속삭이는 철사 (상급)",
+  "name_ko": "속삭이는 철사 (중급)",
   "desc_ko": "<p>밝은 색의 이 나선형 철사 줄은 어떤 모양으로든 깔끔하게 비틀어 만들 수 있다.</p>\n<p><strong>활성화—바람에 실은 말</strong> <span class=\"action-glyph\">1</span> (집중)</p>\n<p><strong>빈도</strong> 10분당 1회</p><hr /><p><strong>효과</strong> 당신은 철사에 조용히 입 모양으로 말을 전하며, 철사는 3랭크 @UUID[Compendium.pf2e.spells-srd.Item.vLzFcIaSXs7YTIqJ]{전언} 캔트립의 효과로 그 말을 대상에게 전달한다.</p>"
  },
  "rounds-shobhad-longrifle": {
@@ -470,7 +470,7 @@
   "desc_ko": "<p>당신은 마법 감지기에 약간의 환영 마법을 더해, 함정이 발동될 때 대상이 자기 아래로 바닥없는 구덩이가 열린다고 믿게 만든다. 함정의 칸에 들어온 중형 이하의 크리처는 @Check[will|dc:20] 내성을 시도해야 한다.</p><hr /><p><strong>대성공</strong> 크리처는 영향받지 않는다.</p>\n<p><strong>성공</strong> 크리처는 조심스럽게 나아가, 자기 턴이 끝날 때까지 함정의 칸과 인접한 모든 칸을 험지로 취급한다.</p>\n<p><strong>실패</strong> 크리처는 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태가 된다.</p>\n<p><strong>대실패</strong> 크리처는 넘어뜨려지고 @Damage[1d4[mental]] 피해를 입는다.</p>"
  },
  "cyrusian-wand-3rd-rank-spell": {
-  "name_ko": "시루시아 마법봉 (3랭크 주문)",
+  "name_ko": "시루시아 완드 (3랭크 주문)",
   "desc_ko": "<p>룬로드 잔더굴은 자신이 좋아하는 환영 주문에 대한 접근성을 강화하기 위해 <em>시루시아 마법봉</em>을 자주 제작했다. 모든 <em>시루시아 마법봉</em>은 색상과 형태, 반짝이는 보석 장식이 서로 다르지만 하나같이 대담하다.</p>\n<p><em>시루시아 마법봉</em>은 언제나 환영 특성을 가진 비전 주문만을 담는다.</p><hr /><p><strong>활성화</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루 1회, 추가로 과충전</p>\n<p><strong>효과</strong> 당신은 명시된 랭크로 주문을 시전한다. 이 활성화의 일부로 신화 점수 1점을 소비하면, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>활성화—성공 확신</strong> <span class=\"action-glyph\">r</span></p>\n<p><strong>빈도</strong> 하루 1회</p>\n<p><strong>발동</strong> 마법봉을 과충전할 때 @Check[flat|dc:10]에 실패한다</p>\n<p><strong>효과</strong> 당신은 자신의 실패를 믿지 않으며, 판정을 성공으로 만들려는 의지를 발휘한다. 신화 점수 1점을 소비하고 평판정을 다시 굴린 다음, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>제작 요구조건</strong> 당신은 명시된 랭크로 해당 주문의 시전을 공급할 수 있는 신화 비전 주문시전자여야 한다.</p>"
  },
  "duty-of-the-oathsworn": {
@@ -478,7 +478,7 @@
   "desc_ko": "<p>당신을 결속된 용과 이어주는 서약은 삶과 죽음의 경계를 초월한다. 서약이 맺어질 때, 용은 인간형 이외의 크리처 유형 하나를 선택한다. (GM이 적절한 특성을 선택한다.) 당신은 이 크리처들이 입히는 물리 및 정신 피해에 자신의 레벨 절반과 같은 저항을 얻는다. 당신은 또한 용의 정밀함 행동을 얻는다. 당신이 이 유형의 크리처가 가한 피해로 죽으면, 당신은 용이 선택한 언데드 크리처로 되살아난다. 이 언데드의 레벨은 당신의 레벨과 결속된 용의 레벨 중 더 낮은 쪽을 넘을 수 없다. 이 언데드 크리처는 당신의 정신을 갖는다. 원래 정신이 없는 존재라면, 그 특성과 정신에 대한 면역을 모두 잃는다.</p>\n<p><strong>용의 정밀함</strong> <span class=\"action-glyph\">1</span> (집중)</p>\n<p><strong>빈도</strong> 하루 1회</p><hr /><p><strong>효과</strong> 선택된 유형의 적을 상대로 한 당신의 타격은 1분 동안 추가로 1d6 정밀 피해를 입힌다. 당신이 17레벨 이상이면 이 피해는 2d6으로 증가한다.</p><hr /><p><strong>서약 파기자의 재앙</strong> 어느 한쪽이라도 서약을 깨면, 당신과 용은 영원히 동료 관계에서 배제된다. 크리처들은 전투 중 당신들 중 어느 쪽도 아군으로 취급할 수 없다.</p>"
  },
  "cyrusian-wand-1st-rank-spell": {
-  "name_ko": "키루스식 마법봉 (1랭크 주문)",
+  "name_ko": "키루스식 완드 (1랭크 주문)",
   "desc_ko": "<p>룬로드 잰더굴은 자신이 애용하는 환영 주문에 대한 접근을 강화하기 위해 종종 <em>키루스식 마법봉</em>을 제작했다. 모든 <em>키루스식 마법봉</em>은 색채와 형태, 반짝이는 보석 장식이 저마다 다르지만 하나같이 대담한 모습을 하고 있다.</p>\n<p><em>키루스식 마법봉</em>에는 환영 특성을 지닌 비전 주문만 담을 수 있다.</p><hr /><p><strong>발동</strong> 주문 시전</p>\n<p><strong>빈도</strong> 하루 1회, 그리고 과충전</p>\n<p><strong>효과</strong> 표시된 랭크로 주문을 시전한다. 이 발동의 일부로 신화 점수 1점을 소비하면, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>발동—성공 가정</strong> <span class=\"action-glyph\">r</span></p>\n<p><strong>빈도</strong> 하루 1회</p>\n<p><strong>발동</strong> 마법봉을 과충전할 때 @Check[flat|dc:10]에 실패한다</p>\n<p><strong>효과</strong> 자신의 실패를 부정하며, 그 판정을 성공으로 만들려 의지를 발휘한다. 신화 점수 1점을 소비하고 평면 판정을 다시 굴린 뒤, 주문의 효과를 신화 숙련도로 처리한다.</p><hr /><p><strong>제작 요구조건</strong> 표시된 랭크로 해당 주문의 시전을 공급할 수 있는 신화 비전 주문시전자여야 한다.</p>"
  },
  "fate-tempters-ring": {
@@ -510,7 +510,7 @@
   "desc_ko": "<p>당신의 정수 그 자체가 결속된 용 안에 도사리고 있던 다학의 고통에 강탈당했다. 고통받는 신의 속삭임이 당신의 영혼을 태우고 당신의 육신을 부려 그의 변덕에 무섭도록 부합하게 만든다. 당신은 공포 그 자체의 얼굴이며, 용 역병의 원한을 물려받은 후계자이자, 압도된 필멸의 형상으로 구현된 끝없는 파괴다. 당신은 끝없는 파괴의 절규 활동을 얻는다. 그 대가로, 당신을 이 서약에 결속시킨 용은 이제 다학의 영향에서 벗어나, 다학의 추종자였다면 부여되었을 은혜나 능력을 잃는 대신, 다학의 추종자가 시전한 어떠한 주문이나 능력에 대한 내성 굴림에 +2 물품 보너스를 얻는다.</p>\n<p><strong>끝없는 파괴의 절규</strong> <span class=\"action-glyph\">2</span> (청각, 집중, 감정, 공포, 무력화, 정신, 불경)</p>\n<p><strong>빈도</strong> 하루 1회</p><hr /><p><strong>효과</strong> 당신이 발각하고 당신을 발각하는, @Template[type:emanation|distance:30] 내의 각 생물의 의지 DC를 상대로 위협 판정을 시도한다.</p><hr /><p><strong>대성공</strong> 대상은 자신의 위협 DC를 상대로 건강 내성을 시도해야 한다. 대실패 시, 대상은 지옥불의 폭발 속에서 죽으며 @Template[type:emanation|distance:5] 내의 각 생물에게 @Damage[6d6[fire]|options:area-damage] 피해를 입힌다. 그 외 어떤 결과에서든, 생물은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 3}이 되고 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{도주}한다. 대실패 효과는 죽음 특성을 지닌다.</p>\n<p><strong>성공</strong> 대상은 공포 3이 되고 @Damage[4d6[fire]|options:area-damage] 피해를 입는다.</p>\n<p><strong>실패</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2}가 된다.</p>\n<p><strong>실패</strong> 대상은 영향을 받지 않는다.</p><hr /><p><strong>서약 파기자의 재앙</strong> 양측의 영혼이 다학의 고통에 잠식되기 시작한다. 매일 끝날 때, 그날 당신과 당신의 용 둘 다 다학을 섬겨 행동하지 않았다면, 당신과 당신의 용은 @UUID[Compendium.pf2e.conditionitems.Item.3uh1r86TzbQvosxv]{파멸 1}이 된다(이미 파멸 상태라면 파멸 수치가 1 증가한다). 이 효과를 받는 동안 당신이나 당신의 결속된 용이 죽으면, 둘 다 지옥불과 역청의 대참사 속에서 폭발하여 @Template[type:emanation|distance:30] 내의 모든 생물에게 @Damage[16d6[fire]|options:area-damage] 피해를 입힌다. 이 효과는 신성 및 불경 특성을 지닌다. 죽지 않은 생물이 이 폭발에서도 살아남으면, 고통받는 파괴자의 서약이 종료된다.</p>"
  },
  "dragons-tongue-greater": {
-  "name_ko": "용의 혀 (상급)",
+  "name_ko": "용의 혀 (중급)",
   "desc_ko": "<p>이 <em>+2 상급 강타 롱스피어</em>는 이름난 괴물 사냥꾼이 제작한 것으로, 그는 사악한 용의 뼈와 비늘로 시제품을 설계했다. 성체 용의 드라티리칸 주름, 즉 그들의 마법 숨결을 생성하는 기관이 이 창의 작동에 핵심적이다. 이 무기의 기계 장치는 대체로 주입 창을 바탕으로 한다. 안전장치를 풀고 보조 레버를 쥐면, 창의 텅 빈 끝에서 용의 숨결과 같은 마법 효과가 발생한다.</p>\n<p><strong>발동—창의 숨결</strong> <span class=\"action-glyph\">2</span> (집중, 조작) 용의 혀는 @Template[type:cone|distance:30]로 나타나는 에너지 분출을 방출하여 @Damage[7d6[untyped]|options:area-damage] 피해를 입히며 @Check[reflex|dc:30|basic|options:area-effect] 내성을 요구한다. [[/r 1d4 #Recharge Breath of the Spear]]{1d4 라운드} 동안 이 발동을 다시 사용할 수 없다. 피해 유형은 이 무기가 제작된 용의 숨결과 일치하며, 이 발동은 그에 상응하는 특성을 지닌다.</p><hr /><p><strong>제작 요구조건</strong> 초기 원자재에 용의 드라티리칸 주름이 포함되어야 한다.</p>"
  },
  "martyrs-shield-hellbreakers": {
@@ -522,11 +522,11 @@
   "desc_ko": "<p>손바닥만 한 이 작고 매끄러운 결정은 반투명한 회색을 띤다. 그러나 절박한 자의 입술에서 나온 속삭임과 함께, <em>유언석</em>은 기억의 불씨로 채워질 수 있으며, 그 모습이 불투명하고 광택 나는 돌로 변해 기이하게 따뜻한 촉감을 갖게 된다. 이 신성하게 스며든 물체들은 본래 파라스마 사제들이, 사랑하는 이들이 임종하는 자의 곁에 도착하는 것이 늦어질 경우 죽어가는 자의 마지막 생의 순간을 보존하기 위해 만들었다. 그러나 라스트월의 비극과 함께, <em>유언석</em>은 새롭고 더욱 절박한 용도를 얻게 되었다. 이곳 그레이브랜드 접경 지역에서는, 난민과 모험가들이 스스로 소식을 전하며 살아남지 못할 것 같을 때, 위험한 장소 밖의 수신자에게 중요한 세부 사항을 전하기 위해 <em>유언석</em>을 사용하게 되었다.</p><hr /><p><strong>발동—기억 포착</strong> <span class=\"action-glyph\">3</span> (집중, 조작, 정신)</p>\n<p><strong>요구조건</strong> <em>유언석</em>에 기억이 담겨 있지 않다</p><hr /><p><strong>효과</strong> 당신은 빈 <em>유언석</em>을 인접한 자발적인 생물의 머리에 갖다 댄다. 돌은 그 생물의 정신에서 나온 중요한 기억으로 채워진 뒤, 모습이 불투명해진다. 그 기억은 복제되어 대상 생물의 생각 속에 남아 있지만, 돌 안에 어떤 종류의 기억이 담겨 있는지는 다른 누구도 알아챌 수 없다. 어떤 기억을 <em>유언석</em>에 담을지는 기억을 복사할 생물이 선택하며, 일단 기억이 저장되면 그 돌은 기억 포착에 다시 사용할 수 없다. 저장된 기억은 하나의 감정과 흐릿한 심상 이상의 정보를 담을 수 없으며, 이 둘을 합쳐 10단어 이하의 짧은 전언을 전달한다. 이는 대개 사랑하는 이에게 마지막 위로의 말을 전하거나, 함정이 있을 법한 특정 장소를 경고하거나, 주목할 만한 사건에 대한 약간의 소식을 전하기에 충분하다. 10단어라는 한계는 그 심상의 흐릿하고 때로 혼란스러운 성질을 나타낸다.</p>\n<p><strong>발동—기억 공개</strong> <span class=\"action-glyph\">3</span> (집중, 조작, 정신)</p>\n<p><strong>요구조건</strong> <em>유언석</em>에 기억이 담겨 있다</p><hr /><p><strong>효과</strong> 당신은 <em>유언석</em>을 머리에 대고 그 내용에 집중한다. 잠시 후, 저장된 기억이 당신의 마음속에서 펼쳐지고 <em>유언석</em>은 당신의 손안에서 먼지로 부스러진다.</p>"
  },
  "elixir-of-the-peaks-greater": {
-  "name_ko": "봉우리의 비약 (상급)",
+  "name_ko": "봉우리의 엘릭서 (중급)",
   "desc_ko": "<p><strong>발동</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>뉴 타실론의 상당 부분이 코다르 산맥의 험준한 고지대에 자리 잡고 있는 까닭에, 이 비약들은 그 지역을 자주 여행하는 이들 사이에서 인기를 얻었다. 산악 지형에서 이 비약을 마시면 1일 동안 극심한 냉기의 효과로부터 보호받으며, 오르기, @UUID[Compendium.pf2e.actionspf2e.Item.2HJ4yuEFY1Cast4h]{높이뛰기}, @UUID[Compendium.pf2e.actionspf2e.Item.JUvAvruz7yRQXfz2]{멀리뛰기}를 위한 운동 판정과 고도의 효과에 대한 내성 굴림에 +3 물품 보너스를 얻는다. 이 비약은 또한 극한의 냉기로부터도 보호한다.</p>"
  },
  "warpriests-cascade-greater": {
-  "name_ko": "전투사제의 폭포 (상급)",
+  "name_ko": "전투사제의 폭포 (중급)",
   "desc_ko": "<p>이 철제 향로는—본래 상징적인 헌주를 뿌리기 위해 케이든 사제가 제작했으며—신축 가능한 자루 끝에서 흔들려, 그 내용물을 부대 전체에 뿌릴 수 있게 한다.</p>\n<p>향로의 용기는 전투사제의 폭포의 물품 레벨까지의 마법 물약을 담을 수 있으며, 1분에 걸쳐 그 내용물을 부대 전체에 뿌린다. 그러나 물약을 널리 퍼뜨리면 그 지속시간이 줄어든다. 지속시간이 1시간 이상인 물약은 부대에 10분간만 영향을 미치고, 지속시간이 8시간 이상인 물약은 부대에 1시간만 영향을 미친다. 지속시간이 1시간 미만인 물약은 전투사제의 폭포 안에서 작동하지 않는다.</p>"
  },
  "rounds-spike-launcher": {
@@ -534,7 +534,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.3qn56dTO5TYJHjbF]{스파이크 런처}용 탄약</p>"
  },
  "warmasters-baton-greater": {
-  "name_ko": "전투지휘관의 지휘봉 (상급)",
+  "name_ko": "전투지휘관의 지휘봉 (중급)",
   "desc_ko": "<p>양쪽 끝이 있는 이 은제 지휘봉은 평범한 은제 메이스로 기능한다. 빛에 반짝이는 그 표면은 부대에 신호를 보내고 사기를 북돋우기 쉽게 한다.</p><hr /><p><strong>발동—진격 결집</strong> <span class=\"action-glyph\">f</span> (집중)</p>\n<p><strong>빈도</strong> 시간당 1회</p>\n<p><strong>발동</strong> 적이 자신이 현재 지휘하는 부대로부터 반응을 유발하지만, 그 부대가 이번 턴에 이미 반응을 사용했다</p><hr /><p><strong>효과</strong> 당신의 지휘를 받는 부대는 두 번째 반응을 얻으며, 이를 발동한 적을 상대로 즉시 사용해야 한다.</p>"
  },
  "effortless-garden": {
@@ -542,7 +542,7 @@
   "desc_ko": "<p>나태의 세 번째 룬로드 아제라드니는 순금 씨앗을 사용하여 스스로 유지되는 자신의 전설적인 정원을 가꾸었다고 전해진다.</p>\n<p><strong>발동—정원 파종</strong> 1분 (집중, 조작)</p><hr /><p><strong>효과</strong> 당신은 인접한 공간의 땅에 씨앗을 심는다. 이어지는 1분 동안, 씨앗의 마법은 씨앗을 심은 공간을 포함하는 40피트 정사각형 범위에 우아한 정원을 만들어낸다. 정원이 자라면서, 당신은 각 10피트 정사각형 공간을 잔디밭(일반 지형), 화단(험지), 또는 산울타리로 채우도록 선택한다. 산울타리는 10피트 높이의 관목으로 채워져 표준 엄폐를 제공하며 상급 험지가 된다. 정원은 24시간 후에 시든다.</p>\n<p>자연의 흙에 씨앗을 심고 발동 중에 신화 점수 1점을 소비하면, 정원이 그 범위에 자리를 잡고, 식물들이 충분한 햇빛과 비를 받는 한 무한히 자란다. 그것이 유지되는 동안, 정원은 잡초와 해충으로부터 자유롭고, 식물들은 결코 자신의 경계를 넘어 자라지 않으니, 마치 달인 정원사가 가꾸는 것과 같다.</p>"
  },
  "dragon-scute-moderate": {
-  "name_ko": "용 비늘판 (중급)",
+  "name_ko": "용의 비늘판 (보통)",
   "desc_ko": "<p><strong>발동</strong> 주문 시전</p><hr /><p>용의 방어구에서 가장 견고한 지점을 이루는 두꺼운 판은 강력한 방어 촉매로 사용될 수 있다. 이 비늘 중 하나를 사용해 @UUID[Compendium.pf2e.spells-srd.Item.2BV2yYPfVJ5zirZt]{산악의 회복력}을 시전하면, 대상의 피부에 두꺼운 용 비늘 층이 자란다. 주문의 일반적인 효과 대신, 대상은 용의 유형과 전통에 따른 피해 저항을 얻는다.</p>\n<p>이 비늘은 8랭크 이상의 <em>산악의 회복력</em>과 함께 사용할 수 있다.</p>\n<p><strong>비전</strong> 주문으로 인한 모든 피해에 저항 7</p>\n<p><strong>신성</strong> 영혼, 활력, 공허에 저항 15</p>\n<p><strong>비학</strong> 정신에 저항 15</p>\n<p><strong>원시</strong> 타격, 관통, 참격, 독에 저항 10</p>"
  },
  "horn-of-the-aoyin": {
@@ -553,7 +553,7 @@
   "name_ko": "탄환 (실드 피스톨)"
  },
  "surging-serum-minor": {
-  "name_ko": "격동의 혈청 (소급)",
+  "name_ko": "급증 세럼 (최하급)",
   "desc_ko": "<p><strong>발동</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p>마시는 자의 몸이 정상적인 근육 조절을 회복하는 동안, 불수의적인 경련과 에너지의 격동이 그 몸을 관통한다. 이 비약을 마시면, 당신에게 @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함} 또는 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨} 조건을 가하고 있는 각 효과를, 1랭크 상쇄와 [[/r 1d20+6 #Counteract]]{+6 상쇄 수정치}를 사용하여 상쇄하려 시도한다.</p>"
  },
  "hellhusk-shroud": {

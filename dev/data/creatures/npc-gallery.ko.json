@@ -1,1 +1,452 @@
-{"Barkeep":{"name":"바텐더","description":"<p>바텐더는 커뮤니티 내에서 친구이자 멘토로, 음료를 제공하며 이야기를 들어주는 역할을 합니다. 최고의 바텐더는 이야기꾼의 재능과 귀중한 조언을 전하는 능력을 갖추고 있습니다.</p>\n<hr />\n<p>수많은 모험은 술집이나 펍에서 시작됩니다. 아마도 그런 장소가 위험을 즐기는 사람들을 끌어들이기 때문일 수도 있고, 아니면 모두가 난폭한 오그르 무리를 상대하기 전에 조금의 용기가 필요하기 때문일 수도 있습니다.</p>","hpdetails":null,"perception":null,"languages":null,"speeds":null,"items":{"fist":{"name":"주먹","description":null,"src":"L1"},"sap":{"name":"사프","description":null,"src":"L1"},"mug":{"name":"백랍 잔","description":null,"src":"manual"},"pewter-mug":{"name":"백랍 잔","description":null,"src":"manual"},"alcohol-lore":{"name":"알코올 지식","description":null,"src":"L1"},"bar-brawler":{"name":"술집 싸움꾼","description":"<p>바텐더는 바 싸움에 충분히 참여해 몇 방을 날릴 줄 안다. 바에서 싸울 때 비치명적 공격을 할 경우, 바텐더는 명중 굴림에 +1 상황 보너스를 얻고 추가로 [[/r {1d4}]]{1d4 피해}를 입힌다.</p>","src":"L1"},"barkeep-s-advice":{"name":"Barkeep's Advice","description":"<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> 바텐더는 자신 이외의 단일 생물에게 관련 조언을 제공합니다. 해당 생물이 기술 체크나 내성 굴림에 실패할 경우, 24시간 동안 이 조언을 기억하고 체크를 다시 굴릴 수 있으며, 두 번째 결과를 사용합니다. 해당 생물이 이 능력을 사용하면 그 효과는 종료됩니다.</p>\n<p>바텐더의 조언을 받은 생물은 1개월 동안 이 능력에 일시적으로 면역됩니다.</p>","src":"L1"}}},"Antipaladin":{"name":"반성기사","description":"<p>평화에 대한 가장 극악한 존재는 아마도 반성기사일 것입니다. 가장 어둡고 사악한 신을 섬기는 성스러운 전사들인 안티팔라딘은 악한 주인의 사악한 소원을 이루기 위해 일합니다. 어둠의 신들의 계획을 실행하는 그들의 열정은 선의 세력과 동맹을 맺은 모든 이들에게 진정으로 두려운 적입니다.</p>\n<hr />\n<p>악당들은 이기적이고 잔인한 목표를 추구하며, 그 길을 방해하는 어리석거나 순수한 자들을 짓밟습니다.</p>","hpdetails":null,"perception":null,"languages":null,"speeds":null,"items":{"javelin":{"name":"창","description":"<p>이 가느다란 창은 투척용으로 균형이 잘 잡혀 있지만 근접 전투용으로 설계된 것은 아닙니다.</p>","src":"equip"},"half-plate":{"name":"하프 플레이트","description":"<p>하프 플레이트는 풀 플레이트에 사용되는 상체 갑옷 대부분을 포함하며, 팔과 다리에는 더 가볍거나 덜 촘촘한 강철판으로 보호합니다. 이는 풀 플레이트의 일부 보호 기능을 제공하면서도 더 큰 유연성과 속도를 보장합니다. 이 갑옷 세트에는 @UUID[Compendium.pf2e.equipment-srd.Item.zBYEU9E7034ENCmh]{패딩 갑옷}으로 된 속옷과 @UUID[Compendium.pf2e.equipment-srd.Item.Ix2vicchE79d6Cl3]{건틀릿} 한 쌍이 포함됩니다.</p>","src":"equip"},"destructive-vengeance":{"name":"파괴의 복수","description":"<p><strong>트리거</strong> 15피트 이내의 적군이 반성기사에게 피해를 입힙니다</p>\n<hr />\n<p><strong>Effect</strong> 안티팔라딘은 받는 피해량을 [[/r 2d6]]만큼 증가시키고, 트리거링 적에게 2d6의 피해를 입히며, @Damage[2d6[spirit]] 또는 @Damage[2d6[void]] 중 하나를 선택합니다. 또한, 반성기사는 트리거링된 생물에게 자신의 공격으로 선택한 유형의 추가 2 피해를 입히며, 이는 반성기사의 다음 턴이 끝날 때까지 지속됩니다.</p>","src":"L1"},"champion-devotion-spells":{"name":"챔피언 헌신 주문","description":null,"src":"cast"},"greataxe":{"name":"대도끼","description":"<p>이 대형 전투 도끼는 한 손으로 휘두르기에는 너무 무겁다. 많은 그레이트액스는 두 개의 날을 갖추고 있으며, 종종 \"수염 모양\"으로 제작되어 아래쪽에 갈고리 모양의 구조물이 있어 베는 힘을 강화한다.</p>","src":"equip"},"intimidating-strike":{"name":"위협적인 공격","description":"<p>안티팔라딘은 근접 공격을 수행합니다. 타격에 성공하고 피해를 입히면 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1} 상태가 되거나, 치명타 시 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2} 상태가 됩니다.</p>","src":"L1"},"cheetahs-elixir-lesser":{"name":"치타의 엘릭서 (하급)","description":"<p><strong>활성화</strong> <span class=\"action-glyph\">A</span> (조작)</p>\n<hr />\n<p>이 엘릭서에 함유된 효소 화합물이 다리 근육을 강화하고 자극합니다. 1분 동안 이동 속도에 +5 피트 상태 보너스를 얻습니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.lNWACCNe9RYgaFxb]{효과: 치타의 엘릭서 (하급)}</p>","src":"equip"}}},"Server":{"name":"서버","description":"<p>손님에서 손님으로 끊임없이 움직이는 서버들은 술집이나 식당의 근간입니다. 그들의 일은 민첩성과 외교술을 모두 갈고닦습니다.</p>\n<hr />\n<p>수많은 모험은 술집이나 펍에서 시작됩니다. 아마도 그런 장소가 위험을 즐기는 사람들을 끌어들이기 때문일 수도 있고, 아니면 모두가 난폭한 오그레 무리를 상대하기 전에 조금의 용기가 필요하기 때문일 수도 있습니다.</p>","hpdetails":null,"perception":null,"languages":null,"speeds":null,"items":{"pewter-mug":{"name":"백랍 잔","description":null,"src":"manual"},"quick-catch":{"name":"Quick Catch","description":"<p><strong>Trigger</strong> 서버가 한 손으로 잡을 수 있는 물체가 서버의 범위 내에 떨어집니다</p>\n<p><strong>조건</strong> 서버가 한 손 이상이 자유로워야 합니다</p>\n<hr />\n<p><strong>효과</strong> 서버가 떨어진 물체가 바닥에 닿기 전에 또는 자신의 도달 범위에서 벗어나기 전에 잡습니다.</p>","src":"L1"},"mug":{"name":"백랍 잔","description":null,"src":"manual"},"fist":{"name":"주먹","description":null,"src":"L1"}}},"Priest of Pharasma":{"name":"파라스마의 사제","description":"<p>수도원 사제들은 그들의 사원과 공동체를 보호합니다. 그들은 신의 교리를 지키는 충실한 수호자이며, 교리를 전파하는 데 헌신합니다. 그들의 지도나 치유 서비스는 기부금을 대가로 제공됩니다.</p>\n<hr />\n<p>종교는 신실한 신자들이 교리를 지키도록 영감을 줍니다. 이 중 많은 이들은 안식과 희망을 선사하려 하지만, 일부는 어두운 동기를 지니고 있습니다.</p>","hpdetails":null,"perception":null,"languages":null,"speeds":null,"items":{"steady-spellcasting":{"name":"안정된 마법 사용","description":"<p>다른 생물의 반응이 사제의 마법 사용 행동을 방해할 경우, 사제는 @Check[flat|dc:15]를 시도합니다. 사제가 성공하면 그 행동은 방해받지 않습니다.</p>","src":"L1"},"divine-prepared-spells":{"name":"신성 준비 주문","description":null,"src":"cast"},"healing-hands":{"name":"치유의 손","description":"<p>사제가 @UUID[Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs]{Heal}을 사용할 때, d8 대신 d10을 굴립니다.</p>","src":"L1"},"cleric-domain-spells":{"name":"클레릭 영역 주문","description":null,"src":"cast"},"silence":{"name":"침묵","description":"<p>대상은 소리를 내지 않아, 다른 생물이 청각만으로 이를 알아차리지 못하게 합니다. 대상은 음파 공격을 사용할 수 없으며, 청각 특성을 가진 행동도 사용할 수 없습니다. 이는 주문 시전에 필요한 마법적 주문어 때문에 주문을 시전하지 못하게 합니다. 단, 은밀한 주문은 예외입니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.mmJNE57hC7G3SPae]{주문 효과: 침묵}</p>\n<hr />\n<p><strong>강화 (4th)</strong> 이 주문은 접촉된 생물 주변 10피트 반경에 오라를 생성하여, 그 안이나 통과하는 모든 소리를 침묵시킵니다. 오라 안에 있는 생물들은 대상과 동일한 효과를 받습니다. 효과의 위치에 따라, 생물은 자신에게 소리가 전달되지 않는 것을 알아차릴 수 있습니다(예: 파티에서 나는 소음을 차단하는 경우).</p>","src":"spell"},"dagger":{"name":"단검","description":null,"src":"L1"},"circle-of-protection":{"name":"보호의 원","description":"<p>당신은 생물과 그 주변의 생물들을 특정 성향에 대해 수호부합니다. 혼돈, 악, 선, 또는 질서 중 하나를 선택하세요; 이 주문은 반대 특성을 얻습니다. 영역 내 생물은 선택한 성향의 생물 공격에 대한 AC에 +1 상태 보너스를 얻으며, 해당 생물의 효과에 대한 내성에 +1 보너스를 얻습니다. 이 보너스는 대상에게 직접 통제하는 효과와 선택한 성향의 소환 생물 공격에 대해서는 +3으로 증가합니다. 선택한 성향의 소환 생물은 의지 내성에 성공하지 않으면 자발적으로 영역에 들어올 수 없으며, 반복 시도 시 첫 번째 내성 결과가 적용됩니다.</p>\n<hr />\n<p><strong>강화 (4th)</strong> 지속 시간이 1시간으로 증가합니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.RawLEPwyT5CtCZ4D]{주문 효과: 보호}</p>","src":"spell"},"shield":{"name":"방패","description":"<p>당신은 마법의 힘의 방패를 올립니다. 이는 방패 올리기 행동을 사용하는 것으로 간주되어 다음 턴 시작까지 AC에 +1 상황 보너스를 부여하지만, 사용하기 위해 손을 쓸 필요가 없습니다.</p>\n<p>주문이 지속되는 동안, 당신은 @UUID[Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8]{방패 막기} 반응을 사용할 수 있습니다. 이 방패의 경도는 5입니다. 이 주문의 반응을 사용해 물리적 피해를 입히지 않는 주문이나 마법 효과로부터도 피해를 감소시킬 수 있습니다. 방패 막기를 사용한 후에는 주문이 종료되며, 10분 동안 다시 시전할 수 없습니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Jemq5UknGdMO7b73]{주문 효과: 방패}</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.QF6RDlCoTvkVHRo4]{효과: 방패 면역}</p>\n<hr />\n<p><strong>강화 (+2)</strong> 방패의 경도가 5 증가합니다.</p>","src":"spell"},"spiritual-weapon":{"name":"영적 무기","description":"<p>순수한 마법력으로 만들어진 무기가 실체화되어 사정거리 내 지정한 적을 공격합니다. 이 무기는 유령 같은 모습을 띠며, 곤봉, 단검 또는 당신의 신이 선호하는 무기로 창조됩니다. </p>\n<p>주문을 시전할 때, 무기는 범위 내 선택한 적 옆에 나타나 그 적을 향해 공격을 가한다. 주문을 지속할 때마다, 필요 시 무기를 범위 내 새로운 목표로 이동시켜 공격할 수 있다. 영적 무기는 다중 공격 페널티를 적용받고 기여한다.</p>\n<p>이 무기의 공격은 근접 주문 공격이다. 외형과 무관하게 이 무기는 2d8 역장 피해를 입힌다. 역장 피해 대신 무기가 일반적으로 입히는 피해 유형(또는 다용도 무기의 경우 사용 가능한 피해 유형 중 하나)으로 피해를 입힐 수 있다. 무기의 다른 능력치나 특성은 적용되지 않으며, 원거리 무기라도 인접한 생물만 공격한다. 주문 공격을 수행함에도 불구하고, 영적 무기는 발동 조건, 저항 등에서는 무기로 간주됩니다. </p>\n<p>이 무기는 공간을 차지하지 않으며, 측면 공격을 허용하지도 않고, 생물이 가지는 다른 속성도 없습니다. 이 무기는 공격 외에는 다른 공격을 할 수 없으며, 무기에 영향을 미치는 특기나 주문은 적용되지 않습니다. </p>\n<hr />\n<p><strong>강화 (+2)</strong> 무기의 피해가 1d8 증가합니다.</p>","src":"spell"},"spirit-link":{"name":"영혼 연결","description":"<p>다른 생물과 영적 연결을 형성하여 그 고통을 흡수합니다. 이 주문을 시전할 때와 자신의 턴 시작 시마다, 대상이 최대 체력 미만일 경우 2 체력을 회복합니다(현재 체력과 최대 체력의 차이가 더 작다면 그 차이를 회복합니다). 당신은 대상이 회복한 체력만큼의 체력을 잃습니다.</p>\n<p> 이것은 영혼 전이이므로, 대상이 회복하는 체력을 증가시키거나 당신이 잃는 체력을 감소시키는 효과는 적용되지 않습니다. 또한 이 전이는 당신이나 대상이 가진 임시 체력을 무시합니다. 이 효과는 활력이나 공허 에너지를 포함하지 않으므로, <em>영혼의 연결</em>은 당신이나 대상이 언데드인 경우에도 작동합니다. 지속 시간 동안 재생이나 빠른 치유 효과의 혜택을 받지 못합니다. 이 주문을 해제할 수 있으며, 체력이 0이 되면 <em>영혼 연결</em>이 자동으로 종료됩니다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 매번 이전되는 체력 수치가 2씩 증가합니다.</p>","src":"spell"},"deaths-call":{"name":"죽음의 부름","description":"<p><strong>발동 </strong> 20피트 이내의 생명체가 죽거나, 20피트 이내의 언데드 생물이 파괴된다.</p>\n<hr />\n<p>다른 존재가 이 세상을 떠나는 모습을 목격하면 기운이 솟구칩니다. 발동한 생물의 레벨에 당신의 주문 시전 능력치 수정자를 더한 만큼의 임시 체력을 얻습니다. 발동 생물이 언데드였던 경우, 얻는 임시 체력 수치를 두 배로 한다. 이 체력은 주문 지속 시간 동안 유지되며, 임시 체력이 모두 소진되면 주문이 종료된다.</p>","src":"spell"},"mindlink":{"name":"정신 연결","description":"<p>당신은 대상의 정신과 자신의 정신을 연결하여, 10분이 걸릴 정보를 순간적으로 전달합니다.</p>","src":"spell"},"read-aura":{"name":"오라 읽기","description":"<p>당신은 대상 물체에 포커스를 맞추며, 마법 오라를 감지하기 위해 마음을 엽니다. 시전이 완료되면, 그 물건이 마법적인지 여부를 알게 됩니다. 당신이나 당신이 오라에 대해 조언한 사람은 해당 물건에 대한 @UUID[Compendium.pf2e.actionspf2e.Item.eReSHVEPCsdkSL4G]{마법 식별}에 +2 상황 보너스를 얻습니다. 대상이 환상이라면, 그 효과의 등급이 당신의 <em>오라 읽기</em> 주문 등급보다 낮을 때만 이를 감지합니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.J6OhRNSN23KzOPRL]{주문 효과: 오라 읽기}</p><hr /><p><strong>강화 (3rd)</strong> 최대 10개의 물체를 대상으로 할 수 있습니다.</p>\n<p><strong>강화 (6th)</strong> 물체의 수에 제한 없이 대상으로 할 수 있습니다.</p>","src":"spell"},"heal":{"name":"치유","description":"<p>생명력을 집중하여 살아있는 존재를 치유하거나 언데드를 손상시킵니다. 대상이 자발적인 생명체일 경우, 1d8 체력을 회복시킵니다. 대상이 언데드일 경우, 해당 양의 활력 피해를 입히며, 대상은 기본 인내 내성 굴림을 수행합니다. 이 주문을 시전할 때 소비하는 행동의 수가 대상, 사거리, 범위 및 기타 매개변수를 결정합니다.</p>\n<p><span class=\"action-glyph\">1</span> 이 주문의 사거리는 접촉입니다.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(집중)</strong> 이 주문은 30피트 범위를 가집니다. 살아있는 생물을 치유할 경우 회복되는 체력을 8 증가시킵니다. </p>\n<p><span class=\"action-glyph\">3</span> <strong>(집중) </strong> 당신은 @Template[emanation|distance:30] 범위 내에 활력을 분산시킵니다. 이 효과는 범위 내의 모든 생명체와 언데드 생물을 대상으로 합니다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 치유량 또는 피해량이 1d8 증가하며, 2-액션 버전의 추가 치유량은 8 증가합니다.</p>","src":"spell"},"consecrate":{"name":"성역화","description":"<p><strong>영역</strong> 고정된 신상, 신전 또는 신의 고정물 주변 40피트 반경 폭발</p>\n<p><strong>보조 시전자</strong> 2명, 반드시 당신의 종교 신자여야 함</p>\n<hr />\n<p> 당신은 신을 위해 장소를 성역화하며 찬양을 외치고 신성한 공간을 창조합니다. 이 영역 내에서는 당신의 신을 숭배하는 자들이 명중 굴림, 기술 체크, 내성 굴림, 지각 체크에서 +1 상태 보너스를 얻으며, 당신의 신에게 저주받은 존재(@UUID[Compendium.pf2e.deities.Item.QZD0u1jxwz0kj8uI])는 30초 동안 언데드로 간주됩니다. {파라스마} 또는 @UUID[Compendium.pf2e.deities.Item.BNycwu3I21dTh4D9]{사렌래}의 언데드 등)은 해당 굴림에 -1 상태 페널티를 받습니다. 신의 신성한 성화가 신성 또는 불경한 중 선택을 허용한다면, 성지 역시 신성 또는 불경한으로 설정할 수 있습니다. 신의 성화가 <span class=\"fontstyle2\">반드시 </span>신성하거나 불경한 경우, 해당 장소도 그 성화 상태와 일치시켜야 합니다. 해당 구역 내에서 당신의 신을 숭배하는 자들이 가하는 공격은 장소의 성화 특성(있는 경우)을 부여받습니다. </p>\n<hr />\n<p><strong>대성공 </strong> 봉헌이 성공하면, 지속 기간이 1년이 아닌 10년으로 연장되거나 반경이 두 배로 확대됩니다. 때로는 신의 은총으로 영구적으로 봉헌된 지역이 생기거나 대성당 전체를 아우르는 등 더욱 놀라운 효과가 발생할 수도 있습니다.</p>\n<p><strong>성공</strong> 봉헌이 성공합니다.</p>\n<p><strong>실패</strong> 봉헌이 실패했습니다.</p>\n<p><strong>대실패</strong> 봉헌이 극적으로 실패하여 신의 분노를 샀고, 신은 불만의 징조를 보냈습니다. 최소 1년 동안 해당 장소에 대한 추가 봉헌 시도는 실패합니다. </p>\n<hr />\n<p><strong>강화 (7th)</strong> 봉헌된 지역은 @UUID[Compendium.pf2e.spells-srd.Item.XZE4BawIlTf88Yl9]{차원 봉인} 주문 효과도 얻지만, 이 효과는 당신의 신을 숭배하는 이들의 순간이동을 반격하려 하지 않습니다. 비용은 주문 등급 × 200gp로 증가한다.</p>","src":"spell"},"religious-symbol-silver":{"name":"파라스마의 종교 상징","description":"<p>이 나무 또는 은으로 된 물건에는 신을 나타내는 형상이 새겨져 있다. 클레릭 같은 일부 신성 주문시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 발휘하고 일부 주문을 시전할 수 있다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 쥘 수 있다.</p>","src":"manual"},"light":{"name":"빛","description":"<p>당신은 선택한 색상의 밝은 빛을 20피트 반경(다음 20피트는 희미한 빛)에 비추는 빛의 구체를 생성합니다. 동의한 대상과 같은 공간에 빛을 생성할 경우, 그 빛을 동의한 대상에 부착시켜 동의한 대상이 이동할 때 그 근처에 떠다니게 할 수 있습니다. 지속 주문을 사용해 빛을 최대 60피트까지 이동시킬 수 있으며, 이 이동 과정에서 생물에게 부착하거나 분리할 수 있다.</p>\n<p>주문을 해제할 수 있습니다. 이미 네 개의 <em>빛</em> 주문을 활성화한 상태에서 이 주문을 시전하면, 기존 주문 중 하나를 선택하여 종료해야 합니다. </p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.cVVZXNbV0nElVOPZ]{주문 효과: 빛}</p>\n<hr />\n<p><strong>강화 (4th)</strong> 구슬은 반경 60피트 내에 빛을 발산하며, 그 다음 60피트까지는 희미한 빛을 제공합니다.</p>","src":"spell"},"detect-magic":{"name":"마법 감지","description":"<p>당신은 마법의 존재를 감지하는 파동을 발산합니다. 마법의 유무 외에는 추가 정보를 얻지 못합니다. 자신과 아군의 마법 아이템이나 지속 중인 주문처럼 완전히 인지하고 있는 마법은 무시하도록 선택할 수 있습니다. 환상 마법은 그 효과가 당신의 <em>마법 감지</em> 주문 등급보다 낮을 때만 감지됩니다. 그러나 외관상 기만적이지 않은 환상 오라를 지닌 아이템(예: @UUID[Compendium.pf2e.equipment-srd.Item.bikFUFRLwfdvX2x2]{투명화 물약})은 일반적으로 정상적으로 감지됩니다.</p>\n<hr />\n<p><strong>강화 (3rd)</strong> GM이 결정한, 해당 주문이 감지한 가장 강력한 마법 효과의 등급이나 레벨을 알게 됩니다.</p>\n<p><strong>강화 (4th)</strong> 3단계와 동일하지만, 최고 등급 마법의 출처를 정확히 파악합니다. 불확실한 감지처럼 정확한 위치를 알 수는 없지만, 출처를 5피트 입방체(또는 그보다 크면 가장 가까운 크기)로 좁힐 수 있습니다. </p>","src":"spell"}}},"Acolyte of Nethys":{"name":"네티스의 제자","description":"<p>하급 성직자들은 신앙의 교리를 배우고 상급 사제에게 복종합니다. 그들의 날은 신전에 격리되어 헌신과 학습에 바쳐집니다.</p>\n<hr />\n<p>종교는 신실한 개인들이 교리를 지키도록 영감을 줍니다. 이 중 많은 이들은 안식과 희망을 가져다주려 하지만, 다른 이들은 어두운 동기를 지니고 있습니다.</p>","hpdetails":null,"perception":null,"languages":null,"speeds":null,"items":{"bolts":{"name":"볼트","description":"<p>전통적인 화살보다 짧지만 구조는 유사한 볼트는 석궁에 사용되는 탄약입니다.</p>","src":"equip"},"crossbow":{"name":"크로스보우","description":null,"src":"L1"},"cleric-domain-spells":{"name":"클레릭 영역 주문","description":null,"src":"cast"},"prestidigitation":{"name":"간단마술","description":"<p>가장 단순한 마법이 당신의 명령을 수행합니다. 지속 주문을 유지하는 동안 간단한 마법 효과를 발휘할 수 있습니다. 지속 주문을 유지할 때마다 네 가지 옵션 중 하나를 선택할 수 있습니다.</p><ul><li><strong>조리</strong> 무생물 1파운드를 차갑게, 따뜻하게 또는 맛을 내게 한다.</li><li><strong> 들기</strong> 경량 이하의 방치된 물체를 지면에서 1피트 높이까지 천천히 들어 올린다.</li><li><strong>만들기</strong> 응고된 마법 물질로 만든 무시할 만한 벌크의 임시 물체를 생성한다. 물체는 조잡하고 인공적으로 보이며 극도로 취약하다-도구나 무기로 사용하거나, 주문 발동 지점이나 비용으로 삼을 수 없다.</li><li><strong>정돈</strong> 벌크 이하의 부피의 물체를 물들이거나, 청소하거나, 더럽힌다. 1벌크 물체는 10라운드 집중으로, 더 큰 물체는 벌크당 1분 집중으로 처리할 수 있다.</li></ul><p><em> 손재주</em>는 피해를 주거나 불리한 상태를 유발할 수 없습니다. 물체에 가해진 실제 변화(위에서 언급된 것 이상)는 주문을 유지하는 동안만 지속됩니다.</p>","src":"spell"},"light":{"name":"빛","description":"<p>당신은 선택한 색상의 밝은 빛을 20피트 반경(다음 20피트는 희미한 빛)에 비추는 빛의 구체를 생성합니다. 동의한 대상과 같은 공간에 빛을 생성할 경우, 그 빛을 동의한 대상에 부착시켜 동의한 대상이 이동할 때 그 근처에 떠다니게 할 수 있습니다. 지속 주문을 사용해 빛을 최대 60피트까지 이동시킬 수 있으며, 이 이동 과정에서 생물에게 부착하거나 분리할 수 있다.</p>\n<p>주문을 해제할 수 있습니다. 이미 네 개의 <em>빛</em> 주문을 활성화한 상태에서 이 주문을 시전하면, 기존 주문 중 하나를 선택하여 종료해야 합니다. </p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.cVVZXNbV0nElVOPZ]{주문 효과: 빛}</p>\n<hr />\n<p><strong>강화 (4th)</strong> 구슬은 반경 60피트 내에 빛을 발산하며, 그 다음 60피트까지는 희미한 빛을 제공합니다.</p>","src":"spell"},"heal":{"name":"치유","description":"<p>생명력을 집중하여 살아있는 존재를 치유하거나 언데드를 손상시킵니다. 대상이 자발적인 생명체일 경우, 1d8 체력을 회복시킵니다. 대상이 언데드일 경우, 해당 양의 활력 피해를 입히며, 대상은 기본 인내 내성 굴림을 수행합니다. 이 주문을 시전할 때 소비하는 행동의 수가 대상, 사거리, 범위 및 기타 매개변수를 결정합니다.</p>\n<p><span class=\"action-glyph\">1</span> 이 주문의 사거리는 접촉입니다.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(집중)</strong> 이 주문은 30피트 범위를 가집니다. 살아있는 생물을 치유할 경우 회복되는 체력을 8 증가시킵니다. </p>\n<p><span class=\"action-glyph\">3</span> <strong>(집중) </strong> 당신은 @Template[emanation|distance:30] 범위 내에 활력을 분산시킵니다. 이 효과는 범위 내의 모든 생명체와 언데드 생물을 대상으로 합니다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 치유량 또는 피해량이 1d8 증가하며, 2-액션 버전의 추가 치유량은 8 증가합니다.</p>","src":"spell"},"cry-of-destruction":{"name":"파괴의 외침","description":"<p>당신의 목소리가 울려 퍼지며, 앞을 가로막는 것을 산산조각 낸다. 해당 영역 내 모든 생물과 방치된 물체는 1d8 음파 피해를 입는다. 이번 턴에 이미 공격이나 주문으로 적에게 피해를 입혔다면, 이 주문의 피해 주사위를 d12로 증가시킨다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 피해가 1d8 증가한다.</p>","src":"spell"},"detect-magic":{"name":"마법 감지","description":"<p>당신은 마법의 존재를 감지하는 파동을 발산합니다. 마법의 유무 외에는 추가 정보를 얻지 못합니다. 자신과 아군의 마법 아이템이나 지속 중인 주문처럼 완전히 인지하고 있는 마법은 무시하도록 선택할 수 있습니다. 환상 마법은 그 효과가 당신의 <em>마법 감지</em> 주문 등급보다 낮을 때만 감지됩니다. 그러나 외관상 기만적이지 않은 환상 오라를 지닌 아이템(예: @UUID[Compendium.pf2e.equipment-srd.Item.bikFUFRLwfdvX2x2]{투명화 물약})은 일반적으로 정상적으로 감지됩니다.</p>\n<hr />\n<p><strong>강화 (3rd)</strong> GM이 결정한, 해당 주문이 감지한 가장 강력한 마법 효과의 등급이나 레벨을 알게 됩니다.</p>\n<p><strong>강화 (4th)</strong> 3단계와 동일하지만, 최고 등급 마법의 출처를 정확히 파악합니다. 불확실한 감지처럼 정확한 위치를 알 수는 없지만, 출처를 5피트 입방체(또는 그보다 크면 가장 가까운 크기)로 좁힐 수 있습니다. </p>","src":"spell"},"harm":{"name":"해악","description":"<p>당신은 공허 에너지를 집중하여 생물을 해치거나 언데드를 치유합니다. 대상이 생물일 경우, 1d8의 공허 피해를 입히고 대상은 기본 인내 내성을 시도합니다. 대상이 자발적인 언데드일 경우, 해당 양만큼 체력을 회복시킵니다. 이 주문을 시전할 때 소모하는 행동의 수가 대상, 사거리, 범위 및 기타 매개변수를 결정합니다.</p>\n<p><span class=\"action-glyph\">1</span> 이 주문의 사거리는 접촉입니다.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(집중)</strong> 이 주문은 30피트 범위를 가집니다. 언데드 생물을 치유할 경우 회복되는 체력을 8 증가시킵니다. </p>\n<p><span class=\"action-glyph\">3</span> <strong>(집중)</strong> @Template[emanation|distance:30] 범위 내에 공허 에너지를 분산시킵니다. 이 효과는 해당 영역 내의 모든 생명체와 언데드 생물을 대상으로 합니다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 치유량 또는 피해량이 1d8 증가하며, 2-액션 버전의 추가 치유량은 8 증가합니다.</p>","src":"spell"},"read-aura":{"name":"오라 읽기","description":"<p>당신은 대상 물체에 포커스를 맞추며, 마법 오라를 감지하기 위해 마음을 엽니다. 시전이 완료되면, 그 물건이 마법적인지 여부를 알게 됩니다. 당신이나 당신이 오라에 대해 조언한 사람은 해당 물건에 대한 @UUID[Compendium.pf2e.actionspf2e.Item.eReSHVEPCsdkSL4G]{마법 식별}에 +2 상황 보너스를 얻습니다. 대상이 환상이라면, 그 효과의 등급이 당신의 <em>오라 읽기</em> 주문 등급보다 낮을 때만 이를 감지합니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.J6OhRNSN23KzOPRL]{주문 효과: 오라 읽기}</p><hr /><p><strong>강화 (3rd)</strong> 최대 10개의 물체를 대상으로 할 수 있습니다.</p>\n<p><strong>강화 (6th)</strong> 물체의 수에 제한 없이 대상으로 할 수 있습니다.</p>","src":"spell"},"divine-prepared-spells":{"name":"신성 준비 주문","description":null,"src":"cast"},"staff":{"name":"지팡이","description":"<p>이 긴 나무 막대는 걷는 데 도움을 주고 강력한 일격을 가할 수 있습니다.</p>","src":"equip"},"shield":{"name":"방패","description":"<p>당신은 마법의 힘의 방패를 올립니다. 이는 방패 올리기 행동을 사용하는 것으로 간주되어 다음 턴 시작까지 AC에 +1 상황 보너스를 부여하지만, 사용하기 위해 손을 쓸 필요가 없습니다.</p>\n<p>주문이 지속되는 동안, 당신은 @UUID[Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8]{방패 막기} 반응을 사용할 수 있습니다. 이 방패의 경도는 5입니다. 이 주문의 반응을 사용해 물리적 피해를 입히지 않는 주문이나 마법 효과로부터도 피해를 감소시킬 수 있습니다. 방패 막기를 사용한 후에는 주문이 종료되며, 10분 동안 다시 시전할 수 없습니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Jemq5UknGdMO7b73]{주문 효과: 방패}</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.QF6RDlCoTvkVHRo4]{효과: 방패 면역}</p>\n<hr />\n<p><strong>강화 (+2)</strong> 방패의 경도가 5 증가합니다.</p>","src":"spell"}}},"Nyctessa":{"name":"닉테사","description":null,"hpdetails":"공허 치유","perception":null,"languages":null,"speeds":null,"items":{"grim-tendrils":{"name":"암흑의 촉수","description":"<p>어둠의 덩굴손이 당신의 손끝에서 휘감아 나와 공중을 가로지릅니다. 당신은 직선 상의 생명체에게 2d4 공허 피해와 @Damage[(@item.level)[bleed]] 피해를 입힙니다. 직선 상의 각 생명체는 인내 내성을 시도해야 합니다.</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않는다.</p>\n<p><strong>성공</strong> 생물은 공허 피해의 절반만 받고 지속 출혈 피해를 받지 않습니다.</p>\n<p><strong>실패</strong> 생물은 전체 피해를 받습니다. </p>\n<p><strong>대실패</strong> 생물은 공허 피해와 지속 출혈 피해를 두 배로 받습니다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 공허 피해가 2d4 증가하고 지속 출혈 피해가 1 증가합니다. </p>","src":"spell"},"staff-of-power":{"name":"닉테사의 지팡이","description":null,"src":"L1"},"vampiric-feast":{"name":"뱀파이어의 잔치","description":"<p>당신의 접촉은 대상의 생명력을 빨아들여 자신을 강화합니다. 대상에게 6d6의 공허 피해를 입힌다. 대상이 받은 공허 피해의 절반(저항력 적용 후)에 해당하는 임시 체력을 얻는다. 1분 후 남은 임시 체력은 모두 소멸한다.</p>\n<hr />\n<p><strong>강화 (+1) </strong> 피해량이 2d6 증가한다.</p>","src":"spell"},"acid-arrow":{"name":"산성 화살","description":"<p>산성 화살을 소환하여 명중 후에도 대상에게 부식 피해를 지속시킵니다. 대상에게 주문 공격을 시도합니다. 명중 시, 3d8 산성 피해 + @Damage[(floor(@item.rank/2))d6[persistent,acid]] 피해를 입힌다. 치명타 시, 초기 피해는 두 배가 되지만 지속 피해는 두 배가 되지 않는다.</p><hr /><p><strong>강화 (+2)</strong> 초기 피해가 2d8 증가하고 지속 산성 피해가 1d6 증가한다.</p>","src":"spell"},"sepulchral-drain":{"name":"무덤의 흡수","description":"<p>Nyctessa의 지팡이가 <em>Nyctessa의 지팡이</em>로 생물에게 공격 피해를 입힐 때, 그 생물은 Nyctessa의 다음 턴이 끝날 때까지 공허 피해에 대한 약점 2를 얻습니다.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.HiLwUXS35dNZgnfC]{Effect: Sepulchral Drain}</p>","src":"L1"},"void-healing":{"name":"공허 치유","description":null,"src":"L1"},"arcane-prepared-spells":{"name":"비전 준비 주문","description":null,"src":"cast"},"fear":{"name":"공포","description":"<p>표적에게 공포를 심어줍니다. 표적은 의지 내성을 시도해야 합니다.</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1} 상태가 됩니다.</p>\n<p><strong>실패 </strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2} 상태입니다.</p>\n<p><strong>대실패</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 3} 상태가 되며 @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{도주} 상태로 1 라운드 동안 지속됩니다.</p>\n<hr />\n<p><strong>강화 (3rd)</strong> 최대 다섯 마리의 생물을 대상으로 할 수 있습니다.</p>","src":"spell"},"lightning-bolt":{"name":"번개 화살","description":"<p>당신의 손에서 번개가 강타하여 4d12의 전기 피해를 입힙니다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 피해량이 1d12 증가합니다.</p>","src":"spell"},"drain-bonded-staff":{"name":"Drain Bonded Staff","description":"<p><strong>Frequency</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 닉테사는 지팡이에 저장된 힘을 소모합니다. 이번 턴에 오늘 준비한 마법 중 이미 사용한 마법을 마법 슬롯을 소모하지 않고 한 번 사용할 수 있습니다.</p>","src":"L1"},"detect-magic":{"name":"마법 감지","description":"<p>당신은 마법의 존재를 감지하는 파동을 발산합니다. 마법의 유무 외에는 추가 정보를 얻지 못합니다. 자신과 아군의 마법 아이템이나 지속 중인 주문처럼 완전히 인지하고 있는 마법은 무시하도록 선택할 수 있습니다. 환상 마법은 그 효과가 당신의 <em>마법 감지</em> 주문 등급보다 낮을 때만 감지됩니다. 그러나 외관상 기만적이지 않은 환상 오라를 지닌 아이템(예: @UUID[Compendium.pf2e.equipment-srd.Item.bikFUFRLwfdvX2x2]{투명화 물약})은 일반적으로 정상적으로 감지됩니다.</p>\n<hr />\n<p><strong>강화 (3rd)</strong> GM이 결정한, 해당 주문이 감지한 가장 강력한 마법 효과의 등급이나 레벨을 알게 됩니다.</p>\n<p><strong>강화 (4th)</strong> 3단계와 동일하지만, 최고 등급 마법의 출처를 정확히 파악합니다. 불확실한 감지처럼 정확한 위치를 알 수는 없지만, 출처를 5피트 입방체(또는 그보다 크면 가장 가까운 크기)로 좁힐 수 있습니다. </p>","src":"spell"},"void-salts":{"name":"공허의 소금","description":"<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 상상하다</p>\n<hr />\n<p>이 봉투에는 공허에서 직접 추출한 에너지가 끓어오르는 미세한 가루가 담겨 있습니다. @UUID[Compendium.pf2e.spells-srd.Item.k34hDOfIIMAxNL4a]{그림 덩굴} 주문을 시전할 때 이 공허 소금을 사용하면 주문 범위를 분할하여, 자신으로부터 시작하여 총 30피트 길이의 선을 원하는 개수만큼 생성할 수 있습니다. 여러 선이 통과하는 생물은 한 번만 영향을 받습니다.</p>","src":"equip"},"fangs":{"name":"이빨","description":null,"src":"L1"},"daze":{"name":"정신 혼란","description":"<p>당신은 대상의 정신 속으로 파고들어 정신적 충격으로 혼란을 일으킵니다. 이 충격은 1d6 정신 피해를 입히며, 기본 의지 내성을 요구합니다. 대상이 내성에 대실패를 하면 @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{기절 1} 상태가 됩니다. </p>\n<hr />\n<p><strong>강화 (+2)</strong> 피해량이 1d6 증가한다.</p>","src":"spell"},"ray-of-frost":{"name":"서리의 광선","description":"<p>당신은 얼음 광선을 발사합니다. 주문 명중 굴림을 수행하세요. 광선은 2d4 냉기 피해를 입힙니다.</p>\n<hr />\n<p><strong>대성공 </strong> 대상은 두 배의 피해를 입으며, 1라운드 동안 이동 속도에 -10피트 상태 페널티를 받습니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.I4PsUAaYSUJ8pwKC]{주문 효과: 서리의 광선}</p>\n<p><strong>성공</strong> 대상은 일반 피해를 받는다.</p>\n<hr />\n<p><strong>강화 (+1) </strong> 피해량이 1d4만큼 증가합니다.</p>","src":"spell"},"electric-arc":{"name":"전기 아크","description":"<p>번개 아크가 한 대상에서 다른 대상으로 번쩍이듯 이동한다. 각 대상은 기본 반사 내성을 시도하며 2d4의 전기 피해를 입는다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 피해량이 1d4 증가한다.</p>","src":"spell"},"taste-blood":{"name":"피를 맛보다","description":"<p><strong>조건</strong> 닉테사의 마지막 행동이 대상에게 피해를 입힌 이빨 공격이었다</p>\n<hr />\n<p><strong>효과</strong> 닉테사는 목표물로부터 피를 마시며, 목표물은 살아있는 인간형 생물이어야 하며, 10분 동안 5의 임시 체력을 얻습니다. 대상은 @Check[fortitude|dc:21] 내성 굴림에 성공해야 하며, 실패 시 @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{흡수 1} 상태가 됩니다. 결과에 관계없이 대상은 닉테사의 '피 맛보기' 효과에 대해 1일 동안 일시적으로 면역이 됩니다.</p>","src":"L1"},"void-warp":{"name":"공허 왜곡","description":"<p>당신은 생명력을 해치기 위해 공허를 부릅니다. 대상은 기본 인내 내성을 시도하며 2d4 공허 피해를 입습니다. 대실패 시, 대상은 또한 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화 1} 상태가 되며, 이 상태는 당신의 다음 턴 시작까지 지속된다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 피해량이 1d4 증가한다. </p>","src":"spell"},"explorers-clothing":{"name":"탐험가의 복장","description":"<p>갑옷을 입지 않는 모험가들은 내구성 있는 복장으로 여행합니다. 갑옷은 아니며 무장 방어 숙련도를 사용하지만, 민첩성 상한선이 적용되며 효능 룬이 새겨져 있다면 AC에 아이템 보너스를 부여할 수 있습니다.</p>","src":"equip"},"spellbook-blank":{"name":"주문서","description":null,"src":"equip"},"adept-crafter":{"name":"숙련된 제작자","description":"<p>Nyctessa는 @UUID[Compendium.pf2e.actionspf2e.Item.rmwa3OyhTZ2i2AHl]{Craft} 활동을 사용하여 알케미컬 및 마법 아이템을 제작할 수 있습니다. 그녀의 알려진 주문 외에도, 그녀의 주문서에는 @UUID[Compendium.pf2e.equipment-srd.Item.p4ZEGzwteCB5fz6i]{병에 담긴 밤}, @UUID[Compendium.pf2e.equipment-srd.Item.UqinuuCWePTYGhVO]{역병 방지 (소형)}, @UUID[Compendium.pf2e.equipment-srd.Item.3Klm2gPmzOw6ntVb]{이해의 엘릭서 (소형)}, @UUID[Compendium.pf2e.equipment-srd.Item.biHvCGfajSjUDGBS]{스틸스커 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.BSInwFNVBVkfFK0B]{불사의 기름 (소형)}, @UUID[Compendium.pf2e.equipment-srd.Item.EGhUorZhB7nV73Ev]{부정한 물}, 및 @UUID[Compendium.pf2e.equipment-srd.Item.1gBkH409yTYM6jeZ]{공허의 소금}.</p>","src":"L1"},"shield":{"name":"방패","description":"<p>당신은 마법의 힘의 방패를 올립니다. 이는 방패 올리기 행동을 사용하는 것으로 간주되어 다음 턴 시작까지 AC에 +1 상황 보너스를 부여하지만, 사용하기 위해 손을 쓸 필요가 없습니다.</p>\n<p>주문이 지속되는 동안, 당신은 @UUID[Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8]{방패 막기} 반응을 사용할 수 있습니다. 이 방패의 경도는 5입니다. 이 주문의 반응을 사용해 물리적 피해를 입히지 않는 주문이나 마법 효과로부터도 피해를 감소시킬 수 있습니다. 방패 막기를 사용한 후에는 주문이 종료되며, 10분 동안 다시 시전할 수 없습니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Jemq5UknGdMO7b73]{주문 효과: 방패}</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.QF6RDlCoTvkVHRo4]{효과: 방패 면역}</p>\n<hr />\n<p><strong>강화 (+2)</strong> 방패의 경도가 5 증가합니다.</p>","src":"spell"},"oil-of-unlife-lesser":{"name":"불사의 기름 (하급)","description":"<p><strong> 활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p> 이 얇고 검은 액체는 언데드 생물의 육체적 또는 영적 형태를 신속히 회복시키면서 뼈 속까지 스미는 차가움을 전한다. 언데드 생물이나 공허 치유 능력을 가진 생명체에 <em>불사의 기름</em>을 뿌리면, 기름이 몸속으로 빠르게 흡수되며 해당 생물은 @Damage[(2d8+5)[healing]]{2d8+5 체력}을 회복한다. 비물질적 언데드에게 <em>불사의 기름</em>을 부을 수 있으며, 이 경우 생물이 기름을 스스로 흡수한다.</p>","src":"equip"},"create-undead":{"name":"언데드 생성","description":"<p>당신은 대상이 생물 창조 의식 표에서 허용하는 레벨까지의 언데드 생물로 변형되게 합니다. 이 의식에는 여러 버전이 존재하며, 각각 특정 유형의 언데드에 특화되어 있습니다(좀비 전체용, 해골용, 구울용 등). 희귀한 언데드를 창조하는 의식 역시 희귀합니다. 리치와 같은 일부 언데드는 고유한 방식으로 생성되며, <em>언데드 생성</em>의 변형으로는 창조할 수 없다.</p><hr /><p> <strong>대성공</strong> 대상은 적절한 유형의 언데드 생물이 된다. 대상이 당신보다 최소 4레벨 낮다면, 이를 하수인으로 만들 수 있다. 이는 하수인 특성을 부여하여, 당신이 명령할 때 2개의 행동을 사용할 수 있게 하며, 명령은 청각 및 집중 특성을 가진 액션 하나이다. 최대 4명의 하수인을 통제할 수 있다. 지능이 있고 하수인이 되지 않은 언데드는 깨우친 것에 대해 당신에게 도움이 되지만, 여전히 끔찍하고 사악한 생물이다. 지능이 없고 하수인이 되지 않은 경우, 간단한 명령 하나를 내릴 수 있다. 그 목표만을 집요하게 추구하며, 이후의 명령은 모두 무시한다.</p>\n<p><strong>대성공</strong> 대성공 시 효과와 동일하나, 당신의 하수인이 되지 않은 지능형 언데드는 당신에게만 우호적이며, 당신의 하수인이 되지 않은 무지능 언데드는 당신이 공격하지 않는 한 당신을 방해하지 않는다. 다만 명령을 따르기보다는 주변 지역을 약탈한다.</p> 당신의 하수인이 되지 않는 지능형 언데드는 당신에게만 우호적이며, 하수인이 되지 않는 무지한 언데드는 당신이 공격하지 않는 한 당신을 내버려 둡니다. 당신의 명령을 따르기보다는 주변 지역을 약탈합니다.</p>\n<p><strong>실패</strong> 언데드 생성 실패 .</p>\n<p><strong>대실패</strong> 언데드를 생성했으나, 당신의 추악한 네크로맨시에 고통받는 그 영혼은 오직 당신에 대한 증오로 가득 차 있습니다. 그것은 당신을 파괴하려고 시도합니다.</p><h2>생물 생성 의식</h2><table class=\"pf2e remaster\"><thead><tr> <th>생물 레벨</th><th>필요 주문 등급</th><th> 비용</th></tr></thead><tbody><tr><td>-1 또는 0</td><td> 2</td><td>15 gp</td></tr><tr><td>1</td><td> 2</td><td>60 gp</td></tr><tr><td>2</td><td>3 </td><td>105 gp</td></tr><tr><td>3</td><td>3 </td><td>180 gp</td></tr><tr><td>4</td><td>4 </td><td>300 gp</td></tr><tr><td>5</td><td> 4</td><td>480 gp</td></tr><tr><td>6</td> <td>5</td><td>750 gp</td> </tr><tr><td>7</td><td>5</td><td>1,080 gp</td> </tr><tr><td>8</td><td>6</td><td>1,500 gp</td> </tr><tr><td>9</td><td>6</td><td>2,100 gp</td> </tr><tr><td>10</td><td> 7</td><td>3,000 gp</td></tr><tr><td>11</td> <td>7</td><td>4,200 gp</td></tr><tr><td> 12</td><td>8</td><td>6,000 gp</td></tr><tr><td> 13</td><td>8</td><td>9,000 gp</td></tr> <tr><td>14</td><td>9</td><td>13,500 gp </td></tr><tr><td>15</td><td>9</td><td>19,500 gp </td></tr><tr><td>16</td><td>10</td><td>30,000 gp </td></tr><tr><td> 17</td><td>10</td><td>45,000 gp</td></tr></tbody> </table>","src":"spell"},"deathly-inquisition":{"name":"죽음의 심문","description":"<p>하루에 한 번, 닉테사는 @UUID[Compendium.pf2e.spells-srd.Item.FM3SmEW8N1FCRjqt]{말하는 시체}를 선천적 오컬트 마법으로 @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} 상태이거나 의지가 있는 언데드 생물(DC 21)에게 1분 동안 시전할 수 있습니다. 이 주문은 언데드가 아닌 시체와 대화하는 것보다 더 자세한 답변을 제공합니다.</p>","src":"L1"},"runic-weapon":{"name":"룬 무기","description":"<p>무기에 마법이 번쩍이며 임시 룬 문양이 길게 새겨진다. 대상은 <em>+1 강타 무기</em>가 되어 명중 굴림에 +1 아이템 보너스를 얻고 무기 피해 주사위 수가 두 개로 증가한다.</p>\n<hr />\n<p><strong>강화 (6th)</strong> 무기는 <em>+2 강타 (중급)</em>가 된다.</p>\n<p><strong>강화 (9th) </strong> 무기는 <em>+3 강타 (상급)</em>입니다. </p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.GnWkI3T3LYRlm3X8]{주문 효과: 룬 무기}</p>","src":"spell"},"dispel-magic":{"name":"마법 해제","description":"<p>주문이나 효과의 마법을 해체합니다. 대상에 대해 마법 반격 체크를 시도합니다. 마법 아이템을 성공적으로 반격하면, 해당 아이템은 10분 동안 그 종류의 평범한 아이템이 됩니다. 이는 아이템의 비마법적 속성을 변경하지 않습니다. 대상이 유물이나 유사한 아이템인 경우, 자동으로 실패합니다.</p>","src":"spell"},"blood-vendetta":{"name":"피의 복수","description":"<p><strong>요구 사항</strong> 출혈 상태여야 합니다. </p>\n<p><strong>발동 조건</strong> 생물이 당신에게 관통, 베기, 또는 지속 출혈 피해를 입힙니다.</p>\n<hr />\n<p>당신은 대상을 저주하며, 감히 당신의 피를 흘리게 한 것에 대해 벌을 내립니다. 대상은 2d6 지속 출혈 피해를 받고 의지 내성을 시도해야 합니다.</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 지속 출혈 피해의 절반을 받습니다. </p>\n<p><strong>실패</strong> 대상은 지속 출혈 피해를 전액 받습니다. 출혈이 멈출 때까지 대상은 관통 및 베기 피해에 대해 약점 1을 가집니다. @UUID[Compendium.pf2e.spell-effects.Item.buXx8Azr4BYWPtFg]{주문 효과: 피의 복수 (실패)}</p>\n<p><strong>대실패</strong> 실패와 동일하나, 대상은 지속 출혈 피해를 두 배로 받는다.</p>\n<hr />\n<p><strong>강화 (+2)</strong> 지속 출혈 피해가 2d6 증가합니다.</p>","src":"spell"},"bind-undead":{"name":"언데드 구속","description":"<p>힘의 말로 대상의 통제권을 장악한다. 대상은 하수인 특성을 얻는다. 당신이나 아군이 대상에게 적대적 행동을 취하면 주문이 종료된다.</p>\n<p> @UUID[Compendium.pf2e.spell-effects.Item.rVkUzqS4rpZp9LS3]{주문 효과: 언데드 구속}</p>","src":"spell"}}}}
+{
+ "Barkeep": {
+  "name": "바텐더",
+  "description": "<p>바텐더는 커뮤니티 내에서 친구이자 멘토로, 음료를 제공하며 이야기를 들어주는 역할을 합니다. 최고의 바텐더는 이야기꾼의 재능과 귀중한 조언을 전하는 능력을 갖추고 있습니다.</p>\n<hr />\n<p>수많은 모험은 술집이나 펍에서 시작됩니다. 아마도 그런 장소가 위험을 즐기는 사람들을 끌어들이기 때문일 수도 있고, 아니면 모두가 난폭한 오그르 무리를 상대하기 전에 조금의 용기가 필요하기 때문일 수도 있습니다.</p>",
+  "hpdetails": null,
+  "perception": null,
+  "languages": null,
+  "speeds": null,
+  "items": {
+   "fist": {
+    "name": "주먹",
+    "description": null,
+    "src": "L1"
+   },
+   "sap": {
+    "name": "사프",
+    "description": null,
+    "src": "L1"
+   },
+   "mug": {
+    "name": "백랍 잔",
+    "description": null,
+    "src": "manual"
+   },
+   "pewter-mug": {
+    "name": "백랍 잔",
+    "description": null,
+    "src": "manual"
+   },
+   "alcohol-lore": {
+    "name": "알코올 지식",
+    "description": null,
+    "src": "L1"
+   },
+   "bar-brawler": {
+    "name": "술집 싸움꾼",
+    "description": "<p>바텐더는 바 싸움에 충분히 참여해 몇 방을 날릴 줄 안다. 바에서 싸울 때 비치명적 공격을 할 경우, 바텐더는 명중 굴림에 +1 상황 보너스를 얻고 추가로 [[/r {1d4}]]{1d4 피해}를 입힌다.</p>",
+    "src": "L1"
+   },
+   "barkeep-s-advice": {
+    "name": "Barkeep's Advice",
+    "description": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> 바텐더는 자신 이외의 단일 생물에게 관련 조언을 제공합니다. 해당 생물이 기술 체크나 내성 굴림에 실패할 경우, 24시간 동안 이 조언을 기억하고 체크를 다시 굴릴 수 있으며, 두 번째 결과를 사용합니다. 해당 생물이 이 능력을 사용하면 그 효과는 종료됩니다.</p>\n<p>바텐더의 조언을 받은 생물은 1개월 동안 이 능력에 일시적으로 면역됩니다.</p>",
+    "src": "L1"
+   }
+  }
+ },
+ "Antipaladin": {
+  "name": "반성기사",
+  "description": "<p>평화에 대한 가장 극악한 존재는 아마도 반성기사일 것입니다. 가장 어둡고 사악한 신을 섬기는 성스러운 전사들인 안티팔라딘은 악한 주인의 사악한 소원을 이루기 위해 일합니다. 어둠의 신들의 계획을 실행하는 그들의 열정은 선의 세력과 동맹을 맺은 모든 이들에게 진정으로 두려운 적입니다.</p>\n<hr />\n<p>악당들은 이기적이고 잔인한 목표를 추구하며, 그 길을 방해하는 어리석거나 순수한 자들을 짓밟습니다.</p>",
+  "hpdetails": null,
+  "perception": null,
+  "languages": null,
+  "speeds": null,
+  "items": {
+   "javelin": {
+    "name": "창",
+    "description": "<p>이 가느다란 창은 투척용으로 균형이 잘 잡혀 있지만 근접 전투용으로 설계된 것은 아닙니다.</p>",
+    "src": "equip"
+   },
+   "half-plate": {
+    "name": "하프 플레이트",
+    "description": "<p>하프 플레이트는 풀 플레이트에 사용되는 상체 갑옷 대부분을 포함하며, 팔과 다리에는 더 가볍거나 덜 촘촘한 강철판으로 보호합니다. 이는 풀 플레이트의 일부 보호 기능을 제공하면서도 더 큰 유연성과 속도를 보장합니다. 이 갑옷 세트에는 @UUID[Compendium.pf2e.equipment-srd.Item.zBYEU9E7034ENCmh]{패딩 갑옷}으로 된 속옷과 @UUID[Compendium.pf2e.equipment-srd.Item.Ix2vicchE79d6Cl3]{건틀릿} 한 쌍이 포함됩니다.</p>",
+    "src": "equip"
+   },
+   "destructive-vengeance": {
+    "name": "파괴의 복수",
+    "description": "<p><strong>트리거</strong> 15피트 이내의 적군이 반성기사에게 피해를 입힙니다</p>\n<hr />\n<p><strong>Effect</strong> 안티팔라딘은 받는 피해량을 [[/r 2d6]]만큼 증가시키고, 트리거링 적에게 2d6의 피해를 입히며, @Damage[2d6[spirit]] 또는 @Damage[2d6[void]] 중 하나를 선택합니다. 또한, 반성기사는 트리거링된 생물에게 자신의 공격으로 선택한 유형의 추가 2 피해를 입히며, 이는 반성기사의 다음 턴이 끝날 때까지 지속됩니다.</p>",
+    "src": "L1"
+   },
+   "champion-devotion-spells": {
+    "name": "챔피언 헌신 주문",
+    "description": null,
+    "src": "cast"
+   },
+   "greataxe": {
+    "name": "대도끼",
+    "description": "<p>이 대형 전투 도끼는 한 손으로 휘두르기에는 너무 무겁다. 많은 그레이트액스는 두 개의 날을 갖추고 있으며, 종종 \"수염 모양\"으로 제작되어 아래쪽에 갈고리 모양의 구조물이 있어 베는 힘을 강화한다.</p>",
+    "src": "equip"
+   },
+   "intimidating-strike": {
+    "name": "위협적인 공격",
+    "description": "<p>안티팔라딘은 근접 공격을 수행합니다. 타격에 성공하고 피해를 입히면 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1} 상태가 되거나, 치명타 시 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2} 상태가 됩니다.</p>",
+    "src": "L1"
+   },
+   "cheetahs-elixir-lesser": {
+    "name": "치타의 엘릭서 (하급)",
+    "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">A</span> (조작)</p>\n<hr />\n<p>이 엘릭서에 함유된 효소 화합물이 다리 근육을 강화하고 자극합니다. 1분 동안 이동 속도에 +5 피트 상태 보너스를 얻습니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.lNWACCNe9RYgaFxb]{효과: 치타의 엘릭서 (하급)}</p>",
+    "src": "equip"
+   }
+  }
+ },
+ "Server": {
+  "name": "서버",
+  "description": "<p>손님에서 손님으로 끊임없이 움직이는 서버들은 술집이나 식당의 근간입니다. 그들의 일은 민첩성과 외교술을 모두 갈고닦습니다.</p>\n<hr />\n<p>수많은 모험은 술집이나 펍에서 시작됩니다. 아마도 그런 장소가 위험을 즐기는 사람들을 끌어들이기 때문일 수도 있고, 아니면 모두가 난폭한 오그레 무리를 상대하기 전에 조금의 용기가 필요하기 때문일 수도 있습니다.</p>",
+  "hpdetails": null,
+  "perception": null,
+  "languages": null,
+  "speeds": null,
+  "items": {
+   "pewter-mug": {
+    "name": "백랍 잔",
+    "description": null,
+    "src": "manual"
+   },
+   "quick-catch": {
+    "name": "Quick Catch",
+    "description": "<p><strong>Trigger</strong> 서버가 한 손으로 잡을 수 있는 물체가 서버의 범위 내에 떨어집니다</p>\n<p><strong>조건</strong> 서버가 한 손 이상이 자유로워야 합니다</p>\n<hr />\n<p><strong>효과</strong> 서버가 떨어진 물체가 바닥에 닿기 전에 또는 자신의 도달 범위에서 벗어나기 전에 잡습니다.</p>",
+    "src": "L1"
+   },
+   "mug": {
+    "name": "백랍 잔",
+    "description": null,
+    "src": "manual"
+   },
+   "fist": {
+    "name": "주먹",
+    "description": null,
+    "src": "L1"
+   }
+  }
+ },
+ "Priest of Pharasma": {
+  "name": "파라스마의 사제",
+  "description": "<p>수도원 사제들은 그들의 사원과 공동체를 보호합니다. 그들은 신의 교리를 지키는 충실한 수호자이며, 교리를 전파하는 데 헌신합니다. 그들의 지도나 치유 서비스는 기부금을 대가로 제공됩니다.</p>\n<hr />\n<p>종교는 신실한 신자들이 교리를 지키도록 영감을 줍니다. 이 중 많은 이들은 안식과 희망을 선사하려 하지만, 일부는 어두운 동기를 지니고 있습니다.</p>",
+  "hpdetails": null,
+  "perception": null,
+  "languages": null,
+  "speeds": null,
+  "items": {
+   "steady-spellcasting": {
+    "name": "안정된 마법 사용",
+    "description": "<p>다른 생물의 반응이 사제의 마법 사용 행동을 방해할 경우, 사제는 @Check[flat|dc:15]를 시도합니다. 사제가 성공하면 그 행동은 방해받지 않습니다.</p>",
+    "src": "L1"
+   },
+   "divine-prepared-spells": {
+    "name": "신성 준비 주문",
+    "description": null,
+    "src": "cast"
+   },
+   "healing-hands": {
+    "name": "치유의 손",
+    "description": "<p>사제가 @UUID[Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs]{Heal}을 사용할 때, d8 대신 d10을 굴립니다.</p>",
+    "src": "L1"
+   },
+   "cleric-domain-spells": {
+    "name": "클레릭 영역 주문",
+    "description": null,
+    "src": "cast"
+   },
+   "silence": {
+    "name": "침묵",
+    "description": "<p>대상은 소리를 내지 않아, 다른 생물이 청각만으로 이를 알아차리지 못하게 합니다. 대상은 음파 공격을 사용할 수 없으며, 청각 특성을 가진 행동도 사용할 수 없습니다. 이는 주문 시전에 필요한 마법적 주문어 때문에 주문을 시전하지 못하게 합니다. 단, 은밀한 주문은 예외입니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.mmJNE57hC7G3SPae]{주문 효과: 침묵}</p>\n<hr />\n<p><strong>강화 (4th)</strong> 이 주문은 접촉된 생물 주변 10피트 반경에 오라를 생성하여, 그 안이나 통과하는 모든 소리를 침묵시킵니다. 오라 안에 있는 생물들은 대상과 동일한 효과를 받습니다. 효과의 위치에 따라, 생물은 자신에게 소리가 전달되지 않는 것을 알아차릴 수 있습니다(예: 파티에서 나는 소음을 차단하는 경우).</p>",
+    "src": "spell"
+   },
+   "dagger": {
+    "name": "단검",
+    "description": null,
+    "src": "L1"
+   },
+   "circle-of-protection": {
+    "name": "보호의 원",
+    "description": "<p>당신은 생물과 그 주변의 생물들을 특정 성향에 대해 수호부합니다. 혼돈, 악, 선, 또는 질서 중 하나를 선택하세요; 이 주문은 반대 특성을 얻습니다. 영역 내 생물은 선택한 성향의 생물 공격에 대한 AC에 +1 상태 보너스를 얻으며, 해당 생물의 효과에 대한 내성에 +1 보너스를 얻습니다. 이 보너스는 대상에게 직접 통제하는 효과와 선택한 성향의 소환 생물 공격에 대해서는 +3으로 증가합니다. 선택한 성향의 소환 생물은 의지 내성에 성공하지 않으면 자발적으로 영역에 들어올 수 없으며, 반복 시도 시 첫 번째 내성 결과가 적용됩니다.</p>\n<hr />\n<p><strong>강화 (4th)</strong> 지속 시간이 1시간으로 증가합니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.RawLEPwyT5CtCZ4D]{주문 효과: 보호}</p>",
+    "src": "spell"
+   },
+   "shield": {
+    "name": "방패",
+    "description": "<p>당신은 마법의 힘의 방패를 올립니다. 이는 방패 올리기 행동을 사용하는 것으로 간주되어 다음 턴 시작까지 AC에 +1 상황 보너스를 부여하지만, 사용하기 위해 손을 쓸 필요가 없습니다.</p>\n<p>주문이 지속되는 동안, 당신은 @UUID[Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8]{방패 막기} 반응을 사용할 수 있습니다. 이 방패의 경도는 5입니다. 이 주문의 반응을 사용해 물리적 피해를 입히지 않는 주문이나 마법 효과로부터도 피해를 감소시킬 수 있습니다. 방패 막기를 사용한 후에는 주문이 종료되며, 10분 동안 다시 시전할 수 없습니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Jemq5UknGdMO7b73]{주문 효과: 방패}</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.QF6RDlCoTvkVHRo4]{효과: 방패 면역}</p>\n<hr />\n<p><strong>강화 (+2)</strong> 방패의 경도가 5 증가합니다.</p>",
+    "src": "spell"
+   },
+   "spiritual-weapon": {
+    "name": "영적 무기",
+    "description": "<p>순수한 마법력으로 만들어진 무기가 실체화되어 사정거리 내 지정한 적을 공격합니다. 이 무기는 유령 같은 모습을 띠며, 곤봉, 단검 또는 당신의 신이 선호하는 무기로 창조됩니다. </p>\n<p>주문을 시전할 때, 무기는 범위 내 선택한 적 옆에 나타나 그 적을 향해 공격을 가한다. 주문을 지속할 때마다, 필요 시 무기를 범위 내 새로운 목표로 이동시켜 공격할 수 있다. 영적 무기는 다중 공격 페널티를 적용받고 기여한다.</p>\n<p>이 무기의 공격은 근접 주문 공격이다. 외형과 무관하게 이 무기는 2d8 역장 피해를 입힌다. 역장 피해 대신 무기가 일반적으로 입히는 피해 유형(또는 다용도 무기의 경우 사용 가능한 피해 유형 중 하나)으로 피해를 입힐 수 있다. 무기의 다른 능력치나 특성은 적용되지 않으며, 원거리 무기라도 인접한 생물만 공격한다. 주문 공격을 수행함에도 불구하고, 영적 무기는 발동 조건, 저항 등에서는 무기로 간주됩니다. </p>\n<p>이 무기는 공간을 차지하지 않으며, 측면 공격을 허용하지도 않고, 생물이 가지는 다른 속성도 없습니다. 이 무기는 공격 외에는 다른 공격을 할 수 없으며, 무기에 영향을 미치는 특기나 주문은 적용되지 않습니다. </p>\n<hr />\n<p><strong>강화 (+2)</strong> 무기의 피해가 1d8 증가합니다.</p>",
+    "src": "spell"
+   },
+   "spirit-link": {
+    "name": "영혼 연결",
+    "description": "<p>다른 생물과 영적 연결을 형성하여 그 고통을 흡수합니다. 이 주문을 시전할 때와 자신의 턴 시작 시마다, 대상이 최대 체력 미만일 경우 2 체력을 회복합니다(현재 체력과 최대 체력의 차이가 더 작다면 그 차이를 회복합니다). 당신은 대상이 회복한 체력만큼의 체력을 잃습니다.</p>\n<p> 이것은 영혼 전이이므로, 대상이 회복하는 체력을 증가시키거나 당신이 잃는 체력을 감소시키는 효과는 적용되지 않습니다. 또한 이 전이는 당신이나 대상이 가진 임시 체력을 무시합니다. 이 효과는 활력이나 공허 에너지를 포함하지 않으므로, <em>영혼의 연결</em>은 당신이나 대상이 언데드인 경우에도 작동합니다. 지속 시간 동안 재생이나 빠른 치유 효과의 혜택을 받지 못합니다. 이 주문을 해제할 수 있으며, 체력이 0이 되면 <em>영혼 연결</em>이 자동으로 종료됩니다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 매번 이전되는 체력 수치가 2씩 증가합니다.</p>",
+    "src": "spell"
+   },
+   "deaths-call": {
+    "name": "죽음의 부름",
+    "description": "<p><strong>발동 </strong> 20피트 이내의 생명체가 죽거나, 20피트 이내의 언데드 생물이 파괴된다.</p>\n<hr />\n<p>다른 존재가 이 세상을 떠나는 모습을 목격하면 기운이 솟구칩니다. 발동한 생물의 레벨에 당신의 주문 시전 능력치 수정자를 더한 만큼의 임시 체력을 얻습니다. 발동 생물이 언데드였던 경우, 얻는 임시 체력 수치를 두 배로 한다. 이 체력은 주문 지속 시간 동안 유지되며, 임시 체력이 모두 소진되면 주문이 종료된다.</p>",
+    "src": "spell"
+   },
+   "mindlink": {
+    "name": "정신 연결",
+    "description": "<p>당신은 대상의 정신과 자신의 정신을 연결하여, 10분이 걸릴 정보를 순간적으로 전달합니다.</p>",
+    "src": "spell"
+   },
+   "read-aura": {
+    "name": "오라 읽기",
+    "description": "<p>당신은 대상 물체에 포커스를 맞추며, 마법 오라를 감지하기 위해 마음을 엽니다. 시전이 완료되면, 그 물건이 마법적인지 여부를 알게 됩니다. 당신이나 당신이 오라에 대해 조언한 사람은 해당 물건에 대한 @UUID[Compendium.pf2e.actionspf2e.Item.eReSHVEPCsdkSL4G]{마법 식별}에 +2 상황 보너스를 얻습니다. 대상이 환상이라면, 그 효과의 랭크이 당신의 <em>오라 읽기</em> 주문 랭크보다 낮을 때만 이를 감지합니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.J6OhRNSN23KzOPRL]{주문 효과: 오라 읽기}</p><hr /><p><strong>강화 (3rd)</strong> 최대 10개의 물체를 대상으로 할 수 있습니다.</p>\n<p><strong>강화 (6th)</strong> 물체의 수에 제한 없이 대상으로 할 수 있습니다.</p>",
+    "src": "spell"
+   },
+   "heal": {
+    "name": "치유",
+    "description": "<p>생명력을 집중하여 살아있는 존재를 치유하거나 언데드를 손상시킵니다. 대상이 자발적인 생명체일 경우, 1d8 체력을 회복시킵니다. 대상이 언데드일 경우, 해당 양의 활력 피해를 입히며, 대상은 기본 인내 내성 굴림을 수행합니다. 이 주문을 시전할 때 소비하는 행동의 수가 대상, 사거리, 범위 및 기타 매개변수를 결정합니다.</p>\n<p><span class=\"action-glyph\">1</span> 이 주문의 사거리는 접촉입니다.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(집중)</strong> 이 주문은 30피트 범위를 가집니다. 살아있는 생물을 치유할 경우 회복되는 체력을 8 증가시킵니다. </p>\n<p><span class=\"action-glyph\">3</span> <strong>(집중) </strong> 당신은 @Template[emanation|distance:30] 범위 내에 활력을 분산시킵니다. 이 효과는 범위 내의 모든 생명체와 언데드 생물을 대상으로 합니다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 치유량 또는 피해량이 1d8 증가하며, 2-액션 버전의 추가 치유량은 8 증가합니다.</p>",
+    "src": "spell"
+   },
+   "consecrate": {
+    "name": "성역화",
+    "description": "<p><strong>영역</strong> 고정된 신상, 신전 또는 신의 고정물 주변 40피트 반경 폭발</p>\n<p><strong>보조 시전자</strong> 2명, 반드시 당신의 종교 신자여야 함</p>\n<hr />\n<p> 당신은 신을 위해 장소를 성역화하며 찬양을 외치고 신성한 공간을 창조합니다. 이 영역 내에서는 당신의 신을 숭배하는 자들이 명중 굴림, 기술 체크, 내성 굴림, 지각 체크에서 +1 상태 보너스를 얻으며, 당신의 신에게 저주받은 존재(@UUID[Compendium.pf2e.deities.Item.QZD0u1jxwz0kj8uI])는 30초 동안 언데드로 간주됩니다. {파라스마} 또는 @UUID[Compendium.pf2e.deities.Item.BNycwu3I21dTh4D9]{사렌래}의 언데드 등)은 해당 굴림에 -1 상태 페널티를 받습니다. 신의 신성한 성화가 신성 또는 불경한 중 선택을 허용한다면, 성지 역시 신성 또는 불경한으로 설정할 수 있습니다. 신의 성화가 <span class=\"fontstyle2\">반드시 </span>신성하거나 불경한 경우, 해당 장소도 그 성화 상태와 일치시켜야 합니다. 해당 구역 내에서 당신의 신을 숭배하는 자들이 가하는 공격은 장소의 성화 특성(있는 경우)을 부여받습니다. </p>\n<hr />\n<p><strong>대성공 </strong> 봉헌이 성공하면, 지속 기간이 1년이 아닌 10년으로 연장되거나 반경이 두 배로 확대됩니다. 때로는 신의 은총으로 영구적으로 봉헌된 지역이 생기거나 대성당 전체를 아우르는 등 더욱 놀라운 효과가 발생할 수도 있습니다.</p>\n<p><strong>성공</strong> 봉헌이 성공합니다.</p>\n<p><strong>실패</strong> 봉헌이 실패했습니다.</p>\n<p><strong>대실패</strong> 봉헌이 극적으로 실패하여 신의 분노를 샀고, 신은 불만의 징조를 보냈습니다. 최소 1년 동안 해당 장소에 대한 추가 봉헌 시도는 실패합니다. </p>\n<hr />\n<p><strong>강화 (7th)</strong> 봉헌된 지역은 @UUID[Compendium.pf2e.spells-srd.Item.XZE4BawIlTf88Yl9]{차원 봉인} 주문 효과도 얻지만, 이 효과는 당신의 신을 숭배하는 이들의 순간이동을 반격하려 하지 않습니다. 비용은 주문 랭크 × 200gp로 증가한다.</p>",
+    "src": "spell"
+   },
+   "religious-symbol-silver": {
+    "name": "파라스마의 종교 상징",
+    "description": "<p>이 나무 또는 은으로 된 물건에는 신을 나타내는 형상이 새겨져 있다. 클레릭 같은 일부 신성 주문시전자는 자신이 섬기는 신의 종교 상징을 사용하여 특정 능력을 발휘하고 일부 주문을 시전할 수 있다. 종교 상징은 사슬이나 핀으로 몸에 착용하거나 손에 쥘 수 있다.</p>",
+    "src": "manual"
+   },
+   "light": {
+    "name": "빛",
+    "description": "<p>당신은 선택한 색상의 밝은 빛을 20피트 반경(다음 20피트는 희미한 빛)에 비추는 빛의 구체를 생성합니다. 동의한 대상과 같은 공간에 빛을 생성할 경우, 그 빛을 동의한 대상에 부착시켜 동의한 대상이 이동할 때 그 근처에 떠다니게 할 수 있습니다. 지속 주문을 사용해 빛을 최대 60피트까지 이동시킬 수 있으며, 이 이동 과정에서 생물에게 부착하거나 분리할 수 있다.</p>\n<p>주문을 해제할 수 있습니다. 이미 네 개의 <em>빛</em> 주문을 활성화한 상태에서 이 주문을 시전하면, 기존 주문 중 하나를 선택하여 종료해야 합니다. </p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.cVVZXNbV0nElVOPZ]{주문 효과: 빛}</p>\n<hr />\n<p><strong>강화 (4th)</strong> 구슬은 반경 60피트 내에 빛을 발산하며, 그 다음 60피트까지는 희미한 빛을 제공합니다.</p>",
+    "src": "spell"
+   },
+   "detect-magic": {
+    "name": "마법 감지",
+    "description": "<p>당신은 마법의 존재를 감지하는 파동을 발산합니다. 마법의 유무 외에는 추가 정보를 얻지 못합니다. 자신과 아군의 마법 아이템이나 지속 중인 주문처럼 완전히 인지하고 있는 마법은 무시하도록 선택할 수 있습니다. 환상 마법은 그 효과가 당신의 <em>마법 감지</em> 주문 랭크보다 낮을 때만 감지됩니다. 그러나 외관상 기만적이지 않은 환상 오라를 지닌 아이템(예: @UUID[Compendium.pf2e.equipment-srd.Item.bikFUFRLwfdvX2x2]{투명화 물약})은 일반적으로 정상적으로 감지됩니다.</p>\n<hr />\n<p><strong>강화 (3rd)</strong> GM이 결정한, 해당 주문이 감지한 가장 강력한 마법 효과의 랭크이나 레벨을 알게 됩니다.</p>\n<p><strong>강화 (4th)</strong> 3단계와 동일하지만, 최고 랭크 마법의 출처를 정확히 파악합니다. 불확실한 감지처럼 정확한 위치를 알 수는 없지만, 출처를 5피트 입방체(또는 그보다 크면 가장 가까운 크기)로 좁힐 수 있습니다. </p>",
+    "src": "spell"
+   }
+  }
+ },
+ "Acolyte of Nethys": {
+  "name": "네티스의 제자",
+  "description": "<p>하급 성직자들은 신앙의 교리를 배우고 상급 사제에게 복종합니다. 그들의 날은 신전에 격리되어 헌신과 학습에 바쳐집니다.</p>\n<hr />\n<p>종교는 신실한 개인들이 교리를 지키도록 영감을 줍니다. 이 중 많은 이들은 안식과 희망을 가져다주려 하지만, 다른 이들은 어두운 동기를 지니고 있습니다.</p>",
+  "hpdetails": null,
+  "perception": null,
+  "languages": null,
+  "speeds": null,
+  "items": {
+   "bolts": {
+    "name": "볼트",
+    "description": "<p>전통적인 화살보다 짧지만 구조는 유사한 볼트는 석궁에 사용되는 탄약입니다.</p>",
+    "src": "equip"
+   },
+   "crossbow": {
+    "name": "크로스보우",
+    "description": null,
+    "src": "L1"
+   },
+   "cleric-domain-spells": {
+    "name": "클레릭 영역 주문",
+    "description": null,
+    "src": "cast"
+   },
+   "prestidigitation": {
+    "name": "간단마술",
+    "description": "<p>가장 단순한 마법이 당신의 명령을 수행합니다. 지속 주문을 유지하는 동안 간단한 마법 효과를 발휘할 수 있습니다. 지속 주문을 유지할 때마다 네 가지 옵션 중 하나를 선택할 수 있습니다.</p><ul><li><strong>조리</strong> 무생물 1파운드를 차갑게, 따뜻하게 또는 맛을 내게 한다.</li><li><strong> 들기</strong> 경량 이하의 방치된 물체를 지면에서 1피트 높이까지 천천히 들어 올린다.</li><li><strong>만들기</strong> 응고된 마법 물질로 만든 무시할 만한 벌크의 임시 물체를 생성한다. 물체는 조잡하고 인공적으로 보이며 극도로 취약하다-도구나 무기로 사용하거나, 주문 발동 지점이나 비용으로 삼을 수 없다.</li><li><strong>정돈</strong> 벌크 이하의 부피의 물체를 물들이거나, 청소하거나, 더럽힌다. 1벌크 물체는 10라운드 집중으로, 더 큰 물체는 벌크당 1분 집중으로 처리할 수 있다.</li></ul><p><em> 손재주</em>는 피해를 주거나 불리한 상태를 유발할 수 없습니다. 물체에 가해진 실제 변화(위에서 언급된 것 이상)는 주문을 유지하는 동안만 지속됩니다.</p>",
+    "src": "spell"
+   },
+   "light": {
+    "name": "빛",
+    "description": "<p>당신은 선택한 색상의 밝은 빛을 20피트 반경(다음 20피트는 희미한 빛)에 비추는 빛의 구체를 생성합니다. 동의한 대상과 같은 공간에 빛을 생성할 경우, 그 빛을 동의한 대상에 부착시켜 동의한 대상이 이동할 때 그 근처에 떠다니게 할 수 있습니다. 지속 주문을 사용해 빛을 최대 60피트까지 이동시킬 수 있으며, 이 이동 과정에서 생물에게 부착하거나 분리할 수 있다.</p>\n<p>주문을 해제할 수 있습니다. 이미 네 개의 <em>빛</em> 주문을 활성화한 상태에서 이 주문을 시전하면, 기존 주문 중 하나를 선택하여 종료해야 합니다. </p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.cVVZXNbV0nElVOPZ]{주문 효과: 빛}</p>\n<hr />\n<p><strong>강화 (4th)</strong> 구슬은 반경 60피트 내에 빛을 발산하며, 그 다음 60피트까지는 희미한 빛을 제공합니다.</p>",
+    "src": "spell"
+   },
+   "heal": {
+    "name": "치유",
+    "description": "<p>생명력을 집중하여 살아있는 존재를 치유하거나 언데드를 손상시킵니다. 대상이 자발적인 생명체일 경우, 1d8 체력을 회복시킵니다. 대상이 언데드일 경우, 해당 양의 활력 피해를 입히며, 대상은 기본 인내 내성 굴림을 수행합니다. 이 주문을 시전할 때 소비하는 행동의 수가 대상, 사거리, 범위 및 기타 매개변수를 결정합니다.</p>\n<p><span class=\"action-glyph\">1</span> 이 주문의 사거리는 접촉입니다.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(집중)</strong> 이 주문은 30피트 범위를 가집니다. 살아있는 생물을 치유할 경우 회복되는 체력을 8 증가시킵니다. </p>\n<p><span class=\"action-glyph\">3</span> <strong>(집중) </strong> 당신은 @Template[emanation|distance:30] 범위 내에 활력을 분산시킵니다. 이 효과는 범위 내의 모든 생명체와 언데드 생물을 대상으로 합니다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 치유량 또는 피해량이 1d8 증가하며, 2-액션 버전의 추가 치유량은 8 증가합니다.</p>",
+    "src": "spell"
+   },
+   "cry-of-destruction": {
+    "name": "파괴의 외침",
+    "description": "<p>당신의 목소리가 울려 퍼지며, 앞을 가로막는 것을 산산조각 낸다. 해당 영역 내 모든 생물과 방치된 물체는 1d8 음파 피해를 입는다. 이번 턴에 이미 공격이나 주문으로 적에게 피해를 입혔다면, 이 주문의 피해 주사위를 d12로 증가시킨다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 피해가 1d8 증가한다.</p>",
+    "src": "spell"
+   },
+   "detect-magic": {
+    "name": "마법 감지",
+    "description": "<p>당신은 마법의 존재를 감지하는 파동을 발산합니다. 마법의 유무 외에는 추가 정보를 얻지 못합니다. 자신과 아군의 마법 아이템이나 지속 중인 주문처럼 완전히 인지하고 있는 마법은 무시하도록 선택할 수 있습니다. 환상 마법은 그 효과가 당신의 <em>마법 감지</em> 주문 랭크보다 낮을 때만 감지됩니다. 그러나 외관상 기만적이지 않은 환상 오라를 지닌 아이템(예: @UUID[Compendium.pf2e.equipment-srd.Item.bikFUFRLwfdvX2x2]{투명화 물약})은 일반적으로 정상적으로 감지됩니다.</p>\n<hr />\n<p><strong>강화 (3rd)</strong> GM이 결정한, 해당 주문이 감지한 가장 강력한 마법 효과의 랭크이나 레벨을 알게 됩니다.</p>\n<p><strong>강화 (4th)</strong> 3단계와 동일하지만, 최고 랭크 마법의 출처를 정확히 파악합니다. 불확실한 감지처럼 정확한 위치를 알 수는 없지만, 출처를 5피트 입방체(또는 그보다 크면 가장 가까운 크기)로 좁힐 수 있습니다. </p>",
+    "src": "spell"
+   },
+   "harm": {
+    "name": "해악",
+    "description": "<p>당신은 공허 에너지를 집중하여 생물을 해치거나 언데드를 치유합니다. 대상이 생물일 경우, 1d8의 공허 피해를 입히고 대상은 기본 인내 내성을 시도합니다. 대상이 자발적인 언데드일 경우, 해당 양만큼 체력을 회복시킵니다. 이 주문을 시전할 때 소모하는 행동의 수가 대상, 사거리, 범위 및 기타 매개변수를 결정합니다.</p>\n<p><span class=\"action-glyph\">1</span> 이 주문의 사거리는 접촉입니다.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(집중)</strong> 이 주문은 30피트 범위를 가집니다. 언데드 생물을 치유할 경우 회복되는 체력을 8 증가시킵니다. </p>\n<p><span class=\"action-glyph\">3</span> <strong>(집중)</strong> @Template[emanation|distance:30] 범위 내에 공허 에너지를 분산시킵니다. 이 효과는 해당 영역 내의 모든 생명체와 언데드 생물을 대상으로 합니다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 치유량 또는 피해량이 1d8 증가하며, 2-액션 버전의 추가 치유량은 8 증가합니다.</p>",
+    "src": "spell"
+   },
+   "read-aura": {
+    "name": "오라 읽기",
+    "description": "<p>당신은 대상 물체에 포커스를 맞추며, 마법 오라를 감지하기 위해 마음을 엽니다. 시전이 완료되면, 그 물건이 마법적인지 여부를 알게 됩니다. 당신이나 당신이 오라에 대해 조언한 사람은 해당 물건에 대한 @UUID[Compendium.pf2e.actionspf2e.Item.eReSHVEPCsdkSL4G]{마법 식별}에 +2 상황 보너스를 얻습니다. 대상이 환상이라면, 그 효과의 랭크이 당신의 <em>오라 읽기</em> 주문 랭크보다 낮을 때만 이를 감지합니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.J6OhRNSN23KzOPRL]{주문 효과: 오라 읽기}</p><hr /><p><strong>강화 (3rd)</strong> 최대 10개의 물체를 대상으로 할 수 있습니다.</p>\n<p><strong>강화 (6th)</strong> 물체의 수에 제한 없이 대상으로 할 수 있습니다.</p>",
+    "src": "spell"
+   },
+   "divine-prepared-spells": {
+    "name": "신성 준비 주문",
+    "description": null,
+    "src": "cast"
+   },
+   "staff": {
+    "name": "지팡이",
+    "description": "<p>이 긴 나무 막대는 걷는 데 도움을 주고 강력한 일격을 가할 수 있습니다.</p>",
+    "src": "equip"
+   },
+   "shield": {
+    "name": "방패",
+    "description": "<p>당신은 마법의 힘의 방패를 올립니다. 이는 방패 올리기 행동을 사용하는 것으로 간주되어 다음 턴 시작까지 AC에 +1 상황 보너스를 부여하지만, 사용하기 위해 손을 쓸 필요가 없습니다.</p>\n<p>주문이 지속되는 동안, 당신은 @UUID[Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8]{방패 막기} 반응을 사용할 수 있습니다. 이 방패의 경도는 5입니다. 이 주문의 반응을 사용해 물리적 피해를 입히지 않는 주문이나 마법 효과로부터도 피해를 감소시킬 수 있습니다. 방패 막기를 사용한 후에는 주문이 종료되며, 10분 동안 다시 시전할 수 없습니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Jemq5UknGdMO7b73]{주문 효과: 방패}</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.QF6RDlCoTvkVHRo4]{효과: 방패 면역}</p>\n<hr />\n<p><strong>강화 (+2)</strong> 방패의 경도가 5 증가합니다.</p>",
+    "src": "spell"
+   }
+  }
+ },
+ "Nyctessa": {
+  "name": "닉테사",
+  "description": null,
+  "hpdetails": "공허 치유",
+  "perception": null,
+  "languages": null,
+  "speeds": null,
+  "items": {
+   "grim-tendrils": {
+    "name": "암흑의 촉수",
+    "description": "<p>어둠의 덩굴손이 당신의 손끝에서 휘감아 나와 공중을 가로지릅니다. 당신은 직선 상의 생명체에게 2d4 공허 피해와 @Damage[(@item.level)[bleed]] 피해를 입힙니다. 직선 상의 각 생명체는 인내 내성을 시도해야 합니다.</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않는다.</p>\n<p><strong>성공</strong> 생물은 공허 피해의 절반만 받고 지속 출혈 피해를 받지 않습니다.</p>\n<p><strong>실패</strong> 생물은 전체 피해를 받습니다. </p>\n<p><strong>대실패</strong> 생물은 공허 피해와 지속 출혈 피해를 두 배로 받습니다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 공허 피해가 2d4 증가하고 지속 출혈 피해가 1 증가합니다. </p>",
+    "src": "spell"
+   },
+   "staff-of-power": {
+    "name": "닉테사의 지팡이",
+    "description": null,
+    "src": "L1"
+   },
+   "vampiric-feast": {
+    "name": "뱀파이어의 잔치",
+    "description": "<p>당신의 접촉은 대상의 생명력을 빨아들여 자신을 강화합니다. 대상에게 6d6의 공허 피해를 입힌다. 대상이 받은 공허 피해의 절반(저항력 적용 후)에 해당하는 임시 체력을 얻는다. 1분 후 남은 임시 체력은 모두 소멸한다.</p>\n<hr />\n<p><strong>강화 (+1) </strong> 피해량이 2d6 증가한다.</p>",
+    "src": "spell"
+   },
+   "acid-arrow": {
+    "name": "산성 화살",
+    "description": "<p>산성 화살을 소환하여 명중 후에도 대상에게 부식 피해를 지속시킵니다. 대상에게 주문 공격을 시도합니다. 명중 시, 3d8 산성 피해 + @Damage[(floor(@item.rank/2))d6[persistent,acid]] 피해를 입힌다. 치명타 시, 초기 피해는 두 배가 되지만 지속 피해는 두 배가 되지 않는다.</p><hr /><p><strong>강화 (+2)</strong> 초기 피해가 2d8 증가하고 지속 산성 피해가 1d6 증가한다.</p>",
+    "src": "spell"
+   },
+   "sepulchral-drain": {
+    "name": "무덤의 흡수",
+    "description": "<p>Nyctessa의 지팡이가 <em>Nyctessa의 지팡이</em>로 생물에게 공격 피해를 입힐 때, 그 생물은 Nyctessa의 다음 턴이 끝날 때까지 공허 피해에 대한 약점 2를 얻습니다.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.HiLwUXS35dNZgnfC]{Effect: Sepulchral Drain}</p>",
+    "src": "L1"
+   },
+   "void-healing": {
+    "name": "공허 치유",
+    "description": null,
+    "src": "L1"
+   },
+   "arcane-prepared-spells": {
+    "name": "비전 준비 주문",
+    "description": null,
+    "src": "cast"
+   },
+   "fear": {
+    "name": "공포",
+    "description": "<p>표적에게 공포를 심어줍니다. 표적은 의지 내성을 시도해야 합니다.</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1} 상태가 됩니다.</p>\n<p><strong>실패 </strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2} 상태입니다.</p>\n<p><strong>대실패</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 3} 상태가 되며 @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{도주} 상태로 1 라운드 동안 지속됩니다.</p>\n<hr />\n<p><strong>강화 (3rd)</strong> 최대 다섯 마리의 생물을 대상으로 할 수 있습니다.</p>",
+    "src": "spell"
+   },
+   "lightning-bolt": {
+    "name": "번개 화살",
+    "description": "<p>당신의 손에서 번개가 강타하여 4d12의 전기 피해를 입힙니다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 피해량이 1d12 증가합니다.</p>",
+    "src": "spell"
+   },
+   "drain-bonded-staff": {
+    "name": "Drain Bonded Staff",
+    "description": "<p><strong>Frequency</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 닉테사는 지팡이에 저장된 힘을 소모합니다. 이번 턴에 오늘 준비한 마법 중 이미 사용한 마법을 마법 슬롯을 소모하지 않고 한 번 사용할 수 있습니다.</p>",
+    "src": "L1"
+   },
+   "detect-magic": {
+    "name": "마법 감지",
+    "description": "<p>당신은 마법의 존재를 감지하는 파동을 발산합니다. 마법의 유무 외에는 추가 정보를 얻지 못합니다. 자신과 아군의 마법 아이템이나 지속 중인 주문처럼 완전히 인지하고 있는 마법은 무시하도록 선택할 수 있습니다. 환상 마법은 그 효과가 당신의 <em>마법 감지</em> 주문 랭크보다 낮을 때만 감지됩니다. 그러나 외관상 기만적이지 않은 환상 오라를 지닌 아이템(예: @UUID[Compendium.pf2e.equipment-srd.Item.bikFUFRLwfdvX2x2]{투명화 물약})은 일반적으로 정상적으로 감지됩니다.</p>\n<hr />\n<p><strong>강화 (3rd)</strong> GM이 결정한, 해당 주문이 감지한 가장 강력한 마법 효과의 랭크이나 레벨을 알게 됩니다.</p>\n<p><strong>강화 (4th)</strong> 3단계와 동일하지만, 최고 랭크 마법의 출처를 정확히 파악합니다. 불확실한 감지처럼 정확한 위치를 알 수는 없지만, 출처를 5피트 입방체(또는 그보다 크면 가장 가까운 크기)로 좁힐 수 있습니다. </p>",
+    "src": "spell"
+   },
+   "void-salts": {
+    "name": "공허의 소금",
+    "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 상상하다</p>\n<hr />\n<p>이 봉투에는 공허에서 직접 추출한 에너지가 끓어오르는 미세한 가루가 담겨 있습니다. @UUID[Compendium.pf2e.spells-srd.Item.k34hDOfIIMAxNL4a]{그림 덩굴} 주문을 시전할 때 이 공허 소금을 사용하면 주문 범위를 분할하여, 자신으로부터 시작하여 총 30피트 길이의 선을 원하는 개수만큼 생성할 수 있습니다. 여러 선이 통과하는 생물은 한 번만 영향을 받습니다.</p>",
+    "src": "equip"
+   },
+   "fangs": {
+    "name": "이빨",
+    "description": null,
+    "src": "L1"
+   },
+   "daze": {
+    "name": "정신 혼란",
+    "description": "<p>당신은 대상의 정신 속으로 파고들어 정신적 충격으로 혼란을 일으킵니다. 이 충격은 1d6 정신 피해를 입히며, 기본 의지 내성을 요구합니다. 대상이 내성에 대실패를 하면 @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{기절 1} 상태가 됩니다. </p>\n<hr />\n<p><strong>강화 (+2)</strong> 피해량이 1d6 증가한다.</p>",
+    "src": "spell"
+   },
+   "ray-of-frost": {
+    "name": "서리의 광선",
+    "description": "<p>당신은 얼음 광선을 발사합니다. 주문 명중 굴림을 수행하세요. 광선은 2d4 냉기 피해를 입힙니다.</p>\n<hr />\n<p><strong>대성공 </strong> 대상은 두 배의 피해를 입으며, 1라운드 동안 이동 속도에 -10피트 상태 페널티를 받습니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.I4PsUAaYSUJ8pwKC]{주문 효과: 서리의 광선}</p>\n<p><strong>성공</strong> 대상은 일반 피해를 받는다.</p>\n<hr />\n<p><strong>강화 (+1) </strong> 피해량이 1d4만큼 증가합니다.</p>",
+    "src": "spell"
+   },
+   "electric-arc": {
+    "name": "전기 아크",
+    "description": "<p>번개 아크가 한 대상에서 다른 대상으로 번쩍이듯 이동한다. 각 대상은 기본 반사 내성을 시도하며 2d4의 전기 피해를 입는다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 피해량이 1d4 증가한다.</p>",
+    "src": "spell"
+   },
+   "taste-blood": {
+    "name": "피를 맛보다",
+    "description": "<p><strong>조건</strong> 닉테사의 마지막 행동이 대상에게 피해를 입힌 이빨 공격이었다</p>\n<hr />\n<p><strong>효과</strong> 닉테사는 목표물로부터 피를 마시며, 목표물은 살아있는 인간형 생물이어야 하며, 10분 동안 5의 임시 체력을 얻습니다. 대상은 @Check[fortitude|dc:21] 내성 굴림에 성공해야 하며, 실패 시 @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{흡수 1} 상태가 됩니다. 결과에 관계없이 대상은 닉테사의 '피 맛보기' 효과에 대해 1일 동안 일시적으로 면역이 됩니다.</p>",
+    "src": "L1"
+   },
+   "void-warp": {
+    "name": "공허 왜곡",
+    "description": "<p>당신은 생명력을 해치기 위해 공허를 부릅니다. 대상은 기본 인내 내성을 시도하며 2d4 공허 피해를 입습니다. 대실패 시, 대상은 또한 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화 1} 상태가 되며, 이 상태는 당신의 다음 턴 시작까지 지속된다.</p>\n<hr />\n<p><strong>강화 (+1)</strong> 피해량이 1d4 증가한다. </p>",
+    "src": "spell"
+   },
+   "explorers-clothing": {
+    "name": "탐험가의 복장",
+    "description": "<p>갑옷을 입지 않는 모험가들은 내구성 있는 복장으로 여행합니다. 갑옷은 아니며 무장 방어 숙련도를 사용하지만, 민첩성 상한선이 적용되며 효능 룬이 새겨져 있다면 AC에 아이템 보너스를 부여할 수 있습니다.</p>",
+    "src": "equip"
+   },
+   "spellbook-blank": {
+    "name": "주문서",
+    "description": null,
+    "src": "equip"
+   },
+   "adept-crafter": {
+    "name": "숙련된 제작자",
+    "description": "<p>Nyctessa는 @UUID[Compendium.pf2e.actionspf2e.Item.rmwa3OyhTZ2i2AHl]{Craft} 활동을 사용하여 알케미컬 및 마법 아이템을 제작할 수 있습니다. 그녀의 알려진 주문 외에도, 그녀의 주문서에는 @UUID[Compendium.pf2e.equipment-srd.Item.p4ZEGzwteCB5fz6i]{병에 담긴 밤}, @UUID[Compendium.pf2e.equipment-srd.Item.UqinuuCWePTYGhVO]{역병 방지 (소형)}, @UUID[Compendium.pf2e.equipment-srd.Item.3Klm2gPmzOw6ntVb]{이해의 엘릭서 (소형)}, @UUID[Compendium.pf2e.equipment-srd.Item.biHvCGfajSjUDGBS]{스틸스커 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.BSInwFNVBVkfFK0B]{불사의 기름 (소형)}, @UUID[Compendium.pf2e.equipment-srd.Item.EGhUorZhB7nV73Ev]{부정한 물}, 및 @UUID[Compendium.pf2e.equipment-srd.Item.1gBkH409yTYM6jeZ]{공허의 소금}.</p>",
+    "src": "L1"
+   },
+   "shield": {
+    "name": "방패",
+    "description": "<p>당신은 마법의 힘의 방패를 올립니다. 이는 방패 올리기 행동을 사용하는 것으로 간주되어 다음 턴 시작까지 AC에 +1 상황 보너스를 부여하지만, 사용하기 위해 손을 쓸 필요가 없습니다.</p>\n<p>주문이 지속되는 동안, 당신은 @UUID[Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8]{방패 막기} 반응을 사용할 수 있습니다. 이 방패의 경도는 5입니다. 이 주문의 반응을 사용해 물리적 피해를 입히지 않는 주문이나 마법 효과로부터도 피해를 감소시킬 수 있습니다. 방패 막기를 사용한 후에는 주문이 종료되며, 10분 동안 다시 시전할 수 없습니다.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Jemq5UknGdMO7b73]{주문 효과: 방패}</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.QF6RDlCoTvkVHRo4]{효과: 방패 면역}</p>\n<hr />\n<p><strong>강화 (+2)</strong> 방패의 경도가 5 증가합니다.</p>",
+    "src": "spell"
+   },
+   "oil-of-unlife-lesser": {
+    "name": "불사의 기름 (하급)",
+    "description": "<p><strong> 활성화</strong> <span class=\"action-glyph\">1</span> (조작)</p><hr /><p> 이 얇고 검은 액체는 언데드 생물의 육체적 또는 영적 형태를 신속히 회복시키면서 뼈 속까지 스미는 차가움을 전한다. 언데드 생물이나 공허 치유 능력을 가진 생명체에 <em>불사의 기름</em>을 뿌리면, 기름이 몸속으로 빠르게 흡수되며 해당 생물은 @Damage[(2d8+5)[healing]]{2d8+5 체력}을 회복한다. 비물질적 언데드에게 <em>불사의 기름</em>을 부을 수 있으며, 이 경우 생물이 기름을 스스로 흡수한다.</p>",
+    "src": "equip"
+   },
+   "create-undead": {
+    "name": "언데드 생성",
+    "description": "<p>당신은 대상이 생물 창조 의식 표에서 허용하는 레벨까지의 언데드 생물로 변형되게 합니다. 이 의식에는 여러 버전이 존재하며, 각각 특정 유형의 언데드에 특화되어 있습니다(좀비 전체용, 해골용, 구울용 등). 희귀한 언데드를 창조하는 의식 역시 희귀합니다. 리치와 같은 일부 언데드는 고유한 방식으로 생성되며, <em>언데드 생성</em>의 변형으로는 창조할 수 없다.</p><hr /><p> <strong>대성공</strong> 대상은 적절한 유형의 언데드 생물이 된다. 대상이 당신보다 최소 4레벨 낮다면, 이를 하수인으로 만들 수 있다. 이는 하수인 특성을 부여하여, 당신이 명령할 때 2개의 행동을 사용할 수 있게 하며, 명령은 청각 및 집중 특성을 가진 액션 하나이다. 최대 4명의 하수인을 통제할 수 있다. 지능이 있고 하수인이 되지 않은 언데드는 깨우친 것에 대해 당신에게 도움이 되지만, 여전히 끔찍하고 사악한 생물이다. 지능이 없고 하수인이 되지 않은 경우, 간단한 명령 하나를 내릴 수 있다. 그 목표만을 집요하게 추구하며, 이후의 명령은 모두 무시한다.</p>\n<p><strong>대성공</strong> 대성공 시 효과와 동일하나, 당신의 하수인이 되지 않은 지능형 언데드는 당신에게만 우호적이며, 당신의 하수인이 되지 않은 무지능 언데드는 당신이 공격하지 않는 한 당신을 방해하지 않는다. 다만 명령을 따르기보다는 주변 지역을 약탈한다.</p> 당신의 하수인이 되지 않는 지능형 언데드는 당신에게만 우호적이며, 하수인이 되지 않는 무지한 언데드는 당신이 공격하지 않는 한 당신을 내버려 둡니다. 당신의 명령을 따르기보다는 주변 지역을 약탈합니다.</p>\n<p><strong>실패</strong> 언데드 생성 실패 .</p>\n<p><strong>대실패</strong> 언데드를 생성했으나, 당신의 추악한 네크로맨시에 고통받는 그 영혼은 오직 당신에 대한 증오로 가득 차 있습니다. 그것은 당신을 파괴하려고 시도합니다.</p><h2>생물 생성 의식</h2><table class=\"pf2e remaster\"><thead><tr> <th>생물 레벨</th><th>필요 주문 랭크</th><th> 비용</th></tr></thead><tbody><tr><td>-1 또는 0</td><td> 2</td><td>15 gp</td></tr><tr><td>1</td><td> 2</td><td>60 gp</td></tr><tr><td>2</td><td>3 </td><td>105 gp</td></tr><tr><td>3</td><td>3 </td><td>180 gp</td></tr><tr><td>4</td><td>4 </td><td>300 gp</td></tr><tr><td>5</td><td> 4</td><td>480 gp</td></tr><tr><td>6</td> <td>5</td><td>750 gp</td> </tr><tr><td>7</td><td>5</td><td>1,080 gp</td> </tr><tr><td>8</td><td>6</td><td>1,500 gp</td> </tr><tr><td>9</td><td>6</td><td>2,100 gp</td> </tr><tr><td>10</td><td> 7</td><td>3,000 gp</td></tr><tr><td>11</td> <td>7</td><td>4,200 gp</td></tr><tr><td> 12</td><td>8</td><td>6,000 gp</td></tr><tr><td> 13</td><td>8</td><td>9,000 gp</td></tr> <tr><td>14</td><td>9</td><td>13,500 gp </td></tr><tr><td>15</td><td>9</td><td>19,500 gp </td></tr><tr><td>16</td><td>10</td><td>30,000 gp </td></tr><tr><td> 17</td><td>10</td><td>45,000 gp</td></tr></tbody> </table>",
+    "src": "spell"
+   },
+   "deathly-inquisition": {
+    "name": "죽음의 심문",
+    "description": "<p>하루에 한 번, 닉테사는 @UUID[Compendium.pf2e.spells-srd.Item.FM3SmEW8N1FCRjqt]{말하는 시체}를 선천적 오컬트 마법으로 @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} 상태이거나 의지가 있는 언데드 생물(DC 21)에게 1분 동안 시전할 수 있습니다. 이 주문은 언데드가 아닌 시체와 대화하는 것보다 더 자세한 답변을 제공합니다.</p>",
+    "src": "L1"
+   },
+   "runic-weapon": {
+    "name": "룬 무기",
+    "description": "<p>무기에 마법이 번쩍이며 임시 룬 문양이 길게 새겨진다. 대상은 <em>+1 강타 무기</em>가 되어 명중 굴림에 +1 아이템 보너스를 얻고 무기 피해 주사위 수가 두 개로 증가한다.</p>\n<hr />\n<p><strong>강화 (6th)</strong> 무기는 <em>+2 강타 (중급)</em>가 된다.</p>\n<p><strong>강화 (9th) </strong> 무기는 <em>+3 강타 (상급)</em>입니다. </p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.GnWkI3T3LYRlm3X8]{주문 효과: 룬 무기}</p>",
+    "src": "spell"
+   },
+   "dispel-magic": {
+    "name": "마법 해제",
+    "description": "<p>주문이나 효과의 마법을 해체합니다. 대상에 대해 마법 반격 체크를 시도합니다. 마법 아이템을 성공적으로 반격하면, 해당 아이템은 10분 동안 그 종류의 평범한 아이템이 됩니다. 이는 아이템의 비마법적 속성을 변경하지 않습니다. 대상이 유물이나 유사한 아이템인 경우, 자동으로 실패합니다.</p>",
+    "src": "spell"
+   },
+   "blood-vendetta": {
+    "name": "피의 복수",
+    "description": "<p><strong>요구 사항</strong> 출혈 상태여야 합니다. </p>\n<p><strong>발동 조건</strong> 생물이 당신에게 관통, 베기, 또는 지속 출혈 피해를 입힙니다.</p>\n<hr />\n<p>당신은 대상을 저주하며, 감히 당신의 피를 흘리게 한 것에 대해 벌을 내립니다. 대상은 2d6 지속 출혈 피해를 받고 의지 내성을 시도해야 합니다.</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 지속 출혈 피해의 절반을 받습니다. </p>\n<p><strong>실패</strong> 대상은 지속 출혈 피해를 전액 받습니다. 출혈이 멈출 때까지 대상은 관통 및 베기 피해에 대해 약점 1을 가집니다. @UUID[Compendium.pf2e.spell-effects.Item.buXx8Azr4BYWPtFg]{주문 효과: 피의 복수 (실패)}</p>\n<p><strong>대실패</strong> 실패와 동일하나, 대상은 지속 출혈 피해를 두 배로 받는다.</p>\n<hr />\n<p><strong>강화 (+2)</strong> 지속 출혈 피해가 2d6 증가합니다.</p>",
+    "src": "spell"
+   },
+   "bind-undead": {
+    "name": "언데드 구속",
+    "description": "<p>힘의 말로 대상의 통제권을 장악한다. 대상은 하수인 특성을 얻는다. 당신이나 아군이 대상에게 적대적 행동을 취하면 주문이 종료된다.</p>\n<p> @UUID[Compendium.pf2e.spell-effects.Item.rVkUzqS4rpZp9LS3]{주문 효과: 언데드 구속}</p>",
+    "src": "spell"
+   }
+  }
+ }
+}

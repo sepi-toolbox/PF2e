@@ -115,6 +115,8 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 #map-map-editor .mme-check{display:flex;align-items:center;gap:6px;color:var(--text);cursor:pointer;}
 #map-map-editor b{color:var(--accent);font-size:12px;min-width:34px;text-align:right;}
 #map-map-editor .mme-status{font-size:11px;color:var(--text2);}
+#map-map-editor .mme-hint{display:block;font-size:11px;color:var(--text2);line-height:1.5;margin-top:-3px;}
+#map-map-editor .mme-hint b{min-width:0;text-align:left;font-size:11px;}
 #map-map-editor .mme-actions{justify-content:flex-end;margin-bottom:0;margin-top:2px;}
 
 /* ── GM 멀티맵 좌측 드로어 ── */
@@ -389,6 +391,8 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
     <div class="mme-title">지도 편집</div>
     <div class="mme-row"><label>이름</label><input id="mme-name" type="text" onchange="MapView.mapRename()"></div>
     <div class="mme-row"><label>배경</label><button id="map-upload-btn" onclick="MapView.pickBg()">🖼 이미지 선택</button><span id="mme-bg-status" class="mme-status"></span></div>
+    <div class="mme-row"><label>URL</label><input id="mme-bg-url" type="text" placeholder="maps/이름.jpg 또는 https://…" spellcheck="false"><button onclick="MapView.applyBgUrl()">적용</button></div>
+    <div class="mme-row mme-hint">URL 배경은 원본 해상도 그대로(용량 제한 없음). 리포 maps/ 폴더에 이미지를 올리고 <b>maps/파일명</b>으로 참조 권장. 빈 칸+적용=해제.</div>
     <div class="mme-row"><label class="mme-check"><input id="mme-grid-on" type="checkbox" onchange="MapView.toggleGrid()"> 격자 표시</label></div>
     <div class="mme-row"><label>비율</label>
       <input id="map-grid-range" type="range" min="0" max="100" value="20" oninput="MapView.gridRangeInput(this.value)" onchange="MapView.gridRangeChange(this.value)">
@@ -397,9 +401,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_dice.js?v=0.67"></script>
-<script src="cs_monster.js?v=0.67"></script>
-<script src="cs_map.js?v=0.67"></script>
+<script src="cs_dice.js?v=0.68"></script>
+<script src="cs_monster.js?v=0.68"></script>
+<script src="cs_map.js?v=0.68"></script>
 <style>
 /* 듀얼모니터: GM 도구 + 플레이어 CCTV */
 #map-gm-tools{margin-left:12px;display:inline-flex;gap:6px;align-items:center;}
@@ -655,7 +659,7 @@ window.MonsterLink = (function () {
     const _b = document.getElementById('pf-dice-box'); if (_b) _b.remove();
   } else {
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.67');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.68');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     const box = new DiceBox({ container: '#pf-dice-box', assetPath, theme: 'default', offscreen: false, scale: 6 });
     let ready = false;

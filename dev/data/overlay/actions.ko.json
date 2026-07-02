@@ -50,7 +50,7 @@
  },
  "restore-the-moment": {
   "name": "순간 회복",
-  "description": "<p><strong>발동</strong> 당신의 턴이 시작됩니다</p><hr /><p><strong>효과</strong> 신화 포인트 1점을 소모합니다. 보존된 순간에서 수행했던 것과 동일한 순서로 동일한 행동을 취하고, 해당 행동을 해결할 때 동일한 주사위 굴림 결과를 사용하며, 현재 존재하는 수정자를 적용합니다(루프를 기록했을 당시의 수정자가 아닌). 단, 신화 숙련도로 수행합니다. 복원된 행동을 수행하는 구체적인 방식은 달라질 수 있다-예를 들어 반복하는 스트라이드 시 정확히 동일한 패턴이나 거리로 이동할 필요는 없으며, 첫 번째 행동에서 공격한 동일한 적에게 반복 공격을 가할 필요도 없다. 다만 스트라이드 시에는 동일한 유형의 이동을, 공격 시에는 동일한 유형의 무기를 사용해야 한다. 턴 중 어느 시점에서든 루프의 다음 행동을 수행할 수 없으면 턴이 종료되고 @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{기절 1} 상태가 됩니다. 예를 들어, 오우거와 싸우던 라운드에서 위 예시를 화염용에게 복원했는데 두 번째 행동으로 오우거에게 장검으로 공격을 시도하지 못했다면 기절 1 상태가 됩니다. 마찬가지로, 턴 종료 시 등반할 대상이 없다면 기절 1 상태가 됩니다. 주문 시전 행동은 보존 및 복원이 가능하지만, 순간 복원 시 동일한 주문을 시전하지 않으면 기절 1 상태가 됩니다(다른 등급으로 주문 시전은 가능합니다).</p>",
+  "description": "<p><strong>발동</strong> 당신의 턴이 시작됩니다</p><hr /><p><strong>효과</strong> 신화 포인트 1점을 소모합니다. 보존된 순간에서 수행했던 것과 동일한 순서로 동일한 행동을 취하고, 해당 행동을 해결할 때 동일한 주사위 굴림 결과를 사용하며, 현재 존재하는 수정자를 적용합니다(루프를 기록했을 당시의 수정자가 아닌). 단, 신화 숙련도로 수행합니다. 복원된 행동을 수행하는 구체적인 방식은 달라질 수 있다-예를 들어 반복하는 스트라이드 시 정확히 동일한 패턴이나 거리로 이동할 필요는 없으며, 첫 번째 행동에서 공격한 동일한 적에게 반복 공격을 가할 필요도 없다. 다만 스트라이드 시에는 동일한 유형의 이동을, 공격 시에는 동일한 유형의 무기를 사용해야 한다. 턴 중 어느 시점에서든 루프의 다음 행동을 수행할 수 없으면 턴이 종료되고 @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{기절 1} 상태가 됩니다. 예를 들어, 오우거와 싸우던 라운드에서 위 예시를 화염용에게 복원했는데 두 번째 행동으로 오우거에게 장검으로 공격을 시도하지 못했다면 기절 1 상태가 됩니다. 마찬가지로, 턴 종료 시 등반할 대상이 없다면 기절 1 상태가 됩니다. 주문 시전 행동은 보존 및 복원이 가능하지만, 순간 복원 시 동일한 주문을 시전하지 않으면 기절 1 상태가 됩니다(다른 랭크으로 주문 시전은 가능합니다).</p>",
   "traits": [
    "mythic",
    "occult"
@@ -238,7 +238,7 @@
  },
  "devour-ambient-magic": {
   "name": "주변 마법 흡수",
-  "description": "<p><strong>발동 빈도</strong> 하루에 한 번</p>\n<p><strong>발동 조건</strong> 생물이 당신만을 대상으로 주문을 시전할 때</p><hr /><p><strong>효과</strong> 당신의 오스티리가 청록색 빛을 발산하며 촉수 같은 필터로 마법 효과를 흡수하려고 시도합니다. 당신은 @Check[arcana] 또는 @Check[nature] 체크 및 레벨의 절반에 해당하는 반격 등급으로 발동 마법에 반격할 수 있습니다.</p>",
+  "description": "<p><strong>발동 빈도</strong> 하루에 한 번</p>\n<p><strong>발동 조건</strong> 생물이 당신만을 대상으로 주문을 시전할 때</p><hr /><p><strong>효과</strong> 당신의 오스티리가 청록색 빛을 발산하며 촉수 같은 필터로 마법 효과를 흡수하려고 시도합니다. 당신은 @Check[arcana] 또는 @Check[nature] 체크 및 레벨의 절반에 해당하는 반격 랭크으로 발동 마법에 반격할 수 있습니다.</p>",
   "traits": [
    "concentrate"
   ]
@@ -432,7 +432,7 @@
  },
  "unleash-psyche": {
   "name": "정신 해방",
-  "description": "<p><strong>발동</strong> 당신의 턴이 시작됩니다.</p>\n<hr />\n<p><strong>요구 사항</strong> 당신은 전투 중이며, 이전 턴에 주문을 시전했고, @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함}가 아닙니다.</p>\n<hr />\n<p>당신은 마음의 깊은 곳을 불러내 사이킥력을 쏟아붓습니다. 당신의 정신은 2라운드 동안 또는 당신이 @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{무의식} 상태가 될 때까지, 둘 중 먼저 발생하는 시점까지 해방된 상태로 유지됩니다. 당신은 자발적으로 해방된 정신을 진정시킬 수 없습니다. 정신이 해방된 동안 다음과 같은 효과가 발생합니다.</p>\n<ul>\n<li>당신은 항상 자신의 사이킥 마법이 시각적으로 구현된 모습에 둘러싸여 있습니다.</li>\n<li>당신이 피해 마법을 시전할 때, 해당 마법의 등급의 두 배에 해당하는 상태 보너스를 피해량에 얻습니다. 이는 지속 시간이 없고 사이킥 시전 방식으로 시전하는 마법에만 적용됩니다.</li>\n<li>당신은 정신 특성을 가진 행동을 사용할 수 있습니다. 정신 해방이 끝난 후, 당신의 정신은 그 완전한 힘을 집중한 스트레스로부터 회복해야 합니다. 2라운드 동안 정신 해방을 다시 사용할 수 없으며, 2라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1}이 됩니다.</li>\n</ul>",
+  "description": "<p><strong>발동</strong> 당신의 턴이 시작됩니다.</p>\n<hr />\n<p><strong>요구 사항</strong> 당신은 전투 중이며, 이전 턴에 주문을 시전했고, @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함}가 아닙니다.</p>\n<hr />\n<p>당신은 마음의 깊은 곳을 불러내 사이킥력을 쏟아붓습니다. 당신의 정신은 2라운드 동안 또는 당신이 @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{무의식} 상태가 될 때까지, 둘 중 먼저 발생하는 시점까지 해방된 상태로 유지됩니다. 당신은 자발적으로 해방된 정신을 진정시킬 수 없습니다. 정신이 해방된 동안 다음과 같은 효과가 발생합니다.</p>\n<ul>\n<li>당신은 항상 자신의 사이킥 마법이 시각적으로 구현된 모습에 둘러싸여 있습니다.</li>\n<li>당신이 피해 마법을 시전할 때, 해당 마법의 랭크의 두 배에 해당하는 상태 보너스를 피해량에 얻습니다. 이는 지속 시간이 없고 사이킥 시전 방식으로 시전하는 마법에만 적용됩니다.</li>\n<li>당신은 정신 특성을 가진 행동을 사용할 수 있습니다. 정신 해방이 끝난 후, 당신의 정신은 그 완전한 힘을 집중한 스트레스로부터 회복해야 합니다. 2라운드 동안 정신 해방을 다시 사용할 수 없으며, 2라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1}이 됩니다.</li>\n</ul>",
   "traits": [
    "psychic"
   ]
@@ -957,7 +957,7 @@
  },
  "dispelling-bullet": {
   "name": "해산탄",
-  "description": "<p>당신은 마법적 흔적을 바탕으로 한 교란 에너지 장을 총알에 각인하여, 맞은 대상의 마법을 교란시킵니다. 시야 내의 적에게 화기나 석궁 공격을 시도한다. 명중 시, 대상에게 걸린 주문 효과 중 하나를 반격하려 시도한다(선택 가능, 선택하지 않으면 최고 레벨 효과 적용). 반격 등급은 레벨의 절반(올림)이며, 반격 체크 수정자는 직업 난이도(DC) - 10이다.</p>",
+  "description": "<p>당신은 마법적 흔적을 바탕으로 한 교란 에너지 장을 총알에 각인하여, 맞은 대상의 마법을 교란시킵니다. 시야 내의 적에게 화기나 석궁 공격을 시도한다. 명중 시, 대상에게 걸린 주문 효과 중 하나를 반격하려 시도한다(선택 가능, 선택하지 않으면 최고 레벨 효과 적용). 반격 랭크은 레벨의 절반(올림)이며, 반격 체크 수정자는 직업 난이도(DC) - 10이다.</p>",
   "traits": [
    "magical",
    "spellshot"
@@ -1215,7 +1215,7 @@
  },
  "life-block": {
   "name": "생명력 차단",
-  "description": "<p><strong>발동</strong> 주문 대상이 피해를 입을 예정이었다</p>\n<hr />\n<p><strong>효과</strong> 발동 피해를 10 감소시키지만, 당신은 체력 5를 잃습니다. 이로 인해 피해가 0이 되더라도, 대상은 여전히 해당 피해와 함께 발생하는 효과(예: 독사 이빨 공격의 독 효과)를 받습니다.</p>\n<hr />\n<p><strong>강화 (+2)</strong> 이 반응은 피해를 추가로 10 감소시키며, 당신은 5의 추가 체력을 잃습니다. 체력 손실을 줄이고 싶다면, 주문 등급 자체를 낮추지 않고도 해당 주문 하위 등급 버전이 가할 수 있는 피해 감소량과 체력 손실량으로 낮출 수 있습니다.</p>"
+  "description": "<p><strong>발동</strong> 주문 대상이 피해를 입을 예정이었다</p>\n<hr />\n<p><strong>효과</strong> 발동 피해를 10 감소시키지만, 당신은 체력 5를 잃습니다. 이로 인해 피해가 0이 되더라도, 대상은 여전히 해당 피해와 함께 발생하는 효과(예: 독사 이빨 공격의 독 효과)를 받습니다.</p>\n<hr />\n<p><strong>강화 (+2)</strong> 이 반응은 피해를 추가로 10 감소시키며, 당신은 5의 추가 체력을 잃습니다. 체력 손실을 줄이고 싶다면, 주문 랭크 자체를 낮추지 않고도 해당 주문 하위 랭크 버전이 가할 수 있는 피해 감소량과 체력 손실량으로 낮출 수 있습니다.</p>"
  },
  "verdant-rest": {
   "name": "푸르름의 휴식",
@@ -1600,7 +1600,7 @@
  },
  "borrow-an-arcane-spell": {
   "name": "아케인 주문을 차용하다",
-  "description": "<p>주문서를 통해 준비하는 아케인 주문 시전자인 경우, 타인의 주문서에서 주문을 준비하려고 시도할 수 있습니다. GM은 해당 주문 등급과 희귀도에 따라 체크 난이도(DC)를 설정한다. 일반적으로 @UUID[Compendium.pf2e.actionspf2e.Item.Q5iIYCFdqJFM31GW]{주문 습득}보다 약간 쉽다.</p>\n<hr />\n<p><strong>성공</strong> 당신은 평소 주문 준비 과정의 일부로 빌린 주문을 준비합니다.</p>\n<p><strong>실패</strong> 당신은 주문을 준비하는 데 실패했지만, 주문 슬롯은 다른 주문을 준비할 수 있도록 남아 있습니다. 다음 주문 준비 시까지 이 주문을 준비하려고 시도할 수 없습니다.</p>",
+  "description": "<p>주문서를 통해 준비하는 아케인 주문 시전자인 경우, 타인의 주문서에서 주문을 준비하려고 시도할 수 있습니다. GM은 해당 주문 랭크과 희귀도에 따라 체크 난이도(DC)를 설정한다. 일반적으로 @UUID[Compendium.pf2e.actionspf2e.Item.Q5iIYCFdqJFM31GW]{주문 습득}보다 약간 쉽다.</p>\n<hr />\n<p><strong>성공</strong> 당신은 평소 주문 준비 과정의 일부로 빌린 주문을 준비합니다.</p>\n<p><strong>실패</strong> 당신은 주문을 준비하는 데 실패했지만, 주문 슬롯은 다른 주문을 준비할 수 있도록 남아 있습니다. 다음 주문 준비 시까지 이 주문을 준비하려고 시도할 수 없습니다.</p>",
   "traits": [
    "concentrate",
    "exploration"
@@ -1694,7 +1694,7 @@
  },
  "learn-a-spell": {
   "name": "주문 습득",
-  "description": "<h2>마법 전통과 기술</h2><p>각 마법 전통에는 아래 표에 표시된 대로 대응하는 기술이 있습니다. 마법을 식별하거나 주문을 배우려면 해당 기술에 숙련된 숙련도 등급을 보유해야 합니다. 마법적 특성을 지닌 아이템처럼 특정 전통이 없는 대상은 이 기술들 중 어느 것으로든 식별할 수 있습니다.</p><table class=\"pf2e remaster\"><thead><tr><th>Magical Tradition</th><th>Corresponding Skill</th></tr></thead><tbody><tr><td>Arcane</td><td>Arcana</td></tr><tr><td>Divine</td><td>Religion</td></tr><tr><td>Occult</td><td>Occultism</td></tr><tr><td>Primal</td><td>Nature</td></tr></tbody></table><hr /><p><strong>Requirements</strong> 당신은 주문 시전 직업 특성을 보유하고 있으며, 배우고자 하는 주문이 당신의 마법 전통 주문 목록에 포함되어 있어야 합니다.</p><hr /><p>당신은 해당 주문을 알고 있는 사람이나 주문서나 두루마리 같은 마법 문헌으로부터 전통의 새로운 주문에 접근할 수 있습니다. 여러 전통의 주문을 시전할 수 있다면, 해당 전통의 주문 중 어떤 것이든 배울 수 있지만, 이를 위해서는 해당 전통에 맞는 기술을 사용해야 합니다. 예를 들어, 바드 멀티클래스 아키타입을 가진 클레릭이라면, 종교 기술을 사용해 바드 주문 목록에 오컬트 주문을 추가할 수 없습니다.</p>\n<p>주문을 배우려면 다음을 수행해야 합니다:</p><ul><li>주문 등급당 1시간을 소모하며, 이 시간 동안 해당 주문을 아는 인물과 대화를 유지하거나 마법 문서를 소지해야 합니다.</li><li>주문 학습 표에 명시된 가격의 재료를 준비하십시오.</li><li>본인의 전통에 해당하는 기술에 대한 기술 체크를 시도하십시오(난이도는 GM이 결정하며, 대개 주문 학습 표의 난이도와 유사함). 흔하지 않거나 희귀한 주문일수록 DC가 높아집니다. GM 을 위한 전체 지침은 GM 코어 52페이지에 수록되어 있습니다.</li></ul><h3>주문 학습</h3><table class=\"pf2e remaster\"><thead><tr><th>주문 등급</th><th>가격</th><th>일반적인 DC</th></tr></thead><tbody><tr><td>1레벨 또는 캔트립</td><td>2 gp</td><td>15</td></tr><tr><td>2nd</td><td>6 gp</td><td>18</td></tr><tr><td>3rd</td><td>16 gp</td><td>20</td></tr><tr><td>4th</td><td>36 gp</td><td>23</td></tr><tr><td>5th</td><td>70 gp</td><td>26</td></tr><tr><td>6th</td><td>140 gp</td><td>28</td></tr><tr><td>7th</td><td>300 gp</td><td>31</td></tr><tr><td>8th</td><td>650 gp</td><td>34</td></tr><tr><td>9th</td><td>1,500 gp</td><td>36</td></tr><tr><td>10th</td><td>7,000 gp</td><td>41</td></tr></tbody></table><hr /><p><strong>Critical Success</strong> 재료의 절반을 소모하고 주문을 익힙니다.</p>\n<p><strong>성공</strong> 재료를 소모하고 주문을 익혔습니다.</p>\n<p><strong>실패</strong> 주문을 배우는 데 실패했지만, 레벨을 올린 후 다시 시도할 수 있습니다. 재료는 소모되지 않습니다.</p>\n<p><strong>대실패</strong> 실패와 동일하나 재료의 절반을 소모합니다.</p>",
+  "description": "<h2>마법 전통과 기술</h2><p>각 마법 전통에는 아래 표에 표시된 대로 대응하는 기술이 있습니다. 마법을 식별하거나 주문을 배우려면 해당 기술에 숙련된 숙련도 등급을 보유해야 합니다. 마법적 특성을 지닌 아이템처럼 특정 전통이 없는 대상은 이 기술들 중 어느 것으로든 식별할 수 있습니다.</p><table class=\"pf2e remaster\"><thead><tr><th>Magical Tradition</th><th>Corresponding Skill</th></tr></thead><tbody><tr><td>Arcane</td><td>Arcana</td></tr><tr><td>Divine</td><td>Religion</td></tr><tr><td>Occult</td><td>Occultism</td></tr><tr><td>Primal</td><td>Nature</td></tr></tbody></table><hr /><p><strong>Requirements</strong> 당신은 주문 시전 직업 특성을 보유하고 있으며, 배우고자 하는 주문이 당신의 마법 전통 주문 목록에 포함되어 있어야 합니다.</p><hr /><p>당신은 해당 주문을 알고 있는 사람이나 주문서나 두루마리 같은 마법 문헌으로부터 전통의 새로운 주문에 접근할 수 있습니다. 여러 전통의 주문을 시전할 수 있다면, 해당 전통의 주문 중 어떤 것이든 배울 수 있지만, 이를 위해서는 해당 전통에 맞는 기술을 사용해야 합니다. 예를 들어, 바드 멀티클래스 아키타입을 가진 클레릭이라면, 종교 기술을 사용해 바드 주문 목록에 오컬트 주문을 추가할 수 없습니다.</p>\n<p>주문을 배우려면 다음을 수행해야 합니다:</p><ul><li>주문 랭크당 1시간을 소모하며, 이 시간 동안 해당 주문을 아는 인물과 대화를 유지하거나 마법 문서를 소지해야 합니다.</li><li>주문 학습 표에 명시된 가격의 재료를 준비하십시오.</li><li>본인의 전통에 해당하는 기술에 대한 기술 체크를 시도하십시오(난이도는 GM이 결정하며, 대개 주문 학습 표의 난이도와 유사함). 흔하지 않거나 희귀한 주문일수록 DC가 높아집니다. GM 을 위한 전체 지침은 GM 코어 52페이지에 수록되어 있습니다.</li></ul><h3>주문 학습</h3><table class=\"pf2e remaster\"><thead><tr><th>주문 랭크</th><th>가격</th><th>일반적인 DC</th></tr></thead><tbody><tr><td>1레벨 또는 캔트립</td><td>2 gp</td><td>15</td></tr><tr><td>2nd</td><td>6 gp</td><td>18</td></tr><tr><td>3rd</td><td>16 gp</td><td>20</td></tr><tr><td>4th</td><td>36 gp</td><td>23</td></tr><tr><td>5th</td><td>70 gp</td><td>26</td></tr><tr><td>6th</td><td>140 gp</td><td>28</td></tr><tr><td>7th</td><td>300 gp</td><td>31</td></tr><tr><td>8th</td><td>650 gp</td><td>34</td></tr><tr><td>9th</td><td>1,500 gp</td><td>36</td></tr><tr><td>10th</td><td>7,000 gp</td><td>41</td></tr></tbody></table><hr /><p><strong>Critical Success</strong> 재료의 절반을 소모하고 주문을 익힙니다.</p>\n<p><strong>성공</strong> 재료를 소모하고 주문을 익혔습니다.</p>\n<p><strong>실패</strong> 주문을 배우는 데 실패했지만, 레벨을 올린 후 다시 시도할 수 있습니다. 재료는 소모되지 않습니다.</p>\n<p><strong>대실패</strong> 실패와 동일하나 재료의 절반을 소모합니다.</p>",
   "traits": [
    "concentrate",
    "exploration"
@@ -1802,7 +1802,7 @@
  },
  "absorb-into-the-aegis": {
   "name": "아이기스로 흡수",
-  "description": "<p><strong>발동조건</strong> 적이 당신이나 15피트 이내의 아군을 대상으로 주문을 시전할 때</p>\n<hr />\n<p>당신은 방패의 수호부로 마법에 맞섭니다. 종교 수정자 수정자를 반격 수정자로 사용하여 반격 체크를 시도합니다. 성공 시 마법은 반격되며, 방패는 마법 에너지를 흡수하고 분산시키면서 마법 등급의 4배에 해당하는 피해를 입습니다. 실패 시 방패는 마법 등급의 2배에 해당하는 피해를 입습니다.</p>"
+  "description": "<p><strong>발동조건</strong> 적이 당신이나 15피트 이내의 아군을 대상으로 주문을 시전할 때</p>\n<hr />\n<p>당신은 방패의 수호부로 마법에 맞섭니다. 종교 수정자 수정자를 반격 수정자로 사용하여 반격 체크를 시도합니다. 성공 시 마법은 반격되며, 방패는 마법 에너지를 흡수하고 분산시키면서 마법 랭크의 4배에 해당하는 피해를 입습니다. 실패 시 방패는 마법 랭크의 2배에 해당하는 피해를 입습니다.</p>"
  },
  "cover-tracks": {
   "name": "흔적 지우기",
@@ -2352,7 +2352,7 @@
  },
  "spirit-sanctification": {
   "name": "영혼의 성화",
-  "description": "<p><strong>비용</strong> 영혼의 불꽃 1개</p><hr /><p><strong>효과</strong> 당신은 즉시 영혼을 정화하며, 영혼이 떠나기 전에 당신에게 보호의 축복을 부여합니다. 다음 행동이 평온의 주문을 시전하는 것이라면, 당신은 저항에 +1 상태 보너스를 얻으며, 평온의 주문 등급에 해당하는 공허 피해에 대한 저항력을 얻습니다. 이 효과는 1라운드 동안 지속됩니다.</p>",
+  "description": "<p><strong>비용</strong> 영혼의 불꽃 1개</p><hr /><p><strong>효과</strong> 당신은 즉시 영혼을 정화하며, 영혼이 떠나기 전에 당신에게 보호의 축복을 부여합니다. 다음 행동이 평온의 주문을 시전하는 것이라면, 당신은 저항에 +1 상태 보너스를 얻으며, 평온의 주문 랭크에 해당하는 공허 피해에 대한 저항력을 얻습니다. 이 효과는 1라운드 동안 지속됩니다.</p>",
   "traits": [
    "concentrate",
    "spellshape"
@@ -2922,7 +2922,7 @@
  },
  "makes-me-stronger": {
   "name": "나를 더 강하게 만든다",
-  "description": "<p><strong>Trigger</strong> 영웅적 약점으로 인해 피해를 입지만, 해당 피해로 인해 체력이 1 이하로 감소하지 않습니다.</p><hr /><p><strong>효과</strong> 당신은 근육을 팽팽하게 하거나, 도전적인 포효를 내지르거나, 고통을 비웃거나, 단순히 피해가 전혀 신경 쓰이지 않는 듯 행동하는 등, 자신의 약점을 극복하는 모습을 과시합니다. 당신의 주문은 발동한 생물에게 가하는 피해에 대해 등급의 두 배에 해당하는 상태 보너스를 얻습니다. 이 효과는 다음에 이 반응을 사용할 때까지 지속됩니다. 또한, 당신의 영웅적 약점을 이용해 피해를 입은 생물은 당신의 직업 능력치 또는 주문 시전 난이도 중 더 높은 쪽에 대한 의지 내성 굴림을 시도해야 합니다. 실패 시 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1} 상태가 되며(대실패 시 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2} 상태), 이 상태는 지속됩니다.</p>"
+  "description": "<p><strong>Trigger</strong> 영웅적 약점으로 인해 피해를 입지만, 해당 피해로 인해 체력이 1 이하로 감소하지 않습니다.</p><hr /><p><strong>효과</strong> 당신은 근육을 팽팽하게 하거나, 도전적인 포효를 내지르거나, 고통을 비웃거나, 단순히 피해가 전혀 신경 쓰이지 않는 듯 행동하는 등, 자신의 약점을 극복하는 모습을 과시합니다. 당신의 주문은 발동한 생물에게 가하는 피해에 대해 랭크의 두 배에 해당하는 상태 보너스를 얻습니다. 이 효과는 다음에 이 반응을 사용할 때까지 지속됩니다. 또한, 당신의 영웅적 약점을 이용해 피해를 입은 생물은 당신의 직업 능력치 또는 주문 시전 난이도 중 더 높은 쪽에 대한 의지 내성 굴림을 시도해야 합니다. 실패 시 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1} 상태가 되며(대실패 시 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2} 상태), 이 상태는 지속됩니다.</p>"
  },
  "cry-havoc": {
   "name": "난전 개시!",
@@ -3330,7 +3330,7 @@
  },
  "draw-from-the-pages": {
   "name": "페이지에서 끌어오기",
-  "description": "<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>요구 사항</strong> 주문서를 소지하고 있을 것</p><hr /><p><strong>효과</strong> 신화 포인트 1점을 소모한 후, 주문서에서 직접 주문을 시전합니다. 시전하는 주문은 1회 또는 2회 행동이 필요한 주문이어야 하며, 자동으로 레벨의 절반에 해당하는 등급으로 강화됩니다. 명중 굴림이나 주문 난이도(DC)는 신화 숙련도를 적용하여 결정합니다.</p>",
+  "description": "<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>요구 사항</strong> 주문서를 소지하고 있을 것</p><hr /><p><strong>효과</strong> 신화 포인트 1점을 소모한 후, 주문서에서 직접 주문을 시전합니다. 시전하는 주문은 1회 또는 2회 행동이 필요한 주문이어야 하며, 자동으로 레벨의 절반에 해당하는 랭크으로 강화됩니다. 명중 굴림이나 주문 난이도(DC)는 신화 숙련도를 적용하여 결정합니다.</p>",
   "traits": [
    "manipulate"
   ]
@@ -3453,7 +3453,7 @@
  },
  "spasm-of-the-berserker": {
   "name": "광전사의 경련",
-  "description": "<p>당신의 몸이 알아볼 수 없을 정도로 뒤틀려 강력한 외눈박이 형태로 변합니다. 당신은 (4th)등급 @UUID[Compendium.pf2e.spells-srd.Item.wzctak6BxOW8xvFV]{확대} 주문과 (6th)등급 @UUID[Compendium.pf2e.spells-srd.Item.YtesyvfAIwXOqISq]{달의 광란} 주문의 영향을 받으며, 둘 다 다음 차례가 끝날 때까지 지속됩니다. 달의 광란을 조기에 종료하려고 시도할 수 없습니다.</p>\n<p>이콘이 다시 강화되면, 버서커의 경련 지속 시간을 다음 차례가 끝날 때까지 연장할 수 있다. 버서커의 경련 효과가 이미 적용된 상태에서 지속 시간 연장을 위한 초월 행동은 자유 행동으로 수행된다.</p>",
+  "description": "<p>당신의 몸이 알아볼 수 없을 정도로 뒤틀려 강력한 외눈박이 형태로 변합니다. 당신은 (4th)랭크 @UUID[Compendium.pf2e.spells-srd.Item.wzctak6BxOW8xvFV]{확대} 주문과 (6th)랭크 @UUID[Compendium.pf2e.spells-srd.Item.YtesyvfAIwXOqISq]{달의 광란} 주문의 영향을 받으며, 둘 다 다음 차례가 끝날 때까지 지속됩니다. 달의 광란을 조기에 종료하려고 시도할 수 없습니다.</p>\n<p>이콘이 다시 강화되면, 버서커의 경련 지속 시간을 다음 차례가 끝날 때까지 연장할 수 있다. 버서커의 경련 효과가 이미 적용된 상태에서 지속 시간 연장을 위한 초월 행동은 자유 행동으로 수행된다.</p>",
   "traits": [
    "transcendence"
   ]
@@ -3883,7 +3883,7 @@
  },
  "affinity-ablaze-speakers-to-the-winds-all-is-one-one-is-all": {
   "name": "(친화력 불타오름) 바람에 말하기: 모든 것은 하나, 하나는 모든 것",
-  "description": "<p><strong>사용 빈도</strong> 하루에 한 번</p> <hr /> <p>경기장에서 함께 싸우며 서로를 이해하게 된 파이터들 사이에는 그와 같은 유대감이 거의 없습니다. 다른 토너먼트 팀 중 한 팀과 당신의 감정적 연결에 포커스를 맞추면, 그 팀의 힘이 불타는 줄처럼 당신에게 전달됩니다. 원래 팀에서 획득한 다음 능력을 사용합니다. </p> <hr /> <p>마가암바의 마법을 빌려, 올드 메이지 자템베가 직접 사용한 전설적인 주문을 사용합니다. 당신은 @UUID[Compendium.pf2e.spells-srd.Item.gtWxTfMbIN5RHQw6]{All is One, One is All}을 9등급 마법 또는 원시 본능 마법으로 발동합니다.</p>"
+  "description": "<p><strong>사용 빈도</strong> 하루에 한 번</p> <hr /> <p>경기장에서 함께 싸우며 서로를 이해하게 된 파이터들 사이에는 그와 같은 유대감이 거의 없습니다. 다른 토너먼트 팀 중 한 팀과 당신의 감정적 연결에 포커스를 맞추면, 그 팀의 힘이 불타는 줄처럼 당신에게 전달됩니다. 원래 팀에서 획득한 다음 능력을 사용합니다. </p> <hr /> <p>마가암바의 마법을 빌려, 올드 메이지 자템베가 직접 사용한 전설적인 주문을 사용합니다. 당신은 @UUID[Compendium.pf2e.spells-srd.Item.gtWxTfMbIN5RHQw6]{All is One, One is All}을 9랭크 마법 또는 원시 본능 마법으로 발동합니다.</p>"
  },
  "send-in-the-clowns": {
   "name": "클라운을 불러라",
@@ -4059,7 +4059,7 @@
  },
  "explore-the-electric-castle": {
   "name": "전기 성 탐험",
-  "description": "<p><strong>희귀</strong></p> <hr /> <p>당신은 아슬린의 요새를 돌아다니며 탐험합니다. 전기 성을 탐험할 때, 탐색하는 지역에서 표시된 스킬 중 하나를 선택하여 스킬 체크를 시도합니다. GM의 재량에 따라 다른 지식 체크가 적절할 수도 있습니다. 대부분의 스킬 체크의 DC는 23입니다 (레벨 9-10의 경우 DC 26). 적절한 지식 스킬을 사용하는 체크의 경우 DC를 20으로 낮추세요 (레벨 9-10의 경우 DC 23). 스킬 체크를 시도하는 대신 @UUID[Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz]{주문 시전}을 사용할 수 있습니다. 작업에 적합한 캔트립이 아닌 주문을 사용하면 성공을 얻게 되며, 주문이 3등급 이상(레벨 9~10의 경우 4등급 이상)이면 대성공을 얻게 됩니다. 시전할 수 있는 주문의 예로는 몰래 움직이는 데 도움이 되는 투명화나 안개, 통로를 열기 위한 나무나 돌의 형태 변화, 어려운 지역을 이동하기 위한 거미의 등반이나 차원 문 등이 있습니다. 체크 결과에 따라 방에 도착하고 탐색하는 데 걸리는 시간을 결정합니다. </p> <hr /> <p><strong>대성공</strong> 소요 시간을 5분 단축합니다(최소 15분).</p> <p><strong>성공</strong> 소요 시간이 증가하지 않습니다.</p> <p><strong>실패</strong> 소요 시간을 5분 증가시킵니다. </p> <p><strong>대실패</strong> 소요 시간을 10분 증가시킵니다 (최대 1시간까지).</p>"
+  "description": "<p><strong>희귀</strong></p> <hr /> <p>당신은 아슬린의 요새를 돌아다니며 탐험합니다. 전기 성을 탐험할 때, 탐색하는 지역에서 표시된 스킬 중 하나를 선택하여 스킬 체크를 시도합니다. GM의 재량에 따라 다른 지식 체크가 적절할 수도 있습니다. 대부분의 스킬 체크의 DC는 23입니다 (레벨 9-10의 경우 DC 26). 적절한 지식 스킬을 사용하는 체크의 경우 DC를 20으로 낮추세요 (레벨 9-10의 경우 DC 23). 스킬 체크를 시도하는 대신 @UUID[Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz]{주문 시전}을 사용할 수 있습니다. 작업에 적합한 캔트립이 아닌 주문을 사용하면 성공을 얻게 되며, 주문이 3랭크 이상(레벨 9~10의 경우 4랭크 이상)이면 대성공을 얻게 됩니다. 시전할 수 있는 주문의 예로는 몰래 움직이는 데 도움이 되는 투명화나 안개, 통로를 열기 위한 나무나 돌의 형태 변화, 어려운 지역을 이동하기 위한 거미의 등반이나 차원 문 등이 있습니다. 체크 결과에 따라 방에 도착하고 탐색하는 데 걸리는 시간을 결정합니다. </p> <hr /> <p><strong>대성공</strong> 소요 시간을 5분 단축합니다(최소 15분).</p> <p><strong>성공</strong> 소요 시간이 증가하지 않습니다.</p> <p><strong>실패</strong> 소요 시간을 5분 증가시킵니다. </p> <p><strong>대실패</strong> 소요 시간을 10분 증가시킵니다 (최대 1시간까지).</p>"
  },
  "mental-ward": {
   "name": "정신 병동",
@@ -4195,7 +4195,7 @@
  },
  "form-of-fury": {
   "name": "분노의 형태",
-  "description": "<p><strong>형태</strong> 야수</p> <p><strong>전제 조건</strong> 유물이 낡은 아이템입니다.</p> <p><strong>활성화</strong> <span class=\\“action-glyph\\”>2</span> (집중)</p> <p><strong>사용 빈도</strong> 하루에 두 번</p> <hr /> <p><strong>효과</strong> 내면의 야수성을 불러내어 동물의 모습으로 변신합니다. 유물은 @UUID[Compendium.pf2e.spells-srd.Item.wp09USMB3GIW1qbp]{동물 형태}를 당신에게 시전하여, 선물을 획득할 때 선택한 동일한 유형의 동물로 변신시킵니다. 주문 등급은 아이템 레벨의 절반으로 반올림됩니다. 유물 사용 시, 유물은 1회 사용됩니다.</p>"
+  "description": "<p><strong>형태</strong> 야수</p> <p><strong>전제 조건</strong> 유물이 낡은 아이템입니다.</p> <p><strong>활성화</strong> <span class=\\“action-glyph\\”>2</span> (집중)</p> <p><strong>사용 빈도</strong> 하루에 두 번</p> <hr /> <p><strong>효과</strong> 내면의 야수성을 불러내어 동물의 모습으로 변신합니다. 유물은 @UUID[Compendium.pf2e.spells-srd.Item.wp09USMB3GIW1qbp]{동물 형태}를 당신에게 시전하여, 선물을 획득할 때 선택한 동일한 유형의 동물로 변신시킵니다. 주문 랭크은 아이템 레벨의 절반으로 반올림됩니다. 유물 사용 시, 유물은 1회 사용됩니다.</p>"
  },
  "rebuild-battlements": {
   "name": "전장 복구",
@@ -4267,7 +4267,7 @@
  },
  "raise-ramparts": {
   "name": "방어벽 세우기",
-  "description": "<p><strong>측면</strong> earth</p> <p><strong>활성화</strong> <span class=\\“action-glyph\\”>2</span> 명령, 상호 작용</p> <p><strong>빈도</strong> 하루에 한 번</p> <hr /> <p><strong>효과</strong> 당신의 유물이 주변의 땅을 재구성합니다. 당신은 5등급 @UUID[Compendium.pf2e.spells-srd.Item.kOa055FIrO9Smnya]{Wall of Stone}을 시전합니다. </p>"
+  "description": "<p><strong>측면</strong> earth</p> <p><strong>활성화</strong> <span class=\\“action-glyph\\”>2</span> 명령, 상호 작용</p> <p><strong>빈도</strong> 하루에 한 번</p> <hr /> <p><strong>효과</strong> 당신의 유물이 주변의 땅을 재구성합니다. 당신은 5랭크 @UUID[Compendium.pf2e.spells-srd.Item.kOa055FIrO9Smnya]{Wall of Stone}을 시전합니다. </p>"
  },
  "convince-mengkare": {
   "name": "멘카레를 설득하기",
