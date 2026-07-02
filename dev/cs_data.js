@@ -3541,7 +3541,7 @@ const TRAIT_DB = [
   },
   {
     "id": "force",
-    "name_ko": "힘",
+    "name_ko": "역장",
     "name_en": "force",
     "type": "mechanic",
     "desc": "이 특성을 가진 효과는 힘 피해를 입히거나 순수한 마법의 힘으로 만들어진 물체를 생성합니다."

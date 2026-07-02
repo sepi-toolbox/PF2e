@@ -354,7 +354,7 @@
  },
  "horned-hand-rests": {
   "name": "뿔 달린 팔걸이",
-  "description": "<p>이 두꺼운 황소나 숫양 뿔은 다리 의자 동반자의 팔걸이에 융합되어 더 공격적인 옵션을 제공합니다. 당신의 동물 동료는 다리 의자일 경우에만 이 아이템을 장착할 수 있습니다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 또는 <span class=\"action-glyph\">2</span> 구상</p>\n<p><strong>빈도</strong> 분당 1회</p>\n<hr />\n<p><strong>효과</strong> 당신은 숫양 뿔의 밑동을 따라 손가락을 훑으며, 사용한 행동 횟수에 따라 효과가 달라집니다.</p>\n<p><span class=\"action-glyph\">1</span> 다리 의자가 운동량에서 힘을 끌어낸다. 이번 턴이 끝날 때까지, 다리 의자가 이동할 경우 다음 공격 시 2d6의 추가 힘 피해를 입히고, 대성공 시 대상물을 5피트 밀어낸다.</p>\n<p><span class=\"action-glyph\">2</span> 당신의 레그체어가 뿔에서 힘의 광선을 발사합니다. 대상은 @Damage[4d6[force]]의 피해를 입으며 @Check[fortitude|dc:22] 내성을 시도하다 실패할 수 있습니다.</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 절반의 피해를 입으며 5피트 밀려납니다.</p>\n<p><strong>실패</strong> 대상은 전체 피해를 입으며 10피트 밀려납니다.</p>\n<p><strong>대실패</strong> 대상은 두 배의 피해를 입으며 20피트 밀려난다.</p>",
+  "description": "<p>이 두꺼운 황소나 숫양 뿔은 다리 의자 동반자의 팔걸이에 융합되어 더 공격적인 옵션을 제공합니다. 당신의 동물 동료는 다리 의자일 경우에만 이 아이템을 장착할 수 있습니다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 또는 <span class=\"action-glyph\">2</span> 구상</p>\n<p><strong>빈도</strong> 분당 1회</p>\n<hr />\n<p><strong>효과</strong> 당신은 숫양 뿔의 밑동을 따라 손가락을 훑으며, 사용한 행동 횟수에 따라 효과가 달라집니다.</p>\n<p><span class=\"action-glyph\">1</span> 다리 의자가 운동량에서 힘을 끌어낸다. 이번 턴이 끝날 때까지, 다리 의자가 이동할 경우 다음 공격 시 2d6의 추가 역장 피해를 입히고, 대성공 시 대상물을 5피트 밀어낸다.</p>\n<p><span class=\"action-glyph\">2</span> 당신의 레그체어가 뿔에서 힘의 광선을 발사합니다. 대상은 @Damage[4d6[force]]의 피해를 입으며 @Check[fortitude|dc:22] 내성을 시도하다 실패할 수 있습니다.</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 절반의 피해를 입으며 5피트 밀려납니다.</p>\n<p><strong>실패</strong> 대상은 전체 피해를 입으며 10피트 밀려납니다.</p>\n<p><strong>대실패</strong> 대상은 두 배의 피해를 입으며 20피트 밀려난다.</p>",
   "traits": [
    "companion",
    "invested",
@@ -4301,7 +4301,7 @@
  },
  "aether-marbles-greater": {
   "name": "에테르 구슬 (중급)",
-  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 타격</p>\n<hr />\n<p>에테르 구슬은 보이지 않는 차원까지 부분적으로 뻗어 나가는 격렬하고 오래 지속되는 힘의 소용돌이를 생성합니다. 이 폭탄으로 명중 굴림에 +3 아이템 보너스를 얻습니다. 폭탄이 폭발하면 4d6 힘 피해와 4 힘 방사 피해를 입힙니다.</p>\n<p>파편이 닿는 지역의 표면은 힘의 소용돌이로 뒤틀려 있으며, 이는 비물질 생물에게는 어려운 지형이지만 물질 생물에게는 해당되지 않습니다. 한 칸에 존재하는 힘의 소용돌이는 비물질 생물이 그 칸에 들어간 후 사라집니다.</p>",
+  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 타격</p>\n<hr />\n<p>에테르 구슬은 보이지 않는 차원까지 부분적으로 뻗어 나가는 격렬하고 오래 지속되는 힘의 소용돌이를 생성합니다. 이 폭탄으로 명중 굴림에 +3 아이템 보너스를 얻습니다. 폭탄이 폭발하면 4d6 역장 피해와 4 힘 방사 피해를 입힙니다.</p>\n<p>파편이 닿는 지역의 표면은 힘의 소용돌이로 뒤틀려 있으며, 이는 비물질 생물에게는 어려운 지형이지만 물질 생물에게는 해당되지 않습니다. 한 칸에 존재하는 힘의 소용돌이는 비물질 생물이 그 칸에 들어간 후 사라집니다.</p>",
   "traits": [
    "bomb",
    "consumable",
@@ -4741,7 +4741,7 @@
  },
  "aether-marbles-moderate": {
   "name": "에테르 구슬 (보통)",
-  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 타격</p>\n<hr />\n<p>에테르 구슬은 보이지 않는 차원까지 부분적으로 뻗어 나가는 격렬하고 오래 지속되는 힘의 소용돌이를 생성합니다. 이 폭탄으로 명중 굴림에 +2 아이템 보너스를 얻습니다. 폭탄이 폭발하면 3d6 힘 피해와 3의 힘 방사 피해를 입힙니다.</p>\n<p>파편이 닿는 지역의 표면은 힘의 소용돌이로 뒤틀려 있으며, 이는 비물질 생물에게는 어려운 지형이지만 물질 생물에게는 해당되지 않습니다. 한 칸에 존재하는 힘의 소용돌이는 비물질 생물이 그 칸에 들어선 후 사라집니다.</p>",
+  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 타격</p>\n<hr />\n<p>에테르 구슬은 보이지 않는 차원까지 부분적으로 뻗어 나가는 격렬하고 오래 지속되는 힘의 소용돌이를 생성합니다. 이 폭탄으로 명중 굴림에 +2 아이템 보너스를 얻습니다. 폭탄이 폭발하면 3d6 역장 피해와 3의 힘 방사 피해를 입힙니다.</p>\n<p>파편이 닿는 지역의 표면은 힘의 소용돌이로 뒤틀려 있으며, 이는 비물질 생물에게는 어려운 지형이지만 물질 생물에게는 해당되지 않습니다. 한 칸에 존재하는 힘의 소용돌이는 비물질 생물이 그 칸에 들어선 후 사라집니다.</p>",
   "traits": [
    "bomb",
    "consumable",
@@ -6966,7 +6966,7 @@
  },
  "ugly-cutes-gift": {
   "name": "추한 귀여움의 선물",
-  "description": "<p>어글리 큐트의 갑각에서 떨어져 나온 이 가시 돋친 돌 조각은 손에 아주 편안하게 맞는다. 일반적인 건틀릿보다 약간 더 두껍지만, 여전히 <em>+1 스파이크 건틀릿</em>의 기능을 한다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">2</span> 명령어, 상호작용</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 당신은 어글리 큐트의 잠재된 영적 에너지를 끌어내어 건틀릿에 힘차게 담긴 힘을 불어넣습니다. 1분 동안, <em>어글리 큐트의 선물</em>은 @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{고스트 터치} 속성 룬의 이점을 얻으며, 공격 성공 시 추가로 2 힘 피해를 입힙니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.6enQGnnlgGY6ZWgS]{효과: 어글리 큐트의 선물}</p>",
+  "description": "<p>어글리 큐트의 갑각에서 떨어져 나온 이 가시 돋친 돌 조각은 손에 아주 편안하게 맞는다. 일반적인 건틀릿보다 약간 더 두껍지만, 여전히 <em>+1 스파이크 건틀릿</em>의 기능을 한다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">2</span> 명령어, 상호작용</p>\n<p><strong>빈도</strong> 하루에 한 번</p>\n<hr />\n<p><strong>효과</strong> 당신은 어글리 큐트의 잠재된 영적 에너지를 끌어내어 건틀릿에 힘차게 담긴 힘을 불어넣습니다. 1분 동안, <em>어글리 큐트의 선물</em>은 @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{고스트 터치} 속성 룬의 이점을 얻으며, 공격 성공 시 추가로 2 역장 피해를 입힙니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.6enQGnnlgGY6ZWgS]{효과: 어글리 큐트의 선물}</p>",
   "traits": [
    "agile",
    "free-hand",
@@ -7896,7 +7896,7 @@
  },
  "lodestone-bomb-greater": {
   "name": "자석 폭탄 (중급)",
-  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 강타</p>\n<hr />\n<p>자석 폭탄은 깨질 때까지 휴면 상태로 보존된 반응성 이온화 광물을 함유합니다. 이 폭탄은 명중 굴림에 +3 아이템 보너스를 부여하며, 4d4 힘 피해와 3 역장 방사 피해를 입힙니다. 또한 금속으로 만들어졌거나 금속 갑옷을 착용했거나 금속 무기를 사용하는 대상은 @Damage[3d4[persistent,force]]을 받고 @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 1}과 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 1} 상태가 지속되며, 지속 피해는 최대 1분 동안 유지됩니다.</p>",
+  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 강타</p>\n<hr />\n<p>자석 폭탄은 깨질 때까지 휴면 상태로 보존된 반응성 이온화 광물을 함유합니다. 이 폭탄은 명중 굴림에 +3 아이템 보너스를 부여하며, 4d4 역장 피해와 3 역장 방사 피해를 입힙니다. 또한 금속으로 만들어졌거나 금속 갑옷을 착용했거나 금속 무기를 사용하는 대상은 @Damage[3d4[persistent,force]]을 받고 @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 1}과 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 1} 상태가 지속되며, 지속 피해는 최대 1분 동안 유지됩니다.</p>",
   "traits": [
    "alchemical",
    "bomb",
@@ -8202,7 +8202,7 @@
  },
  "energizing-lattice": {
   "name": "활력 격자",
-  "description": "<p>이 <em>+2 탄력적인 요새 격자 갑옷</em>은 가는 금색 철사로 만들어진 격자 구조를 가지고 있습니다. <em>요새화 </em> 룬으로 치명타를 무효화한 후, 격자 구조가 1분 동안 빛나며 반경 20피트 내에 밝은 빛을, 그 다음 20피트 내에 희미한 빛을 발산합니다. 이 빛은 해제할 수 있습니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.cOcHWeogJFIkEI0d]{Effect: Energizing Lattice}</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">2</span> (집중, 힘)</p>\n<p><strong>요구 사항</strong> <em>에너자이징 격자</em>가 적의 치명타를 무효화했기 때문에 빛나고 있다</p>\n<p><strong>효과</strong> 격자의 에너지를 방출하여 무기 또는 비무장 공격 타격을 가합니다. 이 타격은 6d6의 추가 힘 피해를 입힙니다. 타격이 실패하더라도 대실패하지 않았다면, 대상은 여전히 힘 피해의 절반을 받습니다. 타격 후 격자 구조는 빛을 멈춥니다.</p>",
+  "description": "<p>이 <em>+2 탄력적인 요새 격자 갑옷</em>은 가는 금색 철사로 만들어진 격자 구조를 가지고 있습니다. <em>요새화 </em> 룬으로 치명타를 무효화한 후, 격자 구조가 1분 동안 빛나며 반경 20피트 내에 밝은 빛을, 그 다음 20피트 내에 희미한 빛을 발산합니다. 이 빛은 해제할 수 있습니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.cOcHWeogJFIkEI0d]{Effect: Energizing Lattice}</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">2</span> (집중, 힘)</p>\n<p><strong>요구 사항</strong> <em>에너자이징 격자</em>가 적의 치명타를 무효화했기 때문에 빛나고 있다</p>\n<p><strong>효과</strong> 격자의 에너지를 방출하여 무기 또는 비무장 공격 타격을 가합니다. 이 타격은 6d6의 추가 역장 피해를 입힙니다. 타격이 실패하더라도 대실패하지 않았다면, 대상은 여전히 역장 피해의 절반을 받습니다. 타격 후 격자 구조는 빛을 멈춥니다.</p>",
   "traits": [
    "invested",
    "light",
@@ -8999,7 +8999,7 @@
  },
  "spectral-nightshade": {
   "name": "스펙트럴 나이트셰이드",
-  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 상호작용</p>\n<p>그림자계나 본야드 같은 생명체에게 위험한 차원에서 자란 벨라도나는 가지가 기이하게 해골처럼 생겨 있다. 이 초차원 식물의 잎과 열매는 부분적으로 비물질적이며 물질계에서 자란 벨라도나보다 훨씬 더 독성이 강하다. 영혼을 뒤틀게 하는 마법이 스며든 유령 밤나무는 희생자의 활력을 급속히 흡수하고 색채를 고통스러울 정도로 선명하고 혼란스럽게 만든다. 유령 밤나무는 영혼이 없는 생물에게는 영향을 미치지 않는다. 만약 점령한 영혼이 유령 밤나무의 독 피해를 입는 몸을 차지하고 있다면, 점령자는 직접 독의 영향을 받을 수 없더라도 동일한 양의 힘 피해를 입는다.</p>\n<hr />\n<p><strong>내성 굴림</strong> @Check[fortitude|dc:33]</p>\n<p><strong>발생</strong> 1분</p>\n<p><strong>최대 지속 시간</strong> 6분</p>\n<p><strong>1단계</strong> @Damage[10d6[poison]] 피해 및 @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{눈부심}(1분)</p>\n<p><strong>2단계</strong> @Damage[13d6[poison]] 피해 및 @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{생명력 고갈 1}(1분)</p>\n<p><strong>3단계</strong> @Damage[15d6[poison]] 피해, @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{혼란}, @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{생명력 고갈 2}(1분)</p>\n<hr />\n<p><strong>제작 요구 사항</strong> @UUID[Compendium.pf2e.spells-srd.Item.PHVHBbdHeQRfjLmE]{영혼 폭발} 시전 1회 제공.</p>",
+  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 상호작용</p>\n<p>그림자계나 본야드 같은 생명체에게 위험한 차원에서 자란 벨라도나는 가지가 기이하게 해골처럼 생겨 있다. 이 초차원 식물의 잎과 열매는 부분적으로 비물질적이며 물질계에서 자란 벨라도나보다 훨씬 더 독성이 강하다. 영혼을 뒤틀게 하는 마법이 스며든 유령 밤나무는 희생자의 활력을 급속히 흡수하고 색채를 고통스러울 정도로 선명하고 혼란스럽게 만든다. 유령 밤나무는 영혼이 없는 생물에게는 영향을 미치지 않는다. 만약 점령한 영혼이 유령 밤나무의 독 피해를 입는 몸을 차지하고 있다면, 점령자는 직접 독의 영향을 받을 수 없더라도 동일한 양의 역장 피해를 입는다.</p>\n<hr />\n<p><strong>내성 굴림</strong> @Check[fortitude|dc:33]</p>\n<p><strong>발생</strong> 1분</p>\n<p><strong>최대 지속 시간</strong> 6분</p>\n<p><strong>1단계</strong> @Damage[10d6[poison]] 피해 및 @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{눈부심}(1분)</p>\n<p><strong>2단계</strong> @Damage[13d6[poison]] 피해 및 @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{생명력 고갈 1}(1분)</p>\n<p><strong>3단계</strong> @Damage[15d6[poison]] 피해, @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{혼란}, @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{생명력 고갈 2}(1분)</p>\n<hr />\n<p><strong>제작 요구 사항</strong> @UUID[Compendium.pf2e.spells-srd.Item.PHVHBbdHeQRfjLmE]{영혼 폭발} 시전 1회 제공.</p>",
   "traits": [
    "consumable",
    "divine",
@@ -9851,7 +9851,7 @@
  },
  "lodestone-bomb": {
   "name": "자석 폭탄",
-  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 강타</p>\n<hr />\n<p>자석 폭탄은 깨질 때까지 휴면 상태로 보존된 반응성 이온화 광물을 함유하고 있습니다. 이 폭탄은 명중 굴림에 +2 아이템 보너스를 부여하며, 3d4 힘 피해와 2 역장 방사 피해를 입힙니다. 또한 금속으로 만들어졌거나 금속 갑옷을 착용했거나 금속 무기를 사용하는 대상은 @Damage[2d4[persistent,force]]을 받고 @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 1}과 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 1} 상태가 되며 지속 피해를 입습니다. 지속 피해는 최대 1분 동안 지속될 수 있습니다.</p>",
+  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 강타</p>\n<hr />\n<p>자석 폭탄은 깨질 때까지 휴면 상태로 보존된 반응성 이온화 광물을 함유하고 있습니다. 이 폭탄은 명중 굴림에 +2 아이템 보너스를 부여하며, 3d4 역장 피해와 2 역장 방사 피해를 입힙니다. 또한 금속으로 만들어졌거나 금속 갑옷을 착용했거나 금속 무기를 사용하는 대상은 @Damage[2d4[persistent,force]]을 받고 @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 1}과 @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 1} 상태가 되며 지속 피해를 입습니다. 지속 피해는 최대 1분 동안 지속될 수 있습니다.</p>",
   "traits": [
    "alchemical",
    "bomb",
@@ -11106,7 +11106,7 @@
  },
  "blisterwort": {
   "name": "물집풀",
-  "description": "<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (조작)</p><hr /><p>이 투명하고 점성이 있는 액체는 빠르게 퍼지는 병변과 물집을 유발합니다. 피해자의 통증 반응이 증가하고 신체적 스트레스 하에서 살점이 쉽게 찢어집니다.</p>\n<p><strong>내성 굴림</strong> @Check[fortitude|dc:30]</p>\n<p><strong>최대 지속 시간</strong> 6 라운드</p>\n<p><strong>1단계</strong> @Damage[4d6[poison]] 피해 및 물리 및 힘 피해에 대한 약점 2</p>\n<p><strong>2단계</strong> @Damage[5d6[poison]] 피해 및 물리/힘 피해에 대한 약점 4</p>\n<p><strong>3단계</strong> @Damage[7d6[poison]] 물리 및 힘 피해에 대한 피해 및 약점 6</p>",
+  "description": "<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (조작)</p><hr /><p>이 투명하고 점성이 있는 액체는 빠르게 퍼지는 병변과 물집을 유발합니다. 피해자의 통증 반응이 증가하고 신체적 스트레스 하에서 살점이 쉽게 찢어집니다.</p>\n<p><strong>내성 굴림</strong> @Check[fortitude|dc:30]</p>\n<p><strong>최대 지속 시간</strong> 6 라운드</p>\n<p><strong>1단계</strong> @Damage[4d6[poison]] 피해 및 물리 및 역장 피해에 대한 약점 2</p>\n<p><strong>2단계</strong> @Damage[5d6[poison]] 피해 및 물리/역장 피해에 대한 약점 4</p>\n<p><strong>3단계</strong> @Damage[7d6[poison]] 물리 및 역장 피해에 대한 피해 및 약점 6</p>",
   "traits": [
    "alchemical",
    "consumable",
@@ -11318,7 +11318,7 @@
  },
  "rebounding-breastplate": {
   "name": "반동 갑옷",
-  "description": "<p>이 <em>+3 더 큰 탄력성 강화 갑옷</em>은 충격을 흡수하여 나중에 방출합니다. 이 갑옷을 착용하면 타격, 관통, 베기 피해에 대한 저항력 5와 힘 피해에 대한 저항력 10을 얻습니다. 적의 공격으로부터 갑옷이 막아낸 피해량을 기록해 두세요. 갑옷이 그 피해를 흡수하기 때문입니다.</p>\n<p>1분 후, 흡수된 피해는 무해하게 분산되어 0으로 초기화됩니다. 적이나 위험 요소가 가한 피해만 갑옷에 에너지를 공급하며, 자신, 아군, 환경으로부터 입은 피해는 해당되지 않습니다.</p>\n<hr />\n\n<p><strong>요구 사항</strong> 갑옷이 최소 30의 피해를 흡수했을 때</p>\n<p><strong>효과</strong> 흡수된 에너지가 갑옷에서 힘의 파동으로 폭발합니다. @Template[emanation|distance:30] 범위 내의 생물들은 @Damage[10d6[force]|options:area-damage] 피해를 입으며, @Check[fortitude|dc:43|basic|showDC:all|options:area-effect] 내성에 성공해야 합니다. 저항에 실패하면 당신으로부터 10피트 밀려나며, 대실패 시 20피트 밀려나고 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐}가 됩니다. 갑옷의 흡수된 피해량은 0으로 초기화됩니다.</p>",
+  "description": "<p>이 <em>+3 더 큰 탄력성 강화 갑옷</em>은 충격을 흡수하여 나중에 방출합니다. 이 갑옷을 착용하면 타격, 관통, 베기 피해에 대한 저항력 5와 역장 피해에 대한 저항력 10을 얻습니다. 적의 공격으로부터 갑옷이 막아낸 피해량을 기록해 두세요. 갑옷이 그 피해를 흡수하기 때문입니다.</p>\n<p>1분 후, 흡수된 피해는 무해하게 분산되어 0으로 초기화됩니다. 적이나 위험 요소가 가한 피해만 갑옷에 에너지를 공급하며, 자신, 아군, 환경으로부터 입은 피해는 해당되지 않습니다.</p>\n<hr />\n\n<p><strong>요구 사항</strong> 갑옷이 최소 30의 피해를 흡수했을 때</p>\n<p><strong>효과</strong> 흡수된 에너지가 갑옷에서 힘의 파동으로 폭발합니다. @Template[emanation|distance:30] 범위 내의 생물들은 @Damage[10d6[force]|options:area-damage] 피해를 입으며, @Check[fortitude|dc:43|basic|showDC:all|options:area-effect] 내성에 성공해야 합니다. 저항에 실패하면 당신으로부터 10피트 밀려나며, 대실패 시 20피트 밀려나고 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐}가 됩니다. 갑옷의 흡수된 피해량은 0으로 초기화됩니다.</p>",
   "traits": [
    "force",
    "invested",
@@ -12705,7 +12705,7 @@
  },
  "impactful": {
   "name": "충격",
-  "description": "<p>이 룬은 순수한 마법 에너지로 진동한다. 이 룬이 새겨진 무기는 공격 성공 시 추가로 1d6 힘 피해의 힘 피해를 입힌다. 치명타 시, 대상이 @Check[fortitude|dc:27|name:Resist Force Push|showDC:all] 내성에 대성공하지 못하면 당신으로부터 5피트 밀려나게 할 수 있다.</p>",
+  "description": "<p>이 룬은 순수한 마법 에너지로 진동한다. 이 룬이 새겨진 무기는 공격 성공 시 추가로 1d6 역장 피해의 역장 피해를 입힌다. 치명타 시, 대상이 @Check[fortitude|dc:27|name:Resist Force Push|showDC:all] 내성에 대성공하지 못하면 당신으로부터 5피트 밀려나게 할 수 있다.</p>",
   "traits": [
    "force",
    "magical",
@@ -14235,7 +14235,7 @@
  },
  "aether-marbles-lesser": {
   "name": "에테르 구슬 (하급)",
-  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 타격</p>\n<hr />\n<p>에테르 구슬은 보이지 않는 차원까지 부분적으로 뻗어 나가는 격렬하고 오래 지속되는 힘의 소용돌이를 생성합니다. 이 폭탄으로 명중 굴림에 +1 아이템 보너스를 얻습니다. 폭탄이 폭발하면 2d6의 힘 피해와 2의 힘 방사 피해를 입힙니다.</p>\n<p>파편이 닿는 지역의 표면은 힘의 소용돌이로 뒤틀려 있으며, 이는 비물질 생물에게는 어려운 지형이지만 물질 생물에게는 해당되지 않습니다. 한 칸에 있는 힘의 소용돌이는 비물질 생물이 그 칸에 들어간 후 사라집니다.</p>",
+  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 타격</p>\n<hr />\n<p>에테르 구슬은 보이지 않는 차원까지 부분적으로 뻗어 나가는 격렬하고 오래 지속되는 힘의 소용돌이를 생성합니다. 이 폭탄으로 명중 굴림에 +1 아이템 보너스를 얻습니다. 폭탄이 폭발하면 2d6의 역장 피해와 2의 힘 방사 피해를 입힙니다.</p>\n<p>파편이 닿는 지역의 표면은 힘의 소용돌이로 뒤틀려 있으며, 이는 비물질 생물에게는 어려운 지형이지만 물질 생물에게는 해당되지 않습니다. 한 칸에 있는 힘의 소용돌이는 비물질 생물이 그 칸에 들어간 후 사라집니다.</p>",
   "traits": [
    "bomb",
    "consumable",
@@ -15879,7 +15879,7 @@
  },
  "rhino-shot": {
   "name": "코뿔소 탄환",
-  "description": "<p><strong>탄약</strong> 모든</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p><hr /><p>이 화살은 광택 처리된 동물 뿔로 만들어졌으며, 전통적인 화살촉 대신 코뿔소 머리가 조각되어 있습니다. 활성화된 코뿔소 화살이 발사되면, 투사체 주위에 거대한 코뿔소의 영체가 모습을 드러냅니다. 공격에 성공하면, 공격은 추가로 2d6 힘 피해를 입히며, 대상은 @Check[fortitude|dc:19]에 성공하지 못하면 쓰러집니다. @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태가 된다. <em>코뿔소 탄환</em> 공격이 대성공일 경우, 대상은 내성에 대성공하지 못하면 반드시 엎드림 상태가 된다.</p>",
+  "description": "<p><strong>탄약</strong> 모든</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p><hr /><p>이 화살은 광택 처리된 동물 뿔로 만들어졌으며, 전통적인 화살촉 대신 코뿔소 머리가 조각되어 있습니다. 활성화된 코뿔소 화살이 발사되면, 투사체 주위에 거대한 코뿔소의 영체가 모습을 드러냅니다. 공격에 성공하면, 공격은 추가로 2d6 역장 피해를 입히며, 대상은 @Check[fortitude|dc:19]에 성공하지 못하면 쓰러집니다. @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태가 된다. <em>코뿔소 탄환</em> 공격이 대성공일 경우, 대상은 내성에 대성공하지 못하면 반드시 엎드림 상태가 된다.</p>",
   "traits": [
    "consumable",
    "magical"
@@ -18320,7 +18320,7 @@
  },
  "chimera-flail": {
   "name": "키메라 플레일",
-  "description": "<p>이 <em>+1 강타용 전쟁 플레일</em>의 세 개의 가시 달린 머리는 키메라의 머리를 닮도록 제작되었다. 생물의 뼈 조각이 각 머리의 금속과 융합되어 사슬 끝의 일반적인 추를 대체한다. 각 머리는 사용을 위해 축소 및 보존 처리되었다. 한 번에 하나의 머리만 장착할 수 있으며, 현재 장착된 머리의 능력만 사용할 수 있다. 나머지 두 개는 손잡이 끝에 매달려 있다. 머리 교체에는 상호작용 행동이 필요하다.</p><hr /><p><strong>용</strong> 이 머리는 일반적인 타격 피해 대신 관통 피해를 입히며, 키메라의 용 머리 마법 전통에 따라 추가로 1가지 피해 유형이 적용됩니다. (<strong>아케인</strong> 마법; <strong>신성</strong> 영혼; <strong>오컬트</strong> 정신; <strong>프라이멀</strong> 산성, 냉기, 전기, 화염, [sonic], 독 중 아이템 제작 시 선택)</p>\n<p><strong>활성화-폭발 호흡</strong> <span class=\"action-glyph\">1</span> (집중)</p>\n<p><strong>사용 빈도</strong> 10분에 한 번</p>\n<p><strong>요구 사항</strong> 마지막 행동이 성공적인 공격이었을 때</p>\n<p><strong>효과</strong> 당신은 용 머리의 잔여 에너지를 끌어내어 작은 숨결 폭발로 방출합니다. 이것은 대상이 차지하는 공간의 한 모서리를 중심으로 @Template[burst|distance:10] 반경 내에 드래곤의 추가 피해 유형으로 @Damage[2d6[untyped]]의 피해를 줍니다. 이것을 사용한 후, 용 머리 부착물은 추가 피해 유형을 잃습니다. 10분간 휴식을 취하면 머리를 재충전할 수 있습니다.</p><hr /><p><strong>사자</strong> 이 머리는 일반적인 타격 피해 대신 관통 피해를 입히며, 대상이 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태일 경우 정밀 피해 1을 추가로 입힙니다.</p>\n<p><strong>활성화-도약 회전</strong> <span class=\"action-glyph\">2</span> (집중)</p>\n<p><strong>발동 빈도</strong> 10분에 한 번</p>\n<p><strong>요구 사항</strong> 이번 턴에 공격을 하지 않았을 것</p>\n<p><strong>효과</strong> 당신은 사자의 포식자 같은 속도를 활용합니다. 자신의 이동 속도의 절반까지 스트라이드를 하고 대상에게 공격을 가합니다. 해당 생물이 아군의 도달 범위 내에 있다면, 아군이 일반적으로 측면 공격을 제공할 수 있는지 여부와 상관없이, 그 생물은 당신의 공격에 대해 무방비된 것으로 간주됩니다. 무방비가 무너진 생물에게 가하는 추가 정밀 피해가 1d4로 증가한다. 사용 후 사자 머리는 추가 정밀 피해를 잃는다. 10분간 휴식하여 머리를 재충전할 수 있다.</p><hr /><p><strong>염소</strong> 마지막 행동이 이동 속도의 절반 이상을 이동한 경우, 추가로 1d4 힘 피해를 입힙니다.</p>\n<p><strong>활성화-돌진하는 뿔</strong> <span class=\"action-glyph\">3</span> (집중)</p>\n<p><strong>발동 빈도</strong> 10분에 한 번</p>\n<p><strong>효과</strong> 돌진하는 뿔의 전력을 다해 망치를 휘둘러라. 도달 범위 내 최대 세 명의 적을 상대로 강타를 가한다. 첫 두 번의 공격은 현재 공격 보너스로, 세 번째는 일반 공격 페널티로 수행됩니다. 성공 시 대상은 추가로 1d6 힘 피해를 받고 5피트 밀려납니다. 치명타 시 10피트 밀려납니다. 사용 후 염소 머리는 추가 힘 피해를 잃습니다. 10분간 휴식을 취하면 머리를 재충전할 수 있다.</p><hr /><p><strong>제작 요건</strong> 초기 원재료에는 키메라의 세 머리 모두를 포함해야 한다.</p>",
+  "description": "<p>이 <em>+1 강타용 전쟁 플레일</em>의 세 개의 가시 달린 머리는 키메라의 머리를 닮도록 제작되었다. 생물의 뼈 조각이 각 머리의 금속과 융합되어 사슬 끝의 일반적인 추를 대체한다. 각 머리는 사용을 위해 축소 및 보존 처리되었다. 한 번에 하나의 머리만 장착할 수 있으며, 현재 장착된 머리의 능력만 사용할 수 있다. 나머지 두 개는 손잡이 끝에 매달려 있다. 머리 교체에는 상호작용 행동이 필요하다.</p><hr /><p><strong>용</strong> 이 머리는 일반적인 타격 피해 대신 관통 피해를 입히며, 키메라의 용 머리 마법 전통에 따라 추가로 1가지 피해 유형이 적용됩니다. (<strong>아케인</strong> 마법; <strong>신성</strong> 영혼; <strong>오컬트</strong> 정신; <strong>프라이멀</strong> 산성, 냉기, 전기, 화염, [sonic], 독 중 아이템 제작 시 선택)</p>\n<p><strong>활성화-폭발 호흡</strong> <span class=\"action-glyph\">1</span> (집중)</p>\n<p><strong>사용 빈도</strong> 10분에 한 번</p>\n<p><strong>요구 사항</strong> 마지막 행동이 성공적인 공격이었을 때</p>\n<p><strong>효과</strong> 당신은 용 머리의 잔여 에너지를 끌어내어 작은 숨결 폭발로 방출합니다. 이것은 대상이 차지하는 공간의 한 모서리를 중심으로 @Template[burst|distance:10] 반경 내에 드래곤의 추가 피해 유형으로 @Damage[2d6[untyped]]의 피해를 줍니다. 이것을 사용한 후, 용 머리 부착물은 추가 피해 유형을 잃습니다. 10분간 휴식을 취하면 머리를 재충전할 수 있습니다.</p><hr /><p><strong>사자</strong> 이 머리는 일반적인 타격 피해 대신 관통 피해를 입히며, 대상이 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태일 경우 정밀 피해 1을 추가로 입힙니다.</p>\n<p><strong>활성화-도약 회전</strong> <span class=\"action-glyph\">2</span> (집중)</p>\n<p><strong>발동 빈도</strong> 10분에 한 번</p>\n<p><strong>요구 사항</strong> 이번 턴에 공격을 하지 않았을 것</p>\n<p><strong>효과</strong> 당신은 사자의 포식자 같은 속도를 활용합니다. 자신의 이동 속도의 절반까지 스트라이드를 하고 대상에게 공격을 가합니다. 해당 생물이 아군의 도달 범위 내에 있다면, 아군이 일반적으로 측면 공격을 제공할 수 있는지 여부와 상관없이, 그 생물은 당신의 공격에 대해 무방비된 것으로 간주됩니다. 무방비가 무너진 생물에게 가하는 추가 정밀 피해가 1d4로 증가한다. 사용 후 사자 머리는 추가 정밀 피해를 잃는다. 10분간 휴식하여 머리를 재충전할 수 있다.</p><hr /><p><strong>염소</strong> 마지막 행동이 이동 속도의 절반 이상을 이동한 경우, 추가로 1d4 역장 피해를 입힙니다.</p>\n<p><strong>활성화-돌진하는 뿔</strong> <span class=\"action-glyph\">3</span> (집중)</p>\n<p><strong>발동 빈도</strong> 10분에 한 번</p>\n<p><strong>효과</strong> 돌진하는 뿔의 전력을 다해 망치를 휘둘러라. 도달 범위 내 최대 세 명의 적을 상대로 강타를 가한다. 첫 두 번의 공격은 현재 공격 보너스로, 세 번째는 일반 공격 페널티로 수행됩니다. 성공 시 대상은 추가로 1d6 역장 피해를 받고 5피트 밀려납니다. 치명타 시 10피트 밀려납니다. 사용 후 염소 머리는 추가 역장 피해를 잃습니다. 10분간 휴식을 취하면 머리를 재충전할 수 있다.</p><hr /><p><strong>제작 요건</strong> 초기 원재료에는 키메라의 세 머리 모두를 포함해야 한다.</p>",
   "traits": [
    "disarm",
    "magical",
@@ -19283,7 +19283,7 @@
  },
  "shield-of-the-unified-legion": {
   "name": "통합 군단의 방패",
-  "description": "<p>이 고급 오리칼쿰 방패(경도 16, HP 64, BT 32)에는 제거할 수 없는 +3 강타 (상급) 방패 보스가 장착되어 있습니다.</p>\n<p>어떤 빛 아래서도 눈부시게 반짝여 항상 주의를 끈다.</p>\n<p>이 방패를 들어 올리면, 30피트 내의 모든 아군 앞에 이 방패의 덧없는 반사상이 나타나며, 그들이 당신으로부터 30피트 이내에 있고 방패가 들어 올려져 있는 동안 AC에 +2 상황 보너스를 부여합니다. @UUID[Compendium.pf2e.equipment-effects.Item.ah41XCrV4LFsVyzl]{효과: 통합 군단의 방패}</p>\n<hr />\n<p><strong>활성화</strong> (2 행동) 상호작용 (강제)</p>\n<p><strong>발동 빈도</strong> 분당 1회</p>\n<hr />\n<p><strong>효과</strong> 방패를 들어 앞으로 내밀면, 방패의 덧없는 반사들이 당신을 둘러싼 후 @Template[line|distance:90] 또는 @Template[cone|distance:60] 방향(선택)으로 바깥쪽으로 돌진합니다.</p>\n<p>해당 영역 내의 각 적에게 방패 강타 공격을 가합니다. 단, 입히는 피해는 힘 피해입니다. 명중한 각 대상은 당신으로부터 10피트 떨어진 곳으로 이동합니다(치명타를 입힌 대상은 넘어집니다). 이는 강제 이동입니다. 이 방패 강타는 다중 공격 페널티에 포함되지만, 페널티는 이 모든 공격을 완료한 후에야 증가합니다.</p>",
+  "description": "<p>이 고급 오리칼쿰 방패(경도 16, HP 64, BT 32)에는 제거할 수 없는 +3 강타 (상급) 방패 보스가 장착되어 있습니다.</p>\n<p>어떤 빛 아래서도 눈부시게 반짝여 항상 주의를 끈다.</p>\n<p>이 방패를 들어 올리면, 30피트 내의 모든 아군 앞에 이 방패의 덧없는 반사상이 나타나며, 그들이 당신으로부터 30피트 이내에 있고 방패가 들어 올려져 있는 동안 AC에 +2 상황 보너스를 부여합니다. @UUID[Compendium.pf2e.equipment-effects.Item.ah41XCrV4LFsVyzl]{효과: 통합 군단의 방패}</p>\n<hr />\n<p><strong>활성화</strong> (2 행동) 상호작용 (강제)</p>\n<p><strong>발동 빈도</strong> 분당 1회</p>\n<hr />\n<p><strong>효과</strong> 방패를 들어 앞으로 내밀면, 방패의 덧없는 반사들이 당신을 둘러싼 후 @Template[line|distance:90] 또는 @Template[cone|distance:60] 방향(선택)으로 바깥쪽으로 돌진합니다.</p>\n<p>해당 영역 내의 각 적에게 방패 강타 공격을 가합니다. 단, 입히는 피해는 역장 피해입니다. 명중한 각 대상은 당신으로부터 10피트 떨어진 곳으로 이동합니다(치명타를 입힌 대상은 넘어집니다). 이는 강제 이동입니다. 이 방패 강타는 다중 공격 페널티에 포함되지만, 페널티는 이 모든 공격을 완료한 후에야 증가합니다.</p>",
   "traits": [
    "magical"
   ]
@@ -25548,7 +25548,7 @@
  },
  "retaliation-major": {
   "name": "보복 (상급)",
-  "description": "<p>보복 룬이 새겨진 방패는 무기의 충격을 이용해 폭발적인 힘의 파동을 생성하여 적을 반격한다.</p>\n\n<p><strong>빈도</strong> 시간당 한 번</p>\n<p><strong>트리거</strong> 근접 공격을 방패로 막음</p>\n<hr />\n<p><strong>효과</strong> 당신은 발동 공격을 가한 생물에게 힘 피해를 가합니다. 이 공격은 @Damage[16d4[force]](@Check[reflex|dc:41|basic])의 피해를 입힙니다.</p>",
+  "description": "<p>보복 룬이 새겨진 방패는 무기의 충격을 이용해 폭발적인 힘의 파동을 생성하여 적을 반격한다.</p>\n\n<p><strong>빈도</strong> 시간당 한 번</p>\n<p><strong>트리거</strong> 근접 공격을 방패로 막음</p>\n<hr />\n<p><strong>효과</strong> 당신은 발동 공격을 가한 생물에게 역장 피해를 가합니다. 이 공격은 @Damage[16d4[force]](@Check[reflex|dc:41|basic])의 피해를 입힙니다.</p>",
   "traits": [
    "magical",
    "룬"
@@ -29868,7 +29868,7 @@
  },
  "scope-of-limning": {
   "name": "리밍의 범위",
-  "description": "<p>동군 홀드의 드워프 총기 제작자들이 지하 지역의 해충을 제거하기 위해 이 조준경을 처음 개발했습니다. 이 조준경은 화기로 맞은 생물체에서 반사되는 소리를 포착하여 빛으로 변환함으로써, 모든 이가 목표물을 볼 수 있도록 밝힙니다.</p>\n<p><strong>활성화-윤곽 표시</strong> <span class=\"action-glyph\">1</span> (청각, 빛, 조작)</p><hr /><p><strong>효과</strong> 조준경이 장착된 무기로 다음에 강타하는 공격이 생물에게 명중하면, 충격음이 빛으로 변환되어 해당 생물이 다음 차례가 끝날 때까지 빛을 발하게 합니다. 빛을 발하는 동안 가시적인 생물은 @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 상태가 될 수 없습니다. 생물이 @UUID[Compendium.pf2e.conditionitems.Item.zJxUflt9np0q4yML]{투명} 상태라면, 빛나는 동안 {가려진} 상태가 되며 탐지되지 않은 상태가 아닙니다. 이 효과는 확실한 충격을 필요로 하므로, 탄환이 힘 피해를 입히거나 고스트 터치 속성 룬의 효과를 가지지 않는 한 비물질 생물에게는 영향을 미치지 않습니다.</p>",
+  "description": "<p>동군 홀드의 드워프 총기 제작자들이 지하 지역의 해충을 제거하기 위해 이 조준경을 처음 개발했습니다. 이 조준경은 화기로 맞은 생물체에서 반사되는 소리를 포착하여 빛으로 변환함으로써, 모든 이가 목표물을 볼 수 있도록 밝힙니다.</p>\n<p><strong>활성화-윤곽 표시</strong> <span class=\"action-glyph\">1</span> (청각, 빛, 조작)</p><hr /><p><strong>효과</strong> 조준경이 장착된 무기로 다음에 강타하는 공격이 생물에게 명중하면, 충격음이 빛으로 변환되어 해당 생물이 다음 차례가 끝날 때까지 빛을 발하게 합니다. 빛을 발하는 동안 가시적인 생물은 @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 상태가 될 수 없습니다. 생물이 @UUID[Compendium.pf2e.conditionitems.Item.zJxUflt9np0q4yML]{투명} 상태라면, 빛나는 동안 {가려진} 상태가 되며 탐지되지 않은 상태가 아닙니다. 이 효과는 확실한 충격을 필요로 하므로, 탄환이 역장 피해를 입히거나 고스트 터치 속성 룬의 효과를 가지지 않는 한 비물질 생물에게는 영향을 미치지 않습니다.</p>",
   "traits": [
    "magical"
   ]
@@ -31948,7 +31948,7 @@
  },
  "chain-of-stars": {
   "name": "별의 사슬",
-  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">f</span> (집중)</p>\n<p><strong>발동</strong> 부착된 무기로 생물을 공격했다.</p><hr /><p>이 섬세한 던실버 사슬은 작은 수리검으로 장식되어 있으며, 부착된 무기의 손잡이에 단단히 감겨 있습니다. 사슬을 활성화하면 마법적 힘으로 만들어진 세 개의 <em>+1 강타 수리검</em>이 대상의 공간에 나타나 다른 생물을 공격하기 위해 흩어집니다. 최대 세 번의 수리검 공격을 시도할 수 있으며, 각 공격은 서로 다른 생물을 대상으로 해야 하며, 이 부적을 발동시킨 생물을 대상으로 할 수 없다. 이 공격들은 당신의 공격 수정자를 사용하지만, 타격받은 생물의 공간에서 발동된다. 이 공격들은 다중 공격 페널티에 포함되지만, 페널티는 세 번의 공격이 모두 완료된 후에야 증가한다. 수리검은 일반적인 유형 대신 힘 피해를 입히며, 각 수리검은 공격 후 사라진다.</p>",
+  "description": "<p><strong>활성화</strong> <span class=\"action-glyph\">f</span> (집중)</p>\n<p><strong>발동</strong> 부착된 무기로 생물을 공격했다.</p><hr /><p>이 섬세한 던실버 사슬은 작은 수리검으로 장식되어 있으며, 부착된 무기의 손잡이에 단단히 감겨 있습니다. 사슬을 활성화하면 마법적 힘으로 만들어진 세 개의 <em>+1 강타 수리검</em>이 대상의 공간에 나타나 다른 생물을 공격하기 위해 흩어집니다. 최대 세 번의 수리검 공격을 시도할 수 있으며, 각 공격은 서로 다른 생물을 대상으로 해야 하며, 이 부적을 발동시킨 생물을 대상으로 할 수 없다. 이 공격들은 당신의 공격 수정자를 사용하지만, 타격받은 생물의 공간에서 발동된다. 이 공격들은 다중 공격 페널티에 포함되지만, 페널티는 세 번의 공격이 모두 완료된 후에야 증가한다. 수리검은 일반적인 유형 대신 역장 피해를 입히며, 각 수리검은 공격 후 사라진다.</p>",
   "traits": [
    "consumable",
    "force",
@@ -37938,7 +37938,7 @@
  },
  "ring-of-the-ram-greater": {
   "name": "뿔의 반지 (중급)",
-  "description": "<p>이 무거운 철제 고리는 곱슬거리는 뿔을 가진 숫양의 머리 모양으로 제작되었습니다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">A</span> 이상 (상호작용)</p>\n<p><strong>빈도</strong> 분당 1회</p>\n<hr />\n<p><strong>효과</strong> 60피트 내 시야에 있는 적 한 명을 향해 뿔 모양의 충격파가 내리꽂힌다. 이 아이템을 활성화하는 데 소모하는 행동 수(1~3)에 따라 충격파의 강도가 결정된다.</p>\n<p>이 타격은 사용한 행동당 3d6 힘 피해를 입히고, 사용한 행동당 5피트씩 대상을 밀쳐낸다. 대상은 @Check[fortitude|dc:32|name:Greater Ring of the Ram] 내성을 시도해야 한다.</p>\n<p>반지를 3회 행동으로 활성화할 경우, 60피트 내 단일 대상 대신 @Template[cone|distance:30] 내 모든 생물을 대상으로 하는 다수의 마법 돌격으로 힘을 분산시킬 수 있습니다.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[3d6[force]] 피해</p>\n<p><span class=\"action-glyph\">2</span> @Damage[6d6[force]] 피해</p>\n<p><span class=\"action-glyph\">3</span> @Damage[9d6[force]] 피해</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 절반의 피해를 입으며 절반의 거리만큼 밀려납니다.</p>\n<p><strong>실패</strong> 대상은 전체 피해를 입으며 전체 거리만큼 밀려납니다.</p>\n<p><strong>대실패</strong> 대상은 두 배의 피해를 입으며 두 배의 거리만큼 밀려난다.</p>",
+  "description": "<p>이 무거운 철제 고리는 곱슬거리는 뿔을 가진 숫양의 머리 모양으로 제작되었습니다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">A</span> 이상 (상호작용)</p>\n<p><strong>빈도</strong> 분당 1회</p>\n<hr />\n<p><strong>효과</strong> 60피트 내 시야에 있는 적 한 명을 향해 뿔 모양의 충격파가 내리꽂힌다. 이 아이템을 활성화하는 데 소모하는 행동 수(1~3)에 따라 충격파의 강도가 결정된다.</p>\n<p>이 타격은 사용한 행동당 3d6 역장 피해를 입히고, 사용한 행동당 5피트씩 대상을 밀쳐낸다. 대상은 @Check[fortitude|dc:32|name:Greater Ring of the Ram] 내성을 시도해야 한다.</p>\n<p>반지를 3회 행동으로 활성화할 경우, 60피트 내 단일 대상 대신 @Template[cone|distance:30] 내 모든 생물을 대상으로 하는 다수의 마법 돌격으로 힘을 분산시킬 수 있습니다.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[3d6[force]] 피해</p>\n<p><span class=\"action-glyph\">2</span> @Damage[6d6[force]] 피해</p>\n<p><span class=\"action-glyph\">3</span> @Damage[9d6[force]] 피해</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 절반의 피해를 입으며 절반의 거리만큼 밀려납니다.</p>\n<p><strong>실패</strong> 대상은 전체 피해를 입으며 전체 거리만큼 밀려납니다.</p>\n<p><strong>대실패</strong> 대상은 두 배의 피해를 입으며 두 배의 거리만큼 밀려난다.</p>",
   "traits": [
    "force",
    "invested",
@@ -38734,7 +38734,7 @@
  },
  "retaliation-greater": {
   "name": "보복 (중급)",
-  "description": "<p>보복 룬이 새겨진 방패는 무기의 충격을 이용해 폭발적인 힘을 생성하여 적을 반격합니다.</p>\n\n<p><strong>발동 빈도</strong> 시간당 1회</p>\n<p><strong>발동</strong> 근접 공격을 방패로 막음</p>\n<hr />\n<p><strong>효과</strong> 당신은 발동 공격을 가한 생물에게 힘 피해를 가합니다. 이 공격은 @Damage[12d4[force]](@Check[reflex|dc:31|basic])의 피해를 줍니다.</p>",
+  "description": "<p>보복 룬이 새겨진 방패는 무기의 충격을 이용해 폭발적인 힘을 생성하여 적을 반격합니다.</p>\n\n<p><strong>발동 빈도</strong> 시간당 1회</p>\n<p><strong>발동</strong> 근접 공격을 방패로 막음</p>\n<hr />\n<p><strong>효과</strong> 당신은 발동 공격을 가한 생물에게 역장 피해를 가합니다. 이 공격은 @Damage[12d4[force]](@Check[reflex|dc:31|basic])의 피해를 줍니다.</p>",
   "traits": [
    "magical",
    "룬"
@@ -40279,7 +40279,7 @@
  },
  "impactful-greater": {
   "name": "충격 (중급)",
-  "description": "<p>이 룬은 순수한 마법 에너지로 진동한다. 이 룬이 새겨진 무기는 공격에 성공할 경우 추가로 1d6의 힘 피해를 입힌다. 치명타 시, 당신은 대상이 @Check[fortitude|dc:37|name:Resist Force Push|showDC:all] 내성에 성공하거나 당신으로부터 10피트 밀려나게 할 수 있다.</p>",
+  "description": "<p>이 룬은 순수한 마법 에너지로 진동한다. 이 룬이 새겨진 무기는 공격에 성공할 경우 추가로 1d6의 역장 피해를 입힌다. 치명타 시, 당신은 대상이 @Check[fortitude|dc:37|name:Resist Force Push|showDC:all] 내성에 성공하거나 당신으로부터 10피트 밀려나게 할 수 있다.</p>",
   "traits": [
    "force",
    "magical",
@@ -40594,7 +40594,7 @@
  },
  "ring-of-the-ram": {
   "name": "숫양의 반지",
-  "description": "<p>이 무거운 철제 반지는 굽은 뿔을 가진 숫양의 머리 모양으로 제작되었습니다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">A</span> 이상 (상호작용)</p>\n<p><strong>빈도</strong> 분당 1회</p>\n<hr />\n<p><strong>효과</strong> 60피트 이내에 있는 당신이 볼 수 있는 한 명의 적을 향해 뿔 모양의 충격파가 강타합니다. 이 아이템을 활성화하는 데 소모하는 행동 수(1~3)에 따라 충격파의 강도가 결정됩니다.</p>\n<p>이 타격은 사용한 행동당 2d6의 힘 피해를 입히고, 사용한 행동당 5피트씩 대상을 밀쳐냅니다. 대상은 @Check[fortitude|dc:22] 내성을 시도해야 합니다.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[2d6[force]] 피해</p>\n<p><span class=\"action-glyph\">2</span> @Damage[4d6[force]] 피해</p>\n<p><span class=\"action-glyph\">3</span> @Damage[6d6[force]] 피해</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 절반의 피해를 입으며 절반의 거리만큼 밀려납니다.</p>\n<p><strong>실패</strong> 대상은 전체 피해를 입으며 전체 거리만큼 밀려납니다.</p>\n<p><strong>대실패</strong> 대상은 두 배의 피해를 입으며 두 배의 거리만큼 밀려난다.</p>",
+  "description": "<p>이 무거운 철제 반지는 굽은 뿔을 가진 숫양의 머리 모양으로 제작되었습니다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">A</span> 이상 (상호작용)</p>\n<p><strong>빈도</strong> 분당 1회</p>\n<hr />\n<p><strong>효과</strong> 60피트 이내에 있는 당신이 볼 수 있는 한 명의 적을 향해 뿔 모양의 충격파가 강타합니다. 이 아이템을 활성화하는 데 소모하는 행동 수(1~3)에 따라 충격파의 강도가 결정됩니다.</p>\n<p>이 타격은 사용한 행동당 2d6의 역장 피해를 입히고, 사용한 행동당 5피트씩 대상을 밀쳐냅니다. 대상은 @Check[fortitude|dc:22] 내성을 시도해야 합니다.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[2d6[force]] 피해</p>\n<p><span class=\"action-glyph\">2</span> @Damage[4d6[force]] 피해</p>\n<p><span class=\"action-glyph\">3</span> @Damage[6d6[force]] 피해</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 절반의 피해를 입으며 절반의 거리만큼 밀려납니다.</p>\n<p><strong>실패</strong> 대상은 전체 피해를 입으며 전체 거리만큼 밀려납니다.</p>\n<p><strong>대실패</strong> 대상은 두 배의 피해를 입으며 두 배의 거리만큼 밀려난다.</p>",
   "traits": [
    "force",
    "invested",
@@ -41034,7 +41034,7 @@
  },
  "retaliation-lesser": {
   "name": "보복 (하급)",
-  "description": "<p>보복 룬이 새겨진 방패는 무기의 충격을 이용해 폭발적인 힘의 파동을 생성하여 적을 반격한다.</p>\n\n<p><strong>발동 빈도</strong> 시간당 1회</p>\n<p><strong>트리거</strong> 근접 공격을 방패로 막음</p>\n<hr />\n<p><strong>효과</strong> 당신은 발동 공격을 가한 생물에게 힘 피해를 가합니다. 이 공격은 @Damage[4d4[force]](@Check[reflex|dc:20|basic])의 피해를 입힙니다.</p>",
+  "description": "<p>보복 룬이 새겨진 방패는 무기의 충격을 이용해 폭발적인 힘의 파동을 생성하여 적을 반격한다.</p>\n\n<p><strong>발동 빈도</strong> 시간당 1회</p>\n<p><strong>트리거</strong> 근접 공격을 방패로 막음</p>\n<hr />\n<p><strong>효과</strong> 당신은 발동 공격을 가한 생물에게 역장 피해를 가합니다. 이 공격은 @Damage[4d4[force]](@Check[reflex|dc:20|basic])의 피해를 입힙니다.</p>",
   "traits": [
    "magical",
    "룬"
@@ -42279,7 +42279,7 @@
  },
  "horned-hand-rests-greater": {
   "name": "뿔 달린 팔걸이 (중급)",
-  "description": "<p>두꺼운 황소나 숫양 뿔이 다리 의자 동반자의 팔걸이에 융합되어 더 공격적인 옵션을 제공합니다. 이 아이템은 다리 의자 동반자와만 동물 동료가 장착할 수 있습니다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 또는 <span class=\"action-glyph\">2</span> 구상</p>\n<p><strong>빈도</strong> 분당 1회</p>\n<hr />\n<p><strong>효과</strong> 당신은 숫양 뿔의 밑동을 따라 손가락을 훑으며, 사용한 행동 횟수에 따라 효과가 달라집니다.</p>\n<p><span class=\"action-glyph\">1</span> 다리 의자가 운동량에서 힘을 끌어낸다. 이번 턴이 끝날 때까지, 다리 의자가 이동할 경우 다음 공격 시 3d6의 추가 힘 피해를 입히고, 대성공 시 대상물을 10피트 밀어낸다.</p>\n<p><span class=\"action-glyph\">2</span> 당신의 레그체어가 뿔에서 힘의 광선을 발사합니다. 대상은 @Damage[6d6[force]]의 피해를 입으며 @Check[fortitude|dc:32] 내성을 시도하다 실패할 수 있습니다.</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 절반의 피해를 입으며 5피트 밀려납니다.</p>\n<p><strong>실패</strong> 대상은 전체 피해를 입으며 10피트 밀려난다.</p>\n<p><strong>대실패</strong> 대상은 두 배의 피해를 입으며 20피트 밀려난다.</p>",
+  "description": "<p>두꺼운 황소나 숫양 뿔이 다리 의자 동반자의 팔걸이에 융합되어 더 공격적인 옵션을 제공합니다. 이 아이템은 다리 의자 동반자와만 동물 동료가 장착할 수 있습니다.</p>\n<p><strong>활성화</strong> <span class=\"action-glyph\">1</span> 또는 <span class=\"action-glyph\">2</span> 구상</p>\n<p><strong>빈도</strong> 분당 1회</p>\n<hr />\n<p><strong>효과</strong> 당신은 숫양 뿔의 밑동을 따라 손가락을 훑으며, 사용한 행동 횟수에 따라 효과가 달라집니다.</p>\n<p><span class=\"action-glyph\">1</span> 다리 의자가 운동량에서 힘을 끌어낸다. 이번 턴이 끝날 때까지, 다리 의자가 이동할 경우 다음 공격 시 3d6의 추가 역장 피해를 입히고, 대성공 시 대상물을 10피트 밀어낸다.</p>\n<p><span class=\"action-glyph\">2</span> 당신의 레그체어가 뿔에서 힘의 광선을 발사합니다. 대상은 @Damage[6d6[force]]의 피해를 입으며 @Check[fortitude|dc:32] 내성을 시도하다 실패할 수 있습니다.</p>\n<hr />\n<p><strong>대성공</strong> 대상은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 절반의 피해를 입으며 5피트 밀려납니다.</p>\n<p><strong>실패</strong> 대상은 전체 피해를 입으며 10피트 밀려난다.</p>\n<p><strong>대실패</strong> 대상은 두 배의 피해를 입으며 20피트 밀려난다.</p>",
   "traits": [
    "companion",
    "invested",
@@ -43135,7 +43135,7 @@
  },
  "retaliation-moderate": {
   "name": "보복 (보통)",
-  "description": "<p>보복 룬이 새겨진 방패는 무기의 충격을 이용해 폭발적인 힘의 파동을 생성하여 적을 반격한다.</p>\n\n<p><strong>발동 빈도</strong> 시간당 1회</p>\n<p><strong>트리거</strong> 근접 공격을 방패로 막음</p>\n<hr />\n<p><strong>효과</strong> 당신은 발동 공격을 가한 생물에게 힘 피해를 가한다. 이 공격은 @Damage[8d4[force]](@Check[reflex|dc:27|basic])의 피해를 입힌다.</p>",
+  "description": "<p>보복 룬이 새겨진 방패는 무기의 충격을 이용해 폭발적인 힘의 파동을 생성하여 적을 반격한다.</p>\n\n<p><strong>발동 빈도</strong> 시간당 1회</p>\n<p><strong>트리거</strong> 근접 공격을 방패로 막음</p>\n<hr />\n<p><strong>효과</strong> 당신은 발동 공격을 가한 생물에게 역장 피해를 가한다. 이 공격은 @Damage[8d4[force]](@Check[reflex|dc:27|basic])의 피해를 입힌다.</p>",
   "traits": [
    "magical",
    "룬"
@@ -43154,7 +43154,7 @@
  },
  "jistkan-colossus-crusher": {
   "name": "지스트칸 거대 분쇄기",
-  "description": "<p>이 <em>+2 강타 (중급) 마울</em>은 수천 년 전 지스트카 제국의 마법사들이 창조주에게 반기를 들 수 있는 제국의 수많은 마법 구조물과 자동 기계들을 무력화하기 위해 특별히 설계한 마법과 기계 공학의 걸작이다. 지스트카 거대 파괴자의 공격으로 구조체에 피해를 입힐 경우, 추가로 1d6 지속적 힘 피해를 입힙니다. 또한 이 무기로 구조물에 치명타를 입힐 때마다, 지스트칸 거대 분쇄기는 구조물을 움직이게 하는 마법 에너지 신호를 일시적으로 방해합니다. 구조물은 @Check[fortitude|dc:35] 내성에 성공하지 못하면 @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{기절 1} 상태가 됩니다.</p>",
+  "description": "<p>이 <em>+2 강타 (중급) 마울</em>은 수천 년 전 지스트카 제국의 마법사들이 창조주에게 반기를 들 수 있는 제국의 수많은 마법 구조물과 자동 기계들을 무력화하기 위해 특별히 설계한 마법과 기계 공학의 걸작이다. 지스트카 거대 파괴자의 공격으로 구조체에 피해를 입힐 경우, 추가로 1d6 지속적 역장 피해를 입힙니다. 또한 이 무기로 구조물에 치명타를 입힐 때마다, 지스트칸 거대 분쇄기는 구조물을 움직이게 하는 마법 에너지 신호를 일시적으로 방해합니다. 구조물은 @Check[fortitude|dc:35] 내성에 성공하지 못하면 @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{기절 1} 상태가 됩니다.</p>",
   "traits": [
    "magical",
    "shove"
@@ -43246,7 +43246,7 @@
  },
  "silhouette-cloak": {
   "name": "실루엣 망토",
-  "description": "<p>밝은 빛 아래에서 이 어두운 망토는 천이 움직이지 않아도 색깔이 변하며 흔들리는 듯한 빛을 냅니다. 어둠이나 희미한 빛 속에서는 망토가 주변 환경과 어우러져 스텔스 체크 시 +3 아이템 보너스를 부여합니다.</p>\n<hr />\n<p><strong>활성화</strong> 상호작용 (1분)</p>\n<hr />\n<p><strong>효과</strong> 당신과 착용하거나 휴대하는 물체는 당신의 그림자 속으로 들어가 2차원 실루엣이 됩니다. 이 형태에서는 비물질적이지 않지만, 동시에 고체 형태도 아니며 공간을 차지하지 않아 다른 생물들이 그곳을 통과하거나 턴을 종료할 수 있습니다. 당신은 힘 피해, 빛 속성 효과 피해, 고스트 터치 속성 룬이 부여된 공격 피해 외 모든 피해에 대해 저항력 20을 얻습니다. 비마법 피해에 대해서는 저항력 40으로 증가합니다. 다른 생물은 당신을 상대로 힘 기반 기술 체크를 시도할 수 없습니다.</p>\n<p>지상 이동 속도와 등반 속도가 모두 40피트가 됩니다. 부여된 속도를 사용한 등반, 발걸음, 이동, 큰걸음 행동 또는 상호작용 발동으로만 정상 형태로 돌아갈 수 있습니다. 현재 위치에 정상 형태로 돌아갈 충분한 공간이 없을 경우, 가장 가까운 빈 공간에서 정상 형태로 복귀합니다.</p>\n<hr />\n\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>트리거</strong> 피해를 입을 때</p>\n<hr />\n<p><strong>효과</strong> 망토를 몸에 두르고 잠시 그림자 속으로 사라져, 현재 생물의 턴이 끝날 때까지 첫 번째 발동 시의 효과를 얻습니다. 피해 저항은 발동 시 입은 피해에 적용됩니다.</p>",
+  "description": "<p>밝은 빛 아래에서 이 어두운 망토는 천이 움직이지 않아도 색깔이 변하며 흔들리는 듯한 빛을 냅니다. 어둠이나 희미한 빛 속에서는 망토가 주변 환경과 어우러져 스텔스 체크 시 +3 아이템 보너스를 부여합니다.</p>\n<hr />\n<p><strong>활성화</strong> 상호작용 (1분)</p>\n<hr />\n<p><strong>효과</strong> 당신과 착용하거나 휴대하는 물체는 당신의 그림자 속으로 들어가 2차원 실루엣이 됩니다. 이 형태에서는 비물질적이지 않지만, 동시에 고체 형태도 아니며 공간을 차지하지 않아 다른 생물들이 그곳을 통과하거나 턴을 종료할 수 있습니다. 당신은 역장 피해, 빛 속성 효과 피해, 고스트 터치 속성 룬이 부여된 공격 피해 외 모든 피해에 대해 저항력 20을 얻습니다. 비마법 피해에 대해서는 저항력 40으로 증가합니다. 다른 생물은 당신을 상대로 힘 기반 기술 체크를 시도할 수 없습니다.</p>\n<p>지상 이동 속도와 등반 속도가 모두 40피트가 됩니다. 부여된 속도를 사용한 등반, 발걸음, 이동, 큰걸음 행동 또는 상호작용 발동으로만 정상 형태로 돌아갈 수 있습니다. 현재 위치에 정상 형태로 돌아갈 충분한 공간이 없을 경우, 가장 가까운 빈 공간에서 정상 형태로 복귀합니다.</p>\n<hr />\n\n<p><strong>사용 빈도</strong> 하루에 한 번</p>\n<p><strong>트리거</strong> 피해를 입을 때</p>\n<hr />\n<p><strong>효과</strong> 망토를 몸에 두르고 잠시 그림자 속으로 사라져, 현재 생물의 턴이 끝날 때까지 첫 번째 발동 시의 효과를 얻습니다. 피해 저항은 발동 시 입은 피해에 적용됩니다.</p>",
   "traits": [
    "invested",
    "magical"
@@ -44884,7 +44884,7 @@
  },
  "ghosthands-comet": {
   "name": "고스트핸드의 혜성",
-  "description": "<p>이 장총의 총열은 부분적으로 반투명하여 금속 표면에 소용돌이 무늬를 이루고 있으며, 총구는 진홍색 나무로 만들어졌다. <em>고스트핸드의 혜성</em>은 사정거리 증가 300피트의 <em>+4 강타 (상급) 야수 퇴치 강화 충격 고급 화기</em>이다. 5d8 힘 피해를 입히며, 백스태버, 충격, 반동, 치명적 d12 특성을 지녔다. 스타 건인 고스트핸드의 혜성은 마법으로 작동하며 탄약이나 흑색 화약을 사용하지 않는다. 발사 시 소리가 나지 않는다.</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">F</span> (집중)</p>\n<p><strong>발동</strong> 당신은 <em>유령의 손의 혜성</em></p>로 원거리 공격을 시도합니다.\n<p><strong>Effect</strong> 발동되는 타격 시, <em>고스트핸드의 혜성</em>의 피해 유형이 산성, 냉기, 전기, 화염, [sonic] 중 선택한 것으로 변경됩니다.</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (집중)</p>\n<p><strong>효과</strong> 다음에 <em>유령의 손의 혜성</em>으로 원거리 공격을 시도할 때, 그 공격은 경로상의 모든 물질적 또는 마법적 장애물(예: 힘의 벽)을 통과하며 모든 엄폐를 무시합니다. 이 효과는 자신의 턴이 끝날 때까지 공격을 시도해야만 유지됩니다.</p><hr /><p><strong>파괴</strong> 사신이 <em>고스트핸드의 혜성</em>의 소유자를 살해할 경우, 사신의 낫은 치명타를 강타하는 순간 그 별총을 반으로 갈라버릴 운명이다.</p>",
+  "description": "<p>이 장총의 총열은 부분적으로 반투명하여 금속 표면에 소용돌이 무늬를 이루고 있으며, 총구는 진홍색 나무로 만들어졌다. <em>고스트핸드의 혜성</em>은 사정거리 증가 300피트의 <em>+4 강타 (상급) 야수 퇴치 강화 충격 고급 화기</em>이다. 5d8 역장 피해를 입히며, 백스태버, 충격, 반동, 치명적 d12 특성을 지녔다. 스타 건인 고스트핸드의 혜성은 마법으로 작동하며 탄약이나 흑색 화약을 사용하지 않는다. 발사 시 소리가 나지 않는다.</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">F</span> (집중)</p>\n<p><strong>발동</strong> 당신은 <em>유령의 손의 혜성</em></p>로 원거리 공격을 시도합니다.\n<p><strong>Effect</strong> 발동되는 타격 시, <em>고스트핸드의 혜성</em>의 피해 유형이 산성, 냉기, 전기, 화염, [sonic] 중 선택한 것으로 변경됩니다.</p><hr /><p><strong>활성화</strong> <span class=\"action-glyph\">1</span> (집중)</p>\n<p><strong>효과</strong> 다음에 <em>유령의 손의 혜성</em>으로 원거리 공격을 시도할 때, 그 공격은 경로상의 모든 물질적 또는 마법적 장애물(예: 힘의 벽)을 통과하며 모든 엄폐를 무시합니다. 이 효과는 자신의 턴이 끝날 때까지 공격을 시도해야만 유지됩니다.</p><hr /><p><strong>파괴</strong> 사신이 <em>고스트핸드의 혜성</em>의 소유자를 살해할 경우, 사신의 낫은 치명타를 강타하는 순간 그 별총을 반으로 갈라버릴 운명이다.</p>",
   "traits": [
    "artifact",
    "backstabber",
