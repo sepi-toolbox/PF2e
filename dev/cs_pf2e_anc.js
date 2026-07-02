@@ -13,6 +13,7 @@
   let _ready = false;
   let _lang = null;    // _lang.ko.json (traits, size, damageType)
   let _sense = null;   // creatures/_glossary.ko.json.sense
+  let _langGloss = null;   // creatures/_glossary.ko.json.language (언어 slug→한글, 시스템 용어 단일 소스)
   let _ancIndex = null, _herIndex = null;  // slug → 레거시 객체
   let _ancList = null, _herList = null;
 
@@ -24,6 +25,7 @@
   function _traitKo(slug) { return (_lang && _lang.traits && _lang.traits[slug]) || slug; }
   function _sizeKo(sz) { return SIZE_KO[sz] || '중형'; }
   function _senseKo(slug) { return (_sense && _sense[slug]) || slug; }
+  function _languageKo(slug) { return (_langGloss && _langGloss[slug]) || slug; }
   function _dmgKo(slug) { return (_lang && _lang.damageType && _lang.damageType[slug]) || slug; }
   function _slugify(s) { return String(s || '').toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
 
@@ -32,15 +34,15 @@
     if (!isNode) return;
     const fs = require('fs');
     for (const p of ['data/overlay/_lang.ko.json', 'dev/data/overlay/_lang.ko.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} }
-    for (const p of ['data/creatures/_glossary.ko.json', 'dev/data/creatures/_glossary.ko.json']) { try { _sense = (JSON.parse(fs.readFileSync(p, 'utf8')) || {}).sense; break; } catch (e) {} }
+    for (const p of ['data/creatures/_glossary.ko.json', 'dev/data/creatures/_glossary.ko.json']) { try { const g = JSON.parse(fs.readFileSync(p, 'utf8')) || {}; _sense = g.sense; _langGloss = g.language; break; } catch (e) {} }
     _lang = _lang || { traits: {}, damageType: {}, size: {} };
-    _sense = _sense || {};
+    _sense = _sense || {}; _langGloss = _langGloss || {};
   }
   async function _loadGlossariesAsync(ver) {
     const q = ver ? ('?v=' + ver) : '';
     try { const r = await fetch('data/overlay/_lang.ko.json' + q); _lang = await r.json(); } catch (e) { _lang = { traits: {}, damageType: {} }; }
-    try { const r = await fetch('data/creatures/_glossary.ko.json' + q); _sense = (await r.json()).sense; } catch (e) { _sense = {}; }
-    _sense = _sense || {};
+    try { const r = await fetch('data/creatures/_glossary.ko.json' + q); const g = await r.json(); _sense = g.sense; _langGloss = g.language; } catch (e) { _sense = {}; _langGloss = {}; }
+    _sense = _sense || {}; _langGloss = _langGloss || {};
   }
 
   async function init(ver) {
@@ -175,7 +177,7 @@
   const API = {
     init, ready, ancestryList, heritageList, getAncestryLegacy, getHeritageLegacy,
     ancestryToLegacy, heritageToLegacy, heritageEffects, ancestryDocOf,
-    _glossary: { sizeKo: _sizeKo, senseKo: _senseKo, traitKo: _traitKo, dmgKo: _dmgKo, VISION_MAP },
+    _glossary: { sizeKo: _sizeKo, senseKo: _senseKo, languageKo: _languageKo, traitKo: _traitKo, dmgKo: _dmgKo, VISION_MAP },
   };
   root.PF2eAnc = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;

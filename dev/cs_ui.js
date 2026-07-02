@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.59').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.60').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -1383,9 +1383,15 @@ const RARE_LANGUAGES = (typeof LANGUAGES !== 'undefined') ? LANGUAGES.filter(l =
 
 // 언어 id → 한글 이름 lookup (UI 표시용) — getLanguage 헬퍼 (cs_calc.js) 사용
 function getLanguageKo(id) {
+  // 1) 큐레이션 LANGUAGES(정제된 핵심 언어명) 우선
   if (typeof getLanguage === 'function') {
     const lang = getLanguage(id);
-    return lang ? lang.name_ko : id;
+    if (lang && lang.name_ko && /[가-힣]/.test(lang.name_ko)) return lang.name_ko;
+  }
+  // 2) 시스템 용어 글로서리(FVTT 전체 언어 slug→한글) 폴백 — 이국적 언어(므왕기 등) 해소
+  if (typeof PF2eAnc !== 'undefined' && PF2eAnc._glossary && PF2eAnc._glossary.languageKo) {
+    const ko = PF2eAnc._glossary.languageKo(id);
+    if (ko && ko !== id) return ko;
   }
   return id;
 }
