@@ -253,6 +253,49 @@ document.addEventListener('click', () => {
   }, {passive: true});
 })();
 
+// ref-link[data-ref="cat.slug"] 툴팁: 호버/터치 → 참조 항목(@link)의 한글 설명 미리보기
+(function initRefLinkTooltips() {
+  let balloon = null;
+  function getBalloon() {
+    if (balloon) return balloon;
+    balloon = document.createElement('div');
+    balloon.className = 'reflink-balloon';
+    balloon.style.cssText = 'position:fixed;display:none;background:#1c1712;color:#eee;border:1px solid var(--gold,#c9a44a);padding:9px 11px;border-radius:7px;font-size:12px;z-index:10001;max-width:340px;max-height:50vh;overflow:hidden;line-height:1.55;pointer-events:none;box-shadow:0 6px 20px rgba(0,0,0,0.5)';
+    document.body.appendChild(balloon);
+    return balloon;
+  }
+  const cache = {};
+  function content(ref) {
+    if (cache[ref] !== undefined) return cache[ref];
+    if (typeof PF2eData === 'undefined') return null;   // 카탈로그 미로드 → 다음 호버 때 재시도(캐시 안 함)
+    const dot = ref.indexOf('.'); if (dot < 0) return (cache[ref] = null);
+    const cat = ref.slice(0, dot), slug = ref.slice(dot + 1);
+    let t; try { t = PF2eData.get(cat, slug); } catch (e) {}
+    if (!t) return null;
+    const name = t.name_ko || t.name || slug;
+    let desc = t._desc_ko || (t.system && t.system.description && t.system.description.value) || '';
+    try { if (desc) desc = PF2eData.enrichDesc(desc); } catch (e) {}
+    return (cache[ref] = `<div style="color:var(--gold,#c9a44a);font-weight:700;margin-bottom:4px">${name}</div>` + (desc ? `<div style="color:#ddd">${desc}</div>` : '<div style="color:#999">(설명 없음)</div>'));
+  }
+  function show(el) {
+    const html = content(el.dataset.ref);
+    if (!html) return;
+    const b = getBalloon();
+    b.innerHTML = html; b.style.display = 'block';
+    const rect = el.getBoundingClientRect(); const bRect = b.getBoundingClientRect();
+    let left = rect.left + rect.width / 2 - bRect.width / 2;
+    let top = rect.top - bRect.height - 8;
+    if (left < 4) left = 4;
+    if (left + bRect.width > window.innerWidth - 4) left = window.innerWidth - bRect.width - 4;
+    if (top < 4) top = rect.bottom + 8;
+    b.style.left = left + 'px'; b.style.top = top + 'px';
+  }
+  function hide() { if (balloon) balloon.style.display = 'none'; }
+  document.addEventListener('mouseover', e => { const el = e.target.closest('.ref-link[data-ref]'); if (el) show(el); });
+  document.addEventListener('mouseout', e => { if (e.target.closest('.ref-link[data-ref]')) hide(); });
+  document.addEventListener('touchstart', e => { const el = e.target.closest('.ref-link[data-ref]'); if (el) { show(el); setTimeout(hide, 5000); } else hide(); }, { passive: true });
+})();
+
 // spell-tip: data-tip 속성으로 풍선 동적 생성 (trait-tag와 동일 패턴)
 document.addEventListener('mouseover', (e) => {
   const tip = e.target.closest('.spell-tip');
@@ -585,7 +628,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.82').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.83').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}

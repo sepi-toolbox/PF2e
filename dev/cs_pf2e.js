@@ -190,6 +190,13 @@
       return `<span class="ref-dmg">${parts.join(' + ')}</span>`;
     });
     s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_checkTypeKo(type)}</span>`; });
+    // @link[cat.slug]{label}: 프로젝트 네이티브 엔티티 링크 → 한글명(라벨 없으면 자동) + data-ref(호버 desc용)
+    s = s.replace(/@link\[([a-z]+)\.([a-z0-9._-]+)\](?:\{([^}]*)\})?/g, (m, cat, slug, label) => {
+      let name = label || '';
+      if (!name) { try { const t = get(cat, slug); if (t) name = t.name_ko || t.name; } catch (e) {} }
+      if (!name) name = slug.replace(/-/g, ' ');
+      return `<span class="ref-link" data-ref="${cat}.${slug}">${_escDesc(name)}</span>`;
+    });
     // @UUID: 참조 엔티티 정본 한글명으로 해소(로드된 카테고리 한정, 미해소 시 라벨 폴백)
     s = s.replace(/@UUID\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, uuid, label) => { let name = ''; try { const t = getByUuid((uuid || '').trim().split(/\s+/)[0]); if (t) name = t.name_ko || t.name; } catch (e) {} const shown = name || label; return shown ? `<span class="ref-link">${_escDesc(shown)}</span>` : ''; });
     // @Embed: 인라인 임베드 → 참조 엔티티 정본명(전체 임베드 대신 명칭 링크)
@@ -247,6 +254,27 @@
     s = s.replace(/@Check\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, body, label) => { if (label) return label; const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `${dc ? `DC ${dc} ` : ''}${basic}${_checkTypeKo(type)}`.trim(); });
     // @Template → N피트 형태
     s = s.replace(/@Template\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const d = (body.match(/distance:(\d+)/) || [])[1]; const SH = { emanation: '발산', burst: '폭발', cone: '원뿔', line: '직선' }; const ty = (body.match(/type:(\w+)/) || [])[1]; return `${d || ''}피트 ${SH[ty] || ty || ''}`.trim(); });
+    return s;
+  }
+
+  // @UUID/@Embed(엔티티 참조) → @link[cat.slug] 변환. 콘텐츠 카테고리만(effects/journals/외부 몬스터 등 제외 → @UUID 유지).
+  const _LINK_CATS = new Set(['feats', 'spells', 'equipment', 'actions', 'conditions', 'heritages', 'ancestries', 'backgrounds', 'deities', 'classes']);
+  function _uuidToCatSlug(uuid) {
+    const u = (uuid || '').trim().split(/\s+/)[0];
+    const parts = u.split('.'); const id = parts[parts.length - 1]; const pack = parts[2];
+    let cat = PACK2CAT[pack], t = null;
+    if (cat) { const m = isNode ? loadCategorySync(cat) : _index[cat]; if (m && m.has(id)) t = m.get(id); else cat = null; }
+    if (!t) { for (const c of CATEGORIES) { const m = isNode ? loadCategorySync(c) : _index[c]; if (m && m.has(id)) { t = m.get(id); cat = c; break; } } }
+    if (!t || !cat || !_LINK_CATS.has(cat)) return null;
+    const slug = (t.system && t.system.slug) || '';
+    return slug ? { cat, slug } : null;
+  }
+  function bakeEntityLinks(html) {
+    if (!html) return html;
+    let s = String(html);
+    const conv = (m, uuid, label) => { const cs = _uuidToCatSlug(uuid); if (!cs) return m; return `@link[${cs.cat}.${cs.slug}]${label != null ? `{${label}}` : ''}`; };
+    s = s.replace(/@UUID\[([^\]]+)\](?:\{([^}]*)\})?/g, conv);
+    s = s.replace(/@Embed\[([^\]]+)\](?:\{([^}]*)\})?/g, conv);
     return s;
   }
 
@@ -361,7 +389,7 @@
   }
 
   const API = {
-    CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc, bakePlainMacros, loadLocalize,
+    CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc, bakePlainMacros, bakeEntityLinks, loadLocalize,
     testPredicate, _testStatement, getByUuid, resolveBrackets, evalFormula,
     _state: { base: _baseCache, ovl: _ovlCache, ovr: _ovrCache, index: _index },
   };

@@ -1,11 +1,11 @@
 {
  "observed": {
   "name": "발각됨",
-  "description": "<p>눈에 보이는 모든 것은 플레이어에게 관찰됨. 생물이 은신을 사용하는 등 탐지를 피하기 위한 조치를 취하면 @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{숨기} 대신 @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{숨겨짐} 또는 @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{미탐지} 이 될 수 있습니다. 시각 외에 다른 정밀한 감각이 있다면 해당 감각을 사용하여 생물이나 물체를 관찰할 수 있습니다. 정확한 감각으로만 생물을 관찰할 수 있습니다. 부정확한 감각으로만 생물을 @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{탐색 중}일 경우, 관찰됨이 아니라 숨겨진 상태로 남습니다.</p>"
+  "description": "<p>눈에 보이는 모든 것은 플레이어에게 관찰됨. 생물이 은신을 사용하는 등 탐지를 피하기 위한 조치를 취하면 @link[actions.hide]{숨기} 대신 @link[conditions.hidden]{숨겨짐} 또는 @link[conditions.undetected]{미탐지} 이 될 수 있습니다. 시각 외에 다른 정밀한 감각이 있다면 해당 감각을 사용하여 생물이나 물체를 관찰할 수 있습니다. 정확한 감각으로만 생물을 관찰할 수 있습니다. 부정확한 감각으로만 생물을 @link[actions.seek]{탐색 중}일 경우, 관찰됨이 아니라 숨겨진 상태로 남습니다.</p>"
  },
  "doomed": {
   "name": "파멸",
-  "description": "<p>당신의 영혼은 당신을 죽음에 가깝게 부르는 강력한 힘에 사로잡혔습니다. 파멸에는 항상 값이 포함됩니다. 죽어감으로써 획득하는 @UUID[Compendium.pf2e.conditionitems.Item.yZRUzMqrMmfLu0V1]{빈사} 값은 파멸 수치만큼 감소합니다. 최대 빈사 수치가 0으로 감소하면 즉시 사망합니다. 죽으면 더 이상 파멸상태가 아닙니다.</p>\n<p>밤새 휴식을 취할 때마다 파멸 수치가 1씩 감소합니다.</p>"
+  "description": "<p>당신의 영혼은 당신을 죽음에 가깝게 부르는 강력한 힘에 사로잡혔습니다. 파멸에는 항상 값이 포함됩니다. 죽어감으로써 획득하는 @link[conditions.dying]{빈사} 값은 파멸 수치만큼 감소합니다. 최대 빈사 수치가 0으로 감소하면 즉시 사망합니다. 죽으면 더 이상 파멸상태가 아닙니다.</p>\n<p>밤새 휴식을 취할 때마다 파멸 수치가 1씩 감소합니다.</p>"
  },
  "drained": {
   "name": "생명력 고갈",
@@ -17,7 +17,7 @@
  },
  "paralyzed": {
   "name": "마비",
-  "description": "<p>제자리에서 멈췄습니다. @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태가 되어 @UUID[Compendium.pf2e.actionspf2e.Item.1OagaWtBpVXExToo]{지식 회상} 외에는 행동할 수 없으며 (GM이 결정하는 대로) 마음만 필요한 액션을 사용할 수 있습니다. 감각은 여전히 작동하지만, 움직이지 않고 지각할 수 있는 영역에서만 작동하므로 @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{찾기}를 할 수 없습니다.</p>"
+  "description": "<p>제자리에서 멈췄습니다. @link[conditions.off-guard]{무방비} 상태가 되어 @link[actions.recall-knowledge]{지식 회상} 외에는 행동할 수 없으며 (GM이 결정하는 대로) 마음만 필요한 액션을 사용할 수 있습니다. 감각은 여전히 작동하지만, 움직이지 않고 지각할 수 있는 영역에서만 작동하므로 @link[actions.seek]{찾기}를 할 수 없습니다.</p>"
  },
  "deafened": {
   "name": "귀먹음",
@@ -25,11 +25,11 @@
  },
  "unnoticed": {
   "name": "존재 미인지",
-  "description": "<p>존재 미인지 상태인 생명체는 다른 생명체들이 그 존재 유무를 알 수 없습니다. 인식 불가는 @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{미탐지}의 상위호환 입니다.</p>"
+  "description": "<p>존재 미인지 상태인 생명체는 다른 생명체들이 그 존재 유무를 알 수 없습니다. 인식 불가는 @link[conditions.undetected]{미탐지}의 상위호환 입니다.</p>"
  },
  "controlled": {
   "name": "지배됨",
-  "description": "<p>당신은 명령을 받거나 마법에 지배당했거나 다른 방식으로 당신의 의지가 전복되었습니다. 컨트롤러는 플레이어의 행동 방식을 지시하고 공격, 리액션, 심지어 @UUID[Compendium.pf2e.actionspf2e.Item.A72nHGUtNXgY5Ey9]{딜레이}를 포함한 모든 액션을 사용하도록 만들 수 있습니다. 컨트롤러는 일반적으로 사용자를 제어할 때 자신의 액션을 사용할 필요가 없습니다.</p>"
+  "description": "<p>당신은 명령을 받거나 마법에 지배당했거나 다른 방식으로 당신의 의지가 전복되었습니다. 컨트롤러는 플레이어의 행동 방식을 지시하고 공격, 리액션, 심지어 @link[actions.delay]{딜레이}를 포함한 모든 액션을 사용하도록 만들 수 있습니다. 컨트롤러는 일반적으로 사용자를 제어할 때 자신의 액션을 사용할 필요가 없습니다.</p>"
  },
  "off-guard": {
   "name": "무방비",
@@ -37,15 +37,15 @@
  },
  "fascinated": {
   "name": "매혹",
-  "description": "<p>주의를 강제로 무언가에 집중하게 되어 주변에서 일어나는 다른 일에 신경이 분산됩니다. 지각 및 기술 체크에서 -2 상태 페널티를 받으며, 집중 액션은 GM의 판단에 따라 매혹된 대상과 관련된 액션(또는 의도된 결과)이 아니면 사용할 수 없습니다. 예를 들어, 대상에 대해 @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{검색} 및 @UUID[Compendium.pf2e.actionspf2e.Item.1OagaWtBpVXExToo]{지식 회상}은 가능하지만 다른 생물을 대상으로 한 주문은 시전할 수 없을 것입니다. 이 조건은 생물이 당신 또는 당신의 아군에게 적대적인 액션을 사용하면 종료됩니다.</p>"
+  "description": "<p>주의를 강제로 무언가에 집중하게 되어 주변에서 일어나는 다른 일에 신경이 분산됩니다. 지각 및 기술 체크에서 -2 상태 페널티를 받으며, 집중 액션은 GM의 판단에 따라 매혹된 대상과 관련된 액션(또는 의도된 결과)이 아니면 사용할 수 없습니다. 예를 들어, 대상에 대해 @link[actions.seek]{검색} 및 @link[actions.recall-knowledge]{지식 회상}은 가능하지만 다른 생물을 대상으로 한 주문은 시전할 수 없을 것입니다. 이 조건은 생물이 당신 또는 당신의 아군에게 적대적인 액션을 사용하면 종료됩니다.</p>"
  },
  "encumbered": {
   "name": "과적",
-  "description": "<p>감당할 수 있는 무게보다 더 많은 짐을 지고 있습니다. 과적 상태인 동안 @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 1}이 되어 모든 속도에 10피트 페널티를 받습니다. 속도에 대한 모든 페널티와 마찬가지로, 이 페널티로 인해 속도가 5피트 이하로 감소할 수는 없습니다.</p>"
+  "description": "<p>감당할 수 있는 무게보다 더 많은 짐을 지고 있습니다. 과적 상태인 동안 @link[conditions.clumsy]{둔함 1}이 되어 모든 속도에 10피트 페널티를 받습니다. 속도에 대한 모든 페널티와 마찬가지로, 이 페널티로 인해 속도가 5피트 이하로 감소할 수는 없습니다.</p>"
  },
  "concealed": {
   "name": "은폐",
-  "description": "<p>짙은 안개나 다른 가려지는 재주로 인해 한 마리 이상의 생물이 나를 보기 어렵습니다. 일부 생물에게는 가려질 수 있지만 다른 생물에게는 보일 수 있습니다. 은폐 상태에서도 @UUID[Compendium.pf2e.conditionitems.Item.1wQY3JYyhMYeeV2G]{발각됨}이 될 수 있지만, 대상이 되기 더 어렵습니다. 가려진 생물을 목표로 공격, 주문, 또는 다른 효과를 굴릴 때 먼저 DC 5 단순에 성공해야 합니다. 체크에 실패하면 액션의 영향을 받지 않습니다. 단, 범위 효과는 이 플랫 체크의 대상이 아닙니다.</p>"
+  "description": "<p>짙은 안개나 다른 가려지는 재주로 인해 한 마리 이상의 생물이 나를 보기 어렵습니다. 일부 생물에게는 가려질 수 있지만 다른 생물에게는 보일 수 있습니다. 은폐 상태에서도 @link[conditions.observed]{발각됨}이 될 수 있지만, 대상이 되기 더 어렵습니다. 가려진 생물을 목표로 공격, 주문, 또는 다른 효과를 굴릴 때 먼저 DC 5 단순에 성공해야 합니다. 체크에 실패하면 액션의 영향을 받지 않습니다. 단, 범위 효과는 이 플랫 체크의 대상이 아닙니다.</p>"
  },
  "fatigued": {
   "name": "피로",
@@ -53,7 +53,7 @@
  },
  "unfriendly": {
   "name": "비우호적",
-  "description": "<p>이 조건은 특정 캐릭터에 대한 생물의 성향을 반영하며, 초자연적 효과(주문 등)만이 PC에 이 조건을 부여할 수 있습니다. 캐릭터에게 불친절한 생물은 해당 캐릭터를 싫어하고 불신합니다. 불친절한 생물은 캐릭터의 @UUID[Compendium.pf2e.actionspf2e.Item.DCb62iCBrJXy0Ik6]{요청}을 수락하지 않습니다.</p>"
+  "description": "<p>이 조건은 특정 캐릭터에 대한 생물의 성향을 반영하며, 초자연적 효과(주문 등)만이 PC에 이 조건을 부여할 수 있습니다. 캐릭터에게 불친절한 생물은 해당 캐릭터를 싫어하고 불신합니다. 불친절한 생물은 캐릭터의 @link[actions.request]{요청}을 수락하지 않습니다.</p>"
  },
  "enfeebled": {
   "name": "약화됨",
@@ -65,23 +65,23 @@
  },
  "dazzled": {
   "name": "눈부심",
-  "description": "<p>눈이 과도하게 자극받았거나 시야가 흐릿합니다. 시각이 유일한 정확한 감각이라면, 모든 생명체와 물체는 @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 으로 취급합니다.</p>"
+  "description": "<p>눈이 과도하게 자극받았거나 시야가 흐릿합니다. 시각이 유일한 정확한 감각이라면, 모든 생명체와 물체는 @link[conditions.concealed]{은폐} 으로 취급합니다.</p>"
  },
  "undetected": {
   "name": "미탐지",
-  "description": "<p>미탐지 상태에서는 해당 생물이 플레이어를 전혀 볼 수 없고, 플레이어가 어떤 공간을 점유하고 있는지 알지 못하며, 플레이어를 목표로 삼을 수 없지만, 특정 지역을 대상으로 하는 능력의 영향을 받을 수 있습니다. 당신이 어떤 생물에게 미탐지 상태인 경우, 그 생물은 당신에게 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비}입니다.</p>\n<p>당신의 존재는 알고 있으나 탐지하지 못한 생물은 당신이 어느 사각형에 있는지 추측하여 당신을 목표로 삼으려고 시도할 수 있습니다. 이 생물은 반드시 사각형 하나를 골라 공격을 시도해야 합니다. 이는 @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{숨겨짐} 생물을 목표로 하는 것과 같지만(DC 11 단순필요), 플랫 체크와 공격 주사위는 GM이 비밀리에 굴리며, 플랫 체크에 실패해서 공격이 실패했는지 아니면 공격할 사각형을 잘못 선택했기 때문에 빗나갔는지 알 수 없습니다. @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{찾기} 액션을 통해 탐지 불가 대상을 찾으려고 할 수 있습니다.</p>"
+  "description": "<p>미탐지 상태에서는 해당 생물이 플레이어를 전혀 볼 수 없고, 플레이어가 어떤 공간을 점유하고 있는지 알지 못하며, 플레이어를 목표로 삼을 수 없지만, 특정 지역을 대상으로 하는 능력의 영향을 받을 수 있습니다. 당신이 어떤 생물에게 미탐지 상태인 경우, 그 생물은 당신에게 @link[conditions.off-guard]{무방비}입니다.</p>\n<p>당신의 존재는 알고 있으나 탐지하지 못한 생물은 당신이 어느 사각형에 있는지 추측하여 당신을 목표로 삼으려고 시도할 수 있습니다. 이 생물은 반드시 사각형 하나를 골라 공격을 시도해야 합니다. 이는 @link[conditions.hidden]{숨겨짐} 생물을 목표로 하는 것과 같지만(DC 11 단순필요), 플랫 체크와 공격 주사위는 GM이 비밀리에 굴리며, 플랫 체크에 실패해서 공격이 실패했는지 아니면 공격할 사각형을 잘못 선택했기 때문에 빗나갔는지 알 수 없습니다. @link[actions.seek]{찾기} 액션을 통해 탐지 불가 대상을 찾으려고 할 수 있습니다.</p>"
  },
  "restrained": {
   "name": "억제",
-  "description": "<p>묶여서 거의 움직일 수 없거나 생물에 의해 고정되었습니다. @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 및 @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{이동 불가} 조건을 가지고 있으며, 공격 시도 외에 어떤 공격이나 동작 조작도 사용할 수 없습니다.@UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{탈출} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.SjmKHgI7a5Z9JzBx]{강제 개방}를 시도할 수 있습니다. 구속됨은 @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기}보다 우선합니다.</p>"
+  "description": "<p>묶여서 거의 움직일 수 없거나 생물에 의해 고정되었습니다. @link[conditions.off-guard]{무방비} 및 @link[conditions.immobilized]{이동 불가} 조건을 가지고 있으며, 공격 시도 외에 어떤 공격이나 동작 조작도 사용할 수 없습니다.@link[actions.escape]{탈출} 또는 @link[actions.force-open]{강제 개방}를 시도할 수 있습니다. 구속됨은 @link[conditions.grabbed]{조이기}보다 우선합니다.</p>"
  },
  "blinded": {
   "name": "눈멈",
-  "description": "<p>앞이 보이지 않습니다. 여러분에게는 모든 일반 지형이 어려운 지형입니다. 시각으로는 아무것도 감지할 수 없습니다. 앞을 볼 수 있어야 하는 지각 체크는 자동으로 대실패하며, 시각이 유일한 정확한 감각인 경우 지각 체크에 -4 상태 페널티를 받습니다. 시각 효과에 면역이 됩니다. 눈이 먼 상태는 @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{눈부심}을 재정의합니다.</p>"
+  "description": "<p>앞이 보이지 않습니다. 여러분에게는 모든 일반 지형이 어려운 지형입니다. 시각으로는 아무것도 감지할 수 없습니다. 앞을 볼 수 있어야 하는 지각 체크는 자동으로 대실패하며, 시각이 유일한 정확한 감각인 경우 지각 체크에 -4 상태 페널티를 받습니다. 시각 효과에 면역이 됩니다. 눈이 먼 상태는 @link[conditions.dazzled]{눈부심}을 재정의합니다.</p>"
  },
  "wounded": {
   "name": "부상",
-  "description": "<p>중상을 입었습니다. 부상입은 상태에서 @UUID[Compendium.pf2e.conditionitems.Item.yZRUzMqrMmfLu0V1]{빈사} 조건을 잃고 아직 부상입은 조건을 가지고 있지 않은 경우, 부상 1이 됩니다. 사망 조건을 잃을 때 이미 부상입은 조건을 가지고 있다면, 부상입은 상태 값이 1만큼 증가합니다. 부상입은 상태에서 빈사 상태를 얻으면, 부상입은 값만큼 빈사 상태 값이 증가합니다.</p>\n<p>누군가 @UUID[Compendium.pf2e.actionspf2e.Item.1kGNdIIhuglAjIp9]{상처 치료}를 사용하거나, 어떤 방법으로든 전체 체력을 회복하고 10분 동안 휴식을 취하면 부상입은 상태가 종료됩니다.</p>"
+  "description": "<p>중상을 입었습니다. 부상입은 상태에서 @link[conditions.dying]{빈사} 조건을 잃고 아직 부상입은 조건을 가지고 있지 않은 경우, 부상 1이 됩니다. 사망 조건을 잃을 때 이미 부상입은 조건을 가지고 있다면, 부상입은 상태 값이 1만큼 증가합니다. 부상입은 상태에서 빈사 상태를 얻으면, 부상입은 값만큼 빈사 상태 값이 증가합니다.</p>\n<p>누군가 @link[actions.treat-wounds]{상처 치료}를 사용하거나, 어떤 방법으로든 전체 체력을 회복하고 10분 동안 휴식을 취하면 부상입은 상태가 종료됩니다.</p>"
  },
  "petrified": {
   "name": "석화",
@@ -89,11 +89,11 @@
  },
  "stunned": {
   "name": "기절",
-  "description": "<p>당신은 기절했습니다. 현재 기절 수치만큼 이번 라운드에 행동을 잃습니다. 액션을 되찾을 때마다 기절 수치만큼 되찾은 액션 수를 줄인 다음, 잃은 액션 수만큼 기절 수치를 줄입니다. 예를 들어, 기절 4를 당했다면 자신의 턴에 3개의 액션을 모두 잃고 기절 1로 감소하며, 다음 턴에는 액션을 1개 더 잃고 남은 2개의 액션을 정상적으로 사용할 수 있습니다. 기절은 대신 \"1분 동안 기절\"과 같이 지속 시간을 가질 수도 있으며, 해당 지속 시간 동안 모든 액션을 잃게 됩니다.</p>\n<p>기절은 @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{둔화}를 무효화합니다. 기절 상태의 지속 시간이 느려진 상태에서 종료되면 기절 상태로 인해 손실된 액션을 느려짐으로 인해 손실된 액션으로 계산합니다. 따라서 자신의 턴이 시작될 때 기절 1, 둔화 2 상태였다면, 기절로 액션 1개를 잃고 느려짐으로 추가 액션 1개만 잃게 되므로 해당 턴에 사용할 수 있는 액션이 여전히 1개 남게 됩니다.</p>"
+  "description": "<p>당신은 기절했습니다. 현재 기절 수치만큼 이번 라운드에 행동을 잃습니다. 액션을 되찾을 때마다 기절 수치만큼 되찾은 액션 수를 줄인 다음, 잃은 액션 수만큼 기절 수치를 줄입니다. 예를 들어, 기절 4를 당했다면 자신의 턴에 3개의 액션을 모두 잃고 기절 1로 감소하며, 다음 턴에는 액션을 1개 더 잃고 남은 2개의 액션을 정상적으로 사용할 수 있습니다. 기절은 대신 \"1분 동안 기절\"과 같이 지속 시간을 가질 수도 있으며, 해당 지속 시간 동안 모든 액션을 잃게 됩니다.</p>\n<p>기절은 @link[conditions.slowed]{둔화}를 무효화합니다. 기절 상태의 지속 시간이 느려진 상태에서 종료되면 기절 상태로 인해 손실된 액션을 느려짐으로 인해 손실된 액션으로 계산합니다. 따라서 자신의 턴이 시작될 때 기절 1, 둔화 2 상태였다면, 기절로 액션 1개를 잃고 느려짐으로 추가 액션 1개만 잃게 되므로 해당 턴에 사용할 수 있는 액션이 여전히 1개 남게 됩니다.</p>"
  },
  "stupefied": {
   "name": "멍청함",
-  "description": "<p>생각과 본능이 흐려집니다. 혼미에는 항상 수치가 포함됩니다. 의지 내성 굴림, 주문 공격 수정치, 주문 DC, 이러한 속성 수정치를 사용하는 스킬 체크 등 지능, 지혜, 매력 기반 체크와 DC에서 이 값만큼의 상태 페널티를 받습니다. 혼미한 상태에서 @UUID[Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz]{주문 시전}을 시도할 때마다, DC가 5 + 혼미한 수치와 같은 단순에 성공하지 않으면 주문이 방해받게 됩니다.</p>"
+  "description": "<p>생각과 본능이 흐려집니다. 혼미에는 항상 수치가 포함됩니다. 의지 내성 굴림, 주문 공격 수정치, 주문 DC, 이러한 속성 수정치를 사용하는 스킬 체크 등 지능, 지혜, 매력 기반 체크와 DC에서 이 값만큼의 상태 페널티를 받습니다. 혼미한 상태에서 @link[actions.cast-a-spell]{주문 시전}을 시도할 때마다, DC가 5 + 혼미한 수치와 같은 단순에 성공하지 않으면 주문이 방해받게 됩니다.</p>"
  },
  "immobilized": {
   "name": "이동 불가",
@@ -101,7 +101,7 @@
  },
  "unconscious": {
   "name": "무의식",
-  "description": "<p>잠을 자고 있거나 기절한 상태입니다. 행동할 수 없습니다. AC, 지각, 반사 내성에 -4 상태력 페널티를 받고, @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{눈멈} 및 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 조건이 걸립니다. 이 조건을 획득하면, 효과에 달리 명시되어 있거나 GM이 그렇게 하지 않는다고 판단하지 않는 한 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태로 떨어지고 소지하고 있던 아이템을 떨어뜨립니다.</p>\n<p>무의식 상태인 @UUID[Compendium.pf2e.conditionitems.Item.yZRUzMqrMmfLu0V1]{빈사}인 경우, HP가 0인 상태에서는 깨어나지 못합니다. 체력이 1 이상으로 회복되면 죽어감 및 무의식 상태가 사라지고 다음 턴에 정상적으로 행동할 수 있습니다.</p>\n<p>무의식 상태로 체력이 0이지만 죽어감은 아닌 경우, 충분한 시간이 경과한 후 체력이 1로 회복되고 깨어납니다. 무의식 상태의 지속 시간은 최소 10분에서 최대 몇 시간까지 GM이 결정합니다. 치유되면 무의식 상태가 사라지고 다음 턴에 정상적으로 행동할 수 있습니다.</p>\n<p>의식이 없고 HP가 1 이상일 경우(일반적으로 수면 상태이거나 효과로 인해 무의식 상태일 경우) 다음 방법 중 하나를 통해 깨어납니다.</p>\n<ul>\n<li>피해를 받지만, 피해로 인해 HP가 0으로 감소하면 무의식 상태가 되어 평소와 같이 죽어감 상태가 됩니다.</li>\n<li>휴식으로 얻는 자연 치유 이외의 치유를 받습니다.</li>\n<li>누군가 @UUID[Compendium.pf2e.actionspf2e.Item.pvQ5rY2zrtPI614F]{상호작용} 액션으로 당신을 흔들어 깨웁니다.</li>\n<li>주변의 큰 소음이 당신을 깨울 수 있습니다. 자신의 차례가 시작되면 자동으로 소음의 DC(소음이 두 개 이상일 경우 가장 낮은 DC)에 대한 지각 체크를 시도하고, 성공하면 깨어납니다. 주변에 생물이 조용히 있으려는 경우, 이 지각 체크는 그 생물의 은신 DC를 사용합니다. 일부 효과는 플레이어를 너무 깊이 잠들게 하여 이 지각 체크를 허용하지 않습니다.</li>\n<li>플레이어가 단순히 잠들어 있는 경우, GM은 플레이어가 숙면을 취했거나 무언가가 휴식을 방해했기 때문에 깨어난 것으로 판단합니다.</li>\n</ul>"
+  "description": "<p>잠을 자고 있거나 기절한 상태입니다. 행동할 수 없습니다. AC, 지각, 반사 내성에 -4 상태력 페널티를 받고, @link[conditions.blinded]{눈멈} 및 @link[conditions.off-guard]{무방비} 조건이 걸립니다. 이 조건을 획득하면, 효과에 달리 명시되어 있거나 GM이 그렇게 하지 않는다고 판단하지 않는 한 @link[conditions.prone]{넘어뜨려짐} 상태로 떨어지고 소지하고 있던 아이템을 떨어뜨립니다.</p>\n<p>무의식 상태인 @link[conditions.dying]{빈사}인 경우, HP가 0인 상태에서는 깨어나지 못합니다. 체력이 1 이상으로 회복되면 죽어감 및 무의식 상태가 사라지고 다음 턴에 정상적으로 행동할 수 있습니다.</p>\n<p>무의식 상태로 체력이 0이지만 죽어감은 아닌 경우, 충분한 시간이 경과한 후 체력이 1로 회복되고 깨어납니다. 무의식 상태의 지속 시간은 최소 10분에서 최대 몇 시간까지 GM이 결정합니다. 치유되면 무의식 상태가 사라지고 다음 턴에 정상적으로 행동할 수 있습니다.</p>\n<p>의식이 없고 HP가 1 이상일 경우(일반적으로 수면 상태이거나 효과로 인해 무의식 상태일 경우) 다음 방법 중 하나를 통해 깨어납니다.</p>\n<ul>\n<li>피해를 받지만, 피해로 인해 HP가 0으로 감소하면 무의식 상태가 되어 평소와 같이 죽어감 상태가 됩니다.</li>\n<li>휴식으로 얻는 자연 치유 이외의 치유를 받습니다.</li>\n<li>누군가 @link[actions.interact]{상호작용} 액션으로 당신을 흔들어 깨웁니다.</li>\n<li>주변의 큰 소음이 당신을 깨울 수 있습니다. 자신의 차례가 시작되면 자동으로 소음의 DC(소음이 두 개 이상일 경우 가장 낮은 DC)에 대한 지각 체크를 시도하고, 성공하면 깨어납니다. 주변에 생물이 조용히 있으려는 경우, 이 지각 체크는 그 생물의 은신 DC를 사용합니다. 일부 효과는 플레이어를 너무 깊이 잠들게 하여 이 지각 체크를 허용하지 않습니다.</li>\n<li>플레이어가 단순히 잠들어 있는 경우, GM은 플레이어가 숙면을 취했거나 무언가가 휴식을 방해했기 때문에 깨어난 것으로 판단합니다.</li>\n</ul>"
  },
  "sickened": {
   "name": "구역질",
@@ -117,15 +117,15 @@
  },
  "hidden": {
   "name": "숨겨짐",
-  "description": "<p>생명체로부터 숨겨짐 상태에서는 생명체는 플레이어가 있는 공간을 알 수 있지만 정확히 어디에 있는지는 알 수 없습니다. 일반적으로 @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{숨기}을 사용해 숨을 수 있습니다. 부정확한 감각만 사용하여 생물을 @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{찾기}하면, @UUID[Compendium.pf2e.conditionitems.Item.1wQY3JYyhMYeeV2G]{발각됨} 상태가 아닌 숨겨져 있는 상태가 됩니다. 당신에게 숨겨진 생물은 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비}이며, 공격, 주문 또는 다른 효과로 당신을 목표로 할 때 DC 11 단순에 성공해야 하며 그렇지 않으면 당신에게 영향을 미치지 못합니다. 지역 효과는 이 플랫 체크의 대상이 아닙니다.</p>\n<p>생물은 찾기 액션을 사용하여 플레이어를 관찰됨을 시도할 수 있습니다.</p>"
+  "description": "<p>생명체로부터 숨겨짐 상태에서는 생명체는 플레이어가 있는 공간을 알 수 있지만 정확히 어디에 있는지는 알 수 없습니다. 일반적으로 @link[actions.hide]{숨기}을 사용해 숨을 수 있습니다. 부정확한 감각만 사용하여 생물을 @link[actions.seek]{찾기}하면, @link[conditions.observed]{발각됨} 상태가 아닌 숨겨져 있는 상태가 됩니다. 당신에게 숨겨진 생물은 @link[conditions.off-guard]{무방비}이며, 공격, 주문 또는 다른 효과로 당신을 목표로 할 때 DC 11 단순에 성공해야 하며 그렇지 않으면 당신에게 영향을 미치지 못합니다. 지역 효과는 이 플랫 체크의 대상이 아닙니다.</p>\n<p>생물은 찾기 액션을 사용하여 플레이어를 관찰됨을 시도할 수 있습니다.</p>"
  },
  "prone": {
   "name": "넘어뜨려짐",
-  "description": "<p>당신은 바닥에 누워 있습니다. 당신은 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태이며 명중 굴림에 -2의 상황 페널티를 받습니다. 넘어뜨려짐 상태에서 사용할 수 있는 이동 액션은 @UUID[Compendium.pf2e.actionspf2e.Item.Tj055UcNm6UEgtCg]{기어가기}와 @UUID[Compendium.pf2e.actionspf2e.Item.OdIUybJ3ddfL7wzj]{일어서기}뿐입니다. 일어서는 것은 넘어뜨려짐 상태를 종료하는 것입니다. 넘어뜨려짐 상태에서 @UUID[Compendium.pf2e.actionspf2e.Item.ust1jJSCZQUhBZIz]{엄폐}를 사용하면 뒤에 숨을 물체가 없더라도 원거리 공격에 대한 엄폐력이 향상되며, 원거리 공격에 대한 상황 보너스 +4를 받습니다(단, 무방비 상태는 유지됨).</p>\n<p>@UUID[Compendium.pf2e.actionspf2e.Item.pprgrYQ1QnIDGZiy]{오르기} 또는 @UUID[pf2e.actionspf2e.Item.cS9nfDRGD83bNU1p]{비행} 상태인 동안 엎드려 있으면 낙하합니다. @UUID[Compendium.pf2e.actionspf2e.Item.c8TGiZ48ygoSPofx]{수영} 중에는 넘어뜨려짐 상태가 될 수 없습니다.</p>"
+  "description": "<p>당신은 바닥에 누워 있습니다. 당신은 @link[conditions.off-guard]{무방비} 상태이며 명중 굴림에 -2의 상황 페널티를 받습니다. 넘어뜨려짐 상태에서 사용할 수 있는 이동 액션은 @link[actions.crawl]{기어가기}와 @link[actions.stand]{일어서기}뿐입니다. 일어서는 것은 넘어뜨려짐 상태를 종료하는 것입니다. 넘어뜨려짐 상태에서 @link[actions.take-cover]{엄폐}를 사용하면 뒤에 숨을 물체가 없더라도 원거리 공격에 대한 엄폐력이 향상되며, 원거리 공격에 대한 상황 보너스 +4를 받습니다(단, 무방비 상태는 유지됨).</p>\n<p>@link[actions.climb]{오르기} 또는 @link[actions.fly]{비행} 상태인 동안 엎드려 있으면 낙하합니다. @link[actions.swim]{수영} 중에는 넘어뜨려짐 상태가 될 수 없습니다.</p>"
  },
  "grabbed": {
   "name": "조이기",
-  "description": "<p>당신은 다른 생물에게 붙잡혀 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 및 @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{이동 불가} 조건을 부여받습니다. 잡힌 상태에서 조작 액션을 시도하면 DC 5 단순에서 성공해야 하며, 액션을 사용한 후 효과가 적용되기 전에 체크를 굴려야 합니다.</p>"
+  "description": "<p>당신은 다른 생물에게 붙잡혀 @link[conditions.off-guard]{무방비} 및 @link[conditions.immobilized]{이동 불가} 조건을 부여받습니다. 잡힌 상태에서 조작 액션을 시도하면 DC 5 단순에서 성공해야 하며, 액션을 사용한 후 효과가 적용되기 전에 체크를 굴려야 합니다.</p>"
  },
  "persistent-damage": {
   "name": "지속 피해",
@@ -137,19 +137,19 @@
  },
  "fleeing": {
   "name": "도주",
-  "description": "<p>두려움이나 다른 강박 때문에 도망쳐야만 합니다. 자신의 차례가 되면, 이동 액션을 사용해 도주하거나 탈출을 막는 문을 여는 등 가능한 한 빨리 도주 상태의 원인으로부터 벗어나기 위해 각 액션을 사용해야 합니다(예: 도주하기 위해 이동 액션을 사용하거나 탈출을 막는 문을 여는 등). 원인은 일반적으로 상태를 유발한 효과나 생물이지만, 일부 효과는 다른 것을 원인으로 정의할 수도 있습니다. 도주 중에는 @UUID[Compendium.pf2e.actionspf2e.Item.A72nHGUtNXgY5Ey9]{딜레이} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.dLgAMt3TbkmLkUqE]{준비}를 할 수 없습니다.</p>"
+  "description": "<p>두려움이나 다른 강박 때문에 도망쳐야만 합니다. 자신의 차례가 되면, 이동 액션을 사용해 도주하거나 탈출을 막는 문을 여는 등 가능한 한 빨리 도주 상태의 원인으로부터 벗어나기 위해 각 액션을 사용해야 합니다(예: 도주하기 위해 이동 액션을 사용하거나 탈출을 막는 문을 여는 등). 원인은 일반적으로 상태를 유발한 효과나 생물이지만, 일부 효과는 다른 것을 원인으로 정의할 수도 있습니다. 도주 중에는 @link[actions.delay]{딜레이} 또는 @link[actions.ready]{준비}를 할 수 없습니다.</p>"
  },
  "hostile": {
   "name": "적대적",
-  "description": "<p>이 상태는 특정 캐릭터에 대한 생물의 성향을 반영하며, 주문과 같은 초자연적 효과만 PC에 적용할 수 있습니다. 캐릭터에게 적대적인 생물은 적극적으로 해당 캐릭터를 해치려고 합니다. 반드시 공격하지는 않지만, 캐릭터의 @UUID[Compendium.pf2e.actionspf2e.Item.DCb62iCBrJXy0Ik6]{요청}을 수락하지 않습니다.</p>"
+  "description": "<p>이 상태는 특정 캐릭터에 대한 생물의 성향을 반영하며, 주문과 같은 초자연적 효과만 PC에 적용할 수 있습니다. 캐릭터에게 적대적인 생물은 적극적으로 해당 캐릭터를 해치려고 합니다. 반드시 공격하지는 않지만, 캐릭터의 @link[actions.request]{요청}을 수락하지 않습니다.</p>"
  },
  "helpful": {
   "name": "도움",
-  "description": "<p>이 조건은 특정 캐릭터에 대한 생물의 성향을 반영하며, 주문과 같은 초자연적 효과만이 PC에게 이 조건을 부여할 수 있습니다. 캐릭터에게 유용한 생물은 해당 캐릭터를 적극적으로 돕고자 합니다. 유용한 생물의 목표나 삶의 질을 희생하지 않는 한, 해당 캐릭터의 합리적인 @UUID[Compendium.pf2e.actionspf2e.Item.DCb62iCBrJXy0Ik6]{요청}을 받아들입니다. 캐릭터(또는 캐릭터의 동료 중 한 명)가 생물에게 적대적인 액션을 사용하면, 생물은 GM이 판단한 적대적 액션의 심각도에 따라 더 나쁜 태도 조건을 얻습니다.</p>"
+  "description": "<p>이 조건은 특정 캐릭터에 대한 생물의 성향을 반영하며, 주문과 같은 초자연적 효과만이 PC에게 이 조건을 부여할 수 있습니다. 캐릭터에게 유용한 생물은 해당 캐릭터를 적극적으로 돕고자 합니다. 유용한 생물의 목표나 삶의 질을 희생하지 않는 한, 해당 캐릭터의 합리적인 @link[actions.request]{요청}을 받아들입니다. 캐릭터(또는 캐릭터의 동료 중 한 명)가 생물에게 적대적인 액션을 사용하면, 생물은 GM이 판단한 적대적 액션의 심각도에 따라 더 나쁜 태도 조건을 얻습니다.</p>"
  },
  "friendly": {
   "name": "우호적",
-  "description": "<p>이 조건은 특정 캐릭터에 대한 생물의 성향을 반영하며, 주문과 같은 초자연적 효과로만 PC에 이 조건을 부여할 수 있습니다. 캐릭터에게 친절함을 보이는 생물은 해당 캐릭터를 좋아합니다. 간단하고 안전하며 이행하는 데 너무 많은 비용이 들지 않는 한, 해당 캐릭터의 @UUID[Compendium.pf2e.actionspf2e.Item.DCb62iCBrJXy0Ik6]{요청}에 동의할 가능성이 높습니다. 캐릭터(또는 동맹 중 한 명)가 해당 생물에게 적대적인 액션을 사용하면, 해당 생물은 GM이 판단한 적대적 액션의 심각도에 따라 더 나쁜 태도 조건을 얻게 됩니다.</p>"
+  "description": "<p>이 조건은 특정 캐릭터에 대한 생물의 성향을 반영하며, 주문과 같은 초자연적 효과로만 PC에 이 조건을 부여할 수 있습니다. 캐릭터에게 친절함을 보이는 생물은 해당 캐릭터를 좋아합니다. 간단하고 안전하며 이행하는 데 너무 많은 비용이 들지 않는 한, 해당 캐릭터의 @link[actions.request]{요청}에 동의할 가능성이 높습니다. 캐릭터(또는 동맹 중 한 명)가 해당 생물에게 적대적인 액션을 사용하면, 해당 생물은 GM이 판단한 적대적 액션의 심각도에 따라 더 나쁜 태도 조건을 얻게 됩니다.</p>"
  },
  "slowed": {
   "name": "둔화",
@@ -157,15 +157,15 @@
  },
  "dying": {
   "name": "빈사",
-  "description": "<p>출혈이 있거나 죽음의 문턱에 있습니다. 이 상태가 지속되는 동안 귀하는 @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{무의식}입니다. 죽어감에는 항상 수치가 포함되며, 수치가 빈사 4에 도달하면 사망합니다. 죽어감에 따라 매 라운드 턴이 시작될 때마다 회복 체크를 시도하여 회복 여부를 확인해야 합니다. 빈사 중 피해를 받으면 빈사 상태가 1, 적의 치명타나 내성 대실패로 피해를 받으면 2 증가합니다.</p>\n<p>회복 체크에서 성공하여 빈사 상태를 잃고 여전히 체력이 0이 되면 무의식 상태가 되지만, 해당 상태에서 설명한 대로 깨어날 수 있습니다. 체력이 1 이상이면 자동으로 빈사 상태를 잃고 깨어납니다. 빈사 조건을 잃을 때마다 @UUID[Compendium.pf2e.conditionitems.Item.Yl48xTdMh3aeQYL2]{부상 1} 상태를 얻거나, 이미 해당 조건을 가지고 있다면 부상입은 상태 값이 1만큼 증가합니다.</p>"
+  "description": "<p>출혈이 있거나 죽음의 문턱에 있습니다. 이 상태가 지속되는 동안 귀하는 @link[conditions.unconscious]{무의식}입니다. 죽어감에는 항상 수치가 포함되며, 수치가 빈사 4에 도달하면 사망합니다. 죽어감에 따라 매 라운드 턴이 시작될 때마다 회복 체크를 시도하여 회복 여부를 확인해야 합니다. 빈사 중 피해를 받으면 빈사 상태가 1, 적의 치명타나 내성 대실패로 피해를 받으면 2 증가합니다.</p>\n<p>회복 체크에서 성공하여 빈사 상태를 잃고 여전히 체력이 0이 되면 무의식 상태가 되지만, 해당 상태에서 설명한 대로 깨어날 수 있습니다. 체력이 1 이상이면 자동으로 빈사 상태를 잃고 깨어납니다. 빈사 조건을 잃을 때마다 @link[conditions.wounded]{부상 1} 상태를 얻거나, 이미 해당 조건을 가지고 있다면 부상입은 상태 값이 1만큼 증가합니다.</p>"
  },
  "confused": {
   "name": "혼란",
-  "description": "<p>당신은 정신을 차리지 못하고 거칠게 공격합니다. 당신은 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비}이며, 누구도 아군으로 취급하지 않으며(아군은 여전히 당신을 아군으로 취급할 수 있지만), 지연, 준비, 또는 리액션을 사용할 수 없습니다.</p>\n<p>모든 액션을 사용하여 공격하거나 공격 캔트립을 시전하지만, GM은 무기를 뽑거나 목표물에 도달할 수 있도록 이동하는 등 공격을 용이하게 하는 다른 액션을 사용하게 할 수 있습니다. 공격 대상은 GM이 무작위로 결정합니다. 다른 공격 대상이 없는 경우, 자동으로 적중하지만 치명타를 기록하지 않는 자신을 공격합니다. 공격이나 주문 시전이 불가능할 경우 횡설수설하며 액션을 낭비합니다.</p>\n<p>공격이나 주문으로 피해를 받을 때마다 DC 11 단순을 시도하여 혼란에서 회복하고 상태를 종료할 수 있습니다.</p>"
+  "description": "<p>당신은 정신을 차리지 못하고 거칠게 공격합니다. 당신은 @link[conditions.off-guard]{무방비}이며, 누구도 아군으로 취급하지 않으며(아군은 여전히 당신을 아군으로 취급할 수 있지만), 지연, 준비, 또는 리액션을 사용할 수 없습니다.</p>\n<p>모든 액션을 사용하여 공격하거나 공격 캔트립을 시전하지만, GM은 무기를 뽑거나 목표물에 도달할 수 있도록 이동하는 등 공격을 용이하게 하는 다른 액션을 사용하게 할 수 있습니다. 공격 대상은 GM이 무작위로 결정합니다. 다른 공격 대상이 없는 경우, 자동으로 적중하지만 치명타를 기록하지 않는 자신을 공격합니다. 공격이나 주문 시전이 불가능할 경우 횡설수설하며 액션을 낭비합니다.</p>\n<p>공격이나 주문으로 피해를 받을 때마다 DC 11 단순을 시도하여 혼란에서 회복하고 상태를 종료할 수 있습니다.</p>"
  },
  "invisible": {
   "name": "투명",
-  "description": "<p>보이지 않습니다. 당신은 모든 사람에게 @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{미탐지}입니다. 생물은 @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{탐색}으로 플레이어를 감지할 수 있으며, 플레이어의 은신 DC에 대한 지각 체크에 성공하면, 플레이어는 @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{숨겨짐}이 되어 다시 감지되지 않음 상태가 될 때까지 해당 생물에게 @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{은밀 이동}을 수행할 수 있게 됩니다.</p><p> 누군가 나를 이미 볼 수 있는 상태에서 보이지 않음 상태가 되면, 성공적으로 @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{은밀 이동}을 마칠 때 까지 @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{미탐지} 상태가 아닌 @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{숨겨짐} 상태로 시작하게 됩니다. 투명 상태에서는 특수 능력이나 마법을 동원하지 않는 한 @UUID[Compendium.pf2e.conditionitems.Item.1wQY3JYyhMYeeV2G]{발각됨}이 될 수 없습니다.</p>"
+  "description": "<p>보이지 않습니다. 당신은 모든 사람에게 @link[conditions.undetected]{미탐지}입니다. 생물은 @link[actions.seek]{탐색}으로 플레이어를 감지할 수 있으며, 플레이어의 은신 DC에 대한 지각 체크에 성공하면, 플레이어는 @link[conditions.hidden]{숨겨짐}이 되어 다시 감지되지 않음 상태가 될 때까지 해당 생물에게 @link[actions.sneak]{은밀 이동}을 수행할 수 있게 됩니다.</p><p> 누군가 나를 이미 볼 수 있는 상태에서 보이지 않음 상태가 되면, 성공적으로 @link[actions.sneak]{은밀 이동}을 마칠 때 까지 @link[conditions.undetected]{미탐지} 상태가 아닌 @link[conditions.hidden]{숨겨짐} 상태로 시작하게 됩니다. 투명 상태에서는 특수 능력이나 마법을 동원하지 않는 한 @link[conditions.observed]{발각됨}이 될 수 없습니다.</p>"
  },
  "cursebound": {
   "name": "저주에 묶인",
