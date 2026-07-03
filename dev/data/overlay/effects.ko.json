@@ -1,7 +1,7 @@
 {
  "effect-drain-blood": {
   "name": "효과: 피 흡수",
-  "description": "<p>4d4의 임시 체력을 얻습니다.</p>"
+  "description": "<p>4d4의 임시 HP를 얻습니다.</p>"
  },
  "effect-swarming-bites": {
   "name": "효과 : 군체 물기",
@@ -73,7 +73,7 @@
  },
  "effect-hunters-onslaught": {
   "name": "효과: 사냥꾼의 맹공격",
-  "description": "<p>당신은 표식이 찍힌 생물에게 매료되어, 맹공격이 지속되는 동안 10의 임시 체력을 얻습니다. 표식이 찍힌 적에 대한 피해 굴림에 +8의 상태 보너스를 얻고, 사냥꾼의 30피트 주변에 있는 아우라에 있는 아군들은 그 보너스의 절반을 얻습니다.</p>"
+  "description": "<p>당신은 표식이 찍힌 생물에게 매료되어, 맹공격이 지속되는 동안 10의 임시 HP를 얻습니다. 표식이 찍힌 적에 대한 피해 굴림에 +8의 상태 보너스를 얻고, 사냥꾼의 30피트 주변에 있는 아우라에 있는 아군들은 그 보너스의 절반을 얻습니다.</p>"
  },
  "effect-skin-net": {
   "name": "효과: 피부 그물",
@@ -117,7 +117,7 @@
  },
  "effect-feel-no-pain": {
   "name": "효과 : 통증 없음",
-  "description": "<p>군체가 임시 체력 10을 얻습니다.</p>"
+  "description": "<p>군체가 임시 HP 10을 얻습니다.</p>"
  },
  "effect-fed-by-wood": {
   "name": "효과: 나무로 먹이기",
@@ -297,7 +297,7 @@
  },
  "effect-quicken-the-rot": {
   "name": "효과: 부패 가속",
-  "description": "<p>당신은 30의 임시 체력을 얻습니다.</p>"
+  "description": "<p>당신은 30의 임시 HP를 얻습니다.</p>"
  },
  "effect-aura-of-smoke": {
   "name": "효과: 연기의 오라",
@@ -453,7 +453,7 @@
  },
  "effect-eat-a-pickle": {
   "name": "효과: 피클 먹기",
-  "description": "<p>임시 체력이 4 증가합니다.</p>"
+  "description": "<p>임시 HP가 4 증가합니다.</p>"
  },
  "effect-yobnobby-overdrive": {
   "name": "효과: 요브노비 오버드라이브",
@@ -473,7 +473,7 @@
  },
  "effect-still-got-it": {
   "name": "효과: 아직 실력이 남아 있다!",
-  "description": "<p>은퇴한 생물은 레벨과 동일한 임시 체력을 얻으며, 이 체력은 전투가 끝날 때까지 지속됩니다. 은퇴한 생물은 또한 전투가 끝날 때까지 녹슨 효과의 영향을 받지 않습니다.</p>"
+  "description": "<p>은퇴한 생물은 레벨과 동일한 임시 HP를 얻으며, 이 HP는 전투가 끝날 때까지 지속됩니다. 은퇴한 생물은 또한 전투가 끝날 때까지 녹슨 효과의 영향을 받지 않습니다.</p>"
  },
  "effect-field-of-slaughter-bleed": {
   "name": "효과: 학살의 장 (출혈)",
@@ -537,7 +537,7 @@
  },
  "effect-biggest-fan": {
   "name": "효과: 열렬한 팬!",
-  "description": "<p>1d6의 임시 체력을 얻습니다.</p>"
+  "description": "<p>1d6의 임시 HP를 얻습니다.</p>"
  },
  "effect-spear-parry": {
   "name": "효과: 창 막기",
@@ -693,7 +693,7 @@
  },
  "effect-drain-life": {
   "name": "효과: 흡수",
-  "description": "<p>와이트 스펠 스나이퍼는 2d6의 임시 체력을 얻습니다.</p>"
+  "description": "<p>와이트 스펠 스나이퍼는 2d6의 임시 HP를 얻습니다.</p>"
  },
  "effect-absorb-shock": {
   "name": "효과: 충격 흡수",
@@ -709,7 +709,7 @@
  },
  "effect-static-field": {
   "name": "Effect: 스태틱 필드",
-  "description": "<p>식물 생물이 임시 체력 5를 얻습니다.</p>"
+  "description": "<p>식물 생물이 임시 HP 5를 얻습니다.</p>"
  },
  "effect-inspire-defense-love-siktempora": {
   "name": "효과: 방어력 고취(사랑의 식템포라)",
@@ -757,7 +757,7 @@
  },
  "effect-root-in-place": {
   "name": "효과: 뿌리 박기",
-  "description": "<p>당신의 속도가 0으로 감소하고 AC에 +1의 상황 보너스와 2의 임시 체력을 얻습니다.</p>"
+  "description": "<p>당신의 속도가 0으로 감소하고 AC에 +1의 상황 보너스와 2의 임시 HP를 얻습니다.</p>"
  },
  "effect-witchflame-success": {
   "name": "효과: 마녀 불꽃 (성공)",
@@ -797,7 +797,7 @@
  },
  "effect-vicious-bluster": {
   "name": "효과 : 악의적인 허풍",
-  "description": "<p>가르가르테줄이 적에게 {사기 저하}에 성공하면, 1분 동안 지속되는 1d6의 임시 체력(대성공 시 2d6)을 얻습니다.</p>"
+  "description": "<p>가르가르테줄이 적에게 {사기 저하}에 성공하면, 1분 동안 지속되는 1d6의 임시 HP(대성공 시 2d6)을 얻습니다.</p>"
  },
  "effect-ganzi-resistance": {
   "name": "효과: 간지 저항",
@@ -921,7 +921,7 @@
  },
  "effect-commanding-aura": {
   "name": "효과: 지휘의 기운",
-  "description": "<p>임시 체력이 8 증가합니다.</p>"
+  "description": "<p>임시 HP가 8 증가합니다.</p>"
  },
  "effect-revert-form": {
   "name": "효과: 양식 되돌리기",
@@ -945,7 +945,7 @@
  },
  "effect-blood-frenzy": {
   "name": "효과: 피의 광란",
-  "description": "<p>이 생물은 특정 생물에 따라 임시 체력과 다른 효과를 얻습니다.</p>"
+  "description": "<p>이 생물은 특정 생물에 따라 임시 HP와 다른 효과를 얻습니다.</p>"
  },
  "effect-fiery-rhetoric": {
   "name": "효과: 불타는 수사",
@@ -977,7 +977,7 @@
  },
  "effect-harness-wickedness": {
   "name": "효과: 사악함을 활용",
-  "description": "<p>당신의 공격은 추가 피해 주사위를 입히고 부정한 특성을 얻습니다. 또한 임시 체력 10, 속도에 +5 피트 상태 보너스, 신성한 것에 대한 약점 5를 얻습니다.</p>"
+  "description": "<p>당신의 공격은 추가 피해 주사위를 입히고 부정한 특성을 얻습니다. 또한 임시 HP 10, 속도에 +5 피트 상태 보너스, 신성한 것에 대한 약점 5를 얻습니다.</p>"
  },
  "effect-under-command": {
   "name": "효과: 명령 아래",
@@ -1017,7 +1017,7 @@
  },
  "effect-vicious-bluster-critical-success": {
   "name": "효과 : 악의적 허풍 (대성공)",
-  "description": "<p>가르가르테줄이 적에게 {사기 저하}에 성공하면, 1분 동안 지속되는 1d6의 임시 체력(대성공 시 2d6)을 얻습니다.</p>"
+  "description": "<p>가르가르테줄이 적에게 {사기 저하}에 성공하면, 1분 동안 지속되는 1d6의 임시 HP(대성공 시 2d6)을 얻습니다.</p>"
  },
  "effect-crushing-spirits": {
   "name": "효과: 정령 분쇄",
@@ -1077,7 +1077,7 @@
  },
  "effect-stay-in-the-fight": {
   "name": "효과: 전투를 계속하라!",
-  "description": "<p>임시 체력이 10 증가합니다.</p>"
+  "description": "<p>임시 HP가 10 증가합니다.</p>"
  },
  "effect-sight-prey-speed-penalty": {
   "name": "효과: 시야의 먹이 (속도 페널티)",
@@ -1117,7 +1117,7 @@
  },
  "effect-replenishment-of-war-endlo": {
   "name": "효과 전쟁 보충 (엔드로)",
-  "description": "<p>엔드로가 대검 일격으로 생물에게 피해를 입히면, 엔드로는 다음 턴이 시작될 때까지 일시적으로 6 HP를 얻습니다. 공격이 치명타로 적중했다면, 대신 12의 임시 체력을 얻습니다.</p>"
+  "description": "<p>엔드로가 대검 일격으로 생물에게 피해를 입히면, 엔드로는 다음 턴이 시작될 때까지 일시적으로 6 HP를 얻습니다. 공격이 치명타로 적중했다면, 대신 12의 임시 HP를 얻습니다.</p>"
  },
  "effect-motivating-assault": {
   "name": "효과: 공격 동기 부여",
@@ -1309,7 +1309,7 @@
  },
  "effect-harrow-burst": {
   "name": "효과: 해로우 폭발",
-  "description": "<p>세이브에 실패한 생물은 1d6을 굴려 카드 한 벌을 결정합니다: 1 = 망치(근력), 2 = 열쇠(민첩), 3 = 방패(체력), 4 = 책(지능), 5 = 별(지혜), 6 = 왕관(카리스마). 생물은 1라운드 동안 해당 능력 점수와 관련된 모든 체크에서 -1 상태 페널티를 받습니다(대실패 시 -2 상태 페널티).</p>"
+  "description": "<p>세이브에 실패한 생물은 1d6을 굴려 카드 한 벌을 결정합니다: 1 = 망치(근력), 2 = 열쇠(민첩), 3 = 방패(HP), 4 = 책(지능), 5 = 별(지혜), 6 = 왕관(카리스마). 생물은 1라운드 동안 해당 능력 점수와 관련된 모든 체크에서 -1 상태 페널티를 받습니다(대실패 시 -2 상태 페널티).</p>"
  },
  "effect-super-qi-blast": {
   "name": "효과: 슈퍼 기 폭발",
@@ -1329,7 +1329,7 @@
  },
  "effect-bloodletting": {
   "name": "효과: 출혈",
-  "description": "<p>스킨소 신부가 40의 임시 체력을 얻습니다.</p>"
+  "description": "<p>스킨소 신부가 40의 임시 HP를 얻습니다.</p>"
  },
  "effect-ensnare": {
   "name": "효과: 올가미",
@@ -1469,7 +1469,7 @@
  },
  "effect-feast-on-illness": {
   "name": "효과 : 질병에 대한 향연",
-  "description": "<p>푸레리코가 임시 체력 30을 얻습니다.</p>"
+  "description": "<p>푸레리코가 임시 HP 30을 얻습니다.</p>"
  },
  "effect-shackling-cold": {
   "name": "효과: 족쇄를 채우는 추위",
@@ -1725,7 +1725,7 @@
  },
  "effect-inspiring-display": {
   "name": "효과 : 영감을 주는 디스플레이",
-  "description": "<p>이 대상은 동굴 마법사의 다음 턴이 시작될 때까지 지속되는 임시 체력 4점을 얻습니다.</p>"
+  "description": "<p>이 대상은 동굴 마법사의 다음 턴이 시작될 때까지 지속되는 임시 HP 4점을 얻습니다.</p>"
  },
  "effect-raise-defenses": {
   "name": "효과: 방어력 상승",
@@ -1793,7 +1793,7 @@
  },
  "effect-siphon-will": {
   "name": "효과: 의지력 흡수",
-  "description": "<p>말은 20의 임시 체력을 얻습니다.</p>"
+  "description": "<p>말은 20의 임시 HP를 얻습니다.</p>"
  },
  "effect-iron-command-extra-damage": {
   "name": "효과: 철의 명령 (추가 피해)",
@@ -1833,7 +1833,7 @@
  },
  "effect-drain-vigor": {
   "name": "효과: 활력 흡수",
-  "description": "<p>움브랄 드래곤은 20의 임시 체력을 얻습니다.</p>"
+  "description": "<p>움브랄 드래곤은 20의 임시 HP를 얻습니다.</p>"
  },
  "effect-active-mutagen": {
   "name": "효과: 활성 돌연변이 유발",
@@ -1857,7 +1857,7 @@
  },
  "effect-cleansing-earth": {
   "name": "효과: 정화하는 땅",
-  "description": "<p>임시 체력이 20 증가합니다.</p>"
+  "description": "<p>임시 HP가 20 증가합니다.</p>"
  },
  "effect-blood-soak": {
   "name": "효과: 혈액 흡수",
@@ -1877,7 +1877,7 @@
  },
  "effect-gluttons-feast": {
   "name": "효과: 폭식의 잔치",
-  "description": "<p>폭식하는 오거는 1d4의 임시 체력을 얻거나, 폭식 후 2d4의 체력을 얻습니다.</p>"
+  "description": "<p>폭식하는 오거는 1d4의 임시 HP를 얻거나, 폭식 후 2d4의 HP를 얻습니다.</p>"
  },
  "effect-guiding-words-guide": {
   "name": "효과: 안내의 말 (가이드)",
@@ -1889,7 +1889,7 @@
  },
  "effect-wallow": {
   "name": "효과: 뒹굴기",
-  "description": "<p>전쟁 돼지가 임시 체력을 얻습니다.</p>"
+  "description": "<p>전쟁 돼지가 임시 HP를 얻습니다.</p>"
  },
  "effect-champions-aura-champion-of-rovagug": {
   "name": "효과: 챔피언의 기운 (로바구그의 챔피언)",
@@ -1921,7 +1921,7 @@
  },
  "effect-pfs-level-bump-npc": {
   "name": "효과: PFS 레벨 상승 (NPC)",
-  "description": "<p>시나리오와 퀘스트는 주어진 레벨 범위(예: 레벨 범위 1–2는 1레벨 PC를, 레벨 범위 3–4는 3레벨 PC를 대상으로 설계됨)에서 두 레벨 중 낮은 쪽의 평균 레벨을 가진 PC를 도전 대상으로 설계됩니다. 일반적으로 챌린지 포인트의 합계로 그룹의 전체적인 파워가 레벨 범위에서 더 높은 레벨(예: 레벨 범위 1~2에서는 2레벨)에 해당한다고 판단되면, 시나리오의 스케일링이 이에 맞게 조정됩니다.</p> <p>그러나 시나리오의 스케일링이 플레이어 수에 기반하거나, 시나리오에 낮은 티어(16–18) 스케일링이缺如한 경우 등에는 레벨 업그레이드를 추가해야 할 때가 있습니다.</p> <ul> <li>공격 수정자, 공격 피해, 주문 피해, 내성 굴림 수정자, 스킬 수정자, 지각력 수정자 및 AC를 1 증가시킵니다. </li> <li>체력 총량을 10 또는 10% 중 더 높은 쪽으로 증가시킵니다. </li> </ul></p>"
+  "description": "<p>시나리오와 퀘스트는 주어진 레벨 범위(예: 레벨 범위 1–2는 1레벨 PC를, 레벨 범위 3–4는 3레벨 PC를 대상으로 설계됨)에서 두 레벨 중 낮은 쪽의 평균 레벨을 가진 PC를 도전 대상으로 설계됩니다. 일반적으로 챌린지 포인트의 합계로 그룹의 전체적인 파워가 레벨 범위에서 더 높은 레벨(예: 레벨 범위 1~2에서는 2레벨)에 해당한다고 판단되면, 시나리오의 스케일링이 이에 맞게 조정됩니다.</p> <p>그러나 시나리오의 스케일링이 플레이어 수에 기반하거나, 시나리오에 낮은 티어(16–18) 스케일링이缺如한 경우 등에는 레벨 업그레이드를 추가해야 할 때가 있습니다.</p> <ul> <li>공격 수정자, 공격 피해, 주문 피해, 내성 굴림 수정자, 스킬 수정자, 지각력 수정자 및 AC를 1 증가시킵니다. </li> <li>HP 총량을 10 또는 10% 중 더 높은 쪽으로 증가시킵니다. </li> </ul></p>"
  },
  "effect-mark-of-fate": {
   "name": "효과: 운명의 표식",
@@ -2069,7 +2069,7 @@
  },
  "effect-protective-mentor": {
   "name": "효과: 보호하는 조언자",
-  "description": "<p>보호자 멘토에 의해 부여됨</p> <p>레벨 상승에 의해 얻는 보너스 외에도 최대 체력이 증가합니다.</p>"
+  "description": "<p>보호자 멘토에 의해 부여됨</p> <p>레벨 상승에 의해 얻는 보너스 외에도 최대 HP가 증가합니다.</p>"
  },
  "mixed-drink-dancing-lights": {
   "name": "혼합 음료: 춤추는 조명",
@@ -2077,11 +2077,11 @@
  },
  "effect-grand-finale": {
   "name": "효과: 그랜드 피날레",
-  "description": "<p>그랜드 피날레에 의해 부여됨</p> <p>연기 체크에 +2의 상황 보너스, 20의 임시 체력, 그리고 체력 내성에 +1의 상황 보너스를 얻습니다.</p>"
+  "description": "<p>그랜드 피날레에 의해 부여됨</p> <p>연기 체크에 +2의 상황 보너스, 20의 임시 HP, 그리고 HP 내성에 +1의 상황 보너스를 얻습니다.</p>"
  },
  "effect-boar-form": {
   "name": "효과: 멧돼지 형태",
-  "description": "<p>다형성 캐릭터가 대형 동물로 변신합니다. 각 다형성 캐릭터는 어떤 형태를 선택하든 다음과 같은 통계와 능력을 얻습니다.</p>\n<ul>\n<li>AC = 36.</li>\n<li>임시 체력 30.</li>\n<li>저조도 시야 및 후각(정확하지 않음) 30피트.</li>\n<li>전투 형태에 맞는 비무장 근접 공격 하나 이상, 사용할 수 있는 유일한 공격. (훈련된 공격입니다.) 자신의 비무장 공격 수정치가 더 좋으면 사용할 수 있습니다.</li>\n<li>자신의 비무장 공격 수정치가 더 좋지 않으면 +26의 운동 수정치.</li>\n<li><strong> @link[actions.rallying-display]</strong> <span class=\"action-glyph\">1</span> (청각, 시각) 포효하거나 다른 방법으로 근력을 과시할 수 있습니다. 자동으로 굴림을 성공하면 아군을 위해 군중을 집결시킵니다.</li>\n<li><strong> @link[actions.reposition-chains]</strong> <span class=\"action-glyph\">1</span> 사슬을 당겨 묶인 아군을 최대 10피트 범위 내 공간으로 이동시킴으로써 자신의 손이 닿는 거리까지 이동시킵니다.<hr /></li>\n</ul>\n<p><strong>속도</strong> 40 피트</p>\n<p><strong> 근접</strong> <span class=\"action-glyph\">1</span> 엄니 +25, 피해 3d10+16 관통</p>\n<p><strong> @link[actions.chained-charge]</strong> <span class=\"action-glyph\">2</span> 걸음을 걸은 다음 이동이 끝날 때 엄니를 일격합니다. 사슬에 묶인 아군으로부터 15피트 이상 멀어지면, 아군을 15피트 뒤의 가장 가까운 빈 공간으로 끌어당깁니다. 공격한 생물은 DC 35 내성 굴림에 성공하거나 @link[conditions.prone]에 쓰러져야 합니다.</p>"
+  "description": "<p>다형성 캐릭터가 대형 동물로 변신합니다. 각 다형성 캐릭터는 어떤 형태를 선택하든 다음과 같은 통계와 능력을 얻습니다.</p>\n<ul>\n<li>AC = 36.</li>\n<li>임시 HP 30.</li>\n<li>저조도 시야 및 후각(정확하지 않음) 30피트.</li>\n<li>전투 형태에 맞는 비무장 근접 공격 하나 이상, 사용할 수 있는 유일한 공격. (훈련된 공격입니다.) 자신의 비무장 공격 수정치가 더 좋으면 사용할 수 있습니다.</li>\n<li>자신의 비무장 공격 수정치가 더 좋지 않으면 +26의 운동 수정치.</li>\n<li><strong> @link[actions.rallying-display]</strong> <span class=\"action-glyph\">1</span> (청각, 시각) 포효하거나 다른 방법으로 근력을 과시할 수 있습니다. 자동으로 굴림을 성공하면 아군을 위해 군중을 집결시킵니다.</li>\n<li><strong> @link[actions.reposition-chains]</strong> <span class=\"action-glyph\">1</span> 사슬을 당겨 묶인 아군을 최대 10피트 범위 내 공간으로 이동시킴으로써 자신의 손이 닿는 거리까지 이동시킵니다.<hr /></li>\n</ul>\n<p><strong>속도</strong> 40 피트</p>\n<p><strong> 근접</strong> <span class=\"action-glyph\">1</span> 엄니 +25, 피해 3d10+16 관통</p>\n<p><strong> @link[actions.chained-charge]</strong> <span class=\"action-glyph\">2</span> 걸음을 걸은 다음 이동이 끝날 때 엄니를 일격합니다. 사슬에 묶인 아군으로부터 15피트 이상 멀어지면, 아군을 15피트 뒤의 가장 가까운 빈 공간으로 끌어당깁니다. 공격한 생물은 DC 35 내성 굴림에 성공하거나 @link[conditions.prone]에 쓰러져야 합니다.</p>"
  },
  "effect-extreme-stomach-cramps": {
   "name": "효과: 극심한 위경련",
@@ -2101,7 +2101,7 @@
  },
  "effect-tiger-form": {
   "name": "효과: 호랑이 형태",
-  "description": "<p>다형성 캐릭터가 대형 동물로 변신합니다. 각 다형성 캐릭터는 어떤 형태를 선택하든 다음과 같은 통계와 능력을 얻습니다.</p>\n<ul>\n<li>AC = 36.</li>\n<li>임시 체력 30.</li>\n<li>저조도 시야 및 후각(정확하지 않음) 30피트.</li>\n<li>전투 형태에 맞는 비무장 근접 공격 하나 이상, 사용할 수 있는 유일한 공격. (훈련된 공격입니다.) 자신의 비무장 공격 수정치가 더 좋으면 사용할 수 있습니다.</li>\n<li>자신의 비무장 공격 수정치가 더 좋지 않으면 +26의 운동 수정치.</li>\n<li><strong> @link[actions.rallying-display]</strong> <span class=\"action-glyph\">1</span> (청각, 시각) 포효하거나 다른 방법으로 근력을 과시할 수 있습니다. 자동으로 굴림을 성공하면 아군을 위해 군중을 집결시킵니다.</li>\n<li><strong> @link[actions.reposition-chains]</strong> <span class=\"action-glyph\">1</span> 사슬을 당겨 묶인 아군을 최대 10피트 범위 내 공간으로 이동시킵니다.</li>\n</ul>\n<hr />\n<p><strong>속도</strong> 30 피트</p>\n<p><strong> 근접</strong> <span class=\"action-glyph\">1</span> 턱 +25, 피해 3d6+16 관통 + @link[actions.grab]</p>\n<p><strong> 근접</strong> <span class=\"action-glyph\">1</span> 발톱 +25 (기민한), 피해 2d8+16 베기</p>\n<p><strong> @link[actions.wrestle]</strong> <span class=\"action-glyph\">1</span> 발톱으로 @link[conditions.grabbed] 또는 @link[conditions.restrained] 생물에게 발톱 일격을 가합니다. 적중하면, 당신은 평소처럼 피해를 입히고 그 생물은 @link[conditions.prone]을 받습니다.</p>"
+  "description": "<p>다형성 캐릭터가 대형 동물로 변신합니다. 각 다형성 캐릭터는 어떤 형태를 선택하든 다음과 같은 통계와 능력을 얻습니다.</p>\n<ul>\n<li>AC = 36.</li>\n<li>임시 HP 30.</li>\n<li>저조도 시야 및 후각(정확하지 않음) 30피트.</li>\n<li>전투 형태에 맞는 비무장 근접 공격 하나 이상, 사용할 수 있는 유일한 공격. (훈련된 공격입니다.) 자신의 비무장 공격 수정치가 더 좋으면 사용할 수 있습니다.</li>\n<li>자신의 비무장 공격 수정치가 더 좋지 않으면 +26의 운동 수정치.</li>\n<li><strong> @link[actions.rallying-display]</strong> <span class=\"action-glyph\">1</span> (청각, 시각) 포효하거나 다른 방법으로 근력을 과시할 수 있습니다. 자동으로 굴림을 성공하면 아군을 위해 군중을 집결시킵니다.</li>\n<li><strong> @link[actions.reposition-chains]</strong> <span class=\"action-glyph\">1</span> 사슬을 당겨 묶인 아군을 최대 10피트 범위 내 공간으로 이동시킵니다.</li>\n</ul>\n<hr />\n<p><strong>속도</strong> 30 피트</p>\n<p><strong> 근접</strong> <span class=\"action-glyph\">1</span> 턱 +25, 피해 3d6+16 관통 + @link[actions.grab]</p>\n<p><strong> 근접</strong> <span class=\"action-glyph\">1</span> 발톱 +25 (기민한), 피해 2d8+16 베기</p>\n<p><strong> @link[actions.wrestle]</strong> <span class=\"action-glyph\">1</span> 발톱으로 @link[conditions.grabbed] 또는 @link[conditions.restrained] 생물에게 발톱 일격을 가합니다. 적중하면, 당신은 평소처럼 피해를 입히고 그 생물은 @link[conditions.prone]을 받습니다.</p>"
  },
  "effect-hope-or-despair-failure-or-critical-failure": {
   "name": "효과: 희망 또는 절망(실패 또는 대실패)",
@@ -2201,7 +2201,7 @@
  },
  "effect-spore-feedback": {
   "name": "효과: 포자 피드백",
-  "description": "<p>트리레이저의 최대 체력이 500으로 감소하고 재생력이 30으로 감소합니다.</p>"
+  "description": "<p>트리레이저의 최대 HP가 500으로 감소하고 재생력이 30으로 감소합니다.</p>"
  },
  "effect-burned-mouth-and-throat-linguistic": {
   "name": "효과: 입과 목에 화상(언어)",
@@ -2281,7 +2281,7 @@
  },
  "effect-victorious-vigor": {
   "name": "효과: 승리의 활력",
-  "description": "<p>{승리의 활력}</p>에 의해 부여됨\n<p>다음 차례가 끝날 때까지 건강 수정자만큼의 임시 체력을 얻습니다.</p>"
+  "description": "<p>{승리의 활력}</p>에 의해 부여됨\n<p>다음 차례가 끝날 때까지 건강 수정자만큼의 임시 HP를 얻습니다.</p>"
  },
  "effect-shared-sight": {
   "name": "효과: 공유된 시야",
@@ -2293,7 +2293,7 @@
  },
  "effect-harrow-chosen": {
   "name": "효과: 해로우의 선택받은 자",
-  "description": "<p>@link[backgrounds.harrow-chosen]</p>에 의해 부여됨\n<p>이 혜택은 덱에서 뽑은 카드의 성향에 따라 결정됩니다. 카드는 두 성향 요소 모두와 일치할 수 있습니다(최상급 일치), 하나의 성향 요소만 일치할 수 있습니다(부분 일치), 일치하는 성향 요소가 전혀 없을 수 있습니다(일치 없음), 또는 당신의 성향과 정반대일 수 있습니다(성향 불일치).</p>\n<p><strong>완벽 일치</strong>: 1분 동안 선택한 내성 굴림(체력, 반사, 의지 내성)에 +1 상황 보너스를 얻습니다.</p>\n<p><strong>부분 일치</strong>: 1분 동안 자신의 레벨에 해당하는 하나의 에너지 유형(산성, 냉기, 전기, 화염, [sonic])에 대한 저항력을 얻습니다.</p>\n<p><strong>일치하지 않음</strong>: 레벨의 두 배에 해당하는 임시 체력을 얻습니다. 임시 체력은 1분 동안 유지됩니다.</p>\n<p><strong>불일치</strong>: 1분 동안 이동 속도에 +5피트 상황 보너스를 얻습니다.</p>"
+  "description": "<p>@link[backgrounds.harrow-chosen]</p>에 의해 부여됨\n<p>이 혜택은 덱에서 뽑은 카드의 성향에 따라 결정됩니다. 카드는 두 성향 요소 모두와 일치할 수 있습니다(최상급 일치), 하나의 성향 요소만 일치할 수 있습니다(부분 일치), 일치하는 성향 요소가 전혀 없을 수 있습니다(일치 없음), 또는 당신의 성향과 정반대일 수 있습니다(성향 불일치).</p>\n<p><strong>완벽 일치</strong>: 1분 동안 선택한 내성 굴림(HP, 반사, 의지 내성)에 +1 상황 보너스를 얻습니다.</p>\n<p><strong>부분 일치</strong>: 1분 동안 자신의 레벨에 해당하는 하나의 에너지 유형(산성, 냉기, 전기, 화염, [sonic])에 대한 저항력을 얻습니다.</p>\n<p><strong>일치하지 않음</strong>: 레벨의 두 배에 해당하는 임시 HP를 얻습니다. 임시 HP는 1분 동안 유지됩니다.</p>\n<p><strong>불일치</strong>: 1분 동안 이동 속도에 +5피트 상황 보너스를 얻습니다.</p>"
  },
  "effect-abjure-harm": {
   "name": "효과: 해악 거부",
@@ -2369,7 +2369,7 @@
  },
  "effect-enter-spirit-trance": {
   "name": "효과: 영혼의 트랜스 진입",
-  "description": "<p>{영혼의 황홀경에 빠짐}</p>에 의해 부여됨\n<p>당신은 레벨에 건강 능력치 수정자를 더한 만큼의 임시 체력을 얻으며, 체력 및 의지 내성에 +1 상태 보너스를 얻고, 근접 공격 시 추가로 1의 영혼 피해를 입힙니다.</p>"
+  "description": "<p>{영혼의 황홀경에 빠짐}</p>에 의해 부여됨\n<p>당신은 레벨에 건강 능력치 수정자를 더한 만큼의 임시 HP를 얻으며, HP 및 의지 내성에 +1 상태 보너스를 얻고, 근접 공격 시 추가로 1의 영혼 피해를 입힙니다.</p>"
  },
  "stance-cobra-stance-cobra-envenom": {
   "name": "자세: 코브라 자세 (코브라 독침)",
@@ -2393,7 +2393,7 @@
  },
  "effect-undead-blood-magic": {
   "name": "효과: 언데드 혈통 마법",
-  "description": "<p>@link[feats.bloodline-undead]</p>에 의해 부여됨\n<p>1라운드 동안 해당 주문 랭크에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.bloodline-undead]</p>에 의해 부여됨\n<p>1라운드 동안 해당 주문 랭크에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-invoke-defense": {
   "name": "효과: 방어 발동",
@@ -2413,7 +2413,7 @@
  },
  "effect-mutagenist-field-benefit": {
   "name": "효과: 혈청학자 연구 혜택",
-  "description": "<p>@link[feats.mutagenist]</p>에 의해 부여됨\n<p>지능 능력치 수정자에 레벨의 절반을 더한 만큼의 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.mutagenist]</p>에 의해 부여됨\n<p>지능 능력치 수정자에 레벨의 절반을 더한 만큼의 임시 HP를 얻습니다.</p>"
  },
  "effect-destined-victory-note": {
   "name": "효과: 운명적 승리 (참고)",
@@ -2445,7 +2445,7 @@
  },
  "effect-to-war": {
   "name": "효과: 전쟁으로!",
-  "description": "<p>@link[feats.to-war]</p>에 의해 부여됨\n<p>원천의 레벨에 해당하는 수의 임시 체력을 얻으며, 원천의 종말 탈것에 의해 피해를 입은 모든 적에게 가하는 피해에 +2 상태 보너스를 받습니다.</p>"
+  "description": "<p>@link[feats.to-war]</p>에 의해 부여됨\n<p>원천의 레벨에 해당하는 수의 임시 HP를 얻으며, 원천의 종말 탈것에 의해 피해를 입은 모든 적에게 가하는 피해에 +2 상태 보너스를 받습니다.</p>"
  },
  "effect-lepidstadt-surgeon-dedication-stop-bleeding": {
   "name": "효과: 레피드슈타트 외과의 헌신 (출혈 멈춤)",
@@ -2460,8 +2460,8 @@
   "description": "<p>@link[feats.tamper]에 의해 부여됨</p>\n<p>당신의 무기가 조작되었습니다! 해당 무기로 명중 굴림과 피해 굴림에 -2 상황 페널티를 받습니다. 이 효과는 발명가의 다음 턴 시작 시, 또는 당신이 @link[actions.interact]하여 제거할 때까지 지속됩니다.</p>"
  },
  "effect-play-to-the-crowd-temporary-hit-points": {
-  "name": "효과: 군중을 의식한 연기 (임시 체력)",
-  "description": "<p>@link[feats.play-to-the-crowd]</p>에 의해 부여됨\n<p>캐릭터 레벨과 동일한 임시 체력을 얻습니다.</p>"
+  "name": "효과: 군중을 의식한 연기 (임시 HP)",
+  "description": "<p>@link[feats.play-to-the-crowd]</p>에 의해 부여됨\n<p>캐릭터 레벨과 동일한 임시 HP를 얻습니다.</p>"
  },
  "effect-share-hunters-edge-flurry-masterful": {
   "name": "효과: 헌터스 엣지 (연타, 마스터) 공유",
@@ -2489,7 +2489,7 @@
  },
  "effect-close-contract": {
   "name": "효과: 계약 종료",
-  "description": "<p>{계약 종료}에 의해 부여됨</p>\n<p>일시적인 체력을 얻습니다.</p>"
+  "description": "<p>{계약 종료}에 의해 부여됨</p>\n<p>일시적인 HP를 얻습니다.</p>"
  },
  "effect-familiar-of-keen-senses": {
   "name": "효과: 예리한 감각의 사역마",
@@ -2497,11 +2497,11 @@
  },
  "effect-hungry-goblin": {
   "name": "효과: 배고픈 고블린",
-  "description": "<p>{배고픈 고블린}</p>에 의해 부여됨\n<p>당신의 레벨 절반에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>{배고픈 고블린}</p>에 의해 부여됨\n<p>당신의 레벨 절반에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-even-the-odds": {
   "name": "효과: 균형 맞추기",
-  "description": "<p>부여: @link[feats.even-the-odds-eagle-knight]</p>\n<p>당신은 25의 임시 체력을 얻습니다.</p>"
+  "description": "<p>부여: @link[feats.even-the-odds-eagle-knight]</p>\n<p>당신은 25의 임시 HP를 얻습니다.</p>"
  },
  "effect-inspiring-recitation": {
   "name": "효과: 영감을 주는 낭송",
@@ -2577,7 +2577,7 @@
  },
  "effect-heroic-defiance": {
   "name": "효과: 영웅적 저항",
-  "description": "<p>@link[feats.heroic-defiance]</p>에 의해 부여됨\n<p>당신은 레벨과 동일한 임시 체력을 얻으며, 모든 내성 굴림에서 +1 상태 보너스를 받습니다.</p>"
+  "description": "<p>@link[feats.heroic-defiance]</p>에 의해 부여됨\n<p>당신은 레벨과 동일한 임시 HP를 얻으며, 모든 내성 굴림에서 +1 상태 보너스를 받습니다.</p>"
  },
  "effect-giants-stature": {
   "name": "효과: 거인의 체격",
@@ -2593,11 +2593,11 @@
  },
  "effect-curse-of-living-death": {
   "name": "효과: 생명의 저주",
-  "description": "<p>{뼈}에 의해 부여됨</p>\n<h3>살아있는 죽음의 저주</h3>\n<p>살아있음에도 몸은 서서히 썩어가며, 능력을 사용할수록 이 비정상적인 생명의 죽음은 가속화된다. 무덤의 기운이 스며들어 피가 빠진 듯한 창백함, 희미한 흙냄새, 또는 죽음처럼 차가운 피부로 창조된다.</p>\n<h4>경미한 저주</h4>\n<p>뼈가 피부 위로 돌출되고 살이 썩어 들어가며, 부패한 악취와 비현실적인 냉기가 동반된다. 마법이 아닌 방법으로 회복되는 체력은 평소 절반만 회복된다.</p>\n<h4>중간 저주</h4>\n<p>썩은 살점이 계속해서 부패하며 건강을 해친다. @link[conditions.drained]{1} 상태가 되며, 이 흡수된 상태는 획득한 다른 흡수된 상태와 누적된다. 이 흡수된 상태는 재집중 시에만 제거되며, 일반적으로 흡수된 상태를 제거하는 효과는 대신 흡수된 상태를 흡수된 1로 감소시킨다.</p>\n<p>추가로, 레벨의 절반에 해당하는 독 저항력을 얻습니다. 질병, 독, 죽음 효과에 대한 저항에 +4 상태 보너스를 얻으며, 해당 내성에서 성공을 굴릴 경우 대신 대성공을 얻습니다.</p>\n<h4>상급 저주 (11레벨)</h4>\n<p>당신은 죽음의 문턱에 다다릅니다. @link[conditions.wounded]{1} 상태가 됩니다. 이 부상 상태는 재집중 시에만 제거되며, 일반적으로 부상 상태를 제거하는 효과는 대신 부상 상태를 부상 1로 감소시킵니다.</p>\n<p>회복 체크를 시도할 때 주사위 굴림 대신 자동 성공을 선택할 수 있으며, 질병·독·사망 효과에 대한 내성 체크에서 대실패를 굴렸을 경우 실패로 처리된다.</p>"
+  "description": "<p>{뼈}에 의해 부여됨</p>\n<h3>살아있는 죽음의 저주</h3>\n<p>살아있음에도 몸은 서서히 썩어가며, 능력을 사용할수록 이 비정상적인 생명의 죽음은 가속화된다. 무덤의 기운이 스며들어 피가 빠진 듯한 창백함, 희미한 흙냄새, 또는 죽음처럼 차가운 피부로 창조된다.</p>\n<h4>경미한 저주</h4>\n<p>뼈가 피부 위로 돌출되고 살이 썩어 들어가며, 부패한 악취와 비현실적인 냉기가 동반된다. 마법이 아닌 방법으로 회복되는 HP는 평소 절반만 회복된다.</p>\n<h4>중간 저주</h4>\n<p>썩은 살점이 계속해서 부패하며 건강을 해친다. @link[conditions.drained]{1} 상태가 되며, 이 흡수된 상태는 획득한 다른 흡수된 상태와 누적된다. 이 흡수된 상태는 재집중 시에만 제거되며, 일반적으로 흡수된 상태를 제거하는 효과는 대신 흡수된 상태를 흡수된 1로 감소시킨다.</p>\n<p>추가로, 레벨의 절반에 해당하는 독 저항력을 얻습니다. 질병, 독, 죽음 효과에 대한 저항에 +4 상태 보너스를 얻으며, 해당 내성에서 성공을 굴릴 경우 대신 대성공을 얻습니다.</p>\n<h4>상급 저주 (11레벨)</h4>\n<p>당신은 죽음의 문턱에 다다릅니다. @link[conditions.wounded]{1} 상태가 됩니다. 이 부상 상태는 재집중 시에만 제거되며, 일반적으로 부상 상태를 제거하는 효과는 대신 부상 상태를 부상 1로 감소시킵니다.</p>\n<p>회복 체크를 시도할 때 주사위 굴림 대신 자동 성공을 선택할 수 있으며, 질병·독·사망 효과에 대한 내성 체크에서 대실패를 굴렸을 경우 실패로 처리된다.</p>"
  },
  "effect-hag-blood-magic": {
   "name": "효과: 해그 혈통 마법",
-  "description": "<p>{혈통: 해그}⟬U0001에 의해 부여됨</p>\n<p>주문의 랭크에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>{혈통: 해그}⟬U0001에 의해 부여됨</p>\n<p>주문의 랭크에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-shattershields": {
   "name": "효과: 산산조각 방패",
@@ -2645,7 +2645,7 @@
  },
  "effect-oracular-warning": {
   "name": "효과: 오라클의 경고",
-  "description": "<p>{신탁의 경고}</p>에 의해 부여됨\n<p>각 아군은 당신의 레벨 절반에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>{신탁의 경고}</p>에 의해 부여됨\n<p>각 아군은 당신의 레벨 절반에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-stone-body": {
   "name": "효과: 돌의 몸",
@@ -2661,7 +2661,7 @@
  },
  "effect-blood-sovereignty": {
   "name": "효과: 혈액의 주권",
-  "description": "<p>{피의 주권}에 의해 부여됨</p>\n<p>당신은 이 주문의 랭크 수의 두 배에 해당하는 체력을 잃습니다.</p>"
+  "description": "<p>{피의 주권}에 의해 부여됨</p>\n<p>당신은 이 주문의 랭크 수의 두 배에 해당하는 HP를 잃습니다.</p>"
  },
  "effect-spark-fist": {
   "name": "효과: 불꽃 주먹",
@@ -2757,7 +2757,7 @@
  },
  "effect-cantorian-rejuvenation": {
   "name": "효과: 칸토리아의 재생",
-  "description": "<p>{칸토리안 재생}에 의해 부여됨</p>\n<p>당신은 10의 임시 체력을 얻습니다. 15레벨에 도달하면 대신 15의 임시 체력을 얻습니다.</p>"
+  "description": "<p>{칸토리안 재생}에 의해 부여됨</p>\n<p>당신은 10의 임시 HP를 얻습니다. 15레벨에 도달하면 대신 15의 임시 HP를 얻습니다.</p>"
  },
  "effect-liberating-step-vs-fiend": {
   "name": "효과: 해방의 발걸음 (핀드 상대)",
@@ -2821,7 +2821,7 @@
  },
  "effect-keep-up-the-good-fight": {
   "name": "효과: 계속해서 잘 싸워라",
-  "description": "<p>@link[feats.keep-up-the-good-fight]에 의해 부여됨</p>\n<p>당신의 레벨과 동일한 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.keep-up-the-good-fight]에 의해 부여됨</p>\n<p>당신의 레벨과 동일한 임시 HP를 얻습니다.</p>"
  },
  "effect-deep-freeze": {
   "name": "효과: 깊은 동결",
@@ -2837,7 +2837,7 @@
  },
  "effect-heroes-call": {
   "name": "효과: 영웅의 부름",
-  "description": "<p>{영웅의 부름}에 의해 부여됨</p>\n<p>당신의 레벨의 두 배에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>{영웅의 부름}에 의해 부여됨</p>\n<p>당신의 레벨의 두 배에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-psi-strikes": {
   "name": "효과: 사이키 공격",
@@ -2845,7 +2845,7 @@
  },
  "effect-replenishment-of-war": {
   "name": "효과: 전쟁의 보충",
-  "description": "<p>{전쟁의 보충}@link[feats.replenishment-of-war]에 의해 부여됨</p>\n<p>당신은 자신의 레벨 절반에 해당하는 임시 체력을 얻습니다. 치명타로 공격한 경우, 레벨 전체에 해당하는 체력을 얻습니다.</p>"
+  "description": "<p>{전쟁의 보충}@link[feats.replenishment-of-war]에 의해 부여됨</p>\n<p>당신은 자신의 레벨 절반에 해당하는 임시 HP를 얻습니다. 치명타로 공격한 경우, 레벨 전체에 해당하는 HP를 얻습니다.</p>"
  },
  "effect-castigating-weapon": {
   "name": "효과: 징벌의 무기",
@@ -2853,7 +2853,7 @@
  },
  "effect-channelers-stance": {
   "name": "효과: 채널러의 자세",
-  "description": "<p>@link[feats.channelers-stance]</p>에 의해 부여됨\n<p>에너지 피해를 주는 환영 주문이나 용기 주문을 시전하거나 지속할 때마다, 해당 주문의 랭크과 동일한 상태 보너스를 피해에 얻습니다.</p>\n<p>이 자세 상태에서 활력 또는 공허 속성을 지니고 체력을 회복시키는 주문을 시전할 때마다, 해당 주문의 대상은 받는 초기 치유량에 해당 주문의 랭크과 동일한 상태 보너스를 얻습니다. 이 추가 치유량은 지속 치유 효과(예: 빠른 치유 또는 재생)에는 적용되지 않습니다.</p>"
+  "description": "<p>@link[feats.channelers-stance]</p>에 의해 부여됨\n<p>에너지 피해를 주는 환영 주문이나 용기 주문을 시전하거나 지속할 때마다, 해당 주문의 랭크과 동일한 상태 보너스를 피해에 얻습니다.</p>\n<p>이 자세 상태에서 활력 또는 공허 속성을 지니고 HP를 회복시키는 주문을 시전할 때마다, 해당 주문의 대상은 받는 초기 치유량에 해당 주문의 랭크과 동일한 상태 보너스를 얻습니다. 이 추가 치유량은 지속 치유 효과(예: 빠른 치유 또는 재생)에는 적용되지 않습니다.</p>"
  },
  "effect-thoughtform-summoning": {
   "name": "효과: 사상체 소환",
@@ -2888,8 +2888,8 @@
   "description": "<p>{무기 장식}@link[feats.emblazon-armament]에 의해 부여됨</p>\n<ul>\n<li><strong>방패</strong> 방패의 경도에 +1 상태 보너스가 부여됩니다.</li>\n<li><strong>무기</strong> 무기를 사용하는 자가 해당 무기로 가하는 피해 굴림에 +1 상태 보너스를 얻습니다.</li>\n</ul>"
  },
  "effect-come-and-get-me-temporary-hit-points": {
-  "name": "효과: 나한테 와서 잡아봐 (임시 체력)",
-  "description": "<p>{나를 잡아봐}</p>에 의해 부여됨\n<p>당신은 건강 능력치 수정자만큼의 임시 체력을 얻으며, 치명타 시 그 두 배를 얻습니다. 이 임시 체력은 분노 상태가 끝날 때까지 지속됩니다.</p>"
+  "name": "효과: 나한테 와서 잡아봐 (임시 HP)",
+  "description": "<p>{나를 잡아봐}</p>에 의해 부여됨\n<p>당신은 건강 능력치 수정자만큼의 임시 HP를 얻으며, 치명타 시 그 두 배를 얻습니다. 이 임시 HP는 분노 상태가 끝날 때까지 지속됩니다.</p>"
  },
  "effect-combat-premonition": {
   "name": "효과: 전투 예지",
@@ -2913,7 +2913,7 @@
  },
  "effect-proud-mentor": {
   "name": "효과: 자랑스러운 멘토",
-  "description": "<p>{자랑스러운 멘토}</p>로부터 부여됨\n<p>당신의 레벨과 동일한 임시 체력을 얻습니다.</p>"
+  "description": "<p>{자랑스러운 멘토}</p>로부터 부여됨\n<p>당신의 레벨과 동일한 임시 HP를 얻습니다.</p>"
  },
  "effect-continuous-flair": {
   "name": "효과: 지속적 기품",
@@ -2921,7 +2921,7 @@
  },
  "effect-rampaging-form": {
   "name": "효과: 광란의 형태",
-  "description": "<p>@link[feats.rampaging-form]</p>에 의해 부여됨\n<p>1분 동안 또는 원래 형태로 돌아갈 때까지 살아있는 얼음 형태로 변신합니다. 전투 형태는 거대하며 다음의 능력치를 가집니다:</p>\n<ul>\n<li>AC = 18 + 레벨. 방어구의 체크 페널티와 속도 감소 효과를 무시한다.</li>\n<li>20의 임시 체력.</li>\n<li>저조도 시야 및 30피트 범위 내 부정확한 후각.</li>\n<li>이동 속도 30, 비행 속도 40, 호흡 불필요</li>\n<li><strong>근접 공격</strong> <span class=\"action-glyph\">a</span> 턱, <strong>피해</strong> 2d8 관통 + 1d4 화염 피해.</li>\n<li>비무장 공격할 때 1d4 추가 화염 피해를 입히고, 화염 마법을 시전할 때 마법이 사용하는 피해 주사위와 동일한 화염 피해 주사위 하나를 추가로 입힌다.</li>\n<li>@link[spells.ignition]를 선천적 주문으로 시전할 수 있으며, 시전 비용이 2 행동에서 1 행동으로 감소한다.</li>\n<li>비무장 공격이나 도달 거리 미만의 근접 무기로 당신에게 접촉하거나 피해를 입힌 모든 생물은 3d6 화염의 피해를 받습니다.</li>\n<li>운동 수정자 +20, 본인의 수정자가 더 높을 경우 제외.</li>\n</ul>"
+  "description": "<p>@link[feats.rampaging-form]</p>에 의해 부여됨\n<p>1분 동안 또는 원래 형태로 돌아갈 때까지 살아있는 얼음 형태로 변신합니다. 전투 형태는 거대하며 다음의 능력치를 가집니다:</p>\n<ul>\n<li>AC = 18 + 레벨. 방어구의 체크 페널티와 속도 감소 효과를 무시한다.</li>\n<li>20의 임시 HP.</li>\n<li>저조도 시야 및 30피트 범위 내 부정확한 후각.</li>\n<li>이동 속도 30, 비행 속도 40, 호흡 불필요</li>\n<li><strong>근접 공격</strong> <span class=\"action-glyph\">a</span> 턱, <strong>피해</strong> 2d8 관통 + 1d4 화염 피해.</li>\n<li>비무장 공격할 때 1d4 추가 화염 피해를 입히고, 화염 마법을 시전할 때 마법이 사용하는 피해 주사위와 동일한 화염 피해 주사위 하나를 추가로 입힌다.</li>\n<li>@link[spells.ignition]를 선천적 주문으로 시전할 수 있으며, 시전 비용이 2 행동에서 1 행동으로 감소한다.</li>\n<li>비무장 공격이나 도달 거리 미만의 근접 무기로 당신에게 접촉하거나 피해를 입힌 모든 생물은 3d6 화염의 피해를 받습니다.</li>\n<li>운동 수정자 +20, 본인의 수정자가 더 높을 경우 제외.</li>\n</ul>"
  },
  "effect-sixth-pillar-mastery": {
   "name": "효과: 여섯 번째 기둥 숙련",
@@ -2937,15 +2937,15 @@
  },
  "effect-gladiator-dedication": {
   "name": "효과: 검투사의 헌신",
-  "description": "<p>{검투사 헌신}에 의해 부여됨</p>\n<p>당신의 레벨과 동일한 임시 체력을 얻습니다.</p>"
+  "description": "<p>{검투사 헌신}에 의해 부여됨</p>\n<p>당신의 레벨과 동일한 임시 HP를 얻습니다.</p>"
  },
  "effect-armored-courage": {
   "name": "효과: 갑옷의 용기",
-  "description": "<p>{갑옷의 용기}</p>에 의해 부여됨\n<p>당신의 레벨과 동일한 수의 임시 체력을 얻습니다.</p>"
+  "description": "<p>{갑옷의 용기}</p>에 의해 부여됨\n<p>당신의 레벨과 동일한 수의 임시 HP를 얻습니다.</p>"
  },
  "effect-tough-cookie": {
   "name": "효과: 강인한 녀석",
-  "description": "<p>{강인한 녀석}</p>에 의해 부여됨\n<p>최대 체력의 절반에 해당하는 임시 체력을 1분 동안 획득합니다.</p>"
+  "description": "<p>{강인한 녀석}</p>에 의해 부여됨\n<p>최대 HP의 절반에 해당하는 임시 HP를 1분 동안 획득합니다.</p>"
  },
  "effect-repair-module": {
   "name": "효과: 수리 모듈",
@@ -3013,7 +3013,7 @@
  },
  "effect-revitalizing-finisher": {
   "name": "효과: 활력 회복 마무리",
-  "description": "<p>@link[feats.revitalizing-finisher]</p>에 의해 부여됨\n<p>일시적인 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.revitalizing-finisher]</p>에 의해 부여됨\n<p>일시적인 HP를 얻습니다.</p>"
  },
  "effect-virulent-strike": {
   "name": "효과: 치명타",
@@ -3029,7 +3029,7 @@
  },
  "effect-curse-of-outpouring-life": {
   "name": "효과: 생명의 분출 저주",
-  "description": "<p>{생명}에 의해 부여됨</p>\n<h3>생명의 넘침의 저주</h3>\n<p>생명 에너지가 당신으로부터 흘러나와 모든 생명체와 연결되지만, 이를 위해 당신의 생명력을 소모합니다. 당신의 존재는 병자와 부상자를 위로하고, 상처를 약간 희미하게 하며, 식물의 새싹을 돋우며, 주변에 활력을 불어넣습니다.</p>\n<h4>경미한 저주</h4>\n<p>생명력이 외부로 스며나감에 따라 신체 기능을 유지하기가 점점 어려워집니다. 체력을 회복시키는 효과는 회복하는 체력량에 대해 레벨의 절반(최소 1)에 해당하는 상태 페널티를 받습니다.</p>\n<h4>중간 저주</h4>\n<p>생명 에너지가 당신에게서 빠져나가는 흐름은 되돌릴 수 없습니다.</p>\n<p>경미한 저주의 효과에 더해, 다른 생물체로부터 발동된 마법 효과로는 치유받을 수 없습니다. 단, 의식이 없는 상태라면 마법 효과로 HP를 1까지 치유할 수 있습니다(그 이상은 불가). 치유 엘릭서, 포션 및 기타 아이템의 효과는 정상적으로 적용됩니다.</p>\n<p>{치유} 주문을 시전할 때 모든 대상이 생명체인 경우, 치유량 계산 시 d8 대신 d12를 굴립니다.</p>\n<p>캔트립 주문을 시전 완료할 때마다, 주문 랭크에 해당하는 체력을 선택한 대상 하나 또는 가장 가까운 생물에게 회복시킵니다. 이 방법으로 자신을 치유할 수 없습니다. 이 치유는 치유, 네크로맨시, 활력 속성과 해당 주문의 전통 속성을 지닙니다.</p>\n<h4>상급 저주 (11레벨)</h4>\n<p>생명 에너지가 당신을 관통하며 마법을 강화합니다. 일부 주문은 활력 에너지를 동반합니다.</p>\n<p>(5th)랭크 이상 주문 중 2회 이상의 행동이 필요한 주문을 주문 슬롯으로 시전할 때마다, 시전한 주문 랭크보다 4랭크 낮은 3회 행동 소모의 <em>치유</em> 주문의 효과를 가진 활력 에너지를 30피트 범위 내에 분산시킵니다. 이 치유는 주문 시전을 마친 직후 즉시 발생합니다. 당신은 이 치유 효과를 받지 않습니다. 대신, <em>치유</em> 주문의 주사위 굴림 결과로 산출된 체력의 두 배를 잃습니다.</p>"
+  "description": "<p>{생명}에 의해 부여됨</p>\n<h3>생명의 넘침의 저주</h3>\n<p>생명 에너지가 당신으로부터 흘러나와 모든 생명체와 연결되지만, 이를 위해 당신의 생명력을 소모합니다. 당신의 존재는 병자와 부상자를 위로하고, 상처를 약간 희미하게 하며, 식물의 새싹을 돋우며, 주변에 활력을 불어넣습니다.</p>\n<h4>경미한 저주</h4>\n<p>생명력이 외부로 스며나감에 따라 신체 기능을 유지하기가 점점 어려워집니다. HP를 회복시키는 효과는 회복하는 HP량에 대해 레벨의 절반(최소 1)에 해당하는 상태 페널티를 받습니다.</p>\n<h4>중간 저주</h4>\n<p>생명 에너지가 당신에게서 빠져나가는 흐름은 되돌릴 수 없습니다.</p>\n<p>경미한 저주의 효과에 더해, 다른 생물체로부터 발동된 마법 효과로는 치유받을 수 없습니다. 단, 의식이 없는 상태라면 마법 효과로 HP를 1까지 치유할 수 있습니다(그 이상은 불가). 치유 엘릭서, 포션 및 기타 아이템의 효과는 정상적으로 적용됩니다.</p>\n<p>{치유} 주문을 시전할 때 모든 대상이 생명체인 경우, 치유량 계산 시 d8 대신 d12를 굴립니다.</p>\n<p>캔트립 주문을 시전 완료할 때마다, 주문 랭크에 해당하는 HP를 선택한 대상 하나 또는 가장 가까운 생물에게 회복시킵니다. 이 방법으로 자신을 치유할 수 없습니다. 이 치유는 치유, 네크로맨시, 활력 속성과 해당 주문의 전통 속성을 지닙니다.</p>\n<h4>상급 저주 (11레벨)</h4>\n<p>생명 에너지가 당신을 관통하며 마법을 강화합니다. 일부 주문은 활력 에너지를 동반합니다.</p>\n<p>(5th)랭크 이상 주문 중 2회 이상의 행동이 필요한 주문을 주문 슬롯으로 시전할 때마다, 시전한 주문 랭크보다 4랭크 낮은 3회 행동 소모의 <em>치유</em> 주문의 효과를 가진 활력 에너지를 30피트 범위 내에 분산시킵니다. 이 치유는 주문 시전을 마친 직후 즉시 발생합니다. 당신은 이 치유 효과를 받지 않습니다. 대신, <em>치유</em> 주문의 주사위 굴림 결과로 산출된 HP의 두 배를 잃습니다.</p>"
  },
  "effect-bloc-tactics": {
   "name": "효과: 블록 전술",
@@ -3045,11 +3045,11 @@
  },
  "effect-maidens-mending": {
   "name": "효과: 처녀의 치유",
-  "description": "<p>{처녀의 치유}에 의해 부여됨</p>\n<p>당신은 자신의 레벨 절반에 해당하는 임시 체력(최소 1)을 얻으며, 이는 다음 차례가 끝날 때까지 지속됩니다.</p>"
+  "description": "<p>{처녀의 치유}에 의해 부여됨</p>\n<p>당신은 자신의 레벨 절반에 해당하는 임시 HP(최소 1)을 얻으며, 이는 다음 차례가 끝날 때까지 지속됩니다.</p>"
  },
  "effect-dancer-in-the-seasons": {
   "name": "효과: 계절의 무용수",
-  "description": "<p>{계절의 무용수}</p>에 의해 부여됨\n<p>당신은 레벨의 절반에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>{계절의 무용수}</p>에 의해 부여됨\n<p>당신은 레벨의 절반에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-draconic-blood-magic": {
   "name": "효과: 드라코닉 혈맥 마법",
@@ -3065,7 +3065,7 @@
  },
  "effect-a-challenge-for-heroes-ally": {
   "name": "효과: 영웅을 위한 도전 (동료)",
-  "description": "<p>{영웅을 위한 도전}에 의해 부여됨</p>\n<p>원천의 레벨과 동일한 임시 체력을 얻습니다.</p>"
+  "description": "<p>{영웅을 위한 도전}에 의해 부여됨</p>\n<p>원천의 레벨과 동일한 임시 HP를 얻습니다.</p>"
  },
  "effect-taunt": {
   "name": "효과: 도발",
@@ -3077,7 +3077,7 @@
  },
  "effect-curse-of-creeping-ashes": {
   "name": "효과: 기어다니는 재의 저주",
-  "description": "<p>{재}에 의해 부여됨</p>\n<h3>기어다니는 재의 저주</h3>\n<p>당신의 몸은 내면의 힘의 불길에 서서히 휩싸여, 날이 갈수록 정화되어 갑니다. 가끔 마른 기침과 쌕쌕거리는 숨소리에 몸부림치며, 당신이 가는 곳마다 몸에서 떨어지는 미세한 재의 흔적을 남깁니다.</p>\n\n<p>당신 안에 타오르는 힘의 용광로가 당신의 몸을 먹이로 삼아 재를 생성하기 시작합니다. 이 재는 숨을 쉴 때마다 흡입되고 걸을 때마다 발자국에 남으며 발걸음을 방해합니다. 건강 기반 체크(예: 인내 내성)에 -1 페널티를 받고, 이동 속도가 10피트 감소합니다.</p>\n\n<p>생성된 재가 짙어져 주변을 가득 메우며, 세부 사항을 가리고 지면을 이동하기 어렵게 만든다. 당신은 @link[conditions.dazzled] 상태가 된다. 재의 기운이 10피트 반경으로 당신을 둘러싼다. 당신과 오라 내 생물들은 @link[conditions.concealed] 상태가 됩니다. 1라운드 동안 움직이지 않으면, 오라 내에 재 더미가 쌓여 이동할 때까지 지속되는 어려운 지형이 생성됩니다(재가 날아가면 해제됨).</p>\n<p><strong>상급 저주 (11레벨)</strong></p>\n<p>당신과 주변 생물은 사소한 불꽃에도 재로 무너집니다. 중등 저주 오라 내에서는 당신과 모든 생물이 당신의 레벨 절반에 해당하는 화염 약점을 얻습니다. 이 영역 내의 당신 이외의 생물이 화염 피해로 죽으면 그 시체가 재로 변한다. 영역 내의 물체와 구조물의 경도는 절반으로 감소하며, 영역 내 물체나 구조물의 체력이 0이 된 부분은 재로 변한다.</p>"
+  "description": "<p>{재}에 의해 부여됨</p>\n<h3>기어다니는 재의 저주</h3>\n<p>당신의 몸은 내면의 힘의 불길에 서서히 휩싸여, 날이 갈수록 정화되어 갑니다. 가끔 마른 기침과 쌕쌕거리는 숨소리에 몸부림치며, 당신이 가는 곳마다 몸에서 떨어지는 미세한 재의 흔적을 남깁니다.</p>\n\n<p>당신 안에 타오르는 힘의 용광로가 당신의 몸을 먹이로 삼아 재를 생성하기 시작합니다. 이 재는 숨을 쉴 때마다 흡입되고 걸을 때마다 발자국에 남으며 발걸음을 방해합니다. 건강 기반 체크(예: 인내 내성)에 -1 페널티를 받고, 이동 속도가 10피트 감소합니다.</p>\n\n<p>생성된 재가 짙어져 주변을 가득 메우며, 세부 사항을 가리고 지면을 이동하기 어렵게 만든다. 당신은 @link[conditions.dazzled] 상태가 된다. 재의 기운이 10피트 반경으로 당신을 둘러싼다. 당신과 오라 내 생물들은 @link[conditions.concealed] 상태가 됩니다. 1라운드 동안 움직이지 않으면, 오라 내에 재 더미가 쌓여 이동할 때까지 지속되는 어려운 지형이 생성됩니다(재가 날아가면 해제됨).</p>\n<p><strong>상급 저주 (11레벨)</strong></p>\n<p>당신과 주변 생물은 사소한 불꽃에도 재로 무너집니다. 중등 저주 오라 내에서는 당신과 모든 생물이 당신의 레벨 절반에 해당하는 화염 약점을 얻습니다. 이 영역 내의 당신 이외의 생물이 화염 피해로 죽으면 그 시체가 재로 변한다. 영역 내의 물체와 구조물의 경도는 절반으로 감소하며, 영역 내 물체나 구조물의 HP가 0이 된 부분은 재로 변한다.</p>"
  },
  "effect-wild-mimic-dedication": {
   "name": "효과: 야생 미믹 헌신",
@@ -3141,7 +3141,7 @@
  },
  "effect-steel-yourself": {
   "name": "효과: 마음을 다잡아라!",
-  "description": "<p>{강인해져라!}에 의해 부여됨</p>\n<p>일시적인 체력을 얻고, 체력 내성에 +2 상황 보너스를 받습니다.</p>"
+  "description": "<p>{강인해져라!}에 의해 부여됨</p>\n<p>일시적인 HP를 얻고, HP 내성에 +2 상황 보너스를 받습니다.</p>"
  },
  "effect-howling-aspect": {
   "name": "효과: 울부짖는 형상",
@@ -3213,7 +3213,7 @@
  },
  "effect-avenge-in-glory": {
   "name": "효과: 영광으로 복수하라",
-  "description": "<p>{영광으로 복수하라}</p>에 의해 부여됨\n<p>당신은 자신의 레벨과 동일한 임시 체력을 얻습니다. 이 임시 체력이 유지되는 동안, 명중 굴림 및 피해 굴림에 +1 상황 보너스를 얻습니다.</p>"
+  "description": "<p>{영광으로 복수하라}</p>에 의해 부여됨\n<p>당신은 자신의 레벨과 동일한 임시 HP를 얻습니다. 이 임시 HP가 유지되는 동안, 명중 굴림 및 피해 굴림에 +1 상황 보너스를 얻습니다.</p>"
  },
  "effect-coven-spell": {
   "name": "효과: 마녀회 주문",
@@ -3265,7 +3265,7 @@
  },
  "effect-roaring-heart": {
   "name": "효과: 포효하는 심장",
-  "description": "<p>@link[feats.roaring-heart]</p>에 의해 부여됨\n<p>임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.roaring-heart]</p>에 의해 부여됨\n<p>임시 HP를 얻습니다.</p>"
  },
  "effect-dread-marshal-stance": {
   "name": "효과: 공포의 마셜 자세",
@@ -3281,7 +3281,7 @@
  },
  "effect-terrain-attunement-plains": {
   "name": "효과: 지형 적응 (평원)",
-  "description": "<p>@link[feats.geomancer-dedication]</p>에 의해 부여됨\n<p>주문의 랭크에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.geomancer-dedication]</p>에 의해 부여됨\n<p>주문의 랭크에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-spirit-guide-form": {
   "name": "효과: 영혼 안내자 형태",
@@ -3293,19 +3293,19 @@
  },
  "stance-cenotaph-stance": {
   "name": "자세: 세노타프 스탠스",
-  "description": "<p>{추모비 자세}로 부여됨</p>\n<p>당신의 턴 시작 시마다, 당신은 10의 임시 체력을 얻습니다. 당신은 항상 방패를 든 상태로 간주됩니다.</p>"
+  "description": "<p>{추모비 자세}로 부여됨</p>\n<p>당신의 턴 시작 시마다, 당신은 10의 임시 HP를 얻습니다. 당신은 항상 방패를 든 상태로 간주됩니다.</p>"
  },
  "effect-precious-ammunition": {
   "name": "효과: 귀중한 탄약",
   "description": "<p>@link[feats.precious-ammunition]</p>에 의해 부여됨\n<p>냉철 또는 은 중 하나를 선택하십시오. 자신의 턴이 끝나기 전에 화살이나 볼트를 발사하면 해당 재료로 간주됩니다. 14레벨에 도달하면 선택 가능한 재료 목록에 아다만틴을 추가합니다.</p>"
  },
  "effect-gods-palm-temporary-hit-points": {
-  "name": "효과: 신의 손바닥 (임시 체력)",
-  "description": "<p>부여됨 @link[feats.gods-palm]</p>\n<p>당신은 자신의 레벨 절반에 해당하는 임시 체력을 얻습니다.</p>"
+  "name": "효과: 신의 손바닥 (임시 HP)",
+  "description": "<p>부여됨 @link[feats.gods-palm]</p>\n<p>당신은 자신의 레벨 절반에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-plant-banner": {
   "name": "효과: 깃발 꽂기",
-  "description": "<p>@link[feats.plant-banner]에 의해 부여됨</p>\n<p>4레벨 시점과 이후 4레벨마다 추가로 4의 임시 체력을 얻습니다."
+  "description": "<p>@link[feats.plant-banner]에 의해 부여됨</p>\n<p>4레벨 시점과 이후 4레벨마다 추가로 4의 임시 HP를 얻습니다."
  },
  "effect-aesir-blood-magic": {
   "name": "효과: 에시르 혈통 마법",
@@ -3380,8 +3380,8 @@
   "description": "<p>{핀드 저주}</p>에 의해 부여됨\n<p>핀드를 상대로 한 모든 공격 또는 주문 명중 굴림에 +1 상태 보너스를 얻습니다.</p>"
  },
  "effect-rage-temporary-hit-points-immunity": {
-  "name": "효과: 분노 임시 체력 면역",
-  "description": "<p>{분노}에 의해 부여됨</p>\n<p>분노 행동 사용으로 임시 체력을 얻을 수 없습니다.</p>"
+  "name": "효과: 분노 임시 HP 면역",
+  "description": "<p>{분노}에 의해 부여됨</p>\n<p>분노 행동 사용으로 임시 HP를 얻을 수 없습니다.</p>"
  },
  "effect-helpful-tinkering": {
   "name": "효과: 유용한 땜질",
@@ -3405,7 +3405,7 @@
  },
  "stance-tenacious-stance": {
   "name": "자세: 끈질긴 자세",
-  "description": "<p>{끈질긴 자세}에 의해 부여됨</p>\n<p>당신은 레벨의 절반에 해당하는 임시 체력(최소 1)을 얻으며, 밀치기와 걸려 넘어뜨리기에 대한 DC에 +2 상황 보너스를 받습니다. 그러나 이 자세를 취하는 동안 높은 힘 능력치로 인한 방어구 체크 페널티나 속도 체크 페널티를 더 이상 상쇄하지 않습니다.</p>"
+  "description": "<p>{끈질긴 자세}에 의해 부여됨</p>\n<p>당신은 레벨의 절반에 해당하는 임시 HP(최소 1)을 얻으며, 밀치기와 걸려 넘어뜨리기에 대한 DC에 +2 상황 보너스를 받습니다. 그러나 이 자세를 취하는 동안 높은 근력 능력치로 인한 방어구 체크 페널티나 속도 체크 페널티를 더 이상 상쇄하지 않습니다.</p>"
  },
  "effect-expel-maelstrom-misfortune": {
   "name": "효과: 소용돌이 추방 (불운)",
@@ -3429,7 +3429,7 @@
  },
  "effect-resounding-bravery": {
   "name": "효과: 울려 퍼지는 용기",
-  "description": "<p>@link[feats.resounding-bravery]</p>에 의해 부여됨\n<p>내성 굴림 +1 상태 보너스와 레벨의 절반에 해당하는 임시 체력을 얻습니다. 공포 효과에 대해 대성공을 거둘 경우 이 혜택이 두 배로 증가합니다.</p>"
+  "description": "<p>@link[feats.resounding-bravery]</p>에 의해 부여됨\n<p>내성 굴림 +1 상태 보너스와 레벨의 절반에 해당하는 임시 HP를 얻습니다. 공포 효과에 대해 대성공을 거둘 경우 이 혜택이 두 배로 증가합니다.</p>"
  },
  "effect-shield-paragon-benefit": {
   "name": "효과: 방패 파라곤 혜택",
@@ -3449,7 +3449,7 @@
  },
  "effect-healer-of-the-world": {
   "name": "효과: 세상의 치유자",
-  "description": "<p>@link[feats.healer-of-the-world]</p>에 의해 부여됨\n<p>당신은 10의 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.healer-of-the-world]</p>에 의해 부여됨\n<p>당신은 10의 임시 HP를 얻습니다.</p>"
  },
  "effect-shadow-blood-magic": {
   "name": "효과: 그림자 혈통 마법",
@@ -3549,7 +3549,7 @@
  },
  "effect-undying-ferocity": {
   "name": "효과: 불멸의 사나움",
-  "description": "<p>{불멸의 사나움}</p>에 의해 부여됨\n<p>당신의 레벨과 동일한 임시 체력을 얻습니다.</p>"
+  "description": "<p>{불멸의 사나움}</p>에 의해 부여됨\n<p>당신의 레벨과 동일한 임시 HP를 얻습니다.</p>"
  },
  "effect-tail-toxin": {
   "name": "효과: 꼬리 독",
@@ -3561,11 +3561,11 @@
  },
  "effect-dehydrated": {
   "name": "효과: 탈수 상태",
-  "description": "<p>{수분 보충}@link[feats.hydration]에 의해 부여됨</p>\n<p>체력 저항에 -1 상태 페널티를 받습니다.</p>"
+  "description": "<p>{수분 보충}@link[feats.hydration]에 의해 부여됨</p>\n<p>HP 저항에 -1 상태 페널티를 받습니다.</p>"
  },
  "effect-change-shape-werecreature": {
   "name": "효과: 변신 (변신 생물)",
-  "description": "<p>{변신} 능력 부여 </p>\n<p>당신은 혼혈형 또는 동물형으로 변신합니다. 장비도 함께 변형되어 보너스를 계속 제공하지만, 동물형은 무기, 방패 또는 기타 소지품을 사용할 수 없으며 조작 행동을 사용할 수 없습니다. 이동 속도, 비무장 공격, 그리고 네 변신 생물 유형에 따라 다른 능력들을 얻는다. 이 비무장 공격들은 격투 그룹에 속한다. 효과를 해제하면 인간형 모습으로 돌아갈 수 있으며, 체력이 0이 되면 자동으로 인간형 모습으로 복귀한다.</p>"
+  "description": "<p>{변신} 능력 부여 </p>\n<p>당신은 혼혈형 또는 동물형으로 변신합니다. 장비도 함께 변형되어 보너스를 계속 제공하지만, 동물형은 무기, 방패 또는 기타 소지품을 사용할 수 없으며 조작 행동을 사용할 수 없습니다. 이동 속도, 비무장 공격, 그리고 네 변신 생물 유형에 따라 다른 능력들을 얻는다. 이 비무장 공격들은 격투 그룹에 속한다. 효과를 해제하면 인간형 모습으로 돌아갈 수 있으며, HP가 0이 되면 자동으로 인간형 모습으로 복귀한다.</p>"
  },
  "stance-reflective-ripple-stance": {
   "name": "자세: 반사 파동 자세",
@@ -3573,7 +3573,7 @@
  },
  "effect-healing-sanctuary": {
   "name": "효과: 치유의 성역",
-  "description": "<p>@link[feats.healing-sanctuary]</p>에 의해 부여됨\n<p>당신은 10의 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.healing-sanctuary]</p>에 의해 부여됨\n<p>당신은 10의 임시 HP를 얻습니다.</p>"
  },
  "effect-aura-junction-fire": {
   "name": "효과: 오라 정션 (불)",
@@ -3637,7 +3637,7 @@
  },
  "effect-phoenix-blood-magic": {
   "name": "효과: 불사조 혈통 마법",
-  "description": "<p>{피닉스 혈통}</p>에 의해 부여됨\n<p>주문의 랭크에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>{피닉스 혈통}</p>에 의해 부여됨\n<p>주문의 랭크에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-titans-stature": {
   "name": "효과: 거인의 체격"
@@ -3656,7 +3656,7 @@
  },
  "effect-share-rage": {
   "name": "효과: 분노 공유",
-  "description": "<p>{분노 공유}</p>에 의해 부여됨\n<p>당신은 레벨에 건강 수정자를 더한 만큼의 임시 체력을 얻습니다. 분노 상태일 때 근접 공격 시 추가 피해 2를 입힙니다. 이 추가 피해는 무기나 비무장 공격이 기민한 경우 절반으로 줄어듭니다.</p>"
+  "description": "<p>{분노 공유}</p>에 의해 부여됨\n<p>당신은 레벨에 건강 수정자를 더한 만큼의 임시 HP를 얻습니다. 분노 상태일 때 근접 공격 시 추가 피해 2를 입힙니다. 이 추가 피해는 무기나 비무장 공격이 기민한 경우 절반으로 줄어듭니다.</p>"
  },
  "stance-gorilla-stance": {
   "name": "자세: 고릴라 스탠스",
@@ -3716,11 +3716,11 @@
  },
  "effect-chalice-adept-benefit-self": {
   "name": "효과: 성배 숙련자 혜택 (자신)",
-  "description": "<p>@link[feats.chalice]에 의해 부여됨</p>\n<p>성배의 음료로 부여받는 임시 체력이 2 + 카리스마 수정자 + 레벨만큼 증가하며, 치유 효과는 보유한 레벨당 5 체력씩 증가합니다.</p>"
+  "description": "<p>@link[feats.chalice]에 의해 부여됨</p>\n<p>성배의 음료로 부여받는 임시 HP가 2 + 카리스마 수정자 + 레벨만큼 증가하며, 치유 효과는 보유한 레벨당 5 HP씩 증가합니다.</p>"
  },
  "effect-vivacious-bravado": {
   "name": "효과: 활기찬 브라바도",
-  "description": "<p>{활기찬 브라바도}에 의해 부여됨.</p>\n<p>당신의 레벨에 카리스마 수정자를 더한 만큼의 임시 체력을 얻습니다.</p>"
+  "description": "<p>{활기찬 브라바도}에 의해 부여됨.</p>\n<p>당신의 레벨에 카리스마 수정자를 더한 만큼의 임시 HP를 얻습니다.</p>"
  },
  "effect-aura-of-determination": {
   "name": "효과: 결의의 오라",
@@ -3728,7 +3728,7 @@
  },
  "effect-kishin-rage": {
   "name": "효과: 귀신 분노",
-  "description": "<p>@link[feats.kishin-rage]에 의해 부여됨</p>\n<p>당신은 40의 임시 체력을 얻고, 자신의 이동 속도와 동일한 비행 속도를 얻으며, 뿔이 추가로 1d4의 전기 피해를 입힙니다.</p>"
+  "description": "<p>@link[feats.kishin-rage]에 의해 부여됨</p>\n<p>당신은 40의 임시 HP를 얻고, 자신의 이동 속도와 동일한 비행 속도를 얻으며, 뿔이 추가로 1d4의 전기 피해를 입힙니다.</p>"
  },
  "effect-lead-by-example": {
   "name": "효과: 모범을 보이다",
@@ -3764,7 +3764,7 @@
  },
  "effect-show-off": {
   "name": "효과: 과시",
-  "description": "<p>@link[feats.show-off]</p>에 의해 부여됨\n<p>당신의 레벨과 동일한 임시 체력을 얻습니다(대성공 시 레벨의 두 배).</p>"
+  "description": "<p>@link[feats.show-off]</p>에 의해 부여됨\n<p>당신의 레벨과 동일한 임시 HP를 얻습니다(대성공 시 레벨의 두 배).</p>"
  },
  "effect-lesson-of-the-broken-wing": {
   "name": "효과: 부러진 날개의 교훈",
@@ -3772,7 +3772,7 @@
  },
  "effect-packed-with-flavor": {
   "name": "효과: 풍미 가득",
-  "description": "<p>@link[feats.packed-with-flavor]</p>에 의해 부여됨\n<p>임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.packed-with-flavor]</p>에 의해 부여됨\n<p>임시 HP를 얻습니다.</p>"
  },
  "effect-tidal-shield": {
   "name": "효과: 조수 방패",
@@ -3896,7 +3896,7 @@
  },
  "effect-mythic-allies": {
   "name": "효과: 신화적 동맹",
-  "description": "<p>{신화적 동맹}에 의해 부여됨</p>\n<p>명중 굴림, 방어에 +2 상태 보너스를 얻으며, 기원의 레벨과 동일한 추가 체력을 획득합니다. 다음에 가하는 공격은 명중 굴림에 +4 상황 보너스를 얻습니다.</p>"
+  "description": "<p>{신화적 동맹}에 의해 부여됨</p>\n<p>명중 굴림, 방어에 +2 상태 보너스를 얻으며, 기원의 레벨과 동일한 추가 HP를 획득합니다. 다음에 가하는 공격은 명중 굴림에 +4 상황 보너스를 얻습니다.</p>"
  },
  "effect-pinpoint-poisoner": {
   "name": "효과: 정밀 독살술사",
@@ -3956,7 +3956,7 @@
  },
  "effect-life-giving-magic": {
   "name": "효과: 생명 부여 마법",
-  "description": "<p>{생명 부여 마법}</p>에 의해 부여됨\n<p>당신의 레벨 절반에 해당하는 임시 체력(최소 1)을 얻으며, 이는 다음 차례가 끝날 때까지 지속됩니다.</p>"
+  "description": "<p>{생명 부여 마법}</p>에 의해 부여됨\n<p>당신의 레벨 절반에 해당하는 임시 HP(최소 1)을 얻으며, 이는 다음 차례가 끝날 때까지 지속됩니다.</p>"
  },
  "effect-living-for-the-applause": {
   "name": "효과: 박수를 위해 살아가다",
@@ -3992,7 +3992,7 @@
  },
  "effect-only-you-and-i": {
   "name": "효과: 오직 너와 나",
-  "description": "<p>@link[actions.only-you-and-i]</p>에 의해 부여됨\n<p>본격적 대상에 대한 명중 굴림에 +2 상황 보너스를 얻습니다. 공격으로 본격적 대상을 놓칠 때마다, 그들은 1d8+5 체력을 치유합니다.</p>"
+  "description": "<p>@link[actions.only-you-and-i]</p>에 의해 부여됨\n<p>본격적 대상에 대한 명중 굴림에 +2 상황 보너스를 얻습니다. 공격으로 본격적 대상을 놓칠 때마다, 그들은 1d8+5 HP를 치유합니다.</p>"
  },
  "effect-liberating-step-vs-undead": {
   "name": "효과: 해방의 발걸음 (언데드 상대)",
@@ -4000,7 +4000,7 @@
  },
  "effect-in-lightning-life": {
   "name": "효과: 번개 속 생명",
-  "description": "<p>{번개 속 생명}</p>에 의해 부여됨\n<p>일시적인 체력을 얻습니다.</p>"
+  "description": "<p>{번개 속 생명}</p>에 의해 부여됨\n<p>일시적인 HP를 얻습니다.</p>"
  },
  "effect-prepare-elemental-medicine": {
   "name": "효과: 원소 의약품 준비",
@@ -4104,7 +4104,7 @@
  },
  "effect-siphon-torment": {
   "name": "효과: 고통 흡수",
-  "description": "<p>{흡수 고문}에 의해 부여됨</p>\n<p>원천의 레벨에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>{흡수 고문}에 의해 부여됨</p>\n<p>원천의 레벨에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-encroaching-presence": {
   "name": "효과: 침범하는 존재",
@@ -4172,7 +4172,7 @@
  },
  "effect-field-discovery-chirurgeon": {
   "name": "효과: 현장 발견 (외과의사)",
-  "description": "<p>{외과의사}에 의해 부여됨</p>\n<p>생물은 당신의 지능 능력치 수정치와 동일한 값의 임시 체력을 얻습니다.</p>"
+  "description": "<p>{외과의사}에 의해 부여됨</p>\n<p>생물은 당신의 지능 능력치 수정치와 동일한 값의 임시 HP를 얻습니다.</p>"
  },
  "effect-game-hunter-failure": {
   "name": "효과: 게임 헌터 (실패)",
@@ -4280,7 +4280,7 @@
  },
  "effect-worm-form": {
   "name": "효과: 벌레 형태",
-  "description": "<p>{벌레 형태}에 의해 부여됨</p>\n<p>자주색 벌레의 형태를 취하거나 인간형 벌레 혼혈체로 변신하여 자신의 머리는 유지하지만 벌레의 몸을 가지며, 거대한 전투 형태로 변신합니다. 확장할 충분한 공간이 없으면 능력은 상실됩니다. 이 형태일 때 동물 특성을 얻습니다. 형태를 해제할 수 있습니다.</p>\n<p>선택한 전투 형태에 관계없이 다음 능력치와 능력을 얻습니다:</p>\n<ul>\n<li>AC = 20 + 레벨. 착용한 갑옷의 체크 페널티와 속도 감소 효과를 무시합니다.</li>\n<li>40의 임시 체력.</li>\n\n<li>선택한 전투 형태에 특화된 한 가지 이상의 무기 없는 근접 공격으로, 이 공격들만이 당신이 '강타'할 수 있는 유일한 공격 수단입니다. 당신은 이 공격들에 숙련되어 있습니다. 공격 수정자는 +25이며, 명시된 피해를 사용합니다. 근접 공격은 힘에 기반합니다(예: '약화된' 상태 적용 시). 비무장 공격 수정자가 더 높다면, 대신 이를 사용할 수 있습니다.</li>\n<li>운동 수정자 +30 (본인의 수정자가 더 높을 경우 해당 수치 적용).</li>\n</ul>\n<p>선택한 몬스터 유형에 따라 특정 능력도 획득합니다:</p>\n<ul>\n<li><strong>보라색 벌레</strong> 이동 속도 40피트, 땅파기 30피트, 수영 20피트\n<ul>\n<li><strong>근접 공격</strong> <span class=\"action-glyph\">1</span> 턱 (치명적 2d10, 범위 15피트), <strong>피해</strong> 3d10+15 관통</li>\n<li><strong>근접</strong> <span class=\"action-glyph\">1</span> 침 (기민한, 독, 범위 15피트), <strong>피해</strong> 2d12+15 관통 + 2d6 지속 독</li>\n<li><strong>근접 공격</strong> <span class=\"action-glyph\">1</span> 몸통 (범위 15피트) <strong>피해</strong> 1d10+13 타격</li>\n</ul>\n</li>\n<li><strong>하이브리드</strong> 속도 40피트\n<ul>\n<li><strong>근접</strong> <span class=\"action-glyph\">1</span> 침 (기민한, 독, 도달 거리 10피트), <strong>피해</strong> 2d12+15 관통 + 1d6 지속 독</li>\n<li><strong>근접 공격</strong> <span class=\"action-glyph\">1</span> 몸통 (도달 거리 10피트), <strong>피해</strong> 1d10+13 타격</li>\n<li><strong>혼합 시전자</strong> 말하기 능력은 유지되며, 신체적 또는 물질적 성분이 없는 한 주문을 시전할 수 있다.</li>\n</ul>\n</li>\n</ul>"
+  "description": "<p>{벌레 형태}에 의해 부여됨</p>\n<p>자주색 벌레의 형태를 취하거나 인간형 벌레 혼혈체로 변신하여 자신의 머리는 유지하지만 벌레의 몸을 가지며, 거대한 전투 형태로 변신합니다. 확장할 충분한 공간이 없으면 능력은 상실됩니다. 이 형태일 때 동물 특성을 얻습니다. 형태를 해제할 수 있습니다.</p>\n<p>선택한 전투 형태에 관계없이 다음 능력치와 능력을 얻습니다:</p>\n<ul>\n<li>AC = 20 + 레벨. 착용한 갑옷의 체크 페널티와 속도 감소 효과를 무시합니다.</li>\n<li>40의 임시 HP.</li>\n\n<li>선택한 전투 형태에 특화된 한 가지 이상의 무기 없는 근접 공격으로, 이 공격들만이 당신이 '강타'할 수 있는 유일한 공격 수단입니다. 당신은 이 공격들에 숙련되어 있습니다. 공격 수정자는 +25이며, 명시된 피해를 사용합니다. 근접 공격은 힘에 기반합니다(예: '약화된' 상태 적용 시). 비무장 공격 수정자가 더 높다면, 대신 이를 사용할 수 있습니다.</li>\n<li>운동 수정자 +30 (본인의 수정자가 더 높을 경우 해당 수치 적용).</li>\n</ul>\n<p>선택한 몬스터 유형에 따라 특정 능력도 획득합니다:</p>\n<ul>\n<li><strong>보라색 벌레</strong> 이동 속도 40피트, 땅파기 30피트, 수영 20피트\n<ul>\n<li><strong>근접 공격</strong> <span class=\"action-glyph\">1</span> 턱 (치명적 2d10, 범위 15피트), <strong>피해</strong> 3d10+15 관통</li>\n<li><strong>근접</strong> <span class=\"action-glyph\">1</span> 침 (기민한, 독, 범위 15피트), <strong>피해</strong> 2d12+15 관통 + 2d6 지속 독</li>\n<li><strong>근접 공격</strong> <span class=\"action-glyph\">1</span> 몸통 (범위 15피트) <strong>피해</strong> 1d10+13 타격</li>\n</ul>\n</li>\n<li><strong>하이브리드</strong> 속도 40피트\n<ul>\n<li><strong>근접</strong> <span class=\"action-glyph\">1</span> 침 (기민한, 독, 도달 거리 10피트), <strong>피해</strong> 2d12+15 관통 + 1d6 지속 독</li>\n<li><strong>근접 공격</strong> <span class=\"action-glyph\">1</span> 몸통 (도달 거리 10피트), <strong>피해</strong> 1d10+13 타격</li>\n<li><strong>혼합 시전자</strong> 말하기 능력은 유지되며, 신체적 또는 물질적 성분이 없는 한 주문을 시전할 수 있다.</li>\n</ul>\n</li>\n</ul>"
  },
  "effect-anadi-venom": {
   "name": "효과: 아나디 맹독",
@@ -4304,7 +4304,7 @@
  },
  "effect-drink-from-the-chalice": {
   "name": "효과: 성배 마시기",
-  "description": "<p>@link[actions.drink-from-the-chalice]</p>에 의해 부여됨\n<p>원천의 레벨 절반에 해당하는 2의 임시 체력을 얻습니다. 원천이 성배의 숙련자 혜택 효과를 받고 있다면, 이 임시 체력은 2 + 카리스마 수정치 + 레벨로 증가합니다.</p>"
+  "description": "<p>@link[actions.drink-from-the-chalice]</p>에 의해 부여됨\n<p>원천의 레벨 절반에 해당하는 2의 임시 HP를 얻습니다. 원천이 성배의 숙련자 혜택 효과를 받고 있다면, 이 임시 HP는 2 + 카리스마 수정치 + 레벨로 증가합니다.</p>"
  },
  "effect-roll-the-bones-of-fate-good": {
   "name": "효과: 운명의 뼈를 굴림 (선)",
@@ -4336,7 +4336,7 @@
  },
  "effect-renewing-cycle": {
   "name": "효과: 재생의 순환",
-  "description": "<p>{재생의 순환}에 의해 부여됨</p>\n<p>당신은 레벨의 절반에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>{재생의 순환}에 의해 부여됨</p>\n<p>당신은 레벨의 절반에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-targeting-finisher-critical": {
   "name": "효과: 표적 마무리 (대성공)",
@@ -4348,7 +4348,7 @@
  },
  "effect-curse-of-engulfing-flames": {
   "name": "효과: 삼켜버리는 불꽃의 저주",
-  "description": "<p>{불꽃}에 의해 부여됨</p>\n<h3>삼켜버리는 불꽃의 저주</h3>\n<p>어디를 보든 불꽃과 연기가 보인다. 이 불꽃은 상상 속의 것일 수도 있고, 다중우주 전체에 힘을 실어주는 은유적 불길의 초자연적 찰나일 수도 있지만, 당신은 항상 그것들을 본다. 불길은 당신의 존재 앞에서 눈에 띄게(하지만 위험하지는 않게) 타오르고, 가끔은 살짝 연기가 나며, 당신의 몸은 만지면 거의 고통스러울 정도로 뜨겁다.</p>\n<h4>소형 저주</h4>\n<p>저주의 연기, 열기, 그리고 쩍쩍 갈라지는 불꽃이 시야와 다른 모든 감각을 가득 채운다.</p>\n<p>30피트 이상 떨어진 생물들은 @link[conditions.concealed] 상태로 보입니다. 점술의 저주 효과에 일반적으로 적용되는 대로, 이 은폐를 무시하거나 완화시키는 효과를 받을 수 없습니다.</p>\n<h4>중간 저주</h4>\n<p>연기와 흔들리는 불꽃의 환영이 당신의 감각을 더욱 완전히 채우고, 해롭지 않은 가려지는 불꽃의 섬광도 당신의 공간을 가득 메운다.</p>\n<p>다른 생물들에게는 은폐 상태가 적용되나, 해당 생물들이 저주에 걸리지 않았기 때문에 은폐 상태를 무시하거나 완화하는 효과를 정상적으로 받을 수 있다. 거리와 상관없이 다른 모든 생물과 물체는 당신에게 은폐 상태로 보인다. 다만, 화염 마법을 시전할 때 30피트 내 대상에 대해서는 이 은폐 상태에 대한 플랫 체크에서 자동으로 성공한다.</p>\n<p>30피트 이상 떨어진 모든 감각이 부정확해져, 평소라면 볼 수 있는 30피트 너머의 모든 것이 당신에게 @link[conditions.hidden]됩니다.</p>\n<h4>상급 저주 (11레벨)</h4>\n<p>당신을 둘러싼 불꽃은 더 이상 단순한 환영이 아닙니다.</p>\n<p>10피트 반경의 불기운이 당신을 감싸며, 매 턴 종료 시 기운 안에 있는 모든 다른 생물에게 4d6 화염의 피해를 입힙니다 (기본 반사 내성). 매 라운드 당신의 턴이 끝날 때마다 1d6 체력을 잃으며, 저항 불가입니다. 불에 대한 약점이 있다면, 잃는 체력 수치에 해당 약점 수치를 더합니다.</p>\n<p>액션 하나(집중 특성이 적용됨)를 소모하여 다음 턴 시작까지 오라를 억제할 수 있다. 이 경우 불꽃이 약화되어 자신과 오라 내 모든 대상이 피해를 입지 않는다. 재집중으로 저주를 감소시키는 동안에는 지속적으로 불꽃이 약화되므로 HP를 잃지 않는다. @link[conditions.unconscious] 상태가 되면 불꽃이 사그라지지만, 깨어날 때 저주가 재설정될 만큼 충분히 휴식하지 않았다면 다시 타오릅니다. 예언적 저주 특성에 따라 손실된 체력을 어떤 방식으로든 완화하거나 줄일 수는 없으나, 이후 정상적으로 치유할 수는 있습니다.</p>"
+  "description": "<p>{불꽃}에 의해 부여됨</p>\n<h3>삼켜버리는 불꽃의 저주</h3>\n<p>어디를 보든 불꽃과 연기가 보인다. 이 불꽃은 상상 속의 것일 수도 있고, 다중우주 전체에 힘을 실어주는 은유적 불길의 초자연적 찰나일 수도 있지만, 당신은 항상 그것들을 본다. 불길은 당신의 존재 앞에서 눈에 띄게(하지만 위험하지는 않게) 타오르고, 가끔은 살짝 연기가 나며, 당신의 몸은 만지면 거의 고통스러울 정도로 뜨겁다.</p>\n<h4>소형 저주</h4>\n<p>저주의 연기, 열기, 그리고 쩍쩍 갈라지는 불꽃이 시야와 다른 모든 감각을 가득 채운다.</p>\n<p>30피트 이상 떨어진 생물들은 @link[conditions.concealed] 상태로 보입니다. 점술의 저주 효과에 일반적으로 적용되는 대로, 이 은폐를 무시하거나 완화시키는 효과를 받을 수 없습니다.</p>\n<h4>중간 저주</h4>\n<p>연기와 흔들리는 불꽃의 환영이 당신의 감각을 더욱 완전히 채우고, 해롭지 않은 가려지는 불꽃의 섬광도 당신의 공간을 가득 메운다.</p>\n<p>다른 생물들에게는 은폐 상태가 적용되나, 해당 생물들이 저주에 걸리지 않았기 때문에 은폐 상태를 무시하거나 완화하는 효과를 정상적으로 받을 수 있다. 거리와 상관없이 다른 모든 생물과 물체는 당신에게 은폐 상태로 보인다. 다만, 화염 마법을 시전할 때 30피트 내 대상에 대해서는 이 은폐 상태에 대한 플랫 체크에서 자동으로 성공한다.</p>\n<p>30피트 이상 떨어진 모든 감각이 부정확해져, 평소라면 볼 수 있는 30피트 너머의 모든 것이 당신에게 @link[conditions.hidden]됩니다.</p>\n<h4>상급 저주 (11레벨)</h4>\n<p>당신을 둘러싼 불꽃은 더 이상 단순한 환영이 아닙니다.</p>\n<p>10피트 반경의 불기운이 당신을 감싸며, 매 턴 종료 시 기운 안에 있는 모든 다른 생물에게 4d6 화염의 피해를 입힙니다 (기본 반사 내성). 매 라운드 당신의 턴이 끝날 때마다 1d6 HP를 잃으며, 저항 불가입니다. 불에 대한 약점이 있다면, 잃는 HP 수치에 해당 약점 수치를 더합니다.</p>\n<p>액션 하나(집중 특성이 적용됨)를 소모하여 다음 턴 시작까지 오라를 억제할 수 있다. 이 경우 불꽃이 약화되어 자신과 오라 내 모든 대상이 피해를 입지 않는다. 재집중으로 저주를 감소시키는 동안에는 지속적으로 불꽃이 약화되므로 HP를 잃지 않는다. @link[conditions.unconscious] 상태가 되면 불꽃이 사그라지지만, 깨어날 때 저주가 재설정될 만큼 충분히 휴식하지 않았다면 다시 타오릅니다. 예언적 저주 특성에 따라 손실된 HP를 어떤 방식으로든 완화하거나 줄일 수는 없으나, 이후 정상적으로 치유할 수는 있습니다.</p>"
  },
  "stance-kindle-inner-flames": {
   "name": "자세: 내면의 불꽃을 일깨우다",
@@ -4360,7 +4360,7 @@
  },
  "effect-invigorating-surge": {
   "name": "효과: 활력 증진",
-  "description": "<p>@link[feats.invigorating-surge]</p>에 의해 부여됨\n<p>임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.invigorating-surge]</p>에 의해 부여됨\n<p>임시 HP를 얻습니다.</p>"
  },
  "effect-command-attention": {
   "name": "효과: 주목 명령",
@@ -4400,7 +4400,7 @@
  },
  "effect-cant-fall-here": {
   "name": "효과: 여기서는 넘어질 수 없다",
-  "description": "<p>{여기서 추락 불가}@link[feats.cant-fall-here]에 의해 부여됨</p>\n<p>원천의 레벨과 동일한 임시 체력을 얻습니다.</p>"
+  "description": "<p>{여기서 추락 불가}@link[feats.cant-fall-here]에 의해 부여됨</p>\n<p>원천의 레벨과 동일한 임시 HP를 얻습니다.</p>"
  },
  "effect-devrins-cunning-stance": {
   "name": "효과: 데브린의 재치 있는 자세",
@@ -4436,11 +4436,11 @@
  },
  "effect-renewed-vigor": {
   "name": "효과: 활력 회복",
-  "description": "<p>{활력 회복}@link[feats.renewed-vigor]에 의해 부여됨</p>\n<p>당신은 레벨의 절반에 건강 능력치 수정자를 더한 만큼의 임시 체력을 얻습니다. 이번 턴에 공격 행동을 수행했다면, 임시 체력 수치를 레벨에 건강 능력치 수정자를 더한 만큼으로 증가시킵니다.</p>"
+  "description": "<p>{활력 회복}@link[feats.renewed-vigor]에 의해 부여됨</p>\n<p>당신은 레벨의 절반에 건강 능력치 수정자를 더한 만큼의 임시 HP를 얻습니다. 이번 턴에 공격 행동을 수행했다면, 임시 HP 수치를 레벨에 건강 능력치 수정자를 더한 만큼으로 증가시킵니다.</p>"
  },
  "effect-harvest-blood": {
   "name": "효과: 피 수확",
-  "description": "<p>{피 수확}에 의해 부여됨</p>\n<p>당신은 건강 수정자만큼의 임시 체력을 얻으며, 해당 생물의 주문에 대한 내성 굴림에 +1 상황 보너스를 얻습니다.</p>"
+  "description": "<p>{피 수확}에 의해 부여됨</p>\n<p>당신은 건강 수정자만큼의 임시 HP를 얻으며, 해당 생물의 주문에 대한 내성 굴림에 +1 상황 보너스를 얻습니다.</p>"
  },
  "effect-mentor-of-legends": {
   "name": "효과: 전설의 멘토",
@@ -4496,7 +4496,7 @@
  },
  "effect-channel-divine-spark": {
   "name": "효과: 신성한 불꽃 채널링",
-  "description": "<p>{신성한 불꽃 발산} @link[feats.channel-divine-spark]에 의해 부여됨 </p>\n<p>당신은 레벨과 동일한 임시 체력을 얻으며, 레벨의 절반에 해당하는 물리 피해에 대한 저항력을 얻고, 가속 상태가 됩니다.</p>\n<p>근접 공격으로 생물에게 피해를 줄 때마다, 무료 행동으로 해당 생물을 밀치거나 넘어뜨리려 시도할 수 있다.</p>"
+  "description": "<p>{신성한 불꽃 발산} @link[feats.channel-divine-spark]에 의해 부여됨 </p>\n<p>당신은 레벨과 동일한 임시 HP를 얻으며, 레벨의 절반에 해당하는 물리 피해에 대한 저항력을 얻고, 가속 상태가 됩니다.</p>\n<p>근접 공격으로 생물에게 피해를 줄 때마다, 무료 행동으로 해당 생물을 밀치거나 넘어뜨리려 시도할 수 있다.</p>"
  },
  "stance-devrins-cunning-stance": {
   "name": "자세: 데브린의 재치 있는 자세",
@@ -4512,7 +4512,7 @@
  },
  "effect-cat-nap": {
   "name": "효과: 고양이 낮잠",
-  "description": "<p>@link[feats.cat-nap]</p>에 의해 부여됨\n<p>당신의 레벨과 동일한 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.cat-nap]</p>에 의해 부여됨\n<p>당신의 레벨과 동일한 임시 HP를 얻습니다.</p>"
  },
  "stance-multishot-stance": {
   "name": "자세: 다중 사격 자세",
@@ -4624,11 +4624,11 @@
  },
  "effect-strain-mind": {
   "name": "효과: 정신 압박",
-  "description": "<p>@link[feats.strain-mind]에 의해 부여됨</p>\n<p>증폭된 사이 캔트립의 주문 랭크의 네 배에 해당하는 체력을 잃습니다.</p>"
+  "description": "<p>@link[feats.strain-mind]에 의해 부여됨</p>\n<p>증폭된 사이 캔트립의 주문 랭크의 네 배에 해당하는 HP를 잃습니다.</p>"
  },
  "effect-dismal-harvest": {
   "name": "효과: 암울한 수확",
-  "description": "<p>{암울한 수확}에 의해 부여됨</p>\n<p>일시적인 체력을 얻습니다.</p>"
+  "description": "<p>{암울한 수확}에 의해 부여됨</p>\n<p>일시적인 HP를 얻습니다.</p>"
  },
  "effect-distant-wandering": {
   "name": "효과: 먼 방랑",
@@ -4732,7 +4732,7 @@
  },
  "effect-pride-in-arms": {
   "name": "효과: 무기의 자부심",
-  "description": "<p>{무기의 자부심}에 의해 부여됨</p>\n<p>건강 수정자만큼의 임시 체력을 얻습니다.</p>"
+  "description": "<p>{무기의 자부심}에 의해 부여됨</p>\n<p>건강 수정자만큼의 임시 HP를 얻습니다.</p>"
  },
  "effect-reflexive-shield": {
   "name": "효과: 반사적 방패",
@@ -4800,7 +4800,7 @@
  },
  "effect-wood-impulse-junction": {
   "name": "효과: 우드 임펄스 정션",
-  "description": "<p>당신의 레벨과 동일한 임시 체력을 얻습니다.</p>"
+  "description": "<p>당신의 레벨과 동일한 임시 HP를 얻습니다.</p>"
  },
  "effect-fey-blood-magic": {
   "name": "효과: 페이 혈통 마법",
@@ -4896,7 +4896,7 @@
  },
  "effect-desperate-wrath": {
   "name": "효과: 절망의 분노",
-  "description": "<p>{절망의 분노}에 의해 부여됨</p>\n<p>명중 굴림에 +2 상황 보너스를 얻고, AC에 -1 페널티, 내성에 -1 페널티를 받습니다. 이 보너스와 페널티는 분노가 끝날 때까지 또는 체력이 절반 이상으로 회복될 때까지 지속됩니다.</p>"
+  "description": "<p>{절망의 분노}에 의해 부여됨</p>\n<p>명중 굴림에 +2 상황 보너스를 얻고, AC에 -1 페널티, 내성에 -1 페널티를 받습니다. 이 보너스와 페널티는 분노가 끝날 때까지 또는 HP가 절반 이상으로 회복될 때까지 지속됩니다.</p>"
  },
  "effect-chaotic-spell": {
   "name": "효과: 혼돈의 주문",
@@ -4916,7 +4916,7 @@
  },
  "effect-aura-junction-wood": {
   "name": "효과: 오라 정션 (목)",
-  "description": "<p>오라 내에 턴을 시작하는 모든 아군은 다음 턴 시작까지 지속되는 임시 체력 1을 얻습니다. 당신이 10레벨 이상일 경우 임시 체력이 2로 증가하며, 15레벨 이상일 경우 3으로 증가합니다.</p>"
+  "description": "<p>오라 내에 턴을 시작하는 모든 아군은 다음 턴 시작까지 지속되는 임시 HP 1을 얻습니다. 당신이 10레벨 이상일 경우 임시 HP가 2로 증가하며, 15레벨 이상일 경우 3으로 증가합니다.</p>"
  },
  "effect-shared-avoidance": {
   "name": "효과: 공유 회피",
@@ -4948,7 +4948,7 @@
  },
  "effect-invigorating-breath": {
   "name": "효과: 활력 호흡",
-  "description": "<p>{활력 호흡}@link[feats.invigorating-breath]에 의해 부여됨</p>\n<p>임시 체력 20을 얻습니다. 15레벨에 도달하면 대신 임시 체력 30을 얻습니다.</p>"
+  "description": "<p>{활력 호흡}@link[feats.invigorating-breath]에 의해 부여됨</p>\n<p>임시 HP 20을 얻습니다. 15레벨에 도달하면 대신 임시 HP 30을 얻습니다.</p>"
  },
  "effect-safeguard-soul": {
   "name": "효과: 영혼 보호",
@@ -4960,7 +4960,7 @@
  },
  "effect-familiar-of-restored-spirit": {
   "name": "효과: 회복된 기운의 사역마",
-  "description": "<p>{회복된 영혼의 패밀리어}</p>에 의해 부여됨\n<p>시전자의 레벨 절반에 2를 더한 만큼의 임시 체력을 얻습니다.</p>"
+  "description": "<p>{회복된 영혼의 패밀리어}</p>에 의해 부여됨\n<p>시전자의 레벨 절반에 2를 더한 만큼의 임시 HP를 얻습니다.</p>"
  },
  "effect-high-speed-regeneration-speed-boost": {
   "name": "효과: 고속 재생 속도 증가",
@@ -5056,11 +5056,11 @@
  },
  "effect-unwavering-resilience": {
   "name": "효과: 흔들림 없는 회복력",
-  "description": "<p>{불굴의 회복력}@link[actions.unwavering-resilience]에 의해 부여됨</p>\n<p>당신의 레벨과 동일한 수의 임시 체력을 얻습니다.</p>"
+  "description": "<p>{불굴의 회복력}@link[actions.unwavering-resilience]에 의해 부여됨</p>\n<p>당신의 레벨과 동일한 수의 임시 HP를 얻습니다.</p>"
  },
  "effect-defenders-grit": {
   "name": "효과: 수호자의 투지",
-  "description": "<p>{수비자의 투지}</p>에 의해 부여됨\n<p>당신의 레벨 절반에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>{수비자의 투지}</p>에 의해 부여됨\n<p>당신의 레벨 절반에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-seedpod": {
   "name": "효과: 씨앗 꼬투리",
@@ -5072,7 +5072,7 @@
  },
  "effect-rallying-charge-marshal": {
   "name": "효과: 집결 돌격 (마셜)",
-  "description": "<p>{집결 돌격 (마셜)}</p>에 의해 부여됨\n<p>집결 돌격을 사용한 생물의 카리스마 수정자에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>{집결 돌격 (마셜)}</p>에 의해 부여됨\n<p>집결 돌격을 사용한 생물의 카리스마 수정자에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-dragons-rage-wings": {
   "name": "효과: 용의 분노의 날개",
@@ -5104,7 +5104,7 @@
  },
  "effect-benefactors-majesty": {
   "name": "효과: 은인의 위엄",
-  "description": "<p>@link[feats.benefactors-majesty]</p>에 의해 부여됨\n<p>당신의 레벨과 동일한 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.benefactors-majesty]</p>에 의해 부여됨\n<p>당신의 레벨과 동일한 임시 HP를 얻습니다.</p>"
  },
  "effect-brightness-seeker": {
   "name": "효과: 빛을 찾는 자",
@@ -5116,7 +5116,7 @@
  },
  "effect-bold-defiance": {
   "name": "효과: 대담한 도전",
-  "description": "<p>부여됨 @link[feats.bold-defiance]</p>\n<p>당신의 레벨과 동일한 임시 체력을 얻습니다.</p>"
+  "description": "<p>부여됨 @link[feats.bold-defiance]</p>\n<p>당신의 레벨과 동일한 임시 HP를 얻습니다.</p>"
  },
  "effect-tributary-circulation": {
   "name": "효과: 지류 순환",
@@ -5164,7 +5164,7 @@
  },
  "effect-entitys-resurgence": {
   "name": "효과: 존재의 부활",
-  "description": "<p>{실체의 부활}</p>에 의해 부여됨\n<p>당신은 1 체력으로 남으며, 레벨 + 주요 능력치 수정자에 해당하는 임시 체력을 얻습니다. 그러나 해당 존재가 통제권을 가집니다. 존재가 통제하는 동안, 당신은 명중 굴림과 피해 굴림에 +1 상태 보너스를 얻습니다.</p>"
+  "description": "<p>{실체의 부활}</p>에 의해 부여됨\n<p>당신은 1 HP로 남으며, 레벨 + 주요 능력치 수정자에 해당하는 임시 HP를 얻습니다. 그러나 해당 존재가 통제권을 가집니다. 존재가 통제하는 동안, 당신은 명중 굴림과 피해 굴림에 +1 상태 보너스를 얻습니다.</p>"
  },
  "effect-soaring-flight": {
   "name": "효과: 급상승 비행",
@@ -5172,7 +5172,7 @@
  },
  "effect-rage": {
   "name": "효과: 분노",
-  "description": "<p>@link[actions.rage]에 의해 부여됨</p>\n<p>당신은 레벨에 건강 능력치 수정자를 더한 만큼의 임시 체력을 얻습니다.</p>\n<p>근접 공격 시 추가 피해를 입힙니다. 이 추가 피해는 무기나 비무장 공격이 기민한 경우 절반으로 줄어듭니다.</p>\n<p>분노 상태가 끝나면 분노로 얻은 임시 체력을 모두 잃으며, 1분 동안 분노 행동을 다시 사용해도 임시 체력을 얻을 수 없습니다.</p>"
+  "description": "<p>@link[actions.rage]에 의해 부여됨</p>\n<p>당신은 레벨에 건강 능력치 수정자를 더한 만큼의 임시 HP를 얻습니다.</p>\n<p>근접 공격 시 추가 피해를 입힙니다. 이 추가 피해는 무기나 비무장 공격이 기민한 경우 절반으로 줄어듭니다.</p>\n<p>분노 상태가 끝나면 분노로 얻은 임시 HP를 모두 잃으며, 1분 동안 분노 행동을 다시 사용해도 임시 HP를 얻을 수 없습니다.</p>"
  },
  "stance-strategist-stance": {
   "name": "자세: 전략가 자세",
@@ -5196,11 +5196,11 @@
  },
  "effect-draw-from-the-land": {
   "name": "효과: 대지에서 끌어내기",
-  "description": "<p>@link[feats.draw-from-the-land]</p>에 의해 부여됨\n<p>당신의 레벨과 동일한 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.draw-from-the-land]</p>에 의해 부여됨\n<p>당신의 레벨과 동일한 임시 HP를 얻습니다.</p>"
  },
  "effect-storied-companion": {
   "name": "효과: 전설의 동반자",
-  "description": "<p>@link[feats.storied-companion]</p>에 의해 부여됨\n<p>원본 레벨의 두 배에 해당하는 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[feats.storied-companion]</p>에 의해 부여됨\n<p>원본 레벨의 두 배에 해당하는 임시 HP를 얻습니다.</p>"
  },
  "effect-energy-shot": {
   "name": "효과: 에너지 샷",
@@ -5208,7 +5208,7 @@
  },
  "effect-rebirth-in-living-stone": {
   "name": "효과: 살아있는 돌 속의 재생",
-  "description": "<p>{생명의 돌 속 재탄생}</p>에 의해 부여됨\n<p>일시적인 체력을 얻습니다. 치명타와 정밀 피해에 면역됩니다. 당신의 대지 원소 폭발은 기본 피해 유형에 추가로 1d10의 피해를 줍니다.</p>"
+  "description": "<p>{생명의 돌 속 재탄생}</p>에 의해 부여됨\n<p>일시적인 HP를 얻습니다. 치명타와 정밀 피해에 면역됩니다. 당신의 대지 원소 폭발은 기본 피해 유형에 추가로 1d10의 피해를 줍니다.</p>"
  },
  "stance-impassable-wall-stance": {
   "name": "자세: 통과불가 벽 자세",
@@ -5244,7 +5244,7 @@
  },
  "effect-catch-your-breath": {
   "name": "효과: 숨 고르기",
-  "description": "<p>@UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.LafJ1PXfnR4Ogyzh]{숨 고르기}에 의해 부여됨</p>\n<p>선택된 생물의 체력이 총 체력의 절반 이하여야 합니다. 해당 생물은 당신의 레벨의 두 배에 해당하는 일시적인 체력 포인트를 얻으며, 이는 전투 종료 시까지 지속됩니다.</p>"
+  "description": "<p>@UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.LafJ1PXfnR4Ogyzh]{숨 고르기}에 의해 부여됨</p>\n<p>선택된 생물의 HP가 총 HP의 절반 이하여야 합니다. 해당 생물은 당신의 레벨의 두 배에 해당하는 일시적인 HP 포인트를 얻으며, 이는 전투 종료 시까지 지속됩니다.</p>"
  },
  "effect-aid": {
   "name": "효과: 지원",
@@ -5408,7 +5408,7 @@
  },
  "spell-effect-rejuvenating-flames": {
   "name": "주문 효과: 재생 불꽃",
-  "description": "<p>@link[spells.rejuvenating-flames]에 의해 부여됩니다. </p> <p>체력 내성에 +1의 상태 보너스를 얻습니다. </p>"
+  "description": "<p>@link[spells.rejuvenating-flames]에 의해 부여됩니다. </p> <p>HP 내성에 +1의 상태 보너스를 얻습니다. </p>"
  },
  "spell-effect-earthquake-shaking-ground": {
   "name": "주문 효과: 지진 (지진)",
@@ -5416,11 +5416,11 @@
  },
  "spell-effect-animal-form-crocodile": {
   "name": "주문 효과: 동물 형태 (악어)",
-  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>악어</strong></p><ul><li>속도 25피트, 수영 속도 30피트;</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\“>1</span> 턱, <strong>피해</strong> 2d8 관통;</li><li><strong>근접 전투</strong> <span class=\\”action-glyph\\\">1</span> 꼬리 (민첩), <strong>피해</strong> 1d8 타격.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다.</p> <p><strong>강화 (5레벨)</strong> 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>악어</strong></p><ul><li>속도 25피트, 수영 속도 30피트;</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\“>1</span> 턱, <strong>피해</strong> 2d8 관통;</li><li><strong>근접 전투</strong> <span class=\\”action-glyph\\\">1</span> 꼬리 (민첩), <strong>피해</strong> 1d8 타격.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다.</p> <p><strong>강화 (5레벨)</strong> 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-dinosaur-form-ankylosaurus": {
   "name": "주문 효과: 공룡 형태 (Ankylosaurus)",
-  "description": "<p>@link[spells.dinosaur-form]에 의해 부여됩니다.</p> <p>당신은 강력한 공포의 공룡 형태의 대형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물과 공룡의 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. 15의 임시 체력. 저조도 시야와 30피트의 부정확한 후각. 선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 훈련되어 있습니다. 공격 수정자는 +16이고, 피해 보너스는 +9입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +18 이상인 경우, 자신의 수정자가 더 높지 않으면 운동 수정자를 사용할 수 있습니다. </li></ul><p>또한 선택한 형태에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>Ankylosaurus</strong></p><ul><li>속도 25 피트;</li><li><strong>근접 공격</strong> <span class=\\“action-glyph\\”>1</span> 꼬리 (백스윙, 도달 거리 10 피트), 피해 2d6 타격;</li><li><strong>근접 공격</strong> <span class=\\\"action-glyph\\\">1</span> 발, 피해 2d6 타격. </li></ul></li></ul><hr /><p><strong>강화 (5레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 15피트의 도달 거리를 가지며, 15피트의 도달 거리로 시작하는 공격은 20피트의 도달 거리를 가집니다. 대신 임시 HP 20, 공격 수정자 +18, 피해 보너스 +6, 피해 주사위 2배, 운동 능력 +21을 얻습니다. </p> <p><strong>강화 (7레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 20피트 도달 거리를 가지며, 15피트 도달 거리로 시작하는 공격은 25피트 도달 거리를 가집니다. 대신 AC = 21 + 레벨, 25의 임시 HP, +25의 공격 수정자, +15의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +25를 얻습니다.</p>"
+  "description": "<p>@link[spells.dinosaur-form]에 의해 부여됩니다.</p> <p>당신은 강력한 공포의 공룡 형태의 대형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물과 공룡의 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. 15의 임시 HP. 저조도 시야와 30피트의 부정확한 후각. 선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 훈련되어 있습니다. 공격 수정자는 +16이고, 피해 보너스는 +9입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +18 이상인 경우, 자신의 수정자가 더 높지 않으면 운동 수정자를 사용할 수 있습니다. </li></ul><p>또한 선택한 형태에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>Ankylosaurus</strong></p><ul><li>속도 25 피트;</li><li><strong>근접 공격</strong> <span class=\\“action-glyph\\”>1</span> 꼬리 (백스윙, 도달 거리 10 피트), 피해 2d6 타격;</li><li><strong>근접 공격</strong> <span class=\\\"action-glyph\\\">1</span> 발, 피해 2d6 타격. </li></ul></li></ul><hr /><p><strong>강화 (5레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 15피트의 도달 거리를 가지며, 15피트의 도달 거리로 시작하는 공격은 20피트의 도달 거리를 가집니다. 대신 임시 HP 20, 공격 수정자 +18, 피해 보너스 +6, 피해 주사위 2배, 운동 능력 +21을 얻습니다. </p> <p><strong>강화 (7레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 20피트 도달 거리를 가지며, 15피트 도달 거리로 시작하는 공격은 25피트 도달 거리를 가집니다. 대신 AC = 21 + 레벨, 25의 임시 HP, +25의 공격 수정자, +15의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +25를 얻습니다.</p>"
  },
  "spell-effect-summoners-visage": {
   "name": "주문 효과: 소환사의 얼굴",
@@ -5436,7 +5436,7 @@
  },
  "spell-effect-daemon-form-piscodaemon": {
   "name": "주문 효과: Daemon Form (Piscodaemon)",
-  "description": "<p>@link[spells.daemon-form]에 의해 부여됩니다</p> <p>당신은 대형 데몬 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손이 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷 체크의 페널티와 속도 감소를 무시합니다. </li><li>15의 임시 체력과 신성한 것에 대한 약점 5. </li><li>사망 효과에 대한 모든 내성 굴림에 +2의 상태 보너스. </li><li>독에 대한 저항력 10. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특정한 하나 이상의 공격. 당신은 그 무기를 사용하도록 훈련받았습니다. 당신의 공격 수정자는 +21이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 비무장 공격 수정자가 더 높으면, 그 수치를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 데몬의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>피스코데몬</strong> 속도 25피트, 수영 40피트</p><ul><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 발톱, <strong>피해</strong> 2d10+10 관통 + 1d6 정신 및 1d6 지속 출혈, 그리고 타격 후 행동을 사용하여 대상을 잡을 수 있습니다. </li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 촉수 (민첩), <strong>피해 2d6 타격 + 1d6 정신 및 1d6 독.</p>"
+  "description": "<p>@link[spells.daemon-form]에 의해 부여됩니다</p> <p>당신은 대형 데몬 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손이 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷 체크의 페널티와 속도 감소를 무시합니다. </li><li>15의 임시 HP와 신성한 것에 대한 약점 5. </li><li>사망 효과에 대한 모든 내성 굴림에 +2의 상태 보너스. </li><li>독에 대한 저항력 10. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특정한 하나 이상의 공격. 당신은 그 무기를 사용하도록 훈련받았습니다. 당신의 공격 수정자는 +21이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 비무장 공격 수정자가 더 높으면, 그 수치를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 데몬의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>피스코데몬</strong> 속도 25피트, 수영 40피트</p><ul><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 발톱, <strong>피해</strong> 2d10+10 관통 + 1d6 정신 및 1d6 지속 출혈, 그리고 타격 후 행동을 사용하여 대상을 잡을 수 있습니다. </li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 촉수 (민첩), <strong>피해 2d6 타격 + 1d6 정신 및 1d6 독.</p>"
  },
  "spell-effect-draw-ire": {
   "name": "주문 효과: 분노를 불러일으키기",
@@ -5464,7 +5464,7 @@
  },
  "spell-effect-devil-form-barbazu": {
   "name": "주문 효과: 악마 형태 (바르바주)",
-  "description": "<p>@link[spells.devil-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 악마 전투 형태로 변신합니다. 이 형태로 있는 동안 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손이 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>5의 임시 체력, 물리 피해에 대한 저항력 5 (은을 제외한), 신성한 것에 대한 약점 5. </li><li>불에 대한 저항력 10. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 이 공격에 숙련되어 있습니다. 당신의 공격 수정자는 +20이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 비무장 공격 또는 무기에 대한 공격 수정자가 더 높으면, 그 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23 이상인 경우를 제외하고, 운동 수정자가 +23입니다. </li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>바르바주</strong> 속도 35피트;</p><ul><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 글레이브 (치명적 d8, 강력, 도달 거리 10 피트), <strong>피해 2d8+10 베기 + 1d6 정신 및 1d6 지속 출혈;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 수염, <strong>피해 3d8+10 관통 + 1d6 정신;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 발톱 (민첩), <strong>피해 3d6+10 베기 + 1d6 정신</li></ul></li></ul></p>"
+  "description": "<p>@link[spells.devil-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 악마 전투 형태로 변신합니다. 이 형태로 있는 동안 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손이 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>5의 임시 HP, 물리 피해에 대한 저항력 5 (은을 제외한), 신성한 것에 대한 약점 5. </li><li>불에 대한 저항력 10. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 이 공격에 숙련되어 있습니다. 당신의 공격 수정자는 +20이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 비무장 공격 또는 무기에 대한 공격 수정자가 더 높으면, 그 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23 이상인 경우를 제외하고, 운동 수정자가 +23입니다. </li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>바르바주</strong> 속도 35피트;</p><ul><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 글레이브 (치명적 d8, 강력, 도달 거리 10 피트), <strong>피해 2d8+10 베기 + 1d6 정신 및 1d6 지속 출혈;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 수염, <strong>피해 3d8+10 관통 + 1d6 정신;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 발톱 (민첩), <strong>피해 3d6+10 베기 + 1d6 정신</li></ul></li></ul></p>"
  },
  "spell-effect-arcane-countermeasure": {
   "name": "주문 효과: 아케인 대응",
@@ -5472,11 +5472,11 @@
  },
  "spell-effect-euphoric-renewal": {
   "name": "주문 효과: 황홀한 재생",
-  "description": "<p>@link[spells.euphoric-renewal]에 의해 부여됨</p> <p>내성과 임시 체력에 +1의 상황 보너스를 받습니다.</p>"
+  "description": "<p>@link[spells.euphoric-renewal]에 의해 부여됨</p> <p>내성과 임시 HP에 +1의 상황 보너스를 받습니다.</p>"
  },
  "spell-effect-animal-form-crab": {
   "name": "주문 효과: 동물 형태 (게)",
-  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높으면 그 수치가 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>게</strong></p><ul><li>속도 25피트, 수영 속도 15피트;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>>1</span> 큰 집게, <strong>피해</strong> 2d8 관통;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 작은 집게 (민첩), <strong>피해</strong> 2d4 관통.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. 강화 (5단계) 전투 형태가 거대하고 공격의 도달 거리가 15피트가 됩니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높으면 그 수치가 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>게</strong></p><ul><li>속도 25피트, 수영 속도 15피트;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>>1</span> 큰 집게, <strong>피해</strong> 2d8 관통;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 작은 집게 (민첩), <strong>피해</strong> 2d4 관통.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. 강화 (5단계) 전투 형태가 거대하고 공격의 도달 거리가 15피트가 됩니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-fire-shield": {
   "name": "주문 효과: 불의 방패",
@@ -5504,11 +5504,11 @@
  },
  "spell-effect-daemon-form-ceustodaemon": {
   "name": "주문 효과: 악마의 형태 (Ceustodaemon)",
-  "description": "<p>@link[spells.daemon-form]에 의해 부여됩니다</p> <p>당신은 중간 크기의 데몬 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손이 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷 체크의 페널티와 속도 감소를 무시합니다. </li><li>15의 임시 체력과 신성한 것에 대한 약점 5. </li><li>죽음 효과에 대한 모든 내성 굴림에 +2의 상태 보너스. </li><li>독에 대한 저항력 10. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특정한 하나 이상의 공격. 당신은 그 무기를 사용하도록 훈련받았습니다. 당신의 공격 수정자는 +21이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 당신의 비무장 공격 수정자가 더 높다면, 그 수치를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 데몬의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>Ceustodaemon</strong> 속도 25 피트;</p><ul><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 턱 (도달 거리 10 피트), <strong>피해 2d10+10 관통 + 1d6 정신;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 발톱 (민첩, 도달 거리 10 피트), <strong>피해 2d6 베기 + 1d6 정신;</li><li>턱이나 발톱 공격이 성공하면 추가 1d6 피해가 발생하고, 당신은 같은 양의 피해를 받습니다. </li></ul></li></ul></p>"
+  "description": "<p>@link[spells.daemon-form]에 의해 부여됩니다</p> <p>당신은 중간 크기의 데몬 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손이 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷 체크의 페널티와 속도 감소를 무시합니다. </li><li>15의 임시 HP와 신성한 것에 대한 약점 5. </li><li>죽음 효과에 대한 모든 내성 굴림에 +2의 상태 보너스. </li><li>독에 대한 저항력 10. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특정한 하나 이상의 공격. 당신은 그 무기를 사용하도록 훈련받았습니다. 당신의 공격 수정자는 +21이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 당신의 비무장 공격 수정자가 더 높다면, 그 수치를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 데몬의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>Ceustodaemon</strong> 속도 25 피트;</p><ul><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 턱 (도달 거리 10 피트), <strong>피해 2d10+10 관통 + 1d6 정신;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 발톱 (민첩, 도달 거리 10 피트), <strong>피해 2d6 베기 + 1d6 정신;</li><li>턱이나 발톱 공격이 성공하면 추가 1d6 피해가 발생하고, 당신은 같은 양의 피해를 받습니다. </li></ul></li></ul></p>"
  },
  "spell-effect-demon-form-vrock": {
   "name": "주문 효과: 악마 형태 (Vrock)",
-  "description": "<p>@link[spells.demon-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 악마 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손을 사용할 수 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 20 + 레벨. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 체력, 냉철에 대한 약점 5, 신성한 것에 대한 약점 5. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특정한 하나 이상의 공격. 당신은 그 무기를 사용하도록 훈련받았습니다. 당신의 공격 수정자는 +22이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 무기 또는 무기 공격에 대한 당신의 공격 수정자가 더 높으면, 그 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 악마의 유형에 따라 다음과 같은 특정 능력을 얻습니다. </p><ul><li><p><strong>Vrock</strong> 속도 25피트, 비행 35피트, 전기 저항력 10, </p><ul><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\“>1</span> 부리, <strong>피해 2d8+10 관통 + 1d6 정신;</li><li><strong>근접 <span class=\\”action-glyph\\\">1</span> 발톱 (민첩), <strong>피해 2d6+10 베기 + 1d6 정신;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 발톱 (민첩), <strong>피해 2d6+10 베기 + 1d6 정신.</li></ul></li></ul></p>"
+  "description": "<p>@link[spells.demon-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 악마 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손을 사용할 수 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 20 + 레벨. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 HP, 냉철에 대한 약점 5, 신성한 것에 대한 약점 5. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특정한 하나 이상의 공격. 당신은 그 무기를 사용하도록 훈련받았습니다. 당신의 공격 수정자는 +22이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 무기 또는 무기 공격에 대한 당신의 공격 수정자가 더 높으면, 그 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 악마의 유형에 따라 다음과 같은 특정 능력을 얻습니다. </p><ul><li><p><strong>Vrock</strong> 속도 25피트, 비행 35피트, 전기 저항력 10, </p><ul><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\“>1</span> 부리, <strong>피해 2d8+10 관통 + 1d6 정신;</li><li><strong>근접 <span class=\\”action-glyph\\\">1</span> 발톱 (민첩), <strong>피해 2d6+10 베기 + 1d6 정신;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 발톱 (민첩), <strong>피해 2d6+10 베기 + 1d6 정신.</li></ul></li></ul></p>"
  },
  "spell-effect-variable-gravity-high-gravity": {
   "name": "주문 효과: 변동 중력 (고중력)",
@@ -5552,7 +5552,7 @@
  },
  "spell-effect-revel-in-retribution": {
   "name": "주문 효과: 보복의 기쁨",
-  "description": "<p>@link[spells.revel-in-retribution]에 의해 부여됩니다. 반격의 일격으로 적을 성공적으로 명중할 때마다 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.revel-in-retribution]에 의해 부여됩니다. 반격의 일격으로 적을 성공적으로 명중할 때마다 임시 HP를 얻습니다.</p>"
  },
  "aura-protectors-sphere": {
   "name": "오라: 수호자의 영역",
@@ -5568,7 +5568,7 @@
  },
  "spell-effect-angel-form-monadic-deva": {
   "name": "주문 효과: 천사 형태 (모나드 데바)",
-  "description": "<p>@link[spells.angel-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 천사 전투 형태로 변신합니다. 천사와 천상의 특성을 얻습니다. 이 전투 형태에서는 손을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 22 + 레벨. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>40의 임시 체력과 부정한 것에 대한 약점 10. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +25이며, 나열된 피해를 사용합니다. 근접 공격은 힘에 기반하며 (예를 들어, 약화된 상태의 목적에 사용됨), 원거리 공격은 민첩성에 기반합니다. 주어진 무기 또는 비무장 공격에 대해 공격 수정자가 더 높으면, 그 수치를 대신 사용할 수 있습니다.</li></ul><p>또한 선택한 천사의 유형에 따라 특정 능력을 얻습니다.action-glyph\\“>1</span> 신성한 철퇴 (밀기), <strong>피해</strong> 2d6+12의 타격 피해와 1d6의 역장 피해 및 1d6의 정신 피해.근접 <span class=\\” 대신 60의 임시 체력을 얻고, 부정한 것에 대한 약점 15, 공격 수정자 +30, 피해 보너스 +20, 운동 능력 +33을 얻습니다.</p>"
+  "description": "<p>@link[spells.angel-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 천사 전투 형태로 변신합니다. 천사와 천상의 특성을 얻습니다. 이 전투 형태에서는 손을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 22 + 레벨. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>40의 임시 HP와 부정한 것에 대한 약점 10. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +25이며, 나열된 피해를 사용합니다. 근접 공격은 힘에 기반하며 (예를 들어, 약화된 상태의 목적에 사용됨), 원거리 공격은 민첩성에 기반합니다. 주어진 무기 또는 비무장 공격에 대해 공격 수정자가 더 높으면, 그 수치를 대신 사용할 수 있습니다.</li></ul><p>또한 선택한 천사의 유형에 따라 특정 능력을 얻습니다.action-glyph\\“>1</span> 신성한 철퇴 (밀기), <strong>피해</strong> 2d6+12의 타격 피해와 1d6의 역장 피해 및 1d6의 정신 피해.근접 <span class=\\” 대신 60의 임시 HP를 얻고, 부정한 것에 대한 약점 15, 공격 수정자 +30, 피해 보너스 +20, 운동 능력 +33을 얻습니다.</p>"
  },
  "spell-effect-litany-of-righteousness": {
   "name": "주문 효과: 의의의 연도",
@@ -5612,11 +5612,11 @@
  },
  "spell-effect-angelic-halo": {
   "name": "주문 효과: 천사의 후광",
-  "description": "<p>@UUID[Compendium.pf2e.spell-effects.Item.jPZXZjetdauqYuEH]{오라: 천사의 후광}에 의해 부여됨</p> <p><em>치유</em> 주문으로 치유를 받으면, <em>치유</em> 주문의 랭크의 두 배에 해당하는 체력 회복에 대한 상태 보너스를 받습니다.</p>"
+  "description": "<p>@UUID[Compendium.pf2e.spell-effects.Item.jPZXZjetdauqYuEH]{오라: 천사의 후광}에 의해 부여됨</p> <p><em>치유</em> 주문으로 치유를 받으면, <em>치유</em> 주문의 랭크의 두 배에 해당하는 HP 회복에 대한 상태 보너스를 받습니다.</p>"
  },
  "spell-effect-dinosaur-form-tyrannosaurus": {
   "name": "주문 효과: 공룡 형태 (티라노사우루스)",
-  "description": "<p>@link[spells.dinosaur-form]에 의해 부여됩니다.</p> <p>당신은 강력한 공룡의 대형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물과 공룡의 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. 15의 임시 체력. 저조도 시야와 30피트의 부정확한 후각. 선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +16이고, 피해 보너스는 +9입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>운동 능력 수정자가 +18입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 형태에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>티라노사우루스</strong></p><ul><li>속도 30피트;</li><li><strong>근접 공격</strong> <span class=\\“action-glyph\\”>1</span> 턱 (치명적 d12, 도달 거리 10피트), 피해 1d12 관통;</li><li><strong>근접 공격</strong> <span class=\\\"action-glyph\\\">1</span> 꼬리 (도달 거리 10 피트), 피해 1d10 타격. </li></ul></li></ul><hr /><p><strong>강화 (5레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 15피트의 도달 거리를 가지며, 15피트의 도달 거리로 시작하는 공격은 20피트의 도달 거리를 가집니다. 대신 20의 임시 HP, +18의 공격 수정자, +6의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +21을 얻습니다. </p> <p><strong>강화 (7레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 20피트 도달 거리를 가지며, 15피트 도달 거리로 시작하는 공격은 25피트 도달 거리를 가집니다. 대신 AC = 21 + 레벨, 25의 임시 HP, +25의 공격 수정자, +15의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +25를 얻습니다.</p>"
+  "description": "<p>@link[spells.dinosaur-form]에 의해 부여됩니다.</p> <p>당신은 강력한 공룡의 대형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물과 공룡의 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. 15의 임시 HP. 저조도 시야와 30피트의 부정확한 후각. 선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +16이고, 피해 보너스는 +9입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>운동 능력 수정자가 +18입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 형태에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>티라노사우루스</strong></p><ul><li>속도 30피트;</li><li><strong>근접 공격</strong> <span class=\\“action-glyph\\”>1</span> 턱 (치명적 d12, 도달 거리 10피트), 피해 1d12 관통;</li><li><strong>근접 공격</strong> <span class=\\\"action-glyph\\\">1</span> 꼬리 (도달 거리 10 피트), 피해 1d10 타격. </li></ul></li></ul><hr /><p><strong>강화 (5레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 15피트의 도달 거리를 가지며, 15피트의 도달 거리로 시작하는 공격은 20피트의 도달 거리를 가집니다. 대신 20의 임시 HP, +18의 공격 수정자, +6의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +21을 얻습니다. </p> <p><strong>강화 (7레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 20피트 도달 거리를 가지며, 15피트 도달 거리로 시작하는 공격은 25피트 도달 거리를 가집니다. 대신 AC = 21 + 레벨, 25의 임시 HP, +25의 공격 수정자, +15의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +25를 얻습니다.</p>"
  },
  "spell-effect-athletic-rush": {
   "name": "주문 효과: 운동적 돌진",
@@ -5716,7 +5716,7 @@
  },
  "spell-effect-thermal-remedy": {
   "name": "주문 효과: 열 치료",
-  "description": "<p>@link[spells.thermal-remedy]</p> <p>아래 목록에서 한 가지 혜택을 선택합니다. 대상 음료나 음식을 섭취한 모든 생물은 해당 이점을 얻습니다. </p> <ul> <li>일시적인 체력을 얻습니다. </li> <li>불에 대한 저항력을 얻습니다. </li> <li>질병에 대한 내성 보너스를 얻습니다. </li> </ul></p>"
+  "description": "<p>@link[spells.thermal-remedy]</p> <p>아래 목록에서 한 가지 혜택을 선택합니다. 대상 음료나 음식을 섭취한 모든 생물은 해당 이점을 얻습니다. </p> <ul> <li>일시적인 HP를 얻습니다. </li> <li>불에 대한 저항력을 얻습니다. </li> <li>질병에 대한 내성 보너스를 얻습니다. </li> </ul></p>"
  },
  "spell-effect-warding-aggression": {
   "name": "주문 효과: 공격 수호부",
@@ -5744,7 +5744,7 @@
  },
  "spell-effect-inspire-heroics-strength-3": {
   "name": "주문 효과: 영웅적 행동 고무 (힘, +3)",
-  "description": "<p>@link[spells.fortissimo-composition]를 비판적으로 성공하여 @link[spells.song-of-strength]를 강화할 때 부여됩니다.</p> <p>당신은 진심 어린 격려로 아군의 체력을 강화합니다. 당신과 아군은 운동 체크와 무장 해제, 밀치기, 걸림 등 운동 스킬 행동에 대한 DC에 +3의 상태 보너스를 받습니다. </p> <p><em>주의: DC에 대한 보너스는 자동으로 추가되지 않습니다. </em></p>"
+  "description": "<p>@link[spells.fortissimo-composition]를 비판적으로 성공하여 @link[spells.song-of-strength]를 강화할 때 부여됩니다.</p> <p>당신은 진심 어린 격려로 아군의 HP를 강화합니다. 당신과 아군은 운동 체크와 무장 해제, 밀치기, 걸림 등 운동 스킬 행동에 대한 DC에 +3의 상태 보너스를 받습니다. </p> <p><em>주의: DC에 대한 보너스는 자동으로 추가되지 않습니다. </em></p>"
  },
  "spell-effect-song-of-strength": {
   "name": "주문 효과: 힘의 노래",
@@ -5800,11 +5800,11 @@
  },
  "spell-effect-endure": {
   "name": "주문 효과: 인내",
-  "description": "<p>@link[spells.endure]에 의해 부여됨</p> <p>임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.endure]에 의해 부여됨</p> <p>임시 HP를 얻습니다.</p>"
  },
  "spell-effect-elemental-gift": {
   "name": "주문 효과: 원소의 선물",
-  "description": "<p>@link[spells.elemental-gift]에 의해 부여됩니다.</p> <p>주문을 시전할 때 원소를 선택합니다. 대상은 아래에 설명된 해당 원소의 효과를 얻으며, 이 주문은 해당 특성의 원소를 얻습니다.</p><ul><li><strong>공기</strong> 대상은 지상 속도에 +30피트 상태 보너스를 얻으며, 상태 보너스를 적용하지 않은 지상 속도와 동일한 비행 속도를 얻습니다.</li><li><strong>Earth</strong> 지상에 있는 동안, 대상은 밀치기나 걸려 넘어뜨리는 효과에 대한 체력 및 반사 내성에 +2의 상태 보너스를 받고, 쓰러뜨리려는 효과에 대한 내성에 +2의 상태 보너스를 받습니다.</li><li><strong>금속</strong> 금속 무기를 사용하거나 맨손으로 공격한 대상의 공격은 명중 시 추가 1d4의 전기 피해를 입히고, 대상이 금속으로 만들어졌거나 금속 갑옷을 입고 있는 경우 공격 롤에 +1의 상태 보너스를 받습니다.</li><li><strong>나무</strong> 대상은 주문 랭크과 동일한 수의 임시 체력을 얻고, 그 후 자신의 턴이 시작될 때마다 그 절반의 임시 체력을 얻습니다. </li></ul></p>"
+  "description": "<p>@link[spells.elemental-gift]에 의해 부여됩니다.</p> <p>주문을 시전할 때 원소를 선택합니다. 대상은 아래에 설명된 해당 원소의 효과를 얻으며, 이 주문은 해당 특성의 원소를 얻습니다.</p><ul><li><strong>공기</strong> 대상은 지상 속도에 +30피트 상태 보너스를 얻으며, 상태 보너스를 적용하지 않은 지상 속도와 동일한 비행 속도를 얻습니다.</li><li><strong>Earth</strong> 지상에 있는 동안, 대상은 밀치기나 걸려 넘어뜨리는 효과에 대한 HP 및 반사 내성에 +2의 상태 보너스를 받고, 쓰러뜨리려는 효과에 대한 내성에 +2의 상태 보너스를 받습니다.</li><li><strong>금속</strong> 금속 무기를 사용하거나 맨손으로 공격한 대상의 공격은 명중 시 추가 1d4의 전기 피해를 입히고, 대상이 금속으로 만들어졌거나 금속 갑옷을 입고 있는 경우 공격 롤에 +1의 상태 보너스를 받습니다.</li><li><strong>나무</strong> 대상은 주문 랭크과 동일한 수의 임시 HP를 얻고, 그 후 자신의 턴이 시작될 때마다 그 절반의 임시 HP를 얻습니다. </li></ul></p>"
  },
  "spell-effect-tempt-fate": {
   "name": "주문 효과: 운명에 도전",
@@ -5816,7 +5816,7 @@
  },
  "spell-effect-devil-form-erinys": {
   "name": "주문 효과: 악마 형태 (에리니스)",
-  "description": "<p>@link[spells.devil-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 악마 전투 형태로 변신합니다. 이 형태로 있는 동안 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손이 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷 체크의 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력, 물리 피해에 대한 저항력 5 (은을 제외한), 신성한 것에 대한 약점 5. </li><li>불에 대한 저항력 10. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 이 공격에 숙련되어 있습니다. 당신의 공격 수정자는 +20이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 비무장 공격 또는 무기에 대한 공격 수정자가 더 높으면, 그 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23 이상인 경우, 자신의 수정자가 더 높지 않은 한. </li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>에리니스</strong> 속도 25피트, 비행 40피트;</p><ul><li><strong>근접전</strong> <span class=\\\"action-glyph\\“>1</span> 장검 (다목적 P), <strong>피해 1d8+10 베기 + 1d6 정신 및 1d6 화염;</li><li><strong>원거리 <span class=\\”action-glyph\\\">1</span> 복합 장궁 (치명적인 d10, 사거리 100 피트, 일제 사격), <strong>피해 1d8+10 관통 + 1d6 정신 및 1d6 화염. </li></ul></li></ul></p>"
+  "description": "<p>@link[spells.devil-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 악마 전투 형태로 변신합니다. 이 형태로 있는 동안 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손이 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷 체크의 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 HP, 물리 피해에 대한 저항력 5 (은을 제외한), 신성한 것에 대한 약점 5. </li><li>불에 대한 저항력 10. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 이 공격에 숙련되어 있습니다. 당신의 공격 수정자는 +20이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 비무장 공격 또는 무기에 대한 공격 수정자가 더 높으면, 그 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23 이상인 경우, 자신의 수정자가 더 높지 않은 한. </li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>에리니스</strong> 속도 25피트, 비행 40피트;</p><ul><li><strong>근접전</strong> <span class=\\\"action-glyph\\“>1</span> 장검 (다목적 P), <strong>피해 1d8+10 베기 + 1d6 정신 및 1d6 화염;</li><li><strong>원거리 <span class=\\”action-glyph\\\">1</span> 복합 장궁 (치명적인 d10, 사거리 100 피트, 일제 사격), <strong>피해 1d8+10 관통 + 1d6 정신 및 1d6 화염. </li></ul></li></ul></p>"
  },
  "spell-effect-eat-fire": {
   "name": "주문 효과: 불을 삼킴",
@@ -5828,7 +5828,7 @@
  },
  "spell-effect-animal-form-bull": {
   "name": "주문 효과: 동물 형태 (황소)",
-  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다.</li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻습니다.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. </p> <p><strong>강화 (5레벨)</strong> 전투 형태가 거대하고 공격의 도달 거리가 15피트가 됩니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다.</li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻습니다.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. </p> <p><strong>강화 (5레벨)</strong> 전투 형태가 거대하고 공격의 도달 거리가 15피트가 됩니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-font-of-serenity": {
   "name": "주문 효과: 평온의 샘",
@@ -5836,7 +5836,7 @@
  },
  "spell-effect-angel-form-movanic-deva": {
   "name": "주문 효과: 천사의 모습 (모바닉 데바)",
-  "description": "<p>@link[spells.angel-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 천사 전투 형태로 변신합니다. 천사와 천상의 특성을 얻습니다. 이 전투 형태에서는 손을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 22 + 레벨. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>40의 임시 체력과 부정한 것에 대한 약점 10. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +25이며, 나열된 피해를 사용합니다. 근접 공격은 힘에 기반하며 (예를 들어, 약화된 상태의 목적에 한함), 원거리 공격은 민첩성에 기반합니다. 주어진 비무장 공격이나 무기에 대한 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +25입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 천사의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>모바닉 데바</strong> 속도 30피트, 비행 40피트, 공허에 대한 저항력 10. </p><ul><li><strong>근접</strong> <span class=\\\"action-glyph\\\">1</span> 배스트드 소드 (양손 d12), <strong>피해</strong> 1d8+12 베기 + 1d6 화염 및 1d6 정신. </li></ul></li></ul><hr /><p><strong>강화 (9레벨)</strong> 당신의 전투 형태는 대형입니다. 확장할 수 있는 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 60의 임시 체력, 부정한 것에 대한 약점 15, 공격 수정자 +30, 피해 보너스 +20, 운동 능력 +33을 얻습니다.</p>"
+  "description": "<p>@link[spells.angel-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 천사 전투 형태로 변신합니다. 천사와 천상의 특성을 얻습니다. 이 전투 형태에서는 손을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 22 + 레벨. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>40의 임시 HP와 부정한 것에 대한 약점 10. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +25이며, 나열된 피해를 사용합니다. 근접 공격은 힘에 기반하며 (예를 들어, 약화된 상태의 목적에 한함), 원거리 공격은 민첩성에 기반합니다. 주어진 비무장 공격이나 무기에 대한 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +25입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 천사의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>모바닉 데바</strong> 속도 30피트, 비행 40피트, 공허에 대한 저항력 10. </p><ul><li><strong>근접</strong> <span class=\\\"action-glyph\\\">1</span> 배스트드 소드 (양손 d12), <strong>피해</strong> 1d8+12 베기 + 1d6 화염 및 1d6 정신. </li></ul></li></ul><hr /><p><strong>강화 (9레벨)</strong> 당신의 전투 형태는 대형입니다. 확장할 수 있는 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 60의 임시 HP, 부정한 것에 대한 약점 15, 공격 수정자 +30, 피해 보너스 +20, 운동 능력 +33을 얻습니다.</p>"
  },
  "spell-effect-song-of-silver": {
   "name": "주문 효과: 은의 노래",
@@ -5848,11 +5848,11 @@
  },
  "spell-effect-the-four-hunters": {
   "name": "주문 효과: 네 명의 사냥꾼",
-  "description": "<p>@link[spells.the-four-hunters]에 의해 부여됨</p><ul><li><strong>동쪽</strong> 5의 임시 체력을 얻고 운동 능력에 +1의 상태 보너스를 얻습니다.</li><li><strong>북쪽</strong> 생존에 +1 상태 보너스를 얻습니다.</li><li><strong>남쪽</strong> 숨겨진 상태가 되고 은신에 +1 상태 보너스를 얻습니다.</li><li><strong>서쪽</strong> 그들의 지상 이동 속도에 +10피트 상태 보너스와 곡예에 +1 상태 보너스를 얻습니다.</li></ul></p>"
+  "description": "<p>@link[spells.the-four-hunters]에 의해 부여됨</p><ul><li><strong>동쪽</strong> 5의 임시 HP를 얻고 운동 능력에 +1의 상태 보너스를 얻습니다.</li><li><strong>북쪽</strong> 생존에 +1 상태 보너스를 얻습니다.</li><li><strong>남쪽</strong> 숨겨진 상태가 되고 은신에 +1 상태 보너스를 얻습니다.</li><li><strong>서쪽</strong> 그들의 지상 이동 속도에 +10피트 상태 보너스와 곡예에 +1 상태 보너스를 얻습니다.</li></ul></p>"
  },
  "spell-effect-hymn-of-healing": {
   "name": "주문 효과: 치유의 찬가",
-  "description": "<p>@link[spells.hymn-of-healing]에 의해 부여됨</p> <p>빠른 치유와 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.hymn-of-healing]에 의해 부여됨</p> <p>빠른 치유와 임시 HP를 얻습니다.</p>"
  },
  "spell-effect-serrate": {
   "name": "주문 효과: 톱니 모양",
@@ -5916,11 +5916,11 @@
  },
  "spell-effect-animal-form-deer": {
   "name": "주문 효과: 동물 형태 (사슴)",
-  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. 5의 임시 체력. 저조도 시야와 30피트의 부정확한 후각. 선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다.</li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻습니다.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. </p> <p><strong>강화 (5레벨)</strong> 전투 형태가 거대하고 공격의 도달 거리가 15피트가 됩니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다.대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. 5의 임시 HP. 저조도 시야와 30피트의 부정확한 후각. 선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다.</li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻습니다.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. </p> <p><strong>강화 (5레벨)</strong> 전투 형태가 거대하고 공격의 도달 거리가 15피트가 됩니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다.대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-blessing-of-defiance": {
   "name": "주문 효과: 저항의 축복",
-  "description": "<p>@link[spells.blessing-of-defiance]에 의해 부여됨</p> <p>내성 굴림 중 하나를 선택하세요: 체력, 반사 신경, 의지력. 대상은 해당 내성 굴림에 +4 상태 보너스를 받습니다. </p> <p>2액션 버전을 시전하면 추가로 다음을 받습니다. 체력을 선택한 경우, 대상은 독에 대한 저항력 15를 얻습니다. 반사을 선택한 경우, 대상은 속도에 +15피트의 상태 보너스를 얻습니다. 의지를 선택한 경우, 대상은 정신 피해에 대한 저항력 15를 얻습니다.</p>"
+  "description": "<p>@link[spells.blessing-of-defiance]에 의해 부여됨</p> <p>내성 굴림 중 하나를 선택하세요: HP, 반사 신경, 의지력. 대상은 해당 내성 굴림에 +4 상태 보너스를 받습니다. </p> <p>2액션 버전을 시전하면 추가로 다음을 받습니다. HP를 선택한 경우, 대상은 독에 대한 저항력 15를 얻습니다. 반사을 선택한 경우, 대상은 속도에 +15피트의 상태 보너스를 얻습니다. 의지를 선택한 경우, 대상은 정신 피해에 대한 저항력 15를 얻습니다.</p>"
  },
  "spell-effect-weapon-trance": {
   "name": "주문 효과: 무기 트랜스",
@@ -5932,7 +5932,7 @@
  },
  "spell-effect-inspire-heroics-strength-2": {
   "name": "주문 효과: 영웅적 행동 고무 (힘, +2)",
-  "description": "<p>@link[spells.fortissimo-composition]에 성공하여 @link[spells.song-of-strength]를 강화할 때 부여됩니다.</p><p>당신은 진심 어린 격려로 아군의 체력을 강화합니다. 당신과 아군은 운동 체크와 무장 해제, 밀치기, 넘어뜨리기 등 운동 스킬 행동에 대한 DC에 +2의 상태 보너스를 받습니다. </p> <p><em>주의: DC에 대한 보너스는 자동으로 추가되지 않습니다.</p>"
+  "description": "<p>@link[spells.fortissimo-composition]에 성공하여 @link[spells.song-of-strength]를 강화할 때 부여됩니다.</p><p>당신은 진심 어린 격려로 아군의 HP를 강화합니다. 당신과 아군은 운동 체크와 무장 해제, 밀치기, 넘어뜨리기 등 운동 스킬 행동에 대한 DC에 +2의 상태 보너스를 받습니다. </p> <p><em>주의: DC에 대한 보너스는 자동으로 추가되지 않습니다.</p>"
  },
  "spell-effect-ancestral-memories": {
   "name": "주문 효과: 선조의 기억",
@@ -5956,7 +5956,7 @@
  },
  "spell-effect-divine-vessel": {
   "name": "주문 효과: 신성한 그릇",
-  "description": "<p>@link[spells.divine-vessel]에 의해 부여됨</p> <p>당신은 다른 세계의 에너지를 몸에 받아들입니다. 당신은 여전히 당신으로 인식될 수 있지만, 당신의 신의 하수인의 특징 중 하나를 얻게 됩니다. 당신의 신이 가진 성향(혼돈, 악, 선, 법) 중 하나를 선택하세요. 신이나 신이 진정한 중립이 아닌 경우 이 주문을 시전할 수 없습니다. 이 주문은 선택한 성향의 특성을 얻습니다. </p> <p>중형 이하인 경우, @link[spells.enlarge]의 효과로 대형이 됩니다. 확장할 수 있는 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 또한 다음의 이점을 얻습니다. </p><ul><li>40의 임시 체력. </li><li>당신의 속도와 동일한 비행 속도. </li><li>법칙에 대한 약점 10. </li><li>주문에 대한 내성에 +1의 상태 보너스. </li><li>암흑 시력.</li><li>비무장 공격과 무기가 1의 추가 정신 피해를 입힙니다. </li><li>2d10의 관통 피해를 입히는 무기 없는 물기 공격을 얻습니다. </li></ul></p>"
+  "description": "<p>@link[spells.divine-vessel]에 의해 부여됨</p> <p>당신은 다른 세계의 에너지를 몸에 받아들입니다. 당신은 여전히 당신으로 인식될 수 있지만, 당신의 신의 하수인의 특징 중 하나를 얻게 됩니다. 당신의 신이 가진 성향(혼돈, 악, 선, 법) 중 하나를 선택하세요. 신이나 신이 진정한 중립이 아닌 경우 이 주문을 시전할 수 없습니다. 이 주문은 선택한 성향의 특성을 얻습니다. </p> <p>중형 이하인 경우, @link[spells.enlarge]의 효과로 대형이 됩니다. 확장할 수 있는 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 또한 다음의 이점을 얻습니다. </p><ul><li>40의 임시 HP. </li><li>당신의 속도와 동일한 비행 속도. </li><li>법칙에 대한 약점 10. </li><li>주문에 대한 내성에 +1의 상태 보너스. </li><li>암흑 시력.</li><li>비무장 공격과 무기가 1의 추가 정신 피해를 입힙니다. </li><li>2d10의 관통 피해를 입히는 무기 없는 물기 공격을 얻습니다. </li></ul></p>"
  },
  "spell-effect-swear-oath": {
   "name": "주문 효과: 맹세",
@@ -5988,7 +5988,7 @@
  },
  "spell-effect-devil-form-osyluth": {
   "name": "주문 효과: 악마의 모습 (Osyluth)",
-  "description": "<p>@link[spells.devil-form]에 의해 부여됩니다.</p> <p>당신은 대형 악마 전투 형태로 변신합니다. 이 형태로 있는 동안 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손이 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷 체크의 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력, 물리 피해에 대한 저항력 5 (은을 제외한), 신성한 것에 대한 약점 5. </li><li>불에 대한 저항력 10. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 이 공격에 숙련되어 있습니다. 당신의 공격 수정자는 +20이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 비무장 공격이나 무기에 대한 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>오실루스</strong> 속도 35피트, 비행 30피트;</p><ul><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 턱, <strong>피해</strong> 2d10+10 관통 + 1d6 정신;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 발톱 (민첩, 도달 거리 10 피트), <strong>피해 2d6+10 베기 + 1d6 정신;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 침 (도달 거리 15 피트), <strong>피해 1d10+10 관통 + 1d6 정신 및 1d6 독;</li><li><strong>원거리 <span class=\\\"</p>"
+  "description": "<p>@link[spells.devil-form]에 의해 부여됩니다.</p> <p>당신은 대형 악마 전투 형태로 변신합니다. 이 형태로 있는 동안 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손이 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷 체크의 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 HP, 물리 피해에 대한 저항력 5 (은을 제외한), 신성한 것에 대한 약점 5. </li><li>불에 대한 저항력 10. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 이 공격에 숙련되어 있습니다. 당신의 공격 수정자는 +20이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 비무장 공격이나 무기에 대한 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>오실루스</strong> 속도 35피트, 비행 30피트;</p><ul><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 턱, <strong>피해</strong> 2d10+10 관통 + 1d6 정신;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 발톱 (민첩, 도달 거리 10 피트), <strong>피해 2d6+10 베기 + 1d6 정신;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 침 (도달 거리 15 피트), <strong>피해 1d10+10 관통 + 1d6 정신 및 1d6 독;</li><li><strong>원거리 <span class=\\\"</p>"
  },
  "aura-spiral-of-horrors": {
   "name": "오라: 공포의 소용돌이",
@@ -6032,7 +6032,7 @@
  },
  "spell-effect-corrosive-body-temp-hp": {
   "name": "주문 효과: 부식성 신체 (임시 HP)",
-  "description": "<p>@link[spells.corrosive-body]에 의해 부여됩니다. <p>임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.corrosive-body]에 의해 부여됩니다. <p>임시 HP를 얻습니다.</p>"
  },
  "spell-effect-elephant-form": {
   "name": "주문 효과: 코끼리 형태",
@@ -6044,7 +6044,7 @@
  },
  "spell-effect-rousing-splash": {
   "name": "주문 효과: 활력의 물보라",
-  "description": "<p>@link[spells.rousing-splash]에 의해 부여됨</p> <p>임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.rousing-splash]에 의해 부여됨</p> <p>임시 HP를 얻습니다.</p>"
  },
  "spell-effect-inscrutable-mask": {
   "name": "주문 효과: 불가사의한 가면",
@@ -6056,15 +6056,15 @@
  },
  "spell-effect-fortifying-brew": {
   "name": "주문 효과: 강화된 양조주",
-  "description": "<p>@link[spells.fortifying-brew]에 의해 부여됨</p> <p>임시 체력을 얻습니다. 대성공 시, 질병 및 독에 대한 내성에 +2의 상태 보너스를 얻습니다.</p>"
+  "description": "<p>@link[spells.fortifying-brew]에 의해 부여됨</p> <p>임시 HP를 얻습니다. 대성공 시, 질병 및 독에 대한 내성에 +2의 상태 보너스를 얻습니다.</p>"
  },
  "spell-effect-healers-blessing": {
   "name": "주문 효과: 치유자의 축복",
-  "description": "<p>@link[spells.healers-blessing]에 의해 부여됨</p> <p>치유 활력 주문으로 체력을 회복할 때, 추가 체력 2를 회복합니다.</p>"
+  "description": "<p>@link[spells.healers-blessing]에 의해 부여됨</p> <p>치유 활력 주문으로 HP를 회복할 때, 추가 HP 2를 회복합니다.</p>"
  },
  "spell-effect-element-embodied-air": {
   "name": "주문 효과: 원소의 화신 (공기)",
-  "description": "<p>@link[spells.element-embodied]에 의해 부여됩니다</p> <p>당신은 거대한 원소 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 원소 특성과 공기 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 25 + 레벨. 갑옷의 체크 페널티와 속도 감소를 무시합니다. </li><li>30의 임시 체력. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 공기 또는 불 정령을 선택한 경우 민첩성을 기반으로 하고, 땅 또는 물 정령을 선택한 경우 힘을 기반으로 합니다. (이 구분은 능력치는 변경하지 않지만, 예를 들어 약화 및 둔함 상태에 영향을 미칩니다). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>공중 또는 불 정령의 경우 +36의 곡예 수정자, 땅 또는 물 정령의 경우 +36의 운동 수정자. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>선택한 원소 유형에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>공기 원소체</strong> 비행 속도 80 피트;</p><ul><li><strong>강한 바람</strong> (공기, 오라) 30 피트. 발산 범위 내의 공기는 공기 특성을 가지고 있지 않은 비행 생물에게는 어려운 지형입니다. </li><li><strong>민첩성</strong> 당신의 이동은 반응을 유발하지 않습니다. </li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 돌풍 (도달 거리 25 피트), <strong>피해</strong> 3d12+11 타격 + @link[actions.push] 10 피트;</li><li><strong>원거리</strong> <span class=\\“action-glyph\\”>1</span> 번개 채찍 (사거리 증가 80 피트), <strong>피해 3d12+4 전기. </li></ul></li></ul></p>"
+  "description": "<p>@link[spells.element-embodied]에 의해 부여됩니다</p> <p>당신은 거대한 원소 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 원소 특성과 공기 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 25 + 레벨. 갑옷의 체크 페널티와 속도 감소를 무시합니다. </li><li>30의 임시 HP. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 공기 또는 불 정령을 선택한 경우 민첩성을 기반으로 하고, 땅 또는 물 정령을 선택한 경우 힘을 기반으로 합니다. (이 구분은 능력치는 변경하지 않지만, 예를 들어 약화 및 둔함 상태에 영향을 미칩니다). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>공중 또는 불 정령의 경우 +36의 곡예 수정자, 땅 또는 물 정령의 경우 +36의 운동 수정자. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>선택한 원소 유형에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>공기 원소체</strong> 비행 속도 80 피트;</p><ul><li><strong>강한 바람</strong> (공기, 오라) 30 피트. 발산 범위 내의 공기는 공기 특성을 가지고 있지 않은 비행 생물에게는 어려운 지형입니다. </li><li><strong>민첩성</strong> 당신의 이동은 반응을 유발하지 않습니다. </li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 돌풍 (도달 거리 25 피트), <strong>피해</strong> 3d12+11 타격 + @link[actions.push] 10 피트;</li><li><strong>원거리</strong> <span class=\\“action-glyph\\”>1</span> 번개 채찍 (사거리 증가 80 피트), <strong>피해 3d12+4 전기. </li></ul></li></ul></p>"
  },
  "spell-effect-read-aura": {
   "name": "주문 효과: 오라 읽기",
@@ -6096,7 +6096,7 @@
  },
  "spell-effect-plant-form-flytrap": {
   "name": "주문 효과: 식물 형태 (플라이트랩)",
-  "description": "<p>@link[spells.plant-form]에 의해 부여됩니다.</p> <p>당신은 대형 식물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 식물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>12의 임시 체력. </li><li>독에 대한 저항력 10. </li><li>저조도 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 사용할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +17이고, 피해 보너스는 +11입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수치를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +19입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 식물의 종류에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>파리잡이 식물</strong></p><ul><li>속도 15피트, 산에 대한 저항력 10,</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\\">1</span> 잎 (도달 거리 10 피트), <strong>피해</strong> 2d8 관통, 그리고 명중 후 행동을 사용하여 대상을 잡을 수 있습니다. </li></ul></li></ul><hr /><p><strong>강화 (6레벨)</strong> 전투 형태가 거대하고, 공격의 도달 거리가 5 피트 증가합니다. 대신 AC = 22 + 레벨, 24의 임시 HP, 공격 수정자 +21, 피해 보너스 +16, 운동 능력 +22를 얻습니다.</p>"
+  "description": "<p>@link[spells.plant-form]에 의해 부여됩니다.</p> <p>당신은 대형 식물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 식물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>12의 임시 HP. </li><li>독에 대한 저항력 10. </li><li>저조도 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 사용할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +17이고, 피해 보너스는 +11입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수치를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +19입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 식물의 종류에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>파리잡이 식물</strong></p><ul><li>속도 15피트, 산에 대한 저항력 10,</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\\">1</span> 잎 (도달 거리 10 피트), <strong>피해</strong> 2d8 관통, 그리고 명중 후 행동을 사용하여 대상을 잡을 수 있습니다. </li></ul></li></ul><hr /><p><strong>강화 (6레벨)</strong> 전투 형태가 거대하고, 공격의 도달 거리가 5 피트 증가합니다. 대신 AC = 22 + 레벨, 24의 임시 HP, 공격 수정자 +21, 피해 보너스 +16, 운동 능력 +22를 얻습니다.</p>"
  },
  "spell-effect-coiling-dance": {
   "name": "주문 효과: 감아 오르는 춤",
@@ -6108,7 +6108,7 @@
  },
  "spell-effect-dinosaur-form-brontosaurus": {
   "name": "주문 효과: 공룡 형태 (브론토사우루스)",
-  "description": "<p>@link[spells.dinosaur-form]에 의해 부여됩니다.</p> <p>당신은 강력한 공룡의 대형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물과 공룡의 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>15의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 훈련되어 있습니다. 공격 수정자는 +16이고, 피해 보너스는 +9입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +18 이상인 경우, 자신의 수정자가 더 높지 않으면 운동 수정자를 사용할 수 있습니다. </li></ul><p>또한 선택한 형태에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>브론토사우루스</strong></p><ul><li>속도 25 피트;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 꼬리 (도달 거리 15 피트), 피해 2d6 타격;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 피트, 피해 2d8 타격. </li></ul></li></ul><hr /><p><strong>강화 (5레벨)</strong> 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트이며, 15피트에서 시작하는 공격의 도달 거리는 20피트가 됩니다. 대신 20의 임시 HP, +18의 공격 수정자, +6의 피해 보너스, 피해 주사위 2배, 운동 능력 +21을 얻습니다. </p> <p><strong>강화 (7레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 20피트의 도달 거리를 가지며, 15피트의 도달 거리로 시작하는 공격은 25피트의 도달 거리를 가집니다. 대신 AC = 21 + 레벨, 25의 임시 HP, +25의 공격 수정자, +15의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +25를 얻습니다.</p>"
+  "description": "<p>@link[spells.dinosaur-form]에 의해 부여됩니다.</p> <p>당신은 강력한 공룡의 대형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물과 공룡의 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>15의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 훈련되어 있습니다. 공격 수정자는 +16이고, 피해 보너스는 +9입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +18 이상인 경우, 자신의 수정자가 더 높지 않으면 운동 수정자를 사용할 수 있습니다. </li></ul><p>또한 선택한 형태에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>브론토사우루스</strong></p><ul><li>속도 25 피트;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 꼬리 (도달 거리 15 피트), 피해 2d6 타격;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 피트, 피해 2d8 타격. </li></ul></li></ul><hr /><p><strong>강화 (5레벨)</strong> 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트이며, 15피트에서 시작하는 공격의 도달 거리는 20피트가 됩니다. 대신 20의 임시 HP, +18의 공격 수정자, +6의 피해 보너스, 피해 주사위 2배, 운동 능력 +21을 얻습니다. </p> <p><strong>강화 (7레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 20피트의 도달 거리를 가지며, 15피트의 도달 거리로 시작하는 공격은 25피트의 도달 거리를 가집니다. 대신 AC = 21 + 레벨, 25의 임시 HP, +25의 공격 수정자, +15의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +25를 얻습니다.</p>"
  },
  "spell-effect-bestial-curse-critical-failure": {
   "name": "주문 효과: 야수적인 저주 (대실패)",
@@ -6128,7 +6128,7 @@
  },
  "spell-effect-corrosive-body": {
   "name": "주문 효과: 부식성 신체",
-  "description": "<p>@link[spells.corrosive-body]에 의해 부여됨</p> <p>산에 대한 면역이 생깁니다. 비무장 공격은 추가 산 피해를 입힙니다. 이 방법으로 생물에게 산성 피해를 입힌 첫 번째 라운드에, 당신은 임시 체력을 얻습니다. 당신의 산성 주문은 추가 산성 피해 주사위 1개를 입힙니다.</p>"
+  "description": "<p>@link[spells.corrosive-body]에 의해 부여됨</p> <p>산에 대한 면역이 생깁니다. 비무장 공격은 추가 산 피해를 입힙니다. 이 방법으로 생물에게 산성 피해를 입힌 첫 번째 라운드에, 당신은 임시 HP를 얻습니다. 당신의 산성 주문은 추가 산성 피해 주사위 1개를 입힙니다.</p>"
  },
  "spell-effect-shrink": {
   "name": "주문 효과: 축소",
@@ -6164,7 +6164,7 @@
  },
  "spell-effect-hand-of-the-apprentice": {
   "name": "주문 효과: 수련자의 손",
-  "description": "<p>@link[spells.hand-of-the-apprentice]에 의해 부여됨</p> <p>근접 공격으로 명중한 것처럼 무기의 피해를 입히지만, 힘 수정자가 아닌 주문 시전 능력 수정자를 피해에 추가합니다. 대성공 시, 두 배의 피해를 입히고 무기의 치명타 특화 효과를 추가합니다.</p>"
+  "description": "<p>@link[spells.hand-of-the-apprentice]에 의해 부여됨</p> <p>근접 공격으로 명중한 것처럼 무기의 피해를 입히지만, 근력 수정자가 아닌 주문 시전 능력 수정자를 피해에 추가합니다. 대성공 시, 두 배의 피해를 입히고 무기의 치명타 특화 효과를 추가합니다.</p>"
  },
  "spell-effect-fly": {
   "name": "주문 효과: 비행",
@@ -6180,7 +6180,7 @@
  },
  "spell-effect-apex-companion": {
   "name": "주문 효과: 최상위 동반자",
-  "description": "<p>@link[spells.apex-companion]에 의해 부여됩니다.</p> <p>동물 동반자는 아펙스 형태일 때 다음과 같은 통계와 능력을 얻습니다.</p> <ul> <li>동물 동반자는 거대해지며 공격 범위가 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. </li> <li>30의 임시 체력. </li> <li>암흑 시력. </li> <li>속도에 +10피트의 상태 보너스.</li> </ul> <p><em>주의: 이 효과는 동물 동반자의 피해 주사위를 한 단계 증가시키지 않으며, 치명적인 d12 특성을 공격에 적용하지 않습니다. </em></p>"
+  "description": "<p>@link[spells.apex-companion]에 의해 부여됩니다.</p> <p>동물 동반자는 아펙스 형태일 때 다음과 같은 통계와 능력을 얻습니다.</p> <ul> <li>동물 동반자는 거대해지며 공격 범위가 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. </li> <li>30의 임시 HP. </li> <li>암흑 시력. </li> <li>속도에 +10피트의 상태 보너스.</li> </ul> <p><em>주의: 이 효과는 동물 동반자의 피해 주사위를 한 단계 증가시키지 않으며, 치명적인 d12 특성을 공격에 적용하지 않습니다. </em></p>"
  },
  "spell-effect-tempest-touch": {
   "name": "주문 효과: 폭풍의 손길",
@@ -6196,7 +6196,7 @@
  },
  "spell-effect-halcyon-mists": {
   "name": "주문 효과: 평온의 안개",
-  "description": "<p>@link[spells.halcyon-mists]에 의해 부여됨</p> <p>임시 체력을 얻고 은폐 상태가 됩니다.</p>"
+  "description": "<p>@link[spells.halcyon-mists]에 의해 부여됨</p> <p>임시 HP를 얻고 은폐 상태가 됩니다.</p>"
  },
  "spell-effect-animate-rope": {
   "name": "주문 효과: 움직이는 밧줄",
@@ -6208,7 +6208,7 @@
  },
  "spell-effect-false-vitality": {
   "name": "주문 효과: 거짓 활력",
-  "description": "<p>@link[spells.false-vitality]에 의해 부여됨</p> <p>일시적인 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.false-vitality]에 의해 부여됨</p> <p>일시적인 HP를 얻습니다.</p>"
  },
  "spell-effect-draw-ire-success": {
   "name": "주문 효과: Draw Ire (성공)",
@@ -6216,7 +6216,7 @@
  },
  "spell-effect-call-to-arms": {
   "name": "주문 효과: 무장 호소",
-  "description": "<p>@link[spells.call-to-arms]에 의해 부여됨</p> <p>당신은 이니셔티브에 상태 보너스를 받고 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.call-to-arms]에 의해 부여됨</p> <p>당신은 이니셔티브에 상태 보너스를 받고 임시 HP를 얻습니다.</p>"
  },
  "spell-effect-tailwind": {
   "name": "주문 효과: 뒤바람",
@@ -6240,7 +6240,7 @@
  },
  "spell-effect-girzanjes-march": {
   "name": "주문 효과: 기르잔제의 행진",
-  "description": "<p>Girzanje's March에 의해 부여됨</p> <p>당신의 말을 듣고 이해할 수 있는 아군 생물들은 정신 효과에 대한 명중 굴림, 체력 내성, 의지 내성에 +1 상태 보너스를 얻습니다.</p><hr /><p><strong>강화 (7레벨)</strong> 상태 보너스가 +2로 증가합니다. </p> <p><strong>강화 (10레벨)</strong> 상태 보너스가 +3으로 증가합니다. </p>"
+  "description": "<p>Girzanje's March에 의해 부여됨</p> <p>당신의 말을 듣고 이해할 수 있는 아군 생물들은 정신 효과에 대한 명중 굴림, HP 내성, 의지 내성에 +1 상태 보너스를 얻습니다.</p><hr /><p><strong>강화 (7레벨)</strong> 상태 보너스가 +2로 증가합니다. </p> <p><strong>강화 (10레벨)</strong> 상태 보너스가 +3으로 증가합니다. </p>"
  },
  "spell-effect-leaden-steps": {
   "name": "주문 효과: 무거운 발걸음",
@@ -6284,7 +6284,7 @@
  },
  "spell-effect-summon-healing-servitor": {
   "name": "주문 효과: 치유 서비터 소환",
-  "description": "<p>@link[spells.summon-healing-servitor]에 의해 부여됨</p> <p>임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.summon-healing-servitor]에 의해 부여됨</p> <p>임시 HP를 얻습니다.</p>"
  },
  "spell-effect-inside-ropes-3rd-rank": {
   "name": "주문 효과: 로프 안으로 (3랭크)",
@@ -6296,7 +6296,7 @@
  },
  "spell-effect-dinosaur-form-stegosaurus": {
   "name": "주문 효과: 공룡 형태 (스테고사우루스)",
-  "description": "<p>@link[spells.dinosaur-form]</p> <p>당신은 강력한 공포의 공룡 형태의 대형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물과 공룡의 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>15의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +16이고, 피해 보너스는 +9입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수치를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +18입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 형태에 따라 다음과 같은 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>스테고사우루스</strong></p><ul><li>속도 30피트;</li><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 꼬리 (도달 거리 10 피트), 피해 2d8 관통. </li></ul></li></ul><hr /><p><strong>강화 (5레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 15피트의 도달 거리를 가지며, 15피트의 도달 거리로 시작하는 공격은 20피트의 도달 거리를 가집니다. 대신 20의 임시 HP, +18의 공격 수정자, +6의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +21을 얻습니다. </p> <p><strong>강화 (7레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 20피트 도달거리, 또는 15피트 도달거리로 시작하는 경우 25피트 도달거리를 갖습니다. 대신 AC = 21 + 레벨, 25의 임시 HP, +25의 공격 수정자, +15의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +25를 얻습니다.</p>"
+  "description": "<p>@link[spells.dinosaur-form]</p> <p>당신은 강력한 공포의 공룡 형태의 대형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물과 공룡의 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>15의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +16이고, 피해 보너스는 +9입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수치를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +18입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 형태에 따라 다음과 같은 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>스테고사우루스</strong></p><ul><li>속도 30피트;</li><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 꼬리 (도달 거리 10 피트), 피해 2d8 관통. </li></ul></li></ul><hr /><p><strong>강화 (5레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 15피트의 도달 거리를 가지며, 15피트의 도달 거리로 시작하는 공격은 20피트의 도달 거리를 가집니다. 대신 20의 임시 HP, +18의 공격 수정자, +6의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +21을 얻습니다. </p> <p><strong>강화 (7레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 20피트 도달거리, 또는 15피트 도달거리로 시작하는 경우 25피트 도달거리를 갖습니다. 대신 AC = 21 + 레벨, 25의 임시 HP, +25의 공격 수정자, +15의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +25를 얻습니다.</p>"
  },
  "spell-effect-fleet-step": {
   "name": "주문 효과: 날렵한 발걸음",
@@ -6364,11 +6364,11 @@
  },
  "spell-effect-contagious-idea-pleasant-thought": {
   "name": "주문 효과: 전염성 아이디어 (즐거운 생각)",
-  "description": "<p>@link[spells.contagious-idea]에 의해 부여됨</p> <p>주문 랭크과 동일한 임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.contagious-idea]에 의해 부여됨</p> <p>주문 랭크과 동일한 임시 HP를 얻습니다.</p>"
  },
  "spell-effect-ibexs-harvests": {
   "name": "주문 효과: 아이벡스의 수확",
-  "description": "<p>@link[spells.ibexs-harvest]에 의해 부여됨</p> <p>임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.ibexs-harvest]에 의해 부여됨</p> <p>임시 HP를 얻습니다.</p>"
  },
  "spell-effect-runic-impression": {
   "name": "주문 효과: 룬 각인",
@@ -6376,7 +6376,7 @@
  },
  "spell-effect-manifest-will": {
   "name": "주문 효과: 의지 창조",
-  "description": "<p>@link[spells.manifest-will]에 의해 부여됩니다.</p><ul><li><strong>비전</strong> 당신은 주문 피해에 대한 약점을 얻습니다. </li><li><strong>신성</strong> 당신은 임시 체력을 얻습니다. </li><li><strong>원초적</strong> 당신은 모든 속도에 -10 피트의 상태 페널티를 받습니다. </li></ul></p>"
+  "description": "<p>@link[spells.manifest-will]에 의해 부여됩니다.</p><ul><li><strong>비전</strong> 당신은 주문 피해에 대한 약점을 얻습니다. </li><li><strong>신성</strong> 당신은 임시 HP를 얻습니다. </li><li><strong>원초적</strong> 당신은 모든 속도에 -10 피트의 상태 페널티를 받습니다. </li></ul></p>"
  },
  "spell-effect-stumbling-curse": {
   "name": "주문 효과: 비틀거리게 하는 저주",
@@ -6388,11 +6388,11 @@
  },
  "spell-effect-sacred-form": {
   "name": "주문 효과: 신성한 형태",
-  "description": "<p>@link[spells.sacred-form]에 의해 부여됨</p> <p>다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </p></li><li><p>임시 체력 10. </p></li><li><p>속도 40 피트. </p></li><li><p>물리 피해에 대한 저항력 3. </p></li><li><p>암흑 시력. </p></li><li><p>신성한 무기로 특수 공격을 할 수 있으며, 이 공격이 사용할 수 있는 유일한 공격입니다. 신성한 무기로 공격할 때의 수정자는 +21이고, 피해 보너스는 +8입니다. 이 무기로 공격할 때의 피해 주사위는 3d6의 타격 피해와 1d6의 정신 피해입니다.</p></li></ul><hr /><p><strong>강화 (8레벨)</strong> 대신 AC = 21 + 레벨, 15의 임시 체력, 물리 피해에 대한 저항력 4, 공격 수정자 +28, 피해 보너스 +15, 운동 능력 +29를 얻습니다. 중간 크기 이하인 경우, 전투 형태는 대형이 되고, 공격의 도달 범위는 10피트가 됩니다.</p>"
+  "description": "<p>@link[spells.sacred-form]에 의해 부여됨</p> <p>다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </p></li><li><p>임시 HP 10. </p></li><li><p>속도 40 피트. </p></li><li><p>물리 피해에 대한 저항력 3. </p></li><li><p>암흑 시력. </p></li><li><p>신성한 무기로 특수 공격을 할 수 있으며, 이 공격이 사용할 수 있는 유일한 공격입니다. 신성한 무기로 공격할 때의 수정자는 +21이고, 피해 보너스는 +8입니다. 이 무기로 공격할 때의 피해 주사위는 3d6의 타격 피해와 1d6의 정신 피해입니다.</p></li></ul><hr /><p><strong>강화 (8레벨)</strong> 대신 AC = 21 + 레벨, 15의 임시 HP, 물리 피해에 대한 저항력 4, 공격 수정자 +28, 피해 보너스 +15, 운동 능력 +29를 얻습니다. 중간 크기 이하인 경우, 전투 형태는 대형이 되고, 공격의 도달 범위는 10피트가 됩니다.</p>"
  },
  "spell-effect-vital-beacon": {
   "name": "주문 효과: 생명 신호",
-  "description": "<p>@link[spells.vital-beacon]에 의해 부여됩니다.</p> <p>당신이나 아군이 상호 작용 행동을 사용하여 간청하고 당신에게 손을 얹으면 회복 활력 체력을 회복할 수 있습니다. 이 치유는 비콘이 누군가를 치유할 때마다 감소합니다. </p>"
+  "description": "<p>@link[spells.vital-beacon]에 의해 부여됩니다.</p> <p>당신이나 아군이 상호 작용 행동을 사용하여 간청하고 당신에게 손을 얹으면 회복 활력 HP를 회복할 수 있습니다. 이 치유는 비콘이 누군가를 치유할 때마다 감소합니다. </p>"
  },
  "spell-effect-conductive-weapon": {
   "name": "주문 효과: 전도성 무기",
@@ -6416,7 +6416,7 @@
  },
  "spell-effect-demon-form-babau": {
   "name": "주문 효과: 악마 형태 (바바우)",
-  "description": "<p>@link[spells.demon-form]에서 부여됩니다.</p> <p>당신은 중간 크기의 악마 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손을 사용할 수 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 20 + 레벨. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 체력, 냉철에 대한 약점 5, 신성한 것에 대한 약점 5. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 그 공격에 대해 훈련을 받았습니다. 당신의 공격 수정자는 +22이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 대해). 주어진 비무장 공격이나 무기에 대해 당신의 공격 수정자가 더 높다면, 그 대신 사용할 수 있습니다. </li><li>당신의 수정자가 더 높지 않은 한, 운동 능력 수정자 +23.</li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. <strong>피해</strong> 2d8+10 관통 + 1d6 정신;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 턱, <strong>피해</strong> 2d10+10 관통 + 1d6 정신;</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\\">1</span> 발톱 (민첩), <strong>피해 2d4+10 베기 + 1d6 정신;</li><li>모든 공격은 @link[conditions.off-guard] 생물에게 2d6의 추가 정밀 피해를 입힙니다.</li></ul></li></ul></p>"
+  "description": "<p>@link[spells.demon-form]에서 부여됩니다.</p> <p>당신은 중간 크기의 악마 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손을 사용할 수 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 20 + 레벨. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 HP, 냉철에 대한 약점 5, 신성한 것에 대한 약점 5. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 그 공격에 대해 훈련을 받았습니다. 당신의 공격 수정자는 +22이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 대해). 주어진 비무장 공격이나 무기에 대해 당신의 공격 수정자가 더 높다면, 그 대신 사용할 수 있습니다. </li><li>당신의 수정자가 더 높지 않은 한, 운동 능력 수정자 +23.</li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. <strong>피해</strong> 2d8+10 관통 + 1d6 정신;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 턱, <strong>피해</strong> 2d10+10 관통 + 1d6 정신;</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\\">1</span> 발톱 (민첩), <strong>피해 2d4+10 베기 + 1d6 정신;</li><li>모든 공격은 @link[conditions.off-guard] 생물에게 2d6의 추가 정밀 피해를 입힙니다.</li></ul></li></ul></p>"
  },
  "spell-effect-infuse-vitality": {
   "name": "주문 효과: 활력 주입",
@@ -6436,7 +6436,7 @@
  },
  "spell-effect-physical-boost": {
   "name": "주문 효과: 물리적 강화",
-  "description": "<p>@link[spells.physical-boost]에 의해 부여됩니다. </p> <p>다음에 시도하는 곡예 체크, 운동 체크, 체력 내성 또는 반사 내성에 +2의 상태 보너스를 얻습니다. </p>"
+  "description": "<p>@link[spells.physical-boost]에 의해 부여됩니다. </p> <p>다음에 시도하는 곡예 체크, 운동 체크, HP 내성 또는 반사 내성에 +2의 상태 보너스를 얻습니다. </p>"
  },
  "spell-effect-protectors-sphere": {
   "name": "주문 효과: 수호자의 영역",
@@ -6460,7 +6460,7 @@
  },
  "spell-effect-take-root": {
   "name": "주문 효과: 뿌리 내리기",
-  "description": "<p>@link[spells.take-root]에 의해 부여됨</p> <p>당신을 밀치려는 시도에 대해 체력 DC에 +1의 상황 보너스를 받고, 무기를 빼앗기거나 걸려 넘어지려는 시도에 대해 반사 DC에 +1의 상황 보너스를 받습니다.</p>"
+  "description": "<p>@link[spells.take-root]에 의해 부여됨</p> <p>당신을 밀치려는 시도에 대해 HP DC에 +1의 상황 보너스를 받고, 무기를 빼앗기거나 걸려 넘어지려는 시도에 대해 반사 DC에 +1의 상황 보너스를 받습니다.</p>"
  },
  "spell-effect-enduring-might": {
   "name": "주문 효과: 인내하는 힘",
@@ -6528,7 +6528,7 @@
  },
  "spell-effect-return-the-favor": {
   "name": "주문 효과: 은혜 갚기",
-  "description": "<p>@link[spells.return-the-favor]에 의해 부여됨</p> <p>임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.return-the-favor]에 의해 부여됨</p> <p>임시 HP를 얻습니다.</p>"
  },
  "spell-effect-light": {
   "name": "주문 효과: 빛",
@@ -6556,7 +6556,7 @@
  },
  "spell-effect-divine-vessel-9th-level": {
   "name": "주문 효과: 신성한 그릇 (9레벨)",
-  "description": "<p>@link[spells.divine-vessel]에 의해 부여됨</p> <p>당신은 다른 세계의 에너지를 몸에 받아들입니다. 당신은 여전히 당신으로 인식될 수 있지만, 당신의 신의 하수인의 특징 중 하나를 얻게 됩니다. 당신의 신이 가진 성향(혼돈, 악, 선, 법) 중 하나를 선택하세요. 신이나 신이 진정한 중립인 경우 이 주문을 시전할 수 없습니다. 이 주문은 선택한 성향의 특성을 얻습니다. </p> <p>중형 이하인 경우, @link[spells.enlarge]의 효과로 대형이 됩니다. 확장할 수 있는 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 또한 다음의 이점을 얻습니다. </p> <ul> <li>60의 임시 체력. </li> <li>당신의 속도와 동일한 비행 속도. </li> <li>법칙에 대한 약점 15. </li> <li>주문에 대한 내성에 +1의 상태 보너스. </li> <li>암흑 시력.</li> <li>비무장 공격과 무기가 1의 추가 정신 피해를 입힙니다. </li> <li>2d10의 관통 피해를 입히는 무기 없는 물기 공격을 얻습니다. </li> </ul></p>"
+  "description": "<p>@link[spells.divine-vessel]에 의해 부여됨</p> <p>당신은 다른 세계의 에너지를 몸에 받아들입니다. 당신은 여전히 당신으로 인식될 수 있지만, 당신의 신의 하수인의 특징 중 하나를 얻게 됩니다. 당신의 신이 가진 성향(혼돈, 악, 선, 법) 중 하나를 선택하세요. 신이나 신이 진정한 중립인 경우 이 주문을 시전할 수 없습니다. 이 주문은 선택한 성향의 특성을 얻습니다. </p> <p>중형 이하인 경우, @link[spells.enlarge]의 효과로 대형이 됩니다. 확장할 수 있는 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 또한 다음의 이점을 얻습니다. </p> <ul> <li>60의 임시 HP. </li> <li>당신의 속도와 동일한 비행 속도. </li> <li>법칙에 대한 약점 15. </li> <li>주문에 대한 내성에 +1의 상태 보너스. </li> <li>암흑 시력.</li> <li>비무장 공격과 무기가 1의 추가 정신 피해를 입힙니다. </li> <li>2d10의 관통 피해를 입히는 무기 없는 물기 공격을 얻습니다. </li> </ul></p>"
  },
  "spell-effect-community-repair": {
   "name": "주문 효과: 공동체 수리",
@@ -6568,7 +6568,7 @@
  },
  "spell-effect-regenerate": {
   "name": "주문 효과: 재생",
-  "description": "<p>@link[spells.regenerate]에 의해 부여됨</p> <p>대상은 재생 능력을 얻게 되어, 자신의 턴이 시작될 때마다 체력이 회복됩니다.</p>"
+  "description": "<p>@link[spells.regenerate]에 의해 부여됨</p> <p>대상은 재생 능력을 얻게 되어, 자신의 턴이 시작될 때마다 HP가 회복됩니다.</p>"
  },
  "spell-effect-shillelagh": {
   "name": "주문 효과: 실레일리",
@@ -6604,7 +6604,7 @@
  },
  "spell-effect-plant-form-shambler": {
   "name": "주문 효과: 식물 형태 (샴블러)",
-  "description": "<p>@link[spells.plant-form]에 의해 부여됩니다. 이 형태로 있는 동안, 당신은 식물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>12의 임시 체력. </li><li>독에 대한 저항력 10. </li><li>저조도 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격은 훈련을 통해 습득한 기술입니다. 공격 수정자는 +17이고, 피해 보너스는 +11입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +19입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>또한 선택한 식물의 종류에 따라 특정 능력을 얻게 됩니다.>1</span> 덩굴 (도달 거리 15 피트), <strong>피해</strong> 2d8 베기. </li></ul></li></ul><hr /><p><strong>강화 (6레벨)</strong> 당신의 전투 형태는 거대하며, 공격의 도달 거리가 5 피트 증가합니다. 대신 AC = 22 + 레벨, 24의 임시 HP, 공격 수정자 +21, 피해 보너스 +16, 운동 능력 +22를 얻습니다.</p>"
+  "description": "<p>@link[spells.plant-form]에 의해 부여됩니다. 이 형태로 있는 동안, 당신은 식물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>12의 임시 HP. </li><li>독에 대한 저항력 10. </li><li>저조도 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격은 훈련을 통해 습득한 기술입니다. 공격 수정자는 +17이고, 피해 보너스는 +11입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +19입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>또한 선택한 식물의 종류에 따라 특정 능력을 얻게 됩니다.>1</span> 덩굴 (도달 거리 15 피트), <strong>피해</strong> 2d8 베기. </li></ul></li></ul><hr /><p><strong>강화 (6레벨)</strong> 당신의 전투 형태는 거대하며, 공격의 도달 거리가 5 피트 증가합니다. 대신 AC = 22 + 레벨, 24의 임시 HP, 공격 수정자 +21, 피해 보너스 +16, 운동 능력 +22를 얻습니다.</p>"
  },
  "spell-effect-embrace-nothingness": {
   "name": "주문 효과: 공허 포옹",
@@ -6624,7 +6624,7 @@
  },
  "spell-effect-animal-form-bear": {
   "name": "주문 효과: 동물 형태 (곰)",
-  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높으면 그 수정자가 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>곰</strong></p><ul><li>속도 30피트;</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\“>1</span> 턱, <strong>피해</strong> 2d8 관통;</li><li><strong>근접 전투</strong> <span class=\\”action-glyph\\\">1</span> 발톱 (민첩), <strong>피해</strong> 1d8 베기.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. </p> <p><strong>강화 (4레벨)</strong> 전투 형태는 대형이 되고, 공격의 도달 거리는 10피트가 됩니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. 강화 (5레벨) 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높으면 그 수정자가 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>곰</strong></p><ul><li>속도 30피트;</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\“>1</span> 턱, <strong>피해</strong> 2d8 관통;</li><li><strong>근접 전투</strong> <span class=\\”action-glyph\\\">1</span> 발톱 (민첩), <strong>피해</strong> 1d8 베기.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. </p> <p><strong>강화 (4레벨)</strong> 전투 형태는 대형이 되고, 공격의 도달 거리는 10피트가 됩니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. 강화 (5레벨) 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-embrace-the-pit": {
   "name": "주문 효과: 심연 포옹",
@@ -6644,7 +6644,7 @@
  },
  "spell-effect-nature-incarnate": {
   "name": "주문 효과: 자연의 화신",
-  "description": "<p>@link[spells.nature-incarnate]에 의해 부여됨</p> <p>당신은 자연의 화신으로 변신합니다. 녹색 인간이나 카이주 중 하나입니다. 전투 형태는 녹색 인간은 중형, 괴수는 거대형(30피트 x 30피트 공간)입니다. 이 형태로 있는 동안, 당신은 식물 특성(녹색 인간) 또는 야수 특성(괴수)을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 체력. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격, 이 공격은 당신이 사용할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 당신의 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 조건의 목적상). 비무장 공격 수정자가 더 높으면, 그 대신 사용할 수 있습니다. </li><li>운동 수정자 +36, 자신의 수정자가 더 높지 않은 경우.</li></ul><p>선택한 화신에 따라 특정 능력을 얻습니다. <strong>피해</strong> 6d8+12 타격;</li><li><strong>원거리</strong> <span class=\\“action-glyph\\”>1</span> 가시 (사거리 100 피트), <strong>피해</strong> 6d6+6 관통;</li><li><strong>녹색 애무</strong> (오라, 원초적) 60 피트. 식물 이외의 적들은 당신의 주문 DC에 대한 인내에 성공하지 못하면 @link[conditions.clumsy]{1}이 됩니다. 1 라운드 동안 (@link[conditions.clumsy]{2}).</li></ul></li></ul><ul><li><p><strong>카이주</strong></p><ul><li>속도 50 피트; 물리 피해에 대한 저항력 5;</li><li><strong>근접 공격</strong> <span class=\\“action-glyph\\”>1</span> 턱 (도달 거리 30 피트), <strong>피해 6d10+10 관통;</li><li><strong>근접 공격</strong> <span class=\\“action-glyph\\”>1</span> 발톱 (민첩, 도달 거리 30 피트), <strong>피해 6d8+8 베기;</li><li><strong>근접 공격</strong> <span class=\\“action-glyph\\”>1</span> 피트 (민첩, 도달 거리 15 피트), <strong>피해 6d6+10 타격;</li><li><strong>막을 수 없음 당신은 @link[conditions.immobilized] 이며, 어려운 지형과 더 어려운 지형을 무시합니다. </li><li><strong>트램플</strong> <span class=\\“action-glyph\\”>3</span> 당신은 속도의 2배까지 이동하며 거대하거나 그보다 작은 크기의 생물들의 공간을 통과하며, 당신이 들어가는 공간에 있는 모든 생물들을 짓밟습니다. 짓밟힌 생물은 당신의 주문 DC에 대한 기본 반사 내성을 통해 발 피해만 받습니다. </li></ul></li></ul></p>"
+  "description": "<p>@link[spells.nature-incarnate]에 의해 부여됨</p> <p>당신은 자연의 화신으로 변신합니다. 녹색 인간이나 카이주 중 하나입니다. 전투 형태는 녹색 인간은 중형, 괴수는 거대형(30피트 x 30피트 공간)입니다. 이 형태로 있는 동안, 당신은 식물 특성(녹색 인간) 또는 야수 특성(괴수)을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 HP. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격, 이 공격은 당신이 사용할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 당신의 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 조건의 목적상). 비무장 공격 수정자가 더 높으면, 그 대신 사용할 수 있습니다. </li><li>운동 수정자 +36, 자신의 수정자가 더 높지 않은 경우.</li></ul><p>선택한 화신에 따라 특정 능력을 얻습니다. <strong>피해</strong> 6d8+12 타격;</li><li><strong>원거리</strong> <span class=\\“action-glyph\\”>1</span> 가시 (사거리 100 피트), <strong>피해</strong> 6d6+6 관통;</li><li><strong>녹색 애무</strong> (오라, 원초적) 60 피트. 식물 이외의 적들은 당신의 주문 DC에 대한 인내에 성공하지 못하면 @link[conditions.clumsy]{1}이 됩니다. 1 라운드 동안 (@link[conditions.clumsy]{2}).</li></ul></li></ul><ul><li><p><strong>카이주</strong></p><ul><li>속도 50 피트; 물리 피해에 대한 저항력 5;</li><li><strong>근접 공격</strong> <span class=\\“action-glyph\\”>1</span> 턱 (도달 거리 30 피트), <strong>피해 6d10+10 관통;</li><li><strong>근접 공격</strong> <span class=\\“action-glyph\\”>1</span> 발톱 (민첩, 도달 거리 30 피트), <strong>피해 6d8+8 베기;</li><li><strong>근접 공격</strong> <span class=\\“action-glyph\\”>1</span> 피트 (민첩, 도달 거리 15 피트), <strong>피해 6d6+10 타격;</li><li><strong>막을 수 없음 당신은 @link[conditions.immobilized] 이며, 어려운 지형과 더 어려운 지형을 무시합니다. </li><li><strong>트램플</strong> <span class=\\“action-glyph\\”>3</span> 당신은 속도의 2배까지 이동하며 거대하거나 그보다 작은 크기의 생물들의 공간을 통과하며, 당신이 들어가는 공간에 있는 모든 생물들을 짓밟습니다. 짓밟힌 생물은 당신의 주문 DC에 대한 기본 반사 내성을 통해 발 피해만 받습니다. </li></ul></li></ul></p>"
  },
  "spell-effect-veil-of-dreams": {
   "name": "주문 효과: 꿈의 베일",
@@ -6652,7 +6652,7 @@
  },
  "spell-effect-demon-form-nabasu": {
   "name": "주문 효과: 악마의 형태 (Nabasu)",
-  "description": "<p>@link[spells.demon-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 악마 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손을 사용할 수 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 20 + 레벨. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 체력, 냉철에 대한 약점 5, 신성한 것에 대한 약점 5. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 그 무기를 사용하도록 훈련받았습니다. 당신의 공격 수정자는 +22이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 무기 또는 무기 공격에 대한 당신의 공격 수정자가 더 높으면, 그 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>나바수</strong> 속도 25피트, 비행 40피트;</p><ul><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 턱, <strong>피해</strong> 2d10+10 피어싱 + 1d6 정신;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 발톱 (민첩), <strong>피해</strong> 2d6+10 베기 + 1d6 정신.</p>"
+  "description": "<p>@link[spells.demon-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 악마 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손을 사용할 수 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 20 + 레벨. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 HP, 냉철에 대한 약점 5, 신성한 것에 대한 약점 5. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 그 무기를 사용하도록 훈련받았습니다. 당신의 공격 수정자는 +22이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 무기 또는 무기 공격에 대한 당신의 공격 수정자가 더 높으면, 그 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>나바수</strong> 속도 25피트, 비행 40피트;</p><ul><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 턱, <strong>피해</strong> 2d10+10 피어싱 + 1d6 정신;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 발톱 (민첩), <strong>피해</strong> 2d6+10 베기 + 1d6 정신.</p>"
  },
  "spell-effect-everlight": {
   "name": "주문 효과: 영원한 빛",
@@ -6676,7 +6676,7 @@
  },
  "spell-effect-dinosaur-form-triceratops": {
   "name": "주문 효과: 공룡 형태 (트리케라톱스)",
-  "description": "<p>@link[spells.dinosaur-form]에 의해 부여됩니다.</p> <p>당신은 강력한 공포의 공룡 형태의 대형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물과 공룡의 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. 15의 임시 체력. 저조도 시야와 30피트의 부정확한 후각. 선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +16이고, 피해 보너스는 +9입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수치를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +18입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 형태에 따라 다음과 같은 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>트리케라톱스</strong></p><ul><li>속도 30피트;</li><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 뿔, 피해 2d8 관통, 치명타 시 1d6 출혈 추가;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 피트, 피해 2d6 타격.</li></ul></li></ul><hr /><p><strong>강화 (5레벨)</strong> 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트이며, 15피트에서 시작하는 공격의 도달 거리는 20피트입니다. 대신 20의 임시 HP, +18의 공격 수정자, +6의 피해 보너스, 피해 주사위 2배, 운동 능력 +21을 얻습니다. </p> <p><strong>강화 (7레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 20피트 도달 거리를 가지며, 15피트 도달 거리로 시작하는 공격은 25피트 도달 거리를 가집니다. 대신 AC = 21 + 레벨, 25의 임시 HP, +25의 공격 수정자, +15의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +25를 얻습니다.</p>"
+  "description": "<p>@link[spells.dinosaur-form]에 의해 부여됩니다.</p> <p>당신은 강력한 공포의 공룡 형태의 대형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물과 공룡의 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. 15의 임시 HP. 저조도 시야와 30피트의 부정확한 후각. 선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +16이고, 피해 보너스는 +9입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수치를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +18입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 형태에 따라 다음과 같은 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>트리케라톱스</strong></p><ul><li>속도 30피트;</li><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 뿔, 피해 2d8 관통, 치명타 시 1d6 출혈 추가;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 피트, 피해 2d6 타격.</li></ul></li></ul><hr /><p><strong>강화 (5레벨)</strong> 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트이며, 15피트에서 시작하는 공격의 도달 거리는 20피트입니다. 대신 20의 임시 HP, +18의 공격 수정자, +6의 피해 보너스, 피해 주사위 2배, 운동 능력 +21을 얻습니다. </p> <p><strong>강화 (7레벨)</strong> 당신의 전투 형태는 거대하고, 당신의 공격은 20피트 도달 거리를 가지며, 15피트 도달 거리로 시작하는 공격은 25피트 도달 거리를 가집니다. 대신 AC = 21 + 레벨, 25의 임시 HP, +25의 공격 수정자, +15의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +25를 얻습니다.</p>"
  },
  "spell-effect-draconic-barrage": {
   "name": "주문 효과: 드라코닉 발포",
@@ -6700,7 +6700,7 @@
  },
  "spell-effect-animal-form-frog": {
   "name": "주문 효과: 동물 형태 (개구리)",
-  "description": "<p>@link[spells.animal-form]에 의해 부여됨</p> <p>당신은 중형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>개구리</strong></p><ul><li>속도 25피트, 수영 속도 25피트;</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\“>1</span> 턱, <strong>피해</strong> 2d6 타격;</li><li><strong>근접</strong> <span class=\\”action-glyph\\\">1</span> 혀 (도달 거리 15 피트), <strong>피해</strong> 2d4 타격.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 10의 임시 HP, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. </p> <p><strong>강화 (4레벨)</strong> 전투 형태는 대형이며, 공격의 도달 거리는 10피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. </p> <p><strong>강화 (5레벨)</strong> 전투 형태가 거대하고 공격의 도달 거리가 15피트가 됩니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에 의해 부여됨</p> <p>당신은 중형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>개구리</strong></p><ul><li>속도 25피트, 수영 속도 25피트;</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\“>1</span> 턱, <strong>피해</strong> 2d6 타격;</li><li><strong>근접</strong> <span class=\\”action-glyph\\\">1</span> 혀 (도달 거리 15 피트), <strong>피해</strong> 2d4 타격.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 10의 임시 HP, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. </p> <p><strong>강화 (4레벨)</strong> 전투 형태는 대형이며, 공격의 도달 거리는 10피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. </p> <p><strong>강화 (5레벨)</strong> 전투 형태가 거대하고 공격의 도달 거리가 15피트가 됩니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-life-connection": {
   "name": "주문 효과: 생명 연결",
@@ -6708,7 +6708,7 @@
  },
  "aura-angelic-halo": {
   "name": "오라: 천사의 후광",
-  "description": "<p>@link[spells.angelic-halo]에 의해 부여됩니다. <p>당신의 후광이 발산하는 범위 내에 있는 아군이 <em>치유</em> 주문으로 치유를 받으면, <em>치유</em> 주문의 랭크의 두 배에 해당하는 체력 회복에 대한 상태 보너스를 받습니다.</p>"
+  "description": "<p>@link[spells.angelic-halo]에 의해 부여됩니다. <p>당신의 후광이 발산하는 범위 내에 있는 아군이 <em>치유</em> 주문으로 치유를 받으면, <em>치유</em> 주문의 랭크의 두 배에 해당하는 HP 회복에 대한 상태 보너스를 받습니다.</p>"
  },
  "spell-effect-albatross-curse-critical-failure": {
   "name": "주문 효과: 알바트로스 저주 (대실패)",
@@ -6720,7 +6720,7 @@
  },
  "spell-effect-element-embodied-earth": {
   "name": "주문 효과: 원소 체화 (땅)",
-  "description": "<p>@link[spells.element-embodied]에 의해 부여됩니다.</p> <p>당신은 거대한 원소 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 원소 특성과 땅 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 25 + 레벨. 갑옷의 체크 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 체력. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 공기 또는 불 정령을 선택한 경우 민첩성을 기반으로 하고, 땅 또는 물 정령을 선택한 경우 힘을 기반으로 합니다. (이 구분은 능력치는 변경하지 않지만, 예를 들어 약화 및 둔함 상태에 영향을 미칩니다). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>공중 또는 불 정령의 경우 +36의 곡예 수정자, 또는 땅 또는 물 정령의 경우 +36의 운동 수정자. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>선택한 원소 유형에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>땅 원소체</strong> 30피트, 땅 파기 20피트; 물리 저항 5;</p><ul><li><strong>스파이크 스톤</strong> (오라, 땅) 30피트. 해당 지역은 어려운 지형과 위험한 지형입니다. 이 영역에서 지상을 이동하는 땅의 특성이 없는 생물은 이 영역으로 이동하는 칸 수에 따라 5 관통의 피해를 받습니다. </li><li><strong>바위 같은 강인함</strong> 이 형태를 선택하면 30이 아닌 40의 임시 체력을 얻습니다. </li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 주먹 (도달 거리 25 피트), <strong>피해</strong> 3d12+15 타격;</li><li><strong>원거리</strong> <span class=\\“action-glyph\\”>1</span> 바위 (사거리 40 피트), <strong>피해</strong> 4d8+6 타격.</p>"
+  "description": "<p>@link[spells.element-embodied]에 의해 부여됩니다.</p> <p>당신은 거대한 원소 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 원소 특성과 땅 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 25 + 레벨. 갑옷의 체크 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 HP. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 공기 또는 불 정령을 선택한 경우 민첩성을 기반으로 하고, 땅 또는 물 정령을 선택한 경우 힘을 기반으로 합니다. (이 구분은 능력치는 변경하지 않지만, 예를 들어 약화 및 둔함 상태에 영향을 미칩니다). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>공중 또는 불 정령의 경우 +36의 곡예 수정자, 또는 땅 또는 물 정령의 경우 +36의 운동 수정자. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>선택한 원소 유형에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>땅 원소체</strong> 30피트, 땅 파기 20피트; 물리 저항 5;</p><ul><li><strong>스파이크 스톤</strong> (오라, 땅) 30피트. 해당 지역은 어려운 지형과 위험한 지형입니다. 이 영역에서 지상을 이동하는 땅의 특성이 없는 생물은 이 영역으로 이동하는 칸 수에 따라 5 관통의 피해를 받습니다. </li><li><strong>바위 같은 강인함</strong> 이 형태를 선택하면 30이 아닌 40의 임시 HP를 얻습니다. </li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 주먹 (도달 거리 25 피트), <strong>피해</strong> 3d12+15 타격;</li><li><strong>원거리</strong> <span class=\\“action-glyph\\”>1</span> 바위 (사거리 40 피트), <strong>피해</strong> 4d8+6 타격.</p>"
  },
  "spell-effect-dragon-wings": {
   "name": "주문 효과: 용의 날개",
@@ -6736,7 +6736,7 @@
  },
  "spell-effect-animal-form-snake": {
   "name": "주문 효과: 동물 형태 (뱀)",
-  "description": "<p>@link[spells.animal-form]에 의해 부여됨</p> <p>당신은 중형 동물 전투 형태로 변신할 수 있습니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>뱀</strong></p><ul><li>속도 20 피트, 등반 속도 20 피트, 수영 속도 20 피트;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 송곳니, <strong>피해</strong> 2d4 관통 + 1d6 독.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. 강화 (5레벨) 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에 의해 부여됨</p> <p>당신은 중형 동물 전투 형태로 변신할 수 있습니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>뱀</strong></p><ul><li>속도 20 피트, 등반 속도 20 피트, 수영 속도 20 피트;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 송곳니, <strong>피해</strong> 2d4 관통 + 1d6 독.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. 강화 (5레벨) 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-ancestral-form": {
   "name": "주문 효과: 조상의 형상",
@@ -6748,7 +6748,7 @@
  },
  "spell-effect-spirit-of-the-beast": {
   "name": "주문 효과: 야수의 영혼",
-  "description": "<p>@link[spells.spirit-of-the-beast]에 의해 부여됩니다.</p> <p>다음 중 하나를 선택합니다.</p><ul><li><strong>힘의 측면:</strong> 운동 체크, 사기를 저하시키는 협박 체크, 그리고 체력 내성에 상태 보너스를 얻습니다.</li><li><strong>통찰의 측면:</strong> 탐색에 대한 지각 체크, 방향 감지 또는 추적에 대한 생존 체크, 의지 내성에 상태 보너스를 얻습니다. </li></ul></p>"
+  "description": "<p>@link[spells.spirit-of-the-beast]에 의해 부여됩니다.</p> <p>다음 중 하나를 선택합니다.</p><ul><li><strong>힘의 측면:</strong> 운동 체크, 사기를 저하시키는 협박 체크, 그리고 HP 내성에 상태 보너스를 얻습니다.</li><li><strong>통찰의 측면:</strong> 탐색에 대한 지각 체크, 방향 감지 또는 추적에 대한 생존 체크, 의지 내성에 상태 보너스를 얻습니다. </li></ul></p>"
  },
  "spell-effect-energy-absorption": {
   "name": "주문 효과: 에너지 흡수",
@@ -6764,7 +6764,7 @@
  },
  "spell-effect-element-embodied-metal": {
   "name": "주문 효과: 원소화 (금속)",
-  "description": "<p>@link[spells.element-embodied]에 의해 부여됩니다.</p> <p>당신은 거대한 원소 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 원소 특성과 금속 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 25 + 레벨. 갑옷의 체크 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 체력. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격을 할 수 있으며, 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 공기 또는 불 정령을 선택한 경우 민첩성을 기반으로 하고, 땅 또는 물 정령을 선택한 경우 힘을 기반으로 합니다. (이 구분은 능력치는 변경하지 않지만, 예를 들어 약화 및 둔함 상태에 영향을 미칩니다). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>공중 또는 불 정령의 경우 +36의 곡예 수정자, 땅 또는 물 정령의 경우 +36의 운동 수정자. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>선택한 원소 유형에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>금속 원소체</strong> 40피트, 비행 40피트; 전기 저항 10;</p><ul><li><strong>아크 전기</strong> (오라, 전기, 금속) 30피트. 오라에 들어오거나 오라에서 턴을 시작하는 생물은 당신의 주문 DC에 대한 기본 반사 내성으로 2d12 전기의 피해를 받습니다. 금속으로 만들어졌거나, 금속 특성을 가지고 있거나, 금속 갑옷을 입고 있는 생물은 이 내성에 -1의 상황 페널티를 받습니다. 생물은 1 라운드에 한 번만 오라의 피해를 받을 수 있습니다.</p>"
+  "description": "<p>@link[spells.element-embodied]에 의해 부여됩니다.</p> <p>당신은 거대한 원소 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 원소 특성과 금속 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 25 + 레벨. 갑옷의 체크 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 HP. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격을 할 수 있으며, 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 공기 또는 불 정령을 선택한 경우 민첩성을 기반으로 하고, 땅 또는 물 정령을 선택한 경우 힘을 기반으로 합니다. (이 구분은 능력치는 변경하지 않지만, 예를 들어 약화 및 둔함 상태에 영향을 미칩니다). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>공중 또는 불 정령의 경우 +36의 곡예 수정자, 땅 또는 물 정령의 경우 +36의 운동 수정자. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>선택한 원소 유형에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>금속 원소체</strong> 40피트, 비행 40피트; 전기 저항 10;</p><ul><li><strong>아크 전기</strong> (오라, 전기, 금속) 30피트. 오라에 들어오거나 오라에서 턴을 시작하는 생물은 당신의 주문 DC에 대한 기본 반사 내성으로 2d12 전기의 피해를 받습니다. 금속으로 만들어졌거나, 금속 특성을 가지고 있거나, 금속 갑옷을 입고 있는 생물은 이 내성에 -1의 상황 페널티를 받습니다. 생물은 1 라운드에 한 번만 오라의 피해를 받을 수 있습니다.</p>"
  },
  "spell-effect-nudge-the-odds": {
   "name": "주문 효과: 확률 조작",
@@ -6780,7 +6780,7 @@
  },
  "spell-effect-element-embodied-fire": {
   "name": "주문 효과: 원소 구현 (불)",
-  "description": "<p>@link[spells.element-embodied]에 의해 부여됩니다.</p> <p>당신은 거대한 원소 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 원소 특성과 불 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 25 + 레벨. 갑옷의 체크 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 체력. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격을 사용할 수 있으며, 이 공격이 사용할 수 있는 유일한 공격입니다. 당신은 이러한 공격을 훈련받았습니다. 당신의 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 공기의 정령을 선택한 경우 민첩성을 기반으로 하고, 땅의 정령을 선택한 경우 힘에 기반합니다. (이 구분은 능력치는 변경하지 않지만, 예를 들어 약화된 상태나 둔함 상태에 영향을 미칩니다). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>공중 또는 불 정령의 경우 +36의 곡예 수정자, 또는 땅 또는 물 정령의 경우 +36의 운동 수정자. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>선택한 원소 유형에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>불 원소</strong> 50 피트; 불에 대한 면역; 추위에 대한 약점 10;</p><ul><li><strong>강렬한 열</strong> (오라, 불) 30 피트. 오라에 들어오거나 오라에서 턴을 시작하는 생물은 당신의 주문 DC에 대한 기본 반사 내성을 통해 5d6 화염의 피해를 받습니다. 생물은 한 라운드에 한 번만 오라의 피해를 받을 수 있습니다. </li><li><strong>근접</strong> <span class=\\“action-glyph\\”>1</span> 덩굴손 (도달 거리 25 피트), <strong>피해 3d10+12 화염과 2d6 지속 화염;</li><li><strong>원거리</p>"
+  "description": "<p>@link[spells.element-embodied]에 의해 부여됩니다.</p> <p>당신은 거대한 원소 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 원소 특성과 불 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 25 + 레벨. 갑옷의 체크 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 HP. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격을 사용할 수 있으며, 이 공격이 사용할 수 있는 유일한 공격입니다. 당신은 이러한 공격을 훈련받았습니다. 당신의 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 공기의 정령을 선택한 경우 민첩성을 기반으로 하고, 땅의 정령을 선택한 경우 힘에 기반합니다. (이 구분은 능력치는 변경하지 않지만, 예를 들어 약화된 상태나 둔함 상태에 영향을 미칩니다). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>공중 또는 불 정령의 경우 +36의 곡예 수정자, 또는 땅 또는 물 정령의 경우 +36의 운동 수정자. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>선택한 원소 유형에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>불 원소</strong> 50 피트; 불에 대한 면역; 추위에 대한 약점 10;</p><ul><li><strong>강렬한 열</strong> (오라, 불) 30 피트. 오라에 들어오거나 오라에서 턴을 시작하는 생물은 당신의 주문 DC에 대한 기본 반사 내성을 통해 5d6 화염의 피해를 받습니다. 생물은 한 라운드에 한 번만 오라의 피해를 받을 수 있습니다. </li><li><strong>근접</strong> <span class=\\“action-glyph\\”>1</span> 덩굴손 (도달 거리 25 피트), <strong>피해 3d10+12 화염과 2d6 지속 화염;</li><li><strong>원거리</p>"
  },
  "spell-effect-lay-on-hands": {
   "name": "주문 효과: 안수치료",
@@ -6820,11 +6820,11 @@
  },
  "spell-effect-gluttons-jaws": {
   "name": "주문 효과: 탐식의 턱",
-  "description": "<p>@link[spells.gluttons-jaws]에 의해 부여됨</p> <p>임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.gluttons-jaws]에 의해 부여됨</p> <p>임시 HP를 얻습니다.</p>"
  },
  "spell-effect-cinder-gaze": {
   "name": "주문 효과: 재의 시선",
-  "description": "<p>@link[spells.cinder-gaze]에 의해 부여됩니다. </p> <ol> <li><strong>끔찍한 위험</strong> 다음 이니셔티브 굴림에 +2 상태 보너스를 얻습니다.</li> <li><strong>새로운 생명</strong> 다음에 피해를 입을 때, 피해를 받기 직전에 1과 당신의 주문 시전 능력 수정자만큼의 임시 체력을 얻습니다. </li> <li><strong>생생한 통찰력</strong> (행운) 다음에 지식 회상 체크를 시도할 때, 두 번 굴리고 더 높은 결과를 사용합니다.</li> <li><strong>행운</strong> (행운) 다음에 내성 굴림을 시도할 때, 두 번 굴리고 더 좋은 결과를 적용합니다. </li> </ol></p>"
+  "description": "<p>@link[spells.cinder-gaze]에 의해 부여됩니다. </p> <ol> <li><strong>끔찍한 위험</strong> 다음 이니셔티브 굴림에 +2 상태 보너스를 얻습니다.</li> <li><strong>새로운 생명</strong> 다음에 피해를 입을 때, 피해를 받기 직전에 1과 당신의 주문 시전 능력 수정자만큼의 임시 HP를 얻습니다. </li> <li><strong>생생한 통찰력</strong> (행운) 다음에 지식 회상 체크를 시도할 때, 두 번 굴리고 더 높은 결과를 사용합니다.</li> <li><strong>행운</strong> (행운) 다음에 내성 굴림을 시도할 때, 두 번 굴리고 더 좋은 결과를 적용합니다. </li> </ol></p>"
  },
  "spell-effect-mirecloak": {
   "name": "주문 효과: 늪의 망토",
@@ -6864,7 +6864,7 @@
  },
  "spell-effect-zealous-conviction": {
   "name": "주문 효과: 열렬한 신념",
-  "description": "<p>@link[spells.zealous-conviction]에 의해 부여됨</p> <p>당신은 임시 체력을 얻고 정신 효과에 대한 의지 내성 보너스를 얻습니다.</p>"
+  "description": "<p>@link[spells.zealous-conviction]에 의해 부여됨</p> <p>당신은 임시 HP를 얻고 정신 효과에 대한 의지 내성 보너스를 얻습니다.</p>"
  },
  "spell-effect-soothe": {
   "name": "주문 효과: 진정",
@@ -6880,7 +6880,7 @@
  },
  "spell-effect-dinosaur-form-deinonychus": {
   "name": "주문 효과: 공룡 형태 (데인오니쿠스)",
-  "description": "<p>@link[spells.dinosaur-form]에 의해 부여됩니다.</p> <p>당신은 강력한 공포의 공룡 형태의 대형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물과 공룡의 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>15의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +16이고, 피해 보너스는 +9입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +18입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 형태에 따라 다음과 같은 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>데이나니쿠스</strong></p><ul><li>속도 40피트;</li><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 발톱 (민첩), 피해 2d4 관통 + 1 출혈 피해;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 턱, 피해 1d10 관통.</li></ul></li></ul><hr /><p><strong>강화 (5레벨)</strong> 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트이며, 15피트에서 시작하는 공격의 도달 거리는 20피트입니다. 대신 임시 HP 20, 공격 수정자 +18, 피해 보너스 +6, 피해 주사위 2배, 운동 능력 +21을 얻습니다. </p> <p><strong>강화 (7레벨)</strong> 당신의 전투 형태는 거대하고, 공격의 도달 거리는 20피트이며, 15피트에서 시작하는 공격의 경우 도달 거리는 25피트가 됩니다. 대신 AC = 21 + 레벨, 25의 임시 HP, +25의 공격 수정자, +15의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +25를 얻습니다.</p>"
+  "description": "<p>@link[spells.dinosaur-form]에 의해 부여됩니다.</p> <p>당신은 강력한 공포의 공룡 형태의 대형 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물과 공룡의 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>15의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +16이고, 피해 보너스는 +9입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +18입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 형태에 따라 다음과 같은 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>데이나니쿠스</strong></p><ul><li>속도 40피트;</li><li><strong>근접전</strong> <span class=\\“action-glyph\\”>1</span> 발톱 (민첩), 피해 2d4 관통 + 1 출혈 피해;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 턱, 피해 1d10 관통.</li></ul></li></ul><hr /><p><strong>강화 (5레벨)</strong> 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트이며, 15피트에서 시작하는 공격의 도달 거리는 20피트입니다. 대신 임시 HP 20, 공격 수정자 +18, 피해 보너스 +6, 피해 주사위 2배, 운동 능력 +21을 얻습니다. </p> <p><strong>강화 (7레벨)</strong> 당신의 전투 형태는 거대하고, 공격의 도달 거리는 20피트이며, 15피트에서 시작하는 공격의 경우 도달 거리는 25피트가 됩니다. 대신 AC = 21 + 레벨, 25의 임시 HP, +25의 공격 수정자, +15의 피해 보너스, 두 배의 피해 주사위, 운동 능력 +25를 얻습니다.</p>"
  },
  "spell-effect-trade-death-for-life": {
   "name": "주문 효과: 죽음과 생명의 교환",
@@ -6892,7 +6892,7 @@
  },
  "spell-effect-untwisting-iron-pillar": {
   "name": "주문 효과: 풀림강철 기둥",
-  "description": "<p>@link[spells.untwisting-iron-pillar]에 의해 부여됨</p> <p>당신은 지속 시간 동안 또는 잃을 때까지 50의 임시 체력을 얻고, 모든 물리 피해 (아다만타인 제외)에 대해 5의 저항력을 얻습니다.</p>"
+  "description": "<p>@link[spells.untwisting-iron-pillar]에 의해 부여됨</p> <p>당신은 지속 시간 동안 또는 잃을 때까지 50의 임시 HP를 얻고, 모든 물리 피해 (아다만타인 제외)에 대해 5의 저항력을 얻습니다.</p>"
  },
  "spell-effect-incendiary-aura": {
   "name": "주문 효과: 인켄디어리 오라",
@@ -6912,11 +6912,11 @@
  },
  "spell-effect-goodberry": {
   "name": "주문 효과: 굿베리",
-  "description": "<p>@link[spells.cornucopia]에 의해 부여됩니다.</p> <p>당신은 하나 이상의 굿베리를 들고 있으며, 이 굿베리는 주문이 지속되는 동안 신선한 상태로 유지됩니다. </p> <p>당신은 상호 작용 행동으로 동일한 시전으로 하나 이상의 굿베리를 소비하여 굿베리 하나당 1d6+4 체력을 회복할 수 있습니다. </p>"
+  "description": "<p>@link[spells.cornucopia]에 의해 부여됩니다.</p> <p>당신은 하나 이상의 굿베리를 들고 있으며, 이 굿베리는 주문이 지속되는 동안 신선한 상태로 유지됩니다. </p> <p>당신은 상호 작용 행동으로 동일한 시전으로 하나 이상의 굿베리를 소비하여 굿베리 하나당 1d6+4 HP를 회복할 수 있습니다. </p>"
  },
  "spell-effect-animal-form-cat": {
   "name": "주문 효과: 동물 형태 (고양이)",
-  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격은 훈련을 통해 습득한 것입니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높으면 그 수정자가 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>고양이</strong></p><ul><li>속도 40피트;</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\“>1</span> 개의 턱, <strong>피해</strong> 2d6 관통;</li><li><strong>근접 전투</strong> <span class=\\”action-glyph\\\">1</span> 개의 발톱 (민첩), <strong>피해</strong> 1d10 베기.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. </p> <p><strong>강화 (4레벨)</strong> 전투 형태는 대형이며, 공격의 도달 거리는 10피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. 강화 (5레벨) 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격은 훈련을 통해 습득한 것입니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높으면 그 수정자가 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>고양이</strong></p><ul><li>속도 40피트;</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\“>1</span> 개의 턱, <strong>피해</strong> 2d6 관통;</li><li><strong>근접 전투</strong> <span class=\\”action-glyph\\\">1</span> 개의 발톱 (민첩), <strong>피해</strong> 1d10 베기.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. </p> <p><strong>강화 (4레벨)</strong> 전투 형태는 대형이며, 공격의 도달 거리는 10피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. 강화 (5레벨) 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-discern-secrets": {
   "name": "주문 효과: 비밀 간파",
@@ -6932,7 +6932,7 @@
  },
  "spell-effect-animal-form-shark": {
   "name": "주문 효과: 동물 형태 (상어)",
-  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>상어</strong></p><ul><li>수영 속도 35 피트;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 턱, <strong>피해</strong> 2d8 관통;</li><li>물속에서는 숨을 쉴 수 있지만, 공기 중에서는 숨을 쉴 수 없습니다.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. </p> <p><strong>강화 (5레벨)</strong> 전투 형태가 거대하고 공격의 도달 거리가 15피트가 됩니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>상어</strong></p><ul><li>수영 속도 35 피트;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 턱, <strong>피해</strong> 2d8 관통;</li><li>물속에서는 숨을 쉴 수 있지만, 공기 중에서는 숨을 쉴 수 없습니다.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. </p> <p><strong>강화 (5레벨)</strong> 전투 형태가 거대하고 공격의 도달 거리가 15피트가 됩니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-hyperfocus": {
   "name": "주문 효과: 과집중",
@@ -6992,11 +6992,11 @@
  },
  "spell-effect-animal-form-orca": {
   "name": "주문 효과: 동물 형태 (오르카)",
-  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다</p> <p>원시 에너지를 불러일으켜 자신에게 중간 크기의 동물 전투 형태로 변신합니다. 이 주문을 처음 발동할 때 형태를 선택합니다.</p> <p>특정 동물 유형(예: 고양이의 경우 사자나 눈표범)을 선택할 수 있지만, 이는 형태의 크기나 통계에 영향을 미치지 않습니다. 이 형태로 있는 동안, 당신은 동물의 특성을 얻습니다. 당신은 주문을 해제할 수 있습니다. 당신이 선택한 전투 형태에 관계없이, 당신은 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. 5의 임시 체력. 저조도 시야와 30피트의 부정확한 후각. 선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 훈련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>오르카</strong></p><ul><li>수영 속도 35 피트;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 턱, <strong>피해</strong> 2d8 관통;</li><li>변신 기간 동안 숨을 참을 수 있습니다.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. </p> <p><strong>강화 (4레벨)</strong> 전투 형태는 대형이며, 공격의 도달 거리는 10피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다.</p> <p><strong>강화 (5레벨)</strong> 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다</p> <p>원시 에너지를 불러일으켜 자신에게 중간 크기의 동물 전투 형태로 변신합니다. 이 주문을 처음 발동할 때 형태를 선택합니다.</p> <p>특정 동물 유형(예: 고양이의 경우 사자나 눈표범)을 선택할 수 있지만, 이는 형태의 크기나 통계에 영향을 미치지 않습니다. 이 형태로 있는 동안, 당신은 동물의 특성을 얻습니다. 당신은 주문을 해제할 수 있습니다. 당신이 선택한 전투 형태에 관계없이, 당신은 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. 5의 임시 HP. 저조도 시야와 30피트의 부정확한 후각. 선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 훈련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>오르카</strong></p><ul><li>수영 속도 35 피트;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 턱, <strong>피해</strong> 2d8 관통;</li><li>변신 기간 동안 숨을 참을 수 있습니다.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. </p> <p><strong>강화 (4레벨)</strong> 전투 형태는 대형이며, 공격의 도달 거리는 10피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다.</p> <p><strong>강화 (5레벨)</strong> 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-revel-in-retribution-temp-hp": {
   "name": "주문 효과: 보복에 빠지다 (임시 HP)",
-  "description": "<p>@link[spells.revel-in-retribution]에 의해 부여됨</p> <p>임시 체력을 얻습니다.</p>"
+  "description": "<p>@link[spells.revel-in-retribution]에 의해 부여됨</p> <p>임시 HP를 얻습니다.</p>"
  },
  "spell-effect-death-ward": {
   "name": "주문 효과: 죽음의 수호부",
@@ -7008,7 +7008,7 @@
  },
  "spell-effect-animal-form-canine": {
   "name": "주문 효과: 동물 형태 (개)",
-  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높으면 그 수정자가 적용됩니다.</li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻습니다.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. 강화 (5레벨) 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다.</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높으면 그 수정자가 적용됩니다.</li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻습니다.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. 강화 (5레벨) 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-enlarge": {
   "name": "주문 효과: 확대",
@@ -7016,7 +7016,7 @@
  },
  "spell-effect-demon-form-hezrou": {
   "name": "주문 효과: 악마의 모습 (헤즈루)",
-  "description": "<p>@link[spells.demon-form]에 의해 부여됩니다.</p> <p>당신은 대형 악마 전투 형태로 변신합니다. 이 형태에 있을 때 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손을 사용할 수 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 20 + 레벨. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 체력, 냉철에 대한 약점 5, 신성한 것에 대한 약점 5. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 그 무기를 사용하도록 훈련받았습니다. 당신의 공격 수정자는 +22이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 무기 또는 무기 공격에 대한 당신의 공격 수정자가 더 높으면, 그 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>헤즈루</strong> 속도 30피트, 수영 30피트;</p><ul><li><strong>근접전</strong> <span class=\\\"action-glyph\\\">1</span> 턱 (도달 거리 10 피트), <strong>피해 2d12+10 관통 + 1d6 정신, 그리고 타격을 가한 후 행동을 사용하여 대상을 잡을 수 있습니다.</p>"
+  "description": "<p>@link[spells.demon-form]에 의해 부여됩니다.</p> <p>당신은 대형 악마 전투 형태로 변신합니다. 이 형태에 있을 때 악마와 악마의 특성을 얻습니다. 이 전투 형태에서는 손을 사용할 수 있으며 조작 행동을 사용할 수 있습니다. 선택한 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 20 + 레벨. 갑옷 체크의 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 HP, 냉철에 대한 약점 5, 신성한 것에 대한 약점 5. </li><li>암흑 시력. </li><li>사용하는 전투 형태에 특화된 하나 이상의 공격. 당신은 그 무기를 사용하도록 훈련받았습니다. 당신의 공격 수정자는 +22이며, 나열된 피해를 사용합니다. 이 공격은 힘에 기반합니다 (예를 들어, 약화된 상태의 목적에 한함). 주어진 무기 또는 무기 공격에 대한 당신의 공격 수정자가 더 높으면, 그 대신 사용할 수 있습니다.</li><li>운동 수정자가 +23입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 악마의 유형에 따라 특정 능력을 얻습니다. </p><ul><li><p><strong>헤즈루</strong> 속도 30피트, 수영 30피트;</p><ul><li><strong>근접전</strong> <span class=\\\"action-glyph\\\">1</span> 턱 (도달 거리 10 피트), <strong>피해 2d12+10 관통 + 1d6 정신, 그리고 타격을 가한 후 행동을 사용하여 대상을 잡을 수 있습니다.</p>"
  },
  "spell-effect-cauterize-wounds": {
   "name": "주문 효과: 상처 소작",
@@ -7040,7 +7040,7 @@
  },
  "spell-effect-animal-form-seal": {
   "name": "주문 효과: 동물 형태 (봉인)",
-  "description": "<p>@link[spells.animal-form]에서 부여됩니다.</p> <p>원시 에너지를 불러일으켜 중간 크기의 동물 전투 형태로 변신합니다. 이 주문을 처음 사용할 때 형태를 선택합니다.</p> <p>특정 동물 유형(예: 고양이의 경우 사자나 눈표범)을 선택할 수 있지만, 이는 형태의 크기나 통계에 영향을 미치지 않습니다. 이 형태로 있는 동안, 당신은 동물의 특성을 얻습니다. 당신은 주문을 해제할 수 있습니다. 당신이 선택한 전투 형태에 상관없이, 당신은 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. 5의 임시 체력. 저조도 시야와 30피트 이내의 부정확한 후각. 선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>물개</strong></p><ul><li>속도 20피트, 수영 속도 30피트;</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\\">1</span> 개의 턱 (그래플), <strong>피해</strong> 2d6 피어싱;</li><li>변신 동안 숨을 참을 수 있습니다.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다.</p> <p><strong>강화 (5레벨)</strong> 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에서 부여됩니다.</p> <p>원시 에너지를 불러일으켜 중간 크기의 동물 전투 형태로 변신합니다. 이 주문을 처음 사용할 때 형태를 선택합니다.</p> <p>특정 동물 유형(예: 고양이의 경우 사자나 눈표범)을 선택할 수 있지만, 이는 형태의 크기나 통계에 영향을 미치지 않습니다. 이 형태로 있는 동안, 당신은 동물의 특성을 얻습니다. 당신은 주문을 해제할 수 있습니다. 당신이 선택한 전투 형태에 상관없이, 당신은 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. 5의 임시 HP. 저조도 시야와 30피트 이내의 부정확한 후각. 선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격을 할 수 있으며, 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다. </p><ul><li><p><strong>물개</strong></p><ul><li>속도 20피트, 수영 속도 30피트;</li><li><strong>근접 전투</strong> <span class=\\\"action-glyph\\\">1</span> 개의 턱 (그래플), <strong>피해</strong> 2d6 피어싱;</li><li>변신 동안 숨을 참을 수 있습니다.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 임시 HP 10, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다.</p> <p><strong>강화 (5레벨)</strong> 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-malignant-sustenance": {
   "name": "주문 효과: 악성 영양 공급",
@@ -7048,7 +7048,7 @@
  },
  "spell-effect-animal-form-ape": {
   "name": "주문 효과: 동물 형태 (원숭이)",
-  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 체력. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>원숭이</strong></p><ul><li>속도 25 피트, 등반 속도 20 피트;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 주먹, <strong>피해</strong> 2d6 타격.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 10의 임시 HP, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. 강화 (5레벨) 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
+  "description": "<p>@link[spells.animal-form]에 의해 부여됩니다</p> <p>당신은 중간 크기의 동물 전투 형태로 변신합니다. 이 형태로 있는 동안 동물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>5의 임시 HP. </li><li>저조도 시야와 30피트의 부정확한 후각. </li><li>선택한 전투 형태에 특화된 하나 이상의 비무장 근접 공격. 이 공격은 당신이 공격할 수 있는 유일한 공격입니다. 당신은 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +9이고, 피해 보너스는 +1입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 경우). 비무장 공격 보너스가 더 높으면, 그 보너스를 대신 사용할 수 있습니다. </li><li>운동 수정자가 +9입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 동물의 유형에 따라 특정 능력을 얻게 됩니다.</p><ul><li><p><strong>원숭이</strong></p><ul><li>속도 25 피트, 등반 속도 20 피트;</li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 주먹, <strong>피해</strong> 2d6 타격.</li></ul></li></ul><hr /><p><strong>강화 (3레벨)</strong> 대신 10의 임시 HP, AC = 17 + 레벨, 공격 수정자 +14, 피해 보너스 +5, 운동 능력 +14를 얻습니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 임시 HP 15, AC = 18 + 레벨, 공격 수정자 +16, 피해 보너스 +9, 운동 능력 +16을 얻습니다. 강화 (5레벨) 당신의 전투 형태는 거대하고, 공격의 도달 거리는 15피트입니다. 확장할 수 있는 충분한 공간이 있어야 합니다. 그렇지 않으면 주문이 소멸됩니다. 대신 20의 임시 HP, AC = 18 + 레벨, 공격 수정자 +18, 피해 보너스 +7, 피해 주사위 수 2배, 운동 능력 +20을 얻습니다.</p>"
  },
  "spell-effect-cutting-eye": {
   "name": "주문 효과: 절단하는 눈",
@@ -7056,7 +7056,7 @@
  },
  "spell-effect-plant-form-arboreal": {
   "name": "주문 효과: 식물 형태 (수목형)",
-  "description": "<p>@link[spells.plant-form]에 의해 부여됩니다</p> <p>당신은 대형 식물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 식물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>12의 임시 체력. </li><li>독에 대한 저항력 10. </li><li>저조도 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격은 당신이 사용할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +17이고, 피해 보너스는 +11입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 수정자가 더 높으면, 그 수치를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +19입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 식물의 유형에 따라 특정 능력을 얻게 됩니다.</li><li><strong>근접</strong> <span class=\\“action-glyph\\”>1</span> 가지 (도달 거리 15 피트), <strong>피해 2d10 타격;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 피트, <strong>피해 2d8의 둔기 피해</li></ul></li></ul><hr /><p><strong>강화 (6레벨)</strong> 당신의 전투 형태는 거대하고, 공격의 도달 거리가 5피트 증가합니다. 대신 AC = 22 + 레벨, 24의 임시 HP, 공격 수정자 +21, 피해 보너스 +16, 운동 능력 +22를 얻습니다.</p>"
+  "description": "<p>@link[spells.plant-form]에 의해 부여됩니다</p> <p>당신은 대형 식물 전투 형태로 변신합니다. 이 형태로 있는 동안, 당신은 식물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. 갑옷의 체크 페널티와 속도 감소는 무시됩니다. </li><li>12의 임시 HP. </li><li>독에 대한 저항력 10. </li><li>저조도 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 무기 없는 근접 공격. 이 공격은 당신이 사용할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +17이고, 피해 보너스는 +11입니다. 이 공격은 힘에 기반합니다 (예를 들어, @link[conditions.enfeebled] 상태의 목적에 한함). 비무장 공격 수정자가 더 높으면, 그 수치를 대신 사용할 수 있습니다.</li><li>운동 수정자가 +19입니다. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다. </li></ul><p>또한 선택한 식물의 유형에 따라 특정 능력을 얻게 됩니다.</li><li><strong>근접</strong> <span class=\\“action-glyph\\”>1</span> 가지 (도달 거리 15 피트), <strong>피해 2d10 타격;</li><li><strong>근접 <span class=\\“action-glyph\\”>1</span> 피트, <strong>피해 2d8의 둔기 피해</li></ul></li></ul><hr /><p><strong>강화 (6레벨)</strong> 당신의 전투 형태는 거대하고, 공격의 도달 거리가 5피트 증가합니다. 대신 AC = 22 + 레벨, 24의 임시 HP, 공격 수정자 +21, 피해 보너스 +16, 운동 능력 +22를 얻습니다.</p>"
  },
  "spell-effect-weaken-earth": {
   "name": "주문 효과: 땅 약화",
@@ -7112,7 +7112,7 @@
  },
  "spell-effect-element-embodied-water": {
   "name": "주문 효과: 원소 구현 (물)",
-  "description": "<p>@link[spells.element-embodied]에 의해 부여됩니다.</p> <p>당신은 거대한 원소 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 원소 특성과 물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 25 + 레벨. 갑옷의 체크 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 체력. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 공기 또는 불 정령을 선택한 경우 민첩성을 기반으로 하고, 땅 또는 물 정령을 선택한 경우 힘을 기반으로 합니다. (이 구분은 능력치는 변경하지 않지만, 예를 들어 약화 및 둔함 상태에 영향을 미칩니다). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>공중 또는 불 정령의 경우 +36의 곡예 수정자, 또는 땅 또는 물 정령의 경우 +36의 운동 수정자. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>선택한 원소 유형에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>물 원소체</strong> 40피트, 수영 80피트; 불에 대한 저항력 10;</p><ul><li><strong>회오리</strong> (오라, 물) 30피트. 당신이 차지하고 있는 동일한 수역에 속한 오라 내의 물은 물 특성이 없는 수영 생물에게 어려운 지형입니다.>1</span> 파도 (도달 거리 25 피트), <strong>피해</strong> 3d12+18 타격 + @link[actions.push]또는 10 피트 끌어당기기;</li><li><strong>원거리</strong> <span class=\\“action-glyph\\”>1</span> 물 분출 (사거리 증가 60 피트), <strong>피해 4d8+6 타격.</p>"
+  "description": "<p>@link[spells.element-embodied]에 의해 부여됩니다.</p> <p>당신은 거대한 원소 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 원소 특성과 물 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 25 + 레벨. 갑옷의 체크 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 HP. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격을 할 수 있으며, 이 공격이 유일한 공격입니다. 이 공격에 대해 훈련을 받았습니다. 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 공기 또는 불 정령을 선택한 경우 민첩성을 기반으로 하고, 땅 또는 물 정령을 선택한 경우 힘을 기반으로 합니다. (이 구분은 능력치는 변경하지 않지만, 예를 들어 약화 및 둔함 상태에 영향을 미칩니다). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>공중 또는 불 정령의 경우 +36의 곡예 수정자, 또는 땅 또는 물 정령의 경우 +36의 운동 수정자. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>선택한 원소 유형에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>물 원소체</strong> 40피트, 수영 80피트; 불에 대한 저항력 10;</p><ul><li><strong>회오리</strong> (오라, 물) 30피트. 당신이 차지하고 있는 동일한 수역에 속한 오라 내의 물은 물 특성이 없는 수영 생물에게 어려운 지형입니다.>1</span> 파도 (도달 거리 25 피트), <strong>피해</strong> 3d12+18 타격 + @link[actions.push]또는 10 피트 끌어당기기;</li><li><strong>원거리</strong> <span class=\\“action-glyph\\”>1</span> 물 분출 (사거리 증가 60 피트), <strong>피해 4d8+6 타격.</p>"
  },
  "spell-effect-overwhelming-perfume": {
   "name": "주문 효과: 압도적인 향기",
@@ -7120,7 +7120,7 @@
  },
  "spell-effect-element-embodied-wood": {
   "name": "주문 효과: 원소화 (나무)",
-  "description": "<p>@link[spells.element-embodied]에 의해 부여됩니다.</p> <p>당신은 거대한 원소 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 원소 특성과 나무 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 25 + 레벨. 갑옷의 체크 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 체력. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격을 할 수 있으며, 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 공기 또는 불 정령을 선택한 경우 민첩성을 기반으로 하고, 땅 또는 물 정령을 선택한 경우 힘을 기반으로 합니다. (이 구분은 능력치는 변경하지 않지만, 예를 들어 약화 및 둔함 상태에 영향을 미칩니다). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>공중 또는 불 정령의 경우 +36의 곡예 수정자, 또는 땅 또는 물 정령의 경우 +36의 운동 수정자. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>선택한 원소 유형에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>목 원소</strong> 30피트, 35피트 등반; 물리 저항 5; 도끼에 대한 약점 10;</p><ul><li><strong>풍성한 성장</strong> (오라, 목) 30피트. 이 지역의 지면은 어려운 지형이며, 이 지역에 있는 생물이 치유 활력 효과로 HP를 회복할 때마다 오라가 치유에 +5 상태 보너스를 부여합니다. </li><li><strong>나무의 강인함</strong> 이 형태를 선택하면 30이 아닌 40의 임시 체력을 얻습니다. </li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 가지 (도달 거리 25 피트), <strong>피해</strong> 3d10+18 타격;</li><li><strong>원거리</strong> <span class=\\“action-glyph\\”>1</span> 씨앗 (사거리 증가 40 피트), <strong>피해</strong> 4d8+6 타격.</p>"
+  "description": "<p>@link[spells.element-embodied]에 의해 부여됩니다.</p> <p>당신은 거대한 원소 전투 형태로 변신합니다. 이 형태에 있을 때, 당신은 원소 특성과 나무 특성을 얻습니다. 선택한 전투 형태에 관계없이 다음의 능력치와 능력을 얻습니다. </p><ul><li>AC = 25 + 레벨. 갑옷의 체크 페널티와 속도 감소는 무시합니다. </li><li>30의 임시 HP. </li><li>암흑 시력. </li><li>선택한 전투 형태에 특화된 하나 이상의 공격을 할 수 있으며, 이 공격이 당신이 할 수 있는 유일한 공격입니다. 당신은 이 공격에 숙련되어 있습니다. 공격 수정자는 +34이며, 나열된 피해를 사용합니다. 이 공격은 공기 또는 불 정령을 선택한 경우 민첩성을 기반으로 하고, 땅 또는 물 정령을 선택한 경우 힘을 기반으로 합니다. (이 구분은 능력치는 변경하지 않지만, 예를 들어 약화 및 둔함 상태에 영향을 미칩니다). 비무장 공격 수정자가 더 높으면, 그 수정자를 대신 사용할 수 있습니다. </li><li>공중 또는 불 정령의 경우 +36의 곡예 수정자, 또는 땅 또는 물 정령의 경우 +36의 운동 수정자. 단, 자신의 수정자가 더 높지 않은 경우에만 적용됩니다.</li></ul><p>선택한 원소 유형에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>목 원소</strong> 30피트, 35피트 등반; 물리 저항 5; 도끼에 대한 약점 10;</p><ul><li><strong>풍성한 성장</strong> (오라, 목) 30피트. 이 지역의 지면은 어려운 지형이며, 이 지역에 있는 생물이 치유 활력 효과로 HP를 회복할 때마다 오라가 치유에 +5 상태 보너스를 부여합니다. </li><li><strong>나무의 강인함</strong> 이 형태를 선택하면 30이 아닌 40의 임시 HP를 얻습니다. </li><li><strong>근접 전투</strong> <span class=\\“action-glyph\\”>1</span> 가지 (도달 거리 25 피트), <strong>피해</strong> 3d10+18 타격;</li><li><strong>원거리</strong> <span class=\\“action-glyph\\”>1</span> 씨앗 (사거리 증가 40 피트), <strong>피해</strong> 4d8+6 타격.</p>"
  },
  "spell-effect-mimic-undead": {
   "name": "주문 효과: 언데드 모방",
@@ -7164,7 +7164,7 @@
  },
  "spell-effect-envenom-companion": {
   "name": "주문 효과: 동반자 독침",
-  "description": "<p>@link[spells.envenom-companion]에 의해 부여됨</p> <p>매 라운드에 비무장 공격으로 관통 또는 베기 피해를 주는 공격으로 생물을 처음 명중시킬 때, 그 공격은 추가 1d8의 독 피해를 줍니다. 이 독으로 피해를 입은 생물은 체력 저항을 시도해야 합니다. 실패하면 1 라운드 동안 둔함 상태가 됩니다. </p><hr /><p><strong>강화 (+3)</strong> 독 피해가 1d8 증가하고, 저항 실패 시 적용되는 서투른 값이 1 증가합니다. </p>"
+  "description": "<p>@link[spells.envenom-companion]에 의해 부여됨</p> <p>매 라운드에 비무장 공격으로 관통 또는 베기 피해를 주는 공격으로 생물을 처음 명중시킬 때, 그 공격은 추가 1d8의 독 피해를 줍니다. 이 독으로 피해를 입은 생물은 HP 저항을 시도해야 합니다. 실패하면 1 라운드 동안 둔함 상태가 됩니다. </p><hr /><p><strong>강화 (+3)</strong> 독 피해가 1d8 증가하고, 저항 실패 시 적용되는 서투른 값이 1 증가합니다. </p>"
  },
  "spell-effect-ash-form": {
   "name": "주문 효과: 재 형태",
@@ -7172,7 +7172,7 @@
  },
  "spell-effect-moon-frenzy": {
   "name": "주문 효과: 달의 광란",
-  "description": "<p>@link[spells.moon-frenzy]에 의해 부여됨</p> <p>임시 체력을 얻고, 속도에 +10 피트의 상태 보너스를 얻으며, 은에 대한 약점을 얻습니다. 또한 무기로 사용할 수 있는 사나운 송곳니와 발톱이 자랍니다. 대상이 보름달의 빛에 비추면, 중형 이하인 경우 크기가 1 단계 증가합니다. 이로 인해 중형 또는 소형 생물의 도달 거리가 5 피트 증가합니다.</p>"
+  "description": "<p>@link[spells.moon-frenzy]에 의해 부여됨</p> <p>임시 HP를 얻고, 속도에 +10 피트의 상태 보너스를 얻으며, 은에 대한 약점을 얻습니다. 또한 무기로 사용할 수 있는 사나운 송곳니와 발톱이 자랍니다. 대상이 보름달의 빛에 비추면, 중형 이하인 경우 크기가 1 단계 증가합니다. 이로 인해 중형 또는 소형 생물의 도달 거리가 5 피트 증가합니다.</p>"
  },
  "spell-effect-forge-critical-failure": {
   "name": "주문 효과: 포지 (대실패)",
