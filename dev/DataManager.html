@@ -86,6 +86,10 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
   .dm-detail .layer{display:grid;grid-template-columns:44px 1fr;gap:4px 8px;font-size:11px}
   .dm-detail .layer b{color:var(--text2)}
   .dm-detail .descbox{background:#fff;border:1px solid var(--line2);border-radius:5px;padding:8px;max-height:220px;overflow:auto;font-size:12px;line-height:1.5}
+  .dm-detail .descedit{width:100%;min-height:180px;background:#fff;border:1px solid var(--line2);border-radius:5px;padding:8px;font:12px/1.6 'Gelasio','Noto Serif KR',serif;color:var(--text);box-sizing:border-box;resize:vertical}
+  .dm-detail .descedit:focus{outline:none;border-color:var(--gold2)}
+  .dm-detail .descedit-actions{margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .dm-detail .descedit-hint{font-size:10px;color:var(--text2)}
   .dm-detail pre{background:#2b2118;color:#e8dcc0;border-radius:5px;padding:8px;overflow:auto;font-size:10px;max-height:260px;white-space:pre-wrap;word-break:break-all}
   .dm-detail .close{float:right;cursor:pointer;color:var(--text2);font-size:16px}
   .dm-chip{display:inline-block;background:var(--chip);border:1px solid var(--line2);border-radius:9px;padding:0 7px;margin:1px 2px;font-size:10px}
@@ -583,6 +587,7 @@ const DM = (function(){
     const traits=(r.system&&r.system.traits&&r.system.traits.value)||[];
     const rules=(r.system&&r.system.rules)||[];
     const descKo=r._desc_ko||'', descEn=(r.system&&r.system.description&&r.system.description.value)||'';
+    const _ovDesc=ovGet(tabKey(),slug,'desc_ko'); const _curDesc=(_ovDesc!=null?_ovDesc:descKo); const _canEditDesc=_isOwner&&isEditable('desc_ko');
     inner.innerHTML = close+
       '<h3>'+esc(koName)+'</h3><div class="slug">'+esc(r.name_en||r.name||'')+' · '+esc(slug)+'</div>'+
       '<div class="sec"><div class="sec-h">레이어</div><div class="layer">'+
@@ -591,7 +596,14 @@ const DM = (function(){
         '<b>OVR</b><span>'+esc(ovGet(tabKey(),slug,'name_ko')||'—')+'</span>'+
       '</div></div>'+
       (traits.length?'<div class="sec"><div class="sec-h">특성 ('+traits.length+')</div>'+traits.map(traitChip).join('')+'</div>':'')+
-      (descKo?'<div class="sec"><div class="sec-h">설명 (한글)</div><div class="descbox">'+descKo+'</div></div>':'')+
+      '<div class="sec"><div class="sec-h">설명 (한글)'+(_ovDesc!=null?' · <span style="color:var(--gold)">OVR</span>':'')+'</div>'+
+        (_canEditDesc
+          ? '<textarea id="desc-edit" class="descedit" spellcheck="false">'+esc(_curDesc)+'</textarea>'+
+            '<div class="descedit-actions"><button class="dm-btn primary" onclick="DM.saveDesc()">설명 저장</button>'+
+            (_ovDesc!=null?'<button class="dm-btn" onclick="DM.clearDesc()">되돌리기</button>':'')+
+            '<span class="descedit-hint">HTML·@UUID·@Check 등 그대로 보존</span></div>'
+          : (_curDesc?'<div class="descbox">'+_curDesc+'</div>':'<div class="descbox" style="color:var(--text2)">(설명 없음)</div>'))+
+      '</div>'+
       (descEn?'<div class="sec"><div class="sec-h">설명 (영문)</div><div class="descbox">'+descEn+'</div></div>':'')+
       '<div class="sec"><div class="sec-h">기계효과 rules[] ('+rules.length+') — 읽기전용</div><pre>'+esc(JSON.stringify(rules,null,1))+'</pre></div>';
   }
@@ -684,12 +696,29 @@ const DM = (function(){
       alert('클라우드 저장 완료 — pathforge 새로고침(⌘⇧R) 시 반영됩니다.');
     }catch(e){ alert('클라우드 저장 실패: '+e.message); }
   }
+  // 상세 패널 설명(desc_ko) 편집 저장/되돌리기 (그리드에 desc_ko 컬럼이 없는 탭용)
+  function saveDesc(){
+    if(!_isOwner||!selSlug)return;
+    const ta=document.getElementById('desc-edit'); if(!ta)return;
+    const r=rows.find(x=>rowSlug(x)===selSlug); const orig=r?(r._desc_ko||''):'';
+    const val=ta.value;
+    _undo.push({cat:tabKey(),slug:selSlug,field:'desc_ko',prev:ovGet(tabKey(),selSlug,'desc_ko')});
+    ovSet(tabKey(),selSlug,'desc_ko', val===orig?'':val);   // 원본과 같으면 override 제거
+    if(r)openDetail(r); updateStatus();
+  }
+  function clearDesc(){
+    if(!_isOwner||!selSlug)return;
+    _undo.push({cat:tabKey(),slug:selSlug,field:'desc_ko',prev:ovGet(tabKey(),selSlug,'desc_ko')});
+    ovSet(tabKey(),selSlug,'desc_ko','');
+    const r=rows.find(x=>rowSlug(x)===selSlug); if(r)openDetail(r); updateStatus();
+  }
   // Ctrl+Z 되돌리기 — 마지막 셀 편집 한 단계 취소
   function undo(){
     if(!_undo.length){ const st=document.getElementById('dm-status'); if(st)st.textContent='되돌릴 편집이 없습니다.'; return; }
     const u=_undo.pop();
     ovSet(u.cat,u.slug,u.field, u.prev==null?'':u.prev);
     if(rows.length)applyView();
+    if(selSlug){ const r=rows.find(x=>rowSlug(x)===selSlug); if(r)openDetail(r); }   // 상세 패널 열려 있으면 갱신(desc 편집 되돌리기 반영)
     const st=document.getElementById('dm-status'); if(st)st.innerHTML='↩ 되돌림: <b>'+esc(u.slug)+'</b> · '+esc(u.field);
   }
 
@@ -705,7 +734,7 @@ const DM = (function(){
     fetch('data/derived/effects_db.json?v=dm3').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
-  return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveEffectGroupOverride, clearEffectGroupOverride };
+  return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride };
 })();
 window.addEventListener('DOMContentLoaded', DM.init);
 </script>
