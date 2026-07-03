@@ -55,6 +55,10 @@ service cloud.firestore {
           allow read: if request.auth != null;
           allow write: if request.auth != null && request.auth.uid == gmUid();
         }
+        // GM 마스터링 핀 — 읽기·쓰기 모두 GM만 (플레이어에겐 완전 비공개)
+        match /pins/{pinId} {
+          allow read, write: if request.auth != null && request.auth.uid == gmUid();
+        }
       }
       match /pings/{pingId} {
         allow read: if request.auth != null;
@@ -108,6 +112,10 @@ service cloud.firestore {
         match /areas/{areaId} {
           allow read: if request.auth != null;
           allow write: if request.auth != null && request.auth.uid == gmUid();
+        }
+        // GM 마스터링 핀 — 읽기·쓰기 모두 GM만 (플레이어에겐 완전 비공개)
+        match /pins/{pinId} {
+          allow read, write: if request.auth != null && request.auth.uid == gmUid();
         }
       }
       match /pings/{pingId} {

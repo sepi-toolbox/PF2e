@@ -59,7 +59,7 @@
   // tools/rebase/extract_item_icons.mjs 로 추출 → dev/data/icons/ 아래 벤더링. 미로드 시 타입별 기본 아이콘.
   let _itemImg = null, _ITEM_ICON_BASE = 'data/icons/';
   let _iconLookup = null;                 // 플레이어 시트 icon_map.json(scope→slug/name→path) 재사용(장비/주문 보강)
-  const _IIMG_VER = '0.78';
+  const _IIMG_VER = '0.79';
   // FVTT가 "고유 아트 없음"에 쓰는 제네릭(행동비용·기본) img — 깔끔한 타입별 SVG로 대체할 대상
   const _GENERIC_IMG = new Set([
     'systems/pf2e/icons/actions/Passive.webp','systems/pf2e/icons/actions/OneAction.webp',
