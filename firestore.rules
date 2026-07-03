@@ -15,6 +15,16 @@ service cloud.firestore {
       allow read, update, delete: if isOwner();
     }
 
+    // ── 데이터 override (DataManager 라이브 편집본) — 읽기=공개(런타임이 파일 위에 덮어 반영), 쓰기=소유자만 ──
+    match /data_overrides/{docId} {
+      allow read: if true;
+      allow write: if isOwner();
+    }
+    match /data_overrides_dev/{docId} {
+      allow read: if true;
+      allow write: if isOwner();
+    }
+
     // ════════════════════════ 운영(prod) ════════════════════════
 
     // ── 개인 캐릭터 (5슬롯) ──

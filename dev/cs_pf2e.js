@@ -63,8 +63,20 @@
       _fetchJSON(`${OVL_DIR}/${cat}.ko.json`),
       _fetchJSON(`${OVR_DIR}/${cat}.json`), // 파일 없으면 404 → null → {}
     ]);
-    _baseCache[cat] = base || []; _ovlCache[cat] = ovl || {}; _ovrCache[cat] = ovr || {};
-    return _buildIndex(cat, base || [], ovl || {}, ovr || {});
+    let merged = ovr || {};
+    // L4 클라우드 override: 소유자가 DataManager에서 라이브 저장한 편집(Firestore). 호스트가 window.PF2eOverrideFetcher 제공 시 파일 위에 덮음.
+    // 공개 read라 로그인 불필요. 실패/미제공/느림이면 파일 override로 조용히 진행(비침입).
+    if (typeof window !== 'undefined' && typeof window.PF2eOverrideFetcher === 'function') {
+      try { const cloud = await window.PF2eOverrideFetcher(cat); if (cloud && typeof cloud === 'object') merged = _mergeOvr(merged, cloud); } catch (e) {}
+    }
+    _baseCache[cat] = base || []; _ovlCache[cat] = ovl || {}; _ovrCache[cat] = merged;
+    return _buildIndex(cat, base || [], ovl || {}, merged);
+  }
+  // 파일 override(a) 위에 클라우드 override(b)를 슬러그 단위 병합(b 우선). 원본 불변.
+  function _mergeOvr(a, b) {
+    const out = Object.assign({}, a || {});
+    for (const slug in b) { out[slug] = Object.assign({}, (a && a[slug]) || {}, b[slug]); }
+    return out;
   }
 
   function _slugOf(d) { return (d.system && d.system.slug) || d._id; }
