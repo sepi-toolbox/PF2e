@@ -105,7 +105,7 @@
  },
  "harrow-led": {
   "name": "해로우 리드",
-  "description": "<p>당신은 중요한 생일이나 성인이 되었을 때와 같이 인생의 중요한 시점에 해로우 판독의 대상이 되었습니다. 그 점괘는 놀라울 정도로 정확했으며, 좋은 일이든 나쁜 일이든 인생의 여러 지점에서 단순한 우연이라고 할 수 없을 만큼 관련이 있었습니다.</p>\n<p>자신의 캐릭터와 연결된 두 개의 해로우 수트를 무작위로 결정하며, 각각 특정 능력 점수를 반영합니다. 해로우 덱에서 카드를 뽑거나 [[/r 1d6]]{d6}을 굴려서 결정할 수 있습니다: </p>\n<table class=\"pf2- table\">\n<thead>\n<tr>\n<th>d6</th>\n<th>결과</th>\n<th>Ability</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Hammers</td>\n<td>Strength</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Keys</td>\n<td>Dexterity</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Shields</td>\n<td>Constitution</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Books</td>\n<td>Intelligence</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Stars</td>\n<td>Wisdom</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Crowns</td>\n<td>Charisma</td>\n</tr>\n</tbody>\n</table>\n<p>The 첫 번째 수트는 정렬된 점수입니다, 두 번째 수트는 잘못 정렬된 점수입니다. </p>\n<p>능력 부스트를 두 개 선택합니다. 하나는 반드시 자신의 <strong>정렬 또는 오정렬</strong> 점수에 맞춰야 하며, 하나는 자유 능력 부스트입니다.</p>\n<p>오컬티즘, 공연, 사회 중 원하는 기술과 해로우 지식를 훈련받습니다. @UUID[Compendium.pf2e.feats-srd.Item.1Bt7uCW2WI4sM84P]{모호한 지식} 기술 재주을 얻습니다.</p>"
+  "description": "<p>당신은 중요한 생일이나 성인이 되었을 때와 같이 인생의 중요한 시점에 해로우 판독의 대상이 되었습니다. 그 점괘는 놀라울 정도로 정확했으며, 좋은 일이든 나쁜 일이든 인생의 여러 지점에서 단순한 우연이라고 할 수 없을 만큼 관련이 있었습니다.</p>\n<p>자신의 캐릭터와 연결된 두 개의 해로우 수트를 무작위로 결정하며, 각각 특정 능력 점수를 반영합니다. 해로우 덱에서 카드를 뽑거나 d6을 굴려서 결정할 수 있습니다: </p>\n<table class=\"pf2- table\">\n<thead>\n<tr>\n<th>d6</th>\n<th>결과</th>\n<th>Ability</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Hammers</td>\n<td>Strength</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Keys</td>\n<td>Dexterity</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Shields</td>\n<td>Constitution</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Books</td>\n<td>Intelligence</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Stars</td>\n<td>Wisdom</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Crowns</td>\n<td>Charisma</td>\n</tr>\n</tbody>\n</table>\n<p>The 첫 번째 수트는 정렬된 점수입니다, 두 번째 수트는 잘못 정렬된 점수입니다. </p>\n<p>능력 부스트를 두 개 선택합니다. 하나는 반드시 자신의 <strong>정렬 또는 오정렬</strong> 점수에 맞춰야 하며, 하나는 자유 능력 부스트입니다.</p>\n<p>오컬티즘, 공연, 사회 중 원하는 기술과 해로우 지식를 훈련받습니다. @UUID[Compendium.pf2e.feats-srd.Item.1Bt7uCW2WI4sM84P]{모호한 지식} 기술 재주을 얻습니다.</p>"
  },
  "fireworks-performer": {
   "name": "불꽃놀이 공연자",
@@ -1165,7 +1165,7 @@
  },
  "anti-magical": {
   "name": "안티-매지컬",
-  "description": "<p>당신 주변에서 마법이 제대로 통하지 않았습니다. 그럼에도 불구하고 마법 사용자가 되었거나, 마법 사용자와 싸우기 위해 자신의 고유 능력을 사용하고 있을 수도 있습니다.</p>\n<p>능력 부스트 두 가지를 선택합니다. 하나는 <strong>체력</strong> 또는 <strong>지혜</strong>에 적용해야 하며, 다른 하나는 자유 능력 부스트입니다.</p>\n<p>당신은 선택한 지식를 훈련받지만, 마법과 관련된 주제는 안 됩니다(불분명한 경우 GM이 판단). 자신의 마법이나 아군의 마법을 포함한 모든 마법의 영향을 받을 때마다, 효과의 발원자는 @Check[type:flat|dc:3]을 시도해야 합니다.</p>\n<p>실패하면 마법은 자신에게 영향을 주지 않습니다(다른 플레이어에게는 여전히 일반 효과가 적용됩니다). 성공하면 마법이 자신에게 영향을 미치며, 나중에 같은 마법 효과가 다시 자신에게 영향을 미치더라도 더 이상 플랫 체크를 시도할 필요가 없습니다.</p>"
+  "description": "<p>당신 주변에서 마법이 제대로 통하지 않았습니다. 그럼에도 불구하고 마법 사용자가 되었거나, 마법 사용자와 싸우기 위해 자신의 고유 능력을 사용하고 있을 수도 있습니다.</p>\n<p>능력 부스트 두 가지를 선택합니다. 하나는 <strong>체력</strong> 또는 <strong>지혜</strong>에 적용해야 하며, 다른 하나는 자유 능력 부스트입니다.</p>\n<p>당신은 선택한 지식를 훈련받지만, 마법과 관련된 주제는 안 됩니다(불분명한 경우 GM이 판단). 자신의 마법이나 아군의 마법을 포함한 모든 마법의 영향을 받을 때마다, 효과의 발원자는 DC 3 단순을 시도해야 합니다.</p>\n<p>실패하면 마법은 자신에게 영향을 주지 않습니다(다른 플레이어에게는 여전히 일반 효과가 적용됩니다). 성공하면 마법이 자신에게 영향을 미치며, 나중에 같은 마법 효과가 다시 자신에게 영향을 미치더라도 더 이상 플랫 체크를 시도할 필요가 없습니다.</p>"
  },
  "sense-of-belonging": {
   "name": "소속의 중요성",
