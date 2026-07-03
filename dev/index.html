@@ -2421,10 +2421,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
       <button onclick="MapView.revealAll()">전체공개</button>
       <button onclick="MapView.coverAll()">전체가림</button>
     </div>
-    <div id="map-zoom">
-      <button onclick="MapView.zoomIn()" aria-label="확대">＋</button>
-      <button onclick="MapView.zoomOut()" aria-label="축소">－</button>
-    </div>
+    <!-- 확대축소 버튼 제거(사용자 요청): 확대축소는 핀치/휠 제스처로. -->
     <input id="map-bg-input" type="file" accept="image/*" style="display:none;">
   </div>
 </div><!-- /#map-fullscreen -->

@@ -394,10 +394,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
     <label id="mt-follow" title="내 카메라 이동을 플레이어 화면이 계속 따라감"><input type="checkbox" onchange="MapGlue.setFollow(this.checked)"> 📡 따라가기</label>
     <button id="mt-cctv" onclick="MapGlue.cctvToggle()" title="플레이어 화면 미리보기(CCTV) 켜기/끄기">📺 CCTV</button>
   </div>
-  <div id="map-zoom">
-    <button onclick="MapView.zoomIn()" aria-label="확대">＋</button>
-    <button onclick="MapView.zoomOut()" aria-label="축소">－</button>
-  </div>
+  <!-- 확대축소 버튼 제거(사용자 요청): 확대축소는 핀치/휠 제스처로. -->
   <input id="map-bg-input" type="file" accept="image/*" style="display:none;">
 
   <!-- GM 토큰 편집기 (드로어 팔레트 전용 — 토큰 만들기/편집) -->
