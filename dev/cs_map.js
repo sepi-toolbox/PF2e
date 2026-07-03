@@ -1043,7 +1043,13 @@ var MapView = (function() {
   //  토큰 — 기하/가시성/히트테스트/이미지 캐시
   // ───────────────────────────────────────────
   function _cell() { return _gridPx || 50; }   // 셀 크기(px) — 격자/스냅/토큰크기 단일 출처
-  function _tokenRadiusWorld(t) { return ((t.size || 1) * _cell()) / 2; }
+  // 토큰 점유 칸수 — size(칸) 우선, 없으면 sizeCat(소형/중형=1·대형=2·거대=3·초대형=4)에서 파생
+  function _tokenCells(t) {
+    if (t && t.size) return t.size;
+    if (t && t.sizeCat && typeof _cellsForCat === 'function') return _cellsForCat(t.sizeCat);
+    return 1;
+  }
+  function _tokenRadiusWorld(t) { return (_tokenCells(t) * _cell()) / 2; }
   function _myUid() { return (typeof currentUser !== 'undefined' && currentUser) ? currentUser.uid : null; }
 
   function _visibleTokens() {
@@ -1204,7 +1210,7 @@ var MapView = (function() {
     var tx = d.x, ty = d.y;
     if (_gridEnabled) {                                 // 격자 켜짐 → 점유 칸수에 맞춰 스냅
       var tk = MapSync.getToken(d.id);
-      var s = _snapWorld(d.x, d.y, tk && tk.size);
+      var s = _snapWorld(d.x, d.y, _tokenCells(tk));
       tx = s.x; ty = s.y;
     }
     MapSync.moveToken(d.id, Math.round(tx), Math.round(ty))
@@ -1447,15 +1453,11 @@ var MapView = (function() {
       _ctx.textAlign = 'center'; _ctx.textBaseline = 'middle';
       _ctx.fillText(((t.name || '?').trim().charAt(0) || '?'), sx, sy);
     }
-    // 테두리: 이미지 토큰은 아트 자체의 링이 프레임 → 기본 테두리 미표시(숨김 상태만 점선 힌트).
-    //         글자/색원 토큰만 골드(내토큰)/흰색 테두리.
+    // 테두리: 이미지 토큰은 아트 자체의 링이 프레임 → 테두리 없음(숨김 점선 힌트도 제거, 반투명만).
+    //         글자/색원 토큰만 골드(내토큰)/흰색 실선 테두리.
     if (!img) {
       _ctx.lineWidth = 2;
       _ctx.strokeStyle = (myUid && t.ownerUid === myUid) ? '#f5c518' : 'rgba(255,255,255,0.85)';
-      if (t.hidden) _ctx.setLineDash([4, 3]);
-      _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2); _ctx.stroke();
-    } else if (t.hidden) {                              // 숨김 이미지 토큰: 점선만(GM 식별용)
-      _ctx.lineWidth = 2; _ctx.strokeStyle = 'rgba(255,255,255,0.7)'; _ctx.setLineDash([4, 3]);
       _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2); _ctx.stroke();
     }
     _ctx.restore();
