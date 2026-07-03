@@ -190,11 +190,14 @@
       return `<span class="ref-dmg">${parts.join(' + ')}</span>`;
     });
     s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_checkTypeKo(type)}</span>`; });
-    // @link[cat.slug]{label}: 프로젝트 네이티브 엔티티 링크 → 한글명(라벨 없으면 자동) + data-ref(호버 desc용)
+    // @link[cat.slug]{label}: 프로젝트 네이티브 엔티티 링크 → 항상 정본 name_ko로 렌더(라벨은 참조마다 제각각이라 불일치 원인).
+    // 라벨의 뒤 숫자(조건 값 등, 예 "기절 2")만 정본명에 보존. 미해소 엔티티일 때만 라벨/슬러그 폴백.
     s = s.replace(/@link\[([a-z]+)\.([a-z0-9._-]+)\](?:\{([^}]*)\})?/g, (m, cat, slug, label) => {
-      let name = label || '';
-      if (!name) { try { const t = get(cat, slug); if (t) name = t.name_ko || t.name; } catch (e) {} }
-      if (!name) name = slug.replace(/-/g, ' ');
+      let name = ''; try { const t = get(cat, slug); if (t) name = t.name_ko || t.name; } catch (e) {}
+      if (name) {
+        const numM = label && label.match(/([0-9]+)\s*$/);
+        if (numM && !/[0-9]\s*$/.test(name)) name += ' ' + numM[1];
+      } else name = label || slug.replace(/-/g, ' ');
       return `<span class="ref-link" data-ref="${cat}.${slug}">${_escDesc(name)}</span>`;
     });
     // @UUID: 참조 엔티티 정본 한글명으로 해소(로드된 카테고리 한정, 미해소 시 라벨 폴백)
