@@ -44,10 +44,10 @@ window.PF_COL = { characters: PF_ENV === 'dev' ? 'characters_dev' : 'characters'
                   sessions:   PF_ENV === 'dev' ? 'sessions_dev'   : 'sessions' };
 window.PF_LS  = function(k){ return (PF_ENV === 'dev' ? 'dev_' : '') + k; };
 </script>
-<script src="equipment_db.js?v=0.74"></script>
-<script src="class_features_db.js?v=0.74"></script>
-<script src="effects_db.js?v=0.74"></script>
-<script src="prereqs_db.js?v=0.74"></script>
+<script src="equipment_db.js?v=0.75"></script>
+<script src="class_features_db.js?v=0.75"></script>
+<script src="effects_db.js?v=0.75"></script>
+<script src="prereqs_db.js?v=0.75"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -67,7 +67,7 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
   console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.74">
+<link rel="stylesheet" href="app-shell.css?v=0.75">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -1900,7 +1900,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
   <!-- ═══ 플레이어 시트 (플레이어 모드에서만) ═══ -->
   <div id="gear-sec-player" style="display:none;">
     <div class="gear-sec-head">플레이어 시트</div>
-    <button class="btn btn-green" style="width:100%;justify-content:center;" onclick="if(typeof openJoinSessionModal==='function')openJoinSessionModal()">🔗 세션 참가</button>
+    <button id="gear-join-session" class="btn btn-green" style="width:100%;justify-content:center;" onclick="if(typeof openJoinSessionModal==='function')openJoinSessionModal()">🔗 세션 참가</button>
     <button class="btn btn-save-now" style="width:100%;justify-content:center;" onclick="saveToCloud();">💾 지금 저장 (클라우드)</button>
     <div id="slot-bar" style="display:none;"></div>
     <div class="gear-box">
@@ -1924,7 +1924,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.74</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.75</span></div>
 </div>
 
 <!-- ═══ 업데이트 로그 모달 ═══ -->
@@ -2455,7 +2455,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.74" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.75" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2532,36 +2532,36 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.74"></script>
-<script src="cs_calc.js?v=0.74"></script>
+<script src="cs_data.js?v=0.75"></script>
+<script src="cs_calc.js?v=0.75"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.74"></script>
-<script src="cs_re_engine.js?v=0.74"></script>
-<script src="cs_pf2e_stats.js?v=0.74"></script>
-<script src="cs_pf2e_equip.js?v=0.74"></script>
-<script src="cs_pf2e_anc.js?v=0.74"></script>
-<script src="cs_pf2e_bg.js?v=0.74"></script>
-<script src="cs_pf2e_spell.js?v=0.74"></script>
-<script src="cs_pf2e_deity.js?v=0.74"></script>
-<script src="cs_pf2e_action.js?v=0.74"></script>
-<script src="cs_pf2e_feat.js?v=0.74"></script>
-<script src="cs_pf2e_class.js?v=0.74"></script>
-<script src="cs_pf2e_actor.js?v=0.74"></script>
-<script src="cs_ui.js?v=0.74"></script>
-<script src="cs_modal.js?v=0.74"></script>
-<script src="cs_feat_effects.js?v=0.74"></script>
-<script src="cs_save.js?v=0.74"></script>
-<script src="cs_session.js?v=0.74"></script>
-<script src="cs_dice.js?v=0.74"></script>
-<script src="cs_map.js?v=0.74"></script>
+<script src="cs_pf2e.js?v=0.75"></script>
+<script src="cs_re_engine.js?v=0.75"></script>
+<script src="cs_pf2e_stats.js?v=0.75"></script>
+<script src="cs_pf2e_equip.js?v=0.75"></script>
+<script src="cs_pf2e_anc.js?v=0.75"></script>
+<script src="cs_pf2e_bg.js?v=0.75"></script>
+<script src="cs_pf2e_spell.js?v=0.75"></script>
+<script src="cs_pf2e_deity.js?v=0.75"></script>
+<script src="cs_pf2e_action.js?v=0.75"></script>
+<script src="cs_pf2e_feat.js?v=0.75"></script>
+<script src="cs_pf2e_class.js?v=0.75"></script>
+<script src="cs_pf2e_actor.js?v=0.75"></script>
+<script src="cs_ui.js?v=0.75"></script>
+<script src="cs_modal.js?v=0.75"></script>
+<script src="cs_feat_effects.js?v=0.75"></script>
+<script src="cs_save.js?v=0.75"></script>
+<script src="cs_session.js?v=0.75"></script>
+<script src="cs_dice.js?v=0.75"></script>
+<script src="cs_map.js?v=0.75"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.74"></script>
-<script src="cs_i18n.js?v=0.74"></script>
+<script src="cs_locale.js?v=0.75"></script>
+<script src="cs_i18n.js?v=0.75"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.74');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.75');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2615,6 +2615,12 @@ function updateGearMenuSections() {
   const playerSec = document.getElementById('gear-sec-player');
   if (lobbySec) lobbySec.style.display = inMode ? '' : 'none';
   if (playerSec) playerSec.style.display = inMode ? '' : 'none';
+  // GM 시트 관리 모드(?gmsession)에선 '세션 참가'는 숨김 — 참가는 플레이어 전용
+  const joinBtn = document.getElementById('gear-join-session');
+  if (joinBtn) {
+    const isGmSession = !!new URLSearchParams(location.search).get('gmsession');
+    joinBtn.style.display = isGmSession ? 'none' : '';
+  }
 }
 function toggleGearMenu(ev) {
   if (ev) ev.stopPropagation();
@@ -2645,6 +2651,10 @@ document.addEventListener('click', function(e) {
 // ═══ 업데이트 로그 / 공지 (기어 메뉴) ═══
 // 최신순. 새 버전 작업 시 맨 앞에 {v, date, items:[...]} 추가(사용자 친화적 한글 문장).
 const CHANGELOG = [
+  { v: '0.75', date: '2026-07-03', items: [
+    '지도 헤더/툴바 정리 — GM 카메라 도구(플레이어 창·동기화·따라가기·CCTV)를 헤더에서 빼서 툴바 「🎥 카메라」 버튼(공개/제거처럼 누르면 열리는 확장 메뉴)으로 옮겼습니다. 지도 헤더는 앱/GM 로비와 같은 공유 헤더(붉은 배너)로 통일했습니다.',
+    'GM 시트 관리 모드(옵션 메뉴)에서 「세션 참가」 버튼을 숨겼습니다 — 세션 참가는 플레이어 전용입니다.',
+  ] },
   { v: '0.74', date: '2026-07-03', items: [
     '지도 드로어 「배치 토큰」 탭 개편 — 기존 토큰 팔레트(만들어 끌어다 놓기)를 없애고, 지금 보고 있는 지도에 배치된 토큰들을 추적하는 목록으로 바꿨습니다. 목록에서 토큰을 누르면 지도에서 그 위치로 이동하며 골드 펄스 링으로 강조하고, 편집창이 열려 이름·체력(현재/최대)·크기·능력(연결 몬스터)·이미지·숨김을 바로 수정할 수 있습니다. (토큰 추가는 「크리처」 탭에서 드래그로 유지)',
   ] },
