@@ -23,13 +23,20 @@ for (const f of fs.readdirSync('.')) {
   console.log(`  ${f}: ?v= ${hits}곳`);
 }
 
-// 2) index.html — 푸터 표시 span + CHANGELOG 최신 항목 v
+// 2) index.html — 푸터 표시 span
 if (fs.existsSync('index.html')) {
   let s = fs.readFileSync('index.html', 'utf8');
   s = s.replace(/>v[0-9.]+</, '>v' + ver + '<');                                  // 기어 푸터
-  s = s.replace(/(const CHANGELOG = \[\s*\{\s*v:\s*')[0-9.]+(')/, `$1${ver}$2`);  // 최신 항목 v
   fs.writeFileSync('index.html', s);
-  console.log('  index.html: 푸터 span + CHANGELOG[0].v');
+  console.log('  index.html: 푸터 span');
+}
+
+// 2b) changelog.js — CHANGELOG 최신 항목 v (공유 데이터, gear-shell.js가 렌더)
+if (fs.existsSync('changelog.js')) {
+  let s = fs.readFileSync('changelog.js', 'utf8');
+  s = s.replace(/(window\.CHANGELOG\s*=\s*\[\s*\{\s*v:\s*')[0-9.]+(')/, `$1${ver}$2`);  // 최신 항목 v
+  fs.writeFileSync('changelog.js', s);
+  console.log('  changelog.js: CHANGELOG[0].v');
 }
 
 // 3) cs_monster.js — 동적 캐시버스터 변수
