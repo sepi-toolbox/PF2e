@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.87').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.88').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2954,20 +2954,26 @@ function catalogsReady() { return _catalogsReady; }
 function _ensureAllCatalogs() {
   if (_catalogsReady) return Promise.resolve(true);
   if (_catalogsPromise) return _catalogsPromise;
-  const tasks = [];
-  const push = (p) => { if (p && p.then) tasks.push(p.catch(e => { console.warn('카탈로그 init 실패', e); })); };
-  if (typeof PF2eData !== 'undefined') push(PF2eData.loadCategory('equipment'));
-  // conditions는 어댑터가 없어 여기서 직접 로드 — @link[conditions.*] 5,600여 건의 정본명/툴팁 해소원 (누락 시 영문 슬러그 폴백)
-  if (typeof PF2eData !== 'undefined') push(PF2eData.loadCategory('conditions'));
-  if (typeof PF2eEquip !== 'undefined') push(PF2eEquip.init());
-  if (typeof PF2eAnc !== 'undefined') push(PF2eAnc.init());
-  if (typeof PF2eBg !== 'undefined') push(PF2eBg.init());
-  if (typeof PF2eClass !== 'undefined') push(PF2eClass.init());
-  if (typeof PF2eDeity !== 'undefined') push(PF2eDeity.init());
-  if (typeof PF2eSpell !== 'undefined') push(PF2eSpell.init());
-  if (typeof PF2eFeat !== 'undefined') push(PF2eFeat.init());
-  if (typeof PF2eAction !== 'undefined') push(PF2eAction.init());
-  _catalogsPromise = Promise.all(tasks).then(() => { _equipDataReady = true; _catalogsReady = true; return true; });
+  // ⚠ 2단계 로딩 필수: 어댑터 init은 _build()에서 desc를 enrichDesc로 미리 구워 캐시하는데,
+  // enrichDesc의 @link 해소는 "그 시점에 로드된 카테고리"만 가능. 전 어댑터를 동시에 init하면
+  // 먼저 끝난 어댑터(배경 등 작은 파일)가 feats/conditions 로드 전에 desc를 영문 슬러그로 스냅샷한다
+  // (신고 사례: 고고학자 배경의 "additional lore"). → ①전 카테고리 로드 → ②어댑터 init → ③선행 init분 rebuild.
+  const CATS = ['equipment', 'conditions', 'ancestries', 'heritages', 'backgrounds', 'classes', 'deities', 'spells', 'feats', 'actions', 'effects'];
+  const ADAPTERS = [typeof PF2eEquip !== 'undefined' ? PF2eEquip : null,
+    typeof PF2eAnc !== 'undefined' ? PF2eAnc : null, typeof PF2eBg !== 'undefined' ? PF2eBg : null,
+    typeof PF2eClass !== 'undefined' ? PF2eClass : null, typeof PF2eDeity !== 'undefined' ? PF2eDeity : null,
+    typeof PF2eSpell !== 'undefined' ? PF2eSpell : null, typeof PF2eFeat !== 'undefined' ? PF2eFeat : null,
+    typeof PF2eAction !== 'undefined' ? PF2eAction : null].filter(Boolean);
+  const _catch = (p) => (p && p.then) ? p.catch(e => { console.warn('카탈로그 init 실패', e); }) : Promise.resolve();
+  _catalogsPromise = (async () => {
+    if (typeof PF2eData !== 'undefined') await Promise.all(CATS.map(c => _catch(PF2eData.loadCategory(c))));
+    // 이 시점(전 카테고리 로드 완료) 이전에 build를 끝낸 어댑터만 영문 스냅샷 가능 → rebuild 대상.
+    // (이후의 build는 전 카테고리가 이미 로드돼 있어 항상 정본 해소)
+    const stale = ADAPTERS.filter(A => { try { return A.ready && A.ready(); } catch (e) { return false; } });
+    await Promise.all(ADAPTERS.map(A => _catch(A.init())));
+    for (const A of stale) { try { if (A.rebuild) A.rebuild(); } catch (e) { console.warn('카탈로그 rebuild 실패', e); } }
+    _equipDataReady = true; _catalogsReady = true; return true;
+  })();
   return _catalogsPromise;
 }
 

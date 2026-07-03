@@ -70,7 +70,9 @@
   function backgroundList() { return _list ? _list.slice() : []; }
   function getBackgroundLegacy(slug) { return _index ? _index.get(slug) || null : null; }
 
-  const API = { init, ready, backgroundList, getBackgroundLegacy, backgroundToLegacy, backgroundEffects };
+    // 전 카탈로그 로드 후 재열거 — init 시점에 타 카테고리 미로드로 enrichDesc @link가 영문 스냅샷된 캐시를 정본 한글로 재생성
+  function rebuild() { if (_ready) _build(); }
+const API = { init, ready, rebuild, backgroundList, getBackgroundLegacy, backgroundToLegacy, backgroundEffects };
   root.PF2eBg = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

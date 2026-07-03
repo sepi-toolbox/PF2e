@@ -180,8 +180,10 @@
   function getHeritageLegacy(slug) { return _herIndex ? _herIndex.get(slug) || null : null; }
   function ancestryDocOf(legacy) { return (legacy && legacy._doc) || (legacy && PF.get('ancestries', legacy.id)) || null; }
 
-  const API = {
-    init, ready, ancestryList, heritageList, getAncestryLegacy, getHeritageLegacy,
+    // 전 카탈로그 로드 후 재열거 — init 시점에 타 카테고리 미로드로 enrichDesc @link가 영문 스냅샷된 캐시를 정본 한글로 재생성
+  function rebuild() { if (_ready) _buildIndexes(); }
+const API = {
+    init, ready, rebuild, ancestryList, heritageList, getAncestryLegacy, getHeritageLegacy,
     ancestryToLegacy, heritageToLegacy, heritageEffects, ancestryDocOf,
     _glossary: { sizeKo: _sizeKo, senseKo: _senseKo, languageKo: _languageKo, loreKo: _loreKo, traitKo: _traitKo, dmgKo: _dmgKo, VISION_MAP },
   };

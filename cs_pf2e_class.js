@@ -221,7 +221,9 @@
   function classList() { return _list ? _list.slice() : []; }
   function getClassLegacy(slug) { return _index ? _index.get(slug) || null : null; }
 
-  const API = { init, ready, classList, getClassLegacy, classToLegacy, classProfTable, isLegacy, CLASS_PROF_EXT, classFeatures, subclassList, spellTable };
+    // 전 카탈로그 로드 후 재열거 — init 시점에 타 카테고리 미로드로 enrichDesc @link가 영문 스냅샷된 캐시를 정본 한글로 재생성
+  function rebuild() { if (_ready) _build(); }
+const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, isLegacy, CLASS_PROF_EXT, classFeatures, subclassList, spellTable };
   root.PF2eClass = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
