@@ -212,7 +212,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.bhpYiOmBysl8ZEYn]{굳건한 자의 반지}에 의해 부여됨</p>\n<p>5 임시 생명점을 얻습니다.</p>"
  },
  "effect-serene-mutagen-lesser": {
-  "name_ko": "효과: 평온한 혈청 (하급)",
+  "name_ko": "효과: 고요한 혈청",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.bOPQDM54W8ZDoULY]{고요한 뮤타젠 (하급)}에 의해 부여됨</p>\n<p><strong>이점</strong> 의지 내성 굴림과 지각, 의술, 자연학, 종교학, 생존 판정에 +1 보너스를 얻습니다. 이 보너스는 정신 효과에 대한 의지 내성 굴림을 시도할 때 +2로 향상됩니다.</p>\n<p><strong>단점</strong> 공격 주문의 명중 굴림과 내성 DC에 -1 페널티를 받고, 모든 무기 및 비무장 공격 피해에 피해 주사위당 -1 페널티를 받습니다.</p>"
  },
  "effect-platter-of-putrid-dreams": {
@@ -608,7 +608,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.o5R57SGSmoIbQ6wj]{앙크라브 등껍질}이(가) 부여함</p>\n<p>당신의 이동 속도의 절반과 같은 굴착 이동 속도를 얻습니다.</p>"
  },
  "effect-feyfoul-greater": {
-  "name_ko": "효과: 페이파울 (중급)",
+  "name_ko": "효과: 페이풀",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.9wwCHxuCfBA9w6Ik]{페이파울 (상급)}이(가) 부여함</p>\n<p>요정 크리쳐가 생성하는 정신 효과에 대한 의지 내성 굴림에 +3 물품 보너스를 받습니다.</p>"
  },
  "effect-obsidian-goggles": {
@@ -1092,7 +1092,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Wv0ck7AMP0s0jIue]{연극 뮤타젠 (주급)}에 의해 부여됨</p>\n<p><strong>이점</strong> 곡예 판정, 제작 판정, 공연 판정에 +4 아이템 보너스를 얻는다. 이 기술 중 하나라도 미숙련이라면, 숙련 보너스가 +0 대신 당신의 레벨과 동일해진다. 또한 이동 속도에 +10피트 상태 보너스를 얻는다.</p>\n<p><strong>단점</strong> 지각 판정과 의지 내성 굴림에 –1 페널티를 받는다. 물체와 상호작용하거나, 공연하거나, 발디딤하거나, 발놀림하는 데 최소 1 행동을 소비하지 않은 라운드 이후에는, 다음 턴이 시작될 때까지 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 상태가 된다.</p>"
  },
  "effect-darkvision-elixir-moderate": {
-  "name_ko": "효과: 보통 등급 암흑 시야 엘릭서",
+  "name_ko": "효과: 암흑 시야 엘릭서",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Y8115p3cmQJBqk5d]{암시야 비약 (중급)}에 의해 부여됨</p>\n<p>암시야를 얻는다</p>"
  },
  "effect-immolation-clan-pistol": {
@@ -1428,7 +1428,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.xGmX6Vuuhivyal8v]{회의론자의 비약 (중급)}으로 부여됨</p>\n<p>말로 하는 거짓말이든 글로 쓴 기만이든, 거짓을 알아차리기 위한 지각 판정과 지각 DC에 +2 아이템 보너스를 받습니다. 의지 내성 굴림에도 동일한 아이템 보너스를 받습니다.</p>"
  },
  "effect-knaves-standard": {
-  "name_ko": "효과: 나브의 깃발",
+  "name_ko": "효과: 도적의 깃발",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.itn5hOuobNvNaHw1]{악당의 깃발}, @UUID[Compendium.pf2e.equipment-srd.Item.EMll5weE2BlIic2a]{악당의 깃발 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.1BOmEKzD9ADuAn55]{악당의 깃발 (특급)}로 부여됨</p>\n<p>무방비 상태의 대상에게 공격으로 대성공할 때마다, 그 공격은 추가 정밀 피해를 줍니다.</p>"
  },
  "effect-chatterer-of-follies": {
@@ -2754,7 +2754,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.bDnk4TSzvD5BQmE5]{화염 저항 물약 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.m99u0zXVbyPdK8Mf]{화염 저항 물약 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.1OJxRnPs0viJVrZq]{화염 저항 물약 (상급)}에 의해 부여됨</p>\n<p>화염 피해에 대한 저항을 얻습니다.</p>"
  },
  "effect-life-boosting-oil": {
-  "name_ko": "효과: 생명 촉진 기름",
+  "name_ko": "효과: 생명력 증진 기름",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.AFFaFaAW3IbbYqkL]{생명 촉진 기름 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.9zyrMZF76hMxwizY]{생명 촉진 기름 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.3kELQauVoYunyFcd]{생명 촉진 기름 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.UOH0A4xNSMnpV6i4]{생명 촉진 기름 (최상급)}에 의해 부여됨</p>\n<p>빠른 치유를 얻습니다.</p>"
  },
  "aura-searing-blade-greater": {
@@ -2814,7 +2814,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.LWMlDUCdDGo1wJnF]{Assassin's Bracers (Type I)}, @UUID[Compendium.pf2e.equipment-srd.Item.dtiYqfBG2BcLHX92]{Assassin's Bracers (Type II)}, @UUID[Compendium.pf2e.equipment-srd.Item.9pUwExXYzndCJFYj]{Assassin's Bracers (Type III)}에 의해 부여됨</p>\n<p>지정된 생물을 페인트하거나 위압하려는 시도에 아이템 보너스를 얻는다.</p>"
  },
  "effect-poison-fizz": {
-  "name_ko": "효과: 포이즌 피즈",
+  "name_ko": "효과: 독 거품",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.XdHMroAomWalt7I9]{Poison Fizz (Lesser)}, @UUID[Compendium.pf2e.equipment-srd.Item.GDbDpe7W7vOEwnEr]{Poison Fizz (Moderate)}, @UUID[Compendium.pf2e.equipment-srd.Item.D8i3OBVMkxmCCREV]{Poison Fizz (Greater)}에 의해 부여됨</p>\n<p>독 및 석화에 대한 내성 굴림에 아이템 보너스를 얻는다.</p>"
  },
  "effect-stonethroat-ammunition-success": {
@@ -2898,11 +2898,11 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.NtUB9xqRZQ2duOUo]{반짝이는 덫}으로 부여됨</p>\n<p>은신 판정에 -4 상태 페널티를 받는다.</p>"
  },
  "effect-life-shot": {
-  "name_ko": "효과: 생명 탄환",
+  "name_ko": "효과: 생명탄",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Oo0KZTmFsu9iCAR9]{생명 탄환 (미급)}, @UUID[Compendium.pf2e.equipment-srd.Item.hguIfHmI3LjhvlWO]{생명 탄환 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.l3itUlHLuWP6qlA0]{생명 탄환 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.MpuFL2midIke1Sbn]{생명 탄환 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.R6qfTzNv79GH1xHU]{생명 탄환 (최상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.UzyjCLHxs3JQuFt5]{생명 탄환 (진급)}으로 부여됨</p>\n<p>질병과 독에 대한 내성 굴림에 아이템 보너스를 얻는다.</p>"
  },
  "effect-crackling-bubble-gum": {
-  "name_ko": "효과: 탁탁 튀는 풍선껌",
+  "name_ko": "효과: 바스락거리는 풍선껌",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.0Y0fmvvKSgFvUtA2]{탁탁 튀는 풍선껌 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.Bajwrol5y2n2ZIVm]{탁탁 튀는 풍선껌 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.ex1kVj3SUbTd1smt]{탁탁 튀는 풍선껌 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.rpqgJkCepHecj1eA]{탁탁 튀는 풍선껌 (최상급)}으로 부여됨</p>\n<p>청각 및 음파 효과에 대한 내성 굴림에 배지 수치와 같은 아이템 보너스를 얻는다.</p>"
  },
  "effect-deadweight-snare-failure-critical-failure": {
@@ -2914,7 +2914,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.V4wgOWYmHlbSZsVG]{수정 파편 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.ivaL0xt33k6QNwQK]{수정 파편 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.V2knI4GpdJYLupjg]{수정 파편 (최상급)}으로 부여됨</p>\n<p>출혈 피해가 지속되는 동안, 이동력에도 –5피트 페널티를 받는다.</p>"
  },
  "effect-bombers-eye-elixir": {
-  "name_ko": "효과: 폭격수의 눈 비약",
+  "name_ko": "효과: 폭격수의 눈 엘릭서",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.T4ouD4mVFHA3EHs6]{폭격수의 눈 비약 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.lasqzrPVEHI5MkQd]{폭격수의 눈 비약 (상급)}으로 부여됨</p>\n<p>당신의 연금술 폭탄 명중은 대상이 엄폐로부터 얻는 AC 상황 보너스를 감소시킨다.</p>"
  },
  "effect-arboreals-revenge-speed-penalty": {
@@ -2958,7 +2958,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.PSKFnWMq5daOJa1R]{선조의 기하학}이(가) 부여함</p>\n<p>내성 유형을 결정합니다.</p>"
  },
  "effect-prey-mutagen": {
-  "name_ko": "효과: 사냥감 뮤타젠",
+  "name_ko": "효과: 먹잇감 혈청",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.qoyelABKtk9DRSEk]{사냥감 뮤타젠 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.fiBThkOOXEdcTSMf]{사냥감 뮤타젠 (최상급)}이(가) 부여함</p>\n<p>당신의 이동 속도에 상태 보너스를 받고 적시의 회피 반응을 얻습니다. 동물과 야수는 당신에 대한 명중 굴림에 +2 상황 보너스를 받습니다.</p>"
  },
  "effect-glowing-lantern-fruit-lantern-light": {
@@ -3002,7 +3002,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.lu42Up1309MqFya4]{절인 악마 혀}, @UUID[Compendium.pf2e.equipment-srd.Item.HnOWpyuCHwewPZMu]{절인 악마 혀 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.Ug0lQVTJlGKrHQgQ]{절인 악마 혀 (최상급)}이(가) 부여함</p>\n<p>이 무기로 하는 타격은 추가로 산성 피해를 입힙니다.</p>"
  },
  "effect-frost-vial": {
-  "name_ko": "효과: 서리 병",
+  "name_ko": "효과: 서리 약병",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.EpxmUtLpCkE8R6KJ]{서리 병 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.nVvH1ZcM7OwIVIs8]{서리 병 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.intVPcEzbE9o4NQd]{서리 병 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.4DJQID8GIlxQ7b9C]{서리 병 (최상급)}이(가) 부여함</p>\n<p>이동 속도에 상태 페널티를 받습니다.</p>"
  },
  "effect-blood-booster": {
@@ -3330,7 +3330,7 @@
   "desc_ko": "<p>당신은 임시 무기로 하는 명중 굴림에 –2 아이템 페널티를 받습니다.</p>"
  },
  "effect-bravos-brew": {
-  "name_ko": "효과: 무뢰한의 양조주",
+  "name_ko": "효과: 브라보의 양조주",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.zM9VX3QwM81DzDUA]{무뢰한의 양조주 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.oCuwJ9IUDAuzsUwa]{무뢰한의 양조주 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.sWPkbSlWAEAStBqD]{무뢰한의 양조주 (상급)}에 의해 부여됨</p>\n<p>당신은 의지 내성에 아이템 보너스를 얻습니다. 이 보너스는 공포에 대한 의지 내성을 시도할 때 증가합니다. <em>상급 무뢰한의 양조주</em>를 마셨다면, 공포에 대한 내성에서 성공을 굴렸을 때 대신 대성공을 얻습니다.</p>"
  },
  "effect-protective-barrier": {
@@ -3430,7 +3430,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.xaWuuQoBJiMLzggR]{계시의 향로 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.QEPx1fCf74xdpXBH]{계시의 향로 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.VBCk7JXGsuG0cug1]{계시의 향로 (상급)}로 부여됨</p>\n<p>종교학 판정에 아이템 보너스를 받으며, 종교적 성격의 글 해독 시 굴린 모든 대실패는 대신 실패가 됩니다.</p>"
  },
  "effect-elixir-of-life": {
-  "name_ko": "효과: 생명의 비약",
+  "name_ko": "효과: 생명의 엘릭서",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.hDLbR56Id2OtU318]{생명의 비약 (미소급)}, @UUID[Compendium.pf2e.equipment-srd.Item.TZUskLT7yvP7N2co]{생명의 비약 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.c21stU5rhN4F2fZl]{생명의 비약 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.mYozcVg9fQY6zO7C]{생명의 비약 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.AmxSqEoFhRLMYd1W]{생명의 비약 (특급)}, @UUID[Compendium.pf2e.equipment-srd.Item.qK964kZz1ALcysOa]{생명의 비약 (진급)}으로 부여됨</p>\n<p>질병과 독에 대한 내성 굴림에 아이템 보너스를 받습니다.</p>"
  },
  "effect-bolstering-croak": {
@@ -3478,7 +3478,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.j392AMbPfkcRbCw6]{피의 송곳니}, @UUID[Compendium.pf2e.equipment-srd.Item.fdntl5OOhtYIPSBi]{피의 송곳니 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.0AxBSojJ2XhcqMvJ]{피의 송곳니 (특급)}로 부여됨</p>\n<p>지속 출혈 피해에 저항을 얻으며, 공허 특성을 가진 효과에 대한 내성 굴림에 아이템 보너스를 받습니다.</p>"
  },
  "effect-antiplague": {
-  "name_ko": "효과: 항역병제",
+  "name_ko": "효과: 질병방지제",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.UqinuuCWePTYGhVO]{항역병제 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.biRbqKo2C97XLfQ0]{항역병제 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.ORDaAzMZLrf6Hn8A]{항역병제 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.kajpTXg3oHIJStQa]{항역병제 (특급)}로 부여됨</p>\n<p>질병에 대한 인내 내성 굴림에 아이템 보너스를 받습니다.</p>"
  },
  "effect-potion-of-sonic-resistance": {
@@ -3542,7 +3542,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Mnj6K8aC7itqSIdg]{개인 작업장}으로 부여됨</p>\n<p>아이템 제작에 +1 아이템 보너스를 얻는다.</p>"
  },
  "effect-tome-of-restorative-cleansing": {
-  "name_ko": "효과: 회복의 정화 서적",
+  "name_ko": "효과: 회복의 정화서",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.KqzTdCwrfoqfSR5b]{회복의 정화 서적 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.NwyyVc5G6zUbcXRs]{회복의 정화 서적 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.m9v1YKUvQuFGVZ10]{회복의 정화 서적 (상급)}으로 부여됨</p>\n<p>임시 히트 포인트를 얻는다.</p>"
  },
  "effect-emerald-fulcrum-lens-saving-throw": {
@@ -3610,7 +3610,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.xI3obWctqdVBLzSX]{아라즈니의 심장 혈석}이(가) 부여함</p>\n<p>당신의 레벨과 같은 수치의 공허 피해 저항을 얻습니다.</p>"
  },
  "effect-necrotic-cap": {
-  "name_ko": "효과: 괴사의 갓",
+  "name_ko": "효과: 부패의 모자",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.sUZxDEiwCKiMpN7T]{괴사의 갓 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.Oxai9zyjeocPNUzO]{괴사의 갓 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.cDyoBhYeAMkCmjiP]{괴사의 갓 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.CM3GrNvvZBdPmxe5]{괴사의 갓 (최상급)}이(가) 부여함</p>\n<p>당신의 <em>acid grip</em> 주문이 산성 특성을 잃고 균류 특성을 얻으며, 주문이 입히는 모든 산성 피해가 공허 피해로 바뀝니다.</p>"
  },
  "effect-rainbow-vinegar-weakness": {
@@ -3634,7 +3634,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.BByeaBDXWdmQgzz0]{부관의 장식띠}이(가) 부여함</p>\n<p>내성 굴림과 AC에 +1 상황 보너스를 받습니다.</p>"
  },
  "effect-cloister-robe": {
-  "name_ko": "효과: 수도원 로브",
+  "name_ko": "효과: 수도원 가운",
   "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.gawhJLVsVsUFAPd6]{수도원 로브 (하급)}, @UUID[Compendium.pf2e.equipment-srd.Item.VMksM7bLAZW9LxH4]{수도원 로브 (중급)}, @UUID[Compendium.pf2e.equipment-srd.Item.XPIDpF7dP6VyGKOM]{수도원 로브 (상급)}, @UUID[Compendium.pf2e.equipment-srd.Item.mhCLoihjfhoqpiVp]{수도원 로브 (최상급)}이(가) 부여함</p>\n<p>신성 주문으로 인한 피해에 저항을 얻습니다.</p>"
  },
  "effect-smoky-protections": {
@@ -4059,5 +4059,29 @@
  },
  "effect-mentor-of-legends": {
   "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.JBjRGWVtVaxLckfH]{전설의 스승}에 의해 부여됨</p>\n<p>대상은 당신 레벨의 절반과 같은 임시 히트 포인트를 얻습니다.</p>"
+ },
+ "effect-unleash-psyche": {
+  "name_ko": "정신 해방"
+ },
+ "effect-inspired-stratagem": {
+  "name_ko": "영감 받은 계략"
+ },
+ "effect-debilitating-strike": {
+  "name_ko": "쇠약화 타격"
+ },
+ "effect-devise-a-stratagem": {
+  "name_ko": "전략 수립"
+ },
+ "effect-demon-hunted": {
+  "name_ko": "악마에게 쫓김"
+ },
+ "effect-harrow-chosen": {
+  "name_ko": "해로우-선택된"
+ },
+ "effect-hopeful-athamaru": {
+  "name_ko": "희망찬 아타마루"
+ },
+ "concealed": {
+  "name_ko": "은폐"
  }
 }

@@ -3302,5 +3302,140 @@
  "s2-00-spark-of-life-levels-3-6": {
   "name_ko": "S2-00 - 생명의 불꽃 (3-6레벨)",
   "desc_ko": "<p><strong>□ 생명의 불꽃</strong> 열린 길의 로지로 알려진 페이 하위세계에 씨앗 하나가 심어졌습니다. 이 씨앗 안에는 당신 정수의 작은 불꽃이 담겨 있습니다. 모험 중에 당신이 죽으면, 이 특전 옆의 상자에 체크하여 당신을 되살리기 위한 죽은 자 부활 의식의 금화 또는 재료 비용을 50% 줄일 수 있습니다. 이 의식은 자동으로 성공합니다(단, 대성공할 수는 없습니다). 이 특전은 죽은 자 부활에 영향을 주는 다른 특전과 중첩되지 않습니다.</p>"
+ },
+ "change-shape": {
+  "name_ko": "형태 변신"
+ },
+ "unleash-psyche": {
+  "name_ko": "정신 해방"
+ },
+ "steel-your-resolve": {
+  "name_ko": "결의 다지기"
+ },
+ "patrons-presence": {
+  "name_ko": "후원자의 현존"
+ },
+ "plummeting-roll": {
+  "name_ko": "낙법"
+ },
+ "inspired-stratagem": {
+  "name_ko": "영감 받은 계략"
+ },
+ "quick-tempered": {
+  "name_ko": "성급함"
+ },
+ "debilitating-strike": {
+  "name_ko": "쇠약화 타격"
+ },
+ "exploit-vulnerability": {
+  "name_ko": "취약점 악용"
+ },
+ "devise-a-stratagem": {
+  "name_ko": "전략 수립"
+ },
+ "quick-alchemy": {
+  "name_ko": "빠른 연금술"
+ },
+ "triple-time": {
+  "name_ko": "삼중 속도"
+ },
+ "uplifting-overture": {
+  "name_ko": "고양의 서곡"
+ },
+ "unusual-anatomy": {
+  "name_ko": "특이한 해부학적 구조"
+ },
+ "one-with-the-land": {
+  "name_ko": "대지와 하나 되기"
+ },
+ "apex-companion": {
+  "name_ko": "최상위 동반자"
+ },
+ "see-the-unseen": {
+  "name_ko": "보이지 않는 것 보기"
+ },
+ "runic-impression": {
+  "name_ko": "룬 각인"
+ },
+ "lifelink-surge": {
+  "name_ko": "생명력 연결 급증"
+ },
+ "instant-armor": {
+  "name_ko": "즉시 갑옷"
+ },
+ "shielding-formation": {
+  "name_ko": "방패 형성"
+ },
+ "magic-hide": {
+  "name_ko": "마법 가죽"
+ },
+ "clan-pistol": {
+  "name_ko": "씨족 권총"
+ },
+ "extradimensional-stash": {
+  "name_ko": "초차원 보관소"
+ },
+ "called": {
+  "name_ko": "호출"
+ },
+ "confabulator": {
+  "name_ko": "컨파불레이터"
+ },
+ "lucky-keepsake": {
+  "name_ko": "행운의 부적"
+ },
+ "cackle": {
+  "name_ko": "낄낄거리는 웃음"
+ },
+ "phantom-orchestra": {
+  "name_ko": "유령 오케스트라"
+ },
+ "unfetter-eidolon": {
+  "name_ko": "에이돌론의 속박 해제"
+ },
+ "song-of-the-fallen": {
+  "name_ko": "쓰러진 자들의 노래"
+ },
+ "fungal-exhalation": {
+  "name_ko": "균류의 숨결"
+ },
+ "heal-companion": {
+  "name_ko": "동물 동료 치유"
+ },
+ "magic-warrior-aspect": {
+  "name_ko": "마법 전사 형상"
+ },
+ "soothing-ballad": {
+  "name_ko": "달래는 발라드"
+ },
+ "pied-piping": {
+  "name_ko": "홀리는 피리 연주"
+ },
+ "crimson-breath": {
+  "name_ko": "진홍의 숨결"
+ },
+ "share-burden": {
+  "name_ko": "짐 나누기"
+ },
+ "truespeech": {
+  "name_ko": "진실의 언어"
+ },
+ "debilitating-dichotomy": {
+  "name_ko": "쇠약화하는 양분"
+ },
+ "hasted-assault": {
+  "name_ko": "신속한 돌격"
+ },
+ "snare-hopping": {
+  "name_ko": "올가미 이동"
+ },
+ "force-fang": {
+  "name_ko": "역장 가시"
+ },
+ "lingering-composition": {
+  "name_ko": "지속되는 구성"
+ },
+ "brain-drain": {
+  "name_ko": "뇌 흡수"
  }
 }

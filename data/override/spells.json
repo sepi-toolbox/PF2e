@@ -46,5 +46,59 @@
  "horde-of-underlings": {
   "name_ko": "졸개 무리",
   "desc_ko": "<p>당신은 해골이나 코볼드 같은 졸개 여섯을 소환한다. 이 주문을 시전할 때, 당신은 그들이 어떤 종류의 생물인지, 소형인지 중형인지, 타격·관통·참격 중 어떤 피해를 입히는지 정한다(한 번 선택하여 모든 졸개에게 적용한다). 각 졸개는 1 히트 포인트, AC 5를 지니며, 모든 내성 굴림에 자동으로 실패한다. 각 졸개는 범위 안 당신이 선택한 빈 칸에 나타난다. 졸개는 이동을 막지는 않지만, 당신 이외의 생물에게는 험지가 된다.</p>\n<p>각 졸개는 자신에게 인접한 적 하나(있다면)를 공격하여, 선택한 유형의 1d4 피해를 자동으로 입힌다. 이후 매 라운드 당신이 처음으로 주문을 유지할 때, 각 졸개는 가장 가까운 적을 향해 20피트 이동한다. 졸개가 적에게 인접한 채로 이동을 끝내면, 위에 설명된 대로 그 적에게 피해를 입힌다.</p><hr /><p><strong>강화 (+1)</strong> 졸개의 수가 2 증가한다.</p>"
+ },
+ "detect-magic": {
+  "name_ko": "마법 탐지"
+ },
+ "dragon-breath": {
+  "name_ko": "드래곤의 숨결"
+ },
+ "perfected-mind": {
+  "name_ko": "완성된 정신"
+ },
+ "heros-defiance": {
+  "name_ko": "영웅의 저항"
+ },
+ "cackle": {
+  "name_ko": "낄낄거리는 웃음"
+ },
+ "song-of-marching": {
+  "name_ko": "행군의 노래"
+ },
+ "song-of-the-fallen": {
+  "name_ko": "쓰러진 자들의 노래"
+ },
+ "fungal-exhalation": {
+  "name_ko": "균류의 숨결"
+ },
+ "rallying-banner": {
+  "name_ko": "집결의 깃발"
+ },
+ "pack-attack": {
+  "name_ko": "무리 공격"
+ },
+ "songbirds-call": {
+  "name_ko": "노래하는 새의 부름"
+ },
+ "slither": {
+  "name_ko": "미끄러짐"
+ },
+ "pied-piping": {
+  "name_ko": "홀리는 피리 연주"
+ },
+ "hedge-prison": {
+  "name_ko": "울타리 감옥"
+ },
+ "spellmasters-ward": {
+  "name_ko": "마법사의 수호부"
+ },
+ "house-of-imaginary-walls": {
+  "name_ko": "상상의 벽의 집"
+ },
+ "lingering-composition": {
+  "name_ko": "지속되는 구성"
+ },
+ "invoke-the-crimson-oath": {
+  "name_ko": "진홍의 맹세 발동"
  }
 }

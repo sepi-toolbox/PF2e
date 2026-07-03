@@ -38,11 +38,14 @@ var MapSync = (function() {
   let _mapsReady    = false;
   let _mapState     = null;           // 활성 맵 doc 데이터 (배경/안개/그리드; 없으면 null)
   let _tokens       = new Map();      // tokenId → {id, ownerUid, name, x, y, ...}
-  let _sessionUnsub = null;           // session doc 감시 (activeMapId)
+  let _areas        = new Map();      // AoE 영역 템플릿(활성 맵별): aid → {kind,x,y,ft,dir,color}
+  let _paused       = false;          // 세션 준비중(중지) — 플레이어 화면 가림 (session.paused 추종)
+  let _sessionUnsub = null;           // session doc 감시 (activeMapId, paused)
   let _mapsUnsub    = null;           // maps 컬렉션 감시 (GM 드로어)
   let _tplUnsub     = null;           // 토큰 템플릿 감시 (GM 팔레트)
   let _mapUnsub     = null;           // 활성 맵 doc 감시
   let _tokensUnsub  = null;           // 활성 맵 tokens 감시
+  let _areasUnsub   = null;           // 활성 맵 AoE 영역 감시
   let _tokensReady  = false;          // 초기 스냅샷 구분
   let _pingsUnsub   = null;
   let _pingsReady   = false;
@@ -56,6 +59,7 @@ var MapSync = (function() {
   function _tplCol()    { return _sessDoc().collection('tokenTemplates'); }  // 토큰 템플릿(세션 레벨)
   function _mapDoc()    { return _mapsCol().doc(_activeMapId); }     // 활성 맵 doc (배경/안개/그리드)
   function _tokensCol() { return _mapDoc().collection('tokens'); }  // 활성 맵 토큰
+  function _areasCol()  { return _mapDoc().collection('areas'); }   // 활성 맵 AoE 영역 템플릿
   function _pingsCol()  { return _sessDoc().collection('pings'); }  // 핑은 세션 레벨 (변경 없음)
 
   function _emit(kind, payload) {
@@ -83,13 +87,19 @@ var MapSync = (function() {
     _mapsReady = false;
     _mapState = null;
     _tokens.clear();
+    _areas.clear();
+    _paused = false;
     _tokensReady = false;
     if (!_db() || !_sessionId) { console.warn('[MapSync] db/sessionId 없음 — 시작 취소'); return; }
 
     // 세션 doc 감시 → activeMapId 변경 시 활성 맵 재바인딩 (전원: 플레이어는 이걸로만 추종)
+    //                  + paused(준비중) 변경 시 전원에게 전파
     _sessionUnsub = _sessDoc().onSnapshot(function(doc) {
-      var aid = doc.exists ? (doc.data().activeMapId || null) : null;
+      var data = doc.exists ? doc.data() : {};
+      var aid = data.activeMapId || null;
       if (aid !== _activeMapId) _bindMap(aid);
+      var pz = !!data.paused;
+      if (pz !== _paused) { _paused = pz; _emit('paused', _paused); }
     }, function(err) { console.error('[MapSync session listener]', err); _reconnect(); });
 
     // 맵 목록 감시 (GM 드로어용). 플레이어는 목록 불필요 — 읽기 절약 위해 GM만 구독.
@@ -130,12 +140,14 @@ var MapSync = (function() {
   function _bindMap(mapId) {
     if (_mapUnsub)    { _mapUnsub();    _mapUnsub = null; }
     if (_tokensUnsub) { _tokensUnsub(); _tokensUnsub = null; }
+    if (_areasUnsub)  { _areasUnsub();  _areasUnsub = null; }
     _activeMapId = mapId || null;
     _mapState = null;
     _tokens.clear();
+    _areas.clear();
     _tokensReady = false;
     _emit('active', _activeMapId);            // 뷰 리셋(자동맞춤 재개/편집기 닫기)
-    if (!_activeMapId) { _emit('map', null); _emit('tokens-init', []); return; }
+    if (!_activeMapId) { _emit('map', null); _emit('tokens-init', []); _emit('areas', []); return; }
 
     // 활성 맵 상태(배경/안개/그리드) 감시
     _mapUnsub = _mapDoc().onSnapshot(function(doc) {
@@ -155,6 +167,16 @@ var MapSync = (function() {
       _tokensReady = true;
       _emit(first ? 'tokens-init' : 'tokens', Array.from(_tokens.values()));
     }, function(err) { console.error('[MapSync tokens listener]', err); _reconnect(); });
+
+    // 활성 맵 AoE 영역 감시 (docChanges 증분 — 전원 구독, 플레이어도 봄)
+    _areasUnsub = _areasCol().onSnapshot(function(snap) {
+      snap.docChanges().forEach(function(change) {
+        var id = change.doc.id;
+        if (change.type === 'removed') { _areas.delete(id); }
+        else { _areas.set(id, Object.assign({ id: id }, change.doc.data())); }
+      });
+      _emit('areas', Array.from(_areas.values()));
+    }, function(err) { console.error('[MapSync areas listener]', err); _reconnect(); });
   }
 
   function _stopListeners() {
@@ -163,6 +185,7 @@ var MapSync = (function() {
     if (_tplUnsub)     { _tplUnsub();     _tplUnsub = null; }
     if (_mapUnsub)     { _mapUnsub();     _mapUnsub = null; }
     if (_tokensUnsub)  { _tokensUnsub();  _tokensUnsub = null; }
+    if (_areasUnsub)   { _areasUnsub();   _areasUnsub = null; }
     if (_pingsUnsub)   { _pingsUnsub();   _pingsUnsub = null; }
   }
 
@@ -175,6 +198,8 @@ var MapSync = (function() {
     _mapsReady = false;
     _mapState = null;
     _tokens.clear();
+    _areas.clear();
+    _paused = false;
     _tokensReady = false;
   }
 
@@ -191,6 +216,8 @@ var MapSync = (function() {
   }
   function getTokens()   { return Array.from(_tokens.values()); }
   function getToken(id)  { return _tokens.get(id) || null; }
+  function getAreas()    { return Array.from(_areas.values()); }
+  function isPaused()    { return _paused; }
   function myToken()     { for (var t of _tokens.values()) { if (t.ownerUid === _uid) return t; } return null; }
   function canControl(t) { return !!t; }   // 이동은 모두에게 — 세션 내 보이는 토큰은 누구나 이동 가능
   function isGM()        { return _isGM; }
@@ -231,6 +258,17 @@ var MapSync = (function() {
     if (typeof enabled === 'boolean') patch.gridEnabled = enabled;
     if (typeof px === 'number' && px > 0) patch.gridSize = Math.round(px);
     return _mapDoc().set(patch, { merge: true });
+  }
+  // 격자 원점 오프셋(px) — 배경 격자에 맞춰 상하좌우 이동. GM.
+  function setGridOffset(ox, oy) {
+    if (!_isGM) return Promise.reject('not-gm');
+    if (!_activeMapId) return Promise.reject('no-active-map');
+    return _mapDoc().set({ gridOffX: Math.round(ox) || 0, gridOffY: Math.round(oy) || 0, updatedAt: _ts(), updatedBy: _uid }, { merge: true });
+  }
+  // 세션 준비중(중지) 토글 — 플레이어 화면 가림. GM만. (session doc, activeMapId와 같은 권한)
+  function setPaused(on) {
+    if (!_isGM) return Promise.reject('not-gm');
+    return _sessDoc().set({ paused: !!on }, { merge: true });
   }
   // 안개 마스크 (Phase D — GM 드로잉 결과 동기화)
   function setFogMask(maskDataUrl, mw, mh, enabled) {
@@ -297,6 +335,38 @@ var MapSync = (function() {
     var mine = myToken();
     if (mine) return Promise.resolve(mine.id);
     return createToken(Object.assign({ ownerUid: _uid }, fields || {}));
+  }
+
+  // ───────────────────────────────────────────
+  //  쓰기: AoE 영역 템플릿 (GM 전용) — 폭발(원)/원뿔/직선, 활성 맵에 귀속
+  // ───────────────────────────────────────────
+  function createArea(fields) {
+    if (!_isGM) return Promise.reject('not-gm');
+    if (!_activeMapId) return Promise.reject('no-active-map');
+    fields = fields || {};
+    var ref = _areasCol().doc();
+    return ref.set({
+      kind:  fields.kind  || 'circle',        // 'circle'(폭발/방출) | 'cone'(원뿔) | 'line'(직선)
+      x:     fields.x     || 0,
+      y:     fields.y     || 0,
+      ft:    fields.ft    || 0,                // 크기(피트): 원=반경, 원뿔/직선=길이
+      dir:   fields.dir   || 0,                // 방향(라디안) — 원뿔/직선
+      color: fields.color || '#e0662a',
+      createdBy: _uid, updatedAt: _ts()
+    }).then(function() { return ref.id; });
+  }
+  function removeArea(id) {
+    if (!_isGM) return Promise.reject('not-gm');
+    return _areasCol().doc(id).delete();
+  }
+  function clearAreas() {
+    if (!_isGM || !_activeMapId) return Promise.resolve();
+    return _areasCol().get().then(function(snap) {
+      if (snap.empty) return null;
+      var batch = _db().batch();
+      snap.forEach(function(d) { batch.delete(d.ref); });
+      return batch.commit();
+    });
   }
 
   // ───────────────────────────────────────────
@@ -440,12 +510,15 @@ var MapSync = (function() {
     // 조회
     getMapState: getMapState, getActiveMapId: getActiveMapId, hasActiveMap: hasActiveMap,
     getMaps: getMaps, getTokens: getTokens, getToken: getToken,
+    getAreas: getAreas, isPaused: isPaused,
     myToken: myToken, canControl: canControl,
     // 맵 관리 (GM) — 멀티맵 저장/전환
     createMap: createMap, renameMap: renameMap, deleteMap: deleteMap, setActiveMap: setActiveMap,
     // 맵 쓰기 (GM)
     setBackground: setBackground, setBackgroundUrl: setBackgroundUrl,
-    setGridSize: setGridSize, setGrid: setGrid, setFogMask: setFogMask,
+    setGridSize: setGridSize, setGrid: setGrid, setGridOffset: setGridOffset, setFogMask: setFogMask,
+    // AoE 영역 (GM) + 세션 준비중
+    createArea: createArea, removeArea: removeArea, clearAreas: clearAreas, setPaused: setPaused,
     // 토큰 쓰기
     createToken: createToken, upsertToken: upsertToken, moveToken: moveToken,
     removeToken: removeToken, ensureMyToken: ensureMyToken, createNpc: createNpc,
@@ -482,6 +555,15 @@ var MapView = (function() {
   let _gridEnabled = false;   // 격자 표시 + 토큰 스냅 (맵 state.gridEnabled 동기화)
   let _gridPx = 50;           // 셀 크기 px (맵 state.gridSize 동기화) — _cell()/토큰크기/스냅의 단일 출처
   let _gridDragging = false;  // 슬라이딩 중(로컬 미리보기, Firestore 쓰기 보류)
+  let _gridOffX = 0, _gridOffY = 0;  // 격자 원점 오프셋(px) — 배경 격자 정렬 (state.gridOffX/Y 동기화)
+  let _gridOffTimer = 0;      // 오프셋 넛지 쓰기 디바운스
+
+  // ── AoE 영역 템플릿 (GM 배치, 전원 동기화) + 세션 준비중 ──
+  const AREA_COLOR = '#e0662a';       // AoE 기본색(따뜻한 주황)
+  let _areaTool = null;       // 선택된 영역 도구: 'circle'|'cone'|'line'|null
+  let _areaMenu = false;      // 영역 플라이아웃 메뉴 열림 여부
+  let _areaDrag = null;       // 배치 중(러버밴드): {ox,oy(월드 원점), cx,cy(월드 현재), start(스크린)}
+  let _paused = false;        // 세션 준비중(중지) — 플레이어 화면 가림 (MapSync.isPaused 미러)
 
   let _inited  = false;
   let _active  = false;     // 지도 패널이 표시 중인가
@@ -577,6 +659,8 @@ var MapView = (function() {
         else if (kind === 'maps') { _renderDrawer(); }          // 맵 목록 변경 → 드로어 갱신(GM)
         else if (kind === 'templates') { _renderTplPalette(); } // 토큰 팔레트 변경 → 갱신(GM)
         else if (kind === 'tokens-init') { _maybeProvision(); _markDirty(); }
+        else if (kind === 'areas') { _markDirty(); }            // AoE 영역 변경 → 재draw
+        else if (kind === 'paused') { _paused = !!payload; _refreshPauseUI(); _markDirty(); }
         else if (kind === 'ping') { _addPing(payload); }
         else { _markDirty(); }            // 'tokens' 증분 변경
       });
@@ -593,6 +677,16 @@ var MapView = (function() {
     window.addEventListener('mousemove', _onMouseMove);
     window.addEventListener('mouseup',   _onMouseUp);
     _cv.addEventListener('wheel', _onWheel, { passive: false });
+
+    // ── 키보드 단축키 (GM): 스페이스바 = 세션 준비중(중지) 토글 ──
+    window.addEventListener('keydown', function(e) {
+      if (e.code !== 'Space' && e.key !== ' ') return;
+      if (!_active || !_effGM()) return;
+      var t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+      e.preventDefault();
+      togglePause();
+    });
 
     // ── GM 배경 업로드 ──
     if (_fileInput) _fileInput.addEventListener('change', _onPickBg);
@@ -729,6 +823,7 @@ var MapView = (function() {
     // 격자 (배치 + 스냅) — 슬라이딩 중이 아니면 state로 동기화
     _gridEnabled = !!(state && state.gridEnabled);
     if (!_gridDragging) _gridPx = (state && state.gridSize) ? state.gridSize : 50;
+    if (!_gridOffTimer) { _gridOffX = (state && state.gridOffX) || 0; _gridOffY = (state && state.gridOffY) || 0; }
     _refreshEmpty();
     _refreshToolbar();
     _markDirty();
@@ -749,10 +844,143 @@ var MapView = (function() {
     const drawerBtn = document.getElementById('map-drawer-btn');
     if (drawerBtn) drawerBtn.style.display = gm ? '' : 'none';
     _refreshFogToolbar();           // 공개/제거 버튼 + 확장 메뉴 (GM)
+    _refreshAreaToolbar();          // AoE 영역 버튼 + 확장 메뉴 (GM)
+    _refreshPauseUI();              // 준비중(중지) 배지/버튼
     if (gm) _refreshMapEditor();    // 배경/격자는 드로어 지도 편집기로 이동
     // 시트 플레이 뷰 전용: '내 토큰 놓기' 버튼
     const placeBtn = document.getElementById('map-place-btn');
     if (placeBtn) placeBtn.style.display = _playMode ? '' : 'none';
+  }
+  // AoE 영역 툴바 (버튼 + 확장 메뉴: 폭발/원뿔/직선/지우기)
+  function _refreshAreaToolbar() {
+    const gm = _effGM();
+    const btn = document.getElementById('area-btn');
+    if (btn) { btn.style.display = gm ? '' : 'none'; btn.classList.toggle('on', !!_areaTool || _areaMenu); }
+    const menu = document.getElementById('area-menu');
+    if (menu) menu.style.display = (gm && _areaMenu) ? 'flex' : 'none';
+    const items = document.querySelectorAll('#area-menu [data-area]');
+    for (let i = 0; i < items.length; i++) items[i].classList.toggle('on', items[i].getAttribute('data-area') === _areaTool);
+  }
+  function toggleAreaMenu() {
+    if (!_effGM()) return;
+    _areaMenu = !_areaMenu;
+    if (_areaMenu) { _fogMenu = null; _brush.paint = false; }   // 안개 도구와 상호배타
+    _refreshFogToolbar(); _refreshAreaToolbar(); _markDirty();
+  }
+  // 영역 도구 선택: kind(circle/cone/line). 이후 지도에 드래그로 배치.
+  function setAreaTool(kind) {
+    if (!_effGM()) return;
+    _areaTool = (kind === 'cone' || kind === 'line') ? kind : 'circle';
+    _brush.paint = false; _fogMenu = null;                      // 안개 브러시 끔
+    _refreshFogToolbar(); _refreshAreaToolbar(); _markDirty();
+  }
+  function clearAreas() {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    if (!MapSync.getAreas().length) return;
+    MapSync.clearAreas().catch(function(e) { console.warn('[clearAreas]', e); });
+  }
+  function _isAreaPlacing() { return _effGM() && !!_areaTool; }
+
+  // ── 세션 준비중(중지) — 스페이스바/버튼 토글, 플레이어 화면 가림 ──
+  function togglePause() {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    MapSync.setPaused(!_paused).catch(function(e) { console.warn('[togglePause]', e); });
+  }
+  function _refreshPauseUI() {
+    // GM 헤더 배지 + 버튼 상태(플레이어 화면 가림은 _render에서 처리)
+    const badge = document.getElementById('map-paused-badge');
+    if (badge) badge.style.display = (_paused && _effGM()) ? '' : 'none';
+    const btn = document.getElementById('mt-pause');
+    if (btn) { btn.style.display = _effGM() ? '' : 'none'; btn.classList.toggle('on', _paused); btn.textContent = _paused ? '▶ 재개' : '⏸ 중지'; }
+  }
+
+  // ── AoE 영역 배치 (GM 드래그) + 지오메트리 ──
+  const AREA_FT_PER_CELL = 5;                                   // PF2e: 1칸 = 5ft
+  function _distToFt(worldDist) { return Math.max(AREA_FT_PER_CELL, Math.round(worldDist / _cell()) * AREA_FT_PER_CELL); }
+  function _ftToWorld(ft) { return (ft / AREA_FT_PER_CELL) * _cell(); }
+  function _startArea(p) {
+    var w = _screenToWorld(p.x, p.y);
+    if (_gridEnabled) { var s = _snapCorner(w.x, w.y); w = s; }
+    _areaDrag = { ox: w.x, oy: w.y, cx: w.x, cy: w.y };
+    _markDirty();
+  }
+  function _moveArea(p) {
+    if (!_areaDrag) return;
+    var w = _screenToWorld(p.x, p.y);
+    _areaDrag.cx = w.x; _areaDrag.cy = w.y; _markDirty();
+  }
+  function _hitArea(wx, wy) {                                   // 원점 근처(탭 삭제용)
+    var as = (typeof MapSync !== 'undefined') ? MapSync.getAreas() : [], tol = _cell() * 0.7;
+    for (var i = as.length - 1; i >= 0; i--) {
+      var a = as[i]; if (Math.hypot(wx - a.x, wy - a.y) <= tol) return a;
+    }
+    return null;
+  }
+  function _endArea() {
+    if (!_areaDrag) return;
+    var d = _areaDrag; _areaDrag = null;
+    if (typeof MapSync === 'undefined') { _markDirty(); return; }
+    var dx = d.cx - d.ox, dy = d.cy - d.oy, dist = Math.hypot(dx, dy);
+    if (dist * _view.scale < 6) {                              // 탭 = 원점 근처 영역 삭제
+      var hit = _hitArea(d.ox, d.oy);
+      if (hit) MapSync.removeArea(hit.id).catch(function(e) { console.warn('[removeArea]', e); });
+      _markDirty(); return;
+    }
+    MapSync.createArea({ kind: _areaTool, x: Math.round(d.ox), y: Math.round(d.oy),
+      ft: _distToFt(dist), dir: Math.atan2(dy, dx), color: AREA_COLOR })
+      .catch(function(e) { console.warn('[createArea]', e); });
+    _markDirty();
+  }
+  // 영역 경로 구성 (스크린 좌표, rpx=반경/길이 px, dir=라디안)
+  function _areaPath(ctx, kind, sx, sy, rpx, dir) {
+    ctx.beginPath();
+    if (kind === 'cone') {                                     // PF2e 원뿔 = 사분원(90°)
+      ctx.moveTo(sx, sy);
+      ctx.arc(sx, sy, rpx, dir - Math.PI / 4, dir + Math.PI / 4);
+      ctx.closePath();
+    } else if (kind === 'line') {                              // 직선 = 폭 5ft(1칸)
+      var wpx = _cell() * _view.scale, hw = wpx / 2;
+      var ux = Math.cos(dir), uy = Math.sin(dir), px = -uy, py = ux;
+      ctx.moveTo(sx + px * hw, sy + py * hw);
+      ctx.lineTo(sx - px * hw, sy - py * hw);
+      ctx.lineTo(sx - px * hw + ux * rpx, sy - py * hw + uy * rpx);
+      ctx.lineTo(sx + px * hw + ux * rpx, sy + py * hw + uy * rpx);
+      ctx.closePath();
+    } else {                                                   // circle = 폭발/방출
+      ctx.arc(sx, sy, rpx, 0, Math.PI * 2);
+    }
+  }
+  function _drawAreaShape(kind, ox, oy, ft, dir, color, dashed) {
+    var sx = _view.offX + ox * _view.scale, sy = _view.offY + oy * _view.scale;
+    var rpx = _ftToWorld(ft) * _view.scale;
+    _ctx.save();
+    _areaPath(_ctx, kind, sx, sy, rpx, dir);
+    _ctx.globalAlpha = 0.22; _ctx.fillStyle = color; _ctx.fill();
+    _ctx.globalAlpha = 0.95; _ctx.strokeStyle = color; _ctx.lineWidth = 2;
+    if (dashed) _ctx.setLineDash([6, 4]);
+    _ctx.stroke();
+    // ft 라벨
+    _ctx.setLineDash([]);
+    var lx = sx, ly = sy;
+    if (kind === 'circle') ly = sy - rpx - 6; else { lx = sx + Math.cos(dir) * rpx * 0.55; ly = sy + Math.sin(dir) * rpx * 0.55; }
+    _ctx.globalAlpha = 1; _ctx.font = '700 13px Eczar, serif';
+    _ctx.textAlign = 'center'; _ctx.textBaseline = 'middle';
+    _ctx.lineWidth = 3; _ctx.strokeStyle = 'rgba(0,0,0,0.75)';
+    _ctx.strokeText(ft + ' ft', lx, ly); _ctx.fillStyle = '#fff'; _ctx.fillText(ft + ' ft', lx, ly);
+    _ctx.restore();
+  }
+  function _drawAreas() {
+    if (typeof MapSync === 'undefined') return;
+    var as = MapSync.getAreas();
+    for (var i = 0; i < as.length; i++) {
+      var a = as[i];
+      _drawAreaShape(a.kind || 'circle', a.x, a.y, a.ft || 0, a.dir || 0, a.color || AREA_COLOR, false);
+    }
+  }
+  function _drawAreaPreview() {
+    if (!_areaDrag) return;
+    var d = _areaDrag, dx = d.cx - d.ox, dy = d.cy - d.oy, dist = Math.hypot(dx, dy);
+    _drawAreaShape(_areaTool || 'circle', d.ox, d.oy, _distToFt(dist), Math.atan2(dy, dx), AREA_COLOR, true);
   }
   // 안개 공개/제거 툴바 (세로 메인 버튼 + 확장 메뉴: 자유/원/사각/전체)
   let _fogMenu = null;              // 열린 메뉴: 'reveal' | 'recover' | null
@@ -806,7 +1034,8 @@ var MapView = (function() {
     if (!_effGM()) return;
     _brush.paint = false;
     _fogMenu = null;
-    _refreshFogToolbar();
+    _areaTool = null; _areaMenu = false;
+    _refreshFogToolbar(); _refreshAreaToolbar();
     _markDirty();
   }
 
@@ -952,9 +1181,15 @@ var MapView = (function() {
   // 격자 스냅 — 점유 칸수(size)에 맞춰: 홀수칸=셀 중심, 짝수칸=격자 교차점
   function _snapWorld(x, y, size) {
     const c = _cell();
+    const ox = _gridOffX || 0, oy = _gridOffY || 0;     // 격자 오프셋 기준으로 스냅
     const n = Math.max(1, Math.round(size || 1));       // 점유 칸수(작음 0.5→1)
-    if (n % 2 === 1) return { x: (Math.floor(x / c) + 0.5) * c, y: (Math.floor(y / c) + 0.5) * c };
-    return { x: Math.round(x / c) * c, y: Math.round(y / c) * c };
+    if (n % 2 === 1) return { x: (Math.floor((x - ox) / c) + 0.5) * c + ox, y: (Math.floor((y - oy) / c) + 0.5) * c + oy };
+    return { x: Math.round((x - ox) / c) * c + ox, y: Math.round((y - oy) / c) * c + oy };
+  }
+  // 격자 교차점(코너)에 스냅 — AoE 영역 원점용
+  function _snapCorner(x, y) {
+    const c = _cell(), ox = _gridOffX || 0, oy = _gridOffY || 0;
+    return { x: Math.round((x - ox) / c) * c + ox, y: Math.round((y - oy) / c) * c + oy };
   }
   function _endTokenDrag() {
     if (!_tokenDrag) return;
@@ -1034,6 +1269,7 @@ var MapView = (function() {
     if (_displayPlayer) return;                       // 플레이어 디스플레이=무조작(카메라는 동기화로만)
     const p = _localXY(e);
     _hideTokenActions();                              // 새 상호작용 → 토큰 액션 팝업 닫기
+    if (_isAreaPlacing()) { _startArea(p); return; }  // AoE 영역 배치 우선
     if (_isPainting()) { _startStroke(p); return; }   // 안개 브러시 우선
     if (!_tryStartTokenDrag(p)) _drag = p;            // 토큰 못 잡으면 팬
     _startPress(p);                                   // 롱프레스(1초) → 핑
@@ -1042,14 +1278,15 @@ var MapView = (function() {
     if (!_active) return;
     const p = _localXY(e);
     _movePress(p);
-    if (_stroke || _shapeDrag) { _paintMove(p); }
+    if (_areaDrag) { _moveArea(p); }
+    else if (_stroke || _shapeDrag) { _paintMove(p); }
     else if (_tokenDrag) { _dragTokenTo(p); }
     else if (_drag) {
       _view.offX += p.x - _drag.x; _view.offY += p.y - _drag.y;
       _drag = p; _userMoved = true; _markDirty();
     }
   }
-  function _onMouseUp() { _cancelPress(); _endStroke(); _endTokenDrag(); _drag = null; }
+  function _onMouseUp() { _cancelPress(); _endArea(); _endStroke(); _endTokenDrag(); _drag = null; }
   function _onWheel(e) {
     if (_displayPlayer) return;                       // 플레이어 디스플레이=무조작
     e.preventDefault();
@@ -1064,12 +1301,14 @@ var MapView = (function() {
       _pinch = null;
       const p = _touchLocal(e.touches[0]);
       _hideTokenActions();                             // 새 상호작용 → 토큰 액션 팝업 닫기
-      if (_isPainting()) { _startStroke(p); }          // 안개 브러시 우선
+      if (_isAreaPlacing()) { _startArea(p); }          // AoE 영역 배치 우선
+      else if (_isPainting()) { _startStroke(p); }      // 안개 브러시 우선
       else if (!_tryStartTokenDrag(p)) _drag = p;       // 내 토큰 위면 끌기, 아니면 팬
       _startPress(p);                                   // 롱프레스(1초) → 핑
     } else if (e.touches.length >= 2) {
       _cancelPress();                                   // 두 손가락 → 핑 취소
       _cancelShape();                                   // 그리던 도형은 취소(미적용)
+      if (_areaDrag) { _areaDrag = null; }              // 배치 중 도형 취소
       _endStroke();                                     // 자유곡선 그리는 중이었으면 마무리(커밋)
       _drag = null; _tokenDrag = null;                  // 두 손가락 → 핀치줌
       _startPinch(e.touches[0], e.touches[1]);
@@ -1089,7 +1328,8 @@ var MapView = (function() {
     } else if (e.touches.length === 1) {
       const p = _touchLocal(e.touches[0]);
       _movePress(p);
-      if (_stroke || _shapeDrag) { _paintMove(p); }
+      if (_areaDrag) { _moveArea(p); }
+      else if (_stroke || _shapeDrag) { _paintMove(p); }
       else if (_tokenDrag) { _dragTokenTo(p); }
       else if (_drag) {
         _view.offX += p.x - _drag.x; _view.offY += p.y - _drag.y;
@@ -1099,8 +1339,8 @@ var MapView = (function() {
     e.preventDefault();
   }
   function _onTouchEnd(e) {
-    if (e.touches.length === 0) { _cancelPress(); _endStroke(); _endTokenDrag(); _drag = null; _pinch = null; }
-    else if (e.touches.length === 1) { _pinch = null; if (!_stroke && !_shapeDrag && !_tokenDrag) _drag = _touchLocal(e.touches[0]); }
+    if (e.touches.length === 0) { _cancelPress(); _endArea(); _endStroke(); _endTokenDrag(); _drag = null; _pinch = null; }
+    else if (e.touches.length === 1) { _pinch = null; if (!_areaDrag && !_stroke && !_shapeDrag && !_tokenDrag) _drag = _touchLocal(e.touches[0]); }
   }
   function _startPinch(t0, t1) {
     const a = _touchLocal(t0), b = _touchLocal(t1);
@@ -1147,8 +1387,27 @@ var MapView = (function() {
     _drawFog();             // 안개 오버레이 (Phase D)
     if (typeof window !== 'undefined' && window._mapTokensAboveFog) _drawAllTokensOnTop();  // GM 플레이어 미리보기: 모든 토큰 안개 위
     else _drawOwnTokenOnTop();   // 시트 플레이: 내 토큰만 안개 위
+    _drawAreas();           // AoE 영역 (안개 위 — 전원 표시)
     _drawPings();           // 핑 (안개 위)
-    _drawShapePreview();    // 안개 도형 러버밴드 미리보기 (최상단)
+    _drawShapePreview();    // 안개 도형 러버밴드 미리보기
+    _drawAreaPreview();     // AoE 배치 미리보기
+    if (_paused && !_effGM()) _drawPausedCover();   // 준비중: 플레이어 화면 전체 가림 (GM 제외)
+  }
+  // 세션 준비중 — 플레이어 화면을 덮고 "준비중입니다" 중앙 표시
+  function _drawPausedCover() {
+    _ctx.save();
+    _ctx.fillStyle = '#0b0906';
+    _ctx.fillRect(0, 0, _cssW, _cssH);
+    _ctx.textAlign = 'center'; _ctx.textBaseline = 'middle';
+    var cx = _cssW / 2, cy = _cssH / 2;
+    var big = Math.max(26, Math.min(64, _cssW / 12));
+    _ctx.fillStyle = '#e8d3b0';
+    _ctx.font = '700 ' + big + 'px Eczar, serif';
+    _ctx.fillText('준비 중입니다', cx, cy);
+    _ctx.fillStyle = 'rgba(232,211,176,0.55)';
+    _ctx.font = '400 ' + Math.round(big * 0.34) + 'px Gelasio, serif';
+    _ctx.fillText('잠시만 기다려 주세요', cx, cy + big * 0.85);
+    _ctx.restore();
   }
 
   // 화면 표시 위치 — 내가 끌면 즉시, 그 외(원격 이동)는 보간(exponential smoothing)
@@ -1297,14 +1556,18 @@ var MapView = (function() {
     _ctx.clip();
     _ctx.lineWidth = 1;
     // 밝은 맵·어두운 맵 모두에서 보이도록 어두운 선 + 밝은 선을 1px 어긋나게 겹침(엠보싱)
+    // 오프셋 원점: 격자선은 (wx - _gridOffX)가 gs의 배수인 지점. 범위 내 첫 선부터 시작.
+    const offX = ((_gridOffX % gs) + gs) % gs, offY = ((_gridOffY % gs) + gs) % gs;
+    const firstX = wMinX + ((offX - (wMinX % gs)) % gs + gs) % gs;
+    const firstY = wMinY + ((offY - (wMinY % gs)) % gs + gs) % gs;
     const _gridLines = function(off, color) {
       _ctx.strokeStyle = color;
       _ctx.beginPath();
-      for (let wx = wMinX; wx <= wMaxX + 0.5; wx += gs) {
+      for (let wx = firstX; wx <= wMaxX + 0.5; wx += gs) {
         const sx = Math.round(_view.offX + wx * _view.scale) + off;
         _ctx.moveTo(sx, cy0); _ctx.lineTo(sx, cy1);
       }
-      for (let wy = wMinY; wy <= wMaxY + 0.5; wy += gs) {
+      for (let wy = firstY; wy <= wMaxY + 0.5; wy += gs) {
         const sy = Math.round(_view.offY + wy * _view.scale) + off;
         _ctx.moveTo(cx0, sy); _ctx.lineTo(cx1, sy);
       }
@@ -2035,6 +2298,25 @@ var MapView = (function() {
     _markDirty();
     if (_effGM() && typeof MapSync !== 'undefined') MapSync.setGrid(true, _gridPx).catch(function(e) { console.warn('[gridRange]', e); });
   }
+  // 격자 원점 상하좌우 이동(넛지) — 로컬 즉시 미리보기 + 디바운스 1회 쓰기. 셀 크기로 순환(mod).
+  function gridNudge(dx, dy) {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    const c = _gridPx || 50, step = Math.max(1, Math.round(c / 25));   // 셀의 ~4% 씩
+    _gridOffX = (((_gridOffX + dx * step) % c) + c) % c;
+    _gridOffY = (((_gridOffY + dy * step) % c) + c) % c;
+    _markDirty();
+    if (_gridOffTimer) clearTimeout(_gridOffTimer);
+    _gridOffTimer = setTimeout(function() {
+      _gridOffTimer = 0;
+      MapSync.setGridOffset(_gridOffX, _gridOffY).catch(function(e) { console.warn('[gridNudge]', e); });
+    }, 350);
+  }
+  function gridNudgeReset() {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    _gridOffX = 0; _gridOffY = 0; _markDirty();
+    if (_gridOffTimer) { clearTimeout(_gridOffTimer); _gridOffTimer = 0; }
+    MapSync.setGridOffset(0, 0).catch(function(e) { console.warn('[gridNudgeReset]', e); });
+  }
 
   // ── 드로어 지도 편집기 (이름/배경 이미지/격자) — 활성 맵 대상 ──
   let _mapEditId = null;
@@ -2180,11 +2462,14 @@ var MapView = (function() {
     fit: fit, zoomIn: zoomIn, zoomOut: zoomOut, pickBg: pickBg,
     getCameraShare: getCameraShare, applyCameraShare: applyCameraShare,   // 듀얼모니터 카메라 동기화
     onRender: function (cb) { _onRenderCb = cb; },                         // 화면 변화 시 콜백(CCTV 캡처용)
-    // 안개 (GM): 공개/제거 도구 + 확장 메뉴
+    // 안개 (GM): 공개/제거(숨기기) 도구 + 확장 메뉴
     toggleFogMenu: toggleFogMenu, setFogTool: setFogTool, setSelectTool: setSelectTool,
     revealAll: revealAll, coverAll: coverAll,
+    // AoE 영역 (GM) + 세션 준비중
+    toggleAreaMenu: toggleAreaMenu, setAreaTool: setAreaTool, clearAreas: clearAreas, togglePause: togglePause,
     // 격자 + 지도 편집기 (GM, 드로어 ✎)
     toggleGrid: toggleGrid, gridRangeInput: gridRangeInput, gridRangeChange: gridRangeChange,
+    gridNudge: gridNudge, gridNudgeReset: gridNudgeReset,
     openMapEdit: openMapEdit, mapEditClose: mapEditClose, mapRename: mapRename,
     applyBgUrl: applyBgUrl, uploadBgOriginal: uploadBgOriginal,
     // GM 멀티맵 드로어 (Map.html)
