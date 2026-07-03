@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.86').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.87').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2957,6 +2957,8 @@ function _ensureAllCatalogs() {
   const tasks = [];
   const push = (p) => { if (p && p.then) tasks.push(p.catch(e => { console.warn('카탈로그 init 실패', e); })); };
   if (typeof PF2eData !== 'undefined') push(PF2eData.loadCategory('equipment'));
+  // conditions는 어댑터가 없어 여기서 직접 로드 — @link[conditions.*] 5,600여 건의 정본명/툴팁 해소원 (누락 시 영문 슬러그 폴백)
+  if (typeof PF2eData !== 'undefined') push(PF2eData.loadCategory('conditions'));
   if (typeof PF2eEquip !== 'undefined') push(PF2eEquip.init());
   if (typeof PF2eAnc !== 'undefined') push(PF2eAnc.init());
   if (typeof PF2eBg !== 'undefined') push(PF2eBg.init());
