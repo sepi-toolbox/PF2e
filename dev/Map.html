@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>전술 지도 · Pathforge</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="app-shell.css?v=0.76">
+<link rel="stylesheet" href="app-shell.css?v=0.77">
+<script src="changelog.js?v=0.77"></script>
+<script src="gear-shell.js?v=0.77"></script>
 <meta name="theme-color" content="#17130d">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -48,29 +50,17 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 /* 양피지 패널 공통 (지도 위 플로팅 = 본체 모달과 동일 언어) */
 .pf-panel{background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border:1px solid var(--border2);box-shadow:0 8px 28px rgba(0,0,0,.45);}
 
-/* 상단 바 (지도 전용 — 캐릭터 시트와 독립) */
-#map-topbar{
-  position:fixed;top:0;left:0;right:0;height:44px;z-index:20;
-  display:flex;align-items:center;gap:10px;padding:0 12px;
-  background:#5e0000 url("data/fvtt-assets/sheet/red_bg.webp") repeat;border-bottom:2px solid var(--gold);
-}
-#map-topbar .mt-back{
-  background:var(--bg3);color:var(--text);border:1px solid var(--border2);
-  border-radius:5px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;
-}
-#map-topbar .mt-back:hover{border-color:var(--cream);color:#000;}
-#map-topbar .mt-title{color:var(--cream);font-family:"Eczar",var(--bs);font-weight:700;font-size:15px;letter-spacing:.5px;}
-#map-topbar .mt-role{color:#e8d3b0;font-size:12px;}
-#map-topbar #map-gm-tools button,#map-topbar #map-gm-tools label{background:var(--bg3);color:var(--text);border:1px solid var(--border2);border-radius:5px;padding:4px 9px;font-size:11px;cursor:pointer;}
-#map-topbar #map-gm-tools button:hover{border-color:var(--cream);}
-/* 준비중(중지) 배지 + GM 토글 버튼 */
-#map-topbar #map-paused-badge{color:#ffd7d7;font-size:12px;font-weight:700;background:rgba(0,0,0,.28);
-  border:1px solid #ffb3b3;border-radius:5px;padding:3px 9px;letter-spacing:.5px;animation:pausePulse 1.4s ease-in-out infinite;}
-@keyframes pausePulse{0%,100%{opacity:1;}50%{opacity:.5;}}
-#map-topbar #mt-pause{background:var(--bg3);color:var(--text);border:1px solid var(--border2);border-radius:5px;
-  padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;}
-#map-topbar #mt-pause:hover{border-color:var(--cream);}
-#map-topbar #mt-pause.on{background:#7a1d1d;color:var(--cream);border-color:#ffb3b3;}
+/* 상단 바 = 공유 .app-header(배경/보더/색/flex는 app-shell.css). 여기선 지도용 고정 배치+높이만. */
+#map-topbar{position:fixed;top:0;left:0;right:0;z-index:20;height:44px;padding:0 16px;}
+/* 기어 메뉴 버튼 기본형(.btn) — 색은 app-shell.css .btn-ghost/.btn-google, 레이아웃은 #gear-menu .btn */
+.btn{border:1px solid var(--border2);background:var(--bg3);color:var(--text);border-radius:5px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn:hover{filter:brightness(1.06);}
+/* 세션 준비중 상태바 — 헤더 아래 우상단, 버튼 아님(상태 표시 전용). 토글은 스페이스바. */
+@keyframes pausePulse{0%,100%{opacity:1;}50%{opacity:.55;}}
+#map-pause-status{position:fixed;top:52px;right:12px;z-index:8;font-size:12px;font-weight:700;letter-spacing:.5px;
+  padding:5px 12px;border-radius:14px;cursor:default;user-select:none;white-space:nowrap;
+  background:rgba(20,32,20,.62);color:#c7e6c1;border:1px solid rgba(120,170,120,.55);box-shadow:0 2px 8px rgba(0,0,0,.3);}
+#map-pause-status.paused{background:rgba(94,0,0,.66);color:#ffd7d7;border-color:#ffb3b3;animation:pausePulse 1.4s ease-in-out infinite;}
 
 /* 지도 영역 (상단 바 아래 전체) — 높이는 cs_map.js _resize가 px로 지정 */
 #map-stage{
@@ -304,16 +294,26 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 <!-- 3D 물리 주사위 캔버스 (@3d-dice/dice-box, 오프라인 벤더링) -->
 <div id="pf-dice-box" style="position:fixed;inset:0;z-index:10015;pointer-events:none;"></div>
 
-<!-- 헤더 = 공유 셸(.app-header). GM 도구(플레이어창/동기화/따라가기/CCTV)는 툴바 🎥 카메라로 이동 -->
+<!-- 헤더 = 공유 셸(.app-header) — 다른 UI와 완전 동일(브랜드 + 우측 ⚙). 로비/역할/중지는 헤더에서 뺌 -->
 <div id="map-topbar" class="app-header">
-  <button class="mt-back" onclick="location.href='GMSheet.html'">← 로비</button>
   <span class="app-brand" id="map-title">세션</span>
-  <span id="map-paused-badge" style="display:none;">● 중지됨</span>
   <div class="hdr-actions">
-    <button id="mt-pause" style="display:none;" title="세션 준비중 (스페이스바) — 플레이어 화면을 가리고 '준비 중입니다' 표시" onclick="MapView.togglePause()">⏸ 중지</button>
-    <span class="mt-role" id="map-role"></span>
+    <button class="hdr-gear-btn" onclick="toggleGearMenu(event)" title="계정 · 설정" aria-label="설정">⚙</button>
   </div>
 </div>
+
+<!-- 설정/계정 팝업 (톱니) — 플레이어 시트·GM 로비와 동일 패턴, 플레이어 전용 옵션 제외 -->
+<div id="gear-menu" onclick="event.stopPropagation()">
+  <div class="gear-sec-head">범용</div>
+  <div id="auth-area"><button class="btn btn-google" onclick="googleLogin()">Google 로그인</button></div>
+  <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="location.href='GMSheet.html'">🔁 로비로 돌아가기</button>
+  <button id="pwa-install-btn" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="pfInstallApp()">📲 웹앱 설치</button>
+  <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="openChangelog()">📋 업데이트 로그<span id="gear-changelog-dot" class="gear-update-dot" style="display:none;"></span></button>
+  <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="openBugReport()">🐞 버그 제보</button>
+</div>
+
+<!-- 세션 준비중(중지) 상태바 — 헤더 아래 우상단. 버튼 아님(스페이스바로 전환). GM 뷰에서만 표시 -->
+<div id="map-pause-status" title="스페이스바로 세션 준비중(중지)/진행 전환" style="display:none;">▶ 진행 중</div>
 
 <!-- 플레이어 화면 CCTV (GM 우하단 — 팝아웃 창 캔버스를 실시간 미러링) -->
 <div id="map-cctv" style="display:none;">
@@ -463,9 +463,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_dice.js?v=0.76"></script>
-<script src="cs_monster.js?v=0.76"></script>
-<script src="cs_map.js?v=0.76"></script>
+<script src="cs_dice.js?v=0.77"></script>
+<script src="cs_monster.js?v=0.77"></script>
+<script src="cs_map.js?v=0.77"></script>
 <style>
 /* 듀얼모니터: GM 도구 + 플레이어 CCTV */
 #map-gm-tools{margin-left:12px;display:inline-flex;gap:6px;align-items:center;}
@@ -483,6 +483,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 body.map-display{margin:0;overflow:hidden;background:#000;}
 body.map-display #map-topbar,body.map-display #map-toolbar,body.map-display #map-zoom,
 body.map-display #map-drawer,body.map-display #map-npc-editor,body.map-display #map-cctv,
+body.map-display #gear-menu,body.map-display #map-pause-status,
 body.map-display .fog-menu{display:none !important;}
 body.map-display #map-stage{top:0 !important;}            /* 상단 바 없음 → 전체 채움 */
 </style>
@@ -507,6 +508,7 @@ if (_isDisplay) {
 }
 
 auth.onAuthStateChanged(async function(user) {
+  _updateGearAuth(user);                    // ⚙ 계정 영역 갱신(로그인/아웃)
   const emptyEl = document.getElementById('map-empty');
   if (!user) {
     emptyEl.style.display = 'flex';
@@ -524,7 +526,6 @@ auth.onAuthStateChanged(async function(user) {
 
   document.getElementById('map-title').textContent = data.name || '세션';
   const isGM = (_role === 'gm');
-  document.getElementById('map-role').textContent = isGM ? 'GM 시점' : '플레이어 시점';
 
   if (typeof MapSync !== 'undefined') MapSync.start(_sessionId, { isGM: isGM, uid: user.uid });
   if (typeof MapView !== 'undefined') { MapView.init(); MapView.show(); }
@@ -532,6 +533,16 @@ auth.onAuthStateChanged(async function(user) {
   // GM 카메라 도구는 툴바 🎥 카메라 플라이아웃(_refreshCamToolbar가 _effGM 게이트)으로 노출
   MapGlue.init();
 });
+
+// ── 헤더 톱니(⚙) 메뉴 + 계정 — index.html/GMSheet와 동일 패턴(플레이어 전용 옵션 제외) ──
+function toggleGearMenu(ev){ if(ev)ev.stopPropagation(); var m=document.getElementById('gear-menu'), g=document.querySelector('.hdr-gear-btn'); if(!m)return; if(typeof updateChangelogDot==='function')updateChangelogDot(); var open=m.classList.toggle('open'); if(g)g.classList.toggle('open',open); }
+function closeGearMenu(){ var m=document.getElementById('gear-menu'), g=document.querySelector('.hdr-gear-btn'); if(m)m.classList.remove('open'); if(g)g.classList.remove('open'); }
+document.addEventListener('click', function(e){ var m=document.getElementById('gear-menu'); if(!m||!m.classList.contains('open'))return; if(e.target.closest&&(e.target.closest('#gear-menu')||e.target.closest('.hdr-gear-btn')))return; closeGearMenu(); });
+function googleLogin(){ try{ var p=new firebase.auth.GoogleAuthProvider(); auth.signInWithPopup(p).catch(function(e){alert('로그인 실패: '+e.message);}); }catch(e){alert('로그인 실패: '+e.message);} }
+function googleLogout(){ auth.signOut(); }
+function _updateGearAuth(user){ var a=document.getElementById('auth-area'); if(!a)return;
+  if(user){ a.innerHTML='<span class="auth-user">'+(user.displayName||user.email||'')+'</span><button class="btn btn-ghost" onclick="googleLogout()">로그아웃</button>'; }
+  else { a.innerHTML='<button class="btn btn-google" onclick="googleLogin()">Google 로그인</button>'; } }
 
 // ── 듀얼모니터 글루: GM 카메라 ↔ 플레이어 디스플레이/CCTV (같은 브라우저 BroadcastChannel) ──
 window.MapGlue = (function () {
@@ -720,7 +731,7 @@ window.MonsterLink = (function () {
     const _b = document.getElementById('pf-dice-box'); if (_b) _b.remove();
   } else {
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.76');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.77');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     const box = new DiceBox({ container: '#pf-dice-box', assetPath, theme: 'default', offscreen: false, scale: 6 });
     let ready = false;

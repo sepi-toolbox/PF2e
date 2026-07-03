@@ -899,11 +899,14 @@ var MapView = (function() {
     MapSync.setPaused(!_paused).catch(function(e) { console.warn('[togglePause]', e); });
   }
   function _refreshPauseUI() {
-    // GM 헤더 배지 + 버튼 상태(플레이어 화면 가림은 _render에서 처리)
-    const badge = document.getElementById('map-paused-badge');
-    if (badge) badge.style.display = (_paused && _effGM()) ? '' : 'none';
-    const btn = document.getElementById('mt-pause');
-    if (btn) { btn.style.display = _effGM() ? '' : 'none'; btn.classList.toggle('on', _paused); btn.textContent = _paused ? '▶ 재개' : '⏸ 중지'; }
+    // 준비중(중지) 상태바 — 버튼 아님. GM 뷰에서만 표시(플레이어 화면 가림은 _render에서 처리).
+    // 토글은 스페이스바(togglePause). 여기선 현재 상태만 반영.
+    const el = document.getElementById('map-pause-status');
+    if (el) {
+      el.style.display = _effGM() ? '' : 'none';
+      el.classList.toggle('paused', _paused);
+      el.textContent = _paused ? '⏸ 중지됨' : '▶ 진행 중';
+    }
   }
 
   // ── AoE 영역 배치 (GM 드래그) + 지오메트리 ──
