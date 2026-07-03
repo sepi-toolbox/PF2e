@@ -5,6 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pathforge 데이터 관리</title>
 <link rel="stylesheet" href="app-shell.css?v=dm1">
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+firebase.initializeApp({
+  apiKey: "AIzaSyCM0_tctWtlRY08fVmcBaVrk2-mNb--SQM",
+  authDomain: "pf2e-sheets.firebaseapp.com",
+  projectId: "pf2e-sheets",
+  storageBucket: "pf2e-sheets.firebasestorage.app",
+  messagingSenderId: "967668320246",
+  appId: "1:967668320246:web:6e012c3069d4fd2f33e9d7"
+});
+const auth = firebase.auth();
+const db = firebase.firestore();
+window.PF_ENV = location.pathname.includes('/dev/') ? 'dev' : 'prod';
+window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data_overrides' };
+</script>
 <style>
   :root{
     --bg:#f4ecd8; --bg2:#ece0c4; --panel:#fbf6ea; --line:#c9b98f; --line2:#e0d3b0;
@@ -18,6 +35,10 @@
   .dm-top{display:flex;align-items:center;gap:10px;padding:6px 12px;background:var(--bg2);border-bottom:1px solid var(--line);flex:0 0 auto}
   .dm-title{font-weight:700;color:var(--accent);font-size:15px;letter-spacing:.3px}
   .dm-title small{color:var(--text2);font-weight:400;font-size:11px;margin-left:6px}
+  .dm-auth{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);white-space:nowrap}
+  .dm-auth button{font:inherit;padding:4px 10px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:5px;cursor:pointer}
+  .dm-auth button:hover{border-color:var(--gold2)}
+  .dm-btn:disabled{opacity:.45;cursor:not-allowed}
   .dm-top .sp{flex:1}
   .dm-search{padding:4px 9px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--text);min-width:220px;font-size:12px}
   .dm-btn{padding:4px 11px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--text);cursor:pointer;font-size:12px}
@@ -65,6 +86,10 @@
   .dm-detail .layer{display:grid;grid-template-columns:44px 1fr;gap:4px 8px;font-size:11px}
   .dm-detail .layer b{color:var(--text2)}
   .dm-detail .descbox{background:#fff;border:1px solid var(--line2);border-radius:5px;padding:8px;max-height:220px;overflow:auto;font-size:12px;line-height:1.5}
+  .dm-detail .descedit{width:100%;min-height:180px;background:#fff;border:1px solid var(--line2);border-radius:5px;padding:8px;font:12px/1.6 'Gelasio','Noto Serif KR',serif;color:var(--text);box-sizing:border-box;resize:vertical}
+  .dm-detail .descedit:focus{outline:none;border-color:var(--gold2)}
+  .dm-detail .descedit-actions{margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .dm-detail .descedit-hint{font-size:10px;color:var(--text2)}
   .dm-detail pre{background:#2b2118;color:#e8dcc0;border-radius:5px;padding:8px;overflow:auto;font-size:10px;max-height:260px;white-space:pre-wrap;word-break:break-all}
   .dm-detail .close{float:right;cursor:pointer;color:var(--text2);font-size:16px}
   .dm-chip{display:inline-block;background:var(--chip);border:1px solid var(--line2);border-radius:9px;padding:0 7px;margin:1px 2px;font-size:10px}
@@ -78,8 +103,10 @@
     <span class="sp"></span>
     <input class="dm-search" id="dm-search" placeholder="검색 (slug/이름/영문/설명)…" oninput="DM.onSearch(this.value)">
     <span class="dm-diffbadge" id="dm-diff">변경 0</span>
-    <button class="dm-btn" id="dm-revert" onclick="DM.revertAll()" title="이 세션 편집 되돌리기">되돌리기</button>
-    <button class="dm-btn primary" id="dm-commit" onclick="DM.commit()" title="override 저장 + dev 커밋(컴패니언 서버)">dev 커밋</button>
+    <button class="dm-btn" id="dm-revert" onclick="DM.revertAll()" title="이 세션 편집 전부 되돌리기 (Ctrl+Z=한 단계씩)">되돌리기</button>
+    <button class="dm-btn primary" id="dm-cloud" onclick="DM.cloudSave()" title="Firestore에 저장 → pathforge에 반영 (로그인한 소유자, 로컬 서버 불필요)">☁ 클라우드 저장</button>
+    <button class="dm-btn" id="dm-commit" onclick="DM.commit()" title="로컬 override 파일 + dev git 커밋 (컴패니언 서버 필요)">파일 커밋</button>
+    <span class="dm-auth" id="dm-auth"></span>
   </div>
   <div class="dm-tabs" id="dm-tabs"></div>
   <div class="dm-body">
@@ -101,6 +128,11 @@
    ============================================================ */
 const DM = (function(){
   'use strict';
+
+  // ---- 인증: 소유자(GM 모드와 동일)만 편집·저장. 실제 잠금=firestore.rules. ----
+  const OWNER_UID = 'D11melTRb6VFObMbKvkP4t3Flgv2';   // bsg9072@gmail.com
+  let _isOwner = false, _user = null;
+  const _undo = [];                                   // Ctrl+Z 되돌리기 스택: {cat,slug,field,prev}
 
   // ---- 스키마: 탭 정의 + 컬럼 (공통 엔벨로프 + 카테고리 고유) ----
   const COMMON = ['slug','name_en','name_ko','level','traits_ko','source'];
@@ -439,7 +471,7 @@ const DM = (function(){
     let tds='';
     curTab.cols.forEach(c=>{
       const m=COLMETA[c]||{}; const v=cellVal(r,c);
-      const edit = m.edit && isEditable(c);
+      const edit = m.edit && isEditable(c) && _isOwner;   // 소유자만 편집 가능(비소유자=읽기 전용)
       const edited = edit && ovGet(tabKey(),slug,c)!=null;
       const emptyKo = c==='name_ko'&&!v;
       let cls=(m.cls||'')+(edit?' editable':'')+(edited?' edited':'')+(emptyKo?' empty-ko':'');
@@ -491,6 +523,7 @@ const DM = (function(){
   // ---- 셀 편집(더블클릭 → contenteditable) ----
   document.addEventListener('dblclick',e=>{
     const td=e.target.closest('td.editable'); if(!td)return;
+    if(!_isOwner){ return; }                                   // 소유자만 편집
     const field=td.getAttribute('data-edit'), slug=td.getAttribute('data-slug'); if(!field)return;
     const r=rows.find(x=>rowSlug(x)===slug); const orig=r?(''+(rawVal(r,field)||'')):'';
     td.setAttribute('contenteditable','true'); td.classList.remove('empty-ko');
@@ -500,6 +533,7 @@ const DM = (function(){
     const done=()=>{
       td.removeAttribute('contenteditable');
       const val=td.textContent.trim();
+      _undo.push({cat:tabKey(),slug,field,prev: ovGet(tabKey(),slug,field)});   // Ctrl+Z용 이전값 기록
       ovSet(tabKey(),slug,field, val===orig?'':val);
       td.classList.toggle('edited', ovGet(tabKey(),slug,field)!=null);
       if(field==='name_ko'&&!val){ td.classList.add('empty-ko'); td.textContent='(미번역)'; }
@@ -553,6 +587,7 @@ const DM = (function(){
     const traits=(r.system&&r.system.traits&&r.system.traits.value)||[];
     const rules=(r.system&&r.system.rules)||[];
     const descKo=r._desc_ko||'', descEn=(r.system&&r.system.description&&r.system.description.value)||'';
+    const _ovDesc=ovGet(tabKey(),slug,'desc_ko'); const _curDesc=(_ovDesc!=null?_ovDesc:descKo); const _canEditDesc=_isOwner&&isEditable('desc_ko');
     inner.innerHTML = close+
       '<h3>'+esc(koName)+'</h3><div class="slug">'+esc(r.name_en||r.name||'')+' · '+esc(slug)+'</div>'+
       '<div class="sec"><div class="sec-h">레이어</div><div class="layer">'+
@@ -561,7 +596,14 @@ const DM = (function(){
         '<b>OVR</b><span>'+esc(ovGet(tabKey(),slug,'name_ko')||'—')+'</span>'+
       '</div></div>'+
       (traits.length?'<div class="sec"><div class="sec-h">특성 ('+traits.length+')</div>'+traits.map(traitChip).join('')+'</div>':'')+
-      (descKo?'<div class="sec"><div class="sec-h">설명 (한글)</div><div class="descbox">'+descKo+'</div></div>':'')+
+      '<div class="sec"><div class="sec-h">설명 (한글)'+(_ovDesc!=null?' · <span style="color:var(--gold)">OVR</span>':'')+'</div>'+
+        (_canEditDesc
+          ? '<textarea id="desc-edit" class="descedit" spellcheck="false">'+esc(_curDesc)+'</textarea>'+
+            '<div class="descedit-actions"><button class="dm-btn primary" onclick="DM.saveDesc()">설명 저장</button>'+
+            (_ovDesc!=null?'<button class="dm-btn" onclick="DM.clearDesc()">되돌리기</button>':'')+
+            '<span class="descedit-hint">HTML·@UUID·@Check 등 그대로 보존</span></div>'
+          : (_curDesc?'<div class="descbox">'+_curDesc+'</div>':'<div class="descbox" style="color:var(--text2)">(설명 없음)</div>'))+
+      '</div>'+
       (descEn?'<div class="sec"><div class="sec-h">설명 (영문)</div><div class="descbox">'+descEn+'</div></div>':'')+
       '<div class="sec"><div class="sec-h">기계효과 rules[] ('+rules.length+') — 읽기전용</div><pre>'+esc(JSON.stringify(rules,null,1))+'</pre></div>';
   }
@@ -613,17 +655,86 @@ const DM = (function(){
       alert('컴패니언 서버 미가동 → overrides.json 다운로드로 대체.\n('+e.message+')\n이 파일을 주시면 제가 dev에 반영합니다.');
     }
   }
-  function revertAll(){ if(!confirm('이 세션의 모든 편집을 되돌릴까요?'))return; for(const k in overrides)delete overrides[k]; saveOverrides(); applyView(); closeDetail(); }
+  function revertAll(){ if(!confirm('이 세션의 모든 편집을 되돌릴까요?'))return; for(const k in overrides)delete overrides[k]; _undo.length=0; saveOverrides(); applyView(); closeDetail(); }
   function onSearch(v){ search=v; if(rows.length)applyView(); }
+
+  // ---- 인증 (소유자만 편집·저장, GM 모드와 동일) ----
+  function login(){ auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e=>alert('로그인 실패: '+e.message)); }
+  function logout(){ auth.signOut(); }
+  function updateAuthUI(){
+    const el=document.getElementById('dm-auth');
+    if(el){
+      if(_isOwner) el.innerHTML='<span title="소유자 — 편집 가능">👑 '+esc((_user&&_user.displayName)||'소유자')+'</span> <button onclick="DM.logout()">로그아웃</button>';
+      else if(_user) el.innerHTML='<span title="소유자 아님 — 읽기 전용">🔒 읽기 전용</span> <button onclick="DM.logout()">로그아웃</button>';
+      else el.innerHTML='<button onclick="DM.login()" title="소유자 로그인 시 편집·저장 가능">🔑 소유자 로그인</button>';
+    }
+    const cloud=document.getElementById('dm-cloud'), commit=document.getElementById('dm-commit');
+    if(cloud) cloud.disabled=!_isOwner;
+    if(commit) commit.disabled=!_isOwner;
+  }
+  // 클라우드 override(Firestore)를 작업본에 병합 — 공개 read. DataManager가 클라우드 상태를 표시하게.
+  async function loadCloudOverrides(){
+    try{
+      const snap=await db.collection(PF_COL.dataOverrides).doc('current').get();
+      if(!snap.exists)return;
+      const cloud=JSON.parse(snap.data().data||'{}')||{};
+      for(const cat in cloud){ overrides[cat]=overrides[cat]||{}; for(const slug in cloud[cat]){ overrides[cat][slug]=Object.assign({}, cloud[cat][slug], overrides[cat][slug]); } }
+      saveOverrides(); if(rows.length)applyView();
+    }catch(e){ console.warn('[DM cloud load]',e); }
+  }
+  // 클라우드 저장 — Firestore에 전체 작업본 기록(규칙상 소유자만). pathforge 런타임이 파일 override 위에 덮어 반영.
+  async function cloudSave(){
+    if(!_isOwner){ alert('소유자 로그인이 필요합니다.'); return; }
+    const n=diffCount(); if(!n){ alert('변경 사항이 없습니다.'); return; }
+    if(!confirm(n+'건의 편집을 클라우드에 저장할까요?\npathforge 새로고침 시 반영됩니다.'))return;
+    try{
+      await db.collection(PF_COL.dataOverrides).doc('current').set({
+        data: JSON.stringify(overrides),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedBy: _user?_user.uid:null
+      });
+      alert('클라우드 저장 완료 — pathforge 새로고침(⌘⇧R) 시 반영됩니다.');
+    }catch(e){ alert('클라우드 저장 실패: '+e.message); }
+  }
+  // 상세 패널 설명(desc_ko) 편집 저장/되돌리기 (그리드에 desc_ko 컬럼이 없는 탭용)
+  function saveDesc(){
+    if(!_isOwner||!selSlug)return;
+    const ta=document.getElementById('desc-edit'); if(!ta)return;
+    const r=rows.find(x=>rowSlug(x)===selSlug); const orig=r?(r._desc_ko||''):'';
+    const val=ta.value;
+    _undo.push({cat:tabKey(),slug:selSlug,field:'desc_ko',prev:ovGet(tabKey(),selSlug,'desc_ko')});
+    ovSet(tabKey(),selSlug,'desc_ko', val===orig?'':val);   // 원본과 같으면 override 제거
+    if(r)openDetail(r); updateStatus();
+  }
+  function clearDesc(){
+    if(!_isOwner||!selSlug)return;
+    _undo.push({cat:tabKey(),slug:selSlug,field:'desc_ko',prev:ovGet(tabKey(),selSlug,'desc_ko')});
+    ovSet(tabKey(),selSlug,'desc_ko','');
+    const r=rows.find(x=>rowSlug(x)===selSlug); if(r)openDetail(r); updateStatus();
+  }
+  // Ctrl+Z 되돌리기 — 마지막 셀 편집 한 단계 취소
+  function undo(){
+    if(!_undo.length){ const st=document.getElementById('dm-status'); if(st)st.textContent='되돌릴 편집이 없습니다.'; return; }
+    const u=_undo.pop();
+    ovSet(u.cat,u.slug,u.field, u.prev==null?'':u.prev);
+    if(rows.length)applyView();
+    if(selSlug){ const r=rows.find(x=>rowSlug(x)===selSlug); if(r)openDetail(r); }   // 상세 패널 열려 있으면 갱신(desc 편집 되돌리기 반영)
+    const st=document.getElementById('dm-status'); if(st)st.innerHTML='↩ 되돌림: <b>'+esc(u.slug)+'</b> · '+esc(u.field);
+  }
 
   // ---- init ----
   function init(){ updateDiff(); renderTabs(); if(window.PF2eData&&PF2eData.loadLocalize)PF2eData.loadLocalize();
+    // 인증 상태 추적 → 소유자면 편집 활성. 로그인/아웃 시 재렌더.
+    auth.onAuthStateChanged(function(u){ _user=u; _isOwner=!!(u && u.uid===OWNER_UID); updateAuthUI(); if(rows.length)applyView(); });
+    updateAuthUI(); loadCloudOverrides();
+    // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
+    document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
     fetch('data/derived/effect_refs.json?v=dm3').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
     fetch('data/derived/effects_db.json?v=dm3').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
-  return { init, selectTab, onSearch, commit, revertAll, closeDetail, saveEffectGroupOverride, clearEffectGroupOverride };
+  return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride };
 })();
 window.addEventListener('DOMContentLoaded', DM.init);
 </script>

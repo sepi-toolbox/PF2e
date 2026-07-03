@@ -63,8 +63,20 @@
       _fetchJSON(`${OVL_DIR}/${cat}.ko.json`),
       _fetchJSON(`${OVR_DIR}/${cat}.json`), // 파일 없으면 404 → null → {}
     ]);
-    _baseCache[cat] = base || []; _ovlCache[cat] = ovl || {}; _ovrCache[cat] = ovr || {};
-    return _buildIndex(cat, base || [], ovl || {}, ovr || {});
+    let merged = ovr || {};
+    // L4 클라우드 override: 소유자가 DataManager에서 라이브 저장한 편집(Firestore). 호스트가 window.PF2eOverrideFetcher 제공 시 파일 위에 덮음.
+    // 공개 read라 로그인 불필요. 실패/미제공/느림이면 파일 override로 조용히 진행(비침입).
+    if (typeof window !== 'undefined' && typeof window.PF2eOverrideFetcher === 'function') {
+      try { const cloud = await window.PF2eOverrideFetcher(cat); if (cloud && typeof cloud === 'object') merged = _mergeOvr(merged, cloud); } catch (e) {}
+    }
+    _baseCache[cat] = base || []; _ovlCache[cat] = ovl || {}; _ovrCache[cat] = merged;
+    return _buildIndex(cat, base || [], ovl || {}, merged);
+  }
+  // 파일 override(a) 위에 클라우드 override(b)를 슬러그 단위 병합(b 우선). 원본 불변.
+  function _mergeOvr(a, b) {
+    const out = Object.assign({}, a || {});
+    for (const slug in b) { out[slug] = Object.assign({}, (a && a[slug]) || {}, b[slug]); }
+    return out;
   }
 
   function _slugOf(d) { return (d.system && d.system.slug) || d._id; }
@@ -131,7 +143,7 @@
 
   // FVTT 인라인 @참조(@UUID/@Damage/@Check/@Template/@Localize…) → 한글 가독 렌더.
   // 시트의 모든 FVTT desc 표시 공통 진입점(장비/재주/주문). 미인식 @X[..]는 라벨만 남김.
-  const _DMG_KO = { piercing: '관통', slashing: '참격', bludgeoning: '타격', fire: '화염', cold: '냉기', acid: '산성', electricity: '전기', sonic: '음파', mental: '정신', poison: '독', void: '공허', spirit: '영혼', vitality: '활력', force: '역장', bleed: '출혈', untyped: '', precision: '정밀' };
+  const _DMG_KO = { piercing: '관통', slashing: '참격', bludgeoning: '타격', fire: '화염', cold: '냉기', acid: '산성', electricity: '전기', sonic: '음파', mental: '정신', poison: '독', void: '공허', spirit: '영혼', vitality: '활력', force: '역장', bleed: '출혈', untyped: '', precision: '정밀', healing: '회복' };
   const _SAVE_KO = { fortitude: '인내', reflex: '반사', will: '의지' };
   const _SKILL_KO = { acrobatics: '곡예', arcana: '주문학', athletics: '운동', crafting: '제작', deception: '기만', diplomacy: '외교', intimidation: '위협', medicine: '의학', nature: '자연학', occultism: '오컬티즘', performance: '공연', religion: '종교학', society: '사회', stealth: '은신', survival: '생존', thievery: '도둑질' };
   const _CHECK_KO = Object.assign({ perception: '지각', flat: '단순', spell: '주문' }, _SAVE_KO, _SKILL_KO);
@@ -178,12 +190,94 @@
       return `<span class="ref-dmg">${parts.join(' + ')}</span>`;
     });
     s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_checkTypeKo(type)}</span>`; });
+    // @link[cat.slug]{label}: 프로젝트 네이티브 엔티티 링크 → 항상 정본 name_ko로 렌더(라벨은 참조마다 제각각이라 불일치 원인).
+    // 라벨의 뒤 숫자(조건 값 등, 예 "기절 2")만 정본명에 보존. 미해소 엔티티일 때만 라벨/슬러그 폴백.
+    s = s.replace(/@link\[([a-z]+)\.([a-z0-9._-]+)\](?:\{([^}]*)\})?/g, (m, cat, slug, label) => {
+      let name = ''; try { const t = get(cat, slug); if (t) name = t.name_ko || t.name; } catch (e) {}
+      if (name) {
+        const numM = label && label.match(/([0-9]+)\s*$/);
+        if (numM && !/[0-9]\s*$/.test(name)) name += ' ' + numM[1];
+      } else name = label || slug.replace(/-/g, ' ');
+      return `<span class="ref-link" data-ref="${cat}.${slug}">${_escDesc(name)}</span>`;
+    });
     // @UUID: 참조 엔티티 정본 한글명으로 해소(로드된 카테고리 한정, 미해소 시 라벨 폴백)
     s = s.replace(/@UUID\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, uuid, label) => { let name = ''; try { const t = getByUuid((uuid || '').trim().split(/\s+/)[0]); if (t) name = t.name_ko || t.name; } catch (e) {} const shown = name || label; return shown ? `<span class="ref-link">${_escDesc(shown)}</span>` : ''; });
     // @Embed: 인라인 임베드 → 참조 엔티티 정본명(전체 임베드 대신 명칭 링크)
     s = s.replace(/@Embed\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, body, label) => { let name = ''; try { const t = getByUuid((body || '').trim().split(/\s+/)[0]); if (t) name = t.name_ko || t.name; } catch (e) {} const shown = label || name; return shown ? `<span class="ref-link">${_escDesc(shown)}</span>` : ''; });
     s = s.replace(/@Template\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const d = (body.match(/distance:(\d+)/) || [])[1]; const SH = { emanation: '발산', burst: '폭발', cone: '원뿔', line: '직선' }; const ty = (body.match(/type:(\w+)/) || [])[1]; return `<span class="ref-area">${d || ''}피트 ${SH[ty] || ty || ''}</span>`; });
     s = s.replace(/@[A-Za-z]+\[[^\]]*\](?:\{([^}]*)\})?/g, (m, l) => l || '');
+    return s;
+  }
+
+  // 비-엔티티 매크로(@Check/@Damage/@Template/[[…]] 굴림)를 "지금 시트에 보이는 한글 평문"으로 굽는다(span 없이).
+  // 데이터 정리용(bake) — enrichDesc의 해당 변환과 동일 결과의 평문. @UUID/@Embed(엔티티 참조)는 건드리지 않음(→ @link 단계에서 처리).
+  function bakePlainMacros(html) {
+    if (!html) return html;
+    let s = String(html);
+    // [[/act slug …]]{label} → 행동 한글명 (+ 판정 DC)
+    s = s.replace(/\[\[\/act\s+([a-z0-9-]+)([^\]]*)\]\](?:\{([^}]*)\})?/g, (m, slug, opts, label) => {
+      let name = label || '';
+      if (!name) { try { const a = get('actions', slug); if (a) name = a.name_ko || a.name; } catch (e) {} }
+      if (!name) name = slug.replace(/-/g, ' ');
+      const dc = (opts.match(/dc[=:](\d+)/) || [])[1];
+      const st = (opts.match(/statistic[=:]([a-z-]+)/) || [])[1];
+      const extra = [st ? _checkTypeKo(st) : '', dc ? `DC ${dc}` : ''].filter(Boolean).join(' ');
+      return `${name}${extra ? ` (${extra})` : ''}`;
+    });
+    // [[/r|gmr|br|roll …]]{label} → label 또는 주사위식+피해유형 한글
+    s = s.replace(/\[\[\/[a-z]+\s+((?:[^\[\]]|\[[^\]]*\])*)\]\](?:\{([^}]*)\})?/g, (m, body, label) => {
+      if (label) return label;
+      let f = body.replace(/#[^\s\]]*/g, '').replace(/\{([^}]*)\}/g, '$1');
+      f = f.replace(/\[([a-z, -]+)\]/g, (mm, tys) => ' ' + tys.split(',').map(t => _DMG_KO[t.trim()] !== undefined ? _DMG_KO[t.trim()] : t.trim()).filter(Boolean).join(' '));
+      return f.replace(/\s+/g, ' ').trim();
+    });
+    // 잔여 [[…]]{label}
+    s = s.replace(/\[\[((?:[^\[\]]|\[[^\]]*\])*)\]\](?:\{([^}]*)\})?/g, (m, body, label) => label || body.replace(/^\s*\/[a-z]+\s*/i, '').replace(/#.*$/, '').trim());
+    // @Damage → 라벨 있으면 라벨(수식형은 라벨이 정본 표기), 없으면 주사위식 + 한글 피해유형
+    s = s.replace(/@Damage\[((?:[^\[\]]|\[[^\]]*\])*)\](?:\{([^}]*)\})?/g, (m, body, label) => {
+      if (label) return label;
+      const _dtKo = t => { t = t.trim(); if (t === 'persistent' || /^@/.test(t)) return ''; return _DMG_KO[t] !== undefined ? _DMG_KO[t] : t; };
+      // 수식(@actor/ceil/ternary…)이 섞이면 주사위 정적표기 불가 → comma-split 없이 모든 [유형]의 한글만(주사위 생략)
+      if (/@|ceil|floor|ternary|round|\bmax\(|\bmin\(|abs\(/.test(body)) {
+        const types = []; body.replace(/\[([^\]]+)\]/g, (mm, t) => { t.split(',').forEach(x => { const k = _dtKo(x); if (k) types.push(k); }); return mm; });
+        return [...new Set(types)].join(' ');
+      }
+      const parts = body.split(/,(?![^\[]*\])/).map(p => {
+        const typeM = p.match(/\[([^\]]+)\]\s*$/) || p.match(/\[([^\]]+)\]/);
+        if (!typeM) return p.replace(/[\[\]]/g, ' ').trim();
+        const types = typeM[1].split(',').map(t => t.trim()); const persistent = types.includes('persistent');
+        const dts = types.map(_dtKo).filter(Boolean);
+        const dm = p.match(/\(?\s*([0-9dD()+\-* ]+?)\s*\)?\s*\[/);
+        const dice = dm ? dm[1].trim() : '';
+        return `${dice} ${persistent ? '지속 ' : ''}${dts.join(' ')}`.replace(/\s+/g, ' ').trim();
+      });
+      return parts.filter(Boolean).join(' + ');
+    });
+    // @Check → 라벨 있으면 라벨, 없으면 (DC) (기본) 한글 판정명
+    s = s.replace(/@Check\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, body, label) => { if (label) return label; const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `${dc ? `DC ${dc} ` : ''}${basic}${_checkTypeKo(type)}`.trim(); });
+    // @Template → N피트 형태
+    s = s.replace(/@Template\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const d = (body.match(/distance:(\d+)/) || [])[1]; const SH = { emanation: '발산', burst: '폭발', cone: '원뿔', line: '직선' }; const ty = (body.match(/type:(\w+)/) || [])[1]; return `${d || ''}피트 ${SH[ty] || ty || ''}`.trim(); });
+    return s;
+  }
+
+  // @UUID/@Embed(엔티티 참조) → @link[cat.slug] 변환. 콘텐츠 카테고리만(effects/journals/외부 몬스터 등 제외 → @UUID 유지).
+  const _LINK_CATS = new Set(['feats', 'spells', 'equipment', 'actions', 'conditions', 'heritages', 'ancestries', 'backgrounds', 'deities', 'classes']);
+  function _uuidToCatSlug(uuid) {
+    const u = (uuid || '').trim().split(/\s+/)[0];
+    const parts = u.split('.'); const id = parts[parts.length - 1]; const pack = parts[2];
+    let cat = PACK2CAT[pack], t = null;
+    if (cat) { const m = isNode ? loadCategorySync(cat) : _index[cat]; if (m && m.has(id)) t = m.get(id); else cat = null; }
+    if (!t) { for (const c of CATEGORIES) { const m = isNode ? loadCategorySync(c) : _index[c]; if (m && m.has(id)) { t = m.get(id); cat = c; break; } } }
+    if (!t || !cat || !_LINK_CATS.has(cat)) return null;
+    const slug = (t.system && t.system.slug) || '';
+    return slug ? { cat, slug } : null;
+  }
+  function bakeEntityLinks(html) {
+    if (!html) return html;
+    let s = String(html);
+    const conv = (m, uuid, label) => { const cs = _uuidToCatSlug(uuid); if (!cs) return m; return `@link[${cs.cat}.${cs.slug}]${label != null ? `{${label}}` : ''}`; };
+    s = s.replace(/@UUID\[([^\]]+)\](?:\{([^}]*)\})?/g, conv);
+    s = s.replace(/@Embed\[([^\]]+)\](?:\{([^}]*)\})?/g, conv);
     return s;
   }
 
@@ -298,7 +392,7 @@
   }
 
   const API = {
-    CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc, loadLocalize,
+    CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc, bakePlainMacros, bakeEntityLinks, loadLocalize,
     testPredicate, _testStatement, getByUuid, resolveBrackets, evalFormula,
     _state: { base: _baseCache, ovl: _ovlCache, ovr: _ovrCache, index: _index },
   };

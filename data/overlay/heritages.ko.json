@@ -1,7 +1,7 @@
 {
  "elytron-surki": {
   "name": "엘리트론 수르키",
-  "description": "<p>당신의 외골격 상층부는 특히 유연하며, 이를 펼쳐 떨어질 때 공기를 우아하게 잡을 수 있습니다. 떨어지는 거리에 상관없이 낙하로 인한 피해를 받지 않습니다.</p>\n<ul>\n<li><strong>진화</strong> 어깨의 마디가 두 개의 척추로 진화하여, 이를 활성화하면 빛나는 날개를 펼칠 수 있습니다. 당신은 하루에 한 번, 자신을 대상으로 하는 @UUID[Compendium.pf2e.spells-srd.Item.A2JfEKe6BZcTG1S8]{비행} 주문을 선천적인 주문으로 시전할 수 있습니다. 날개가 활성화된 동안, 당신은 20피트 반경에 밝은 빛을 발하고, 그 다음 20피트까지 희미한 빛을 발산합니다.</li>\n<li><strong>진화</strong> 어깨의 마디가 얇은 막을 가진 부채로 진화하여, 이 막은 마법이 흐를 때 진동합니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.VPl4pifKcq7ecK87]{공명하는 노래} 액션을 얻습니다.</li>\n</ul>"
+  "description": "<p>당신의 외골격 상층부는 특히 유연하며, 이를 펼쳐 떨어질 때 공기를 우아하게 잡을 수 있습니다. 떨어지는 거리에 상관없이 낙하로 인한 피해를 받지 않습니다.</p>\n<ul>\n<li><strong>진화</strong> 어깨의 마디가 두 개의 척추로 진화하여, 이를 활성화하면 빛나는 날개를 펼칠 수 있습니다. 당신은 하루에 한 번, 자신을 대상으로 하는 @link[spells.fly] 주문을 선천적인 주문으로 시전할 수 있습니다. 날개가 활성화된 동안, 당신은 20피트 반경에 밝은 빛을 발하고, 그 다음 20피트까지 희미한 빛을 발산합니다.</li>\n<li><strong>진화</strong> 어깨의 마디가 얇은 막을 가진 부채로 진화하여, 이 막은 마법이 흐를 때 진동합니다. 당신은 @link[actions.stridulating-song] 액션을 얻습니다.</li>\n</ul>"
  },
  "dog-kholo": {
   "name": "개 콜로",
@@ -17,7 +17,7 @@
  },
  "warrenbred-hobgoblin": {
   "name": "워렌브레드 홉고블린",
-  "description": "<p>당신의 조상들은 지하에 살았습니다. 귀는 다른 홉고블린보다 크고 메아리에 민감합니다. 지하에 있을 때, @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{탐색} 행동을 사용하여 @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{미탐지} 생물을 @Template[burst|distance:15] 대신 @Template[burst|distance:30] 안에 감지할 수 있습니다. 또한, 곡예 검사에서 성공을 @UUID[Compendium.pf2e.actionspf2e.Item.kMcV8e5EZUxa6evt]{비집고 나아가기}로 굴리면, 대신 대 성공을 얻습니다.</p>"
+  "description": "<p>당신의 조상들은 지하에 살았습니다. 귀는 다른 홉고블린보다 크고 메아리에 민감합니다. 지하에 있을 때, @link[actions.seek] 행동을 사용하여 @link[conditions.undetected] 생물을 15피트 대신 30피트 안에 감지할 수 있습니다. 또한, 곡예 검사에서 성공을 @link[actions.squeeze]로 굴리면, 대신 대 성공을 얻습니다.</p>"
  },
  "climbing-animal": {
   "name": "등반 동물",
@@ -33,7 +33,7 @@
  },
  "hunting-catfolk": {
   "name": "사냥꾼 캣포크",
-  "description": "<p>당신은 숙련된 사냥꾼과 추적자의 혈통을 이어받아 후각이 특히 예민합니다.</p>\n<p>당신은 30피트 범위의 부정확한 후각을 얻습니다. 즉, 후각을 이용해 생물의 위치를 파악할 수 있습니다. 일반적으로 플레이어가 해당 생물로부터 바람이 불지 않는 방향에 있다면 범위가 두 배로 늘어나고, 바람이 부는 방향에 있다면 범위가 절반으로 줄어듭니다.</p>\n<p>또한, 이전에 냄새를 맡은 적이 있는 생물이나 물체라면 @UUID[Compendium.pf2e.actionspf2e.Item.EA5vuSgJfiHH7plD]{추적}에 상황 보너스 +2가 붙습니다.</p>"
+  "description": "<p>당신은 숙련된 사냥꾼과 추적자의 혈통을 이어받아 후각이 특히 예민합니다.</p>\n<p>당신은 30피트 범위의 부정확한 후각을 얻습니다. 즉, 후각을 이용해 생물의 위치를 파악할 수 있습니다. 일반적으로 플레이어가 해당 생물로부터 바람이 불지 않는 방향에 있다면 범위가 두 배로 늘어나고, 바람이 부는 방향에 있다면 범위가 절반으로 줄어듭니다.</p>\n<p>또한, 이전에 냄새를 맡은 적이 있는 생물이나 물체라면 @link[actions.track]에 상황 보너스 +2가 붙습니다.</p>"
  },
  "nephilim": {
   "name": "네피림",
@@ -41,11 +41,11 @@
  },
  "kaleidoscopic-athamaru": {
   "name": "만화경 아타마루",
-  "description": "<p>당신의 비늘은 빛에 반사되는 스펙트럼 색상을 띠고 있습니다. 밝은 빛이나 희미한 빛의 영역에서, 당신은 공연 판정에 +1 상황 보너스를 얻습니다. 또한 @UUID[Compendium.pf2e.actionspf2e.Item.0LwQufKtXfRda0BR]{현혹 추구자} 반응을 얻습니다.</p>"
+  "description": "<p>당신의 비늘은 빛에 반사되는 스펙트럼 색상을 띠고 있습니다. 밝은 빛이나 희미한 빛의 영역에서, 당신은 공연 판정에 +1 상황 보너스를 얻습니다. 또한 @link[actions.dazzle-seeker] 반응을 얻습니다.</p>"
  },
  "whisper-elf": {
   "name": "속삭임 엘프",
-  "description": "<p>당신의 귀는 미세하게 조정되어 아주 작은 소리도 감지할 수 있습니다. @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{찾기} 행동을 사용해 자신에게 숨겨져 있는 30피트 이내의 @UUID[Compendium.pf2econditionitems.Item.iU0fEDdBp3rXpTMC]{숨은} 또는 @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{미탐지} 생물을 찾으면 상황 보너스 +2를 받습니다. @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 상대를 대상으로 할 때, 숨겨져 있는 대상의 경우 플랫 체크의 DC를 3으로, 숨겨진 대상의 경우 9로 감소시킵니다. 이 효과는 당신이 듣지 못하거나 생물이 소리를 낼 수 없는 경우(예: @UUID[Compendium.pf2e.spells-srd.Item.gIdDLrbswTV3OBJy]{침묵} 주문의 영향을 받은 경우)에는 적용되지 않습니다.</p>"
+  "description": "<p>당신의 귀는 미세하게 조정되어 아주 작은 소리도 감지할 수 있습니다. @link[actions.seek] 행동을 사용해 자신에게 숨겨져 있는 30피트 이내의 @link[conditions.hidden] 또는 @link[conditions.undetected] 생물을 찾으면 상황 보너스 +2를 받습니다. @link[conditions.concealed] 상대를 대상으로 할 때, 숨겨져 있는 대상의 경우 플랫 체크의 DC를 3으로, 숨겨진 대상의 경우 9로 감소시킵니다. 이 효과는 당신이 듣지 못하거나 생물이 소리를 낼 수 없는 경우(예: @link[spells.silence] 주문의 영향을 받은 경우)에는 적용되지 않습니다.</p>"
  },
  "littlehorn-minotaur": {
   "name": "작은 뿔 미노타우로스",
@@ -57,7 +57,7 @@
  },
  "thickskin-tripkee": {
   "name": "두꺼운 피부 트립키",
-  "description": "<p>당신의 두꺼운 가죽 피부는 두꺼비와 비슷합니다. 당신은 조상으로부터 6 대신 8의 체력 포인트를 얻습니다. 질병과 독에 대한 내성 판정에 +1 상황 보너스를 얻습니다.</p>"
+  "description": "<p>당신의 두꺼운 가죽 피부는 두꺼비와 비슷합니다. 당신은 조상으로부터 6 대신 8의 HP 포인트를 얻습니다. 질병과 독에 대한 내성 판정에 +1 상황 보너스를 얻습니다.</p>"
  },
  "cactus-leshy": {
   "name": "선인장 레시",
@@ -81,11 +81,11 @@
  },
  "charhide-goblin": {
   "name": "숯불 고블린",
-  "description": "<p>당신의 조상들은 항상 불과 관련이 있었고, 두꺼운 피부 덕분에 불에 타지 않습니다. 자신의 레벨의 절반에 해당하는 내화 저항력을 얻습니다(최소 1). 또한 불에 탔을 때 더 쉽게 회복할 수 있습니다. 지속적인 화염 피해를 제거하기 위한 평타 체크는 DC 15가 아니라 DC 10이며, 다른 생물이 특별히 적절한 행동으로 도움을 주면 @Check[type:평타|dc:5]로 감소합니다.</p>"
+  "description": "<p>당신의 조상들은 항상 불과 관련이 있었고, 두꺼운 피부 덕분에 불에 타지 않습니다. 자신의 레벨의 절반에 해당하는 내화 저항력을 얻습니다(최소 1). 또한 불에 탔을 때 더 쉽게 회복할 수 있습니다. 지속적인 화염 피해를 제거하기 위한 평타 체크는 DC 15가 아니라 DC 10이며, 다른 생물이 특별히 적절한 행동으로 도움을 주면 DC 5로 감소합니다.</p>"
  },
  "cavernstalker-kobold": {
   "name": "동굴추적자 코볼트",
-  "description": "<p>당신은 원시적인 대지의 에너지를 지닌 존재와 함께 좁은 터널로 가득 찬 땅굴에서 태어났으며, 이로 인해 유연하고 민첩하게 되었습니다. 바위 벽, 종유석, 그리고 다른 자연석 지형을 @UUID[Compendium.pf2e.actionspf2e.Item.pprgrYQ1QnIDGZiy]{등반}할 때, 성공 시 이동 속도의 절반으로 이동하며, 대성공 시 전체 이동 속도로 이동합니다(그리고 @UUID[Compendium.pf2e.feats-srd.Item.P04Hw8E6WAWARKHP]{빠른 등반} 특성을 가지고 있다면 성공 시에도 전체 속도로 이동할 수 있습니다). 이 특성은 당신이 등반 속도를 사용하는 경우에는 적용되지 않습니다. @UUID[Compendium.pf2e.actionspf2e.Item.kMcV8e5EZUxa6evt]{비집고 들어가기} 위해 아크로배틱스 체크를 굴려 성공할 경우, 대성공을 대신 얻습니다.</p>"
+  "description": "<p>당신은 원시적인 대지의 에너지를 지닌 존재와 함께 좁은 터널로 가득 찬 땅굴에서 태어났으며, 이로 인해 유연하고 민첩하게 되었습니다. 바위 벽, 종유석, 그리고 다른 자연석 지형을 @link[actions.climb]할 때, 성공 시 이동 속도의 절반으로 이동하며, 대성공 시 전체 이동 속도로 이동합니다(그리고 @link[feats.quick-climb] 특성을 가지고 있다면 성공 시에도 전체 속도로 이동할 수 있습니다). 이 특성은 당신이 등반 속도를 사용하는 경우에는 적용되지 않습니다. @link[actions.squeeze] 위해 아크로배틱스 체크를 굴려 성공할 경우, 대성공을 대신 얻습니다.</p>"
  },
  "liminal-catfolk": {
   "name": "리미널 캣포크",
@@ -101,11 +101,11 @@
  },
  "sailfish-merfolk": {
   "name": "돛새치 머포크",
-  "description": "<p>당신의 하체는 커다란 등지느러미가 있는 강력한 돛새치와 닮았습니다. 이 지느러미를 사용하여 물속을 더 빠르게 이동하고 더 멀리 도약할 수 있습니다. 당신의 수영 속도는 30피트로 증가합니다. @UUID[Compendium.pf2e.actionspf2e.Item.2HJ4yuEFY1Cast4h]{높이뛰기} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.JUvAvruz7yRQXfz2]{멀리뛰기}를 시도할 때, 운동 체크에 +1 상황 보너스를 얻으며, 도약 전에 이동 대신 수영할 수 있습니다.</p>"
+  "description": "<p>당신의 하체는 커다란 등지느러미가 있는 강력한 돛새치와 닮았습니다. 이 지느러미를 사용하여 물속을 더 빠르게 이동하고 더 멀리 도약할 수 있습니다. 당신의 수영 속도는 30피트로 증가합니다. @link[actions.high-jump] 또는 @link[actions.long-jump]를 시도할 때, 운동 체크에 +1 상황 보너스를 얻으며, 도약 전에 이동 대신 수영할 수 있습니다.</p>"
  },
  "caveclimber-kobold": {
   "name": "암벽등반가 코볼트",
-  "description": "<p>당신은 수직 방향의 집에 살고 있으며, 능숙한 등반가입니다. 전제 조건을 충족하지 않아도 @UUID[Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq]{컴뱃 클라이머} 기술 업적을 획득합니다. 발톱 발과 꼬리를 사용하여 양손을 자유롭게 사용할 수 있습니다. 또한, 등반을 위한 운동 검사에서 성공하면 대신 치명타에 성공합니다.</p>"
+  "description": "<p>당신은 수직 방향의 집에 살고 있으며, 능숙한 등반가입니다. 전제 조건을 충족하지 않아도 @link[feats.combat-climber] 기술 업적을 획득합니다. 발톱 발과 꼬리를 사용하여 양손을 자유롭게 사용할 수 있습니다. 또한, 등반을 위한 운동 검사에서 성공하면 대신 치명타에 성공합니다.</p>"
  },
  "forge-dwarf": {
   "name": "대장간 드워프",
@@ -113,15 +113,15 @@
  },
  "kanchil": {
   "name": "칸칠",
-  "description": "<p>당신은 쥐사슴의 머리와 발 대신 발굽을 가지고 있으며, 영리하고 설득력이 뛰어나기로 유명합니다. 말장난과 조금의 운으로 어려운 상황을 벗어나는데 능숙합니다. 당신은 기만(또는 이미 기만에 숙련된 경우 다른 기술)에 숙련됩니다. 당신은 위험이나 처벌을 피하기 위해 특별히 거짓말을 할 때 (예: 용이 당신을 먹지 않도록 설득할 때) 기만 체크에 +1의 상황 보너스를 받고, 그러한 거짓말을 밝히기 위한 @UUID[Compendium.pf2e.actionspf2e.Item.1xRFPTFtWtGJ9ELw]{감정 파악} 체크에 대한 기만 DC에 보너스를 받고, 기만를 사용하여 이니셔티브를 굴릴 때 이니셔티브 굴림에 보너스를 받습니다.</p>"
+  "description": "<p>당신은 쥐사슴의 머리와 발 대신 발굽을 가지고 있으며, 영리하고 설득력이 뛰어나기로 유명합니다. 말장난과 조금의 운으로 어려운 상황을 벗어나는데 능숙합니다. 당신은 기만(또는 이미 기만에 숙련된 경우 다른 기술)에 숙련됩니다. 당신은 위험이나 처벌을 피하기 위해 특별히 거짓말을 할 때 (예: 용이 당신을 먹지 않도록 설득할 때) 기만 체크에 +1의 상황 보너스를 받고, 그러한 거짓말을 밝히기 위한 @link[actions.sense-motive] 체크에 대한 기만 DC에 보너스를 받고, 기만를 사용하여 이니셔티브를 굴릴 때 이니셔티브 굴림에 보너스를 받습니다.</p>"
  },
  "shadow-of-the-sailor": {
   "name": "선원의 그림자",
-  "description": "<p>당신의 그림자가 수면을 가로지르며, 당신도 함께 움직입니다. 당신은 평온한 물이나 다른 피해가 없는 액체 위를 평소의 절반 속도로 걸을 수 있습니다. 흐르는 물의 표면 위에서도 이동 속도의 절반으로 걷기 시도할 수 있지만, 그러려면 물속을 이동하기 위한 수영 체크의 DC를 사용하여 @UUID[Compendium.pf2e.actionspf2e.Item.M76ycLAqHoAgbcej]{균형잡기}에 성공해야 합니다. 실패하면 물에 빠집니다. 이 곡예 체크는 행동을 사용하지 않습니다.</p>"
+  "description": "<p>당신의 그림자가 수면을 가로지르며, 당신도 함께 움직입니다. 당신은 평온한 물이나 다른 피해가 없는 액체 위를 평소의 절반 속도로 걸을 수 있습니다. 흐르는 물의 표면 위에서도 이동 속도의 절반으로 걷기 시도할 수 있지만, 그러려면 물속을 이동하기 위한 수영 체크의 DC를 사용하여 @link[actions.balance]에 성공해야 합니다. 실패하면 물에 빠집니다. 이 곡예 체크는 행동을 사용하지 않습니다.</p>"
  },
  "steadfast-tanuki": {
   "name": "불굴의 타누키",
-  "description": "<p>당신의 진정한 타누키 모습에 대한 자부심은 끝이 없습니다. @UUID[Compendium.pf2e.feats-srd.Item.fsovjV7yFMGiVs6z]{Everyday Form} 또는 @UUID[Compendium.pf2e.feats-srd.Item.U8rjCtUuk6qhFyZs]{Teakettle Form} 중 하나를 보너스 조상 피트로 선택할 수 있습니다.</p>"
+  "description": "<p>당신의 진정한 타누키 모습에 대한 자부심은 끝이 없습니다. @link[feats.everyday-form] 또는 @link[feats.teakettle-form] 중 하나를 보너스 조상 피트로 선택할 수 있습니다.</p>"
  },
  "farsight-goloma": {
   "name": "원거리 골로마",
@@ -129,7 +129,7 @@
  },
  "thorned-rose": {
   "name": "가시 장미",
-  "description": "<p>당신의 아름다운 꽃잎과 매끈해 보이는 피부에는 방심하는 자를 찌를 수 있는 소리 없는 가시가 숨겨져 있습니다. 당신의 몸은 사악할 정도로 날카로운 가시로 덮여 있어 당신을 노리는 자들의 접근을 막습니다. @UUID[Compendium.pf2e.actionspf2e.Item.ncdryKskPwHMgHFh]{사악한 가시} 리액션을 얻습니다.</p>"
+  "description": "<p>당신의 아름다운 꽃잎과 매끈해 보이는 피부에는 방심하는 자를 찌를 수 있는 소리 없는 가시가 숨겨져 있습니다. 당신의 몸은 사악할 정도로 날카로운 가시로 덮여 있어 당신을 노리는 자들의 접근을 막습니다. @link[actions.wicked-thorns] 리액션을 얻습니다.</p>"
  },
  "winter-catfolk": {
   "name": "겨울 캣포크",
@@ -141,11 +141,11 @@
  },
  "full-moon-sarangay": {
   "name": "만월 사랑가이",
-  "description": "<p>당신은 단일 사랑가이 커뮤니티나 유산을 초월한 샤먼 전통에서 자랐습니다. 젊은 시절을 샤먼 장로 아래에서 지내며 영혼과 소통하는 방법을 배웠고, 그 지식을 언젠가 백성을 조언하고 이끌기 위해 사용할 것을 희망했습니다. 당신의 전통을 따르는 사람들은 영혼을 소환하고 다른 사람들이 볼 수 없는 것을 볼 수 있는 사제나 무당입니다. 당신은 힘 대신 지혜에 조상 속성 보너스를 받고, 지혜 대신 체력에 속성 결함을 얻습니다. 당신은 @UUID[Compendium.pf2e.feats-srd.Item.ua0O6tQ3D5099mmH]{민속 치료사} 조상 재주를 얻습니다.</p>"
+  "description": "<p>당신은 단일 사랑가이 커뮤니티나 유산을 초월한 샤먼 전통에서 자랐습니다. 젊은 시절을 샤먼 장로 아래에서 지내며 영혼과 소통하는 방법을 배웠고, 그 지식을 언젠가 백성을 조언하고 이끌기 위해 사용할 것을 희망했습니다. 당신의 전통을 따르는 사람들은 영혼을 소환하고 다른 사람들이 볼 수 없는 것을 볼 수 있는 사제나 무당입니다. 당신은 힘 대신 지혜에 조상 속성 보너스를 받고, 지혜 대신 HP에 속성 결함을 얻습니다. 당신은 @link[feats.folk-healer] 조상 재주를 얻습니다.</p>"
  },
  "frilled-lizardfolk": {
   "name": "프릴 리자드포크",
-  "description": "<p>목 주름을 불태우고 등뼈를 구부려 적의 사기를 떨어뜨릴 수 있습니다. 사기를 떨어뜨리면 청각 특성을 잃고 시각 특성을 얻으며, 자신의 언어를 이해하지 못하는 생물에게 사기를 떨어뜨리려고 시도해도 불이익을 받지 않습니다. 또한, @UUID[Compendium.pf2e.actionspf2e.Item.W4M8L9WepGLamlHs]{위협적인 접근} 행동을 얻습니다.</p>"
+  "description": "<p>목 주름을 불태우고 등뼈를 구부려 적의 사기를 떨어뜨릴 수 있습니다. 사기를 떨어뜨리면 청각 특성을 잃고 시각 특성을 얻으며, 자신의 언어를 이해하지 못하는 생물에게 사기를 떨어뜨리려고 시도해도 불이익을 받지 않습니다. 또한, @link[actions.threatening-approach] 행동을 얻습니다.</p>"
  },
  "sandstrider-lizardfolk": {
   "name": "샌드스트라이더 리자드포크",
@@ -157,7 +157,7 @@
  },
  "adaptive-anadi": {
   "name": "적응형 아나디",
-  "description": "<p>당신은 변신 마법을 완성하여 더 다양한 문화에 적응할 수 있도록 노력한 아나디 혈통의 후손입니다. 일반적인 미디엄 휴머노이드 조상을 선택합니다. 인간 형태가 이 선택과 일치하는 형태로 대체됩니다. 또한, 선택한 휴머노이드 혈통에 대한 @UUID[Compendium.pf2e.feats-srd.Item.ihN8gkHSdPG9Trte]{입양한 혈통} 재주를 얻습니다.</p>"
+  "description": "<p>당신은 변신 마법을 완성하여 더 다양한 문화에 적응할 수 있도록 노력한 아나디 혈통의 후손입니다. 일반적인 미디엄 휴머노이드 조상을 선택합니다. 인간 형태가 이 선택과 일치하는 형태로 대체됩니다. 또한, 선택한 휴머노이드 혈통에 대한 @link[feats.adopted-ancestry] 재주를 얻습니다.</p>"
  },
  "stuffed-poppet": {
   "name": "박제된 퍼펫",
@@ -173,7 +173,7 @@
  },
  "stormtossed-tengu": {
   "name": "폭풍에 휩싸인 텐구",
-  "description": "<p>천봉의 축복을 받았든, 폭풍우가 치는 동안 알에서 부화했든, 폭풍우에 대한 저항력이 생겼습니다. 자신의 레벨의 절반만큼의 전기 저항을 얻습니다(최소 1).</p>\n<p>비나 안개로만 가려져 있는 @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 생물을 대상으로 하는 플랫 체크에 자동으로 성공합니다.</p>"
+  "description": "<p>천봉의 축복을 받았든, 폭풍우가 치는 동안 알에서 부화했든, 폭풍우에 대한 저항력이 생겼습니다. 자신의 레벨의 절반만큼의 전기 저항을 얻습니다(최소 1).</p>\n<p>비나 안개로만 가려져 있는 @link[conditions.concealed] 생물을 대상으로 하는 플랫 체크에 자동으로 성공합니다.</p>"
  },
  "mistbreath-azarketi": {
   "name": "안개 숨결 아자케티",
@@ -181,7 +181,7 @@
  },
  "oathkeeper-dwarf": {
   "name": "맹세 수호자 드워프",
-  "description": "<p>어릴 적부터 당신은 원하는 것을 얻기 위해 거짓말을 해본 적이 없고, 필요한 경우에도 거짓말은 당신을 불편하게 만들었습니다. 특히 신앙심이 깊은 이들은 당신이 의무의 드워프 신, @UUID[Compendium.pf2e.deities.Item.zhPhYge7VJbIlJvA]{Kols}의 축복을 받았다고 생각했을지도 모릅니다.</p>\n<p>지각 검사에 상황 보너스 +1이 @UUID[Compendium.pf2e.actionspf2e.Item.1에 붙습니다. xRFPTFtWtGJ9ELw]{감각 동기}에 대한 지각 검사와 @UUID[Compendium.pf2e.actionspf2e.Item.ewwCglB7XOPLUz72]{거짓말} 시도에 대한 지각력 DC에 +1 보너스를 받습니다. </p>\n<p>또한, 진실을 말할 때 다른 사람을 설득하기 위한 외교 검사에 +2 상황 보너스를 받고, 거짓말에 대한 상황 페널티와 @UUID[Compendium.pf2e.actionspf2e.Item.1xRFPTFtWtGJ9ELw]{감각 동기}에 대한 기만 DC에 -4 상황 페널티를 받습니다.</p>"
+  "description": "<p>어릴 적부터 당신은 원하는 것을 얻기 위해 거짓말을 해본 적이 없고, 필요한 경우에도 거짓말은 당신을 불편하게 만들었습니다. 특히 신앙심이 깊은 이들은 당신이 의무의 드워프 신, @link[deities.kols]의 축복을 받았다고 생각했을지도 모릅니다.</p>\n<p>지각 검사에 상황 보너스 +1이 @UUID[Compendium.pf2e.actionspf2e.Item.1에 붙습니다. xRFPTFtWtGJ9ELw]{감각 동기}에 대한 지각 검사와 @link[actions.lie] 시도에 대한 지각력 DC에 +1 보너스를 받습니다. </p>\n<p>또한, 진실을 말할 때 다른 사람을 설득하기 위한 외교 검사에 +2 상황 보너스를 받고, 거짓말에 대한 상황 페널티와 @link[actions.sense-motive]에 대한 기만 DC에 -4 상황 페널티를 받습니다.</p>"
  },
  "riverside-tripkee": {
   "name": "강변 트립키",
@@ -193,15 +193,15 @@
  },
  "badlands-orc": {
   "name": "황무지 오크",
-  "description": "<p>당신은 햇볕에 그을린 황무지 출신으로, 긴 다리와 비바람을 견디는 능력 덕분에 번성할 수 있었습니다. 당신은 탐험을 중단하기 전까지 @UUID[Compendium.pf2e.actionspf2e.Item.JuqmIAnkL9hVGai8]{허슬}을 두 배 더 오래 할 수 있으며, 환경 열 효과를 한 단계 덜 극심한 것으로 취급합니다(엄청난 열이 극한으로, 극심한 열이 심한 것으로 등).</p>"
+  "description": "<p>당신은 햇볕에 그을린 황무지 출신으로, 긴 다리와 비바람을 견디는 능력 덕분에 번성할 수 있었습니다. 당신은 탐험을 중단하기 전까지 @link[actions.hustle]을 두 배 더 오래 할 수 있으며, 환경 열 효과를 한 단계 덜 극심한 것으로 취급합니다(엄청난 열이 극한으로, 극심한 열이 심한 것으로 등).</p>"
  },
  "kijimuna-gnome": {
   "name": "키지무나 노움",
-  "description": "<p>당신의 조상은 나무에서 살며 티엔 샤의 모든 물에서 낚시를 했습니다. 다음 혜택 중 하나를 선택할 수 있습니다. 일단 선택한 것은 변경할 수 없습니다. </p><ul><li>모든 반얀 나무를 오를 수 있습니다. @UUID[Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq]{전투 등반가} 재주를 얻게 되며, 등반에 대한 운동 체크에 성공하면 대신 대성공을 얻게 됩니다. </li><li>모든 물고기를 잡을 수 있습니다. 수영 속도가 15피트가 됩니다. </li></ul></p>"
+  "description": "<p>당신의 조상은 나무에서 살며 티엔 샤의 모든 물에서 낚시를 했습니다. 다음 혜택 중 하나를 선택할 수 있습니다. 일단 선택한 것은 변경할 수 없습니다. </p><ul><li>모든 반얀 나무를 오를 수 있습니다. @link[feats.combat-climber] 재주를 얻게 되며, 등반에 대한 운동 체크에 성공하면 대신 대성공을 얻게 됩니다. </li><li>모든 물고기를 잡을 수 있습니다. 수영 속도가 15피트가 됩니다. </li></ul></p>"
  },
  "tailed-goblin": {
   "name": "꼬리 고블린",
-  "description": "<p>당신은 원숭이 고블린 무리의 후손이라서인지 강력한 꼬리를 가지고 있습니다. 운동 검사에 상황 보너스 +2를 획득하고, @UUID[Compendium.pf2e.actionspf2e.Item.pprgrYQ1QnIDGZiy]{등반}을 획득하며, @UUID[Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq]{컴뱃 클라이머}를 보너스 재주로로 획득하고, 등반에 필요한 자유 손 또는 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}이 하나 감소합니다.</p>"
+  "description": "<p>당신은 원숭이 고블린 무리의 후손이라서인지 강력한 꼬리를 가지고 있습니다. 운동 검사에 상황 보너스 +2를 획득하고, @link[actions.climb]을 획득하며, @link[feats.combat-climber]를 보너스 재주로로 획득하고, 등반에 필요한 자유 손 또는 @link[actions.trip]이 하나 감소합니다.</p>"
  },
  "hungerseed": {
   "name": "헝거시드",
@@ -209,7 +209,7 @@
  },
  "spined-azarketi": {
   "name": "가시 아자케티",
-  "description": "<p>지느러미는 발사 가능한 독 가시를 숨깁니다. 가시 원거리 비무장 공격으로 @Damage[1d4[poison]] 피해를 입히고 사거리가 10피트 증가하며 다트 무기군에 속하는 비무장 특성을 지니고 있습니다.</p>"
+  "description": "<p>지느러미는 발사 가능한 독 가시를 숨깁니다. 가시 원거리 비무장 공격으로 1d4 독 피해를 입히고 사거리가 10피트 증가하며 다트 무기군에 속하는 비무장 특성을 지니고 있습니다.</p>"
  },
  "nightglider-strix": {
   "name": "나이트글라이더 스트릭스",
@@ -217,7 +217,7 @@
  },
  "trogloshi": {
   "name": "트로글로시",
-  "description": "<p>울창한 밀림 숲과 깊은 동굴의 햇볕이 들지 않는 지역에 적응하여 색소가 없는 부드러운 살갗과 유난히 투명한 수정 같은 뿔을 가졌습니다. @UUID[Compendium.pf2e.feats-srd.Item.TLuFqQwvnlJNeEsv]{수정 발광} 조상 특성을 얻습니다.</p>"
+  "description": "<p>울창한 밀림 숲과 깊은 동굴의 햇볕이 들지 않는 지역에 적응하여 색소가 없는 부드러운 살갗과 유난히 투명한 수정 같은 뿔을 가졌습니다. @link[feats.crystal-luminescence] 조상 특성을 얻습니다.</p>"
  },
  "deny-the-firstborn-pursuit": {
   "name": "장자의 추적 거부",
@@ -225,27 +225,27 @@
  },
  "sweetbreath-kholo": {
   "name": "스윗브레스 콜로",
-  "description": "<p>당신은 줄무늬가 있는 창백한 털을 가진 콜로이며, 독특하게도 입에서 달콤한 향기가 나와 먹이를 매료시킬 수 있습니다. 외교 기술에 숙련되며(이미 외교에 숙련된 경우 다른 기술을 선택할 수 있습니다), 목표가 당신의 숨결을 맡을 수 있다면 @UUID[Compendium.pf2e.actionspf2e.Item.OX4fy22hQgUHDr0q]{인상 깊게 만들기} 체크에 +1 상황 보너스를 얻습니다.</p>"
+  "description": "<p>당신은 줄무늬가 있는 창백한 털을 가진 콜로이며, 독특하게도 입에서 달콤한 향기가 나와 먹이를 매료시킬 수 있습니다. 외교 기술에 숙련되며(이미 외교에 숙련된 경우 다른 기술을 선택할 수 있습니다), 목표가 당신의 숨결을 맡을 수 있다면 @link[actions.make-an-impression] 체크에 +1 상황 보너스를 얻습니다.</p>"
  },
  "breaker-surki": {
   "name": "파괴자 수르키",
-  "description": "<p>당신의 발톱은 특히 단단하여 땅과 포식자를 뚫을 수 있습니다. 당신은 1d4 베기 피해를 입히는 발톱 무장 공격을 획득합니다. 당신의 발톱은 격투 무기군에 속하며 민첩, 섬세, 무장, 그리고 다용도 B 특성을 가집니다.</p>\n<ul>\n<li><strong>진화</strong> 손목 결절이 내구성 있는 굴착 쐐기로 마법을 방출합니다. 상호작용 행동을 사용하여 발톱 무장 공격의 피해를 1d6으로 증가시키고, 마법, 소각, 그리고 다용도 힘 특성을 부여하며, 민첩 특성을 제거할 수 있습니다. 또 다른 행동을 사용하여 쐐기를 비활성화하고 발톱을 원래 통계로 되돌릴 수 있습니다.</li>\n<li><strong>진화</strong> 발목 결절이 당신을 제자리에 고정하기 위해 마법적인 발톱 스파이크를 방출할 수 있습니다. 어떤 효과로 인해 10피트 이상 이동해야 하는 경우, 이동 거리를 절반으로 줄일 수 있습니다. 발톱 스파이크의 추가 견인력으로 인해 한 손이 점유된 상태(또는 @UUID[Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq]{전투 등반가} 피트를 가지고 있는 경우 두 손이 점유된 상태)로도 등반할 수 있습니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.kWrks0NxMQH39JHD]{참호 굴착} 반응을 얻습니다.</li>\n</ul>"
+  "description": "<p>당신의 발톱은 특히 단단하여 땅과 포식자를 뚫을 수 있습니다. 당신은 1d4 베기 피해를 입히는 발톱 무장 공격을 획득합니다. 당신의 발톱은 격투 무기군에 속하며 민첩, 섬세, 무장, 그리고 다용도 B 특성을 가집니다.</p>\n<ul>\n<li><strong>진화</strong> 손목 결절이 내구성 있는 굴착 쐐기로 마법을 방출합니다. 상호작용 행동을 사용하여 발톱 무장 공격의 피해를 1d6으로 증가시키고, 마법, 소각, 그리고 다용도 힘 특성을 부여하며, 민첩 특성을 제거할 수 있습니다. 또 다른 행동을 사용하여 쐐기를 비활성화하고 발톱을 원래 통계로 되돌릴 수 있습니다.</li>\n<li><strong>진화</strong> 발목 결절이 당신을 제자리에 고정하기 위해 마법적인 발톱 스파이크를 방출할 수 있습니다. 어떤 효과로 인해 10피트 이상 이동해야 하는 경우, 이동 거리를 절반으로 줄일 수 있습니다. 발톱 스파이크의 추가 견인력으로 인해 한 손이 점유된 상태(또는 @link[feats.combat-climber] 피트를 가지고 있는 경우 두 손이 점유된 상태)로도 등반할 수 있습니다. 당신은 @link[actions.trench-digging] 반응을 얻습니다.</li>\n</ul>"
  },
  "steelskin-hobgoblin": {
   "name": "강철가죽 홉고블린",
-  "description": "<p>베이거나 화상을 입으면 우리 몸은 부상 부위에 단단하지만 유연한 굳은 살을 형성하여 대응합니다. 시간이 지나면서 굳은살은 신체의 가장 취약한 부위를 더 단단하게 만들고 손상에 대한 저항력을 높입니다. 많은 스틸스킨 홉고블린은 의도적으로 칼날과 화염을 사용해 복잡한 패턴의 상처를 남기지만, 이것이 보편적이지는 않습니다. 지속적인 물리(출혈 포함), 기력, 독 피해로부터 회복하기 위한 플랫 체크는 DC 15가 아닌 DC 13이며, 특히 효과적인 도움을 받으면 @Check[type:flat|dc:8]입니다.</p>"
+  "description": "<p>베이거나 화상을 입으면 우리 몸은 부상 부위에 단단하지만 유연한 굳은 살을 형성하여 대응합니다. 시간이 지나면서 굳은살은 신체의 가장 취약한 부위를 더 단단하게 만들고 손상에 대한 저항력을 높입니다. 많은 스틸스킨 홉고블린은 의도적으로 칼날과 화염을 사용해 복잡한 패턴의 상처를 남기지만, 이것이 보편적이지는 않습니다. 지속적인 물리(출혈 포함), 기력, 독 피해로부터 회복하기 위한 플랫 체크는 DC 15가 아닌 DC 13이며, 특히 효과적인 도움을 받으면 DC 8 단순입니다.</p>"
  },
  "waxing-moon-sarangay": {
   "name": "왁싱 문 사랑가이",
-  "description": "<p>당신의 조상들은 습지, 늪지, 홍수 숲에서 살며 잔인한 포식자와 싸우고 희소한 자원을 차지하기 위해 약탈대를 조직했습니다. 성장하는 초승달의 축복을 받은 당신은 ‘내장 파는 자’ 중 한 명으로, 어두운 물속에 숨은 위협과 땅에서 사냥하는 위협 모두를 극복할 수 있습니다. 갈색 또는 회색 털과 뒤로 또는 아래로 굽은 뿔을 가진 강력한 수영꾼입니다. @UUID[Compendium.pf2e.actionspf2e.Item.JUvAvruz7yRQXfz2]{장거리 점프} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.c8TGiZ48ygoSPofx]{수영}에 대한 운동 체크에 +2의 상황 보너스를 받습니다.</p>"
+  "description": "<p>당신의 조상들은 습지, 늪지, 홍수 숲에서 살며 잔인한 포식자와 싸우고 희소한 자원을 차지하기 위해 약탈대를 조직했습니다. 성장하는 초승달의 축복을 받은 당신은 ‘내장 파는 자’ 중 한 명으로, 어두운 물속에 숨은 위협과 땅에서 사냥하는 위협 모두를 극복할 수 있습니다. 갈색 또는 회색 털과 뒤로 또는 아래로 굽은 뿔을 가진 강력한 수영꾼입니다. @link[actions.long-jump] 또는 @link[actions.swim]에 대한 운동 체크에 +2의 상황 보너스를 받습니다.</p>"
  },
  "keen-venom-vishkanya": {
   "name": "예리한 독 비슈칸야",
-  "description": "<p>당신은 전투에서 독을 사용하는 연습을 통해 독을 순간적으로 사용할 수 있습니다. 독} 행동은 일반적으로 조작 행동에 발동하는 반응이 발동하지 않습니다. 또한, @UUID[Compendium.pf2e.actionspf2e.Item.B7wDxyjX66JkiCOV]{독 뽑기} 액션을 획득합니다.</p>"
+  "description": "<p>당신은 전투에서 독을 사용하는 연습을 통해 독을 순간적으로 사용할 수 있습니다. 독} 행동은 일반적으로 조작 행동에 발동하는 반응이 발동하지 않습니다. 또한, @link[actions.venom-draw] 액션을 획득합니다.</p>"
  },
  "polyglot-android": {
   "name": "다국어 안드로이드",
-  "description": "<p>귀하는 번역가로서 활동할 수 있는 다양한 언어 능력을 미리 프로그램되어 있습니다. 여러분은 일반적인 언어와 여러분이 접할 수 있는 흔하지 않은 언어 중에서 선택한 두 가지 언어를 새로 배웁니다. 이 언어들은 다른 언어와 동일한 형식(서명 또는 음성)을 취합니다. @UUID[Compendium.pf2e.feats-srd.Item.P9HCz0uR6xPHuw72]{다국어} 업적을 선택하면 두 가지가 아닌 세 가지 언어를 새로 배우게 됩니다.</p>"
+  "description": "<p>귀하는 번역가로서 활동할 수 있는 다양한 언어 능력을 미리 프로그램되어 있습니다. 여러분은 일반적인 언어와 여러분이 접할 수 있는 흔하지 않은 언어 중에서 선택한 두 가지 언어를 새로 배웁니다. 이 언어들은 다른 언어와 동일한 형식(서명 또는 음성)을 취합니다. @link[feats.multilingual] 업적을 선택하면 두 가지가 아닌 세 가지 언어를 새로 배우게 됩니다.</p>"
  },
  "ragdyan-vanara": {
   "name": "라그디안 바나라",
@@ -253,7 +253,7 @@
  },
  "mutated-fleshwarp": {
   "name": "돌연변이 플레시워프",
-  "description": "<p>통제되지 않은 마법으로 변신한 당신은 마나 웨이스트 또는 이와 비슷하게 통제되지 않은 마법으로 황폐화된 다른 지역에서 태어났습니다. 강화되거나 중복된 장기로 인해 지속 출혈 피해로부터 회복하는 수표의 DC는 15가 아니라 10이며, 지속 피해 회복에 특히 효과적인 도움을 받는다면 10이 아니라 @Check[type:flat|dc:5]로 감소합니다.</p>"
+  "description": "<p>통제되지 않은 마법으로 변신한 당신은 마나 웨이스트 또는 이와 비슷하게 통제되지 않은 마법으로 황폐화된 다른 지역에서 태어났습니다. 강화되거나 중복된 장기로 인해 지속 출혈 피해로부터 회복하는 수표의 DC는 15가 아니라 10이며, 지속 피해 회복에 특히 효과적인 도움을 받는다면 10이 아니라 DC 5 단순로 감소합니다.</p>"
  },
  "ancient-ash": {
   "name": "고대의 잔재",
@@ -261,7 +261,7 @@
  },
  "root-leshy": {
   "name": "루트 레시",
-  "description": "<p>당신의 몸은 튼튼한 뿌리로 만들어져 땅에 단단히 붙어 있습니다. 조상으로부터 8이 아닌 10의 HP를 얻습니다. 2주 동안 햇빛을 보지 못하면 굶어죽기 시작합니다. 인내력 또는 반사신경 DC에 상황 보너스가 +2 증가하여 @UUID[Compendium.pf2e.actionspf2e.Item.lOE4yjUnETTdaf2T]{재배치}, @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}에 대한 시도에 대한 저항력이 증가합니다. 이 보너스는 자신을 이동시키거나 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐}하게 하는 주문이나 효과에 대한 내성 굴림에도 적용됩니다. </p>"
+  "description": "<p>당신의 몸은 튼튼한 뿌리로 만들어져 땅에 단단히 붙어 있습니다. 조상으로부터 8이 아닌 10의 HP를 얻습니다. 2주 동안 햇빛을 보지 못하면 굶어죽기 시작합니다. 인내력 또는 반사신경 DC에 상황 보너스가 +2 증가하여 @link[actions.reposition], @link[actions.shove] 또는 @link[actions.trip]에 대한 시도에 대한 저항력이 증가합니다. 이 보너스는 자신을 이동시키거나 @link[conditions.prone]하게 하는 주문이나 효과에 대한 내성 굴림에도 적용됩니다. </p>"
  },
  "quilled-athamaru": {
   "name": "가시 아타마루",
@@ -277,11 +277,11 @@
  },
  "athamasi": {
   "name": "아타마시",
-  "description": "<p>당신은 나무에 오르거나 매달리는 데 적합한 작은 보조 팔 세트를 가지고 있습니다. 이 팔로는 물건을 잡거나 가져올 수 없지만, 주 손이 하나 또는 둘 다 꽉 차 있어도 기어오르거나 @UUID[Compendium.pf2e.actionspf2e.Item.3yoajuKjwHZ9ApUY]{가장자리 잡기}를 할 수 있습니다. 클라이밍 중에는 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비}에 해당하지 않습니다.</p>"
+  "description": "<p>당신은 나무에 오르거나 매달리는 데 적합한 작은 보조 팔 세트를 가지고 있습니다. 이 팔로는 물건을 잡거나 가져올 수 없지만, 주 손이 하나 또는 둘 다 꽉 차 있어도 기어오르거나 @link[actions.grab-an-edge]를 할 수 있습니다. 클라이밍 중에는 @link[conditions.off-guard]에 해당하지 않습니다.</p>"
  },
  "chrysanthemum-leshy": {
   "name": "크리스탄텀 레시",
-  "description": "<p>당신은 인간 아이처럼 보이지만, 머리에서 황제의 왕관처럼 화려한 국화 화관이 자라고 있습니다. 이 꽃잎은 약효가 있어, 독에 대한 내성 굴림에 +1의 상황 보너스를 부여합니다.</p> <p>또한 매일 준비 과정에서 머리의 꽃잎 몇 장을 해롭게 따서 신선한 물에 우려내어 단 하나의 @UUID[Compendium.pf2e.equipment-srd.Item.ktjFOp3U0wQD9t0Z]{Lesser Antidote}를 만들 수 있습니다. 이는 차의 형태를 취합니다. 6레벨에 도달하면 대신 @UUID[Compendium.pf2e.equipment-srd.Item.AJ1dC7EtTIfBey0M]{Moderate Antidote}를 생성합니다; 레벨 10에서는 @UUID[Compendium.pf2e.equipment-srd.Item.XWkeL34yJK6t5qUE]{Greater Antidote}; 레벨 14에서는 @UUID[Compendium.pf2e.equipment-srd.Item.ANzB9WzlGQXDn76G]{Major Antidote}를 생성합니다. 차의 효과는 다음 일일 준비 전에 마시지 않으면 사라집니다.</p>"
+  "description": "<p>당신은 인간 아이처럼 보이지만, 머리에서 황제의 왕관처럼 화려한 국화 화관이 자라고 있습니다. 이 꽃잎은 약효가 있어, 독에 대한 내성 굴림에 +1의 상황 보너스를 부여합니다.</p> <p>또한 매일 준비 과정에서 머리의 꽃잎 몇 장을 해롭게 따서 신선한 물에 우려내어 단 하나의 @link[equipment.antidote-lesser]를 만들 수 있습니다. 이는 차의 형태를 취합니다. 6레벨에 도달하면 대신 @link[equipment.antidote-moderate]를 생성합니다; 레벨 10에서는 @link[equipment.antidote-greater]; 레벨 14에서는 @link[equipment.antidote-major]를 생성합니다. 차의 효과는 다음 일일 준비 전에 마시지 않으면 사라집니다.</p>"
  },
  "lethoci": {
   "name": "레토시",
@@ -293,7 +293,7 @@
  },
  "runtboss-hobgoblin": {
   "name": "런트보스 홉고블린",
-  "description": "<p>당신은 고블린을 지휘하는 대대로 내려오는 홉고블린의 후손입니다. 다른 고블린보다 몸집이 작지만, 고블린은 당신이 외치는 명령에 귀를 기울입니다. @UUID[Compendium.pf2e.feats-srd.Item.gUqvezs2zzoTXFAI]{집단 강압} 기술 특성이 획득됩니다. 고블린(단, 고블린 특성을 가진 다른 생물은 제외)에게 @UUID[Compendium.pf2e.actionspf2e.Item.tHCqgwjtQtzNqVvd]{협박} 검사를 굴려 성공하면 치명타 성공, 실패하면 대실패를 얻습니다.</p>"
+  "description": "<p>당신은 고블린을 지휘하는 대대로 내려오는 홉고블린의 후손입니다. 다른 고블린보다 몸집이 작지만, 고블린은 당신이 외치는 명령에 귀를 기울입니다. @link[feats.group-coercion] 기술 특성이 획득됩니다. 고블린(단, 고블린 특성을 가진 다른 생물은 제외)에게 @link[actions.coerce] 검사를 굴려 성공하면 치명타 성공, 실패하면 대실패를 얻습니다.</p>"
  },
  "fey-touched-gnome": {
   "name": "페이-터치드 노움",
@@ -309,7 +309,7 @@
  },
  "treedweller-goblin": {
   "name": "나무꾼 고블린",
-  "description": "<p>당신은 숲이 우거진 환경에서 생활하는 데 특히 잘 적응해 왔습니다. 숲이나 정글에 있는 한, 은신 체크 시 @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{숨기} 및 @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{은밀 이동}에 대해 상황 보너스 +2가, 생존 체크 시 상황 보너스 +2가 @UUID[Compendium.pf2e.actionspf2e.Item.49y9Ec4bDii8pcD3]{서브지스트}로 증가합니다. , 생존 DC를 @UUID[Compendium.pf2e.actionspf2e.Item.SB7cMECVtE06kByk]{커버 트랙}로 변경합니다.</p>"
+  "description": "<p>당신은 숲이 우거진 환경에서 생활하는 데 특히 잘 적응해 왔습니다. 숲이나 정글에 있는 한, 은신 체크 시 @link[actions.hide] 및 @link[actions.sneak]에 대해 상황 보너스 +2가, 생존 체크 시 상황 보너스 +2가 @link[actions.subsist]로 증가합니다. , 생존 DC를 @link[actions.cover-tracks]로 변경합니다.</p>"
  },
  "toy-poppet": {
   "name": "장난감 퍼펫",
@@ -341,7 +341,7 @@
  },
  "heavenscribe-kobold": {
   "name": "천상의 필사자 코볼드",
-  "description": "<p>당신과 현명하고 천상의 제국 용들 사이의 연결은 다른 이들이 당신의 조언을 구하게 만들었습니다. 당신은 드라코닉어를 말할 수 있습니다. @UUID[Compendium.pf2e.actionspf2e.Item.OX4fy22hQgUHDr0q]{인상 남기기} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.DCb62iCBrJXy0Ik6]{요청}에 대한 외교 체크에 대실패를 할 때마다, 대신 실패를 얻게 됩니다.</p>"
+  "description": "<p>당신과 현명하고 천상의 제국 용들 사이의 연결은 다른 이들이 당신의 조언을 구하게 만들었습니다. 당신은 드라코닉어를 말할 수 있습니다. @link[actions.make-an-impression] 또는 @link[actions.request]에 대한 외교 체크에 대실패를 할 때마다, 대신 실패를 얻게 됩니다.</p>"
  },
  "sylph": {
   "name": "실프",
@@ -349,7 +349,7 @@
  },
  "jinxed-halfling": {
   "name": "징크스 하플링",
-  "description": "<p>당신은 기묘한 축복을 타고 났습니다: 일반적인 반쪽 행운을 잃은 대신 다른 사람의 운명을 조종할 수 있습니다. 이 능력은 @UUID[Compendium.pf2e.feats-srd.Item.ZbRVqf14RTJJIZXG]{하플링 행운} 능력을 사용할 수 없으며, @UUID[Compendium.pf2e.actionspf2e.Item.hFRHPBj6wjAayNtW]{징크} 행동을 얻습니다.</p>"
+  "description": "<p>당신은 기묘한 축복을 타고 났습니다: 일반적인 반쪽 행운을 잃은 대신 다른 사람의 운명을 조종할 수 있습니다. 이 능력은 @link[feats.halfling-luck] 능력을 사용할 수 없으며, @link[actions.jinx] 행동을 얻습니다.</p>"
  },
  "beastkin": {
   "name": "비스트킨",
@@ -357,7 +357,7 @@
  },
  "talos": {
   "name": "탈로스",
-  "description": "<p>당신의 신체적 특징은 주라 또는 다른 금속 원소가 혈통에 미친 영향을 반영합니다. 피부는 원광석의 칙칙한 광택부터 새 칼날의 반짝이는 광택에 이르기까지 금속성 광택을 띠며, 세월이나 고난의 흔적은 변색, 녹, 문질러짐의 형태로 나타납니다. 머리카락은 방적된 금, 감긴 강철, 구리 전선, 꼰 사슬과 비슷해질 수 있습니다. 조상으로부터 물려받은 특성 외에 탈로스 특성을 얻습니다. 전기 저항이 자신의 레벨의 절반만큼 증가합니다(최소 1). <em>@UUID[Compendium.pf2e.spells-srd.Item.vJZ83ehQiM906lea]{금속 탐지}</em> 캔트립을 마음대로 비전 타고난 주문으로 시전할 수 있습니다. 캔트립은 자신의 레벨을 반올림한 값의 절반에 해당하는 주문 랭크으로 강화됩니다.</p>\n<p>탈로스 피트, 지니킨 피트, 조상 피트를 얻을 때마다 조상 피트 중에서 선택할 수 있습니다.</p>"
+  "description": "<p>당신의 신체적 특징은 주라 또는 다른 금속 원소가 혈통에 미친 영향을 반영합니다. 피부는 원광석의 칙칙한 광택부터 새 칼날의 반짝이는 광택에 이르기까지 금속성 광택을 띠며, 세월이나 고난의 흔적은 변색, 녹, 문질러짐의 형태로 나타납니다. 머리카락은 방적된 금, 감긴 강철, 구리 전선, 꼰 사슬과 비슷해질 수 있습니다. 조상으로부터 물려받은 특성 외에 탈로스 특성을 얻습니다. 전기 저항이 자신의 레벨의 절반만큼 증가합니다(최소 1). <em>@link[spells.detect-metal]</em> 캔트립을 마음대로 비전 타고난 주문으로 시전할 수 있습니다. 캔트립은 자신의 레벨을 반올림한 값의 절반에 해당하는 주문 랭크으로 강화됩니다.</p>\n<p>탈로스 피트, 지니킨 피트, 조상 피트를 얻을 때마다 조상 피트 중에서 선택할 수 있습니다.</p>"
  },
  "river-azarketi": {
   "name": "강 아자케티",
@@ -373,15 +373,15 @@
  },
  "shadow-of-the-courtier": {
   "name": "궁정의 그림자",
-  "description": "<p>당신의 그림자가 당신과 함께 춤을 춥니다. 당신은 인상적인 연기를 할 수 있는 피트 스킬을 얻게 되어, 외교 대신 연기를 사용하여 @UUID[Compendium.pf2e.actionspf2e.Item.OX4fy22hQgUHDr0q]{인상을 남기다}를 사용할 수 있습니다. 하루에 한 번, 인상 남기기에 실패했지만 대실패는 아닌 경우, 그 체크를 연기의 일부로 처리하여 체크를 다시 할 수 있습니다. 이것은 행운의 효과입니다.</p>"
+  "description": "<p>당신의 그림자가 당신과 함께 춤을 춥니다. 당신은 인상적인 연기를 할 수 있는 피트 스킬을 얻게 되어, 외교 대신 연기를 사용하여 @link[actions.make-an-impression]를 사용할 수 있습니다. 하루에 한 번, 인상 남기기에 실패했지만 대실패는 아닌 경우, 그 체크를 연기의 일부로 처리하여 체크를 다시 할 수 있습니다. 이것은 행운의 효과입니다.</p>"
  },
  "new-moon-sarangay": {
   "name": "뉴-문 사랑가이",
-  "description": "<p>일부 사람들은 당신을 ‘왜소한 사랑가이'라고 부르며, 당신의 종족을 '숨은 자들'이라고 합니다. 다른 이들은 달이 '사냥을 나갈 때’ 달과 함께 나간다고 속삭입니다—새달이 하늘에서 사라질 때를 가리키는 민간의 표현입니다. 당신의 신비로운 조상들은 대나무 숲의 그늘에 거처를 지었으며, 조상들의 공동체는 신중함과 독립성을 중시하며, 대나무 사이를 연기처럼 가볍게 움직이는 기술을 대대로 전수했습니다. 당신의 조상들은 짙은 갈색 또는 회색 털에 흰색 무늬가 있고, V자 모양의 평평한 삼각형 뿔이 두 개 있습니다. 당신의 크기는 중형이 아닌 소형입니다. 당신은 조상으로부터 체력 8 대신 10을 얻고, @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기} 운동 체크에 +2의 상황 보너스를 얻습니다.</p>"
+  "description": "<p>일부 사람들은 당신을 ‘왜소한 사랑가이'라고 부르며, 당신의 종족을 '숨은 자들'이라고 합니다. 다른 이들은 달이 '사냥을 나갈 때’ 달과 함께 나간다고 속삭입니다—새달이 하늘에서 사라질 때를 가리키는 민간의 표현입니다. 당신의 신비로운 조상들은 대나무 숲의 그늘에 거처를 지었으며, 조상들의 공동체는 신중함과 독립성을 중시하며, 대나무 사이를 연기처럼 가볍게 움직이는 기술을 대대로 전수했습니다. 당신의 조상들은 짙은 갈색 또는 회색 털에 흰색 무늬가 있고, V자 모양의 평평한 삼각형 뿔이 두 개 있습니다. 당신의 크기는 중형이 아닌 소형입니다. 당신은 조상으로부터 HP 8 대신 10을 얻고, @link[actions.shove] 운동 체크에 +2의 상황 보너스를 얻습니다.</p>"
  },
  "roaming-minotaur": {
   "name": "유랑 미노타우로스",
-  "description": "<p>당신의 발굽은 넓고 강력하여 걸을 때 잔해를 치우기에 완벽합니다. 생존 기술에 숙련되며(이미 생존 기술에 숙련된 경우 다른 기술을 선택할 수 있습니다), @UUID[Compendium.pf2e.feats-srd.Item.4tTkRyOQ0VuRBac3]{지형 전문화} 기술 재주를 얻습니다. 당신은 지형 전문화 재주로 선택한 지형에서 자연적으로 울퉁불퉁한 지면에 의한 어려운 지형을 무시합니다.</p>"
+  "description": "<p>당신의 발굽은 넓고 강력하여 걸을 때 잔해를 치우기에 완벽합니다. 생존 기술에 숙련되며(이미 생존 기술에 숙련된 경우 다른 기술을 선택할 수 있습니다), @link[feats.terrain-expertise] 기술 재주를 얻습니다. 당신은 지형 전문화 재주로 선택한 지형에서 자연적으로 울퉁불퉁한 지면에 의한 어려운 지형을 무시합니다.</p>"
  },
  "benthic-azarketi": {
   "name": "심해 아자케티",
@@ -393,7 +393,7 @@
  },
  "celestial-envoy-kitsune": {
   "name": "천상의 사절 키츠네",
-  "description": "<p>다이키츠의 은총이든 신실한 선조들의 덕분이든, 당신은 신과 강한 인연을 맺어 특정한 보호를 받습니다. @UUID[Compendium.pf2e.actionspf2e.Item.Aq2mXT2hLlstFL5C]{천상의 특권 발동} 반응을 얻습니다. 당신의 대체 형태는 당신이 자란 곳에서 흔히 볼 수 있는 중간 휴머노이드 조상(일반적으로 인간)으로, 꼬리가 없는 형태입니다.</p>"
+  "description": "<p>다이키츠의 은총이든 신실한 선조들의 덕분이든, 당신은 신과 강한 인연을 맺어 특정한 보호를 받습니다. @link[actions.invoke-celestial-privilege] 반응을 얻습니다. 당신의 대체 형태는 당신이 자란 곳에서 흔히 볼 수 있는 중간 휴머노이드 조상(일반적으로 인간)으로, 꼬리가 없는 형태입니다.</p>"
  },
  "oread": {
   "name": "오레드",
@@ -429,11 +429,11 @@
  },
  "warmarch-hobgoblin": {
   "name": "워마치 홉고블린",
-  "description": "<p>당신은 떠돌이 용병 출신으로, 끊임없이 행군하며 오솔길에서 식량을 약탈하고 있습니다. 황야에서 @UUID[Compendium.pf2e.actionspf2e.Item.49y9Ec4bDii8pcD3]{생존}에 치명적이지는 않지만 실패하더라도, 형편없는 식량을 먹으며 버틸 수 있습니다. 탐험할 때는 @UUID[Compendium.pf2e.actionspf2e.Item.JuqmIAnkL9hVGai8]{허슬}을 두 배로 늘려야 멈출 수 있습니다.</p>"
+  "description": "<p>당신은 떠돌이 용병 출신으로, 끊임없이 행군하며 오솔길에서 식량을 약탈하고 있습니다. 황야에서 @link[actions.subsist]에 치명적이지는 않지만 실패하더라도, 형편없는 식량을 먹으며 버틸 수 있습니다. 탐험할 때는 @link[actions.hustle]을 두 배로 늘려야 멈출 수 있습니다.</p>"
  },
  "frightful-goloma": {
   "name": "무시무시한 골로마",
-  "description": "<p>당신의 얼굴은 유난히 불쾌감을 주는 외모를 가졌습니다. 협박(또는 이미 협박을 훈련받았다면 선택한 다른 기술)을 훈련받고 @UUID[Compendium.pf2e.feats-srd.Item.xQMz6eDgX75WX2ce]{협박하는 눈부심} 기술 특성이 보너스 특성으로 획득됩니다.</p>\n<hr />\n<p><em>주: 이 특성이 제공하는 기술을 이미 훈련받았다면 다른 기술을 수동으로 선택해야 합니다.</em></p>"
+  "description": "<p>당신의 얼굴은 유난히 불쾌감을 주는 외모를 가졌습니다. 협박(또는 이미 협박을 훈련받았다면 선택한 다른 기술)을 훈련받고 @link[feats.intimidating-glare] 기술 특성이 보너스 특성으로 획득됩니다.</p>\n<hr />\n<p><em>주: 이 특성이 제공하는 기술을 이미 훈련받았다면 다른 기술을 수동으로 선택해야 합니다.</em></p>"
  },
  "wintertouched-human": {
   "name": "겨울의 손길 인간",
@@ -441,7 +441,7 @@
  },
  "pine-leshy": {
   "name": "소나무 레시",
-  "description": "<p>나무껍질 같은 살에서 두껍고 끈적끈적한 수액을 배설하여 기어오르고 장비를 붙잡기 쉬워집니다. @UUID[Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq]{컴뱃 클라이머} 재주가 보너스 재주로 추가되고, @UUID[Compendium.pf2e.actionspf2e.Item.Dt6B1slsBy8ipJu9]{무장 해제} 시도에 대해 반사 DC에 +2의 상황 보너스를 받습니다.</p>"
+  "description": "<p>나무껍질 같은 살에서 두껍고 끈적끈적한 수액을 배설하여 기어오르고 장비를 붙잡기 쉬워집니다. @link[feats.combat-climber] 재주가 보너스 재주로 추가되고, @link[actions.disarm] 시도에 대해 반사 DC에 +2의 상황 보너스를 받습니다.</p>"
  },
  "pixie": {
   "name": "픽시",
@@ -461,7 +461,7 @@
  },
  "fruit-leshy": {
   "name": "후르츠 레시",
-  "description": "<p>우리 몸은 원초적인 마법이 깃든 작은 열매를 끊임없이 생산합니다. 매일 새벽에 새로운 열매가 익습니다. 자신 또는 아군은 상호작용 행동으로 이 열매를 제거할 수 있습니다. 열매로 생계를 유지할 수 있는 생물이 다음 시간 내에 상호작용 행동으로 열매를 섭취하면, 1d8의 공격력을 회복하고, 1을 초과하는 레벨 2마다 추가로 1d8의 공격력을 회복합니다. 이 효과에는 치유와 활력 특성이 있습니다.</p>\n<p>[[/r ceil(@actor.level/2)d8[healing]]]{레벨별 치유}</p>"
+  "description": "<p>우리 몸은 원초적인 마법이 깃든 작은 열매를 끊임없이 생산합니다. 매일 새벽에 새로운 열매가 익습니다. 자신 또는 아군은 상호작용 행동으로 이 열매를 제거할 수 있습니다. 열매로 생계를 유지할 수 있는 생물이 다음 시간 내에 상호작용 행동으로 열매를 섭취하면, 1d8의 공격력을 회복하고, 1을 초과하는 레벨 2마다 추가로 1d8의 공격력을 회복합니다. 이 효과에는 치유와 활력 특성이 있습니다.</p>\n<p>레벨별 치유</p>"
  },
  "luminous-sprite": {
   "name": "빛나는 스프라이트",
@@ -481,39 +481,39 @@
  },
  "laborer-android": {
   "name": "작업자 안드로이드",
-  "description": "<p>신체는 육체적 고난을 견디거나 장시간 고된 노동을 수행하도록 적응되어 있습니다. 운동(또는 이미 운동 훈련을 받은 경우 다른 기술)을 훈련하고, @UUID[Compendium.pf2e.feats-srd.Item.C0Tcelg3BAPhML6J]{거대한 짐꾼} 기술 재주를 얻습니다. </p>"
+  "description": "<p>신체는 육체적 고난을 견디거나 장시간 고된 노동을 수행하도록 적응되어 있습니다. 운동(또는 이미 운동 훈련을 받은 경우 다른 기술)을 훈련하고, @link[feats.hefty-hauler] 기술 재주를 얻습니다. </p>"
  },
  "hold-scarred-orc": {
   "name": "홀드-흉터 오크",
-  "description": "<p>당신은 의식에 참여하는 오크 커뮤니티의 일원으로 흉터나 문신을 새깁니다. 피부의 문신은 당신의 뛰어난 강인함과 생명력을 보여줍니다. 조상으로부터 10이 아닌 12의 HP를 얻습니다. 또한, @UUID[Compendium.pf2e.feats-srd.Item.I0BhPWqYf1bbzEYg]{다이하드} 피트도 획득합니다.</p>"
+  "description": "<p>당신은 의식에 참여하는 오크 커뮤니티의 일원으로 흉터나 문신을 새깁니다. 피부의 문신은 당신의 뛰어난 강인함과 생명력을 보여줍니다. 조상으로부터 10이 아닌 12의 HP를 얻습니다. 또한, @link[feats.diehard] 피트도 획득합니다.</p>"
  },
  "predator-strix": {
   "name": "프레데터 스트릭스",
-  "description": "<p>당신은 유난히 넓은 날개와 긴 발톱을 가진 스트라이크의 혈통입니다. 발톱 근접 비무장 공격으로 @Damage[1d4[slashing]] 피해를 줍니다. 발톱 공격은 난투 그룹에 속하며 기민한, 기교, 비무장 특성을 가집니다.</p>"
+  "description": "<p>당신은 유난히 넓은 날개와 긴 발톱을 가진 스트라이크의 혈통입니다. 발톱 근접 비무장 공격으로 1d4 참격 피해를 줍니다. 발톱 공격은 난투 그룹에 속하며 기민한, 기교, 비무장 특성을 가집니다.</p>"
  },
  "elemental-heart-dwarf": {
   "name": "원소 심장 드워프",
-  "description": "<p>@UUID[Compendium.pf2e.deities.Item.sZrdzh0ANQnZGXJb]{토릭의} 대장간, 불의 평면의 불기둥, 또는 다른 원천에 연결하여 에너지를 폭발적으로 발산할 수 있습니다. 므왕이 창공의 음베케와 타랄루 드워프는 이 유산이 용 또는 정령의 선물이라고 믿습니다. 산, 냉기, 전기, 화염 중 한 가지 피해 유형을 선택합니다. 한 번 선택하면 변경할 수 없습니다. @UUID[Compendium.pf2e.actionspf2e.Item.7qjfYsLNTr17Aftf]{에너지 발산} 활동을 획득합니다.</p>"
+  "description": "<p>@link[deities.torag] 대장간, 불의 평면의 불기둥, 또는 다른 원천에 연결하여 에너지를 폭발적으로 발산할 수 있습니다. 므왕이 창공의 음베케와 타랄루 드워프는 이 유산이 용 또는 정령의 선물이라고 믿습니다. 산, 냉기, 전기, 화염 중 한 가지 피해 유형을 선택합니다. 한 번 선택하면 변경할 수 없습니다. @link[actions.energy-emanation] 활동을 획득합니다.</p>"
  },
  "thickcoat-shoony": {
   "name": "두꺼운털 슈니",
-  "description": "<p>당신은 추운 지방 출신인 희귀한 슈니입니다. 당신은 자신의 레벨의 절반(최소 1)에 해당하는 추위 저항을 얻고, 주변의 추위 효과를 한 단계 덜 극심한 것으로 취급합니다(극심한 추위가 극한으로, 극한의 추위가 심한 추위로 바뀌는 식으로). 은신 중인 생물이 눈에 의해서만 @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 중인 경우 플랫 체크에 성공할 필요가 없습니다. 보호 장비를 착용하거나 대피소를 이용하지 않는 한, 환경 열 효과는 한 단계 더 극심해집니다.</p>"
+  "description": "<p>당신은 추운 지방 출신인 희귀한 슈니입니다. 당신은 자신의 레벨의 절반(최소 1)에 해당하는 추위 저항을 얻고, 주변의 추위 효과를 한 단계 덜 극심한 것으로 취급합니다(극심한 추위가 극한으로, 극한의 추위가 심한 추위로 바뀌는 식으로). 은신 중인 생물이 눈에 의해서만 @link[conditions.concealed] 중인 경우 플랫 체크에 성공할 필요가 없습니다. 보호 장비를 착용하거나 대피소를 이용하지 않는 한, 환경 열 효과는 한 단계 더 극심해집니다.</p>"
  },
  "hillock-halfling": {
   "name": "언덕바위 하플링",
-  "description": "<p>고원에서의 평온한 생활에 익숙한 종족은 특히 동물의 안락함을 만끽할 때 휴식과 안정을 되찾을 수 있습니다. 밤새 HP를 회복하면, 회복한 HP에 자신의 레벨을 더합니다. 누구든 의학 스킬을 사용해 @UUID[Compendium.pf2e.actionspf2e.Item.1kGNdIIhuglAjIp9]{상처 치료}를 사용하면, 간식을 먹으면 치료로 회복하는 체력에 자신의 레벨을 더할 수 있습니다.</p>"
+  "description": "<p>고원에서의 평온한 생활에 익숙한 종족은 특히 동물의 안락함을 만끽할 때 휴식과 안정을 되찾을 수 있습니다. 밤새 HP를 회복하면, 회복한 HP에 자신의 레벨을 더합니다. 누구든 의학 스킬을 사용해 @link[actions.treat-wounds]를 사용하면, 간식을 먹으면 치료로 회복하는 HP에 자신의 레벨을 더할 수 있습니다.</p>"
  },
  "impersonator-android": {
   "name": "임포스터 안드로이드",
-  "description": "<p>몸에 인간과 더 쉽게 섞일 수 있도록 외형과 과정이 강화되었습니다.</p>\n<p>기만(또는 이미 기만을 훈련받은 경우 다른 기술)을 훈련받게 됩니다. @UUID[Compendium.pf2e.actionspf2e.Item.AJstokjdG6iDjVjE]{사칭} 검사 시 변장 키트가 필요하지 않습니다.</p>\n<p>또한, 자신이 안드로이드가 아닌 인간인 것처럼 위장할 수 있는 위장 검사에 상황 보너스 +4를 받습니다. 이 보너스는 다른 인간 가장 검사에는 적용되지 않습니다.</p>"
+  "description": "<p>몸에 인간과 더 쉽게 섞일 수 있도록 외형과 과정이 강화되었습니다.</p>\n<p>기만(또는 이미 기만을 훈련받은 경우 다른 기술)을 훈련받게 됩니다. @link[actions.impersonate] 검사 시 변장 키트가 필요하지 않습니다.</p>\n<p>또한, 자신이 안드로이드가 아닌 인간인 것처럼 위장할 수 있는 위장 검사에 상황 보너스 +4를 받습니다. 이 보너스는 다른 인간 가장 검사에는 적용되지 않습니다.</p>"
  },
  "sanctuary-samsaran": {
   "name": "성역 삼사란",
-  "description": "<p>당신의 과거의 화신은 지하 북부의 성소에서 다시 태어났고, 오랫동안 집중하고 포커스를 유지하기 위한 훈련을 받은 기억이 있습니다. 흐릿한 회상 속에는 과거의 삶에서 열렬히 읽었던 책에 쓰여진 유용한 경전이 드러납니다. @UUID[Compendium.pf2e.actionspf2e.Item.jsEBrm8SPcsokJLw]{Tap the Past} 액션을 얻습니다.</p>"
+  "description": "<p>당신의 과거의 화신은 지하 북부의 성소에서 다시 태어났고, 오랫동안 집중하고 포커스를 유지하기 위한 훈련을 받은 기억이 있습니다. 흐릿한 회상 속에는 과거의 삶에서 열렬히 읽었던 책에 쓰여진 유용한 경전이 드러납니다. @link[actions.tap-the-past] 액션을 얻습니다.</p>"
  },
  "murkeyed-azarketi": {
   "name": "무르키드 아자케티",
-  "description": "<p>당신은 어두운 바다에 살고 있으며, 잘 보이지 않는 환경에서의 생활에 익숙해져 있습니다. 숨어 있는 생물을 목표로 할 때는 @Check[type:flat|dc:3] 성공만 하면 되고, 숨어 있는 생물을 목표로 할 때는 @Check[type:flat|dc:dc:9] 성공만 하면 됩니다.</p>"
+  "description": "<p>당신은 어두운 바다에 살고 있으며, 잘 보이지 않는 환경에서의 생활에 익숙해져 있습니다. 숨어 있는 생물을 목표로 할 때는 DC 3 단순 성공만 하면 되고, 숨어 있는 생물을 목표로 할 때는 DC 9 단순 성공만 하면 됩니다.</p>"
  },
  "aiuvarin": {
   "name": "아이우바린",
@@ -521,15 +521,15 @@
  },
  "healer-samsaran": {
   "name": "치유사 삼사란",
-  "description": "<p>깨달음을 추구하기 위해, 당신의 전생은 지하의 조상들의 고향을 떠나 티엔 샤와 골라리온의 여러 나라를 탐험했습니다. 당신의 전생은 여행 중에 위험한 사건을 겪었고, 당신은 상처를 치료하는 기억이 자주 떠올라요. 당신은 의학에 숙련되어요. 의학에 자동으로 숙련되어 있는 경우(예: 배경이나 직업으로 인해), 대신 선택한 기술에 숙련되어요.</p> <p>의학으로 @UUID[Compendium.pf2e.actionspf2e.Item.1kGNdIIhuglAjIp9]{상처 치료}를 자신에게 사용하면, 특수 기술을 사용하여 치료로 회복한 체력에 자신의 레벨을 추가할 수 있습니다. </p>"
+  "description": "<p>깨달음을 추구하기 위해, 당신의 전생은 지하의 조상들의 고향을 떠나 티엔 샤와 골라리온의 여러 나라를 탐험했습니다. 당신의 전생은 여행 중에 위험한 사건을 겪었고, 당신은 상처를 치료하는 기억이 자주 떠올라요. 당신은 의학에 숙련되어요. 의학에 자동으로 숙련되어 있는 경우(예: 배경이나 직업으로 인해), 대신 선택한 기술에 숙련되어요.</p> <p>의학으로 @link[actions.treat-wounds]를 자신에게 사용하면, 특수 기술을 사용하여 치료로 회복한 HP에 자신의 레벨을 추가할 수 있습니다. </p>"
  },
  "dark-fields-kitsune": {
   "name": "다크 필드 키츠네",
-  "description": "<p>불안한 존재감을 발휘하여 상대방의 사기를 떨어뜨릴 수 있습니다. 사기를 떨어뜨리면 청각 특성이 감소하고 시각 특성이 증가하며, 자신의 언어를 이해하지 못하는 생물에게 사기를 떨어뜨리려고 시도해도 불이익을 받지 않습니다. 또한, @UUID[Compendium.pf2e.actionspf2e.Item.Ul4I0ER6pj3U5eAk]{공포감 증폭} 리액션을 얻습니다. 대체 형상은 여우이며, 1레벨 <em>@UUID[Compendium.pf2e.spells-srd.Item.gfPjmG6Fe6D3MFjl]{해충 형태}</em> 능력치를 가집니다.</p>"
+  "description": "<p>불안한 존재감을 발휘하여 상대방의 사기를 떨어뜨릴 수 있습니다. 사기를 떨어뜨리면 청각 특성이 감소하고 시각 특성이 증가하며, 자신의 언어를 이해하지 못하는 생물에게 사기를 떨어뜨리려고 시도해도 불이익을 받지 않습니다. 또한, @link[actions.invigorating-fear] 리액션을 얻습니다. 대체 형상은 여우이며, 1레벨 <em>@link[spells.pest-form]</em> 능력치를 가집니다.</p>"
  },
  "sharp-eared-catfolk": {
   "name": "날카로운 귀 캣포크",
-  "description": "<p>당신은 기분에 따라 움직이는 크고 표현력이 풍부한 귀를 타고나서 예상치 못한 소리에도 귀를 쫑긋 세웁니다. 귀는 탐색 행동으로 30피트 이내에 들리는 감지되지 않은 생물을 찾을 때 상황 보너스 +2를 받습니다.</p>\n<p>소리로 생물을 인식하는 한, 라운드당 한 번, 귀로 모든 아군에게 자유 행동으로 해당 생물을 @UUID[Compendium.pf2e.actionspf2e.Item.sn2hIy1iIJX9Vpgj]{지적}할 수 있습니다.</p>"
+  "description": "<p>당신은 기분에 따라 움직이는 크고 표현력이 풍부한 귀를 타고나서 예상치 못한 소리에도 귀를 쫑긋 세웁니다. 귀는 탐색 행동으로 30피트 이내에 들리는 감지되지 않은 생물을 찾을 때 상황 보너스 +2를 받습니다.</p>\n<p>소리로 생물을 인식하는 한, 라운드당 한 번, 귀로 모든 아군에게 자유 행동으로 해당 생물을 @link[actions.point-out]할 수 있습니다.</p>"
  },
  "ancient-elf": {
   "name": "고대 엘프",
@@ -549,11 +549,11 @@
  },
  "pelagic-merfolk": {
   "name": "원양 머포크",
-  "description": "<p>당신은 바다의 중심에서 사는 머포크입니다. 당신의 꼬리는 사냥터에서 떼 지어 다니는 은빛 참치와 청어를 본뜬 무늬를 가지고 있습니다. 물은 당신의 의지에 따르며, 빠른 주문으로 당신 주위에 물을 감싸게 할 수 있습니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.yOk8s1pftOe5I9Sg]{보호의 물결} 액션을 얻습니다.</p>"
+  "description": "<p>당신은 바다의 중심에서 사는 머포크입니다. 당신의 꼬리는 사냥터에서 떼 지어 다니는 은빛 참치와 청어를 본뜬 무늬를 가지고 있습니다. 물은 당신의 의지에 따르며, 빠른 주문으로 당신 주위에 물을 감싸게 할 수 있습니다. 당신은 @link[actions.shielding-wave] 액션을 얻습니다.</p>"
  },
  "cliffscale-lizardfolk": {
   "name": "절벽비늘 리자드포크",
-  "description": "<p>발가락이 그립과 클라이밍에 적합하게 조정됩니다.</p>\n<p>@UUID[Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq]{컴뱃 클라이머}를 보너스 재주로 얻으며, 신발을 신지 않는 한 발에 붙은 끈끈이 패드를 사용하여 손을 자유롭게 사용할 수 있습니다.</p>\n<p>또한, 등반을 위해 운동 검사에서 성공하면 대신 치명타 성공을 얻습니다.</p>"
+  "description": "<p>발가락이 그립과 클라이밍에 적합하게 조정됩니다.</p>\n<p>@link[feats.combat-climber]를 보너스 재주로 얻으며, 신발을 신지 않는 한 발에 붙은 끈끈이 패드를 사용하여 손을 자유롭게 사용할 수 있습니다.</p>\n<p>또한, 등반을 위해 운동 검사에서 성공하면 대신 치명타 성공을 얻습니다.</p>"
  },
  "discarded-fleshwarp": {
   "name": "버려진 플레시워프",
@@ -565,19 +565,19 @@
  },
  "sturdy-skeleton": {
   "name": "튼튼한 스켈레톤",
-  "description": "<p>일부 위험한 조건은 일반 해골에 적합하지 않기 때문에 강령술사는 드워프, 오크, 또는 견고하기로 유명한 다른 생물의 뼈를 되살리는 것을 선택할 수 있습니다. HP가 6이 아닌 10이 되고, @UUID[Compendium.pf2e.feats-srd.Item.I0BhPWqYf1bbzEYg]{죽음의 강인함} 피트를 얻습니다.</p>"
+  "description": "<p>일부 위험한 조건은 일반 해골에 적합하지 않기 때문에 강령술사는 드워프, 오크, 또는 견고하기로 유명한 다른 생물의 뼈를 되살리는 것을 선택할 수 있습니다. HP가 6이 아닌 10이 되고, @link[feats.diehard] 피트를 얻습니다.</p>"
  },
  "cataphract-fleshwarp": {
   "name": "카타프랙트 플레시워프",
-  "description": "<p>전투로 단단해진 골격은 연골과 근육이 더해져 넓은 영역에서 갑옷을 견딜 수 있으며, 피부는 유연하고 탄력 있는 각질로 이루어진 작은 박차로 덮여 있어 갑옷의 접지력과 무게 분산을 최적화합니다. @UUID[Compendium.pf2e.feats-srd.Item.BStw1cANwx5baL6d]{방어구 숙련도} 특재주가 획득됩니다. </p>\n<p>직업을 통해 모든 유형의 방어구에 숙련된 경우, 대신 운동(또는 이미 운동을 숙련한 경우 선택한 기술)에 숙련되고 @UUID[Compendium.pf2e.feats-srd.Item.Lc4dJZivRwU3QEmT]{방어력 보조} 기술 특성이 획득됩니다.</p>"
+  "description": "<p>전투로 단단해진 골격은 연골과 근육이 더해져 넓은 영역에서 갑옷을 견딜 수 있으며, 피부는 유연하고 탄력 있는 각질로 이루어진 작은 박차로 덮여 있어 갑옷의 접지력과 무게 분산을 최적화합니다. @link[feats.armor-proficiency] 특재주가 획득됩니다. </p>\n<p>직업을 통해 모든 유형의 방어구에 숙련된 경우, 대신 운동(또는 이미 운동을 숙련한 경우 선택한 기술)에 숙련되고 @link[feats.armor-assist] 기술 특성이 획득됩니다.</p>"
  },
  "old-blood-vishkanya": {
   "name": "올드 블러드 비슈칸야",
-  "description": "<p>당신은 잘메라이를 개척하러 온 부드라니 배를 타고 온 비슈카야 원주민의 직계 모계 혈통입니다. 그 이후로 당신의 가족은 내해의 새로운 삶에 잘 적응해 왔습니다. 사회(또는 이미 사회 훈련을 받은 경우 원하는 다른 기술)를 훈련받고, @UUID[Compendium.pf2e.feats-srd.Item.JtjnFsOToBLnSRO9]{궁정의 은총} 또는 @UUID[Compendium.pf2e.feats-srd.Item.X2jGFfLU5qI5XVot]{거리에서} 재주 중 하나를 선택해 얻을 수 있습니다.</p>"
+  "description": "<p>당신은 잘메라이를 개척하러 온 부드라니 배를 타고 온 비슈카야 원주민의 직계 모계 혈통입니다. 그 이후로 당신의 가족은 내해의 새로운 삶에 잘 적응해 왔습니다. 사회(또는 이미 사회 훈련을 받은 경우 원하는 다른 기술)를 훈련받고, @link[feats.courtly-graces] 또는 @link[feats.streetwise] 재주 중 하나를 선택해 얻을 수 있습니다.</p>"
  },
  "liminal-fetchling": {
   "name": "리미널 페츨링",
-  "description": "<p>당신은 에테르계와 그림자계와 더 밀접한 관계를 맺고 있는 페츨링의 혈통에서 태어났으며, 그 중간계와 보이지 않는 세계에 대한 친화력을 공유하고 있습니다. 찾기 행동을 사용할 때 60피트 내에 있는 @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{미탐지} 생물을 찾는 데 +1의 상황 보너스를 받습니다. @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 생물을 대상으로 하는 평면 검사는 DC 5가 아닌 @Check[type:flat|dc:3]이며, 감지되지 않은 생물을 대상으로 하는 평면 검사는 DC 11이 아닌 @Check[type:flat|dc:9입니다.</p>"
+  "description": "<p>당신은 에테르계와 그림자계와 더 밀접한 관계를 맺고 있는 페츨링의 혈통에서 태어났으며, 그 중간계와 보이지 않는 세계에 대한 친화력을 공유하고 있습니다. 찾기 행동을 사용할 때 60피트 내에 있는 @link[conditions.undetected] 생물을 찾는 데 +1의 상황 보너스를 받습니다. @link[conditions.concealed] 생물을 대상으로 하는 평면 검사는 DC 5가 아닌 DC 3 단순이며, 감지되지 않은 생물을 대상으로 하는 평면 검사는 DC 11이 아닌 @Check[type:flat|dc:9입니다.</p>"
  },
  "reef-merfolk": {
   "name": "산호초 머포크",
@@ -593,7 +593,7 @@
  },
  "born-of-elements": {
   "name": "원소의 자식",
-  "description": "<p>당신은 비, 바람, 빛의 광선 등 자연의 한 측면이었습니다. 하지만 야생의 정수가 당신에게 영혼을 부여했습니다. 자연과의 연결로 인해, 야오과이 유산이나 조상 피트에서 얻는 모든 주문이나 마법 능력의 전통은 일반적인 전통(보통 오컬트)이 아닌 원초적입니다. </p><ul><li><strong>인간형 형태</strong> 당신은 자연 세계와 조화를 이루고 있습니다. @UUID[Compendium.pf2e.actionspf2e.Item.fJImDBQfqfjKJOhk]{방향 감지}에 대한 생존 체크에 +1의 상황 보너스를 받고, 나침반이 없어도 페널티를 받지 않습니다. @UUID[Compendium.pf2e.spells-srd.Item.kBhaPuzLUSwS6vVf]{전기 아크}, @UUID[Compendium.pf2e.spells-srd.Item.IxhGEKl63R4QBvkj]{동상}, @UUID[Compendium.pf2e.spells-srd.Item.6DfLZBl8wKIV03Iq]{점화}, @UUID[Compendium.pf2e.spells-srd.Item.iYRDFxeVpJ5KIjmr]{바늘 화살}, @UUID[Compendium.pf2e.spells-srd.Item.9I8mp7RkjeXbkYfx]{목재 화살}, @UUID[Compendium.pf2e.spells-srd.Item.zA0jNIBRgLsyTpbm]{산개 돌멩이}, @UUID[Compendium.pf2e.spells-srd.Item.1Yoipc5jNcMehtEW]{Slashing Gust}, 또는 @UUID[Compendium.pf2e.spells-srd.Item.eSL5hVT9gXrnRLtd]{Spout}. 이 주문을 타고난 원초적 캔트립으로 마음대로 시전할 수 있습니다. 캔트립은 레벨의 절반을 반올림한 마법 랭크으로 강화됩니다. </li></ul></p>"
+  "description": "<p>당신은 비, 바람, 빛의 광선 등 자연의 한 측면이었습니다. 하지만 야생의 정수가 당신에게 영혼을 부여했습니다. 자연과의 연결로 인해, 야오과이 유산이나 조상 피트에서 얻는 모든 주문이나 마법 능력의 전통은 일반적인 전통(보통 오컬트)이 아닌 원초적입니다. </p><ul><li><strong>인간형 형태</strong> 당신은 자연 세계와 조화를 이루고 있습니다. @link[actions.sense-direction]에 대한 생존 체크에 +1의 상황 보너스를 받고, 나침반이 없어도 페널티를 받지 않습니다. @link[spells.electric-arc], @link[spells.frostbite], @link[spells.ignition], @link[spells.needle-darts], @link[spells.timber], @link[spells.scatter-scree], @link[spells.slashing-gust], 또는 @link[spells.spout]. 이 주문을 타고난 원초적 캔트립으로 마음대로 시전할 수 있습니다. 캔트립은 레벨의 절반을 반올림한 마법 랭크으로 강화됩니다. </li></ul></p>"
  },
  "fodder-skeleton": {
   "name": "소모품 스켈레톤",
@@ -605,7 +605,7 @@
  },
  "shoreline-strix": {
   "name": "쇼어라인 스트릭스",
-  "description": "<p>당신은 해안으로 이동한 스트라이크의 후손입니다. 깃털은 특히 발수성이 뛰어나고 잠수용으로 매끈하게 각이 져 있어 얕은 곳에서 물고기와 다른 먹이를 잡을 수 있습니다. 운동 훈련을 받았으며, 보너스 기술 특성으로 @UUID[Compendium.pf2e.feats-srd.Item.iOY6YfGBaOvMNAor]{수중 약탈자} 기술 특성을 얻습니다.</p>"
+  "description": "<p>당신은 해안으로 이동한 스트라이크의 후손입니다. 깃털은 특히 발수성이 뛰어나고 잠수용으로 매끈하게 각이 져 있어 얕은 곳에서 물고기와 다른 먹이를 잡을 수 있습니다. 운동 훈련을 받았으며, 보너스 기술 특성으로 @link[feats.underwater-marauder] 기술 특성을 얻습니다.</p>"
  },
  "tactile-azarketi": {
   "name": "촉각 아자케티",
@@ -613,15 +613,15 @@
  },
  "mightyfall-kobold": {
   "name": "마이티폴 코볼트",
-  "description": "<p>강력한 괴물에게 가까이 지내면서 당신은 강하고 강인해졌습니다. 조상의 능력으로 체력이 6이 아닌 10을 얻습니다. 일반적인 능력치 상승과 결함 대신, 힘, 카리스마를 상승시키고 지능에 결함을 선택할 수 있습니다.</p>"
+  "description": "<p>강력한 괴물에게 가까이 지내면서 당신은 강하고 강인해졌습니다. 조상의 능력으로 HP가 6이 아닌 10을 얻습니다. 일반적인 능력치 상승과 결함 대신, 힘, 카리스마를 상승시키고 지능에 결함을 선택할 수 있습니다.</p>"
  },
  "palace-echoes-kitsune": {
   "name": "궁전의 울림 키츠네",
-  "description": "<p>당신은 뛰어난 설득력으로 아침에 궁전에 들어가 밤이 되기 전에 왕좌 뒤의 권력자가 될 수 있었던 키츠네의 후예입니다. @UUID[Compendium.pf2e.actionspf2e.Item.rlGVQku78DGoOl9V]{Nudging Whisper} 행동을 얻습니다.</p> <p>대체 형태는 성장한 지역에서 흔히 볼 수 있는 중간 크기의 인간형 조상(일반적으로 인간)으로, 꼬리가 없는 형태입니다.</p>"
+  "description": "<p>당신은 뛰어난 설득력으로 아침에 궁전에 들어가 밤이 되기 전에 왕좌 뒤의 권력자가 될 수 있었던 키츠네의 후예입니다. @link[actions.nudging-whisper] 행동을 얻습니다.</p> <p>대체 형태는 성장한 지역에서 흔히 볼 수 있는 중간 크기의 인간형 조상(일반적으로 인간)으로, 꼬리가 없는 형태입니다.</p>"
  },
  "great-kholo": {
   "name": "위대한 콜로",
-  "description": "<p>당신은 당당하고 강력한 콜로로, 황갈색 털과 갈색 반점이 있습니다. 당신은 혈통으로부터 8 대신 10의 체력을 얻으며, @UUID[Compendium.pf2e.actionspf2e.Item.lOE4yjUnETTdaf2T]{재배치}, @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기}, 또는 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}를 시도할 때 운동 체크에 +1 상황 보너스를 얻습니다.</p>"
+  "description": "<p>당신은 당당하고 강력한 콜로로, 황갈색 털과 갈색 반점이 있습니다. 당신은 혈통으로부터 8 대신 10의 HP를 얻으며, @link[actions.reposition], @link[actions.shove], 또는 @link[actions.trip]를 시도할 때 운동 체크에 +1 상황 보너스를 얻습니다.</p>"
  },
  "naari": {
   "name": "나아리",
@@ -633,7 +633,7 @@
  },
  "woodstalker-lizardfolk": {
   "name": "나무꾼 리자드포크",
-  "description": "<p>숲과 정글에서 나뭇가지나 덤불을 이용해 쉽게 이동할 수 있습니다. 숲이나 정글 지형에서는 일반적으로 엄폐할 수 있는 장애물 옆에 있지 않더라도 언제든지 엄폐 행동을 사용하여 엄폐할 수 있습니다. 은신 훈련이 되어 있지 않더라도 @UUID[Compendium.pf2e.feats-srd.Item.beyw5bdA5hkQbmaG]{지형 추적자} 재주를 획득하며, 반드시 덤불 지형을 선택해야 합니다.</p>"
+  "description": "<p>숲과 정글에서 나뭇가지나 덤불을 이용해 쉽게 이동할 수 있습니다. 숲이나 정글 지형에서는 일반적으로 엄폐할 수 있는 장애물 옆에 있지 않더라도 언제든지 엄폐 행동을 사용하여 엄폐할 수 있습니다. 은신 훈련이 되어 있지 않더라도 @link[feats.terrain-stalker] 재주를 획득하며, 반드시 덤불 지형을 선택해야 합니다.</p>"
  },
  "dijiang": {
   "name": "디장",
@@ -641,11 +641,11 @@
  },
  "melixie": {
   "name": "멜릭시",
-  "description": "<p>당신은 벌, 나비 또는 단 것을 좋아하는 다른 곤충의 특징을 가지고 있습니다. 절지동물(곤충, 거미, 전갈, 게 및 이와 유사한 무척추동물)에게 질문하고 답변을 받을 수 있으며, 외교를 사용해 인상을 남기거나 무언가를 요청할 수 있습니다. 대부분의 벌, 나비, 나방, 딱정벌레는 @UUID[Compendium.pf2e.conditionitems.Item.fuG8dgthlDWfWjIA]{무관심} 또는 @UUID[Compendium.pf2e.conditionitems.Item.v66R7FdOf11l94im]{우호적}의 시작 태도를 가지고 있으며, 다른 절지동물은 다른 모험가와 마찬가지로 당신에게 반응하지만 당신의 주장을 할 시간을 줍니다.</p>"
+  "description": "<p>당신은 벌, 나비 또는 단 것을 좋아하는 다른 곤충의 특징을 가지고 있습니다. 절지동물(곤충, 거미, 전갈, 게 및 이와 유사한 무척추동물)에게 질문하고 답변을 받을 수 있으며, 외교를 사용해 인상을 남기거나 무언가를 요청할 수 있습니다. 대부분의 벌, 나비, 나방, 딱정벌레는 @link[conditions.indifferent] 또는 @link[conditions.friendly]의 시작 태도를 가지고 있으며, 다른 절지동물은 다른 모험가와 마찬가지로 당신에게 반응하지만 당신의 주장을 할 시간을 줍니다.</p>"
  },
  "tunnel-rat": {
   "name": "터널 랫",
-  "description": "<p>놀랍도록 작은 뼈 덕분에 몸을 쉽게 압축하고 틈새를 비집고 들어갈 수 있습니다. 곡예 훈련을 받지 않았더라도 보너스 재주로 @UUID[Compendium.pf2e.feats-srd.Item.3G8xUlgCjRmRJNfP]{퀵 스퀴즈} 특성을 얻습니다. 꽉 쥐기 동작이 필요하지 않을 정도로 좁은 공간은 어려운 지형이 아닙니다.</p>"
+  "description": "<p>놀랍도록 작은 뼈 덕분에 몸을 쉽게 압축하고 틈새를 비집고 들어갈 수 있습니다. 곡예 훈련을 받지 않았더라도 보너스 재주로 @link[feats.quick-squeeze] 특성을 얻습니다. 꽉 쥐기 동작이 필요하지 않을 정도로 좁은 공간은 어려운 지형이 아닙니다.</p>"
  },
  "unbreakable-goblin": {
   "name": "불굴의 고블린",
@@ -665,7 +665,7 @@
  },
  "shadow-of-the-smith": {
   "name": "대장장이의 그림자",
-  "description": "<p>당신의 그림자는 두껍고 액체처럼 흐르며, 가장 순수한 광석을 녹일 수 있을 듯합니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.lgpJoFrkzfkjAzeV]{Inscribe Shadow Pamor} 행동을 얻습니다.</p>"
+  "description": "<p>당신의 그림자는 두껍고 액체처럼 흐르며, 가장 순수한 광석을 녹일 수 있을 듯합니다. 당신은 @link[actions.inscribe-shadow-pamor] 행동을 얻습니다.</p>"
  },
  "spellhorn-kobold": {
   "name": "스펠혼 코볼트",
@@ -673,7 +673,7 @@
  },
  "rock-dwarf": {
   "name": "바위 드워프",
-  "description": "<p>당신의 조상들은 산이나 땅속 깊은 곳의 오래된 돌들 사이에서 살며 일했습니다. 이 덕분에 당신은 발을 디딜 때 바위처럼 단단해집니다. @UUID[Compendium.pf2e.actionspf2e.Item.lOE4yjUnETTdaf2T]{재배치}, @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}에 대한 시도에 대해 인내력 또는 반사신경 DC에 +2의 상황 보너스를 받습니다. 이 보너스는 플레이어를 강제로 이동시키거나 쓰러뜨리는 주문이나 효과에 대한 내성 굴림에도 적용됩니다 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐}.</p>\n<p>또한, 플레이어를 10피트 이상 이동시키는 효과는 그 거리의 절반만 이동합니다.</p>"
+  "description": "<p>당신의 조상들은 산이나 땅속 깊은 곳의 오래된 돌들 사이에서 살며 일했습니다. 이 덕분에 당신은 발을 디딜 때 바위처럼 단단해집니다. @link[actions.reposition], @link[actions.shove] 또는 @link[actions.trip]에 대한 시도에 대해 인내력 또는 반사신경 DC에 +2의 상황 보너스를 받습니다. 이 보너스는 플레이어를 강제로 이동시키거나 쓰러뜨리는 주문이나 효과에 대한 내성 굴림에도 적용됩니다 @link[conditions.prone].</p>\n<p>또한, 플레이어를 10피트 이상 이동시키는 효과는 그 거리의 절반만 이동합니다.</p>"
  },
  "death-warden-dwarf": {
   "name": "죽음의 감시자 드워프",
@@ -685,15 +685,15 @@
  },
  "artisan-android": {
   "name": "장인 안드로이드",
-  "description": "<p>당신의 몸은 원래 예술 작품이나 복잡한 도구를 만들거나 첨단 기계를 정비하도록 설계되었습니다. 제작(또는 이미 제작을 훈련받은 경우 다른 기술)을 훈련받고, 선택한 전문 기술에서 @UUID[Compendium.pf2e.feats-srd.Item.QLeMH5mQgh28sa5o]{특수 제작} 기술 능력을 얻습니다.</p>"
+  "description": "<p>당신의 몸은 원래 예술 작품이나 복잡한 도구를 만들거나 첨단 기계를 정비하도록 설계되었습니다. 제작(또는 이미 제작을 훈련받은 경우 다른 기술)을 훈련받고, 선택한 전문 기술에서 @link[feats.specialty-crafting] 기술 능력을 얻습니다.</p>"
  },
  "vivacious-gnome": {
   "name": "활기찬 노움",
-  "description": "<p>당신은 제1세계에 흐르는 생명력 에너지에 엄청나게 강하게 연결되어 있어, 공허 에너지로 생명력을 공격하기가 더 어려워집니다. 자신의 레벨의 절반에 해당하는 공허 저항력을 얻습니다(최소 1). @UUID[Compendium.pf2e.conditionitems.Item.3uh1r86TzbQvosxv]{파멸} 상태가 되면, 이 조건은 실제보다 1 낮은 수치인 것처럼 영향을 줍니다(파멸 1은 효과가 없고, 파멸 2는 @UUID[Compendium.pf2e.conditionitems.Item.yZRUzMqrMmfLu0V1]{빈사 3}에서 사망합니다 등).</p>"
+  "description": "<p>당신은 제1세계에 흐르는 생명력 에너지에 엄청나게 강하게 연결되어 있어, 공허 에너지로 생명력을 공격하기가 더 어려워집니다. 자신의 레벨의 절반에 해당하는 공허 저항력을 얻습니다(최소 1). @link[conditions.doomed] 상태가 되면, 이 조건은 실제보다 1 낮은 수치인 것처럼 영향을 줍니다(파멸 1은 효과가 없고, 파멸 2는 @link[conditions.dying]{3}에서 사망합니다 등).</p>"
  },
  "enchanting-lily": {
   "name": "매혹적인 백합",
-  "description": "<p>당신에게서 백합의 매혹적인 향기와 라일락의 부드러운 향기 같은 섬세한 꽃향기가 느껴집니다. 당신은 외교 훈련을 받았습니다(이미 외교 훈련을 받았다면 다른 기술을 훈련받았습니다). 또한, 대상이 내 향기 냄새를 맡을 수 있다면 @UUID[Compendium.pf2e.actionspf2e.Item.OX4fy22hQgUHDr0q]{인상 남기기} 체크에 +1의 상황 보너스를 받습니다.</p>"
+  "description": "<p>당신에게서 백합의 매혹적인 향기와 라일락의 부드러운 향기 같은 섬세한 꽃향기가 느껴집니다. 당신은 외교 훈련을 받았습니다(이미 외교 훈련을 받았다면 다른 기술을 훈련받았습니다). 또한, 대상이 내 향기 냄새를 맡을 수 있다면 @link[actions.make-an-impression] 체크에 +1의 상황 보너스를 받습니다.</p>"
  },
  "grave-orc": {
   "name": "무덤 오크",
@@ -705,7 +705,7 @@
  },
  "strongjaw-kobold": {
   "name": "강한 턱 코볼트",
-  "description": "<p>당신의 혈통은 강력한 턱과 날카로운 이빨로 유명합니다. 턱으로 비무장 공격을 하여 @Damage[1d6[piercing]] 피해를 줍니다. 턱은 난투 그룹에 속하며 기교와 비무장 특성을 가집니다</p>"
+  "description": "<p>당신의 혈통은 강력한 턱과 날카로운 이빨로 유명합니다. 턱으로 비무장 공격을 하여 1d6 관통 피해를 줍니다. 턱은 난투 그룹에 속하며 기교와 비무장 특성을 가집니다</p>"
  },
  "respite-of-loam-and-leaf": {
   "name": "흙과 잎의 휴식",
@@ -713,7 +713,7 @@
  },
  "earthly-wilds-kitsune": {
   "name": "대지의 야생 키츠네",
-  "description": "<p>당신은 도시 사회보다 야생에 더 가까운 친화력을 지닌 물질계의 생명체입니다. 턱이 비무장 공격으로 @Damage[1d6[piercing]] 피해를 줍니다. 턱은 난투에 속하며 기교와 비무장 특성을 가지고 있습니다. 대체 형상은 여우이며, 1레벨 <em>@UUID[Compendium.pf2e.spells-srd.Item.gfPjmG6Fe6D3MFjl]{해충 형태}</em> 능력치를 가집니다.</p>"
+  "description": "<p>당신은 도시 사회보다 야생에 더 가까운 친화력을 지닌 물질계의 생명체입니다. 턱이 비무장 공격으로 1d6 관통 피해를 줍니다. 턱은 난투에 속하며 기교와 비무장 특성을 가지고 있습니다. 대체 형상은 여우이며, 1레벨 <em>@link[spells.pest-form]</em> 능력치를 가집니다.</p>"
  },
  "spindly-anadi": {
   "name": "스핀들리 아나디",
@@ -721,7 +721,7 @@
  },
  "lantern-surki": {
   "name": "등불 수르키",
-  "description": "<p>당신의 복부 마디는 특히 밝은 빛을 발산합니다. 당신은 상호작용 액션을 사용해 복부에서 20피트 반경으로 빛을 발할 수 있습니다(그 다음 20피트까지 희미한 빛). 이것은 당신의 레벨과 같은 레벨의 마법 빛 효과입니다. 상호작용 액션을 통해 빛의 색을 변경하거나 소등할 수 있습니다.</p>\n<ul>\n<li><strong>진화</strong> 당신의 복부 마디가 마법 초점 렌즈를 투사하는 보조 팔로 진화했습니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.ako5zZwC6o26cfCQ]{등불 광선} 액션을 얻습니다.</li>\n<li><strong>진화</strong> 어깨 마디에서 성장하는 보조 빛 발사체가 당신의 등불과 맞물려 깜빡입니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.aVGNaNgG6cYNRp5A]{등불 섬광} 액션을 얻습니다.</li>\n</ul>"
+  "description": "<p>당신의 복부 마디는 특히 밝은 빛을 발산합니다. 당신은 상호작용 액션을 사용해 복부에서 20피트 반경으로 빛을 발할 수 있습니다(그 다음 20피트까지 희미한 빛). 이것은 당신의 레벨과 같은 레벨의 마법 빛 효과입니다. 상호작용 액션을 통해 빛의 색을 변경하거나 소등할 수 있습니다.</p>\n<ul>\n<li><strong>진화</strong> 당신의 복부 마디가 마법 초점 렌즈를 투사하는 보조 팔로 진화했습니다. 당신은 @link[actions.lantern-beam] 액션을 얻습니다.</li>\n<li><strong>진화</strong> 어깨 마디에서 성장하는 보조 빛 발사체가 당신의 등불과 맞물려 깜빡입니다. 당신은 @link[actions.lantern-strobe] 액션을 얻습니다.</li>\n</ul>"
  },
  "ironhoof-centaur": {
   "name": "강철발굽 켄타우로스",
@@ -733,7 +733,7 @@
  },
  "deny-the-traitors-rebirth": {
   "name": "배신자의 부활을 거부하라",
-  "description": "<p>당신은 야크샤 전설에서 타락한 친족으로 비난받는 라크샤사와 아수라로부터 다른 사람들을 구출하겠다고 맹세했습니다. 그들의 어두운 음모를 막기 위해, 당신의 맹세는 당신에게 암흑 시력과 @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{Seek}에 대한 지각 체크에 +1의 상황 보너스를 부여합니다. 또는 @UUID[Compendium.pf2e.actionspf2e.Item.1xRFPTFtWtGJ9ELw]{Sense the Motives}를 통해 라크샤사와 아수라의 의도를 감지할 수 있습니다.</p><hr /><p><strong>추가 칙령</strong> 당신이 마주치는 라크샤사와 아수라와 대결합니다 (성공할 합리적인 기회가 있는 한). 드물게 자비로운 라크샤사나 아수라를 만난 경우에는 대결할 필요가 없습니다. </p>"
+  "description": "<p>당신은 야크샤 전설에서 타락한 친족으로 비난받는 라크샤사와 아수라로부터 다른 사람들을 구출하겠다고 맹세했습니다. 그들의 어두운 음모를 막기 위해, 당신의 맹세는 당신에게 암흑 시력과 @link[actions.seek]에 대한 지각 체크에 +1의 상황 보너스를 부여합니다. 또는 @link[actions.sense-motive]를 통해 라크샤사와 아수라의 의도를 감지할 수 있습니다.</p><hr /><p><strong>추가 칙령</strong> 당신이 마주치는 라크샤사와 아수라와 대결합니다 (성공할 합리적인 기회가 있는 한). 드물게 자비로운 라크샤사나 아수라를 만난 경우에는 대결할 필요가 없습니다. </p>"
  },
  "tunnelflood-kobold": {
   "name": "터널홍수 코볼트",
@@ -753,19 +753,19 @@
  },
  "ghost-bull-minotaur": {
   "name": "유령 황소 미노타우로스",
-  "description": "<p>당신의 털은 죽음처럼 창백하며, 아마도 당신이나 당신의 가족이 사후세계와 연결되어 있어 초자연적으로 길을 찾을 수 있습니다. 당신은 @UUID[Compendium.pf2e.spells-srd.Item.tXa5vOu5giBNCjdR]{길 알기}를 선천적인 신비 주문으로 마음대로 시전할 수 있습니다. 주문은 당신의 레벨의 절반을 반올림한 주문 랭크로 강화됩니다. 추가로, 당신은 @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{혼란} 상태를 유발하는 주문이나 효과에 대해 +1 상황 보너스를 얻습니다.</p>"
+  "description": "<p>당신의 털은 죽음처럼 창백하며, 아마도 당신이나 당신의 가족이 사후세계와 연결되어 있어 초자연적으로 길을 찾을 수 있습니다. 당신은 @link[spells.know-the-way]를 선천적인 신비 주문으로 마음대로 시전할 수 있습니다. 주문은 당신의 레벨의 절반을 반올림한 주문 랭크로 강화됩니다. 추가로, 당신은 @link[conditions.confused] 상태를 유발하는 주문이나 효과에 대해 +1 상황 보너스를 얻습니다.</p>"
  },
  "strong-oak": {
   "name": "강한 오크",
-  "description": "<p>대부분의 고란은 유연한 덩굴과 질긴 줄기로 이루어진 몸체를 가지고 있지만, 당신은 튼튼하고 거친 나무껍질로 덮여 있고 다리는 뿌리처럼 안정적입니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.PMbdMWc2QroouFGD]{붙잡기} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기} 시도에 대해 당신의 인내 또는 반사신경 DC에 +2의 상황 보너스를 받습니다. 이 보너스는 @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기} , @UUID[Compendium. pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{구속}, @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐}때에도 적용되며, 곡예 체크 시 상황 보너스 +2가 @UUID[Compendium.pf2e.actionspf2e.Item.M76ycLAqHoAgbcej]{균형잡기}에도 적용됩니다.</p>"
+  "description": "<p>대부분의 고란은 유연한 덩굴과 질긴 줄기로 이루어진 몸체를 가지고 있지만, 당신은 튼튼하고 거친 나무껍질로 덮여 있고 다리는 뿌리처럼 안정적입니다. 당신은 @link[actions.grapple] 또는 @link[actions.trip] 시도에 대해 당신의 인내 또는 반사신경 DC에 +2의 상황 보너스를 받습니다. 이 보너스는 @link[conditions.grabbed] , @UUID[Compendium. pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{구속}, @link[conditions.prone]때에도 적용되며, 곡예 체크 시 상황 보너스 +2가 @link[actions.balance]에도 적용됩니다.</p>"
  },
  "clawed-catfolk": {
   "name": "발톱 캣포크",
-  "description": "<p>귀족의 발톱은 특히 길고 날카로운 발톱을 가지고 있어 한 번 휘두르면 피를 흘리며 상처를 낼 수 있습니다. 발톱으로 비무장 공격으로 @Damage[1d6[slashing]] 피해를 줍니다. 발톱은 난투 그룹에 속하며 민첩성,기교, 비무장 특성을 가집니다.</p>"
+  "description": "<p>귀족의 발톱은 특히 길고 날카로운 발톱을 가지고 있어 한 번 휘두르면 피를 흘리며 상처를 낼 수 있습니다. 발톱으로 비무장 공격으로 1d6 참격 피해를 줍니다. 발톱은 난투 그룹에 속하며 민첩성,기교, 비무장 특성을 가집니다.</p>"
  },
  "poisonhide-tripkee": {
   "name": "독가죽 트립키",
-  "description": "<p>당신은 작지만, 몸 곳곳에 숨겨진 독선이 치명적인 방어를 제공합니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.kKKHwVUnroKuAnOt]{독성 피부} 반응을 얻습니다.</p>"
+  "description": "<p>당신은 작지만, 몸 곳곳에 숨겨진 독선이 치명적인 방어를 제공합니다. 당신은 @link[actions.toxic-skin] 반응을 얻습니다.</p>"
  },
  "running-animal": {
   "name": "달리는 동물",
@@ -781,11 +781,11 @@
  },
  "whipfang-nagaji": {
   "name": "채찍날개 나가지",
-  "description": "<p>당신은 길고 유연한 목을 가지고 있어 뱀처럼 인상적인 자세로 구부릴 수 있습니다. 놀라울 정도로 강력한 근육으로 놀라운 거리와 속도로 물 수 있습니다. @UUID[Compendium.pf2e.actionspf2e.Item.MLOkyKi1Y3N6y56Q]{목 들어올리기} 액션을 얻습니다.</p>"
+  "description": "<p>당신은 길고 유연한 목을 가지고 있어 뱀처럼 인상적인 자세로 구부릴 수 있습니다. 놀라울 정도로 강력한 근육으로 놀라운 거리와 속도로 물 수 있습니다. @link[actions.raise-neck] 액션을 얻습니다.</p>"
  },
  "tsukumogami-poppet": {
   "name": "츠쿠모가미 인형",
-  "description": "<p>당신은 평범한 도구의 형태와 기억을 가지고 있습니다. 당신이 어떤 종류의 도구였는지에 관련된 지식 스킬을 하나 선택하세요. 예를 들어, 주방칼이나 숟가락의 경우 요리 지식 스킬을 선택할 수 있습니다. 당신은 이 스킬에 숙련되어 있으며, 이 스킬을 사용하여 다른 사람을 돕는 체크에 +2의 상황 보너스를 얻습니다. @UUID[Compendium.pf2e.feats-srd.Item.ARBIhYAREcytOIaL]{Helpful Poppet} 피트를 선택하면 보너스가 +3으로 증가합니다. 대부분의 인형은 속을 채운 천이나 부드러운 금속으로 만들어지지만, 일부 츠쿠모가미는 다른 재료로 만들어져 인형의 약점이 불로 바뀝니다. 당신의 몸이 주로 나무나 천으로 만들어진 경우, 일반적인 인형과 마찬가지로 불에 약합니다. 당신의 몸이 주로 금속으로 만들어진 경우, 대신 전기에 약합니다. 당신의 몸이 주로 세라믹으로 만들어진 경우, 대신 추위에 약합니다.</p>"
+  "description": "<p>당신은 평범한 도구의 형태와 기억을 가지고 있습니다. 당신이 어떤 종류의 도구였는지에 관련된 지식 스킬을 하나 선택하세요. 예를 들어, 주방칼이나 숟가락의 경우 요리 지식 스킬을 선택할 수 있습니다. 당신은 이 스킬에 숙련되어 있으며, 이 스킬을 사용하여 다른 사람을 돕는 체크에 +2의 상황 보너스를 얻습니다. @link[feats.helpful-poppet] 피트를 선택하면 보너스가 +3으로 증가합니다. 대부분의 인형은 속을 채운 천이나 부드러운 금속으로 만들어지지만, 일부 츠쿠모가미는 다른 재료로 만들어져 인형의 약점이 불로 바뀝니다. 당신의 몸이 주로 나무나 천으로 만들어진 경우, 일반적인 인형과 마찬가지로 불에 약합니다. 당신의 몸이 주로 금속으로 만들어진 경우, 대신 전기에 약합니다. 당신의 몸이 주로 세라믹으로 만들어진 경우, 대신 추위에 약합니다.</p>"
  },
  "dragonblood": {
   "name": "용혈",
@@ -805,11 +805,11 @@
  },
  "battle-trained-human-bb": {
   "name": "전투 훈련된 인간",
-  "description": "<p>자신의 가문은 여러 세대에 걸쳐 전투를 훈련하여 전투에서 유리합니다. 모든 무기를 훈련받았습니다.</p>\n<p>또한, @UUID[Compendium.pf2e.feats-srd.Item.I0BhPWqYf1bbzEYg]{다이하드} 피트를 획득합니다.</p>\n<p><em>주: 이 유산은 초보자 상자에서 획득하며 비표준 유산 기능을 갖추고 있습니다</em></p>"
+  "description": "<p>자신의 가문은 여러 세대에 걸쳐 전투를 훈련하여 전투에서 유리합니다. 모든 무기를 훈련받았습니다.</p>\n<p>또한, @link[feats.diehard] 피트를 획득합니다.</p>\n<p><em>주: 이 유산은 초보자 상자에서 획득하며 비표준 유산 기능을 갖추고 있습니다</em></p>"
  },
  "wetlander-lizardfolk": {
   "name": "습지 리자드포크",
-  "description": "<p>당신의 가문은 가장 흔한 도마뱀 종족의 후손이며, 수중 환경에 익숙합니다. 15피트 @UUID[Compendium.pf2e.actionspf2e.Item.c8TGiZ48ygoSPofx]{수영} 속도를 얻습니다.</p>"
+  "description": "<p>당신의 가문은 가장 흔한 도마뱀 종족의 후손이며, 수중 환경에 익숙합니다. 15피트 @link[actions.swim] 속도를 얻습니다.</p>"
  },
  "leaf-leshy": {
   "name": "잎사귀 레시",
@@ -817,7 +817,7 @@
  },
  "polychromatic-anadi": {
   "name": "다색 아나디",
-  "description": "<p>몸이 유난히 화려한 털로 뒤덮여 선명하고 시선을 사로잡는 무늬를 만들며, 그 중 일부는 인간 형상으로도 드러날 수 있습니다. 공연(또는 이미 공연을 훈련받았다면 다른 기술)를 훈련받으며, @UUID[Compendium.pf2e.feats-srd.Item.xqAdXRd2gSQcqp5E]{감동적인 공연} 기술을 획득합니다.</p>\n<hr />\n<p><em>주: 이 기술을 이미 훈련받았다면 다른 기술을 수동으로 선택해야 합니다.</em></p>"
+  "description": "<p>몸이 유난히 화려한 털로 뒤덮여 선명하고 시선을 사로잡는 무늬를 만들며, 그 중 일부는 인간 형상으로도 드러날 수 있습니다. 공연(또는 이미 공연을 훈련받았다면 다른 기술)를 훈련받으며, @link[feats.impressive-performance] 기술을 획득합니다.</p>\n<hr />\n<p><em>주: 이 기술을 이미 훈련받았다면 다른 기술을 수동으로 선택해야 합니다.</em></p>"
  },
  "elementheart-kobold": {
   "name": "엘리먼트하트 코볼트",
@@ -825,7 +825,7 @@
  },
  "rainfall-orc": {
   "name": "레인폴 오크",
-  "description": "<p>당신은 나무가 뒤엉킨 열대우림에서 태어나 폭풍우와 돌발 홍수로부터 보호받았습니다. 정글 지형을 능숙하게 이동하고 습한 환경에서 흔히 발생하는 다양한 질병에 저항하는 법을 배웠습니다. 운동 검사 시 @UUID[Compendium.pf2e.actionspf2e.Item.pprgrYQ1QnIDGZiy]{등반} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.c8TGiZ48ygoSPofx]{수영}에 대한 상황 보너스 +2와 질병에 대한 저장 시 상황 보너스 +1을 얻습니다.</p>"
+  "description": "<p>당신은 나무가 뒤엉킨 열대우림에서 태어나 폭풍우와 돌발 홍수로부터 보호받았습니다. 정글 지형을 능숙하게 이동하고 습한 환경에서 흔히 발생하는 다양한 질병에 저항하는 법을 배웠습니다. 운동 검사 시 @link[actions.climb] 또는 @link[actions.swim]에 대한 상황 보너스 +2와 질병에 대한 저장 시 상황 보너스 +1을 얻습니다.</p>"
  },
  "wilderness-samsaran": {
   "name": "황야의 삼사란",
@@ -833,7 +833,7 @@
  },
  "makari-lizardfolk": {
   "name": "마카리 리자드포크",
-  "description": "<p>당신은 트렁크 같은 주둥이와 신성한 연결고리를 가지고 있습니다. 리자드포크의 유산이나 조상의 피트에서 얻는 모든 주문이나 마법 능력의 전통은 일반적인 전통(보통 원시적)이 아닌 신성한 전통입니다. </p> <p>@UUID[Compendium.pf2e.spells-srd.Item.qwZBXN6zBoB9BHXE]{신성한 창} 또는 @UUID[Compendium.pf2e.spells-srd.Item.RA7VKcen3p56rVyZ]{금지된 보호막} 캔트립 중 하나를 선택하여 신성한 타고난 캔트립으로 마음대로 시전할 수 있습니다. 캔트립은 레벨의 절반에 해당하는 주문 랭크으로 강화됩니다. 이 캔트립을 시전하면, 트렁크를 울리고 빛을 발산하여 시전하기 때문에 조작 특성이 사라집니다.</p>"
+  "description": "<p>당신은 트렁크 같은 주둥이와 신성한 연결고리를 가지고 있습니다. 리자드포크의 유산이나 조상의 피트에서 얻는 모든 주문이나 마법 능력의 전통은 일반적인 전통(보통 원시적)이 아닌 신성한 전통입니다. </p> <p>@link[spells.divine-lance] 또는 @link[spells.forbidding-ward] 캔트립 중 하나를 선택하여 신성한 타고난 캔트립으로 마음대로 시전할 수 있습니다. 캔트립은 레벨의 절반에 해당하는 주문 랭크으로 강화됩니다. 이 캔트립을 시전하면, 트렁크를 울리고 빛을 발산하여 시전하기 때문에 조작 특성이 사라집니다.</p>"
  },
  "sewer-rat": {
   "name": "하수구 랫",
@@ -841,7 +841,7 @@
  },
  "forge-blessed-dwarf": {
   "name": "대장간의 축복 드워프",
-  "description": "<p>당신은 하이헬름에서 특정 드워프 신을 가장 숭배하는 가문 출신입니다. 당신은 가문의 수호신의 축복을 받아 태어났으며, 그 힘의 일부를 부여받았습니다. 드워프 판테온에서 한 신을 선택합니다. 해당 신이 성직자에게 부여하는 1단계 주문(예: 가문의 수호신이 볼카인 경우, <em>@UUID[Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n]{Soothe}</em>)을 주 1회 타고난 신성한 주문으로 시전할 수 있습니다.</p>"
+  "description": "<p>당신은 하이헬름에서 특정 드워프 신을 가장 숭배하는 가문 출신입니다. 당신은 가문의 수호신의 축복을 받아 태어났으며, 그 힘의 일부를 부여받았습니다. 드워프 판테온에서 한 신을 선택합니다. 해당 신이 성직자에게 부여하는 1단계 주문(예: 가문의 수호신이 볼카인 경우, <em>@link[spells.soothe]</em>)을 주 1회 타고난 신성한 주문으로 시전할 수 있습니다.</p>"
  },
  "wellspring-gnome": {
   "name": "샘물 노움",
@@ -849,11 +849,11 @@
  },
  "vine-leshy": {
   "name": "바인 레시",
-  "description": "<p>강력한 덩굴을 사용하면 타의 추종을 불허하는 등반 기술을 얻을 수 있습니다. 손이 자유롭지 않아도 @UUID[Compendium.pf2e.actionspf2e.Item.pprgrYQ1QnIDGZiy]{등반}을 할 수 있습니다. 또한, 운동 검사에서 성공을 굴려 클라이밍에 성공하면 대신 치명타 성공을 얻습니다.</p>"
+  "description": "<p>강력한 덩굴을 사용하면 타의 추종을 불허하는 등반 기술을 얻을 수 있습니다. 손이 자유롭지 않아도 @link[actions.climb]을 할 수 있습니다. 또한, 운동 검사에서 성공을 굴려 클라이밍에 성공하면 대신 치명타 성공을 얻습니다.</p>"
  },
  "longsnout-rat": {
   "name": "긴주둥이 랫",
-  "description": "<p>가족의 긴 주둥이 덕분에 다른 쥐과 동물보다 후각이 예민합니다. 30피트 범위의 정확한 냄새를 맡을 수 있습니다. 즉, 후각을 이용해 생물의 위치를 파악할 수 있습니다. 일반적으로 플레이어가 해당 생물로부터 바람이 불지 않는 방향에 있으면 범위가 두 배로 늘어나고, 바람이 부는 방향에 있으면 범위가 절반으로 줄어듭니다.</p>\n<p>또한, 플레이어는 지각 검사에 상황 보너스 +2를 받아 @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{탐색} 냄새 범위 내의 생물 또는 물체를 찾을 수 있습니다.</p>"
+  "description": "<p>가족의 긴 주둥이 덕분에 다른 쥐과 동물보다 후각이 예민합니다. 30피트 범위의 정확한 냄새를 맡을 수 있습니다. 즉, 후각을 이용해 생물의 위치를 파악할 수 있습니다. 일반적으로 플레이어가 해당 생물로부터 바람이 불지 않는 방향에 있으면 범위가 두 배로 늘어나고, 바람이 부는 방향에 있으면 범위가 절반으로 줄어듭니다.</p>\n<p>또한, 플레이어는 지각 검사에 상황 보너스 +2를 받아 @link[actions.seek] 냄새 범위 내의 생물 또는 물체를 찾을 수 있습니다.</p>"
  },
  "songbird-strix": {
   "name": "송버드 스트릭스",
@@ -861,7 +861,7 @@
  },
  "rite-of-knowing": {
   "name": "지식의 의례",
-  "description": "<p>축에 연결하여 외골격을 강화하여 비행기의 무한한 지식을 활용할 수 있게 되었습니다. @UUID[Compendium.pf2e.actionspf2e.Item.k5TASjIxghvGCy7g]{축에 호출} 행동을 얻습니다.</p>"
+  "description": "<p>축에 연결하여 외골격을 강화하여 비행기의 무한한 지식을 활용할 수 있게 되었습니다. @link[actions.call-to-axis] 행동을 얻습니다.</p>"
  },
  "shadow-of-the-wanderer": {
   "name": "방랑자의 그림자",
@@ -869,7 +869,7 @@
  },
  "jinxed-tengu": {
   "name": "징크스 텐구",
-  "description": "<p>당신의 혈통은 연이은 저주에 노출되었고, 이제 저주는 비처럼 깃털에서 미끄러져 내립니다. 저주나 불행 효과에 맞서 구원 던지기를 성공하면, 대신 치명타에 성공합니다.</p>\n<p>@UUID[Compendium.pf2e.conditionitems.Item.3uh1r86TzbQvosxv]{파멸} 조건을 얻게 되면, @Check[type:flat|dc:17] 검사를 시도합니다. 성공하면 획득할 운명 조건의 값을 1씩 줄입니다. </p>"
+  "description": "<p>당신의 혈통은 연이은 저주에 노출되었고, 이제 저주는 비처럼 깃털에서 미끄러져 내립니다. 저주나 불행 효과에 맞서 구원 던지기를 성공하면, 대신 치명타에 성공합니다.</p>\n<p>@link[conditions.doomed] 조건을 얻게 되면, DC 17 단순 검사를 시도합니다. 성공하면 획득할 운명 조건의 값을 1씩 줄입니다. </p>"
  },
  "reflection": {
   "name": "리플렉션",
@@ -881,19 +881,19 @@
  },
  "dokkaebi-goblin": {
   "name": "도깨비 고블린",
-  "description": "<p>당신의 조상들은 환상 마법을 마스터하여, 당신에게 그 마법에 대한 타고난 이해력을 물려주었습니다. @UUID[Compendium.pf2e.spells-srd.Item.0zU8CPejjQFnhZFI]{Figment}을 타고난 오컬트 캔트립으로 마음대로 시전할 수 있습니다. 캔트립은 레벨의 절반에 해당하는 주문 랭크으로 강화됩니다. 또한 환상에 대한 의지 내성에 +1의 상황 보너스를 얻습니다.</p>"
+  "description": "<p>당신의 조상들은 환상 마법을 마스터하여, 당신에게 그 마법에 대한 타고난 이해력을 물려주었습니다. @link[spells.figment]을 타고난 오컬트 캔트립으로 마음대로 시전할 수 있습니다. 캔트립은 레벨의 절반에 해당하는 주문 랭크으로 강화됩니다. 또한 환상에 대한 의지 내성에 +1의 상황 보너스를 얻습니다.</p>"
  },
  "grig": {
   "name": "그릭",
-  "description": "<p>당신은 귀뚜라미의 뒷다리를 가지고 있으며 예술과 음악을 좋아합니다. 귀뚜라미 다리는 높이뛰기 또는 멀리뛰기 운동 검사에서 상황 보너스 +2를 부여하며, 원시 타고난 캔트립으로 <em>@UUID[Compendium.pf2e.spells-srd.Item.atlgGNI1E1Ox3O3a]{유령 소리}</em>를 얻습니다.</p>"
+  "description": "<p>당신은 귀뚜라미의 뒷다리를 가지고 있으며 예술과 음악을 좋아합니다. 귀뚜라미 다리는 높이뛰기 또는 멀리뛰기 운동 검사에서 상황 보너스 +2를 부여하며, 원시 타고난 캔트립으로 <em>@link[spells.ghost-sound]</em>를 얻습니다.</p>"
  },
  "irongut-goblin": {
   "name": "이롱굿 고블린",
-  "description": "<p>대부분의 사람들이 상했다고 여기는 음식으로도 생존할 수 있습니다. 정착지에서 쓰레기를 쉽게 구할 수 있는 한, @UUID[Compendium.pf2e.actionspf2e.Item.49y9Ec4bDii8pcD3]{Subsist} 다운타임 활동을 사용하지 않고도 상한 음식으로 배를 채울 수 있습니다. 병든 상태일 때 먹고 마실 수 있습니다 @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{구역질}.</p>\n<p>고통, 병든 상태 획득, 병든 상태 제거에 대한 내성 굴림 시 상황 보너스 +2를 받습니다. 이 보너스의 영향을 받는 불굴의 내성 굴림에 성공하면, 대신 치명타에 성공합니다. 이 모든 혜택은 해당 고통 또는 상태가 섭취한 음식으로 인해 발생한 경우에만 적용됩니다.</p>"
+  "description": "<p>대부분의 사람들이 상했다고 여기는 음식으로도 생존할 수 있습니다. 정착지에서 쓰레기를 쉽게 구할 수 있는 한, @link[actions.subsist] 다운타임 활동을 사용하지 않고도 상한 음식으로 배를 채울 수 있습니다. 병든 상태일 때 먹고 마실 수 있습니다 @link[conditions.sickened].</p>\n<p>고통, 병든 상태 획득, 병든 상태 제거에 대한 내성 굴림 시 상황 보너스 +2를 받습니다. 이 보너스의 영향을 받는 불굴의 내성 굴림에 성공하면, 대신 치명타에 성공합니다. 이 모든 혜택은 해당 고통 또는 상태가 섭취한 음식으로 인해 발생한 경우에만 적용됩니다.</p>"
  },
  "nyktera": {
   "name": "닉테라",
-  "description": "<p>당신은 박쥐와 같은 특징과 박쥐 종족에 대한 친화력, 그리고 누구에게도 뒤지지 않는 청력을 가지고 있습니다. 정상적으로 들을 수 있는 한, 탐색 행동을 사용하여 @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{미탐지} 생물을 @Template[type:cone|distance:60] 대신 @Template[type:cone|distance:30] 범위에서 감지할 수 있습니다. 또한, 탐색 행동으로 30피트 내에서 소리가 들리는 감지되지 않은 생물을 찾아낼 때 상황 보너스 +2를 받습니다.</p>"
+  "description": "<p>당신은 박쥐와 같은 특징과 박쥐 종족에 대한 친화력, 그리고 누구에게도 뒤지지 않는 청력을 가지고 있습니다. 정상적으로 들을 수 있는 한, 탐색 행동을 사용하여 @link[conditions.undetected] 생물을 60피트 원뿔 대신 30피트 원뿔 범위에서 감지할 수 있습니다. 또한, 탐색 행동으로 30피트 내에서 소리가 들리는 감지되지 않은 생물을 찾아낼 때 상황 보너스 +2를 받습니다.</p>"
  },
  "versatile-human": {
   "name": "다재다능한 인간",
@@ -901,7 +901,7 @@
  },
  "nine-lives-catfolk": {
   "name": "9개의 생명을 가진 캣포크",
-  "description": "<p>당신의 가문은 항상 재앙에서 벗어날 수 있었던 것은 육체적 강인함이나 특별한 기술이 아니라 순전히 운이 좋았기 때문인 것 같습니다. 다른 고양이족은 당신의 목숨이 9개라고 속삭입니다.</p>\n<p>명중 굴림에서 치명타로 인해 HP가 0으로 떨어지면, 당신은 죽어감 2가 아니라 @UUID[Compendium.pf2e.conditionitems.Item.yZRUzMqrMmfLu0V1]{빈사 1}이 됩니다.</p>"
+  "description": "<p>당신의 가문은 항상 재앙에서 벗어날 수 있었던 것은 육체적 강인함이나 특별한 기술이 아니라 순전히 운이 좋았기 때문인 것 같습니다. 다른 고양이족은 당신의 목숨이 9개라고 속삭입니다.</p>\n<p>명중 굴림에서 치명타로 인해 HP가 0으로 떨어지면, 당신은 죽어감 2가 아니라 @link[conditions.dying]{1}이 됩니다.</p>"
  },
  "seaweed-leshy": {
   "name": "해조류 레시",
@@ -909,7 +909,7 @@
  },
  "courageous-tanuki": {
   "name": "용감한 타누키",
-  "description": "<p>당신의 심장은 선조들의 용기로 뛰며, 타누키만이 보여줄 수 있는 용기를 부여합니다. @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{도주} 상태를 얻을 때마다, 도망치는 동안 지속되는 이동 속도에 +10피트 상황 보너스를 얻습니다. 도주 상태일 때, 모든 행동을 도주에 사용해야 하는 대신 한 번의 행동을 정상적으로 수행할 수 있지만, 남은 행동은 모두 도주에 사용해야 합니다. 또한 @UUID[Compendium.pf2e.actionspf2e.Item.KInVpdfrxg0AqjRt]{전술적 후퇴} 능력을 얻습니다.</p>"
+  "description": "<p>당신의 심장은 선조들의 용기로 뛰며, 타누키만이 보여줄 수 있는 용기를 부여합니다. @link[conditions.fleeing] 상태를 얻을 때마다, 도망치는 동안 지속되는 이동 속도에 +10피트 상황 보너스를 얻습니다. 도주 상태일 때, 모든 행동을 도주에 사용해야 하는 대신 한 번의 행동을 정상적으로 수행할 수 있지만, 남은 행동은 모두 도주에 사용해야 합니다. 또한 @link[actions.tactical-retreat] 능력을 얻습니다.</p>"
  },
  "winter-kholo": {
   "name": "겨울 콜로",
@@ -917,11 +917,11 @@
  },
  "surgewise-fleshwarp": {
   "name": "서지와이즈 플레시워프",
-  "description": "<p>신체의 섬모의 물결은 웰스프링에 고도로 조율되어 있으며, 오컬트 에너지에 대한 통찰력으로 울려 퍼지고 그 진동으로 비밀의 존재를 알려줍니다. 오컬티즘 숙련도 등급을 획득합니다. 오컬티즘 훈련을 받으면 대신 원하는 다른 기술을 훈련할 수 있습니다. 또한, @UUID[Compendium.pf2e.feats-srd.Item.hDGosy2ZTwnyctEP]{신원 식별} 기술 특성도 획득합니다.</p>"
+  "description": "<p>신체의 섬모의 물결은 웰스프링에 고도로 조율되어 있으며, 오컬트 에너지에 대한 통찰력으로 울려 퍼지고 그 진동으로 비밀의 존재를 알려줍니다. 오컬티즘 숙련도 등급을 획득합니다. 오컬티즘 훈련을 받으면 대신 원하는 다른 기술을 훈련할 수 있습니다. 또한, @link[feats.oddity-identification] 기술 특성도 획득합니다.</p>"
  },
  "sacred-nagaji": {
   "name": "신성한 나가지",
-  "description": "<p>당신은 아름다운 인간의 상반신과 녹색 또는 흰색 뱀의 하반신으로 대부분의 나가지와는 다른 모습을 하고 있습니다. 전설에 따르면 당신의 조상은 여신이 창조한 나가지가 아니라 날리니바티가 키운 충실한 뱀이었다고 합니다. 송곳니 비무장 공격 대신 1d6의 둔기 피해를 주는 꼬리 공격이 있고, 격투 무기군에 속하며, 기교와 비무장 특성을 가집니다. @UUID[Compendium.pf2e.actionspf2e.Item.PMbdMWc2QroouFGD]{붙잡기} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기} 시도에 대해 인내 또는 반사 신경 DC에 상황 보너스 +2가 붙습니다. 이 보너스는 @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기}, @UUID[Compendium. pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{구속}하거나, @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 효과에 대한 내성 굴림에도 적용됩니다..</p>"
+  "description": "<p>당신은 아름다운 인간의 상반신과 녹색 또는 흰색 뱀의 하반신으로 대부분의 나가지와는 다른 모습을 하고 있습니다. 전설에 따르면 당신의 조상은 여신이 창조한 나가지가 아니라 날리니바티가 키운 충실한 뱀이었다고 합니다. 송곳니 비무장 공격 대신 1d6의 둔기 피해를 주는 꼬리 공격이 있고, 격투 무기군에 속하며, 기교와 비무장 특성을 가집니다. @link[actions.grapple] 또는 @link[actions.trip] 시도에 대해 인내 또는 반사 신경 DC에 상황 보너스 +2가 붙습니다. 이 보너스는 @link[conditions.grabbed], @UUID[Compendium. pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{구속}하거나, @link[conditions.prone] 효과에 대한 내성 굴림에도 적용됩니다..</p>"
  },
  "created-fleshwarp": {
   "name": "생성된 플레시워프",
@@ -929,31 +929,31 @@
  },
  "nomadic-halfling": {
   "name": "유목민 하플링",
-  "description": "<p>당신의 조상들은 여러 세대에 걸쳐 이곳저곳을 돌아다니며 정착에 만족하지 않았습니다. 사용 가능한 일반 언어와 일반적이지 않은 언어 중에서 선택한 언어 두 개를 추가로 획득하며, @UUID[Compendium.pf2e.feats-srd.Item.P9HCz0uR6xPHuw72]{다국어} 재주를 획득할 때마다 새로운 언어를 하나 더 획득합니다.</p>"
+  "description": "<p>당신의 조상들은 여러 세대에 걸쳐 이곳저곳을 돌아다니며 정착에 만족하지 않았습니다. 사용 가능한 일반 언어와 일반적이지 않은 언어 중에서 선택한 언어 두 개를 추가로 획득하며, @link[feats.multilingual] 재주를 획득할 때마다 새로운 언어를 하나 더 획득합니다.</p>"
  },
  "shifting-skeleton": {
   "name": "형태변환 스켈레톤",
-  "description": "<p>다양한 형태변환 생물의 뼈로 구성된 형태변환 스켈레톤은 형태를 변경할 수 있는 일부 능력을 유지하고 있습니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.OqKYkzbc7NEWmJWB]{뼈 재배열} 액션을 얻습니다.</p>"
+  "description": "<p>다양한 형태변환 생물의 뼈로 구성된 형태변환 스켈레톤은 형태를 변경할 수 있는 일부 능력을 유지하고 있습니다. 당신은 @link[actions.rearrange-bones] 액션을 얻습니다.</p>"
  },
  "lotus-leshy": {
   "name": "연꽃 레시",
-  "description": "<p>수면에 쉽게 뜰 수 있습니다. 고여 있는 물이나 피해를 주지 않는 다른 액체의 표면 위를 걸으며 평소 속도의 절반으로 움직일 수 있습니다. 또한, @UUID[Compendium.pf2e.actionspf2e.Item.M76ycLAqHoAgbcej]{균형잡기}로 수영 체크의 DC를 사용해 흐르는 물의 표면을 가로질러 이동할 수 있습니다. 이 동작을 할 때는 자신의 속도보다 절반 이상 빠르게 움직일 수 없으며, 실패하거나 대실패가 발생하면 일반적인 효과 대신 물에 빠지게 됩니다.</p>"
+  "description": "<p>수면에 쉽게 뜰 수 있습니다. 고여 있는 물이나 피해를 주지 않는 다른 액체의 표면 위를 걸으며 평소 속도의 절반으로 움직일 수 있습니다. 또한, @link[actions.balance]로 수영 체크의 DC를 사용해 흐르는 물의 표면을 가로질러 이동할 수 있습니다. 이 동작을 할 때는 자신의 속도보다 절반 이상 빠르게 움직일 수 없으며, 실패하거나 대실패가 발생하면 일반적인 효과 대신 물에 빠지게 됩니다.</p>"
  },
  "elfbane-hobgoblin": {
   "name": "엘프베인 홉고블린",
-  "description": "<p>홉고블린은 오래전에 엘프에 대항하는 군대로 사용하기 위해 믿을 수 없고 번식력이 약한 고블린을 개량한 종족입니다. 엘프가 결국 홉고블린을 속박에서 해방시켰지만, 일부 홉고블린은 \"엘프 마법\"이라고 부르는 조상 대대로 내려오는 마법에 대한 저항력을 간직하고 있습니다. @UUID[Compendium.pf2e.actionspf2e.Item.On5CQjX4euWqToly]{엘프 마법 저항} 리액션을 얻습니다.</p>"
+  "description": "<p>홉고블린은 오래전에 엘프에 대항하는 군대로 사용하기 위해 믿을 수 없고 번식력이 약한 고블린을 개량한 종족입니다. 엘프가 결국 홉고블린을 속박에서 해방시켰지만, 일부 홉고블린은 \"엘프 마법\"이라고 부르는 조상 대대로 내려오는 마법에 대한 저항력을 간직하고 있습니다. @link[actions.resist-elf-magic] 리액션을 얻습니다.</p>"
  },
  "fishseeker-shoony": {
   "name": "피쉬시커 슈니",
-  "description": "<p>당신은 오랜 어부 집안에서 태어나 대어를 낚아채는 데 필요한 빠른 반사 신경을 물려받았습니다. @UUID[Compendium.pf2e.actionspf2e.Item.3yoajuKjwHZ9ApUY]{가장자리 잡기} 시도를 성공으로 굴리면 치명타 성공, 대실패를 굴리면 대실패를 받습니다. 생물이 @UUID[Compendium.pf2e.actionspf2e.Item.Dt6B1slsBy8ipJu9]{무장 해제}에 대한 검사에서 실패를 굴린다면, 대신 대실패를 받습니다.</p>"
+  "description": "<p>당신은 오랜 어부 집안에서 태어나 대어를 낚아채는 데 필요한 빠른 반사 신경을 물려받았습니다. @link[actions.grab-an-edge] 시도를 성공으로 굴리면 치명타 성공, 대실패를 굴리면 대실패를 받습니다. 생물이 @link[actions.disarm]에 대한 검사에서 실패를 굴린다면, 대신 대실패를 받습니다.</p>"
  },
  "scavenger-strix": {
   "name": "스캐빈저 스트릭스",
-  "description": "<p>당신의 조상들은 식량이 부족하고 위협이 많은 땅에서 태어났습니다. 당신은 생존 훈련을 받았습니다. @UUID[Compendium.pf2e.feats-srd.Item.8qebBeOJsyRIchcu]{수렵꾼} 기술 특성이 보너스 특성으로 획득됩니다. 철저하게 식량을 채집하면 내성 굴림에서 생존 보너스가 +1이 됩니다.</p>"
+  "description": "<p>당신의 조상들은 식량이 부족하고 위협이 많은 땅에서 태어났습니다. 당신은 생존 훈련을 받았습니다. @link[feats.forager] 기술 특성이 보너스 특성으로 획득됩니다. 철저하게 식량을 채집하면 내성 굴림에서 생존 보너스가 +1이 됩니다.</p>"
  },
  "sharpshooter-automaton": {
   "name": "샤프슈터 오토마톤",
-  "description": "<p>날카로운 휴머노이드 형태로 원거리 전투에 적합한 속도와 정확성을 갖추도록 설계되었습니다. @UUID[Compendium.pf2e.actionspf2e.Item.9sXQf1SyppS5B6O1]{자동 조준} 행동을 얻습니다.</p>"
+  "description": "<p>날카로운 휴머노이드 형태로 원거리 전투에 적합한 속도와 정확성을 갖추도록 설계되었습니다. @link[actions.automaton-aim] 행동을 얻습니다.</p>"
  },
  "ardande": {
   "name": "아르단드",
@@ -961,7 +961,7 @@
  },
  "seer-elf": {
   "name": "예언자 엘프",
-  "description": "<p>당신은 선천적으로 마법 현상을 감지하고 이해하는 능력이 있습니다. @UUID[Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl]{마법 탐지} 캔트립을 마음대로 비전 타고난 주문으로 시전할 수 있습니다. 캔트립은 반올림한 레벨의 절반에 해당하는 주문 랭크으로 강화됩니다.</p>\n<p>또한, @UUID[Compendium.pf2e.actionspf2e.Item.eReSHVEPCsdkSL4G]{마법 식별} 및 @UUID[Compendium.pf2e.actionspf2e.Item.d9gbpiQjChYDYA2L]{글 해독}에 마법 특성 검사를 하면 상황 보너스 +1을 얻습니다. 이러한 스킬 행동은 일반적으로 주문학, 자연, 신비주의, 종교 스킬을 사용합니다.</p>"
+  "description": "<p>당신은 선천적으로 마법 현상을 감지하고 이해하는 능력이 있습니다. @link[spells.detect-magic] 캔트립을 마음대로 비전 타고난 주문으로 시전할 수 있습니다. 캔트립은 반올림한 레벨의 절반에 해당하는 주문 랭크으로 강화됩니다.</p>\n<p>또한, @link[actions.identify-magic] 및 @link[actions.decipher-writing]에 마법 특성 검사를 하면 상황 보너스 +1을 얻습니다. 이러한 스킬 행동은 일반적으로 주문학, 자연, 신비주의, 종교 스킬을 사용합니다.</p>"
  },
  "glacier-cavern-minotaur": {
   "name": "빙하 동굴 미노타우로스",
@@ -973,7 +973,7 @@
  },
  "wisp-fetchling": {
   "name": "위습 페츨링",
-  "description": "<p>당신의 조상들은 그림자계에 노출되면서 신체적으로 큰 변화를 겪었습니다. 당신의 머리카락이나 피부는 때때로 실체가 없는 것처럼 보이며, 다른 페츨링들보다 더 날씬하고 민첩합니다. 이제 <strong>중형</strong>이 아닌 <strong>소형</strong>이 됩니다. 곡예 숙련도가 훈련된 만큼 상승하고, @UUID[Compendium.pf2e.feats-srd.Item.3G8xUlgCjRmRJNfP]{퀵 스퀴즈} 기술 재주가 추가되며, 곡예 검사 시 회피 돌파 통과에 +1의 상황 보너스를 받습니다. (예를 들어, 배경이나 직업에 따라) 자동으로 곡예를 훈련받게 되는 경우, 대신 원하는 기술을 훈련받게 됩니다.</p>"
+  "description": "<p>당신의 조상들은 그림자계에 노출되면서 신체적으로 큰 변화를 겪었습니다. 당신의 머리카락이나 피부는 때때로 실체가 없는 것처럼 보이며, 다른 페츨링들보다 더 날씬하고 민첩합니다. 이제 <strong>중형</strong>이 아닌 <strong>소형</strong>이 됩니다. 곡예 숙련도가 훈련된 만큼 상승하고, @link[feats.quick-squeeze] 기술 재주가 추가되며, 곡예 검사 시 회피 돌파 통과에 +1의 상황 보너스를 받습니다. (예를 들어, 배경이나 직업에 따라) 자동으로 곡예를 훈련받게 되는 경우, 대신 원하는 기술을 훈련받게 됩니다.</p>"
  },
  "frozen-wind-kitsune": {
   "name": "얼어붙은 바람의 키츠네",
@@ -985,15 +985,15 @@
  },
  "anvil-dwarf": {
   "name": "모루 드워프",
-  "description": "<p>당신은 유명한 대장장이의 후손으로 자신만의 놀라운 재능을 가지고 있습니다. 다른 드워프들은 이를 조상이나 대장장이의 축복이라고 생각할 수도 있습니다. 제작(또는 이미 제작을 훈련받았다면 다른 기술)을 훈련받으면 @UUID[Compendium.pf2e.feats-srd.Item.QLeMH5mQgh28sa5o]{특수 제작} 기술 특성을 얻지만, 한 가지가 아닌 두 가지 재주를 선택할 수 있습니다.</p>"
+  "description": "<p>당신은 유명한 대장장이의 후손으로 자신만의 놀라운 재능을 가지고 있습니다. 다른 드워프들은 이를 조상이나 대장장이의 축복이라고 생각할 수도 있습니다. 제작(또는 이미 제작을 훈련받았다면 다른 기술)을 훈련받으면 @link[feats.specialty-crafting] 기술 특성을 얻지만, 한 가지가 아닌 두 가지 재주를 선택할 수 있습니다.</p>"
  },
  "venomous-anadi": {
   "name": "독성 아나디",
-  "description": "<p>자연 상태의 송곳니로 적에게 독을 주입할 수 있습니다. @UUID[Compendium.pf2e.actionspf2e.Item.8aIe57gXJ94mPpW4]{아나디 독} 능력을 획득합니다.</p>"
+  "description": "<p>자연 상태의 송곳니로 적에게 독을 주입할 수 있습니다. @link[actions.anadi-venom] 능력을 획득합니다.</p>"
  },
  "witch-kholo": {
   "name": "마녀 콜로",
-  "description": "<p>당신은 어두운 털로 덮인 콜로로, 정말로 불가사의한 소리를 낼 수 있습니다. 당신은 착각 마법 주문을 신비 선천적 주문으로 원하는 만큼 시전할 수 있습니다. 주문은 당신의 레벨의 절반을 반올림한 만큼 강화됩니다. 또한 @UUID[Compendium.pf2e.actionspf2e.Item.GkmbTGfg8KcgynOA]{주위를 환기시키기}나 성대를 이용해 변장할 때 판정에 +1 상황 보너스를 얻습니다.</p>"
+  "description": "<p>당신은 어두운 털로 덮인 콜로로, 정말로 불가사의한 소리를 낼 수 있습니다. 당신은 착각 마법 주문을 신비 선천적 주문으로 원하는 만큼 시전할 수 있습니다. 주문은 당신의 레벨의 절반을 반올림한 만큼 강화됩니다. 또한 @link[actions.create-a-diversion]나 성대를 이용해 변장할 때 판정에 +1 상황 보너스를 얻습니다.</p>"
  },
  "desert-elf": {
   "name": "사막 엘프",
@@ -1001,7 +1001,7 @@
  },
  "gandharva": {
   "name": "간다르바",
-  "description": "<p>당신은 신들의 자칭 음악가, 시인, 무용가들의 후손으로, 몸은 일부는 인간형이고 일부는 말이나 새의 모습을 하고 있습니다. 날개를 얻게 되면, 그 날개는 다양한 화려한 색으로 빛납니다. 천상의 존재와 연결되어 있기 때문에, 스프라이트의 유산이나 조상의 피트에서 얻은 모든 주문이나 마법 능력은 일반적인 전통이 아닌 신성한 전통으로 간주됩니다.</p> <p>당신은 공연 (또는 이미 공연에 훈련을 받은 경우, 다른 기술 중 하나를 선택)에 훈련을 받고, @UUID[Compendium.pf2e.spells-srd.Item.yvs1zN5Pai5U4CJX]{악기 소환}을 신성한 타고난 캔트립으로 시전할 수 있습니다. </p>"
+  "description": "<p>당신은 신들의 자칭 음악가, 시인, 무용가들의 후손으로, 몸은 일부는 인간형이고 일부는 말이나 새의 모습을 하고 있습니다. 날개를 얻게 되면, 그 날개는 다양한 화려한 색으로 빛납니다. 천상의 존재와 연결되어 있기 때문에, 스프라이트의 유산이나 조상의 피트에서 얻은 모든 주문이나 마법 능력은 일반적인 전통이 아닌 신성한 전통으로 간주됩니다.</p> <p>당신은 공연 (또는 이미 공연에 훈련을 받은 경우, 다른 기술 중 하나를 선택)에 훈련을 받고, @link[spells.summon-instrument]을 신성한 타고난 캔트립으로 시전할 수 있습니다. </p>"
  },
  "stonestep-shisk": {
   "name": "바위 발걸음 시스크",
@@ -1009,23 +1009,23 @@
  },
  "venomtail-kobold": {
   "name": "독꼬리 코볼트",
-  "description": "<p>꼬리에 있는 흔적이 있는 돌기에서 치명적인 독극물 한 개를 분비합니다.</p>\n<p>매일 한 번씩 치명적인 독을 분비합니다. @UUID[Compendium.pf2e.actionspf2e.Item.ev8OHpBO3xq3Zt08]{꼬리 독} 액션을 얻습니다.</p>"
+  "description": "<p>꼬리에 있는 흔적이 있는 돌기에서 치명적인 독극물 한 개를 분비합니다.</p>\n<p>매일 한 번씩 치명적인 독을 분비합니다. @link[actions.tail-toxin] 액션을 얻습니다.</p>"
  },
  "empty-sky-kitsune": {
   "name": "빈 하늘 키츠네",
-  "description": "<p>영혼이 저 너머의 비밀에 열려 있어 키츠네 마법을 더 잘 사용할 수 있습니다. 키츠네 주문 친숙도} 혈통 특성이 @UUID[Compendium.pf2e.feats-srd.Item.Zz7isE8Td2xDWqR8]{키츠네 주문 친숙도}를 획득합니다. 당신의 대체 형태는 당신이 자란 곳에서 흔히 볼 수 있는 중간 인간형 조상(일반적으로 인간)으로, 꼬리가 없는 형태라고 불립니다.</p>"
+  "description": "<p>영혼이 저 너머의 비밀에 열려 있어 키츠네 마법을 더 잘 사용할 수 있습니다. 키츠네 주문 친숙도} 혈통 특성이 @link[feats.kitsune-spell-familiarity]를 획득합니다. 당신의 대체 형태는 당신이 자란 곳에서 흔히 볼 수 있는 중간 인간형 조상(일반적으로 인간)으로, 꼬리가 없는 형태라고 불립니다.</p>"
  },
  "slabsoul-minotaur": {
   "name": "슬랩소울 미노타우로스",
-  "description": "<p>돌과 벽에 대한 깊은 연결로 인해 적에게 떨어질 거대한 화강암 슬래브를 소환할 수 있습니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.0VwLAKI7QP6mib88]{슬랩 상승} 활동을 얻습니다.</p>"
+  "description": "<p>돌과 벽에 대한 깊은 연결로 인해 적에게 떨어질 거대한 화강암 슬래브를 소환할 수 있습니다. 당신은 @link[actions.raise-slabs] 활동을 얻습니다.</p>"
  },
  "compact-skeleton": {
   "name": "가벼운 스켈레톤",
-  "description": "<p>가벼운 손길이 필요한 작업에는 큰 생명체보다 노움, 고블린, 반쪽 유골이 더 적합합니다. 이 작고 민첩한 해골은 여행용 상자에 잘 들어가고, 좁은 공간으로 밀고 들어갈 수 있으며, 탐지를 더 쉽게 피할 수 있습니다. 크기가 중간이 아닌 소형입니다. 곡예 훈련을 받지 않았더라도 @UUID[Compendium.pf2e.feats-srd.Item.3G8xUlgCjRmRJNfP]{퀵 스퀴즈} 재주를 획득할 수 있습니다. 꽉 쥐기 활동이 필요할 정도로 좁지 않은 공간은 어려운 지형이 아닙니다.</p>"
+  "description": "<p>가벼운 손길이 필요한 작업에는 큰 생명체보다 노움, 고블린, 반쪽 유골이 더 적합합니다. 이 작고 민첩한 해골은 여행용 상자에 잘 들어가고, 좁은 공간으로 밀고 들어갈 수 있으며, 탐지를 더 쉽게 피할 수 있습니다. 크기가 중간이 아닌 소형입니다. 곡예 훈련을 받지 않았더라도 @link[feats.quick-squeeze] 재주를 획득할 수 있습니다. 꽉 쥐기 활동이 필요할 정도로 좁지 않은 공간은 어려운 지형이 아닙니다.</p>"
  },
  "paddler-shoony": {
   "name": "패들러 슈니",
-  "description": "<p>당신은 늪과 습지의 갈대와 부들 사이에서 오랫동안 성공적으로 살아온 슈니족 출신으로, 물에 잠긴 지역 근처에서 생활하는 데 어려움을 겪지 않고 적응해 왔습니다. 어려운 지형과 늪지대의 더 어려운 지형은 무시합니다. 성공을 @UUID[Compendium.pf2e.actionspf2e.Item.c8TGiZ48ygoSPofx]{수영}으로 굴리면, 대신 치명타 성공을 얻습니다.</p>"
+  "description": "<p>당신은 늪과 습지의 갈대와 부들 사이에서 오랫동안 성공적으로 살아온 슈니족 출신으로, 물에 잠긴 지역 근처에서 생활하는 데 어려움을 겪지 않고 적응해 왔습니다. 어려운 지형과 늪지대의 더 어려운 지형은 무시합니다. 성공을 @link[actions.swim]으로 굴리면, 대신 치명타 성공을 얻습니다.</p>"
  },
  "technological-fleshwarp": {
   "name": "테크놀로지컬 플레시워프",
@@ -1033,7 +1033,7 @@
  },
  "smokeworker-hobgoblin": {
   "name": "연막꾼 홉고블린",
-  "description": "<p>당신의 가문은 대대로 연금술사, 엔지니어, 과학자로서 전장에 연기와 불을 내뿜는 프로젝트를 수행해 왔습니다. 자신의 레벨의 절반(최소 1)에 해당하는 화염 저항력을 얻습니다. 해당 생물이 연기로만 은폐되어 있는 경우, 당신은 @Check[type:flat|dc:5]를 통해 @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 생물을 대상으로 하는 데 자동으로 성공합니다.</p>"
+  "description": "<p>당신의 가문은 대대로 연금술사, 엔지니어, 과학자로서 전장에 연기와 불을 내뿜는 프로젝트를 수행해 왔습니다. 자신의 레벨의 절반(최소 1)에 해당하는 화염 저항력을 얻습니다. 해당 생물이 연기로만 은폐되어 있는 경우, 당신은 DC 5 단순를 통해 @link[conditions.concealed] 생물을 대상으로 하는 데 자동으로 성공합니다.</p>"
  },
  "wajaghand-vanara": {
   "name": "와자핸드 바나라",
@@ -1041,11 +1041,11 @@
  },
  "woodland-elf": {
   "name": "숲속의 엘프",
-  "description": "<p>숲, 깊은 정글 또는 이와 유사한 환경에서의 생활에 적응하여 나무에 오르고 나뭇잎을 유리하게 사용하는 방법을 알고 있습니다. 나무, 덩굴, 기타 잎사귀를 @UUID[Compendium.pf2e.actionspf2e.Item.pprgrYQ1QnIDGZiy]{등반}하면 성공 시 이동 속도의 절반으로, 치명타 성공 시 최대 속도로 이동합니다(@UUID[Compendium.pf2e.feats-srd.Item.P04Hw8E6WAWARKHP]{퀵 클라임}이 있는 경우 성공 시 최대 속도로 이동합니다). 등반 속도를 사용 중이라면 영향을 받지 않습니다.</p>\n<p>숲 지형에서 엄폐할 수 있는 장애물 옆에 있지 않더라도 항상 @UUID[Compendium.pf2e.actionspf2e.Item.ust1jJSCZQUhBZIz]{엄폐하기} 행동을 사용해 엄폐할 수 있습니다.</p>"
+  "description": "<p>숲, 깊은 정글 또는 이와 유사한 환경에서의 생활에 적응하여 나무에 오르고 나뭇잎을 유리하게 사용하는 방법을 알고 있습니다. 나무, 덩굴, 기타 잎사귀를 @link[actions.climb]하면 성공 시 이동 속도의 절반으로, 치명타 성공 시 최대 속도로 이동합니다(@link[feats.quick-climb]이 있는 경우 성공 시 최대 속도로 이동합니다). 등반 속도를 사용 중이라면 영향을 받지 않습니다.</p>\n<p>숲 지형에서 엄폐할 수 있는 장애물 옆에 있지 않더라도 항상 @link[actions.take-cover] 행동을 사용해 엄폐할 수 있습니다.</p>"
  },
  "battle-ready-orc": {
   "name": "전투 준비 오크",
-  "description": "<p>당신은 무시무시한 전장 지휘관의 후손입니다. 협박 훈련을 받고, @UUID[Compendium.pf2e.feats-srd.Item.xQMz6eDgX75WX2ce]{협박하는 눈부심} 기술 재주를 획득합니다. </p>"
+  "description": "<p>당신은 무시무시한 전장 지휘관의 후손입니다. 협박 훈련을 받고, @link[feats.intimidating-glare] 기술 재주를 획득합니다. </p>"
  },
  "swimming-animal": {
   "name": "수영 동물",
@@ -1065,35 +1065,35 @@
  },
  "mountainkeeper-tengu": {
   "name": "산지기 텐구",
-  "description": "<p>당신은 텐구 수행자의 혈통을 이어받아 세상과 저승의 영혼과 연결되는 고리를 남겼습니다. <em>@UUID[Compendium.pf2e.spells-srd.Item.kcelf6IHl3L9VXXg]{활력 채찍}</em> 캔트립을 원초적인 타고난 주문으로 마음대로 시전할 수 있습니다. 캔트립은 자신의 레벨을 반올림한 값의 절반에 해당하는 주문 레벨로 강화됩니다.</p>\n<p>텐구 유산 또는 조상 능력으로 주문을 시전할 때마다 신성한 주문인지, 원시적인 주문인지 결정할 수 있습니다.</p>"
+  "description": "<p>당신은 텐구 수행자의 혈통을 이어받아 세상과 저승의 영혼과 연결되는 고리를 남겼습니다. <em>@link[spells.vitality-lash]</em> 캔트립을 원초적인 타고난 주문으로 마음대로 시전할 수 있습니다. 캔트립은 자신의 레벨을 반올림한 값의 절반에 해당하는 주문 레벨로 강화됩니다.</p>\n<p>텐구 유산 또는 조상 능력으로 주문을 시전할 때마다 신성한 주문인지, 원시적인 주문인지 결정할 수 있습니다.</p>"
  },
  "rite-of-reinforcement": {
   "name": "강화의 의례",
-  "description": "<p>직물로 짠 외골격은 현존하는 가장 단단한 갑옷과 견줄 수 있습니다. 외골격은 판금 방어구 그룹에 속하는 중형 방어구로, 공격력에 아이템 보너스 +4, 방어력 상한 +1, 공격력 페널티 -2, 이동 속도 페널티 -5, 힘 수치 16을 부여하며, 편안함 특성이 있습니다. 다른 방어구를 착용하거나 외골격을 벗을 수 없습니다. 외골격에 방어구 룬은 정상적으로 새길 수 있습니다.</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.0KHgAaDi3tmu32Hq]{강화 의례의 외골격}</p>"
+  "description": "<p>직물로 짠 외골격은 현존하는 가장 단단한 갑옷과 견줄 수 있습니다. 외골격은 판금 방어구 그룹에 속하는 중형 방어구로, 공격력에 아이템 보너스 +4, 방어력 상한 +1, 공격력 페널티 -2, 이동 속도 페널티 -5, 힘 수치 16을 부여하며, 편안함 특성이 있습니다. 다른 방어구를 착용하거나 외골격을 벗을 수 없습니다. 외골격에 방어구 룬은 정상적으로 새길 수 있습니다.</p>\n<p>@link[equipment.rite-of-reinforcement-exoskeleton]</p>"
  },
  "respite-of-a-thousand-roofs": {
   "name": "천 개의 지붕의 휴식",
-  "description": "<p>당신은 가난한 사람들을 보호하고 먹여 살리기로 맹세했습니다. 이 맹세는 당신에게 목공, 요리, 재봉에 능숙함을 부여하고, 제작과 요리 지식에 숙련되어 @UUID[Compendium.pf2e.feats-srd.Item.3HChkcD1IRqv4DbA]{임프로바이즈 툴} 스킬 피트를 얻게 됩니다.</p><hr /><p><strong>추가 칙령</strong> 가난한 이들을 돕기 위해 그들의 집과 옷을 수리하거나 음식을 제공하세요</p>"
+  "description": "<p>당신은 가난한 사람들을 보호하고 먹여 살리기로 맹세했습니다. 이 맹세는 당신에게 목공, 요리, 재봉에 능숙함을 부여하고, 제작과 요리 지식에 숙련되어 @link[feats.improvise-tool] 스킬 피트를 얻게 됩니다.</p><hr /><p><strong>추가 칙령</strong> 가난한 이들을 돕기 위해 그들의 집과 옷을 수리하거나 음식을 제공하세요</p>"
  },
  "hardshell-surki": {
   "name": "단단한 껍질 수르키",
-  "description": "<p>당신의 외골격은 다른 수르키보다 훨씬 더 밀도가 높아, 자신만의 갑옷 역할을 합니다. 이 외골격은 판갑 그룹에 속하는 중형 갑옷으로, AC에 +4 아이템 보너스, Dex 제한 +1, 판정 페널티 -2, 속도 페널티 -5피트, 힘 요구치 +3을 가지며, 편안함 속성을 지닙니다. 당신은 이 외골격을 벗거나 다른 갑옷을 착용할 수 없습니다. 또한 이 외골격에 갑옷 룬을 새길 수 있습니다.</p>\n<ul>\n<li><strong>진화</strong> 당신의 마디 사이를 흐르는 마법 순환계가 강화망으로 변하여 외골격을 마법 에너지로 강화합니다. 물리 피해를 주는 치명타를 맞았을 때, 반응으로 @Check[flat|dc:17]를 시도할 수 있습니다. 성공하면 공격이 일반 타격으로 바뀝니다.</li>\n<li><strong>진화</strong> 당신의 복부 마디가 주로 다루는 마법에 대해 당신을 보호하는 필드를 투사할 수 있게 진화합니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.cczvLO5r7QuHaXwx]{조화 감쇠} 액션을 얻습니다.</li>\n</ul>"
+  "description": "<p>당신의 외골격은 다른 수르키보다 훨씬 더 밀도가 높아, 자신만의 갑옷 역할을 합니다. 이 외골격은 판갑 그룹에 속하는 중형 갑옷으로, AC에 +4 아이템 보너스, Dex 제한 +1, 판정 페널티 -2, 속도 페널티 -5피트, 힘 요구치 +3을 가지며, 편안함 속성을 지닙니다. 당신은 이 외골격을 벗거나 다른 갑옷을 착용할 수 없습니다. 또한 이 외골격에 갑옷 룬을 새길 수 있습니다.</p>\n<ul>\n<li><strong>진화</strong> 당신의 마디 사이를 흐르는 마법 순환계가 강화망으로 변하여 외골격을 마법 에너지로 강화합니다. 물리 피해를 주는 치명타를 맞았을 때, 반응으로 DC 17 단순를 시도할 수 있습니다. 성공하면 공격이 일반 타격으로 바뀝니다.</li>\n<li><strong>진화</strong> 당신의 복부 마디가 주로 다루는 마법에 대해 당신을 보호하는 필드를 투사할 수 있게 진화합니다. 당신은 @link[actions.dampening-harmonics] 액션을 얻습니다.</li>\n</ul>"
  },
  "taloned-tengu": {
   "name": "발톱 텐구",
-  "description": "<p>발톱은 부리만큼이나 날카롭고 강합니다. 발톱 비무장 공격으로 @Damage[1d4[slashing]] 피해를 줍니다. 발톱은 격투 그룹에 속하며, 민첩성과 기교, 비무장, 다용도 관통 특성을 지니고 있습니다.</p>"
+  "description": "<p>발톱은 부리만큼이나 날카롭고 강합니다. 발톱 비무장 공격으로 1d4 참격 피해를 줍니다. 발톱은 격투 그룹에 속하며, 민첩성과 기교, 비무장, 다용도 관통 특성을 지니고 있습니다.</p>"
  },
  "thalassic-azarketi": {
   "name": "탈라식 아자케티",
-  "description": "<p>당신은 전 세계의 대양과 바다에서 삶을 살았던 아자키족의 혈통을 이어받았습니다. 당신은 해류와 물의 원초적인 마법을 이용해 공격을 유도하는 방법을 알고 있습니다. @UUID[Compendium.pf2e.feats-srd.Item.iOY6YfGBaOvMNAor]{수중 약탈자} 스킬 피트를 획득하고, 수중 대상과 싸울 때 관통 원거리 공격의 사거리 증가가 절반으로 감소하지 않습니다.</p>"
+  "description": "<p>당신은 전 세계의 대양과 바다에서 삶을 살았던 아자키족의 혈통을 이어받았습니다. 당신은 해류와 물의 원초적인 마법을 이용해 공격을 유도하는 방법을 알고 있습니다. @link[feats.underwater-marauder] 스킬 피트를 획득하고, 수중 대상과 싸울 때 관통 원거리 공격의 사거리 증가가 절반으로 감소하지 않습니다.</p>"
  },
  "deny-lady-nanbyos-charity": {
   "name": "난뵤 부인의 자선을 거부",
-  "description": "<p>당신은 자연 재해로부터 다른 사람들을 구출하겠다고 맹세했습니다. 이 맹세는 당신이 평상시보다 1 더 많은 부피를 운반할 수 있는 힘을 부여하고, 최대 2 더 많은 부피를 운반할 수 있게 하며, 운동 체크에 +1의 상황 보너스를 부여합니다. @UUID[Compendium.pf2e.actionspf2e.Item.SjmKHgI7a5Z9JzBx]{강제 개방} 또는 @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escape}</p><hr /><p><strong>추가 칙령</strong> 자연 재해로 인해 갇히거나 영향을 받은 이들을 돕거나 구출하기 위해 최선을 다하십시오</p>"
+  "description": "<p>당신은 자연 재해로부터 다른 사람들을 구출하겠다고 맹세했습니다. 이 맹세는 당신이 평상시보다 1 더 많은 부피를 운반할 수 있는 힘을 부여하고, 최대 2 더 많은 부피를 운반할 수 있게 하며, 운동 체크에 +1의 상황 보너스를 부여합니다. @link[actions.force-open] 또는 @link[actions.escape]</p><hr /><p><strong>추가 칙령</strong> 자연 재해로 인해 갇히거나 영향을 받은 이들을 돕거나 구출하기 위해 최선을 다하십시오</p>"
  },
  "stickytoe-tripkee": {
   "name": "스티키토 트립키",
-  "description": "<p>손과 발에서 나오는 막이 표면에 달라붙는 것을 도와줍니다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.Dt6B1slsBy8ipJu9]{무장 해제}, @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기}, @UUID[Compendium.pf2e.actionspf2e.Item.lOE4yjUnETTdaf2T]{재배치}, 또는 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기} 시도에 대해 내성 및 반사 DC에 +2 상황 보너스를 얻습니다. 나무나 덩굴, 기타 초목을 오를 때 운동 체크에서 성공을 굴리면, 비판적인 성공을 대신 얻습니다.</p>"
+  "description": "<p>손과 발에서 나오는 막이 표면에 달라붙는 것을 도와줍니다. 당신은 @link[actions.disarm], @link[actions.shove], @link[actions.reposition], 또는 @link[actions.trip] 시도에 대해 내성 및 반사 DC에 +2 상황 보너스를 얻습니다. 나무나 덩굴, 기타 초목을 오를 때 운동 체크에서 성공을 굴리면, 비판적인 성공을 대신 얻습니다.</p>"
  },
  "skyborn-tengu": {
   "name": "스카이본 텐구",
@@ -1101,11 +1101,11 @@
  },
  "shortshanks-hobgoblin": {
   "name": "짧은다리 홉고블린",
-  "description": "<p>당신은 다른 호빗족보다 몸통이 길고 어깨가 넓어 다리가 상대적으로 짧아 보입니다. 덕분에 코어 근육이 강하고 무게 중심이 낮아져 승마 및 등반에 도움이 되며, 아주 어릴 때부터 안장에 올라타는 훈련을 해왔습니다. @UUID[Compendium.pf2e.feats-srd.Item.Rq5wkA8DtsmbzoGV]{승마} 업적을 획득합니다. 또한, 등반하는 동안 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비}가 되지 않습니다.</p>"
+  "description": "<p>당신은 다른 호빗족보다 몸통이 길고 어깨가 넓어 다리가 상대적으로 짧아 보입니다. 덕분에 코어 근육이 강하고 무게 중심이 낮아져 승마 및 등반에 도움이 되며, 아주 어릴 때부터 안장에 올라타는 훈련을 해왔습니다. @link[feats.ride] 업적을 획득합니다. 또한, 등반하는 동안 @link[conditions.off-guard]가 되지 않습니다.</p>"
  },
  "stoutheart-centaur": {
   "name": "강심장 켄타우로스",
-  "description": "<p>당신은 단단한 스탠스를 가지고 있으며, 강한 마음을 가진 튼튼한 켄타우로스입니다. 당신의 조상으로부터 얻은 체력 포인트가 8 대신 10이 됩니다. 또한 @UUID[Compendium.pf2e.actionspf2e.Item.M76ycLAqHoAgbcej]{균형잡기}를 위한 곡예 판정에 +1 상황 보너스를 얻고, 넘어지지 않기 위한 반사 DC에 보너스를 얻습니다.</p>"
+  "description": "<p>당신은 단단한 스탠스를 가지고 있으며, 강한 마음을 가진 튼튼한 켄타우로스입니다. 당신의 조상으로부터 얻은 HP 포인트가 8 대신 10이 됩니다. 또한 @link[actions.balance]를 위한 곡예 판정에 +1 상황 보너스를 얻고, 넘어지지 않기 위한 반사 DC에 보너스를 얻습니다.</p>"
  },
  "cloudleaper-lizardfolk": {
   "name": "클라우드리퍼 리자드포크",
@@ -1113,7 +1113,7 @@
  },
  "vigilant-goloma": {
   "name": "경계 골로마",
-  "description": "<p>당신은 명백한 물리적 위험뿐만 아니라 눈에 띄는 마법의 위협에도 주의를 기울이는 법을 배웠습니다. <em>@UUID[Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl]{마법 탐지}</em> 캔트립을 비전 타고난 주문으로 마음대로 시전할 수 있습니다. 캔트립은 자신의 레벨을 반올림한 값의 절반에 해당하는 주문 레벨로 강화됩니다. 또한, 지각력이 높아져 다른 사람보다 마법의 함정을 더 쉽게 알아챌 수 있습니다. 지각 숙련도는 마법 함정을 탐지할 때 한 단계 더 높은 것으로 간주됩니다. (훈련은 전문가, 전문은 달인, 달인은 전설로 간주합니다)</p>"
+  "description": "<p>당신은 명백한 물리적 위험뿐만 아니라 눈에 띄는 마법의 위협에도 주의를 기울이는 법을 배웠습니다. <em>@link[spells.detect-magic]</em> 캔트립을 비전 타고난 주문으로 마음대로 시전할 수 있습니다. 캔트립은 자신의 레벨을 반올림한 값의 절반에 해당하는 주문 레벨로 강화됩니다. 또한, 지각력이 높아져 다른 사람보다 마법의 함정을 더 쉽게 알아챌 수 있습니다. 지각 숙련도는 마법 함정을 탐지할 때 한 단계 더 높은 것으로 간주됩니다. (훈련은 전문가, 전문은 달인, 달인은 전설로 간주합니다)</p>"
  },
  "dromaar": {
   "name": "드로마르",
@@ -1125,11 +1125,11 @@
  },
  "stalker-minotaur": {
   "name": "추적자 미노타우로스",
-  "description": "<p>무거운 몸집에도 불구하고, 발굽이 푹신하여 발소리를 죽일 수 있어 사냥감을 기습할 수 있습니다. 은신 기술에 숙련되며(이미 은신에 숙련된 경우 다른 기술을 선택할 수 있습니다), @UUID[Compendium.pf2e.feats-srd.Item.beyw5bdA5hkQbmaG]{지형 추적자} 기술 재주를 얻습니다. 단, 잔해를 선택해야 하며, 은신 판정을 하지 않고도 5피트 대신 최대 10피트까지 @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{은밀 이동}할 수 있습니다.</p>"
+  "description": "<p>무거운 몸집에도 불구하고, 발굽이 푹신하여 발소리를 죽일 수 있어 사냥감을 기습할 수 있습니다. 은신 기술에 숙련되며(이미 은신에 숙련된 경우 다른 기술을 선택할 수 있습니다), @link[feats.terrain-stalker] 기술 재주를 얻습니다. 단, 잔해를 선택해야 하며, 은신 판정을 하지 않고도 5피트 대신 최대 10피트까지 @link[actions.sneak]할 수 있습니다.</p>"
  },
  "shadow-rat": {
   "name": "그림자 랫",
-  "description": "<p>당신의 조상들은 지하의 어두운 공간에서 살았기 때문에, 지각 있는 생명체를 불안하게 하고 동물들을 겁에 질리게 하는 검은 털과 모호하고 부자연스러운 기운을 지니게 되었습니다. 협박 숙련도가 훈련된 등급으로 상승하며, @UUID[Compendium.pf2e.actionspf2e.Item.tHCqgwjtQtzNqVvd]{강압}을 동물에게 사용할 수 있습니다. 동물에게 @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{비도덕화}를 하면, 동물과 언어를 공유하지 않아도 페널티를 받지 않습니다. (예를 들어, 배경이나 직업에 따라) 협박을 자동으로 훈련받게 되면, 선택한 다른 기술을 훈련받게 됩니다.</p>\n<p>동물들이 플레이어를 대하는 태도는 평소보다 한 단계 나빠지며, 보통 가축의 경우 무관심 대신 비우호적으로, 야생 동물의 경우 비우호적 대신 적대적으로 시작하게 됩니다.</p>"
+  "description": "<p>당신의 조상들은 지하의 어두운 공간에서 살았기 때문에, 지각 있는 생명체를 불안하게 하고 동물들을 겁에 질리게 하는 검은 털과 모호하고 부자연스러운 기운을 지니게 되었습니다. 협박 숙련도가 훈련된 등급으로 상승하며, @link[actions.coerce]을 동물에게 사용할 수 있습니다. 동물에게 @link[actions.demoralize]를 하면, 동물과 언어를 공유하지 않아도 페널티를 받지 않습니다. (예를 들어, 배경이나 직업에 따라) 협박을 자동으로 훈련받게 되면, 선택한 다른 기술을 훈련받게 됩니다.</p>\n<p>동물들이 플레이어를 대하는 태도는 평소보다 한 단계 나빠지며, 보통 가축의 경우 무관심 대신 비우호적으로, 야생 동물의 경우 비우호적 대신 적대적으로 시작하게 됩니다.</p>"
  },
  "hooded-nagaji": {
   "name": "후드 나가지",
@@ -1145,7 +1145,7 @@
  },
  "ant-kholo": {
   "name": "개미 콜로",
-  "description": "<p>당신은 약 3피트 키의 날카로운 특징과 큰 귀를 가진 콜로입니다. 많은 사람들이 당신이 실제로 콜로인지 의심합니다. 당신의 크기는 중간에서 소형으로 변경됩니다. 당신은 기만(또는 이미 기만에 숙련되었다면 다른 기술)에 숙련됩니다. 당신은 거짓말을 할 때 무죄를 주장할 때 기만 검사에 +1 상황 보너스를 얻고, 이러한 거짓말을 파악하려는 @UUID[Compendium.pf2e.actionspf2e.Item.1xRFPTFtWtGJ9ELw]{의도 파악} 검사에 대한 기만 DC에 +1 보너스를 얻으며, 기만으로 선제권을 굴릴 때 선제권 검사에도 +1 상황 보너스를 얻습니다.</p>"
+  "description": "<p>당신은 약 3피트 키의 날카로운 특징과 큰 귀를 가진 콜로입니다. 많은 사람들이 당신이 실제로 콜로인지 의심합니다. 당신의 크기는 중간에서 소형으로 변경됩니다. 당신은 기만(또는 이미 기만에 숙련되었다면 다른 기술)에 숙련됩니다. 당신은 거짓말을 할 때 무죄를 주장할 때 기만 검사에 +1 상황 보너스를 얻고, 이러한 거짓말을 파악하려는 @link[actions.sense-motive] 검사에 대한 기만 DC에 +1 보너스를 얻으며, 기만으로 선제권을 굴릴 때 선제권 검사에도 +1 상황 보너스를 얻습니다.</p>"
  },
  "shapewrought-fleshwarp": {
   "name": "형상조각 플레시워프",
@@ -1153,11 +1153,11 @@
  },
  "quillcoat-shisk": {
   "name": "퀼코트 시스크",
-  "description": "<p>신체는 공격자의 부리를 부러뜨리는 방어 메커니즘을 적응시켜 공격적인 포식자로부터 자신을 방어할 수 있게 되었지만, 부리가 다시 자라는 데는 시간이 걸립니다. @UUID[Compendium.pf2e.actionspf2e.Item.oAWNluJaMlaGysXA]{바늘이 달린 부리} 반응을 얻습니다.</p>"
+  "description": "<p>신체는 공격자의 부리를 부러뜨리는 방어 메커니즘을 적응시켜 공격적인 포식자로부터 자신을 방어할 수 있게 되었지만, 부리가 다시 자라는 데는 시간이 걸립니다. @link[actions.barbed-quills] 반응을 얻습니다.</p>"
  },
  "prismatic-vishkanya": {
   "name": "프리즘 비슈칸야",
-  "description": "<p>비늘이 반짝이며 빛을 받아 황홀한 색채를 발산합니다. 공연(또는 이미 공연 훈련을 받은 경우 원하는 다른 기술)를 훈련받고 @UUID[Compendium.pf2e.feats-srd.Item.7LB00jkh6JaJr3vS]{매혹적인 공연} 기술을 습득합니다. </p>"
+  "description": "<p>비늘이 반짝이며 빛을 받아 황홀한 색채를 발산합니다. 공연(또는 이미 공연 훈련을 받은 경우 원하는 다른 기술)를 훈련받고 @link[feats.fascinating-performance] 기술을 습득합니다. </p>"
  },
  "wishborn-poppet": {
   "name": "위시본 퍼펫",
@@ -1169,15 +1169,15 @@
  },
  "bright-fetchling": {
   "name": "밝은 페츨링",
-  "description": "<p>빛 없이는 그림자가 존재할 수 없다는 것을 우리 몸은 증명합니다. 눈이 더 밝게 빛나거나 혈관이 가끔 빛으로 맥박을 뛰기도 합니다. 당신은 5피트 이내에서 희미한 빛을 발산합니다. 이 능력은 행동으로 활성화하거나 억제할 수 있으며, 집중 특성이 있습니다. 또한, 자신의 그림자 조각을 강제로 빛나게 하여 <em>@UUID[Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4]{Light}</em>와 <em>@UUID[Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4]{Light}</em>를 신비한 타고난 캔트립으로 시전할 수 있습니다. 캔트립은 자신의 레벨을 반올림한 값의 절반에 해당하는 주문 레벨로 강화됩니다.</p>"
+  "description": "<p>빛 없이는 그림자가 존재할 수 없다는 것을 우리 몸은 증명합니다. 눈이 더 밝게 빛나거나 혈관이 가끔 빛으로 맥박을 뛰기도 합니다. 당신은 5피트 이내에서 희미한 빛을 발산합니다. 이 능력은 행동으로 활성화하거나 억제할 수 있으며, 집중 특성이 있습니다. 또한, 자신의 그림자 조각을 강제로 빛나게 하여 <em>@link[spells.light]</em>와 <em>@link[spells.light]</em>를 신비한 타고난 캔트립으로 시전할 수 있습니다. 캔트립은 자신의 레벨을 반올림한 값의 절반에 해당하는 주문 레벨로 강화됩니다.</p>"
  },
  "gourd-leshy": {
   "name": "고깔 레시",
-  "description": "<p>당신은 두개골을 위한 커다란 표주박을 가지고 있으며, 실제 뇌가 없으므로 머리 안의 공간을 사용할 수 있습니다. 머릿속에는 최대 1벌크의 오브젝트 컬렉션을 저장할 수 있습니다. 머릿속에서 @UUID[Compendium.pf2e.actionspf2e.Item.RDXXE7wMrSPCLv5k]{탈취} 물체에 대한 체크의 DC는 4 증가합니다. 또한, 머릿속에 물체를 하나만 저장하면 다른 행동의 일부로 물체를 손쉽게 손으로 끌어와서 사용할 수 있습니다. 물건을 그리면 이 다른 행동에 조작 특성이 부여됩니다.</p>"
+  "description": "<p>당신은 두개골을 위한 커다란 표주박을 가지고 있으며, 실제 뇌가 없으므로 머리 안의 공간을 사용할 수 있습니다. 머릿속에는 최대 1벌크의 오브젝트 컬렉션을 저장할 수 있습니다. 머릿속에서 @link[actions.steal] 물체에 대한 체크의 DC는 4 증가합니다. 또한, 머릿속에 물체를 하나만 저장하면 다른 행동의 일부로 물체를 손쉽게 손으로 끌어와서 사용할 수 있습니다. 물건을 그리면 이 다른 행동에 조작 특성이 부여됩니다.</p>"
  },
  "deep-orc": {
   "name": "딥 오크",
-  "description": "<p>당신의 거칠어진 손과 붉은 눈동자는 깊은 어둠의 산 동굴에서 바위 절벽에서 싸우고 최소한의 자원으로 살아남는 법을 배운 삶을 말해줍니다. 지하 지형에 대한 @UUID[Compendium.pf2e.feats-srd.Item.4tTkRyOQ0VuRBac3]{지형 전문성} 기술 능력과 @UUID[Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq]{컴뱃 클라이머} 기술 능력을 얻습니다.</p>"
+  "description": "<p>당신의 거칠어진 손과 붉은 눈동자는 깊은 어둠의 산 동굴에서 바위 절벽에서 싸우고 최소한의 자원으로 살아남는 법을 배운 삶을 말해줍니다. 지하 지형에 대한 @link[feats.terrain-expertise] 기술 능력과 @link[feats.combat-climber] 기술 능력을 얻습니다.</p>"
  },
  "leungli": {
   "name": "렁리",
@@ -1185,7 +1185,7 @@
  },
  "vicious-goloma": {
   "name": "사악한 골로마",
-  "description": "<p>손의 키틴이 강력한 발톱을 만들어 자신을 방어할 수 있습니다. 발톱으로 비무장 공격을 하여 @Damage[1d6[slashing]] 피해를 줍니다. 발톱은 난투 그룹에 속하며 기민한, 기교, 비무장 특성을 가집니다.</p>"
+  "description": "<p>손의 키틴이 강력한 발톱을 만들어 자신을 방어할 수 있습니다. 발톱으로 비무장 공격을 하여 1d6 참격 피해를 줍니다. 발톱은 난투 그룹에 속하며 기민한, 기교, 비무장 특성을 가집니다.</p>"
  },
  "windweb-tripkee": {
   "name": "바람 거미줄 트립키",
@@ -1201,7 +1201,7 @@
  },
  "born-of-vegetation": {
   "name": "식물에서 태어난",
-  "description": "<p>당신은 식물이나 곰팡이였지만, 비가 당신에게 의식을 선물했습니다. 식물이나 곰팡이 특성을 선택할 수 있습니다.</p><ul><li><strong>인간형 형태</strong> 신선한 식물로, 도움이 필요한 이들을 더 잘 도울 수 있습니다. @UUID[Compendium.pf2e.actionspf2e.Item.MHLuKy4nQO2Z4Am1]{응급 처치}에 대한 의학 체크에 +1의 상황 보너스를 얻습니다.</li><li><strong>야오과이 형태</strong> 누군가가 의학 스킬을 사용하여 @UUID[Compendium.pf2e.actionspf2e.Item.1kGNdIIhuglAjIp9]{상처 치료}를 수행할 때, 그 치료로 회복한 체력에 당신의 레벨을 더합니다. 또한, 당신이 식물 특성을 가지고 있고 밝은 빛 아래에 있거나, 곰팡이 특성을 가지고 있고 어둠 속에 있는 경우, 체크를 시도하는 생물은 +1의 상황 보너스를 얻습니다.</p>"
+  "description": "<p>당신은 식물이나 곰팡이였지만, 비가 당신에게 의식을 선물했습니다. 식물이나 곰팡이 특성을 선택할 수 있습니다.</p><ul><li><strong>인간형 형태</strong> 신선한 식물로, 도움이 필요한 이들을 더 잘 도울 수 있습니다. @link[actions.administer-first-aid]에 대한 의학 체크에 +1의 상황 보너스를 얻습니다.</li><li><strong>야오과이 형태</strong> 누군가가 의학 스킬을 사용하여 @link[actions.treat-wounds]를 수행할 때, 그 치료로 회복한 HP에 당신의 레벨을 더합니다. 또한, 당신이 식물 특성을 가지고 있고 밝은 빛 아래에 있거나, 곰팡이 특성을 가지고 있고 어둠 속에 있는 경우, 체크를 시도하는 생물은 +1의 상황 보너스를 얻습니다.</p>"
  },
  "hopeful-athamaru": {
   "name": "희망찬 아타마루",
@@ -1209,7 +1209,7 @@
  },
  "ancient-blooded-dwarf": {
   "name": "고대 혈통 드워프",
-  "description": "<p>옛날의 드워프 영웅들은 적의 마법을 물리칠 수 있었고, 그 저항의 일부가 당신에게도 나타납니다. @UUID[Compendium.pf2e.actionspf2e.Item.8w6esW689NNbbq3i]{고대의 피를 부름} 반응을 얻습니다.</p>"
+  "description": "<p>옛날의 드워프 영웅들은 적의 마법을 물리칠 수 있었고, 그 저항의 일부가 당신에게도 나타납니다. @link[actions.call-on-ancient-blood] 반응을 얻습니다.</p>"
  },
  "rite-of-passage": {
   "name": "통과 의례",
@@ -1217,7 +1217,7 @@
  },
  "elusive-vishkanya": {
   "name": "유연한 비슈카야",
-  "description": "<p>당신의 유연한 몸은 어떤 사람들에게는 부자연스럽게 유연해 보이지만, 그들은 당신에게서 이상한 점을 거의 찾아내지 못합니다. 적을 쉽게 피할 수 있습니다. @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{탈출} 판정에 상황 보너스 +1을 받습니다. 또한, 쥐어짜기 시 이동 속도가 두 배로 빨라집니다.</p>"
+  "description": "<p>당신의 유연한 몸은 어떤 사람들에게는 부자연스럽게 유연해 보이지만, 그들은 당신에게서 이상한 점을 거의 찾아내지 못합니다. 적을 쉽게 피할 수 있습니다. @link[actions.escape] 판정에 상황 보너스 +1을 받습니다. 또한, 쥐어짜기 시 이동 속도가 두 배로 빨라집니다.</p>"
  },
  "shadow-of-the-hermit": {
   "name": "은둔자의 그림자",
@@ -1229,7 +1229,7 @@
  },
  "bloodhound-shoony": {
   "name": "블러드하운드 슈니",
-  "description": "<p>당신의 조상은 유명한 사냥꾼이었고, 당신도 그 사냥꾼의 재능을 그대로 물려받았습니다.</p>\n<p>당신은 30피트 범위의 부정확한 후각이라는 특별한 감각을 얻었습니다. 즉, 후각을 이용해 생물의 위치를 파악할 수 있지만, @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{숨겨짐} 상태로 유지됩니다. </p>\n<p>또한, 이전에 자신의 냄새로 감지한 적이 있는 @UUID[Compendium.pf2e.actionspf2e.Item.EA5vuSgJfiHH7plD]{추적} 생물의 생존 확인에 +2의 상황 보너스를 받습니다.</p>"
+  "description": "<p>당신의 조상은 유명한 사냥꾼이었고, 당신도 그 사냥꾼의 재능을 그대로 물려받았습니다.</p>\n<p>당신은 30피트 범위의 부정확한 후각이라는 특별한 감각을 얻었습니다. 즉, 후각을 이용해 생물의 위치를 파악할 수 있지만, @link[conditions.hidden] 상태로 유지됩니다. </p>\n<p>또한, 이전에 자신의 냄새로 감지한 적이 있는 @link[actions.track] 생물의 생존 확인에 +2의 상황 보너스를 받습니다.</p>"
  },
  "ancient-scale-azarketi": {
   "name": "고대 비늘 아자케티",
