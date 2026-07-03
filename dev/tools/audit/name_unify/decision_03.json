@@ -1,0 +1,66 @@
+{"batch":3,"decisions":[
+  {"en":"Crystal Shards","action":"unify","canonical":"수정 파편","reason":"Crystal은 의역(수정) 우선; effect 이름을 원본에 통일","changes":[
+    {"cat":"equipment","slug":"crystal-shards-major","from":"크리스탈 파편","to":"수정 파편"},
+    {"cat":"equipment","slug":"crystal-shards-moderate","from":"크리스탈 파편","to":"수정 파편"},
+    {"cat":"equipment","slug":"crystal-shards-greater","from":"크리스탈 파편","to":"수정 파편"}
+  ]},
+  {"en":"Prey Mutagen","action":"unify","canonical":"먹잇감 혈청","reason":"Mutagen=혈청 유형어 강제; 다수 슬러그가 이미 먹잇감 혈청","changes":[
+    {"cat":"effects","slug":"effect-prey-mutagen","from":"사냥감 뮤타젠","to":"먹잇감 혈청"}
+  ]},
+  {"en":"Bomber's Eye Elixir","action":"unify","canonical":"폭격수의 눈 엘릭서","reason":"Elixir=엘릭서 유형어 강제; Bomber=폭격수 통일","changes":[
+    {"cat":"effects","slug":"effect-bombers-eye-elixir","from":"폭격수의 눈 비약","to":"폭격수의 눈 엘릭서"},
+    {"cat":"equipment","slug":"bombers-eye-elixir-lesser","from":"폭격사의 눈 엘릭서","to":"폭격수의 눈 엘릭서"},
+    {"cat":"equipment","slug":"bombers-eye-elixir-greater","from":"폭격사의 눈 엘릭서","to":"폭격수의 눈 엘릭서"}
+  ]},
+  {"en":"Frost Vial","action":"unify","canonical":"서리 약병","reason":"Vial=약병 유형어 강제; 효과·장비 이름 통일","changes":[
+    {"cat":"effects","slug":"effect-frost-vial","from":"서리 병","to":"서리 약병"},
+    {"cat":"equipment","slug":"frost-vial-major","from":"서리 폭탄","to":"서리 약병"},
+    {"cat":"equipment","slug":"frost-vial-lesser","from":"서리 폭탄","to":"서리 약병"},
+    {"cat":"equipment","slug":"frost-vial-greater","from":"서리 폭탄","to":"서리 약병"},
+    {"cat":"equipment","slug":"frost-vial-moderate","from":"서리 폭탄","to":"서리 약병"}
+  ]},
+  {"en":"Blood Booster","action":"unify","canonical":"혈액 촉진제","reason":"의역 통일; 효과 이름을 원본에 맞춤","changes":[
+    {"cat":"equipment","slug":"blood-booster-greater","from":"혈액 증강제","to":"혈액 촉진제"},
+    {"cat":"equipment","slug":"blood-booster-lesser","from":"혈액 증강제","to":"혈액 촉진제"},
+    {"cat":"equipment","slug":"blood-booster-moderate","from":"혈액 증강제","to":"혈액 촉진제"}
+  ]},
+  {"en":"Eagle Eye Elixir","action":"unify","canonical":"독수리 눈 엘릭서","reason":"Elixir=엘릭서 강제; Eagle=독수리 의역 우선","changes":[
+    {"cat":"equipment","slug":"eagle-eye-elixir-lesser","from":"매의 눈 엘릭서","to":"독수리 눈 엘릭서"},
+    {"cat":"equipment","slug":"eagle-eye-elixir-major","from":"매의 눈 엘릭서","to":"독수리 눈 엘릭서"},
+    {"cat":"equipment","slug":"eagle-eye-elixir-moderate","from":"매의 눈 엘릭서","to":"독수리 눈 엘릭서"},
+    {"cat":"equipment","slug":"eagle-eye-elixir-greater","from":"매의 눈 엘릭서","to":"독수리 눈 엘릭서"}
+  ]},
+  {"en":"Fuming Cloak","action":"keep_separate","canonical":null,"reason":"effect-fuming-cloak는 아이템 발현, aura-fuming-cloak는 악몽의 비탄 오라 발현으로 발생원이 달라 각 문맥 이름 유지","changes":[]},
+  {"en":"Chromatic Jellyfish Oil","action":"unify","canonical":"색채 해파리 기름","reason":"Oil=기름, Chromatic=색채 의역 강제","changes":[
+    {"cat":"equipment","slug":"chromatic-jellyfish-oil-lesser","from":"크로마틱 해파리 기름","to":"색채 해파리 기름"},
+    {"cat":"equipment","slug":"chromatic-jellyfish-oil-greater","from":"크로마틱 해파리 기름","to":"색채 해파리 기름"},
+    {"cat":"equipment","slug":"chromatic-jellyfish-oil-moderate","from":"크로마틱 해파리 기름","to":"색채 해파리 기름"}
+  ]},
+  {"en":"Bravo's Brew","action":"unify","canonical":"브라보의 양조주","reason":"Bravo 고유명사 음역 유지; 효과 이름을 원본에 통일","changes":[
+    {"cat":"effects","slug":"effect-bravos-brew","from":"무뢰한의 양조주","to":"브라보의 양조주"}
+  ]},
+  {"en":"Stalwart's Banner","action":"unify","canonical":"용맹한 자의 깃발","reason":"PF2e-KR 정본 용맹한 자의 깃발 채택; 효과가 이미 정본","changes":[
+    {"cat":"equipment","slug":"stalwarts-banner","from":"위엄의 깃발","to":"용맹한 자의 깃발"},
+    {"cat":"equipment","slug":"stalwarts-banner-greater","from":"위엄의 깃발","to":"용맹한 자의 깃발"},
+    {"cat":"equipment","slug":"stalwarts-banner-major","from":"위엄의 깃발","to":"용맹한 자의 깃발"}
+  ]},
+  {"en":"Potion of Acid Resistance","action":"unify","canonical":"산성 저항의 물약","reason":"Potion=물약 유형어 강제; 효과 이름과 통일","changes":[
+    {"cat":"equipment","slug":"potion-of-acid-resistance-lesser","from":"산성 저항 물약","to":"산성 저항의 물약"},
+    {"cat":"equipment","slug":"potion-of-acid-resistance-greater","from":"산성 저항 물약","to":"산성 저항의 물약"},
+    {"cat":"equipment","slug":"potion-of-acid-resistance-moderate","from":"산성 저항 물약","to":"산성 저항의 물약"}
+  ]},
+  {"en":"Elixir of Life","action":"unify","canonical":"생명의 엘릭서","reason":"Elixir=엘릭서 유형어 강제; 효과의 비약을 엘릭서로 통일","changes":[
+    {"cat":"effects","slug":"effect-elixir-of-life","from":"생명의 비약","to":"생명의 엘릭서"}
+  ]},
+  {"en":"Crimson Godsblood Serum","action":"unify","canonical":"진홍 신혈 혈청","reason":"Serum=혈청 유형어 강제; Crimson=진홍, Godsblood=신혈 의역 통일","changes":[
+    {"cat":"equipment","slug":"crimson-godsblood-serum-lesser","from":"진홍빛 신의 피 세럼","to":"진홍 신혈 혈청"},
+    {"cat":"equipment","slug":"crimson-godsblood-serum-moderate","from":"진홍빛 신의 피 세럼","to":"진홍 신혈 혈청"},
+    {"cat":"equipment","slug":"crimson-godsblood-serum-greater","from":"진홍빛 신의 피 세럼","to":"진홍 신혈 혈청"}
+  ]},
+  {"en":"Knave's Standard","action":"unify","canonical":"도적의 깃발","reason":"Knave=도적 의역 통일; 효과의 나브를 도적으로 통일","changes":[
+    {"cat":"effects","slug":"effect-knaves-standard","from":"나브의 깃발","to":"도적의 깃발"}
+  ]},
+  {"en":"Antiplague","action":"unify","canonical":"질병방지제","reason":"의역 통일; 효과의 항역병제를 질병방지제로","changes":[
+    {"cat":"effects","slug":"effect-antiplague","from":"항역병제","to":"질병방지제"}
+  ]}
+]}

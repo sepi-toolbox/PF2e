@@ -1,0 +1,17 @@
+{"batch":2,"decisions":[
+ {"en":"Harrow-Chosen","action":"unify","canonical":"해로우-선택된","reason":"효과는 배경의 발현이므로 배경 원본(PF2e-KR 정본)을 따름","changes":[{"cat":"effects","slug":"effect-harrow-chosen","from":"해로우의 선택받은 자","to":"해로우-선택된"}]},
+ {"en":"Charlatan","action":"keep_separate","canonical":null,"reason":"배경(허풍쟁이)과 재주(사기꾼)는 별개 개념, 둘 다 PF2e-KR 정본","changes":[]},
+ {"en":"Concealed","action":"unify","canonical":"가려진","reason":"상태와 그 효과는 동일 개념, PF2e-KR conditionitems 정본=가려진","changes":[{"cat":"conditions","slug":"concealed","from":"은폐","to":"가려진"}]},
+ {"en":"Faith in the Fallen","action":"keep_separate","canonical":null,"reason":"신격 신앙 항목과 재주는 별개 개념, 둘 다 PF2e-KR 정본으로 상이","changes":[]},
+ {"en":"Radiant Prism","action":"keep_separate","canonical":null,"reason":"신격(래디언트 프리즘, 고유명사 음역)과 장비(빛나는 프리즘)는 별개 개념","changes":[{"cat":"equipment","slug":"radiant-prism-greater","from":"광휘 프리즘","to":"빛나는 프리즘"},{"cat":"equipment","slug":"radiant-prism-major","from":"광휘 프리즘","to":"빛나는 프리즘"},{"cat":"equipment","slug":"radiant-prism","from":"광휘 프리즘","to":"빛나는 프리즘"}]},
+ {"en":"Aerekostes","action":"unify","canonical":"아레코스테스","reason":"동일 고유명체(각성 무기이자 신격), PF2e-KR 장비 정본 표기 채택","changes":[{"cat":"deities","slug":"aerekostes","from":"아에레코스테스","to":"아레코스테스"}]},
+ {"en":"Oil of Potency","action":"unify","canonical":"효능의 기름","reason":"Oil=기름, 효과는 장비 발현, PF2e-KR 정본=효능의 기름","changes":[{"cat":"equipment","slug":"oil-of-potency-major","from":"위력 기름","to":"효능의 기름"},{"cat":"equipment","slug":"oil-of-potency-greater","from":"위력 기름","to":"효능의 기름"},{"cat":"equipment","slug":"oil-of-potency","from":"위력 기름","to":"효능의 기름"}]},
+ {"en":"Life-Boosting Oil","action":"unify","canonical":"생명력 증진 기름","reason":"Oil=기름, 효과를 장비 다수 표기로 통일","changes":[{"cat":"effects","slug":"effect-life-boosting-oil","from":"생명 촉진 기름","to":"생명력 증진 기름"}]},
+ {"en":"Serene Mutagen","action":"unify","canonical":"고요한 혈청","reason":"Mutagen=혈청(용어집), 다수 표기 고요한 혈청으로 통일","changes":[{"cat":"effects","slug":"effect-serene-mutagen-lesser","from":"평온한 혈청","to":"고요한 혈청"}]},
+ {"en":"Darkvision Elixir","action":"unify","canonical":"암흑 시야 엘릭서","reason":"Elixir=엘릭서, 등급접두 제거하고 표기 통일","changes":[{"cat":"effects","slug":"effect-darkvision-elixir-moderate","from":"보통 등급 암흑 시야 엘릭서","to":"암흑 시야 엘릭서"}]},
+ {"en":"Poison Fizz","action":"unify","canonical":"독 거품","reason":"의역>음역, 효과를 장비 다수 표기 독 거품으로 통일","changes":[{"cat":"effects","slug":"effect-poison-fizz","from":"포이즌 피즈","to":"독 거품"}]},
+ {"en":"Fire and Iceberg","action":"unify","canonical":"불과 빙산","reason":"PF2e-KR 장비 정본=불과 빙산, 효과·장비 통일","changes":[{"cat":"equipment","slug":"fire-and-iceberg-major","from":"화염과 빙산","to":"불과 빙산"},{"cat":"equipment","slug":"fire-and-iceberg","from":"화염과 빙산","to":"불과 빙산"},{"cat":"equipment","slug":"fire-and-iceberg-greater","from":"화염과 빙산","to":"불과 빙산"}]},
+ {"en":"Feyfoul","action":"unify","canonical":"페이풀","reason":"고유 조어 음역, 다수 표기 페이풀로 통일","changes":[{"cat":"effects","slug":"effect-feyfoul-greater","from":"페이파울","to":"페이풀"}]},
+ {"en":"Life Shot","action":"unify","canonical":"생명탄","reason":"장비 다수 표기 생명탄으로 효과 통일","changes":[{"cat":"effects","slug":"effect-life-shot","from":"생명 탄환","to":"생명탄"}]},
+ {"en":"Crackling Bubble Gum","action":"unify","canonical":"바스락거리는 풍선껌","reason":"장비 다수 표기로 효과 통일","changes":[{"cat":"effects","slug":"effect-crackling-bubble-gum","from":"탁탁 튀는 풍선껌","to":"바스락거리는 풍선껌"}]}
+]}

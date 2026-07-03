@@ -1,0 +1,17 @@
+{"batch":6,"decisions":[
+  {"en":"Hero's Defiance","action":"unify","canonical":"영웅의 저항","reason":"재주가 동명 초점 주문 부여, 동일 개념. Defiance=저항이 challenge(도전)보다 정확","changes":[{"cat":"spells","slug":"heros-defiance","from":"영웅의 도전","to":"영웅의 저항"}]},
+  {"en":"Cackle","action":"unify","canonical":"낄낄거리는 웃음","reason":"위치의 낄낄 웃음. 삐걱거리는(creak)은 오역, 깔깔깔은 의성어 남발 → 정본화","changes":[{"cat":"feats","slug":"cackle","from":"삐걱거리는 웃음","to":"낄낄거리는 웃음"},{"cat":"spells","slug":"cackle","from":"깔깔깔","to":"낄낄거리는 웃음"}]},
+  {"en":"Song of Marching","action":"unify","canonical":"행군의 노래","reason":"동일 개념(음악행위). Marching=행군이 행진보다 군대 맥락에 적합","changes":[{"cat":"spells","slug":"song-of-marching","from":"행진의 노래","to":"행군의 노래"}]},
+  {"en":"Phantom Orchestra","action":"unify","canonical":"유령 오케스트라","reason":"동일 개념. Phantom 의역(유령)>음역(팬텀)","changes":[{"cat":"feats","slug":"phantom-orchestra","from":"팬텀 오케스트라","to":"유령 오케스트라"}]},
+  {"en":"Unfetter Eidolon","action":"unify","canonical":"에이돌론의 속박 해제","reason":"동일 개념. Unfetter=속박 해제가 정확, Eidolon 고유음역 유지","changes":[{"cat":"feats","slug":"unfetter-eidolon","from":"에이돌론의 자유","to":"에이돌론의 속박 해제"}]},
+  {"en":"Song of the Fallen","action":"unify","canonical":"쓰러진 자들의 노래","reason":"the Fallen=전사한/쓰러진 자(사자). 타락한(corrupted)·전사들 둘다 부정확 → 쓰러진 자들","changes":[{"cat":"feats","slug":"song-of-the-fallen","from":"전사들의 노래","to":"쓰러진 자들의 노래"},{"cat":"spells","slug":"song-of-the-fallen","from":"타락한 자들의 노래","to":"쓰러진 자들의 노래"}]},
+  {"en":"Fungal Exhalation","action":"unify","canonical":"균류의 숨결","reason":"동일 개념. Exhalation=숨결, Fungal=균류(정확). 내뿜기보다 숨결","changes":[{"cat":"feats","slug":"fungal-exhalation","from":"균류의 내뿜기","to":"균류의 숨결"},{"cat":"spells","slug":"fungal-exhalation","from":"곰팡이 숨결","to":"균류의 숨결"}]},
+  {"en":"Rallying Banner","action":"unify","canonical":"집결의 깃발","reason":"동일 개념. Rally=집결/결집 동의, 집결의 깃발로 통일","changes":[{"cat":"spells","slug":"rallying-banner","from":"결집의 깃발","to":"집결의 깃발"}]},
+  {"en":"Heal Companion","action":"unify","canonical":"동물 동료 치유","reason":"동일 개념. Companion=동물 동료(레인저) 명확화","changes":[{"cat":"feats","slug":"heal-companion","from":"동료 치유","to":"동물 동료 치유"}]},
+  {"en":"Magic Warrior Aspect","action":"unify","canonical":"마법 전사 형상","reason":"동일 개념. Aspect=토템동물 형상 변신, 특성보다 형상","changes":[{"cat":"feats","slug":"magic-warrior-aspect","from":"마법 전사 특성","to":"마법 전사 형상"}]},
+  {"en":"Soothing Ballad","action":"unify","canonical":"달래는 발라드","reason":"동일 개념. Soothing=달래는(직역), 치유의는 의역과다 → 달래는","changes":[{"cat":"feats","slug":"soothing-ballad","from":"치유의 발라드","to":"달래는 발라드"}]},
+  {"en":"Pack Attack","action":"unify","canonical":"무리 공격","reason":"동일 개념. Attack=공격이 정확, 무리 전술은 의역과다","changes":[{"cat":"spells","slug":"pack-attack","from":"무리 전술","to":"무리 공격"}]},
+  {"en":"Songbird's Call","action":"unify","canonical":"노래하는 새의 부름","reason":"동일 개념. Songbird 의역(노래하는 새)>음역(송버드)","changes":[{"cat":"spells","slug":"songbirds-call","from":"송버드의 부름","to":"노래하는 새의 부름"}]},
+  {"en":"Slither","action":"unify","canonical":"미끄러짐","reason":"동일 개념. Slither=스르르 기어가다, 슬라이더(음역)는 오역","changes":[{"cat":"spells","slug":"slither","from":"슬라이더","to":"미끄러짐"}]},
+  {"en":"Pied Piping","action":"unify","canonical":"홀리는 피리 연주","reason":"동일 개념. Pied Piper(피리 부는 사나이)식 매혹 연주. 피드/피의 파이핑 둘다 음역 오류 → 의역","changes":[{"cat":"feats","slug":"pied-piping","from":"피드 파이핑","to":"홀리는 피리 연주"},{"cat":"spells","slug":"pied-piping","from":"피의 파이핑","to":"홀리는 피리 연주"}]}
+]}

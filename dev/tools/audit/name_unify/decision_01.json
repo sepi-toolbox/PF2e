@@ -1,0 +1,17 @@
+{"batch":1,"decisions":[
+ {"en":"Exploit Vulnerability","action":"unify","canonical":"취약점 악용","reason":"재주가 부여하는 행동, 동일 개념. vulnerability=취약점 의역","changes":[{"cat":"feats","slug":"exploit-vulnerability","from":"약점 악용","to":"취약점 악용"}]},
+ {"en":"Devise a Stratagem","action":"unify","canonical":"전략 수립","reason":"조사관 능력의 행동/재주/효과 동일 개념. 명사형 정본화","changes":[{"cat":"effects","slug":"effect-devise-a-stratagem","from":"계략을 구상하다","to":"전략 수립"},{"cat":"feats","slug":"devise-a-stratagem","from":"계략을 구상하다","to":"전략 수립"}]},
+ {"en":"Dragon Breath","action":"unify","canonical":"드래곤의 숨결","reason":"의역>음역, breath=숨결","changes":[{"cat":"spells","slug":"dragon-breath","from":"드래곤 브레스","to":"드래곤의 숨결"}]},
+ {"en":"Rally","action":"keep_separate","canonical":null,"reason":"action Rally(집결)는 일반 행동, feat/effect Rally(결집)는 전쟁 부대 사기 재주로 별개 개념","changes":[]},
+ {"en":"Quick Alchemy","action":"unify","canonical":"빠른 연금술","reason":"연금술사 능력, 재주가 부여하는 행동 동일 개념","changes":[{"cat":"feats","slug":"quick-alchemy","from":"신속한 연금술","to":"빠른 연금술"}]},
+ {"en":"Sneak Attack","action":"unify","canonical":"암습","reason":"로그 확립 용어 암습, 몬스터 행동/재주 동일 개념","changes":[{"cat":"actions","slug":"sneak-attack","from":"기습 공격","to":"암습"}]},
+ {"en":"Telepathy","action":"unify","canonical":"텔레파시","reason":"확립 용어, 양측 이미 동일","changes":[]},
+ {"en":"Nimble Dodge","action":"unify","canonical":"민첩 회피","reason":"재주가 부여하는 회피 행동 동일 개념","changes":[{"cat":"actions","slug":"nimble-dodge","from":"날렵한 회피","to":"민첩 회피"}]},
+ {"en":"Jet","action":"keep_separate","canonical":null,"reason":"분사=사역마 도약 행동 vs 제트=장비(보석), 동음이의","changes":[]},
+ {"en":"Augury","action":"unify","canonical":"점술","reason":"사역마 능력이 Augury 주문 시전, 동일 개념","changes":[{"cat":"actions","slug":"augury","from":"전조 점술","to":"점술"}]},
+ {"en":"Animated","action":"keep_separate","canonical":null,"reason":"생동=사역마 자율이동 능력 vs 살아난=장비 속성, 별개 개념","changes":[]},
+ {"en":"Guard","action":"keep_separate","canonical":null,"reason":"경비병=배경 직업 vs 방어 태세=전쟁 부대 재주, 동음이의","changes":[]},
+ {"en":"Stargazer","action":"keep_separate","canonical":null,"reason":"스타게이저=배경 vs 별을 바라보는 자=장비, 별개 개념","changes":[]},
+ {"en":"Demon Slayer","action":"keep_separate","canonical":null,"reason":"악마 처단자=배경 vs 데몬 사냥꾼=재주, 별개 개념","changes":[]},
+ {"en":"Demon Hunted","action":"unify","canonical":"악마에게 쫓김","reason":"효과는 배경 원본 발현, 배경명 따름","changes":[{"cat":"effects","slug":"effect-demon-hunted","from":"데몬의 추적","to":"악마에게 쫓김"}]}
+]}

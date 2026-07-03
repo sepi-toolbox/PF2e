@@ -1,0 +1,42 @@
+{"batch":0,"decisions":[
+ {"en":"Once Bitten","action":"keep_separate","canonical":null,"reason":"행동은 뱀파이어 재주 행동, 배경은 '한 번 물린' 출신 서사로 별개 항목","changes":[]},
+ {"en":"Change Shape","action":"unify","canonical":"형태 변신","reason":"재주가 형태 변신 행동을 부여하는 동일 개념; 행동 정본 채택","changes":[
+   {"cat":"feats","slug":"change-shape","from":"모양 변화","to":"형태 변신"}
+ ]},
+ {"en":"Unleash Psyche","action":"unify","canonical":"정신 해방","reason":"행동·재주·효과 동일 개념; 효과는 원본 행동명 따름","changes":[
+   {"cat":"effects","slug":"effect-unleash-psyche","from":"정신의 해방","to":"정신 해방"},
+   {"cat":"feats","slug":"unleash-psyche","from":"정신의 해방","to":"정신 해방"}
+ ]},
+ {"en":"Gossip","action":"keep_separate","canonical":null,"reason":"행동=소문 수집 vs 배경=가십꾼 출신으로 별개 개념","changes":[]},
+ {"en":"Steel Your Resolve","action":"unify","canonical":"결의 다지기","reason":"재주가 결의 다지기 행동을 부여하는 동일 개념; 직역 우선","changes":[
+   {"cat":"feats","slug":"steel-your-resolve","from":"강철 같은 결의","to":"결의 다지기"}
+ ]},
+ {"en":"Call Gun","action":"unify","canonical":"총기 소환","reason":"재주가 총 소환 행동을 부여하는 동일 개념; 자연스러운 의역 채택","changes":[
+   {"cat":"actions","slug":"call-gun","from":"총 호출","to":"총기 소환"}
+ ]},
+ {"en":"Drain Life","action":"keep_separate","canonical":null,"reason":"행동(댐피르 생명력 흡수)과 주문(흡수)은 별개 게임 항목; 효과는 주문 원본명 유지","changes":[]},
+ {"en":"Lucky Break","action":"keep_separate","canonical":null,"reason":"행동·재주·주문이 각기 다른 항목이며 정본도 상이하여 별개 유지","changes":[]},
+ {"en":"Patron's Presence","action":"unify","canonical":"후원자의 현존","reason":"재주가 행동을 부여하는 동일 개념; Presence=현존","changes":[
+   {"cat":"feats","slug":"patrons-presence","from":"후원자의 현현","to":"후원자의 현존"}
+ ]},
+ {"en":"Plummeting Roll","action":"unify","canonical":"낙법","reason":"재주가 낙법 행동을 부여하는 동일 개념; 관용 의역 우선","changes":[
+   {"cat":"feats","slug":"plummeting-roll","from":"급강하 굴림","to":"낙법"}
+ ]},
+ {"en":"Detect Magic","action":"unify","canonical":"마법 탐지","reason":"동일 주문 개념; Detect=탐지 표준","changes":[
+   {"cat":"spells","slug":"detect-magic","from":"마법 감지","to":"마법 탐지"}
+ ]},
+ {"en":"Patron's Claim","action":"unify","canonical":"후원자의 요구","reason":"재주가 행동을 부여하는 동일 개념; Claim=요구","changes":[
+   {"cat":"actions","slug":"patrons-claim","from":"후원자의 주장","to":"후원자의 요구"}
+ ]},
+ {"en":"Inspired Stratagem","action":"unify","canonical":"영감 받은 계략","reason":"행동·재주·효과 동일 개념; 효과는 원본 행동명 따름","changes":[
+   {"cat":"effects","slug":"effect-inspired-stratagem","from":"영감의 전략","to":"영감 받은 계략"},
+   {"cat":"feats","slug":"inspired-stratagem","from":"영감의 전략","to":"영감 받은 계략"}
+ ]},
+ {"en":"Quick-Tempered","action":"unify","canonical":"성급함","reason":"재주(클래스 특성)와 행동 동일 개념","changes":[
+   {"cat":"feats","slug":"quick-tempered","from":"급한 성질","to":"성급함"}
+ ]},
+ {"en":"Debilitating Strike","action":"unify","canonical":"쇠약화 타격","reason":"행동·재주·효과 동일 개념; Debilitating=쇠약, 효과는 원본 따름","changes":[
+   {"cat":"effects","slug":"effect-debilitating-strike","from":"무력화 타격","to":"쇠약화 타격"},
+   {"cat":"feats","slug":"debilitating-strike","from":"무력화 타격","to":"쇠약화 타격"}
+ ]}
+]}

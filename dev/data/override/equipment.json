@@ -575,5 +575,164 @@
  "tearaway-paper-doll": {
   "name_ko": "찢어지는 종이 인형",
   "desc_ko": "<p><strong>발동</strong> <span class=\"action-glyph\">1</span> (집중, 조작)</p><hr /><p>한 장의 색종이에서 인간형 형상이 오려져 있으며, 얼굴과 옷이 그려져 있다. 그 얼굴은 마치 인형이 무엇을 위해 만들어졌는지 아는 듯 약간 근심스러워 보인다. 당신은 두 손으로 종이 인형을 들어 반으로 찢으며, 20피트 내에서 볼 수 있는 생물에게 생각을 집중한다. 종이 인형의 찢김이 그 몸에 흉내 내어지면서, 그 생물은 @Damage[3d6[slashing]] 피해를 입는다(@Check[fortitude|dc:18|basic] 내성).</p>"
+ },
+ "radiant-prism-greater": {
+  "name_ko": "빛나는 프리즘"
+ },
+ "radiant-prism-major": {
+  "name_ko": "빛나는 프리즘"
+ },
+ "radiant-prism": {
+  "name_ko": "빛나는 프리즘"
+ },
+ "oil-of-potency-major": {
+  "name_ko": "효능의 기름"
+ },
+ "oil-of-potency-greater": {
+  "name_ko": "효능의 기름"
+ },
+ "oil-of-potency": {
+  "name_ko": "효능의 기름"
+ },
+ "fire-and-iceberg-major": {
+  "name_ko": "불과 빙산"
+ },
+ "fire-and-iceberg": {
+  "name_ko": "불과 빙산"
+ },
+ "fire-and-iceberg-greater": {
+  "name_ko": "불과 빙산"
+ },
+ "crystal-shards-major": {
+  "name_ko": "수정 파편"
+ },
+ "crystal-shards-moderate": {
+  "name_ko": "수정 파편"
+ },
+ "crystal-shards-greater": {
+  "name_ko": "수정 파편"
+ },
+ "bombers-eye-elixir-lesser": {
+  "name_ko": "폭격수의 눈 엘릭서"
+ },
+ "bombers-eye-elixir-greater": {
+  "name_ko": "폭격수의 눈 엘릭서"
+ },
+ "frost-vial-major": {
+  "name_ko": "서리 약병"
+ },
+ "frost-vial-lesser": {
+  "name_ko": "서리 약병"
+ },
+ "frost-vial-greater": {
+  "name_ko": "서리 약병"
+ },
+ "frost-vial-moderate": {
+  "name_ko": "서리 약병"
+ },
+ "blood-booster-greater": {
+  "name_ko": "혈액 촉진제"
+ },
+ "blood-booster-lesser": {
+  "name_ko": "혈액 촉진제"
+ },
+ "blood-booster-moderate": {
+  "name_ko": "혈액 촉진제"
+ },
+ "eagle-eye-elixir-lesser": {
+  "name_ko": "독수리 눈 엘릭서"
+ },
+ "eagle-eye-elixir-major": {
+  "name_ko": "독수리 눈 엘릭서"
+ },
+ "eagle-eye-elixir-moderate": {
+  "name_ko": "독수리 눈 엘릭서"
+ },
+ "eagle-eye-elixir-greater": {
+  "name_ko": "독수리 눈 엘릭서"
+ },
+ "chromatic-jellyfish-oil-lesser": {
+  "name_ko": "색채 해파리 기름"
+ },
+ "chromatic-jellyfish-oil-greater": {
+  "name_ko": "색채 해파리 기름"
+ },
+ "chromatic-jellyfish-oil-moderate": {
+  "name_ko": "색채 해파리 기름"
+ },
+ "stalwarts-banner": {
+  "name_ko": "용맹한 자의 깃발"
+ },
+ "stalwarts-banner-greater": {
+  "name_ko": "용맹한 자의 깃발"
+ },
+ "stalwarts-banner-major": {
+  "name_ko": "용맹한 자의 깃발"
+ },
+ "potion-of-acid-resistance-lesser": {
+  "name_ko": "산성 저항의 물약"
+ },
+ "potion-of-acid-resistance-greater": {
+  "name_ko": "산성 저항의 물약"
+ },
+ "potion-of-acid-resistance-moderate": {
+  "name_ko": "산성 저항의 물약"
+ },
+ "crimson-godsblood-serum-lesser": {
+  "name_ko": "진홍 신혈 혈청"
+ },
+ "crimson-godsblood-serum-moderate": {
+  "name_ko": "진홍 신혈 혈청"
+ },
+ "crimson-godsblood-serum-greater": {
+  "name_ko": "진홍 신혈 혈청"
+ },
+ "potion-of-sonic-resistance-greater": {
+  "name_ko": "음파 저항의 물약"
+ },
+ "potion-of-sonic-resistance-lesser": {
+  "name_ko": "음파 저항의 물약"
+ },
+ "potion-of-sonic-resistance-moderate": {
+  "name_ko": "음파 저항의 물약"
+ },
+ "soothing-tonic-greater": {
+  "name_ko": "진정 강장제"
+ },
+ "soothing-tonic-moderate": {
+  "name_ko": "진정 강장제"
+ },
+ "soothing-tonic-major": {
+  "name_ko": "진정 강장제"
+ },
+ "soothing-tonic-lesser": {
+  "name_ko": "진정 강장제"
+ },
+ "banner-of-the-restful-major": {
+  "name_ko": "평온의 깃발"
+ },
+ "banner-of-the-restful-greater": {
+  "name_ko": "평온의 깃발"
+ },
+ "banner-of-the-restful": {
+  "name_ko": "평온의 깃발"
+ },
+ "reinforced-chassis": {
+  "name_ko": "강화된 차체"
+ },
+ "pilgrims-token": {
+  "name_ko": "순례자의 증표"
+ },
+ "skybearers-belt": {
+  "name_ko": "하늘을 지탱하는 자의 벨트"
+ },
+ "mug": {
+  "name_ko": "머그잔"
+ },
+ "fetching-bangles": {
+  "name_ko": "매혹적인 팔찌"
+ },
+ "aerekostes": {
+  "name_ko": "아에레코스테스"
  }
 }

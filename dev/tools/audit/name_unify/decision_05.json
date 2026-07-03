@@ -1,0 +1,17 @@
+{"batch":5,"decisions":[
+ {"en":"Lifelink Surge","action":"unify","canonical":"생명력 연결 급증","reason":"주문이 원본 개념, 재주는 동일 능력 부여 → 주문명 통일","changes":[{"cat":"feats","slug":"lifelink-surge","from":"생명연결 급증","to":"생명력 연결 급증"}]},
+ {"en":"Instant Armor","action":"unify","canonical":"즉시 갑옷","reason":"주문/효과가 원본, Instant=즉시로 통일","changes":[{"cat":"feats","slug":"instant-armor","from":"순간 갑옷","to":"즉시 갑옷"}]},
+ {"en":"Shielding Formation","action":"unify","canonical":"방패 형성","reason":"주문/효과 원본명 방패 형성으로 통일","changes":[{"cat":"feats","slug":"shielding-formation","from":"방패 진형","to":"방패 형성"}]},
+ {"en":"Magic Hide","action":"unify","canonical":"마법 가죽","reason":"Hide=가죽; 재주명은 손상 문자열이라 원본 주문명으로 교정","changes":[{"cat":"feats","slug":"magic-hide","from":"마법 {숨기","to":"마법 가죽"}]},
+ {"en":"Clan Pistol","action":"unify","canonical":"씨족 권총","reason":"Clan=씨족 의역 우선, 장비가 원본","changes":[{"cat":"feats","slug":"clan-pistol","from":"클랜 권총","to":"씨족 권총"}]},
+ {"en":"Extradimensional Stash","action":"unify","canonical":"초차원 보관소","reason":"장비가 원본, 보관소로 통일","changes":[{"cat":"feats","slug":"extradimensional-stash","from":"초차원 은닉소","to":"초차원 보관소"}]},
+ {"en":"Called","action":"unify","canonical":"호출","reason":"무기 룬 명칭, 장비 원본명 호출로 통일","changes":[{"cat":"feats","slug":"called","from":"부름","to":"호출"}]},
+ {"en":"Reinforced Chassis","action":"unify","canonical":"강화된 차체","reason":"Chassis=차체 의역 우선","changes":[{"cat":"equipment","slug":"reinforced-chassis","from":"강화된 섀시","to":"강화된 차체"}]},
+ {"en":"Confabulator","action":"unify","canonical":"컨파불레이터","reason":"마법 아이템 고유 명칭, 장비 원본 음역으로 통일","changes":[{"cat":"feats","slug":"confabulator","from":"거짓말쟁이","to":"컨파불레이터"}]},
+ {"en":"Pilgrim's Token","action":"unify","canonical":"순례자의 증표","reason":"Token=증표 의역 우선","changes":[{"cat":"equipment","slug":"pilgrims-token","from":"순례자의 토큰","to":"순례자의 증표"}]},
+ {"en":"Skybearer's Belt","action":"unify","canonical":"하늘을 지탱하는 자의 벨트","reason":"Skybearer=하늘을 지탱하는 자, 소유격 반영","changes":[{"cat":"equipment","slug":"skybearers-belt","from":"하늘을 지탱하는 벨트","to":"하늘을 지탱하는 자의 벨트"}]},
+ {"en":"Lucky Keepsake","action":"unify","canonical":"행운의 부적","reason":"장비 원본명 행운의 부적으로 통일","changes":[{"cat":"feats","slug":"lucky-keepsake","from":"행운의 유품","to":"행운의 부적"}]},
+ {"en":"Mug","action":"unify","canonical":"머그잔","reason":"무기 컵, 머그잔이 자연스러움","changes":[{"cat":"equipment","slug":"mug","from":"머그","to":"머그잔"}]},
+ {"en":"Fetching Bangles","action":"unify","canonical":"매혹적인 팔찌","reason":"Fetching=매혹적인 의역, 장비명은 손상 음역이라 교정","changes":[{"cat":"equipment","slug":"fetching-bangles","from":"페츨링 팔찌","to":"매혹적인 팔찌"}]},
+ {"en":"Perfected Mind","action":"unify","canonical":"완성된 정신","reason":"Perfected=완성된 더 정확, 재주가 원본 능력","changes":[{"cat":"spells","slug":"perfected-mind","from":"완벽한 정신","to":"완성된 정신"}]}
+]}

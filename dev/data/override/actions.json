@@ -245,7 +245,7 @@
   "name_ko": "전방위 시야"
  },
  "sneak-attack": {
-  "name_ko": "기습 공격",
+  "name_ko": "암습",
   "desc_ko": "<p>이 생물의 타격은 @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비} 생물에게 1d6의 추가 정밀 피해를 입힙니다.</p>"
  },
  "knockdown": {
@@ -376,7 +376,7 @@
   "name_ko": "오라"
  },
  "nimble-dodge": {
-  "name_ko": "날렵한 회피",
+  "name_ko": "민첩 회피",
   "desc_ko": "<p><strong>발동</strong> 어떤 생물이 당신을 공격 대상으로 삼고, 당신이 그 공격자를 볼 수 있다.</p>\n<p><strong>요구조건</strong> 당신이 과적 상태가 아니다</p>\n<hr />\n<p>당신은 날렵하게 몸을 피해, 발동시킨 공격에 대해 AC에 +2 상황 보너스를 얻는다.</p>"
  },
  "engulf": {
@@ -2568,7 +2568,7 @@
   "desc_ko": "<p>내성 종류 하나를 선택한다. 당신의 사역마는 그 종류의 내성 굴림에서 성공을 굴리면 피해를 입지 않는다. 이는 피해 이외의 효과를 막지는 못한다.</p>"
  },
  "augury": {
-  "name_ko": "전조 점술",
+  "name_ko": "점술",
   "desc_ko": "<p>당신의 사역마는 운명의 가닥을 엿보아 당신의 미래에 관한 수수께끼 같은 단서를 줄 수 있다. 당신의 사역마는 당신의 마법 전통과 주문 DC를 사용해 하루에 한 번 @UUID[Compendium.pf2e.spells-srd.Item.41TZEjhO6D1nWw2X]{전조 점술}을 시전할 수 있다. 이 능력을 선택하려면 최소 8레벨이어야 한다.</p>"
  },
  "familiar-of-ongoing-misery": {
@@ -2674,5 +2674,11 @@
  "speech": {
   "name_ko": "언어",
   "desc_ko": "<p>당신이 아는 언어를 이해하고 말한다.</p>"
+ },
+ "call-gun": {
+  "name_ko": "총기 소환"
+ },
+ "patrons-claim": {
+  "name_ko": "후원자의 요구"
  }
 }

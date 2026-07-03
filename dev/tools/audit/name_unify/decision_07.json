@@ -1,0 +1,15 @@
+{"batch":7,"decisions":[
+  {"en":"Hedge Prison","action":"unify","canonical":"울타리 감옥","reason":"재주가 동명 포커스 주문을 부여; hedge witch 계열 용어 '울타리' 유지","changes":[{"cat":"spells","slug":"hedge-prison","from":"가시덤불 감옥","to":"울타리 감옥"}]},
+  {"en":"Spellmaster's Ward","action":"unify","canonical":"마법사의 수호부","reason":"동일 개념; 음역(스펠마스터)보다 의역(마법사) 우선","changes":[{"cat":"spells","slug":"spellmasters-ward","from":"스펠마스터의 수호부","to":"마법사의 수호부"}]},
+  {"en":"Crimson Breath","action":"unify","canonical":"진홍의 숨결","reason":"동일 개념; 음역(크림슨 브레스)보다 의역(진홍의 숨결) 우선","changes":[{"cat":"feats","slug":"crimson-breath","from":"크림슨 브레스","to":"진홍의 숨결"}]},
+  {"en":"Share Burden","action":"unify","canonical":"짐 나누기","reason":"동일 개념; 자연스러운 의역 '짐 나누기' 채택","changes":[{"cat":"feats","slug":"share-burden","from":"부담 분담","to":"짐 나누기"}]},
+  {"en":"House of Imaginary Walls","action":"unify","canonical":"상상의 벽의 집","reason":"동일 캔트립; imaginary=상상의 우선","changes":[{"cat":"spells","slug":"house-of-imaginary-walls","from":"허상의 벽의 집","to":"상상의 벽의 집"}]},
+  {"en":"Truespeech","action":"unify","canonical":"진실의 언어","reason":"동일 개념; 용어집 지정 의역 '진실의 언어' 우선","changes":[{"cat":"feats","slug":"truespeech","from":"트루스피치","to":"진실의 언어"}]},
+  {"en":"Debilitating Dichotomy","action":"unify","canonical":"쇠약화하는 양분","reason":"동일 개념; dichotomy=양분(이분) 채택","changes":[{"cat":"feats","slug":"debilitating-dichotomy","from":"쇠약화하는 양면성","to":"쇠약화하는 양분"}]},
+  {"en":"Hasted Assault","action":"unify","canonical":"신속한 돌격","reason":"동일 개념; haste=신속 계열 채택","changes":[{"cat":"feats","slug":"hasted-assault","from":"가속 돌격","to":"신속한 돌격"}]},
+  {"en":"Snare Hopping","action":"unify","canonical":"올가미 이동","reason":"동일 개념; hopping=이동(올가미 통과) 채택","changes":[{"cat":"feats","slug":"snare-hopping","from":"올가미 회피","to":"올가미 이동"}]},
+  {"en":"Force Fang","action":"unify","canonical":"역장 가시","reason":"동일 개념; 음역(포스 팡)보다 의역 force=역장 우선","changes":[{"cat":"feats","slug":"force-fang","from":"포스 팡","to":"역장 가시"}]},
+  {"en":"Lingering Composition","action":"unify","canonical":"지속되는 구성","reason":"동일 바드 조곡 개념; composition=구성 통일, lingering=지속되는","changes":[{"cat":"feats","slug":"lingering-composition","from":"지속되는 조성","to":"지속되는 구성"},{"cat":"spells","slug":"lingering-composition","from":"여운이 남는 구성","to":"지속되는 구성"}]},
+  {"en":"Invoke the Crimson Oath","action":"unify","canonical":"진홍의 맹세 발동","reason":"동일 개념; invoke=발동 채택","changes":[{"cat":"spells","slug":"invoke-the-crimson-oath","from":"진홍의 맹세 외침","to":"진홍의 맹세 발동"}]},
+  {"en":"Brain Drain","action":"unify","canonical":"뇌 흡수","reason":"동일 개념; drain=흡수 채택","changes":[{"cat":"feats","slug":"brain-drain","from":"두뇌 탈취","to":"뇌 흡수"}]}
+]}

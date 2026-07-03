@@ -1,0 +1,52 @@
+{"batch":4,"decisions":[
+  {"en":"Potion of Sonic Resistance","action":"unify","canonical":"음파 저항의 물약","reason":"효과는 원본 물약 발현이고 등급별 장비명이 모두 '소형'으로 오역됨; Potion=물약 정본, 깔끔한 효과명으로 통일","changes":[
+    {"cat":"equipment","slug":"potion-of-sonic-resistance-greater","from":"소형 음파 저항 물약","to":"음파 저항의 물약"},
+    {"cat":"equipment","slug":"potion-of-sonic-resistance-lesser","from":"소형 음파 저항 물약","to":"음파 저항의 물약"},
+    {"cat":"equipment","slug":"potion-of-sonic-resistance-moderate","from":"소형 음파 저항 물약","to":"음파 저항의 물약"}
+  ]},
+  {"en":"Soothing Tonic","action":"unify","canonical":"진정 강장제","reason":"Tonic 음역(토닉)보다 의역(강장제) 우선; 효과가 이미 강장제 사용","changes":[
+    {"cat":"equipment","slug":"soothing-tonic-greater","from":"진정 토닉","to":"진정 강장제"},
+    {"cat":"equipment","slug":"soothing-tonic-moderate","from":"진정 토닉","to":"진정 강장제"},
+    {"cat":"equipment","slug":"soothing-tonic-major","from":"진정 토닉","to":"진정 강장제"},
+    {"cat":"equipment","slug":"soothing-tonic-lesser","from":"진정 토닉","to":"진정 강장제"}
+  ]},
+  {"en":"Banner of the Restful","action":"unify","canonical":"평온의 깃발","reason":"PF2e-KR 정본 '평온의 깃발'; 효과도 동일","changes":[
+    {"cat":"equipment","slug":"banner-of-the-restful-major","from":"안식의 깃발","to":"평온의 깃발"},
+    {"cat":"equipment","slug":"banner-of-the-restful-greater","from":"안식의 깃발","to":"평온의 깃발"},
+    {"cat":"equipment","slug":"banner-of-the-restful","from":"안식의 깃발","to":"평온의 깃발"}
+  ]},
+  {"en":"Tome of Restorative Cleansing","action":"unify","canonical":"회복의 정화서","reason":"효과를 원본 장비명(회복의 정화서)에 맞춤","changes":[
+    {"cat":"effects","slug":"effect-tome-of-restorative-cleansing","from":"회복의 정화 서적","to":"회복의 정화서"}
+  ]},
+  {"en":"Necrotic Cap","action":"unify","canonical":"부패의 모자","reason":"효과를 원본 장비명(부패의 모자)에 맞춤","changes":[
+    {"cat":"effects","slug":"effect-necrotic-cap","from":"괴사의 갓","to":"부패의 모자"}
+  ]},
+  {"en":"Cloister Robe","action":"unify","canonical":"수도원 가운","reason":"효과를 원본 장비명(수도원 가운)에 맞춤","changes":[
+    {"cat":"effects","slug":"effect-cloister-robe","from":"수도원 로브","to":"수도원 가운"}
+  ]},
+  {"en":"Hopeful Athamaru","action":"unify","canonical":"희망찬 아타마루","reason":"PF2e-KR 유산 정본 '희망찬 아타마루'; 효과를 원본에 맞춤","changes":[
+    {"cat":"effects","slug":"effect-hopeful-athamaru","from":"희망의 아타마루","to":"희망찬 아타마루"}
+  ]},
+  {"en":"Triple Time","action":"unify","canonical":"삼중 속도","reason":"재주가 주문을 부여하는 동일 개념; 효과·주문이 이미 삼중 속도","changes":[
+    {"cat":"feats","slug":"triple-time","from":"트리플 타임","to":"삼중 속도"}
+  ]},
+  {"en":"Uplifting Overture","action":"unify","canonical":"고양의 서곡","reason":"재주=주문 동일 개념; 효과·주문 정본 고양의 서곡","changes":[
+    {"cat":"feats","slug":"uplifting-overture","from":"고양시키는 서곡","to":"고양의 서곡"}
+  ]},
+  {"en":"Unusual Anatomy","action":"unify","canonical":"특이한 해부학적 구조","reason":"재주=주문 동일 개념; 효과·주문 정본에 통일","changes":[
+    {"cat":"feats","slug":"unusual-anatomy","from":"특이한 해부학","to":"특이한 해부학적 구조"}
+  ]},
+  {"en":"One with the Land","action":"unify","canonical":"대지와 하나 되기","reason":"재주=주문 동일 개념; 효과·주문 정본에 통일","changes":[
+    {"cat":"feats","slug":"one-with-the-land","from":"땅과 하나 되기","to":"대지와 하나 되기"}
+  ]},
+  {"en":"Apex Companion","action":"unify","canonical":"최상위 동반자","reason":"재주=주문 동일 개념; 효과·주문 정본에 통일","changes":[
+    {"cat":"feats","slug":"apex-companion","from":"정점의 동반자","to":"최상위 동반자"}
+  ]},
+  {"en":"See the Unseen","action":"unify","canonical":"보이지 않는 것 보기","reason":"재주=주문 동일 개념; 효과·주문 정본에 통일","changes":[
+    {"cat":"feats","slug":"see-the-unseen","from":"보이지 않는 것을 보라","to":"보이지 않는 것 보기"}
+  ]},
+  {"en":"Bane","action":"keep_separate","canonical":null,"reason":"주문 Bane(베인)과 무기 룬 Bane(억압)은 별개 개념; 현재 이름 이미 각 문맥에 적합","changes":[]},
+  {"en":"Runic Impression","action":"unify","canonical":"룬 각인","reason":"재주가 주문을 부여하는 동일 개념; 효과·주문이 이미 룬 각인","changes":[
+    {"cat":"feats","slug":"runic-impression","from":"룬 인장","to":"룬 각인"}
+  ]}
+]}
