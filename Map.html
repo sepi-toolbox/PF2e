@@ -167,6 +167,10 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   background:var(--bg3);border:1px solid var(--border);cursor:grab;touch-action:none;}
 #map-drawer .tp-row:hover{border-color:var(--accent);}
 #map-drawer .tp-row:active{cursor:grabbing;}
+/* 배치 토큰 추적 행: 클릭 선택(그랩 아님) + 강조 상태 */
+#map-drawer .tk-row{cursor:pointer;}
+#map-drawer .tk-row.on{border-color:#f5c518;background:rgba(245,197,24,.14);box-shadow:0 0 0 1px rgba(245,197,24,.4) inset;}
+#map-drawer .tk-row .db-lv{color:var(--text2);font-size:10px;font-weight:400;}
 #map-drawer .tp-thumb{width:30px;height:30px;border-radius:50%;flex:0 0 auto;background-size:cover;background-position:center;
   display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#1a1a1a;border:1px solid var(--border2);}
 #map-drawer .tp-name{flex:1;font-size:12px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -211,6 +215,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   border-radius:5px;padding:6px 8px;font-size:13px;}
 #map-npc-editor select{flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);
   border-radius:5px;padding:5px;font-size:13px;}
+#map-npc-editor .ne-hp{width:58px;flex:0 0 auto;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:6px 6px;font-size:13px;text-align:center;}
+#map-npc-editor .ne-hp-sep{color:var(--text2);font-weight:700;}
+#map-npc-editor .ne-hint{font-size:11px;color:var(--text2);}
 #map-npc-editor .ne-check{display:flex;align-items:center;gap:6px;color:var(--text);cursor:pointer;}
 #map-npc-editor .ne-actions{justify-content:flex-end;gap:8px;margin-bottom:0;margin-top:4px;}
 #map-npc-editor .ne-actions button{background:var(--bg3);color:var(--text);border:1px solid var(--border2);
@@ -316,7 +323,7 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   <div class="md-head"><span>드로어</span><button class="md-x" onclick="MapView.toggleDrawer()" title="닫기">✕</button></div>
   <div class="md-tabs">
     <button id="md-tab-maps" class="md-tab on" onclick="MapView.setDrawerTab('maps')">🗺 지도</button>
-    <button id="md-tab-tokens" class="md-tab" onclick="MapView.setDrawerTab('tokens')">🎭 토큰</button>
+    <button id="md-tab-tokens" class="md-tab" onclick="MapView.setDrawerTab('tokens')">🎭 배치 토큰</button>
     <button id="md-tab-creatures" class="md-tab" onclick="MapView.setDrawerTab('creatures')">🐉 크리처</button>
     <button id="md-tab-hazards" class="md-tab" onclick="MapView.setDrawerTab('hazards')">⚠ 해저드</button>
   </div>
@@ -326,9 +333,8 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
       <button class="md-add" onclick="MapView.addMap()">＋ 새 지도</button>
     </div>
     <div id="md-panel-tokens" class="md-panel" style="display:none;">
-      <div class="md-hint">토큰을 만들어 지도로 끌어다 놓으세요.</div>
-      <div class="tp-list" id="map-tpl-list"></div>
-      <button class="md-add" onclick="MapView.addTemplate()">＋ 토큰 추가</button>
+      <div class="md-hint">이 지도에 배치된 토큰. 누르면 위치를 강조하고 편집창이 열립니다. (토큰 추가는 「크리처」 탭에서 드래그)</div>
+      <div class="tp-list" id="map-token-list"></div>
     </div>
     <div id="md-panel-creatures" class="md-panel db-panel" style="display:none;">
       <input id="md-crit-search" class="md-db-search" type="text" placeholder="크리처 검색 (한/영)…" autocomplete="off" oninput="MapView.dbSearch('creatures', this.value)">
@@ -387,7 +393,12 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
     <div class="ne-title" id="np-title">토큰 편집</div>
     <div class="ne-row"><label>이름</label><input id="np-name" type="text" onchange="MapView.npcApply()"></div>
     <div class="ne-row"><label>크기</label><select id="np-size" onchange="MapView.npcApply()"></select></div>
-    <div class="ne-row ne-monster"><label>몬스터</label>
+    <div class="ne-row"><label>체력</label>
+      <input id="np-hp" type="number" min="0" inputmode="numeric" class="ne-hp" onchange="MapView.npcApply()">
+      <span class="ne-hp-sep">/</span>
+      <input id="np-hpmax" type="number" min="0" inputmode="numeric" class="ne-hp" onchange="MapView.npcApply()">
+      <span class="ne-hint">현재 / 최대</span></div>
+    <div class="ne-row ne-monster"><label>능력</label>
       <div class="ml-wrap">
         <div id="ml-current" class="ml-current"><span id="ml-current-text">연결 안 됨</span> <button type="button" id="ml-clear" onclick="MonsterLink.clearLink()" style="display:none;">해제</button></div>
         <input id="ml-search" type="text" placeholder="몬스터 검색 (한/영)…" autocomplete="off" oninput="MonsterLink.onSearch(this.value)" onfocus="MonsterLink.ensure()">
@@ -440,9 +451,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_dice.js?v=0.73"></script>
-<script src="cs_monster.js?v=0.73"></script>
-<script src="cs_map.js?v=0.73"></script>
+<script src="cs_dice.js?v=0.74"></script>
+<script src="cs_monster.js?v=0.74"></script>
+<script src="cs_map.js?v=0.74"></script>
 <style>
 /* 듀얼모니터: GM 도구 + 플레이어 CCTV */
 #map-gm-tools{margin-left:12px;display:inline-flex;gap:6px;align-items:center;}
@@ -698,7 +709,7 @@ window.MonsterLink = (function () {
     const _b = document.getElementById('pf-dice-box'); if (_b) _b.remove();
   } else {
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.73');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.74');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     const box = new DiceBox({ container: '#pf-dice-box', assetPath, theme: 'default', offscreen: false, scale: 6 });
     let ready = false;

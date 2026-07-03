@@ -117,14 +117,8 @@ var MapSync = (function() {
             .then(function() { _ensuringDefault = false; });
         }
       }, function(err) { console.error('[MapSync maps listener]', err); });
-
-      // 토큰 템플릿(팔레트) 감시 — 세션 레벨, 맵 전환과 무관
-      _tplUnsub = _tplCol().onSnapshot(function(snap) {
-        _templates.clear();
-        snap.forEach(function(d) { _templates.set(d.id, Object.assign({ id: d.id }, d.data())); });
-        _emit('templates', getTemplates());
-      }, function(err) { console.error('[MapSync templates listener]', err); });
     }
+    // 토큰 팔레트(tokenTemplates) 기능 제거됨(v0.74) — 배치 토큰 추적기로 대체. 리스너 구독 안 함.
 
     // 핑 감시 (롱프레스 → 일시적 마커. rolls 패턴: 초기 스냅샷 무시 + added만 처리)
     _pingsReady = false;
@@ -590,6 +584,8 @@ var MapView = (function() {
   let _drag = null;         // 마우스/단일터치 팬: {x,y}
   let _pinch = null;        // 2터치 줌: {dist, mid, worldMid, scale}
   let _tokenDrag = null;    // 토큰 끌기: {id, x, y, grabX, grabY} (x,y=현재 월드 위치)
+  let _highlightId = null;  // 드로어 토큰 목록에서 선택해 강조 중인 토큰 id (펄스 링)
+  let _highlightT0 = 0;     // 강조 시작 시각(펄스 애니 위상)
 
   // ── 전장의 안개 (Phase D) ──
   let _fogEnabled = false;
@@ -655,14 +651,13 @@ var MapView = (function() {
     if (typeof MapSync !== 'undefined') {
       MapSync.onChange(function(kind, payload) {
         if (kind === 'map') { _onMapState(payload); }
-        else if (kind === 'active') { _onActiveMapChange(); }   // 활성 맵 전환 → 뷰 리셋
+        else if (kind === 'active') { _highlightId = null; _onActiveMapChange(); _maybeRefreshTokenList(); }   // 활성 맵 전환 → 뷰 리셋
         else if (kind === 'maps') { _renderDrawer(); }          // 맵 목록 변경 → 드로어 갱신(GM)
-        else if (kind === 'templates') { _renderTplPalette(); } // 토큰 팔레트 변경 → 갱신(GM)
-        else if (kind === 'tokens-init') { _maybeProvision(); _markDirty(); }
+        else if (kind === 'tokens-init') { _maybeProvision(); _maybeRefreshTokenList(); _markDirty(); }
         else if (kind === 'areas') { _markDirty(); }            // AoE 영역 변경 → 재draw
         else if (kind === 'paused') { _paused = !!payload; _refreshPauseUI(); _markDirty(); }
         else if (kind === 'ping') { _addPing(payload); }
-        else { _markDirty(); }            // 'tokens' 증분 변경
+        else { _maybeRefreshTokenList(); _markDirty(); }        // 'tokens' 증분 변경 → 목록 갱신
       });
     }
 
@@ -981,6 +976,22 @@ var MapView = (function() {
     if (!_areaDrag) return;
     var d = _areaDrag, dx = d.cx - d.ox, dy = d.cy - d.oy, dist = Math.hypot(dx, dy);
     _drawAreaShape(_areaTool || 'circle', d.ox, d.oy, _distToFt(dist), Math.atan2(dy, dx), AREA_COLOR, true);
+  }
+  // 드로어 토큰 목록에서 선택한 토큰을 지도에서 펄스 링으로 강조
+  function _drawHighlightRing() {
+    if (!_highlightId || typeof MapSync === 'undefined') return;
+    var t = MapSync.getToken(_highlightId);
+    if (!t) { _highlightId = null; return; }
+    var pos = _displayPos(t);
+    var sx = pos.x * _view.scale + _view.offX, sy = pos.y * _view.scale + _view.offY;
+    var r = _tokenRadiusWorld(t) * _view.scale; if (r < 9) r = 9;
+    var ph = (_now() - _highlightT0) % 1200 / 1200;            // 0..1 위상
+    var pr = r + 7 + Math.sin(ph * Math.PI * 2) * 4;
+    _ctx.save();
+    _ctx.lineWidth = 3;
+    _ctx.strokeStyle = 'rgba(245,197,24,' + (0.55 + 0.45 * Math.abs(Math.sin(ph * Math.PI))) + ')';
+    _ctx.beginPath(); _ctx.arc(sx, sy, pr, 0, Math.PI * 2); _ctx.stroke();
+    _ctx.restore();
   }
   // 안개 공개/제거 툴바 (세로 메인 버튼 + 확장 메뉴: 자유/원/사각/전체)
   let _fogMenu = null;              // 열린 메뉴: 'reveal' | 'recover' | null
@@ -1370,7 +1381,7 @@ var MapView = (function() {
   // ── 렌더 루프 (dirty-flag + 보간 중 연속 재draw) ──
   function _loop() {
     if (!_active) return;
-    if (_dirty) { _dirty = false; _render(); if (_onRenderCb) { try { _onRenderCb(); } catch (e) {} } if (_animActive) _dirty = true; }  // 보간 진행 중이면 다음 프레임 예약
+    if (_dirty) { _dirty = false; _render(); if (_onRenderCb) { try { _onRenderCb(); } catch (e) {} } if (_animActive || _highlightId) _dirty = true; }  // 보간/강조 진행 중이면 다음 프레임 예약
     _raf = requestAnimationFrame(_loop);
   }
 
@@ -1394,6 +1405,7 @@ var MapView = (function() {
     if (typeof window !== 'undefined' && window._mapTokensAboveFog) _drawAllTokensOnTop();  // GM 플레이어 미리보기: 모든 토큰 안개 위
     else _drawOwnTokenOnTop();   // 시트 플레이: 내 토큰만 안개 위
     _drawAreas();           // AoE 영역 (안개 위 — 전원 표시)
+    _drawHighlightRing();   // 드로어에서 선택한 토큰 강조 링 (GM)
     _drawPings();           // 핑 (안개 위)
     _drawShapePreview();    // 안개 도형 러버밴드 미리보기
     _drawAreaPreview();     // AoE 배치 미리보기
@@ -1864,7 +1876,7 @@ var MapView = (function() {
       if (btn) btn.classList.toggle('on', _drawerTab === t);
     });
     if (_drawerTab === 'maps') _renderDrawer();
-    else if (_drawerTab === 'tokens') _renderTplPalette();
+    else if (_drawerTab === 'tokens') _renderTokenList();
     else _renderDbList(_drawerTab, false);
   }
 
@@ -2020,7 +2032,6 @@ var MapView = (function() {
 
   // ── NPC 편집기 (GM) — 이름/크기(PF2e)/초상/숨김 ──
   let _npcEditId = null;
-  let _editKind = 'npc';     // 'npc'(배치된 토큰) | 'tpl'(팔레트 템플릿) — 편집기 공용
   let _np = null;
   function _npcRefs() {
     if (_np) return _np;
@@ -2029,6 +2040,8 @@ var MapView = (function() {
       title:  document.getElementById('np-title'),
       name:   document.getElementById('np-name'),
       size:   document.getElementById('np-size'),
+      hp:     document.getElementById('np-hp'),
+      hpmax:  document.getElementById('np-hpmax'),
       hidden: document.getElementById('np-hidden'),
       portraitInput: document.getElementById('np-portrait-input')
     };
@@ -2040,48 +2053,30 @@ var MapView = (function() {
     if (_np.portraitInput) _np.portraitInput.addEventListener('change', _onNpcPortrait);
     return _np;
   }
-  // 편집기는 드로어 팔레트(템플릿) 전용 — 배치된 토큰은 탭하면 숨기기/제거만
-  function openTplEdit(id) {
-    if (!_effGM() || typeof MapSync === 'undefined') return;
-    const t = MapSync.getTemplate(id); if (!t) return;
-    const e = _npcRefs(); if (!e.box) return;
-    _editKind = 'tpl'; _npcEditId = id;
-    if (e.title)  e.title.textContent = '토큰 편집';
-    if (e.name)   e.name.value = t.name || '';
-    if (e.size)   e.size.value = t.sizeCat || 'medium';
-    if (e.hidden) e.hidden.checked = !!t.hidden;
-    if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.onEditOpen(id, t);  // 몬스터 연결 UI 동기화
-    e.box.style.display = 'block';
-  }
-  // 배치된 토큰 편집기 열기 (이름/크기/숨김 + 연결 몬스터 정보) — FVTT식 토큰 시트
+  // 배치된 토큰 편집기 열기 (이름/크기/체력/숨김 + 연결 몬스터=능력) — FVTT식 토큰 시트
   function openNpcEdit(id) {
     if (!_effGM() || typeof MapSync === 'undefined') return;
     const t = MapSync.getToken(id); if (!t) return;
     const e = _npcRefs(); if (!e.box) return;
-    _editKind = 'npc'; _npcEditId = id;
+    _npcEditId = id;
     if (e.title)  e.title.textContent = '토큰 시트';
     if (e.name)   e.name.value = t.name || '';
     if (e.size)   e.size.value = t.sizeCat || 'medium';
+    if (e.hp)     e.hp.value = (t.hp != null ? t.hp : (t.hpMax || ''));
+    if (e.hpmax)  e.hpmax.value = t.hpMax || '';
     if (e.hidden) e.hidden.checked = !!t.hidden;
-    if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.onEditOpen(id, t);  // 연결 몬스터 라벨/검색 동기화
+    if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.onEditOpen(id, t);  // 연결 몬스터 라벨/검색 동기화(=능력)
     const sb = document.getElementById('np-statbtn');
     if (sb) sb.style.display = t.monsterId ? '' : 'none';   // 연결 몬스터 있으면 정보 버튼 노출
     e.box.style.display = 'block';
     _hideTokenActions();
   }
-  // 편집기에서 연결 몬스터 스탯블록 보기
+  // 편집기에서 연결 몬스터 스탯블록 보기 (=능력)
   function npcShowStat() {
     if (!_npcEditId || typeof MapSync === 'undefined') return;
-    const t = MapSync.getToken(_npcEditId) || (typeof MapSync.getTemplate === 'function' ? MapSync.getTemplate(_npcEditId) : null);
+    const t = MapSync.getToken(_npcEditId);
     const mid = t && t.monsterId; if (!mid) { alert('연결된 몬스터가 없습니다.'); return; }
     if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.showStat(mid, (t && (t.monsterName || t.name)) || '');
-  }
-  // ＋토큰 추가: 새 템플릿 생성 후 편집기 열기
-  function openTplCreate() {
-    if (!_effGM() || typeof MapSync === 'undefined') return;
-    MapSync.createTemplate({ name: '토큰', size: 1, sizeCat: 'medium' })
-      .then(function(id) { openTplEdit(id); })
-      .catch(function(err) { console.warn('[openTplCreate]', err); alert('토큰 생성 실패: ' + err); });
   }
   function npcApply() {
     if (!_npcEditId || !_effGM() || typeof MapSync === 'undefined') return;
@@ -2092,29 +2087,37 @@ var MapView = (function() {
       size: _cellsForCat(cat), sizeCat: cat,
       hidden: e.hidden ? !!e.hidden.checked : false
     };
+    const hpMax = e.hpmax ? parseInt(e.hpmax.value, 10) : NaN;   // 직접 입력한 체력이 우선
+    const hp    = e.hp    ? parseInt(e.hp.value, 10)    : NaN;
+    if (!isNaN(hpMax)) fields.hpMax = Math.max(0, hpMax);
+    if (!isNaN(hp))    fields.hp    = Math.max(0, hp);
     if (typeof window !== 'undefined' && window.MonsterLink && window.MonsterLink.getSelection) {
-      const lk = window.MonsterLink.getSelection();      // 글루가 보유한 현재 편집 대상의 몬스터 연결
-      if (lk) { fields.monsterId = lk.monsterId || null; fields.monsterName = lk.monsterName || null; fields.hpMax = lk.hpMax || 0; }
+      const lk = window.MonsterLink.getSelection();      // 현재 편집 대상의 몬스터 연결(=능력 출처)
+      if (lk) {
+        fields.monsterId = lk.monsterId || null; fields.monsterName = lk.monsterName || null;
+        if ((isNaN(hpMax) || hpMax === 0) && lk.hpMax) {  // 체력 미입력 시 몬스터 기본 체력 채움
+          fields.hpMax = lk.hpMax;
+          if (isNaN(hp)) fields.hp = lk.hpMax;
+          if (e.hpmax) e.hpmax.value = lk.hpMax;
+          if (e.hp && !e.hp.value) e.hp.value = lk.hpMax;
+        }
+        const sb = document.getElementById('np-statbtn'); if (sb) sb.style.display = lk.monsterId ? '' : 'none';
+      }
     }
-    const p = (_editKind === 'tpl') ? MapSync.updateTemplate(_npcEditId, fields) : MapSync.upsertToken(_npcEditId, fields);
-    p.catch(function(err) { console.warn('[npcApply]', err); });
+    MapSync.upsertToken(_npcEditId, fields).catch(function(err) { console.warn('[npcApply]', err); });
     _markDirty();
   }
   function npcDelete() {
     if (!_npcEditId || !_effGM() || typeof MapSync === 'undefined') return;
-    if (_editKind === 'tpl') {
-      if (!confirm('이 토큰 템플릿을 삭제할까요?')) return;
-      MapSync.deleteTemplate(_npcEditId).catch(function(err) { console.warn('[tplDelete]', err); });
-    } else {
-      if (!confirm('이 NPC를 삭제할까요?')) return;
-      MapSync.removeToken(_npcEditId).catch(function(err) { console.warn('[npcDelete]', err); });
-      _disp.delete(_npcEditId);
-    }
+    if (!confirm('이 토큰을 삭제할까요?')) return;
+    MapSync.removeToken(_npcEditId).catch(function(err) { console.warn('[npcDelete]', err); });
+    _disp.delete(_npcEditId);
     npcClose();
   }
   function npcClose() {
-    _npcEditId = null;
+    _npcEditId = null; _highlightId = null;               // 편집 닫으면 강조 해제
     const e = _npcRefs(); if (e.box) e.box.style.display = 'none';
+    _renderTokenList(); _markDirty();
   }
   function npcPickPortrait() {
     const e = _npcRefs(); if (e.portraitInput) { e.portraitInput.value = ''; e.portraitInput.click(); }
@@ -2122,9 +2125,9 @@ var MapView = (function() {
   function _onNpcPortrait(ev) {
     const file = ev.target.files && ev.target.files[0];
     if (!file || !_npcEditId || typeof MapSync === 'undefined') return;
-    const kind = _editKind, id = _npcEditId;
+    const id = _npcEditId;
     MapSync.resizeTokenImage(file)
-      .then(function(r) { return (kind === 'tpl') ? MapSync.updateTemplate(id, { img: r.dataUrl }) : MapSync.upsertToken(id, { img: r.dataUrl }); })
+      .then(function(r) { return MapSync.upsertToken(id, { img: r.dataUrl }); })
       .catch(function(err) { console.warn('[npc portrait]', err); });
   }
 
@@ -2198,71 +2201,48 @@ var MapView = (function() {
   function tokenActionDamage() { _applyHp(-1); }
   function tokenActionHeal() { _applyHp(1); }
 
-  // ── 토큰 팔레트(드로어) + 드래그앤드롭 배치 (GM) ──
+  // ── 배치 토큰 추적기(드로어 토큰 탭) — 현재 지도 토큰 목록 + 강조 + 편집 (GM) ──
   function _sizeKo(cat) { for (var i = 0; i < NPC_SIZES.length; i++) if (NPC_SIZES[i].cat === cat) return NPC_SIZES[i].ko.split(' ')[0]; return '중형'; }
-  function _renderTplPalette() {
-    const list = document.getElementById('map-tpl-list');
-    if (!list || typeof MapSync === 'undefined' || !MapSync.getTemplates) return;
-    const tpls = MapSync.getTemplates();
+  function _renderTokenList() {
+    const list = document.getElementById('map-token-list');
+    if (!list || typeof MapSync === 'undefined') return;
+    const ts = MapSync.getTokens().slice().sort(function(a, b) {
+      return String(a.name || '').localeCompare(String(b.name || '')) || String(a.id).localeCompare(String(b.id));
+    });
     list.innerHTML = '';
-    if (!tpls.length) {
+    if (!ts.length) {
       const hint = document.createElement('div'); hint.className = 'tp-empty';
-      hint.textContent = '＋ 토큰 추가로 만든 뒤 지도로 끌어다 놓으세요.';
+      hint.textContent = '이 지도에 배치된 토큰이 없습니다. 「크리처」 탭에서 끌어다 놓으세요.';
       list.appendChild(hint); return;
     }
-    tpls.forEach(function(t) {
+    ts.forEach(function(t) {
       const row = document.createElement('div');
-      row.className = 'tp-row'; row.title = '드래그해서 지도에 배치';
-      row.onpointerdown = function(ev) { _startTemplateDrag(t.id, ev); };
-      const thumb = document.createElement('div');
-      thumb.className = 'tp-thumb';
-      if (t.img) { thumb.style.backgroundImage = 'url(' + t.img + ')'; }
-      else { thumb.style.background = t.color || '#b03030'; thumb.textContent = ((t.name || '?').trim().charAt(0) || '?'); }
+      row.className = 'tp-row tk-row' + (t.id === _highlightId ? ' on' : '');
+      row.title = '클릭: 지도에서 위치 강조 + 편집';
+      row.onclick = function() { focusToken(t.id); };
+      const thumb = document.createElement('div'); thumb.className = 'tp-thumb';
+      if (t.img) { thumb.style.backgroundColor = '#15110d'; thumb.style.backgroundImage = 'url(' + t.img + ')'; thumb.style.backgroundSize = 'cover'; thumb.style.backgroundPosition = 'center'; }
+      else { thumb.style.background = t.color || '#3a2a4a'; thumb.textContent = ((t.name || '?').trim().charAt(0) || '?'); }
       const nm = document.createElement('span'); nm.className = 'tp-name';
-      nm.textContent = (t.name || '토큰') + ' · ' + _sizeKo(t.sizeCat);
-      const edit = document.createElement('button'); edit.className = 'tp-act'; edit.textContent = '✎'; edit.title = '편집';
-      edit.onpointerdown = function(ev) { ev.stopPropagation(); };
-      edit.onclick = function(ev) { ev.stopPropagation(); openTplEdit(t.id); };
-      const del = document.createElement('button'); del.className = 'tp-act tp-del'; del.textContent = '🗑'; del.title = '삭제';
-      del.onpointerdown = function(ev) { ev.stopPropagation(); };
-      del.onclick = function(ev) { ev.stopPropagation(); if (confirm('토큰 "' + (t.name || '') + '" 삭제?')) MapSync.deleteTemplate(t.id).catch(function() {}); };
-      row.appendChild(thumb); row.appendChild(nm); row.appendChild(edit); row.appendChild(del);
+      const hp = (t.hpMax > 0) ? ' · HP ' + (t.hp != null ? t.hp : t.hpMax) + '/' + t.hpMax : '';
+      nm.innerHTML = '<b>' + _esc(t.name || '토큰') + '</b> <span class="db-lv">' + _sizeKo(t.sizeCat || 'medium') + hp + (t.hidden ? ' · 숨김' : '') + '</span>';
+      row.appendChild(thumb); row.appendChild(nm);
       list.appendChild(row);
     });
   }
-  function addTemplate() { openTplCreate(); }
-  // 드로어 토큰 → 포인터 드래그(마우스/터치 공통) → 지도에 드롭
-  function _startTemplateDrag(id, ev) {
-    if (!_effGM() || typeof MapSync === 'undefined') return;
-    const tpl = MapSync.getTemplate(id); if (!tpl) return;
-    if (ev && ev.preventDefault) ev.preventDefault();
-    const ghost = document.createElement('div');
-    ghost.className = 'tpl-ghost'; ghost.textContent = tpl.name || '토큰';
-    document.body.appendChild(ghost);
-    const place = function(x, y) { ghost.style.left = x + 'px'; ghost.style.top = y + 'px'; };
-    place(ev.clientX, ev.clientY);
-    let moved = false;
-    const onMove = function(e) { moved = true; place(e.clientX, e.clientY); };
-    const onUp = function(e) {
-      document.removeEventListener('pointermove', onMove);
-      document.removeEventListener('pointerup', onUp);
-      if (ghost.parentNode) ghost.parentNode.removeChild(ghost);
-      if (moved) _placeTemplateAtClient(e.clientX, e.clientY, tpl);
-    };
-    document.addEventListener('pointermove', onMove);
-    document.addEventListener('pointerup', onUp);
+  function _maybeRefreshTokenList() {
+    const d = document.getElementById('map-drawer');
+    if (d && d.classList.contains('open') && _drawerTab === 'tokens') _renderTokenList();
   }
-  function _placeTemplateAtClient(clientX, clientY, tpl) {
-    if (!_cv || typeof MapSync === 'undefined') return;
-    const r = _cv.getBoundingClientRect();
-    if (clientX < r.left || clientX > r.right || clientY < r.top || clientY > r.bottom) return;  // 맵 밖 드롭 = 무시
-    if (!MapSync.hasActiveMap()) { alert('먼저 지도를 선택하세요.'); return; }
-    const w = _screenToWorld(clientX - r.left, clientY - r.top);
-    let x = w.x, y = w.y;
-    if (_bg.loaded) { x = _clamp(x, 0, _bg.w); y = _clamp(y, 0, _bg.h); }
-    if (_gridEnabled) { const s = _snapWorld(x, y, tpl.size); x = s.x; y = s.y; }
-    MapSync.createNpc({ name: tpl.name, img: tpl.img, color: tpl.color, size: tpl.size, sizeCat: tpl.sizeCat, hidden: tpl.hidden, x: Math.round(x), y: Math.round(y), monsterId: tpl.monsterId, monsterName: tpl.monsterName, hpMax: tpl.hpMax })
-      .catch(function(e) { console.warn('[placeTemplate]', e); });
+  // 토큰 목록 클릭 → 카메라를 그 토큰으로 이동 + 펄스 링 강조 + 편집기 열기
+  function focusToken(id) {
+    if (typeof MapSync === 'undefined') return;
+    const t = MapSync.getToken(id); if (!t) return;
+    if (_cssW && _cssH) { _view.offX = _cssW / 2 - t.x * _view.scale; _view.offY = _cssH / 2 - t.y * _view.scale; _userMoved = true; }
+    _highlightId = id; _highlightT0 = _now();
+    openNpcEdit(id);
+    _renderTokenList();
+    _markDirty();
   }
 
   // ── 격자 컨트롤 (GM) — 배치 on/off + 0~100% 비율 슬라이더 ──
@@ -2476,14 +2456,14 @@ var MapView = (function() {
     applyBgUrl: applyBgUrl, uploadBgOriginal: uploadBgOriginal,
     // GM 멀티맵 드로어 (Map.html)
     toggleDrawer: toggleDrawer, setDrawerTab: setDrawerTab, addMap: addMap, dbSearch: dbSearch,
+    // 배치 토큰 추적기 (드로어 토큰 탭)
+    focusToken: focusToken,
     // GM 토큰 편집기(드로어 템플릿) + 배치 토큰 빠른 액션
     npcApply: npcApply, npcDelete: npcDelete,
     npcClose: npcClose, npcPickPortrait: npcPickPortrait,
     tokenActionHide: tokenActionHide, tokenActionRemove: tokenActionRemove, tokenActionStat: tokenActionStat,
     tokenActionDamage: tokenActionDamage, tokenActionHeal: tokenActionHeal, tokenActionEdit: tokenActionEdit,
-    npcShowStat: npcShowStat,
-    // GM 토큰 팔레트(드로어 + 드래그앤드롭)
-    addTemplate: addTemplate, openTplEdit: openTplEdit, openNpcEdit: openNpcEdit,
+    npcShowStat: npcShowStat, openNpcEdit: openNpcEdit,
     // 시트 플레이 뷰
     placeMyToken: placeMyToken
   };
