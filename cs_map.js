@@ -840,6 +840,7 @@ var MapView = (function() {
     if (drawerBtn) drawerBtn.style.display = gm ? '' : 'none';
     _refreshFogToolbar();           // 공개/제거 버튼 + 확장 메뉴 (GM)
     _refreshAreaToolbar();          // AoE 영역 버튼 + 확장 메뉴 (GM)
+    _refreshCamToolbar();           // 카메라 제어 버튼 + 확장 메뉴 (GM)
     _refreshPauseUI();              // 준비중(중지) 배지/버튼
     if (gm) _refreshMapEditor();    // 배경/격자는 드로어 지도 편집기로 이동
     // 시트 플레이 뷰 전용: '내 토큰 놓기' 버튼
@@ -859,8 +860,8 @@ var MapView = (function() {
   function toggleAreaMenu() {
     if (!_effGM()) return;
     _areaMenu = !_areaMenu;
-    if (_areaMenu) { _fogMenu = null; _brush.paint = false; }   // 안개 도구와 상호배타
-    _refreshFogToolbar(); _refreshAreaToolbar(); _markDirty();
+    if (_areaMenu) { _fogMenu = null; _brush.paint = false; _camMenu = false; }   // 다른 플라이아웃과 상호배타
+    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar(); _markDirty();
   }
   // 영역 도구 선택: kind(circle/cone/line). 이후 지도에 드래그로 배치.
   function setAreaTool(kind) {
@@ -875,6 +876,22 @@ var MapView = (function() {
     MapSync.clearAreas().catch(function(e) { console.warn('[clearAreas]', e); });
   }
   function _isAreaPlacing() { return _effGM() && !!_areaTool; }
+
+  // ── 카메라 제어 플라이아웃 (듀얼모니터 GM 도구: 플레이어창/동기화/따라가기/CCTV) ──
+  let _camMenu = false;
+  function _refreshCamToolbar() {
+    const gm = _effGM();
+    const btn = document.getElementById('cam-btn');
+    if (btn) { btn.style.display = gm ? '' : 'none'; btn.classList.toggle('on', _camMenu); }
+    const menu = document.getElementById('cam-menu');
+    if (menu) menu.style.display = (gm && _camMenu) ? 'flex' : 'none';
+  }
+  function toggleCamMenu() {
+    if (!_effGM()) return;
+    _camMenu = !_camMenu;
+    if (_camMenu) { _fogMenu = null; _areaMenu = false; }   // 다른 플라이아웃과 상호배타
+    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar(); _markDirty();
+  }
 
   // ── 세션 준비중(중지) — 스페이스바/버튼 토글, 플레이어 화면 가림 ──
   function togglePause() {
@@ -1014,7 +1031,8 @@ var MapView = (function() {
   function toggleFogMenu(mode) {
     if (!_effGM()) return;
     _fogMenu = (_fogMenu === mode) ? null : (mode === 'recover' ? 'recover' : 'reveal');
-    _refreshFogToolbar();
+    if (_fogMenu) { _areaMenu = false; _camMenu = false; }   // 다른 플라이아웃 닫기
+    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar();
   }
   function _enableFog() {
     if (_fogEnabled || !_bg.loaded || typeof MapSync === 'undefined') return;
@@ -1045,8 +1063,8 @@ var MapView = (function() {
     if (!_effGM()) return;
     _brush.paint = false;
     _fogMenu = null;
-    _areaTool = null; _areaMenu = false;
-    _refreshFogToolbar(); _refreshAreaToolbar();
+    _areaTool = null; _areaMenu = false; _camMenu = false;
+    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar();
     _markDirty();
   }
 
@@ -2447,8 +2465,9 @@ var MapView = (function() {
     // 안개 (GM): 공개/제거(숨기기) 도구 + 확장 메뉴
     toggleFogMenu: toggleFogMenu, setFogTool: setFogTool, setSelectTool: setSelectTool,
     revealAll: revealAll, coverAll: coverAll,
-    // AoE 영역 (GM) + 세션 준비중
+    // AoE 영역 (GM) + 세션 준비중 + 카메라 제어
     toggleAreaMenu: toggleAreaMenu, setAreaTool: setAreaTool, clearAreas: clearAreas, togglePause: togglePause,
+    toggleCamMenu: toggleCamMenu,
     // 격자 + 지도 편집기 (GM, 드로어 ✎)
     toggleGrid: toggleGrid, gridRangeInput: gridRangeInput, gridRangeChange: gridRangeChange,
     gridNudge: gridNudge, gridNudgeReset: gridNudgeReset,
