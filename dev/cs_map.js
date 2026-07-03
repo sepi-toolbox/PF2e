@@ -213,7 +213,7 @@ var MapSync = (function() {
   function getAreas()    { return Array.from(_areas.values()); }
   function isPaused()    { return _paused; }
   function myToken()     { for (var t of _tokens.values()) { if (t.ownerUid === _uid) return t; } return null; }
-  function canControl(t) { return !!t; }   // 이동은 모두에게 — 세션 내 보이는 토큰은 누구나 이동 가능
+  function canControl(t) { return !!t && (_isGM || t.ownerUid === _uid); }   // GM=전체, 플레이어=자기 소유 토큰만 조작(이동/편집/패널)
   function isGM()        { return _isGM; }
   function isActive()    { return !!_sessionId; }
   function onChange(cb)  { _changeCb = cb; }
@@ -1494,25 +1494,7 @@ var MapView = (function() {
       _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2); _ctx.stroke();
     }
     _ctx.restore();
-    if (t.hpMax > 0 && _effGM()) {                      // HP 바 (GM 뷰, 몬스터 연결 토큰)
-      const cur = (t.hp != null ? t.hp : t.hpMax), ratio = Math.max(0, Math.min(1, cur / t.hpMax));
-      const bw = Math.max(24, r * 1.6), bh = 5, bx = sx - bw / 2, by = sy - r - 9;
-      _ctx.save();
-      _ctx.fillStyle = 'rgba(0,0,0,0.7)'; _ctx.fillRect(bx - 1, by - 1, bw + 2, bh + 2);
-      _ctx.fillStyle = ratio > 0.5 ? '#4caf50' : ratio > 0.25 ? '#f1c40f' : '#e74c3c';
-      _ctx.fillRect(bx, by, bw * ratio, bh);
-      _ctx.restore();
-    }
-    if (t.name && r >= 12) {                            // 이름표
-      _ctx.save();
-      _ctx.font = '11px sans-serif'; _ctx.textAlign = 'center'; _ctx.textBaseline = 'top';
-      const ty = sy + r + 2, tw = _ctx.measureText(t.name).width;
-      _ctx.fillStyle = 'rgba(0,0,0,0.6)';
-      _ctx.fillRect(sx - tw / 2 - 3, ty, tw + 6, 14);
-      _ctx.fillStyle = '#fff';
-      _ctx.fillText(t.name, sx, ty + 1);
-      _ctx.restore();
-    }
+    // HP 바·이름표 제거(사용자 요청): 토큰 위 체력바/아래 이름 라벨 렌더 안 함.
     _drawTokenConditions(t, sx, sy, r);                 // 상태이상 아이콘 배지(토큰 둘레)
   }
 
