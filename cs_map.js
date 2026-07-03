@@ -39,6 +39,7 @@ var MapSync = (function() {
   let _mapState     = null;           // 활성 맵 doc 데이터 (배경/안개/그리드; 없으면 null)
   let _tokens       = new Map();      // tokenId → {id, ownerUid, name, x, y, ...}
   let _areas        = new Map();      // AoE 영역 템플릿(활성 맵별): aid → {kind,x,y,ft,dir,color}
+  let _pins         = new Map();      // GM 전용 마스터링 핀(활성 맵별): pid → {type,x,y,title,notes} — 플레이어 비공개
   let _paused       = false;          // 세션 준비중(중지) — 플레이어 화면 가림 (session.paused 추종)
   let _sessionUnsub = null;           // session doc 감시 (activeMapId, paused)
   let _mapsUnsub    = null;           // maps 컬렉션 감시 (GM 드로어)
@@ -46,6 +47,7 @@ var MapSync = (function() {
   let _mapUnsub     = null;           // 활성 맵 doc 감시
   let _tokensUnsub  = null;           // 활성 맵 tokens 감시
   let _areasUnsub   = null;           // 활성 맵 AoE 영역 감시
+  let _pinsUnsub    = null;           // 활성 맵 GM 핀 감시 (GM만 구독)
   let _tokensReady  = false;          // 초기 스냅샷 구분
   let _pingsUnsub   = null;
   let _pingsReady   = false;
@@ -60,6 +62,7 @@ var MapSync = (function() {
   function _mapDoc()    { return _mapsCol().doc(_activeMapId); }     // 활성 맵 doc (배경/안개/그리드)
   function _tokensCol() { return _mapDoc().collection('tokens'); }  // 활성 맵 토큰
   function _areasCol()  { return _mapDoc().collection('areas'); }   // 활성 맵 AoE 영역 템플릿
+  function _pinsCol()   { return _mapDoc().collection('pins'); }    // 활성 맵 GM 핀 (GM 전용 read/write)
   function _pingsCol()  { return _sessDoc().collection('pings'); }  // 핑은 세션 레벨 (변경 없음)
 
   function _emit(kind, payload) {
@@ -135,13 +138,15 @@ var MapSync = (function() {
     if (_mapUnsub)    { _mapUnsub();    _mapUnsub = null; }
     if (_tokensUnsub) { _tokensUnsub(); _tokensUnsub = null; }
     if (_areasUnsub)  { _areasUnsub();  _areasUnsub = null; }
+    if (_pinsUnsub)   { _pinsUnsub();   _pinsUnsub = null; }
     _activeMapId = mapId || null;
     _mapState = null;
     _tokens.clear();
     _areas.clear();
+    _pins.clear();
     _tokensReady = false;
     _emit('active', _activeMapId);            // 뷰 리셋(자동맞춤 재개/편집기 닫기)
-    if (!_activeMapId) { _emit('map', null); _emit('tokens-init', []); _emit('areas', []); return; }
+    if (!_activeMapId) { _emit('map', null); _emit('tokens-init', []); _emit('areas', []); _emit('pins', []); return; }
 
     // 활성 맵 상태(배경/안개/그리드) 감시
     _mapUnsub = _mapDoc().onSnapshot(function(doc) {
@@ -171,6 +176,19 @@ var MapSync = (function() {
       });
       _emit('areas', Array.from(_areas.values()));
     }, function(err) { console.error('[MapSync areas listener]', err); _reconnect(); });
+
+    // GM 전용 마스터링 핀 감시 — GM만 구독(플레이어는 read 권한이 없어 구독 자체를 안 함 → 비공개)
+    _pins.clear();
+    if (_isGM) {
+      _pinsUnsub = _pinsCol().onSnapshot(function(snap) {
+        snap.docChanges().forEach(function(change) {
+          var id = change.doc.id;
+          if (change.type === 'removed') { _pins.delete(id); }
+          else { _pins.set(id, Object.assign({ id: id }, change.doc.data())); }
+        });
+        _emit('pins', Array.from(_pins.values()));
+      }, function(err) { console.error('[MapSync pins listener]', err); });
+    }
   }
 
   function _stopListeners() {
@@ -180,6 +198,7 @@ var MapSync = (function() {
     if (_mapUnsub)     { _mapUnsub();     _mapUnsub = null; }
     if (_tokensUnsub)  { _tokensUnsub();  _tokensUnsub = null; }
     if (_areasUnsub)   { _areasUnsub();   _areasUnsub = null; }
+    if (_pinsUnsub)    { _pinsUnsub();    _pinsUnsub = null; }
     if (_pingsUnsub)   { _pingsUnsub();   _pingsUnsub = null; }
   }
 
@@ -193,6 +212,7 @@ var MapSync = (function() {
     _mapState = null;
     _tokens.clear();
     _areas.clear();
+    _pins.clear();
     _paused = false;
     _tokensReady = false;
   }
@@ -211,9 +231,11 @@ var MapSync = (function() {
   function getTokens()   { return Array.from(_tokens.values()); }
   function getToken(id)  { return _tokens.get(id) || null; }
   function getAreas()    { return Array.from(_areas.values()); }
+  function getPins()     { return _isGM ? Array.from(_pins.values()) : []; }   // GM만 (플레이어엔 항상 빈 배열)
+  function getPin(id)    { return _pins.get(id) || null; }
   function isPaused()    { return _paused; }
   function myToken()     { for (var t of _tokens.values()) { if (t.ownerUid === _uid) return t; } return null; }
-  function canControl(t) { return !!t; }   // 이동은 모두에게 — 세션 내 보이는 토큰은 누구나 이동 가능
+  function canControl(t) { return !!t && (_isGM || t.ownerUid === _uid); }   // GM=전체, 플레이어=자기 소유 토큰만 조작(이동/편집/패널)
   function isGM()        { return _isGM; }
   function isActive()    { return !!_sessionId; }
   function onChange(cb)  { _changeCb = cb; }
@@ -352,6 +374,29 @@ var MapSync = (function() {
   function removeArea(id) {
     if (!_isGM) return Promise.reject('not-gm');
     return _areasCol().doc(id).delete();
+  }
+  // ── GM 마스터링 핀 (GM 전용 — 플레이어는 규칙상 read/write 불가) ──
+  function createPin(fields) {
+    if (!_isGM) return Promise.reject('not-gm');
+    if (!_activeMapId) return Promise.reject('no-active-map');
+    fields = fields || {};
+    var ref = _pinsCol().doc();
+    return ref.set({
+      type:  fields.type  || 'npc',           // env|encounter|trap|treasure|npc
+      x:     fields.x     || 0,
+      y:     fields.y     || 0,
+      title: fields.title || '',
+      notes: fields.notes || '',
+      createdBy: _uid, updatedAt: _ts()
+    }).then(function() { return ref.id; });
+  }
+  function updatePin(id, fields) {
+    if (!_isGM) return Promise.reject('not-gm');
+    return _pinsCol().doc(id).set(Object.assign({}, fields || {}, { updatedAt: _ts() }), { merge: true });
+  }
+  function removePin(id) {
+    if (!_isGM) return Promise.reject('not-gm');
+    return _pinsCol().doc(id).delete();
   }
   function clearAreas() {
     if (!_isGM || !_activeMapId) return Promise.resolve();
@@ -505,6 +550,7 @@ var MapSync = (function() {
     getMapState: getMapState, getActiveMapId: getActiveMapId, hasActiveMap: hasActiveMap,
     getMaps: getMaps, getTokens: getTokens, getToken: getToken,
     getAreas: getAreas, isPaused: isPaused,
+    getPins: getPins, getPin: getPin,
     myToken: myToken, canControl: canControl,
     // 맵 관리 (GM) — 멀티맵 저장/전환
     createMap: createMap, renameMap: renameMap, deleteMap: deleteMap, setActiveMap: setActiveMap,
@@ -513,6 +559,8 @@ var MapSync = (function() {
     setGridSize: setGridSize, setGrid: setGrid, setGridOffset: setGridOffset, setFogMask: setFogMask,
     // AoE 영역 (GM) + 세션 준비중
     createArea: createArea, removeArea: removeArea, clearAreas: clearAreas, setPaused: setPaused,
+    // GM 마스터링 핀 (GM 전용)
+    createPin: createPin, updatePin: updatePin, removePin: removePin,
     // 토큰 쓰기
     createToken: createToken, upsertToken: upsertToken, moveToken: moveToken,
     removeToken: removeToken, ensureMyToken: ensureMyToken, createNpc: createNpc,
@@ -557,6 +605,18 @@ var MapView = (function() {
   let _areaTool = null;       // 선택된 영역 도구: 'circle'|'cone'|'line'|null
   let _areaMenu = false;      // 영역 플라이아웃 메뉴 열림 여부
   let _areaDrag = null;       // 배치 중(러버밴드): {ox,oy(월드 원점), cx,cy(월드 현재), start(스크린)}
+  // GM 마스터링 핀 (GM 전용): 5종 이모지 핀 배치 + 메모 편집 — 플레이어엔 안 보임
+  const PIN_TYPES = {
+    env:       { emoji: '🌲', label: '환경',  color: '#5aa469' },
+    encounter: { emoji: '⚔️', label: '조우',  color: '#e05a4e' },
+    trap:      { emoji: '🪤', label: '함정',  color: '#e0842a' },
+    treasure:  { emoji: '💰', label: '보물',  color: '#e2b23a' },
+    npc:       { emoji: '👤', label: 'NPC',   color: '#4a90d9' }
+  };
+  let _pinTool   = null;      // 선택된 핀 종류(배치 모드): env|encounter|trap|treasure|npc|null
+  let _pinMenu   = false;     // 핀 종류 플라이아웃 열림 여부
+  let _pinDrag   = null;      // 핀 이동 중: {id,x,y,grabX,grabY,startScreen,moved}
+  let _pinEditId = null;      // 편집기에 열린 핀 id
   let _paused = false;        // 세션 준비중(중지) — 플레이어 화면 가림 (MapSync.isPaused 미러)
 
   let _inited  = false;
@@ -655,6 +715,7 @@ var MapView = (function() {
         else if (kind === 'maps') { _renderDrawer(); }          // 맵 목록 변경 → 드로어 갱신(GM)
         else if (kind === 'tokens-init') { _maybeProvision(); _maybeRefreshTokenList(); _markDirty(); }
         else if (kind === 'areas') { _markDirty(); }            // AoE 영역 변경 → 재draw
+        else if (kind === 'pins') { _markDirty(); }             // GM 핀 변경 → 재draw
         else if (kind === 'paused') { _paused = !!payload; _refreshPauseUI(); _markDirty(); }
         else if (kind === 'ping') { _addPing(payload); }
         else { _maybeRefreshTokenList(); _markDirty(); }        // 'tokens' 증분 변경 → 목록 갱신
@@ -840,6 +901,7 @@ var MapView = (function() {
     if (drawerBtn) drawerBtn.style.display = gm ? '' : 'none';
     _refreshFogToolbar();           // 공개/제거 버튼 + 확장 메뉴 (GM)
     _refreshAreaToolbar();          // AoE 영역 버튼 + 확장 메뉴 (GM)
+    _refreshPinToolbar();           // GM 마스터링 핀 버튼 + 확장 메뉴 (GM)
     _refreshCamToolbar();           // 카메라 제어 버튼 + 확장 메뉴 (GM)
     _refreshPauseUI();              // 준비중(중지) 배지/버튼
     if (gm) _refreshMapEditor();    // 배경/격자는 드로어 지도 편집기로 이동
@@ -860,15 +922,40 @@ var MapView = (function() {
   function toggleAreaMenu() {
     if (!_effGM()) return;
     _areaMenu = !_areaMenu;
-    if (_areaMenu) { _fogMenu = null; _brush.paint = false; _camMenu = false; }   // 다른 플라이아웃과 상호배타
-    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar(); _markDirty();
+    if (_areaMenu) { _fogMenu = null; _brush.paint = false; _camMenu = false; _pinMenu = false; _pinTool = null; }   // 다른 플라이아웃과 상호배타
+    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar(); _refreshPinToolbar(); _markDirty();
   }
   // 영역 도구 선택: kind(circle/cone/line). 이후 지도에 드래그로 배치.
   function setAreaTool(kind) {
     if (!_effGM()) return;
     _areaTool = (kind === 'cone' || kind === 'line') ? kind : 'circle';
     _brush.paint = false; _fogMenu = null;                      // 안개 브러시 끔
-    _refreshFogToolbar(); _refreshAreaToolbar(); _markDirty();
+    _pinTool = null; _pinMenu = false;                          // 핀 도구 끔(상호배타)
+    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshPinToolbar(); _markDirty();
+  }
+  // ── GM 마스터링 핀 툴바 (버튼 + 5종 확장 메뉴: 환경/조우/함정/보물/NPC) ──
+  function _refreshPinToolbar() {
+    const gm = _effGM();
+    const btn = document.getElementById('pin-btn');
+    if (btn) { btn.style.display = gm ? '' : 'none'; btn.classList.toggle('on', !!_pinTool || _pinMenu); }
+    const menu = document.getElementById('pin-menu');
+    if (menu) menu.style.display = (gm && _pinMenu) ? 'flex' : 'none';
+    const items = document.querySelectorAll('#pin-menu [data-pin]');
+    for (let i = 0; i < items.length; i++) items[i].classList.toggle('on', items[i].getAttribute('data-pin') === _pinTool);
+  }
+  function togglePinMenu() {
+    if (!_effGM()) return;
+    _pinMenu = !_pinMenu;
+    if (_pinMenu) { _fogMenu = null; _brush.paint = false; _camMenu = false; _areaMenu = false; _areaTool = null; }  // 다른 플라이아웃과 상호배타
+    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar(); _refreshPinToolbar(); _markDirty();
+  }
+  // 핀 종류 선택 → 지도를 탭하면 그 자리에 핀 배치. 다시 누르면 해제.
+  function setPinTool(type) {
+    if (!_effGM()) return;
+    _pinTool = (_pinTool === type) ? null : (PIN_TYPES[type] ? type : null);
+    _pinMenu = false;
+    _brush.paint = false; _fogMenu = null; _areaTool = null; _areaMenu = false;   // 다른 배치 도구 끔
+    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshPinToolbar(); _markDirty();
   }
   function clearAreas() {
     if (!_effGM() || typeof MapSync === 'undefined') return;
@@ -889,8 +976,8 @@ var MapView = (function() {
   function toggleCamMenu() {
     if (!_effGM()) return;
     _camMenu = !_camMenu;
-    if (_camMenu) { _fogMenu = null; _areaMenu = false; }   // 다른 플라이아웃과 상호배타
-    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar(); _markDirty();
+    if (_camMenu) { _fogMenu = null; _areaMenu = false; _pinMenu = false; _pinTool = null; }   // 다른 플라이아웃과 상호배타
+    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar(); _refreshPinToolbar(); _markDirty();
   }
 
   // ── 세션 준비중(중지) — 스페이스바/버튼 토글, 플레이어 화면 가림 ──
@@ -997,6 +1084,127 @@ var MapView = (function() {
     var d = _areaDrag, dx = d.cx - d.ox, dy = d.cy - d.oy, dist = Math.hypot(dx, dy);
     _drawAreaShape(_areaTool || 'circle', d.ox, d.oy, _distToFt(dist), Math.atan2(dy, dx), AREA_COLOR, true);
   }
+
+  // ── GM 마스터링 핀: 배치 / 이동 / 탭-편집 / 렌더 (GM 전용 — 플레이어엔 안 보임) ──
+  function _isPinPlacing() { return _effGM() && !!_pinTool; }
+  function _hitPin(wx, wy) {
+    if (!_effGM() || typeof MapSync === 'undefined') return null;
+    var ps = MapSync.getPins(), tol = 20 / _view.scale;         // 화면 20px 반경 → 월드
+    for (var i = ps.length - 1; i >= 0; i--) { var p = ps[i]; if (Math.hypot(wx - p.x, wy - p.y) <= tol) return p; }
+    return null;
+  }
+  function _placePin(scr) {
+    var w = _screenToWorld(scr.x, scr.y);
+    var hit = _hitPin(w.x, w.y);
+    if (hit) { _pinTool = null; _refreshPinToolbar(); openPinEditor(hit.id); return; }   // 기존 핀 탭 → 편집
+    var type = _pinTool;
+    MapSync.createPin({ type: type, x: Math.round(w.x), y: Math.round(w.y) })
+      .then(function(id) { _pinTool = null; _refreshPinToolbar(); openPinEditor(id); })   // 배치 즉시 편집기 열기
+      .catch(function(e) { console.warn('[createPin]', e); });
+  }
+  function _tryStartPinDrag(scr) {
+    if (!_effGM() || typeof MapSync === 'undefined') return false;
+    var w = _screenToWorld(scr.x, scr.y);
+    var pin = _hitPin(w.x, w.y);
+    if (!pin) return false;
+    _pinDrag = { id: pin.id, x: pin.x, y: pin.y, grabX: pin.x - w.x, grabY: pin.y - w.y, startScreen: { x: scr.x, y: scr.y }, moved: 0 };
+    _markDirty(); return true;
+  }
+  function _dragPinTo(scr) {
+    var w = _screenToWorld(scr.x, scr.y);
+    _pinDrag.x = w.x + _pinDrag.grabX; _pinDrag.y = w.y + _pinDrag.grabY;
+    var dx = scr.x - _pinDrag.startScreen.x, dy = scr.y - _pinDrag.startScreen.y;
+    _pinDrag.moved = Math.max(_pinDrag.moved, Math.hypot(dx, dy));
+    _markDirty();
+  }
+  function _endPinDrag() {
+    if (!_pinDrag) return;
+    var d = _pinDrag; _pinDrag = null;
+    if (typeof MapSync === 'undefined') { _markDirty(); return; }
+    if (d.moved < 5) { openPinEditor(d.id); _markDirty(); return; }   // 거의 안 움직임 = 탭 → 편집기
+    MapSync.updatePin(d.id, { x: Math.round(d.x), y: Math.round(d.y) }).catch(function(e) { console.warn('[updatePin]', e); _markDirty(); });
+    _markDirty();
+  }
+  function _drawPins() {
+    if (!_effGM() || typeof MapSync === 'undefined') return;    // GM 전용 렌더 게이트
+    var ps = MapSync.getPins();
+    for (var i = 0; i < ps.length; i++) {
+      var p = ps[i];
+      var pos = (_pinDrag && _pinDrag.id === p.id) ? _pinDrag : p;
+      _drawPinMarker(p.type, pos.x, pos.y, p.title, !!(p.notes && String(p.notes).trim()));
+    }
+  }
+  function _drawPinMarker(type, wx, wy, title, hasNotes) {
+    var def = PIN_TYPES[type] || PIN_TYPES.npc;
+    var sx = _view.offX + wx * _view.scale, sy = _view.offY + wy * _view.scale;
+    var R = 16;
+    _ctx.save();
+    _ctx.beginPath(); _ctx.arc(sx, sy, R, 0, Math.PI * 2);
+    _ctx.fillStyle = 'rgba(24,14,12,0.88)'; _ctx.fill();
+    _ctx.lineWidth = 2.5; _ctx.strokeStyle = def.color; _ctx.stroke();
+    _ctx.font = '18px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
+    _ctx.textAlign = 'center'; _ctx.textBaseline = 'middle';
+    _ctx.fillText(def.emoji, sx, sy + 1);
+    if (hasNotes) {                                             // 메모 있음 → 우상단 골드 점
+      _ctx.beginPath(); _ctx.arc(sx + R * 0.74, sy - R * 0.74, 4.5, 0, Math.PI * 2);
+      _ctx.fillStyle = '#f1c40f'; _ctx.fill();
+      _ctx.lineWidth = 1.2; _ctx.strokeStyle = 'rgba(0,0,0,0.7)'; _ctx.stroke();
+    }
+    if (title && String(title).trim()) {                       // 제목 라벨(핀 아래)
+      _ctx.font = '700 11px Eczar, serif';
+      var tw = _ctx.measureText(title).width, ty = sy + R + 3;
+      _ctx.fillStyle = 'rgba(0,0,0,0.72)';
+      _ctx.fillRect(sx - tw / 2 - 4, ty, tw + 8, 15);
+      _ctx.fillStyle = def.color; _ctx.textBaseline = 'top';
+      _ctx.fillText(title, sx, ty + 2);
+    }
+    _ctx.restore();
+  }
+
+  // ── 핀 편집기 (열기 / 종류변경 / 저장 / 삭제 / 닫기) ──
+  function openPinEditor(id, _tries) {
+    if (!_effGM() || typeof MapSync === 'undefined') return;
+    var box = document.getElementById('pin-editor');
+    if (!box) return;
+    var p = MapSync.getPin(id);
+    if (!p) { if ((_tries || 0) < 5) setTimeout(function() { openPinEditor(id, (_tries || 0) + 1); }, 120); return; }  // 생성 직후 스냅샷 도착 대기
+    _pinEditId = id;
+    _syncPinEditorType(p.type);
+    var ti = document.getElementById('pin-ed-title'); if (ti) ti.value = p.title || '';
+    var no = document.getElementById('pin-ed-notes'); if (no) no.value = p.notes || '';
+    box.style.display = 'flex';
+    if (ti) setTimeout(function() { try { ti.focus(); } catch (e) {} }, 30);
+  }
+  function _syncPinEditorType(type) {
+    var def = PIN_TYPES[type] || PIN_TYPES.npc;
+    var hd = document.getElementById('pin-ed-head');
+    if (hd) hd.textContent = def.emoji + ' ' + def.label;
+    var row = document.getElementById('pin-ed-types');
+    if (row) { var bs = row.querySelectorAll('[data-pt]'); for (var i = 0; i < bs.length; i++) bs[i].classList.toggle('on', bs[i].getAttribute('data-pt') === type); }
+  }
+  function pinEditSetType(type) {
+    if (!_pinEditId || !PIN_TYPES[type]) return;
+    _syncPinEditorType(type);
+    MapSync.updatePin(_pinEditId, { type: type }).catch(function(e) { console.warn('[updatePin type]', e); });
+  }
+  function pinEditSave() {
+    if (!_pinEditId) return Promise.resolve();
+    var ti = document.getElementById('pin-ed-title'), no = document.getElementById('pin-ed-notes');
+    return MapSync.updatePin(_pinEditId, { title: ti ? ti.value : '', notes: no ? no.value : '' })
+      .catch(function(e) { console.warn('[updatePin]', e); });
+  }
+  function pinEditClose() {
+    pinEditSave();
+    var box = document.getElementById('pin-editor'); if (box) box.style.display = 'none';
+    _pinEditId = null;
+  }
+  function pinEditDelete() {
+    if (!_pinEditId) return;
+    if (!confirm('이 핀을 삭제할까요?')) return;
+    MapSync.removePin(_pinEditId).catch(function(e) { console.warn('[removePin]', e); });
+    var box = document.getElementById('pin-editor'); if (box) box.style.display = 'none';
+    _pinEditId = null;
+  }
   // 드로어 토큰 목록에서 선택한 토큰을 지도에서 펄스 링으로 강조
   function _drawHighlightRing() {
     if (!_highlightId || typeof MapSync === 'undefined') return;
@@ -1034,8 +1242,8 @@ var MapView = (function() {
   function toggleFogMenu(mode) {
     if (!_effGM()) return;
     _fogMenu = (_fogMenu === mode) ? null : (mode === 'recover' ? 'recover' : 'reveal');
-    if (_fogMenu) { _areaMenu = false; _camMenu = false; }   // 다른 플라이아웃 닫기
-    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar();
+    if (_fogMenu) { _areaMenu = false; _camMenu = false; _pinMenu = false; _pinTool = null; }   // 다른 플라이아웃 닫기
+    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar(); _refreshPinToolbar();
   }
   function _enableFog() {
     if (_fogEnabled || !_bg.loaded || typeof MapSync === 'undefined') return;
@@ -1067,7 +1275,8 @@ var MapView = (function() {
     _brush.paint = false;
     _fogMenu = null;
     _areaTool = null; _areaMenu = false; _camMenu = false;
-    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar();
+    _pinTool = null; _pinMenu = false;
+    _refreshFogToolbar(); _refreshAreaToolbar(); _refreshCamToolbar(); _refreshPinToolbar();
     _markDirty();
   }
 
@@ -1307,8 +1516,10 @@ var MapView = (function() {
     if (_displayPlayer) return;                       // 플레이어 디스플레이=무조작(카메라는 동기화로만)
     const p = _localXY(e);
     _hideTokenActions();                              // 새 상호작용 → 토큰 액션 팝업 닫기
+    if (_isPinPlacing()) { _placePin(p); return; }    // GM 핀 배치 모드 우선
     if (_isAreaPlacing()) { _startArea(p); return; }  // AoE 영역 배치 우선
     if (_isPainting()) { _startStroke(p); return; }   // 안개 브러시 우선
+    if (_tryStartPinDrag(p)) return;                  // GM: 기존 핀 잡기(이동/탭-편집)
     if (!_tryStartTokenDrag(p)) _drag = p;            // 토큰 못 잡으면 팬
     _startPress(p);                                   // 롱프레스(1초) → 핑
   }
@@ -1316,7 +1527,8 @@ var MapView = (function() {
     if (!_active) return;
     const p = _localXY(e);
     _movePress(p);
-    if (_areaDrag) { _moveArea(p); }
+    if (_pinDrag) { _dragPinTo(p); }
+    else if (_areaDrag) { _moveArea(p); }
     else if (_stroke || _shapeDrag) { _paintMove(p); }
     else if (_tokenDrag) { _dragTokenTo(p); }
     else if (_drag) {
@@ -1324,7 +1536,7 @@ var MapView = (function() {
       _drag = p; _userMoved = true; _markDirty();
     }
   }
-  function _onMouseUp() { _cancelPress(); _endArea(); _endStroke(); _endTokenDrag(); _drag = null; }
+  function _onMouseUp() { _cancelPress(); _endPinDrag(); _endArea(); _endStroke(); _endTokenDrag(); _drag = null; }
   function _onWheel(e) {
     if (_displayPlayer) return;                       // 플레이어 디스플레이=무조작
     e.preventDefault();
@@ -1339,14 +1551,17 @@ var MapView = (function() {
       _pinch = null;
       const p = _touchLocal(e.touches[0]);
       _hideTokenActions();                             // 새 상호작용 → 토큰 액션 팝업 닫기
-      if (_isAreaPlacing()) { _startArea(p); }          // AoE 영역 배치 우선
+      if (_isPinPlacing()) { _placePin(p); }            // GM 핀 배치 모드 우선
+      else if (_isAreaPlacing()) { _startArea(p); }     // AoE 영역 배치 우선
       else if (_isPainting()) { _startStroke(p); }      // 안개 브러시 우선
+      else if (_tryStartPinDrag(p)) { /* GM 핀 잡기(이동/탭-편집) */ }
       else if (!_tryStartTokenDrag(p)) _drag = p;       // 내 토큰 위면 끌기, 아니면 팬
       _startPress(p);                                   // 롱프레스(1초) → 핑
     } else if (e.touches.length >= 2) {
       _cancelPress();                                   // 두 손가락 → 핑 취소
       _cancelShape();                                   // 그리던 도형은 취소(미적용)
       if (_areaDrag) { _areaDrag = null; }              // 배치 중 도형 취소
+      _pinDrag = null;                                  // 핀 이동 중이었으면 취소
       _endStroke();                                     // 자유곡선 그리는 중이었으면 마무리(커밋)
       _drag = null; _tokenDrag = null;                  // 두 손가락 → 핀치줌
       _startPinch(e.touches[0], e.touches[1]);
@@ -1366,7 +1581,8 @@ var MapView = (function() {
     } else if (e.touches.length === 1) {
       const p = _touchLocal(e.touches[0]);
       _movePress(p);
-      if (_areaDrag) { _moveArea(p); }
+      if (_pinDrag) { _dragPinTo(p); }
+      else if (_areaDrag) { _moveArea(p); }
       else if (_stroke || _shapeDrag) { _paintMove(p); }
       else if (_tokenDrag) { _dragTokenTo(p); }
       else if (_drag) {
@@ -1377,8 +1593,8 @@ var MapView = (function() {
     e.preventDefault();
   }
   function _onTouchEnd(e) {
-    if (e.touches.length === 0) { _cancelPress(); _endArea(); _endStroke(); _endTokenDrag(); _drag = null; _pinch = null; }
-    else if (e.touches.length === 1) { _pinch = null; if (!_areaDrag && !_stroke && !_shapeDrag && !_tokenDrag) _drag = _touchLocal(e.touches[0]); }
+    if (e.touches.length === 0) { _cancelPress(); _endPinDrag(); _endArea(); _endStroke(); _endTokenDrag(); _drag = null; _pinch = null; }
+    else if (e.touches.length === 1) { _pinch = null; if (!_areaDrag && !_stroke && !_shapeDrag && !_tokenDrag && !_pinDrag) _drag = _touchLocal(e.touches[0]); }
   }
   function _startPinch(t0, t1) {
     const a = _touchLocal(t0), b = _touchLocal(t1);
@@ -1426,6 +1642,7 @@ var MapView = (function() {
     if (typeof window !== 'undefined' && window._mapTokensAboveFog) _drawAllTokensOnTop();  // GM 플레이어 미리보기: 모든 토큰 안개 위
     else _drawOwnTokenOnTop();   // 시트 플레이: 내 토큰만 안개 위
     _drawAreas();           // AoE 영역 (안개 위 — 전원 표시)
+    _drawPins();            // GM 마스터링 핀 (GM 전용 — 플레이어엔 안 보임)
     _drawHighlightRing();   // 드로어에서 선택한 토큰 강조 링 (GM)
     _drawPings();           // 핑 (안개 위)
     _drawShapePreview();    // 안개 도형 러버밴드 미리보기
@@ -1494,25 +1711,7 @@ var MapView = (function() {
       _ctx.beginPath(); _ctx.arc(sx, sy, r, 0, Math.PI * 2); _ctx.stroke();
     }
     _ctx.restore();
-    if (t.hpMax > 0 && _effGM()) {                      // HP 바 (GM 뷰, 몬스터 연결 토큰)
-      const cur = (t.hp != null ? t.hp : t.hpMax), ratio = Math.max(0, Math.min(1, cur / t.hpMax));
-      const bw = Math.max(24, r * 1.6), bh = 5, bx = sx - bw / 2, by = sy - r - 9;
-      _ctx.save();
-      _ctx.fillStyle = 'rgba(0,0,0,0.7)'; _ctx.fillRect(bx - 1, by - 1, bw + 2, bh + 2);
-      _ctx.fillStyle = ratio > 0.5 ? '#4caf50' : ratio > 0.25 ? '#f1c40f' : '#e74c3c';
-      _ctx.fillRect(bx, by, bw * ratio, bh);
-      _ctx.restore();
-    }
-    if (t.name && r >= 12) {                            // 이름표
-      _ctx.save();
-      _ctx.font = '11px sans-serif'; _ctx.textAlign = 'center'; _ctx.textBaseline = 'top';
-      const ty = sy + r + 2, tw = _ctx.measureText(t.name).width;
-      _ctx.fillStyle = 'rgba(0,0,0,0.6)';
-      _ctx.fillRect(sx - tw / 2 - 3, ty, tw + 6, 14);
-      _ctx.fillStyle = '#fff';
-      _ctx.fillText(t.name, sx, ty + 1);
-      _ctx.restore();
-    }
+    // HP 바·이름표 제거(사용자 요청): 토큰 위 체력바/아래 이름 라벨 렌더 안 함.
     _drawTokenConditions(t, sx, sy, r);                 // 상태이상 아이콘 배지(토큰 둘레)
   }
 
@@ -2471,6 +2670,9 @@ var MapView = (function() {
     // AoE 영역 (GM) + 세션 준비중 + 카메라 제어
     toggleAreaMenu: toggleAreaMenu, setAreaTool: setAreaTool, clearAreas: clearAreas, togglePause: togglePause,
     toggleCamMenu: toggleCamMenu,
+    // GM 마스터링 핀 (GM 전용)
+    togglePinMenu: togglePinMenu, setPinTool: setPinTool, openPinEditor: openPinEditor,
+    pinEditSetType: pinEditSetType, pinEditSave: pinEditSave, pinEditClose: pinEditClose, pinEditDelete: pinEditDelete,
     // 격자 + 지도 편집기 (GM, 드로어 ✎)
     toggleGrid: toggleGrid, gridRangeInput: gridRangeInput, gridRangeChange: gridRangeChange,
     gridNudge: gridNudge, gridNudgeReset: gridNudgeReset,
