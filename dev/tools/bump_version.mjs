@@ -55,4 +55,8 @@ if (fs.existsSync('sw.js')) {
   console.log('  sw.js: CACHE 버전');
 }
 
-console.log(`\n✓ 버전 통일 → ${ver} (리터럴 ?v= ${total}곳 + 푸터 + CHANGELOG + _IIMG_VER + sw CACHE)`);
+// 복귀 시 버전 체크용 경량 엔드포인트(index.html visibilitychange 핸들러가 조회)
+fs.writeFileSync('version.json', JSON.stringify({ v: ver }) + '\n');
+console.log('  version.json: v');
+
+console.log(`\n✓ 버전 통일 → ${ver} (리터럴 ?v= ${total}곳 + 푸터 + CHANGELOG + _IIMG_VER + sw CACHE + version.json)`);
