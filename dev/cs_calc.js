@@ -645,7 +645,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.99').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.100').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
@@ -850,36 +850,39 @@ function setSkillTrained(id) {
 //  SPELL ↔ FEAT INTERACTION NOTES
 // ═══════════════════════════════════════════════
 
+// feat/spell을 slug(fs/ss)로 식별 — 이름 편집·번역 드리프트에 불변(구: 한글명 키 → 드리프트로 조용히 미매칭).
 const SPELL_FEAT_MODS = [
   // 주사위 변경
-  { feat:'치유의 손', spell:'치유', note:'🔷 <b>치유의 손</b> — d8 대신 <b>d10</b>을 굴립니다.' },
-  { feat:'해로운 손', spell:'해로움', note:'🔷 <b>해로운 손</b> — d8 대신 <b>d10</b>을 굴립니다.' },
-  { feat:'마법 손', spell:'치유', note:'🔷 <b>마법 손</b> — 상처 치료 성공 시 d8→d10, 치유에 레벨만큼 상태 보너스.' },
+  { fs:'healing-hands', ss:'heal', note:'🔷 <b>치유의 손</b> — d8 대신 <b>d10</b>을 굴립니다.' },
+  { fs:'harming-hands', ss:'harm', note:'🔷 <b>해로운 손</b> — d8 대신 <b>d10</b>을 굴립니다.' },
+  { fs:'magic-hands', ss:'heal', note:'🔷 <b>마법 손</b> — 상처 치료 성공 시 d8→d10, 치유에 레벨만큼 상태 보너스.' },
   // 시전 방식 변경
-  { feat:'선택적 에너지', spell:'치유', note:'🔷 <b>선택적 에너지</b> — 3행동(영역) 시전 시 최대 5명을 제외할 수 있습니다.' },
-  { feat:'선택적 에너지', spell:'해로움', note:'🔷 <b>선택적 에너지</b> — 3행동(영역) 시전 시 최대 5명을 제외할 수 있습니다.' },
-  { feat:'빠른 채널', spell:'치유', note:'🔷 <b>빠른 채널</b> — 2행동으로 시전해도 3행동 버전의 영역 효과를 얻습니다.' },
-  { feat:'빠른 채널', spell:'해로움', note:'🔷 <b>빠른 채널</b> — 2행동으로 시전해도 3행동 버전의 영역 효과를 얻습니다.' },
-  { feat:'밀물과 썰물', spell:'치유', note:'🔷 <b>밀물과 썰물</b> — 1~2행동 시전 시 적 1명에 피해 + 아군 1명에 회복을 동시에.' },
-  { feat:'밀물과 썰물', spell:'해로움', note:'🔷 <b>밀물과 썰물</b> — 1~2행동 시전 시 적 1명에 피해 + 아군 1명에 회복을 동시에.' },
+  { fs:'selective-energy', ss:'heal', note:'🔷 <b>선택적 에너지</b> — 3행동(영역) 시전 시 최대 5명을 제외할 수 있습니다.' },
+  { fs:'selective-energy', ss:'harm', note:'🔷 <b>선택적 에너지</b> — 3행동(영역) 시전 시 최대 5명을 제외할 수 있습니다.' },
+  { fs:'fast-channel', ss:'heal', note:'🔷 <b>빠른 채널</b> — 2행동으로 시전해도 3행동 버전의 영역 효과를 얻습니다.' },
+  { fs:'fast-channel', ss:'harm', note:'🔷 <b>빠른 채널</b> — 2행동으로 시전해도 3행동 버전의 영역 효과를 얻습니다.' },
+  { fs:'ebb-and-flow', ss:'heal', note:'🔷 <b>밀물과 썰물</b> — 1~2행동 시전 시 적 1명에 피해 + 아군 1명에 회복을 동시에.' },
+  { fs:'ebb-and-flow', ss:'harm', note:'🔷 <b>밀물과 썰물</b> — 1~2행동 시전 시 적 1명에 피해 + 아군 1명에 회복을 동시에.' },
   // 추가 효과
-  { feat:'신성 주입', spell:'치유', note:'🔷 <b>신성 주입</b> — 대상의 다음 근접 공격에 추가 1d6 활력 피해 (5랭크 2d6, 8랭크 3d6).' },
-  { feat:'신성 주입', spell:'해로움', note:'🔷 <b>신성 주입</b> — 대상의 다음 근접 공격에 추가 1d6 공허 피해 (5랭크 2d6, 8랭크 3d6).' },
-  { feat:'순교자', spell:'치유', note:'🔷 <b>순교자</b> — 자신이 랭크당 1d8 HP를 잃고, 아군이 같은 양만큼 추가 회복.' },
-  { feat:'순교자', spell:'해로움', note:'🔷 <b>순교자</b> — 자신이 랭크당 1d8 HP를 잃고, 아군이 같은 양만큼 추가 회복.' },
-  { feat:'방어적 회복', spell:'치유', note:'🔷 <b>방어적 회복</b> — 단일 대상 HP 회복 시, 1라운드간 AC와 내성에 +2 상태 보너스.' },
-  { feat:'방어적 회복', spell:'해로움', note:'🔷 <b>방어적 회복</b> — 단일 대상 HP 회복 시, 1라운드간 AC와 내성에 +2 상태 보너스.' },
-  { feat:'채널 차단', spell:'치유', note:'🔷 <b>채널 차단</b> — 방패 막기 시 소비하여 경도 +랭크당 1d8.' },
-  { feat:'채널 차단', spell:'해로움', note:'🔷 <b>채널 차단</b> — 방패 막기 시 소비하여 경도 +랭크당 1d8.' },
+  { fs:'divine-infusion', ss:'heal', note:'🔷 <b>신성 주입</b> — 대상의 다음 근접 공격에 추가 1d6 활력 피해 (5랭크 2d6, 8랭크 3d6).' },
+  { fs:'divine-infusion', ss:'harm', note:'🔷 <b>신성 주입</b> — 대상의 다음 근접 공격에 추가 1d6 공허 피해 (5랭크 2d6, 8랭크 3d6).' },
+  { fs:'martyr', ss:'heal', note:'🔷 <b>순교자</b> — 자신이 랭크당 1d8 HP를 잃고, 아군이 같은 양만큼 추가 회복.' },
+  { fs:'martyr', ss:'harm', note:'🔷 <b>순교자</b> — 자신이 랭크당 1d8 HP를 잃고, 아군이 같은 양만큼 추가 회복.' },
+  { fs:'defensive-recovery', ss:'heal', note:'🔷 <b>방어적 회복</b> — 단일 대상 HP 회복 시, 1라운드간 AC와 내성에 +2 상태 보너스.' },
+  { fs:'defensive-recovery', ss:'harm', note:'🔷 <b>방어적 회복</b> — 단일 대상 HP 회복 시, 1라운드간 AC와 내성에 +2 상태 보너스.' },
+  { fs:'channeling-block', ss:'heal', note:'🔷 <b>채널 차단</b> — 방패 막기 시 소비하여 경도 +랭크당 1d8.' },
+  { fs:'channeling-block', ss:'harm', note:'🔷 <b>채널 차단</b> — 방패 막기 시 소비하여 경도 +랭크당 1d8.' },
   // 축복 관련
-  { feat:'영원한 축복', spell:'축복', note:'🔷 <b>영원한 축복</b> — 영구적으로 15피트 반경 축복 효과. 해산 가능, 1분 후 자동 복귀.' },
+  { fs:'eternal-blessing', ss:'bless', note:'🔷 <b>영원한 축복</b> — 영구적으로 15피트 반경 축복 효과. 해산 가능, 1분 후 자동 복귀.' },
 ];
 
-function getSpellFeatNotes(spellNameKo) {
+function getSpellFeatNotes(spellRef) {
   if (!state.feats) return '';
-  const allFeats = Object.values(state.feats).flat().map(f => f.name.split(' (')[0].trim());
+  const spSlug = spellSlug(spellRef);  // 이름/객체/slug 모두 허용
+  if (!spSlug) return '';
+  const owned = new Set(Object.values(state.feats).flat().filter(Boolean).map(f => featSlug(f)));
   const notes = SPELL_FEAT_MODS
-    .filter(m => m.spell === spellNameKo && allFeats.includes(m.feat))
+    .filter(m => m.ss === spSlug && owned.has(m.fs))
     .map(m => m.note);
   if (!notes.length) return '';
   return '<div style="margin-top:10px;padding:8px 10px;background:rgba(100,160,255,0.08);border-left:3px solid var(--accent);border-radius:4px;font-size:12px;line-height:1.6;">' + notes.join('<br>') + '</div>';

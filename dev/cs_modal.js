@@ -3252,7 +3252,7 @@ function renderOptions(data) {
     // Action icons
     let actionsHtml = '';
     if (item.actions) {
-      const a = item.actions;
+      const a = String(item.actions);  // FVTT 재주 actions는 숫자(1/2/3) — 문자열화 후 매칭(구: 숫자에 .includes → renderItem throw → 목록 렌더 중단)
       if (a.includes('1행동') || a === '1') actionsHtml = '<span class="action-glyph">1</span>';
       else if (a.includes('2행동') || a === '2') actionsHtml = '<span class="action-glyph">2</span>';
       else if (a.includes('3행동') || a === '3') actionsHtml = '<span class="action-glyph">3</span>';
