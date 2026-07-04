@@ -2539,8 +2539,8 @@ const TRAIT_DB = [
     "desc": "매 턴 추가 행동 1개(보통 용도 제한). 여러 가속은 누적 불가."
   },
   {
-    "id": "억제",
-    "name_ko": "억제",
+    "id": "포박",
+    "name_ko": "포박",
     "name_en": "",
     "type": "weapon",
     "desc": "이동 불가 + 무방비 + 조작에 DC 5 단순 판정. 탈출로 빠져나옴."
@@ -2567,8 +2567,8 @@ const TRAIT_DB = [
     "desc": "행동/반응 불가. 수치가 있으면 해당 수만큼 행동 소실."
   },
   {
-    "id": "멍청함",
-    "name_ko": "멍청함",
+    "id": "멍함",
+    "name_ko": "멍함",
     "name_en": "",
     "type": "weapon",
     "desc": "정신 기반 판정/DC에 페널티 = 수치. 주문시전 시 DC 5+수치 단순 판정(실패 시 소실)."
@@ -8128,7 +8128,7 @@ const CONDITIONS_DATA = [
   },
   {
     "id": "grabbed",
-    "name": "조이기",
+    "name": "붙잡힘",
     "en": "Grabbed",
     "valued": false,
     "desc": "이동 속도 0. 탈출 행동으로 종료 가능."
@@ -8191,7 +8191,7 @@ const CONDITIONS_DATA = [
   },
   {
     "id": "prone",
-    "name": "넘어뜨려짐",
+    "name": "넘어짐",
     "en": "Prone",
     "valued": false,
     "desc": "근접 공격에 -2, 원거리 공격에 +2 AC. 일어서기 = 25피트 이동 소모."
@@ -8205,7 +8205,7 @@ const CONDITIONS_DATA = [
   },
   {
     "id": "restrained",
-    "name": "억제",
+    "name": "포박",
     "en": "Restrained",
     "valued": false,
     "desc": "붙잡힘 + 고정 상태. 이동 속도 0."
@@ -8236,7 +8236,7 @@ const CONDITIONS_DATA = [
   },
   {
     "id": "stupefied",
-    "name": "멍청함",
+    "name": "멍함",
     "en": "Stupefied",
     "valued": true,
     "desc": "지능/지혜/매력 기반 판정과 주문 DC에 상태 페널티 = 현기증 수치.",
@@ -8443,7 +8443,7 @@ const CONDITIONS = [
   "도주",
   "우호적",
   "공포",
-  "조이기",
+  "붙잡힘",
   "도움",
   "숨겨짐",
   "이동 불가",
@@ -8452,13 +8452,13 @@ const CONDITIONS = [
   "발각됨",
   "마비",
   "석화",
-  "넘어뜨려짐",
+  "넘어짐",
   "가속",
-  "억제",
+  "포박",
   "구역질",
   "둔화",
   "기절",
-  "멍청함",
+  "멍함",
   "무의식",
   "미탐지",
   "비우호적",
