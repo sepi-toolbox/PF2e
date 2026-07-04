@@ -1,1 +1,47 @@
-{}
+{
+ "bard": {
+  "casting": "spontaneous",
+  "tradition": "occult"
+ },
+ "cleric": {
+  "casting": "prepared",
+  "tradition": "divine",
+  "deity_skill": true
+ },
+ "druid": {
+  "casting": "prepared",
+  "tradition": "primal"
+ },
+ "witch": {
+  "casting": "prepared",
+  "tradition": "any"
+ },
+ "wizard": {
+  "casting": "prepared",
+  "tradition": "arcane"
+ },
+ "sorcerer": {
+  "casting": "spontaneous",
+  "tradition": "any"
+ },
+ "oracle": {
+  "casting": "spontaneous",
+  "tradition": "divine"
+ },
+ "animist": {
+  "casting": "prepared",
+  "tradition": "divine"
+ },
+ "psychic": {
+  "casting": "spontaneous",
+  "tradition": "occult"
+ },
+ "summoner": {
+  "casting": "spontaneous",
+  "tradition": "any"
+ },
+ "magus": {
+  "casting": "prepared",
+  "tradition": "arcane"
+ }
+}
