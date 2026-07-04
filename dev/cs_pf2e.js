@@ -55,9 +55,15 @@
     _baseCache[cat] = base; _ovlCache[cat] = ovl; _ovrCache[cat] = ovr;
     return _buildIndex(cat, base, ovl, ovr);
   }
+  const _loadPromises = {}; // 브라우저 in-flight dedup — 동시 호출(어댑터 init + 전체 게이트)이 같은 대용량 파일을 중복 fetch하지 않게
   async function loadCategory(cat) {
     if (_index[cat]) return _index[cat];
     if (isNode) return loadCategorySync(cat);
+    if (_loadPromises[cat]) return _loadPromises[cat];
+    _loadPromises[cat] = _loadCategoryFetch(cat).catch(e => { delete _loadPromises[cat]; throw e; });
+    return _loadPromises[cat];
+  }
+  async function _loadCategoryFetch(cat) {
     const [base, ovl, ovr] = await Promise.all([
       _fetchJSON(`${BASE_DIR}/${cat}.base.json`),
       _fetchJSON(`${OVL_DIR}/${cat}.ko.json`),

@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.88').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.89').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2951,6 +2951,37 @@ function _ensureAncData() {
 // 캐릭터 복원(loadData)·모달·스탯계산이 카탈로그를 필요로 하므로, 준비 전엔 복원을 지연 후 재실행.
 let _catalogsReady = false, _catalogsPromise = null;
 function catalogsReady() { return _catalogsReady; }
+// 카탈로그 준비 전에 렌더된 @link 참조(.ref-link[data-ref] — 미해소 시 영문 슬러그 폴백 텍스트)를 정본 한글로 재해소.
+// 배경/클래스 모달은 _ensureAncData만으로 열리므로 feats(9.7MB) 등 대용량 로드 전 영문이 그려질 수 있음
+// (신고: 갈고리발톱 굴착자 배경의 improvise tool). 준비 완료 시 문서 전체를 소급 교정.
+function _rehydrateRefLinks(rootEl) {
+  if (typeof PF2eData === 'undefined' || !PF2eData.get) return;
+  const els = (rootEl || document).querySelectorAll('span.ref-link[data-ref]');
+  els.forEach(el => {
+    const ref = el.getAttribute('data-ref') || ''; const i = ref.indexOf('.');
+    if (i < 1) return;
+    let t = null; try { t = PF2eData.get(ref.slice(0, i), ref.slice(i + 1)); } catch (e) {}
+    if (!t) return;
+    let name = t.name_ko || t.name; if (!name) return;
+    const cur = el.textContent || '';
+    const num = cur.match(/([0-9]+)\s*$/); // 조건 값(예: 기절 2) 보존
+    if (num && !/[0-9]\s*$/.test(name)) name += ' ' + num[1];
+    if (cur !== name) el.textContent = name;
+  });
+}
+// 준비 이후에도 오염 스냅샷(조기 오픈 모달의 아이템 배열 등)에서 그려지는 ref-link를 상시 교정하는 안전망.
+// 준비 전 추가분은 스킵(준비 완료 시점의 전체 하이드레이트가 일괄 처리).
+if (typeof MutationObserver !== 'undefined' && typeof document !== 'undefined') {
+  try {
+    new MutationObserver(muts => {
+      if (!_catalogsReady) return;
+      for (const m of muts) for (const n of m.addedNodes) {
+        if (!n || n.nodeType !== 1) continue;
+        try { if (n.matches && n.matches('span.ref-link[data-ref]')) { _rehydrateRefLinks(n.parentNode || document); } else if (n.querySelector && n.querySelector('span.ref-link[data-ref]')) _rehydrateRefLinks(n); } catch (e) {}
+      }
+    }).observe(document.documentElement, { childList: true, subtree: true });
+  } catch (e) {}
+}
 function _ensureAllCatalogs() {
   if (_catalogsReady) return Promise.resolve(true);
   if (_catalogsPromise) return _catalogsPromise;
@@ -2972,7 +3003,10 @@ function _ensureAllCatalogs() {
     const stale = ADAPTERS.filter(A => { try { return A.ready && A.ready(); } catch (e) { return false; } });
     await Promise.all(ADAPTERS.map(A => _catch(A.init())));
     for (const A of stale) { try { if (A.rebuild) A.rebuild(); } catch (e) { console.warn('카탈로그 rebuild 실패', e); } }
-    _equipDataReady = true; _catalogsReady = true; return true;
+    _equipDataReady = true; _catalogsReady = true;
+    // 준비 전에 이미 그려진 화면(조기 오픈 모달 등)의 영문 링크 소급 교정
+    try { if (typeof document !== 'undefined') _rehydrateRefLinks(document); } catch (e) {}
+    return true;
   })();
   return _catalogsPromise;
 }
