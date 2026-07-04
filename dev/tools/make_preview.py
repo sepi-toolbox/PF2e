@@ -10,9 +10,19 @@ stub = '''<script>
 window.firebase={initializeApp:function(){return {};},auth:function(){return {onAuthStateChanged:function(){},currentUser:null,signOut:function(){return Promise.resolve();}};},firestore:function(){var n={get:function(){return Promise.reject('stub');},set:function(){return Promise.resolve();},update:function(){return Promise.resolve();},delete:function(){return Promise.resolve();},onSnapshot:function(){return function(){};},collection:function(){return n;},doc:function(){return n;},where:function(){return n;},orderBy:function(){return n;},limit:function(){return n;},add:function(){return Promise.resolve({id:'x'});}};return {collection:function(){return n;},doc:function(){return n;}};}};
 window.firebase.firestore.FieldValue={serverTimestamp:function(){return null;},delete:function(){return null;},arrayUnion:function(){return null;},increment:function(){return 0;}};
 try{var auth=firebase.auth();var db=firebase.firestore();}catch(e){}
+// env-split 헬퍼 스텁 — 실제 블록(firebase init와 같은 script)이 통째로 교체되므로 여기서 재정의 필수
+window.PF_ENV='prod';
+window.PF_COL={characters:'characters',sessions:'sessions',dataOverrides:'data_overrides'};
+window.PF_LS=function(k){return k;};
+window.PF2eOverrideFetcher=function(){return Promise.resolve({});};
 </script>
 <style>#mode-select{display:none!important;}#preview-diag{position:fixed;left:0;top:0;right:0;z-index:2147483647;background:#111;color:#0f0;font:12px/1.5 monospace;padding:10px;white-space:pre-wrap;max-height:70vh;overflow:auto;border-bottom:2px solid #0f0;}</style>'''
-src = re.sub(r'<script>\s*firebase\.initializeApp\(\{.*?const db = firebase\.firestore\(\);\s*</script>', stub, src, flags=re.S)
+# firebase init 블록 전체(env-split 헬퍼·PF2eOverrideFetcher 포함, 첫 </script>까지) 교체.
+# 구 패턴은 'const db...</script>' 즉시 종료를 가정 — 2026-06-30 env-split로 블록이 확장돼 미매칭
+# → 진짜 initializeApp이 남아 throw → PF_LS 미정의 연쇄로 후속 블록 사망(무음).
+_n = len(re.findall(r'<script>\s*firebase\.initializeApp\(\{.*?</script>', src, flags=re.S))
+assert _n == 1, f'firebase init 블록 매칭 {_n}개 — make_preview 패턴 점검 필요'
+src = re.sub(r'<script>\s*firebase\.initializeApp\(\{.*?</script>', stub, src, flags=re.S)
 
 harness = r'''<script>
 window.addEventListener('load',function(){setTimeout(runDiag,1200);});
