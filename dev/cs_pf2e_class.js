@@ -17,9 +17,14 @@
   const RANK = { 0: 0, 1: 2, 2: 4, 3: 6, 4: 8 };  // FVTT rank → contrib
   const RANK_KO = { 0: '미숙련', 2: '숙련', 4: '전문가', 6: '달인', 8: '전설' };
   const KEY_KO = { str: '근력', dex: '민첩', con: '건강', int: '지능', wis: '지혜', cha: '매력' };
-  // 시전 전통(클래스 고정 전통). 선택형(sorcerer 혈통/oracle 신비)은 빌더에서 별도.
-  const TRADITION = { sorcerer: 'any', oracle: 'divine', animist: 'divine', psychic: 'occult', summoner: 'any', magus: 'arcane' };
-  const CASTING = { sorcerer: 'spontaneous', oracle: 'spontaneous', animist: 'prepared', psychic: 'spontaneous', summoner: 'spontaneous', magus: 'prepared' };
+  // 시전 전통(클래스 고정 전통). 선택형(sorcerer 혈통/oracle 신비/witch 후원자)은 'any'.
+  // ⚠ 코어 8클래스(구 레거시 CLASSES)도 반드시 포함 — v0.51~0.63 레거시 제거로 이 맵이 유일한 소스가 됐는데
+  //   신규 6클래스만 담고 있어 클레릭/드루이드 등 신규 선택 시 casting=null → 주문 탭 미표시 회귀(2026-07-04 신고).
+  //   값 = 구 CLASSES 정본(git 47f4350^ cs_data.js).
+  const TRADITION = { bard: 'occult', cleric: 'divine', druid: 'primal', witch: 'any', wizard: 'arcane',
+    sorcerer: 'any', oracle: 'divine', animist: 'divine', psychic: 'occult', summoner: 'any', magus: 'arcane' };
+  const CASTING = { bard: 'spontaneous', cleric: 'prepared', druid: 'prepared', witch: 'prepared', wizard: 'prepared',
+    sorcerer: 'spontaneous', oracle: 'spontaneous', animist: 'prepared', psychic: 'spontaneous', summoner: 'spontaneous', magus: 'prepared' };
 
   // ── 수작업 숙련 진행표 (신규 19클래스, PF2e PC1/PC2 정본). contrib 2=T,4=E,6=M,8=L ──
   // L1 값은 FVTT classes.base와 일치(앵커). 누락 selector는 L1 미숙련 또는 해당없음.
@@ -206,6 +211,7 @@
       saves: { fort: RANK_KO[RANK[s.savingThrows.fortitude]], ref: RANK_KO[RANK[s.savingThrows.reflex]], will: RANK_KO[RANK[s.savingThrows.will]] },
       perc: RANK_KO[RANK[s.perception]] || '미숙련',
       tradition: TRADITION[slug] || null, casting: CASTING[slug] || null,
+      deity_skill: slug === 'cleric',  // 구 CLASSES 정본 필드(신격 선택 시 자동 숙련 게이트, cs_modal deitySkill)
       free_skill_count: (s.trainedSkills && s.trainedSkills.additional) || 0,
       fixed_skills: ((s.trainedSkills && s.trainedSkills.value) || []).slice(),
       choice_skill_groups: [],
