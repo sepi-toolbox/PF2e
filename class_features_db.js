@@ -114,7 +114,7 @@ var CLASS_FEATURE_NAMES = {};
 var CLASS_AUTO_FEATS = {
   fighter: [
     {lv:1, name_ko:'방패 막기', name_en:'Shield Block', category:'special'},
-    {lv:1, name_ko:'반격 타격', name_en:'Reactive Strike', category:'special'},
+    {lv:1, name_ko:'반응 타격', name_en:'Reactive Strike', category:'special'},
   ],
   druid: [
     {lv:1, name_ko:'방패 막기', name_en:'Shield Block', category:'special'},

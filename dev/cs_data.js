@@ -2088,7 +2088,7 @@ const TRAIT_DB = [
     "name_ko": "파이터 헌신",
     "name_en": "",
     "type": "weapon",
-    "desc": "공격 숙련도 전문가화, 반격 타격"
+    "desc": "공격 숙련도 전문가화, 반응 타격"
   },
   {
     "id": "레인저 헌신",

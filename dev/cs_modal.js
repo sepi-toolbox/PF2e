@@ -3044,21 +3044,28 @@ function filterFeats() {
       });
     }
 
-    // 이미 배운 재주 이름 수집 (중복 방지 — 전 카테고리, _auto 포함)
+    // 이미 배운 재주 이름·slug 수집 (중복 방지 — 전 카테고리, _auto 포함)
+    // name(한글명 표기) + id/slug 3중 매칭 — 이름 표기 불일치(예 반격/반응)에도 견고
     const _learnedNames = new Set();
+    const _learnedIds = new Set();
     Object.values(state.feats).flat().forEach(ff => {
       if (ff && ff.name) _learnedNames.add(ff.name);
+      if (ff && ff.id) _learnedIds.add(ff.id);
     });
 
     return _allFeats().filter(f => {
       if (!f) return false;
+      // 자동 부여(클래스/혈통 특성 등, acquisition='auto')는 선택 불가 재주 — 선택 모달에서 항상 제외.
+      // 예: 반응 타격(Reactive Strike)·전설의 전사(Warrior of Legend)는 파이터 선택 시 자동 습득되는 특성.
+      if (f.acquisition === 'auto') return false;
       if (q && !f.name_ko.includes(q) && !(f.name_en||'').toLowerCase().includes(q) && !(f.summary||'').includes(q)) return false;
       if (f.feat_level > maxLv) return false;
       // 전제조건 미달이어도 목록에 노출 (선택 시 경고 표시)
-      // 이미 배운 재주 중복 방지 (repeatable이면 허용)
+      // 이미 배운 재주 중복 방지 (repeatable이면 허용) — 이름 표기 or slug 일치
       if (!f.repeatable) {
         const fullName = f.name_ko + (f.name_en ? ` (${f.name_en})` : '');
         if (_learnedNames.has(fullName)) return false;
+        if (f.id && _learnedIds.has(f.id)) return false;
       }
       // 헌신 재주 특수 조건
       if (f.traits?.includes('헌신') && !canTakeDedication(f)) return false;
@@ -3083,6 +3090,7 @@ function filterFeats() {
   const lv = parseInt(document.getElementById('filter-feat-lv')?.value||0);
   const _isClassCat = cat && !['ancestry','general','skill','archetype','feature','other','class'].includes(cat);
   return _allFeats().filter(f =>
+    f.acquisition !== 'auto' &&  // 자동 부여 특성은 선택 불가 → 목록 제외
     (!cat || (_isClassCat ? _featInClass(f, cat) : f.category===cat)) &&
     (!lv || f.feat_level<=lv) &&
     (!q || f.name_ko.includes(q) || (f.name_en||'').toLowerCase().includes(q) || (f.summary||'').includes(q))
