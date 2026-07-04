@@ -5,7 +5,7 @@
  },
  "grudge": {
   "name_ko": "원한",
-  "desc_ko": "<p>당신의 증오는 너무나 강력하여 타인의 정신을 압도할 수 있다. 당신을 인지하고 있는, 당신으로부터 30피트 이내의 생물 하나를 선택한다. 그 생물은 당신의 표정이 갑자기 초자연적으로 일그러진 증오의 형상으로 변하는 것을 보게 되며, @Check[will|against:class-spell] 내성 굴림을 시도해야 한다. 당신의 증오에 대한 이 인식은 전적으로 대상의 정신 속에서 직접 지각되기에 시각 특성을 갖지 않는다—대상이 당신을 볼 수 없더라도, 당신의 증오는 대상이 문제없이 감지할 수 있는 다른 방식으로 발현된다. 어쩌면 당신의 목소리가 그들의 귓가에 사악한 속삭임으로 나타나거나, 끔찍한 기억을 불러일으키는 냄새가 그들을 뒤덮을 수도 있다. 그 후 그 생물은 24시간 동안 원한에 면역이 된다.</p><hr /><p><strong>대성공</strong> 그 생물은 영향을 받지 않는다.</p>\n<p><strong>성공</strong> 그 생물은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1} 상태가 된다.</p>\n<p><strong>실패</strong> 그 생물은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2} 상태가 되고, 충격으로 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태가 되며, 공포에 걸려 있는 한 @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{도주} 상태가 된다.</p>\n<p><strong>대실패</strong> 그 생물은 두려움으로 실신하여 @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{무의식} 상태가 된다. 더 이상 무의식이 아니게 되는 즉시 공포 2 상태가 되며, 공포에 걸려 있는 한 도주 상태가 된다.</p>"
+  "desc_ko": "<p>당신의 증오는 너무나 강력하여 타인의 정신을 압도할 수 있다. 당신을 인지하고 있는, 당신으로부터 30피트 이내의 생물 하나를 선택한다. 그 생물은 당신의 표정이 갑자기 초자연적으로 일그러진 증오의 형상으로 변하는 것을 보게 되며, @Check[will|against:class-spell] 내성 굴림을 시도해야 한다. 당신의 증오에 대한 이 인식은 전적으로 대상의 정신 속에서 직접 지각되기에 시각 특성을 갖지 않는다—대상이 당신을 볼 수 없더라도, 당신의 증오는 대상이 문제없이 감지할 수 있는 다른 방식으로 발현된다. 어쩌면 당신의 목소리가 그들의 귓가에 사악한 속삭임으로 나타나거나, 끔찍한 기억을 불러일으키는 냄새가 그들을 뒤덮을 수도 있다. 그 후 그 생물은 24시간 동안 원한에 면역이 된다.</p><hr /><p><strong>대성공</strong> 그 생물은 영향을 받지 않는다.</p>\n<p><strong>성공</strong> 그 생물은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1} 상태가 된다.</p>\n<p><strong>실패</strong> 그 생물은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2} 상태가 되고, 충격으로 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어짐} 상태가 되며, 공포에 걸려 있는 한 @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{도주} 상태가 된다.</p>\n<p><strong>대실패</strong> 그 생물은 두려움으로 실신하여 @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{무의식} 상태가 된다. 더 이상 무의식이 아니게 되는 즉시 공포 2 상태가 되며, 공포에 걸려 있는 한 도주 상태가 된다.</p>"
  },
  "chilling-paralysis": {
   "name_ko": "오싹한 마비",
@@ -129,7 +129,7 @@
  },
  "rovagug-minor-curse": {
   "name_ko": "로바구그 - 소저주",
-  "desc_ko": "<p>당신은 갇힐 때마다 마음이 절망으로 가득 차 몸부림치고 요동친다.</p>\n<p>당신이 억제되거나 그 밖에 갇힐 때마다(감옥에 보내지는 등), 당신은 @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 2} 및 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 2} 상태도 된다.</p>"
+  "desc_ko": "<p>당신은 갇힐 때마다 마음이 절망으로 가득 차 몸부림치고 요동친다.</p>\n<p>당신이 억제되거나 그 밖에 갇힐 때마다(감옥에 보내지는 등), 당신은 @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 2} 및 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 2} 상태도 된다.</p>"
  },
  "norgorber-minor-boon": {
   "name_ko": "노르고버 - 소축복",
@@ -417,7 +417,7 @@
  },
  "nethys-minor-curse": {
   "name_ko": "네시스 - 소형 저주",
-  "desc_ko": "<p>마법의 비밀이 정신적으로 부담스러워집니다. 당신은 영구적으로 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1} 상태가 됩니다.</p>"
+  "desc_ko": "<p>마법의 비밀이 정신적으로 부담스러워집니다. 당신은 영구적으로 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 1} 상태가 됩니다.</p>"
  },
  "calistria-moderate-boon": {
   "name_ko": "칼리스트리아 - 중형 축복",
@@ -665,7 +665,7 @@
  },
  "grandmother-spider-major-boon": {
   "name_ko": "거미 할머니 - 대은총",
-  "desc_ko": "<p>거미 할머니는 자유를 기뻐하며 자유를 제한하려는 자들을 속입니다.</p>\n<p>당신이 @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기}, @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{이동 불가}, 또는 @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{억제} 상태가 되려 할 때마다, @Check[flat|dc:10]을 시도하십시오. 성공하면 당신은 그 효과를 무시하고, 대신 그 효과의 시전자가 조이기, 이동 불가, 또는 억제 상태가 됩니다. 이로 인해 단지 어떤 생물이 자기 자신을 붙잡게 되었다면, 그 생물은 보통 자유 행동으로 @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{탈출}할 수 있지만, 다른 방식으로 당신을 이동 불가로 만들려 했다면 옴짝달싹 못하게 될 수도 있습니다.</p>"
+  "desc_ko": "<p>거미 할머니는 자유를 기뻐하며 자유를 제한하려는 자들을 속입니다.</p>\n<p>당신이 @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기}, @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{이동 불가}, 또는 @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{억제} 상태가 되려 할 때마다, @Check[flat|dc:10]을 시도하십시오. 성공하면 당신은 그 효과를 무시하고, 대신 그 효과의 시전자가 조이기, 이동 불가, 또는 포박 상태가 됩니다. 이로 인해 단지 어떤 생물이 자기 자신을 붙잡게 되었다면, 그 생물은 보통 자유 행동으로 @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{탈출}할 수 있지만, 다른 방식으로 당신을 이동 불가로 만들려 했다면 옴짝달싹 못하게 될 수도 있습니다.</p>"
  },
  "iomedae-major-boon": {
   "name_ko": "이오메대 - 대은총",
@@ -817,7 +817,7 @@
  },
  "groetus-moderate-curse": {
   "name_ko": "그로에투스 - 중저주",
-  "desc_ko": "<p>현실의 종말에 도사린 공포가 압도적으로 밀려와 끊임없이 당신의 마음을 스칩니다. 당신은 영구적으로 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 2} 상태가 됩니다.</p>"
+  "desc_ko": "<p>현실의 종말에 도사린 공포가 압도적으로 밀려와 끊임없이 당신의 마음을 스칩니다. 당신은 영구적으로 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 2} 상태가 됩니다.</p>"
  },
  "abadar-major-boon": {
   "name_ko": "아바다르 - 대은총",
@@ -1101,7 +1101,7 @@
  },
  "swarm-eidolon": {
   "name_ko": "군체 에이돌론",
-  "desc_ko": "<p>당신의 에이돌론은 원시 에너지와 자연 정령이 하나의 파편적 존재로 모인 집합체다. 이 자연 에너지의 집합은 소환사와 결속되기 전까지는 형태도 정체성도 없다. 당신은 이 정령들에게 목적을 부여하여 그들과 연결되고 그들을 물리적 영역으로 끌어들인다. 발현할 때, 이 자연 정령들은 단순한 형태를 취하여 수많은 초소형 동물의 모습을 띤다. 이 동물들은 각각 같은 생물이며 당신 소환사의 표식으로 각인되어 있다. 이 군체 형태로 발현하는 행위는 정령들을 일시적으로 하나의 존재로 결속시켜, 에이돌론을 하나의 개체로 만든다—하나의 정신과 인격이 여러 목소리로 말하고, 여러 몸이 하나의 목적을 위해 협력하여 행동한다.</p>\n<p><strong>전통</strong> 원시</p>\n<p><strong>특성</strong> 동물, 에이돌론, 군체</p>\n<p><strong>본향계</strong> 우주</p><hr /><p><strong>크기</strong> 중형(응축) 및 대형(분산)</p>\n<p><strong>추천 공격</strong> 부리(관통), 발톱(참격), 턱(관통), 갈고리발톱(참격)</p>\n<p><strong>대담한 군체</strong> <em>근력</em> +4, <em>민첩</em> +2, <em>건강</em> +3, <em>지능</em> +0, <em>지혜</em> +0, <em>매력</em> +0; +2 AC (+3 민첩 상한)</p>\n<p><strong>은밀한 군체</strong> <em>근력</em> +2, <em>민첩</em> +4, <em>건강</em> +3, <em>지능</em> +0, <em>지혜</em> +1, <em>매력</em> –1; +1 AC (+4 민첩 상한)</p>\n<p><strong>기술</strong> 자연학, 생존</p>\n<p><strong>감각</strong> 저광시</p>\n<p><strong>언어</strong> 공용어</p>\n<p><strong>속도</strong> 25피트</p><hr /><p><strong>에이돌론 능력</strong> <em>초기 </em>군체 형태<em>; 공생 </em>급작 전환<em>; 초월 </em>구역질 나는 군체</p><h2>군체 형태</h2><p>당신의 에이돌론은 수백 마리의 초소형 생물로 이루어진 지적인 군체이며, @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기}, @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐}, @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{억제} 상태에 면역이다. 그것은 마치 초소형 생물인 것처럼 좁은 공간을 통과할 수 있다. 그것은 자신의 레벨과 같은 범위 피해 약점을 지닌다. 당신의 에이돌론은 두 가지 형태를 지닌다: 응축과 분산. 당신이 에이돌론 발현을 할 때, 그것은 응축 상태로 발현한다. 그것은 집중 특성을 지닌 단일 행동으로 이 두 형태 사이를 전환할 수 있다.</p>\n<p><strong>응축 형태:</strong> 응축했을 때, 당신의 에이돌론은 모든 구성 몸체를 하나의 응축된 무더기로 끌어모아 중형 생물처럼 기능한다. 그것은 5피트의 도달 거리를 지니고, 타격을 할 수 있으며, 다른 생물과 같은 공간을 차지할 수 없다. 응축된 동안, 그것은 @UUID[Compendium.pf2e.actionspf2e.Item.4oHjLO6qMfxIchRB]{섬뜩한 형상} 행동을 사용할 수 있다.</p>\n<p><strong>분산 형태:</strong> 분산했을 때, 당신의 에이돌론은 구성 몸체를 더 넓은 범위에 흩뿌려 크기를 한 단계 증가시킨다(대부분의 군체 에이돌론은 대형으로). 그것은 0피트의 도달 거리를 지니고, 타격을 할 수 없으며, 다른 생물과 같은 공간을 차지할 수 있다. 분산된 동안, 그것은 @UUID[Compendium.pf2e.actionspf2e.Item.Wukpm200zHDuS85V]{군집 공세} 활동을 사용할 수 있다.</p><h2>급작 전환<span style=\"float:right\">7th</span></h2><p>라운드에 한 번, 당신의 에이돌론은 단일 행동이 아니라 자유 행동으로 응축과 분산 사이의 형태를 전환할 수 있다. 또한, 당신의 에이돌론은 @UUID[Compendium.pf2e.actionspf2e.Item.cd34tQpOVbaGuv5p]{재분산} 반응을 얻는다.</p><h2>구역질 나는 형태<span style=\"float:right\">17th</span></h2><p>당신의 에이돌론은 분산된 동안 적을 산만하게 하고 방해하는 데 특히 능하다. 분산된 동안, 당신 에이돌론이 차지하는 공간은 다른 생물에게 험지가 된다. 또한, 당신의 에이돌론은 @UUID[Compendium.pf2e.actionspf2e.Item.x73LKNcaRwurr0fR]{구역질 나는 공세} 행동을 얻는다.</p>"
+  "desc_ko": "<p>당신의 에이돌론은 원시 에너지와 자연 정령이 하나의 파편적 존재로 모인 집합체다. 이 자연 에너지의 집합은 소환사와 결속되기 전까지는 형태도 정체성도 없다. 당신은 이 정령들에게 목적을 부여하여 그들과 연결되고 그들을 물리적 영역으로 끌어들인다. 발현할 때, 이 자연 정령들은 단순한 형태를 취하여 수많은 초소형 동물의 모습을 띤다. 이 동물들은 각각 같은 생물이며 당신 소환사의 표식으로 각인되어 있다. 이 군체 형태로 발현하는 행위는 정령들을 일시적으로 하나의 존재로 결속시켜, 에이돌론을 하나의 개체로 만든다—하나의 정신과 인격이 여러 목소리로 말하고, 여러 몸이 하나의 목적을 위해 협력하여 행동한다.</p>\n<p><strong>전통</strong> 원시</p>\n<p><strong>특성</strong> 동물, 에이돌론, 군체</p>\n<p><strong>본향계</strong> 우주</p><hr /><p><strong>크기</strong> 중형(응축) 및 대형(분산)</p>\n<p><strong>추천 공격</strong> 부리(관통), 발톱(참격), 턱(관통), 갈고리발톱(참격)</p>\n<p><strong>대담한 군체</strong> <em>근력</em> +4, <em>민첩</em> +2, <em>건강</em> +3, <em>지능</em> +0, <em>지혜</em> +0, <em>매력</em> +0; +2 AC (+3 민첩 상한)</p>\n<p><strong>은밀한 군체</strong> <em>근력</em> +2, <em>민첩</em> +4, <em>건강</em> +3, <em>지능</em> +0, <em>지혜</em> +1, <em>매력</em> –1; +1 AC (+4 민첩 상한)</p>\n<p><strong>기술</strong> 자연학, 생존</p>\n<p><strong>감각</strong> 저광시</p>\n<p><strong>언어</strong> 공용어</p>\n<p><strong>속도</strong> 25피트</p><hr /><p><strong>에이돌론 능력</strong> <em>초기 </em>군체 형태<em>; 공생 </em>급작 전환<em>; 초월 </em>구역질 나는 군체</p><h2>군체 형태</h2><p>당신의 에이돌론은 수백 마리의 초소형 생물로 이루어진 지적인 군체이며, @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{조이기}, @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어짐}, @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{억제} 상태에 면역이다. 그것은 마치 초소형 생물인 것처럼 좁은 공간을 통과할 수 있다. 그것은 자신의 레벨과 같은 범위 피해 약점을 지닌다. 당신의 에이돌론은 두 가지 형태를 지닌다: 응축과 분산. 당신이 에이돌론 발현을 할 때, 그것은 응축 상태로 발현한다. 그것은 집중 특성을 지닌 단일 행동으로 이 두 형태 사이를 전환할 수 있다.</p>\n<p><strong>응축 형태:</strong> 응축했을 때, 당신의 에이돌론은 모든 구성 몸체를 하나의 응축된 무더기로 끌어모아 중형 생물처럼 기능한다. 그것은 5피트의 도달 거리를 지니고, 타격을 할 수 있으며, 다른 생물과 같은 공간을 차지할 수 없다. 응축된 동안, 그것은 @UUID[Compendium.pf2e.actionspf2e.Item.4oHjLO6qMfxIchRB]{섬뜩한 형상} 행동을 사용할 수 있다.</p>\n<p><strong>분산 형태:</strong> 분산했을 때, 당신의 에이돌론은 구성 몸체를 더 넓은 범위에 흩뿌려 크기를 한 단계 증가시킨다(대부분의 군체 에이돌론은 대형으로). 그것은 0피트의 도달 거리를 지니고, 타격을 할 수 없으며, 다른 생물과 같은 공간을 차지할 수 있다. 분산된 동안, 그것은 @UUID[Compendium.pf2e.actionspf2e.Item.Wukpm200zHDuS85V]{군집 공세} 활동을 사용할 수 있다.</p><h2>급작 전환<span style=\"float:right\">7th</span></h2><p>라운드에 한 번, 당신의 에이돌론은 단일 행동이 아니라 자유 행동으로 응축과 분산 사이의 형태를 전환할 수 있다. 또한, 당신의 에이돌론은 @UUID[Compendium.pf2e.actionspf2e.Item.cd34tQpOVbaGuv5p]{재분산} 반응을 얻는다.</p><h2>구역질 나는 형태<span style=\"float:right\">17th</span></h2><p>당신의 에이돌론은 분산된 동안 적을 산만하게 하고 방해하는 데 특히 능하다. 분산된 동안, 당신 에이돌론이 차지하는 공간은 다른 생물에게 험지가 된다. 또한, 당신의 에이돌론은 @UUID[Compendium.pf2e.actionspf2e.Item.x73LKNcaRwurr0fR]{구역질 나는 공세} 행동을 얻는다.</p>"
  },
  "advanced-design": {
   "name_ko": "고급 설계",
@@ -1137,7 +1137,7 @@
  },
  "elemental-eidolon": {
   "name_ko": "정령 에이돌론",
-  "desc_ko": "<p>당신의 에이돌론은 지성, 힘, 정체성이 깃든 원시적 정령 물질 덩어리이지만, 당신과의 연결을 통해 당신이 제공하는 생명력 없이는 자신의 진정한 형태를 발현할 수 없습니다. 대부분의 정령은 자연 환경에서 이미 어렴풋한 인간형에서부터 동물형, 단순한 구성 원소 덩어리에 이르기까지 다양한 형태를 지니고 있습니다. 당신의 생명력이 당신의 에이돌론에게 물리적 형태를 취하는 데 필요한 본능을 제공하기에, 그 외양은 자신에 대한 자아상의 강도와 당신이 이전에 정령을 접한 경험에 따라 달라집니다.</p>\n<p>정령 에이돌론은 대개 자애로운 정령군주들을 봉인한 전쟁이나 그들의 최근 봉인 해제와 같은 대규모 사건이나 대격변의 결과로 강력하지만 형태 없는 이 특이한 상태에 이릅니다. 정령 에이돌론이 전생의 기억을 지니고 있는지, 아니면 몰락한 강대한 정령군주 종복의 남은 정수로부터 형성된 새로운 지성인지는 에이돌론마다 다릅니다. 당신과 에이돌론은 함께 에이돌론의 신비로운 과거를 이해하는 여정을 떠나거나, 과거를 뒤로하고 스스로의 새로운 운명을 개척할 수도 있습니다.</p>\n<p><strong>전통</strong> 원시</p>\n<p><strong>특성</strong> 에이돌론, 정령, 그리고 하나 더(아래 정령의 핵 참조)</p>\n<p><strong>본향계</strong>: 그들의 정령의 핵에 해당하는 정령계</p><hr /><p><strong>크기</strong> 중형</p>\n<p><strong>권장 공격</strong> 가지(타격), 주먹(타격), 가시(관통), 덩굴손(타격), 파도(타격)</p>\n<p><strong>적응하는 정령</strong> 근력 +1, 민첩 +4, 건강 +3, 지능 +0, 지혜 +1, 매력 +0; +1 AC (민첩 상한 +4)</p>\n<p><strong>태초의 정령</strong> 근력 +4, 민첩 +2, 건강 +3, 지능 –1, 지혜 +1, 매력 +0; +2 AC (민첩 상한 +3)</p>\n<p><strong>기술</strong> 자연학, 생존</p>\n<p><strong>감각</strong> 암시야</p>\n<p><strong>언어</strong> 수수란어(공기 정령), 페트란어(대지 정령), 파이릭어(화염 정령), 탈리칸어(금속 정령), 탈라식어(물 정령), 또는 무안어(나무 정령)</p>\n<p><strong>이동속도</strong> 25피트</p><hr /><p><strong>에이돌론 능력</strong> <em>초기 </em>정령의 핵<em>; 공생 </em>정령 폭발<em>; 초월 </em>정령 대소용돌이</p><h2>정령의 핵</h2><p>당신의 정령 에이돌론은 정령 물질과 필멸자 생명력의 융합체로, 이는 정령보다 필멸자에게 더 해로운 특정 효과로부터 그들을 보호하는 데 도움이 됩니다. 그들은 독과 수면 효과, 그리고 @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{마비} 상태를 유발하는 효과에 대한 내성 굴림에 +2 상황 보너스를 얻습니다. 또한 그들의 정령 정수는 살보다 덜 쉽게 출혈하므로, 지속 출혈 피해를 제거하기 위해 하는 순수 판정의 DC는 10입니다(특별히 효과적인 지원을 받은 후에는 5). 당신의 에이돌론을 공기, 대지, 화염, 금속, 나무, 또는 물 정령으로 선택하십시오. 당신의 에이돌론과 그 모든 비무장 공격은 선택한 원소의 특성을 얻으며, 에이돌론은 당신의 선택에 따라 추가 효과를 얻습니다.</p>\n<p><strong>공기:</strong> 당신의 에이돌론은 정령 공기로 형성되어 산들바람처럼 가볍습니다. 당신의 에이돌론은 @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{도약}, @UUID[Compendium.pf2e.actionspf2e.Item.2HJ4yuEFY1Cast4h]{높이뛰기}, @UUID[Compendium.pf2e.actionspf2e.Item.JUvAvruz7yRQXfz2]{멀리뛰기}를 두 배 멀리 할 수 있으며, 낙하 피해를 받지 않습니다.</p>\n<p><strong>대지:</strong> 당신의 에이돌론은 정령 대지로 형성되어 힘으로 움직이기가 극도로 어렵습니다. 당신의 에이돌론은 자신을 @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀기}하거나 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}하려는 시도에 대해 인내 또는 반사 DC에 +2 상황 보너스를 얻습니다. 이 보너스는 그들을 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태로 만들려는 주문이나 효과에 대한 내성 굴림에도 적용됩니다. 또한 어떤 효과가 그들을 10피트 이상 강제로 이동시키려 한다면, 그들은 그 거리의 절반만 이동합니다.</p>\n<p><strong>화염:</strong> 당신의 에이돌론은 정령 화염으로 형성되어 불꽃의 잔불로 타오릅니다. 당신의 에이돌론은 자신의 레벨의 절반(최소 1)에 해당하는 화염 저항과 그와 같은 양의 냉기 및 물 약점을 얻습니다. 그들의 비무장 공격은 추가로 1 화염 피해를 입힙니다.</p>\n<p><strong>금속:</strong> 당신의 에이돌론은 정령 금속으로 형성되어 전투를 위해 금속 형태를 적응시킬 수 있습니다. 당신의 에이돌론이 금속을 다양한 무기 형태로 변형하는 법을 배우면서, 에이돌론의 시작 근접 비무장 공격 중 하나가 다목적 타격, 관통, 또는 참격 특성을 얻습니다.</p>\n<p><strong>물:</strong> 당신의 에이돌론은 정령 물로 형성되어 손쉽게 헤엄칩니다. 당신의 에이돌론은 양서 특성을 얻어 물과 공기 양쪽에서 숨쉴 수 있으며, 수중에서 타격 및 참격 비무장 타격을 할 때 통상적인 –2 페널티를 피할 수 있습니다. 당신의 에이돌론의 육상 이동속도는 15피트로 감소하며, 25피트의 수영 이동속도를 얻습니다. 재주에 설명된 대로, 양서 형태 재주를 습득하여 육상 이동속도를 다시 25피트로 올릴 수 있습니다.</p>\n<p><strong>나무:</strong> 당신의 에이돌론은 정령 나무로 형성되며, 당신이 정령 에너지를 집중함에 따라 살아있는 나무 형태가 비틀리고 다시 자라납니다. 당신의 에이돌론이 식물 특성을 얻도록 선택할 수 있습니다. 당신이 재집중할 때마다, 당신의 에이돌론은 당신의 레벨의 두 배에 해당하는 생명점을 회복합니다.</p><h2>정령 폭발<span style=\"float:right\">7레벨</span></h2><p>당신의 에이돌론은 자신의 몸에서 투사체 공격을 형성할 수 있습니다. 당신의 에이돌론은 @UUID[Compendium.pf2e.actionspf2e.Item.Cb9XbKqHBHPAbQKk]{정령 폭발} 활동을 얻습니다.</p><h2>정령 대소용돌이<span style=\"float:right\">17레벨</span></h2><p>당신의 에이돌론은 소용돌이치는 정령 물질의 소용돌이를 형성해 전장을 가로질러 이동하며 그 경로에 있는 모든 것에 피해를 입힐 수 있습니다. 당신의 에이돌론은 @UUID[Compendium.pf2e.actionspf2e.Item.H8EXYfvFOSuq6vo8]{정령 대소용돌이} 활동을 얻습니다.</p>"
+  "desc_ko": "<p>당신의 에이돌론은 지성, 힘, 정체성이 깃든 원시적 정령 물질 덩어리이지만, 당신과의 연결을 통해 당신이 제공하는 생명력 없이는 자신의 진정한 형태를 발현할 수 없습니다. 대부분의 정령은 자연 환경에서 이미 어렴풋한 인간형에서부터 동물형, 단순한 구성 원소 덩어리에 이르기까지 다양한 형태를 지니고 있습니다. 당신의 생명력이 당신의 에이돌론에게 물리적 형태를 취하는 데 필요한 본능을 제공하기에, 그 외양은 자신에 대한 자아상의 강도와 당신이 이전에 정령을 접한 경험에 따라 달라집니다.</p>\n<p>정령 에이돌론은 대개 자애로운 정령군주들을 봉인한 전쟁이나 그들의 최근 봉인 해제와 같은 대규모 사건이나 대격변의 결과로 강력하지만 형태 없는 이 특이한 상태에 이릅니다. 정령 에이돌론이 전생의 기억을 지니고 있는지, 아니면 몰락한 강대한 정령군주 종복의 남은 정수로부터 형성된 새로운 지성인지는 에이돌론마다 다릅니다. 당신과 에이돌론은 함께 에이돌론의 신비로운 과거를 이해하는 여정을 떠나거나, 과거를 뒤로하고 스스로의 새로운 운명을 개척할 수도 있습니다.</p>\n<p><strong>전통</strong> 원시</p>\n<p><strong>특성</strong> 에이돌론, 정령, 그리고 하나 더(아래 정령의 핵 참조)</p>\n<p><strong>본향계</strong>: 그들의 정령의 핵에 해당하는 정령계</p><hr /><p><strong>크기</strong> 중형</p>\n<p><strong>권장 공격</strong> 가지(타격), 주먹(타격), 가시(관통), 덩굴손(타격), 파도(타격)</p>\n<p><strong>적응하는 정령</strong> 근력 +1, 민첩 +4, 건강 +3, 지능 +0, 지혜 +1, 매력 +0; +1 AC (민첩 상한 +4)</p>\n<p><strong>태초의 정령</strong> 근력 +4, 민첩 +2, 건강 +3, 지능 –1, 지혜 +1, 매력 +0; +2 AC (민첩 상한 +3)</p>\n<p><strong>기술</strong> 자연학, 생존</p>\n<p><strong>감각</strong> 암시야</p>\n<p><strong>언어</strong> 수수란어(공기 정령), 페트란어(대지 정령), 파이릭어(화염 정령), 탈리칸어(금속 정령), 탈라식어(물 정령), 또는 무안어(나무 정령)</p>\n<p><strong>이동속도</strong> 25피트</p><hr /><p><strong>에이돌론 능력</strong> <em>초기 </em>정령의 핵<em>; 공생 </em>정령 폭발<em>; 초월 </em>정령 대소용돌이</p><h2>정령의 핵</h2><p>당신의 정령 에이돌론은 정령 물질과 필멸자 생명력의 융합체로, 이는 정령보다 필멸자에게 더 해로운 특정 효과로부터 그들을 보호하는 데 도움이 됩니다. 그들은 독과 수면 효과, 그리고 @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{마비} 상태를 유발하는 효과에 대한 내성 굴림에 +2 상황 보너스를 얻습니다. 또한 그들의 정령 정수는 살보다 덜 쉽게 출혈하므로, 지속 출혈 피해를 제거하기 위해 하는 순수 판정의 DC는 10입니다(특별히 효과적인 지원을 받은 후에는 5). 당신의 에이돌론을 공기, 대지, 화염, 금속, 나무, 또는 물 정령으로 선택하십시오. 당신의 에이돌론과 그 모든 비무장 공격은 선택한 원소의 특성을 얻으며, 에이돌론은 당신의 선택에 따라 추가 효과를 얻습니다.</p>\n<p><strong>공기:</strong> 당신의 에이돌론은 정령 공기로 형성되어 산들바람처럼 가볍습니다. 당신의 에이돌론은 @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{도약}, @UUID[Compendium.pf2e.actionspf2e.Item.2HJ4yuEFY1Cast4h]{높이뛰기}, @UUID[Compendium.pf2e.actionspf2e.Item.JUvAvruz7yRQXfz2]{멀리뛰기}를 두 배 멀리 할 수 있으며, 낙하 피해를 받지 않습니다.</p>\n<p><strong>대지:</strong> 당신의 에이돌론은 정령 대지로 형성되어 힘으로 움직이기가 극도로 어렵습니다. 당신의 에이돌론은 자신을 @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀기}하거나 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}하려는 시도에 대해 인내 또는 반사 DC에 +2 상황 보너스를 얻습니다. 이 보너스는 그들을 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어짐} 상태로 만들려는 주문이나 효과에 대한 내성 굴림에도 적용됩니다. 또한 어떤 효과가 그들을 10피트 이상 강제로 이동시키려 한다면, 그들은 그 거리의 절반만 이동합니다.</p>\n<p><strong>화염:</strong> 당신의 에이돌론은 정령 화염으로 형성되어 불꽃의 잔불로 타오릅니다. 당신의 에이돌론은 자신의 레벨의 절반(최소 1)에 해당하는 화염 저항과 그와 같은 양의 냉기 및 물 약점을 얻습니다. 그들의 비무장 공격은 추가로 1 화염 피해를 입힙니다.</p>\n<p><strong>금속:</strong> 당신의 에이돌론은 정령 금속으로 형성되어 전투를 위해 금속 형태를 적응시킬 수 있습니다. 당신의 에이돌론이 금속을 다양한 무기 형태로 변형하는 법을 배우면서, 에이돌론의 시작 근접 비무장 공격 중 하나가 다목적 타격, 관통, 또는 참격 특성을 얻습니다.</p>\n<p><strong>물:</strong> 당신의 에이돌론은 정령 물로 형성되어 손쉽게 헤엄칩니다. 당신의 에이돌론은 양서 특성을 얻어 물과 공기 양쪽에서 숨쉴 수 있으며, 수중에서 타격 및 참격 비무장 타격을 할 때 통상적인 –2 페널티를 피할 수 있습니다. 당신의 에이돌론의 육상 이동속도는 15피트로 감소하며, 25피트의 수영 이동속도를 얻습니다. 재주에 설명된 대로, 양서 형태 재주를 습득하여 육상 이동속도를 다시 25피트로 올릴 수 있습니다.</p>\n<p><strong>나무:</strong> 당신의 에이돌론은 정령 나무로 형성되며, 당신이 정령 에너지를 집중함에 따라 살아있는 나무 형태가 비틀리고 다시 자라납니다. 당신의 에이돌론이 식물 특성을 얻도록 선택할 수 있습니다. 당신이 재집중할 때마다, 당신의 에이돌론은 당신의 레벨의 두 배에 해당하는 생명점을 회복합니다.</p><h2>정령 폭발<span style=\"float:right\">7레벨</span></h2><p>당신의 에이돌론은 자신의 몸에서 투사체 공격을 형성할 수 있습니다. 당신의 에이돌론은 @UUID[Compendium.pf2e.actionspf2e.Item.Cb9XbKqHBHPAbQKk]{정령 폭발} 활동을 얻습니다.</p><h2>정령 대소용돌이<span style=\"float:right\">17레벨</span></h2><p>당신의 에이돌론은 소용돌이치는 정령 물질의 소용돌이를 형성해 전장을 가로질러 이동하며 그 경로에 있는 모든 것에 피해를 입힐 수 있습니다. 당신의 에이돌론은 @UUID[Compendium.pf2e.actionspf2e.Item.H8EXYfvFOSuq6vo8]{정령 대소용돌이} 활동을 얻습니다.</p>"
  },
  "psychopomp-eidolon": {
   "name_ko": "사이코폼프 에이돌론",
@@ -1277,7 +1277,7 @@
  },
  "debilitating-breath": {
   "name_ko": "쇠약케 하는 숨결",
-  "desc_ko": "<p>당신의 숨결은 그것에 해를 입은 자들에게 지속적인 방해를 유발합니다. 당신의 @UUID[Compendium.pf2e.feats-srd.Item.7y8DKd24c7eqzJGV]{용의 숨결}에 대한 내성에 실패한 생물은, 당신의 숨결의 피해 유형에 따라 다음 상태 중 하나를 얻습니다: @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 1}(전기, 냉기, 화염, 또는 음파 피해), @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 1}(산성, 물리, 또는 독 피해), 또는 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1}(힘, 정신, 영혼, 활력, 또는 공허 피해). 이 상태는 당신의 다음 턴이 끝날 때까지 지속됩니다.</p>"
+  "desc_ko": "<p>당신의 숨결은 그것에 해를 입은 자들에게 지속적인 방해를 유발합니다. 당신의 @UUID[Compendium.pf2e.feats-srd.Item.7y8DKd24c7eqzJGV]{용의 숨결}에 대한 내성에 실패한 생물은, 당신의 숨결의 피해 유형에 따라 다음 상태 중 하나를 얻습니다: @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 1}(전기, 냉기, 화염, 또는 음파 피해), @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{약화됨 1}(산성, 물리, 또는 독 피해), 또는 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 1}(힘, 정신, 영혼, 활력, 또는 공허 피해). 이 상태는 당신의 다음 턴이 끝날 때까지 지속됩니다.</p>"
  },
  "lasting-protection": {
   "name_ko": "지속하는 보호",
@@ -1289,11 +1289,11 @@
  },
  "daunting-spell": {
   "name_ko": "위압하는 주문",
-  "desc_ko": "<p>당신의 적들은 당신 마법의 위력을 느끼는 순간 패배의 필연성을 실감하게 됩니다. 당신의 다음 행동이 내성 굴림을 허용하는 주문 시전이라면, 그 주문은 감정, 공포, 정신 특성을 얻습니다. 그 주문은 원래 갖는 다른 모든 효과에 더해 다음의 성공 및 실패 효과를 얻습니다. 대상이 당신의 숙적이거나 숙적의 아군이라면, 미시적 숙련도를 사용해 주문의 명중 보너스와 내성 DC를 결정합니다. 주문에 여러 대상이 있다면, 미시적 숙련도를 사용하려면 모든 대상이 당신의 숙적이거나 숙적의 아군이어야 합니다.</p><hr /><p><strong>대성공</strong> 대상은 위압하는 주문에 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1}입니다.</p>\n<p><strong>실패</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2}이며 공포 상태가 유지되는 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1}입니다. 위압하는 주문에 지속시간이 있다면, 영향을 받은 생물은 주문의 지속시간이 끝날 때까지 이 효과로 인한 공포 상태를 1 미만으로 줄일 수 없습니다.</p>\n<p><strong>대실패</strong> 실패와 같으나, @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 3}이며 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 2}입니다.</p>"
+  "desc_ko": "<p>당신의 적들은 당신 마법의 위력을 느끼는 순간 패배의 필연성을 실감하게 됩니다. 당신의 다음 행동이 내성 굴림을 허용하는 주문 시전이라면, 그 주문은 감정, 공포, 정신 특성을 얻습니다. 그 주문은 원래 갖는 다른 모든 효과에 더해 다음의 성공 및 실패 효과를 얻습니다. 대상이 당신의 숙적이거나 숙적의 아군이라면, 미시적 숙련도를 사용해 주문의 명중 보너스와 내성 DC를 결정합니다. 주문에 여러 대상이 있다면, 미시적 숙련도를 사용하려면 모든 대상이 당신의 숙적이거나 숙적의 아군이어야 합니다.</p><hr /><p><strong>대성공</strong> 대상은 위압하는 주문에 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 1}입니다.</p>\n<p><strong>실패</strong> 대상은 @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 2}이며 공포 상태가 유지되는 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 1}입니다. 위압하는 주문에 지속시간이 있다면, 영향을 받은 생물은 주문의 지속시간이 끝날 때까지 이 효과로 인한 공포 상태를 1 미만으로 줄일 수 없습니다.</p>\n<p><strong>대실패</strong> 실패와 같으나, @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{공포 3}이며 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 2}입니다.</p>"
  },
  "burning-demand": {
   "name_ko": "불타는 요구",
-  "desc_ko": "<p>대상의 몸에 희미하게 빛나는 문장(반경 5피트에 일반 빛을 발산)을 새기고, 그 후 대상에게 당신에게 다가오거나, 도망치거나(@UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{도주} 상태인 것처럼), 들고 있는 것을 놓거나, @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐}이 되거나, 제자리에 서 있으라고 명령합니다. 그 후 대상은 당신의 클래스 DC에 대해 @Check[fortitude|against:class] 내성을 시도합니다.</p><hr /><p><strong>대성공</strong> 문장이 즉시 사라지고, 그 생물은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 문장은 당신의 화염 공격에 대한 자석 역할을 하여, 그 생물은 당신의 화염 충동에 대한 내성과 AC에 –1 페널티를 받습니다. 문장은 당신의 다음 턴이 끝날 때까지 또는 그 생물이 당신의 명령에 따르는 데 최소 1 행동을 소비할 때까지 중 먼저 오는 시점까지 지속됩니다.</p>\n<p><strong>실패</strong> 그 생물의 다음 턴이 시작될 때, 그 생물이 첫 번째 행동으로 명령에 따르지 않으면, 문장이 사라지며 발화하여 그 생물에게 @Damage[((@actor.level/2)+2)d6[fire]] 피해와 @Damage[(floor((@actor.level -12)/2)+2)d6[persistent,fire]] 피해를 입힙니다.</p>\n<p><strong>대실패</strong> 그 생물은 다음 턴의 첫 번째 행동을 당신의 명령에 따르는 데 소비해야 하며, 지연할 수 없습니다. 문장은 그 생물의 턴이 끝날 때 사라집니다. 그 생물이 남은 모든 행동을 계속 명령에 따르는 데 사용하지 않았다면 문장이 발화하여, 그 생물에게 @Damage[((@actor.level/2)+2)d6[fire]] 피해와 @Damage[(floor((@actor.level -12)/2)+2)d6[persistent,fire]] 피해를 입힙니다.</p><hr /><p><strong>레벨 (+2)</strong> 피해가 1d6, 지속 피해가 1d6 증가합니다.</p>"
+  "desc_ko": "<p>대상의 몸에 희미하게 빛나는 문장(반경 5피트에 일반 빛을 발산)을 새기고, 그 후 대상에게 당신에게 다가오거나, 도망치거나(@UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{도주} 상태인 것처럼), 들고 있는 것을 놓거나, @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어짐}이 되거나, 제자리에 서 있으라고 명령합니다. 그 후 대상은 당신의 클래스 DC에 대해 @Check[fortitude|against:class] 내성을 시도합니다.</p><hr /><p><strong>대성공</strong> 문장이 즉시 사라지고, 그 생물은 영향을 받지 않습니다.</p>\n<p><strong>성공</strong> 문장은 당신의 화염 공격에 대한 자석 역할을 하여, 그 생물은 당신의 화염 충동에 대한 내성과 AC에 –1 페널티를 받습니다. 문장은 당신의 다음 턴이 끝날 때까지 또는 그 생물이 당신의 명령에 따르는 데 최소 1 행동을 소비할 때까지 중 먼저 오는 시점까지 지속됩니다.</p>\n<p><strong>실패</strong> 그 생물의 다음 턴이 시작될 때, 그 생물이 첫 번째 행동으로 명령에 따르지 않으면, 문장이 사라지며 발화하여 그 생물에게 @Damage[((@actor.level/2)+2)d6[fire]] 피해와 @Damage[(floor((@actor.level -12)/2)+2)d6[persistent,fire]] 피해를 입힙니다.</p>\n<p><strong>대실패</strong> 그 생물은 다음 턴의 첫 번째 행동을 당신의 명령에 따르는 데 소비해야 하며, 지연할 수 없습니다. 문장은 그 생물의 턴이 끝날 때 사라집니다. 그 생물이 남은 모든 행동을 계속 명령에 따르는 데 사용하지 않았다면 문장이 발화하여, 그 생물에게 @Damage[((@actor.level/2)+2)d6[fire]] 피해와 @Damage[(floor((@actor.level -12)/2)+2)d6[persistent,fire]] 피해를 입힙니다.</p><hr /><p><strong>레벨 (+2)</strong> 피해가 1d6, 지속 피해가 1d6 증가합니다.</p>"
  },
  "avenger-of-greed": {
   "name_ko": "탐욕의 복수자",
@@ -1349,7 +1349,7 @@
  },
  "opportune-trickster": {
   "name_ko": "기회의 책략가",
-  "desc_ko": "<p><strong>발동</strong> 인접한 아군이 생물에게 근접 타격을 합니다.</p>\n<p><strong>요구조건</strong> 당신은 아군과 그 생물 모두에게 인접해 있습니다.</p><hr /><p>당신은 이점을 얻기 위해 비겁한 수법을 쓰는 것도 마다하지 않으며, 적들이 공격할 때 손쉽게 그들을 무너뜨립니다. 발동시킨 공격의 대상인 생물의 지각 DC에 대해 @Check[deception|against:perception] 판정을 시도하십시오. 결과와 관계없이, 그 대상은 이후 10분 동안 당신의 기회의 책략가 사용 시도에 일시적으로 면역이 됩니다.</p><hr /><p><strong>대성공</strong> 대상은 당신 아군의 턴이 끝날 때까지 (발동시킨 공격에 대해서도 포함하여) @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비}입니다.</p>\n<p><strong>성공</strong> 대상은 발동시킨 공격에 대해 무방비입니다.</p>\n<p><strong>대실패</strong> 당신은 아군을 돕려다 균형을 잃고 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태가 됩니다.</p><hr /><p><strong>특수</strong> @UUID[Compendium.pf2e.feats-srd.Item.5eNKs6738aykAhK2]{더러운 수작} 기술 재주가 있다면, 기만 판정 대신 @Check[thievery|against:perception] 판정을 시도할 수 있습니다. 그렇게 하면 이 행동은 정신 특성을 잃습니다.</p>"
+  "desc_ko": "<p><strong>발동</strong> 인접한 아군이 생물에게 근접 타격을 합니다.</p>\n<p><strong>요구조건</strong> 당신은 아군과 그 생물 모두에게 인접해 있습니다.</p><hr /><p>당신은 이점을 얻기 위해 비겁한 수법을 쓰는 것도 마다하지 않으며, 적들이 공격할 때 손쉽게 그들을 무너뜨립니다. 발동시킨 공격의 대상인 생물의 지각 DC에 대해 @Check[deception|against:perception] 판정을 시도하십시오. 결과와 관계없이, 그 대상은 이후 10분 동안 당신의 기회의 책략가 사용 시도에 일시적으로 면역이 됩니다.</p><hr /><p><strong>대성공</strong> 대상은 당신 아군의 턴이 끝날 때까지 (발동시킨 공격에 대해서도 포함하여) @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비}입니다.</p>\n<p><strong>성공</strong> 대상은 발동시킨 공격에 대해 무방비입니다.</p>\n<p><strong>대실패</strong> 당신은 아군을 돕려다 균형을 잃고 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어짐} 상태가 됩니다.</p><hr /><p><strong>특수</strong> @UUID[Compendium.pf2e.feats-srd.Item.5eNKs6738aykAhK2]{더러운 수작} 기술 재주가 있다면, 기만 판정 대신 @Check[thievery|against:perception] 판정을 시도할 수 있습니다. 그렇게 하면 이 행동은 정신 특성을 잃습니다.</p>"
  },
  "golden-erinys-stance": {
   "name_ko": "황금 에리니스 자세",
@@ -1357,7 +1357,7 @@
  },
  "death-dive": {
   "name_ko": "죽음의 급강하",
-  "desc_ko": "<p><strong>요구조건</strong> 당신은 당신의 용 동료를 타고 있으며 공중에 있습니다.</p><hr /><p>당신은 탈것을 급강하로 이끌어, 단일 적을 향해 머리부터 내리꽂습니다. 당신은 탈것에게 두 번 비행하라고 명령합니다. 탈것은 이 이동을 자신의 턴을 시작한 고도보다 더 낮은 고도에서 끝내야 합니다. 당신과 당신의 탈것은 이 이동으로 발동된 반응에 대한 AC에 +4 상황 보너스를 얻습니다. 이 이동이 끝날 때, 당신의 탈것은 자신의 도달 범위 내의 생물 하나에게 근접 타격을 시도합니다. 타격이 명중하면, 대상이 당신의 탈것보다 작을 경우 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태가 됩니다. 대성공이라면, 대상이 당신의 탈것과 같은 크기이거나 더 작을 경우 넘어뜨려짐 상태가 됩니다.</p>"
+  "desc_ko": "<p><strong>요구조건</strong> 당신은 당신의 용 동료를 타고 있으며 공중에 있습니다.</p><hr /><p>당신은 탈것을 급강하로 이끌어, 단일 적을 향해 머리부터 내리꽂습니다. 당신은 탈것에게 두 번 비행하라고 명령합니다. 탈것은 이 이동을 자신의 턴을 시작한 고도보다 더 낮은 고도에서 끝내야 합니다. 당신과 당신의 탈것은 이 이동으로 발동된 반응에 대한 AC에 +4 상황 보너스를 얻습니다. 이 이동이 끝날 때, 당신의 탈것은 자신의 도달 범위 내의 생물 하나에게 근접 타격을 시도합니다. 타격이 명중하면, 대상이 당신의 탈것보다 작을 경우 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어짐} 상태가 됩니다. 대성공이라면, 대상이 당신의 탈것과 같은 크기이거나 더 작을 경우 넘어짐 상태가 됩니다.</p>"
  },
  "mineral-deposits": {
   "name_ko": "광물 침착",
@@ -1549,7 +1549,7 @@
  },
  "commitment-to-valor": {
   "name_ko": "용맹에의 헌신",
-  "desc_ko": "<p><strong>발동</strong> 당신이 @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{도주} 상태를 얻으려 합니다.</p><hr /><p>공포가 당신의 의무에서 주의를 흐트러뜨릴 수는 있어도, 결코 그것을 저버리게 만들지는 못합니다. 도주가 되는 대신, 당신은 도주 상태였을 기간 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1}이 됩니다. 당신이 공포 상태라면, 그 값을 1 줄입니다.</p>"
+  "desc_ko": "<p><strong>발동</strong> 당신이 @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{도주} 상태를 얻으려 합니다.</p><hr /><p>공포가 당신의 의무에서 주의를 흐트러뜨릴 수는 있어도, 결코 그것을 저버리게 만들지는 못합니다. 도주가 되는 대신, 당신은 도주 상태였을 기간 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 1}이 됩니다. 당신이 공포 상태라면, 그 값을 1 줄입니다.</p>"
  },
  "propelled-leap": {
   "name_ko": "추진 도약",
@@ -1641,7 +1641,7 @@
  },
  "dragonet-breath": {
   "name_ko": "새끼 용 브레스",
-  "desc_ko": "<p>당신은 마법적인 숨결을 발달시켰습니다. 당신은 자신의 혈통과 연관된 새끼 용 브레스를 내뿜습니다. 새끼 용 브레스는 괄호 안에 나열된 특성을 얻으며, DC는 당신의 클래스 DC나 주문 DC 중 더 높은 쪽입니다. 새끼 용 브레스를 사용한 후에는 [[/r 1d4 #Recharge Dragonet Breath]]{1d4 라운드} 동안 다시 사용할 수 없습니다.</p><ul><li><strong>페이 새끼 용</strong> (비전, 독) 당신은 @Template[type:cone|distance:15]의 도취성 가스를 내뿜습니다. 해당 지역 내의 각 생물은 @Check[fortitude|against:class-spell|options:area-effect,inflicts:stupefied|traits:arcane,poison] 내성에 성공해야 하며, 실패하면 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1}이 됩니다.</li><li><strong>추적 드레이크</strong> (산성) 당신은 @Template[type:line|distance:30]의 부식성 침을 내뿜어 @Damage[(ceil(@actor.level/2))d4[acid]|options:area-damage] 피해를 주며, @Check[reflex|against:class-spell|basic|options:area-effect,damage:material:silver|traits:acid] 내성이 적용됩니다. 3레벨과 그 이후 2레벨마다, 피해가 1d4씩 증가합니다.</li><li><p><strong>가문 드레이크</strong> (비전, 정신) 당신은 @Template[type:cone|distance:15]로 은빛 안개 구름을 내뿜어 @Damage[(ceil(@actor.level/2))d4[mental]|options:area-damage] 피해를 주며, @Check[will|against:class-spell|options:area-effect|traits:arcane,mental] 내성이 적용됩니다. 이는 약점 목적상 은으로 간주됩니다. 3레벨과 그 이후 2레벨마다, 피해가 1d4씩 증가합니다.</p></li><li><p><strong>진주 새끼 용</strong> (비전, 저주) 당신은 @Template[type:cone|distance:15]의 황금빛 안개를 내뿜어 그 안에 갇힌 생물들의 운을 바꿉니다. 새끼 용 브레스를 사용할 때마다, 그것이 행운을 줄지 불운을 줄지 결정합니다. 당신의 새끼 용 브레스에 영향받은 생물은 1시간 동안 그것에 일시적으로 면역됩니다. 당신의 브레스가 행운을 준다면, 해당 지역 내의 각 생물은 당신의 다음 턴이 시작되기 전 다음 명중 굴림이나 기술 판정에 +1 상태 보너스를 얻습니다. 당신의 브레스가 불운을 준다면, 해당 지역 내의 각 생물은 @Check[will|against:class-spell|options:area-effect|traits:arcane,curse] 내성을 시도해야 합니다. 내성에 실패한 생물은 당신의 다음 턴이 시작되기 전 다음 명중 굴림이나 기술 판정에 –1 상태 페널티를 받습니다. 대실패 시, 그 생물은 대신 판정을 두 번 굴려 더 나쁜 결과를 취해야 합니다. 이는 불운 효과입니다.</p></li><li><strong>조수 새끼 용</strong> (화염) 당신은 @Template[type:line|distance:15]의 초고온 가스를 내뿜어 @Damage[(ceil(@actor.level/2))d4[fire]|options:area-damage] 피해를 주며, @Check[reflex|against:class-spell|basic|options:area-effect|traits:fire] 내성이 적용됩니다. 3레벨과 그 이후 2레벨마다, 피해가 1d4씩 증가합니다. 당신은 화염 특성을 가지고 있음에도 수중에서 브레스를 사용할 수 있습니다. 그렇게 하면, 브레스는 물 특성을 얻고 @Template[type:cone|distance:20]의 끓는 물로 나타납니다.</li></ul>"
+  "desc_ko": "<p>당신은 마법적인 숨결을 발달시켰습니다. 당신은 자신의 혈통과 연관된 새끼 용 브레스를 내뿜습니다. 새끼 용 브레스는 괄호 안에 나열된 특성을 얻으며, DC는 당신의 클래스 DC나 주문 DC 중 더 높은 쪽입니다. 새끼 용 브레스를 사용한 후에는 [[/r 1d4 #Recharge Dragonet Breath]]{1d4 라운드} 동안 다시 사용할 수 없습니다.</p><ul><li><strong>페이 새끼 용</strong> (비전, 독) 당신은 @Template[type:cone|distance:15]의 도취성 가스를 내뿜습니다. 해당 지역 내의 각 생물은 @Check[fortitude|against:class-spell|options:area-effect,inflicts:stupefied|traits:arcane,poison] 내성에 성공해야 하며, 실패하면 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 1}이 됩니다.</li><li><strong>추적 드레이크</strong> (산성) 당신은 @Template[type:line|distance:30]의 부식성 침을 내뿜어 @Damage[(ceil(@actor.level/2))d4[acid]|options:area-damage] 피해를 주며, @Check[reflex|against:class-spell|basic|options:area-effect,damage:material:silver|traits:acid] 내성이 적용됩니다. 3레벨과 그 이후 2레벨마다, 피해가 1d4씩 증가합니다.</li><li><p><strong>가문 드레이크</strong> (비전, 정신) 당신은 @Template[type:cone|distance:15]로 은빛 안개 구름을 내뿜어 @Damage[(ceil(@actor.level/2))d4[mental]|options:area-damage] 피해를 주며, @Check[will|against:class-spell|options:area-effect|traits:arcane,mental] 내성이 적용됩니다. 이는 약점 목적상 은으로 간주됩니다. 3레벨과 그 이후 2레벨마다, 피해가 1d4씩 증가합니다.</p></li><li><p><strong>진주 새끼 용</strong> (비전, 저주) 당신은 @Template[type:cone|distance:15]의 황금빛 안개를 내뿜어 그 안에 갇힌 생물들의 운을 바꿉니다. 새끼 용 브레스를 사용할 때마다, 그것이 행운을 줄지 불운을 줄지 결정합니다. 당신의 새끼 용 브레스에 영향받은 생물은 1시간 동안 그것에 일시적으로 면역됩니다. 당신의 브레스가 행운을 준다면, 해당 지역 내의 각 생물은 당신의 다음 턴이 시작되기 전 다음 명중 굴림이나 기술 판정에 +1 상태 보너스를 얻습니다. 당신의 브레스가 불운을 준다면, 해당 지역 내의 각 생물은 @Check[will|against:class-spell|options:area-effect|traits:arcane,curse] 내성을 시도해야 합니다. 내성에 실패한 생물은 당신의 다음 턴이 시작되기 전 다음 명중 굴림이나 기술 판정에 –1 상태 페널티를 받습니다. 대실패 시, 그 생물은 대신 판정을 두 번 굴려 더 나쁜 결과를 취해야 합니다. 이는 불운 효과입니다.</p></li><li><strong>조수 새끼 용</strong> (화염) 당신은 @Template[type:line|distance:15]의 초고온 가스를 내뿜어 @Damage[(ceil(@actor.level/2))d4[fire]|options:area-damage] 피해를 주며, @Check[reflex|against:class-spell|basic|options:area-effect|traits:fire] 내성이 적용됩니다. 3레벨과 그 이후 2레벨마다, 피해가 1d4씩 증가합니다. 당신은 화염 특성을 가지고 있음에도 수중에서 브레스를 사용할 수 있습니다. 그렇게 하면, 브레스는 물 특성을 얻고 @Template[type:cone|distance:20]의 끓는 물로 나타납니다.</li></ul>"
  },
  "wing-rider": {
   "name_ko": "날개 기수",
@@ -1753,7 +1753,7 @@
  },
  "improvise-strategy": {
   "name_ko": "즉흥 전략",
-  "desc_ko": "<p>당신은 전장의 예측불허 인물로, 예상치 못한 전술을 고안하여 적을 놀라게 합니다. 당신은 이 전략들 중 하나를 구사하며, 청각 또는 시각 특성 중 당신이 선택한 것을 추가합니다. 30피트 내의 생물의 지각 DC에 대해 @Check[warfare-lore|against:perception] 판정을 시도하며, 그 후 대상은 1시간 동안 즉흥 전략의 추가 사용에 일시적으로 면역됩니다.</p><hr /><p><strong>대성공</strong> 대상은 당신의 다음 턴이 끝날 때까지 다음 상태 중 당신이 선택한 하나를 얻습니다: @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 1}, @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{눈부심}, @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비}, 또는 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1}. 대상은 (당신의 전략이 청각 특성을 가졌다면) 집중 특성을 가진 단일 행동으로 정신을 차리거나, (당신의 전략이 시각 특성을 가졌다면) 상호작용 행동으로 눈을 비벼서 그 효과를 종료할 수 있습니다. 또한, 대상은 즉흥 전략의 추가 사용에 일시적으로 면역되지 않습니다.</p>\n<p><strong>성공</strong> 대성공과 같으나, 대상은 즉흥 전략의 추가 사용에 일시적으로 면역됩니다.</p>\n<p><strong>실패</strong> 대상은 영향받지 않습니다.</p>\n<p><strong>대실패</strong> 대상은 그 계략을 간파하여, 당신을 당신의 다음 턴이 시작될 때까지 무방비 상태로 남겨둡니다.</p><hr /><p><strong>특수</strong> 하루 1회, 당신이 교전 유대를 가진 부대를 이끈다면, 당신은 적을 대상으로 하는 대신 당신 부대의 레벨에 대한 표준 DC에 대해 전쟁 지식 판정을 시도하도록 즉흥 전략을 할 수 있습니다. 성공하면, 당신의 부대는 당신의 다음 턴이 끝날 때까지 현재의 교전 유대를 당신이 선택한 다른 것으로 대체합니다.</p>"
+  "desc_ko": "<p>당신은 전장의 예측불허 인물로, 예상치 못한 전술을 고안하여 적을 놀라게 합니다. 당신은 이 전략들 중 하나를 구사하며, 청각 또는 시각 특성 중 당신이 선택한 것을 추가합니다. 30피트 내의 생물의 지각 DC에 대해 @Check[warfare-lore|against:perception] 판정을 시도하며, 그 후 대상은 1시간 동안 즉흥 전략의 추가 사용에 일시적으로 면역됩니다.</p><hr /><p><strong>대성공</strong> 대상은 당신의 다음 턴이 끝날 때까지 다음 상태 중 당신이 선택한 하나를 얻습니다: @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{둔함 1}, @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{눈부심}, @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{무방비}, 또는 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 1}. 대상은 (당신의 전략이 청각 특성을 가졌다면) 집중 특성을 가진 단일 행동으로 정신을 차리거나, (당신의 전략이 시각 특성을 가졌다면) 상호작용 행동으로 눈을 비벼서 그 효과를 종료할 수 있습니다. 또한, 대상은 즉흥 전략의 추가 사용에 일시적으로 면역되지 않습니다.</p>\n<p><strong>성공</strong> 대성공과 같으나, 대상은 즉흥 전략의 추가 사용에 일시적으로 면역됩니다.</p>\n<p><strong>실패</strong> 대상은 영향받지 않습니다.</p>\n<p><strong>대실패</strong> 대상은 그 계략을 간파하여, 당신을 당신의 다음 턴이 시작될 때까지 무방비 상태로 남겨둡니다.</p><hr /><p><strong>특수</strong> 하루 1회, 당신이 교전 유대를 가진 부대를 이끈다면, 당신은 적을 대상으로 하는 대신 당신 부대의 레벨에 대한 표준 DC에 대해 전쟁 지식 판정을 시도하도록 즉흥 전략을 할 수 있습니다. 성공하면, 당신의 부대는 당신의 다음 턴이 끝날 때까지 현재의 교전 유대를 당신이 선택한 다른 것으로 대체합니다.</p>"
  },
  "zip-zoom": {
   "name_ko": "휙! 슝!",
@@ -1833,7 +1833,7 @@
  },
  "perplex": {
   "name_ko": "당혹",
-  "desc_ko": "<p>당신은 반쪽짜리 진실, 음모론, 그럴듯한 동기를 엮어 혼란스러운 그물을 짜서, 적이 무모하게 날뛰도록 부추긴다. 30피트 이내에서 당신의 말을 들을 수 있는 대상 하나를 선택하고, 그 의지 DC를 상대로 @Check[diplomacy|against:will] 판정을 시도한다. 그 후 그 크리처는 24시간 동안 당혹에 면역이 된다.</p><hr /><p><strong>대성공</strong> 대상은 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 3}과 @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{혼란} 상태가 된다.</p>\n<p><strong>성공</strong> 대상은 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1} 상태가 된다.</p>\n<p><strong>실패</strong> 대상은 영향받지 않는다.</p>"
+  "desc_ko": "<p>당신은 반쪽짜리 진실, 음모론, 그럴듯한 동기를 엮어 혼란스러운 그물을 짜서, 적이 무모하게 날뛰도록 부추긴다. 30피트 이내에서 당신의 말을 들을 수 있는 대상 하나를 선택하고, 그 의지 DC를 상대로 @Check[diplomacy|against:will] 판정을 시도한다. 그 후 그 크리처는 24시간 동안 당혹에 면역이 된다.</p><hr /><p><strong>대성공</strong> 대상은 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 3}과 @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{혼란} 상태가 된다.</p>\n<p><strong>성공</strong> 대상은 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 1} 상태가 된다.</p>\n<p><strong>실패</strong> 대상은 영향받지 않는다.</p>"
  },
  "tactical-acumen": {
   "name_ko": "전술적 통찰",
@@ -1849,7 +1849,7 @@
  },
  "infernal-interference": {
   "name_ko": "지옥의 간섭",
-  "desc_ko": "<p><strong>요구조건</strong> 당신은 당신 기사단의 선호 무기를 들고 있다.</p><hr /><p>당신의 공격은 적으로 하여금 지옥의 강철 같고 영혼을 뒤흔드는 풍경을 언뜻 보게 만든다. 요구되는 무기로 적을 두 번 타격한다. 어느 한 타격이라도 명중하면, 대상은 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1} 상태가 되고 당신의 다음 턴 시작까지 반응을 사용할 수 없다. 두 타격 모두 명중하면, 대상은 대신 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 3} 상태가 된다.</p>"
+  "desc_ko": "<p><strong>요구조건</strong> 당신은 당신 기사단의 선호 무기를 들고 있다.</p><hr /><p>당신의 공격은 적으로 하여금 지옥의 강철 같고 영혼을 뒤흔드는 풍경을 언뜻 보게 만든다. 요구되는 무기로 적을 두 번 타격한다. 어느 한 타격이라도 명중하면, 대상은 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 1} 상태가 되고 당신의 다음 턴 시작까지 반응을 사용할 수 없다. 두 타격 모두 명중하면, 대상은 대신 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 3} 상태가 된다.</p>"
  },
  "my-claws-are-daggers": {
   "name_ko": "내 발톱은 단검이다",
@@ -1909,11 +1909,11 @@
  },
  "craft-runewell": {
   "name_ko": "룬샘 제작",
-  "desc_ko": "<p>당신에게 영혼으로 영향을 주는 룬로드가 결코 스스로 그렇게 한 적이 없더라도, 당신은 스스로의 <em>룬샘</em>—당신에게 어느 정도의 불멸을 부여하는 인공물—을 만드는 법을 안다. 당신은 @UUID[Compendium.pf2e.spells-srd.Item.ZwwIUavMbEwcZz35]{반차원계 창조} 의식을 배운다. 당신의 <em>룬샘</em>을 만들려면, 10랭크로 강화한 <em>반차원계 창조</em>를 시전해야 한다. 그렇게 할 때, 당신은 또한 의식을 시전한 위치에 애니마 초점—당신이 외양을 디자인하는 조각상이나 요새 같은 움직일 수 없는 물체—을 만들어, 이 위치를 당신의 다른 세계의 거처와 연결한다. 일단 당신의 <em>룬샘</em>을 만들면, 현재의 것이 파괴되지 않는 한 다른 것을 만들 수 없다.</p>\n<p>당신이 애니마 초점이 위치한 것과 같은 차원계에 있는 동안, 또는 당신의 <em>룬샘</em> 안에 있는 동안, 당신이 얻는 파멸 수치는 @UUID[Compendium.pf2e.conditionitems.Item.3uh1r86TzbQvosxv]{파멸 3}에서 멈춘다. 적이 당신의 애니마 초점이나 <em>룬샘</em>을 파괴할 수 있는 유일한 방법은 당신을 0 히트 포인트와 파멸 3으로 만든 다음, 당신이 복수하는 룬로드 헌신을 취할 때 선택한 특화된 죄악과 대립하는 학파 중 하나의 비전 마법(또는 비전 마법에 영향받은 대리자)을 사용하여 당신의 애니마 초점을 0 히트 포인트로 만드는 것이다. 당신의 애니마 초점은 당신 레벨의 두 배와 같은 경도를 가지며 히트 포인트는 당신과 같다. 당신의 애니마 초점은 당신의 지능 수정치의 두 배와 같은 빠른 치유를 가진다.</p>\n<p>당신의 애니마 초점은 당신이 선택한 복수하는 룬로드 죄악과 같은 죄악과 연관된다. 이 죄악이 만연한(GM의 재량에 따름) 상당한 규모의 정착지가 하나라도 그로부터 100마일 이내에 있는 한, 당신의 애니마 초점은 이러한 죄악으로부터 에너지를 흡수한다. 그렇게 하는 동안 그리고 당신이 애니마 초점과 같은 차원계에 있는 동안, 당신은 나이를 먹지 않으며 당신의 정신 능력을 앗아가는 효과(신경 쓰지 마 주문이나 @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{혼란} 및 멍청함 상태 등)에 면역이다.</p>\n<p>다른 크리처는 당신이 만들어 그들에게 준 차원 열쇠를 소지하고 있거나 당신의 애니마 초점에 인접해 있지 않는 한 당신의 <em>룬샘</em>에 들어갈 수 없다. 당신의 <em>룬샘</em>에는 안에 있는 인접한 크리처가 상호작용 행동으로 활성화할 수 있는 출구가 있다. 그들이 그렇게 하면, <em>룬샘</em>을 나와 당신의 애니마 초점에 인접한 곳에 나타난다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.8PuITkuyl9swzWWq]{룬샘 진입} 활동을 얻는다.</p>"
+  "desc_ko": "<p>당신에게 영혼으로 영향을 주는 룬로드가 결코 스스로 그렇게 한 적이 없더라도, 당신은 스스로의 <em>룬샘</em>—당신에게 어느 정도의 불멸을 부여하는 인공물—을 만드는 법을 안다. 당신은 @UUID[Compendium.pf2e.spells-srd.Item.ZwwIUavMbEwcZz35]{반차원계 창조} 의식을 배운다. 당신의 <em>룬샘</em>을 만들려면, 10랭크로 강화한 <em>반차원계 창조</em>를 시전해야 한다. 그렇게 할 때, 당신은 또한 의식을 시전한 위치에 애니마 초점—당신이 외양을 디자인하는 조각상이나 요새 같은 움직일 수 없는 물체—을 만들어, 이 위치를 당신의 다른 세계의 거처와 연결한다. 일단 당신의 <em>룬샘</em>을 만들면, 현재의 것이 파괴되지 않는 한 다른 것을 만들 수 없다.</p>\n<p>당신이 애니마 초점이 위치한 것과 같은 차원계에 있는 동안, 또는 당신의 <em>룬샘</em> 안에 있는 동안, 당신이 얻는 파멸 수치는 @UUID[Compendium.pf2e.conditionitems.Item.3uh1r86TzbQvosxv]{파멸 3}에서 멈춘다. 적이 당신의 애니마 초점이나 <em>룬샘</em>을 파괴할 수 있는 유일한 방법은 당신을 0 히트 포인트와 파멸 3으로 만든 다음, 당신이 복수하는 룬로드 헌신을 취할 때 선택한 특화된 죄악과 대립하는 학파 중 하나의 비전 마법(또는 비전 마법에 영향받은 대리자)을 사용하여 당신의 애니마 초점을 0 히트 포인트로 만드는 것이다. 당신의 애니마 초점은 당신 레벨의 두 배와 같은 경도를 가지며 히트 포인트는 당신과 같다. 당신의 애니마 초점은 당신의 지능 수정치의 두 배와 같은 빠른 치유를 가진다.</p>\n<p>당신의 애니마 초점은 당신이 선택한 복수하는 룬로드 죄악과 같은 죄악과 연관된다. 이 죄악이 만연한(GM의 재량에 따름) 상당한 규모의 정착지가 하나라도 그로부터 100마일 이내에 있는 한, 당신의 애니마 초점은 이러한 죄악으로부터 에너지를 흡수한다. 그렇게 하는 동안 그리고 당신이 애니마 초점과 같은 차원계에 있는 동안, 당신은 나이를 먹지 않으며 당신의 정신 능력을 앗아가는 효과(신경 쓰지 마 주문이나 @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{혼란} 및 멍함 상태 등)에 면역이다.</p>\n<p>다른 크리처는 당신이 만들어 그들에게 준 차원 열쇠를 소지하고 있거나 당신의 애니마 초점에 인접해 있지 않는 한 당신의 <em>룬샘</em>에 들어갈 수 없다. 당신의 <em>룬샘</em>에는 안에 있는 인접한 크리처가 상호작용 행동으로 활성화할 수 있는 출구가 있다. 그들이 그렇게 하면, <em>룬샘</em>을 나와 당신의 애니마 초점에 인접한 곳에 나타난다. 당신은 @UUID[Compendium.pf2e.actionspf2e.Item.8PuITkuyl9swzWWq]{룬샘 진입} 활동을 얻는다.</p>"
  },
  "apocalyptic-visions": {
   "name_ko": "종말의 환영",
-  "desc_ko": "<p><strong>빈도</strong> 하루 1회</p><hr /><p>당신의 룬로드는 어스폴에 직면하여 은신처로 물러나야 할 만큼 오래 살지 못했을 수도 있지만, 그럼에도 이 사건의 종말론적 메아리는 저 멀리 뼈뜰에 있는 그들의 영혼에까지 닿았다. 당신은 이 제국을 끝장낸 사건의 침습적인 상념을 견디는 법을 배웠으나, 이제 그 절망을 타인의 마음속에 투사할 수 있다. 신화 점수를 소비하고 당신이 감지할 수 있는 60피트 이내의 크리처 최대 10명을 대상으로 삼는다. 당신은 그들의 마음속에 어스폴의 이미지를 강제로 밀어넣어, 세계의 종말과 그들이 소중히 여기는 모든 것의 종말이라는 환영을 견디게 만든다. 크리처들은 당신의 클래스 DC나 주문 DC 중 더 높은 쪽(신화 숙련도 사용)에 대해 @Check[will|against:class-spell] 내성을 시도해야 한다.</p><hr /><p><strong>대성공</strong> 크리처는 영향받지 않는다.</p>\n<p><strong>성공</strong> 크리처는 환영에 너무 정신이 팔려 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{둔화 1} 상태가 된다.</p>\n<p><strong>실패</strong> 크리처는 1분 동안 둔화 1과 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1} 상태가 된다.</p>\n<p><strong>대실패</strong> 크리처는 1분 동안 @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{둔화 2}와 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 2} 상태가 된다. 또한, 크리처는 다음에 휴식할 때 악몽 주문의 효과를 겪는다. 크리처가 이 효과에 실패하거나 대실패하면, 크리처가 내성에 성공하거나 6일이 지날 때까지 크리처가 잠들려 할 때마다 효과가 반복된다. 당신은 크리처가 이 악몽을 겪게 하기 위해 크리처의 이름을 알거나 같은 행성에 남아 있을 필요가 없다.</p>"
+  "desc_ko": "<p><strong>빈도</strong> 하루 1회</p><hr /><p>당신의 룬로드는 어스폴에 직면하여 은신처로 물러나야 할 만큼 오래 살지 못했을 수도 있지만, 그럼에도 이 사건의 종말론적 메아리는 저 멀리 뼈뜰에 있는 그들의 영혼에까지 닿았다. 당신은 이 제국을 끝장낸 사건의 침습적인 상념을 견디는 법을 배웠으나, 이제 그 절망을 타인의 마음속에 투사할 수 있다. 신화 점수를 소비하고 당신이 감지할 수 있는 60피트 이내의 크리처 최대 10명을 대상으로 삼는다. 당신은 그들의 마음속에 어스폴의 이미지를 강제로 밀어넣어, 세계의 종말과 그들이 소중히 여기는 모든 것의 종말이라는 환영을 견디게 만든다. 크리처들은 당신의 클래스 DC나 주문 DC 중 더 높은 쪽(신화 숙련도 사용)에 대해 @Check[will|against:class-spell] 내성을 시도해야 한다.</p><hr /><p><strong>대성공</strong> 크리처는 영향받지 않는다.</p>\n<p><strong>성공</strong> 크리처는 환영에 너무 정신이 팔려 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{둔화 1} 상태가 된다.</p>\n<p><strong>실패</strong> 크리처는 1분 동안 둔화 1과 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 1} 상태가 된다.</p>\n<p><strong>대실패</strong> 크리처는 1분 동안 @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{둔화 2}와 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 2} 상태가 된다. 또한, 크리처는 다음에 휴식할 때 악몽 주문의 효과를 겪는다. 크리처가 이 효과에 실패하거나 대실패하면, 크리처가 내성에 성공하거나 6일이 지날 때까지 크리처가 잠들려 할 때마다 효과가 반복된다. 당신은 크리처가 이 악몽을 겪게 하기 위해 크리처의 이름을 알거나 같은 행성에 남아 있을 필요가 없다.</p>"
  },
  "ascended-dragonet-heritage": {
   "name_ko": "각성한 드래고닛 혈통",
@@ -2113,7 +2113,7 @@
  },
  "flower-street-infamy": {
   "name_ko": "화류가의 악명",
-  "desc_ko": "<p>당신의 애정 행각, 시시덕거림, 밀회, 정사의 이력이 어찌나 길던지, 압살롬처럼 큰 도시에서도 당신은 곤란한 순간에 과거와 마주칠 수밖에 없습니다. 다행히, 그 상대 역시 뜻밖의 만남에 당신만큼이나 충격을 받을지도 모릅니다. 30피트 이내의 대상 하나를 선택해, 당신과 그 사람이 예전에 만났을 법한 음란한 이야기를 지어냅니다. 대상의 의지 DC를 상대로 @Check[deception|against:will] 판정을 시도합니다. 결과와 상관없이, 대상은 24시간 동안 당신의 화류가의 악명에 일시적으로 면역이 됩니다.</p><hr /><p><strong>대성공</strong> 대상은 1분 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 3}이 됩니다.</p>\n<p><strong>성공</strong> 대상은 1분 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 2}가 됩니다.</p>\n<p><strong>실패</strong> 대상은 당신의 다음 턴 시작 시까지 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1}이 됩니다.</p>\n<p><strong>대실패</strong> 대상은 영향을 받지 않습니다.</p>"
+  "desc_ko": "<p>당신의 애정 행각, 시시덕거림, 밀회, 정사의 이력이 어찌나 길던지, 압살롬처럼 큰 도시에서도 당신은 곤란한 순간에 과거와 마주칠 수밖에 없습니다. 다행히, 그 상대 역시 뜻밖의 만남에 당신만큼이나 충격을 받을지도 모릅니다. 30피트 이내의 대상 하나를 선택해, 당신과 그 사람이 예전에 만났을 법한 음란한 이야기를 지어냅니다. 대상의 의지 DC를 상대로 @Check[deception|against:will] 판정을 시도합니다. 결과와 상관없이, 대상은 24시간 동안 당신의 화류가의 악명에 일시적으로 면역이 됩니다.</p><hr /><p><strong>대성공</strong> 대상은 1분 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 3}이 됩니다.</p>\n<p><strong>성공</strong> 대상은 1분 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 2}가 됩니다.</p>\n<p><strong>실패</strong> 대상은 당신의 다음 턴 시작 시까지 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 1}이 됩니다.</p>\n<p><strong>대실패</strong> 대상은 영향을 받지 않습니다.</p>"
  },
  "no-need-to-fear": {
   "name_ko": "두려워할 필요 없다",
@@ -2685,7 +2685,7 @@
  },
  "s1-23-seasoned-diplomat": {
   "name_ko": "S1-23 - 노련한 외교관",
-  "desc_ko": "<p><strong>[상급]</strong><strong>[제한 사용] □</strong></p>\n<hr />\n<p><strong>효과</strong> 당신은 에케시카르의 궁정을 누비며 외교관이자 연구자로서의 기량을 갈고닦았다. 모험 시작 시 이 은혜 옆의 상자를 체크하여 그 모험 동안 외교와 사회에 숙련될 수 있다. 이 기술 중 하나에 이미 숙련되어 있다면, 대신 전문가가 된다. 이 기술 중 하나에서 숙련도가 전문가보다 높다면, 그 모험 동안 그 기술로 굴린 대실패는 실패로, 실패는 성공으로 취급한다.</p>"
+  "desc_ko": "<p><strong>[상급]</strong><strong>[제한 사용] □</strong></p>\n<hr />\n<p><strong>효과</strong> 당신은 에케시카르의 궁정을 누비며 외교관이자 연구자로서의 기량을 갈고닦았다. 모험 시작 시 이 은혜 옆의 상자를 판정하여 그 모험 동안 외교와 사회에 숙련될 수 있다. 이 기술 중 하나에 이미 숙련되어 있다면, 대신 전문가가 된다. 이 기술 중 하나에서 숙련도가 전문가보다 높다면, 그 모험 동안 그 기술로 굴린 대실패는 실패로, 실패는 성공으로 취급한다.</p>"
  },
  "naturalist": {
   "name_ko": "박물학자",
@@ -2693,7 +2693,7 @@
  },
  "evolving-destiny": {
   "name_ko": "진화하는 운명",
-  "desc_ko": "<p><strong>비용</strong>: 20 AcP</p><hr /><p>진화하는 운명(제한 사용, 서비스): 당신의 초기 모험은 당신을 냉혹한 현실에 노출시켜, 자신의 역량을 재점검하도록 만들었다. 다행히도 당신의 경력은 아직 초기이며, 방향 수정은 상당히 간단하다. 모험 사이에, 당신은 48 XP 이하인 캐릭터를 완전히 재구성하기 위해 이 은혜 앞의 상자를 체크할 수 있다(경력 전환 은혜는 어떤 레벨의 캐릭터든 재구성할 수 있게 해준다). 캐릭터가 gp로 구매한 모든 것과 클래스, 재주, 기술 숙련도, 관련 특징을 제거한다(단, 종족이나 배경은 제외). 캐릭터의 재산은 당신이 획득한 총 금액의 85%로 설정된다—이 감소는 소모품 사용으로 소량 손실된 부분과 특히 유리한 시세로 되판 아이템을 나타낸다. 이 재구성 과정은 캐릭터가 획득한 명성, 평판, gp의 양을 변경하지 않으며, 주문시전 같은 서비스에 캐릭터가 소비한 자원도 변경하지 않는다.</p>\n<p>또한 진영 은혜를 구매한 명성 가격으로 환불받을 수 있으나, 이미 소모한 제한 사용 은혜나 진영에 대한 평판을 획득하는 데 사용한 진영 챔피언 은혜는 되팔 수 없다.</p>\n<p>캐릭터에 대한 모든 변경은 캐릭터가 다음 모험을 플레이하기 전까지 적용되어야 한다. 일단 모험이 시작되면 이 은혜로 더 이상 변경할 수 없다.</p>"
+  "desc_ko": "<p><strong>비용</strong>: 20 AcP</p><hr /><p>진화하는 운명(제한 사용, 서비스): 당신의 초기 모험은 당신을 냉혹한 현실에 노출시켜, 자신의 역량을 재점검하도록 만들었다. 다행히도 당신의 경력은 아직 초기이며, 방향 수정은 상당히 간단하다. 모험 사이에, 당신은 48 XP 이하인 캐릭터를 완전히 재구성하기 위해 이 은혜 앞의 상자를 판정할 수 있다(경력 전환 은혜는 어떤 레벨의 캐릭터든 재구성할 수 있게 해준다). 캐릭터가 gp로 구매한 모든 것과 클래스, 재주, 기술 숙련도, 관련 특징을 제거한다(단, 종족이나 배경은 제외). 캐릭터의 재산은 당신이 획득한 총 금액의 85%로 설정된다—이 감소는 소모품 사용으로 소량 손실된 부분과 특히 유리한 시세로 되판 아이템을 나타낸다. 이 재구성 과정은 캐릭터가 획득한 명성, 평판, gp의 양을 변경하지 않으며, 주문시전 같은 서비스에 캐릭터가 소비한 자원도 변경하지 않는다.</p>\n<p>또한 진영 은혜를 구매한 명성 가격으로 환불받을 수 있으나, 이미 소모한 제한 사용 은혜나 진영에 대한 평판을 획득하는 데 사용한 진영 챔피언 은혜는 되팔 수 없다.</p>\n<p>캐릭터에 대한 모든 변경은 캐릭터가 다음 모험을 플레이하기 전까지 적용되어야 한다. 일단 모험이 시작되면 이 은혜로 더 이상 변경할 수 없다.</p>"
  },
  "heroic-inspiration": {
   "name_ko": "영웅적 고무",
@@ -2725,7 +2725,7 @@
  },
  "fop-fiery-companion": {
   "name_ko": "FoP - 불꽃 동료",
-  "desc_ko": "<p><strong>[슬롯 없음][제한적 사용]</strong> □</p>\n<p><strong>전제조건</strong> 동물 동료가 있음</p>\n<hr />\n<p><strong>효과</strong> 동물 동료가 있다면, 모험 사이에 이 상자에 체크하여 동료를 불꽃 표범으로 교체할 수 있습니다. 또한 이 보너스를 동물 동료를 가진 당신의 다른 캐릭터 중 하나에게 이전하여, 그 캐릭터의 기존 동료를 즉시 불꽃 표범으로 교체할 수 있습니다. 이 경우 해당 캐릭터에게 당신의 연대기 사본을 보관하십시오.</p>"
+  "desc_ko": "<p><strong>[슬롯 없음][제한적 사용]</strong> □</p>\n<p><strong>전제조건</strong> 동물 동료가 있음</p>\n<hr />\n<p><strong>효과</strong> 동물 동료가 있다면, 모험 사이에 이 상자에 판정하여 동료를 불꽃 표범으로 교체할 수 있습니다. 또한 이 보너스를 동물 동료를 가진 당신의 다른 캐릭터 중 하나에게 이전하여, 그 캐릭터의 기존 동료를 즉시 불꽃 표범으로 교체할 수 있습니다. 이 경우 해당 캐릭터에게 당신의 연대기 사본을 보관하십시오.</p>"
  },
  "heroic-aegis": {
   "name_ko": "영웅의 방벽",
@@ -2745,7 +2745,7 @@
  },
  "fop-noalas-lessons": {
   "name_ko": "FoP - 노알라의 교훈",
-  "desc_ko": "<p><strong>[슬롯 없음]</strong></p>\n<hr />\n<p><strong>효과</strong> 당신은 레인저 재주 @UUID[Compendium.pf2e.feats-srd.Item.e9NcDk6ds5YebGvb]{끈질긴 추적자} 또는 기술 재주 @UUID[Compendium.pf2e.feats-srd.Item.BV5jpSifVJsTwoO7]{야생 관찰자} 중 하나에 접근 권한을 얻습니다. 이 재주 중 하나를 습득하면, 이 보너스 옆의 상자에 체크하고 다른 하나를 지우십시오.</p>"
+  "desc_ko": "<p><strong>[슬롯 없음]</strong></p>\n<hr />\n<p><strong>효과</strong> 당신은 레인저 재주 @UUID[Compendium.pf2e.feats-srd.Item.e9NcDk6ds5YebGvb]{끈질긴 추적자} 또는 기술 재주 @UUID[Compendium.pf2e.feats-srd.Item.BV5jpSifVJsTwoO7]{야생 관찰자} 중 하나에 접근 권한을 얻습니다. 이 재주 중 하나를 습득하면, 이 보너스 옆의 상자에 판정하고 다른 하나를 지우십시오.</p>"
  },
  "consummate-dabbler": {
   "name_ko": "완숙한 호사가",
@@ -2757,7 +2757,7 @@
  },
  "s2-00-spark-of-life-levels-7-8": {
   "name_ko": "S2-00 - 생명의 불꽃 (7-8레벨)",
-  "desc_ko": "<p><strong>□ 생명의 불꽃</strong> 오픈 로드 롯지로 알려진 페이 반차원에 씨앗이 심어졌습니다. 이 씨앗 안에는 당신 정수의 작은 불꽃이 담겨 있습니다. 모험 중에 죽으면, 이 보너스 옆의 상자에 체크하여 당신을 되살리는 사자 소생 의식의 금화 또는 재료 비용을 50% 줄일 수 있습니다. 이 의식은 자동으로 성공합니다(단, 대성공할 수는 없습니다). 이 보너스는 사자 소생에 영향을 미치는 다른 보너스와 중첩되지 않습니다.</p>"
+  "desc_ko": "<p><strong>□ 생명의 불꽃</strong> 오픈 로드 롯지로 알려진 페이 반차원에 씨앗이 심어졌습니다. 이 씨앗 안에는 당신 정수의 작은 불꽃이 담겨 있습니다. 모험 중에 죽으면, 이 보너스 옆의 상자에 판정하여 당신을 되살리는 사자 소생 의식의 금화 또는 재료 비용을 50% 줄일 수 있습니다. 이 의식은 자동으로 성공합니다(단, 대성공할 수는 없습니다). 이 보너스는 사자 소생에 영향을 미치는 다른 보너스와 중첩되지 않습니다.</p>"
  },
  "vigilant-seal-champion": {
   "name_ko": "비질런트 실 챔피언",
@@ -2765,7 +2765,7 @@
  },
  "s1-q02-one-who-waits": {
   "name_ko": "S1-Q02 - 기다리는 자",
-  "desc_ko": "<p><strong>[슬롯 없음][제한적 사용]</strong> □□□</p>\n<hr />\n<p><strong>효과</strong> 곡예나 운동 판정에서 대실패를 굴릴 때마다, 이 보너스 옆의 상자에 체크하여 자유 행동으로 대신 실패를 얻을 수 있습니다(이 능력을 낭비하지 않도록, GM은 이것이 판정 결과를 바꾸지 않을 경우 알려줄 수 있습니다).</p>"
+  "desc_ko": "<p><strong>[슬롯 없음][제한적 사용]</strong> □□□</p>\n<hr />\n<p><strong>효과</strong> 곡예나 운동 판정에서 대실패를 굴릴 때마다, 이 보너스 옆의 상자에 판정하여 자유 행동으로 대신 실패를 얻을 수 있습니다(이 능력을 낭비하지 않도록, GM은 이것이 판정 결과를 바꾸지 않을 경우 알려줄 수 있습니다).</p>"
  },
  "s1-04-a-thorny-situation": {
   "name_ko": "S1-04 - 가시투성이 상황",
@@ -2777,7 +2777,7 @@
  },
  "aoa-149-boon-a-advanced-training": {
   "name_ko": "AoA #149: 보너스 A - 상급 훈련",
-  "desc_ko": "<p>당신의 모험은 특정 분야에서 특별한 훈련을 얻게 해주었습니다. 다음 선택지 중 하나 옆의 상자에 체크하고 나머지 하나는 연대기 시트에서 지우십시오.</p>\n<p><strong>□ 독살자 훈련</strong> 당신은 희귀한 독살 기술을 훈련받았으며 다음 재주에 접근 권한을 얻습니다: @UUID[Compendium.pf2e.feats-srd.Item.AYXherMu9gFTyXjp]{치명적 독 무기}, @UUID[Compendium.pf2e.feats-srd.Item.hPanopG3TbXKr52O]{페시 피부}, @UUID[Compendium.pf2e.feats-srd.Item.9u0uW1vZThRayXk2]{형상화된 오염물}.</p>\n<p><strong>□ 제피르 가드 소속</strong> 당신은 제피르 가드의 일원이며 @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.KORSADviZaSccs2W]{제피르 가드} 아키타입과 그에 연관된 재주에 접근 권한을 얻습니다.</p>"
+  "desc_ko": "<p>당신의 모험은 특정 분야에서 특별한 훈련을 얻게 해주었습니다. 다음 선택지 중 하나 옆의 상자에 판정하고 나머지 하나는 연대기 시트에서 지우십시오.</p>\n<p><strong>□ 독살자 훈련</strong> 당신은 희귀한 독살 기술을 훈련받았으며 다음 재주에 접근 권한을 얻습니다: @UUID[Compendium.pf2e.feats-srd.Item.AYXherMu9gFTyXjp]{치명적 독 무기}, @UUID[Compendium.pf2e.feats-srd.Item.hPanopG3TbXKr52O]{페시 피부}, @UUID[Compendium.pf2e.feats-srd.Item.9u0uW1vZThRayXk2]{형상화된 오염물}.</p>\n<p><strong>□ 제피르 가드 소속</strong> 당신은 제피르 가드의 일원이며 @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.KORSADviZaSccs2W]{제피르 가드} 아키타입과 그에 연관된 재주에 접근 권한을 얻습니다.</p>"
  },
  "grand-archive-champion": {
   "name_ko": "그랜드 아카이브 챔피언",
@@ -2805,7 +2805,7 @@
  },
  "s1-q11-amateur-genealogist": {
   "name_ko": "S1-Q11 - 아마추어 계보학자",
-  "desc_ko": "<p><strong>[일반]</strong><strong>[제한적 사용]</strong><strong>□</strong><strong>□</strong></p>\n<hr />\n<p><strong>효과</strong> 벤처 캡틴 콰라디를 돕는 당신의 노력은 가계도에 대한 통찰을 주었습니다. 시나리오에서 벤처 캡틴의 브리핑 직후, 이 보너스 옆의 상자에 체크하여 시나리오가 끝날 때까지 계보학 지식 또는 문장학 지식 중 하나의 숙련도를 1단계 높일 수 있습니다: 미숙련은 숙련이 되고, 숙련은 전문가가 되며, 전문가는 달인이 됩니다. 이 보너스로 숙련도를 전설로 높일 수는 없으며, 이 보너스의 효과는 연관된 기술에 대한 다른 임시 숙련도 증가와 누적되지 않습니다.</p>"
+  "desc_ko": "<p><strong>[일반]</strong><strong>[제한적 사용]</strong><strong>□</strong><strong>□</strong></p>\n<hr />\n<p><strong>효과</strong> 벤처 캡틴 콰라디를 돕는 당신의 노력은 가계도에 대한 통찰을 주었습니다. 시나리오에서 벤처 캡틴의 브리핑 직후, 이 보너스 옆의 상자에 판정하여 시나리오가 끝날 때까지 계보학 지식 또는 문장학 지식 중 하나의 숙련도를 1단계 높일 수 있습니다: 미숙련은 숙련이 되고, 숙련은 전문가가 되며, 전문가는 달인이 됩니다. 이 보너스로 숙련도를 전설로 높일 수는 없으며, 이 보너스의 효과는 연관된 기술에 대한 다른 임시 숙련도 증가와 누적되지 않습니다.</p>"
  },
  "adamant-wayfinder": {
   "name_ko": "강철의 길잡이",
@@ -2833,7 +2833,7 @@
  },
  "s1-q07-amateur-adjuster": {
   "name_ko": "S1-Q07 - 아마추어 조정관",
-  "desc_ko": "<p><strong>[일반][제한적 사용]</strong> □□□</p>\n<hr />\n<p><strong>효과</strong> 청구가 해결되면서, 당신은 몇몇 소중한 아군과의 관계를 다졌고 드루먼 관료제를 헤쳐나가는 법을 조금 배웠습니다. 정보 수집, 문서 해독, 위조물 제작 판정을 시도할 때마다, 이 보너스 옆의 상자에 체크하여 판정에 +1 상황 보너스를 얻을 수 있습니다. 판정이 드루먼 사업체나 드루먼 관료제와 상호작용하는 것이라면, 대신 판정에 +3 상황 보너스를 얻습니다.</p>"
+  "desc_ko": "<p><strong>[일반][제한적 사용]</strong> □□□</p>\n<hr />\n<p><strong>효과</strong> 청구가 해결되면서, 당신은 몇몇 소중한 아군과의 관계를 다졌고 드루먼 관료제를 헤쳐나가는 법을 조금 배웠습니다. 정보 수집, 문서 해독, 위조물 제작 판정을 시도할 때마다, 이 보너스 옆의 상자에 판정하여 판정에 +1 상황 보너스를 얻을 수 있습니다. 판정이 드루먼 사업체나 드루먼 관료제와 상호작용하는 것이라면, 대신 판정에 +3 상황 보너스를 얻습니다.</p>"
  },
  "aoa-146-mwangi-summoner": {
   "name_ko": "AoA #146: 음왕기 소환사",
@@ -2853,11 +2853,11 @@
  },
  "treasure-bundle-insurance": {
   "name_ko": "보물 꾸러미 보험",
-  "desc_ko": "<p><strong>비용</strong>: 4 AcP</p>\n<p>당신의 세심한 수색이 유적지의 모든 귀중품을 발견하지 못하더라도, 당신은 발견한 것들을 감정하고 수리하고 인증하여 그 가치를 극대화할 수 있습니다. 당신과 아군이 모험의 보물 꾸러미를 9개 이하로 회수한 시나리오가 끝날 때, 이 보너스 앞의 상자에 체크할 수 있습니다. 그룹의 금화 보상을 계산하는 목적으로 회수한 보물 꾸러미의 유효 개수를 1 증가시킵니다.</p>\n<p>이 보너스가 제공하는 추가 보물 꾸러미의 총 개수는 모험의 최대치(일반적인 시나리오의 경우 10개)를 초과할 수 없습니다.</p>\n<p><strong>특별</strong>: 이 보너스의 여러 사본을 같은 모험 동안 사용할 수 있지만, 잃어버린 보물 꾸러미는 총 3개까지만 회수할 수 있습니다.</p>"
+  "desc_ko": "<p><strong>비용</strong>: 4 AcP</p>\n<p>당신의 세심한 수색이 유적지의 모든 귀중품을 발견하지 못하더라도, 당신은 발견한 것들을 감정하고 수리하고 인증하여 그 가치를 극대화할 수 있습니다. 당신과 아군이 모험의 보물 꾸러미를 9개 이하로 회수한 시나리오가 끝날 때, 이 보너스 앞의 상자에 판정할 수 있습니다. 그룹의 금화 보상을 계산하는 목적으로 회수한 보물 꾸러미의 유효 개수를 1 증가시킵니다.</p>\n<p>이 보너스가 제공하는 추가 보물 꾸러미의 총 개수는 모험의 최대치(일반적인 시나리오의 경우 10개)를 초과할 수 없습니다.</p>\n<p><strong>특별</strong>: 이 보너스의 여러 사본을 같은 모험 동안 사용할 수 있지만, 잃어버린 보물 꾸러미는 총 3개까지만 회수할 수 있습니다.</p>"
  },
  "second-chance": {
   "name_ko": "두 번째 기회",
-  "desc_ko": "<p><strong>비용</strong>: 40 AcP</p><hr /><p>두 번째 기회 (제한적 사용): 모험은 목숨을 건 일이지만, 당신은 여정이 이른 죽음으로 끝날 경우 요청할 수 있는 강력한 호의를 가지고 있습니다. 이 보너스 앞의 상자에 체크하여, 의식의 다이아몬드 총 비용이 1,000gp를 초과하지 않는 한, 당신의 PC 또는 소환되지 않은 부하(생물 동료 등)를 위해 소생 의식(패스파인더 코어 룰북 415페이지)의 이점을 얻을 수 있습니다. 의식이 1,000gp를 초과하는 비용이 든다면, 1,000gp를 초과하는 추가 재료 비용을 지불해야 합니다.</p>\n<p>이 의식은 수행하는 데 1일이 걸리며 자동으로 성공합니다. 필요하다면, 패스파인더 소사이어티는 또한 당신의 시신과 모든 잃어버린 장비가 파괴, 분실되었거나 그 외의 이유로 접근 불가능한 경우 추가 비용 없이 회수해줄 것입니다.</p>\n<p>수혜자가 0 히트 포인트에서 죽지 않는 언데드 캐릭터(스켈레톤 혈통으로 제작된 캐릭터 등)라면, 대신 이 보너스를 사용하여 그들을 되살리는 대신 이전의 언데드 상태로 복원하는 의식의 이점을 받을 수 있습니다. 이 의식은 그 외에는 위에서 설명한 소생 의식과 같은 비용과 기능을 가집니다.</p>"
+  "desc_ko": "<p><strong>비용</strong>: 40 AcP</p><hr /><p>두 번째 기회 (제한적 사용): 모험은 목숨을 건 일이지만, 당신은 여정이 이른 죽음으로 끝날 경우 요청할 수 있는 강력한 호의를 가지고 있습니다. 이 보너스 앞의 상자에 판정하여, 의식의 다이아몬드 총 비용이 1,000gp를 초과하지 않는 한, 당신의 PC 또는 소환되지 않은 부하(생물 동료 등)를 위해 소생 의식(패스파인더 코어 룰북 415페이지)의 이점을 얻을 수 있습니다. 의식이 1,000gp를 초과하는 비용이 든다면, 1,000gp를 초과하는 추가 재료 비용을 지불해야 합니다.</p>\n<p>이 의식은 수행하는 데 1일이 걸리며 자동으로 성공합니다. 필요하다면, 패스파인더 소사이어티는 또한 당신의 시신과 모든 잃어버린 장비가 파괴, 분실되었거나 그 외의 이유로 접근 불가능한 경우 추가 비용 없이 회수해줄 것입니다.</p>\n<p>수혜자가 0 히트 포인트에서 죽지 않는 언데드 캐릭터(스켈레톤 혈통으로 제작된 캐릭터 등)라면, 대신 이 보너스를 사용하여 그들을 되살리는 대신 이전의 언데드 상태로 복원하는 의식의 이점을 받을 수 있습니다. 이 의식은 그 외에는 위에서 설명한 소생 의식과 같은 비용과 기능을 가집니다.</p>"
  },
  "vault-delver": {
   "name_ko": "금고 탐험가",
@@ -2865,7 +2865,7 @@
  },
  "s2-00-spark-of-life-levels-1-2": {
   "name_ko": "S2-00 - 생명의 불꽃 (1-2레벨)",
-  "desc_ko": "<p><strong>□ 생명의 불꽃</strong> 오픈 로드 롯지로 알려진 페이 반차원에 씨앗이 심어졌습니다. 이 씨앗 안에는 당신 정수의 작은 불꽃이 담겨 있습니다. 모험 중에 죽으면, 이 보너스 옆의 상자에 체크하여 당신을 되살리는 사자 소생 의식의 금화 또는 재료 비용을 50% 줄일 수 있습니다. 이 의식은 자동으로 성공합니다(단, 대성공할 수는 없습니다). 이 보너스는 사자 소생에 영향을 미치는 다른 보너스와 중첩되지 않습니다.</p>"
+  "desc_ko": "<p><strong>□ 생명의 불꽃</strong> 오픈 로드 롯지로 알려진 페이 반차원에 씨앗이 심어졌습니다. 이 씨앗 안에는 당신 정수의 작은 불꽃이 담겨 있습니다. 모험 중에 죽으면, 이 보너스 옆의 상자에 판정하여 당신을 되살리는 사자 소생 의식의 금화 또는 재료 비용을 50% 줄일 수 있습니다. 이 의식은 자동으로 성공합니다(단, 대성공할 수는 없습니다). 이 보너스는 사자 소생에 영향을 미치는 다른 보너스와 중첩되지 않습니다.</p>"
  },
  "s1-05-experienced-mountaineer": {
   "name_ko": "S1-05 - 노련한 산악인",
@@ -3053,7 +3053,7 @@
  },
  "s1-06-traveler-of-the-spirit-road": {
   "name_ko": "S1-06 - 영혼의 길 여행자",
-  "desc_ko": "<p><strong>[일반][사용 제한]</strong> □□□</p>\n<hr />\n<p><strong>효과</strong> 당신은 영혼의 숲 인근 길을 여행하며 길을 잃지 않았을 뿐만 아니라 지역의 카미 몇몇과 친분까지 쌓았습니다. 카미의 축복이 이제 당신을 따라다니며 불운으로부터 보호합니다. 삼림 지역에서 @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{숨기}, @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{은밀 이동}, @UUID[Compendium.pf2e.actionspf2e.Item.fJImDBQfqfjKJOhk]{방향 감지}, @UUID[Compendium.pf2e.actionspf2e.Item.EA5vuSgJfiHH7plD]{추적} 판정에서 대실패를 하게 될 때마다, 자유 행동으로 이 은혜 옆의 상자에 체크하여 그 판정을 대신 실패로 취급할 수 있습니다.</p>"
+  "desc_ko": "<p><strong>[일반][사용 제한]</strong> □□□</p>\n<hr />\n<p><strong>효과</strong> 당신은 영혼의 숲 인근 길을 여행하며 길을 잃지 않았을 뿐만 아니라 지역의 카미 몇몇과 친분까지 쌓았습니다. 카미의 축복이 이제 당신을 따라다니며 불운으로부터 보호합니다. 삼림 지역에서 @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{숨기}, @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{은밀 이동}, @UUID[Compendium.pf2e.actionspf2e.Item.fJImDBQfqfjKJOhk]{방향 감지}, @UUID[Compendium.pf2e.actionspf2e.Item.EA5vuSgJfiHH7plD]{추적} 판정에서 대실패를 하게 될 때마다, 자유 행동으로 이 은혜 옆의 상자에 판정하여 그 판정을 대신 실패로 취급할 수 있습니다.</p>"
  },
  "s1-q01-sand-slide": {
   "name_ko": "S1-Q01 - 모래 미끄러짐",
@@ -3073,11 +3073,11 @@
  },
  "s1-12-valaiss-assurance": {
   "name_ko": "S1-12 - 발레의 보증",
-  "desc_ko": "<p><strong>[일반][사용 제한]</strong> □□</p>\n<hr />\n<p><strong>효과</strong> 발레 뒤랑은 라디언트 오스의 지도자인데, 이는 상당 부분 그녀의 친절함과 도움이 필요한 이들에게 자신의 힘을 나누려는 의지 덕분입니다. 당신은 이 은혜 옆의 상자에 체크하고 행동 하나를 소비하여 챔피언 집중 주문 @UUID[Compendium.pf2e.spells-srd.Item.zNN9212H2FGfM7VS]{안수}를 당신의 레벨에 맞게 적절히 강화하여 사용할 수 있습니다. 이것은 집중 점수를 소비하지 않습니다.</p>"
+  "desc_ko": "<p><strong>[일반][사용 제한]</strong> □□</p>\n<hr />\n<p><strong>효과</strong> 발레 뒤랑은 라디언트 오스의 지도자인데, 이는 상당 부분 그녀의 친절함과 도움이 필요한 이들에게 자신의 힘을 나누려는 의지 덕분입니다. 당신은 이 은혜 옆의 상자에 판정하고 행동 하나를 소비하여 챔피언 집중 주문 @UUID[Compendium.pf2e.spells-srd.Item.zNN9212H2FGfM7VS]{안수}를 당신의 레벨에 맞게 적절히 강화하여 사용할 수 있습니다. 이것은 집중 점수를 소비하지 않습니다.</p>"
  },
  "career-change": {
   "name_ko": "경력 변경",
-  "desc_ko": "<p><strong>비용</strong>: 50 AcP (매번 +15)</p><hr /><p>모험 사이에, 당신은 이 은혜 앞의 상자에 체크하여 캐릭터를 완전히 재구성할 수 있습니다. 캐릭터가 gp로 구매한 모든 것과 클래스, 재주, 기술 숙련도 및 관련 특징을 제거하십시오. 캐릭터의 조상, 유산, 배경은 변경할 수 없지만, 캐릭터 생성 시 선택한 능력치 상승은 변경할 수 있습니다. 캐릭터의 재산은 당신이 벌어들인 총 금화의 85%로 설정됩니다—이 감소는 소모품 사용으로 인한 소액 손실과 특히 유리한 가격으로 되판 아이템을 나타냅니다.</p>\n<p>이 재구성 과정은 캐릭터가 벌어들인 명성, 평판, gp의 양을 변경하지 않으며, 주문시전 등의 서비스에 소비한 자원도 변경하지 않습니다. 당신은 또한 세력 은혜를 구매했던 명성 가격만큼 환불받을 수 있지만, 이미 소진한 사용 제한 은혜나 세력의 평판을 얻는 데 사용한 세력 챔피언 은혜는 되팔 수 없습니다.</p>\n<p>캐릭터에 대한 모든 변경은 캐릭터가 다음 모험을 플레이할 때까지 적용되어야 하며, 일단 모험이 시작되면 이 은혜로 더 이상의 변경을 할 수 없습니다.</p>"
+  "desc_ko": "<p><strong>비용</strong>: 50 AcP (매번 +15)</p><hr /><p>모험 사이에, 당신은 이 은혜 앞의 상자에 판정하여 캐릭터를 완전히 재구성할 수 있습니다. 캐릭터가 gp로 구매한 모든 것과 클래스, 재주, 기술 숙련도 및 관련 특징을 제거하십시오. 캐릭터의 조상, 유산, 배경은 변경할 수 없지만, 캐릭터 생성 시 선택한 능력치 상승은 변경할 수 있습니다. 캐릭터의 재산은 당신이 벌어들인 총 금화의 85%로 설정됩니다—이 감소는 소모품 사용으로 인한 소액 손실과 특히 유리한 가격으로 되판 아이템을 나타냅니다.</p>\n<p>이 재구성 과정은 캐릭터가 벌어들인 명성, 평판, gp의 양을 변경하지 않으며, 주문시전 등의 서비스에 소비한 자원도 변경하지 않습니다. 당신은 또한 세력 은혜를 구매했던 명성 가격만큼 환불받을 수 있지만, 이미 소진한 사용 제한 은혜나 세력의 평판을 얻는 데 사용한 세력 챔피언 은혜는 되팔 수 없습니다.</p>\n<p>캐릭터에 대한 모든 변경은 캐릭터가 다음 모험을 플레이할 때까지 적용되어야 하며, 일단 모험이 시작되면 이 은혜로 더 이상의 변경을 할 수 없습니다.</p>"
  },
  "off-hours-study": {
   "name_ko": "여가 연구",
@@ -3101,7 +3101,7 @@
  },
  "s1-00-nexian-researcher": {
   "name_ko": "S1-00 - 넥시안 연구자",
-  "desc_ko": "<p><strong>[일반][사용 제한]</strong> □□□</p><hr /><p><strong>효과</strong> 당신은 패스파인더 협회 지식 판정을 시도할 때마다 상자에 체크할 수 있습니다. 패스파인더 협회 지식에 미숙련이라면, 보너스를 결정할 때 지능 수정치에 당신의 레벨을 더할 수 있습니다. 패스파인더 협회 지식에 최소 숙련이라면, 대신 이 판정에 상황 보너스 +2를 얻습니다. 판정이 두르빈 게스트, 셀미우스 포스터, 그레가로 보스, 케린하 냅수나르와 관련된 것이라면 상자에 체크할 필요가 없습니다.</p>\n<p>@UUID[Compendium.pf2e.campaign-effects.Item.rEQP3SwRF9Zb1ppV]{효과: 넥시안 연구자}</p>"
+  "desc_ko": "<p><strong>[일반][사용 제한]</strong> □□□</p><hr /><p><strong>효과</strong> 당신은 패스파인더 협회 지식 판정을 시도할 때마다 상자에 판정할 수 있습니다. 패스파인더 협회 지식에 미숙련이라면, 보너스를 결정할 때 지능 수정치에 당신의 레벨을 더할 수 있습니다. 패스파인더 협회 지식에 최소 숙련이라면, 대신 이 판정에 상황 보너스 +2를 얻습니다. 판정이 두르빈 게스트, 셀미우스 포스터, 그레가로 보스, 케린하 냅수나르와 관련된 것이라면 상자에 판정할 필요가 없습니다.</p>\n<p>@UUID[Compendium.pf2e.campaign-effects.Item.rEQP3SwRF9Zb1ppV]{효과: 넥시안 연구자}</p>"
  },
  "s1-21-maze-walker": {
   "name_ko": "S1-21 - 미궁 보행자",
@@ -3177,11 +3177,11 @@
  },
  "s1-22-doom-averted": {
   "name_ko": "S1-22 - 피한 파멸",
-  "desc_ko": "<p><strong>[일반][사용 제한] □</strong></p>\n<hr />\n<p><strong>효과</strong> 카소미르에서 성장하는 그로에투스 신도 집단을 물리침으로써, 당신의 영혼은 그의 사제들이 지붕 위에서 외치는 것과 같은 파멸의 예언에 대한 새로운 저항으로 채워집니다. 당신의 빈사 수치가 당신을 죽일 정확한 값까지 증가할 때, 이 은혜는 자동으로 발동됩니다. 이 은혜 앞의 상자에 체크하고 빈사 수치를 1 줄이십시오.</p>"
+  "desc_ko": "<p><strong>[일반][사용 제한] □</strong></p>\n<hr />\n<p><strong>효과</strong> 카소미르에서 성장하는 그로에투스 신도 집단을 물리침으로써, 당신의 영혼은 그의 사제들이 지붕 위에서 외치는 것과 같은 파멸의 예언에 대한 새로운 저항으로 채워집니다. 당신의 빈사 수치가 당신을 죽일 정확한 값까지 증가할 때, 이 은혜는 자동으로 발동됩니다. 이 은혜 앞의 상자에 판정하고 빈사 수치를 1 줄이십시오.</p>"
  },
  "s1-01-society-connections": {
   "name_ko": "S1-01 - 협회 인맥",
-  "desc_ko": "<p><strong>[휴식기][사용 제한]</strong> □</p>\n<hr />\n<p><strong>효과</strong> 패스파인더 협회 내 지도자들과의 인맥은 당신이 새로운 임무와 다른 활동에 대한 지원 모두의 기회를 찾도록 돕습니다. 휴식기 동안 레벨 _의 작업을 시도하기 위해 @UUID[Compendium.pf2e.actionspf2e.Item.QyzlsLrqM0EEwd7j]{수입 벌기}를 할 때 이 은혜 앞의 상자에 체크하십시오. 판정에서 대실패하더라도, 당신은 여전히 그 작업에 대한 실패의 결과를 얻습니다.</p>"
+  "desc_ko": "<p><strong>[휴식기][사용 제한]</strong> □</p>\n<hr />\n<p><strong>효과</strong> 패스파인더 협회 내 지도자들과의 인맥은 당신이 새로운 임무와 다른 활동에 대한 지원 모두의 기회를 찾도록 돕습니다. 휴식기 동안 레벨 _의 작업을 시도하기 위해 @UUID[Compendium.pf2e.actionspf2e.Item.QyzlsLrqM0EEwd7j]{수입 벌기}를 할 때 이 은혜 앞의 상자에 판정하십시오. 판정에서 대실패하더라도, 당신은 여전히 그 작업에 대한 실패의 결과를 얻습니다.</p>"
  },
  "envoys-alliance-champion": {
   "name_ko": "엔보이스 얼라이언스 챔피언",
@@ -3193,7 +3193,7 @@
  },
  "s1-08-river-kingdoms-politician": {
   "name_ko": "S1-08 - 리버 킹덤 정치인",
-  "desc_ko": "<p><strong>[일반][사용 제한]</strong> □□□</p>\n<hr />\n<p><strong>효과</strong> 당신은 어떤 식으로든 리버 킹덤 정치 세계에서 알려진 인물이 되었습니다. 리버 킹덤이나 라즈미란을 배경으로 하는 모험을 완료하면, 휴식기를 사용하여 수입 벌기로 그 지역의 정치적 음모에 참여할 때 이 은혜 옆의 상자에 체크할 수 있으며, 이를 통해 당신의 레벨 +1까지의 @UUID[Compendium.pf2e.actionspf2e.Item.QyzlsLrqM0EEwd7j]{수입 벌기} 작업을 찾을 수 있습니다. 이 은혜 옆의 세 상자가 모두 체크되면, 이 은혜는 향후 모험에서 특별한 효과를 갖습니다.</p>"
+  "desc_ko": "<p><strong>[일반][사용 제한]</strong> □□□</p>\n<hr />\n<p><strong>효과</strong> 당신은 어떤 식으로든 리버 킹덤 정치 세계에서 알려진 인물이 되었습니다. 리버 킹덤이나 라즈미란을 배경으로 하는 모험을 완료하면, 휴식기를 사용하여 수입 벌기로 그 지역의 정치적 음모에 참여할 때 이 은혜 옆의 상자에 판정할 수 있으며, 이를 통해 당신의 레벨 +1까지의 @UUID[Compendium.pf2e.actionspf2e.Item.QyzlsLrqM0EEwd7j]{수입 벌기} 작업을 찾을 수 있습니다. 이 은혜 옆의 세 상자가 모두 판정되면, 이 은혜는 향후 모험에서 특별한 효과를 갖습니다.</p>"
  },
  "woodsedge-lodge-gear": {
   "name_ko": "우즈엣지 로지 장비",
@@ -3301,7 +3301,7 @@
  },
  "s2-00-spark-of-life-levels-3-6": {
   "name_ko": "S2-00 - 생명의 불꽃 (3-6레벨)",
-  "desc_ko": "<p><strong>□ 생명의 불꽃</strong> 열린 길의 로지로 알려진 페이 하위세계에 씨앗 하나가 심어졌습니다. 이 씨앗 안에는 당신 정수의 작은 불꽃이 담겨 있습니다. 모험 중에 당신이 죽으면, 이 특전 옆의 상자에 체크하여 당신을 되살리기 위한 죽은 자 부활 의식의 금화 또는 재료 비용을 50% 줄일 수 있습니다. 이 의식은 자동으로 성공합니다(단, 대성공할 수는 없습니다). 이 특전은 죽은 자 부활에 영향을 주는 다른 특전과 중첩되지 않습니다.</p>"
+  "desc_ko": "<p><strong>□ 생명의 불꽃</strong> 열린 길의 로지로 알려진 페이 하위세계에 씨앗 하나가 심어졌습니다. 이 씨앗 안에는 당신 정수의 작은 불꽃이 담겨 있습니다. 모험 중에 당신이 죽으면, 이 특전 옆의 상자에 판정하여 당신을 되살리기 위한 죽은 자 부활 의식의 금화 또는 재료 비용을 50% 줄일 수 있습니다. 이 의식은 자동으로 성공합니다(단, 대성공할 수는 없습니다). 이 특전은 죽은 자 부활에 영향을 주는 다른 특전과 중첩되지 않습니다.</p>"
  },
  "change-shape": {
   "name_ko": "형태 변신"
