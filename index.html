@@ -62,12 +62,12 @@ window.PF2eOverrideFetcher = function(cat){
   return window._cloudOvrPromise.then(function(all){ return (all && all[cat]) || {}; });
 };
 </script>
-<script src="equipment_db.js?v=0.89"></script>
-<script src="class_features_db.js?v=0.89"></script>
-<script src="effects_db.js?v=0.89"></script>
-<script src="prereqs_db.js?v=0.89"></script>
-<script src="changelog.js?v=0.89"></script>
-<script src="gear-shell.js?v=0.89"></script>
+<script src="equipment_db.js?v=0.91"></script>
+<script src="class_features_db.js?v=0.91"></script>
+<script src="effects_db.js?v=0.91"></script>
+<script src="prereqs_db.js?v=0.91"></script>
+<script src="changelog.js?v=0.91"></script>
+<script src="gear-shell.js?v=0.91"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -87,7 +87,7 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
   console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.89">
+<link rel="stylesheet" href="app-shell.css?v=0.91">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -190,6 +190,15 @@ body{
 .lobby-credit a{color:#888;text-decoration:underline;}
 .lobby-credit a:hover{color:var(--accent);}
 #mode-select.hidden{display:none;}
+/* ── 부트 로딩 오버레이: 중앙에서 구르는 d20 + 위트 문구(랜덤 로테이션) ── */
+#boot-loading{position:fixed;inset:0;z-index:100005;background:var(--bg2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;}
+#boot-loading.hidden{display:none;}
+.boot-dice-bounce{animation:bootDiceBounce 0.9s ease-in-out infinite;}
+.boot-dice-spin{animation:bootDiceSpin 1.8s cubic-bezier(.45,.05,.55,.95) infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,0.35));}
+@keyframes bootDiceBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@keyframes bootDiceSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+#boot-loading-msg{max-width:520px;padding:0 24px;text-align:center;color:var(--text2);font-family:"Gelasio",serif;font-size:15px;font-style:italic;line-height:1.7;min-height:3em;transition:opacity 0.35s;}
+#boot-loading-msg.fade{opacity:0;}
 .mode-select-inner{text-align:center;max-width:760px;width:100%;}
 .mode-select-title{color:var(--accent);font-family:"Eczar",var(--bs,serif);font-size:40px;margin:0 0 6px;letter-spacing:2px;}
 .mode-select-sub{color:var(--text2);font-size:14px;margin:0 0 30px;}
@@ -1847,6 +1856,18 @@ input::placeholder{ color:rgba(80,66,44,.55); }
   </div>
 </div>
 
+<!-- ═══════════════ 부트 로딩 오버레이 (모드 진입 게이트 — 카탈로그 완비 후 진입) ═══════════════ -->
+<div id="boot-loading" class="hidden" aria-live="polite">
+  <div class="boot-dice-bounce"><div class="boot-dice-spin">
+    <svg viewBox="0 0 100 100" width="92" height="92" aria-hidden="true">
+      <polygon points="50,4 89,26 89,74 50,96 11,74 11,26" fill="#6e1414" stroke="#c9a44a" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="50,18 76,33 76,67 50,82 24,67 24,33" fill="none" stroke="#c9a44a" stroke-width="1.4" opacity="0.65"/>
+      <text x="50" y="60" text-anchor="middle" font-family="Eczar, serif" font-size="30" font-weight="700" fill="#e8d29a">20</text>
+    </svg>
+  </div></div>
+  <div id="boot-loading-msg"></div>
+</div>
+
 <!-- ═══════════════ GM 로비 (임베드 — GMSheet.html을 전체화면으로) ═══════════════ -->
 <div id="gm-lobby-view" class="hidden">
   <iframe id="gm-lobby-frame" title="GM 로비"></iframe>
@@ -1900,7 +1921,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.89</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.91</span></div>
 </div>
 
 <!-- 업데이트로그·버그제보 모달 → gear-shell.js(공유 주입) -->
@@ -2400,7 +2421,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.89" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.91" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2474,36 +2495,36 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.89"></script>
-<script src="cs_calc.js?v=0.89"></script>
+<script src="cs_data.js?v=0.91"></script>
+<script src="cs_calc.js?v=0.91"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.89"></script>
-<script src="cs_re_engine.js?v=0.89"></script>
-<script src="cs_pf2e_stats.js?v=0.89"></script>
-<script src="cs_pf2e_equip.js?v=0.89"></script>
-<script src="cs_pf2e_anc.js?v=0.89"></script>
-<script src="cs_pf2e_bg.js?v=0.89"></script>
-<script src="cs_pf2e_spell.js?v=0.89"></script>
-<script src="cs_pf2e_deity.js?v=0.89"></script>
-<script src="cs_pf2e_action.js?v=0.89"></script>
-<script src="cs_pf2e_feat.js?v=0.89"></script>
-<script src="cs_pf2e_class.js?v=0.89"></script>
-<script src="cs_pf2e_actor.js?v=0.89"></script>
-<script src="cs_ui.js?v=0.89"></script>
-<script src="cs_modal.js?v=0.89"></script>
-<script src="cs_feat_effects.js?v=0.89"></script>
-<script src="cs_save.js?v=0.89"></script>
-<script src="cs_session.js?v=0.89"></script>
-<script src="cs_dice.js?v=0.89"></script>
-<script src="cs_map.js?v=0.89"></script>
+<script src="cs_pf2e.js?v=0.91"></script>
+<script src="cs_re_engine.js?v=0.91"></script>
+<script src="cs_pf2e_stats.js?v=0.91"></script>
+<script src="cs_pf2e_equip.js?v=0.91"></script>
+<script src="cs_pf2e_anc.js?v=0.91"></script>
+<script src="cs_pf2e_bg.js?v=0.91"></script>
+<script src="cs_pf2e_spell.js?v=0.91"></script>
+<script src="cs_pf2e_deity.js?v=0.91"></script>
+<script src="cs_pf2e_action.js?v=0.91"></script>
+<script src="cs_pf2e_feat.js?v=0.91"></script>
+<script src="cs_pf2e_class.js?v=0.91"></script>
+<script src="cs_pf2e_actor.js?v=0.91"></script>
+<script src="cs_ui.js?v=0.91"></script>
+<script src="cs_modal.js?v=0.91"></script>
+<script src="cs_feat_effects.js?v=0.91"></script>
+<script src="cs_save.js?v=0.91"></script>
+<script src="cs_session.js?v=0.91"></script>
+<script src="cs_dice.js?v=0.91"></script>
+<script src="cs_map.js?v=0.91"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.89"></script>
-<script src="cs_i18n.js?v=0.89"></script>
+<script src="cs_locale.js?v=0.91"></script>
+<script src="cs_i18n.js?v=0.91"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.89');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.91');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2596,6 +2617,86 @@ document.addEventListener('click', function(e) {
 // 헤더 기본 로고 텍스트 캡처(세션 미소속 시 복원용). 운영 배포 시 제거는 정적 HTML 기준.
 var _defaultBrand = (document.getElementById('hdr-brand') || {}).textContent || 'Pathforge';
 
+// ── 부트 로딩 오버레이(모드 진입 게이트) ──
+// 카탈로그(재주 9.7MB 등) 완비 전 시트/모달이 그려지며 생기던 부류의 버그(영문 @link 등)를
+// 진입 단계에서 원천 차단. 문구는 위트 전용(시스템 문구 금지 — 사용자 지정), 랜덤 로테이션.
+var BOOT_MSGS = [
+  '모든 레버를 당길 필요는 없습니다. 하지만 대부분의 플레이어는 결국 당깁니다.',
+  '문을 부수는 것은 만능 해결책입니다. 다만 문제를 늘릴 뿐입니다.',
+  '보물상자는 당신을 기다리고 있습니다. 미믹도 함께요.',
+  '은신은 성공할 때까지 완벽합니다.',
+  '파이터는 계획을 세우고, 바바리안은 계획을 단축합니다.',
+  'NPC도 당신의 선택을 기억합니다. 특히 원한은 오래 기억합니다.',
+  '내성 굴림은 실패할 때 가장 기억에 남습니다.',
+  '"한번만 더 탐험하자." — 파티가 밤을 새우는 가장 흔한 이유',
+  '주문 슬롯은 아껴도 끝나고, 아끼지 않아도 끝납니다.',
+  'GM은 당신의 적이 아닙니다. 대부분의 경우에는요.',
+];
+var _bootMsgTimer = null, _bootMsgIdx = -1;
+function _bootNextMsg() {
+  var el = document.getElementById('boot-loading-msg'); if (!el) return;
+  var i; do { i = Math.floor(Math.random() * BOOT_MSGS.length); } while (BOOT_MSGS.length > 1 && i === _bootMsgIdx);
+  _bootMsgIdx = i;
+  el.classList.add('fade');
+  setTimeout(function () { el.textContent = BOOT_MSGS[i]; el.classList.remove('fade'); }, 350);
+}
+function _showBootLoading() {
+  var ov = document.getElementById('boot-loading'); if (!ov) return;
+  ov.classList.remove('hidden');
+  var el = document.getElementById('boot-loading-msg');
+  _bootMsgIdx = Math.floor(Math.random() * BOOT_MSGS.length);
+  if (el) { el.textContent = BOOT_MSGS[_bootMsgIdx]; el.classList.remove('fade'); }
+  if (_bootMsgTimer) clearInterval(_bootMsgTimer);
+  _bootMsgTimer = setInterval(_bootNextMsg, 4000);
+}
+function _hideBootLoading() {
+  var ov = document.getElementById('boot-loading'); if (ov) ov.classList.add('hidden');
+  if (_bootMsgTimer) { clearInterval(_bootMsgTimer); _bootMsgTimer = null; }
+}
+function _bootGate(proceed) {
+  // 이미 준비됐으면 오버레이 없이 즉시 진입(온로드 사전 로딩이 끝난 경우 — 깜빡임 방지)
+  if (typeof catalogsReady === 'function' && catalogsReady()) { proceed(); return; }
+  _showBootLoading();
+  var gate = (typeof _ensureAllCatalogs === 'function') ? _ensureAllCatalogs() : Promise.resolve();
+  var safety = new Promise(function (res) { setTimeout(res, 60000); }); // 네트워크 지연 무한대기 방지(기존 게이트·소급 교정이 후방 안전망)
+  Promise.race([gate, safety]).then(function () { _hideBootLoading(); proceed(); }, function () { _hideBootLoading(); proceed(); });
+}
+
+// ── 복귀 시 버전 체크 → 조용한 로딩 리로드 ──
+// 탭을 오래 백그라운드에 뒀다 돌아왔을 때 그 사이 새 버전이 배포됐으면, 별도 안내 없이(사용자 지정)
+// 로딩 오버레이(주사위)만 띄우고 새 버전으로 리로드. 리로드 후 원래 모드로 자동 복귀.
+// version.json은 bump_version.mjs 산출물. 쿼리 타임스탬프로 Pages CDN 캐시(max-age=600) 우회.
+var _verCheckAt = 0;
+var _bootReload = function () { location.reload(); }; // 헤드리스 테스트 오버라이드 지점
+function _currentAppMode() {
+  var lv = document.getElementById('gm-lobby-view');
+  if (lv && !lv.classList.contains('hidden')) return 'gm';
+  var ms = document.getElementById('mode-select');
+  if (ms && ms.classList.contains('hidden')) return 'player';
+  return '';
+}
+function _checkVersionAndReload() {
+  var now = Date.now();
+  if (now - _verCheckAt < 60000) return; // 잦은 탭 전환 스로틀
+  _verCheckAt = now;
+  fetch('version.json?_=' + now, { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (j) {
+      var cur = (window.CHANGELOG && window.CHANGELOG[0] && window.CHANGELOG[0].v) || '';
+      if (!j || !j.v || !cur || j.v === cur) return;
+      _applyVersionUpdate();
+    }).catch(function () {});
+}
+function _applyVersionUpdate() {
+  try { var m = _currentAppMode(); if (m) sessionStorage.setItem('pf2e_resume_mode', m); } catch (e) {}
+  _showBootLoading();
+  // 미저장분은 beforeunload 플러시(cs_save)가 처리. 주사위를 잠깐 보여준 뒤 새 버전으로.
+  setTimeout(function () { _bootReload(); }, 700);
+}
+document.addEventListener('visibilitychange', function () {
+  if (document.visibilityState === 'visible') _checkVersionAndReload();
+});
+
 // ── 모드 선택 진입(GM / 플레이어 통합) ──
 function selectMode(mode) {
   var ms = document.getElementById('mode-select');
@@ -2603,23 +2704,27 @@ function selectMode(mode) {
     // 소유자 전용 게이트 (UX 차원 — 진짜 잠금은 firestore.rules). 콘솔로 우회해도 규칙이 세션 생성 차단.
     if (!currentUser) { alert('GM 모드는 소유자 전용입니다. 먼저 소유자 계정으로 로그인하세요.'); return; }
     if (!isOwnerUser()) { alert('GM 모드는 소유자 전용입니다.'); return; }
-    // GM 로비를 같은 페이지에 임베드(전체화면 iframe) — 별도 링크 없이 통합
-    var lv = document.getElementById('gm-lobby-view');
+    // GM 로비를 같은 페이지에 임베드(전체화면 iframe) — iframe 로드는 오버레이 뒤에서 병행
     var fr = document.getElementById('gm-lobby-frame');
     if (fr && !fr.src) fr.src = 'GMSheet.html?embed=1&_cb=' + Date.now();
-    if (lv) lv.classList.remove('hidden');
-    if (ms) ms.classList.add('hidden');
-    try { history.pushState({ pf2eMode: 'gm' }, ''); } catch (e) {}
+    _bootGate(function () {
+      var lv = document.getElementById('gm-lobby-view');
+      if (lv) lv.classList.remove('hidden');
+      if (ms) ms.classList.add('hidden');
+      try { history.pushState({ pf2eMode: 'gm' }, ''); } catch (e) {}
+    });
     return;
   }
   try { localStorage.setItem('pf2e_mode', 'player'); } catch (e) {}
-  if (ms) ms.classList.add('hidden');
-  // 모바일: 시트 진입 최초 화면 = 성장 탭 (데스크톱은 사이드바에 성장이 상시 노출되므로 변경 없음)
-  if (window.matchMedia && window.matchMedia('(max-width:900px)').matches && typeof mobileNavSwitch === 'function') {
-    mobileNavSwitch('growth');
-  }
-  // 뒤로가기 시 앱을 벗어나(404) 버리지 않고 모드 선택으로 돌아오도록 history 항목 추가
-  try { history.pushState({ pf2eMode: 'player' }, ''); } catch (e) {}
+  _bootGate(function () {
+    if (ms) ms.classList.add('hidden');
+    // 모바일: 시트 진입 최초 화면 = 성장 탭 (데스크톱은 사이드바에 성장이 상시 노출되므로 변경 없음)
+    if (window.matchMedia && window.matchMedia('(max-width:900px)').matches && typeof mobileNavSwitch === 'function') {
+      mobileNavSwitch('growth');
+    }
+    // 뒤로가기 시 앱을 벗어나(404) 버리지 않고 모드 선택으로 돌아오도록 history 항목 추가
+    try { history.pushState({ pf2eMode: 'player' }, ''); } catch (e) {}
+  });
 }
 // 뒤로가기 → GM 로비 닫고 모드 선택 화면 다시 표시 (404 방지)
 window.addEventListener('popstate', function() {
@@ -2635,6 +2740,25 @@ function showModeSelect() {
   var ms = document.getElementById('mode-select');
   if (ms) ms.classList.remove('hidden');
 }
+// ── 버전 업데이트 리로드 후 원래 모드 자동 복귀 ──
+// (_applyVersionUpdate가 심은 sessionStorage 플래그. 일반 수동 새로고침엔 플래그가 없어 영향 0)
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('gmsession')) return; // URL 주도 모드는 기존 흐름 유지
+    var rm = sessionStorage.getItem('pf2e_resume_mode');
+    if (!rm) return;
+    sessionStorage.removeItem('pf2e_resume_mode');
+    if (rm === 'player') { selectMode('player'); return; }
+    if (rm === 'gm') { // 소유자 인증 복원(onAuthStateChanged)이 비동기라 잠시 대기
+      var tries = 0;
+      var t = setInterval(function () {
+        if (typeof currentUser !== 'undefined' && currentUser && typeof isOwnerUser === 'function' && isOwnerUser()) {
+          clearInterval(t); selectMode('gm');
+        } else if (++tries > 27) { clearInterval(t); } // ~8초 내 인증 복원 실패 시 모드 선택 화면 유지
+      }, 300);
+    }
+  } catch (e) {}
+})();
 
 // ── 3D 주사위 색상 선택 ──
 function setDiceColor(c) {
