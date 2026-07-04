@@ -95,20 +95,22 @@ function openRestModal() {
   if (listEl) listEl.style.display = '';
 }
 
+// 재주 식별은 slug 기준(featSlug가 저장 id/이름을 카탈로그 slug로 해소) — 이름 편집에도 안전.
+// 과거 하드코딩 한글명 매칭은 번역 갱신으로 이름이 드리프트하면 조용히 오작동함(예 '이세계 통찰'→'초월적 통찰력').
+function _ownedFeatsFlat() { return Object.values(state.feats).flat().filter(Boolean); }
+function _hasFeatSlug(slug) { return _ownedFeatsFlat().some(f => featSlug(f) === slug); }
+function _findOwnedFeatBySlug(slug) { return _ownedFeatsFlat().find(f => featSlug(f) === slug); }
+
 function _hasOtherworldlyAcumen() {
-  return Object.values(state.feats).flat().some(f => f.name && f.name.includes('이세계 통찰'));
+  return _hasFeatSlug('otherworldly-acumen');
 }
 
 function _reopenAcumenChoice() {
-  const allFeats = Object.values(state.feats).flat();
-  const idx = allFeats.findIndex(f => f.name && f.name.includes('이세계 통찰'));
-  if (idx < 0) return;
-  // 해당 재주의 타입과 인덱스 찾기
+  // 해당 재주의 타입과 인덱스 찾기 (slug 기준)
   for (const [type, arr] of Object.entries(state.feats)) {
-    const fi = arr.findIndex(f => f.name && f.name.includes('이세계 통찰'));
+    const fi = arr.findIndex(f => f && featSlug(f) === 'otherworldly-acumen');
     if (fi >= 0) {
-      const nameEn = (typeof _extractEnName === 'function') ? _extractEnName(arr[fi].name) : 'Otherworldly Acumen';
-      const def = (typeof _getFeatEffectsDef === 'function') ? _getFeatEffectsDef(nameEn) : null;
+      const def = (typeof _getFeatEffectsDef === 'function') ? _getFeatEffectsDef('otherworldly-acumen') : null;
       if (def?.choice && typeof openFeatChoiceModal === 'function') {
         openFeatChoiceModal(type, fi, def.choice);
       }
@@ -118,19 +120,19 @@ function _reopenAcumenChoice() {
 }
 
 function _hasGnomeObsession() {
-  return Object.values(state.feats).flat().some(f => f.name && f.name.includes('집착적 연구'));
+  return _hasFeatSlug('gnome-obsession');
 }
 function _getObsessionTopic() {
-  const f = Object.values(state.feats).flat().find(f => f.name && f.name.includes('집착적 연구'));
+  const f = _findOwnedFeatBySlug('gnome-obsession');
   return f?.choice || '';
 }
 
 function _hasExpertLongevity() {
-  return Object.values(state.feats).flat().some(f => f.name && f.name.includes('전문가의 장수'));
+  return _hasFeatSlug('expert-longevity');
 }
 
 function _hasAncestralLongevity() {
-  return Object.values(state.feats).flat().some(f => f.name && f.name.includes('조상의 장수'));
+  return _hasFeatSlug('ancestral-longevity');
 }
 
 function applyRest() {
@@ -169,7 +171,7 @@ function applyRest() {
   const obsInput = document.getElementById('rest-obsession-topic');
   if (obsInput && obsInput.value.trim()) {
     const newTopic = obsInput.value.trim();
-    const obsFeat = Object.values(state.feats).flat().find(f => f.name && f.name.includes('집착적 연구'));
+    const obsFeat = _findOwnedFeatBySlug('gnome-obsession');
     if (obsFeat) obsFeat.choice = newTopic;
   }
   // 전문가의 장수 임시 전문가
@@ -697,7 +699,7 @@ function applyClassFeatures() {
   ['special','class','general','skill','ancestry','other'].forEach(cat => {
     if (!state.feats[cat]) state.feats[cat] = [];
     state.feats[cat].filter(f => f._auto && f.choice).forEach(f => {
-      savedAutoChoices[f.name + '_' + (f._grantedBy||'')] = f.choice;
+      savedAutoChoices[featSlug(f) + '_' + (f._grantedBy||'')] = f.choice;
     });
     state.feats[cat] = state.feats[cat].filter(f => !f._auto);
   });
@@ -724,14 +726,19 @@ function applyClassFeatures() {
   console.log('[applyClassFeatures] auto feats:', allAutoFeats.length, 'items for', cls.id, 'subFeats:', subFeats);
   allAutoFeats.forEach(f => {
     if (f.lv <= level) {
-      const featName = f.name_ko + (f.name_en ? ` (${f.name_en})` : '');
       const cat = f.category || 'special';
       if (!state.feats[cat]) state.feats[cat] = [];
-      if (!state.feats[cat].some(e => e.name === featName)) {
-        const _fd = f.id ? null : (getFeat(f.name_en) || getFeat(f.name_ko));
-        const autoFeat = {id: f.id || _fd?.id || null, name: featName, level: f.lv, _auto: true};
+      // id(slug) 우선 해소 → 현재 카탈로그 이름으로 표시(이름 드리프트 무해), dedup·저장은 slug 기준.
+      const _fd = (f.id && getFeat(f.id)) || (f.name_en && getFeat(f.name_en)) || (f.name_ko && getFeat(f.name_ko));
+      const slug = _fd?.id || f.id || null;
+      const featName = _fd ? (_fd.name_ko + (_fd.name_en ? ` (${_fd.name_en})` : ''))
+                           : (f.name_ko + (f.name_en ? ` (${f.name_en})` : ''));
+      const exists = slug ? state.feats[cat].some(e => featSlug(e) === slug)
+                          : state.feats[cat].some(e => e.name === featName);
+      if (!exists) {
+        const autoFeat = {id: slug, name: featName, level: f.lv, _auto: true};
         if (f._subclass) autoFeat._subclass = true;
-        const savedChoice = savedAutoChoices[featName + '_'];
+        const savedChoice = savedAutoChoices[(slug || featName) + '_'];
         if (savedChoice) autoFeat.choice = savedChoice;
         state.feats[cat].push(autoFeat);
       }
@@ -761,28 +768,24 @@ function applyClassFeatures() {
   state.spells.known = (state.spells.known||[]).filter(s => !s?._auto);
   // Gather all auto spells
   const _classAutoSp = (typeof CLASS_AUTO_SPELLS!=='undefined' ? (CLASS_AUTO_SPELLS[cls.id]||[]) : []);
-  const _subAutoSp = (state.selectedSubclass && getSubclassAutoSpells(state.selectedSubclass));
+  const _subAutoSp = (state.selectedSubclass && getSubclassAutoSpells(state.selectedSubclass)) || [];
   const allAutoSpells = [..._classAutoSp, ..._subAutoSp];
   allAutoSpells.forEach(s => {
     if (s.lv <= level) {
-      const spellName = s.name_ko;
-      const _sp = getSpell(spellName) || (s.name_en ? getSpell(s.name_en) : null);
-      const _id = _sp?.id || null;
+      // id(slug) 우선 해소 → 현재 카탈로그 이름 표시, dedup은 slug 기준(이름 드리프트 무해).
+      const _sp = (s.id && getSpell(s.id)) || (s.name_ko && getSpell(s.name_ko)) || (s.name_en ? getSpell(s.name_en) : null);
+      const _id = _sp?.id || s.id || null;
+      const spellName = _sp ? (_sp.name_ko || _sp.name_en) : s.name_ko;
       // 출처: 서브클래스 주문이면 서브클래스명, 아니면 클래스명
       const src = _subAutoSp.includes(s)
         ? (state.selectedSubclass?.name_ko || cls.name) : cls.name;
+      const _dupe = (arr) => _id ? arr.some(sp => sp && spellSlug(sp) === _id) : arr.some(sp => sp?.name === spellName);
       if (s.type === 'cantrip') {
-        if (!state.spells.cantrip.some(sp => sp?.name === spellName)) {
-          state.spells.cantrip.push({id: _id, name: spellName, rank:0, _auto: true, _source: src});
-        }
+        if (!_dupe(state.spells.cantrip)) state.spells.cantrip.push({id: _id, name: spellName, rank:0, _auto: true, _source: src});
       } else if (s.type === 'focus') {
-        if (!state.spells.focus.some(sp => sp?.name === spellName)) {
-          state.spells.focus.push({id: _id, name: spellName, _auto: true, _source: src});
-        }
+        if (!_dupe(state.spells.focus)) state.spells.focus.push({id: _id, name: spellName, _auto: true, _source: src});
       } else {
-        if (!state.spells.known.some(sp => sp?.name === spellName)) {
-          state.spells.known.push({id: _id, name: spellName, rank: s.rank||1, _auto: true, _source: src});
-        }
+        if (!_dupe(state.spells.known)) state.spells.known.push({id: _id, name: spellName, rank: s.rank||1, _auto: true, _source: src});
       }
     }
   });
@@ -1648,25 +1651,30 @@ function getAutoKnownAtLevel(lv) {
   const result = [];
   const cid = state.selectedClass?.id;
   const sid = state.selectedSubclass?.id;
+  // id(slug) 우선 해소 → 현재 카탈로그 이름으로 표시(이름 드리프트 무해)
+  const _reso = (s, extra) => {
+    const sp = (s.id && getSpell(s.id)) || (s.name_ko && getSpell(s.name_ko)) || (s.name_en && getSpell(s.name_en));
+    return Object.assign({id: sp?.id || s.id || null, name: sp ? (sp.name_ko || sp.name_en) : s.name_ko}, extra);
+  };
   if (typeof CLASS_AUTO_SPELLS !== 'undefined' && cid && CLASS_AUTO_SPELLS[cid]) {
     CLASS_AUTO_SPELLS[cid].forEach(s => {
-      if (s.lv === lv && s.type === 'known') result.push({name: s.name_ko, rank: s.rank || 1});
+      if (s.lv === lv && s.type === 'known') result.push(_reso(s, {rank: s.rank || 1}));
     });
   }
   if (sid && getSubclassAutoSpells(SUBCLASS_DB.find(s => s.id === sid)).length > 0) {
     getSubclassAutoSpells(SUBCLASS_DB.find(s => s.id === sid)).forEach(s => {
-      if (s.lv === lv && s.type === 'known') result.push({name: s.name_ko, rank: s.rank || 1});
+      if (s.lv === lv && s.type === 'known') result.push(_reso(s, {rank: s.rank || 1}));
     });
   }
   // cantrip 자동 부여
   if (typeof CLASS_AUTO_SPELLS !== 'undefined' && cid && CLASS_AUTO_SPELLS[cid]) {
     CLASS_AUTO_SPELLS[cid].forEach(s => {
-      if (s.lv === lv && s.type === 'cantrip') result.push({name: s.name_ko, rank: 0, isCantrip: true});
+      if (s.lv === lv && s.type === 'cantrip') result.push(_reso(s, {rank: 0, isCantrip: true}));
     });
   }
   if (sid && getSubclassAutoSpells(SUBCLASS_DB.find(s => s.id === sid)).length > 0) {
     getSubclassAutoSpells(SUBCLASS_DB.find(s => s.id === sid)).forEach(s => {
-      if (s.lv === lv && s.type === 'cantrip') result.push({name: s.name_ko, rank: 0, isCantrip: true});
+      if (s.lv === lv && s.type === 'cantrip') result.push(_reso(s, {rank: 0, isCantrip: true}));
     });
   }
   return result;
@@ -2825,7 +2833,7 @@ function _checkOnePrereq(cond) {
     if (getHeritageEffects(state.selectedHeritage).extraFeats?.includes(cond.ancestry)) return true;
     // 양자 혈통
     const adopted = Object.values(state.feats).flat().some(ff =>
-      ff?.name?.includes('양자 혈통') && ff.choice && (typeof ANCESTRY_NAME_MAP !== 'undefined') && ANCESTRY_NAME_MAP[ff.choice] === cond.ancestry
+      ff && featSlug(ff) === 'adopted-ancestry' && ff.choice && (typeof ANCESTRY_NAME_MAP !== 'undefined') && ANCESTRY_NAME_MAP[ff.choice] === cond.ancestry
     );
     return adopted;
   }
@@ -3037,7 +3045,7 @@ function filterFeats() {
       if (_hExtra) _ancestryTraits.push(..._hExtra);
       if (state._fb?.adoptedAncestries) _ancestryTraits.push(...state._fb.adoptedAncestries);
       Object.values(state.feats).flat().forEach(ff => {
-        if (ff && ff.name && ff.name.includes('양자 혈통') && ff.choice) {
+        if (ff && featSlug(ff) === 'adopted-ancestry' && ff.choice) {
           const t = ANCESTRY_NAME_MAP[ff.choice] || ff.choice;
           if (!_ancestryTraits.includes(t)) _ancestryTraits.push(t);
         }

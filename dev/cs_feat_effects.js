@@ -817,7 +817,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     const takenMuses = new Set();
     if (state.selectedSubclass) takenMuses.add(state.selectedSubclass.id);
     Object.values(state.feats).flat().forEach(ff => {
-      if (ff?.name?.includes('다양한 뮤즈') && ff.choice) takenMuses.add(ff.choice);
+      if (ff && featSlug(ff) === 'multifarious-muse' && ff.choice) takenMuses.add(ff.choice);
     });
 
     // 서브클래스 모달 열기 (muse_pick 모드)
@@ -864,17 +864,17 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     }
     if (choiceDef.repeatable && choiceDef.label && choiceDef.label.includes('영역')) {
       const curFeat = (featType && featIndex != null && state.feats[featType]) ? state.feats[featType][featIndex] : null;
-      const featBaseName = curFeat && curFeat.name ? curFeat.name.split(' (')[0] : '';
+      const curSlug = curFeat ? featSlug(curFeat) : '';
       const alreadyChosen = new Set();
       Object.values(state.feats).flat().forEach(f => {
-        if (f && f.name && f.name.split(' (')[0] === featBaseName && f.choice) alreadyChosen.add(f.choice);
+        if (f && curSlug && featSlug(f) === curSlug && f.choice) alreadyChosen.add(f.choice);
       });
       filteredOpts = filteredOpts.filter(opt => !alreadyChosen.has(opt.id));
     }
     if (choiceDef.filterByInitiated) {
       const initiatedDomains = new Set();
       Object.values(state.feats).flat().forEach(f => {
-        if (f && f.name && (f.name.includes('Domain Initiate') || f.name.includes('영역 입문')) && f.choice) {
+        if (f && featSlug(f) === 'domain-initiate' && f.choice) {
           initiatedDomains.add(f.choice);
         }
       });
@@ -1025,7 +1025,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     const _ancAll = PF2eAnc.ancestryList();
     const myAnc = state.selectedAncestry?.id || '';
     const alreadyAdopted = Object.values(state.feats).flat()
-      .filter(f => f && f.name && f.name.includes('양자 혈통') && f.choice)
+      .filter(f => f && featSlug(f) === 'adopted-ancestry' && f.choice)
       .map(f => f.choice);
     const available = _ancAll.filter(a => a.id !== myAnc && !alreadyAdopted.includes(a.id));
 
