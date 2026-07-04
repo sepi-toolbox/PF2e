@@ -105,7 +105,7 @@
  },
  "effect-boulderhead-bock": {
   "name_ko": "효과: 바위머리 복",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.I0eUrgVGl8a2ZjFc]{바위머리 복}에 의해 부여됨.</p>\n<p>자신을 기절 또는 멍청함 상태로 만드는 효과에 대한 내성 굴림에 +1 아이템 보너스를 얻습니다.</p>\n<p>지각 판정에 -2 아이템 페널티를 받습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.I0eUrgVGl8a2ZjFc]{바위머리 복}에 의해 부여됨.</p>\n<p>자신을 기절 또는 멍함 상태로 만드는 효과에 대한 내성 굴림에 +1 아이템 보너스를 얻습니다.</p>\n<p>지각 판정에 -2 아이템 페널티를 받습니다.</p>"
  },
  "effect-juggernaut-mutagen-major": {
   "name_ko": "효과: 저거너트 혈청 (상급)",
@@ -269,7 +269,7 @@
  },
  "effect-deadweight-mutagen-major": {
   "name_ko": "효과: 데드웨이트 혈청 (상급)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Wx5WhSNOmeICgHSC]{Deadweight Mutagen (Major)}에 의해 부여됨</p>\n<p><strong>이점</strong> @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기}와 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}를 위한 운동 판정, 당신을 밀치거나 넘어뜨리려는 시도에 대한 인내와 반사 DC, 그리고 당신을 강제로 이동시키거나 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태로 만들려는 효과에 대한 내성 굴림에 +4 아이템 보너스를 얻는다. 자신보다 최대 세 단계 큰 크기의 생물을 밀치거나 넘어뜨리려 시도할 수 있다.</p>\n<p><strong>단점</strong> @UUID[Compendium.pf2e.conditionitems.Item.D5mg6Tc7Jzrj6ro7]{짐 과다} 상태를 얻으며, 뮤타젠의 효과가 지속되는 동안에는 이를 제거할 수 없다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.Wx5WhSNOmeICgHSC]{Deadweight Mutagen (Major)}에 의해 부여됨</p>\n<p><strong>이점</strong> @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기}와 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}를 위한 운동 판정, 당신을 밀치거나 넘어뜨리려는 시도에 대한 인내와 반사 DC, 그리고 당신을 강제로 이동시키거나 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어짐} 상태로 만들려는 효과에 대한 내성 굴림에 +4 아이템 보너스를 얻는다. 자신보다 최대 세 단계 큰 크기의 생물을 밀치거나 넘어뜨리려 시도할 수 있다.</p>\n<p><strong>단점</strong> @UUID[Compendium.pf2e.conditionitems.Item.D5mg6Tc7Jzrj6ro7]{짐 과다} 상태를 얻으며, 뮤타젠의 효과가 지속되는 동안에는 이를 제거할 수 없다.</p>"
  },
  "effect-darkvision-elixir-greater": {
   "name_ko": "효과: 암흑 시야 엘릭서 (중급)",
@@ -373,7 +373,7 @@
  },
  "effect-catch-pole": {
   "name_ko": "효과: 잡는 장대",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.LSx0quwrsOtdcHL2]{올가미 막대}, @UUID[Compendium.pf2e.equipment-srd.Item.qrOs3jNXJol6tWS4]{거대 올가미 막대}, @UUID[Compendium.pf2e.equipment-srd.Item.752IrectHHkJwxd0]{상급 올가미 막대}에 의해 부여됨</p>\n<p>올가미 막대에 조이기 상태가 된 크리처는 비무장 공격으로 타격할 때 명중 굴림에 -2 상황 페널티를 받는다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.LSx0quwrsOtdcHL2]{올가미 막대}, @UUID[Compendium.pf2e.equipment-srd.Item.qrOs3jNXJol6tWS4]{거대 올가미 막대}, @UUID[Compendium.pf2e.equipment-srd.Item.752IrectHHkJwxd0]{상급 올가미 막대}에 의해 부여됨</p>\n<p>올가미 막대에 붙잡힘 상태가 된 크리처는 비무장 공격으로 타격할 때 명중 굴림에 -2 상황 페널티를 받는다.</p>"
  },
  "effect-drakeheart-mutagen-moderate": {
   "name_ko": "효과: 드레이크하트 혈청 (보통)",
@@ -561,7 +561,7 @@
  },
  "effect-deadweight-mutagen-greater": {
   "name_ko": "효과: 데드웨이트 혈청 (중급)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.xanr7nay2UQeR4Ec]{무게추 뮤타젠 (상급)}으로 부여됨</p>\n<p><strong>이점</strong> @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기}와 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}를 위한 운동 판정, 당신을 밀치거나 넘어뜨리려는 시도에 대한 인내 및 반사 DC, 그리고 당신을 강제로 이동시키거나 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태로 만들려는 효과에 대한 내성 굴림에 +3 아이템 보너스를 얻는다. 당신보다 최대 두 단계 큰 생물을 밀치거나 넘어뜨리려 시도할 수 있다.</p>\n<p><strong>단점</strong> @UUID[Compendium.pf2e.conditionitems.Item.D5mg6Tc7Jzrj6ro7]{짐 과중} 상태를 얻으며, 뮤타젠의 효과를 받는 동안에는 이를 제거할 수 없다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.xanr7nay2UQeR4Ec]{무게추 뮤타젠 (상급)}으로 부여됨</p>\n<p><strong>이점</strong> @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기}와 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}를 위한 운동 판정, 당신을 밀치거나 넘어뜨리려는 시도에 대한 인내 및 반사 DC, 그리고 당신을 강제로 이동시키거나 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어짐} 상태로 만들려는 효과에 대한 내성 굴림에 +3 아이템 보너스를 얻는다. 당신보다 최대 두 단계 큰 생물을 밀치거나 넘어뜨리려 시도할 수 있다.</p>\n<p><strong>단점</strong> @UUID[Compendium.pf2e.conditionitems.Item.D5mg6Tc7Jzrj6ro7]{짐 과중} 상태를 얻으며, 뮤타젠의 효과를 받는 동안에는 이를 제거할 수 없다.</p>"
  },
  "effect-architects-pattern-book": {
   "name_ko": "효과: 건축가의 패턴 북",
@@ -845,7 +845,7 @@
  },
  "effect-deadweight-mutagen-lesser": {
   "name_ko": "효과: 데드웨이트 혈청 (하급)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.JPALWW3w4z8STAYV]{무게추 뮤타겐 (하급)}에 의해 부여됨</p>\n<p><strong>이점</strong> @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기}와 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}를 위한 운동 판정, 당신을 밀치거나 넘어뜨리려는 시도에 대한 인내 및 반사 DC, 그리고 당신을 강제로 이동시키거나 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태로 만들려는 효과에 대한 내성 굴림에 +1 아이템 보너스를 얻습니다.</p>\n<p><strong>단점</strong> @UUID[Compendium.pf2e.conditionitems.Item.D5mg6Tc7Jzrj6ro7]{부담} 상태를 얻으며, 뮤타겐의 효과가 지속되는 동안 이를 제거할 수 없습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.JPALWW3w4z8STAYV]{무게추 뮤타겐 (하급)}에 의해 부여됨</p>\n<p><strong>이점</strong> @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기}와 @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}를 위한 운동 판정, 당신을 밀치거나 넘어뜨리려는 시도에 대한 인내 및 반사 DC, 그리고 당신을 강제로 이동시키거나 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어짐} 상태로 만들려는 효과에 대한 내성 굴림에 +1 아이템 보너스를 얻습니다.</p>\n<p><strong>단점</strong> @UUID[Compendium.pf2e.conditionitems.Item.D5mg6Tc7Jzrj6ro7]{부담} 상태를 얻으며, 뮤타겐의 효과가 지속되는 동안 이를 제거할 수 없습니다.</p>"
  },
  "effect-command-cuirass": {
   "name_ko": "효과: 커맨드 큐라스",
@@ -1489,7 +1489,7 @@
  },
  "effect-the-hollow-star": {
   "name_ko": "효과: 속이 빈 별",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.MPwrN4KBPycME0tl]{공허의 별}으로 부여됨</p>\n<p><em>공허의 별</em>의 밝은 빛 안에 있는 모든 생물은 오컬티즘 판정에 +1 아이템 보너스를 얻는다. <em>공허의 별</em>이 발하는 밝은 빛 안에 있는 데로는 멍청함 1이 된다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.MPwrN4KBPycME0tl]{공허의 별}으로 부여됨</p>\n<p><em>공허의 별</em>의 밝은 빛 안에 있는 모든 생물은 오컬티즘 판정에 +1 아이템 보너스를 얻는다. <em>공허의 별</em>이 발하는 밝은 빛 안에 있는 데로는 멍함 1이 된다.</p>"
  },
  "effect-clockwork-goggles": {
   "name_ko": "효과: 시계장치 고글",
@@ -1617,7 +1617,7 @@
  },
  "effect-metuaks-pendant": {
   "name_ko": "효과: 메투악의 펜던트",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.SUnKoeqNBsGvUAGe]{메투악의 펜던트}(으)로 부여됨</p>\n<p>크리처는 자신을 혼란, 조종, 공포, 또는 멍청함 상태로 만드는 정신 효과에 대한 내성 굴림에 +1 상태 보너스를 얻습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.SUnKoeqNBsGvUAGe]{메투악의 펜던트}(으)로 부여됨</p>\n<p>크리처는 자신을 혼란, 조종, 공포, 또는 멍함 상태로 만드는 정신 효과에 대한 내성 굴림에 +1 상태 보너스를 얻습니다.</p>"
  },
  "effect-applereed-mutagen-greater": {
   "name_ko": "효과: 애플리드 혈청(중급)",
@@ -1749,7 +1749,7 @@
  },
  "effect-deadweight-mutagen-moderate": {
   "name_ko": "효과: 데드웨이트 혈청 (보통)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.qLwwxk1j04rgXSF9]{짐덩어리 뮤타젠 (중급)}이(가) 부여함</p>\n<p><strong>이점</strong> @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기}와(과) @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}를 위한 운동 판정, 당신을 밀치거나 넘어뜨리려는 시도에 대한 인내 및 반사 DC, 당신을 강제로 이동시키거나 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어뜨려짐} 상태로 만들려는 효과에 대한 내성 굴림에 +2 아이템 보너스를 받습니다.</p>\n<p><strong>단점</strong> @UUID[Compendium.pf2e.conditionitems.Item.D5mg6Tc7Jzrj6ro7]{짐 과중} 상태를 얻으며, 이 뮤타젠의 효과를 받는 동안에는 제거할 수 없습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.equipment-srd.Item.qLwwxk1j04rgXSF9]{짐덩어리 뮤타젠 (중급)}이(가) 부여함</p>\n<p><strong>이점</strong> @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{밀치기}와(과) @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{넘어뜨리기}를 위한 운동 판정, 당신을 밀치거나 넘어뜨리려는 시도에 대한 인내 및 반사 DC, 당신을 강제로 이동시키거나 @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{넘어짐} 상태로 만들려는 효과에 대한 내성 굴림에 +2 아이템 보너스를 받습니다.</p>\n<p><strong>단점</strong> @UUID[Compendium.pf2e.conditionitems.Item.D5mg6Tc7Jzrj6ro7]{짐 과중} 상태를 얻으며, 이 뮤타젠의 효과를 받는 동안에는 제거할 수 없습니다.</p>"
  },
  "effect-iron-medallion": {
   "name_ko": "효과: 철제 메달리온",
@@ -2008,7 +2008,7 @@
  },
  "effect-rose-warden-dedication": {
   "name_ko": "효과: 장미 파수꾼 헌신",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.LlV0KHIebzdczgyD]{장미 수호자 헌신}에 의해 부여됨</p>\n<p>권위자에 의해 혼란, 제어, 조이기, 이동 불가, 또는 억제 상태가 되는 것에 대한 인내 DC와 내성 굴림에 +1 상황 보너스를 받습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.LlV0KHIebzdczgyD]{장미 수호자 헌신}에 의해 부여됨</p>\n<p>권위자에 의해 혼란, 제어, 조이기, 이동 불가, 또는 포박 상태가 되는 것에 대한 인내 DC와 내성 굴림에 +1 상황 보너스를 받습니다.</p>"
  },
  "effect-emergency-medical-assistance": {
   "name_ko": "효과: 응급 의료 지원",
@@ -2243,7 +2243,7 @@
  },
  "effect-aura-of-sophistry-unholy": {
   "name_ko": "효과: 궤변의 오라 (불경)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.actionspf2e.Item.1OagaWtBpVXExToo]{지식 회상} 판정에 –1 페널티를 받으며, 지식 회상을 할 때 @UUID[Compendium.pf2e.feats-srd.Item.1Bt7uCW2WI4sM84P]{미심쩍은 지식} 재주의 효과를 얻습니다. 영향을 받은 크리처가 지식 회상을 할 때마다 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1}이 되고 [[/gmr 1d4 #rounds]]{1d4 라운드} 동안 정신 피해에 약점 4를 얻습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.actionspf2e.Item.1OagaWtBpVXExToo]{지식 회상} 판정에 –1 페널티를 받으며, 지식 회상을 할 때 @UUID[Compendium.pf2e.feats-srd.Item.1Bt7uCW2WI4sM84P]{미심쩍은 지식} 재주의 효과를 얻습니다. 영향을 받은 크리처가 지식 회상을 할 때마다 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 1}이 되고 [[/gmr 1d4 #rounds]]{1d4 라운드} 동안 정신 피해에 약점 4를 얻습니다.</p>"
  },
  "effect-queen-sorshens-aid-indulgent-arcana": {
   "name_ko": "효과: 소르셴 여왕의 원조 (탐닉의 비술)",
@@ -2307,7 +2307,7 @@
  },
  "effect-unbelievable-connection": {
   "name_ko": "효과: 믿기 힘든 연결",
-  "desc_ko": "<p>표적으로 지정된 크리처는 더 이상 멍청함 상태가 아닐 때까지 당신의 공격에 대해 무방비 상태입니다.</p>"
+  "desc_ko": "<p>표적으로 지정된 크리처는 더 이상 멍함 상태가 아닐 때까지 당신의 공격에 대해 무방비 상태입니다.</p>"
  },
  "effect-drunken-stumble": {
   "name_ko": "효과: 취한 비틀거림",
@@ -2319,7 +2319,7 @@
  },
  "effect-aura-of-sophistry-weakness": {
   "name_ko": "효과: 궤변의 오라 (약점)",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 1}이 되고 정신 피해에 약점 4를 얻습니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 1}이 되고 정신 피해에 약점 4를 얻습니다.</p>"
  },
  "effect-soul-roar-ally": {
   "name_ko": "효과: 영혼의 포효 (아군)",
@@ -2399,7 +2399,7 @@
  },
  "effect-whisper-earworm-critical-failure": {
   "name_ko": "효과: 속삭이는 귀벌레 (대실패)",
-  "desc_ko": "<p>멍청함 2가 되고, 부정한 생물의 효과에 대한 의지 내성 굴림에 –4 상태 페널티를 받는다.</p>"
+  "desc_ko": "<p>멍함 2가 되고, 부정한 생물의 효과에 대한 의지 내성 굴림에 –4 상태 페널티를 받는다.</p>"
  },
  "effect-predators-advantage": {
   "name_ko": "효과: 포식자의 이점",
@@ -4011,7 +4011,7 @@
  },
  "spell-effect-cosmic-form": {
   "name_ko": "주문 효과: 우주적 형태",
-  "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.IHUs4qn27RrdFQ5Y]{우주적 형상}에 의해 부여됨</p>\n<p>대형 전투 형상으로 변신합니다. 이 전투 형상에서는 손을 가지고 있어 조작 행동을 사용할 수 있습니다. 선택한 형상과 무관하게 다음 수치와 능력을 얻습니다:</p><ul><li>AC = 21 + 당신의 레벨. 방어구의 판정 페널티와 속도 감소를 무시합니다.</li><li>임시 히트 포인트 20점.</li><li>암시야.</li><li>사용하는 전투 형상에 특화된 하나 이상의 공격. 이에 숙련되어 있습니다. 공격 수정치는 +25이며, 명시된 피해를 사용합니다. 근접 공격은 근력 기반이며(예를 들어 약화됨 조건의 목적상), 원거리 공격은 민첩 기반입니다. 당신의 비무장 공격 수정치가 더 높다면 그것을 대신 사용할 수 있습니다.</li><li>운동 수정치 +25, 단 당신 자신의 수치가 더 높다면 그것을 사용합니다.</li></ul><p>또한 천체에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>달</strong> 속도 30피트, 비행 50피트</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹 (민첩, 도달 10피트), <strong>피해</strong> 2d4+10 타격 및 1d6 화염</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 달빛 (사거리 90피트), <strong>피해</strong> 2d4+10 화염; 이 형상의 화염 피해는 저항, 약점 등에 대해 은으로 취급됩니다</li><li>어느 쪽 공격이든 대성공 시, 목표는 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍청함 2}가 됩니다.</li></ul></li><li><p><strong>태양</strong> 속도 30피트, 비행 50피트</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹 (민첩, 도달 10피트), <strong>피해</strong> 2d6+10 화염 및 1d6 지속 화염</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 햇빛 (사거리 90피트), <strong>피해</strong> 1d6+10 화염 및 1d6 지속 화염</li><li>어느 쪽 공격이든 대성공 시, 목표는 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{눈부심}이 됩니다.</li></ul></li></ul>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.spells-srd.Item.IHUs4qn27RrdFQ5Y]{우주적 형상}에 의해 부여됨</p>\n<p>대형 전투 형상으로 변신합니다. 이 전투 형상에서는 손을 가지고 있어 조작 행동을 사용할 수 있습니다. 선택한 형상과 무관하게 다음 수치와 능력을 얻습니다:</p><ul><li>AC = 21 + 당신의 레벨. 방어구의 판정 페널티와 속도 감소를 무시합니다.</li><li>임시 히트 포인트 20점.</li><li>암시야.</li><li>사용하는 전투 형상에 특화된 하나 이상의 공격. 이에 숙련되어 있습니다. 공격 수정치는 +25이며, 명시된 피해를 사용합니다. 근접 공격은 근력 기반이며(예를 들어 약화됨 조건의 목적상), 원거리 공격은 민첩 기반입니다. 당신의 비무장 공격 수정치가 더 높다면 그것을 대신 사용할 수 있습니다.</li><li>운동 수정치 +25, 단 당신 자신의 수치가 더 높다면 그것을 사용합니다.</li></ul><p>또한 천체에 따라 특정 능력을 얻습니다:</p><ul><li><p><strong>달</strong> 속도 30피트, 비행 50피트</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹 (민첩, 도달 10피트), <strong>피해</strong> 2d4+10 타격 및 1d6 화염</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 달빛 (사거리 90피트), <strong>피해</strong> 2d4+10 화염; 이 형상의 화염 피해는 저항, 약점 등에 대해 은으로 취급됩니다</li><li>어느 쪽 공격이든 대성공 시, 목표는 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{멍함 2}가 됩니다.</li></ul></li><li><p><strong>태양</strong> 속도 30피트, 비행 50피트</p><ul><li><strong>근접</strong> <span class=\"action-glyph\">1</span> 주먹 (민첩, 도달 10피트), <strong>피해</strong> 2d6+10 화염 및 1d6 지속 화염</li><li><strong>원거리</strong> <span class=\"action-glyph\">1</span> 햇빛 (사거리 90피트), <strong>피해</strong> 1d6+10 화염 및 1d6 지속 화염</li><li>어느 쪽 공격이든 대성공 시, 목표는 1라운드 동안 @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{눈부심}이 됩니다.</li></ul></li></ul>"
  },
  "spell-effect-warping-pull": {
   "name_ko": "주문 효과: 뒤틀림의 끌어당김",
@@ -4046,7 +4046,7 @@
   "desc_ko": "<p>표시된 악당에 대한 명중 굴림과 내성 굴림에 +1 상태 보너스를 얻습니다.</p>"
  },
  "effect-inescapable-grasp": {
-  "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.UxjAszOYAhUvCDt2]{벗어날 수 없는 손아귀}에 의해 부여됨</p>\n<p>조이기 상태인 동안 순간이동 주문이나 효과를 사용하려 하면, DC 15 단순 판정에 성공해야 하며 실패 시 주문이 실패합니다.</p>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.UxjAszOYAhUvCDt2]{벗어날 수 없는 손아귀}에 의해 부여됨</p>\n<p>붙잡힘 상태인 동안 순간이동 주문이나 효과를 사용하려 하면, DC 15 단순 판정에 성공해야 하며 실패 시 주문이 실패합니다.</p>"
  },
  "effect-oversized-throw": {
   "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.tIE2umG4rQOxm8D8]{특대형 투척}에 의해 부여됨</p>\n<p>원거리 타격을 얻습니다. 이는 1d10 타격 피해를 입히는 단순 원거리 무기이며, 사거리 증가치 20피트를 가지고, 투척 무기 특성을 가집니다. 단순 무기에 무기 전문화가 있으면 피해가 2d10 타격으로, 상급 무기 전문화가 있으면 3d10 타격으로 증가합니다.</p>"
@@ -4055,7 +4055,7 @@
   "desc_ko": "<p>@UUID[Compendium.pf2e.actionspf2e.Item.enQieRrITuEQZxx2]{이기적인 방패}에 의해 부여됨</p>\n<p>피해 유형과 무관하게, 발동시킨 피해에 대해 2 + 레벨의 절반과 같은 저항을 얻습니다.</p>"
  },
  "effect-targeting-finisher-critical": {
-  "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.DLkMoVb8qb4qxnx3]{조준 마무리 일격}에 의해 부여됨</p>\n<p>선택한 신체 부위에 따라 효과를 얻습니다.</p><ul><li><strong>팔(또는 촉수 등 공격에 쓰이는 다른 사지)</strong> 약화됨 1 상태가 됩니다.</li><li><strong>머리</strong> 멍청함 1 상태가 됩니다.</li><li><strong>다리</strong> 이동력에 –5피트 상태 페널티를 받습니다.</li></ul>"
+  "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.DLkMoVb8qb4qxnx3]{조준 마무리 일격}에 의해 부여됨</p>\n<p>선택한 신체 부위에 따라 효과를 얻습니다.</p><ul><li><strong>팔(또는 촉수 등 공격에 쓰이는 다른 사지)</strong> 약화됨 1 상태가 됩니다.</li><li><strong>머리</strong> 멍함 1 상태가 됩니다.</li><li><strong>다리</strong> 이동력에 –5피트 상태 페널티를 받습니다.</li></ul>"
  },
  "effect-mentor-of-legends": {
   "desc_ko": "<p>@UUID[Compendium.pf2e.feats-srd.Item.JBjRGWVtVaxLckfH]{전설의 스승}에 의해 부여됨</p>\n<p>대상은 당신 레벨의 절반과 같은 임시 히트 포인트를 얻습니다.</p>"

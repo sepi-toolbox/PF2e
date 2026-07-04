@@ -138073,7 +138073,7 @@
    "src": "rule",
    "re_key": "GrantItem",
    "type": "grant_item",
-   "target": "넘어뜨려짐",
+   "target": "넘어짐",
    "condition": ""
   },
   {
@@ -138126,7 +138126,7 @@
   {
    "owner_kind": "condition",
    "owner_slug": "prone",
-   "owner_name": "넘어뜨려짐",
+   "owner_name": "넘어짐",
    "owner_level": "",
    "category": "",
    "effect_group_id": "",
@@ -138142,7 +138142,7 @@
   {
    "owner_kind": "condition",
    "owner_slug": "prone",
-   "owner_name": "넘어뜨려짐",
+   "owner_name": "넘어짐",
    "owner_level": "",
    "category": "",
    "effect_group_id": "",

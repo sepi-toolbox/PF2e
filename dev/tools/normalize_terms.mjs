@@ -15,6 +15,12 @@ const APPLY = process.argv.includes('--apply');
 const GLOS_PATH = '/Users/sepi/Library/Mobile Documents/com~apple~CloudDocs/AIwork/01_TTRPG-Translation/_glossary/Pathfinder2e.md';
 
 // ── 1) 용어집 파싱: 섹션 헤더 기준으로 En→Ko 맵 추출 ──
+if (!fs.existsSync(GLOS_PATH)) {
+  console.error('✗ 정본 용어집 없음: ' + GLOS_PATH);
+  console.error('  (2026-07-04 사용자 지시로 삭제 — 낡은 자료라 재생성 예정. 재생성 전까지 이 도구 실행 불가.');
+  console.error('   재생성 후 형식이 바뀌면 parseSection 헤더/컬럼 매핑도 함께 갱신할 것.)');
+  process.exit(1);
+}
 const md = fs.readFileSync(GLOS_PATH, 'utf8');
 function parseSection(title) {
   // "## <title>" 이후 다음 "## " 또는 "---" 전까지의 | En | Ko | 행
