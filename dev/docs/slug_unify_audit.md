@@ -12,6 +12,10 @@
   - `applyFeatEffects`가 효과 def를 **feat.id(slug) 우선** 해소(구: `_extractEnName(feat.name)` 이름). 
   - **사용자 아키텍처 확정**: 부여 로직은 엔티티가 아니라 **효과(자동화) 데이터**에 있음 = `EFFECTS_DB[slug].rows` 또는 override `data/override/effect_groups.json`(slug→rows, DataManager 효과탭 편집지점). 각 grant 행 = `{type: grant_feat|grant_focus_spell|grant_innate_spell|..., target: <slug>}`.
   - **exemplar 완성**: `composition-spells`(작곡 주문, 바드 L1 특성) 효과데이터에 `grant_focus_spell→courageous-anthem` 추가(override) + 바드 자동특성에 composition-spells 등재(slug) + CLASS_AUTO_SPELLS.bard의 용기의 찬가 하드코딩 제거. 검증: 용기의 찬가가 `_sourceFeat=composition-spells`로 부여됨.
+- **Phase 3 (v0.99, 완료·회귀검증) = 효과 데이터 grant target 한글명→slug 정규화**:
+  - `effects_db.js`(런타임 자동화) grant target **351/351 전량 slug**(예 "호흡 조절"→breath-control, name 필드에 한글 표시 보존). 정규화 스크립트=scratchpad `normalize_grants*.mjs`(feat/spell/condition/equip 카탈로그 name→slug + 드리프트 수동맵). 이미 옛명칭이라 런타임 미해소였던 grant(maestro→지속되는 조성, alchemy→신속한 연금술)도 복구.
+  - `effects.json`(DataManager 표시) grant ~2161행 slug화. 잔여 ~306 = grant_item(표시전용, 행동/조건 등 미로드 카탈로그) — 런타임 무영향.
+  - **⚠ 생성기 파손이 근본 미해결**(아래) → 이 정규화는 stopgap. PF2e-KR 재싱크/효과 재생성 시 재적용 필요(후처리 계열).
 - **⚠ 생성기 파손 발견**: `tools/derive/build_effects.mjs`가 레거시 제거된 `feat_db.js` 참조로 **실행 불가**(레거시 제거 v0.51~ 이후). effects_db.js 재생성 불가 상태. build_effects의 grantRow는 slug 방출로 고쳤으나 **생성기 수리 전엔 반영 안 됨** → 351 grant행 target은 여전히 이름. 
 - **다음(미착수)**: build_effects 생성기 수리(feat_db 의존 제거) → 재생성해 351 target slug화(또는 타깃 정규화 스크립트) / 남은 CLASS_AUTO_SPELLS·SUBCLASS_AUTO_* 하드코딩을 효과데이터로 이관 / R3 성장슬롯 slug / R4 행동게이팅 slug / R5 cs_ui 무기·제조식·cs_calc / R6 저장 dedup / R7 조건 서브시스템(별도 신중).
 
