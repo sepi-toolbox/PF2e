@@ -111,21 +111,28 @@ var CLASS_FEATURE_NAMES = {};
 //  AUTO-GRANTED FEATS — class features that grant feats
 // ═══════════════════════════════════════════════
 
+// id(=FVTT slug)가 정본 식별자 — 소비처는 id로 카탈로그를 해소(getFeat(id)). name_ko/name_en은
+// slug 미해소 시 폴백 표시용일 뿐(번역 갱신으로 드리프트해도 id가 있으면 무해).
 var CLASS_AUTO_FEATS = {
   fighter: [
-    {lv:1, name_ko:'방패 막기', name_en:'Shield Block', category:'special'},
-    {lv:1, name_ko:'반응 타격', name_en:'Reactive Strike', category:'special'},
+    {lv:1, id:'shield-block', name_ko:'방패 막기', name_en:'Shield Block', category:'special'},
+    {lv:1, id:'reactive-strike', name_ko:'반응 타격', name_en:'Reactive Strike', category:'special'},
   ],
   druid: [
-    {lv:1, name_ko:'방패 막기', name_en:'Shield Block', category:'special'},
-    {lv:1, name_ko:'자연의 목소리', name_en:'Voice of Nature', category:'special'},
+    {lv:1, id:'shield-block', name_ko:'방패 막기', name_en:'Shield Block', category:'special'},
+    {lv:1, id:'voice-of-nature', name_ko:'자연의 목소리', name_en:'Voice of Nature', category:'special'},
   ],
   rogue: [
-    {lv:1, name_ko:'은밀 공격', name_en:'Sneak Attack', category:'special'},
-    {lv:1, name_ko:'기습', name_en:'Surprise Attack', category:'special'},
+    {lv:1, id:'sneak-attack', name_ko:'은밀 공격', name_en:'Sneak Attack', category:'special'},
+    {lv:1, id:'surprise-attack', name_ko:'기습', name_en:'Surprise Attack', category:'special'},
   ],
   ranger: [
-    {lv:1, name_ko:'사냥감 추적', name_en:'Hunt Prey', category:'special'},
+    {lv:1, id:'hunt-prey', name_ko:'사냥감 추적', name_en:'Hunt Prey', category:'special'},
+  ],
+  bard: [
+    // 작곡 주문(Composition Spells) L1 클래스 특성 — 부여 로직은 효과(자동화) 데이터에 있음:
+    // data/override/effect_groups.json 의 'composition-spells' grant_focus_spell(용기의 찬가). 하드코딩 아님.
+    {lv:1, id:'composition-spells', name_ko:'작곡 주문', name_en:'Composition Spells', category:'special'},
   ],
 };
 
@@ -138,12 +145,13 @@ var CLASS_AUTO_FEATS = {
 var CLASS_AUTO_SPELLS = {
   // Bard: Inspire Courage composition cantrip at L1
   bard: [
-    {lv:1, type:'focus', name_ko:'용기의 찬가', name_en:'Courageous Anthem'},
-    {lv:1, type:'focus', name_ko:'대항 공연', name_en:'Counter Performance'},
+    // 용기의 찬가(Courageous Anthem)는 '작곡 주문' 특성의 효과(자동화) 데이터가 부여 →
+    //   data/override/effect_groups.json 'composition-spells'. 여기 하드코딩 아님.
+    {lv:1, type:'focus', id:'counter-performance', name_ko:'대항 공연', name_en:'Counter Performance'},
   ],
   // Summoner: Boost Eidolon 집중 주문 L1 (FVTT 컴펜디움 미인코딩=시스템 TS 전용 → 수작업 표)
   summoner: [
-    {lv:1, type:'focus', name_ko:'에이돌론 강화', name_en:'Boost Eidolon'},
+    {lv:1, type:'focus', id:'boost-eidolon', name_ko:'에이돌론 강화', name_en:'Boost Eidolon'},
   ],
 };
 

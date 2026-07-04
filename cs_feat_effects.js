@@ -158,9 +158,10 @@ function applyFeatEffects() {
   Object.values(state.feats).forEach(arr => {
     if (!arr) return;
     arr.forEach(feat => {
-      const nameEn = _extractEnName(feat.name);
-      if (!nameEn) return;
-      const def = _getFeatEffectsDef(nameEn);
+      // 효과 정의는 slug(feat.id) 우선 해소 — 이름 편집에도 안전. 폴백은 표시명 영문 추출.
+      const _key = feat.id || _extractEnName(feat.name);
+      if (!_key) return;
+      const def = _getFeatEffectsDef(_key);
       if (!def || !def.effects) return;
 
       // skill_defaults: choice 미설정 시 기본값 자동 적용
@@ -325,13 +326,17 @@ function _applyOneEffect(fb, eff, feat, level) {
       break;
     }
     case 'grant_feat': {
-      // 재주 자동 부여 — 확신이든 뭐든 동일한 재주 데이터 참조
+      // 재주 자동 부여 — eff.feat = slug(신) 또는 이름(구/override). getFeat이 둘 다 해소, dedup·저장은 slug 기준.
       if (eff.feat && feat.name) {
-        const grantName = eff.feat;
-        const alreadyHas = Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(grantName.split(' (')[0]));
+        const gf = getFeat(eff.feat);
+        const gslug = gf?.id || null;
+        const gname = gf ? (gf.name_ko + (gf.name_en ? ` (${gf.name_en})` : '')) : eff.feat;
+        const alreadyHas = gslug
+          ? Object.values(state.feats).flat().some(f => f && featSlug(f) === gslug)
+          : Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(String(eff.feat).split(' (')[0]));
         if (!alreadyHas) {
           if (!state.feats.general) state.feats.general = [];
-          const entry = {name: grantName, level: 1, _auto: true, _grantedBy: feat.id || feat.name};
+          const entry = {id: gslug, name: gname, level: 1, _auto: true, _grantedBy: feat.id || feat.name};
           // defaultChoice: 자식 재주의 초기 choice 설정 (사용자 변경 가능)
           if (eff.defaultChoice) entry.choice = eff.defaultChoice;
           state.feats.general.push(entry);
@@ -346,11 +351,15 @@ function _applyOneEffect(fb, eff, feat, level) {
         const wasAlreadyTrained = profEl && parseInt(profEl.value || 0) >= 2 &&
           !(state._featGrantedSkills || []).some(g => g.skill === eff.skill && g.feat === feat.name);
         if (wasAlreadyTrained) {
-          const grantName = eff.feat;
-          const alreadyHas = Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(grantName.split(' (')[0]));
+          const gf = getFeat(eff.feat);
+          const gslug = gf?.id || null;
+          const gname = gf ? (gf.name_ko + (gf.name_en ? ` (${gf.name_en})` : '')) : eff.feat;
+          const alreadyHas = gslug
+            ? Object.values(state.feats).flat().some(f => f && featSlug(f) === gslug)
+            : Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(String(eff.feat).split(' (')[0]));
           if (!alreadyHas) {
             if (!state.feats.skill) state.feats.skill = [];
-            const entry = {name: grantName, level: 1, _auto: true, _grantedBy: feat.id || feat.name};
+            const entry = {id: gslug, name: gname, level: 1, _auto: true, _grantedBy: feat.id || feat.name};
             if (eff.defaultChoice) entry.choice = eff.defaultChoice;
             state.feats.skill.push(entry);
           }
@@ -381,12 +390,15 @@ function _applyOneEffect(fb, eff, feat, level) {
       if (eff.spell && feat.name) {
         if (!state.spells.innate) state.spells.innate = [];
         const _pk = feat.id || feat.name;
-        const existing = state.spells.innate.find(s => s._sourceFeat === _pk && s.name === eff.spell);
+        // eff.spell = slug(신) 또는 이름(구/override). getSpell이 둘 다 해소, dedup은 slug 기준.
+        const _sp = getSpell(eff.spell);
+        const _sid = _sp?.id || null;
+        const _sname = _sp ? (_sp.name_ko || _sp.name_en) : eff.spell;
+        const existing = state.spells.innate.find(s => s._sourceFeat === _pk && (_sid ? spellSlug(s) === _sid : s.name === eff.spell));
         if (!existing) {
-          const _sp = getSpell(eff.spell);
           state.spells.innate.push({
-            id: _sp?.id || null,
-            name: eff.spell, tradition: eff.tradition || '', type: eff.spellType || 'spell',
+            id: _sid,
+            name: _sname, tradition: eff.tradition || '', type: eff.spellType || 'spell',
             uses: eff.uses || '하루 1회', _sourceFeat: _pk, _source: feat.name
           });
         }
@@ -404,13 +416,14 @@ function _applyOneEffect(fb, eff, feat, level) {
         spellName = sp ? sp.name_ko : '';
         spellId = sp?.id || null;
       } else {
-        const _sp = getSpell(spellName);
+        const _sp = getSpell(spellName);  // slug(신) 또는 이름(구) 해소
         spellId = _sp?.id || null;
+        if (_sp) spellName = _sp.name_ko || _sp.name_en;  // 현재 카탈로그명으로 표시
       }
-      if (spellName && !spellName.startsWith('$') && feat.name) {
+      if (spellName && !String(spellName).startsWith('$') && feat.name) {
         if (!state.spells.focus) state.spells.focus = [];
         const _pk = feat.id || feat.name;
-        const existing = state.spells.focus.find(s => s._sourceFeat === _pk && s.name === spellName);
+        const existing = state.spells.focus.find(s => s._sourceFeat === _pk && (spellId ? spellSlug(s) === spellId : s.name === spellName));
         if (!existing) {
           state.spells.focus.push({id: spellId, name: spellName, _auto: true, _sourceFeat: _pk, _source: feat.name.split(' (')[0].trim()});
         }
@@ -817,7 +830,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     const takenMuses = new Set();
     if (state.selectedSubclass) takenMuses.add(state.selectedSubclass.id);
     Object.values(state.feats).flat().forEach(ff => {
-      if (ff?.name?.includes('다양한 뮤즈') && ff.choice) takenMuses.add(ff.choice);
+      if (ff && featSlug(ff) === 'multifarious-muse' && ff.choice) takenMuses.add(ff.choice);
     });
 
     // 서브클래스 모달 열기 (muse_pick 모드)
@@ -864,17 +877,17 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     }
     if (choiceDef.repeatable && choiceDef.label && choiceDef.label.includes('영역')) {
       const curFeat = (featType && featIndex != null && state.feats[featType]) ? state.feats[featType][featIndex] : null;
-      const featBaseName = curFeat && curFeat.name ? curFeat.name.split(' (')[0] : '';
+      const curSlug = curFeat ? featSlug(curFeat) : '';
       const alreadyChosen = new Set();
       Object.values(state.feats).flat().forEach(f => {
-        if (f && f.name && f.name.split(' (')[0] === featBaseName && f.choice) alreadyChosen.add(f.choice);
+        if (f && curSlug && featSlug(f) === curSlug && f.choice) alreadyChosen.add(f.choice);
       });
       filteredOpts = filteredOpts.filter(opt => !alreadyChosen.has(opt.id));
     }
     if (choiceDef.filterByInitiated) {
       const initiatedDomains = new Set();
       Object.values(state.feats).flat().forEach(f => {
-        if (f && f.name && (f.name.includes('Domain Initiate') || f.name.includes('영역 입문')) && f.choice) {
+        if (f && featSlug(f) === 'domain-initiate' && f.choice) {
           initiatedDomains.add(f.choice);
         }
       });
@@ -1025,7 +1038,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     const _ancAll = PF2eAnc.ancestryList();
     const myAnc = state.selectedAncestry?.id || '';
     const alreadyAdopted = Object.values(state.feats).flat()
-      .filter(f => f && f.name && f.name.includes('양자 혈통') && f.choice)
+      .filter(f => f && featSlug(f) === 'adopted-ancestry' && f.choice)
       .map(f => f.choice);
     const available = _ancAll.filter(a => a.id !== myAnc && !alreadyAdopted.includes(a.id));
 

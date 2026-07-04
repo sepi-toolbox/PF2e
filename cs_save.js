@@ -486,7 +486,9 @@ function loadData(d) {
         for (let i = arr.length - 1; i >= 0; i--) {
           const f = arr[i];
           if (!f?.name) continue;
-          const key = f.name + '|' + (f.level||1) + '|' + (f._grantedBy||'');
+          // dedup 키 = slug(있으면) 기준 — 이름 표기 불일치에도 견고. 미해소 시 이름 폴백.
+          const _s = (typeof featSlug === 'function') ? featSlug(f) : null;
+          const key = (_s || f.name) + '|' + (f.level||1) + '|' + (f._grantedBy||'');
           if (seen.has(key)) { arr.splice(i, 1); continue; }
           seen.add(key);
         }
