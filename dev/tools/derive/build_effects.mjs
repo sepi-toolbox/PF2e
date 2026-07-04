@@ -99,9 +99,10 @@ function aelType(p) {
   return { type: 'ael', target: p };
 }
 function grantRow(uuid) {
-  let name = '', kind = 'item';
-  try { const g = PF.getByUuid((uuid || '').trim().split(/\s+/)[0]); if (g) { name = g.name_ko || g.name; const t = g.type; const tr = (g.system && g.system.traits && g.system.traits.value) || []; kind = t === 'feat' ? 'grant_feat' : t === 'spell' ? (tr.includes('focus') ? 'grant_focus_spell' : 'grant_innate_spell') : 'grant_item'; } } catch (e) {}
-  return { type: kind, target: name || uuid };
+  let name = '', slug = '', kind = 'item';
+  try { const g = PF.getByUuid((uuid || '').trim().split(/\s+/)[0]); if (g) { name = g.name_ko || g.name; slug = (g.system && g.system.slug) || ''; const t = g.type; const tr = (g.system && g.system.traits && g.system.traits.value) || []; kind = t === 'feat' ? 'grant_feat' : t === 'spell' ? (tr.includes('focus') ? 'grant_focus_spell' : 'grant_innate_spell') : 'grant_item'; } } catch (e) {}
+  // target = slug(정본 식별자, 이름 편집에 불변). name은 표시/폴백용 보조.
+  return { type: kind, target: slug || name || uuid, name: name || undefined };
 }
 function fvttRuleRows(doc) {
   const out = [];

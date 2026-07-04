@@ -129,6 +129,11 @@ var CLASS_AUTO_FEATS = {
   ranger: [
     {lv:1, id:'hunt-prey', name_ko:'사냥감 추적', name_en:'Hunt Prey', category:'special'},
   ],
+  bard: [
+    // 작곡 주문(Composition Spells) L1 클래스 특성 — 부여 로직은 효과(자동화) 데이터에 있음:
+    // data/override/effect_groups.json 의 'composition-spells' grant_focus_spell(용기의 찬가). 하드코딩 아님.
+    {lv:1, id:'composition-spells', name_ko:'작곡 주문', name_en:'Composition Spells', category:'special'},
+  ],
 };
 
 // Subclass auto-granted feats
@@ -140,7 +145,8 @@ var CLASS_AUTO_FEATS = {
 var CLASS_AUTO_SPELLS = {
   // Bard: Inspire Courage composition cantrip at L1
   bard: [
-    {lv:1, type:'focus', id:'courageous-anthem', name_ko:'용기의 찬가', name_en:'Courageous Anthem'},
+    // 용기의 찬가(Courageous Anthem)는 '작곡 주문' 특성의 효과(자동화) 데이터가 부여 →
+    //   data/override/effect_groups.json 'composition-spells'. 여기 하드코딩 아님.
     {lv:1, type:'focus', id:'counter-performance', name_ko:'대항 공연', name_en:'Counter Performance'},
   ],
   // Summoner: Boost Eidolon 집중 주문 L1 (FVTT 컴펜디움 미인코딩=시스템 TS 전용 → 수작업 표)

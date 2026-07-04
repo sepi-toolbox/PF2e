@@ -7,7 +7,13 @@
 
 ## 진행 현황
 - **Phase 1 (v0.97, 완료·브라우저 검증)** = R1 데이터테이블(CLASS_AUTO_FEATS/SPELLS에 slug id + 소비처 id해소·slug dedup) + R2 하드코딩 한글명 감지기 전량(Acumen/Obsession/Longevity×2/AdoptedAncestry×3/DomainInitiate/MultifariousMuse/repeatable). **발견: 이 감지기·테이블의 하드코딩 한글명이 이미 카탈로그와 드리프트해 여러 특수재주가 조용히 고장나 있었음** — slug 전환이 실제로 복구함. 덤: `_subAutoSp` null spread 선재버그 수정(서브클래스 미선택 시 바드/소환사 자동 집중주문 누락).
-- **다음(미착수)**: R1-grant(build_effects.mjs가 grant 351행을 한글명 타깃으로 방출 → slug 방출+재생성+핸들러 slug해소, 최대 임팩트) / R3 성장슬롯 slug저장+마이그레이션 / R4 행동게이팅 slug / R5 cs_ui 무기·제조식·cs_calc / R6 저장 dedup / R7 조건 서브시스템(별도 신중).
+- **Phase 2 (v0.98, 완료·브라우저 검증) = grant 소비 핸들러 slug 견고화 + 부여 로직 데이터화 원칙 확립**:
+  - grant_feat / grant_feat_if_trained / grant_innate_spell / grant_focus_spell 핸들러가 target을 `getFeat`/`getSpell`으로 해소(slug·이름 모두 허용) + **slug로 dedup·저장**. → effects_db가 이름 타깃이어도 런타임은 견고(단 부여 **대상 엔티티**가 개명되면 이름타깃은 미스 → 타깃 slug화 필요, 아래).
+  - `applyFeatEffects`가 효과 def를 **feat.id(slug) 우선** 해소(구: `_extractEnName(feat.name)` 이름). 
+  - **사용자 아키텍처 확정**: 부여 로직은 엔티티가 아니라 **효과(자동화) 데이터**에 있음 = `EFFECTS_DB[slug].rows` 또는 override `data/override/effect_groups.json`(slug→rows, DataManager 효과탭 편집지점). 각 grant 행 = `{type: grant_feat|grant_focus_spell|grant_innate_spell|..., target: <slug>}`.
+  - **exemplar 완성**: `composition-spells`(작곡 주문, 바드 L1 특성) 효과데이터에 `grant_focus_spell→courageous-anthem` 추가(override) + 바드 자동특성에 composition-spells 등재(slug) + CLASS_AUTO_SPELLS.bard의 용기의 찬가 하드코딩 제거. 검증: 용기의 찬가가 `_sourceFeat=composition-spells`로 부여됨.
+- **⚠ 생성기 파손 발견**: `tools/derive/build_effects.mjs`가 레거시 제거된 `feat_db.js` 참조로 **실행 불가**(레거시 제거 v0.51~ 이후). effects_db.js 재생성 불가 상태. build_effects의 grantRow는 slug 방출로 고쳤으나 **생성기 수리 전엔 반영 안 됨** → 351 grant행 target은 여전히 이름. 
+- **다음(미착수)**: build_effects 생성기 수리(feat_db 의존 제거) → 재생성해 351 target slug화(또는 타깃 정규화 스크립트) / 남은 CLASS_AUTO_SPELLS·SUBCLASS_AUTO_* 하드코딩을 효과데이터로 이관 / R3 성장슬롯 slug / R4 행동게이팅 slug / R5 cs_ui 무기·제조식·cs_calc / R6 저장 dedup / R7 조건 서브시스템(별도 신중).
 
 ## R1. 카탈로그 데이터가 엔티티를 id 없이 이름으로 저장 (근본)
 - ☐ `tools/derive/build_effects.mjs:104` — GrantItem `target: name||uuid` → **slug** 방출. effects_db.js 재생성. (grant_feat 348 + grant_innate_spell 3 = 351행이 전부 한글명 타깃)

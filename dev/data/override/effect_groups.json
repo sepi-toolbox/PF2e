@@ -1,1 +1,5 @@
-{}
+{
+  "composition-spells": [
+    { "type": "grant_focus_spell", "target": "courageous-anthem", "name": "용기의 찬가" }
+  ]
+}
