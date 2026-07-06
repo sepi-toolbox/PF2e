@@ -1296,8 +1296,9 @@ function checkFeatChoice(featName, featType, featIndex) {
   const def = _getFeatEffectsDef(nameEn);
   if (def && def.choice) {
     const t = def.choice.type;
-    // 인라인 컨트롤이 있는 타입은 팝업 생략 → 재주 탭에서 선택
-    if (t === 'lore' || t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || (t === 'custom' && def.choice.options)) {
+    // 인라인 컨트롤이 있는 타입은 팝업 생략 → 재주 탭에서 선택.
+    // 단 lore(지식 분야 입력)는 획득 즉시 팝업으로 프롬프트(발견성 — "얻어도 아무 일 없음" 방지). 인라인 편집 UI는 유지.
+    if (t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || (t === 'custom' && def.choice.options)) {
       return false;
     }
     openFeatChoiceModal(featType, featIndex, def.choice);

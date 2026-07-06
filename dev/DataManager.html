@@ -120,7 +120,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm7"></script>
+<script src="cs_pf2e.js?v=dm8"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -359,8 +359,30 @@ const DM = (function(){
   function rowSlug(r){ return r._flat ? (r.slug||'') : ACC.slug(r); }
   const TYPE_KO={ability:'능력치',skill:'기술',sense:'감각',save:'내성',damage_type:'피해유형',weapon_group:'무기군',armor_group:'갑옷군',armor_category:'갑옷종류',weapon_category:'무기종류',size:'크기',rarity:'희귀도',language:'언어'};
   // 데이터 관리 툴 — 저장된 raw 값(slug/enum) 그대로 표시. 치환 없음(한글은 hover 툴팁으로만 보조).
+  // 효과 행을 한글 한 문장으로 요약(컬럼만 봐도 뜻이 보이도록). 데이터 무변경 — 표시 파생.
+  function _effSummary(r){
+    if(!r||!r._flat) return '';
+    const t=r.type||'', tg=(r.target==null?'':r.target), v=(r.value==null?'':r.value), bt=r.bonus_type||'', cond=r.condition||'';
+    const tgt = tg==='$choice' ? '(선택값)' : tg;
+    const TPL={
+      grant_lore: tg==='$choice'?'지식 숙련 부여 (선택 분야)':'지식 숙련 부여: '+tg,
+      grant_feat:'재주 부여: '+tgt, grant_feat_if_trained:'조건부 재주 부여: '+tgt, grant_adopted_feat:'채택 재주 부여: '+tgt,
+      grant_focus_spell:'집중주문 부여: '+tgt, grant_innate_spell:'선천주문 부여: '+tgt, grant_spell:'주문 부여: '+tgt,
+      grant_action:'행동 부여: '+tgt, grant_weapon:'무기 부여: '+tgt,
+      skill_trained:'기술 숙련: '+tgt, skill_bonus:tgt+' +'+v+(bt?' ('+bt+')':''),
+      save_bonus:tgt+' 내성 +'+v, ac_bonus:'AC +'+v, hp_bonus:'HP +'+v, initiative_bonus:'우선권 +'+v, bulk_bonus:'부피 +'+v,
+      resistance:tgt+' 저항 '+v, weakness:tgt+' 약점 '+v, immunity:tgt+' 면역',
+      vision_upgrade:'시야: '+tgt, extra_sense:'감각: '+tgt, speed_extra:tgt+' 이동 +'+v, speed_bonus:'이동 +'+v, proficiency:'숙련 조정: '+tgt,
+      display_note:'안내문: '+String(r.note||'').replace(/<[^>]+>/g,'').slice(0,40), damage_note:'피해 노트',
+      choice:'선택지: '+(r.choice_label||r.choice_kind||''), choice_option:'선택옵션: '+(r.option_name||''),
+      attribute_boost:'능력치: '+tgt, favored_weapon:'선호무기: '+tgt, divine_font:'신성원천: '+tgt, sanctification:'성별화: '+tgt, domain:'영역: '+tgt+(bt?' ('+bt+')':''),
+    };
+    let s = TPL[t] || (t+(tgt?': '+tgt:''));
+    if(cond) s += ' [조건부]';
+    return s;
+  }
   function rawVal(r,key){
-    if(r._flat){ const v=r[key]; return key==='has_desc'?(v?'✓':''):(v==null?'':v); }
+    if(r._flat){ if(key==='summary'){ return r[key] || _effSummary(r); } const v=r[key]; return key==='has_desc'?(v?'✓':''):(v==null?'':v); }
     const fn=ACC[key]; return fn?fn(r):'';
   }
   // 편집 반영값(override 우선)
@@ -411,7 +433,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm7').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm8').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -731,8 +753,8 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm7').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm7').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm8').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm8').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride };

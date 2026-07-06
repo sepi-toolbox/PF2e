@@ -136,6 +136,30 @@ function emitDeity(base, doc, leg) {
   for (const r of rr) { rows.push({ ...b, ...r }); stat.fvtt++; }
 }
 
+// ── 배경 구조필드 → 효과행(재주와 동일 효과 테이블 경로로 통일) ──
+// FVTT 배경은 능력치부스트·훈련기술·지식을 system.boosts/system.trainedSkills 구조필드에 담음(rules[] 아님).
+// getBackgroundEffects(getEffectRows 경로)가 파싱하는 type으로 방출 → 배경도 EFFECTS_DB 단일 소스.
+function emitBackground(base, doc) {
+  const s = doc.system || {};
+  const out = [];
+  let bg = 0;
+  for (const k of Object.keys(s.boosts || {})) {
+    const v = ((s.boosts[k] || {}).value) || [];
+    if (v.length >= 6) out.push({ type: 'free_boost_slots', value: 1 });
+    else if (v.length === 1) out.push({ type: 'ability_boost', target: v[0] });
+    else if (v.length > 1) { bg++; for (const a of v) out.push({ type: 'ability_boost_choice', target: a, group_no: bg }); }
+  }
+  const ts = s.trainedSkills || {};
+  for (const sk of (ts.value || [])) out.push({ type: 'skill_trained', target: sk });
+  for (const lo of (ts.lore || [])) out.push({ type: 'grant_lore', target: String(lo).replace(/\s*Lore$/i, '').trim() });
+  if (!out.length) return;
+  const cur = dbBySlug[base.owner_slug];
+  dbBySlug[base.owner_slug] = { rows: (cur && cur.rows || []).concat(out) };
+  refs.backgrounds[base.owner_slug] = base.owner_slug;
+  const b = { owner_kind: base.owner_kind, owner_slug: base.owner_slug, owner_name: base.owner_name, owner_level: base.owner_level, category: base.category, src: 'field', rule: '' };
+  for (const r of out) rows.push({ ...b, ...r });
+}
+
 // ── 소스 순회: FVTT 문서 풀 전량 ──
 function ownerBase(kind, doc, slug, name, level, category) { ownerMeta[slug] = { owner_kind: kind, owner_name: name, owner_level: level, category }; return { owner_kind: kind, owner_slug: slug, owner_name: name, owner_level: level, category }; }
 
@@ -150,7 +174,9 @@ for (const doc of PF.all('heritages')) {
 }
 for (const doc of PF.all('backgrounds')) {
   const s = doc.system || {}; const slug = s.slug; if (!slug) continue;
-  emitFvtt(ownerBase('background', doc, slug, PF.nameKo(doc) || slug, '', ''), doc);
+  const base = ownerBase('background', doc, slug, PF.nameKo(doc) || slug, '', '');
+  emitFvtt(base, doc);          // rules[](grant_item 등) 있으면
+  emitBackground(base, doc);    // 구조필드(부스트/기술/지식) → 효과행
 }
 // 조건(CONDITIONS.auto): 표시·FK만(런타임=conditionMod).
 for (const doc of PF.all('conditions')) {
