@@ -592,7 +592,7 @@ function getBackgroundEffects(b) {
   // (구 _fvtt _effects 단락 폐지 — 배경 구조필드는 생성기가 효과행으로 방출. 부여=같은 기능=같은 경로.)
   const id = b.id || '';
   if (_BACKGROUND_EFFECTS_CACHE.has(id)) return _BACKGROUND_EFFECTS_CACHE.get(id);
-  const out = { boosts: [], boost_choices: [], free_boosts: 0, fixed_skills: [], choice_skill_groups: [], fixed_lores: [], feat_id: null, deity_skill: false, deity_lore: false };
+  const out = { boosts: [], boost_choices: [], free_boosts: 0, fixed_skills: [], choice_skill_groups: [], fixed_lores: [], choice_lore: false, feat_id: null, deity_skill: false, deity_lore: false };
   if (typeof getEffectRows === 'function') {
     const _boostGroups = {};   // group_no → [ability...]
     const _skillGroups = {};   // group_no → [skill_id...]
@@ -618,7 +618,9 @@ function getBackgroundEffects(b) {
           break;
         }
         case 'grant_lore':
-          out.fixed_lores.push(r.target);
+          // $choice = 원하는 지식 1개(추가 지식과 동일) → 사용자가 이름 지정. 고정 지식과 구분.
+          if (r.target === '$choice') out.choice_lore = true;
+          else out.fixed_lores.push(r.target);
           break;
         case 'grant_feat':
           out.feat_id = r.target;
@@ -645,7 +647,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.105').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.106').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
@@ -1738,17 +1740,41 @@ function rebuildCoreEffects() {
     });
   }
 
+  // 배경 지식(선택) — 원하는 지식 1개(추가 지식과 동일: 사용자가 분야명 지정). 다음 빈 슬롯에 훈련 부여.
+  // 미입력 시 미적용(additional-lore와 동일 — 이름 정해질 때까지 대기).
+  if (beff && beff.choice_lore) {
+    const chosen = ((state.initialChoices && state.initialChoices.background && state.initialChoices.background.choiceLore) || '').trim();
+    if (chosen) {
+      const slot = (beff.fixed_lores && beff.fixed_lores.length) ? 'lore2' : 'lore1';
+      const nameEl = document.getElementById('lore-name-' + slot);
+      const profEl = document.getElementById('sk-prof-' + slot);
+      if (nameEl && profEl) {
+        const prevRank = parseInt(profEl.value || 0);
+        const _isGranted = nameEl.value === chosen;
+        const prevName = _isGranted ? chosen : nameEl.value;
+        state._bgGrantedLores.push({slot, name: chosen, prevName: prevRank < 2 ? '' : prevName, prevRank: prevRank < 2 ? 0 : prevRank});
+        if (!nameEl.value || _isGranted) nameEl.value = chosen;
+        if (prevRank < 2) profEl.value = '2';
+      }
+    }
+  }
+
   // 배경 재주 — feat_id 기반
   if (beff?.feat_id) {
     const fd = getFeat(beff.feat_id);
     if (fd) {
-      if (!state.feats.skill) state.feats.skill = [];
-      state.feats.skill.push({
-        name: `${fd.name_ko} (${fd.name_en})`,
-        _featId: fd.id,
-        level: 1,
-        _fromBackground: true
-      });
+      // 이미 다른 경로(수동 획득/타 소스)로 보유 중이면 중복 부여 금지 (slug 기준)
+      const _slug = fd.id || beff.feat_id;
+      const already = Object.values(state.feats).some(arr => (arr || []).some(ff => ff && featSlug(ff) === _slug));
+      if (!already) {
+        if (!state.feats.skill) state.feats.skill = [];
+        state.feats.skill.push({
+          name: `${fd.name_ko} (${fd.name_en})`,
+          _featId: fd.id,
+          level: 1,
+          _fromBackground: true
+        });
+      }
     }
   }
 }

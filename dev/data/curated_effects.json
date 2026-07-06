@@ -509,6 +509,22 @@
    }
   ]
  },
+ "gossip": {
+  "choice": {
+   "id": "cho-gossip-lore",
+   "kind": "lore",
+   "label": "원하는 지식 분야를 입력하세요",
+   "filter": null,
+   "options": []
+  },
+  "auto_note": "원하는 지식 1개 훈련(추가 지식과 동일). 부여 재주는 배경 구조데이터에서 방출.",
+  "rows": [
+   {
+    "type": "grant_lore",
+    "target": "$choice"
+   }
+  ]
+ },
  "reconstruct-the-scene": {
   "auto_note": "[1행동] 1분간 조사하여 지난 하루 사건의 불명확한 인상을 받음"
  },

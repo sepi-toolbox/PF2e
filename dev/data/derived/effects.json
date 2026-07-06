@@ -107829,6 +107829,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "self-made",
+   "owner_name": "자수성가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hefty-hauler"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "amnesiac",
    "owner_name": "기억상실증",
    "owner_level": "",
@@ -107919,6 +107930,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "alkenstar-tinker",
+   "owner_name": "알켄스터 땜장이",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "alchemical-crafting"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "acupuncturist",
    "owner_name": "침술사",
    "owner_level": "",
@@ -107973,6 +107995,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Acupuncture"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "acupuncturist",
+   "owner_name": "침술사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "battle-medicine"
   },
   {
    "owner_kind": "background",
@@ -108256,6 +108289,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "surge-investigator",
+   "owner_name": "서지 조사관",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "terrain-expertise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "silk-farmer",
    "owner_name": "실크 농부",
    "owner_level": "",
@@ -108313,6 +108357,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "silk-farmer",
+   "owner_name": "실크 농부",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "specialty-crafting"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "gossip",
    "owner_name": "가십",
    "owner_level": "",
@@ -108356,6 +108411,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "diplomacy"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "gossip",
+   "owner_name": "가십",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hobnobber"
   },
   {
    "owner_kind": "background",
@@ -108416,6 +108482,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "back-alley-doctor",
+   "owner_name": "뒷골목 의사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "risky-surgery"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "haunting-vision",
    "owner_name": "유령의 시야",
    "owner_level": "",
@@ -108473,6 +108550,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "haunting-vision",
+   "owner_name": "유령의 시야",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "student-of-the-canon"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "haunted-citizen",
    "owner_name": "귀신 들린 시민",
    "owner_level": "",
@@ -108516,6 +108604,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "diplomacy"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "haunted-citizen",
+   "owner_name": "귀신 들린 시민",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "no-cause-for-alarm"
   },
   {
    "owner_kind": "background",
@@ -108576,6 +108675,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "sentinel-reflectance",
+   "owner_name": "센티넬 리플렉텐스",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "no-cause-for-alarm"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "hired-killer",
    "owner_name": "고용된 킬러",
    "owner_level": "",
@@ -108633,6 +108743,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "hired-killer",
+   "owner_name": "고용된 킬러",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "terrain-stalker"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "foreign-aid",
    "owner_name": "외국의 원조",
    "owner_level": "",
@@ -108687,6 +108808,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Lore skill pertaining to your place of origin"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "foreign-aid",
+   "owner_name": "외국의 원조",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "no-cause-for-alarm"
   },
   {
    "owner_kind": "background",
@@ -108778,6 +108910,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "godless-graycloak",
+   "owner_name": "신 없는 회색 망토",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-identification"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "bachuan-revolutionary",
    "owner_name": "바추안 혁명가",
    "owner_level": "",
@@ -108835,6 +108978,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "bachuan-revolutionary",
+   "owner_name": "바추안 혁명가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "sign-language"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "academy-dropout",
    "owner_name": "아카데미 중퇴",
    "owner_level": "",
@@ -108889,6 +109043,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Academia"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "academy-dropout",
+   "owner_name": "아카데미 중퇴",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
   },
   {
    "owner_kind": "background",
@@ -109019,6 +109184,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "dendrologist",
+   "owner_name": "수목학자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "terrain-expertise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "tech-reliant",
    "owner_name": "기술에 의존",
    "owner_level": "",
@@ -109090,6 +109266,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "tech-reliant",
+   "owner_name": "기술에 의존",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "battle-medicine"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "undertaker",
    "owner_name": "장의사",
    "owner_level": "",
@@ -109133,6 +109320,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "medicine"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "undertaker",
+   "owner_name": "장의사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forensic-acumen"
   },
   {
    "owner_kind": "background",
@@ -109193,6 +109391,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "circuit-judge",
+   "owner_name": "순회 판사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "lie-to-me"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "thrill-seeker",
    "owner_name": "스릴 추구자",
    "owner_level": "",
@@ -109247,6 +109456,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Engineering"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "thrill-seeker",
+   "owner_name": "스릴 추구자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "combat-climber"
   },
   {
    "owner_kind": "background",
@@ -109455,6 +109675,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "laborer",
+   "owner_name": "노동자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hefty-hauler"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "harrow-led",
    "owner_name": "해로우 리드",
    "owner_level": "",
@@ -109515,6 +109746,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "harrow-led",
+   "owner_name": "해로우 리드",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "fireworks-performer",
    "owner_name": "불꽃놀이 공연자",
    "owner_level": "",
@@ -109569,6 +109811,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Fireworks"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "fireworks-performer",
+   "owner_name": "불꽃놀이 공연자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "fascinating-performance"
   },
   {
    "owner_kind": "background",
@@ -109777,6 +110030,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "desert-tracker",
+   "owner_name": "사막 추적자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-tracker"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "planar-migrant",
    "owner_name": "차원 이주자",
    "owner_level": "",
@@ -109833,6 +110097,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "athletics"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "planar-migrant",
+   "owner_name": "차원 이주자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hefty-hauler"
   },
   {
    "owner_kind": "background",
@@ -109915,6 +110190,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Genealogy"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "lost-loved-one",
+   "owner_name": "잃어버린 연인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
   },
   {
    "owner_kind": "background",
@@ -110060,6 +110346,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "green-faith-pilgrim",
+   "owner_name": "그린 신앙 순례자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "natural-medicine"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "arcane-revolutionary",
    "owner_name": "비전 혁명가",
    "owner_level": "",
@@ -110103,6 +110400,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "arcana"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "arcane-revolutionary",
+   "owner_name": "비전 혁명가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-identification"
   },
   {
    "owner_kind": "background",
@@ -110160,6 +110468,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Cooking"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "traveling-gourmand",
+   "owner_name": "여행하는 미식가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
   },
   {
    "owner_kind": "background",
@@ -110220,6 +110539,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "fogfen-tale-teller",
+   "owner_name": "안개 이야기꾼",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "titan-wrestler"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "emissary",
    "owner_name": "사절단",
    "owner_level": "",
@@ -110263,6 +110593,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "society"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "emissary",
+   "owner_name": "사절단",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
   },
   {
    "owner_kind": "background",
@@ -110323,6 +110664,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "astrologer",
+   "owner_name": "점성술사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "oddity-identification"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "fortune-teller",
    "owner_name": "행운의 점쟁이",
    "owner_level": "",
@@ -110377,6 +110729,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Fortune-Telling"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "fortune-teller",
+   "owner_name": "행운의 점쟁이",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "oddity-identification"
   },
   {
    "owner_kind": "background",
@@ -110437,6 +110800,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "cook",
+   "owner_name": "요리사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "seasoned"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "aiudara-seeker",
    "owner_name": "아이우다라 시커",
    "owner_level": "",
@@ -110491,6 +110865,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Portal"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "aiudara-seeker",
+   "owner_name": "아이우다라 시커",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-identification"
   },
   {
    "owner_kind": "background",
@@ -110551,6 +110936,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "diobel-pearl-diver",
+   "owner_name": "디오벨 진주 잠수부",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "underwater-marauder"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "crystal-healer",
    "owner_name": "수정 치유사",
    "owner_level": "",
@@ -110608,6 +111004,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "crystal-healer",
+   "owner_name": "수정 치유사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "natural-medicine"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "borderlands-pioneer",
    "owner_name": "보더랜드 개척자",
    "owner_level": "",
@@ -110654,6 +111061,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "borderlands-pioneer",
+   "owner_name": "보더랜드 개척자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "train-animal"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "saloon-entertainer",
    "owner_name": "술집 엔터테이너",
    "owner_level": "",
@@ -110697,6 +111115,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "performance"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "saloon-entertainer",
+   "owner_name": "술집 엔터테이너",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "virtuosic-performer"
   },
   {
    "owner_kind": "background",
@@ -110757,6 +111186,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "saboteur",
+   "owner_name": "방해 공작원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "concealing-legerdemain"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "codebreaker",
    "owner_name": "암호 해독가",
    "owner_level": "",
@@ -110814,6 +111254,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "codebreaker",
+   "owner_name": "암호 해독가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "glean-contents"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "local-scion",
    "owner_name": "지역 귀공자",
    "owner_level": "",
@@ -110868,6 +111319,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Breachill"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "local-scion",
+   "owner_name": "지역 귀공자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "specialty-crafting"
   },
   {
    "owner_kind": "background",
@@ -111068,6 +111530,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "snubbed-out-stoolie",
+   "owner_name": "무시당한 밀고자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "lie-to-me"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "touched-by-dahak",
    "owner_name": "다학의 손길",
    "owner_level": "",
@@ -111125,6 +111598,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "touched-by-dahak",
+   "owner_name": "다학의 손길",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "titan-wrestler"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "press-ganged-lowg",
    "owner_name": "프레스-갱",
    "owner_level": "",
@@ -111179,6 +111663,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Sailing"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "press-ganged-lowg",
+   "owner_name": "프레스-갱",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-professional"
   },
   {
    "owner_kind": "background",
@@ -111282,6 +111777,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Shelyn"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "wandering-libertine",
+   "owner_name": "떠돌이 자유인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "charming-liar"
   },
   {
    "owner_kind": "background",
@@ -111452,6 +111958,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "animal-whisperer",
+   "owner_name": "동물 속삭임",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "train-animal"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "guest-of-sedeq-lodge",
    "owner_name": "세덱 로지의 게스트",
    "owner_level": "",
@@ -111514,6 +112031,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "guest-of-sedeq-lodge",
+   "owner_name": "세덱 로지의 게스트",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "recognize-spell"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "hunter",
    "owner_name": "사냥꾼",
    "owner_level": "",
@@ -111571,6 +112099,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "hunter",
+   "owner_name": "사냥꾼",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "survey-wildlife"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "gunsmith",
    "owner_name": "총술사",
    "owner_level": "",
@@ -111625,6 +112164,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Engineering"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "gunsmith",
+   "owner_name": "총술사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-repair"
   },
   {
    "owner_kind": "background",
@@ -111731,6 +112281,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "ruin-delver",
+   "owner_name": "파멸 배달부",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "cat-fall"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "tiffin-box-deliverer",
    "owner_name": "티핀 박스 배달원",
    "owner_level": "",
@@ -111785,6 +112346,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Labor"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "tiffin-box-deliverer",
+   "owner_name": "티핀 박스 배달원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
   },
   {
    "owner_kind": "background",
@@ -111845,6 +112417,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "bellflower-agent",
+   "owner_name": "벨플라워 요원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-smuggler"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "guard",
    "owner_name": "경비병",
    "owner_level": "",
@@ -111891,6 +112474,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "guard",
+   "owner_name": "경비병",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-coercion"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "bandit",
    "owner_name": "산적",
    "owner_level": "",
@@ -111934,6 +112528,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "intimidation"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "bandit",
+   "owner_name": "산적",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-coercion"
   },
   {
    "owner_kind": "background",
@@ -111994,6 +112599,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "rivethun-adherent",
+   "owner_name": "리베툰 지지자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "recognize-spell"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "artisan",
    "owner_name": "장인",
    "owner_level": "",
@@ -112051,6 +112667,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "artisan",
+   "owner_name": "장인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "specialty-crafting"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "inlander",
    "owner_name": "내륙인",
    "owner_level": "",
@@ -112094,6 +112721,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "survival"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "inlander",
+   "owner_name": "내륙인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "survey-wildlife"
   },
   {
    "owner_kind": "background",
@@ -112154,6 +112792,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "mammoth-speaker",
+   "owner_name": "매머드 스피커",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "train-animal"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "plant-whisperer",
    "owner_name": "식물 속삭임",
    "owner_level": "",
@@ -112208,6 +112857,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Plant"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "plant-whisperer",
+   "owner_name": "식물 속삭임",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "natural-medicine"
   },
   {
    "owner_kind": "background",
@@ -112268,6 +112928,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "translator",
+   "owner_name": "번역가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "rigger",
    "owner_name": "리거",
    "owner_level": "",
@@ -112322,6 +112993,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Circus"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "rigger",
+   "owner_name": "리거",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "combat-climber"
   },
   {
    "owner_kind": "background",
@@ -112382,6 +113064,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "ruby-phoenix-enthusiast",
+   "owner_name": "루비 피닉스 열성 팬",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "combat-climber"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "relentless-dedication",
    "owner_name": "끊임없는 노력",
    "owner_level": "",
@@ -112425,6 +113118,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Warfare"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "relentless-dedication",
+   "owner_name": "끊임없는 노력",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "canny-acumen"
   },
   {
    "owner_kind": "background",
@@ -112482,6 +113186,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Underworld"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "grave-robber",
+   "owner_name": "무덤 도굴꾼",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-smuggler"
   },
   {
    "owner_kind": "background",
@@ -112572,6 +113287,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Mercantile"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "scarnetti-connected",
+   "owner_name": "스카넷티 관련자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "charming-liar"
   },
   {
    "owner_kind": "background",
@@ -112702,6 +113428,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "legendary-parents",
+   "owner_name": "전설적인 부모",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-coercion"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "undercover-lotus-guard",
    "owner_name": "잠복 로터스 경비대",
    "owner_level": "",
@@ -112801,6 +113538,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "undercover-lotus-guard",
+   "owner_name": "잠복 로터스 경비대",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "charming-liar"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "gladiator",
    "owner_name": "검투사",
    "owner_level": "",
@@ -112855,6 +113603,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Gladatorial"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "gladiator",
+   "owner_name": "검투사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "impressive-performance"
   },
   {
    "owner_kind": "background",
@@ -112915,6 +113674,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "gambler",
+   "owner_name": "도박사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "lie-to-me"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "cannoneer",
    "owner_name": "캐노니어",
    "owner_level": "",
@@ -112969,6 +113739,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Warfare"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "cannoneer",
+   "owner_name": "캐노니어",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hefty-hauler"
   },
   {
    "owner_kind": "background",
@@ -113042,6 +113823,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "always-chosen-last",
+   "owner_name": "항상 마지막으로 선택된 자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "issian-partisan",
    "owner_name": "이시안 파르티잔",
    "owner_level": "",
@@ -113096,6 +113888,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Underworld"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "issian-partisan",
+   "owner_name": "이시안 파르티잔",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "charming-liar"
   },
   {
    "owner_kind": "background",
@@ -113231,6 +114034,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "pillar",
+   "owner_name": "필라",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "additional-lore"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "rostland-partisan",
    "owner_name": "로스트랜드 당파",
    "owner_level": "",
@@ -113285,6 +114099,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Politics"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "rostland-partisan",
+   "owner_name": "로스트랜드 당파",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
   },
   {
    "owner_kind": "background",
@@ -113479,6 +114304,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "sodden-scavenger",
+   "owner_name": "소든 스캐빈저",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "story-collector",
    "owner_name": "스토리 수집가",
    "owner_level": "",
@@ -113549,6 +114385,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "story-collector",
+   "owner_name": "스토리 수집가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "trick-magic-item"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "bekyar-restorer",
    "owner_name": "베키야 복원자",
    "owner_level": "",
@@ -113603,6 +114450,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Abyss"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "bekyar-restorer",
+   "owner_name": "베키야 복원자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
   },
   {
    "owner_kind": "background",
@@ -113663,6 +114521,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "waste-walker",
+   "owner_name": "웨이스트 워커",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "criminal",
    "owner_name": "범죄자",
    "owner_level": "",
@@ -113717,6 +114586,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Underworld"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "criminal",
+   "owner_name": "범죄자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-smuggler"
   },
   {
    "owner_kind": "background",
@@ -113809,6 +114689,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Razmir"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "razmiran-faithful",
+   "owner_name": "라즈미란 신봉자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-coercion"
   },
   {
    "owner_kind": "background",
@@ -114025,6 +114916,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "osirionologist",
+   "owner_name": "오시리온 학자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "oddity-identification"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "osprey-spellcaster",
    "owner_name": "오프스리 주문시전자",
    "owner_level": "",
@@ -114098,6 +115000,17 @@
    "rule": "",
    "type": "free_boost_slots",
    "value": 1
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "osprey-spellcaster",
+   "owner_name": "오프스리 주문시전자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-identification"
   },
   {
    "owner_kind": "background",
@@ -114200,6 +115113,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "sleepless-suns-star",
+   "owner_name": "잠 못 이루는 태양 별",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "undercover-contender",
    "owner_name": "언더커버 컨텐더",
    "owner_level": "",
@@ -114254,6 +115178,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Underworld"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "undercover-contender",
+   "owner_name": "언더커버 컨텐더",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "lengthy-diversion"
   },
   {
    "owner_kind": "background",
@@ -114314,6 +115249,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "sheriff",
+   "owner_name": "보안관",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-coercion"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "conscript",
    "owner_name": "징집병",
    "owner_level": "",
@@ -114368,6 +115314,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Warfare"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "conscript",
+   "owner_name": "징집병",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
   },
   {
    "owner_kind": "background",
@@ -114428,6 +115385,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "glorianas-fixer",
+   "owner_name": "글로리아나의 해결사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "subtle-theft"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "goldhand-arms-dealer",
    "owner_name": "골드핸드 무기상",
    "owner_level": "",
@@ -114482,6 +115450,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Mercantile"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "goldhand-arms-dealer",
+   "owner_name": "골드핸드 무기상",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
   },
   {
    "owner_kind": "background",
@@ -114542,6 +115521,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "sarkorian-survivor",
+   "owner_name": "사르코리안 생존자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "lesser-scion",
    "owner_name": "막내",
    "owner_level": "",
@@ -114596,6 +115586,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Heraldry"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "lesser-scion",
+   "owner_name": "막내",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hobnobber"
   },
   {
    "owner_kind": "background",
@@ -114661,6 +115662,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "eidolon-contact",
+   "owner_name": "에이돌론 접촉",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "trade-representative",
    "owner_name": "무역 대표",
    "owner_level": "",
@@ -114715,6 +115727,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Mercantile"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "trade-representative",
+   "owner_name": "무역 대표",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-repair"
   },
   {
    "owner_kind": "background",
@@ -114845,6 +115868,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "acolyte",
+   "owner_name": "복사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "student-of-the-canon"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "sideshow-scion",
    "owner_name": "서커스의 자손",
    "owner_level": "",
@@ -114912,6 +115946,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Games"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "sideshow-scion",
+   "owner_name": "서커스의 자손",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "acrobatic-performer"
   },
   {
    "owner_kind": "background",
@@ -115011,6 +116056,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Legal Lore or Underworld"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "ex-con-token-guard",
+   "owner_name": "전과자 토큰 가드",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "pickpocket"
   },
   {
    "owner_kind": "background",
@@ -115210,6 +116266,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "ozem-experience",
+   "owner_name": "오젬 경험자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "courtly-graces"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "mammoth-herder",
    "owner_name": "매머드 목동",
    "owner_level": "",
@@ -115264,6 +116331,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Herding"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "mammoth-herder",
+   "owner_name": "매머드 목동",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "train-animal"
   },
   {
    "owner_kind": "background",
@@ -115324,6 +116402,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "tree-friend",
+   "owner_name": "나무의 친구",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "no-cause-for-alarm"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "courier",
    "owner_name": "배달부",
    "owner_level": "",
@@ -115367,6 +116456,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "society"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "courier",
+   "owner_name": "배달부",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "glean-contents"
   },
   {
    "owner_kind": "background",
@@ -115497,6 +116597,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "party-scholar",
+   "owner_name": "파티 학자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "charming-liar"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "post-guard-of-all-trades",
    "owner_name": "모든 거래의 포스트 가드",
    "owner_level": "",
@@ -115582,6 +116693,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "performance"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "post-guard-of-all-trades",
+   "owner_name": "모든 거래의 포스트 가드",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
   },
   {
    "owner_kind": "background",
@@ -115730,6 +116852,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "remittance-agent",
+   "owner_name": "송금 대리인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-professional"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "nirmathi-guerrilla",
    "owner_name": "니르마티 게릴라",
    "owner_level": "",
@@ -115784,6 +116917,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Forest"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "nirmathi-guerrilla",
+   "owner_name": "니르마티 게릴라",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "terrain-stalker"
   },
   {
    "owner_kind": "background",
@@ -115844,6 +116988,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "songsinger-in-training",
+   "owner_name": "훈련 중인 가수",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "impressive-performance"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "belkzen-slayer",
    "owner_name": "벨크젠 슬레이어",
    "owner_level": "",
@@ -115901,6 +117056,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "belkzen-slayer",
+   "owner_name": "벨크젠 슬레이어",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "magical-misfit",
    "owner_name": "마법 부적합",
    "owner_level": "",
@@ -115955,6 +117121,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Underworld"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "magical-misfit",
+   "owner_name": "마법 부적합",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "trick-magic-item"
   },
   {
    "owner_kind": "background",
@@ -116028,6 +117205,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "supportive-sponsor",
+   "owner_name": "지지하는 후원자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "battle-medicine"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "respected-mentor",
    "owner_name": "하나는 <strong>건강</strong> 또는 <strong>지능</strong>이어야 하며, 다른 하나는 자유롭게 선택할 수 있습니다. 사회에 대해 훈련을 받았으며, 노동 지식 또는 용병 지식 중 하나를 선택합니다. 숙련된 전문가 스킬 피트를 얻습니다.",
    "owner_level": "",
@@ -116082,6 +117270,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Academia"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "respected-mentor",
+   "owner_name": "하나는 <strong>건강</strong> 또는 <strong>지능</strong>이어야 하며, 다른 하나는 자유롭게 선택할 수 있습니다. 사회에 대해 훈련을 받았으며, 노동 지식 또는 용병 지식 중 하나를 선택합니다. 숙련된 전문가 스킬 피트를 얻습니다.",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "fascinating-performance"
   },
   {
    "owner_kind": "background",
@@ -116142,6 +117341,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "field-medic",
+   "owner_name": "야전 의무병",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "battle-medicine"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "empty-hand-loyalist",
    "owner_name": "빈손의 충성심",
    "owner_level": "",
@@ -116196,6 +117406,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Belkzen"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "empty-hand-loyalist",
+   "owner_name": "빈손의 충성심",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-coercion"
   },
   {
    "owner_kind": "background",
@@ -116269,6 +117490,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Academia"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "student-of-magic",
+   "owner_name": "마법의 학생",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "recognize-spell"
   },
   {
    "owner_kind": "background",
@@ -116347,6 +117579,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "friend-of-greensteeples",
+   "owner_name": "그린스티플의 친구",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "assurance"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "gold-falls-regular",
    "owner_name": "골드 폴스 레귤러",
    "owner_level": "",
@@ -116390,6 +117633,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "performance"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "gold-falls-regular",
+   "owner_name": "골드 폴스 레귤러",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "impressive-performance"
   },
   {
    "owner_kind": "background",
@@ -116548,6 +117802,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "almas-clerk",
+   "owner_name": "알마스 서기",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "glean-contents"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "missionary",
    "owner_name": "선교사",
    "owner_level": "",
@@ -116602,6 +117867,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Scribing"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "missionary",
+   "owner_name": "선교사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
   },
   {
    "owner_kind": "background",
@@ -116662,6 +117938,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "dragon-scholar",
+   "owner_name": "용의 탐구자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "bookish-providence",
    "owner_name": "책 속의 섭리",
    "owner_level": "",
@@ -116694,6 +117981,17 @@
    "rule": "",
    "type": "free_boost_slots",
    "value": 1
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "bookish-providence",
+   "owner_name": "책 속의 섭리",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
   },
   {
    "owner_kind": "background",
@@ -116902,6 +118200,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "shoanti-name-bearer",
+   "owner_name": "쇼안티 이름 보유자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "combat-climber"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "refugee-fall-of-plaguestone",
    "owner_name": "난민 (Fall of Plaguestone)",
    "owner_level": "",
@@ -116959,6 +118268,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "refugee-fall-of-plaguestone",
+   "owner_name": "난민 (Fall of Plaguestone)",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "shadow-lodge-defector",
    "owner_name": "그림자 오두막 탈주자",
    "owner_level": "",
@@ -117013,6 +118333,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Underworld"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "shadow-lodge-defector",
+   "owner_name": "그림자 오두막 탈주자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "lie-to-me"
   },
   {
    "owner_kind": "background",
@@ -117095,6 +118426,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "faction-opportunist",
+   "owner_name": "진영 기회주의자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hobnobber"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "reclaimed",
    "owner_name": "회수됨",
    "owner_level": "",
@@ -117149,6 +118491,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Crimson Reclaimers"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "reclaimed",
+   "owner_name": "회수됨",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-coercion"
   },
   {
    "owner_kind": "background",
@@ -117209,6 +118562,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "musical-prodigy",
+   "owner_name": "뮤지컬 신동",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "virtuosic-performer"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "junk-collector",
    "owner_name": "정크 컬렉터",
    "owner_level": "",
@@ -117252,6 +118616,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "crafting"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "junk-collector",
+   "owner_name": "정크 컬렉터",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "crafters-appraisal"
   },
   {
    "owner_kind": "background",
@@ -117398,6 +118773,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "shory-seeker",
+   "owner_name": "쇼리 시커",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "specialty-crafting"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "insurgent",
    "owner_name": "반란군",
    "owner_level": "",
@@ -117455,6 +118841,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "insurgent",
+   "owner_name": "반란군",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "lengthy-diversion"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "brevic-outcast",
    "owner_name": "브레빅의 추방자",
    "owner_level": "",
@@ -117501,6 +118898,17 @@
    "rule": "",
    "type": "free_boost_slots",
    "value": 1
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "brevic-outcast",
+   "owner_name": "브레빅의 추방자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "haughty-obstinacy"
   },
   {
    "owner_kind": "background",
@@ -117612,6 +119020,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "magaambya-academic",
+   "owner_name": "마감비아 아카데믹",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "recognize-spell"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "black-market-smuggler",
    "owner_name": "암시장 밀수업자",
    "owner_level": "",
@@ -117666,6 +119085,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Underworld"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "black-market-smuggler",
+   "owner_name": "암시장 밀수업자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-smuggler"
   },
   {
    "owner_kind": "background",
@@ -117726,6 +119156,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "magical-merchant",
+   "owner_name": "마법 상인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "crafters-appraisal"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "acrobat",
    "owner_name": "곡예사",
    "owner_level": "",
@@ -117783,6 +119224,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "acrobat",
+   "owner_name": "곡예사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "steady-balance"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "deckhand",
    "owner_name": "갑판원",
    "owner_level": "",
@@ -117837,6 +119289,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Sailing"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "deckhand",
+   "owner_name": "갑판원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "cat-fall"
   },
   {
    "owner_kind": "background",
@@ -117945,6 +119408,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "ward",
+   "owner_name": "위탁아",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "fascinating-performance"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "purveyor-of-the-bizarre",
    "owner_name": "기괴함의 전달자",
    "owner_level": "",
@@ -118002,6 +119476,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "purveyor-of-the-bizarre",
+   "owner_name": "기괴함의 전달자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-identification"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "archaeologist",
    "owner_name": "고고학자",
    "owner_level": "",
@@ -118056,6 +119541,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Architecture"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "archaeologist",
+   "owner_name": "고고학자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "additional-lore"
   },
   {
    "owner_kind": "background",
@@ -118342,6 +119838,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "total-power",
+   "owner_name": "총 전력",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "political-scion",
    "owner_name": "정치적 후예",
    "owner_level": "",
@@ -118441,6 +119948,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "political-scion",
+   "owner_name": "정치적 후예",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hobnobber"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "bright-lion",
    "owner_name": "브라이트 라이온",
    "owner_level": "",
@@ -118498,6 +120016,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "bright-lion",
+   "owner_name": "브라이트 라이온",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "lie-to-me"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "osprey-scribe",
    "owner_name": "오프스리 서기",
    "owner_level": "",
@@ -118552,6 +120081,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Demon"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "osprey-scribe",
+   "owner_name": "오프스리 서기",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
   },
   {
    "owner_kind": "background",
@@ -118768,6 +120308,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Hunting"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "deputy",
+   "owner_name": "대리인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-tracker"
   },
   {
    "owner_kind": "background",
@@ -119071,6 +120622,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "merchant",
+   "owner_name": "판매자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "bargain-hunter"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "fightbreaker",
    "owner_name": "싸움꾼",
    "owner_level": "",
@@ -119114,6 +120676,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "diplomacy"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "fightbreaker",
+   "owner_name": "싸움꾼",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
   },
   {
    "owner_kind": "background",
@@ -119318,6 +120891,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "moot-guard",
+   "owner_name": "모트 경비원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "amateur-director",
    "owner_name": "아마추어 감독",
    "owner_level": "",
@@ -119385,6 +120969,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Theater"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "amateur-director",
+   "owner_name": "아마추어 감독",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
   },
   {
    "owner_kind": "background",
@@ -119515,6 +121110,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "broken-tusk-recruiter",
+   "owner_name": "브로큰 터스크 신병 모집인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "spell-seeker",
    "owner_name": "주문 탐색자",
    "owner_level": "",
@@ -119585,6 +121191,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Library"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "spell-seeker",
+   "owner_name": "주문 탐색자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "recognize-spell"
   },
   {
    "owner_kind": "background",
@@ -119787,6 +121404,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "trailblazer",
+   "owner_name": "트레일블레이저",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "terrain-expertise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "mortuarium-survivor",
    "owner_name": "모투아리움 생존자",
    "owner_level": "",
@@ -119914,6 +121542,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "press-ganged-g-g",
+   "owner_name": "프레스-갱",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "armor-assist"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "ghostwriter",
    "owner_name": "유령 작가",
    "owner_level": "",
@@ -119971,6 +121610,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "ghostwriter",
+   "owner_name": "유령 작가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-professional"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "anti-tech-activist",
    "owner_name": "기술 반대 운동가",
    "owner_level": "",
@@ -120025,6 +121675,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Guild"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "anti-tech-activist",
+   "owner_name": "기술 반대 운동가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-coercion"
   },
   {
    "owner_kind": "background",
@@ -120144,6 +121805,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "sandswept-survivor",
+   "owner_name": "모래에 휩쓸린 생존자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "terrain-expertise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "thuvian-unifier",
    "owner_name": "투비안 유니파이어",
    "owner_level": "",
@@ -120201,6 +121873,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "thuvian-unifier",
+   "owner_name": "투비안 유니파이어",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-coercion"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "hammered-by-fate",
    "owner_name": "운명에 휩쓸린 망치",
    "owner_level": "",
@@ -120233,6 +121916,17 @@
    "rule": "",
    "type": "free_boost_slots",
    "value": 1
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "hammered-by-fate",
+   "owner_name": "운명에 휩쓸린 망치",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hefty-hauler"
   },
   {
    "owner_kind": "background",
@@ -120319,6 +122013,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "hunted-by-the-night",
+   "owner_name": "밤에 쫓기는",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "pathfinder-recruiter",
    "owner_name": "패스파인더 모집인",
    "owner_level": "",
@@ -120362,6 +122067,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "diplomacy"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "pathfinder-recruiter",
+   "owner_name": "패스파인더 모집인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
   },
   {
    "owner_kind": "background",
@@ -120419,6 +122135,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Abyssal"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "finadar-leshy",
+   "owner_name": "피나다르 레시",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
   },
   {
    "owner_kind": "background",
@@ -120546,6 +122273,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Demon"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "demon-slayer",
+   "owner_name": "악마 처단자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "recognize-spell"
   },
   {
    "owner_kind": "background",
@@ -120691,6 +122429,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "fiendbreaking-pilgrim",
+   "owner_name": "피엔브레이킹 순례자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-identification"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "learned-guard-prodigy",
    "owner_name": "학습된 가드 신동",
    "owner_level": "",
@@ -120806,6 +122555,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "learned-guard-prodigy",
+   "owner_name": "학습된 가드 신동",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "recognize-spell"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "breachill-survivor",
    "owner_name": "브리칠의 생존자",
    "owner_level": "",
@@ -120860,6 +122620,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Warfare"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "breachill-survivor",
+   "owner_name": "브리칠의 생존자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "battle-medicine"
   },
   {
    "owner_kind": "background",
@@ -120994,6 +122765,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "highborn-snoop",
+   "owner_name": "하이본 스누프",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "courtly-graces"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "sewer-dragon",
    "owner_name": "하수구 드래곤",
    "owner_level": "",
@@ -121048,6 +122830,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Kobold"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "sewer-dragon",
+   "owner_name": "하수구 드래곤",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "snare-crafting"
   },
   {
    "owner_kind": "background",
@@ -121108,6 +122901,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "perfection-seeker",
+   "owner_name": "완벽 추구자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "cat-fall"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "battle-mechanic",
    "owner_name": "전투 정비공",
    "owner_level": "",
@@ -121162,6 +122966,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Vehicle"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "battle-mechanic",
+   "owner_name": "전투 정비공",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-repair"
   },
   {
    "owner_kind": "background",
@@ -121222,6 +123037,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "osprey-scion",
+   "owner_name": "오프스리 자손",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hobnobber"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "taldan-schemer",
    "owner_name": "탈단 셰이머",
    "owner_level": "",
@@ -121279,6 +123105,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "taldan-schemer",
+   "owner_name": "탈단 셰이머",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hobnobber"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "barrister",
    "owner_name": "변호사",
    "owner_level": "",
@@ -121333,6 +123170,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Legal"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "barrister",
+   "owner_name": "변호사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
   },
   {
    "owner_kind": "background",
@@ -121487,6 +123335,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "feral-child",
+   "owner_name": "야성적 아이",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "fire-warden",
    "owner_name": "화재 감시자",
    "owner_level": "",
@@ -121541,6 +123400,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Plane of Fire"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "fire-warden",
+   "owner_name": "화재 감시자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "breath-control"
   },
   {
    "owner_kind": "background",
@@ -121601,6 +123471,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "war-orphan",
+   "owner_name": "전쟁 고아",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dirty-trick"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "chelaxian-exile",
    "owner_name": "첼리액스 망명자",
    "owner_level": "",
@@ -121658,6 +123539,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "chelaxian-exile",
+   "owner_name": "첼리액스 망명자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "newcomer-in-need",
    "owner_name": "도움이 필요한 새내기",
    "owner_level": "",
@@ -121712,6 +123604,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Goka"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "newcomer-in-need",
+   "owner_name": "도움이 필요한 새내기",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
   },
   {
    "owner_kind": "background",
@@ -121786,6 +123689,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "demon-hunted",
+   "owner_name": "악마에게 쫓김",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "wildwood-local",
    "owner_name": "와일드우드 현지인",
    "owner_level": "",
@@ -121843,6 +123757,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "wildwood-local",
+   "owner_name": "와일드우드 현지인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "natural-medicine"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "raised-by-belief",
    "owner_name": "신념에 의한 성장",
    "owner_level": "",
@@ -121862,6 +123787,17 @@
    "rule": "",
    "type": "free_boost_slots",
    "value": 1
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "raised-by-belief",
+   "owner_name": "신념에 의한 성장",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "assurance"
   },
   {
    "owner_kind": "background",
@@ -122049,6 +123985,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "student-of-the-ancients",
+   "owner_name": "고대인의 제자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "night-watch",
    "owner_name": "야간 경비대",
    "owner_level": "",
@@ -122095,6 +124042,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "night-watch",
+   "owner_name": "야간 경비대",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-coercion"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "combat-chaplain",
    "owner_name": "종군 사제",
    "owner_level": "",
@@ -122138,6 +124096,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "religion"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "combat-chaplain",
+   "owner_name": "종군 사제",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "recognize-spell"
   },
   {
    "owner_kind": "background",
@@ -122195,6 +124164,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Weather"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "winters-child",
+   "owner_name": "겨울의 아이",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "arcane-sense"
   },
   {
    "owner_kind": "background",
@@ -122322,6 +124302,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Gem"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "jeweler",
+   "owner_name": "보석 세공인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "crafters-appraisal"
   },
   {
    "owner_kind": "background",
@@ -122569,6 +124560,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "battlefield-scrounger",
+   "owner_name": "전장의 수집꾼",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "improvise-tool"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "hounded-thief",
    "owner_name": "사냥개 도둑",
    "owner_level": "",
@@ -122623,6 +124625,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Underworld"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "hounded-thief",
+   "owner_name": "사냥개 도둑",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "pickpocket"
   },
   {
    "owner_kind": "background",
@@ -122782,6 +124795,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "union-representative",
+   "owner_name": "노동조합 대표",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "contract-negotiator"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "truth-seeker",
    "owner_name": "진실 추구자",
    "owner_level": "",
@@ -122839,6 +124863,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "truth-seeker",
+   "owner_name": "진실 추구자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "lie-to-me"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "reputation-seeker",
    "owner_name": "평판 탐색자",
    "owner_level": "",
@@ -122882,6 +124917,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "survival"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "reputation-seeker",
+   "owner_name": "평판 탐색자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "terrain-expertise"
   },
   {
    "owner_kind": "background",
@@ -122942,6 +124988,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "local-brigand",
+   "owner_name": "지역 산적",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-coercion"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "blight-survivor",
    "owner_name": "블라이트 생존자",
    "owner_level": "",
@@ -122996,6 +125053,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Fungus"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "blight-survivor",
+   "owner_name": "블라이트 생존자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "natural-medicine"
   },
   {
    "owner_kind": "background",
@@ -123143,6 +125211,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "mystic-tutor",
+   "owner_name": "신비로운 교사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "recognize-spell"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "undersea-enthusiast",
    "owner_name": "해저 매니아",
    "owner_level": "",
@@ -123200,6 +125279,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "undersea-enthusiast",
+   "owner_name": "해저 매니아",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "underwater-marauder"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "banished-brighite",
    "owner_name": "추방된 브라이 신도",
    "owner_level": "",
@@ -123254,6 +125344,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Brigh"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "banished-brighite",
+   "owner_name": "추방된 브라이 신도",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-identification"
   },
   {
    "owner_kind": "background",
@@ -123513,6 +125614,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "wandering-preacher",
+   "owner_name": "방황하는 설교자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "pilgrims-token"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "inexplicably-expelled",
    "owner_name": "설명할 수 없는 추방",
    "owner_level": "",
@@ -123567,6 +125679,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Academia"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "inexplicably-expelled",
+   "owner_name": "설명할 수 없는 추방",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "alchemical-crafting"
   },
   {
    "owner_kind": "background",
@@ -123642,6 +125765,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "sun-dancer",
+   "owner_name": "태양의 춤꾼",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "fascinating-performance"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "kartaji-epicurean",
    "owner_name": "카르다지의 미식가",
    "owner_level": "",
@@ -123712,6 +125846,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Cooking"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "kartaji-epicurean",
+   "owner_name": "카르다지의 미식가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "additional-lore"
   },
   {
    "owner_kind": "background",
@@ -123818,6 +125963,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "storm-survivor",
+   "owner_name": "폭풍우 생존자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "servant",
    "owner_name": "하인",
    "owner_level": "",
@@ -123875,6 +126031,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "servant",
+   "owner_name": "하인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "read-lips"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "out-of-towner",
    "owner_name": "외지인",
    "owner_level": "",
@@ -123918,6 +126085,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "diplomacy"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "out-of-towner",
+   "owner_name": "외지인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hobnobber"
   },
   {
    "owner_kind": "background",
@@ -123978,6 +126156,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "curandero",
+   "owner_name": "큐란데로",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "inoculation"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "scholar-of-the-sky-key",
    "owner_name": "하늘 열쇠의 학자",
    "owner_level": "",
@@ -124032,6 +126221,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Engineering"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "scholar-of-the-sky-key",
+   "owner_name": "하늘 열쇠의 학자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-repair"
   },
   {
    "owner_kind": "background",
@@ -124092,6 +126292,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "mana-wastes-refugee",
+   "owner_name": "마나 웨이스트 난민",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "trick-magic-item"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "shadow-haunted",
    "owner_name": "그림자가 드리운",
    "owner_level": "",
@@ -124146,6 +126357,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Shadow Plane"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "shadow-haunted",
+   "owner_name": "그림자가 드리운",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-coercion"
   },
   {
    "owner_kind": "background",
@@ -124206,6 +126428,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "ulfen-raider",
+   "owner_name": "울펜 레이더",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "disciple-of-the-gear",
    "owner_name": "기어의 제자",
    "owner_level": "",
@@ -124249,6 +126482,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "crafting"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "disciple-of-the-gear",
+   "owner_name": "기어의 제자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-repair"
   },
   {
    "owner_kind": "background",
@@ -124319,6 +126563,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Art"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "art-tutor",
+   "owner_name": "예술 교사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "crafters-appraisal"
   },
   {
    "owner_kind": "background",
@@ -124697,6 +126952,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "teacher",
+   "owner_name": "교사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-professional"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "onyx-trader",
    "owner_name": "오닉스 트레이더",
    "owner_level": "",
@@ -124751,6 +127017,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Mercantile"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "onyx-trader",
+   "owner_name": "오닉스 트레이더",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
   },
   {
    "owner_kind": "background",
@@ -124822,6 +127099,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "droskari-disciple",
+   "owner_name": "드로스카리 제자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "skill-training"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "spotter",
    "owner_name": "스포터",
    "owner_level": "",
@@ -124876,6 +127164,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Scouting"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "spotter",
+   "owner_name": "스포터",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "terrain-stalker"
   },
   {
    "owner_kind": "background",
@@ -124936,6 +127235,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "academic-scion",
+   "owner_name": "학자 가문의 자손",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "arcane-sense"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "nexian-mystic",
    "owner_name": "넥시안 미스틱",
    "owner_level": "",
@@ -124979,6 +127289,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "arcana"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "nexian-mystic",
+   "owner_name": "넥시안 미스틱",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "arcane-sense"
   },
   {
    "owner_kind": "background",
@@ -125036,6 +127357,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Scam"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "mystic-seer",
+   "owner_name": "신비로운 예언자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "arcane-sense"
   },
   {
    "owner_kind": "background",
@@ -125131,6 +127463,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "library-dweller",
+   "owner_name": "도서관 거주자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "additional-lore"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "circus-born",
    "owner_name": "서커스 태생",
    "owner_level": "",
@@ -125185,6 +127528,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Circus"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "circus-born",
+   "owner_name": "서커스 태생",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-professional"
   },
   {
    "owner_kind": "background",
@@ -125245,6 +127599,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "necromancers-apprentice",
+   "owner_name": "강령술사의 제자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-identification"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "noble",
    "owner_name": "귀족",
    "owner_level": "",
@@ -125288,6 +127653,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "society"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "noble",
+   "owner_name": "귀족",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "courtly-graces"
   },
   {
    "owner_kind": "background",
@@ -125348,6 +127724,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "alkenstar-sojourner",
+   "owner_name": "알켄스터 체류자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "menagerie-dung-sweeper",
    "owner_name": "동물원 배설물 청소부",
    "owner_level": "",
@@ -125402,6 +127789,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Animal"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "menagerie-dung-sweeper",
+   "owner_name": "동물원 배설물 청소부",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "train-animal"
   },
   {
    "owner_kind": "background",
@@ -125519,6 +127917,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "martial-musician",
+   "owner_name": "군악대원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "impressive-performance"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "herbalist",
    "owner_name": "약초학자",
    "owner_level": "",
@@ -125573,6 +127982,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Herbalism"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "herbalist",
+   "owner_name": "약초학자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "natural-medicine"
   },
   {
    "owner_kind": "background",
@@ -125633,6 +128053,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "sailor",
+   "owner_name": "선원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "underwater-marauder"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "eager-scofflaw",
    "owner_name": "법을 무시하는 자",
    "owner_level": "",
@@ -125687,6 +128118,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Underworld"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "eager-scofflaw",
+   "owner_name": "법을 무시하는 자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "bon-mot"
   },
   {
    "owner_kind": "background",
@@ -125902,6 +128344,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "freed-slave-of-absalom",
+   "owner_name": "압살롬의 해방된 노예",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "barkeep",
    "owner_name": "바텐더",
    "owner_level": "",
@@ -125956,6 +128409,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Alcohol"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "barkeep",
+   "owner_name": "바텐더",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hobnobber"
   },
   {
    "owner_kind": "background",
@@ -126016,6 +128480,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "bounty-hunter",
+   "owner_name": "현상금 사냥꾼",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-tracker"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "pyre-tender",
    "owner_name": "파이어 텐더",
    "owner_level": "",
@@ -126070,6 +128545,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Funeral"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "pyre-tender",
+   "owner_name": "파이어 텐더",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "alchemical-crafting"
   },
   {
    "owner_kind": "background",
@@ -126141,6 +128627,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "hookclaw-digger",
+   "owner_name": "갈고리발톱 굴착자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "improvise-tool"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "school-medic",
    "owner_name": "학교 의료진",
    "owner_level": "",
@@ -126195,6 +128692,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Academia"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "school-medic",
+   "owner_name": "학교 의료진",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "battle-medicine"
   },
   {
    "owner_kind": "background",
@@ -126255,6 +128763,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "whispering-way-scion",
+   "owner_name": "속삭이는 길의 계승자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "student-of-the-canon"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "cursed-family",
    "owner_name": "저주받은 가문",
    "owner_level": "",
@@ -126309,6 +128828,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Curse"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "cursed-family",
+   "owner_name": "저주받은 가문",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "oddity-identification"
   },
   {
    "owner_kind": "background",
@@ -126369,6 +128899,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "aspiring-free-captain",
+   "owner_name": "자유-선장 지망생",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-coercion"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "prisoner",
    "owner_name": "수감자",
    "owner_level": "",
@@ -126423,6 +128964,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Underworld"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "prisoner",
+   "owner_name": "수감자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-smuggler"
   },
   {
    "owner_kind": "background",
@@ -126508,6 +129060,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "wanderlust",
+   "owner_name": "방랑자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "express-rider"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "hermit",
    "owner_name": "은둔자",
    "owner_level": "",
@@ -126570,6 +129133,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "hermit",
+   "owner_name": "은둔자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "shadow-war-survivor",
    "owner_name": "그림자 전쟁 생존자",
    "owner_level": "",
@@ -126624,6 +129198,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Absalom"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "shadow-war-survivor",
+   "owner_name": "그림자 전쟁 생존자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
   },
   {
    "owner_kind": "background",
@@ -126684,6 +129269,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "miner",
+   "owner_name": "광부",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "terrain-expertise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "geb-crusader",
    "owner_name": "게브 성전사",
    "owner_level": "",
@@ -126738,6 +129334,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Undead"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "geb-crusader",
+   "owner_name": "게브 성전사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "student-of-the-canon"
   },
   {
    "owner_kind": "background",
@@ -126798,6 +129405,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "issian-patriot",
+   "owner_name": "이시안 패트리어트",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "crown-of-chaos",
    "owner_name": "혼돈의 왕관",
    "owner_level": "",
@@ -126830,6 +129448,17 @@
    "rule": "",
    "type": "free_boost_slots",
    "value": 1
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "crown-of-chaos",
+   "owner_name": "혼돈의 왕관",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "charming-liar"
   },
   {
    "owner_kind": "background",
@@ -126887,6 +129516,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Dragon"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "hermean-expatriate",
+   "owner_name": "헤르만 주재원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "skill-training"
   },
   {
    "owner_kind": "background",
@@ -126971,6 +129611,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "runaway-noble",
+   "owner_name": "도망친 귀족",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "bon-mot"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "ratted-out-gun-runner",
    "owner_name": "밀수꾼으로 몰린 총기 밀매업자",
    "owner_level": "",
@@ -127025,6 +129676,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Firearm"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "ratted-out-gun-runner",
+   "owner_name": "밀수꾼으로 몰린 총기 밀매업자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-smuggler"
   },
   {
    "owner_kind": "background",
@@ -127145,6 +129807,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "sense-of-belonging",
+   "owner_name": "소속의 중요성",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "mechanic",
    "owner_name": "메카닉",
    "owner_level": "",
@@ -127202,6 +129875,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "mechanic",
+   "owner_name": "메카닉",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-repair"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "goblinblood-survivor",
    "owner_name": "고블린블러드의 생존자",
    "owner_level": "",
@@ -127256,6 +129940,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Goblin"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "goblinblood-survivor",
+   "owner_name": "고블린블러드의 생존자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
   },
   {
    "owner_kind": "background",
@@ -127362,6 +130057,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "outrider",
+   "owner_name": "아웃라이더",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "express-rider"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "report-runner",
    "owner_name": "전령",
    "owner_level": "",
@@ -127416,6 +130122,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Stabling"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "report-runner",
+   "owner_name": "전령",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "express-rider"
   },
   {
    "owner_kind": "background",
@@ -127476,6 +130193,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "clockfighter",
+   "owner_name": "클럭파이터",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-professional"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "detective",
    "owner_name": "형사",
    "owner_level": "",
@@ -127533,6 +130261,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "detective",
+   "owner_name": "형사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "lost-coast-local",
    "owner_name": "로스트 코스트 현지인",
    "owner_level": "",
@@ -127587,6 +130326,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Sandpoint"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "lost-coast-local",
+   "owner_name": "로스트 코스트 현지인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hobnobber"
   },
   {
    "owner_kind": "background",
@@ -127660,6 +130410,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "eagle-hunter",
+   "owner_name": "하나는 <strong>매력</strong> 또는 <strong>지능</strong>이어야 하고, 다른 하나는 자유롭게 선택할 수 있습니다. 당신은 외교와 계보 지식 또는 문장 지식 중 하나를 훈련받았습니다. 당신은 재치 있는 말 솜씨 특기를 얻습니다.",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "train-animal"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "ocean-diver",
    "owner_name": "해양 다이버",
    "owner_level": "",
@@ -127714,6 +130475,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Ocean"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "ocean-diver",
+   "owner_name": "해양 다이버",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "underwater-marauder"
   },
   {
    "owner_kind": "background",
@@ -127833,6 +130605,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "framed-in-ferrous-quarter",
+   "owner_name": "페로스 쿼터에서 누명을 쓴 자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "specialty-crafting"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "child-of-the-colony",
    "owner_name": "하나는 <strong>건강</strong> 또는 <strong>지혜</strong>에, 다른 하나는 자유롭게 선택할 수 있는 속성 강화입니다. 운동과 해양 지식을 훈련받았습니다. 수중 약탈자 스킬 피트를 얻습니다.",
    "owner_level": "",
@@ -127887,6 +130670,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Island"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "child-of-the-colony",
+   "owner_name": "하나는 <strong>건강</strong> 또는 <strong>지혜</strong>에, 다른 하나는 자유롭게 선택할 수 있는 속성 강화입니다. 운동과 해양 지식을 훈련받았습니다. 수중 약탈자 스킬 피트를 얻습니다.",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "survey-wildlife"
   },
   {
    "owner_kind": "background",
@@ -128001,6 +130795,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Animal"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "atteran-rancher",
+   "owner_name": "아테란 목장주",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "train-animal"
   },
   {
    "owner_kind": "background",
@@ -128149,6 +130954,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "portal-scholar",
+   "owner_name": "포털 학자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "arcane-sense"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "osprey-warrior",
    "owner_name": "오프스리 전사",
    "owner_level": "",
@@ -128203,6 +131019,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Gorum"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "osprey-warrior",
+   "owner_name": "오프스리 전사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hefty-hauler"
   },
   {
    "owner_kind": "background",
@@ -128263,6 +131090,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "iolite-trainee-hobgoblin",
+   "owner_name": "이오라이트 수련생 홉고블린",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "sign-language"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "lastwall-survivor",
    "owner_name": "라스트월 생존자",
    "owner_level": "",
@@ -128317,6 +131155,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Undead"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "lastwall-survivor",
+   "owner_name": "라스트월 생존자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "battle-medicine"
   },
   {
    "owner_kind": "background",
@@ -128402,6 +131251,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "dreams-of-vengeance",
+   "owner_name": "복수의 꿈",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "titan-wrestler"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "cultist",
    "owner_name": "광신도",
    "owner_level": "",
@@ -128445,6 +131305,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "occultism"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "cultist",
+   "owner_name": "광신도",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "schooled-in-secrets"
   },
   {
    "owner_kind": "background",
@@ -128505,6 +131376,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "alkenstar-outlaw",
+   "owner_name": "알켄스터 무법자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "subtle-theft"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "eclectic-scholar",
    "owner_name": "절충주의적 학자",
    "owner_level": "",
@@ -128559,6 +131441,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Dwarven Pantheon"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "eclectic-scholar",
+   "owner_name": "절충주의적 학자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-identification"
   },
   {
    "owner_kind": "background",
@@ -128673,6 +131566,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Devil"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "archdevil-apostate",
+   "owner_name": "대악마 배교자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "student-of-the-canon"
   },
   {
    "owner_kind": "background",
@@ -128812,6 +131716,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Politics"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "aspiring-river-monarch",
+   "owner_name": "야심찬 강 군주",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "courtly-graces"
   },
   {
    "owner_kind": "background",
@@ -128958,6 +131873,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "convocation-scout",
+   "owner_name": "총회 스카우트",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "teamster",
    "owner_name": "팀스터",
    "owner_level": "",
@@ -129012,6 +131938,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Mercantile"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "teamster",
+   "owner_name": "팀스터",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "train-animal"
   },
   {
    "owner_kind": "background",
@@ -129072,6 +132009,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "runelord-scholar",
+   "owner_name": "룬로드 학자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "kalistrade-follower",
    "owner_name": "칼리스트레이드 추종자",
    "owner_level": "",
@@ -129129,6 +132077,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "kalistrade-follower",
+   "owner_name": "칼리스트레이드 추종자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "bargain-hunter"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "combat-carpenter",
    "owner_name": "전투 목수",
    "owner_level": "",
@@ -129183,6 +132142,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Engineering"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "combat-carpenter",
+   "owner_name": "전투 목수",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "specialty-crafting"
   },
   {
    "owner_kind": "background",
@@ -129243,6 +132213,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "fey-friend",
+   "owner_name": "요정의 친구",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "charming-liar"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "refugee-pc2",
    "owner_name": "난민 (PC2)",
    "owner_level": "",
@@ -129286,6 +132267,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "society"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "refugee-pc2",
+   "owner_name": "난민 (PC2)",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
   },
   {
    "owner_kind": "background",
@@ -129346,6 +132338,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "entertainer",
+   "owner_name": "엔터테이너",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "fascinating-performance"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "scholar-of-the-ancients",
    "owner_name": "고대의 학자",
    "owner_level": "",
@@ -129400,6 +132403,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Azlant"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "scholar-of-the-ancients",
+   "owner_name": "고대의 학자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-identification"
   },
   {
    "owner_kind": "background",
@@ -129460,6 +132474,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "quick",
+   "owner_name": "퀵",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "charming-liar"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "tinker",
    "owner_name": "땜장이",
    "owner_level": "",
@@ -129517,6 +132542,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "tinker",
+   "owner_name": "땜장이",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "specialty-crafting"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "oenopion-ooze-tender",
    "owner_name": "오에노피온-우즈 텐더",
    "owner_level": "",
@@ -129571,6 +132607,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Ooze"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "oenopion-ooze-tender",
+   "owner_name": "오에노피온-우즈 텐더",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
   },
   {
    "owner_kind": "background",
@@ -129779,6 +132826,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "returning-descendant",
+   "owner_name": "귀환한 후손",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "pickpocket"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "concordance-scout",
    "owner_name": "일치성 정찰자",
    "owner_level": "",
@@ -129822,6 +132880,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "diplomacy"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "concordance-scout",
+   "owner_name": "일치성 정찰자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hobnobber"
   },
   {
    "owner_kind": "background",
@@ -129882,6 +132951,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "child-of-the-puddles",
+   "owner_name": "웅덩이의 아이",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "steady-balance"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "tax-collector",
    "owner_name": "세금 징수원",
    "owner_level": "",
@@ -129925,6 +133005,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "intimidation"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "tax-collector",
+   "owner_name": "세금 징수원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-coercion"
   },
   {
    "owner_kind": "background",
@@ -130055,6 +133146,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "pathfinder-hopeful",
+   "owner_name": "패스파인더 희망자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "additional-lore"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "warded-by-kami",
    "owner_name": "카미에 의해 보호받는",
    "owner_level": "",
@@ -130182,6 +133284,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "bully-or-baiter",
+   "owner_name": "불량배 또는 유인자?",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "militia-member",
    "owner_name": "민병대원",
    "owner_level": "",
@@ -130236,6 +133349,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Sailing"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "militia-member",
+   "owner_name": "민병대원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "lie-to-me"
   },
   {
    "owner_kind": "background",
@@ -130296,6 +133420,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "once-bitten",
+   "owner_name": "한 번 물린",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "battle-medicine"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "occult-librarian",
    "owner_name": "오컬트 사서",
    "owner_level": "",
@@ -130350,6 +133485,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Academia"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "occult-librarian",
+   "owner_name": "오컬트 사서",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "schooled-in-secrets"
   },
   {
    "owner_kind": "background",
@@ -130410,6 +133556,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "plague-doctor",
+   "owner_name": "역병 의사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "inoculation"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "bonuwat-wavetouched",
    "owner_name": "보누왓 웨이브터치",
    "owner_level": "",
@@ -130464,6 +133621,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Ocean"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "bonuwat-wavetouched",
+   "owner_name": "보누왓 웨이브터치",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "underwater-marauder"
   },
   {
    "owner_kind": "background",
@@ -130524,6 +133692,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "sarkorian-reclaimer",
+   "owner_name": "사르코리안 리클레이머",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "battle-medicine"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "runner",
    "owner_name": "러너",
    "owner_level": "",
@@ -130570,6 +133749,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "runner",
+   "owner_name": "러너",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-jump"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "driver",
    "owner_name": "운전사",
    "owner_level": "",
@@ -130613,6 +133803,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "acrobatics"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "driver",
+   "owner_name": "운전사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "assurance"
   },
   {
    "owner_kind": "background",
@@ -130814,6 +134015,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "harbor-guard-moonlighter",
+   "owner_name": "항구 경비대 문라이터",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-jump"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "sky-rider",
    "owner_name": "스카이 라이더",
    "owner_level": "",
@@ -130868,6 +134080,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Plane of Air"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "sky-rider",
+   "owner_name": "스카이 라이더",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "cat-fall"
   },
   {
    "owner_kind": "background",
@@ -131027,6 +134250,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "senghor-sailor",
+   "owner_name": "상선 선원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-repair"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "savior-of-air",
    "owner_name": "공기 구세주",
    "owner_level": "",
@@ -131070,6 +134304,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "acrobatics"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "savior-of-air",
+   "owner_name": "공기 구세주",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "cat-fall"
   },
   {
    "owner_kind": "background",
@@ -131152,6 +134397,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "molthuni-mercenary",
+   "owner_name": "몰트니 용병",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-professional"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "thrune-loyalist",
    "owner_name": "왕좌 충성자",
    "owner_level": "",
@@ -131209,6 +134465,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "thrune-loyalist",
+   "owner_name": "왕좌 충성자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "student-of-the-canon"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "keys-to-destiny",
    "owner_name": "운명의 열쇠",
    "owner_level": "",
@@ -131241,6 +134508,17 @@
    "rule": "",
    "type": "free_boost_slots",
    "value": 1
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "keys-to-destiny",
+   "owner_name": "운명의 열쇠",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "assurance"
   },
   {
    "owner_kind": "background",
@@ -131378,6 +134656,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "writ-in-the-stars",
+   "owner_name": "별에 글을 쓰다",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "pilgrims-token"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "farmsteader",
    "owner_name": "농장주",
    "owner_level": "",
@@ -131432,6 +134721,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Farming"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "farmsteader",
+   "owner_name": "농장주",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
   },
   {
    "owner_kind": "background",
@@ -131492,6 +134792,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "osprey-barnraiser",
+   "owner_name": "오스프리 육아자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "natural-medicine"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "street-urchin",
    "owner_name": "길거리 장난꾸러기",
    "owner_level": "",
@@ -131535,6 +134846,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "thievery"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "street-urchin",
+   "owner_name": "길거리 장난꾸러기",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "pickpocket"
   },
   {
    "owner_kind": "background",
@@ -131595,6 +134917,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "vidrian-reformer",
+   "owner_name": "비드리안 개혁자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hobnobber"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "curious-apprentice",
    "owner_name": "호기심 많은 견습생",
    "owner_level": "",
@@ -131649,6 +134982,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Poetry"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "curious-apprentice",
+   "owner_name": "호기심 많은 견습생",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hefty-hauler"
   },
   {
    "owner_kind": "background",
@@ -131709,6 +135053,28 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "hermean-heritor",
+   "owner_name": "헤르메안 계승자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "hermean-heritor",
+   "owner_name": "헤르메안 계승자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "assurance"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "market-runner",
    "owner_name": "마켓 러너",
    "owner_level": "",
@@ -131763,6 +135129,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Otari"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "market-runner",
+   "owner_name": "마켓 러너",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hobnobber"
   },
   {
    "owner_kind": "background",
@@ -131898,6 +135275,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "false-medium",
+   "owner_name": "허위 매체",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "deceptive-worship"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "weaver",
    "owner_name": "위버",
    "owner_level": "",
@@ -131941,6 +135329,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "crafting"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "weaver",
+   "owner_name": "위버",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "specialty-crafting"
   },
   {
    "owner_kind": "background",
@@ -132001,6 +135400,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "attention-addict",
+   "owner_name": "주목 중독자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "impressive-performance"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "butcher",
    "owner_name": "도살자",
    "owner_level": "",
@@ -132055,6 +135465,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Mercantile"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "butcher",
+   "owner_name": "도살자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "read-lips"
   },
   {
    "owner_kind": "background",
@@ -132115,6 +135536,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "newcomer",
+   "owner_name": "신입",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "additional-lore"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "root-worker",
    "owner_name": "루트 워커",
    "owner_level": "",
@@ -132172,6 +135604,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "root-worker",
+   "owner_name": "루트 워커",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "root-magic"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "bookkeeper",
    "owner_name": "회계사",
    "owner_level": "",
@@ -132226,6 +135669,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Accounting"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "bookkeeper",
+   "owner_name": "회계사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "eye-for-numbers"
   },
   {
    "owner_kind": "background",
@@ -132333,6 +135787,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "scout",
+   "owner_name": "정찰",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "emancipated",
    "owner_name": "해방",
    "owner_level": "",
@@ -132387,6 +135852,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Kintargo"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "emancipated",
+   "owner_name": "해방",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "terrain-stalker"
   },
   {
    "owner_kind": "background",
@@ -132553,6 +136029,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Pathfinder"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "early-explorer",
+   "owner_name": "초기 탐험가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
   },
   {
    "owner_kind": "background",
@@ -132769,6 +136256,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "kyonin-emissary",
+   "owner_name": "교닌 사절",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "reclaimer-investigator",
    "owner_name": "리클레이머 조사관",
    "owner_level": "",
@@ -132826,6 +136324,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "reclaimer-investigator",
+   "owner_name": "리클레이머 조사관",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "oddity-identification"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "badlands-scout",
    "owner_name": "배드랜드 정찰대",
    "owner_level": "",
@@ -132880,6 +136389,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Badlands"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "badlands-scout",
+   "owner_name": "배드랜드 정찰대",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
   },
   {
    "owner_kind": "background",
@@ -132999,6 +136519,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "town-troublemaker",
+   "owner_name": "마을 말썽꾸러기",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dirty-trick"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "clan-associate",
    "owner_name": "클랜 동료",
    "owner_level": "",
@@ -133053,6 +136584,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Highhelm"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "clan-associate",
+   "owner_name": "클랜 동료",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
   },
   {
    "owner_kind": "background",
@@ -133258,6 +136800,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "megafauna-hunter",
+   "owner_name": "거대동물 사냥꾼터",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "titan-wrestler"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "wonder-taster",
    "owner_name": "원더 테이스터",
    "owner_level": "",
@@ -133312,6 +136865,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Alchemical"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "wonder-taster",
+   "owner_name": "원더 테이스터",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "alchemical-crafting"
   },
   {
    "owner_kind": "background",
@@ -133372,6 +136936,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "printer",
+   "owner_name": "프린터",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "cathedral-child",
    "owner_name": "대성당 아이",
    "owner_level": "",
@@ -133426,6 +137001,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Scribing"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "cathedral-child",
+   "owner_name": "대성당 아이",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "battle-medicine"
   },
   {
    "owner_kind": "background",
@@ -133585,6 +137171,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "aerialist",
+   "owner_name": "공중 곡예사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "cat-fall"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "squire",
    "owner_name": "종자",
    "owner_level": "",
@@ -133642,6 +137239,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "squire",
+   "owner_name": "종자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "armor-assist"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "legacy-of-the-hammer",
    "owner_name": "망치의 유산",
    "owner_level": "",
@@ -133696,6 +137304,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Engineering"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "legacy-of-the-hammer",
+   "owner_name": "망치의 유산",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "concealing-legerdemain"
   },
   {
    "owner_kind": "background",
@@ -133808,6 +137427,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "student-of-archery",
+   "owner_name": "활쏘기 학생",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "terrain-stalker"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "warrior",
    "owner_name": "전사",
    "owner_level": "",
@@ -133862,6 +137492,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Warfare"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "warrior",
+   "owner_name": "전사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
   },
   {
    "owner_kind": "background",
@@ -133922,6 +137563,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "free-spirit",
+   "owner_name": "자유로운 정신",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "pilgrim",
    "owner_name": "순례자",
    "owner_level": "",
@@ -133965,6 +137617,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "religion"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "pilgrim",
+   "owner_name": "순례자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "pilgrims-token"
   },
   {
    "owner_kind": "background",
@@ -134096,6 +137759,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "working-student",
+   "owner_name": "일하는 학생",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "streetfood-vendor",
    "owner_name": "길거리 음식 판매자",
    "owner_level": "",
@@ -134142,6 +137816,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "streetfood-vendor",
+   "owner_name": "길거리 음식 판매자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "seasoned"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "returned",
    "owner_name": "돌아온",
    "owner_level": "",
@@ -134185,6 +137870,28 @@
    "rule": "",
    "type": "grant_lore",
    "target": "**Boneyard Lore (with Additional Lore perks)"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "returned",
+   "owner_name": "돌아온",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "diehard"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "returned",
+   "owner_name": "돌아온",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "additional-lore"
   },
   {
    "owner_kind": "background",
@@ -134245,6 +137952,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "starwatcher",
+   "owner_name": "별 관찰자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "thassilonian-traveler",
    "owner_name": "타실로니안 여행자",
    "owner_level": "",
@@ -134299,6 +138017,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Thassilon"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "thassilonian-traveler",
+   "owner_name": "타실로니안 여행자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
   },
   {
    "owner_kind": "background",
@@ -134359,6 +138088,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "charlatan",
+   "owner_name": "허풍쟁이",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "charming-liar"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "wood-warden",
    "owner_name": "숲의 수호자",
    "owner_level": "",
@@ -134413,6 +138153,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Scouting"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "wood-warden",
+   "owner_name": "숲의 수호자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "survey-wildlife"
   },
   {
    "owner_kind": "background",
@@ -134473,6 +138224,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "chelish-rebel",
+   "owner_name": "체리시 반란군",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "streetwise"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "deep-sea-diver",
    "owner_name": "심해 잠수부",
    "owner_level": "",
@@ -134527,6 +138289,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Plane of Water"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "deep-sea-diver",
+   "owner_name": "심해 잠수부",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "underwater-marauder"
   },
   {
    "owner_kind": "background",
@@ -134587,6 +138360,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "final-blade-survivor",
+   "owner_name": "최후의 칼날 생존자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "charming-liar"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "trade-consortium-underling",
    "owner_name": "무역 컨소시엄 언더링",
    "owner_level": "",
@@ -134644,6 +138428,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "trade-consortium-underling",
+   "owner_name": "무역 컨소시엄 언더링",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-professional"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "street-preacher",
    "owner_name": "길거리 설교자",
    "owner_level": "",
@@ -134690,6 +138485,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "street-preacher",
+   "owner_name": "길거리 설교자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "royalty",
    "owner_name": "왕족",
    "owner_level": "",
@@ -134733,6 +138539,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "society"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "royalty",
+   "owner_name": "왕족",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "courtly-graces"
   },
   {
    "owner_kind": "background",
@@ -134801,6 +138618,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Goka"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "ruby-phoenix-fanatic",
+   "owner_name": "루비 피닉스 광신자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "dubious-knowledge"
   },
   {
    "owner_kind": "background",
@@ -134931,6 +138759,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "varisian-wanderer",
+   "owner_name": "바리시안 방랑자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "fascinating-performance"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "child-of-westcrown",
    "owner_name": "웨스트크라운의 아이",
    "owner_level": "",
@@ -134988,6 +138827,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "child-of-westcrown",
+   "owner_name": "웨스트크라운의 아이",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "veteran",
    "owner_name": "노병",
    "owner_level": "",
@@ -135042,6 +138892,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Warfare"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "veteran",
+   "owner_name": "노병",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "armor-assist"
   },
   {
    "owner_kind": "background",
@@ -135239,6 +139100,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "tall-tale",
+   "owner_name": "톨 테일",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "impressive-performance"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "scholar",
    "owner_name": "학자",
    "owner_level": "",
@@ -135382,6 +139254,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "osprey-fisher",
+   "owner_name": "오스프리 낚시꾼",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "quick-repair"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "osprey-scout",
    "owner_name": "오프스리 정찰자",
    "owner_level": "",
@@ -135439,6 +139322,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "osprey-scout",
+   "owner_name": "오프스리 정찰자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-tracker"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "dreamer-of-the-verdant-moon",
    "owner_name": "푸른 달의 몽상가",
    "owner_level": "",
@@ -135493,6 +139387,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Zevgavizeb"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "dreamer-of-the-verdant-moon",
+   "owner_name": "푸른 달의 몽상가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "ravenings-desperation"
   },
   {
    "owner_kind": "background",
@@ -135610,6 +139515,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "friendly-darkmoon-kobold",
+   "owner_name": "우호적인 다크문 코볼트",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "scavenger",
    "owner_name": "스캐빈저",
    "owner_level": "",
@@ -135653,6 +139569,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "survival"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "scavenger",
+   "owner_name": "스캐빈저",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
   },
   {
    "owner_kind": "background",
@@ -135738,6 +139665,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "wish-for-riches",
+   "owner_name": "부의 소원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "subtle-theft"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "hellknight-historian",
    "owner_name": "헬나이트 역사가",
    "owner_level": "",
@@ -135795,6 +139733,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "hellknight-historian",
+   "owner_name": "헬나이트 역사가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "courtly-graces"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "junker",
    "owner_name": "정커",
    "owner_level": "",
@@ -135838,6 +139787,17 @@
    "rule": "",
    "type": "skill_trained",
    "target": "athletics"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "junker",
+   "owner_name": "정커",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hefty-hauler"
   },
   {
    "owner_kind": "background",
@@ -135898,6 +139858,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "former-aspis-agent",
+   "owner_name": "전 아스피스 요원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-coercion"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "thassilonian-delver",
    "owner_name": "타실로니안 딜리버",
    "owner_level": "",
@@ -135952,6 +139923,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Thassilonian History"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "thassilonian-delver",
+   "owner_name": "타실로니안 딜리버",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "arcane-sense"
   },
   {
    "owner_kind": "background",
@@ -136322,6 +140304,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "rostlander",
+   "owner_name": "로슬란더",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "hefty-hauler"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "isgeri-reclaimer",
    "owner_name": "이스거의 되찾는 자",
    "owner_level": "",
@@ -136393,6 +140386,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "isgeri-reclaimer",
+   "owner_name": "이스거의 되찾는 자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "terrain-stalker"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "lost-and-alone",
    "owner_name": "길을 잃고 홀로",
    "owner_level": "",
@@ -136447,6 +140451,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Warfare"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "lost-and-alone",
+   "owner_name": "길을 잃고 홀로",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
   },
   {
    "owner_kind": "background",
@@ -136507,6 +140522,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "wanted-witness",
+   "owner_name": "수배된 증인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "read-lips"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "foreign-diplomat",
    "owner_name": "외국 외교관",
    "owner_level": "",
@@ -136561,6 +140587,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Heraldry"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "foreign-diplomat",
+   "owner_name": "외국 외교관",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
   },
   {
    "owner_kind": "background",
@@ -136621,6 +140658,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "quartermaster",
+   "owner_name": "병참 장교",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "intimidating-glare"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "barber",
    "owner_name": "이발사",
    "owner_level": "",
@@ -136675,6 +140723,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Surgery"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "barber",
+   "owner_name": "이발사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "risky-surgery"
   },
   {
    "owner_kind": "background",
@@ -136735,6 +140794,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "second-chance-champion",
+   "owner_name": "두번째 기회 챔피언",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "cat-fall"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "ustalavic-academic",
    "owner_name": "우스탈라빅 아카데믹",
    "owner_level": "",
@@ -136792,6 +140862,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "ustalavic-academic",
+   "owner_name": "우스탈라빅 아카데믹",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "skill-training"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "medicinal-clocksmith",
    "owner_name": "약용 시계공",
    "owner_level": "",
@@ -136846,6 +140927,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Engineering"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "medicinal-clocksmith",
+   "owner_name": "약용 시계공",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "risky-surgery"
   },
   {
    "owner_kind": "background",
@@ -136948,6 +141040,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "grizzled-muckrucker",
+   "owner_name": "그리즐드 머크러커",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "experienced-tracker"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "clockwork-researcher",
    "owner_name": "시계태엽 연구원",
    "owner_level": "",
@@ -137002,6 +141105,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Engineering"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "clockwork-researcher",
+   "owner_name": "시계태엽 연구원",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "crafters-appraisal"
   },
   {
    "owner_kind": "background",
@@ -137121,6 +141235,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "unremarkable",
+   "owner_name": "눈에 띄지 않는",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "lengthy-diversion"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "bibliophile",
    "owner_name": "장서 애호가",
    "owner_level": "",
@@ -137175,6 +141300,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Library"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "bibliophile",
+   "owner_name": "장서 애호가",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "arcane-sense"
   },
   {
    "owner_kind": "background",
@@ -137235,6 +141371,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "northland-forager",
+   "owner_name": "노스랜드 수렵꾼",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "forager"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "secular-medic",
    "owner_name": "세속 의무병",
    "owner_level": "",
@@ -137289,6 +141436,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Anatomy"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "secular-medic",
+   "owner_name": "세속 의무병",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "battle-medicine"
   },
   {
    "owner_kind": "background",
@@ -137349,6 +141507,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "artist",
+   "owner_name": "아티스트",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "specialty-crafting"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "witch-wary",
    "owner_name": "마녀 조심",
    "owner_level": "",
@@ -137406,6 +141575,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "witch-wary",
+   "owner_name": "마녀 조심",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "oddity-identification"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "grand-council-bureaucrat",
    "owner_name": "대의회 관료",
    "owner_level": "",
@@ -137460,6 +141640,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Government"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "grand-council-bureaucrat",
+   "owner_name": "대의회 관료",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-impression"
   },
   {
    "owner_kind": "background",
@@ -137701,6 +141892,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "ex-mendevian-crusader",
+   "owner_name": "전 멘데비아 성전사",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "pilgrims-token"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "barker",
    "owner_name": "울부짖는 자",
    "owner_level": "",
@@ -137755,6 +141957,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Crowd"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "barker",
+   "owner_name": "울부짖는 자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "group-coercion"
   },
   {
    "owner_kind": "background",
@@ -137815,6 +142028,17 @@
   },
   {
    "owner_kind": "background",
+   "owner_slug": "belkzen-anthropologist",
+   "owner_name": "벨크젠 인류학자",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "multilingual"
+  },
+  {
+   "owner_kind": "background",
    "owner_slug": "company-agent",
    "owner_name": "회사 대리인",
    "owner_level": "",
@@ -137869,6 +142093,17 @@
    "rule": "",
    "type": "grant_lore",
    "target": "Accounting"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "company-agent",
+   "owner_name": "회사 대리인",
+   "owner_level": "",
+   "category": "",
+   "src": "field",
+   "rule": "",
+   "type": "grant_feat",
+   "target": "charming-liar"
   },
   {
    "owner_kind": "background",
@@ -220666,6 +224901,41 @@
    "choice_label": "추가 지식 분야를 입력하세요"
   },
   {
+   "owner_kind": "background",
+   "owner_slug": "gossip",
+   "owner_name": "가십",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "grant_lore",
+   "target": "$choice"
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "gossip",
+   "owner_name": "가십",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "note",
+   "type": "display_note",
+   "note": "원하는 지식 1개 훈련(추가 지식과 동일). 부여 재주는 배경 구조데이터에서 방출."
+  },
+  {
+   "owner_kind": "background",
+   "owner_slug": "gossip",
+   "owner_name": "가십",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "choice",
+   "type": "choice",
+   "choice": "cho-gossip-lore",
+   "choice_kind": "lore",
+   "choice_label": "원하는 지식 분야를 입력하세요"
+  },
+  {
    "owner_kind": "feat",
    "owner_slug": "reconstruct-the-scene",
    "owner_name": "현장 재구성",
@@ -227427,15 +231697,15 @@
    "name": "용기의 찬가"
   }
  ],
- "note": "자동화 정본 효과 테이블(FVTT 단일소스 재구축, 2026-07-06). 효과행 18334 · 64 type. 소스=FVTT system.rules[](feat/heritage/background) + 신격 구조필드 + curated_effects.json(FVTT 갭 큐레이션). rule=정의 규칙(FVTT Rule Element 종류 또는 curated). owner_kind=소속. condition=조건보유효과·deity=신격효과 → 표시/FK만(런타임 미편입). raw slug 표시. 재생성=node tools/derive/build_effects.mjs.",
+ "note": "자동화 정본 효과 테이블(FVTT 단일소스 재구축, 2026-07-06). 효과행 18722 · 64 type. 소스=FVTT system.rules[](feat/heritage/background) + 신격 구조필드 + curated_effects.json(FVTT 갭 큐레이션). rule=정의 규칙(FVTT Rule Element 종류 또는 curated). owner_kind=소속. condition=조건보유효과·deity=신격효과 → 표시/FK만(런타임 미편입). raw slug 표시. 재생성=node tools/derive/build_effects.mjs.",
  "_types": {
-  "choice": 639,
+  "choice": 640,
   "resistance": 240,
   "skill_bonus": 286,
   "roll_option": 791,
   "save_bonus": 202,
   "adjust_modifier": 184,
-  "grant_feat": 561,
+  "grant_feat": 946,
   "token_light": 13,
   "grant_item": 473,
   "strike": 196,
@@ -227478,7 +231748,7 @@
   "creature_size": 21,
   "temp_hp": 1,
   "dexterity_modifier_cap": 6,
-  "grant_lore": 405,
+  "grant_lore": 406,
   "fast_healing": 4,
   "ability_boost_choice": 946,
   "free_boost_slots": 497,
@@ -227490,7 +231760,7 @@
   "domain": 2504,
   "grant_spell": 1463,
   "sanctification": 369,
-  "display_note": 714,
+  "display_note": 715,
   "damage_note": 3,
   "grant_focus_spell": 1
  }

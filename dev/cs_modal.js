@@ -4311,7 +4311,8 @@ function _rebuildTrainableSkillDropdowns() {
 function _buildBackgroundChoicesUI(bg) {
   const beff = (typeof getBackgroundEffects === 'function') ? getBackgroundEffects(bg) : {};
   const _savedBgChoice = (state.selectedBackground?.id === bg.id) ? (state.initialChoices?.background?.choiceSkill || null) : null;
-  _modalChoices = { type: 'background', skills: {}, choiceSkill: _savedBgChoice, loreName: '' };
+  const _savedBgLore = (state.selectedBackground?.id === bg.id) ? (state.initialChoices?.background?.choiceLore || '') : '';
+  _modalChoices = { type: 'background', skills: {}, choiceSkill: _savedBgChoice, loreName: '', choiceLore: _savedBgLore };
 
   let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
   html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📋 배경 혜택</div>`;
@@ -4354,6 +4355,16 @@ function _buildBackgroundChoicesUI(bg) {
     const _loreKo = (typeof getLoreKo === 'function') ? getLoreKo(loreName) : loreName;
     html += _choiceDropdown('', `지식 기술`, [{value: loreName, label: _loreKo + ' 지식'}], true, loreName);
   });
+
+  // 원하는 지식 (선택) — 사용자가 분야명 지정(추가 지식과 동일). 미입력 허용(시트에서 나중에 입력 가능).
+  if (beff.choice_lore) {
+    const _curLore = (_modalChoices.choiceLore || '').replace(/"/g, '&quot;');
+    html += `<div style="margin-bottom:6px;">
+      <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">지식 기술 (원하는 분야 1개)</div>
+      <input type="text" id="bg-choice-lore" value="${_curLore}" placeholder="예: 소문 지식" maxlength="30"
+        oninput="_modalChoices.choiceLore=this.value" style="${_selStyle}">
+    </div>`;
+  }
 
   // 신격 기술/지식 마커 (raised-by-belief)
   if (beff.deity_skill || beff.deity_lore) {
@@ -4871,6 +4882,7 @@ function confirmModal() {
     if (!state.initialChoices) state.initialChoices = {};
     state.initialChoices.background = {
       choiceSkill: _modalChoices.choiceSkill || null,
+      choiceLore: (_modalChoices.choiceLore || '').trim() || null,
     };
   } else if (modalType==='feat') {
     const type = modalContext || 'other';
@@ -5296,6 +5308,7 @@ function applyBackgroundInfo(bg) {
       ...(beff.fixed_skills || []).map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)),
       ...(beff.choice_skill_groups || []).map(g => g.map(id => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s=>s.id===id)?.name || id) : id)).join(' 또는 ')),
       ...(beff.fixed_lores || []).map(l => ((typeof getLoreKo === 'function') ? getLoreKo(l) : l) + ' 지식'),
+      ...(beff.choice_lore ? ['원하는 지식 1개'] : []),
     ].join(', ');
     const fd = beff.feat_id ? getFeat(beff.feat_id) : null;
     const featKo = fd ? fd.name_ko : (beff.feat_id || '—');

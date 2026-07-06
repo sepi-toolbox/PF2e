@@ -152,6 +152,13 @@ function emitBackground(base, doc) {
   const ts = s.trainedSkills || {};
   for (const sk of (ts.value || [])) out.push({ type: 'skill_trained', target: sk });
   for (const lo of (ts.lore || [])) out.push({ type: 'grant_lore', target: String(lo).replace(/\s*Lore$/i, '').trim() });
+  // 부여 재주: 배경은 skill feat을 system.items(UUID)로 담음(rules[] 아님) → slug로 grant_feat 방출.
+  // (런타임 getBackgroundEffects/rebuildCoreEffects·배경 모달이 feat_id를 이미 소비. 하드코딩 없이 구조데이터 단일 소스.)
+  for (const k of Object.keys(s.items || {})) {
+    const uuid = ((s.items[k] || {}).uuid || '').trim().split(/\s+/)[0];
+    if (!uuid) continue;
+    try { const g = PF.getByUuid(uuid); if (g && g.type === 'feat') { const sl = (g.system && g.system.slug) || ''; if (sl) out.push({ type: 'grant_feat', target: sl }); } } catch (e) {}
+  }
   if (!out.length) return;
   const cur = dbBySlug[base.owner_slug];
   dbBySlug[base.owner_slug] = { rows: (cur && cur.rows || []).concat(out) };

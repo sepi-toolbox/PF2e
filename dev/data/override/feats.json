@@ -1,4 +1,7 @@
 {
+ "hobnobber": {
+  "name_ko": "소문 수집가"
+ },
  "flickering-figure": {
   "name_ko": "명멸하는 형상",
   "desc_ko": "<p><strong>빈도</strong> 하루 1회</p><hr /><p>당신은 몸을 변형시켜 반투명하게 보이도록 만들어, 겉모습이 어른거리며 주변과 뒤섞이게 한다. 당신은 @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{은폐} 상태가 되며, 이 은폐를 이용해 @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{숨기}를 사용할 수 있다. 이 효과는 10분간 지속된다.</p>"

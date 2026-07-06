@@ -98,6 +98,17 @@ function runDiag(){
   // 배경(legacy) 효과
   var bg = getBackgroundEffects({id:'acolyte'});
   ok('background effects via EFFECTS_DB (acolyte)', !!(bg && (bg.fixed_skills.length||bg.fixed_lores.length||bg.boosts.length)));
+  // 배경 부여 재주(generic items→grant_feat) + 원하는 지식(choice_lore)
+  var gsp = getBackgroundEffects({id:'gossip'});
+  ok('gossip: feat_id=hobnobber (부여재주)', gsp && gsp.feat_id==='hobnobber');
+  ok('gossip: choice_lore=true (원하는 지식)', gsp && gsp.choice_lore===true);
+  ok('gossip: fixed_lores 비어있음(선택형이라)', gsp && gsp.fixed_lores.length===0);
+  ok('gossip: 외교 훈련 유지', gsp && gsp.fixed_skills.indexOf('diplomacy')>=0);
+  var bkp = getBackgroundEffects({id:'barkeep'});
+  ok('barkeep: feat_id=hobnobber + 고정지식 Alcohol', bkp && bkp.feat_id==='hobnobber' && bkp.fixed_lores.length===1 && bkp.choice_lore===false);
+  var gr = (typeof getEffectRows==='function')?getEffectRows('gossip'):[];
+  ok('gossip rows: grant_lore $choice 존재', gr.some(function(r){return r.type==='grant_lore'&&r.target==='$choice';}));
+  ok('gossip rows: grant_feat hobnobber 존재', gr.some(function(r){return r.type==='grant_feat'&&r.target==='hobnobber';}));
   // fvtt-only 재주도 효과 나오나(있으면)
   var anySlug=Object.keys(EFFECTS_DB).find(function(s){return EFFECTS_DB[s].source==='fvtt';});
   ok('fvtt-origin entity has runtime rows', !!(anySlug && EFFECTS_DB[anySlug].rows.length));
