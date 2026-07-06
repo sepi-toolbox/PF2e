@@ -2336,13 +2336,12 @@ function removeFeat(t, i) {
     if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(feat));
     if (state.spells?.focus) state.spells.focus = state.spells.focus.filter(s => featSlug(s._sourceFeat) !== featSlug(feat));
   }
-  // 재주로 부여된 무기 제거 (grant_weapon)
-  if (feat?.name) {
-    const _fEN = (typeof _extractEnName === 'function') ? _extractEnName(feat.name) : '';
-    if (_fEN) {
-      state.weapons = state.weapons.filter(w => w._fromFeat !== _fEN);
-    }
+  // 재주로 부여된 무기 제거 (grant_weapon) — slug 기준(이름 편집 무관, applyFeatEffects 정리와 일치)
+  if (feat) {
+    const _fslug = featSlug(feat);
+    if (_fslug) state.weapons = state.weapons.filter(w => featSlug(w._fromFeat) !== _fslug);
   }
+
   // 재주로 부여된 지식/기술 숙련 정리
   if (feat?.name && typeof _getFeatEffectsDef === 'function') {
     const nameEn = (typeof _extractEnName === 'function') ? _extractEnName(feat.name) : '';
