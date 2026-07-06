@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.107').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.108').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2208,6 +2208,7 @@ function renderFeats() {
       const choiceBadge = f.choice && typeof _getChoiceDisplayName === 'function' ? _getChoiceDisplayName(f) : '';
       const hasChoiceIssue = typeof _hasFeatChoiceIssue === 'function' && _hasFeatChoiceIssue(f);
       const hasPrereqIssue = typeof _hasFeatPrereqIssue === 'function' && _hasFeatPrereqIssue(f);
+      const hasLoreOverflow = typeof loreSlotFullForFeat === 'function' && loreSlotFullForFeat(f);
       let fPrereq = '';
       if (featData?.prerequisites) {
         const prParts = featData.prerequisites.split(/(?<=\.)\s+/);
@@ -2217,7 +2218,8 @@ function renderFeats() {
           : `<div style="margin-top:4px;"><b style="color:${_pColor};">선행:</b> ${prParts[0].replace(/\.$/,'')}</div>`;
       }
       const redDot = hasChoiceIssue ? '<span style="font-size:11px;color:#f44336;flex-shrink:0;line-height:1;" title="선택 필요">⚠</span>'
-        : hasPrereqIssue ? '<span style="font-size:11px;color:#ff9800;flex-shrink:0;line-height:1;" title="선행 조건 미충족">⚠</span>' : '';
+        : hasPrereqIssue ? '<span style="font-size:11px;color:#ff9800;flex-shrink:0;line-height:1;" title="선행 조건 미충족">⚠</span>'
+        : hasLoreOverflow ? '<span style="font-size:11px;color:#ff9800;flex-shrink:0;line-height:1;" title="지식 슬롯 가득 참 — 다른 지식 제거 시 자동 적용">⚠</span>' : '';
       // 서브클래스 선택 특성(방법론·교의·기질 등): 선택한 서브클래스만 박스로 표시(모든 옵션 나열 방지)
       const _sub = state.selectedSubclass;
       const _isSubChoice = t === 'special' && _sub && _sub.class_id === state.selectedClass?.id

@@ -647,7 +647,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.107').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.108').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
@@ -712,6 +712,65 @@ function _rowToEffect(r) {
     }
   }
   return e;
+}
+
+// ═══════════════════════════════════════════════
+//  지식(Lore) 슬롯 부여 — 재주/배경 공용 단일 로직 (v0.108~)
+// ═══════════════════════════════════════════════
+// lore1/lore2(2칸 고정) 중 ①동명 슬롯(랭크만 상향, 중복 방지) ②빈 슬롯 순으로 지식을 부여.
+// opts.profByLevel([[레벨하한,숙련값],...]) 있으면 현재 레벨 기준 스케일(없으면 훈련 2).
+// opts.trackingArr에 {slot,name,prevName,prevRank}(복원용) 기록. opts.fbSkills 있으면 min_rank 반영(재주 계산).
+// 슬롯 만석이면 미배치(placed:false) 반환 → 호출자가 '초과' 경고 기록. recalc마다 재시도되므로
+// 다른 지식 출처를 제거해 칸이 나면 다음 recalc에서 자동으로 당겨져 적용됨.
+function grantLoreToSlot(loreName, opts) {
+  opts = opts || {};
+  if (!loreName) return { placed: false, empty: true };
+  let rank = 2;
+  if (Array.isArray(opts.profByLevel)) {
+    const level = (opts.level != null) ? opts.level : (typeof getLevel === 'function' ? getLevel() : 1);
+    rank = 0;
+    for (const p of opts.profByLevel) if (Array.isArray(p) && level >= p[0]) rank = Math.max(rank, p[1]);
+    if (!rank) rank = 2;
+  }
+  for (const wantEmpty of [false, true]) {   // 1차: 동명 슬롯 → 2차: 빈 슬롯
+    for (const sid of ['lore1', 'lore2']) {
+      const nameEl = document.getElementById('lore-name-' + sid);
+      const profEl = document.getElementById('sk-prof-' + sid);
+      if (!nameEl) continue;
+      const isMatch = nameEl.value === loreName;
+      const isEmpty = !nameEl.value;
+      if ((!wantEmpty && isMatch) || (wantEmpty && isEmpty)) {
+        const prevRank = parseInt((profEl && profEl.value) || 0);
+        const prevName = isMatch ? loreName : nameEl.value;
+        if (isEmpty) nameEl.value = loreName;
+        if (profEl && prevRank < rank) profEl.value = String(rank);
+        if (Array.isArray(opts.trackingArr)) opts.trackingArr.push({ slot: sid, name: loreName, prevName: prevRank < 2 ? '' : prevName, prevRank: prevRank < 2 ? 0 : prevRank });
+        if (opts.fbSkills) { if (!opts.fbSkills[sid]) opts.fbSkills[sid] = { min_rank: 0, bonus: 0 }; opts.fbSkills[sid].min_rank = Math.max(opts.fbSkills[sid].min_rank, rank); }
+        return { placed: true, slot: sid, rank: rank };
+      }
+    }
+  }
+  return { placed: false };  // 슬롯 만석 → 초과(호출자가 경고 기록)
+}
+
+// 부여 지식 정리(복원) — 재주/배경 공용. 부여 당시 기록한 prevName/prevRank로 되돌림.
+function restoreGrantedLores(arr) {
+  (arr || []).forEach(entry => {
+    const nameEl = document.getElementById('lore-name-' + entry.slot);
+    const profEl = document.getElementById('sk-prof-' + entry.slot);
+    if (nameEl && nameEl.value === entry.name) {
+      nameEl.value = entry.prevName || '';
+      if (profEl) profEl.value = String(entry.prevRank || 0);
+    }
+  });
+}
+
+// 지식 슬롯 초과 경고 조회 — state._loreOverflow: [{kind:'feat'|'background', loreName, featRef?}]
+function loreSlotFullForFeat(feat) {
+  return !!(feat && state._loreOverflow && state._loreOverflow.some(o => o.kind === 'feat' && o.featRef === feat));
+}
+function loreSlotFullForBackground() {
+  return !!(state._loreOverflow && state._loreOverflow.some(o => o.kind === 'background'));
 }
 
 // ═══════════════════════════════════════════════
@@ -1630,16 +1689,11 @@ function rebuildCoreEffects() {
   });
   state._bgGrantedSkills = [];
 
-  // 배경 지식: 이름+숙련 복원
-  (state._bgGrantedLores || []).forEach(entry => {
-    const nameEl = document.getElementById('lore-name-' + entry.slot);
-    const profEl = document.getElementById('sk-prof-' + entry.slot);
-    if (nameEl && nameEl.value === entry.name) {
-      nameEl.value = entry.prevName || '';
-      if (profEl) profEl.value = String(entry.prevRank || 0);
-    }
-  });
+  // 배경 지식: 이름+숙련 복원 (재주/배경 공용 restoreGrantedLores)
+  restoreGrantedLores(state._bgGrantedLores);
   state._bgGrantedLores = [];
+  // 지식 슬롯 초과 경고: 배경 몫만 초기화(재주 몫은 applyFeatEffects가 관리). 이 recalc에서 다시 채워짐.
+  state._loreOverflow = (state._loreOverflow || []).filter(o => o.kind !== 'background');
 
   // 배경 재주: _fromBackground 제거
   Object.values(state.feats).forEach(arr => {
@@ -1722,40 +1776,22 @@ function rebuildCoreEffects() {
     });
   }
 
-  // 배경 지식 (lore) — 글로서리로 주제명 한글화(영문/한글 양쪽 매칭으로 정합 유지)
+  // 배경 지식 (lore) — 재주/배경 공용 grantLoreToSlot. 주제명 한글화(글로서리) 후 부여.
   if (beff && beff.fixed_lores.length) {
-    beff.fixed_lores.forEach((loreName, i) => {
-      const slot = i === 0 ? 'lore1' : 'lore2';
+    beff.fixed_lores.forEach(loreName => {
       const loreKo = (typeof getLoreKo === 'function') ? getLoreKo(loreName) : loreName;
-      const nameEl = document.getElementById('lore-name-' + slot);
-      const profEl = document.getElementById('sk-prof-' + slot);
-      if (nameEl && profEl) {
-        const _isGranted = (nameEl.value === loreKo || nameEl.value === loreName);
-        const prevName = _isGranted ? loreKo : nameEl.value;
-        const prevRank = parseInt(profEl.value || 0);
-        state._bgGrantedLores.push({slot, name: loreKo, prevName: prevRank < 2 ? '' : prevName, prevRank: prevRank < 2 ? 0 : prevRank});
-        if (!nameEl.value || _isGranted) nameEl.value = loreKo;
-        if (prevRank < 2) profEl.value = '2';
-      }
+      const res = grantLoreToSlot(loreKo, { trackingArr: state._bgGrantedLores });
+      if (!res.placed && !res.empty) state._loreOverflow.push({ kind: 'background', loreName: loreKo });
     });
   }
 
-  // 배경 지식(선택) — 원하는 지식 1개(추가 지식과 동일: 사용자가 분야명 지정). 다음 빈 슬롯에 훈련 부여.
-  // 미입력 시 미적용(additional-lore와 동일 — 이름 정해질 때까지 대기).
+  // 배경 지식(선택) — 원하는 지식 1개(추가 지식과 동일: 사용자가 분야명 지정).
+  // 미입력 시 미적용(이름 정해질 때까지 대기).
   if (beff && beff.choice_lore) {
     const chosen = ((state.initialChoices && state.initialChoices.background && state.initialChoices.background.choiceLore) || '').trim();
     if (chosen) {
-      const slot = (beff.fixed_lores && beff.fixed_lores.length) ? 'lore2' : 'lore1';
-      const nameEl = document.getElementById('lore-name-' + slot);
-      const profEl = document.getElementById('sk-prof-' + slot);
-      if (nameEl && profEl) {
-        const prevRank = parseInt(profEl.value || 0);
-        const _isGranted = nameEl.value === chosen;
-        const prevName = _isGranted ? chosen : nameEl.value;
-        state._bgGrantedLores.push({slot, name: chosen, prevName: prevRank < 2 ? '' : prevName, prevRank: prevRank < 2 ? 0 : prevRank});
-        if (!nameEl.value || _isGranted) nameEl.value = chosen;
-        if (prevRank < 2) profEl.value = '2';
-      }
+      const res = grantLoreToSlot(chosen, { trackingArr: state._bgGrantedLores });
+      if (!res.placed && !res.empty) state._loreOverflow.push({ kind: 'background', loreName: chosen });
     }
   }
 

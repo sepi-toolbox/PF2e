@@ -123,6 +123,32 @@ function runDiag(){
   // 스케일 없는 지식(가십 choice)은 훈련 고정
   var gLore=(getEffectRows('gossip')||[]).find(function(r){return r.type==='grant_lore';});
   ok('가십 지식은 prof_by_level 없음(훈련 고정)', !!(gLore && !gLore.prof_by_level));
+
+  // ── 공용 지식 슬롯 헬퍼: 스케일·슬롯 만석·당겨짐·복원 (재주/배경 통일 로직) ──
+  if (typeof grantLoreToSlot==='function') {
+    var n1=document.getElementById('lore-name-lore1'), p1=document.getElementById('sk-prof-lore1');
+    var n2=document.getElementById('lore-name-lore2'), p2=document.getElementById('sk-prof-lore2');
+    ok('지식 슬롯 DOM 존재(lore1/lore2)', !!(n1&&p1&&n2&&p2));
+    if (n1&&p1&&n2&&p2) {
+      n1.value='';p1.value='0';n2.value='';p2.value='0';
+      var g1=grantLoreToSlot('스케일테스트',{profByLevel:[[1,2],[3,4],[7,6],[15,8]],level:15,trackingArr:[]});
+      ok('grantLoreToSlot 스케일 L15 → lore1=전설(8)', g1.placed && n1.value==='스케일테스트' && p1.value==='8');
+      var g2=grantLoreToSlot('두번째',{trackingArr:[]});
+      ok('두번째 지식 → lore2 훈련(2)', g2.placed && n2.value==='두번째' && p2.value==='2');
+      var g3=grantLoreToSlot('세번째초과',{trackingArr:[]});
+      ok('슬롯 만석 → placed:false(초과)', g3.placed===false && !g3.empty);
+      n2.value='';p2.value='0';
+      var g4=grantLoreToSlot('세번째초과',{trackingArr:[]});
+      ok('lore2 비우면 → 초과분 당겨짐(lore2)', g4.placed && n2.value==='세번째초과');
+      var g5=grantLoreToSlot('스케일테스트',{profByLevel:[[1,4]],level:1,trackingArr:[]});
+      ok('동명 재부여 → 중복없이 lore1(랭크상향만)', g5.slot==='lore1' && n1.value==='스케일테스트');
+      var trk=[]; n2.value='';p2.value='0';
+      grantLoreToSlot('복원용',{trackingArr:trk});
+      restoreGrantedLores(trk);
+      ok('restoreGrantedLores → 슬롯 원복(빈칸)', n2.value==='' && p2.value==='0');
+      n1.value='';p1.value='0';n2.value='';p2.value='0';
+    }
+  } else { ok('grantLoreToSlot 로드', false); }
   // fvtt-only 재주도 효과 나오나(있으면)
   var anySlug=Object.keys(EFFECTS_DB).find(function(s){return EFFECTS_DB[s].source==='fvtt';});
   ok('fvtt-origin entity has runtime rows', !!(anySlug && EFFECTS_DB[anySlug].rows.length));

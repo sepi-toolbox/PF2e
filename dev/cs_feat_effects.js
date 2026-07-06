@@ -94,16 +94,11 @@ function applyFeatEffects() {
 
   // ═══ 재주 부여 효과 재구축: 이전 사이클 정리 ═══
 
-  // grant_lore: 지식 슬롯 초기화
-  (state._featGrantedLores || []).forEach(entry => {
-    const nameEl = document.getElementById('lore-name-' + entry.slot);
-    const profEl = document.getElementById('sk-prof-' + entry.slot);
-    if (nameEl && nameEl.value === entry.name) {
-      nameEl.value = '';
-      if (profEl) profEl.value = '0';
-    }
-  });
+  // grant_lore: 지식 슬롯 초기화 (재주/배경 공용 restoreGrantedLores — prevName/prevRank 복원)
+  if (typeof restoreGrantedLores === 'function') restoreGrantedLores(state._featGrantedLores);
   state._featGrantedLores = [];
+  // 지식 슬롯 초과 경고: 재주 몫만 초기화(배경 몫은 rebuildCoreEffects가 관리). 아래에서 다시 채워짐.
+  state._loreOverflow = (state._loreOverflow || []).filter(o => o.kind !== 'feat');
 
   // skill_trained: 재주가 부여한 기술 숙련 → 이전 값으로 복원
   (state._featGrantedSkills || []).forEach(entry => {
@@ -431,31 +426,16 @@ function _applyOneEffect(fb, eff, feat, level) {
       break;
     }
     case 'grant_lore': {
-      // 빈 지식 슬롯을 찾아 이름 설정 + 숙련 부여.
-      // 레벨 스케일: 효과행 prof_by_level([[레벨하한,숙련값],...])이 있으면 현재 레벨에서 만족하는 최고 숙련값.
-      // (예: 추가 지식 [[1,2],[3,4],[7,6],[15,8]] → 3/7/15레벨에 전문가·달인·전설.) 없으면 훈련(2) 고정.
+      // 재주/배경 공용 grantLoreToSlot로 지식 부여. 레벨 스케일(prof_by_level)·슬롯 초과 처리 포함.
+      // (예: 추가 지식 [[1,2],[3,4],[7,6],[15,8]] → 3/7/15레벨에 전문가·달인·전설.)
       let loreName = eff.name || '';
       if (loreName === '$choice') loreName = feat.choice || '';
       if (!loreName) break;
-      const _lvl = (typeof getLevel === 'function') ? getLevel() : 1;
-      let _rank = 2;
-      if (Array.isArray(eff.prof_by_level)) {
-        _rank = 0;
-        for (const pair of eff.prof_by_level) { if (Array.isArray(pair) && _lvl >= pair[0]) _rank = Math.max(_rank, pair[1]); }
-        if (!_rank) _rank = 2;
-      }
-      const slots = ['lore1','lore2'];
-      for (const sid of slots) {
-        const nameEl = document.getElementById('lore-name-'+sid);
-        const profEl = document.getElementById('sk-prof-'+sid);
-        if (!nameEl) continue;
-        if (nameEl.value === loreName || !nameEl.value) {
-          if (!nameEl.value) nameEl.value = loreName;
-          if (profEl && parseInt(profEl.value||0) < _rank) profEl.value = String(_rank);
-          if (!fb.skills[sid]) fb.skills[sid] = {min_rank:0, bonus:0};
-          fb.skills[sid].min_rank = Math.max(fb.skills[sid].min_rank, _rank);
-          state._featGrantedLores.push({slot: sid, name: loreName, feat: feat.name});
-          break;
+      if (typeof grantLoreToSlot === 'function') {
+        const res = grantLoreToSlot(loreName, { profByLevel: eff.prof_by_level, trackingArr: state._featGrantedLores, fbSkills: fb.skills });
+        if (!res.placed && !res.empty) {
+          // 슬롯 만석 → 초과 경고 기록(재주 탭·성장 슬롯에 안내). 다른 지식 제거 시 다음 recalc에서 자동 적용.
+          (state._loreOverflow = state._loreOverflow || []).push({ kind: 'feat', loreName: loreName, featRef: feat });
         }
       }
       break;
@@ -590,6 +570,7 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
         style="padding:6px 12px;font-size:12px;background:var(--accent);color:var(--bg);border:none;border-radius:4px;cursor:pointer;white-space:nowrap;font-weight:600;">확인</button>
     </div>`;
     if (!current) html += `<div style="margin-top:4px;font-size:11px;color:#f44336;">⚠ 선택하지 않은 항목이 있습니다.</div>`;
+    else if (typeof loreSlotFullForFeat === 'function' && loreSlotFullForFeat(feat)) html += `<div style="margin-top:4px;font-size:11px;color:#ff9800;">⚠ 지식 슬롯(2칸)이 가득 차 아직 적용되지 않았습니다. 다른 지식 출처를 제거하면 자동으로 적용됩니다.</div>`;
   } else if (ch.type === 'skill') {
     const skills = typeof SKILLS !== 'undefined' ? SKILLS : [];
     const minRank = ch.filter?.min_rank || 0;

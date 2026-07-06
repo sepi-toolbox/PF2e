@@ -1286,11 +1286,20 @@ function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
       if (_hasFeatPrereqIssue({name: value})) prereqWarn = '<div style="color:#ff9800;font-size:10px;margin-top:2px;">⚠ 선행 조건 미충족</div>';
     } catch(e) { console.warn('prereq check error:', e); }
   }
+  // 지식 슬롯 초과 안내 (부여 지식이 2칸을 넘겨 아직 미적용) — 해당 재주 인스턴스로 조회
+  let loreWarn = '';
+  if (value && typeof loreSlotFullForFeat === 'function') {
+    try {
+      const _fobj = (state.feats[featType] || []).find(f => f && f.level === lv &&
+        ((typeof featSlug === 'function') ? featSlug(f) === featSlug(value) : f.name === value));
+      if (_fobj && loreSlotFullForFeat(_fobj)) loreWarn = '<div style="color:#ff9800;font-size:10px;margin-top:2px;">⚠ 지식 슬롯 가득 참 — 다른 지식 제거 시 적용</div>';
+    } catch(e) {}
+  }
   return `<div class="growth-slot ${filled}" onclick="${clickAction}">
     <div class="growth-slot-icon">${circleIco}</div>
     <div class="growth-slot-body">
       <div class="growth-slot-label">${label}</div>
-      <div class="growth-slot-value">${display}</div>${prereqWarn}
+      <div class="growth-slot-value">${display}</div>${prereqWarn}${loreWarn}
     </div>
     ${value ? '<span class="spell-del" onclick="event.stopPropagation();growthClearFeat('+lv+',\''+key+'\',\''+featType+'\');" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>' : ''}
   </div>`;
