@@ -149,11 +149,12 @@ function applyRest() {
     }
   }
   if (document.getElementById('rest-fatigue')?.checked) {
-    if (state.conditions['피로']) { state.conditions['피로'] = 0; }
+    const _f = _condName('fatigued'); if (state.conditions[_f]) state.conditions[_f] = 0;
   }
   if (document.getElementById('rest-doomed')?.checked) {
-    if (state.conditions['파멸'] > 0) state.conditions['파멸'] = Math.max(0, state.conditions['파멸'] - 1);
-    if (state.conditions['탈진'] > 0) state.conditions['탈진'] = Math.max(0, state.conditions['탈진'] - 1);
+    const _d = _condName('doomed'), _dr = _condName('drained');
+    if (state.conditions[_d] > 0) state.conditions[_d] = Math.max(0, state.conditions[_d] - 1);
+    if (state.conditions[_dr] > 0) state.conditions[_dr] = Math.max(0, state.conditions[_dr] - 1);
   }
   if (document.getElementById('rest-spells')?.checked) {
     // 주문 슬롯 사용 초기화

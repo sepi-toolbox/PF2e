@@ -519,12 +519,20 @@ function loadData(d) {
     renderGrowthPlan();
     if (d.conditions) {
       state.conditions = d.conditions;
-      // v369: 상태 키 마이그레이션 (구 용어 → 신 용어)
-      const _condMigrate = {둔함:'서투름',약화됨:'약화',혼미:'현기증',행동감소:'둔화',고정됨:'고정',방어불가:'무방비',발묶임:'무방비',속박됨:'구속',매혹됨:'매혹',쇠약:'탈진',은폐됨:'은폐',구역질:'메스꺼움'};
-      for (const [old,nw] of Object.entries(_condMigrate)) {
+      // 상태 키 마이그레이션: 구 조건명(여러 세대) → slug → 현재 CONDITIONS_DATA 이름으로 정규화.
+      // (state.conditions는 현재 한글명 키 — 이름이 또 개명돼도 slug로 현재명 해소, 구 역방향맵 폐기.)
+      const _condAlias = {
+        '서투름':'clumsy', '약화':'enfeebled', '메스꺼움':'sickened',
+        '혼미':'stupefied', '현기증':'stupefied', '쇠약':'drained', '탈진':'drained',
+        '의식불명':'unconscious', '행동감소':'slowed', '고정됨':'immobilized', '고정':'immobilized',
+        '방어불가':'off-guard', '발묶임':'off-guard', '속박됨':'restrained', '구속':'restrained',
+        '매혹됨':'charmed', '은폐됨':'concealed'
+      };
+      const _cName = (typeof _condName === 'function') ? _condName : (s => s);
+      for (const [old, slug] of Object.entries(_condAlias)) {
         if (state.conditions[old] !== undefined) {
-          state.conditions[nw] = state.conditions[old];
-          delete state.conditions[old];
+          const cur = _cName(slug);
+          if (cur && cur !== old) { state.conditions[cur] = state.conditions[old]; delete state.conditions[old]; }
         }
       }
       // 값을 복원 후 buildConditions 다시 실행

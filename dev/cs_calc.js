@@ -1884,15 +1884,20 @@ function showBonusInfoModal(category, label) {
   overlay.onclick = e => { if (e.target === overlay) close(); };
 }
 
+// 조건은 slug(영문 id)로 식별 — state.conditions는 현재 한글명 키라, 하드코딩 한글명은 이름 개명 시 조용히 오작동.
+// (실제로 sickened/clumsy/enfeebled/stupefied/drained 등이 개명돼 페널티 미적용이던 버그 복구.)
+function _condName(slug) {
+  const c = (typeof CONDITIONS_DATA !== 'undefined') ? CONDITIONS_DATA.find(x => x && x.id === slug) : null;
+  return c ? c.name : slug;
+}
+function _condVal(slug) { return parseInt(state.conditions[_condName(slug)] || 0) || 0; }
+
 function getCondPenalty() {
-  const frightened = parseInt(state.conditions['공포'] || 0);
-  const sickened = parseInt(state.conditions['메스꺼움'] || 0);
-  const clumsy = parseInt(state.conditions['서투름'] || 0);
-  const enfeebled = parseInt(state.conditions['약화'] || 0);
-  const stupefied = parseInt(state.conditions['현기증'] || 0);
+  const frightened = _condVal('frightened');
+  const sickened = _condVal('sickened');
   return {
-    all: Math.max(frightened, sickened), // 공포/메스꺼움 중 큰 값
-    clumsy, enfeebled, stupefied
+    all: Math.max(frightened, sickened), // 공포/구역질 중 큰 값
+    clumsy: _condVal('clumsy'), enfeebled: _condVal('enfeebled'), stupefied: _condVal('stupefied')
   };
 }
 
@@ -2341,15 +2346,16 @@ function recalcBulk() {
     if (bulkTotal) bulkTotal.style.color = '';
   }
 
-  // 과적 상태이상 자동 적용/해제
-  const wasEncumbered = !!state.conditions['과적'];
+  // 과적 상태이상 자동 적용/해제 (조건명은 slug로 해소 — 개명 무관)
+  const _enc = _condName('encumbered'), _clm = _condName('clumsy');
+  const wasEncumbered = !!state.conditions[_enc];
   if (isEncumbered && !wasEncumbered) {
-    state.conditions['과적'] = true;
-    if ((parseInt(state.conditions['서투름'])||0) < 1) state.conditions['서투름'] = 1;
+    state.conditions[_enc] = true;
+    if ((parseInt(state.conditions[_clm])||0) < 1) state.conditions[_clm] = 1;
     buildConditions();
   } else if (!isEncumbered && wasEncumbered) {
-    state.conditions['과적'] = false;
-    if ((parseInt(state.conditions['서투름'])||0) <= 1) state.conditions['서투름'] = 0;
+    state.conditions[_enc] = false;
+    if ((parseInt(state.conditions[_clm])||0) <= 1) state.conditions[_clm] = 0;
     buildConditions();
   }
 
@@ -2493,11 +2499,12 @@ function toggleShieldRaise() {
 function checkHpZero() {
   const cur = parseInt(document.getElementById('hp-cur')?.value || 0);
   if (cur <= 0) {
-    // PF2e: HP 0 → 의식불명 + 빈사 1 (부상 수치만큼 빈사 증가)
-    if (!state.conditions['의식불명']) {
-      state.conditions['의식불명'] = 1;
-      const wounded = state.conditions['부상'] || 0;
-      state.conditions['빈사'] = Math.max(state.conditions['빈사'] || 0, 1 + wounded);
+    // PF2e: HP 0 → 무의식 + 빈사 1 (부상 수치만큼 빈사 증가). 조건명은 slug로 해소.
+    const _unc = _condName('unconscious'), _dyi = _condName('dying'), _wnd = _condName('wounded');
+    if (!state.conditions[_unc]) {
+      state.conditions[_unc] = 1;
+      const wounded = state.conditions[_wnd] || 0;
+      state.conditions[_dyi] = Math.max(state.conditions[_dyi] || 0, 1 + wounded);
       buildConditions();
       if (typeof renderActiveConditions === 'function') renderActiveConditions();
     }
