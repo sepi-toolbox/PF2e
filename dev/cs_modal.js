@@ -1329,22 +1329,12 @@ function growthClearFeat(lv, key, featType) {
       const _os = (typeof featSlug === 'function') ? featSlug(oldName) : oldName;
       const idx = arr.findIndex(f => ((typeof featSlug === 'function') ? featSlug(f) : f.name) === _os && f.level === lv);
       if (idx >= 0) {
-        // 재주로 부여된 지식/기술 숙련 정리
+        // 재주로 부여된 기술 숙련 정리 (지식은 출처 기반 — splice 후 recalcAll의 assignLoreSlots가 자동 정리)
         const removedFeat = arr[idx];
         if (removedFeat?.name && typeof _getFeatEffectsDef === 'function') {
           const def = _getFeatEffectsDef(removedFeat.id || removedFeat.name?.match(/\(([^)]+)\)$/)?.[1] || '');
           if (def?.effects) {
             def.effects.forEach(eff => {
-              if (eff.type === 'grant_lore') {
-                const loreName = (eff.name === '$choice') ? removedFeat.choice : eff.name;
-                if (loreName) {
-                  ['lore1','lore2'].forEach(sid => {
-                    const el = document.getElementById('lore-name-'+sid);
-                    const profEl = document.getElementById('sk-prof-'+sid);
-                    if (el && el.value === loreName) { el.value = ''; if (profEl) profEl.value = '0'; }
-                  });
-                }
-              }
               if (eff.type === 'skill_trained') {
                 const skillId = (eff.skill === '$choice') ? removedFeat.choice : eff.skill;
                 if (skillId) {
@@ -2817,8 +2807,7 @@ function _checkOnePrereq(cond) {
       return cur >= cond.lore;
     });
     if (anyLore) return true;
-    // 재주 부여 지식 체크 (최소 숙련=2)
-    if (cond.lore <= 2 && state._featGrantedLores?.length > 0) return true;
+    // 부여 지식은 DOM 슬롯 랭크(위 anyLore)에 이미 반영됨(출처 기반, assignLoreSlots). 별도 체크 불필요.
     return false;
   }
   // 능력치: {ability:'cha', min:2}
@@ -3719,16 +3708,18 @@ function _choiceDropdown(id, label, options, disabled, selected) {
 // (기존 재주 탭 인라인 _buildFeatChoiceUI는 '나중 편집' surface로 그대로 유지 — 동일 데이터(feat.choice) 공유.)
 function _existingFeatChoiceForModal(item) {
   if (typeof featSlug !== 'function') return '';
-  const slug = item.id || featSlug(item.name_ko || item.name || '');
-  if (!slug) return '';
-  const arrs = (growthPendingFeatType && state.feats[growthPendingFeatType])
-    ? [state.feats[growthPendingFeatType]] : Object.values(state.feats);
-  for (const arr of arrs) {
-    if (!Array.isArray(arr)) continue;
-    const f = arr.find(x => x && featSlug(x) === slug && (growthPendingLevel == null || x.level === growthPendingLevel));
-    if (f && f.choice) return f.choice;
-  }
-  return '';
+  // ★ 편집 중인 '바로 그 슬롯'의 현재 재주와 이 항목이 동일할 때만 기존 choice 프리필(재선택/편집).
+  //   새 추가(빈 슬롯이거나 다른 재주)엔 프리필 금지 — 반복 재주(추가 지식)를 새로 넣을 때 다른 인스턴스의
+  //   지식명이 복제돼 모두 같은 슬롯(동명)으로 몰리던 버그 방지.
+  if (growthPendingKey == null || growthPendingLevel == null) return '';
+  const cur = state.growth && state.growth[growthPendingLevel] && state.growth[growthPendingLevel][growthPendingKey];
+  if (!cur) return '';
+  const itemSlug = item.id || featSlug(item.name_ko || item.name || '');
+  if (!itemSlug || featSlug(cur) !== itemSlug) return '';
+  const arr = state.feats[growthPendingFeatType];
+  if (!Array.isArray(arr)) return '';
+  const f = arr.find(x => x && featSlug(x) === itemSlug && x.level === growthPendingLevel);
+  return (f && f.choice) || '';
 }
 
 function _buildFeatModalChoiceUI(item) {

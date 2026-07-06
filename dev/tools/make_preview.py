@@ -130,31 +130,36 @@ function runDiag(){
   var hd=getBackgroundEffects({id:'hookclaw-digger'});
   ok('hookclaw-digger: 고정지식 2개 유지(and)', hd && hd.fixed_lores.length===2 && hd.choice_lore===false);
 
-  // ── 공용 지식 슬롯 헬퍼: 스케일·슬롯 만석·당겨짐·복원 (재주/배경 통일 로직) ──
-  if (typeof grantLoreToSlot==='function') {
+  // ── 출처(source) 기반 지식 슬롯: 수집→배정·스케일·빈이름 점유·초과·당겨짐 ──
+  if (typeof collectLoreSource==='function' && typeof assignLoreSlots==='function') {
     var n1=document.getElementById('lore-name-lore1'), p1=document.getElementById('sk-prof-lore1');
     var n2=document.getElementById('lore-name-lore2'), p2=document.getElementById('sk-prof-lore2');
     ok('지식 슬롯 DOM 존재(lore1/lore2)', !!(n1&&p1&&n2&&p2));
     if (n1&&p1&&n2&&p2) {
       n1.value='';p1.value='0';n2.value='';p2.value='0';
-      var g1=grantLoreToSlot('스케일테스트',{profByLevel:[[1,2],[3,4],[7,6],[15,8]],level:15,trackingArr:[]});
-      ok('grantLoreToSlot 스케일 L15 → lore1=전설(8)', g1.placed && n1.value==='스케일테스트' && p1.value==='8');
-      var g2=grantLoreToSlot('두번째',{trackingArr:[]});
-      ok('두번째 지식 → lore2 훈련(2)', g2.placed && n2.value==='두번째' && p2.value==='2');
-      var g3=grantLoreToSlot('세번째초과',{trackingArr:[]});
-      ok('슬롯 만석 → placed:false(초과)', g3.placed===false && !g3.empty);
-      n2.value='';p2.value='0';
-      var g4=grantLoreToSlot('세번째초과',{trackingArr:[]});
-      ok('lore2 비우면 → 초과분 당겨짐(lore2)', g4.placed && n2.value==='세번째초과');
-      var g5=grantLoreToSlot('스케일테스트',{profByLevel:[[1,4]],level:1,trackingArr:[]});
-      ok('동명 재부여 → 중복없이 lore1(랭크상향만)', g5.slot==='lore1' && n1.value==='스케일테스트');
-      var trk=[]; n2.value='';p2.value='0';
-      grantLoreToSlot('복원용',{trackingArr:trk});
-      restoreGrantedLores(trk);
-      ok('restoreGrantedLores → 슬롯 원복(빈칸)', n2.value==='' && p2.value==='0');
-      n1.value='';p1.value='0';n2.value='';p2.value='0';
+      state._loreSlotSource={}; state._loreSlotRef={};
+      // 스케일: L15 prof_by_level → 전설(8)
+      state.level=15;
+      state._loreSources=[{key:'feat:a:1',name:'스케일테스트',rank:_loreRank([[1,2],[3,4],[7,6],[15,8]]),kind:'feat',ref:{},fixed:false}];
+      assignLoreSlots();
+      ok('출처 스케일 L15 → lore1=전설(8)', n1.value==='스케일테스트' && p1.value==='8');
+      // 빈 이름도 슬롯 점유(출처 기반) + 둘째 출처 → lore2
+      state._loreSources=[{key:'feat:a:1',name:'',rank:2,kind:'feat',ref:{},fixed:false},{key:'feat:b:1',name:'공부',rank:2,kind:'feat',ref:{},fixed:false}];
+      assignLoreSlots();
+      ok('빈 이름도 슬롯 점유(lore1 rank2)', p1.value==='2' && n1.value==='' && !!state._loreSlotSource.lore1);
+      ok('둘째 출처 → lore2(공부)', n2.value==='공부');
+      // 초과: 3번째 출처 → 오버플로
+      var refC={};
+      state._loreSources=[{key:'feat:a:1',name:'A',rank:2,kind:'feat',ref:{},fixed:false},{key:'feat:b:1',name:'B',rank:2,kind:'feat',ref:{},fixed:false},{key:'feat:c:1',name:'C',rank:2,kind:'feat',ref:refC,fixed:false}];
+      assignLoreSlots();
+      ok('셋째 출처 → 오버플로(ref로 추적)', (state._loreOverflow||[]).some(function(o){return o.ref===refC;}));
+      // 앞 출처 제거 → 초과분 당겨짐(C가 lore2로)
+      state._loreSources=[{key:'feat:a:1',name:'A',rank:2,kind:'feat',ref:{},fixed:false},{key:'feat:c:1',name:'C',rank:2,kind:'feat',ref:refC,fixed:false}];
+      assignLoreSlots();
+      ok('출처 제거 → 초과분 당겨짐(C→lore2)', n2.value==='C' && (state._loreOverflow||[]).length===0);
+      n1.value='';p1.value='0';n2.value='';p2.value='0';state._loreSources=[];state._loreSlotSource={};state._loreSlotRef={};
     }
-  } else { ok('grantLoreToSlot 로드', false); }
+  } else { ok('collectLoreSource/assignLoreSlots 로드', false); }
   // fvtt-only 재주도 효과 나오나(있으면)
   var anySlug=Object.keys(EFFECTS_DB).find(function(s){return EFFECTS_DB[s].source==='fvtt';});
   ok('fvtt-origin entity has runtime rows', !!(anySlug && EFFECTS_DB[anySlug].rows.length));

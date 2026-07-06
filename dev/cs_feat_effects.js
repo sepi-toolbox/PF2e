@@ -93,12 +93,8 @@ function applyFeatEffects() {
   const level = getLevel();
 
   // ═══ 재주 부여 효과 재구축: 이전 사이클 정리 ═══
-
-  // grant_lore: 지식 슬롯 초기화 (재주/배경 공용 restoreGrantedLores — prevName/prevRank 복원)
-  if (typeof restoreGrantedLores === 'function') restoreGrantedLores(state._featGrantedLores);
-  state._featGrantedLores = [];
-  // 지식 슬롯 초과 경고: 재주 몫만 초기화(배경 몫은 rebuildCoreEffects가 관리). 아래에서 다시 채워짐.
-  state._loreOverflow = (state._loreOverflow || []).filter(o => o.kind !== 'feat');
+  // 지식(lore)은 출처 기반 — collectLoreSource로 수집만 하고 배정/정리는 assignLoreSlots(recalcAll)가 담당.
+  //   (state._loreSources는 rebuildCoreEffects가 recalc 시작 시 리셋함.)
 
   // skill_trained: 재주가 부여한 기술 숙련 → 이전 값으로 복원
   (state._featGrantedSkills || []).forEach(entry => {
@@ -426,17 +422,21 @@ function _applyOneEffect(fb, eff, feat, level) {
       break;
     }
     case 'grant_lore': {
-      // 재주/배경 공용 grantLoreToSlot로 지식 부여. 레벨 스케일(prof_by_level)·슬롯 초과 처리 포함.
-      // (예: 추가 지식 [[1,2],[3,4],[7,6],[15,8]] → 3/7/15레벨에 전문가·달인·전설.)
+      // 출처 기반 지식 부여 — 이 재주(feat)가 하나의 출처=슬롯 점유. 이름 미입력이어도 점유(빈 이름 허용).
+      //   레벨 스케일(prof_by_level, 예: 추가 지식 [[1,2],[3,4],[7,6],[15,8]] → 3/7/15레벨에 전문가·달인·전설)은
+      //   이름과 무관하게 적용. 배정/초과는 assignLoreSlots(recalcAll)가 처리.
       let loreName = eff.name || '';
       if (loreName === '$choice') loreName = feat.choice || '';
-      if (!loreName) break;
-      if (typeof grantLoreToSlot === 'function') {
-        const res = grantLoreToSlot(loreName, { profByLevel: eff.prof_by_level, trackingArr: state._featGrantedLores, fbSkills: fb.skills });
-        if (!res.placed && !res.empty) {
-          // 슬롯 만석 → 초과 경고 기록(재주 탭·성장 슬롯에 안내). 다른 지식 제거 시 다음 recalc에서 자동 적용.
-          (state._loreOverflow = state._loreOverflow || []).push({ kind: 'feat', loreName: loreName, featRef: feat });
-        }
+      if (typeof collectLoreSource === 'function') {
+        const _fk = (typeof featSlug === 'function' ? featSlug(feat) : null) || feat.id || feat.name || '?';
+        collectLoreSource({
+          key: 'feat:' + _fk + ':' + (feat.level || 1),
+          name: loreName,
+          rank: (typeof _loreRank === 'function') ? _loreRank(eff.prof_by_level) : 2,
+          kind: 'feat',
+          ref: feat,
+          fixed: false,
+        });
       }
       break;
     }

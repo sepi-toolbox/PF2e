@@ -165,7 +165,9 @@ function collectData() {
   };
   SKILLS.forEach(sk => {
     data.skillProfs[sk.id] = document.getElementById('sk-prof-'+sk.id)?.value;
-    if (sk.isLore) data.loreNames[sk.id] = document.getElementById('lore-name-'+sk.id)?.value;
+    // 지식 이름: 부여(출처 소유) 슬롯은 출처의 choice에서 재파생되므로 저장 안 함(로드 시 수동 오인 방지).
+    //   수동 입력 슬롯만 저장.
+    if (sk.isLore && !(state._loreSlotSource && state._loreSlotSource[sk.id])) data.loreNames[sk.id] = document.getElementById('lore-name-'+sk.id)?.value;
   });
   for (let r=1; r<=10; r++) {
     // CLASS_SPELL_TABLE 기반 클래스는 state 값 그대로 저장 (숫자)

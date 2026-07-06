@@ -647,7 +647,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.111').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.112').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
@@ -715,59 +715,86 @@ function _rowToEffect(r) {
 }
 
 // ═══════════════════════════════════════════════
-//  지식(Lore) 슬롯 부여 — 재주/배경 공용 단일 로직 (v0.108~)
+//  지식(Lore) 슬롯 — 출처(source) 기반 배정 (v0.112~)
 // ═══════════════════════════════════════════════
-// lore1/lore2(2칸 고정) 중 ①동명 슬롯(랭크만 상향, 중복 방지) ②빈 슬롯 순으로 지식을 부여.
-// opts.profByLevel([[레벨하한,숙련값],...]) 있으면 현재 레벨 기준 스케일(없으면 훈련 2).
-// opts.trackingArr에 {slot,name,prevName,prevRank}(복원용) 기록. opts.fbSkills 있으면 min_rank 반영(재주 계산).
-// 슬롯 만석이면 미배치(placed:false) 반환 → 호출자가 '초과' 경고 기록. recalc마다 재시도되므로
-// 다른 지식 출처를 제거해 칸이 나면 다음 recalc에서 자동으로 당겨져 적용됨.
-function grantLoreToSlot(loreName, opts) {
-  opts = opts || {};
-  if (!loreName) return { placed: false, empty: true };
-  let rank = 2;
-  if (Array.isArray(opts.profByLevel)) {
-    const level = (opts.level != null) ? opts.level : (typeof getLevel === 'function' ? getLevel() : 1);
-    rank = 0;
-    for (const p of opts.profByLevel) if (Array.isArray(p) && level >= p[0]) rank = Math.max(rank, p[1]);
-    if (!rank) rank = 2;
-  }
-  for (const wantEmpty of [false, true]) {   // 1차: 동명 슬롯 → 2차: 빈 슬롯
-    for (const sid of ['lore1', 'lore2']) {
-      const nameEl = document.getElementById('lore-name-' + sid);
-      const profEl = document.getElementById('sk-prof-' + sid);
-      if (!nameEl) continue;
-      const isMatch = nameEl.value === loreName;
-      const isEmpty = !nameEl.value;
-      if ((!wantEmpty && isMatch) || (wantEmpty && isEmpty)) {
-        const prevRank = parseInt((profEl && profEl.value) || 0);
-        const prevName = isMatch ? loreName : nameEl.value;
-        if (isEmpty) nameEl.value = loreName;
-        if (profEl && prevRank < rank) profEl.value = String(rank);
-        if (Array.isArray(opts.trackingArr)) opts.trackingArr.push({ slot: sid, name: loreName, prevName: prevRank < 2 ? '' : prevName, prevRank: prevRank < 2 ? 0 : prevRank });
-        if (opts.fbSkills) { if (!opts.fbSkills[sid]) opts.fbSkills[sid] = { min_rank: 0, bonus: 0 }; opts.fbSkills[sid].min_rank = Math.max(opts.fbSkills[sid].min_rank, rank); }
-        return { placed: true, slot: sid, rank: rank };
-      }
-    }
-  }
-  return { placed: false };  // 슬롯 만석 → 초과(호출자가 경고 기록)
+// ★ 원칙: 부여된 지식은 "어느 효과(출처)로부터 왔는지"를 기억하고, 슬롯 점유는 이름이 아니라 출처로 판단.
+//   출처(재주/배경)가 빌더에서 제거되면 다음 recalc에서 수집되지 않아 해당 지식이 함께 사라지고, 뒷순번이 당겨진다.
+//   이름은 출처의 choice(=슬롯 내용)일 뿐 — 빈 이름이어도 슬롯을 점유한다(이름 미입력 ≠ 미점유).
+// 흐름: recalc 중 각 부여 효과가 collectLoreSource로 state._loreSources에 push
+//   → recalcAll이 rebuildCoreEffects+applyFeatEffects 뒤 assignLoreSlots() 1회 호출 → lore1/lore2/오버플로 배정.
+const LORE_SLOTS = ['lore1', 'lore2'];
+
+// prof_by_level([[레벨하한,숙련],...])로 현재 레벨 숙련 계산(없으면 훈련 2). 빈 이름이어도 스케일 적용됨.
+function _loreRank(profByLevel) {
+  if (!Array.isArray(profByLevel)) return 2;
+  const level = (typeof getLevel === 'function') ? getLevel() : 1;
+  let rank = 0;
+  for (const p of profByLevel) if (Array.isArray(p) && level >= p[0]) rank = Math.max(rank, p[1]);
+  return rank || 2;
 }
 
-// 부여 지식 정리(복원) — 재주/배경 공용. 부여 당시 기록한 prevName/prevRank로 되돌림.
-function restoreGrantedLores(arr) {
-  (arr || []).forEach(entry => {
-    const nameEl = document.getElementById('lore-name-' + entry.slot);
-    const profEl = document.getElementById('sk-prof-' + entry.slot);
-    if (nameEl && nameEl.value === entry.name) {
-      nameEl.value = entry.prevName || '';
-      if (profEl) profEl.value = String(entry.prevRank || 0);
-    }
+// 지식 출처 1건 수집. src = {key, name, rank, kind:'feat'|'background', ref(편집대상), fixed(이름고정)}.
+function collectLoreSource(src) {
+  if (!src || !src.key) return;
+  (state._loreSources = state._loreSources || []).push({
+    key: src.key,
+    name: (src.name || '').trim(),
+    rank: src.rank || 2,
+    kind: src.kind || 'feat',
+    ref: src.ref || null,
+    fixed: !!src.fixed,
   });
 }
 
-// 지식 슬롯 초과 경고 조회 — state._loreOverflow: [{kind:'feat'|'background', loreName, featRef?}]
+function _writeLoreSlot(sid, name, rank, readOnly) {
+  const nameEl = document.getElementById('lore-name-' + sid);
+  const profEl = document.getElementById('sk-prof-' + sid);
+  if (nameEl) { nameEl.value = name || ''; nameEl.readOnly = !!readOnly; }
+  if (profEl) profEl.value = String(rank || 0);
+}
+function _loreSlotName(sid) {
+  const nameEl = document.getElementById('lore-name-' + sid);
+  return nameEl ? nameEl.value : '';
+}
+
+// 수집된 출처들을 슬롯에 배정 — recalcAll에서 rebuildCoreEffects+applyFeatEffects 뒤 1회 호출.
+// 이전에 '부여'였던 슬롯만 비우고(수동 입력 슬롯은 보존), 출처를 수집 순서대로 빈 슬롯에 배치, 초과는 오버플로.
+function assignLoreSlots() {
+  const oldOwners = state._loreSlotSource || {};
+  LORE_SLOTS.forEach(sid => { if (oldOwners[sid]) _writeLoreSlot(sid, '', 0, false); });
+  const freeSlots = LORE_SLOTS.filter(sid => !_loreSlotName(sid)); // 남은 이름 = 수동 지식(점유 유지)
+  state._loreSlotSource = {};
+  state._loreSlotRef = {};
+  const overflow = [];
+  (state._loreSources || []).forEach(src => {
+    const sid = freeSlots.shift();
+    if (!sid) { overflow.push(src); return; }
+    _writeLoreSlot(sid, src.name, src.rank, src.fixed);
+    state._loreSlotSource[sid] = src.key;
+    state._loreSlotRef[sid] = src;
+  });
+  // 초과 출처 → 경고 큐. ref로 해당 재주에 ⚠ 표시(loreSlotFullForFeat).
+  state._loreOverflow = overflow.map(s => ({ kind: s.kind, loreName: s.name, name: s.name, ref: s.ref }));
+}
+
+// 지식 슬롯 이름 편집 = 소유 출처의 choice에 기록(단일 진실원). 슬롯 점유는 이름 무관 → recalc 불필요.
+function onLoreSlotNameInput(sid) {
+  const val = _loreSlotName(sid);
+  const src = state._loreSlotRef && state._loreSlotRef[sid];
+  if (src && !src.fixed) {
+    if (src.kind === 'feat' && src.ref) src.ref.choice = val;
+    else if (src.kind === 'background' && src.ref === 'bg-choice') {
+      if (!state.initialChoices) state.initialChoices = {};
+      if (!state.initialChoices.background) state.initialChoices.background = {};
+      state.initialChoices.background.choiceLore = val;
+    }
+  }
+  save();
+}
+
+// 지식 슬롯 초과 경고 조회 — state._loreOverflow: [{kind:'feat'|'background', ref, ...}]
 function loreSlotFullForFeat(feat) {
-  return !!(feat && state._loreOverflow && state._loreOverflow.some(o => o.kind === 'feat' && o.featRef === feat));
+  return !!(feat && state._loreOverflow && state._loreOverflow.some(o => o.kind === 'feat' && o.ref === feat));
 }
 function loreSlotFullForBackground() {
   return !!(state._loreOverflow && state._loreOverflow.some(o => o.kind === 'background'));
@@ -1165,7 +1192,7 @@ function buildSkills() {
       <span class="prof-rank-badge" id="rank-sk-${sk.id}">U</span>
       <select id="sk-prof-${sk.id}" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
       <span class="skill-attr">${sk.attr.toUpperCase()}</span>
-      <span class="skill-name">${sk.name}${sk.isLore?` <input class="inline-edit" id="lore-name-${sk.id}" placeholder="주제..." oninput="save()" style="width:60px;font-size:11px;">`:''}</span>
+      <span class="skill-name">${sk.name}${sk.isLore?` <input class="inline-edit" id="lore-name-${sk.id}" placeholder="주제..." oninput="onLoreSlotNameInput('${sk.id}')" style="width:60px;font-size:11px;">`:''}</span>
       <span class="skill-total" id="sk-val-${sk.id}">+0</span>`;
     list.appendChild(row);
     // 백업값 복원
@@ -1689,11 +1716,9 @@ function rebuildCoreEffects() {
   });
   state._bgGrantedSkills = [];
 
-  // 배경 지식: 이름+숙련 복원 (재주/배경 공용 restoreGrantedLores)
-  restoreGrantedLores(state._bgGrantedLores);
-  state._bgGrantedLores = [];
-  // 지식 슬롯 초과 경고: 배경 몫만 초기화(재주 몫은 applyFeatEffects가 관리). 이 recalc에서 다시 채워짐.
-  state._loreOverflow = (state._loreOverflow || []).filter(o => o.kind !== 'background');
+  // 지식(lore) 출처 수집 버퍼 초기화 — rebuildCoreEffects가 recalc의 첫 실행이므로 여기서 리셋.
+  //   배경·재주가 collectLoreSource로 채우고, recalcAll이 마지막에 assignLoreSlots()로 배정.
+  state._loreSources = [];
 
   // 배경 재주: _fromBackground 제거
   Object.values(state.feats).forEach(arr => {
@@ -1776,23 +1801,19 @@ function rebuildCoreEffects() {
     });
   }
 
-  // 배경 지식 (lore) — 재주/배경 공용 grantLoreToSlot. 주제명 한글화(글로서리) 후 부여.
+  // 배경 지식 (lore) — 출처로 수집(assignLoreSlots가 배정). 주제명 한글화(글로서리) 후.
+  //   고정 지식은 이름 변경 불가(fixed). 각 고정 지식이 하나의 출처=슬롯 점유.
   if (beff && beff.fixed_lores.length) {
     beff.fixed_lores.forEach(loreName => {
       const loreKo = (typeof getLoreKo === 'function') ? getLoreKo(loreName) : loreName;
-      const res = grantLoreToSlot(loreKo, { trackingArr: state._bgGrantedLores });
-      if (!res.placed && !res.empty) state._loreOverflow.push({ kind: 'background', loreName: loreKo });
+      collectLoreSource({ key: 'bg:fixed:' + loreName, name: loreKo, rank: 2, kind: 'background', ref: null, fixed: true });
     });
   }
 
-  // 배경 지식(선택) — 원하는 지식 1개(추가 지식과 동일: 사용자가 분야명 지정).
-  // 미입력 시 미적용(이름 정해질 때까지 대기).
+  // 배경 지식(선택) — "원하는 지식 1개" 혜택 자체가 하나의 출처 → 이름 미입력이어도 슬롯 점유(출처 기반).
   if (beff && beff.choice_lore) {
     const chosen = ((state.initialChoices && state.initialChoices.background && state.initialChoices.background.choiceLore) || '').trim();
-    if (chosen) {
-      const res = grantLoreToSlot(chosen, { trackingArr: state._bgGrantedLores });
-      if (!res.placed && !res.empty) state._loreOverflow.push({ kind: 'background', loreName: chosen });
-    }
+    collectLoreSource({ key: 'bg:choice', name: chosen, rank: 2, kind: 'background', ref: 'bg-choice', fixed: false });
   }
 
   // 배경 재주 — feat_id 기반
@@ -1844,6 +1865,8 @@ function recalcAll() {
   rebuildCoreEffects();
   // 재주 효과 집계
   if (typeof applyFeatEffects === 'function') applyFeatEffects();
+  // 지식(lore) 출처 → 슬롯 배정 (배경+재주 수집 완료 후 1회). 기술 재계산 전에 실행해야 지식 숙련 반영.
+  if (typeof assignLoreSlots === 'function') assignLoreSlots();
   ['str','dex','con','int','wis','cha'].forEach(a => {
     const {mod, partial} = calcMod(a);
     const mEl = document.getElementById('mod-'+a);
