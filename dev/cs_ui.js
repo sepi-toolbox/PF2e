@@ -2276,10 +2276,11 @@ function cascadeRemoveFeats() {
         const fData = getFeat(fNameKo);
         if (fData?.prerequisites && !_checkPrereqs(fData.prerequisites)) {
           if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(f));
-          // 성장에서도 제거
+          // 성장에서도 제거 (slug 기준 — 저장명 드리프트 무관)
+          const _fs = featSlug(f);
           for (const lv of Object.keys(state.growth || {})) {
             for (const k of Object.keys(state.growth[lv] || {})) {
-              if (state.growth[lv][k] === f.name) delete state.growth[lv][k];
+              if (featSlug(state.growth[lv][k]) === _fs) delete state.growth[lv][k];
             }
           }
           arr.splice(j, 1);
@@ -2306,10 +2307,11 @@ function cascadeRemoveFeats() {
           if (arr[j].name && state.spells?.innate) {
             state.spells.innate = state.spells.innate.filter(s => _fslug(s._sourceFeat) !== _fslug(arr[j]));
           }
-          // 성장에서도 제거 (growth는 name 키 — 내부 정합 유지)
+          // 성장에서도 제거 (slug 기준)
+          const _js = _fslug(arr[j]);
           for (const lv of Object.keys(state.growth || {})) {
             for (const k of Object.keys(state.growth[lv] || {})) {
-              if (state.growth[lv][k] === arr[j].name) delete state.growth[lv][k];
+              if (_fslug(state.growth[lv][k]) === _js) delete state.growth[lv][k];
             }
           }
           arr.splice(j, 1);

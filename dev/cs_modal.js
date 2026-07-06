@@ -1314,13 +1314,14 @@ function growthClearFeat(lv, key, featType) {
   if (oldName) {
     const arr = state.feats[featType];
     if (arr) {
-      const idx = arr.findIndex(f => f.name === oldName && f.level === lv);
+      // 매칭은 slug 기준 — growth 저장명/재주명이 개명돼도 견고(featSlug가 양쪽 해소).
+      const _os = (typeof featSlug === 'function') ? featSlug(oldName) : oldName;
+      const idx = arr.findIndex(f => ((typeof featSlug === 'function') ? featSlug(f) : f.name) === _os && f.level === lv);
       if (idx >= 0) {
         // 재주로 부여된 지식/기술 숙련 정리
         const removedFeat = arr[idx];
         if (removedFeat?.name && typeof _getFeatEffectsDef === 'function') {
-          const en = removedFeat.name?.match(/\(([^)]+)\)$/)?.[1] || '';
-          const def = en ? _getFeatEffectsDef(en) : null;
+          const def = _getFeatEffectsDef(removedFeat.id || removedFeat.name?.match(/\(([^)]+)\)$/)?.[1] || '');
           if (def?.effects) {
             def.effects.forEach(eff => {
               if (eff.type === 'grant_lore') {
@@ -4885,7 +4886,7 @@ function confirmModal() {
       const oldName = state.growth[gLv][gKey];
       if (oldName) {
         const arr = state.feats[gType];
-        if (arr) { const idx = arr.findIndex(f => f.name === oldName && f.level === gLv); if (idx >= 0) arr.splice(idx, 1); }
+        if (arr) { const _os = featSlug(oldName); const idx = arr.findIndex(f => featSlug(f) === _os && f.level === gLv); if (idx >= 0) arr.splice(idx, 1); }
         // 선천 주문 제거 (slug 기준)
         if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(oldName));
         // 연쇄 제거
