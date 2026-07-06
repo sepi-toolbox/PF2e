@@ -868,7 +868,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     if (choiceDef.label && choiceDef.label.includes('영역') && state.deity && typeof _getDeity === 'function') {
       const deity = _getDeity(state.deity);
       if (deity && deity.domains && deity.domains.length > 0) {
-        filteredOpts = choiceDef.options.filter(opt => deity.domains.includes(opt.name));
+        filteredOpts = choiceDef.options.filter(opt => deity.domains.includes(opt.id));  // domains=영역 id 배열 (구: opt.name 오탐)
         const note = document.createElement('div');
         note.style.cssText = 'font-size:11px;color:var(--accent);padding:8px 12px;border-bottom:1px solid var(--border);';
         note.textContent = `${deity.name_ko}의 영역: ${(deity.domains_ko&&deity.domains_ko.length?deity.domains_ko:deity.domains).join(', ')}`;
@@ -1129,18 +1129,17 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     const pickMax = choiceDef.pickMaxLevel || 99;
     const pickTraits = choiceDef.pickTraits || null;
 
-    // 이미 보유한 재주 이름 (중복 방지)
-    const ownedNames = new Set();
+    // 이미 보유한 재주 (중복 방지) — slug 기준(이름 표기 무관)
+    const ownedSlugs = new Set();
     for (const arr of Object.values(state.feats)) {
-      if (Array.isArray(arr)) arr.forEach(f => { if (f?.name) ownedNames.add(f.name.split(' (')[0].trim()); });
+      if (Array.isArray(arr)) arr.forEach(f => { const s = (typeof featSlug === 'function') ? featSlug(f) : (f && f.id); if (s) ownedSlugs.add(s); });
     }
 
     // 아이우바린 유산 보유 + skipPrereqIfAiuvarin이면 능력치 전제조건 생략
     const isAiuvarin = state.selectedHeritage?.id === 'aiuvarin';
     const skipPrereq = choiceDef.skipPrereqIfAiuvarin && isAiuvarin;
-    // 자기 클래스 이름 (헌신 재주에서 자기 클래스 제외용)
-    const myClassName = state.selectedClass?.name || '';
-    const myClassEn = state.selectedClass?.en || '';
+    // 자기 클래스 헌신 slug = {classId}-dedication (이름 매칭 대체)
+    const myClassDedSlug = state.selectedClass ? state.selectedClass.id + '-dedication' : '';
 
     // 소스 무관 통일: 클래스 pickCat은 _featInClass(FVTT category='class'+_classSlugs)로 판정
     const _isClassPick = pickCat && !['ancestry','general','skill','archetype','feature','other','class'].includes(pickCat);
@@ -1150,16 +1149,13 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       else if (f.category !== pickCat) return false;
       if (f.feat_level > pickMax) return false;
       if (pickTraits && !(f.traits && f.traits.some(t => pickTraits.includes(t)))) return false;
-      // 헌신 재주: 자기 클래스 헌신 제외
-      if (pickTraits?.includes('헌신') && f.name_ko) {
-        if (myClassName && f.name_ko.includes(myClassName)) return false;
-        if (myClassEn && f.name_en && f.name_en.toLowerCase().includes(myClassEn.toLowerCase())) return false;
-      }
+      // 헌신 재주: 자기 클래스 헌신 제외 (slug 기준)
+      if (pickTraits?.includes('헌신') && myClassDedSlug && f.id === myClassDedSlug) return false;
       // 전제조건 체크 (아이우바린이면 생략 가능)
       if (f.prerequisites && !skipPrereq && typeof _checkPrereqs === 'function' && !_checkPrereqs(f.prerequisites)) return false;
       // 헌신 재주 특수 조건 (다재다능은 skipDedicationLimit으로 무시)
       if (f.traits?.includes('헌신') && !choiceDef.skipDedicationLimit && typeof canTakeDedication === 'function' && !canTakeDedication(f)) return false;
-      if (ownedNames.has(f.name_ko)) return false;
+      if (f.id && ownedSlugs.has(f.id)) return false;
       return true;
     });
 
@@ -1300,8 +1296,9 @@ function checkFeatChoice(featName, featType, featIndex) {
   const def = _getFeatEffectsDef(nameEn);
   if (def && def.choice) {
     const t = def.choice.type;
-    // 인라인 컨트롤이 있는 타입은 팝업 생략 → 재주 탭에서 선택
-    if (t === 'lore' || t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || (t === 'custom' && def.choice.options)) {
+    // 인라인 컨트롤이 있는 타입은 팝업 생략 → 재주 탭에서 선택.
+    // 단 lore(지식 분야 입력)는 획득 즉시 팝업으로 프롬프트(발견성 — "얻어도 아무 일 없음" 방지). 인라인 편집 UI는 유지.
+    if (t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || (t === 'custom' && def.choice.options)) {
       return false;
     }
     openFeatChoiceModal(featType, featIndex, def.choice);

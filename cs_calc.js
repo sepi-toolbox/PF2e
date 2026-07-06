@@ -588,8 +588,8 @@ function getHeritageEffects(h) {
 const _BACKGROUND_EFFECTS_CACHE = new Map();
 function getBackgroundEffects(b) {
   if (!b) return {};
-  // FVTT-native(P4): 구조필드에서 미리 계산된 _effects 직접 반환
-  if (b._fvtt && b._effects) return b._effects;
+  // 재주와 동일 경로로 통일: 효과 테이블(getEffectRows/EFFECTS_DB) 단일 소스.
+  // (구 _fvtt _effects 단락 폐지 — 배경 구조필드는 생성기가 효과행으로 방출. 부여=같은 기능=같은 경로.)
   const id = b.id || '';
   if (_BACKGROUND_EFFECTS_CACHE.has(id)) return _BACKGROUND_EFFECTS_CACHE.get(id);
   const out = { boosts: [], boost_choices: [], free_boosts: 0, fixed_skills: [], choice_skill_groups: [], fixed_lores: [], feat_id: null, deity_skill: false, deity_lore: false };
@@ -645,7 +645,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.100').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.103').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
