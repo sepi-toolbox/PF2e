@@ -120,7 +120,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm5"></script>
+<script src="cs_pf2e.js?v=dm6"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -244,9 +244,9 @@ const DM = (function(){
     rule:'효과 행의 정의 규칙(구 FVTT룰+효과그룹 통합): FVTT Rule Element 종류(FlatModifier/ActiveEffectLike/GrantItem/Resistance/ChoiceSet 등) 또는 레거시 효과그룹 id. 표시/감사용(런타임 미사용).',
     owner_slug:'효과가 속한 엔티티 slug(정본 키).', owner_name:'엔티티 한글명(표시용).',
     effect_group_id:'참조 효과그룹 FK(entity→effect 연결키). 같은 값=한 그룹으로 묶인 효과. 엔티티 탭에도 이 컬럼으로 역참조 표시.',
-    src:'행 구분: effect(직접 기계효과)/choice·choice_opt(선택지·옵션)/note(자동 노트).',
-    type:'효과 유형(enum): skill_trained·save_bonus·grant_feat·grant_focus_spell·grant_action·resistance… raw 그대로.',
-    target:'효과 대상(slug/enum): 기술id·능력치·주문명·무기명·피해유형 등 type별.',
+    src:'행 역할: effect(실제 기계효과) / note(시트 표시용 설명글, 효과 없음) / choice·choice_opt(사용자 선택지·옵션). 한 재주는 여러 행 조합으로 정의됨.',
+    type:'효과 유형(enum): grant_lore(지식 부여)·grant_feat(재주 부여)·grant_focus_spell/grant_innate_spell(주문 부여)·skill_trained(기술 숙련)·save_bonus·resistance·vision_upgrade… raw slug 그대로.',
+    target:'효과 대상 = slug(예 breath-control) 또는 특수토큰 $choice(=이 재주의 choice 행에서 사용자가 고른 값에 바인딩). type별로 기술id·주문slug·재주slug·피해유형 등.',
     value:'수치 또는 특수값(예: level). type별 의미(HP/보너스/저항량 등).',
     bonus_type:'보너스 종류(circumstance/status/item/untyped) — 스태킹 규칙.',
     condition:'적용 조건(있을 때만). 표시용 텍스트.',
@@ -411,7 +411,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm5').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm6').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -731,8 +731,8 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm5').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm5').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm6').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm6').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride };
