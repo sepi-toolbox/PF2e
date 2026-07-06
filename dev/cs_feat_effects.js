@@ -692,19 +692,14 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
   if (confirmBtn) confirmBtn.style.display = 'none';
   const detail = document.getElementById('modal-detail');
   if (detail) { detail.style.display = 'none'; }
-  // spell_cantrip 등: 닫기/취소/선택 전부 숨김 (선택 필수, detail 내 버튼만 사용)
-  // lore(지식 자유입력)는 예외: footer만 숨기고 '닫기(X)'는 유지 → 빈 값이면 escapable(갇힘 방지).
-  //   (닫으면 빈 choice로 남고 재주 탭 인라인에서 나중에 입력 가능 — 배경의 선택형 지식과 동일 취급.)
-  const _hideCloseToo = isSpellChoice || choiceDef.type === 'custom' || choiceDef.type === 'muse_pick' || choiceDef.type === 'ancestry_pick' || choiceDef.type === 'feat_pick' || choiceDef.type === 'skill_multi' || choiceDef.type === 'weapon_pick';
-  if (_hideCloseToo || choiceDef.type === 'lore') {
-    const footer = document.querySelector('.modal-footer');
-    if (footer) footer.style.display = 'none';
-  }
-  if (_hideCloseToo) {
+  // spell_cantrip: 닫기/취소/선택 전부 숨김 (선택 필수, detail 내 버튼만 사용)
+  if (isSpellChoice || choiceDef.type === 'lore' || choiceDef.type === 'custom' || choiceDef.type === 'muse_pick' || choiceDef.type === 'ancestry_pick' || choiceDef.type === 'feat_pick' || choiceDef.type === 'skill_multi' || choiceDef.type === 'weapon_pick') {
     const closeBtn = document.querySelector('.modal-close');
     const closeBtnM = document.getElementById('modal-close-m');
+    const footer = document.querySelector('.modal-footer');
     if (closeBtn) closeBtn.style.display = 'none';
     if (closeBtnM) closeBtnM.style.display = 'none';
+    if (footer) footer.style.display = 'none';
   }
 
   const listEl = document.querySelector('.modal-list');
@@ -1284,11 +1279,9 @@ function checkFeatChoice(featName, featType, featIndex) {
   const def = _getFeatEffectsDef(nameEn);
   if (def && def.choice) {
     const t = def.choice.type;
-    // 인라인 컨트롤이 있는 타입(기술/커스텀)은 팝업 생략 → 재주 탭 인라인 UI에서 선택.
-    // ⚠ lore(지식 분야 자유입력)는 획득 즉시 팝업으로 입력받는다(v0.110 복원): 인라인만 두면
-    //   재주 탭의 '접힌 아코디언' 안에만 있어 빌더에서 고른 직후 아무것도 안 보였다("아무것도 안나와").
-    //   팝업은 escapable(닫기 가능) — 닫으면 빈 choice로 남고 재주 탭 인라인에서 나중에 입력 가능.
-    if (t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || (t === 'custom' && def.choice.options)) {
+    // 인라인 컨트롤이 있는 타입(기술/지식/커스텀)은 팝업 생략 → 선택 모달 상세 패널의 인라인 UI
+    //   (_buildFeatModalChoiceUI, 배경 지식 입력과 동일 방식) + 재주 탭 인라인에서 입력/편집.
+    if (t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || t === 'lore' || (t === 'custom' && def.choice.options)) {
       return false;
     }
     openFeatChoiceModal(featType, featIndex, def.choice);

@@ -3080,11 +3080,17 @@ function filterFeats() {
 
     // 이미 배운 재주 이름·slug 수집 (중복 방지 — 전 카테고리, _auto 포함)
     // name(한글명 표기) + id/slug 3중 매칭 — 이름 표기 불일치(예 반격/반응)에도 견고
+    // ★ 편집 중인 슬롯의 현재 재주는 제외 → 목록에 남아 하이라이트/재선택 가능
+    //   (예: 돌진 슬롯을 다시 누르면 돌진이 목록에 그대로 보이고 하이라이트됨)
+    const _editName = state.growth && state.growth[growthPendingLevel] && state.growth[growthPendingLevel][growthPendingKey];
+    const _editSlug = _editName && typeof featSlug === 'function' ? featSlug(_editName) : null;
     const _learnedNames = new Set();
     const _learnedIds = new Set();
     Object.values(state.feats).flat().forEach(ff => {
-      if (ff && ff.name) _learnedNames.add(ff.name);
-      if (ff && ff.id) _learnedIds.add(ff.id);
+      if (!ff) return;
+      if (_editSlug && typeof featSlug === 'function' && featSlug(ff) === _editSlug && ff.level === growthPendingLevel) return;
+      if (ff.name) _learnedNames.add(ff.name);
+      if (ff.id) _learnedIds.add(ff.id);
     });
 
     return _allFeats().filter(f => {
@@ -3402,8 +3408,9 @@ function selectOption(item, row) {
       else if (item.damage) tags = `<span class="tag-meta">${item.damage}</span> <span class="tag-meta">가격: ${item.price?(typeof priceWithIcons==='function'?priceWithIcons(item.price):item.price):'-'}</span>`;
       else if (item.ac_bonus !== undefined) tags = `<span class="tag-meta">AC+${item.ac_bonus}</span>`;
       const mSpellNotes = (item.rank !== undefined && typeof getSpellFeatNotes === 'function') ? getSpellFeatNotes(item.name||item.name_ko||'') : '';
+      const mFeatChoiceUI = (modalType === 'feat' && typeof _buildFeatModalChoiceUI === 'function') ? _buildFeatModalChoiceUI(item) : '';
       detailHtml = `${tags?'<div style="margin-bottom:6px;">'+tags+'</div>':''}
-        <div style="font-size:12px;line-height:1.6;">${formatDescActions(mDesc, item)}${mSpellNotes}${_buildFeatActionCard(item)}</div>`;
+        <div style="font-size:12px;line-height:1.6;">${formatDescActions(mDesc, item)}${mSpellNotes}${_buildFeatActionCard(item)}</div>${mFeatChoiceUI}`;
     }
     // Insert or reuse detail div after row
     if (row) {
@@ -3652,13 +3659,16 @@ function showItemDetail(item) {
 
   // 주문에 재주 효과 노트 추가
   const spellNotes = (item.rank !== undefined && typeof getSpellFeatNotes === 'function') ? getSpellFeatNotes(nameKo) : '';
+  // 재주: 인라인 choice UI(지식/기술 등, 배경과 동일 방식) — 상세 패널에서 바로 입력
+  const featChoiceUI = (modalType === 'feat' && typeof _buildFeatModalChoiceUI === 'function') ? _buildFeatModalChoiceUI(item) : '';
   detail.innerHTML = `
     <div class="modal-detail-back" onclick="document.getElementById('modal-body').classList.remove('detail-open')">← 목록으로</div>
     <div class="modal-detail-title">${nameKo}</div>
     <div class="modal-detail-en">${nameEn}</div>
     <div class="modal-detail-tags">${tags}</div>
     <hr style="border:none;border-top:1px solid var(--border);margin:0 0 10px 0;">
-    <div class="modal-detail-desc">${formatDescActions(desc, item)}${spellNotes}${_buildFeatActionCard(item)}</div>`;
+    <div class="modal-detail-desc">${formatDescActions(desc, item)}${spellNotes}${_buildFeatActionCard(item)}</div>
+    ${featChoiceUI}`;
 }
 
 function filterOptions() {
@@ -3701,6 +3711,97 @@ function _choiceDropdown(id, label, options, disabled, selected) {
     <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">${label}</div>
     ${html}
   </div>`;
+}
+
+// ── 재주 선택 모달: 인라인 choice UI (배경 지식 입력과 완전히 동일한 방식) ──
+// 지식(lore) 자유입력·기술(skill)·커스텀(custom)·기본기술(skill_defaults)을 선택 모달 상세 패널에서
+// 바로 입력한다. 값은 _modalChoices.featChoice에 임시 저장 → confirmModal이 추가되는 재주에 반영.
+// (기존 재주 탭 인라인 _buildFeatChoiceUI는 '나중 편집' surface로 그대로 유지 — 동일 데이터(feat.choice) 공유.)
+function _existingFeatChoiceForModal(item) {
+  if (typeof featSlug !== 'function') return '';
+  const slug = item.id || featSlug(item.name_ko || item.name || '');
+  if (!slug) return '';
+  const arrs = (growthPendingFeatType && state.feats[growthPendingFeatType])
+    ? [state.feats[growthPendingFeatType]] : Object.values(state.feats);
+  for (const arr of arrs) {
+    if (!Array.isArray(arr)) continue;
+    const f = arr.find(x => x && featSlug(x) === slug && (growthPendingLevel == null || x.level === growthPendingLevel));
+    if (f && f.choice) return f.choice;
+  }
+  return '';
+}
+
+function _buildFeatModalChoiceUI(item) {
+  _modalChoices = {}; // 다른 타입 잔류값 초기화 (선택 안 한 재주면 빈 값)
+  if (typeof _getFeatEffectsDef !== 'function' || !item) return '';
+  const def = _getFeatEffectsDef(item.id || item.name_en || item.en || item.name_ko || item.name || '');
+  if (!def || !def.choice) return '';
+  const ch = def.choice;
+  // 인라인으로 다룰 타입만 (spell_cantrip 등 팝업형은 확정 후 기존 팝업 유지)
+  const inline = (ch.type === 'lore' || ch.type === 'skill' || ch.type === 'skill_fixed'
+    || ch.type === 'skill_defaults' || (ch.type === 'custom' && ch.options));
+  if (!inline) return '';
+
+  const skills = (typeof SKILLS !== 'undefined') ? SKILLS.filter(s => !s.isLore) : [];
+  const existing = _existingFeatChoiceForModal(item);
+  _modalChoices = { type: 'feat', featChoiceType: ch.type, featChoice: existing || '' };
+
+  let inner = '', note = '비워 두면 나중에 재주 탭에서 입력할 수 있습니다.';
+  if (ch.type === 'lore') {
+    const cur = (existing || '').replace(/"/g, '&quot;');
+    inner = `<input type="text" id="feat-choice-lore" value="${cur}" placeholder="지식 분야 입력 (예: 소문 지식)" maxlength="30"
+      oninput="_modalChoices.featChoice=this.value" style="${_selStyle}">`;
+  } else if (ch.type === 'skill_fixed') {
+    const fid = ch.fixedSkill || '';
+    _modalChoices.featChoice = fid;
+    const fname = (skills.find(s => s.id === fid) || {}).name || fid;
+    inner = `<select disabled style="${_selStyle}opacity:0.6;"><option selected>${fname}</option></select>`;
+    note = '';
+  } else if (ch.type === 'skill' || (ch.type === 'custom' && ch.options)) {
+    const minRank = (ch.type === 'skill' && ch.filter && ch.filter.min_rank) || 0;
+    const opts = (ch.type === 'custom')
+      ? ch.options.map(o => ({ value: o.id, name: o.name }))
+      : skills.filter(s => {
+          if (!minRank) return true;
+          const rank = parseInt((document.getElementById('sk-prof-' + s.id) || {}).value || 0);
+          return rank >= minRank || s.id === existing;
+        }).map(s => ({ value: s.id, name: s.name }));
+    inner = `<select id="feat-choice-sel" onchange="_modalChoices.featChoice=this.value" style="${_selStyle}">
+      <option value="">— 선택 —</option>
+      ${opts.map(o => `<option value="${o.value}"${o.value === existing ? ' selected' : ''}>${o.name}</option>`).join('')}
+    </select>`;
+  } else if (ch.type === 'skill_defaults') {
+    const defaults = ch.defaults || [];
+    const count = ch.count || defaults.length;
+    const vals = (existing || defaults.join(',')).split(',');
+    _modalChoices.featChoice = vals.slice(0, count).join(',');
+    for (let i = 0; i < count; i++) {
+      const sv = vals[i] || defaults[i] || '';
+      inner += `<div style="margin-bottom:4px;"><select data-fcd="${i}" onchange="_onFeatModalDefaultsChange(${count})" style="${_selStyle}">
+        ${skills.map(s => `<option value="${s.id}"${s.id === sv ? ' selected' : ''}>${s.name}</option>`).join('')}
+      </select></div>`;
+    }
+  }
+
+  return `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:10px;">
+    <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:6px;">📋 ${ch.label || '선택'}</div>
+    ${inner}
+    ${note ? `<div style="font-size:10px;color:var(--text2);margin-top:4px;">${note}</div>` : ''}
+  </div>`;
+}
+
+function _onFeatModalDefaultsChange(count) {
+  const vals = [];
+  document.querySelectorAll('[data-fcd]').forEach(s => vals.push(s.value));
+  if (_modalChoices) _modalChoices.featChoice = vals.slice(0, count).join(',');
+}
+
+// confirmModal에서 방금 추가된 재주에 모달 상세의 인라인 choice 값을 반영
+function _applyModalFeatChoice(feat) {
+  if (!feat || !_modalChoices || _modalChoices.type !== 'feat') return;
+  if (typeof _modalChoices.featChoice === 'string' && _modalChoices.featChoice.trim()) {
+    feat.choice = _modalChoices.featChoice.trim();
+  }
 }
 
 // ── 클래스 발전 표 (Table) ──
@@ -4930,7 +5031,9 @@ function confirmModal() {
       }
       state.growth[gLv][gKey] = featName;
       const _fdG = getFeat(featName) || getFeat(featName.split(' (')[0].trim());
-      state.feats[type].push({id: _fdG?.id || null, name: featName, level: gLv});
+      const _newFeatG = {id: _fdG?.id || null, name: featName, level: gLv};
+      _applyModalFeatChoice(_newFeatG); // 모달 상세에서 입력한 인라인 choice(지식 등) 반영
+      state.feats[type].push(_newFeatG);
       growthPendingLevel = null;
       growthPendingKey = null;
       growthPendingFeatType = null;
@@ -4945,7 +5048,9 @@ function confirmModal() {
       renderGrowthPlan();
     } else {
       const _fdN = getFeat(featName) || getFeat(featName.split(' (')[0].trim());
-      state.feats[type].push({id: _fdN?.id || null, name: featName, level: featLevel});
+      const _newFeatN = {id: _fdN?.id || null, name: featName, level: featLevel};
+      _applyModalFeatChoice(_newFeatN); // 모달 상세에서 입력한 인라인 choice(지식 등) 반영
+      state.feats[type].push(_newFeatN);
       // 선택이 필요한 재주면 선택 모달 열기
       if (typeof checkFeatChoice === 'function' && checkFeatChoice(featName, type, state.feats[type].length - 1)) {
         recalcAll();
