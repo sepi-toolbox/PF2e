@@ -1329,27 +1329,9 @@ function growthClearFeat(lv, key, featType) {
       const _os = (typeof featSlug === 'function') ? featSlug(oldName) : oldName;
       const idx = arr.findIndex(f => ((typeof featSlug === 'function') ? featSlug(f) : f.name) === _os && f.level === lv);
       if (idx >= 0) {
-        // 재주로 부여된 기술 숙련 정리 (지식은 출처 기반 — splice 후 recalcAll의 assignLoreSlots가 자동 정리)
-        const removedFeat = arr[idx];
-        if (removedFeat?.name && typeof _getFeatEffectsDef === 'function') {
-          const def = _getFeatEffectsDef(removedFeat.id || removedFeat.name?.match(/\(([^)]+)\)$/)?.[1] || '');
-          if (def?.effects) {
-            def.effects.forEach(eff => {
-              if (eff.type === 'skill_trained') {
-                const skillId = (eff.skill === '$choice') ? removedFeat.choice : eff.skill;
-                if (skillId) {
-                  const ids = skillId.includes(',') ? skillId.split(',') : [skillId];
-                  ids.forEach(sid => {
-                    const s = sid.trim();
-                    if (!s) return;
-                    const profEl = document.getElementById('sk-prof-' + s);
-                    if (profEl && parseInt(profEl.value || 0) === 2) profEl.value = '0';
-                  });
-                }
-              }
-            });
-          }
-        }
+        // 부여 효과(기술숙련·숙련도·지식 등) 정리는 출처 기반 — splice 후 recalcAll이 미수집/재적용하며
+        //   applyFeatEffects의 clear+rebuild(prevRank 복원)·assignLoreSlots가 자동 정리한다.
+        //   ⚠ 이름·값 기반 수동 정리(if 숙련===2 then 0) 금지: base·타 출처 동일 부여를 오삭제.
         arr.splice(idx, 1);
       }
     }

@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.112').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.113').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2346,30 +2346,9 @@ function removeFeat(t, i) {
     if (_fslug) state.weapons = state.weapons.filter(w => featSlug(w._fromFeat) !== _fslug);
   }
 
-  // 재주로 부여된 기술 숙련 정리
-  //   지식(lore)은 출처 기반이라 별도 정리 불필요 — splice 후 recalcAll의 assignLoreSlots가
-  //   이 재주를 수집하지 않아 해당 지식이 자동으로 사라지고 뒷순번이 당겨진다(동명 오삭제 위험 없음).
-  if (feat?.name && typeof _getFeatEffectsDef === 'function') {
-    const nameEn = (typeof _extractEnName === 'function') ? _extractEnName(feat.name) : '';
-    const def = nameEn ? _getFeatEffectsDef(nameEn) : null;
-    if (def?.effects) {
-      def.effects.forEach(eff => {
-        // skill_trained: 고정 skill ID 또는 $choice
-        if (eff.type === 'skill_trained') {
-          const skillId = (eff.skill === '$choice') ? feat.choice : eff.skill;
-          if (skillId) {
-            const ids = skillId.includes(',') ? skillId.split(',') : [skillId];
-            ids.forEach(sid => {
-              const s = sid.trim();
-              if (!s) return;
-              const profEl = document.getElementById('sk-prof-' + s);
-              if (profEl && parseInt(profEl.value || 0) === 2) profEl.value = '0';
-            });
-          }
-        }
-      });
-    }
-  }
+  // 부여 효과(지식·기술숙련·숙련도 등) 정리는 출처 기반 — splice 후 recalcAll이 이 재주를 수집/재적용하지
+  //   않으므로 자동으로 사라진다(applyFeatEffects의 clear+rebuild가 prevRank로 복원, assignLoreSlots가 재배정).
+  //   ⚠ 이름·값 기반 수동 정리(if 숙련===2 then 0) 금지: base나 다른 출처의 동일 부여를 오삭제한다.
   state.feats[t].splice(i,1);
   cascadeRemoveFeats();
   recalcAll(); renderFeats(); save();

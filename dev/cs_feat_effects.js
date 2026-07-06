@@ -96,7 +96,7 @@ function applyFeatEffects() {
   // 지식(lore)은 출처 기반 — collectLoreSource로 수집만 하고 배정/정리는 assignLoreSlots(recalcAll)가 담당.
   //   (state._loreSources는 rebuildCoreEffects가 recalc 시작 시 리셋함.)
 
-  // skill_trained: 재주가 부여한 기술 숙련 → 이전 값으로 복원
+  // skill_trained: 재주가 부여한 기술 숙련 → 이전 값으로 복원 (출처별 prevRank, 매 recalc 재빌드)
   (state._featGrantedSkills || []).forEach(entry => {
     const profEl = document.getElementById('sk-prof-' + entry.skill);
     if (profEl && parseInt(profEl.value || 0) === entry.rank) {
@@ -104,6 +104,16 @@ function applyFeatEffects() {
     }
   });
   state._featGrantedSkills = [];
+
+  // proficiency(무기/방어 숙련등급): 재주 부여분 복원 (출처별 prevRank — skill_trained과 동일 패턴)
+  //   출처(재주) 제거 시 다음 recalc에서 재적용되지 않아 base로 복원됨(유령 잔존 방지).
+  (state._featGrantedProfs || []).forEach(entry => {
+    const profEl = document.getElementById('prof-' + entry.target);
+    if (profEl && parseInt(profEl.value || 0) === entry.rank) {
+      profEl.value = String(entry.prevRank || 0);
+    }
+  });
+  state._featGrantedProfs = [];
 
   // grant_focus_spell: _sourceFeat 있는 집중 주문 제거
   if (state.spells?.focus) {
@@ -280,10 +290,12 @@ function _applyOneEffect(fb, eff, feat, level) {
       // 1건(갑옷 숙련) 사용, choice 시스템 통합은 Phase 3a 이후 별도 작업
       break;
     case 'proficiency': {
-      // 숙련도 직접 부여 (v531~) — target=DOM id suffix, rank=숫자
+      // 숙련도 직접 부여 (v531~) — target=DOM id suffix, rank=숫자. 출처 추적(prevRank)으로 제거 시 복원.
       if (eff.target && typeof eff.rank === 'number') {
         const profEl = document.getElementById('prof-' + eff.target);
-        if (profEl && parseInt(profEl.value || 0) < eff.rank) {
+        const prevRank = parseInt(profEl?.value || 0);
+        if (profEl && prevRank < eff.rank) {
+          state._featGrantedProfs.push({target: eff.target, rank: eff.rank, feat: feat.name, prevRank});
           profEl.value = String(eff.rank);
         }
       }
