@@ -5,6 +5,14 @@
 
 상태 범례: ☐ 미착수 / ☑ 완료
 
+## ✅ 완료 (2026-07-06, 운영 v0.104까지 배포)
+전 페이즈 완료. 이름 매칭 → slug 통일 + 효과데이터 FVTT 단일소스 재구축 + 배경 효과테이블 통일.
+- R1 데이터테이블·자동부여 / R2 하드코딩 감지기 / R3 성장슬롯 매칭 / R4 행동게이팅 / R5 cs_calc·feat_effects·cs_ui / R6 저장dedup / R7 조건 하드코딩명(드리프트 페널티 복구)+마이그레이션 — 전부 slug.
+- **효과 데이터**: legacy 이원 폐기, 생성기 FVTT-단일소스 재작성(build_effects.mjs), grant target slug화, source/origin/rule 정리, curated_effects.json(FVTT갭 큐레이션). 부여효과 미작동 43+건 복구.
+- **배경**: 구조필드 → 효과행 방출(490종), getBackgroundEffects _effects단락 폐지 → 재주와 동일 EFFECTS_DB 경로.
+- 잔여: 저장 데이터의 성장슬롯/조건은 여전히 한글명 키(매칭은 slug라 drift-robust). 전면 slug-rekey는 미실시(불필요 판단). 16갭=선택의존 브래킷값(의도적 제외).
+
+## (이하 진행 기록)
 ## 진행 현황
 - **Phase 1 (v0.97, 완료·브라우저 검증)** = R1 데이터테이블(CLASS_AUTO_FEATS/SPELLS에 slug id + 소비처 id해소·slug dedup) + R2 하드코딩 한글명 감지기 전량(Acumen/Obsession/Longevity×2/AdoptedAncestry×3/DomainInitiate/MultifariousMuse/repeatable). **발견: 이 감지기·테이블의 하드코딩 한글명이 이미 카탈로그와 드리프트해 여러 특수재주가 조용히 고장나 있었음** — slug 전환이 실제로 복구함. 덤: `_subAutoSp` null spread 선재버그 수정(서브클래스 미선택 시 바드/소환사 자동 집중주문 누락).
 - **Phase 2 (v0.98, 완료·브라우저 검증) = grant 소비 핸들러 slug 견고화 + 부여 로직 데이터화 원칙 확립**:
