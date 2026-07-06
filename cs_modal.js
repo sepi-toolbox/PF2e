@@ -149,11 +149,12 @@ function applyRest() {
     }
   }
   if (document.getElementById('rest-fatigue')?.checked) {
-    if (state.conditions['피로']) { state.conditions['피로'] = 0; }
+    const _f = _condName('fatigued'); if (state.conditions[_f]) state.conditions[_f] = 0;
   }
   if (document.getElementById('rest-doomed')?.checked) {
-    if (state.conditions['파멸'] > 0) state.conditions['파멸'] = Math.max(0, state.conditions['파멸'] - 1);
-    if (state.conditions['탈진'] > 0) state.conditions['탈진'] = Math.max(0, state.conditions['탈진'] - 1);
+    const _d = _condName('doomed'), _dr = _condName('drained');
+    if (state.conditions[_d] > 0) state.conditions[_d] = Math.max(0, state.conditions[_d] - 1);
+    if (state.conditions[_dr] > 0) state.conditions[_dr] = Math.max(0, state.conditions[_dr] - 1);
   }
   if (document.getElementById('rest-spells')?.checked) {
     // 주문 슬롯 사용 초기화
@@ -1313,13 +1314,14 @@ function growthClearFeat(lv, key, featType) {
   if (oldName) {
     const arr = state.feats[featType];
     if (arr) {
-      const idx = arr.findIndex(f => f.name === oldName && f.level === lv);
+      // 매칭은 slug 기준 — growth 저장명/재주명이 개명돼도 견고(featSlug가 양쪽 해소).
+      const _os = (typeof featSlug === 'function') ? featSlug(oldName) : oldName;
+      const idx = arr.findIndex(f => ((typeof featSlug === 'function') ? featSlug(f) : f.name) === _os && f.level === lv);
       if (idx >= 0) {
         // 재주로 부여된 지식/기술 숙련 정리
         const removedFeat = arr[idx];
         if (removedFeat?.name && typeof _getFeatEffectsDef === 'function') {
-          const en = removedFeat.name?.match(/\(([^)]+)\)$/)?.[1] || '';
-          const def = en ? _getFeatEffectsDef(en) : null;
+          const def = _getFeatEffectsDef(removedFeat.id || removedFeat.name?.match(/\(([^)]+)\)$/)?.[1] || '');
           if (def?.effects) {
             def.effects.forEach(eff => {
               if (eff.type === 'grant_lore') {
@@ -4884,7 +4886,7 @@ function confirmModal() {
       const oldName = state.growth[gLv][gKey];
       if (oldName) {
         const arr = state.feats[gType];
-        if (arr) { const idx = arr.findIndex(f => f.name === oldName && f.level === gLv); if (idx >= 0) arr.splice(idx, 1); }
+        if (arr) { const _os = featSlug(oldName); const idx = arr.findIndex(f => featSlug(f) === _os && f.level === gLv); if (idx >= 0) arr.splice(idx, 1); }
         // 선천 주문 제거 (slug 기준)
         if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(oldName));
         // 연쇄 제거
@@ -5438,14 +5440,13 @@ function getSkillRank(skillId) {
   return el ? parseInt(el.value) || 0 : 0;
 }
 
-function getLearnedFeatNames() {
-  const names = new Set();
+// 보유 재주 slug 집합 — 이름 편집에도 안전(featSlug가 저장 id/이름을 카탈로그 slug로 해소).
+function getLearnedFeatSlugs() {
+  const slugs = new Set();
   Object.values(state.feats).forEach(arr => {
-    arr.forEach(f => {
-      if (f.name) names.add(f.name.split(' (')[0].trim());
-    });
+    arr.forEach(f => { const s = (typeof featSlug === 'function') ? featSlug(f) : (f && f.id); if (s) slugs.add(s); });
   });
-  return names;
+  return slugs;
 }
 
 function isActionAvailable(action) {
@@ -5453,8 +5454,9 @@ function isActionAvailable(action) {
     if (!state.selectedHeritage || state.selectedHeritage.id !== action.req_heritage) return false;
   }
   if (action.req_feat) {
-    const learned = getLearnedFeatNames();
-    if (!learned.has(action.req_feat)) return false;
+    // req_feat = slug(신) 또는 이름(구/큐레이션) — featSlug로 해소해 보유 slug와 대조.
+    const learned = getLearnedFeatSlugs();
+    if (!learned.has((typeof featSlug === 'function') ? featSlug(action.req_feat) : action.req_feat)) return false;
   }
   if (action.req_skill) {
     if (getSkillRank(action.req_skill) < action.req_rank) return false;
@@ -5547,24 +5549,25 @@ function renderActions() {
     });
   }
 
-  // 보유 재주 중 행동인 것 동적 추가 (ACTION_DB에 없는 것만) — 보유 재주만 카탈로그 조회
-  if (typeof getLearnedFeatNames === 'function' && typeof getFeat === 'function') {
+  // 보유 재주 중 행동인 것 동적 추가 (ACTION_DB에 없는 것만) — 보유 재주 객체를 slug로 카탈로그 조회
+  if (typeof getFeat === 'function') {
     const existingIds = new Set(visible.map(a => a.id));
-    const learned = getLearnedFeatNames();
-    learned.forEach(nameKo => {
-      const fd = getFeat(nameKo);
+    Object.values(state.feats).flat().forEach(lf => {
+      if (!lf) return;
+      const fd = getFeat(lf.id || (lf.name || '').split(' (')[0].trim());  // slug 우선 해소
       if (!fd) return;
       // 행동 비용: 레거시 actionCost 또는 FVTT actionType/actions에서 도출
       const cost = fd.actionCost || (fd.actionType === 'reaction' ? 'reaction'
         : fd.actionType === 'free' ? 'free'
         : (fd.actions != null ? String(fd.actions) + '행동' : null));
       if (!cost) return;
-      const id = 'feat-auto-' + fd.name_en;
+      const id = 'feat-auto-' + fd.id;  // slug 기반 id(이름 드리프트 무관)
       if (existingIds.has(id)) return;
+      existingIds.add(id);
       const desc = (fd.desc||fd.summary||'').replace(/^\[(?:반응|1행동|2행동|3행동|자유 행동)\]\s*/, '');
       visible.push({
         id, cat:'feat', cat_label:'재주 행동', name_ko: fd.name_ko, name_en: fd.name_en,
-        cost, traits: fd.traits||[], req_skill:null, req_rank:0, req_feat: fd.name_ko,
+        cost, traits: fd.traits||[], req_skill:null, req_rank:0, req_feat: fd.id, req_feat_name: fd.name_ko,
         summary: desc
       });
     });
@@ -5611,7 +5614,7 @@ function renderActions() {
         existingIds2.add(id);
         visible.push({
           id, cat:'feat', cat_label:'재주 행동', name_ko, name_en,
-          cost: finalCost, traits, req_skill:null, req_rank:0, req_feat: featNameKo,
+          cost: finalCost, traits, req_skill:null, req_rank:0, req_feat: (typeof featSlug==='function'?featSlug(featNameKo):featNameKo), req_feat_name: featNameKo,
           summary
         });
         return;
@@ -5627,7 +5630,7 @@ function renderActions() {
       const desc = ca.summary.replace(/^\[.+?\]\s*/, '').replace(/^[^—]*—\s*/, '');
       visible.push({
         id, cat:'feat', cat_label:'재주 행동', name_ko: featNameKo, name_en: nameEn,
-        cost, traits:[], req_skill:null, req_rank:0, req_feat: featNameKo,
+        cost, traits:[], req_skill:null, req_rank:0, req_feat: (typeof featSlug==='function'?featSlug(featNameKo):featNameKo), req_feat_name: featNameKo,
         summary: desc
       });
     });
@@ -5666,7 +5669,7 @@ function renderActions() {
       const traitsHtml = (a.traits||[]).map(t => typeof traitTag==='function' ? traitTag(t) : `<span class="tag">${t}</span>`).join('');
       let reqHtml = '';
       if (!avail) {
-        if (a.req_feat) reqHtml = `<div class="action-req">재주 필요: ${a.req_feat}</div>`;
+        if (a.req_feat) reqHtml = `<div class="action-req">재주 필요: ${a.req_feat_name || a.req_feat}</div>`;
         else if (a.req_heritage) reqHtml = `<div class="action-req">유산 필요</div>`;
         else if (a.req_skill && a.req_rank > 0) {
           const rankNames = {2:'숙련',4:'전문가',6:'달인',8:'전설'};
@@ -5674,7 +5677,7 @@ function renderActions() {
           reqHtml = `<div class="action-req">${sk?sk.name:a.req_skill} ${rankNames[a.req_rank]||''} 필요</div>`;
         }
       }
-      const sourceHtml = granted ? `<div style="font-size:9px;color:var(--accent);margin-top:2px;">${a.req_heritage ? '유산 부여' : a.req_feat ? '재주: '+a.req_feat : ''}</div>` : '';
+      const sourceHtml = granted ? `<div style="font-size:9px;color:var(--accent);margin-top:2px;">${a.req_heritage ? '유산 부여' : a.req_feat ? '재주: '+(a.req_feat_name || a.req_feat) : ''}</div>` : '';
       // FVTT 이행: 전체 설명=FVTT desc(폴백 레거시 summary). 카드=컴팩트 프리뷰 + 클릭 시 인라인 아코디언.
       const descFull = (s=>typeof resolveDescRefs==='function'?resolveDescRefs(s):s)(_stripTraitLine(a._fvttDesc || a.summary || ''));
       const previewText = descFull.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();

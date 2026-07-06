@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.103').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.104').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2276,10 +2276,11 @@ function cascadeRemoveFeats() {
         const fData = getFeat(fNameKo);
         if (fData?.prerequisites && !_checkPrereqs(fData.prerequisites)) {
           if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(f));
-          // 성장에서도 제거
+          // 성장에서도 제거 (slug 기준 — 저장명 드리프트 무관)
+          const _fs = featSlug(f);
           for (const lv of Object.keys(state.growth || {})) {
             for (const k of Object.keys(state.growth[lv] || {})) {
-              if (state.growth[lv][k] === f.name) delete state.growth[lv][k];
+              if (featSlug(state.growth[lv][k]) === _fs) delete state.growth[lv][k];
             }
           }
           arr.splice(j, 1);
@@ -2306,10 +2307,11 @@ function cascadeRemoveFeats() {
           if (arr[j].name && state.spells?.innate) {
             state.spells.innate = state.spells.innate.filter(s => _fslug(s._sourceFeat) !== _fslug(arr[j]));
           }
-          // 성장에서도 제거 (growth는 name 키 — 내부 정합 유지)
+          // 성장에서도 제거 (slug 기준)
+          const _js = _fslug(arr[j]);
           for (const lv of Object.keys(state.growth || {})) {
             for (const k of Object.keys(state.growth[lv] || {})) {
-              if (state.growth[lv][k] === arr[j].name) delete state.growth[lv][k];
+              if (_fslug(state.growth[lv][k]) === _js) delete state.growth[lv][k];
             }
           }
           arr.splice(j, 1);
@@ -2336,13 +2338,12 @@ function removeFeat(t, i) {
     if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(feat));
     if (state.spells?.focus) state.spells.focus = state.spells.focus.filter(s => featSlug(s._sourceFeat) !== featSlug(feat));
   }
-  // 재주로 부여된 무기 제거 (grant_weapon)
-  if (feat?.name) {
-    const _fEN = (typeof _extractEnName === 'function') ? _extractEnName(feat.name) : '';
-    if (_fEN) {
-      state.weapons = state.weapons.filter(w => w._fromFeat !== _fEN);
-    }
+  // 재주로 부여된 무기 제거 (grant_weapon) — slug 기준(이름 편집 무관, applyFeatEffects 정리와 일치)
+  if (feat) {
+    const _fslug = featSlug(feat);
+    if (_fslug) state.weapons = state.weapons.filter(w => featSlug(w._fromFeat) !== _fslug);
   }
+
   // 재주로 부여된 지식/기술 숙련 정리
   if (feat?.name && typeof _getFeatEffectsDef === 'function') {
     const nameEn = (typeof _extractEnName === 'function') ? _extractEnName(feat.name) : '';
