@@ -62,12 +62,12 @@ window.PF2eOverrideFetcher = function(cat){
   return window._cloudOvrPromise.then(function(all){ return (all && all[cat]) || {}; });
 };
 </script>
-<script src="equipment_db.js?v=0.104"></script>
-<script src="class_features_db.js?v=0.104"></script>
-<script src="effects_db.js?v=0.104"></script>
-<script src="prereqs_db.js?v=0.104"></script>
-<script src="changelog.js?v=0.104"></script>
-<script src="gear-shell.js?v=0.104"></script>
+<script src="equipment_db.js?v=0.105"></script>
+<script src="class_features_db.js?v=0.105"></script>
+<script src="effects_db.js?v=0.105"></script>
+<script src="prereqs_db.js?v=0.105"></script>
+<script src="changelog.js?v=0.105"></script>
+<script src="gear-shell.js?v=0.105"></script>
 <script>
 // Verify class_features_db loaded
 if (typeof CLASS_AUTO_FEATS === 'undefined') {
@@ -87,7 +87,7 @@ if (typeof CLASS_AUTO_FEATS === 'undefined') {
   console.log('✓ class_features_db.js loaded — AUTO_FEATS:', Object.keys(CLASS_AUTO_FEATS));
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.104">
+<link rel="stylesheet" href="app-shell.css?v=0.105">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -199,6 +199,11 @@ body{
 @keyframes bootDiceSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 #boot-loading-msg{max-width:520px;padding:0 24px;text-align:center;color:var(--text2);font-family:"Gelasio",serif;font-size:15px;font-style:italic;line-height:1.7;min-height:3em;transition:opacity 0.35s;}
 #boot-loading-msg.fade{opacity:0;}
+/* ── 미니 주사위 로더: 화면을 가리지 않고 상호작용만 막는 경량 표시(클라우드 로드/슬롯 전환 등 네트워크 대기) ── */
+#mini-loader{position:fixed;inset:0;z-index:100004;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.06);cursor:progress;}
+#mini-loader.hidden{display:none;}
+#mini-loader .mini-dice{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,0.4);}
+#mini-loader .boot-dice-spin{filter:drop-shadow(0 3px 5px rgba(0,0,0,0.3));}
 .mode-select-inner{text-align:center;max-width:760px;width:100%;}
 .mode-select-title{color:var(--accent);font-family:"Eczar",var(--bs,serif);font-size:40px;margin:0 0 6px;letter-spacing:2px;}
 .mode-select-sub{color:var(--text2);font-size:14px;margin:0 0 30px;}
@@ -1868,6 +1873,17 @@ input::placeholder{ color:rgba(80,66,44,.55); }
   <div id="boot-loading-msg"></div>
 </div>
 
+<!-- 미니 주사위 로더 (네트워크 대기 — 상호작용만 차단, 화면 미가림) -->
+<div id="mini-loader" class="hidden" aria-live="polite" aria-label="불러오는 중">
+  <div class="mini-dice"><div class="boot-dice-spin">
+    <svg viewBox="0 0 100 100" width="46" height="46" aria-hidden="true">
+      <polygon points="50,4 89,26 89,74 50,96 11,74 11,26" fill="#6e1414" stroke="#c9a44a" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="50,18 76,33 76,67 50,82 24,67 24,33" fill="none" stroke="#c9a44a" stroke-width="1.4" opacity="0.65"/>
+      <text x="50" y="60" text-anchor="middle" font-family="Eczar, serif" font-size="30" font-weight="700" fill="#e8d29a">20</text>
+    </svg>
+  </div></div>
+</div>
+
 <!-- ═══════════════ GM 로비 (임베드 — GMSheet.html을 전체화면으로) ═══════════════ -->
 <div id="gm-lobby-view" class="hidden">
   <iframe id="gm-lobby-frame" title="GM 로비"></iframe>
@@ -1921,7 +1937,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.104</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.105</span></div>
 </div>
 
 <!-- 업데이트로그·버그제보 모달 → gear-shell.js(공유 주입) -->
@@ -2421,7 +2437,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="3" onclick="setActionFilter('3',this)" title="3행동" aria-label="3행동"><span class="action-glyph">3</span></button>
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.104" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.105" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2495,36 +2511,36 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.104"></script>
-<script src="cs_calc.js?v=0.104"></script>
+<script src="cs_data.js?v=0.105"></script>
+<script src="cs_calc.js?v=0.105"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.104"></script>
-<script src="cs_re_engine.js?v=0.104"></script>
-<script src="cs_pf2e_stats.js?v=0.104"></script>
-<script src="cs_pf2e_equip.js?v=0.104"></script>
-<script src="cs_pf2e_anc.js?v=0.104"></script>
-<script src="cs_pf2e_bg.js?v=0.104"></script>
-<script src="cs_pf2e_spell.js?v=0.104"></script>
-<script src="cs_pf2e_deity.js?v=0.104"></script>
-<script src="cs_pf2e_action.js?v=0.104"></script>
-<script src="cs_pf2e_feat.js?v=0.104"></script>
-<script src="cs_pf2e_class.js?v=0.104"></script>
-<script src="cs_pf2e_actor.js?v=0.104"></script>
-<script src="cs_ui.js?v=0.104"></script>
-<script src="cs_modal.js?v=0.104"></script>
-<script src="cs_feat_effects.js?v=0.104"></script>
-<script src="cs_save.js?v=0.104"></script>
-<script src="cs_session.js?v=0.104"></script>
-<script src="cs_dice.js?v=0.104"></script>
-<script src="cs_map.js?v=0.104"></script>
+<script src="cs_pf2e.js?v=0.105"></script>
+<script src="cs_re_engine.js?v=0.105"></script>
+<script src="cs_pf2e_stats.js?v=0.105"></script>
+<script src="cs_pf2e_equip.js?v=0.105"></script>
+<script src="cs_pf2e_anc.js?v=0.105"></script>
+<script src="cs_pf2e_bg.js?v=0.105"></script>
+<script src="cs_pf2e_spell.js?v=0.105"></script>
+<script src="cs_pf2e_deity.js?v=0.105"></script>
+<script src="cs_pf2e_action.js?v=0.105"></script>
+<script src="cs_pf2e_feat.js?v=0.105"></script>
+<script src="cs_pf2e_class.js?v=0.105"></script>
+<script src="cs_pf2e_actor.js?v=0.105"></script>
+<script src="cs_ui.js?v=0.105"></script>
+<script src="cs_modal.js?v=0.105"></script>
+<script src="cs_feat_effects.js?v=0.105"></script>
+<script src="cs_save.js?v=0.105"></script>
+<script src="cs_session.js?v=0.105"></script>
+<script src="cs_dice.js?v=0.105"></script>
+<script src="cs_map.js?v=0.105"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.104"></script>
-<script src="cs_i18n.js?v=0.104"></script>
+<script src="cs_locale.js?v=0.105"></script>
+<script src="cs_i18n.js?v=0.105"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.104');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.105');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -2652,6 +2668,24 @@ function _showBootLoading() {
 function _hideBootLoading() {
   var ov = document.getElementById('boot-loading'); if (ov) ov.classList.add('hidden');
   if (_bootMsgTimer) { clearInterval(_bootMsgTimer); _bootMsgTimer = null; }
+}
+// ── 미니 주사위 로더(네트워크 대기: 클라우드 로드/슬롯 전환 등) ──
+// 부트 오버레이(전체화면)와 달리 화면을 가리지 않고 상호작용만 막음. ref 카운트로 중첩 호출 안전.
+var _miniLoaderN = 0, _miniLoaderTimer = null;
+function showMiniLoader() {
+  _miniLoaderN++;
+  var el = document.getElementById('mini-loader');
+  if (el) el.classList.remove('hidden');
+  // 무한대기 안전망: 15초 넘으면 강제 해제(정지 인상 방지)
+  if (_miniLoaderTimer) clearTimeout(_miniLoaderTimer);
+  _miniLoaderTimer = setTimeout(function () { _miniLoaderN = 0; if (el) el.classList.add('hidden'); }, 15000);
+}
+function hideMiniLoader() {
+  _miniLoaderN = Math.max(0, _miniLoaderN - 1);
+  if (_miniLoaderN > 0) return;
+  var el = document.getElementById('mini-loader');
+  if (el) el.classList.add('hidden');
+  if (_miniLoaderTimer) { clearTimeout(_miniLoaderTimer); _miniLoaderTimer = null; }
 }
 function _bootGate(proceed) {
   // 이미 준비됐으면 오버레이 없이 즉시 진입(온로드 사전 로딩이 끝난 경우 — 깜빡임 방지)
@@ -2863,6 +2897,7 @@ function loadFromCloud() {
   var status = document.getElementById('save-status');
   status.textContent = '불러오는 중...';
   status.style.color = 'var(--accent)';
+  showMiniLoader();
   db.collection('users').doc(currentUser.uid).collection(PF_COL.characters).doc(currentSlot).get().then(function(doc) {
     if (doc.exists && doc.data().data) {
       var data = JSON.parse(doc.data().data);
@@ -2886,11 +2921,13 @@ function loadFromCloud() {
       recalcAll();
       status.textContent = '✓ 불러오기 완료';
       status.style.color = 'var(--green)';
+      hideMiniLoader();
     } else {
       status.textContent = '이 슬롯은 비어있습니다.';
       status.style.color = 'var(--text2)';
       _cloudResolved = true; _checkReady();
       recalcAll();
+      hideMiniLoader();
     }
   }).catch(function(e) {
     status.textContent = '새 캐릭터';
@@ -2898,6 +2935,7 @@ function loadFromCloud() {
     console.warn('[loadFromCloud] empty or error:', e);
     _cloudResolved = true; _checkReady();
     recalcAll();
+    hideMiniLoader();
   });
 }
 
@@ -2909,17 +2947,20 @@ function switchSlot(slot) {
   if (currentUser) {
     var data = collectData();
     var oldSlot = currentSlot;
+    showMiniLoader(); // 저장-쓰기 대기부터 표시(loadFromCloud가 이어받아 해제)
     db.collection('users').doc(currentUser.uid).collection(PF_COL.characters).doc(oldSlot).set({
       data: JSON.stringify(data),
       name: data.name || '이름 없음',
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     }).then(function() {
       currentSlot = slot;
+      hideMiniLoader(); // ref 균형(loadFromCloud가 다시 표시·해제) — 동기라 깜빡임 없음
       loadFromCloud();
       updateSlotBar();
       loadSlotNames(currentUser.uid);
     }).catch(function() {
       currentSlot = slot;
+      hideMiniLoader();
       loadFromCloud();
       updateSlotBar();
     });
