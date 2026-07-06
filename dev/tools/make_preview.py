@@ -109,6 +109,20 @@ function runDiag(){
   var gr = (typeof getEffectRows==='function')?getEffectRows('gossip'):[];
   ok('gossip rows: grant_lore $choice 존재', gr.some(function(r){return r.type==='grant_lore'&&r.target==='$choice';}));
   ok('gossip rows: grant_feat hobnobber 존재', gr.some(function(r){return r.type==='grant_feat'&&r.target==='hobnobber';}));
+  // 추가 지식 레벨 스케일(prof_by_level) — 데이터+_rowToEffect 통과+공식
+  var alRow = (getEffectRows('additional-lore')||[]).find(function(r){return r.type==='grant_lore';});
+  ok('additional-lore: prof_by_level 존재', !!(alRow && Array.isArray(alRow.prof_by_level) && alRow.prof_by_level.length===4));
+  var alEff = (typeof _rowToEffect==='function' && alRow)?_rowToEffect(alRow):{};
+  ok('_rowToEffect가 prof_by_level 보존', !!(alEff && Array.isArray(alEff.prof_by_level)));
+  function _lr(lvl,tbl){var r=0;(tbl||[]).forEach(function(p){if(Array.isArray(p)&&lvl>=p[0])r=Math.max(r,p[1]);});return r||2;}
+  var t=alEff.prof_by_level;
+  ok('스케일 L1=훈련(2)', _lr(1,t)===2 && _lr(2,t)===2);
+  ok('스케일 L3=전문가(4)', _lr(3,t)===4 && _lr(6,t)===4);
+  ok('스케일 L7=달인(6)', _lr(7,t)===6 && _lr(14,t)===6);
+  ok('스케일 L15=전설(8)', _lr(15,t)===8 && _lr(20,t)===8);
+  // 스케일 없는 지식(가십 choice)은 훈련 고정
+  var gLore=(getEffectRows('gossip')||[]).find(function(r){return r.type==='grant_lore';});
+  ok('가십 지식은 prof_by_level 없음(훈련 고정)', !!(gLore && !gLore.prof_by_level));
   // fvtt-only 재주도 효과 나오나(있으면)
   var anySlug=Object.keys(EFFECTS_DB).find(function(s){return EFFECTS_DB[s].source==='fvtt';});
   ok('fvtt-origin entity has runtime rows', !!(anySlug && EFFECTS_DB[anySlug].rows.length));

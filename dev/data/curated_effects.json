@@ -501,11 +501,12 @@
    "filter": null,
    "options": []
   },
-  "auto_note": "추가 지식($choice_name) 숙련됨. 레벨 상승 시 자동 증가",
+  "auto_note": "추가 지식($choice_name) 훈련. 3/7/15레벨에 전문가·달인·전설로 상승",
   "rows": [
    {
     "type": "grant_lore",
-    "target": "$choice"
+    "target": "$choice",
+    "prof_by_level": [[1, 2], [3, 4], [7, 6], [15, 8]]
    }
   ]
  },

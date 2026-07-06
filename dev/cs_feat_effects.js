@@ -431,27 +431,29 @@ function _applyOneEffect(fb, eff, feat, level) {
       break;
     }
     case 'grant_lore': {
-      // 빈 지식 슬롯을 찾아 이름 설정 + 숙련 부여
+      // 빈 지식 슬롯을 찾아 이름 설정 + 숙련 부여.
+      // 레벨 스케일: 효과행 prof_by_level([[레벨하한,숙련값],...])이 있으면 현재 레벨에서 만족하는 최고 숙련값.
+      // (예: 추가 지식 [[1,2],[3,4],[7,6],[15,8]] → 3/7/15레벨에 전문가·달인·전설.) 없으면 훈련(2) 고정.
       let loreName = eff.name || '';
       if (loreName === '$choice') loreName = feat.choice || '';
       if (!loreName) break;
+      const _lvl = (typeof getLevel === 'function') ? getLevel() : 1;
+      let _rank = 2;
+      if (Array.isArray(eff.prof_by_level)) {
+        _rank = 0;
+        for (const pair of eff.prof_by_level) { if (Array.isArray(pair) && _lvl >= pair[0]) _rank = Math.max(_rank, pair[1]); }
+        if (!_rank) _rank = 2;
+      }
       const slots = ['lore1','lore2'];
       for (const sid of slots) {
         const nameEl = document.getElementById('lore-name-'+sid);
         const profEl = document.getElementById('sk-prof-'+sid);
         if (!nameEl) continue;
-        if (nameEl.value === loreName) {
-          if (profEl && parseInt(profEl.value||0) < 2) profEl.value = '2';
+        if (nameEl.value === loreName || !nameEl.value) {
+          if (!nameEl.value) nameEl.value = loreName;
+          if (profEl && parseInt(profEl.value||0) < _rank) profEl.value = String(_rank);
           if (!fb.skills[sid]) fb.skills[sid] = {min_rank:0, bonus:0};
-          fb.skills[sid].min_rank = Math.max(fb.skills[sid].min_rank, 2);
-          state._featGrantedLores.push({slot: sid, name: loreName, feat: feat.name});
-          break;
-        }
-        if (!nameEl.value) {
-          nameEl.value = loreName;
-          if (profEl && parseInt(profEl.value||0) < 2) profEl.value = '2';
-          if (!fb.skills[sid]) fb.skills[sid] = {min_rank:0, bonus:0};
-          fb.skills[sid].min_rank = Math.max(fb.skills[sid].min_rank, 2);
+          fb.skills[sid].min_rank = Math.max(fb.skills[sid].min_rank, _rank);
           state._featGrantedLores.push({slot: sid, name: loreName, feat: feat.name});
           break;
         }
@@ -1296,9 +1298,10 @@ function checkFeatChoice(featName, featType, featIndex) {
   const def = _getFeatEffectsDef(nameEn);
   if (def && def.choice) {
     const t = def.choice.type;
-    // 인라인 컨트롤이 있는 타입은 팝업 생략 → 재주 탭에서 선택.
-    // 단 lore(지식 분야 입력)는 획득 즉시 팝업으로 프롬프트(발견성 — "얻어도 아무 일 없음" 방지). 인라인 편집 UI는 유지.
-    if (t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || (t === 'custom' && def.choice.options)) {
+    // 인라인 컨트롤이 있는 타입은 팝업 생략 → 재주 탭 인라인 UI에서 선택.
+    // lore(지식 분야 입력)도 인라인 처리(배경 혜택의 지식 입력과 동일 방식) — 별도 팝업 없음.
+    // 미선택 시 재주 탭에 ⚠ 경고 + 인라인 입력이 노출(발견성 유지). grant_lore choice 전반에 적용.
+    if (t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || t === 'lore' || (t === 'custom' && def.choice.options)) {
       return false;
     }
     openFeatChoiceModal(featType, featIndex, def.choice);

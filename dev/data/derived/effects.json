@@ -36844,7 +36844,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "hobnobber",
-   "owner_name": "호브노버",
+   "owner_name": "소문 수집가",
    "owner_level": 1,
    "category": "skill",
    "src": "rule",
@@ -42871,7 +42871,7 @@
    "rule": "GrantItem",
    "type": "grant_feat",
    "target": "hobnobber",
-   "name": "호브노버",
+   "name": "소문 수집가",
    "condition": ""
   },
   {
@@ -93312,7 +93312,7 @@
    "rule": "GrantItem",
    "type": "grant_feat",
    "target": "hobnobber",
-   "name": "호브노버",
+   "name": "소문 수집가",
    "condition": ""
   },
   {
@@ -109530,7 +109530,7 @@
    "rule": "GrantItem",
    "type": "grant_feat",
    "target": "hobnobber",
-   "name": "호브노버",
+   "name": "소문 수집가",
    "condition": "[{\"or\":[\"background-variant:none\",\"background-variant:family:typical\"]}]"
   },
   {
@@ -124674,7 +124674,7 @@
    "rule": "GrantItem",
    "type": "grant_feat",
    "target": "hobnobber",
-   "name": "호브노버",
+   "name": "소문 수집가",
    "condition": "[\"family:diplomacy\"]"
   },
   {
@@ -134570,7 +134570,7 @@
    "rule": "GrantItem",
    "type": "grant_feat",
    "target": "hobnobber",
-   "name": "호브노버",
+   "name": "소문 수집가",
    "condition": "[\"able-carter:diplomacy\"]"
   },
   {
@@ -223828,7 +223828,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "hobnobber",
-   "owner_name": "호브노버",
+   "owner_name": "소문 수집가",
    "owner_level": 1,
    "category": "skill",
    "rule": "curated",
@@ -224874,7 +224874,25 @@
    "rule": "curated",
    "src": "effect",
    "type": "grant_lore",
-   "target": "$choice"
+   "target": "$choice",
+   "prof_by_level": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     15,
+     8
+    ]
+   ]
   },
   {
    "owner_kind": "feat",
@@ -224885,7 +224903,7 @@
    "rule": "curated",
    "src": "note",
    "type": "display_note",
-   "note": "추가 지식($choice_name) 숙련됨. 레벨 상승 시 자동 증가"
+   "note": "추가 지식($choice_name) 훈련. 3/7/15레벨에 전문가·달인·전설로 상승"
   },
   {
    "owner_kind": "feat",
