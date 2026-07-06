@@ -123,6 +123,12 @@ function runDiag(){
   // 스케일 없는 지식(가십 choice)은 훈련 고정
   var gLore=(getEffectRows('gossip')||[]).find(function(r){return r.type==='grant_lore';});
   ok('가십 지식은 prof_by_level 없음(훈련 고정)', !!(gLore && !gLore.prof_by_level));
+  // 택1(or) 배경 → choice_lore, 쓰레기 고정지식 없음
+  var fo=getBackgroundEffects({id:'faction-opportunist'});
+  ok('faction-opportunist: choice_lore=true(택1)', fo && fo.choice_lore===true);
+  ok('faction-opportunist: 쓰레기 고정지식 없음', fo && fo.fixed_lores.length===0);
+  var hd=getBackgroundEffects({id:'hookclaw-digger'});
+  ok('hookclaw-digger: 고정지식 2개 유지(and)', hd && hd.fixed_lores.length===2 && hd.choice_lore===false);
 
   // ── 공용 지식 슬롯 헬퍼: 스케일·슬롯 만석·당겨짐·복원 (재주/배경 통일 로직) ──
   if (typeof grantLoreToSlot==='function') {

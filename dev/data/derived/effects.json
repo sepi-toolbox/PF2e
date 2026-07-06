@@ -115109,7 +115109,7 @@
    "src": "field",
    "rule": "",
    "type": "grant_lore",
-   "target": "Gladatorial Lore or Genealogy"
+   "target": "$choice"
   },
   {
    "owner_kind": "background",
@@ -116055,7 +116055,7 @@
    "src": "field",
    "rule": "",
    "type": "grant_lore",
-   "target": "Legal Lore or Underworld"
+   "target": "$choice"
   },
   {
    "owner_kind": "background",
@@ -118400,29 +118400,7 @@
    "src": "field",
    "rule": "",
    "type": "grant_lore",
-   "target": "Guild"
-  },
-  {
-   "owner_kind": "background",
-   "owner_slug": "faction-opportunist",
-   "owner_name": "진영 기회주의자",
-   "owner_level": "",
-   "category": "",
-   "src": "field",
-   "rule": "",
-   "type": "grant_lore",
-   "target": "Heraldry"
-  },
-  {
-   "owner_kind": "background",
-   "owner_slug": "faction-opportunist",
-   "owner_name": "진영 기회주의자",
-   "owner_level": "",
-   "category": "",
-   "src": "field",
-   "rule": "",
-   "type": "grant_lore",
-   "target": "or Mercantile"
+   "target": "$choice"
   },
   {
    "owner_kind": "background",
@@ -134011,7 +133989,7 @@
    "src": "field",
    "rule": "",
    "type": "grant_lore",
-   "target": "Sailing Lore or Hunting"
+   "target": "$choice"
   },
   {
    "owner_kind": "background",
@@ -137235,7 +137213,7 @@
    "src": "field",
    "rule": "",
    "type": "grant_lore",
-   "target": "Heraldry Lore or Warfare"
+   "target": "$choice"
   },
   {
    "owner_kind": "background",
@@ -137559,7 +137537,7 @@
    "src": "field",
    "rule": "",
    "type": "grant_lore",
-   "target": "Settlement or Terrain"
+   "target": "$choice"
   },
   {
    "owner_kind": "background",
@@ -139454,7 +139432,7 @@
    "src": "field",
    "rule": "",
    "type": "grant_lore",
-   "target": "Hunting Lore or Stabling"
+   "target": "$choice"
   },
   {
    "owner_kind": "background",
@@ -141036,7 +141014,7 @@
    "src": "field",
    "rule": "",
    "type": "grant_lore",
-   "target": "Labor Lore or Underworld"
+   "target": "$choice"
   },
   {
    "owner_kind": "background",
@@ -231715,7 +231693,7 @@
    "name": "용기의 찬가"
   }
  ],
- "note": "자동화 정본 효과 테이블(FVTT 단일소스 재구축, 2026-07-06). 효과행 18722 · 64 type. 소스=FVTT system.rules[](feat/heritage/background) + 신격 구조필드 + curated_effects.json(FVTT 갭 큐레이션). rule=정의 규칙(FVTT Rule Element 종류 또는 curated). owner_kind=소속. condition=조건보유효과·deity=신격효과 → 표시/FK만(런타임 미편입). raw slug 표시. 재생성=node tools/derive/build_effects.mjs.",
+ "note": "자동화 정본 효과 테이블(FVTT 단일소스 재구축, 2026-07-06). 효과행 18720 · 64 type. 소스=FVTT system.rules[](feat/heritage/background) + 신격 구조필드 + curated_effects.json(FVTT 갭 큐레이션). rule=정의 규칙(FVTT Rule Element 종류 또는 curated). owner_kind=소속. condition=조건보유효과·deity=신격효과 → 표시/FK만(런타임 미편입). raw slug 표시. 재생성=node tools/derive/build_effects.mjs.",
  "_types": {
   "choice": 640,
   "resistance": 240,
@@ -231766,7 +231744,7 @@
   "creature_size": 21,
   "temp_hp": 1,
   "dexterity_modifier_cap": 6,
-  "grant_lore": 406,
+  "grant_lore": 404,
   "fast_healing": 4,
   "ability_boost_choice": 946,
   "free_boost_slots": 497,

@@ -151,7 +151,15 @@ function emitBackground(base, doc) {
   }
   const ts = s.trainedSkills || {};
   for (const sk of (ts.value || [])) out.push({ type: 'skill_trained', target: sk });
-  for (const lo of (ts.lore || [])) out.push({ type: 'grant_lore', target: String(lo).replace(/\s*Lore$/i, '').trim() });
+  // 지식(lore): FVTT는 "A or B Lore"/"A, B, or C Lore"(택1)를 배열/문자열로 담음.
+  //  - "or" 있으면 택1 선택 → 단일 grant_lore $choice(choice_lore 경로 재사용, gossip과 동일 로직).
+  //  - 없으면 각 항목을 고정 grant_lore로. (설명문의 "and"는 전부 부여, 슬롯 초과는 런타임이 처리.)
+  const loreArr = (ts.lore || []).map(x => String(x));
+  if (/\bor\s/i.test(loreArr.join(', '))) {
+    out.push({ type: 'grant_lore', target: '$choice' });
+  } else {
+    for (const lo of loreArr) out.push({ type: 'grant_lore', target: lo.replace(/\s*Lore$/i, '').trim() });
+  }
   // 부여 재주: 배경은 skill feat을 system.items(UUID)로 담음(rules[] 아님) → slug로 grant_feat 방출.
   // (런타임 getBackgroundEffects/rebuildCoreEffects·배경 모달이 feat_id를 이미 소비. 하드코딩 없이 구조데이터 단일 소스.)
   for (const k of Object.keys(s.items || {})) {
