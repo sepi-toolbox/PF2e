@@ -1275,7 +1275,9 @@ function growthSlotWithClearHTML(key, icon, label, value, onclickStr, clearActio
 function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
   const filled = value ? 'filled' : '';
   const display = value || '선택 안 됨';
-  const clickAction = value ? `showInfo('feat','${(value||'').replace(/'/g,"\\'")}')` : `growthPickFeat(${lv},'${key}','${featType}')`;
+  // 채워진 슬롯 클릭 = 클래스/배경과 동일하게 선택 모달 재오픈(목록 + 현재 재주 하이라이트).
+  // (구: showInfo 정보 팝업만 떠서 목록/교체가 불가했음 — 사용자 요청으로 통일)
+  const clickAction = `growthPickFeat(${lv},'${key}','${featType}')`;
   // 선택된 재주 아이콘으로 원 교체
   const _fd = value && typeof getFeat === 'function' ? (getFeat(value) || getFeat(value.split(' (')[0].trim())) : null;
   const circleIco = value ? _slotCircle('feat', _fd || { name: value }, icon) : icon;
@@ -2688,6 +2690,19 @@ function openModal(type, ctx) {
       if (name === matchName) {
         row.click();
         break;
+      }
+    }
+  }
+  // ── 재주(성장 빌더): 슬롯에 이미 선택된 재주가 있으면 하이라이트 + 상세 표시 ──
+  // 클래스/배경과 동일한 재오픈 경험(목록 유지 + 선택된 항목 하이라이트).
+  else if (type === 'feat' && growthPendingKey !== null && growthPendingLevel !== null) {
+    const _curFeat = state.growth && state.growth[growthPendingLevel] && state.growth[growthPendingLevel][growthPendingKey];
+    if (_curFeat) {
+      const _matchKo = String(_curFeat).split(' (')[0].trim();
+      const rows = document.querySelectorAll('#modal-options .opt-row');
+      for (const row of rows) {
+        const nameEl = row.querySelector('.opt-row-name');
+        if (nameEl && nameEl.textContent.trim() === _matchKo) { row.click(); break; }
       }
     }
   }
