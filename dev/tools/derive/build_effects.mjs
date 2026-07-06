@@ -1,5 +1,8 @@
 #!/usr/bin/env node
-/* build_effects.mjs — 모든 소스의 자동화(기계효과)를 하나의 정본 효과 테이블로 통합.
+/* ⚠ 파손 상태(레거시 feat_db.js 의존 → 실행 불가) + 수리 요구사항(2026-07-06):
+ *   legacy/fvtt `source`/`origin` 이원 태그 폐지 — 효과 데이터는 단일 소스여야 함(사용자 지시).
+ *   현재 effects_db.js/effects.json에서 source·origin 필드는 제거됨. 생성기 수리 시 재도입 금지.
+ * build_effects.mjs — 모든 소스의 자동화(기계효과)를 하나의 정본 효과 테이블로 통합.
  * origin=legacy: FEAT_DB/HERITAGE_DB/BACKGROUNDS 의 effect_group_id ⨝ EFFECT_GROUPS(+CHOICE_OPTIONS/노트).
  * origin=fvtt  : 각 엔티티 FVTT 문서의 system.rules[] 를 읽어 효과행으로 매핑(기술/지식/내성/시야/저항/부여 등
  *                레거시에 없던 대량 자동화까지 전부 데이터화). 미해소 rule = 원형 표시.
