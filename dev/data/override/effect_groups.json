@@ -1,8 +1,9 @@
 {
   "composition-spells": [
-    { "type": "grant_focus_spell", "target": "courageous-anthem", "name": "용기의 찬가" }
-  ],
-  "additional-lore": [
-    { "type": "grant_lore", "target": "$choice" }
+    {
+      "type": "grant_focus_spell",
+      "target": "courageous-anthem",
+      "name": "용기의 찬가"
+    }
   ]
 }
