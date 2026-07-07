@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.129').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.130').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -394,9 +394,10 @@ function calcWeaponDamage(w) {
 
   // Rune damage bonus (potency doesn't add to damage in PF2e, only hit; striking adds dice above)
   // 속성 룬 추가 피해: 비지속(명중 시)은 피해식에 "+1d6 화염"으로, 지속/치명은 노트(w._runeNotes)로.
-  const _dtKo = { fire:'화염', cold:'냉기', electricity:'전기', acid:'산성', sonic:'음파', force:'역장', mental:'정신', void:'사령', spirit:'정신력', vitality:'생명력', bleed:'출혈', poison:'독', bludgeoning:'타격', piercing:'관통', slashing:'참격' };
+  // 피해유형 한글 = 정본 글로서리 리졸버 단일 사용(로컬 맵 divergence 제거 — void 공허/spirit 영혼/vitality 활력).
+  const _dtKo = (t) => (typeof PF2eEquip !== 'undefined' && PF2eEquip.damageTypeKo) ? PF2eEquip.damageTypeKo(t) : t;
   let runeDmgStr = '';
-  (w._runeDamage || []).filter(d => !d.persistent).forEach(d => { runeDmgStr += ' + ' + d.dice + ' ' + (_dtKo[d.type] || d.type); });
+  (w._runeDamage || []).filter(d => !d.persistent).forEach(d => { runeDmgStr += ' + ' + d.dice + ' ' + _dtKo(d.type); });
 
   const totalBonus = abilMod;
   if (numDice === 0 && dieSizeBase === 0) {
@@ -1835,7 +1836,7 @@ function renderSpells() {
   const dfSection = document.getElementById('spell-divine-font-section');
   const dfBody = document.getElementById('divine-font-body');
   if (dfSection && dfBody) {
-    if (state.divineFont && state.selectedClass?.id === 'cleric') {
+    if (state.divineFont && state.selectedClass?.deity_skill) {
       dfSection.style.display = '';
       const isHeal = state.divineFont === 'heal';
       const dfSlug = isHeal ? 'heal' : 'harm';   // 정본 slug (name_ko '해악' 드리프트 무관)

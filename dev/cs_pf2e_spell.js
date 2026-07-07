@@ -10,7 +10,7 @@
 
   let _ready = false, _lang = null, _index = null, _list = null;
 
-  const AREA_KO = { burst: '폭발', emanation: '방출', cone: '원뿔', line: '직선', square: '사각', cube: '정육면체', sphere: '구체', radius: '반경' };
+  const AREA_KO = { burst: '폭발', emanation: '발산', cone: '원뿔', line: '직선', square: '사각', cube: '정육면체', sphere: '구체', radius: '반경' };
   const SAVE_KO = { reflex: '반사', fortitude: '인내', will: '의지' };
 
   function _traitKo(slug) { return (_lang && _lang.traits && _lang.traits[slug]) || slug; }

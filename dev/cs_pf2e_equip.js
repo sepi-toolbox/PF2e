@@ -18,7 +18,7 @@
   async function init() { if (!isNode && !_lang) { try { const r = await fetch('data/store/_glossary.json'); _lang = await r.json(); } catch (e) { _lang = { traits: {}, damageType: {}, weaponGroup: {}, armorGroup: {} }; } } _loadLang(); }
 
   const RARITY_KO = { common: '일반', uncommon: '비범', rare: '희귀', unique: '고유' };
-  const WCAT_KO = { simple: '단순', martial: '전투', advanced: '고급', unarmed: '비무장' };
+  const WCAT_KO = { simple: '단순', martial: '군용', advanced: '고급', unarmed: '비무장' };
   const ACAT_KO = { unarmored: '비무장', light: '경장', medium: '중장', heavy: '중량' };
   const ITEMTYPE_KO = { weapon: '무기', armor: '방어구', shield: '방패', consumable: '소비품', equipment: '장비', treasure: '보물', backpack: '용기', ammo: '탄약', kit: '키트' };
 

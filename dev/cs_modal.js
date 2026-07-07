@@ -1063,8 +1063,8 @@ function toggleDivineFontSlot(idx) {
 function getDivineFontSlots() {
   if(!state.divineFont || !state.selectedClass || !state.selectedClass.deity_skill) return 0;
   const lv = getLevel();
-  // 레벨별 신성 원천 슬롯 진행 = 4 + floor((lv-1)/3) (구 DIVINE_FONT_SLOTS 표와 전 레벨 동일).
-  return 4 + Math.floor((lv - 1) / 3);
+  // 신성한 샘(Divine Font) 정본: 4슬롯(L1~4) → 5(L5~14) → 6(L15~20). (구 표 4→10은 오류였음)
+  return lv >= 15 ? 6 : lv >= 5 ? 5 : 4;
 }
 
 function onLevelChange() {
@@ -3883,9 +3883,9 @@ function _buildClassChoicesUI(cls) {
   const featsByLv = {};
   allFeats.forEach(f => { (featsByLv[f.lv] = featsByLv[f.lv] || []).push(f); });
 
-  // ── 서브클래스 HTML 미리 준비 ──
+  // ── 서브클래스 HTML 미리 준비 ── (신격/교의/신성원천 UI = deity_skill 플래그, 하드코딩 'cleric' 대신)
   let subclassHtml = '';
-  if (cls.id === 'cleric') {
+  if (deitySkill) {
     subclassHtml = _buildClericChoicesUI();
   } else if (typeof SUBCLASS_DB !== 'undefined') {
     const subs = SUBCLASS_DB.filter(s => s.class_id === cls.id);

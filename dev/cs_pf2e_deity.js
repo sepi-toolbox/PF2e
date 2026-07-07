@@ -12,11 +12,12 @@
   let _ready = false, _index = null, _list = null;
 
   // 기술 한글명(오프라인 고정 — 글로서리 미의존). lore=지식.
+  // 정본 = 사용자 노출 기술 목록(cs_data SKILLS / system_terms): 제작·자연학·오컬티즘·사회.
   const SKILL_KO = {
-    acrobatics: '곡예', arcana: '주문학', athletics: '운동', crafting: '공예',
+    acrobatics: '곡예', arcana: '주문학', athletics: '운동', crafting: '제작',
     deception: '기만', diplomacy: '외교', intimidation: '위협', medicine: '의학',
-    nature: '자연', occultism: '신비학', performance: '공연', religion: '종교학',
-    society: '사회학', stealth: '은신', survival: '생존', thievery: '도둑질', lore: '지식',
+    nature: '자연학', occultism: '오컬티즘', performance: '공연', religion: '종교학',
+    society: '사회', stealth: '은신', survival: '생존', thievery: '도둑질', lore: '지식',
   };
   const FONT_KO = { harm: '해악(Harm)', heal: '치유(Heal)' };
   const SANCT_KO = { holy: '신성(Holy)', unholy: '불경(Unholy)' };
