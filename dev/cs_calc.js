@@ -420,6 +420,12 @@ function getFeat(key)  {
   // 재주 카탈로그 = FVTT 단일 소스(PF2eFeat). 효과는 effects_db, 선행조건은 prereqs_db.
   return (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) ? PF2eFeat.getFeatLegacy(key) : null;
 }
+// 재주 특성 판정 = 원본 slug(traitSlugs) 우선, 구 저장/한글 traits는 폴백.
+// 번역 드리프트 무음 사망 방지(dedication↔헌신, multiclass↔멀티클래스 등).
+function featHasTrait(f, slug, koFallback) {
+  if (f && Array.isArray(f.traitSlugs)) return f.traitSlugs.includes(slug);
+  return !!(f && Array.isArray(f.traits) && koFallback && f.traits.includes(koFallback));
+}
 // ── slug 디커플링 헬퍼 (번역명 결합 제거) ──────────────────────────────
 // 저장·매칭은 slug(id)로 정규화, 표시는 항상 현재 name_ko로 재해소.
 // 인자는 이름(구 저장)·slug(신 저장)·객체({id,name}) 모두 허용 → 하위호환.
@@ -647,7 +653,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.126').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.127').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -1837,7 +1843,8 @@ function rebuildCoreEffects() {
     if (!state.spells) state.spells = {cantrip:[], known:[], focus:[], innate:[]};
     if (!state.spells.innate) state.spells.innate = [];
     heff.innateSpells.forEach(sp => {
-      const needsChoice = sp.tradition === '원시' || sp.tradition === '선택';
+      // 선택형 마커 = slug 어휘(primal/$other/any). 구 한글('원시'/'선택')은 폴백.
+      const needsChoice = ['primal', '$other', 'any', '원시', '선택'].includes(sp.tradition);
       if (!needsChoice) {
         const _sp = getSpell(sp.name);
         state.spells.innate.push({id: _sp?.id || null, name: sp.name, tradition: sp.tradition, type: sp.type, uses: sp.uses, _heritage: true, _source: heritage.name_ko});
@@ -1915,7 +1922,6 @@ function getSubclassAutoSpells(sub) {
   }).filter(Boolean);
 }
 function getSubclassFeatures(sub) { return (sub && sub.features) || []; }
-function getSubclassProfChanges(sub) { return (sub && sub.prof_changes) || {}; }
 
 function recalcAll() {
   // 빌더 핵심 선택 재파생 (유산/배경)

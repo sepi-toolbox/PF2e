@@ -71,7 +71,7 @@
       id: s.slug, name_ko: PF.nameKo(doc), name_en: doc.name_en || doc.name,
       category: cat, feat_level: (s.level && s.level.value) || 0,
       _classSlugs: clsSlugs.length ? clsSlugs : undefined,
-      traits: traitsV.map(_traitKo), rarity: (s.traits && s.traits.rarity) || 'common',
+      traits: traitsV.map(_traitKo), traitSlugs: traitsV.slice(), rarity: (s.traits && s.traits.rarity) || 'common',
       prerequisites: _prereqText(doc),
       desc: PF.enrichDesc(PF.descKo(doc) || ''),
       acquisition: isAuto ? 'auto' : 'selectable',

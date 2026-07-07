@@ -1080,7 +1080,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     const candidates = PF2eEquip.legacyList({type:'weapon'}).filter(w => {
       if (w.rarity !== 'uncommon') return false;           // 비일반 희귀도만
       if (allMartialTrained) return true;                  // 고급 비일반도 허용
-      return w.category === '단순' || w.category === '군용'; // 그 외 단순/군용 비일반만
+      return w.catSlug === 'simple' || w.catSlug === 'martial'; // 그 외 단순/군용 비일반만 (원본 slug)
     });
 
     if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; searchEl.oninput = () => {
@@ -1143,13 +1143,14 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       if (_isClassPick) { if (!(typeof _featInClass === 'function' ? _featInClass(f, pickCat) : f.category === pickCat) && f.category !== 'archetype') return false; }
       else if (f.category !== pickCat) return false;
       if (f.feat_level > pickMax) return false;
-      if (pickTraits && !(f.traits && f.traits.some(t => pickTraits.includes(t)))) return false;
+      // pickTraits는 slug('dedication') 또는 한글 혈통명 혼재 — traitSlugs+traits 양쪽 대조
+      if (pickTraits && !([].concat(f.traitSlugs || [], f.traits || []).some(t => pickTraits.includes(t)))) return false;
       // 헌신 재주: 자기 클래스 헌신 제외 (slug 기준)
-      if (pickTraits?.includes('헌신') && myClassDedSlug && f.id === myClassDedSlug) return false;
+      if (pickTraits?.includes('dedication') && myClassDedSlug && f.id === myClassDedSlug) return false;
       // 전제조건 체크 (아이우바린이면 생략 가능)
       if (f.prerequisites && !skipPrereq && typeof _checkPrereqs === 'function' && !_checkPrereqs(f.prerequisites)) return false;
       // 헌신 재주 특수 조건 (다재다능은 skipDedicationLimit으로 무시)
-      if (f.traits?.includes('헌신') && !choiceDef.skipDedicationLimit && typeof canTakeDedication === 'function' && !canTakeDedication(f)) return false;
+      if (featHasTrait(f, 'dedication', '헌신') && !choiceDef.skipDedicationLimit && typeof canTakeDedication === 'function' && !canTakeDedication(f)) return false;
       if (f.id && ownedSlugs.has(f.id)) return false;
       return true;
     });

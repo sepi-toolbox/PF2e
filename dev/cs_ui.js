@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.126').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.127').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -126,10 +126,14 @@ function getArmorCategory(name) {
   if (!name) return 'unarmored';
   const armor = getArmor(name);
   if (!armor) return 'unarmored';
+  // 정본 = FVTT 원본 slug(catSlug: unarmored/light/medium/heavy). 번역 드리프트 무관.
+  const slug = (armor.catSlug || armor._dbData?.catSlug || '').toLowerCase();
+  if (slug === 'light' || slug === 'medium' || slug === 'heavy' || slug === 'unarmored') return slug;
+  // 폴백: 구 저장/레거시 한글·영문 표기
   const cat = armor.category || '';
-  if (cat.includes('경갑') || cat.toLowerCase().includes('light')) return 'light';
-  if (cat.includes('重甲') || cat.includes('중갑')) return 'heavy';
-  if (cat.includes('평갑') || cat.toLowerCase().includes('medium')) return 'medium';
+  if (cat.includes('경갑') || cat.includes('경장') || cat.toLowerCase().includes('light')) return 'light';
+  if (cat.includes('重甲') || cat.includes('중갑') || cat.includes('중량') || cat.toLowerCase().includes('heavy')) return 'heavy';
+  if (cat.includes('평갑') || cat.includes('중장') || cat.toLowerCase().includes('medium')) return 'medium';
   return 'unarmored';
 }
 
@@ -261,7 +265,13 @@ function toggleShieldStow() {
 
 // ── Weapon category mapping ──
 function getWeaponCategory(w) {
-  // From DB data
+  // 정본 = FVTT 원본 slug(catSlug: simple/martial/advanced/unarmed). 번역 드리프트 무관.
+  const slug = (w._dbData?.catSlug || w.catSlug || '').toLowerCase();
+  if (slug === 'unarmed') return 'unarmed';
+  if (slug === 'advanced') return 'advanced';
+  if (slug === 'martial') return 'martial';
+  if (slug === 'simple') return 'simple';
+  // 폴백: 구 저장/레거시 한글·영문 표기
   const cat = (w._dbData?.category || w.category || '').toLowerCase();
   if (cat.includes('비무장') || cat.includes('unarmed')) return 'unarmed';
   if (cat.includes('고급') || cat.includes('advanced') || cat.includes('상급')) return 'advanced';
@@ -1828,12 +1838,13 @@ function renderSpells() {
     if (state.divineFont && state.selectedClass?.id === 'cleric') {
       dfSection.style.display = '';
       const isHeal = state.divineFont === 'heal';
-      const spellName = isHeal ? '치유 (Heal)' : '해로움 (Harm)';
+      const dfSlug = isHeal ? 'heal' : 'harm';   // 정본 slug (name_ko '해악' 드리프트 무관)
       const totalSlots = getDivineFontSlots();
       const used = Math.min(state.divineFontUsed || 0, totalSlots);
       document.getElementById('divine-font-label').textContent = isHeal ? 'Divine Font — Heal' : 'Divine Font — Harm';
       // 신성 원천 주문은 일반 주문과 동일한 행 형식으로 표시 (범주만 다를 뿐). 슬롯은 영웅점수식 pip.
-      const dfSpell = getSpell(isHeal ? '치유' : '해로움');
+      const dfSpell = getSpell(dfSlug);
+      const spellName = (dfSpell?.name_ko || (isHeal ? '치유' : '해악')) + (dfSpell?.name_en ? ` (${dfSpell.name_en})` : '');
       const dfActions = getActionIcons(dfSpell?.actions);
       let fires = '';
       for (let i = 0; i < totalSlots; i++) {
@@ -1842,7 +1853,7 @@ function renderSpells() {
       }
       dfBody.innerHTML = `
         <div class="spell-slot-row">
-          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${isHeal?'치유':'해로움'}')">${iconImg('spell', dfSpell || {name:spellName})}${spellName}${dfActions ? ' <span class="spell-actions-inline">'+dfActions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${dfSlug}')">${iconImg('spell', dfSpell || {name:spellName})}${spellName}${dfActions ? ' <span class="spell-actions-inline">'+dfActions+'</span>' : ''}</span>
           <span class="spell-slot-fires" style="margin-left:auto;">${fires}</span>
         </div>`;
     } else {
@@ -3364,6 +3375,18 @@ function _setCustomType(type) {
   _updateCustomTypeFields();
 }
 
+// 특성 드롭다운 옵션 = TRAIT_DB(배열, v526~) 순회. Object.keys(배열)이 인덱스만 뱉던 버그 대체.
+function _traitOptionsHtml() {
+  if (typeof TRAIT_DB === 'undefined' || !Array.isArray(TRAIT_DB)) return '';
+  const seen = new Set(), names = [];
+  for (const t of TRAIT_DB) {
+    const n = (t && (t.name_ko || t.id)) || '';
+    if (!n || seen.has(n)) continue;
+    seen.add(n); names.push(n);
+  }
+  names.sort((a, b) => a.localeCompare(b, 'ko'));
+  return names.map(n => `<option value="${n}">${n}</option>`).join('');
+}
 function _addCustomTrait() {
   const sel = document.getElementById('ce-trait-select');
   if (!sel || !sel.value) return;
@@ -3442,7 +3465,7 @@ function _updateCustomTypeFields() {
           <div style="display:flex;gap:4px;margin-bottom:4px;">
             <select id="ce-trait-select" style="${s}flex:1;">
               <option value="">— 특성 선택 —</option>
-              ${Object.keys(TRAIT_DB).map(t => `<option value="${t}">${t}</option>`).join('')}
+              ${_traitOptionsHtml()}
             </select>
             <button onclick="_addCustomTrait()" style="padding:4px 10px;background:var(--accent);color:var(--bg);border:none;border-radius:4px;font-size:11px;cursor:pointer;white-space:nowrap;">추가</button>
           </div>
@@ -3494,7 +3517,7 @@ function _updateCustomTypeFields() {
             <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">특성</div>
             <select id="ce-trait-select" style="${s}" onchange="_addCustomTrait()">
               <option value="">— 선택 —</option>
-              ${Object.keys(TRAIT_DB).map(t => `<option value="${t}">${t}</option>`).join('')}
+              ${_traitOptionsHtml()}
             </select>
           </div>
         </div>

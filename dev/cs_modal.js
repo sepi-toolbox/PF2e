@@ -908,20 +908,22 @@ function selectDeity(id) {
   const d = _getDeity(id);
   if(!d) return;
   state.deity = id;
-  // 신격 기술/선호 무기 숙련·성별화는 클레릭만 자동 부여(클레릭은 신격 선호 무기·신성 기술에 훈련).
+  // 신격 기술/선호 무기 숙련·성별화 자동 부여 여부 = 클래스 데이터 플래그 deity_skill (하드코딩 'cleric' 대신).
   // 일반 숭배자(타 클래스)는 신격을 '기록'만 — 기계 효과 없음(PF2e 정본). 챔피언 등은 클래스 특성에서 별도 처리.
-  const isCleric = state.selectedClass && state.selectedClass.id === 'cleric';
-  if(isCleric) {
+  const deityTrains = !!(state.selectedClass && state.selectedClass.deity_skill);
+  if(deityTrains) {
     // 신격 기술 훈련
     if(d.skill && typeof setSkillTrained==='function') setSkillTrained(d.skill);
     // 선호 무기 숙련 부여: 군용이면 해당 카테고리를 최소 훈련으로
     if(d.weapon && typeof getWeapon === 'function') {
       const wpn = getWeapon(d.weapon);
       if(wpn) {
+        // 무기 숙련 카테고리 = FVTT 원본 slug 우선(catSlug), 한글/영문 폴백
+        const slug = (wpn.catSlug||'').toLowerCase();
         const cat = (wpn.category||'').toLowerCase();
         let profKey = null;
-        if(cat.includes('군용') || cat.includes('martial')) profKey = 'prof-weapon-martial';
-        else if(cat.includes('고급') || cat.includes('advanced')) profKey = 'prof-weapon-advanced';
+        if(slug==='martial' || cat.includes('군용') || cat.includes('martial')) profKey = 'prof-weapon-martial';
+        else if(slug==='advanced' || cat.includes('고급') || cat.includes('advanced')) profKey = 'prof-weapon-advanced';
         if(profKey) {
           const el = document.getElementById(profKey);
           if(el && parseInt(el.value||0) < 2) el.value = '2';
@@ -3000,18 +3002,15 @@ function _checkPrereqsText(prereqStr) {
 
 // 헌신 재주 특수 조건: 자기 클래스 헌신 불가 + 기존 헌신이 있으면 해당 원형 비헌신 재주 2개 이상 필요
 function canTakeDedication(f) {
-  if (!f.traits || !f.traits.includes('헌신')) return true;
-  // 자기 클래스 헌신 차단: "Bard Dedication" → "bard" vs state.selectedClass.id
-  if (f.traits.includes('멀티클래스') && state.selectedClass) {
-    const dedClass = (f.name_en || '').replace(' Dedication','').toLowerCase();
-    if (dedClass === state.selectedClass.id) return false;
-  }
+  if (!featHasTrait(f, 'dedication', '헌신')) return true;
+  // 자기 클래스 헌신 차단: 헌신 재주 slug = "<class>-dedication" (name_en 파싱 대신 slug)
+  if (featHasTrait(f, 'multiclass', '멀티클래스') && state.selectedClass && f.id === state.selectedClass.id + '-dedication') return false;
   // 이미 보유한 헌신 재주 목록
   const allFeats = Object.values(state.feats).flat().filter(ff => ff?.name);
   const ownedDedications = allFeats.filter(ff => {
     const nameKo = ff.name.split(' (')[0].trim();
     const dbEntry = getFeat(nameKo);
-    return dbEntry?.traits?.includes('헌신');
+    return featHasTrait(dbEntry, 'dedication', '헌신');
   });
   if (ownedDedications.length === 0) return true; // 첫 헌신은 자유
 
@@ -3089,7 +3088,7 @@ function filterFeats() {
         if (f.id && _learnedIds.has(f.id)) return false;
       }
       // 헌신 재주 특수 조건
-      if (f.traits?.includes('헌신') && !canTakeDedication(f)) return false;
+      if (featHasTrait(f, 'dedication', '헌신') && !canTakeDedication(f)) return false;
       if (ft === 'ancestry') {
         if (f.category !== 'ancestry') return false;
         if (_ancestryTraits) {
@@ -3228,7 +3227,7 @@ function renderOptions(data) {
     const DED_KEY = '🎓 원형 헌신 재주';
     const lvGroups = {}, dedItems = [];
     data.forEach(item => {
-      if (item.traits && item.traits.includes('헌신')) { dedItems.push(item); return; }
+      if (featHasTrait(item, 'dedication', '헌신')) { dedItems.push(item); return; }
       (lvGroups[item.feat_level] = lvGroups[item.feat_level] || []).push(item);
     });
     grouped = {};
@@ -4300,9 +4299,8 @@ function _onClericFontChange(val) {
     // 신성 원천 기능 설명
     const cfDesc = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
       ? (CLASS_FEATURE_NAMES.cleric.find(f => f.id === 'divine-font') || {}).desc || '' : '';
-    // 주문 정보
-    const spellName = val === 'heal' ? '치유' : '해로움';
-    const spell = getSpell(spellName);
+    // 주문 정보 — val(heal/harm)이 곧 정본 slug
+    const spell = getSpell(val);
     let spellHtml = '';
     if (spell) {
       spellHtml = `<div style="margin-top:6px;padding:6px 8px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);">
@@ -5360,11 +5358,12 @@ function applyHeritageEffects(h) {
   // 캔트립 선택이 필요한 유산만 인터랙티브 모달 열기
   const _heff = getHeritageEffects(h);
   if (_heff.innateSpells) {
-    const needsChoice = _heff.innateSpells.some(sp => sp.tradition === '원시' || sp.tradition === '선택');
+    const _isChoose = (t) => t === '$other' || t === 'any' || t === '선택';
+    const needsChoice = _heff.innateSpells.some(sp => _isChoose(sp.tradition) || sp.tradition === 'primal' || sp.tradition === '원시');
     if (needsChoice) {
       const sp = _heff.innateSpells[0];
-      const trad = sp.tradition === '선택' ? 'any' : 'primal';
-      const label = sp.tradition === '선택' ? '전통 캔트립 선택 (비전/신성/오컬트 중)' : '원시(Primal) 캔트립 선택';
+      const trad = _isChoose(sp.tradition) ? 'any' : 'primal';
+      const label = _isChoose(sp.tradition) ? '전통 캔트립 선택 (비전/신성/오컬트 중)' : '원시(Primal) 캔트립 선택';
       if (!state.feats.other) state.feats.other = [];
       const tempFeatName = h.name_ko + ' 캔트립';
       // 중복 방지

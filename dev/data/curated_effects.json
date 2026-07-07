@@ -564,7 +564,7 @@
     "pickCategory": "archetype",
     "pickMaxLevel": 2,
     "pickTraits": [
-     "헌신"
+     "dedication"
     ],
     "grantTo": "archetype",
     "skipPrereqIfAiuvarin": true,
