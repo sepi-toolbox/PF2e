@@ -1,6 +1,6 @@
 /* cs_pf2e_class.js — 클래스(Class) ACCESS 어댑터 (P4)
  * FVTT classes.base(27) ⊕ 한글 OVERLAY → 빌더 CLASS 형태(콘텐츠 + L1 스탯).
- * ⚠ 숙련 진행표는 FVTT 컴펜디움에 없음(파운드리 시스템 코드에만 존재) → 신규 19클래스는 PF2e 정본 기준 수작업(CLASS_PROF_EXT).
+ * ⚠ 숙련 진행표는 FVTT 컴펜디움에 없음(파운드리 시스템 코드에만 존재) → 숙련표는 DataManager 단일소스(class_progression.json)에서 런타임 구성.
  *   L1 contrib는 FVTT classes.base에서 확인(앵커), 상위 레벨 브레이크포인트는 PC1/PC2 정본 진행.
  * 레거시 8클래스(bard/cleric/druid/fighter/ranger/rogue/witch/wizard)는 기존 CLASS_PROF_TABLE 권위 유지.
  * 의존: cs_pf2e.js(PF2eData). 미준비 시 레거시 CLASSES 폴백.
@@ -25,27 +25,36 @@
 
   // ── 수작업 숙련 진행표 (신규 19클래스, PF2e PC1/PC2 정본). contrib 2=T,4=E,6=M,8=L ──
   // L1 값은 FVTT classes.base와 일치(앵커). 누락 selector는 L1 미숙련 또는 해당없음.
-  const CLASS_PROF_EXT = {
-    barbarian: { fort:{1:4,9:6,17:8}, ref:{1:2,9:4}, will:{1:4,15:6}, perc:{1:4,7:6,15:8}, classdc:{1:2,9:4}, 'weapon-simple':{1:2,5:4,13:6}, 'weapon-martial':{1:2,5:4,13:6}, 'weapon-unarmed':{1:2,5:4,13:6}, 'armor-light':{1:2,13:4,19:6}, 'armor-medium':{1:2,13:4,19:6}, 'armor-unarmored':{1:2,13:4,19:6} },
-    champion: { fort:{1:4,9:6,17:8}, ref:{1:2,17:4}, will:{1:4,9:6}, perc:{1:2,7:4}, classdc:{1:2,9:4}, 'weapon-simple':{1:2,5:4,13:6}, 'weapon-martial':{1:2,5:4,13:6}, 'weapon-unarmed':{1:2,5:4,13:6}, 'armor-light':{1:2,7:4,17:6}, 'armor-medium':{1:2,7:4,17:6}, 'armor-heavy':{1:2,7:4,17:6}, 'armor-unarmored':{1:2,7:4,17:6} },
-    monk: { fort:{1:4,9:6,17:8}, ref:{1:4,9:6,17:8}, will:{1:4,9:6,17:8}, perc:{1:2,5:4,17:6}, classdc:{1:2,9:4,19:6}, 'weapon-simple':{1:2,5:4,13:6}, 'weapon-unarmed':{1:2,5:4,13:6}, 'armor-unarmored':{1:4,13:6,19:8} },
-    alchemist: { fort:{1:4,11:6}, ref:{1:4,7:6,17:8}, will:{1:2,5:4}, perc:{1:2,7:4}, classdc:{1:2,5:4,17:6}, 'weapon-simple':{1:2,13:4}, 'weapon-unarmed':{1:2,13:4}, 'armor-light':{1:2,11:4}, 'armor-medium':{1:2,11:4}, 'armor-unarmored':{1:2,11:4} },
-    sorcerer: { fort:{1:2,11:4}, ref:{1:2,5:4}, will:{1:4,9:6,17:8}, perc:{1:2,9:4}, spatk:{1:2,7:4,15:6,19:8}, classdc:{1:2}, 'weapon-simple':{1:2,11:4}, 'weapon-unarmed':{1:2,11:4}, 'armor-unarmored':{1:2,13:4} },
-    oracle: { fort:{1:2,9:4}, ref:{1:2,15:4}, will:{1:4,11:6}, perc:{1:2,7:4}, spatk:{1:2,7:4,15:6,19:8}, classdc:{1:2}, 'weapon-simple':{1:2,11:4}, 'weapon-unarmed':{1:2,11:4}, 'armor-light':{1:2,13:4}, 'armor-unarmored':{1:2,13:4} },
-    swashbuckler: { fort:{1:2,9:4}, ref:{1:4,9:6,15:8}, will:{1:4,15:6}, perc:{1:4,7:6}, classdc:{1:2,7:4,15:6}, 'weapon-simple':{1:2,5:4,13:6}, 'weapon-martial':{1:2,5:4,13:6}, 'weapon-unarmed':{1:2,5:4,13:6}, 'armor-light':{1:2,13:4,17:6}, 'armor-unarmored':{1:2,13:4,17:6} },
-    investigator: { fort:{1:2,11:4}, ref:{1:4,9:6}, will:{1:4,17:6}, perc:{1:4,9:6,17:8}, classdc:{1:2,7:4,15:6}, 'weapon-simple':{1:2,11:4}, 'weapon-martial':{1:2,11:4}, 'weapon-unarmed':{1:2,11:4}, 'armor-light':{1:2,13:4,17:6}, 'armor-unarmored':{1:2,13:4,17:6} },
-    magus: { fort:{1:4,11:6}, ref:{1:2,9:4}, will:{1:4,9:6}, perc:{1:2,11:4}, spatk:{1:2,9:4,17:6}, classdc:{1:2}, 'weapon-simple':{1:2,5:4,13:6}, 'weapon-martial':{1:2,5:4,13:6}, 'weapon-unarmed':{1:2,5:4,13:6}, 'armor-light':{1:2,13:4}, 'armor-medium':{1:2,13:4}, 'armor-unarmored':{1:2,13:4} },
-    summoner: { fort:{1:4,17:6}, ref:{1:2,9:4}, will:{1:4,9:6}, perc:{1:2,9:4}, spatk:{1:2,9:4,17:6}, classdc:{1:2}, 'weapon-simple':{1:2,9:4,19:6}, 'weapon-unarmed':{1:2,9:4,19:6}, 'armor-unarmored':{1:2,11:4} },
-    gunslinger: { fort:{1:4,15:6}, ref:{1:4,9:6,17:8}, will:{1:2,11:4}, perc:{1:4,7:6,15:8}, classdc:{1:2,7:4,15:6}, 'weapon-simple':{1:2,5:4,13:6}, 'weapon-martial':{1:2,5:4,13:6}, 'weapon-unarmed':{1:2,5:4,13:6}, 'armor-light':{1:2,13:4}, 'armor-medium':{1:2,13:4}, 'armor-unarmored':{1:2,13:4} },
-    thaumaturge: { fort:{1:4,11:6}, ref:{1:2,9:4}, will:{1:4,17:6}, perc:{1:4,9:6}, classdc:{1:2,9:4,17:6}, 'weapon-simple':{1:2,5:4}, 'weapon-martial':{1:2,5:4}, 'weapon-unarmed':{1:2,5:4}, 'armor-light':{1:2,11:4,17:6}, 'armor-medium':{1:2,11:4,17:6}, 'armor-unarmored':{1:2,11:4,17:6} },
-    kineticist: { fort:{1:4,9:6,17:8}, ref:{1:4,9:6,17:8}, will:{1:2,9:4}, perc:{1:2,9:4}, classdc:{1:2,9:4,17:6}, 'weapon-simple':{1:2}, 'weapon-unarmed':{1:2}, 'armor-light':{1:2,13:4}, 'armor-unarmored':{1:2,13:4} },
-    psychic: { fort:{1:2,9:4}, ref:{1:2,9:4}, will:{1:4,9:6,17:8}, perc:{1:2,9:4}, spatk:{1:2,7:4,15:6,19:8}, classdc:{1:2}, 'weapon-simple':{1:2,11:4}, 'weapon-unarmed':{1:2,11:4}, 'armor-unarmored':{1:2,13:4} },
-    inventor: { fort:{1:4,11:6}, ref:{1:2,9:4}, will:{1:4,17:6}, perc:{1:2,11:4}, classdc:{1:2,9:4,17:6}, 'weapon-simple':{1:2,9:4,17:6}, 'weapon-martial':{1:2,9:4,17:6}, 'weapon-unarmed':{1:2,9:4,17:6}, 'armor-light':{1:2,11:4}, 'armor-medium':{1:2,11:4}, 'armor-unarmored':{1:2,11:4} },
-    animist: { fort:{1:2,9:4}, ref:{1:2,15:4}, will:{1:4,11:6}, perc:{1:2,7:4}, spatk:{1:2,7:4,15:6,19:8}, classdc:{1:2}, 'weapon-simple':{1:2,11:4}, 'weapon-unarmed':{1:2,11:4}, 'armor-light':{1:2,13:4}, 'armor-medium':{1:2,13:4}, 'armor-unarmored':{1:2,13:4} },
-    guardian: { fort:{1:4,9:6,17:8}, ref:{1:2,9:4}, will:{1:4,15:6}, perc:{1:2,7:4}, classdc:{1:2,9:4}, 'weapon-simple':{1:2,5:4,13:6}, 'weapon-martial':{1:2,5:4,13:6}, 'weapon-unarmed':{1:2,5:4,13:6}, 'armor-light':{1:2,7:4,17:6}, 'armor-medium':{1:2,7:4,17:6}, 'armor-heavy':{1:2,7:4,17:6}, 'armor-unarmored':{1:2,7:4,17:6} },
-    commander: { fort:{1:2,11:4}, ref:{1:4,9:6}, will:{1:4,17:6}, perc:{1:4,9:6}, classdc:{1:2,9:4,17:6}, 'weapon-simple':{1:2,5:4,13:6}, 'weapon-martial':{1:2,5:4,13:6}, 'weapon-unarmed':{1:2,5:4,13:6}, 'armor-light':{1:2,11:4}, 'armor-medium':{1:2,11:4}, 'armor-heavy':{1:2,11:4}, 'armor-unarmored':{1:2,11:4} },
-    exemplar: { fort:{1:4,9:6,17:8}, ref:{1:2,9:4}, will:{1:4,15:6}, perc:{1:2,7:4}, classdc:{1:2,9:4,17:6}, 'weapon-simple':{1:2,5:4,13:6}, 'weapon-martial':{1:2,5:4,13:6}, 'weapon-unarmed':{1:2,5:4,13:6}, 'armor-light':{1:2,11:4}, 'armor-medium':{1:2,11:4}, 'armor-unarmored':{1:2,11:4} },
-  };
+  // 숙련 진행표 = DataManager 단일 소스(data/derived/class_progression.json). 하드코딩(CLASS_PROF_TABLE/CLASS_PROF_EXT) 폐기.
+  // 소비처(cs_pf2e_stats.classContrib 등)는 root.CLASS_PROF_TABLE[cls][statKey][level] 형식을 읽음(레벨별 full).
+  const _PROF_L = { U:0, T:2, E:4, M:6, L:8 };
+  const _PROF_COL2T = { perception:"perc", fortitude:"fort", reflex:"ref", will:"will", classDC:"classdc", simple:"weapon-simple", martial:"weapon-martial", unarmed:"weapon-unarmed", advanced:"weapon-advanced", unarmored:"armor-unarmored", light:"armor-light", medium:"armor-medium", heavy:"armor-heavy", spellcasting:"spatk" };
+  let _profTable = null;
+  function _buildProfTable(rows) {
+    const t = {};
+    for (const r of rows || []) {
+      const cls = r.class; if (!cls) continue;
+      const o = t[cls] || (t[cls] = {});
+      for (const col in _PROF_COL2T) {
+        const v = r[col]; if (v == null || v === "") continue;
+        const tgt = _PROF_COL2T[col];
+        (o[tgt] || (o[tgt] = {}))[r.level] = _PROF_L[v] || 0;
+      }
+    }
+    return t;
+  }
+  function _profRows() {
+    if (isNode) { const fs = require("fs"); for (const p of ["data/derived/class_progression.json","dev/data/derived/class_progression.json"]) { try { return JSON.parse(fs.readFileSync(p,"utf8")).rows || []; } catch(e){} } return []; }
+    return null;
+  }
+  async function _ensureProfTable() {
+    if (_profTable) return _profTable;
+    let rows = _profRows();
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    _profTable = _buildProfTable(rows);
+    root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
+    return _profTable;
+  }
 
   // 시전자: 전수(full)=공유 _FULL_CASTER_TABLE, 제한(limited)=하단 표. champion=집중주문(슬롯표 없음).
   const FULL_CASTERS = new Set(['sorcerer', 'oracle', 'animist']);
@@ -181,6 +190,7 @@
     // 서브클래스 grants/특성은 feats·spells 카테고리 필요(getByUuid·tag 조회)
     if (isNode) { PF.loadCategorySync('classes'); PF.loadCategorySync('feats'); PF.loadCategorySync('spells'); }
     else await Promise.all([PF.loadCategory('classes'), PF.loadCategory('feats'), PF.loadCategory('spells')]);
+    if (isNode) _ensureProfTable(); else await _ensureProfTable();
     _build();
     try { _mergeIntoGlobals(); } catch (e) { if (typeof console !== 'undefined') console.warn('PF2eClass 전역 병합 실패', e); }
     _ready = true;
@@ -223,7 +233,7 @@
   }
 
   // 숙련 진행표: 레거시는 기존 CLASS_PROF_TABLE, 신규는 CLASS_PROF_EXT
-  function classProfTable(slug) { return CLASS_PROF_EXT[slug] || null; }
+  function classProfTable(slug) { return (_profTable && _profTable[slug]) || null; }
   function isLegacy(slug) { return LEGACY.has(slug); }
 
   function classList() { return _list ? _list.slice() : []; }
@@ -231,7 +241,7 @@
 
     // 전 카탈로그 로드 후 재열거 — init 시점에 타 카테고리 미로드로 enrichDesc @link가 영문 스냅샷된 캐시를 정본 한글로 재생성
   function rebuild() { if (_ready) _build(); }
-const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, isLegacy, CLASS_PROF_EXT, classFeatures, subclassList, spellTable };
+const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, isLegacy, classFeatures, subclassList, spellTable };
   root.PF2eClass = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
