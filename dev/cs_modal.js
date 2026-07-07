@@ -3214,12 +3214,17 @@ function renderOptions(data) {
       if (aFail !== bFail) return aFail ? 1 : -1;
       return 0;
     });
-    grouped = {};
+    // 헌신(원형 입문) 재주는 레벨 그룹에서 빼내 맨 아래 별도 그룹으로 분리(클래스 재주 슬롯 등).
+    const DED_KEY = '🎓 원형 헌신 재주';
+    const lvGroups = {}, dedItems = [];
     data.forEach(item => {
-      const key = `${item.feat_level}레벨`;
-      if (!grouped[key]) grouped[key] = [];
-      grouped[key].push(item);
+      if (item.traits && item.traits.includes('헌신')) { dedItems.push(item); return; }
+      (lvGroups[item.feat_level] = lvGroups[item.feat_level] || []).push(item);
     });
+    grouped = {};
+    // 정수형 키는 JS 객체가 오름차순 순회 → 레벨 낮은 순 헤더
+    Object.keys(lvGroups).forEach(lv => { grouped[`${lv}레벨`] = lvGroups[lv]; });
+    if (dedItems.length) grouped[DED_KEY] = dedItems;
   } else if (modalType === 'equip-browse' && !equipBrowseSubTab) {
     if (equipBrowseTab === 'all') {
       grouped = {};
