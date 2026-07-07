@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.122').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.123').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -689,13 +689,13 @@ function applyAttachedRunes(equipIdx) {
   }
 
   if (target._type === 'armor') {
-    state.armorPotency = 0; state.armorResilient = 0; state.armorRuneResist = []; state.armorRuneNotes = [];
+    // 저항은 renderResistances가 착용 방어구 룬에서 직접 재파생(출처 기반) — 여기서 스냅샷 수집 안 함.
+    state.armorPotency = 0; state.armorResilient = 0; state.armorRuneNotes = [];
     runes.forEach(r => {
       const rd = r._runeData;
       if (rd.runeType === 'potency') state.armorPotency = rd.runeValue;
       else if (rd.runeType === 'resilient') state.armorResilient = rd.runeValue;
       else if (rd.runeType === 'property') {
-        if (rd.resist) state.armorRuneResist.push({ type: rd.resist.type, value: rd.resist.value });
         if (rd.note) state.armorRuneNotes.push((r.name || '') + ': ' + rd.note);
       }
     });

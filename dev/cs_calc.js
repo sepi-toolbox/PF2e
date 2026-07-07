@@ -647,7 +647,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.122').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.123').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -2377,37 +2377,70 @@ function updateShieldGauge() {
   }
 }
 
+// 저항 수식 해소: 고정 숫자 / 'half'(레벨절반) / @actor.level / floor(@actor.level/2).
+// 미해소(선택형 에너지 {item|...}, 상황성 @actor.flags 등)는 0 → 정적 표시 생략(SKILL 조건부효과 원칙).
+function _resolveResistFormula(f, lv, halfLv) {
+  if (f === 'half' || f === 'half_level') return halfLv;
+  if (typeof f === 'number') return f;
+  if (typeof f !== 'string') return 0;
+  const t = f.trim();
+  if (/^\d+$/.test(t)) return parseInt(t, 10);
+  if (/@actor\.level/.test(t)) return /floor\s*\(\s*@actor\.level\s*\/\s*2\s*\)/.test(t) ? halfLv : lv;
+  return 0;
+}
+
+// 저항 = 출처 기반 재파생(recalc마다). 출처 = 유산 + 착용 방어구 속성 룬(에너지 저항 등).
+// PF2e: 같은 피해 유형은 합산하지 않고 최댓값만 적용.
 function renderResistances() {
   const wrap = document.getElementById('resistances-display');
   const list = document.getElementById('resistances-list');
   if (!wrap || !list) return;
 
-  const resistances = [];
   const lv = getLevel();
   const halfLv = Math.max(1, Math.floor(lv / 2));
+  const collected = [];   // {type, value, source}
 
-  // 유산에서 저항 가져오기
+  // 1) 유산 저항
   const heritage = state.selectedHeritage;
   const heff = getHeritageEffects(heritage);
   if (heff.resistances) {
     heff.resistances.forEach(r => {
-      const val = r.formula === 'half' ? halfLv : (parseInt(r.formula) || r.value || 0);
-      resistances.push({type: r.type, value: val, source: heritage.name_ko});
+      const val = _resolveResistFormula(r.formula, lv, halfLv);
+      if (r.type && val > 0) collected.push({ type: r.type, value: val, source: heritage.name_ko });
     });
   }
 
-  // EFFECT_GROUPS의 resistance type에서 저항 가져오기 (state._fb에 저장된 것)
-  // 향후 확장 가능
+  // 2) 착용(_equipped) 방어구에 부착된 속성 룬의 저항 — 출처 기반, 방어구/룬 제거 시 자동 소멸
+  if (typeof _getAttachedRunes === 'function' && Array.isArray(state.equip)) {
+    state.equip.forEach((e, i) => {
+      if (e._type !== 'armor' || !e._equipped) return;
+      _getAttachedRunes(i).forEach(rune => {
+        const res = rune._runeData && rune._runeData.resist;
+        const val = res ? _resolveResistFormula(res.value, lv, halfLv) : 0;
+        if (res && res.type && val > 0) collected.push({ type: res.type, value: val, source: rune.name || '방어구 룬' });
+      });
+    });
+  }
 
-  if (resistances.length === 0) {
-    list.innerHTML = '';   // 이전 유산의 잔여 저항 태그 제거 (유산 변경 시 stale 방지)
+  // 유형별 최댓값만 유지 + 출처 병합
+  const merged = new Map();   // type -> {value, sources:Set}
+  collected.forEach(r => {
+    const cur = merged.get(r.type);
+    if (!cur) merged.set(r.type, { value: r.value, sources: new Set([r.source]) });
+    else { cur.value = Math.max(cur.value, r.value); cur.sources.add(r.source); }
+  });
+
+  if (merged.size === 0) {
+    list.innerHTML = '';   // 잔여 저항 태그 제거 (출처 변경 시 stale 방지)
     wrap.style.display = 'none';
     return;
   }
   wrap.style.display = '';
-  list.innerHTML = resistances.map(r =>
-    `<span class="tag" style="font-size:10px;background:var(--bg4);border:1px solid var(--border2);">🛡 ${r.type} ${r.value}</span>`
-  ).join('');
+  const dtKo = (t) => (typeof PF2eEquip !== 'undefined' && PF2eEquip.damageTypeKo) ? PF2eEquip.damageTypeKo(t) : t;
+  list.innerHTML = Array.from(merged.entries()).map(([type, info]) => {
+    const src = Array.from(info.sources).join(', ').replace(/"/g, '');
+    return `<span class="tag" title="출처: ${src}" style="font-size:10px;background:var(--bg4);border:1px solid var(--border2);">🛡 ${dtKo(type)} ${info.value}</span>`;
+  }).join('');
 }
 
 function recalcBulk() {
