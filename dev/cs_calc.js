@@ -653,7 +653,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.130').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.131').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -1724,9 +1724,11 @@ function checkXpLevelUp() {
   }
   save();
 }
+// 숙련 보너스 = 숙련이면 rank(contrib 0/2/4/6/8) + 레벨, 미숙련이면 0. 전 계산 공용 단일식.
+function rankBonus(rank, lv) { return rank > 0 ? rank + lv : 0; }
 function getProfBonus(selectId) {
   const v = parseInt(document.getElementById(selectId)?.value||0);
-  return v > 0 ? (v + getLevel()) : 0;
+  return rankBonus(v, getLevel());
 }
 function fmtBonus(n) { return n >= 0 ? '+'+n : ''+n; }
 
@@ -2128,7 +2130,7 @@ function recalcAC() {
   const armorProfId = getArmorProfSelectId();
   const armorProfRank = parseInt(document.getElementById(armorProfId)?.value||0);
   const lv = getLevel();
-  const profBonus = armorProfRank > 0 ? (armorProfRank + lv) : 0;
+  const profBonus = rankBonus(armorProfRank, lv);
 
   // Sync prof-ac (sidebar) with current armor category prof
   const profAc = document.getElementById('prof-ac');
@@ -2139,7 +2141,7 @@ function recalcAC() {
   const stowed = state.armorStowed || false;
   const effectiveArmor = stowed ? 0 : armorBonus;
   const effectiveDex = stowed ? getMod('dex') : dexMod;
-  const effectiveProf = stowed ? (parseInt(document.getElementById('prof-armor-unarmored')?.value||0) > 0 ? parseInt(document.getElementById('prof-armor-unarmored').value) + lv : 0) : profBonus;
+  const effectiveProf = stowed ? rankBonus(parseInt(document.getElementById('prof-armor-unarmored')?.value||0), lv) : profBonus;
 
   // 방패 들기 보너스 (파손 시 0)
   const shieldBroken = state.equip?.some(e => e._equipped && e._type === 'shield' && e._broken);
@@ -2182,7 +2184,7 @@ function recalcSaves() {
   ];
   pairs.forEach(([key,attr,profId,valId, extraPen]) => {
     const rank = parseInt(document.getElementById(profId)?.value||0);
-    const base = getMod(attr) + (rank>0?rank+lv:0);
+    const base = getMod(attr) + rankBonus(rank, lv);
     // 풀 자동 합산: target=key 매칭 + target=null(all) 매칭 (v531~)
     const saveExtra = getStackedBonus('save', key);
     const totalPen = pen.all + extraPen;
@@ -2311,7 +2313,7 @@ function recalcSkill(id) {
     isTemp = true;
   }
   const lv = getLevel();
-  const base = getMod(sk.attr) + (rank>0?rank+lv:0);
+  const base = getMod(sk.attr) + rankBonus(rank, lv);
   const pen = getCondPenalty();
   let extraPen = 0;
   if (sk.attr === 'str') extraPen = pen.enfeebled;
@@ -2483,31 +2485,23 @@ function renderResistances() {
   }).join('');
 }
 
-function recalcBulk() {
+// 총 부피 = 장비 + 배낭(ignoreBulk 제외) + 동전(100개당 0.1). recalcBulk·isOverloaded 공용 단일 소스.
+function getTotalBulk() {
   let total = 0;
-  state.equip.forEach(e => {
-    const b = parseFloat(e.bulk||0);
-    total += isNaN(b)?0:b;
-  });
-  // 배낭 내 아이템 부피 (ignoreBulk가 아닌 경우만)
-  if (state.containers) {
-    state.containers.forEach(c => {
-      if (c.ignoreBulk) return;
-      c.items.forEach(e => {
-        const b = parseFloat(e.bulk||0);
-        total += isNaN(b)?0:b;
-      });
-    });
-  }
-  // 동전 부피: 100개당 0.1 부피
+  state.equip.forEach(e => { const b = parseFloat(e.bulk||0); total += isNaN(b)?0:b; });
+  if (state.containers) state.containers.forEach(c => { if (c.ignoreBulk) return; c.items.forEach(e => { const b = parseFloat(e.bulk||0); total += isNaN(b)?0:b; }); });
   const totalCoins = ['cur-gp','cur-sp','cur-cp','cur-pp'].reduce((s,id) => s + (parseInt(document.getElementById(id)?.value)||0), 0);
   total += Math.floor(totalCoins / 100) * 0.1;
+  return total;
+}
+// 소지 한계 = STR수정치 + 10 + 효과보너스. 과적 기준은 한계-5.
+function getBulkLimit() { return getMod('str') + 10 + (state._fb?.bulk || 0); }
 
+function recalcBulk() {
+  const total = getTotalBulk();
   document.getElementById('bulk-total').textContent = total.toFixed(1).replace('.0','');
-  const fbBulk = state._fb?.bulk || 0;
-  const strMod = getMod('str');
-  const encThreshold = strMod + 5 + fbBulk;   // 과적 기준
-  const maxBulk = strMod + 10 + fbBulk;        // 소지 한계
+  const maxBulk = getBulkLimit();              // 소지 한계
+  const encThreshold = maxBulk - 5;            // 과적 기준
   document.getElementById('bulk-max').textContent = encThreshold;
 
   // 과적/초과 상태 판정
@@ -2544,14 +2538,7 @@ function recalcBulk() {
   recalcSpeed(isEncumbered);
 }
 
-function isOverloaded() {
-  let total = 0;
-  state.equip.forEach(e => { const b = parseFloat(e.bulk||0); total += isNaN(b)?0:b; });
-  if (state.containers) state.containers.forEach(c => { if (c.ignoreBulk) return; c.items.forEach(e => { const b = parseFloat(e.bulk||0); total += isNaN(b)?0:b; }); });
-  const totalCoins = ['cur-gp','cur-sp','cur-cp','cur-pp'].reduce((s,id) => s + (parseInt(document.getElementById(id)?.value)||0), 0);
-  total += Math.floor(totalCoins / 100) * 0.1;
-  return total > getMod('str') + 10 + (state._fb?.bulk || 0);
-}
+function isOverloaded() { return getTotalBulk() > getBulkLimit(); }
 
 function recalcSpeed(isEncumbered) {
   const speedEl = document.getElementById('speed');

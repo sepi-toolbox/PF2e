@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.130').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.131').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -323,7 +323,7 @@ function calcWeaponHit(w) {
   if (state._fb?.martialExperience && rank < 2) {
     rank = lv >= 11 ? 2 : 0;
   }
-  const profBonus = (rank > 0) ? (rank + lv) : (state._fb?.martialExperience ? lv : 0);
+  const profBonus = rankBonus(rank, lv) || (state._fb?.martialExperience ? lv : 0);
 
   // Ability modifier
   let abilMod;
