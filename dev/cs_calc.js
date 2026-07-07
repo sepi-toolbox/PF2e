@@ -653,7 +653,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.131').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.132').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -1736,6 +1736,60 @@ function fmtBonus(n) { return n >= 0 ? '+'+n : ''+n; }
 //  빌더 핵심 선택 반응형 재파생 (유산/배경)
 //  applyFeatEffects와 동일한 clear+rebuild 패턴
 // ═══════════════════════════════════════════════
+// ── 성장(빌더) 기술 훈련/향상 = 출처(source) 기반 재파생 (원칙 #3) ──
+//   과거: 성장 핸들러가 sk-prof DOM을 값기준으로 revert(value==='2'→'0', 향상은 -2). 출처 미추적이라
+//   배경/유산/재주가 같은 기술을 동값으로 부여한 다중출처 상황에서 성장 슬롯 제거 시 타 출처 훈련을
+//   오삭제하거나 유령 잔존시킴. → 배경/유산/재주와 동일한 prevRank 스냅샷 + clear+rebuild 패턴으로 통일.
+//   CLEAR는 recalcAll 최상단(rebuildCoreEffects/applyFeatEffects의 clear보다 먼저) — 성장 기여를 먼저
+//   걷어내야 heritage/bg/feat가 깨끗한 base에서 prevRank를 스냅샷한다. REBUILD는 최하단(모든 트레인드
+//   부여 확정 후) — 향상은 트레인드 base를 요구하므로.
+function clearGrowthSkills() {
+  // 향상 먼저 복원(역순: 상위 레벨 향상부터 되돌려야 누적이 순서대로 풀림)
+  (state._growthIncreasedSkills || []).slice().reverse().forEach(e => {
+    const el = document.getElementById('sk-prof-' + e.skill);
+    if (el && parseInt(el.value || 0) === e.newRank) el.value = String(e.prevRank || 0);
+  });
+  state._growthIncreasedSkills = [];
+  // 훈련 복원
+  (state._growthTrainedSkills || []).forEach(e => {
+    const el = document.getElementById('sk-prof-' + e.skill);
+    if (el && parseInt(el.value || 0) === e.rank) el.value = String(e.prevRank || 0);
+  });
+  state._growthTrainedSkills = [];
+}
+
+function applyGrowthSkills() {
+  state._growthTrainedSkills = [];
+  state._growthIncreasedSkills = [];
+  // 추가 기술 숙련(훈련) — 모두 growth[1]에 저장. 트레인드(2) 미만이면 부여, prevRank로 출처추적.
+  const trainArr = (state.growth[1] && state.growth[1].skillTraining) || [];
+  trainArr.forEach(id => {
+    if (!id) return;
+    const el = document.getElementById('sk-prof-' + id);
+    if (!el) return;
+    const cur = parseInt(el.value || 0);
+    state._growthTrainedSkills.push({skill: id, rank: 2, prevRank: cur});
+    if (cur < 2) el.value = '2';
+  });
+  // 기술 향상 — 레벨 순서대로 +2단계(전설 8 상한). 트레인드(2) 이상만 향상 가능.
+  const levels = Object.keys(state.growth).map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b);
+  levels.forEach(lv => {
+    const inc = state.growth[lv] && state.growth[lv].skillIncrease;
+    if (!inc) return;
+    const el = document.getElementById('sk-prof-' + inc);
+    if (!el) return;
+    const cur = parseInt(el.value || 0);
+    if (cur >= 2 && cur < 8) {
+      const nr = cur + 2;
+      state._growthIncreasedSkills.push({skill: inc, prevRank: cur, newRank: nr});
+      el.value = String(nr);
+    } else {
+      // 미달(트레인드 아님) 또는 이미 전설 — 무변경이지만 추적은 유지(clear 대칭)
+      state._growthIncreasedSkills.push({skill: inc, prevRank: cur, newRank: cur});
+    }
+  });
+}
+
 function rebuildCoreEffects() {
   const heritage = state.selectedHeritage;
   const heff = getHeritageEffects(heritage);
@@ -1926,12 +1980,17 @@ function getSubclassAutoSpells(sub) {
 function getSubclassFeatures(sub) { return (sub && sub.features) || []; }
 
 function recalcAll() {
+  // 성장(빌더) 기술 훈련/향상 기여를 먼저 걷어냄 — heritage/bg/feat가 깨끗한 base에서 prevRank 스냅샷하도록.
+  clearGrowthSkills();
   // 빌더 핵심 선택 재파생 (유산/배경)
   rebuildCoreEffects();
   // 재주 효과 집계
   if (typeof applyFeatEffects === 'function') applyFeatEffects();
   // 지식(lore) 출처 → 슬롯 배정 (배경+재주 수집 완료 후 1회). 기술 재계산 전에 실행해야 지식 숙련 반영.
   if (typeof assignLoreSlots === 'function') assignLoreSlots();
+  // 성장(빌더) 기술 훈련/향상 재적용 — 모든 트레인드 부여(클래스고정/유산/배경/재주) 확정 후 마지막에.
+  //   향상(+2)은 트레인드 base를 요구하므로 최하단. lore도 assignLoreSlots 후라 지식 향상 대상도 커버.
+  applyGrowthSkills();
   ['str','dex','con','int','wis','cha'].forEach(a => {
     const {mod, partial} = calcMod(a);
     const mEl = document.getElementById('mod-'+a);

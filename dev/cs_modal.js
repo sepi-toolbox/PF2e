@@ -1434,57 +1434,19 @@ function getSkillRankLabel(skillId) {
   return labels[rank] || '미숙련';
 }
 
+// 출처(source) 기반: 핸들러는 state.growth만 갱신하고 recalcAll에 재파생을 위임한다.
+//   (과거의 값기반 sk-prof revert는 다중출처 오삭제/유령 버그의 원인 — cs_calc.js applyGrowthSkills 참조)
 function growthSkillTrainingChanged(slotIndex, value) {
   if (!state.growth[1]) state.growth[1] = {};
   if (!state.growth[1].skillTraining) state.growth[1].skillTraining = [];
-  const oldVal = state.growth[1].skillTraining[slotIndex] || null;
-  // Un-train old skill if it was set (only if no other source trained it)
-  if (oldVal) {
-    const el = document.getElementById('sk-prof-' + oldVal);
-    if (el && el.value === '2') {
-      // Check if any other training slot or fixed class skill uses it
-      const otherSlots = (state.growth[1].skillTraining || []).filter((v, i) => v === oldVal && i !== slotIndex);
-      if (otherSlots.length === 0) {
-        el.value = '0';
-      }
-    }
-  }
   state.growth[1].skillTraining[slotIndex] = value || null;
-  // Train new skill
-  if (value) {
-    const el = document.getElementById('sk-prof-' + value);
-    if (el && parseInt(el.value) < 2) el.value = '2';
-  }
-  recalcSkills();
-  syncAllProfRanks();
-  renderGrowthPlan();
-  save();
+  recalcAll();   // clearGrowthSkills → 재파생 → applyGrowthSkills. renderGrowthPlan/save는 recalcAll 내부.
 }
 
 function growthSkillIncreaseChanged(lv, value) {
   if (!state.growth[lv]) state.growth[lv] = {};
-  const oldVal = state.growth[lv].skillIncrease || null;
-  // Revert old skill increase
-  if (oldVal) {
-    const el = document.getElementById('sk-prof-' + oldVal);
-    if (el) {
-      const curRank = parseInt(el.value || 0);
-      if (curRank >= 4) el.value = String(curRank - 2);
-    }
-  }
   state.growth[lv].skillIncrease = value || null;
-  // Apply new skill increase (bump proficiency by one step)
-  if (value) {
-    const el = document.getElementById('sk-prof-' + value);
-    if (el) {
-      const curRank = parseInt(el.value || 0);
-      if (curRank < 8) el.value = String(curRank + 2);
-    }
-  }
-  recalcSkills();
-  syncAllProfRanks();
-  renderGrowthPlan();
-  save();
+  recalcAll();   // 값기반 -2 revert 제거 — applyGrowthSkills가 prevRank로 정확 복원.
 }
 
 // Skill Training modal pick (growth plan)
@@ -4899,15 +4861,12 @@ function confirmModal() {
         const id = skillNameToId(name);
         if (id) { const el = document.getElementById('sk-prof-' + id); if (el && parseInt(el.value) < 2) el.value = '2'; }
       });
-      // 추가 기술 숙련
+      // 추가 기술 숙련 — state.growth에만 기록하고 부여는 recalcAll의 applyGrowthSkills(출처기반)에 위임.
+      //   (여기서 명령형으로 sk-prof를 훈련시키면 prevRank base가 오염돼 이후 슬롯 제거 시 유령 잔존)
       const skills = (_modalChoices.trainableSkills || []).filter(v => v);
       state.trainableSkillSlots = skills.length;
       if (!state.growth[1]) state.growth[1] = {};
       state.growth[1].skillTraining = skills;
-      skills.forEach(id => {
-        const el = document.getElementById('sk-prof-' + id);
-        if (el && parseInt(el.value) < 2) el.value = '2';
-      });
     }
     // 클레릭: 교리/신격/신성 원천 반영
     if (_modalChoices.doctrine) {

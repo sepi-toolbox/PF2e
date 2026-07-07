@@ -217,6 +217,32 @@ function _migrateDerivedSpellStoresToSlug() {
   }
 }
 
+// 로드 시 skillProfs에는 성장(빌더) 훈련/향상 기여가 baked돼 있음 → 걷어내서 recalcAll의
+// applyGrowthSkills(출처기반)가 깨끗한 base 위에 정확히 재파생하도록. 안 걷어내면 향상이 이중적용(+2 두 번)
+// 되고 훈련 prevRank가 stale(2)가 돼 슬롯 제거 시 유령 잔존. 구/신 저장본 동일 취급(포맷 플래그 불필요).
+// ⚠ state.growth·selectedClass·initialChoices가 로드된 뒤, applyClassFeatures(→recalcAll) 전에 호출할 것.
+function _stripGrowthFromSkillProfs() {
+  const g = state.growth || {};
+  const classFixed = new Set((state.selectedClass && state.selectedClass.fixed_skills) || []);
+  const chosenFixed = new Set(
+    (((state.initialChoices && state.initialChoices.class && state.initialChoices.class.chosenFixedSkills) || [])
+      .map(n => (typeof skillNameToId === 'function' ? skillNameToId(n) : null)).filter(Boolean))
+  );
+  const rankOf = id => parseInt(document.getElementById('sk-prof-' + id)?.value || 0);
+  const setRank = (id, v) => { const el = document.getElementById('sk-prof-' + id); if (el) el.value = String(v); };
+  // 향상 strip (레벨마다 -2). 재파생이 정확히 되돌림.
+  Object.keys(g).forEach(lv => {
+    const inc = g[lv] && g[lv].skillIncrease;
+    if (inc && rankOf(inc) > 0) setRank(inc, Math.max(0, rankOf(inc) - 2));
+  });
+  // 훈련 strip — 성장 전용(클래스고정/선택고정 아님)이면 0. 유산/배경/재주는 recalc가 재부여하므로 0 안전.
+  const trainArr = (g[1] && g[1].skillTraining) || [];
+  trainArr.forEach(id => {
+    if (!id) return;
+    if (!classFixed.has(id) && !chosenFixed.has(id)) setRank(id, 0);
+  });
+}
+
 function loadData(d) {
   if (!d) return;
   // 로딩 게이트: 카탈로그(혈통/배경/클래스/신격/장비/주문/재주 등) 미준비면 준비 후 재실행.
@@ -515,6 +541,10 @@ function loadData(d) {
     }
     if (d.growth) { state.growth = d.growth; }
     _migrateGrowthStoresToSlug(); // 동기화 전에 growth를 slug로 정규화 → sync가 slug로 파생
+    // initialChoices(선택형 고정기술 등)를 strip 전에 복원해야 함 — 아래 strip이 chosenFixedSkills를 참조.
+    if (d.initialChoices) state.initialChoices = d.initialChoices;
+    // 성장 기여를 skillProfs에서 걷어냄 → applyClassFeatures 내부 recalcAll의 applyGrowthSkills가 정확 재파생.
+    _stripGrowthFromSkillProfs();
     applyClassFeatures();
     if (typeof syncGrowthSpellsToState === 'function') syncGrowthSpellsToState();
     if (typeof syncFamiliarSpellsToState === 'function') syncFamiliarSpellsToState();
@@ -567,7 +597,7 @@ function loadData(d) {
     // v0.26~: 파생 주문 저장소(signature/familiar/prepared)도 slug로 정규화.
     // (familiarSpells는 위 sync가 growth에서 slug로 재구축하지만, 저장본 우선 로드 케이스도 커버)
     _migrateDerivedSpellStoresToSlug();
-    if (d.initialChoices) state.initialChoices = d.initialChoices;
+    // initialChoices는 위(growth strip 직전)에서 이미 복원됨.
   } catch(e) { console.warn('Load failed',e); }
   // 로드 완료 — 자동저장 복원 + 진행 중인 debounce 취소
   _loadComplete = wasLoadComplete;
