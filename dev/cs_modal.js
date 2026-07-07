@@ -3255,17 +3255,9 @@ function renderOptions(data) {
     else if (item.rank !== undefined) { levelNum = item.is_cantrip ? 0 : item.rank; levelText = item.is_cantrip ? 'C' : item.rank; }
     else if (modalType === 'equip-browse' && item.price && item.price !== '—') { levelNum = 0; levelText = item.price; }
 
-    // Action icons
-    let actionsHtml = '';
-    if (item.actions) {
-      const a = String(item.actions);  // FVTT 재주 actions는 숫자(1/2/3) — 문자열화 후 매칭(구: 숫자에 .includes → renderItem throw → 목록 렌더 중단)
-      if (a.includes('1행동') || a === '1') actionsHtml = '<span class="action-glyph">1</span>';
-      else if (a.includes('2행동') || a === '2') actionsHtml = '<span class="action-glyph">2</span>';
-      else if (a.includes('3행동') || a === '3') actionsHtml = '<span class="action-glyph">3</span>';
-      else if (a.includes('반응')) actionsHtml = '<span class="action-glyph">R</span>';
-      else if (a.includes('자유')) actionsHtml = '<span class="action-glyph">F</span>';
-      else actionsHtml = a;
-    }
+    // Action icons — 행동경제 글리프는 cs_ui.getActionIcons 단일 소스로(코드 1/2/3/reaction/free + 한글텍스트 + 범위).
+    //   (구: 동일 로직 if-체인 중복. FVTT 재주 actions는 숫자라 getActionIcons가 String()로 안전 처리)
+    const actionsHtml = (typeof getActionIcons === 'function') ? getActionIcons(item.actions) : (item.actions ? String(item.actions) : '');
 
     // 전제조건 미달 체크
     let prereqFail = false;
