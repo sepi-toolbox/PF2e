@@ -10,8 +10,9 @@
   // window.PF2eDataConfig = {dataRoot:'../data'} 로 override (하위호환 — 미설정 시 기존 동작).
   const _cfg = (!isNode && root.PF2eDataConfig) || {};
   const _dataRoot = _cfg.dataRoot || 'data';
-  const BASE_DIR = _cfg.baseDir || (_dataRoot + '/base');
-  const OVL_DIR = _cfg.ovlDir || (_dataRoot + '/overlay');
+  const STORE_DIR = _cfg.storeDir || (_dataRoot + '/store'); // 단일 소스(materialized: 기계데이터 + 한글 baked)
+  const BASE_DIR = _cfg.baseDir || (_dataRoot + '/base');    // (레거시, store 전환으로 미사용)
+  const OVL_DIR = _cfg.ovlDir || (_dataRoot + '/overlay');   // (레거시, store 전환으로 미사용)
   const OVR_DIR = _cfg.ovrDir || (_dataRoot + '/override'); // L3 OVERRIDE(관리툴 편집본, 최종 적용)
 
   // 비크리처 카테고리(단일 파일). 크리처는 별도(팩 분할 + _index).
@@ -49,11 +50,10 @@
   // 카테고리 로드(조인 포함). Node=동기 가능, 브라우저=async.
   function loadCategorySync(cat) {
     if (_index[cat]) return _index[cat];
-    const base = _readJSON(`${BASE_DIR}/${cat}.base.json`) || [];
-    const ovl = _readJSON(`${OVL_DIR}/${cat}.ko.json`) || {};
-    const ovr = _readJSON(`${OVR_DIR}/${cat}.json`) || {}; // 없으면 {} (선택적)
-    _baseCache[cat] = base; _ovlCache[cat] = ovl; _ovrCache[cat] = ovr;
-    return _buildIndex(cat, base, ovl, ovr);
+    // 단일 소스: data/store/{cat}.json (materialized — name_ko/_desc_ko 및 기계데이터 baked).
+    const store = _readJSON(`${STORE_DIR}/${cat}.json`) || [];
+    _baseCache[cat] = store; _ovlCache[cat] = {}; _ovrCache[cat] = {};
+    return _buildIndex(cat, store, {});
   }
   const _loadPromises = {}; // 브라우저 in-flight dedup — 동시 호출(어댑터 init + 전체 게이트)이 같은 대용량 파일을 중복 fetch하지 않게
   async function loadCategory(cat) {
@@ -64,19 +64,15 @@
     return _loadPromises[cat];
   }
   async function _loadCategoryFetch(cat) {
-    const [base, ovl, ovr] = await Promise.all([
-      _fetchJSON(`${BASE_DIR}/${cat}.base.json`),
-      _fetchJSON(`${OVL_DIR}/${cat}.ko.json`),
-      _fetchJSON(`${OVR_DIR}/${cat}.json`), // 파일 없으면 404 → null → {}
-    ]);
-    let merged = ovr || {};
-    // L4 클라우드 override: 소유자가 DataManager에서 라이브 저장한 편집(Firestore). 호스트가 window.PF2eOverrideFetcher 제공 시 파일 위에 덮음.
-    // 공개 read라 로그인 불필요. 실패/미제공/느림이면 파일 override로 조용히 진행(비침입).
+    const store = (await _fetchJSON(`${STORE_DIR}/${cat}.json`)) || [];
+    let merged = {};
+    // L4 클라우드 override: DataManager에서 라이브 저장한 편집(Firestore) — store 위에 slug 단위로 덮음.
+    // 공개 read라 로그인 불필요. 실패/미제공/느림이면 store만으로 조용히 진행(비침입).
     if (typeof window !== 'undefined' && typeof window.PF2eOverrideFetcher === 'function') {
-      try { const cloud = await window.PF2eOverrideFetcher(cat); if (cloud && typeof cloud === 'object') merged = _mergeOvr(merged, cloud); } catch (e) {}
+      try { const cloud = await window.PF2eOverrideFetcher(cat); if (cloud && typeof cloud === 'object') merged = cloud; } catch (e) {}
     }
-    _baseCache[cat] = base || []; _ovlCache[cat] = ovl || {}; _ovrCache[cat] = merged;
-    return _buildIndex(cat, base || [], ovl || {}, merged);
+    _baseCache[cat] = store; _ovlCache[cat] = {}; _ovrCache[cat] = merged;
+    return _buildIndex(cat, store, merged);
   }
   // 파일 override(a) 위에 클라우드 override(b)를 슬러그 단위 병합(b 우선). 원본 불변.
   function _mergeOvr(a, b) {
@@ -87,29 +83,18 @@
 
   function _slugOf(d) { return (d.system && d.system.slug) || d._id; }
 
-  function _buildIndex(cat, base, ovl, ovr) {
+  function _buildIndex(cat, storeDocs, ovr) {
     ovr = ovr || {};
     const m = new Map();
-    for (const d of base) {
+    for (const d of storeDocs) {
       const slug = _slugOf(d);
-      // 조인: BASE 복제 위에 OVERLAY 텍스트 덮기(가역 위해 _en 보존)
-      const joined = d;                       // BASE는 불변 취급(여기선 참조 + 한글 필드 부착)
-      const ko = ovl[slug];
-      if (ko) {
-        joined.name_en = d.name;
-        joined.name_ko = ko.name || d.name;
-        if (ko.description) {
-          joined.system = joined.system || {};
-          joined._desc_en = joined.system.description && joined.system.description.value;
-          joined._desc_ko = ko.description;
-        }
-      } else {
-        joined.name_en = d.name; joined.name_ko = d.name;
-      }
-      // L3 OVERRIDE 적용(관리툴 편집본이 최종). 기계효과(rules/slug/_id)엔 손대지 않음.
-      _applyOverride(joined, ovr[slug]);
-      m.set(slug, joined);
-      m.set(d._id, joined);
+      // store 문서는 materialize 시 name_ko/name_en/_desc_ko/_desc_en가 이미 baked됨(base⊕overlay⊕file-override 해소).
+      if (d.name_en == null) d.name_en = d.name;
+      if (d.name_ko == null) d.name_ko = d.name;
+      // L4 클라우드 override(DataManager 라이브 편집)만 store 위에 적용. base/overlay/file-override는 store에 흡수됨.
+      _applyOverride(d, ovr[slug]);
+      m.set(slug, d);
+      m.set(d._id, d);
     }
     _index[cat] = m;
     return m;
