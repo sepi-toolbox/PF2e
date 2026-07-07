@@ -650,6 +650,7 @@ function _loadEffectOverride() {
   fetch('data/override/effect_groups.json?v=0.120').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
+    _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
   }).catch(() => {});
 }
@@ -660,6 +661,26 @@ function getEffectRows(slug) {
   if (_EFFECT_OVERRIDE && Object.prototype.hasOwnProperty.call(_EFFECT_OVERRIDE, slug)) return _EFFECT_OVERRIDE[slug] || [];
   return (typeof EFFECTS_DB !== 'undefined' && EFFECTS_DB[slug] && EFFECTS_DB[slug].rows) || [];
 }
+
+// 룬 카탈로그 = 아이템 테이블(store) ⊕ 효과 자동화 테이블(getEffectRows의 type:'rune' 행). RUNE_DB 폐기 대체.
+// 룬 = "효과 테이블에 rune 효과행이 있는 장비 아이템". 별도 DB 없이 slug로 매칭.
+let _runeCatalogCache = null;
+function getRuneCatalog() {
+  if (_runeCatalogCache) return _runeCatalogCache;
+  if (typeof PF2eEquip === 'undefined' || !PF2eEquip.ready || !PF2eEquip.ready()) return [];
+  const out = [];
+  for (const it of PF2eEquip.legacyList({})) {
+    const slug = it.id || it.slug; if (!slug) continue;
+    const rune = getEffectRows(slug).find(r => r && r.type === 'rune');
+    if (!rune) continue;
+    out.push(Object.assign({}, it, {
+      category: 'rune', attachTo: rune.attach, runeType: rune.runeType, runeValue: rune.value,
+    }));
+  }
+  _runeCatalogCache = out;
+  return out;
+}
+function _clearRuneCatalog() { _runeCatalogCache = null; }
 
 const _CHOICE_OPTIONS_INDEX = new Map();
 function getChoiceOptions(choiceId) {
@@ -1005,7 +1026,7 @@ function _infoResolveItem(type, name) {
     item = getShield(nameKo);
   } else if (type === 'gear' || type === 'rune') {
     item = getGear(nameKo);
-    if (!item && typeof RUNE_DB !== 'undefined') item = RUNE_DB.find(r => r && (r.name_ko === nameKo || r.name_en === nameKo || r.id === nameKo));
+    if (!item && typeof getRuneCatalog === 'function') item = getRuneCatalog().find(r => r && (r.name_ko === nameKo || r.name_en === nameKo || r.id === nameKo));
   }
 
   // 장비 인스턴스 매칭: 전체 이름 우선(등급 괄호 "(상급)" 등 보존), 실패 시 괄호 제거된 nameKo로.

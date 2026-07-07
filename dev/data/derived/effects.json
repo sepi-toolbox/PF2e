@@ -2274,7 +2274,7 @@
    "rule": "GrantItem",
    "type": "grant_item",
    "target": "irongut-goblin",
-   "name": "이롱굿 고블린",
+   "name": "무쇠창자 고블린",
    "condition": "[{\"not\":\"heritage:irongut-goblin\"}]"
   },
   {
@@ -100545,7 +100545,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elytron-surki",
-   "owner_name": "엘리트론 수르키",
+   "owner_name": "엘리트론 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -100559,7 +100559,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elytron-surki",
-   "owner_name": "엘리트론 수르키",
+   "owner_name": "엘리트론 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -100573,7 +100573,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elytron-surki",
-   "owner_name": "엘리트론 수르키",
+   "owner_name": "엘리트론 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -100586,7 +100586,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elytron-surki",
-   "owner_name": "엘리트론 수르키",
+   "owner_name": "엘리트론 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -100599,7 +100599,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elytron-surki",
-   "owner_name": "엘리트론 수르키",
+   "owner_name": "엘리트론 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -100612,7 +100612,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elytron-surki",
-   "owner_name": "엘리트론 수르키",
+   "owner_name": "엘리트론 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -100650,7 +100650,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "warden-human-bb",
-   "owner_name": "감시자 인간 (BB)",
+   "owner_name": "수호자 인간 (BB)",
    "owner_level": "",
    "category": "human",
    "src": "rule",
@@ -100663,7 +100663,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "warden-human-bb",
-   "owner_name": "감시자 인간 (BB)",
+   "owner_name": "수호자 인간 (BB)",
    "owner_level": "",
    "category": "human",
    "src": "rule",
@@ -100677,7 +100677,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "warden-human-bb",
-   "owner_name": "감시자 인간 (BB)",
+   "owner_name": "수호자 인간 (BB)",
    "owner_level": "",
    "category": "human",
    "src": "rule",
@@ -100691,7 +100691,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "warden-human-bb",
-   "owner_name": "감시자 인간 (BB)",
+   "owner_name": "수호자 인간 (BB)",
    "owner_level": "",
    "category": "human",
    "src": "rule",
@@ -100705,7 +100705,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "warrenbred-hobgoblin",
-   "owner_name": "워렌브레드 홉고블린",
+   "owner_name": "굴태생 홉고블린",
    "owner_level": "",
    "category": "hobgoblin",
    "src": "rule",
@@ -100757,7 +100757,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "budding-speaker-centaur",
-   "owner_name": "발아하는 연설가 켄타우로스",
+   "owner_name": "새싹 대변자 켄타우로스",
    "owner_level": "",
    "category": "centaur",
    "src": "rule",
@@ -100783,7 +100783,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hunting-catfolk",
-   "owner_name": "사냥꾼 캣포크",
+   "owner_name": "사냥 캣포크",
    "owner_level": "",
    "category": "catfolk",
    "src": "rule",
@@ -100797,7 +100797,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hunting-catfolk",
-   "owner_name": "사냥꾼 캣포크",
+   "owner_name": "사냥 캣포크",
    "owner_level": "",
    "category": "catfolk",
    "src": "rule",
@@ -100809,7 +100809,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "nephilim",
-   "owner_name": "네피림",
+   "owner_name": "네필림",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -100821,7 +100821,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "nephilim",
-   "owner_name": "네피림",
+   "owner_name": "네필림",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -100874,7 +100874,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "littlehorn-minotaur",
-   "owner_name": "작은 뿔 미노타우로스",
+   "owner_name": "작은뿔 미노타우로스",
    "owner_level": "",
    "category": "minotaur",
    "src": "rule",
@@ -100887,7 +100887,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "littlehorn-minotaur",
-   "owner_name": "작은 뿔 미노타우로스",
+   "owner_name": "작은뿔 미노타우로스",
    "owner_level": "",
    "category": "minotaur",
    "src": "rule",
@@ -100900,7 +100900,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "littlehorn-minotaur",
-   "owner_name": "작은 뿔 미노타우로스",
+   "owner_name": "작은뿔 미노타우로스",
    "owner_level": "",
    "category": "minotaur",
    "src": "rule",
@@ -100940,7 +100940,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "thickskin-tripkee",
-   "owner_name": "두꺼운 피부 트립키",
+   "owner_name": "두꺼운피부 트립키",
    "owner_level": "",
    "category": "tripkee",
    "src": "rule",
@@ -100954,7 +100954,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "thickskin-tripkee",
-   "owner_name": "두꺼운 피부 트립키",
+   "owner_name": "두꺼운피부 트립키",
    "owner_level": "",
    "category": "tripkee",
    "src": "rule",
@@ -100981,7 +100981,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "dogtooth-tengu",
-   "owner_name": "개 이빨 텐구",
+   "owner_name": "개이빨 텐구",
    "owner_level": "",
    "category": "tengu",
    "src": "rule",
@@ -100994,7 +100994,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "venomshield-nagaji",
-   "owner_name": "베놈 쉴드 나가지",
+   "owner_name": "독방패 나가지",
    "owner_level": "",
    "category": "nagaji",
    "src": "rule",
@@ -101007,7 +101007,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "venomshield-nagaji",
-   "owner_name": "베놈 쉴드 나가지",
+   "owner_name": "독방패 나가지",
    "owner_level": "",
    "category": "nagaji",
    "src": "rule",
@@ -101047,7 +101047,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "charhide-goblin",
-   "owner_name": "숯불 고블린",
+   "owner_name": "탄피부 고블린",
    "owner_level": "",
    "category": "goblin",
    "src": "rule",
@@ -101060,7 +101060,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "charhide-goblin",
-   "owner_name": "숯불 고블린",
+   "owner_name": "탄피부 고블린",
    "owner_level": "",
    "category": "goblin",
    "src": "rule",
@@ -101073,7 +101073,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "cavernstalker-kobold",
-   "owner_name": "동굴추적자 코볼트",
+   "owner_name": "동굴추적자 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -101086,7 +101086,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "cavernstalker-kobold",
-   "owner_name": "동굴추적자 코볼트",
+   "owner_name": "동굴추적자 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -101099,7 +101099,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "cavernstalker-kobold",
-   "owner_name": "동굴추적자 코볼트",
+   "owner_name": "동굴추적자 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -101112,7 +101112,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "liminal-catfolk",
-   "owner_name": "리미널 캣포크",
+   "owner_name": "경계의 캣포크",
    "owner_level": "",
    "category": "catfolk",
    "src": "rule",
@@ -101126,7 +101126,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "mottle-coat-centaur",
-   "owner_name": "얼룩무늬 켄타우로스",
+   "owner_name": "얼룩털 켄타우로스",
    "owner_level": "",
    "category": "centaur",
    "src": "rule",
@@ -101139,7 +101139,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "mottle-coat-centaur",
-   "owner_name": "얼룩무늬 켄타우로스",
+   "owner_name": "얼룩털 켄타우로스",
    "owner_level": "",
    "category": "centaur",
    "src": "rule",
@@ -101153,7 +101153,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "mottle-coat-centaur",
-   "owner_name": "얼룩무늬 켄타우로스",
+   "owner_name": "얼룩털 켄타우로스",
    "owner_level": "",
    "category": "centaur",
    "src": "rule",
@@ -101167,7 +101167,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sailfish-merfolk",
-   "owner_name": "돛새치 머포크",
+   "owner_name": "돛새치 인어",
    "owner_level": "",
    "category": "merfolk",
    "src": "rule",
@@ -101180,7 +101180,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sailfish-merfolk",
-   "owner_name": "돛새치 머포크",
+   "owner_name": "돛새치 인어",
    "owner_level": "",
    "category": "merfolk",
    "src": "rule",
@@ -101194,7 +101194,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "caveclimber-kobold",
-   "owner_name": "암벽등반가 코볼트",
+   "owner_name": "동굴등반가 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -101207,7 +101207,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "caveclimber-kobold",
-   "owner_name": "암벽등반가 코볼트",
+   "owner_name": "동굴등반가 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -101220,7 +101220,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "caveclimber-kobold",
-   "owner_name": "암벽등반가 코볼트",
+   "owner_name": "동굴등반가 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -101274,7 +101274,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "steadfast-tanuki",
-   "owner_name": "불굴의 타누키",
+   "owner_name": "굳건한 너구리",
    "owner_level": "",
    "category": "tanuki",
    "src": "rule",
@@ -101287,7 +101287,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "steadfast-tanuki",
-   "owner_name": "불굴의 타누키",
+   "owner_name": "굳건한 너구리",
    "owner_level": "",
    "category": "tanuki",
    "src": "rule",
@@ -101299,7 +101299,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "farsight-goloma",
-   "owner_name": "원거리 골로마",
+   "owner_name": "원시 골로마",
    "owner_level": "",
    "category": "goloma",
    "src": "rule",
@@ -101337,7 +101337,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "abyssal-merfolk",
-   "owner_name": "심해 머포크",
+   "owner_name": "심연 인어",
    "owner_level": "",
    "category": "merfolk",
    "src": "rule",
@@ -101349,7 +101349,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "full-moon-sarangay",
-   "owner_name": "만월 사랑가이",
+   "owner_name": "보름달 사랑가이",
    "owner_level": "",
    "category": "sarangay",
    "src": "rule",
@@ -101362,7 +101362,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "frilled-lizardfolk",
-   "owner_name": "프릴 리자드포크",
+   "owner_name": "목도리 리자드포크",
    "owner_level": "",
    "category": "lizardfolk",
    "src": "rule",
@@ -101375,7 +101375,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sandstrider-lizardfolk",
-   "owner_name": "샌드스트라이더 리자드포크",
+   "owner_name": "모래걸음 리자드포크",
    "owner_level": "",
    "category": "lizardfolk",
    "src": "rule",
@@ -101388,7 +101388,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "inured-azarketi",
-   "owner_name": "인슈어드 아자케티",
+   "owner_name": "단련된 아자르케티",
    "owner_level": "",
    "category": "azarketi",
    "src": "rule",
@@ -101426,7 +101426,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "snow-rat",
-   "owner_name": "스노우 랫",
+   "owner_name": "설치류 (눈쥐)",
    "owner_level": "",
    "category": "ratfolk",
    "src": "rule",
@@ -101439,7 +101439,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "deep-rat",
-   "owner_name": "딥 랫",
+   "owner_name": "심층 쥐",
    "owner_level": "",
    "category": "ratfolk",
    "src": "rule",
@@ -101451,7 +101451,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "stormtossed-tengu",
-   "owner_name": "폭풍에 휩싸인 텐구",
+   "owner_name": "폭풍에 시달린 텐구",
    "owner_level": "",
    "category": "tengu",
    "src": "rule",
@@ -101464,7 +101464,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "mistbreath-azarketi",
-   "owner_name": "안개 숨결 아자케티",
+   "owner_name": "안개숨결 아자르케티",
    "owner_level": "",
    "category": "azarketi",
    "src": "rule",
@@ -101478,7 +101478,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "mistbreath-azarketi",
-   "owner_name": "안개 숨결 아자케티",
+   "owner_name": "안개숨결 아자르케티",
    "owner_level": "",
    "category": "azarketi",
    "src": "rule",
@@ -101492,7 +101492,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "oathkeeper-dwarf",
-   "owner_name": "맹세 수호자 드워프",
+   "owner_name": "맹세를 지키는 드워프",
    "owner_level": "",
    "category": "dwarf",
    "src": "rule",
@@ -101506,7 +101506,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "oathkeeper-dwarf",
-   "owner_name": "맹세 수호자 드워프",
+   "owner_name": "맹세를 지키는 드워프",
    "owner_level": "",
    "category": "dwarf",
    "src": "rule",
@@ -101520,7 +101520,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "oathkeeper-dwarf",
-   "owner_name": "맹세 수호자 드워프",
+   "owner_name": "맹세를 지키는 드워프",
    "owner_level": "",
    "category": "dwarf",
    "src": "rule",
@@ -101534,7 +101534,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "oathkeeper-dwarf",
-   "owner_name": "맹세 수호자 드워프",
+   "owner_name": "맹세를 지키는 드워프",
    "owner_level": "",
    "category": "dwarf",
    "src": "rule",
@@ -101548,7 +101548,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "oathkeeper-dwarf",
-   "owner_name": "맹세 수호자 드워프",
+   "owner_name": "맹세를 지키는 드워프",
    "owner_level": "",
    "category": "dwarf",
    "src": "rule",
@@ -101562,7 +101562,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "riverside-tripkee",
-   "owner_name": "강변 트립키",
+   "owner_name": "강가의 트립키",
    "owner_level": "",
    "category": "tripkee",
    "src": "rule",
@@ -101575,7 +101575,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "fungus-leshy",
-   "owner_name": "곰팡이 레시",
+   "owner_name": "균류 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -101588,7 +101588,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "fungus-leshy",
-   "owner_name": "곰팡이 레시",
+   "owner_name": "균류 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -101717,7 +101717,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "tailed-goblin",
-   "owner_name": "꼬리 고블린",
+   "owner_name": "꼬리 달린 고블린",
    "owner_level": "",
    "category": "goblin",
    "src": "rule",
@@ -101731,7 +101731,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "tailed-goblin",
-   "owner_name": "꼬리 고블린",
+   "owner_name": "꼬리 달린 고블린",
    "owner_level": "",
    "category": "goblin",
    "src": "rule",
@@ -101744,7 +101744,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hungerseed",
-   "owner_name": "헝거시드",
+   "owner_name": "굶주림의 씨앗",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -101757,7 +101757,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hungerseed",
-   "owner_name": "헝거시드",
+   "owner_name": "굶주림의 씨앗",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -101770,7 +101770,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "spined-azarketi",
-   "owner_name": "가시 아자케티",
+   "owner_name": "가시 아자르케티",
    "owner_level": "",
    "category": "azarketi",
    "src": "rule",
@@ -101783,7 +101783,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "nightglider-strix",
-   "owner_name": "나이트글라이더 스트릭스",
+   "owner_name": "밤활공 스트릭스",
    "owner_level": "",
    "category": "strix",
    "src": "rule",
@@ -101808,7 +101808,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "deny-the-firstborn-pursuit",
-   "owner_name": "장자의 추적 거부",
+   "owner_name": "첫째의 것을 거부하는 추구",
    "owner_level": "",
    "category": "yaksha",
    "src": "rule",
@@ -101821,7 +101821,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "deny-the-firstborn-pursuit",
-   "owner_name": "장자의 추적 거부",
+   "owner_name": "첫째의 것을 거부하는 추구",
    "owner_level": "",
    "category": "yaksha",
    "src": "rule",
@@ -101835,7 +101835,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sweetbreath-kholo",
-   "owner_name": "스윗브레스 콜로",
+   "owner_name": "달콤한 숨결 콜로",
    "owner_level": "",
    "category": "kholo",
    "src": "rule",
@@ -101849,7 +101849,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sweetbreath-kholo",
-   "owner_name": "스윗브레스 콜로",
+   "owner_name": "달콤한 숨결 콜로",
    "owner_level": "",
    "category": "kholo",
    "src": "rule",
@@ -101863,7 +101863,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "breaker-surki",
-   "owner_name": "파괴자 수르키",
+   "owner_name": "파쇄자 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -101877,7 +101877,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "breaker-surki",
-   "owner_name": "파괴자 수르키",
+   "owner_name": "파쇄자 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -101891,7 +101891,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "breaker-surki",
-   "owner_name": "파괴자 수르키",
+   "owner_name": "파쇄자 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -101904,7 +101904,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "breaker-surki",
-   "owner_name": "파괴자 수르키",
+   "owner_name": "파쇄자 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -101916,7 +101916,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "breaker-surki",
-   "owner_name": "파괴자 수르키",
+   "owner_name": "파쇄자 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -101929,7 +101929,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "breaker-surki",
-   "owner_name": "파괴자 수르키",
+   "owner_name": "파쇄자 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -101942,7 +101942,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "breaker-surki",
-   "owner_name": "파괴자 수르키",
+   "owner_name": "파쇄자 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -101955,7 +101955,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "breaker-surki",
-   "owner_name": "파괴자 수르키",
+   "owner_name": "파쇄자 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -101968,7 +101968,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "breaker-surki",
-   "owner_name": "파괴자 수르키",
+   "owner_name": "파쇄자 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -101981,7 +101981,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "breaker-surki",
-   "owner_name": "파괴자 수르키",
+   "owner_name": "파쇄자 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -101994,7 +101994,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "steelskin-hobgoblin",
-   "owner_name": "강철가죽 홉고블린",
+   "owner_name": "강철피부 홉고블린",
    "owner_level": "",
    "category": "hobgoblin",
    "src": "rule",
@@ -102007,7 +102007,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "waxing-moon-sarangay",
-   "owner_name": "왁싱 문 사랑가이",
+   "owner_name": "차오르는 달 사랑가이",
    "owner_level": "",
    "category": "sarangay",
    "src": "rule",
@@ -102021,7 +102021,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "keen-venom-vishkanya",
-   "owner_name": "예리한 독 비슈칸야",
+   "owner_name": "예리한 독 비쉬칸야",
    "owner_level": "",
    "category": "vishkanya",
    "src": "rule",
@@ -102047,7 +102047,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "ancient-ash",
-   "owner_name": "고대의 잔재",
+   "owner_name": "고대의 재",
    "owner_level": "",
    "category": "ghoran",
    "src": "rule",
@@ -102060,7 +102060,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "ancient-ash",
-   "owner_name": "고대의 잔재",
+   "owner_name": "고대의 재",
    "owner_level": "",
    "category": "ghoran",
    "src": "rule",
@@ -102074,7 +102074,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "root-leshy",
-   "owner_name": "루트 레시",
+   "owner_name": "뿌리 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -102088,7 +102088,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "root-leshy",
-   "owner_name": "루트 레시",
+   "owner_name": "뿌리 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -102102,7 +102102,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "root-leshy",
-   "owner_name": "루트 레시",
+   "owner_name": "뿌리 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -102116,7 +102116,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "quilled-athamaru",
-   "owner_name": "가시 아타마루",
+   "owner_name": "가시깃 아타마루",
    "owner_level": "",
    "category": "athamaru",
    "src": "rule",
@@ -102129,7 +102129,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "shimmertongue-nagaji",
-   "owner_name": "섬광혓바닥 나가지",
+   "owner_name": "반짝이는 혀 나가지",
    "owner_level": "",
    "category": "nagaji",
    "src": "rule",
@@ -102141,7 +102141,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "chrysanthemum-leshy",
-   "owner_name": "크리스탄텀 레시",
+   "owner_name": "국화 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -102155,7 +102155,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "lethoci",
-   "owner_name": "레토시",
+   "owner_name": "레토키",
    "owner_level": "",
    "category": "kashrishi",
    "src": "rule",
@@ -102169,7 +102169,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "lethoci",
-   "owner_name": "레토시",
+   "owner_name": "레토키",
    "owner_level": "",
    "category": "kashrishi",
    "src": "rule",
@@ -102182,7 +102182,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "runtboss-hobgoblin",
-   "owner_name": "런트보스 홉고블린",
+   "owner_name": "졸개대장 홉고블린",
    "owner_level": "",
    "category": "hobgoblin",
    "src": "rule",
@@ -102195,7 +102195,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "runtboss-hobgoblin",
-   "owner_name": "런트보스 홉고블린",
+   "owner_name": "졸개대장 홉고블린",
    "owner_level": "",
    "category": "hobgoblin",
    "src": "rule",
@@ -102208,7 +102208,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "fey-touched-gnome",
-   "owner_name": "페이-터치드 노움",
+   "owner_name": "요정에 닿은 노움",
    "owner_level": "",
    "category": "gnome",
    "src": "rule",
@@ -102221,7 +102221,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "carcharodon-merfolk",
-   "owner_name": "카르카로돈 머포크",
+   "owner_name": "카르카로돈 인어",
    "owner_level": "",
    "category": "merfolk",
    "src": "rule",
@@ -102233,7 +102233,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "treedweller-goblin",
-   "owner_name": "나무꾼 고블린",
+   "owner_name": "나무거주 고블린",
    "owner_level": "",
    "category": "goblin",
    "src": "rule",
@@ -102247,7 +102247,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "treedweller-goblin",
-   "owner_name": "나무꾼 고블린",
+   "owner_name": "나무거주 고블린",
    "owner_level": "",
    "category": "goblin",
    "src": "rule",
@@ -102285,7 +102285,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "toy-poppet",
-   "owner_name": "장난감 퍼펫",
+   "owner_name": "장난감 포펫",
    "owner_level": "",
    "category": "poppet",
    "src": "rule",
@@ -102322,7 +102322,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "gutsy-halfling",
-   "owner_name": "용감한 하플링",
+   "owner_name": "배짱 좋은 하플링",
    "owner_level": "",
    "category": "halfling",
    "src": "rule",
@@ -102348,7 +102348,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "heavenscribe-kobold",
-   "owner_name": "천상의 필사자 코볼드",
+   "owner_name": "천공 서기 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -102362,7 +102362,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "heavenscribe-kobold",
-   "owner_name": "천상의 필사자 코볼드",
+   "owner_name": "천공 서기 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -102399,7 +102399,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "jinxed-halfling",
-   "owner_name": "징크스 하플링",
+   "owner_name": "불운을 부리는 하플링",
    "owner_level": "",
    "category": "halfling",
    "src": "rule",
@@ -102412,7 +102412,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "beastkin",
-   "owner_name": "비스트킨",
+   "owner_name": "야수혈족",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -102425,7 +102425,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "beastkin",
-   "owner_name": "비스트킨",
+   "owner_name": "야수혈족",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -102438,7 +102438,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "beastkin",
-   "owner_name": "비스트킨",
+   "owner_name": "야수혈족",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -102450,7 +102450,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "beastkin",
-   "owner_name": "비스트킨",
+   "owner_name": "야수혈족",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -102463,7 +102463,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "beastkin",
-   "owner_name": "비스트킨",
+   "owner_name": "야수혈족",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -102476,7 +102476,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "beastkin",
-   "owner_name": "비스트킨",
+   "owner_name": "야수혈족",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -102502,7 +102502,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "river-azarketi",
-   "owner_name": "강 아자케티",
+   "owner_name": "강의 아자르케티",
    "owner_level": "",
    "category": "azarketi",
    "src": "rule",
@@ -102528,7 +102528,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "shadow-of-the-courtier",
-   "owner_name": "궁정의 그림자",
+   "owner_name": "궁정인의 그림자",
    "owner_level": "",
    "category": "wayang",
    "src": "rule",
@@ -102541,7 +102541,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "shadow-of-the-courtier",
-   "owner_name": "궁정의 그림자",
+   "owner_name": "궁정인의 그림자",
    "owner_level": "",
    "category": "wayang",
    "src": "rule",
@@ -102554,7 +102554,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "new-moon-sarangay",
-   "owner_name": "뉴-문 사랑가이",
+   "owner_name": "초승달 사랑가이",
    "owner_level": "",
    "category": "sarangay",
    "src": "rule",
@@ -102567,7 +102567,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "new-moon-sarangay",
-   "owner_name": "뉴-문 사랑가이",
+   "owner_name": "초승달 사랑가이",
    "owner_level": "",
    "category": "sarangay",
    "src": "rule",
@@ -102581,7 +102581,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "new-moon-sarangay",
-   "owner_name": "뉴-문 사랑가이",
+   "owner_name": "초승달 사랑가이",
    "owner_level": "",
    "category": "sarangay",
    "src": "rule",
@@ -102595,7 +102595,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "roaming-minotaur",
-   "owner_name": "유랑 미노타우로스",
+   "owner_name": "방랑하는 미노타우로스",
    "owner_level": "",
    "category": "minotaur",
    "src": "rule",
@@ -102609,7 +102609,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "roaming-minotaur",
-   "owner_name": "유랑 미노타우로스",
+   "owner_name": "방랑하는 미노타우로스",
    "owner_level": "",
    "category": "minotaur",
    "src": "rule",
@@ -102622,7 +102622,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "benthic-azarketi",
-   "owner_name": "심해 아자케티",
+   "owner_name": "심해의 아자르케티",
    "owner_level": "",
    "category": "azarketi",
    "src": "rule",
@@ -102648,7 +102648,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "oread",
-   "owner_name": "오레드",
+   "owner_name": "오레아드",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -102660,7 +102660,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "oread",
-   "owner_name": "오레드",
+   "owner_name": "오레아드",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -102685,7 +102685,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-celestial",
-   "owner_name": "천상의 존재로 태어난",
+   "owner_name": "천상 태생",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -102711,7 +102711,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "ghost-poppet",
-   "owner_name": "고스트 퍼펫",
+   "owner_name": "유령 인형",
    "owner_level": "",
    "category": "poppet",
    "src": "rule",
@@ -102724,7 +102724,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "virtuous-tanuki",
-   "owner_name": "고결한 타누키",
+   "owner_name": "덕망 있는 타누키",
    "owner_level": "",
    "category": "tanuki",
    "src": "rule",
@@ -102737,7 +102737,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "virtuous-tanuki",
-   "owner_name": "고결한 타누키",
+   "owner_name": "덕망 있는 타누키",
    "owner_level": "",
    "category": "tanuki",
    "src": "rule",
@@ -102791,7 +102791,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "frightful-goloma",
-   "owner_name": "무시무시한 골로마",
+   "owner_name": "무서운 골로마",
    "owner_level": "",
    "category": "goloma",
    "src": "rule",
@@ -102805,7 +102805,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "frightful-goloma",
-   "owner_name": "무시무시한 골로마",
+   "owner_name": "무서운 골로마",
    "owner_level": "",
    "category": "goloma",
    "src": "rule",
@@ -102818,7 +102818,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "wintertouched-human",
-   "owner_name": "겨울의 손길 인간",
+   "owner_name": "겨울에 닿은 인간",
    "owner_level": "",
    "category": "human",
    "src": "rule",
@@ -102831,7 +102831,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "pine-leshy",
-   "owner_name": "소나무 레시",
+   "owner_name": "소나무 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -102844,7 +102844,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "pine-leshy",
-   "owner_name": "소나무 레시",
+   "owner_name": "소나무 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -102871,7 +102871,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "lahkgyan-vanara",
-   "owner_name": "라크얀 바나라",
+   "owner_name": "라크갼 바나라",
    "owner_level": "",
    "category": "vanara",
    "src": "rule",
@@ -102884,7 +102884,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "ascetic-tanuki",
-   "owner_name": "수도승 타누키",
+   "owner_name": "금욕적인 타누키",
    "owner_level": "",
    "category": "tanuki",
    "src": "rule",
@@ -102896,7 +102896,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "ascetic-tanuki",
-   "owner_name": "수도승 타누키",
+   "owner_name": "금욕적인 타누키",
    "owner_level": "",
    "category": "tanuki",
    "src": "rule",
@@ -102935,7 +102935,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "titan-nagaji",
-   "owner_name": "타이탄 나가지",
+   "owner_name": "거인 나가지",
    "owner_level": "",
    "category": "nagaji",
    "src": "rule",
@@ -102948,7 +102948,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "observant-halfling",
-   "owner_name": "관찰력이 뛰어난 하플링",
+   "owner_name": "관찰력 있는 하플링",
    "owner_level": "",
    "category": "halfling",
    "src": "rule",
@@ -102962,7 +102962,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "waning-moon-sarangay",
-   "owner_name": "쇠약한 달 사랑가이",
+   "owner_name": "하현달 사랑가이",
    "owner_level": "",
    "category": "sarangay",
    "src": "rule",
@@ -102975,7 +102975,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "waning-moon-sarangay",
-   "owner_name": "쇠약한 달 사랑가이",
+   "owner_name": "하현달 사랑가이",
    "owner_level": "",
    "category": "sarangay",
    "src": "rule",
@@ -102989,7 +102989,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "laborer-android",
-   "owner_name": "작업자 안드로이드",
+   "owner_name": "노동자 안드로이드",
    "owner_level": "",
    "category": "android",
    "src": "rule",
@@ -103003,7 +103003,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "laborer-android",
-   "owner_name": "작업자 안드로이드",
+   "owner_name": "노동자 안드로이드",
    "owner_level": "",
    "category": "android",
    "src": "rule",
@@ -103016,7 +103016,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hold-scarred-orc",
-   "owner_name": "홀드-흉터 오크",
+   "owner_name": "홀드 상흔 오크",
    "owner_level": "",
    "category": "orc",
    "src": "rule",
@@ -103030,7 +103030,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hold-scarred-orc",
-   "owner_name": "홀드-흉터 오크",
+   "owner_name": "홀드 상흔 오크",
    "owner_level": "",
    "category": "orc",
    "src": "rule",
@@ -103043,7 +103043,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "predator-strix",
-   "owner_name": "프레데터 스트릭스",
+   "owner_name": "포식자 스트릭스",
    "owner_level": "",
    "category": "strix",
    "src": "rule",
@@ -103056,7 +103056,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elemental-heart-dwarf",
-   "owner_name": "원소 심장 드워프",
+   "owner_name": "원소심장 드워프",
    "owner_level": "",
    "category": "dwarf",
    "src": "rule",
@@ -103069,7 +103069,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elemental-heart-dwarf",
-   "owner_name": "원소 심장 드워프",
+   "owner_name": "원소심장 드워프",
    "owner_level": "",
    "category": "dwarf",
    "src": "rule",
@@ -103083,7 +103083,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elemental-heart-dwarf",
-   "owner_name": "원소 심장 드워프",
+   "owner_name": "원소심장 드워프",
    "owner_level": "",
    "category": "dwarf",
    "src": "rule",
@@ -103109,7 +103109,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hillock-halfling",
-   "owner_name": "언덕바위 하플링",
+   "owner_name": "언덕 하플링",
    "owner_level": "",
    "category": "halfling",
    "src": "rule",
@@ -103123,7 +103123,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hillock-halfling",
-   "owner_name": "언덕바위 하플링",
+   "owner_name": "언덕 하플링",
    "owner_level": "",
    "category": "halfling",
    "src": "rule",
@@ -103137,7 +103137,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "impersonator-android",
-   "owner_name": "임포스터 안드로이드",
+   "owner_name": "위장자 안드로이드",
    "owner_level": "",
    "category": "android",
    "src": "rule",
@@ -103151,7 +103151,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "impersonator-android",
-   "owner_name": "임포스터 안드로이드",
+   "owner_name": "위장자 안드로이드",
    "owner_level": "",
    "category": "android",
    "src": "rule",
@@ -103300,7 +103300,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "dark-fields-kitsune",
-   "owner_name": "다크 필드 키츠네",
+   "owner_name": "어둠 들판 키츠네",
    "owner_level": "",
    "category": "kitsune",
    "src": "rule",
@@ -103313,7 +103313,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "dark-fields-kitsune",
-   "owner_name": "다크 필드 키츠네",
+   "owner_name": "어둠 들판 키츠네",
    "owner_level": "",
    "category": "kitsune",
    "src": "rule",
@@ -103325,7 +103325,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "dark-fields-kitsune",
-   "owner_name": "다크 필드 키츠네",
+   "owner_name": "어둠 들판 키츠네",
    "owner_level": "",
    "category": "kitsune",
    "src": "rule",
@@ -103337,7 +103337,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sharp-eared-catfolk",
-   "owner_name": "날카로운 귀 캣포크",
+   "owner_name": "날카로운 귀 캣폴크",
    "owner_level": "",
    "category": "catfolk",
    "src": "rule",
@@ -103388,7 +103388,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "venom-resistant-vishkanya",
-   "owner_name": "독에 강한 비슈칸야",
+   "owner_name": "독 저항 비쉬카냐",
    "owner_level": "",
    "category": "vishkanya",
    "src": "rule",
@@ -103401,7 +103401,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "venom-resistant-vishkanya",
-   "owner_name": "독에 강한 비슈칸야",
+   "owner_name": "독 저항 비쉬카냐",
    "owner_level": "",
    "category": "vishkanya",
    "src": "rule",
@@ -103414,7 +103414,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "venom-resistant-vishkanya",
-   "owner_name": "독에 강한 비슈칸야",
+   "owner_name": "독 저항 비쉬카냐",
    "owner_level": "",
    "category": "vishkanya",
    "src": "rule",
@@ -103479,7 +103479,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "discarded-fleshwarp",
-   "owner_name": "버려진 플레시워프",
+   "owner_name": "버려진 살변형체",
    "owner_level": "",
    "category": "fleshwarp",
    "src": "rule",
@@ -103492,7 +103492,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "dragonscaled-kobold",
-   "owner_name": "용비늘 코볼트",
+   "owner_name": "용비늘 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -103506,7 +103506,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "dragonscaled-kobold",
-   "owner_name": "용비늘 코볼트",
+   "owner_name": "용비늘 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -103520,7 +103520,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sturdy-skeleton",
-   "owner_name": "튼튼한 스켈레톤",
+   "owner_name": "튼튼한 해골",
    "owner_level": "",
    "category": "skeleton",
    "src": "rule",
@@ -103533,7 +103533,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sturdy-skeleton",
-   "owner_name": "튼튼한 스켈레톤",
+   "owner_name": "튼튼한 해골",
    "owner_level": "",
    "category": "skeleton",
    "src": "rule",
@@ -103547,7 +103547,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "cataphract-fleshwarp",
-   "owner_name": "카타프랙트 플레시워프",
+   "owner_name": "중장기병 살변형체",
    "owner_level": "",
    "category": "fleshwarp",
    "src": "rule",
@@ -103560,7 +103560,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "old-blood-vishkanya",
-   "owner_name": "올드 블러드 비슈칸야",
+   "owner_name": "옛혈통 비쉬카냐",
    "owner_level": "",
    "category": "vishkanya",
    "src": "rule",
@@ -103573,7 +103573,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "old-blood-vishkanya",
-   "owner_name": "올드 블러드 비슈칸야",
+   "owner_name": "옛혈통 비쉬카냐",
    "owner_level": "",
    "category": "vishkanya",
    "src": "rule",
@@ -103585,7 +103585,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "liminal-fetchling",
-   "owner_name": "리미널 페츨링",
+   "owner_name": "경계 페치링",
    "owner_level": "",
    "category": "fetchling",
    "src": "rule",
@@ -103765,7 +103765,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-elements",
-   "owner_name": "원소의 자식",
+   "owner_name": "원소로부터 태어난 자",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -103778,7 +103778,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-elements",
-   "owner_name": "원소의 자식",
+   "owner_name": "원소로부터 태어난 자",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -103791,7 +103791,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-elements",
-   "owner_name": "원소의 자식",
+   "owner_name": "원소로부터 태어난 자",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -103804,7 +103804,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-elements",
-   "owner_name": "원소의 자식",
+   "owner_name": "원소로부터 태어난 자",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -103818,7 +103818,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-elements",
-   "owner_name": "원소의 자식",
+   "owner_name": "원소로부터 태어난 자",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -103830,7 +103830,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "fodder-skeleton",
-   "owner_name": "소모품 스켈레톤",
+   "owner_name": "총알받이 해골",
    "owner_level": "",
    "category": "skeleton",
    "src": "rule",
@@ -103843,7 +103843,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "warrior-android",
-   "owner_name": "워리어 안드로이드",
+   "owner_name": "전사 안드로이드",
    "owner_level": "",
    "category": "android",
    "src": "rule",
@@ -103857,7 +103857,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "warrior-android",
-   "owner_name": "워리어 안드로이드",
+   "owner_name": "전사 안드로이드",
    "owner_level": "",
    "category": "android",
    "src": "rule",
@@ -103871,7 +103871,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "shoreline-strix",
-   "owner_name": "쇼어라인 스트릭스",
+   "owner_name": "해안 스트릭스",
    "owner_level": "",
    "category": "strix",
    "src": "rule",
@@ -103885,7 +103885,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "shoreline-strix",
-   "owner_name": "쇼어라인 스트릭스",
+   "owner_name": "해안 스트릭스",
    "owner_level": "",
    "category": "strix",
    "src": "rule",
@@ -103935,7 +103935,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "tactile-azarketi",
-   "owner_name": "촉각 아자케티",
+   "owner_name": "촉각 아자르케티",
    "owner_level": "",
    "category": "azarketi",
    "src": "rule",
@@ -103949,7 +103949,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "tactile-azarketi",
-   "owner_name": "촉각 아자케티",
+   "owner_name": "촉각 아자르케티",
    "owner_level": "",
    "category": "azarketi",
    "src": "rule",
@@ -103961,7 +103961,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "mightyfall-kobold",
-   "owner_name": "마이티폴 코볼트",
+   "owner_name": "강대낙하 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -103975,7 +103975,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "palace-echoes-kitsune",
-   "owner_name": "궁전의 울림 키츠네",
+   "owner_name": "궁전의 메아리 키츠네",
    "owner_level": "",
    "category": "kitsune",
    "src": "rule",
@@ -103988,7 +103988,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "great-kholo",
-   "owner_name": "위대한 콜로",
+   "owner_name": "거대 콜로",
    "owner_level": "",
    "category": "kholo",
    "src": "rule",
@@ -104002,7 +104002,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "great-kholo",
-   "owner_name": "위대한 콜로",
+   "owner_name": "거대 콜로",
    "owner_level": "",
    "category": "kholo",
    "src": "rule",
@@ -104029,7 +104029,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "flexible-catfolk",
-   "owner_name": "유연한 캣포크",
+   "owner_name": "유연한 캣폴크",
    "owner_level": "",
    "category": "catfolk",
    "src": "rule",
@@ -104043,7 +104043,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "flexible-catfolk",
-   "owner_name": "유연한 캣포크",
+   "owner_name": "유연한 캣폴크",
    "owner_level": "",
    "category": "catfolk",
    "src": "rule",
@@ -104057,7 +104057,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "flexible-catfolk",
-   "owner_name": "유연한 캣포크",
+   "owner_name": "유연한 캣폴크",
    "owner_level": "",
    "category": "catfolk",
    "src": "rule",
@@ -104071,7 +104071,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "woodstalker-lizardfolk",
-   "owner_name": "나무꾼 리자드포크",
+   "owner_name": "숲추적자 리자드포크",
    "owner_level": "",
    "category": "lizardfolk",
    "src": "rule",
@@ -104084,7 +104084,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "dijiang",
-   "owner_name": "디장",
+   "owner_name": "제강",
    "owner_level": "",
    "category": "sprite",
    "src": "rule",
@@ -104097,7 +104097,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "tunnel-rat",
-   "owner_name": "터널 랫",
+   "owner_name": "터널 쥐",
    "owner_level": "",
    "category": "ratfolk",
    "src": "rule",
@@ -104124,7 +104124,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "strong-blooded-dwarf",
-   "owner_name": "강인한 혈통의 드워프",
+   "owner_name": "강혈 드워프",
    "owner_level": "",
    "category": "dwarf",
    "src": "rule",
@@ -104137,7 +104137,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "strong-blooded-dwarf",
-   "owner_name": "강인한 혈통의 드워프",
+   "owner_name": "강혈 드워프",
    "owner_level": "",
    "category": "dwarf",
    "src": "rule",
@@ -104150,7 +104150,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "dhampir",
-   "owner_name": "담피르",
+   "owner_name": "댐피르",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -104164,7 +104164,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "dhampir",
-   "owner_name": "담피르",
+   "owner_name": "댐피르",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -104176,7 +104176,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "dhampir",
-   "owner_name": "담피르",
+   "owner_name": "댐피르",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -104188,7 +104188,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "resolute-fetchling",
-   "owner_name": "단호한 페츨링",
+   "owner_name": "결연한 페츨링",
    "owner_level": "",
    "category": "fetchling",
    "src": "rule",
@@ -104243,7 +104243,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "death-warden-dwarf",
-   "owner_name": "죽음의 감시자 드워프",
+   "owner_name": "죽음지기 드워프",
    "owner_level": "",
    "category": "dwarf",
    "src": "rule",
@@ -104256,7 +104256,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "death-warden-dwarf",
-   "owner_name": "죽음의 감시자 드워프",
+   "owner_name": "죽음지기 드워프",
    "owner_level": "",
    "category": "dwarf",
    "src": "rule",
@@ -104269,7 +104269,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "unseen-lizardfolk",
-   "owner_name": "보이지 않는 리자드포크",
+   "owner_name": "은신 리자드포크",
    "owner_level": "",
    "category": "lizardfolk",
    "src": "rule",
@@ -104323,7 +104323,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "enchanting-lily",
-   "owner_name": "매혹적인 백합",
+   "owner_name": "매혹의 백합",
    "owner_level": "",
    "category": "ghoran",
    "src": "rule",
@@ -104337,7 +104337,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "enchanting-lily",
-   "owner_name": "매혹적인 백합",
+   "owner_name": "매혹의 백합",
    "owner_level": "",
    "category": "ghoran",
    "src": "rule",
@@ -104378,7 +104378,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "wavediver-tengu",
-   "owner_name": "웨이브다이버 텐구",
+   "owner_name": "물잠수 텐구",
    "owner_level": "",
    "category": "tengu",
    "src": "rule",
@@ -104391,7 +104391,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "strongjaw-kobold",
-   "owner_name": "강한 턱 코볼트",
+   "owner_name": "강턱 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -104404,7 +104404,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "earthly-wilds-kitsune",
-   "owner_name": "대지의 야생 키츠네",
+   "owner_name": "대지 야생 키츠네",
    "owner_level": "",
    "category": "kitsune",
    "src": "rule",
@@ -104417,7 +104417,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "earthly-wilds-kitsune",
-   "owner_name": "대지의 야생 키츠네",
+   "owner_name": "대지 야생 키츠네",
    "owner_level": "",
    "category": "kitsune",
    "src": "rule",
@@ -104429,7 +104429,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "earthly-wilds-kitsune",
-   "owner_name": "대지의 야생 키츠네",
+   "owner_name": "대지 야생 키츠네",
    "owner_level": "",
    "category": "kitsune",
    "src": "rule",
@@ -104441,7 +104441,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "spindly-anadi",
-   "owner_name": "스핀들리 아나디",
+   "owner_name": "가녀린 아나디",
    "owner_level": "",
    "category": "anadi",
    "src": "rule",
@@ -104455,7 +104455,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "lantern-surki",
-   "owner_name": "등불 수르키",
+   "owner_name": "등불 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -104469,7 +104469,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "lantern-surki",
-   "owner_name": "등불 수르키",
+   "owner_name": "등불 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -104483,7 +104483,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "lantern-surki",
-   "owner_name": "등불 수르키",
+   "owner_name": "등불 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -104495,7 +104495,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "lantern-surki",
-   "owner_name": "등불 수르키",
+   "owner_name": "등불 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -104508,7 +104508,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "lantern-surki",
-   "owner_name": "등불 수르키",
+   "owner_name": "등불 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -104521,7 +104521,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "lantern-surki",
-   "owner_name": "등불 수르키",
+   "owner_name": "등불 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -104534,7 +104534,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "ironhoof-centaur",
-   "owner_name": "강철발굽 켄타우로스",
+   "owner_name": "무쇠발굽 켄타우로스",
    "owner_level": "",
    "category": "centaur",
    "src": "rule",
@@ -104625,7 +104625,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "deny-the-traitors-rebirth",
-   "owner_name": "배신자의 부활을 거부하라",
+   "owner_name": "배신자의 환생을 거부함",
    "owner_level": "",
    "category": "yaksha",
    "src": "rule",
@@ -104637,7 +104637,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "deny-the-traitors-rebirth",
-   "owner_name": "배신자의 부활을 거부하라",
+   "owner_name": "배신자의 환생을 거부함",
    "owner_level": "",
    "category": "yaksha",
    "src": "rule",
@@ -104651,7 +104651,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "tunnelflood-kobold",
-   "owner_name": "터널홍수 코볼트",
+   "owner_name": "수몰터널 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -104664,7 +104664,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "duskwalker",
-   "owner_name": "더스크워커",
+   "owner_name": "황혼보행자",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -104676,7 +104676,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "duskwalker",
-   "owner_name": "더스크워커",
+   "owner_name": "황혼보행자",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -104688,7 +104688,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "razortooth-goblin",
-   "owner_name": "면도날 고블린",
+   "owner_name": "면도날이빨 고블린",
    "owner_level": "",
    "category": "goblin",
    "src": "rule",
@@ -104701,7 +104701,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "respite-of-cloudless-paths",
-   "owner_name": "구름 없는 길의 휴식",
+   "owner_name": "구름 없는 길의 안식",
    "owner_level": "",
    "category": "yaksha",
    "src": "rule",
@@ -104755,7 +104755,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "strong-oak",
-   "owner_name": "강한 오크",
+   "owner_name": "강인한 참나무",
    "owner_level": "",
    "category": "ghoran",
    "src": "rule",
@@ -104769,7 +104769,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "strong-oak",
-   "owner_name": "강한 오크",
+   "owner_name": "강인한 참나무",
    "owner_level": "",
    "category": "ghoran",
    "src": "rule",
@@ -104783,7 +104783,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "strong-oak",
-   "owner_name": "강한 오크",
+   "owner_name": "강인한 참나무",
    "owner_level": "",
    "category": "ghoran",
    "src": "rule",
@@ -104810,7 +104810,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "poisonhide-tripkee",
-   "owner_name": "독가죽 트립키",
+   "owner_name": "독피부 트립키",
    "owner_level": "",
    "category": "tripkee",
    "src": "rule",
@@ -104823,7 +104823,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "running-animal",
-   "owner_name": "달리는 동물",
+   "owner_name": "질주 동물",
    "owner_level": "",
    "category": "awakened-animal",
    "src": "rule",
@@ -104836,7 +104836,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "running-animal",
-   "owner_name": "달리는 동물",
+   "owner_name": "질주 동물",
    "owner_level": "",
    "category": "awakened-animal",
    "src": "rule",
@@ -104849,7 +104849,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-animal",
-   "owner_name": "동물에서 태어난",
+   "owner_name": "동물에게서 태어남",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -104863,7 +104863,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-animal",
-   "owner_name": "동물에서 태어난",
+   "owner_name": "동물에게서 태어남",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -104875,7 +104875,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-animal",
-   "owner_name": "동물에서 태어난",
+   "owner_name": "동물에게서 태어남",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -104888,7 +104888,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "twilight-halfling",
-   "owner_name": "황혼의 하플링",
+   "owner_name": "황혼 하플링",
    "owner_level": "",
    "category": "halfling",
    "src": "rule",
@@ -104900,7 +104900,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "whipfang-nagaji",
-   "owner_name": "채찍날개 나가지",
+   "owner_name": "채찍이빨 나가지",
    "owner_level": "",
    "category": "nagaji",
    "src": "rule",
@@ -104913,7 +104913,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "tsukumogami-poppet",
-   "owner_name": "츠쿠모가미 인형",
+   "owner_name": "츠쿠모가미 포펫",
    "owner_level": "",
    "category": "poppet",
    "src": "rule",
@@ -104926,7 +104926,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "tsukumogami-poppet",
-   "owner_name": "츠쿠모가미 인형",
+   "owner_name": "츠쿠모가미 포펫",
    "owner_level": "",
    "category": "poppet",
    "src": "rule",
@@ -104939,7 +104939,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "dragonblood",
-   "owner_name": "용혈",
+   "owner_name": "용의 피",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -104952,7 +104952,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "dragonblood",
-   "owner_name": "용혈",
+   "owner_name": "용의 피",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -104965,7 +104965,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "insightful-goloma",
-   "owner_name": "인사이트 골로마",
+   "owner_name": "통찰력 있는 골로마",
    "owner_level": "",
    "category": "goloma",
    "src": "rule",
@@ -104979,7 +104979,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "insightful-goloma",
-   "owner_name": "인사이트 골로마",
+   "owner_name": "통찰력 있는 골로마",
    "owner_level": "",
    "category": "goloma",
    "src": "rule",
@@ -104993,7 +104993,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "snaring-anadi",
-   "owner_name": "올무 아나디",
+   "owner_name": "올가미 아나디",
    "owner_level": "",
    "category": "anadi",
    "src": "rule",
@@ -105006,7 +105006,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "snaring-anadi",
-   "owner_name": "올무 아나디",
+   "owner_name": "올가미 아나디",
    "owner_level": "",
    "category": "anadi",
    "src": "rule",
@@ -105019,7 +105019,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "umbral-gnome",
-   "owner_name": "움브렐 노움",
+   "owner_name": "어둠의 노움",
    "owner_level": "",
    "category": "gnome",
    "src": "rule",
@@ -105031,7 +105031,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "battle-trained-human-bb",
-   "owner_name": "전투 훈련된 인간",
+   "owner_name": "전투 훈련받은 인간 (BB)",
    "owner_level": "",
    "category": "human",
    "src": "rule",
@@ -105044,7 +105044,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "battle-trained-human-bb",
-   "owner_name": "전투 훈련된 인간",
+   "owner_name": "전투 훈련받은 인간 (BB)",
    "owner_level": "",
    "category": "human",
    "src": "rule",
@@ -105058,7 +105058,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "wetlander-lizardfolk",
-   "owner_name": "습지 리자드포크",
+   "owner_name": "습지대 리자드포크",
    "owner_level": "",
    "category": "lizardfolk",
    "src": "rule",
@@ -105071,7 +105071,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "polychromatic-anadi",
-   "owner_name": "다색 아나디",
+   "owner_name": "다채색 아나디",
    "owner_level": "",
    "category": "anadi",
    "src": "rule",
@@ -105085,7 +105085,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "polychromatic-anadi",
-   "owner_name": "다색 아나디",
+   "owner_name": "다채색 아나디",
    "owner_level": "",
    "category": "anadi",
    "src": "rule",
@@ -105098,7 +105098,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elementheart-kobold",
-   "owner_name": "엘리먼트하트 코볼트",
+   "owner_name": "원소심장 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -105111,7 +105111,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elementheart-kobold",
-   "owner_name": "엘리먼트하트 코볼트",
+   "owner_name": "원소심장 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -105124,7 +105124,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "rainfall-orc",
-   "owner_name": "레인폴 오크",
+   "owner_name": "빗줄기 오크",
    "owner_level": "",
    "category": "orc",
    "src": "rule",
@@ -105138,7 +105138,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "rainfall-orc",
-   "owner_name": "레인폴 오크",
+   "owner_name": "빗줄기 오크",
    "owner_level": "",
    "category": "orc",
    "src": "rule",
@@ -105152,7 +105152,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "wilderness-samsaran",
-   "owner_name": "황야의 삼사란",
+   "owner_name": "야생 삼사란",
    "owner_level": "",
    "category": "samsaran",
    "src": "rule",
@@ -105218,7 +105218,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sewer-rat",
-   "owner_name": "하수구 랫",
+   "owner_name": "하수구 쥐",
    "owner_level": "",
    "category": "ratfolk",
    "src": "rule",
@@ -105231,7 +105231,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sewer-rat",
-   "owner_name": "하수구 랫",
+   "owner_name": "하수구 쥐",
    "owner_level": "",
    "category": "ratfolk",
    "src": "rule",
@@ -105245,7 +105245,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "vine-leshy",
-   "owner_name": "바인 레시",
+   "owner_name": "덩굴 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -105258,7 +105258,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "longsnout-rat",
-   "owner_name": "긴주둥이 랫",
+   "owner_name": "긴주둥이 쥐",
    "owner_level": "",
    "category": "ratfolk",
    "src": "rule",
@@ -105270,7 +105270,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "longsnout-rat",
-   "owner_name": "긴주둥이 랫",
+   "owner_name": "긴주둥이 쥐",
    "owner_level": "",
    "category": "ratfolk",
    "src": "rule",
@@ -105284,7 +105284,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "songbird-strix",
-   "owner_name": "송버드 스트릭스",
+   "owner_name": "명금 스트릭스",
    "owner_level": "",
    "category": "strix",
    "src": "rule",
@@ -105298,7 +105298,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "songbird-strix",
-   "owner_name": "송버드 스트릭스",
+   "owner_name": "명금 스트릭스",
    "owner_level": "",
    "category": "strix",
    "src": "rule",
@@ -105312,7 +105312,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "rite-of-knowing",
-   "owner_name": "지식의 의례",
+   "owner_name": "앎의 의식",
    "owner_level": "",
    "category": "conrasu",
    "src": "rule",
@@ -105339,7 +105339,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "jinxed-tengu",
-   "owner_name": "징크스 텐구",
+   "owner_name": "저주받은 텐구",
    "owner_level": "",
    "category": "tengu",
    "src": "rule",
@@ -105352,7 +105352,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "snow-goblin",
-   "owner_name": "스노우 고블린",
+   "owner_name": "눈 고블린",
    "owner_level": "",
    "category": "goblin",
    "src": "rule",
@@ -105405,7 +105405,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "grig",
-   "owner_name": "그릭",
+   "owner_name": "그리그",
    "owner_level": "",
    "category": "sprite",
    "src": "rule",
@@ -105419,7 +105419,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "grig",
-   "owner_name": "그릭",
+   "owner_name": "그리그",
    "owner_level": "",
    "category": "sprite",
    "src": "rule",
@@ -105432,7 +105432,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "grig",
-   "owner_name": "그릭",
+   "owner_name": "그리그",
    "owner_level": "",
    "category": "sprite",
    "src": "rule",
@@ -105445,7 +105445,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "irongut-goblin",
-   "owner_name": "이롱굿 고블린",
+   "owner_name": "무쇠창자 고블린",
    "owner_level": "",
    "category": "goblin",
    "src": "rule",
@@ -105459,7 +105459,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "irongut-goblin",
-   "owner_name": "이롱굿 고블린",
+   "owner_name": "무쇠창자 고블린",
    "owner_level": "",
    "category": "goblin",
    "src": "rule",
@@ -105472,7 +105472,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "irongut-goblin",
-   "owner_name": "이롱굿 고블린",
+   "owner_name": "무쇠창자 고블린",
    "owner_level": "",
    "category": "goblin",
    "src": "rule",
@@ -105524,7 +105524,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "nine-lives-catfolk",
-   "owner_name": "9개의 생명을 가진 캣포크",
+   "owner_name": "아홉 목숨 캣포크",
    "owner_level": "",
    "category": "catfolk",
    "src": "rule",
@@ -105537,7 +105537,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "nine-lives-catfolk",
-   "owner_name": "9개의 생명을 가진 캣포크",
+   "owner_name": "아홉 목숨 캣포크",
    "owner_level": "",
    "category": "catfolk",
    "src": "rule",
@@ -105551,7 +105551,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "seaweed-leshy",
-   "owner_name": "해조류 레시",
+   "owner_name": "해초 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -105564,7 +105564,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "seaweed-leshy",
-   "owner_name": "해조류 레시",
+   "owner_name": "해초 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -105578,7 +105578,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "courageous-tanuki",
-   "owner_name": "용감한 타누키",
+   "owner_name": "용감한 너구리",
    "owner_level": "",
    "category": "tanuki",
    "src": "rule",
@@ -105591,7 +105591,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "courageous-tanuki",
-   "owner_name": "용감한 타누키",
+   "owner_name": "용감한 너구리",
    "owner_level": "",
    "category": "tanuki",
    "src": "rule",
@@ -105618,7 +105618,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "surgewise-fleshwarp",
-   "owner_name": "서지와이즈 플레시워프",
+   "owner_name": "물결을 아는 플레시워프",
    "owner_level": "",
    "category": "fleshwarp",
    "src": "rule",
@@ -105632,7 +105632,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "surgewise-fleshwarp",
-   "owner_name": "서지와이즈 플레시워프",
+   "owner_name": "물결을 아는 플레시워프",
    "owner_level": "",
    "category": "fleshwarp",
    "src": "rule",
@@ -105686,7 +105686,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "created-fleshwarp",
-   "owner_name": "생성된 플레시워프",
+   "owner_name": "창조된 플레시워프",
    "owner_level": "",
    "category": "fleshwarp",
    "src": "rule",
@@ -105742,7 +105742,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "shifting-skeleton",
-   "owner_name": "형태변환 스켈레톤",
+   "owner_name": "변형 해골",
    "owner_level": "",
    "category": "skeleton",
    "src": "rule",
@@ -105755,7 +105755,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elfbane-hobgoblin",
-   "owner_name": "엘프베인 홉고블린",
+   "owner_name": "엘프의 재앙 홉고블린",
    "owner_level": "",
    "category": "hobgoblin",
    "src": "rule",
@@ -105768,7 +105768,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "fishseeker-shoony",
-   "owner_name": "피쉬시커 슈니",
+   "owner_name": "물고기 사냥꾼 슈니",
    "owner_level": "",
    "category": "shoony",
    "src": "rule",
@@ -105781,7 +105781,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "fishseeker-shoony",
-   "owner_name": "피쉬시커 슈니",
+   "owner_name": "물고기 사냥꾼 슈니",
    "owner_level": "",
    "category": "shoony",
    "src": "rule",
@@ -105794,7 +105794,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "fishseeker-shoony",
-   "owner_name": "피쉬시커 슈니",
+   "owner_name": "물고기 사냥꾼 슈니",
    "owner_level": "",
    "category": "shoony",
    "src": "rule",
@@ -105807,7 +105807,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "scavenger-strix",
-   "owner_name": "스캐빈저 스트릭스",
+   "owner_name": "청소부 스트릭스",
    "owner_level": "",
    "category": "strix",
    "src": "rule",
@@ -105821,7 +105821,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "scavenger-strix",
-   "owner_name": "스캐빈저 스트릭스",
+   "owner_name": "청소부 스트릭스",
    "owner_level": "",
    "category": "strix",
    "src": "rule",
@@ -105834,7 +105834,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "scavenger-strix",
-   "owner_name": "스캐빈저 스트릭스",
+   "owner_name": "청소부 스트릭스",
    "owner_level": "",
    "category": "strix",
    "src": "rule",
@@ -105848,7 +105848,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sharpshooter-automaton",
-   "owner_name": "샤프슈터 오토마톤",
+   "owner_name": "명사수 오토마톤",
    "owner_level": "",
    "category": "automaton",
    "src": "rule",
@@ -105861,7 +105861,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "ardande",
-   "owner_name": "아르단드",
+   "owner_name": "아르단데",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -105873,7 +105873,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "ardande",
-   "owner_name": "아르단드",
+   "owner_name": "아르단데",
    "owner_level": "",
    "category": "",
    "src": "rule",
@@ -105938,7 +105938,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "deep-fetchling",
-   "owner_name": "딥 페츨링",
+   "owner_name": "심연 페칠링",
    "owner_level": "",
    "category": "fetchling",
    "src": "rule",
@@ -105951,7 +105951,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "deep-fetchling",
-   "owner_name": "딥 페츨링",
+   "owner_name": "심연 페칠링",
    "owner_level": "",
    "category": "fetchling",
    "src": "rule",
@@ -105964,7 +105964,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "wisp-fetchling",
-   "owner_name": "위습 페츨링",
+   "owner_name": "위습 페칠링",
    "owner_level": "",
    "category": "fetchling",
    "src": "rule",
@@ -105977,7 +105977,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "wisp-fetchling",
-   "owner_name": "위습 페츨링",
+   "owner_name": "위습 페칠링",
    "owner_level": "",
    "category": "fetchling",
    "src": "rule",
@@ -105991,7 +105991,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "wisp-fetchling",
-   "owner_name": "위습 페츨링",
+   "owner_name": "위습 페칠링",
    "owner_level": "",
    "category": "fetchling",
    "src": "rule",
@@ -106004,7 +106004,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "wisp-fetchling",
-   "owner_name": "위습 페츨링",
+   "owner_name": "위습 페칠링",
    "owner_level": "",
    "category": "fetchling",
    "src": "rule",
@@ -106018,7 +106018,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "frozen-wind-kitsune",
-   "owner_name": "얼어붙은 바람의 키츠네",
+   "owner_name": "얼어붙은 바람 키츠네",
    "owner_level": "",
    "category": "kitsune",
    "src": "rule",
@@ -106031,7 +106031,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-item",
-   "owner_name": "아이템에서 태어난",
+   "owner_name": "물건에서 태어난 자",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -106084,7 +106084,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "venomous-anadi",
-   "owner_name": "독성 아나디",
+   "owner_name": "맹독 아나디",
    "owner_level": "",
    "category": "anadi",
    "src": "rule",
@@ -106231,7 +106231,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "venomtail-kobold",
-   "owner_name": "독꼬리 코볼트",
+   "owner_name": "독꼬리 코볼드",
    "owner_level": "",
    "category": "kobold",
    "src": "rule",
@@ -106257,7 +106257,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "slabsoul-minotaur",
-   "owner_name": "슬랩소울 미노타우로스",
+   "owner_name": "석판혼 미노타우로스",
    "owner_level": "",
    "category": "minotaur",
    "src": "rule",
@@ -106270,7 +106270,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "compact-skeleton",
-   "owner_name": "가벼운 스켈레톤",
+   "owner_name": "소형 스켈레톤",
    "owner_level": "",
    "category": "skeleton",
    "src": "rule",
@@ -106283,7 +106283,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "compact-skeleton",
-   "owner_name": "가벼운 스켈레톤",
+   "owner_name": "소형 스켈레톤",
    "owner_level": "",
    "category": "skeleton",
    "src": "rule",
@@ -106296,7 +106296,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "paddler-shoony",
-   "owner_name": "패들러 슈니",
+   "owner_name": "물갈퀴 슈니",
    "owner_level": "",
    "category": "shoony",
    "src": "rule",
@@ -106309,7 +106309,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "paddler-shoony",
-   "owner_name": "패들러 슈니",
+   "owner_name": "물갈퀴 슈니",
    "owner_level": "",
    "category": "shoony",
    "src": "rule",
@@ -106322,7 +106322,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "technological-fleshwarp",
-   "owner_name": "테크놀로지컬 플레시워프",
+   "owner_name": "기술적 육체변형체",
    "owner_level": "",
    "category": "fleshwarp",
    "src": "rule",
@@ -106335,7 +106335,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "smokeworker-hobgoblin",
-   "owner_name": "연막꾼 홉고블린",
+   "owner_name": "연기 세공사 홉고블린",
    "owner_level": "",
    "category": "hobgoblin",
    "src": "rule",
@@ -106348,7 +106348,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "wajaghand-vanara",
-   "owner_name": "와자핸드 바나라",
+   "owner_name": "와자간드 바나라",
    "owner_level": "",
    "category": "vanara",
    "src": "rule",
@@ -106362,7 +106362,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "wajaghand-vanara",
-   "owner_name": "와자핸드 바나라",
+   "owner_name": "와자간드 바나라",
    "owner_level": "",
    "category": "vanara",
    "src": "rule",
@@ -106375,7 +106375,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "woodland-elf",
-   "owner_name": "숲속의 엘프",
+   "owner_name": "삼림 엘프",
    "owner_level": "",
    "category": "elf",
    "src": "rule",
@@ -106388,7 +106388,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "battle-ready-orc",
-   "owner_name": "전투 준비 오크",
+   "owner_name": "전투 태세 오크",
    "owner_level": "",
    "category": "orc",
    "src": "rule",
@@ -106401,7 +106401,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "battle-ready-orc",
-   "owner_name": "전투 준비 오크",
+   "owner_name": "전투 태세 오크",
    "owner_level": "",
    "category": "orc",
    "src": "rule",
@@ -106520,7 +106520,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "nascent",
-   "owner_name": "태동하는",
+   "owner_name": "미발현",
    "owner_level": "",
    "category": "kashrishi",
    "src": "rule",
@@ -106533,7 +106533,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "nascent",
-   "owner_name": "태동하는",
+   "owner_name": "미발현",
    "owner_level": "",
    "category": "kashrishi",
    "src": "rule",
@@ -106585,7 +106585,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "rite-of-reinforcement",
-   "owner_name": "강화의 의례",
+   "owner_name": "보강 의식",
    "owner_level": "",
    "category": "conrasu",
    "src": "rule",
@@ -106598,7 +106598,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "respite-of-a-thousand-roofs",
-   "owner_name": "천 개의 지붕의 휴식",
+   "owner_name": "천 개의 지붕의 안식",
    "owner_level": "",
    "category": "yaksha",
    "src": "rule",
@@ -106612,7 +106612,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "respite-of-a-thousand-roofs",
-   "owner_name": "천 개의 지붕의 휴식",
+   "owner_name": "천 개의 지붕의 안식",
    "owner_level": "",
    "category": "yaksha",
    "src": "rule",
@@ -106625,7 +106625,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hardshell-surki",
-   "owner_name": "단단한 껍질 수르키",
+   "owner_name": "단단한 껍질 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -106639,7 +106639,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hardshell-surki",
-   "owner_name": "단단한 껍질 수르키",
+   "owner_name": "단단한 껍질 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -106653,7 +106653,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hardshell-surki",
-   "owner_name": "단단한 껍질 수르키",
+   "owner_name": "단단한 껍질 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -106666,7 +106666,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hardshell-surki",
-   "owner_name": "단단한 껍질 수르키",
+   "owner_name": "단단한 껍질 서키",
    "owner_level": "",
    "category": "surki",
    "src": "rule",
@@ -106692,7 +106692,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "thalassic-azarketi",
-   "owner_name": "탈라식 아자케티",
+   "owner_name": "대해양 아자르케티",
    "owner_level": "",
    "category": "azarketi",
    "src": "rule",
@@ -106705,7 +106705,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "deny-lady-nanbyos-charity",
-   "owner_name": "난뵤 부인의 자선을 거부",
+   "owner_name": "난뵤 부인의 자비 거부",
    "owner_level": "",
    "category": "yaksha",
    "src": "rule",
@@ -106719,7 +106719,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "deny-lady-nanbyos-charity",
-   "owner_name": "난뵤 부인의 자선을 거부",
+   "owner_name": "난뵤 부인의 자비 거부",
    "owner_level": "",
    "category": "yaksha",
    "src": "rule",
@@ -106733,7 +106733,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "deny-lady-nanbyos-charity",
-   "owner_name": "난뵤 부인의 자선을 거부",
+   "owner_name": "난뵤 부인의 자비 거부",
    "owner_level": "",
    "category": "yaksha",
    "src": "rule",
@@ -106760,7 +106760,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "stickytoe-tripkee",
-   "owner_name": "스티키토 트립키",
+   "owner_name": "끈적발가락 트립키",
    "owner_level": "",
    "category": "tripkee",
    "src": "rule",
@@ -106774,7 +106774,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "stickytoe-tripkee",
-   "owner_name": "스티키토 트립키",
+   "owner_name": "끈적발가락 트립키",
    "owner_level": "",
    "category": "tripkee",
    "src": "rule",
@@ -106788,7 +106788,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "stickytoe-tripkee",
-   "owner_name": "스티키토 트립키",
+   "owner_name": "끈적발가락 트립키",
    "owner_level": "",
    "category": "tripkee",
    "src": "rule",
@@ -106856,7 +106856,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "vigilant-goloma",
-   "owner_name": "경계 골로마",
+   "owner_name": "경계하는 골로마",
    "owner_level": "",
    "category": "goloma",
    "src": "rule",
@@ -106869,7 +106869,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "vigilant-goloma",
-   "owner_name": "경계 골로마",
+   "owner_name": "경계하는 골로마",
    "owner_level": "",
    "category": "goloma",
    "src": "rule",
@@ -106975,7 +106975,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sensate-gnome",
-   "owner_name": "감각적인 노움",
+   "owner_name": "감각형 노움",
    "owner_level": "",
    "category": "gnome",
    "src": "rule",
@@ -106989,7 +106989,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "sensate-gnome",
-   "owner_name": "감각적인 노움",
+   "owner_name": "감각형 노움",
    "owner_level": "",
    "category": "gnome",
    "src": "rule",
@@ -107028,7 +107028,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "shadow-rat",
-   "owner_name": "그림자 랫",
+   "owner_name": "그림자 쥐",
    "owner_level": "",
    "category": "ratfolk",
    "src": "rule",
@@ -107042,7 +107042,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hooded-nagaji",
-   "owner_name": "후드 나가지",
+   "owner_name": "두건형 나가지",
    "owner_level": "",
    "category": "nagaji",
    "src": "rule",
@@ -107055,7 +107055,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "hooded-nagaji",
-   "owner_name": "후드 나가지",
+   "owner_name": "두건형 나가지",
    "owner_level": "",
    "category": "nagaji",
    "src": "rule",
@@ -107068,7 +107068,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "desert-rat",
-   "owner_name": "사막 랫",
+   "owner_name": "사막 쥐",
    "owner_level": "",
    "category": "ratfolk",
    "src": "rule",
@@ -107082,7 +107082,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "even-tempered-tanuki",
-   "owner_name": "평정심 있는 너구리",
+   "owner_name": "차분한 너구리",
    "owner_level": "",
    "category": "tanuki",
    "src": "rule",
@@ -107096,7 +107096,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "even-tempered-tanuki",
-   "owner_name": "평정심 있는 너구리",
+   "owner_name": "차분한 너구리",
    "owner_level": "",
    "category": "tanuki",
    "src": "rule",
@@ -107164,7 +107164,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "shapewrought-fleshwarp",
-   "owner_name": "형상조각 플레시워프",
+   "owner_name": "형태 개조 육체변형체",
    "owner_level": "",
    "category": "fleshwarp",
    "src": "rule",
@@ -107177,7 +107177,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "quillcoat-shisk",
-   "owner_name": "퀼코트 시스크",
+   "owner_name": "가시털 시스크",
    "owner_level": "",
    "category": "shisk",
    "src": "rule",
@@ -107190,7 +107190,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "prismatic-vishkanya",
-   "owner_name": "프리즘 비슈칸야",
+   "owner_name": "프리즘 비슈카냐",
    "owner_level": "",
    "category": "vishkanya",
    "src": "rule",
@@ -107204,7 +107204,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "prismatic-vishkanya",
-   "owner_name": "프리즘 비슈칸야",
+   "owner_name": "프리즘 비슈카냐",
    "owner_level": "",
    "category": "vishkanya",
    "src": "rule",
@@ -107217,7 +107217,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "wishborn-poppet",
-   "owner_name": "위시본 퍼펫",
+   "owner_name": "소원 태생 포펫",
    "owner_level": "",
    "category": "poppet",
    "src": "rule",
@@ -107230,7 +107230,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "monstrous-skeleton",
-   "owner_name": "괴물 스켈레톤",
+   "owner_name": "괴물형 해골",
    "owner_level": "",
    "category": "skeleton",
    "src": "rule",
@@ -107243,7 +107243,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "monstrous-skeleton",
-   "owner_name": "괴물 스켈레톤",
+   "owner_name": "괴물형 해골",
    "owner_level": "",
    "category": "skeleton",
    "src": "rule",
@@ -107256,7 +107256,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "monstrous-skeleton",
-   "owner_name": "괴물 스켈레톤",
+   "owner_name": "괴물형 해골",
    "owner_level": "",
    "category": "skeleton",
    "src": "rule",
@@ -107269,7 +107269,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "monstrous-skeleton",
-   "owner_name": "괴물 스켈레톤",
+   "owner_name": "괴물형 해골",
    "owner_level": "",
    "category": "skeleton",
    "src": "rule",
@@ -107282,7 +107282,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "monstrous-skeleton",
-   "owner_name": "괴물 스켈레톤",
+   "owner_name": "괴물형 해골",
    "owner_level": "",
    "category": "skeleton",
    "src": "rule",
@@ -107295,7 +107295,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "bright-fetchling",
-   "owner_name": "밝은 페츨링",
+   "owner_name": "빛나는 페치링",
    "owner_level": "",
    "category": "fetchling",
    "src": "rule",
@@ -107308,7 +107308,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "bright-fetchling",
-   "owner_name": "밝은 페츨링",
+   "owner_name": "빛나는 페치링",
    "owner_level": "",
    "category": "fetchling",
    "src": "rule",
@@ -107320,7 +107320,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "bright-fetchling",
-   "owner_name": "밝은 페츨링",
+   "owner_name": "빛나는 페치링",
    "owner_level": "",
    "category": "fetchling",
    "src": "rule",
@@ -107333,7 +107333,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "bright-fetchling",
-   "owner_name": "밝은 페츨링",
+   "owner_name": "빛나는 페치링",
    "owner_level": "",
    "category": "fetchling",
    "src": "rule",
@@ -107346,7 +107346,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "gourd-leshy",
-   "owner_name": "고깔 레시",
+   "owner_name": "박 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -107358,7 +107358,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "gourd-leshy",
-   "owner_name": "고깔 레시",
+   "owner_name": "박 레쉬",
    "owner_level": "",
    "category": "leshy",
    "src": "rule",
@@ -107372,7 +107372,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "deep-orc",
-   "owner_name": "딥 오크",
+   "owner_name": "심층 오크",
    "owner_level": "",
    "category": "orc",
    "src": "rule",
@@ -107385,7 +107385,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "deep-orc",
-   "owner_name": "딥 오크",
+   "owner_name": "심층 오크",
    "owner_level": "",
    "category": "orc",
    "src": "rule",
@@ -107398,7 +107398,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "leungli",
-   "owner_name": "렁리",
+   "owner_name": "레웅리",
    "owner_level": "",
    "category": "sprite",
    "src": "rule",
@@ -107411,7 +107411,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "leungli",
-   "owner_name": "렁리",
+   "owner_name": "레웅리",
    "owner_level": "",
    "category": "sprite",
    "src": "rule",
@@ -107424,7 +107424,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "vicious-goloma",
-   "owner_name": "사악한 골로마",
+   "owner_name": "흉포한 골로마",
    "owner_level": "",
    "category": "goloma",
    "src": "rule",
@@ -107437,7 +107437,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "vicious-goloma",
-   "owner_name": "사악한 골로마",
+   "owner_name": "흉포한 골로마",
    "owner_level": "",
    "category": "goloma",
    "src": "rule",
@@ -107450,7 +107450,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "warrior-automaton",
-   "owner_name": "워리어 오토마톤",
+   "owner_name": "전사 오토마톤",
    "owner_level": "",
    "category": "automaton",
    "src": "rule",
@@ -107463,7 +107463,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "warrior-automaton",
-   "owner_name": "워리어 오토마톤",
+   "owner_name": "전사 오토마톤",
    "owner_level": "",
    "category": "automaton",
    "src": "rule",
@@ -107476,7 +107476,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-vegetation",
-   "owner_name": "식물에서 태어난",
+   "owner_name": "초목 태생",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -107489,7 +107489,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-vegetation",
-   "owner_name": "식물에서 태어난",
+   "owner_name": "초목 태생",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -107502,7 +107502,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-vegetation",
-   "owner_name": "식물에서 태어난",
+   "owner_name": "초목 태생",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -107516,7 +107516,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "born-of-vegetation",
-   "owner_name": "식물에서 태어난",
+   "owner_name": "초목 태생",
    "owner_level": "",
    "category": "yaoguai",
    "src": "rule",
@@ -107595,7 +107595,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elusive-vishkanya",
-   "owner_name": "유연한 비슈카야",
+   "owner_name": "회피형 비슈카냐",
    "owner_level": "",
    "category": "vishkanya",
    "src": "rule",
@@ -107609,7 +107609,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "elusive-vishkanya",
-   "owner_name": "유연한 비슈카야",
+   "owner_name": "회피형 비슈카냐",
    "owner_level": "",
    "category": "vishkanya",
    "src": "rule",
@@ -107623,7 +107623,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "fleetwind-centaur",
-   "owner_name": "플릿윈드 켄타우로스",
+   "owner_name": "질풍 켄타우로스",
    "owner_level": "",
    "category": "centaur",
    "src": "rule",
@@ -107663,7 +107663,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "ancient-scale-azarketi",
-   "owner_name": "고대 비늘 아자케티",
+   "owner_name": "고대 비늘 아자르케티",
    "owner_level": "",
    "category": "azarketi",
    "src": "rule",
@@ -107675,7 +107675,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "ancient-scale-azarketi",
-   "owner_name": "고대 비늘 아자케티",
+   "owner_name": "고대 비늘 아자르케티",
    "owner_level": "",
    "category": "azarketi",
    "src": "rule",
@@ -107687,7 +107687,7 @@
   {
    "owner_kind": "heritage",
    "owner_slug": "ancient-scale-azarketi",
-   "owner_name": "고대 비늘 아자케티",
+   "owner_name": "고대 비늘 아자르케티",
    "owner_level": "",
    "category": "azarketi",
    "src": "rule",
@@ -231691,9 +231691,191 @@
    "type": "grant_focus_spell",
    "target": "courageous-anthem",
    "name": "용기의 찬가"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "weapon-potency-1",
+   "owner_name": "weapon-potency-1",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "potency",
+   "attach": "weapon",
+   "value": 1
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "weapon-potency-2",
+   "owner_name": "weapon-potency-2",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "potency",
+   "attach": "weapon",
+   "value": 2
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "weapon-potency-3",
+   "owner_name": "weapon-potency-3",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "potency",
+   "attach": "weapon",
+   "value": 3
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "striking",
+   "owner_name": "striking",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "striking",
+   "attach": "weapon",
+   "value": 1
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "striking-greater",
+   "owner_name": "striking-greater",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "striking",
+   "attach": "weapon",
+   "value": 2
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "striking-major",
+   "owner_name": "striking-major",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "striking",
+   "attach": "weapon",
+   "value": 3
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "armor-potency-1",
+   "owner_name": "armor-potency-1",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "potency",
+   "attach": "armor",
+   "value": 1
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "armor-potency-2",
+   "owner_name": "armor-potency-2",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "potency",
+   "attach": "armor",
+   "value": 2
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "armor-potency-3",
+   "owner_name": "armor-potency-3",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "potency",
+   "attach": "armor",
+   "value": 3
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "resilient",
+   "owner_name": "resilient",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "resilient",
+   "attach": "armor",
+   "value": 1
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "resilient-greater",
+   "owner_name": "resilient-greater",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "resilient",
+   "attach": "armor",
+   "value": 2
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "resilient-major",
+   "owner_name": "resilient-major",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "resilient",
+   "attach": "armor",
+   "value": 3
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "shield-boss",
+   "owner_name": "shield-boss",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "boss",
+   "attach": "shield",
+   "value": 1
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "shield-spikes",
+   "owner_name": "shield-spikes",
+   "owner_level": "",
+   "category": "",
+   "rule": "curated",
+   "src": "effect",
+   "type": "rune",
+   "runeType": "spikes",
+   "attach": "shield",
+   "value": 1
   }
  ],
- "note": "자동화 정본 효과 테이블(FVTT 단일소스 재구축, 2026-07-06). 효과행 18720 · 64 type. 소스=FVTT system.rules[](feat/heritage/background) + 신격 구조필드 + curated_effects.json(FVTT 갭 큐레이션). rule=정의 규칙(FVTT Rule Element 종류 또는 curated). owner_kind=소속. condition=조건보유효과·deity=신격효과 → 표시/FK만(런타임 미편입). raw slug 표시. 재생성=node tools/derive/build_effects.mjs.",
+ "note": "자동화 정본 효과 테이블(FVTT 단일소스 재구축, 2026-07-06). 효과행 18734 · 65 type. 소스=FVTT system.rules[](feat/heritage/background) + 신격 구조필드 + curated_effects.json(FVTT 갭 큐레이션). rule=정의 규칙(FVTT Rule Element 종류 또는 curated). owner_kind=소속. condition=조건보유효과·deity=신격효과 → 표시/FK만(런타임 미편입). raw slug 표시. 재생성=node tools/derive/build_effects.mjs.",
  "_types": {
   "choice": 640,
   "resistance": 240,
@@ -231758,6 +231940,7 @@
   "sanctification": 369,
   "display_note": 715,
   "damage_note": 3,
-  "grant_focus_spell": 1
+  "grant_focus_spell": 1,
+  "rune": 14
  }
 }

@@ -740,7 +740,21 @@
   "planar-sense": "curated",
   "fast-study": "curated",
   "sound-estimation": "curated",
-  "composition-spells": "curated"
+  "composition-spells": "curated",
+  "weapon-potency-1": "curated",
+  "weapon-potency-2": "curated",
+  "weapon-potency-3": "curated",
+  "striking": "curated",
+  "striking-greater": "curated",
+  "striking-major": "curated",
+  "armor-potency-1": "curated",
+  "armor-potency-2": "curated",
+  "armor-potency-3": "curated",
+  "resilient": "curated",
+  "resilient-greater": "curated",
+  "resilient-major": "curated",
+  "shield-boss": "curated",
+  "shield-spikes": "curated"
  },
  "heritages": {},
  "backgrounds": {

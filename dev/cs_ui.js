@@ -2998,8 +2998,8 @@ function renderEquipBrowseItems() {
   else if (equipBrowseTab === 'shield') items = PF2eEquip.legacyList({ type: 'shield', search: q });
   else { // gear: FVTT 일반 장비/소비품/보물/탄약/용기 + 룬(부착 시스템 큐레이션 보존)
     items = PF2eEquip.legacyList({ search: q }).filter(i => i.damage === undefined && i.ac_bonus === undefined && i.hardness === undefined);
-    if (typeof RUNE_DB !== 'undefined') {
-      let runes = RUNE_DB;
+    if (typeof getRuneCatalog === 'function') {
+      let runes = (typeof getRuneCatalog === 'function' ? getRuneCatalog() : []);
       if (q) runes = runes.filter(i => (i.name_ko || '').toLowerCase().includes(q) || (i.name_en || '').toLowerCase().includes(q));
       items = [...runes, ...items];
     }

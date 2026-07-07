@@ -506,7 +506,24 @@
    {
     "type": "grant_lore",
     "target": "$choice",
-    "prof_by_level": [[1, 2], [3, 4], [7, 6], [15, 8]]
+    "prof_by_level": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      7,
+      6
+     ],
+     [
+      15,
+      8
+     ]
+    ]
    }
   ]
  },
@@ -2619,6 +2636,146 @@
     "type": "grant_focus_spell",
     "target": "courageous-anthem",
     "name": "용기의 찬가"
+   }
+  ]
+ },
+ "weapon-potency-1": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "potency",
+    "attach": "weapon",
+    "value": 1
+   }
+  ]
+ },
+ "weapon-potency-2": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "potency",
+    "attach": "weapon",
+    "value": 2
+   }
+  ]
+ },
+ "weapon-potency-3": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "potency",
+    "attach": "weapon",
+    "value": 3
+   }
+  ]
+ },
+ "striking": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "striking",
+    "attach": "weapon",
+    "value": 1
+   }
+  ]
+ },
+ "striking-greater": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "striking",
+    "attach": "weapon",
+    "value": 2
+   }
+  ]
+ },
+ "striking-major": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "striking",
+    "attach": "weapon",
+    "value": 3
+   }
+  ]
+ },
+ "armor-potency-1": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "potency",
+    "attach": "armor",
+    "value": 1
+   }
+  ]
+ },
+ "armor-potency-2": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "potency",
+    "attach": "armor",
+    "value": 2
+   }
+  ]
+ },
+ "armor-potency-3": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "potency",
+    "attach": "armor",
+    "value": 3
+   }
+  ]
+ },
+ "resilient": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "resilient",
+    "attach": "armor",
+    "value": 1
+   }
+  ]
+ },
+ "resilient-greater": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "resilient",
+    "attach": "armor",
+    "value": 2
+   }
+  ]
+ },
+ "resilient-major": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "resilient",
+    "attach": "armor",
+    "value": 3
+   }
+  ]
+ },
+ "shield-boss": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "boss",
+    "attach": "shield",
+    "value": 1
+   }
+  ]
+ },
+ "shield-spikes": {
+  "rows": [
+   {
+    "type": "rune",
+    "runeType": "spikes",
+    "attach": "shield",
+    "value": 1
    }
   ]
  }
