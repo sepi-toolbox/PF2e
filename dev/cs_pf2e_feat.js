@@ -25,8 +25,8 @@
   function _dmgKo(slug) { return (_lang && _lang.damageType && _lang.damageType[slug]) || slug; }
   function _senseKo(slug) { return (root.PF2eAnc && root.PF2eAnc._glossary) ? root.PF2eAnc._glossary.senseKo(slug) : slug; }
 
-  function _loadLangSync() { if (!isNode) return; const fs = require('fs'); for (const p of ['data/overlay/_lang.ko.json', 'dev/data/overlay/_lang.ko.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} } _lang = _lang || { traits: {} }; }
-  async function _loadLangAsync() { try { const r = await fetch('data/overlay/_lang.ko.json'); _lang = await r.json(); } catch (e) { _lang = { traits: {} }; } }
+  function _loadLangSync() { if (!isNode) return; const fs = require('fs'); for (const p of ['data/store/_glossary.json', 'dev/data/store/_glossary.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} } _lang = _lang || { traits: {} }; }
+  async function _loadLangAsync() { try { const r = await fetch('data/store/_glossary.json'); _lang = await r.json(); } catch (e) { _lang = { traits: {} }; } }
 
   async function init() {
     if (_ready) return;

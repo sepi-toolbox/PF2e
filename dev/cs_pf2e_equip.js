@@ -10,12 +10,12 @@
   let _lang = null;
   function _loadLang() {
     if (_lang) return _lang;
-    if (isNode) { const fs = require('fs'); for (const p of ['data/overlay/_lang.ko.json', 'dev/data/overlay/_lang.ko.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} } }
+    if (isNode) { const fs = require('fs'); for (const p of ['data/store/_glossary.json', 'dev/data/store/_glossary.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} } }
     _lang = _lang || { traits: {}, damageType: {}, weaponGroup: {}, armorGroup: {} };
     return _lang;
   }
   // 브라우저용 async 초기화
-  async function init() { if (!isNode && !_lang) { try { const r = await fetch('data/overlay/_lang.ko.json'); _lang = await r.json(); } catch (e) { _lang = { traits: {}, damageType: {}, weaponGroup: {}, armorGroup: {} }; } } _loadLang(); }
+  async function init() { if (!isNode && !_lang) { try { const r = await fetch('data/store/_glossary.json'); _lang = await r.json(); } catch (e) { _lang = { traits: {}, damageType: {}, weaponGroup: {}, armorGroup: {} }; } } _loadLang(); }
 
   const RARITY_KO = { common: '일반', uncommon: '비범', rare: '희귀', unique: '고유' };
   const WCAT_KO = { simple: '단순', martial: '전투', advanced: '고급', unarmed: '비무장' };

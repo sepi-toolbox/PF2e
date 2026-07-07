@@ -319,7 +319,7 @@ const DM = (function(){
     try{
       const [g,l,td]=await Promise.all([
         fetch('data/creatures/_glossary.ko.json').then(r=>r.json()).catch(()=>({})),
-        fetch('data/overlay/_lang.ko.json').then(r=>r.json()).catch(()=>({})),
+        fetch('data/store/_glossary.json').then(r=>r.json()).catch(()=>({})),
         fetch('data/creatures/_trait_desc.ko.json').then(r=>r.json()).catch(()=>({})),
       ]);
       TERM.trait={...(l.traits||{}),...(g.trait||{})};

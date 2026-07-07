@@ -27,12 +27,12 @@
   function _loadLangSync() {
     if (!isNode) return;
     const fs = require('fs');
-    for (const p of ['data/overlay/_lang.ko.json', 'dev/data/overlay/_lang.ko.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} }
+    for (const p of ['data/store/_glossary.json', 'dev/data/store/_glossary.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} }
     _lang = _lang || { traits: {} };
   }
   async function _loadLangAsync(ver) {
     const q = ver ? ('?v=' + ver) : '';
-    try { const r = await fetch('data/overlay/_lang.ko.json' + q); _lang = await r.json(); } catch (e) { _lang = { traits: {} }; }
+    try { const r = await fetch('data/store/_glossary.json' + q); _lang = await r.json(); } catch (e) { _lang = { traits: {} }; }
   }
 
   // 행동 큐레이션(그룹/비용요건/기술게이트 — FVTT 컴펜디움 미인코딩 메타). 표시데이터는 FVTT로 오버레이.

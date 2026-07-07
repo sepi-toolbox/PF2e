@@ -39,14 +39,14 @@
   function _loadGlossariesSync() {
     if (!isNode) return;
     const fs = require('fs');
-    for (const p of ['data/overlay/_lang.ko.json', 'dev/data/overlay/_lang.ko.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} }
+    for (const p of ['data/store/_glossary.json', 'dev/data/store/_glossary.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} }
     for (const p of ['data/creatures/_glossary.ko.json', 'dev/data/creatures/_glossary.ko.json']) { try { const g = JSON.parse(fs.readFileSync(p, 'utf8')) || {}; _sense = g.sense; _langGloss = g.language; _loreGloss = g.lore; break; } catch (e) {} }
     _lang = _lang || { traits: {}, damageType: {}, size: {} };
     _sense = _sense || {}; _langGloss = _langGloss || {}; _loreGloss = _loreGloss || {};
   }
   async function _loadGlossariesAsync(ver) {
     const q = ver ? ('?v=' + ver) : '';
-    try { const r = await fetch('data/overlay/_lang.ko.json' + q); _lang = await r.json(); } catch (e) { _lang = { traits: {}, damageType: {} }; }
+    try { const r = await fetch('data/store/_glossary.json' + q); _lang = await r.json(); } catch (e) { _lang = { traits: {}, damageType: {} }; }
     try { const r = await fetch('data/creatures/_glossary.ko.json' + q); const g = await r.json(); _sense = g.sense; _langGloss = g.language; _loreGloss = g.lore; } catch (e) { _sense = {}; _langGloss = {}; _loreGloss = {}; }
     _sense = _sense || {}; _langGloss = _langGloss || {}; _loreGloss = _loreGloss || {};
   }
