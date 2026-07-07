@@ -647,7 +647,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.121').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.122').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -675,6 +675,8 @@ function getRuneCatalog() {
     if (!rune) continue;
     out.push(Object.assign({}, it, {
       category: 'rune', attachTo: rune.attach, runeType: rune.runeType, runeValue: rune.value,
+      runeDamage: rune.damage || null, runePersistent: rune.persistent || null,
+      runeResist: rune.resistance || null, runeNote: rune.note || '',
     }));
   }
   _runeCatalogCache = out;

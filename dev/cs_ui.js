@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.121').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.122').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -382,18 +382,22 @@ function calcWeaponDamage(w) {
     if (getMod('str') < 0) abilMod = getMod('str'); // negative STR fully applied
   }
 
-  // Rune damage bonus (potency doesn't add to damage in PF2e, only hit)
-  // But we keep the structure for property runes later
+  // Rune damage bonus (potency doesn't add to damage in PF2e, only hit; striking adds dice above)
+  // 속성 룬 추가 피해: 비지속(명중 시)은 피해식에 "+1d6 화염"으로, 지속/치명은 노트(w._runeNotes)로.
+  const _dtKo = { fire:'화염', cold:'냉기', electricity:'전기', acid:'산성', sonic:'음파', force:'역장', mental:'정신', void:'사령', spirit:'정신력', vitality:'생명력', bleed:'출혈', poison:'독', bludgeoning:'타격', piercing:'관통', slashing:'참격' };
+  let runeDmgStr = '';
+  (w._runeDamage || []).filter(d => !d.persistent).forEach(d => { runeDmgStr += ' + ' + d.dice + ' ' + (_dtKo[d.type] || d.type); });
 
   const totalBonus = abilMod;
   if (numDice === 0 && dieSizeBase === 0) {
     // No parseable dice, return raw string
-    return { str: rawDmg || '—', abilMod };
+    return { str: (rawDmg || '—') + runeDmgStr, abilMod };
   }
   let str = numDice + 'd' + dieSize;
   if (totalBonus > 0) str += '+' + totalBonus;
   else if (totalBonus < 0) str += totalBonus;
   if (dmgType) str += ' ' + dmgType;
+  str += runeDmgStr;
   return { str, abilMod };
 }
 
@@ -507,13 +511,16 @@ function renderWeapons() {
 
     // Rune indicator text
     let runeInfo = '';
-    if ((w._potency||0) > 0 || (w._striking||0) > 0) {
+    const _propRuneNames = (w._runeNotes || []).map(n => String(n).split(':')[0].trim());
+    if ((w._potency||0) > 0 || (w._striking||0) > 0 || _propRuneNames.length) {
       const parts = [];
       if (w._potency > 0) parts.push('+'+w._potency+' 잠재력');
       if (w._striking === 1) parts.push('강타');
       if (w._striking === 2) parts.push('상위 강타');
       if (w._striking === 3) parts.push('최상위 강타');
-      runeInfo = `<span style="font-size:9px;color:var(--accent);margin-left:6px;">[${parts.join(', ')}]</span>`;
+      _propRuneNames.forEach(n => parts.push(n));
+      const _tip = (w._runeNotes || []).length ? ` title="${(w._runeNotes||[]).join('&#10;').replace(/"/g,'&quot;')}"` : '';
+      runeInfo = `<span style="font-size:9px;color:var(--accent);margin-left:6px;cursor:help;"${_tip}>[${parts.join(', ')}]</span>`;
     }
 
     // 개별 무기 숙련도 표시 (TEML 뱃지) — 무기 친숙/훈련 반영
@@ -624,10 +631,17 @@ function attachRune(runeIdx, targetIdx) {
 
   // 같은 유형 룬 중복 방지 (potency 2개 등)
   const existing = _getAttachedRunes(targetIdx);
-  const dup = existing.find(r => r._runeData?.runeType === rd.runeType);
-  if (dup) {
-    alert(`이미 같은 유형의 룬(${dup.name})이 부착되어 있습니다. 먼저 해제하세요.`);
-    return;
+  if (rd.runeType === 'property') {
+    // 속성 룬은 여러 개 허용 — 최대 개수 = 부착된 잠재력 룬 수치(PF2e). 동일 슬러그 중복만 차단.
+    const pot = existing.find(r => r._runeData?.runeType === 'potency');
+    const maxProp = pot ? (pot._runeData.runeValue || 0) : 0;
+    const propRunes = existing.filter(r => r._runeData?.runeType === 'property');
+    if (propRunes.some(r => r.name === rune.name)) { alert(`이미 같은 속성 룬(${rune.name})이 새겨져 있습니다.`); return; }
+    if (propRunes.length >= maxProp) { alert(`속성 룬은 잠재력 룬 수치(${maxProp})만큼만 새길 수 있습니다. 먼저 잠재력 룬을 올리세요.`); return; }
+  } else {
+    // 기본 룬(잠재력/강타/탄력/보스/가시)은 유형당 하나.
+    const dup = existing.find(r => r._runeData?.runeType === rd.runeType);
+    if (dup) { alert(`이미 같은 유형의 룬(${dup.name})이 부착되어 있습니다. 먼저 해제하세요.`); return; }
   }
 
   rune._attachedTo = targetIdx;
@@ -660,21 +674,30 @@ function applyAttachedRunes(equipIdx) {
   if (target._type === 'weapon') {
     const w = state.weapons.find(w => w._fromEquip === equipIdx);
     if (w) {
-      w._potency = 0; w._striking = 0;
+      w._potency = 0; w._striking = 0; w._runeDamage = []; w._runeNotes = [];
       runes.forEach(r => {
         const rd = r._runeData;
         if (rd.runeType === 'potency') w._potency = rd.runeValue;
-        if (rd.runeType === 'striking') w._striking = rd.runeValue;
+        else if (rd.runeType === 'striking') w._striking = rd.runeValue;
+        else if (rd.runeType === 'property') {
+          if (rd.damage) w._runeDamage.push({ dice: rd.damage.dice, type: rd.damage.type });
+          if (rd.persistent) w._runeDamage.push({ dice: rd.persistent.dice, type: rd.persistent.type, persistent: true, on: rd.persistent.on || 'hit' });
+          if (rd.note) w._runeNotes.push((r.name || '') + ': ' + rd.note);
+        }
       });
     }
   }
 
   if (target._type === 'armor') {
-    state.armorPotency = 0; state.armorResilient = 0;
+    state.armorPotency = 0; state.armorResilient = 0; state.armorRuneResist = []; state.armorRuneNotes = [];
     runes.forEach(r => {
       const rd = r._runeData;
       if (rd.runeType === 'potency') state.armorPotency = rd.runeValue;
-      if (rd.runeType === 'resilient') state.armorResilient = rd.runeValue;
+      else if (rd.runeType === 'resilient') state.armorResilient = rd.runeValue;
+      else if (rd.runeType === 'property') {
+        if (rd.resist) state.armorRuneResist.push({ type: rd.resist.type, value: rd.resist.value });
+        if (rd.note) state.armorRuneNotes.push((r.name || '') + ': ' + rd.note);
+      }
     });
   }
 
@@ -3140,7 +3163,7 @@ function equipBrowseGive() {
 
   // 룬 아이템 감지
   if (item.runeType) {
-    addEquip({name: item.name_ko, qty:1, bulk, _isRune: true, _runeData: {attachTo: item.attachTo, runeType: item.runeType, runeValue: item.runeValue}, _attachedTo: null, _broken: isBroken});
+    addEquip({name: item.name_ko, qty:1, bulk, _isRune: true, _runeData: {attachTo: item.attachTo, runeType: item.runeType, runeValue: item.runeValue, damage: item.runeDamage||null, persistent: item.runePersistent||null, resist: item.runeResist||null, note: item.runeNote||''}, _attachedTo: null, _broken: isBroken});
   } else {
     const invCat = item.invCat || null;
     // _data는 무기/갑옷/방패뿐 아니라 일반 장비(포션·소비품·보물 등)에도 저장 — 추가 후 정보 카드(_infoResolveItem)가 BASE 항목 설명을 해소하도록(미저장 시 "DB에 정보 없음").
