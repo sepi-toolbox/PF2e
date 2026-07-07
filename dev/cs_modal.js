@@ -4469,21 +4469,15 @@ function _buildBackgroundChoicesUI(bg) {
     html += `<div style="font-size:10px;color:var(--text2);margin:4px 0;">※ 신격 선택 후 자동 부여 (신격 기술${beff.deity_lore ? ' + 신격 지식' : ''})</div>`;
   }
 
-  // 기술 재주
+  // 기술 재주 — 클래스/서브클래스 자동재주와 동일한 표준 카드(_subFeatCard, 아이콘 포함)
   if (beff.feat_id) {
     const fd = getFeat(beff.feat_id);
-    const featLabel = fd ? fd.name_ko : beff.feat_id;
+    const descHtml = fd
+      ? resolveDescRefs((fd.desc || fd.summary || '').replace(/<strong>전제조건:<\/strong>[^<]*<br>/i, ''))
+      : `<div style="font-size:10px;color:var(--text2);font-style:italic;">※ 카탈로그 미등재 (${beff.feat_id})</div>`;
     html += `<div style="margin-top:4px;">`;
-    html += _choiceDropdown('', `기술 재주`, [{value: beff.feat_id, label: featLabel}], true, beff.feat_id);
-    if (fd) {
-      const fdDesc = (fd.desc || fd.summary || '').replace(/<strong>전제조건:<\/strong>[^<]*<br>/i, '');
-      html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);margin-top:4px;">
-        <div style="font-weight:600;font-size:11px;margin-bottom:2px;">${fd.name_ko} <span style="color:var(--text2);font-weight:400;">${fd.name_en||''}</span></div>
-        <div style="font-size:10px;line-height:1.5;color:var(--text2);">${resolveDescRefs(fdDesc)}</div>
-      </div>`;
-    } else {
-      html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--text2);margin-top:4px;font-size:10px;color:var(--text2);">※ 카탈로그 미등재 (${beff.feat_id})</div>`;
-    }
+    html += `<div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 재주</div>`;
+    html += _subFeatCard('feat', fd || { id: beff.feat_id }, fd ? fd.name_ko : beff.feat_id, fd ? fd.name_en : '', '재주', descHtml);
     html += `</div>`;
   }
   html += `</div>`;
