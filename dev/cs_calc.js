@@ -1146,6 +1146,26 @@ function _infoResolveItem(type, name) {
   return item;
 }
 
+// 주문 메타 필드 블록(시전/사거리/영역/대상/방어/지속/빈도/유발/요구사항/비용) 공용 빌더 — 정본 단일 소스.
+//   (구: infoCardHtml·showItemDetail·_learnSpellDetailHtml 3곳에 동일 로직 복붙, cs_calc는 6필드 subset이라 drift.)
+function _spellMetaHtml(item) {
+  let m = '';
+  if (item.castTime) m += `<div><strong>시전:</strong> ${item.castTime}</div>`;
+  if (item.range) m += `<div><strong>사거리:</strong> ${item.range}${item.area ? ` | <strong>영역:</strong> ${item.area}` : ''}</div>`;
+  if (item.target) m += `<div><strong>대상:</strong> ${item.target}</div>`;
+  if (item.defense) m += `<div><strong>방어:</strong> ${item.defense}</div>`;
+  if (item.duration) m += `<div><strong>지속 시간:</strong> ${item.duration}</div>`;
+  if (item.frequency) m += `<div><strong>빈도:</strong> ${item.frequency}</div>`;
+  if (item.trigger) m += `<div><strong>유발 조건:</strong> ${item.trigger}</div>`;
+  if (item.requirements) m += `<div><strong>요구사항:</strong> ${item.requirements}</div>`;
+  if (item.cost) m += `<div><strong>비용:</strong> ${item.cost}</div>`;
+  return m ? `<div style="font-size:12px;line-height:1.6;padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--border);color:var(--text2);">${m}</div>` : '';
+}
+// desc 본문에서 중복된 메타 줄(<strong>사거리:</strong> …)을 제거 — 위 메타 블록과 이중표시 방지. 공용 정본.
+function _stripSpellMetaFromDesc(desc) {
+  return String(desc || '').replace(/<strong>(?:사거리|영역|대상|방어|지속 ?시간|빈도|유발 조건|요구사항|비용|시전):<\/strong>[^<]*(?:<br>)?/g, '').replace(/^\s*<br>/, '');
+}
+
 // 정보 카드 본문 HTML (모달 모바일 + 인라인 아코디언 공용). showHeading=true면 이름 헤딩 포함.
 function infoCardHtml(item, type, showHeading) {
   if (!item) return '<span style="color:var(--text2);font-size:12px;">상세 정보가 없습니다.</span>';
@@ -1163,15 +1183,8 @@ function infoCardHtml(item, type, showHeading) {
     tags = `<span class="tag-meta">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span> <span class="spell-actions">${item.actions||''}</span>`;
     const spTraits = [...(item.traditions||[]),...(item.traits||[])].map(_tt).join('');
     if (spTraits) metaBlock += `<div style="margin-bottom:6px;">${spTraits}</div>`;
-    let metaLines = '';
-    if (item.castTime) metaLines += `<div><strong>시전:</strong> ${item.castTime}</div>`;
-    if (item.range) metaLines += `<div><strong>사거리:</strong> ${item.range}${item.area ? ` | <strong>영역:</strong> ${item.area}` : ''}</div>`;
-    if (item.target) metaLines += `<div><strong>대상:</strong> ${item.target}</div>`;
-    if (item.defense) metaLines += `<div><strong>방어:</strong> ${item.defense}</div>`;
-    if (item.duration) metaLines += `<div><strong>지속 시간:</strong> ${item.duration}</div>`;
-    if (item.trigger) metaLines += `<div><strong>유발 조건:</strong> ${item.trigger}</div>`;
-    if (metaLines) metaBlock += `<div style="font-size:12px;line-height:1.6;padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--border);color:var(--text2);">${metaLines}</div>`;
-    desc = desc.replace(/<strong>(?:사거리|영역|대상|방어|지속 ?시간|빈도|유발 조건|요구사항|비용|시전):<\/strong>[^<]*(?:<br>)?/g, '').replace(/^\s*<br>/, '');
+    metaBlock += _spellMetaHtml(item);   // 공용 주문 메타 블록(9필드 정본 — 구 6필드 subset 통일)
+    desc = _stripSpellMetaFromDesc(desc);
   } else {
     // 장비(무기/방어구/방패/장비/룬): 특성 + 수치 메타
     const tr = item.traits || [];
@@ -2128,23 +2141,16 @@ function showBonusInfoModal(category, label) {
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:10001;display:flex;align-items:center;justify-content:center';
 
   let bodyHtml = '';
-  let totalApplied = 0;
-  const byType = {};
-  for (const b of matched) {
-    const t = b.bonus_type || '';
-    const v = (b.value === 'level') ? getLevel() : (typeof b.value === 'number' ? b.value : parseInt(b.value)||0);
-    if (!byType[t] || ((byType[t].value === 'level' ? getLevel() : byType[t].value) < v)) byType[t] = b;
-  }
-  for (const t of TYPES) {
-    if (byType[t]) totalApplied += (byType[t].value === 'level') ? getLevel() : byType[t].value;
-  }
+  // type별 max 합산은 정본 getStackedBonus(category) 단일 소스 사용(구: 동일 알고리즘 inline 재구현).
+  const { total: totalApplied, picks } = getStackedBonus(category);
+  const pickedSet = new Set(picks);
   for (const t of TYPES) {
     const group = grouped[t];
     if (!group.length && t === '') continue;
     bodyHtml += `<div style="margin-bottom:10px"><div style="color:var(--gold);font-size:11px;margin-bottom:4px;font-weight:600">${TYPE_LABEL[t] || t}</div>`;
     if (group.length) {
       group.forEach(b => {
-        const isApplied = byType[t] === b;
+        const isApplied = pickedSet.has(b);
         const sign = (typeof b.value === 'number' && b.value < 0) ? '' : '+';
         const cond = b.condition ? ` <span style="color:#888;font-size:11px">(조건: ${b.condition})</span>` : '';
         const mark = isApplied ? '<span style="color:#0c0;font-weight:700">★</span> ' : '<span style="color:#666">·</span> ';

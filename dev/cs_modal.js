@@ -362,18 +362,9 @@ function openSpeedModal() {
   const speedBonuses = (state._fb?.bonuses || []).filter(b => b.category === 'speed');
   const TYPES = ['circumstance','status','item',''];
   const TYPE_KO = {circumstance:'상황', status:'상태', item:'아이템', '':'기타'};
-  const byType = {};
-  for (const b of speedBonuses) {
-    const t = b.bonus_type || '';
-    const v = (b.value === 'level') ? (typeof getLevel==='function'?getLevel():1) : (typeof b.value==='number'?b.value:parseInt(b.value)||0);
-    const cur = byType[t];
-    const curV = cur ? ((cur.value === 'level') ? (typeof getLevel==='function'?getLevel():1) : (typeof cur.value==='number'?cur.value:parseInt(cur.value)||0)) : -Infinity;
-    if (v > curV) byType[t] = b;
-  }
-  let totalApplied = 0;
-  for (const t of TYPES) {
-    if (byType[t]) totalApplied += (byType[t].value === 'level') ? (typeof getLevel==='function'?getLevel():1) : byType[t].value;
-  }
+  // type별 max 합산 = 정본 getStackedBonus('speed') 단일 소스(구: 동일 알고리즘 inline 재구현).
+  const { total: totalApplied, picks } = (typeof getStackedBonus === 'function') ? getStackedBonus('speed') : { total: 0, picks: [] };
+  const pickedSet = new Set(picks);
   const detailEl = document.getElementById('modal-detail');
   if (detailEl) {
     detailEl.innerHTML = `
@@ -382,7 +373,7 @@ function openSpeedModal() {
         <div style="color:#888;font-size:11px;margin-bottom:12px">★ = 자동 적용 (type별 max 1개). PF2e 규칙상 같은 type 비합산.</div>
         ${speedBonuses.length ? speedBonuses.map(b => {
           const t = b.bonus_type || '';
-          const isApplied = byType[t] === b;
+          const isApplied = pickedSet.has(b);
           const sign = (typeof b.value==='number' && b.value<0) ? '' : '+';
           const cond = b.condition ? ` <span style="color:#888;font-size:11px">(조건: ${b.condition})</span>` : '';
           const mark = isApplied ? '<span style="color:#0c0;font-weight:700">★</span> ' : '<span style="color:#666">·</span> ';
@@ -3515,22 +3506,9 @@ function showItemDetail(item) {
     const rankStr = item.is_cantrip?'캔트립':item.is_focus?'집중':`랭크 ${item.rank}`;
     const spTraits = [...(item.traditions||[]),...(item.traits||[])].map(t=>traitTag(t)).join('');
     tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${rankStr}</span> <span class="spell-actions">${item.actions||''}</span></div>${spTraits?'<div style="margin-bottom:6px;">'+spTraits+'</div>':''}`;
-    // 주문 메타 필드 구조화 (desc 앞에 삽입하지 않고, 별도 블록으로)
-    let spellMeta = '';
-    if (item.castTime) spellMeta += `<div><strong>시전:</strong> ${item.castTime}</div>`;
-    if (item.range) spellMeta += `<div><strong>사거리:</strong> ${item.range}${item.area ? ` | <strong>영역:</strong> ${item.area}` : ''}</div>`;
-    if (item.target) spellMeta += `<div><strong>대상:</strong> ${item.target}</div>`;
-    if (item.defense) spellMeta += `<div><strong>방어:</strong> ${item.defense}</div>`;
-    if (item.duration) spellMeta += `<div><strong>지속 시간:</strong> ${item.duration}</div>`;
-    if (item.frequency) spellMeta += `<div><strong>빈도:</strong> ${item.frequency}</div>`;
-    if (item.trigger) spellMeta += `<div><strong>유발 조건:</strong> ${item.trigger}</div>`;
-    if (item.requirements) spellMeta += `<div><strong>요구사항:</strong> ${item.requirements}</div>`;
-    if (item.cost) spellMeta += `<div><strong>비용:</strong> ${item.cost}</div>`;
-    if (spellMeta) {
-      spellMeta = `<div style="font-size:12px;line-height:1.6;padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--border);color:var(--text2);">${spellMeta}</div>`;
-    }
-    // desc에서 중복 메타 줄 제거 (새 DB는 desc에 메타를 넣으므로)
-    desc = desc.replace(/<strong>(?:사거리|영역|대상|방어|지속 ?시간|빈도|유발 조건|요구사항|비용|시전):<\/strong>[^<]*(?:<br>)?/g, '').replace(/^\s*<br>/, '');
+    // 주문 메타 필드 구조화 (공용 정본 _spellMetaHtml/_stripSpellMetaFromDesc — cs_calc.js)
+    const spellMeta = (typeof _spellMetaHtml === 'function') ? _spellMetaHtml(item) : '';
+    desc = ((typeof _stripSpellMetaFromDesc === 'function') ? _stripSpellMetaFromDesc(desc) : desc);
     desc = spellMeta + desc;
   } else if (item.damage !== undefined) {
     const wpTraits = (item.traits||[]).map(t=>traitTag(t)).join('');
