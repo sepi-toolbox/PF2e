@@ -399,10 +399,7 @@ var PATRON_TRADITION = {
 //  Value = base extra slots (add CHA modifier)
 // ═══════════════════════════════════════════════
 
-var DIVINE_FONT_SLOTS = {
-  1:4, 2:4, 3:4, 4:5, 5:5, 6:5, 7:6, 8:6, 9:6, 10:7,
-  11:7, 12:7, 13:8, 14:8, 15:8, 16:9, 17:9, 18:9, 19:10, 20:10
-};
+// DIVINE_FONT_SLOTS 제거(v0.x~): 레벨별 슬롯 = 공식 4+floor((lv-1)/3) (getDivineFontSlots).
 
 // ═══════════════════════════════════════════════
 //  CLASS_SPELL_TABLE — 클래스별 일일 주문 수 (Player Core 정본)
@@ -410,29 +407,10 @@ var DIVINE_FONT_SLOTS = {
 //  spontaneous 캐스터: 레퍼토리 크기 = 슬롯 수 (각 랭크)
 // ═══════════════════════════════════════════════
 
+// 레거시 풀캐스터 5종은 표준 풀캐스터 진행표 공유(값 동일 — bard 명시 중복 제거).
+// 신규(sorcerer/oracle/animist)는 cs_pf2e_class.js spellTable()가 FULL_CASTERS로 동일 표 생성.
 var CLASS_SPELL_TABLE = {
-  bard: {
-    1:  {cantrips:5, slots:[2,0,0,0,0,0,0,0,0,0]},
-    2:  {cantrips:5, slots:[3,0,0,0,0,0,0,0,0,0]},
-    3:  {cantrips:5, slots:[3,2,0,0,0,0,0,0,0,0]},
-    4:  {cantrips:5, slots:[3,3,0,0,0,0,0,0,0,0]},
-    5:  {cantrips:5, slots:[3,3,2,0,0,0,0,0,0,0]},
-    6:  {cantrips:5, slots:[3,3,3,0,0,0,0,0,0,0]},
-    7:  {cantrips:5, slots:[3,3,3,2,0,0,0,0,0,0]},
-    8:  {cantrips:5, slots:[3,3,3,3,0,0,0,0,0,0]},
-    9:  {cantrips:5, slots:[3,3,3,3,2,0,0,0,0,0]},
-    10: {cantrips:5, slots:[3,3,3,3,3,0,0,0,0,0]},
-    11: {cantrips:5, slots:[3,3,3,3,3,2,0,0,0,0]},
-    12: {cantrips:5, slots:[3,3,3,3,3,3,0,0,0,0]},
-    13: {cantrips:5, slots:[3,3,3,3,3,3,2,0,0,0]},
-    14: {cantrips:5, slots:[3,3,3,3,3,3,3,0,0,0]},
-    15: {cantrips:5, slots:[3,3,3,3,3,3,3,2,0,0]},
-    16: {cantrips:5, slots:[3,3,3,3,3,3,3,3,0,0]},
-    17: {cantrips:5, slots:[3,3,3,3,3,3,3,3,2,0]},
-    18: {cantrips:5, slots:[3,3,3,3,3,3,3,3,3,0]},
-    19: {cantrips:5, slots:[3,3,3,3,3,3,3,3,3,1]},
-    20: {cantrips:5, slots:[3,3,3,3,3,3,3,3,3,1]},
-  },
+  bard:    _FULL_CASTER_TABLE(),
   witch:   _FULL_CASTER_TABLE(),
   cleric:  _FULL_CASTER_TABLE(),
   druid:   _FULL_CASTER_TABLE(),

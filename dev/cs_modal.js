@@ -1061,10 +1061,10 @@ function toggleDivineFontSlot(idx) {
 }
 
 function getDivineFontSlots() {
-  if(!state.divineFont || !state.selectedClass || state.selectedClass.id !== 'cleric') return 0;
+  if(!state.divineFont || !state.selectedClass || !state.selectedClass.deity_skill) return 0;
   const lv = getLevel();
-  const base = (typeof DIVINE_FONT_SLOTS!=='undefined' ? DIVINE_FONT_SLOTS[lv] : null) || (3 + Math.floor(lv/4));
-  return base;
+  // 레벨별 신성 원천 슬롯 진행 = 4 + floor((lv-1)/3) (구 DIVINE_FONT_SLOTS 표와 전 레벨 동일).
+  return 4 + Math.floor((lv - 1) / 3);
 }
 
 function onLevelChange() {
