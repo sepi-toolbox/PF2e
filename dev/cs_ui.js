@@ -2539,8 +2539,8 @@ function _refreshLearnSpellsList() {
   const r = _learnSpellRank;
   const q = (document.getElementById('modal-search')?.value || '').toLowerCase();
   let classTrad = state.selectedClass?.tradition || '';
-  if (classTrad === 'any' && state.selectedSubclass && typeof PATRON_TRADITION !== 'undefined') {
-    classTrad = PATRON_TRADITION[state.selectedSubclass.id] || classTrad;
+  if (classTrad === 'any' && state.selectedSubclass) {
+    classTrad = state.selectedSubclass.tradition || classTrad;
   }
 
   const filtered = (typeof _allSpells === 'function' ? _allSpells() : []).filter(sp => {

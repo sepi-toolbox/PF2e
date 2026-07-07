@@ -685,9 +685,9 @@ function applyClassFeatures() {
     if (el) el.value = rank;
   }
 
-  // ── Witch: auto-set spell tradition from patron ──
-  if (cls.id === 'witch' && state.selectedSubclass && typeof PATRON_TRADITION !== 'undefined') {
-    const trad = PATRON_TRADITION[state.selectedSubclass.id];
+  // ── Witch: auto-set spell tradition from patron (전통 = 서브클래스 데이터 필드) ──
+  if (cls.id === 'witch' && state.selectedSubclass) {
+    const trad = state.selectedSubclass.tradition;
     if (trad) {
       const tradEl = document.getElementById('spell-tradition');
       if (tradEl) tradEl.value = trad;
@@ -2334,8 +2334,8 @@ function _renderMemorizeDetail() {
   } else if (typeof _allSpells === 'function' && _allSpells().length) {
     // 클레릭/드루이드: 전통 목록 전체에서 선택
     let trad = state.selectedClass?.tradition || '';
-    if (trad === 'any' && state.selectedSubclass && typeof PATRON_TRADITION !== 'undefined') {
-      trad = PATRON_TRADITION[state.selectedSubclass.id] || trad;
+    if (trad === 'any' && state.selectedSubclass) {
+      trad = state.selectedSubclass.tradition || trad;
     }
     _allSpells().forEach(sp => {
       if (sp.is_focus) return;
@@ -3104,8 +3104,8 @@ function filterSpells() {
   const q = document.getElementById('modal-search')?.value.toLowerCase()||'';
   // 위치: 후원자 전통 사용, 그 외: 클래스 전통
   let classTrad = state.selectedClass?.tradition || '';
-  if (classTrad === 'any' && state.selectedSubclass && typeof PATRON_TRADITION !== 'undefined') {
-    classTrad = PATRON_TRADITION[state.selectedSubclass.id] || classTrad;
+  if (classTrad === 'any' && state.selectedSubclass) {
+    classTrad = state.selectedSubclass.tradition || classTrad;
   }
   const pending = typeof _spellSlotPending !== 'undefined' ? _spellSlotPending : null;
   const gPending = typeof _growthSpellPending !== 'undefined' ? _growthSpellPending : null;

@@ -385,14 +385,7 @@ var DOMAIN_DB = {
 //  WITCH PATRON → SPELL TRADITION MAPPING
 // ═══════════════════════════════════════════════
 
-var PATRON_TRADITION = {
-  'patron-curse':  'occult',
-  'patron-fate':   'occult',
-  'patron-fervor': 'divine',
-  'patron-night':  'occult',
-  'patron-rune':   'arcane',
-  'patron-wild':   'primal',
-};
+// 마녀 후원자 전통 매핑은 SUBCLASS_DB 각 후원자 행의 `tradition` 필드로 이관됨(v0.134, 원칙#2 — 별도 상수표 제거).
 
 // ═══════════════════════════════════════════════
 //  DIVINE FONT SPELL SLOTS — extra slots per level

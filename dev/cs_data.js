@@ -555,6 +555,7 @@ const SUBCLASS_DB = [
   {
     "id": "patron-curse",
     "class_id": "witch",
+    "tradition": "occult",
     "subclass_type": "후원자",
     "name_ko": "저주",
     "name_en": "Curse",
@@ -581,6 +582,7 @@ const SUBCLASS_DB = [
   {
     "id": "patron-fate",
     "class_id": "witch",
+    "tradition": "occult",
     "subclass_type": "후원자",
     "name_ko": "운명",
     "name_en": "Fate",
@@ -607,6 +609,7 @@ const SUBCLASS_DB = [
   {
     "id": "patron-fervor",
     "class_id": "witch",
+    "tradition": "divine",
     "subclass_type": "후원자",
     "name_ko": "열정",
     "name_en": "Fervor",
@@ -633,6 +636,7 @@ const SUBCLASS_DB = [
   {
     "id": "patron-night",
     "class_id": "witch",
+    "tradition": "occult",
     "subclass_type": "후원자",
     "name_ko": "밤",
     "name_en": "Night",
@@ -659,6 +663,7 @@ const SUBCLASS_DB = [
   {
     "id": "patron-rune",
     "class_id": "witch",
+    "tradition": "arcane",
     "subclass_type": "후원자",
     "name_ko": "룬",
     "name_en": "Rune",
@@ -685,6 +690,7 @@ const SUBCLASS_DB = [
   {
     "id": "patron-wild",
     "class_id": "witch",
+    "tradition": "primal",
     "subclass_type": "후원자",
     "name_ko": "야생",
     "name_en": "Wild",
