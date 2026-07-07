@@ -232114,7 +232114,13 @@
     "type": "fire",
     "value": 10
    },
-   "note": "제작 시 선택한 산성·냉기·전기·화염 중 한 유형에 저항력 10을 얻는다."
+   "note": "제작 시 선택한 산성·냉기·전기·화염 중 한 유형에 저항력 10을 얻는다.",
+   "energyChoice": [
+    "acid",
+    "cold",
+    "electricity",
+    "fire"
+   ]
   },
   {
    "owner_kind": "feat",
@@ -232476,7 +232482,13 @@
     "type": "fire",
     "value": 5
    },
-   "note": "산성·냉기·전기·화염 중 제작 시 선택한 한 유형에 저항 5를 얻는다."
+   "note": "산성·냉기·전기·화염 중 제작 시 선택한 한 유형에 저항 5를 얻는다.",
+   "energyChoice": [
+    "acid",
+    "cold",
+    "electricity",
+    "fire"
+   ]
   },
   {
    "owner_kind": "feat",
@@ -232597,7 +232609,13 @@
     "type": "fire",
     "value": 10
    },
-   "note": "산성·냉기·전기·화염 중 선택한 한 유형에 저항 10을 얻고, 근접 피해를 받으면 그 유형 4d6 피해로 반격할 수 있다."
+   "note": "산성·냉기·전기·화염 중 선택한 한 유형에 저항 10을 얻고, 근접 피해를 받으면 그 유형 4d6 피해로 반격할 수 있다.",
+   "energyChoice": [
+    "acid",
+    "cold",
+    "electricity",
+    "fire"
+   ]
   },
   {
    "owner_kind": "feat",
@@ -233450,7 +233468,13 @@
     "type": "acid",
     "value": 5
    },
-   "note": "제작 시 선택한 산성·냉기·전기·화염 중 한 유형에 저항 5를 부여하고, 근접 피해 시 반응으로 그 유형 2d6 피해를 반사한다."
+   "note": "제작 시 선택한 산성·냉기·전기·화염 중 한 유형에 저항 5를 부여하고, 근접 피해 시 반응으로 그 유형 2d6 피해를 반사한다.",
+   "energyChoice": [
+    "acid",
+    "cold",
+    "electricity",
+    "fire"
+   ]
   },
   {
    "owner_kind": "feat",

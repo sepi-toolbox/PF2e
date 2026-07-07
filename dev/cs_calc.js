@@ -647,7 +647,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.123').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.124').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -668,16 +668,31 @@ let _runeCatalogCache = null;
 function getRuneCatalog() {
   if (_runeCatalogCache) return _runeCatalogCache;
   if (typeof PF2eEquip === 'undefined' || !PF2eEquip.ready || !PF2eEquip.ready()) return [];
+  const dtKo = (t) => (PF2eEquip.damageTypeKo ? PF2eEquip.damageTypeKo(t) : t);
   const out = [];
   for (const it of PF2eEquip.legacyList({})) {
     const slug = it.id || it.slug; if (!slug) continue;
     const rune = getEffectRows(slug).find(r => r && r.type === 'rune');
     if (!rune) continue;
-    out.push(Object.assign({}, it, {
+    const base = {
       category: 'rune', attachTo: rune.attach, runeType: rune.runeType, runeValue: rune.value,
       runeDamage: rune.damage || null, runePersistent: rune.persistent || null,
       runeResist: rune.resistance || null, runeNote: rune.note || '',
-    }));
+    };
+    // 에너지 선택형 저항 룬 = 효과행 energyChoice 데이터 필드로 속성별 개별 슬러그 파생
+    // (예: energy-resistant → energy-resistant-fire/cold/acid/electricity). 하드코딩 아님.
+    if (Array.isArray(rune.energyChoice) && rune.energyChoice.length && rune.resistance) {
+      for (const elem of rune.energyChoice) {
+        out.push(Object.assign({}, it, base, {
+          id: slug + '-' + elem,
+          name_ko: dtKo(elem) + ' ' + (it.name_ko || it.name || ''),
+          name_en: elem.charAt(0).toUpperCase() + elem.slice(1) + ' ' + (it.name_en || ''),
+          runeResist: { type: elem, value: rune.resistance.value },
+        }));
+      }
+    } else {
+      out.push(Object.assign({}, it, base));
+    }
   }
   _runeCatalogCache = out;
   return out;
