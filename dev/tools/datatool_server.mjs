@@ -12,7 +12,8 @@ import { execFile } from 'child_process';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DEV = path.resolve(__dirname, '..');            // dev/
-const OVR_DIR = path.join(DEV, 'data', 'override');
+const OVR_DIR = path.join(DEV, 'data', 'override');   // 효과그룹 override(런타임 활성)만 유지
+const STORE_DIR = path.join(DEV, 'data', 'store');    // 단일 소스 — 엔티티 편집은 여기에 직접 패치
 const PORT = Number(process.argv[2]) || 8899;
 
 const MIME = { '.html':'text/html; charset=utf-8', '.js':'text/javascript; charset=utf-8',
@@ -35,30 +36,38 @@ async function handleCommit(req, res) {
     try {
       const { overrides, commit = true, push = false } = JSON.parse(raw || '{}');
       if (!overrides || typeof overrides !== 'object') return send(res, 400, 'no overrides');
-      fs.mkdirSync(OVR_DIR, { recursive: true });
       const written = [];
-      // 카테고리별로 기존 override 파일과 병합 후 기록
       for (const cat of Object.keys(overrides)) {
-        const file = path.join(OVR_DIR, `${cat}.json`);
-        let cur = {};
-        try { cur = JSON.parse(fs.readFileSync(file, 'utf8')); } catch (e) {}
         if (cat === 'effect_groups') {
-          // 효과그룹 override: 값=효과행 배열(그룹 단위 교체). null/[]=override 제거(base 복귀).
+          // 효과그룹 override는 런타임(getEffectRows)이 직접 읽음 → data/override/effect_groups.json 유지.
+          fs.mkdirSync(OVR_DIR, { recursive: true });
+          const file = path.join(OVR_DIR, 'effect_groups.json');
+          let cur = {}; try { cur = JSON.parse(fs.readFileSync(file, 'utf8')); } catch (e) {}
           for (const gid of Object.keys(overrides[cat])) {
             const v = overrides[cat][gid];
             if (v == null || (Array.isArray(v) && v.length === 0)) delete cur[gid];
             else cur[gid] = v;
           }
+          fs.writeFileSync(file, JSON.stringify(cur, null, 2) + '\n');
+          written.push(path.relative(DEV, file));
         } else {
+          // 엔티티 편집 = 단일 소스 data/store/{cat}.json 직접 패치(name_ko/_desc_ko/기타 필드).
+          const file = path.join(STORE_DIR, `${cat}.json`);
+          let docs; try { docs = JSON.parse(fs.readFileSync(file, 'utf8')); } catch (e) { continue; }
+          const bySlug = new Map(docs.map(d => [(d.system && d.system.slug) || d._id, d]));
           for (const slug of Object.keys(overrides[cat])) {
-            cur[slug] = { ...(cur[slug] || {}), ...overrides[cat][slug] };
-            // 빈 필드 정리
-            for (const f of Object.keys(cur[slug])) if (cur[slug][f] === '' || cur[slug][f] == null) delete cur[slug][f];
-            if (!Object.keys(cur[slug]).length) delete cur[slug];
+            const d = bySlug.get(slug); if (!d) continue;
+            const ov = overrides[cat][slug];
+            for (const f of Object.keys(ov)) {
+              const v = ov[f];
+              if (f === 'name_ko') d.name_ko = (v === '' || v == null) ? d.name : v;      // 빈값=영문 폴백
+              else if (f === 'desc_ko') { if (v === '' || v == null) delete d._desc_ko; else d._desc_ko = v; }
+              else if (v === '' || v == null) delete d[f]; else d[f] = v;
+            }
           }
+          fs.writeFileSync(file, JSON.stringify(docs));
+          written.push(path.relative(DEV, file));
         }
-        fs.writeFileSync(file, JSON.stringify(cur, null, 2) + '\n');
-        written.push(path.relative(DEV, file));
       }
       let message = `override 반영: ${written.join(', ')}`;
       if (commit) {
