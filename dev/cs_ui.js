@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.116').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.117').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2209,13 +2209,10 @@ function renderFeats() {
       const hasChoiceIssue = typeof _hasFeatChoiceIssue === 'function' && _hasFeatChoiceIssue(f);
       const hasPrereqIssue = typeof _hasFeatPrereqIssue === 'function' && _hasFeatPrereqIssue(f);
       const hasLoreOverflow = typeof loreSlotFullForFeat === 'function' && loreSlotFullForFeat(f);
+      // 선행 문구는 설명(desc)에서 관리 — 영어 원문 미표시. 기계 conds 미충족 시 경고만.
       let fPrereq = '';
-      if (featData?.prerequisites) {
-        const prParts = featData.prerequisites.split(/(?<=\.)\s+/);
-        const _pColor = hasPrereqIssue ? '#ff9800' : 'var(--accent)';
-        fPrereq = hasPrereqIssue
-          ? `<div style="margin-top:4px;background:#ff980020;border:1px solid #ff9800;border-radius:4px;padding:4px 8px;color:#ff9800;font-size:11px;font-weight:600;">⚠ 선행 조건이 충족되지 않았습니다</div><div style="margin-top:4px;"><b style="color:${_pColor};">선행:</b> ${prParts[0].replace(/\.$/,'')}</div>`
-          : `<div style="margin-top:4px;"><b style="color:${_pColor};">선행:</b> ${prParts[0].replace(/\.$/,'')}</div>`;
+      if (hasPrereqIssue) {
+        fPrereq = `<div style="margin-top:4px;background:#ff980020;border:1px solid #ff9800;border-radius:4px;padding:4px 8px;color:#ff9800;font-size:11px;font-weight:600;">⚠ 선행 조건이 충족되지 않았습니다</div>`;
       }
       const redDot = hasChoiceIssue ? '<span style="font-size:11px;color:#f44336;flex-shrink:0;line-height:1;" title="선택 필요">⚠</span>'
         : hasPrereqIssue ? '<span style="font-size:11px;color:#ff9800;flex-shrink:0;line-height:1;" title="선행 조건 미충족">⚠</span>'

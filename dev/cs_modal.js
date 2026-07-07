@@ -2909,6 +2909,16 @@ function _checkPrereqs(feat) {
   return true;
 }
 
+// 선행조건 미충족 경고 배너(기계 conds 기반, _checkPrereqs). v0.117~:
+//   읽는 선행 '문구'는 설명(desc)에서 관리 — FVTT 영어 원문(system.prerequisites)은 표시하지 않음.
+//   데이터(conds)는 판정만 담당. 미충족일 때만 배너 반환, 충족/조건없음이면 ''.
+function _prereqWarnBanner(feat) {
+  let met = true;
+  try { met = _checkPrereqs(feat); } catch(e) {}
+  if (met) return '';
+  return `<div style="background:#f4433620;border:1px solid #f44336;border-radius:4px;padding:6px 10px;margin-bottom:6px;color:#f44336;font-size:11px;font-weight:600;">⚠ 선행 조건이 충족되지 않았습니다</div>`;
+}
+
 // ── 텍스트 기반 전제조건 체크 (폴백) ──
 function _checkPrereqsText(prereqStr) {
   if (!prereqStr) return true;
@@ -3368,19 +3378,8 @@ function selectOption(item, row) {
       if (item.feat_level !== undefined) {
         const mfTraits = (item.traits||[]).map(t2=>traitTag(t2)).join('');
         tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${item.feat_level}레벨</span> <span class="tag-meta">${_catKo[item.category]||item.category||''}</span></div>${mfTraits?'<div style="margin-bottom:6px;">'+mfTraits+'</div>':''}`;
-        if (item.prerequisites) {
-          let _prereqMet = true;
-          try { _prereqMet = !(item.prereq_group_id || item.prerequisites) || _checkPrereqs(item); } catch(e) {}
-          const parts = item.prerequisites.split(/(?<=\.)\s+/);
-          const prereqName = parts[0].replace(/\.$/,'');
-          const prereqRest = parts.slice(1).join(' ');
-          let dp = [];
-          if (!_prereqMet) dp.push(`<div style="background:#f4433620;border:1px solid #f44336;border-radius:4px;padding:6px 10px;margin-bottom:6px;color:#f44336;font-size:11px;font-weight:600;">⚠ 선행 조건이 충족되지 않았습니다</div>`);
-          dp.push(`<b style="color:${_prereqMet ? 'var(--accent)' : '#f44336'};">선행:</b> ${prereqName}`);
-          if (prereqRest) dp.push(prereqRest);
-          if (mDesc) dp.push(mDesc);
-          mDesc = dp.join('<br>');
-        }
+        // 선행 문구는 설명(desc)에서 관리 — 영어 원문 미표시. 기계 conds 미충족 시 경고 배너만 앞에 붙임.
+        mDesc = _prereqWarnBanner(item) + (mDesc || '');
       }
       else if (item.rank !== undefined) tags = `<span class="tag-meta">${item.is_cantrip?'캔트립':'랭크 '+item.rank}</span>`;
       else if (item.damage) tags = `<span class="tag-meta">${item.damage}</span> <span class="tag-meta">가격: ${item.price?(typeof priceWithIcons==='function'?priceWithIcons(item.price):item.price):'-'}</span>`;
@@ -3547,20 +3546,8 @@ function showItemDetail(item) {
   if (item.feat_level !== undefined) {
     const traitsHtml = (item.traits||[]).map(t=>traitTag(t)).join('');
     tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${item.feat_level}레벨</span> <span class="tag-meta">${_catKo[item.category]||item.category||''}</span></div>${traitsHtml?'<div style="margin-bottom:6px;">'+traitsHtml+'</div>':''}`;
-    // 선행 요소: 첫 문장만 선행으로, 나머지는 본문에 합침
-    if (item.prerequisites) {
-      let _prereqMet = true;
-      try { _prereqMet = !(item.prereq_group_id || item.prerequisites) || _checkPrereqs(item); } catch(e) {}
-      const parts = item.prerequisites.split(/(?<=\.)\s+/);
-      const prereqName = parts[0].replace(/\.$/,'');
-      const prereqRest = parts.slice(1).join(' ');
-      let descParts = [];
-      if (!_prereqMet) descParts.push(`<div style="background:#f4433620;border:1px solid #f44336;border-radius:4px;padding:6px 10px;margin-bottom:6px;color:#f44336;font-size:11px;font-weight:600;">⚠ 선행 조건이 충족되지 않았습니다</div>`);
-      descParts.push(`<b style="color:${_prereqMet ? 'var(--accent)' : '#f44336'};">선행:</b> ${prereqName}`);
-      if (prereqRest) descParts.push(prereqRest);
-      if (desc) descParts.push(desc);
-      desc = descParts.join('<br>');
-    }
+    // 선행 문구는 설명(desc)에서 관리 — 영어 원문 미표시. 기계 conds 미충족 시 경고 배너만 앞에 붙임.
+    desc = _prereqWarnBanner(item) + (desc || '');
   } else if (item.rank !== undefined) {
     const rankStr = item.is_cantrip?'캔트립':item.is_focus?'집중':`랭크 ${item.rank}`;
     const spTraits = [...(item.traditions||[]),...(item.traits||[])].map(t=>traitTag(t)).join('');
