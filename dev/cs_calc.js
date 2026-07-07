@@ -1166,6 +1166,25 @@ function _stripSpellMetaFromDesc(desc) {
   return String(desc || '').replace(/<strong>(?:사거리|영역|대상|방어|지속 ?시간|빈도|유발 조건|요구사항|비용|시전):<\/strong>[^<]*(?:<br>)?/g, '').replace(/^\s*<br>/, '');
 }
 
+// 저장 주문 참조(s) → 카탈로그 주문 해소: id → name_ko → name_en 3단 폴백. 공용 정본(구: 복붙 2벌, ?:↔&& drift).
+function _resolveSpellRef(s) {
+  if (!s || typeof getSpell !== 'function') return null;
+  return (s.id && getSpell(s.id)) || (s.name_ko && getSpell(s.name_ko)) || (s.name_en && getSpell(s.name_en)) || null;
+}
+
+// 유산이 부여한 선천 주문 제거(_heritage 마커). 유산 clear 경로 공용 정본.
+function _cleanHeritageInnateSpells() {
+  if (state.spells && state.spells.innate) state.spells.innate = state.spells.innate.filter(s => !s._heritage);
+}
+
+// 특정 출처(재주 등)가 부여한 선천/집중 주문을 제거 — _sourceFeat slug 기준. 여러 재주 정리 경로 공용 정본.
+function removeSpellsBySource(source) {
+  if (!state.spells || typeof featSlug !== 'function') return;
+  const sl = featSlug(source);
+  if (state.spells.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== sl);
+  if (state.spells.focus) state.spells.focus = state.spells.focus.filter(s => featSlug(s._sourceFeat) !== sl);
+}
+
 // 정보 카드 본문 HTML (모달 모바일 + 인라인 아코디언 공용). showHeading=true면 이름 헤딩 포함.
 function infoCardHtml(item, type, showHeading) {
   if (!item) return '<span style="color:var(--text2);font-size:12px;">상세 정보가 없습니다.</span>';
@@ -1835,9 +1854,7 @@ function rebuildCoreEffects() {
   state.weapons = (state.weapons || []).filter(w => !w._fromHeritage);
 
   // 유산 선천 주문: _heritage 제거 (캔트립 선택 제외 — _heritageCantrip 재주가 관리)
-  if (state.spells?.innate) {
-    state.spells.innate = state.spells.innate.filter(s => !s._heritage);
-  }
+  _cleanHeritageInnateSpells();
 
   // 배경 기술: prevRank 복원
   (state._bgGrantedSkills || []).forEach(entry => {

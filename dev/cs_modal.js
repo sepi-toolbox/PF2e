@@ -765,7 +765,7 @@ function applyClassFeatures() {
   allAutoSpells.forEach(s => {
     if (s.lv <= level) {
       // id(slug) 우선 해소 → 현재 카탈로그 이름 표시, dedup은 slug 기준(이름 드리프트 무해).
-      const _sp = (s.id && getSpell(s.id)) || (s.name_ko && getSpell(s.name_ko)) || (s.name_en ? getSpell(s.name_en) : null);
+      const _sp = _resolveSpellRef(s);   // 공용 정본(id→name_ko→name_en)
       const _id = _sp?.id || s.id || null;
       const spellName = _sp ? (_sp.name_ko || _sp.name_en) : s.name_ko;
       // 출처: 서브클래스 주문이면 서브클래스명, 아니면 클래스명
@@ -1249,35 +1249,32 @@ function renderGrowthPlan() {
 function _slotCircle(scope, item, emoji) {
   return (typeof iconCircle === 'function') ? iconCircle(scope, item, emoji) : emoji;
 }
-function growthSlotHTML(lv, key, icon, label, value, onclickStr) {
-  const filled = value ? 'filled' : '';
-  const display = value || '선택 안 됨';
-  return `<div class="growth-slot ${filled}" onclick="${onclickStr}">
-    <div class="growth-slot-icon">${icon}</div>
+// 성장 슬롯 카드 공용 골격 — growthSlotHTML/WithClear/FeatSlot이 공유(구: 골격 3벌 복붙).
+//   o: {value, onclick, icon, label, bodyExtra?, trailing?}. filled/display는 여기서 파생.
+function _growthSlotSkeleton(o) {
+  const filled = o.value ? 'filled' : '';
+  const display = o.value || '선택 안 됨';
+  const trailing = o.trailing ? `\n    ${o.trailing}` : '';   // 비었을 때 공백줄 없이 — 기존 3함수 출력과 바이트 동일
+  return `<div class="growth-slot ${filled}" onclick="${o.onclick}">
+    <div class="growth-slot-icon">${o.icon}</div>
     <div class="growth-slot-body">
-      <div class="growth-slot-label">${label}</div>
-      <div class="growth-slot-value">${display}</div>
-    </div>
+      <div class="growth-slot-label">${o.label}</div>
+      <div class="growth-slot-value">${display}</div>${o.bodyExtra || ''}
+    </div>${trailing}
   </div>`;
+}
+
+function growthSlotHTML(lv, key, icon, label, value, onclickStr) {
+  return _growthSlotSkeleton({ value, onclick: onclickStr, icon, label });
 }
 
 function growthSlotWithClearHTML(key, icon, label, value, onclickStr, clearAction) {
-  const filled = value ? 'filled' : '';
-  const display = value || '선택 안 됨';
   const clearBtn = clearAction ? `<span class="spell-del" onclick="event.stopPropagation();${clearAction};" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>` : '';
-  return `<div class="growth-slot ${filled}" onclick="${onclickStr}">
-    <div class="growth-slot-icon">${icon}</div>
-    <div class="growth-slot-body">
-      <div class="growth-slot-label">${label}</div>
-      <div class="growth-slot-value">${display}</div>
-    </div>
-    ${clearBtn}
-  </div>`;
+  return _growthSlotSkeleton({ value, onclick: onclickStr, icon, label, trailing: clearBtn });
 }
 
 function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
-  const filled = value ? 'filled' : '';
-  const display = value || '선택 안 됨';
+  // filled/display는 _growthSlotSkeleton이 파생.
   // 채워진 슬롯 클릭 = 클래스/배경과 동일하게 선택 모달 재오픈(목록 + 현재 재주 하이라이트).
   // (구: showInfo 정보 팝업만 떠서 목록/교체가 불가했음 — 사용자 요청으로 통일)
   const clickAction = `growthPickFeat(${lv},'${key}','${featType}')`;
@@ -1300,14 +1297,8 @@ function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
       if (_fobj && loreSlotFullForFeat(_fobj)) loreWarn = '<div style="color:#ff9800;font-size:10px;margin-top:2px;">⚠ 지식 슬롯 가득 참 — 다른 지식 제거 시 적용</div>';
     } catch(e) {}
   }
-  return `<div class="growth-slot ${filled}" onclick="${clickAction}">
-    <div class="growth-slot-icon">${circleIco}</div>
-    <div class="growth-slot-body">
-      <div class="growth-slot-label">${label}</div>
-      <div class="growth-slot-value">${display}</div>${prereqWarn}${loreWarn}
-    </div>
-    ${value ? '<span class="spell-del" onclick="event.stopPropagation();growthClearFeat('+lv+',\''+key+'\',\''+featType+'\');" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>' : ''}
-  </div>`;
+  const trailing = value ? '<span class="spell-del" onclick="event.stopPropagation();growthClearFeat('+lv+',\''+key+'\',\''+featType+'\');" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>' : '';
+  return _growthSlotSkeleton({ value, onclick: clickAction, icon: circleIco, label, bodyExtra: prereqWarn + loreWarn, trailing });
 }
 
 // Growth Plan: pick a feat via the existing modal system
@@ -1338,9 +1329,8 @@ function growthClearFeat(lv, key, featType) {
         arr.splice(idx, 1);
       }
     }
-    // 선천 주문 + 집중 주문 제거 (slug 기준 — _sourceFeat는 slug 저장)
-    if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(oldName));
-    if (state.spells?.focus) state.spells.focus = state.spells.focus.filter(s => featSlug(s._sourceFeat) !== featSlug(oldName));
+    // 선천 주문 + 집중 주문 제거 (출처 slug 기준 공용 정본)
+    removeSpellsBySource(oldName);
     // 재주로 부여된 무기 제거 (grant_weapon)
     const _fEN = oldName?.match(/\(([^)]+)\)$/)?.[1] || '';
     if (_fEN) {
@@ -1603,7 +1593,7 @@ function getAutoKnownAtLevel(lv) {
   const sid = state.selectedSubclass?.id;
   // id(slug) 우선 해소 → 현재 카탈로그 이름으로 표시(이름 드리프트 무해)
   const _reso = (s, extra) => {
-    const sp = (s.id && getSpell(s.id)) || (s.name_ko && getSpell(s.name_ko)) || (s.name_en && getSpell(s.name_en));
+    const sp = _resolveSpellRef(s);   // 공용 정본(id→name_ko→name_en)
     return Object.assign({id: sp?.id || s.id || null, name: sp ? (sp.name_ko || sp.name_en) : s.name_ko}, extra);
   };
   if (typeof CLASS_AUTO_SPELLS !== 'undefined' && cid && CLASS_AUTO_SPELLS[cid]) {
@@ -4694,8 +4684,8 @@ function resetFromAncestry() {
   state.size = '중형';
   const speedEl = document.getElementById('speed');
   if (speedEl) speedEl.value = 25;
-  // 유산 부여 선천적 주문 + 임시 재주 제거
-  if (state.spells.innate) state.spells.innate = state.spells.innate.filter(s => !s._heritage);
+  // 유산 부여 선천적 주문 + 임시 재주 제거 (공용 정본)
+  _cleanHeritageInnateSpells();
   if (state.feats.other) state.feats.other = state.feats.other.filter(f => !f._heritageCantrip);
   // Clear languages/traits textarea
   const langEl = document.getElementById('f-languages');

@@ -2367,11 +2367,8 @@ function cascadeRemoveFeats() {
 function removeFeat(t, i) {
   const feat = state.feats[t][i];
   const featName = feat?.name?.split(' (')[0].trim() || '';
-  // 재주로 얻은 선천 주문 + 집중 주문 제거
-  if (feat?.name) {
-    if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(feat));
-    if (state.spells?.focus) state.spells.focus = state.spells.focus.filter(s => featSlug(s._sourceFeat) !== featSlug(feat));
-  }
+  // 재주로 얻은 선천 주문 + 집중 주문 제거 (출처 slug 기준 공용 정본)
+  if (feat?.name) removeSpellsBySource(feat);
   // 재주로 부여된 무기 제거 (grant_weapon) — slug 기준(이름 편집 무관, applyFeatEffects 정리와 일치)
   if (feat) {
     const _fslug = featSlug(feat);
@@ -2491,6 +2488,19 @@ function _calcLearnableRanks(cid, lv) {
 
 var _learnSpellRanks = [];
 
+// 주문 배우기 모달 진행도 탭 바 HTML — 랭크별 current/max·경고색. 공용 정본(구: 렌더/갱신 2곳 동일 복붙).
+function _learnSpellTabBarHtml() {
+  let tabHtml = '';
+  _learnSpellRanks.forEach(r => {
+    const active = _learnSpellRank === r.rank ? 'active' : '';
+    const isFull = r.current >= r.max;
+    const warn = (!isFull && r.max < 99) ? ' style="color:#f44336;"' : '';
+    const countStr = r.max >= 99 ? `${r.current}` : `${r.current}/${r.max}`;
+    tabHtml += `<span class="spell-subtab ${active}" onclick="_learnSpellRank=${r.rank};_refreshLearnSpellsList()">${r.label} <b${warn}>${countStr}</b></span>`;
+  });
+  return `<div style="display:flex;flex-wrap:wrap;gap:2px;padding:4px 0;">${tabHtml}</div>`;
+}
+
 function _renderLearnSpellsModal() {
   const overlay = document.getElementById('modal-overlay');
   overlay.classList.remove('hidden');
@@ -2501,17 +2511,8 @@ function _renderLearnSpellsModal() {
   const footer = document.querySelector('.modal-footer');
   if (footer) footer.style.display = 'none';
 
-  // ── 진행도 탭 바 생성 ──
-  let tabHtml = '';
-  _learnSpellRanks.forEach(r => {
-    const active = _learnSpellRank === r.rank ? 'active' : '';
-    const isFull = r.current >= r.max;
-    const warn = (!isFull && r.max < 99) ? ' style="color:#f44336;"' : '';
-    const countStr = r.max >= 99 ? `${r.current}` : `${r.current}/${r.max}`;
-    tabHtml += `<span class="spell-subtab ${active}" onclick="_learnSpellRank=${r.rank};_refreshLearnSpellsList()">${r.label} <b${warn}>${countStr}</b></span>`;
-  });
-
-  if (fbar) fbar.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:2px;padding:4px 0;">${tabHtml}</div>`;
+  // ── 진행도 탭 바 생성 (공용 _learnSpellTabBarHtml) ──
+  if (fbar) fbar.innerHTML = _learnSpellTabBarHtml();
 
   // 인라인 아코디언 방식 — 우측 상세 패널 숨기고 목록을 전체폭으로 (closeModal이 초기화)
   const detail = document.getElementById('modal-detail');
@@ -2767,17 +2768,7 @@ function _refreshLearnSpellsUI() {
   _learnSpellRanks = _calcLearnableRanks(cid, lv) || [];
   // 탭 바 진행도 갱신
   const fbar = document.getElementById('modal-filterbar');
-  if (fbar) {
-    let tabHtml = '';
-    _learnSpellRanks.forEach(r => {
-      const active = _learnSpellRank === r.rank ? 'active' : '';
-      const isFull = r.current >= r.max;
-      const warn = (!isFull && r.max < 99) ? ' style="color:#f44336;"' : '';
-      const countStr = r.max >= 99 ? `${r.current}` : `${r.current}/${r.max}`;
-      tabHtml += `<span class="spell-subtab ${active}" onclick="_learnSpellRank=${r.rank};_refreshLearnSpellsList()">${r.label} <b${warn}>${countStr}</b></span>`;
-    });
-    fbar.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:2px;padding:4px 0;">${tabHtml}</div>`;
-  }
+  if (fbar) fbar.innerHTML = _learnSpellTabBarHtml();   // 공용 정본
   // 목록 갱신
   _refreshLearnSpellsList();
 }
@@ -4179,7 +4170,7 @@ function renderPetSkillList(i) {
   SKILLS.forEach(sk => {
     const rank = parseInt(p.skills[sk.id] || 0);
     const mod = p[sk.attr] || 0;
-    const total = mod + (rank > 0 ? rank + lv : 0);
+    const total = mod + rankBonus(rank, lv);   // 공용 정본(cs_calc)
     const rankLabel = RANK_LABELS[String(rank)] || '미숙련';
     const rankClass = RANK_CLASSES[String(rank)] || '';
     const row = document.createElement('div');
