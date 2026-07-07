@@ -3190,12 +3190,14 @@ function renderOptions(data) {
   let grouped = null;
 
   if (modalType === 'heritage') {
-    grouped = {};
-    data.forEach(item => {
-      const key = getHeritageEffects(item).versatile ? '🌟 다재다능한 유산 / 혼합 혈통' : '🧬 혈통 유산';
-      if (!grouped[key]) grouped[key] = [];
-      grouped[key].push(item);
-    });
+    // ancestry==null = 다재다능(복합) 유산(담피르·아이우바린·네피림 등) → 별도 그룹.
+    // 판정은 필터(getOptionsData)와 동일한 신뢰 신호 h.ancestry 사용(effects의 versatile 플래그는 RE 형태가 제각각이라 불안정).
+    // 현재 혈통에 종속된 유산을 위로, 다재다능 유산을 아래로.
+    const KEY_ANC = '🧬 혈통 유산', KEY_VER = '🌟 다재다능한 유산 / 혼합 혈통';
+    grouped = { [KEY_ANC]: [], [KEY_VER]: [] };
+    data.forEach(item => { grouped[item.ancestry == null ? KEY_VER : KEY_ANC].push(item); });
+    if (!grouped[KEY_ANC].length) delete grouped[KEY_ANC];
+    if (!grouped[KEY_VER].length) delete grouped[KEY_VER];
   } else if (modalType === 'spell') {
     grouped = {};
     data.forEach(item => {
