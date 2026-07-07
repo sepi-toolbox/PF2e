@@ -224,6 +224,14 @@
       perc: RANK_KO[RANK[s.perception]] || '미숙련',
       tradition: doc.tradition || null, casting: doc.casting || null,   // ← data/override/classes.json (L3 조인 부착)
       deity_skill: !!doc.deity_skill,  // 클레릭: 신격 선택 시 자동 숙련 게이트(cs_modal deitySkill)
+      // 성장 계획 = 클래스별 재주/기술 획득 레벨(FVTT system.*FeatLevels). getGrowthTable가 파생.
+      growth: {
+        classFeat:     (s.classFeatLevels && s.classFeatLevels.value) || [],
+        skillFeat:     (s.skillFeatLevels && s.skillFeatLevels.value) || [],
+        generalFeat:   (s.generalFeatLevels && s.generalFeatLevels.value) || [],
+        ancestryFeat:  (s.ancestryFeatLevels && s.ancestryFeatLevels.value) || [],
+        skillIncrease: (s.skillIncreaseLevels && s.skillIncreaseLevels.value) || [],
+      },
       free_skill_count: (s.trainedSkills && s.trainedSkills.additional) || 0,
       fixed_skills: ((s.trainedSkills && s.trainedSkills.value) || []).slice(),
       choice_skill_groups: [],

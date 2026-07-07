@@ -1084,6 +1084,8 @@ function onLevelChange() {
 //  GROWTH PLAN — Level-by-Level Progression
 // ═══════════════════════════════════════════════
 
+// GROWTH_TABLE = 클래스 미선택 시 기본 성장표(파이터 패턴). 클래스 선택 시엔 getGrowthTable가
+// 그 클래스의 실제 획득 레벨(classToLegacy.growth = FVTT system.*FeatLevels)에서 파생한다.
 const GROWTH_TABLE = {
   1:  { boosts:4, ancestry:true, heritage:true, background:true, classSel:true, ancestryFeat:true, classFeat:true },
   2:  { classFeat:true, skillFeat:true },
@@ -1106,6 +1108,28 @@ const GROWTH_TABLE = {
   19: { generalFeat:true, skillIncrease:true },
   20: { boosts:4, classFeat:true, skillFeat:true },
 };
+
+// 능력치 부스트 레벨 = 전 클래스 공통 규칙(1/5/10/15/20). 레벨1 코어선택도 클래스 무관.
+const _BOOST_LEVELS = [1, 5, 10, 15, 20];
+// 선택 클래스의 실제 획득 레벨에서 성장표 파생. 데이터 없으면 기본 GROWTH_TABLE 폴백.
+function getGrowthTable(cls) {
+  const g = cls && cls.growth;
+  if (!g || !Array.isArray(g.classFeat) || !g.classFeat.length) return GROWTH_TABLE;
+  const has = (arr, lv) => Array.isArray(arr) && arr.indexOf(lv) !== -1;
+  const table = {};
+  for (let lv = 1; lv <= 20; lv++) {
+    const e = {};
+    if (_BOOST_LEVELS.indexOf(lv) !== -1) e.boosts = 4;
+    if (lv === 1) { e.ancestry = true; e.heritage = true; e.background = true; e.classSel = true; }
+    if (has(g.classFeat, lv))     e.classFeat = true;
+    if (has(g.skillFeat, lv))     e.skillFeat = true;
+    if (has(g.generalFeat, lv))   e.generalFeat = true;
+    if (has(g.ancestryFeat, lv))  e.ancestryFeat = true;
+    if (has(g.skillIncrease, lv)) e.skillIncrease = true;
+    table[lv] = e;
+  }
+  return table;
+}
 
 function renderGrowthPlan() {
   const container = document.getElementById('growth-plan');
@@ -1142,8 +1166,9 @@ function renderGrowthPlan() {
   }
   html += `</div>`;
 
+  const _growthTable = getGrowthTable(state.selectedClass);
   for (let lv = 1; lv <= curLevel; lv++) {
-    const plan = GROWTH_TABLE[lv];
+    const plan = _growthTable[lv];
     if (!plan) continue;
     const g = state.growth[lv] || {};
 
@@ -3774,7 +3799,7 @@ function _applyModalFeatChoice(feat) {
 function _buildClassProgressionTable(cls) {
   if (!cls || typeof CLASS_FEATURE_NAMES === 'undefined') return '';
   const cfn = CLASS_FEATURE_NAMES[cls.id] || [];
-  const gt = GROWTH_TABLE;
+  const gt = getGrowthTable(cls);
   const curLv = getLevel();
 
   let rows = '';
