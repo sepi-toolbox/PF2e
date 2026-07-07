@@ -647,7 +647,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.125').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.126').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -679,10 +679,14 @@ function _runeNameEn(ne) {
 }
 function getRuneCatalog() {
   if (_runeCatalogCache) return _runeCatalogCache;
-  if (typeof PF2eEquip === 'undefined' || !PF2eEquip.ready || !PF2eEquip.ready()) return [];
+  // 준비 판정: PF2eEquip엔 ready()가 없음(legacy 제거 시 삭제됨) — 장비 데이터 로드 여부는
+  // legacyList 결과로 판단. 미로드면 [] 반환하되 캐시하지 않음(다음 호출 재시도).
+  if (typeof PF2eEquip === 'undefined' || typeof PF2eEquip.legacyList !== 'function') return [];
+  const src = PF2eEquip.legacyList({});
+  if (!src.length) return [];
   const dtKo = (t) => (PF2eEquip.damageTypeKo ? PF2eEquip.damageTypeKo(t) : t);
   const out = [];
-  for (const it of PF2eEquip.legacyList({})) {
+  for (const it of src) {
     const slug = it.id || it.slug; if (!slug) continue;
     const rune = getEffectRows(slug).find(r => r && r.type === 'rune');
     if (!rune) continue;
