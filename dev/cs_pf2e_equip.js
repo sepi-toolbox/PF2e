@@ -7,15 +7,10 @@
   const isNode = typeof window === 'undefined';
   const PF = root.PF2eData || (isNode ? require('/tmp/PF2e-publish/dev/cs_pf2e.js') : null);
 
-  let _lang = null;
-  function _loadLang() {
-    if (_lang) return _lang;
-    if (isNode) { const fs = require('fs'); for (const p of ['data/store/_glossary.json', 'dev/data/store/_glossary.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} } }
-    _lang = _lang || { traits: {}, damageType: {}, weaponGroup: {}, armorGroup: {} };
-    return _lang;
-  }
-  // 브라우저용 async 초기화
-  async function init() { if (!isNode && !_lang) { try { const r = await fetch('data/store/_glossary.json'); _lang = await r.json(); } catch (e) { _lang = { traits: {}, damageType: {}, weaponGroup: {}, armorGroup: {} }; } } _loadLang(); }
+  // store/_glossary(traits/damageType/weaponGroup/armorGroup)는 PF 공용 로더/캐시로 통합. _loadLang는 위임.
+  function _loadLang() { return PF.glossary(); }
+  // 브라우저용 async 초기화 — 공용 글로서리 선로드(노드는 PF.glossary()가 동기 지연로드).
+  async function init() { if (!isNode) await PF.loadGlossary(); }
 
   const RARITY_KO = { common: '일반', uncommon: '비범', rare: '희귀', unique: '고유' };
   const WCAT_KO = { simple: '단순', martial: '군용', advanced: '고급', unarmed: '비무장' };

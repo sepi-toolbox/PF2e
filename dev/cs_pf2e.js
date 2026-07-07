@@ -29,6 +29,15 @@
   function _ensureLocalizeSync() { if (_localize) return _localize; if (isNode) _localize = _readJSON(`${_dataRoot}/derived/localize.ko.json`) || {}; return _localize; }
   async function loadLocalize() { if (_localize) return _localize; if (isNode) return _ensureLocalizeSync(); _localize = (await _fetchJSON(`${_dataRoot}/derived/localize.ko.json`)) || {}; return _localize; }
 
+  // ---- 공용 글로서리 (data/store/_glossary.json): traits/damageType/weaponGroup/armorGroup 등 slug→한글 ----
+  //   과거 어댑터(equip/feat/spell/action/anc)마다 개별 fetch(5회 중복) + 동일한 _traitKo를 각자 정의했음.
+  //   → PF 단일 로더+캐시로 통합(fetch 1회). traitKo도 단일 소스. 각 어댑터는 이 API로 위임.
+  let _glossary = null;
+  function _ensureGlossarySync() { if (_glossary) return _glossary; if (isNode) _glossary = _readJSON(`${STORE_DIR}/_glossary.json`) || { traits: {} }; return _glossary || { traits: {} }; }
+  async function loadGlossary() { if (_glossary) return _glossary; if (isNode) return _ensureGlossarySync(); _glossary = (await _fetchJSON(`${STORE_DIR}/_glossary.json`)) || { traits: {} }; return _glossary; }
+  function glossary() { return _glossary || (isNode ? _ensureGlossarySync() : { traits: {} }); }  // 동기 접근자(항상 객체 반환)
+  function traitKo(slug) { const g = glossary(); return (g.traits && g.traits[slug]) || slug; }
+
   function _readJSON(relPath) {
     if (isNode) {
       const fs = require('fs'), path = require('path');
@@ -384,6 +393,7 @@
 
   const API = {
     CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc, bakePlainMacros, bakeEntityLinks, loadLocalize,
+    loadGlossary, glossary, traitKo,
     testPredicate, _testStatement, getByUuid, resolveBrackets, evalFormula,
     _state: { base: _baseCache, ovl: _ovlCache, ovr: _ovrCache, index: _index },
   };

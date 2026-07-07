@@ -11,7 +11,6 @@
   const RE = root.REEngine || (isNode ? require('/tmp/PF2e-publish/dev/cs_re_engine.js') : null);
 
   let _ready = false;
-  let _lang = null;    // _lang.ko.json (traits, size, damageType)
   let _sense = null;   // creatures/_glossary.ko.json.sense
   let _langGloss = null;   // creatures/_glossary.ko.json.language (언어 slug→한글, 시스템 용어 단일 소스)
   let _loreGloss = null;   // creatures/_glossary.ko.json.lore (지식 주제 영문→한글)
@@ -23,7 +22,7 @@
   // FVTT vision/sense slug → 레거시 vision id (cs_data VISION_DEFS)
   const VISION_MAP = { 'low-light-vision': 'low-light', 'low-light': 'low-light', 'darkvision': 'darkvision', 'greater-darkvision': 'greater-darkvision', 'normal': 'none', '': 'none' };
   const VISION_RANK = { none: 0, 'low-light': 1, darkvision: 2, 'greater-darkvision': 3 };
-  function _traitKo(slug) { return (_lang && _lang.traits && _lang.traits[slug]) || slug; }
+  function _traitKo(slug) { return PF.traitKo(slug); }  // 공용 글로서리(cs_pf2e.js) 단일 소스로 위임
   function _sizeKo(sz) { return SIZE_KO[sz] || '중형'; }
   function _senseKo(slug) { return (_sense && _sense[slug]) || slug; }
   function _languageKo(slug) { return (_langGloss && _langGloss[slug]) || slug; }
@@ -32,21 +31,19 @@
     const key = String(name).replace(/\s*Lore\b.*$/i, '').trim();   // "Warfare Lore"·"Warfare" 모두 허용
     return _loreGloss[key] || _loreGloss[name] || name;
   }
-  function _dmgKo(slug) { return (_lang && _lang.damageType && _lang.damageType[slug]) || slug; }
+  function _dmgKo(slug) { return (PF.glossary().damageType || {})[slug] || slug; }
   function _slugify(s) { return String(s || '').toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
 
   // ── 초기화 ──
+  // store/_glossary(traits/damageType)는 PF 공용 로더로 이관. 여기선 creatures/_glossary.ko(감각/언어/지식)만 로드.
   function _loadGlossariesSync() {
     if (!isNode) return;
     const fs = require('fs');
-    for (const p of ['data/store/_glossary.json', 'dev/data/store/_glossary.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} }
     for (const p of ['data/creatures/_glossary.ko.json', 'dev/data/creatures/_glossary.ko.json']) { try { const g = JSON.parse(fs.readFileSync(p, 'utf8')) || {}; _sense = g.sense; _langGloss = g.language; _loreGloss = g.lore; break; } catch (e) {} }
-    _lang = _lang || { traits: {}, damageType: {}, size: {} };
     _sense = _sense || {}; _langGloss = _langGloss || {}; _loreGloss = _loreGloss || {};
   }
   async function _loadGlossariesAsync(ver) {
     const q = ver ? ('?v=' + ver) : '';
-    try { const r = await fetch('data/store/_glossary.json' + q); _lang = await r.json(); } catch (e) { _lang = { traits: {}, damageType: {} }; }
     try { const r = await fetch('data/creatures/_glossary.ko.json' + q); const g = await r.json(); _sense = g.sense; _langGloss = g.language; _loreGloss = g.lore; } catch (e) { _sense = {}; _langGloss = {}; _loreGloss = {}; }
     _sense = _sense || {}; _langGloss = _langGloss || {}; _loreGloss = _loreGloss || {};
   }
@@ -54,7 +51,7 @@
   async function init(ver) {
     if (_ready) return;
     if (isNode) { PF.loadCategorySync('ancestries'); PF.loadCategorySync('heritages'); _loadGlossariesSync(); }
-    else { await Promise.all([PF.loadCategory('ancestries'), PF.loadCategory('heritages'), _loadGlossariesAsync(ver)]); }
+    else { await Promise.all([PF.loadCategory('ancestries'), PF.loadCategory('heritages'), PF.loadGlossary(ver), _loadGlossariesAsync(ver)]); }
     _buildIndexes();
     _ready = true;
   }

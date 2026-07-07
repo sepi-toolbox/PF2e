@@ -10,7 +10,7 @@
   const PF = root.PF2eData || (isNode ? require('/tmp/PF2e-publish/dev/cs_pf2e.js') : null);
   const RE = root.REEngine || (isNode ? require('/tmp/PF2e-publish/dev/cs_re_engine.js') : null);
 
-  let _ready = false, _lang = null, _index = null, _list = null;
+  let _ready = false, _index = null, _list = null;
 
   // FVTT category → 레거시 category. 빌더 무관 카테고리는 제외.
   const CAT_MAP = { class: 'class', ancestry: 'ancestry', skill: 'skill', general: 'general', classfeature: 'feature', ancestryfeature: 'feature', bonus: 'general' };
@@ -21,17 +21,14 @@
   const VISION_MAP = { 'low-light-vision': 'low-light', 'low-light': 'low-light', darkvision: 'darkvision', 'greater-darkvision': 'greater-darkvision' };
   const VISION_RANK = { none: 0, 'low-light': 1, darkvision: 2, 'greater-darkvision': 3 };
 
-  function _traitKo(slug) { return (_lang && _lang.traits && _lang.traits[slug]) || slug; }
-  function _dmgKo(slug) { return (_lang && _lang.damageType && _lang.damageType[slug]) || slug; }
+  function _traitKo(slug) { return PF.traitKo(slug); }  // 공용 글로서리(cs_pf2e.js) 단일 소스로 위임
+  function _dmgKo(slug) { return (PF.glossary().damageType || {})[slug] || slug; }
   function _senseKo(slug) { return (root.PF2eAnc && root.PF2eAnc._glossary) ? root.PF2eAnc._glossary.senseKo(slug) : slug; }
-
-  function _loadLangSync() { if (!isNode) return; const fs = require('fs'); for (const p of ['data/store/_glossary.json', 'dev/data/store/_glossary.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} } _lang = _lang || { traits: {} }; }
-  async function _loadLangAsync() { try { const r = await fetch('data/store/_glossary.json'); _lang = await r.json(); } catch (e) { _lang = { traits: {} }; } }
 
   async function init() {
     if (_ready) return;
-    if (isNode) { PF.loadCategorySync('feats'); _loadLangSync(); }
-    else await Promise.all([PF.loadCategory('feats'), _loadLangAsync()]);
+    if (isNode) { PF.loadCategorySync('feats'); }
+    else await Promise.all([PF.loadCategory('feats'), PF.loadGlossary()]);
     _build();
     _ready = true;
   }
