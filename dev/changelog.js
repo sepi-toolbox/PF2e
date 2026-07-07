@@ -1,6 +1,6 @@
 // 업데이트 로그 데이터 — index.html·GMSheet.html 공유(gear-shell.js가 렌더). 최신 항목이 [0].
 window.CHANGELOG = [
-  { v: '0.119', date: '2026-07-07', items: [
+  { v: '0.120', date: '2026-07-07', items: [
     '데이터 구조를 DataManager 단일 소스로 통합했습니다 — 그동안 영어 원본(base)·기계번역(overlay)·수동번역(override) 3층으로 나뉘어 혼선을 주던 것을 카테고리별 단일 데이터로 합쳤습니다. 용어집(특성·피해유형 등)도 DataManager 레지스트리를 정본으로 삼아(예: 냉기·역장·산성 등 통일). 표시 내용은 동일하되 관리가 일원화되었습니다.',
   ] },
   { v: '0.118', date: '2026-07-07', items: [
