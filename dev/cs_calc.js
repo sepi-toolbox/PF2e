@@ -647,7 +647,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.124').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.125').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -665,6 +665,18 @@ function getEffectRows(slug) {
 // 룬 카탈로그 = 아이템 테이블(store) ⊕ 효과 자동화 테이블(getEffectRows의 type:'rune' 행). RUNE_DB 폐기 대체.
 // 룬 = "효과 테이블에 rune 효과행이 있는 장비 아이템". 별도 DB 없이 slug로 매칭.
 let _runeCatalogCache = null;
+// 룬 표시명에 "룬"/"Rune" 부여 — FVTT 원본 컴펜디움명은 대부분 "룬" 없이("전진","Shadow (Major)")
+// 명명돼 식별·검색이 안 됨. 등급 괄호 앞에 삽입해 "전진 룬 (중급)"처럼 자연스럽게. 이미 있으면 그대로.
+function _runeNameKo(nk) {
+  if (!nk || nk.indexOf('룬') !== -1) return nk || '';
+  const m = nk.match(/^(.*?)(\s*\([^)]*\))\s*$/);
+  return m ? (m[1] + ' 룬' + m[2]) : (nk + ' 룬');
+}
+function _runeNameEn(ne) {
+  if (!ne || /rune/i.test(ne)) return ne || '';
+  const m = ne.match(/^(.*?)(\s*\([^)]*\))\s*$/);
+  return m ? (m[1] + ' Rune' + m[2]) : (ne + ' Rune');
+}
 function getRuneCatalog() {
   if (_runeCatalogCache) return _runeCatalogCache;
   if (typeof PF2eEquip === 'undefined' || !PF2eEquip.ready || !PF2eEquip.ready()) return [];
@@ -685,13 +697,16 @@ function getRuneCatalog() {
       for (const elem of rune.energyChoice) {
         out.push(Object.assign({}, it, base, {
           id: slug + '-' + elem,
-          name_ko: dtKo(elem) + ' ' + (it.name_ko || it.name || ''),
-          name_en: elem.charAt(0).toUpperCase() + elem.slice(1) + ' ' + (it.name_en || ''),
+          name_ko: _runeNameKo(dtKo(elem) + ' ' + (it.name_ko || it.name || '')),
+          name_en: _runeNameEn(elem.charAt(0).toUpperCase() + elem.slice(1) + ' ' + (it.name_en || '')),
           runeResist: { type: elem, value: rune.resistance.value },
         }));
       }
     } else {
-      out.push(Object.assign({}, it, base));
+      out.push(Object.assign({}, it, base, {
+        name_ko: _runeNameKo(it.name_ko || it.name || ''),
+        name_en: _runeNameEn(it.name_en || it.name || ''),
+      }));
     }
   }
   _runeCatalogCache = out;
