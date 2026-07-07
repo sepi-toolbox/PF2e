@@ -912,25 +912,8 @@ function selectDeity(id) {
   // 일반 숭배자(타 클래스)는 신격을 '기록'만 — 기계 효과 없음(PF2e 정본). 챔피언 등은 클래스 특성에서 별도 처리.
   const deityTrains = !!(state.selectedClass && state.selectedClass.deity_skill);
   if(deityTrains) {
-    // 신격 기술 훈련
-    if(d.skill && typeof setSkillTrained==='function') setSkillTrained(d.skill);
-    // 선호 무기 숙련 부여: 군용이면 해당 카테고리를 최소 훈련으로
-    if(d.weapon && typeof getWeapon === 'function') {
-      const wpn = getWeapon(d.weapon);
-      if(wpn) {
-        // 무기 숙련 카테고리 = FVTT 원본 slug 우선(catSlug), 한글/영문 폴백
-        const slug = (wpn.catSlug||'').toLowerCase();
-        const cat = (wpn.category||'').toLowerCase();
-        let profKey = null;
-        if(slug==='martial' || cat.includes('군용') || cat.includes('martial')) profKey = 'prof-weapon-martial';
-        else if(slug==='advanced' || cat.includes('고급') || cat.includes('advanced')) profKey = 'prof-weapon-advanced';
-        if(profKey) {
-          const el = document.getElementById(profKey);
-          if(el && parseInt(el.value||0) < 2) el.value = '2';
-        }
-        state._deityWeapon = d.weapon;
-      }
-    }
+    // 신격 기술·선호무기 숙련은 rebuildCoreEffects(출처기반, _deityGrantedSkills/_deityGrantedProfs)가
+    //   재파생 — 명령형 부여 제거(v0.134). 신격 변경/해제 시 recalcAll이 이전 부여를 자동 정리.
     const sanct = d.sanctification || [];
     if(state.sanctification && !sanct.includes(state.sanctification)) state.sanctification = null;
     if(sanct.length === 1) state.sanctification = sanct[0];
@@ -946,6 +929,8 @@ function selectDeity(id) {
 function clearDeity() {
   state.deity = null;
   state.sanctification = null;
+  state._deityWeapon = null;
+  recalcAll();   // 출처기반 재파생 — rebuildCoreEffects가 신격 부여 기술/무기숙련을 정리(v0.134).
   renderGrowthPlan();
   save();
 }
@@ -4847,12 +4832,9 @@ function confirmModal() {
     applyClassDefaults(modalSelected);
     // 모달 내 기술 선택 반영
     if (_modalChoices.type === 'class') {
-      // 선택형 고정 기술 (예: "곡예 또는 운동")
-      (_modalChoices.chosenFixedSkills || []).forEach(name => {
-        if (!name) return;
-        const id = skillNameToId(name);
-        if (id) { const el = document.getElementById('sk-prof-' + id); if (el && parseInt(el.value) < 2) el.value = '2'; }
-      });
+      // 선택형 고정 기술(예: "곡예 또는 운동")·추가 기술 숙련 모두 state에만 기록하고 부여는
+      //   recalcAll의 출처기반 재파생에 위임(rebuildCoreEffects._classGrantedSkills / applyGrowthSkills).
+      //   (구: 여기서 명령형으로 sk-prof를 훈련시켜 같은 클래스 재확정+다른 선택 시 이전 기술 유령 잔존 — v0.134 해소)
       // 추가 기술 숙련 — state.growth에만 기록하고 부여는 recalcAll의 applyGrowthSkills(출처기반)에 위임.
       //   (여기서 명령형으로 sk-prof를 훈련시키면 prevRank base가 오염돼 이후 슬롯 제거 시 유령 잔존)
       const skills = (_modalChoices.trainableSkills || []).filter(v => v);
@@ -5277,8 +5259,7 @@ function applyClassDefaults(cls) {
   const keys = cls.key_attrs || [];
   if (keys.length === 1) state.boosts.cls = keys[0];
   // 길이 2+ (OR)는 기존 선택 보존 또는 빈 상태로 둠 (renderBoostModal에서 사용자 선택)
-  // Auto-set fixed class skill proficiencies (정규화된 fixed_skills 사용)
-  (cls.fixed_skills || []).forEach(id => setSkillTrained(id));
+  // 고정 클래스 기술 숙련은 rebuildCoreEffects(출처기반, _classGrantedSkills)가 재파생 — 명령형 부여 제거(v0.134).
   state.trainableSkillSlots = cls.free_skill_count || 0;
   updateHP();
   updateSpellSlotsForClass();

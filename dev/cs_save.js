@@ -217,30 +217,36 @@ function _migrateDerivedSpellStoresToSlug() {
   }
 }
 
-// 로드 시 skillProfs에는 성장(빌더) 훈련/향상 기여가 baked돼 있음 → 걷어내서 recalcAll의
-// applyGrowthSkills(출처기반)가 깨끗한 base 위에 정확히 재파생하도록. 안 걷어내면 향상이 이중적용(+2 두 번)
-// 되고 훈련 prevRank가 stale(2)가 돼 슬롯 제거 시 유령 잔존. 구/신 저장본 동일 취급(포맷 플래그 불필요).
-// ⚠ state.growth·selectedClass·initialChoices가 로드된 뒤, applyClassFeatures(→recalcAll) 전에 호출할 것.
-function _stripGrowthFromSkillProfs() {
+// 로드 시 skillProfs에는 출처기반으로 '재파생되는' 기술 숙련(클래스 고정/선택, 신격 기술, 배경 선택기술,
+// 성장 훈련/향상)이 baked돼 있음 → 걷어내서 recalcAll이 prevRank=0에서 clean 재파생하도록.
+// 안 걷어내면 ①향상이 이중적용(+2 두 번) ②훈련/부여 prevRank가 stale(2)가 돼 로드 후 신격 변경·클래스 선택
+// 변경·성장 슬롯 제거 시 유령 잔존(특히 신격은 reset 경로가 없어 치명적). 구/신 저장본 동일 취급(플래그 불필요).
+// ⚠ state.growth·selectedClass·deity·initialChoices 로드 후, applyClassFeatures(→recalcAll) 전에 호출할 것.
+// ⚠ 무기 숙련(prof-weapon-*)은 클래스 진행표(비재파생)와 공유하므로 strip 대상에서 제외 — 신격 무기숙련은
+//    현행 유지(로드 후 신격 무기변경은 희소). 유산/배경고정/재주 기술도 기존 동작 보존(변경 시 각자 reset 존재).
+function _stripDerivedSkillProfs() {
   const g = state.growth || {};
-  const classFixed = new Set((state.selectedClass && state.selectedClass.fixed_skills) || []);
-  const chosenFixed = new Set(
-    (((state.initialChoices && state.initialChoices.class && state.initialChoices.class.chosenFixedSkills) || [])
-      .map(n => (typeof skillNameToId === 'function' ? skillNameToId(n) : null)).filter(Boolean))
-  );
   const rankOf = id => parseInt(document.getElementById('sk-prof-' + id)?.value || 0);
   const setRank = (id, v) => { const el = document.getElementById('sk-prof-' + id); if (el) el.value = String(v); };
+  const toId = n => (typeof skillNameToId === 'function' ? skillNameToId(n) : null);
   // 향상 strip (레벨마다 -2). 재파생이 정확히 되돌림.
   Object.keys(g).forEach(lv => {
     const inc = g[lv] && g[lv].skillIncrease;
     if (inc && rankOf(inc) > 0) setRank(inc, Math.max(0, rankOf(inc) - 2));
   });
-  // 훈련 strip — 성장 전용(클래스고정/선택고정 아님)이면 0. 유산/배경/재주는 recalc가 재부여하므로 0 안전.
-  const trainArr = (g[1] && g[1].skillTraining) || [];
-  trainArr.forEach(id => {
-    if (!id) return;
-    if (!classFixed.has(id) && !chosenFixed.has(id)) setRank(id, 0);
-  });
+  // 재파생되는 '트레인드 기술' 부여를 0으로 걷어냄(위 대상만).
+  const ids = new Set();
+  const cls = state.selectedClass;
+  if (cls) (cls.fixed_skills || []).forEach(i => { if (i) ids.add(i); });
+  ((state.initialChoices && state.initialChoices.class && state.initialChoices.class.chosenFixedSkills) || [])
+    .forEach(n => { const i = toId(n); if (i) ids.add(i); });
+  if (cls && cls.deity_skill && state.deity && typeof _getDeity === 'function') {
+    const d = _getDeity(state.deity); if (d && d.skill) ids.add(d.skill);
+  }
+  const bgc = state.initialChoices && state.initialChoices.background && state.initialChoices.background.choiceSkill;
+  if (bgc) ids.add(bgc);
+  ((g[1] && g[1].skillTraining) || []).forEach(i => { if (i) ids.add(i); });
+  ids.forEach(id => setRank(id, 0));
 }
 
 function loadData(d) {
@@ -543,8 +549,8 @@ function loadData(d) {
     _migrateGrowthStoresToSlug(); // 동기화 전에 growth를 slug로 정규화 → sync가 slug로 파생
     // initialChoices(선택형 고정기술 등)를 strip 전에 복원해야 함 — 아래 strip이 chosenFixedSkills를 참조.
     if (d.initialChoices) state.initialChoices = d.initialChoices;
-    // 성장 기여를 skillProfs에서 걷어냄 → applyClassFeatures 내부 recalcAll의 applyGrowthSkills가 정확 재파생.
-    _stripGrowthFromSkillProfs();
+    // 재파생 대상 기술 숙련(클래스/신격/배경선택/성장)을 skillProfs에서 걷어냄 → recalcAll이 clean 재파생.
+    _stripDerivedSkillProfs();
     applyClassFeatures();
     if (typeof syncGrowthSpellsToState === 'function') syncGrowthSpellsToState();
     if (typeof syncFamiliarSpellsToState === 'function') syncFamiliarSpellsToState();

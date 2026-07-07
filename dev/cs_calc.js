@@ -1835,6 +1835,25 @@ function rebuildCoreEffects() {
   });
   state._bgGrantedSkills = [];
 
+  // 클래스 고정/선택 기술: prevRank 복원 (출처기반, v0.134 — 구 명령형 부여의 유령 잔존 해소)
+  (state._classGrantedSkills || []).forEach(entry => {
+    const el = document.getElementById('sk-prof-' + entry.skill);
+    if (el && parseInt(el.value || 0) === entry.rank) el.value = String(entry.prevRank || 0);
+  });
+  state._classGrantedSkills = [];
+
+  // 신격 기술/선호무기 숙련: prevRank 복원 (출처기반, v0.134)
+  (state._deityGrantedSkills || []).forEach(entry => {
+    const el = document.getElementById('sk-prof-' + entry.skill);
+    if (el && parseInt(el.value || 0) === entry.rank) el.value = String(entry.prevRank || 0);
+  });
+  state._deityGrantedSkills = [];
+  (state._deityGrantedProfs || []).forEach(entry => {
+    const el = document.getElementById(entry.target);
+    if (el && parseInt(el.value || 0) === entry.rank) el.value = String(entry.prevRank || 0);
+  });
+  state._deityGrantedProfs = [];
+
   // 지식(lore) 출처 수집 버퍼 초기화 — rebuildCoreEffects가 recalc의 첫 실행이므로 여기서 리셋.
   //   배경·재주가 collectLoreSource로 채우고, recalcAll이 마지막에 assignLoreSlots()로 배정.
   state._loreSources = [];
@@ -1910,7 +1929,7 @@ function rebuildCoreEffects() {
 
   const beff = bg ? getBackgroundEffects(bg) : null;
 
-  // 배경 기술 — 고정 (choice_skill_groups는 모달에서 별도 처리)
+  // 배경 기술 — 고정
   if (beff && beff.fixed_skills.length) {
     beff.fixed_skills.forEach(id => {
       const el = document.getElementById('sk-prof-' + id);
@@ -1919,6 +1938,20 @@ function rebuildCoreEffects() {
       state._bgGrantedSkills.push({skill: id, rank: 2, prevRank: cur});
       if (cur < 2) el.value = '2';
     });
+  }
+
+  // 배경 기술 — 선택형(choice_skill_groups): 선택값을 출처추적 부여. (v0.134 — 구: 선택 기술이 노트에만
+  //   반영되고 sk-prof엔 아예 훈련 안 되던 미적용 버그. 이제 _bgGrantedSkills로 부여+정리.)
+  if (beff && beff.choice_skill_groups && beff.choice_skill_groups.length) {
+    const bgChoiceSkill = state.initialChoices && state.initialChoices.background && state.initialChoices.background.choiceSkill;
+    if (bgChoiceSkill) {
+      const el = document.getElementById('sk-prof-' + bgChoiceSkill);
+      if (el) {
+        const cur = parseInt(el.value || 0);
+        state._bgGrantedSkills.push({skill: bgChoiceSkill, rank: 2, prevRank: cur});
+        if (cur < 2) el.value = '2';
+      }
+    }
   }
 
   // 배경 지식 (lore) — 출처로 수집(assignLoreSlots가 배정). 주제명 한글화(글로서리) 후.
@@ -1951,6 +1984,62 @@ function rebuildCoreEffects() {
           level: 1,
           _fromBackground: true
         });
+      }
+    }
+  }
+
+  // ── 클래스 고정/선택 기술 숙련 (출처기반, v0.134) ──
+  //   구: applyClassDefaults/confirmModal이 명령형으로 sk-prof를 훈련 → 같은 클래스 재확정+다른 "A or B"
+  //   선택 시 이전 선택 기술이 유령 잔존(resetFromClass는 id 변경 시에만 정리). clear+rebuild로 출처추적.
+  const cls = state.selectedClass;
+  if (cls) {
+    const clsSkillIds = [];
+    (cls.fixed_skills || []).forEach(id => { if (id) clsSkillIds.push(id); });
+    ((state.initialChoices && state.initialChoices.class && state.initialChoices.class.chosenFixedSkills) || []).forEach(name => {
+      if (!name) return;
+      const id = (typeof skillNameToId === 'function') ? skillNameToId(name) : null;
+      if (id) clsSkillIds.push(id);
+    });
+    clsSkillIds.forEach(id => {
+      const el = document.getElementById('sk-prof-' + id);
+      if (!el) return;
+      const cur = parseInt(el.value || 0);
+      state._classGrantedSkills.push({skill: id, rank: 2, prevRank: cur});
+      if (cur < 2) el.value = '2';
+    });
+  }
+
+  // ── 신격 부여 기술/선호무기 숙련 (출처기반, v0.134) — deity_skill 플래그 클래스(클레릭 등)만 ──
+  //   구: selectDeity 명령형 부여 + clearDeity/신격변경 시 미원복 → 이전 기술·무기숙련 유령 잔존.
+  if (cls && cls.deity_skill && state.deity) {
+    const dty = (typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
+    if (dty) {
+      if (dty.skill) {
+        const el = document.getElementById('sk-prof-' + dty.skill);
+        if (el) {
+          const cur = parseInt(el.value || 0);
+          state._deityGrantedSkills.push({skill: dty.skill, rank: 2, prevRank: cur});
+          if (cur < 2) el.value = '2';
+        }
+      }
+      if (dty.weapon && typeof getWeapon === 'function') {
+        const wpn = getWeapon(dty.weapon);
+        if (wpn) {
+          const wslug = (wpn.catSlug || '').toLowerCase();
+          const wcat = (wpn.category || '').toLowerCase();
+          let profKey = null;
+          if (wslug === 'martial' || wcat.includes('군용') || wcat.includes('martial')) profKey = 'prof-weapon-martial';
+          else if (wslug === 'advanced' || wcat.includes('고급') || wcat.includes('advanced')) profKey = 'prof-weapon-advanced';
+          if (profKey) {
+            const el = document.getElementById(profKey);
+            if (el) {
+              const cur = parseInt(el.value || 0);
+              state._deityGrantedProfs.push({target: profKey, rank: 2, prevRank: cur});
+              if (cur < 2) el.value = '2';
+            }
+          }
+          state._deityWeapon = dty.weapon;
+        }
       }
     }
   }
