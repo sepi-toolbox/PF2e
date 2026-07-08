@@ -4146,8 +4146,7 @@ function _buildClericChoicesUI() {
       <option value="">— 선택 —</option>
       ${doctrines.map(d => `<option value="${d.id}"${d.id === _savedDoc ? ' selected' : ''}>${d.name_ko} (${d.name_en})</option>`).join('')}
     </select>
-    <div id="cls-doctrine-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>
-    <div id="cls-doctrine-feats"></div>
+    <div id="cls-doctrine-info" style="font-size:10px;color:var(--text2);margin-top:6px;line-height:1.6;"></div>
   </div>`;
 
   // 신격 (읽기 전용 — 선택은 성장계획 🙏 신격 슬롯에서. 신격은 클래스 기능이며 그 효과가 기술·무기·주문을 활성화)
@@ -4208,7 +4207,6 @@ function _onClericDoctrineChange(id) {
     const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === id) : null;
     info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>` : '';
   }
-  _renderSubclassFeatsInBlock(id, 'cls-doctrine-feats');
   _refreshClassFeaturesPreview();
   _validateInitialChoices();
 }
