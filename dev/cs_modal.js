@@ -2332,11 +2332,12 @@ function _renderMemorizeDetail() {
     if (trad === 'any' && state.selectedSubclass) {
       trad = state.selectedSubclass.tradition || trad;
     }
+    const _deitySet = (typeof deitySpellSlugSet === 'function') ? deitySpellSlugSet() : new Set();  // 신격 주문=전통 무관 편입
     _allSpells().forEach(sp => {
       if (sp.is_focus) return;
       if (isCantrip && !sp.is_cantrip) return;
       if (!isCantrip && (sp.is_cantrip || sp.rank > rank)) return;
-      if (trad && trad !== 'any' && sp.traditions && !sp.traditions.includes(trad)) return;
+      if (trad && trad !== 'any' && sp.traditions && !sp.traditions.includes(trad) && !_deitySet.has(sp.id)) return;
       const note = (!isCantrip && sp.rank < rank) ? `${sp.rank}랭크 고양` : '';
       available.push({name: sp.id || sp.name_ko, note}); // slug 저장(표시는 아래 spellDisplay)
     });
@@ -3123,9 +3124,10 @@ function filterSpells() {
     }
   }
 
+  const _deitySet = (typeof deitySpellSlugSet === 'function') ? deitySpellSlugSet() : new Set();  // 신격 주문=전통 무관 편입
   return _spells.filter(sp => {
-    // 클래스 전통 필터 (any면 모두 허용)
-    if (classTrad && classTrad !== 'any' && sp.traditions && !sp.traditions.includes(classTrad)) return false;
+    // 클래스 전통 필터 (any면 모두 허용). 신격 주문(Cleric Spells)은 전통 무관 편입.
+    if (classTrad && classTrad !== 'any' && sp.traditions && !sp.traditions.includes(classTrad) && !_deitySet.has(sp.id)) return false;
     // 슬롯 타입별 필터
     if (slotType === 'cantrip' && !sp.is_cantrip) return false;
     if (slotType === 'focus' && !sp.is_focus) return false;
@@ -4148,23 +4150,42 @@ function _buildClericChoicesUI() {
     <div id="cls-doctrine-feats"></div>
   </div>`;
 
-  // 신격 (성별화 포함)
-  const deities = _allDeities();
-  _modalChoices.sanctification = state.selectedClass?.id === 'cleric' ? _savedSanct : '';
+  // 신격 (읽기 전용 — 선택은 성장계획 🙏 신격 슬롯에서. 신격은 클래스 기능이며 그 효과가 기술·무기·주문을 활성화)
+  const curDeity = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
+  _modalChoices.deity = undefined;   // 신격은 모달에서 선택하지 않음(성장슬롯 일원화) → 확정 게이트 제외
+  const _skMap = {society:'사회',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',nature:'자연학',religion:'종교학',occultism:'오컬티즘',diplomacy:'외교',performance:'공연',thievery:'도둑질'};
   html += `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">
-    <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">🙏 신격 Deity</div>
-    <select id="cls-deity" onchange="_onClericDeityChange(this.value)" style="${_selStyle}">
-      <option value="">— 선택 —</option>
-      ${deities.map(d => `<option value="${d.id}"${d.id === _savedDeity ? ' selected' : ''}>${d.name_ko} (${d.name_en})</option>`).join('')}
-    </select>
-    <div id="cls-deity-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>
-    <div id="cls-deity-details"></div>
-    <div id="cls-sanct-block" style="margin-top:8px;display:none;">
-      <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">✨ 성별화 Sanctification</div>
-      <select id="cls-sanct" onchange="_modalChoices.sanctification=this.value;_validateInitialChoices()" style="${_selStyle}">
-      </select>
-    </div>
-  </div>`;
+    <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">🙏 신격 Deity <span style="font-weight:400;color:var(--text2);font-size:10px;">— 성장계획 상단 🙏 슬롯에서 선택</span></div>`;
+  if (curDeity) {
+    const skillName = curDeity.skill_ko || _skMap[curDeity.skill] || curDeity.skill || '—';
+    const doms = (curDeity.domains_ko && curDeity.domains_ko.length ? curDeity.domains_ko : (curDeity.domains || [])).join(', ') || '—';
+    html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.7;">
+      <div style="font-weight:600;">${curDeity.name_ko} <span style="font-size:10px;color:var(--text2);">${curDeity.name_en || ''}</span></div>
+      <div style="font-size:10px;"><strong>영역:</strong> ${doms}</div>
+      <div style="font-size:10px;">📖 신격 기술: <b>${skillName}</b> · ⚔ 선호 무기: ${weaponRefHtml(curDeity.weapon)}</div>
+      <div style="font-size:9px;color:var(--text2);margin-top:2px;">※ 신성(클레릭) 기능이 위 기술·무기 숙련을 부여하고, 신격 주문을 준비 가능 목록에 추가합니다.</div>
+    </div>`;
+    const sOpts = curDeity.sanctification || [];
+    if (sOpts.length === 0) {
+      _modalChoices.sanctification = undefined;
+    } else if (sOpts.length === 1) {
+      _modalChoices.sanctification = sOpts[0];
+      const lb = sOpts[0] === 'holy' ? '신성 (Holy)' : '불경 (Unholy)';
+      html += `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:2px;">✨ 성별화 Sanctification</div>
+        <select disabled style="${_selStyle}opacity:0.6;"><option>${lb}</option></select></div>`;
+    } else {
+      _modalChoices.sanctification = state.selectedClass?.id === 'cleric' ? _savedSanct : '';
+      html += `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:2px;">✨ 성별화 Sanctification</div>
+        <select id="cls-sanct" onchange="_modalChoices.sanctification=this.value;_validateInitialChoices()" style="${_selStyle}">
+          <option value="">— 선택 —</option>
+          ${sOpts.map(o => `<option value="${o}"${o === _savedSanct ? ' selected' : ''}>${o === 'holy' ? '신성 (Holy)' : '불경 (Unholy)'}</option>`).join('')}
+        </select></div>`;
+    }
+  } else {
+    _modalChoices.sanctification = undefined;
+    html += `<div style="font-size:10px;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;">신격을 아직 선택하지 않았습니다. 성장계획 상단의 🙏 <b>신격</b> 슬롯에서 선택하세요. (신격의 기술·무기·주문은 선택 후 자동 적용됩니다.)</div>`;
+  }
+  html += `</div>`;
 
   // 신성 원천
   html += `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">

@@ -1,7 +1,7 @@
 /* cs_pf2e_deity.js — 신격(Deity) ACCESS 어댑터 (P4 후속)
  * FVTT deities.base(478) ⊕ 한글 OVERLAY → 빌더가 쓰는 레거시 DEITY_DB 형태로 노출.
  * 레거시(20개)는 미준비 시 폴백. BASE는 font/spells/attribute/alternate domains 등 정보가 더 풍부.
- * 영역(domains)→집중주문 매핑은 DOMAIN_DB(class_features_db.js) 담당(현재 39/64 커버, 확장 별도 과제).
+ * 영역(domains)→집중주문 매핑 = data/derived/domains.json(64) → loadDomains()가 런타임 DOMAIN_DB 채움(v0.150~).
  * 의존: cs_pf2e.js(PF2eData). DOM 무관(데이터 백본). 배선=cs_modal/cs_feat_effects/cs_save.
  */
 (function (root) {
@@ -31,7 +31,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/domains.json?v=0.150').then(r => r.json()).then(j => { _fillDomainDB(j.rows); _domainsLoaded = true; }).catch(() => {});
+    return fetch('data/derived/domains.json?v=0.151').then(r => r.json()).then(j => { _fillDomainDB(j.rows); _domainsLoaded = true; }).catch(() => {});
   }
 
   // 기술 한글명(오프라인 고정 — 글로서리 미의존). lore=지식.
@@ -90,7 +90,8 @@
       // BASE 추가 정보(레거시엔 없던 것)
       font: (s.font || []).slice(),                 // ['harm','heal'] — 신성 원천 후보
       attribute: (s.attribute || []).slice(),       // 선호 능력치(부스트)
-      spells: s.spells || {},                       // {rank: UUID} 신격 주문(클레릭 자동 습득)
+      spells: s.spells || {},                       // {rank: UUID} 신격 주문(원본 참조)
+      spells_slug: s.spells_slug || {},             // {rank: slug} 신격 주문(클레릭 주문목록 편입 — DataManager 베이크)
       category: s.category || 'deity',              // deity | pantheon | covenant | philosophy
       rarity: (s.traits && s.traits.rarity) || 'common',
       desc: PF.enrichDesc(PF.descKo(doc) || ''),

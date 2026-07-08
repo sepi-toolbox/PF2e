@@ -420,6 +420,18 @@ function getFeat(key)  {
   // 재주 카탈로그 = FVTT 단일 소스(PF2eFeat). 효과는 effects_db, 선행조건은 prereqs_db.
   return (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) ? PF2eFeat.getFeatLegacy(key) : null;
 }
+// 신격 주문(Cleric Spells): 섬기는 신격의 주문을 클레릭 주문 목록에 편입(전통 무관). {rank:slug} → slug Set.
+//   신성 시전(divine 전통) 클래스 + 신격 선택 시에만. DataManager 신격 데이터(spells_slug)에서 파생.
+function deitySpellSlugSet() {
+  const out = new Set();
+  if (!state.deity) return out;
+  const cls = state.selectedClass;
+  if (!cls || cls.tradition !== 'divine' || !cls.deity_skill) return out;  // 신성 준비시전 클래스만(클레릭 계열)
+  const d = (typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
+  const sp = d && d.spells_slug;
+  if (sp) for (const k in sp) { if (sp[k]) out.add(sp[k]); }
+  return out;
+}
 // 재주 특성 판정 = 원본 slug(traitSlugs) 우선, 구 저장/한글 traits는 폴백.
 // 번역 드리프트 무음 사망 방지(dedication↔헌신, multiclass↔멀티클래스 등).
 function featHasTrait(f, slug, koFallback) {
@@ -653,7 +665,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.150').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.151').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
