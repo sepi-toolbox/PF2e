@@ -1,0 +1,332 @@
+{
+  "air": {
+    "name": "공기",
+    "initial": "pushing-gust",
+    "advanced": "disperse-into-air"
+  },
+  "ambition": {
+    "name": "야망",
+    "initial": "ignite-ambition",
+    "advanced": "competitive-edge"
+  },
+  "cities": {
+    "name": "도시",
+    "initial": "face-in-the-crowd",
+    "advanced": "pulse-of-civilization"
+  },
+  "confidence": {
+    "name": "자신감",
+    "initial": "veil-of-confidence",
+    "advanced": "delusional-pride"
+  },
+  "creation": {
+    "name": "창조",
+    "initial": "creative-splash",
+    "advanced": "artistic-flourish"
+  },
+  "darkness": {
+    "name": "어둠",
+    "initial": "cloak-of-shadow",
+    "advanced": "darkened-sight"
+  },
+  "death": {
+    "name": "죽음",
+    "initial": "deaths-call",
+    "advanced": "eradicate-undeath"
+  },
+  "destruction": {
+    "name": "파괴",
+    "initial": "cry-of-destruction",
+    "advanced": "destructive-aura"
+  },
+  "dreams": {
+    "name": "꿈",
+    "initial": "sweet-dream",
+    "advanced": "dreamers-call"
+  },
+  "earth": {
+    "name": "대지",
+    "initial": "hurtling-stone",
+    "advanced": "localized-quake"
+  },
+  "family": {
+    "name": "가족",
+    "initial": "soothing-words",
+    "advanced": "community-restoration"
+  },
+  "fate": {
+    "name": "운명",
+    "initial": "read-fate",
+    "advanced": "tempt-fate"
+  },
+  "fire": {
+    "name": "화염",
+    "initial": "fire-ray",
+    "advanced": "flame-barrier"
+  },
+  "freedom": {
+    "name": "자유",
+    "initial": "unimpeded-stride",
+    "advanced": "word-of-freedom"
+  },
+  "healing": {
+    "name": "치유",
+    "initial": "healers-blessing",
+    "advanced": "rebuke-death"
+  },
+  "indulgence": {
+    "name": "탐닉",
+    "initial": "overstuff",
+    "advanced": "take-its-course"
+  },
+  "knowledge": {
+    "name": "지식",
+    "initial": "scholarly-recollection",
+    "advanced": "know-the-enemy"
+  },
+  "luck": {
+    "name": "행운",
+    "initial": "bit-of-luck",
+    "advanced": "lucky-break"
+  },
+  "magic": {
+    "name": "마법",
+    "initial": "magics-vessel",
+    "advanced": "mystic-beacon"
+  },
+  "might": {
+    "name": "힘",
+    "initial": "athletic-rush",
+    "advanced": "enduring-might"
+  },
+  "moon": {
+    "name": "달",
+    "initial": "moonbeam",
+    "advanced": "touch-of-the-moon"
+  },
+  "nature": {
+    "name": "자연",
+    "initial": "vibrant-thorns",
+    "advanced": "natures-bounty"
+  },
+  "nightmares": {
+    "name": "악몽",
+    "initial": "waking-nightmare",
+    "advanced": "shared-nightmare"
+  },
+  "pain": {
+    "name": "고통",
+    "initial": "savor-the-sting",
+    "advanced": "retributive-pain"
+  },
+  "passion": {
+    "name": "열정",
+    "initial": "charming-touch",
+    "advanced": "captivating-adoration"
+  },
+  "perfection": {
+    "name": "완벽",
+    "initial": "perfected-mind",
+    "advanced": "perfected-body"
+  },
+  "protection": {
+    "name": "보호",
+    "initial": "protectors-sacrifice",
+    "advanced": "protectors-sphere"
+  },
+  "secrecy": {
+    "name": "비밀",
+    "initial": "whispering-quiet",
+    "advanced": "safeguard-secret"
+  },
+  "soul": {
+    "name": "영혼",
+    "initial": "eject-soul",
+    "advanced": "ectoplasmic-interstice"
+  },
+  "sun": {
+    "name": "태양",
+    "initial": "dazzling-flash",
+    "advanced": "vital-luminance"
+  },
+  "travel": {
+    "name": "여행",
+    "initial": "agile-feet",
+    "advanced": "travelers-transit"
+  },
+  "trickery": {
+    "name": "속임수",
+    "initial": "sudden-shift",
+    "advanced": "tricksters-twin"
+  },
+  "truth": {
+    "name": "진실",
+    "initial": "word-of-truth",
+    "advanced": "glimpse-the-truth"
+  },
+  "tyranny": {
+    "name": "폭정",
+    "initial": "touch-of-obedience",
+    "advanced": "commanding-lash"
+  },
+  "undeath": {
+    "name": "언데스",
+    "initial": "touch-of-undeath",
+    "advanced": "malignant-sustenance"
+  },
+  "void": {
+    "name": "공허",
+    "initial": "scramble-body"
+  },
+  "water": {
+    "name": "물",
+    "initial": "tidal-surge",
+    "advanced": "downpour"
+  },
+  "wealth": {
+    "name": "부",
+    "advanced": "precious-metals",
+    "initial": "appearance-of-wealth"
+  },
+  "zeal": {
+    "name": "열의",
+    "initial": "weapon-surge",
+    "advanced": "zeal-for-battle"
+  },
+  "repose": {
+    "name": "휴식",
+    "initial": "share-burden",
+    "advanced": "font-of-serenity"
+  },
+  "sorrow": {
+    "name": "슬픔",
+    "initial": "lament",
+    "advanced": "overflowing-sorrow"
+  },
+  "star": {
+    "name": "스타",
+    "initial": "zenith-star",
+    "advanced": "asterism"
+  },
+  "duty": {
+    "name": "의무",
+    "initial": "oathkeepers-insignia",
+    "advanced": "dutiful-challenge"
+  },
+  "change": {
+    "name": "변경",
+    "initial": "adapt-self",
+    "advanced": "adaptive-ablation"
+  },
+  "vigil": {
+    "name": "비질",
+    "initial": "object-memory",
+    "advanced": "remember-the-lost"
+  },
+  "glyph": {
+    "name": "글리프",
+    "initial": "redact",
+    "advanced": "ghostly-transcription"
+  },
+  "time": {
+    "name": "시간",
+    "initial": "delay-consequence",
+    "advanced": "stasis"
+  },
+  "wyrmkin": {
+    "name": "웜킨",
+    "initial": "draconic-barrage"
+  },
+  "lightning": {
+    "name": "라이트닝",
+    "initial": "charged-javelin",
+    "advanced": "bottle-the-storm"
+  },
+  "cold": {
+    "name": "추위",
+    "initial": "winter-bolt",
+    "advanced": "diamond-dust"
+  },
+  "dust": {
+    "name": "먼지",
+    "initial": "parch",
+    "advanced": "dust-storm"
+  },
+  "toil": {
+    "name": "근면",
+    "initial": "practice-makes-perfect",
+    "advanced": "tireless-worker"
+  },
+  "naga": {
+    "name": "나가",
+    "initial": "split-the-tongue",
+    "advanced": "ordained-purpose"
+  },
+  "introspection": {
+    "name": "자기 성찰",
+    "initial": "guided-introspection",
+    "advanced": "confront-selves"
+  },
+  "decay": {
+    "name": "부패",
+    "initial": "withering-grasp",
+    "advanced": "fallow-field"
+  },
+  "plague": {
+    "name": "전염병",
+    "initial": "divine-plagues",
+    "advanced": "foul-miasma"
+  },
+  "swarm": {
+    "name": "무리",
+    "initial": "swarmsense",
+    "advanced": "swarm-form"
+  },
+  "delirium": {
+    "name": "섬망",
+    "advanced": "ephemeral-hazards",
+    "initial": "hyperfocus"
+  },
+  "metal": {
+    "name": "금속",
+    "initial": "serrate",
+    "advanced": "repel-metal"
+  },
+  "wood": {
+    "name": "목재",
+    "initial": "arms-of-nature",
+    "advanced": "wood-walk"
+  },
+  "abomination": {
+    "name": "혐오",
+    "initial": "lift-natures-caul",
+    "advanced": "fearful-feast"
+  },
+  "dragon": {
+    "name": "용",
+    "name_ko": "용",
+    "name_en": "Dragon",
+    "initial": "draconic-barrage",
+    "advanced": "roar-of-the-dragon",
+    "desc_en": "You draw on the power of dragons, linnorms, and other powerful reptilian creatures.",
+    "desc_ko": "용과 린놈, 그 밖의 강력한 파충류 존재의 힘을 끌어냅니다."
+  },
+  "disorientation": {
+    "name": "방향 상실",
+    "name_ko": "방향 상실",
+    "name_en": "Disorientation",
+    "initial": "clouded-focus",
+    "advanced": "ephemeral-hazards",
+    "desc_en": "You can bewilder and perplex your foes.",
+    "desc_ko": "적을 어리둥절하게 만들고 당혹시킬 수 있습니다."
+  },
+  "nothingness": {
+    "name": "허무",
+    "name_ko": "허무",
+    "name_en": "Nothingness",
+    "initial": "empty-inside",
+    "advanced": "door-to-beyond",
+    "desc_en": "You draw power from emptiness.",
+    "desc_ko": "공허로부터 힘을 끌어냅니다."
+  }
+}

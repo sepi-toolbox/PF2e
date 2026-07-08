@@ -120,7 +120,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm11"></script>
+<script src="cs_pf2e.js?v=dm12"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -155,7 +155,10 @@ const DM = (function(){
     {id:'ancestries', label:'혈통',     cat:'ancestries', cols:['slug','name_en','name_ko','hp','size','speed','vision','languages','source']},
     {id:'backgrounds',label:'배경',     cat:'backgrounds',cols:['slug','name_en','name_ko','effect_group_id','boosts','trainedSkills','rules_n','source']},
     {id:'heritages',  label:'유산',     cat:'heritages',  cols:['slug','name_en','name_ko','effect_group_id','ancestry','traits_ko','rules_n','source']},
-    {id:'deities',    label:'신격',     cat:'deities',    cols:['slug','name_en','name_ko','effect_group_id','category','attribute','domains','font','sanctification','source']},
+    {id:'deities',    label:'신격',     cat:'deities',    cols:['slug','name_en','name_ko','effect_group_id','category','attribute','domains','alt_domains','cleric_spells','font','sanctification','source']},
+    {id:'domains',    label:'영역',     kind:'derived', src:'data/derived/domains.json', shape:'rows',
+       editable:['name_ko','desc_ko','initialSpell','advancedSpell'],
+       cols:['slug','name_en','name_ko','initialSpell','initialSpell_ko','advancedSpell','advancedSpell_ko','desc_ko']},
     {id:'effects',    label:'효과',     cat:'effects',    cols:['slug','name_en','name_ko','level','traits_ko','duration','rules_n','source']},
     {id:'traits',     label:'특성',     kind:'derived', src:'data/derived/traits.json', shape:'map',
        cols:['slug','name_en','name_ko','desc_ko','has_desc'], editable:['name_ko','desc_ko']},
@@ -196,7 +199,11 @@ const DM = (function(){
     valued:{h:'수치형',w:60,cls:'num'}, group:{h:'그룹',w:90},
     size:{h:'크기',w:60}, speed:{h:'속도',w:56,cls:'num'}, vision:{h:'시야',w:90}, languages:{h:'언어',w:150},
     ancestry:{h:'혈통',w:110}, boosts:{h:'능력증가',w:150}, trainedSkills:{h:'훈련기술',w:170},
-    attribute:{h:'능력치',w:110}, domains:{h:'영역',w:160}, font:{h:'신성원천',w:90}, sanctification:{h:'성별화',w:100},
+    attribute:{h:'능력치',w:110}, domains:{h:'영역(주)',w:150}, alt_domains:{h:'영역(대체)',w:120}, font:{h:'신성원천',w:90}, sanctification:{h:'성별화',w:100},
+    cleric_spells:{h:'신격주문(랭크:슬러그)',w:280},
+    initialSpell:{h:'초기주문',w:160,cls:'key',edit:true}, initialSpell_ko:{h:'초기주문(한)',w:130},
+    advancedSpell:{h:'고급주문',w:160,cls:'key',edit:true}, advancedSpell_ko:{h:'고급주문(한)',w:130},
+    desc_en:{h:'설명(EN)',w:300},
     desc_ko:{h:'설명',w:340,edit:true}, has_desc:{h:'설명有',w:56,cls:'num'},
     class:{h:'클래스',w:100,cls:'key'}, cp_name:{h:'한글명',w:100}, _src:{h:'증가원(특성)',w:220},
     subclass_type:{h:'서브클래스종류',w:120}, is_subclass:{h:'서브',w:44,cls:'num'}, grants:{h:'부여',w:44,cls:'num'}, tag:{h:'태그',w:140,cls:'key'},
@@ -300,6 +307,8 @@ const DM = (function(){
     trainedSkills:r=>{const t=r.system&&r.system.trainedSkills&&r.system.trainedSkills.value; return Array.isArray(t)?t.join(', '):'';},
     attribute:r=>{const a=r.system&&r.system.attribute; return Array.isArray(a)?a.join('/'):(a||'');},
     domains:r=>{const d=r.system&&r.system.domains&&r.system.domains.primary; return Array.isArray(d)?d.join(', '):'';},
+    alt_domains:r=>{const d=r.system&&r.system.domains&&r.system.domains.alternate; return Array.isArray(d)?d.join(', '):'';},
+    cleric_spells:r=>{const sp=r.system&&r.system.spells_slug; if(!sp||typeof sp!=='object')return''; return Object.keys(sp).sort((a,b)=>(+a)-(+b)).map(k=>k+':'+(sp[k]||'?')).join(', ');},
     font:r=>{const f=r.system&&r.system.font; return Array.isArray(f)?f.join('/'):(f||'');},
     sanctification:r=>{const s=r.system&&r.system.sanctification; return s&&s.modal||'';},
     // 엔티티(재주/유산/배경) → 참조 효과그룹 FK (effect_refs.json 역참조 인덱스, 현재 탭 cat 기준)
@@ -432,7 +441,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm11').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm12').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -752,8 +761,8 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm11').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm11').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm12').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm12').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride };
