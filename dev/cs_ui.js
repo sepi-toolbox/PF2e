@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.153').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.154').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2210,9 +2210,30 @@ function renderFeats() {
     }
   }
 
-  // 서브클래스 특성 단락(클래스 특성 special에서 _subclass/서브클래스 선택특성을 분리) — 매 렌더 초기화
+  // ── 서브클래스 단락: 선택한 서브클래스 '하나'만 카드로. 레이블 = 서브클래스 종류명(교리/본능/뮤즈 등). ──
+  //   ⚠ 서브클래스가 부여하는 재주(_subclass)는 '서브클래스'가 아님 → 클래스 특성에 남김. 여기엔 선택한 서브클래스만.
   const subEl = document.getElementById('feats-subclass');
-  if (subEl) subEl.innerHTML = '';
+  const subTitleEl = document.getElementById('feats-subclass-title');
+  const _selSub = state.selectedSubclass;
+  const _subIsThisClass = !!(_selSub && _selSub.class_id === state.selectedClass?.id);
+  if (subEl) {
+    subEl.innerHTML = '';
+    if (subTitleEl) subTitleEl.textContent = (_subIsThisClass && _selSub.subclass_type) ? _selSub.subclass_type : '서브클래스';
+    if (_subIsThisClass) {
+      const sdiv = document.createElement('div');
+      sdiv.className = 'feat-entry';
+      sdiv.style.cursor = 'pointer';
+      const sdesc = (typeof resolveDescRefs === 'function') ? resolveDescRefs(_selSub.desc || '') : (_selSub.desc || '');
+      sdiv.innerHTML = `
+        <div class="feat-card-header" style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
+          <span style="color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${typeof iconImg==='function'?iconImg('feat',_selSub):''}${_selSub.name_ko} <span style="color:var(--text2);font-size:10px;margin-left:4px;">${_selSub.name_en||''}</span></span>
+        </div>
+        <div class="feat-src"><span class="tag-meta">${_selSub.subclass_type||'서브클래스'}</span></div>
+        <div class="feat-detail"><div style="line-height:1.6;">${sdesc}</div></div>`;
+      sdiv.addEventListener('click', () => _toggleFeatAccordion(sdiv));
+      subEl.appendChild(sdiv);
+    }
+  }
 
   const types = ['special','ancestry','class','general','skill','archetype','other'];
   const labels = {'special':'클래스 특성','ancestry':'혈통','class':'클래스','general':'일반','skill':'기술','archetype':'원형','other':'기타'};
@@ -2221,6 +2242,8 @@ function renderFeats() {
     if (!el) return;
     el.innerHTML = '';
     state.feats[t].forEach((f,i) => {
+      // 서브클래스 선택특성(교리/본능 등 name===subclass_type)은 위 「서브클래스」 단락이 대체 → 클래스 특성에서 스킵
+      if (t === 'special' && _subIsThisClass && f.name && f.name.split(' (')[0].trim() === (_selSub.subclass_type || '').trim()) return;
       const isAuto = f._auto;
       const div = document.createElement('div');
       div.className = 'feat-entry';
@@ -2288,9 +2311,7 @@ function renderFeats() {
         if (e.target.closest('.feat-choice-ctrl')) return;
         _toggleFeatAccordion(div);
       });
-      // 서브클래스 부여특성(_subclass)·서브클래스 선택특성(_isSubChoice)은 별도 「서브클래스」 단락으로
-      const targetEl = (t === 'special' && subEl && (f._subclass || _isSubChoice)) ? subEl : el;
-      targetEl.appendChild(div);
+      el.appendChild(div);
     });
   });
 
