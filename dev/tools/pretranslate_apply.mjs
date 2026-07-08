@@ -15,6 +15,15 @@ if (!cat || !resFile) { console.error('usage: node tools/pretranslate_apply.mjs 
 const PF = (await import(path.join(DEV, 'cs_pf2e.js'))).default;
 for (const c of ['actions', 'conditions', 'spells', 'feats', 'equipment']) { try { await PF.loadCategory(c); } catch (e) {} }
 
+// 죽은 @UUID 참조 정리: pre-resolve가 @link로 못 바꾼 @UUID(저널/효과/외부)는 우리 앱에 대상이 없음 → 제거.
+//   ①@UUID만 있는 문단(<em>/<strong> 래핑 허용) 통째 제거 ②남은 인라인 @UUID는 라벨 평문화. (@link은 미변경)
+function stripDeadRefs(s) {
+  s = String(s);
+  s = s.replace(/(<hr\s*\/?>\s*)?<p>\s*(?:<(?:em|strong)>\s*)?(?:@UUID\[[^\]]*\](?:\{[^}]*\})?\s*[,;·]?\s*)+(?:<\/(?:em|strong)>\s*)?<\/p>\s*/g, '');
+  s = s.replace(/@UUID\[[^\]]*\](?:\{([^}]*)\})?/g, (m, label) => label || '');
+  return s;
+}
+
 // flat check 용어 통일: LLM이 "평판정/평면 판정/단순 판정"으로 제각각 쓴 것을 정본 "플랫 판정"으로.
 function normTerms(s) {
   return String(s).replace(/평면\s*판정/g, '플랫 판정').replace(/평판정/g, '플랫 판정').replace(/단순\s*판정/g, '플랫 판정');
@@ -49,7 +58,7 @@ for (const r of results) {
   const d = bySlug[r.slug];
   if (!d) { missing.push(r.slug); continue; }
   if (!r.ko || !r.ko.trim()) { missing.push(r.slug + '(빈번역)'); continue; }
-  d._desc_ko = normTerms(stripLinkLabels(PF.bakePlainMacros(r.ko)));
+  d._desc_ko = normTerms(stripLinkLabels(stripDeadRefs(PF.bakePlainMacros(r.ko))));
   applied++;
 }
 fs.writeFileSync(fp, JSON.stringify(j, null, indent) + (trailNL ? '\n' : ''));
