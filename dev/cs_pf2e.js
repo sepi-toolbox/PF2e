@@ -146,7 +146,7 @@
   const _DMG_KO = { piercing: '관통', slashing: '참격', bludgeoning: '타격', fire: '화염', cold: '냉기', acid: '산성', electricity: '전기', sonic: '음파', mental: '정신', poison: '독', void: '공허', spirit: '영혼', vitality: '활력', force: '역장', bleed: '출혈', untyped: '', precision: '정밀', healing: '회복' };
   const _SAVE_KO = { fortitude: '인내', reflex: '반사', will: '의지' };
   const _SKILL_KO = { acrobatics: '곡예', arcana: '주문학', athletics: '운동', crafting: '제작', deception: '기만', diplomacy: '외교', intimidation: '위협', medicine: '의학', nature: '자연학', occultism: '오컬티즘', performance: '공연', religion: '종교학', society: '사회', stealth: '은신', survival: '생존', thievery: '도둑질' };
-  const _CHECK_KO = Object.assign({ perception: '지각', flat: '단순', spell: '주문' }, _SAVE_KO, _SKILL_KO);
+  const _CHECK_KO = Object.assign({ perception: '지각', flat: '플랫', spell: '주문' }, _SAVE_KO, _SKILL_KO);
   function _checkTypeKo(t) { if (_CHECK_KO[t]) return _CHECK_KO[t]; const m = /^(.*)-lore$/.exec(t); if (m) return m[1].replace(/-/g, ' ') + ' 지식'; return t; }
   // @Check 렌더용: 내성='X 내성', 그 외(단순/지각/기술/지식)='X 판정'. 자연스러운 한글 표기.
   const _SAVE_TYPES = new Set(['fortitude', 'reflex', 'will']);

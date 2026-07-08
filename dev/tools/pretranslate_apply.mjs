@@ -15,6 +15,11 @@ if (!cat || !resFile) { console.error('usage: node tools/pretranslate_apply.mjs 
 const PF = (await import(path.join(DEV, 'cs_pf2e.js'))).default;
 for (const c of ['actions', 'conditions', 'spells', 'feats', 'equipment']) { try { await PF.loadCategory(c); } catch (e) {} }
 
+// flat check 용어 통일: LLM이 "평판정/평면 판정/단순 판정"으로 제각각 쓴 것을 정본 "플랫 판정"으로.
+function normTerms(s) {
+  return String(s).replace(/평면\s*판정/g, '플랫 판정').replace(/평판정/g, '플랫 판정').replace(/단순\s*판정/g, '플랫 판정');
+}
+
 function stripLinkLabels(s) {
   return String(s).replace(/@link\[([a-z]+\.[a-z0-9._-]+)\](?:\{([^}]*)\})?/g, (m, ref, label) => {
     const num = label && label.match(/([0-9]+)\s*$/);
@@ -44,7 +49,7 @@ for (const r of results) {
   const d = bySlug[r.slug];
   if (!d) { missing.push(r.slug); continue; }
   if (!r.ko || !r.ko.trim()) { missing.push(r.slug + '(빈번역)'); continue; }
-  d._desc_ko = stripLinkLabels(PF.bakePlainMacros(r.ko));
+  d._desc_ko = normTerms(stripLinkLabels(PF.bakePlainMacros(r.ko)));
   applied++;
 }
 fs.writeFileSync(fp, JSON.stringify(j, null, indent) + (trailNL ? '\n' : ''));
