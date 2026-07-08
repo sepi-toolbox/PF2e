@@ -1,0 +1,737 @@
+{
+ "rows": [
+  {
+   "id": "muse-enigma",
+   "class_id": "bard",
+   "subclass_type": "뮤즈",
+   "name_ko": "수수께끼",
+   "name_en": "Enigma",
+   "desc": "뮤즈는 미스터리로, 삶과 다차원계의 숨겨진 비밀을 밝히도록 합니다. 완전히 파악할 수 없는 사람, 상징이 깊이 겹쳐진 텍스트, 또는 평생 작품의 바탕이 되는 감정적 역설일 수 있습니다. 이세계 생물이라면 신비로운 영겁이나 오컬트 용일 수 있고, 신격이라면 이로리나 네시스일 수 있습니다.<br>수수께끼 뮤즈의 바드로서, 영감과 오컬트 지원 곁에 지식을 제공하여 동료를 지원합니다.",
+   "granted_skills": [],
+   "granted_feats": [
+    "bardic-lore"
+   ],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "known",
+     "spell_id": "sure-strike",
+     "rank": 1
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "바드 지식 (자유 지식 기술)",
+     "name_en": "Bardic Lore",
+     "desc": "수수께끼 뮤즈가 온갖 신비로운 지식을 속삭여 줍니다. 바드 지식이라는 특수 지식 기술에 숙련됩니다. 모든 지식 회상 시 바드 지식을 사용할 수 있으며, 다른 지식 기술 대신 이 하나의 기술로 판정합니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "muse-maestro",
+   "class_id": "bard",
+   "subclass_type": "뮤즈",
+   "name_ko": "마에스트로",
+   "name_en": "Maestro",
+   "desc": "뮤즈가 끊임없이 더 높은 예술적 무용의 경지로 영감을 줍니다. 많은 바드에게 스승이나 라이벌이 이 역할을 하지만, 일부는 더 높은 목표를 세워 과거의 위대한 작곡가를 넘어서거나 완전히 새로운 길을 개척하려 합니다. 초자연적 생물이라면 합창 천사나 리라키엔 아자타일 수 있고, 신격이라면 셸린일 수 있습니다.<br>마에스트로 뮤즈의 바드로서, 동료에게 영감을 주며 음악적, 연설적 능력에 자신 있습니다.",
+   "granted_skills": [],
+   "granted_feats": [
+    "lingering-composition"
+   ],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "known",
+     "spell_id": "soothe",
+     "rank": 1
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "잔향 작곡",
+     "name_en": "Lingering Composition",
+     "desc": "작곡 캔트립의 효과를 유지하는 집중 주문을 습득합니다. 잔향 작곡 재주를 얻어, 1 집중 포인트를 소비하여 작곡 캔트립의 지속 시간을 3라운드로 연장합니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "muse-warrior",
+   "class_id": "bard",
+   "subclass_type": "뮤즈",
+   "name_ko": "전사",
+   "name_en": "Warrior",
+   "desc": "전장이 무대이고 강철의 울림이 노래입니다. 뮤즈는 전투에 환호하거나 그 필요성에 체념하며 수많은 전투를 목격했습니다. 개별 병사나 장군이 영감을 줄 수 있지만, 특히 심오한 역사를 가진 전장이나 무기도 마찬가지입니다. 생물이라면 아르콘이나 데블 병사 같은 이세계 전사일 수 있고, 신격이라면 고룸일 수 있습니다.<br>전사 뮤즈의 바드로서, 공연 외에 전투 훈련도 하며 전투의 위험에 대비시킵니다. 한가운데 뛰어들 수도 있습니다.",
+   "granted_skills": [],
+   "granted_feats": [
+    "martial-performance"
+   ],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "known",
+     "spell_id": "fear",
+     "rank": 1
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "군용 무기 훈련",
+     "name_en": "Martial Weapon Training",
+     "desc": "전사 뮤즈의 영감으로 군용 무기에 훈련됩니다. 군용 무기 숙련도가 훈련으로 증가합니다."
+    }
+   ],
+   "prof_changes": {
+    "weapon-martial": {
+     "1": 2
+    }
+   }
+  },
+  {
+   "id": "muse-polymath",
+   "class_id": "bard",
+   "subclass_type": "뮤즈",
+   "name_ko": "박학다식",
+   "name_en": "Polymath",
+   "desc": "만물박사로, 기술과 추구 사이를 오갑니다. 다양한 주제에 관심이 있지만 하나에 전념하는 일은 드물며, 모든 것을 시도하고 싶어합니다.",
+   "granted_skills": [],
+   "granted_feats": [
+    "versatile-performance"
+   ],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "known",
+     "spell_id": "phantasmal-minion",
+     "rank": 1
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "다재다능한 공연",
+     "name_en": "Versatile Performance",
+     "desc": "박학다식한 뮤즈의 영향으로 공연 기술로 다른 기술을 대체할 수 있습니다. 다재다능한 공연 재주를 얻어, 공연으로 기만, 외교, 위협 판정을 대체합니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "order-animal",
+   "class_id": "druid",
+   "subclass_type": "교단",
+   "name_ko": "동물",
+   "name_en": "Animal",
+   "desc": "야수와 강한 유대가 있어 항상 그들을 이해한다고(그들도 당신을) 느꼈습니다. 자연의 동물을 대변하며, 강력한 동물 동료가 곁에 있습니다.",
+   "granted_skills": [
+    "athletics"
+   ],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "heal-animal"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "동물 친구 습득",
+     "name_en": "Animal Companion",
+     "desc": "동물 결사에 가입하여 동물 친구를 얻습니다. 자연학에 훈련되며, 동물 친구가 전투와 탐험에서 함께합니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "order-leaf",
+   "class_id": "druid",
+   "subclass_type": "교단",
+   "name_ko": "잎",
+   "name_en": "Leaf",
+   "desc": "자연의 풍요를 숭배하며 야생의 정원사이자 관리인 역할을 합니다. 레시 사역마와 함께 재난이나 무분별한 확장 후 지역이 다시 자라도록 돕고, 식물을 남용하는 자에게 돌려씁니다.",
+   "granted_skills": [
+    "diplomacy"
+   ],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "cornucopia"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "집중 주문: 축제의 뿔피리",
+     "name_en": "Cornucopia",
+     "desc": "잎 결사에 가입하여 축제의 뿔피리 집중 주문을 습득합니다. 외교에 훈련됩니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "order-storm",
+   "class_id": "druid",
+   "subclass_type": "교단",
+   "name_ko": "폭풍",
+   "name_en": "Storm",
+   "desc": "폭풍 아래 태어났든 맑은 하늘의 번개에서 살아남았든, 이제 심장에 폭풍의 분노를 담고 천둥을 무시무시한 파괴력으로 전달하며 바람을 타고 하늘을 날아갑니다.",
+   "granted_skills": [
+    "acrobatics"
+   ],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "tempest-surge"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "집중 주문: 폭풍 쇄도",
+     "name_en": "Tempest Surge",
+     "desc": "폭풍 결사에 가입하여 폭풍 쇄도 집중 주문을 습득합니다. 곡예에 훈련됩니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "order-wild",
+   "class_id": "druid",
+   "subclass_type": "교단",
+   "name_ko": "야생",
+   "name_en": "Untamed",
+   "desc": "자연 세계의 통제할 수 없는 부름이 몸을 관통합니다. 야생 동물에 의해 자랐거나, 도시에서 자란 후 도시의 인위를 거부했을 수 있습니다. 원시 마법이 야생 생물의 형태를 입을 능력을 부여합니다.",
+   "granted_skills": [
+    "intimidation"
+   ],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "untamed-shift"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "집중 주문: 야생 해방",
+     "name_en": "Untamed Form",
+     "desc": "야생 결사에 가입하여 야생 해방 집중 주문을 습득합니다. 위협에 훈련됩니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "edge-flurry",
+   "class_id": "ranger",
+   "subclass_type": "사냥 방식",
+   "name_ko": "연타",
+   "name_en": "Flurry",
+   "desc": "사냥감에 대한 다중 공격 페널티가 완화됩니다.<br>두 번째 공격: <b>-5 → -3</b> (민첩 무기 -2)<br>세 번째 이후: <b>-10 → -6</b> (민첩 -4)",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "다중 공격 페널티 감소",
+     "name_en": "Flurry",
+     "desc": "사냥감에 대한 연속 공격에 능숙합니다. 사냥감에 대한 다중 공격 페널티가 -4/-8로 감소합니다(일반 -5/-10). 민첩 무기 사용 시 -3/-6으로 감소합니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "edge-outwit",
+   "class_id": "ranger",
+   "subclass_type": "사냥 방식",
+   "name_ko": "계략",
+   "name_en": "Outwit",
+   "desc": "사냥감의 공격에 대해 <b>AC +1 상황 보너스</b>.<br>사냥감에 대한 기만/위협/은신 및 지식 회상에 <b>+2 상황 보너스</b>.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "사냥 목표 AC +1",
+     "name_en": "Outwit",
+     "desc": "사냥감의 약점을 간파합니다. 사냥감의 공격에 대해 AC에 +1 상황 보너스를 받고, 사냥감에 대한 기만, 위협, 은신, 지식 회상 판정에 +2 상황 보너스를 받습니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "edge-precision",
+   "class_id": "ranger",
+   "subclass_type": "사냥 방식",
+   "name_ko": "정밀",
+   "name_en": "Precision",
+   "desc": "라운드에서 사냥감을 처음 명중할 때 <b>추가 1d8 정밀 피해</b>.<br>11레벨에서 2d8, 19레벨에서 3d8.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "첫 타 정밀 피해 +1d8",
+     "name_en": "Precision",
+     "desc": "사냥감의 치명적 약점을 노립니다. 매 라운드 사냥감에 대한 첫 번째 명중 시 추가 1d8 정밀 피해를 입힙니다. 11레벨에 2d8, 19레벨에 3d8으로 증가합니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "racket-eldritch-trickster",
+   "class_id": "rogue",
+   "subclass_type": "전문",
+   "name_ko": "비전 트릭스터",
+   "name_en": "Eldritch Trickster",
+   "desc": "마법과 교활함을 결합합니다.<br>주문 트릭 집중 주문 습득. 주문 공격으로 은밀 공격 적용 가능.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "주문→스닉 어택",
+     "name_en": "Eldritch Trickster",
+     "desc": "비전 사기꾼 라켓: 헌신 아키타입 재주를 통해 다중 클래스 주문시전을 습득합니다. 주문으로 무방비 상태를 만들어 은밀 공격을 연계할 수 있습니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "racket-mastermind",
+   "class_id": "rogue",
+   "subclass_type": "전문",
+   "name_ko": "지략가",
+   "name_en": "Mastermind",
+   "desc": "지능에 의지하여 정교한 계략을 세우며, 다른 이가 3수 앞을 볼 때 10수 앞을 봅니다. 지식 회상으로 생물을 성공적으로 식별하면 다음 턴 시작까지 당신의 공격에 <strong>무방비</strong>; 대성공이면 1분간.",
+   "granted_skills": [
+    "society"
+   ],
+   "granted_feats": [],
+   "granted_spells": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "지식 확인→무방비",
+     "name_en": "Mastermind",
+     "desc": "두뇌파 라켓: 지식 회상으로 대상을 식별하면, 해당 대상은 다음 턴 시작까지 무방비 상태가 됩니다. 사회에 훈련되며, 하나의 지식 기술에 추가 훈련됩니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "racket-scoundrel",
+   "class_id": "rogue",
+   "subclass_type": "전문",
+   "name_ko": "사기꾼",
+   "name_en": "Scoundrel",
+   "desc": "재빠른 말솜씨, 아첨, 날카로운 혀로 위험을 피하고 곤란한 상황을 탈출합니다. 기만으로 성공적으로 속임 시 다음 턴 종료까지 당신의 근접 공격에 <strong>무방비</strong>; 대성공이면 모든 근접 공격에. 민첩/기교 근접 무기를 들고 속이면 즉시 <strong>자유 행동으로 한 걸음</strong>.",
+   "granted_skills": [
+    "deception",
+    "diplomacy"
+   ],
+   "granted_feats": [],
+   "granted_spells": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "기만/위협→무방비",
+     "name_en": "Scoundrel",
+     "desc": "사기꾼 라켓: 기만 성공 시 대상이 다음 턴 시작까지 무방비 상태가 됩니다. 기만과 외교에 훈련됩니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "racket-ruffian",
+   "class_id": "rogue",
+   "subclass_type": "전문",
+   "name_ko": "건달",
+   "name_en": "Ruffian",
+   "desc": "직접적 접근을 선호: 완력이나 위협. 어떤 무기로든 은밀 공격 피해를 줄 수 있습니다(단, d8 초과 단순 무기나 d6 초과 군용/고급 무기는 제외). 이 무기로 무방비한 대상에 치명타 시 <strong>치명 특성 효과</strong> 적용.",
+   "granted_skills": [
+    "intimidation"
+   ],
+   "granted_feats": [],
+   "granted_spells": [],
+   "features": [],
+   "prof_changes": {}
+  },
+  {
+   "id": "racket-thief",
+   "class_id": "rogue",
+   "subclass_type": "전문",
+   "name_ko": "도둑",
+   "name_en": "Thief",
+   "desc": "남의 것을 가져가는 짜릿함을 즐깁니다. 기교 근접 무기나 비무장 공격으로 공격 시 피해 굴림에 근력 대신 <strong>민첩 수정치를 추가</strong>.",
+   "granted_skills": [
+    "thievery"
+   ],
+   "granted_feats": [],
+   "granted_spells": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "민첩→피해 (기교 무기)",
+     "name_en": "Thief",
+     "desc": "도적 라켓: 은밀 공격 피해에 기교 무기 사용 시 민첩 수정치를 피해에 추가합니다. 도적질에 훈련됩니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "patron-curse",
+   "class_id": "witch",
+   "tradition": "occult",
+   "subclass_type": "후원자",
+   "name_ko": "저주",
+   "name_en": "Curse",
+   "desc": "저주의 힘을 부여하는 후원자. 오컬트 전통. 주술: 악의 눈. 저주·조종 관련 주문 확장.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "evil-eye"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "오컬트 전통 / 주술: 사악한 눈",
+     "name_en": "Curse",
+     "desc": "저주 후원자가 오컬트 전통의 주문시전 능력을 부여합니다. 사악한 눈 주술 집중 주문을 습득합니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "patron-fate",
+   "class_id": "witch",
+   "tradition": "occult",
+   "subclass_type": "후원자",
+   "name_ko": "운명",
+   "name_en": "Fate",
+   "desc": "운명의 실을 다루는 후원자. 오컬트 전통. 주술: 운명의 실. 예지 관련 주문 확장.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "nudge-fate"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "오컬트 전통 / 주술: 운명 조정",
+     "name_en": "Fate",
+     "desc": "운명 후원자가 오컬트 전통의 주문시전 능력을 부여합니다. 운명 조정 주술 집중 주문을 습득합니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "patron-fervor",
+   "class_id": "witch",
+   "tradition": "divine",
+   "subclass_type": "후원자",
+   "name_ko": "열정",
+   "name_en": "Fervor",
+   "desc": "신성한 헌신의 후원자. 신성 전통. 주술: 정화의 불꽃. 치유·강화 관련 주문.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "stoke-the-heart"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "신성 전통 / 주술: 심장 격려",
+     "name_en": "Fervor",
+     "desc": "열정 후원자가 신성 전통의 주문시전 능력을 부여합니다. 심장 격려 주술 집중 주문을 습득합니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "patron-night",
+   "class_id": "witch",
+   "tradition": "occult",
+   "subclass_type": "후원자",
+   "name_ko": "밤",
+   "name_en": "Night",
+   "desc": "어둠과 꿈의 후원자. 오컬트 전통. 주술: 마녀의 포옹. 환상·공포 관련 주문.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "shroud-of-night"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "오컬트 전통 / 주술: 밤의 장막",
+     "name_en": "Night",
+     "desc": "밤 후원자가 오컬트 전통의 주문시전 능력을 부여합니다. 밤의 장막 주술 집중 주문을 습득합니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "patron-rune",
+   "class_id": "witch",
+   "tradition": "arcane",
+   "subclass_type": "후원자",
+   "name_ko": "룬",
+   "name_en": "Rune",
+   "desc": "룬 마법의 후원자. 신비 전통. 주술: 룬 저주. 변환·방호 관련 주문.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "discern-secrets"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "비전 전통 / 주술: 비밀 간파",
+     "name_en": "Rune",
+     "desc": "룬 후원자가 비전 전통의 주문시전 능력을 부여합니다. 비밀 간파 주술 집중 주문을 습득합니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "patron-wild",
+   "class_id": "witch",
+   "tradition": "primal",
+   "subclass_type": "후원자",
+   "name_ko": "야생",
+   "name_en": "Wild",
+   "desc": "자연 야생의 후원자. 원시 전통. 주술: 야생의 분노. 자연·동물 관련 주문.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "wilding-word"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "원시 전통 / 주술: 야생의 말",
+     "name_en": "Wild",
+     "desc": "야생 후원자가 원시 전통의 주문시전 능력을 부여합니다. 야생의 말 주술 집중 주문을 습득합니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "school-ars-grammatica",
+   "class_id": "wizard",
+   "subclass_type": "비전 학파",
+   "name_ko": "문법 학파",
+   "name_en": "Ars Grammatica",
+   "desc": "문자와 수호의 마법. 학파 주문: 보호의 결계 / 감시의 룬. 교과: message, sigil 등.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "protective-wards"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "학파 주문: 보호의 결계",
+     "name_en": "Ars Grammatica",
+     "desc": "문법학파를 선택합니다. 보호의 결계 학파 집중 주문을 습득하고, 추가 교과과정 주문 슬롯을 얻습니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "school-battle-magic",
+   "class_id": "wizard",
+   "subclass_type": "비전 학파",
+   "name_ko": "전투 마법 학파",
+   "name_en": "Battle Magic",
+   "desc": "전쟁과 파괴의 마법. 학파 주문: 힘의 화살 / 에너지 흡수. 교과: shield, fire 등.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "force-bolt"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "학파 주문: 힘의 화살",
+     "name_en": "Battle Magic",
+     "desc": "전투마법학파를 선택합니다. 힘의 화살 학파 집중 주문을 습득하고, 추가 교과과정 주문 슬롯을 얻습니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "school-boundary",
+   "class_id": "wizard",
+   "subclass_type": "비전 학파",
+   "name_ko": "경계 학파",
+   "name_en": "The Boundary",
+   "desc": "차원과 소환의 마법. 학파 주문: 소환 강화 / 공포의 나선. 교과: telekinetic hand 등.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "fortify-summoning"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "학파 주문: 소환 강화",
+     "name_en": "Boundary",
+     "desc": "경계학파를 선택합니다. 소환 강화 학파 집중 주문을 습득하고, 추가 교과과정 주문 슬롯을 얻습니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "school-civic-wizardry",
+   "class_id": "wizard",
+   "subclass_type": "비전 학파",
+   "name_ko": "시민 마법 학파",
+   "name_en": "Civic Wizardry",
+   "desc": "건설과 실용의 마법. 학파 주문: 대지 공사 / 가족 회복. 교과: prestidigitation 등.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "earthworks"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "학파 주문: 대지 공사",
+     "name_en": "Civic Wizardry",
+     "desc": "시민마법학파를 선택합니다. 대지 공사 학파 집중 주문을 습득하고, 추가 교과과정 주문 슬롯을 얻습니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "school-mentalism",
+   "class_id": "wizard",
+   "subclass_type": "비전 학파",
+   "name_ko": "정신 학파",
+   "name_en": "Mentalism",
+   "desc": "환상과 정신의 마법. 학파 주문: 매혹의 밀침 / 투명 망토. 교과: daze, figment 등.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "charming-push"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "학파 주문: 매혹의 밀침",
+     "name_en": "Mentalism",
+     "desc": "정신학파를 선택합니다. 매혹의 밀침 학파 집중 주문을 습득하고, 추가 교과과정 주문 슬롯을 얻습니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "school-protean-form",
+   "class_id": "wizard",
+   "subclass_type": "비전 학파",
+   "name_ko": "변형 학파",
+   "name_en": "Protean Form",
+   "desc": "변형과 변환의 마법. 학파 주문: 몸 뒤섞기 / 변형. 교과: gouging claw 등.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [
+    {
+     "lv": 1,
+     "type": "focus",
+     "spell_id": "scramble-body"
+    }
+   ],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "학파 주문: 몸 뒤섞기",
+     "name_en": "Protean Form",
+     "desc": "변형학파를 선택합니다. 몸 뒤섞기 학파 집중 주문을 습득하고, 추가 교과과정 주문 슬롯을 얻습니다."
+    }
+   ],
+   "prof_changes": {}
+  },
+  {
+   "id": "school-unified",
+   "class_id": "wizard",
+   "subclass_type": "비전 학파",
+   "name_ko": "통합 이론 학파",
+   "name_en": "Unified Magical Theory",
+   "desc": "특정 학파에 전문화하지 않고 모든 학파에서 자유롭게 습득. 교과 주문 없음, 대신 유연성 확보.",
+   "granted_skills": [],
+   "granted_feats": [],
+   "granted_spells": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "통합 이론: 유연한 주문",
+     "name_en": "Unified Theory",
+     "desc": "통합이론학파를 선택합니다. 학파 주문 대신 추가 교과과정 주문 슬롯과 유연한 주문 준비 이점을 얻습니다."
+    }
+   ],
+   "prof_changes": {}
+  }
+ ],
+ "note": "서브클래스 큐레이션(PC1 정본 리치데이터: bard/druid/ranger/rogue/witch/wizard). build_subclasses 하니스 입력. cleric은 cleric_doctrines.json."
+}

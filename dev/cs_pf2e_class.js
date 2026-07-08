@@ -203,7 +203,26 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.156').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.157').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+  }
+
+  // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
+  //   ⚠ SUBCLASS_DB가 비었을 때만 로드. 런타임=cs_data 빈 배열→로드. 빌드 하니스=큐레이션으로 미리 채워
+  //   있으므로 스킵→_mergeIntoGlobals/loadDoctrines가 조립(그 조립 결과가 이 파일로 구워짐, parity by construction).
+  let _subclassesLoaded = false;
+  function loadSubclasses() {
+    if (_subclassesLoaded) return Promise.resolve();
+    const SD0 = (typeof SUBCLASS_DB !== 'undefined') ? SUBCLASS_DB : (root.SUBCLASS_DB || null);
+    if (SD0 && SD0.length > 0) { _subclassesLoaded = true; return Promise.resolve(); } // 이미 채워짐(빌드 하니스) → 조립 경로로
+    const inject = rows => { const SD = (typeof SUBCLASS_DB !== 'undefined') ? SUBCLASS_DB : (root.SUBCLASS_DB || null); if (SD && Array.isArray(SD)) for (const r of (rows || [])) { if (r && r.id && !SD.some(s => s.id === r.id)) SD.push(r); } };
+    if (isNode) {
+      const fs = require('fs');
+      for (const p of ['data/derived/subclasses.json', 'dev/data/derived/subclasses.json', '/tmp/PF2e-publish/dev/data/derived/subclasses.json']) {
+        try { inject(JSON.parse(fs.readFileSync(p, 'utf8')).rows); _subclassesLoaded = true; break; } catch (e) {}
+      }
+      return Promise.resolve();
+    }
+    return fetch('data/derived/subclasses.json?v=0.157').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   async function init() {
@@ -212,7 +231,8 @@
     if (isNode) { PF.loadCategorySync('classes'); PF.loadCategorySync('feats'); PF.loadCategorySync('spells'); }
     else await Promise.all([PF.loadCategory('classes'), PF.loadCategory('feats'), PF.loadCategory('spells')]);
     if (isNode) _ensureProfTable(); else await _ensureProfTable();
-    if (isNode) loadDoctrines(); else await loadDoctrines();  // _mergeIntoGlobals 전에 클레릭 교의 주입
+    if (isNode) loadSubclasses(); else await loadSubclasses();  // 단일소스 로드(비었을 때). 채워지면 아래 조립은 자연 스킵.
+    if (isNode) loadDoctrines(); else await loadDoctrines();    // (subclasses.json에 cleric 포함 → 가드로 스킵. 빌드 하니스 조립 경로에서만 실주입)
     _build();
     try { _mergeIntoGlobals(); } catch (e) { if (typeof console !== 'undefined') console.warn('PF2eClass 전역 병합 실패', e); }
     _ready = true;
