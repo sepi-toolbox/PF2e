@@ -695,8 +695,9 @@ function applyClassFeatures() {
     });
     state.feats[cat] = state.feats[cat].filter(f => !f._auto);
   });
-  // Gather all auto feats (CLASS_AUTO_FEATS + SUBCLASS_DB.granted_feats)
-  const classFeats = CLASS_AUTO_FEATS?.[cls.id] || [];
+  // Gather all auto feats — 클래스 자동부여는 CLASS_FEATURE_NAMES(성장표 로스터, kind=feature) 주입이 담당(아래 713~).
+  //   CLASS_AUTO_FEATS const 폐기(v0.158): 성장표 로스터가 단일소스. 서브클래스 부여분만 여기서 수집.
+  const classFeats = [];
   const subFeats = getSubclassAutoFeats(state.selectedSubclass);
   const allAutoFeats = [...classFeats, ...subFeats];
   // Also add CLASS_FEATURE_NAMES as auto-display items in special category
@@ -3888,8 +3889,8 @@ function _buildClassChoicesUI(cls) {
     html += subclassHtml;
   }
 
-  // 1레벨 클래스 특성 블록들 (서브클래스 특성은 서브클래스 블록 안에 표시하므로 제외)
-  lv1Feats.filter(f => !subFeats.includes(f)).forEach(f => {
+  // 1레벨 클래스 특성 블록들 (서브클래스 특성 + 선택 UI 담당분은 제외 — 중복 렌더 방지)
+  lv1Feats.filter(f => !subFeats.includes(f) && !_featInChoiceUI(f, deitySkill)).forEach(f => {
     html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
       return f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '';
     }, false, true)}</div>`;
@@ -3898,8 +3899,10 @@ function _buildClassChoicesUI(cls) {
   // === 2레벨 이상 ===
   const otherLevels = Object.keys(featsByLv).map(Number).filter(lv => lv > 1).sort((a, b) => a - b);
   otherLevels.forEach(lv => {
+    const lvFeats = featsByLv[lv].filter(f => !_featInChoiceUI(f, deitySkill));
+    if (!lvFeats.length) return;
     html += `<div class="cfp-dynamic">${_classLevelHeader(lv)}`;
-    featsByLv[lv].forEach((f, fi) => {
+    lvFeats.forEach((f, fi) => {
       const isSub = subFeats.includes(f);
       html += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
         return f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '';
@@ -3987,6 +3990,17 @@ function _subFeatCard(scope, item, nameKo, nameEn, badge, descHtml) {
   </div>`;
 }
 
+// 선택 UI(서브클래스 드롭다운·클레릭 신격/신성원천 UI)가 이미 담당하는 특성은 클래스특성 박스로 중복 렌더하지 않음.
+//   kind=subclass → 서브클래스 드롭다운이 담당(교리·뮤즈·혈통 등, 전 클래스).
+//   kind=choice   → deitySkill(클레릭) 신격/신성원천 UI가 담당(deity-cleric·divine-font)일 때만.
+//   그 외 choice(voice-of-nature·monk 경로·kineticist gates 등)는 전용 UI가 없으므로 박스로 표시 유지.
+function _featInChoiceUI(f, deitySkill) {
+  if (!f || !f.kind) return false;
+  if (f.kind === 'subclass') return true;
+  if (f.kind === 'choice' && deitySkill) return true;
+  return false;
+}
+
 // ── 서브클래스 변경 시 레벨별 UI 전체 갱신 ──
 function _refreshClassFeaturesPreview() {
   const container = document.getElementById('class-level-ui');
@@ -4018,8 +4032,9 @@ function _refreshClassFeaturesPreview() {
   // 기존 동적 블록 제거 (class-feat-dynamic 클래스)
   container.querySelectorAll('.cfp-dynamic').forEach(el => el.remove());
 
-  // 1레벨 클래스 특성 블록 추가 (서브클래스 특성은 서브클래스 블록 안에 표시하므로 제외)
-  const lv1Feats = (featsByLv[1] || []).filter(f => !subFeats.includes(f) || f.lv !== 1);
+  const deitySkill = !!(cls && cls.deity_skill);
+  // 1레벨 클래스 특성 블록 추가 (서브클래스 특성 + 선택 UI 담당분은 제외 — 중복 렌더 방지)
+  const lv1Feats = (featsByLv[1] || []).filter(f => (!subFeats.includes(f) || f.lv !== 1) && !_featInChoiceUI(f, deitySkill));
   let lv1Html = '';
   lv1Feats.forEach(f => {
     lv1Html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
@@ -4030,8 +4045,10 @@ function _refreshClassFeaturesPreview() {
   // 2레벨 이상 블록
   let otherHtml = '';
   Object.keys(featsByLv).map(Number).filter(lv => lv > 1).sort((a, b) => a - b).forEach(lv => {
+    const lvFeats = featsByLv[lv].filter(f => !_featInChoiceUI(f, deitySkill));
+    if (!lvFeats.length) return;
     otherHtml += `<div class="cfp-dynamic">${_classLevelHeader(lv)}`;
-    featsByLv[lv].forEach(f => {
+    lvFeats.forEach(f => {
       const isSub = subFeats.includes(f);
       otherHtml += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
         return f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '';

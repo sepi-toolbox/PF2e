@@ -28,30 +28,10 @@ var CLASS_FEATURE_NAMES = {};
 //  AUTO-GRANTED FEATS — class features that grant feats
 // ═══════════════════════════════════════════════
 
-// id(=FVTT slug)가 정본 식별자 — 소비처는 id로 카탈로그를 해소(getFeat(id)). name_ko/name_en은
-// slug 미해소 시 폴백 표시용일 뿐(번역 갱신으로 드리프트해도 id가 있으면 무해).
-var CLASS_AUTO_FEATS = {
-  fighter: [
-    {lv:1, id:'shield-block', name_ko:'방패 막기', name_en:'Shield Block', category:'special'},
-    {lv:1, id:'reactive-strike', name_ko:'반응 타격', name_en:'Reactive Strike', category:'special'},
-  ],
-  druid: [
-    {lv:1, id:'shield-block', name_ko:'방패 막기', name_en:'Shield Block', category:'special'},
-    {lv:1, id:'voice-of-nature', name_ko:'자연의 목소리', name_en:'Voice of Nature', category:'special'},
-  ],
-  rogue: [
-    {lv:1, id:'sneak-attack', name_ko:'은밀 공격', name_en:'Sneak Attack', category:'special'},
-    {lv:1, id:'surprise-attack', name_ko:'기습', name_en:'Surprise Attack', category:'special'},
-  ],
-  ranger: [
-    {lv:1, id:'hunt-prey', name_ko:'사냥감 추적', name_en:'Hunt Prey', category:'special'},
-  ],
-  bard: [
-    // 작곡 주문(Composition Spells) L1 클래스 특성 — 부여 로직은 효과(자동화) 데이터에 있음:
-    // data/override/effect_groups.json 의 'composition-spells' grant_focus_spell(용기의 찬가). 하드코딩 아님.
-    {lv:1, id:'composition-spells', name_ko:'작곡 주문', name_en:'Composition Spells', category:'special'},
-  ],
-};
+// ⚠ CLASS_AUTO_FEATS 폐기(v0.158) — 클래스 자동부여 재주는 클래스 성장표 로스터가 단일소스.
+//   fighter 방패막기/반응타격, rogue 은밀공격 등은 이미 data/store/classes.json system.items(=성장표 features[])에
+//   있었고, 이 const는 그걸 손으로 재선언한 중복이었음. CLASS_FEATURE_NAMES가 성장표 로스터에서 slug+kind를
+//   실어오므로(cs_pf2e_class.classFeatureRoster) applyClassFeatures의 featureNames 주입이 전량 커버. 파리티 검증됨.
 
 // Subclass auto-granted feats
 // ═══════════════════════════════════════════════

@@ -29,7 +29,7 @@
   // 소비처(cs_pf2e_stats.classContrib 등)는 root.CLASS_PROF_TABLE[cls][statKey][level] 형식을 읽음(레벨별 full).
   const _PROF_L = { U:0, T:2, E:4, M:6, L:8 };
   const _PROF_COL2T = { perception:"perc", fortitude:"fort", reflex:"ref", will:"will", classDC:"classdc", simple:"weapon-simple", martial:"weapon-martial", unarmed:"weapon-unarmed", advanced:"weapon-advanced", unarmored:"armor-unarmored", light:"armor-light", medium:"armor-medium", heavy:"armor-heavy", spellcasting:"spatk" };
-  let _profTable = null;
+  let _profTable = null, _featRoster = null;
   function _buildProfTable(rows) {
     const t = {};
     for (const r of rows || []) {
@@ -43,6 +43,24 @@
     }
     return t;
   }
+  // 레벨별 클래스특성 로스터 = 성장표 rows[].features 단일소스(build_class_growth.mjs 생성).
+  //   각 항목: {lv, slug/id, name_ko, name_en, kind:subclass|choice|feature, rule_keys}.
+  //   kind가 소비처의 UI·부여 경로를 가름(subclass/choice=선택 UI, feature=auto 재주).
+  function _buildFeatRoster(rows) {
+    const t = {};
+    for (const r of rows || []) {
+      const cls = r.class; if (!cls) continue;
+      for (const f of (r.features || [])) {
+        (t[cls] || (t[cls] = [])).push({
+          lv: r.level, name_ko: f.name_ko, name_en: f.name_en,
+          id: f.slug, slug: f.slug, kind: f.kind || 'feature', rule_keys: f.rule_keys || [],
+        });
+      }
+    }
+    for (const cls in t) t[cls].sort((a, b) => a.lv - b.lv);
+    return t;
+  }
+  function classFeatureRoster(slug) { return (_featRoster && _featRoster[slug]) || null; }
   function _profRows() {
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/class_progression.json","dev/data/derived/class_progression.json"]) { try { return JSON.parse(fs.readFileSync(p,"utf8")).rows || []; } catch(e){} } return []; }
     return null;
@@ -50,8 +68,9 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.158"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
+    _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
     return _profTable;
   }
@@ -80,8 +99,12 @@
     return null;
   }
 
-  // 레벨별 클래스 특성 (CLASS_FEATURE_NAMES 형태) — system.items에서 도출, 한글 해소
+  // 레벨별 클래스 특성 (CLASS_FEATURE_NAMES 형태) = 성장표 로스터 단일소스(slug+kind 포함).
+  //   로스터 미로드(폴백) 시에만 구 경로(doc.system.items 도출, slug/kind 없음).
   function classFeatures(doc) {
+    const slug = doc.system && doc.system.slug;
+    const r = classFeatureRoster(slug);
+    if (r && r.length) return r.map(x => ({ ...x }));
     const items = (doc.system && doc.system.items) || {};
     const out = [];
     for (const it of Object.values(items)) {
@@ -203,7 +226,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.157').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.158').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -222,7 +245,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.157').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.158').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   async function init() {
@@ -291,7 +314,7 @@
 
     // 전 카탈로그 로드 후 재열거 — init 시점에 타 카테고리 미로드로 enrichDesc @link가 영문 스냅샷된 캐시를 정본 한글로 재생성
   function rebuild() { if (_ready) _build(); }
-const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, isLegacy, classFeatures, subclassList, spellTable };
+const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, isLegacy, classFeatures, classFeatureRoster, subclassList, spellTable };
   root.PF2eClass = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

@@ -597,7 +597,9 @@ const DM = (function(){
         inner.innerHTML=close+'<h3>'+esc(r.name_ko)+' <small style="color:var(--text2)">L'+esc(r.level)+'</small></h3><div class="slug">'+esc(r.class)+'</div>'+
           '<div class="sec"><div class="sec-h">숙련 (U/T/E/M/L)</div><div class="layer">'+
           order.map(k=>'<b>'+(COLMETA[k]?COLMETA[k].h:k)+'</b><span>'+esc(r[k])+'</span>').join('')+'</div></div>'+
-          (r._src?'<div class="sec"><div class="sec-h">이 레벨 숙련증가 특성</div><div>'+esc(r._src)+'</div></div>':'');
+          (r.features&&r.features.length?'<div class="sec"><div class="sec-h">이 레벨 획득 클래스 특성</div><div class="layer">'+
+            r.features.map(f=>'<b>'+esc(f.name_ko||f.slug)+'</b><span style="color:var(--text2)">'+esc(f.slug)+' · '+esc(f.kind)+'</span>').join('')+'</div></div>':'')+
+          (r._src?'<div class="sec"><div class="sec-h">데이터 출처</div><div>'+esc(r._src)+'</div></div>':'');
       } else {
         // 범용 파생행 상세 (크리처/해저드/공격/능력/시스템용어/UI용어집/클래스특성/서브클래스)
         const enr=s=>(window.PF2eData&&PF2eData.enrichDesc)?PF2eData.enrichDesc(s):esc(s);
