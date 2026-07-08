@@ -4130,24 +4130,17 @@ function openClassModalAtLevel(targetLv) {
 // ── 클레릭 전용 UI: 교리 + 신격 + 신성 원천 ──
 function _buildClericChoicesUI() {
   // ── 이전 선택값 복원 ──
-  const _savedDoc = state.selectedSubclass?.id || '';
-  const _savedDeity = state.deity || '';
   const _savedSanct = state.sanctification || '';
   const _savedFont = state.divineFont || '';
-  _modalChoices.doctrine = state.selectedClass?.id === 'cleric' ? _savedDoc : '';
-  _modalChoices.deity = state.selectedClass?.id === 'cleric' ? _savedDeity : '';
+  _modalChoices.doctrine = undefined;   // 교리는 일반 서브클래스 선택(_modalChoices.subclass)으로 통합 — 별도 doctrine 게이트 제거
+  _modalChoices.deity = undefined;
   _modalChoices.divineFont = state.selectedClass?.id === 'cleric' ? _savedFont : '';
 
-  // 교리
-  const doctrines = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.filter(s => s.class_id === 'cleric') : [];
-  let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">
-    <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📿 교리 Doctrine</div>
-    <select id="cls-doctrine" onchange="_onClericDoctrineChange(this.value)" style="${_selStyle}">
-      <option value="">— 선택 —</option>
-      ${doctrines.map(d => `<option value="${d.id}"${d.id === _savedDoc ? ' selected' : ''}>${d.name_ko} (${d.name_en})</option>`).join('')}
-    </select>
-    <div id="cls-doctrine-info" style="font-size:10px;color:var(--text2);margin-top:6px;line-height:1.6;"></div>
-  </div>`;
+  // 교리 = 일반 서브클래스 선택 UI로 통합(타 클래스 서브클래스와 동일 방식). 레이블 = subclass_type(교리).
+  const cid = state.selectedClass?.id || 'cleric';
+  const doctrines = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.filter(s => s.class_id === cid) : [];
+  const docLabel = (doctrines[0] && doctrines[0].subclass_type) || '교리';
+  let html = _buildSubclassChoiceUI(cid, docLabel, doctrines);
 
   // 신격 (읽기 전용 — 선택은 성장계획 🙏 신격 슬롯에서. 신격은 클래스 기능이며 그 효과가 기술·무기·주문을 활성화)
   const curDeity = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
@@ -4320,7 +4313,6 @@ function _buildSubclassChoiceUI(classId, label, subs) {
       ${subs.map(s => `<option value="${s.id}"${s.id === _savedSub ? ' selected' : ''}>${s.name_ko} (${s.name_en})</option>`).join('')}
     </select>
     <div id="cls-subclass-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>
-    <div id="cls-subclass-feats"></div>
   </div>`;
   html += `</div>`;
   return html;
@@ -4333,7 +4325,6 @@ function _onSubclassChange(id) {
     const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === id) : null;
     info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>` : '';
   }
-  _renderSubclassFeatsInBlock(id, 'cls-subclass-feats');
   _refreshClassFeaturesPreview();
   _validateInitialChoices();
 }
