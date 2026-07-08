@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.152').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.153').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2206,9 +2206,13 @@ function renderFeats() {
       herDisplay.innerHTML = '';
       herDisplay.appendChild(div);
     } else {
-      herDisplay.innerHTML = '<div style="font-size:11px;color:var(--text2);padding:6px 0;">코어 탭에서 유산을 선택하세요</div>';
+      herDisplay.innerHTML = '';  // 유산 미선택 → 빈 상태(단락 숨김)
     }
   }
+
+  // 서브클래스 특성 단락(클래스 특성 special에서 _subclass/서브클래스 선택특성을 분리) — 매 렌더 초기화
+  const subEl = document.getElementById('feats-subclass');
+  if (subEl) subEl.innerHTML = '';
 
   const types = ['special','ancestry','class','general','skill','archetype','other'];
   const labels = {'special':'클래스 특성','ancestry':'혈통','class':'클래스','general':'일반','skill':'기술','archetype':'원형','other':'기타'};
@@ -2284,8 +2288,17 @@ function renderFeats() {
         if (e.target.closest('.feat-choice-ctrl')) return;
         _toggleFeatAccordion(div);
       });
-      el.appendChild(div);
+      // 서브클래스 부여특성(_subclass)·서브클래스 선택특성(_isSubChoice)은 별도 「서브클래스」 단락으로
+      const targetEl = (t === 'special' && subEl && (f._subclass || _isSubChoice)) ? subEl : el;
+      targetEl.appendChild(div);
     });
+  });
+
+  // 소속 항목이 없는 단락은 박스째 숨김(빈 컨테이너 → 부모 .box display:none). CSS :has 백업 + 확실한 JS 처리.
+  ['feats-special','feats-subclass','heritage-display','feats-ancestry','feats-class','feats-general','feats-skill','feats-archetype','feats-other'].forEach(id => {
+    const c = document.getElementById(id);
+    const box = c && c.closest('.box');
+    if (box) box.style.display = (c.childElementCount === 0) ? 'none' : '';
   });
 }
 
