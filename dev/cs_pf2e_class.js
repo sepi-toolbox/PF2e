@@ -185,12 +185,34 @@
     }
   }
 
+  // 클레릭 교의(Doctrine) = DataManager 단일소스(data/derived/cleric_doctrines.json).
+  //   레벨별 숙련성장(prof_changes)+주문시전 발전(features)은 FVTT 컴펜디움에 없는 기계효과(수작업 정본).
+  //   ⚠ _mergeIntoGlobals 이전에 SUBCLASS_DB에 주입 → FVTT-thin 자동추출(prof_changes 없음) 스킵되게 함.
+  let _doctrinesLoaded = false;
+  function _injectDoctrines(rows) {
+    const SD = (typeof SUBCLASS_DB !== 'undefined') ? SUBCLASS_DB : (root.SUBCLASS_DB || null);
+    if (!SD || !Array.isArray(SD)) return;
+    for (const r of (rows || [])) { if (r && r.id && !SD.some(s => s.id === r.id)) SD.push(r); }
+  }
+  function loadDoctrines() {
+    if (_doctrinesLoaded) return Promise.resolve();
+    if (isNode) {
+      const fs = require('fs');
+      for (const p of ['data/derived/cleric_doctrines.json', 'dev/data/derived/cleric_doctrines.json', '/tmp/PF2e-publish/dev/data/derived/cleric_doctrines.json']) {
+        try { _injectDoctrines(JSON.parse(fs.readFileSync(p, 'utf8')).rows); _doctrinesLoaded = true; break; } catch (e) {}
+      }
+      return Promise.resolve();
+    }
+    return fetch('data/derived/cleric_doctrines.json?v=0.152').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+  }
+
   async function init() {
     if (_ready) return;
     // 서브클래스 grants/특성은 feats·spells 카테고리 필요(getByUuid·tag 조회)
     if (isNode) { PF.loadCategorySync('classes'); PF.loadCategorySync('feats'); PF.loadCategorySync('spells'); }
     else await Promise.all([PF.loadCategory('classes'), PF.loadCategory('feats'), PF.loadCategory('spells')]);
     if (isNode) _ensureProfTable(); else await _ensureProfTable();
+    if (isNode) loadDoctrines(); else await loadDoctrines();  // _mergeIntoGlobals 전에 클레릭 교의 주입
     _build();
     try { _mergeIntoGlobals(); } catch (e) { if (typeof console !== 'undefined') console.warn('PF2eClass 전역 병합 실패', e); }
     _ready = true;
