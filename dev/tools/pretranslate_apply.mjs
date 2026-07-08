@@ -26,7 +26,9 @@ function stripDeadRefs(s) {
 
 // flat check 용어 통일: LLM이 "평판정/평면 판정/단순 판정"으로 제각각 쓴 것을 정본 "플랫 판정"으로.
 function normTerms(s) {
-  return String(s).replace(/평면\s*판정/g, '플랫 판정').replace(/평판정/g, '플랫 판정').replace(/단순\s*판정/g, '플랫 판정');
+  return String(s)
+    .replace(/평면\s*판정/g, '플랫 판정').replace(/평판정/g, '플랫 판정').replace(/단순\s*판정/g, '플랫 판정')
+    .replace(/주님/g, '군주');  // 신격 호칭 "Lord": 현대 기독교 어감 '주님' → 판타지 '군주'
 }
 
 function stripLinkLabels(s) {
