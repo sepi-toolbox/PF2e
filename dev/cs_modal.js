@@ -807,6 +807,16 @@ function _getDeity(id) {
   return (typeof PF2eDeity !== 'undefined' && PF2eDeity.ready && PF2eDeity.ready()) ? (PF2eDeity.getDeityLegacy(id) || null) : null;
 }
 
+// 슬러그→무기 정본명 표시 = @link 단일 경로(원칙#1: 별도 getWeapon().name_ko 해소 금지).
+//   link=true → 인터랙티브 @link 스팬(툴팁), false → 평문(리스트/폼컨트롤용, 동일 리졸버 get('equipment')).
+function weaponRefHtml(slug, link) {
+  if (!slug) return '';
+  if (typeof PF2eData === 'undefined') return slug;
+  if (link && PF2eData.enrichDesc) return PF2eData.enrichDesc('@link[equipment.' + slug + ']');
+  const w = PF2eData.get('equipment', slug);
+  return (w && (w.name_ko || w.name)) || slug;
+}
+
 function openDeityPicker() {
   const _deities = _allDeities();
   if (!_deities.length) return;
@@ -815,7 +825,7 @@ function openDeityPicker() {
     `<div class="opt-row" data-s="${((d.name_ko||'')+' '+(d.name_en||'')+' '+(d.domains_ko||[]).join(' ')).toLowerCase()}" onclick="previewDeity('${d.id}',this)" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
       ${typeof iconImg==='function'&&iconImg('deity',d)?`<div class="opt-row-icon" style="background:none;">${iconImg('deity',d)}</div>`:''}
       <span class="opt-row-name" style="flex:1;">${d.name_ko} <span style="color:var(--text2);font-size:11px;">${d.name_en}</span></span>
-      <span style="font-size:10px;color:var(--text2);">${(typeof getWeapon==='function'&&getWeapon(d.weapon)?.name_ko)||d.weapon||''} / ${(d.sanctification||[]).map(s=>s==='holy'?'신성':'불경').join('·')}</span>
+      <span style="font-size:10px;color:var(--text2);">${weaponRefHtml(d.weapon)} / ${(d.sanctification||[]).map(s=>s==='holy'?'신성':'불경').join('·')}</span>
     </div>`).join('');
   document.getElementById('modal-overlay').classList.remove('hidden');
   document.getElementById('modal-title').textContent = `신격 선택 (${_deities.length})`;
@@ -863,7 +873,7 @@ function previewDeity(id, row) {
     <div class="modal-detail-en">${d.name_en}</div>
     ${titleStr}
     <div style="margin:12px 0;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.7;">
-      <div><b>선호 무기:</b> ${(typeof getWeapon==='function'&&getWeapon(d.weapon)?.name_ko)||d.weapon||'없음'}</div>
+      <div><b>선호 무기:</b> ${d.weapon ? weaponRefHtml(d.weapon, true) : '없음'}</div>
       <div><b>신성화:</b> ${sanctLabel}</div>
       <div><b>신격 기술:</b> ${skillName}</div>
       <div><b>영역:</b> ${domainsStr||'—'}</div>
@@ -4178,7 +4188,7 @@ function _onClericDeityChange(id) {
         </div>
         <div style="margin-top:6px;">
           <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">⚔ 선호 무기</div>
-          <select disabled style="${_selStyle}opacity:0.6;"><option>${(typeof getWeapon==='function'&&getWeapon(d.weapon)?.name_ko)||d.weapon}</option></select>
+          <select disabled style="${_selStyle}opacity:0.6;"><option>${weaponRefHtml(d.weapon)}</option></select>
         </div>`;
     } else {
       detailsEl.innerHTML = '';
