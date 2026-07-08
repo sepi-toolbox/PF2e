@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.134').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.135').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -693,7 +693,7 @@ function applyAttachedRunes(equipIdx) {
         else if (rd.runeType === 'property') {
           if (rd.damage) w._runeDamage.push({ dice: rd.damage.dice, type: rd.damage.type });
           if (rd.persistent) w._runeDamage.push({ dice: rd.persistent.dice, type: rd.persistent.type, persistent: true, on: rd.persistent.on || 'hit' });
-          if (rd.note) w._runeNotes.push((r.name || '') + ': ' + rd.note);
+          if (r.name) w._runeNotes.push(r.name);  // 룬 이름(기계적 정체성)만 표시 — 효과 프로즈는 룬 본문(desc)이 단일 소스
         }
       });
     }
@@ -707,7 +707,7 @@ function applyAttachedRunes(equipIdx) {
       if (rd.runeType === 'potency') state.armorPotency = rd.runeValue;
       else if (rd.runeType === 'resilient') state.armorResilient = rd.runeValue;
       else if (rd.runeType === 'property') {
-        if (rd.note) state.armorRuneNotes.push((r.name || '') + ': ' + rd.note);
+        if (r.name) state.armorRuneNotes.push(r.name);  // 룬 이름만 — 효과 프로즈는 룬 본문(desc)이 단일 소스
       }
     });
   }
@@ -1597,6 +1597,9 @@ function getActionIcons(actions) {
   // 정규 코드(1/2/3/reaction/free)
   const direct = {'1':'1','2':'2','3':'3','reaction':'R','free':'F'};
   if (direct[s]) return G(direct[s]);
+  // 활동시간·특수 비용(전 표면 공용): passive/varies/분·시간 단위 — cs_modal COST_ICON 흡수(원칙#1)
+  const MISC = {'passive':'—','varies':'✦','10min':'10분','1min':'1분','1h':'1시간','1day':'1일','8h':'8시간'};
+  if (MISC[s] !== undefined) return MISC[s];
   // 한글 액션 텍스트: 반응 / 자유 행동 / N행동 / 1~3행동 / 1행동~2행동
   if (s.includes('반응')) return G('R');
   if (s.includes('자유')) return G('F');

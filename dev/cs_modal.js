@@ -3375,22 +3375,11 @@ function _buildFeatActionCard(item) {
   if (!costMatch) return '';
   const costMap = {'반응':'reaction','1행동':'1','2행동':'2','3행동':'3','자유 행동':'free'};
   const costKey = costMap[costMatch[1]] || '1';
-  const costIcon = (typeof getActionCostIcon==='function') ? getActionCostIcon(costKey) : costMatch[0];
-  const traits = (item.traits||[]).map(t => typeof traitTag==='function' ? traitTag(t) : `<span class="tag">${t}</span>`).join(' ');
   let rawDesc = (item.desc||item.summary||'').replace(/^\[(?:반응|1행동|2행동|3행동|자유 행동)\]\s*/, '');
   rawDesc = _stripTraitLine(rawDesc);
   const desc = typeof resolveDescRefs==='function' ? resolveDescRefs(rawDesc) : rawDesc;
-  return `<div class="action-card" style="margin:8px 0;max-width:320px;">
-    <div class="action-card-head">
-      <span class="action-cost">${costIcon}</span>
-      <div style="flex:1;min-width:0;">
-        <div class="action-name-ko">${item.name_ko||item.name||''}</div>
-        <div class="action-name-en">${item.name_en||item.en||''}</div>
-      </div>
-    </div>
-    ${traits ? `<div class="action-traits">${traits}</div>` : ''}
-    <div class="action-summary">${desc}</div>
-  </div>`;
+  // 카드 렌더는 단일 정본 _buildActionCard로 위임(원칙#1) — 비용/이름/트레잇/요약 처리 일원화.
+  return _buildActionCard(costKey, item.name_ko||item.name||'', item.name_en||item.en||'', item.traits||[], desc);
 }
 
 function formatDescActions(text, item) {
@@ -5456,10 +5445,9 @@ function stepCardCondition(name, delta) {
   _afterCondChange();
 }
 
-const COST_ICON = {'1':'<span class="action-glyph">1</span>','2':'<span class="action-glyph">2</span>','3':'<span class="action-glyph">3</span>','reaction':'<span class="action-glyph">R</span>','free':'<span class="action-glyph">F</span>','passive':'—','varies':'✦','10min':'10분','1min':'1분','1h':'1시간','1day':'1일','8h':'8시간'};
-
+// 행동비용→아이콘: 단일 정본 getActionIcons(cs_ui)로 위임(원칙#1, COST_ICON 흡수).
 function getActionCostIcon(cost) {
-  return COST_ICON[cost] || cost;
+  return (typeof getActionIcons === 'function') ? getActionIcons(cost) : cost;
 }
 
 function getSkillRank(skillId) {

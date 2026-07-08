@@ -1,10 +1,4 @@
 {
- "sap-life": {
-  "auto_note": "해로움으로 살아있는 생물에 피해 시 주문 랭크만큼 HP 회복"
- },
- "keen-eyes": {
-  "auto_note": "은폐 DC 5→3, 숨겨짐 DC 11→9"
- },
  "sneak-attack": {
   "damage_note": {
    "scaling": {
@@ -15,87 +9,6 @@
    },
    "damage_type": "정밀"
   }
- },
- "elemental-summons": {
-  "auto_note": "10분 교감으로 준비 주문을 원소 소환으로 교체"
- },
- "blank-slate": {
-  "auto_note": "탐지/폭로/관찰 마법이 감지 불가 (상쇄 랭크 10 이상만 가능)"
- },
- "combat-climber": {
-  "auto_note": "등반 중 무방비 상태 면제. 한 손으로 벽을 잡고 전투 가능"
- },
- "cackle": {
-  "auto_note": "[1행동] 유지 가능한 주술 1개의 지속 시간을 다음 턴 종료까지 연장"
- },
- "eye-for-numbers": {
-  "auto_note": "숫자/계산을 빠르게 파악. 재정/수학 관련 사회 판정에 +2 상황 보너스"
- },
- "restorative-channel": {
-  "auto_note": "치유 원천 슬롯을 희생하여 고통 정화/맑은 마음/건강한 몸/확실한 발놀림 시전"
- },
- "expert-bard-spellcasting": {
-  "auto_note": "주문 공격/DC 전문가. 4랭크 슬롯. 14레벨에 5랭크, 16레벨에 6랭크"
- },
- "snap-shot": {
-  "auto_note": "근접 반응 대신 원거리 무기 타격 가능 (인접 대상). 도달 5피트 취급"
- },
- "bullseye": {
-  "auto_note": "[2행동] 다음 투척 타격에 +1 상황 보너스. 은폐/엄폐 무시"
- },
- "warpriests-armor": {
-  "auto_note": "평갑 숙련. 전문가 이상 획득 시 평갑에도 적용. 2부피+ 갑옷 부피 1 감소"
- },
- "song-of-marching": {
-  "auto_note": "작곡 캔트립: 행군의 노래 습득. 장거리 행군 피로 경감"
- },
- "divine-castigation": {
-  "auto_note": "해로움/치유로 반대 특성 생물에 추가 영혼 피해 (= 주문 랭크)"
- },
- "hazard-finder": {
-  "auto_note": "함정/위험 탐지 +1 상황 보너스. 공격 AC/내성에도 +1. 수색 없이 탐지 가능"
- },
- "aggressive-block": {
-  "auto_note": "방패 막기 시 공격자를 5피트 밀거나 무방비하게 할 수 있음 (선택)"
- },
- "dubious-knowledge": {
-  "auto_note": "지식 회상 실패 시 정확 1개 + 오류 1개 정보 획득 (완전 실패 방지)"
- },
- "guiding-riposte": {
-  "auto_note": "결투 반격 명중 시 대상을 최대 10피트 재배치"
- },
- "seasoned": {
-  "auto_note": "요리/양조에 +1 상황 보너스. 독에 대한 인내 내성 +1"
- },
- "coven-spell": {
-  "auto_note": "위치 2명 이상이 10분 의식으로 의식 주문 1개를 협력 시전"
- },
- "animal-companion-ranger": {
-  "auto_note": "동물 동료 획득. 동물 명령 시 2행동 부여"
- },
- "two-weapon-flurry": {
-  "auto_note": "[1행동] 각 손의 무기로 1회씩 타격 (이전 모멘텀 활용)"
- },
- "harming-hands": {
-  "auto_note": "해로움 시전 시 d8 → d10"
- },
- "fearsome-brute": {
-  "auto_note": "겁먹은 적 타격 시 공포 수치×2 상황 보너스를 피해에 추가 (달인이면 ×3)"
- },
- "disarming-stance": {
-  "auto_note": "[1행동] 자세: 무장 해제에 +1, 무장 해제 방어에 +2 상황 보너스. 2 크기 큰 적에게도 가능"
- },
- "know-it-all": {
-  "auto_note": "지식 회상 성공 시 추가 정보 획득. 대성공 시 추가 질문 가능"
- },
- "spell-tinker": {
-  "auto_note": "유지 중인 주문 1개의 영역/대상/변수를 재설정 가능"
- },
- "master-druid-spellcasting": {
-  "auto_note": "주문 공격/DC 달인. 7랭크 슬롯"
- },
- "harmonize": {
-  "auto_note": "[주문변형] 작곡를 조화시켜 다른 작곡와 동시 유지 가능"
  },
  "orc-lore": {
   "choice": {
@@ -108,63 +21,6 @@
    "options": []
   }
  },
- "dazing-blow": {
-  "auto_note": "[1행동] 붙잡힌 적에 둔기 타격. 명중 시 인내 내성 → 기절 1~3"
- },
- "stay-down": {
-  "auto_note": "[반응] 도달 내 엎드린 적이 일어나려 할 때 운동으로 방해"
- },
- "sneak-adept": {
-  "auto_note": "잠행 실패 시 성공으로 취급 (대실패는 여전히 가능)"
- },
- "invoke-disaster": {
-  "auto_note": "집중 주문: 폭풍 군주 습득"
- },
- "wardens-focus": {
-  "auto_note": "재집중 시 집중 풀 완전 회복"
- },
- "premonition-of-clarity": {
-  "auto_note": "[반응] 시간 1회. 정신 효과 내성 실패 시 +2로 다시 굴림"
- },
- "quick-recognition": {
-  "auto_note": "주문 인식을 자유 행동으로 사용 가능 (1라운드 1회)"
- },
- "ultimate-skirmisher": {
-  "auto_note": "모든 험지/상위 험지/위험 지형 무시. 이동 유발 함정/위험도 무시"
- },
- "vicious-swing": {
-  "auto_note": "[2행동] 근접 타격. 다중 공격 2회로 포함되지만 무기 피해 주사위 1개 추가"
- },
- "monster-warden": {
-  "auto_note": "괴물 사냥꾼 보너스 시 아군 내성 +1 상황 보너스, AC +1 상황 보너스 추가"
- },
- "slam-down": {
-  "auto_note": "[2행동] 근접 타격 명중+피해 시 넘어뜨리기 시도"
- },
- "spell-protection-array": {
-  "auto_note": "일일 준비 시 에너지 유형 선택: 해당 유형 저항 5 (11레벨 10, 17레벨 15)"
- },
- "quick-squeeze": {
-  "auto_note": "비집고 들어가기 1분→5피트/라운드. 전문가=이동 행동 속도"
- },
- "analyze-weakness": {
-  "auto_note": "[1행동] 지식 회상으로 식별한 적. 다음 은밀 공격에 추가 2d6 정밀 피해 (11레벨 3d6, 17레벨 4d6)"
- },
- "keen-magical-detection": {
-  "auto_note": "항상 마법 탐지 활성. 1행동으로 30피트 내 마법 아우라의 위치/학파 파악"
- },
- "robust-recovery": {
-  "auto_note": "질병/독 치료 시 상황 보너스 +2→+4. 대실패→실패"
- },
- "witchs-broom": {
-  "auto_note": "빗자루에 비행 마법 부여. 하루 최대 1시간 비행 (속도 = 이동 속도)"
- },
- "fatal-aria": {
-  "auto_note": "집중 주문: 치명적 아리아 습득. 즉사 효과. 집중 포인트 풀 +1 (최대 3)"
- },
- "legendary-performer": {
-  "auto_note": "공연으로 수백~수천 명에게 인상 만들기. 전설 전용"
- },
  "unconventional-weaponry": {
   "choice": {
    "id": "cho-unconventional-weaponry",
@@ -173,33 +29,6 @@
    "filter": null,
    "options": []
   }
- },
- "uncanny-dodge": {
-  "auto_note": "이점 부정 획득. 은폐/기습의 무방비 면역"
- },
- "esoteric-polymath": {
-  "auto_note": "오컬트 주문서 획득. 일일 준비 시 주문서에서 주문 1개를 레퍼토리에 추가"
- },
- "witchs-communion": {
-  "auto_note": "다른 위치와 10분 의식으로 서로의 사역마에서 임시 주문 1개 준비 가능"
- },
- "parting-shot": {
-  "auto_note": "[2행동] 한 걸음 후 원거리 타격. 대상은 이 공격에 무방비"
- },
- "reactive-transformation": {
-  "auto_note": "[반응] 위험 시 적절한 형태로 야생 형태 자동 시전 (추락→비행, 피해→저항)"
- },
- "hobnobber": {
-  "auto_note": "정보 수집 시간 절반 (30분). 대실패=실패"
- },
- "vigorous-anthem": {
-  "auto_note": "[주문변형] 용감한 찬가 시전 시 아군 전원에 3+매력 수정치 임시 HP (1분)"
- },
- "disarming-twist": {
-  "auto_note": "[1행동] 한 손 무기+빈 손. 타격+무장 해제. 실패 시에도 무방비"
- },
- "unbalancing-blow": {
-  "auto_note": "치명타 피해 시 대상이 다음 턴까지 당신의 공격에 무방비"
  },
  "changeling-lore": {
   "choice": {
@@ -212,9 +41,6 @@
    "options": []
   }
  },
- "light-step": {
-  "auto_note": "보폭/비틀거림 시 험한 지형 무시 (마법 지형 포함)"
- },
  "terrain-expertise": {
   "choice": {
    "id": "cho-terrain-expertise",
@@ -224,167 +50,7 @@
     "repeatable": true
    },
    "options": []
-  },
-  "auto_note": "지형 전문가($choice_name): 해당 지형에서 생존 +1 상황 보너스"
- },
- "incredible-investiture": {
-  "auto_note": "마법 아이템 투자 한도 10→12개"
- },
- "titan-slinger": {
-  "auto_note": "슬링으로 대형+ 적 공격 시 추가 피해"
- },
- "defensive-coordination": {
-  "auto_note": "[주문변형] 결집의 찬가 시전 시 방패 올리기 + 아군 1명도 방패 올리기"
- },
- "witchs-charge": {
-  "auto_note": "아군 1명을 \"책임\"으로 지정. 해당 대상에 대한 주문 공격/DC에 +1 상태 보너스"
- },
- "irresistible-magic": {
-  "auto_note": "주문 내성 대성공을 일반 성공으로 취급 (대상당 주문당 1회)"
- },
- "animal-empathy-ranger": {
-  "auto_note": "동물에게 외교로 인상 만들기/요청 가능"
- },
- "monstrosity-shape": {
-  "auto_note": "괴물 형태(동굴벌레/바다뱀)를 야생 형태 목록에 추가. 비상 형태 시 불사조도"
- },
- "stubborn-persistence": {
-  "auto_note": "의지 내성 대실패→실패"
- },
- "combat-assessment": {
-  "auto_note": "[2행동] 근접 타격. 명중 시 GM이 대상의 AC/내성/약점 중 하나 정보 제공"
- },
- "hex-master": {
-  "auto_note": "턴당 주술 1개 제한 해제. 원하는 만큼 주술 사용 가능"
- },
- "nimble-crawl": {
-  "auto_note": "엎드린 채 이동 시 5피트→절반 속도. 전설=전체 속도"
- },
- "twist-the-knife": {
-  "auto_note": "[1행동] 은밀 공격 피해를 준 무방비 대상에 은밀 공격 주사위 수만큼 지속 출혈"
- },
- "anticipate-ambush": {
-  "auto_note": "절반 속도로 경계. 은신으로 우선권 굴리는 모든 적에 -2 상황 페널티"
- },
- "rebounding-toss": {
-  "auto_note": "[2행동] 투척 타격. 명중 시 10피트 내 다른 적에게 튕겨 추가 타격"
- },
- "side-by-side-ranger": {
-  "auto_note": "동료와 같은 적에 인접 시 위치 무관하게 측면 공격"
- },
- "master-monster-hunter": {
-  "auto_note": "자연학으로 모든 생물 지식 회상 가능. 성공 시에도 괴물 사냥꾼 혜택 적용"
- },
- "sidestep": {
-  "auto_note": "[반응] 타격 실패/대실패 시 공격을 인접 생물에게 리다이렉트"
- },
- "leave-an-opening": {
-  "auto_note": "무방비한 적에 치명 타격 시 아군의 반격 타격을 유발"
- },
- "advanced-school-spell": {
-  "auto_note": "학파의 고급 학파 주문 습득. 집중 포인트 최대치 2로 증가"
- },
- "bargain-hunter": {
-  "auto_note": "외교로 수입 획득 가능. 1레벨 시작 시 추가 2gp"
- },
- "shield-warden": {
-  "auto_note": "방패 올린 상태에서 인접 아군에 대한 공격에도 방패 막기 사용 가능"
- },
- "lightning-swap": {
-  "auto_note": "[자유] 근접 타격 시(굴림 전) 즉시 다른 무기로 교환"
- },
- "dispelling-slice": {
-  "auto_note": "[2행동] 무방비한 대상에 타격. 은밀 공격 피해 시 활성 주문 상쇄 시도"
- },
- "in-tune": {
-  "auto_note": "[주문변형] 방사 작곡의 원점을 60피트 내 아군으로 변경"
- },
- "no-cause-for-alarm": {
-  "auto_note": "[반응] 공포 효과 목격 시 30피트 이내 아군의 공포 수치 1 감소"
- },
- "nonlethal-spell": {
-  "auto_note": "[1행동] 다음 주문에 비치명 특성 부여. 대상을 죽이지 않고 기절시킴"
- },
- "confabulator": {
-  "auto_note": "거짓말 대실패가 실패로. 같은 거짓말 반복 시 상황 페널티 무시"
- },
- "wardens-guidance": {
-  "auto_note": "관측 사냥감 탐색 시 아군의 실패/대실패가 성공으로"
- },
- "lasting-coercion": {
-  "auto_note": "강요 효과 지속시간 증가. 달인=1주일, 전설=무기한"
- },
- "cut-from-the-air": {
-  "auto_note": "[반응] 물리 원거리 타격 대상 시 AC +4 상황 보너스로 요격"
- },
- "pet": {
-  "auto_note": "반려동물 1마리 획득 (사역마 능력 없는 소형 동물)"
- },
- "channeling-block": {
-  "auto_note": "방패 막기 시 해로움/치유 소비 → 랭크당 1d8만큼 방패 경도 증가"
- },
- "ceremonial-knife": {
-  "auto_note": "의식용 칼을 들고 피해 주문 시전 시, 주문 랭크 절반만큼 추가 참격 피해"
- },
- "smash-from-the-air": {
-  "auto_note": "공중 요격을 원거리 주문 공격에 대해서도 사용 가능"
- },
- "quick-unlock": {
-  "auto_note": "자물쇠 따기 2행동→1행동"
- },
- "fascinating-performance": {
-  "auto_note": "공연으로 주변 생물을 매혹. 의지 내성 실패 시 매혹 1라운드"
- },
- "basic-dogma": {
-  "auto_note": "1~2레벨 클레릭 재주 1개 습득"
- },
- "emblazon-armament": {
-  "auto_note": "무기/방패에 신격 상징 각인 (10분). 무기: +1 피해. 방패: +1 경도"
- },
- "flinging-charge": {
-  "auto_note": "[2행동] 보폭 2회(중간에 투척 타격). 명중 시 다음 근접 공격에 무방비"
- },
- "miraculous-possibility": {
-  "auto_note": "일일 준비 시 슬롯 1개를 비워두고, 신성 주문 중 2랭크+ 낮은 주문을 즉석 시전"
- },
- "healing-transformation": {
-  "auto_note": "[1행동] 단일 대상 변신 주문 시 주문 랭크당 1d6 HP 회복"
- },
- "courageous-onslaught": {
-  "auto_note": "[주문변형] 용감한 찬가 시전 시 아군 1명이 반응으로 보폭 후 근접 타격"
- },
- "murksight": {
-  "auto_note": "상위 암시야 또는 비마법 시야 방해 효과(안개/연기) 무시 중 택 1"
- },
- "discordant-voice": {
-  "auto_note": "용감한 찬가 영향 중 아군의 무기/비무장 공격에 추가 1d6 음파 피해"
- },
- "ward-medic": {
-  "auto_note": "부상 치료를 2명에게 동시 적용. 달인=4명, 전설=8명"
- },
- "enigmas-knowledge": {
-  "auto_note": "지식 회상 가능한 모든 기술에 자동 지식 혜택 적용 (라운드당 1회)"
- },
- "forager": {
-  "auto_note": "생존으로 Subsist 시 실패→성공. 성공 시 자신+4명 제공. 전문가=+8명"
- },
- "fey-caller": {
-  "auto_note": "주문 목록에 환영 변장/환영 물체/환영 장면 추가 (원시 주문)"
- },
- "exacting-strike": {
-  "auto_note": "[1행동] 근접 타격. 빗나가면 다중 공격 페널티에 포함 안 됨"
- },
- "overextending-feint": {
-  "auto_note": "속임 성공 시 대상이 모든 공격에 무방비. 대실패 시 당신이 무방비"
- },
- "improved-poison-weapon": {
-  "auto_note": "단순 독이 2d4 독 피해로 증가. 대실패 시 독이 낭비되지 않음"
- },
- "dread-striker": {
-  "auto_note": "겁먹은 생물은 당신의 공격에도 무방비"
- },
- "twin-feint": {
-  "auto_note": "[2행동] 각 손에 근접 무기. 같은 대상에 타격 2회. 두 번째 공격에 자동 무방비"
+  }
  },
  "dwarven-lore": {
   "choice": {
@@ -397,102 +63,6 @@
    "options": []
   }
  },
- "educate-allies": {
-  "auto_note": "작곡 영향 아군에게 해박한 보너스(+1) 전달. 자신은 +2로 증가"
- },
- "call-wizardly-tools": {
-  "auto_note": "60피트 내 볼 수 있는 마법 아이템 1개를 손으로 소환"
- },
- "untrained-improvisation": {
-  "auto_note": "미숙련 기술 판정에 레벨 절반 보너스. 7레벨부터 레벨 전체"
- },
- "bizarre-magic": {
-  "auto_note": "주문 식별 DC +5. 적이 당신의 주문을 식별하기 어려움"
- },
- "order-explorer": {
-  "auto_note": "다른 결사 선택, 해당 결사 1레벨 재주 1개 획득. 반복 선택 가능"
- },
- "inspired-stratagem": {
-  "auto_note": "일일 준비 시 최대 5명과 전략 공유. [반응]으로 아군이 판정을 2번 굴림"
- },
- "guiding-finish": {
-  "auto_note": "[1행동] 한 손 무기+빈 손. 타격 명중 시 최대 10피트 재배치. 실패 시에도 5피트"
- },
- "instant-opening": {
-  "auto_note": "[1행동] 30피트 내 대상 1명이 다음 턴 종료까지 무방비"
- },
- "legendary-negotiation": {
-  "auto_note": "적과 일시 휴전 협상 가능 (전설)"
- },
- "whirlwind-strike": {
-  "auto_note": "[3행동] 근접 도달 내 모든 적에게 타격. 전부 한 후에만 다중 공격 증가"
- },
- "poison-weapon": {
-  "auto_note": "[1행동] 무기에 독 도포. 일일 준비 시 로그 레벨만큼 단순 독(1d4) 준비"
- },
- "earworm": {
-  "auto_note": "10분간 작곡 캔트립을 아군 머릿속에 심어 나중에 자유 행동으로 활성화"
- },
- "quick-repair": {
-  "auto_note": "수리 시간 10분→1분. 달인=3행동"
- },
- "magic-sense": {
-  "auto_note": "부정확 마법 감각 30피트 획득. 탐색으로 정확한 위치 파악 가능"
- },
- "sly-striker": {
-  "auto_note": "무방비하지 않은 생물에도 1d6 정밀 피해 (14레벨에 2d6)"
- },
- "primal-aegis": {
-  "auto_note": "30피트 내 아군 포함 산성/냉기/전기/화염/활력/공허 피해에 지혜 수정치 저항"
- },
- "felling-strike": {
-  "auto_note": "[2행동] 타격 명중+피해 시 비행 적이 최대 120피트 추락. 치명타면 비행 불가"
- },
- "shared-prey": {
-  "auto_note": "사냥감 1명 지정 시 아군 1명에게도 사냥감 추적 혜택 공유"
- },
- "delay-trap": {
-  "auto_note": "[반응] 함정 유발 시 도둑질로 해제 시도. 대성공: 유발 방지/지연"
- },
- "courageous-assault": {
-  "auto_note": "[주문변형] 용감한 찬가 시전 시 아군 1명이 반응으로 근접 타격"
- },
- "masterful-companion": {
-  "auto_note": "사냥감 추적 시 동물 동료도 달인 사냥꾼의 강화 기질 혜택 획득"
- },
- "triple-time": {
-  "auto_note": "작곡 캔트립: 세 박자 습득. 아군 이동 속도 증가"
- },
- "legendary-shot": {
-  "auto_note": "원거리 달인 시 사냥감에 최대 5 사거리 증분까지 페널티 무시"
- },
- "charming-liar": {
-  "auto_note": "거짓말 대성공 시 대상이 1분간 우호적"
- },
- "divine-apex": {
-  "auto_note": "일일 준비 시 아이템에 정점 특성 부여. 신성 속성 수정치 +1 또는 +4"
- },
- "masterful-warden": {
-  "auto_note": "집중 주문: 달인 관리인 주문 1개 습득. 반복 선택 가능"
- },
- "agile-grace": {
-  "auto_note": "민첩 무기의 다중 공격 페널티가 -3/-6으로 감소 (일반 -4/-8 대신)"
- },
- "ley-line-conduit": {
-  "auto_note": "[1행동] 분당 1회. 5랭크 이하 지속 없는 주문을 슬롯 소비 없이 시전"
- },
- "distracting-shot": {
-  "auto_note": "사냥감에 원거리 치명타 또는 동일 턴 2회 명중 시 다음 턴까지 무방비"
- },
- "sudden-leap": {
-  "auto_note": "[2행동] 도약/높이뛰기/멀리뛰기 중 근접 타격 1회. 도약 높이 이하 추락 피해 없음"
- },
- "wandering-oasis": {
-  "auto_note": "60피트 내 아군 포함 극심한 환경 열/추위 보호. 생존 전설이면 극단적까지"
- },
- "sleek-reposition": {
-  "auto_note": "[1행동] 기교/장창으로 타격. 명중 시 자동 재배치. 실패 시에도 무방비"
- },
  "additional-lore": {
   "choice": {
    "id": "cho-additional-lore",
@@ -501,7 +71,6 @@
    "filter": null,
    "options": []
   },
-  "auto_note": "추가 지식($choice_name) 훈련. 3/7/15레벨에 전문가·달인·전설로 상승",
   "rows": [
    {
     "type": "grant_lore",
@@ -535,25 +104,12 @@
    "filter": null,
    "options": []
   },
-  "auto_note": "원하는 지식 1개 훈련(추가 지식과 동일). 부여 재주는 배경 구조데이터에서 방출.",
   "rows": [
    {
     "type": "grant_lore",
     "target": "$choice"
    }
   ]
- },
- "reconstruct-the-scene": {
-  "auto_note": "[1행동] 1분간 조사하여 지난 하루 사건의 불명확한 인상을 받음"
- },
- "pilgrims-token": {
-  "auto_note": "신성한 부적 소지. 마법에 대한 의지 내성 +1 상황 보너스"
- },
- "raise-menhir": {
-  "auto_note": "시간당 1회. 30피트 내 선돌/수호수 세움. 15피트 내 비전/신성/오컬트 내성 +2 상태 보너스"
- },
- "overpowering-charge": {
-  "auto_note": "돌진 충격으로 통과 시 근력 수정치 둔기 피해 (대성공 시 2배+무방비)"
  },
  "multitalented": {
   "choice": {
@@ -573,36 +129,6 @@
    "options": []
   }
  },
- "sly-disarm": {
-  "auto_note": "운동 대신 도둑질로 무장 해제 가능. 성공 시 대상이 무방비"
- },
- "anthemic-performance": {
-  "auto_note": "작곡 캔트립: 용기의 찬가 습득"
- },
- "second-sting": {
-  "auto_note": "[1행동] 양손 근접 무기로 사냥감 타격. 실패 시 다른 무기의 피해(주사위 제외) 적용"
- },
- "improved-twin-riposte-ranger": {
-  "auto_note": "턴 시작 시 쌍검 반격 전용 추가 반응 1회. 쌍검 방어 없이도 사용"
- },
- "hierophants-power": {
-  "auto_note": "추가 10랭크 주문 슬롯 획득"
- },
- "methodical-debilitations": {
-  "auto_note": "추가 쇠약: 측면 공격 불가, 엄폐 보너스 무효화"
- },
- "steady-balance": {
-  "auto_note": "균형 잡기 판정 성공→대성공. 무방비 상태 아님. 험지에서 보폭 가능"
- },
- "primal-howl": {
-  "auto_note": "동료의 원시 울음: 30피트 원뿔 음파 피해 (레벨 2당 1d6). 실패=공포 1, 대실패=공포 2"
- },
- "crossbow-ace": {
-  "auto_note": "사냥감 추적 후 석궁 타격 시 추가 피해 2 (반복 석궁 +1). 재장전 시간 -1"
- },
- "clever-gambit": {
-  "auto_note": "[반응] 지식 회상으로 식별한 적에 치명 성공 시 인접 아군이 비틀거림 또는 타격"
- },
  "general-training": {
   "choice": {
    "id": "cho-general-training",
@@ -616,108 +142,6 @@
    "options": []
   }
  },
- "adaptive-adept": {
-  "auto_note": "1랭크 주문 1개를 타고난 주문으로 획득"
- },
- "basic-arcana": {
-  "auto_note": "1~2레벨 위저드 재주 1개 습득"
- },
- "patrons-claim": {
-  "auto_note": "주술로 피해를 준 적에게 1분간 내성 굴림 -2 상태 페널티"
- },
- "incredible-aim": {
-  "auto_note": "[2행동] 원거리 타격에 +2 상황 보너스, 대상의 은폐 무시"
- },
- "snare-crafting": {
-  "auto_note": "간단한 덫 4종 제조법 습득. 덫 제작 가능"
- },
- "scintillating-spell": {
-  "auto_note": "[1행동] 다음 주문 피해 대상에 현혹됨 1라운드 (치명실패 시 실명 1라운드)"
- },
- "deitys-protection": {
-  "auto_note": "영역 주문 시전 후 다음 턴까지 모든 피해 저항 (영역 주문 랭크만큼)"
- },
- "ritual-researcher": {
-  "auto_note": "오컬티즘으로 의식 학습 가능. 보조 판정 성공도 한 단계 향상"
- },
- "brutal-beating": {
-  "auto_note": "치명타로 피해 시 대상에게 공포 1"
- },
- "manifold-edge": {
-  "auto_note": "사냥감 추적 시 1레벨 기질 대신 다른 기질 혜택 선택 가능"
- },
- "deadly-simplicity": {
-  "auto_note": "신격 선호 무기(d6 이하 단순/비무장)의 피해 주사위 한 단계 증가"
- },
- "resurrectionist": {
-  "auto_note": "빈사/사망 생물 HP 회복 시 1분간 빠른 치유 5 부여"
- },
- "lie-to-me": {
-  "auto_note": "기만으로 거짓말 감지 가능 (지각 대신)"
- },
- "arcane-breadth": {
-  "auto_note": "위저드 원형 주문 슬롯 수 증가"
- },
- "animal-accomplice": {
-  "auto_note": "사역마 1마리 획득"
- },
- "triple-threat": {
-  "auto_note": "사냥감 추적 시 3명 지정 또는 2명+아군 공유 또는 1명+아군 2명 공유"
- },
- "hellspawn": {
-  "auto_note": "법률 지식 숙련. 거짓 간파 재주 획득"
- },
- "elemental-shape": {
-  "auto_note": "원소 형태를 야생 형태 목록에 추가. 변신 중 화염 저항 5"
- },
- "storm-retribution": {
-  "auto_note": "[반응] 인접 적의 근접 치명타 시 폭풍 급습 시전. 실패 시 5피트 밀어냄"
- },
- "nimble-roll": {
-  "auto_note": "날렵한 회피를 반사 내성에도 사용 가능. 회피 성공 시 10피트 보폭"
- },
- "spellbook-prodigy": {
-  "auto_note": "주문서 시작 캔트립 10→12개. 레벨업 시 추가 주문 2→3개"
- },
- "rapid-mantel": {
-  "auto_note": "난간/턱에 매달린 상태에서 일어서기를 자유 행동으로"
- },
- "fey-fellowship": {
-  "auto_note": "페이와의 외교/지각에 +2 상황 보너스"
- },
- "specialized-companion-ranger": {
-  "auto_note": "동물 동료 성장: 전문화 1개. 비무장 전문가, 내성/감지 달인. 최대 3회"
- },
- "fortissimo-composition": {
-  "auto_note": "작곡 강화. 집중 포인트 풀 +1 (최대 3)"
- },
- "song-of-strength": {
-  "auto_note": "작곡 캔트립: 힘의 노래 습득. 아군의 운동 판정 보조"
- },
- "rough-rider": {
-  "auto_note": "고블린 개/늑대 탈것에 동물 명령 +1 상황 보너스"
- },
- "hunters-aim": {
-  "auto_note": "[2행동] 사냥감에 원거리 타격 +2 상황 보너스. 은폐/하위 엄폐 무시"
- },
- "harmlessly-cute": {
-  "auto_note": "기만으로 우선권 굴릴 때 +1 상황 보너스"
- },
- "legendary-professional": {
-  "auto_note": "지식으로 수입 획득 시 최대 20레벨 과업 수행 가능. 전설 전용"
- },
- "expeditious-search": {
-  "auto_note": "탐색 영역 2배. 달인=4배 속도로 탐색"
- },
- "grown-of-oak": {
-  "auto_note": "참나무 회복력을 원시 선천 주문으로 자유 시전 가능 (자신+레시 사역마)"
- },
- "superior-bond": {
-  "auto_note": "결합 아이템 소진을 하루 2회 사용 가능"
- },
- "twin-takedown": {
-  "auto_note": "[1행동] 양손 근접 무기로 사냥감에 각 1회씩 타격"
- },
  "automatic-knowledge": {
   "choice": {
    "id": "cho-automatic-knowledge",
@@ -730,23 +154,7 @@
     "repeatable": true
    },
    "options": []
-  },
-  "auto_note": "자동 지식($choice_name): 1라운드 1회 자유 행동으로 지식 회상 (확인 결과 사용)"
- },
- "remediate": {
-  "auto_note": "[주문변형] 시간 1회. 3행동 원천 해로움/치유 시전 시 영역 내 신성 효과 1개 상쇄 시도"
- },
- "lengthy-diversion": {
-  "auto_note": "주의 분산 효과가 1분 지속 (적의 행동 전까지)"
- },
- "dual-handed-assault": {
-  "auto_note": "[2행동] 한 손 무기+빈 손. 양손으로 잡아 피해 주사위 증가"
- },
- "powerful-leap": {
-  "auto_note": "수직 도약 5피트, 수평 도약 방향 5피트 자동 성공 (판정 불필요)"
- },
- "to-the-ends-of-the-earth": {
-  "auto_note": "100피트 내 사냥감 추적 시 거리 무관하게 위치 파악. 전설=차원 이동도 추적"
+  }
  },
  "stonemasons-eye": {
   "choice": {
@@ -772,84 +180,6 @@
    "options": []
   }
  },
- "powerful-sneak": {
-  "auto_note": "은밀 공격이 정밀 피해 면역/저항 무시. 미탐지 시 주사위 3 미만=3"
- },
- "primal-summons": {
-  "auto_note": "집중 주문: 원시 소환 습득. 소환 생물에 원소 힘 부여"
- },
- "plant-shape": {
-  "auto_note": "식물 형태를 야생 형태 목록에 추가. 변신 중 독 저항 5"
- },
- "foil-senses": {
-  "auto_note": "숨기/잠행 시 항상 특수 감각(후각/진동감지 등)에 대한 예방 조치를 취하는 것으로 간주"
- },
- "boundless-reprisals": {
-  "auto_note": "각 적의 턴 시작에 파이터 반응 전용 추가 반응 1회"
- },
- "clever-counterspell": {
-  "auto_note": "같은 주문 없이도 같은 전통의 유사 랭크 주문으로 반격 가능"
- },
- "legendary-thief": {
-  "auto_note": "장착/고정된 물건도 소매치기 가능. 전설 전용"
- },
- "felling-shot": {
-  "auto_note": "[2행동] 무방비한 생물에 원거리 타격. 명중 시 반사 내성 → 최대 120피트 추락"
- },
- "quick-identification": {
-  "auto_note": "마법 식별 10분→1분. 달인=3행동, 전설=1행동"
- },
- "swift-sneak": {
-  "auto_note": "잠행 시 전체 이동 속도 사용 가능 (절반 대신)"
- },
- "weapon-supremacy": {
-  "auto_note": "영구적으로 빠른 상태. 추가 행동은 타격에만 사용 가능"
- },
- "linked-focus": {
-  "auto_note": "결합 아이템 소진으로 학파 주문 시전 시 집중 포인트 1점 회복"
- },
- "revealing-stab": {
-  "auto_note": "[2행동] 관통 무기로 감지 불가 적에 타격. 명중 시 무기를 박아 위치 노출"
- },
- "ranger-resiliency": {
-  "auto_note": "레인저 원형 재주당 HP +3"
- },
- "basic-muses-whispers": {
-  "auto_note": "1~2레벨 바드 재주 1개 습득"
- },
- "call-and-response": {
-  "auto_note": "[주문변형] 작곡 캔트립을 호응 형태로 — 아군 1명이 1행동으로 지속 연장"
- },
- "iron-fists": {
-  "auto_note": "주먹 비무장 피해 1d4→1d6"
- },
- "swipe": {
-  "auto_note": "[2행동] 인접한 최대 2명에게 한 번의 명중 굴림으로 타격"
- },
- "divine-infusion": {
-  "auto_note": "[주문변형] HP 회복 해로움/치유 시전 시 대상 근접 공격에 추가 1d6 공허/활력 피해 (5랭크 2d6, 8랭크 3d6)"
- },
- "wind-caller": {
-  "auto_note": "집중 주문: 폭풍바람 비행 습득"
- },
- "courtly-graces": {
-  "auto_note": "사회로 인상 만들기 가능. 귀족/궁정 예절에 정통"
- },
- "bloody-blows": {
-  "auto_note": "치명타 시 대상에게 공포 1 부여"
- },
- "shameless-request": {
-  "auto_note": "뻔뻔한 요청 시 페널티 감소. 대실패=실패"
- },
- "heroic-recovery": {
-  "auto_note": "[주문변형] 단일 대상 치유로 HP 회복 시: 이동 +5피트, 공격 +1, 피해 +1. 엎드림 즉시 해제"
- },
- "speak-with-kindred": {
-  "auto_note": "식물/균류에게 외교 사용 가능. 자신의 종류에 +2 상황 보너스"
- },
- "premonition-of-avoidance": {
-  "auto_note": "[반응] 위험에 대한 내성 굴림에 +2 상황 보너스"
- },
  "otherworldly-acumen": {
   "choice": {
    "id": "cho-otherworldly-acumen",
@@ -861,105 +191,6 @@
    },
    "options": []
   }
- },
- "legendary-medic": {
-  "auto_note": "1시간 치료로 탈진/실명/귀머거리 등 심각한 상태 치유 가능. 전설 전용"
- },
- "hidden-paragon": {
-  "auto_note": "시간당 1회. 모든 적에게 숨겨짐/미탐지 시 1분간 투명 (적대 행동해도 유지)"
- },
- "split-hex": {
-  "auto_note": "단일 대상 주술 시전 시 사거리 내 두 번째 대상에게도 적용"
- },
- "group-impression": {
-  "auto_note": "인상 만들기를 최대 4명에게 동시 사용 가능"
- },
- "titan-wrestler": {
-  "auto_note": "자신보다 2단계 큰 생물에게도 붙잡기/무장해제 등 시도 가능"
- },
- "siphon-power": {
-  "auto_note": "주문 슬롯 소진 시에도 최고 랭크 미만 주문 1개 추가 시전 가능 (하루 1회)"
- },
- "summon-nephilim-kin": {
-  "auto_note": "5랭크 소환 주문을 신성 선천 주문으로 하루 1회"
- },
- "impossible-polymath": {
-  "auto_note": "주문학→비전, 자연학→원시, 종교학→신성 주문을 주문서에 추가 가능"
- },
- "infinite-possibilities": {
-  "auto_note": "주문 슬롯 소진 시에도 최고 랭크 미만 주문 1개 추가 시전 가능 (하루 1회)"
- },
- "reactive-distraction": {
-  "auto_note": "[반응] 공격/효과 대상 시 미끼와 자리를 바꿈. 미끼가 대신 대상"
- },
- "criminal-connections": {
-  "auto_note": "뒷세계 인맥으로 암시장 접근. 불법 물품 입수/판매 가능"
- },
- "cat-fall": {
-  "auto_note": "낙하 피해 감소. 숙련=10피트, 전문가=25피트, 달인=50피트 무시. 전설=추락 면역"
- },
- "ferocious-shape": {
-  "auto_note": "공룡 형태를 야생 형태 목록에 추가. 운동 부여 형태 시 +1 상태 보너스"
- },
- "soothing-ballad": {
-  "auto_note": "집중 주문: 위로의 발라드 습득. 아군 치유. 집중 포인트 풀 +1 (최대 3)"
- },
- "bounce-back": {
-  "auto_note": "[자유 행동] 하루 1회. 빈사 해제 시 부상 수치 미증가"
- },
- "surging-focus": {
-  "auto_note": "[반응] 하루 1회. 아군 HP 0 시 집중 포인트 1점 즉시 회복"
- },
- "tactical-entry": {
-  "auto_note": "[1행동] 은신으로 우선권 굴린 첫 턴에 보폭 (반응 유발 안 함)"
- },
- "avatars-protection": {
-  "auto_note": "[반응] 치명타 수신 시 아바타 즉시 시전. 치명타→일반 명중으로 감소 + 임시 HP"
- },
- "recognize-spell": {
-  "auto_note": "[반응] 주문 시전 목격 시 주문 식별. 2랭크 이하 일반 주문 자동 식별"
- },
- "perfect-distraction": {
-  "auto_note": "미끼를 남기고 잠행. 오도 주문처럼 작동. 10분 준비 필요"
- },
- "stealthy-companion": {
-  "auto_note": "동물 동료도 위장 혜택 획득. 매복형 전문화 시 은신 달인"
- },
- "fast-recovery": {
-  "auto_note": "휴식 시 HP 회복 2배 (CON×2×레벨). 탈진/파멸 회복량 +1"
- },
- "energized-font": {
-  "auto_note": "추가 집중 포인트 1점 또는 타고난 주문 슬롯 추가"
- },
- "rock-runner": {
-  "auto_note": "바위/흙 험한 지형 이동 페널티 없음"
- },
- "basic-bard-spellcasting": {
-  "auto_note": "기초 주문시전 혜택: 1랭크 주문 슬롯 1개. 6레벨에 2랭크, 8레벨에 3랭크 슬롯 추가"
- },
- "disruptive-stance": {
-  "auto_note": "[1행동] 자세: 집중 행동에도 반격 타격 가능. 명중만으로 집중/조작 행동 방해"
- },
- "insect-shape": {
-  "auto_note": "곤충 형태를 야생 형태 목록에 추가. 비비행 곤충 시 24시간 지속"
- },
- "goblin-weapon-familiarity": {
-  "auto_note": "고블린 특성 무기에 친숙 (군용→단순, 고급→군용)"
- },
- "rapid-response": {
-  "auto_note": "[반응] 아군 HP 0 시 아군 방향으로 보폭 (이동 속도 +10피트)"
- },
- "strong-arm": {
-  "auto_note": "투척 무기의 사거리 증분 10피트 증가"
- },
- "impossible-flurry": {
-  "auto_note": "[3행동] 양손 근접 무기로 각 3회씩 타격 (다중 공격 페널티 적용)"
- },
- "reactive-striker": {
-  "auto_note": "반격 타격 반응 획득"
- },
- "quick-climb": {
-  "auto_note": "등반 시 전체 속도 이동. 대성공 시 추가 5피트"
  },
  "skill-training": {
   "choice": {
@@ -975,27 +206,6 @@
    "options": []
   }
  },
- "multilingual": {
-  "auto_note": "추가 언어 2개 습득. 전문가=비일반 언어도 가능. 이 재주 반복 선택 가능"
- },
- "panic-the-dead": {
-  "auto_note": "치유로 언데드에 피해 시 내성 실패 → 공포 1. 대실패 → 도주 추가"
- },
- "annotate-composition": {
-  "auto_note": "10분 + 집중 포인트 1점으로 작곡를 두루마리에 전사. 다른 이가 읽어 활성화"
- },
- "expert-cleric-spellcasting": {
-  "auto_note": "주문 공격/DC 전문가. 4랭크 슬롯. 14레벨에 5랭크, 16레벨에 6랭크"
- },
- "fighter-resiliency": {
-  "auto_note": "파이터 원형 재주당 HP +3"
- },
- "master-wizard-spellcasting": {
-  "auto_note": "주문 공격/DC 달인. 7랭크 슬롯"
- },
- "basic-druid-spellcasting": {
-  "auto_note": "기초 주문시전 혜택"
- },
  "otherworldly-magic": {
   "choice": {
    "id": "cho-otherworldly-magic",
@@ -1006,12 +216,6 @@
    },
    "options": []
   }
- },
- "impeccable-crafting": {
-  "auto_note": "전문 제작 분야에서 제작 성공→대성공"
- },
- "orc-ferocity": {
-  "auto_note": "[반응] HP 0 시 HP 1로 유지. 하루 1회"
  },
  "natural-ambition": {
   "choice": {
@@ -1026,21 +230,6 @@
    "options": []
   }
  },
- "opportune-backstab": {
-  "auto_note": "[반응] 도달 내 생물이 아군 근접 공격에 명중당하면 타격"
- },
- "double-shot": {
-  "auto_note": "[2행동] 재장전 0 원거리 무기. 서로 다른 대상에 각 -2로 타격 2회"
- },
- "rebounding-smite": {
-  "auto_note": "[반응] 채널 강타 빗나감 시 해로움/치유 1행동 버전을 다른 생물에 시전"
- },
- "bonded-focus": {
-  "auto_note": "재집중 시 집중 풀을 완전히 채움"
- },
- "studious-capacity": {
-  "auto_note": "하루 1회 추가 주문 시전 가능 (최고 랭크 제외)"
- },
  "specialty-crafting": {
   "choice": {
    "id": "cho-specialty-crafting",
@@ -1048,35 +237,7 @@
    "label": "전문 제작 분야를 선택하세요",
    "filter": null,
    "options": []
-  },
-  "auto_note": "전문 제작($choice_name): 해당 분야 제작에 +1 상황 보너스, 전문가=+2"
- },
- "ultimate-polymath": {
-  "auto_note": "레퍼토리의 모든 주문이 시그니처 주문"
- },
- "goblin-song": {
-  "auto_note": "[1행동] 적의 지각/의지에 -1 상태 페널티"
- },
- "bloody-debilitation": {
-  "auto_note": "추가 쇠약: 3d6 지속 출혈 피해"
- },
- "arcane-school-spell": {
-  "auto_note": "학파의 초기 학파 주문 습득. 집중 포인트 풀 획득"
- },
- "ranger-dedication": {
-  "auto_note": "레인저 클래스 DC 숙련"
- },
- "mobility": {
-  "auto_note": "절반 속도 이하로 보폭하면 이동이 반응을 유발하지 않음"
- },
- "triumphant-inspiration": {
-  "auto_note": "[자유행동] 적 쓰러뜨릴 때 1행동 작곡 캔트립 즉시 시전"
- },
- "wary-disarmament": {
-  "auto_note": "함정 해제 대실패 시 +2 상황 보너스로 반사 내성"
- },
- "primal-focus": {
-  "auto_note": "재집중 시 집중 풀 완전 회복"
+  }
  },
  "natural-skill": {
   "choice": {
@@ -1092,148 +253,10 @@
    "options": []
   }
  },
- "slippery-secrets": {
-  "auto_note": "거짓말 감지/판독 불가 효과에 대한 의지 내성 +1 상황 보너스"
- },
- "haughty-obstinacy": {
-  "auto_note": "정신 효과 내성 성공→대성공. 명령/지배에 +2"
- },
- "ride": {
-  "auto_note": "탈것 명령 시 이동 행동 자동 성공"
- },
- "ricochet-stance-rogue": {
-  "auto_note": "[1행동] 자세: 투척 무기가 사거리 내에서 즉시 손으로 돌아옴"
- },
- "form-control": {
-  "auto_note": "[1행동] 야생 형태 랭크 -2 대신 지속 시간 최대 1시간으로 연장"
- },
- "multishot-stance": {
-  "auto_note": "[1행동] 자세: 이중 사격 페널티 -1로 감소. 이동 시 자세 종료"
- },
- "wardens-reload": {
-  "auto_note": "라운드당 1회. 관리인 주문 시전 후 무기 즉시 재장전"
- },
- "orc-sight": {
-  "auto_note": "암시야 획득"
- },
- "basic-wizard-spellcasting": {
-  "auto_note": "기초 주문시전 혜택. 주문서에 주문 추가"
- },
- "patrons-truth": {
-  "auto_note": "추가 10랭크 주문 슬롯 1개 획득"
- },
- "leshy-glide": {
-  "auto_note": "[1행동] 5피트 아래로 최대 25피트 앞으로 활공"
- },
- "quick-reversal": {
-  "auto_note": "[1행동] 측면 공격받는 중 한 적에 타격 후 다른 측면 적에 추가 타격"
- },
- "witchs-hut": {
-  "auto_note": "후원자의 힘으로 이동 가능한 오두막 거주지 생성 (매그니피센트 맨션 유사)"
- },
- "magic-hands": {
-  "auto_note": "상처 치료 시 d8→d10. 치유에 레벨만큼 상태 보너스"
- },
- "void-siphon": {
-  "auto_note": "해로움에 살아있는 생물이 대실패 시 소진 1"
- },
- "lasting-armament": {
-  "auto_note": "무장 성별화 지속 1라운드 → 1시간"
- },
- "echoing-channel": {
-  "auto_note": "[주문변형] 2행동 해로움/치유로 단일 대상 시 추가 1명에 1행동 버전 적용 (슬롯 불필요)"
- },
- "positioning-assault": {
-  "auto_note": "[2행동] 양손 근접 타격 명중 시 대상을 5피트 재배치"
- },
- "companions-cry": {
-  "auto_note": "동물 명령에 2행동 소비 시 동료가 추가 행동 1개 획득"
- },
- "eclectic-skill": {
-  "auto_note": "미숙련 기술 숙련 보너스 = 레벨. 숙련 필요 행동도 미숙련으로 시도 가능"
- },
  "thorned-seedpod": {
   "damage_note": {
    "text": "씨앗 꼬투리 대성공 시 1d4 지속 관통 피해"
   }
- },
- "cloud-jump": {
-  "auto_note": "도약 거리 제한 해제. 운동 판정 결과만큼 수직/수평 이동. 전설 전용"
- },
- "legendary-survivalist": {
-  "auto_note": "극한 환경에서도 자동 생존. 전설 전용"
- },
- "order-spell": {
-  "auto_note": "교단의 초기 집중 주문 습득. 집중 포인트 풀 획득/확장"
- },
- "advanced-arcana": {
-  "auto_note": "위저드 재주 1개 습득 (위저드 레벨 = 캐릭터 레벨/2). 반복 선택 가능"
- },
- "timeless-nature": {
-  "auto_note": "노화 정지. 질병/원시 마법 내성 +2 상태 보너스"
- },
- "swift-elusion": {
-  "auto_note": "[반응] 적이 인접 이동 종료 시 곡예 판정으로 재배치"
- },
- "divine-weapon": {
-  "auto_note": "[자유행동] 신성 주문 시전 완료 시 턴 종료까지 무기에 추가 1d4 영혼 피해 (반대 특성 2d4)"
- },
- "sow-spell": {
-  "auto_note": "[1행동] 주문을 인접 칸에 심어 10분 내 반응으로 발동 (진입 시 유발)"
- },
- "fortunate-relief": {
-  "auto_note": "치유 주문으로 상태 상쇄 시 판정을 두 번 굴리고 높은 결과 사용"
- },
- "incredible-companion-ranger": {
-  "auto_note": "동물 동료 성장: 민첩(민첩+2, 피해+2) 또는 야만(힘+2, 피해+3). 마법 공격"
- },
- "deimatic-display": {
-  "auto_note": "15피트 원뿔 내 동물/균류/식물에게 사기 꺾기. 시각 특성, 언어 페널티 없음"
- },
- "master-spotter": {
-  "auto_note": "지각 숙련도 달인으로 증가"
- },
- "inspirational-focus": {
-  "auto_note": "재집중 시 집중 풀 완전 회복"
- },
- "forcible-energy": {
-  "auto_note": "에너지 삭마의 약점이 추가 3 증가"
- },
- "fiendish-magic": {
-  "auto_note": "2랭크 신성 선천 주문 2개 하루 1회 (변장 마법, 거짓 활력, 투명화, 투시, 분쇄, 편집증 중 선택)"
- },
- "pied-piping": {
-  "auto_note": "집중 주문: 피리 부는 사나이 습득. 의지 약한 생물 지배. 집중 포인트 풀 +1 (최대 3)"
- },
- "sapping-symbol": {
-  "auto_note": "[반응] 상징 올린 상태에서 근접 피해 시 종교 판정 → 공격자 약화 1/2"
- },
- "assisting-shot": {
-  "auto_note": "[1행동] 원거리 타격. 명중 시 대상이 다음 공격에 무방비"
- },
- "storm-born": {
-  "auto_note": "날씨로 인한 원거리 주문/지각 상황 페널티 무시. 날씨 은폐 단순 판정 불필요"
- },
- "goblin-scuttle": {
-  "auto_note": "[반응] 아군 인접 이동 시 비틀거림 가능"
- },
- "evasiveness": {
-  "auto_note": "반사 내성 숙련도 달인으로 증가"
- },
- "ricochet-feint": {
-  "auto_note": "도탄 자세 중 투척 사거리 내 생물에게도 속임 가능"
- },
- "symphony-of-the-unfettered-heart": {
-  "auto_note": "집중 주문: 속박 해방의 교향곡 습득. 무력화 상태 보호. 집중 포인트 풀 +1 (최대 3)"
- },
- "terrain-master": {
-  "auto_note": "1시간 연습으로 현재 지형을 선호 지형으로 임시 교체"
- },
- "sympathetic-strike": {
-  "auto_note": "[1행동] 단일 대상 피해 주문 시전 시, 대상 인접 생물 1명에게도 절반 피해"
- },
- "loremasters-etude": {
-  "auto_note": "지식 회상 보조. 집중 포인트 풀 +1 (최대 3)"
  },
  "halfling-lore": {
   "choice": {
@@ -1245,18 +268,6 @@
    },
    "options": []
   }
- },
- "reactive-pursuit": {
-  "auto_note": "[반응] 인접 적이 멀어질 때 보폭하여 적에 인접하게 유지"
- },
- "far-throw": {
-  "auto_note": "투척 무기의 추가 사거리 증분 페널티가 -2 대신 -1"
- },
- "untamed-form": {
-  "auto_note": "집중 주문: 야생 형태 습득. 다양한 형태로 변신"
- },
- "legendary-monster-hunter": {
-  "auto_note": "괴물 사냥꾼(+괴물 수호) 보너스 +1 → +2로 증가"
  },
  "assurance": {
   "choice": {
@@ -1270,38 +281,7 @@
     "repeatable": true
    },
    "options": []
-  },
-  "auto_note": "확신($choice_name): 굴림 대신 10 + 숙련 보너스 사용"
- },
- "peerless-warden": {
-  "auto_note": "집중 주문: 무적 관리인 주문 1개 습득. 반복 선택 가능"
- },
- "split-slot": {
-  "auto_note": "주문 슬롯 1개를 2랭크 낮은 슬롯 2개로 분할 (각각 다른 주문 준비)"
- },
- "natural-medicine": {
-  "auto_note": "자연학으로 부상 치료 가능"
- },
- "emotional-push": {
-  "auto_note": "[반응] 적이 감정 주문 내성 실패 시, 대상이 다음 공격에 무방비"
- },
- "zealous-rush": {
-  "auto_note": "[자유행동] 자기 대상 신성 주문 시전 시 10피트 보폭 (2행동+ 주문이면 전체 속도)"
- },
- "glean-contents": {
-  "auto_note": "봉인된 용기/서신의 내용물을 외부에서 추정. 사회 판정으로 파악"
- },
- "patrons-breadth": {
-  "auto_note": "위치 원형 주문 슬롯 수 증가"
- },
- "hags-sight": {
-  "auto_note": "암시야 획득"
- },
- "streetwise": {
-  "auto_note": "도시에서 정보 수집에 사회 사용 가능. 전문가=도시 정세 자동 파악"
- },
- "wall-jump": {
-  "auto_note": "등반 중 도약 가능. 벽 사이 연속 점프 가능"
+  }
  },
  "adapted-cantrip": {
   "choice": {
@@ -1314,84 +294,6 @@
    "options": []
   }
  },
- "intimidating-prowess": {
-  "auto_note": "사기 꺾기에 상황 보너스 +1 (전문가 +2). 요건: 근력 16"
- },
- "witchs-armaments": {
-  "auto_note": "경갑 숙련. 군용 무기 1그룹을 단순 무기로 취급"
- },
- "divine-breadth": {
-  "auto_note": "클레릭 원형 주문 슬롯 수 증가 (최고 2랭크 제외 각 랭크 +1)"
- },
- "gang-up": {
-  "auto_note": "적이 아군과 함께 도달 내에 있으면 반대편 아니어도 측면 공격 가능"
- },
- "second-thoughts": {
-  "auto_note": "[반응] 하루 1회, 시전한 주문을 취소하고 같은 랭크/행동 수의 다른 주문으로 교체 시전"
- },
- "tactical-debilitations": {
-  "auto_note": "추가 쇠약: 반응 사용 불가 또는 측면 공격 불가"
- },
- "true-hypercognition": {
-  "auto_note": "[1행동] 즉시 최대 5회 지식 회상 사용"
- },
- "unmistakable-lore": {
-  "auto_note": "지식 기술로 지식 회상 시 대실패→실패"
- },
- "advantageous-assault": {
-  "auto_note": "[1행동] 붙잡힌/엎드린/속박 적에 타격. 무기 주사위 수만큼 피해 보너스. 실패 시에도 피해"
- },
- "junk-tinker": {
-  "auto_note": "폐자재로 간이 무기/장비 제작 가능"
- },
- "monster-hunter": {
-  "auto_note": "사냥감 지식 회상 성공 시 아군 포함 약점/저항 공유. 대성공 시 내성/공격 +1 상황 보너스"
- },
- "victorious-vigor": {
-  "auto_note": "적 쓰러뜨리면 임시 HP = 레벨"
- },
- "planar-survival": {
-  "auto_note": "다른 차원에서도 생존 기술로 자급 가능"
- },
- "point-blank-stance": {
-  "auto_note": "[1행동] 자세: 첫 사거리 증분 내 원거리 타격 시 피해 주사위 1개 추가"
- },
- "occult-breadth": {
-  "auto_note": "바드 원형 주문 슬롯 수 증가 (최고 2랭크 제외 각 랭크 +1)"
- },
- "quick-jump": {
-  "auto_note": "높이뛰기/넓이뛰기를 1행동으로 사용 가능 (보폭 없이)"
- },
- "major-lesson": {
-  "auto_note": "주요 교훈 1개 습득: 주술 1개 + 사역마에 주문 1개 추가"
- },
- "knowledge-is-power": {
-  "auto_note": "지식 회상 성공 시 해당 생물에 주문 DC +1 상황 보너스 (대성공 시 +2)"
- },
- "boulder-roll": {
-  "auto_note": "이동 중 적에게 밀기 시도 가능"
- },
- "monstrous-peacemaker": {
-  "auto_note": "비인간형 지적 생물/소외된 인간형에 외교 +1 상황 보너스"
- },
- "uplifting-winds": {
-  "auto_note": "비행 중 공기/전기 주문 시전 시 비행 속도 +10 상태 보너스, 즉시 절반 속도 비행"
- },
- "halfling-luck": {
-  "auto_note": "[반응] 기술/내성 실패 시 1회 재굴림. 하루 1회"
- },
- "legendary-codebreaker": {
-  "auto_note": "암호 해독 대성공 시 원래 메시지+의도까지 파악. 전설 전용"
- },
- "lunging-stance": {
-  "auto_note": "[1행동] 자세: 반격 타격의 도달이 5피트 증가 (돌진 찌르기 범위)"
- },
- "call-of-the-wild": {
-  "auto_note": "10분 교감으로 준비 주문을 동물 소환/식물 소환으로 교체"
- },
- "reprepare-spell": {
-  "auto_note": "하루 1회, 10분간 시전 완료된 슬롯 1개에 주문서에서 다른 주문 재준비"
- },
  "multifarious-muse": {
   "choice": {
    "id": "cho-multifarious-muse",
@@ -1401,26 +303,7 @@
     "repeatable": true
    },
    "options": []
-  },
-  "auto_note": "추가 뮤즈: $choice_name — 해당 뮤즈 1레벨 재주 획득"
- },
- "sign-language": {
-  "auto_note": "수화 사용 가능. 대화 상대도 수화를 알아야 함"
- },
- "elf-step": {
-  "auto_note": "비틀거림 시 10피트 이동 가능"
- },
- "breath-control": {
-  "auto_note": "숨 참기 시간 25배. 질식/흡입 효과에 대한 내성 +1 상황 보너스, 성공→대성공"
- },
- "patrons-presence": {
-  "auto_note": "30피트 내 적이 공포 효과의 의지 내성에 -2 상태 페널티"
- },
- "replenishment-of-war": {
-  "auto_note": "선호 무기로 피해 시 레벨 절반 임시 HP (치명타 시 레벨). 다음 턴까지 지속"
- },
- "defensive-roll": {
-  "auto_note": "[반응] 10분 1회. 물리 공격이 HP 0으로 만들려 할 때 절반 피해"
+  }
  },
  "hold-mark": {
   "choice": {
@@ -1431,18 +314,6 @@
    "options": []
   }
  },
- "head-stomp": {
-  "auto_note": "[1행동] 엎드린 대상에 비무장 타격. 명중 시 현기증 1(치명타 2)+무방비"
- },
- "plant-empathy": {
-  "auto_note": "식물과 균류에게 외교 사용 가능"
- },
- "current-spell": {
-  "auto_note": "[1행동] 공기/물 주문 시 AC +1 상황 보너스 (원거리 +2), 내성 +1"
- },
- "nephilim-eyes": {
-  "auto_note": "암시야 획득"
- },
  "unconventional-expertise": {
   "choice": {
    "id": "cho-unconventional-expertise",
@@ -1450,14 +321,9 @@
    "label": "전문가로 올릴 비일반 무기 선택",
    "filter": null,
    "options": []
-  },
-  "auto_note": "선택한 비관습 무기 숙련도 전문가로 증가: $choice_name"
- },
- "quick-coercion": {
-  "auto_note": "강요 시간 1분→1라운드 (3행동)"
+  }
  },
  "sneak-attacker": {
-  "auto_note": "은밀 공격 1d4 (6레벨에 1d6). 레벨 스케일링 없음",
   "damage_note": {
    "scaling": {
     "1": "1d4",
@@ -1466,24 +332,6 @@
    "damage_type": "정밀"
   }
  },
- "rogue-dedication": {
-  "auto_note": "기술 재주 1개 습득. 경갑 숙련됨. 로그 클래스 DC 숙련"
- },
- "quick-swim": {
-  "auto_note": "수영 시 전체 속도 이동. 대성공 시 추가 5피트"
- },
- "convincing-illusion": {
-  "auto_note": "환영 주문의 불신 DC +2 증가"
- },
- "basic-maneuver": {
-  "auto_note": "1~2레벨 파이터 재주 1개 습득"
- },
- "leshy-familiar-secrets": {
-  "auto_note": "매일 추가 사역마 능력 1개 선택 (움켜잡는 덩굴/공기 정화/녹색 폭발)"
- },
- "master-cleric-spellcasting": {
-  "auto_note": "주문 공격/DC 달인. 7랭크 슬롯. 20레벨에 8랭크"
- },
  "terrain-stalker": {
   "choice": {
    "id": "cho-terrain-stalker",
@@ -1491,71 +339,7 @@
    "label": "은밀 이동 지형을 선택하세요",
    "filter": null,
    "options": []
-  },
-  "auto_note": "지형 잠행($choice_name): 해당 지형에서 잠행 시 추적 흔적 안 남김"
- },
- "prescient-planner": {
-  "auto_note": "배낭에서 2gp 이하 일반 비소모품을 꺼낼 수 있음 (하루 1회)"
- },
- "arcane-sense": {
-  "auto_note": "전문가=1행동, 달인=자유 행동, 전설=수동 상시 감지"
- },
- "instinctive-support": {
-  "auto_note": "[반응] 동료 대상 주문 시전 후, 동료가 행동 획득 (하나는 지원)"
- },
- "scoundrels-surprise": {
-  "auto_note": "[1행동] 변장 벗어 놀라게 함. 간파 못한 생물은 다음 공격에 무방비"
- },
- "hunted-shot": {
-  "auto_note": "[1행동] 재장전 0 원거리 무기로 사냥감에 2회 타격 (첫 사거리 증분 내)"
- },
- "swift-tracker": {
-  "auto_note": "추적 중 전체 속도 이동. 달인=매시간 판정 불필요. 전설=다른 탐험 활동 병행"
- },
- "assured-knowledge": {
-  "auto_note": "지식 회상 시 굴림 대신 10 + 숙련 보너스 사용 가능. 확인 없이 자동 지식 전제 충족"
- },
- "continual-recovery": {
-  "auto_note": "부상 치료 대기 시간 1시간→10분"
- },
- "feather-step": {
-  "auto_note": "비틀거림 시 험한 지형 무시"
- },
- "skill-mastery": {
-  "auto_note": "기술 1개 전문가→달인, 다른 1개 숙련→전문가. 기술 재주 1개. 최대 5회"
- },
- "predictable": {
-  "auto_note": "[1행동] 적의 다음 행동 예측. 성공 시 AC/내성 +1~+2. 대실패 시 -1"
- },
- "secondary-detonation-array": {
-  "auto_note": "[반응] 보호 배열 에너지 방출: 30피트 내 적에게 레벨 × 1d4 피해. 사용 후 저항 소멸"
- },
- "glad-hand": {
-  "auto_note": "인상 만들기 즉시 사용 가능 (요청과 결합, -5 페널티)"
- },
- "sacred-ground": {
-  "auto_note": "1분 기도로 30피트 내 신성 영역 생성 (10분). 영역 내 10분 체류 시 레벨만큼 HP 회복"
- },
- "ode-to-ouroboros": {
-  "auto_note": "집중 주문: 뱀 물기의 송가 습득. 아군을 일시적으로 죽음에서 구함. 집중 포인트 풀 +1 (최대 3)"
- },
- "anthropomorphic-shape": {
-  "auto_note": "인간형 형태를 야생 형태 목록에 추가"
- },
- "dashing-strike": {
-  "auto_note": "[2행동] 적에서 빠져나와 이동 속도까지 보폭 후 근접 타격"
- },
- "defensive-recovery": {
-  "auto_note": "[주문변형] 단일 대상 해로움/치유로 HP 회복 시 1라운드 AC/내성 +2 상태 보너스"
- },
- "flinging-shove": {
-  "auto_note": "밀기 거리 증가: 성공 10피트, 대성공 20피트. 야만적 밀치기 실패 시에도 5피트 밀기"
- },
- "combat-grab": {
-  "auto_note": "[1행동] 한 손 무기+빈 손. 근접 타격 후 빈 손으로 적을 붙잡기"
- },
- "reflexive-shield": {
-  "auto_note": "방패 올리기 시 반사 내성에도 방패의 상황 보너스 적용"
+  }
  },
  "bard-dedication": {
   "choice": {
@@ -1564,149 +348,7 @@
    "label": "뮤즈를 선택하세요",
    "filter": null,
    "options": []
-  },
-  "auto_note": "오컬트 캔트립 2개 습득. 주문 공격/DC 숙련됨. 핵심 속성: 매력. 뮤즈: $choice_name"
- },
- "spell-combination": {
-  "auto_note": "같은 대상/영역의 주문 2개를 동시에 시전 (각각 슬롯 소비)"
- },
- "nimble-dodge": {
-  "auto_note": "[반응] 공격 대상 시 유발 공격에 AC +2 상황 보너스"
- },
- "resounding-bravery": {
-  "auto_note": "적의 의지 내성 대성공 시 1분간 내성 +1 상태 보너스 + 임시 HP(레벨 절반)"
- },
- "divine-guidance": {
-  "auto_note": "10분 기도로 신격에게 조언 구함. 종교학 판정으로 유용한 정보 획득"
- },
- "terrified-retreat": {
-  "auto_note": "사기 꺾기 대성공 시 대상이 도주 상태 (1라운드)"
- },
- "snowdrift-spell": {
-  "auto_note": "[1행동] 공기/물/냉기 주문 시 대상 주변에 눈 → 다음 턴까지 험지"
- },
- "house-of-imaginary-walls": {
-  "auto_note": "작곡 캔트립: 상상의 벽 집 습득. 상상의 장벽 생성"
- },
- "quick-disguise": {
-  "auto_note": "변장 시간 대폭 단축. 숙련=1분, 달인=3행동"
- },
- "master-bard-spellcasting": {
-  "auto_note": "주문 공격/DC 달인. 7랭크 슬롯. 20레벨에 8랭크"
- },
- "overwhelming-blow": {
-  "auto_note": "[2행동] 근접 타격(다중 공격 3회). 명중 시 자동 치명타. 기절 1+무방비"
- },
- "battle-cry": {
-  "auto_note": "전투 시작 시 자유 행동으로 사기 꺾기. 달인=우선권 굴림 후 즉시"
- },
- "advanced-muses-whispers": {
-  "auto_note": "바드 재주 1개 습득 (바드 레벨 = 캐릭터 레벨/2). 반복 선택 가능"
- },
- "uplifting-overture": {
-  "auto_note": "작곡 캔트립: 고양 서곡 습득. 아군의 기술 판정 보조"
- },
- "twin-distraction": {
-  "auto_note": "쌍검 속임으로 양쪽 모두 피해 시 의지 내성. 실패 시 현기증 1"
- },
- "reverberate": {
-  "auto_note": "[반응] 음파 피해 수신 시 공연 판정으로 피해 감소 및 반사"
- },
- "swipe-souvenir": {
-  "auto_note": "[1행동] 붙잡힌/속박 시 탈출 시도 후 성공하면 도둑질도 시도"
- },
- "sure-feet": {
-  "auto_note": "균형 잡기 성공→대성공"
- },
- "spring-from-the-shadows": {
-  "auto_note": "[2행동] 보폭 후 숨겨진/미탐지 적에 타격 (타격 전까지 은신 유지)"
- },
- "deadly-aim": {
-  "auto_note": "[2행동] 원거리 타격 -2 페널티, 피해 +4 상황 보너스 (11레벨 +6, 15레벨 +8)"
- },
- "underhanded-assault": {
-  "auto_note": "[2행동] 아군 인접 적에 잠행(은신 -2). 성공 시 근접 타격 가능"
- },
- "celestial-magic": {
-  "auto_note": "2랭크 신성 선천 주문 2개 하루 1회 (맑은 마음, 영원의 빛, 인간형 형태, 폭로의 빛, 생명 공유, 확실한 발놀림 중 선택)"
- },
- "advanced-maneuver": {
-  "auto_note": "파이터 재주 1개 습득 (파이터 레벨 = 캐릭터 레벨/2). 반복 선택 가능"
- },
- "animal-elocutionist": {
-  "auto_note": "동물과 대화 상시 효과"
- },
- "plant-evidence": {
-  "auto_note": "도둑질로 물건을 훔치는 대신 대상에게 물건을 심을 수 있음"
- },
- "shadow-hunter": {
-  "auto_note": "자연 지형에서 모든 적에게 항상 은폐 (사냥감 제외)"
- },
- "influence-nature": {
-  "auto_note": "자연학으로 동물의 태도를 영구적으로 변경 가능"
- },
- "advanced-hunters-trick": {
-  "auto_note": "레인저 재주 1개 습득 (레인저 레벨 = 캐릭터 레벨/2). 반복 선택 가능"
- },
- "incredible-ricochet": {
-  "auto_note": "[2행동] 이번 턴 공격한 생물에 원거리 타격. 은폐와 모든 엄폐 무시"
- },
- "improved-reflexive-shield": {
-  "auto_note": "반사 내성 피해에 방패 막기 시 인접 아군도 피해 감소 혜택"
- },
- "martyr": {
-  "auto_note": "[주문변형] 단일 아군 HP 회복 시 랭크당 1d8 HP 잃고 아군에 같은 양 추가 회복"
- },
- "implausible-infiltration": {
-  "auto_note": "[2행동] 벽/바닥 통과 (나무/석고/돌, 10피트 이하, 금속 불가)"
- },
- "floral-restoration": {
-  "auto_note": "하루 1회. 근처 식물에서 집중 포인트 1점 + 4d8 HP 회복 (2레벨마다 +1d8)"
- },
- "cloak-of-poison": {
-  "auto_note": "[2행동] 하루 1회, 1분간 접촉/근접 공격자에게 3d6 독 피해"
- },
- "consult-the-spirits": {
-  "auto_note": "자연학/오컬티즘/종교학으로 영혼에게 지식 회상 시도 가능"
- },
- "kip-up": {
-  "auto_note": "자유 행동으로 넘어짐 해제. 반응 유발 안 함"
- },
- "familiars-language": {
-  "auto_note": "사역마가 언어 1개를 말할 수 있음. 추가 언어 습득 시 사역마에게도 부여 가능"
- },
- "debilitating-shot": {
-  "auto_note": "[2행동] 원거리 타격. 명중+피해 시 대상이 둔화 1"
- },
- "group-coercion": {
-  "auto_note": "강요를 최대 4명에게 동시 사용 가능"
- },
- "basic-cleric-spellcasting": {
-  "auto_note": "기초 주문시전 혜택. 신격 주문을 원형 슬롯에 준비 가능"
- },
- "basic-witchcraft": {
-  "auto_note": "1~2레벨 위치 재주 1개. 사역마 능력 3개 (기본 2개→3개)"
- },
- "youre-next": {
-  "auto_note": "[반응] 적 쓰러뜨린 후 60피트 내 생물에 +2 상황 보너스로 사기 저하"
- },
- "brutish-shove": {
-  "auto_note": "[1행동] 양손 근접 타격. 명중 시 자동 5피트 밀기+무방비"
- },
- "pitborn": {
-  "auto_note": "운동 숙련 전제조건 1레벨 기술 재주 1개 추가"
- },
- "certain-strike": {
-  "auto_note": "[1행동] 근접 타격. 실패 시에도 피해 주사위 제외한 피해를 줌"
- },
- "oddity-identification": {
-  "auto_note": "오컬티즘으로 저주/유령 현상/정신 점령 식별 가능"
- },
- "distracting-feint": {
-  "auto_note": "속임으로 무방비한 대상의 지각과 반사 내성에 -2 상황 페널티"
- },
- "paragons-guard": {
-  "auto_note": "[1행동] 자세: 방패가 항상 올려진 상태로 취급 (행동 불필요)"
+  }
  },
  "domain-initiate": {
   "choice": {
@@ -1717,23 +359,7 @@
     "repeatable": true
    },
    "options": []
-  },
-  "auto_note": "집중 주문: $choice_name 영역 초기 주문 습득. 집중 포인트 풀 +1 (최대 3)"
- },
- "subtle-theft": {
-  "auto_note": "소매치기/손재주 시 감지 DC에 상황 페널티 부여. 인지 안 됨"
- },
- "triple-shot": {
-  "auto_note": "이중 사격의 두 타격을 같은 대상에게 가능. 1행동 추가로 -4 페널티 3회 타격"
- },
- "expert-wizard-spellcasting": {
-  "auto_note": "주문 공격/DC 전문가. 4랭크 슬롯"
- },
- "unified-theory": {
-  "auto_note": "주문학으로 다른 마법 전통(신성/오컬트/원시) 판정 대체 가능. 전설 전용"
- },
- "mug": {
-  "auto_note": "[1행동] 근접 타격. 은밀 공격 피해 시 도둑질도 시도 가능"
+  }
  },
  "canny-acumen": {
   "choice": {
@@ -1742,8 +368,7 @@
    "label": "전문가로 올릴 내성/지각을 선택하세요",
    "filter": null,
    "options": []
-  },
-  "auto_note": "영리한 직관: $choice_name → 17레벨에 전문가→달인"
+  }
  },
  "leshy-lore": {
   "choice": {
@@ -1756,27 +381,6 @@
    "options": []
   }
  },
- "master-witch-spellcasting": {
-  "auto_note": "주문 공격/DC 달인. 7랭크 슬롯"
- },
- "divine-rebuttal": {
-  "auto_note": "[반응] 인접 생물의 마법에 대한 아군 내성 직전, 선호 무기로 타격. 명중 시 내성 +2 (치명타 +3)"
- },
- "underwater-marauder": {
-  "auto_note": "수중 전투 페널티 없음. 참격/둔기 무기 수중 사용 가능"
- },
- "energy-ablation": {
-  "auto_note": "[반응] 주문 피해 시, 대상 1명에게 다음 턴까지 해당 에너지 약점 부여 (레벨별 1~5)"
- },
- "initiate-warden": {
-  "auto_note": "집중 주문: 입문 관리인 주문 1개 습득. 집중 풀 1점"
- },
- "deep-lore": {
-  "auto_note": "시전 가능한 각 주문 랭크에 레퍼토리 주문 1개 추가"
- },
- "heroic-presence": {
-  "auto_note": "[자유 행동] 하루 1회. 열정적 확신 6랭크: 임시 HP 19, 공포/도주 내성 +2 (10분)"
- },
  "adopted-ancestry": {
   "choice": {
    "id": "cho-adopted-ancestry",
@@ -1788,84 +392,6 @@
    "options": []
   }
  },
- "directed-channel": {
-  "auto_note": "영역 해로움/치유를 30피트 방사 대신 60피트 원뿔로 변경 가능"
- },
- "alchemical-crafting": {
-  "auto_note": "연금술 아이템 제조 공식 습득. 일일 준비 시 연금술 시약 제작 가능"
- },
- "advanced-warden": {
-  "auto_note": "집중 주문: 고급 관리인 주문 1개 습득. 반복 선택 가능"
- },
- "rites-of-convocation": {
-  "auto_note": "10분 의식으로 준비 주문을 같은 랭크의 다른 주문으로 교환. 하루 1회"
- },
- "disorienting-opening": {
-  "auto_note": "반격 타격 명중 시 대상이 다음 턴까지 무방비"
- },
- "versatile-performance": {
-  "auto_note": "공연으로 인상 만들기(외교), 사기 꺾기(위협), 변장(기만) 대체 가능"
- },
- "pickpocket": {
-  "auto_note": "소매치기를 주의 분산 없이 시도 가능. 전문가=관찰 중에도 시도"
- },
- "inviolable": {
-  "auto_note": "공격으로 명중하는 생물에게 매번 3d6 영혼 피해"
- },
- "fast-channel": {
-  "auto_note": "2행동으로 해로움/치유 시전 시 3행동 버전 효과 적용"
- },
- "guiding-luck": {
-  "auto_note": "이방인의 행운을 명중 굴림에도 사용 가능"
- },
- "the-harder-they-fall": {
-  "auto_note": "무방비한 적 넘어뜨리기 성공 시 1d6 둔기 피해. 대성공이면 +은밀 공격 피해"
- },
- "ageless-patience": {
-  "auto_note": "탐색/조사에 2배 시간 투자 시 +2 상황 보너스"
- },
- "shadow-of-the-wilds": {
-  "auto_note": "도시 외 환경에서 항상 흔적 감추기 상태"
- },
- "spellshape-mastery": {
-  "auto_note": "주문변형 재주 1개를 자유 행동으로 사용 가능 (1행동 대신)"
- },
- "eternal-blessing": {
-  "auto_note": "영구 15피트 축복 영역. 해산 가능, 1분 후 복귀"
- },
- "mirror-shield": {
-  "auto_note": "[반응] 주문 공격 대실패 시 시전자에게 주문 반사"
- },
- "basic-wilding": {
-  "auto_note": "1~2레벨 드루이드 재주 1개 습득"
- },
- "monster-crafting": {
-  "auto_note": "몬스터 부위로 특수 장비 제작 가능 (재료비 절감)"
- },
- "melodious-spell": {
-  "auto_note": "[주문변형] 주문 구성요소를 공연에 숨김. 지각 판정 성공해야 감지"
- },
- "raise-symbol": {
-  "auto_note": "[1행동] 종교 상징 제시 → 내성 +2 상황 보너스. 활력/공허 효과 내성 성공→대성공"
- },
- "ritual-reversion": {
-  "auto_note": "[2행동] 식물/균류 표본 형태로 변신 (식물과 하나 효과)"
- },
- "combat-reading": {
-  "auto_note": "[1행동] 오컬티즘 판정으로 적의 약점/내성/면역/저항 파악"
- },
- "spellshape-channel": {
-  "auto_note": "해로움/치유에 적용 가능한 1행동 주문변형을 자유 행동으로 사용"
- },
- "form-retention": {
-  "auto_note": "변신 주문 지속 시간 2배 (최대 1시간)"
- },
- "advanced-wilding": {
-  "auto_note": "드루이드 재주 1개 습득 (드루이드 레벨 = 캐릭터 레벨/2). 반복 선택 가능"
- },
- "schooled-in-secrets": {
-  "auto_note": "오컬티즘으로 비밀/음모 관련 지식 회상 시 +1 상황 보너스"
- },
  "virtuosic-performer": {
   "choice": {
    "id": "cho-virtuosic-performer",
@@ -1873,65 +399,7 @@
    "label": "전문 공연 분야를 선택하세요",
    "filter": null,
    "options": []
-  },
-  "auto_note": "거장 공연가($choice_name): 해당 분야 공연에 +1 상황 보너스, 전문가=+2"
- },
- "cast-down": {
-  "auto_note": "[주문변형] 단일 대상 해로움/치유로 피해 시 대상 엎드림. 대실패 시 이동 속도 -10피트"
- },
- "prescient-consumable": {
-  "auto_note": "선견 계획자로 소모품(레벨/2 이하)도 꺼낼 수 있음"
- },
- "forest-passage": {
-  "auto_note": "식물/균류로 인한 험지 무시"
- },
- "critical-debilitation": {
-  "auto_note": "치명 성공 시 추가 쇠약: 인내 내성 → 둔화 1~2 또는 마비"
- },
- "resounding-finale": {
-  "auto_note": "[반응] 음파 피해 수신 시 작곡 종료하여 아군에 음파 저항 (랭크 x 2)"
- },
- "intimidating-strike": {
-  "auto_note": "[2행동] 근접 타격. 명중+피해 시 공포 1 (치명타 시 공포 2)"
- },
- "cooperative-nature": {
-  "auto_note": "도움 반응 판정에 +4 상황 보너스"
- },
- "ancestral-paragon": {
-  "auto_note": "1레벨 혈통 재주 1개 추가 획득"
- },
- "improved-swift-banishment": {
-  "auto_note": "추방 미준비 시에도 5랭크+ 슬롯 희생으로 사용 가능. 대상 내성 -2"
- },
- "true-shapeshifter": {
-  "auto_note": "하루 1회 자연 화신 시전 (미준비 가능). 야생 형태 중 2행동으로 다른 형태 전환"
- },
- "impossible-striker": {
-  "auto_note": "무방비하지 않은 대상에게도 전체 은밀 공격 피해"
- },
- "shared-replenishment": {
-  "auto_note": "전쟁의 보충 임시 HP를 자신 대신 10피트 내 아군에게 부여 가능"
- },
- "basic-hunters-trick": {
-  "auto_note": "1~2레벨 레인저 재주 1개 습득"
- },
- "snagging-strike": {
-  "auto_note": "[1행동] 한 손 무기+빈 손. 근접 타격 명중 시 대상이 다음 턴까지 무방비"
- },
- "scare-to-death": {
-  "auto_note": "[1행동] 위협으로 살해 시도. 의지 DC 판정, 대실패=사망. 전설 전용"
- },
- "running-reload": {
-  "auto_note": "[1행동] 보폭/한 걸음/잠행 후 상호작용으로 재장전"
- },
- "dueling-riposte": {
-  "auto_note": "[반응] 결투 방어 중 적의 타격 대실패 시 근접 타격 또는 무장 해제"
- },
- "improved-dueling-riposte": {
-  "auto_note": "결투 방어 없이도 결투 반격 사용 가능. 전용 추가 반응 1회"
- },
- "nimble-strike": {
-  "auto_note": "날렵한 회피 반응 시 근접 타격도 가능 (다중 공격 미포함/미적용)"
+  }
  },
  "fighter-dedication": {
   "choice": {
@@ -1947,62 +415,7 @@
     }
    },
    "options": []
-  },
-  "auto_note": "군용 무기 숙련됨. 파이터 클래스 DC 숙련"
- },
- "gnome-obsession": {
-  "auto_note": "추가 지식/확신 재주 자동 부여. 각 재주에서 지식 분야/기술 선택. 휴식 1일로 주제 변경 가능"
- },
- "legendary-linguist": {
-  "auto_note": "사회 판정으로 알지 못하는 언어 즉시 소통 가능. 전설 전용"
- },
- "legendary-sneak": {
-  "auto_note": "항상 숨기 상태. 발각 시에도 은폐물 없이 숨기 가능. 전설 전용"
- },
- "dueling-parry": {
-  "auto_note": "[1행동] 한 손 무기+빈 손. 다음 턴까지 AC +2 상황 보너스"
- },
- "advanced-weapon-training": {
-  "auto_note": "선택한 무기 그룹의 고급 무기를 군용 무기로 취급"
- },
- "reflexive-courage": {
-  "auto_note": "[반응] 전투 함성으로 유발 생물에 근접 타격. 치명타 시 조작 행동 방해"
- },
- "cremate-undead": {
-  "auto_note": "치유로 언데드 피해 시 주문 랭크만큼 지속 화염 피해 추가"
- },
- "additional-recollection": {
-  "auto_note": "[반응] 사냥감 지식 회상 성공 시 다른 보이는 생물에 추가 지식 회상"
- },
- "basic-witch-spellcasting": {
-  "auto_note": "기초 주문시전 혜택"
- },
- "pristine-weapon": {
-  "auto_note": "푸른 무기가 냉철+은으로 취급. 약점 생물 치명타 시 1d4 지속 출혈"
- },
- "earned-glory": {
-  "auto_note": "인상적 공연 재주 획득"
- },
- "primal-breadth": {
-  "auto_note": "드루이드 원형 주문 슬롯 수 증가"
- },
- "train-animal": {
-  "auto_note": "다운타임으로 동물에게 행동 훈련 가능"
- },
- "desperate-finisher": {
-  "auto_note": "[반응] 턴 마지막 행동 후 압박 행동 1개 추가 사용. 다음 턴까지 반응 불가"
- },
- "channel-smite": {
-  "auto_note": "[2행동] 해로움/치유 소비하여 근접 타격에 추가. 명중 시 자동 내성 실패"
- },
- "trap-finder": {
-  "auto_note": "함정 탐지에 +1 상황 보너스, 함정 AC/내성에도 +1. 수색 없이도 함정 발견 가능"
- },
- "wardens-step": {
-  "auto_note": "자연 지형 탐험 시 주의 회피 중이면 원하는 수의 아군에게도 혜택 부여"
- },
- "witchs-bottle": {
-  "auto_note": "재집중 시 집중 풀을 완전히 채움"
+  }
  },
  "favored-prey": {
   "choice": {
@@ -2011,107 +424,7 @@
    "label": "선호 사냥감을 선택하세요",
    "filter": null,
    "options": []
-  },
-  "auto_note": "선호 사냥감($choice_name): 우선권 시 해당 적 보이면 자유 행동으로 사냥감 추적"
- },
- "order-magic": {
-  "auto_note": "집중 주문: 선택한 결사의 초기 결사 주문 습득. 반복 선택 가능"
- },
- "wardens-boon": {
-  "auto_note": "[1행동] 아군에게 사냥감 추적/기질 혜택을 다음 턴 종료까지 부여"
- },
- "powerful-shove": {
-  "auto_note": "자신보다 2 크기까지 큰 적에게 밀기 가능. 벽 충돌 시 근력 수정치 피해"
- },
- "wizard-dedication": {
-  "auto_note": "주문서 획득 (캔트립 4개, 매일 2개 준비). 주문 공격/DC 숙련됨. 핵심 속성: 지능. 학파 선택"
- },
- "accompany": {
-  "auto_note": "[반응] 아군 주문시전 시 공연 판정으로 슬롯/집중 포인트 대신 소비"
- },
- "shared-assault": {
-  "auto_note": "용감한 맹공의 아군이 대성공 시, 다른 아군 1명도 반응으로 근접 타격"
- },
- "very-sneaky": {
-  "auto_note": "험한 지형에서 은신 +1 상황 보너스"
- },
- "double-slice": {
-  "auto_note": "[2행동] 양손 무기로 동시 공격. 두 번째 타격은 다중 공격 페널티 없이"
- },
- "avatars-audience": {
-  "auto_note": "교감 의식 자동 대성공. 하루 1회 신격 영역으로 차원간 순간이동"
- },
- "verdant-metamorphosis": {
-  "auto_note": "식물 특성 획득. 녹색 휴식으로 나무 변신 (AC 30). 햇빛 10분 쉬면 HP 절반 회복"
- },
- "directed-audience": {
-  "auto_note": "방사 영역 작곡를 10피트 더 큰 원뿔로 변경 가능"
- },
- "penetrating-shot": {
-  "auto_note": "[2행동] 하위 엄폐 주는 생물과 사냥감 모두에게 단일 원거리 타격 (엄폐 무시)"
- },
- "dragon-shape": {
-  "auto_note": "용 형태를 야생 형태 목록에 추가. 변신 중 에너지 저항 5 (선택)"
- },
- "hex-focus": {
-  "auto_note": "재집중 시 집중 풀을 완전히 채움"
- },
- "advanced-witchcraft": {
-  "auto_note": "위치 재주 1개 습득 (위치 레벨 = 캐릭터 레벨/2). 반복 선택 가능"
- },
- "quick-shield-block": {
-  "auto_note": "각 턴 시작에 방패 막기 전용 추가 반응 1회"
- },
- "double-prey": {
-  "auto_note": "사냥감 추적 시 2명을 사냥감으로 지정 가능"
- },
- "quiet-allies": {
-  "auto_note": "탐험 중 은밀 이동 시 아군도 당신의 은신 판정 결과 사용 가능"
- },
- "diverse-weapon-expert": {
-  "auto_note": "단순/군용 무기 숙련도 전문가. 고급 무기 숙련됨"
- },
- "eternal-bane": {
-  "auto_note": "영구 15피트 저주 영역 (랭크 = 레벨/2). 해산 가능, 1분 후 복귀"
- },
- "martial-performance": {
-  "auto_note": "용감한 찬가 활성 중 타격 명중 시 작곡 지속 1라운드 연장 (시전당 1회)"
- },
- "greater-lesson": {
-  "auto_note": "상급 교훈 1개 습득: 주술 1개 + 사역마에 주문 1개 추가"
- },
- "fantastic-leap": {
-  "auto_note": "[2행동] 높이/멀리뛰기. 도약 종료 시 근접 타격. 추락 피해 없이 착지"
- },
- "verdant-weapon": {
-  "auto_note": "10분간 씨앗에 무기 각인. 상호작용으로 즉시 무기로 성장/복귀"
- },
- "sudden-charge": {
-  "auto_note": "[2행동] 보폭 2회 후 근접 타격"
- },
- "garland-spell": {
-  "auto_note": "[1행동] 균류/식물 주문 시 10피트 폭발에 가시 덩굴 → 험지+위험 지형 (2d6 피해)"
- },
- "master-of-many-styles": {
-  "auto_note": "[자유] 턴 시작 시 자세 행동 1개를 사용하여 자세 전환"
- },
- "disrupt-prey": {
-  "auto_note": "[반응] 도달 내 사냥감의 조작/이동 시 근접 타격. 치명타 시 행동 방해"
- },
- "camouflage": {
-  "auto_note": "자연 지형에서 엄폐/은폐 없이 숨기+잠행 가능"
- },
- "far-shot": {
-  "auto_note": "무기 사거리 증분 2배"
- },
- "cloud-step": {
-  "auto_note": "보폭 시 물/공기/제한 중량 표면 위를 걸음. 턴 종료 시 추락/침몰"
- },
- "mobile-shot-stance": {
-  "auto_note": "[1행동] 자세: 원거리 타격이 반응을 유발하지 않음. 반격 타격 시 원거리 무기 사용 가능"
- },
- "graceful-poise": {
-  "auto_note": "[1행동] 자세: 이중 베기의 두 번째 타격을 민첩 무기로 하면 다중 공격 1회로만 포함"
+  }
  },
  "emblazon-energy": {
   "choice": {
@@ -2120,29 +433,7 @@
    "label": "에너지 유형을 선택하세요",
    "filter": null,
    "options": []
-  },
-  "auto_note": "각인에 $choice_name 에너지 부여. 방패: 해당 유형 저항(레벨 절반) + 방패 막기"
- },
- "unusual-treatment": {
-  "auto_note": "의학 대신 제작으로 독/질병 치료 시도 가능"
- },
- "allegro": {
-  "auto_note": "작곡 캔트립: 알레그로 습득. 아군 가속"
- },
- "lunge": {
-  "auto_note": "[1행동] 근접 타격의 도달 5피트 증가"
- },
- "advanced-trickery": {
-  "auto_note": "로그 재주 1개 습득 (로그 레벨 = 캐릭터 레벨/2). 반복 선택 가능"
- },
- "tail-spin": {
-  "auto_note": "넘어뜨리기에 +2 상황 보너스"
- },
- "tactical-reflexes": {
-  "auto_note": "각 턴 시작에 반격 타격 전용 추가 반응 1회"
- },
- "burn-it": {
-  "auto_note": "화염 피해에 +1 상태 보너스"
+  }
  },
  "nephilim-lore": {
   "choice": {
@@ -2155,24 +446,6 @@
    "options": []
   }
  },
- "experienced-professional": {
-  "auto_note": "지식으로 수입 획득 시 실패해도 최소 1sp. 대성공 확률 증가"
- },
- "lingering-composition": {
-  "auto_note": "작곡 지속 시간 연장. 집중 포인트 풀 +1 (최대 3)"
- },
- "expert-druid-spellcasting": {
-  "auto_note": "주문 공격/DC 전문가. 4랭크 슬롯"
- },
- "rallying-anthem": {
-  "auto_note": "작곡 캔트립: 결집의 찬가 습득. 아군 의지 내성 강화 및 정신 피해 저항"
- },
- "ultimate-flexibility": {
-  "auto_note": "전투 유연성으로 3개 재주 획득 (8레벨/14레벨/18레벨 이하 각 1개)"
- },
- "symphony-of-the-muse": {
-  "auto_note": "턴당 작곡 1개 제한 해제. 새 작곡 시전해도 이전 작곡 유지"
- },
  "favored-terrain": {
   "choice": {
    "id": "cho-favored-terrain",
@@ -2180,8 +453,7 @@
    "label": "선호 지형을 선택하세요",
    "filter": null,
    "options": []
-  },
-  "auto_note": "선호 지형($choice_name): 해당 지형에서 비마법 험지 무시"
+  }
  },
  "goblin-lore": {
   "choice": {
@@ -2194,63 +466,6 @@
    "options": []
   }
  },
- "cleric-dedication": {
-  "auto_note": "신격 선택. 신성 캔트립 2개. 주문 공격/DC 숙련됨. 핵심 속성: 지혜. 신격 기술 숙련"
- },
- "courageous-advance": {
-  "auto_note": "[주문변형] 용감한 찬가 시전 시 아군 1명이 반응으로 보폭"
- },
- "experienced-smuggler": {
-  "auto_note": "은닉품 탐지 DC에 +2 상황 보너스. 전문가=대실패→실패"
- },
- "swift-banishment": {
-  "auto_note": "[반응] 타차원 생물 치명타 시 준비된 추방 소비하여 즉시 적용"
- },
- "counter-perform": {
-  "auto_note": "집중 주문: 대항 공연 습득. 집중 포인트 풀 획득/확장"
- },
- "hag-magic": {
-  "auto_note": "4랭크 오컬트 선천 주문 하루 1회 (점술, 매혹, 투청, 투시, 꿈 메시지, 환영 변장 중 선택)"
- },
- "illusion-sense": {
-  "auto_note": "환상에 대한 간파 판정에 +1 상황 보너스"
- },
- "survey-wildlife": {
-  "auto_note": "10분간 주변 관찰하여 근처 생물 파악. 흔적으로 지식 회상 가능"
- },
- "brutal-finish": {
-  "auto_note": "[1행동] 양손 근접 타격. 피해 주사위 1개 추가(18레벨 2개). 실패 시에도 피해. 턴 종료"
- },
- "shielded-stride": {
-  "auto_note": "방패 올린 상태에서 반응 유발 없이 절반 속도로 보폭"
- },
- "archwizards-might": {
-  "auto_note": "추가 10랭크 주문 슬롯 1개 획득"
- },
- "castigating-weapon": {
-  "auto_note": "신성 응징 후 턴 종료까지 무기에 신성/불경 특성 + 추가 영혼 피해 (랭크만큼)"
- },
- "bespell-strikes": {
-  "auto_note": "캔트립 외 주문 시전 후 턴 종료까지 무기/비무장 타격에 추가 1d6 피해"
- },
- "advanced-dogma": {
-  "auto_note": "클레릭 재주 1개 습득 (클레릭 레벨 = 캐릭터 레벨/2). 반복 선택 가능"
- },
- "barreling-charge": {
-  "auto_note": "[2행동] 보폭하며 적 공간 통과(운동 판정). 이동 종료 시 근접 타격"
- },
- "versatile-signature": {
-  "auto_note": "일일 준비 시 각 랭크의 시그니처 주문 변경 가능"
- },
- "unusual-composition": {
-  "auto_note": "[주문변형] 작곡를 어떤 감각으로든 전달 가능 (진동감각 등)"
- },
- "mature-animal-companion-ranger": {
-  "auto_note": "동물 동료 성장: 성숙. 동물 명령 없이 턴에 보폭/타격 1행동 독립 사용"
- },
- "scroll-adept": {
-  "auto_note": "일일 준비 시 임시 두루마리 1개 무료 생성 (최고 랭크보다 2 이상 낮은 주문)"
- },
  "advanced-domain": {
   "choice": {
    "id": "cho-advanced-domain",
@@ -2261,83 +476,7 @@
     "filterByInitiated": true
    },
    "options": []
-  },
-  "auto_note": "고급 영역 주문: $choice_name 습득"
- },
- "bardic-lore": {
-  "auto_note": "어떤 주제든 지식 회상 가능. 오컬티즘 전설 시 전문가"
- },
- "unwavering-mien": {
-  "auto_note": "매혹/수면 효과 지속시간 절반"
- },
- "experienced-tracker": {
-  "auto_note": "추적 시 전체 속도 이동 가능. 달인=험지에서도 전체 속도"
- },
- "impaling-briars": {
-  "auto_note": "집중 주문: 꿰뚫는 가시 습득"
- },
- "magical-shorthand": {
-  "auto_note": "주문서/두루마리에서 주문 학습 시간 단축. 숙련=1분, 전문가=즉시"
- },
- "savage-critical": {
-  "auto_note": "전설 숙련도 무기로 주사위 19 굴림 시 성공이면 자동 치명 성공"
- },
- "greater-distracting-shot": {
-  "auto_note": "원거리 명중만으로 무방비 부여. 치명타/2회 명중 시 다음 턴 종료까지"
- },
- "sabotage": {
-  "auto_note": "[1행동] 도달 내 적의 장비를 도둑질로 손상 (대성공: 숙련 보너스×4 피해)"
- },
- "domain-focus": {
-  "auto_note": "재집중 시 집중 풀 완전 회복"
- },
- "dirge-of-doom": {
-  "auto_note": "작곡 캔트립: 파멸의 만가 습득. 적에게 공포 부여"
- },
- "thunderclap-spell": {
-  "auto_note": "[1행동] 전기 주문 시 반사 실패한 생물 1라운드 청각 상실, 대실패 시 엎드림"
- },
- "solar-rejuvenation": {
-  "auto_note": "직사광선 10분 휴식 시 HP = 레벨 × CON 회복"
- },
- "bond-conservation": {
-  "auto_note": "[1행동] 결합 아이템 소진 시, 원래보다 2랭크 이상 낮은 주문 1개 추가 시전"
- },
- "druid-dedication": {
-  "auto_note": "드루이드 교단 선택. 원시 캔트립 2개. 주문 공격/DC 숙련됨. 핵심 속성: 지혜. 드루이드 금기 적용"
- },
- "shield-of-faith": {
-  "auto_note": "영역 주문 시전 시 다음 턴까지 AC +1 상태 보너스"
- },
- "reactive-shield": {
-  "auto_note": "[반응] 근접 명중 굴림 유발 시 즉시 방패 올리기"
- },
- "shared-avoidance": {
-  "auto_note": "회피 예감 사용 시 20피트 내 같은 위험의 아군에게도 +2 상황 보너스"
- },
- "soaring-shape": {
-  "auto_note": "공중 형태(박쥐/새)를 야생 형태 목록에 추가. 곡예 부여 형태 시 +1 상태 보너스"
- },
- "cognitive-loophole": {
-  "auto_note": "[반응] 정신 효과의 허점을 찾아 다음 턴 종료까지 해당 효과 무시"
- },
- "battle-medicine": {
-  "auto_note": "[1행동] 전투 중 부상 치료. 1일 1회/대상. 숙련 2d8, 전문가 2d8+10, 달인 4d8+30, 전설 4d8+50"
- },
- "rites-of-transfiguration": {
-  "auto_note": "10분 의식으로 준비된 변신 주문을 같은 랭크의 다른 변신 주문으로 교환"
- },
- "determination": {
-  "auto_note": "[1행동] 하루 1회. 비영구 상태/주문 효과 1개 종료 또는 상쇄 시도"
- },
- "grasping-reach": {
-  "auto_note": "비무장 공격 도달 범위 10피트"
- },
- "all-in-my-head": {
-  "auto_note": "[반응] 피해를 정신 피해(비치명)로 변환. 정신 면역 시 사용 불가"
- },
- "basic-lesson": {
-  "auto_note": "기본 교훈 1개 습득: 주술 캔트립 1개 + 사역마에 주문 1개 추가"
+  }
  },
  "beast-trainer": {
   "choice": {
@@ -2348,18 +487,6 @@
    "options": []
   }
  },
- "precise-debilitations": {
-  "auto_note": "추가 쇠약: 추가 2d6 정밀 피해 또는 대상이 무방비"
- },
- "double-double": {
-  "auto_note": "주술 캔트립 시전 시 같은 턴에 두 번째 주술 캔트립도 시전 가능"
- },
- "student-of-the-canon": {
-  "auto_note": "종교학 지식 회상 대실패→실패. 성공→대성공(일반 교리 한정)"
- },
- "expert-witch-spellcasting": {
-  "auto_note": "주문 공격/DC 전문가. 4랭크 슬롯"
- },
  "weapon-proficiency": {
   "choice": {
    "id": "cho-weapon-proficiency",
@@ -2367,56 +494,7 @@
    "label": "무기 그룹을 선택하세요",
    "filter": null,
    "options": []
-  },
-  "auto_note": "무기 숙련: $choice_name"
- },
- "emblazon-antimagic": {
-  "auto_note": "각인 무기: 타격 시 대상 주문 해제 시도. 각인 방패: 주문 피해에 방패 막기 사용 가능"
- },
- "perfect-form-control": {
-  "auto_note": "형태 제어 사용 시 야생 형태 지속 시간 무제한 (해산 가능)"
- },
- "reactive-interference": {
-  "auto_note": "[반응] 인접 적의 반응을 방해. 레벨 이하면 자동, 높으면 명중 굴림"
- },
- "basic-trickery": {
-  "auto_note": "1~2레벨 로그 재주 1개 습득"
- },
- "intimidating-glare": {
-  "auto_note": "사기 꺾기를 비언어(시각)로 사용 가능. 언어 미통 페널티 무시"
- },
- "ebb-and-flow": {
-  "auto_note": "[주문변형] 1-2행동 치유/해로움으로 적 1명 피해 + 아군 1명 치유 동시 가능"
- },
- "restorative-strike": {
-  "auto_note": "[2행동] 해로움/치유로 자신 치유 + 근접 타격. 선호 무기 시 공격 +1. 인접 아군에 치유 전달 가능"
- },
- "magical-crafting": {
-  "auto_note": "마법 아이템 제작 가능"
- },
- "spell-mastery": {
-  "auto_note": "주문 4개를 항상 준비된 것으로 취급 (슬롯 소비 없이 각 하루 1회)"
- },
- "impressive-performance": {
-  "auto_note": "인상 만들기에 공연 사용 가능"
- },
- "sanctify-armament": {
-  "auto_note": "[1행동] 무기에 1라운드 신성/불경 특성 부여. 반대 특성 생물에 추가 2d6 영혼 피해"
- },
- "witch-dedication": {
-  "auto_note": "후원자 선택. 사역마 획득. 캔트립 1개. 주문 공격/DC 숙련됨. 핵심 속성: 지능"
- },
- "furious-focus": {
-  "auto_note": "양손 근접 무기로 맹렬한 일격 시 다중 공격에 1회로만 포함"
- },
- "explosive-arrival": {
-  "auto_note": "[반응] 순간이동 도착 시 10피트 내 생물에게 레벨/2 × 1d6 피해 (반사 내성)"
- },
- "communal-healing": {
-  "auto_note": "단일 대상 치유 시전 시 사거리 내 다른 생물에게 주문 랭크만큼 HP 회복"
- },
- "eternal-composition": {
-  "auto_note": "영구 가속 상태 — 추가 행동은 1행동 작곡 캔트립에만 사용"
+  }
  },
  "first-world-magic": {
   "choice": {
@@ -2429,48 +507,6 @@
    "options": []
   }
  },
- "crashing-slam": {
-  "auto_note": "내리찍기에서 타격 명중 시 자동 넘어뜨리기 대성공"
- },
- "read-lips": {
-  "auto_note": "알고 있는 언어의 입술 읽기 가능. 조우 중 매 라운드 사회 판정 필요"
- },
- "versatile-font": {
-  "auto_note": "원천 슬롯에 해로움/치유 어느 쪽이든 준비 가능"
- },
- "eclectic-polymath": {
-  "auto_note": "비밀스러운 박학으로 추가한 주문을 레퍼토리에 유지 가능 (같은 랭크 주문과 교환)"
- },
- "shared-clarity": {
-  "auto_note": "명확함의 예감 사용 시 15피트 내 같은 효과 실패 아군도 +2로 다시 굴림"
- },
- "angelkin": {
-  "auto_note": "천상어 습득. 다국어 재주 획득"
- },
- "opening-stance": {
-  "auto_note": "[반응] 우선권 굴림 시 자세 특성 행동 1개를 즉시 사용"
- },
- "selective-energy": {
-  "auto_note": "영역 해로움/치유 시전 시 영역 내 최대 5명 제외 가능"
- },
- "shove-down": {
-  "auto_note": "[자유] 밀기 성공 후 즉시 넘어뜨리기 시도 (도달 밖이어도)"
- },
- "break-curse": {
-  "auto_note": "해제 마법 없이 수련/훈련으로 저주 제거 시도 가능"
- },
- "cauldron": {
-  "auto_note": "가마솥으로 포션/기름 양조 가능. 일일 준비 시 소모품 2개 무료 양조"
- },
- "healing-hands": {
-  "auto_note": "치유 시전 시 d8 → d10"
- },
- "watch-your-back": {
-  "auto_note": "[1행동] 위협 판정. 성공 시 대상이 당신 지각에 +2이지만 공포 의지 내성에 -2"
- },
- "shatter-defenses": {
-  "auto_note": "[1행동] 겁먹은 적에 타격. 명중+피해 시 공포가 끝날 때까지 무방비"
- },
  "elven-lore": {
   "choice": {
    "id": "cho-elven-lore",
@@ -2482,114 +518,6 @@
    "options": []
   }
  },
- "perfect-shot": {
-  "auto_note": "[3행동] 재장전 1+ 장전된 무기로 사냥감에 최대 피해 타격. 이후 턴 종료"
- },
- "vicious-debilitations": {
-  "auto_note": "추가 쇠약: 둔기/관통/참격 약점 5 또는 서투름 1"
- },
- "preparation": {
-  "auto_note": "[1행동] 다음 턴까지 로그 반응 전용 추가 반응 1회"
- },
- "reach-spell-witch": {
-  "auto_note": "[1행동] 주문 사거리 30피트 증가 (접촉→30피트)"
- },
- "steady-spellcasting-witch": {
-  "auto_note": "반응이 주문시전 방해 시 DC 15 단순 판정 성공하면 방해 안 됨"
- },
- "soulsight": {
-  "auto_note": "60피트 부정확 영혼감각 획득. 살아있는/언데드/혼령 감지"
- },
- "quickened-casting-witch": {
-  "auto_note": "하루 1회. 캔트립 또는 최고 슬롯보다 2랭크 이상 낮은 주문의 시전 행동 수 1 감소"
- },
- "effortless-concentration-witch": {
-  "auto_note": "[자유] 턴 시작 시 유지 주문 1개 자동 연장"
- },
- "widen-spell-witch": {
-  "auto_note": "[1행동] 다음 주문의 폭발/원뿔/직선 영역 5~10피트 확장"
- },
- "overwhelming-energy-wizard": {
-  "auto_note": "[1행동] 다음 주문이 대상의 에너지 저항을 레벨만큼 무시"
- },
- "blade-break": {
-  "auto_note": "[반응] 적의 치명타 시 무기/방패를 파괴하여 경도×2만큼 피해 감소"
- },
- "twin-parry-ranger": {
-  "auto_note": "[1행동] 양손 근접 무기로 AC +1 상황 보너스 (방어 특성 +2). 다음 턴까지"
- },
- "guardians-deflection": {
-  "auto_note": "[반응] 도달 내 아군의 AC에 +2 상황 보너스 (명중→빗나감 또는 치명타→명중 가능 시)"
- },
- "blind-fight-rogue": {
-  "auto_note": "은폐 단순 판정 불필요. 숨겨진 적에게 무방비 아님. 인접 미탐지→숨겨진"
- },
- "twin-riposte-ranger": {
-  "auto_note": "[반응] 도달 내 적의 대실패 시 근접 타격 또는 무장 해제. 쌍검 방어 중 필요"
- },
- "dueling-dance": {
-  "auto_note": "[1행동] 자세: 한 손 무기+빈 손. 항상 결투 방어의 AC +2 상황 보너스"
- },
- "twinned-defense": {
-  "auto_note": "[1행동] 자세: 각 손에 근접 무기. 항상 쌍검 방어의 AC 보너스"
- },
- "impossible-volley-ranger": {
-  "auto_note": "[3행동] 살포+재장전 0 무기로 10피트 폭발 내 모든 적에 -2 페널티 타격"
- },
- "quick-draw-rogue": {
-  "auto_note": "[1행동] 무기 뽑기 + 즉시 타격"
- },
- "scouts-warning-rogue": {
-  "auto_note": "[자유] 우선권 굴림 직전 아군 모두 우선권 +1 상황 보너스"
- },
- "skirmish-strike-rogue": {
-  "auto_note": "[1행동] 비틀거림 후 타격, 또는 타격 후 비틀거림"
- },
- "sense-the-unseen-rogue": {
-  "auto_note": "[반응] 탐색 실패 시 미탐지 생물을 자동 감지하여 숨겨진으로"
- },
- "tumble-behind": {
-  "auto_note": "덤블 통과 성공 시 통과한 적이 다음 턴까지 무방비"
- },
- "predictive-purchase": {
-  "auto_note": "선견 계획자+선견 소모품 재주 획득. 2행동으로 아이템을 꺼냄"
- },
- "implausible-purchase": {
-  "auto_note": "선견 계획자를 1행동으로 사용. 하루 5회까지 레벨-6 이하 소모품"
- },
- "counterspell-witch": {
-  "auto_note": "[반응] 적이 같은 주문을 시전할 때 반격으로 해당 주문을 무효화"
- },
- "conceal-spell-witch": {
-  "auto_note": "[1행동] 다음 주문에 미묘한 특성 부여. 기만 DC로 시전 징후 은닉"
- },
- "reflect-spell-witch": {
-  "auto_note": "반격 주문 대성공 시 주문을 원래 시전자에게 되돌림"
- },
- "spirit-familiar": {
-  "auto_note": "[1행동] 사역마를 비물질로 전환/복귀. 물리 피해 저항, 역장 피해에 약함"
- },
- "voice-of-nature-druid": {
-  "auto_note": "드루이드 언어 습득. 자연의 소리를 듣고 이해 가능"
- },
- "reactive-strike-fighter": {
-  "auto_note": "[반응] 도달 범위 내 적이 조작/이동 행동 또는 원거리 공격 시 근접 타격. 치명타 시 조작 행동 방해"
- },
- "hunt-prey-ranger": {
-  "auto_note": "[1행동] 사냥감 1마리 지정. 지정된 적에 대해 추적/인지 보너스 + 사냥 방식 효과 적용"
- },
- "surprise-attack-rogue": {
-  "auto_note": "전투 시작 시 기만/은신으로 우선권 굴림 가능. 적이 아직 행동 안 했으면 무방비"
- },
- "coercion": {
-  "auto_note": "강요 시간 단축 (전문가=3라운드, 달인=1라운드, 전설=1행동)"
- },
- "connections": {
-  "auto_note": "정보 수집 시 영향력 있는 인맥에 접근. 어려운 정보 획득 가능"
- },
- "mountain-roots": {
-  "auto_note": "밀기/넘어뜨리기에 대한 DC +2 상황 보너스. 강제 이동 거리 절반"
- },
  "vengeful-hatred": {
   "choice": {
    "id": "cho-vengeful-hatred",
@@ -2597,38 +525,7 @@
    "label": "복수 대상 유형을 선택하세요",
    "filter": null,
    "options": []
-  },
-  "auto_note": "보복의 맹세($choice_name): 해당 유형 근접 피해 +1 (전문화 +2)"
- },
- "expert-elven-weaponry": {
-  "auto_note": "엘프 무기 숙련도 전문가로 증가"
- },
- "gnome-weapon-expertise": {
-  "auto_note": "노움 무기 숙련도 전문가로 증가"
- },
- "goblin-weapon-frenzy": {
-  "auto_note": "고블린 무기 숙련도 전문가로 증가"
- },
- "halfling-weapon-expertise": {
-  "auto_note": "하플링 무기 숙련도 전문가로 증가"
- },
- "versatile-heritage": {
-  "auto_note": "반엘프 또는 반오크 유산 선택 가능"
- },
- "orc-weapon-expertise": {
-  "auto_note": "오크 무기 숙련도 전문가로 증가"
- },
- "recognize-poison": {
-  "auto_note": "[1행동] 독소 종류 식별. 제작으로 독 유형/DC 파악"
- },
- "planar-sense": {
-  "auto_note": "항상 차원 감지 활성. 30피트 이내 차원문/이계 존재 자동 인식"
- },
- "fast-study": {
-  "auto_note": "지식 회상 후 해당 정보를 활용한 판정에 +1 상황 보너스 (1분)"
- },
- "sound-estimation": {
-  "auto_note": "소리만으로 거리/방향/수량 추정 가능"
+  }
  },
  "composition-spells": {
   "rows": [
@@ -2784,8 +681,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "shield",
-    "note": "방패의 경도가 7 증가하고 HP 108, 방어력 54가 추가된다(최대 경도 20, HP 160, 방어력 80)."
+    "attach": "shield"
    }
   ]
  },
@@ -2794,8 +690,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "shield",
-    "note": "방패의 경도가 5 증가하고 HP 84, 방어력 42가 추가된다(최대 경도 17, HP 136, 방어력 68)."
+    "attach": "shield"
    }
   ]
  },
@@ -2804,8 +699,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "마지막 행동으로 적을 쓰러뜨리면 반응을 유발하지 않고 이동 속도만큼 스트라이드(또는 등반/비행/수영 등)할 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -2814,8 +708,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "착용 중 은신 판정에 +3 아이템 보너스를 얻는다."
+    "attach": "armor"
    }
   ]
  },
@@ -2824,8 +717,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "명중 시 시간당 1회, 대상이 DC 20 반사 내성에 실패하면 원하는 방향으로 5피트 강제 이동시킨다."
+    "attach": "weapon"
    }
   ]
  },
@@ -2834,8 +726,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "착용 중 지속 산성 또는 화염 피해를 끝내는 단순 판정 DC를 15에서 8로(특히 효과적인 지원 시 3) 낮춘다."
+    "attach": "armor"
    }
   ]
  },
@@ -2844,8 +735,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "마지막 행동으로 적을 쓰러뜨리면 반응을 유발하지 않고 최대 15피트 스트라이드(또는 등반/비행/수영 등)할 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -2854,8 +744,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "공허 피해·죽음 효과 내성에 +1 아이템 보너스를 얻고, 치명타 시 추가 1d6 활력 또는 공허 피해를 입히며, 하루 1회 처치 시 명중·피해 +1 또는 임시 HP를 얻는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -2864,8 +753,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "30피트 내에서 당신을 볼 수 있는 공포 상태 적은 턴 종료 시 DC 29 의지 내성에 실패하면 공포 수치가 2 미만으로 감소하지 않는다."
+    "attach": "armor"
    }
   ]
  },
@@ -2874,8 +762,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "내성 굴림에 +4 아이템 보너스를 얻고, 대실패 시 신화 포인트를 소모해 실패(신화 효과) 또는 성공(비신화 효과)으로 변경할 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -2884,8 +771,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "물속에서도 육지와 동일하게 작동하여 수중 공격 페널티·제한을 받지 않는다(화염 기능 포함)."
+    "attach": "weapon"
    }
   ]
  },
@@ -2894,8 +780,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "은폐 상태일 때 당신을 대상으로 하는 효과의 단순 판정 DC가 5 대신 6이 되며, 하루 1회 발동으로 다음 턴 종료까지 이 효과를 적용한다."
+    "attach": "armor"
    }
   ]
  },
@@ -2904,8 +789,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "30피트 내에서 당신을 볼 수 있는 공포 상태 적은 턴 종료 시 DC 38 의지 내성에 실패하면 공포 수치가 감소하지 않는다."
+    "attach": "armor"
    }
   ]
  },
@@ -2914,8 +798,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "소유자로 인장을 새긴 뒤 2행동으로 100피트 이내의 무기를 손으로 순간이동시킨다(타인 소유 시 의지 내성으로 저항 가능)."
+    "attach": "weapon"
    }
   ]
  },
@@ -2928,8 +811,7 @@
     "damage": {
      "dice": "1d6",
      "type": "spirit"
-    },
-    "note": "유령 접촉 룬과 동일한 효과에 추가 1d6 영혼 피해를 입히며, 빙의 생물에게 치명타 시 DC 26 의지 내성 실패로 빙의체를 쫓아낸다."
+    }
    }
   ]
  },
@@ -2938,8 +820,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "머리 달린 생물에게 자연 20으로 대성공 시 대상이 DC 37 인내 내성에 실패하면 참수되어 죽는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -2948,8 +829,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "치명타를 당할 때 DC 17 단순 판정에 성공하면 일반 타격으로 전환되며, 벌크 1 증가·근력 요구량 1 감소."
+    "attach": "armor"
    }
   ]
  },
@@ -2963,7 +843,6 @@
      "type": "fire",
      "value": 10
     },
-    "note": "제작 시 선택한 산성·냉기·전기·화염 중 한 유형에 저항력 10을 얻는다.",
     "energyChoice": [
      "acid",
      "cold",
@@ -2978,8 +857,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "탈출과 비집고 들어가기 곡예 판정에 +3 아이템 보너스를 얻는다."
+    "attach": "armor"
    }
   ]
  },
@@ -2988,8 +866,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "1행동으로 5피트 하강하며 최대 25피트 전방으로 활공할 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -2998,8 +875,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "지속 출혈 중인 대상에게 치명타 시 소모 1 상태를 부여하고, 무기로 적을 쓰러뜨리면 1분간 대상 레벨의 2배 임시 HP를 얻는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3008,8 +884,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "붙잡힘·포박·행동불가 상태일 때 반응으로 가시가 돋아 +14 근접 공격으로 2d6 관통 피해(삼켜진 경우 추가 1d6)를 입힌다."
+    "attach": "armor"
    }
   ]
  },
@@ -3018,8 +893,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "완전한 갑옷에 통합되면 +1 갑옷 효능 룬으로 기능한다."
+    "attach": "armor"
    }
   ]
  },
@@ -3028,8 +902,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "일족 단검 소유자로서 사회·요청 외교 판정에 +2 아이템 보너스를 얻고, 하루 1회 30피트 내 적을 강제 행동시키거나 DC 28 의지 내성으로 8d6 정신 피해를 입힌다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3038,8 +911,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "비행 속도에 +10피트 아이템 보너스를 얻고, 60피트 내 추락 중인 생물에게 완만한 착지를 시전할 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -3052,8 +924,7 @@
     "damage": {
      "dice": "2d6",
      "type": "mental"
-    },
-    "note": "거인 대상 명중 시 저항을 무시하는 추가 2d6 정신 피해를 입히고, 치명타 시 DC 34 인내 내성으로 약화·추가 정신 피해를 준다."
+    }
    }
   ]
  },
@@ -3062,8 +933,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "시간당 1회, 산성·냉기·전기·화염 피해를 받을 때 발동해 해당 유형에 저항력 5를 얻는다(발동시킨 피해에는 미적용)."
+    "attach": "armor"
    }
   ]
  },
@@ -3072,8 +942,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "2행동으로 무기를 놓아 비행 속도 40피트로 스스로 날아가 적과 싸우게 하며(공격 1d20+24), 매 라운드 DC 6 단순 실패 시 종료된다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3086,8 +955,7 @@
     "damage": {
      "dice": "1d4",
      "type": "spirit"
-    },
-    "note": "명중 시 추가 1d4 영혼 피해(불경한 대상에겐 2d4)를 입히고 신성 속성을 부여하며, 하루 1회 대성공 시 HP를 회복한다."
+    }
    }
   ]
  },
@@ -3100,8 +968,7 @@
     "damage": {
      "dice": "1d6",
      "type": "mental"
-    },
-    "note": "거인 대상 명중 시 추가 1d6 정신 피해를 입히고, 치명타 시 거인이 약화 1 상태가 된다."
+    }
    }
   ]
  },
@@ -3110,8 +977,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "몰아치는 타격의 첫 공격으로 적을 쓰러뜨리면 사거리 30피트로 두 번째 공격을 가하며, 하루 한 번 영적 무장 주문을 시전한다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3124,8 +990,7 @@
     "damage": {
      "dice": "1d6",
      "type": "force"
-    },
-    "note": "명중 시 1d6 역장 피해를 추가하고, 치명타 시 인내 내성 대성공에 실패한 대상을 5피트 밀어낸다."
+    }
    }
   ]
  },
@@ -3143,8 +1008,7 @@
      "dice": "4d4",
      "type": "void",
      "on": "crit"
-    },
-    "note": "명중 시 1d4 공허 피해를 추가하고, 치명타 시 4d4 지속 공허 피해를 입히며 대상의 공허 저항을 무시한다."
+    }
    }
   ]
  },
@@ -3153,8 +1017,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "지속 산성 또는 화염 피해를 끝내는 단순 판정 난이도를 15에서 10으로 낮춘다."
+    "attach": "armor"
    }
   ]
  },
@@ -3163,8 +1026,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "운동·위협 판정에 +1 아이템 보너스를 주고, 하루 한 번 10피트 내 아군에게 방어력 +1 상태 보너스를 부여한다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3173,8 +1035,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "하루 한 번 자신의 생명력과 연결된 돌벽을 소환하며, 돌벽이 손상되면 대신 자신이 피해를 입는다."
+    "attach": "armor"
    }
   ]
  },
@@ -3183,8 +1044,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "비물질 생물을 명중시킬 수 있으며, 무형 생물도 이 무기를 잡고 휘두를 수 있다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3193,8 +1053,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "치명타 시 대상을 다음 차례가 끝날 때까지 서투름 1·쇠약 1 상태로 만든다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3203,8 +1062,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "휘두를 때 가속 상태를 얻지만 추가 행동은 이 무기 공격에만 쓸 수 있다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3217,8 +1075,7 @@
     "damage": {
      "dice": "1d6",
      "type": "sonic"
-    },
-    "note": "명중 시 1d6 음파 피해를 추가하고, 치명타 시 인내 내성 실패한 대상을 귀먹음 상태로 만들며 음파 저항을 무시한다."
+    }
    }
   ]
  },
@@ -3231,8 +1088,7 @@
     "damage": {
      "dice": "1d4",
      "type": "fire"
-    },
-    "note": "명중 시 1d4 화염 피해(핀드에게 영혼, 언데드에게 활력)를 추가하고, 치명타 시 인내 내성 실패한 대상을 실명 상태로 만든다."
+    }
    }
   ]
  },
@@ -3241,8 +1097,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "탈출·비집고 들어가기 곡예 판정에 +2 아이템 보너스를 준다."
+    "attach": "armor"
    }
   ]
  },
@@ -3256,7 +1111,6 @@
      "type": "fire",
      "value": 5
     },
-    "note": "산성·냉기·전기·화염 중 제작 시 선택한 한 유형에 저항 5를 얻는다.",
     "energyChoice": [
      "acid",
      "cold",
@@ -3276,8 +1130,7 @@
      "dice": "1d6",
      "type": "vitality",
      "on": "hit"
-    },
-    "note": "언데드에게 1d6 지속 활력 피해를 입히고, 치명타 시 언데드를 다음 차례가 끝날 때까지 쇠약 1 상태로 만든다."
+    }
    }
   ]
  },
@@ -3290,8 +1143,7 @@
     "damage": {
      "dice": "1d6",
      "type": "cold"
-    },
-    "note": "명중 시 1d6 냉기 피해를 추가하고, 치명타 시 인내 내성 실패한 대상을 느려짐 1 상태로 만든다."
+    }
    }
   ]
  },
@@ -3300,8 +1152,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "치명타 시 30피트 내 성향을 공유하는 동료가 명중 굴림에 +1 상태 보너스를 얻는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3310,8 +1161,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "지속 출혈 피해를 멈추는 단순 판정 난이도를 15에서 12로 낮춘다."
+    "attach": "armor"
    }
   ]
  },
@@ -3324,8 +1174,7 @@
     "damage": {
      "dice": "1d6",
      "type": "electricity"
-    },
-    "note": "명중 시 1d6 전기 피해를 추가하고, 치명타 시 10피트 내 다른 생물 최대 둘에게 같은 전기 피해가 번진다."
+    }
    }
   ]
  },
@@ -3334,8 +1183,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "비행 생물을 치명타로 명중시키면 시간당 한 번 DC 20 대지결속 주문을 시전한다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3344,8 +1192,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "무기 피해 주사위 5개를 부여하고, 신화 포인트 1점으로 피해 주사위를 재굴림해 높은 값을 택할 수 있다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3359,7 +1206,6 @@
      "type": "fire",
      "value": 10
     },
-    "note": "산성·냉기·전기·화염 중 선택한 한 유형에 저항 10을 얻고, 근접 피해를 받으면 그 유형 4d6 피해로 반격할 수 있다.",
     "energyChoice": [
      "acid",
      "cold",
@@ -3374,8 +1220,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "치명타 시 대상을 공포 1 상태로 만든다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3384,8 +1229,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "경갑은 1행동, 평갑·중갑은 2행동으로 빠르게 착용할 수 있게 한다."
+    "attach": "armor"
    }
   ]
  },
@@ -3394,8 +1238,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "명중 시 무기 피해 주사위 수만큼 타격 방사 피해를 입히며, 자신은 이 방사 피해에 면역이다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3404,8 +1247,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "산성·냉기·전기·화염·음파 피해를 받으면 무기가 충전되어 다음 차례가 끝날 때까지 해당 유형 1d8 추가 피해를 입힌다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3414,8 +1256,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "피해를 입은 대상이 DC 20 의지 내성에 실패하면 진정 상태가 되어 명중 굴림에 -2 페널티를 받는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3424,8 +1265,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "붙잡히거나 고정되면 반응으로 갑옷에 가시가 돋아 +28로 5d6 관통 피해를 가하며, 삼켜진 경우 추가 3d6 피해를 입힌다."
+    "attach": "armor"
    }
   ]
  },
@@ -3443,8 +1283,7 @@
      "dice": "2d10",
      "type": "fire",
      "on": "crit"
-    },
-    "note": "명중 시 1d6 화염 피해를 추가하고, 치명타 시 2d10 지속 화염 피해를 입히며 화염 저항을 무시한다."
+    }
    }
   ]
  },
@@ -3453,8 +1292,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "부목·의족의 이점을 재현하고 운반 가능한 벌크 한계를 늘린다."
+    "attach": "armor"
    }
   ]
  },
@@ -3463,8 +1301,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "무기에 넘어뜨리기 특성을 부여하고, 이미 넘어뜨리기가 있으면 치명타 시 반응으로 넘어뜨리기를 시도할 수 있다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3477,8 +1314,7 @@
     "damage": {
      "dice": "1d6",
      "type": "cold"
-    },
-    "note": "명중 시 냉기 피해 1d6을 추가하고, 치명타 시 대상을 둔화 1(DC 34 인내로 해제)시키며 대상의 냉기 저항을 무시한다."
+    }
    }
   ]
  },
@@ -3487,8 +1323,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "치명타 시 무기가 대상에게 위상 결박(DC 27 의지)을 시전하여 차원 이동을 막는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3497,8 +1332,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "분당 1회, 피를 가진 생물을 명중시킨 후 지식 회상을 시도하며 위력 룬만큼의 아이템 보너스를 얻는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3507,8 +1341,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "근접 무기로 치명타 시 대상에게 뿌리가 자라 이동 불가 1 상태로 만든다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3521,8 +1354,7 @@
     "damage": {
      "dice": "1d6",
      "type": "electricity"
-    },
-    "note": "명중 시 전기 피해 1d6을 추가하고, 치명타 시 10피트 내 다른 생물 최대 2명에게 같은 피해를 가하며 전기 저항을 무시한다."
+    }
    }
   ]
  },
@@ -3535,8 +1367,7 @@
     "damage": {
      "dice": "1d6",
      "type": "mental"
-    },
-    "note": "명중 시 정신 피해 1d6을 추가하고, 치명타 시 대상을 망연자실 1(이미 망연자실 상태면 공포 2)로 만든다."
+    }
    }
   ]
  },
@@ -3545,8 +1376,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "하루 1회 활성화하여 1분간 투명화(2레벨) 주문의 효과를 얻는다."
+    "attach": "armor"
    }
   ]
  },
@@ -3555,8 +1385,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "활성화하여 갑옷을 팔찌나 부적 같은 가벼운 착용물로 접어 위장할 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -3565,8 +1394,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "무기를 연장하여 공격 시 도달 거리 120피트를 얻는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3579,8 +1407,7 @@
     "damage": {
      "dice": "1d6",
      "type": "acid"
-    },
-    "note": "명중 시 산성 피해 1d6을 추가하고, 치명타 시 대상의 방어구(또는 방패)에 경도 적용 전 산성 피해 3d6을 가한다."
+    }
    }
   ]
  },
@@ -3589,8 +1416,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "붙잡히는 등 탈출이 필요한 효과를 받는 동안 신속화 상태가 되어 신중한 발걸음이나 탈출에만 추가 행동을 쓸 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -3608,8 +1434,7 @@
      "dice": "1d10",
      "type": "fire",
      "on": "crit"
-    },
-    "note": "명중 시 화염 피해 1d6을 추가하고, 치명타 시 지속 화염 피해 1d10을 입힌다."
+    }
    }
   ]
  },
@@ -3618,8 +1443,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "하루 1회 활성화하여 착용자에게 확대 또는 축소 효과를 부여한다."
+    "attach": "armor"
    }
   ]
  },
@@ -3628,8 +1452,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "지속 출혈 피해를 끝내는 단순 판정 DC를 15에서 8로(효과적 지원 시 3) 낮춘다."
+    "attach": "armor"
    }
   ]
  },
@@ -3638,8 +1461,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "활성화하여 비행 속도 25피트(또는 지상 속도 중 낮은 값)를 무한정 얻으며 재대기 없이 재활성화할 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -3648,8 +1470,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "근접 무기로 치명타 시 대상을 이동 불가(탈출 DC 41)로 만들고 그 동안 서투름 1을 부여한다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3658,8 +1479,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "무기를 연장하여 공격 시 도달 거리 60피트를 얻는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3668,8 +1488,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "가볍고 비금속 갑옷 착용 시 은신 판정에 +2 아이템 보너스를 얻는다."
+    "attach": "armor"
    }
   ]
  },
@@ -3678,8 +1497,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "shield",
-    "note": "방패의 경도 +3, HP +64, 방어력 +32(최대 경도 13/HP 104/방어력 52)를 부여한다."
+    "attach": "shield"
    }
   ]
  },
@@ -3688,8 +1506,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "하루 3회 활성화하여 1분간 투명화(2레벨) 주문의 효과를 얻는다."
+    "attach": "armor"
    }
   ]
  },
@@ -3698,8 +1515,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "공명 무기 특성을 얻어 에너지 전도 시 선택한 유형의 추가 피해 1d8을 입히고, 치명타 시 같은 유형의 지속 피해 1d8을 가한다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3708,8 +1524,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "붙잡히거나 이동 불가 상태가 되면 반응행동으로 가시가 돋아 대상에게 관통 피해 3d6(삼킨 경우 +2d6)을 가한다."
+    "attach": "armor"
    }
   ]
  },
@@ -3718,8 +1533,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "근접 무기를 입에 물고 활성화하여 소형/중형 동물로 변신하며, 저조도 시야와 이동 속도 +5피트를 얻는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3728,8 +1542,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "지속 출혈 피해를 끝내는 단순 판정 DC를 15에서 5로 낮춘다(효과적 도움 시 자동 제거)."
+    "attach": "armor"
    }
   ]
  },
@@ -3742,8 +1555,7 @@
     "damage": {
      "dice": "1d6",
      "type": "sonic"
-    },
-    "note": "명중 시 음파 피해 1d6을 추가하고, 치명타 시 대상은 DC 24 인내에 실패하면 1분간 귀먹음 상태가 된다."
+    }
    }
   ]
  },
@@ -3752,8 +1564,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "시간당 1회 활성화하여 5분간 비행 속도 25피트(또는 지상 속도 중 낮은 값)를 얻는다."
+    "attach": "armor"
    }
   ]
  },
@@ -3762,8 +1573,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "중갑/판금 금속 갑옷을 활성화하여 특화 그룹을 다른 그룹으로 변경할 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -3772,8 +1582,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "갑옷 AC 보너스 +4와 속성 룬 4개 슬롯을 부여하며, 반응행동으로 신화 포인트를 소모해 대성공 공격을 완화할 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -3787,8 +1596,7 @@
      "dice": "1d6",
      "type": "bleed",
      "on": "hit"
-    },
-    "note": "생물을 명중시키면 지속 출혈 피해 1d6을 추가로 입힌다."
+    }
    }
   ]
  },
@@ -3797,8 +1605,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "외교 및 동기 파악 판정에 +1 아이템 보너스를 주고, 하루 1회 활성화하여 활력 HP 3d10을 회복한다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3807,8 +1614,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "이 갑옷은 단 하나의 액션만으로 착용할 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -3826,8 +1632,7 @@
      "dice": "2d4",
      "type": "void",
      "on": "crit"
-    },
-    "note": "적중 시 1d4 공허 피해를 추가하고 치명타 시 2d4 지속 공허 피해를 입힌다."
+    }
    }
   ]
  },
@@ -3836,8 +1641,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "30피트 내 공포 상태 적은 턴 종료 시 DC 20 의지 내성에 실패하면 그 턴 동안 공포 수치가 1 아래로 감소하지 않는다."
+    "attach": "armor"
    }
   ]
  },
@@ -3850,8 +1654,7 @@
     "damage": {
      "dice": "1d4",
      "type": "spirit"
-    },
-    "note": "공격에 불경한 특성과 1d4 영혼 피해를 부여하고 신성한 대상에게는 2d4를 추가로 입힌다."
+    }
    }
   ]
  },
@@ -3860,8 +1663,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "치명타 시 대상을 1라운드 이동 불가(탈출 DC 34)로 만들고 그동안 서투름 상태로 만든다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3870,8 +1672,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "지속 산성 또는 화염 피해를 끝내는 단순 판정 DC를 15에서 5로 낮춘다."
+    "attach": "armor"
    }
   ]
  },
@@ -3884,8 +1685,7 @@
     "damage": {
      "dice": "1d6",
      "type": "spirit"
-    },
-    "note": "유령 접촉 효과에 더해 1d6 영혼 피해를 입히며 이 영혼 피해는 대상의 영혼 저항을 무시한다."
+    }
    }
   ]
  },
@@ -3894,8 +1694,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "명중 굴림 주사위 결과가 19면(실패가 아닌 한) 치명타가 된다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3904,8 +1703,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "선택한 생물 유형에게 무기 피해 유형으로 1d6 추가 피해를 입힌다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3914,8 +1712,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "구조체에 피해를 줄 때 1d6(치명타 시 1d12) 지속 역장 피해를 추가로 입힌다."
+    "attach": "weapon"
    }
   ]
  },
@@ -3924,8 +1721,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "활성화하여 능력치 변화 없이 갑옷의 외형을 평범하거나 고급스러운 옷으로 바꾼다(간파 DC 25)."
+    "attach": "armor"
    }
   ]
  },
@@ -3934,8 +1730,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "지속 출혈 피해를 끝내는 단순 판정 DC를 15에서 10으로(효과적 지원 시 5) 낮춘다."
+    "attach": "armor"
    }
   ]
  },
@@ -3948,8 +1743,7 @@
     "resistance": {
      "type": "fire",
      "value": 40
-    },
-    "note": "화염 저항 40을 부여하고 능력·속도 페널티를 무시하며, 중/경갑이면 AC 아이템 보너스가 1 증가하고 방패가 매 턴 HP 10을 회복한다."
+    }
    }
   ]
  },
@@ -3958,8 +1752,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "활성화하여 인접한 금속 생물이나 금속 갑옷 착용자와의 거리를 벌리는 이동을 어려운 지형으로 만든다."
+    "attach": "armor"
    }
   ]
  },
@@ -3968,8 +1761,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "이 갑옷을 착용 중일 때 은신 판정에 +1 아이템 보너스를 얻는다."
+    "attach": "armor"
    }
   ]
  },
@@ -3978,8 +1770,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "하루 한 번, 파멸 또는 부상 상태를 얻을 때 그 값을 1 감소시킨다."
+    "attach": "armor"
    }
   ]
  },
@@ -3988,8 +1779,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "치명타 시 대상에게 8랭크 이계 계류(DC 38 의지)를, 적중 시 4랭크 효과를 걸어 도주와 순간이동을 막는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4003,8 +1793,7 @@
      "dice": "1d8",
      "type": "fire",
      "on": "hit"
-    },
-    "note": "적중당한 생물은 1d8 지속 화염 피해를 입고 DC 35 의지에 실패하면 1라운드(대실패 시 1분) 혼란 상태가 된다."
+    }
    }
   ]
  },
@@ -4013,8 +1802,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "착용자는 아군의 원거리 공격에 대해 적에게 엄폐를 제공하지 않는다."
+    "attach": "armor"
    }
   ]
  },
@@ -4023,8 +1811,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "외교 및 동기 파악 판정에 +2 아이템 보너스를 주고, 하루 한 번 활성화하여 6d10 활력 HP를 회복한다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4038,7 +1825,6 @@
      "type": "acid",
      "value": 5
     },
-    "note": "제작 시 선택한 산성·냉기·전기·화염 중 한 유형에 저항 5를 부여하고, 근접 피해 시 반응으로 그 유형 2d6 피해를 반사한다.",
     "energyChoice": [
      "acid",
      "cold",
@@ -4057,8 +1843,7 @@
     "damage": {
      "dice": "1d4",
      "type": "fire"
-    },
-    "note": "1d4 화염 피해(핀드에겐 영혼, 언데드에겐 활력)를 추가하고 치명타 시 대상을 눈멀게 할 수 있다."
+    }
    }
   ]
  },
@@ -4067,8 +1852,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "하루 한 번 활성화하여 착용자를 제자리에 고정(이동 불가)하며 강제 개방에 성공해야만 옮길 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -4077,8 +1861,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "착용자를 삼키는 생물은 구역질 1이 되며, 그 생물이 토할 때 반응으로 탈출을 시도할 수 있다."
+    "attach": "armor"
    }
   ]
  },
@@ -4087,8 +1870,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "마법 효과에 대한 내성 굴림에 +1 상태 보너스를 주고, 하루 한 번 반응으로 7랭크 마법 해제로 주문을 반격한다."
+    "attach": "armor"
    }
   ]
  },
@@ -4097,8 +1879,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "적중 시 반응으로 대상이 DC 28 반사에 실패하면 원하는 방향으로 10피트 강제 이동시킨다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4107,8 +1888,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "shield",
-    "note": "방패의 경도를 3, HP를 52, 방어력을 26 증가시킨다(상한 경도 10·HP 80·방어력 40)."
+    "attach": "shield"
    }
   ]
  },
@@ -4117,8 +1897,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "이 무기의 숙련도 등급을 한 단계(보유 최고 무기 숙련도까지) 높이고 관련 지식 기술 하나에 전문가 숙련도를 준다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4132,8 +1911,7 @@
      "dice": "2d6",
      "type": "vitality",
      "on": "hit"
-    },
-    "note": "언데드에게 2d6 지속 활력 피해를 입히고 치명타 시 그 지속 피해 동안 쇠약·멍함 상태로 만든다."
+    }
    }
   ]
  },
@@ -4142,8 +1920,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "명중 굴림에 +4 아이템 보너스를 주고 무기에 속성 룬 4개를 새길 수 있으며, 대실패를 신화 포인트로 재굴림할 수 있다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4152,8 +1929,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "무기의 위력 룬 아이템 보너스를 무장 해제·훔치기 DC에 더하고, 치명타 시 대상에게 1라운드 눈부심을 부여한다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4162,8 +1938,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "3랭크 이하 주문을 무기에 저장했다가 공격이 명중하면 대상에게 발동시킨다(내성 DC 30)."
+    "attach": "weapon"
    }
   ]
  },
@@ -4172,8 +1947,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "무기를 입에 물고 소형·중형 동물로 변신해 해당 무기로만 공격할 수 있다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4182,8 +1956,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "하루 한 번 명령으로 10분간 에테리얼 도약 효과를 얻어 에테리얼 평면으로 이동한다."
+    "attach": "armor"
    }
   ]
  },
@@ -4192,8 +1965,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "송곳니 변신에 더해 동물 형태에서 저조도 시야·30피트 후각·이동 속도 +10피트 아이템 보너스를 얻는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4202,8 +1974,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "치명타로 치명타 특화 효과를 얻을 때 무기 그룹별 추가 이득을 준다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4212,8 +1983,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "매 턴 시작 시 자신에게 걸린 적대적 주문 하나에 대해 새 내성 굴림을 시도해 성공하면 종료시킨다."
+    "attach": "armor"
    }
   ]
  },
@@ -4222,8 +1992,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "투척 공격 후 무기가 손으로 되돌아온다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4232,8 +2001,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "무기에 비살상 특성을 부여하고 지속 피해를 무효화하며, 치명타 시 대상을 1분간 매혹 상태로 만든다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4246,8 +2014,7 @@
     "damage": {
      "dice": "1d6",
      "type": "force"
-    },
-    "note": "명중 시 추가 1d6 역장 피해를 입히고, 치명타 시 대상을 10피트 밀칠 수 있다(DC 37 인내)."
+    }
    }
   ]
  },
@@ -4256,8 +2023,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "한 행동으로 무기를 같은 손 수의 다른 근접 무기로 변형시킨다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4266,8 +2032,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "치명타 시 대상을 다음 턴 종료까지 서투름 2·쇠약 2 상태로 만든다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4276,8 +2041,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "정당한 소유자가 아닌 자가 무기를 휘두르면 1d8 관통 피해와 1d4 지속 출혈 피해를 입는다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4286,8 +2050,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "지속 산성·화염 피해를 끝내기 위한 단순 판정 DC를 15에서 12로 낮춘다."
+    "attach": "armor"
    }
   ]
  },
@@ -4296,8 +2059,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "클랜 단검 소유자에게 사회성 외교 판정 +1 아이템 보너스를 주고, 하루 한 번 적을 강제로 행동시킨다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4306,8 +2068,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "탈출·비집고 들어가기 곡예 판정에 +1 아이템 보너스를 준다."
+    "attach": "armor"
    }
   ]
  },
@@ -4316,8 +2077,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "무기가 마법 무효화에 면역이 되고 사거리 증가가 두 배가 되며, 시야 내 어떤 대상이든 순간이동 공격할 수 있다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4326,8 +2086,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "armor",
-    "note": "치명타를 당할 때마다 DC 14 단순 판정에 성공하면 일반 타격으로 전환한다."
+    "attach": "armor"
    }
   ]
  },
@@ -4336,8 +2095,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "치명타 성공 시 대상을 공포 2 상태로 만든다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4350,8 +2108,7 @@
     "damage": {
      "dice": "1d6",
      "type": "acid"
-    },
-    "note": "명중 시 추가 1d6 산성 피해를 입히고, 치명타 시 대상 방어구에 6d6 산성 피해를 준다."
+    }
    }
   ]
  },
@@ -4360,8 +2117,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "shield",
-    "note": "방패 경도 +5, HP +80, 방어력 +40을 부여한다(최대 경도 15/HP 120/방어력 60)."
+    "attach": "shield"
    }
   ]
  },
@@ -4370,8 +2126,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "클랜 단검 소유자에게 운동·협박 판정 +2 아이템 보너스를 주고, 하루 한 번 주변 아군에게 방어력 +2 상태 보너스를 준다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4380,8 +2135,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "shield",
-    "note": "방패 경도 +3, HP +44, 방어력 +22를 부여한다(최대 경도 8/HP 64/방어력 32)."
+    "attach": "shield"
    }
   ]
  },
@@ -4390,8 +2144,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "무기에 초차원 공간을 만들어 독·마법 오일을 보관하고 1분간 빈 손 없이 발라낼 수 있다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4400,8 +2153,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "치명타 시 대상을 1라운드 고정(탈출 DC 23)시키고 서투름 1 상태로 만든다."
+    "attach": "weapon"
    }
   ]
  },
@@ -4415,8 +2167,7 @@
      "dice": "1d4",
      "type": "fire",
      "on": "hit"
-    },
-    "note": "명중 시 대상에게 1d4 지속 화염 피해를 주고, DC 25 의지 내성 실패 시 1라운드 혼란 상태로 만든다."
+    }
    }
   ]
  },
@@ -4425,8 +2176,7 @@
    {
     "type": "rune",
     "runeType": "property",
-    "attach": "weapon",
-    "note": "투척 시 무기가 복제되어 30피트 원뿔 범위 생물에게 피해 주사위 두 배의 피해를 준다(DC 27 기본 반사)."
+    "attach": "weapon"
    }
   ]
  }
