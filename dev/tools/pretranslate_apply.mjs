@@ -29,7 +29,8 @@ function normTerms(s) {
   return String(s)
     .replace(/평면\s*판정/g, '플랫 판정').replace(/평판정/g, '플랫 판정').replace(/단순\s*판정/g, '플랫 판정')
     .replace(/주님/g, '군주')  // 신격 호칭 "Lord": 현대 기독교 어감 '주님' → 판타지 '군주'
-    .replace(/능력치\s*(?:상승|증가)/g, '능력치 증강');  // ability boost 정본 = 능력치 증강(상승/증가 혼용 통일)
+    .replace(/능력치\s*(?:상승|증가)/g, '능력치 증강')  // ability boost 정본 = 능력치 증강(상승/증가 혼용 통일)
+    .replace(/<strong>\s*(?:상향|강화)\s*\(/g, '<strong>고양 (');  // Heightened 정본 = 고양(앱 용어), 상향/강화 헤딩 통일
 }
 
 function stripLinkLabels(s) {
