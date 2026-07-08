@@ -653,7 +653,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.146').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.147').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -1424,8 +1424,8 @@ function buildSpellSlots() {
 // ═══════════════════════════════════════════════
 
 // PF2e Remaster: 수정치 기준 (+0 시작)
-// - 부스트 1개 = +1 (수정치 < +4일 때)
-// - 수정치 +4 이상에 부스트 → "부분 부스트" 표시 (2개 쌓이면 +1)
+// - 증강 1개 = +1 (수정치 < +4일 때)
+// - 수정치 +4 이상에 증강 → "부분 증강" 표시 (2개 쌓이면 +1)
 // - 결함 1개 = -1
 // - 동일 출처 묶음 내: 같은 속성에 2번 배분 불가 (UI에서 강제)
 function calcMod(a) {
@@ -1445,7 +1445,7 @@ function calcMod(a) {
   let mod = 0;
   let partial = false;
   for (const batch of batches) {
-    // 같은 묶음 내 해당 속성 부스트 횟수 (정상적으론 최대 1회)
+    // 같은 묶음 내 해당 속성 증강 횟수 (정상적으론 최대 1회)
     const n = batch.filter(b => b === a).length;
     for (let i = 0; i < n; i++) {
       if (mod < 4) {
@@ -1464,9 +1464,9 @@ function calcMod(a) {
 function getMod(a) { return calcMod(a).mod; }
 function getAttr(a) { return getMod(a); } // 호환성 유지
 
-// ─── 부스트 팝업 모달 ───
+// ─── 증강 팝업 모달 ───
 function openBoostModal() {
-  document.getElementById('modal-title').textContent = '능력치 부스트 배분';
+  document.getElementById('modal-title').textContent = '능력치 증강 배분';
   document.getElementById('modal-overlay').classList.remove('hidden');
   const searchEl = document.getElementById('modal-search');
   if (searchEl) searchEl.style.display = 'none';
@@ -1495,7 +1495,7 @@ function renderBoostModal() {
 
   const info = document.createElement('div');
   info.style.cssText = 'font-size:10px;color:var(--text2);margin-bottom:8px;';
-  info.textContent = '부스트: 수정치 +1 (이미 +4 이상이면 ½ 표시 → 2개 = +1). 결함: -1. 같은 출처에서 동일 속성 중복 불가.';
+  info.textContent = '증강: 수정치 +1 (이미 +4 이상이면 ½ 표시 → 2개 = +1). 결함: -1. 같은 출처에서 동일 속성 중복 불가.';
   container.appendChild(info);
 
   // 혈통 섹션
@@ -1509,12 +1509,12 @@ function renderBoostModal() {
     const desc = `고정: ${fixedKeys.map(k=>ATTR_KO[k]).join(', ')||'없음'}
       ${flawKeys.length?` | 결함: ${flawKeys.map(k=>ATTR_KO[k]).join(', ')}`:''}
       | 자유 ${freeCount}개 선택 (고정/결함 속성 제외)`;
-    container.appendChild(makeBoostSection('혈통 자유 부스트 — '+anc.name, desc,
+    container.appendChild(makeBoostSection('혈통 자유 증강 — '+anc.name, desc,
       'ancFree', freeCount, ATTRS.filter(a=>!unavailForFree.includes(a)), state.boosts.ancFree));
   } else {
     const s = document.createElement('div');
     s.className = 'boost-section';
-    s.innerHTML = '<div class="boost-section-title">혈통 자유 부스트</div><div class="boost-section-desc" style="color:var(--text2);">혈통을 먼저 선택하세요.</div>';
+    s.innerHTML = '<div class="boost-section-title">혈통 자유 증강</div><div class="boost-section-desc" style="color:var(--text2);">혈통을 먼저 선택하세요.</div>';
     container.appendChild(s);
   }
 
@@ -1524,7 +1524,7 @@ function renderBoostModal() {
     if (!bg) {
       const s = document.createElement('div');
       s.className = 'boost-section';
-      s.innerHTML = '<div class="boost-section-title">배경 부스트</div><div class="boost-section-desc" style="color:var(--text2);">배경을 먼저 선택하세요.</div>';
+      s.innerHTML = '<div class="boost-section-title">배경 증강</div><div class="boost-section-desc" style="color:var(--text2);">배경을 먼저 선택하세요.</div>';
       container.appendChild(s);
     } else {
       const beff = getBackgroundEffects(bg);
@@ -1539,18 +1539,18 @@ function renderBoostModal() {
 
         const groupLabel = choiceGroup.map(k => ATTR_KO[k]).join(' 또는 ');
         container.appendChild(makeBoostSection(
-          `배경 고정 부스트 — ${groupLabel}`, `배경: ${bg.name}`,
+          `배경 고정 증강 — ${groupLabel}`, `배경: ${bg.name}`,
           'bgFixed', 1, choiceGroup, state.boosts.bgFixed));
 
         if (freeCount > 0) {
           const freeAvail = ATTRS.filter(a => !state.boosts.bgFixed.includes(a));
           container.appendChild(makeBoostSection(
-            `배경 자유 부스트 (다른 속성 ${freeCount}개)`, '고정 부스트와 다른 속성을 선택하세요.',
+            `배경 자유 증강 (다른 속성 ${freeCount}개)`, '고정 증강와 다른 속성을 선택하세요.',
             'bgFree', freeCount, freeAvail, state.boosts.bgFree));
         }
       } else if (freeCount > 0) {
         // 선택 그룹 없이 자유만 (예: 자유 2개)
-        container.appendChild(makeBoostSection(`배경 부스트 (자유 ${freeCount}개, 서로 다른 속성)`,
+        container.appendChild(makeBoostSection(`배경 증강 (자유 ${freeCount}개, 서로 다른 속성)`,
           `배경: ${bg.name}`, 'bg', freeCount, ATTRS, state.boosts.bg));
       }
     }
@@ -1589,12 +1589,12 @@ function renderBoostModal() {
     container.appendChild(sec);
   }
 
-  // 레벨별 자유 부스트
+  // 레벨별 자유 증강
   const lv = getLevel();
   [[1,'lv1'],[5,'lv5'],[10,'lv10'],[15,'lv15'],[20,'lv20']].forEach(([reqLv, key]) => {
     if (lv < reqLv) return;
     container.appendChild(makeBoostSection(
-      `레벨 ${reqLv} 자유 부스트 (4개, 서로 다른 속성)`,
+      `레벨 ${reqLv} 자유 증강 (4개, 서로 다른 속성)`,
       '4개를 서로 다른 속성에 배분하세요.',
       key, 4, ATTRS, state.boosts[key]));
   });
@@ -1686,14 +1686,14 @@ function renderBoostGrid() {
     });
   }
 
-  // 혈통 고정 부스트 (혈통 선택 시 자동 설정)
+  // 혈통 고정 증강 (혈통 선택 시 자동 설정)
   addRow('혈통 고정', null, 0, state.boosts.ancFixed, false);
-  // 혈통 자유 부스트 (혈통에 따라 1~2개, 혈통 고정+자유 합쳐서 중복 불가 체크)
+  // 혈통 자유 증강 (혈통에 따라 1~2개, 혈통 고정+자유 합쳐서 중복 불가 체크)
   // ancFree는 혈통 고정과 같은 묶음이므로 이미 선택된 것 제외
   const ancUsed = [...state.boosts.ancFixed];
   // 혈통 자유: 혈통마다 다른 개수 (대부분 1개, 인간/오크는 2개)
   const ancFreeMax = state.selectedAncestry ? (state.selectedAncestry.free_boosts || 0) : 1;
-  // 자유 부스트 선택 시 이미 고정된 속성 제외
+  // 자유 증강 선택 시 이미 고정된 속성 제외
   {
     const srcDiv = document.createElement('div');
     srcDiv.className = 'bg-src';
@@ -1706,7 +1706,7 @@ function renderBoostGrid() {
       cb.type = 'checkbox';
       const arr = state.boosts.ancFree;
       cb.checked = arr.includes(a);
-      // 고정 부스트에서 이미 사용된 속성은 비활성화
+      // 고정 증강에서 이미 사용된 속성은 비활성화
       if (ancUsed.includes(a)) {
         cb.disabled = true;
         cb.checked = false;
@@ -1728,11 +1728,11 @@ function renderBoostGrid() {
   }
   // 혈통 결함
   addRow('혈통 결함', null, 0, state.boosts.ancFlaw, true);
-  // 배경 부스트 (2개, 서로 달라야)
+  // 배경 증강 (2개, 서로 달라야)
   addRow('배경 (2개)', 'bg', 2, null, false);
   // 클래스 핵심 속성 (자동)
   addRow('클래스', null, 0, state.boosts.cls ? [state.boosts.cls] : [], false);
-  // 레벨별 자유 부스트 (4개씩, 같은 묶음 내 서로 달라야)
+  // 레벨별 자유 증강 (4개씩, 같은 묶음 내 서로 달라야)
   addRow('레벨 1 (4개)', 'lv1', 4, null, false);
   if (lv >= 5)  addRow('레벨 5 (4개)',  'lv5',  4, null, false);
   if (lv >= 10) addRow('레벨 10 (4개)', 'lv10', 4, null, false);
@@ -2115,9 +2115,9 @@ function recalcAll() {
     const mEl = document.getElementById('mod-'+a);
     if (mEl) mEl.textContent = fmtBonus(mod);
     const pEl = document.getElementById('partial-'+a);
-    if (pEl) pEl.textContent = partial ? '½ 부스트' : '';
+    if (pEl) pEl.textContent = partial ? '½ 증강' : '';
   });
-  // 부스트 팝업이 열려있으면 실시간 업데이트
+  // 증강 팝업이 열려있으면 실시간 업데이트
   if (modalType === 'boost') renderBoostModal();
   recalcAC();
   recalcSaves();

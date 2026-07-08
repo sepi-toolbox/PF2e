@@ -809,12 +809,16 @@ function _getDeity(id) {
 
 // 슬러그→무기 정본명 표시 = @link 단일 경로(원칙#1: 별도 getWeapon().name_ko 해소 금지).
 //   link=true → 인터랙티브 @link 스팬(툴팁), false → 평문(리스트/폼컨트롤용, 동일 리졸버 get('equipment')).
+// 자연공격 등 player equipment에 없는 슬러그: @link 대신 한글 평문(깨진 링크 방지).
+const _NATURAL_WEAPON_KO = { jaws: '턱', claw: '발톱', fist: '주먹', nails: '손톱', fangs: '송곳니', horn: '뿔', tail: '꼬리', 'alchemical-bomb': '연금술 폭탄', 'shuriken-drone': '수리검 드론' };
 function weaponRefHtml(slug, link) {
   if (!slug) return '';
   if (typeof PF2eData === 'undefined') return slug;
-  if (link && PF2eData.enrichDesc) return PF2eData.enrichDesc('@link[equipment.' + slug + ']');
   const w = PF2eData.get('equipment', slug);
-  return (w && (w.name_ko || w.name)) || slug;
+  if (w) {  // 실제 아이템 → @link(정본명) 또는 평문(동일 리졸버)
+    return (link && PF2eData.enrichDesc) ? PF2eData.enrichDesc('@link[equipment.' + slug + ']') : (w.name_ko || w.name || slug);
+  }
+  return _NATURAL_WEAPON_KO[slug] || slug;  // 아이템 없음 → 한글 폴백(깨진 @link 금지)
 }
 
 function openDeityPicker() {
@@ -1095,7 +1099,7 @@ const GROWTH_TABLE = {
   20: { boosts:4, classFeat:true, skillFeat:true },
 };
 
-// 능력치 부스트 레벨 = 전 클래스 공통 규칙(1/5/10/15/20). 레벨1 코어선택도 클래스 무관.
+// 능력치 증강 레벨 = 전 클래스 공통 규칙(1/5/10/15/20). 레벨1 코어선택도 클래스 무관.
 const _BOOST_LEVELS = [1, 5, 10, 15, 20];
 // 선택 클래스의 실제 획득 레벨에서 성장표 파생. 데이터 없으면 기본 GROWTH_TABLE 폴백.
 function getGrowthTable(cls) {
@@ -1198,7 +1202,7 @@ function renderGrowthPlan() {
       html += `<div class="growth-slot ${boostCount >= plan.boosts ? 'filled' : ''}" onclick="openModal('boost')">
         <div class="growth-slot-icon">⚙</div>
         <div class="growth-slot-body">
-          <div class="growth-slot-label">능력치 부스트 Set Abilities</div>
+          <div class="growth-slot-label">능력치 증강 Set Abilities</div>
           <div class="growth-slot-value">${boostCount >= plan.boosts ? boostCount + '개 선택 완료' : boostCount + '/' + plan.boosts + ' 선택'}</div>
         </div>
         ${boostRemain > 0 ? `<div class="growth-slot-badge">${boostRemain}</div>` : ''}
@@ -2549,7 +2553,7 @@ function openModal(type, ctx) {
   modalContext = ctx || null;
   modalSelected = null;
 
-  // 부스트 모달은 별도 처리
+  // 증강 모달은 별도 처리
   if (type === 'boost') { openBoostModal(); return; }
 
   // ── FVTT 카탈로그 로딩 게이트 ──
@@ -3316,7 +3320,7 @@ function selectOption(item, row) {
       const choicesHtml = _buildInitialChoicesUI(modalType, item);
       if (choicesHtml) {
         const shortDesc = modalType === 'background'
-          ? (item.desc || '').replace(/\s*속성 부스트:.*$/, '')
+          ? (item.desc || '').replace(/\s*속성 증강:.*$/, '')
           : (item.desc || '').split('<br><strong>')[0];
         detailHtml = `<div style="font-size:12px;line-height:1.7;color:var(--text2);margin-bottom:8px;">${shortDesc}</div>
           ${choicesHtml}
@@ -3532,7 +3536,7 @@ function showItemDetail(item) {
     const choicesHtml = _buildInitialChoicesUI(modalType, item);
     if (choicesHtml) {
       const shortDesc = modalType === 'background'
-        ? (item.desc || '').replace(/\s*속성 부스트:.*$/, '')
+        ? (item.desc || '').replace(/\s*속성 증강:.*$/, '')
         : (item.desc || '').split('<br><strong>')[0]; // 첫 단락만
       detail.innerHTML = `
         <div class="modal-detail-back" onclick="document.getElementById('modal-body').classList.remove('detail-open')">← 목록으로</div>
@@ -3723,7 +3727,7 @@ function _buildClassProgressionTable(cls) {
     if (plan.generalFeat) parts.push('일반 재주');
     if (plan.skillFeat) parts.push('기술 재주');
     if (plan.skillIncrease) parts.push('기술 증가');
-    if (plan.boosts) parts.push('능력치 부스트');
+    if (plan.boosts) parts.push('능력치 증강');
     if (lv === 1) { parts.push('혈통과 배경'); parts.push('초기 숙련도'); }
 
     const isFuture = lv > curLv;
@@ -4337,13 +4341,13 @@ function _buildBackgroundChoicesUI(bg) {
 
   let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
   html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📋 배경 혜택</div>`;
-  // 능력치 부스트 표시
+  // 능력치 증강 표시
   const bgBoostKo = [
     ...(beff.boosts || []).map(k => ATTR_KO[k]),
     ...(beff.boost_choices || []).map(g => g.map(k => ATTR_KO[k]).join(' 또는 ')),
     ...Array(beff.free_boosts || 0).fill('자유'),
   ].join(', ') || '—';
-  html += `<div style="font-size:11px;color:var(--text2);margin-bottom:6px;"><strong>능력치 부스트:</strong> ${bgBoostKo}</div>`;
+  html += `<div style="font-size:11px;color:var(--text2);margin-bottom:6px;"><strong>능력치 증강:</strong> ${bgBoostKo}</div>`;
 
   // 고정 기술
   (beff.fixed_skills || []).forEach(id => {
@@ -5104,7 +5108,7 @@ function closeModal() {
   // Mobile: reset detail-open + 주문 기억 마커
   const body = document.getElementById('modal-body');
   if (body) { body.classList.remove('detail-open'); body.classList.remove('mem-modal'); }
-  // 부스트 모달 닫을 때 성장 계획 + 수치 갱신
+  // 증강 모달 닫을 때 성장 계획 + 수치 갱신
   if (wasBoost) { renderGrowthPlan(); recalcAll(); }
 }
 
@@ -5247,7 +5251,7 @@ function _summarizeAncestryExtras(anc) {
     const f = (typeof getFeat === 'function') ? getFeat(fid) : null;
     lines.push(`자동 부여: ${f?.name_ko || fid}`);
   }
-  if (anc.free_boosts) lines.push(`자유 속성 부스트 ${anc.free_boosts}개`);
+  if (anc.free_boosts) lines.push(`자유 속성 증강 ${anc.free_boosts}개`);
   if (anc.bonusLangs) lines.push(`추가 언어 ${anc.bonusLangs}+INT개`);
   return lines.join('\n');
 }
@@ -5325,7 +5329,7 @@ function applyBackgroundInfo(bg) {
     ].join(', ');
     const fd = beff.feat_id ? getFeat(beff.feat_id) : null;
     const featKo = fd ? fd.name_ko : (beff.feat_id || '—');
-    notesEl.value = `[배경: ${bg.name}]\n속성 부스트: ${boostKo}\n기술: ${skillsKo}\n기술 재주: ${featKo}`;
+    notesEl.value = `[배경: ${bg.name}]\n속성 증강: ${boostKo}\n기술: ${skillsKo}\n기술 재주: ${featKo}`;
   }
   // growth plan에 배경 재주 저장 (1회성, feat_id 기반)
   if (beff.feat_id) {

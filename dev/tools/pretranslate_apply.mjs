@@ -46,6 +46,11 @@ function normTerms(s) {
     .replace(/공격\s*굴림/g, '명중 굴림');  // attack roll 정본 = 명중 굴림
 }
 
+// 신격 전용: flavor 설명 ↔ 구조 레이블(칭호/판테온 구성원 등) 사이에 구분선(이미 있으면 유지).
+function insertDeityDivider(s) {
+  return String(s).replace(/(<hr\s*\/?>\s*)?(<p>\s*<strong>\s*(?:칭호|판테온 구성원|관심 영역))/, (m, hr, p) => hr ? m : '<hr />' + p);
+}
+
 function stripLinkLabels(s) {
   return String(s).replace(/@link\[([a-z]+\.[a-z0-9._-]+)\](?:\{([^}]*)\})?/g, (m, ref, label) => {
     const num = label && label.match(/([0-9]+)\s*$/);
@@ -76,6 +81,7 @@ for (const r of results) {
   if (!d) { missing.push(r.slug); continue; }
   if (!r.ko || !r.ko.trim()) { missing.push(r.slug + '(빈번역)'); continue; }
   d._desc_ko = normCreature(normTerms(stripLinkLabels(stripDeadRefs(PF.bakePlainMacros(r.ko)))), d._desc_en);
+  if (cat === 'deities') d._desc_ko = insertDeityDivider(d._desc_ko);
   applied++;
 }
 fs.writeFileSync(fp, JSON.stringify(j, null, indent) + (trailNL ? '\n' : ''));

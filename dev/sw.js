@@ -1,6 +1,6 @@
 // Pathforge PWA 서비스워커 — 앱셸 캐싱 + 오프라인 폴백.
 // 캐싱 정책 변경 시 CACHE 버전 올릴 것(구 캐시 자동 정리).
-const CACHE = 'pathforge-0.146';
+const CACHE = 'pathforge-0.147';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();   // 새 SW 즉시 대기 해제(업데이트 빠르게 반영)
