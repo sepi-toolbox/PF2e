@@ -55,6 +55,7 @@ function _getFeatEffectsDef(nameEn) {
   let choice = null, choiceEffects = null;
   if (choiceE) {
     choice = { type: choiceE.kind || '' };
+    if (choiceE.id) choice.id = choiceE.id;   // 영역 등 동적 옵션 choice 판별용(isDomainChoice)
     if (choiceE.label) choice.label = choiceE.label;
     if (choiceE.filter && typeof choiceE.filter === 'object') Object.assign(choice, choiceE.filter);
     const opts = choiceE.options || [];
@@ -509,6 +510,11 @@ function _getChoiceDisplayName(feat) {
     const muse = SUBCLASS_DB.find(s => s.id === feat.choice);
     if (muse) return muse.name_ko + ' ' + (muse.subclass_type || '뮤즈');
   }
+  // 영역(도메인) 선택: DOMAIN_DB에서 한글 영역명
+  if ((def?.choice?.id === 'cho-domain-initiate' || def?.choice?.id === 'cho-advanced-domain')
+      && typeof DOMAIN_DB !== 'undefined' && feat.choice && DOMAIN_DB[feat.choice]) {
+    return DOMAIN_DB[feat.choice].name || feat.choice;
+  }
   // 커스텀 옵션이면 _getFeatEffectsDef로 def.choice.options 검색
   if (def && def.choice && def.choice.options) {
     const opt = def.choice.options.find(o => o.id === feat.choice);
@@ -559,6 +565,7 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
   const def = _getFeatEffectsDef(nameEn);
   if (!def || !def.choice) return '';
   const ch = def.choice;
+  const isDomainChoice = ch.id === 'cho-domain-initiate' || ch.id === 'cho-advanced-domain';
   const uid = `fc-${featType}-${featIndex}`;
   const current = feat.choice || '';
   const displayName = _getChoiceDisplayName(feat);
@@ -566,7 +573,39 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
   let html = `<div class="feat-choice-ctrl" style="margin-top:8px;padding:8px;background:var(--bg4);border-radius:6px;border:1px solid var(--border);">`;
   html += `<div style="font-size:11px;color:var(--accent);margin-bottom:6px;font-weight:600;">${ch.label || '선택'}</div>`;
 
-  if (ch.type === 'skill_fixed') {
+  if (isDomainChoice) {
+    // 영역 입문자/고급 영역: 현재 신격(성장계획 신격 슬롯)의 영역만. 선택 → 해당 영역 집중주문 부여.
+    const deity = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
+    const isAdv = ch.id === 'cho-advanced-domain';
+    const DB = (typeof DOMAIN_DB !== 'undefined') ? DOMAIN_DB : null;
+    if (!deity || !(Array.isArray(deity.domains) && deity.domains.length)) {
+      html += `<div style="font-size:11px;color:var(--text2);">먼저 <b>신격</b>을 선택하세요 (성장계획 🙏 신격 슬롯).</div>`;
+    } else {
+      let domSlugs = deity.domains.slice();
+      if (isAdv) {
+        const initiated = new Set();
+        Object.values(state.feats).flat().forEach(f => { if (f && featSlug(f) === 'domain-initiate' && f.choice) initiated.add(f.choice); });
+        domSlugs = domSlugs.filter(s => initiated.has(s));
+      }
+      if (isAdv && !domSlugs.length) {
+        html += `<div style="font-size:11px;color:var(--text2);">먼저 <b>영역 입문자</b>로 영역을 선택하세요.</div>`;
+      } else {
+        html += `<select id="${uid}" onchange="_onFeatChoiceInline('${featType}',${featIndex},'custom')"
+          style="width:100%;padding:6px 8px;font-size:13px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;outline:none;">
+          <option value="">— 영역 선택 —</option>`;
+        domSlugs.forEach(slug => {
+          const d = DB ? DB[slug] : null;
+          const spSlug = d ? (isAdv ? d.advanced : d.initial) : null;
+          const sp = (spSlug && typeof getSpell === 'function') ? getSpell(spSlug) : null;
+          const nm = (d && d.name) || slug;
+          const spName = sp ? (sp.name_ko || sp.name_en) : (spSlug || '');
+          html += `<option value="${slug}"${slug === current ? ' selected' : ''}>${nm}${spName ? ' — ' + spName : ''}</option>`;
+        });
+        html += `</select>`;
+        if (!current) html += `<div style="margin-top:4px;font-size:11px;color:#f44336;">⚠ 영역을 선택하세요.</div>`;
+      }
+    }
+  } else if (ch.type === 'skill_fixed') {
     const skills = typeof SKILLS !== 'undefined' ? SKILLS : [];
     const fixedId = ch.fixedSkill || '';
     const fixedName = skills.find(s => s.id === fixedId)?.name || fixedId;

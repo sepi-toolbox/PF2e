@@ -21352,7 +21352,7 @@
    "rule": "GrantItem",
    "type": "grant_feat",
    "target": "domain-initiate",
-   "name": "도메인 입문자",
+   "name": "영역 입문자",
    "condition": ""
   },
   {
@@ -57618,7 +57618,7 @@
    "rule": "GrantItem",
    "type": "grant_feat",
    "target": "domain-initiate",
-   "name": "도메인 입문자",
+   "name": "영역 입문자",
    "condition": ""
   },
   {
@@ -65635,7 +65635,7 @@
    "rule": "GrantItem",
    "type": "grant_feat",
    "target": "domain-initiate",
-   "name": "도메인 입문자",
+   "name": "영역 입문자",
    "condition": ""
   },
   {
@@ -80540,7 +80540,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "domain-initiate",
-   "owner_name": "도메인 입문자",
+   "owner_name": "영역 입문자",
    "owner_level": 1,
    "category": "class",
    "src": "rule",
@@ -80553,7 +80553,7 @@
   {
    "owner_kind": "feat",
    "owner_slug": "domain-initiate",
-   "owner_name": "도메인 입문자",
+   "owner_name": "영역 입문자",
    "owner_level": 1,
    "category": "class",
    "src": "rule",
@@ -95161,7 +95161,7 @@
    "rule": "GrantItem",
    "type": "grant_feat",
    "target": "domain-initiate",
-   "name": "도메인 입문자",
+   "name": "영역 입문자",
    "condition": ""
   },
   {
@@ -223597,7 +223597,19 @@
   {
    "owner_kind": "feat",
    "owner_slug": "domain-initiate",
-   "owner_name": "도메인 입문자",
+   "owner_name": "영역 입문자",
+   "owner_level": 1,
+   "category": "class",
+   "rule": "curated",
+   "src": "effect",
+   "type": "grant_focus_spell",
+   "target": "$domain_initial",
+   "name": "영역 집중주문(초기)"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "domain-initiate",
+   "owner_name": "영역 입문자",
    "owner_level": 1,
    "category": "class",
    "rule": "curated",
@@ -223736,6 +223748,18 @@
    "choice": "cho-goblin-lore",
    "choice_kind": "skill_defaults",
    "choice_label": "고블린 지식 기술 (기본: 자연학, 은신)"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "advanced-domain",
+   "owner_name": "고급 영역",
+   "owner_level": 8,
+   "category": "class",
+   "rule": "curated",
+   "src": "effect",
+   "type": "grant_focus_spell",
+   "target": "$domain_advanced",
+   "name": "영역 집중주문(고급)"
   },
   {
    "owner_kind": "feat",
@@ -225955,7 +225979,7 @@
    "attach": "weapon"
   }
  ],
- "note": "자동화 정본 효과 테이블(FVTT 단일소스 재구축, 2026-07-06). 효과행 18166 · 64 type. 소스=FVTT system.rules[](feat/heritage/background) + 신격 구조필드 + curated_effects.json(FVTT 갭 큐레이션). rule=정의 규칙(FVTT Rule Element 종류 또는 curated). owner_kind=소속. condition=조건보유효과·deity=신격효과 → 표시/FK만(런타임 미편입). raw slug 표시. 재생성=node tools/derive/build_effects.mjs.",
+ "note": "자동화 정본 효과 테이블(FVTT 단일소스 재구축, 2026-07-06). 효과행 18168 · 64 type. 소스=FVTT system.rules[](feat/heritage/background) + 신격 구조필드 + curated_effects.json(FVTT 갭 큐레이션). rule=정의 규칙(FVTT Rule Element 종류 또는 curated). owner_kind=소속. condition=조건보유효과·deity=신격효과 → 표시/FK만(런타임 미편입). raw slug 표시. 재생성=node tools/derive/build_effects.mjs.",
  "_types": {
   "choice": 640,
   "resistance": 240,
@@ -226019,7 +226043,7 @@
   "grant_spell": 1463,
   "sanctification": 369,
   "damage_note": 3,
-  "grant_focus_spell": 1,
+  "grant_focus_spell": 3,
   "rune": 161
  }
 }

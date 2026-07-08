@@ -3638,9 +3638,11 @@ function _buildFeatModalChoiceUI(item) {
   const def = _getFeatEffectsDef(item.id || item.name_en || item.en || item.name_ko || item.name || '');
   if (!def || !def.choice) return '';
   const ch = def.choice;
+  // 영역 입문자/고급 영역: 옵션 = 현재 신격의 영역(동적). id로 판별(effects의 curated choice id).
+  const isDomainChoice = ch.id === 'cho-domain-initiate' || ch.id === 'cho-advanced-domain';
   // 인라인으로 다룰 타입만 (spell_cantrip 등 팝업형은 확정 후 기존 팝업 유지)
   const inline = (ch.type === 'lore' || ch.type === 'skill' || ch.type === 'skill_fixed'
-    || ch.type === 'skill_defaults' || (ch.type === 'custom' && ch.options));
+    || ch.type === 'skill_defaults' || isDomainChoice || (ch.type === 'custom' && ch.options));
   if (!inline) return '';
 
   const skills = (typeof SKILLS !== 'undefined') ? SKILLS.filter(s => !s.isLore) : [];
@@ -3648,7 +3650,41 @@ function _buildFeatModalChoiceUI(item) {
   _modalChoices = { type: 'feat', featChoiceType: ch.type, featChoice: existing || '' };
 
   let inner = '', note = '비워 두면 나중에 재주 탭에서 입력할 수 있습니다.';
-  if (ch.type === 'lore') {
+  if (isDomainChoice) {
+    // 현재 신격(성장계획 신격 슬롯)의 영역만 선택 가능. 선택 영역 → 초기/고급 집중주문 부여($domain_initial/advanced).
+    const deity = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
+    const isAdv = ch.id === 'cho-advanced-domain';
+    const DB = (typeof DOMAIN_DB !== 'undefined') ? DOMAIN_DB : null;
+    if (!deity || !(Array.isArray(deity.domains) && deity.domains.length)) {
+      inner = `<div style="font-size:11px;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;">먼저 <b>신격</b>을 선택하세요 (성장계획 상단 🙏 신격 슬롯).</div>`;
+      note = '';
+    } else {
+      let domSlugs = deity.domains.slice();
+      if (isAdv) {
+        const initiated = new Set();
+        Object.values(state.feats).flat().forEach(f => { if (f && featSlug(f) === 'domain-initiate' && f.choice) initiated.add(f.choice); });
+        domSlugs = domSlugs.filter(s => initiated.has(s));
+      }
+      if (isAdv && !domSlugs.length) {
+        inner = `<div style="font-size:11px;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;">먼저 <b>영역 입문자</b>로 영역을 선택하세요.</div>`;
+        note = '';
+      } else {
+        const opts = domSlugs.map(slug => {
+          const d = DB ? DB[slug] : null;
+          const spSlug = d ? (isAdv ? d.advanced : d.initial) : null;
+          const sp = (spSlug && typeof getSpell === 'function') ? getSpell(spSlug) : null;
+          const nm = (d && d.name) || slug;
+          const spName = sp ? (sp.name_ko || sp.name_en) : (spSlug || '');
+          return { value: slug, name: nm + (spName ? ` — ${spName}` : '') };
+        });
+        inner = `<select id="feat-choice-sel" onchange="_modalChoices.featChoice=this.value" style="${_selStyle}">
+          <option value="">— 영역 선택 —</option>
+          ${opts.map(o => `<option value="${o.value}"${o.value === existing ? ' selected' : ''}>${o.name}</option>`).join('')}
+        </select>`;
+        note = `${deity.name_ko}의 영역에서 선택 → 해당 영역의 ${isAdv ? '고급' : '초기'} 집중주문을 얻습니다.`;
+      }
+    }
+  } else if (ch.type === 'lore') {
     const cur = (existing || '').replace(/"/g, '&quot;');
     inner = `<input type="text" id="feat-choice-lore" value="${cur}" placeholder="지식 분야 입력 (예: 소문 지식)" maxlength="30"
       oninput="_modalChoices.featChoice=this.value" style="${_selStyle}">`;

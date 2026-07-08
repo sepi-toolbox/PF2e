@@ -359,7 +359,14 @@
     "repeatable": true
    },
    "options": []
-  }
+  },
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "$domain_initial",
+    "name": "영역 집중주문(초기)"
+   }
+  ]
  },
  "canny-acumen": {
   "choice": {
@@ -476,7 +483,14 @@
     "filterByInitiated": true
    },
    "options": []
-  }
+  },
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "$domain_advanced",
+    "name": "영역 집중주문(고급)"
+   }
+  ]
  },
  "beast-trainer": {
   "choice": {

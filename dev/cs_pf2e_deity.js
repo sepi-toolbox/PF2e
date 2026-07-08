@@ -9,7 +9,30 @@
   const isNode = typeof window === 'undefined';
   const PF = root.PF2eData || (isNode ? require('/tmp/PF2e-publish/dev/cs_pf2e.js') : null);
 
-  let _ready = false, _index = null, _list = null;
+  let _ready = false, _index = null, _list = null, _domainsLoaded = false;
+
+  // 영역(Domain) 데이터 = DataManager 단일소스(data/derived/domains.json) → 런타임 DOMAIN_DB 채움.
+  //   구 하드코딩 61개 폐기(v0.150). 소비처(cs_feat_effects $domain_initial, domainKo)는 DOMAIN_DB 그대로 사용.
+  //   {slug:{name,initial,advanced}} 형태로 매핑(초기/고급 집중주문 슬러그).
+  function _fillDomainDB(rows) {
+    const DB = (typeof DOMAIN_DB !== 'undefined') ? DOMAIN_DB : (root.DOMAIN_DB || null);
+    if (!DB) return;
+    for (const r of (rows || [])) {
+      if (!r || !r.slug) continue;
+      DB[r.slug] = { name: r.name_ko || r.slug, initial: r.initialSpell || '', advanced: r.advancedSpell || '' };
+    }
+  }
+  function loadDomains() {
+    if (_domainsLoaded) return Promise.resolve();
+    if (isNode) {
+      const fs = require('fs');
+      for (const p of ['data/derived/domains.json', 'dev/data/derived/domains.json', '/tmp/PF2e-publish/dev/data/derived/domains.json']) {
+        try { _fillDomainDB(JSON.parse(fs.readFileSync(p, 'utf8')).rows); _domainsLoaded = true; break; } catch (e) {}
+      }
+      return Promise.resolve();
+    }
+    return fetch('data/derived/domains.json?v=0.150').then(r => r.json()).then(j => { _fillDomainDB(j.rows); _domainsLoaded = true; }).catch(() => {});
+  }
 
   // 기술 한글명(오프라인 고정 — 글로서리 미의존). lore=지식.
   // 정본 = 사용자 노출 기술 목록(cs_data SKILLS / system_terms): 제작·자연학·오컬티즘·사회.
@@ -37,7 +60,7 @@
     return m ? m[1].trim() : '';
   }
 
-  function init() { if (_ready) return Promise.resolve(); if (isNode) { PF.loadCategorySync('deities'); _build(); _ready = true; return Promise.resolve(); } return PF.loadCategory('deities').then(() => { _build(); _ready = true; }); }
+  function init() { if (_ready) return Promise.resolve(); if (isNode) { loadDomains(); PF.loadCategorySync('deities'); _build(); _ready = true; return Promise.resolve(); } return Promise.all([loadDomains(), PF.loadCategory('deities')]).then(() => { _build(); _ready = true; }); }
   function ready() { return _ready; }
 
   function _build() {
@@ -86,7 +109,7 @@
 
     // 전 카탈로그 로드 후 재열거 — init 시점에 타 카테고리 미로드로 enrichDesc @link가 영문 스냅샷된 캐시를 정본 한글로 재생성
   function rebuild() { if (_ready) _build(); }
-const API = { init, ready, rebuild, deityList, getDeityLegacy, deityToLegacy, skillKo, domainKo, _const: { SKILL_KO, FONT_KO, SANCT_KO } };
+const API = { init, ready, rebuild, loadDomains, deityList, getDeityLegacy, deityToLegacy, skillKo, domainKo, _const: { SKILL_KO, FONT_KO, SANCT_KO } };
   root.PF2eDeity = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
