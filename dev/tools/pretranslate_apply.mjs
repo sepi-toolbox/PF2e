@@ -1,0 +1,51 @@
+// 재번역 파이프라인 3단계: 번역 결과([{slug, ko}])를 store/<cat>.json 의 _desc_ko 에 기록.
+//   @link 라벨 스트립: @link[cat.slug]{라벨} → @link[cat.slug] (끝 숫자값만 {N} 보존 — 렌더러가 정본명 사용).
+// 포맷 보존(리포맷 사고 방지): 원본 들여쓰기 자동 감지 + round-trip 충실도 가드.
+// 사용:  node tools/pretranslate_apply.mjs <cat> <results.json>
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __dir = path.dirname(fileURLToPath(import.meta.url));
+const DEV = path.join(__dir, '..');
+
+const cat = process.argv[2], resFile = process.argv[3];
+if (!cat || !resFile) { console.error('usage: node tools/pretranslate_apply.mjs <cat> <results.json>'); process.exit(1); }
+
+// 안전망: LLM이 놓친 잔여 매크로(@Check/@Damage/@Template/[[/r]])를 기계적으로 한글 평문화(@link은 미변경).
+const PF = (await import(path.join(DEV, 'cs_pf2e.js'))).default;
+for (const c of ['actions', 'conditions', 'spells', 'feats', 'equipment']) { try { await PF.loadCategory(c); } catch (e) {} }
+
+function stripLinkLabels(s) {
+  return String(s).replace(/@link\[([a-z]+\.[a-z0-9._-]+)\](?:\{([^}]*)\})?/g, (m, ref, label) => {
+    const num = label && label.match(/([0-9]+)\s*$/);
+    return num ? `@link[${ref}]{${num[1]}}` : `@link[${ref}]`;
+  });
+}
+
+const fp = path.join(DEV, `data/store/${cat}.json`);
+const orig = fs.readFileSync(fp, 'utf8');
+// 들여쓰기 감지 + 충실도 확인
+const j = JSON.parse(orig);
+let indent = null, trailNL = false;
+for (const cand of [0, 1, 2, 4, '\t']) {
+  const base = JSON.stringify(j, null, cand);
+  if (base === orig) { indent = cand; trailNL = false; break; }
+  if (base + '\n' === orig) { indent = cand; trailNL = true; break; }
+}
+if (indent === null) { console.error('⚠ 포맷 충실도 실패 — 리포맷 위험, 중단.'); process.exit(2); }
+
+const results = JSON.parse(fs.readFileSync(resFile, 'utf8'));
+const bySlug = {};
+const docs = Array.isArray(j) ? j : (j.docs || Object.values(j));
+for (const d of docs) { const s = (d.system && d.system.slug) || d.name_en || d._id; if (s) bySlug[s] = d; }
+
+let applied = 0, missing = [];
+for (const r of results) {
+  const d = bySlug[r.slug];
+  if (!d) { missing.push(r.slug); continue; }
+  if (!r.ko || !r.ko.trim()) { missing.push(r.slug + '(빈번역)'); continue; }
+  d._desc_ko = stripLinkLabels(PF.bakePlainMacros(r.ko));
+  applied++;
+}
+fs.writeFileSync(fp, JSON.stringify(j, null, indent) + (trailNL ? '\n' : ''));
+console.log(`[${cat}] 적용 ${applied} / 결과 ${results.length}` + (missing.length ? ` | 미매칭 ${missing.length}: ${missing.slice(0,8).join(', ')}` : ''));

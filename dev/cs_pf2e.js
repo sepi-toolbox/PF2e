@@ -148,6 +148,9 @@
   const _SKILL_KO = { acrobatics: '곡예', arcana: '주문학', athletics: '운동', crafting: '제작', deception: '기만', diplomacy: '외교', intimidation: '위협', medicine: '의학', nature: '자연학', occultism: '오컬티즘', performance: '공연', religion: '종교학', society: '사회', stealth: '은신', survival: '생존', thievery: '도둑질' };
   const _CHECK_KO = Object.assign({ perception: '지각', flat: '단순', spell: '주문' }, _SAVE_KO, _SKILL_KO);
   function _checkTypeKo(t) { if (_CHECK_KO[t]) return _CHECK_KO[t]; const m = /^(.*)-lore$/.exec(t); if (m) return m[1].replace(/-/g, ' ') + ' 지식'; return t; }
+  // @Check 렌더용: 내성='X 내성', 그 외(단순/지각/기술/지식)='X 판정'. 자연스러운 한글 표기.
+  const _SAVE_TYPES = new Set(['fortitude', 'reflex', 'will']);
+  function _checkPhrase(t) { const ko = _checkTypeKo(t); if (!t || t === 'spell') return ko; return ko + (_SAVE_TYPES.has(t) ? ' 내성' : ' 판정'); }
   function _escDesc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
   function enrichDesc(html) {
     if (!html) return '';
@@ -189,7 +192,7 @@
       });
       return `<span class="ref-dmg">${parts.join(' + ')}</span>`;
     });
-    s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_checkTypeKo(type)}</span>`; });
+    s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_checkPhrase(type)}</span>`; });
     // @link[cat.slug]{label}: 프로젝트 네이티브 엔티티 링크 → 항상 정본 name_ko로 렌더(라벨은 참조마다 제각각이라 불일치 원인).
     // 라벨의 뒤 숫자(조건 값 등, 예 "기절 2")만 정본명에 보존. 미해소 엔티티일 때만 라벨/슬러그 폴백.
     s = s.replace(/@link\[([a-z]+)\.([a-z0-9._-]+)\](?:\{([^}]*)\})?/g, (m, cat, slug, label) => {
@@ -254,7 +257,7 @@
       return parts.filter(Boolean).join(' + ');
     });
     // @Check → 라벨 있으면 라벨, 없으면 (DC) (기본) 한글 판정명
-    s = s.replace(/@Check\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, body, label) => { if (label) return label; const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `${dc ? `DC ${dc} ` : ''}${basic}${_checkTypeKo(type)}`.trim(); });
+    s = s.replace(/@Check\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, body, label) => { if (label) return label; const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `${dc ? `DC ${dc} ` : ''}${basic}${_checkPhrase(type)}`.trim(); });
     // @Template → N피트 형태
     s = s.replace(/@Template\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const d = (body.match(/distance:(\d+)/) || [])[1]; const SH = { emanation: '발산', burst: '폭발', cone: '원뿔', line: '직선' }; const ty = (body.match(/type:(\w+)/) || [])[1]; return `${d || ''}피트 ${SH[ty] || ty || ''}`.trim(); });
     return s;
