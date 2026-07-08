@@ -4044,69 +4044,6 @@ function _refreshClassFeaturesPreview() {
 }
 
 // ── 서브클래스 특성을 서브클래스 블록 안에 렌더링 (정규화된 SUBCLASS_DB.granted_*) ──
-function _renderSubclassFeatsInBlock(subId, containerId) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  if (!subId) { container.innerHTML = ''; return; }
-
-  const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === subId) : null;
-  if (!sub) { container.innerHTML = ''; return; }
-
-  let html = '';
-  const _cs = 'margin-top:8px;padding:8px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);';
-  const _badge = 'font-size:9px;color:var(--accent);background:var(--bg4);padding:1px 5px;border-radius:3px;';
-  const shownNames = new Set();
-  const shownKoNames = new Set();
-  const skillNameById = {};
-  if (typeof SKILLS !== 'undefined') SKILLS.forEach(s => { skillNameById[s.id] = s.name; });
-
-  // ── 1) 기술 숙련 ──
-  if (Array.isArray(sub.granted_skills) && sub.granted_skills.length) {
-    html += `<div style="${_cs}">`;
-    html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:4px;">📖 기술 숙련</div>`;
-    sub.granted_skills.forEach(sid => {
-      const ko = skillNameById[sid] || sid;
-      html += `<div style="margin-bottom:4px;"><select disabled style="${_selStyle}opacity:0.6;"><option>${ko}</option></select></div>`;
-    });
-    html += `</div>`;
-  }
-
-  // ── 2) 자동 부여 재주 (lv=1만 모달 표시) ──
-  const autoFeats = getSubclassAutoFeats(sub).filter(f => f.lv === 1);
-  autoFeats.forEach(af => {
-    shownNames.add(af.name_en);
-    if (af.name_ko) shownKoNames.add(af.name_ko);
-    let feat = (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) ? (PF2eFeat.getFeatLegacy(af.name_en) || PF2eFeat.getFeatLegacy(af.name_ko)) : null;
-    if (!feat) feat = getFeat(af.name_en) || getFeat(af.name_ko);
-    const descHtml = (feat?.desc || feat?.summary)
-      ? resolveDescRefs(feat.desc || feat.summary)
-      : `<div style="font-size:10px;color:var(--text2);font-style:italic;">Player Core 2 재주 — 상세 설명 미등록</div>`;
-    html += _subFeatCard('feat', feat || { name_en: af.name_en, name_ko: af.name_ko }, af.name_ko, af.name_en, '재주', descHtml);
-  });
-
-  // ── 3) 자동 부여 주문 ──
-  const autoSpells = getSubclassAutoSpells(sub).filter(s => s.lv === 1);
-  autoSpells.forEach(sp => {
-    shownNames.add(sp.name_en);
-    shownKoNames.add(sp.name_ko);
-    const spellData = getSpell(sp.name_en) || getSpell(sp.name_ko);
-    const typeLabel = sp.type === 'focus' ? '집중 주문' : sp.type === 'cantrip' ? '캔트립' : `${sp.rank || 1}랭크 주문`;
-    const descHtml = spellData ? resolveDescRefs(spellData.desc || spellData.summary || '') : '';
-    html += _subFeatCard('spell', spellData || { name_ko: sp.name_ko, name_en: sp.name_en }, sp.name_ko, sp.name_en, typeLabel, descHtml);
-  });
-
-  // ── 4) 서브클래스 특성 (재주/주문과 중복되지 않는 것만) ──
-  (sub.features || []).filter(f => f.lv === 1).forEach(f => {
-    if (shownNames.has(f.name_en)) return;
-    for (const ko of shownKoNames) { if (ko && f.name_ko.includes(ko)) return; }
-    let fo = (typeof PF2eFeat !== 'undefined' && PF2eFeat.ready && PF2eFeat.ready()) ? (PF2eFeat.getFeatLegacy(f.name_en) || PF2eFeat.getFeatLegacy(f.name_ko)) : null;
-    if (!fo && typeof getFeat === 'function') fo = getFeat(f.name_en) || getFeat(f.name_ko);
-    const descHtml = resolveDescRefs(f.desc || (fo && (fo.desc || fo.summary)) || '');
-    html += _subFeatCard('feat', fo || { name_en: f.name_en, name_ko: f.name_ko }, f.name_ko, f.name_en, '', descHtml);
-  });
-
-  container.innerHTML = html;
-}
 
 // ── 빌더에서 클래스 특성 클릭 시 → 클래스 모달 열기 + 스크롤 ──
 function openClassModalAtLevel(targetLv) {
@@ -4193,16 +4130,6 @@ function _buildClericChoicesUI() {
   return html;
 }
 
-function _onClericDoctrineChange(id) {
-  _modalChoices.doctrine = id;
-  const info = document.getElementById('cls-doctrine-info');
-  if (info) {
-    const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === id) : null;
-    info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>` : '';
-  }
-  _refreshClassFeaturesPreview();
-  _validateInitialChoices();
-}
 
 function _onClericDeityChange(id) {
   _modalChoices.deity = id;
@@ -4561,9 +4488,6 @@ function _rebuildBonusLangDropdowns() {
 // ── DOM 삽입 후 이전 선택값의 정보 패널 복원 ──
 function _restoreInitialChoicesUI() {
   // 클레릭: 교리/신격/신성원천 정보 패널 트리거
-  if (_modalChoices.doctrine) {
-    _onClericDoctrineChange(_modalChoices.doctrine);
-  }
   if (_modalChoices.deity) {
     // _onClericDeityChange가 sanctification을 리셋하므로 미리 보존
     const savedSanct = _modalChoices.sanctification || '';
