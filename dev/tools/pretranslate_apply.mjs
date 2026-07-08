@@ -24,13 +24,26 @@ function stripDeadRefs(s) {
   return s;
 }
 
+// creature 정본 = 크리처. ⚠ 원어가 creature일 때만 변환(organism/being/entity가 생물/생명체로 번역된 것은 보존).
+//   → 엔티티 원문(en)에 creature가 있을 때만 생물/생명체를 변환. 생명체는 being까지 없을 때만(오변환 방지).
+//   무생물/미생물/괴생물/생물학은 제외. 생물(받침)→크리처(모음)는 조사 정정 동반.
+function normCreature(s, en) {
+  s = String(s).replace(/크리쳐/g, '크리처');  // 오타 표기 통일 — 항상 안전
+  if (!/\bcreatures?\b/i.test(en || '')) return s;  // 원문에 creature 없으면 생물/생명체 미변환
+  const map = { '이라도': '라도', '이라면': '라면', '이라는': '라는', '이라': '라', '이란': '란', '이나': '나', '이며': '며', '이면': '면', '이든': '든', '이다': '다', '입니다': '입니다', '인': '인', '이': '가', '을': '를', '은': '는', '과': '와', '으로': '로' };
+  s = s.replace(/(?<![무미괴])생물(?!학)(이라도|이라면|이라는|이라|이란|이나|이며|이면|이든|이다|입니다|인|이|을|은|과|으로)?/g, (m, j) => j === undefined ? '크리처' : '크리처' + (map[j] !== undefined ? map[j] : j));
+  if (!/\bbeings?\b/i.test(en || '')) s = s.replace(/생명체/g, '크리처');  // 생명체=being 오변환 방지
+  return s;
+}
+
 // flat check 용어 통일: LLM이 "평판정/평면 판정/단순 판정"으로 제각각 쓴 것을 정본 "플랫 판정"으로.
 function normTerms(s) {
   return String(s)
     .replace(/평면\s*판정/g, '플랫 판정').replace(/평판정/g, '플랫 판정').replace(/단순\s*판정/g, '플랫 판정')
     .replace(/주님/g, '군주')  // 신격 호칭 "Lord": 현대 기독교 어감 '주님' → 판타지 '군주'
     .replace(/능력치\s*(?:상승|증가)/g, '능력치 증강')  // ability boost 정본 = 능력치 증강(상승/증가 혼용 통일)
-    .replace(/<strong>\s*(?:상향|강화)\s*\(/g, '<strong>고양 (');  // Heightened 정본 = 고양(앱 용어), 상향/강화 헤딩 통일
+    .replace(/<strong>\s*(?:상향|강화)\s*\(/g, '<strong>고양 (')  // Heightened 정본 = 고양(앱 용어), 상향/강화 헤딩 통일
+    .replace(/공격\s*굴림/g, '명중 굴림');  // attack roll 정본 = 명중 굴림
 }
 
 function stripLinkLabels(s) {
@@ -62,7 +75,7 @@ for (const r of results) {
   const d = bySlug[r.slug];
   if (!d) { missing.push(r.slug); continue; }
   if (!r.ko || !r.ko.trim()) { missing.push(r.slug + '(빈번역)'); continue; }
-  d._desc_ko = normTerms(stripLinkLabels(stripDeadRefs(PF.bakePlainMacros(r.ko))));
+  d._desc_ko = normCreature(normTerms(stripLinkLabels(stripDeadRefs(PF.bakePlainMacros(r.ko)))), d._desc_en);
   applied++;
 }
 fs.writeFileSync(fp, JSON.stringify(j, null, indent) + (trailNL ? '\n' : ''));
