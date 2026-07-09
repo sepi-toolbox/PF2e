@@ -365,6 +365,17 @@ for (const doc of PF.all('deities')) {
   emitDeity(ownerBase('deity', doc, slug, PF.nameKo(doc) || slug, '', s.category || 'deity'), doc, legDeity[slug]);
 }
 
+// 큐레이션 효과 owner 분류: slug가 실제 어느 store에 있는지로 owner_kind 결정.
+//   (기본 'feat' 오분류 교정 — 룬/방어구룬=equipment, 뮤즈·결단·후원자·학파·교리=subclass. DataManager 정합성 링크가 올바른 탭 지목.)
+const _EQUIP_SLUGS = new Set((PF.all('equipment') || []).map(d => d.system && d.system.slug).filter(Boolean));
+let _SUBCLASS_SLUGS = new Set();
+try { const _sc = (JSON.parse(fs.readFileSync(path.join(DEV, 'data/derived/subclasses.json'), 'utf8')).rows) || []; _SUBCLASS_SLUGS = new Set(_sc.map(r => r.slug).filter(Boolean)); } catch (e) {}
+function curatedOwnerKind(slug) {
+  if (_EQUIP_SLUGS.has(slug)) return 'equipment';
+  if (_SUBCLASS_SLUGS.has(slug)) return 'subclass';
+  return 'feat';
+}
+
 // ── FVTT-갭 큐레이션 병합(choice/note/수동 grant rows) ──
 for (const slug of Object.keys(CURATED)) {
   const c = CURATED[slug];
@@ -375,7 +386,7 @@ for (const slug of Object.keys(CURATED)) {
   if (c.damage_note) e.damage_note = c.damage_note;
   if (!e.rows) e.rows = [];
   // 표시행(effects.json) 반영
-  const om = ownerMeta[slug] || { owner_kind: 'feat', owner_name: slug, owner_level: '', category: '' };
+  const om = ownerMeta[slug] || { owner_kind: curatedOwnerKind(slug), owner_name: slug, owner_level: '', category: '' };
   const b = { owner_kind: om.owner_kind, owner_slug: slug, owner_name: om.owner_name, owner_level: om.owner_level, category: om.category, rule: 'curated' };
   if (c.rows) for (const r of c.rows) rows.push({ ...b, src: 'effect', ...r });
   if (c.auto_note) rows.push({ ...b, src: 'note', type: 'display_note', note: c.auto_note });

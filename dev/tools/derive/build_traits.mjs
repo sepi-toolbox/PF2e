@@ -19,6 +19,8 @@ const descByNorm = {}, enByNorm = {};
 for (const k in descs) { descByNorm[norm(k)] = descs[k]; enByNorm[norm(k)] = k; }
 const prettify = s => String(s).split(/[-_]/).map(w => w ? w[0].toUpperCase() + w.slice(1) : w).join(' ');
 
+// 이름 소스 = _glossary.ko.json.trait(단일 루트). 우리 엔티티가 쓰는 트레잇은 이 루트에 등록돼 있어야 함(내부 정합성).
+//   slug 정합성 검사(DataManager 참조 링크)로 발견된 미등록 24종을 루트 glossary trait에 백필(런타임 store/_glossary도 동일).
 const allSlugs = new Set([...Object.keys(labels), ...Object.keys(gloss)]);
 const out = {};
 let withDesc = 0;

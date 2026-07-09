@@ -126769,7 +126769,7 @@
    "name": "용기의 찬가"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "weapon-potency-1",
    "owner_name": "weapon-potency-1",
    "owner_level": "",
@@ -126782,7 +126782,7 @@
    "value": 1
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "weapon-potency-2",
    "owner_name": "weapon-potency-2",
    "owner_level": "",
@@ -126795,7 +126795,7 @@
    "value": 2
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "weapon-potency-3",
    "owner_name": "weapon-potency-3",
    "owner_level": "",
@@ -126808,7 +126808,7 @@
    "value": 3
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "striking",
    "owner_name": "striking",
    "owner_level": "",
@@ -126821,7 +126821,7 @@
    "value": 1
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "striking-greater",
    "owner_name": "striking-greater",
    "owner_level": "",
@@ -126834,7 +126834,7 @@
    "value": 2
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "striking-major",
    "owner_name": "striking-major",
    "owner_level": "",
@@ -126847,7 +126847,7 @@
    "value": 3
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "armor-potency-1",
    "owner_name": "armor-potency-1",
    "owner_level": "",
@@ -126860,7 +126860,7 @@
    "value": 1
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "armor-potency-2",
    "owner_name": "armor-potency-2",
    "owner_level": "",
@@ -126873,7 +126873,7 @@
    "value": 2
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "armor-potency-3",
    "owner_name": "armor-potency-3",
    "owner_level": "",
@@ -126886,7 +126886,7 @@
    "value": 3
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "resilient",
    "owner_name": "resilient",
    "owner_level": "",
@@ -126899,7 +126899,7 @@
    "value": 1
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "resilient-greater",
    "owner_name": "resilient-greater",
    "owner_level": "",
@@ -126912,7 +126912,7 @@
    "value": 2
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "resilient-major",
    "owner_name": "resilient-major",
    "owner_level": "",
@@ -126925,7 +126925,7 @@
    "value": 3
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "shield-boss",
    "owner_name": "shield-boss",
    "owner_level": "",
@@ -126938,7 +126938,7 @@
    "value": 1
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "shield-spikes",
    "owner_name": "shield-spikes",
    "owner_level": "",
@@ -126951,7 +126951,7 @@
    "value": 1
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "reinforcing-rune-supreme",
    "owner_name": "reinforcing-rune-supreme",
    "owner_level": "",
@@ -126963,7 +126963,7 @@
    "attach": "shield"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "reinforcing-rune-major",
    "owner_name": "reinforcing-rune-major",
    "owner_level": "",
@@ -126975,7 +126975,7 @@
    "attach": "shield"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "advancing-greater",
    "owner_name": "advancing-greater",
    "owner_level": "",
@@ -126987,7 +126987,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "shadow-major",
    "owner_name": "shadow-major",
    "owner_level": "",
@@ -126999,7 +126999,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "hauling",
    "owner_name": "hauling",
    "owner_level": "",
@@ -127011,7 +127011,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "quenching-major",
    "owner_name": "quenching-major",
    "owner_level": "",
@@ -127023,7 +127023,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "advancing",
    "owner_name": "advancing",
    "owner_level": "",
@@ -127035,7 +127035,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "deathdrinking",
    "owner_name": "deathdrinking",
    "owner_level": "",
@@ -127047,7 +127047,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "dread-moderate",
    "owner_name": "dread-moderate",
    "owner_level": "",
@@ -127059,7 +127059,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "mythic-resilient",
    "owner_name": "mythic-resilient",
    "owner_level": "",
@@ -127071,7 +127071,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "underwater",
    "owner_name": "underwater",
    "owner_level": "",
@@ -127083,7 +127083,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "misleading",
    "owner_name": "misleading",
    "owner_level": "",
@@ -127095,7 +127095,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "dread-greater",
    "owner_name": "dread-greater",
    "owner_level": "",
@@ -127107,7 +127107,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "called-lastwall",
    "owner_name": "called-lastwall",
    "owner_level": "",
@@ -127119,7 +127119,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "astral",
    "owner_name": "astral",
    "owner_level": "",
@@ -127135,7 +127135,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "vorpal",
    "owner_name": "vorpal",
    "owner_level": "",
@@ -127147,7 +127147,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "fortification",
    "owner_name": "fortification",
    "owner_level": "",
@@ -127159,7 +127159,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "energy-resistant-greater",
    "owner_name": "energy-resistant-greater",
    "owner_level": "",
@@ -127181,7 +127181,7 @@
    ]
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "slick-major",
    "owner_name": "slick-major",
    "owner_level": "",
@@ -127193,7 +127193,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "gliding",
    "owner_name": "gliding",
    "owner_level": "",
@@ -127205,7 +127205,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "bloodthirsty",
    "owner_name": "bloodthirsty",
    "owner_level": "",
@@ -127217,7 +127217,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "swallow-spike",
    "owner_name": "swallow-spike",
    "owner_level": "",
@@ -127229,7 +127229,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "adamantine-echo",
    "owner_name": "adamantine-echo",
    "owner_level": "",
@@ -127241,7 +127241,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "kolss-oath-greater",
    "owner_name": "kolss-oath-greater",
    "owner_level": "",
@@ -127253,7 +127253,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "soaring",
    "owner_name": "soaring",
    "owner_level": "",
@@ -127265,7 +127265,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "giant-killing-greater",
    "owner_name": "giant-killing-greater",
    "owner_level": "",
@@ -127281,7 +127281,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "energy-adaptive",
    "owner_name": "energy-adaptive",
    "owner_level": "",
@@ -127293,7 +127293,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "animated",
    "owner_name": "animated",
    "owner_level": "",
@@ -127305,7 +127305,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "holy",
    "owner_name": "holy",
    "owner_level": "",
@@ -127321,7 +127321,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "giant-killing",
    "owner_name": "giant-killing",
    "owner_level": "",
@@ -127337,7 +127337,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "flurrying",
    "owner_name": "flurrying",
    "owner_level": "",
@@ -127349,7 +127349,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "impactful",
    "owner_name": "impactful",
    "owner_level": "",
@@ -127365,7 +127365,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "decaying-greater",
    "owner_name": "decaying-greater",
    "owner_level": "",
@@ -127386,7 +127386,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "quenching-greater",
    "owner_name": "quenching-greater",
    "owner_level": "",
@@ -127398,7 +127398,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "trudds-strength",
    "owner_name": "trudds-strength",
    "owner_level": "",
@@ -127410,7 +127410,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "caverns-heart",
    "owner_name": "caverns-heart",
    "owner_level": "",
@@ -127422,7 +127422,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "ghost-touch",
    "owner_name": "ghost-touch",
    "owner_level": "",
@@ -127434,7 +127434,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "crushing",
    "owner_name": "crushing",
    "owner_level": "",
@@ -127446,7 +127446,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "quickstrike",
    "owner_name": "quickstrike",
    "owner_level": "",
@@ -127458,7 +127458,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "thundering-greater",
    "owner_name": "thundering-greater",
    "owner_level": "",
@@ -127474,7 +127474,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "brilliant",
    "owner_name": "brilliant",
    "owner_level": "",
@@ -127490,7 +127490,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "slick-greater",
    "owner_name": "slick-greater",
    "owner_level": "",
@@ -127502,7 +127502,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "energy-resistant",
    "owner_name": "energy-resistant",
    "owner_level": "",
@@ -127524,7 +127524,7 @@
    ]
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "vitalizing",
    "owner_name": "vitalizing",
    "owner_level": "",
@@ -127541,7 +127541,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "frost",
    "owner_name": "frost",
    "owner_level": "",
@@ -127557,7 +127557,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "hopeful",
    "owner_name": "hopeful",
    "owner_level": "",
@@ -127569,7 +127569,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "stanching",
    "owner_name": "stanching",
    "owner_level": "",
@@ -127581,7 +127581,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "shock",
    "owner_name": "shock",
    "owner_level": "",
@@ -127597,7 +127597,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "earthbinding",
    "owner_name": "earthbinding",
    "owner_level": "",
@@ -127609,7 +127609,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "mythic-striking",
    "owner_name": "mythic-striking",
    "owner_level": "",
@@ -127621,7 +127621,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "energy-absorbing-greater",
    "owner_name": "energy-absorbing-greater",
    "owner_level": "",
@@ -127643,7 +127643,7 @@
    ]
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "fearsome",
    "owner_name": "fearsome",
    "owner_level": "",
@@ -127655,7 +127655,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "ready",
    "owner_name": "ready",
    "owner_level": "",
@@ -127667,7 +127667,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "shockwave",
    "owner_name": "shockwave",
    "owner_level": "",
@@ -127679,7 +127679,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "energizing",
    "owner_name": "energizing",
    "owner_level": "",
@@ -127691,7 +127691,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "pacifying",
    "owner_name": "pacifying",
    "owner_level": "",
@@ -127703,7 +127703,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "swallow-spike-major",
    "owner_name": "swallow-spike-major",
    "owner_level": "",
@@ -127715,7 +127715,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "flaming-greater",
    "owner_name": "flaming-greater",
    "owner_level": "",
@@ -127736,7 +127736,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "assisting",
    "owner_name": "assisting",
    "owner_level": "",
@@ -127748,7 +127748,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "hooked",
    "owner_name": "hooked",
    "owner_level": "",
@@ -127760,7 +127760,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "frost-greater",
    "owner_name": "frost-greater",
    "owner_level": "",
@@ -127776,7 +127776,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "anchoring",
    "owner_name": "anchoring",
    "owner_level": "",
@@ -127788,7 +127788,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "cunning",
    "owner_name": "cunning",
    "owner_level": "",
@@ -127800,7 +127800,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "rooting-greater",
    "owner_name": "rooting-greater",
    "owner_level": "",
@@ -127812,7 +127812,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "shock-greater",
    "owner_name": "shock-greater",
    "owner_level": "",
@@ -127828,7 +127828,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "nightmare",
    "owner_name": "nightmare",
    "owner_level": "",
@@ -127844,7 +127844,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "invisibility",
    "owner_name": "invisibility",
    "owner_level": "",
@@ -127856,7 +127856,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "portable",
    "owner_name": "portable",
    "owner_level": "",
@@ -127868,7 +127868,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "extending-greater",
    "owner_name": "extending-greater",
    "owner_level": "",
@@ -127880,7 +127880,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "corrosive",
    "owner_name": "corrosive",
    "owner_level": "",
@@ -127896,7 +127896,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "implacable",
    "owner_name": "implacable",
    "owner_level": "",
@@ -127908,7 +127908,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "flaming",
    "owner_name": "flaming",
    "owner_level": "",
@@ -127929,7 +127929,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "size-changing",
    "owner_name": "size-changing",
    "owner_level": "",
@@ -127941,7 +127941,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "stanching-major",
    "owner_name": "stanching-major",
    "owner_level": "",
@@ -127953,7 +127953,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "winged-greater",
    "owner_name": "winged-greater",
    "owner_level": "",
@@ -127965,7 +127965,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "rooting-true",
    "owner_name": "rooting-true",
    "owner_level": "",
@@ -127977,7 +127977,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "extending",
    "owner_name": "extending",
    "owner_level": "",
@@ -127989,7 +127989,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "shadow-greater",
    "owner_name": "shadow-greater",
    "owner_level": "",
@@ -128001,7 +128001,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "reinforcing-rune-moderate",
    "owner_name": "reinforcing-rune-moderate",
    "owner_level": "",
@@ -128013,7 +128013,7 @@
    "attach": "shield"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "invisibility-greater",
    "owner_name": "invisibility-greater",
    "owner_level": "",
@@ -128025,7 +128025,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "conducting",
    "owner_name": "conducting",
    "owner_level": "",
@@ -128037,7 +128037,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "swallow-spike-greater",
    "owner_name": "swallow-spike-greater",
    "owner_level": "",
@@ -128049,7 +128049,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "fanged-greater",
    "owner_name": "fanged-greater",
    "owner_level": "",
@@ -128061,7 +128061,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "stanching-true",
    "owner_name": "stanching-true",
    "owner_level": "",
@@ -128073,7 +128073,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "thundering",
    "owner_name": "thundering",
    "owner_level": "",
@@ -128089,7 +128089,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "winged",
    "owner_name": "winged",
    "owner_level": "",
@@ -128101,7 +128101,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "malleable",
    "owner_name": "malleable",
    "owner_level": "",
@@ -128113,7 +128113,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "mythic-armor-potency",
    "owner_name": "mythic-armor-potency",
    "owner_level": "",
@@ -128125,7 +128125,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "wounding",
    "owner_name": "wounding",
    "owner_level": "",
@@ -128142,7 +128142,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "bolkas-blessing",
    "owner_name": "bolkas-blessing",
    "owner_level": "",
@@ -128154,7 +128154,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "ready-greater",
    "owner_name": "ready-greater",
    "owner_level": "",
@@ -128166,7 +128166,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "decaying",
    "owner_name": "decaying",
    "owner_level": "",
@@ -128187,7 +128187,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "dread-lesser",
    "owner_name": "dread-lesser",
    "owner_level": "",
@@ -128199,7 +128199,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "unholy",
    "owner_name": "unholy",
    "owner_level": "",
@@ -128215,7 +128215,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "rooting-major",
    "owner_name": "rooting-major",
    "owner_level": "",
@@ -128227,7 +128227,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "quenching-true",
    "owner_name": "quenching-true",
    "owner_level": "",
@@ -128239,7 +128239,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "astral-greater",
    "owner_name": "astral-greater",
    "owner_level": "",
@@ -128255,7 +128255,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "keen",
    "owner_name": "keen",
    "owner_level": "",
@@ -128267,7 +128267,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "bane",
    "owner_name": "bane",
    "owner_level": "",
@@ -128279,7 +128279,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "demolishing",
    "owner_name": "demolishing",
    "owner_level": "",
@@ -128291,7 +128291,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "raiment",
    "owner_name": "raiment",
    "owner_level": "",
@@ -128303,7 +128303,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "stanching-greater",
    "owner_name": "stanching-greater",
    "owner_level": "",
@@ -128315,7 +128315,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "forgefathers-seal",
    "owner_name": "forgefathers-seal",
    "owner_level": "",
@@ -128331,7 +128331,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "magnetizing",
    "owner_name": "magnetizing",
    "owner_level": "",
@@ -128343,7 +128343,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "shadow",
    "owner_name": "shadow",
    "owner_level": "",
@@ -128355,7 +128355,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "deathless",
    "owner_name": "deathless",
    "owner_level": "",
@@ -128367,7 +128367,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "anchoring-greater",
    "owner_name": "anchoring-greater",
    "owner_level": "",
@@ -128379,7 +128379,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "ashen-greater",
    "owner_name": "ashen-greater",
    "owner_level": "",
@@ -128396,7 +128396,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "aim-aiding",
    "owner_name": "aim-aiding",
    "owner_level": "",
@@ -128408,7 +128408,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "bolkas-blessing-greater",
    "owner_name": "bolkas-blessing-greater",
    "owner_level": "",
@@ -128420,7 +128420,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "energy-absorbing",
    "owner_name": "energy-absorbing",
    "owner_level": "",
@@ -128442,7 +128442,7 @@
    ]
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "brilliant-greater",
    "owner_name": "brilliant-greater",
    "owner_level": "",
@@ -128458,7 +128458,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "immovable",
    "owner_name": "immovable",
    "owner_level": "",
@@ -128470,7 +128470,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "bitter",
    "owner_name": "bitter",
    "owner_level": "",
@@ -128482,7 +128482,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "antimagic",
    "owner_name": "antimagic",
    "owner_level": "",
@@ -128494,7 +128494,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "hauling-greater",
    "owner_name": "hauling-greater",
    "owner_level": "",
@@ -128506,7 +128506,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "reinforcing-rune-lesser",
    "owner_name": "reinforcing-rune-lesser",
    "owner_level": "",
@@ -128518,7 +128518,7 @@
    "attach": "shield"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "ancestral-echoing",
    "owner_name": "ancestral-echoing",
    "owner_level": "",
@@ -128530,7 +128530,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "vitalizing-greater",
    "owner_name": "vitalizing-greater",
    "owner_level": "",
@@ -128547,7 +128547,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "mythic-weapon-potency",
    "owner_name": "mythic-weapon-potency",
    "owner_level": "",
@@ -128559,7 +128559,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "flickering",
    "owner_name": "flickering",
    "owner_level": "",
@@ -128571,7 +128571,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "spell-reservoir",
    "owner_name": "spell-reservoir",
    "owner_level": "",
@@ -128583,7 +128583,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "fanged",
    "owner_name": "fanged",
    "owner_level": "",
@@ -128595,7 +128595,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "ethereal",
    "owner_name": "ethereal",
    "owner_level": "",
@@ -128607,7 +128607,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "fanged-major",
    "owner_name": "fanged-major",
    "owner_level": "",
@@ -128619,7 +128619,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "grievous",
    "owner_name": "grievous",
    "owner_level": "",
@@ -128631,7 +128631,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "spellwatch",
    "owner_name": "spellwatch",
    "owner_level": "",
@@ -128643,7 +128643,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "returning",
    "owner_name": "returning",
    "owner_level": "",
@@ -128655,7 +128655,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "merciful",
    "owner_name": "merciful",
    "owner_level": "",
@@ -128667,7 +128667,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "impactful-greater",
    "owner_name": "impactful-greater",
    "owner_level": "",
@@ -128683,7 +128683,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "shifting",
    "owner_name": "shifting",
    "owner_level": "",
@@ -128695,7 +128695,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "crushing-greater",
    "owner_name": "crushing-greater",
    "owner_level": "",
@@ -128707,7 +128707,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "authorized",
    "owner_name": "authorized",
    "owner_level": "",
@@ -128719,7 +128719,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "quenching",
    "owner_name": "quenching",
    "owner_level": "",
@@ -128731,7 +128731,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "kolss-oath",
    "owner_name": "kolss-oath",
    "owner_level": "",
@@ -128743,7 +128743,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "slick",
    "owner_name": "slick",
    "owner_level": "",
@@ -128755,7 +128755,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "impossible",
    "owner_name": "impossible",
    "owner_level": "",
@@ -128767,7 +128767,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "fortification-greater",
    "owner_name": "fortification-greater",
    "owner_level": "",
@@ -128779,7 +128779,7 @@
    "attach": "armor"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "fearsome-greater",
    "owner_name": "fearsome-greater",
    "owner_level": "",
@@ -128791,7 +128791,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "corrosive-greater",
    "owner_name": "corrosive-greater",
    "owner_level": "",
@@ -128807,7 +128807,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "reinforcing-rune-greater",
    "owner_name": "reinforcing-rune-greater",
    "owner_level": "",
@@ -128819,7 +128819,7 @@
    "attach": "shield"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "trudds-strength-greater",
    "owner_name": "trudds-strength-greater",
    "owner_level": "",
@@ -128831,7 +128831,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "reinforcing-rune-minor",
    "owner_name": "reinforcing-rune-minor",
    "owner_level": "",
@@ -128843,7 +128843,7 @@
    "attach": "shield"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "coating",
    "owner_name": "coating",
    "owner_level": "",
@@ -128855,7 +128855,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "rooting",
    "owner_name": "rooting",
    "owner_level": "",
@@ -128867,7 +128867,7 @@
    "attach": "weapon"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "ashen",
    "owner_name": "ashen",
    "owner_level": "",
@@ -128884,7 +128884,7 @@
    }
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "equipment",
    "owner_slug": "swarming",
    "owner_name": "swarming",
    "owner_level": "",
@@ -128940,7 +128940,7 @@
    "target": "bloodrager-dedication"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "muse-enigma",
    "owner_name": "muse-enigma",
    "owner_level": "",
@@ -128951,7 +128951,7 @@
    "target": "bardic-lore"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "muse-enigma",
    "owner_name": "muse-enigma",
    "owner_level": "",
@@ -128964,7 +128964,7 @@
    "rank": 1
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "muse-maestro",
    "owner_name": "muse-maestro",
    "owner_level": "",
@@ -128975,7 +128975,7 @@
    "target": "lingering-composition"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "muse-maestro",
    "owner_name": "muse-maestro",
    "owner_level": "",
@@ -128988,7 +128988,7 @@
    "rank": 1
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "muse-polymath",
    "owner_name": "muse-polymath",
    "owner_level": "",
@@ -128999,7 +128999,7 @@
    "target": "versatile-performance"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "muse-polymath",
    "owner_name": "muse-polymath",
    "owner_level": "",
@@ -129012,7 +129012,7 @@
    "rank": 1
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "muse-warrior",
    "owner_name": "muse-warrior",
    "owner_level": "",
@@ -129023,7 +129023,7 @@
    "target": "martial-performance"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "muse-warrior",
    "owner_name": "muse-warrior",
    "owner_level": "",
@@ -129036,7 +129036,7 @@
    "rank": 1
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "doctrine-cloistered",
    "owner_name": "doctrine-cloistered",
    "owner_level": "",
@@ -129047,7 +129047,7 @@
    "target": "domain-initiate"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "order-animal",
    "owner_name": "order-animal",
    "owner_level": "",
@@ -129059,7 +129059,7 @@
    "name": "동물 치유"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "order-leaf",
    "owner_name": "order-leaf",
    "owner_level": "",
@@ -129071,7 +129071,7 @@
    "name": "풍요의 뿔"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "order-storm",
    "owner_name": "order-storm",
    "owner_level": "",
@@ -129083,7 +129083,7 @@
    "name": "폭풍의 파도"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "order-wild",
    "owner_name": "order-wild",
    "owner_level": "",
@@ -129644,7 +129644,7 @@
    "name": "발톱의 연타"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "patron-curse",
    "owner_name": "patron-curse",
    "owner_level": "",
@@ -129656,7 +129656,7 @@
    "name": "사악한 눈빛"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "patron-fate",
    "owner_name": "patron-fate",
    "owner_level": "",
@@ -129668,7 +129668,7 @@
    "name": "운명 튕기기"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "patron-fervor",
    "owner_name": "patron-fervor",
    "owner_level": "",
@@ -129680,7 +129680,7 @@
    "name": "심장 불태우기"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "patron-night",
    "owner_name": "patron-night",
    "owner_level": "",
@@ -129692,7 +129692,7 @@
    "name": "밤의 장막"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "patron-rune",
    "owner_name": "patron-rune",
    "owner_level": "",
@@ -129704,7 +129704,7 @@
    "name": "비밀 간파"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "patron-wild",
    "owner_name": "patron-wild",
    "owner_level": "",
@@ -129716,7 +129716,7 @@
    "name": "와일딩 워드"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "school-ars-grammatica",
    "owner_name": "school-ars-grammatica",
    "owner_level": "",
@@ -129728,7 +129728,7 @@
    "name": "보호의 수호부"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "school-battle-magic",
    "owner_name": "school-battle-magic",
    "owner_level": "",
@@ -129740,7 +129740,7 @@
    "name": "역장 화살"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "school-boundary",
    "owner_name": "school-boundary",
    "owner_level": "",
@@ -129752,7 +129752,7 @@
    "name": "소환 강화"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "school-civic-wizardry",
    "owner_name": "school-civic-wizardry",
    "owner_level": "",
@@ -129764,7 +129764,7 @@
    "name": "대지 조형"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "school-mentalism",
    "owner_name": "school-mentalism",
    "owner_level": "",
@@ -129776,7 +129776,7 @@
    "name": "매혹의 밀어내기"
   },
   {
-   "owner_kind": "feat",
+   "owner_kind": "subclass",
    "owner_slug": "school-protean-form",
    "owner_name": "school-protean-form",
    "owner_level": "",
