@@ -24,7 +24,11 @@ ctx.window = ctx; vm.createContext(ctx);
 function load(f, expose) { let s = fs.readFileSync(path.join(DEV, f), 'utf8'); if (expose) s += '\n;' + expose; vm.runInContext(s, ctx); }
 load('class_features_db.js', 'globalThis.DEITY_DB=(typeof DEITY_DB!=="undefined"?DEITY_DB:[]);');
 const { DEITY_DB } = ctx;
-PF.loadCategorySync('feats'); PF.loadCategorySync('heritages'); PF.loadCategorySync('backgrounds'); PF.loadCategorySync('deities'); PF.loadCategorySync('conditions');
+PF.loadCategorySync('feats'); PF.loadCategorySync('heritages'); PF.loadCategorySync('backgrounds'); PF.loadCategorySync('deities'); PF.loadCategorySync('conditions'); PF.loadCategorySync('classes');
+
+// 클래스 slug 집합 — owner-함의 조건 판정용(재주 traits ∩ 클래스slug = owner의 클래스).
+const CLASS_SLUGS = new Set(); for (const c of PF.all('classes')) { const sl = c.system && c.system.slug; if (sl) CLASS_SLUGS.add(sl); }
+function ownerClassesOf(doc) { const tr = (doc && doc.system && doc.system.traits && doc.system.traits.value) || []; const s = new Set(); for (const t of tr) if (CLASS_SLUGS.has(t)) s.add(t); return s; }
 
 // FVTT-갭 큐레이션: {slug:{rows?,choice?,auto_note?,damage_note?}}. FVTT rules[]가 못 담는 choice/note/수동 grant.
 const CURATED = JSON.parse(fs.readFileSync(path.join(DEV, 'data/curated_effects.json'), 'utf8'));
@@ -67,58 +71,90 @@ function _classifyNode(node) {
   }
   return _leafKind(node) === 'sit' ? 'sit' : 'static';
 }
-// ── 조건 컬럼 = 깨끗한 열거형 + 값. 조건 enum = {레벨·클래스·재주·특징·유산·특성·갑옷·크기·감각·복합·상황}.
-//   단일 정적 원자 → enum+clean값(예 클래스/barbarian, 레벨/≥5). 복합 정적/상황 → enum(복합|상황)+원본 predicate(정직).
-//   ⚠ 가짜 한글 프로즈(그리고/또는/아님) 금지 — 평가 안 하는 상황조건을 억지 번역하면 가짜정밀. 원본 그대로 감사.
-const _CMP = { gte: '≥', gt: '>', lte: '≤', lt: '<', eq: '=' };
-function _simpleLeaf(s) {   // 단일 정적 원자 → {label, value} | null
-  let m;
-  if ((m = /^class:(.+)$/.exec(s))) return { label: '클래스', value: m[1] };
-  if ((m = /^feat:(.+)$/.exec(s))) return { label: '재주', value: m[1] };
-  if ((m = /^feature:(.+)$/.exec(s))) return { label: '특징', value: m[1] };
-  if ((m = /^self:heritage:(.+)$/.exec(s))) return { label: '유산', value: m[1] };
-  if ((m = /^self:trait:(.+)$/.exec(s))) return { label: '특성', value: m[1] };
-  if ((m = /^armor:(.+)$/.exec(s))) return { label: '갑옷', value: m[1] };
-  if (/^self:armored$/.test(s)) return { label: '갑옷', value: '착용' };
-  if ((m = /^self:size:(.+)$/.exec(s))) return { label: '크기', value: m[1] };
-  if ((m = /^self:(low-light-vision|darkvision|see-invisibility)$/.exec(s))) return { label: '감각', value: m[1] };
-  return null;
+// ── 조건 컬럼 = 영문 열거형 slug + 단일 원자값(1NF). type·target이 영문 slug인데 조건만 한글이면 불일치 → 전부 영문.
+//   condition ∈ {'' 무조건 | level | class | feat | feature | heritage | ancestry | trait | armor | size | sense
+//                | no-class | no-feat | no-feature | ... (not 부정) | compound(진짜 다원자)}. cond_value = 한 원자값(barbarian, >=7, champions-reaction).
+//   ★ owner-함의 조건 제거: 효과는 재주/유산에 붙는 하위 로직. 그 owner를 가졌다는 것이 상위 필터이므로,
+//     owner의 클래스(traits∩class)와 겹치는 class:X, owner 자신을 가리키는 feat/feature:self, 그런 원자를 포함한 OR(자격 재확인)은
+//     조건에서 제거 → 무조건으로 정정. DISPLAY(effects.json)와 RUNTIME(cond) 모두 이 정제된 조건을 동일하게 사용(런타임=데이터).
+const _CMP = { gte: '>=', gt: '>', lte: '<=', lt: '<', eq: '==' };
+// owner-함의 원자? (class∈ownerClasses | feat/feature:self)
+function _isOwnerAtom(a, ocls, oslug) {
+  if (typeof a !== 'string') return false; let m;
+  if ((m = /^class:(.+)$/.exec(a))) return ocls.has(m[1]);
+  // ⚠ 정확일치만 owner-self. feat:owner:suboption(예 magical-resistance:cold, order-explorer:wave-order)은 선택지값이라 의미가 있음 → 제거 금지.
+  if ((m = /^feat:(.+)$/.exec(a))) return m[1] === oslug;
+  if ((m = /^feature:(.+)$/.exec(a))) return m[1] === oslug;
+  return false;
 }
-function _asSimpleStatic(pred) {   // 단일 정적조건으로 환원 가능하면 {label,value}, 아니면 null(=복합)
-  let node = pred;
-  if (Array.isArray(node)) { if (node.length !== 1) return null; node = node[0]; }
-  if (typeof node === 'string') return _simpleLeaf(node);
+// 노드가 owner에게 항상 참인가? owner-원자 자신 | owner-원자를 포함한 OR(하나만 참이면 OR 참 → owner가 충족).
+function _isOwnerNode(node, ocls, oslug) {
+  if (typeof node === 'string') return _isOwnerAtom(node, ocls, oslug);
+  if (node && typeof node === 'object') {
+    for (const op of ['or', 'nor']) if (node[op] != null) { const a = Array.isArray(node[op]) ? node[op] : [node[op]]; if (op === 'or' && a.some(x => _isOwnerNode(x, ocls, oslug))) return true; }
+  }
+  return false;
+}
+// owner-함의 조건 제거 후 정제 predicate(빈 → null). top-level 배열=AND이므로 항상-참 원소 제거는 등가.
+function refineCond(pred, ocls, oslug) {
+  if (pred == null) return null;
+  const arr = Array.isArray(pred) ? pred : [pred];
+  const kept = arr.filter(el => !_isOwnerNode(el, ocls, oslug));
+  return kept.length ? kept : null;
+}
+// 단일 정적 원자 → {condition, cond_value} | null(=다원자/복합)
+function _singleAtom(node) {
+  if (typeof node === 'string') {
+    let m;
+    if ((m = /^class:(.+)$/.exec(node))) return { condition: 'class', cond_value: m[1] };
+    if ((m = /^feat:(.+)$/.exec(node))) return { condition: 'feat', cond_value: m[1] };
+    if ((m = /^feature:(.+)$/.exec(node))) return { condition: 'feature', cond_value: m[1] };
+    if ((m = /^self:heritage:(.+)$/.exec(node))) return { condition: 'heritage', cond_value: m[1] };
+    if ((m = /^self:ancestry:(.+)$/.exec(node))) return { condition: 'ancestry', cond_value: m[1] };
+    if ((m = /^self:trait:(.+)$/.exec(node))) return { condition: 'trait', cond_value: m[1] };
+    if ((m = /^armor:(.+)$/.exec(node))) return { condition: 'armor', cond_value: m[1] };
+    if (/^self:armored$/.test(node)) return { condition: 'armor', cond_value: 'worn' };
+    if ((m = /^self:size:(.+)$/.exec(node))) return { condition: 'size', cond_value: m[1] };
+    if ((m = /^self:(low-light-vision|darkvision|see-invisibility)(?::(.+))?$/.exec(node))) return { condition: 'sense', cond_value: m[1] + (m[2] ? (':' + m[2]) : '') };
+    return null;
+  }
   if (node && typeof node === 'object') {
     for (const op of Object.keys(node)) {
-      if (_CMP[op]) { const a = Array.isArray(node[op]) ? node[op] : [node[op]]; if (a[0] === 'self:level' && (typeof a[1] === 'number' || /^\d+$/.test(String(a[1])))) return { label: '레벨', value: _CMP[op] + a[1] }; return null; }
-      return null;   // and/or/not/… = 복합
+      if (_CMP[op]) { const a = Array.isArray(node[op]) ? node[op] : [node[op]]; return a[0] === 'self:level' ? { condition: 'level', cond_value: _CMP[op] + a[1] } : null; }
+      if (op === 'not') { const inner = _singleAtom(node.not); return inner ? { condition: 'no-' + inner.condition, cond_value: inner.cond_value } : null; }
+      return null;
     }
   }
   return null;
 }
-// 복합 정적조건 → 우리 어휘 구조값(FVTT syntax·프로즈 금지). 예 "클래스:barbarian + 레벨:≥7", "유산≠sacred-nagaji", "클래스:champion / 재주:champions-reaction".
-function _renderCond(node) {
+// 진짜 다원자 조건 → 영문 slug 식(정직, FVTT/한글 프로즈 금지). atom=class:x/feat:x/level>=n, AND=' & ', OR='(a | b)', NOT='!a'.
+function _compoundStr(node) {
   if (node == null) return '';
-  if (Array.isArray(node)) return node.map(_renderCond).filter(Boolean).join(' + ');
+  if (Array.isArray(node)) return node.map(_compoundStr).filter(Boolean).join(' & ');
   if (typeof node === 'object') {
     for (const op of Object.keys(node)) {
       const o = node[op];
-      if (_CMP[op]) { const a = Array.isArray(o) ? o : [o]; return a[0] === 'self:level' ? ('레벨:' + _CMP[op] + a[1]) : ''; }
-      if (op === 'and' || op === 'nand') return _renderCond(o);
-      if (op === 'or' || op === 'nor') return (Array.isArray(o) ? o : [o]).map(_renderCond).filter(Boolean).join(' / ');
-      if (op === 'not') { const inner = _renderCond(o); return inner ? inner.replace(':', '≠') : ''; }
+      if (_CMP[op]) { const a = Array.isArray(o) ? o : [o]; return a[0] === 'self:level' ? ('level' + _CMP[op] + a[1]) : ''; }
+      if (op === 'and' || op === 'nand') return _compoundStr(o);
+      if (op === 'or' || op === 'nor') return '(' + (Array.isArray(o) ? o : [o]).map(_compoundStr).filter(Boolean).join(' | ') + ')';
+      if (op === 'not') { const inner = _compoundStr(o); return inner ? ('!' + inner) : ''; }
       return '';
     }
   }
-  const leaf = _simpleLeaf(String(node)); return leaf ? (leaf.label + ':' + leaf.value) : '';
+  const sa = _singleAtom(String(node)); return sa ? (sa.condition + ':' + sa.cond_value) : '';
 }
-function parseCondition(pred) {
-  if (!pred || (Array.isArray(pred) && !pred.length)) return { kind: 'none', condition: '', cond_value: '' };
+// 섀시(성장표)가 전담하는 숙련 진행 owner → 그 proficiency 행은 효과 테이블에서 제외(emitFvtt에서 skip). owner-함의 제거 후에도 남던 조건부 숙련상향 4건.
+//   ★ 무조건화가 아니라 "런타임·표시 모두 제외": subclass_progression(전투사제 lvl13 방어구 E)·class_progression(레인저 spellcasting)이 이미 정본으로 소유.
+//   무조건화하면 runtime proficiency 상향덮기가 저레벨에 상위랭크를 오적용(전투사제 lvl1 방어구 숙달 버그). 상세 [[session_handoff]] 5번.
+const CHASSIS_PROF = new Set(['ranger-expertise', 'initiate-benefit-tome', 'first-doctrine-warpriest']);
+function parseCondition(rawPred, ocls, oslug) {
+  ocls = ocls || new Set();
+  let pred = refineCond(rawPred, ocls, oslug);
+  if (pred == null) return { kind: 'none', condition: '', cond_value: '', cond: null };
   const kind = _classifyNode(pred);
-  const simple = _asSimpleStatic(pred);
-  if (kind === 'static' && simple) return { kind, condition: simple.label, cond_value: simple.value, cond: pred };
-  if (kind === 'static') return { kind, condition: '복합', cond_value: _renderCond(pred), cond: pred };
-  return { kind: 'sit', condition: '상황', cond_value: '' };   // 상황행은 표시 테이블에서 제외(FVTT 롤옵션 덤프 금지)
+  const arr = Array.isArray(pred) ? pred : [pred];
+  if (arr.length === 1) { const sa = _singleAtom(arr[0]); if (sa) return { kind, condition: sa.condition, cond_value: sa.cond_value, cond: pred }; }
+  return { kind, condition: 'compound', cond_value: _compoundStr(pred), cond: pred };
 }
 function flatType(sel) {
   if (SAVES.has(sel)) return 'save_bonus';
@@ -206,27 +242,30 @@ function emitFvtt(base, doc, bake = true) {
   if (!doc) return;
   const rr = fvttRuleRows(doc);
   if (!rr.length) return;
+  const ocls = ownerClassesOf(doc), oslug = base.owner_slug;   // owner-함의 조건 판정 컨텍스트
   const b = { owner_kind: base.owner_kind, owner_slug: base.owner_slug, owner_name: base.owner_name, owner_level: base.owner_level, category: base.category, src: 'rule' };
   for (const r of rr) {
     const { re_key, _pred, condition, ...rest } = r;
     if (!KEEP_DISPLAY_TYPES.has(rest.type)) continue;   // FVTT 룰 덤프 타입 제외(우리 모델만)
-    const pc = parseCondition(_pred);
+    const pc = parseCondition(_pred, ocls, oslug);       // owner-함의 제거·정제된 조건(DISPLAY=RUNTIME 동일)
     if (pc.kind === 'sit') continue;                    // 상황조건행 제외(롤옵션 predicate 덤프 금지 — 자동화 안 하는 효과)
     if (rest.target != null) rest.target = _cleanTarget(rest.target);
     const _tgt = String(rest.target == null ? '' : rest.target);
     if (/system\.|[{}]/.test(_tgt)) continue;           // 정리 후에도 남은 FVTT 경로·동적 브래킷 target = 미모델 → 제외
     if (rest.type === 'proficiency' && !PROF_STD.has(_tgt)) continue;   // 표준 카테고리 아닌 숙련(개별무기·시전별칭)=미모델 → 제외
+    if (rest.type === 'proficiency' && CHASSIS_PROF.has(oslug)) continue;   // 섀시(성장표) 전담 숙련 진행 → 효과 테이블 제외
     rows.push({ ...b, rule: re_key || '', ...rest, condition: pc.condition, cond_value: pc.cond_value || '' });
     stat.fvtt++;
   }
   // 런타임 소스: 적용가능 type + 브래킷 미포함 + (무조건 OR 정적조건∧활성타입). 상황조건·bake=false(신격)=표시·FK만.
-  //  v0.163: 무조건(kind='none') + 정적조건(kind='static')이면서 ACT_COND_TYPES(부여+기술훈련)만 편입. 후자는 raw predicate를 cond로 실어
-  //  런타임 _evalEffectCondition이 캐릭터 상태로 평가(미충족·미해소=skip). proficiency/resistance 등 정적조건은 표시만(제외).
+  //  무조건(kind='none', owner-함의 제거로 무조건이 된 것 포함) + 정적조건(kind='static')이면서 ACT_COND_TYPES(부여+기술훈련)만 편입.
+  //  ★ cond = pc.cond(정제된 predicate) — RUNTIME=DISPLAY 동일 조건. 런타임 _evalEffectCondition이 캐릭터 상태로 평가(미충족·미해소=skip).
   if (!bake) return;
   const runRows = rr.filter(r => APPLY_TYPES.has(r.type)
+    && !(r.type === 'proficiency' && CHASSIS_PROF.has(oslug))   // 섀시 전담 숙련 진행 → 런타임 제외(저레벨 상향덮기 오적용 방지)
     && !/[{}]/.test(String(r.target == null ? '' : r.target)) && !/[{}]/.test(String(r.value == null ? '' : r.value))
-    && (() => { const k = parseCondition(r._pred).kind; return k === 'none' || (k === 'static' && ACT_COND_TYPES.has(r.type)); })())
-    .map(r => { const o = { type: r.type }; if (r.target !== '' && r.target != null) o.target = r.target; if (r.value !== '' && r.value != null) o.value = r.value; if (r.bonus_type) o.bonus_type = r.bonus_type; if (parseCondition(r._pred).kind === 'static' && r._pred) o.cond = r._pred; return o; });
+    && (() => { const k = parseCondition(r._pred, ocls, oslug).kind; return k === 'none' || (k === 'static' && ACT_COND_TYPES.has(r.type)); })())
+    .map(r => { const pc = parseCondition(r._pred, ocls, oslug); const o = { type: r.type }; if (r.target !== '' && r.target != null) o.target = r.target; if (r.value !== '' && r.value != null) o.value = r.value; if (r.bonus_type) o.bonus_type = r.bonus_type; if (pc.kind === 'static' && pc.cond) o.cond = pc.cond; return o; });
   if (runRows.length) dbBySlug[base.owner_slug] = { rows: runRows };
 }
 

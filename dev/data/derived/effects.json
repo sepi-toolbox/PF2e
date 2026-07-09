@@ -1251,8 +1251,8 @@
    "type": "grant_feat",
    "target": "whispers-of-weakness",
    "name": "약점 속삭임",
-   "condition": "클래스",
-   "cond_value": "oracle"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -1279,7 +1279,7 @@
    "type": "choice",
    "target": "dedicationCantrip",
    "value": "",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "psychic-dedication"
   },
   {
@@ -1307,8 +1307,8 @@
    "type": "grant_feat",
    "target": "initiate-benefit-chalice",
    "name": "입문자 혜택 (성배)",
-   "condition": "클래스",
-   "cond_value": "thaumaturge"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -1321,7 +1321,7 @@
    "type": "choice",
    "target": "impulseOne",
    "value": "",
-   "condition": "클래스",
+   "condition": "class",
    "cond_value": "kineticist"
   },
   {
@@ -1363,8 +1363,8 @@
    "type": "choice",
    "target": "thirdTactic",
    "value": "",
-   "condition": "클래스",
-   "cond_value": "commander"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -1377,8 +1377,8 @@
    "type": "choice",
    "target": "fourthTactic",
    "value": "",
-   "condition": "클래스",
-   "cond_value": "commander"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -1391,8 +1391,8 @@
    "type": "choice",
    "target": "fifthTactic",
    "value": "",
-   "condition": "클래스",
-   "cond_value": "commander"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -1419,7 +1419,7 @@
    "type": "grant_item",
    "target": "finish-the-job",
    "name": "일을 마무리하다",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "way-of-the-drifter"
   },
   {
@@ -1433,7 +1433,7 @@
    "type": "grant_item",
    "target": "pistoleros-retort",
    "name": "피스톨레로의 반박",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "way-of-the-pistolero"
   },
   {
@@ -1447,7 +1447,7 @@
    "type": "grant_item",
    "target": "vital-shot",
    "name": "치명타",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "way-of-the-sniper"
   },
   {
@@ -1461,7 +1461,7 @@
    "type": "grant_item",
    "target": "recall-ammunition",
    "name": "탄약 회수",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "way-of-the-spellshot"
   },
   {
@@ -1475,7 +1475,7 @@
    "type": "grant_item",
    "target": "spinning-crush",
    "name": "회전하는 압박",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "way-of-the-vanguard"
   },
   {
@@ -1489,7 +1489,7 @@
    "type": "grant_item",
    "target": "wind-them-up",
    "name": "감아 올리기",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "way-of-the-triggerbrand"
   },
   {
@@ -1519,7 +1519,7 @@
    "target": "medium",
    "value": 2,
    "bonus_type": "upgrade",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "light-armor-expertise"
   },
   {
@@ -1534,7 +1534,7 @@
    "target": "medium",
    "value": 3,
    "bonus_type": "upgrade",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "light-armor-mastery"
   },
   {
@@ -1562,8 +1562,8 @@
    "type": "grant_feat",
    "target": "lesser-creed",
    "name": "하위 신조",
-   "condition": "레벨",
-   "cond_value": "≥5"
+   "condition": "level",
+   "cond_value": ">=5"
   },
   {
    "owner_kind": "feat",
@@ -1576,8 +1576,8 @@
    "type": "grant_feat",
    "target": "moderate-creed",
    "name": "중도 신조",
-   "condition": "레벨",
-   "cond_value": "≥9"
+   "condition": "level",
+   "cond_value": ">=9"
   },
   {
    "owner_kind": "feat",
@@ -1590,8 +1590,8 @@
    "type": "grant_feat",
    "target": "greater-creed",
    "name": "고위 신조",
-   "condition": "레벨",
-   "cond_value": "≥11"
+   "condition": "level",
+   "cond_value": ">=11"
   },
   {
    "owner_kind": "feat",
@@ -1604,8 +1604,8 @@
    "type": "grant_feat",
    "target": "major-creed",
    "name": "주요 신조",
-   "condition": "레벨",
-   "cond_value": "≥13"
+   "condition": "level",
+   "cond_value": ">=13"
   },
   {
    "owner_kind": "feat",
@@ -1618,8 +1618,8 @@
    "type": "grant_feat",
    "target": "true-creed",
    "name": "진정한 신조",
-   "condition": "레벨",
-   "cond_value": "≥15"
+   "condition": "level",
+   "cond_value": ">=15"
   },
   {
    "owner_kind": "feat",
@@ -1632,8 +1632,8 @@
    "type": "grant_feat",
    "target": "final-creed",
    "name": "최종 신조",
-   "condition": "레벨",
-   "cond_value": "≥19"
+   "condition": "level",
+   "cond_value": ">=19"
   },
   {
    "owner_kind": "feat",
@@ -1646,8 +1646,8 @@
    "type": "grant_feat",
    "target": "battle-harbinger-dedication",
    "name": "전투의 전령 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -1661,8 +1661,8 @@
    "target": "diplomacy",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "클래스",
-   "cond_value": "swashbuckler"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -1675,8 +1675,8 @@
    "type": "grant_feat",
    "target": "bon-mot",
    "name": "재치 있는 말",
-   "condition": "클래스",
-   "cond_value": "swashbuckler"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -1733,8 +1733,8 @@
    "type": "grant_feat",
    "target": "fascinating-performance",
    "name": "매혹적인 공연",
-   "condition": "클래스",
-   "cond_value": "swashbuckler"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -1775,7 +1775,7 @@
    "type": "choice",
    "target": "dedicationCantrip",
    "value": "",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "psychic-dedication"
   },
   {
@@ -1859,8 +1859,8 @@
    "type": "choice",
    "target": "breakthroughModification",
    "value": "32개",
-   "condition": "복합",
-   "cond_value": "클래스:inventor + 특징:armor-innovation / 특징:weapon-innovation"
+   "condition": "compound",
+   "cond_value": "(feature:armor-innovation | feature:weapon-innovation)"
   },
   {
    "owner_kind": "feat",
@@ -1929,8 +1929,8 @@
    "type": "grant_feat",
    "target": "initiate-benefit-shield",
    "name": "입문자 혜택 (방패)",
-   "condition": "클래스",
-   "cond_value": "thaumaturge"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -1999,7 +1999,7 @@
    "type": "choice",
    "target": "impulseOne",
    "value": "",
-   "condition": "클래스",
+   "condition": "class",
    "cond_value": "kineticist"
   },
   {
@@ -2013,8 +2013,8 @@
    "type": "grant_item",
    "target": "selfish-shield",
    "name": "이기적인 방패",
-   "condition": "복합",
-   "cond_value": "클래스:champion / 재주:champions-reaction"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2027,7 +2027,7 @@
    "type": "choice",
    "target": "dedicationCantrip",
    "value": "",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "psychic-dedication"
   },
   {
@@ -2085,8 +2085,8 @@
    "target": "martial",
    "value": 2,
    "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "클래스:champion / 클래스:exemplar / 클래스:guardian / 클래스:investigator / 클래스:magus / 클래스:swashbuckler / 클래스:thaumaturge"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2198,8 +2198,8 @@
    "type": "grant_feat",
    "target": "initiate-benefit-lantern",
    "name": "입문자 혜택 (랜턴)",
-   "condition": "클래스",
-   "cond_value": "thaumaturge"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2213,8 +2213,8 @@
    "target": "athletics",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "클래스",
-   "cond_value": "swashbuckler"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2242,7 +2242,7 @@
    "target": "light",
    "value": 2,
    "bonus_type": "upgrade",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "divine-defense"
   },
   {
@@ -2257,7 +2257,7 @@
    "target": "medium",
    "value": 2,
    "bonus_type": "upgrade",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "divine-defense"
   },
   {
@@ -2272,8 +2272,8 @@
    "target": "heavy",
    "value": 3,
    "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "클래스≠barbarian"
+   "condition": "no-class",
+   "cond_value": "barbarian"
   },
   {
    "owner_kind": "feat",
@@ -2301,8 +2301,8 @@
    "target": "land-speed",
    "value": "5*floor((@actor.level + 5) / 4)",
    "bonus_type": "status",
-   "condition": "복합",
-   "cond_value": "갑옷≠착용"
+   "condition": "no-armor",
+   "cond_value": "worn"
   },
   {
    "owner_kind": "feat",
@@ -2358,8 +2358,8 @@
    "type": "grant_feat",
    "target": "seneschal-witch-dedication",
    "name": "시종 마녀의 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -2386,8 +2386,8 @@
    "type": "grant_feat",
    "target": "initiate-benefit-bell",
    "name": "입문자 혜택 (종)",
-   "condition": "클래스",
-   "cond_value": "thaumaturge"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2414,8 +2414,8 @@
    "type": "grant_feat",
    "target": "initiate-benefit-regalia",
    "name": "입문자 혜택 (레갈리아)",
-   "condition": "클래스",
-   "cond_value": "thaumaturge"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2442,8 +2442,8 @@
    "type": "grant_item",
    "target": "destructive-vengeance",
    "name": "파괴적 복수",
-   "condition": "복합",
-   "cond_value": "클래스:champion / 재주:champions-reaction"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2499,8 +2499,8 @@
    "type": "grant_feat",
    "target": "trance-of-celerity",
    "name": "신속의 무아지경",
-   "condition": "클래스",
-   "cond_value": "oracle"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2555,8 +2555,8 @@
    "type": "grant_item",
    "target": "liberating-step",
    "name": "해방의 발걸음",
-   "condition": "복합",
-   "cond_value": "클래스:champion / 재주:champions-reaction"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2583,7 +2583,7 @@
    "type": "choice",
    "target": "dedicationCantrip",
    "value": "",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "psychic-dedication"
   },
   {
@@ -2613,8 +2613,8 @@
    "target": "medicine",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "재주≠order-explorer:wave-order"
+   "condition": "no-feat",
+   "cond_value": "order-explorer:wave-order"
   },
   {
    "owner_kind": "feat",
@@ -2627,8 +2627,8 @@
    "type": "grant_feat",
    "target": "shore-step",
    "name": "해안 이동",
-   "condition": "복합",
-   "cond_value": "클래스:druid / 재주:order-explorer:wave-order"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2671,8 +2671,8 @@
    "type": "grant_feat",
    "target": "foretell-harm",
    "name": "해악 예지",
-   "condition": "클래스",
-   "cond_value": "oracle"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2755,8 +2755,8 @@
    "type": "choice",
    "target": "secondIkon",
    "value": "",
-   "condition": "클래스",
-   "cond_value": "exemplar"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2769,8 +2769,8 @@
    "type": "choice",
    "target": "thirdIkon",
    "value": "",
-   "condition": "클래스",
-   "cond_value": "exemplar"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2825,8 +2825,8 @@
    "type": "grant_feat",
    "target": "runelord-dedication",
    "name": "룬로드 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -2867,8 +2867,8 @@
    "type": "grant_item",
    "target": "iron-command",
    "name": "철의 명령",
-   "condition": "복합",
-   "cond_value": "클래스:champion / 재주:champions-reaction"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -2938,8 +2938,8 @@
    "type": "grant_feat",
    "target": "warrior-of-legend-dedication",
    "name": "전설의 전사 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -3023,8 +3023,8 @@
    "type": "grant_feat",
    "target": "nudge-the-scales",
    "name": "저울을 기울이다",
-   "condition": "클래스",
-   "cond_value": "oracle"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -3052,8 +3052,8 @@
    "target": "crafting",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "재주≠order-explorer:leaf-order"
+   "condition": "no-feat",
+   "cond_value": "order-explorer:leaf-order"
   },
   {
    "owner_kind": "feat",
@@ -3066,8 +3066,8 @@
    "type": "grant_feat",
    "target": "leshy-familiar",
    "name": "레시 패밀리어",
-   "condition": "복합",
-   "cond_value": "클래스:druid / 재주:order-explorer:leaf-order"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -3155,8 +3155,8 @@
    "target": "deception",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "클래스",
-   "cond_value": "swashbuckler"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -3241,8 +3241,8 @@
    "type": "choice",
    "target": "energy",
    "value": "3개",
-   "condition": "복합",
-   "cond_value": "특징:giant-instinct + 클래스:barbarian"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -3256,8 +3256,8 @@
    "target": "intimidation",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "클래스",
-   "cond_value": "swashbuckler"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -3537,7 +3537,7 @@
    "type": "choice",
    "target": "impulseOne",
    "value": "",
-   "condition": "클래스",
+   "condition": "class",
    "cond_value": "kineticist"
   },
   {
@@ -3565,8 +3565,8 @@
    "type": "grant_feat",
    "target": "initiate-benefit-tome",
    "name": "입문자 혜택 (서적)",
-   "condition": "클래스",
-   "cond_value": "thaumaturge"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -3649,8 +3649,8 @@
    "type": "grant_feat",
    "target": "initiate-benefit-mirror",
    "name": "입문자 혜택 (거울)",
-   "condition": "클래스",
-   "cond_value": "thaumaturge"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -3677,8 +3677,8 @@
    "type": "resistance",
    "target": "[\"spirit\",\"void\"]",
    "value": "floor(@actor.level/2)",
-   "condition": "레벨",
-   "cond_value": "≥9"
+   "condition": "level",
+   "cond_value": ">=9"
   },
   {
    "owner_kind": "feat",
@@ -3692,8 +3692,8 @@
    "target": "acrobatics",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "재주≠order-explorer:flame-order"
+   "condition": "no-feat",
+   "cond_value": "order-explorer:flame-order"
   },
   {
    "owner_kind": "feat",
@@ -3706,8 +3706,8 @@
    "type": "grant_feat",
    "target": "fire-lung",
    "name": "불의 폐",
-   "condition": "복합",
-   "cond_value": "클래스:druid / 재주:order-explorer:flame-order"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -3822,8 +3822,8 @@
    "type": "grant_feat",
    "target": "avenger-dedication",
    "name": "복수자의 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -3878,8 +3878,8 @@
    "type": "grant_feat",
    "target": "spellshot-dedication",
    "name": "스펠샷 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -3936,8 +3936,8 @@
    "target": "athletics",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "재주≠order-explorer:animal-order"
+   "condition": "no-feat",
+   "cond_value": "order-explorer:animal-order"
   },
   {
    "owner_kind": "feat",
@@ -3950,8 +3950,8 @@
    "type": "grant_feat",
    "target": "animal-companion",
    "name": "동물 동료",
-   "condition": "복합",
-   "cond_value": "클래스:druid / 재주:order-explorer:animal-order"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -3978,7 +3978,7 @@
    "type": "choice",
    "target": "impulseOne",
    "value": "",
-   "condition": "클래스",
+   "condition": "class",
    "cond_value": "kineticist"
   },
   {
@@ -4006,8 +4006,8 @@
    "type": "grant_feat",
    "target": "initiate-benefit-amulet",
    "name": "입문자 혜택 (부적)",
-   "condition": "클래스",
-   "cond_value": "thaumaturge"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -4063,8 +4063,8 @@
    "type": "grant_feat",
    "target": "vindicator-dedication",
    "name": "복수자 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -4077,8 +4077,8 @@
    "type": "grant_item",
    "target": "covered-reload",
    "name": "은폐 재장전",
-   "condition": "클래스",
-   "cond_value": "gunslinger"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -4091,8 +4091,8 @@
    "type": "grant_item",
    "target": "one-shot-one-kill",
    "name": "원샷 원킬",
-   "condition": "클래스",
-   "cond_value": "gunslinger"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -4191,8 +4191,8 @@
    "type": "grant_feat",
    "target": "oracular-warning",
    "name": "오라클의 경고",
-   "condition": "클래스",
-   "cond_value": "oracle"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -4233,7 +4233,7 @@
    "type": "grant_feat",
    "target": "masterful-hunter-flurry",
    "name": "마스터 사냥꾼 (연타)",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "flurry"
   },
   {
@@ -4247,7 +4247,7 @@
    "type": "grant_feat",
    "target": "masterful-hunter-outwit",
    "name": "마스터 사냥꾼 (기만)",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "outwit"
   },
   {
@@ -4261,7 +4261,7 @@
    "type": "grant_feat",
    "target": "masterful-hunter-precision",
    "name": "마스터 사냥꾼 (정밀)",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "precision"
   },
   {
@@ -4562,8 +4562,8 @@
    "type": "grant_feat",
    "target": "flexible-spellcaster-dedication",
    "name": "유연한 주문 시전자 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -4576,8 +4576,8 @@
    "type": "grant_item",
    "target": "glimpse-of-redemption",
    "name": "구원의 찰나",
-   "condition": "복합",
-   "cond_value": "클래스:champion / 재주:champions-reaction"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -4690,8 +4690,8 @@
    "type": "grant_feat",
    "target": "foretell-harm",
    "name": "해악 예지",
-   "condition": "클래스",
-   "cond_value": "oracle"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -4775,8 +4775,8 @@
    "target": "intimidation",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "재주≠order-explorer:leaf-order"
+   "condition": "no-feat",
+   "cond_value": "order-explorer:leaf-order"
   },
   {
    "owner_kind": "feat",
@@ -4789,8 +4789,8 @@
    "type": "grant_feat",
    "target": "leshy-familiar",
    "name": "레시 패밀리어",
-   "condition": "복합",
-   "cond_value": "클래스:druid / 재주:order-explorer:leaf-order"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -4803,7 +4803,7 @@
    "type": "choice",
    "target": "impulseOne",
    "value": "",
-   "condition": "클래스",
+   "condition": "class",
    "cond_value": "kineticist"
   },
   {
@@ -4862,8 +4862,8 @@
    "type": "grant_feat",
    "target": "dirty-trick",
    "name": "더러운 속임수",
-   "condition": "클래스",
-   "cond_value": "swashbuckler"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -4975,8 +4975,8 @@
    "type": "grant_feat",
    "target": "munitions-master-dedication",
    "name": "탄약 마스터 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -5003,8 +5003,8 @@
    "type": "grant_feat",
    "target": "initiate-benefit-weapon",
    "name": "입문자 혜택 (무기)",
-   "condition": "클래스",
-   "cond_value": "thaumaturge"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5032,8 +5032,8 @@
    "type": "grant_item",
    "target": "spring-the-trap",
    "name": "함정 발동",
-   "condition": "클래스",
-   "cond_value": "gunslinger"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5046,8 +5046,8 @@
    "type": "grant_item",
    "target": "touch-and-go",
    "name": "터치 앤 고",
-   "condition": "클래스",
-   "cond_value": "gunslinger"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5189,8 +5189,8 @@
    "type": "grant_item",
    "target": "into-the-fray",
    "name": "전투 속으로",
-   "condition": "클래스",
-   "cond_value": "gunslinger"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5203,8 +5203,8 @@
    "type": "grant_item",
    "target": "reloading-strike",
    "name": "재장전 공격",
-   "condition": "클래스",
-   "cond_value": "gunslinger"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5261,8 +5261,8 @@
    "target": "acrobatics",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "재주≠order-explorer:storm-order"
+   "condition": "no-feat",
+   "cond_value": "order-explorer:storm-order"
   },
   {
    "owner_kind": "feat",
@@ -5275,8 +5275,8 @@
    "type": "grant_feat",
    "target": "storm-born",
    "name": "폭풍의 자식",
-   "condition": "복합",
-   "cond_value": "클래스:druid / 재주:order-explorer:storm-order"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5345,8 +5345,8 @@
    "type": "choice",
    "target": "initialModification",
    "value": "11개",
-   "condition": "클래스",
-   "cond_value": "inventor"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5429,7 +5429,7 @@
    "type": "choice",
    "target": "impulseOne",
    "value": "",
-   "condition": "클래스",
+   "condition": "class",
    "cond_value": "kineticist"
   },
   {
@@ -5500,8 +5500,8 @@
    "type": "grant_feat",
    "target": "deific-weapon",
    "name": "신성 무기",
-   "condition": "클래스",
-   "cond_value": "champion"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5573,8 +5573,8 @@
    "target": "crafting",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "재주≠order-explorer:stone-order"
+   "condition": "no-feat",
+   "cond_value": "order-explorer:stone-order"
   },
   {
    "owner_kind": "feat",
@@ -5587,8 +5587,8 @@
    "type": "grant_feat",
    "target": "steadying-stone",
    "name": "안정의 돌",
-   "condition": "복합",
-   "cond_value": "클래스:druid / 재주:order-explorer:stone-order"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5630,8 +5630,8 @@
    "type": "choice",
    "target": "initialModification",
    "value": "",
-   "condition": "클래스",
-   "cond_value": "inventor"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5659,8 +5659,8 @@
    "type": "grant_feat",
    "target": "whispers-of-weakness",
    "name": "약점 속삭임",
-   "condition": "클래스",
-   "cond_value": "oracle"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5787,8 +5787,8 @@
    "type": "grant_feat",
    "target": "oracular-warning",
    "name": "오라클의 경고",
-   "condition": "클래스",
-   "cond_value": "oracle"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5843,8 +5843,8 @@
    "type": "grant_item",
    "target": "flash-of-grandeur",
    "name": "위엄의 섬광",
-   "condition": "복합",
-   "cond_value": "클래스:champion / 재주:champions-reaction"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -5871,8 +5871,8 @@
    "type": "grant_feat",
    "target": "enhanced-familiar",
    "name": "강화된 패밀리어",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -5885,8 +5885,8 @@
    "type": "grant_feat",
    "target": "incredible-familiar-animist",
    "name": "놀라운 패밀리어 존재 (애니미스트)",
-   "condition": "레벨",
-   "cond_value": "≥9"
+   "condition": "level",
+   "cond_value": ">=9"
   },
   {
    "owner_kind": "feat",
@@ -6139,8 +6139,8 @@
    "type": "choice",
    "target": "furyInstinct",
    "value": "",
-   "condition": "클래스",
-   "cond_value": "barbarian"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -6340,8 +6340,8 @@
    "type": "grant_feat",
    "target": "wellspring-mage-dedication",
    "name": "원천 마법사 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -6411,8 +6411,8 @@
    "type": "grant_feat",
    "target": "nudge-the-scales",
    "name": "저울을 기울이다",
-   "condition": "클래스",
-   "cond_value": "oracle"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -6539,8 +6539,8 @@
    "type": "grant_feat",
    "target": "initiate-benefit-wand",
    "name": "입문자 혜택 (지팡이)",
-   "condition": "클래스",
-   "cond_value": "thaumaturge"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -6623,8 +6623,8 @@
    "type": "grant_feat",
    "target": "elementalist-dedication",
    "name": "원소술사 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -6637,7 +6637,7 @@
    "type": "choice",
    "target": "wizardElmentalistSchool",
    "value": "",
-   "condition": "클래스",
+   "condition": "class",
    "cond_value": "wizard"
   },
   {
@@ -6651,8 +6651,8 @@
    "type": "choice",
    "target": "choice",
    "value": "2개",
-   "condition": "복합",
-   "cond_value": "클래스:sorcerer + 특징:bloodline-elemental"
+   "condition": "compound",
+   "cond_value": "class:sorcerer & feature:bloodline-elemental"
   },
   {
    "owner_kind": "feat",
@@ -6665,8 +6665,8 @@
    "type": "choice",
    "target": "choice",
    "value": "2개",
-   "condition": "복합",
-   "cond_value": "클래스:sorcerer + 특징:bloodline-elemental"
+   "condition": "compound",
+   "cond_value": "class:sorcerer & feature:bloodline-elemental"
   },
   {
    "owner_kind": "feat",
@@ -6708,8 +6708,8 @@
    "type": "grant_item",
    "target": "retributive-strike",
    "name": "보복적 타격",
-   "condition": "복합",
-   "cond_value": "클래스:champion / 재주:champions-reaction"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -6778,8 +6778,8 @@
    "type": "grant_feat",
    "target": "palatine-detective-dedication",
    "name": "팔라틴 탐정의 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -6834,8 +6834,8 @@
    "type": "grant_item",
    "target": "act-together",
    "name": "공동 행동",
-   "condition": "클래스",
-   "cond_value": "summoner"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -6848,8 +6848,8 @@
    "type": "grant_item",
    "target": "share-senses",
    "name": "감각 공유",
-   "condition": "클래스",
-   "cond_value": "summoner"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -6862,8 +6862,8 @@
    "type": "grant_item",
    "target": "raconteurs-reload",
    "name": "이야기꾼의 재장전",
-   "condition": "클래스",
-   "cond_value": "gunslinger"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -6876,8 +6876,8 @@
    "type": "grant_item",
    "target": "ten-paces",
    "name": "열 걸음",
-   "condition": "클래스",
-   "cond_value": "gunslinger"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -6918,8 +6918,8 @@
    "type": "resistance",
    "target": "physical",
    "value": "1 + floor(@actor.level / 2)",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy / 갑옷:category:medium"
+   "condition": "compound",
+   "cond_value": "(armor:category:heavy | armor:category:medium)"
   },
   {
    "owner_kind": "feat",
@@ -6947,8 +6947,8 @@
    "type": "grant_feat",
    "target": "whispers-of-weakness",
    "name": "약점 속삭임",
-   "condition": "클래스",
-   "cond_value": "oracle"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -6975,8 +6975,8 @@
    "type": "grant_feat",
    "target": "bloodrager-dedication",
    "name": "블러드레이저 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -7046,7 +7046,7 @@
    "type": "choice",
    "target": "dedicationCantrip",
    "value": "",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "psychic-dedication"
   },
   {
@@ -7060,7 +7060,7 @@
    "type": "choice",
    "target": "dedicationCantrip",
    "value": "",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "psychic-dedication"
   },
   {
@@ -7191,8 +7191,8 @@
    "type": "choice",
    "target": "revolutionaryModification",
    "value": "46개",
-   "condition": "복합",
-   "cond_value": "클래스:inventor + 특징:armor-innovation / 특징:weapon-innovation"
+   "condition": "compound",
+   "cond_value": "(feature:armor-innovation | feature:weapon-innovation)"
   },
   {
    "owner_kind": "feat",
@@ -7234,8 +7234,8 @@
    "type": "grant_feat",
    "target": "whispers-of-weakness",
    "name": "약점 속삭임",
-   "condition": "클래스",
-   "cond_value": "oracle"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -7277,8 +7277,8 @@
    "target": "diplomacy",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "재주≠order-explorer:leaf-order"
+   "condition": "no-feat",
+   "cond_value": "order-explorer:leaf-order"
   },
   {
    "owner_kind": "feat",
@@ -7291,8 +7291,8 @@
    "type": "grant_feat",
    "target": "leshy-familiar",
    "name": "레시 패밀리어",
-   "condition": "복합",
-   "cond_value": "클래스:druid / 재주:order-explorer:leaf-order"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -7362,8 +7362,8 @@
    "target": "intimidation",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "재주≠order-explorer:untamed-order"
+   "condition": "no-feat",
+   "cond_value": "order-explorer:untamed-order"
   },
   {
    "owner_kind": "feat",
@@ -7376,8 +7376,8 @@
    "type": "grant_feat",
    "target": "untamed-form",
    "name": "길들여지지 않은 형태",
-   "condition": "복합",
-   "cond_value": "클래스:druid / 재주:order-explorer:untamed-order"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -7435,8 +7435,8 @@
    "type": "grant_item",
    "target": "clear-a-path",
    "name": "길을 닦다",
-   "condition": "클래스",
-   "cond_value": "gunslinger"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -7449,8 +7449,8 @@
    "type": "grant_item",
    "target": "living-fortification",
    "name": "생명의 요새",
-   "condition": "클래스",
-   "cond_value": "gunslinger"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -7492,8 +7492,8 @@
    "type": "grant_feat",
    "target": "war-mage-dedication",
    "name": "전쟁 마법사 헌신",
-   "condition": "레벨",
-   "cond_value": "≥2"
+   "condition": "level",
+   "cond_value": ">=2"
   },
   {
    "owner_kind": "feat",
@@ -7521,8 +7521,8 @@
    "target": "light",
    "value": 2,
    "bonus_type": "upgrade",
-   "condition": "레벨",
-   "cond_value": "≥11"
+   "condition": "level",
+   "cond_value": ">=11"
   },
   {
    "owner_kind": "feat",
@@ -7536,8 +7536,8 @@
    "target": "medium",
    "value": 2,
    "bonus_type": "upgrade",
-   "condition": "레벨",
-   "cond_value": "≥11"
+   "condition": "level",
+   "cond_value": ">=11"
   },
   {
    "owner_kind": "feat",
@@ -7551,8 +7551,8 @@
    "target": "unarmored",
    "value": 2,
    "bonus_type": "upgrade",
-   "condition": "레벨",
-   "cond_value": "≥11"
+   "condition": "level",
+   "cond_value": ">=11"
   },
   {
    "owner_kind": "feat",
@@ -7750,8 +7750,8 @@
    "type": "resistance",
    "target": "piercing",
    "value": "1 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:medium + 갑옷:group:composite"
+   "condition": "compound",
+   "cond_value": "armor:category:medium & armor:group:composite"
   },
   {
    "owner_kind": "feat",
@@ -7764,8 +7764,8 @@
    "type": "resistance",
    "target": "bludgeoning",
    "value": "1 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:medium + 갑옷:group:leather"
+   "condition": "compound",
+   "cond_value": "armor:category:medium & armor:group:leather"
   },
   {
    "owner_kind": "feat",
@@ -7778,8 +7778,8 @@
    "type": "resistance",
    "target": "slashing",
    "value": "1 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:medium + 갑옷:group:plate"
+   "condition": "compound",
+   "cond_value": "armor:category:medium & armor:group:plate"
   },
   {
    "owner_kind": "feat",
@@ -7792,8 +7792,8 @@
    "type": "resistance",
    "target": "piercing",
    "value": "2 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy + 갑옷:group:composite"
+   "condition": "compound",
+   "cond_value": "armor:category:heavy & armor:group:composite"
   },
   {
    "owner_kind": "feat",
@@ -7806,8 +7806,8 @@
    "type": "resistance",
    "target": "bludgeoning",
    "value": "2 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy + 갑옷:group:leather"
+   "condition": "compound",
+   "cond_value": "armor:category:heavy & armor:group:leather"
   },
   {
    "owner_kind": "feat",
@@ -7820,8 +7820,8 @@
    "type": "resistance",
    "target": "slashing",
    "value": "2 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy + 갑옷:group:plate"
+   "condition": "compound",
+   "cond_value": "armor:category:heavy & armor:group:plate"
   },
   {
    "owner_kind": "feat",
@@ -7834,8 +7834,8 @@
    "type": "resistance",
    "target": "precision",
    "value": "3 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:medium + 갑옷:group:skeletal"
+   "condition": "compound",
+   "cond_value": "armor:category:medium & armor:group:skeletal"
   },
   {
    "owner_kind": "feat",
@@ -7848,8 +7848,8 @@
    "type": "resistance",
    "target": "precision",
    "value": "5 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy + 갑옷:group:skeletal"
+   "condition": "compound",
+   "cond_value": "armor:category:heavy & armor:group:skeletal"
   },
   {
    "owner_kind": "feat",
@@ -7862,8 +7862,8 @@
    "type": "resistance",
    "target": "critical-hits",
    "value": "4 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:medium + 갑옷:group:chain"
+   "condition": "compound",
+   "cond_value": "armor:category:medium & armor:group:chain"
   },
   {
    "owner_kind": "feat",
@@ -7876,8 +7876,8 @@
    "type": "resistance",
    "target": "critical-hits",
    "value": "6 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy + 갑옷:group:chain"
+   "condition": "compound",
+   "cond_value": "armor:category:heavy & armor:group:chain"
   },
   {
    "owner_kind": "feat",
@@ -7948,8 +7948,8 @@
    "type": "grant_item",
    "target": "base-kinesis",
    "name": "기본 운동 능력",
-   "condition": "클래스",
-   "cond_value": "kineticist"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -7992,36 +7992,6 @@
    "name": "운명을 다시 쓰다",
    "condition": "",
    "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "first-doctrine-warpriest",
-   "owner_name": "첫 번째 교리 (전사 사제)",
-   "owner_level": 1,
-   "category": "classfeature",
-   "src": "rule",
-   "rule": "ActiveEffectLike",
-   "type": "proficiency",
-   "target": "light",
-   "value": 2,
-   "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "레벨:≥13 + 특징:divine-defense"
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "first-doctrine-warpriest",
-   "owner_name": "첫 번째 교리 (전사 사제)",
-   "owner_level": 1,
-   "category": "classfeature",
-   "src": "rule",
-   "rule": "ActiveEffectLike",
-   "type": "proficiency",
-   "target": "medium",
-   "value": 2,
-   "bonus_type": "upgrade",
-   "condition": "복합",
-   "cond_value": "레벨:≥13 + 특징:divine-defense"
   },
   {
    "owner_kind": "feat",
@@ -8090,7 +8060,7 @@
    "type": "grant_item",
    "target": "drifters-wake",
    "name": "방랑자의 흔적",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "way-of-the-drifter"
   },
   {
@@ -8104,7 +8074,7 @@
    "type": "grant_item",
    "target": "grim-swagger",
    "name": "음울한 거만함",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "way-of-the-pistolero"
   },
   {
@@ -8118,7 +8088,7 @@
    "type": "grant_item",
    "target": "ghost-shot",
    "name": "유령 사격",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "way-of-the-sniper"
   },
   {
@@ -8132,7 +8102,7 @@
    "type": "grant_item",
    "target": "dispelling-bullet",
    "name": "해산탄",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "way-of-the-spellshot"
   },
   {
@@ -8146,7 +8116,7 @@
    "type": "grant_item",
    "target": "siegebreaker",
    "name": "공성파괴자",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "way-of-the-vanguard"
   },
   {
@@ -8160,7 +8130,7 @@
    "type": "grant_item",
    "target": "break-them-down",
    "name": "그들을 분쇄하라",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "way-of-the-triggerbrand"
   },
   {
@@ -8275,8 +8245,8 @@
    "target": "land-speed",
    "value": 10,
    "bonus_type": "status",
-   "condition": "복합",
-   "cond_value": "갑옷:category:unarmored / 갑옷:category:light"
+   "condition": "compound",
+   "cond_value": "(armor:category:unarmored | armor:category:light)"
   },
   {
    "owner_kind": "feat",
@@ -9518,7 +9488,7 @@
    "target": "advanced",
    "value": 2,
    "bonus_type": "upgrade",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "weapon-expertise"
   },
   {
@@ -9546,7 +9516,7 @@
    "type": "choice",
    "target": "furyInstinct",
    "value": "",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "fury-instinct"
   },
   {
@@ -9844,8 +9814,8 @@
    "type": "note",
    "target": "fist-damage",
    "note": "PF2E.SpecificRule.Mummy.AccursedTouch.Note.Base",
-   "condition": "레벨",
-   "cond_value": "≤13"
+   "condition": "level",
+   "cond_value": "<=13"
   },
   {
    "owner_kind": "feat",
@@ -9858,8 +9828,8 @@
    "type": "note",
    "target": "fist-damage",
    "note": "PF2E.SpecificRule.Mummy.AccursedTouch.Note.FourteenthLevel",
-   "condition": "복합",
-   "cond_value": "레벨:≥14 + 레벨≠≥20"
+   "condition": "compound",
+   "cond_value": "level>=14 & !level>=20"
   },
   {
    "owner_kind": "feat",
@@ -9872,8 +9842,8 @@
    "type": "note",
    "target": "fist-damage",
    "note": "PF2E.SpecificRule.Mummy.AccursedTouch.Note.TwentiethLevel",
-   "condition": "레벨",
-   "cond_value": "≥20"
+   "condition": "level",
+   "cond_value": ">=20"
   },
   {
    "owner_kind": "feat",
@@ -9887,7 +9857,7 @@
    "target": "reflex",
    "value": 4,
    "bonus_type": "untyped",
-   "condition": "갑옷",
+   "condition": "armor",
    "cond_value": "trait:bulwark"
   },
   {
@@ -10246,7 +10216,7 @@
    "type": "choice",
    "target": "objectDamageType",
    "value": "2개",
-   "condition": "유산",
+   "condition": "heritage",
    "cond_value": "born-of-item"
   },
   {
@@ -10374,8 +10344,8 @@
    "type": "grant_feat",
    "target": "blight-soul-deviant-classification",
    "name": "병폐의 영혼 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠blight-soul-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "blight-soul-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -10444,8 +10414,8 @@
    "type": "resistance",
    "target": "piercing",
    "value": "1 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:medium + 갑옷:group:composite"
+   "condition": "compound",
+   "cond_value": "armor:category:medium & armor:group:composite"
   },
   {
    "owner_kind": "feat",
@@ -10458,8 +10428,8 @@
    "type": "resistance",
    "target": "bludgeoning",
    "value": "1 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:medium + 갑옷:group:leather"
+   "condition": "compound",
+   "cond_value": "armor:category:medium & armor:group:leather"
   },
   {
    "owner_kind": "feat",
@@ -10472,8 +10442,8 @@
    "type": "resistance",
    "target": "slashing",
    "value": "1 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:medium + 갑옷:group:plate"
+   "condition": "compound",
+   "cond_value": "armor:category:medium & armor:group:plate"
   },
   {
    "owner_kind": "feat",
@@ -10486,8 +10456,8 @@
    "type": "resistance",
    "target": "piercing",
    "value": "2 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy + 갑옷:group:composite"
+   "condition": "compound",
+   "cond_value": "armor:category:heavy & armor:group:composite"
   },
   {
    "owner_kind": "feat",
@@ -10500,8 +10470,8 @@
    "type": "resistance",
    "target": "bludgeoning",
    "value": "2 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy + 갑옷:group:leather"
+   "condition": "compound",
+   "cond_value": "armor:category:heavy & armor:group:leather"
   },
   {
    "owner_kind": "feat",
@@ -10514,8 +10484,8 @@
    "type": "resistance",
    "target": "slashing",
    "value": "2 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy + 갑옷:group:plate"
+   "condition": "compound",
+   "cond_value": "armor:category:heavy & armor:group:plate"
   },
   {
    "owner_kind": "feat",
@@ -10528,8 +10498,8 @@
    "type": "resistance",
    "target": "precision",
    "value": "3 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:medium + 갑옷:group:skeletal"
+   "condition": "compound",
+   "cond_value": "armor:category:medium & armor:group:skeletal"
   },
   {
    "owner_kind": "feat",
@@ -10542,8 +10512,8 @@
    "type": "resistance",
    "target": "precision",
    "value": "5 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy + 갑옷:group:skeletal"
+   "condition": "compound",
+   "cond_value": "armor:category:heavy & armor:group:skeletal"
   },
   {
    "owner_kind": "feat",
@@ -10556,8 +10526,8 @@
    "type": "resistance",
    "target": "critical-hits",
    "value": "4 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:medium + 갑옷:group:chain"
+   "condition": "compound",
+   "cond_value": "armor:category:medium & armor:group:chain"
   },
   {
    "owner_kind": "feat",
@@ -10570,8 +10540,8 @@
    "type": "resistance",
    "target": "critical-hits",
    "value": "6 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy + 갑옷:group:chain"
+   "condition": "compound",
+   "cond_value": "armor:category:heavy & armor:group:chain"
   },
   {
    "owner_kind": "feat",
@@ -10738,8 +10708,8 @@
    "rule": "Sense",
    "type": "vision_upgrade",
    "target": "darkvision",
-   "condition": "복합",
-   "cond_value": ""
+   "condition": "sense",
+   "cond_value": "low-light-vision:from-ancestry"
   },
   {
    "owner_kind": "feat",
@@ -11022,8 +10992,8 @@
    "type": "grant_feat",
    "target": "dragon-deviant-classification",
    "name": "드래곤 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠dragon-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "dragon-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -11066,8 +11036,8 @@
    "type": "grant_feat",
    "target": "troll-deviant-classification",
    "name": "트롤 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠troll-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "troll-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -11309,8 +11279,8 @@
    "type": "grant_feat",
    "target": "draconic-benefactor",
    "name": "용의 후원자",
-   "condition": "복합",
-   "cond_value": "특징≠draconic-benefactor"
+   "condition": "no-feature",
+   "cond_value": "draconic-benefactor"
   },
   {
    "owner_kind": "feat",
@@ -11477,8 +11447,8 @@
    "type": "weakness",
    "target": "silver",
    "value": "floor(@actor.level/2)",
-   "condition": "복합",
-   "cond_value": "재주≠beastkin-resilience"
+   "condition": "no-feat",
+   "cond_value": "beastkin-resilience"
   },
   {
    "owner_kind": "feat",
@@ -11792,8 +11762,8 @@
    "type": "grant_feat",
    "target": "wraith-deviant-classification",
    "name": "레이스 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠wraith-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "wraith-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -12149,8 +12119,8 @@
    "type": "grant_feat",
    "target": "conceal-spell",
    "name": "은폐 주문",
-   "condition": "복합",
-   "cond_value": "재주≠conceal-spell"
+   "condition": "no-feat",
+   "cond_value": "conceal-spell"
   },
   {
    "owner_kind": "feat",
@@ -12205,8 +12175,8 @@
    "type": "grant_feat",
    "target": "draconic-benefactor",
    "name": "용의 후원자",
-   "condition": "복합",
-   "cond_value": "특징≠draconic-benefactor"
+   "condition": "no-feature",
+   "cond_value": "draconic-benefactor"
   },
   {
    "owner_kind": "feat",
@@ -12320,8 +12290,8 @@
    "type": "grant_feat",
    "target": "dragon-deviant-classification",
    "name": "드래곤 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠dragon-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "dragon-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -12490,8 +12460,8 @@
    "type": "grant_feat",
    "target": "leech-deviant-classification",
    "name": "거머리 변이체 분류",
-   "condition": "복합",
-   "cond_value": "특징≠leech-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "leech-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -12561,8 +12531,8 @@
    "target": "heavy",
    "value": "ternary(gte(@actor.level,19),3,ternary(gte(@actor.level,13),2,1))",
    "bonus_type": "upgrade",
-   "condition": "클래스",
-   "cond_value": "barbarian"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -13793,8 +13763,8 @@
    "type": "note",
    "target": "fangs-damage",
    "note": "PF2E.SpecificRule.Vampire.ViciousFangs.Note.Base",
-   "condition": "레벨",
-   "cond_value": "≤13"
+   "condition": "level",
+   "cond_value": "<=13"
   },
   {
    "owner_kind": "feat",
@@ -13807,8 +13777,8 @@
    "type": "note",
    "target": "fangs-damage",
    "note": "PF2E.SpecificRule.Vampire.ViciousFangs.Note.FourteenthLevel",
-   "condition": "복합",
-   "cond_value": "레벨:≥14 + 레벨≠≥20"
+   "condition": "compound",
+   "cond_value": "level>=14 & !level>=20"
   },
   {
    "owner_kind": "feat",
@@ -13821,8 +13791,8 @@
    "type": "note",
    "target": "fangs-damage",
    "note": "PF2E.SpecificRule.Vampire.ViciousFangs.Note.TwentiethLevel",
-   "condition": "레벨",
-   "cond_value": "≥20"
+   "condition": "level",
+   "cond_value": ">=20"
   },
   {
    "owner_kind": "feat",
@@ -14175,7 +14145,7 @@
    "type": "resistance",
    "target": "custom",
    "value": 10,
-   "condition": "특성",
+   "condition": "trait",
    "cond_value": "holy"
   },
   {
@@ -14189,7 +14159,7 @@
    "type": "resistance",
    "target": "custom",
    "value": 10,
-   "condition": "특성",
+   "condition": "trait",
    "cond_value": "unholy"
   },
   {
@@ -14686,7 +14656,7 @@
    "type": "speed_extra",
    "target": "climb",
    "value": "@actor.system.movement.speeds.land.value",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "quick-climb"
   },
   {
@@ -15326,8 +15296,8 @@
    "target": "land-speed",
    "value": 5,
    "bonus_type": "untyped",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy + 재주:unburdened-iron"
+   "condition": "compound",
+   "cond_value": "armor:category:heavy & feat:unburdened-iron & ancestry:dwarf"
   },
   {
    "owner_kind": "feat",
@@ -15539,8 +15509,8 @@
    "type": "grant_feat",
    "target": "draconic-benefactor",
    "name": "용의 후원자",
-   "condition": "복합",
-   "cond_value": "특징≠draconic-benefactor"
+   "condition": "no-feature",
+   "cond_value": "draconic-benefactor"
   },
   {
    "owner_kind": "feat",
@@ -15612,8 +15582,8 @@
    "target": "intimidation",
    "value": 1,
    "bonus_type": "circumstance",
-   "condition": "복합",
-   "cond_value": "갑옷:equipped + 갑옷:category:medium / 갑옷:category:heavy"
+   "condition": "compound",
+   "cond_value": "armor:equipped & (armor:category:medium | armor:category:heavy)"
   },
   {
    "owner_kind": "feat",
@@ -15655,7 +15625,7 @@
    "type": "grant_item",
    "target": "administer-ambient-magic",
    "name": "주변 마법 시전",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "ostilli-host-dedication"
   },
   {
@@ -15697,8 +15667,8 @@
    "type": "grant_feat",
    "target": "blight-soul-deviant-classification",
    "name": "병폐의 영혼 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠blight-soul-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "blight-soul-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -15768,8 +15738,8 @@
    "target": "intimidation",
    "value": 1,
    "bonus_type": "circumstance",
-   "condition": "복합",
-   "cond_value": "크기:3 / 크기:4"
+   "condition": "compound",
+   "cond_value": "(size:3 | size:4)"
   },
   {
    "owner_kind": "feat",
@@ -15796,8 +15766,8 @@
    "type": "grant_feat",
    "target": "troll-deviant-classification",
    "name": "트롤 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠troll-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "troll-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -15966,8 +15936,8 @@
    "target": "ac",
    "value": "ternary(gte(@actor.level,5),2,1)",
    "bonus_type": "item",
-   "condition": "복합",
-   "cond_value": "갑옷≠착용"
+   "condition": "no-armor",
+   "cond_value": "worn"
   },
   {
    "owner_kind": "feat",
@@ -16149,8 +16119,8 @@
    "type": "grant_item",
    "target": "repel-ambient-magic",
    "name": "주변 마법 반발",
-   "condition": "재주",
-   "cond_value": "ostilli-host-dedication"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -16163,8 +16133,8 @@
    "type": "grant_item",
    "target": "spit-ambient-magic",
    "name": "침 뱉기 주변 마법",
-   "condition": "재주",
-   "cond_value": "ostilli-host-dedication"
+   "condition": "",
+   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -16205,8 +16175,8 @@
    "type": "grant_feat",
    "target": "flicker-deviant-classification",
    "name": "플리커 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠flicker-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "flicker-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -16571,8 +16541,8 @@
    "type": "grant_feat",
    "target": "dragon-deviant-classification",
    "name": "드래곤 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠dragon-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "dragon-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -17017,8 +16987,8 @@
    "type": "grant_feat",
    "target": "wraith-deviant-classification",
    "name": "레이스 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠wraith-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "wraith-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -17291,8 +17261,8 @@
    "target": "ac",
    "value": "@actor.flags.system.scalyHideBonus",
    "bonus_type": "item",
-   "condition": "복합",
-   "cond_value": "갑옷≠착용"
+   "condition": "no-armor",
+   "cond_value": "worn"
   },
   {
    "owner_kind": "feat",
@@ -17503,8 +17473,8 @@
    "type": "grant_feat",
    "target": "verdant-core-deviant-classification",
    "name": "푸르른 핵심 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠verdant-core-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "verdant-core-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -17730,8 +17700,8 @@
    "type": "grant_feat",
    "target": "wraith-deviant-classification",
    "name": "레이스 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠wraith-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "wraith-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -17758,8 +17728,8 @@
    "type": "grant_feat",
    "target": "blight-soul-deviant-classification",
    "name": "병폐의 영혼 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠blight-soul-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "blight-soul-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -17999,8 +17969,8 @@
    "type": "grant_feat",
    "target": "blight-soul-deviant-classification",
    "name": "병폐의 영혼 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠blight-soul-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "blight-soul-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -18098,7 +18068,7 @@
    "type": "choice",
    "target": "feat",
    "value": "",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "qi-spells"
   },
   {
@@ -18112,8 +18082,8 @@
    "type": "grant_feat",
    "target": "qi-spells",
    "name": "기 주술",
-   "condition": "복합",
-   "cond_value": "재주≠qi-spells"
+   "condition": "no-feat",
+   "cond_value": "qi-spells"
   },
   {
    "owner_kind": "feat",
@@ -18154,8 +18124,8 @@
    "type": "grant_feat",
    "target": "flicker-deviant-classification",
    "name": "플리커 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠flicker-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "flicker-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -18748,8 +18718,8 @@
    "type": "grant_feat",
    "target": "troll-deviant-classification",
    "name": "트롤 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠troll-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "troll-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -19350,8 +19320,8 @@
    "type": "grant_feat",
    "target": "flicker-deviant-classification",
    "name": "플리커 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠flicker-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "flicker-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -19608,8 +19578,8 @@
    "type": "grant_feat",
    "target": "leech-deviant-classification",
    "name": "거머리 변이체 분류",
-   "condition": "복합",
-   "cond_value": "특징≠leech-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "leech-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -19679,8 +19649,8 @@
    "target": "ac",
    "value": 2,
    "bonus_type": "item",
-   "condition": "복합",
-   "cond_value": "갑옷≠착용"
+   "condition": "no-armor",
+   "cond_value": "worn"
   },
   {
    "owner_kind": "feat",
@@ -19693,8 +19663,8 @@
    "type": "grant_feat",
    "target": "verdant-core-deviant-classification",
    "name": "푸르른 핵심 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠verdant-core-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "verdant-core-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -20502,8 +20472,8 @@
    "type": "grant_feat",
    "target": "wraith-deviant-classification",
    "name": "레이스 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠wraith-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "wraith-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -20646,8 +20616,8 @@
    "type": "resistance",
    "target": "physical",
    "value": "6 + floor(@actor.level / 2)",
-   "condition": "복합",
-   "cond_value": "갑옷:category:heavy / 갑옷:category:medium"
+   "condition": "compound",
+   "cond_value": "(armor:category:heavy | armor:category:medium)"
   },
   {
    "owner_kind": "feat",
@@ -21808,8 +21778,8 @@
    "target": "intimidation",
    "value": 1,
    "bonus_type": "circumstance",
-   "condition": "복합",
-   "cond_value": "갑옷:slug:hellknight-plate / 갑옷:slug:hellknight-breastplate / 갑옷:slug:hellknight-half-plate"
+   "condition": "compound",
+   "cond_value": "(armor:slug:hellknight-plate | armor:slug:hellknight-breastplate | armor:slug:hellknight-half-plate)"
   },
   {
    "owner_kind": "feat",
@@ -21822,8 +21792,8 @@
    "type": "resistance",
    "target": "slashing",
    "value": "3 + @armor.system.runes.potency",
-   "condition": "복합",
-   "cond_value": "갑옷:slug:hellknight-plate / 갑옷:slug:hellknight-half-plate"
+   "condition": "compound",
+   "cond_value": "(armor:slug:hellknight-plate | armor:slug:hellknight-half-plate)"
   },
   {
    "owner_kind": "feat",
@@ -21836,7 +21806,7 @@
    "type": "resistance",
    "target": "slashing",
    "value": "2 + @armor.system.runes.potency",
-   "condition": "갑옷",
+   "condition": "armor",
    "cond_value": "slug:hellknight-breastplate"
   },
   {
@@ -21879,7 +21849,7 @@
    "type": "grant_item",
    "target": "turn-aside-ambient-magic",
    "name": "주변 마법 회피",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "ostilli-host-dedication"
   },
   {
@@ -22006,7 +21976,7 @@
    "type": "grant_item",
    "target": "devour-ambient-magic",
    "name": "주변 마법 흡수",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "ostilli-host-dedication"
   },
   {
@@ -22076,8 +22046,8 @@
    "type": "grant_feat",
    "target": "verdant-core-deviant-classification",
    "name": "푸르른 핵심 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠verdant-core-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "verdant-core-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -22361,7 +22331,7 @@
    "type": "resistance",
    "target": "all-damage",
    "value": "ternary(lt(@actor.level, 10), 1, 2)",
-   "condition": "레벨",
+   "condition": "level",
    "cond_value": "<16"
   },
   {
@@ -22375,8 +22345,8 @@
    "type": "resistance",
    "target": "custom",
    "value": 3,
-   "condition": "레벨",
-   "cond_value": "≥16"
+   "condition": "level",
+   "cond_value": ">=16"
   },
   {
    "owner_kind": "feat",
@@ -22389,8 +22359,8 @@
    "type": "resistance",
    "target": "custom",
    "value": 5,
-   "condition": "레벨",
-   "cond_value": "≥16"
+   "condition": "level",
+   "cond_value": ">=16"
   },
   {
    "owner_kind": "feat",
@@ -22445,8 +22415,8 @@
    "type": "grant_feat",
    "target": "dragon-deviant-classification",
    "name": "드래곤 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠dragon-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "dragon-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -22657,8 +22627,8 @@
    "target": "unarmed",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "레벨",
-   "cond_value": "≥11"
+   "condition": "level",
+   "cond_value": ">=11"
   },
   {
    "owner_kind": "feat",
@@ -22672,8 +22642,8 @@
    "target": "simple",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "레벨",
-   "cond_value": "≥11"
+   "condition": "level",
+   "cond_value": ">=11"
   },
   {
    "owner_kind": "feat",
@@ -22687,8 +22657,8 @@
    "target": "martial",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "레벨",
-   "cond_value": "≥11"
+   "condition": "level",
+   "cond_value": ">=11"
   },
   {
    "owner_kind": "feat",
@@ -22702,8 +22672,8 @@
    "target": "advanced",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "레벨",
-   "cond_value": "≥11"
+   "condition": "level",
+   "cond_value": ">=11"
   },
   {
    "owner_kind": "feat",
@@ -23515,8 +23485,8 @@
    "type": "grant_feat",
    "target": "leech-deviant-classification",
    "name": "거머리 변이체 분류",
-   "condition": "복합",
-   "cond_value": "특징≠leech-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "leech-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -23585,7 +23555,7 @@
    "type": "grant_feat",
    "target": "monster-hunter",
    "name": "몬스터 헌터",
-   "condition": "특징",
+   "condition": "feature",
    "cond_value": "hunt-prey"
   },
   {
@@ -23872,7 +23842,7 @@
    "type": "grant_item",
    "target": "drape-ambient-magic",
    "name": "주변 마법 드리우기",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "ostilli-host-dedication"
   },
   {
@@ -23959,8 +23929,8 @@
    "type": "grant_feat",
    "target": "draconic-benefactor",
    "name": "용의 후원자",
-   "condition": "복합",
-   "cond_value": "특징≠draconic-benefactor"
+   "condition": "no-feature",
+   "cond_value": "draconic-benefactor"
   },
   {
    "owner_kind": "feat",
@@ -24188,8 +24158,8 @@
    "type": "grant_feat",
    "target": "leech-deviant-classification",
    "name": "거머리 변이체 분류",
-   "condition": "복합",
-   "cond_value": "특징≠leech-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "leech-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -24302,8 +24272,8 @@
    "type": "grant_feat",
    "target": "verdant-core-deviant-classification",
    "name": "푸르른 핵심 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠verdant-core-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "verdant-core-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -24673,8 +24643,8 @@
    "target": "martial",
    "value": 2,
    "bonus_type": "upgrade",
-   "condition": "레벨",
-   "cond_value": "≥11"
+   "condition": "level",
+   "cond_value": ">=11"
   },
   {
    "owner_kind": "feat",
@@ -24687,8 +24657,8 @@
    "type": "grant_feat",
    "target": "flicker-deviant-classification",
    "name": "플리커 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠flicker-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "flicker-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -24701,8 +24671,8 @@
    "type": "grant_feat",
    "target": "troll-deviant-classification",
    "name": "트롤 변종 분류",
-   "condition": "복합",
-   "cond_value": "특징≠troll-deviant-classification"
+   "condition": "no-feature",
+   "cond_value": "troll-deviant-classification"
   },
   {
    "owner_kind": "feat",
@@ -25215,7 +25185,7 @@
    "type": "resistance",
    "target": "precision",
    "value": "@actor.flags.system.oozemorphDedicationCount+7",
-   "condition": "재주",
+   "condition": "feat",
    "cond_value": "peculiar-anatomy"
   },
   {
@@ -25315,8 +25285,8 @@
    "type": "grant_feat",
    "target": "incredible-investiture",
    "name": "놀라운 투여",
-   "condition": "레벨",
-   "cond_value": "≥11"
+   "condition": "level",
+   "cond_value": ">=11"
   },
   {
    "owner_kind": "feat",
@@ -25705,8 +25675,8 @@
    "rule": "Sense",
    "type": "vision_upgrade",
    "target": "darkvision",
-   "condition": "복합",
-   "cond_value": ""
+   "condition": "sense",
+   "cond_value": "low-light-vision:from-ancestry"
   },
   {
    "owner_kind": "heritage",
@@ -26247,8 +26217,8 @@
    "rule": "Sense",
    "type": "vision_upgrade",
    "target": "darkvision",
-   "condition": "복합",
-   "cond_value": ""
+   "condition": "sense",
+   "cond_value": "low-light-vision:from-ancestry"
   },
   {
    "owner_kind": "heritage",
@@ -26273,8 +26243,8 @@
    "rule": "Sense",
    "type": "vision_upgrade",
    "target": "darkvision",
-   "condition": "복합",
-   "cond_value": ""
+   "condition": "sense",
+   "cond_value": "low-light-vision:from-ancestry"
   },
   {
    "owner_kind": "heritage",
@@ -26426,8 +26396,8 @@
    "rule": "Sense",
    "type": "vision_upgrade",
    "target": "darkvision",
-   "condition": "복합",
-   "cond_value": ""
+   "condition": "sense",
+   "cond_value": "low-light-vision:from-ancestry"
   },
   {
    "owner_kind": "heritage",
@@ -26986,8 +26956,8 @@
    "rule": "Sense",
    "type": "vision_upgrade",
    "target": "darkvision",
-   "condition": "복합",
-   "cond_value": ""
+   "condition": "sense",
+   "cond_value": "low-light-vision:from-ancestry"
   },
   {
    "owner_kind": "heritage",
@@ -27196,8 +27166,8 @@
    "rule": "Sense",
    "type": "vision_upgrade",
    "target": "darkvision",
-   "condition": "복합",
-   "cond_value": ""
+   "condition": "sense",
+   "cond_value": "low-light-vision:from-ancestry"
   },
   {
    "owner_kind": "heritage",
@@ -27350,8 +27320,8 @@
    "rule": "Sense",
    "type": "vision_upgrade",
    "target": "darkvision",
-   "condition": "복합",
-   "cond_value": ""
+   "condition": "sense",
+   "cond_value": "low-light-vision:from-ancestry"
   },
   {
    "owner_kind": "heritage",
@@ -27842,8 +27812,8 @@
    "rule": "Sense",
    "type": "vision_upgrade",
    "target": "darkvision",
-   "condition": "복합",
-   "cond_value": ""
+   "condition": "sense",
+   "cond_value": "low-light-vision:from-ancestry"
   },
   {
    "owner_kind": "heritage",
@@ -32260,8 +32230,8 @@
    "type": "grant_feat",
    "target": "persona-trait",
    "name": "페르소나 특성",
-   "condition": "복합",
-   "cond_value": "특징≠persona-trait"
+   "condition": "no-feature",
+   "cond_value": "persona-trait"
   },
   {
    "owner_kind": "background",
@@ -34186,8 +34156,8 @@
    "type": "grant_feat",
    "target": "persona-trait",
    "name": "페르소나 특성",
-   "condition": "복합",
-   "cond_value": "특징≠persona-trait"
+   "condition": "no-feature",
+   "cond_value": "persona-trait"
   },
   {
    "owner_kind": "background",
@@ -36143,8 +36113,8 @@
    "type": "grant_feat",
    "target": "persona-trait",
    "name": "페르소나 특성",
-   "condition": "복합",
-   "cond_value": "특징≠persona-trait"
+   "condition": "no-feature",
+   "cond_value": "persona-trait"
   },
   {
    "owner_kind": "background",
@@ -37267,8 +37237,8 @@
    "type": "grant_feat",
    "target": "persona-trait",
    "name": "페르소나 특성",
-   "condition": "복합",
-   "cond_value": "특징≠persona-trait"
+   "condition": "no-feature",
+   "cond_value": "persona-trait"
   },
   {
    "owner_kind": "background",
@@ -40633,8 +40603,8 @@
    "type": "grant_feat",
    "target": "persona-trait",
    "name": "페르소나 특성",
-   "condition": "복합",
-   "cond_value": "특징≠persona-trait"
+   "condition": "no-feature",
+   "cond_value": "persona-trait"
   },
   {
    "owner_kind": "background",
@@ -42837,8 +42807,8 @@
    "rule": "Sense",
    "type": "vision_upgrade",
    "target": "darkvision",
-   "condition": "복합",
-   "cond_value": ""
+   "condition": "sense",
+   "cond_value": "low-light-vision:from-ancestry"
   },
   {
    "owner_kind": "background",
@@ -45795,8 +45765,8 @@
    "type": "grant_feat",
    "target": "persona-trait",
    "name": "페르소나 특성",
-   "condition": "복합",
-   "cond_value": "특징≠persona-trait"
+   "condition": "no-feature",
+   "cond_value": "persona-trait"
   },
   {
    "owner_kind": "background",
@@ -52190,8 +52160,8 @@
    "type": "grant_feat",
    "target": "persona-trait",
    "name": "페르소나 특성",
-   "condition": "복합",
-   "cond_value": "특징≠persona-trait"
+   "condition": "no-feature",
+   "cond_value": "persona-trait"
   },
   {
    "owner_kind": "background",
@@ -55193,8 +55163,8 @@
    "type": "grant_feat",
    "target": "persona-trait",
    "name": "페르소나 특성",
-   "condition": "복합",
-   "cond_value": "특징≠persona-trait"
+   "condition": "no-feature",
+   "cond_value": "persona-trait"
   },
   {
    "owner_kind": "background",
@@ -144816,7 +144786,7 @@
    "name": "신체 교란"
   }
  ],
- "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 11832 · 34 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류=우리 열거형/slug. 조건=열거형(무조건 빈칸/레벨/클래스/재주/특징/유산/특성/갑옷/복합/신격·클레릭 등 구조). 조건밸류=slug 또는 복합 구조값(예 \"클래스:champion / 재주:champions-reaction\"). 재생성=node tools/derive/build_effects.mjs.",
+ "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 11830 · 34 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류=우리 열거형/slug. 조건=열거형(무조건 빈칸/레벨/클래스/재주/특징/유산/특성/갑옷/복합/신격·클레릭 등 구조). 조건밸류=slug 또는 복합 구조값(예 \"클래스:champion / 재주:champions-reaction\"). 재생성=node tools/derive/build_effects.mjs.",
  "_types": {
   "choice": 546,
   "skill_bonus": 8,
@@ -144831,7 +144801,7 @@
   "speed_bonus": 31,
   "note": 31,
   "weakness": 10,
-  "proficiency": 27,
+  "proficiency": 25,
   "grant_innate_spell": 3,
   "hp_bonus": 17,
   "extra_sense": 17,

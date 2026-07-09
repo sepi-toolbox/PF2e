@@ -130,7 +130,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm19"></script>
+<script src="cs_pf2e.js?v=dm20"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -269,8 +269,8 @@ const DM = (function(){
     target:'효과 대상 = 우리 slug/데이터(예 breath-control·barbarian·poison·martial). 특수토큰 $choice=이 효과의 choice 행에서 사용자가 고른 값에 바인딩. FVTT 내부 경로(system.…)·동적 브래킷은 노출 안 함(미모델 대상은 행 제외).',
     value:'수치 또는 특수값(예: level). type별 의미(HP/보너스/저항량 등).',
     bonus_type:'값종류 = 보너스 스태킹 규칙(circumstance 상황/status 상태/item 물품/untyped 무형).',
-    condition:'조건 열거형: 무조건=빈칸 / 레벨·클래스·재주·특징·유산·특성·갑옷=단일 정적조건(런타임 조건엔진이 캐릭터 상태로 평가·적용) / 복합=여러 정적조건 조합 / 신격·클레릭 등=신격 구조 조건. ★상황(롤타임)조건 효과와 FVTT 미모델 룰은 이 표에 넣지 않음(덤프 금지).',
-    cond_value:'조건밸류 = 조건의 값(slug/숫자). 단일: 레벨→≥5, 클래스→barbarian, 재주→slug. 복합: 우리 어휘 구조값(예 "클래스:champion / 재주:champions-reaction", "클래스≠barbarian", "특징:X + 레벨:≥7"). / =또는, +=그리고, ≠=아님.',
+    condition:'조건 = 영문 열거형 slug(type·target과 동일 어휘). 무조건=빈칸 / level·class·feat·feature·heritage·ancestry·trait·armor·size·sense=단일 정적조건(런타임 조건엔진이 캐릭터 상태로 평가·적용) / no-*=부정(예 no-class) / compound=진짜 다원자 조건. ★owner-함의 조건(재주가 이미 그 클래스 전용이면 class:X 재확인)은 제거해 무조건화. 숙련 진행은 성장표(섀시)가 전담 → 효과에 안 넣음. 상황(롤타임)조건·FVTT 미모델 룰은 이 표에 넣지 않음.',
+    cond_value:'조건밸류 = 한 원자값(1NF). 단일: level→>=5, class→barbarian, feat/feature→slug, sense→darkvision. compound만 영문 slug 식(예 "armor:category:heavy & armor:group:composite", "(feature:armor-innovation | feature:weapon-innovation)"). &=그리고, |=또는, !=아님.',
     actionCost:'grant_action 행동비용(1/2/3/free/reaction).', summary:'grant_action 등 행동 요약(HTML).',
     note:'display_note/damage_note 본문(자동 표시 노트).',
     choice:'선택지 그룹 id(choice_id).', option:'선택 옵션 id.', option_name:'선택 옵션 표시명.',
@@ -478,7 +478,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm19').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm20').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -808,8 +808,8 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm19').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm19').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm20').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm20').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride, onEffType, onEffFilter, clearEffFilter };
