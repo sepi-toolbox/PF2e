@@ -665,7 +665,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.164').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.165').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -2711,6 +2711,24 @@ function renderResistances() {
       });
     });
   }
+
+  // 3) 재주·서브클래스·배경 부여 저항 (효과 테이블 단일 소스, 조건행은 getEffectRows가 캐릭터 상태로 이미 필터). v0.165~
+  //    유산·룬과 동일 collected 풀에 합류 → 아래 유형별 최댓값 병합(PF2e: 같은 유형 최댓값, 다른 유형 각각).
+  //    공식 미해소(@armor 룬포텐시·ternary 등)=_resolveResistFormula 0 → 생략. armor:category 조건=조건엔진 미해소→skip.
+  const _resSources = [];
+  try { Object.values(state.feats || {}).forEach(a => (a || []).forEach(f => { if (f) { const s = (typeof featSlug === 'function') ? featSlug(f) : (f && (f.id || f.name)); if (s) _resSources.push({ slug: s, name: (f.name_ko || f.name || s) }); } })); } catch (e) {}
+  if (state.selectedSubclass && state.selectedSubclass.id) _resSources.push({ slug: state.selectedSubclass.id, name: (state.selectedSubclass.name_ko || state.selectedSubclass.name || state.selectedSubclass.id) });
+  if (state.selectedBackground && state.selectedBackground.id) _resSources.push({ slug: state.selectedBackground.id, name: (state.selectedBackground.name_ko || state.selectedBackground.name || state.selectedBackground.id) });
+  _resSources.forEach(src => {
+    (getEffectRows(src.slug) || []).forEach(r => {
+      if (r.type !== 'resistance') return;
+      const val = _resolveResistFormula(r.value, lv, halfLv);
+      if (val <= 0) return;
+      let tgts = r.target;
+      if (typeof tgts === 'string' && tgts.charAt(0) === '[') { try { tgts = JSON.parse(tgts); } catch (e) {} }
+      (Array.isArray(tgts) ? tgts : [tgts]).forEach(tp => { if (tp && tp !== 'custom' && !/[{}]/.test(String(tp))) collected.push({ type: tp, value: val, source: src.name }); });
+    });
+  });
 
   // 유형별 최댓값만 유지 + 출처 병합
   const merged = new Map();   // type -> {value, sources:Set}

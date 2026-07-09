@@ -163,7 +163,7 @@ const APPLY_TYPES = new Set(['hp_bonus', 'skill_trained', 'skill_bonus', 'save_b
   'extra_sense', 'resistance', 'grant_feat', 'grant_lore', 'grant_innate_spell', 'grant_focus_spell', 'speed_extra', 'proficiency', 'bulk_bonus', 'initiative_bonus']);
 // v0.163 조건엔진 활성 타입: 정적조건이 붙은 "부여(grant)+기술훈련"만 런타임 편입(조건 충족 시 적용).
 //   proficiency=섀시(class_progression) 단일소스와 중복 → 제외. resistance/bonus=공식·착용갑옷 컨텍스트 필요 → 제외(현행 유지, 표시만).
-const ACT_COND_TYPES = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell', 'grant_lore', 'skill_trained']);
+const ACT_COND_TYPES = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell', 'grant_lore', 'skill_trained', 'resistance']);
 const GRANT_DEDUP = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell']);   // owner 내 (type,target) 이중부여 방지(무조건 우선)
 function emitFvtt(base, doc, bake = true) {
   if (!doc) return;
