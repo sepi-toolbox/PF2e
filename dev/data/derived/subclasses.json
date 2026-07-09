@@ -2755,7 +2755,13 @@
    "granted_feats": [],
    "granted_spells": [],
    "features": [],
-   "prof_changes": {},
+   "prof_changes": {
+    "armor-medium": {
+     "1": 2,
+     "13": 4,
+     "17": 6
+    }
+   },
    "grants": 0,
    "rules_n": 0
   },

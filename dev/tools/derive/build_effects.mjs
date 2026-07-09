@@ -150,7 +150,7 @@ function _compoundStr(node) {
 // 섀시(성장표)가 전담하는 숙련 진행 owner → 그 proficiency 행은 효과 테이블에서 제외(emitFvtt에서 skip). owner-함의 제거 후에도 남던 조건부 숙련상향 4건.
 //   ★ 무조건화가 아니라 "런타임·표시 모두 제외": subclass_progression(전투사제 lvl13 방어구 E)·class_progression(레인저 spellcasting)이 이미 정본으로 소유.
 //   무조건화하면 runtime proficiency 상향덮기가 저레벨에 상위랭크를 오적용(전투사제 lvl1 방어구 숙달 버그). 상세 [[session_handoff]] 5번.
-const CHASSIS_PROF = new Set(['ranger-expertise', 'initiate-benefit-tome', 'first-doctrine-warpriest']);
+const CHASSIS_PROF = new Set(['ranger-expertise', 'initiate-benefit-tome', 'first-doctrine-warpriest', 'ruffian']);   // ruffian 중형 방어구=racket-ruffian 성장표 전담(경장 따라 T@1/E@13/M@17)
 function parseCondition(rawPred, ocls, oslug) {
   ocls = ocls || new Set();
   let pred = refineCond(rawPred, ocls, oslug);
