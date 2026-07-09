@@ -772,7 +772,6 @@
   "alloysmith": "alloysmith"
  },
  "conditions": {
-  "malevolence": "malevolence",
   "drained": "drained",
   "paralyzed": "paralyzed",
   "deafened": "deafened",
@@ -780,14 +779,9 @@
   "fascinated": "fascinated",
   "encumbered": "encumbered",
   "fatigued": "fatigued",
-  "enfeebled": "enfeebled",
-  "frightened": "frightened",
   "restrained": "restrained",
   "blinded": "blinded",
-  "stupefied": "stupefied",
   "unconscious": "unconscious",
-  "sickened": "sickened",
-  "clumsy": "clumsy",
   "prone": "prone",
   "grabbed": "grabbed",
   "dying": "dying",

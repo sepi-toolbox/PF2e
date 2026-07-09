@@ -67,43 +67,58 @@ function _classifyNode(node) {
   }
   return _leafKind(node) === 'sit' ? 'sit' : 'static';
 }
-// 표시용 한글 라벨 요약(런타임은 raw predicate `cond`만 사용 — 라벨은 lossy 허용).
+// ── 조건 컬럼 = 깨끗한 열거형 + 값. 조건 enum = {레벨·클래스·재주·특징·유산·특성·갑옷·크기·감각·복합·상황}.
+//   단일 정적 원자 → enum+clean값(예 클래스/barbarian, 레벨/≥5). 복합 정적/상황 → enum(복합|상황)+원본 predicate(정직).
+//   ⚠ 가짜 한글 프로즈(그리고/또는/아님) 금지 — 평가 안 하는 상황조건을 억지 번역하면 가짜정밀. 원본 그대로 감사.
 const _CMP = { gte: '≥', gt: '>', lte: '≤', lt: '<', eq: '=' };
-function _leafLabel(s) {
+function _simpleLeaf(s) {   // 단일 정적 원자 → {label, value} | null
   let m;
-  if ((m = /^class:(.+)$/.exec(s))) return { c: '클래스', v: m[1] };
-  if ((m = /^feat:(.+)$/.exec(s))) return { c: '재주 보유', v: m[1] };
-  if ((m = /^feature:(.+)$/.exec(s))) return { c: '특징 보유', v: m[1] };
-  if ((m = /^self:heritage:(.+)$/.exec(s)) || (m = /^self:heritage$/.exec(s))) return { c: '유산', v: m[1] || '' };
-  if ((m = /^self:trait:(.+)$/.exec(s))) return { c: '특성', v: m[1] };
-  if (/^armor:|^self:armored$/.test(s)) return { c: '갑옷', v: s.replace(/^armor:/, '') };
-  if ((m = /^self:size:(.+)$/.exec(s))) return { c: '크기', v: m[1] };
-  if (/^self:(low-light-vision|darkvision|see-invisibility)/.test(s)) return { c: '감각', v: s.replace(/^self:/, '') };
-  return { c: '', v: s };
+  if ((m = /^class:(.+)$/.exec(s))) return { label: '클래스', value: m[1] };
+  if ((m = /^feat:(.+)$/.exec(s))) return { label: '재주', value: m[1] };
+  if ((m = /^feature:(.+)$/.exec(s))) return { label: '특징', value: m[1] };
+  if ((m = /^self:heritage:(.+)$/.exec(s))) return { label: '유산', value: m[1] };
+  if ((m = /^self:trait:(.+)$/.exec(s))) return { label: '특성', value: m[1] };
+  if ((m = /^armor:(.+)$/.exec(s))) return { label: '갑옷', value: m[1] };
+  if (/^self:armored$/.test(s)) return { label: '갑옷', value: '착용' };
+  if ((m = /^self:size:(.+)$/.exec(s))) return { label: '크기', value: m[1] };
+  if ((m = /^self:(low-light-vision|darkvision|see-invisibility)$/.exec(s))) return { label: '감각', value: m[1] };
+  return null;
 }
-function _summarize(node) { // → {parts:[{c,v}], joiner}
-  if (node == null) return { parts: [], joiner: ' 그리고 ' };
-  if (Array.isArray(node)) { const parts = []; for (const x of node) parts.push(..._summarize(x).parts); return { parts, joiner: ' 그리고 ' }; }
+function _asSimpleStatic(pred) {   // 단일 정적조건으로 환원 가능하면 {label,value}, 아니면 null(=복합)
+  let node = pred;
+  if (Array.isArray(node)) { if (node.length !== 1) return null; node = node[0]; }
+  if (typeof node === 'string') return _simpleLeaf(node);
+  if (node && typeof node === 'object') {
+    for (const op of Object.keys(node)) {
+      if (_CMP[op]) { const a = Array.isArray(node[op]) ? node[op] : [node[op]]; if (a[0] === 'self:level' && (typeof a[1] === 'number' || /^\d+$/.test(String(a[1])))) return { label: '레벨', value: _CMP[op] + a[1] }; return null; }
+      return null;   // and/or/not/… = 복합
+    }
+  }
+  return null;
+}
+// 복합 정적조건 → 우리 어휘 구조값(FVTT syntax·프로즈 금지). 예 "클래스:barbarian + 레벨:≥7", "유산≠sacred-nagaji", "클래스:champion / 재주:champions-reaction".
+function _renderCond(node) {
+  if (node == null) return '';
+  if (Array.isArray(node)) return node.map(_renderCond).filter(Boolean).join(' + ');
   if (typeof node === 'object') {
     for (const op of Object.keys(node)) {
-      const operand = node[op];
-      if (_CMP[op]) { const arr = Array.isArray(operand) ? operand : [operand]; const lhs = arr[0], rhs = arr[1]; if (lhs === 'self:level') return { parts: [{ c: '레벨', v: _CMP[op] + rhs }], joiner: ' 그리고 ' }; return { parts: [{ c: String(lhs), v: _CMP[op] + rhs }], joiner: ' 그리고 ' }; }
-      if (op === 'not') { const s = _summarize(operand); return { parts: s.parts.map(p => ({ c: p.c, v: '아님:' + p.v })), joiner: ' 그리고 ' }; }
-      if (op === 'or' || op === 'nor') { const s = _summarize(operand); s.joiner = ' 또는 '; return s; }
-      if (['and', 'nand', 'if', 'xor'].includes(op)) return _summarize(operand);
+      const o = node[op];
+      if (_CMP[op]) { const a = Array.isArray(o) ? o : [o]; return a[0] === 'self:level' ? ('레벨:' + _CMP[op] + a[1]) : ''; }
+      if (op === 'and' || op === 'nand') return _renderCond(o);
+      if (op === 'or' || op === 'nor') return (Array.isArray(o) ? o : [o]).map(_renderCond).filter(Boolean).join(' / ');
+      if (op === 'not') { const inner = _renderCond(o); return inner ? inner.replace(':', '≠') : ''; }
+      return '';
     }
-    return { parts: [], joiner: ' 그리고 ' };
   }
-  return { parts: [_leafLabel(String(node))], joiner: ' 그리고 ' };
+  const leaf = _simpleLeaf(String(node)); return leaf ? (leaf.label + ':' + leaf.value) : '';
 }
 function parseCondition(pred) {
   if (!pred || (Array.isArray(pred) && !pred.length)) return { kind: 'none', condition: '', cond_value: '' };
   const kind = _classifyNode(pred);
-  const sm = _summarize(pred);
-  if (!sm.parts.length) return { kind, condition: kind === 'sit' ? '상황' : '조건', cond_value: predSummary(pred) };
-  if (sm.parts.length === 1) { const p = sm.parts[0]; return { kind, condition: kind === 'sit' ? ('상황:' + (p.c ? p.c : p.v)) : (p.c || '조건'), cond_value: p.v, cond: kind === 'static' ? pred : undefined }; }
-  const cond = sm.parts.map(p => (p.c ? p.c + '=' : '') + p.v).join(sm.joiner);
-  return { kind, condition: kind === 'sit' ? '상황(복합)' : '복합', cond_value: cond, cond: kind === 'static' ? pred : undefined };
+  const simple = _asSimpleStatic(pred);
+  if (kind === 'static' && simple) return { kind, condition: simple.label, cond_value: simple.value, cond: pred };
+  if (kind === 'static') return { kind, condition: '복합', cond_value: _renderCond(pred), cond: pred };
+  return { kind: 'sit', condition: '상황', cond_value: '' };   // 상황행은 표시 테이블에서 제외(FVTT 롤옵션 덤프 금지)
 }
 function flatType(sel) {
   if (SAVES.has(sel)) return 'save_bonus';
@@ -166,6 +181,27 @@ const APPLY_TYPES = new Set(['hp_bonus', 'skill_trained', 'skill_bonus', 'save_b
 //   resistance(v0.165): 유형별 최댓값 병합. 공식/착용갑옷 컨텍스트 의존분은 미해소 skip. bonus류는 여전히 표시만.
 const ACT_COND_TYPES = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell', 'grant_lore', 'skill_trained', 'resistance', 'proficiency']);
 const GRANT_DEDUP = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell']);   // owner 내 (type,target) 이중부여 방지(무조건 우선)
+// ★ 표시 테이블 = 우리가 모델링하는 효과만(우리 열거형). FVTT 룰을 그대로 덤프하지 않는다(개발 원칙).
+//   아래 KEEP만 effects.json 표시행으로 방출. 미모델 FVTT 룰타입(ael/roll_option/adjust_*/item_alteration/strike/modifier/
+//   damage_dice/critical_specialization/actor_traits/item/attack_bonus 등)과 상황조건행(롤타임 predicate)은 제외.
+const KEEP_DISPLAY_TYPES = new Set([
+  'grant_feat', 'grant_focus_spell', 'grant_innate_spell', 'grant_lore', 'grant_item', 'grant_spell', 'grant_action', 'grant_weapon',
+  'skill_trained', 'skill_bonus', 'save_bonus', 'ac_bonus', 'hp_bonus', 'perception_bonus', 'initiative_bonus', 'speed_extra', 'speed_bonus', 'bulk_bonus', 'proficiency',
+  'resistance', 'weakness', 'immunity', 'vision_upgrade', 'extra_sense',
+  'attribute_boost', 'ability_boost', 'ability_boost_choice', 'free_boost_slots',
+  'domain', 'favored_weapon', 'divine_font', 'sanctification', 'rune',
+  'note', 'display_note', 'damage_note', 'choice'
+]);
+// 우리가 모델링하는 표준 숙련 카테고리(런타임 _profTargetToDom과 동치). 그 외 숙련 target은 표시 제외.
+const PROF_STD = new Set(['simple', 'martial', 'advanced', 'unarmed', 'unarmored', 'light', 'medium', 'heavy', 'fortitude', 'reflex', 'will', 'perception']);
+// FVTT 경로 target을 우리 표기로 정리(system.proficiencies.X.rank → X). FVTT 내부 경로 노출 방지.
+function _cleanTarget(t) {
+  if (typeof t !== 'string') return t;
+  let m;
+  if ((m = /^system\.proficiencies\.(?:attacks|defenses|saves)\.([a-z0-9-]+)\.rank$/.exec(t))) return m[1];
+  if (/^system\.proficiencies\.perception\.rank$/.test(t)) return 'perception';
+  return t;
+}
 function emitFvtt(base, doc, bake = true) {
   if (!doc) return;
   const rr = fvttRuleRows(doc);
@@ -173,8 +209,14 @@ function emitFvtt(base, doc, bake = true) {
   const b = { owner_kind: base.owner_kind, owner_slug: base.owner_slug, owner_name: base.owner_name, owner_level: base.owner_level, category: base.category, src: 'rule' };
   for (const r of rr) {
     const { re_key, _pred, condition, ...rest } = r;
-    const pc = parseCondition(_pred);   // 구조화 조건 컬럼(조건·조건밸류). deity/background/curated는 자체 condition 텍스트 유지(이 경로 밖).
-    rows.push({ ...b, rule: re_key || '', ...rest, condition: pc.kind === 'none' ? '' : pc.condition, cond_value: pc.cond_value || '' });
+    if (!KEEP_DISPLAY_TYPES.has(rest.type)) continue;   // FVTT 룰 덤프 타입 제외(우리 모델만)
+    const pc = parseCondition(_pred);
+    if (pc.kind === 'sit') continue;                    // 상황조건행 제외(롤옵션 predicate 덤프 금지 — 자동화 안 하는 효과)
+    if (rest.target != null) rest.target = _cleanTarget(rest.target);
+    const _tgt = String(rest.target == null ? '' : rest.target);
+    if (/system\.|[{}]/.test(_tgt)) continue;           // 정리 후에도 남은 FVTT 경로·동적 브래킷 target = 미모델 → 제외
+    if (rest.type === 'proficiency' && !PROF_STD.has(_tgt)) continue;   // 표준 카테고리 아닌 숙련(개별무기·시전별칭)=미모델 → 제외
+    rows.push({ ...b, rule: re_key || '', ...rest, condition: pc.condition, cond_value: pc.cond_value || '' });
     stat.fvtt++;
   }
   // 런타임 소스: 적용가능 type + 브래킷 미포함 + (무조건 OR 정적조건∧활성타입). 상황조건·bake=false(신격)=표시·FK만.
@@ -327,9 +369,10 @@ for (const slug of Object.keys(dbBySlug)) {
 }
 
 const byType = {}; for (const r of rows) if (r.type) byType[r.type] = (byType[r.type] || 0) + 1;
-const note = `자동화 정본 효과 테이블(FVTT 단일소스 재구축, 2026-07-06). 효과행 ${rows.length} · ${Object.keys(byType).length} type. `
-  + `소스=FVTT system.rules[](feat/heritage/background) + 신격 구조필드 + curated_effects.json(FVTT 갭 큐레이션). `
-  + `rule=정의 규칙(FVTT Rule Element 종류 또는 curated). owner_kind=소속. condition=조건보유효과·deity=신격효과 → 표시/FK만(런타임 미편입). raw slug 표시. 재생성=node tools/derive/build_effects.mjs.`;
+const note = `자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 ${rows.length} · ${Object.keys(byType).length} type. `
+  + `소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. `
+  + `★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. `
+  + `효과타입·대상·값·값종류=우리 열거형/slug. 조건=열거형(무조건 빈칸/레벨/클래스/재주/특징/유산/특성/갑옷/복합/신격·클레릭 등 구조). 조건밸류=slug 또는 복합 구조값(예 "클래스:champion / 재주:champions-reaction"). 재생성=node tools/derive/build_effects.mjs.`;
 
 fs.writeFileSync(path.join(DEV, 'data/derived/effects.json'), JSON.stringify({ rows, note, _types: byType }, null, 1) + '\n');
 fs.writeFileSync(path.join(DEV, 'data/derived/effect_refs.json'), JSON.stringify(refs, null, 1) + '\n');
