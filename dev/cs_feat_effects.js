@@ -143,6 +143,23 @@ function applyFeatEffects() {
     }
   });
 
+  // 선택 기반 부여($choice grant_feat, order-explorer 등): owner의 현재 choice와 slug가 다르면 stale → 제거(선택 변경 반영).
+  //   부모 생존이면 위 루프가 안 지우므로 별도 처리. 매 recalc 재빌드로 최신 choice만 유지.
+  {
+    const _allFeatsFlat = Object.values(state.feats).flat().filter(f => f);
+    Object.values(state.feats).forEach(arr => {
+      if (!arr) return;
+      for (let i = arr.length - 1; i >= 0; i--) {
+        const g = arr[i];
+        if (g && g._choiceGrant && g._grantedBy) {
+          const owner = _allFeatsFlat.find(f => _fslug(f) === _fslug(g._grantedBy));
+          const ownerChoice = owner && owner.choice;
+          if (!ownerChoice || _fslug(g) !== _fslug(ownerChoice)) arr.splice(i, 1);
+        }
+      }
+    });
+  }
+
   // 시야: 매 사이클 혈통 기본 → 유산 업그레이드 재적용 (재주 시야는 아래 효과 루프에서 max로 적용)
   // (v0.5 P4: 유산 단독 시야[동굴 엘프 등]가 _featVisionUpgrade 게이트에 막혀 미적용되던 버그 수정 — 항상 재계산)
   state.vision = state.selectedAncestry?.vision || 'none';
@@ -336,16 +353,20 @@ function _applyOneEffect(fb, eff, feat, level) {
     }
     case 'grant_feat': {
       // 재주 자동 부여 — eff.feat = slug(신) 또는 이름(구/override). getFeat이 둘 다 해소, dedup·저장은 slug 기준.
-      if (eff.feat && feat.name) {
-        const gf = getFeat(eff.feat);
+      //   $choice = 소유 재주의 인라인 선택값(order-explorer/multifarious-muse 등: 선택한 1레벨 재주를 부여). 미선택이면 skip.
+      const isChoiceGrant = eff.feat === '$choice';
+      const featRef = isChoiceGrant ? (feat.choice || '') : eff.feat;
+      if (featRef && feat.name) {
+        const gf = getFeat(featRef);
         const gslug = gf?.id || null;
-        const gname = gf ? (gf.name_ko + (gf.name_en ? ` (${gf.name_en})` : '')) : eff.feat;
+        const gname = gf ? (gf.name_ko + (gf.name_en ? ` (${gf.name_en})` : '')) : featRef;
         const alreadyHas = gslug
           ? Object.values(state.feats).flat().some(f => f && featSlug(f) === gslug)
-          : Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(String(eff.feat).split(' (')[0]));
+          : Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(String(featRef).split(' (')[0]));
         if (!alreadyHas) {
           if (!state.feats.general) state.feats.general = [];
           const entry = {id: gslug, name: gname, level: 1, _auto: true, _grantedBy: feat.id || feat.name};
+          if (isChoiceGrant) entry._choiceGrant = true;   // 선택 변경 시 stale 정리용(cleanup에서 owner.choice와 대조)
           // defaultChoice: 자식 재주의 초기 choice 설정 (사용자 변경 가능)
           if (eff.defaultChoice) entry.choice = eff.defaultChoice;
           state.feats.general.push(entry);
@@ -682,6 +703,18 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
     });
     html += `</select>`;
     if (!current) html += `<div style="margin-top:4px;font-size:11px;color:#f44336;">⚠ 선택하지 않은 항목이 있습니다.</div>`;
+  } else if (ch.type === 'feat_pick' && ch.inline) {
+    // 인라인 재주 선택(결단탐험/다중 뮤즈 등): 선결 패턴에 맞는 1레벨 재주 드롭다운. 선택 → $choice grant_feat가 부여.
+    const cands = (typeof _featPickCandidates === 'function') ? _featPickCandidates(ch) : [];
+    html += `<select id="${uid}" onchange="_onFeatChoiceInline('${featType}',${featIndex},'feat_pick')"
+      style="width:100%;padding:6px 8px;font-size:13px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;outline:none;">
+      <option value="">— 재주 선택 —</option>`;
+    // 현재 선택값이 후보에서 빠졌어도(이미 부여됨) 목록에 유지
+    const curFeat = current && (typeof getFeat === 'function') ? getFeat(current) : null;
+    if (curFeat && !cands.some(c => c.id === curFeat.id)) html += `<option value="${curFeat.id}" selected>${curFeat.name_ko}</option>`;
+    cands.forEach(cf => { html += `<option value="${cf.id}"${cf.id === current ? ' selected' : ''}>${cf.name_ko}${cf.name_en ? ' (' + cf.name_en + ')' : ''}</option>`; });
+    html += `</select>`;
+    if (!current) html += `<div style="margin-top:4px;font-size:11px;color:#f44336;">⚠ 재주를 선택하세요.</div>`;
   } else {
     // 기타 타입 (spell_cantrip 등) — 기존 모달 사용
     const escapedName = feat.name.replace(/'/g, "\\'");
@@ -1162,42 +1195,8 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       container.appendChild(row);
     });
   } else if (choiceDef.type === 'feat_pick' && typeof _allFeats === 'function') {
-    // ── 범용 재주 선택 모달 (적응력, 자연 야심, 고급 일반 훈련 등) ──
-    let pickCat = choiceDef.pickCategory || 'general';
-    if (pickCat === '$class' && state.selectedClass) pickCat = state.selectedClass.id;
-    const pickMax = choiceDef.pickMaxLevel || 99;
-    const pickTraits = choiceDef.pickTraits || null;
-
-    // 이미 보유한 재주 (중복 방지) — slug 기준(이름 표기 무관)
-    const ownedSlugs = new Set();
-    for (const arr of Object.values(state.feats)) {
-      if (Array.isArray(arr)) arr.forEach(f => { const s = (typeof featSlug === 'function') ? featSlug(f) : (f && f.id); if (s) ownedSlugs.add(s); });
-    }
-
-    // 아이우바린 유산 보유 + skipPrereqIfAiuvarin이면 능력치 전제조건 생략
-    const isAiuvarin = state.selectedHeritage?.id === 'aiuvarin';
-    const skipPrereq = choiceDef.skipPrereqIfAiuvarin && isAiuvarin;
-    // 자기 클래스 헌신 slug = {classId}-dedication (이름 매칭 대체)
-    const myClassDedSlug = state.selectedClass ? state.selectedClass.id + '-dedication' : '';
-
-    // 소스 무관 통일: 클래스 pickCat은 _featInClass(FVTT category='class'+_classSlugs)로 판정
-    const _isClassPick = pickCat && !['ancestry','general','skill','archetype','feature','other','class'].includes(pickCat);
-    const candidates = _allFeats().filter(f => {
-      if (!f) return false;
-      if (_isClassPick) { if (!(typeof _featInClass === 'function' ? _featInClass(f, pickCat) : f.category === pickCat) && f.category !== 'archetype') return false; }
-      else if (f.category !== pickCat) return false;
-      if (f.feat_level > pickMax) return false;
-      // pickTraits는 slug('dedication') 또는 한글 혈통명 혼재 — traitSlugs+traits 양쪽 대조
-      if (pickTraits && !([].concat(f.traitSlugs || [], f.traits || []).some(t => pickTraits.includes(t)))) return false;
-      // 헌신 재주: 자기 클래스 헌신 제외 (slug 기준)
-      if (pickTraits?.includes('dedication') && myClassDedSlug && f.id === myClassDedSlug) return false;
-      // 전제조건 체크 (아이우바린이면 생략 가능)
-      if (f.prerequisites && !skipPrereq && typeof _checkPrereqs === 'function' && !_checkPrereqs(f.prerequisites)) return false;
-      // 헌신 재주 특수 조건 (다재다능은 skipDedicationLimit으로 무시)
-      if (featHasTrait(f, 'dedication', '헌신') && !choiceDef.skipDedicationLimit && typeof canTakeDedication === 'function' && !canTakeDedication(f)) return false;
-      if (f.id && ownedSlugs.has(f.id)) return false;
-      return true;
-    });
+    // ── 범용 재주 선택 모달 (적응력, 자연 야심, 고급 일반 훈련 등) — 후보 산출은 공용 _featPickCandidates ──
+    const candidates = _featPickCandidates(choiceDef);
 
     if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; searchEl.oninput = () => {
       const q = searchEl.value.toLowerCase();
@@ -1240,6 +1239,37 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       container.appendChild(row);
     });
   }
+}
+
+// feat_pick 후보 산출 — 팝업/인라인 공용(원칙#1). choiceDef.filter: pickCategory·pickMaxLevel·pickTraits·grantTo +
+//   prereqPattern(선결에 이 문자열 포함해야 후보, 예 order-explorer='order') + skipPrereq(선결검사 생략, 예 결단탐험=결단 멤버십 부여).
+function _prereqStr(f) { let p = f && f.prerequisites; if (!p) return ''; if (p.value != null) p = p.value; if (Array.isArray(p)) return p.map(x => typeof x === 'string' ? x : (x && x.value) || '').join(' '); return String(p); }
+function _featPickCandidates(cd) {
+  if (typeof _allFeats !== 'function' || !cd) return [];
+  let pickCat = cd.pickCategory || 'general';
+  if (pickCat === '$class' && state.selectedClass) pickCat = state.selectedClass.id;
+  const pickMax = cd.pickMaxLevel || 99;
+  const pickTraits = cd.pickTraits || null;
+  const prereqRe = cd.prereqPattern ? new RegExp(cd.prereqPattern, 'i') : null;
+  const isAiuvarin = state.selectedHeritage?.id === 'aiuvarin';
+  const skipPrereq = cd.skipPrereq || (cd.skipPrereqIfAiuvarin && isAiuvarin);
+  const myClassDedSlug = state.selectedClass ? state.selectedClass.id + '-dedication' : '';
+  const _isClassPick = pickCat && !['ancestry', 'general', 'skill', 'archetype', 'feature', 'other', 'class'].includes(pickCat);
+  const ownedSlugs = new Set();
+  for (const arr of Object.values(state.feats)) if (Array.isArray(arr)) arr.forEach(f => { const s = (typeof featSlug === 'function') ? featSlug(f) : (f && f.id); if (s) ownedSlugs.add(s); });
+  return _allFeats().filter(f => {
+    if (!f) return false;
+    if (_isClassPick) { if (!(typeof _featInClass === 'function' ? _featInClass(f, pickCat) : f.category === pickCat) && f.category !== 'archetype') return false; }
+    else if (f.category !== pickCat) return false;
+    if (f.feat_level > pickMax) return false;
+    if (pickTraits && !([].concat(f.traitSlugs || [], f.traits || []).some(t => pickTraits.includes(t)))) return false;
+    if (pickTraits?.includes('dedication') && myClassDedSlug && f.id === myClassDedSlug) return false;
+    if (prereqRe && !prereqRe.test(_prereqStr(f))) return false;   // 선결 패턴(결단/뮤즈 요구 재주만)
+    if (f.prerequisites && !skipPrereq && typeof _checkPrereqs === 'function' && !_checkPrereqs(f.prerequisites)) return false;
+    if (typeof featHasTrait === 'function' && featHasTrait(f, 'dedication', '헌신') && !cd.skipDedicationLimit && typeof canTakeDedication === 'function' && !canTakeDedication(f)) return false;
+    if (f.id && ownedSlugs.has(f.id)) return false;
+    return true;
+  });
 }
 
 function _applyFeatChoice(choiceId) {
@@ -1338,7 +1368,8 @@ function checkFeatChoice(featName, featType, featIndex) {
     const t = def.choice.type;
     // 인라인 컨트롤이 있는 타입(기술/지식/커스텀)은 팝업 생략 → 선택 모달 상세 패널의 인라인 UI
     //   (_buildFeatModalChoiceUI, 배경 지식 입력과 동일 방식) + 재주 탭 인라인에서 입력/편집.
-    if (t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || t === 'lore' || (t === 'custom' && def.choice.options)) {
+    if (t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || t === 'lore' || (t === 'custom' && def.choice.options)
+        || (t === 'feat_pick' && def.choice.inline)) {   // 인라인 재주선택(결단탐험 등)=팝업 생략, 상세패널/재주탭 드롭다운
       return false;
     }
     openFeatChoiceModal(featType, featIndex, def.choice);

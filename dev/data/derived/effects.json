@@ -143379,11 +143379,22 @@
    "owner_level": 2,
    "category": "class",
    "rule": "curated",
+   "src": "effect",
+   "type": "grant_feat",
+   "target": "$choice"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "multifarious-muse",
+   "owner_name": "다채로운 뮤즈",
+   "owner_level": 2,
+   "category": "class",
+   "rule": "curated",
    "src": "choice",
    "type": "choice",
    "choice": "cho-multifarious-muse",
-   "choice_kind": "muse_pick",
-   "choice_label": "추가 뮤즈를 선택하세요"
+   "choice_kind": "feat_pick",
+   "choice_label": "뮤즈 선결 1레벨 재주 선택"
   },
   {
    "owner_kind": "feat",
@@ -146723,9 +146734,33 @@
    "type": "grant_focus_spell",
    "target": "scramble-body",
    "name": "신체 교란"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "order-explorer",
+   "owner_name": "오더 익스플로러",
+   "owner_level": 2,
+   "category": "class",
+   "rule": "curated",
+   "src": "effect",
+   "type": "grant_feat",
+   "target": "$choice"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "order-explorer",
+   "owner_name": "오더 익스플로러",
+   "owner_level": 2,
+   "category": "class",
+   "rule": "curated",
+   "src": "choice",
+   "type": "choice",
+   "choice": "cho-order-explorer",
+   "choice_kind": "feat_pick",
+   "choice_label": "결단 선결 1레벨 재주 선택"
   }
  ],
- "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 11830 · 34 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.",
+ "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 11833 · 34 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.",
  "_schema": {
   "note": "코드가 실제 처리하는 자료형(런타임 소스). 이 목록 밖 값은 런타임이 모름 = 데이터·코드 불변식. 조건 평가=cs_calc _evalEffectCondition, 효과 적용=applyFeatEffects.",
   "condition": {
@@ -146801,9 +146836,9 @@
   }
  },
  "_types": {
-  "choice": 546,
+  "choice": 547,
   "skill_bonus": 8,
-  "grant_feat": 884,
+  "grant_feat": 886,
   "grant_item": 436,
   "immunity": 6,
   "vision_upgrade": 36,

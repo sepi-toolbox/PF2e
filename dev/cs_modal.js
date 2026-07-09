@@ -3647,7 +3647,8 @@ function _buildFeatModalChoiceUI(item) {
   const isDomainChoice = ch.id === 'cho-domain-initiate' || ch.id === 'cho-advanced-domain';
   // 인라인으로 다룰 타입만 (spell_cantrip 등 팝업형은 확정 후 기존 팝업 유지)
   const inline = (ch.type === 'lore' || ch.type === 'skill' || ch.type === 'skill_fixed'
-    || ch.type === 'skill_defaults' || isDomainChoice || (ch.type === 'custom' && ch.options));
+    || ch.type === 'skill_defaults' || isDomainChoice || (ch.type === 'custom' && ch.options)
+    || (ch.type === 'feat_pick' && ch.inline));
   if (!inline) return '';
 
   const skills = (typeof SKILLS !== 'undefined') ? SKILLS.filter(s => !s.isLore) : [];
@@ -3723,6 +3724,14 @@ function _buildFeatModalChoiceUI(item) {
         ${skills.map(s => `<option value="${s.id}"${s.id === sv ? ' selected' : ''}>${s.name}</option>`).join('')}
       </select></div>`;
     }
+  } else if (ch.type === 'feat_pick' && ch.inline) {
+    // 인라인 재주 선택(결단탐험/다중 뮤즈): 선결 패턴에 맞는 1레벨 재주 드롭다운(추가지식 인라인 방식). 확정 시 $choice grant_feat가 부여.
+    const cands = (typeof _featPickCandidates === 'function') ? _featPickCandidates(ch) : [];
+    inner = `<select id="feat-choice-sel" onchange="_modalChoices.featChoice=this.value" style="${_selStyle}">
+      <option value="">— 재주 선택 —</option>
+      ${cands.map(cf => `<option value="${cf.id}"${cf.id === existing ? ' selected' : ''}>${cf.name_ko}${cf.name_en ? ' (' + cf.name_en + ')' : ''}</option>`).join('')}
+    </select>`;
+    note = '선택한 결단/뮤즈를 선결로 하는 1레벨 재주를 얻습니다. 비워 두면 재주 탭에서 나중에 고를 수 있습니다.';
   }
 
   return `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:10px;">

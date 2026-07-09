@@ -295,12 +295,22 @@
   }
  },
  "multifarious-muse": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "$choice"
+   }
+  ],
   "choice": {
    "id": "cho-multifarious-muse",
-   "kind": "muse_pick",
-   "label": "추가 뮤즈를 선택하세요",
+   "kind": "feat_pick",
+   "label": "뮤즈 선결 1레벨 재주 선택",
    "filter": {
-    "repeatable": true
+    "pickCategory": "bard",
+    "pickMaxLevel": 1,
+    "prereqPattern": "muse",
+    "skipPrereq": true,
+    "inline": true
    },
    "options": []
   }
@@ -2836,5 +2846,26 @@
     "name": "신체 교란"
    }
   ]
+ },
+ "order-explorer": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "$choice"
+   }
+  ],
+  "choice": {
+   "id": "cho-order-explorer",
+   "kind": "feat_pick",
+   "label": "결단 선결 1레벨 재주 선택",
+   "filter": {
+    "pickCategory": "druid",
+    "pickMaxLevel": 1,
+    "prereqPattern": "order",
+    "skipPrereq": true,
+    "inline": true
+   },
+   "options": []
+  }
  }
 }
