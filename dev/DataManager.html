@@ -117,8 +117,10 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <label>조건 <select class="dm-search" id="dm-f-cond" style="min-width:120px" onchange="DM.onEffFilter()">
       <option value="">(전체)</option><option value="none">무조건</option><option value="static">정적(적용)</option><option value="sit">상황(표시만)</option></select></label>
     <button class="dm-btn" onclick="DM.clearEffFilter()">필터 해제</button>
-    <span id="dm-eff-stamp" style="margin-left:auto;font-size:10px;color:var(--text2)" title="로드된 효과 데이터. 정리 후=행 적고 타입 34종·조건 열거형."></span>
+    <button class="dm-btn" onclick="DM.toggleSchema()" title="코드(런타임)가 실제 처리하는 조건·효과타입 자료형. 빌더가 코드 상수에서 파생 — 이 목록 밖 값은 런타임이 모름.">자료형 스키마</button>
+    <span id="dm-eff-stamp" style="margin-left:auto;font-size:10px;color:var(--text2)" title="로드된 효과 데이터. 정리 후=행 적고 타입 34종·조건 영문 열거형."></span>
   </div>
+  <div class="dm-schema" id="dm-schema" style="display:none;padding:8px 12px;border-bottom:1px solid var(--line);font-size:11px;line-height:1.7;background:var(--bg2,#00000010)"></div>
   <div class="dm-body">
     <div class="dm-gridwrap">
       <div class="dm-status" id="dm-status">준비</div>
@@ -130,7 +132,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm20"></script>
+<script src="cs_pf2e.js?v=dm21"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -460,6 +462,26 @@ const DM = (function(){
   function onEffType(v){ effType=v; effTarget=''; populateEffTargets(); onEffFilter(); }
   function onEffFilter(){ effTarget=document.getElementById('dm-f-target').value; effCond=document.getElementById('dm-f-cond').value; applyView(); }
   function clearEffFilter(){ effType=''; effTarget=''; effCond=''; document.getElementById('dm-f-cond').value=''; populateEffTypes(); applyView(); }
+  // 코드가 실제 처리하는 자료형 스키마 표시(effects.json _schema — 빌더가 APPLY_TYPES/ACT_COND_TYPES/조건 eval 상수에서 파생).
+  function toggleSchema(){ const el=document.getElementById('dm-schema'); const show=el.style.display==='none'; el.style.display=show?'block':'none'; if(show)renderSchema(); }
+  function renderSchema(){
+    const el=document.getElementById('dm-schema');
+    const sc=(loaded['@'+(curTab&&curTab.id)]||{})._schema;
+    if(!sc){ el.innerHTML='<span style="color:var(--text2)">스키마 정보 없음(effects.json _schema 부재).</span>'; return; }
+    const chips=(arr,color)=>(arr||[]).map(x=>'<code style="background:'+color+';padding:1px 5px;border-radius:3px;margin:1px;display:inline-block">'+esc(x)+'</code>').join(' ');
+    const c=sc.condition||{}, t=sc.effect_type||{};
+    el.innerHTML =
+      '<div style="color:var(--gold2);font-weight:600;margin-bottom:3px">코드가 실제 처리하는 자료형 (런타임 소스)</div>'
+      +'<div style="color:var(--text2);margin-bottom:6px">'+esc(sc.note||'')+'</div>'
+      +'<div style="margin-bottom:2px"><b>조건 enum</b> — 무조건: '+esc(c.unconditional||'(빈칸)')+'</div>'
+      +'<div style="margin:2px 0 2px 10px">평가(런타임 조건엔진이 판정·게이트): '+chips(c.evaluated,'#2a6')+'</div>'
+      +'<div style="margin:2px 0 2px 10px">표시만(미해소·적용 안 함): '+chips(c.display_only,'#a63')+'</div>'
+      +'<div style="margin:2px 0 6px 10px">부정: <code>'+esc(c.negation||'')+'</code> · 복합: '+esc(c.compound||'')+'</div>'
+      +'<div style="margin-bottom:2px"><b>효과타입 enum</b></div>'
+      +'<div style="margin:2px 0 2px 10px">런타임 적용(applyFeatEffects): '+chips(t.runtime_applied,'#2a6')+'</div>'
+      +'<div style="margin:2px 0 2px 10px">정적조건 게이트(ACT_COND): '+chips(t.condition_gated,'#46a')+'</div>'
+      +'<div style="margin:2px 0 0 10px">표시만(런타임 미적용): '+chips(t.display_only,'#a63')+'</div>';
+  }
   async function ensureLoaded(cat){
     if(loaded[cat]) return;
     document.getElementById('dm-loading').style.display='block';
@@ -478,12 +500,13 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm20').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm21').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
         slug:r.slug||((r.class!=null&&r.level!=null)?r.class+':L'+r.level:'row'+i)}));
       loaded[key]._meta=j.note||'';
+      loaded[key]._schema=j._schema||null;   // 코드가 실제 처리하는 자료형(빌더가 코드 상수에서 파생)
     }catch(e){ loaded[key]=[]; console.error(e); }
     document.getElementById('dm-loading').style.display='none';
     renderTabs();
@@ -808,11 +831,11 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm20').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm20').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm21').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm21').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
-  return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride, onEffType, onEffFilter, clearEffFilter };
+  return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride, onEffType, onEffFilter, clearEffFilter, toggleSchema };
 })();
 window.addEventListener('DOMContentLoaded', DM.init);
 </script>

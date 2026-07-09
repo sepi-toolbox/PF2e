@@ -87,10 +87,14 @@ function _isOwnerAtom(a, ocls, oslug) {
   if ((m = /^feature:(.+)$/.exec(a))) return m[1] === oslug;
   return false;
 }
-// 노드가 owner에게 항상 참인가? owner-원자 자신 | owner-원자를 포함한 OR(하나만 참이면 OR 참 → owner가 충족).
+// 우리 런타임이 만들지 않는 상태 = 항상 거짓 원자. order-explorer로 결단을 얻는 경로 미모델(order-explorer=재주필터 choice일 뿐,
+//   결단(wave-order 등)은 GrantItem 안 함 — 동적 uuid라 드롭됨). → feat:order-explorer:X는 우리 캐릭터 상태에 절대 없음.
+function _isUnmodeledFalseAtom(a) { return typeof a === 'string' && /^feat:order-explorer:/.test(a); }
+// 노드가 owner에게 항상 참인가? owner-원자 자신 | owner-원자 포함 OR(하나만 참이면 OR 참) | not(항상거짓)=항상참.
 function _isOwnerNode(node, ocls, oslug) {
   if (typeof node === 'string') return _isOwnerAtom(node, ocls, oslug);
   if (node && typeof node === 'object') {
+    if (node.not != null && _isUnmodeledFalseAtom(node.not)) return true;   // not(항상거짓)=항상참 → 제거(결단탐험 게이트 무효)
     for (const op of ['or', 'nor']) if (node[op] != null) { const a = Array.isArray(node[op]) ? node[op] : [node[op]]; if (op === 'or' && a.some(x => _isOwnerNode(x, ocls, oslug))) return true; }
   }
   return false;
@@ -275,7 +279,7 @@ function arrf(v) { return Array.isArray(v) ? v : (v == null || v === '' ? [] : [
 function deityRows(doc, leg) {
   const s = doc.system || {}; const out = [];
   for (const a of arrf(s.attribute)) out.push({ type: 'attribute_boost', target: a });
-  for (const sk of (arrf(s.skill).length ? arrf(s.skill) : arrf(leg && leg.skill))) out.push({ type: 'skill_trained', target: sk, condition: '클레릭 숙련' });
+  for (const sk of (arrf(s.skill).length ? arrf(s.skill) : arrf(leg && leg.skill))) out.push({ type: 'skill_trained', target: sk, condition: 'class', cond_value: 'cleric' });   // 신격 숙련=클레릭이 훈련(기존 조건 enum)
   for (const w of (arrf(s.weapons).length ? arrf(s.weapons) : arrf(leg && leg.weapon))) out.push({ type: 'favored_weapon', target: w });
   const font = arrf(s.font); if (font.length) out.push({ type: 'divine_font', target: font.join(', ') });
   const sanc = s.sanctification ? (Array.isArray(s.sanctification.what) ? s.sanctification.what : arrf(s.sanctification.what)) : arrf(leg && leg.sanctification);
@@ -285,7 +289,7 @@ function deityRows(doc, leg) {
   for (const d of arrf(dom.alternate)) out.push({ type: 'domain', target: d, bonus_type: 'alternate' });
   if (s.spells && typeof s.spells === 'object') for (const rk of Object.keys(s.spells)) {
     let nm = s.spells[rk], sl = ''; try { const g = PF.getByUuid(String(nm).trim()); if (g) { sl = (g.system && g.system.slug) || ''; nm = g.name_ko || g.name; } } catch (e) {}
-    out.push({ type: 'grant_spell', target: sl || nm, value: rk, condition: '신격 주문' });
+    out.push({ type: 'grant_spell', target: sl || nm, value: rk, condition: 'class', cond_value: 'cleric' });   // 신격 주문=클레릭에게 부여(기존 조건 enum)
   }
   return out;
 }
@@ -411,9 +415,29 @@ const byType = {}; for (const r of rows) if (r.type) byType[r.type] = (byType[r.
 const note = `자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 ${rows.length} · ${Object.keys(byType).length} type. `
   + `소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. `
   + `★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. `
-  + `효과타입·대상·값·값종류=우리 열거형/slug. 조건=열거형(무조건 빈칸/레벨/클래스/재주/특징/유산/특성/갑옷/복합/신격·클레릭 등 구조). 조건밸류=slug 또는 복합 구조값(예 "클래스:champion / 재주:champions-reaction"). 재생성=node tools/derive/build_effects.mjs.`;
+  + `효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.`;
 
-fs.writeFileSync(path.join(DEV, 'data/derived/effects.json'), JSON.stringify({ rows, note, _types: byType }, null, 1) + '\n');
+// ── 코드가 실제 처리하는 자료형 스키마(DataManager 문서화용, 코드 상수에서 파생 → 드리프트 방지) ──
+//   조건 평가 = cs_calc _evalCondAtom(런타임). 효과타입 적용 = APPLY_TYPES / 정적조건 게이트 = ACT_COND_TYPES.
+const COND_EVALUATED = ['level', 'class', 'feat', 'feature', 'heritage', 'ancestry', 'trait'];   // cs_calc _evalCondAtom이 캐릭터 상태로 판정·게이트
+const COND_DISPLAY_ONLY = ['armor', 'size', 'sense'];   // 미모델 → _evalCondAtom null(미해소) = 표시만, 적용 안 함
+const _schema = {
+  note: '코드가 실제 처리하는 자료형(런타임 소스). 이 목록 밖 값은 런타임이 모름 = 데이터·코드 불변식. 조건 평가=cs_calc _evalEffectCondition, 효과 적용=applyFeatEffects.',
+  condition: {
+    unconditional: '(빈칸) = 무조건 적용',
+    evaluated: COND_EVALUATED,          // 런타임 조건엔진이 캐릭터 상태로 판정·게이트
+    display_only: COND_DISPLAY_ONLY,    // 미해소(표시만, 적용 안 함)
+    negation: 'no-<enum> (예: no-class, no-feat)',
+    compound: 'compound = 다원자 조건(원자별 판정; & 그리고 · | 또는 · ! 아님)',
+  },
+  effect_type: {
+    runtime_applied: [...APPLY_TYPES].sort(),                                       // applyFeatEffects가 캐릭터에 적용
+    condition_gated: [...ACT_COND_TYPES].sort(),                                    // 정적조건 붙으면 런타임 조건엔진이 게이트
+    display_only: [...KEEP_DISPLAY_TYPES].filter(t => !APPLY_TYPES.has(t)).sort(),  // 표시만(런타임 미적용 — 섀시/별도경로 소유)
+  },
+};
+
+fs.writeFileSync(path.join(DEV, 'data/derived/effects.json'), JSON.stringify({ rows, note, _schema, _types: byType }, null, 1) + '\n');
 fs.writeFileSync(path.join(DEV, 'data/derived/effect_refs.json'), JSON.stringify(refs, null, 1) + '\n');
 fs.writeFileSync(path.join(DEV, 'data/derived/effects_db.json'), JSON.stringify(dbBySlug) + '\n');
 fs.writeFileSync(path.join(DEV, 'effects_db.js'),
