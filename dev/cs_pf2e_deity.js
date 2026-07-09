@@ -31,7 +31,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/domains.json?v=0.174').then(r => r.json()).then(j => { _fillDomainDB(j.rows); _domainsLoaded = true; }).catch(() => {});
+    return fetch('data/derived/domains.json?v=0.175').then(r => r.json()).then(j => { _fillDomainDB(j.rows); _domainsLoaded = true; }).catch(() => {});
   }
 
   // 기술 한글명(오프라인 고정 — 글로서리 미의존). lore=지식.

@@ -285,7 +285,7 @@
   "delirium": {
     "name": "섬망",
     "advanced": "ephemeral-hazards",
-    "initial": "hyperfocus"
+    "initial": "clouded-focus"
   },
   "metal": {
     "name": "금속",
