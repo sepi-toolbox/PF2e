@@ -1124,6 +1124,84 @@ function getGrowthTable(cls) {
   return table;
 }
 
+// ── 성장 플랜 클래스 특성 = 출처(source) 기반 부여 트리 ──
+//   각 클래스/서브클래스 특성을 개별 박스로 렌더하고, 그 특성이 '부여'하는 재주·주문을 박스 안에 중첩.
+//   귀속은 출처 마커로만(원칙#3): 부여재주 _grantedBy(slug)/_subclass, 부여주문 _sourceFeat(slug)/_source.
+//   이름·값 매칭 금지 — 동명/동값 다중출처 오귀속 방지.
+function _growthGrantMap() {
+  const cls = state.selectedClass;
+  const out = { childrenOf: {}, orphanFeats: [], primary: new Set() };
+  if (!cls || typeof CLASS_FEATURE_NAMES === 'undefined') return out;
+  const curLevel = getLevel();
+  const roster = CLASS_FEATURE_NAMES[cls.id] || [];
+  const sub = state.selectedSubclass;
+  const subIsThis = !!(sub && sub.class_id === cls.id);
+  const psl = f => featSlug(f.slug || f.id || f.name_en || f.name_ko);
+  roster.forEach(f => { if (f.lv <= curLevel) out.primary.add(psl(f)); });
+  if (subIsThis) (sub.features || []).forEach(f => { if (f.lv <= curLevel) out.primary.add(psl(f)); });
+  // 서브클래스 부여(_subclass)의 귀속 대상 = kind=subclass 특성(교리·본능·뮤즈 등)
+  const subKindFeat = roster.find(f => f.kind === 'subclass' && f.lv <= curLevel);
+  const subParent = subKindFeat ? psl(subKindFeat) : null;
+  const push = (k, v) => { if (!k) return false; (out.childrenOf[k] = out.childrenOf[k] || []).push(v); return true; };
+  // 부여 재주 — _auto만. 특성 자체(성장표 로스터)는 프라이머리 박스이므로 제외.
+  ['special', 'class', 'general', 'skill', 'ancestry', 'other'].forEach(cat => {
+    (state.feats[cat] || []).forEach(f => {
+      if (!f || !f._auto) return;
+      const sl = featSlug(f);
+      if (out.primary.has(sl)) return;
+      const child = { kind: 'feat', slug: sl, name: f.name, obj: f, lv: f.level || 1 };
+      const parent = f._grantedBy ? featSlug(f._grantedBy) : (f._subclass ? subParent : null);
+      if (!push(parent, child)) out.orphanFeats.push(child);
+    });
+  });
+  // 부여 주문 — 출처(재주/서브클래스) 있는 것만. 무출처 클래스 자동주문은 주문 탭 담당.
+  const subName = subIsThis ? (sub.name_ko || '').split(' (')[0].trim() : '';
+  ['focus', 'innate', 'known', 'cantrip'].forEach(ring => {
+    (state.spells[ring] || []).forEach(s => {
+      if (!s || (!s._auto && !s._sourceFeat && !s._heritage)) return;
+      const child = { kind: 'spell', slug: spellSlug(s), name: (s.name || spellDisplay(s)), obj: s, ring };
+      const parent = s._sourceFeat ? featSlug(s._sourceFeat)
+        : (subName && s._source && String(s._source).split(' (')[0].trim() === subName ? subParent : null);
+      if (parent) push(parent, child);
+    });
+  });
+  return out;
+}
+
+// 부여 항목(재주/주문) 한 줄 — 자신이 다시 부여하는 것(예: 영역 입문→집중 주문)을 재귀 중첩.
+function _growthGrantChildHtml(child, gm, depth) {
+  const isSpell = child.kind === 'spell';
+  const dataObj = isSpell ? (typeof getSpell === 'function' && getSpell(child.slug))
+                          : (typeof getFeat === 'function' && getFeat(child.slug));
+  const icRaw = (dataObj && typeof iconImg === 'function') ? iconImg(isSpell ? 'spell' : 'feat', dataObj, 'gcf-cic') : '';
+  const ic = (icRaw && String(icRaw).indexOf('<') === 0) ? icRaw : `<span class="gcf-emoji">${isSpell ? '✨' : '🎖'}</span>`;
+  const nm = (child.name || '').split(' (')[0].trim() || (dataObj && (dataObj.name_ko || dataObj.name_en)) || child.slug;
+  const badge = isSpell ? '부여 주문' : '부여 재주';
+  const kids = depth < 4 ? (gm.childrenOf[child.slug] || []) : [];
+  const kidsHtml = kids.length ? `<div class="gcf-grants">${kids.map(c => _growthGrantChildHtml(c, gm, depth + 1)).join('')}</div>` : '';
+  return `<div class="gcf-grant"><span class="gcf-gic">${ic}</span><span class="gcf-gname">${nm}</span><span class="gcf-gbadge">${badge}</span></div>${kidsHtml}`;
+}
+
+// 클래스/서브클래스 특성 박스 — 헤더(특성명) + 부여 항목 중첩. opts.granted=출처 없는 부여재주(orphan) 표기.
+function _growthFeatureBoxHtml(f, lv, gm, opts) {
+  const slug = featSlug(f.slug || f.id || f.name_en || f.name_ko);
+  const featData = (typeof getFeat === 'function') ? (getFeat(slug) || getFeat(f.name_en) || getFeat(f.name_ko)) : null;
+  const icRaw = (featData && typeof iconImg === 'function') ? iconImg('feat', featData, 'gcf-ic') : '';
+  const ic = (icRaw && String(icRaw).indexOf('<') === 0) ? icRaw : '<span style="font-size:11px;">⚡</span>';
+  const kids = gm.childrenOf[slug] || [];
+  const kidsHtml = kids.length ? `<div class="gcf-grants">${kids.map(c => _growthGrantChildHtml(c, gm, 1)).join('')}</div>` : '';
+  const nameKo = (f.name_ko || (featData && featData.name_ko) || slug).split(' (')[0].trim();
+  const nameEn = f.name_en || (featData && featData.name_en) || '';
+  const badge = (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
+  return `<div class="growth-slot filled gcf-box" onclick="openClassModalAtLevel(${lv})">
+    <div class="gcf-main">
+      <span class="gcf-fic">${ic}</span>
+      <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>${badge}
+    </div>
+    ${kidsHtml}
+  </div>`;
+}
+
 function renderGrowthPlan() {
   const container = document.getElementById('growth-plan');
   if (!container) { console.warn('growth-plan container not found'); return; }
@@ -1160,6 +1238,7 @@ function renderGrowthPlan() {
   html += `</div>`;
 
   const _growthTable = getGrowthTable(state.selectedClass);
+  const gm = _growthGrantMap();   // 출처 기반 부여 트리(전 레벨 1회 계산)
   for (let lv = 1; lv <= curLevel; lv++) {
     const plan = _growthTable[lv];
     if (!plan) continue;
@@ -1167,21 +1246,16 @@ function renderGrowthPlan() {
 
     html += `<div class="growth-level-header">레벨 ${lv}<span style="font-size:10px;color:var(--text2);font-weight:400;">Level ${lv}</span></div>`;
 
-    // Class features at this level (auto-display)
+    // Class features at this level — 특성별 개별 박스 + 부여 재주/주문 중첩(출처 기반)
     if (state.selectedClass && typeof CLASS_FEATURE_NAMES !== 'undefined') {
       const classFeats = (CLASS_FEATURE_NAMES[state.selectedClass.id]||[]).filter(f => f.lv === lv);
-      const subFeats = state.selectedSubclass && true
+      const subFeats = (state.selectedSubclass && state.selectedSubclass.class_id === state.selectedClass.id)
         ? (state.selectedSubclass.features || []).filter(f => f.lv === lv) : [];
-      const allFeats = [...classFeats, ...subFeats];
-      if (allFeats.length > 0) {
-        html += `<div class="growth-slot" onclick="openClassModalAtLevel(${lv})" style="cursor:pointer;opacity:0.85;border-left:2px solid var(--accent);background:var(--accent-bg);">
-          <div class="growth-slot-icon" style="background:var(--accent);color:#fff;font-size:10px;">⚡</div>
-          <div class="growth-slot-body">
-            <div class="growth-slot-label" style="color:var(--accent);font-size:10px;">클래스 특성</div>
-            <div class="growth-slot-value" style="font-size:11px;line-height:1.5;">${allFeats.map(f => f.name_ko + ' <span style="color:var(--text2);font-size:9px;">' + f.name_en + '</span>').join('<br>')}</div>
-          </div>
-        </div>`;
-      }
+      [...classFeats, ...subFeats].forEach(f => { html += _growthFeatureBoxHtml(f, lv, gm); });
+      // 출처 특성이 로스터에 없는 부여 재주(orphan)도 이 레벨에서 박스로 노출 — 무엇도 누락 없이.
+      gm.orphanFeats.filter(o => (o.lv || 1) === lv).forEach(o => {
+        html += _growthFeatureBoxHtml({ slug: o.slug, name_ko: o.name }, lv, gm, { granted: true });
+      });
     }
 
     // Level 1 specials
