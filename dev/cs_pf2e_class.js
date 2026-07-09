@@ -68,7 +68,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.159"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.160"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -226,7 +226,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.159').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.160').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -245,7 +245,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.159').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.160').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   async function init() {

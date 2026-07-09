@@ -665,7 +665,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.159').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.160').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -2088,24 +2088,27 @@ function rebuildCoreEffects() {
 }
 
 // ── 서브클래스 효과 헬퍼 (SUBCLASS_DB.granted_*에서 호환 형태로 변환) ──
+// 서브클래스 부여 = 효과(자동화) 테이블 단일 소스(getEffectRows(sub.id) slug 행). 재주·유산·배경과 동일 경로.
+//   구 SUBCLASS_DB.granted_feats/granted_spells 병렬 경로 폐지(v0.160). 부여 재주 다수는 이미 FVTT grant_feat 행으로
+//   효과 테이블에 존재했고, 갭은 curated_effects.json(build_subclass_effects.mjs)로 채움 → 여기서 통합 소스로 읽음.
 function getSubclassAutoFeats(sub) {
-  if (!sub || !Array.isArray(sub.granted_feats)) return [];
+  if (!sub || !sub.id || typeof getEffectRows !== 'function') return [];
   // 서브클래스가 부여하는 능력은 클래스 특성('special')으로 묶는다 — 클래스 재주(class)/기술 재주(skill)가 아님.
-  return sub.granted_feats.map(fid => {
-    const f = (typeof getFeat === 'function') ? getFeat(fid) : null;
+  return getEffectRows(sub.id).filter(r => r.type === 'grant_feat').map(r => {
+    const f = (typeof getFeat === 'function') ? getFeat(r.target) : null;
     return f ? { lv: 1, name_ko: f.name_ko, name_en: f.name_en, category: 'special', _subclass: true } : null;
   }).filter(Boolean);
 }
 function getSubclassAutoSpells(sub) {
-  if (!sub || !Array.isArray(sub.granted_spells)) return [];
-  return sub.granted_spells.map(g => {
-    const sp = (typeof getSpell === 'function') ? getSpell(g.spell_id) : null;
+  if (!sub || !sub.id || typeof getEffectRows !== 'function') return [];
+  const TYPE = { grant_focus_spell: 'focus', grant_known_spell: 'known', grant_innate_spell: 'innate' };
+  return getEffectRows(sub.id).map(r => {
+    const type = TYPE[r.type]; if (!type) return null;
+    const sp = (typeof getSpell === 'function') ? getSpell(r.target) : null;
     if (!sp) return null;
-    // 타입 정규화: 'spell'은 집중(traditions 빈값=전통 무소속, 집중캔트립 포함)/일반캔트립/일반으로 분기. 선천 주문은 유산 경로가 별도 시스템.
-    const type = (g.type === 'spell') ? ((!sp.traditions || !sp.traditions.length) ? 'focus' : (sp.is_cantrip ? 'cantrip' : 'known')) : g.type;
-    const r = { lv: g.lv, type, name_ko: sp.name_ko, name_en: sp.name_en };
-    if (g.rank !== undefined) r.rank = g.rank;
-    return r;
+    const o = { lv: r.lv || 1, type, name_ko: sp.name_ko, name_en: sp.name_en };
+    if (r.rank !== undefined) o.rank = r.rank;
+    return o;
   }).filter(Boolean);
 }
 function getSubclassFeatures(sub) { return (sub && sub.features) || []; }

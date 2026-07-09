@@ -2193,5 +2193,648 @@
     "attach": "weapon"
    }
   ]
+ },
+ "shaman": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "enhanced-familiar"
+   },
+   {
+    "type": "grant_feat",
+    "target": "incredible-familiar-animist"
+   },
+   {
+    "type": "grant_feat",
+    "target": "pet"
+   }
+  ]
+ },
+ "bloodrager": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "bloodrager-dedication"
+   }
+  ]
+ },
+ "muse-enigma": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "bardic-lore"
+   },
+   {
+    "type": "grant_known_spell",
+    "target": "sure-strike",
+    "name": "확실한 타격",
+    "rank": 1
+   }
+  ]
+ },
+ "muse-maestro": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "lingering-composition"
+   },
+   {
+    "type": "grant_known_spell",
+    "target": "soothe",
+    "name": "진정",
+    "rank": 1
+   }
+  ]
+ },
+ "muse-polymath": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "versatile-performance"
+   },
+   {
+    "type": "grant_known_spell",
+    "target": "phantasmal-minion",
+    "name": "환상 하수인",
+    "rank": 1
+   }
+  ]
+ },
+ "muse-warrior": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "martial-performance"
+   },
+   {
+    "type": "grant_known_spell",
+    "target": "fear",
+    "name": "공포",
+    "rank": 1
+   }
+  ]
+ },
+ "doctrine-cloistered": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "domain-initiate"
+   }
+  ]
+ },
+ "order-animal": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "heal-animal",
+    "name": "동물 치유"
+   }
+  ]
+ },
+ "order-leaf": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "cornucopia",
+    "name": "풍요의 뿔"
+   }
+  ]
+ },
+ "order-storm": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "tempest-surge",
+    "name": "폭풍의 파도"
+   }
+  ]
+ },
+ "order-wild": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "untamed-shift",
+    "name": "야성 변이"
+   }
+  ]
+ },
+ "way-of-the-spellshot": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "spellshot-dedication"
+   }
+  ]
+ },
+ "light-mortar-innovation": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "munitions-master-dedication"
+   }
+  ]
+ },
+ "palatine-detective": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "palatine-detective-dedication"
+   }
+  ]
+ },
+ "aloof-firmament": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "sky-laughs-at-waves",
+    "name": "파도를 비웃는 하늘"
+   }
+  ]
+ },
+ "inexorable-iron": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "thunderous-strike",
+    "name": "천둥 같은 일격"
+   }
+  ]
+ },
+ "laughing-shadow": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "dimensional-assault",
+    "name": "차원 돌격"
+   }
+  ]
+ },
+ "resurgent-maelstrom": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "turbulent-tide",
+    "name": "격류"
+   }
+  ]
+ },
+ "sparkling-targe": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "shielding-strike",
+    "name": "방패 타격"
+   }
+  ]
+ },
+ "starlit-span": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "shooting-star",
+    "name": "유성"
+   }
+  ]
+ },
+ "twisting-tree": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "spinning-staff",
+    "name": "회전 지팡이"
+   }
+  ]
+ },
+ "unfurling-brocade": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "home-among-mulberry-leaves",
+    "name": "누에고치 속박"
+   }
+  ]
+ },
+ "ancestors": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "ancestral-touch",
+    "name": "조상의 손길"
+   }
+  ]
+ },
+ "ashes": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "ashen-wind",
+    "name": "재의 바람"
+   }
+  ]
+ },
+ "battle": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "weapon-trance",
+    "name": "무기 트랜스"
+   }
+  ]
+ },
+ "blight": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "ulcerous-canker",
+    "name": "궤양성 농양"
+   }
+  ]
+ },
+ "bones": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "soul-siphon",
+    "name": "영혼 흡수"
+   }
+  ]
+ },
+ "cosmos": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "spray-of-stars",
+    "name": "별빛 분사"
+   }
+  ]
+ },
+ "flames": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "incendiary-aura",
+    "name": "인켄디어리 오라"
+   }
+  ]
+ },
+ "life": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "life-link",
+    "name": "생명 연결"
+   }
+  ]
+ },
+ "lore": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "brain-drain",
+    "name": "뇌 흡수"
+   }
+  ]
+ },
+ "tempest": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "tempest-touch",
+    "name": "폭풍의 손길"
+   }
+  ]
+ },
+ "time": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "temporal-distortion",
+    "name": "시간 왜곡"
+   }
+  ]
+ },
+ "the-distant-grasp": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "telekinetic-rend",
+    "name": "염동력 찢기"
+   }
+  ]
+ },
+ "the-infinite-eye": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "glimpse-weakness",
+    "name": "약점 포착"
+   }
+  ]
+ },
+ "the-oscillating-wave": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "thermal-stasis",
+    "name": "열 정지"
+   }
+  ]
+ },
+ "the-silent-whisper": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "forbidden-thought",
+    "name": "금지된 생각"
+   }
+  ]
+ },
+ "the-tangible-dream": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "imaginary-weapon",
+    "name": "가상 무기"
+   }
+  ]
+ },
+ "the-unbound-step": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "distortion-lens",
+    "name": "왜곡 렌즈"
+   }
+  ]
+ },
+ "bloodline-aberrant": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "tentacular-limbs",
+    "name": "촉수 사지"
+   }
+  ]
+ },
+ "bloodline-aesir": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "barbed-spear",
+    "name": "가시 창"
+   }
+  ]
+ },
+ "bloodline-angelic": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "angelic-halo",
+    "name": "천사의 후광"
+   }
+  ]
+ },
+ "bloodline-demonic": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "gluttons-jaws",
+    "name": "탐식의 턱"
+   }
+  ]
+ },
+ "bloodline-diabolic": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "diabolic-edict",
+    "name": "데빌의 칙령"
+   }
+  ]
+ },
+ "bloodline-draconic": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "flurry-of-claws",
+    "name": "발톱의 연타"
+   }
+  ]
+ },
+ "bloodline-elemental": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "elemental-toss",
+    "name": "원소 투척"
+   }
+  ]
+ },
+ "bloodline-fey": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "faerie-dust",
+    "name": "요정 가루"
+   }
+  ]
+ },
+ "bloodline-genie": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "genies-veil",
+    "name": "지니의 베일"
+   }
+  ]
+ },
+ "bloodline-hag": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "jealous-hex",
+    "name": "질투의 저주"
+   }
+  ]
+ },
+ "bloodline-harrow": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "unraveling-blast",
+    "name": "잠재력 폭발 해제"
+   }
+  ]
+ },
+ "bloodline-imperial": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "ancestral-memories",
+    "name": "선조의 기억"
+   }
+  ]
+ },
+ "bloodline-nymph": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "nymphs-token",
+    "name": "요정의 증표"
+   }
+  ]
+ },
+ "bloodline-phoenix": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "rejuvenating-flames",
+    "name": "재생 불꽃"
+   }
+  ]
+ },
+ "bloodline-psychopomp": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "sepulchral-mask",
+    "name": "무덤의 가면"
+   }
+  ]
+ },
+ "bloodline-shadow": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "dim-the-light",
+    "name": "빛을 어둡게 하다"
+   }
+  ]
+ },
+ "bloodline-undead": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "undeaths-blessing",
+    "name": "언데드의 축복"
+   }
+  ]
+ },
+ "bloodline-wyrmblessed": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "flurry-of-claws",
+    "name": "발톱의 연타"
+   }
+  ]
+ },
+ "patron-curse": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "evil-eye",
+    "name": "사악한 눈빛"
+   }
+  ]
+ },
+ "patron-fate": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "nudge-fate",
+    "name": "운명 튕기기"
+   }
+  ]
+ },
+ "patron-fervor": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "stoke-the-heart",
+    "name": "심장 불태우기"
+   }
+  ]
+ },
+ "patron-night": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "shroud-of-night",
+    "name": "밤의 장막"
+   }
+  ]
+ },
+ "patron-rune": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "discern-secrets",
+    "name": "비밀 간파"
+   }
+  ]
+ },
+ "patron-wild": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "wilding-word",
+    "name": "와일딩 워드"
+   }
+  ]
+ },
+ "school-ars-grammatica": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "protective-wards",
+    "name": "보호의 수호부"
+   }
+  ]
+ },
+ "school-battle-magic": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "force-bolt",
+    "name": "역장 화살"
+   }
+  ]
+ },
+ "school-boundary": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "fortify-summoning",
+    "name": "소환 강화"
+   }
+  ]
+ },
+ "school-civic-wizardry": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "earthworks",
+    "name": "대지 조형"
+   }
+  ]
+ },
+ "school-mentalism": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "charming-push",
+    "name": "매혹의 밀어내기"
+   }
+  ]
+ },
+ "school-protean-form": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "scramble-body",
+    "name": "신체 교란"
+   }
+  ]
  }
 }
