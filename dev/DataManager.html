@@ -416,6 +416,7 @@ const DM = (function(){
     alt_domains:   { tab:'domains' },
     cleric_spells: { tab:'spells', slugs:r=>{ const sp=r.system&&r.system.spells_slug; return (sp&&typeof sp==='object')?Object.values(sp).filter(Boolean):[]; } },
     subclass:      { tab:'subclasses' },                                   // 서브클래스성장 → 서브클래스
+    features:      { tabs:['classfeatures','feats','spells'] },            // 성장표 클래스특성 — slug별로 맞는 탭 자동 링크(기술 등 비내비 slug=평문)
     traits_ko:     { tab:'traits' },                                      // 특성 slug → 특성 레지스트리(오타/미등록 탐지)
     traits:        { tab:'traits' },                                      // 크리처/해저드 등 raw 특성 컬럼
     owner_slug:    { tab:r=>_OWNER_TAB[r.owner_kind] || null },            // 효과행 소유 엔티티(owner_kind로 탭 결정)
@@ -439,7 +440,8 @@ const DM = (function(){
     if(!cols.length) return;
     const targets=new Set();
     for(const c of cols){ const d=REFNAV[c];
-      if(typeof d.tab==='string') targets.add(d.tab);
+      if(d.tabs) d.tabs.forEach(t=>targets.add(t));                              // 다중 후보 탭(slug별 해소)
+      else if(typeof d.tab==='string') targets.add(d.tab);
       else for(const r of rows){ const tb=d.tab(r); if(tb)targets.add(tb); }   // 함수형: 행 스캔으로 대상 탭 수집
     }
     if(!targets.size) return;
@@ -449,6 +451,15 @@ const DM = (function(){
   function refCellHtml(r,col){
     const d=REFNAV[col]; const slugs=refSlugsOf(r,col)||[];
     if(!slugs.length) return '';
+    if(d.tabs){   // slug별 다중 탭 해소: 후보 탭 중 그 slug를 가진 첫 탭으로 링크, 없으면 평문(기술 등 비내비)
+      const anyLoaded = d.tabs.some(t=>refSlugSets[t]);
+      return slugs.map(s=>{
+        let tab=null; for(const t of d.tabs){ const set=refSlugSets[t]; if(set&&set.has(s)){ tab=t; break; } }
+        if(tab) return '<span class="dm-ref ok" data-nav-tab="'+esc(tab)+'" data-nav-slug="'+esc(s)+'" title="'+esc('클릭 → 「'+tab+'」 '+s)+'">'+esc(s)+'</span>';
+        if(!anyLoaded) return '<span class="dm-ref pending" title="로드 중…">'+esc(s)+'</span>';
+        return esc(s);   // 어느 후보 탭에도 없음(기술 등) → 평문
+      }).join(' ');
+    }
     const tab = (typeof d.tab==='function') ? d.tab(r) : d.tab;
     if(!tab) return '';   // 이 행에선 링크 대상 탭 없음(예: grant_lore target, 자연공격 등) → 평문 표시
     const set=refSlugSets[tab];
