@@ -138,7 +138,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm27"></script>
+<script src="cs_pf2e.js?v=dm28"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -596,7 +596,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm27').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm28').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -943,8 +943,8 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm27').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm27').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm28').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm28').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride, onEffType, onEffFilter, clearEffFilter, toggleSchema };
