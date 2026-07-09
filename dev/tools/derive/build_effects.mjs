@@ -161,9 +161,10 @@ function fvttRuleRows(doc) {
 // 런타임 적용 가능한 효과 type(applyFeatEffects switch가 처리하는 것). 그 외 fvtt 룰은 표시 테이블엔 남기되 런타임 소스엔 안 넣음.
 const APPLY_TYPES = new Set(['hp_bonus', 'skill_trained', 'skill_bonus', 'save_bonus', 'ac_bonus', 'vision_upgrade',
   'extra_sense', 'resistance', 'grant_feat', 'grant_lore', 'grant_innate_spell', 'grant_focus_spell', 'speed_extra', 'proficiency', 'bulk_bonus', 'initiative_bonus']);
-// v0.163 조건엔진 활성 타입: 정적조건이 붙은 "부여(grant)+기술훈련"만 런타임 편입(조건 충족 시 적용).
-//   proficiency=섀시(class_progression) 단일소스와 중복 → 제외. resistance/bonus=공식·착용갑옷 컨텍스트 필요 → 제외(현행 유지, 표시만).
-const ACT_COND_TYPES = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell', 'grant_lore', 'skill_trained', 'resistance']);
+// v0.163~ 조건엔진 활성 타입: 정적조건 붙은 부여·훈련·저항·숙련을 런타임 편입(조건 충족 시 적용).
+//   proficiency(v0.166): 표준 카테고리만 런타임 _profTargetToDom이 매핑+상향덮기. 개별무기/시전별칭/공식값은 미적용(섀시 담당).
+//   resistance(v0.165): 유형별 최댓값 병합. 공식/착용갑옷 컨텍스트 의존분은 미해소 skip. bonus류는 여전히 표시만.
+const ACT_COND_TYPES = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell', 'grant_lore', 'skill_trained', 'resistance', 'proficiency']);
 const GRANT_DEDUP = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell']);   // owner 내 (type,target) 이중부여 방지(무조건 우선)
 function emitFvtt(base, doc, bake = true) {
   if (!doc) return;

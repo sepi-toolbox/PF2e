@@ -665,7 +665,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.165').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.166').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -728,6 +728,21 @@ function _evalCondNode(node, ctx) {   // → true|false|null
   return _evalCondAtom(node, ctx);
 }
 function _evalEffectCondition(cond, ctx) { return _evalCondNode(cond, ctx || _effectCondCtx()) === true; }
+
+// FVTT 숙련 경로 → 우리 시트 DOM 숙련 id 접미사(표준 카테고리만). 개별무기(weapon-base-*)·시전별칭(aliases)·미매핑=null.
+//   숙련 진행은 섀시(class_progression)가 전담이지만, 재주·아키타입·유산이 표준 카테고리를 성장표보다 높게 주면
+//   applyFeatEffects의 proficiency 처리가 상향덮기(prevRank<rank)로 반영. 매핑 불가 대상은 여기서 null → 미적용.
+function _profTargetToDom(p) {
+  if (typeof p !== 'string') return null;
+  let m;
+  if ((m = /attacks\.(simple|martial|advanced|unarmed)\.rank$/.exec(p))) return 'weapon-' + m[1];
+  if ((m = /defenses\.(unarmored|light|medium|heavy)\.rank$/.exec(p))) return 'armor-' + m[1];
+  if (/saves\.fortitude\.rank$/.test(p)) return 'fort';
+  if (/saves\.reflex\.rank$/.test(p)) return 'ref';
+  if (/saves\.will\.rank$/.test(p)) return 'will';
+  if (/(^|\.)perception\.rank$/.test(p)) return 'perc';
+  return null;
+}
 
 // v0.28~ 효과 단일화: slug 기준 EFFECTS_DB(effects_db.js) 단일 소스. override(effect_groups.json)도 slug 키.
 // (구 EFFECT_GROUPS/group_id 경로 폐기. 재주·유산·배경·서브클래스 모두 이 함수로 slug→효과행.)

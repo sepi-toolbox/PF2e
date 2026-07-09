@@ -291,13 +291,18 @@ function _applyOneEffect(fb, eff, feat, level) {
       // 1건(갑옷 숙련) 사용, choice 시스템 통합은 Phase 3a 이후 별도 작업
       break;
     case 'proficiency': {
-      // 숙련도 직접 부여 (v531~) — target=DOM id suffix, rank=숫자. 출처 추적(prevRank)으로 제거 시 복원.
-      if (eff.target && typeof eff.rank === 'number') {
-        const profEl = document.getElementById('prof-' + eff.target);
+      // 숙련도 부여 (v0.166 배선) — target=FVTT 경로 → _profTargetToDom로 표준 카테고리 DOM 매핑, value=랭크 숫자.
+      //   상향덮기(prevRank<rank): 재주/아키타입이 성장표(섀시)보다 높은 숙련을 주면 덮고, 아니면 기존 유지.
+      //   개별무기·시전별칭·공식값(@actor/max/ternary)은 매핑/파싱 불가 → 미적용(섀시가 담당).
+      const _pDom = (typeof _profTargetToDom === 'function') ? _profTargetToDom(eff.target) : null;
+      const _pRank = (typeof eff.value === 'number') ? eff.value
+        : (typeof eff.value === 'string' && /^\d+$/.test(eff.value.trim())) ? parseInt(eff.value, 10) : NaN;
+      if (_pDom && Number.isFinite(_pRank)) {
+        const profEl = document.getElementById('prof-' + _pDom);
         const prevRank = parseInt(profEl?.value || 0);
-        if (profEl && prevRank < eff.rank) {
-          state._featGrantedProfs.push({target: eff.target, rank: eff.rank, feat: feat.name, prevRank});
-          profEl.value = String(eff.rank);
+        if (profEl && prevRank < _pRank) {
+          state._featGrantedProfs.push({target: _pDom, rank: _pRank, feat: feat.name, prevRank});
+          profEl.value = String(_pRank);
         }
       }
       break;
