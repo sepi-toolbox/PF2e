@@ -1139,9 +1139,18 @@ function _growthGrantMap() {
   const psl = f => featSlug(f.slug || f.id || f.name_en || f.name_ko);
   roster.forEach(f => { if (f.lv <= curLevel) out.primary.add(psl(f)); });
   if (subIsThis) (sub.features || []).forEach(f => { if (f.lv <= curLevel) out.primary.add(psl(f)); });
-  // 서브클래스 부여(_subclass)의 귀속 대상 = kind=subclass 특성(교리·본능·뮤즈 등)
+  // 서브클래스 부여(_subclass)의 귀속 = PF2e 규칙상 '레벨별 서브클래스 발전 특성'이 부여 주체.
+  //   교리: 첫 번째 교리(1)·두 번째 교리(3)… = slug이 '-doctrine'으로 끝나는 발전 특성(평 'doctrine' 선택 특성은 제외).
+  //   해당 레벨의 발전 특성이 있으면 거기에, 없으면 서브클래스 선택 특성(subParent)에 귀속.
+  const advByLevel = {};
+  roster.forEach(f => {
+    if (f.lv > curLevel) return;
+    const s = String(f.slug || f.id || '');
+    if (/-doctrine$/.test(s)) advByLevel[f.lv] = featSlug(s);   // 발전 특성 앵커(클래스별 확장 지점)
+  });
   const subKindFeat = roster.find(f => f.kind === 'subclass' && f.lv <= curLevel);
   const subParent = subKindFeat ? psl(subKindFeat) : null;
+  const subclassParentFor = lv => advByLevel[lv] || subParent;   // 레벨 맞는 발전 특성 → 없으면 선택 특성
   const push = (k, v) => { if (!k) return false; (out.childrenOf[k] = out.childrenOf[k] || []).push(v); return true; };
   // 부여 재주 — _auto만. 특성 자체(성장표 로스터)는 프라이머리 박스이므로 제외.
   ['special', 'class', 'general', 'skill', 'ancestry', 'other'].forEach(cat => {
@@ -1149,8 +1158,8 @@ function _growthGrantMap() {
       if (!f || !f._auto) return;
       const sl = featSlug(f);
       if (out.primary.has(sl)) return;
-      const child = { kind: 'feat', slug: sl, name: f.name, obj: f, lv: f.level || 1 };
-      const parent = f._grantedBy ? featSlug(f._grantedBy) : (f._subclass ? subParent : null);
+      const child = { kind: 'feat', slug: sl, name: f.name, obj: f, lv: f.level || 1, _fromSub: !!f._subclass };
+      const parent = f._grantedBy ? featSlug(f._grantedBy) : (f._subclass ? subclassParentFor(f.level || 1) : null);
       if (!push(parent, child)) out.orphanFeats.push(child);
     });
   });
@@ -1159,9 +1168,10 @@ function _growthGrantMap() {
   ['focus', 'innate', 'known', 'cantrip'].forEach(ring => {
     (state.spells[ring] || []).forEach(s => {
       if (!s || (!s._auto && !s._sourceFeat && !s._heritage)) return;
-      const child = { kind: 'spell', slug: spellSlug(s), name: (s.name || spellDisplay(s)), obj: s, ring };
+      const _subSourced = !s._sourceFeat && subName && s._source && String(s._source).split(' (')[0].trim() === subName;
+      const child = { kind: 'spell', slug: spellSlug(s), name: (s.name || spellDisplay(s)), obj: s, ring, _fromSub: !!_subSourced };
       const parent = s._sourceFeat ? featSlug(s._sourceFeat)
-        : (subName && s._source && String(s._source).split(' (')[0].trim() === subName ? subParent : null);
+        : (_subSourced ? subclassParentFor(1) : null);
       if (parent) push(parent, child);
     });
   });
@@ -3968,18 +3978,18 @@ function _buildClassChoicesUI(cls) {
   });
 
   // 서브클래스/클레릭 블록 (1레벨)
+  //   ⚠ 교리 등 선택 UI가 담당하는 특성의 부여 재주/주문은 별도 박스로 그리지 않는다 — PF2e 규칙상 부여 주체는
+  //     '레벨별 발전 특성'(첫 번째 교리 등)이며(_growthGrantMap 귀속), 그 특성 카드 안에 중첩되어 이미 표시됨.
   if (subclassHtml) {
     html += subclassHtml;
-    // 선택 UI(교리/신격/신성원천)가 담당하는 특성이 부여하는 재주/주문 — 선택 UI 바로 아래 컴팩트 블록으로.
-    //   특성 카드를 중복 렌더하지 않고(위젯과 겹침 방지) 부여 항목만 빌더와 동일하게 노출.
-    //   ⚠ _gm은 커밋된 상태 기반 → 모달에서 서브클래스를 바꾸면 stale. subclass-kind 부여는 선택이 커밋과 일치할 때만.
-    html += _modalChoiceGrantsHtml(cls, featsByLv, deitySkill, _gm);
   }
+  // 서브클래스 출처 부여 stale 판정 — subclassHtml 빌드가 _modalChoices.subclass를 커밋값으로 설정한 뒤에 계산.
+  const _subStale = _modalSubStale(cls);
 
   // 1레벨 클래스 특성 블록들 (서브클래스 특성 + 선택 UI 담당분은 제외 — 중복 렌더 방지)
   lv1Feats.filter(f => !subFeats.includes(f) && !_featInChoiceUI(f, deitySkill)).forEach(f => {
     html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-      return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
+      return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm, _subStale);
     }, false, true)}</div>`;
   });
 
@@ -3992,7 +4002,7 @@ function _buildClassChoicesUI(cls) {
     lvFeats.forEach((f, fi) => {
       const isSub = subFeats.includes(f);
       html += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-        return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
+        return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm, _subStale);
       }, isSub, true);
     });
     html += `</div>`;
@@ -4020,25 +4030,6 @@ function _classLevelHeader(lv) {
 // collapsible=true: 재주/특성 카탈로그(PF2eFeat)에서 아이콘·설명을 해소해 클릭-펼침 아코디언으로.
 //   contentFn이 빈 본문을 반환하면 카탈로그 desc로 자동 보강(FVTT 클래스 특성은 name만 옴).
 // collapsible=false(기본): 인터랙티브 콘텐츠(기술 숙련 드롭다운 등) — 항상 펼침.
-// 선택 UI(교리/신격/신성원천)가 담당하는 특성의 부여 항목 — 선택 UI 아래 컴팩트 블록.
-//   subclass-kind(교리) 부여는 모달의 서브클래스 선택이 커밋 상태와 일치할 때만(_gm이 커밋 기반이라 stale 방지).
-function _modalChoiceGrantsHtml(cls, featsByLv, deitySkill, gm) {
-  if (!gm) return '';
-  const _subMatch = !!(state.selectedSubclass && state.selectedSubclass.class_id === cls.id
-    && _modalChoices && _modalChoices.subclass === state.selectedSubclass.id);
-  let out = '';
-  (featsByLv[1] || []).filter(f => _featInChoiceUI(f, deitySkill)).forEach(f => {
-    if (f.kind === 'subclass' && !_subMatch) return;   // 서브클래스 미확정/변경 중 → stale 부여 숨김
-    const slug = featSlug(f.slug || f.id || f.name_en || f.name_ko);
-    const kids = gm.childrenOf[slug] || [];
-    if (!kids.length) return;   // 부여 항목 있는 특성만(빈 박스 방지 — 위젯과 중복 회피)
-    // 모달 특성 카드 형식(.cfb-card)으로 — 특성 헤더(항상 펼침) + 부여 항목 카드(클릭 시 설명). 다른 모달 블록과 통일.
-    const body = kids.map(c => _modalGrantCardHtml(c, gm, 1)).join('');
-    out += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => body, false, false)}</div>`;
-  });
-  return out;
-}
-
 // 모달 부여 항목 한 장 = 모달 특성 카드(.cfb-card) 아코디언 — 클릭 시 설명 표시(다른 모달 카드와 동일 형식).
 //   자신이 다시 부여하는 것(영역 입문→집중주문)은 body에 카드로 재귀 중첩.
 function _modalGrantCardHtml(child, gm, depth) {
@@ -4057,12 +4048,20 @@ function _modalGrantCardHtml(child, gm, depth) {
 }
 
 // 모달 특성 블록용: 특성 slug이 부여하는 재주/주문을 모달 카드(.cfb-card)로 중첩(gm=출처 트리).
-function _classBlockGrantsHtml(f, gm) {
+//   dropSub=true(모달에서 서브클래스를 커밋과 다르게 선택 중) → 서브클래스 출처(_fromSub) 부여는 stale이므로 숨김.
+function _classBlockGrantsHtml(f, gm, dropSub) {
   if (!gm || typeof _subFeatCard !== 'function') return '';
   const slug = featSlug(f.slug || f.id || f.name_en || f.name_ko);
-  const kids = gm.childrenOf[slug] || [];
+  let kids = gm.childrenOf[slug] || [];
+  if (dropSub) kids = kids.filter(c => !c._fromSub);
   if (!kids.length) return '';
   return `<div style="margin-top:6px;">${kids.map(c => _modalGrantCardHtml(c, gm, 1)).join('')}</div>`;
+}
+
+// 모달에서 서브클래스 선택이 커밋 상태와 달라 서브클래스 출처 부여가 stale인지(=숨겨야 하는지).
+function _modalSubStale(cls) {
+  return !!(state.selectedSubclass && state.selectedSubclass.class_id === cls.id
+    && _modalChoices && _modalChoices.subclass && _modalChoices.subclass !== state.selectedSubclass.id);
 }
 
 function _classFeatureBlock(icon, nameKo, nameEn, contentFn, isSub, collapsible) {
@@ -4165,15 +4164,14 @@ function _refreshClassFeaturesPreview() {
   container.querySelectorAll('.cfp-dynamic').forEach(el => el.remove());
 
   const _gm = (typeof _growthGrantMap === 'function') ? _growthGrantMap() : null;
+  const _subStale = _modalSubStale(cls);
   const deitySkill = !!(cls && cls.deity_skill);
-  // 선택 UI(교리 등) 담당 특성의 부여 항목 — _buildClassChoicesUI와 동일(재렌더 시 사라지지 않게).
-  const choiceGrantsHtml = _modalChoiceGrantsHtml(cls, featsByLv, deitySkill, _gm);
   // 1레벨 클래스 특성 블록 추가 (서브클래스 특성 + 선택 UI 담당분은 제외 — 중복 렌더 방지)
   const lv1Feats = (featsByLv[1] || []).filter(f => (!subFeats.includes(f) || f.lv !== 1) && !_featInChoiceUI(f, deitySkill));
   let lv1Html = '';
   lv1Feats.forEach(f => {
     lv1Html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-      return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
+      return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm, _subStale);
     }, false, true)}</div>`;
   });
 
@@ -4186,13 +4184,13 @@ function _refreshClassFeaturesPreview() {
     lvFeats.forEach(f => {
       const isSub = subFeats.includes(f);
       otherHtml += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-        return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
+        return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm, _subStale);
       }, isSub, true);
     });
     otherHtml += `</div>`;
   });
 
-  container.insertAdjacentHTML('beforeend', choiceGrantsHtml + lv1Html + otherHtml);
+  container.insertAdjacentHTML('beforeend', lv1Html + otherHtml);
 }
 
 // ── 서브클래스 특성을 서브클래스 블록 안에 렌더링 (정규화된 SUBCLASS_DB.granted_*) ──

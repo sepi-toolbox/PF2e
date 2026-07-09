@@ -2292,6 +2292,14 @@
    }
   ]
  },
+ "doctrine-warpriest": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "shield-block"
+   }
+  ]
+ },
  "order-animal": {
   "rows": [
    {
