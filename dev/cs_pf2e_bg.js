@@ -63,6 +63,8 @@
       desc: PF.enrichDesc(PF.descKo(doc) || ''),
       rarity: (s.traits && s.traits.rarity) || 'common',
       _effects: backgroundEffects(doc),
+      // 부스트 = store 네이티브 4컬럼(build_boosts.mjs). getBackgroundEffects가 효과행 대신 이 컬럼을 읽음.
+      boost_fixed: (doc.boost_fixed || []).slice(), boost_free: doc.boost_free || 0, boost_choice: (doc.boost_choice || []).slice(),
       img: doc.img || null, _fvtt: true, _doc: doc,
     };
   }

@@ -611,22 +611,14 @@ function getBackgroundEffects(b) {
   const id = b.id || '';
   if (_BACKGROUND_EFFECTS_CACHE.has(id)) return _BACKGROUND_EFFECTS_CACHE.get(id);
   const out = { boosts: [], boost_choices: [], free_boosts: 0, fixed_skills: [], choice_skill_groups: [], fixed_lores: [], choice_lore: false, feat_id: null, deity_skill: false, deity_lore: false };
+  // 능력치 부스트 = 배경 store 네이티브 4컬럼(build_boosts.mjs). effects 테이블 ability_boost* 폐기.
+  out.boosts = (b.boost_fixed || []).slice();               // 고정 부스트
+  out.free_boosts = b.boost_free || 0;                      // 자유 부스트 개수
+  out.boost_choices = (b.boost_choice && b.boost_choice.length) ? [b.boost_choice.slice()] : []; // 택1 풀
   if (typeof getEffectRows === 'function') {
-    const _boostGroups = {};   // group_no → [ability...]
     const _skillGroups = {};   // group_no → [skill_id...]
-    for (const r of getEffectRows(b.id)) { // slug 단일 소스
+    for (const r of getEffectRows(b.id)) { // slug 단일 소스(기술·지식·재주·신격)
       switch (r.type) {
-        case 'ability_boost':
-          out.boosts.push(r.target);
-          break;
-        case 'ability_boost_choice': {
-          const g = r.group_no || 1;
-          (_boostGroups[g] = _boostGroups[g] || []).push(r.target);
-          break;
-        }
-        case 'free_boost_slots':
-          out.free_boosts += (r.value || 0);
-          break;
         case 'skill_trained':
           out.fixed_skills.push(r.target);
           break;
@@ -651,7 +643,6 @@ function getBackgroundEffects(b) {
           break;
       }
     }
-    out.boost_choices = Object.keys(_boostGroups).sort((a, b) => +a - +b).map(k => _boostGroups[k]);
     out.choice_skill_groups = Object.keys(_skillGroups).sort((a, b) => +a - +b).map(k => _skillGroups[k]);
   }
   _BACKGROUND_EFFECTS_CACHE.set(id, out);
@@ -665,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.173').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.174').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화

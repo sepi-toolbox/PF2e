@@ -132,7 +132,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm23"></script>
+<script src="cs_pf2e.js?v=dm24"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -152,7 +152,9 @@ const DM = (function(){
   const CLASS_SLUG_SET = new Set();
   // OVERRIDE 편집 대상. traits_ko는 제외 — 특성 번역은 '특성' 레지스트리 탭에서 slug 기준 단일편집,
   // 다른 표의 특성 컬럼은 slug→레지스트리 읽기전용 표시(표시 레이어 분리).
-  const EDITABLE = new Set(['name_ko','desc_ko']);
+  const EDITABLE = new Set(['name_ko','desc_ko','boost_fixed','boost_free','boost_choice','boost_flaws']);
+  const BOOST_ARRAY_COLS = new Set(['boost_fixed','boost_choice','boost_flaws']);   // 편집 시 슬러그 배열로 파싱/저장
+  const BOOST_INT_COLS = new Set(['boost_free']);                                    // 편집 시 정수로 저장
   const TABS = [
     {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'class','category','effect_group_id','actions','frequency','rules_n']},
     {id:'effects', label:'효과(자동화)', kind:'derived', src:'data/derived/effects.json', shape:'rows',
@@ -162,11 +164,11 @@ const DM = (function(){
        cols:['slug','text','parsed','conds']},
     {id:'spells',     label:'주문',     cat:'spells',     cols:['slug','name_en','name_ko','rank','traits_ko','range','area','defense','duration','rules_n','source']},
     {id:'equipment',  label:'장비',     cat:'equipment',  cols:['slug','name_en','name_ko','level','type','price','bulk','damage','traits_ko','source']},
-    {id:'classes',    label:'클래스',   cat:'classes',    cols:['slug','name_en','name_ko','keyAbility','casting','tradition','hp','perception','saves','attacks','defenses','source']},
+    {id:'classes',    label:'클래스',   cat:'classes',    cols:['slug','name_en','name_ko','boost_fixed','boost_free','boost_choice','boost_flaws','casting','tradition','hp','perception','saves','attacks','defenses','source']},
     {id:'conditions', label:'상태이상', cat:'conditions', cols:['slug','name_en','name_ko','effect_group_id','valued','group','rules_n','source']},
     {id:'actions',    label:'행동',     cat:'actions',    cols:[...COMMON.slice(0,3),'category','actions','frequency','traits_ko','rules_n']},
-    {id:'ancestries', label:'혈통',     cat:'ancestries', cols:['slug','name_en','name_ko','hp','size','speed','vision','languages','source']},
-    {id:'backgrounds',label:'배경',     cat:'backgrounds',cols:['slug','name_en','name_ko','effect_group_id','boosts','trainedSkills','rules_n','source']},
+    {id:'ancestries', label:'혈통',     cat:'ancestries', cols:['slug','name_en','name_ko','boost_fixed','boost_free','boost_choice','boost_flaws','hp','size','speed','vision','languages','source']},
+    {id:'backgrounds',label:'배경',     cat:'backgrounds',cols:['slug','name_en','name_ko','boost_fixed','boost_free','boost_choice','boost_flaws','effect_group_id','trainedSkills','rules_n','source']},
     {id:'heritages',  label:'유산',     cat:'heritages',  cols:['slug','name_en','name_ko','effect_group_id','ancestry','traits_ko','rules_n','source']},
     {id:'deities',    label:'신격',     cat:'deities',    cols:['slug','name_en','name_ko','effect_group_id','category','attribute','domains','alt_domains','cleric_spells','font','sanctification','source']},
     {id:'domains',    label:'영역',     kind:'derived', src:'data/derived/domains.json', shape:'rows',
@@ -214,6 +216,8 @@ const DM = (function(){
     valued:{h:'수치형',w:60,cls:'num'}, group:{h:'그룹',w:90},
     size:{h:'크기',w:60}, speed:{h:'속도',w:56,cls:'num'}, vision:{h:'시야',w:90}, languages:{h:'언어',w:150},
     ancestry:{h:'혈통',w:110}, boosts:{h:'능력증가',w:150}, trainedSkills:{h:'훈련기술',w:170},
+    boost_fixed:{h:'고정증강',w:100,cls:'key',edit:true}, boost_free:{h:'자유수',w:56,cls:'num',num:true,edit:true},
+    boost_choice:{h:'택1풀',w:110,cls:'key',edit:true}, boost_flaws:{h:'결함',w:80,cls:'key',edit:true},
     attribute:{h:'능력치',w:110}, domains:{h:'영역(주)',w:150}, alt_domains:{h:'영역(대체)',w:120}, font:{h:'신성원천',w:90}, sanctification:{h:'성별화',w:100},
     cleric_spells:{h:'신격주문(랭크:슬러그)',w:280},
     initialSpell:{h:'초기주문',w:160,cls:'key',edit:true}, initialSpell_ko:{h:'초기주문(한)',w:130},
@@ -251,6 +255,10 @@ const DM = (function(){
     text:'UI 문자열(HTML). @변환자 사용 가능.',
     traits_ko:'특성 — slug로 저장·매칭, 한글은 표시용. 편집은 「특성」 레지스트리 탭에서(slug 단일편집).',
     traits:'특성 — slug로 저장·매칭, 한글은 표시용. 편집은 「특성」 레지스트리 탭에서.',
+    boost_fixed:'고정 능력치 부스트(항상 적용). 능력치 slug를 / 또는 , 로 구분 입력(예: con / wis). 비우면 없음.',
+    boost_free:'자유 부스트 개수(정수). 아무 능력치에나 투자(런타임이 중복 방지).',
+    boost_choice:'택1 제한 풀. 이 중 1개 선택(예: str / con). PF2e 제한 부스트는 항상 택1.',
+    boost_flaws:'능력치 결함(-1, 항상 적용). slug를 / 로 구분(예: cha). 종족만 해당.',
     level:'정수 레벨(0~).', rank:'주문 랭크(0=캔트립 ~ 10).',
     type:'유형/분류 enum(slug).', category:'분류 enum(slug).',
     ability:'핵심 능력치 slug (str/dex/con/int/wis/cha).',
@@ -320,6 +328,11 @@ const DM = (function(){
     languages:r=>{const l=r.system&&r.system.languages&&r.system.languages.value; return Array.isArray(l)?l.join(', '):'';},
     ancestry:r=>{const a=r.system&&r.system.ancestry; return a&&(a.slug||a.name)||'';},
     boosts:r=>{const b=r.system&&r.system.boosts; if(!b)return''; return Object.values(b).map(x=>Array.isArray(x.value)?x.value.join('/'):'').filter(Boolean).join(', ');},
+    // 능력치 부스트 네이티브 4컬럼(store 단일소스, build_boosts.mjs). raw 슬러그 표시.
+    boost_fixed:r=>Array.isArray(r.boost_fixed)?r.boost_fixed.join(' / '):'',
+    boost_free:r=>r.boost_free!=null?String(r.boost_free):'',
+    boost_choice:r=>Array.isArray(r.boost_choice)?r.boost_choice.join(' / '):'',
+    boost_flaws:r=>Array.isArray(r.boost_flaws)?r.boost_flaws.join(' / '):'',
     trainedSkills:r=>{const t=r.system&&r.system.trainedSkills&&r.system.trainedSkills.value; return Array.isArray(t)?t.join(', '):'';},
     attribute:r=>{const a=r.system&&r.system.attribute; return Array.isArray(a)?a.join('/'):(a||'');},
     domains:r=>{const d=r.system&&r.system.domains&&r.system.domains.primary; return Array.isArray(d)?d.join(', '):'';},
@@ -500,7 +513,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm23').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm24').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -567,7 +580,8 @@ const DM = (function(){
     const slug=rowSlug(r), sel=slug===selSlug?' sel':'';
     let tds='';
     curTab.cols.forEach(c=>{
-      const m=COLMETA[c]||{}; const v=cellVal(r,c);
+      const m=COLMETA[c]||{}; const v0=cellVal(r,c);
+      const v = Array.isArray(v0) ? v0.join(' / ') : v0;   // override가 배열(부스트)이면 표시용 join
       const edit = m.edit && isEditable(c) && _isOwner;   // 소유자만 편집 가능(비소유자=읽기 전용)
       const edited = edit && ovGet(tabKey(),slug,c)!=null;
       const emptyKo = c==='name_ko'&&!v;
@@ -631,7 +645,12 @@ const DM = (function(){
       td.removeAttribute('contenteditable');
       const val=td.textContent.trim();
       _undo.push({cat:tabKey(),slug,field,prev: ovGet(tabKey(),slug,field)});   // Ctrl+Z용 이전값 기록
-      ovSet(tabKey(),slug,field, val===orig?'':val);
+      // 부스트 배열/정수 컬럼은 raw 슬러그 배열/숫자로 파싱해 저장(런타임 override가 top-level 필드로 그대로 반영).
+      let out;
+      if(BOOST_ARRAY_COLS.has(field)) out = val ? val.split(/[\s,\/、]+/).filter(Boolean) : '';
+      else if(BOOST_INT_COLS.has(field)) out = val==='' ? '' : (Number(val)||0);
+      else out = val;
+      ovSet(tabKey(),slug,field, val===orig?'':out);
       td.classList.toggle('edited', ovGet(tabKey(),slug,field)!=null);
       if(field==='name_ko'&&!val){ td.classList.add('empty-ko'); td.textContent='(미번역)'; }
       updateStatus();
@@ -831,8 +850,8 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm23').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm23').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm24').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm24').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride, onEffType, onEffFilter, clearEffFilter, toggleSchema };

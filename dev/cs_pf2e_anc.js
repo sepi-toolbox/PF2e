@@ -75,20 +75,12 @@
   // ── 혈통 → 레거시 ANCESTRIES 형태 ──
   function ancestryToLegacy(doc) {
     const s = doc.system || {};
-    const boosts = [], boost_choices = []; let free_boosts = 0;
-    for (const k of Object.keys(s.boosts || {})) {
-      const v = ((s.boosts[k] || {}).value) || [];
-      if (v.length >= 6) free_boosts++;          // 6개 전체 = 자유 부스트
-      else if (v.length === 1) boosts.push(v[0]); // 단일 = 고정
-      else if (v.length > 1) boost_choices.push(v.slice());
-    }
-    const flaws = [], flaw_choices = []; let free_flaws = 0;
-    for (const k of Object.keys(s.flaws || {})) {
-      const v = ((s.flaws[k] || {}).value) || [];
-      if (v.length >= 6) free_flaws++;
-      else if (v.length === 1) flaws.push(v[0]);
-      else if (v.length > 1) flaw_choices.push(v.slice());
-    }
+    // 부스트/결함 = store 네이티브 4컬럼 단일소스(build_boosts.mjs 베이크). system.boosts 직접 파싱 폐기.
+    const boosts = (doc.boost_fixed || []).slice();          // 고정 부스트(항상 적용)
+    const free_boosts = doc.boost_free || 0;                 // 자유 부스트 개수
+    const boost_choices = (doc.boost_choice && doc.boost_choice.length) ? [doc.boost_choice.slice()] : []; // 택1 풀(≤1그룹)
+    const flaws = (doc.boost_flaws || []).slice();           // 고정 결함
+    const flaw_choices = []; const free_flaws = 0;           // 측정상 종족 결함은 고정뿐(호환 필드 유지)
     const vision = VISION_MAP[s.vision] != null ? VISION_MAP[s.vision] : (s.vision || 'none');
     const langs = (s.languages && s.languages.value) || [];
     const addl = s.additionalLanguages || {};

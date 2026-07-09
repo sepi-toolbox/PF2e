@@ -228,7 +228,7 @@ const KEEP_DISPLAY_TYPES = new Set([
   'grant_feat', 'grant_focus_spell', 'grant_innate_spell', 'grant_lore', 'grant_item', 'grant_spell', 'grant_action', 'grant_weapon',
   'skill_trained', 'skill_bonus', 'save_bonus', 'ac_bonus', 'hp_bonus', 'perception_bonus', 'initiative_bonus', 'speed_extra', 'speed_bonus', 'bulk_bonus', 'proficiency',
   'resistance', 'weakness', 'immunity', 'vision_upgrade', 'extra_sense',
-  'attribute_boost', 'ability_boost', 'ability_boost_choice', 'free_boost_slots',
+  'attribute_boost',   // 신격 선호 능력치(구조필드). ability_boost/ability_boost_choice/free_boost_slots는 store 네이티브 부스트 컬럼으로 이관(폐기).
   'domain', 'favored_weapon', 'divine_font', 'sanctification', 'rune',
   'note', 'display_note', 'damage_note', 'choice'
 ]);
@@ -306,13 +306,8 @@ function emitDeity(base, doc, leg) {
 function emitBackground(base, doc) {
   const s = doc.system || {};
   const out = [];
-  let bg = 0;
-  for (const k of Object.keys(s.boosts || {})) {
-    const v = ((s.boosts[k] || {}).value) || [];
-    if (v.length >= 6) out.push({ type: 'free_boost_slots', value: 1 });
-    else if (v.length === 1) out.push({ type: 'ability_boost', target: v[0] });
-    else if (v.length > 1) { bg++; for (const a of v) out.push({ type: 'ability_boost_choice', target: a, group_no: bg }); }
-  }
+  // 능력치 부스트는 store 네이티브 4컬럼(build_boosts.mjs)이 단일소스 → 효과 테이블에서 제외.
+  //   (ability_boost/ability_boost_choice/free_boost_slots 폐기. getBackgroundEffects가 컬럼을 직접 읽음.)
   const ts = s.trainedSkills || {};
   for (const sk of (ts.value || [])) out.push({ type: 'skill_trained', target: sk });
   // 지식(lore): FVTT는 "A or B Lore"/"A, B, or C Lore"(택1)를 배열/문자열로 담음.
