@@ -3912,6 +3912,8 @@ function _buildClassChoicesUI(cls) {
   const allFeats = [...classFeats, ...subFeats].sort((a, b) => a.lv - b.lv || a.name_ko.localeCompare(b.name_ko));
   const featsByLv = {};
   allFeats.forEach(f => { (featsByLv[f.lv] = featsByLv[f.lv] || []).push(f); });
+  // 부여(재주/주문) 출처 트리 — 빌더(성장 플랜)와 동일 소스. 모달 특성 블록에도 중첩 표시.
+  const _gm = (typeof _growthGrantMap === 'function') ? _growthGrantMap() : null;
 
   // ── 서브클래스 HTML 미리 준비 ── (신격/교의/신성원천 UI = deity_skill 플래그, 하드코딩 'cleric' 대신)
   let subclassHtml = '';
@@ -3968,12 +3970,16 @@ function _buildClassChoicesUI(cls) {
   // 서브클래스/클레릭 블록 (1레벨)
   if (subclassHtml) {
     html += subclassHtml;
+    // 선택 UI(교리/신격/신성원천)가 담당하는 특성이 부여하는 재주/주문 — 선택 UI 바로 아래 컴팩트 블록으로.
+    //   특성 카드를 중복 렌더하지 않고(위젯과 겹침 방지) 부여 항목만 빌더와 동일하게 노출.
+    //   ⚠ _gm은 커밋된 상태 기반 → 모달에서 서브클래스를 바꾸면 stale. subclass-kind 부여는 선택이 커밋과 일치할 때만.
+    html += _modalChoiceGrantsHtml(cls, featsByLv, deitySkill, _gm);
   }
 
   // 1레벨 클래스 특성 블록들 (서브클래스 특성 + 선택 UI 담당분은 제외 — 중복 렌더 방지)
   lv1Feats.filter(f => !subFeats.includes(f) && !_featInChoiceUI(f, deitySkill)).forEach(f => {
     html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-      return f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '';
+      return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
     }, false, true)}</div>`;
   });
 
@@ -3986,7 +3992,7 @@ function _buildClassChoicesUI(cls) {
     lvFeats.forEach((f, fi) => {
       const isSub = subFeats.includes(f);
       html += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-        return f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '';
+        return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
       }, isSub, true);
     });
     html += `</div>`;
@@ -4014,6 +4020,30 @@ function _classLevelHeader(lv) {
 // collapsible=true: 재주/특성 카탈로그(PF2eFeat)에서 아이콘·설명을 해소해 클릭-펼침 아코디언으로.
 //   contentFn이 빈 본문을 반환하면 카탈로그 desc로 자동 보강(FVTT 클래스 특성은 name만 옴).
 // collapsible=false(기본): 인터랙티브 콘텐츠(기술 숙련 드롭다운 등) — 항상 펼침.
+// 선택 UI(교리/신격/신성원천)가 담당하는 특성의 부여 항목 — 선택 UI 아래 컴팩트 블록.
+//   subclass-kind(교리) 부여는 모달의 서브클래스 선택이 커밋 상태와 일치할 때만(_gm이 커밋 기반이라 stale 방지).
+function _modalChoiceGrantsHtml(cls, featsByLv, deitySkill, gm) {
+  if (!gm) return '';
+  const _subMatch = !!(state.selectedSubclass && state.selectedSubclass.class_id === cls.id
+    && _modalChoices && _modalChoices.subclass === state.selectedSubclass.id);
+  let out = '';
+  (featsByLv[1] || []).filter(f => _featInChoiceUI(f, deitySkill)).forEach(f => {
+    if (f.kind === 'subclass' && !_subMatch) return;   // 서브클래스 미확정/변경 중 → stale 부여 숨김
+    const g = _classBlockGrantsHtml(f, gm);
+    if (g) out += `<div class="cfp-dynamic gcf-choice-grants"><div class="gcf-choice-lbl">${f.name_ko}<span class="gcf-fen"> ${f.name_en || ''}</span> — 부여</div>${g}</div>`;
+  });
+  return out;
+}
+
+// 모달 특성 블록용: 특성 slug이 부여하는 재주/주문을 빌더와 동일한 중첩 행으로 렌더(gm=출처 트리).
+function _classBlockGrantsHtml(f, gm) {
+  if (!gm || typeof _growthGrantChildHtml !== 'function') return '';
+  const slug = featSlug(f.slug || f.id || f.name_en || f.name_ko);
+  const kids = gm.childrenOf[slug] || [];
+  if (!kids.length) return '';
+  return `<div class="gcf-grants" style="margin-top:6px;">${kids.map(c => _growthGrantChildHtml(c, gm, 1)).join('')}</div>`;
+}
+
 function _classFeatureBlock(icon, nameKo, nameEn, contentFn, isSub, collapsible) {
   const subTag = isSub ? `<span class="cfb-subtag">서브클래스</span>` : '';
   // 아이콘/설명 해소: FVTT 재주 카탈로그 우선 → 레거시 getFeat
@@ -4113,13 +4143,16 @@ function _refreshClassFeaturesPreview() {
   // 기존 동적 블록 제거 (class-feat-dynamic 클래스)
   container.querySelectorAll('.cfp-dynamic').forEach(el => el.remove());
 
+  const _gm = (typeof _growthGrantMap === 'function') ? _growthGrantMap() : null;
   const deitySkill = !!(cls && cls.deity_skill);
+  // 선택 UI(교리 등) 담당 특성의 부여 항목 — _buildClassChoicesUI와 동일(재렌더 시 사라지지 않게).
+  const choiceGrantsHtml = _modalChoiceGrantsHtml(cls, featsByLv, deitySkill, _gm);
   // 1레벨 클래스 특성 블록 추가 (서브클래스 특성 + 선택 UI 담당분은 제외 — 중복 렌더 방지)
   const lv1Feats = (featsByLv[1] || []).filter(f => (!subFeats.includes(f) || f.lv !== 1) && !_featInChoiceUI(f, deitySkill));
   let lv1Html = '';
   lv1Feats.forEach(f => {
     lv1Html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-      return f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '';
+      return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
     }, false, true)}</div>`;
   });
 
@@ -4132,13 +4165,13 @@ function _refreshClassFeaturesPreview() {
     lvFeats.forEach(f => {
       const isSub = subFeats.includes(f);
       otherHtml += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-        return f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '';
+        return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
       }, isSub, true);
     });
     otherHtml += `</div>`;
   });
 
-  container.insertAdjacentHTML('beforeend', lv1Html + otherHtml);
+  container.insertAdjacentHTML('beforeend', choiceGrantsHtml + lv1Html + otherHtml);
 }
 
 // ── 서브클래스 특성을 서브클래스 블록 안에 렌더링 (정규화된 SUBCLASS_DB.granted_*) ──
