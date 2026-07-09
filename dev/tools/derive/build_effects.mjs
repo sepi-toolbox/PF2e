@@ -41,6 +41,70 @@ const SAVES = new Set(['fortitude', 'reflex', 'will', 'saving-throw']);
 const SPEEDS = new Set(['speed', 'land-speed', 'all-speeds']);
 function selList(s) { return Array.isArray(s) ? s : (s == null ? [] : [s]); }
 function predSummary(p) { if (!p) return ''; try { return JSON.stringify(p).slice(0, 120); } catch (e) { return ''; } }
+
+// ── parseCondition: FVTT predicate → 정적/상황 분류 + 구조화 조건 컬럼(그룹·효과타입·대상·값·값종류·조건·조건밸류의 마지막 2컬럼) ──
+//  정적(static)=캐릭터 상태로 확정평가 가능(레벨/클래스/재주/특징/유산/특성/갑옷) → 런타임 조건엔진이 평가.
+//  상황(sit)=롤타임(무기·주문·대상·행동·활성효과 등) → 정적 시트 미적용(표시·감사만).  bracket({}) 포함=동적참조=상황.
+const STATIC_LEAF = [/^class:/, /^feat:/, /^feature:/, /^self:heritage/, /^self:trait:/, /^self:ancestry/, /^self:class/, /^armor:(?!id:)/, /^self:armored$/, /^self:size:/, /^self:(low-light-vision|darkvision|see-invisibility)/, /^self:level$/];
+function _leafKind(s) {
+  if (typeof s !== 'string') return 'num';
+  if (/[{}]/.test(s)) return 'sit';            // 동적 브래킷 참조 → 상황
+  if (/^-?\d+$/.test(s)) return 'num';
+  for (const re of STATIC_LEAF) if (re.test(s)) return 'static';
+  return 'sit';                                 // 미인식 leaf(item:/spellcasting:/target:/action:/self:effect|condition/ + bare 태그)=상황(보수적)
+}
+function _classifyNode(node) {
+  if (node == null) return 'static';
+  if (Array.isArray(node)) { let k = 'static'; for (const x of node) if (_classifyNode(x) === 'sit') k = 'sit'; return k; }
+  if (typeof node === 'object') {
+    for (const op of Object.keys(node)) {
+      const operand = node[op];
+      if (['gte', 'gt', 'lte', 'lt', 'eq'].includes(op)) { const arr = Array.isArray(operand) ? operand : [operand]; for (const a of arr) if (typeof a === 'string' && _leafKind(a) === 'sit') return 'sit'; return 'static'; }
+      if (['and', 'or', 'not', 'nand', 'nor', 'if', 'xor'].includes(op)) { if (_classifyNode(operand) === 'sit') return 'sit'; }
+      else return 'sit';                          // 미인식 연산자 = 보수적 상황
+    }
+    return 'static';
+  }
+  return _leafKind(node) === 'sit' ? 'sit' : 'static';
+}
+// 표시용 한글 라벨 요약(런타임은 raw predicate `cond`만 사용 — 라벨은 lossy 허용).
+const _CMP = { gte: '≥', gt: '>', lte: '≤', lt: '<', eq: '=' };
+function _leafLabel(s) {
+  let m;
+  if ((m = /^class:(.+)$/.exec(s))) return { c: '클래스', v: m[1] };
+  if ((m = /^feat:(.+)$/.exec(s))) return { c: '재주 보유', v: m[1] };
+  if ((m = /^feature:(.+)$/.exec(s))) return { c: '특징 보유', v: m[1] };
+  if ((m = /^self:heritage:(.+)$/.exec(s)) || (m = /^self:heritage$/.exec(s))) return { c: '유산', v: m[1] || '' };
+  if ((m = /^self:trait:(.+)$/.exec(s))) return { c: '특성', v: m[1] };
+  if (/^armor:|^self:armored$/.test(s)) return { c: '갑옷', v: s.replace(/^armor:/, '') };
+  if ((m = /^self:size:(.+)$/.exec(s))) return { c: '크기', v: m[1] };
+  if (/^self:(low-light-vision|darkvision|see-invisibility)/.test(s)) return { c: '감각', v: s.replace(/^self:/, '') };
+  return { c: '', v: s };
+}
+function _summarize(node) { // → {parts:[{c,v}], joiner}
+  if (node == null) return { parts: [], joiner: ' 그리고 ' };
+  if (Array.isArray(node)) { const parts = []; for (const x of node) parts.push(..._summarize(x).parts); return { parts, joiner: ' 그리고 ' }; }
+  if (typeof node === 'object') {
+    for (const op of Object.keys(node)) {
+      const operand = node[op];
+      if (_CMP[op]) { const arr = Array.isArray(operand) ? operand : [operand]; const lhs = arr[0], rhs = arr[1]; if (lhs === 'self:level') return { parts: [{ c: '레벨', v: _CMP[op] + rhs }], joiner: ' 그리고 ' }; return { parts: [{ c: String(lhs), v: _CMP[op] + rhs }], joiner: ' 그리고 ' }; }
+      if (op === 'not') { const s = _summarize(operand); return { parts: s.parts.map(p => ({ c: p.c, v: '아님:' + p.v })), joiner: ' 그리고 ' }; }
+      if (op === 'or' || op === 'nor') { const s = _summarize(operand); s.joiner = ' 또는 '; return s; }
+      if (['and', 'nand', 'if', 'xor'].includes(op)) return _summarize(operand);
+    }
+    return { parts: [], joiner: ' 그리고 ' };
+  }
+  return { parts: [_leafLabel(String(node))], joiner: ' 그리고 ' };
+}
+function parseCondition(pred) {
+  if (!pred || (Array.isArray(pred) && !pred.length)) return { kind: 'none', condition: '', cond_value: '' };
+  const kind = _classifyNode(pred);
+  const sm = _summarize(pred);
+  if (!sm.parts.length) return { kind, condition: kind === 'sit' ? '상황' : '조건', cond_value: predSummary(pred) };
+  if (sm.parts.length === 1) { const p = sm.parts[0]; return { kind, condition: kind === 'sit' ? ('상황:' + (p.c ? p.c : p.v)) : (p.c || '조건'), cond_value: p.v, cond: kind === 'static' ? pred : undefined }; }
+  const cond = sm.parts.map(p => (p.c ? p.c + '=' : '') + p.v).join(sm.joiner);
+  return { kind, condition: kind === 'sit' ? '상황(복합)' : '복합', cond_value: cond, cond: kind === 'static' ? pred : undefined };
+}
 function flatType(sel) {
   if (SAVES.has(sel)) return 'save_bonus';
   if (SKILLS.has(sel)) return 'skill_bonus';
@@ -73,6 +137,7 @@ function fvttRuleRows(doc) {
   for (const r of rules) {
     const cond = predSummary(r.predicate);
     const val = (v) => (v == null ? '' : (typeof v === 'object' ? JSON.stringify(v) : v));
+    const _before = out.length;
     switch (r.key) {
       case 'FlatModifier': for (const s of selList(r.selector)) out.push({ re_key: r.key, type: flatType(s), target: s, value: val(r.value), bonus_type: r.type || 'untyped', condition: cond }); break;
       case 'ActiveEffectLike': { const a = aelType(r.path); out.push({ re_key: r.key, type: a.type, target: a.target, value: val(r.value), bonus_type: r.mode || '', condition: cond }); break; }
@@ -89,6 +154,7 @@ function fvttRuleRows(doc) {
       case 'AdjustModifier': out.push({ re_key: r.key, type: 'adjust_modifier', target: r.selector || '', value: val(r.value), condition: cond }); break;
       default: out.push({ re_key: r.key, type: (r.key || 'rule').replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase(), target: r.selector || r.path || '', value: val(r.value), condition: cond }); break;
     }
+    for (let i = _before; i < out.length; i++) out[i]._pred = r.predicate || null;  // raw predicate → parseCondition(표시·런타임)
   }
   return out;
 }
@@ -100,8 +166,14 @@ function emitFvtt(base, doc, bake = true) {
   const rr = fvttRuleRows(doc);
   if (!rr.length) return;
   const b = { owner_kind: base.owner_kind, owner_slug: base.owner_slug, owner_name: base.owner_name, owner_level: base.owner_level, category: base.category, src: 'rule' };
-  for (const r of rr) { const { re_key, ...rest } = r; rows.push({ ...b, rule: re_key || '', ...rest }); stat.fvtt++; }
-  // 런타임 소스: 적용가능 type + 무조건(predicate 없음) + 브래킷 미포함만. bake=false(조건/신격)=표시·FK만.
+  for (const r of rr) {
+    const { re_key, _pred, condition, ...rest } = r;
+    const pc = parseCondition(_pred);   // 구조화 조건 컬럼(조건·조건밸류). deity/background/curated는 자체 condition 텍스트 유지(이 경로 밖).
+    rows.push({ ...b, rule: re_key || '', ...rest, condition: pc.kind === 'none' ? '' : pc.condition, cond_value: pc.cond_value || '' });
+    stat.fvtt++;
+  }
+  // 런타임 소스: 적용가능 type + (무조건 OR 정적조건) + 브래킷 미포함. 상황조건·bake=false(신격)=표시·FK만.
+  //  Phase 2: 무조건(kind==='none')만 편입 = 종전과 동일(런타임 무변경). 정적조건 편입은 Phase 3(조건엔진 동반).
   if (!bake) return;
   const runRows = rr.filter(r => APPLY_TYPES.has(r.type) && !r.condition
     && !/[{}]/.test(String(r.target == null ? '' : r.target)) && !/[{}]/.test(String(r.value == null ? '' : r.value)))

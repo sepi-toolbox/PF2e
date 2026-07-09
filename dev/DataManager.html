@@ -120,7 +120,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm15"></script>
+<script src="cs_pf2e.js?v=dm16"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -144,7 +144,8 @@ const DM = (function(){
   const TABS = [
     {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'class','category','effect_group_id','actions','frequency','rules_n']},
     {id:'effects', label:'효과(자동화)', kind:'derived', src:'data/derived/effects.json', shape:'rows',
-       cols:['owner_kind','owner_slug','owner_name','rule','src','type','target','value','bonus_type','condition','actionCost','summary','note','choice','option','option_name']},
+       // 7컬럼 정규화(v0.162): 그룹(owner)·효과타입(type)·대상(target)·값(value)·값종류(bonus_type)·조건(condition)·조건밸류(cond_value). 뒤는 보조 메타.
+       cols:['owner_kind','owner_slug','owner_name','type','target','value','bonus_type','condition','cond_value','rule','src','actionCost','summary','note','choice','option','option_name']},
     {id:'prereqs', label:'선행조건', kind:'derived', src:'data/derived/prereqs.json', shape:'rows',
        cols:['slug','text','parsed','conds']},
     {id:'spells',     label:'주문',     cat:'spells',     cols:['slug','name_en','name_ko','rank','traits_ko','range','area','defense','duration','rules_n','source']},
@@ -223,7 +224,7 @@ const DM = (function(){
     owner_kind:{h:'소속',w:74}, owner_slug:{h:'엔티티',w:160,cls:'key'}, owner_name:{h:'엔티티(한글)',w:160},
     rule:{h:'규칙/그룹',w:150,cls:'key'},
     effect_group_id:{h:'효과그룹(FK)',w:190,cls:'key'}, src:{h:'구분',w:74},
-    target:{h:'대상',w:130}, value:{h:'값',w:64}, bonus_type:{h:'보너스종류',w:92}, condition:{h:'조건',w:150},
+    target:{h:'대상',w:130}, value:{h:'값',w:64}, bonus_type:{h:'값종류',w:92}, condition:{h:'조건',w:120}, cond_value:{h:'조건밸류',w:190},
     actionCost:{h:'행동비용',w:64}, summary:{h:'요약',w:280}, note:{h:'노트',w:300},
     choice:{h:'선택지ID',w:130,cls:'key'}, option:{h:'옵션ID',w:130,cls:'key'}, option_name:{h:'옵션명',w:150},
   };
@@ -257,8 +258,9 @@ const DM = (function(){
     type:'효과 유형(enum): grant_lore(지식 부여)·grant_feat(재주 부여)·grant_focus_spell/grant_innate_spell(주문 부여)·skill_trained(기술 숙련)·save_bonus·resistance·vision_upgrade… raw slug 그대로.',
     target:'효과 대상 = slug(예 breath-control) 또는 특수토큰 $choice(=이 재주의 choice 행에서 사용자가 고른 값에 바인딩). type별로 기술id·주문slug·재주slug·피해유형 등.',
     value:'수치 또는 특수값(예: level). type별 의미(HP/보너스/저항량 등).',
-    bonus_type:'보너스 종류(circumstance/status/item/untyped) — 스태킹 규칙.',
-    condition:'적용 조건(있을 때만). 표시용 텍스트.',
+    bonus_type:'값종류 = 보너스 스태킹 규칙(circumstance 상황/status 상태/item 물품/untyped 무형).',
+    condition:'조건 분류(정규화): 무조건=빈칸 / 정적(레벨·클래스·재주 보유·특징 보유·유산·특성·갑옷·복합)=런타임 조건엔진이 캐릭터 상태로 평가·적용 / 상황(상황:·상황(복합))=롤타임(무기·주문·대상·행동)이라 정적 시트 미적용, 표시·감사만.',
+    cond_value:'조건밸류 = 조건의 피연산자(예 레벨→≥5, 클래스→barbarian, 재주 보유→slug). 복합/상황은 조건식 요약. 런타임은 원본 predicate로 평가(표시는 lossy 한글요약).',
     actionCost:'grant_action 행동비용(1/2/3/free/reaction).', summary:'grant_action 등 행동 요약(HTML).',
     note:'display_note/damage_note 본문(자동 표시 노트).',
     choice:'선택지 그룹 id(choice_id).', option:'선택 옵션 id.', option_name:'선택 옵션 표시명.',
@@ -443,7 +445,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm15').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm16').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -765,8 +767,8 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm15').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm15').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm16').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm16').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride };
