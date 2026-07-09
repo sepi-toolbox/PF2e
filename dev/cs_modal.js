@@ -1193,9 +1193,7 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
   const nameKo = (f.name_ko || (featData && featData.name_ko) || slug).split(' (')[0].trim();
   const nameEn = f.name_en || (featData && featData.name_en) || '';
   const badge = (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
-  // 모달에선 이미 클래스 모달 안이라 재오픈 onclick 제외(noClick).
-  const clickAttr = (opts && opts.noClick) ? ' style="cursor:default;"' : ` onclick="openClassModalAtLevel(${lv})"`;
-  return `<div class="growth-slot filled gcf-box"${clickAttr}>
+  return `<div class="growth-slot filled gcf-box" onclick="openClassModalAtLevel(${lv})">
     <div class="gcf-main">
       <span class="gcf-fic">${ic}</span>
       <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>${badge}
@@ -4032,20 +4030,39 @@ function _modalChoiceGrantsHtml(cls, featsByLv, deitySkill, gm) {
   (featsByLv[1] || []).filter(f => _featInChoiceUI(f, deitySkill)).forEach(f => {
     if (f.kind === 'subclass' && !_subMatch) return;   // 서브클래스 미확정/변경 중 → stale 부여 숨김
     const slug = featSlug(f.slug || f.id || f.name_en || f.name_ko);
-    if (!(gm.childrenOf[slug] || []).length) return;   // 부여 항목 있는 특성만(빈 박스 방지 — 위젯과 중복 회피)
-    // 빌더와 동일한 특성 박스로 렌더(형식 통일). 모달이므로 재오픈 onclick 제외.
-    out += `<div class="cfp-dynamic">${_growthFeatureBoxHtml(f, 1, gm, { noClick: true })}</div>`;
+    const kids = gm.childrenOf[slug] || [];
+    if (!kids.length) return;   // 부여 항목 있는 특성만(빈 박스 방지 — 위젯과 중복 회피)
+    // 모달 특성 카드 형식(.cfb-card)으로 — 특성 헤더(항상 펼침) + 부여 항목 카드(클릭 시 설명). 다른 모달 블록과 통일.
+    const body = kids.map(c => _modalGrantCardHtml(c, gm, 1)).join('');
+    out += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => body, false, false)}</div>`;
   });
   return out;
 }
 
-// 모달 특성 블록용: 특성 slug이 부여하는 재주/주문을 빌더와 동일한 중첩 행으로 렌더(gm=출처 트리).
+// 모달 부여 항목 한 장 = 모달 특성 카드(.cfb-card) 아코디언 — 클릭 시 설명 표시(다른 모달 카드와 동일 형식).
+//   자신이 다시 부여하는 것(영역 입문→집중주문)은 body에 카드로 재귀 중첩.
+function _modalGrantCardHtml(child, gm, depth) {
+  const isSpell = child.kind === 'spell';
+  const scope = isSpell ? 'spell' : 'feat';
+  const dataObj = isSpell ? (typeof getSpell === 'function' && getSpell(child.slug))
+                          : (typeof getFeat === 'function' && getFeat(child.slug));
+  const nameKo = (child.name || '').split(' (')[0].trim() || (dataObj && (dataObj.name_ko || dataObj.name_en)) || child.slug;
+  const nameEn = (dataObj && dataObj.name_en) || '';
+  const badge = isSpell ? '부여 주문' : '부여 재주';
+  const rawDesc = dataObj ? (dataObj.desc || dataObj.summary || '') : '';
+  const descHtml = rawDesc ? `<div class="cfb-desc">${typeof resolveDescRefs === 'function' ? resolveDescRefs(rawDesc) : rawDesc}</div>` : '';
+  const kids = depth < 4 ? (gm.childrenOf[child.slug] || []) : [];
+  const kidsHtml = kids.map(c => _modalGrantCardHtml(c, gm, depth + 1)).join('');
+  return _subFeatCard(scope, dataObj, nameKo, nameEn, badge, descHtml + kidsHtml);
+}
+
+// 모달 특성 블록용: 특성 slug이 부여하는 재주/주문을 모달 카드(.cfb-card)로 중첩(gm=출처 트리).
 function _classBlockGrantsHtml(f, gm) {
-  if (!gm || typeof _growthGrantChildHtml !== 'function') return '';
+  if (!gm || typeof _subFeatCard !== 'function') return '';
   const slug = featSlug(f.slug || f.id || f.name_en || f.name_ko);
   const kids = gm.childrenOf[slug] || [];
   if (!kids.length) return '';
-  return `<div class="gcf-grants" style="margin-top:6px;">${kids.map(c => _growthGrantChildHtml(c, gm, 1)).join('')}</div>`;
+  return `<div style="margin-top:6px;">${kids.map(c => _modalGrantCardHtml(c, gm, 1)).join('')}</div>`;
 }
 
 function _classFeatureBlock(icon, nameKo, nameEn, contentFn, isSub, collapsible) {
