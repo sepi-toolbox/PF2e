@@ -665,19 +665,81 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.162').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.163').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
     try { if (typeof recalcAll === 'function') recalcAll(); } catch (e) {}
   }).catch(() => {});
 }
+// ── 효과 조건엔진(v0.163): 정적조건(cond=raw predicate) 행을 캐릭터 상태로 평가. 못 푸는 원자=미해소→행 skip(안전, 무회귀). ──
+//   편입 대상=부여(grant)+기술훈련 정적조건행(build_effects ACT_COND_TYPES). 상황조건은 애초 런타임 미편입.
+//   삼치 논리(true/false/null=미해소): AND 하나라도 false→false, 미해소 포함→null. OR 하나라도 true→true. 최상위 true만 적용.
+function _effectCondCtx() {   // recalc마다 값싸게 재구성(캐시 없음 — feats Set 수십개는 무시할 비용).
+  const level = (typeof getLevel === 'function') ? getLevel() : 1;
+  const cls = (typeof state !== 'undefined' && state.selectedClass && state.selectedClass.id) || '';
+  const feats = new Set();
+  try { Object.values(state.feats || {}).forEach(arr => (arr || []).forEach(f => { if (f) { const s = (typeof featSlug === 'function') ? featSlug(f) : (f.id || f.name); if (s) feats.add(String(s)); } })); } catch (e) {}
+  const features = new Set();
+  const sub = (typeof state !== 'undefined') && state.selectedSubclass;
+  if (sub && sub.id) { features.add(String(sub.id)); if (sub.subclass_type) features.add(String(sub.subclass_type)); }
+  try { if (typeof PF2eClass !== 'undefined' && PF2eClass.classFeatureRoster && cls) (PF2eClass.classFeatureRoster(cls) || []).forEach(f => { const s = f && (f.slug || f.id); if (s) features.add(String(s)); }); } catch (e) {}
+  const heritage = (typeof state !== 'undefined' && state.selectedHeritage && state.selectedHeritage.id) || '';
+  const ancestry = (typeof state !== 'undefined' && state.selectedAncestry && state.selectedAncestry.id) || '';
+  const traits = new Set();
+  try { ((state.selectedAncestry && state.selectedAncestry.traits) || []).forEach(t => traits.add(String(t))); } catch (e) {}
+  return { level, cls, feats, features, heritage, ancestry, traits };
+}
+function _evalCondAtom(atom, ctx) {   // → true|false|null(미해소)
+  if (typeof atom !== 'string' || /[{}]/.test(atom)) return null;
+  let m;
+  if ((m = /^class:(.+)$/.exec(atom))) return ctx.cls === m[1];
+  if ((m = /^self:heritage:(.+)$/.exec(atom))) return ctx.heritage === m[1];
+  if ((m = /^self:ancestry:(.+)$/.exec(atom))) return ctx.ancestry === m[1];
+  if ((m = /^self:trait:(.+)$/.exec(atom))) return ctx.traits.has(m[1]);
+  if ((m = /^feat:(.+)$/.exec(atom))) { const s = m[1]; return ctx.feats.has(s) || ctx.feats.has(s.split(':')[0]); }
+  if ((m = /^feature:(.+)$/.exec(atom))) { const s = m[1]; return ctx.features.has(s) || ctx.feats.has(s); }
+  return null;   // armor:*/self:size/senses 등 미모델 → 미해소
+}
+function _condOperand(v, ctx) {
+  if (v === 'self:level') return ctx.level;
+  if (typeof v === 'number') return v;
+  if (typeof v === 'string' && /^-?\d+$/.test(v)) return parseInt(v);
+  return undefined;
+}
+function _evalCondNode(node, ctx) {   // → true|false|null
+  if (node == null) return true;
+  if (Array.isArray(node)) { let unk = false; for (const x of node) { const r = _evalCondNode(x, ctx); if (r === false) return false; if (r === null) unk = true; } return unk ? null : true; }
+  if (typeof node === 'object') {
+    for (const op of Object.keys(node)) {
+      const o = node[op];
+      if (op === 'gte' || op === 'gt' || op === 'lte' || op === 'lt' || op === 'eq') {
+        const a = Array.isArray(o) ? o : [o], L = _condOperand(a[0], ctx), R = _condOperand(a[1], ctx);
+        if (L === undefined || R === undefined) return null;
+        return op === 'gte' ? L >= R : op === 'gt' ? L > R : op === 'lte' ? L <= R : op === 'lt' ? L < R : L === R;
+      }
+      if (op === 'and' || op === 'nand') { const r = _evalCondNode(o, ctx); return op === 'nand' ? (r === null ? null : !r) : r; }
+      if (op === 'or' || op === 'nor') { const a = Array.isArray(o) ? o : [o]; let t = false, unk = false; for (const x of a) { const r = _evalCondNode(x, ctx); if (r === true) t = true; else if (r === null) unk = true; } const v = t ? true : (unk ? null : false); return op === 'nor' ? (v === null ? null : !v) : v; }
+      if (op === 'not') { const r = _evalCondNode(o, ctx); return r === null ? null : !r; }
+      return null;   // if/xor/미인식 = 미해소
+    }
+    return true;
+  }
+  return _evalCondAtom(node, ctx);
+}
+function _evalEffectCondition(cond, ctx) { return _evalCondNode(cond, ctx || _effectCondCtx()) === true; }
+
 // v0.28~ 효과 단일화: slug 기준 EFFECTS_DB(effects_db.js) 단일 소스. override(effect_groups.json)도 slug 키.
-// (구 EFFECT_GROUPS/group_id 경로 폐기. 재주/유산/배경 모두 이 함수로 slug→효과행.)
+// (구 EFFECT_GROUPS/group_id 경로 폐기. 재주·유산·배경·서브클래스 모두 이 함수로 slug→효과행.)
+// v0.163~ 조건행(r.cond) 게이트: 정적조건 미충족·미해소 행은 여기서 제거 → 전 소비처 일괄 반영(단일 경로).
 function getEffectRows(slug) {
   if (!slug) return [];
-  if (_EFFECT_OVERRIDE && Object.prototype.hasOwnProperty.call(_EFFECT_OVERRIDE, slug)) return _EFFECT_OVERRIDE[slug] || [];
-  return (typeof EFFECTS_DB !== 'undefined' && EFFECTS_DB[slug] && EFFECTS_DB[slug].rows) || [];
+  let rows;
+  if (_EFFECT_OVERRIDE && Object.prototype.hasOwnProperty.call(_EFFECT_OVERRIDE, slug)) rows = _EFFECT_OVERRIDE[slug] || [];
+  else rows = (typeof EFFECTS_DB !== 'undefined' && EFFECTS_DB[slug] && EFFECTS_DB[slug].rows) || [];
+  if (!rows.length) return rows;
+  let ctx = null;
+  return rows.filter(r => { if (!r.cond) return true; if (!ctx) ctx = _effectCondCtx(); return _evalEffectCondition(r.cond, ctx); });
 }
 
 // 룬 카탈로그 = 아이템 테이블(store) ⊕ 효과 자동화 테이블(getEffectRows의 type:'rune' 행). RUNE_DB 폐기 대체.

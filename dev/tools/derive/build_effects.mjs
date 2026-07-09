@@ -161,6 +161,10 @@ function fvttRuleRows(doc) {
 // 런타임 적용 가능한 효과 type(applyFeatEffects switch가 처리하는 것). 그 외 fvtt 룰은 표시 테이블엔 남기되 런타임 소스엔 안 넣음.
 const APPLY_TYPES = new Set(['hp_bonus', 'skill_trained', 'skill_bonus', 'save_bonus', 'ac_bonus', 'vision_upgrade',
   'extra_sense', 'resistance', 'grant_feat', 'grant_lore', 'grant_innate_spell', 'grant_focus_spell', 'speed_extra', 'proficiency', 'bulk_bonus', 'initiative_bonus']);
+// v0.163 조건엔진 활성 타입: 정적조건이 붙은 "부여(grant)+기술훈련"만 런타임 편입(조건 충족 시 적용).
+//   proficiency=섀시(class_progression) 단일소스와 중복 → 제외. resistance/bonus=공식·착용갑옷 컨텍스트 필요 → 제외(현행 유지, 표시만).
+const ACT_COND_TYPES = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell', 'grant_lore', 'skill_trained']);
+const GRANT_DEDUP = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell']);   // owner 내 (type,target) 이중부여 방지(무조건 우선)
 function emitFvtt(base, doc, bake = true) {
   if (!doc) return;
   const rr = fvttRuleRows(doc);
@@ -172,12 +176,14 @@ function emitFvtt(base, doc, bake = true) {
     rows.push({ ...b, rule: re_key || '', ...rest, condition: pc.kind === 'none' ? '' : pc.condition, cond_value: pc.cond_value || '' });
     stat.fvtt++;
   }
-  // 런타임 소스: 적용가능 type + (무조건 OR 정적조건) + 브래킷 미포함. 상황조건·bake=false(신격)=표시·FK만.
-  //  Phase 2: 무조건(kind==='none')만 편입 = 종전과 동일(런타임 무변경). 정적조건 편입은 Phase 3(조건엔진 동반).
+  // 런타임 소스: 적용가능 type + 브래킷 미포함 + (무조건 OR 정적조건∧활성타입). 상황조건·bake=false(신격)=표시·FK만.
+  //  v0.163: 무조건(kind='none') + 정적조건(kind='static')이면서 ACT_COND_TYPES(부여+기술훈련)만 편입. 후자는 raw predicate를 cond로 실어
+  //  런타임 _evalEffectCondition이 캐릭터 상태로 평가(미충족·미해소=skip). proficiency/resistance 등 정적조건은 표시만(제외).
   if (!bake) return;
-  const runRows = rr.filter(r => APPLY_TYPES.has(r.type) && !r.condition
-    && !/[{}]/.test(String(r.target == null ? '' : r.target)) && !/[{}]/.test(String(r.value == null ? '' : r.value)))
-    .map(r => { const o = { type: r.type }; if (r.target !== '' && r.target != null) o.target = r.target; if (r.value !== '' && r.value != null) o.value = r.value; if (r.bonus_type) o.bonus_type = r.bonus_type; return o; });
+  const runRows = rr.filter(r => APPLY_TYPES.has(r.type)
+    && !/[{}]/.test(String(r.target == null ? '' : r.target)) && !/[{}]/.test(String(r.value == null ? '' : r.value))
+    && (() => { const k = parseCondition(r._pred).kind; return k === 'none' || (k === 'static' && ACT_COND_TYPES.has(r.type)); })())
+    .map(r => { const o = { type: r.type }; if (r.target !== '' && r.target != null) o.target = r.target; if (r.value !== '' && r.value != null) o.value = r.value; if (r.bonus_type) o.bonus_type = r.bonus_type; if (parseCondition(r._pred).kind === 'static' && r._pred) o.cond = r._pred; return o; });
   if (runRows.length) dbBySlug[base.owner_slug] = { rows: runRows };
 }
 
@@ -298,6 +304,27 @@ for (const slug of Object.keys(CURATED)) {
   stat.curated++;
 }
 
+// ── grant 이중부여 방지 dedup(v0.163): 조건 grant행이 같은 owner의 (동일 type,target) grant와 겹치면 조건행만 드롭. ──
+//   무조건 baseline은 절대 건드리지 않음(바이트 동일 유지) — 새로 켜지는 조건행이 기존 부여와 중복될 때만 정리.
+//   예: shaman = curated 무조건 grant_feat:enhanced-familiar + FVTT 조건부 동일 grant → 조건행 제거해 1회만 부여.
+let _dedupDropped = 0;
+for (const slug of Object.keys(dbBySlug)) {
+  const e = dbBySlug[slug]; if (!e.rows) continue;
+  if (!e.rows.some(r => r.cond && GRANT_DEDUP.has(r.type))) continue;   // 조건 grant행 없는 owner=무변경
+  const present = new Set();
+  for (const r of e.rows) if (GRANT_DEDUP.has(r.type) && !r.cond) present.add(r.type + '|' + r.target);   // 무조건 grant 키
+  const kept = [];
+  for (const r of e.rows) {
+    if (r.cond && GRANT_DEDUP.has(r.type)) {
+      const k = r.type + '|' + r.target;
+      if (present.has(k)) { _dedupDropped++; continue; }   // 무조건 또는 앞선 조건행이 이미 같은 grant 제공 → 조건행 드롭
+      present.add(k);
+    }
+    kept.push(r);
+  }
+  e.rows = kept;
+}
+
 const byType = {}; for (const r of rows) if (r.type) byType[r.type] = (byType[r.type] || 0) + 1;
 const note = `자동화 정본 효과 테이블(FVTT 단일소스 재구축, 2026-07-06). 효과행 ${rows.length} · ${Object.keys(byType).length} type. `
   + `소스=FVTT system.rules[](feat/heritage/background) + 신격 구조필드 + curated_effects.json(FVTT 갭 큐레이션). `
@@ -314,4 +341,6 @@ fs.writeFileSync(path.join(DEV, 'effects_db.js'),
   + "if (typeof module !== 'undefined') module.exports = EFFECTS_DB;\n");
 try { fs.unlinkSync(path.join(DEV, 'data/derived/feat_effects.json')); } catch (e) {}
 console.log('wrote effects.json + effect_refs.json + effects_db.json + effects_db.js');
+const _condRuntime = Object.values(dbBySlug).reduce((n, e) => n + ((e.rows || []).filter(r => r.cond).length), 0);
 console.log('effects_db slugs:', Object.keys(dbBySlug).length, '| rows(display):', rows.length, '| stat:', JSON.stringify(stat), '| types:', Object.keys(byType).length);
+console.log('조건엔진(v0.163): 런타임 편입 정적조건행', _condRuntime, '| grant 이중부여 dedup 드롭', _dedupDropped);
