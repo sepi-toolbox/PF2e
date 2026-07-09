@@ -404,6 +404,8 @@ const DM = (function(){
   // ── 슬러그 상호참조 내비게이션 + 정합성(오타 탐지) ──
   //   ref 컬럼의 값 = 다른 탭 엔티티의 slug. 클릭 → 그 탭+항목으로 이동. 대상 탭에 없는 slug = 깨진 참조(빨강 ⚠, 오타 탐지).
   //   대상 탭 slug 집합은 지연 로드(ensureSlugSet) 후 재렌더로 색칠. 확장: REFNAV에 {컬럼:{tab, slugs?}} 추가.
+  //   tab = 대상 탭 id(문자열) 또는 행별 해소 함수 r=>tabId|null(owner_kind/type로 갈리는 경우).
+  const _OWNER_TAB = { feat:'feats', heritage:'heritages', background:'backgrounds', deity:'deities', condition:'conditions', ancestry:'ancestries' };
   const REFNAV = {
     class:         { tab:'classes' },
     ancestry:      { tab:'ancestries' },
@@ -412,9 +414,17 @@ const DM = (function(){
     domains:       { tab:'domains' },
     alt_domains:   { tab:'domains' },
     cleric_spells: { tab:'spells', slugs:r=>{ const sp=r.system&&r.system.spells_slug; return (sp&&typeof sp==='object')?Object.values(sp).filter(Boolean):[]; } },
+    subclass:      { tab:'subclasses' },                                   // 서브클래스성장 → 서브클래스
+    traits_ko:     { tab:'traits' },                                      // 특성 slug → 특성 레지스트리(오타/미등록 탐지)
+    traits:        { tab:'traits' },                                      // 크리처/해저드 등 raw 특성 컬럼
+    owner_slug:    { tab:r=>_OWNER_TAB[r.owner_kind] || null },            // 효과행 소유 엔티티(owner_kind로 탭 결정)
+    target:        { tab:r=>r.type==='grant_feat' ? 'feats' : (/spell/.test(r.type||'') ? 'spells' : null) }, // 부여 대상(재주/주문일 때만)
   };
   const refSlugSets={};   // tabId → Set(slug) 검증 캐시
-  function refSlugsOf(r,col){ const d=REFNAV[col]; if(!d)return null; if(d.slugs)return d.slugs(r).map(String); return String(rawVal(r,col)||'').split(/\s*[,\/、]\s*/).map(s=>s.trim()).filter(Boolean); }
+  function refSlugsOf(r,col){ const d=REFNAV[col]; if(!d)return null;
+    const arr = d.slugs ? d.slugs(r).map(String) : String(rawVal(r,col)||'').split(/\s*[,\/、]\s*/).map(s=>s.trim());
+    return arr.filter(s=>s && s[0]!=='$');   // $choice/$domain_* 등 동적 플레이스홀더는 실제 slug 아님 → 링크 제외
+  }
   async function ensureSlugSet(tabId){
     if(refSlugSets[tabId]) return refSlugSets[tabId];
     const t=TABS.find(x=>x.id===tabId); if(!t) return refSlugSets[tabId]=new Set();
@@ -424,19 +434,27 @@ const DM = (function(){
     return refSlugSets[tabId]=set;
   }
   async function preloadRefSets(t){   // 현재 탭 ref 컬럼이 가리키는 대상 탭 slug집합 로드 → 재렌더로 ok/broken 색칠
-    const targets=[...new Set((t.cols||[]).filter(c=>REFNAV[c]).map(c=>REFNAV[c].tab))];
-    if(!targets.length) return;
-    await Promise.all(targets.map(ensureSlugSet));
+    const cols=(t.cols||[]).filter(c=>REFNAV[c]);
+    if(!cols.length) return;
+    const targets=new Set();
+    for(const c of cols){ const d=REFNAV[c];
+      if(typeof d.tab==='string') targets.add(d.tab);
+      else for(const r of rows){ const tb=d.tab(r); if(tb)targets.add(tb); }   // 함수형: 행 스캔으로 대상 탭 수집
+    }
+    if(!targets.size) return;
+    await Promise.all([...targets].map(ensureSlugSet));
     if(curTab===t) applyView();
   }
   function refCellHtml(r,col){
     const d=REFNAV[col]; const slugs=refSlugsOf(r,col)||[];
     if(!slugs.length) return '';
-    const set=refSlugSets[d.tab];
+    const tab = (typeof d.tab==='function') ? d.tab(r) : d.tab;
+    if(!tab) return '';   // 이 행에선 링크 대상 탭 없음(예: grant_lore target, 자연공격 등) → 평문 표시
+    const set=refSlugSets[tab];
     return slugs.map(s=>{
       const status = !set ? 'pending' : (set.has(s)?'ok':'broken');
-      const tip = status==='broken' ? '「'+d.tab+'」 탭에 없는 슬러그 — 오타 의심' : (status==='ok' ? '클릭 → 「'+d.tab+'」 탭 '+s : '로드 중…');
-      return '<span class="dm-ref '+status+'" data-nav-tab="'+esc(d.tab)+'" data-nav-slug="'+esc(s)+'" title="'+esc(tip)+'">'+esc(s)+'</span>';
+      const tip = status==='broken' ? '「'+tab+'」 탭에 없는 슬러그 — 오타 의심' : (status==='ok' ? '클릭 → 「'+tab+'」 탭 '+s : '로드 중…');
+      return '<span class="dm-ref '+status+'" data-nav-tab="'+esc(tab)+'" data-nav-slug="'+esc(s)+'" title="'+esc(tip)+'">'+esc(s)+'</span>';
     }).join(' ');
   }
   async function navigateToRef(tabId,slug){
