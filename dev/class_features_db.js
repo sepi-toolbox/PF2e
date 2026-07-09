@@ -33,24 +33,14 @@ var CLASS_FEATURE_NAMES = {};
 //   있었고, 이 const는 그걸 손으로 재선언한 중복이었음. CLASS_FEATURE_NAMES가 성장표 로스터에서 slug+kind를
 //   실어오므로(cs_pf2e_class.classFeatureRoster) applyClassFeatures의 featureNames 주입이 전량 커버. 파리티 검증됨.
 
-// Subclass auto-granted feats
 // ═══════════════════════════════════════════════
-//  AUTO-GRANTED SPELLS — added to spell tab
-//  type: 'cantrip' | 'focus' | 'known'
+//  AUTO-GRANTED SPELLS — added to spell tab (type: 'cantrip' | 'focus' | 'known')
 // ═══════════════════════════════════════════════
-
-var CLASS_AUTO_SPELLS = {
-  // Bard: Inspire Courage composition cantrip at L1
-  bard: [
-    // 용기의 찬가(Courageous Anthem)는 '작곡 주문' 특성의 효과(자동화) 데이터가 부여 →
-    //   data/override/effect_groups.json 'composition-spells'. 여기 하드코딩 아님.
-    {lv:1, type:'focus', id:'counter-performance', name_ko:'대항 공연', name_en:'Counter Performance'},
-  ],
-  // Summoner: Boost Eidolon 집중 주문 L1 (FVTT 컴펜디움 미인코딩=시스템 TS 전용 → 수작업 표)
-  summoner: [
-    {lv:1, type:'focus', id:'boost-eidolon', name_ko:'에이돌론 강화', name_en:'Boost Eidolon'},
-  ],
-};
+// ⚠ CLASS_AUTO_SPELLS 비움(v0.159) — 클래스특성이 부여하는 집중주문은 그 특성의 효과(자동화) 슬러그가 정본:
+//   작곡 주문(composition-spells) → 용기의 찬가+대항 공연 / 소환사 시전(summoner-spellcasting) → 에이돌론 강화.
+//   전부 data/override/effect_groups.json의 grant_focus_spell 행 → getEffectRows(slug)가 applyFeatEffects에서
+//   부여(클래스특성이 auto 재주로 주입되므로 재주와 동일 경로). 하드코딩 목록 폐기. (센티널로 var는 유지)
+var CLASS_AUTO_SPELLS = {};
 
 // ═══════════════════════════════════════════════
 //  SUBCLASS FEATURE NAMES — for display

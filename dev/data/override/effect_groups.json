@@ -4,6 +4,18 @@
       "type": "grant_focus_spell",
       "target": "courageous-anthem",
       "name": "용기의 찬가"
+    },
+    {
+      "type": "grant_focus_spell",
+      "target": "counter-performance",
+      "name": "대항 공연"
+    }
+  ],
+  "summoner-spellcasting": [
+    {
+      "type": "grant_focus_spell",
+      "target": "boost-eidolon",
+      "name": "에이돌론 강화"
     }
   ]
 }
