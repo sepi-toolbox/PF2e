@@ -72,6 +72,12 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
   .dm-grid td.num{text-align:center;color:var(--text2)}
   .dm-grid td.editable{cursor:text}
   .dm-grid td.editable:hover{background:#fff9ea;box-shadow:inset 0 0 0 1px var(--gold2)}
+  .dm-grid .dm-ref{cursor:pointer;font-family:ui-monospace,monospace;font-size:11px;padding:0 3px;border-radius:3px;border:1px solid transparent;white-space:nowrap}
+  .dm-grid .dm-ref.ok{color:var(--accent)}
+  .dm-grid .dm-ref.ok:hover{background:#fff3d6;border-color:var(--gold2);text-decoration:underline}
+  .dm-grid .dm-ref.broken{color:#b00;background:#fde8e8;border-color:#e6a2a2}
+  .dm-grid .dm-ref.broken::before{content:'⚠ '}
+  .dm-grid .dm-ref.pending{color:var(--text2)}
   .dm-grid td.edited{background:#fff3d6;box-shadow:inset 3px 0 0 var(--edit)}
   .dm-grid td.empty-ko{color:#b99;font-style:italic}
   .dm-spacer{height:0}
@@ -394,6 +400,56 @@ const DM = (function(){
   function tabKey(){ return curTab.ovKey || curTab.cat || ('@'+curTab.id); }
   function isEditable(key){ return curTab.editable ? curTab.editable.includes(key) : EDITABLE.has(key); }
   function rowSlug(r){ return r._flat ? (r.slug||'') : ACC.slug(r); }
+
+  // ── 슬러그 상호참조 내비게이션 + 정합성(오타 탐지) ──
+  //   ref 컬럼의 값 = 다른 탭 엔티티의 slug. 클릭 → 그 탭+항목으로 이동. 대상 탭에 없는 slug = 깨진 참조(빨강 ⚠, 오타 탐지).
+  //   대상 탭 slug 집합은 지연 로드(ensureSlugSet) 후 재렌더로 색칠. 확장: REFNAV에 {컬럼:{tab, slugs?}} 추가.
+  const REFNAV = {
+    class:         { tab:'classes' },
+    ancestry:      { tab:'ancestries' },
+    initialSpell:  { tab:'spells' },
+    advancedSpell: { tab:'spells' },
+    domains:       { tab:'domains' },
+    alt_domains:   { tab:'domains' },
+    cleric_spells: { tab:'spells', slugs:r=>{ const sp=r.system&&r.system.spells_slug; return (sp&&typeof sp==='object')?Object.values(sp).filter(Boolean):[]; } },
+  };
+  const refSlugSets={};   // tabId → Set(slug) 검증 캐시
+  function refSlugsOf(r,col){ const d=REFNAV[col]; if(!d)return null; if(d.slugs)return d.slugs(r).map(String); return String(rawVal(r,col)||'').split(/\s*[,\/、]\s*/).map(s=>s.trim()).filter(Boolean); }
+  async function ensureSlugSet(tabId){
+    if(refSlugSets[tabId]) return refSlugSets[tabId];
+    const t=TABS.find(x=>x.id===tabId); if(!t) return refSlugSets[tabId]=new Set();
+    let data=[];
+    try{ if(t.kind==='derived'){ await ensureDerived(t); data=loaded['@'+t.id]||[]; } else { await PF2eData.loadCategory(t.cat); data=loaded[t.cat]=PF2eData.all(t.cat)||[]; } }catch(e){}
+    const set=new Set(); for(const x of data){ const s=rowSlug(x); if(s)set.add(String(s)); }
+    return refSlugSets[tabId]=set;
+  }
+  async function preloadRefSets(t){   // 현재 탭 ref 컬럼이 가리키는 대상 탭 slug집합 로드 → 재렌더로 ok/broken 색칠
+    const targets=[...new Set((t.cols||[]).filter(c=>REFNAV[c]).map(c=>REFNAV[c].tab))];
+    if(!targets.length) return;
+    await Promise.all(targets.map(ensureSlugSet));
+    if(curTab===t) applyView();
+  }
+  function refCellHtml(r,col){
+    const d=REFNAV[col]; const slugs=refSlugsOf(r,col)||[];
+    if(!slugs.length) return '';
+    const set=refSlugSets[d.tab];
+    return slugs.map(s=>{
+      const status = !set ? 'pending' : (set.has(s)?'ok':'broken');
+      const tip = status==='broken' ? '「'+d.tab+'」 탭에 없는 슬러그 — 오타 의심' : (status==='ok' ? '클릭 → 「'+d.tab+'」 탭 '+s : '로드 중…');
+      return '<span class="dm-ref '+status+'" data-nav-tab="'+esc(d.tab)+'" data-nav-slug="'+esc(s)+'" title="'+esc(tip)+'">'+esc(s)+'</span>';
+    }).join(' ');
+  }
+  async function navigateToRef(tabId,slug){
+    const t=TABS.find(x=>x.id===tabId); if(!t) return;
+    if(curTab!==t) await selectTab(t);
+    if(search){ search=''; const sb=document.getElementById('dm-search'); if(sb)sb.value=''; applyView(); }
+    const idx=view.findIndex(x=>String(rowSlug(x))===String(slug));
+    if(idx<0) return;   // 대상 탭에 없음(깨진 참조) — 이동 불가
+    selSlug=slug;
+    const sc=document.getElementById('dm-scroller');
+    if(sc) sc.scrollTop=Math.max(0, idx*ROWH - Math.floor((sc.clientHeight||400)/2));
+    setTimeout(()=>{ document.querySelectorAll('#dm-rows tr.sel').forEach(x=>x.classList.remove('sel')); const esc2=(window.CSS&&CSS.escape)?CSS.escape(slug):slug; const tr=document.querySelector('#dm-rows tr[data-slug="'+esc2+'"]'); if(tr)tr.classList.add('sel'); openDetail(view[idx]); }, 40);
+  }
   const TYPE_KO={ability:'능력치',skill:'기술',sense:'감각',save:'내성',damage_type:'피해유형',weapon_group:'무기군',armor_group:'갑옷군',armor_category:'갑옷종류',weapon_category:'무기종류',size:'크기',rarity:'희귀도',language:'언어'};
   // 데이터 관리 툴 — 저장된 raw 값(slug/enum) 그대로 표시. 치환 없음(한글은 hover 툴팁으로만 보조).
   // 효과 행을 한글 한 문장으로 요약(컬럼만 봐도 뜻이 보이도록). 데이터 무변경 — 표시 파생.
@@ -454,6 +510,7 @@ const DM = (function(){
     sortKey=t.cols[0]; sortDir=1;
     if(t.id==='effects' && t.kind==='derived') populateEffTypes();
     applyView();
+    preloadRefSets(t);   // 슬러그 참조 컬럼 정합성 색칠(비동기, 로드되면 재렌더)
   }
   // 효과 탭 필터(v0.163): 효과타입·대상·조건. 효과타입 선택 시 대상 후보를 그 타입 행의 target으로 스코프(사용자 요구).
   let effType='', effTarget='', effCond='';
@@ -586,7 +643,9 @@ const DM = (function(){
       const edited = edit && ovGet(tabKey(),slug,c)!=null;
       const emptyKo = c==='name_ko'&&!v;
       let cls=(m.cls||'')+(edit?' editable':'')+(edited?' edited':'')+(emptyKo?' empty-ko':'');
-      tds+='<td class="'+cls+'"'+(edit?' data-edit="'+c+'" data-slug="'+esc(slug)+'"':'')+' title="'+esc(v)+'">'+esc(emptyKo?'(미번역)':v)+'</td>';
+      const refHtml = REFNAV[c] ? refCellHtml(r,c) : null;   // 슬러그 참조 컬럼 → 클릭 이동 칩(정합성 색칠)
+      const content = (refHtml!=null && refHtml!=='') ? refHtml : esc(emptyKo?'(미번역)':v);
+      tds+='<td class="'+cls+'"'+(edit?' data-edit="'+c+'" data-slug="'+esc(slug)+'"':'')+' title="'+esc(v)+'">'+content+'</td>';
     });
     return '<tr class="'+sel+'" data-slug="'+esc(slug)+'" data-i="'+i+'">'+tds+'</tr>';
   }
@@ -659,8 +718,16 @@ const DM = (function(){
     td.onkeydown=ev=>{ if(ev.key==='Enter'){ev.preventDefault();td.blur();} if(ev.key==='Escape'){td.textContent=td.getAttribute('data-orig')||'';td.blur();} };
   });
 
+  // ---- 슬러그 참조 칩 클릭 → 대상 탭+항목으로 이동 ----
+  document.addEventListener('click',e=>{
+    const chip=e.target.closest('.dm-ref[data-nav-slug]'); if(!chip)return;
+    if(chip.classList.contains('broken'))return;   // 깨진 참조는 이동 대상 없음
+    e.stopPropagation();
+    navigateToRef(chip.getAttribute('data-nav-tab'), chip.getAttribute('data-nav-slug'));
+  });
   // ---- 행 선택 → 상세 ----
   document.addEventListener('click',e=>{
+    if(e.target.closest('.dm-ref[data-nav-slug]'))return;   // 참조 칩 클릭은 내비게이션 전용
     const tr=e.target.closest('tr[data-slug]'); if(!tr||e.target.closest('td.editable[contenteditable]'))return;
     if(e.target.closest('td.editable')&&e.detail>1)return;
     const slug=tr.getAttribute('data-slug'); if(e.target.closest('td[data-edit]'))return;
