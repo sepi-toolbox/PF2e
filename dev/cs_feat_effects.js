@@ -704,17 +704,8 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
     html += `</select>`;
     if (!current) html += `<div style="margin-top:4px;font-size:11px;color:#f44336;">⚠ 선택하지 않은 항목이 있습니다.</div>`;
   } else if (ch.type === 'feat_pick' && ch.inline) {
-    // 인라인 재주 선택(결단탐험/다중 뮤즈 등): 선결 패턴에 맞는 1레벨 재주 드롭다운. 선택 → $choice grant_feat가 부여.
-    const cands = (typeof _featPickCandidates === 'function') ? _featPickCandidates(ch) : [];
-    html += `<select id="${uid}" onchange="_onFeatChoiceInline('${featType}',${featIndex},'feat_pick')"
-      style="width:100%;padding:6px 8px;font-size:13px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;outline:none;">
-      <option value="">— 재주 선택 —</option>`;
-    // 현재 선택값이 후보에서 빠졌어도(이미 부여됨) 목록에 유지
-    const curFeat = current && (typeof getFeat === 'function') ? getFeat(current) : null;
-    if (curFeat && !cands.some(c => c.id === curFeat.id)) html += `<option value="${curFeat.id}" selected>${curFeat.name_ko}</option>`;
-    cands.forEach(cf => { html += `<option value="${cf.id}"${cf.id === current ? ' selected' : ''}>${cf.name_ko}${cf.name_en ? ' (' + cf.name_en + ')' : ''}</option>`; });
-    html += `</select>`;
-    if (!current) html += `<div style="margin-top:4px;font-size:11px;color:#f44336;">⚠ 재주를 선택하세요.</div>`;
+    // 결단 탐험가/다중 뮤즈 등: 2단계(주 결단 제외 결단/뮤즈 선택 → 그 선결 1레벨 재주 선택) + 효과 정보 박스.
+    html += _explorerHtml(ch, uid, current, 'tab', featType, featIndex);
   } else {
     // 기타 타입 (spell_cantrip 등) — 기존 모달 사용
     const escapedName = feat.name.replace(/'/g, "\\'");
@@ -1270,6 +1261,77 @@ function _featPickCandidates(cd) {
     if (f.id && ownedSlugs.has(f.id)) return false;
     return true;
   });
+}
+
+// ── 서브클래스 탐험형(결단 탐험가/다중 뮤즈 등): 주 서브클래스 제외한 결단/뮤즈 선택 → 그 선결 1레벨 재주 선택 ──
+//   cd.pickCategory=클래스(druid/bard), cd.prereqPattern=서브클래스 종류 키워드(order/muse). SUBCLASS_DB에서 해당 클래스 서브클래스를
+//   name_en으로 재주 선결과 매칭(예 "Untamed"→"untamed order", "Warrior"→"warrior muse"). 주 서브클래스(state.selectedSubclass)는 제외.
+function _subclassExplorerOptions(cd) {
+  const SD = (typeof SUBCLASS_DB !== 'undefined') ? SUBCLASS_DB : ((typeof window !== 'undefined' && window.SUBCLASS_DB) || []);
+  const cls = cd.pickCategory, primaryId = (state.selectedSubclass && state.selectedSubclass.id) || '';
+  const cands = _featPickCandidates(cd);
+  const out = [];
+  for (const sub of SD.filter(s => s && (s.class_id === cls || s.class === cls))) {
+    if (sub.id === primaryId) continue;   // 이미 고른 주 결단/뮤즈 제외
+    const key = (sub.name_en || sub.name_ko || '').toLowerCase().trim();
+    if (!key) continue;
+    const re = new RegExp('(^|[^a-z])' + key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '([^a-z]|$)', 'i');
+    const feats = cands.filter(f => re.test(_prereqStr(f)));
+    if (feats.length) out.push({ subId: sub.id, subName: sub.name_ko || sub.name_en || sub.id, feats });
+  }
+  return out;
+}
+// 선택 재주 정보 박스(효과 요약) — 고를 정보 제공.
+function _explorerFeatInfo(slug) {
+  if (!slug || typeof getFeat !== 'function') return '';
+  const f = getFeat(slug); if (!f) return '';
+  let desc = f.desc_ko || f._desc_ko || f.description || (f.description && f.description.value) || '';
+  desc = String(desc).replace(/<[^>]+>/g, '').replace(/@[A-Za-z]+\[[^\]]*\]({[^}]*})?/g, '').trim();
+  if (desc.length > 260) desc = desc.slice(0, 260) + '…';
+  const nm = f.name_ko + (f.name_en ? ` (${f.name_en})` : '');
+  return `<div style="font-weight:600;color:var(--accent);margin-bottom:3px;">${nm}</div><div>${desc || '(설명 없음)'}</div>`;
+}
+const _explorerCache = {};
+// 2단계 UI HTML. mode='modal'(→_modalChoices.featChoice) | 'tab'(→feat.choice+recalc). idPrefix로 DOM·캐시 구분.
+function _explorerHtml(cd, idPrefix, current, mode, featType, featIndex) {
+  const opts = _subclassExplorerOptions(cd);
+  _explorerCache[idPrefix] = { opts, mode, featType, featIndex };
+  let curOrder = '';
+  if (current) for (const o of opts) if (o.feats.some(f => f.id === current)) { curOrder = o.subId; break; }
+  const ss = 'width:100%;padding:6px 8px;font-size:13px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;outline:none;margin-bottom:6px;';
+  let h = `<select id="${idPrefix}-ord" onchange="_onExplorerOrder('${idPrefix}')" style="${ss}"><option value="">— 결단/뮤즈 선택 —</option>`;
+  h += opts.map(o => `<option value="${o.subId}"${o.subId === curOrder ? ' selected' : ''}>${o.subName}</option>`).join('') + `</select>`;
+  h += `<select id="${idPrefix}-feat" onchange="_onExplorerFeat('${idPrefix}')" style="${ss}${curOrder ? '' : 'display:none;'}">`;
+  if (curOrder) { const o = opts.find(x => x.subId === curOrder); h += `<option value="">— 재주 선택 —</option>` + o.feats.map(f => `<option value="${f.id}"${f.id === current ? ' selected' : ''}>${f.name_ko}${f.name_en ? ' (' + f.name_en + ')' : ''}</option>`).join(''); }
+  h += `</select>`;
+  h += `<div id="${idPrefix}-info" style="font-size:11px;line-height:1.5;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;${current ? '' : 'display:none;'}">${current ? _explorerFeatInfo(current) : ''}</div>`;
+  if (!current) h += `<div id="${idPrefix}-warn" style="margin-top:4px;font-size:11px;color:#f44336;">⚠ 결단/뮤즈와 재주를 선택하세요.</div>`;
+  return h;
+}
+function _onExplorerOrder(idPrefix) {
+  const cache = _explorerCache[idPrefix]; if (!cache) return;
+  const ordEl = document.getElementById(idPrefix + '-ord'), featEl = document.getElementById(idPrefix + '-feat'), infoEl = document.getElementById(idPrefix + '-info');
+  const o = cache.opts.find(x => x.subId === ordEl.value);
+  if (!o) { if (featEl) featEl.style.display = 'none'; if (infoEl) infoEl.style.display = 'none'; return; }
+  featEl.innerHTML = `<option value="">— 재주 선택 —</option>` + o.feats.map(f => `<option value="${f.id}">${f.name_ko}${f.name_en ? ' (' + f.name_en + ')' : ''}</option>`).join('');
+  featEl.style.display = '';
+  // 결단에 재주가 하나면 자동 선택
+  if (o.feats.length === 1) { featEl.value = o.feats[0].id; _onExplorerFeat(idPrefix); }
+  else if (infoEl) infoEl.style.display = 'none';
+}
+function _onExplorerFeat(idPrefix) {
+  const cache = _explorerCache[idPrefix]; if (!cache) return;
+  const featEl = document.getElementById(idPrefix + '-feat'), infoEl = document.getElementById(idPrefix + '-info');
+  const val = featEl ? featEl.value : '';
+  if (infoEl) { infoEl.innerHTML = val ? _explorerFeatInfo(val) : ''; infoEl.style.display = val ? '' : 'none'; }
+  const warnEl = document.getElementById(idPrefix + '-warn'); if (warnEl) warnEl.style.display = val ? 'none' : '';
+  if (cache.mode === 'modal') { if (typeof _modalChoices !== 'undefined' && _modalChoices) _modalChoices.featChoice = val; }
+  else if (cache.mode === 'tab' && cache.featType != null && state.feats[cache.featType]?.[cache.featIndex]) {
+    state.feats[cache.featType][cache.featIndex].choice = val;
+    if (typeof renderFeats === 'function') renderFeats();   // 커밋 상태·부여 재주 반영(컨트롤 재빌드)
+    try { recalcAll(); } catch (e) { console.error(e); }
+    if (typeof save === 'function') save();
+  }
 }
 
 function _applyFeatChoice(choiceId) {

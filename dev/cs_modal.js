@@ -3725,13 +3725,9 @@ function _buildFeatModalChoiceUI(item) {
       </select></div>`;
     }
   } else if (ch.type === 'feat_pick' && ch.inline) {
-    // 인라인 재주 선택(결단탐험/다중 뮤즈): 선결 패턴에 맞는 1레벨 재주 드롭다운(추가지식 인라인 방식). 확정 시 $choice grant_feat가 부여.
-    const cands = (typeof _featPickCandidates === 'function') ? _featPickCandidates(ch) : [];
-    inner = `<select id="feat-choice-sel" onchange="_modalChoices.featChoice=this.value" style="${_selStyle}">
-      <option value="">— 재주 선택 —</option>
-      ${cands.map(cf => `<option value="${cf.id}"${cf.id === existing ? ' selected' : ''}>${cf.name_ko}${cf.name_en ? ' (' + cf.name_en + ')' : ''}</option>`).join('')}
-    </select>`;
-    note = '선택한 결단/뮤즈를 선결로 하는 1레벨 재주를 얻습니다. 비워 두면 재주 탭에서 나중에 고를 수 있습니다.';
+    // 결단 탐험가/다중 뮤즈: 2단계(주 결단 제외 결단/뮤즈 → 그 선결 1레벨 재주) + 효과 정보 박스. 확정 시 $choice grant_feat가 부여.
+    inner = (typeof _explorerHtml === 'function') ? _explorerHtml(ch, 'feat-choice', existing, 'modal') : '';
+    note = '주 결단/뮤즈를 제외한 결단/뮤즈를 고르고, 그 결단을 선결로 하는 1레벨 재주를 선택하세요.';
   }
 
   return `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:10px;">
