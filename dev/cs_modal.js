@@ -4252,26 +4252,48 @@ function _buildClericChoicesUI() {
   _modalChoices.deity = undefined;
   _modalChoices.divineFont = state.selectedClass?.id === 'cleric' ? _savedFont : '';
 
-  // 교리 = 일반 서브클래스 선택 UI로 통합(타 클래스 서브클래스와 동일 방식). 레이블 = subclass_type(교리).
   const cid = state.selectedClass?.id || 'cleric';
+  const roster = (typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cid] || []) : []);
+  const rf = slug => roster.find(f => (f.slug || f.id) === slug);   // 클래스 특성 데이터에서 조회(없으면 카드 안 그림)
   const doctrines = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.filter(s => s.class_id === cid) : [];
-  const docLabel = (doctrines[0] && doctrines[0].subclass_type) || '교리';
+
+  // 교리 카드 = 서브클래스 선택 (데이터 특성 'doctrine'). 라벨=서브클래스 종류(데이터).
+  const docFeat = rf('doctrine');
+  const docLabel = (doctrines[0] && doctrines[0].subclass_type) || (docFeat && docFeat.name_ko) || '교리';
   let html = _buildSubclassChoiceUI(cid, docLabel, doctrines);
 
-  // 신격 (읽기 전용 — 선택은 성장계획 🙏 신격 슬롯에서. 신격은 클래스 기능이며 그 효과가 기술·무기·주문을 활성화)
+  // 신성(클레릭) 카드 — 클래스 특성 데이터(deity-cleric)에 있을 때만. 이름=데이터, 설명=카탈로그, 컨트롤은 본문에.
+  const deityFeat = rf('deity-cleric');
+  if (deityFeat) html += _classFeatureBlock('🙏', deityFeat.name_ko, deityFeat.name_en, () => _choiceCardBody('deity-cleric', _clericDeityControlHtml(_savedSanct)), false, false);
+
+  // 신성한 샘 카드 — 클래스 특성 데이터(divine-font)에 있을 때만.
+  const fontFeat = rf('divine-font');
+  if (fontFeat) html += _classFeatureBlock('⛲', fontFeat.name_ko, fontFeat.name_en, () => _choiceCardBody('divine-font', _clericFontControlHtml(_savedFont)), false, false);
+
+  return html;
+}
+
+// 선택 특성 카드 본문 = 특성 설명(재주 카탈로그 = data/store/feats.json 단일소스, class_progression엔 desc 없음) + 선택 컨트롤.
+function _choiceCardBody(slug, controlHtml) {
+  const fo = (typeof getFeat === 'function') ? getFeat(slug) : null;
+  const d = fo && (fo.desc || fo.summary) ? (fo.desc || fo.summary) : '';
+  const descHtml = d ? `<div class="cfb-desc" style="margin-bottom:8px;">${typeof resolveDescRefs === 'function' ? resolveDescRefs(d) : d}</div>` : '';
+  return descHtml + (controlHtml || '');
+}
+
+// 신성(클레릭) 특성 카드 본문 — 신격 정보(읽기전용, 선택은 성장계획) + 성별화. _modalChoices 부작용 보존.
+function _clericDeityControlHtml(savedSanct) {
   const curDeity = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
-  _modalChoices.deity = undefined;   // 신격은 모달에서 선택하지 않음(성장슬롯 일원화) → 확정 게이트 제외
+  _modalChoices.deity = undefined;   // 신격은 모달에서 선택하지 않음(성장슬롯 일원화)
   const _skMap = {society:'사회',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',nature:'자연학',religion:'종교학',occultism:'오컬티즘',diplomacy:'외교',performance:'공연',thievery:'도둑질'};
-  html += `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">
-    <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">🙏 신격 Deity <span style="font-weight:400;color:var(--text2);font-size:10px;">— 성장계획 상단 🙏 슬롯에서 선택</span></div>`;
+  let h = `<div style="font-size:9px;color:var(--text2);margin-bottom:6px;">신격은 성장계획 상단 🙏 슬롯에서 선택합니다. 신성(클레릭)이 신격의 기술·무기 숙련과 신격 주문을 활성화합니다.</div>`;
   if (curDeity) {
     const skillName = curDeity.skill_ko || _skMap[curDeity.skill] || curDeity.skill || '—';
     const doms = (curDeity.domains_ko && curDeity.domains_ko.length ? curDeity.domains_ko : (curDeity.domains || [])).join(', ') || '—';
-    html += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.7;">
+    h += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.7;">
       <div style="font-weight:600;">${curDeity.name_ko} <span style="font-size:10px;color:var(--text2);">${curDeity.name_en || ''}</span></div>
       <div style="font-size:10px;"><strong>영역:</strong> ${doms}</div>
       <div style="font-size:10px;">📖 신격 기술: <b>${skillName}</b> · ⚔ 선호 무기: ${weaponRefHtml(curDeity.weapon)}</div>
-      <div style="font-size:9px;color:var(--text2);margin-top:2px;">※ 신성(클레릭) 기능이 위 기술·무기 숙련을 부여하고, 신격 주문을 준비 가능 목록에 추가합니다.</div>
     </div>`;
     const sOpts = curDeity.sanctification || [];
     if (sOpts.length === 0) {
@@ -4279,34 +4301,31 @@ function _buildClericChoicesUI() {
     } else if (sOpts.length === 1) {
       _modalChoices.sanctification = sOpts[0];
       const lb = sOpts[0] === 'holy' ? '신성 (Holy)' : '불경 (Unholy)';
-      html += `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:2px;">✨ 성별화 Sanctification</div>
+      h += `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:2px;">✨ 성별화 Sanctification</div>
         <select disabled style="${_selStyle}opacity:0.6;"><option>${lb}</option></select></div>`;
     } else {
-      _modalChoices.sanctification = state.selectedClass?.id === 'cleric' ? _savedSanct : '';
-      html += `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:2px;">✨ 성별화 Sanctification</div>
+      _modalChoices.sanctification = state.selectedClass?.id === 'cleric' ? savedSanct : '';
+      h += `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:2px;">✨ 성별화 Sanctification</div>
         <select id="cls-sanct" onchange="_modalChoices.sanctification=this.value;_validateInitialChoices()" style="${_selStyle}">
           <option value="">— 선택 —</option>
-          ${sOpts.map(o => `<option value="${o}"${o === _savedSanct ? ' selected' : ''}>${o === 'holy' ? '신성 (Holy)' : '불경 (Unholy)'}</option>`).join('')}
+          ${sOpts.map(o => `<option value="${o}"${o === savedSanct ? ' selected' : ''}>${o === 'holy' ? '신성 (Holy)' : '불경 (Unholy)'}</option>`).join('')}
         </select></div>`;
     }
   } else {
     _modalChoices.sanctification = undefined;
-    html += `<div style="font-size:10px;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;">신격을 아직 선택하지 않았습니다. 성장계획 상단의 🙏 <b>신격</b> 슬롯에서 선택하세요. (신격의 기술·무기·주문은 선택 후 자동 적용됩니다.)</div>`;
+    h += `<div style="font-size:10px;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;">신격을 아직 선택하지 않았습니다. 성장계획 상단의 🙏 <b>신격</b> 슬롯에서 선택하세요.</div>`;
   }
-  html += `</div>`;
+  return h;
+}
 
-  // 신성 원천
-  html += `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">
-    <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">⛲ 신성 원천 Divine Font</div>
-    <select id="cls-font" onchange="_onClericFontChange(this.value)" style="${_selStyle}">
+// 신성한 샘 특성 카드 본문 — 치유/해악 선택.
+function _clericFontControlHtml(savedFont) {
+  return `<select id="cls-font" onchange="_onClericFontChange(this.value)" style="${_selStyle}">
       <option value="">— 선택 —</option>
-      <option value="heal"${_savedFont === 'heal' ? ' selected' : ''}>치유 (Heal)</option>
-      <option value="harm"${_savedFont === 'harm' ? ' selected' : ''}>해악 (Harm)</option>
+      <option value="heal"${savedFont === 'heal' ? ' selected' : ''}>치유 (Heal)</option>
+      <option value="harm"${savedFont === 'harm' ? ' selected' : ''}>해악 (Harm)</option>
     </select>
-    <div id="cls-font-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>
-  </div>`;
-
-  return html;
+    <div id="cls-font-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>`;
 }
 
 
@@ -4411,17 +4430,13 @@ function _buildSubclassChoiceUI(classId, label, subs) {
   const _curSub = state.selectedSubclass?.id || '';
   const _savedSub = subs.some(s => s.id === _curSub) ? _curSub : '';
   _modalChoices.subclass = _savedSub;
-  let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:8px;">`;
-  html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">⚙ ${label}</div>`;
-  html += `<div style="margin-bottom:6px;">
-    <select id="cls-subclass" onchange="_onSubclassChange(this.value)" style="${_selStyle}">
+  // 다른 모달 특성과 동일한 카드(.cfb-card) 형식 — 선택 드롭다운을 카드 본문에 넣음(위젯/카드 통일).
+  const inner = `<select id="cls-subclass" onchange="_onSubclassChange(this.value)" style="${_selStyle}">
       <option value="">— 선택 —</option>
       ${subs.map(s => `<option value="${s.id}"${s.id === _savedSub ? ' selected' : ''}>${s.name_ko} (${s.name_en})</option>`).join('')}
     </select>
-    <div id="cls-subclass-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>
-  </div>`;
-  html += `</div>`;
-  return html;
+    <div id="cls-subclass-info" style="font-size:11px;color:var(--text2);margin-top:6px;line-height:1.6;"></div>`;
+  return _classFeatureBlock('⚙', label, '', () => inner, false, false);
 }
 
 function _onSubclassChange(id) {
