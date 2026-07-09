@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-/* build_class_features.mjs — 클래스특성 + 서브클래스를 별도 데이터 테이블로 파생
- * 소스(FVTT): feats.base(category=classfeature 826). 클래스 = traits.value의 클래스 slug.
- *   서브클래스 = otherTags의 `<class>-<type>` 태그(bard-muse/sorcerer-bloodline 등 23종)로 식별.
- * 산출: data/derived/class_features.json (전 클래스특성) + data/derived/subclasses.json (서브클래스 옵션)
- * 클래스 성장표(class_progression)와 class slug로, 개별 특성과 slug로 키 매칭.
+/* build_class_features.mjs — 클래스특성을 별도 데이터 테이블로 파생
+ * 소스: data/store/feats.json(category=classfeature 826) — 단일소스(store). name_ko/_desc_ko 직접 사용.
+ *   클래스 = traits.value의 클래스 slug. 서브클래스 = otherTags의 `<class>-<type>` 태그로 식별(표시용 컬럼).
+ *   설명(desc) = store의 _desc_ko(재번역 한글) → 「클래스특성」 탭에서 바로 편집/열람.
+ * 산출: data/derived/class_features.json  (⚠ subclasses.json은 build_subclasses.mjs 소유 — 여기서 쓰지 않음)
  * 실행: cd dev && node tools/derive/build_class_features.mjs
  */
 import fs from 'fs';
@@ -12,13 +12,11 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DEV = path.resolve(__dirname, '..', '..');
 const load = f => JSON.parse(fs.readFileSync(path.join(DEV, f), 'utf8'));
+const asArray = raw => Array.isArray(raw) ? raw : (raw.items || Object.values(raw));
 
-const feats = load('data/base/feats.base.json');
-const classes = load('data/base/classes.base.json');
-const ovlFeats = load('data/overlay/feats.ko.json');
-const ovlClasses = load('data/overlay/classes.ko.json');
+const feats = asArray(load('data/store/feats.json'));
+const classes = asArray(load('data/store/classes.json'));
 const classSlugs = new Set(classes.map(c => c.system.slug));
-const classKo = {}; for (const c of classes) classKo[c.system.slug] = (ovlClasses[c.system.slug] || {}).name || c.name;
 
 // 클래스가 레벨 몇에 이 특성을 부여하는지 (class.items 역인덱스)
 const grantLevel = {};   // slug → {class: level}
@@ -32,7 +30,7 @@ for (const c of classes) {
   }
 }
 
-const cfeatures = [], subclasses = [];
+const cfeatures = [];
 for (const f of feats) {
   const s = f.system; if (s.category !== 'classfeature') continue;
   const slug = s.slug;
@@ -42,22 +40,15 @@ for (const f of feats) {
   const isSub = !!subTag;
   const subType = subTag ? subTag.replace(new RegExp('^(' + (cls || subTag.split('-')[0]) + ')-'), '') : '';
   const grants = (s.rules || []).filter(r => r.key === 'GrantItem').length;
-  const row = {
-    slug, class: cls, name_en: f.name, name_ko: (ovlFeats[slug] || {}).name || f.name,
+  cfeatures.push({
+    slug, class: cls, name_en: f.name_en || f.name, name_ko: f.name_ko || f.name,
     level: (grantLevel[slug] && cls && grantLevel[slug][cls] != null) ? grantLevel[slug][cls] : (typeof s.level === 'object' ? s.level?.value : s.level) ?? '',
+    desc: f._desc_ko || '',   // 설명 단일소스 = store _desc_ko(재번역). 「클래스특성」 탭에서 편집(override→feats).
     is_subclass: isSub ? '✓' : '', subclass_type: subType, tag: subTag || '', grants, rules_n: (s.rules || []).length,
-  };
-  cfeatures.push(row);
-  if (isSub) subclasses.push(row);
+  });
 }
 cfeatures.sort((a, b) => (a.class || '~').localeCompare(b.class || '~') || (a.level || 0) - (b.level || 0) || a.slug.localeCompare(b.slug));
-subclasses.sort((a, b) => (a.class || '').localeCompare(b.class || '') || a.subclass_type.localeCompare(b.subclass_type) || a.slug.localeCompare(b.slug));
 
-const note1 = 'FVTT feats(category=classfeature). class=traits, level=클래스 부여레벨, 서브클래스=otherTags 태그';
+const note1 = 'store feats(category=classfeature). class=traits, level=클래스 부여레벨, desc=_desc_ko(재번역), 서브클래스=otherTags 태그(표시용)';
 fs.writeFileSync(path.join(DEV, 'data/derived/class_features.json'), JSON.stringify({ rows: cfeatures, note: note1 }, null, 1) + '\n');
-fs.writeFileSync(path.join(DEV, 'data/derived/subclasses.json'), JSON.stringify({ rows: subclasses, note: '서브클래스 옵션 = otherTags `<class>-<type>` 태그로 식별' }, null, 1) + '\n');
-
-const bySubType = {}; for (const s of subclasses) (bySubType[s.class + '/' + s.subclass_type] = bySubType[s.class + '/' + s.subclass_type] || []).push(s.slug);
-console.log(`✔ class_features.json — 클래스특성 ${cfeatures.length}`);
-console.log(`✔ subclasses.json — 서브클래스 옵션 ${subclasses.length} (${Object.keys(bySubType).length}종)`);
-for (const k of Object.keys(bySubType).slice(0, 12)) console.log(`   ${k}: ${bySubType[k].join(', ')}`);
+console.log(`✔ class_features.json — 클래스특성 ${cfeatures.length} (desc 포함)`);
