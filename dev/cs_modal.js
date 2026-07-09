@@ -1193,7 +1193,9 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
   const nameKo = (f.name_ko || (featData && featData.name_ko) || slug).split(' (')[0].trim();
   const nameEn = f.name_en || (featData && featData.name_en) || '';
   const badge = (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
-  return `<div class="growth-slot filled gcf-box" onclick="openClassModalAtLevel(${lv})">
+  // 모달에선 이미 클래스 모달 안이라 재오픈 onclick 제외(noClick).
+  const clickAttr = (opts && opts.noClick) ? ' style="cursor:default;"' : ` onclick="openClassModalAtLevel(${lv})"`;
+  return `<div class="growth-slot filled gcf-box"${clickAttr}>
     <div class="gcf-main">
       <span class="gcf-fic">${ic}</span>
       <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>${badge}
@@ -4029,8 +4031,10 @@ function _modalChoiceGrantsHtml(cls, featsByLv, deitySkill, gm) {
   let out = '';
   (featsByLv[1] || []).filter(f => _featInChoiceUI(f, deitySkill)).forEach(f => {
     if (f.kind === 'subclass' && !_subMatch) return;   // 서브클래스 미확정/변경 중 → stale 부여 숨김
-    const g = _classBlockGrantsHtml(f, gm);
-    if (g) out += `<div class="cfp-dynamic gcf-choice-grants"><div class="gcf-choice-lbl">${f.name_ko}<span class="gcf-fen"> ${f.name_en || ''}</span> — 부여</div>${g}</div>`;
+    const slug = featSlug(f.slug || f.id || f.name_en || f.name_ko);
+    if (!(gm.childrenOf[slug] || []).length) return;   // 부여 항목 있는 특성만(빈 박스 방지 — 위젯과 중복 회피)
+    // 빌더와 동일한 특성 박스로 렌더(형식 통일). 모달이므로 재오픈 onclick 제외.
+    out += `<div class="cfp-dynamic">${_growthFeatureBoxHtml(f, 1, gm, { noClick: true })}</div>`;
   });
   return out;
 }
