@@ -168,6 +168,8 @@ const DM = (function(){
        cols:['slug','class','subclass_type','name_en','name_ko','desc','grants','rules_n'], editable:['name_ko','desc']},
     {id:'class_progression', label:'클래스성장(파생)', kind:'derived', src:'data/derived/class_progression.json', shape:'rows',
        cols:['class','cp_name','level','perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting','_src']},
+    {id:'subclass_progression', label:'서브클래스성장(파생)', kind:'derived', src:'data/derived/subclass_progression.json', shape:'rows',
+       cols:['subclass','class','name_ko','level','perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting','_src']},
     {id:'creatures',  label:'크리처',   kind:'derived', src:'data/derived/creatures.json', shape:'rows',
        cols:['id','name_en','name_ko','level','size','ac','hp','fort','ref','will','perception','traits','n_strikes','n_abilities','n_spells','pack']},
     {id:'hazards',    label:'해저드',   kind:'derived', src:'data/derived/hazards.json', shape:'rows',
@@ -592,7 +594,7 @@ const DM = (function(){
         inner.innerHTML=close+'<h3>'+esc(cellVal(r,'name_ko'))+'</h3><div class="slug">'+esc(r.name_en)+' · '+esc(r.slug)+'</div>'+
           (r.desc_ko?'<div class="sec"><div class="sec-h">특성 설명</div><div class="descbox">'+esc(r.desc_ko)+'</div></div>'
             :'<div class="sec"><div class="dm-empty">설명 없음 (PF2e-KR 원본에 미수록)</div></div>');
-      } else if(curTab.id==='class_progression'){
+      } else if(curTab.id==='class_progression'||curTab.id==='subclass_progression'){
         const order=['perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting'];
         inner.innerHTML=close+'<h3>'+esc(r.name_ko)+' <small style="color:var(--text2)">L'+esc(r.level)+'</small></h3><div class="slug">'+esc(r.class)+'</div>'+
           '<div class="sec"><div class="sec-h">숙련 (U/T/E/M/L)</div><div class="layer">'+

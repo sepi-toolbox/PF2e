@@ -61,6 +61,32 @@
     return t;
   }
   function classFeatureRoster(slug) { return (_featRoster && _featRoster[slug]) || null; }
+  // 서브클래스 숙련 진행표(섀시) = data/derived/subclass_progression.json (클래스표와 동일 스키마).
+  //   런타임 소비(applyClassFeatures)는 prof_changes와 동일한 {runtimeStat:{level:rankNum}} 형태로 재구성해 반환.
+  let _subProfTable = null;
+  const _SP_COL2STAT = { perception: 'perc', fortitude: 'fort', reflex: 'ref', will: 'will', classDC: 'classdc', simple: 'weapon-simple', martial: 'weapon-martial', unarmed: 'weapon-unarmed', advanced: 'weapon-advanced', unarmored: 'armor-unarmored', light: 'armor-light', medium: 'armor-medium', heavy: 'armor-heavy', spellcasting: 'spatk' };
+  function _buildSubProfTable(rows) {
+    const t = {};
+    for (const r of rows || []) {
+      const sub = r.subclass; if (!sub) continue;
+      const o = t[sub] || (t[sub] = {});
+      for (const col in _SP_COL2STAT) {
+        const v = r[col]; if (!v) continue;
+        const stat = _SP_COL2STAT[col];
+        (o[stat] || (o[stat] = {}))[r.level] = _PROF_L[v] || 0;
+      }
+    }
+    return t;
+  }
+  function subclassProfTable(sub) { return (_subProfTable && _subProfTable[sub]) || null; }
+  async function _ensureSubProfTable() {
+    if (_subProfTable) return _subProfTable;
+    let rows = null;
+    if (isNode) { const fs = require("fs"); for (const p of ["data/derived/subclass_progression.json", "dev/data/derived/subclass_progression.json"]) { try { rows = JSON.parse(fs.readFileSync(p, "utf8")).rows; break; } catch (e) {} } }
+    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.161"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
+    _subProfTable = _buildSubProfTable(rows || []);
+    return _subProfTable;
+  }
   function _profRows() {
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/class_progression.json","dev/data/derived/class_progression.json"]) { try { return JSON.parse(fs.readFileSync(p,"utf8")).rows || []; } catch(e){} } return []; }
     return null;
@@ -68,7 +94,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.160"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.161"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -226,7 +252,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.160').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.161').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -245,7 +271,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.160').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.161').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   async function init() {
@@ -253,7 +279,7 @@
     // 서브클래스 grants/특성은 feats·spells 카테고리 필요(getByUuid·tag 조회)
     if (isNode) { PF.loadCategorySync('classes'); PF.loadCategorySync('feats'); PF.loadCategorySync('spells'); }
     else await Promise.all([PF.loadCategory('classes'), PF.loadCategory('feats'), PF.loadCategory('spells')]);
-    if (isNode) _ensureProfTable(); else await _ensureProfTable();
+    if (isNode) { _ensureProfTable(); _ensureSubProfTable(); } else { await _ensureProfTable(); await _ensureSubProfTable(); }
     if (isNode) loadSubclasses(); else await loadSubclasses();  // 단일소스 로드(비었을 때). 채워지면 아래 조립은 자연 스킵.
     if (isNode) loadDoctrines(); else await loadDoctrines();    // (subclasses.json에 cleric 포함 → 가드로 스킵. 빌드 하니스 조립 경로에서만 실주입)
     _build();
@@ -314,7 +340,7 @@
 
     // 전 카탈로그 로드 후 재열거 — init 시점에 타 카테고리 미로드로 enrichDesc @link가 영문 스냅샷된 캐시를 정본 한글로 재생성
   function rebuild() { if (_ready) _build(); }
-const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, isLegacy, classFeatures, classFeatureRoster, subclassList, spellTable };
+const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, subclassProfTable, isLegacy, classFeatures, classFeatureRoster, subclassList, spellTable };
   root.PF2eClass = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

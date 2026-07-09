@@ -661,8 +661,10 @@ function applyClassFeatures() {
   if (!cp && typeof PF2eClass !== 'undefined' && PF2eClass.classProfTable) cp = PF2eClass.classProfTable(cls.id);
   if (cp) { for (const [t, p] of Object.entries(cp)) profs[t] = {...p}; }
 
-  if (state.selectedSubclass && (state.selectedSubclass && state.selectedSubclass.prof_changes)) {
-    const sp = state.selectedSubclass.prof_changes;
+  if (state.selectedSubclass && state.selectedSubclass.id) {
+    // 서브클래스 숙련(섀시) = 성장 데이터(subclass_progression, 클래스표와 동일 스키마). prof_changes는 폴백.
+    const sp = (typeof PF2eClass !== 'undefined' && PF2eClass.subclassProfTable && PF2eClass.subclassProfTable(state.selectedSubclass.id))
+      || state.selectedSubclass.prof_changes;
     if (sp) { for (const [t, p] of Object.entries(sp)) profs[t] = {...p}; } // REPLACE
   }
 
