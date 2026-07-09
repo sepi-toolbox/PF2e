@@ -17,6 +17,23 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DEV = path.resolve(__dirname, '..', '..');
 
 const subs = JSON.parse(fs.readFileSync(path.join(DEV, 'data/derived/subclasses.json'), 'utf8')).rows;
+const classFeats = JSON.parse(fs.readFileSync(path.join(DEV, 'data/derived/class_features.json'), 'utf8')).rows;
+
+// 서브클래스가 레벨별로 얻는 클래스 특성 slug 맵(level → [slug]).
+//   소스: class_features 중 name_en이 "(서브클래스명)"을 포함하는 것(교리·연구분야 등 레벨별 특성) + granted_feats(1레벨 부여).
+function subclassLevelFeatures(sc) {
+  const cls = sc.class || sc.class_id || '';
+  const tag = '(' + (sc.name_en || '') + ')';
+  const map = {};
+  const add = (lv, slug) => { if (slug) (map[lv] = map[lv] || []).push(slug); };
+  for (const f of classFeats) {
+    if (f.class !== cls || !f.name_en) continue;
+    if (sc.name_en && f.name_en.includes(tag)) add(f.level, f.slug);
+  }
+  for (const g of (sc.granted_feats || [])) add(1, g);   // 서브클래스가 1레벨에 부여하는 재주
+  for (const lv in map) map[lv] = [...new Set(map[lv])];
+  return map;
+}
 
 // 런타임 스탯키 → 성장표 컬럼명 (class_progression _PROF_COL2T의 역)
 const STAT2COL = {
@@ -31,11 +48,14 @@ const COLS = ['perception', 'fortitude', 'reflex', 'will', 'classDC', 'simple', 
 const rows = [];
 let nSub = 0, unknownStat = new Set();
 for (const sc of subs) {
-  const pc = sc.prof_changes;
-  if (!pc || !Object.keys(pc).length) continue;
+  const pc = sc.prof_changes || {};
+  const featMap = subclassLevelFeatures(sc);
+  // 숙련 오버라이드 또는 레벨별 특성이 있는 서브클래스만 방출(둘 다 없으면 = 클래스 기본만 상속, 표시할 성장 없음).
+  if (!Object.keys(pc).length && !Object.keys(featMap).length) continue;
   nSub++;
   for (let level = 1; level <= 20; level++) {
     const row = { subclass: sc.slug, class: sc.class || sc.class_id || '', name_ko: sc.name_ko || sc.slug, level };
+    row.features = featMap[level] || [];   // 이 레벨에 얻는 클래스 특성 slug
     for (const c of COLS) row[c] = '';
     let any = false;
     for (const [stat, prog] of Object.entries(pc)) {

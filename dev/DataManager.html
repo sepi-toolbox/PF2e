@@ -138,7 +138,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm26"></script>
+<script src="cs_pf2e.js?v=dm27"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -186,11 +186,11 @@ const DM = (function(){
     {id:'classfeatures', label:'클래스특성', kind:'derived', src:'data/derived/class_features.json', shape:'rows', ovKey:'feats',
        cols:['slug','class','name_en','name_ko','level','is_subclass','subclass_type','grants','rules_n'], editable:['name_ko']},
     {id:'subclasses', label:'서브클래스', kind:'derived', src:'data/derived/subclasses.json', shape:'rows', ovKey:'feats',
-       cols:['slug','class','subclass_type','name_en','name_ko','desc','features','granted_feats','granted_skills','granted_spells','grants','rules_n'], editable:['name_ko','desc']},
+       cols:['slug','class','subclass_type','name_en','name_ko','desc','granted_feats','granted_skills','granted_spells','grants','rules_n'], editable:['name_ko','desc']},
     {id:'class_progression', label:'클래스성장(파생)', kind:'derived', src:'data/derived/class_progression.json', shape:'rows',
        cols:['class','cp_name','level','features','perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting','_src']},
     {id:'subclass_progression', label:'서브클래스성장(파생)', kind:'derived', src:'data/derived/subclass_progression.json', shape:'rows',
-       cols:['subclass','class','name_ko','level','perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting','_src']},
+       cols:['subclass','class','name_ko','level','features','perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting','_src']},
     {id:'creatures',  label:'크리처',   kind:'derived', src:'data/derived/creatures.json', shape:'rows',
        cols:['id','name_en','name_ko','level','size','ac','hp','fort','ref','will','perception','traits','n_strikes','n_abilities','n_spells','pack']},
     {id:'hazards',    label:'해저드',   kind:'derived', src:'data/derived/hazards.json', shape:'rows',
@@ -498,8 +498,8 @@ const DM = (function(){
     if(r._flat){
       if(key==='summary'){ return r[key] || _effSummary(r); }
       const v=r[key];
-      if(FEATURE_ARR_COLS.has(key) && Array.isArray(v))   // 클래스특성/부여 배열 → 한글명(또는 slug) 나열
-        return v.map(x=> (x&&typeof x==='object') ? (x.name_ko||x.name_en||x.slug||'?') : x).join(', ');
+      if(FEATURE_ARR_COLS.has(key) && Array.isArray(v))   // 클래스특성/부여 배열 → raw slug 나열(DataManager는 slug 원값)
+        return v.map(x=> (x&&typeof x==='object') ? (x.slug||'') : x).filter(Boolean).join(', ');
       return key==='has_desc'?(v?'✓':''):(v==null?'':v);
     }
     const fn=ACC[key]; return fn?fn(r):'';
@@ -596,7 +596,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm26').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm27').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -943,8 +943,8 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm26').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm26').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm27').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm27').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride, onEffType, onEffFilter, clearEffFilter, toggleSchema };
