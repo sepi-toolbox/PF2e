@@ -109,6 +109,14 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <span class="dm-auth" id="dm-auth"></span>
   </div>
   <div class="dm-tabs" id="dm-tabs"></div>
+  <div class="dm-filterbar" id="dm-filterbar" style="display:none;padding:5px 10px;gap:8px;align-items:center;border-bottom:1px solid var(--line);font-size:11px">
+    <span style="color:var(--gold2)">효과 필터</span>
+    <label>효과타입 <select class="dm-search" id="dm-f-type" style="min-width:150px" onchange="DM.onEffType(this.value)"></select></label>
+    <label>대상 <select class="dm-search" id="dm-f-target" style="min-width:150px" onchange="DM.onEffFilter()"><option value="">(전체)</option></select></label>
+    <label>조건 <select class="dm-search" id="dm-f-cond" style="min-width:120px" onchange="DM.onEffFilter()">
+      <option value="">(전체)</option><option value="none">무조건</option><option value="static">정적(적용)</option><option value="sit">상황(표시만)</option></select></label>
+    <button class="dm-btn" onclick="DM.clearEffFilter()">필터 해제</button>
+  </div>
   <div class="dm-body">
     <div class="dm-gridwrap">
       <div class="dm-status" id="dm-status">준비</div>
@@ -120,7 +128,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm16"></script>
+<script src="cs_pf2e.js?v=dm17"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -415,6 +423,8 @@ const DM = (function(){
   }
   async function selectTab(t){
     curTab=t; selSlug=null; closeDetail(); search=''; document.getElementById('dm-search').value='';
+    effType=''; effTarget=''; effCond='';
+    document.getElementById('dm-filterbar').style.display = (t.id==='effects' && t.kind==='derived') ? 'flex' : 'none';
     renderTabs();
     if(t.ref){ rows=[];view=[]; await ensureTerms(); if(window.PF2eData&&PF2eData.loadLocalize)await PF2eData.loadLocalize();
       try{ await PF2eData.loadCategory('conditions'); await PF2eData.loadCategory('actions'); }catch(e){}  // 예시 @UUID/@Embed 정본해소용
@@ -425,8 +435,27 @@ const DM = (function(){
     else await ensureLoaded(t.cat);
     rows = t.kind==='derived' ? loaded['@'+t.id] : loaded[t.cat];
     sortKey=t.cols[0]; sortDir=1;
+    if(t.id==='effects' && t.kind==='derived') populateEffTypes();
     applyView();
   }
+  // 효과 탭 필터(v0.163): 효과타입·대상·조건. 효과타입 선택 시 대상 후보를 그 타입 행의 target으로 스코프(사용자 요구).
+  let effType='', effTarget='', effCond='';
+  function _condKind(r){ const c=r.condition||''; if(!c) return 'none'; return /^상황/.test(c) ? 'sit' : 'static'; }
+  function populateEffTypes(){
+    const types=[...new Set(rows.map(r=>r.type).filter(Boolean))].sort();
+    const sel=document.getElementById('dm-f-type');
+    sel.innerHTML='<option value="">(전체 효과타입)</option>'+types.map(t=>'<option value="'+esc(t)+'">'+esc(t)+' ('+rows.filter(r=>r.type===t).length+')</option>').join('');
+    populateEffTargets();
+  }
+  function populateEffTargets(){
+    const pool = effType ? rows.filter(r=>r.type===effType) : rows;
+    const targets=[...new Set(pool.map(r=>r.target).filter(t=>t!=null&&t!==''))].sort().slice(0,400);
+    const sel=document.getElementById('dm-f-target');
+    sel.innerHTML='<option value="">(전체 대상)</option>'+targets.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join('');
+  }
+  function onEffType(v){ effType=v; effTarget=''; populateEffTargets(); onEffFilter(); }
+  function onEffFilter(){ effTarget=document.getElementById('dm-f-target').value; effCond=document.getElementById('dm-f-cond').value; applyView(); }
+  function clearEffFilter(){ effType=''; effTarget=''; effCond=''; document.getElementById('dm-f-cond').value=''; populateEffTypes(); applyView(); }
   async function ensureLoaded(cat){
     if(loaded[cat]) return;
     document.getElementById('dm-loading').style.display='block';
@@ -445,7 +474,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm16').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm17').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -464,6 +493,12 @@ const DM = (function(){
       // 파생 테이블: 표시 컬럼 값 전반 검색(재주효과·크리처공격 등 name_ko 없는 표)
       return (curTab.cols||[]).some(c=>(''+(cellVal(r,c)==null?'':cellVal(r,c))).toLowerCase().includes(q));
     }) : rows.slice();
+    // 효과 탭 필터(효과타입·대상·조건)
+    if(curTab.id==='effects' && curTab.kind==='derived'){
+      if(effType) view=view.filter(r=>r.type===effType);
+      if(effTarget) view=view.filter(r=>(''+(r.target==null?'':r.target))===effTarget);
+      if(effCond) view=view.filter(r=>_condKind(r)===effCond);
+    }
     view.sort((a,b)=>{ let x=cellSort(a,sortKey),y=cellSort(b,sortKey); return (x<y?-1:x>y?1:0)*sortDir; });
     renderHead(); renderRows(); updateStatus();
   }
@@ -767,11 +802,11 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm16').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm16').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm17').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm17').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
-  return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride };
+  return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride, onEffType, onEffFilter, clearEffFilter };
 })();
 window.addEventListener('DOMContentLoaded', DM.init);
 </script>
