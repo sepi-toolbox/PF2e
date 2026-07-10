@@ -1055,10 +1055,10 @@ function toggleDivineFontSlot(idx) {
 
 function getDivineFontSlots() {
   if(!state.divineFont || !state.selectedClass || !state.selectedClass.deity_skill) return 0;
-  // 신성한 샘(Divine Font) 정본(Player Core): 매일 최고 랭크 치유/해악 주문을 "1 + 매력 수정치"만큼 추가 시전.
-  //   레벨 스케일링(구 4/5/6)은 오류 — 규칙상 슬롯 수는 매력 수정치에만 의존.
-  const chaMod = (typeof getMod === 'function') ? getMod('cha') : 0;
-  return Math.max(0, 1 + chaMod);
+  const lv = getLevel();
+  // 신성한 샘(Divine Font) 리마스터(Player Core) 정본: 최고 랭크 치유/해악 슬롯 4개 → 5개(5레벨) → 6개(15레벨).
+  //   ⚠ "1 + 매력 수정치"는 구판(CRB) 규칙 — 리마스터는 고정 슬롯 수로 변경됨. (신격 데이터 _desc_en 원문 확인)
+  return lv >= 15 ? 6 : lv >= 5 ? 5 : 4;
 }
 
 function onLevelChange() {
@@ -4392,7 +4392,7 @@ function _fontSpellBoxHtml(val) {
   const siHtml = (si && String(si).indexOf('<') === 0) ? si : '<span class="gcf-emoji">✨</span>';
   return `<div style="padding:6px 8px;background:var(--bg4);border-radius:6px;border-left:2px solid var(--accent);">
     <div style="display:flex;align-items:center;gap:6px;font-weight:600;cursor:help;" title="${_spellTipAttr(sp)}"><span class="gcf-gic">${siHtml}</span><span>${sp.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${sp.name_en || ''}</span></span></div>
-    <div style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.6;">매일 최고 랭크 ${val === 'heal' ? '치유' : '해악'} 주문을 <b>1 + 매력 수정치</b>만큼 추가로 시전합니다.</div>
+    <div style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.6;">매일 최고 랭크 ${val === 'heal' ? '치유' : '해악'} 주문 슬롯 <b>4개</b>(5레벨 5개, 15레벨 6개)를 추가로 얻습니다.</div>
   </div>`;
 }
 
