@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.187').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.188').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -2119,19 +2119,28 @@ function rebuildCoreEffects() {
     });
   }
 
-  // ── 신격 부여 기술/선호무기 숙련 (출처기반, v0.134) — deity_skill 플래그 클래스(클레릭 등)만 ──
+  // ── 신격 부여 기술/선호무기 숙련 (출처기반, v0.134) ──
   //   구: selectDeity 명령형 부여 + clearDeity/신격변경 시 미원복 → 이전 기술·무기숙련 유령 잔존.
+  //   ⚠ deity_skill 플래그(과부하)를 직교 능력으로 분해:
+  //     · 신격 기술 훈련 = 신격 선택 특성(deity-*)을 가진 클래스 전부 — 클레릭(deity-cleric)·챔피언(deity-champion)
+  //       리마스터: 둘 다 "신격의 신성 기술에 숙련"(PC1 클레릭 / PC2 챔피언 '신성과 원인').
+  //     · 선호무기 숙련 상승 = 클레릭 계열(deity_skill)만 — 챔피언은 '신성 무기'(피해 주사위 상승·접근)라 숙련 상승 아님.
+  const _deityRoster = (typeof CLASS_FEATURE_NAMES !== 'undefined' && cls && CLASS_FEATURE_NAMES[cls.id]) || [];
+  const _classTrainsDeitySkill = !!(cls && (cls.deity_skill || _deityRoster.some(f => /^deity-/.test(String(f.slug || f.id || '')))));
+  if (_classTrainsDeitySkill && state.deity) {
+    const dty = (typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
+    if (dty && dty.skill) {
+      const el = document.getElementById('sk-prof-' + dty.skill);
+      if (el) {
+        const cur = parseInt(el.value || 0);
+        state._deityGrantedSkills.push({skill: dty.skill, rank: 2, prevRank: cur});
+        if (cur < 2) el.value = '2';
+      }
+    }
+  }
   if (cls && cls.deity_skill && state.deity) {
     const dty = (typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
     if (dty) {
-      if (dty.skill) {
-        const el = document.getElementById('sk-prof-' + dty.skill);
-        if (el) {
-          const cur = parseInt(el.value || 0);
-          state._deityGrantedSkills.push({skill: dty.skill, rank: 2, prevRank: cur});
-          if (cur < 2) el.value = '2';
-        }
-      }
       if (dty.weapon && typeof getWeapon === 'function') {
         const wpn = getWeapon(dty.weapon);
         if (wpn) {

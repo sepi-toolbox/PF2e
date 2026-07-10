@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.187').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.188').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2293,10 +2293,11 @@ function renderFeats() {
           <div style="font-size:11px;line-height:1.6;color:var(--text2);">${typeof resolveDescRefs==='function'?resolveDescRefs(_sub.desc||''):(_sub.desc||'')}</div>
         </div>` : '';
       // 클래스 선택 특성(신성/신성한 샘): 확정된 신격·성별화·신성 원천을 카드 안에 표시(재주 탭)
+      //   신격 선택 특성은 클래스별로 슬러그가 다름(클레릭=deity-cleric, 챔피언=deity-champion) — 공통 처리.
       let _classChoiceBox = '';
       if (t === 'special' && typeof featSlug === 'function') {
         const _fslug = featSlug(f);
-        if (_fslug === 'deity-cleric' && typeof _deityFeatDisplayHtml === 'function') _classChoiceBox = _deityFeatDisplayHtml();
+        if ((_fslug === 'deity-cleric' || _fslug === 'deity-champion') && typeof _deityFeatDisplayHtml === 'function') _classChoiceBox = _deityFeatDisplayHtml();
         else if (_fslug === 'divine-font' && typeof _fontFeatDisplayHtml === 'function') _classChoiceBox = _fontFeatDisplayHtml();
       }
       div.innerHTML = `
