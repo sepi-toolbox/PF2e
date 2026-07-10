@@ -4318,35 +4318,39 @@ function _spellTipAttr(sp) {
   return txt.replace(/"/g, '&quot;');
 }
 
-// 신격 정보/주문 박스(아이콘 포함) — 인라인 카드·재렌더 공용(일관 양식).
-//   설명(desc)·성별화(sanctification)·신격 주문(호버 설명)을 한 박스에 통합.
-function _deityBoxHtml(d, savedSanct) {
+// 신격 정보/주문 박스(아이콘 포함) — 인라인 카드·재렌더·재주 탭 공용(일관 양식).
+//   설명(desc)·성별화(sanctification)·신격 주문(클릭 설명)을 한 박스에 통합.
+//   readonly=true → 재주 탭 표시용(성별화 편집 select 대신 확정값 평문).
+function _deityBoxHtml(d, savedSanct, readonly) {
   if (!d) return `<div style="font-size:10px;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;">신격을 선택하면 설명·영역·선호무기·성별화·신격 주문이 표시됩니다.</div>`;
   const _skMap = {society:'사회',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',nature:'자연학',religion:'종교학',occultism:'오컬티즘',diplomacy:'외교',performance:'공연',thievery:'도둑질'};
   const skillName = d.skill_ko || _skMap[d.skill] || d.skill || '—';
   const doms = (d.domains_ko && d.domains_ko.length ? d.domains_ko : (d.domains || [])).join(', ') || '—';
   const di = (typeof iconImg === 'function' && iconImg('deity', d)) || '';
   const diHtml = (di && String(di).indexOf('<') === 0) ? di : '<span class="gcf-emoji">🙏</span>';
-  // 성별화 — 신격이 결정. 단일/없음=평문, 2택=인라인 선택(신성/불경 택1).
+  // 성별화 — 신격이 결정. 단일/없음=평문, 2택=선택(재주 탭=확정값 평문, 모달=인라인 select).
   const sOpts = d.sanctification || [];
+  const _sLabel = (o) => o === 'holy' ? '신성 (Holy)' : '불경 (Unholy)';
   let sanctHtml;
   if (sOpts.length === 0) sanctHtml = `<div style="font-size:10px;margin-top:2px;"><b>✨ 성별화:</b> 없음</div>`;
-  else if (sOpts.length === 1) sanctHtml = `<div style="font-size:10px;margin-top:2px;"><b>✨ 성별화:</b> ${sOpts[0] === 'holy' ? '신성 (Holy)' : '불경 (Unholy)'} <span style="color:var(--text2);">— 신격이 요구(고정)</span></div>`;
+  else if (sOpts.length === 1) sanctHtml = `<div style="font-size:10px;margin-top:2px;"><b>✨ 성별화:</b> ${_sLabel(sOpts[0])} <span style="color:var(--text2);">— 신격이 요구(고정)</span></div>`;
+  else if (readonly) sanctHtml = `<div style="font-size:10px;margin-top:2px;"><b>✨ 성별화:</b> ${savedSanct ? _sLabel(savedSanct) : '<span style="color:#ff9800;">⚠ 미선택</span>'}</div>`;
   else sanctHtml = `<div style="font-size:10px;margin-top:4px;"><b>✨ 성별화:</b> 신성·불경 중 선택
       <select id="cls-sanct" onchange="_modalChoices.sanctification=this.value;_validateInitialChoices()" style="${_selStyle}display:inline-block;width:auto;margin-left:4px;vertical-align:middle;">
         <option value=""${!savedSanct ? ' selected' : ''}>— 선택 —</option>
-        ${sOpts.map(o => `<option value="${o}"${o === savedSanct ? ' selected' : ''}>${o === 'holy' ? '신성 (Holy)' : '불경 (Unholy)'}</option>`).join('')}
+        ${sOpts.map(o => `<option value="${o}"${o === savedSanct ? ' selected' : ''}>${_sLabel(o)}</option>`).join('')}
       </select></div>`;
-  // 신격 주문 — 아이콘 + 호버(title)로 주문 설명.
+  // 신격 주문 — 아이콘 + 클릭(desc-ref 떠 있는 팝업)으로 주문 정보. 모달·재주 탭 공용(모달-overlay 미간섭).
   const spEntries = Object.entries(d.spells_slug || {}).sort((a, b) => (+a[0]) - (+b[0]));
-  const spHtml = spEntries.length ? `<div style="margin-top:6px;"><div style="font-size:9px;color:var(--text2);margin-bottom:3px;">신격 주문 <span style="opacity:0.7;">(마우스를 올리면 설명)</span></div>${spEntries.map(([rank, slug]) => {
+  const spHtml = spEntries.length ? `<div style="margin-top:6px;"><div style="font-size:9px;color:var(--text2);margin-bottom:3px;">신격 주문 <span style="opacity:0.7;">(클릭하면 주문 정보)</span></div>${spEntries.map(([rank, slug]) => {
     const sp = (typeof getSpell === 'function') ? getSpell(slug) : null;
     const si = (sp && typeof iconImg === 'function' && iconImg('spell', sp)) || '';
     const siHtml = (si && String(si).indexOf('<') === 0) ? si : '<span class="gcf-emoji">✨</span>';
-    return `<div class="gcf-grant" title="${_spellTipAttr(sp)}" style="cursor:help;"><span class="gcf-gic">${siHtml}</span><span class="gcf-gname">${sp ? (sp.name_ko || sp.name_en) : slug}</span><span class="gcf-gbadge">${rank}랭크</span></div>`;
+    const nm = sp ? (sp.name_ko || sp.name_en) : slug;
+    return `<div class="gcf-grant" style="cursor:pointer;"><span class="gcf-gic">${siHtml}</span><span class="gcf-gname desc-ref" data-ref-type="spell" data-ref-key="${String(slug).replace(/"/g,'&quot;')}">${nm}</span><span class="gcf-gbadge">${rank}랭크</span></div>`;
   }).join('')}</div>` : '';
-  // 신격 설명(flavor) — 접이식으로 복원(박스 과밀 방지).
-  const descHtml = d.desc ? `<details style="margin-top:6px;"><summary style="cursor:pointer;font-size:9px;color:var(--text2);outline:none;">📜 신격 설명</summary><div style="font-size:10px;line-height:1.6;margin-top:4px;max-height:200px;overflow:auto;padding-right:4px;">${d.desc}</div></details>` : '';
+  // 신격 설명(flavor) — 기본 펼침(open). 원하면 접을 수 있는 details 유지.
+  const descHtml = d.desc ? `<details open style="margin-top:6px;"><summary style="cursor:pointer;font-size:9px;color:var(--text2);outline:none;">📜 신격 설명</summary><div style="font-size:10px;line-height:1.6;margin-top:4px;max-height:280px;overflow:auto;padding-right:4px;">${d.desc}</div></details>` : '';
   return `<div style="padding:8px 10px;background:var(--bg4);border-radius:6px;border-left:2px solid var(--accent);">
     <div style="display:flex;align-items:center;gap:6px;font-weight:600;"><span class="gcf-gic">${diHtml}</span><span>${d.name_ko} <span style="color:var(--text2);font-size:10px;font-weight:400;">${d.name_en || ''}</span></span></div>
     <div style="font-size:10px;margin-top:4px;"><b>영역:</b> ${doms}</div>
@@ -4391,9 +4395,22 @@ function _fontSpellBoxHtml(val) {
   const si = (typeof iconImg === 'function' && iconImg('spell', sp)) || '';
   const siHtml = (si && String(si).indexOf('<') === 0) ? si : '<span class="gcf-emoji">✨</span>';
   return `<div style="padding:6px 8px;background:var(--bg4);border-radius:6px;border-left:2px solid var(--accent);">
-    <div style="display:flex;align-items:center;gap:6px;font-weight:600;cursor:help;" title="${_spellTipAttr(sp)}"><span class="gcf-gic">${siHtml}</span><span>${sp.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${sp.name_en || ''}</span></span></div>
+    <div class="desc-ref" data-ref-type="spell" data-ref-key="${String(val).replace(/"/g,'&quot;')}" style="display:flex;align-items:center;gap:6px;font-weight:600;cursor:pointer;"><span class="gcf-gic">${siHtml}</span><span>${sp.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${sp.name_en || ''}</span></span></div>
     <div style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.6;">매일 최고 랭크 ${val === 'heal' ? '치유' : '해악'} 주문 슬롯 <b>4개</b>(5레벨 5개, 15레벨 6개)를 추가로 얻습니다.</div>
   </div>`;
+}
+
+// ── 재주 탭용 읽기전용 표시 — 확정된 신격/성별화·신성 원천을 특성 카드 안에 노출 ──
+//   커밋 상태(state.deity/sanctification/divineFont)를 읽어 모달과 동일 양식으로 표시(readonly).
+function _deityFeatDisplayHtml() {
+  const d = state.deity ? _getDeity(state.deity) : null;
+  if (!d) return `<div style="font-size:11px;color:#ff9800;margin-top:8px;">⚠ 신격 미선택 — 성장 계획에서 신격을 골라주세요.</div>`;
+  return `<div style="margin-top:8px;">${_deityBoxHtml(d, state.sanctification || '', true)}</div>`;
+}
+function _fontFeatDisplayHtml() {
+  const val = state.divineFont;
+  if (!val) return `<div style="font-size:11px;color:#ff9800;margin-top:8px;">⚠ 신성 원천 미선택 — 성장 계획에서 치유/해악을 골라주세요.</div>`;
+  return `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:4px;"><b>신성 원천:</b> ${val === 'heal' ? '치유 (Heal)' : '해악 (Harm)'}</div>${_fontSpellBoxHtml(val)}</div>`;
 }
 
 // 신격 변경 시 신성한 샘 카드(폰트 허용치) 갱신.

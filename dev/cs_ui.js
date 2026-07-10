@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.186').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.187').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2292,6 +2292,13 @@ function renderFeats() {
           <div style="font-weight:600;font-size:12px;margin-bottom:3px;display:inline-flex;align-items:center;gap:4px;">${typeof iconImg==='function'?iconImg('feat',_sub):''}${_sub.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${_sub.name_en||''}</span></div>
           <div style="font-size:11px;line-height:1.6;color:var(--text2);">${typeof resolveDescRefs==='function'?resolveDescRefs(_sub.desc||''):(_sub.desc||'')}</div>
         </div>` : '';
+      // 클래스 선택 특성(신성/신성한 샘): 확정된 신격·성별화·신성 원천을 카드 안에 표시(재주 탭)
+      let _classChoiceBox = '';
+      if (t === 'special' && typeof featSlug === 'function') {
+        const _fslug = featSlug(f);
+        if (_fslug === 'deity-cleric' && typeof _deityFeatDisplayHtml === 'function') _classChoiceBox = _deityFeatDisplayHtml();
+        else if (_fslug === 'divine-font' && typeof _fontFeatDisplayHtml === 'function') _classChoiceBox = _fontFeatDisplayHtml();
+      }
       div.innerHTML = `
         <div class="feat-card-header" style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
           <span style="color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${iconImg('feat', featData)}${f.name || labels[t] + ' 재주'}</span>${redDot}
@@ -2304,6 +2311,7 @@ function renderFeats() {
           ${fPrereq}
           <div style="line-height:1.6;">${typeof formatDescActions==='function'?formatDescActions(_descShown,featData):_descShown}</div>
           ${subBox}
+          ${_classChoiceBox}
           ${typeof _buildFeatActionCard==='function'?_buildFeatActionCard(featData):''}
           ${choiceUI}
         </div>`;
