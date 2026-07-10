@@ -1237,8 +1237,9 @@ function renderGrowthPlan() {
     state.selectedClass ? _slotCircle('class', state.selectedClass, '⚔') : '⚔', '클래스 Class',
     state.selectedClass ? `${state.selectedClass.name} (${state.selectedClass.en})` : null,
     "openModal('class')", state.selectedClass ? "clearCoreSelection('class')" : null);
-  // Deity selector (전 클래스 공통 — 핵심 빌드에서 별도 선택. 478 신격)
-  {
+  // Deity selector — 신격을 클래스 모달에서 인라인 선택하는 클래스(클레릭=deity_skill)는 성장플랜 슬롯 숨김(중복 제거).
+  //   그 외 신격 사용 클래스(챔피언 등)는 여기서 계속 선택.
+  if (!state.selectedClass?.deity_skill) {
     const _dObj = state.deity ? _getDeity(state.deity) : null;
     html += growthSlotWithClearHTML('deity-sel',
       _dObj ? _slotCircle('deity', _dObj, '🙏') : '🙏', '신격 Deity',
@@ -4281,145 +4282,137 @@ function _choiceCardBody(slug, controlHtml) {
   return descHtml + (controlHtml || '');
 }
 
-// 신성(클레릭) 특성 카드 본문 — 신격 정보(읽기전용, 선택은 성장계획) + 성별화. _modalChoices 부작용 보존.
+// 신성(클레릭) 특성 카드 본문 — 신격 인라인 선택 + 신격 정보/주문 박스(아이콘) + 성별화.
+//   신격은 _modalChoices.deity(tentative)로, 모달 확정 시 state.deity로 커밋(기존 흐름 재사용).
 function _clericDeityControlHtml(savedSanct) {
-  const curDeity = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
-  _modalChoices.deity = undefined;   // 신격은 모달에서 선택하지 않음(성장슬롯 일원화)
-  const _skMap = {society:'사회',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',nature:'자연학',religion:'종교학',occultism:'오컬티즘',diplomacy:'외교',performance:'공연',thievery:'도둑질'};
-  let h = `<div style="font-size:9px;color:var(--text2);margin-bottom:6px;">신격은 성장계획 상단 🙏 슬롯에서 선택합니다. 신성(클레릭)이 신격의 기술·무기 숙련과 신격 주문을 활성화합니다.</div>`;
-  if (curDeity) {
-    const skillName = curDeity.skill_ko || _skMap[curDeity.skill] || curDeity.skill || '—';
-    const doms = (curDeity.domains_ko && curDeity.domains_ko.length ? curDeity.domains_ko : (curDeity.domains || [])).join(', ') || '—';
-    h += `<div style="padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.7;">
-      <div style="font-weight:600;">${curDeity.name_ko} <span style="font-size:10px;color:var(--text2);">${curDeity.name_en || ''}</span></div>
-      <div style="font-size:10px;"><strong>영역:</strong> ${doms}</div>
-      <div style="font-size:10px;">📖 신격 기술: <b>${skillName}</b> · ⚔ 선호 무기: ${weaponRefHtml(curDeity.weapon)}</div>
+  const savedDeity = state.deity || '';
+  _modalChoices.deity = savedDeity || undefined;   // 있으면 복원, 없으면 미필수(undefined) — 미선택 플로우 허용
+  const all = (typeof _allDeities === 'function') ? _allDeities() : [];
+  const opts = all.slice().sort((a, b) => (a.name_ko || '').localeCompare(b.name_ko || '', 'ko'))
+    .map(d => `<option value="${d.id}"${d.id === savedDeity ? ' selected' : ''}>${d.name_ko} (${d.name_en})</option>`).join('');
+  const curD = savedDeity ? _getDeity(savedDeity) : null;
+  const sOpts = (curD && curD.sanctification) || [];
+  if (sOpts.length === 1) _modalChoices.sanctification = sOpts[0];
+  else if (sOpts.length > 1) _modalChoices.sanctification = savedSanct || '';
+  else _modalChoices.sanctification = undefined;
+  const sanctInner = sOpts.length === 1
+    ? `<select disabled style="${_selStyle}opacity:0.6;"><option>${sOpts[0] === 'holy' ? '신성 (Holy)' : '불경 (Unholy)'}</option></select>`
+    : `<select id="cls-sanct" onchange="_modalChoices.sanctification=this.value;_validateInitialChoices()" style="${_selStyle}">
+        <option value="">— 선택 —</option>
+        ${sOpts.map(o => `<option value="${o}"${o === savedSanct ? ' selected' : ''}>${o === 'holy' ? '신성 (Holy)' : '불경 (Unholy)'}</option>`).join('')}
+      </select>`;
+  return `<div style="font-size:9px;color:var(--text2);margin-bottom:6px;">신격을 고르면 기술·무기 숙련·신격 주문, 그리고 신성 원천 선택지가 정해집니다.</div>
+    <select id="cls-deity" onchange="_onClericDeityChange(this.value)" style="${_selStyle}">
+      <option value="">— 신격 선택 —</option>${opts}
+    </select>
+    <div id="cls-deity-info" style="margin-top:8px;">${_deityBoxHtml(curD)}</div>
+    <div id="cls-sanct-block" style="margin-top:8px;${sOpts.length ? '' : 'display:none;'}">
+      <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">✨ 성별화 Sanctification</div>${sanctInner}
     </div>`;
-    const sOpts = curDeity.sanctification || [];
-    if (sOpts.length === 0) {
-      _modalChoices.sanctification = undefined;
-    } else if (sOpts.length === 1) {
-      _modalChoices.sanctification = sOpts[0];
-      const lb = sOpts[0] === 'holy' ? '신성 (Holy)' : '불경 (Unholy)';
-      h += `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:2px;">✨ 성별화 Sanctification</div>
-        <select disabled style="${_selStyle}opacity:0.6;"><option>${lb}</option></select></div>`;
-    } else {
-      _modalChoices.sanctification = state.selectedClass?.id === 'cleric' ? savedSanct : '';
-      h += `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:2px;">✨ 성별화 Sanctification</div>
-        <select id="cls-sanct" onchange="_modalChoices.sanctification=this.value;_validateInitialChoices()" style="${_selStyle}">
-          <option value="">— 선택 —</option>
-          ${sOpts.map(o => `<option value="${o}"${o === savedSanct ? ' selected' : ''}>${o === 'holy' ? '신성 (Holy)' : '불경 (Unholy)'}</option>`).join('')}
-        </select></div>`;
-    }
-  } else {
-    _modalChoices.sanctification = undefined;
-    h += `<div style="font-size:10px;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;">신격을 아직 선택하지 않았습니다. 성장계획 상단의 🙏 <b>신격</b> 슬롯에서 선택하세요.</div>`;
-  }
-  return h;
 }
 
-// 신성한 샘 특성 카드 본문 — 치유/해악 선택.
+// 신격 정보/주문 박스(아이콘 포함) — 인라인 카드·재렌더 공용(일관 양식).
+function _deityBoxHtml(d) {
+  if (!d) return `<div style="font-size:10px;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;">신격을 선택하면 영역·선호무기·신격 주문이 표시됩니다.</div>`;
+  const _skMap = {society:'사회',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',nature:'자연학',religion:'종교학',occultism:'오컬티즘',diplomacy:'외교',performance:'공연',thievery:'도둑질'};
+  const skillName = d.skill_ko || _skMap[d.skill] || d.skill || '—';
+  const doms = (d.domains_ko && d.domains_ko.length ? d.domains_ko : (d.domains || [])).join(', ') || '—';
+  const di = (typeof iconImg === 'function' && iconImg('deity', d)) || '';
+  const diHtml = (di && String(di).indexOf('<') === 0) ? di : '<span class="gcf-emoji">🙏</span>';
+  const spEntries = Object.entries(d.spells_slug || {}).sort((a, b) => (+a[0]) - (+b[0]));
+  const spHtml = spEntries.length ? `<div style="margin-top:6px;"><div style="font-size:9px;color:var(--text2);margin-bottom:3px;">신격 주문</div>${spEntries.map(([rank, slug]) => {
+    const sp = (typeof getSpell === 'function') ? getSpell(slug) : null;
+    const si = (sp && typeof iconImg === 'function' && iconImg('spell', sp)) || '';
+    const siHtml = (si && String(si).indexOf('<') === 0) ? si : '<span class="gcf-emoji">✨</span>';
+    return `<div class="gcf-grant"><span class="gcf-gic">${siHtml}</span><span class="gcf-gname">${sp ? (sp.name_ko || sp.name_en) : slug}</span><span class="gcf-gbadge">${rank}랭크</span></div>`;
+  }).join('')}</div>` : '';
+  return `<div style="padding:8px 10px;background:var(--bg4);border-radius:6px;border-left:2px solid var(--accent);">
+    <div style="display:flex;align-items:center;gap:6px;font-weight:600;"><span class="gcf-gic">${diHtml}</span><span>${d.name_ko} <span style="color:var(--text2);font-size:10px;font-weight:400;">${d.name_en || ''}</span></span></div>
+    <div style="font-size:10px;margin-top:4px;"><b>영역:</b> ${doms}</div>
+    <div style="font-size:10px;">📖 ${skillName} · ⚔ ${weaponRefHtml(d.weapon, true)}</div>
+    ${spHtml}
+  </div>`;
+}
+
+// 신성한 샘 특성 카드 본문 — 신격의 신성 원천에 맞춰 제한된 치유/해악 선택(#cls-font-wrap로 신격 변경 시 갱신).
 function _clericFontControlHtml(savedFont) {
-  return `<select id="cls-font" onchange="_onClericFontChange(this.value)" style="${_selStyle}">
+  const d = _modalChoices.deity ? _getDeity(_modalChoices.deity) : (state.deity ? _getDeity(state.deity) : null);
+  return `<div id="cls-font-wrap">${_fontOptionsHtml(d, savedFont)}</div>`;
+}
+
+// 신성 원천 선택지 = 신격 폰트(heal/harm/양쪽)로 강제 제한. 신격 없으면 비활성.
+function _fontOptionsHtml(d, savedFont) {
+  if (!d) { _modalChoices.divineFont = undefined; return `<div style="font-size:10px;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;">먼저 <b>신성(클레릭)</b>에서 신격을 선택하세요. 신성 원천(치유/해악)은 신격이 허용하는 것만 고를 수 있습니다.</div>`; }
+  const fonts = d.font || [];
+  let cur = (savedFont && fonts.includes(savedFont)) ? savedFont : '';
+  let inner;
+  if (fonts.length === 1) {
+    cur = fonts[0]; _modalChoices.divineFont = cur;
+    inner = `<select disabled style="${_selStyle}opacity:0.7;"><option>${cur === 'heal' ? '치유 (Heal)' : '해악 (Harm)'}</option></select>
+      <div style="font-size:9px;color:var(--text2);margin-top:2px;">이 신격은 ${cur === 'heal' ? '치유' : '해악'}만 제공합니다.</div>`;
+  } else {
+    _modalChoices.divineFont = cur || undefined;
+    inner = `<select id="cls-font" onchange="_onClericFontChange(this.value)" style="${_selStyle}">
       <option value="">— 선택 —</option>
-      <option value="heal"${savedFont === 'heal' ? ' selected' : ''}>치유 (Heal)</option>
-      <option value="harm"${savedFont === 'harm' ? ' selected' : ''}>해악 (Harm)</option>
-    </select>
-    <div id="cls-font-info" style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;"></div>`;
+      ${fonts.includes('heal') ? `<option value="heal"${cur === 'heal' ? ' selected' : ''}>치유 (Heal)</option>` : ''}
+      ${fonts.includes('harm') ? `<option value="harm"${cur === 'harm' ? ' selected' : ''}>해악 (Harm)</option>` : ''}
+    </select>`;
+  }
+  return `${inner}<div id="cls-font-info" style="font-size:10px;color:var(--text2);margin-top:6px;line-height:1.5;">${cur ? _fontSpellBoxHtml(cur) : ''}</div>`;
+}
+
+// 신성 원천 결과 주문 박스(아이콘) — 치유/해악.
+function _fontSpellBoxHtml(val) {
+  const sp = (typeof getSpell === 'function') ? getSpell(val) : null;
+  if (!sp) return '';
+  const si = (typeof iconImg === 'function' && iconImg('spell', sp)) || '';
+  const siHtml = (si && String(si).indexOf('<') === 0) ? si : '<span class="gcf-emoji">✨</span>';
+  return `<div style="padding:6px 8px;background:var(--bg4);border-radius:6px;border-left:2px solid var(--accent);">
+    <div style="display:flex;align-items:center;gap:6px;font-weight:600;"><span class="gcf-gic">${siHtml}</span><span>${sp.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${sp.name_en || ''}</span></span></div>
+    <div style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.6;">매일 ${val === 'heal' ? '치유' : '해악'} 주문을 1+매력 수정치만큼 추가로 준비합니다.</div>
+  </div>`;
+}
+
+// 신격 변경 시 신성한 샘 카드(폰트 허용치) 갱신.
+function _refreshFontWrap() {
+  const w = document.getElementById('cls-font-wrap');
+  if (w) w.innerHTML = _fontOptionsHtml(_modalChoices.deity ? _getDeity(_modalChoices.deity) : null, _modalChoices.divineFont || '');
 }
 
 
 function _onClericDeityChange(id) {
-  _modalChoices.deity = id;
+  _modalChoices.deity = id || undefined;
+  const d = id ? _getDeity(id) : null;
   const info = document.getElementById('cls-deity-info');
+  if (info) info.innerHTML = _deityBoxHtml(d);   // 아이콘 포함 신격/주문 박스(일관 양식)
+  // 성별화 블록 동적 업데이트
   const sanctBlock = document.getElementById('cls-sanct-block');
   const sanctSel = document.getElementById('cls-sanct');
-  const d = _getDeity(id);
-
-  if (info) {
-    if (d) {
-      const skillMap = {society:'사회',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
-        intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',
-        nature:'자연학',religion:'종교학',occultism:'오컬티즘',diplomacy:'외교',performance:'공연',thievery:'도둑질'};
-      info.innerHTML = `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">
-        ${d.title ? `<div style="color:var(--accent);font-style:italic;margin-bottom:4px;">${d.title}</div>` : ''}
-        <div><strong>영역:</strong> ${(d.domains_ko&&d.domains_ko.length?d.domains_ko:(d.domains||[])).join(', ')||'—'}</div>
-        ${d.desc ? `<div style="margin-top:4px;">${d.desc}</div>` : ''}
-      </div>`;
-    } else {
-      info.innerHTML = '';
-    }
-  }
-  // 신격 기술 / 선호 무기 비활성 드롭다운
-  const detailsEl = document.getElementById('cls-deity-details');
-  if (detailsEl) {
-    if (d) {
-      const skillMap = {society:'사회',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',
-        intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',
-        nature:'자연학',religion:'종교학',occultism:'오컬티즘',diplomacy:'외교',performance:'공연',thievery:'도둑질'};
-      const skillName = d.skill_ko || skillMap[d.skill] || d.skill;
-      detailsEl.innerHTML = `
-        <div style="margin-top:8px;">
-          <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">📖 신격 기술</div>
-          <select disabled style="${_selStyle}opacity:0.6;"><option>${skillName}</option></select>
-        </div>
-        <div style="margin-top:6px;">
-          <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">⚔ 선호 무기</div>
-          <select disabled style="${_selStyle}opacity:0.6;"><option>${weaponRefHtml(d.weapon)}</option></select>
-        </div>`;
-    } else {
-      detailsEl.innerHTML = '';
-    }
-  }
-
-  // 성별화 블록 동적 업데이트
-  if (sanctBlock && sanctSel) {
+  if (sanctBlock) {
     const opts = d ? (d.sanctification || []) : [];
-    if (opts.length === 0) {
-      sanctBlock.style.display = 'none';
-      _modalChoices.sanctification = '';
-    } else if (opts.length === 1) {
-      // 선택지 1개: 자동 선택 (disabled)
+    if (opts.length === 0) { sanctBlock.style.display = 'none'; _modalChoices.sanctification = undefined; }
+    else if (sanctSel) {
       sanctBlock.style.display = '';
-      const label = opts[0] === 'holy' ? '신성 (Holy)' : '불경 (Unholy)';
-      sanctSel.innerHTML = `<option value="${opts[0]}">${label}</option>`;
-      sanctSel.disabled = true;
-      sanctSel.style.opacity = '0.6';
-      _modalChoices.sanctification = opts[0];
-    } else {
-      // 선택지 2개: 유저 선택
-      sanctBlock.style.display = '';
-      sanctSel.innerHTML = `<option value="">— 선택 —</option>` +
-        opts.map(o => `<option value="${o}">${o==='holy'?'신성 (Holy)':'불경 (Unholy)'}</option>`).join('');
-      sanctSel.disabled = false;
-      sanctSel.style.opacity = '';
-      _modalChoices.sanctification = '';
+      if (opts.length === 1) {
+        sanctSel.innerHTML = `<option value="${opts[0]}">${opts[0] === 'holy' ? '신성 (Holy)' : '불경 (Unholy)'}</option>`;
+        sanctSel.disabled = true; sanctSel.style.opacity = '0.6'; _modalChoices.sanctification = opts[0];
+      } else {
+        sanctSel.innerHTML = `<option value="">— 선택 —</option>` + opts.map(o => `<option value="${o}">${o === 'holy' ? '신성 (Holy)' : '불경 (Unholy)'}</option>`).join('');
+        sanctSel.disabled = false; sanctSel.style.opacity = ''; _modalChoices.sanctification = '';
+      }
     }
   }
+  // 신격이 바뀌면 신성 원천 허용치가 달라짐 → 폰트 카드 갱신(허용 안 되는 폰트는 리셋)
+  const fonts = (d && d.font) || [];
+  if (_modalChoices.divineFont && fonts.length && !fonts.includes(_modalChoices.divineFont)) _modalChoices.divineFont = undefined;
+  _refreshFontWrap();
   _validateInitialChoices();
 }
 
 function _onClericFontChange(val) {
-  _modalChoices.divineFont = val;
+  _modalChoices.divineFont = val || undefined;
   const info = document.getElementById('cls-font-info');
-  if (info) {
-    if (!val) { info.innerHTML = ''; _validateInitialChoices(); return; }
-    // 신성 원천 기능 설명
-    const cfDesc = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
-      ? (CLASS_FEATURE_NAMES.cleric.find(f => f.id === 'divine-font') || {}).desc || '' : '';
-    // 주문 정보 — val(heal/harm)이 곧 정본 slug
-    const spell = getSpell(val);
-    let spellHtml = '';
-    if (spell) {
-      spellHtml = `<div style="margin-top:6px;padding:6px 8px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);">
-        <div style="font-weight:600;">${spell.name_ko} <span style="color:var(--text2);font-weight:400;">${spell.name_en}</span></div>
-        <div style="margin-top:4px;">${spell.desc || spell.summary || ''}</div>
-      </div>`;
-    }
-    info.innerHTML = `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">
-      ${cfDesc}
-    </div>${spellHtml}`;
-  }
+  if (info) info.innerHTML = val ? _fontSpellBoxHtml(val) : '';   // 아이콘 포함 결과 주문 박스
   _validateInitialChoices();
 }
 
@@ -4982,15 +4975,17 @@ function confirmModal() {
       const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === _modalChoices.doctrine) : null;
       if (sub) { state.selectedSubclass = sub; const btn = document.getElementById('btn-subclass'); if (btn) { btn.textContent = `${sub.name_ko} (${sub.name_en})`; btn.classList.add('filled'); } }
     }
-    if (_modalChoices.deity) {
-      state.deity = _modalChoices.deity;
-    }
-    if (_modalChoices.sanctification) {
-      state.sanctification = _modalChoices.sanctification;
-    }
-    if (_modalChoices.divineFont) {
-      state.divineFont = _modalChoices.divineFont;
-      state.divineFontUsed = 0;
+    if (modalSelected && modalSelected.deity_skill) {
+      // 신격/성별화/신성원천을 클래스 모달에서 인라인 선택 → 확정 시 동기(미선택·해제 포함)
+      state.deity = _modalChoices.deity || null;
+      state.sanctification = _modalChoices.sanctification || null;
+      const nf = _modalChoices.divineFont || null;
+      if (state.divineFont !== nf) state.divineFontUsed = 0;
+      state.divineFont = nf;
+    } else {
+      if (_modalChoices.deity) state.deity = _modalChoices.deity;
+      if (_modalChoices.sanctification) state.sanctification = _modalChoices.sanctification;
+      if (_modalChoices.divineFont) { state.divineFont = _modalChoices.divineFont; state.divineFontUsed = 0; }
     }
     // 범용 서브클래스
     if (_modalChoices.subclass) {
