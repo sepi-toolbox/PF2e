@@ -138,7 +138,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm29"></script>
+<script src="cs_pf2e.js?v=dm30"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -176,7 +176,7 @@ const DM = (function(){
     {id:'ancestries', label:'혈통',     cat:'ancestries', cols:['slug','name_en','name_ko','boost_fixed','boost_free','boost_choice','boost_flaws','hp','size','speed','vision','languages','source']},
     {id:'backgrounds',label:'배경',     cat:'backgrounds',cols:['slug','name_en','name_ko','boost_fixed','boost_free','boost_choice','boost_flaws','effect_group_id','trainedSkills','rules_n','source']},
     {id:'heritages',  label:'유산',     cat:'heritages',  cols:['slug','name_en','name_ko','effect_group_id','ancestry','traits_ko','rules_n','source']},
-    {id:'deities',    label:'신격',     cat:'deities',    cols:['slug','name_en','name_ko','effect_group_id','category','attribute','domains','alt_domains','cleric_spells','font','sanctification','source']},
+    {id:'deities',    label:'신격',     cat:'deities',    editable:['name_ko','desc_ko'], cols:['slug','name_en','name_ko','desc_ko','effect_group_id','category','attribute','domains','alt_domains','cleric_spells','font','sanctification','source']},
     {id:'domains',    label:'영역',     kind:'derived', src:'data/derived/domains.json', shape:'rows',
        editable:['name_ko','desc_ko','initialSpell','advancedSpell'],
        cols:['slug','name_en','name_ko','initialSpell','initialSpell_ko','advancedSpell','advancedSpell_ko','desc_ko']},
@@ -301,6 +301,7 @@ const DM = (function(){
     _id:r=>r._id||'',
     name_en:r=>r.name_en||r.name||'',
     name_ko:r=>r.name_ko||'',
+    desc_ko:r=>r._desc_ko||'',   // store 카테고리(신격 등) 재번역 설명 단일소스. 편집 시 override→해당 cat.
     level:r=>{const l=digV(r,'level'); return l==null?'':l;},
     rank:r=>{const l=digV(r,'level'); return l==null?'':l;},
     traits_ko:r=>{const t=r.system&&r.system.traits&&r.system.traits.value;return Array.isArray(t)?t.join(', '):'';}, // slug 그대로(매칭 키). 한글은 hover 툴팁
@@ -607,7 +608,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm29').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm30').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -954,8 +955,8 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm29').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm29').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm30').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm30').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride, onEffType, onEffFilter, clearEffFilter, toggleSchema };
