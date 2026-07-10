@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.188').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.189').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2299,6 +2299,7 @@ function renderFeats() {
         const _fslug = featSlug(f);
         if ((_fslug === 'deity-cleric' || _fslug === 'deity-champion') && typeof _deityFeatDisplayHtml === 'function') _classChoiceBox = _deityFeatDisplayHtml();
         else if (_fslug === 'divine-font' && typeof _fontFeatDisplayHtml === 'function') _classChoiceBox = _fontFeatDisplayHtml();
+        else if (_fslug === 'devotion-spells' && typeof _devotionFeatDisplayHtml === 'function') _classChoiceBox = _devotionFeatDisplayHtml();
       }
       div.innerHTML = `
         <div class="feat-card-header" style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">

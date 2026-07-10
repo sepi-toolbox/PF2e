@@ -784,6 +784,15 @@ function applyClassFeatures() {
       }
     }
   });
+  // 챔피언 헌신 주문 — 선택한 헌신 주문(영혼의 방패/안수치료/공허의 손길)을 집중 주문으로 부여(auto → 재적용 안전).
+  if (state.devotionSpell && _classHasInlineDeity(cls)) {
+    const _dsp = _resolveSpellRef({ id: state.devotionSpell });
+    const _dspId = _dsp?.id || state.devotionSpell;
+    const _dspName = _dsp ? (_dsp.name_ko || _dsp.name_en) : state.devotionSpell;
+    if (!state.spells.focus.some(sp => sp && spellSlug(sp) === _dspId)) {
+      state.spells.focus.push({ id: _dspId, name: _dspName, _auto: true, _source: cls.name });
+    }
+  }
   console.log('[applyClassFeatures] auto spells added — focus:', state.spells.focus.length, 'known:', state.spells.known.length, 'cantrip:', state.spells.cantrip.length, 'allAutoSpells:', allAutoSpells);
   // growth 주문 동기화 (auto 주문 재설정 후 growth 주문 병합)
   if (typeof syncGrowthSpellsToState === 'function') syncGrowthSpellsToState();
@@ -808,6 +817,14 @@ function _allDeities() {
 }
 function _getDeity(id) {
   return (typeof PF2eDeity !== 'undefined' && PF2eDeity.ready && PF2eDeity.ready()) ? (PF2eDeity.getDeityLegacy(id) || null) : null;
+}
+// 클래스 모달에서 신격을 인라인 선택하는가 = deity_skill(클레릭) 또는 성장표에 deity-* 선택 특성(챔피언 deity-champion) 보유.
+//   true면 성장플랜 신격 슬롯을 숨긴다(모달 인라인과 중복 방지).
+function _classHasInlineDeity(cls) {
+  if (!cls) return false;
+  if (cls.deity_skill) return true;
+  const roster = (typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []) : []);
+  return roster.some(f => /^deity-/.test(String(f.slug || f.id || '')));
 }
 
 // 슬러그→무기 정본명 표시 = @link 단일 경로(원칙#1: 별도 getWeapon().name_ko 해소 금지).
@@ -1238,9 +1255,9 @@ function renderGrowthPlan() {
     state.selectedClass ? _slotCircle('class', state.selectedClass, '⚔') : '⚔', '클래스 Class',
     state.selectedClass ? `${state.selectedClass.name} (${state.selectedClass.en})` : null,
     "openModal('class')", state.selectedClass ? "clearCoreSelection('class')" : null);
-  // Deity selector — 신격을 클래스 모달에서 인라인 선택하는 클래스(클레릭=deity_skill)는 성장플랜 슬롯 숨김(중복 제거).
-  //   그 외 신격 사용 클래스(챔피언 등)는 여기서 계속 선택.
-  if (!state.selectedClass?.deity_skill) {
+  // Deity selector — 신격을 클래스 모달에서 인라인 선택하는 클래스(클레릭=deity_skill, 챔피언=deity-champion 특성)는
+  //   성장플랜 슬롯 숨김(중복 제거). 그 외 신격 사용 클래스는 여기서 계속 선택.
+  if (!_classHasInlineDeity(state.selectedClass)) {
     const _dObj = state.deity ? _getDeity(state.deity) : null;
     html += growthSlotWithClearHTML('deity-sel',
       _dObj ? _slotCircle('deity', _dObj, '🙏') : '🙏', '신격 Deity',
@@ -3895,6 +3912,7 @@ function _buildClassChoicesUI(cls) {
   const choiceSkills = (cls.choice_skill_groups || []).map(grp => grp.map(id => skillNameById[id] || id));
   const trainableBase = cls.free_skill_count || 0;
   const deitySkill = !!cls.deity_skill;
+  const _inlineDeity = _classHasInlineDeity(cls);   // 신격 인라인 클래스(클레릭 deity_skill / 챔피언 deity-champion)
 
   _modalChoices = { type: 'class', fixedSkills, choiceSkills, trainableBase, deitySkill, trainableSkills: Array(trainableBase).fill(''), chosenFixedSkills: Array(choiceSkills.length).fill('') };
 
@@ -3929,10 +3947,25 @@ function _buildClassChoicesUI(cls) {
   if (deitySkill) {
     subclassHtml = _buildClericChoicesUI();
   } else if (typeof SUBCLASS_DB !== 'undefined') {
-    const subs = SUBCLASS_DB.filter(s => s.class_id === cls.id);
+    const allSubs = SUBCLASS_DB.filter(s => s.class_id === cls.id);
+    // 다차원 서브클래스(챔피언 원인+헌신자의 축복, 사이킥 의식+잠재의식 등): 레벨1 '주 차원'만 서브클래스 카드로.
+    //   주 차원 = 성장표 kind:subclass 특성 중 최저 레벨의 name_ko. 그 외 차원(헌신자의 축복 lv3 등)은 후속 배치.
+    const _subRoster = (typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []) : []).filter(f => f.kind === 'subclass').slice().sort((a, b) => (a.lv || 1) - (b.lv || 1));
+    const primaryType = _subRoster.length ? _subRoster[0].name_ko : (allSubs[0] && allSubs[0].subclass_type);
+    const subs = primaryType ? allSubs.filter(s => s.subclass_type === primaryType) : allSubs;
     if (subs.length > 0) {
       const subLabel = subs[0].subclass_type || '서브클래스';
       subclassHtml = _buildSubclassChoiceUI(cls.id, subLabel, subs);
+    }
+    // 신격 선택 클래스(deity-* 특성 보유, 예: 챔피언) — 신격·성별화·헌신 주문 카드를 인라인 추가(클레릭과 평행).
+    const _roster = (typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []) : []);
+    const _deityFeat = _roster.find(f => /^deity-/.test(String(f.slug || f.id || '')));
+    if (_deityFeat) {
+      const _savedSanct = state.sanctification || '';
+      const _savedDevotion = state.devotionSpell || '';
+      subclassHtml += _classFeatureBlock('🙏', _deityFeat.name_ko, _deityFeat.name_en, () => _choiceCardBody(_deityFeat.slug || _deityFeat.id, _championDeityControlHtml(_savedSanct)), false, false);
+      const _devFeat = _roster.find(f => (f.slug || f.id) === 'devotion-spells');
+      if (_devFeat) subclassHtml += _classFeatureBlock('✨', _devFeat.name_ko, _devFeat.name_en, () => _choiceCardBody('devotion-spells', _championDevotionControlHtml(_savedDevotion)), false, false);
     }
   }
 
@@ -3963,7 +3996,7 @@ function _buildClassChoicesUI(cls) {
         </select>
       </div>`;
     });
-    inner += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">추가 기술 숙련 (기본 ${trainableBase}개${deitySkill ? ' + 신격 기술' : ''}, + 버튼으로 추가)</div>`;
+    inner += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">추가 기술 숙련 (기본 ${trainableBase}개${_inlineDeity ? ' + 신격 기술' : ''}, + 버튼으로 추가)</div>`;
     inner += `<div id="class-trainable-skills">`;
     for (let i = 0; i < trainableBase; i++) {
       inner += _buildTrainableSkillRow(i, fixedSkills);
@@ -3986,7 +4019,7 @@ function _buildClassChoicesUI(cls) {
   const _gm = _modalGrantMap(cls);
 
   // 1레벨 클래스 특성 블록들 (서브클래스 특성 + 선택 UI 담당분은 제외 — 중복 렌더 방지)
-  lv1Feats.filter(f => !subFeats.includes(f) && !_featInChoiceUI(f, deitySkill)).forEach(f => {
+  lv1Feats.filter(f => !subFeats.includes(f) && !_featInChoiceUI(f, _inlineDeity)).forEach(f => {
     html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
       return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
     }, false, true)}</div>`;
@@ -3995,7 +4028,7 @@ function _buildClassChoicesUI(cls) {
   // === 2레벨 이상 ===
   const otherLevels = Object.keys(featsByLv).map(Number).filter(lv => lv > 1).sort((a, b) => a - b);
   otherLevels.forEach(lv => {
-    const lvFeats = featsByLv[lv].filter(f => !_featInChoiceUI(f, deitySkill));
+    const lvFeats = featsByLv[lv].filter(f => !_featInChoiceUI(f, _inlineDeity));
     if (!lvFeats.length) return;
     html += `<div class="cfp-dynamic">${_classLevelHeader(lv)}`;
     lvFeats.forEach((f, fi) => {
@@ -4157,10 +4190,13 @@ function _subFeatCard(scope, item, nameKo, nameEn, badge, descHtml) {
 //   kind=subclass → 서브클래스 드롭다운이 담당(교리·뮤즈·혈통 등, 전 클래스).
 //   kind=choice   → deitySkill(클레릭) 신격/신성원천 UI가 담당(deity-cleric·divine-font)일 때만.
 //   그 외 choice(voice-of-nature·monk 경로·kineticist gates 등)는 전용 UI가 없으므로 박스로 표시 유지.
-function _featInChoiceUI(f, deitySkill) {
+// 선택 UI(서브클래스/신격/신성원천/헌신주문 카드)가 담당하는 특성인가 → 일반 특성 블록에서 제외(중복 렌더 방지).
+//   inlineDeity = 신격 인라인 클래스(클레릭 deity_skill, 챔피언 deity-champion). deity-*/divine-font/devotion-spells 카드가 담당.
+function _featInChoiceUI(f, inlineDeity) {
   if (!f || !f.kind) return false;
   if (f.kind === 'subclass') return true;
-  if (f.kind === 'choice' && deitySkill) return true;
+  if (f.kind === 'choice' && inlineDeity) return true;   // deity-*, divine-font 등
+  if (inlineDeity && String(f.slug || f.id || '') === 'devotion-spells') return true;   // 챔피언 헌신 주문 카드가 담당
   return false;
 }
 
@@ -4195,10 +4231,10 @@ function _refreshClassFeaturesPreview() {
   // 기존 동적 블록 제거 (class-feat-dynamic 클래스)
   container.querySelectorAll('.cfp-dynamic').forEach(el => el.remove());
 
-  const deitySkill = !!(cls && cls.deity_skill);
+  const _inlineDeity = _classHasInlineDeity(cls);
   const _gm = _modalGrantMap(cls);   // 선택한(tentative) 서브클래스 부여를 데이터에서 직접
   // 1레벨 클래스 특성 블록 추가 (서브클래스 특성 + 선택 UI 담당분은 제외 — 중복 렌더 방지)
-  const lv1Feats = (featsByLv[1] || []).filter(f => (!subFeats.includes(f) || f.lv !== 1) && !_featInChoiceUI(f, deitySkill));
+  const lv1Feats = (featsByLv[1] || []).filter(f => (!subFeats.includes(f) || f.lv !== 1) && !_featInChoiceUI(f, _inlineDeity));
   let lv1Html = '';
   lv1Feats.forEach(f => {
     lv1Html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
@@ -4209,7 +4245,7 @@ function _refreshClassFeaturesPreview() {
   // 2레벨 이상 블록
   let otherHtml = '';
   Object.keys(featsByLv).map(Number).filter(lv => lv > 1).sort((a, b) => a - b).forEach(lv => {
-    const lvFeats = featsByLv[lv].filter(f => !_featInChoiceUI(f, deitySkill));
+    const lvFeats = featsByLv[lv].filter(f => !_featInChoiceUI(f, _inlineDeity));
     if (!lvFeats.length) return;
     otherHtml += `<div class="cfp-dynamic">${_classLevelHeader(lv)}`;
     lvFeats.forEach(f => {
@@ -4321,7 +4357,8 @@ function _spellTipAttr(sp) {
 // 신격 정보/주문 박스(아이콘 포함) — 인라인 카드·재렌더·재주 탭 공용(일관 양식).
 //   설명(desc)·성별화(sanctification)·신격 주문(클릭 설명)을 한 박스에 통합.
 //   readonly=true → 재주 탭 표시용(성별화 편집 select 대신 확정값 평문).
-function _deityBoxHtml(d, savedSanct, readonly) {
+//   hideSanct=true → 성별화 블록 숨김(챔피언: 신격∩원인 제약을 별도 카드로 표시).
+function _deityBoxHtml(d, savedSanct, readonly, hideSanct) {
   if (!d) return `<div style="font-size:10px;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;">신격을 선택하면 설명·영역·선호무기·성별화·신격 주문이 표시됩니다.</div>`;
   const _skMap = {society:'사회',deception:'기만',athletics:'운동',acrobatics:'곡예',survival:'생존',intimidation:'위협',medicine:'의학',arcana:'주문학',stealth:'은신',crafting:'제작',nature:'자연학',religion:'종교학',occultism:'오컬티즘',diplomacy:'외교',performance:'공연',thievery:'도둑질'};
   const skillName = d.skill_ko || _skMap[d.skill] || d.skill || '—';
@@ -4355,7 +4392,7 @@ function _deityBoxHtml(d, savedSanct, readonly) {
     <div style="display:flex;align-items:center;gap:6px;font-weight:600;"><span class="gcf-gic">${diHtml}</span><span>${d.name_ko} <span style="color:var(--text2);font-size:10px;font-weight:400;">${d.name_en || ''}</span></span></div>
     <div style="font-size:10px;margin-top:4px;"><b>영역:</b> ${doms}</div>
     <div style="font-size:10px;">📖 ${skillName} · ⚔ ${weaponRefHtml(d.weapon, true)}</div>
-    ${sanctHtml}
+    ${hideSanct ? '' : sanctHtml}
     ${spHtml}
     ${descHtml}
   </div>`;
@@ -4412,6 +4449,12 @@ function _fontFeatDisplayHtml() {
   if (!val) return `<div style="font-size:11px;color:#ff9800;margin-top:8px;">⚠ 신성 원천 미선택 — 성장 계획에서 치유/해악을 골라주세요.</div>`;
   return `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:4px;"><b>신성 원천:</b> ${val === 'heal' ? '치유 (Heal)' : '해악 (Harm)'}</div>${_fontSpellBoxHtml(val)}</div>`;
 }
+// 재주 탭 — 챔피언 헌신 주문(선택한 영혼의 방패/안수치료/공허의 손길) 표시.
+function _devotionFeatDisplayHtml() {
+  const val = state.devotionSpell;
+  if (!val) return `<div style="font-size:11px;color:#ff9800;margin-top:8px;">⚠ 헌신 주문 미선택 — 클래스 모달에서 영혼의 방패/안수치료/공허의 손길 중 하나를 고르세요.</div>`;
+  return `<div style="margin-top:8px;">${_champDevotionSpellBox(val)}</div>`;
+}
 
 // 신격 변경 시 신성한 샘 카드(폰트 허용치) 갱신.
 function _refreshFontWrap() {
@@ -4440,6 +4483,124 @@ function _onClericFontChange(val) {
   _validateInitialChoices();
 }
 
+// ══ 챔피언(PC2): 신격(deity-champion) + 성별화(신격∩원인) + 헌신 주문 ══
+//   신격 선택은 클레릭과 평행(deity-champion 특성). 차이: 챔피언은 무기 숙련이 아니라 신성 무기,
+//   성별화는 신격과 '원인'이 함께 제약(원인별 holy/unholy 요구 = FVTT otherTags 정본),
+//   헌신 주문은 영혼의 방패(항상) / 안수치료(치유 폰트) / 공허의 손길(해악 폰트) 택1.
+function _clericDeityIsChampion() { return state.selectedClass?.id === 'champion'; }
+
+function _championDeityControlHtml(savedSanct) {
+  const savedDeity = state.deity || '';
+  _modalChoices.deity = savedDeity || '';   // 챔피언은 신격 필수(빈값=확정 차단)
+  const all = (typeof _allDeities === 'function') ? _allDeities() : [];
+  const opts = all.slice().sort((a, b) => (a.name_ko || '').localeCompare(b.name_ko || '', 'ko'))
+    .map(d => `<option value="${d.id}"${d.id === savedDeity ? ' selected' : ''}>${d.name_ko} (${d.name_en})</option>`).join('');
+  const curD = savedDeity ? _getDeity(savedDeity) : null;
+  _champSetSanct(savedSanct);
+  return `<div style="font-size:9px;color:var(--text2);margin-bottom:6px;">신격을 고르면 신성 기술 숙련·신격 주문·신성 무기·성별화가 정해집니다. (성별화는 신격과 원인이 함께 제약)</div>
+    <select id="cls-deity" onchange="_onChampionDeityChange(this.value)" style="${_selStyle}">
+      <option value="">— 신격 선택 —</option>${opts}
+    </select>
+    <div id="cls-deity-info" style="margin-top:8px;">${_deityBoxHtml(curD, '', false, true)}</div>
+    <div id="cls-champ-sanct" style="margin-top:8px;">${_champSanctHtml()}</div>`;
+}
+
+// 챔피언 성별화 가용치 = 신격 성별화(없음/단일/2택) ∩ 원인 요구(holy/unholy/무관).
+function _champSanctOptions() {
+  const d = _modalChoices.deity ? _getDeity(_modalChoices.deity) : null;
+  const cause = (_modalChoices.subclass && typeof SUBCLASS_DB !== 'undefined') ? SUBCLASS_DB.find(s => s.id === _modalChoices.subclass) : null;
+  const deityOpts = (d && d.sanctification) || [];        // []=신격이 신성/불경 없음(neither)
+  const causeReq = (cause && cause.sanctification) || []; // []=원인 무관(양쪽 허용)
+  const hasCause = !!cause;
+  let allowed;
+  if (!deityOpts.length) allowed = [];
+  else if (!causeReq.length) allowed = deityOpts.slice();
+  else allowed = deityOpts.filter(o => causeReq.includes(o));
+  return { d, allowed, deityOpts, causeReq, cause, hasCause };
+}
+
+function _champSetSanct(saved) {
+  const { d, allowed, deityOpts, causeReq, hasCause } = _champSanctOptions();
+  if (!d) { _modalChoices.sanctification = ''; return; }   // 신격 미선택 → 차단
+  const conflict = hasCause && causeReq.length && (!deityOpts.length || !causeReq.some(x => deityOpts.includes(x)));
+  if (conflict) { _modalChoices.sanctification = ''; return; }
+  if (!deityOpts.length) { _modalChoices.sanctification = undefined; return; }   // neither(유효)
+  if (allowed.length === 1) { _modalChoices.sanctification = allowed[0]; return; }
+  if (allowed.length >= 2) { _modalChoices.sanctification = (saved && allowed.includes(saved)) ? saved : ''; return; }
+  _modalChoices.sanctification = undefined;
+}
+
+function _champSanctHtml() {
+  const lbl = o => o === 'holy' ? '신성 (Holy)' : '불경 (Unholy)';
+  const { d, allowed, deityOpts, causeReq, cause, hasCause } = _champSanctOptions();
+  if (!d) return `<div style="font-size:10px;color:var(--text2);">✨ 성별화: 신격을 먼저 선택하세요.</div>`;
+  const conflict = hasCause && causeReq.length && (!deityOpts.length || !causeReq.some(x => deityOpts.includes(x)));
+  if (conflict) return `<div style="font-size:10px;color:#f44336;">⚠ 성별화 충돌 — 「${cause.name_ko}」 원인은 ${causeReq.map(lbl).join('·')}가 필요하지만 이 신격은 제공하지 않습니다. 다른 신격이나 원인을 고르세요.</div>`;
+  if (!deityOpts.length) return `<div style="font-size:10px;"><b>✨ 성별화:</b> 없음 (neither) <span style="color:var(--text2);">— 이 신격은 신성/불경이 없습니다</span></div>`;
+  if (allowed.length === 1) {
+    const src = (hasCause && causeReq.length === 1) ? '원인이 요구' : '신격이 요구';
+    return `<div style="font-size:10px;"><b>✨ 성별화:</b> ${lbl(allowed[0])} <span style="color:var(--text2);">— ${src}(고정)</span></div>`;
+  }
+  const cur = _modalChoices.sanctification || '';
+  return `<div style="font-size:10px;"><b>✨ 성별화:</b> 신성·불경 중 선택
+    <select id="cls-champ-sanct-sel" onchange="_modalChoices.sanctification=this.value;_validateInitialChoices()" style="${_selStyle}display:inline-block;width:auto;margin-left:4px;vertical-align:middle;">
+      <option value=""${!cur ? ' selected' : ''}>— 선택 —</option>
+      ${allowed.map(o => `<option value="${o}"${o === cur ? ' selected' : ''}>${lbl(o)}</option>`).join('')}
+    </select></div>`;
+}
+
+function _onChampionDeityChange(id) {
+  _modalChoices.deity = id || '';
+  const d = id ? _getDeity(id) : null;
+  _champSetSanct(_modalChoices.sanctification || '');
+  const info = document.getElementById('cls-deity-info');
+  if (info) info.innerHTML = _deityBoxHtml(d, '', false, true);
+  const sw = document.getElementById('cls-champ-sanct');
+  if (sw) sw.innerHTML = _champSanctHtml();
+  _refreshChampDevotion();
+  _validateInitialChoices();
+}
+
+// 헌신 주문 선택 — 영혼의 방패 + 신격 폰트(치유→안수치료 / 해악→공허의 손길).
+function _championDevotionControlHtml(savedDevotion) {
+  _modalChoices.devotionSpell = _clericDeityIsChampion() ? (savedDevotion || '') : '';
+  return `<div id="cls-devotion-wrap">${_devotionOptionsHtml(_modalChoices.deity ? _getDeity(_modalChoices.deity) : null, _modalChoices.devotionSpell || '')}</div>`;
+}
+function _devotionOptionsHtml(d, saved) {
+  const fonts = (d && d.font) || [];
+  const opts = [{ v: 'shields-of-the-spirit', label: '영혼의 방패 (Shields of the Spirit)' }];
+  if (fonts.includes('heal')) opts.push({ v: 'lay-on-hands', label: '안수치료 (Lay on Hands)' });
+  if (fonts.includes('harm')) opts.push({ v: 'touch-of-the-void', label: '공허의 손길 (Touch of the Void)' });
+  const cur = (saved && opts.some(o => o.v === saved)) ? saved : '';
+  _modalChoices.devotionSpell = cur || '';
+  const sel = `<select id="cls-devotion" onchange="_onChampionDevotionChange(this.value)" style="${_selStyle}">
+      <option value="">— 선택 —</option>
+      ${opts.map(o => `<option value="${o.v}"${o.v === cur ? ' selected' : ''}>${o.label}</option>`).join('')}
+    </select>`;
+  const hint = !d ? `<div style="font-size:9px;color:var(--text2);margin-top:2px;">신격을 고르면 그 신격의 폰트에 따라 안수치료(치유)/공허의 손길(해악)도 선택할 수 있습니다.</div>` : '';
+  return `${sel}<div id="cls-devotion-info" style="margin-top:6px;">${cur ? _champDevotionSpellBox(cur) : ''}</div>${hint}`;
+}
+function _champDevotionSpellBox(slug) {
+  const sp = (typeof getSpell === 'function') ? getSpell(slug) : null;
+  if (!sp) return '';
+  const si = (typeof iconImg === 'function' && iconImg('spell', sp)) || '';
+  const siHtml = (si && String(si).indexOf('<') === 0) ? si : '<span class="gcf-emoji">✨</span>';
+  return `<div style="padding:6px 8px;background:var(--bg4);border-radius:6px;border-left:2px solid var(--accent);">
+    <div class="desc-ref" data-ref-type="spell" data-ref-key="${String(slug).replace(/"/g, '&quot;')}" style="display:flex;align-items:center;gap:6px;font-weight:600;cursor:pointer;"><span class="gcf-gic">${siHtml}</span><span>${sp.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${sp.name_en || ''}</span></span></div>
+    <div style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.6;">헌신 주문(집중 주문) — 집중 점수 1점으로 시전, 재충전(Refocus)으로 회복.</div>
+  </div>`;
+}
+function _onChampionDevotionChange(val) {
+  _modalChoices.devotionSpell = val || '';
+  const info = document.getElementById('cls-devotion-info');
+  if (info) info.innerHTML = val ? _champDevotionSpellBox(val) : '';
+  _validateInitialChoices();
+}
+function _refreshChampDevotion() {
+  const w = document.getElementById('cls-devotion-wrap');
+  if (w) w.innerHTML = _devotionOptionsHtml(_modalChoices.deity ? _getDeity(_modalChoices.deity) : null, _modalChoices.devotionSpell || '');
+}
+
 // ── 범용 서브클래스 선택 UI (클레릭 제외) ──
 function _buildSubclassChoiceUI(classId, label, subs) {
   // ⚠ 현재 선택된 서브클래스가 '이 클래스(subs)' 소속일 때만 복원 — 타 클래스 서브클래스가
@@ -4463,6 +4624,9 @@ function _onSubclassChange(id) {
     const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === id) : null;
     info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>` : '';
   }
+  // 챔피언: 원인(서브클래스)이 성별화를 제약 → 신격∩원인 성별화 카드 갱신.
+  const _cs = document.getElementById('cls-champ-sanct');
+  if (_cs) { _champSetSanct(_modalChoices.sanctification || ''); _cs.innerHTML = _champSanctHtml(); }
   _refreshClassFeaturesPreview();
   _validateInitialChoices();
 }
@@ -4698,16 +4862,20 @@ function _rebuildBonusLangDropdowns() {
 
 // ── DOM 삽입 후 이전 선택값의 정보 패널 복원 ──
 function _restoreInitialChoicesUI() {
-  // 클레릭: 교리/신격/신성원천 정보 패널 트리거
+  // 신격 정보 패널 트리거 — 챔피언(인라인 신격+원인 성별화)과 클레릭을 구분.
   if (_modalChoices.deity) {
-    // _onClericDeityChange가 sanctification을 리셋하므로 미리 보존
-    const savedSanct = _modalChoices.sanctification || '';
-    _onClericDeityChange(_modalChoices.deity);
-    // 성별화 값 복원 (2개 선택지인 경우 리셋되므로)
-    if (savedSanct) {
-      _modalChoices.sanctification = savedSanct;
-      const sanctEl = document.getElementById('cls-sanct');
-      if (sanctEl) sanctEl.value = savedSanct;
+    if (document.getElementById('cls-champ-sanct')) {
+      // 챔피언: 빌드 시 이미 인라인 렌더됨 — 성별화(신격∩원인)·헌신 주문 갱신(멱등).
+      _onChampionDeityChange(_modalChoices.deity);
+    } else {
+      // 클레릭: _onClericDeityChange가 sanctification을 리셋하므로 미리 보존
+      const savedSanct = _modalChoices.sanctification || '';
+      _onClericDeityChange(_modalChoices.deity);
+      if (savedSanct) {
+        _modalChoices.sanctification = savedSanct;
+        const sanctEl = document.getElementById('cls-sanct');
+        if (sanctEl) sanctEl.value = savedSanct;
+      }
     }
   }
   if (_modalChoices.divineFont) {
@@ -4744,6 +4912,7 @@ function _validateInitialChoices() {
     if (_modalChoices.deity !== undefined && !_modalChoices.deity) valid = false;
     if (_modalChoices.sanctification !== undefined && !_modalChoices.sanctification) valid = false;
     if (_modalChoices.divineFont !== undefined && !_modalChoices.divineFont) valid = false;
+    if (_modalChoices.devotionSpell !== undefined && !_modalChoices.devotionSpell) valid = false;   // 챔피언 헌신 주문 필수
     // 범용 서브클래스
     if (_modalChoices.subclass !== undefined && !_modalChoices.subclass) valid = false;
   } else if (_modalChoices.type === 'background') {
@@ -4999,13 +5168,14 @@ function confirmModal() {
       const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === _modalChoices.doctrine) : null;
       if (sub) { state.selectedSubclass = sub; const btn = document.getElementById('btn-subclass'); if (btn) { btn.textContent = `${sub.name_ko} (${sub.name_en})`; btn.classList.add('filled'); } }
     }
-    if (modalSelected && modalSelected.deity_skill) {
-      // 신격/성별화/신성원천을 클래스 모달에서 인라인 선택 → 확정 시 동기(미선택·해제 포함)
+    if (_classHasInlineDeity(modalSelected)) {
+      // 신격/성별화/신성원천/헌신주문을 클래스 모달에서 인라인 선택 → 확정 시 동기(미선택·해제 포함)
       state.deity = _modalChoices.deity || null;
       state.sanctification = _modalChoices.sanctification || null;
       const nf = _modalChoices.divineFont || null;
       if (state.divineFont !== nf) state.divineFontUsed = 0;
       state.divineFont = nf;
+      state.devotionSpell = _modalChoices.devotionSpell || null;   // 챔피언 헌신 주문
     } else {
       if (_modalChoices.deity) state.deity = _modalChoices.deity;
       if (_modalChoices.sanctification) state.sanctification = _modalChoices.sanctification;
