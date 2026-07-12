@@ -106,7 +106,7 @@
     if (_subProfTable) return _subProfTable;
     let rows = null;
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/subclass_progression.json", "dev/data/derived/subclass_progression.json"]) { try { rows = JSON.parse(fs.readFileSync(p, "utf8")).rows; break; } catch (e) {} } }
-    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.204"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.205"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
     _subProfTable = _buildSubProfTable(rows || []);
     _subGrantTable = _buildSubGrantTable(rows || []);   // 같은 rows에서 부여표도 동시 구축
     return _subProfTable;
@@ -118,7 +118,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.204"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.205"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -246,7 +246,7 @@
         // 소서러 혈통 보강(GAP 1+2, 대원칙 0=성장/정체성 부여): BLOODLINE_DB에서 고정 혈통 기술 + 부여 레퍼토리 주문.
         //   혈통 초급 집중주문은 위 desc 추출이 이미 granted_spells에 넣음. 여기선 고정 기술·부여 레퍼토리(캔트립+레벨별)만 추가.
         //   ⚠ 드라코닉 등 variable_skill 혈통의 두 번째 기술은 표본 선택(모달)이 담당 → 여기 자동부여 안 함(bl.skills=고정분만).
-        let bl_skills = [], bl_tradition = null;
+        let bl_skills = [], bl_tradition = null, bl_features = [];
         const _BLDB = (typeof BLOODLINE_DB !== 'undefined') ? BLOODLINE_DB : (root.BLOODLINE_DB || null);
         const bl = _BLDB && _BLDB[f.system.slug];
         if (bl) {
@@ -258,12 +258,24 @@
             if (!g || !g.slug) continue;
             granted_spells.push({ spell_id: g.slug, lv: g.charLevel || 1, type: g.rank === 0 ? 'cantrip' : 'known', rank: g.rank });
           }
+          // 혈통 마법 = 혈통이 주는 패시브 특성 → 클래스 특성(features)으로 표현(재주 탭 「클래스 특성」에 표시).
+          //   시전 주문이 아님 → 주문 탭 아님. desc=효과+발동조건.
+          const bm = bl.blood_magic;
+          if (bm && (bm.text_ko || bm.text)) {
+            bl_features.push({
+              lv: 1,
+              name_ko: '혈통 마법' + (bm.name_ko ? ': ' + bm.name_ko : ''),
+              name_en: 'Blood Magic' + (bm.name_en ? ': ' + bm.name_en : ''),
+              desc: `<p>${bm.text_ko || bm.text}</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>`,
+              kind: 'feature',
+            });
+          }
         }
         const _row = {
           id: f.system.slug, class_id: slug, subclass_type: meta.typeKo,
           name_ko: PF.nameKo(f), name_en: f.name_en || f.name,
           desc: PF.enrichDesc(PF.descKo(f) || ''),
-          granted_skills: bl_skills, granted_feats, granted_spells, granted_actions, features: [], prof_changes,
+          granted_skills: bl_skills, granted_feats, granted_spells, granted_actions, features: bl_features, prof_changes,
           sanctification,
         };
         if (bl_tradition) _row.tradition = bl_tradition;
@@ -309,7 +321,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.204').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.205').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -328,7 +340,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.204').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.205').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   // 소서러 혈통 정본 메타 = data/derived/bloodlines.json → 런타임 BLOODLINE_DB 채움.
@@ -356,7 +368,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/bloodlines.json?v=0.204').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/bloodlines.json?v=0.205').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
   }
 
   async function init() {

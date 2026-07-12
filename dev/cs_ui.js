@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.204').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.205').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -1834,28 +1834,6 @@ function renderSpells() {
     if (fpCurEl) fpCurEl.value = 0;
   }
   if (typeof renderFpChecks === 'function') renderFpChecks();
-
-  // ── Blood Magic (Sorcerer) ── 혈통 주문/재능 주문 시전 시 발동하는 패시브 라이더(BLOODLINE_DB 파생)
-  const bmSection = document.getElementById('spell-blood-magic-section');
-  const bmBody = document.getElementById('blood-magic-body');
-  if (bmSection && bmBody) {
-    const _blId = state.selectedSubclass && state.selectedSubclass.id;
-    const _bl = (_blId && typeof BLOODLINE_DB !== 'undefined') ? BLOODLINE_DB[_blId] : null;
-    const bm = _bl && _bl.blood_magic;
-    if (bm && (bm.text_ko || bm.text)) {
-      bmSection.style.display = '';
-      const nm = bm.name_ko || bm.name_en || '';
-      const tx = bm.text_ko || bm.text || '';
-      bmBody.innerHTML = `<div class="spell-slot-row" style="display:block;padding:8px 10px;line-height:1.6;">
-        ${nm ? `<div style="font-weight:600;color:var(--gold);margin-bottom:3px;">${nm}</div>` : ''}
-        <div style="font-size:11px;color:var(--text2);">${tx}</div>
-        <div style="font-size:10px;color:var(--text3,var(--text2));margin-top:4px;">혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</div>
-      </div>`;
-    } else {
-      bmSection.style.display = 'none';
-      bmBody.innerHTML = '';
-    }
-  }
 
   // ── Divine Font (Cleric) ──
   const dfSection = document.getElementById('spell-divine-font-section');

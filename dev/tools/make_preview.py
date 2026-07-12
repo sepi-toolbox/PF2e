@@ -213,16 +213,14 @@ function runDiag(){
       var draH=_bloodlineDescHtml(dra,'bloodline-draconic');
       ok('드라코닉 전통=표본 의존 안내', /표본 선택에 따라 결정/.test(draH));
     }
-    // 혈통 마법 = 주문 탭 섹션(패시브 라이더)
-    state.selectedClass={id:'sorcerer',casting:'spontaneous',keyAbility:'cha',tradition:'any'};
-    state.selectedSubclass=SUBCLASS_DB.find(function(s){return s.id==='bloodline-angelic';});
-    state.spells={cantrip:[],known:[],focus:[{id:'angelic-halo',name:'천사의 후광'}],innate:[]};
-    try{ if(typeof renderSpells==='function') renderSpells(); }catch(e){err.push('bloodmagic render:'+e.message);}
-    var bms=document.getElementById('spell-blood-magic-section'), bmb=document.getElementById('blood-magic-body');
-    ok('혈통 마법 섹션 표시(천상체=신성한 오라)', !!(bmb&&bms) && /신성한 오라/.test(bmb.innerHTML) && bms.style.display!=='none');
-    state.selectedSubclass=null;
-    try{ if(typeof renderSpells==='function') renderSpells(); }catch(e){}
-    ok('혈통 없으면 혈통 마법 섹션 숨김', !!bms && bms.style.display==='none');
+    // 혈통 마법 = 클래스 특성(혈통 features) — 시전 주문 아님(주문 탭 아님)
+    var _abr=SUBCLASS_DB.find(function(s){return s.id==='bloodline-aberrant';});
+    ok('혈통 마법이 혈통 features에 포함(이형체=섬뜩한 베일)', !!(_abr && (_abr.features||[]).some(function(f){return /혈통 마법/.test(f.name_ko)&&/섬뜩한 베일/.test(f.name_ko);})));
+    state.selectedClass=(PF2eClass.getClassLegacy&&PF2eClass.getClassLegacy('sorcerer'))||{id:'sorcerer'};
+    state.selectedSubclass=_abr; state.level=1;
+    state.feats={special:[],ancestry:[],class:[],general:[],skill:[],archetype:[],other:[]};
+    try{ if(typeof applyClassFeatures==='function') applyClassFeatures(); }catch(e){err.push('bm applyCF:'+e.message);}
+    ok('혈통 마법이 클래스 특성(state.feats.special)에 추가됨', (state.feats.special||[]).some(function(f){return /혈통 마법/.test(f.name||'');}));
   } else { ok('PF2eClass.subclassGrantTable 로드', false); }
 
   // ── 드루이드 서브클래스(교단) 드롭다운 조건 + 자연의 목소리 인라인 선택 ──

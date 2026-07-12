@@ -3244,12 +3244,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법: 섬뜩한 베일",
+     "name_en": "Blood Magic: Eerie Veil",
+     "desc": "<p>불길한 장막이 당신의 정신에서 흘러나온다. 하나의 대상이 1라운드 동안 의지 내성 굴림에 -1 상태 페널티를 받거나, 당신이 1라운드 동안 의지 내성 굴림에 +2 상태 보너스를 얻는다.</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "occult",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-aesir",
@@ -3333,12 +3341,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법: 폭풍을 불러내다",
+     "name_en": "Blood Magic: Call the Storm",
+     "desc": "<p>당신은 적에게 피해를 입히거나 자신을 강화하기 위해 번개를 내리친다. 1라운드 동안 반사 내성에 +2 상태 보너스를 얻거나, 대상이 주문 랭크당 1의 전기 피해를 받습니다(주문이 이미 초기 전기 피해를 주는 경우, 약점과 저항을 결정하기 전에 이 피해를 주문의 초기 피해와 합산합니다).</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-angelic",
@@ -3422,12 +3438,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법: 신성한 오라",
+     "name_en": "Blood Magic: Divine Aura",
+     "desc": "<p>자신 또는 한 명의 대상에게 보호하는 온기 오라를 투사하여 1라운드 동안 내성 굴림 +1 상태 보너스를 부여합니다</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-demonic",
@@ -3511,12 +3535,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법: 죄악의 타락",
+     "name_en": "Blood Magic: Corruption of Sin",
+     "desc": "<p>당신은 정신적으로 대상의 가장 어두운 욕망을 잠깐 엿보게 합니다. 대상은 1라운드 동안 AC에 -1 상태 페널티를 받거나, 당신은 1라운드 동안 협박 판정에서 +2 상태 보너스를 얻습니다.</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-diabolic",
@@ -3600,12 +3632,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법: 불의 혀",
+     "name_en": "Blood Magic: Tongue of Flame",
+     "desc": "<p>당신의 혀는 지옥의 불길로 뒤덮여, 적을 향해 휘둘러 공격하거나 삼켜 거짓말을 더 설득력 있게 만들 수 있습니다. 대상은 주문 랭크당 1점의 화염 피해를 받거나(주문이 이미 초기 화염 피해를 주는 경우, 약점과 저항을 결정하기 전에 이 피해를 주문의 초기 피해와 합산), 1라운드 동안 기만 판정에서 +2 상태 보너스를 얻습니다.</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-draconic",
@@ -3670,11 +3710,19 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법: 비늘 피부",
+     "name_en": "Blood Magic: Scaly Hide",
+     "desc": "<p>당신이나 한 대상에게 잠시 드라코닉 비늘이 자라나며, 1라운드 동안 AC에 +1 상태 보너스를 부여합니다.</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "grants": 8,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-elemental",
@@ -3734,12 +3782,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법",
+     "name_en": "Blood Magic: Elemental Fury",
+     "desc": "<p>Elemental energy wreathes your form and infuses your magic. Either you gain a +2 status bonus to Intimidation checks for 1 round, or a target takes 1 damage per spell rank; this damage type is listed under your elemental influence. If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "primal",
    "grants": 7,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-fey",
@@ -3823,12 +3879,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법: 리본 망토",
+     "name_en": "Blood Magic: Cloak of Ribbons",
+     "desc": "<p>다채로운 페이 리본이 당신 주위를 춤추듯 휘감습니다. 1라운드 동안 공연 능력 판정에서 +2 상태 보너스를 얻거나, 1라운드 동안 @link[conditions.concealed] 상태가 될 수 있다. 이러한 명백한 은폐 상태는 @link[actions.hide]</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "primal",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-genie",
@@ -3894,12 +3958,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법",
+     "name_en": "Blood Magic",
+     "desc": "<p>당신의 주문 시전은 현실을 왜곡하고 적의 주의를 분산시킵니다. 1라운드 동안 기만 판정에서 +1 상태 보너스를 얻거나, 대상이 1라운드 동안 지각 판정에서 -1 상태 페널티를 받습니다.</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "arcane",
    "grants": 8,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-hag",
@@ -3983,12 +4055,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법: 보복의 악의",
+     "name_en": "Blood Magic: Retributive Spite",
+     "desc": "<p>악의와 증오가 주변에 물리적 형태로 나타난다. 다음 턴이 끝나기 전에 당신에게 피해를 입힌 첫 번째 생물에게 주문 랭크당 4의 정신 피해를 입힌다(기본 의지 내성). 해당 시간 내에 피해를 입히지 않은 생물이 있다면, 그 원한을 흡수하여 다음 턴 시작 시 주문 랭크과 동일한 임시 HP를 얻는다. 이 임시 HP는 다음 턴 시작까지 지속된다.</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "occult",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-harrow",
@@ -4072,12 +4152,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법",
+     "name_en": "Blood Magic",
+     "desc": "<p>당신은 가능성에 둘러싸이게 되며, 이는 가능한 미래의 여러 버전의 자신이 서로 겹쳐진 형태로 나타납니다. 1라운드 동안 @link[conditions.concealed]를 얻지만, 이 은폐를 이용해 @link[actions.hide]를 사용할 수 없다.</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "occult",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-imperial",
@@ -4161,12 +4249,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법",
+     "name_en": "Blood Magic: Imperious Defense",
+     "desc": "<p>초급: @link[spells.ancestral-memories], 중급: @link[spells.extend-blood-magic], 고급: @link[spells.arcane-countermeasure]</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "arcane",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-nymph",
@@ -4250,12 +4346,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법",
+     "name_en": "Blood Magic",
+     "desc": "<p>요정의 우아함이 당신의 움직임을 강조하고 적을 혼란스럽게 하여, 1라운드 동안 외교 판정에서 +1 상태 보너스를 부여하거나, 1라운드 동안 한 대상의 의지 내성에 -1 상태 페널티를 부과합니다.</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "primal",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-phoenix",
@@ -4339,12 +4443,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법",
+     "name_en": "Blood Magic",
+     "desc": "<p>생명과 죽음의 프라이멀한 불꽃이 당신 또는 하나의 대상에게 흐릅니다. 당신이나 대상 중 하나가 1라운드 동안 주문 랭크에 해당하는 임시 HP를 얻거나, 대상이 주문 랭크에 해당하는 화염 피해를 입도록 선택합니다(주문이 이미 초기 화염 피해를 입히는 경우, 약점과 저항을 결정하기 전에 이 피해를 주문의 초기 피해와 합산합니다).</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "primal",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-psychopomp",
@@ -4428,12 +4540,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법",
+     "name_en": "Blood Magic",
+     "desc": "<p>생과 사의 경계가 흐려집니다. 1라운드 동안 인내 내성에 +2 상태 보너스를 얻거나, 대상이 주문 랭크당 1의 피해를 입는다. 대상이 생물일 경우 피해는 무효화되며, 언데드일 경우 활력 피해로 처리된다. 해당 유형의 피해를 이미 입히는 주문인 경우, 약점과 저항을 판단하기 전에 주문의 초기 피해와 합산한다.</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-shadow",
@@ -4517,12 +4637,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법",
+     "name_en": "Blood Magic",
+     "desc": "<p>주변 또는 한 대상의 그림자가 짙어져, 1라운드 동안 은신 능력에 +1 상태 보너스를 부여하거나 지각 능력에 -1 상태 페널티를 부과합니다.</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "occult",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-undead",
@@ -4606,12 +4734,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법: 도둑맞은 생명",
+     "name_en": "Blood Magic: Stolen Life",
+     "desc": "<p>당신은 피 속에 흐르는 네크로맨틱 에너지를 집중시킬 수 있습니다. 다음 중 하나를 선택한다: 주문 랭크만큼의 임시 HP를 얻어 다음 턴 시작까지 유지하거나, 대상이 주문 랭크당 1의 공허 피해를 입는다(해당 주문이 이미 초기 공허 피해를 입히는 경우, 이 피해를 주문 초기 피해와 합산한 후 약점과 저항을 적용한다).</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bloodline-wyrmblessed",
@@ -4695,12 +4831,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "혈통 마법",
+     "name_en": "Blood Magic",
+     "desc": "<p>드라코닉 위엄이 네 목소리에 실린다. 당신은 1라운드 동안 협박 판정에서 +1 상태 보너스를 얻거나, 대상은 1라운드 동안 의지 내성에 -1 상태 페널티를 받는다.</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 11,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "angel-eidolon",
