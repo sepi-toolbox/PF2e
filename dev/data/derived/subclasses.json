@@ -865,7 +865,9 @@
    "granted_skills": [
     "athletics"
    ],
-   "granted_feats": [],
+   "granted_feats": [
+    "animal-companion"
+   ],
    "granted_spells": [
     {
      "lv": 1,
@@ -882,7 +884,7 @@
     }
    ],
    "prof_changes": {},
-   "grants": 1,
+   "grants": 2,
    "rules_n": 1
   },
   {
@@ -897,7 +899,9 @@
    "granted_skills": [
     "diplomacy"
    ],
-   "granted_feats": [],
+   "granted_feats": [
+    "leshy-familiar"
+   ],
    "granted_spells": [
     {
      "lv": 1,
@@ -914,7 +918,7 @@
     }
    ],
    "prof_changes": {},
-   "grants": 1,
+   "grants": 2,
    "rules_n": 1
   },
   {
@@ -929,7 +933,9 @@
    "granted_skills": [
     "acrobatics"
    ],
-   "granted_feats": [],
+   "granted_feats": [
+    "storm-born"
+   ],
    "granted_spells": [
     {
      "lv": 1,
@@ -946,7 +952,7 @@
     }
    ],
    "prof_changes": {},
-   "grants": 1,
+   "grants": 2,
    "rules_n": 1
   },
   {
@@ -961,7 +967,9 @@
    "granted_skills": [
     "intimidation"
    ],
-   "granted_feats": [],
+   "granted_feats": [
+    "untamed-form"
+   ],
    "granted_spells": [
     {
      "lv": 1,
@@ -978,7 +986,7 @@
     }
    ],
    "prof_changes": {},
-   "grants": 1,
+   "grants": 2,
    "rules_n": 1
   },
   {

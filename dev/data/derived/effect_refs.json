@@ -216,10 +216,6 @@
   "muse-warrior": "curated",
   "doctrine-cloistered": "curated",
   "doctrine-warpriest": "curated",
-  "order-animal": "curated",
-  "order-leaf": "curated",
-  "order-storm": "curated",
-  "order-wild": "curated",
   "way-of-the-spellshot": "curated",
   "light-mortar-innovation": "curated",
   "palatine-detective": "curated",
@@ -319,7 +315,15 @@
   "emotional-acceptance": "curated",
   "gathered-lore": "curated",
   "precise-discipline": "curated",
-  "wandering-reverie": "curated"
+  "wandering-reverie": "curated",
+  "order-animal": "curated",
+  "order-leaf": "curated",
+  "order-storm": "curated",
+  "order-wild": "curated",
+  "racket-mastermind": "curated",
+  "racket-ruffian": "curated",
+  "racket-scoundrel": "curated",
+  "racket-thief": "curated"
  },
  "heritages": {},
  "backgrounds": {

@@ -2304,82 +2304,6 @@
    }
   ]
  },
- "order-animal": {
-  "rows": [
-   {
-    "type": "grant_feat",
-    "target": "animal-companion",
-    "name": "동물 친구"
-   },
-   {
-    "type": "skill_trained",
-    "name": "교단 기술",
-    "target": "athletics"
-   },
-   {
-    "type": "grant_focus_spell",
-    "target": "heal-animal",
-    "name": "동물 치유"
-   }
-  ]
- },
- "order-leaf": {
-  "rows": [
-   {
-    "type": "grant_feat",
-    "target": "leshy-familiar",
-    "name": "레시 사역마"
-   },
-   {
-    "type": "skill_trained",
-    "name": "교단 기술",
-    "target": "diplomacy"
-   },
-   {
-    "type": "grant_focus_spell",
-    "target": "cornucopia",
-    "name": "풍요의 뿔"
-   }
-  ]
- },
- "order-storm": {
-  "rows": [
-   {
-    "type": "grant_feat",
-    "target": "storm-born",
-    "name": "폭풍 태생"
-   },
-   {
-    "type": "skill_trained",
-    "name": "교단 기술",
-    "target": "acrobatics"
-   },
-   {
-    "type": "grant_focus_spell",
-    "target": "tempest-surge",
-    "name": "폭풍의 파도"
-   }
-  ]
- },
- "order-wild": {
-  "rows": [
-   {
-    "type": "grant_feat",
-    "target": "untamed-form",
-    "name": "야생 변신"
-   },
-   {
-    "type": "skill_trained",
-    "name": "교단 기술",
-    "target": "intimidation"
-   },
-   {
-    "type": "grant_focus_spell",
-    "target": "untamed-shift",
-    "name": "야성 변이"
-   }
-  ]
- },
  "way-of-the-spellshot": {
   "rows": [
    {
@@ -3303,6 +3227,110 @@
    {
     "type": "grant_action",
     "target": "fade-into-daydreams"
+   }
+  ]
+ },
+ "order-animal": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "animal-companion"
+   },
+   {
+    "type": "skill_trained",
+    "target": "athletics"
+   },
+   {
+    "type": "grant_focus_spell",
+    "target": "heal-animal",
+    "name": "동물 치유"
+   }
+  ]
+ },
+ "order-leaf": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "leshy-familiar"
+   },
+   {
+    "type": "skill_trained",
+    "target": "diplomacy"
+   },
+   {
+    "type": "grant_focus_spell",
+    "target": "cornucopia",
+    "name": "풍요의 뿔"
+   }
+  ]
+ },
+ "order-storm": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "storm-born"
+   },
+   {
+    "type": "skill_trained",
+    "target": "acrobatics"
+   },
+   {
+    "type": "grant_focus_spell",
+    "target": "tempest-surge",
+    "name": "폭풍의 파도"
+   }
+  ]
+ },
+ "order-wild": {
+  "rows": [
+   {
+    "type": "grant_feat",
+    "target": "untamed-form"
+   },
+   {
+    "type": "skill_trained",
+    "target": "intimidation"
+   },
+   {
+    "type": "grant_focus_spell",
+    "target": "untamed-shift",
+    "name": "야성 변이"
+   }
+  ]
+ },
+ "racket-mastermind": {
+  "rows": [
+   {
+    "type": "skill_trained",
+    "target": "society"
+   }
+  ]
+ },
+ "racket-ruffian": {
+  "rows": [
+   {
+    "type": "skill_trained",
+    "target": "intimidation"
+   }
+  ]
+ },
+ "racket-scoundrel": {
+  "rows": [
+   {
+    "type": "skill_trained",
+    "target": "deception"
+   },
+   {
+    "type": "skill_trained",
+    "target": "diplomacy"
+   }
+  ]
+ },
+ "racket-thief": {
+  "rows": [
+   {
+    "type": "skill_trained",
+    "target": "thievery"
    }
   ]
  }

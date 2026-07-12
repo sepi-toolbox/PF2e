@@ -36,13 +36,14 @@ function curatedTargets(slug, types) {
   return new Set(rows.filter(r => types.includes(r.type)).map(r => r.target));
 }
 
-let nFeat = 0, nFeatSkipDup = 0, nFocus = 0, nKnown = 0, nOther = 0, nAction = 0, nActionSkipDup = 0, touched = 0;
+let nFeat = 0, nFeatSkipDup = 0, nFocus = 0, nKnown = 0, nOther = 0, nAction = 0, nActionSkipDup = 0, nSkill = 0, touched = 0;
 for (const sc of subs) {
   const slug = sc.slug; if (!slug) continue;
   const gf = sc.granted_feats || [];
   const gs = sc.granted_spells || [];
   const ga = sc.granted_actions || [];
-  if (!gf.length && !gs.length && !ga.length) continue;
+  const gk = sc.granted_skills || [];
+  if (!gf.length && !gs.length && !ga.length && !gk.length) continue;
 
   // 이미 효과행에 있는 grant_feat/grant_action = effects_db 존재분 − 내 curated 기여분 (이중부여 방지)
   const inDb = grantTargets(slug, ['grant_feat']);
@@ -63,6 +64,12 @@ for (const sc of subs) {
     if (dbHasA.has(t)) { nActionSkipDup++; continue; }
     rows.push({ type: 'grant_action', target: t });
     nAction++;
+  }
+  // 부여 기술(드루이드 교단 등) → skill_trained 행 (target=기술 id)
+  for (const t of gk) {
+    if (!t) continue;
+    rows.push({ type: 'skill_trained', target: t });
+    nSkill++;
   }
   for (const g of gs) {
     const tgt = g.spell_id; if (!tgt) continue;
