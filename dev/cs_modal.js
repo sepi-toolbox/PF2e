@@ -4696,8 +4696,35 @@ function _bloodlineExemplarHtml(blId) {
 }
 function _onBloodlineExemplar(val) {
   _modalChoices.bloodlineExemplar = val || '';
+  _renderSubclassInfo(_modalChoices.subclass);   // 드라코닉 표본 → 전통 줄 갱신
   _refreshClassFeaturesPreview();
   _validateInitialChoices();
+}
+// 혈통 desc 표시 정규화: 전통 줄을 데이터(BLOODLINE_DB.tradition)로 일관 재삽입(번역이 9/9로 반만 살려 불일치),
+//   「부여된 주문」→「마법적 재능」 라벨 통일(가이드 용어와 일치). 소서러 혈통이 아니면 원본 그대로.
+function _bloodlineDescHtml(sub, id) {
+  let desc = (sub && sub.desc) || '';
+  const bl = (typeof BLOODLINE_DB !== 'undefined') ? BLOODLINE_DB[id] : null;
+  if (!bl) return desc;
+  desc = desc.replace(/<p><strong>(?:주문 목록|전통)<\/strong>[^<]*<\/p>\s*/g, '');   // 기존 전통 줄 제거(라벨 혼용)
+  desc = desc.replace(/<strong>부여된 주문<\/strong>/g, '<strong>마법적 재능</strong>');
+  const TK = { arcane: '비전', divine: '신성', occult: '오컬트', primal: '원시' };
+  let tradKo;
+  if (bl.tradition && bl.tradition !== 'variable') tradKo = TK[bl.tradition] || bl.tradition;
+  else {
+    const ex = (bl.exemplars || []).find(e => e.name_en === _modalChoices.bloodlineExemplar);
+    tradKo = (ex && ex.tradition) ? `${TK[ex.tradition] || ex.tradition} (표본: ${ex.name_ko})` : '표본 선택에 따라 결정';
+  }
+  const tline = `<p><strong>전통</strong> ${tradKo}</p>`;
+  const m = desc.match(/^\s*<p>[\s\S]*?<\/p>/);   // 플레이버(첫 문단) 뒤에 전통 줄 삽입
+  desc = m ? desc.slice(0, m[0].length) + tline + desc.slice(m[0].length) : tline + desc;
+  return desc;
+}
+function _renderSubclassInfo(id) {
+  const info = document.getElementById('cls-subclass-info');
+  if (!info) return;
+  const sub = (typeof SUBCLASS_DB !== 'undefined') ? SUBCLASS_DB.find(s => s.id === id) : null;
+  info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${_bloodlineDescHtml(sub, id)}</div>${_bloodlineExemplarHtml(id)}` : '';
 }
 // 혈통을 고르기 전에 읽는 용어 설명(전통/혈통 기술/마법적 재능/혈통 주문/혈통 마법이 '무엇인지').
 //   데이터 파생(BLOODLINE_GUIDE = 「혈통 항목 읽는 법」, bloodline-spells 항목). 소서러일 때만, 드롭다운 위에 항상 노출.
@@ -4716,11 +4743,7 @@ function _onSubclassChange(id) {
   if (_modalChoices.bloodlineExemplar && !(_blNew && (_blNew.exemplars || []).some(e => e.name_en === _modalChoices.bloodlineExemplar))) {
     _modalChoices.bloodlineExemplar = '';
   }
-  const info = document.getElementById('cls-subclass-info');
-  if (info) {
-    const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === id) : null;
-    info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>${_bloodlineExemplarHtml(id)}` : '';
-  }
+  _renderSubclassInfo(id);
   // 챔피언: 원인(서브클래스)이 성별화를 제약 → 신격∩원인 성별화 카드 갱신.
   const _cs = document.getElementById('cls-champ-sanct');
   if (_cs) { _champSetSanct(_modalChoices.sanctification || ''); _cs.innerHTML = _champSanctHtml(); }

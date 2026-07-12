@@ -199,6 +199,20 @@ function runDiag(){
       ok('용어설명 콜아웃 아님(평문: 배경·보더 없음)', !/background:/.test(gh) && !/border-left/.test(gh));
       ok('소서러 외엔 미표시', _bloodlineGuideHtml('druid')==='');
     }
+    // 각 혈통 desc에 전통 줄 일관 표시(번역이 반만 살린 것 → BLOODLINE_DB로 재삽입) + 라벨 통일
+    if (typeof _bloodlineDescHtml==='function' && typeof SUBCLASS_DB!=='undefined') {
+      _modalChoices={type:'class',classFeatureChoices:{},bloodlineExemplar:''};
+      var abr=SUBCLASS_DB.find(function(s){return s.id==='bloodline-aberrant';});   // desc에 전통 줄 없던 혈통
+      var abrH=_bloodlineDescHtml(abr,'bloodline-aberrant');
+      ok('이형체 전통 줄 표시(전통 오컬트)', /<strong>전통<\/strong>\s*오컬트/.test(abrH));
+      var ang=SUBCLASS_DB.find(function(s){return s.id==='bloodline-angelic';});     // '주문 목록'/'부여된 주문' 쓰던 혈통
+      var angH=_bloodlineDescHtml(ang,'bloodline-angelic');
+      ok('천상체 전통 신성 + 중복 없음', /<strong>전통<\/strong>\s*신성/.test(angH) && !/주문 목록/.test(angH));
+      ok('천상체 마법적 재능으로 통일(부여된 주문 제거)', /마법적 재능/.test(angH) && !/부여된 주문/.test(angH));
+      var dra=SUBCLASS_DB.find(function(s){return s.id==='bloodline-draconic';});
+      var draH=_bloodlineDescHtml(dra,'bloodline-draconic');
+      ok('드라코닉 전통=표본 의존 안내', /표본 선택에 따라 결정/.test(draH));
+    }
   } else { ok('PF2eClass.subclassGrantTable 로드', false); }
 
   // ── 드루이드 서브클래스(교단) 드롭다운 조건 + 자연의 목소리 인라인 선택 ──
