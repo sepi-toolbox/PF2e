@@ -194,8 +194,9 @@ function runDiag(){
     // 「혈통 항목 읽는 법」 데이터 파생 가이드(5용어) + 모달 렌더
     ok('BLOODLINE_GUIDE 5용어 로드', typeof BLOODLINE_GUIDE!=='undefined' && BLOODLINE_GUIDE.length===5 && BLOODLINE_GUIDE.some(function(g){return g.term==='혈통 마법';}));
     if (typeof _bloodlineGuideHtml==='function') {
-      var gh=_bloodlineGuideHtml('bloodline-angelic');
-      ok('혈통 박스 용어설명 렌더(혈통 마법 정의 포함)', /혈통 마법/.test(gh) && /포커스 포인트|집중/.test(gh));
+      var gh=_bloodlineGuideHtml('sorcerer');
+      ok('혈통 선택 위 용어설명 렌더(혈통 마법 정의 포함)', /혈통 마법/.test(gh) && /포커스 포인트|집중/.test(gh) && !/details/.test(gh));
+      ok('소서러 외엔 미표시', _bloodlineGuideHtml('druid')==='');
     }
   } else { ok('PF2eClass.subclassGrantTable 로드', false); }
 

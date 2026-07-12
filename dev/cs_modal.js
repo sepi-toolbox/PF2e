@@ -3971,7 +3971,7 @@ function _buildClassChoicesUI(cls) {
     const subs = primaryType ? allSubs.filter(s => s.subclass_type === primaryType) : allSubs;
     if (subs.length > 0) {
       const subLabel = subs[0].subclass_type || '서브클래스';
-      subclassHtml = _buildSubclassChoiceUI(cls.id, subLabel, subs);
+      subclassHtml = _buildSubclassChoiceUI(cls.id, subLabel, subs, (typeof _bloodlineGuideHtml === 'function') ? _bloodlineGuideHtml(cls.id) : '');
     }
     // 신격 선택 클래스(deity-* 특성 보유, 예: 챔피언) — 신격·성별화·헌신 주문 카드를 인라인 추가(클레릭과 평행).
     const _roster = (typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []) : []);
@@ -4658,14 +4658,15 @@ function _refreshChampDevotion() {
 }
 
 // ── 범용 서브클래스 선택 UI (클레릭 제외) ──
-function _buildSubclassChoiceUI(classId, label, subs) {
+function _buildSubclassChoiceUI(classId, label, subs, preHtml) {
   // ⚠ 현재 선택된 서브클래스가 '이 클래스(subs)' 소속일 때만 복원 — 타 클래스 서브클래스가
   //    잔류해 _restoreInitialChoicesUI가 엉뚱한 특성(예: 클레릭 영역 입문)을 렌더하던 버그 방지
   const _curSub = state.selectedSubclass?.id || '';
   const _savedSub = subs.some(s => s.id === _curSub) ? _curSub : '';
   _modalChoices.subclass = _savedSub;
   // 다른 모달 특성과 동일한 카드(.cfb-card) 형식 — 선택 드롭다운을 카드 본문에 넣음(위젯/카드 통일).
-  const inner = `<select id="cls-subclass" onchange="_onSubclassChange(this.value)" style="${_selStyle}">
+  //   preHtml = 선택 전에 읽을 안내(소서러 혈통 용어 설명 등) → 드롭다운 '위'에 항상 노출.
+  const inner = `${preHtml || ''}<select id="cls-subclass" onchange="_onSubclassChange(this.value)" style="${_selStyle}">
       <option value="">— 선택 —</option>
       ${subs.map(s => `<option value="${s.id}"${s.id === _savedSub ? ' selected' : ''}>${s.name_ko} (${s.name_en})</option>`).join('')}
     </select>
@@ -4698,18 +4699,17 @@ function _onBloodlineExemplar(val) {
   _refreshClassFeaturesPreview();
   _validateInitialChoices();
 }
-// 혈통 박스의 값(전통/혈통 기술/마법적 재능/혈통 주문/혈통 마법)이 '무엇인지' 설명하는 접이식 범례.
-//   데이터 파생(BLOODLINE_GUIDE = 「혈통 항목 읽는 법」, bloodline-spells 항목). 소서러 혈통일 때만 표시.
-function _bloodlineGuideHtml(blId) {
-  const bl = (typeof BLOODLINE_DB !== 'undefined') ? BLOODLINE_DB[blId] : null;
-  if (!bl) return '';
+// 혈통을 고르기 전에 읽는 용어 설명(전통/혈통 기술/마법적 재능/혈통 주문/혈통 마법이 '무엇인지').
+//   데이터 파생(BLOODLINE_GUIDE = 「혈통 항목 읽는 법」, bloodline-spells 항목). 소서러일 때만, 드롭다운 위에 항상 노출.
+function _bloodlineGuideHtml(classId) {
+  if (classId !== 'sorcerer') return '';
   const guide = (typeof BLOODLINE_GUIDE !== 'undefined' && Array.isArray(BLOODLINE_GUIDE)) ? BLOODLINE_GUIDE : [];
   if (!guide.length) return '';
   const items = guide.map(g => `<div style="margin-bottom:5px;"><strong style="color:var(--gold);">${g.term}</strong> <span style="color:var(--text2);">${g.def}</span></div>`).join('');
-  return `<details style="margin-top:8px;">
-    <summary style="cursor:pointer;font-size:11px;color:var(--text2);font-weight:600;">📖 혈통 항목이란? (전통·혈통 기술·마법적 재능·혈통 주문·혈통 마법 설명)</summary>
-    <div style="margin-top:6px;padding:8px 10px;background:var(--bg4);border-radius:4px;font-size:11px;line-height:1.6;">${items}</div>
-  </details>`;
+  return `<div style="margin-bottom:8px;padding:8px 10px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--gold);font-size:11px;line-height:1.6;">
+    <div style="font-weight:600;color:var(--text);margin-bottom:5px;">📖 혈통이 주는 것 (아래에서 하나 선택)</div>
+    ${items}
+  </div>`;
 }
 
 function _onSubclassChange(id) {
@@ -4722,7 +4722,7 @@ function _onSubclassChange(id) {
   const info = document.getElementById('cls-subclass-info');
   if (info) {
     const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === id) : null;
-    info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>${_bloodlineExemplarHtml(id)}${_bloodlineGuideHtml(id)}` : '';
+    info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>${_bloodlineExemplarHtml(id)}` : '';
   }
   // 챔피언: 원인(서브클래스)이 성별화를 제약 → 신격∩원인 성별화 카드 갱신.
   const _cs = document.getElementById('cls-champ-sanct');
