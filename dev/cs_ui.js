@@ -2252,7 +2252,6 @@ function renderFeats() {
       div.style.cursor = 'pointer';
       const srcLabel = isAuto ? `Lv ${f.level||1} — 클래스 특성` : `Lv ${f.level||1}`;
       // DB에서 설명 가져오기 — slug 기반(featSlug). 이름 lookup 폐지.
-      const fNameKo = (f.name||'').split(' (')[0].trim();
       let featData = getFeat(featSlug(f));
       // 클래스 특성 desc 보충 = CLASS_FEATURE_NAMES / 서브클래스 features[] 중 같은 slug 항목(이름 아님).
       let classFeatureDesc = '';
@@ -2354,8 +2353,7 @@ function cascadeRemoveFeats() {
       for (let j = arr.length - 1; j >= 0; j--) {
         const f = arr[j];
         if (!f?.name) continue;
-        const fNameKo = f.name.split(' (')[0].trim();
-        const fData = getFeat(fNameKo);
+        const fData = getFeat(featSlug(f));   // slug 기반(이름 매칭 폐지)
         if (fData?.prerequisites && !_checkPrereqs(fData.prerequisites)) {
           if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(f));
           // 성장에서도 제거 (slug 기준 — 저장명 드리프트 무관)
