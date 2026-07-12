@@ -106,7 +106,7 @@
     if (_subProfTable) return _subProfTable;
     let rows = null;
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/subclass_progression.json", "dev/data/derived/subclass_progression.json"]) { try { rows = JSON.parse(fs.readFileSync(p, "utf8")).rows; break; } catch (e) {} } }
-    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.208"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.209"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
     _subProfTable = _buildSubProfTable(rows || []);
     _subGrantTable = _buildSubGrantTable(rows || []);   // 같은 rows에서 부여표도 동시 구축
     return _subProfTable;
@@ -118,7 +118,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.208"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.209"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -274,10 +274,10 @@
             });
           }
         }
-        // 오라클 신비 보강(대원칙 0=성장/정체성 부여): MYSTERY_DB에서 미스터리 기술 + 전통(divine) + 부여 레퍼토리 주문.
-        //   신비 초급 계시주문(focus)은 위 desc 추출이 이미 granted_spells에 넣음. 여기선 미스터리 기술·전통·부여 레퍼토리만 추가.
-        //   ⚠ 상급/고급 계시주문은 재주(상급/고급 계시)로 습득 → 여기 자동부여 안 함. 예언의 저주도 별도(후속).
-        let my_skills = [], my_tradition = null;
+        // 오라클 신비 보강(대원칙 0=성장/정체성 부여): MYSTERY_DB에서 미스터리 기술 + 전통(divine) + 부여 레퍼토리 주문 + 예언의 저주.
+        //   신비 초급 계시주문(focus)은 위 desc 추출이 이미 granted_spells에 넣음. 여기선 미스터리 기술·전통·부여 레퍼토리·저주만 추가.
+        //   ⚠ 상급/고급 계시주문은 재주(상급/고급 계시)로 습득 → 여기 자동부여 안 함(curated_effects $mystery_advanced/greater).
+        let my_skills = [], my_tradition = null, my_features = [];
         const _MYDB = (typeof MYSTERY_DB !== 'undefined') ? MYSTERY_DB : (root.MYSTERY_DB || null);
         const my = _MYDB && _MYDB[f.system.slug];
         if (my) {
@@ -287,12 +287,17 @@
             if (!g || !g.spell) continue;
             granted_spells.push({ spell_id: g.spell, lv: g.char_level || 1, type: g.rank === 'cantrip' ? 'cantrip' : 'known', rank: g.rank === 'cantrip' ? 0 : g.rank });
           }
+          // 예언의 저주 = 신비가 정해주는 고유 저주 → 클래스 특성(features)으로 표시(재주 탭 「클래스 특성」).
+          //   slug = curse-of-*(실제 classfeature 레지스트리 항목). 클래스표의 일반 oracular-curse 슬롯을 이 특정 저주가 채움.
+          if (my.curse) {
+            my_features.push({ lv: 1, slug: my.curse, name_ko: my.curse_name_ko || my.curse, name_en: my.curse_name_en || my.curse, kind: 'feature' });
+          }
         }
         const _row = {
           id: f.system.slug, class_id: slug, subclass_type: meta.typeKo,
           name_ko: PF.nameKo(f), name_en: f.name_en || f.name,
           desc: PF.enrichDesc(PF.descKo(f) || ''),
-          granted_skills: bl_skills.concat(my_skills), granted_feats, granted_spells, granted_actions, features: bl_features, prof_changes,
+          granted_skills: bl_skills.concat(my_skills), granted_feats, granted_spells, granted_actions, features: bl_features.concat(my_features), prof_changes,
           sanctification,
         };
         if (bl_tradition || my_tradition) _row.tradition = bl_tradition || my_tradition;
@@ -338,7 +343,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.208').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.209').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -357,7 +362,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.208').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.209').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   // 소서러 혈통 정본 메타 = data/derived/bloodlines.json → 런타임 BLOODLINE_DB 채움.
@@ -385,7 +390,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/bloodlines.json?v=0.208').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/bloodlines.json?v=0.209').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
   }
 
   // 오라클 신비 정본 메타 = data/derived/oracle_mysteries.json → 런타임 MYSTERY_DB 채움.
@@ -405,7 +410,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/oracle_mysteries.json?v=0.208').then(r => r.json()).then(j => { _fillMysteryDB(j.rows); _mysteriesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/oracle_mysteries.json?v=0.209').then(r => r.json()).then(j => { _fillMysteryDB(j.rows); _mysteriesLoaded = true; }).catch(() => {});
   }
 
   async function init() {

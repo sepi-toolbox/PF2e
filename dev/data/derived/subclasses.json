@@ -2493,12 +2493,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "slug": "curse-of-ancestral-meddling",
+     "name_ko": "조상의 간섭 저주",
+     "name_en": "Curse of Ancestral Meddling",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 6,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "ashes",
@@ -2547,12 +2555,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "slug": "curse-of-creeping-ashes",
+     "name_ko": "기어다니는 재의 저주",
+     "name_en": "Curse of Creeping Ashes",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 6,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "battle",
@@ -2601,12 +2617,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "slug": "curse-of-the-mortal-warrior",
+     "name_ko": "필멸의 전사 저주",
+     "name_en": "Curse of the Mortal Warrior",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 6,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "blight",
@@ -2655,12 +2679,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "slug": "curse-of-inevitable-rot",
+     "name_ko": "피할 수 없는 부패의 저주",
+     "name_en": "Curse of Inevitable Rot",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 6,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "bones",
@@ -2709,12 +2741,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "slug": "curse-of-the-living-death",
+     "name_ko": "생명의 죽음의 저주",
+     "name_en": "Curse of the Living Death",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 6,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "cosmos",
@@ -2763,12 +2803,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "slug": "curse-of-the-skys-call",
+     "name_ko": "하늘의 부름의 저주",
+     "name_en": "Curse of the Sky's Call",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 6,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "flames",
@@ -2817,12 +2865,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "slug": "curse-of-engulfing-flames",
+     "name_ko": "삼켜버리는 불꽃의 저주",
+     "name_en": "Curse of Engulfing Flames",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 6,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "life",
@@ -2871,12 +2927,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "slug": "curse-of-outpouring-life",
+     "name_ko": "생명의 분출 저주",
+     "name_en": "Curse of Outpouring Life",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 6,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "lore",
@@ -2925,12 +2989,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "slug": "curse-of-torrential-knowledge",
+     "name_ko": "폭우 같은 지식의 저주",
+     "name_en": "Curse of Torrential Knowledge",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 6,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "tempest",
@@ -2979,12 +3051,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "slug": "curse-of-inclement-headwinds",
+     "name_ko": "불길한 역풍의 저주",
+     "name_en": "Curse of Inclement Headwinds",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 6,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "time",
@@ -3033,12 +3113,20 @@
     }
    ],
    "granted_actions": [],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "slug": "curse-of-turbulent-moments",
+     "name_ko": "격동의 순간의 저주",
+     "name_en": "Curse of Turbulent Moments",
+     "kind": "feature"
+    }
+   ],
    "prof_changes": {},
    "sanctification": [],
    "tradition": "divine",
    "grants": 6,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "the-distant-grasp",

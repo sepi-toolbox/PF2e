@@ -52,6 +52,7 @@ for (const m of mysteries) {
   const grantSlugs = (s.rules || []).filter(r => r.key === 'GrantItem' && r.uuid).map(r => { const g = byId[('' + r.uuid).split('.').pop()]; return g ? g.system.slug : null; }).filter(Boolean);
   const curse = grantSlugs.find(x => x.startsWith('curse-of-')) || null;
   const oracleFeat = grantSlugs.find(x => !x.startsWith('curse-of-')) || null;
+  const curseFeat = curse ? bySlug[curse] : null;
 
   // 참조 무결성
   for (const g of granted) if (!spellSet.has(g.spell)) { console.error('MISS granted', m, g.spell); miss++; }
@@ -66,7 +67,8 @@ for (const m of mysteries) {
     granted_spells: granted,
     revelation,
     domains: domM ? domM[1].split(',').map(x => x.trim()).filter(Boolean) : [],
-    curse, oracle_feat: oracleFeat,
+    curse, curse_name_ko: curseFeat ? (curseFeat.name_ko || curseFeat.name) : null, curse_name_en: curseFeat ? (curseFeat.name_en || curseFeat.name) : null,
+    oracle_feat: oracleFeat,
   });
 }
 

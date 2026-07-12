@@ -2272,5 +2272,23 @@
     "name": "혈통 집중주문(고급)"
    }
   ]
+ },
+ "advanced-revelation": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "$mystery_advanced",
+    "name": "계시 주문(상급)"
+   }
+  ]
+ },
+ "greater-revelation": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "$mystery_greater",
+    "name": "계시 주문(고급)"
+   }
+  ]
  }
 }

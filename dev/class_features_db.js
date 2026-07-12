@@ -60,6 +60,9 @@ var DOMAIN_DB = {}; // 영역 데이터 = DataManager 단일소스(data/derived/
 var BLOODLINE_DB = {};
 // 「혈통 항목 읽는 법」 정본 용어 설명(전 혈통 공통, bloodline-spells 항목 파생) — [{term,def},...].
 var BLOODLINE_GUIDE = [];
+// 오라클 신비(MYSTERY_DB) = DataManager 단일소스(data/derived/oracle_mysteries.json). cs_pf2e_class.loadMysteries()가 런타임 채움.
+//   {slug:{name,tradition,mystery_skill,granted_spells,revelation:{initial,advanced,greater},domains,curse,oracle_feat}} — 미스터리 기술·부여 레퍼토리·계시주문(초/상/고급).
+var MYSTERY_DB = {};
 
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING

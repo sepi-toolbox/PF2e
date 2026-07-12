@@ -55686,7 +55686,8 @@
    "name_ko": "조상",
    "level": 1,
    "features": [
-    "ancestors"
+    "ancestors",
+    "curse-of-ancestral-meddling"
    ],
    "grant_feats": [
     "whispers-of-weakness",
@@ -56240,7 +56241,8 @@
    "name_ko": "재",
    "level": 1,
    "features": [
-    "ashes"
+    "ashes",
+    "curse-of-creeping-ashes"
    ],
    "grant_feats": [
     "whispers-of-weakness",
@@ -56794,7 +56796,8 @@
    "name_ko": "전투",
    "level": 1,
    "features": [
-    "battle"
+    "battle",
+    "curse-of-the-mortal-warrior"
    ],
    "grant_feats": [
     "oracular-warning",
@@ -57348,7 +57351,8 @@
    "name_ko": "병폐",
    "level": 1,
    "features": [
-    "blight"
+    "blight",
+    "curse-of-inevitable-rot"
    ],
    "grant_feats": [
     "whispers-of-weakness",
@@ -57902,7 +57906,8 @@
    "name_ko": "뼈",
    "level": 1,
    "features": [
-    "bones"
+    "bones",
+    "curse-of-the-living-death"
    ],
    "grant_feats": [
     "nudge-the-scales",
@@ -58456,7 +58461,8 @@
    "name_ko": "우주",
    "level": 1,
    "features": [
-    "cosmos"
+    "cosmos",
+    "curse-of-the-skys-call"
    ],
    "grant_feats": [
     "oracular-warning",
@@ -59010,7 +59016,8 @@
    "name_ko": "불꽃",
    "level": 1,
    "features": [
-    "flames"
+    "flames",
+    "curse-of-engulfing-flames"
    ],
    "grant_feats": [
     "foretell-harm",
@@ -59564,7 +59571,8 @@
    "name_ko": "생명",
    "level": 1,
    "features": [
-    "life"
+    "life",
+    "curse-of-outpouring-life"
    ],
    "grant_feats": [
     "nudge-the-scales",
@@ -60118,7 +60126,8 @@
    "name_ko": "지식",
    "level": 1,
    "features": [
-    "lore"
+    "lore",
+    "curse-of-torrential-knowledge"
    ],
    "grant_feats": [
     "whispers-of-weakness",
@@ -60672,7 +60681,8 @@
    "name_ko": "폭풍",
    "level": 1,
    "features": [
-    "tempest"
+    "tempest",
+    "curse-of-inclement-headwinds"
    ],
    "grant_feats": [
     "foretell-harm",
@@ -61226,7 +61236,8 @@
    "name_ko": "시간",
    "level": 1,
    "features": [
-    "time"
+    "time",
+    "curse-of-turbulent-moments"
    ],
    "grant_feats": [
     "trance-of-celerity",

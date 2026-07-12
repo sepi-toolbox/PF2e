@@ -127274,9 +127274,33 @@
    "type": "grant_focus_spell",
    "target": "$bloodline_greater",
    "name": "혈통 집중주문(고급)"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "advanced-revelation",
+   "owner_name": "고급 계시",
+   "owner_level": 6,
+   "category": "class",
+   "rule": "curated",
+   "src": "effect",
+   "type": "grant_focus_spell",
+   "target": "$mystery_advanced",
+   "name": "계시 주문(상급)"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "greater-revelation",
+   "owner_name": "대계시",
+   "owner_level": 12,
+   "category": "class",
+   "rule": "curated",
+   "src": "effect",
+   "type": "grant_focus_spell",
+   "target": "$mystery_greater",
+   "name": "계시 주문(고급)"
   }
  ],
- "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 10191 · 30 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.",
+ "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 10193 · 30 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.",
  "_schema": {
   "note": "코드가 실제 처리하는 자료형(런타임 소스). 이 목록 밖 값은 런타임이 모름 = 데이터·코드 불변식. 조건 평가=cs_calc _evalEffectCondition, 효과 적용=applyFeatEffects.",
   "condition": {
@@ -127377,7 +127401,7 @@
   "grant_spell": 1463,
   "sanctification": 369,
   "damage_note": 3,
-  "grant_focus_spell": 5,
+  "grant_focus_spell": 7,
   "rune": 161
  }
 }

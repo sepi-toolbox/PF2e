@@ -45,6 +45,8 @@
     "soul"
    ],
    "curse": "curse-of-ancestral-meddling",
+   "curse_name_ko": "조상의 간섭 저주",
+   "curse_name_en": "Curse of Ancestral Meddling",
    "oracle_feat": "whispers-of-weakness"
   },
   {
@@ -92,6 +94,8 @@
     "nothingness"
    ],
    "curse": "curse-of-creeping-ashes",
+   "curse_name_ko": "기어다니는 재의 저주",
+   "curse_name_en": "Curse of Creeping Ashes",
    "oracle_feat": "whispers-of-weakness"
   },
   {
@@ -139,6 +143,8 @@
     "zeal"
    ],
    "curse": "curse-of-the-mortal-warrior",
+   "curse_name_ko": "필멸의 전사 저주",
+   "curse_name_en": "Curse of the Mortal Warrior",
    "oracle_feat": "oracular-warning"
   },
   {
@@ -186,6 +192,8 @@
     "plague"
    ],
    "curse": "curse-of-inevitable-rot",
+   "curse_name_ko": "피할 수 없는 부패의 저주",
+   "curse_name_en": "Curse of Inevitable Rot",
    "oracle_feat": "whispers-of-weakness"
   },
   {
@@ -233,6 +241,8 @@
     "vigil"
    ],
    "curse": "curse-of-the-living-death",
+   "curse_name_ko": "생명의 죽음의 저주",
+   "curse_name_en": "Curse of the Living Death",
    "oracle_feat": "nudge-the-scales"
   },
   {
@@ -280,6 +290,8 @@
     "star"
    ],
    "curse": "curse-of-the-skys-call",
+   "curse_name_ko": "하늘의 부름의 저주",
+   "curse_name_en": "Curse of the Sky's Call",
    "oracle_feat": "oracular-warning"
   },
   {
@@ -327,6 +339,8 @@
     "sun"
    ],
    "curse": "curse-of-engulfing-flames",
+   "curse_name_ko": "삼켜버리는 불꽃의 저주",
+   "curse_name_en": "Curse of Engulfing Flames",
    "oracle_feat": "foretell-harm"
   },
   {
@@ -374,6 +388,8 @@
     "soul"
    ],
    "curse": "curse-of-outpouring-life",
+   "curse_name_ko": "생명의 분출 저주",
+   "curse_name_en": "Curse of Outpouring Life",
    "oracle_feat": "nudge-the-scales"
   },
   {
@@ -421,6 +437,8 @@
     "truth"
    ],
    "curse": "curse-of-torrential-knowledge",
+   "curse_name_ko": "폭우 같은 지식의 저주",
+   "curse_name_en": "Curse of Torrential Knowledge",
    "oracle_feat": "whispers-of-weakness"
   },
   {
@@ -468,6 +486,8 @@
     "water"
    ],
    "curse": "curse-of-inclement-headwinds",
+   "curse_name_ko": "불길한 역풍의 저주",
+   "curse_name_en": "Curse of Inclement Headwinds",
    "oracle_feat": "foretell-harm"
   },
   {
@@ -515,6 +535,8 @@
     "time"
    ],
    "curse": "curse-of-turbulent-moments",
+   "curse_name_ko": "격동의 순간의 저주",
+   "curse_name_en": "Curse of Turbulent Moments",
    "oracle_feat": "trance-of-celerity"
   }
  ],

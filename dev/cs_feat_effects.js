@@ -454,6 +454,15 @@ function _applyOneEffect(fb, eff, feat, level) {
         const sp = id ? getSpell(id) : null;
         spellName = sp ? sp.name_ko : '';
         spellId = sp?.id || null;
+      } else if (spellName === '$mystery_advanced' || spellName === '$mystery_greater') {
+        // 오라클 상급/고급 계시주문 = 현재 선택한 신비(state.selectedSubclass)에서 해소(MYSTERY_DB.revelation).
+        //   상급 계시/대계시 재주가 이 효과행 소유(대원칙 0: 재주→효과 탭). 신비 미선택 시 미부여.
+        const mid = state.selectedSubclass && state.selectedSubclass.id;
+        const my = mid && typeof MYSTERY_DB !== 'undefined' ? MYSTERY_DB[mid] : null;
+        const id = my && my.revelation ? (spellName === '$mystery_advanced' ? my.revelation.advanced : my.revelation.greater) : null;
+        const sp = id ? getSpell(id) : null;
+        spellName = sp ? sp.name_ko : '';
+        spellId = sp?.id || null;
       } else {
         const _sp = getSpell(spellName);  // slug(신) 또는 이름(구) 해소
         spellId = _sp?.id || null;
