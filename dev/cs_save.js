@@ -158,6 +158,7 @@ function collectData() {
     sanctification: state.sanctification || null,
     divineFontUsed: state.divineFontUsed || 0,
     bloodlineExemplar: state.bloodlineExemplar || null,   // 소서러 혈통 표본/원소/지니 유형 선택
+    classFeatureChoices: state.classFeatureChoices || {}, // 클래스 특성 인라인 선택(자연의 목소리 등)
     signatureSpells: state.signatureSpells || {},
     familiarSpells: state.familiarSpells || null,
     preparedSpells: state.preparedSpells || null,
@@ -599,6 +600,7 @@ function loadData(d) {
     if (d.sanctification) state.sanctification = d.sanctification;
     if (d.divineFontUsed !== undefined) state.divineFontUsed = d.divineFontUsed;
     if (d.bloodlineExemplar) state.bloodlineExemplar = d.bloodlineExemplar;
+    if (d.classFeatureChoices) state.classFeatureChoices = d.classFeatureChoices;
     if (d.signatureSpells) state.signatureSpells = d.signatureSpells;
     if (d.familiarSpells) state.familiarSpells = d.familiarSpells;
     if (d.preparedSpells) state.preparedSpells = d.preparedSpells;

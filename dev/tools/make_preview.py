@@ -193,6 +193,30 @@ function runDiag(){
     ok('GAP3 드라코닉 중급=dragon-breath/고급=dragon-wings', _bl.advanced==='dragon-breath' && _bl.greater==='dragon-wings');
   } else { ok('PF2eClass.subclassGrantTable 로드', false); }
 
+  // ── 드루이드 서브클래스(교단) 드롭다운 조건 + 자연의 목소리 인라인 선택 ──
+  if (typeof SUBCLASS_DB!=='undefined') {
+    var druidOrders=SUBCLASS_DB.filter(function(s){return s.class_id==='druid'&&s.subclass_type==='교단';});
+    ok('드루이드 교단 4종(드롭다운 소스)', druidOrders.length===4);
+    // 단일 subclass_type 클래스는 특성명 불일치여도 primaryType=유일유형 → subs 비지 않음(드롭다운 표시)
+    ['druid','ranger','rogue','wizard'].forEach(function(cid){
+      var all=SUBCLASS_DB.filter(function(s){return s.class_id===cid;});
+      var types=[]; all.forEach(function(s){if(s.subclass_type&&types.indexOf(s.subclass_type)<0)types.push(s.subclass_type);});
+      ok(cid+' 서브클래스 드롭다운 표시(단일유형 '+types[0]+')', types.length===1 && all.length>0);
+    });
+    if (typeof _classFeatureChoiceHtml==='function') {
+      _modalChoices={type:'class',classFeatureChoices:{}};
+      var vohHtml=_classFeatureChoiceHtml({kind:'choice',slug:'voice-of-nature',name_ko:'자연의 목소리'});
+      ok('자연의 목소리 인라인 드롭다운 생성(동물/식물 공감)', /animal-empathy/.test(vohHtml)&&/plant-empathy/.test(vohHtml));
+    } else { ok('_classFeatureChoiceHtml 로드', false); }
+    // choice=동물공감 → recalcAll이 하위 재주(동물 공감) 부여
+    state.feats={special:[{id:'voice-of-nature',name:'자연의 목소리 (Voice of Nature)',_auto:true,choice:'animal-empathy',level:1}],ancestry:[],class:[],general:[],skill:[],archetype:[],other:[]};
+    state.selectedClass={id:'druid',name:'druid',keyAbility:'wis',tradition:'primal',casting:'prepared'};
+    state.selectedSubclass=null; state.level=1;
+    try{ recalcAll(); }catch(e){err.push('druid recalc:'+e.message);}
+    var hasAnimal=Object.keys(state.feats).some(function(cat){return (state.feats[cat]||[]).some(function(f){return f&&(f.id==='animal-empathy'||/animal-empathy/.test((f.name||'')+(f.id||'')))&&f._grantedBy;});});
+    ok('자연의 목소리 choice=동물공감 → 동물 공감 재주 부여', hasAnimal);
+  }
+
   log('EFFECTS_DB slugs='+Object.keys(EFFECTS_DB).length);
  }catch(e){ err.push('FATAL:'+e.message+' | '+(e.stack||'')); }
  function show(){

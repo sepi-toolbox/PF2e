@@ -735,6 +735,8 @@ function applyClassFeatures() {
         if (f._subclass) autoFeat._subclass = true;
         const savedChoice = savedAutoChoices[(slug || featName) + '_'];
         if (savedChoice) autoFeat.choice = savedChoice;
+        // 클래스 특성 인라인 선택(자연의 목소리 등) — 모달에서 고른 값을 auto 특성 choice로 주입(→choiceEffects 적용, checkFeatChoice 팝업 생략).
+        else if (slug && state.classFeatureChoices && state.classFeatureChoices[slug]) autoFeat.choice = state.classFeatureChoices[slug];
         state.feats[cat].push(autoFeat);
       }
     }
@@ -3914,13 +3916,15 @@ function _buildClassChoicesUI(cls) {
   const deitySkill = !!cls.deity_skill;
   const _inlineDeity = _classHasInlineDeity(cls);   // 신격 인라인 클래스(클레릭 deity_skill / 챔피언 deity-champion)
 
-  _modalChoices = { type: 'class', fixedSkills, choiceSkills, trainableBase, deitySkill, trainableSkills: Array(trainableBase).fill(''), chosenFixedSkills: Array(choiceSkills.length).fill(''), bloodlineExemplar: '' };
+  _modalChoices = { type: 'class', fixedSkills, choiceSkills, trainableBase, deitySkill, trainableSkills: Array(trainableBase).fill(''), chosenFixedSkills: Array(choiceSkills.length).fill(''), bloodlineExemplar: '', classFeatureChoices: {} };
 
   // ── 이전 선택값 복원 (같은 클래스가 이미 선택된 경우) ──
   if (state.selectedClass?.id === cls.id) {
     const saved = state.initialChoices?.class;
     // 소서러 혈통 표본/원소/지니 유형 선택 복원
     _modalChoices.bloodlineExemplar = state.bloodlineExemplar || (saved && saved.bloodlineExemplar) || '';
+    // 클래스 특성 선택(자연의 목소리 등) 복원 — state 우선, initialChoices 폴백
+    _modalChoices.classFeatureChoices = Object.assign({}, (saved && saved.classFeatureChoices) || {}, state.classFeatureChoices || {});
     // trainableSkills: growth에 저장된 값 우선, 없으면 initialChoices
     const savedTraining = state.growth?.[1]?.skillTraining || (saved ? saved.trainableSkills : []) || [];
     for (let i = 0; i < trainableBase && i < savedTraining.length; i++) {
@@ -3953,7 +3957,17 @@ function _buildClassChoicesUI(cls) {
     // 다차원 서브클래스(챔피언 원인+헌신자의 축복, 사이킥 의식+잠재의식 등): 레벨1 '주 차원'만 서브클래스 카드로.
     //   주 차원 = 성장표 kind:subclass 특성 중 최저 레벨의 name_ko. 그 외 차원(헌신자의 축복 lv3 등)은 후속 배치.
     const _subRoster = (typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []) : []).filter(f => f.kind === 'subclass').slice().sort((a, b) => (a.lv || 1) - (b.lv || 1));
-    const primaryType = _subRoster.length ? _subRoster[0].name_ko : (allSubs[0] && allSubs[0].subclass_type);
+    // ⚠ 단일 차원 클래스는 성장표 특성명(예: '드루이드 교단'·'헌터스 엣지'·'로그의 수법'·'아케인 논문')이
+    //   subclass_type('교단'·'사냥 방식'·'전문'·'비전 학파')과 달라도 반드시 그 유일 유형을 씀 — name_ko 직접 매칭이면
+    //   드루이드·레인저·로그·위저드 드롭다운이 통째로 사라짐(불일치 4종). 다차원만 특성명으로 주 차원 선별.
+    const _subTypes = [...new Set(allSubs.map(s => s.subclass_type).filter(Boolean))];
+    let primaryType;
+    if (_subTypes.length <= 1) {
+      primaryType = _subTypes[0] || (allSubs[0] && allSubs[0].subclass_type);
+    } else {
+      const _primName = _subRoster.length ? _subRoster[0].name_ko : '';
+      primaryType = _subTypes.find(t => t === _primName || (_primName && (_primName.includes(t) || t.includes(_primName)))) || _subTypes[0];
+    }
     const subs = primaryType ? allSubs.filter(s => s.subclass_type === primaryType) : allSubs;
     if (subs.length > 0) {
       const subLabel = subs[0].subclass_type || '서브클래스';
@@ -4023,7 +4037,7 @@ function _buildClassChoicesUI(cls) {
   // 1레벨 클래스 특성 블록들 (서브클래스 특성 + 선택 UI 담당분은 제외 — 중복 렌더 방지)
   lv1Feats.filter(f => !subFeats.includes(f) && !_featInChoiceUI(f, _inlineDeity)).forEach(f => {
     html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-      return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
+      return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm) + _classFeatureChoiceHtml(f);
     }, false, true)}</div>`;
   });
 
@@ -4036,7 +4050,7 @@ function _buildClassChoicesUI(cls) {
     lvFeats.forEach((f, fi) => {
       const isSub = subFeats.includes(f);
       html += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-        return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
+        return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm) + _classFeatureChoiceHtml(f);
       }, isSub, true);
     });
     html += `</div>`;
@@ -4208,6 +4222,32 @@ function _subFeatCard(scope, item, nameKo, nameEn, badge, descHtml) {
 //   그 외 choice(voice-of-nature·monk 경로·kineticist gates 등)는 전용 UI가 없으므로 박스로 표시 유지.
 // 선택 UI(서브클래스/신격/신성원천/헌신주문 카드)가 담당하는 특성인가 → 일반 특성 블록에서 제외(중복 렌더 방지).
 //   inlineDeity = 신격 인라인 클래스(클레릭 deity_skill, 챔피언 deity-champion). deity-*/divine-font/devotion-spells 카드가 담당.
+// 클래스 특성(kind:choice, 예: 드루이드 자연의 목소리=동물/식물 공감)의 인라인 선택 드롭다운.
+//   curated 효과의 choice.options(option_id/option_name)를 그대로 노출. 선택은 _modalChoices에 tentative 저장 →
+//   확정 시 state.classFeatureChoices에 반영 → applyClassFeatures가 auto 부여 특성의 choice로 주입(→choiceEffects 적용).
+//   신격/신성원천(deitySkill) choice는 별도 UI가 담당하므로 여기서 제외.
+function _classFeatureChoiceHtml(f) {
+  if (!f || f.kind !== 'choice') return '';
+  const slug = f.slug || f.id; if (!slug) return '';
+  if (_modalChoices && _modalChoices.deitySkill && /^(deity-|divine-font)/.test(slug)) return '';
+  const def = (typeof EFFECTS_DB !== 'undefined') ? EFFECTS_DB[slug] : null;
+  const ch = def && def.choice;
+  if (!ch || !Array.isArray(ch.options) || !ch.options.length) return '';
+  const cur = (_modalChoices && _modalChoices.classFeatureChoices && _modalChoices.classFeatureChoices[slug]) || '';
+  const opts = ch.options.map(o => `<option value="${o.option_id}"${o.option_id === cur ? ' selected' : ''}>${o.option_name || o.name || o.option_id}</option>`).join('');
+  return `<div style="margin-top:8px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--gold);">
+    <div style="font-size:11px;font-weight:600;color:var(--text2);margin-bottom:4px;">${ch.label || '선택'}</div>
+    <select onchange="_onClassFeatureChoice('${slug}', this.value)" style="${_selStyle}">
+      <option value="">— 선택 —</option>${opts}
+    </select>
+  </div>`;
+}
+function _onClassFeatureChoice(slug, val) {
+  if (!_modalChoices.classFeatureChoices) _modalChoices.classFeatureChoices = {};
+  _modalChoices.classFeatureChoices[slug] = val || '';
+  if (typeof _validateInitialChoices === 'function') _validateInitialChoices();
+}
+
 function _featInChoiceUI(f, inlineDeity) {
   if (!f || !f.kind) return false;
   if (f.kind === 'subclass') return true;
@@ -4254,7 +4294,7 @@ function _refreshClassFeaturesPreview() {
   let lv1Html = '';
   lv1Feats.forEach(f => {
     lv1Html += `<div class="cfp-dynamic">${_classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-      return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
+      return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm) + _classFeatureChoiceHtml(f);
     }, false, true)}</div>`;
   });
 
@@ -4267,7 +4307,7 @@ function _refreshClassFeaturesPreview() {
     lvFeats.forEach(f => {
       const isSub = subFeats.includes(f);
       otherHtml += _classFeatureBlock('⚡', f.name_ko, f.name_en, () => {
-        return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm);
+        return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm) + _classFeatureChoiceHtml(f);
       }, isSub, true);
     });
     otherHtml += `</div>`;
@@ -5008,6 +5048,7 @@ function resetFromClass() {
   // Reset subclass
   state.selectedSubclass = null;
   state.bloodlineExemplar = null;   // 소서러 혈통 표본 선택 초기화
+  state.classFeatureChoices = {};   // 클래스 특성 인라인 선택 초기화
   const subBtn = document.getElementById('btn-subclass');
   if (subBtn) { subBtn.textContent = '서브클래스...'; subBtn.classList.remove('filled'); subBtn.style.display = 'none'; }
   // Reset weapon proficiencies to defaults
@@ -5236,12 +5277,15 @@ function confirmModal() {
     }
     // 소서러 혈통 표본/원소/지니 유형 선택 반영(드라코닉=전통+2번째 기술, recalcAll·_subclassTradition이 소비)
     state.bloodlineExemplar = _modalChoices.bloodlineExemplar || null;
+    // 클래스 특성 선택(자연의 목소리 등) 반영 → applyClassFeatures가 auto 부여 특성 choice로 주입
+    state.classFeatureChoices = Object.assign({}, _modalChoices.classFeatureChoices || {});
     // ── 선택값 영속 저장 ──
     if (!state.initialChoices) state.initialChoices = {};
     state.initialChoices.class = {
       trainableSkills: (_modalChoices.trainableSkills || []).filter(v => v),
       chosenFixedSkills: (_modalChoices.chosenFixedSkills || []).slice(),
       bloodlineExemplar: _modalChoices.bloodlineExemplar || '',
+      classFeatureChoices: Object.assign({}, _modalChoices.classFeatureChoices || {}),
     };
     applyClassFeatures();
   } else if (modalType==='ancestry') {
