@@ -4089,8 +4089,8 @@ function _classBlockGrantsHtml(f, gm) {
 }
 
 // 모달(선택 미리보기) 부여 트리 — 빌더의 _growthGrantMap은 '커밋 상태'를 읽지만, 모달은 확정 전이라
-//   방금 고른(tentative) 서브클래스의 부여를 즉시 보여줘야 함 → 서브클래스 효과행에서 직접 계산.
-//   출처 = getEffectRows(subId)의 grant_feat/grant_*spell 행(= DataManager '효과(자동화)' 탭, 하드코딩 아님).
+//   방금 고른(tentative) 서브클래스의 부여를 즉시 보여줘야 함 → 성장표 부여 칸에서 직접 계산.
+//   출처 = PF2eClass.subclassGrantTable(subId)(= DataManager '서브클래스성장' 탭 부여 칸). 하위 부여는 재주 효과행 재귀.
 //   귀속 = PF2e 규칙상 부여 주체인 레벨별 발전 특성(첫 번째 교리 등). 발전 특성 없으면 서브클래스 선택 특성.
 function _modalGrantMap(cls) {
   const out = { childrenOf: {} };
@@ -4125,7 +4125,21 @@ function _modalGrantMap(cls) {
       }
     });
   };
-  addGrantRows(subId, lv => advFor(lv));
+  // 1차(서브클래스가 직접 부여) = 성장표(subclass_progression) 직접 소스. 하위(부여된 재주가 또 부여하는 것)는 재주 효과행(addGrantRows 재귀).
+  const gt = (typeof PF2eClass !== 'undefined' && PF2eClass.subclassGrantTable) ? PF2eClass.subclassGrantTable(subId, curLevel) : null;
+  if (gt) {
+    gt.feats.forEach(fe => {
+      const fo = (typeof getFeat === 'function') ? getFeat(fe.slug) : null;
+      const slug = fo ? fo.id : fe.slug;
+      const name = fo ? (fo.name_ko + (fo.name_en ? ` (${fo.name_en})` : '')) : fe.slug;
+      push(advFor(fe.lv || 1), { kind: 'feat', slug, name, lv: fe.lv || 1 });
+      addGrantRows(slug, () => slug);   // 이 재주가 다시 부여하는 것(재주 효과행) 재귀 중첩
+    });
+    gt.spells.forEach(sr => {
+      const sp = (typeof getSpell === 'function') ? getSpell(sr.slug) : null;
+      push(advFor(sr.lv || 1), { kind: 'spell', slug: sp ? sp.id : sr.slug, name: sp ? (sp.name_ko || sp.name_en) : sr.slug, lv: sr.lv || 1 });
+    });
+  }
   return out;
 }
 
@@ -5955,17 +5969,18 @@ function renderActions() {
     });
   }
 
-  // 서브클래스(챔피언 원인 등)가 부여하는 카탈로그 행동 — grant_action(target=slug) 효과행 → 액션 탭 표시.
+  // 서브클래스(챔피언 원인 등)가 부여하는 카탈로그 행동 — 성장표(subclass_progression) grant_actions 직접 소스 → 액션 탭 표시.
   //   챔피언의 반응(원인별): 보복적 타격/이기적인 방패/파괴적 복수 등. desc는 actionToLegacy가 enrich(@link 해소).
-  if (state.selectedSubclass && state.selectedSubclass.id && typeof getEffectRows === 'function'
+  //   효과(자동화) 탭 경유 안 함(성장표 자체가 효과) — 재주·아이템 전용 효과 탭과 구조 분리.
+  if (state.selectedSubclass && state.selectedSubclass.id && typeof PF2eClass !== 'undefined' && PF2eClass.subclassGrantTable
       && typeof PF2eAction !== 'undefined' && PF2eAction.getActionLegacy) {
     const existingIdsA = new Set(visible.map(a => a.id));
     const _subKind = state.selectedSubclass.subclass_type || '서브클래스';
-    getEffectRows(state.selectedSubclass.id).forEach(r => {
-      if (r.type !== 'grant_action' || !r.target) return;
-      const la = PF2eAction.getActionLegacy(r.target);
+    PF2eClass.subclassGrantTable(state.selectedSubclass.id).actions.forEach(ar => {
+      if (!ar.slug) return;
+      const la = PF2eAction.getActionLegacy(ar.slug);
       if (!la) return;
-      const id = 'sub-action-' + r.target;
+      const id = 'sub-action-' + ar.slug;
       if (existingIdsA.has(id)) return;
       existingIdsA.add(id);
       visible.push({

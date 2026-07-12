@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.196').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.197').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -2163,12 +2163,12 @@ function rebuildCoreEffects() {
     }
   }
 
-  // ── 서브클래스(교단 등) 부여 기술 숙련 — skill_trained 효과행(출처기반, 매 recalc 재빌드) ──
-  //   예: 드루이드 교단(동물=운동, 잎=외교, 폭풍=곡예, 야생=위협). _deityGrantedSkills 복원 버퍼 공용(자동부여 기술).
-  if (state.selectedSubclass && state.selectedSubclass.id && typeof getEffectRows === 'function') {
-    getEffectRows(state.selectedSubclass.id).forEach(r => {
-      const sk = r.target || r.skill;   // 표준 필드 target(구 skill 호환)
-      if (r.type !== 'skill_trained' || !sk) return;
+  // ── 서브클래스(교단 등) 부여 기술 숙련 — 성장표(subclass_progression) grant_skills 직접 소스 ──
+  //   예: 드루이드 교단(동물=운동, 잎=외교, 폭풍=곡예, 야생=위협). 효과(자동화) 탭 경유 안 함(성장표 자체가 효과).
+  //   _deityGrantedSkills 복원 버퍼 공용(자동부여 기술).
+  if (state.selectedSubclass && state.selectedSubclass.id && typeof PF2eClass !== 'undefined' && PF2eClass.subclassGrantTable) {
+    PF2eClass.subclassGrantTable(state.selectedSubclass.id).skills.forEach(sr => {
+      const sk = sr.slug; if (!sk) return;
       const el = document.getElementById('sk-prof-' + sk);
       if (!el) return;
       const cur = parseInt(el.value || 0);
@@ -2178,27 +2178,25 @@ function rebuildCoreEffects() {
   }
 }
 
-// ── 서브클래스 효과 헬퍼 (SUBCLASS_DB.granted_*에서 호환 형태로 변환) ──
-// 서브클래스 부여 = 효과(자동화) 테이블 단일 소스(getEffectRows(sub.id) slug 행). 재주·유산·배경과 동일 경로.
-//   구 SUBCLASS_DB.granted_feats/granted_spells 병렬 경로 폐지(v0.160). 부여 재주 다수는 이미 FVTT grant_feat 행으로
-//   효과 테이블에 존재했고, 갭은 curated_effects.json(build_subclass_effects.mjs)로 채움 → 여기서 통합 소스로 읽음.
+// ── 서브클래스 효과 헬퍼 — 성장표(subclass_progression) 부여 칸 직접 소스 ──
+// 합의 구조: 성장·정체성(클래스성장/혈통/유산/서브클래스성장) → 재주/아이템/클래스특성 → 효과(자동화).
+//   효과(자동화) 탭은 재주·아이템·클래스특성 슬러그 전용. 서브클래스 성장은 그 자체로 효과를 지니므로
+//   런타임이 PF2eClass.subclassGrantTable(성장표)에서 직접 읽어 적용(숙련 T/E/M/L과 동일 경로). getEffectRows 경유 폐지.
 function getSubclassAutoFeats(sub) {
-  if (!sub || !sub.id || typeof getEffectRows !== 'function') return [];
+  if (!sub || !sub.id || typeof PF2eClass === 'undefined' || !PF2eClass.subclassGrantTable) return [];
   // 서브클래스가 부여하는 능력은 클래스 특성('special')으로 묶는다 — 클래스 재주(class)/기술 재주(skill)가 아님.
-  return getEffectRows(sub.id).filter(r => r.type === 'grant_feat').map(r => {
-    const f = (typeof getFeat === 'function') ? getFeat(r.target) : null;
-    return f ? { lv: 1, name_ko: f.name_ko, name_en: f.name_en, category: 'special', _subclass: true } : null;
+  return PF2eClass.subclassGrantTable(sub.id).feats.map(fe => {
+    const f = (typeof getFeat === 'function') ? getFeat(fe.slug) : null;
+    return f ? { lv: fe.lv || 1, name_ko: f.name_ko, name_en: f.name_en, category: 'special', _subclass: true } : null;
   }).filter(Boolean);
 }
 function getSubclassAutoSpells(sub) {
-  if (!sub || !sub.id || typeof getEffectRows !== 'function') return [];
-  const TYPE = { grant_focus_spell: 'focus', grant_known_spell: 'known', grant_innate_spell: 'innate' };
-  return getEffectRows(sub.id).map(r => {
-    const type = TYPE[r.type]; if (!type) return null;
-    const sp = (typeof getSpell === 'function') ? getSpell(r.target) : null;
+  if (!sub || !sub.id || typeof PF2eClass === 'undefined' || !PF2eClass.subclassGrantTable) return [];
+  return PF2eClass.subclassGrantTable(sub.id).spells.map(sr => {
+    const sp = (typeof getSpell === 'function') ? getSpell(sr.slug) : null;
     if (!sp) return null;
-    const o = { lv: r.lv || 1, type, name_ko: sp.name_ko, name_en: sp.name_en };
-    if (r.rank !== undefined) o.rank = r.rank;
+    const o = { lv: sr.lv || 1, type: sr.type, name_ko: sp.name_ko, name_en: sp.name_en };
+    if (sr.rank !== undefined) o.rank = sr.rank;
     return o;
   }).filter(Boolean);
 }

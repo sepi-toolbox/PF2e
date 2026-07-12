@@ -79,12 +79,36 @@
     return t;
   }
   function subclassProfTable(sub) { return (_subProfTable && _subProfTable[sub]) || null; }
+  // 서브클래스 부여(재주/기술/주문/행동) = 성장표가 그 자체로 지닌 효과. 효과(자동화) 탭 경유 안 함(재주·아이템 전용).
+  //   런타임은 이 조회기로 성장표를 직접 읽어 적용(숙련 T/E/M/L과 동일 경로). 소스=subclass_progression.json(큐레이트 병합본).
+  let _subGrantTable = null;
+  function _buildSubGrantTable(rows) {
+    const t = {};
+    for (const r of rows || []) {
+      const sub = r.subclass; if (!sub) continue;
+      const o = t[sub] || (t[sub] = { feats: [], skills: [], spells: [], actions: [] });
+      for (const s of (r.grant_feats || [])) o.feats.push({ lv: r.level, slug: s });
+      for (const s of (r.grant_skills || [])) o.skills.push({ lv: r.level, slug: s });
+      for (const s of (r.grant_spells || [])) o.spells.push({ lv: r.level, slug: s.slug, type: s.type, ...(s.rank != null ? { rank: s.rank } : {}) });
+      for (const s of (r.grant_actions || [])) o.actions.push({ lv: r.level, slug: s });
+    }
+    return t;
+  }
+  // 서브클래스가 부여하는 것(성장표 직접 소스). level 주면 그 레벨 이하만 반환(레벨 게이팅). 없으면 빈 구조.
+  function subclassGrantTable(sub, level) {
+    const g = (_subGrantTable && _subGrantTable[sub]) || null;
+    if (!g) return { feats: [], skills: [], spells: [], actions: [] };
+    if (level == null) return g;
+    const f = x => (x.lv || 1) <= level;
+    return { feats: g.feats.filter(f), skills: g.skills.filter(f), spells: g.spells.filter(f), actions: g.actions.filter(f) };
+  }
   async function _ensureSubProfTable() {
     if (_subProfTable) return _subProfTable;
     let rows = null;
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/subclass_progression.json", "dev/data/derived/subclass_progression.json"]) { try { rows = JSON.parse(fs.readFileSync(p, "utf8")).rows; break; } catch (e) {} } }
-    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.196"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.197"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
     _subProfTable = _buildSubProfTable(rows || []);
+    _subGrantTable = _buildSubGrantTable(rows || []);   // 같은 rows에서 부여표도 동시 구축
     return _subProfTable;
   }
   function _profRows() {
@@ -94,7 +118,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.196"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.197"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -267,7 +291,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.196').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.197').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -286,7 +310,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.196').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.197').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   async function init() {
@@ -356,7 +380,7 @@
 
     // 전 카탈로그 로드 후 재열거 — init 시점에 타 카테고리 미로드로 enrichDesc @link가 영문 스냅샷된 캐시를 정본 한글로 재생성
   function rebuild() { if (_ready) _build(); }
-const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, subclassProfTable, isLegacy, classFeatures, classFeatureRoster, subclassList, spellTable };
+const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, subclassProfTable, subclassGrantTable, isLegacy, classFeatures, classFeatureRoster, subclassList, spellTable };
   root.PF2eClass = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

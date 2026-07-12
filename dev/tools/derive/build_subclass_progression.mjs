@@ -57,17 +57,54 @@ const STAT2COL = {
 const RANK2L = { 0: '', 2: 'T', 4: 'E', 6: 'M', 8: 'L' };
 const COLS = ['perception', 'fortitude', 'reflex', 'will', 'classDC', 'simple', 'martial', 'unarmed', 'advanced', 'unarmored', 'light', 'medium', 'heavy', 'spellcasting'];
 
+// 서브클래스 부여 원본(효과 추출에서 우회) — build_effects.mjs 생성. subclasses.json granted_*와 합집합.
+let SUB_GRANTS_RAW = {};
+try { SUB_GRANTS_RAW = (JSON.parse(fs.readFileSync(path.join(DEV, 'data/derived/subclass_grants_raw.json'), 'utf8')).rows) || {}; } catch (e) {}
+
+// 서브클래스가 레벨별로 **부여**하는 것(재주/기술/주문/행동). 성장표가 그 자체로 효과를 지님(효과 탭 경유 안 함).
+//   런타임이 이 칸을 직접 읽어 적용(숙련 T/E/M/L과 동일 경로).
+//   소스 = subclasses.json granted_*(큐레이트 병합) ∪ subclass_grants_raw.json(원본 추출 우회분). 레벨: 재주/기술/행동=1, 주문=주문레벨.
+function subclassLevelGrants(sc) {
+  const feats = {}, skills = {}, spells = {}, actions = {};
+  const fSeen = new Set(), kSeen = new Set(), aSeen = new Set(), sSeen = new Set();
+  const push = (m, lv, v) => { if (v) (m[lv] = m[lv] || []).push(v); };
+  const addFeat = (f, lv) => { if (f && !fSeen.has(f)) { fSeen.add(f); push(feats, lv || 1, f); } };
+  const addSkill = (k, lv) => { if (k && !kSeen.has(k)) { kSeen.add(k); push(skills, lv || 1, k); } };
+  const addAction = (a, lv) => { if (a && !aSeen.has(a)) { aSeen.add(a); push(actions, lv || 1, a); } };
+  const addSpell = (slug, type, rank, lv) => { if (slug && !sSeen.has(slug)) { sSeen.add(slug); const o = { slug, type }; if (rank != null) o.rank = rank; push(spells, lv || 1, o); } };
+  // 1) 원본 추출 우회분(subclass_grants_raw) 먼저 — 부여 레벨(lv) 정본(레벨조건 gte 반영). 같은 대상은 여기서 확정.
+  const raw = SUB_GRANTS_RAW[sc.slug];
+  if (raw) {
+    for (const f of (raw.grant_feats || [])) addFeat(f.slug, f.lv);
+    for (const k of (raw.grant_skills || [])) addSkill(k.slug, k.lv);
+    for (const a of (raw.grant_actions || [])) addAction(a.slug, a.lv);
+    for (const sp of (raw.grant_spells || [])) addSpell(sp.slug, sp.type || 'focus', null, sp.lv);
+  }
+  // 2) subclasses.json granted_*(큐레이트·챔피언·드루이드 등 원본 추출에 없는 부여) 보강 — 레벨: 재주/기술/행동=1, 주문=주문레벨.
+  for (const f of (sc.granted_feats || [])) addFeat(f, 1);
+  for (const sk of (sc.granted_skills || [])) addSkill(sk, 1);
+  for (const a of (sc.granted_actions || [])) addAction(a, 1);
+  for (const sp of (sc.granted_spells || [])) addSpell(sp.spell_id, sp.type === 'known' ? 'known' : (sp.type === 'innate' ? 'innate' : 'focus'), sp.rank, sp.lv);
+  const has = Object.keys(feats).length || Object.keys(skills).length || Object.keys(spells).length || Object.keys(actions).length;
+  return has ? { feats, skills, spells, actions } : null;
+}
+
 const rows = [];
 let nSub = 0, unknownStat = new Set();
 for (const sc of subs) {
   const pc = sc.prof_changes || {};
   const featMap = subclassLevelFeatures(sc);
-  // 숙련 오버라이드 또는 레벨별 특성이 있는 서브클래스만 방출(둘 다 없으면 = 클래스 기본만 상속, 표시할 성장 없음).
-  if (!Object.keys(pc).length && !Object.keys(featMap).length) continue;
+  const grantMap = subclassLevelGrants(sc);
+  // 숙련 오버라이드·레벨별 특성·부여 중 하나라도 있는 서브클래스만 방출(전부 없으면 = 클래스 기본만 상속, 표시할 성장 없음).
+  if (!Object.keys(pc).length && !Object.keys(featMap).length && !grantMap) continue;
   nSub++;
   for (let level = 1; level <= 20; level++) {
     const row = { subclass: sc.slug, class: sc.class || sc.class_id || '', name_ko: sc.name_ko || sc.slug, level };
     row.features = featMap[level] || [];   // 이 레벨에 얻는 클래스 특성 slug
+    row.grant_feats = (grantMap && grantMap.feats[level]) || [];       // 이 레벨에 부여하는 재주
+    row.grant_skills = (grantMap && grantMap.skills[level]) || [];     // 이 레벨에 부여하는 기술
+    row.grant_spells = (grantMap && grantMap.spells[level]) || [];     // 이 레벨에 부여하는 주문 [{slug,type,rank?}]
+    row.grant_actions = (grantMap && grantMap.actions[level]) || [];   // 이 레벨에 부여하는 행동
     for (const c of COLS) row[c] = '';
     let any = false;
     for (const [stat, prog] of Object.entries(pc)) {

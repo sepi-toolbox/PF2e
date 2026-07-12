@@ -417,6 +417,62 @@ for (const slug of Object.keys(dbBySlug)) {
   e.rows = kept;
 }
 
+// ── 서브클래스 부여 → 성장표(subclass_progression) 전담. 효과(자동화) 탭은 재주·아이템·클래스특성 전용. ──
+//   합의 구조: 클래스성장/혈통/유산/서브클래스성장 → 재주/아이템/클래스특성 → 효과(자동화).
+//   서브클래스 슬러그의 무조건 부여행(재주/기술/주문/행동)을 성장표용 사이드파일로 우회하고 효과 탭(런타임·표시)에서 제거.
+//   런타임은 PF2eClass.subclassGrantTable(성장표)에서 직접 읽어 적용(숙련 T/E/M/L과 동일 경로). build_subclass_progression.mjs가 이 파일을 흡수.
+const SUB_GRANT_DIVERT = new Set(['grant_feat', 'skill_trained', 'grant_focus_spell', 'grant_known_spell', 'grant_innate_spell', 'grant_action']);
+const SPELL_TYPE_OF = { grant_focus_spell: 'focus', grant_known_spell: 'known', grant_innate_spell: 'innate' };
+// 조건에서 부여 레벨 추출: {gte:[self:level,N]} = N레벨에 부여. 그 외(비-레벨 조건)=null(성장표 무조건 표현 불가 → 우회 제외).
+function _grantLevel(cond) {
+  if (!cond) return 1;                                  // 무조건 = 1레벨
+  const arr = Array.isArray(cond) ? cond : [cond];
+  if (arr.length !== 1) return null;                    // 복합 조건 = 미표현
+  const a = arr[0];
+  if (a && a.gte && Array.isArray(a.gte) && a.gte[0] === 'self:level' && typeof a.gte[1] === 'number') return a.gte[1];
+  return null;                                          // 레벨 외 조건(특성/클래스 등) = 미표현
+}
+const subGrantsRaw = {};
+function _collectSubGrant(slug, r, lv) {
+  const o = subGrantsRaw[slug] || (subGrantsRaw[slug] = { grant_feats: new Map(), grant_skills: new Map(), grant_spells: new Map(), grant_actions: new Map() });
+  if (!r.target) return;
+  const keepMin = (m, k, v) => { const p = m.get(k); if (p == null || v < (p.lv != null ? p.lv : p)) m.set(k, v); };  // 같은 대상 최소 레벨 유지
+  if (r.type === 'grant_feat') keepMin(o.grant_feats, r.target, lv);
+  else if (r.type === 'skill_trained') keepMin(o.grant_skills, r.target, lv);
+  else if (r.type === 'grant_action') keepMin(o.grant_actions, r.target, lv);
+  else if (SPELL_TYPE_OF[r.type]) { const p = o.grant_spells.get(r.target); if (!p || lv < p.lv) o.grant_spells.set(r.target, { type: SPELL_TYPE_OF[r.type], lv }); }
+}
+let _subDiverted = 0, _subCondLeft = 0;
+for (const slug of Object.keys(dbBySlug)) {
+  if (!_SUBCLASS_SLUGS.has(slug)) continue;
+  const e = dbBySlug[slug]; if (!e.rows) continue;
+  const kept = [];
+  for (const r of e.rows) {
+    if (SUB_GRANT_DIVERT.has(r.type) && r.target) {
+      const lv = _grantLevel(r.cond);
+      if (lv != null) { _collectSubGrant(slug, r, lv); _subDiverted++; continue; }   // 무조건·레벨조건 부여 → 성장표(해당 레벨)로 우회
+      _subCondLeft++;                                                                 // 비-레벨 조건 부여만 효과 탭 잔류
+    }
+    kept.push(r);
+  }
+  e.rows = kept;
+}
+// 표시행(effects.json)에서도 우회 대상 제거(무조건·레벨조건 부여)
+for (let i = rows.length - 1; i >= 0; i--) { const r = rows[i]; if (_SUBCLASS_SLUGS.has(r.owner_slug) && SUB_GRANT_DIVERT.has(r.type) && r.target && _grantLevel(r.cond) != null) rows.splice(i, 1); }
+// 사이드파일: Map → 배열 직렬화(build_subclass_progression.mjs 소비). 각 항목에 부여 레벨(lv) 포함.
+const subGrantsOut = {};
+for (const slug of Object.keys(subGrantsRaw)) {
+  const o = subGrantsRaw[slug];
+  subGrantsOut[slug] = {
+    grant_feats: [...o.grant_feats].map(([slug, lv]) => ({ slug, lv })),
+    grant_skills: [...o.grant_skills].map(([slug, lv]) => ({ slug, lv })),
+    grant_spells: [...o.grant_spells].map(([slug, v]) => ({ slug, type: v.type, lv: v.lv })),
+    grant_actions: [...o.grant_actions].map(([slug, lv]) => ({ slug, lv })),
+  };
+}
+fs.writeFileSync(path.join(DEV, 'data/derived/subclass_grants_raw.json'),
+  JSON.stringify({ note: '서브클래스 부여 원본(효과 추출에서 우회) — build_subclass_progression.mjs가 subclasses.json granted_*와 합쳐 성장표 grant_* 칸 생성. build_effects.mjs 생성.', rows: subGrantsOut }, null, 1) + '\n');
+
 const byType = {}; for (const r of rows) if (r.type) byType[r.type] = (byType[r.type] || 0) + 1;
 const note = `자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 ${rows.length} · ${Object.keys(byType).length} type. `
   + `소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. `
@@ -457,3 +513,4 @@ console.log('wrote effects.json + effect_refs.json + effects_db.json + effects_d
 const _condRuntime = Object.values(dbBySlug).reduce((n, e) => n + ((e.rows || []).filter(r => r.cond).length), 0);
 console.log('effects_db slugs:', Object.keys(dbBySlug).length, '| rows(display):', rows.length, '| stat:', JSON.stringify(stat), '| types:', Object.keys(byType).length);
 console.log('조건엔진(v0.163): 런타임 편입 정적조건행', _condRuntime, '| grant 이중부여 dedup 드롭', _dedupDropped);
+console.log('서브클래스 부여 → 성장표 우회:', _subDiverted, '행(효과 탭 제거) · 사이드파일 서브클래스', Object.keys(subGrantsOut).length, '종' + (_subCondLeft ? ` · 조건부 부여 효과탭 잔류 ${_subCondLeft}` : ''));

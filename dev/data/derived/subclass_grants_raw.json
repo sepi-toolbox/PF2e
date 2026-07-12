@@ -1,0 +1,977 @@
+{
+ "note": "서브클래스 부여 원본(효과 추출에서 우회) — build_subclass_progression.mjs가 subclasses.json granted_*와 합쳐 성장표 grant_* 칸 생성. build_effects.mjs 생성.",
+ "rows": {
+  "blight": {
+   "grant_feats": [
+    {
+     "slug": "whispers-of-weakness",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-inevitable-rot",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "nature",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "chalice": {
+   "grant_feats": [
+    {
+     "slug": "initiate-benefit-chalice",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "wit": {
+   "grant_feats": [
+    {
+     "slug": "bon-mot",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "diplomacy",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "battledancer": {
+   "grant_feats": [
+    {
+     "slug": "fascinating-performance",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "performance",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "shield": {
+   "grant_feats": [
+    {
+     "slug": "initiate-benefit-shield",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "aloof-firmament": {
+   "grant_feats": [
+    {
+     "slug": "cat-fall",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "lantern": {
+   "grant_feats": [
+    {
+     "slug": "initiate-benefit-lantern",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "gymnast": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "athletics",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "bell": {
+   "grant_feats": [
+    {
+     "slug": "initiate-benefit-bell",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "regalia": {
+   "grant_feats": [
+    {
+     "slug": "initiate-benefit-regalia",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "time": {
+   "grant_feats": [
+    {
+     "slug": "trance-of-celerity",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-turbulent-moments",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "occultism",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "the-proud": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "intimidation",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "flames": {
+   "grant_feats": [
+    {
+     "slug": "foretell-harm",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-engulfing-flames",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "acrobatics",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "the-cunning": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "deception",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "bones": {
+   "grant_feats": [
+    {
+     "slug": "nudge-the-scales",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-the-living-death",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "medicine",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "anger-phantom-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "intimidation",
+     "lv": 1
+    },
+    {
+     "slug": "occultism",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "fey-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "deception",
+     "lv": 1
+    },
+    {
+     "slug": "nature",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "fencer": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "deception",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "dragon-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "arcana",
+     "lv": 1
+    },
+    {
+     "slug": "intimidation",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "braggart": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "intimidation",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "the-deft": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "thievery",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "tome": {
+   "grant_feats": [
+    {
+     "slug": "initiate-benefit-tome",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "mirror": {
+   "grant_feats": [
+    {
+     "slug": "initiate-benefit-mirror",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "seer": {
+   "grant_feats": [
+    {
+     "slug": "apparition-sense",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "forensic-medicine-methodology": {
+   "grant_feats": [
+    {
+     "slug": "forensic-acumen",
+     "lv": 1
+    },
+    {
+     "slug": "battle-medicine",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "medicine",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "way-of-the-spellshot": {
+   "grant_feats": [
+    {
+     "slug": "spellshot-dedication",
+     "lv": 2
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "arcana",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "amulet": {
+   "grant_feats": [
+    {
+     "slug": "initiate-benefit-amulet",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "way-of-the-sniper": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "stealth",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "cosmos": {
+   "grant_feats": [
+    {
+     "slug": "oracular-warning",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-the-skys-call",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "nature",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "of-verse-unbroken": {
+   "grant_feats": [
+    {
+     "slug": "energized-spark",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "swarm-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "nature",
+     "lv": 1
+    },
+    {
+     "slug": "survival",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "interrogation-methodology": {
+   "grant_feats": [
+    {
+     "slug": "no-cause-for-alarm",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "diplomacy",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "restless-as-the-tide": {
+   "grant_feats": [
+    {
+     "slug": "energized-spark",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "tempest": {
+   "grant_feats": [
+    {
+     "slug": "foretell-harm",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-inclement-headwinds",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "nature",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "devotion-phantom-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "medicine",
+     "lv": 1
+    },
+    {
+     "slug": "occultism",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "rascal": {
+   "grant_feats": [
+    {
+     "slug": "dirty-trick",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "thievery",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "plunderer-of-the-hives-riches": {
+   "grant_feats": [
+    {
+     "slug": "energized-spark",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "light-mortar-innovation": {
+   "grant_feats": [
+    {
+     "slug": "munitions-master-dedication",
+     "lv": 2
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "weapon": {
+   "grant_feats": [
+    {
+     "slug": "initiate-benefit-weapon",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "way-of-the-triggerbrand": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "thievery",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "liturgist": {
+   "grant_feats": [
+    {
+     "slug": "circle-of-spirits",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "way-of-the-drifter": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "acrobatics",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "born-of-the-bones-of-the-earth": {
+   "grant_feats": [
+    {
+     "slug": "energized-spark",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "demon-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "intimidation",
+     "lv": 1
+    },
+    {
+     "slug": "religion",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "ashes": {
+   "grant_feats": [
+    {
+     "slug": "whispers-of-weakness",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-creeping-ashes",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "occultism",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "empiricism-methodology": {
+   "grant_feats": [
+    {
+     "slug": "thats-odd",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "battle": {
+   "grant_feats": [
+    {
+     "slug": "oracular-warning",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-the-mortal-warrior",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "athletics",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "shaman": {
+   "grant_feats": [
+    {
+     "slug": "spirit-familiar-animist",
+     "lv": 1
+    },
+    {
+     "slug": "enhanced-familiar",
+     "lv": 2
+    },
+    {
+     "slug": "incredible-familiar-animist",
+     "lv": 9
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "angel-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "diplomacy",
+     "lv": 1
+    },
+    {
+     "slug": "religion",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "medium": {
+   "grant_feats": [
+    {
+     "slug": "relinquish-control",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "plant-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "survival",
+     "lv": 1
+    },
+    {
+     "slug": "nature",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "alchemical-sciences-methodology": {
+   "grant_feats": [
+    {
+     "slug": "alchemical-crafting",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "crafting",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "life": {
+   "grant_feats": [
+    {
+     "slug": "nudge-the-scales",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-outpouring-life",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "medicine",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "the-radiant": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "diplomacy",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "wand": {
+   "grant_feats": [
+    {
+     "slug": "initiate-benefit-wand",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "the-brave": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "athletics",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "whose-cry-is-thunder": {
+   "grant_feats": [
+    {
+     "slug": "energized-spark",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "palatine-detective": {
+   "grant_feats": [
+    {
+     "slug": "quick-identification",
+     "lv": 1
+    },
+    {
+     "slug": "palatine-detective-dedication",
+     "lv": 2
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "ancestors": {
+   "grant_feats": [
+    {
+     "slug": "whispers-of-weakness",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-ancestral-meddling",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "society",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "bloodrager": {
+   "grant_feats": [
+    {
+     "slug": "bloodrager-dedication",
+     "lv": 2
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "trespasser-in-deaths-realm": {
+   "grant_feats": [
+    {
+     "slug": "energized-spark",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "construct-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "arcana",
+     "lv": 1
+    },
+    {
+     "slug": "crafting",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "elemental-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "nature",
+     "lv": 1
+    },
+    {
+     "slug": "survival",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "the-mournful": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "diplomacy",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "lore": {
+   "grant_feats": [
+    {
+     "slug": "whispers-of-weakness",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-torrential-knowledge",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "occultism",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "psychopomp-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "intimidation",
+     "lv": 1
+    },
+    {
+     "slug": "religion",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "way-of-the-vanguard": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "athletics",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "dancer-in-the-seasons": {
+   "grant_feats": [
+    {
+     "slug": "energized-spark",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "undead-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "intimidation",
+     "lv": 1
+    },
+    {
+     "slug": "religion",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "beast-eidolon": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "intimidation",
+     "lv": 1
+    },
+    {
+     "slug": "nature",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  }
+ }
+}
