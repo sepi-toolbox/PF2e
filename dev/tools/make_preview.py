@@ -216,6 +216,8 @@ function runDiag(){
     // 혈통 마법 = 클래스 특성(혈통 features) — 시전 주문 아님(주문 탭 아님)
     var _abr=SUBCLASS_DB.find(function(s){return s.id==='bloodline-aberrant';});
     ok('혈통 마법이 혈통 features에 포함(이형체=섬뜩한 베일)', !!(_abr && (_abr.features||[]).some(function(f){return /혈통 마법/.test(f.name_ko)&&/섬뜩한 베일/.test(f.name_ko);})));
+    ok('혈통 마법 features 항목이 slug 보유(blood-magic-aberrant)', !!(_abr && (_abr.features||[]).some(function(f){return f.slug==='blood-magic-aberrant';})));
+    ok('전 서브클래스 features[] slug 보유(이름-only 0, 이름매칭 폐지)', SUBCLASS_DB.every(function(s){return (s.features||[]).every(function(f){return !!f.slug;});}));
     state.selectedClass=(PF2eClass.getClassLegacy&&PF2eClass.getClassLegacy('sorcerer'))||{id:'sorcerer'};
     state.selectedSubclass=_abr; state.level=1;
     state.feats={special:[],ancestry:[],class:[],general:[],skill:[],archetype:[],other:[]};

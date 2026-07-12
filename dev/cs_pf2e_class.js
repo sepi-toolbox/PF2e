@@ -106,7 +106,7 @@
     if (_subProfTable) return _subProfTable;
     let rows = null;
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/subclass_progression.json", "dev/data/derived/subclass_progression.json"]) { try { rows = JSON.parse(fs.readFileSync(p, "utf8")).rows; break; } catch (e) {} } }
-    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.205"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.206"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
     _subProfTable = _buildSubProfTable(rows || []);
     _subGrantTable = _buildSubGrantTable(rows || []);   // 같은 rows에서 부여표도 동시 구축
     return _subProfTable;
@@ -118,7 +118,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.205"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.206"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -262,8 +262,11 @@
           //   시전 주문이 아님 → 주문 탭 아님. desc=효과+발동조건.
           const bm = bl.blood_magic;
           if (bm && (bm.text_ko || bm.text)) {
+            // slug = classfeatures 레지스트리의 blood-magic-<혈통>(build_class_features 신설) → DataManager 대상.
+            //   name/desc는 표시용 baked(동일 origin=bloodlines.json). 코드 매칭/dedup은 slug만.
             bl_features.push({
               lv: 1,
+              slug: 'blood-magic-' + f.system.slug.replace(/^bloodline-/, ''),
               name_ko: '혈통 마법' + (bm.name_ko ? ': ' + bm.name_ko : ''),
               name_en: 'Blood Magic' + (bm.name_en ? ': ' + bm.name_en : ''),
               desc: `<p>${bm.text_ko || bm.text}</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>`,
@@ -321,7 +324,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.205').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.206').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -340,7 +343,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.205').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.206').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   // 소서러 혈통 정본 메타 = data/derived/bloodlines.json → 런타임 BLOODLINE_DB 채움.
@@ -368,7 +371,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/bloodlines.json?v=0.205').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/bloodlines.json?v=0.206').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
   }
 
   async function init() {

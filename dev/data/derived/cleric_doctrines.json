@@ -18,19 +18,22 @@
      "lv": 3,
      "name_ko": "전문가 주문시전자",
      "name_en": "Expert Spellcaster",
-     "desc": "주문 시전 능력이 한 단계 더 발전했습니다. 주문 명중과 주문 DC의 숙련도가 전문가로 증가합니다."
+     "desc": "주문 시전 능력이 한 단계 더 발전했습니다. 주문 명중과 주문 DC의 숙련도가 전문가로 증가합니다.",
+     "slug": "expert-spellcaster"
     },
     {
      "lv": 15,
      "name_ko": "달인 주문시전자",
      "name_en": "Master Spellcaster",
-     "desc": "주문 시전에 대한 달인급 숙달을 달성했습니다. 주문 명중과 주문 DC의 숙련도가 달인으로 증가합니다."
+     "desc": "주문 시전에 대한 달인급 숙달을 달성했습니다. 주문 명중과 주문 DC의 숙련도가 달인으로 증가합니다.",
+     "slug": "master-spellcaster"
     },
     {
      "lv": 19,
      "name_ko": "전설 주문시전자",
      "name_en": "Legendary Spellcaster",
-     "desc": "마법의 완벽한 숙달을 이루었습니다. 주문 명중과 주문 DC의 숙련도가 전설로 증가합니다."
+     "desc": "마법의 완벽한 숙달을 이루었습니다. 주문 명중과 주문 DC의 숙련도가 전설로 증가합니다.",
+     "slug": "legendary-spellcaster"
     }
    ],
    "prof_changes": {
@@ -74,28 +77,18 @@
    "granted_spells": [],
    "features": [
     {
-     "lv": 1,
-     "name_ko": "군용 무기/평갑 훈련",
-     "name_en": "Martial & Medium Armor",
-     "desc": "전쟁사제 교리를 따르는 클레릭으로서 전투 훈련을 받습니다. 군용 무기에 훈련되며, 평갑(중갑)에 훈련됩니다. 인내 내성 숙련도가 전문가로 증가합니다."
-    },
-    {
-     "lv": 3,
-     "name_ko": "반사 전문가",
-     "name_en": "Expert Reflex",
-     "desc": "전투 경험을 통해 반사신경이 향상됩니다. 반사 내성 숙련도가 전문가로 증가합니다."
-    },
-    {
      "lv": 7,
      "name_ko": "전문가 주문시전자",
      "name_en": "Expert Spellcaster",
-     "desc": "주문 시전 능력이 한 단계 더 발전했습니다. 주문 명중과 주문 DC의 숙련도가 전문가로 증가합니다."
+     "desc": "주문 시전 능력이 한 단계 더 발전했습니다. 주문 명중과 주문 DC의 숙련도가 전문가로 증가합니다.",
+     "slug": "expert-spellcaster"
     },
     {
      "lv": 15,
      "name_ko": "달인 주문시전자",
      "name_en": "Master Spellcaster",
-     "desc": "주문 시전에 대한 달인급 숙달을 달성했습니다. 주문 명중과 주문 DC의 숙련도가 달인으로 증가합니다."
+     "desc": "주문 시전에 대한 달인급 숙달을 달성했습니다. 주문 명중과 주문 DC의 숙련도가 달인으로 증가합니다.",
+     "slug": "master-spellcaster"
     }
    ],
    "prof_changes": {

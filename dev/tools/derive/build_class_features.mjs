@@ -47,8 +47,26 @@ for (const f of feats) {
     is_subclass: isSub ? '✓' : '', subclass_type: subType, tag: subTag || '', grants, rules_n: (s.rules || []).length,
   });
 }
+// 혈통 마법(Blood Magic) = 혈통별 고유 클래스 특성. FVTT엔 별도 classfeature 아이템 없음(혈통 재주 desc에 프로즈로만 존재)
+//   → 우리 레지스트리에 slug 대상 신설(소스=bloodlines.json blood_magic 파생). 서브클래스 features[]가 이 slug 참조.
+//   slug = blood-magic-<혈통>(bloodline- 접두 제거). FVTT effect-*-blood-magic(효과 계층)은 사용 안 함.
+const bloodlines = load('data/derived/bloodlines.json').rows;
+for (const bl of bloodlines) {
+  const bm = bl.blood_magic;
+  if (!bm || !(bm.text_ko || bm.text)) continue;
+  const suffix = bl.slug.replace(/^bloodline-/, '');
+  cfeatures.push({
+    slug: `blood-magic-${suffix}`, class: 'sorcerer',
+    name_en: 'Blood Magic' + (bm.name_en ? `: ${bm.name_en}` : ''),
+    name_ko: '혈통 마법' + (bm.name_ko ? `: ${bm.name_ko}` : ''),
+    level: 1,
+    desc: `<p>${bm.text_ko || bm.text}</p><p>혈통 주문(집중 점수)이나 마법적 재능 주문(주문 슬롯)을 시전할 때 발동합니다.</p>`,
+    is_subclass: '', subclass_type: '', tag: 'sorcerer-blood-magic', grants: 0, rules_n: 0,
+  });
+}
+
 cfeatures.sort((a, b) => (a.class || '~').localeCompare(b.class || '~') || (a.level || 0) - (b.level || 0) || a.slug.localeCompare(b.slug));
 
-const note1 = 'store feats(category=classfeature). class=traits, level=클래스 부여레벨, desc=_desc_ko(재번역), 서브클래스=otherTags 태그(표시용)';
+const note1 = 'store feats(category=classfeature) + 혈통 마법 18종 신설(bloodlines.json 파생). class=traits, level=클래스 부여레벨, desc=_desc_ko(재번역), 서브클래스=otherTags 태그(표시용)';
 fs.writeFileSync(path.join(DEV, 'data/derived/class_features.json'), JSON.stringify({ rows: cfeatures, note: note1 }, null, 1) + '\n');
 console.log(`✔ class_features.json — 클래스특성 ${cfeatures.length} (desc 포함)`);

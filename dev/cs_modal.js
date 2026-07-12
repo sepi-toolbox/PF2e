@@ -706,16 +706,12 @@ function applyClassFeatures() {
   const featureNames = (typeof CLASS_FEATURE_NAMES !== 'undefined' ? CLASS_FEATURE_NAMES[cls.id] : null) || [];
   const subFeatureNames = (state.selectedSubclass && true)
     ? (state.selectedSubclass.features || []) : [];
-  // id/name_en/name_ko 중 하나라도 일치하면 동일 항목으로 간주 (어휘 차이 흡수)
-  const _featMatch = (a, b) => {
-    for (const k of ['id','name_en','name_ko']) {
-      if (a[k] != null && a[k] === b[k]) return true;
-    }
-    return false;
-  };
+  // 동일 항목 판정 = slug만(slug/id). 이름 매칭 폐지(번역 드리프트로 오매칭 방지).
+  const _fslug = x => x.slug || x.id || null;
+  const _featMatch = (a, b) => { const s = _fslug(a); return s != null && s === _fslug(b); };
   [...featureNames, ...subFeatureNames].forEach(f => {
     if (f.lv <= level && !allAutoFeats.some(a => _featMatch(a, f))) {
-      allAutoFeats.push({lv: f.lv, name_ko: f.name_ko, name_en: f.name_en, category: 'special'});
+      allAutoFeats.push({lv: f.lv, slug: _fslug(f), name_ko: f.name_ko, name_en: f.name_en, category: 'special'});
     }
   });
   console.log('[applyClassFeatures] auto feats:', allAutoFeats.length, 'items for', cls.id, 'subFeats:', subFeats);
@@ -723,9 +719,9 @@ function applyClassFeatures() {
     if (f.lv <= level) {
       const cat = f.category || 'special';
       if (!state.feats[cat]) state.feats[cat] = [];
-      // id(slug) 우선 해소 → 현재 카탈로그 이름으로 표시(이름 드리프트 무해), dedup·저장은 slug 기준.
-      const _fd = (f.id && getFeat(f.id)) || (f.name_en && getFeat(f.name_en)) || (f.name_ko && getFeat(f.name_ko));
-      const slug = _fd?.id || f.id || null;
+      // slug로만 카탈로그 해소 → 현재 카탈로그 이름 표시(이름 드리프트 무해), dedup·저장은 slug 기준. 이름 lookup 폐지.
+      const _fd = (f.slug && getFeat(f.slug)) || (f.id && getFeat(f.id));
+      const slug = _fd?.id || f.slug || f.id || null;
       const featName = _fd ? (_fd.name_ko + (_fd.name_en ? ` (${_fd.name_en})` : ''))
                            : (f.name_ko + (f.name_en ? ` (${f.name_en})` : ''));
       const exists = slug ? state.feats[cat].some(e => featSlug(e) === slug)

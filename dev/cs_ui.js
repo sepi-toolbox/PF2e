@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.205').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.206').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2216,6 +2216,8 @@ function renderFeats() {
   const subTitleEl = document.getElementById('feats-subclass-title');
   const _selSub = state.selectedSubclass;
   const _subIsThisClass = !!(_selSub && _selSub.class_id === state.selectedClass?.id);
+  // 서브클래스 선택 슬롯(kind=subclass, 예: 혈통/뮤즈/교의) slug 집합 — 클래스 특성 목록에서 스킵(위 「서브클래스」 단락이 대체). 이름 아닌 slug/kind로 식별.
+  const _subSelSlugs = new Set(((_subIsThisClass && typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES[state.selectedClass?.id]) || []).filter(c => c.kind === 'subclass').map(c => c.slug || c.id));
   if (subEl) {
     subEl.innerHTML = '';
     if (subTitleEl) subTitleEl.textContent = (_subIsThisClass && _selSub.subclass_type) ? _selSub.subclass_type : '서브클래스';
@@ -2242,25 +2244,24 @@ function renderFeats() {
     if (!el) return;
     el.innerHTML = '';
     state.feats[t].forEach((f,i) => {
-      // 서브클래스 선택특성(교리/본능 등 name===subclass_type)은 위 「서브클래스」 단락이 대체 → 클래스 특성에서 스킵
-      if (t === 'special' && _subIsThisClass && f.name && f.name.split(' (')[0].trim() === (_selSub.subclass_type || '').trim()) return;
+      // 서브클래스 선택 슬롯(혈통/뮤즈/교의 등 kind=subclass)은 위 「서브클래스」 단락이 대체 → 클래스 특성에서 스킵. slug로 식별(이름 매칭 폐지).
+      if (t === 'special' && _subIsThisClass && _subSelSlugs.has(featSlug(f))) return;
       const isAuto = f._auto;
       const div = document.createElement('div');
       div.className = 'feat-entry';
       div.style.cursor = 'pointer';
       const srcLabel = isAuto ? `Lv ${f.level||1} — 클래스 특성` : `Lv ${f.level||1}`;
-      // DB에서 설명 가져오기
-      const fNameKo = f.name.split(' (')[0].trim();
-      const fNameEn = (f.name.match(/\(([^)]+)\)/)||[])[1] || '';
-      let featData = getFeat(fNameKo);
-      // 클래스 특성은 CLASS_FEATURE_NAMES / SUBCLASS_DB.features에서 desc 보충
+      // DB에서 설명 가져오기 — slug 기반(featSlug). 이름 lookup 폐지.
+      const fNameKo = (f.name||'').split(' (')[0].trim();
+      let featData = getFeat(featSlug(f));
+      // 클래스 특성 desc 보충 = CLASS_FEATURE_NAMES / 서브클래스 features[] 중 같은 slug 항목(이름 아님).
       let classFeatureDesc = '';
       if (t === 'special' && typeof CLASS_FEATURE_NAMES !== 'undefined') {
         const clsId = state.selectedClass?.id;
         const allCF = [...(clsId && CLASS_FEATURE_NAMES[clsId] || []),
                        ...(state.selectedSubclass?.features || [])];
-        // 어휘 매칭 (사용자 데이터 vs DB 객체) — _findInDb로 처리
-        const cfMatch = _findInDb(allCF, fNameKo, ['name_ko','name_en']) || _findInDb(allCF, fNameEn, ['name_ko','name_en']);
+        const _fs = featSlug(f);
+        const cfMatch = _fs && allCF.find(c => (c.slug || c.id) === _fs);
         if (cfMatch?.desc) classFeatureDesc = cfMatch.desc;
       }
       const desc = featData?.desc || featData?.summary || classFeatureDesc || '';
@@ -2285,7 +2286,7 @@ function renderFeats() {
       // 서브클래스 선택 특성(방법론·교의·기질 등): 선택한 서브클래스만 박스로 표시(모든 옵션 나열 방지)
       const _sub = state.selectedSubclass;
       const _isSubChoice = t === 'special' && _sub && _sub.class_id === state.selectedClass?.id
-        && f.name && f.name.split(' (')[0].trim() === (_sub.subclass_type || '').trim();
+        && _subSelSlugs.has(featSlug(f));
       // 서브클래스 선택 특성 desc는 인트로만 남기고 옵션 목록(<ul>)은 선택 박스로 대체
       const _descShown = _isSubChoice ? String(desc).split(/<ul/i)[0].split(/<hr/i)[0] : desc;
       const subBox = _isSubChoice ? `<div style="margin-top:8px;padding:8px 10px;background:var(--bg3);border-radius:6px;border-left:3px solid var(--accent);">

@@ -9462,7 +9462,8 @@
    "name_ko": "수수께끼",
    "level": 1,
    "features": [
-    "enigma"
+    "enigma",
+    "bardic-lore"
    ],
    "grant_feats": [
     "bardic-lore"
@@ -9992,7 +9993,8 @@
    "name_ko": "마에스트로",
    "level": 1,
    "features": [
-    "maestro"
+    "maestro",
+    "lingering-composition"
    ],
    "grant_feats": [
     "lingering-composition"
@@ -10522,7 +10524,8 @@
    "name_ko": "박학다식",
    "level": 1,
    "features": [
-    "polymath"
+    "polymath",
+    "versatile-performance"
    ],
    "grant_feats": [
     "versatile-performance"
@@ -16873,7 +16876,8 @@
    "name_ko": "수도원 성직자",
    "level": 3,
    "features": [
-    "second-doctrine-cloistered-cleric"
+    "second-doctrine-cloistered-cleric",
+    "expert-spellcaster"
    ],
    "grant_feats": [],
    "grant_skills": [],
@@ -17191,7 +17195,8 @@
    "name_ko": "수도원 성직자",
    "level": 15,
    "features": [
-    "fifth-doctrine-cloistered-cleric"
+    "fifth-doctrine-cloistered-cleric",
+    "master-spellcaster"
    ],
    "grant_feats": [],
    "grant_skills": [],
@@ -17297,7 +17302,8 @@
    "name_ko": "수도원 성직자",
    "level": 19,
    "features": [
-    "final-doctrine-cloistered-cleric"
+    "final-doctrine-cloistered-cleric",
+    "legendary-spellcaster"
    ],
    "grant_feats": [],
    "grant_skills": [],
@@ -17512,7 +17518,8 @@
    "name_ko": "전투 사제",
    "level": 7,
    "features": [
-    "third-doctrine-warpriest"
+    "third-doctrine-warpriest",
+    "expert-spellcaster"
    ],
    "grant_feats": [],
    "grant_skills": [],
@@ -17724,7 +17731,8 @@
    "name_ko": "전투 사제",
    "level": 15,
    "features": [
-    "fifth-doctrine-warpriest"
+    "fifth-doctrine-warpriest",
+    "master-spellcaster"
    ],
    "grant_feats": [],
    "grant_skills": [],
@@ -17884,7 +17892,7 @@
    "name_ko": "동물",
    "level": 1,
    "features": [
-    "animal-order"
+    "animal-companion"
    ],
    "grant_feats": [
     "animal-companion"
@@ -18415,7 +18423,7 @@
    "name_ko": "잎",
    "level": 1,
    "features": [
-    "leaf-order"
+    "cornucopia"
    ],
    "grant_feats": [
     "leshy-familiar"
@@ -18946,7 +18954,7 @@
    "name_ko": "폭풍",
    "level": 1,
    "features": [
-    "storm-order"
+    "tempest-surge"
    ],
    "grant_feats": [
     "storm-born"
@@ -19477,7 +19485,7 @@
    "name_ko": "야생",
    "level": 1,
    "features": [
-    "untamed-order"
+    "untamed-form"
    ],
    "grant_feats": [
     "untamed-form"
@@ -70976,7 +70984,8 @@
    "name_ko": "혈통: 이형체",
    "level": 1,
    "features": [
-    "bloodline-aberrant"
+    "bloodline-aberrant",
+    "blood-magic-aberrant"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -71564,7 +71573,8 @@
    "name_ko": "혈통: 에시르",
    "level": 1,
    "features": [
-    "bloodline-aesir"
+    "bloodline-aesir",
+    "blood-magic-aesir"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -72152,7 +72162,8 @@
    "name_ko": "혈통: 천상체",
    "level": 1,
    "features": [
-    "bloodline-angelic"
+    "bloodline-angelic",
+    "blood-magic-angelic"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -72740,7 +72751,8 @@
    "name_ko": "혈통: 데몬",
    "level": 1,
    "features": [
-    "bloodline-demonic"
+    "bloodline-demonic",
+    "blood-magic-demonic"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -73328,7 +73340,8 @@
    "name_ko": "혈통: 데빌",
    "level": 1,
    "features": [
-    "bloodline-diabolic"
+    "bloodline-diabolic",
+    "blood-magic-diabolic"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -73916,7 +73929,8 @@
    "name_ko": "혈통: 드라코닉",
    "level": 1,
    "features": [
-    "bloodline-draconic"
+    "bloodline-draconic",
+    "blood-magic-draconic"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -74485,7 +74499,8 @@
    "name_ko": "혈통: 원소",
    "level": 1,
    "features": [
-    "bloodline-elemental"
+    "bloodline-elemental",
+    "blood-magic-elemental"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -75051,7 +75066,8 @@
    "name_ko": "혈통: 페이",
    "level": 1,
    "features": [
-    "bloodline-fey"
+    "bloodline-fey",
+    "blood-magic-fey"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -75639,7 +75655,8 @@
    "name_ko": "혈통: 지니",
    "level": 1,
    "features": [
-    "bloodline-genie"
+    "bloodline-genie",
+    "blood-magic-genie"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -76209,7 +76226,8 @@
    "name_ko": "혈통: 마녀",
    "level": 1,
    "features": [
-    "bloodline-hag"
+    "bloodline-hag",
+    "blood-magic-hag"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -76797,7 +76815,8 @@
    "name_ko": "혈통: 해로우",
    "level": 1,
    "features": [
-    "bloodline-harrow"
+    "bloodline-harrow",
+    "blood-magic-harrow"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -77385,7 +77404,8 @@
    "name_ko": "혈통: 제국",
    "level": 1,
    "features": [
-    "bloodline-imperial"
+    "bloodline-imperial",
+    "blood-magic-imperial"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -77973,7 +77993,8 @@
    "name_ko": "혈통: 님프",
    "level": 1,
    "features": [
-    "bloodline-nymph"
+    "bloodline-nymph",
+    "blood-magic-nymph"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -78561,7 +78582,8 @@
    "name_ko": "혈통: 불사조",
    "level": 1,
    "features": [
-    "bloodline-phoenix"
+    "bloodline-phoenix",
+    "blood-magic-phoenix"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -79149,7 +79171,8 @@
    "name_ko": "혈통: 사이코폼프",
    "level": 1,
    "features": [
-    "bloodline-psychopomp"
+    "bloodline-psychopomp",
+    "blood-magic-psychopomp"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -79737,7 +79760,8 @@
    "name_ko": "혈통: 그림자",
    "level": 1,
    "features": [
-    "bloodline-shadow"
+    "bloodline-shadow",
+    "blood-magic-shadow"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -80325,7 +80349,8 @@
    "name_ko": "혈통: 언데드",
    "level": 1,
    "features": [
-    "bloodline-undead"
+    "bloodline-undead",
+    "blood-magic-undead"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -80913,7 +80938,8 @@
    "name_ko": "혈통: 용의 축복",
    "level": 1,
    "features": [
-    "bloodline-wyrmblessed"
+    "bloodline-wyrmblessed",
+    "blood-magic-wyrmblessed"
    ],
    "grant_feats": [],
    "grant_skills": [
@@ -96765,7 +96791,9 @@
    "class": "witch",
    "name_ko": "저주",
    "level": 1,
-   "features": [],
+   "features": [
+    "patrons-gift"
+   ],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -97290,7 +97318,9 @@
    "class": "witch",
    "name_ko": "운명",
    "level": 1,
-   "features": [],
+   "features": [
+    "patrons-gift"
+   ],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -97815,7 +97845,9 @@
    "class": "witch",
    "name_ko": "열정",
    "level": 1,
-   "features": [],
+   "features": [
+    "patrons-gift"
+   ],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -98340,7 +98372,9 @@
    "class": "witch",
    "name_ko": "밤",
    "level": 1,
-   "features": [],
+   "features": [
+    "patrons-gift"
+   ],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -98865,7 +98899,9 @@
    "class": "witch",
    "name_ko": "룬",
    "level": 1,
-   "features": [],
+   "features": [
+    "patrons-gift"
+   ],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -99391,7 +99427,7 @@
    "name_ko": "야생",
    "level": 1,
    "features": [
-    "wilding-steward"
+    "patrons-gift"
    ],
    "grant_feats": [],
    "grant_skills": [],

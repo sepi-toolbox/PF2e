@@ -37,6 +37,7 @@ function subclassLevelFeatures(sc) {
     if (f.slug === sc.slug || (sc.name_en && f.name_en === sc.name_en)) add(f.level, f.slug); // 서브클래스 자체 = 1레벨 클래스 특성(본능/대의 등)
   }
   if (featLevel.has(sc.slug)) add(featLevel.get(sc.slug), sc.slug);   // 서브클래스가 재주로 표현(이콘/게이트)
+  for (const f of (sc.features || [])) add(f.lv || 1, f.slug);   // 서브클래스 자체 features[](slug 단일소스, 혈통 마법·바드 지식 등) 직접 주입 — 이름 매칭 불필요
   // ⚠ granted_feats/granted_spells/granted_skills/granted_actions는 여기서 제외 —
   //   클래스 특성 칸이 아니라 granted_* 칸(→효과 탭)의 소관. (2026-07-12 정규화)
   if (!Object.keys(map).length && sc.name_en) {   // 폴백: slug/이름 정확 불일치(예: school-unified↔school-of-unified-magical-theory)만 이름 포함 매칭
