@@ -213,6 +213,16 @@ function runDiag(){
       var draH=_bloodlineDescHtml(dra,'bloodline-draconic');
       ok('드라코닉 전통=표본 의존 안내', /표본 선택에 따라 결정/.test(draH));
     }
+    // 혈통 마법 = 주문 탭 섹션(패시브 라이더)
+    state.selectedClass={id:'sorcerer',casting:'spontaneous',keyAbility:'cha',tradition:'any'};
+    state.selectedSubclass=SUBCLASS_DB.find(function(s){return s.id==='bloodline-angelic';});
+    state.spells={cantrip:[],known:[],focus:[{id:'angelic-halo',name:'천사의 후광'}],innate:[]};
+    try{ if(typeof renderSpells==='function') renderSpells(); }catch(e){err.push('bloodmagic render:'+e.message);}
+    var bms=document.getElementById('spell-blood-magic-section'), bmb=document.getElementById('blood-magic-body');
+    ok('혈통 마법 섹션 표시(천상체=신성한 오라)', !!(bmb&&bms) && /신성한 오라/.test(bmb.innerHTML) && bms.style.display!=='none');
+    state.selectedSubclass=null;
+    try{ if(typeof renderSpells==='function') renderSpells(); }catch(e){}
+    ok('혈통 없으면 혈통 마법 섹션 숨김', !!bms && bms.style.display==='none');
   } else { ok('PF2eClass.subclassGrantTable 로드', false); }
 
   // ── 드루이드 서브클래스(교단) 드롭다운 조건 + 자연의 목소리 인라인 선택 ──

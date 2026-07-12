@@ -72,12 +72,16 @@ function parseGranted(seg) {
   }
   return out;
 }
-function bloodMagic(html, slug) {
+function bloodMagic(html, ko) {
   const m = html.match(/<strong>Blood Magic(?:[—-]([^<]*))?<\/strong>\s*([\s\S]*?)<\/p>/i);
   if (!m) return null;
   const nameEn = (m[1] || '').trim();
   const text = m[2].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-  return { name_en: nameEn, text };
+  // 한글: bloodline desc(_desc_ko)의 "<strong>혈통 마법-<이름></strong> <설명>"
+  let name_ko = '', text_ko = '';
+  const km = (ko || '').match(/<strong>\s*혈통\s*마법\s*[-—]?\s*([^<]*)<\/strong>\s*([\s\S]*?)<\/p>/);
+  if (km) { name_ko = (km[1] || '').trim(); text_ko = km[2].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim(); }
+  return { name_en: nameEn, name_ko, text, text_ko };
 }
 // 표본/원소/지니 유형 한글명(정본 용어)
 const EXEMPLAR_KO = {
@@ -152,7 +156,7 @@ for (const r of (Array.isArray(feats) ? feats : Object.values(feats))) {
     initial: flat(bspells.initial), initial_ko: flatKo(bspells.initial),
     advanced: flat(bspells.advanced), advanced_ko: flatKo(bspells.advanced),
     greater: flat(bspells.greater), greater_ko: flatKo(bspells.greater),
-    granted, blood_magic: bloodMagic(html), exemplars,
+    granted, blood_magic: bloodMagic(html, r._desc_ko || ''), exemplars,
   });
 }
 rows.sort((a, b) => a.slug.localeCompare(b.slug));
