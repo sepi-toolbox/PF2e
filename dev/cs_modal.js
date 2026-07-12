@@ -5955,6 +5955,28 @@ function renderActions() {
     });
   }
 
+  // 서브클래스(챔피언 원인 등)가 부여하는 카탈로그 행동 — grant_action(target=slug) 효과행 → 액션 탭 표시.
+  //   챔피언의 반응(원인별): 보복적 타격/이기적인 방패/파괴적 복수 등. desc는 actionToLegacy가 enrich(@link 해소).
+  if (state.selectedSubclass && state.selectedSubclass.id && typeof getEffectRows === 'function'
+      && typeof PF2eAction !== 'undefined' && PF2eAction.getActionLegacy) {
+    const existingIdsA = new Set(visible.map(a => a.id));
+    const _subKind = state.selectedSubclass.subclass_type || '서브클래스';
+    getEffectRows(state.selectedSubclass.id).forEach(r => {
+      if (r.type !== 'grant_action' || !r.target) return;
+      const la = PF2eAction.getActionLegacy(r.target);
+      if (!la) return;
+      const id = 'sub-action-' + r.target;
+      if (existingIdsA.has(id)) return;
+      existingIdsA.add(id);
+      visible.push({
+        id, cat: 'feat', cat_label: _subKind + ' 부여', name_ko: la.name_ko, name_en: la.name_en,
+        cost: la.cost || 'reaction', traits: la.traits || [], req_skill: null, req_rank: 0,
+        req_feat: state.selectedSubclass.id, req_feat_name: state.selectedSubclass.name_ko,
+        summary: la.desc || '', _fvttDesc: la.desc || '',
+      });
+    });
+  }
+
   // _fb._customActions: 동적 행동 카드 추가
   if (state._fb?._customActions) {
     const existingIds2 = new Set(visible.map(a => a.id));

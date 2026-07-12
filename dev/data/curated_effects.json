@@ -2945,5 +2945,68 @@
    ]
   },
   "rows": []
+ },
+ "justice": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "retributive-strike",
+    "name": "보복적 타격"
+   }
+  ]
+ },
+ "desecration": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "selfish-shield",
+    "name": "이기적인 방패"
+   }
+  ]
+ },
+ "grandeur": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "flash-of-grandeur",
+    "name": "위엄의 섬광"
+   }
+  ]
+ },
+ "iniquity": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "destructive-vengeance",
+    "name": "파괴적 복수"
+   }
+  ]
+ },
+ "liberation": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "liberating-step",
+    "name": "해방의 발걸음"
+   }
+  ]
+ },
+ "obedience": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "iron-command",
+    "name": "철의 명령"
+   }
+  ]
+ },
+ "redemption": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "glimpse-of-redemption",
+    "name": "구원의 찰나"
+   }
+  ]
  }
 }
