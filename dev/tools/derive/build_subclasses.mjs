@@ -29,7 +29,7 @@ const SD = globalThis.SUBCLASS_DB;
 const rows = SD.map(s => ({
   slug: s.id, class: s.class_id,
   ...s,
-  grants: (s.granted_feats || []).length + (s.granted_spells || []).length,
+  grants: (s.granted_feats || []).length + (s.granted_spells || []).length + (s.granted_actions || []).length,
   rules_n: (s.features || []).length,
 }));
 rows.sort((a, b) => (a.class || '').localeCompare(b.class || '') || String(a.subclass_type).localeCompare(String(b.subclass_type)) || String(a.slug).localeCompare(String(b.slug)));

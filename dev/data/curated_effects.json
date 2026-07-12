@@ -2225,6 +2225,10 @@
    {
     "type": "grant_feat",
     "target": "bloodrager-dedication"
+   },
+   {
+    "type": "grant_action",
+    "target": "harvest-blood"
    }
   ]
  },
@@ -2303,11 +2307,6 @@
  "order-animal": {
   "rows": [
    {
-    "type": "grant_focus_spell",
-    "target": "heal-animal",
-    "name": "동물 치유"
-   },
-   {
     "type": "grant_feat",
     "target": "animal-companion",
     "name": "동물 친구"
@@ -2316,16 +2315,16 @@
     "type": "skill_trained",
     "name": "교단 기술",
     "target": "athletics"
+   },
+   {
+    "type": "grant_focus_spell",
+    "target": "heal-animal",
+    "name": "동물 치유"
    }
   ]
  },
  "order-leaf": {
   "rows": [
-   {
-    "type": "grant_focus_spell",
-    "target": "cornucopia",
-    "name": "풍요의 뿔"
-   },
    {
     "type": "grant_feat",
     "target": "leshy-familiar",
@@ -2335,16 +2334,16 @@
     "type": "skill_trained",
     "name": "교단 기술",
     "target": "diplomacy"
+   },
+   {
+    "type": "grant_focus_spell",
+    "target": "cornucopia",
+    "name": "풍요의 뿔"
    }
   ]
  },
  "order-storm": {
   "rows": [
-   {
-    "type": "grant_focus_spell",
-    "target": "tempest-surge",
-    "name": "폭풍의 파도"
-   },
    {
     "type": "grant_feat",
     "target": "storm-born",
@@ -2354,16 +2353,16 @@
     "type": "skill_trained",
     "name": "교단 기술",
     "target": "acrobatics"
+   },
+   {
+    "type": "grant_focus_spell",
+    "target": "tempest-surge",
+    "name": "폭풍의 파도"
    }
   ]
  },
  "order-wild": {
   "rows": [
-   {
-    "type": "grant_focus_spell",
-    "target": "untamed-shift",
-    "name": "야성 변이"
-   },
    {
     "type": "grant_feat",
     "target": "untamed-form",
@@ -2373,6 +2372,11 @@
     "type": "skill_trained",
     "name": "교단 기술",
     "target": "intimidation"
+   },
+   {
+    "type": "grant_focus_spell",
+    "target": "untamed-shift",
+    "name": "야성 변이"
    }
   ]
  },
@@ -2381,6 +2385,14 @@
    {
     "type": "grant_feat",
     "target": "spellshot-dedication"
+   },
+   {
+    "type": "grant_action",
+    "target": "thoughtful-reload"
+   },
+   {
+    "type": "grant_action",
+    "target": "energy-shot"
    }
   ]
  },
@@ -2389,6 +2401,10 @@
    {
     "type": "grant_feat",
     "target": "munitions-master-dedication"
+   },
+   {
+    "type": "grant_action",
+    "target": "engineers-efficiency"
    }
   ]
  },
@@ -2397,6 +2413,10 @@
    {
     "type": "grant_feat",
     "target": "palatine-detective-dedication"
+   },
+   {
+    "type": "grant_action",
+    "target": "mystic-aegis"
    }
   ]
  },
@@ -2945,5 +2965,345 @@
    ]
   },
   "rows": []
+ },
+ "desecration": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "selfish-shield"
+   }
+  ]
+ },
+ "grandeur": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "flash-of-grandeur"
+   }
+  ]
+ },
+ "iniquity": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "destructive-vengeance"
+   }
+  ]
+ },
+ "justice": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "retributive-strike"
+   }
+  ]
+ },
+ "liberation": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "liberating-step"
+   }
+  ]
+ },
+ "obedience": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "iron-command"
+   }
+  ]
+ },
+ "redemption": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "glimpse-of-redemption"
+   }
+  ]
+ },
+ "bands-of-imprisonment": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "break-free"
+   }
+  ]
+ },
+ "barrows-edge": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "drink-of-my-foes"
+   }
+  ]
+ },
+ "eye-catching-spot": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "captivating-charm"
+   }
+  ]
+ },
+ "fetching-bangles": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "embrace-of-destiny"
+   }
+  ]
+ },
+ "gaze-sharp-as-steel": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "a-moment-unending"
+   }
+  ]
+ },
+ "gleaming-blade": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "flowing-spirit-strike"
+   }
+  ]
+ },
+ "hands-of-the-wildling": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "feral-swing"
+   }
+  ]
+ },
+ "horn-of-plenty": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "feed-the-masses"
+   }
+  ]
+ },
+ "mirrored-aegis": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "raise-the-walls"
+   }
+  ]
+ },
+ "mortal-harvest": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "reap-the-field"
+   }
+  ]
+ },
+ "noble-branch": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "strike-breathe-rend"
+   }
+  ]
+ },
+ "pelt-of-the-beast": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "survive-the-wilds"
+   }
+  ]
+ },
+ "scar-of-the-survivor": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "no-scar-but-this"
+   }
+  ]
+ },
+ "shadow-sheath": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "liars-hidden-blade"
+   }
+  ]
+ },
+ "skin-hard-as-horn": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "crash-against-me"
+   }
+  ]
+ },
+ "skybearers-belt": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "bear-allies-burdens"
+   }
+  ]
+ },
+ "starshot": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "giant-felling-comet"
+   }
+  ]
+ },
+ "thousand-league-sandals": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "marathon-dash"
+   }
+  ]
+ },
+ "titans-breaker": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "fracture-mountains"
+   }
+  ]
+ },
+ "unfailing-bow": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "arrow-splits-arrow"
+   }
+  ]
+ },
+ "victors-wreath": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "one-moment-till-glory"
+   }
+  ]
+ },
+ "way-of-the-drifter": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "into-the-fray"
+   },
+   {
+    "type": "grant_action",
+    "target": "reloading-strike"
+   }
+  ]
+ },
+ "way-of-the-pistolero": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "raconteurs-reload"
+   },
+   {
+    "type": "grant_action",
+    "target": "ten-paces"
+   }
+  ]
+ },
+ "way-of-the-sniper": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "covered-reload"
+   },
+   {
+    "type": "grant_action",
+    "target": "one-shot-one-kill"
+   }
+  ]
+ },
+ "way-of-the-triggerbrand": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "spring-the-trap"
+   },
+   {
+    "type": "grant_action",
+    "target": "touch-and-go"
+   }
+  ]
+ },
+ "way-of-the-vanguard": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "clear-a-path"
+   },
+   {
+    "type": "grant_action",
+    "target": "living-fortification"
+   }
+  ]
+ },
+ "alchemical-sciences-methodology": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "quick-tincture"
+   }
+  ]
+ },
+ "empiricism-methodology": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "expeditious-inspection"
+   }
+  ]
+ },
+ "interrogation-methodology": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "pointed-question"
+   }
+  ]
+ },
+ "emotional-acceptance": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "restore-the-mind"
+   }
+  ]
+ },
+ "gathered-lore": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "recall-the-teachings"
+   }
+  ]
+ },
+ "precise-discipline": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "calculate-threats"
+   }
+  ]
+ },
+ "wandering-reverie": {
+  "rows": [
+   {
+    "type": "grant_action",
+    "target": "fade-into-daydreams"
+   }
+  ]
  }
 }

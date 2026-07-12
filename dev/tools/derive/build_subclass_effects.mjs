@@ -36,23 +36,33 @@ function curatedTargets(slug, types) {
   return new Set(rows.filter(r => types.includes(r.type)).map(r => r.target));
 }
 
-let nFeat = 0, nFeatSkipDup = 0, nFocus = 0, nKnown = 0, nOther = 0, touched = 0;
+let nFeat = 0, nFeatSkipDup = 0, nFocus = 0, nKnown = 0, nOther = 0, nAction = 0, nActionSkipDup = 0, touched = 0;
 for (const sc of subs) {
   const slug = sc.slug; if (!slug) continue;
   const gf = sc.granted_feats || [];
   const gs = sc.granted_spells || [];
-  if (!gf.length && !gs.length) continue;
+  const ga = sc.granted_actions || [];
+  if (!gf.length && !gs.length && !ga.length) continue;
 
-  // 이미 FVTT가 부여하는 grant_feat = effects_db 존재분 − 내 curated 기여분
+  // 이미 효과행에 있는 grant_feat/grant_action = effects_db 존재분 − 내 curated 기여분 (이중부여 방지)
   const inDb = grantTargets(slug, ['grant_feat']);
   const inCur = curatedTargets(slug, ['grant_feat']);
   const fvttHas = new Set([...inDb].filter(t => !inCur.has(t)));
+  const inDbA = grantTargets(slug, ['grant_action']);
+  const inCurA = curatedTargets(slug, ['grant_action']);
+  const dbHasA = new Set([...inDbA].filter(t => !inCurA.has(t)));
 
   const rows = [];
   for (const t of gf) {
     if (fvttHas.has(t)) { nFeatSkipDup++; continue; }   // 이미 FVTT 효과행 → 이중부여 방지
     rows.push({ type: 'grant_feat', target: t });
     nFeat++;
+  }
+  // 부여 행동(챔피언 원인=반응 등) → grant_action 행
+  for (const t of ga) {
+    if (dbHasA.has(t)) { nActionSkipDup++; continue; }
+    rows.push({ type: 'grant_action', target: t });
+    nAction++;
   }
   for (const g of gs) {
     const tgt = g.spell_id; if (!tgt) continue;

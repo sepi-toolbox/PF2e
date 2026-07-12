@@ -83,7 +83,7 @@
     if (_subProfTable) return _subProfTable;
     let rows = null;
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/subclass_progression.json", "dev/data/derived/subclass_progression.json"]) { try { rows = JSON.parse(fs.readFileSync(p, "utf8")).rows; break; } catch (e) {} } }
-    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.193"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.194"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
     _subProfTable = _buildSubProfTable(rows || []);
     return _subProfTable;
   }
@@ -94,7 +94,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.193"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.194"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -179,7 +179,7 @@
         if (!hit) continue;
         if (seenFeat.has(f.system.slug)) continue;   // 한 feat이 여러 차원에 걸치면 첫 차원으로 귀속
         seenFeat.add(f.system.slug);
-        let granted_feats = [], granted_spells = [], prof_changes = {};
+        let granted_feats = [], granted_spells = [], granted_actions = [], prof_changes = {};
         try {
           const a = RE.build({ level: 20, abilities: { str:4,dex:4,con:4,int:4,wis:4,cha:4 }, class: slug, items: [{ doc: f, choices: {} }] });
           for (const g of (a.grantedDocs || [])) {
@@ -187,8 +187,19 @@
             const gslug = (g.system && g.system.slug) || g._id;
             if (g.type === 'feat') granted_feats.push(gslug);  // getSubclassAutoFeats가 슬러그로 조회
             else if (g.type === 'spell') granted_spells.push({ spell_id: gslug, lv: (g.system.level && g.system.level.value) || 1, type: 'spell' });
+            else if (g.type === 'action') granted_actions.push(gslug);  // 부여 행동(챔피언 원인=반응 등) — 행동 탭 표시
           }
         } catch (e) {}
+        // 부여 행동(챔피언 원인=반응 등)은 RE.build grantedDocs에 안 잡힘 → GrantItem 규칙에서 직접 해소(대상 종류=action).
+        if (!granted_actions.length) {
+          for (const r of ((f.system && f.system.rules) || [])) {
+            if (r.key !== 'GrantItem' || !r.uuid) continue;
+            try {
+              const g = PF.getByUuid(String(r.uuid).trim().split(/\s+/)[0]);
+              if (g && g.type === 'action') granted_actions.push((g.system && g.system.slug) || g._id);
+            } catch (e) {}
+          }
+        }
         // 서브클래스 초기 집중 주문(혈통/미스터리/기질/영역/학파/융합 등)은 RE로 안 잡힘 — desc에서 통일 규칙으로 추출(FVTT 시스템 TS 전용 데이터의 유일 추출원).
         //   ★통일 규칙: desc의 @UUID 주문 참조 중 '집중 주문'(traditions 빈값=전통 무소속)의 첫 번째 = L1 부여분.
         //   초기(initial)가 advanced/greater보다 먼저 나오므로 첫 것=초기. 레퍼토리 주문(traditions 있음)은 건너뜀.
@@ -212,7 +223,7 @@
           id: f.system.slug, class_id: slug, subclass_type: meta.typeKo,
           name_ko: PF.nameKo(f), name_en: f.name_en || f.name,
           desc: PF.enrichDesc(PF.descKo(f) || ''),
-          granted_skills: [], granted_feats, granted_spells, features: [], prof_changes,
+          granted_skills: [], granted_feats, granted_spells, granted_actions, features: [], prof_changes,
           sanctification,
         });
       }
@@ -256,7 +267,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.193').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.194').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -275,7 +286,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.193').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.194').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   async function init() {

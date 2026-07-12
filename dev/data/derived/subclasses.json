@@ -12,6 +12,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -30,6 +31,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -48,6 +50,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -66,6 +69,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -86,6 +90,7 @@
     "circle-of-spirits"
    ],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -106,6 +111,7 @@
     "relinquish-control"
    ],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -126,6 +132,7 @@
     "apparition-sense"
    ],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -149,6 +156,7 @@
     "pet"
    ],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -167,6 +175,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -187,10 +196,13 @@
     "bloodrager-dedication"
    ],
    "granted_spells": [],
+   "granted_actions": [
+    "harvest-blood"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "grants": 2,
    "rules_n": 0
   },
   {
@@ -205,6 +217,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -223,6 +236,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -241,6 +255,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -259,6 +274,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -277,6 +293,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -295,6 +312,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -313,6 +331,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -331,6 +350,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -485,12 +505,15 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "selfish-shield"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [
     "unholy"
    ],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -505,12 +528,15 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "flash-of-grandeur"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [
     "holy"
    ],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -525,12 +551,15 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "destructive-vengeance"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [
     "unholy"
    ],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -545,10 +574,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "retributive-strike"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -563,10 +595,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "liberating-step"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -581,10 +616,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "iron-command"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -599,12 +637,15 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "glimpse-of-redemption"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [
     "holy"
    ],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -619,6 +660,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -637,6 +679,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -655,6 +698,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -949,6 +993,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -967,6 +1012,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -985,6 +1031,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1003,6 +1050,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1021,6 +1069,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1039,6 +1088,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1057,6 +1107,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1075,6 +1126,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1093,6 +1145,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1111,6 +1164,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1129,10 +1183,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "break-free"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1147,10 +1204,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "drink-of-my-foes"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1165,10 +1225,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "captivating-charm"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1183,10 +1246,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "embrace-of-destiny"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1201,10 +1267,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "a-moment-unending"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1219,10 +1288,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "flowing-spirit-strike"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1237,10 +1309,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "feral-swing"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1255,10 +1330,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "feed-the-masses"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1273,10 +1351,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "raise-the-walls"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1291,10 +1372,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "reap-the-field"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1309,10 +1393,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "strike-breathe-rend"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1327,10 +1414,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "survive-the-wilds"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1345,10 +1435,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "no-scar-but-this"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1363,10 +1456,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "liars-hidden-blade"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1381,10 +1477,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "crash-against-me"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1399,10 +1498,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "bear-allies-burdens"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1417,10 +1519,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "giant-felling-comet"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1435,10 +1540,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "marathon-dash"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1453,10 +1561,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "fracture-mountains"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1471,10 +1582,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "arrow-splits-arrow"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1489,10 +1603,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "one-moment-till-glory"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -1509,6 +1626,7 @@
     "energized-spark"
    ],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1529,6 +1647,7 @@
     "energized-spark"
    ],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1549,6 +1668,7 @@
     "energized-spark"
    ],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1567,6 +1687,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1587,6 +1708,7 @@
     "energized-spark"
    ],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1607,6 +1729,7 @@
     "energized-spark"
    ],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1627,6 +1750,7 @@
     "energized-spark"
    ],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1647,6 +1771,7 @@
     "energized-spark"
    ],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1665,10 +1790,14 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "into-the-fray",
+    "reloading-strike"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 2,
    "rules_n": 0
   },
   {
@@ -1683,10 +1812,14 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "raconteurs-reload",
+    "ten-paces"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 2,
    "rules_n": 0
   },
   {
@@ -1701,10 +1834,14 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "covered-reload",
+    "one-shot-one-kill"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 2,
    "rules_n": 0
   },
   {
@@ -1721,10 +1858,14 @@
     "spellshot-dedication"
    ],
    "granted_spells": [],
+   "granted_actions": [
+    "thoughtful-reload",
+    "energy-shot"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "grants": 3,
    "rules_n": 0
   },
   {
@@ -1739,10 +1880,14 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "spring-the-trap",
+    "touch-and-go"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 2,
    "rules_n": 0
   },
   {
@@ -1757,10 +1902,14 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "clear-a-path",
+    "living-fortification"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 2,
    "rules_n": 0
   },
   {
@@ -1775,6 +1924,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1793,6 +1943,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1813,10 +1964,13 @@
     "munitions-master-dedication"
    ],
    "granted_spells": [],
+   "granted_actions": [
+    "engineers-efficiency"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "grants": 2,
    "rules_n": 0
   },
   {
@@ -1831,6 +1985,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1851,10 +2006,13 @@
     "alchemical-crafting"
    ],
    "granted_spells": [],
+   "granted_actions": [
+    "quick-tincture"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "grants": 2,
    "rules_n": 0
   },
   {
@@ -1871,10 +2029,13 @@
     "thats-odd"
    ],
    "granted_spells": [],
+   "granted_actions": [
+    "expeditious-inspection"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "grants": 2,
    "rules_n": 0
   },
   {
@@ -1892,6 +2053,7 @@
     "battle-medicine"
    ],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1912,10 +2074,13 @@
     "no-cause-for-alarm"
    ],
    "granted_spells": [],
+   "granted_actions": [
+    "pointed-question"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "grants": 2,
    "rules_n": 0
   },
   {
@@ -1933,10 +2098,13 @@
     "palatine-detective-dedication"
    ],
    "granted_spells": [],
+   "granted_actions": [
+    "mystic-aegis"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 2,
+   "grants": 3,
    "rules_n": 0
   },
   {
@@ -1951,6 +2119,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1969,6 +2138,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -1987,6 +2157,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2005,6 +2176,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2023,6 +2195,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2041,6 +2214,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2067,6 +2241,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2091,6 +2266,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2115,6 +2291,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2139,6 +2316,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2163,6 +2341,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2187,6 +2366,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2211,6 +2391,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2235,6 +2416,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2261,6 +2443,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2287,6 +2470,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2313,6 +2497,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2339,6 +2524,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2365,6 +2551,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2391,6 +2578,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2417,6 +2605,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2443,6 +2632,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2469,6 +2659,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2495,6 +2686,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2521,6 +2713,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2545,6 +2738,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2569,6 +2763,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2593,6 +2788,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2617,6 +2813,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2641,6 +2838,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2665,6 +2863,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2683,10 +2882,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "restore-the-mind"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -2701,10 +2903,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "recall-the-teachings"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -2719,10 +2924,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "calculate-threats"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -2737,10 +2945,13 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [
+    "fade-into-daydreams"
+   ],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 0,
+   "grants": 1,
    "rules_n": 0
   },
   {
@@ -2961,6 +3172,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -2985,6 +3197,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3009,6 +3222,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3033,6 +3247,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3057,6 +3272,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3081,6 +3297,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3105,6 +3322,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3129,6 +3347,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3153,6 +3372,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3177,6 +3397,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3201,6 +3422,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3225,6 +3447,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3249,6 +3472,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3273,6 +3497,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3297,6 +3522,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3321,6 +3547,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3345,6 +3572,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3369,6 +3597,7 @@
      "type": "focus"
     }
    ],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3387,6 +3616,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3405,6 +3635,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3423,6 +3654,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3441,6 +3673,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3459,6 +3692,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3477,6 +3711,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3495,6 +3730,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3513,6 +3749,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3531,6 +3768,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3549,6 +3787,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3567,6 +3806,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3585,6 +3825,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3603,6 +3844,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3621,6 +3863,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3639,6 +3882,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3657,6 +3901,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3675,6 +3920,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3693,6 +3939,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3711,6 +3958,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3729,6 +3977,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3747,6 +3996,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3765,6 +4015,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3783,6 +4034,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3801,6 +4053,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3819,6 +4072,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3837,6 +4091,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3855,6 +4110,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3873,6 +4129,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
@@ -3891,6 +4148,7 @@
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
+   "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
