@@ -5847,7 +5847,7 @@ function isActionAvailable(action) {
 }
 
 function isGrantedAction(action) {
-  return !!(action.req_feat || action.req_heritage || action.cat === 'heritage');
+  return !!(action.req_feat || action.req_heritage || action.cat === 'heritage' || action._grantedBySub);
 }
 
 function renderActions() {
@@ -5971,7 +5971,8 @@ function renderActions() {
       visible.push({
         id, cat: 'feat', cat_label: _subKind + ' 부여', name_ko: la.name_ko, name_en: la.name_en,
         cost: la.cost || 'reaction', traits: la.traits || [], req_skill: null, req_rank: 0,
-        req_feat: state.selectedSubclass.id, req_feat_name: state.selectedSubclass.name_ko,
+        // 서브클래스는 확정 선택이므로 무조건 사용 가능(req_feat로 잠그지 않음). 부여 출처는 _grantedBySub로 표시.
+        _grantedBySub: state.selectedSubclass.name_ko || _subKind,
         summary: la.desc || '', _fvttDesc: la.desc || '',
       });
     });
@@ -6081,7 +6082,7 @@ function renderActions() {
           reqHtml = `<div class="action-req">${sk?sk.name:a.req_skill} ${rankNames[a.req_rank]||''} 필요</div>`;
         }
       }
-      const sourceHtml = granted ? `<div style="font-size:9px;color:var(--accent);margin-top:2px;">${a.req_heritage ? '유산 부여' : a.req_feat ? '재주: '+(a.req_feat_name || a.req_feat) : ''}</div>` : '';
+      const sourceHtml = granted ? `<div style="font-size:9px;color:var(--accent);margin-top:2px;">${a._grantedBySub ? (a._grantedBySub + ' 부여') : a.req_heritage ? '유산 부여' : a.req_feat ? '재주: '+(a.req_feat_name || a.req_feat) : ''}</div>` : '';
       // FVTT 이행: 전체 설명=FVTT desc(폴백 레거시 summary). 카드=컴팩트 프리뷰 + 클릭 시 인라인 아코디언.
       const descFull = (s=>typeof resolveDescRefs==='function'?resolveDescRefs(s):s)(_stripTraitLine(a._fvttDesc || a.summary || ''));
       const previewText = descFull.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
