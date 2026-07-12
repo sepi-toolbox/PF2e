@@ -182,7 +182,7 @@ function aelType(p) {
 }
 function grantRow(uuid) {
   let name = '', slug = '', kind = 'item';
-  try { const g = PF.getByUuid((uuid || '').trim().split(/\s+/)[0]); if (g) { name = g.name_ko || g.name; slug = (g.system && g.system.slug) || ''; const t = g.type; const tr = (g.system && g.system.traits && g.system.traits.value) || []; kind = t === 'feat' ? 'grant_feat' : t === 'spell' ? (tr.includes('focus') ? 'grant_focus_spell' : 'grant_innate_spell') : 'grant_item'; } } catch (e) {}
+  try { const g = PF.getByUuid((uuid || '').trim().split(/\s+/)[0]); if (g) { name = g.name_ko || g.name; slug = (g.system && g.system.slug) || ''; const t = g.type; const tr = (g.system && g.system.traits && g.system.traits.value) || []; kind = t === 'feat' ? 'grant_feat' : t === 'spell' ? (tr.includes('focus') ? 'grant_focus_spell' : 'grant_innate_spell') : t === 'action' ? 'grant_action' : 'grant_item'; } } catch (e) {}
   // target = slug(정본 식별자, 이름 편집에 불변). name은 표시/폴백용 보조.
   return { type: kind, target: slug || name || uuid, name: name || undefined };
 }
@@ -215,12 +215,12 @@ function fvttRuleRows(doc) {
 }
 // 런타임 적용 가능한 효과 type(applyFeatEffects switch가 처리하는 것). 그 외 fvtt 룰은 표시 테이블엔 남기되 런타임 소스엔 안 넣음.
 const APPLY_TYPES = new Set(['hp_bonus', 'skill_trained', 'skill_bonus', 'save_bonus', 'ac_bonus', 'vision_upgrade',
-  'extra_sense', 'resistance', 'grant_feat', 'grant_lore', 'grant_innate_spell', 'grant_focus_spell', 'speed_extra', 'proficiency', 'bulk_bonus', 'initiative_bonus']);
+  'extra_sense', 'resistance', 'grant_feat', 'grant_lore', 'grant_innate_spell', 'grant_focus_spell', 'grant_action', 'speed_extra', 'proficiency', 'bulk_bonus', 'initiative_bonus']);
 // v0.163~ 조건엔진 활성 타입: 정적조건 붙은 부여·훈련·저항·숙련을 런타임 편입(조건 충족 시 적용).
 //   proficiency(v0.166): 표준 카테고리만 런타임 _profTargetToDom이 매핑+상향덮기. 개별무기/시전별칭/공식값은 미적용(섀시 담당).
 //   resistance(v0.165): 유형별 최댓값 병합. 공식/착용갑옷 컨텍스트 의존분은 미해소 skip. bonus류는 여전히 표시만.
 const ACT_COND_TYPES = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell', 'grant_lore', 'skill_trained', 'resistance', 'proficiency']);
-const GRANT_DEDUP = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell']);   // owner 내 (type,target) 이중부여 방지(무조건 우선)
+const GRANT_DEDUP = new Set(['grant_feat', 'grant_focus_spell', 'grant_innate_spell', 'grant_action']);   // owner 내 (type,target) 이중부여 방지(무조건 우선)
 // ★ 표시 테이블 = 우리가 모델링하는 효과만(우리 열거형). FVTT 룰을 그대로 덤프하지 않는다(개발 원칙).
 //   아래 KEEP만 effects.json 표시행으로 방출. 미모델 FVTT 룰타입(ael/roll_option/adjust_*/item_alteration/strike/modifier/
 //   damage_dice/critical_specialization/actor_traits/item/attack_bonus 등)과 상황조건행(롤타임 predicate)은 제외.
