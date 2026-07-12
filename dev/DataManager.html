@@ -138,7 +138,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm30"></script>
+<script src="cs_pf2e.js?v=dm31"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -186,7 +186,9 @@ const DM = (function(){
     {id:'classfeatures', label:'클래스특성', kind:'derived', src:'data/derived/class_features.json', shape:'rows', ovKey:'feats',
        cols:['slug','class','name_en','name_ko','level','desc','is_subclass','subclass_type','grants','rules_n'], editable:['name_ko','desc']},
     {id:'subclasses', label:'서브클래스', kind:'derived', src:'data/derived/subclasses.json', shape:'rows', ovKey:'feats',
-       cols:['slug','class','subclass_type','name_en','name_ko','desc','granted_feats','granted_skills','granted_spells','granted_actions','grants','rules_n'], editable:['name_ko','desc']},
+       cols:['slug','class','subclass_type','name_en','name_ko','tradition','desc','granted_feats','granted_skills','granted_spells','granted_actions','features','grants','rules_n'], editable:['name_ko','desc']},
+    {id:'bloodlines', label:'소서러 혈통(파생)', kind:'derived', src:'data/derived/bloodlines.json', shape:'rows',
+       cols:['slug','name_en','name_ko','tradition','skills','variable_skill','initial','advanced','greater','granted','blood_magic','exemplars']},
     {id:'class_progression', label:'클래스성장(파생)', kind:'derived', src:'data/derived/class_progression.json', shape:'rows',
        cols:['class','cp_name','level','features','perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting','_src']},
     {id:'subclass_progression', label:'서브클래스성장(파생)', kind:'derived', src:'data/derived/subclass_progression.json', shape:'rows',
@@ -234,6 +236,7 @@ const DM = (function(){
     subclass_type:{h:'서브클래스종류',w:120}, is_subclass:{h:'서브',w:44,cls:'num'}, grants:{h:'부여',w:44,cls:'num'}, tag:{h:'태그',w:140,cls:'key'}, granted_feats:{h:'부여 재주',w:160},
     features:{h:'클래스 특성',w:240}, granted_skills:{h:'부여 기술',w:130}, granted_spells:{h:'부여 주문',w:150}, granted_actions:{h:'부여 행동',w:150},
     grant_feats:{h:'부여 재주',w:150}, grant_skills:{h:'부여 기술',w:110}, grant_spells:{h:'부여 주문',w:140}, grant_actions:{h:'부여 행동',w:140},
+    tradition:{h:'전통',w:70,cls:'key'}, skills:{h:'혈통 기술',w:150}, variable_skill:{h:'가변기술',w:60,cls:'num'}, initial:{h:'초급 집중주문',w:150,cls:'key'}, advanced:{h:'중급 집중주문',w:150,cls:'key'}, greater:{h:'고급 집중주문',w:150,cls:'key'}, granted:{h:'마법적 재능(부여 주문)',w:260}, blood_magic:{h:'혈통 마법',w:340}, exemplars:{h:'표본/원소/유형',w:220},
     id:{h:'id',w:150,cls:'key'}, pack:{h:'팩',w:110,cls:'key'}, traits:{h:'특성',w:200}, size:{h:'크기',w:56}, ac:{h:'AC',w:44,cls:'num'},
     fort:{h:'인내',w:44,cls:'num'}, n_strikes:{h:'공격',w:44,cls:'num'}, n_abilities:{h:'능력',w:44,cls:'num'}, n_spells:{h:'주문',w:44,cls:'num'},
     complex:{h:'복합',w:44,cls:'num'}, hardness:{h:'경도',w:44,cls:'num'}, stealth:{h:'은신',w:44,cls:'num'},
@@ -511,8 +514,13 @@ const DM = (function(){
     if(r._flat){
       if(key==='summary'){ return r[key] || _effSummary(r); }
       const v=r[key];
-      if(FEATURE_ARR_COLS.has(key) && Array.isArray(v))   // 클래스특성/부여 배열 → raw slug 나열(DataManager는 slug 원값)
-        return v.map(x=> (x&&typeof x==='object') ? (x.slug||'') : x).filter(Boolean).join(', ');
+      if(FEATURE_ARR_COLS.has(key) && Array.isArray(v))   // 클래스특성/부여 배열 → raw slug 나열(slug 없으면 name_ko, 예: 혈통 마법)
+        return v.map(x=> (x&&typeof x==='object') ? (x.slug||x.name_ko||'') : x).filter(Boolean).join(', ');
+      // 혈통(bloodlines) 복합 컬럼 → 읽기 좋은 요약(원값 기반)
+      if(key==='blood_magic' && v && typeof v==='object') return v.name_ko ? (v.name_ko+(v.text_ko?' — '+v.text_ko:'')) : (v.text_ko||v.text||'');
+      if(key==='granted' && Array.isArray(v)) return v.map(g=>(g.rank===0?'cantrip':'r'+g.rank)+':'+g.slug).join(', ');
+      if(key==='exemplars' && Array.isArray(v)) return v.map(e=>e.name_ko+(e.tradition?'('+e.tradition+(e.skill?'/'+e.skill:'')+')':'')).join(', ');
+      if(key==='skills' && Array.isArray(v)) return v.join(', ');
       return key==='has_desc'?(v?'✓':''):(v==null?'':v);
     }
     const fn=ACC[key]; return fn?fn(r):'';
@@ -609,7 +617,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm30').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm31').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -956,8 +964,8 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm30').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm30').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm31').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm31').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride, onEffType, onEffFilter, clearEffFilter, toggleSchema };
