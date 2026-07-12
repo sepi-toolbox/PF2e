@@ -65,6 +65,11 @@ var BLOODLINE_GUIDE = [];
 var MYSTERY_DB = {};
 // 「신비 항목 읽는 법」 정본 용어 설명(전 신비 공통, oracle_mysteries.json guide) — [{term,def},...].
 var MYSTERY_GUIDE = [];
+// 위저드 비전 학파(WIZARD_SCHOOL_DB) = DataManager 단일소스(data/derived/wizard_schools.json). cs_pf2e_class.loadWizardSchools()가 런타임 채움.
+//   {slug:{name,tradition,curriculum:{rank:[{spell}]},school_spell:{initial,advanced}}} — 교육과정 풀·학파 주문(초/상급).
+var WIZARD_SCHOOL_DB = {};
+// 「학파 항목 읽는 법」 정본 용어 설명(전 학파 공통, wizard_schools.json guide) — [{term,def},...].
+var WIZARD_SCHOOL_GUIDE = [];
 
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING

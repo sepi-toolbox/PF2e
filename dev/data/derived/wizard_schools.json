@@ -1,0 +1,717 @@
+{
+ "rows": [
+  {
+   "slug": "school-ars-grammatica",
+   "feature_slug": "school-of-ars-grammatica",
+   "name_ko": "아르스 그라마티카 학파",
+   "name_en": "School of Ars Grammatica",
+   "tradition": "arcane",
+   "curriculum": {
+    "1": [
+     {
+      "spell": "command",
+      "name_ko": "명령"
+     },
+     {
+      "spell": "disguise-magic",
+      "name_ko": "변장 마법"
+     },
+     {
+      "spell": "runic-body",
+      "name_ko": "룬 문양의 몸"
+     },
+     {
+      "spell": "runic-weapon",
+      "name_ko": "룬 무기"
+     }
+    ],
+    "2": [
+     {
+      "spell": "dispel-magic",
+      "name_ko": "마법 해제"
+     },
+     {
+      "spell": "translate",
+      "name_ko": "번역"
+     }
+    ],
+    "3": [
+     {
+      "spell": "enthrall",
+      "name_ko": "매혹"
+     },
+     {
+      "spell": "veil-of-privacy",
+      "name_ko": "사생활의 베일"
+     }
+    ],
+    "4": [
+     {
+      "spell": "dispelling-globe",
+      "name_ko": "해제 구슬"
+     },
+     {
+      "spell": "suggestion",
+      "name_ko": "제안"
+     }
+    ],
+    "5": [
+     {
+      "spell": "sending",
+      "name_ko": "송신"
+     },
+     {
+      "spell": "truespeech",
+      "name_ko": "진실의 언어"
+     }
+    ],
+    "6": [
+     {
+      "spell": "repulsion",
+      "name_ko": "반발"
+     },
+     {
+      "spell": "spellwrack",
+      "name_ko": "주문파괴"
+     }
+    ],
+    "7": [
+     {
+      "spell": "contingency",
+      "name_ko": "컨틴전시"
+     },
+     {
+      "spell": "planar-seal",
+      "name_ko": "평면 봉인"
+     }
+    ],
+    "8": [
+     {
+      "spell": "quandary",
+      "name_ko": "딜레마"
+     },
+     {
+      "spell": "unrelenting-observation",
+      "name_ko": "끊임없는 관찰"
+     }
+    ],
+    "9": [
+     {
+      "spell": "detonate-magic",
+      "name_ko": "마법 폭발"
+     }
+    ],
+    "cantrip": [
+     {
+      "spell": "message",
+      "name_ko": "메시지"
+     },
+     {
+      "spell": "sigil",
+      "name_ko": "인장"
+     }
+    ]
+   },
+   "school_spell": {
+    "initial": "protective-wards",
+    "advanced": "rune-of-observation"
+   }
+  },
+  {
+   "slug": "school-battle-magic",
+   "feature_slug": "school-of-battle-magic",
+   "name_ko": "전투 마법 학파",
+   "name_en": "School of Battle Magic",
+   "tradition": "arcane",
+   "curriculum": {
+    "1": [
+     {
+      "spell": "breathe-fire",
+      "name_ko": "불기"
+     },
+     {
+      "spell": "force-barrage",
+      "name_ko": "포스 포격"
+     },
+     {
+      "spell": "mystic-armor",
+      "name_ko": "신비한 갑옷"
+     }
+    ],
+    "2": [
+     {
+      "spell": "mist",
+      "name_ko": "안개"
+     },
+     {
+      "spell": "resist-energy",
+      "name_ko": "에너지 저항"
+     }
+    ],
+    "3": [
+     {
+      "spell": "earthbind",
+      "name_ko": "대지 결박"
+     },
+     {
+      "spell": "fireball",
+      "name_ko": "화염구"
+     }
+    ],
+    "4": [
+     {
+      "spell": "wall-of-fire",
+      "name_ko": "불의 벽"
+     },
+     {
+      "spell": "weapon-storm",
+      "name_ko": "무기 폭풍"
+     }
+    ],
+    "5": [
+     {
+      "spell": "howling-blizzard",
+      "name_ko": "울부짖는 눈보라"
+     },
+     {
+      "spell": "impaling-spike",
+      "name_ko": "관통 스파이크"
+     }
+    ],
+    "6": [
+     {
+      "spell": "chain-lightning",
+      "name_ko": "연쇄 번개"
+     },
+     {
+      "spell": "disintegrate",
+      "name_ko": "분해"
+     }
+    ],
+    "7": [
+     {
+      "spell": "energy-aegis",
+      "name_ko": "에너지 이지스"
+     },
+     {
+      "spell": "true-target",
+      "name_ko": "진정한 대상"
+     }
+    ],
+    "8": [
+     {
+      "spell": "arctic-rift",
+      "name_ko": "북극 균열"
+     },
+     {
+      "spell": "desiccate",
+      "name_ko": "건조화"
+     }
+    ],
+    "9": [
+     {
+      "spell": "falling-stars",
+      "name_ko": "유성"
+     }
+    ],
+    "cantrip": [
+     {
+      "spell": "shield",
+      "name_ko": "방패"
+     },
+     {
+      "spell": "telekinetic-projectile",
+      "name_ko": "염력 투사체"
+     }
+    ]
+   },
+   "school_spell": {
+    "initial": "force-bolt",
+    "advanced": "energy-absorption"
+   }
+  },
+  {
+   "slug": "school-boundary",
+   "feature_slug": "school-of-the-boundary",
+   "name_ko": "경계의 학파",
+   "name_en": "School of the Boundary",
+   "tradition": "arcane",
+   "curriculum": {
+    "1": [
+     {
+      "spell": "grim-tendrils",
+      "name_ko": "암흑의 촉수"
+     },
+     {
+      "spell": "phantasmal-minion",
+      "name_ko": "환상 하수인"
+     },
+     {
+      "spell": "summon-undead",
+      "name_ko": "언데드 소환"
+     }
+    ],
+    "2": [
+     {
+      "spell": "darkness",
+      "name_ko": "암흑"
+     },
+     {
+      "spell": "see-the-unseen",
+      "name_ko": "보이지 않는 것 보기"
+     }
+    ],
+    "3": [
+     {
+      "spell": "bind-undead",
+      "name_ko": "언데드 구속"
+     },
+     {
+      "spell": "ghostly-weapon",
+      "name_ko": "유령 무기"
+     }
+    ],
+    "4": [
+     {
+      "spell": "flicker",
+      "name_ko": "깜빡임"
+     },
+     {
+      "spell": "translocate",
+      "name_ko": "점멸"
+     }
+    ],
+    "5": [
+     {
+      "spell": "banishment",
+      "name_ko": "추방"
+     },
+     {
+      "spell": "invoke-spirits",
+      "name_ko": "영혼 소환"
+     }
+    ],
+    "6": [
+     {
+      "spell": "teleport",
+      "name_ko": "순간이동"
+     },
+     {
+      "spell": "vampiric-exsanguination",
+      "name_ko": "뱀파이어의 흡혈"
+     }
+    ],
+    "7": [
+     {
+      "spell": "eclipse-burst",
+      "name_ko": "이클립스 버스트"
+     },
+     {
+      "spell": "interplanar-teleport",
+      "name_ko": "차원 간 순간이동"
+     }
+    ],
+    "8": [
+     {
+      "spell": "quandary",
+      "name_ko": "딜레마"
+     },
+     {
+      "spell": "unrelenting-observation",
+      "name_ko": "끊임없는 관찰"
+     }
+    ],
+    "9": [
+     {
+      "spell": "massacre",
+      "name_ko": "학살"
+     }
+    ],
+    "cantrip": [
+     {
+      "spell": "telekinetic-hand",
+      "name_ko": "텔레키네틱 핸드"
+     },
+     {
+      "spell": "void-warp",
+      "name_ko": "공허 왜곡"
+     }
+    ]
+   },
+   "school_spell": {
+    "initial": "fortify-summoning",
+    "advanced": "spiral-of-horrors"
+   }
+  },
+  {
+   "slug": "school-civic-wizardry",
+   "feature_slug": "school-of-civic-wizardry",
+   "name_ko": "시민 마법 학파",
+   "name_en": "School of Civic Wizardry",
+   "tradition": "arcane",
+   "curriculum": {
+    "1": [
+     {
+      "spell": "hydraulic-push",
+      "name_ko": "수압 밀기"
+     },
+     {
+      "spell": "pummeling-rubble",
+      "name_ko": "쇄석 폭격"
+     },
+     {
+      "spell": "summon-construct",
+      "name_ko": "구조체 소환"
+     }
+    ],
+    "2": [
+     {
+      "spell": "revealing-light",
+      "name_ko": "드러내는 빛"
+     },
+     {
+      "spell": "water-walk",
+      "name_ko": "물 위 걷기"
+     }
+    ],
+    "3": [
+     {
+      "spell": "cozy-cabin",
+      "name_ko": "아늑한 오두막"
+     },
+     {
+      "spell": "safe-passage",
+      "name_ko": "안전한 통행"
+     }
+    ],
+    "4": [
+     {
+      "spell": "creation",
+      "name_ko": "창조"
+     },
+     {
+      "spell": "unfettered-movement",
+      "name_ko": "자유로운 이동"
+     }
+    ],
+    "5": [
+     {
+      "spell": "control-water",
+      "name_ko": "물 제어"
+     },
+     {
+      "spell": "wall-of-stone",
+      "name_ko": "돌벽"
+     }
+    ],
+    "6": [
+     {
+      "spell": "disintegrate",
+      "name_ko": "분해"
+     },
+     {
+      "spell": "wall-of-force",
+      "name_ko": "역장의 벽"
+     }
+    ],
+    "7": [
+     {
+      "spell": "planar-palace",
+      "name_ko": "평면 궁전"
+     },
+     {
+      "spell": "retrocognition",
+      "name_ko": "과거 인식"
+     }
+    ],
+    "8": [
+     {
+      "spell": "earthquake",
+      "name_ko": "지진"
+     },
+     {
+      "spell": "pinpoint",
+      "name_ko": "정확한 위치"
+     }
+    ],
+    "9": [
+     {
+      "spell": "foresight",
+      "name_ko": "예지력"
+     }
+    ],
+    "cantrip": [
+     {
+      "spell": "prestidigitation",
+      "name_ko": "간단마술"
+     },
+     {
+      "spell": "read-aura",
+      "name_ko": "오라 읽기"
+     }
+    ]
+   },
+   "school_spell": {
+    "initial": "earthworks",
+    "advanced": "community-restoration"
+   }
+  },
+  {
+   "slug": "school-mentalism",
+   "feature_slug": "school-of-mentalism",
+   "name_ko": "정신술 학파",
+   "name_en": "School of Mentalism",
+   "tradition": "arcane",
+   "curriculum": {
+    "1": [
+     {
+      "spell": "dizzying-colors",
+      "name_ko": "현기증 나는 색채"
+     },
+     {
+      "spell": "sleep",
+      "name_ko": "수면"
+     },
+     {
+      "spell": "sure-strike",
+      "name_ko": "확실한 타격"
+     }
+    ],
+    "2": [
+     {
+      "spell": "illusory-creature",
+      "name_ko": "환상 생물"
+     },
+     {
+      "spell": "stupefy",
+      "name_ko": "혼미"
+     }
+    ],
+    "3": [
+     {
+      "spell": "dream-message",
+      "name_ko": "꿈 속 메시지"
+     },
+     {
+      "spell": "mind-reading",
+      "name_ko": "마음 읽기"
+     }
+    ],
+    "4": [
+     {
+      "spell": "nightmare",
+      "name_ko": "악몽"
+     },
+     {
+      "spell": "vision-of-death",
+      "name_ko": "죽음의 환상"
+     }
+    ],
+    "5": [
+     {
+      "spell": "hallucination",
+      "name_ko": "환각"
+     },
+     {
+      "spell": "illusory-scene",
+      "name_ko": "환상 장면"
+     }
+    ],
+    "6": [
+     {
+      "spell": "never-mind",
+      "name_ko": "무뇌화"
+     },
+     {
+      "spell": "phantasmal-calamity",
+      "name_ko": "환상의 재앙"
+     }
+    ],
+    "7": [
+     {
+      "spell": "project-image",
+      "name_ko": "이미지 투사"
+     },
+     {
+      "spell": "warp-mind",
+      "name_ko": "정신 왜곡"
+     }
+    ],
+    "8": [
+     {
+      "spell": "disappearance",
+      "name_ko": "소멸"
+     },
+     {
+      "spell": "uncontrollable-dance",
+      "name_ko": "통제 불가능한 춤"
+     }
+    ],
+    "9": [
+     {
+      "spell": "phantasmagoria",
+      "name_ko": "환상극"
+     }
+    ],
+    "cantrip": [
+     {
+      "spell": "daze",
+      "name_ko": "정신 혼란"
+     },
+     {
+      "spell": "figment",
+      "name_ko": "허상"
+     }
+    ]
+   },
+   "school_spell": {
+    "initial": "charming-push",
+    "advanced": "invisibility-cloak"
+   }
+  },
+  {
+   "slug": "school-protean-form",
+   "feature_slug": "school-of-protean-form",
+   "name_ko": "변형 마법 학파",
+   "name_en": "School of Protean Form",
+   "tradition": "arcane",
+   "curriculum": {
+    "1": [
+     {
+      "spell": "jump",
+      "name_ko": "도약"
+     },
+     {
+      "spell": "pest-form",
+      "name_ko": "해충 형태"
+     },
+     {
+      "spell": "spider-sting",
+      "name_ko": "거미 독침"
+     }
+    ],
+    "2": [
+     {
+      "spell": "enlarge",
+      "name_ko": "확대"
+     },
+     {
+      "spell": "humanoid-form",
+      "name_ko": "인간형 형태"
+     }
+    ],
+    "3": [
+     {
+      "spell": "feet-to-fins",
+      "name_ko": "발에서 지느러미로"
+     },
+     {
+      "spell": "vampiric-feast",
+      "name_ko": "뱀파이어의 잔치"
+     }
+    ],
+    "4": [
+     {
+      "spell": "mountain-resilience",
+      "name_ko": "산악의 강인함"
+     },
+     {
+      "spell": "vapor-form",
+      "name_ko": "증기 형태"
+     }
+    ],
+    "5": [
+     {
+      "spell": "elemental-form",
+      "name_ko": "원소 형태"
+     },
+     {
+      "spell": "toxic-cloud",
+      "name_ko": "독성 구름"
+     }
+    ],
+    "6": [
+     {
+      "spell": "cursed-metamorphosis",
+      "name_ko": "저주받은 변형"
+     },
+     {
+      "spell": "petrify",
+      "name_ko": "석화"
+     }
+    ],
+    "7": [
+     {
+      "spell": "duplicate-foe",
+      "name_ko": "적 복제"
+     },
+     {
+      "spell": "fiery-body",
+      "name_ko": "불꽃 몸"
+     }
+    ],
+    "8": [
+     {
+      "spell": "desiccate",
+      "name_ko": "건조화"
+     },
+     {
+      "spell": "monstrosity-form",
+      "name_ko": "괴물 형태"
+     }
+    ],
+    "9": [
+     {
+      "spell": "metamorphosis",
+      "name_ko": "변신"
+     }
+    ],
+    "cantrip": [
+     {
+      "spell": "gouging-claw",
+      "name_ko": "갈기 발톱"
+     },
+     {
+      "spell": "tangle-vine",
+      "name_ko": "엉킴덩굴"
+     }
+    ]
+   },
+   "school_spell": {
+    "initial": "scramble-body",
+    "advanced": "shifting-form"
+   }
+  },
+  {
+   "slug": "school-unified",
+   "feature_slug": "school-of-unified-magical-theory",
+   "name_ko": "통합 마법 이론 학파",
+   "name_en": "School of Unified Magical Theory",
+   "tradition": "arcane",
+   "curriculum": {},
+   "school_spell": {
+    "initial": "hand-of-the-apprentice",
+    "advanced": "interdisciplinary-incantation"
+   }
+  }
+ ],
+ "guide": [
+  {
+   "term": "전통",
+   "def": "위저드는 항상 신비(arcane) 전통과 그 주문 목록을 사용합니다."
+  },
+  {
+   "term": "교육과정(커리큘럼)",
+   "def": "학파가 나열한 주문을 주문서에 추가합니다. 또한 각 주문 랭크마다 보너스 준비 슬롯(커리큘럼 캔트립 1개·주문 1개)을 얻으며, 그 슬롯은 학파 커리큘럼 주문으로만 준비할 수 있습니다."
+  },
+  {
+   "term": "학파 주문",
+   "def": "학파가 부여하는 포커스 주문입니다. 1레벨에 초급 학파 주문을 얻고, 「고급 학파 주문」 재주로 상급 학파 주문을 추가로 얻습니다. 포커스 포인트로 시전하고 재집중으로 회복합니다."
+  },
+  {
+   "term": "아케인 결속",
+   "def": "위저드 공통 특성입니다. 매일 아이템 하나를 결속해 「결속 아이템 소진」 자유 행동으로 소비한 주문 슬롯의 주문을 한 번 더 시전할 수 있습니다."
+  }
+ ],
+ "note": "위저드 비전 학파 정본 메타(코어 7종). 소스=store 학파 classfeature 파생. tradition=arcane(클래스 레벨 적용), curriculum=랭크별 교육과정 주문 풀(주문서 추가+보너스 준비슬롯), school_spell=학파 주문(초급/상급 focus). WIZARD_SCHOOL_DB/WIZARD_SCHOOL_GUIDE가 로드."
+}

@@ -2290,5 +2290,14 @@
     "name": "계시 주문(고급)"
    }
   ]
+ },
+ "advanced-school-spell": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "$school_advanced",
+    "name": "학파 주문(상급)"
+   }
+  ]
  }
 }

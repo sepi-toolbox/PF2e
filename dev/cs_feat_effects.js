@@ -463,6 +463,15 @@ function _applyOneEffect(fb, eff, feat, level) {
         const sp = id ? getSpell(id) : null;
         spellName = sp ? sp.name_ko : '';
         spellId = sp?.id || null;
+      } else if (spellName === '$school_advanced') {
+        // 위저드 상급 학파 주문 = 현재 선택한 학파(state.selectedSubclass)에서 해소(WIZARD_SCHOOL_DB.school_spell.advanced).
+        //   「고급 학파 주문」 재주가 이 효과행 소유(대원칙 0: 재주→효과 탭). 학파 미선택 시 미부여.
+        const wid = state.selectedSubclass && state.selectedSubclass.id;
+        const ws = wid && typeof WIZARD_SCHOOL_DB !== 'undefined' ? WIZARD_SCHOOL_DB[wid] : null;
+        const id = ws && ws.school_spell ? ws.school_spell.advanced : null;
+        const sp = id ? getSpell(id) : null;
+        spellName = sp ? sp.name_ko : '';
+        spellId = sp?.id || null;
       } else {
         const _sp = getSpell(spellName);  // slug(신) 또는 이름(구) 해소
         spellId = _sp?.id || null;

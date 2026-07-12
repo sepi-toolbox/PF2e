@@ -106,7 +106,7 @@
     if (_subProfTable) return _subProfTable;
     let rows = null;
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/subclass_progression.json", "dev/data/derived/subclass_progression.json"]) { try { rows = JSON.parse(fs.readFileSync(p, "utf8")).rows; break; } catch (e) {} } }
-    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.212"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.213"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
     _subProfTable = _buildSubProfTable(rows || []);
     _subGrantTable = _buildSubGrantTable(rows || []);   // 같은 rows에서 부여표도 동시 구축
     return _subProfTable;
@@ -118,7 +118,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.212"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.213"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -343,7 +343,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.212').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.213').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -362,7 +362,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.212').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.213').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   // 소서러 혈통 정본 메타 = data/derived/bloodlines.json → 런타임 BLOODLINE_DB 채움.
@@ -390,7 +390,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/bloodlines.json?v=0.212').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/bloodlines.json?v=0.213').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
   }
 
   // 오라클 신비 정본 메타 = data/derived/oracle_mysteries.json → 런타임 MYSTERY_DB 채움.
@@ -417,7 +417,33 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/oracle_mysteries.json?v=0.212').then(r => r.json()).then(j => { _fillMysteryDB(j.rows); _fillMysteryGuide(j.guide); _mysteriesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/oracle_mysteries.json?v=0.213').then(r => r.json()).then(j => { _fillMysteryDB(j.rows); _fillMysteryGuide(j.guide); _mysteriesLoaded = true; }).catch(() => {});
+  }
+
+  // 위저드 비전 학파 정본 메타 = data/derived/wizard_schools.json → 런타임 WIZARD_SCHOOL_DB/GUIDE 채움.
+  //   cs_feat_effects($school_advanced)/모달 가이드가 소비. 소서러 BLOODLINE_DB·오라클 MYSTERY_DB와 동일 패턴.
+  let _wizardSchoolsLoaded = false;
+  function _fillWizardSchoolDB(rows) {
+    let DB = (typeof WIZARD_SCHOOL_DB !== 'undefined') ? WIZARD_SCHOOL_DB : root.WIZARD_SCHOOL_DB;
+    if (!DB) { DB = root.WIZARD_SCHOOL_DB = {}; }
+    for (const r of (rows || [])) { if (r && r.slug) DB[r.slug] = r; }
+  }
+  function _fillWizardSchoolGuide(guide) {
+    if (!Array.isArray(guide)) return;
+    const G = (typeof WIZARD_SCHOOL_GUIDE !== 'undefined') ? WIZARD_SCHOOL_GUIDE : root.WIZARD_SCHOOL_GUIDE;
+    if (!G) { root.WIZARD_SCHOOL_GUIDE = guide.slice(); return; }
+    G.length = 0; for (const g of guide) G.push(g);
+  }
+  function loadWizardSchools() {
+    if (_wizardSchoolsLoaded) return Promise.resolve();
+    if (isNode) {
+      const fs = require('fs');
+      for (const p of ['data/derived/wizard_schools.json', 'dev/data/derived/wizard_schools.json', '/tmp/PF2e-publish/dev/data/derived/wizard_schools.json']) {
+        try { const j = JSON.parse(fs.readFileSync(p, 'utf8')); _fillWizardSchoolDB(j.rows); _fillWizardSchoolGuide(j.guide); _wizardSchoolsLoaded = true; break; } catch (e) {}
+      }
+      return Promise.resolve();
+    }
+    return fetch('data/derived/wizard_schools.json?v=0.213').then(r => r.json()).then(j => { _fillWizardSchoolDB(j.rows); _fillWizardSchoolGuide(j.guide); _wizardSchoolsLoaded = true; }).catch(() => {});
   }
 
   async function init() {
@@ -428,6 +454,7 @@
     if (isNode) { _ensureProfTable(); _ensureSubProfTable(); } else { await _ensureProfTable(); await _ensureSubProfTable(); }
     if (isNode) loadBloodlines(); else await loadBloodlines();  // 소서러 혈통 메타(subclassList 보강 전 필요)
     if (isNode) loadMysteries(); else await loadMysteries();    // 오라클 신비 메타(subclassList 보강 전 필요)
+    if (isNode) loadWizardSchools(); else await loadWizardSchools();  // 위저드 학파 메타($school_advanced·가이드용)
     if (isNode) loadSubclasses(); else await loadSubclasses();  // 단일소스 로드(비었을 때). 채워지면 아래 조립은 자연 스킵.
     if (isNode) loadDoctrines(); else await loadDoctrines();    // (subclasses.json에 cleric 포함 → 가드로 스킵. 빌드 하니스 조립 경로에서만 실주입)
     _build();
@@ -489,7 +516,7 @@
 
     // 전 카탈로그 로드 후 재열거 — init 시점에 타 카테고리 미로드로 enrichDesc @link가 영문 스냅샷된 캐시를 정본 한글로 재생성
   function rebuild() { if (_ready) _build(); }
-const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, subclassProfTable, subclassGrantTable, isLegacy, classFeatures, classFeatureRoster, subclassList, spellTable, loadBloodlines, loadMysteries };
+const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, subclassProfTable, subclassGrantTable, isLegacy, classFeatures, classFeatureRoster, subclassList, spellTable, loadBloodlines, loadMysteries, loadWizardSchools };
   root.PF2eClass = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

@@ -4731,6 +4731,7 @@ function _bloodlineGuideHtml(classId) {
   let guide = [];
   if (classId === 'sorcerer') guide = (typeof BLOODLINE_GUIDE !== 'undefined' && Array.isArray(BLOODLINE_GUIDE)) ? BLOODLINE_GUIDE : [];
   else if (classId === 'oracle') guide = (typeof MYSTERY_GUIDE !== 'undefined' && Array.isArray(MYSTERY_GUIDE)) ? MYSTERY_GUIDE : [];
+  else if (classId === 'wizard') guide = (typeof WIZARD_SCHOOL_GUIDE !== 'undefined' && Array.isArray(WIZARD_SCHOOL_GUIDE)) ? WIZARD_SCHOOL_GUIDE : [];
   if (!guide.length) return '';
   const items = guide.map(g => `<div style="margin-bottom:4px;"><strong style="color:var(--text);">${g.term}</strong> ${g.def}</div>`).join('');
   return `<div style="margin-bottom:8px;font-size:11px;line-height:1.6;color:var(--text2);">${items}</div>`;
