@@ -5976,7 +5976,8 @@ function renderActions() {
       && typeof PF2eAction !== 'undefined' && PF2eAction.getActionLegacy) {
     const existingIdsA = new Set(visible.map(a => a.id));
     const _subKind = state.selectedSubclass.subclass_type || '서브클래스';
-    PF2eClass.subclassGrantTable(state.selectedSubclass.id).actions.forEach(ar => {
+    const _subLv = (typeof getLevel === 'function') ? getLevel() : 20;
+    PF2eClass.subclassGrantTable(state.selectedSubclass.id, _subLv).actions.forEach(ar => {
       if (!ar.slug) return;
       const la = PF2eAction.getActionLegacy(ar.slug);
       if (!la) return;

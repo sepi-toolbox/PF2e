@@ -2167,7 +2167,8 @@ function rebuildCoreEffects() {
   //   예: 드루이드 교단(동물=운동, 잎=외교, 폭풍=곡예, 야생=위협). 효과(자동화) 탭 경유 안 함(성장표 자체가 효과).
   //   _deityGrantedSkills 복원 버퍼 공용(자동부여 기술).
   if (state.selectedSubclass && state.selectedSubclass.id && typeof PF2eClass !== 'undefined' && PF2eClass.subclassGrantTable) {
-    PF2eClass.subclassGrantTable(state.selectedSubclass.id).skills.forEach(sr => {
+    const _subLv = (typeof getLevel === 'function') ? getLevel() : 20;
+    PF2eClass.subclassGrantTable(state.selectedSubclass.id, _subLv).skills.forEach(sr => {
       const sk = sr.slug; if (!sk) return;
       const el = document.getElementById('sk-prof-' + sk);
       if (!el) return;
