@@ -21,8 +21,11 @@ const classFeats = JSON.parse(fs.readFileSync(path.join(DEV, 'data/derived/class
 // 일부 서브클래스(엑셈플라 이콘·키네티시스트 게이트)는 class_feature가 아니라 재주(feat)로 표현 — slug 동일.
 const featLevel = new Map(JSON.parse(fs.readFileSync(path.join(DEV, 'data/store/feats.json'), 'utf8')).map(x => [x.system && x.system.slug, (x.system && x.system.level && x.system.level.value) || 1]));
 
-// 서브클래스가 레벨별로 얻는 클래스 특성 slug 맵(level → [slug]).
-//   소스: class_features 중 name_en이 "(서브클래스명)"을 포함하는 것(교리·연구분야 등 레벨별 특성) + granted_feats(1레벨 부여).
+// 서브클래스가 레벨별로 얻는 **클래스 특성** slug 맵(level → [slug]).
+//   이 칸(features=클래스 특성)에는 진짜 클래스 특성만 넣는다. 부여 재주/기술/주문/행동은
+//   서브클래스 탭 granted_* 칸에 선언 → 효과(자동화) 탭으로 파생되므로 여기 중복 주입 금지(정규화).
+//   소스: class_features 중 name_en이 "(서브클래스명)"을 포함하는 것(교리·연구분야 등 레벨별 특성)
+//        + 서브클래스 자체가 1레벨 클래스 특성인 경우(본능/대의/교단 등).
 function subclassLevelFeatures(sc) {
   const cls = sc.class || sc.class_id || '';
   const tag = '(' + (sc.name_en || '') + ')';
@@ -34,9 +37,8 @@ function subclassLevelFeatures(sc) {
     if (f.slug === sc.slug || (sc.name_en && f.name_en === sc.name_en)) add(f.level, f.slug); // 서브클래스 자체 = 1레벨 클래스 특성(본능/대의 등)
   }
   if (featLevel.has(sc.slug)) add(featLevel.get(sc.slug), sc.slug);   // 서브클래스가 재주로 표현(이콘/게이트)
-  for (const g of (sc.granted_feats || [])) add(1, g);                          // 부여 재주(1레벨)
-  for (const sp of (sc.granted_spells || [])) add(sp.lv || 1, sp.spell_id);      // 부여 주문(레벨별: 결단/후원자 집중주문·바드 known 등)
-  for (const sk of (sc.granted_skills || [])) add(1, sk);                        // 부여 기술(1레벨)
+  // ⚠ granted_feats/granted_spells/granted_skills/granted_actions는 여기서 제외 —
+  //   클래스 특성 칸이 아니라 granted_* 칸(→효과 탭)의 소관. (2026-07-12 정규화)
   if (!Object.keys(map).length && sc.name_en) {   // 폴백: slug/이름 정확 불일치(예: school-unified↔school-of-unified-magical-theory)만 이름 포함 매칭
     const nl = sc.name_en.toLowerCase();
     for (const f of classFeats) if (f.class === cls && f.name_en && f.name_en.toLowerCase().includes(nl)) add(f.level, f.slug);
