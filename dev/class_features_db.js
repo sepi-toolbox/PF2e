@@ -63,6 +63,8 @@ var BLOODLINE_GUIDE = [];
 // 오라클 신비(MYSTERY_DB) = DataManager 단일소스(data/derived/oracle_mysteries.json). cs_pf2e_class.loadMysteries()가 런타임 채움.
 //   {slug:{name,tradition,mystery_skill,granted_spells,revelation:{initial,advanced,greater},domains,curse,oracle_feat}} — 미스터리 기술·부여 레퍼토리·계시주문(초/상/고급).
 var MYSTERY_DB = {};
+// 「신비 항목 읽는 법」 정본 용어 설명(전 신비 공통, oracle_mysteries.json guide) — [{term,def},...].
+var MYSTERY_GUIDE = [];
 
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING

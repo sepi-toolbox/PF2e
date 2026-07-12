@@ -4725,8 +4725,11 @@ function _renderSubclassInfo(id) {
 // 혈통을 고르기 전에 읽는 용어 설명(전통/혈통 기술/마법적 재능/혈통 주문/혈통 마법이 '무엇인지').
 //   데이터 파생(BLOODLINE_GUIDE = 「혈통 항목 읽는 법」, bloodline-spells 항목). 소서러일 때만, 드롭다운 위에 항상 노출.
 function _bloodlineGuideHtml(classId) {
-  if (classId !== 'sorcerer') return '';
-  const guide = (typeof BLOODLINE_GUIDE !== 'undefined' && Array.isArray(BLOODLINE_GUIDE)) ? BLOODLINE_GUIDE : [];
+  // 「항목 읽는 법」 안내 — 소서러=BLOODLINE_GUIDE(혈통), 오라클=MYSTERY_GUIDE(신비). 드롭다운 위 항상 노출.
+  //   두 클래스가 같은 형식(term/def)이라 공용 렌더 하나로 처리(원칙#1: 중복 개발 금지).
+  let guide = [];
+  if (classId === 'sorcerer') guide = (typeof BLOODLINE_GUIDE !== 'undefined' && Array.isArray(BLOODLINE_GUIDE)) ? BLOODLINE_GUIDE : [];
+  else if (classId === 'oracle') guide = (typeof MYSTERY_GUIDE !== 'undefined' && Array.isArray(MYSTERY_GUIDE)) ? MYSTERY_GUIDE : [];
   if (!guide.length) return '';
   const items = guide.map(g => `<div style="margin-bottom:4px;"><strong style="color:var(--text);">${g.term}</strong> ${g.def}</div>`).join('');
   return `<div style="margin-bottom:8px;font-size:11px;line-height:1.6;color:var(--text2);">${items}</div>`;

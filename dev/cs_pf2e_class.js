@@ -106,7 +106,7 @@
     if (_subProfTable) return _subProfTable;
     let rows = null;
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/subclass_progression.json", "dev/data/derived/subclass_progression.json"]) { try { rows = JSON.parse(fs.readFileSync(p, "utf8")).rows; break; } catch (e) {} } }
-    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.210"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.211"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
     _subProfTable = _buildSubProfTable(rows || []);
     _subGrantTable = _buildSubGrantTable(rows || []);   // 같은 rows에서 부여표도 동시 구축
     return _subProfTable;
@@ -118,7 +118,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.210"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.211"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -343,7 +343,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.210').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.211').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -362,7 +362,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.210').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.211').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   // 소서러 혈통 정본 메타 = data/derived/bloodlines.json → 런타임 BLOODLINE_DB 채움.
@@ -390,7 +390,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/bloodlines.json?v=0.210').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/bloodlines.json?v=0.211').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
   }
 
   // 오라클 신비 정본 메타 = data/derived/oracle_mysteries.json → 런타임 MYSTERY_DB 채움.
@@ -401,16 +401,23 @@
     if (!DB) { DB = root.MYSTERY_DB = {}; }
     for (const r of (rows || [])) { if (r && r.slug) DB[r.slug] = r; }
   }
+  function _fillMysteryGuide(guide) {
+    // 「신비 항목 읽는 법」 공통 용어 설명(전 신비 공통) → 전역 MYSTERY_GUIDE.
+    if (!Array.isArray(guide)) return;
+    const G = (typeof MYSTERY_GUIDE !== 'undefined') ? MYSTERY_GUIDE : root.MYSTERY_GUIDE;
+    if (!G) { root.MYSTERY_GUIDE = guide.slice(); return; }
+    G.length = 0; for (const g of guide) G.push(g);
+  }
   function loadMysteries() {
     if (_mysteriesLoaded) return Promise.resolve();
     if (isNode) {
       const fs = require('fs');
       for (const p of ['data/derived/oracle_mysteries.json', 'dev/data/derived/oracle_mysteries.json', '/tmp/PF2e-publish/dev/data/derived/oracle_mysteries.json']) {
-        try { _fillMysteryDB(JSON.parse(fs.readFileSync(p, 'utf8')).rows); _mysteriesLoaded = true; break; } catch (e) {}
+        try { const j = JSON.parse(fs.readFileSync(p, 'utf8')); _fillMysteryDB(j.rows); _fillMysteryGuide(j.guide); _mysteriesLoaded = true; break; } catch (e) {}
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/oracle_mysteries.json?v=0.210').then(r => r.json()).then(j => { _fillMysteryDB(j.rows); _mysteriesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/oracle_mysteries.json?v=0.211').then(r => r.json()).then(j => { _fillMysteryDB(j.rows); _fillMysteryGuide(j.guide); _mysteriesLoaded = true; }).catch(() => {});
   }
 
   async function init() {
