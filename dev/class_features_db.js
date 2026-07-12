@@ -55,6 +55,10 @@ var CLASS_AUTO_SPELLS = {};
 
 var DOMAIN_DB = {}; // 영역 데이터 = DataManager 단일소스(data/derived/domains.json). cs_pf2e_deity.loadDomains()가 런타임 채움(구 61개 하드코딩 폐기, v0.150).
 
+// 소서러 혈통(BLOODLINE_DB) = DataManager 단일소스(data/derived/bloodlines.json). cs_pf2e_class.loadBloodlines()가 런타임 채움.
+//   {slug:{name,tradition,skills,initial,advanced,greater,granted,blood_magic,exemplars,...}} — 혈통 집중주문(초/중/고급)·부여 레퍼토리·표본 선택.
+var BLOODLINE_DB = {};
+
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING
 // ═══════════════════════════════════════════════

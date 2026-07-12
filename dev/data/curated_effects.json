@@ -2254,5 +2254,23 @@
    ]
   },
   "rows": []
+ },
+ "advanced-bloodline": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "$bloodline_advanced",
+    "name": "혈통 집중주문(중급)"
+   }
+  ]
+ },
+ "greater-bloodline": {
+  "rows": [
+   {
+    "type": "grant_focus_spell",
+    "target": "$bloodline_greater",
+    "name": "혈통 집중주문(고급)"
+   }
+  ]
  }
 }

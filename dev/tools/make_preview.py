@@ -163,6 +163,36 @@ function runDiag(){
   // fvtt-only 재주도 효과 나오나(있으면)
   var anySlug=Object.keys(EFFECTS_DB).find(function(s){return EFFECTS_DB[s].source==='fvtt';});
   ok('fvtt-origin entity has runtime rows', !!(anySlug && EFFECTS_DB[anySlug].rows.length));
+
+  // ── 소서러 혈통 고도화 검증 (GAP 1~4) ──
+  if (typeof PF2eClass!=='undefined' && PF2eClass.subclassGrantTable) {
+    ok('BLOODLINE_DB 로드(≥18)', typeof BLOODLINE_DB!=='undefined' && Object.keys(BLOODLINE_DB).length>=18);
+    var angG=PF2eClass.subclassGrantTable('bloodline-angelic',20);
+    ok('GAP1 천상체 혈통기술 2(외교·종교)', angG.skills.map(function(s){return s.slug;}).sort().join()==='diplomacy,religion');
+    ok('GAP2 천상체 부여주문(캔트립 light + known≥9)', angG.spells.some(function(s){return s.type==='cantrip'&&s.slug==='light';}) && angG.spells.filter(function(s){return s.type==='known';}).length>=9);
+    state.selectedClass={id:'sorcerer',name:'sorc',casting:'spontaneous',keyAbility:'cha',tradition:'any'};
+    state.selectedSubclass=SUBCLASS_DB.find(function(s){return s.id==='bloodline-angelic';}); state.bloodlineExemplar=null;
+    ok('GAP4 천상체 전통=divine(고정)', typeof _subclassTradition==='function' && _subclassTradition()==='divine');
+    state.selectedSubclass=SUBCLASS_DB.find(function(s){return s.id==='bloodline-draconic';}); state.bloodlineExemplar='Arcane';
+    ok('GAP4 드라코닉+아케인표본 전통=arcane', _subclassTradition()==='arcane');
+    // GAP1 skill training via recalcAll (DOM)
+    state.level=5;
+    state.selectedSubclass=SUBCLASS_DB.find(function(s){return s.id==='bloodline-angelic';}); state.bloodlineExemplar=null;
+    try{ recalcAll(); }catch(e){err.push('sorc recalcAll:'+e.message);}
+    var dip=document.getElementById('sk-prof-diplomacy'), rel=document.getElementById('sk-prof-religion');
+    ok('GAP1 천상체 선택 → 외교·종교 훈련(DOM)', !!(dip&&rel)&&parseInt(dip.value)>=2&&parseInt(rel.value)>=2);
+    // GAP4 draconic exemplar skill training (협박 고정 + 표본 주문학)
+    state.selectedSubclass=SUBCLASS_DB.find(function(s){return s.id==='bloodline-draconic';}); state.bloodlineExemplar='Arcane';
+    try{ recalcAll(); }catch(e){err.push('sorc recalcAll2:'+e.message);}
+    var arc=document.getElementById('sk-prof-arcana'), intim=document.getElementById('sk-prof-intimidation');
+    ok('GAP4 드라코닉+아케인 → 협박+주문학 훈련(DOM)', !!(arc&&intim)&&parseInt(arc.value)>=2&&parseInt(intim.value)>=2);
+    // GAP3 advanced/greater focus 효과 존재 + 해소
+    var advDef=(typeof _getFeatEffectsDef==='function')?_getFeatEffectsDef('Advanced Bloodline'):null;
+    ok('GAP3 Advanced Bloodline grant_focus_spell 효과', !!(advDef&&advDef.effects&&advDef.effects.some(function(e){return e.type==='grant_focus_spell';})));
+    var _bl=BLOODLINE_DB['bloodline-draconic'];
+    ok('GAP3 드라코닉 중급=dragon-breath/고급=dragon-wings', _bl.advanced==='dragon-breath' && _bl.greater==='dragon-wings');
+  } else { ok('PF2eClass.subclassGrantTable 로드', false); }
+
   log('EFFECTS_DB slugs='+Object.keys(EFFECTS_DB).length);
  }catch(e){ err.push('FATAL:'+e.message+' | '+(e.stack||'')); }
  function show(){

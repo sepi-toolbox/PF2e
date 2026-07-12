@@ -445,6 +445,15 @@ function _applyOneEffect(fb, eff, feat, level) {
         const sp = id ? getSpell(id) : null;
         spellName = sp ? sp.name_ko : '';
         spellId = sp?.id || null;
+      } else if (spellName === '$bloodline_advanced' || spellName === '$bloodline_greater') {
+        // 소서러 중급/고급 혈통 집중주문 = 현재 선택한 혈통(state.selectedSubclass)에서 해소(BLOODLINE_DB).
+        //   Advanced/Greater Bloodline 재주가 이 효과행 소유(대원칙 0: 재주→효과 탭). 혈통 미선택 시 미부여.
+        const bid = state.selectedSubclass && state.selectedSubclass.id;
+        const bl = bid && typeof BLOODLINE_DB !== 'undefined' ? BLOODLINE_DB[bid] : null;
+        const id = bl ? (spellName === '$bloodline_advanced' ? bl.advanced : bl.greater) : null;
+        const sp = id ? getSpell(id) : null;
+        spellName = sp ? sp.name_ko : '';
+        spellId = sp?.id || null;
       } else {
         const _sp = getSpell(spellName);  // slug(신) 또는 이름(구) 해소
         spellId = _sp?.id || null;

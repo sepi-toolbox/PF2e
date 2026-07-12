@@ -70979,11 +70979,24 @@
     "bloodline-aberrant"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "intimidation",
+    "occultism"
+   ],
    "grant_spells": [
     {
      "slug": "tentacular-limbs",
      "type": "focus"
+    },
+    {
+     "slug": "daze",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "phantom-pain",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -71037,7 +71050,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "stupefy",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71089,7 +71108,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "vampiric-feast",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71141,7 +71166,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "confusion",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71193,7 +71224,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "slither",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71245,7 +71282,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "never-mind",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71297,7 +71340,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "warp-mind",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71349,7 +71398,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "uncontrollable-dance",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71401,7 +71456,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "unfathomable-song",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71506,11 +71567,24 @@
     "bloodline-aesir"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "intimidation",
+    "religion"
+   ],
    "grant_spells": [
     {
      "slug": "barbed-spear",
      "type": "focus"
+    },
+    {
+     "slug": "shield",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "mystic-armor",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -71564,7 +71638,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "spiritual-armament",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71616,7 +71696,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "heroism",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71668,7 +71754,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "seal-fate",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71720,7 +71812,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "invoke-spirits",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71772,7 +71870,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "blinding-fury",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71824,7 +71928,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "execute",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71876,7 +71986,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "spirit-song",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -71928,7 +72044,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "massacre",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72033,11 +72155,24 @@
     "bloodline-angelic"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "diplomacy",
+    "religion"
+   ],
    "grant_spells": [
     {
      "slug": "angelic-halo",
      "type": "focus"
+    },
+    {
+     "slug": "light",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "heal",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -72091,7 +72226,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "spiritual-armament",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72143,7 +72284,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "holy-light",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72195,7 +72342,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "divine-wrath",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72247,7 +72400,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "divine-immolation",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72299,7 +72458,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "blessed-boundary",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72351,7 +72516,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "divine-decree",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72403,7 +72574,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "moment-of-renewal",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72455,7 +72632,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "foresight",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72560,11 +72743,24 @@
     "bloodline-demonic"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "intimidation",
+    "religion"
+   ],
    "grant_spells": [
     {
      "slug": "gluttons-jaws",
      "type": "focus"
+    },
+    {
+     "slug": "caustic-blast",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "fear",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -72618,7 +72814,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "enlarge",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72670,7 +72872,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "slow",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72722,7 +72930,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "divine-wrath",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72774,7 +72988,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "blister",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72826,7 +73046,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "disintegrate",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72878,7 +73104,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "divine-decree",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72930,7 +73162,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "canticle-of-everlasting-grief",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -72982,7 +73220,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "implosion",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -73087,11 +73331,24 @@
     "bloodline-diabolic"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "deception",
+    "religion"
+   ],
    "grant_spells": [
     {
      "slug": "diabolic-edict",
      "type": "focus"
+    },
+    {
+     "slug": "ignition",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "charm",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -73145,7 +73402,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "floating-flame",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -73197,7 +73460,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "enthrall",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -73249,7 +73518,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "suggestion",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -73301,7 +73576,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "wave-of-despair",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -73353,7 +73634,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "truesight",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -73405,7 +73692,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "divine-decree",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -73457,7 +73750,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "divine-inspiration",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -73509,7 +73808,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "falling-stars",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -73614,11 +73919,23 @@
     "bloodline-draconic"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "intimidation"
+   ],
    "grant_spells": [
     {
      "slug": "flurry-of-claws",
      "type": "focus"
+    },
+    {
+     "slug": "shield",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "fear",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -73724,7 +74041,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "haste",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -73776,7 +74099,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "fly",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -73880,7 +74209,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "dragon-form",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -73932,7 +74267,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "mask-of-terror",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74036,7 +74377,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "overwhelming-presence",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74141,7 +74488,10 @@
     "bloodline-elemental"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "intimidation",
+    "nature"
+   ],
    "grant_spells": [
     {
      "slug": "elemental-toss",
@@ -74199,7 +74549,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "resist-energy",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74303,7 +74659,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "unfettered-movement",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74355,7 +74717,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "elemental-form",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74459,7 +74827,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "energy-aegis",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74511,7 +74885,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "earthquake",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74563,7 +74943,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "wrathful-storm",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74668,11 +75054,24 @@
     "bloodline-fey"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "deception",
+    "nature"
+   ],
    "grant_spells": [
     {
      "slug": "faerie-dust",
      "type": "focus"
+    },
+    {
+     "slug": "figment",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "charm",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -74726,7 +75125,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "laughing-fit",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74778,7 +75183,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "enthrall",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74830,7 +75241,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "suggestion",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74882,7 +75299,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "hallucination",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74934,7 +75357,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "mislead",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -74986,7 +75415,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "visions-of-danger",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -75038,7 +75473,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "uncontrollable-dance",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -75090,7 +75531,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "metamorphosis",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -75195,11 +75642,24 @@
     "bloodline-genie"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "arcana",
+    "deception"
+   ],
    "grant_spells": [
     {
      "slug": "genies-veil",
      "type": "focus"
+    },
+    {
+     "slug": "detect-magic",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "illusory-disguise",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -75305,7 +75765,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "enthrall",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -75357,7 +75823,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "creation",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -75461,7 +75933,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "truesight",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -75513,7 +75991,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "energy-aegis",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -75617,7 +76101,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "resplendent-mansion",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -75722,11 +76212,24 @@
     "bloodline-hag"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "deception",
+    "occultism"
+   ],
    "grant_spells": [
     {
      "slug": "jealous-hex",
      "type": "focus"
+    },
+    {
+     "slug": "daze",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "illusory-disguise",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -75780,7 +76283,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "stupefy",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -75832,7 +76341,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "blindness",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -75884,7 +76399,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "outcasts-curse",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -75936,7 +76457,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "mariners-curse",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -75988,7 +76515,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "cursed-metamorphosis",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76040,7 +76573,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "warp-mind",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76092,7 +76631,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "quandary",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76144,7 +76689,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "phantasmagoria",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76249,11 +76800,24 @@
     "bloodline-harrow"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "occultism",
+    "performance"
+   ],
    "grant_spells": [
     {
      "slug": "unraveling-blast",
      "type": "focus"
+    },
+    {
+     "slug": "detect-magic",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "ill-omen",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -76307,7 +76871,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "augury",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76359,7 +76929,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "wanderers-guide",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76411,7 +76987,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "suggestion",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76463,7 +77045,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "shadow-siphon",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76515,7 +77103,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "truesight",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76567,7 +77161,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "retrocognition",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76619,7 +77219,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "unrelenting-observation",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76671,7 +77277,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "weird",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76776,11 +77388,24 @@
     "bloodline-imperial"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "arcana",
+    "society"
+   ],
    "grant_spells": [
     {
      "slug": "ancestral-memories",
      "type": "focus"
+    },
+    {
+     "slug": "detect-magic",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "force-barrage",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -76834,7 +77459,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "dispel-magic",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76886,7 +77517,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "haste",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76938,7 +77575,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "translocate",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -76990,7 +77633,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "scouting-eye",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77042,7 +77691,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "disintegrate",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77094,7 +77749,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "retrocognition",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77146,7 +77807,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "quandary",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77198,7 +77865,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "implosion",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77303,11 +77976,24 @@
     "bloodline-nymph"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "diplomacy",
+    "nature"
+   ],
    "grant_spells": [
     {
      "slug": "nymphs-token",
      "type": "focus"
+    },
+    {
+     "slug": "tangle-vine",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "charm",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -77361,7 +78047,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "calm",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77413,7 +78105,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "animal-vision",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77465,7 +78163,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "vital-beacon",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77517,7 +78221,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "wave-of-despair",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77569,7 +78279,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "repulsion",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77621,7 +78337,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "unfettered-pack",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77673,7 +78395,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "moment-of-renewal",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77725,7 +78453,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "overwhelming-presence",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77830,11 +78564,24 @@
     "bloodline-phoenix"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "diplomacy",
+    "nature"
+   ],
    "grant_spells": [
     {
      "slug": "rejuvenating-flames",
      "type": "focus"
+    },
+    {
+     "slug": "detect-magic",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "breathe-fire",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -77888,7 +78635,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "see-the-unseen",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77940,7 +78693,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "fireball",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -77992,7 +78751,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "cleanse-affliction",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78044,7 +78809,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "breath-of-life",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78096,7 +78867,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "disintegrate",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78148,7 +78925,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "contingency",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78200,7 +78983,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "moment-of-renewal",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78252,7 +79041,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "falling-stars",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78357,11 +79152,24 @@
     "bloodline-psychopomp"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "intimidation",
+    "religion"
+   ],
    "grant_spells": [
     {
      "slug": "sepulchral-mask",
      "type": "focus"
+    },
+    {
+     "slug": "vitality-lash",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "heal",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -78415,7 +79223,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "calm",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78467,7 +79281,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "holy-light",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78519,7 +79339,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "planar-tether",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78571,7 +79397,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "death-ward",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78623,7 +79455,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "spirit-blast",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78675,7 +79513,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "execute",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78727,7 +79571,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "spirit-song",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78779,7 +79629,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "massacre",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78884,11 +79740,24 @@
     "bloodline-shadow"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "occultism",
+    "stealth"
+   ],
    "grant_spells": [
     {
      "slug": "dim-the-light",
      "type": "focus"
+    },
+    {
+     "slug": "void-warp",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "grim-tendrils",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -78942,7 +79811,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "darkness",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -78994,7 +79869,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "chilling-darkness",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79046,7 +79927,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "phantasmal-killer",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79098,7 +79985,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "shadow-siphon",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79150,7 +80043,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "collective-transposition",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79202,7 +80101,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "duplicate-foe",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79254,7 +80159,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "disappearance",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79306,7 +80217,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "weird",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79411,11 +80328,24 @@
     "bloodline-undead"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "intimidation",
+    "religion"
+   ],
    "grant_spells": [
     {
      "slug": "undeaths-blessing",
      "type": "focus"
+    },
+    {
+     "slug": "void-warp",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "harm",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -79469,7 +80399,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "see-the-unseen",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79521,7 +80457,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "bind-undead",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79573,7 +80515,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "talking-corpse",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79625,7 +80573,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "invoke-spirits",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79677,7 +80631,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "vampiric-exsanguination",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79729,7 +80689,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "execute",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79781,7 +80747,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "canticle-of-everlasting-grief",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79833,7 +80805,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "wails-of-the-damned",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -79938,11 +80916,24 @@
     "bloodline-wyrmblessed"
    ],
    "grant_feats": [],
-   "grant_skills": [],
+   "grant_skills": [
+    "intimidation",
+    "religion"
+   ],
    "grant_spells": [
     {
      "slug": "flurry-of-claws",
      "type": "focus"
+    },
+    {
+     "slug": "read-aura",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "mystic-armor",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -79996,7 +80987,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "resist-energy",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -80048,7 +81045,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "haste",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -80100,7 +81103,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "reflective-scales",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -80152,7 +81161,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "cloak-of-colors",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -80204,7 +81219,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "repulsion",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -80256,7 +81277,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "mask-of-terror",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -80308,7 +81335,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "divine-inspiration",
+     "type": "known",
+     "rank": 8
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -80360,7 +81393,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "overwhelming-presence",
+     "type": "known",
+     "rank": 9
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",

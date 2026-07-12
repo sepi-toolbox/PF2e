@@ -2436,7 +2436,7 @@ function _renderMemorizeDetail() {
     // 클레릭/드루이드: 전통 목록 전체에서 선택
     let trad = state.selectedClass?.tradition || '';
     if (trad === 'any' && state.selectedSubclass) {
-      trad = state.selectedSubclass.tradition || trad;
+      trad = (typeof _subclassTradition === 'function' ? _subclassTradition() : state.selectedSubclass.tradition) || trad;
     }
     const _deitySet = (typeof deitySpellSlugSet === 'function') ? deitySpellSlugSet() : new Set();  // 신격 주문=전통 무관 편입
     _allSpells().forEach(sp => {
@@ -3207,7 +3207,7 @@ function filterSpells() {
   // 위치: 후원자 전통 사용, 그 외: 클래스 전통
   let classTrad = state.selectedClass?.tradition || '';
   if (classTrad === 'any' && state.selectedSubclass) {
-    classTrad = state.selectedSubclass.tradition || classTrad;
+    classTrad = (typeof _subclassTradition === 'function' ? _subclassTradition() : state.selectedSubclass.tradition) || classTrad;
   }
   const pending = typeof _spellSlotPending !== 'undefined' ? _spellSlotPending : null;
   const gPending = typeof _growthSpellPending !== 'undefined' ? _growthSpellPending : null;
@@ -3914,11 +3914,13 @@ function _buildClassChoicesUI(cls) {
   const deitySkill = !!cls.deity_skill;
   const _inlineDeity = _classHasInlineDeity(cls);   // 신격 인라인 클래스(클레릭 deity_skill / 챔피언 deity-champion)
 
-  _modalChoices = { type: 'class', fixedSkills, choiceSkills, trainableBase, deitySkill, trainableSkills: Array(trainableBase).fill(''), chosenFixedSkills: Array(choiceSkills.length).fill('') };
+  _modalChoices = { type: 'class', fixedSkills, choiceSkills, trainableBase, deitySkill, trainableSkills: Array(trainableBase).fill(''), chosenFixedSkills: Array(choiceSkills.length).fill(''), bloodlineExemplar: '' };
 
   // ── 이전 선택값 복원 (같은 클래스가 이미 선택된 경우) ──
   if (state.selectedClass?.id === cls.id) {
     const saved = state.initialChoices?.class;
+    // 소서러 혈통 표본/원소/지니 유형 선택 복원
+    _modalChoices.bloodlineExemplar = state.bloodlineExemplar || (saved && saved.bloodlineExemplar) || '';
     // trainableSkills: growth에 저장된 값 우선, 없으면 initialChoices
     const savedTraining = state.growth?.[1]?.skillTraining || (saved ? saved.trainableSkills : []) || [];
     for (let i = 0; i < trainableBase && i < savedTraining.length; i++) {
@@ -4631,12 +4633,43 @@ function _buildSubclassChoiceUI(classId, label, subs) {
   return _classFeatureBlock('⚙', label, '', () => inner, false, false);
 }
 
+// 소서러 혈통 표본/원소/지니 유형 선택 UI (드라코닉=전통+2번째 기술 결정, 원소=피해속성, 지니=유형).
+//   BLOODLINE_DB[blId].exemplars가 있을 때만. 없으면 '' (고정 전통 혈통은 선택 불필요).
+function _bloodlineExemplarHtml(blId) {
+  const bl = (typeof BLOODLINE_DB !== 'undefined') ? BLOODLINE_DB[blId] : null;
+  if (!bl || !bl.exemplars || !bl.exemplars.length) return '';
+  const LABEL = { 'bloodline-draconic': '드라코닉 표본', 'bloodline-elemental': '원소', 'bloodline-genie': '지니 유형' };
+  const label = LABEL[blId] || '표본';
+  const cur = _modalChoices.bloodlineExemplar || '';
+  const _skKo = sk => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s => s.id === sk)?.name || sk) : sk);
+  const opts = bl.exemplars.map(e => {
+    const meta = [e.tradition ? '전통 ' + e.tradition : '', e.skill ? '기술 ' + _skKo(e.skill) : '', e.damage ? '피해 ' + e.damage : ''].filter(Boolean).join(', ');
+    return `<option value="${e.name_en}"${e.name_en === cur ? ' selected' : ''}>${e.name_ko}${meta ? ' — ' + meta : ''}</option>`;
+  }).join('');
+  return `<div style="margin-top:8px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--gold);">
+    <div style="font-size:11px;font-weight:600;color:var(--text2);margin-bottom:4px;">${label} 선택</div>
+    <select id="cls-bloodline-exemplar" onchange="_onBloodlineExemplar(this.value)" style="${_selStyle}">
+      <option value="">— 선택 —</option>${opts}
+    </select>
+  </div>`;
+}
+function _onBloodlineExemplar(val) {
+  _modalChoices.bloodlineExemplar = val || '';
+  _refreshClassFeaturesPreview();
+  _validateInitialChoices();
+}
+
 function _onSubclassChange(id) {
   _modalChoices.subclass = id;
+  // 혈통 변경 시: 새 혈통에 유효하지 않은 표본 선택 초기화
+  const _blNew = (typeof BLOODLINE_DB !== 'undefined') ? BLOODLINE_DB[id] : null;
+  if (_modalChoices.bloodlineExemplar && !(_blNew && (_blNew.exemplars || []).some(e => e.name_en === _modalChoices.bloodlineExemplar))) {
+    _modalChoices.bloodlineExemplar = '';
+  }
   const info = document.getElementById('cls-subclass-info');
   if (info) {
     const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === id) : null;
-    info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>` : '';
+    info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>${_bloodlineExemplarHtml(id)}` : '';
   }
   // 챔피언: 원인(서브클래스)이 성별화를 제약 → 신격∩원인 성별화 카드 갱신.
   const _cs = document.getElementById('cls-champ-sanct');
@@ -4974,6 +5007,7 @@ function resetFromClass() {
   }
   // Reset subclass
   state.selectedSubclass = null;
+  state.bloodlineExemplar = null;   // 소서러 혈통 표본 선택 초기화
   const subBtn = document.getElementById('btn-subclass');
   if (subBtn) { subBtn.textContent = '서브클래스...'; subBtn.classList.remove('filled'); subBtn.style.display = 'none'; }
   // Reset weapon proficiencies to defaults
@@ -5200,11 +5234,14 @@ function confirmModal() {
       const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === _modalChoices.subclass) : null;
       if (sub) { state.selectedSubclass = sub; const btn = document.getElementById('btn-subclass'); if (btn) { btn.textContent = `${sub.name_ko} (${sub.name_en})`; btn.classList.add('filled'); } }
     }
+    // 소서러 혈통 표본/원소/지니 유형 선택 반영(드라코닉=전통+2번째 기술, recalcAll·_subclassTradition이 소비)
+    state.bloodlineExemplar = _modalChoices.bloodlineExemplar || null;
     // ── 선택값 영속 저장 ──
     if (!state.initialChoices) state.initialChoices = {};
     state.initialChoices.class = {
       trainableSkills: (_modalChoices.trainableSkills || []).filter(v => v),
       chosenFixedSkills: (_modalChoices.chosenFixedSkills || []).slice(),
+      bloodlineExemplar: _modalChoices.bloodlineExemplar || '',
     };
     applyClassFeatures();
   } else if (modalType==='ancestry') {

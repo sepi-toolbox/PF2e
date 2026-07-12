@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.197').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.198').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -2168,14 +2168,21 @@ function rebuildCoreEffects() {
   //   _deityGrantedSkills 복원 버퍼 공용(자동부여 기술).
   if (state.selectedSubclass && state.selectedSubclass.id && typeof PF2eClass !== 'undefined' && PF2eClass.subclassGrantTable) {
     const _subLv = (typeof getLevel === 'function') ? getLevel() : 20;
-    PF2eClass.subclassGrantTable(state.selectedSubclass.id, _subLv).skills.forEach(sr => {
-      const sk = sr.slug; if (!sk) return;
+    const _trainSub = sk => {
+      if (!sk) return;
       const el = document.getElementById('sk-prof-' + sk);
       if (!el) return;
       const cur = parseInt(el.value || 0);
       state._deityGrantedSkills.push({ skill: sk, rank: 2, prevRank: cur });
       if (cur < 2) el.value = '2';
-    });
+    };
+    PF2eClass.subclassGrantTable(state.selectedSubclass.id, _subLv).skills.forEach(sr => _trainSub(sr.slug));
+    // 드라코닉 등 표본 의존 2번째 혈통 기술 — 표본 선택(state.bloodlineExemplar)에서 훈련.
+    const _bl = (typeof BLOODLINE_DB !== 'undefined') ? BLOODLINE_DB[state.selectedSubclass.id] : null;
+    if (_bl && _bl.exemplars && state.bloodlineExemplar) {
+      const _ex = _bl.exemplars.find(e => e.name_en === state.bloodlineExemplar);
+      if (_ex && _ex.skill) _trainSub(_ex.skill);
+    }
   }
 }
 
@@ -2202,6 +2209,20 @@ function getSubclassAutoSpells(sub) {
   }).filter(Boolean);
 }
 function getSubclassFeatures(sub) { return (sub && sub.features) || []; }
+
+// 서브클래스 전통 해소(주문 탭 필터). 고정 전통(sub.tradition: 대부분 혈통·위치 후원자)이 우선.
+//   전통 미지정(드라코닉 혈통=variable)은 표본 선택(state.bloodlineExemplar)에서 해소.
+function _subclassTradition() {
+  const sub = state.selectedSubclass;
+  if (!sub) return null;
+  if (sub.tradition) return sub.tradition;
+  const bl = (typeof BLOODLINE_DB !== 'undefined') ? BLOODLINE_DB[sub.id] : null;
+  if (bl && bl.exemplars && state.bloodlineExemplar) {
+    const ex = bl.exemplars.find(e => e.name_en === state.bloodlineExemplar);
+    if (ex && ex.tradition) return ex.tradition;
+  }
+  return null;
+}
 
 function recalcAll() {
   // 성장(빌더) 기술 훈련/향상 기여를 먼저 걷어냄 — heritage/bg/feat가 깨끗한 base에서 prevRank 스냅샷하도록.

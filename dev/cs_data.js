@@ -5024,6 +5024,7 @@ let state = {
   divineFont: null,      // 'heal' or 'harm' (cleric)
   sanctification: null,  // 'holy' or 'unholy' (cleric)
   divineFontUsed: 0,     // how many divine font slots used today
+  bloodlineExemplar: null, // 소서러 혈통 표본/원소/지니 유형 선택(name_en, 드라코닉=전통+2번째 기술)
 };
 
 let modalType = null;

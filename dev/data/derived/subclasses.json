@@ -3171,20 +3171,84 @@
    "name_ko": "혈통: 이형체",
    "name_en": "Bloodline: Aberrant",
    "desc": "<p>별 너머나 땅 아래에서 고대하고 알 수 없는 무엇인가가 당신에게 말을 건넵니다.</p>\n\n<p><strong>혈통 기술</strong> 협박, 오컬트</p>\n<p><strong>마법적 재능</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.daze\">정신 혼란</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.phantom-pain\">환상 통증</span>; (2nd): <span class=\"ref-link\" data-ref=\"spells.stupefy\">혼미</span>; (3rd): <span class=\"ref-link\" data-ref=\"spells.vampiric-feast\">뱀파이어의 잔치</span>; (4th): <span class=\"ref-link\" data-ref=\"spells.confusion\">혼란</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.slither\">미끄러짐</span>; (6th): <span class=\"ref-link\" data-ref=\"spells.never-mind\">무뇌화</span>; 7th: <span class=\"ref-link\" data-ref=\"spells.warp-mind\">정신 왜곡</span>; 8th: <span class=\"ref-link\" data-ref=\"spells.uncontrollable-dance\">통제 불가능한 춤</span>; 9th: <span class=\"ref-link\" data-ref=\"spells.unfathomable-song\">헤아릴 수 없는 노래</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.tentacular-limbs\">촉수 사지</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.aberrant-whispers\">이형체 속삭임</span>; 중급: <span class=\"ref-link\" data-ref=\"spells.unusual-anatomy\">특이한 해부학적 구조</span></p>\n<p><strong>혈통 마법-섬뜩한 베일</strong> 불길한 장막이 당신의 정신에서 흘러나온다. 하나의 대상이 1라운드 동안 의지 내성 굴림에 -1 상태 페널티를 받거나, 당신이 1라운드 동안 의지 내성 굴림에 +2 상태 보너스를 얻는다.</p>\n",
-   "granted_skills": [],
+   "granted_skills": [
+    "intimidation",
+    "occultism"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "tentacular-limbs",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "daze",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "phantom-pain",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "stupefy",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "vampiric-feast",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "confusion",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "slither",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "never-mind",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "warp-mind",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "uncontrollable-dance",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "unfathomable-song",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "occult",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3196,20 +3260,84 @@
    "name_ko": "혈통: 에시르",
    "name_en": "Bloodline: Aesir",
    "desc": "<p>당신의 선조 중 한 명이 아에시르의 손길을 받았으며, 이제 강철이 부딪히는 울림과 끊임없는 전투의 부름이 당신의 피 속에 울려 퍼집니다.</p>\n\n<p><strong>혈통 기술</strong> 협박, 종교</p>\n<p><strong>마법적 재능</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.shield\">방패</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.mystic-armor\">신비한 갑옷</span>; (2nd): <span class=\"ref-link\" data-ref=\"spells.spiritual-armament\">영적 무장</span>; (3rd): <span class=\"ref-link\" data-ref=\"spells.heroism\">영웅심</span>; (4th): <span class=\"ref-link\" data-ref=\"spells.seal-fate\">운명 봉인</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.invoke-spirits\">영혼 소환</span>; (6th): <span class=\"ref-link\" data-ref=\"spells.blinding-fury\">맹렬한 분노</span>; (7th): <span class=\"ref-link\" data-ref=\"spells.execute\">처형</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.spirit-song\">영혼의 노래</span>; (9th): <span class=\"ref-link\" data-ref=\"spells.massacre\">학살</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.barbed-spear\">가시 창</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.wings-of-the-valkyrie\">발키리의 날개</span>; 중급: <span class=\"ref-link\" data-ref=\"spells.let-not-the-fallen-rest\">쓰러진 자여, 쉬지 말라</span></p>\n<p><strong>혈통 마법-폭풍을 불러내다</strong> 당신은 적에게 피해를 입히거나 자신을 강화하기 위해 번개를 내리친다. 1라운드 동안 반사 내성에 +2 상태 보너스를 얻거나, 대상이 주문 랭크당 1의 전기 피해를 받습니다(주문이 이미 초기 전기 피해를 주는 경우, 약점과 저항을 결정하기 전에 이 피해를 주문의 초기 피해와 합산합니다).</p>",
-   "granted_skills": [],
+   "granted_skills": [
+    "intimidation",
+    "religion"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "barbed-spear",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "shield",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "mystic-armor",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "spiritual-armament",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "heroism",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "seal-fate",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "invoke-spirits",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "blinding-fury",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "execute",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "spirit-song",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "massacre",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "divine",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3221,20 +3349,84 @@
    "name_ko": "혈통: 천상체",
    "name_en": "Bloodline: Angelic",
    "desc": "<p>당신의 선조 중 한 명이 천상체의 영역 출신이거나, 조상들의 헌신이 그 혈통에 축복을 가져왔습니다.</p>\n<p><strong>주문 목록</strong> 신성</p>\n<p><strong>혈통 기술</strong> 외교, 종교</p>\n<p><strong>부여된 주문</strong> 캔트립 <span class=\"ref-link\" data-ref=\"spells.light\">빛</span>, 1레벨: <span class=\"ref-link\" data-ref=\"spells.heal\">치유</span>, 2레벨: <span class=\"ref-link\" data-ref=\"spells.spiritual-armament\">영적 무장</span>, 3rd: <span class=\"ref-link\" data-ref=\"spells.holy-light\">신성한 빛</span>, 4th: <span class=\"ref-link\" data-ref=\"spells.divine-wrath\">신성한 분노</span>, 5th: <span class=\"ref-link\" data-ref=\"spells.divine-immolation\">신성한 화형</span>, 6th: <span class=\"ref-link\" data-ref=\"spells.blessed-boundary\">축복의 경계</span>, 7th: <span class=\"ref-link\" data-ref=\"spells.divine-decree\">신성한 칙령</span>, 8th: <span class=\"ref-link\" data-ref=\"spells.moment-of-renewal\">재생의 순간</span>, 9th: <span class=\"ref-link\" data-ref=\"spells.foresight\">예지력</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.angelic-halo\">천사의 후광</span>, 고급: <span class=\"ref-link\" data-ref=\"spells.angelic-wings\">천사의 날개</span>, 중급: <span class=\"ref-link\" data-ref=\"spells.celestial-brand\">천상의 낙인</span></p>\n<p><strong>혈통 마법-신성한 오라</strong> 자신 또는 한 명의 대상에게 보호하는 온기 오라를 투사하여 1라운드 동안 내성 굴림 +1 상태 보너스를 부여합니다</p>\n",
-   "granted_skills": [],
+   "granted_skills": [
+    "diplomacy",
+    "religion"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "angelic-halo",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "light",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "heal",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "spiritual-armament",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "holy-light",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "divine-wrath",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "divine-immolation",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "blessed-boundary",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "divine-decree",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "moment-of-renewal",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "foresight",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "divine",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3246,20 +3438,84 @@
    "name_ko": "혈통: 데몬",
    "name_en": "Bloodline: Demonic",
    "desc": "<p>데몬은 접촉하는 모든 것을 타락시킨다. 당신의 선조 중 한 명이 그들의 타락에 희생되었고, 당신은 그 죄악의 짐을 지고 있다.</p>\n\n<p><strong>혈통 기술</strong> 협박, 종교</p>\n<p><strong>마법적 재능</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.caustic-blast\">부식성 폭발</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.fear\">공포</span>; (2nd): <span class=\"ref-link\" data-ref=\"spells.enlarge\">확대</span>; (3rd): <span class=\"ref-link\" data-ref=\"spells.slow\">느려짐</span>; (4th): <span class=\"ref-link\" data-ref=\"spells.divine-wrath\">신성한 분노</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.blister\">물집</span>; (6th): <span class=\"ref-link\" data-ref=\"spells.disintegrate\">분해</span>; (7th): <span class=\"ref-link\" data-ref=\"spells.divine-decree\">신성한 칙령</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.canticle-of-everlasting-grief\">영원한 슬픔의 찬가</span>; (9th): <span class=\"ref-link\" data-ref=\"spells.implosion\">내파</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.gluttons-jaws\">탐식의 턱</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.swamp-of-sloth\">나태의 늪</span>; 중급: <span class=\"ref-link\" data-ref=\"spells.chthonian-wrath\">지하의 분노</span></p>\n<p><strong>혈통 마법-죄악의 타락</strong> 당신은 정신적으로 대상의 가장 어두운 욕망을 잠깐 엿보게 합니다. 대상은 1라운드 동안 AC에 -1 상태 페널티를 받거나, 당신은 1라운드 동안 협박 판정에서 +2 상태 보너스를 얻습니다.</p>\n",
-   "granted_skills": [],
+   "granted_skills": [
+    "intimidation",
+    "religion"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "gluttons-jaws",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "caustic-blast",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "fear",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "enlarge",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "slow",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "divine-wrath",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "blister",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "disintegrate",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "divine-decree",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "canticle-of-everlasting-grief",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "implosion",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "divine",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3271,20 +3527,84 @@
    "name_ko": "혈통: 데빌",
    "name_en": "Bloodline: Diabolic",
    "desc": "<p>데빌은 은근한 말솜씨로 속이는 존재이며, 당신의 선조 중 한 명이 어둠 속에서 유희를 즐기거나 지옥의 계약을 맺었습니다.</p>\n<p><strong>주문 목록</strong> 신성</p>\n<p><strong>혈통 기술</strong> 기만, 종교</p>\n<p><strong>마법적 재능</strong> 캔트립 <span class=\"ref-link\" data-ref=\"spells.ignition\">점화</span>, 1레벨: <span class=\"ref-link\" data-ref=\"spells.charm\">매혹</span>, 2nd: <span class=\"ref-link\" data-ref=\"spells.floating-flame\">떠다니는 불꽃</span>, 3rd: <span class=\"ref-link\" data-ref=\"spells.enthrall\">매혹</span>, 4th: <span class=\"ref-link\" data-ref=\"spells.suggestion\">제안</span>, 5th: <span class=\"ref-link\" data-ref=\"spells.wave-of-despair\">절망의 파도</span>, 6th: <span class=\"ref-link\" data-ref=\"spells.truesight\">진시야</span>, (7th): <span class=\"ref-link\" data-ref=\"spells.divine-decree\">신성한 칙령</span>, (8th): <span class=\"ref-link\" data-ref=\"spells.divine-inspiration\">신성한 영감</span>, (9th): <span class=\"ref-link\" data-ref=\"spells.falling-stars\">유성</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.diabolic-edict\">데빌의 칙령</span>, 고급: <span class=\"ref-link\" data-ref=\"spells.embrace-the-pit\">심연 포옹</span>, 중급: <span class=\"ref-link\" data-ref=\"spells.hellfire-plume\">지옥불 기둥</span></p>\n<p><strong>혈통 마법-불의 혀</strong> 당신의 혀는 지옥의 불길로 뒤덮여, 적을 향해 휘둘러 공격하거나 삼켜 거짓말을 더 설득력 있게 만들 수 있습니다. 대상은 주문 랭크당 1점의 화염 피해를 받거나(주문이 이미 초기 화염 피해를 주는 경우, 약점과 저항을 결정하기 전에 이 피해를 주문의 초기 피해와 합산), 1라운드 동안 기만 판정에서 +2 상태 보너스를 얻습니다.</p>\n",
-   "granted_skills": [],
+   "granted_skills": [
+    "deception",
+    "religion"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "diabolic-edict",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "ignition",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "charm",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "floating-flame",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "enthrall",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "suggestion",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "wave-of-despair",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "truesight",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "divine-decree",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "divine-inspiration",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "falling-stars",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "divine",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3296,20 +3616,64 @@
    "name_ko": "혈통: 드라코닉",
    "name_en": "Bloodline: Draconic",
    "desc": "<p>용의 피가 당신의 혈관을 흐릅니다. 이 괴물들은 전투에서 두려움을 주며 마법에도 능숙합니다.</p>\n<p><strong>전통</strong> 가변 (아래 드라코닉 모범 참조)</p>\n<p><strong>혈통 기술</strong> 협박 및 다른 기술 하나 (아래 드라코닉 표본 참조)</p>\n<p><strong>마법적 재능</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.shield\">방패</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.fear\">공포</span>; 2nd: 아래 드라코닉 엑스플리멘즈 참조; (3rd): <span class=\"ref-link\" data-ref=\"spells.haste\">신속</span>; (4th): <span class=\"ref-link\" data-ref=\"spells.fly\">비행</span>; (5th): 아래 드라코닉 본보기 참조; (6th): <span class=\"ref-link\" data-ref=\"spells.dragon-form\">드래곤 형태</span>(용은 당신의 드라코닉 본보기와 일치해야 함); (7th): <span class=\"ref-link\" data-ref=\"spells.mask-of-terror\">공포의 가면</span>; (8th): 아래 드라코닉 표본 참조; (9th): <span class=\"ref-link\" data-ref=\"spells.overwhelming-presence\">압도적인 위엄</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.flurry-of-claws\">발톱의 연타</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.dragon-breath\">드래곤의 숨결</span>; 중급: <span class=\"ref-link\" data-ref=\"spells.dragon-wings\">용의 날개</span></p>\n<p><strong>혈통 마법-비늘 피부</strong> 당신이나 한 대상에게 잠시 드라코닉 비늘이 자라나며, 1라운드 동안 AC에 +1 상태 보너스를 부여합니다.</p><h3>드라코닉 표본</h3><p>1레벨에 혈통에 영향을 준 드라코닉 표본과 관련된 전통을 선택한다. 이후 드라코닉 표본을 변경할 수 없다. 명시된 바와 같이, 이는 혈통의 특징과 소서러 재능 주문의 양쪽에 영향을 미칩니다.</p><ul><li><strong>아케인-전통</strong> 아케인; <strong>혈통 기술</strong> 주문학; <strong>소서러 재능</strong> 2nd: <span class=\"ref-link\" data-ref=\"spells.blazing-bolt\">불타는 화살</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.subconscious-suggestion\">잠재의식적 암시</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.quandary\">딜레마</span></li><li><strong>신성-전통</strong> 신성; <strong>혈통 기술</strong> 종교; <strong>마법적 재능</strong> (2nd): <span class=\"ref-link\" data-ref=\"spells.augury\">점술</span>; (5th) <span class=\"ref-link\" data-ref=\"spells.divine-immolation\">신성한 화형</span>; (8th) <span class=\"ref-link\" data-ref=\"spells.divine-inspiration\">신성한 영감</span></li><li><strong>오컬트-전통</strong> 오컬트; <strong>혈통 기술</strong> 오컬트; <strong>마법적 재능</strong> 2nd: <span class=\"ref-link\" data-ref=\"spells.blood-vendetta\">피의 복수</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.slither\">미끄러짐</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.unrelenting-observation\">끊임없는 관찰</span></li><li><p><strong>프라이멀-전통</strong> 프라이멀; <strong>혈통 기술</strong> 자연; <strong>마법적 재능</strong> 2nd: <span class=\"ref-link\" data-ref=\"spells.shatter\">산산조각</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.howling-blizzard\">울부짖는 눈보라</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.earthquake\">지진</span></p></li></ul>",
-   "granted_skills": [],
+   "granted_skills": [
+    "intimidation"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "flurry-of-claws",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "shield",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "fear",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "haste",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "fly",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "dragon-form",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "mask-of-terror",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "overwhelming-presence",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "grants": 8,
    "rules_n": 0
   },
   {
@@ -3321,20 +3685,60 @@
    "name_ko": "혈통: 원소",
    "name_en": "Bloodline: Elemental",
    "desc": "<p>원소의 영향이 당신의 피에 프라이멀 분노를 불어넣었습니다. 혈통에 영향을 준 원소에 따라 혈통 마법으로부터 다른 소서러적 재능 주문과 피해 유형을 부여받습니다(아래 원소적 영향 참조).</p>\n\n<p><strong>혈통 기술</strong> 협박, 자연</p>\n<p><strong>마법적 재능</strong> 캔트립: 아래 원소 영향 참조; 1레벨: 아래 원소 영향 참조; 2nd: <span class=\"ref-link\" data-ref=\"spells.resist-energy\">에너지 저항</span>; (3rd): 아래 원소 영향 참조; (4th): <span class=\"ref-link\" data-ref=\"spells.unfettered-movement\">자유로운 이동</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.elemental-form\">원소 형태</span>(원소 영향만); (6th): 아래 원소 영향 참조; (7th): <span class=\"ref-link\" data-ref=\"spells.energy-aegis\">에너지 이지스</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.earthquake\">지진</span>; (9th): <span class=\"ref-link\" data-ref=\"spells.wrathful-storm\">분노의 폭풍</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.elemental-toss\">원소 투척</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.elemental-motion\">원소의 움직임</span>; 중급: <span class=\"ref-link\" data-ref=\"spells.elemental-blast\">원소 폭발</span></p>\n<p><strong>혈마법-원소의 분노</strong> 원소의 기운이 네 몸을 감싸며 마법에 스며든다. 1라운드 동안 협박 판정에서 +2 상태 보너스를 얻거나, 대상이 주문 랭크당 1의 피해를 입는다. 이 피해 유형은 당신이 지배하는 원소 유형에 따라 결정된다. 해당 주문이 이미 해당 유형의 피해를 입히는 경우, 약점과 저항을 결정하기 전에 주문 초기 피해와 합산한다.</p><h3></h3>원소의 영향</h3><p>1레벨에 혈통에 영향을 준 원소의 유형을 선택한다: 공기, 땅, 불, 금속, 물, 나무. 이후 변경할 수 없다. 이 영향에 따라 특정 레벨에서 다른 주문을 부여받는다.</p><ul><li><strong>공기-소서러의 재능</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.gale-blast\">강풍 폭발</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.tailwind\">뒤바람</span>; 3rd: <span class=\"ref-link\" data-ref=\"spells.wall-of-wind\">바람의 벽</span>; 6레벨: <span class=\"ref-link\" data-ref=\"spells.chain-lightning\">연쇄 번개</span>; <strong>혈통 마법 피해</strong> 베기</li><li><strong>대지-소서러의 선물</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.scatter-scree\">산사태</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.pummeling-rubble\">쇄석 폭격</span>; (3rd): <span class=\"ref-link\" data-ref=\"spells.earthbind\">대지 결박</span>; (6th): <span class=\"ref-link\" data-ref=\"spells.petrify\">석화</span>; <strong>혈통 마법 피해</strong> 타격</li><li><strong>불-소서러의 선물</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.ignition\">점화</span>, 1레벨: <span class=\"ref-link\" data-ref=\"spells.breathe-fire\">불기</span>; 3rd: <span class=\"ref-link\" data-ref=\"spells.fireball\">화염구</span>; 6레벨: <span class=\"ref-link\" data-ref=\"spells.tree-of-seasons\">계절의 나무</span>(모든 꼬투리가 여름); <strong>혈통 마법 피해</strong> 불</li><li><strong>금속-소서러의 선물</strong>캔트립 <span class=\"ref-link\" data-ref=\"spells.electric-arc\">전기 아크</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.thunderstrike\">천둥의 일격</span>; 3레벨: <span class=\"ref-link\" data-ref=\"spells.lightning-bolt\">번개 화살</span>; 6레벨: <span class=\"ref-link\" data-ref=\"spells.chain-lightning\">연쇄 번개</span>; <strong>혈통 마법 피해</strong> 관통</li><li><strong>물-소서러의 선물</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.frostbite\">동상</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.hydraulic-push\">수압 밀기</span>; 3rd: <span class=\"ref-link\" data-ref=\"spells.aqueous-orb\">물 구체</span>; 6레벨: <span class=\"ref-link\" data-ref=\"spells.scintillating-safeguard\">반짝이는 보호막</span>; <strong>혈통 마법 피해</strong> 타격</li><li><strong>목재-마법적 선물</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.tangle-vine\">엉킴덩굴</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.cleanse-cuisine\">음식 정화</span>; 3rd: <span class=\"ref-link\" data-ref=\"spells.wall-of-thorns\">가시덤불 벽</span>; 6레벨: <span class=\"ref-link\" data-ref=\"spells.tangling-creepers\">얽히는 덩굴</span>; <strong>혈통 마법 피해</strong> 타격</li></ul>",
-   "granted_skills": [],
+   "granted_skills": [
+    "intimidation",
+    "nature"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "elemental-toss",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "resist-energy",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "unfettered-movement",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "elemental-form",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "energy-aegis",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "earthquake",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "wrathful-storm",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "primal",
+   "grants": 7,
    "rules_n": 0
   },
   {
@@ -3346,20 +3750,84 @@
    "name_ko": "혈통: 페이",
    "name_en": "Bloodline: Fey",
    "desc": "<p> 페이의 변덕이나 달빛 숲속의 밀회가 첫 번째 세계의 매혹적인 마법을 당신의 가문 혈통에 새겨 넣었습니다.</p>\n\n<p><strong>혈통 기술</strong> 기만, 자연</p>\n<p><strong>마법적 재능</strong> 캔트립 <span class=\"ref-link\" data-ref=\"spells.figment\">허상</span>, 1레벨: <span class=\"ref-link\" data-ref=\"spells.charm\">매혹</span>, 2nd: <span class=\"ref-link\" data-ref=\"spells.laughing-fit\">폭소 발작</span>, 3rd: <span class=\"ref-link\" data-ref=\"spells.enthrall\">매혹</span>, 4th: <span class=\"ref-link\" data-ref=\"spells.suggestion\">제안</span>, 5th: <span class=\"ref-link\" data-ref=\"spells.hallucination\">환각</span>, 6th: <span class=\"ref-link\" data-ref=\"spells.mislead\">유인 환영</span>, 7th: <span class=\"ref-link\" data-ref=\"spells.visions-of-danger\">위험의 환상</span>, 8th: <span class=\"ref-link\" data-ref=\"spells.uncontrollable-dance\">통제 불가능한 춤</span>, 9th: <span class=\"ref-link\" data-ref=\"spells.metamorphosis\">변신</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.faerie-dust\">요정 가루</span>, 중급: <span class=\"ref-link\" data-ref=\"spells.fey-disappearance\">페이 소멸</span>, 고급: <span class=\"ref-link\" data-ref=\"spells.fey-glamour\">페이 환상</span></p>\n<p><strong>혈통 마법-리본 망토</strong> 다채로운 페이 리본이 당신 주위를 춤추듯 휘감습니다. 1라운드 동안 공연 능력 판정에서 +2 상태 보너스를 얻거나, 1라운드 동안 <span class=\"ref-link\" data-ref=\"conditions.concealed\">은폐</span> 상태가 될 수 있다. 이러한 명백한 은폐 상태는 <span class=\"ref-link\" data-ref=\"actions.hide\">숨기</span></p>에 사용할 수 없다.\n",
-   "granted_skills": [],
+   "granted_skills": [
+    "deception",
+    "nature"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "faerie-dust",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "figment",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "charm",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "laughing-fit",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "enthrall",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "suggestion",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "hallucination",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "mislead",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "visions-of-danger",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "uncontrollable-dance",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "metamorphosis",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "primal",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3371,20 +3839,66 @@
    "name_ko": "혈통: 지니",
    "name_en": "Bloodline: Genie",
    "desc": "<p>혈통, 마법, 혹은 실현된 소원을 통해 고귀한 지니의 피가 당신의 혈관을 흐릅니다.</p>\n<p><strong>주문 목록</strong> 아케인</p>\n<p><strong>혈통 기술</strong> 주문학, 기만</p>\n<p><strong>부여된 주문</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.detect-magic\">마법 탐지</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.illusory-disguise\">환상 변장</span>; 2nd: 가변 (아래 지니 유형 참조); (3rd): <span class=\"ref-link\" data-ref=\"spells.enthrall\">매혹</span>; (4th): <span class=\"ref-link\" data-ref=\"spells.creation\">창조</span>; (5th): 가변 (아래 지니 유형 참조); (6th): <span class=\"ref-link\" data-ref=\"spells.truesight\">진시야</span>; (7th): <span class=\"ref-link\" data-ref=\"spells.energy-aegis\">에너지 이지스</span>; (8th): 가변 (아래 지니 유형 참조); (9th): <span class=\"ref-link\" data-ref=\"spells.resplendent-mansion\">화려한 저택</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.genies-veil\">지니의 베일</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.hearts-desire\">마음의 소망</span>; 고등: <span class=\"ref-link\" data-ref=\"spells.wish-twisted-form\">소원-뒤틀린 형태</span></p>\n<p><strong>혈통 마법</strong> 당신의 주문 시전은 현실을 왜곡하고 적의 주의를 분산시킵니다. 1라운드 동안 기만 판정에서 +1 상태 보너스를 얻거나, 대상이 1라운드 동안 지각 판정에서 -1 상태 페널티를 받습니다.</p>\n<p>1레벨에 혈통에 영향을 준 지니의 유형을 선택하세요: 자니, 진니, 이프리티, 마리드, 샤이탄 중 하나입니다. 나중에 지니 유형을 변경할 수 없습니다. 이는 (2nd), (5th), (8th) 레벨에 부여받는 부여된 주문을 결정합니다.</p>\n<ul>\n<li><strong>자니</strong> (2nd): <span class=\"ref-link\" data-ref=\"spells.create-food\">음식 생성</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.banishment\">추방</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.confusing-colors\">혼란스러운 색채</span></li>\n<li><strong>자투움</strong> (2nd): <span class=\"ref-link\" data-ref=\"spells.invisibility\">투명화</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.illusory-scene\">환상 장면</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.punishing-winds\">벌하는 바람</span></li>\n<li><strong>이프리트</strong> (2nd): <span class=\"ref-link\" data-ref=\"spells.enlarge\">확대</span>; 5레벨: <span class=\"ref-link\" data-ref=\"spells.elemental-form\">원소 형태</span>(불 속성 전용); 8th: <span class=\"ref-link\" data-ref=\"spells.quandary\">딜레마</span></li>\n<li><strong>페이단</strong> 2레벨: <span class=\"ref-link\" data-ref=\"spells.water-walk\">물 위 걷기</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.control-water\">물 제어</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.desiccate\">건조화</span></li>\n<li><strong>자발리</strong> 2nd: <span class=\"ref-link\" data-ref=\"spells.revealing-light\">드러내는 빛</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.wall-of-stone\">돌벽</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.earthquake\">지진</span></li>\n</ul>",
-   "granted_skills": [],
+   "granted_skills": [
+    "arcana",
+    "deception"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "genies-veil",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "detect-magic",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "illusory-disguise",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "enthrall",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "creation",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "truesight",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "energy-aegis",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "resplendent-mansion",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "arcane",
+   "grants": 8,
    "rules_n": 0
   },
   {
@@ -3396,20 +3910,84 @@
    "name_ko": "혈통: 마녀",
    "name_en": "Bloodline: Hag",
    "desc": "<p>오래전 한 마녀가 당신의 가문에 저주를 내렸거나, 당신은 마녀나 체인질링의 후예이며, 그들의 마법이 당신의 피와 영혼에 스며들었습니다.</p>\n\n<p><strong>혈통 기술</strong> 기만, 오컬트주의</p>\n<p><strong>마법적 재능</strong> 캔트립 <span class=\"ref-link\" data-ref=\"spells.daze\">정신 혼란</span>, 1레벨: <span class=\"ref-link\" data-ref=\"spells.illusory-disguise\">환상 변장</span>, 2nd: <span class=\"ref-link\" data-ref=\"spells.stupefy\">혼미</span>, 3rd: <span class=\"ref-link\" data-ref=\"spells.blindness\">실명</span>, 4th: <span class=\"ref-link\" data-ref=\"spells.outcasts-curse\">추방자의 저주</span>, 5th: <span class=\"ref-link\" data-ref=\"spells.mariners-curse\">항해자의 저주</span>, 6th: <span class=\"ref-link\" data-ref=\"spells.cursed-metamorphosis\">저주받은 변형</span>, (7th): <span class=\"ref-link\" data-ref=\"spells.warp-mind\">정신 왜곡</span>, (8th): <span class=\"ref-link\" data-ref=\"spells.quandary\">딜레마</span>, (9th): <span class=\"ref-link\" data-ref=\"spells.phantasmagoria\">환상극</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.jealous-hex\">질투의 저주</span>, 고급: <span class=\"ref-link\" data-ref=\"spells.horrific-visage\">끔찍한 얼굴</span>, 중급: <span class=\"ref-link\" data-ref=\"spells.youre-mine\">너는 내 거야</span></p>\n<p><strong>혈통 마법-보복의 악의</strong> 악의와 증오가 주변에 물리적 형태로 나타난다. 다음 턴이 끝나기 전에 당신에게 피해를 입힌 첫 번째 생물에게 주문 랭크당 4의 정신 피해를 입힌다(기본 의지 내성). 해당 시간 내에 피해를 입히지 않은 생물이 있다면, 그 원한을 흡수하여 다음 턴 시작 시 주문 랭크과 동일한 임시 HP를 얻는다. 이 임시 HP는 다음 턴 시작까지 지속된다.</p>",
-   "granted_skills": [],
+   "granted_skills": [
+    "deception",
+    "occultism"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "jealous-hex",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "daze",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "illusory-disguise",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "stupefy",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "blindness",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "outcasts-curse",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "mariners-curse",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "cursed-metamorphosis",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "warp-mind",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "quandary",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "phantasmagoria",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "occult",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3421,20 +3999,84 @@
    "name_ko": "혈통: 해로우",
    "name_en": "Bloodline: Harrow",
    "desc": "<p><strong>주문 목록</strong> 오컬트</p>\n<p><strong>혈통 기술</strong> 오컬트, 공연</p>\n<p><strong>부여된 주문</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.detect-magic\">마법 탐지</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.ill-omen\">불길한 징조</span>, 2nd: <span class=\"ref-link\" data-ref=\"spells.augury\">점술</span>; (3rd): <span class=\"ref-link\" data-ref=\"spells.wanderers-guide\">방랑자의 안내서</span>; (4th): <span class=\"ref-link\" data-ref=\"spells.suggestion\">제안</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.shadow-siphon\">그림자 흡수</span>; (6th): <span class=\"ref-link\" data-ref=\"spells.truesight\">진시야</span>; (7th): <span class=\"ref-link\" data-ref=\"spells.retrocognition\">과거 인식</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.unrelenting-observation\">끊임없는 관찰</span>; (9th): <span class=\"ref-link\" data-ref=\"spells.weird\">기이함</span></p>\n<p><strong>혈통의 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.unraveling-blast\">잠재력 폭발 해제</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.invoke-the-harrow\">해로우 카드</span>; 중급: <span class=\"ref-link\" data-ref=\"spells.rewrite-possibility\">재작성 가능성</span></p>\n<p><strong>혈통 마법</strong> 당신은 가능성에 둘러싸이게 되며, 이는 가능한 미래의 여러 버전의 자신이 서로 겹쳐진 형태로 나타납니다. 1라운드 동안 <span class=\"ref-link\" data-ref=\"conditions.concealed\">은폐</span>를 얻지만, 이 은폐를 이용해 <span class=\"ref-link\" data-ref=\"actions.hide\">숨기</span>를 사용할 수 없다.</p>",
-   "granted_skills": [],
+   "granted_skills": [
+    "occultism",
+    "performance"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "unraveling-blast",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "detect-magic",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "ill-omen",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "augury",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "wanderers-guide",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "suggestion",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "shadow-siphon",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "truesight",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "retrocognition",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "unrelenting-observation",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "weird",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "occult",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3446,20 +4088,84 @@
    "name_ko": "혈통: 제국",
    "name_en": "Bloodline: Imperial",
    "desc": "<p>당신의 조상 중 한 명은 마법을 마스터한 필멸자였습니다.</p>\n\n<p><strong>혈통 기술</strong> 주문학, 사회</p>\n<p><strong>마법적 재능</strong> 캔트립 <span class=\"ref-link\" data-ref=\"spells.detect-magic\">마법 탐지</span>, 1레벨: <span class=\"ref-link\" data-ref=\"spells.force-barrage\">포스 포격</span>, 2nd: <span class=\"ref-link\" data-ref=\"spells.dispel-magic\">마법 해제</span>, 3레벨: <span class=\"ref-link\" data-ref=\"spells.haste\">신속</span>, 4th: <span class=\"ref-link\" data-ref=\"spells.translocate\">점멸</span>, 5th: <span class=\"ref-link\" data-ref=\"spells.scouting-eye\">정찰의 눈</span>, 6th: <span class=\"ref-link\" data-ref=\"spells.disintegrate\">분해</span>, (7th): <span class=\"ref-link\" data-ref=\"spells.retrocognition\">과거 인식</span>, (8th): <span class=\"ref-link\" data-ref=\"spells.quandary\">딜레마</span>, (9th): <span class=\"ref-link\" data-ref=\"spells.implosion\">내파</span></p>\n<p><strong>혈통 마법</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.ancestral-memories\">선조의 기억</span>, 중급: <span class=\"ref-link\" data-ref=\"spells.extend-blood-magic\">혈마법 연장</span>, 고급: <span class=\"ref-link\" data-ref=\"spells.arcane-countermeasure\">아케인 대응</span></p>\n<p><strong>혈통 마법-위엄의 방어</strong> 몸속 모든 세포에서 원시 마법이 발산되어 당신을 보호합니다. 다음 턴 시작 전까지, AC에 +1 상태 보너스 또는 내성 굴림에 +1 상태 보너스 중 하나를 선택하여 얻습니다.</p>\n",
-   "granted_skills": [],
+   "granted_skills": [
+    "arcana",
+    "society"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "ancestral-memories",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "detect-magic",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "force-barrage",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "dispel-magic",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "haste",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "translocate",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "scouting-eye",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "disintegrate",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "retrocognition",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "quandary",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "implosion",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "arcane",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3471,20 +4177,84 @@
    "name_ko": "혈통: 님프",
    "name_en": "Bloodline: Nymph",
    "desc": "<p>당신의 조상 중 한 명이 님프에게 영감을 받았거나, 혹은 그 자체가 님프였으며, 이제 자연의 아름다움이 당신 안에 살아 숨쉬고 있습니다.</p>\n<p><strong>주문 목록</strong> 프라이멀</p>\n<p><strong>혈통 기술</strong> 외교, 자연</p>\n<p><strong>부여된 주문</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.tangle-vine\">엉킴덩굴</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.charm\">매혹</span>; 2nd: <span class=\"ref-link\" data-ref=\"spells.calm\">진정</span>; (3rd): <span class=\"ref-link\" data-ref=\"spells.animal-vision\">동물 시야</span>; (4th): <span class=\"ref-link\" data-ref=\"spells.vital-beacon\">생명 신호</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.wave-of-despair\">절망의 파도</span>; (6th): <span class=\"ref-link\" data-ref=\"spells.repulsion\">반발</span>; (7th): <span class=\"ref-link\" data-ref=\"spells.unfettered-pack\">속박 없는 무리</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.moment-of-renewal\">재생의 순간</span>; (9th): <span class=\"ref-link\" data-ref=\"spells.overwhelming-presence\">압도적인 위엄</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.nymphs-token\">요정의 증표</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.blinding-beauty\">눈부신 아름다움</span>; 중급: <span class=\"ref-link\" data-ref=\"spells.establish-ward\">수호부 구축</span></p>\n<p><strong>혈통 마법</strong> 요정의 우아함이 당신의 움직임을 강조하고 적을 혼란스럽게 하여, 1라운드 동안 외교 판정에서 +1 상태 보너스를 부여하거나, 1라운드 동안 한 대상의 의지 내성에 -1 상태 페널티를 부과합니다.</p>\n",
-   "granted_skills": [],
+   "granted_skills": [
+    "diplomacy",
+    "nature"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "nymphs-token",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "tangle-vine",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "charm",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "calm",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "animal-vision",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "vital-beacon",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "wave-of-despair",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "repulsion",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "unfettered-pack",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "moment-of-renewal",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "overwhelming-presence",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "primal",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3496,20 +4266,84 @@
    "name_ko": "혈통: 불사조",
    "name_en": "Bloodline: Phoenix",
    "desc": "<p>당신은 불사조의 축복을 받았습니다. 아마도 비슷한 축복을 받은 개인과의 마법적 상호작용을 통해 이루어졌을 것입니다. 루비 불사조의 주먹 모험 경로를 완료한 플레이어에게 이 새로운 소서러 혈통을 부여하십시오. 플레이어는 이후 캠페인에서 생성하는 모든 새로운 소서러 캐릭터에 이 혈통을 선택할 수 있습니다.</p>\n<p><strong>주문 목록</strong> 프라이멀</p>\n<p><strong>혈통 기술</strong> 외교, 자연</p>\n<p><strong>부여된 주문</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.detect-magic\">마법 탐지</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.breathe-fire\">불기</span>; (2nd): <span class=\"ref-link\" data-ref=\"spells.see-the-unseen\">보이지 않는 것 보기</span>; (3rd): <span class=\"ref-link\" data-ref=\"spells.fireball\">화염구</span>; (4th): <span class=\"ref-link\" data-ref=\"spells.cleanse-affliction\">질병 정화</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.breath-of-life\">생명의 숨결</span>; (6th): <span class=\"ref-link\" data-ref=\"spells.disintegrate\">분해</span>; (7th): <span class=\"ref-link\" data-ref=\"spells.contingency\">컨틴전시</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.moment-of-renewal\">재생의 순간</span>; (9th): <span class=\"ref-link\" data-ref=\"spells.falling-stars\">유성</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.rejuvenating-flames\">재생 불꽃</span>; 중급: <span class=\"ref-link\" data-ref=\"spells.shroud-of-flame\">불꽃의 장막</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.cleansing-flames\">정화의 불꽃</span></p>\n<p><strong>혈통 마법</strong> 생명과 죽음의 프라이멀한 불꽃이 당신 또는 하나의 대상에게 흐릅니다. 당신이나 대상 중 하나가 1라운드 동안 주문 랭크에 해당하는 임시 HP를 얻거나, 대상이 주문 랭크에 해당하는 화염 피해를 입도록 선택합니다(주문이 이미 초기 화염 피해를 입히는 경우, 약점과 저항을 결정하기 전에 이 피해를 주문의 초기 피해와 합산합니다).</p>",
-   "granted_skills": [],
+   "granted_skills": [
+    "diplomacy",
+    "nature"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "rejuvenating-flames",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "detect-magic",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "breathe-fire",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "see-the-unseen",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "fireball",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "cleanse-affliction",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "breath-of-life",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "disintegrate",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "contingency",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "moment-of-renewal",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "falling-stars",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "primal",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3521,20 +4355,84 @@
    "name_ko": "혈통: 사이코폼프",
    "name_en": "Bloodline: Psychopomp",
    "desc": "<p>선악을 막론하고, 당신의 선조들의 행적이 사이코폼프의 관심을 끌었거나, 어쩌면 당신의 가계도에 그들 중 한 명이 포함되어 있을 수도 있습니다. 이 영혼의 목자이자 불사의 적들의 존재는 당신에게 지울 수 없는 흔적을 남겼습니다.</p>\n<p><strong>주문 목록</strong> 신성</p>\n<p><strong>혈통 기술</strong> 협박, 종교</p>\n<p><strong>부여된 주문</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.vitality-lash\">활력 채찍</span>; 1레벨:<span class=\"ref-link\" data-ref=\"spells.heal\">치유</span>; (2nd): <span class=\"ref-link\" data-ref=\"spells.calm\">진정</span>; (3rd): <span class=\"ref-link\" data-ref=\"spells.holy-light\">신성한 빛</span>; (4th): <span class=\"ref-link\" data-ref=\"spells.planar-tether\">평면 구속</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.death-ward\">죽음의 수호부</span>; 6단계: <span class=\"ref-link\" data-ref=\"spells.spirit-blast\">영혼 폭발</span>; 7단계: <span class=\"ref-link\" data-ref=\"spells.execute\">처형</span>; 8단계: <span class=\"ref-link\" data-ref=\"spells.spirit-song\">영혼의 노래</span>; 9단계: <span class=\"ref-link\" data-ref=\"spells.massacre\">학살</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.sepulchral-mask\">무덤의 가면</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.spirit-veil\">영혼의 베일</span>; 중급: <span class=\"ref-link\" data-ref=\"spells.shepherd-of-souls\">영혼의 목자</span></p>\n<p><strong>혈통 마법</strong> 생과 사의 경계가 흐려집니다. 1라운드 동안 인내 내성에 +2 상태 보너스를 얻거나, 대상이 주문 랭크당 1의 피해를 입는다. 대상이 생물일 경우 피해는 무효화되며, 언데드일 경우 활력 피해로 처리된다. 해당 유형의 피해를 이미 입히는 주문인 경우, 약점과 저항을 판단하기 전에 주문의 초기 피해와 합산한다.</p>\n",
-   "granted_skills": [],
+   "granted_skills": [
+    "intimidation",
+    "religion"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "sepulchral-mask",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "vitality-lash",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "heal",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "calm",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "holy-light",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "planar-tether",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "death-ward",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "spirit-blast",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "execute",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "spirit-song",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "massacre",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "divine",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3546,20 +4444,84 @@
    "name_ko": "혈통: 그림자",
    "name_en": "Bloodline: Shadow",
    "desc": "<p>벨스트렉들의 조작이든, 끔찍하게 잘못된 차원 이동이든, 당신의 혈통에는 그림자의 기운이 스며들었습니다.</p>\n<p><strong>주문 목록</strong> 오컬트</p>\n<p><strong>혈통 기술</strong> 오컬트, 은신</p>\n<p><strong>부여된 주문</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.void-warp\">공허 왜곡</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.grim-tendrils\">암흑의 촉수</span>; (2nd): <span class=\"ref-link\" data-ref=\"spells.darkness\">암흑</span>; (3rd): <span class=\"ref-link\" data-ref=\"spells.chilling-darkness\">차가운 어둠</span>; (4th): <span class=\"ref-link\" data-ref=\"spells.phantasmal-killer\">환상 살인자</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.shadow-siphon\">그림자 흡수</span>; (6th): <span class=\"ref-link\" data-ref=\"spells.collective-transposition\">집단 변위</span>; 7단계: <span class=\"ref-link\" data-ref=\"spells.duplicate-foe\">적 복제</span>; 8단계: <span class=\"ref-link\" data-ref=\"spells.disappearance\">소멸</span>; 9단계: <span class=\"ref-link\" data-ref=\"spells.weird\">기이함</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.dim-the-light\">빛을 어둡게 하다</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.steal-shadow\">그림자 훔치기</span>; 중급: <span class=\"ref-link\" data-ref=\"spells.consuming-darkness\">삼켜지는 어둠</span></p>\n<p><strong>혈통 마법</strong> 주변 또는 한 대상의 그림자가 짙어져, 1라운드 동안 은신 능력에 +1 상태 보너스를 부여하거나 지각 능력에 -1 상태 페널티를 부과합니다.</p>\n",
-   "granted_skills": [],
+   "granted_skills": [
+    "occultism",
+    "stealth"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "dim-the-light",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "void-warp",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "grim-tendrils",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "darkness",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "chilling-darkness",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "phantasmal-killer",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "shadow-siphon",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "collective-transposition",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "duplicate-foe",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "disappearance",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "weird",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "occult",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3571,20 +4533,84 @@
    "name_ko": "혈통: 언데드",
    "name_en": "Bloodline: Undead",
    "desc": "<p>불사의 기운이 네 피 속에 흐른다. 네 가계도에는 뱀파이어 같은 강력한 언데드가 있을지도 모른다.</p>\n\n<p><strong>혈통 기술</strong> 협박, 종교</p>\n<p><strong>마법적 재능</strong> 캔트립 <span class=\"ref-link\" data-ref=\"spells.void-warp\">공허 왜곡</span>, 1레벨: <span class=\"ref-link\" data-ref=\"spells.harm\">해악</span>, 2nd: <span class=\"ref-link\" data-ref=\"spells.see-the-unseen\">보이지 않는 것 보기</span>, 3레벨: <span class=\"ref-link\" data-ref=\"spells.bind-undead\">언데드 구속</span>, 4레벨: <span class=\"ref-link\" data-ref=\"spells.talking-corpse\">말하는 시체</span>, 5th: <span class=\"ref-link\" data-ref=\"spells.invoke-spirits\">영혼 소환</span>, 6th: <span class=\"ref-link\" data-ref=\"spells.vampiric-exsanguination\">뱀파이어의 흡혈</span>, 7th: <span class=\"ref-link\" data-ref=\"spells.execute\">처형</span>, 8th: <span class=\"ref-link\" data-ref=\"spells.canticle-of-everlasting-grief\">영원한 슬픔의 찬가</span>, 9th: <span class=\"ref-link\" data-ref=\"spells.wails-of-the-damned\">저주받은 자들의 통곡</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.undeaths-blessing\">언데드의 축복</span>, 중급: <span class=\"ref-link\" data-ref=\"spells.drain-life\">흡수</span>, 고급: <span class=\"ref-link\" data-ref=\"spells.grasping-grave\">움켜잡는 무덤</span></p>\n<p><strong>혈통 마법-도둑맞은 생명</strong> 당신은 피 속에 흐르는 네크로맨틱 에너지를 집중시킬 수 있습니다. 다음 중 하나를 선택한다: 주문 랭크만큼의 임시 HP를 얻어 다음 턴 시작까지 유지하거나, 대상이 주문 랭크당 1의 공허 피해를 입는다(해당 주문이 이미 초기 공허 피해를 입히는 경우, 이 피해를 주문 초기 피해와 합산한 후 약점과 저항을 적용한다).</p>",
-   "granted_skills": [],
+   "granted_skills": [
+    "intimidation",
+    "religion"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "undeaths-blessing",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "void-warp",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "harm",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "see-the-unseen",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "bind-undead",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "talking-corpse",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "invoke-spirits",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "vampiric-exsanguination",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "execute",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "canticle-of-everlasting-grief",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "wails-of-the-damned",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "divine",
+   "grants": 11,
    "rules_n": 0
   },
   {
@@ -3596,20 +4622,84 @@
    "name_ko": "혈통: 용의 축복",
    "name_en": "Bloodline: Wyrmblessed",
    "desc": "<p>당신은 용의 위력을 주장하지만, 당신의 힘은 신성하며 아케인이 아니라 드라코닉의 위력에 대한 숭배가 너무나 강력하여 당신의 피에 스며들었거나, 혹은 당신의 조상 중 한 명이 받은 천상체 힘이나 드라코닉 힘의 축복에서 비롯된 것입니다.</p>\n<p><strong>주문 목록</strong> 신성</p>\n<p><strong>혈통 기술</strong> 협박, 종교</p>\n<p><strong>부여된 주문</strong> 캔트립: <span class=\"ref-link\" data-ref=\"spells.read-aura\">오라 읽기</span>; 1레벨: <span class=\"ref-link\" data-ref=\"spells.mystic-armor\">신비한 갑옷</span>; (2nd): <span class=\"ref-link\" data-ref=\"spells.resist-energy\">에너지 저항</span>; (3rd): <span class=\"ref-link\" data-ref=\"spells.haste\">신속</span>; (4th): <span class=\"ref-link\" data-ref=\"spells.reflective-scales\">반사 비늘</span>; (5th): <span class=\"ref-link\" data-ref=\"spells.cloak-of-colors\">색채의 망토</span>; (6th): <span class=\"ref-link\" data-ref=\"spells.repulsion\">반발</span>; (7th): <span class=\"ref-link\" data-ref=\"spells.mask-of-terror\">공포의 가면</span>; (8th): <span class=\"ref-link\" data-ref=\"spells.divine-inspiration\">신성한 영감</span>, (9th): <span class=\"ref-link\" data-ref=\"spells.overwhelming-presence\">압도적인 위엄</span></p>\n<p><strong>혈통 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.flurry-of-claws\">발톱의 연타</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.dragon-breath\">드래곤의 숨결</span>; 중급: <span class=\"ref-link\" data-ref=\"spells.dragon-wings\">용의 날개</span></p>\n<p><strong>혈통 마법</strong> 드라코닉 위엄이 네 목소리에 실린다. 당신은 1라운드 동안 협박 판정에서 +1 상태 보너스를 얻거나, 대상은 1라운드 동안 의지 내성에 -1 상태 페널티를 받는다.</p>\n<h2 class=\"title\">용의 유형</h2>\n<p>1레벨에 혈통에 영향을 준 드래곤의 종류를 선택하십시오. 이후 드래곤 종류를 변경할 수 없습니다. 이 선택은 혈통 마법의 일부 기능에 영향을 미칩니다. 선한 메탈 드래곤과 그 피해 유형은 황동(불), 청동(전기), 구리(산), 금(불), 은(냉기)입니다.</p>\n<p>악의적인 크로마틱 용과 그들의 피해 유형은 검정(산성), 파랑(전기), 초록(독), 빨강(불), 흰색(냉기)이다.</p>\n<p>평면 기원의 프라이멀 용과 그들의 피해 유형은 염수(산성), 구름(전기), 수정(관통), 마그마(불), 움브랄(부정)이다.</p>\n<p>제국 용과 그 피해 유형은 숲(관통), 바다(타격), 하늘(전기), 군주(정신), 지하세계(불)이다.</p>\n<p>드래곤의 숨결 포커스 주문에 대한 범위는 브린 드래곤의 경우 60피트, 구름용·수정용·숲용·마그마용·지배용·움브랄 드래곤의 경우 30피트, 바다용·하늘용·지하세계용의 경우 30피트 내 10피트이다.</p>\n<h2 class=\"title\">관련 혈통</h2>\n<p>와름블레싱과 드라코닉 혈통은 기원이 유사하므로, 전제 조건 및 접근 요건 측면에서 서로 동일하게 간주됩니다.</p>",
-   "granted_skills": [],
+   "granted_skills": [
+    "intimidation",
+    "religion"
+   ],
    "granted_feats": [],
    "granted_spells": [
     {
      "spell_id": "flurry-of-claws",
      "lv": 1,
      "type": "focus"
+    },
+    {
+     "spell_id": "read-aura",
+     "lv": 1,
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "spell_id": "mystic-armor",
+     "lv": 1,
+     "type": "known",
+     "rank": 1
+    },
+    {
+     "spell_id": "resist-energy",
+     "lv": 3,
+     "type": "known",
+     "rank": 2
+    },
+    {
+     "spell_id": "haste",
+     "lv": 5,
+     "type": "known",
+     "rank": 3
+    },
+    {
+     "spell_id": "reflective-scales",
+     "lv": 7,
+     "type": "known",
+     "rank": 4
+    },
+    {
+     "spell_id": "cloak-of-colors",
+     "lv": 9,
+     "type": "known",
+     "rank": 5
+    },
+    {
+     "spell_id": "repulsion",
+     "lv": 11,
+     "type": "known",
+     "rank": 6
+    },
+    {
+     "spell_id": "mask-of-terror",
+     "lv": 13,
+     "type": "known",
+     "rank": 7
+    },
+    {
+     "spell_id": "divine-inspiration",
+     "lv": 15,
+     "type": "known",
+     "rank": 8
+    },
+    {
+     "spell_id": "overwhelming-presence",
+     "lv": 17,
+     "type": "known",
+     "rank": 9
     }
    ],
    "granted_actions": [],
    "features": [],
    "prof_changes": {},
    "sanctification": [],
-   "grants": 1,
+   "tradition": "divine",
+   "grants": 11,
    "rules_n": 0
   },
   {

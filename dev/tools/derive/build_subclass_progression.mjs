@@ -84,7 +84,7 @@ function subclassLevelGrants(sc) {
   for (const f of (sc.granted_feats || [])) addFeat(f, 1);
   for (const sk of (sc.granted_skills || [])) addSkill(sk, 1);
   for (const a of (sc.granted_actions || [])) addAction(a, 1);
-  for (const sp of (sc.granted_spells || [])) addSpell(sp.spell_id, sp.type === 'known' ? 'known' : (sp.type === 'innate' ? 'innate' : 'focus'), sp.rank, sp.lv);
+  for (const sp of (sc.granted_spells || [])) addSpell(sp.spell_id, (['known','innate','cantrip'].includes(sp.type) ? sp.type : 'focus'), sp.rank, sp.lv);
   const has = Object.keys(feats).length || Object.keys(skills).length || Object.keys(spells).length || Object.keys(actions).length;
   return has ? { feats, skills, spells, actions } : null;
 }

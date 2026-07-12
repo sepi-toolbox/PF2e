@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.197').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.198').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2588,7 +2588,7 @@ function _refreshLearnSpellsList() {
   const q = (document.getElementById('modal-search')?.value || '').toLowerCase();
   let classTrad = state.selectedClass?.tradition || '';
   if (classTrad === 'any' && state.selectedSubclass) {
-    classTrad = state.selectedSubclass.tradition || classTrad;
+    classTrad = (typeof _subclassTradition === 'function' ? _subclassTradition() : state.selectedSubclass.tradition) || classTrad;
   }
 
   const _deitySet = (typeof deitySpellSlugSet === 'function') ? deitySpellSlugSet() : new Set();  // 신격 주문=전통 무관 편입
