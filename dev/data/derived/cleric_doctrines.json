@@ -77,6 +77,20 @@
    "granted_spells": [],
    "features": [
     {
+     "lv": 1,
+     "name_ko": "군용 무기/평갑 훈련",
+     "name_en": "Martial & Medium Armor",
+     "desc": "전쟁사제 교리를 따르는 클레릭으로서 전투 훈련을 받습니다. 군용 무기에 훈련되며, 평갑(중갑)에 훈련됩니다. 인내 내성 숙련도가 전문가로 증가합니다.",
+     "slug": "warpriest-martial-armor-training"
+    },
+    {
+     "lv": 3,
+     "name_ko": "반사 전문가",
+     "name_en": "Expert Reflex",
+     "desc": "전투 경험을 통해 반사신경이 향상됩니다. 반사 내성 숙련도가 전문가로 증가합니다.",
+     "slug": "warpriest-expert-reflex"
+    },
+    {
      "lv": 7,
      "name_ko": "전문가 주문시전자",
      "name_en": "Expert Spellcaster",

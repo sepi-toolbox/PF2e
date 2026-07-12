@@ -65,8 +65,42 @@ for (const bl of bloodlines) {
   });
 }
 
+// 서브클래스 features[](표시 로스터) 중 우리 레지스트리(feats/spells/classfeatures)로 해소 안 되는 slug =
+//   FVTT에 개별 아이템이 없는 파생 특성 → 그 features[] 항목 자체(name/desc/lv)로 클래스특성 엔티티 신설(혈통 마법과 동일 원칙).
+//   현재 대상: 후원자의 선물 6종(전통·주술별, patrons-gift-<후원자>) + 순수 숙련 특성 3종(전사 뮤즈·전쟁사제 교리).
+//   소스 = 큐레이션 파일(subclasses_curated.json/cleric_doctrines.json)의 features[] — build_subclasses/doctrine 이전 원본.
+const spells = asArray(load('data/store/spells.json'));
+const realReg = new Set([
+  ...feats.map(f => f.system.slug),
+  ...spells.map(s => s.system.slug),
+  ...cfeatures.map(r => r.slug),   // 실제 classfeature + 위에서 신설한 혈통 마법
+]);
+const curatedSubs = load('data/derived/subclasses_curated.json').rows;
+const doctrineRaw = load('data/derived/cleric_doctrines.json');
+const doctrineSubs = doctrineRaw.rows || doctrineRaw;
+const seenSyn = new Set();
+const synthLog = [];
+for (const sub of [...curatedSubs, ...doctrineSubs]) {
+  const cls = sub.class_id || sub.class || '';
+  for (const f of (sub.features || [])) {
+    const sl = f.slug;
+    if (!sl || realReg.has(sl) || seenSyn.has(sl)) continue;
+    seenSyn.add(sl); realReg.add(sl);
+    cfeatures.push({
+      slug: sl, class: cls,
+      name_en: f.name_en || f.name_ko || sl,
+      name_ko: f.name_ko || f.name_en || sl,
+      level: f.lv ?? '',
+      desc: f.desc ? (/^\s*</.test(f.desc) ? f.desc : `<p>${f.desc}</p>`) : '',
+      is_subclass: '', subclass_type: '', tag: cls ? `${cls}-subclass-feature` : '', grants: 0, rules_n: 0,
+    });
+    synthLog.push(sl);
+  }
+}
+if (synthLog.length) console.log(`  ↳ 서브클래스 파생특성 엔티티 신설 ${synthLog.length}: ${synthLog.join(', ')}`);
+
 cfeatures.sort((a, b) => (a.class || '~').localeCompare(b.class || '~') || (a.level || 0) - (b.level || 0) || a.slug.localeCompare(b.slug));
 
-const note1 = 'store feats(category=classfeature) + 혈통 마법 18종 신설(bloodlines.json 파생). class=traits, level=클래스 부여레벨, desc=_desc_ko(재번역), 서브클래스=otherTags 태그(표시용)';
+const note1 = 'store feats(category=classfeature) + 혈통 마법 18종(bloodlines.json 파생) + 서브클래스 파생특성(후원자의 선물·순수 숙련 등, 레지스트리 미해소 features[] slug를 큐레이션 원본으로 신설). class=traits, level=클래스 부여레벨, desc=_desc_ko(재번역), 서브클래스=otherTags 태그(표시용)';
 fs.writeFileSync(path.join(DEV, 'data/derived/class_features.json'), JSON.stringify({ rows: cfeatures, note: note1 }, null, 1) + '\n');
 console.log(`✔ class_features.json — 클래스특성 ${cfeatures.length} (desc 포함)`);

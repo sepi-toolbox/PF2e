@@ -480,14 +480,22 @@
      "rank": 1
     }
    ],
-   "features": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "군용 무기 훈련",
+     "name_en": "Martial Weapon Training",
+     "desc": "전사 뮤즈의 영감으로 군용 무기에 훈련됩니다. 군용 무기 숙련도가 훈련으로 증가합니다.",
+     "slug": "warrior-martial-weapon-training"
+    }
+   ],
    "prof_changes": {
     "weapon-martial": {
      "1": 2
     }
    },
    "grants": 2,
-   "rules_n": 0
+   "rules_n": 1
   },
   {
    "slug": "desecration",
@@ -783,6 +791,20 @@
    "granted_spells": [],
    "features": [
     {
+     "lv": 1,
+     "name_ko": "군용 무기/평갑 훈련",
+     "name_en": "Martial & Medium Armor",
+     "desc": "전쟁사제 교리를 따르는 클레릭으로서 전투 훈련을 받습니다. 군용 무기에 훈련되며, 평갑(중갑)에 훈련됩니다. 인내 내성 숙련도가 전문가로 증가합니다.",
+     "slug": "warpriest-martial-armor-training"
+    },
+    {
+     "lv": 3,
+     "name_ko": "반사 전문가",
+     "name_en": "Expert Reflex",
+     "desc": "전투 경험을 통해 반사신경이 향상됩니다. 반사 내성 숙련도가 전문가로 증가합니다.",
+     "slug": "warpriest-expert-reflex"
+    },
+    {
      "lv": 7,
      "name_ko": "전문가 주문시전자",
      "name_en": "Expert Spellcaster",
@@ -840,7 +862,7 @@
     }
    },
    "grants": 0,
-   "rules_n": 2
+   "rules_n": 4
   },
   {
    "slug": "order-animal",
@@ -5437,10 +5459,10 @@
    "features": [
     {
      "lv": 1,
-     "name_ko": "오컬트 전통 / 주술: 사악한 눈",
-     "name_en": "Curse",
+     "name_ko": "후원자의 선물: 저주",
+     "name_en": "Patron’s Gift: Curse",
      "desc": "저주 후원자가 오컬트 전통의 주문시전 능력을 부여합니다. 사악한 눈 주술 집중 주문을 습득합니다.",
-     "slug": "patrons-gift"
+     "slug": "patrons-gift-curse"
     }
    ],
    "prof_changes": {},
@@ -5469,10 +5491,10 @@
    "features": [
     {
      "lv": 1,
-     "name_ko": "오컬트 전통 / 주술: 운명 조정",
-     "name_en": "Fate",
+     "name_ko": "후원자의 선물: 운명",
+     "name_en": "Patron’s Gift: Fate",
      "desc": "운명 후원자가 오컬트 전통의 주문시전 능력을 부여합니다. 운명 조정 주술 집중 주문을 습득합니다.",
-     "slug": "patrons-gift"
+     "slug": "patrons-gift-fate"
     }
    ],
    "prof_changes": {},
@@ -5501,10 +5523,10 @@
    "features": [
     {
      "lv": 1,
-     "name_ko": "신성 전통 / 주술: 심장 격려",
-     "name_en": "Fervor",
+     "name_ko": "후원자의 선물: 열정",
+     "name_en": "Patron’s Gift: Fervor",
      "desc": "열정 후원자가 신성 전통의 주문시전 능력을 부여합니다. 심장 격려 주술 집중 주문을 습득합니다.",
-     "slug": "patrons-gift"
+     "slug": "patrons-gift-fervor"
     }
    ],
    "prof_changes": {},
@@ -5533,10 +5555,10 @@
    "features": [
     {
      "lv": 1,
-     "name_ko": "오컬트 전통 / 주술: 밤의 장막",
-     "name_en": "Night",
+     "name_ko": "후원자의 선물: 밤",
+     "name_en": "Patron’s Gift: Night",
      "desc": "밤 후원자가 오컬트 전통의 주문시전 능력을 부여합니다. 밤의 장막 주술 집중 주문을 습득합니다.",
-     "slug": "patrons-gift"
+     "slug": "patrons-gift-night"
     }
    ],
    "prof_changes": {},
@@ -5565,10 +5587,10 @@
    "features": [
     {
      "lv": 1,
-     "name_ko": "비전 전통 / 주술: 비밀 간파",
-     "name_en": "Rune",
+     "name_ko": "후원자의 선물: 룬",
+     "name_en": "Patron’s Gift: Rune",
      "desc": "룬 후원자가 비전 전통의 주문시전 능력을 부여합니다. 비밀 간파 주술 집중 주문을 습득합니다.",
-     "slug": "patrons-gift"
+     "slug": "patrons-gift-rune"
     }
    ],
    "prof_changes": {},
@@ -5597,10 +5619,10 @@
    "features": [
     {
      "lv": 1,
-     "name_ko": "원시 전통 / 주술: 야생의 말",
-     "name_en": "Wild",
+     "name_ko": "후원자의 선물: 야생",
+     "name_en": "Patron’s Gift: Wild",
      "desc": "야생 후원자가 원시 전통의 주문시전 능력을 부여합니다. 야생의 말 주술 집중 주문을 습득합니다.",
-     "slug": "patrons-gift"
+     "slug": "patrons-gift-wild"
     }
    ],
    "prof_changes": {},

@@ -11055,7 +11055,8 @@
    "name_ko": "전사",
    "level": 1,
    "features": [
-    "warrior"
+    "warrior",
+    "warrior-martial-weapon-training"
    ],
    "grant_feats": [
     "martial-performance"
@@ -17358,7 +17359,8 @@
    "level": 1,
    "features": [
     "first-doctrine-warpriest",
-    "warpriest"
+    "warpriest",
+    "warpriest-martial-armor-training"
    ],
    "grant_feats": [],
    "grant_skills": [],
@@ -17412,7 +17414,8 @@
    "name_ko": "전투 사제",
    "level": 3,
    "features": [
-    "second-doctrine-warpriest"
+    "second-doctrine-warpriest",
+    "warpriest-expert-reflex"
    ],
    "grant_feats": [],
    "grant_skills": [],
@@ -96792,7 +96795,7 @@
    "name_ko": "저주",
    "level": 1,
    "features": [
-    "patrons-gift"
+    "patrons-gift-curse"
    ],
    "grant_feats": [],
    "grant_skills": [],
@@ -97319,7 +97322,7 @@
    "name_ko": "운명",
    "level": 1,
    "features": [
-    "patrons-gift"
+    "patrons-gift-fate"
    ],
    "grant_feats": [],
    "grant_skills": [],
@@ -97846,7 +97849,7 @@
    "name_ko": "열정",
    "level": 1,
    "features": [
-    "patrons-gift"
+    "patrons-gift-fervor"
    ],
    "grant_feats": [],
    "grant_skills": [],
@@ -98373,7 +98376,7 @@
    "name_ko": "밤",
    "level": 1,
    "features": [
-    "patrons-gift"
+    "patrons-gift-night"
    ],
    "grant_feats": [],
    "grant_skills": [],
@@ -98900,7 +98903,7 @@
    "name_ko": "룬",
    "level": 1,
    "features": [
-    "patrons-gift"
+    "patrons-gift-rune"
    ],
    "grant_feats": [],
    "grant_skills": [],
@@ -99427,7 +99430,7 @@
    "name_ko": "야생",
    "level": 1,
    "features": [
-    "patrons-gift"
+    "patrons-gift-wild"
    ],
    "grant_feats": [],
    "grant_skills": [],

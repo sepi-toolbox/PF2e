@@ -2445,6 +2445,19 @@
    "rules_n": 1
   },
   {
+   "slug": "warrior-martial-weapon-training",
+   "class": "bard",
+   "name_en": "Martial Weapon Training",
+   "name_ko": "군용 무기 훈련",
+   "level": 1,
+   "desc": "<p>전사 뮤즈의 영감으로 군용 무기에 훈련됩니다. 군용 무기 숙련도가 훈련으로 증가합니다.</p>",
+   "is_subclass": "",
+   "subclass_type": "",
+   "tag": "bard-subclass-feature",
+   "grants": 0,
+   "rules_n": 0
+  },
+  {
    "slug": "zoophonia",
    "class": "bard",
    "name_en": "Zoophonia",
@@ -3069,6 +3082,19 @@
    "rules_n": 1
   },
   {
+   "slug": "warpriest-martial-armor-training",
+   "class": "cleric",
+   "name_en": "Martial & Medium Armor",
+   "name_ko": "군용 무기/평갑 훈련",
+   "level": 1,
+   "desc": "<p>전쟁사제 교리를 따르는 클레릭으로서 전투 훈련을 받습니다. 군용 무기에 훈련되며, 평갑(중갑)에 훈련됩니다. 인내 내성 숙련도가 전문가로 증가합니다.</p>",
+   "is_subclass": "",
+   "subclass_type": "",
+   "tag": "cleric-subclass-feature",
+   "grants": 0,
+   "rules_n": 0
+  },
+  {
    "slug": "second-doctrine",
    "class": "cleric",
    "name_en": "Second Doctrine",
@@ -3104,6 +3130,19 @@
    "is_subclass": "",
    "subclass_type": "",
    "tag": "",
+   "grants": 0,
+   "rules_n": 0
+  },
+  {
+   "slug": "warpriest-expert-reflex",
+   "class": "cleric",
+   "name_en": "Expert Reflex",
+   "name_ko": "반사 전문가",
+   "level": 3,
+   "desc": "<p>전투 경험을 통해 반사신경이 향상됩니다. 반사 내성 숙련도가 전문가로 증가합니다.</p>",
+   "is_subclass": "",
+   "subclass_type": "",
+   "tag": "cleric-subclass-feature",
    "grants": 0,
    "rules_n": 0
   },
@@ -10024,6 +10063,84 @@
    "rules_n": 0
   },
   {
+   "slug": "patrons-gift-curse",
+   "class": "witch",
+   "name_en": "Patron’s Gift: Curse",
+   "name_ko": "후원자의 선물: 저주",
+   "level": 1,
+   "desc": "<p>저주 후원자가 오컬트 전통의 주문시전 능력을 부여합니다. 사악한 눈 주술 집중 주문을 습득합니다.</p>",
+   "is_subclass": "",
+   "subclass_type": "",
+   "tag": "witch-subclass-feature",
+   "grants": 0,
+   "rules_n": 0
+  },
+  {
+   "slug": "patrons-gift-fate",
+   "class": "witch",
+   "name_en": "Patron’s Gift: Fate",
+   "name_ko": "후원자의 선물: 운명",
+   "level": 1,
+   "desc": "<p>운명 후원자가 오컬트 전통의 주문시전 능력을 부여합니다. 운명 조정 주술 집중 주문을 습득합니다.</p>",
+   "is_subclass": "",
+   "subclass_type": "",
+   "tag": "witch-subclass-feature",
+   "grants": 0,
+   "rules_n": 0
+  },
+  {
+   "slug": "patrons-gift-fervor",
+   "class": "witch",
+   "name_en": "Patron’s Gift: Fervor",
+   "name_ko": "후원자의 선물: 열정",
+   "level": 1,
+   "desc": "<p>열정 후원자가 신성 전통의 주문시전 능력을 부여합니다. 심장 격려 주술 집중 주문을 습득합니다.</p>",
+   "is_subclass": "",
+   "subclass_type": "",
+   "tag": "witch-subclass-feature",
+   "grants": 0,
+   "rules_n": 0
+  },
+  {
+   "slug": "patrons-gift-night",
+   "class": "witch",
+   "name_en": "Patron’s Gift: Night",
+   "name_ko": "후원자의 선물: 밤",
+   "level": 1,
+   "desc": "<p>밤 후원자가 오컬트 전통의 주문시전 능력을 부여합니다. 밤의 장막 주술 집중 주문을 습득합니다.</p>",
+   "is_subclass": "",
+   "subclass_type": "",
+   "tag": "witch-subclass-feature",
+   "grants": 0,
+   "rules_n": 0
+  },
+  {
+   "slug": "patrons-gift-rune",
+   "class": "witch",
+   "name_en": "Patron’s Gift: Rune",
+   "name_ko": "후원자의 선물: 룬",
+   "level": 1,
+   "desc": "<p>룬 후원자가 비전 전통의 주문시전 능력을 부여합니다. 비밀 간파 주술 집중 주문을 습득합니다.</p>",
+   "is_subclass": "",
+   "subclass_type": "",
+   "tag": "witch-subclass-feature",
+   "grants": 0,
+   "rules_n": 0
+  },
+  {
+   "slug": "patrons-gift-wild",
+   "class": "witch",
+   "name_en": "Patron’s Gift: Wild",
+   "name_ko": "후원자의 선물: 야생",
+   "level": 1,
+   "desc": "<p>야생 후원자가 원시 전통의 주문시전 능력을 부여합니다. 야생의 말 주술 집중 주문을 습득합니다.</p>",
+   "is_subclass": "",
+   "subclass_type": "",
+   "tag": "witch-subclass-feature",
+   "grants": 0,
+   "rules_n": 0
+  },
+  {
    "slug": "ripple-in-the-deep",
    "class": "witch",
    "name_en": "Ripple in the Deep",
@@ -10973,5 +11090,5 @@
    "rules_n": 0
   }
  ],
- "note": "store feats(category=classfeature) + 혈통 마법 18종 신설(bloodlines.json 파생). class=traits, level=클래스 부여레벨, desc=_desc_ko(재번역), 서브클래스=otherTags 태그(표시용)"
+ "note": "store feats(category=classfeature) + 혈통 마법 18종(bloodlines.json 파생) + 서브클래스 파생특성(후원자의 선물·순수 숙련 등, 레지스트리 미해소 features[] slug를 큐레이션 원본으로 신설). class=traits, level=클래스 부여레벨, desc=_desc_ko(재번역), 서브클래스=otherTags 태그(표시용)"
 }
