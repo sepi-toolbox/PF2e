@@ -106,7 +106,7 @@
     if (_subProfTable) return _subProfTable;
     let rows = null;
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/subclass_progression.json", "dev/data/derived/subclass_progression.json"]) { try { rows = JSON.parse(fs.readFileSync(p, "utf8")).rows; break; } catch (e) {} } }
-    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.207"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.208"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
     _subProfTable = _buildSubProfTable(rows || []);
     _subGrantTable = _buildSubGrantTable(rows || []);   // 같은 rows에서 부여표도 동시 구축
     return _subProfTable;
@@ -118,7 +118,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.207"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.208"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -274,14 +274,28 @@
             });
           }
         }
+        // 오라클 신비 보강(대원칙 0=성장/정체성 부여): MYSTERY_DB에서 미스터리 기술 + 전통(divine) + 부여 레퍼토리 주문.
+        //   신비 초급 계시주문(focus)은 위 desc 추출이 이미 granted_spells에 넣음. 여기선 미스터리 기술·전통·부여 레퍼토리만 추가.
+        //   ⚠ 상급/고급 계시주문은 재주(상급/고급 계시)로 습득 → 여기 자동부여 안 함. 예언의 저주도 별도(후속).
+        let my_skills = [], my_tradition = null;
+        const _MYDB = (typeof MYSTERY_DB !== 'undefined') ? MYSTERY_DB : (root.MYSTERY_DB || null);
+        const my = _MYDB && _MYDB[f.system.slug];
+        if (my) {
+          if (my.mystery_skill) my_skills.push(my.mystery_skill);
+          my_tradition = my.tradition || 'divine';
+          for (const g of (my.granted_spells || [])) {
+            if (!g || !g.spell) continue;
+            granted_spells.push({ spell_id: g.spell, lv: g.char_level || 1, type: g.rank === 'cantrip' ? 'cantrip' : 'known', rank: g.rank === 'cantrip' ? 0 : g.rank });
+          }
+        }
         const _row = {
           id: f.system.slug, class_id: slug, subclass_type: meta.typeKo,
           name_ko: PF.nameKo(f), name_en: f.name_en || f.name,
           desc: PF.enrichDesc(PF.descKo(f) || ''),
-          granted_skills: bl_skills, granted_feats, granted_spells, granted_actions, features: bl_features, prof_changes,
+          granted_skills: bl_skills.concat(my_skills), granted_feats, granted_spells, granted_actions, features: bl_features, prof_changes,
           sanctification,
         };
-        if (bl_tradition) _row.tradition = bl_tradition;
+        if (bl_tradition || my_tradition) _row.tradition = bl_tradition || my_tradition;
         out.push(_row);
       }
     }
@@ -324,7 +338,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.207').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.208').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -343,7 +357,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.207').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.208').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   // 소서러 혈통 정본 메타 = data/derived/bloodlines.json → 런타임 BLOODLINE_DB 채움.
@@ -371,7 +385,27 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/bloodlines.json?v=0.207').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/bloodlines.json?v=0.208').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
+  }
+
+  // 오라클 신비 정본 메타 = data/derived/oracle_mysteries.json → 런타임 MYSTERY_DB 채움.
+  //   subclassList(신비 미스터리 기술·전통·부여 레퍼토리 주문 보강). 소서러 BLOODLINE_DB와 동일 패턴.
+  let _mysteriesLoaded = false;
+  function _fillMysteryDB(rows) {
+    let DB = (typeof MYSTERY_DB !== 'undefined') ? MYSTERY_DB : root.MYSTERY_DB;
+    if (!DB) { DB = root.MYSTERY_DB = {}; }
+    for (const r of (rows || [])) { if (r && r.slug) DB[r.slug] = r; }
+  }
+  function loadMysteries() {
+    if (_mysteriesLoaded) return Promise.resolve();
+    if (isNode) {
+      const fs = require('fs');
+      for (const p of ['data/derived/oracle_mysteries.json', 'dev/data/derived/oracle_mysteries.json', '/tmp/PF2e-publish/dev/data/derived/oracle_mysteries.json']) {
+        try { _fillMysteryDB(JSON.parse(fs.readFileSync(p, 'utf8')).rows); _mysteriesLoaded = true; break; } catch (e) {}
+      }
+      return Promise.resolve();
+    }
+    return fetch('data/derived/oracle_mysteries.json?v=0.208').then(r => r.json()).then(j => { _fillMysteryDB(j.rows); _mysteriesLoaded = true; }).catch(() => {});
   }
 
   async function init() {
@@ -381,6 +415,7 @@
     else await Promise.all([PF.loadCategory('classes'), PF.loadCategory('feats'), PF.loadCategory('spells')]);
     if (isNode) { _ensureProfTable(); _ensureSubProfTable(); } else { await _ensureProfTable(); await _ensureSubProfTable(); }
     if (isNode) loadBloodlines(); else await loadBloodlines();  // 소서러 혈통 메타(subclassList 보강 전 필요)
+    if (isNode) loadMysteries(); else await loadMysteries();    // 오라클 신비 메타(subclassList 보강 전 필요)
     if (isNode) loadSubclasses(); else await loadSubclasses();  // 단일소스 로드(비었을 때). 채워지면 아래 조립은 자연 스킵.
     if (isNode) loadDoctrines(); else await loadDoctrines();    // (subclasses.json에 cleric 포함 → 가드로 스킵. 빌드 하니스 조립 경로에서만 실주입)
     _build();
@@ -442,7 +477,7 @@
 
     // 전 카탈로그 로드 후 재열거 — init 시점에 타 카테고리 미로드로 enrichDesc @link가 영문 스냅샷된 캐시를 정본 한글로 재생성
   function rebuild() { if (_ready) _build(); }
-const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, subclassProfTable, subclassGrantTable, isLegacy, classFeatures, classFeatureRoster, subclassList, spellTable, loadBloodlines };
+const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, subclassProfTable, subclassGrantTable, isLegacy, classFeatures, classFeatureRoster, subclassList, spellTable, loadBloodlines, loadMysteries };
   root.PF2eClass = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

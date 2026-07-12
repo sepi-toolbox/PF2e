@@ -55699,6 +55699,16 @@
     {
      "slug": "ancestral-touch",
      "type": "focus"
+    },
+    {
+     "slug": "guidance",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "ill-omen",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -55752,7 +55762,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "ghostly-carrier",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -55908,7 +55924,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "dreaming-potential",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -56231,6 +56253,16 @@
     {
      "slug": "ashen-wind",
      "type": "focus"
+    },
+    {
+     "slug": "ignition",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "breathe-fire",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -56284,7 +56316,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "mist",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -56492,7 +56530,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "disintegrate",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -56763,6 +56807,16 @@
     {
      "slug": "weapon-trance",
      "type": "focus"
+    },
+    {
+     "slug": "shield",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "sure-strike",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -56816,7 +56870,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "telekinetic-maneuver",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -56920,7 +56980,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "weapon-storm",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -57295,6 +57361,16 @@
     {
      "slug": "ulcerous-canker",
      "type": "focus"
+    },
+    {
+     "slug": "caustic-blast",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "noxious-vapors",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -57348,7 +57424,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "fungal-infestation",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -57504,7 +57586,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "toxic-cloud",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -57827,6 +57915,16 @@
     {
      "slug": "soul-siphon",
      "type": "focus"
+    },
+    {
+     "slug": "void-warp",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "grim-tendrils",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -57880,7 +57978,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "false-vitality",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -57932,7 +58036,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "ghostly-weapon",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -58359,6 +58469,16 @@
     {
      "slug": "spray-of-stars",
      "type": "focus"
+    },
+    {
+     "slug": "light",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "dizzying-colors",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -58412,7 +58532,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "darkness",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -58568,7 +58694,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "moon-frenzy",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -58891,6 +59023,16 @@
     {
      "slug": "incendiary-aura",
      "type": "focus"
+    },
+    {
+     "slug": "ignition",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "breathe-fire",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -58944,7 +59086,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "blazing-bolt",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -58996,7 +59144,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "fireball",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -59423,6 +59577,16 @@
     {
      "slug": "life-link",
      "type": "focus"
+    },
+    {
+     "slug": "vitality-lash",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "soothe",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -59476,7 +59640,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "false-vitality",
+     "type": "known",
+     "rank": 2
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -59632,7 +59802,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "grisly-growths",
+     "type": "known",
+     "rank": 5
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -59955,6 +60131,16 @@
     {
      "slug": "brain-drain",
      "type": "focus"
+    },
+    {
+     "slug": "read-aura",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "mindlink",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -60060,7 +60246,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "hypercognition",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -60216,7 +60408,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "never-mind",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -60487,6 +60685,16 @@
     {
      "slug": "tempest-touch",
      "type": "focus"
+    },
+    {
+     "slug": "electric-arc",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "thunderstrike",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -60644,7 +60852,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "hydraulic-torrent",
+     "type": "known",
+     "rank": 4
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -60748,7 +60962,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "chain-lightning",
+     "type": "known",
+     "rank": 6
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -61019,6 +61239,16 @@
     {
      "slug": "temporal-distortion",
      "type": "focus"
+    },
+    {
+     "slug": "time-sense",
+     "type": "cantrip",
+     "rank": 0
+    },
+    {
+     "slug": "déjà-vu",
+     "type": "known",
+     "rank": 1
     }
    ],
    "grant_actions": [],
@@ -61124,7 +61354,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "time-pocket",
+     "type": "known",
+     "rank": 3
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
@@ -61332,7 +61568,13 @@
    "features": [],
    "grant_feats": [],
    "grant_skills": [],
-   "grant_spells": [],
+   "grant_spells": [
+    {
+     "slug": "time-beacon",
+     "type": "known",
+     "rank": 7
+    }
+   ],
    "grant_actions": [],
    "perception": "",
    "fortitude": "",
