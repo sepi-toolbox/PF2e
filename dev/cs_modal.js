@@ -4705,11 +4705,8 @@ function _bloodlineGuideHtml(classId) {
   if (classId !== 'sorcerer') return '';
   const guide = (typeof BLOODLINE_GUIDE !== 'undefined' && Array.isArray(BLOODLINE_GUIDE)) ? BLOODLINE_GUIDE : [];
   if (!guide.length) return '';
-  const items = guide.map(g => `<div style="margin-bottom:5px;"><strong style="color:var(--gold);">${g.term}</strong> <span style="color:var(--text2);">${g.def}</span></div>`).join('');
-  return `<div style="margin-bottom:8px;padding:8px 10px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--gold);font-size:11px;line-height:1.6;">
-    <div style="font-weight:600;color:var(--text);margin-bottom:5px;">📖 혈통이 주는 것 (아래에서 하나 선택)</div>
-    ${items}
-  </div>`;
+  const items = guide.map(g => `<div style="margin-bottom:4px;"><strong style="color:var(--text);">${g.term}</strong> ${g.def}</div>`).join('');
+  return `<div style="margin-bottom:8px;font-size:11px;line-height:1.6;color:var(--text2);">${items}</div>`;
 }
 
 function _onSubclassChange(id) {

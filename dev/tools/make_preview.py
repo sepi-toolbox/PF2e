@@ -196,6 +196,7 @@ function runDiag(){
     if (typeof _bloodlineGuideHtml==='function') {
       var gh=_bloodlineGuideHtml('sorcerer');
       ok('혈통 선택 위 용어설명 렌더(혈통 마법 정의 포함)', /혈통 마법/.test(gh) && /포커스 포인트|집중/.test(gh) && !/details/.test(gh));
+      ok('용어설명 콜아웃 아님(평문: 배경·보더 없음)', !/background:/.test(gh) && !/border-left/.test(gh));
       ok('소서러 외엔 미표시', _bloodlineGuideHtml('druid')==='');
     }
   } else { ok('PF2eClass.subclassGrantTable 로드', false); }
