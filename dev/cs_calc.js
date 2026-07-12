@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.189').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.190').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -2161,6 +2161,20 @@ function rebuildCoreEffects() {
         }
       }
     }
+  }
+
+  // ── 서브클래스(교단 등) 부여 기술 숙련 — skill_trained 효과행(출처기반, 매 recalc 재빌드) ──
+  //   예: 드루이드 교단(동물=운동, 잎=외교, 폭풍=곡예, 야생=위협). _deityGrantedSkills 복원 버퍼 공용(자동부여 기술).
+  if (state.selectedSubclass && state.selectedSubclass.id && typeof getEffectRows === 'function') {
+    getEffectRows(state.selectedSubclass.id).forEach(r => {
+      const sk = r.target || r.skill;   // 표준 필드 target(구 skill 호환)
+      if (r.type !== 'skill_trained' || !sk) return;
+      const el = document.getElementById('sk-prof-' + sk);
+      if (!el) return;
+      const cur = parseInt(el.value || 0);
+      state._deityGrantedSkills.push({ skill: sk, rank: 2, prevRank: cur });
+      if (cur < 2) el.value = '2';
+    });
   }
 }
 

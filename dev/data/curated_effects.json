@@ -2306,6 +2306,16 @@
     "type": "grant_focus_spell",
     "target": "heal-animal",
     "name": "동물 치유"
+   },
+   {
+    "type": "grant_feat",
+    "target": "animal-companion",
+    "name": "동물 친구"
+   },
+   {
+    "type": "skill_trained",
+    "name": "교단 기술",
+    "target": "athletics"
    }
   ]
  },
@@ -2315,6 +2325,16 @@
     "type": "grant_focus_spell",
     "target": "cornucopia",
     "name": "풍요의 뿔"
+   },
+   {
+    "type": "grant_feat",
+    "target": "leshy-familiar",
+    "name": "레시 사역마"
+   },
+   {
+    "type": "skill_trained",
+    "name": "교단 기술",
+    "target": "diplomacy"
    }
   ]
  },
@@ -2324,6 +2344,16 @@
     "type": "grant_focus_spell",
     "target": "tempest-surge",
     "name": "폭풍의 파도"
+   },
+   {
+    "type": "grant_feat",
+    "target": "storm-born",
+    "name": "폭풍 태생"
+   },
+   {
+    "type": "skill_trained",
+    "name": "교단 기술",
+    "target": "acrobatics"
    }
   ]
  },
@@ -2333,6 +2363,16 @@
     "type": "grant_focus_spell",
     "target": "untamed-shift",
     "name": "야성 변이"
+   },
+   {
+    "type": "grant_feat",
+    "target": "untamed-form",
+    "name": "야생 변신"
+   },
+   {
+    "type": "skill_trained",
+    "name": "교단 기술",
+    "target": "intimidation"
    }
   ]
  },
@@ -2875,5 +2915,35 @@
    },
    "options": []
   }
+ },
+ "voice-of-nature": {
+  "choice": {
+   "id": "cho-voice-of-nature",
+   "kind": "custom",
+   "label": "동물 공감 또는 식물 공감 중 선택",
+   "options": [
+    {
+     "option_id": "animal-empathy",
+     "option_name": "동물 공감 (Animal Empathy)",
+     "rows": [
+      {
+       "type": "grant_feat",
+       "target": "animal-empathy"
+      }
+     ]
+    },
+    {
+     "option_id": "plant-empathy",
+     "option_name": "식물 공감 (Plant Empathy)",
+     "rows": [
+      {
+       "type": "grant_feat",
+       "target": "plant-empathy"
+      }
+     ]
+    }
+   ]
+  },
+  "rows": []
  }
 }
