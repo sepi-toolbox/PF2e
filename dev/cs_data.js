@@ -4548,6 +4548,15 @@ const CONDITIONS_DATA = [
     "desc": "다른 생물이 당신의 행동을 완전히 지배함."
   },
   {
+    "id": "cursebound",
+    "name": "저주에 묶인",
+    "en": "Cursebound",
+    "valued": true,
+    "max": 4,
+    "class_only": "oracle",
+    "desc": "오라클 전용 상태. 저주 결속(cursebound 특성) 능력을 사용할 때마다 수치가 1 증가하고(저레벨 최대 2, 11레벨 3, 17레벨 4까지), 재집중하면 1 감소합니다. 신비의 「예언의 저주」가 각 수치 단계에서 누적되는 효과를 정합니다. 재집중 외의 수단으로는 저주 효과를 완화·제거할 수 없습니다."
+  },
+  {
     "id": "dazzled",
     "name": "눈부심",
     "en": "Dazzled",

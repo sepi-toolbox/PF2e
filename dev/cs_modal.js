@@ -218,6 +218,7 @@ function renderConditionList() {
 
   CONDITIONS_DATA.forEach(c => {
     if (c.id === 'broken') return; // 장비 상태이므로 제외
+    if (c.class_only && !(state.selectedClass && state.selectedClass.id === c.class_only)) return;  // 클래스 전용(저주에 묶인=오라클)
     if (q && !c.name.includes(q) && !c.en.toLowerCase().includes(q)) return;
     const row = document.createElement('div');
     row.className = 'opt-row';
@@ -5985,7 +5986,9 @@ function renderActions() {
 
   // Conditions reference tab — 행동 카드 형식 + FVTT 상태이상 아이콘
   if (_actionFilter === 'conditions') {
-    const rows = CONDITIONS_DATA.map(c => {
+    const rows = CONDITIONS_DATA
+      .filter(c => !c.class_only || (state.selectedClass && state.selectedClass.id === c.class_only))  // 클래스 전용 상태이상(저주에 묶인=오라클)은 해당 클래스에서만
+      .map(c => {
       const val = state.conditions[c.name] || 0;
       const isActive = c.valued ? val > 0 : !!val;
       return { c, val, isActive };

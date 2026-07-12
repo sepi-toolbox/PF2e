@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.211').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.212').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -1386,6 +1386,7 @@ function buildConditions() {
   const grid = document.getElementById('conditions-grid');
   grid.innerHTML = '';
   CONDITIONS_DATA.forEach(c => {
+    if (c.class_only && !(state.selectedClass && state.selectedClass.id === c.class_only)) return;  // 클래스 전용 상태이상(저주에 묶인=오라클)은 해당 클래스만
     const val = state.conditions[c.name] || 0;
     const isActive = c.valued ? val > 0 : !!val;
     const max = c.valued ? (c.max || 4) : 1;
