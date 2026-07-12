@@ -4698,6 +4698,19 @@ function _onBloodlineExemplar(val) {
   _refreshClassFeaturesPreview();
   _validateInitialChoices();
 }
+// 혈통 박스의 값(전통/혈통 기술/마법적 재능/혈통 주문/혈통 마법)이 '무엇인지' 설명하는 접이식 범례.
+//   데이터 파생(BLOODLINE_GUIDE = 「혈통 항목 읽는 법」, bloodline-spells 항목). 소서러 혈통일 때만 표시.
+function _bloodlineGuideHtml(blId) {
+  const bl = (typeof BLOODLINE_DB !== 'undefined') ? BLOODLINE_DB[blId] : null;
+  if (!bl) return '';
+  const guide = (typeof BLOODLINE_GUIDE !== 'undefined' && Array.isArray(BLOODLINE_GUIDE)) ? BLOODLINE_GUIDE : [];
+  if (!guide.length) return '';
+  const items = guide.map(g => `<div style="margin-bottom:5px;"><strong style="color:var(--gold);">${g.term}</strong> <span style="color:var(--text2);">${g.def}</span></div>`).join('');
+  return `<details style="margin-top:8px;">
+    <summary style="cursor:pointer;font-size:11px;color:var(--text2);font-weight:600;">📖 혈통 항목이란? (전통·혈통 기술·마법적 재능·혈통 주문·혈통 마법 설명)</summary>
+    <div style="margin-top:6px;padding:8px 10px;background:var(--bg4);border-radius:4px;font-size:11px;line-height:1.6;">${items}</div>
+  </details>`;
+}
 
 function _onSubclassChange(id) {
   _modalChoices.subclass = id;
@@ -4709,7 +4722,7 @@ function _onSubclassChange(id) {
   const info = document.getElementById('cls-subclass-info');
   if (info) {
     const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === id) : null;
-    info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>${_bloodlineExemplarHtml(id)}` : '';
+    info.innerHTML = sub ? `<div style="margin-top:4px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);line-height:1.6;">${sub.desc || ''}</div>${_bloodlineExemplarHtml(id)}${_bloodlineGuideHtml(id)}` : '';
   }
   // 챔피언: 원인(서브클래스)이 성별화를 제약 → 신격∩원인 성별화 카드 갱신.
   const _cs = document.getElementById('cls-champ-sanct');

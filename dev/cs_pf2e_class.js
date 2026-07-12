@@ -106,7 +106,7 @@
     if (_subProfTable) return _subProfTable;
     let rows = null;
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/subclass_progression.json", "dev/data/derived/subclass_progression.json"]) { try { rows = JSON.parse(fs.readFileSync(p, "utf8")).rows; break; } catch (e) {} } }
-    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.199"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.200"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
     _subProfTable = _buildSubProfTable(rows || []);
     _subGrantTable = _buildSubGrantTable(rows || []);   // 같은 rows에서 부여표도 동시 구축
     return _subProfTable;
@@ -118,7 +118,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.199"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.200"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -309,7 +309,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.199').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.200').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -328,7 +328,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.199').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.200').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   // 소서러 혈통 정본 메타 = data/derived/bloodlines.json → 런타임 BLOODLINE_DB 채움.
@@ -340,16 +340,23 @@
     if (!DB) { DB = root.BLOODLINE_DB = {}; }
     for (const r of (rows || [])) { if (r && r.slug) DB[r.slug] = r; }
   }
+  function _fillBloodlineGuide(guide) {
+    // 「혈통 항목 읽는 법」 공통 용어 설명(전 혈통 공통) → 전역 BLOODLINE_GUIDE.
+    if (!Array.isArray(guide)) return;
+    const G = (typeof BLOODLINE_GUIDE !== 'undefined') ? BLOODLINE_GUIDE : root.BLOODLINE_GUIDE;
+    if (!G) { root.BLOODLINE_GUIDE = guide.slice(); return; }
+    G.length = 0; for (const g of guide) G.push(g);
+  }
   function loadBloodlines() {
     if (_bloodlinesLoaded) return Promise.resolve();
     if (isNode) {
       const fs = require('fs');
       for (const p of ['data/derived/bloodlines.json', 'dev/data/derived/bloodlines.json', '/tmp/PF2e-publish/dev/data/derived/bloodlines.json']) {
-        try { _fillBloodlineDB(JSON.parse(fs.readFileSync(p, 'utf8')).rows); _bloodlinesLoaded = true; break; } catch (e) {}
+        try { const j = JSON.parse(fs.readFileSync(p, 'utf8')); _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; break; } catch (e) {}
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/bloodlines.json?v=0.199').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _bloodlinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/bloodlines.json?v=0.200').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
   }
 
   async function init() {

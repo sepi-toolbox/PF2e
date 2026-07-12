@@ -58,6 +58,8 @@ var DOMAIN_DB = {}; // 영역 데이터 = DataManager 단일소스(data/derived/
 // 소서러 혈통(BLOODLINE_DB) = DataManager 단일소스(data/derived/bloodlines.json). cs_pf2e_class.loadBloodlines()가 런타임 채움.
 //   {slug:{name,tradition,skills,initial,advanced,greater,granted,blood_magic,exemplars,...}} — 혈통 집중주문(초/중/고급)·부여 레퍼토리·표본 선택.
 var BLOODLINE_DB = {};
+// 「혈통 항목 읽는 법」 정본 용어 설명(전 혈통 공통, bloodline-spells 항목 파생) — [{term,def},...].
+var BLOODLINE_GUIDE = [];
 
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING

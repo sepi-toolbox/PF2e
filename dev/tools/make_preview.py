@@ -191,6 +191,12 @@ function runDiag(){
     ok('GAP3 Advanced Bloodline grant_focus_spell 효과', !!(advDef&&advDef.effects&&advDef.effects.some(function(e){return e.type==='grant_focus_spell';})));
     var _bl=BLOODLINE_DB['bloodline-draconic'];
     ok('GAP3 드라코닉 중급=dragon-breath/고급=dragon-wings', _bl.advanced==='dragon-breath' && _bl.greater==='dragon-wings');
+    // 「혈통 항목 읽는 법」 데이터 파생 가이드(5용어) + 모달 렌더
+    ok('BLOODLINE_GUIDE 5용어 로드', typeof BLOODLINE_GUIDE!=='undefined' && BLOODLINE_GUIDE.length===5 && BLOODLINE_GUIDE.some(function(g){return g.term==='혈통 마법';}));
+    if (typeof _bloodlineGuideHtml==='function') {
+      var gh=_bloodlineGuideHtml('bloodline-angelic');
+      ok('혈통 박스 용어설명 렌더(혈통 마법 정의 포함)', /혈통 마법/.test(gh) && /포커스 포인트|집중/.test(gh));
+    }
   } else { ok('PF2eClass.subclassGrantTable 로드', false); }
 
   // ── 드루이드 서브클래스(교단) 드롭다운 조건 + 자연의 목소리 인라인 선택 ──

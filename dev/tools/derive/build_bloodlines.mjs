@@ -113,6 +113,21 @@ function parseExemplars(html) {
   return ex.length ? ex : null;
 }
 
+// 「혈통 항목 읽는 법」 정본 용어 설명(클래스 규칙, 전 혈통 공통) = bloodline-spells 항목 한글 desc에서 추출.
+//   각 혈통 박스의 값(전통/혈통 기술/마법적 재능/혈통 주문/혈통 마법)이 '무엇인지' 설명하는 범례.
+function extractGuide(feats) {
+  const item = (Array.isArray(feats) ? feats : Object.values(feats)).find(r => (r.system && r.system.slug) === 'bloodline-spells');
+  if (!item) return null;
+  const ko = item._desc_ko || (item.system && item.system.description && item.system.description.value) || '';
+  const i = ko.indexOf('혈통 항목');
+  const seg = i >= 0 ? ko.slice(i) : ko;
+  const guide = [];
+  const re = /<strong>\s*(전통|혈통 기술|마법적 재능|혈통 주문|혈통 마법)\s*<\/strong>\s*([^<]+)/g;
+  let m;
+  while ((m = re.exec(seg))) guide.push({ term: m[1].trim(), def: m[2].trim() });
+  return guide.length ? guide : null;
+}
+
 const feats = JSON.parse(fs.readFileSync(path.join(DEV, 'data/store/feats.json'), 'utf8'));
 const rows = [];
 for (const r of (Array.isArray(feats) ? feats : Object.values(feats))) {
@@ -141,7 +156,8 @@ for (const r of (Array.isArray(feats) ? feats : Object.values(feats))) {
   });
 }
 rows.sort((a, b) => a.slug.localeCompare(b.slug));
-const out = { rows, note: '소서러 혈통 정본 메타(런타임 BLOODLINE_DB). build_bloodlines.mjs 생성(소스=store/feats.json bloodline-* FVTT desc).' };
+const guide = extractGuide(feats);
+const out = { rows, guide, note: '소서러 혈통 정본 메타(런타임 BLOODLINE_DB). build_bloodlines.mjs 생성(소스=store/feats.json bloodline-* FVTT desc). guide=혈통 항목 읽는 법(bloodline-spells 항목).' };
 fs.writeFileSync(path.join(DEV, 'data/derived/bloodlines.json'), JSON.stringify(out, null, 1) + '\n');
 console.log(`✔ bloodlines.json — ${rows.length}혈통`);
 for (const r of rows) console.log(`  ${r.slug}: 전통=${r.tradition} 기술=[${r.skills}]${r.variable_skill?'+택1':''} 집중=${r.initial}/${r.advanced}/${r.greater} 부여${r.granted.length} 표본${r.exemplars?r.exemplars.map(e=>e.name_en+'('+e.tradition+'/'+e.skill+')').join(','):0}`);
