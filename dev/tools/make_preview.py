@@ -86,6 +86,34 @@ function runDiag(){
   });
   log('renderers ran');
 
+  // ── 위저드 교육과정(Curriculum) + 보너스 슬롯 (v0.214) ──
+  try {
+    var flv=document.getElementById('f-level'); if(flv) flv.value='20';
+    state.selectedClass={id:'wizard',name:'wiz',casting:'prepared',keyAbility:'int',tradition:'arcane'};
+    state.selectedSubclass={id:'school-ars-grammatica',class_id:'wizard'};
+    state.growth={}; state.preparedSpells={cantrip:[]};
+    ok('WIZARD_SCHOOL_DB 로드(7)', typeof WIZARD_SCHOOL_DB!=='undefined' && Object.keys(WIZARD_SCHOOL_DB).length===7);
+    ok('_wizardSchoolData 해소', !!(typeof _wizardSchoolData==='function' && _wizardSchoolData()));
+    syncFamiliarSpellsToState();
+    var fs2=state.familiarSpells||{};
+    ok('교육과정→주문서: r1 command', (fs2[1]||[]).indexOf('command')>=0);
+    ok('교육과정→주문서: r9 detonate-magic', (fs2[9]||[]).indexOf('detonate-magic')>=0);
+    ok('교육과정→주문서: cantrip message', (fs2.cantrip||[]).indexOf('message')>=0);
+    try{ updateSpellSlotsForClass(); }catch(e){}
+    ok('보너스슬롯 r1=표준3+1=4', state.spellSlots[1]===4);
+    ok('보너스슬롯 r9=표준3+1=4', state.spellSlots[9]===4);
+    ok('r10 유령슬롯 없음(교육과정 상한9)', !(state._curriculumSlotRanks && state._curriculumSlotRanks[10]));
+    ok('_curriculumSlotRanks r1', !!(state._curriculumSlotRanks && state._curriculumSlotRanks[1]));
+    ok('_isCurriculumSlot 마지막슬롯 판정', _isCurriculumSlot(1,3,4)===true && _isCurriculumSlot(1,0,4)===false);
+    ok('교육과정집합: command 포함/light 미포함', _wizardCurriculumSet().has('command') && !_wizardCurriculumSet().has('light'));
+    // 통합 학파 = 교육과정/보너스 슬롯 없음(정본 No Curriculum)
+    state.selectedSubclass={id:'school-unified',class_id:'wizard'};
+    try{ updateSpellSlotsForClass(); }catch(e){}
+    ok('통합학파: 보너스슬롯 없음(r1=3)', state.spellSlots[1]===3 && !state._curriculumSlotRanks);
+    syncFamiliarSpellsToState();
+    ok('통합학파: 교육과정 주문서 주입 없음', ((state.familiarSpells||{})[1]||[]).indexOf('command')===-1);
+  } catch(e){ err.push('wizard-curriculum:'+e.message); }
+
   // ── 효과 단일화(EFFECTS_DB) 검증 ──
   ok('EFFECTS_DB loaded', typeof EFFECTS_DB!=='undefined' && Object.keys(EFFECTS_DB).length>1000);
   ok('EFFECT_GROUPS emptied (레거시 제거)', typeof EFFECT_GROUPS!=='undefined' && EFFECT_GROUPS.length===0);

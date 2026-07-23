@@ -2316,7 +2316,68 @@ function syncFamiliarSpellsToState() {
     });
   }
 
+  // 위저드 교육과정(Curriculum) = 선택한 비전 학파가 주문서에 부여하는 주문.
+  //   대원칙 0: 정체성(학파) 데이터를 런타임이 직접 읽어 주문서에 반영(효과 탭 경유 아님).
+  //   WIZARD_SCHOOL_DB(=wizard_schools.json) 단일소스. 위저드가 시전 가능한 랭크까지 풀 전체를 주문서에 추가.
+  if (cid === 'wizard') {
+    const sch = _wizardSchoolData();
+    if (sch && sch.curriculum) {
+      const maxRank = Math.min(10, Math.ceil(curLevel / 2));
+      Object.keys(sch.curriculum).forEach(rk => {
+        const isC = rk === 'cantrip';
+        const rank = isC ? 0 : parseInt(rk);
+        // 그 랭크 주문 슬롯을 얻는 레벨(rank r ⇒ lv ≥ 2r−1) 이상일 때만 주문서에 편입
+        if (!isC && (rank > maxRank || curLevel < 2 * rank - 1)) return;
+        const key = isC ? 'cantrip' : rank;
+        if (!fs[key]) fs[key] = [];
+        (sch.curriculum[rk] || []).forEach(e => {
+          const sl = e.spell || (e.name_ko ? spellSlug(e.name_ko) : null);
+          if (sl && !fs[key].includes(sl)) fs[key].push(sl);
+        });
+      });
+    }
+  }
+
   state.familiarSpells = fs;
+}
+
+// 현재 선택한 위저드 비전 학파의 정본 메타(WIZARD_SCHOOL_DB 항목). 미선택/비위저드면 null.
+//   subclass id는 학파 특성 slug(school-of-*) 또는 학파 slug(school-*) 어느 쪽이든 매칭.
+function _wizardSchoolData() {
+  if (state.selectedClass?.id !== 'wizard' || !state.selectedSubclass) return null;
+  if (typeof WIZARD_SCHOOL_DB === 'undefined' || !WIZARD_SCHOOL_DB) return null;
+  const sid = state.selectedSubclass.id;
+  const key = Object.keys(WIZARD_SCHOOL_DB).find(k => k === sid || WIZARD_SCHOOL_DB[k].feature_slug === sid);
+  return key ? WIZARD_SCHOOL_DB[key] : null;
+}
+
+// 현재 학파 교육과정 주문 slug 전체 집합(랭크 무관). 교육과정 전용 슬롯 제한/표시에 사용.
+function _wizardCurriculumSet() {
+  const sch = _wizardSchoolData();
+  const set = new Set();
+  if (!sch || !sch.curriculum) return set;
+  Object.keys(sch.curriculum).forEach(rk => {
+    (sch.curriculum[rk] || []).forEach(e => {
+      const sl = e.spell || (e.name_ko ? spellSlug(e.name_ko) : null);
+      if (sl) set.add(sl);
+    });
+  });
+  return set;
+}
+// 교육과정이 주문을 가진 최대 주문 랭크(정본상 9). 교육과정 보너스 슬롯 상한.
+function _wizardCurriculumMaxRank() {
+  const sch = _wizardSchoolData();
+  if (!sch || !sch.curriculum) return 0;
+  let mx = 0;
+  Object.keys(sch.curriculum).forEach(rk => {
+    const r = rk === 'cantrip' ? 0 : parseInt(rk);
+    if ((sch.curriculum[rk] || []).length && r > mx) mx = r;
+  });
+  return mx;
+}
+// 특정 (rank, idx) 슬롯이 교육과정 전용 보너스 슬롯인지 — 각 랭크의 마지막 슬롯.
+function _isCurriculumSlot(rank, idx, slotMax) {
+  return !!(state._curriculumSlotRanks && state._curriculumSlotRanks[rank] && idx === slotMax - 1);
 }
 
 // ═══════════════════════════════════════════════
@@ -2384,17 +2445,19 @@ function _renderMemorizeSlots() {
   for (let r = 1; r <= maxRank; r++) {
     const slotMax = parseInt(state.spellSlots?.[r] || 0);
     if (slotMax === 0) continue;
+    const _hasCurr = !!(state._curriculumSlotRanks && state._curriculumSlotRanks[r]);
     html += `<div style="padding:6px 8px;border-bottom:1px solid var(--border);">
-      <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:4px;">${r}랭크 (${slotMax}개)</div>`;
+      <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:4px;">${r}랭크 (${slotMax}개)${_hasCurr ? ' <span style="font-size:10px;font-weight:400;color:var(--gold);">+ 교육과정 슬롯 1</span>' : ''}</div>`;
     for (let i = 0; i < slotMax; i++) {
       const name = (state.preparedSpells[r] || [])[i] || null;
       const isActive = active && active.rank === r && active.idx === i;
+      const isCurr = _isCurriculumSlot(r, i, slotMax);
       html += `<div onclick="_memorizeSelectSlot(${r},${i})" style="display:flex;align-items:center;gap:6px;padding:5px 8px;margin:2px 0;border-radius:4px;cursor:pointer;font-size:12px;
         background:${isActive ? 'var(--accent)' : name ? 'var(--bg3)' : 'var(--bg2)'};
         color:${isActive ? '#000' : 'var(--text1)'};
-        border:1px solid ${isActive ? 'var(--accent)' : 'var(--border)'};">
+        border:1px solid ${isActive ? 'var(--accent)' : (isCurr ? 'var(--gold)' : 'var(--border)')};${isCurr && !isActive ? 'border-left-width:3px;' : ''}">
         <span style="font-size:10px;min-width:18px;color:${isActive?'#000':'var(--text2)'};">${i+1}.</span>
-        <span style="flex:1;display:inline-flex;align-items:center;min-width:0;">${name ? ((typeof iconImg==='function'?iconImg('spell',getSpell(name)):'')+spellDisplay(name)) : '<span style="opacity:0.4;">빈 슬롯</span>'}</span>
+        <span style="flex:1;display:inline-flex;align-items:center;min-width:0;">${name ? ((typeof iconImg==='function'?iconImg('spell',getSpell(name)):'')+spellDisplay(name)) : `<span style="opacity:0.4;">${isCurr ? '교육과정 전용' : '빈 슬롯'}</span>`}</span>
         ${name ? `<span onclick="event.stopPropagation();_memorizeClearSlot(${r},${i})" style="color:${isActive?'#000':'var(--red)'};font-size:12px;padding:0 2px;cursor:pointer;">✕</span>` : ''}
       </div>`;
     }
@@ -2448,15 +2511,24 @@ function _renderMemorizeDetail() {
     });
   }
 
+  // 위저드 교육과정 전용 보너스 슬롯 = 교육과정 주문만 준비 가능(정본 제한)
+  const _slotMax = parseInt(state.spellSlots?.[rank] || 0);
+  const isCurrSlot = !isCantrip && _isCurriculumSlot(rank, active.idx, _slotMax);
+  if (isCurrSlot) {
+    const currSet = _wizardCurriculumSet();
+    available = available.filter(a => currSet.has(a.name));
+  }
+
   if (available.length === 0) {
-    const msg = hasSpellbook ? '주문서에 이 랭크의 주문이 없습니다.<br>빌더에서 주문을 배우세요.' : '이 랭크에 사용 가능한 주문이 없습니다.';
+    const msg = isCurrSlot ? '교육과정 전용 슬롯입니다.<br>이 랭크의 교육과정 주문이 아직 없습니다.'
+      : (hasSpellbook ? '주문서에 이 랭크의 주문이 없습니다.<br>빌더에서 주문을 배우세요.' : '이 랭크에 사용 가능한 주문이 없습니다.');
     detail.innerHTML = `<div class="modal-detail-empty">${msg}</div>`;
     return;
   }
 
   const label = isCantrip ? '캔트립' : `${rank}랭크`;
   detail.innerHTML = `<div style="padding:8px;">
-    <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">슬롯 ${active.idx+1} — ${label} 주문 선택
+    <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">슬롯 ${active.idx+1} — ${label} 주문 선택${isCurrSlot ? ' <span style="color:var(--gold);font-size:11px;">· 교육과정 전용</span>' : ''}
       <span style="font-weight:400;color:var(--text2);font-size:11px;">(이름을 누르면 상세 · 「준비」로 슬롯 배치)</span></div>
     <div id="mem-spell-list"></div></div>`;
   const listEl = detail.querySelector('#mem-spell-list');
@@ -5852,6 +5924,18 @@ function updateSpellSlotsForClass() {
     const curLv = getLevel();
     for (let l = 1; l <= curLv; l++) cantripBonus += _getCantripBonusAtLevel(l);
     state.cantripSlots = (data.cantrips || 5) + cantripBonus;
+    // 위저드 교육과정 보너스 슬롯 = 시전 가능한 각 랭크에 +1(교육과정 전용). 정본: 학파는 "추가 주문·주문 슬롯" 부여.
+    //   ⚠ 통합 이론 학파(unified)는 정본상 교육과정이 없어 이 보너스 슬롯을 받지 않음 → 교육과정 실재 시에만 적용.
+    state._curriculumSlotRanks = null;
+    const _currMaxRank = (state.selectedClass.id === 'wizard' && typeof _wizardCurriculumMaxRank === 'function') ? _wizardCurriculumMaxRank() : 0;
+    if (_currMaxRank > 0) {
+      // 교육과정 최대 랭크(정본 9)까지, 시전 가능한 각 랭크에 +1(10랭크 유령 슬롯 방지)
+      const set = {};
+      for (let r = 1; r <= _currMaxRank; r++) {
+        if ((state.spellSlots[r] || 0) > 0) { state.spellSlots[r] += 1; set[r] = true; }
+      }
+      state._curriculumSlotRanks = set;
+    }
   } else {
     // CLASS_SPELL_TABLE에 없는 클래스 — 범용 폴백
     const slots = [
