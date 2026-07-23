@@ -70,6 +70,25 @@ const SD = globalThis.SUBCLASS_DB;
     musePatched++;
   }
   console.log(`  바드 뮤즈 정본 desc 주입: ${musePatched}종`);
+
+  // 마녀 후원자 = FVTT에 후원자별 정본 flavor desc 없음(제네릭 patron만) → 큐레이션 flavor + 데이터 파생 구조로 재구성.
+  //   전통(subclass.tradition)·주술(granted focus 주문 @link)을 desc에 명시 → 링크·정합(큐레이션 이름불일치 해소).
+  //   후원자의 선물(patrons-gift-*)은 features가 소유(클래스 특성 카드) → desc 중복 안 함.
+  const TRAD_KO = { arcane: '비전', divine: '신성', occult: '오컬트', primal: '원시' };
+  let patronPatched = 0;
+  for (const s of SD) {
+    if (s.class_id !== 'witch') continue;
+    const flavor = String(s.desc || '').split(/\.|\n/)[0].trim();   // 큐레이션 첫 문장 = flavor
+    const tradKo = TRAD_KO[s.tradition] || s.tradition || '';
+    const hex = (s.granted_spells || []).find(g => g.type === 'focus');
+    let d = `<p>${flavor}${/[.。!?]$/.test(flavor) ? '' : '입니다.'}</p>`;
+    if (tradKo) d += `<p><strong>전통</strong> ${tradKo}</p>`;
+    if (hex && hex.spell_id) d += `<p><strong>주술</strong> @link[spells.${hex.spell_id}]</p>`;
+    s.desc = PF.enrichDesc(d);
+    // features=[patrons-gift-*] 유지 — 혈통의 blood-magic-*와 동일 위치(후원자가 주는 특성 카드).
+    patronPatched++;
+  }
+  console.log(`  마녀 후원자 desc 구조·링크 주입: ${patronPatched}종`);
 }
 
 // 표시용 별칭(DataManager 서브클래스 탭: slug/class/grants/rules_n) 부가 — 런타임 필드(id/class_id/...)는 보존

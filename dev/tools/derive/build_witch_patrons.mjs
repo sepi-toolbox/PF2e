@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+/* build_witch_patrons.mjs — 마녀 후원자 「항목 읽는 법」 가이드 = data/derived/witch_patrons.json (guide만).
+ *   소서러/오라클/위저드/바드 가이드와 동일 패턴. 런타임 WITCH_PATRON_GUIDE(class_features_db)를
+ *   loadWitchPatrons(cs_pf2e_class)가 채움 → 모달 「후원자 항목 읽는 법」.
+ *   ⚠ 마녀는 후원자별 정본 flavor desc가 FVTT에 없음(제네릭 patron만) → 테마 desc는 큐레이션 +
+ *     데이터 파생 구조(전통·주술·선물 @link, build_subclasses). 여기선 가이드만.
+ *   실행: cd dev && node tools/derive/build_witch_patrons.mjs
+ */
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const DEV = path.resolve(__dirname, '..', '..');
+
+const guide = [
+  { term: '후원자', def: '당신에게 마법을 선물한 강력하고 신비로운 존재입니다. 1레벨에 후원자를 선택하면 주문 시전 전통, 그 전통의 기술 하나, 첫 번째 마녀의 교훈, 고유한 패밀리어 능력이 결정됩니다.' },
+  { term: '전통', def: '후원자가 정해 주는 주문 전통입니다(신비·신성·오컬트·원시 중 하나). 마녀는 주문서에 담은 주문을 준비해 시전합니다.' },
+  { term: '주술(헥스)', def: '후원자가 부여하는 집중 주문입니다. 집중 점수로 시전하고 재집중으로 회복하며, 「주술」 특성을 지녀 한 대상에게 같은 주술을 하루에 한 번만 걸 수 있습니다.' },
+  { term: '후원자의 선물', def: '후원자가 주는 10랭크 주문 슬롯 하나입니다. 마녀 주문 시전으로 이 슬롯에 주문을 준비할 수 있습니다(레벨업으로 추가 10랭크 주문을 얻지는 않음).' },
+  { term: '교훈', def: '마녀가 배우는 지식으로, 주술 캔트립 하나와 그 교훈에 맞는 주문 하나를 부여합니다. 첫 교훈은 후원자가 정하며, 이후 「마녀의 교훈」 계열 재주로 더 배웁니다.' },
+  { term: '패밀리어', def: '후원자의 마법을 전달하는 마법적 동료입니다. 매일 능력을 부여받으며, 마녀의 주문서 역할도 합니다.' },
+];
+
+fs.writeFileSync(path.join(DEV, 'data/derived/witch_patrons.json'), JSON.stringify({ guide, note: '마녀 후원자 가이드(항목 읽는 법). 후원자별 부여는 subclasses.json 소유.' }, null, 1) + '\n');
+console.log(`✔ witch_patrons.json — guide ${guide.length}항목`);

@@ -72,6 +72,8 @@ var WIZARD_SCHOOL_DB = {};
 var WIZARD_SCHOOL_GUIDE = [];
 // 바드 뮤즈 「항목 읽는 법」 가이드 = data/derived/bard_muses.json → cs_pf2e_class.loadBardMuses()가 채움.
 var BARD_MUSE_GUIDE = [];
+// 마녀 후원자 「항목 읽는 법」 가이드 = data/derived/witch_patrons.json → cs_pf2e_class.loadWitchPatrons()가 채움.
+var WITCH_PATRON_GUIDE = [];
 
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING

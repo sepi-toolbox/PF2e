@@ -5799,7 +5799,7 @@
    "subclass_type": "후원자",
    "name_ko": "저주",
    "name_en": "Curse",
-   "desc": "저주의 힘을 부여하는 후원자. 오컬트 전통. 주술: 악의 눈. 저주·조종 관련 주문 확장.",
+   "desc": "<p>저주의 힘을 부여하는 후원자입니다.</p><p><strong>전통</strong> 오컬트</p><p><strong>주술</strong> <span class=\"ref-link\" data-ref=\"spells.evil-eye\">사악한 눈빛</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [
@@ -5831,7 +5831,7 @@
    "subclass_type": "후원자",
    "name_ko": "운명",
    "name_en": "Fate",
-   "desc": "운명의 실을 다루는 후원자. 오컬트 전통. 주술: 운명의 실. 예지 관련 주문 확장.",
+   "desc": "<p>운명의 실을 다루는 후원자입니다.</p><p><strong>전통</strong> 오컬트</p><p><strong>주술</strong> <span class=\"ref-link\" data-ref=\"spells.nudge-fate\">운명 튕기기</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [
@@ -5863,7 +5863,7 @@
    "subclass_type": "후원자",
    "name_ko": "열정",
    "name_en": "Fervor",
-   "desc": "신성한 헌신의 후원자. 신성 전통. 주술: 정화의 불꽃. 치유·강화 관련 주문.",
+   "desc": "<p>신성한 헌신의 후원자입니다.</p><p><strong>전통</strong> 신성</p><p><strong>주술</strong> <span class=\"ref-link\" data-ref=\"spells.stoke-the-heart\">심장 불태우기</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [
@@ -5895,7 +5895,7 @@
    "subclass_type": "후원자",
    "name_ko": "밤",
    "name_en": "Night",
-   "desc": "어둠과 꿈의 후원자. 오컬트 전통. 주술: 마녀의 포옹. 환상·공포 관련 주문.",
+   "desc": "<p>어둠과 꿈의 후원자입니다.</p><p><strong>전통</strong> 오컬트</p><p><strong>주술</strong> <span class=\"ref-link\" data-ref=\"spells.shroud-of-night\">밤의 장막</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [
@@ -5927,7 +5927,7 @@
    "subclass_type": "후원자",
    "name_ko": "룬",
    "name_en": "Rune",
-   "desc": "룬 마법의 후원자. 신비 전통. 주술: 룬 저주. 변환·방호 관련 주문.",
+   "desc": "<p>룬 마법의 후원자입니다.</p><p><strong>전통</strong> 비전</p><p><strong>주술</strong> <span class=\"ref-link\" data-ref=\"spells.discern-secrets\">비밀 간파</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [
@@ -5959,7 +5959,7 @@
    "subclass_type": "후원자",
    "name_ko": "야생",
    "name_en": "Wild",
-   "desc": "자연 야생의 후원자. 원시 전통. 주술: 야생의 분노. 자연·동물 관련 주문.",
+   "desc": "<p>자연 야생의 후원자입니다.</p><p><strong>전통</strong> 원시</p><p><strong>주술</strong> <span class=\"ref-link\" data-ref=\"spells.wilding-word\">와일딩 워드</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [

@@ -135,6 +135,18 @@ function runDiag(){
     ok('바드 뮤즈 가이드 렌더(작곡 주문 설명 포함)', !!(_bg && _bg.indexOf('작곡 주문')>=0));
   } catch(e){ err.push('bard-muse:'+e.message); }
 
+  // ── 마녀 후원자 desc 구조·링크 + 가이드 (v0.221) ──
+  try {
+    var _pc = (typeof SUBCLASS_DB!=='undefined') ? SUBCLASS_DB.find(function(s){return s.id==='patron-curse';}) : null;
+    ok('후원자 desc 링크(ref-link)', !!(_pc && /ref-link/.test(_pc.desc||'')));
+    ok('후원자 desc 전통·주술 구조', !!(_pc && /전통/.test(_pc.desc||'') && /주술/.test(_pc.desc||'')));
+    ok('후원자 주술=정본명 링크(사악한 눈빛)', !!(_pc && (_pc.desc||'').indexOf('사악한 눈빛')>=0));
+    ok('후원자 성장표 자기 자신 없음(patron-curse)', !!(_pc && !(_pc.features||[]).some(function(f){return f.slug==='patron-curse';})));
+    ok('WITCH_PATRON_GUIDE 로드(6)', typeof WITCH_PATRON_GUIDE!=='undefined' && WITCH_PATRON_GUIDE.length===6);
+    var _wg = (typeof _bloodlineGuideHtml==='function') ? _bloodlineGuideHtml('witch') : '';
+    ok('마녀 후원자 가이드 렌더(주술 설명 포함)', !!(_wg && _wg.indexOf('주술')>=0 && _wg.indexOf('후원자의 선물')>=0));
+  } catch(e){ err.push('witch-patron:'+e.message); }
+
   // ── 효과 단일화(EFFECTS_DB) 검증 ──
   ok('EFFECTS_DB loaded', typeof EFFECTS_DB!=='undefined' && Object.keys(EFFECTS_DB).length>1000);
   ok('EFFECT_GROUPS emptied (레거시 제거)', typeof EFFECT_GROUPS!=='undefined' && EFFECT_GROUPS.length===0);
