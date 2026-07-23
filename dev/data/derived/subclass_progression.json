@@ -9425,9 +9425,7 @@
    "class": "bard",
    "name_ko": "수수께끼",
    "level": 1,
-   "features": [
-    "bardic-lore"
-   ],
+   "features": [],
    "grant_feats": [
     "bardic-lore"
    ],
@@ -9955,9 +9953,7 @@
    "class": "bard",
    "name_ko": "마에스트로",
    "level": 1,
-   "features": [
-    "lingering-composition"
-   ],
+   "features": [],
    "grant_feats": [
     "lingering-composition"
    ],
@@ -10485,9 +10481,7 @@
    "class": "bard",
    "name_ko": "박학다식",
    "level": 1,
-   "features": [
-    "versatile-performance"
-   ],
+   "features": [],
    "grant_feats": [
     "versatile-performance"
    ],
@@ -11015,9 +11009,7 @@
    "class": "bard",
    "name_ko": "전사",
    "level": 1,
-   "features": [
-    "warrior-martial-weapon-training"
-   ],
+   "features": [],
    "grant_feats": [
     "martial-performance"
    ],

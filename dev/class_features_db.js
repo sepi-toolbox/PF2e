@@ -70,6 +70,8 @@ var MYSTERY_GUIDE = [];
 var WIZARD_SCHOOL_DB = {};
 // 「학파 항목 읽는 법」 정본 용어 설명(전 학파 공통, wizard_schools.json guide) — [{term,def},...].
 var WIZARD_SCHOOL_GUIDE = [];
+// 바드 뮤즈 「항목 읽는 법」 가이드 = data/derived/bard_muses.json → cs_pf2e_class.loadBardMuses()가 채움.
+var BARD_MUSE_GUIDE = [];
 
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING

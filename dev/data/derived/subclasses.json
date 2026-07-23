@@ -365,7 +365,7 @@
    "subclass_type": "뮤즈",
    "name_ko": "수수께끼",
    "name_en": "Enigma",
-   "desc": "뮤즈는 미스터리로, 삶과 다차원계의 숨겨진 비밀을 밝히도록 합니다. 완전히 파악할 수 없는 사람, 상징이 깊이 겹쳐진 텍스트, 또는 평생 작품의 바탕이 되는 감정적 역설일 수 있습니다. 이세계 생물이라면 신비로운 영겁이나 오컬트 용일 수 있고, 신격이라면 이로리나 네시스일 수 있습니다.<br>수수께끼 뮤즈의 바드로서, 영감과 오컬트 지원 곁에 지식을 제공하여 동료를 지원합니다.",
+   "desc": "<p>당신의 뮤즈는 이니그마로, 삶과 다중우주의 숨겨진 비밀을 밝혀내도록 당신을 이끕니다. 이러한 뮤즈는 완전히 이해할 수 없는 인물, 상징으로 깊이 층층이 쌓인 텍스트, 혹은 일생의 작업을 뒷받침하는 감정적 역설일 수 있습니다. 당신의 뮤즈가 초자연적 존재라면 신비로운 영원체나 오컬트 드래곤일 수 있으며, 신이라면 이로리나 네티스일 수 있습니다. 이니그마 같은 뮤즈에서 영감을 받은 예술은 암시적이며 섬뜩하거나, 추측과 음모론으로 가득할 수 있습니다. 이니그마 뮤즈를 가진 바드로서 당신은 영감과 오컬트 지원과 함께 지식을 제공함으로써 동료를 지원합니다.</p>\n<p><strong>뮤즈 재주</strong> <span class=\"ref-link\" data-ref=\"feats.bardic-lore\">바드 지식</span></p>\n<p><strong>뮤즈 주문</strong> <span class=\"ref-link\" data-ref=\"spells.sure-strike\">확실한 타격</span></p>",
    "granted_skills": [],
    "granted_feats": [
     "bardic-lore"
@@ -378,18 +378,10 @@
      "rank": 1
     }
    ],
-   "features": [
-    {
-     "lv": 1,
-     "name_ko": "바드 지식 (자유 지식 기술)",
-     "name_en": "Bardic Lore",
-     "desc": "수수께끼 뮤즈가 온갖 신비로운 지식을 속삭여 줍니다. 바드 지식이라는 특수 지식 기술에 숙련됩니다. 모든 지식 회상 시 바드 지식을 사용할 수 있으며, 다른 지식 기술 대신 이 하나의 기술로 판정합니다.",
-     "slug": "bardic-lore"
-    }
-   ],
+   "features": [],
    "prof_changes": {},
    "grants": 2,
-   "rules_n": 1
+   "rules_n": 0
   },
   {
    "slug": "muse-maestro",
@@ -399,7 +391,7 @@
    "subclass_type": "뮤즈",
    "name_ko": "마에스트로",
    "name_en": "Maestro",
-   "desc": "뮤즈가 끊임없이 더 높은 예술적 무용의 경지로 영감을 줍니다. 많은 바드에게 스승이나 라이벌이 이 역할을 하지만, 일부는 더 높은 목표를 세워 과거의 위대한 작곡가를 넘어서거나 완전히 새로운 길을 개척하려 합니다. 초자연적 생물이라면 합창 천사나 리라키엔 아자타일 수 있고, 신격이라면 셸린일 수 있습니다.<br>마에스트로 뮤즈의 바드로서, 동료에게 영감을 주며 음악적, 연설적 능력에 자신 있습니다.",
+   "desc": "<p>당신의 뮤즈는 끊임없이 예술적 역량의 더 높은 경지로 이끌어줍니다. 많은 음유시인들에게는 스승이나 라이벌이 이 역할을 맡지만, 일부는 더 높은 목표 를 세워 과거의 위대한 작곡가들을 뛰어넘거나 완전히 새로운 길을 개척하는 것을 시도합니다. 당신의 뮤즈가 초자연적 존재라면, 합창 천사나 리라키엔 아자타처럼 공연을 사랑하는 존재일 수 있습니다. 신이라면 셸린일 수 있습니다. 마에스트로 뮤즈에게서 영감을 받은 예술은 정밀하고 독창적이며, 형식주의적 성취를 이룹니다.</p>\n<p>마에스트로 뮤즈를 가진 바드로서, 당신은 동료들에게 영감을 주고 자신의 음악적·웅변적 능력에 확신을 가집니다.</p>\n<p><strong>뮤즈 재주</strong> <span class=\"ref-link\" data-ref=\"feats.lingering-composition\">지속되는 구성</span></p>\n<p><strong>뮤즈 주문</strong> <span class=\"ref-link\" data-ref=\"spells.soothe\">진정</span></p>",
    "granted_skills": [],
    "granted_feats": [
     "lingering-composition"
@@ -412,18 +404,10 @@
      "rank": 1
     }
    ],
-   "features": [
-    {
-     "lv": 1,
-     "name_ko": "잔향 작곡",
-     "name_en": "Lingering Composition",
-     "desc": "작곡 캔트립의 효과를 유지하는 집중 주문을 습득합니다. 잔향 작곡 재주를 얻어, 1 집중 포인트를 소비하여 작곡 캔트립의 지속 시간을 3라운드로 연장합니다.",
-     "slug": "lingering-composition"
-    }
-   ],
+   "features": [],
    "prof_changes": {},
    "grants": 2,
-   "rules_n": 1
+   "rules_n": 0
   },
   {
    "slug": "muse-polymath",
@@ -433,7 +417,7 @@
    "subclass_type": "뮤즈",
    "name_ko": "박학다식",
    "name_en": "Polymath",
-   "desc": "만물박사로, 기술과 추구 사이를 오갑니다. 다양한 주제에 관심이 있지만 하나에 전념하는 일은 드물며, 모든 것을 시도하고 싶어합니다.",
+   "desc": "<p>당신의 뮤즈는 만능 재주꾼으로, 다양한 기술과 추구 사이를 오가며 활동합니다. 일부 바드들은 끊임없이 새로운 뮤즈에게 감동받거나, 실제 인물이든 순수한 철학적 존재든 이상화된 존재로부터 영감을 얻습니다. 당신의 뮤즈가 단일 존재라면, 페이 같은 다방면에 능통한 크리처나 긴 수명 동안 많은 것을 배운 존재일 수 있습니다. 신이라면 데스나나 칼리스트리아일 수 있죠. 다재다능한 뮤즈에게서 영감을 받은 예술은 불안정하며, 각 작품마다 새로운 기법과 끊임없이 진화하는 스타일을 보여줍니다.</p>\n<p>박식한 뮤즈를 가진 바드로서, 당신은 다양한 주제에 관심을 가지지만 어느 하나에 깊이 몰두하지는 않으며, 좀처럼 하나를 정하지 못하고 모든 것을 시도해 보고 싶어 합니다.</p>\n<p><strong>뮤즈 재주</strong> <span class=\"ref-link\" data-ref=\"feats.versatile-performance\">다재다능한 공연</span></p>\n<p><strong>뮤즈 주문</strong> <span class=\"ref-link\" data-ref=\"spells.phantasmal-minion\">환상 하수인</span></p>",
    "granted_skills": [],
    "granted_feats": [
     "versatile-performance"
@@ -446,18 +430,10 @@
      "rank": 1
     }
    ],
-   "features": [
-    {
-     "lv": 1,
-     "name_ko": "다재다능한 공연",
-     "name_en": "Versatile Performance",
-     "desc": "박학다식한 뮤즈의 영향으로 공연 기술로 다른 기술을 대체할 수 있습니다. 다재다능한 공연 재주를 얻어, 공연으로 기만, 외교, 위협 판정을 대체합니다.",
-     "slug": "versatile-performance"
-    }
-   ],
+   "features": [],
    "prof_changes": {},
    "grants": 2,
-   "rules_n": 1
+   "rules_n": 0
   },
   {
    "slug": "muse-warrior",
@@ -467,7 +443,7 @@
    "subclass_type": "뮤즈",
    "name_ko": "전사",
    "name_en": "Warrior",
-   "desc": "전장이 무대이고 강철의 울림이 노래입니다. 뮤즈는 전투에 환호하거나 그 필요성에 체념하며 수많은 전투를 목격했습니다. 개별 병사나 장군이 영감을 줄 수 있지만, 특히 심오한 역사를 가진 전장이나 무기도 마찬가지입니다. 생물이라면 아르콘이나 데블 병사 같은 이세계 전사일 수 있고, 신격이라면 고룸일 수 있습니다.<br>전사 뮤즈의 바드로서, 공연 외에 전투 훈련도 하며 전투의 위험에 대비시킵니다. 한가운데 뛰어들 수도 있습니다.",
+   "desc": "<p>전장은 당신의 무대이고, 철의 울림은 당신의 노래입니다. 당신의 뮤즈는 수많은 전투를 목격해 왔으며, 전투를 즐기거나 그 필요성에 체념한 상태일 수 있습니다. 개별 병사나 장군이 영감을 줄 수도 있지만, 특히 깊은 역사를 지닌 전장이나 무기도 그럴 수 있습니다. 뮤즈가 크리처라면 아르콘이나 데빌 병사 같은 초월적 전사일 수 있고, 신이라면 고룸일 수 있습니다. 전사 뮤즈에게서 영감을 받은 예술은 승리의 기쁨과 강렬함이 넘치며, 종종 서사적인 전투를 그려냅니다.</p>\n<p>전사 뮤즈를 가진 바드는 공연 외에도 전투 훈련을 하며, 동료를 전투의 위험에 대비시킵니다. 심지어 그들과 함께 전장의 한복판으로 뛰어들기도 합니다.</p>\n<p><strong>뮤즈 재주</strong> <span class=\"ref-link\" data-ref=\"feats.martial-performance\">무술 공연</span></p>\n<p><strong>뮤즈 주문</strong> <span class=\"ref-link\" data-ref=\"spells.fear\">공포</span></p>",
    "granted_skills": [],
    "granted_feats": [
     "martial-performance"
@@ -480,22 +456,14 @@
      "rank": 1
     }
    ],
-   "features": [
-    {
-     "lv": 1,
-     "name_ko": "군용 무기 훈련",
-     "name_en": "Martial Weapon Training",
-     "desc": "전사 뮤즈의 영감으로 군용 무기에 훈련됩니다. 군용 무기 숙련도가 훈련으로 증가합니다.",
-     "slug": "warrior-martial-weapon-training"
-    }
-   ],
+   "features": [],
    "prof_changes": {
     "weapon-martial": {
      "1": 2
     }
    },
    "grants": 2,
-   "rules_n": 1
+   "rules_n": 0
   },
   {
    "slug": "desecration",

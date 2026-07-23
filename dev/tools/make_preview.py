@@ -122,6 +122,19 @@ function runDiag(){
     ok('학파 features에 자기 자신 없음', !!(_sd && !(_sd.features||[]).some(function(f){return f.slug==='school-of-ars-grammatica';})));
   } catch(e){ err.push('wizard-curriculum:'+e.message); }
 
+  // ── 바드 뮤즈 정본 desc + 가이드 (v0.220) ──
+  try {
+    var _me = (typeof SUBCLASS_DB!=='undefined') ? SUBCLASS_DB.find(function(s){return s.id==='muse-enigma';}) : null;
+    ok('뮤즈 desc 정본(길이>300)', !!(_me && (_me.desc||'').length>300));
+    ok('뮤즈 desc 링크(ref-link)', !!(_me && /ref-link/.test(_me.desc||'')));
+    ok('뮤즈 desc 「뮤즈 재주/뮤즈 주문」 라벨', !!(_me && /뮤즈 재주/.test(_me.desc||'') && /뮤즈 주문/.test(_me.desc||'')));
+    ok('뮤즈 features에 자기 자신·부여재주 없음(빈 배열)', !!(_me && (_me.features||[]).length===0));
+    ok('뮤즈 재주 granted_feats 보존(bardic-lore)', !!(_me && (_me.granted_feats||[]).indexOf('bardic-lore')>=0));
+    ok('BARD_MUSE_GUIDE 로드(5)', typeof BARD_MUSE_GUIDE!=='undefined' && BARD_MUSE_GUIDE.length===5);
+    var _bg = (typeof _bloodlineGuideHtml==='function') ? _bloodlineGuideHtml('bard') : '';
+    ok('바드 뮤즈 가이드 렌더(작곡 주문 설명 포함)', !!(_bg && _bg.indexOf('작곡 주문')>=0));
+  } catch(e){ err.push('bard-muse:'+e.message); }
+
   // ── 효과 단일화(EFFECTS_DB) 검증 ──
   ok('EFFECTS_DB loaded', typeof EFFECTS_DB!=='undefined' && Object.keys(EFFECTS_DB).length>1000);
   ok('EFFECT_GROUPS emptied (레거시 제거)', typeof EFFECT_GROUPS!=='undefined' && EFFECT_GROUPS.length===0);

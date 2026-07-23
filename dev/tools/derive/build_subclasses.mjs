@@ -54,6 +54,22 @@ const SD = globalThis.SUBCLASS_DB;
     patched++;
   }
   console.log(`  위저드 학파 정본 desc/feature 주입: ${patched}종`);
+
+  // 바드 뮤즈 = 큐레이션 stub → 정본 FVTT 특성(enigma/maestro/polymath/warrior)의 완전 _desc_ko(@link 뮤즈재주·뮤즈주문)로 교체.
+  //   위저드 학파·소서러 혈통과 동일: 설명은 서브클래스 데이터(s.desc). 뮤즈 재주/주문은 granted_feats/granted_spells 소유
+  //   → features(클래스 특성)엔 뮤즈 자신·부여물 넣지 않음(빈 배열). 매핑=muse-<x> → FVTT slug <x>.
+  let musePatched = 0;
+  for (const s of SD) {
+    if (s.class_id !== 'bard') continue;
+    const fslug = String(s.id).replace(/^muse-/, '');   // muse-enigma → enigma
+    const feat = featBySlug[fslug];
+    if (!feat) continue;
+    s.desc = PF.enrichDesc(PF.descKo(feat) || '');
+    s.name_en = feat.name || feat.name_en || s.name_en;
+    s.features = [];   // 뮤즈 자신/부여 재주는 features가 아님(granted_* 소유)
+    musePatched++;
+  }
+  console.log(`  바드 뮤즈 정본 desc 주입: ${musePatched}종`);
 }
 
 // 표시용 별칭(DataManager 서브클래스 탭: slug/class/grants/rules_n) 부가 — 런타임 필드(id/class_id/...)는 보존
