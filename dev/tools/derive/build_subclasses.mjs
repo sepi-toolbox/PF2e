@@ -41,10 +41,16 @@ const SD = globalThis.SUBCLASS_DB;
     const feat = meta && featBySlug[meta.feature_slug];
     if (!feat) continue;
     const nameKo = PF.nameKo(feat), nameEn = feat.name || feat.name_en || s.name_en;
-    s.desc = PF.enrichDesc(PF.descKo(feat) || '');   // 완전 정본 설명(교육과정·학파주문 @link)
+    s.desc = PF.enrichDesc(PF.descKo(feat) || '');   // 서브클래스 설명 = 서브클래스 데이터(s.desc). 정본 학파 특성 desc를 소스로(혈통·신비와 동일).
     s.name_en = nameEn;                               // 「Ars Grammatica」 stub → 「School of Ars Grammatica」
-    // 클래스 특성 = 학파 특성 slug로 참조(레지스트리 해소→링크·정본명). 수기 desc 제거.
-    s.features = [{ lv: 1, slug: meta.feature_slug, name_ko: nameKo, name_en: nameEn, kind: 'feature' }];
+    // ⚠ 학파 자신(school-of-*)을 features(클래스 특성)로 넣지 않음 — 서브클래스 설명이 성장표에 클래스특성으로
+    //   중복 분류되던 문제. 혈통이 자신 대신 혈통마법(blood-magic-*)을 feature로 두는 것과 동일. 학파는 별도
+    //   패시브 특성이 없어 빈 배열. 학파 효과(학파주문=granted_spells, 교육과정=curriculum)는 아래 필드가 소유.
+    s.features = [];
+    // 교육과정(curriculum) = 서브클래스 성장 데이터에 실음(대원칙 0) → 런타임이 subclass.curriculum을 직접 읽어
+    //   주문서 편입·보너스 슬롯 적용(클래스 하드코딩 없이 데이터 구동). 학파주문(school_spell)도 참조용으로 부착.
+    if (meta.curriculum) s.curriculum = meta.curriculum;
+    if (meta.school_spell) s.school_spell = meta.school_spell;
     patched++;
   }
   console.log(`  위저드 학파 정본 desc/feature 주입: ${patched}종`);

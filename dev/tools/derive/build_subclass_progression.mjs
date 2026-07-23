@@ -34,7 +34,8 @@ function subclassLevelFeatures(sc) {
   for (const f of classFeats) {
     if (f.class !== cls) continue;
     if (sc.name_en && f.name_en && f.name_en.includes(tag)) add(f.level, f.slug);   // "(서브클래스명)" 하위 특성(교리·연구분야 등)
-    if (f.slug === sc.slug || (sc.name_en && f.name_en === sc.name_en)) add(f.level, f.slug); // 서브클래스 자체 = 1레벨 클래스 특성(본능/대의 등)
+    // ⚠ 서브클래스 자체(f.slug===sc.slug 또는 name_en 동일)는 클래스 특성 칸에 넣지 않음 — 그건 특성이 아니라
+    //   서브클래스 그 자체(본능/대의/혈통/학파 선택). 성장표 특성 칸엔 그 서브클래스가 주는 '별개' 특성만.
   }
   if (featLevel.has(sc.slug)) add(featLevel.get(sc.slug), sc.slug);   // 서브클래스가 재주로 표현(이콘/게이트)
   for (const f of (sc.features || [])) add(f.lv || 1, f.slug);   // 서브클래스 자체 features[](slug 단일소스, 혈통 마법·바드 지식 등) 직접 주입 — 이름 매칭 불필요
@@ -44,6 +45,12 @@ function subclassLevelFeatures(sc) {
     const nl = sc.name_en.toLowerCase();
     for (const f of classFeats) if (f.class === cls && f.name_en && f.name_en.toLowerCase().includes(nl)) add(f.level, f.slug);
   }
+  // ⚠ 서브클래스 자기 정의특성 일괄 제외 — 성장표 특성 칸엔 '서브클래스가 주는 별개 특성'만.
+  //   서브클래스 그 자체(bloodline-aberrant·school-of-*·enigma 등)는 특성이 아니라 서브클래스 선택 자체이므로
+  //   featLevel 자기주입·fallback 이름매칭에서 새어들어온 것까지 여기서 전부 걷어낸다.
+  const selfSlugs = new Set([sc.id, sc.slug]);
+  for (const f of classFeats) if (f.class === cls && (f.slug === sc.slug || (sc.name_en && f.name_en === sc.name_en))) selfSlugs.add(f.slug);
+  for (const lv in map) map[lv] = map[lv].filter(s => !selfSlugs.has(s));
   for (const lv in map) map[lv] = [...new Set(map[lv].filter(Boolean))];
   return map;
 }

@@ -2316,48 +2316,44 @@ function syncFamiliarSpellsToState() {
     });
   }
 
-  // 위저드 교육과정(Curriculum) = 선택한 비전 학파가 주문서에 부여하는 주문.
-  //   대원칙 0: 정체성(학파) 데이터를 런타임이 직접 읽어 주문서에 반영(효과 탭 경유 아님).
-  //   WIZARD_SCHOOL_DB(=wizard_schools.json) 단일소스. 위저드가 시전 가능한 랭크까지 풀 전체를 주문서에 추가.
-  if (cid === 'wizard') {
-    const sch = _wizardSchoolData();
-    if (sch && sch.curriculum) {
-      const maxRank = Math.min(10, Math.ceil(curLevel / 2));
-      Object.keys(sch.curriculum).forEach(rk => {
-        const isC = rk === 'cantrip';
-        const rank = isC ? 0 : parseInt(rk);
-        // 그 랭크 주문 슬롯을 얻는 레벨(rank r ⇒ lv ≥ 2r−1) 이상일 때만 주문서에 편입
-        if (!isC && (rank > maxRank || curLevel < 2 * rank - 1)) return;
-        const key = isC ? 'cantrip' : rank;
-        if (!fs[key]) fs[key] = [];
-        (sch.curriculum[rk] || []).forEach(e => {
-          const sl = e.spell || (e.name_ko ? spellSlug(e.name_ko) : null);
-          if (sl && !fs[key].includes(sl)) fs[key].push(sl);
-        });
+  // 교육과정(Curriculum) = 선택한 서브클래스의 성장 데이터(subclass.curriculum)가 주문서에 부여하는 주문.
+  //   대원칙 0: 서브클래스 성장 데이터를 런타임이 직접 읽음(클래스 id 하드코딩·효과 탭 경유 아님).
+  //   교육과정을 가진 서브클래스(현재=위저드 학파)면 자동 적용 — 시전 가능 랭크까지 풀 전체를 주문서에 편입.
+  const _currSub = _curriculumSubclass();
+  if (_currSub) {
+    const curr = _currSub.curriculum;
+    const maxRank = Math.min(10, Math.ceil(curLevel / 2));
+    Object.keys(curr).forEach(rk => {
+      const isC = rk === 'cantrip';
+      const rank = isC ? 0 : parseInt(rk);
+      // 그 랭크 주문 슬롯을 얻는 레벨(rank r ⇒ lv ≥ 2r−1) 이상일 때만 주문서에 편입
+      if (!isC && (rank > maxRank || curLevel < 2 * rank - 1)) return;
+      const key = isC ? 'cantrip' : rank;
+      if (!fs[key]) fs[key] = [];
+      (curr[rk] || []).forEach(e => {
+        const sl = e.spell || (e.name_ko ? spellSlug(e.name_ko) : null);
+        if (sl && !fs[key].includes(sl)) fs[key].push(sl);
       });
-    }
+    });
   }
 
   state.familiarSpells = fs;
 }
 
-// 현재 선택한 위저드 비전 학파의 정본 메타(WIZARD_SCHOOL_DB 항목). 미선택/비위저드면 null.
-//   subclass id는 학파 특성 slug(school-of-*) 또는 학파 slug(school-*) 어느 쪽이든 매칭.
-function _wizardSchoolData() {
-  if (state.selectedClass?.id !== 'wizard' || !state.selectedSubclass) return null;
-  if (typeof WIZARD_SCHOOL_DB === 'undefined' || !WIZARD_SCHOOL_DB) return null;
-  const sid = state.selectedSubclass.id;
-  const key = Object.keys(WIZARD_SCHOOL_DB).find(k => k === sid || WIZARD_SCHOOL_DB[k].feature_slug === sid);
-  return key ? WIZARD_SCHOOL_DB[key] : null;
+// 교육과정(curriculum)을 실은 현재 선택 서브클래스 — 대원칙 0: 서브클래스 성장 데이터. 없으면 null.
+//   ⚠ 클래스 id 하드코딩 없음. subclass.curriculum 유무로만 판정(데이터 구동) → 다른 클래스가 교육과정을
+//   가져도 그대로 동작. curriculum은 build_subclasses가 subclasses.json에 실음.
+function _curriculumSubclass() {
+  return (state.selectedSubclass && state.selectedSubclass.curriculum) ? state.selectedSubclass : null;
 }
 
-// 현재 학파 교육과정 주문 slug 전체 집합(랭크 무관). 교육과정 전용 슬롯 제한/표시에 사용.
+// 현재 서브클래스 교육과정 주문 slug 전체 집합(랭크 무관). 교육과정 전용 슬롯 제한/표시에 사용.
 function _wizardCurriculumSet() {
-  const sch = _wizardSchoolData();
+  const sub = _curriculumSubclass();
   const set = new Set();
-  if (!sch || !sch.curriculum) return set;
-  Object.keys(sch.curriculum).forEach(rk => {
-    (sch.curriculum[rk] || []).forEach(e => {
+  if (!sub) return set;
+  Object.keys(sub.curriculum).forEach(rk => {
+    (sub.curriculum[rk] || []).forEach(e => {
       const sl = e.spell || (e.name_ko ? spellSlug(e.name_ko) : null);
       if (sl) set.add(sl);
     });
@@ -2366,12 +2362,12 @@ function _wizardCurriculumSet() {
 }
 // 교육과정이 주문을 가진 최대 주문 랭크(정본상 9). 교육과정 보너스 슬롯 상한.
 function _wizardCurriculumMaxRank() {
-  const sch = _wizardSchoolData();
-  if (!sch || !sch.curriculum) return 0;
+  const sub = _curriculumSubclass();
+  if (!sub) return 0;
   let mx = 0;
-  Object.keys(sch.curriculum).forEach(rk => {
+  Object.keys(sub.curriculum).forEach(rk => {
     const r = rk === 'cantrip' ? 0 : parseInt(rk);
-    if ((sch.curriculum[rk] || []).length && r > mx) mx = r;
+    if ((sub.curriculum[rk] || []).length && r > mx) mx = r;
   });
   return mx;
 }
@@ -5926,8 +5922,9 @@ function updateSpellSlotsForClass() {
     state.cantripSlots = (data.cantrips || 5) + cantripBonus;
     // 위저드 교육과정 보너스 슬롯 = 시전 가능한 각 랭크에 +1(교육과정 전용). 정본: 학파는 "추가 주문·주문 슬롯" 부여.
     //   ⚠ 통합 이론 학파(unified)는 정본상 교육과정이 없어 이 보너스 슬롯을 받지 않음 → 교육과정 실재 시에만 적용.
+    // 교육과정 보너스 슬롯 = 서브클래스 데이터(curriculum) 유무로 판정(클래스 하드코딩 없음, 대원칙 0).
     state._curriculumSlotRanks = null;
-    const _currMaxRank = (state.selectedClass.id === 'wizard' && typeof _wizardCurriculumMaxRank === 'function') ? _wizardCurriculumMaxRank() : 0;
+    const _currMaxRank = (typeof _wizardCurriculumMaxRank === 'function') ? _wizardCurriculumMaxRank() : 0;
     if (_currMaxRank > 0) {
       // 교육과정 최대 랭크(정본 9)까지, 시전 가능한 각 랭크에 +1(10랭크 유령 슬롯 방지)
       const set = {};

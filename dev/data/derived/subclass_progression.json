@@ -5,9 +5,7 @@
    "class": "alchemist",
    "name_ko": "폭격기",
    "level": 1,
-   "features": [
-    "bomber"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -538,9 +536,7 @@
    "class": "alchemist",
    "name_ko": "외과의사",
    "level": 1,
-   "features": [
-    "chirurgeon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -1071,9 +1067,7 @@
    "class": "alchemist",
    "name_ko": "혈청학자",
    "level": 1,
-   "features": [
-    "mutagenist"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -1604,9 +1598,7 @@
    "class": "alchemist",
    "name_ko": "독물학자",
    "level": 1,
-   "features": [
-    "toxicologist"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -2136,9 +2128,7 @@
    "class": "animist",
    "name_ko": "전례사",
    "level": 1,
-   "features": [
-    "liturgist"
-   ],
+   "features": [],
    "grant_feats": [
     "circle-of-spirits"
    ],
@@ -2660,9 +2650,7 @@
    "class": "animist",
    "name_ko": "중간",
    "level": 1,
-   "features": [
-    "medium"
-   ],
+   "features": [],
    "grant_feats": [
     "relinquish-control"
    ],
@@ -3184,9 +3172,7 @@
    "class": "animist",
    "name_ko": "예지자",
    "level": 1,
-   "features": [
-    "seer"
-   ],
+   "features": [],
    "grant_feats": [
     "apparition-sense"
    ],
@@ -3708,9 +3694,7 @@
    "class": "animist",
    "name_ko": "샤먼",
    "level": 1,
-   "features": [
-    "shaman"
-   ],
+   "features": [],
    "grant_feats": [
     "spirit-familiar-animist",
     "pet"
@@ -4237,9 +4221,7 @@
    "class": "barbarian",
    "name_ko": "동물적 본능",
    "level": 1,
-   "features": [
-    "animal-instinct"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -4759,9 +4741,7 @@
    "class": "barbarian",
    "name_ko": "블러드레이저",
    "level": 1,
-   "features": [
-    "bloodrager"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -5285,9 +5265,7 @@
    "class": "barbarian",
    "name_ko": "부패 본능",
    "level": 1,
-   "features": [
-    "decay-instinct"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -5807,9 +5785,7 @@
    "class": "barbarian",
    "name_ko": "용의 본능",
    "level": 1,
-   "features": [
-    "dragon-instinct"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -6329,9 +6305,7 @@
    "class": "barbarian",
    "name_ko": "원소의 본능",
    "level": 1,
-   "features": [
-    "elemental-instinct"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -6851,9 +6825,7 @@
    "class": "barbarian",
    "name_ko": "분노의 본능",
    "level": 1,
-   "features": [
-    "fury-instinct"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -7373,9 +7345,7 @@
    "class": "barbarian",
    "name_ko": "거인의 본능",
    "level": 1,
-   "features": [
-    "giant-instinct"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -7895,9 +7865,7 @@
    "class": "barbarian",
    "name_ko": "목질적 본능",
    "level": 1,
-   "features": [
-    "ligneous-instinct"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -8417,9 +8385,7 @@
    "class": "barbarian",
    "name_ko": "영혼 본능",
    "level": 1,
-   "features": [
-    "spirit-instinct"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -8939,9 +8905,7 @@
    "class": "barbarian",
    "name_ko": "미신 본능",
    "level": 1,
-   "features": [
-    "superstition-instinct"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -9462,7 +9426,6 @@
    "name_ko": "수수께끼",
    "level": 1,
    "features": [
-    "enigma",
     "bardic-lore"
    ],
    "grant_feats": [
@@ -9993,7 +9956,6 @@
    "name_ko": "마에스트로",
    "level": 1,
    "features": [
-    "maestro",
     "lingering-composition"
    ],
    "grant_feats": [
@@ -10524,7 +10486,6 @@
    "name_ko": "박학다식",
    "level": 1,
    "features": [
-    "polymath",
     "versatile-performance"
    ],
    "grant_feats": [
@@ -11055,7 +11016,6 @@
    "name_ko": "전사",
    "level": 1,
    "features": [
-    "warrior",
     "warrior-martial-weapon-training"
    ],
    "grant_feats": [
@@ -11585,9 +11545,7 @@
    "class": "champion",
    "name_ko": "신성모독",
    "level": 1,
-   "features": [
-    "desecration"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -12109,9 +12067,7 @@
    "class": "champion",
    "name_ko": "위엄",
    "level": 1,
-   "features": [
-    "grandeur"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -12633,9 +12589,7 @@
    "class": "champion",
    "name_ko": "불의",
    "level": 1,
-   "features": [
-    "iniquity"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -13157,9 +13111,7 @@
    "class": "champion",
    "name_ko": "정의",
    "level": 1,
-   "features": [
-    "justice"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -13681,9 +13633,7 @@
    "class": "champion",
    "name_ko": "해방",
    "level": 1,
-   "features": [
-    "liberation"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -14205,9 +14155,7 @@
    "class": "champion",
    "name_ko": "복종",
    "level": 1,
-   "features": [
-    "obedience"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -14729,9 +14677,7 @@
    "class": "champion",
    "name_ko": "구원",
    "level": 1,
-   "features": [
-    "redemption"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -15253,9 +15199,7 @@
    "class": "champion",
    "name_ko": "축복받은 무장",
    "level": 1,
-   "features": [
-    "blessed-armament"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -15775,9 +15719,7 @@
    "class": "champion",
    "name_ko": "축복받은 방패",
    "level": 1,
-   "features": [
-    "blessed-shield"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -16349,9 +16291,7 @@
    "class": "champion",
    "name_ko": "축복받은 신속함",
    "level": 3,
-   "features": [
-    "blessed-swiftness"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -16820,7 +16760,6 @@
    "name_ko": "수도원 성직자",
    "level": 1,
    "features": [
-    "cloistered-cleric",
     "first-doctrine-cloistered-cleric"
    ],
    "grant_feats": [
@@ -17359,7 +17298,6 @@
    "level": 1,
    "features": [
     "first-doctrine-warpriest",
-    "warpriest",
     "warpriest-martial-armor-training"
    ],
    "grant_feats": [],
@@ -20382,9 +20320,7 @@
    "class": "exemplar",
    "name_ko": "세상의 치유자",
    "level": 15,
-   "features": [
-    "healer-of-the-world"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -20904,9 +20840,7 @@
    "class": "exemplar",
    "name_ko": "영웅의 스승",
    "level": 15,
-   "features": [
-    "teacher-of-heroes"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -21426,9 +21360,7 @@
    "class": "exemplar",
    "name_ko": "최후의 통치자",
    "level": 15,
-   "features": [
-    "the-last-ruler"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -21948,9 +21880,7 @@
    "class": "exemplar",
    "name_ko": "달빛의 도둑",
    "level": 15,
-   "features": [
-    "thief-of-moonlight"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -22160,9 +22090,7 @@
    "class": "exemplar",
    "name_ko": "용감한 자",
    "level": 3,
-   "features": [
-    "the-brave"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -22684,9 +22612,7 @@
    "class": "exemplar",
    "name_ko": "재치",
    "level": 3,
-   "features": [
-    "the-cunning"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -23208,9 +23134,7 @@
    "class": "exemplar",
    "name_ko": "민첩한 자",
    "level": 3,
-   "features": [
-    "the-deft"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -23732,9 +23656,7 @@
    "class": "exemplar",
    "name_ko": "애도하는 자",
    "level": 3,
-   "features": [
-    "the-mournful"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -24256,9 +24178,7 @@
    "class": "exemplar",
    "name_ko": "자부심",
    "level": 3,
-   "features": [
-    "the-proud"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -24780,9 +24700,7 @@
    "class": "exemplar",
    "name_ko": "빛나는 자",
    "level": 3,
-   "features": [
-    "the-radiant"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -25250,9 +25168,7 @@
    "class": "exemplar",
    "name_ko": "구속의 띠",
    "level": 1,
-   "features": [
-    "bands-of-imprisonment"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -25774,9 +25690,7 @@
    "class": "exemplar",
    "name_ko": "배로의 가장자리",
    "level": 1,
-   "features": [
-    "barrows-edge"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -26298,9 +26212,7 @@
    "class": "exemplar",
    "name_ko": "눈길을 끄는 장소",
    "level": 1,
-   "features": [
-    "eye-catching-spot"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -26822,9 +26734,7 @@
    "class": "exemplar",
    "name_ko": "매혹적인 팔찌",
    "level": 1,
-   "features": [
-    "fetching-bangles"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -27346,9 +27256,7 @@
    "class": "exemplar",
    "name_ko": "강철처럼 날카로운 시선",
    "level": 1,
-   "features": [
-    "gaze-sharp-as-steel"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -27870,9 +27778,7 @@
    "class": "exemplar",
    "name_ko": "빛나는 검",
    "level": 1,
-   "features": [
-    "gleaming-blade"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -28394,9 +28300,7 @@
    "class": "exemplar",
    "name_ko": "야생인의 손",
    "level": 1,
-   "features": [
-    "hands-of-the-wildling"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -28918,9 +28822,7 @@
    "class": "exemplar",
    "name_ko": "풍요의 뿔",
    "level": 1,
-   "features": [
-    "horn-of-plenty"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -29442,9 +29344,7 @@
    "class": "exemplar",
    "name_ko": "미러드 이지스",
    "level": 1,
-   "features": [
-    "mirrored-aegis"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -29966,9 +29866,7 @@
    "class": "exemplar",
    "name_ko": "필멸의 수확",
    "level": 1,
-   "features": [
-    "mortal-harvest"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -30490,9 +30388,7 @@
    "class": "exemplar",
    "name_ko": "고귀한 가지",
    "level": 1,
-   "features": [
-    "noble-branch"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -31014,9 +30910,7 @@
    "class": "exemplar",
    "name_ko": "야수의 가죽",
    "level": 1,
-   "features": [
-    "pelt-of-the-beast"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -31538,9 +31432,7 @@
    "class": "exemplar",
    "name_ko": "생존자의 상처",
    "level": 1,
-   "features": [
-    "scar-of-the-survivor"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -32062,9 +31954,7 @@
    "class": "exemplar",
    "name_ko": "그림자 칼집",
    "level": 1,
-   "features": [
-    "shadow-sheath"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -32586,9 +32476,7 @@
    "class": "exemplar",
    "name_ko": "뿔처럼 단단한 피부",
    "level": 1,
-   "features": [
-    "skin-hard-as-horn"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -33110,9 +32998,7 @@
    "class": "exemplar",
    "name_ko": "하늘을 지탱하는 자의 벨트",
    "level": 1,
-   "features": [
-    "skybearers-belt"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -33634,9 +33520,7 @@
    "class": "exemplar",
    "name_ko": "스타샷",
    "level": 1,
-   "features": [
-    "starshot"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -34158,9 +34042,7 @@
    "class": "exemplar",
    "name_ko": "천리신발",
    "level": 1,
-   "features": [
-    "thousand-league-sandals"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -34682,9 +34564,7 @@
    "class": "exemplar",
    "name_ko": "타이탄의 파괴자",
    "level": 1,
-   "features": [
-    "titans-breaker"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -35206,9 +35086,7 @@
    "class": "exemplar",
    "name_ko": "실패 없는 활",
    "level": 1,
-   "features": [
-    "unfailing-bow"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -35730,9 +35608,7 @@
    "class": "exemplar",
    "name_ko": "승리의 화환",
    "level": 1,
-   "features": [
-    "victors-wreath"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -36412,9 +36288,7 @@
    "class": "exemplar",
    "name_ko": "대지의 뼈에서 태어나다",
    "level": 7,
-   "features": [
-    "born-of-the-bones-of-the-earth"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -36936,9 +36810,7 @@
    "class": "exemplar",
    "name_ko": "계절의 무용수",
    "level": 7,
-   "features": [
-    "dancer-in-the-seasons"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -37460,9 +37332,7 @@
    "class": "exemplar",
    "name_ko": "끊어지지 않은 시",
    "level": 7,
-   "features": [
-    "of-verse-unbroken"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -37982,9 +37852,7 @@
    "class": "exemplar",
    "name_ko": "천하무적",
    "level": 7,
-   "features": [
-    "peerless-under-heaven"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -38506,9 +38374,7 @@
    "class": "exemplar",
    "name_ko": "벌집의 보물을 약탈하는 자",
    "level": 7,
-   "features": [
-    "plunderer-of-the-hives-riches"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -39030,9 +38896,7 @@
    "class": "exemplar",
    "name_ko": "파도처럼 불안한",
    "level": 7,
-   "features": [
-    "restless-as-the-tide"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -39554,9 +39418,7 @@
    "class": "exemplar",
    "name_ko": "죽음의 영역을 침범하는 자",
    "level": 7,
-   "features": [
-    "trespasser-in-deaths-realm"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -40078,9 +39940,7 @@
    "class": "exemplar",
    "name_ko": "천둥 같은 울음소리",
    "level": 7,
-   "features": [
-    "whose-cry-is-thunder"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -40444,9 +40304,7 @@
    "class": "gunslinger",
    "name_ko": "방랑자의 길",
    "level": 1,
-   "features": [
-    "way-of-the-drifter"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "acrobatics"
@@ -40971,9 +40829,7 @@
    "class": "gunslinger",
    "name_ko": "권총잡이의 길",
    "level": 1,
-   "features": [
-    "way-of-the-pistolero"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -41496,9 +41352,7 @@
    "class": "gunslinger",
    "name_ko": "저격수의 길",
    "level": 1,
-   "features": [
-    "way-of-the-sniper"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "stealth"
@@ -42023,9 +41877,7 @@
    "class": "gunslinger",
    "name_ko": "스펠샷의 길",
    "level": 1,
-   "features": [
-    "way-of-the-spellshot"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "arcana"
@@ -42552,9 +42404,7 @@
    "class": "gunslinger",
    "name_ko": "방아쇠의 길",
    "level": 1,
-   "features": [
-    "way-of-the-triggerbrand"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "thievery"
@@ -43079,9 +42929,7 @@
    "class": "gunslinger",
    "name_ko": "선봉의 길",
    "level": 1,
-   "features": [
-    "way-of-the-vanguard"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "athletics"
@@ -43606,9 +43454,7 @@
    "class": "inventor",
    "name_ko": "갑옷 혁신",
    "level": 1,
-   "features": [
-    "armor-innovation"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -44128,9 +43974,7 @@
    "class": "inventor",
    "name_ko": "구조체 혁신",
    "level": 1,
-   "features": [
-    "construct-innovation"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -44650,9 +44494,7 @@
    "class": "inventor",
    "name_ko": "경박격포 혁신",
    "level": 1,
-   "features": [
-    "light-mortar-innovation"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -45176,9 +45018,7 @@
    "class": "inventor",
    "name_ko": "무기 혁신",
    "level": 1,
-   "features": [
-    "weapon-innovation"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -45698,9 +45538,7 @@
    "class": "investigator",
    "name_ko": "연금술 과학 방법론",
    "level": 1,
-   "features": [
-    "alchemical-sciences-methodology"
-   ],
+   "features": [],
    "grant_feats": [
     "alchemical-crafting"
    ],
@@ -46226,9 +46064,7 @@
    "class": "investigator",
    "name_ko": "경험주의 방법론",
    "level": 1,
-   "features": [
-    "empiricism-methodology"
-   ],
+   "features": [],
    "grant_feats": [
     "thats-odd"
    ],
@@ -46752,9 +46588,7 @@
    "class": "investigator",
    "name_ko": "법의학 방법론",
    "level": 1,
-   "features": [
-    "forensic-medicine-methodology"
-   ],
+   "features": [],
    "grant_feats": [
     "forensic-acumen",
     "battle-medicine"
@@ -47279,9 +47113,7 @@
    "class": "investigator",
    "name_ko": "심문 기법",
    "level": 1,
-   "features": [
-    "interrogation-methodology"
-   ],
+   "features": [],
    "grant_feats": [
     "no-cause-for-alarm"
    ],
@@ -47807,9 +47639,7 @@
    "class": "investigator",
    "name_ko": "팔라틴 탐정",
    "level": 1,
-   "features": [
-    "palatine-detective"
-   ],
+   "features": [],
    "grant_feats": [
     "quick-identification"
    ],
@@ -48335,9 +48165,7 @@
    "class": "kineticist",
    "name_ko": "공기 게이트",
    "level": 1,
-   "features": [
-    "air-gate"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -48857,9 +48685,7 @@
    "class": "kineticist",
    "name_ko": "대지의 게이트",
    "level": 1,
-   "features": [
-    "earth-gate"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -49379,9 +49205,7 @@
    "class": "kineticist",
    "name_ko": "화염 게이트",
    "level": 1,
-   "features": [
-    "fire-gate"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -49901,9 +49725,7 @@
    "class": "kineticist",
    "name_ko": "금속 게이트",
    "level": 1,
-   "features": [
-    "metal-gate"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -50423,9 +50245,7 @@
    "class": "kineticist",
    "name_ko": "물 게이트",
    "level": 1,
-   "features": [
-    "water-gate"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -50945,9 +50765,7 @@
    "class": "kineticist",
    "name_ko": "나무 문",
    "level": 1,
-   "features": [
-    "wood-gate"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -51467,9 +51285,7 @@
    "class": "magus",
    "name_ko": "냉담한 창공",
    "level": 1,
-   "features": [
-    "aloof-firmament"
-   ],
+   "features": [],
    "grant_feats": [
     "cat-fall"
    ],
@@ -51996,9 +51812,7 @@
    "class": "magus",
    "name_ko": "불굴의 강철",
    "level": 1,
-   "features": [
-    "inexorable-iron"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -52523,9 +52337,7 @@
    "class": "magus",
    "name_ko": "웃는 그림자",
    "level": 1,
-   "features": [
-    "laughing-shadow"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -53050,9 +52862,7 @@
    "class": "magus",
    "name_ko": "부활하는 소용돌이",
    "level": 1,
-   "features": [
-    "resurgent-maelstrom"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -53577,9 +53387,7 @@
    "class": "magus",
    "name_ko": "반짝이는 방패",
    "level": 1,
-   "features": [
-    "sparkling-targe"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -54104,9 +53912,7 @@
    "class": "magus",
    "name_ko": "별빛 다리",
    "level": 1,
-   "features": [
-    "starlit-span"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -54631,9 +54437,7 @@
    "class": "magus",
    "name_ko": "뒤틀린 나무",
    "level": 1,
-   "features": [
-    "twisting-tree"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -55158,9 +54962,7 @@
    "class": "magus",
    "name_ko": "펼쳐지는 비단",
    "level": 1,
-   "features": [
-    "unfurling-brocade"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -55686,7 +55488,6 @@
    "name_ko": "조상",
    "level": 1,
    "features": [
-    "ancestors",
     "curse-of-ancestral-meddling"
    ],
    "grant_feats": [
@@ -56241,7 +56042,6 @@
    "name_ko": "재",
    "level": 1,
    "features": [
-    "ashes",
     "curse-of-creeping-ashes"
    ],
    "grant_feats": [
@@ -56796,7 +56596,6 @@
    "name_ko": "전투",
    "level": 1,
    "features": [
-    "battle",
     "curse-of-the-mortal-warrior"
    ],
    "grant_feats": [
@@ -57351,7 +57150,6 @@
    "name_ko": "병폐",
    "level": 1,
    "features": [
-    "blight",
     "curse-of-inevitable-rot"
    ],
    "grant_feats": [
@@ -57906,7 +57704,6 @@
    "name_ko": "뼈",
    "level": 1,
    "features": [
-    "bones",
     "curse-of-the-living-death"
    ],
    "grant_feats": [
@@ -58461,7 +58258,6 @@
    "name_ko": "우주",
    "level": 1,
    "features": [
-    "cosmos",
     "curse-of-the-skys-call"
    ],
    "grant_feats": [
@@ -59016,7 +58812,6 @@
    "name_ko": "불꽃",
    "level": 1,
    "features": [
-    "flames",
     "curse-of-engulfing-flames"
    ],
    "grant_feats": [
@@ -59571,7 +59366,6 @@
    "name_ko": "생명",
    "level": 1,
    "features": [
-    "life",
     "curse-of-outpouring-life"
    ],
    "grant_feats": [
@@ -60126,7 +59920,6 @@
    "name_ko": "지식",
    "level": 1,
    "features": [
-    "lore",
     "curse-of-torrential-knowledge"
    ],
    "grant_feats": [
@@ -60681,7 +60474,6 @@
    "name_ko": "폭풍",
    "level": 1,
    "features": [
-    "tempest",
     "curse-of-inclement-headwinds"
    ],
    "grant_feats": [
@@ -61236,7 +61028,6 @@
    "name_ko": "시간",
    "level": 1,
    "features": [
-    "time",
     "curse-of-turbulent-moments"
    ],
    "grant_feats": [
@@ -61790,9 +61581,7 @@
    "class": "psychic",
    "name_ko": "원거리 잡기",
    "level": 1,
-   "features": [
-    "the-distant-grasp"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -62317,9 +62106,7 @@
    "class": "psychic",
    "name_ko": "무한의 눈",
    "level": 1,
-   "features": [
-    "the-infinite-eye"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -62844,9 +62631,7 @@
    "class": "psychic",
    "name_ko": "진동하는 파동",
    "level": 1,
-   "features": [
-    "the-oscillating-wave"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -63371,9 +63156,7 @@
    "class": "psychic",
    "name_ko": "침묵의 속삭임",
    "level": 1,
-   "features": [
-    "the-silent-whisper"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -63898,9 +63681,7 @@
    "class": "psychic",
    "name_ko": "실체화된 꿈",
    "level": 1,
-   "features": [
-    "the-tangible-dream"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -64425,9 +64206,7 @@
    "class": "psychic",
    "name_ko": "무한한 발걸음",
    "level": 1,
-   "features": [
-    "the-unbound-step"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -64952,9 +64731,7 @@
    "class": "psychic",
    "name_ko": "감정적 수용",
    "level": 1,
-   "features": [
-    "emotional-acceptance"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -65476,9 +65253,7 @@
    "class": "psychic",
    "name_ko": "집대성된 지식",
    "level": 1,
-   "features": [
-    "gathered-lore"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -66000,9 +65775,7 @@
    "class": "psychic",
    "name_ko": "정밀한 훈련",
    "level": 1,
-   "features": [
-    "precise-discipline"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -66524,9 +66297,7 @@
    "class": "psychic",
    "name_ko": "방황하는 몽상",
    "level": 1,
-   "features": [
-    "wandering-reverie"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -67048,9 +66819,7 @@
    "class": "ranger",
    "name_ko": "연타",
    "level": 1,
-   "features": [
-    "flurry"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -67572,9 +67341,7 @@
    "class": "ranger",
    "name_ko": "계략",
    "level": 1,
-   "features": [
-    "outwit"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -68096,9 +67863,7 @@
    "class": "ranger",
    "name_ko": "정밀",
    "level": 1,
-   "features": [
-    "precision"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -68620,9 +68385,7 @@
    "class": "rogue",
    "name_ko": "비전 트릭스터",
    "level": 1,
-   "features": [
-    "eldritch-trickster"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],
@@ -69142,9 +68905,7 @@
    "class": "rogue",
    "name_ko": "지략가",
    "level": 1,
-   "features": [
-    "mastermind"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "society"
@@ -69666,9 +69427,7 @@
    "class": "rogue",
    "name_ko": "건달",
    "level": 1,
-   "features": [
-    "ruffian"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "intimidation"
@@ -70190,9 +69949,7 @@
    "class": "rogue",
    "name_ko": "사기꾼",
    "level": 1,
-   "features": [
-    "scoundrel"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "deception",
@@ -70715,9 +70472,7 @@
    "class": "rogue",
    "name_ko": "도둑",
    "level": 1,
-   "features": [
-    "thief"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "thievery"
@@ -71240,7 +70995,6 @@
    "name_ko": "혈통: 이형체",
    "level": 1,
    "features": [
-    "bloodline-aberrant",
     "blood-magic-aberrant"
    ],
    "grant_feats": [],
@@ -71829,7 +71583,6 @@
    "name_ko": "혈통: 에시르",
    "level": 1,
    "features": [
-    "bloodline-aesir",
     "blood-magic-aesir"
    ],
    "grant_feats": [],
@@ -72418,7 +72171,6 @@
    "name_ko": "혈통: 천상체",
    "level": 1,
    "features": [
-    "bloodline-angelic",
     "blood-magic-angelic"
    ],
    "grant_feats": [],
@@ -73007,7 +72759,6 @@
    "name_ko": "혈통: 데몬",
    "level": 1,
    "features": [
-    "bloodline-demonic",
     "blood-magic-demonic"
    ],
    "grant_feats": [],
@@ -73596,7 +73347,6 @@
    "name_ko": "혈통: 데빌",
    "level": 1,
    "features": [
-    "bloodline-diabolic",
     "blood-magic-diabolic"
    ],
    "grant_feats": [],
@@ -74185,7 +73935,6 @@
    "name_ko": "혈통: 드라코닉",
    "level": 1,
    "features": [
-    "bloodline-draconic",
     "blood-magic-draconic"
    ],
    "grant_feats": [],
@@ -74755,7 +74504,6 @@
    "name_ko": "혈통: 원소",
    "level": 1,
    "features": [
-    "bloodline-elemental",
     "blood-magic-elemental"
    ],
    "grant_feats": [],
@@ -75322,7 +75070,6 @@
    "name_ko": "혈통: 페이",
    "level": 1,
    "features": [
-    "bloodline-fey",
     "blood-magic-fey"
    ],
    "grant_feats": [],
@@ -75911,7 +75658,6 @@
    "name_ko": "혈통: 지니",
    "level": 1,
    "features": [
-    "bloodline-genie",
     "blood-magic-genie"
    ],
    "grant_feats": [],
@@ -76482,7 +76228,6 @@
    "name_ko": "혈통: 마녀",
    "level": 1,
    "features": [
-    "bloodline-hag",
     "blood-magic-hag"
    ],
    "grant_feats": [],
@@ -77071,7 +76816,6 @@
    "name_ko": "혈통: 해로우",
    "level": 1,
    "features": [
-    "bloodline-harrow",
     "blood-magic-harrow"
    ],
    "grant_feats": [],
@@ -77660,7 +77404,6 @@
    "name_ko": "혈통: 제국",
    "level": 1,
    "features": [
-    "bloodline-imperial",
     "blood-magic-imperial"
    ],
    "grant_feats": [],
@@ -78249,7 +77992,6 @@
    "name_ko": "혈통: 님프",
    "level": 1,
    "features": [
-    "bloodline-nymph",
     "blood-magic-nymph"
    ],
    "grant_feats": [],
@@ -78838,7 +78580,6 @@
    "name_ko": "혈통: 불사조",
    "level": 1,
    "features": [
-    "bloodline-phoenix",
     "blood-magic-phoenix"
    ],
    "grant_feats": [],
@@ -79427,7 +79168,6 @@
    "name_ko": "혈통: 사이코폼프",
    "level": 1,
    "features": [
-    "bloodline-psychopomp",
     "blood-magic-psychopomp"
    ],
    "grant_feats": [],
@@ -80016,7 +79756,6 @@
    "name_ko": "혈통: 그림자",
    "level": 1,
    "features": [
-    "bloodline-shadow",
     "blood-magic-shadow"
    ],
    "grant_feats": [],
@@ -80605,7 +80344,6 @@
    "name_ko": "혈통: 언데드",
    "level": 1,
    "features": [
-    "bloodline-undead",
     "blood-magic-undead"
    ],
    "grant_feats": [],
@@ -81194,7 +80932,6 @@
    "name_ko": "혈통: 용의 축복",
    "level": 1,
    "features": [
-    "bloodline-wyrmblessed",
     "blood-magic-wyrmblessed"
    ],
    "grant_feats": [],
@@ -81782,9 +81519,7 @@
    "class": "summoner",
    "name_ko": "천사 에이돌론",
    "level": 1,
-   "features": [
-    "angel-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "diplomacy",
@@ -82307,9 +82042,7 @@
    "class": "summoner",
    "name_ko": "분노 유령 에이돌론",
    "level": 1,
-   "features": [
-    "anger-phantom-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "intimidation",
@@ -82832,9 +82565,7 @@
    "class": "summoner",
    "name_ko": "야수 에이돌론",
    "level": 1,
-   "features": [
-    "beast-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "intimidation",
@@ -83357,9 +83088,7 @@
    "class": "summoner",
    "name_ko": "구조물 에이돌론",
    "level": 1,
-   "features": [
-    "construct-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "arcana",
@@ -83882,9 +83611,7 @@
    "class": "summoner",
    "name_ko": "데몬 에이돌론",
    "level": 1,
-   "features": [
-    "demon-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "intimidation",
@@ -84407,9 +84134,7 @@
    "class": "summoner",
    "name_ko": "헌신 유령 에이돌론",
    "level": 1,
-   "features": [
-    "devotion-phantom-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "medicine",
@@ -84932,9 +84657,7 @@
    "class": "summoner",
    "name_ko": "용 에이돌론",
    "level": 1,
-   "features": [
-    "dragon-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "arcana",
@@ -85457,9 +85180,7 @@
    "class": "summoner",
    "name_ko": "정령 에이돌론",
    "level": 1,
-   "features": [
-    "elemental-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "nature",
@@ -85982,9 +85703,7 @@
    "class": "summoner",
    "name_ko": "페이 에이돌론",
    "level": 1,
-   "features": [
-    "fey-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "deception",
@@ -86507,9 +86226,7 @@
    "class": "summoner",
    "name_ko": "식물 에이돌론",
    "level": 1,
-   "features": [
-    "plant-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "survival",
@@ -87032,9 +86749,7 @@
    "class": "summoner",
    "name_ko": "사이코폼프 에이돌론",
    "level": 1,
-   "features": [
-    "psychopomp-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "intimidation",
@@ -87557,9 +87272,7 @@
    "class": "summoner",
    "name_ko": "군체 에이돌론",
    "level": 1,
-   "features": [
-    "swarm-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "nature",
@@ -88082,9 +87795,7 @@
    "class": "summoner",
    "name_ko": "언데드 에이돌론",
    "level": 1,
-   "features": [
-    "undead-eidolon"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "intimidation",
@@ -88607,9 +88318,7 @@
    "class": "swashbuckler",
    "name_ko": "전투 무용수",
    "level": 1,
-   "features": [
-    "battledancer"
-   ],
+   "features": [],
    "grant_feats": [
     "fascinating-performance"
    ],
@@ -89133,9 +88842,7 @@
    "class": "swashbuckler",
    "name_ko": "브라가트",
    "level": 1,
-   "features": [
-    "braggart"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "intimidation"
@@ -89657,9 +89364,7 @@
    "class": "swashbuckler",
    "name_ko": "펜서",
    "level": 1,
-   "features": [
-    "fencer"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "deception"
@@ -90181,9 +89886,7 @@
    "class": "swashbuckler",
    "name_ko": "체조 선수",
    "level": 1,
-   "features": [
-    "gymnast"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "athletics"
@@ -90705,9 +90408,7 @@
    "class": "swashbuckler",
    "name_ko": "라스칼",
    "level": 1,
-   "features": [
-    "rascal"
-   ],
+   "features": [],
    "grant_feats": [
     "dirty-trick"
    ],
@@ -91231,9 +90932,7 @@
    "class": "swashbuckler",
    "name_ko": "재치",
    "level": 1,
-   "features": [
-    "wit"
-   ],
+   "features": [],
    "grant_feats": [
     "bon-mot"
    ],
@@ -91758,7 +91457,6 @@
    "name_ko": "부적",
    "level": 1,
    "features": [
-    "amulet",
     "initiate-benefit-amulet"
    ],
    "grant_feats": [
@@ -92287,7 +91985,6 @@
    "name_ko": "종",
    "level": 1,
    "features": [
-    "bell",
     "initiate-benefit-bell"
    ],
    "grant_feats": [
@@ -92816,7 +92513,6 @@
    "name_ko": "성배",
    "level": 1,
    "features": [
-    "chalice",
     "initiate-benefit-chalice"
    ],
    "grant_feats": [
@@ -93345,8 +93041,7 @@
    "name_ko": "랜턴",
    "level": 1,
    "features": [
-    "initiate-benefit-lantern",
-    "lantern"
+    "initiate-benefit-lantern"
    ],
    "grant_feats": [
     "initiate-benefit-lantern"
@@ -93874,8 +93569,7 @@
    "name_ko": "거울",
    "level": 1,
    "features": [
-    "initiate-benefit-mirror",
-    "mirror"
+    "initiate-benefit-mirror"
    ],
    "grant_feats": [
     "initiate-benefit-mirror"
@@ -94403,8 +94097,7 @@
    "name_ko": "레갈리아",
    "level": 1,
    "features": [
-    "initiate-benefit-regalia",
-    "regalia"
+    "initiate-benefit-regalia"
    ],
    "grant_feats": [
     "initiate-benefit-regalia"
@@ -94932,8 +94625,7 @@
    "name_ko": "방패",
    "level": 1,
    "features": [
-    "initiate-benefit-shield",
-    "shield"
+    "initiate-benefit-shield"
    ],
    "grant_feats": [
     "initiate-benefit-shield"
@@ -95461,8 +95153,7 @@
    "name_ko": "서적",
    "level": 1,
    "features": [
-    "initiate-benefit-tome",
-    "tome"
+    "initiate-benefit-tome"
    ],
    "grant_feats": [
     "initiate-benefit-tome"
@@ -95990,8 +95681,7 @@
    "name_ko": "지팡이",
    "level": 1,
    "features": [
-    "initiate-benefit-wand",
-    "wand"
+    "initiate-benefit-wand"
    ],
    "grant_feats": [
     "initiate-benefit-wand"
@@ -96519,8 +96209,7 @@
    "name_ko": "무기",
    "level": 1,
    "features": [
-    "initiate-benefit-weapon",
-    "weapon"
+    "initiate-benefit-weapon"
    ],
    "grant_feats": [
     "initiate-benefit-weapon"
@@ -100209,9 +99898,7 @@
    "class": "wizard",
    "name_ko": "문법 학파",
    "level": 1,
-   "features": [
-    "school-of-ars-grammatica"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -100736,9 +100423,7 @@
    "class": "wizard",
    "name_ko": "전투 마법 학파",
    "level": 1,
-   "features": [
-    "school-of-battle-magic"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -101263,9 +100948,7 @@
    "class": "wizard",
    "name_ko": "경계 학파",
    "level": 1,
-   "features": [
-    "school-of-the-boundary"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -101790,9 +101473,7 @@
    "class": "wizard",
    "name_ko": "시민 마법 학파",
    "level": 1,
-   "features": [
-    "school-of-civic-wizardry"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -102317,9 +101998,7 @@
    "class": "wizard",
    "name_ko": "정신 학파",
    "level": 1,
-   "features": [
-    "school-of-mentalism"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -102844,9 +102523,7 @@
    "class": "wizard",
    "name_ko": "변형 학파",
    "level": 1,
-   "features": [
-    "school-of-protean-form"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [
@@ -103371,9 +103048,7 @@
    "class": "wizard",
    "name_ko": "통합 이론 학파",
    "level": 1,
-   "features": [
-    "school-of-unified-magical-theory"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [],
    "grant_spells": [],

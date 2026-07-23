@@ -90,10 +90,11 @@ function runDiag(){
   try {
     var flv=document.getElementById('f-level'); if(flv) flv.value='20';
     state.selectedClass={id:'wizard',name:'wiz',casting:'prepared',keyAbility:'int',tradition:'arcane'};
-    state.selectedSubclass={id:'school-ars-grammatica',class_id:'wizard'};
+    state.selectedSubclass=(typeof SUBCLASS_DB!=='undefined')?SUBCLASS_DB.find(function(s){return s.id==='school-ars-grammatica';}):null;
+    ok('학파 서브클래스 curriculum 데이터 존재(subclass.curriculum)', !!(state.selectedSubclass&&state.selectedSubclass.curriculum));
     state.growth={}; state.preparedSpells={cantrip:[]};
     ok('WIZARD_SCHOOL_DB 로드(7)', typeof WIZARD_SCHOOL_DB!=='undefined' && Object.keys(WIZARD_SCHOOL_DB).length===7);
-    ok('_wizardSchoolData 해소', !!(typeof _wizardSchoolData==='function' && _wizardSchoolData()));
+    ok('_curriculumSubclass 데이터구동 해소(하드코딩 없음)', !!(typeof _curriculumSubclass==='function' && _curriculumSubclass()));
     syncFamiliarSpellsToState();
     var fs2=state.familiarSpells||{};
     ok('교육과정→주문서: r1 command', (fs2[1]||[]).indexOf('command')>=0);
@@ -107,7 +108,7 @@ function runDiag(){
     ok('_isCurriculumSlot 마지막슬롯 판정', _isCurriculumSlot(1,3,4)===true && _isCurriculumSlot(1,0,4)===false);
     ok('교육과정집합: command 포함/light 미포함', _wizardCurriculumSet().has('command') && !_wizardCurriculumSet().has('light'));
     // 통합 학파 = 교육과정/보너스 슬롯 없음(정본 No Curriculum)
-    state.selectedSubclass={id:'school-unified',class_id:'wizard'};
+    state.selectedSubclass=(typeof SUBCLASS_DB!=='undefined')?SUBCLASS_DB.find(function(s){return s.id==='school-unified';}):null;
     try{ updateSpellSlotsForClass(); }catch(e){}
     ok('통합학파: 보너스슬롯 없음(r1=3)', state.spellSlots[1]===3 && !state._curriculumSlotRanks);
     syncFamiliarSpellsToState();
@@ -117,7 +118,8 @@ function runDiag(){
     ok('학파 desc 정본(길이>1000)', !!(_sd && (_sd.desc||'').length>1000));
     ok('학파 desc 링크(ref-link) 포함', !!(_sd && /ref-link/.test(_sd.desc||'')));
     ok('학파 name_en 정정(School of Ars Grammatica)', !!(_sd && _sd.name_en==='School of Ars Grammatica'));
-    ok('학파 feature slug 참조(school-of-*)', !!(_sd && (_sd.features||[]).some(function(f){return f.slug==='school-of-ars-grammatica';})));
+    // 서브클래스 자기 자신(school-of-*)은 클래스 특성 칸에 넣지 않음 — 설명은 서브클래스 desc가 소유.
+    ok('학파 features에 자기 자신 없음', !!(_sd && !(_sd.features||[]).some(function(f){return f.slug==='school-of-ars-grammatica';})));
   } catch(e){ err.push('wizard-curriculum:'+e.message); }
 
   // ── 효과 단일화(EFFECTS_DB) 검증 ──
