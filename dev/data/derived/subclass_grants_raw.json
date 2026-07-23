@@ -86,6 +86,28 @@
    "grant_spells": [],
    "grant_actions": []
   },
+  "the-resentment": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "occultism",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "silence-in-snow": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "nature",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
   "lantern": {
    "grant_feats": [
     {
@@ -144,6 +166,17 @@
    "grant_skills": [
     {
      "slug": "occultism",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "the-inscribed-one": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "arcana",
      "lv": 1
     }
    ],
@@ -582,6 +615,17 @@
    "grant_spells": [],
    "grant_actions": []
   },
+  "wilding-steward": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "nature",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
   "demon-eidolon": {
    "grant_feats": [],
    "grant_skills": [
@@ -625,6 +669,17 @@
     }
    ],
    "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "spinner-of-threads": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "occultism",
+     "lv": 1
+    }
+   ],
    "grant_spells": [],
    "grant_actions": []
   },
@@ -718,6 +773,17 @@
    "grant_skills": [
     {
      "slug": "crafting",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "faiths-flamekeeper": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "religion",
      "lv": 1
     }
    ],
@@ -831,6 +897,17 @@
     }
    ],
    "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "starless-shadow": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "occultism",
+     "lv": 1
+    }
+   ],
    "grant_spells": [],
    "grant_actions": []
   },

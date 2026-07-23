@@ -1873,21 +1873,6 @@
   },
   {
    "owner_kind": "feat",
-   "owner_slug": "the-resentment",
-   "owner_name": "원한",
-   "owner_level": 1,
-   "category": "classfeature",
-   "src": "rule",
-   "rule": "ActiveEffectLike",
-   "type": "skill_trained",
-   "target": "occultism",
-   "value": 1,
-   "bonus_type": "upgrade",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
    "owner_slug": "debilitating-strike",
    "owner_name": "쇠약화 타격",
    "owner_level": 9,
@@ -1911,21 +1896,6 @@
    "type": "proficiency",
    "target": "martial",
    "value": 2,
-   "bonus_type": "upgrade",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "silence-in-snow",
-   "owner_name": "눈 속의 침묵",
-   "owner_level": 1,
-   "category": "classfeature",
-   "src": "rule",
-   "rule": "ActiveEffectLike",
-   "type": "skill_trained",
-   "target": "nature",
-   "value": 1,
    "bonus_type": "upgrade",
    "condition": "",
    "cond_value": ""
@@ -2312,21 +2282,6 @@
    "value": "",
    "condition": "feat",
    "cond_value": "psychic-dedication"
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "the-inscribed-one",
-   "owner_name": "새겨진 자",
-   "owner_level": 1,
-   "category": "classfeature",
-   "src": "rule",
-   "rule": "ActiveEffectLike",
-   "type": "skill_trained",
-   "target": "arcana",
-   "value": 1,
-   "bonus_type": "upgrade",
-   "condition": "",
-   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -4463,21 +4418,6 @@
   },
   {
    "owner_kind": "feat",
-   "owner_slug": "wilding-steward",
-   "owner_name": "야성의 수호자",
-   "owner_level": 1,
-   "category": "classfeature",
-   "src": "rule",
-   "rule": "ActiveEffectLike",
-   "type": "skill_trained",
-   "target": "nature",
-   "value": 1,
-   "bonus_type": "upgrade",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
    "owner_slug": "taunt",
    "owner_name": "도발",
    "owner_level": 1,
@@ -4657,21 +4597,6 @@
    "type": "choice",
    "target": "divineFont",
    "value": "2개",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "spinner-of-threads",
-   "owner_name": "실의 방적공",
-   "owner_level": 1,
-   "category": "classfeature",
-   "src": "rule",
-   "rule": "ActiveEffectLike",
-   "type": "skill_trained",
-   "target": "occultism",
-   "value": 1,
-   "bonus_type": "upgrade",
    "condition": "",
    "cond_value": ""
   },
@@ -5023,21 +4948,6 @@
    "type": "grant_item",
    "target": "formula-book-blank",
    "name": "공식집 (빈 페이지)",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "faiths-flamekeeper",
-   "owner_name": "신앙의 불지킴이",
-   "owner_level": 1,
-   "category": "classfeature",
-   "src": "rule",
-   "rule": "ActiveEffectLike",
-   "type": "skill_trained",
-   "target": "religion",
-   "value": 1,
-   "bonus_type": "upgrade",
    "condition": "",
    "cond_value": ""
   },
@@ -5517,21 +5427,6 @@
    "value": "1 + floor(@actor.level / 2)",
    "condition": "compound",
    "cond_value": "(armor:category:heavy | armor:category:medium)"
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "starless-shadow",
-   "owner_name": "별 없는 그림자",
-   "owner_level": 1,
-   "category": "classfeature",
-   "src": "rule",
-   "rule": "ActiveEffectLike",
-   "type": "skill_trained",
-   "target": "occultism",
-   "value": 1,
-   "bonus_type": "upgrade",
-   "condition": "",
-   "cond_value": ""
   },
   {
    "owner_kind": "feat",
@@ -127312,7 +127207,7 @@
    "name": "학파 주문(상급)"
   }
  ],
- "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 10194 · 30 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.",
+ "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 10187 · 30 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.",
  "_schema": {
   "note": "코드가 실제 처리하는 자료형(런타임 소스). 이 목록 밖 값은 런타임이 모름 = 데이터·코드 불변식. 조건 평가=cs_calc _evalEffectCondition, 효과 적용=applyFeatEffects.",
   "condition": {
@@ -127393,7 +127288,7 @@
   "vision_upgrade": 36,
   "resistance": 110,
   "speed_extra": 74,
-  "skill_trained": 1180,
+  "skill_trained": 1173,
   "initiative_bonus": 9,
   "speed_bonus": 31,
   "note": 31,

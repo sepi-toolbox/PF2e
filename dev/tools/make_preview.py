@@ -135,18 +135,21 @@ function runDiag(){
     ok('바드 뮤즈 가이드 렌더(작곡 주문 설명 포함)', !!(_bg && _bg.indexOf('작곡 주문')>=0));
   } catch(e){ err.push('bard-muse:'+e.message); }
 
-  // ── 마녀 후원자 desc 구조·링크 + 가이드 (v0.221) ──
+  // ── 마녀 실제 7후원자(Player Core) + 가이드 (v0.224) ──
   try {
-    var _pc = (typeof SUBCLASS_DB!=='undefined') ? SUBCLASS_DB.find(function(s){return s.id==='patron-curse';}) : null;
-    ok('후원자 desc 정본 본문(길이>400, 교훈·패밀리어 설명 포함)', !!(_pc && (_pc.desc||'').length>400 && /교훈/.test(_pc.desc||'') && /패밀리어/.test(_pc.desc||'')));
-    ok('후원자 desc 용어 정합(후견인→후원자)', !!(_pc && !/후견인/.test(_pc.desc||'')));
-    ok('후원자 desc 링크(ref-link)', !!(_pc && /ref-link/.test(_pc.desc||'')));
-    ok('후원자 desc 전통·주술 구조', !!(_pc && /전통/.test(_pc.desc||'') && /주술/.test(_pc.desc||'')));
-    ok('후원자 주술=정본명 링크(사악한 눈빛)', !!(_pc && (_pc.desc||'').indexOf('사악한 눈빛')>=0));
-    ok('후원자 성장표 자기 자신 없음(patron-curse)', !!(_pc && !(_pc.features||[]).some(function(f){return f.slug==='patron-curse';})));
+    var _wsubs = (typeof SUBCLASS_DB!=='undefined') ? SUBCLASS_DB.filter(function(s){return s.class_id==='witch';}) : [];
+    ok('마녀 후원자 7종(실제 Player Core)', _wsubs.length===7);
+    ok('가짜 테마 제거(patron-curse 없음)', !_wsubs.some(function(s){return s.id==='patron-curse';}));
+    ok('겨울의 고요 포함(누락 복원)', _wsubs.some(function(s){return s.id==='silence-in-snow';}));
+    var _ff = _wsubs.filter(function(s){return s.id==='faiths-flamekeeper';})[0];
+    ok('신앙의 불지기 desc 정본 flavor(길이>300)', !!(_ff && (_ff.desc||'').length>300));
+    ok('desc 교훈: hex+사역마주문 링크(2 ref-link)', !!(_ff && (_ff.desc.match(/ref-link/g)||[]).length>=2));
+    ok('desc 전통·후원자 기술·교훈·사역마 능력 구조', !!(_ff && /전통/.test(_ff.desc) && /후원자 기술/.test(_ff.desc) && /교훈/.test(_ff.desc) && /사역마 능력/.test(_ff.desc)));
+    ok('후원자 기술=종교학(정본)', !!(_ff && /종교학/.test(_ff.desc)));
+    ok('사역마 습득 주문 부여(command, type=known)', !!(_ff && (_ff.granted_spells||[]).some(function(g){return g.type==='known' && g.spell_id==='command';})));
     ok('WITCH_PATRON_GUIDE 로드(6)', typeof WITCH_PATRON_GUIDE!=='undefined' && WITCH_PATRON_GUIDE.length===6);
     var _wg = (typeof _bloodlineGuideHtml==='function') ? _bloodlineGuideHtml('witch') : '';
-    ok('마녀 후원자 가이드 렌더(주술 설명 포함)', !!(_wg && _wg.indexOf('주술')>=0 && _wg.indexOf('후원자의 선물')>=0));
+    ok('마녀 후원자 가이드 렌더(주술·교훈·패밀리어 설명)', !!(_wg && _wg.indexOf('주술')>=0 && _wg.indexOf('교훈')>=0 && _wg.indexOf('패밀리어')>=0));
   } catch(e){ err.push('witch-patron:'+e.message); }
 
   // ── 효과 단일화(EFFECTS_DB) 검증 ──

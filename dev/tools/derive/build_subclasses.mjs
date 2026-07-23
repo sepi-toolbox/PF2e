@@ -71,24 +71,31 @@ const SD = globalThis.SUBCLASS_DB;
   }
   console.log(`  바드 뮤즈 정본 desc 주입: ${musePatched}종`);
 
-  // 마녀 후원자 = FVTT에 후원자별 정본 flavor desc 없음(제네릭 patron만) → 큐레이션 flavor + 데이터 파생 구조로 재구성.
-  //   전통(subclass.tradition)·주술(granted focus 주문 @link)을 desc에 명시 → 링크·정합(큐레이션 이름불일치 해소).
-  //   후원자의 선물(patrons-gift-*)은 features가 소유(클래스 특성 카드) → desc 중복 안 함.
+  // 마녀 후원자 = 실제 Player Core 7후원자(subclasses_curated 재구성). 큐레이션 필드(flavor·전통·기술·교훈·사역마)로
+  //   rich desc 조립: 소개 + 전통 + 후원자 기술 + 교훈(주술 캔트립 @link + 사역마 습득 주문 @link) + 사역마 능력(카드는 features).
   const TRAD_KO = { arcane: '비전', divine: '신성', occult: '오컬트', primal: '원시' };
+  const SKILL_KO = { religion: '종교학', arcana: '주문학', occultism: '오컬티즘', nature: '자연학', society: '사회학', crafting: '제작', medicine: '의학', deception: '기만', intimidation: '위협' };
   let patronPatched = 0;
   for (const s of SD) {
     if (s.class_id !== 'witch') continue;
-    const flavor = String(s.desc || '').split(/\.|\n/)[0].trim();   // 큐레이션 첫 문장 = flavor
     const tradKo = TRAD_KO[s.tradition] || s.tradition || '';
+    const skillKo = SKILL_KO[s.patron_skill_slug] || s.patron_skill_slug || '';
     const hex = (s.granted_spells || []).find(g => g.type === 'focus');
-    let d = `<p>${flavor}${/[.。!?]$/.test(flavor) ? '' : '입니다.'}</p>`;
+    const fam = (s.granted_spells || []).find(g => g.type === 'known');
+    let d = '';
+    if (s.flavor) d += `<p><em>${s.flavor}</em></p>`;
     if (tradKo) d += `<p><strong>전통</strong> ${tradKo}</p>`;
-    if (hex && hex.spell_id) d += `<p><strong>주술</strong> @link[spells.${hex.spell_id}]</p>`;
+    if (skillKo) d += `<p><strong>후원자 기술</strong> ${skillKo}</p>`;
+    const lessonParts = [];
+    if (hex) lessonParts.push(`@link[spells.${hex.spell_id}] 주술 캔트립을 얻고`);
+    if (fam) lessonParts.push(`사역마가 @link[spells.${fam.spell_id}] 주문을 배웁니다`);
+    else if (Array.isArray(s.familiar_spell_choice)) lessonParts.push(`사역마가 ${s.familiar_spell_choice.map(x => `@link[spells.${x}] 주문`).join(' 또는 ')} 중 하나를 배웁니다`);
+    if (lessonParts.length) d += `<p><strong>교훈</strong> ${s.lesson_ko ? s.lesson_ko + ' — ' : ''}${lessonParts.join(', ')}.</p>`;
+    if (s.features && s.features[0] && s.features[0].name_ko) d += `<p><strong>사역마 능력</strong> ${s.features[0].name_ko}</p>`;
     s.desc = PF.enrichDesc(d);
-    // features=[patrons-gift-*] 유지 — 혈통의 blood-magic-*와 동일 위치(후원자가 주는 특성 카드).
     patronPatched++;
   }
-  console.log(`  마녀 후원자 desc 구조·링크 주입: ${patronPatched}종`);
+  console.log(`  마녀 후원자 desc(정본 7후원자 조립) 주입: ${patronPatched}종`);
 }
 
 // 표시용 별칭(DataManager 서브클래스 탭: slug/class/grants/rules_n) 부가 — 런타임 필드(id/class_id/...)는 보존
