@@ -138,6 +138,8 @@ function runDiag(){
   // ── 마녀 후원자 desc 구조·링크 + 가이드 (v0.221) ──
   try {
     var _pc = (typeof SUBCLASS_DB!=='undefined') ? SUBCLASS_DB.find(function(s){return s.id==='patron-curse';}) : null;
+    ok('후원자 desc 정본 본문(길이>400, 교훈·패밀리어 설명 포함)', !!(_pc && (_pc.desc||'').length>400 && /교훈/.test(_pc.desc||'') && /패밀리어/.test(_pc.desc||'')));
+    ok('후원자 desc 용어 정합(후견인→후원자)', !!(_pc && !/후견인/.test(_pc.desc||'')));
     ok('후원자 desc 링크(ref-link)', !!(_pc && /ref-link/.test(_pc.desc||'')));
     ok('후원자 desc 전통·주술 구조', !!(_pc && /전통/.test(_pc.desc||'') && /주술/.test(_pc.desc||'')));
     ok('후원자 주술=정본명 링크(사악한 눈빛)', !!(_pc && (_pc.desc||'').indexOf('사악한 눈빛')>=0));
