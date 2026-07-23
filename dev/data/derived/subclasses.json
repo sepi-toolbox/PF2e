@@ -6021,8 +6021,8 @@
    "class_id": "wizard",
    "subclass_type": "비전 학파",
    "name_ko": "문법 학파",
-   "name_en": "Ars Grammatica",
-   "desc": "문자와 수호의 마법. 학파 주문: 보호의 결계 / 감시의 룬. 교과: message, sigil 등.",
+   "name_en": "School of Ars Grammatica",
+   "desc": "<p>룬과 수호부, 숫자와 문자-이것들은 모든 마법의 기초가 되어, 근본적인 힘을 연구하는 위자드에게 가장 논리적인 연구 대상이다. 당신은 패스파인더 소사이어티의 주문 학교나 유사한 기관에서 공부했을지 모르나, 타인을 강요하기 위해 말에 마법을 실거나 작업장 주변에 수호부를 걸거나 상대방 주문의 구조 자체를 불안정하게 만드는 등, 이 소박한 학파가 우아한 힘을 지녔음을 알고 있다.</p>\n<p><strong>Curriculum</strong></p>\n<ul>\n<li><strong>cantrips:</strong> <span class=\"ref-link\" data-ref=\"spells.message\">메시지</span>, <span class=\"ref-link\" data-ref=\"spells.sigil\">인장</span></li>\n<li><strong>1st:</strong> <span class=\"ref-link\" data-ref=\"spells.command\">명령</span>, <span class=\"ref-link\" data-ref=\"spells.disguise-magic\">변장 마법</span>, <span class=\"ref-link\" data-ref=\"spells.runic-body\">룬 문양의 몸</span>, <span class=\"ref-link\" data-ref=\"spells.runic-weapon\">룬 무기</span></li>\n<li><strong>2nd:</strong> <span class=\"ref-link\" data-ref=\"spells.dispel-magic\">마법 해제</span>, <span class=\"ref-link\" data-ref=\"spells.translate\">번역</span></li>\n<li><strong>3rd:</strong> <span class=\"ref-link\" data-ref=\"spells.enthrall\">매혹</span>, <span class=\"ref-link\" data-ref=\"spells.veil-of-privacy\">사생활의 베일</span></li>\n<li><strong>4th:</strong> <span class=\"ref-link\" data-ref=\"spells.dispelling-globe\">해제 구슬</span>, <span class=\"ref-link\" data-ref=\"spells.suggestion\">제안</span></li>\n<li><strong>5th:</strong> <span class=\"ref-link\" data-ref=\"spells.sending\">송신</span>, <span class=\"ref-link\" data-ref=\"spells.truespeech\">진실의 언어</span></li>\n<li><strong>6th:</strong> <span class=\"ref-link\" data-ref=\"spells.repulsion\">반발</span>, <span class=\"ref-link\" data-ref=\"spells.spellwrack\">주문파괴</span></li>\n<li><strong>7th:</strong> <span class=\"ref-link\" data-ref=\"spells.contingency\">컨틴전시</span>, <span class=\"ref-link\" data-ref=\"spells.planar-seal\">평면 봉인</span></li>\n<li><strong>8th:</strong> <span class=\"ref-link\" data-ref=\"spells.quandary\">딜레마</span>, <span class=\"ref-link\" data-ref=\"spells.unrelenting-observation\">끊임없는 관찰</span></li>\n<li><strong>9th:</strong> <span class=\"ref-link\" data-ref=\"spells.detonate-magic\">마법 폭발</span></li>\n</ul>\n<p><strong>학교 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.protective-wards\">보호의 수호부</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.rune-of-observation\">관찰의 룬</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [
@@ -6035,10 +6035,10 @@
    "features": [
     {
      "lv": 1,
-     "name_ko": "학파 주문: 보호의 결계",
-     "name_en": "Ars Grammatica",
-     "desc": "문법학파를 선택합니다. 보호의 결계 학파 집중 주문을 습득하고, 추가 교과과정 주문 슬롯을 얻습니다.",
-     "slug": "school-of-ars-grammatica"
+     "slug": "school-of-ars-grammatica",
+     "name_ko": "아르스 그라마티카 학파",
+     "name_en": "School of Ars Grammatica",
+     "kind": "feature"
     }
    ],
    "prof_changes": {},
@@ -6052,8 +6052,8 @@
    "class_id": "wizard",
    "subclass_type": "비전 학파",
    "name_ko": "전투 마법 학파",
-   "name_en": "Battle Magic",
-   "desc": "전쟁과 파괴의 마법. 학파 주문: 힘의 화살 / 에너지 흡수. 교과: shield, fire 등.",
+   "name_en": "School of Battle Magic",
+   "desc": "<p>마법은 힘이며, 그 힘을 전투의 기술에 활용하려는 자들은 언제나 존재한다. 전쟁 직전의 국가 군대에서 수련했을 수도 있다-첼리악스나 안도란, 혹은 게브와 넥스 같은 곳에서. 당신은 병사와 군대 모두를 초토화시킬 수 있는 소용돌이치는 에너지를 소환하면서도, 흔한 전술적 난관에 대한 아케인 대응책이나 전장에서 전투원을 살려두는 방패와 방어 수단을 소홀히 하지 않는다.</p>\n<p><strong>Curriculum</strong></p>\n<ul>\n<li><strong>캔트립:</strong> <span class=\"ref-link\" data-ref=\"spells.shield\">방패</span>, <span class=\"ref-link\" data-ref=\"spells.telekinetic-projectile\">염력 투사체</span></li>\n<li><strong>1st:</strong> <span class=\"ref-link\" data-ref=\"spells.breathe-fire\">불기</span>, <span class=\"ref-link\" data-ref=\"spells.force-barrage\">포스 포격</span>, <span class=\"ref-link\" data-ref=\"spells.mystic-armor\">신비한 갑옷</span></li>\n<li><strong>2nd:</strong> <span class=\"ref-link\" data-ref=\"spells.mist\">안개</span>, <span class=\"ref-link\" data-ref=\"spells.resist-energy\">에너지 저항</span></li>\n<li><strong>3rd:</strong> <span class=\"ref-link\" data-ref=\"spells.earthbind\">대지 결박</span>, <span class=\"ref-link\" data-ref=\"spells.fireball\">화염구</span></li>\n<li><strong>4번째:</strong> <span class=\"ref-link\" data-ref=\"spells.wall-of-fire\">불의 벽</span>, <span class=\"ref-link\" data-ref=\"spells.weapon-storm\">무기 폭풍</span></li>\n<li><strong> </strong> <span class=\"ref-link\" data-ref=\"spells.howling-blizzard\">울부짖는 눈보라</span>, <span class=\"ref-link\" data-ref=\"spells.impaling-spike\">관통 스파이크</span></li>\n<li><strong>6th:</strong> <span class=\"ref-link\" data-ref=\"spells.chain-lightning\">연쇄 번개</span>, <span class=\"ref-link\" data-ref=\"spells.disintegrate\">분해</span></li>\n<li><strong>7th:</strong> <span class=\"ref-link\" data-ref=\"spells.energy-aegis\">에너지 이지스</span>, <span class=\"ref-link\" data-ref=\"spells.true-target\">진정한 대상</span></li>\n<li><strong>8th:</strong> <span class=\"ref-link\" data-ref=\"spells.arctic-rift\">북극 균열</span>, <span class=\"ref-link\" data-ref=\"spells.desiccate\">건조화</span></li>\n<li><strong>9th:</strong> <span class=\"ref-link\" data-ref=\"spells.falling-stars\">유성</span></li>\n</ul>\n<p><strong>학교 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.force-bolt\">역장 화살</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.energy-absorption\">에너지 흡수</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [
@@ -6066,10 +6066,10 @@
    "features": [
     {
      "lv": 1,
-     "name_ko": "학파 주문: 힘의 화살",
-     "name_en": "Battle Magic",
-     "desc": "전투마법학파를 선택합니다. 힘의 화살 학파 집중 주문을 습득하고, 추가 교과과정 주문 슬롯을 얻습니다.",
-     "slug": "school-of-battle-magic"
+     "slug": "school-of-battle-magic",
+     "name_ko": "전투 마법 학파",
+     "name_en": "School of Battle Magic",
+     "kind": "feature"
     }
    ],
    "prof_changes": {},
@@ -6083,8 +6083,8 @@
    "class_id": "wizard",
    "subclass_type": "비전 학파",
    "name_ko": "경계 학파",
-   "name_en": "The Boundary",
-   "desc": "차원과 소환의 마법. 학파 주문: 소환 강화 / 공포의 나선. 교과: telekinetic hand 등.",
+   "name_en": "School of the Boundary",
+   "desc": "<p>왜 마법을 물리적 세계처럼 평범한 것에 쓰겠는가? 카타페쉬의 차원 연구 대학에서 공부했든, 유령이 출몰하는 우스탈라브의 지하 학교에서 공부했든, 여러분은 마법을 우주 너머의 힘으로 돌려 영혼과 그림자를 소환하고, 차원과 평면을 조작하며, 필멸자가 발을 들여서는 안 될 곳을 걸어왔습니다.</p>\n<p><strong>Curriculum</strong></p>\n<ul>\n<li><strong>캔트립:</strong> <span class=\"ref-link\" data-ref=\"spells.telekinetic-hand\">텔레키네틱 핸드</span>, <span class=\"ref-link\" data-ref=\"spells.void-warp\">공허 왜곡</span></li>\n<li><strong>1st:</strong> <span class=\"ref-link\" data-ref=\"spells.grim-tendrils\">암흑의 촉수</span>, <span class=\"ref-link\" data-ref=\"spells.phantasmal-minion\">환상 하수인</span>, <span class=\"ref-link\" data-ref=\"spells.summon-undead\">언데드 소환</span></li>\n<li><strong>2nd:</strong> <span class=\"ref-link\" data-ref=\"spells.darkness\">암흑</span>, <span class=\"ref-link\" data-ref=\"spells.see-the-unseen\">보이지 않는 것 보기</span></li>\n<li><strong>(3rd):</strong> <span class=\"ref-link\" data-ref=\"spells.bind-undead\">언데드 구속</span>, <span class=\"ref-link\" data-ref=\"spells.ghostly-weapon\">유령 무기</span></li>\n<li><strong>4th:</strong> <span class=\"ref-link\" data-ref=\"spells.flicker\">깜빡임</span>, <span class=\"ref-link\" data-ref=\"spells.translocate\">점멸</span></li>\n<li><strong>5th:</strong> <span class=\"ref-link\" data-ref=\"spells.banishment\">추방</span>, <span class=\"ref-link\" data-ref=\"spells.invoke-spirits\">영혼 소환</span></li>\n<li><strong>6번째:</strong> <span class=\"ref-link\" data-ref=\"spells.teleport\">순간이동</span>, <span class=\"ref-link\" data-ref=\"spells.vampiric-exsanguination\">뱀파이어의 흡혈</span></li>\n<li><strong>7th:</strong> <span class=\"ref-link\" data-ref=\"spells.eclipse-burst\">이클립스 버스트</span>, <span class=\"ref-link\" data-ref=\"spells.interplanar-teleport\">차원 간 순간이동</span></li>\n<li><strong>8th:</strong> <span class=\"ref-link\" data-ref=\"spells.quandary\">딜레마</span>, <span class=\"ref-link\" data-ref=\"spells.unrelenting-observation\">끊임없는 관찰</span></li>\n<li><strong>9th:</strong> <span class=\"ref-link\" data-ref=\"spells.massacre\">학살</span></li>\n</ul>\n<p><strong>학교 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.fortify-summoning\">소환 강화</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.spiral-of-horrors\">공포의 소용돌이</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [
@@ -6097,10 +6097,10 @@
    "features": [
     {
      "lv": 1,
-     "name_ko": "학파 주문: 소환 강화",
-     "name_en": "Boundary",
-     "desc": "경계학파를 선택합니다. 소환 강화 학파 집중 주문을 습득하고, 추가 교과과정 주문 슬롯을 얻습니다.",
-     "slug": "school-of-the-boundary"
+     "slug": "school-of-the-boundary",
+     "name_ko": "경계의 학파",
+     "name_en": "School of the Boundary",
+     "kind": "feature"
     }
    ],
    "prof_changes": {},
@@ -6114,8 +6114,8 @@
    "class_id": "wizard",
    "subclass_type": "비전 학파",
    "name_ko": "시민 마법 학파",
-   "name_en": "Civic Wizardry",
-   "desc": "건설과 실용의 마법. 학파 주문: 대지 공사 / 가족 회복. 교과: prestidigitation 등.",
+   "name_en": "School of Civic Wizardry",
+   "desc": "<p>마나케트의 오쿨라리움에서든 응용 마법 학원에서든, 당신은 아케인 학문의 결실이 다른 분야와 마찬가지로 궁극적으로 일반 시민을 돕는 데 기여해야 한다는 것을 배웠습니다. 여러분은 건축의 겸허한 기술, 잃어버린 사람과 물건을 찾는 기술, 건물과 해자 사이를 신속히 이동하는 기술을 배웠습니다. 그러나 바로 이 같은 기술들은 파괴로도 활용될 수 있으며, 다리를 건설하기 위해 움직이게 하는 구조물들은 그 다리를 무너뜨리는 데도 마찬가지로 쉽게 사용될 수 있습니다.</p>\n<p><strong>Curriculum</strong></p>\n<ul>\n<li><strong>캔트립:</strong> <span class=\"ref-link\" data-ref=\"spells.prestidigitation\">간단마술</span>, <span class=\"ref-link\" data-ref=\"spells.read-aura\">오라 읽기</span></li>\n<li><strong>1st:</strong> <span class=\"ref-link\" data-ref=\"spells.hydraulic-push\">수압 밀기</span>, <span class=\"ref-link\" data-ref=\"spells.pummeling-rubble\">쇄석 폭격</span>, <span class=\"ref-link\" data-ref=\"spells.summon-construct\">구조체 소환</span></li>\n<li><strong>2nd:</strong> <span class=\"ref-link\" data-ref=\"spells.revealing-light\">드러내는 빛</span>, <span class=\"ref-link\" data-ref=\"spells.water-walk\">물 위 걷기</span></li>\n<li><strong>3rd:</strong> <span class=\"ref-link\" data-ref=\"spells.cozy-cabin\">아늑한 오두막</span>, <span class=\"ref-link\" data-ref=\"spells.safe-passage\">안전한 통행</span></li>\n<li><strong>4번째:</strong> <span class=\"ref-link\" data-ref=\"spells.creation\">창조</span>, <span class=\"ref-link\" data-ref=\"spells.unfettered-movement\">자유로운 이동</span></li>\n<li><strong>5th:</strong> <span class=\"ref-link\" data-ref=\"spells.control-water\">물 제어</span>, <span class=\"ref-link\" data-ref=\"spells.wall-of-stone\">돌벽</span></li>\n<li><strong>6th:</strong> <span class=\"ref-link\" data-ref=\"spells.disintegrate\">분해</span>, <span class=\"ref-link\" data-ref=\"spells.wall-of-force\">역장의 벽</span></li>\n<li><strong>7th:</strong> <span class=\"ref-link\" data-ref=\"spells.planar-palace\">평면 궁전</span>, <span class=\"ref-link\" data-ref=\"spells.retrocognition\">과거 인식</span></li>\n<li><strong>8th:</strong> <span class=\"ref-link\" data-ref=\"spells.earthquake\">지진</span>, <span class=\"ref-link\" data-ref=\"spells.pinpoint\">정확한 위치</span></li>\n<li><strong>9th:</strong> <span class=\"ref-link\" data-ref=\"spells.foresight\">예지력</span></li>\n</ul>\n<p><strong>학교 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.earthworks\">대지 조형</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.community-restoration\">지역사회 복구</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [
@@ -6128,10 +6128,10 @@
    "features": [
     {
      "lv": 1,
-     "name_ko": "학파 주문: 대지 공사",
-     "name_en": "Civic Wizardry",
-     "desc": "시민마법학파를 선택합니다. 대지 공사 학파 집중 주문을 습득하고, 추가 교과과정 주문 슬롯을 얻습니다.",
-     "slug": "school-of-civic-wizardry"
+     "slug": "school-of-civic-wizardry",
+     "name_ko": "시민 마법 학파",
+     "name_en": "School of Civic Wizardry",
+     "kind": "feature"
     }
    ],
    "prof_changes": {},
@@ -6145,8 +6145,8 @@
    "class_id": "wizard",
    "subclass_type": "비전 학파",
    "name_ko": "정신 학파",
-   "name_en": "Mentalism",
-   "desc": "환상과 정신의 마법. 학파 주문: 매혹의 밀침 / 투명 망토. 교과: daze, figment 등.",
+   "name_en": "School of Mentalism",
+   "desc": "<p>학자로서 당신은 건전한 정신의 중요성을 너무나 잘 알고 있습니다. 따라서 당신은 파시어 타워나 예언자의 돌과 같은 학교에 다녔습니다. 그곳에서는 허상과 환상으로 하찮은 정신을 혼란스럽게 하거나 감각과 기억을 이식하는 정신술을 가르쳤습니다.</p>\n<p><strong>Curriculum</strong></p>\n<ul>\n<li><strong>cantrips:</strong> <span class=\"ref-link\" data-ref=\"spells.daze\">정신 혼란</span>, <span class=\"ref-link\" data-ref=\"spells.figment\">허상</span></li>\n<li><strong>1st:</strong> <span class=\"ref-link\" data-ref=\"spells.dizzying-colors\">현기증 나는 색채</span>, <span class=\"ref-link\" data-ref=\"spells.sleep\">수면</span>, <span class=\"ref-link\" data-ref=\"spells.sure-strike\">확실한 타격</span></li>\n<li><strong>2nd:</strong> <span class=\"ref-link\" data-ref=\"spells.illusory-creature\">환상 생물</span>, <span class=\"ref-link\" data-ref=\"spells.stupefy\">혼미</span></li>\n<li><strong>3rd:</strong> <span class=\"ref-link\" data-ref=\"spells.dream-message\">꿈 속 메시지</span>, <span class=\"ref-link\" data-ref=\"spells.mind-reading\">마음 읽기</span></li>\n<li><strong>4th:</strong> <span class=\"ref-link\" data-ref=\"spells.nightmare\">악몽</span>, <span class=\"ref-link\" data-ref=\"spells.vision-of-death\">죽음의 환상</span></li>\n<li><strong>5번째:</strong> <span class=\"ref-link\" data-ref=\"spells.hallucination\">환각</span>, <span class=\"ref-link\" data-ref=\"spells.illusory-scene\">환상 장면</span></li>\n<li><strong>6th:</strong> <span class=\"ref-link\" data-ref=\"spells.never-mind\">무뇌화</span>, <span class=\"ref-link\" data-ref=\"spells.phantasmal-calamity\">환상의 재앙</span></li>\n<li><strong>7th:</strong> <span class=\"ref-link\" data-ref=\"spells.project-image\">이미지 투사</span>, <span class=\"ref-link\" data-ref=\"spells.warp-mind\">정신 왜곡</span></li>\n<li><strong>8th:</strong> <span class=\"ref-link\" data-ref=\"spells.disappearance\">소멸</span>, <span class=\"ref-link\" data-ref=\"spells.uncontrollable-dance\">통제 불가능한 춤</span></li>\n<li><strong>9th:</strong> <span class=\"ref-link\" data-ref=\"spells.phantasmagoria\">환상극</span></li>\n</ul>\n<p><strong>학교 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.charming-push\">매혹의 밀어내기</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.invisibility-cloak\">투명 망토</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [
@@ -6159,10 +6159,10 @@
    "features": [
     {
      "lv": 1,
-     "name_ko": "학파 주문: 매혹의 밀침",
-     "name_en": "Mentalism",
-     "desc": "정신학파를 선택합니다. 매혹의 밀침 학파 집중 주문을 습득하고, 추가 교과과정 주문 슬롯을 얻습니다.",
-     "slug": "school-of-mentalism"
+     "slug": "school-of-mentalism",
+     "name_ko": "정신술 학파",
+     "name_en": "School of Mentalism",
+     "kind": "feature"
     }
    ],
    "prof_changes": {},
@@ -6176,8 +6176,8 @@
    "class_id": "wizard",
    "subclass_type": "비전 학파",
    "name_ko": "변형 학파",
-   "name_en": "Protean Form",
-   "desc": "변형과 변환의 마법. 학파 주문: 몸 뒤섞기 / 변형. 교과: gouging claw 등.",
+   "name_en": "School of Protean Form",
+   "desc": "<p>마법에 익숙하지 않은 이들은 위자드를 지적인 존재로 여기며, 육체보다 학문에 포커스를 둔다고 생각하곤 합니다. 그러나 당신이 배운 마법 학파는 이 둘의 관계를 가르쳤습니다. 당신의 마법은 킨타르고의 알라바스터 아카데미 같은 명문 기관에서 배웠든, 넥스의 플레시포지 같은 더 음흉한 곳에서 배웠든, 살아있는 물질이 일시적으로 다른 형태로 변하도록 유도하는 방법에 초점을 맞춥니다. 이를 통해 씨앗을 덩굴로, 인간을 야수로, 무해한 세균을 치명적인 독소로 변형시킬 수 있습니다.</p>\n<p><strong>Curriculum</strong></p>\n<ul>\n<li><strong>캔트립:</strong> <span class=\"ref-link\" data-ref=\"spells.gouging-claw\">갈기 발톱</span>, <span class=\"ref-link\" data-ref=\"spells.tangle-vine\">엉킴덩굴</span></li>\n<li><strong>1차:</strong> <span class=\"ref-link\" data-ref=\"spells.jump\">도약</span>, <span class=\"ref-link\" data-ref=\"spells.pest-form\">해충 형태</span>, <span class=\"ref-link\" data-ref=\"spells.spider-sting\">거미 독침</span></li>\n<li><strong>2nd:</strong> <span class=\"ref-link\" data-ref=\"spells.enlarge\">확대</span>, <span class=\"ref-link\" data-ref=\"spells.humanoid-form\">인간형 형태</span></li>\n<li><strong>3rd:</strong> <span class=\"ref-link\" data-ref=\"spells.feet-to-fins\">발에서 지느러미로</span>, <span class=\"ref-link\" data-ref=\"spells.vampiric-feast\">뱀파이어의 잔치</span></li>\n<li><strong>(4th):</strong> <span class=\"ref-link\" data-ref=\"spells.mountain-resilience\">산악의 강인함</span>, <span class=\"ref-link\" data-ref=\"spells.vapor-form\">증기 형태</span></li>\n<li><strong>5th:</strong> <span class=\"ref-link\" data-ref=\"spells.elemental-form\">원소 형태</span>, <span class=\"ref-link\" data-ref=\"spells.toxic-cloud\">독성 구름</span></li>\n<li><strong>6th:</strong> <span class=\"ref-link\" data-ref=\"spells.cursed-metamorphosis\">저주받은 변형</span>, <span class=\"ref-link\" data-ref=\"spells.petrify\">석화</span></li>\n<li><strong>7th:</strong> <span class=\"ref-link\" data-ref=\"spells.duplicate-foe\">적 복제</span>, <span class=\"ref-link\" data-ref=\"spells.fiery-body\">불꽃 몸</span></li>\n<li><strong>8th:</strong> <span class=\"ref-link\" data-ref=\"spells.desiccate\">건조화</span>, <span class=\"ref-link\" data-ref=\"spells.monstrosity-form\">괴물 형태</span></li>\n<li><strong>9th:</strong> <span class=\"ref-link\" data-ref=\"spells.metamorphosis\">변신</span></li>\n</ul>\n<p><strong>학교 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.scramble-body\">신체 교란</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.shifting-form\">형태 변화</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [
@@ -6190,10 +6190,10 @@
    "features": [
     {
      "lv": 1,
-     "name_ko": "학파 주문: 몸 뒤섞기",
-     "name_en": "Protean Form",
-     "desc": "변형학파를 선택합니다. 몸 뒤섞기 학파 집중 주문을 습득하고, 추가 교과과정 주문 슬롯을 얻습니다.",
-     "slug": "school-of-protean-form"
+     "slug": "school-of-protean-form",
+     "name_ko": "변형 마법 학파",
+     "name_en": "School of Protean Form",
+     "kind": "feature"
     }
    ],
    "prof_changes": {},
@@ -6207,18 +6207,18 @@
    "class_id": "wizard",
    "subclass_type": "비전 학파",
    "name_ko": "통합 이론 학파",
-   "name_en": "Unified Magical Theory",
-   "desc": "특정 학파에 전문화하지 않고 모든 학파에서 자유롭게 습득. 교과 주문 없음, 대신 유연성 확보.",
+   "name_en": "School of Unified Magical Theory",
+   "desc": "<p>당신은 마법이 어느 한 학파나 대학의 가르침으로 깔끔하게 설명될 수 있다는 생각을 거부하며, 대신 각 마법 학파의 장점을 흡수하기 위해 독학에 매진합니다. 그렇게 함으로써 각 학파가 교차하는 지점에 숨겨진 진리를 발견하게 될 것이며, 아케인 마법의 이상적인 본질에 한 걸음 더 가까워질 것입니다. 언젠가 모든 마법을 설명하는 단 하나의 우아한 이론(아마도 당신의 이름을 딴 이론일지도?)을 발견하게 되겠지만, 그때까지 당신의 연구는 계속됩니다.</p>\n<p><strong>정해진 커리큘럼 없음</strong> 정해진 커리큘럼이 없으므로 커리큘럼 주문도 없고, 이를 특별히 영향을 미치는 능력의 혜택을 받을 수 없습니다. 대신, 추가적인 1레벨 위자드 클래스 피트를 획득하며, 다양한 연구를 반영하기 위해 선택한 1랭크 주문 하나를 주문서에 추가합니다.</p>\n<p>마법 그 자체의 본질에 대한 연구로 인해 마법을 더 효율적으로 사용할 수 있게 되었습니다. <span class=\"ref-link\" data-ref=\"actions.drain-bonded-item\">결합된 아이템 흡수</span>를 하루에 한 번만 사용할 수 있었던 기존과 달리, 이제 시전 가능한 주문 랭크당 하루에 한 번씩 사용할 수 있으며, 매번 해당 랭크의 주문을 소환합니다.</p>\n<p><strong>학파 주문</strong> 초급: <span class=\"ref-link\" data-ref=\"spells.hand-of-the-apprentice\">수련자의 손</span>; 고급: <span class=\"ref-link\" data-ref=\"spells.interdisciplinary-incantation\">학제간 주문</span></p>",
    "granted_skills": [],
    "granted_feats": [],
    "granted_spells": [],
    "features": [
     {
      "lv": 1,
-     "name_ko": "통합 이론: 유연한 주문",
-     "name_en": "Unified Theory",
-     "desc": "통합이론학파를 선택합니다. 학파 주문 대신 추가 교과과정 주문 슬롯과 유연한 주문 준비 이점을 얻습니다.",
-     "slug": "school-of-unified-magical-theory"
+     "slug": "school-of-unified-magical-theory",
+     "name_ko": "통합 마법 이론 학파",
+     "name_en": "School of Unified Magical Theory",
+     "kind": "feature"
     }
    ],
    "prof_changes": {},

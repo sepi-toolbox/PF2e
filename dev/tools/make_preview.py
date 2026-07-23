@@ -112,6 +112,12 @@ function runDiag(){
     ok('통합학파: 보너스슬롯 없음(r1=3)', state.spellSlots[1]===3 && !state._curriculumSlotRanks);
     syncFamiliarSpellsToState();
     ok('통합학파: 교육과정 주문서 주입 없음', ((state.familiarSpells||{})[1]||[]).indexOf('command')===-1);
+    // 학파 서브클래스 desc = 정본 완전 설명(한 줄 stub 아님) + 링크
+    var _sd = (typeof SUBCLASS_DB!=='undefined') ? SUBCLASS_DB.find(function(s){return s.id==='school-ars-grammatica';}) : null;
+    ok('학파 desc 정본(길이>1000)', !!(_sd && (_sd.desc||'').length>1000));
+    ok('학파 desc 링크(ref-link) 포함', !!(_sd && /ref-link/.test(_sd.desc||'')));
+    ok('학파 name_en 정정(School of Ars Grammatica)', !!(_sd && _sd.name_en==='School of Ars Grammatica'));
+    ok('학파 feature slug 참조(school-of-*)', !!(_sd && (_sd.features||[]).some(function(f){return f.slug==='school-of-ars-grammatica';})));
   } catch(e){ err.push('wizard-curriculum:'+e.message); }
 
   // ── 효과 단일화(EFFECTS_DB) 검증 ──

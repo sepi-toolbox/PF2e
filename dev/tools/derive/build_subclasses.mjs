@@ -25,6 +25,31 @@ const PFClass = await import(path.join(DEV, 'cs_pf2e_class.js'));
 await PFClass.default.init();
 const SD = globalThis.SUBCLASS_DB;
 
+// 위저드 비전 학파 = 큐레이션 stub의 한 줄 desc 대신 정본 FVTT 특성(school-of-*)의 완전한 _desc_ko(@link 교육과정·학파주문 포함)로 교체.
+//   소서러 혈통·오라클 신비처럼 정본 설명·링크가 나오도록. 매핑=wizard_schools.json feature_slug. (구조 필드 granted_spells/prof는 큐레이션 유지)
+{
+  const PF = (await import(path.join(DEV, 'cs_pf2e.js'))).default;
+  PF.loadCategorySync('feats'); PF.loadCategorySync('spells');
+  const ws = JSON.parse(fs.readFileSync(path.join(DEV, 'data/derived/wizard_schools.json'), 'utf8'));
+  const wsRows = Array.isArray(ws) ? ws : (ws.rows || Object.values(ws));
+  const featBySlug = {};
+  for (const f of PF.all('feats')) { const s = f.system && f.system.slug; if (s) featBySlug[s] = f; }
+  let patched = 0;
+  for (const s of SD) {
+    if (s.class_id !== 'wizard') continue;
+    const meta = wsRows.find(w => w.slug === s.id || w.feature_slug === s.id);
+    const feat = meta && featBySlug[meta.feature_slug];
+    if (!feat) continue;
+    const nameKo = PF.nameKo(feat), nameEn = feat.name || feat.name_en || s.name_en;
+    s.desc = PF.enrichDesc(PF.descKo(feat) || '');   // 완전 정본 설명(교육과정·학파주문 @link)
+    s.name_en = nameEn;                               // 「Ars Grammatica」 stub → 「School of Ars Grammatica」
+    // 클래스 특성 = 학파 특성 slug로 참조(레지스트리 해소→링크·정본명). 수기 desc 제거.
+    s.features = [{ lv: 1, slug: meta.feature_slug, name_ko: nameKo, name_en: nameEn, kind: 'feature' }];
+    patched++;
+  }
+  console.log(`  위저드 학파 정본 desc/feature 주입: ${patched}종`);
+}
+
 // 표시용 별칭(DataManager 서브클래스 탭: slug/class/grants/rules_n) 부가 — 런타임 필드(id/class_id/...)는 보존
 const rows = SD.map(s => ({
   slug: s.id, class: s.class_id,
