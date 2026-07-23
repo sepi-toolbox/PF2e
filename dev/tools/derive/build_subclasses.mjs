@@ -91,8 +91,15 @@ const SD = globalThis.SUBCLASS_DB;
     if (fam) lessonParts.push(`사역마가 @link[spells.${fam.spell_id}] 주문을 배웁니다`);
     else if (Array.isArray(s.familiar_spell_choice)) lessonParts.push(`사역마가 ${s.familiar_spell_choice.map(x => `@link[spells.${x}] 주문`).join(' 또는 ')} 중 하나를 배웁니다`);
     if (lessonParts.length) d += `<p><strong>교훈</strong> ${s.lesson_ko ? s.lesson_ko + ' — ' : ''}${lessonParts.join(', ')}.</p>`;
-    if (s.features && s.features[0] && s.features[0].name_ko) d += `<p><strong>사역마 능력</strong> ${s.features[0].name_ko}</p>`;
+    // 사역마 고유 능력 = 이름 + 실제 효과 설명을 desc에 자기완결적으로(이름만 두면 "저게 뭐냐" — 사용자 지적).
+    if (s.features && s.features[0] && s.features[0].name_ko) {
+      const famName = s.features[0].name_ko, famDesc = String(s.features[0].desc || '').replace(/^\s*<p>|<\/p>\s*$/g, '').trim();
+      d += `<p><strong>사역마 능력</strong> ${famName}${famDesc ? ' — ' + famDesc : ''}</p>`;
+    }
     s.desc = PF.enrichDesc(d);
+    // 후원자가 주는 것(전통·기술·교훈·사역마 능력)을 desc 한 곳에 모음 → 클래스 특성 카드로 중복 표시 안 함(features 비움).
+    //   familiar 데이터는 위 desc에 이미 소비됨. 성장표 특성 칸도 비어 자기참조/중복 없음.
+    s.features = [];
     patronPatched++;
   }
   console.log(`  마녀 후원자 desc(정본 7후원자 조립) 주입: ${patronPatched}종`);

@@ -96728,9 +96728,7 @@
    "class": "witch",
    "name_ko": "신앙의 불지기",
    "level": 1,
-   "features": [
-    "patron-familiar-faiths-flamekeeper"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "religion"
@@ -97261,9 +97259,7 @@
    "class": "witch",
    "name_ko": "겨울의 고요",
    "level": 1,
-   "features": [
-    "patron-familiar-silence-in-snow"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "nature"
@@ -97794,9 +97790,7 @@
    "class": "witch",
    "name_ko": "실타래의 직공",
    "level": 1,
-   "features": [
-    "patron-familiar-spinner-of-threads"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "occultism"
@@ -98327,9 +98321,7 @@
    "class": "witch",
    "name_ko": "별 없는 그림자",
    "level": 1,
-   "features": [
-    "patron-familiar-starless-shadow"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "occultism"
@@ -98860,9 +98852,7 @@
    "class": "witch",
    "name_ko": "기입된 자",
    "level": 1,
-   "features": [
-    "patron-familiar-the-inscribed-one"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "arcana"
@@ -99393,9 +99383,7 @@
    "class": "witch",
    "name_ko": "원한",
    "level": 1,
-   "features": [
-    "patron-familiar-the-resentment"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "occultism"
@@ -99926,9 +99914,7 @@
    "class": "witch",
    "name_ko": "야생의 관리인",
    "level": 1,
-   "features": [
-    "patron-familiar-wilding-steward"
-   ],
+   "features": [],
    "grant_feats": [],
    "grant_skills": [
     "nature"
