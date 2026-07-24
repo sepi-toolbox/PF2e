@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.226').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.227').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -4058,8 +4058,6 @@ function renderPets() {
       ${p.barding && p.barding !== '없음' ? `<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">🛡 마갑: <strong style="color:${p.bardingBroken?'var(--red-light)':'var(--text)'};">${p.bardingBroken?'파손된 ':''}${p.barding}</strong> <span style="color:var(--text2);">(AC+${bd?.ac||0} 민첩상한+${bd?.dex||0} 판정${bd?.check||0})</span>
         <button onclick="event.stopPropagation();togglePetBardingBroken(${i})" style="font-size:9px;padding:1px 6px;border-radius:3px;cursor:pointer;margin-left:4px;${p.bardingBroken?'background:var(--red-bg);color:var(--red-light);border:1px solid var(--red);':'background:var(--bg4);color:var(--text2);border:1px solid var(--border2);'}">${p.bardingBroken?'파손됨':'정상'}</button>
       </div>` : ''}
-      ${p.isFamiliar && p.patronAbility ? `<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">🔒 후원자 능력: <strong style="color:var(--accent);">${p.patronAbility.name}</strong> <span style="color:var(--text2);">(고정)</span></div>` : ''}
-      ${p.isFamiliar && p.familiarAbilities?.length > 0 ? `<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">✦ 능력: <strong style="color:var(--accent);">${p.familiarAbilities.map(id => FAMILIAR_ABILITIES.find(a=>a.id===id)?.name||id).join(', ')}</strong></div>` : ''}
       ${(p.conditions && Object.keys(p.conditions).some(k=>p.conditions[k]>0)) ? `<div style="font-size:10px;color:var(--red-light);margin-bottom:4px;">⚠ ${Object.entries(p.conditions).filter(([,v])=>v>0).map(([k,v])=>{const cd=CONDITIONS_DATA.find(c=>c.name===k);return cd?.valued?k+' '+v:k;}).join(', ')}</div>` : ''}
       <!-- Info row -->
       <div style="display:flex;gap:8px;font-size:10px;color:var(--text2);margin-bottom:6px;flex-wrap:wrap;">
@@ -4085,6 +4083,7 @@ function renderPets() {
       <div style="display:flex;gap:4px;font-size:10px;flex-wrap:wrap;">
         ${['str','dex','con','int','wis','cha'].map(a => `<span style="color:var(--text2);">${a.toUpperCase()} <strong style="color:${p[a]<0?'var(--red-light)':'var(--text)'};">${p[a]>=0?'+':''}${p[a]}</strong></span>`).join('')}
       </div>
+      ${_familiarAbilitiesSectionHtml(p, i)}
       ${p.notes ? `<div style="font-size:10px;color:var(--text2);margin-top:4px;padding-top:4px;border-top:1px solid var(--border);">${p.notes}</div>` : ''}
     </div>`;
   });
@@ -4415,6 +4414,62 @@ const FAMILIAR_ABILITIES = [
   {id:'touch-telepathy',name:'접촉 텔레파시',en:'Touch Telepathy',desc:'접촉으로 주인과 텔레파시 소통. 말하기 능력 있으면 같은 언어 사용자와도 가능.'},
   {id:'valet',name:'시종',en:'Valet',desc:'턴 종료 전 2회까지 가벼운 부피 아이템을 가져와 주인 빈 손에 놓을 수 있습니다.'},
 ];
+
+// 사역마 능력 아이콘 = FVTT 번들 아이콘(data/icons/). FVTT엔 능력별 고유 아트가 없어(전부 제네릭 Passive) →
+//   능력 의미에 맞는 FVTT 게임 아이콘을 매핑(자연무기 테마 아이콘과 동일 방식, cs_monster _abilThemeIcon 참고).
+const FAMILIAR_ABILITY_ICON_BASE = 'data/icons/';
+const FAMILIAR_ABILITY_ICONS = {
+  amphibious: 'icons/magic/water/water-hand.webp', burrower: 'icons/tools/hand/shovel-spade-steel-grey.webp',
+  climber: 'icons/skills/movement/figure-running-gray.webp', darkvision: 'icons/magic/perception/eye-slit-orange.webp',
+  echolocation: 'icons/magic/sonic/explosion-shock-sound-wave.webp', fast: 'icons/skills/movement/feet-winged-boots-blue.webp',
+  flier: 'icons/creatures/abilities/wing-batlike-purple-blue.webp', 'manual-dex': 'icons/skills/social/diplomacy-handshake.webp',
+  scent: 'icons/creatures/abilities/wolf-heads-swirl-purple.webp', tough: 'icons/magic/life/heart-glowing-red.webp',
+  accompanist: 'icons/tools/instruments/drum-brown-red.webp', construct: 'icons/creatures/magical/construct-stone-earth-gray.webp',
+  'damage-avoid': 'icons/magic/defensive/shield-barrier-deflect-gold.webp', dragon: 'icons/creatures/reptiles/dragon-winged-blue.webp',
+  elemental: 'icons/magic/water/elemental-water.webp', 'focused-rejuv': 'icons/magic/life/heart-cross-green.webp',
+  fungus: 'icons/magic/nature/leaf-glow-maple-green.webp', independent: 'icons/creatures/abilities/paw-glowing-yellow.webp',
+  kinspeech: 'icons/skills/trades/music-singing-voice-blue.webp', 'major-resist': 'icons/magic/defensive/barrier-shield-dome-blue-purple.webp',
+  'master-form': 'icons/magic/control/silhouette-hold-change-blue.webp', 'partner-crime': 'icons/magic/control/mouth-smile-deception-purple.webp',
+  plant: 'icons/magic/nature/leaf-glow-green.webp', 'plant-form': 'icons/magic/nature/leaf-armor-scale-green.webp',
+  resistance: 'icons/magic/defensive/shield-barrier-blue.webp', skilled: 'icons/sundries/books/book-embossed-blue.webp',
+  speech: 'icons/skills/trades/music-singing-voice-blue.webp', spellcasting: 'icons/magic/control/silhouette-aura-energy.webp',
+  toolbearer: 'icons/tools/hand/shovel-spade-steel-grey.webp', 'touch-telepathy': 'icons/commodities/biological/organ-brain-pink-purple.webp',
+  valet: 'icons/skills/social/diplomacy-handshake-yellow.webp',
+};
+const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
+const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.227'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.227'; }
+
+// 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
+function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
+  return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.227'">
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
+      ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}
+    </div>
+  </div>`;
+}
+// 사역마 활성화 능력 전체 섹션(후원자 고정 + 자유 선택) — 펫 시트 능력치 아래 표시.
+function _familiarAbilitiesSectionHtml(p, petIdx) {
+  if (!p.isFamiliar) return '';
+  const boxes = [];
+  if (p.patronAbility) boxes.push(_familiarAbilityBoxHtml(_familiarPatronIconUrl(), p.patronAbility.name, '후원자 고정', p.patronAbility.desc || '', true));
+  for (const id of (p.familiarAbilities || [])) {
+    const a = FAMILIAR_ABILITIES.find(x => x.id === id);
+    if (a) boxes.push(_familiarAbilityBoxHtml(_familiarAbilityIconUrl(id), a.name, a.en, a.desc || '', false));
+    else boxes.push(_familiarAbilityBoxHtml(_familiarAbilityIconUrl(id), id, '', '', false));
+  }
+  const total = p.maxAbilities || 2, used = (p.patronAbility ? 1 : 0) + (p.familiarAbilities || []).length;
+  const header = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+      <span style="font-size:10px;color:var(--text2);">🐾 사역마 능력 <span style="color:var(--text);">${used}/${total}</span></span>
+      <button class="defense-btn" style="padding:1px 8px;font-size:10px;" onclick="openFamiliarAbilities(${petIdx})">능력 선택</button>
+    </div>`;
+  const body = boxes.length ? `<div style="display:grid;grid-template-columns:1fr;gap:4px;">${boxes.join('')}</div>`
+    : `<div style="font-size:10px;color:var(--text2);padding:4px 0;">아직 선택한 능력이 없습니다. 「능력 선택」을 누르세요.</div>`;
+  return `<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);">${header}${body}</div>`;
+}
 
 function addFamiliar() {
   if (!state.pets) state.pets = [];
