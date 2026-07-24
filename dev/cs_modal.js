@@ -4048,9 +4048,7 @@ function _buildClassChoicesUI(cls) {
       subclassHtml += _classFeatureBlock('🙏', _deityFeat.name_ko, _deityFeat.name_en, () => _choiceCardBody(_deityFeat.slug || _deityFeat.id, _championDeityControlHtml(_savedSanct)), false, false);
       const _devFeat = _roster.find(f => (f.slug || f.id) === 'devotion-spells');
       if (_devFeat) subclassHtml += _classFeatureBlock('✨', _devFeat.name_ko, _devFeat.name_en, () => _choiceCardBody('devotion-spells', _championDevotionControlHtml(_savedDevotion)), false, false);
-      // 헌신자의 축복(3레벨 택1) — 원인과 별개 선택 특성. 신격/헌신 카드와 동일 패턴(state.championBlessing).
-      const _blessFeat = _roster.find(f => (f.slug || f.id) === 'blessing-of-the-devoted');
-      if (_blessFeat) subclassHtml += _classFeatureBlock('🎁', _blessFeat.name_ko, _blessFeat.name_en, () => _choiceCardBody('blessing-of-the-devoted', _championBlessingControlHtml(state.championBlessing || '')), false, false);
+      // 헌신자의 축복(3레벨 택1)은 원인과 별개 선택 특성 → 1레벨 서브클래스 영역이 아니라 해당 레벨(3레벨) 섹션에 배치(아래 레벨 루프).
     }
   }
 
@@ -4114,7 +4112,9 @@ function _buildClassChoicesUI(cls) {
   const otherLevels = Object.keys(featsByLv).map(Number).filter(lv => lv > 1).sort((a, b) => a - b);
   otherLevels.forEach(lv => {
     const lvFeats = featsByLv[lv].filter(f => !_featInChoiceUI(f, _inlineDeity));
-    if (!lvFeats.length) return;
+    // 챔피언 헌신자의 축복(3레벨 택1) = 인라인 선택 카드로 해당 레벨에 배치(신격/헌신 카드와 동일 패턴, 원인과 별개).
+    const _blessF = _inlineDeity && (featsByLv[lv] || []).find(f => (f.slug || f.id) === 'blessing-of-the-devoted');
+    if (!lvFeats.length && !_blessF) return;
     html += `<div class="cfp-dynamic">${_classLevelHeader(lv)}`;
     lvFeats.forEach((f, fi) => {
       const isSub = subFeats.includes(f);
@@ -4122,6 +4122,7 @@ function _buildClassChoicesUI(cls) {
         return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm) + _classFeatureChoiceHtml(f);
       }, isSub, true);
     });
+    if (_blessF) html += _classFeatureBlock('🎁', _blessF.name_ko, _blessF.name_en, () => _choiceCardBody('blessing-of-the-devoted', _championBlessingControlHtml(state.championBlessing || '')), false, false);
     html += `</div>`;
   });
 
@@ -4371,7 +4372,8 @@ function _refreshClassFeaturesPreview() {
   let otherHtml = '';
   Object.keys(featsByLv).map(Number).filter(lv => lv > 1).sort((a, b) => a - b).forEach(lv => {
     const lvFeats = featsByLv[lv].filter(f => !_featInChoiceUI(f, _inlineDeity));
-    if (!lvFeats.length) return;
+    const _blessF = _inlineDeity && (featsByLv[lv] || []).find(f => (f.slug || f.id) === 'blessing-of-the-devoted');
+    if (!lvFeats.length && !_blessF) return;
     otherHtml += `<div class="cfp-dynamic">${_classLevelHeader(lv)}`;
     lvFeats.forEach(f => {
       const isSub = subFeats.includes(f);
@@ -4379,6 +4381,7 @@ function _refreshClassFeaturesPreview() {
         return (f.desc ? `<div class="cfb-desc">${resolveDescRefs(f.desc)}</div>` : '') + _classBlockGrantsHtml(f, _gm) + _classFeatureChoiceHtml(f);
       }, isSub, true);
     });
+    if (_blessF) otherHtml += _classFeatureBlock('🎁', _blessF.name_ko, _blessF.name_en, () => _choiceCardBody('blessing-of-the-devoted', _championBlessingControlHtml(state.championBlessing || '')), false, false);
     otherHtml += `</div>`;
   });
 
