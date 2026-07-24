@@ -138,7 +138,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm38"></script>
+<script src="cs_pf2e.js?v=dm39"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -287,8 +287,8 @@ const DM = (function(){
     effect_group_id:'참조 효과그룹 FK(entity→effect 연결키). 같은 값=한 그룹으로 묶인 효과. 엔티티 탭에도 이 컬럼으로 역참조 표시.',
     src:'행 역할: effect(실제 기계효과) / note(시트 표시용 설명글, 효과 없음) / choice·choice_opt(사용자 선택지·옵션). 한 재주는 여러 행 조합으로 정의됨.',
     type:'효과타입 = 우리 동작 열거형(grant_feat 재주부여·grant_lore 지식·grant_focus_spell/innate 주문·skill_trained 기술훈련·proficiency 숙련·resistance 저항·save_bonus·vision_upgrade·domain·favored_weapon 등). FVTT 룰타입을 우리 타입으로 번역, 미모델 룰은 제외.',
-    target:'효과 대상 = 우리 slug/데이터(예 breath-control·barbarian·poison·martial). 특수토큰 $choice=이 효과의 choice 행에서 사용자가 고른 값에 바인딩. FVTT 내부 경로(system.…)·동적 브래킷은 노출 안 함(미모델 대상은 행 제외).',
-    value:'수치 또는 특수값(예: level). type별 의미(HP/보너스/저항량 등).',
+    target:'효과 대상 = 우리 slug/데이터(예 breath-control·barbarian·poison·martial). 특수토큰 $choice=이 효과의 choice 행에서 사용자가 고른 값에 바인딩. FVTT 내부 경로(system.…)·동적 브래킷은 노출 안 함(미모델 대상은 행 제외). choice 헤더행에서는 선택 대상 풀(고정기술·주문전통·재주카테고리).',
+    value:'수치 또는 특수값(예: level). type별 의미(HP/보너스/저항량 등). choice 헤더행에서는 수치 제약(개수/랭크/최대레벨), choice_opt 행에서는 default 마커.',
     bonus_type:'값종류 = 보너스 스태킹 규칙(circumstance 상황/status 상태/item 물품/untyped 무형).',
     condition:'조건 = 영문 열거형 slug(type·target과 동일 어휘). 무조건=빈칸 / level·class·feat·feature·heritage·ancestry·trait·armor·size·sense=단일 정적조건(런타임 조건엔진이 캐릭터 상태로 평가·적용) / no-*=부정(예 no-class) / compound=진짜 다원자 조건. ★owner-함의 조건(재주가 이미 그 클래스 전용이면 class:X 재확인)은 제거해 무조건화. 숙련 진행은 성장표(섀시)가 전담 → 효과에 안 넣음. 상황(롤타임)조건·FVTT 미모델 룰은 이 표에 넣지 않음.',
     cond_value:'조건밸류 = 한 원자값(1NF). 단일: level→>=5, class→barbarian, feat/feature→slug, sense→darkvision. compound만 영문 slug 식(예 "armor:category:heavy & armor:group:composite", "(feature:armor-innovation | feature:weapon-innovation)"). &=그리고, |=또는, !=아님.',
@@ -297,7 +297,7 @@ const DM = (function(){
     choice:'선택지 그룹 id(choice_id). 같은 id의 choice(헤더)+choice_opt(옵션) 행이 한 선택지를 이룸.',
     choice_kind:'선택 종류 = 무엇을 고르는가. skill(기술1)·skill_defaults(기본기술N)·skill_multi(기술N)·skill_fixed(고정기술)·custom(지정목록)·spell_cantrip/spell_rank(주문)·feat_pick(재주)·weapon_pick(무기)·ancestry_pick(혈통)·lore(지식 자유입력)·familiar_pick(사역마 능력). 이걸로 알맞은 선택 창·후보 목록이 정해짐.',
     choice_label:'선택지 안내 문구(표시용). 예: "식물 또는 균류 중 선택".',
-    option:'선택 옵션 id(슬러그). choice_opt 행에서 채워짐 — 이 선택지의 후보 하나.', option_name:'선택 옵션 표시명(한글).',
+    option:'선택 옵션 id(슬러그). choice_opt 행에서 채워짐 — 이 선택지의 후보 하나. value=default이면 기본값(skill_defaults 기본기술·skill_fixed 고정기술).', option_name:'선택 옵션 표시명(한글).',
   };
 
   // ---- 필드 접근자 (row = base⊕overlay 조인된 FVTT 문서) ----
@@ -623,7 +623,7 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm38').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm39').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
@@ -970,8 +970,8 @@ const DM = (function(){
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm38').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm38').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm39').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm39').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
   return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride, onEffType, onEffFilter, clearEffFilter, toggleSchema };

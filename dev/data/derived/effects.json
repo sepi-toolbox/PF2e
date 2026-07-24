@@ -13221,6 +13221,34 @@
   },
   {
    "owner_kind": "feat",
+   "owner_slug": "orc-lore",
+   "owner_name": "오크 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-orc-lore",
+   "option": "athletics",
+   "option_name": "운동",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "orc-lore",
+   "owner_name": "오크 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-orc-lore",
+   "option": "survival",
+   "option_name": "생존",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
    "owner_slug": "unconventional-weaponry",
    "owner_name": "비전통적 무기",
    "owner_level": 1,
@@ -13251,6 +13279,34 @@
   },
   {
    "owner_kind": "feat",
+   "owner_slug": "changeling-lore",
+   "owner_name": "체인질링 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-changeling-lore",
+   "option": "deception",
+   "option_name": "기만",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "changeling-lore",
+   "owner_name": "체인질링 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-changeling-lore",
+   "option": "occultism",
+   "option_name": "오컬티즘",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
    "owner_slug": "terrain-expertise",
    "owner_name": "지형 전문성",
    "owner_level": 1,
@@ -13278,6 +13334,34 @@
    "choice_label": "드워프 지식 기술 (기본: 제작, 종교학)",
    "value": 2,
    "target": ""
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "dwarven-lore",
+   "owner_name": "드워프 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-dwarven-lore",
+   "option": "crafting",
+   "option_name": "제작",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "dwarven-lore",
+   "owner_name": "드워프 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-dwarven-lore",
+   "option": "religion",
+   "option_name": "종교학",
+   "value": "default"
   },
   {
    "owner_kind": "feat",
@@ -13361,8 +13445,8 @@
    "choice": "cho-multitalented",
    "choice_kind": "feat_pick",
    "choice_label": "2레벨 멀티클래스 헌신 재주 선택",
-   "value": "",
-   "target": ""
+   "value": 2,
+   "target": "archetype"
   },
   {
    "owner_kind": "feat",
@@ -13376,8 +13460,8 @@
    "choice": "cho-general-training",
    "choice_kind": "feat_pick",
    "choice_label": "1레벨 일반 재주 선택",
-   "value": "",
-   "target": ""
+   "value": 1,
+   "target": "general"
   },
   {
    "owner_kind": "feat",
@@ -13411,6 +13495,20 @@
   },
   {
    "owner_kind": "feat",
+   "owner_slug": "stonemasons-eye",
+   "owner_name": "석공의 눈",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-stonemasons-eye",
+   "option": "crafting",
+   "option_name": "제작",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
    "owner_slug": "advanced-general-training",
    "owner_name": "고급 일반 훈련",
    "owner_level": 13,
@@ -13421,8 +13519,8 @@
    "choice": "cho-advanced-general-training",
    "choice_kind": "feat_pick",
    "choice_label": "7레벨 이하 일반 재주 선택",
-   "value": "",
-   "target": ""
+   "value": 7,
+   "target": "general"
   },
   {
    "owner_kind": "feat",
@@ -13436,8 +13534,8 @@
    "choice": "cho-otherworldly-acumen",
    "choice_kind": "spell_rank",
    "choice_label": "비전 2랭크 주문 선택",
-   "value": "",
-   "target": ""
+   "value": 2,
+   "target": "arcane"
   },
   {
    "owner_kind": "feat",
@@ -13467,7 +13565,7 @@
    "choice_kind": "spell_cantrip",
    "choice_label": "비전 캔트립 선택",
    "value": "",
-   "target": ""
+   "target": "arcane"
   },
   {
    "owner_kind": "feat",
@@ -13481,8 +13579,8 @@
    "choice": "cho-natural-ambition",
    "choice_kind": "feat_pick",
    "choice_label": "1레벨 클래스 재주 선택",
-   "value": "",
-   "target": ""
+   "value": 1,
+   "target": "$class"
   },
   {
    "owner_kind": "feat",
@@ -13542,6 +13640,34 @@
   },
   {
    "owner_kind": "feat",
+   "owner_slug": "halfling-lore",
+   "owner_name": "하플링 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-halfling-lore",
+   "option": "acrobatics",
+   "option_name": "곡예",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "halfling-lore",
+   "owner_name": "하플링 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-halfling-lore",
+   "option": "stealth",
+   "option_name": "은신",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
    "owner_slug": "assurance",
    "owner_name": "확신",
    "owner_level": 1,
@@ -13568,7 +13694,7 @@
    "choice_kind": "spell_cantrip",
    "choice_label": "다른 전통에서 캔트립 선택",
    "value": "",
-   "target": ""
+   "target": "$other"
   },
   {
    "owner_kind": "feat",
@@ -13593,8 +13719,8 @@
    "choice": "cho-multifarious-muse",
    "choice_kind": "feat_pick",
    "choice_label": "뮤즈 선결 1레벨 재주 선택",
-   "value": "",
-   "target": ""
+   "value": 1,
+   "target": "bard"
   },
   {
    "owner_kind": "feat",
@@ -13726,6 +13852,34 @@
   },
   {
    "owner_kind": "feat",
+   "owner_slug": "leshy-lore",
+   "owner_name": "레시 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-leshy-lore",
+   "option": "nature",
+   "option_name": "자연학",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "leshy-lore",
+   "owner_name": "레시 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-leshy-lore",
+   "option": "stealth",
+   "option_name": "은신",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
    "owner_slug": "adopted-ancestry",
    "owner_name": "채택된 혈통",
    "owner_level": 1,
@@ -13768,6 +13922,34 @@
    "choice_label": "곡예 또는 운동 중 숙련시킬 기술 선택",
    "value": "",
    "target": ""
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "fighter-dedication",
+   "owner_name": "파이터 헌신",
+   "owner_level": 2,
+   "category": "class",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-fighter-dedication",
+   "option": "acrobatics",
+   "option_name": "곡예",
+   "value": ""
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "fighter-dedication",
+   "owner_name": "파이터 헌신",
+   "owner_level": 2,
+   "category": "class",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-fighter-dedication",
+   "option": "athletics",
+   "option_name": "운동",
+   "value": ""
   },
   {
    "owner_kind": "feat",
@@ -13816,6 +13998,20 @@
   },
   {
    "owner_kind": "feat",
+   "owner_slug": "nephilim-lore",
+   "owner_name": "네필림 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-nephilim-lore",
+   "option": "religion",
+   "option_name": "종교학",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
    "owner_slug": "favored-terrain",
    "owner_name": "선호 지형",
    "owner_level": 2,
@@ -13843,6 +14039,34 @@
    "choice_label": "고블린 지식 기술 (기본: 자연학, 은신)",
    "value": 2,
    "target": ""
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "goblin-lore",
+   "owner_name": "고블린 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-goblin-lore",
+   "option": "nature",
+   "option_name": "자연학",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "goblin-lore",
+   "owner_name": "고블린 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-goblin-lore",
+   "option": "stealth",
+   "option_name": "은신",
+   "value": "default"
   },
   {
    "owner_kind": "feat",
@@ -13969,7 +14193,7 @@
    "choice_kind": "spell_cantrip",
    "choice_label": "원시 캔트립 선택",
    "value": "",
-   "target": ""
+   "target": "primal"
   },
   {
    "owner_kind": "feat",
@@ -13985,6 +14209,34 @@
    "choice_label": "엘프 지식 기술 (기본: 주문학, 자연학)",
    "value": 2,
    "target": ""
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "elven-lore",
+   "owner_name": "엘프 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-elven-lore",
+   "option": "arcana",
+   "option_name": "주문학",
+   "value": "default"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "elven-lore",
+   "owner_name": "엘프 지식",
+   "owner_level": 1,
+   "category": "ancestry",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-elven-lore",
+   "option": "nature",
+   "option_name": "자연학",
+   "value": "default"
   },
   {
    "owner_kind": "feat",
@@ -16163,8 +16415,8 @@
    "choice": "cho-order-explorer",
    "choice_kind": "feat_pick",
    "choice_label": "결단 선결 1레벨 재주 선택",
-   "value": "",
-   "target": ""
+   "value": 1,
+   "target": "druid"
   },
   {
    "owner_kind": "feat",
@@ -16191,8 +16443,8 @@
    "src": "choice_opt",
    "type": "choice_opt",
    "choice": "cho-voice-of-nature",
-   "option": "",
-   "option_name": "",
+   "option": "animal-empathy",
+   "option_name": "동물 공감 (Animal Empathy)",
    "value": ""
   },
   {
@@ -16205,8 +16457,8 @@
    "src": "choice_opt",
    "type": "choice_opt",
    "choice": "cho-voice-of-nature",
-   "option": "",
-   "option_name": "",
+   "option": "plant-empathy",
+   "option_name": "식물 공감 (Plant Empathy)",
    "value": ""
   },
   {
@@ -16270,7 +16522,7 @@
    "name": "학파 주문(상급)"
   }
  ],
- "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 1231 · 29 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.",
+ "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 1249 · 29 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.",
  "_schema": {
   "note": "코드가 실제 처리하는 자료형(런타임 소스). 이 목록 밖 값은 런타임이 모름 = 데이터·코드 불변식. 조건 평가=cs_calc _evalEffectCondition, 효과 적용=applyFeatEffects.",
   "condition": {
@@ -16368,9 +16620,9 @@
   "domain": 112,
   "grant_spell": 66,
   "damage_note": 3,
+  "choice_opt": 22,
   "grant_focus_spell": 8,
   "familiar_ability": 1,
-  "choice_opt": 4,
   "rune": 161
  }
 }

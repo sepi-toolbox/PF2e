@@ -41,6 +41,13 @@ const ownerMeta = {}; // slug → {owner_kind,owner_name,owner_level,category} (
 
 // ── FVTT rule → 효과행 매핑 ──
 const SKILLS = new Set(['acrobatics', 'arcana', 'athletics', 'crafting', 'deception', 'diplomacy', 'intimidation', 'medicine', 'nature', 'occultism', 'performance', 'religion', 'society', 'stealth', 'survival', 'thievery']);
+// 기술 slug→한글명 (choice_opt 옵션 표시명용). cs_data.js SKILLS 단일소스에서 파생(중복 정의 금지 — 원칙#1).
+const SKILL_KO = {};
+try {
+  const _sd = fs.readFileSync(path.join(DEV, 'cs_data.js'), 'utf8');
+  const _m = _sd.match(/const SKILLS\s*=\s*(\[[\s\S]*?\n\]);/);
+  if (_m) for (const s of eval(_m[1])) { if (s && s.id && !s.isLore) SKILL_KO[s.id] = s.name; }
+} catch (e) { console.warn('SKILL_KO 파생 실패:', e.message); }
 const SAVES = new Set(['fortitude', 'reflex', 'will', 'saving-throw']);
 const SPEEDS = new Set(['speed', 'land-speed', 'all-speeds']);
 function selList(s) { return Array.isArray(s) ? s : (s == null ? [] : [s]); }
@@ -392,14 +399,31 @@ for (const slug of Object.keys(CURATED)) {
   if (c.auto_note) rows.push({ ...b, src: 'note', type: 'display_note', note: c.auto_note });
   if (c.damage_note) rows.push({ ...b, src: 'note', type: 'damage_note', note: typeof c.damage_note === 'object' ? JSON.stringify(c.damage_note) : c.damage_note });
   if (c.choice) {
-    // 선택지 헤더행(무엇을 고르는지: kind·개수·고정값) + 선택지 옵션을 choice_opt 행으로 펼침(그리드에서 보이게, 숨은 blob 제거).
+    // 선택지 헤더행(무엇을 고르는지: kind·개수·대상 풀) + 선택지 옵션을 choice_opt 행으로 펼침(그리드에서 보이게, 숨은 blob 제거).
     const flt = c.choice.filter || {};
-    rows.push({ ...b, src: 'choice', type: 'choice', choice: c.choice.id || '', choice_kind: c.choice.kind || '', choice_label: c.choice.label || '', value: (flt.count != null ? flt.count : ''), target: flt.fixedSkill || flt.min_rank || '' });
-    for (const op of (c.choice.options || [])) {
-      const oid = (typeof op === 'string') ? op : (op.id || op.value || '');
-      const onm = (typeof op === 'object') ? (op.name || op.label || '') : '';
-      rows.push({ ...b, src: 'choice_opt', type: 'choice_opt', choice: c.choice.id || '', option: oid, option_name: onm, value: (op && op.default) ? 'default' : '' });
+    // value=수치 제약(개수/랭크/최대레벨), target=선택 대상 풀(고정기술·주문전통·재주카테고리). kind가 해석 기준.
+    const _num = (flt.count != null) ? flt.count : ((flt.rank != null) ? flt.rank : ((flt.pickMaxLevel != null) ? flt.pickMaxLevel : ''));
+    const _pool = flt.fixedSkill || flt.tradition || flt.pickCategory || flt.min_rank || '';
+    rows.push({ ...b, src: 'choice', type: 'choice', choice: c.choice.id || '', choice_kind: c.choice.kind || '', choice_label: c.choice.label || '', value: _num, target: _pool });
+    const _opt = (oid, onm, val) => rows.push({ ...b, src: 'choice_opt', type: 'choice_opt', choice: c.choice.id || '', option: oid, option_name: onm, value: val });
+    const explicit = c.choice.options || [];
+    if (explicit.length) {
+      // 명시 옵션(custom·familiar_pick): 큐레이션 options[] 그대로. id/name·option_id/option_name 양쪽 표기 허용(런타임 _getFeatEffectsDef와 동일).
+      for (const op of explicit) {
+        const oid = (typeof op === 'string') ? op : (op.option_id != null ? op.option_id : (op.id != null ? op.id : (op.value || '')));
+        const onm = (typeof op === 'object') ? (op.option_name || op.name || op.label || '') : '';
+        _opt(oid, onm, (op && op.default) ? 'default' : '');
+      }
+    } else if (c.choice.kind === 'skill_defaults') {
+      // 기본 기술 = owner의 skill_trained/skill_expert 부여행에서 파생(정본=실제 부여되는 기술, 이름/label 재파싱 아님).
+      for (const r of (e.rows || [])) if (r.type === 'skill_trained' || r.type === 'skill_expert') _opt(r.target, SKILL_KO[r.target] || r.target, 'default');
+    } else if (c.choice.kind === 'skill_fixed' && flt.fixedSkill) {
+      _opt(flt.fixedSkill, SKILL_KO[flt.fixedSkill] || flt.fixedSkill, 'default');
+    } else if (c.choice.kind === 'skill' && flt.filter && Array.isArray(flt.filter.custom)) {
+      // 후보 기술 목록(택1) — 기본 아님(value 빈칸).
+      for (const sk of flt.filter.custom) _opt(sk, SKILL_KO[sk] || sk, '');
     }
+    // 그 외(feat_pick·spell_rank/cantrip·weapon_pick·ancestry_pick·lore·skill_multi·동적 custom)=동적 필터라 고정 옵션 없음(헤더행 kind/label/target으로 문서화).
   }
   refs.feats[slug] = refs.feats[slug] || 'curated';
   stat.curated++;
