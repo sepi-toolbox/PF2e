@@ -76,6 +76,8 @@ var BARD_MUSE_GUIDE = [];
 var WITCH_PATRON_GUIDE = [];
 // 드루이드 교단 「항목 읽는 법」 가이드 = data/derived/druid_orders.json → cs_pf2e_class.loadDruidOrders()가 채움.
 var DRUID_ORDER_GUIDE = [];
+// 레인저 사냥 방식 「항목 읽는 법」 가이드 = data/derived/ranger_edges.json → cs_pf2e_class.loadRangerEdges()가 채움.
+var RANGER_EDGE_GUIDE = [];
 
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING

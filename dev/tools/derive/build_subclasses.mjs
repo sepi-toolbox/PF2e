@@ -129,6 +129,22 @@ const SD = globalThis.SUBCLASS_DB;
     orderPatched++;
   }
   console.log(`  드루이드 교단 desc(정본 4교단 조립) 주입: ${orderPatched}종`);
+
+  // 레인저 사냥 방식(Hunter's Edge) = Player Core 정본 3방식(subclasses_curated 구조화). 큐레이션 필드(flavor·edge_benefit·edge_masterful)로
+  //   rich desc 조립: 소개 + 사냥 방식 효과(1레벨) + 노련한 사냥꾼(17레벨 강화). 레인저는 주문 없음 → 순수 기계효과(부여 @link 없음).
+  //   교단·후원자와 동일 패턴 — features(클래스 특성)는 desc가 소유하므로 비움(중복 카드 방지).
+  let edgePatched = 0;
+  for (const s of SD) {
+    if (s.class_id !== 'ranger') continue;
+    let d = '';
+    if (s.flavor) d += `<p><em>${s.flavor}</em></p>`;
+    if (s.edge_benefit) d += `<p><strong>사냥 방식 효과</strong> ${s.edge_benefit}</p>`;
+    if (s.edge_masterful) d += `<p><strong>노련한 사냥꾼 (17레벨)</strong> ${s.edge_masterful}</p>`;
+    s.desc = PF.enrichDesc(d);
+    s.features = [];   // 사냥 방식 효과는 desc가 소유 → 클래스 특성 카드 중복 표시 안 함.
+    edgePatched++;
+  }
+  console.log(`  레인저 사냥 방식 desc(정본 3방식 조립) 주입: ${edgePatched}종`);
 }
 
 // 표시용 별칭(DataManager 서브클래스 탭: slug/class/grants/rules_n) 부가 — 런타임 필드(id/class_id/...)는 보존
