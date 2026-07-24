@@ -80,6 +80,8 @@ var DRUID_ORDER_GUIDE = [];
 var RANGER_EDGE_GUIDE = [];
 // 로그 수법 「항목 읽는 법」 가이드 = data/derived/rogue_rackets.json → cs_pf2e_class.loadRogueRackets()가 채움.
 var ROGUE_RACKET_GUIDE = [];
+// 챔피언 원인 「항목 읽는 법」 가이드 = data/derived/champion_causes.json → cs_pf2e_class.loadChampionCauses()가 채움.
+var CHAMPION_CAUSE_GUIDE = [];
 
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING

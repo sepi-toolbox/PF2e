@@ -166,6 +166,35 @@ const SD = globalThis.SUBCLASS_DB;
     racketPatched++;
   }
   console.log(`  로그 수법 desc(정본 4수법 조립) 주입: ${racketPatched}종`);
+
+  // 챔피언 원인(Cause) = Player Core 2 정본 7원인(FVTT 파생 desc 재작성). 신격·성별화·헌신 주문은 모달 인라인 컨트롤이 담당.
+  //   여기선 원인 정체성 = 소개 + 성별화 요구 + 신조(edicts) + 금기(anathema) + 챔피언 반응(@link[actions.X] 정본명 + 1레벨 효과).
+  //   반응은 성장표 granted_actions로 이미 부여(행동 탭) → desc는 표시. 「축복받은 X」(2레벨 헌신자의 축복)는 원인 아님 → 손대지 않음(오분류, flag).
+  const _SANCT_KO = { holy: '신성 (Holy 성별화 필요)', unholy: '부정 (Unholy 성별화 필요)', any: '무관 (어느 성별화든 선택 가능)' };
+  const CAUSE = {
+    justice: { sanct: 'any', flavor: '신의 이름으로 정의를 추구하며, 법을 따르고 이를 어기는 자를 처벌합니다.', edicts: '법을 따르고, 정당한 권위와 지도력을 존중한다', anathema: '타인을 이용하거나 속인다', rxn: 'retributive-strike', effect: '발동: 챔피언 오라 내 아군이 적에게 피해를 입음. 효과: 아군이 그 피해에 <b>2 + 레벨</b> 저항을 얻고, 적이 사거리 내에 있으면 그 적에게 근접 타격 1회.' },
+    liberation: { sanct: 'any', flavor: '모든 이가 속박과 억압에서 벗어나 자유롭기를 바랍니다.', edicts: '노예제와 압제에 맞서고, 타인이 스스로 결정할 자유를 위해 싸우며, 남의 선택을 존중한다', anathema: '누군가를 강요·위협하거나, 노예제·압제에 가담한다', rxn: 'liberating-step', effect: '발동: 오라 내 아군이 적에게 피해·붙잡힘·포박당함. 효과: (피해였다면) 아군이 <b>2 + 레벨</b> 저항을 얻고, 붙잡기·포박 효과에서 탈출을 시도한 뒤 <b>자유 행동으로 한 걸음</b> 이동.' },
+    obedience: { sanct: 'any', flavor: '사회는 마땅한 이유로 질서 지어져 있으며, 사람은 제자리에 맞게 처신해야 한다고 믿습니다.', edicts: '정당한 위계를 강제하고, 부당한 위계를 무너뜨리며, 가장 적합할 때 앞장선다', anathema: '자신보다 못한 자가 자신을 지배하거나 이끌게 둔다', rxn: 'iron-command', effect: '발동: 오라 내 적이 나에게 피해를 입힘. 효과: 적이 <b>무릎 꿇기</b>(넘어짐) 또는 <b>거부</b>(1d6 정신 피해, 레벨에 따라 증가) 중 하나를 택함. 어느 쪽이든 그 적에 대한 내 타격은 다음 턴까지 +1 영혼 피해.' },
+    grandeur: { sanct: 'holy', flavor: '순결한 천상계의 찬란한 위엄에 고무되어, 그 덕을 세상에 드러내 오만한 자에게 겸손을 일깨웁니다.', edicts: '남에게 빛나는 본보기가 되고, 주변의 아름다움을 누리고 나누며, 단정함을 유지한다', anathema: '악마·부정한 세력과 어울려 자신을 더럽힌다', rxn: 'flash-of-grandeur', effect: '발동: 오라 내 적이 아군에게 피해를 입힘. 효과: 아군이 그 피해에 <b>2 + 레벨</b> 저항을 얻고, 적은 1라운드간 <b>폭로하는 빛</b>의 영향을 받습니다.' },
+    redemption: { sanct: 'holy', flavor: '모두가 조화롭게 살기를 갈망하며, 남들이 베거나 내치려는 자마저 구원하려 애씁니다.', edicts: '악행을 저지른 자를 구원하려 애쓰고, 지위와 무관하게 자비를 베푼다', anathema: '구원의 기회를 먼저 주지 않고 지성 있는 적을 죽인다', rxn: 'glimpse-of-redemption', effect: '발동: 오라 내 아군이 적에게 피해를 입음. 효과: 적이 <b>회개</b>(아군이 피해를 입지 않음) 또는 <b>거부</b>(아군이 2 + 레벨 저항을 얻고, 적은 다음 턴까지 쇠약 2) 중 하나를 택함.' },
+    desecration: { sanct: 'unholy', flavor: '상대를 가리지 않고 원하는 것을 취하며, 닿는 모든 것에 악의를 퍼뜨립니다.', edicts: '길을 막는 순수하고 신성한 모든 것을 전복·타락시키고, 순수·신성의 이상에 의심을 뿌린다', anathema: '', rxn: 'selfish-shield', effect: '발동: 오라 내 적이 나에게 피해를 입힘. 효과: 그 피해에 피해 유형과 무관하게 <b>2 + 레벨의 절반</b> 저항을 얻고, 이후 그 적에 대한 타격은 +1 영혼 피해.' },
+    iniquity: { sanct: 'unholy', flavor: '명예도 정직도 없이, 친절이 품은 헛된 희망을 깨뜨리는 데 몰두합니다.', edicts: '자신을 거스르거나 앞을 막는 것을 파괴하고, 남을 이용하며, 속이고 훔친다', anathema: '신격이 요구하지 않는 율법에 스스로를 얽맨다', rxn: 'destructive-vengeance', effect: '발동: 오라 내 적이 나에게 피해를 입힘. 효과: 내가 받는 피해가 1d6 증가하고 그 적에게 <b>1d6 영혼 피해</b>(레벨에 따라 증가). 이후 그 적에 대한 타격은 +2 영혼 피해.' },
+  };
+  let causePatched = 0;
+  for (const s of SD) {
+    if (s.class_id !== 'champion') continue;
+    const c = CAUSE[s.id]; if (!c) continue;   // 「축복받은 X」(헌신자의 축복)는 원인 아님 → 건너뜀
+    let d = '';
+    if (c.flavor) d += `<p><em>${c.flavor}</em></p>`;
+    d += `<p><strong>성별화</strong> ${_SANCT_KO[c.sanct]}</p>`;
+    if (c.edicts) d += `<p><strong>신조</strong> ${c.edicts}</p>`;
+    if (c.anathema) d += `<p><strong>금기</strong> ${c.anathema}</p>`;
+    d += `<p><strong>챔피언 반응</strong> @link[actions.${c.rxn}] — ${c.effect}</p>`;
+    s.desc = PF.enrichDesc(d);
+    s.features = [];   // 반응은 성장표 granted_actions(행동 탭)가 소유 → 클래스 특성 카드 중복 표시 안 함.
+    causePatched++;
+  }
+  console.log(`  챔피언 원인 desc(정본 7원인 조립) 주입: ${causePatched}종`);
 }
 
 // 표시용 별칭(DataManager 서브클래스 탭: slug/class/grants/rules_n) 부가 — 런타임 필드(id/class_id/...)는 보존
