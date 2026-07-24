@@ -90,6 +90,9 @@ var INVESTIGATOR_METHODOLOGY_GUIDE = [];
 var SWASHBUCKLER_STYLE_GUIDE = [];
 // 연금술사 연구 분야 「항목 읽는 법」 가이드 = data/derived/alchemist_research_fields.json → cs_pf2e_class.loadAlchemistResearchFields()가 채움.
 var ALCHEMIST_RESEARCH_FIELD_GUIDE = [];
+// 파이터/몽크 「클래스 핵심 특징」 가이드(서브클래스 없는 클래스) = data/derived/{fighter,monk}_features.json → cs_pf2e_class.load{Fighter,Monk}Features()가 채움.
+var FIGHTER_GUIDE = [];
+var MONK_GUIDE = [];
 
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING

@@ -4038,6 +4038,10 @@ function _buildClassChoicesUI(cls) {
     if (subs.length > 0) {
       const subLabel = subs[0].subclass_type || '서브클래스';
       subclassHtml = _buildSubclassChoiceUI(cls.id, subLabel, subs, (typeof _bloodlineGuideHtml === 'function') ? _bloodlineGuideHtml(cls.id) : '');
+    } else {
+      // 서브클래스가 없는 클래스(파이터·몽크): 선택 드롭다운 대신 「클래스 핵심 특징」 안내 박스만 표시(다른 클래스와 동일한 설명 패널 제공).
+      const _cg = (typeof _bloodlineGuideHtml === 'function') ? _bloodlineGuideHtml(cls.id) : '';
+      if (_cg) subclassHtml = _classFeatureBlock('⚙', '클래스 핵심 특징', '', () => _cg, false, false);
     }
     // 신격 선택 클래스(deity-* 특성 보유, 예: 챔피언) — 신격·성별화·헌신 주문 카드를 인라인 추가(클레릭과 평행).
     const _roster = (typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cls.id] || []) : []);
@@ -4846,6 +4850,9 @@ function _bloodlineGuideHtml(classId) {
   else if (classId === 'investigator') guide = (typeof INVESTIGATOR_METHODOLOGY_GUIDE !== 'undefined' && Array.isArray(INVESTIGATOR_METHODOLOGY_GUIDE)) ? INVESTIGATOR_METHODOLOGY_GUIDE : [];
   else if (classId === 'swashbuckler') guide = (typeof SWASHBUCKLER_STYLE_GUIDE !== 'undefined' && Array.isArray(SWASHBUCKLER_STYLE_GUIDE)) ? SWASHBUCKLER_STYLE_GUIDE : [];
   else if (classId === 'alchemist') guide = (typeof ALCHEMIST_RESEARCH_FIELD_GUIDE !== 'undefined' && Array.isArray(ALCHEMIST_RESEARCH_FIELD_GUIDE)) ? ALCHEMIST_RESEARCH_FIELD_GUIDE : [];
+  // 파이터·몽크 = 서브클래스 없는 클래스 → 「클래스 핵심 특징」 안내(드롭다운 없이 아래 else 분기가 박스로 렌더).
+  else if (classId === 'fighter') guide = (typeof FIGHTER_GUIDE !== 'undefined' && Array.isArray(FIGHTER_GUIDE)) ? FIGHTER_GUIDE : [];
+  else if (classId === 'monk') guide = (typeof MONK_GUIDE !== 'undefined' && Array.isArray(MONK_GUIDE)) ? MONK_GUIDE : [];
   if (!guide.length) return '';
   const items = guide.map(g => `<div style="margin-bottom:4px;"><strong style="color:var(--text);">${g.term}</strong> ${g.def}</div>`).join('');
   return `<div style="margin-bottom:8px;font-size:11px;line-height:1.6;color:var(--text2);">${items}</div>`;
