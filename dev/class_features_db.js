@@ -82,6 +82,8 @@ var RANGER_EDGE_GUIDE = [];
 var ROGUE_RACKET_GUIDE = [];
 // 챔피언 원인 「항목 읽는 법」 가이드 = data/derived/champion_causes.json → cs_pf2e_class.loadChampionCauses()가 채움.
 var CHAMPION_CAUSE_GUIDE = [];
+// 바바리안 본능 「항목 읽는 법」 가이드 = data/derived/barbarian_instincts.json → cs_pf2e_class.loadBarbarianInstincts()가 채움.
+var BARBARIAN_INSTINCT_GUIDE = [];
 
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING
