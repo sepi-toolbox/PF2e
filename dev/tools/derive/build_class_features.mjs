@@ -14,8 +14,13 @@ const DEV = path.resolve(__dirname, '..', '..');
 const load = f => JSON.parse(fs.readFileSync(path.join(DEV, f), 'utf8'));
 const asArray = raw => Array.isArray(raw) ? raw : (raw.items || Object.values(raw));
 
+// 정본 필터: 보유 룰북(allowed_content) 소속 클래스만 — build은 store를 직접 읽으므로 여기서 동일 기준 적용.
+const _allowed = (() => { try { return new Set(load('data/derived/allowed_content.json').allowed_books || []); } catch (e) { return new Set(); } })();
+const _pub = d => { const s = d.system || {}; const p = s.publication || {}; return p.title || (s.source && (s.source.value || s.source)) || ''; };
+const _keepClass = d => _allowed.size === 0 || _allowed.has(_pub(d));
+
 const feats = asArray(load('data/store/feats.json'));
-const classes = asArray(load('data/store/classes.json'));
+const classes = asArray(load('data/store/classes.json')).filter(_keepClass);   // 보유 룰북 클래스만(PC1+PC2 16종)
 const classSlugs = new Set(classes.map(c => c.system.slug));
 
 // 클래스가 레벨 몇에 이 특성을 부여하는지 (class.items 역인덱스)

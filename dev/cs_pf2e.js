@@ -19,6 +19,41 @@
   const CATEGORIES = ['equipment', 'spells', 'feats', 'actions', 'backgrounds',
     'deities', 'heritages', 'ancestries', 'conditions', 'classes', 'effects'];
 
+  // ── 정본(보유 룰북) 필터 ── data/derived/allowed_content.json.
+  //   FVTT store에는 보유 안 한 서적(AP·Lost Omens·G&G 등) 콘텐츠가 섞여 있음 → 보유 6권 소속만 유지.
+  //   store 원본 불변(되돌림 가능): 로드 시점에 제외. publication.title이 허용목록이면 유지, 아니면 제외.
+  //   단 FVTT가 룰북 수록 항목을 타 서적으로 오태깅(신격=Divine Mysteries)하면 rescue 로스터(이름)로 구제.
+  //   자동화층(effects)·공용 글로서리는 필터 대상 아님(콘텐츠 카탈로그만). content catalog만 여기 나열.
+  const FILTER_CATS = new Set(['equipment', 'spells', 'feats', 'actions', 'backgrounds', 'deities', 'heritages', 'ancestries', 'conditions', 'classes']);
+  let _allowed = null;
+  function _prepAllowed(j) {
+    j = j || {};
+    const books = new Set(j.allowed_books || []);
+    const rescue = {};
+    for (const cat in (j.rescue || {})) rescue[cat] = new Set(j.rescue[cat] || []);
+    return { books, rescue, enabled: books.size > 0 };
+  }
+  function _ensureAllowedSync() { if (_allowed) return _allowed; _allowed = _prepAllowed(isNode ? _readJSON(`${_dataRoot}/derived/allowed_content.json`) : null); return _allowed; }
+  async function loadAllowed() { if (_allowed) return _allowed; _allowed = _prepAllowed(await _fetchJSON(`${_dataRoot}/derived/allowed_content.json?v=0.228`)); return _allowed; }
+  function _pubOf(d) {
+    const s = d.system || {}; const p = s.publication || {};
+    let t = p.title;
+    if (!t) { const src = s.source; t = (src && typeof src === 'object') ? src.value : src; }
+    return t || '';
+  }
+  function _isAllowedDoc(cat, d) {
+    const a = _allowed; if (!a || !a.enabled) return true;         // 미로드/비활성 = 전부 허용(안전 폴백)
+    if (a.books.has(_pubOf(d))) return true;
+    const r = a.rescue[cat];
+    if (r) { const nm = d.name_en || d.name; if (nm && r.has(nm)) return true; }   // 룰북 수록·오태깅 구제
+    return false;
+  }
+  function _filterAllowed(cat, docs) {
+    if (!FILTER_CATS.has(cat)) return docs;
+    const a = _allowed; if (!a || !a.enabled) return docs;
+    return docs.filter(d => _isAllowedDoc(cat, d));
+  }
+
   // ---- 로더 (지연, 카테고리 단위 캐시) ----
   const _baseCache = {};   // cat → array
   const _ovlCache = {};    // cat → {slug→{name,description,traits}}
@@ -59,8 +94,9 @@
   // 카테고리 로드(조인 포함). Node=동기 가능, 브라우저=async.
   function loadCategorySync(cat) {
     if (_index[cat]) return _index[cat];
+    _ensureAllowedSync();
     // 단일 소스: data/store/{cat}.json (materialized — name_ko/_desc_ko 및 기계데이터 baked).
-    const store = _readJSON(`${STORE_DIR}/${cat}.json`) || [];
+    const store = _filterAllowed(cat, _readJSON(`${STORE_DIR}/${cat}.json`) || []);   // 보유 룰북 밖 콘텐츠 제외(정본 필터)
     _baseCache[cat] = store; _ovlCache[cat] = {}; _ovrCache[cat] = {};
     return _buildIndex(cat, store, {});
   }
@@ -73,7 +109,8 @@
     return _loadPromises[cat];
   }
   async function _loadCategoryFetch(cat) {
-    const store = (await _fetchJSON(`${STORE_DIR}/${cat}.json`)) || [];
+    await loadAllowed();   // 정본 필터 목록(보유 룰북) 준비 후 로드
+    const store = _filterAllowed(cat, (await _fetchJSON(`${STORE_DIR}/${cat}.json`)) || []);
     let merged = {};
     // L4 클라우드 override: DataManager에서 라이브 저장한 편집(Firestore) — store 위에 slug 단위로 덮음.
     // 공개 read라 로그인 불필요. 실패/미제공/느림이면 store만으로 조용히 진행(비침입).

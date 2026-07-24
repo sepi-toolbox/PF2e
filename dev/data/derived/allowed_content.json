@@ -1,0 +1,19 @@
+{
+ "note": "허용 콘텐츠 판정 = 보유 룰북 6권. FVTT publication.title이 이 목록이면 유지, 아니면 제외(런타임/빌드 필터, store 원본 불변·되돌림 가능). 단 FVTT가 룰북 수록 항목을 타 서적으로 오태깅하는 경우(신격=Divine Mysteries)는 rescue 로스터(이름)로 구제.",
+ "allowed_books": [
+  "Pathfinder Player Core",
+  "Pathfinder Player Core 2",
+  "Pathfinder GM Core",
+  "Pathfinder Monster Core",
+  "Pathfinder Monster Core 2",
+  "Pathfinder NPC Core"
+ ],
+ "rescue": {
+  "deities": [
+   "Abadar", "Asmodeus", "Calistria", "Cayden Cailean", "Desna", "Erastil",
+   "Gozreh", "Gorum", "Iomedae", "Irori", "Lamashtu", "Nethys", "Norgorber",
+   "Pharasma", "Rovagug", "Sarenrae", "Shelyn", "Torag", "Urgathoa", "Zon-Kuthon"
+  ]
+ },
+ "rescue_note": "deities: Player Core '신앙' 섹션 수록 20위(FVTT는 전량 Lost Omens Divine Mysteries로 오태깅) — 이름 대조로 유지. 보유 다른 룰북(GM/Monster/NPC Core·PC2)에 추가 신격 확인되면 확장."
+}
