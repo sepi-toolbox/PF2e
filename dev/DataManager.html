@@ -165,7 +165,7 @@ const DM = (function(){
     {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'class','category','effect_group_id','actions','frequency','rules_n']},
     {id:'effects', label:'효과(자동화)', kind:'derived', src:'data/derived/effects.json', shape:'rows',
        // 7컬럼 정규화(v0.162): 그룹(owner)·효과타입(type)·대상(target)·값(value)·값종류(bonus_type)·조건(condition)·조건밸류(cond_value). 뒤는 보조 메타.
-       cols:['owner_kind','owner_slug','owner_name','type','target','value','bonus_type','condition','cond_value','rule','src','actionCost','summary','note','choice','option','option_name']},
+       cols:['owner_kind','owner_slug','owner_name','type','target','value','bonus_type','condition','cond_value','rule','src','actionCost','summary','note','choice','choice_kind','choice_label','option','option_name']},
     {id:'prereqs', label:'선행조건', kind:'derived', src:'data/derived/prereqs.json', shape:'rows',
        // 정규화 1:N(효과 테이블과 동일 철학): 한 행=원자 조건, 한 컬럼=한 역할. group 같으면 OR·다르면 AND.
        cols:['owner_slug','group','type','target','value','src_text']},
@@ -252,7 +252,8 @@ const DM = (function(){
     effect_group_id:{h:'효과그룹(FK)',w:190,cls:'key'}, src:{h:'구분',w:74},
     target:{h:'대상',w:130}, value:{h:'값',w:64}, bonus_type:{h:'값종류',w:92}, condition:{h:'조건',w:120}, cond_value:{h:'조건밸류',w:190},
     actionCost:{h:'행동비용',w:64}, summary:{h:'요약',w:280}, note:{h:'노트',w:300},
-    choice:{h:'선택지ID',w:130,cls:'key'}, option:{h:'옵션ID',w:130,cls:'key'}, option_name:{h:'옵션명',w:150},
+    choice:{h:'선택지ID',w:130,cls:'key'}, choice_kind:{h:'선택종류',w:120}, choice_label:{h:'선택안내',w:220},
+    option:{h:'옵션ID',w:130,cls:'key'}, option_name:{h:'옵션명',w:150},
   };
   // 컬럼별 입력 가이드 (헤더 툴팁 ⓘ + 편집 시 하단 안내)
   const COLGUIDE={
@@ -293,7 +294,10 @@ const DM = (function(){
     cond_value:'조건밸류 = 한 원자값(1NF). 단일: level→>=5, class→barbarian, feat/feature→slug, sense→darkvision. compound만 영문 slug 식(예 "armor:category:heavy & armor:group:composite", "(feature:armor-innovation | feature:weapon-innovation)"). &=그리고, |=또는, !=아님.',
     actionCost:'grant_action 행동비용(1/2/3/free/reaction).', summary:'grant_action 등 행동 요약(HTML).',
     note:'display_note/damage_note 본문(자동 표시 노트).',
-    choice:'선택지 그룹 id(choice_id).', option:'선택 옵션 id.', option_name:'선택 옵션 표시명.',
+    choice:'선택지 그룹 id(choice_id). 같은 id의 choice(헤더)+choice_opt(옵션) 행이 한 선택지를 이룸.',
+    choice_kind:'선택 종류 = 무엇을 고르는가. skill(기술1)·skill_defaults(기본기술N)·skill_multi(기술N)·skill_fixed(고정기술)·custom(지정목록)·spell_cantrip/spell_rank(주문)·feat_pick(재주)·weapon_pick(무기)·ancestry_pick(혈통)·lore(지식 자유입력)·familiar_pick(사역마 능력). 이걸로 알맞은 선택 창·후보 목록이 정해짐.',
+    choice_label:'선택지 안내 문구(표시용). 예: "식물 또는 균류 중 선택".',
+    option:'선택 옵션 id(슬러그). choice_opt 행에서 채워짐 — 이 선택지의 후보 하나.', option_name:'선택 옵션 표시명(한글).',
   };
 
   // ---- 필드 접근자 (row = base⊕overlay 조인된 FVTT 문서) ----

@@ -502,6 +502,31 @@
    }
   ]
  },
+ "leshy-familiar": {
+  "rows": [
+   {
+    "type": "familiar_ability",
+    "target": "$choice",
+    "value": "bonus"
+   }
+  ],
+  "choice": {
+   "id": "cho-leshy-familiar",
+   "kind": "familiar_pick",
+   "label": "레시 사역마 능력 (식물 또는 균류)",
+   "filter": null,
+   "options": [
+    {
+     "id": "plant",
+     "name": "식물"
+    },
+    {
+     "id": "fungus",
+     "name": "균류"
+    }
+   ]
+  }
+ },
  "beast-trainer": {
   "choice": {
    "id": "cho-beast-trainer",

@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.230').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.231').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -3999,14 +3999,33 @@ function _familiarSpec() {
       patron = { slug, name: fam[0].name || (info && info.name_ko) || slug, desc: fam[0].desc || (info && info.desc_ko) || '' };
     }
   }
-  return { total, patron };
+  // 재주가 부여하는 사역마 능력(효과 테이블 familiar_ability, 예: 레시 패밀리어 → 식물/균류 택1). bonus=한도 밖 +1.
+  //   후원자 고정(성장표)과 동일하게 "부여된(잠금) 능력"으로 취급 — 소비 통일(patron+재주 부여를 한 목록으로 표시).
+  const featAbilities = [];
+  if (typeof getEffectRows === 'function' && state.feats) {
+    for (const f of Object.values(state.feats).flat()) {
+      if (!f) continue;
+      const fslug = (typeof featSlug === 'function') ? featSlug(f) : (f.id || '');
+      for (const r of (getEffectRows(fslug) || [])) {
+        if (r.type !== 'familiar_ability') continue;
+        const abil = (r.target === '$choice') ? f.choice : r.target;
+        if (!abil) continue;   // 아직 미선택(식물/균류) → 표시 보류
+        const fi = (typeof PF2eClass !== 'undefined' && PF2eClass.familiarAbility) ? PF2eClass.familiarAbility(abil) : null;
+        featAbilities.push({ slug: abil, name: (fi && fi.name_ko) || abil, desc: (fi && fi.desc_ko) || '', bonus: (r.value === 'bonus') });
+      }
+    }
+  }
+  return { total, patron, featAbilities };
 }
 // 펫(사역마)의 파생 필드(maxAbilities·patronAbility)를 데이터로 재계산 — 레벨/후원자 변경이 즉시 반영되도록 렌더 시 갱신.
 function _syncFamiliarDerived(p) {
   if (!p || !p.isFamiliar) return;
   const spec = _familiarSpec();
-  p.maxAbilities = spec.total;
   p.patronAbility = spec.patron;   // {slug,name,desc}|null — 후원자 고정 능력(자유선택에서 제외)
+  p.featGrantedAbilities = spec.featAbilities || [];   // 재주 부여 능력(bonus=한도 밖)
+  p.abilityLimit = spec.total;     // 기본 한도(후원자 고정 포함)
+  const bonusN = p.featGrantedAbilities.filter(a => a.bonus).length;
+  p.maxAbilities = spec.total + bonusN;   // 표시 총량 = 한도 + 보너스 능력 수
 }
 
 function renderPets() {
@@ -4438,13 +4457,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.230'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.230'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.231'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.231'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.230'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.231'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}
@@ -4456,12 +4475,13 @@ function _familiarAbilitiesSectionHtml(p, petIdx) {
   if (!p.isFamiliar) return '';
   const boxes = [];
   if (p.patronAbility) boxes.push(_familiarAbilityBoxHtml(_familiarPatronIconUrl(), p.patronAbility.name, '후원자 고정', p.patronAbility.desc || '', true));
+  for (const g of (p.featGrantedAbilities || [])) boxes.push(_familiarAbilityBoxHtml(_familiarAbilityIconUrl(g.slug), g.name, g.bonus ? '재주 부여 · 보너스' : '재주 부여', g.desc || '', true));
   for (const id of (p.familiarAbilities || [])) {
     const a = FAMILIAR_ABILITIES.find(x => x.id === id);
     if (a) boxes.push(_familiarAbilityBoxHtml(_familiarAbilityIconUrl(id), a.name, a.en, a.desc || '', false));
     else boxes.push(_familiarAbilityBoxHtml(_familiarAbilityIconUrl(id), id, '', '', false));
   }
-  const total = p.maxAbilities || 2, used = (p.patronAbility ? 1 : 0) + (p.familiarAbilities || []).length;
+  const total = p.maxAbilities || 2, used = (p.patronAbility ? 1 : 0) + (p.featGrantedAbilities || []).length + (p.familiarAbilities || []).length;
   const header = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
       <span style="font-size:10px;color:var(--text2);">🐾 사역마 능력 <span style="color:var(--text);">${used}/${total}</span></span>
       <button class="defense-btn" style="padding:1px 8px;font-size:10px;" onclick="openFamiliarAbilities(${petIdx})">능력 선택</button>
@@ -4560,8 +4580,11 @@ function createFamiliar() {
   renderPets(); save(); closeModal();
 }
 
-// 자유 선택 가능 능력 수 = 총 능력 수 − 후원자 고정 1개. 후원자 고정 능력은 슬롯을 차지하되 목록에서 선택 대상 아님.
-function _familiarFreeMax(p) { return Math.max(0, (p.maxAbilities || 2) - (p.patronAbility ? 1 : 0)); }
+// 자유 선택 가능 능력 수 = 기본 한도 − 잠금(한도 내) 능력. 후원자 고정·재주 부여(비보너스)는 한도를 차지, 보너스(레시)는 한도 밖이라 자유 슬롯 차감 안 함.
+function _familiarFreeMax(p) {
+  const nonBonus = (p.patronAbility ? 1 : 0) + ((p.featGrantedAbilities || []).filter(a => !a.bonus).length);
+  return Math.max(0, (p.abilityLimit != null ? p.abilityLimit : (p.maxAbilities || 2)) - nonBonus);
+}
 
 function openFamiliarAbilities(petIdx) {
   const p = state.pets[petIdx];
@@ -4619,6 +4642,29 @@ function renderFamiliarAbilityList(petIdx) {
         detail.innerHTML = `<div class="modal-detail-title">${pa.name}</div>
           <div class="modal-detail-en">후원자가 부여한 고정 사역마 능력 — 항상 선택됨</div>
           <div class="modal-detail-desc" style="margin-top:10px;">${pa.desc || '후원자 설명 참조.'}</div>`;
+      }
+    });
+    container.appendChild(lock);
+  }
+  // 재주 부여(레시 등) 잠금 능력 — 후원자 고정과 동일한 잠금 행. bonus는 한도 밖.
+  for (const g of (p.featGrantedAbilities || [])) {
+    const lock = document.createElement('div');
+    lock.className = 'opt-row selected';
+    lock.style.cursor = 'default';
+    const tag = g.bonus ? '재주 부여 · 보너스' : '재주 부여';
+    lock.innerHTML = `
+      <div class="opt-row-icon">🔒</div>
+      <div style="flex:1;">
+        <div class="opt-row-name">${g.name} <span style="color:var(--text2);font-size:10px;">${tag}</span></div>
+      </div>`;
+    lock.addEventListener('click', () => {
+      const detail = document.getElementById('modal-detail');
+      if (detail && window.innerWidth > 900) {
+        container.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
+        lock.classList.add('selected');
+        detail.innerHTML = `<div class="modal-detail-title">${g.name}</div>
+          <div class="modal-detail-en">재주가 부여한 사역마 능력 — 항상 선택됨${g.bonus ? ' (한도 밖 보너스)' : ''}</div>
+          <div class="modal-detail-desc" style="margin-top:10px;">${g.desc || ''}</div>`;
       }
     });
     container.appendChild(lock);

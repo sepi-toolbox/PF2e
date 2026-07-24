@@ -391,7 +391,16 @@ for (const slug of Object.keys(CURATED)) {
   if (c.rows) for (const r of c.rows) rows.push({ ...b, src: 'effect', ...r });
   if (c.auto_note) rows.push({ ...b, src: 'note', type: 'display_note', note: c.auto_note });
   if (c.damage_note) rows.push({ ...b, src: 'note', type: 'damage_note', note: typeof c.damage_note === 'object' ? JSON.stringify(c.damage_note) : c.damage_note });
-  if (c.choice) rows.push({ ...b, src: 'choice', type: 'choice', choice: c.choice.id || '', choice_kind: c.choice.kind || '', choice_label: c.choice.label || '' });
+  if (c.choice) {
+    // 선택지 헤더행(무엇을 고르는지: kind·개수·고정값) + 선택지 옵션을 choice_opt 행으로 펼침(그리드에서 보이게, 숨은 blob 제거).
+    const flt = c.choice.filter || {};
+    rows.push({ ...b, src: 'choice', type: 'choice', choice: c.choice.id || '', choice_kind: c.choice.kind || '', choice_label: c.choice.label || '', value: (flt.count != null ? flt.count : ''), target: flt.fixedSkill || flt.min_rank || '' });
+    for (const op of (c.choice.options || [])) {
+      const oid = (typeof op === 'string') ? op : (op.id || op.value || '');
+      const onm = (typeof op === 'object') ? (op.name || op.label || '') : '';
+      rows.push({ ...b, src: 'choice_opt', type: 'choice_opt', choice: c.choice.id || '', option: oid, option_name: onm, value: (op && op.default) ? 'default' : '' });
+    }
+  }
   refs.feats[slug] = refs.feats[slug] || 'curated';
   stat.curated++;
 }

@@ -59,10 +59,13 @@ function _getFeatEffectsDef(nameEn) {
     if (choiceE.label) choice.label = choiceE.label;
     if (choiceE.filter && typeof choiceE.filter === 'object') Object.assign(choice, choiceE.filter);
     const opts = choiceE.options || [];
-    if (choiceE.kind === 'custom') choice.options = opts.map(o => ({ id: o.option_id, name: o.option_name }));
-    else if (choiceE.kind === 'skill_defaults') choice.defaults = opts.filter(o => o.is_default).map(o => o.option_id);
+    // 옵션 필드는 두 표기 허용: option_id/option_name(레거시) 또는 id/name(큐레이션 choice.options).
+    const _oid = o => { const v = (o.option_id != null ? o.option_id : (o.id != null ? o.id : o.value)); return v == null ? '' : v; };
+    const _onm = o => o.option_name || o.name || o.label || '';
+    if (choiceE.kind === 'custom' || choiceE.kind === 'familiar_pick') choice.options = opts.map(o => ({ id: _oid(o), name: _onm(o) }));
+    else if (choiceE.kind === 'skill_defaults') choice.defaults = opts.filter(o => o.is_default).map(_oid);
     for (const o of opts) {
-      if (o.rows && o.rows.length) { (choiceEffects = choiceEffects || {})[o.option_id] = o.rows.map(_rowToEffect); }
+      if (o.rows && o.rows.length) { (choiceEffects = choiceEffects || {})[_oid(o)] = o.rows.map(_rowToEffect); }
     }
   }
   const def = { effects };
@@ -594,7 +597,7 @@ function _hasFeatChoiceIssue(feat) {
     }
   }
   // choice 미선택
-  if (!feat.choice && (ch.type === 'lore' || ch.type === 'skill' || ch.type === 'custom')) return true;
+  if (!feat.choice && (ch.type === 'lore' || ch.type === 'skill' || ch.type === 'custom' || ch.type === 'familiar_pick')) return true;
   return false;
 }
 
@@ -1457,7 +1460,7 @@ function checkFeatChoice(featName, featType, featIndex) {
     const t = def.choice.type;
     // 인라인 컨트롤이 있는 타입(기술/지식/커스텀)은 팝업 생략 → 선택 모달 상세 패널의 인라인 UI
     //   (_buildFeatModalChoiceUI, 배경 지식 입력과 동일 방식) + 재주 탭 인라인에서 입력/편집.
-    if (t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || t === 'lore' || (t === 'custom' && def.choice.options)
+    if (t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || t === 'lore' || ((t === 'custom' || t === 'familiar_pick') && def.choice.options)
         || (t === 'feat_pick' && def.choice.inline)) {   // 인라인 재주선택(결단탐험 등)=팝업 생략, 상세패널/재주탭 드롭다운
       return false;
     }

@@ -13215,7 +13215,9 @@
    "type": "choice",
    "choice": "cho-orc-lore",
    "choice_kind": "skill_defaults",
-   "choice_label": "오크 지식 기술 (기본: 운동, 생존)"
+   "choice_label": "오크 지식 기술 (기본: 운동, 생존)",
+   "value": 2,
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13228,7 +13230,9 @@
    "type": "choice",
    "choice": "cho-unconventional-weaponry",
    "choice_kind": "weapon_pick",
-   "choice_label": "비일반 무기 선택"
+   "choice_label": "비일반 무기 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13241,7 +13245,9 @@
    "type": "choice",
    "choice": "cho-changeling-lore",
    "choice_kind": "skill_defaults",
-   "choice_label": "체인질링 지식 기술 (기본: 기만, 오컬티즘)"
+   "choice_label": "체인질링 지식 기술 (기본: 기만, 오컬티즘)",
+   "value": 2,
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13254,7 +13260,9 @@
    "type": "choice",
    "choice": "cho-terrain-expertise",
    "choice_kind": "custom",
-   "choice_label": "전문 지형을 선택하세요"
+   "choice_label": "전문 지형을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13267,7 +13275,9 @@
    "type": "choice",
    "choice": "cho-dwarven-lore",
    "choice_kind": "skill_defaults",
-   "choice_label": "드워프 지식 기술 (기본: 제작, 종교학)"
+   "choice_label": "드워프 지식 기술 (기본: 제작, 종교학)",
+   "value": 2,
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13309,7 +13319,9 @@
    "type": "choice",
    "choice": "cho-additional-lore",
    "choice_kind": "lore",
-   "choice_label": "추가 지식 분야를 입력하세요"
+   "choice_label": "추가 지식 분야를 입력하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13333,7 +13345,9 @@
    "type": "choice",
    "choice": "cho-gossip-lore",
    "choice_kind": "lore",
-   "choice_label": "원하는 지식 분야를 입력하세요"
+   "choice_label": "원하는 지식 분야를 입력하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13346,7 +13360,9 @@
    "type": "choice",
    "choice": "cho-multitalented",
    "choice_kind": "feat_pick",
-   "choice_label": "2레벨 멀티클래스 헌신 재주 선택"
+   "choice_label": "2레벨 멀티클래스 헌신 재주 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13359,7 +13375,9 @@
    "type": "choice",
    "choice": "cho-general-training",
    "choice_kind": "feat_pick",
-   "choice_label": "1레벨 일반 재주 선택"
+   "choice_label": "1레벨 일반 재주 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13372,7 +13390,9 @@
    "type": "choice",
    "choice": "cho-automatic-knowledge",
    "choice_kind": "skill",
-   "choice_label": "자동 지식을 적용할 기술을 선택하세요"
+   "choice_label": "자동 지식을 적용할 기술을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13385,7 +13405,9 @@
    "type": "choice",
    "choice": "cho-stonemasons-eye",
    "choice_kind": "skill_fixed",
-   "choice_label": "제작에 숙련"
+   "choice_label": "제작에 숙련",
+   "value": "",
+   "target": "crafting"
   },
   {
    "owner_kind": "feat",
@@ -13398,7 +13420,9 @@
    "type": "choice",
    "choice": "cho-advanced-general-training",
    "choice_kind": "feat_pick",
-   "choice_label": "7레벨 이하 일반 재주 선택"
+   "choice_label": "7레벨 이하 일반 재주 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13411,7 +13435,9 @@
    "type": "choice",
    "choice": "cho-otherworldly-acumen",
    "choice_kind": "spell_rank",
-   "choice_label": "비전 2랭크 주문 선택"
+   "choice_label": "비전 2랭크 주문 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13424,7 +13450,9 @@
    "type": "choice",
    "choice": "cho-skill-training",
    "choice_kind": "skill",
-   "choice_label": "숙련시킬 기술을 선택하세요"
+   "choice_label": "숙련시킬 기술을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13437,7 +13465,9 @@
    "type": "choice",
    "choice": "cho-otherworldly-magic",
    "choice_kind": "spell_cantrip",
-   "choice_label": "비전 캔트립 선택"
+   "choice_label": "비전 캔트립 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13450,7 +13480,9 @@
    "type": "choice",
    "choice": "cho-natural-ambition",
    "choice_kind": "feat_pick",
-   "choice_label": "1레벨 클래스 재주 선택"
+   "choice_label": "1레벨 클래스 재주 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13463,7 +13495,9 @@
    "type": "choice",
    "choice": "cho-specialty-crafting",
    "choice_kind": "custom",
-   "choice_label": "전문 제작 분야를 선택하세요"
+   "choice_label": "전문 제작 분야를 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13476,7 +13510,9 @@
    "type": "choice",
    "choice": "cho-natural-skill",
    "choice_kind": "skill_multi",
-   "choice_label": "숙련시킬 기술 2개를 선택하세요"
+   "choice_label": "숙련시킬 기술 2개를 선택하세요",
+   "value": 2,
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13500,7 +13536,9 @@
    "type": "choice",
    "choice": "cho-halfling-lore",
    "choice_kind": "skill_defaults",
-   "choice_label": "하플링 지식 기술 (기본: 곡예, 은신)"
+   "choice_label": "하플링 지식 기술 (기본: 곡예, 은신)",
+   "value": 2,
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13513,7 +13551,9 @@
    "type": "choice",
    "choice": "cho-assurance",
    "choice_kind": "skill",
-   "choice_label": "확신을 적용할 기술을 선택하세요"
+   "choice_label": "확신을 적용할 기술을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13526,7 +13566,9 @@
    "type": "choice",
    "choice": "cho-adapted-cantrip",
    "choice_kind": "spell_cantrip",
-   "choice_label": "다른 전통에서 캔트립 선택"
+   "choice_label": "다른 전통에서 캔트립 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13550,7 +13592,9 @@
    "type": "choice",
    "choice": "cho-multifarious-muse",
    "choice_kind": "feat_pick",
-   "choice_label": "뮤즈 선결 1레벨 재주 선택"
+   "choice_label": "뮤즈 선결 1레벨 재주 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13563,7 +13607,9 @@
    "type": "choice",
    "choice": "cho-hold-mark",
    "choice_kind": "custom",
-   "choice_label": "거점 표식 선택"
+   "choice_label": "거점 표식 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13576,7 +13622,9 @@
    "type": "choice",
    "choice": "cho-unconventional-expertise",
    "choice_kind": "weapon_pick",
-   "choice_label": "전문가로 올릴 비일반 무기 선택"
+   "choice_label": "전문가로 올릴 비일반 무기 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13600,7 +13648,9 @@
    "type": "choice",
    "choice": "cho-terrain-stalker",
    "choice_kind": "custom",
-   "choice_label": "은밀 이동 지형을 선택하세요"
+   "choice_label": "은밀 이동 지형을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13613,7 +13663,9 @@
    "type": "choice",
    "choice": "cho-bard-dedication",
    "choice_kind": "custom",
-   "choice_label": "뮤즈를 선택하세요"
+   "choice_label": "뮤즈를 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13638,7 +13690,9 @@
    "type": "choice",
    "choice": "cho-domain-initiate",
    "choice_kind": "custom",
-   "choice_label": "영역을 선택하세요"
+   "choice_label": "영역을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13651,7 +13705,9 @@
    "type": "choice",
    "choice": "cho-canny-acumen",
    "choice_kind": "custom",
-   "choice_label": "전문가로 올릴 내성/지각을 선택하세요"
+   "choice_label": "전문가로 올릴 내성/지각을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13664,7 +13720,9 @@
    "type": "choice",
    "choice": "cho-leshy-lore",
    "choice_kind": "skill_defaults",
-   "choice_label": "레쉬 지식 기술 (기본: 자연학, 은신)"
+   "choice_label": "레쉬 지식 기술 (기본: 자연학, 은신)",
+   "value": 2,
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13677,7 +13735,9 @@
    "type": "choice",
    "choice": "cho-adopted-ancestry",
    "choice_kind": "ancestry_pick",
-   "choice_label": "입양할 혈통을 선택하세요"
+   "choice_label": "입양할 혈통을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13690,7 +13750,9 @@
    "type": "choice",
    "choice": "cho-virtuosic-performer",
    "choice_kind": "custom",
-   "choice_label": "전문 공연 분야를 선택하세요"
+   "choice_label": "전문 공연 분야를 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13703,7 +13765,9 @@
    "type": "choice",
    "choice": "cho-fighter-dedication",
    "choice_kind": "skill",
-   "choice_label": "곡예 또는 운동 중 숙련시킬 기술 선택"
+   "choice_label": "곡예 또는 운동 중 숙련시킬 기술 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13716,7 +13780,9 @@
    "type": "choice",
    "choice": "cho-favored-prey",
    "choice_kind": "custom",
-   "choice_label": "선호 사냥감을 선택하세요"
+   "choice_label": "선호 사냥감을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13729,7 +13795,9 @@
    "type": "choice",
    "choice": "cho-emblazon-energy",
    "choice_kind": "custom",
-   "choice_label": "에너지 유형을 선택하세요"
+   "choice_label": "에너지 유형을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13742,7 +13810,9 @@
    "type": "choice",
    "choice": "cho-nephilim-lore",
    "choice_kind": "skill_defaults",
-   "choice_label": "네피림 지식 기술 (기본: 종교학, 외교)"
+   "choice_label": "네피림 지식 기술 (기본: 종교학, 외교)",
+   "value": 2,
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13755,7 +13825,9 @@
    "type": "choice",
    "choice": "cho-favored-terrain",
    "choice_kind": "custom",
-   "choice_label": "선호 지형을 선택하세요"
+   "choice_label": "선호 지형을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13768,7 +13840,9 @@
    "type": "choice",
    "choice": "cho-goblin-lore",
    "choice_kind": "skill_defaults",
-   "choice_label": "고블린 지식 기술 (기본: 자연학, 은신)"
+   "choice_label": "고블린 지식 기술 (기본: 자연학, 은신)",
+   "value": 2,
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13793,7 +13867,64 @@
    "type": "choice",
    "choice": "cho-advanced-domain",
    "choice_kind": "custom",
-   "choice_label": "고급 영역을 선택하세요"
+   "choice_label": "고급 영역을 선택하세요",
+   "value": "",
+   "target": ""
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "leshy-familiar",
+   "owner_name": "레시 패밀리어",
+   "owner_level": 1,
+   "category": "class",
+   "rule": "curated",
+   "src": "effect",
+   "type": "familiar_ability",
+   "target": "$choice",
+   "value": "bonus"
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "leshy-familiar",
+   "owner_name": "레시 패밀리어",
+   "owner_level": 1,
+   "category": "class",
+   "rule": "curated",
+   "src": "choice",
+   "type": "choice",
+   "choice": "cho-leshy-familiar",
+   "choice_kind": "familiar_pick",
+   "choice_label": "레시 사역마 능력 (식물 또는 균류)",
+   "value": "",
+   "target": ""
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "leshy-familiar",
+   "owner_name": "레시 패밀리어",
+   "owner_level": 1,
+   "category": "class",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-leshy-familiar",
+   "option": "plant",
+   "option_name": "식물",
+   "value": ""
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "leshy-familiar",
+   "owner_name": "레시 패밀리어",
+   "owner_level": 1,
+   "category": "class",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-leshy-familiar",
+   "option": "fungus",
+   "option_name": "균류",
+   "value": ""
   },
   {
    "owner_kind": "feat",
@@ -13806,7 +13937,9 @@
    "type": "choice",
    "choice": "cho-beast-trainer",
    "choice_kind": "custom",
-   "choice_label": "재주 선택"
+   "choice_label": "재주 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13819,7 +13952,9 @@
    "type": "choice",
    "choice": "cho-weapon-proficiency",
    "choice_kind": "custom",
-   "choice_label": "무기 그룹을 선택하세요"
+   "choice_label": "무기 그룹을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13832,7 +13967,9 @@
    "type": "choice",
    "choice": "cho-first-world-magic",
    "choice_kind": "spell_cantrip",
-   "choice_label": "원시 캔트립 선택"
+   "choice_label": "원시 캔트립 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13845,7 +13982,9 @@
    "type": "choice",
    "choice": "cho-elven-lore",
    "choice_kind": "skill_defaults",
-   "choice_label": "엘프 지식 기술 (기본: 주문학, 자연학)"
+   "choice_label": "엘프 지식 기술 (기본: 주문학, 자연학)",
+   "value": 2,
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -13858,7 +13997,9 @@
    "type": "choice",
    "choice": "cho-vengeful-hatred",
    "choice_kind": "custom",
-   "choice_label": "복수 대상 유형을 선택하세요"
+   "choice_label": "복수 대상 유형을 선택하세요",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -16021,7 +16162,9 @@
    "type": "choice",
    "choice": "cho-order-explorer",
    "choice_kind": "feat_pick",
-   "choice_label": "결단 선결 1레벨 재주 선택"
+   "choice_label": "결단 선결 1레벨 재주 선택",
+   "value": "",
+   "target": ""
   },
   {
    "owner_kind": "feat",
@@ -16034,7 +16177,37 @@
    "type": "choice",
    "choice": "cho-voice-of-nature",
    "choice_kind": "custom",
-   "choice_label": "동물 공감 또는 식물 공감 중 선택"
+   "choice_label": "동물 공감 또는 식물 공감 중 선택",
+   "value": "",
+   "target": ""
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "voice-of-nature",
+   "owner_name": "자연의 목소리",
+   "owner_level": 1,
+   "category": "classfeature",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-voice-of-nature",
+   "option": "",
+   "option_name": "",
+   "value": ""
+  },
+  {
+   "owner_kind": "feat",
+   "owner_slug": "voice-of-nature",
+   "owner_name": "자연의 목소리",
+   "owner_level": 1,
+   "category": "classfeature",
+   "rule": "curated",
+   "src": "choice_opt",
+   "type": "choice_opt",
+   "choice": "cho-voice-of-nature",
+   "option": "",
+   "option_name": "",
+   "value": ""
   },
   {
    "owner_kind": "feat",
@@ -16097,7 +16270,7 @@
    "name": "학파 주문(상급)"
   }
  ],
- "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 1225 · 27 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.",
+ "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 1231 · 29 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.",
  "_schema": {
   "note": "코드가 실제 처리하는 자료형(런타임 소스). 이 목록 밖 값은 런타임이 모름 = 데이터·코드 불변식. 조건 평가=cs_calc _evalEffectCondition, 효과 적용=applyFeatEffects.",
   "condition": {
@@ -16172,7 +16345,7 @@
  "_types": {
   "grant_feat": 176,
   "grant_item": 76,
-  "choice": 186,
+  "choice": 187,
   "note": 11,
   "skill_trained": 164,
   "resistance": 39,
@@ -16196,6 +16369,8 @@
   "grant_spell": 66,
   "damage_note": 3,
   "grant_focus_spell": 8,
+  "familiar_ability": 1,
+  "choice_opt": 4,
   "rune": 161
  }
 }
