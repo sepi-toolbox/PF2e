@@ -84,6 +84,12 @@ var ROGUE_RACKET_GUIDE = [];
 var CHAMPION_CAUSE_GUIDE = [];
 // 바바리안 본능 「항목 읽는 법」 가이드 = data/derived/barbarian_instincts.json → cs_pf2e_class.loadBarbarianInstincts()가 채움.
 var BARBARIAN_INSTINCT_GUIDE = [];
+// 수사관 방법론 「항목 읽는 법」 가이드 = data/derived/investigator_methodologies.json → cs_pf2e_class.loadInvestigatorMethodologies()가 채움.
+var INVESTIGATOR_METHODOLOGY_GUIDE = [];
+// 스워시버클러 스타일 「항목 읽는 법」 가이드 = data/derived/swashbuckler_styles.json → cs_pf2e_class.loadSwashbucklerStyles()가 채움.
+var SWASHBUCKLER_STYLE_GUIDE = [];
+// 연금술사 연구 분야 「항목 읽는 법」 가이드 = data/derived/alchemist_research_fields.json → cs_pf2e_class.loadAlchemistResearchFields()가 채움.
+var ALCHEMIST_RESEARCH_FIELD_GUIDE = [];
 
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING

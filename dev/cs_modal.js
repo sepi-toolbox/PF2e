@@ -4843,6 +4843,9 @@ function _bloodlineGuideHtml(classId) {
   else if (classId === 'rogue') guide = (typeof ROGUE_RACKET_GUIDE !== 'undefined' && Array.isArray(ROGUE_RACKET_GUIDE)) ? ROGUE_RACKET_GUIDE : [];
   else if (classId === 'champion') guide = (typeof CHAMPION_CAUSE_GUIDE !== 'undefined' && Array.isArray(CHAMPION_CAUSE_GUIDE)) ? CHAMPION_CAUSE_GUIDE : [];
   else if (classId === 'barbarian') guide = (typeof BARBARIAN_INSTINCT_GUIDE !== 'undefined' && Array.isArray(BARBARIAN_INSTINCT_GUIDE)) ? BARBARIAN_INSTINCT_GUIDE : [];
+  else if (classId === 'investigator') guide = (typeof INVESTIGATOR_METHODOLOGY_GUIDE !== 'undefined' && Array.isArray(INVESTIGATOR_METHODOLOGY_GUIDE)) ? INVESTIGATOR_METHODOLOGY_GUIDE : [];
+  else if (classId === 'swashbuckler') guide = (typeof SWASHBUCKLER_STYLE_GUIDE !== 'undefined' && Array.isArray(SWASHBUCKLER_STYLE_GUIDE)) ? SWASHBUCKLER_STYLE_GUIDE : [];
+  else if (classId === 'alchemist') guide = (typeof ALCHEMIST_RESEARCH_FIELD_GUIDE !== 'undefined' && Array.isArray(ALCHEMIST_RESEARCH_FIELD_GUIDE)) ? ALCHEMIST_RESEARCH_FIELD_GUIDE : [];
   if (!guide.length) return '';
   const items = guide.map(g => `<div style="margin-bottom:4px;"><strong style="color:var(--text);">${g.term}</strong> ${g.def}</div>`).join('');
   return `<div style="margin-bottom:8px;font-size:11px;line-height:1.6;color:var(--text2);">${items}</div>`;

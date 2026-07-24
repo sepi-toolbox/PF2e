@@ -195,6 +195,54 @@ const SD = globalThis.SUBCLASS_DB;
     causePatched++;
   }
   console.log(`  챔피언 원인 desc(정본 7원인 조립) 주입: ${causePatched}종`);
+
+  // 수사관 방법론(Methodology) = Player Core 2 정본 4방법론(FVTT 파생 스텁 desc 재작성). 수사관 핵심 능력치=지능(고정, 방법론이 바꾸지 않음).
+  //   교단·원인과 동일 패턴 — flavor + 방법론 기술(훈련) + 방법론 재주(@link) + 방법론 능력 + 전용 행동(@link). 부여는 성장표가 소유 → features(빈 배열) 유지.
+  const METHOD = {
+    'alchemical-sciences-methodology': { flavor: '화학·연금술 분석을 중시하여, 현장에 남은 특이한 입자나 액체에서 정보를 수집합니다. 사건에 쓸 몇 가지 팅크를 직접 조제할 만큼의 연금술 지식을 갖췄습니다.', skill: '제작', feats: ['alchemical-crafting'], ability: '기본 공식서에 선택한 일반 1레벨 연금술 아이템(엘릭서 또는 도구) 두 종의 공식이 추가되고, 레벨을 올릴 때마다 제작할 수 있는 아무 레벨의 일반 연금술 엘릭서·도구 제조법을 하나씩 습득합니다. 매일 준비 시 지능 수정치만큼 다용도 약병을 만들 수 있습니다.', actions: ['quick-tincture'] },
+    'empiricism-methodology': { flavor: '모든 것은 데이터로 귀결됩니다. 통계와 수치 분석, 귀납적 추론으로 어떤 상황에서든 가장 그럴듯한 결과를 가려내며, 어긋난 것은 당신의 예리한 주의를 끕니다.', skill: '선택한 지능 기반 기술 하나', feats: ['thats-odd'], ability: '', actions: ['expeditious-inspection'] },
+    'forensic-medicine-methodology': { flavor: '대부분의 사건, 특히 살인에서 범인은 생각보다 많은 증거를 시신에 남깁니다. 멍·골절·혈흔, 심지어 시체를 파먹는 곤충의 생애주기까지도 현장을 재구성할 귀중한 단서가 됩니다.', skill: '의학', feats: ['forensic-acumen', 'battle-medicine'], ability: '@link[feats.battle-medicine]에 성공하면 대상이 당신의 레벨만큼 추가 HP를 회복하고, 대상의 재사용 면역이 1일이 아니라 1시간만 지속됩니다.', actions: [] },
+    'interrogation-methodology': { flavor: '타고난 호감이든 진실에 대한 완고함이든, 사람들은 당신을 믿지 않을 수 없습니다. 상대의 입을 열게 하는 재간을 지녔고, 진실을 캐내는 심문 기법을 갈고닦았습니다.', skill: '외교', feats: ['no-cause-for-alarm'], ability: '대화 상대나 대화 주제와 관련된 질문을 하는 한, @link[actions.make-an-impression]와 동시에 @link[actions.pursue-a-lead]도 수행할 수 있습니다.', actions: ['pointed-question'] },
+  };
+  let methodPatched = 0;
+  for (const s of SD) {
+    if (s.class_id !== 'investigator') continue;
+    const m = METHOD[s.id]; if (!m) continue;
+    let d = '';
+    if (m.flavor) d += `<p><em>${m.flavor}</em></p>`;
+    d += `<p><strong>방법론 기술</strong> ${m.skill}에 훈련됩니다.</p>`;
+    if (m.feats.length) d += `<p><strong>방법론 재주</strong> ${m.feats.map(f => `@link[feats.${f}]`).join(', ')} 재주를 얻습니다.</p>`;
+    if (m.ability) d += `<p><strong>방법론 능력</strong> ${m.ability}</p>`;
+    if (m.actions.length) d += `<p><strong>방법론 행동</strong> ${m.actions.map(a => `@link[actions.${a}]`).join(', ')}</p>`;
+    s.desc = PF.enrichDesc(d);
+    methodPatched++;
+  }
+  console.log(`  수사관 방법론 desc(정본 4방법론 조립) 주입: ${methodPatched}종`);
+
+  // 스워시버클러 스타일(Style) = Player Core 2 정본 6스타일(FVTT 파생 스텁 desc 재작성). 스워시버클러 핵심 능력치=민첩(고정).
+  //   스타일이 훈련 기술·(일부)부여 재주·허세(Bravado) 행동을 정함. 허세 특성 행동에 성공하면 판아슈 획득. gymnast 「과시」 오역 → 「허세」로 통일.
+  const STYLE = {
+    battledancer: { flavor: '당신에게 싸움은 일종의 공연 예술이며, 매혹적인 몸놀림으로 적의 시선을 사로잡습니다.', skill: '공연', feats: ['fascinating-performance'], bravado: '@link[actions.perform]' },
+    braggart: { flavor: '적을 향해 뽐내고 조롱하며 심리를 후벼팝니다.', skill: '위협', feats: [], bravado: '@link[actions.demoralize]' },
+    fencer: { flavor: '신중하게 움직이며 가짜 공격과 허점을 미끼로 적을 불리한 공격으로 끌어들입니다.', skill: '기만', feats: [], bravado: '@link[actions.create-a-diversion] 또는 @link[actions.feint]' },
+    gymnast: { flavor: '대담한 육체 기량으로 적을 재배치하고 농락하며 혼란에 빠뜨립니다.', skill: '운동', feats: [], bravado: '@link[actions.grapple], @link[actions.reposition], @link[actions.shove], @link[actions.trip]' },
+    rascal: { flavor: '우위를 점하기 위해서라면 비열한 수단도 마다하지 않습니다.', skill: '손속임', feats: ['dirty-trick'], bravado: '@link[feats.dirty-trick]' },
+    wit: { flavor: '친근하고 영리하며 유머가 넘쳐 언제나 딱 맞는 말을 찾아냅니다. 재치 있는 입담은 적이 당신의 검술과 속도에 대비하지 못하게 만듭니다.', skill: '외교', feats: ['bon-mot'], bravado: '@link[feats.bon-mot]' },
+  };
+  let stylePatched = 0;
+  for (const s of SD) {
+    if (s.class_id !== 'swashbuckler') continue;
+    const st = STYLE[s.id]; if (!st) continue;
+    let d = '';
+    if (st.flavor) d += `<p><em>${st.flavor}</em></p>`;
+    let skillLine = `${st.skill}에 훈련됩니다`;
+    if (st.feats.length) skillLine += `. ${st.feats.map(f => `@link[feats.${f}]`).join(', ')} 재주도 얻습니다`;
+    d += `<p><strong>스타일 기술</strong> ${skillLine}.</p>`;
+    d += `<p><strong>허세 행동</strong> ${st.bravado} 사용 시 그 행동이 <b>허세</b> 특성을 얻습니다 — 허세 행동에 성공하면 판아슈를 획득합니다.</p>`;
+    s.desc = PF.enrichDesc(d);
+    stylePatched++;
+  }
+  console.log(`  스워시버클러 스타일 desc(정본 6스타일 조립) 주입: ${stylePatched}종`);
 }
 
 // 챔피언 「축복받은 X」(Blessing of the Devoted, 3레벨 택1 특성)는 서브클래스 아님 → 원인 드롭다운에서 제외.
