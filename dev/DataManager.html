@@ -203,6 +203,10 @@ const DM = (function(){
     {id:'system_terms', label:'시스템용어', kind:'derived', src:'data/derived/system_terms.json', shape:'rows',
        cols:['type','slug','name_en','name_ko','desc','ref']},
     {id:'familiar_abilities', label:'사역마능력', kind:'derived', src:'data/derived/familiar_abilities.json', shape:'rows', ovKey:'@familiar', editable:['name_ko','desc_ko'], cols:['slug','name_en','name_ko','traits','desc_ko']},
+    {id:'companions', label:'동물동료', kind:'derived', src:'data/derived/companions.json', shape:'rows',
+       cols:['id','name_ko','name_en','size','hp','str','dex','con','int','wis','cha','skill','senses','speed','mount']},
+    {id:'condition_catalog', label:'상태이상(표시)', kind:'derived', src:'data/derived/conditions.json', shape:'rows',
+       cols:['id','name','en','valued','max','desc']},
     {id:'ui_terms', label:'UI용어집', kind:'derived', src:'data/derived/ui_glossary.json', shape:'rows', cols:['slug','name_ko']},
     {id:'npc_abilities', label:'NPC능력', kind:'derived', src:'data/derived/localize.ko.json', shape:'kv', cols:['slug','text']},
     {id:'enrichers', label:'변환자 사전', ref:true, cols:[]},
@@ -254,6 +258,10 @@ const DM = (function(){
     actionCost:{h:'행동비용',w:64}, summary:{h:'요약',w:280}, note:{h:'노트',w:300},
     choice:{h:'선택지ID',w:130,cls:'key'}, choice_kind:{h:'선택종류',w:120}, choice_label:{h:'선택안내',w:220},
     option:{h:'옵션ID',w:130,cls:'key'}, option_name:{h:'옵션명',w:150},
+    // 동물 동료·상태이상(표시) 탭 컬럼
+    name:{h:'이름',w:120}, en:{h:'영문',w:130}, max:{h:'최대치',w:64}, desc:{h:'설명',w:340},
+    str:{h:'근력',w:52}, dex:{h:'민첩',w:52}, con:{h:'건강',w:52}, int:{h:'지능',w:52}, wis:{h:'지혜',w:52}, cha:{h:'매력',w:52},
+    senses:{h:'감각',w:200}, mount:{h:'탈것',w:60},
   };
   // 컬럼별 입력 가이드 (헤더 툴팁 ⓘ + 편집 시 하단 안내)
   const COLGUIDE={
