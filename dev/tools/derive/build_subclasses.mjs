@@ -74,7 +74,7 @@ const SD = globalThis.SUBCLASS_DB;
   // 마녀 후원자 = 실제 Player Core 7후원자(subclasses_curated 재구성). 큐레이션 필드(flavor·전통·기술·교훈·사역마)로
   //   rich desc 조립: 소개 + 전통 + 후원자 기술 + 교훈(주술 캔트립 @link + 사역마 습득 주문 @link) + 사역마 능력(카드는 features).
   const TRAD_KO = { arcane: '비전', divine: '신성', occult: '오컬트', primal: '원시' };
-  const SKILL_KO = { religion: '종교학', arcana: '주문학', occultism: '오컬티즘', nature: '자연학', society: '사회학', crafting: '제작', medicine: '의학', deception: '기만', intimidation: '위협' };
+  const SKILL_KO = { religion: '종교학', arcana: '주문학', occultism: '오컬티즘', nature: '자연학', society: '사회학', crafting: '제작', medicine: '의학', deception: '기만', intimidation: '위협', athletics: '운동', diplomacy: '외교', acrobatics: '곡예' };
   let patronPatched = 0;
   for (const s of SD) {
     if (s.class_id !== 'witch') continue;
@@ -107,6 +107,28 @@ const SD = globalThis.SUBCLASS_DB;
     patronPatched++;
   }
   console.log(`  마녀 후원자 desc(정본 7후원자 조립) 주입: ${patronPatched}종`);
+
+  // 드루이드 교단 = Player Core 정본 4교단(subclasses_curated 구조화). 큐레이션 필드(flavor·anathema)+부여(granted_*)로
+  //   rich desc 조립: 소개 + 교단 기술 + 교단 주문(집중 @link) + 교단 재주(1레벨 보너스 @link) + 금기.
+  //   마녀 후원자와 동일 패턴 — 부여는 granted_skills/feats/spells 소유, features(클래스 특성)는 비움.
+  let orderPatched = 0;
+  for (const s of SD) {
+    if (s.class_id !== 'druid') continue;
+    const skillSlug = (s.granted_skills || [])[0];
+    const skillKo = SKILL_KO[skillSlug] || skillSlug || '';
+    const focus = (s.granted_spells || []).find(g => g.type === 'focus');
+    const feat = (s.granted_feats || [])[0];
+    let d = '';
+    if (s.flavor) d += `<p><em>${s.flavor}</em></p>`;
+    if (skillKo) d += `<p><strong>교단 기술</strong> ${skillKo}</p>`;
+    if (focus) d += `<p><strong>교단 주문</strong> @link[spells.${focus.spell_id}] (집중 주문, 1레벨 자동 습득)</p>`;
+    if (feat) d += `<p><strong>교단 재주</strong> @link[feats.${feat}] (1레벨 보너스 드루이드 재주)</p>`;
+    if (s.anathema) d += `<p><strong>금기</strong> ${s.anathema}</p>`;
+    s.desc = PF.enrichDesc(d);
+    s.features = [];   // 교단 부여(기술·주문·재주)는 desc·granted_*가 소유 → 클래스 특성 카드 중복 표시 안 함.
+    orderPatched++;
+  }
+  console.log(`  드루이드 교단 desc(정본 4교단 조립) 주입: ${orderPatched}종`);
 }
 
 // 표시용 별칭(DataManager 서브클래스 탭: slug/class/grants/rules_n) 부가 — 런타임 필드(id/class_id/...)는 보존

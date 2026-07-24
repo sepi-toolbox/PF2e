@@ -14168,7 +14168,7 @@
    "name_ko": "동물",
    "level": 1,
    "features": [
-    "animal-companion"
+    "animal-order"
    ],
    "grant_feats": [
     "animal-companion"
@@ -14719,7 +14719,7 @@
    "name_ko": "잎",
    "level": 1,
    "features": [
-    "cornucopia"
+    "leaf-order"
    ],
    "grant_feats": [
     "leshy-familiar"
@@ -15270,7 +15270,7 @@
    "name_ko": "폭풍",
    "level": 1,
    "features": [
-    "tempest-surge"
+    "storm-order"
    ],
    "grant_feats": [
     "storm-born"
@@ -15821,7 +15821,7 @@
    "name_ko": "야생",
    "level": 1,
    "features": [
-    "untamed-form"
+    "untamed-order"
    ],
    "grant_feats": [
     "untamed-form"

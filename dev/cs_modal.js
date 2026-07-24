@@ -4802,6 +4802,7 @@ function _bloodlineGuideHtml(classId) {
   else if (classId === 'wizard') guide = (typeof WIZARD_SCHOOL_GUIDE !== 'undefined' && Array.isArray(WIZARD_SCHOOL_GUIDE)) ? WIZARD_SCHOOL_GUIDE : [];
   else if (classId === 'bard') guide = (typeof BARD_MUSE_GUIDE !== 'undefined' && Array.isArray(BARD_MUSE_GUIDE)) ? BARD_MUSE_GUIDE : [];
   else if (classId === 'witch') guide = (typeof WITCH_PATRON_GUIDE !== 'undefined' && Array.isArray(WITCH_PATRON_GUIDE)) ? WITCH_PATRON_GUIDE : [];
+  else if (classId === 'druid') guide = (typeof DRUID_ORDER_GUIDE !== 'undefined' && Array.isArray(DRUID_ORDER_GUIDE)) ? DRUID_ORDER_GUIDE : [];
   if (!guide.length) return '';
   const items = guide.map(g => `<div style="margin-bottom:4px;"><strong style="color:var(--text);">${g.term}</strong> ${g.def}</div>`).join('');
   return `<div style="margin-bottom:8px;font-size:11px;line-height:1.6;color:var(--text2);">${items}</div>`;
