@@ -243,6 +243,31 @@ const SD = globalThis.SUBCLASS_DB;
     stylePatched++;
   }
   console.log(`  스워시버클러 스타일 desc(정본 6스타일 조립) 주입: ${stylePatched}종`);
+
+  // 연금술사 연구 분야 = FVTT _desc_ko 유지(가이드+런타임만) + 구조 라벨만 정본화(분야마다 제각각 번역·영문 잔존 → 통일).
+  //   정본 라벨(Player Core 2): 제조법(Formulas)/연구 혜택(Field Benefit)/전투용 약병(Field Vials)/분야 발견(Field Discovery). bomber를 기준.
+  let alchLabelFixed = 0;
+  for (const s of SD) {
+    if (s.class_id !== 'alchemist' || !s.desc) continue;
+    const before = s.desc;
+    s.desc = s.desc
+      .replace(/<strong>\s*(?:공식|Formulas)\s*<\/strong>/g, '<strong>제조법</strong>')
+      .replace(/필드 바이알|야전 약병|현장 약병/g, '전투용 약병')
+      .replace(/현장 발견/g, '분야 발견');
+    if (s.desc !== before) alchLabelFixed++;
+  }
+  console.log(`  연금술사 분야 구조 라벨 정본화: ${alchLabelFixed}종`);
+
+  // 바바리안 본능 = FVTT _desc_ko 유지 + 미번역 영문 서수(특화 능력 (7th)·분노 저항 (9th) 등)만 한글 레벨로.
+  //   본능 desc의 괄호 서수는 전부 「획득 레벨」(7·9레벨)이라 안전하게 변환(다른 표면의 랭크 서수와 무관, 여기선 본능만).
+  let barbOrdFixed = 0;
+  for (const s of SD) {
+    if (s.class_id !== 'barbarian' || !s.desc) continue;
+    const before = s.desc;
+    s.desc = s.desc.replace(/\((\d+)(?:st|nd|rd|th)\)/g, '($1레벨)');
+    if (s.desc !== before) barbOrdFixed++;
+  }
+  console.log(`  바바리안 본능 desc 영문 서수→레벨: ${barbOrdFixed}종`);
 }
 
 // 챔피언 「축복받은 X」(Blessing of the Devoted, 3레벨 택1 특성)는 서브클래스 아님 → 원인 드롭다운에서 제외.
