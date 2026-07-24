@@ -41,7 +41,9 @@ function normTerms(s) {
   return String(s)
     .replace(/평면\s*판정/g, '플랫 판정').replace(/평판정/g, '플랫 판정').replace(/단순\s*판정/g, '플랫 판정')
     .replace(/능력치\s*(?:상승|증가)/g, '능력치 증강')  // ability boost 정본 = 능력치 증강(상승/증가 혼용 통일)
-    .replace(/<strong>\s*(?:상향|강화)\s*\(/g, '<strong>고양 (')  // Heightened 정본 = 고양(앱 용어), 상향/강화 헤딩 통일
+    // Heightened 정본 = 고양(앱 용어). 키워드 변형(상향·강화·상승·상승 시전·등급 상승) 전부 통일. 프로즈 상승(더 높이 상승된·피해 상승치 등)은 접미 게이트로 보존.
+    .replace(/(?:등급\s*상승|상승\s*시전|상향\s*시전|상승|상향|강화)(\s*\((?:\+\d+|\d+\s*(?:레벨|랭크|등급|단계|위계|환))\s*\))/g, '고양$1')
+    .replace(/<strong>(\s*)(?:상승|상향|강화)(\s*)<\/strong>/g, '<strong>$1고양$2</strong>')  // 접미 없는 Heightened 헤딩(소환 계열)
     .replace(/공격\s*굴림/g, '명중 굴림');  // attack roll 정본 = 명중 굴림
 }
 
