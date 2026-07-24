@@ -4048,6 +4048,9 @@ function _buildClassChoicesUI(cls) {
       subclassHtml += _classFeatureBlock('🙏', _deityFeat.name_ko, _deityFeat.name_en, () => _choiceCardBody(_deityFeat.slug || _deityFeat.id, _championDeityControlHtml(_savedSanct)), false, false);
       const _devFeat = _roster.find(f => (f.slug || f.id) === 'devotion-spells');
       if (_devFeat) subclassHtml += _classFeatureBlock('✨', _devFeat.name_ko, _devFeat.name_en, () => _choiceCardBody('devotion-spells', _championDevotionControlHtml(_savedDevotion)), false, false);
+      // 헌신자의 축복(3레벨 택1) — 원인과 별개 선택 특성. 신격/헌신 카드와 동일 패턴(state.championBlessing).
+      const _blessFeat = _roster.find(f => (f.slug || f.id) === 'blessing-of-the-devoted');
+      if (_blessFeat) subclassHtml += _classFeatureBlock('🎁', _blessFeat.name_ko, _blessFeat.name_en, () => _choiceCardBody('blessing-of-the-devoted', _championBlessingControlHtml(state.championBlessing || '')), false, false);
     }
   }
 
@@ -4723,6 +4726,35 @@ function _refreshChampDevotion() {
   if (w) w.innerHTML = _devotionOptionsHtml(_modalChoices.deity ? _getDeity(_modalChoices.deity) : null, _modalChoices.devotionSpell || '');
 }
 
+// ── 챔피언 헌신자의 축복(Blessing of the Devoted, 3레벨 택1) ──
+//   원인(1레벨 서브클래스)과 별개의 선택 특성. 정본 3축복 = 축복받은 무장/방패/신속함. state.championBlessing에 저장.
+const _CHAMP_BLESSINGS = [
+  { v: 'blessed-armament', label: '축복받은 무장 (Blessed Armament)', desc: '무기 또는 강력한 일격의 손보호대 하나를 선택합니다. 그 무장의 <b>치명타 전문화</b> 효과를 얻고, 원하는 속성 룬(공포·유령 접촉·귀환·변형·활력 중 하나)을 부여합니다. 매일 준비 때 무장·룬을 바꿀 수 있습니다.' },
+  { v: 'blessed-shield', label: '축복받은 방패 (Blessed Shield)', desc: '손에 든 방패가 <b>최하급 강화 룬</b>을 얻고, 레벨에 따라 강화 룬 등급이 오릅니다(7=하급·10=중급·13=상급·16=최상급·19=지고). 이미 해당 강화 룬이 있거나 같은 레벨의 견고한 방패라면 대신 방패의 <b>강도 +1</b>.' },
+  { v: 'blessed-swiftness', label: '축복받은 신속함 (Blessed Swiftness)', desc: '이동 속도에 <b>+5피트 상태 보너스</b>(탑승 중이면 탈것이 얻습니다). 또한 챔피언 오라 내 아군의 이동이 적의 반응을 유발할 때, 그 아군은 반응에 대한 모든 방어에 <b>+2 상태 보너스</b>를 얻습니다.' },
+];
+function _championBlessingControlHtml(saved) {
+  _modalChoices.championBlessing = _clericDeityIsChampion() ? (saved || '') : '';
+  const cur = _modalChoices.championBlessing;
+  const sel = `<select id="cls-blessing" onchange="_onChampionBlessingChange(this.value)" style="${_selStyle}">
+      <option value="">— 선택 —</option>
+      ${_CHAMP_BLESSINGS.map(o => `<option value="${o.v}"${o.v === cur ? ' selected' : ''}>${o.label}</option>`).join('')}
+    </select>`;
+  return `<div style="font-size:9px;color:var(--text2);margin-bottom:4px;">3레벨에 얻는 특성 — 축복 하나를 선택합니다(원인과 별개).</div>${sel}<div id="cls-blessing-info" style="margin-top:6px;">${cur ? _champBlessingBox(cur) : ''}</div>`;
+}
+function _champBlessingBox(slug) {
+  const b = _CHAMP_BLESSINGS.find(o => o.v === slug); if (!b) return '';
+  return `<div style="padding:6px 8px;background:var(--bg4);border-radius:6px;border-left:2px solid var(--accent);">
+    <div style="font-weight:600;">${b.label}</div>
+    <div style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.6;">${b.desc}</div>
+  </div>`;
+}
+function _onChampionBlessingChange(val) {
+  _modalChoices.championBlessing = val || '';
+  const info = document.getElementById('cls-blessing-info');
+  if (info) info.innerHTML = val ? _champBlessingBox(val) : '';
+}
+
 // ── 범용 서브클래스 선택 UI (클레릭 제외) ──
 function _buildSubclassChoiceUI(classId, label, subs, preHtml) {
   // ⚠ 현재 선택된 서브클래스가 '이 클래스(subs)' 소속일 때만 복원 — 타 클래스 서브클래스가
@@ -5374,6 +5406,7 @@ function confirmModal() {
       if (state.divineFont !== nf) state.divineFontUsed = 0;
       state.divineFont = nf;
       state.devotionSpell = _modalChoices.devotionSpell || null;   // 챔피언 헌신 주문
+      if (_clericDeityIsChampion()) state.championBlessing = _modalChoices.championBlessing || null;   // 챔피언 헌신자의 축복(3레벨 택1)
     } else {
       if (_modalChoices.deity) state.deity = _modalChoices.deity;
       if (_modalChoices.sanctification) state.sanctification = _modalChoices.sanctification;

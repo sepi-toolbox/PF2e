@@ -156,6 +156,8 @@ function collectData() {
     deity: state.deity || null,
     divineFont: state.divineFont || null,
     sanctification: state.sanctification || null,
+    devotionSpell: state.devotionSpell || null,             // 챔피언 헌신 주문(리로드 소실 방지)
+    championBlessing: state.championBlessing || null,       // 챔피언 헌신자의 축복(3레벨 택1)
     divineFontUsed: state.divineFontUsed || 0,
     bloodlineExemplar: state.bloodlineExemplar || null,   // 소서러 혈통 표본/원소/지니 유형 선택
     classFeatureChoices: state.classFeatureChoices || {}, // 클래스 특성 인라인 선택(자연의 목소리 등)
@@ -598,6 +600,8 @@ function loadData(d) {
     }
     if (d.divineFont) state.divineFont = d.divineFont;
     if (d.sanctification) state.sanctification = d.sanctification;
+    if (d.devotionSpell) state.devotionSpell = d.devotionSpell;
+    if (d.championBlessing) state.championBlessing = d.championBlessing;
     if (d.divineFontUsed !== undefined) state.divineFontUsed = d.divineFontUsed;
     if (d.bloodlineExemplar) state.bloodlineExemplar = d.bloodlineExemplar;
     if (d.classFeatureChoices) state.classFeatureChoices = d.classFeatureChoices;

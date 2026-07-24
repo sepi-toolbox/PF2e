@@ -72,11 +72,15 @@ for (const c of classes) {
   const tagMinLv = {};
   for (const e of raw) for (const t of e._pools) tagMinLv[t] = Math.min(tagMinLv[t] ?? 99, e.lv);
   // kind 확정
+  // 강제 choice(서브클래스 아님): 챔피언 「헌신자의 축복」=3레벨 택1 선택 특성(진짜 서브클래스=원인 1레벨).
+  //   태그풀 선택자라 기본 판정은 subclass지만, 원인과 별개 축이므로 choice로 강등 → blessed-* 옵션이 서브클래스로 새는 것 방지.
+  const FORCE_CHOICE = new Set(['blessing-of-the-devoted']);
   const byLv = {};
   for (const e of raw) {
     let kind;
     const isPrimarySelector = e._pools.some(t => tagMinLv[t] === e.lv);
-    if (e._pools.length && isPrimarySelector) kind = 'subclass';   // 태그풀 최저레벨 = 선택자
+    if (FORCE_CHOICE.has(e.slug)) kind = 'choice';
+    else if (e._pools.length && isPrimarySelector) kind = 'subclass';   // 태그풀 최저레벨 = 선택자
     else if (e._choice) kind = 'choice';                          // 그 외 선택형(deity/divine-font/진행 픽)
     else kind = 'feature';
     (byLv[e.lv] = byLv[e.lv] || []).push({ slug: e.slug, name_ko: e.name_ko, name_en: e.name_en, kind, rules_n: e.rules_n, rule_keys: e.rule_keys });

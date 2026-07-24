@@ -169,7 +169,7 @@ const SD = globalThis.SUBCLASS_DB;
 
   // 챔피언 원인(Cause) = Player Core 2 정본 7원인(FVTT 파생 desc 재작성). 신격·성별화·헌신 주문은 모달 인라인 컨트롤이 담당.
   //   여기선 원인 정체성 = 소개 + 성별화 요구 + 신조(edicts) + 금기(anathema) + 챔피언 반응(@link[actions.X] 정본명 + 1레벨 효과).
-  //   반응은 성장표 granted_actions로 이미 부여(행동 탭) → desc는 표시. 「축복받은 X」(2레벨 헌신자의 축복)는 원인 아님 → 손대지 않음(오분류, flag).
+  //   반응은 성장표 granted_actions로 이미 부여(행동 탭) → desc는 표시. 「축복받은 X」(3레벨 헌신자의 축복)는 원인 아님 → 서브클래스에서 제외(_NOT_SUBCLASS)하고 cs_modal 축복 카드가 담당.
   const _SANCT_KO = { holy: '신성 (Holy 성별화 필요)', unholy: '부정 (Unholy 성별화 필요)', any: '무관 (어느 성별화든 선택 가능)' };
   const CAUSE = {
     justice: { sanct: 'any', flavor: '신의 이름으로 정의를 추구하며, 법을 따르고 이를 어기는 자를 처벌합니다.', edicts: '법을 따르고, 정당한 권위와 지도력을 존중한다', anathema: '타인을 이용하거나 속인다', rxn: 'retributive-strike', effect: '발동: 챔피언 오라 내 아군이 적에게 피해를 입음. 효과: 아군이 그 피해에 <b>2 + 레벨</b> 저항을 얻고, 적이 사거리 내에 있으면 그 적에게 근접 타격 1회.' },
@@ -197,8 +197,11 @@ const SD = globalThis.SUBCLASS_DB;
   console.log(`  챔피언 원인 desc(정본 7원인 조립) 주입: ${causePatched}종`);
 }
 
+// 챔피언 「축복받은 X」(Blessing of the Devoted, 3레벨 택1 특성)는 서브클래스 아님 → 원인 드롭다운에서 제외.
+//   정본 = 챔피언 서브클래스 축 = 원인(Cause) 하나. 축복은 cs_modal 헌신자의 축복 카드(state.championBlessing)가 담당.
+const _NOT_SUBCLASS = new Set(['blessed-armament', 'blessed-shield', 'blessed-swiftness']);
 // 표시용 별칭(DataManager 서브클래스 탭: slug/class/grants/rules_n) 부가 — 런타임 필드(id/class_id/...)는 보존
-const rows = SD.map(s => ({
+const rows = SD.filter(s => !_NOT_SUBCLASS.has(s.id)).map(s => ({
   slug: s.id, class: s.class_id,
   ...s,
   grants: (s.granted_feats || []).length + (s.granted_spells || []).length + (s.granted_actions || []).length,

@@ -5552,7 +5552,7 @@
      "slug": "blessing-of-the-devoted",
      "name_ko": "헌신자의 축복",
      "name_en": "Blessing of the Devoted",
-     "kind": "subclass",
+     "kind": "choice",
      "rules_n": 2,
      "rule_keys": [
       "ChoiceSet",
