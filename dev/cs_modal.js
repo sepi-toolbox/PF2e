@@ -325,16 +325,13 @@ function openResetModal() {
 }
 
 function executeReset() {
-  // 로컬 state 초기화
-  location.reload();
-  // Firebase에서도 삭제
-  if (typeof currentUser !== 'undefined' && currentUser && typeof currentSlot !== 'undefined') {
-    const db2 = firebase.firestore();
-    db2.collection('users').doc(currentUser.uid).collection(PF_COL.characters).doc(currentSlot).delete().then(() => {
-      location.reload();
-    }).catch(() => {
-      location.reload();
-    });
+  // ⚠ 클라우드 슬롯을 먼저 삭제한 뒤 리로드해야 함. (구버전은 location.reload()를 먼저 호출해 삭제가 리로드에
+  //   중단됨 → 저장본이 안 지워지고 리로드 시 그대로 되살아나던 버그. "초기화해도 캐릭터가 남는" 원인.)
+  if (typeof currentUser !== 'undefined' && currentUser && typeof currentSlot !== 'undefined' && currentSlot) {
+    firebase.firestore().collection('users').doc(currentUser.uid).collection(PF_COL.characters).doc(currentSlot)
+      .delete().then(() => location.reload()).catch(() => location.reload());
+  } else {
+    location.reload();
   }
 }
 
@@ -5337,7 +5334,7 @@ function clearCoreSelection(type) {
     recalcAll();
     renderFeats();
     renderGrowthPlan();
-    save();
+    forceSaveNow();   // 코어 삭제 = 의도적 데이터 축소 → 파괴적 저장 가드 우회(즉시 저장), 안 그러면 리로드 시 옛 선택 복귀
   } else if (type === 'ancestry') {
     if (state.selectedAncestry && !confirm('혈통을 변경하면 혈통 관련 선택이 초기화됩니다. 계속하시겠습니까?')) return;
     state.selectedAncestry = null;
@@ -5347,7 +5344,7 @@ function clearCoreSelection(type) {
     recalcAll();
     renderFeats();
     renderGrowthPlan();
-    save();
+    forceSaveNow();   // 코어 삭제 = 의도적 데이터 축소 → 파괴적 저장 가드 우회(즉시 저장), 안 그러면 리로드 시 옛 선택 복귀
   } else if (type === 'background') {
     if (state.selectedBackground && !confirm('배경을 변경하면 배경 관련 선택이 초기화됩니다. 계속하시겠습니까?')) return;
     state.selectedBackground = null;
@@ -5357,7 +5354,7 @@ function clearCoreSelection(type) {
     recalcAll();
     renderFeats();
     renderGrowthPlan();
-    save();
+    forceSaveNow();   // 코어 삭제 = 의도적 데이터 축소 → 파괴적 저장 가드 우회(즉시 저장), 안 그러면 리로드 시 옛 선택 복귀
   } else if (type === 'heritage') {
     state.selectedHeritage = null;
     // 유산 캔트립 임시 재주 제거 (인터랙티브 모달 관련)
@@ -5368,7 +5365,7 @@ function clearCoreSelection(type) {
     recalcAll();
     renderFeats();
     renderGrowthPlan();
-    save();
+    forceSaveNow();   // 코어 삭제 = 의도적 데이터 축소 → 파괴적 저장 가드 우회(즉시 저장), 안 그러면 리로드 시 옛 선택 복귀
   } else if (type === 'subclass') {
     resetFromSubclass();
   }

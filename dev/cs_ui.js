@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.244').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.245').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -3666,56 +3666,15 @@ const BARDING_DB = [
   {name:'반판 마갑', ac:5, dex:1, check:-3, speed:-10, bulk:4, category:'중갑'},
 ];
 
-const COMPANION_DB = [
-  {id:'ape',name_ko:'유인원',name_en:'Ape',size:'소형',hp:6,str:3,dex:2,con:2,int:-4,wis:2,cha:0,
-   skill:'위협',senses:'저광 시야',speed:25,speeds:{climb:25},
-   attacks:[{name:'주먹',hit:'',dmg:'1d8 B',traits:[]}]},
-  {id:'arboreal',name_ko:'수목 묘목',name_en:'Arboreal Sapling',size:'소형',hp:8,str:3,dex:1,con:2,int:-4,wis:2,cha:0,
-   skill:'은신',senses:'저광 시야',speed:25,speeds:{},
-   attacks:[{name:'가지',hit:'',dmg:'1d8 B',traits:[]}]},
-  {id:'bat',name_ko:'박쥐',name_en:'Bat',size:'소형',hp:6,str:2,dex:3,con:2,int:-4,wis:1,cha:0,
-   skill:'은신',senses:'반향정위 20피트, 저광 시야',speed:15,speeds:{fly:30},
-   attacks:[{name:'턱',hit:'',dmg:'1d6 P',traits:['기교']},{name:'날개',hit:'',dmg:'1d4 S',traits:['민첩','기교']}]},
-  {id:'badger',name_ko:'오소리',name_en:'Badger',size:'소형',hp:8,str:2,dex:2,con:2,int:-4,wis:2,cha:0,
-   skill:'생존',senses:'저광 시야, 후각(부정확 30피트)',speed:25,speeds:{burrow:10,climb:10},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:[]},{name:'발톱',hit:'',dmg:'1d6 S',traits:['민첩']}]},
-  {id:'bear',name_ko:'곰',name_en:'Bear',size:'소형',hp:8,str:3,dex:2,con:2,int:-4,wis:1,cha:0,
-   skill:'위협',senses:'저광 시야, 후각(부정확 30피트)',speed:35,speeds:{},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:[]},{name:'발톱',hit:'',dmg:'1d6 S',traits:['민첩']}]},
-  {id:'bird',name_ko:'새',name_en:'Bird',size:'소형',hp:4,str:2,dex:3,con:1,int:-4,wis:2,cha:0,
-   skill:'은신',senses:'저광 시야',speed:10,speeds:{fly:60},
-   attacks:[{name:'부리',hit:'',dmg:'1d6 P',traits:['기교']},{name:'발톱',hit:'',dmg:'1d4 S',traits:['민첩','기교']}]},
-  {id:'boar',name_ko:'멧돼지',name_en:'Boar',size:'소형',hp:8,str:3,dex:1,con:2,int:-4,wis:2,cha:0,
-   skill:'생존',senses:'저광 시야, 후각(부정확 30피트)',speed:35,speeds:{},
-   attacks:[{name:'엄니',hit:'',dmg:'1d8 P',traits:[]}]},
-  {id:'cat',name_ko:'고양이',name_en:'Cat',size:'소형',hp:4,str:2,dex:3,con:1,int:-4,wis:2,cha:0,
-   skill:'은신',senses:'저광 시야, 후각(부정확 30피트)',speed:35,speeds:{},
-   attacks:[{name:'턱',hit:'',dmg:'1d6 P',traits:['기교']},{name:'발톱',hit:'',dmg:'1d4 S',traits:['민첩','기교']}]},
-  {id:'crocodile',name_ko:'악어',name_en:'Crocodile',size:'소형',hp:6,str:3,dex:2,con:2,int:-4,wis:1,cha:0,
-   skill:'은신',senses:'저광 시야',speed:20,speeds:{swim:25},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:[]},{name:'꼬리',hit:'',dmg:'1d6 B',traits:['민첩']}]},
-  {id:'dromaeosaur',name_ko:'드로마에오사우루스',name_en:'Dromaeosaur',size:'소형',hp:6,str:2,dex:3,con:2,int:-4,wis:1,cha:0,
-   skill:'은신',senses:'저광 시야, 후각(부정확 30피트)',speed:50,speeds:{},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:['기교']},{name:'발톱',hit:'',dmg:'1d6 S',traits:['민첩','기교']}]},
-  {id:'horse',name_ko:'말',name_en:'Horse',size:'대형',hp:8,str:3,dex:2,con:2,int:-4,wis:1,cha:0,
-   skill:'생존',senses:'저광 시야, 후각(부정확 30피트)',speed:40,speeds:{},mount:true,
-   attacks:[{name:'발굽',hit:'',dmg:'1d6 B',traits:['민첩']}]},
-  {id:'drake',name_ko:'기마 드레이크',name_en:'Riding Drake',size:'대형',hp:8,str:2,dex:1,con:2,int:-4,wis:1,cha:2,
-   skill:'위협',senses:'암시야',speed:45,speeds:{},mount:true,uncommon:true,
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:[]},{name:'꼬리',hit:'',dmg:'1d6 B',traits:[]}]},
-  {id:'scorpion',name_ko:'전갈',name_en:'Scorpion',size:'소형',hp:6,str:3,dex:3,con:1,int:-4,wis:1,cha:0,
-   skill:'은신',senses:'암시야',speed:30,speeds:{},
-   attacks:[{name:'침',hit:'',dmg:'1d6 P',traits:[]},{name:'집게',hit:'',dmg:'1d6 S',traits:['민첩']}]},
-  {id:'shark',name_ko:'상어',name_en:'Shark',size:'소형',hp:6,str:3,dex:2,con:2,int:-4,wis:1,cha:0,
-   skill:'은신',senses:'피냄새, 후각(부정확 60피트)',speed:0,speeds:{swim:40},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:[]}]},
-  {id:'snake',name_ko:'뱀',name_en:'Snake',size:'소형',hp:6,str:3,dex:3,con:1,int:-4,wis:1,cha:0,
-   skill:'은신',senses:'저광 시야, 후각(부정확 30피트)',speed:20,speeds:{climb:20,swim:20},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:['기교']}]},
-  {id:'wolf',name_ko:'늑대',name_en:'Wolf',size:'소형',hp:6,str:2,dex:3,con:2,int:-4,wis:1,cha:0,
-   skill:'생존',senses:'저광 시야, 후각(부정확 30피트)',speed:40,speeds:{},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:['기교']}]},
-];
+// 동물 동료(Animal Companion) 정본 스탯블록 = data/derived/companions.json 단일소스(DataManager 편집 가능, 하드코딩 폐기).
+//   id=저장 키(불변, companionId로 저장) → 이관해도 저장 캐릭터 호환. 아래 로더가 채움(픽커는 사용자 액션으로 열려 로드 후 접근).
+let COMPANION_DB = [];
+function _loadCompanions() {
+  if (COMPANION_DB.length) return;
+  fetch('data/derived/companions.json?v=0.245').then(r => r.ok ? r.json() : null).then(j => {
+    if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
+  }).catch(() => {});
+}
 
 function addPet() {
   if (!state.pets) state.pets = [];
@@ -4457,13 +4416,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.244'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.244'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.245'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.245'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.244'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.245'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}
@@ -4758,6 +4717,7 @@ function renderPortrait() {
 
 // 아이콘 맵 선로딩 (fetch는 DOM 불필요 — 즉시 시작, 로드 후 열린 탭 소급 렌더)
 _loadIconMap();
+_loadCompanions();   // 동물 동료 스탯블록(파생 단일소스) 선로딩 — 펫 픽커는 사용자 액션으로 열려 로드 후 접근
 // L3 효과 override 선로딩 (data/override/effect_groups.json — 재주/유산/배경 자동화 override)
 if (typeof _loadEffectOverride === 'function') _loadEffectOverride();
 

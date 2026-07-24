@@ -32,7 +32,7 @@ function _charRichness(data) {
 // 트랜잭션 안전 저장: (1)클라우드가 내가 본 버전보다 최신이면 stale → 덮어쓰지 않음(들어오는 onSnapshot이 동기화)
 //                    (2)기존이 풍부한데 새 데이터가 절반 미만으로 급감하면 파괴적 → 차단.
 // resolve → {skipped:false|'stale'|'destructive', oldR, newR}
-function safeSaveCharacter(ref, payload) {
+function safeSaveCharacter(ref, payload, allowDestructive) {
   return firebase.firestore().runTransaction(function (tx) {
     return tx.get(ref).then(function (snap) {
       var cloudMs = snap.exists ? _docUpdatedMillis(snap.data()) : 0;
@@ -40,7 +40,9 @@ function safeSaveCharacter(ref, payload) {
       if (snap.exists && cloudMs > _baseUpdatedAt + 200 && cloudData !== _lastWrittenJson) {
         return { skipped: 'stale' };
       }
-      if (cloudData) {
+      // 파괴적 저장 차단 = 버그로 인한 우발적 데이터 손실 방지. 단, 사용자가 명시적으로 초기화·코어 삭제한 경우(allowDestructive)는 우회
+      //   — 안 그러면 클래스 삭제·슬롯 초기화가 클라우드에 반영 안 돼 리로드 시 옛 캐릭터가 되살아남(회귀 수정).
+      if (!allowDestructive && cloudData) {
         var oldR = _charRichness(cloudData), newR = _charRichness(payload.data);
         if (oldR >= 8 && newR < Math.ceil(oldR * 0.5)) return { skipped: 'destructive', oldR: oldR, newR: newR };
       }
@@ -48,6 +50,15 @@ function safeSaveCharacter(ref, payload) {
       return { skipped: false };
     });
   });
+}
+
+// 명시적 초기화/코어 삭제 시 다음 저장 1회에 한해 파괴적 가드 우회(사용자 의도). autoSaveNow가 읽고 소비.
+let _forceSaveDestructive = false;
+// 즉시 강제 저장(디바운스 없이) — clearCoreSelection·executeReset 등 사용자 명시 행동용.
+function forceSaveNow() {
+  _forceSaveDestructive = true;
+  if (typeof _autoSaveDebounce !== 'undefined' && _autoSaveDebounce) clearTimeout(_autoSaveDebounce);
+  if (typeof autoSaveNow === 'function') autoSaveNow();
 }
 
 function save() {
@@ -75,11 +86,12 @@ function autoSaveNow() {
   if (st) { st.textContent = '저장 중...'; st.style.color = '#f5c518'; }
   const db2 = firebase.firestore();
   const ref = db2.collection('users').doc(currentUser.uid).collection(PF_COL.characters).doc(currentSlot);
+  const _allowDestructive = _forceSaveDestructive; _forceSaveDestructive = false;   // 이번 저장 1회만 우회
   safeSaveCharacter(ref, {
     data: json,
     name: (data.fields && data.fields.name) || '이름 없음',   // 실제 캐릭터 이름은 fields.name (이전엔 data.name=undefined라 항상 '이름 없음' 저장되던 버그)
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-  }).then((res) => {
+  }, _allowDestructive).then((res) => {
     if (res.skipped === 'stale') { if (st) { st.textContent = '다른 기기 변경 감지 — 동기화 중'; st.style.color = '#f5c518'; } return; }
     if (res.skipped === 'destructive') { console.warn('[autoSave] 파괴적 저장 차단', res); if (st) { st.textContent = '⚠ 빈 데이터 저장 차단됨'; st.style.color = '#e74c3c'; } return; }
     _lastSavedJson = json; _lastWrittenJson = json;
