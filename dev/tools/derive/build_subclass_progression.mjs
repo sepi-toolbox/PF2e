@@ -73,9 +73,10 @@ try { SUB_GRANTS_RAW = (JSON.parse(fs.readFileSync(path.join(DEV, 'data/derived/
 //   런타임이 이 칸을 직접 읽어 적용(숙련 T/E/M/L과 동일 경로).
 //   소스 = subclasses.json granted_*(큐레이트 병합) ∪ subclass_grants_raw.json(원본 추출 우회분). 레벨: 재주/기술/행동=1, 주문=주문레벨.
 function subclassLevelGrants(sc) {
-  const feats = {}, skills = {}, spells = {}, actions = {};
-  const fSeen = new Set(), kSeen = new Set(), aSeen = new Set(), sSeen = new Set();
+  const feats = {}, skills = {}, spells = {}, actions = {}, familiar = {};
+  const fSeen = new Set(), kSeen = new Set(), aSeen = new Set(), sSeen = new Set(), mSeen = new Set();
   const push = (m, lv, v) => { if (v) (m[lv] = m[lv] || []).push(v); };
+  const addFamiliar = (fam, lv) => { const o = (typeof fam === 'string') ? { slug: fam } : fam; if (o && o.slug && !mSeen.has(o.slug)) { mSeen.add(o.slug); push(familiar, lv || 1, o); } };
   const addFeat = (f, lv) => { if (f && !fSeen.has(f)) { fSeen.add(f); push(feats, lv || 1, f); } };
   const addSkill = (k, lv) => { if (k && !kSeen.has(k)) { kSeen.add(k); push(skills, lv || 1, k); } };
   const addAction = (a, lv) => { if (a && !aSeen.has(a)) { aSeen.add(a); push(actions, lv || 1, a); } };
@@ -93,8 +94,11 @@ function subclassLevelGrants(sc) {
   for (const sk of (sc.granted_skills || [])) addSkill(sk, 1);
   for (const a of (sc.granted_actions || [])) addAction(a, 1);
   for (const sp of (sc.granted_spells || [])) addSpell(sp.spell_id, (['known','innate','cantrip'].includes(sp.type) ? sp.type : 'focus'), sp.rank, sp.lv);
-  const has = Object.keys(feats).length || Object.keys(skills).length || Object.keys(spells).length || Object.keys(actions).length;
-  return has ? { feats, skills, spells, actions } : null;
+  // 3) 후원자 고유 사역마 능력(마녀) = granted_familiar. 캐릭터 행동이 아니라 펫(사역마)에 자동 고정되는 능력 —
+  //   grant_actions와 분리(별도 grant_familiar 칸). 런타임 펫 시스템이 이 칸을 읽어 사역마 능력 슬롯에 고정.
+  if (sc.granted_familiar) addFamiliar(sc.granted_familiar, 1);
+  const has = Object.keys(feats).length || Object.keys(skills).length || Object.keys(spells).length || Object.keys(actions).length || Object.keys(familiar).length;
+  return has ? { feats, skills, spells, actions, familiar } : null;
 }
 
 const rows = [];
@@ -113,6 +117,7 @@ for (const sc of subs) {
     row.grant_skills = (grantMap && grantMap.skills[level]) || [];     // 이 레벨에 부여하는 기술
     row.grant_spells = (grantMap && grantMap.spells[level]) || [];     // 이 레벨에 부여하는 주문 [{slug,type,rank?}]
     row.grant_actions = (grantMap && grantMap.actions[level]) || [];   // 이 레벨에 부여하는 행동
+    row.grant_familiar = (grantMap && grantMap.familiar[level]) || []; // 이 레벨에 사역마에 고정되는 능력(후원자 고유)
     for (const c of COLS) row[c] = '';
     let any = false;
     for (const [stat, prog] of Object.entries(pc)) {

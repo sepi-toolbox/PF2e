@@ -95,6 +95,10 @@ const SD = globalThis.SUBCLASS_DB;
     if (s.features && s.features[0] && s.features[0].name_ko) {
       const famName = s.features[0].name_ko, famDesc = String(s.features[0].desc || '').replace(/^\s*<p>|<\/p>\s*$/g, '').trim();
       d += `<p><strong>사역마 능력</strong> ${famName}${famDesc ? ' — ' + famDesc : ''}</p>`;
+      // 후원자 고정 사역마 능력 = grant_familiar(성장표) 소스. 펫(사역마)이 이 이름/설명을 그대로 표시하도록
+      //   slug(=식별, 실 엔티티 참조) + 큐레이트 name/desc(=서브클래스 설명과 동일 텍스트, 단일소스)를 함께 실음.
+      const _fslug = (typeof s.granted_familiar === 'string') ? s.granted_familiar : (s.granted_familiar && s.granted_familiar.slug);
+      if (_fslug) s.granted_familiar = { slug: _fslug, name: famName, desc: famDesc };
     }
     s.desc = PF.enrichDesc(d);
     // 후원자가 주는 것(전통·기술·교훈·사역마 능력)을 desc 한 곳에 모음 → 클래스 특성 카드로 중복 표시 안 함(features 비움).

@@ -86,27 +86,57 @@
     const t = {};
     for (const r of rows || []) {
       const sub = r.subclass; if (!sub) continue;
-      const o = t[sub] || (t[sub] = { feats: [], skills: [], spells: [], actions: [] });
+      const o = t[sub] || (t[sub] = { feats: [], skills: [], spells: [], actions: [], familiar: [] });
       for (const s of (r.grant_feats || [])) o.feats.push({ lv: r.level, slug: s });
       for (const s of (r.grant_skills || [])) o.skills.push({ lv: r.level, slug: s });
       for (const s of (r.grant_spells || [])) o.spells.push({ lv: r.level, slug: s.slug, type: s.type, ...(s.rank != null ? { rank: s.rank } : {}) });
       for (const s of (r.grant_actions || [])) o.actions.push({ lv: r.level, slug: s });
+      for (const s of (r.grant_familiar || [])) o.familiar.push({ lv: r.level, slug: (s.slug || s), name: s.name, desc: s.desc });   // 후원자 고유 사역마 능력(펫 고정)
     }
     return t;
   }
   // 서브클래스가 부여하는 것(성장표 직접 소스). level 주면 그 레벨 이하만 반환(레벨 게이팅). 없으면 빈 구조.
   function subclassGrantTable(sub, level) {
     const g = (_subGrantTable && _subGrantTable[sub]) || null;
-    if (!g) return { feats: [], skills: [], spells: [], actions: [] };
+    if (!g) return { feats: [], skills: [], spells: [], actions: [], familiar: [] };
     if (level == null) return g;
     const f = x => (x.lv || 1) <= level;
-    return { feats: g.feats.filter(f), skills: g.skills.filter(f), spells: g.spells.filter(f), actions: g.actions.filter(f) };
+    return { feats: g.feats.filter(f), skills: g.skills.filter(f), spells: g.spells.filter(f), actions: g.actions.filter(f), familiar: (g.familiar || []).filter(f) };
   }
+  // 사역마 능력 개수 진행표 = data/derived/familiar_progression.json (대원칙 0: 성장 데이터가 직접 소유).
+  //   familiarAbilityCount(classId, level) = 그 클래스 사역마의 레벨별 총 능력 개수(후원자 고정 포함). 없으면 보편 기본(2).
+  let _famProg = null;
+  function _fillFamProg(j) { _famProg = j || null; }
+  function familiarAbilityCount(classId, level) {
+    const base = (_famProg && _famProg.base_default) || 2;
+    const arr = _famProg && _famProg.classes && _famProg.classes[classId];
+    if (!arr || !arr.length) return base;
+    const lv = Math.max(1, Math.min(20, level | 0 || 1));
+    return arr[lv - 1] != null ? arr[lv - 1] : base;
+  }
+  // 사역마 능력 사전 = data/derived/familiar_abilities.json (slug → {name_ko, desc_ko}). 후원자 고유 능력 표시용.
+  let _famAbil = null;
+  function _fillFamAbil(rows) { _famAbil = {}; for (const r of (rows || [])) if (r.slug) _famAbil[r.slug] = r; }
+  function familiarAbility(slug) { return (_famAbil && _famAbil[slug]) || null; }
+  function loadFamiliarData() {
+    if (_famProg && _famAbil) return Promise.resolve();
+    if (isNode) {
+      const fs = require('fs');
+      for (const p of ['data/derived/familiar_progression.json', 'dev/data/derived/familiar_progression.json']) { try { _fillFamProg(JSON.parse(fs.readFileSync(p, 'utf8'))); break; } catch (e) {} }
+      for (const p of ['data/derived/familiar_abilities.json', 'dev/data/derived/familiar_abilities.json']) { try { _fillFamAbil(JSON.parse(fs.readFileSync(p, 'utf8')).rows); break; } catch (e) {} }
+      return Promise.resolve();
+    }
+    return Promise.all([
+      fetch('data/derived/familiar_progression.json?v=0.226').then(r => r.json()).then(_fillFamProg).catch(() => {}),
+      fetch('data/derived/familiar_abilities.json?v=0.226').then(r => r.json()).then(j => _fillFamAbil(j.rows)).catch(() => {}),
+    ]).then(() => {});
+  }
+
   async function _ensureSubProfTable() {
     if (_subProfTable) return _subProfTable;
     let rows = null;
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/subclass_progression.json", "dev/data/derived/subclass_progression.json"]) { try { rows = JSON.parse(fs.readFileSync(p, "utf8")).rows; break; } catch (e) {} } }
-    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.225"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.226"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
     _subProfTable = _buildSubProfTable(rows || []);
     _subGrantTable = _buildSubGrantTable(rows || []);   // 같은 rows에서 부여표도 동시 구축
     return _subProfTable;
@@ -118,7 +148,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.225"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.226"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -343,7 +373,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.225').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.226').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -362,7 +392,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.225').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.226').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   // 소서러 혈통 정본 메타 = data/derived/bloodlines.json → 런타임 BLOODLINE_DB 채움.
@@ -390,7 +420,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/bloodlines.json?v=0.225').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/bloodlines.json?v=0.226').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
   }
 
   // 오라클 신비 정본 메타 = data/derived/oracle_mysteries.json → 런타임 MYSTERY_DB 채움.
@@ -417,7 +447,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/oracle_mysteries.json?v=0.225').then(r => r.json()).then(j => { _fillMysteryDB(j.rows); _fillMysteryGuide(j.guide); _mysteriesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/oracle_mysteries.json?v=0.226').then(r => r.json()).then(j => { _fillMysteryDB(j.rows); _fillMysteryGuide(j.guide); _mysteriesLoaded = true; }).catch(() => {});
   }
 
   // 위저드 비전 학파 정본 메타 = data/derived/wizard_schools.json → 런타임 WIZARD_SCHOOL_DB/GUIDE 채움.
@@ -443,7 +473,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/wizard_schools.json?v=0.225').then(r => r.json()).then(j => { _fillWizardSchoolDB(j.rows); _fillWizardSchoolGuide(j.guide); _wizardSchoolsLoaded = true; }).catch(() => {});
+    return fetch('data/derived/wizard_schools.json?v=0.226').then(r => r.json()).then(j => { _fillWizardSchoolDB(j.rows); _fillWizardSchoolGuide(j.guide); _wizardSchoolsLoaded = true; }).catch(() => {});
   }
 
   // 바드 뮤즈 가이드 = data/derived/bard_muses.json → BARD_MUSE_GUIDE 채움(모달 「뮤즈 항목 읽는 법」).
@@ -464,7 +494,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/bard_muses.json?v=0.225').then(r => r.json()).then(j => { _fillBardMuseGuide(j.guide); _bardMusesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/bard_muses.json?v=0.226').then(r => r.json()).then(j => { _fillBardMuseGuide(j.guide); _bardMusesLoaded = true; }).catch(() => {});
   }
 
   // 마녀 후원자 가이드 = data/derived/witch_patrons.json → WITCH_PATRON_GUIDE(모달 「후원자 항목 읽는 법」).
@@ -484,7 +514,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/witch_patrons.json?v=0.225').then(r => r.json()).then(j => { _fillWitchPatronGuide(j.guide); _witchPatronsLoaded = true; }).catch(() => {});
+    return fetch('data/derived/witch_patrons.json?v=0.226').then(r => r.json()).then(j => { _fillWitchPatronGuide(j.guide); _witchPatronsLoaded = true; }).catch(() => {});
   }
 
   async function init() {
@@ -498,6 +528,7 @@
     if (isNode) loadWizardSchools(); else await loadWizardSchools();  // 위저드 학파 메타($school_advanced·가이드용)
     if (isNode) loadBardMuses(); else await loadBardMuses();          // 바드 뮤즈 가이드
     if (isNode) loadWitchPatrons(); else await loadWitchPatrons();    // 마녀 후원자 가이드
+    if (isNode) loadFamiliarData(); else await loadFamiliarData();    // 사역마 능력 개수표 + 능력 사전(펫 시스템)
     if (isNode) loadSubclasses(); else await loadSubclasses();  // 단일소스 로드(비었을 때). 채워지면 아래 조립은 자연 스킵.
     if (isNode) loadDoctrines(); else await loadDoctrines();    // (subclasses.json에 cleric 포함 → 가드로 스킵. 빌드 하니스 조립 경로에서만 실주입)
     _build();
@@ -559,7 +590,7 @@
 
     // 전 카탈로그 로드 후 재열거 — init 시점에 타 카테고리 미로드로 enrichDesc @link가 영문 스냅샷된 캐시를 정본 한글로 재생성
   function rebuild() { if (_ready) _build(); }
-const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, subclassProfTable, subclassGrantTable, isLegacy, classFeatures, classFeatureRoster, subclassList, spellTable, loadBloodlines, loadMysteries, loadWizardSchools, loadBardMuses, loadWitchPatrons };
+const API = { init, ready, rebuild, classList, getClassLegacy, classToLegacy, classProfTable, subclassProfTable, subclassGrantTable, isLegacy, classFeatures, classFeatureRoster, subclassList, spellTable, loadBloodlines, loadMysteries, loadWizardSchools, loadBardMuses, loadWitchPatrons, familiarAbilityCount, familiarAbility };
   root.PF2eClass = API;
   if (isNode && typeof module !== 'undefined') module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

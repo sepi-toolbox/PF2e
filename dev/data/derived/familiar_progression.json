@@ -1,0 +1,130 @@
+{
+ "base_default": 2,
+ "classes": {
+  "witch": [
+   4,
+   4,
+   4,
+   4,
+   4,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   7,
+   7,
+   7
+  ]
+ },
+ "rows": [
+  {
+   "class": "witch",
+   "level": 1,
+   "abilities": 4
+  },
+  {
+   "class": "witch",
+   "level": 2,
+   "abilities": 4
+  },
+  {
+   "class": "witch",
+   "level": 3,
+   "abilities": 4
+  },
+  {
+   "class": "witch",
+   "level": 4,
+   "abilities": 4
+  },
+  {
+   "class": "witch",
+   "level": 5,
+   "abilities": 4
+  },
+  {
+   "class": "witch",
+   "level": 6,
+   "abilities": 5
+  },
+  {
+   "class": "witch",
+   "level": 7,
+   "abilities": 5
+  },
+  {
+   "class": "witch",
+   "level": 8,
+   "abilities": 5
+  },
+  {
+   "class": "witch",
+   "level": 9,
+   "abilities": 5
+  },
+  {
+   "class": "witch",
+   "level": 10,
+   "abilities": 5
+  },
+  {
+   "class": "witch",
+   "level": 11,
+   "abilities": 5
+  },
+  {
+   "class": "witch",
+   "level": 12,
+   "abilities": 6
+  },
+  {
+   "class": "witch",
+   "level": 13,
+   "abilities": 6
+  },
+  {
+   "class": "witch",
+   "level": 14,
+   "abilities": 6
+  },
+  {
+   "class": "witch",
+   "level": 15,
+   "abilities": 6
+  },
+  {
+   "class": "witch",
+   "level": 16,
+   "abilities": 6
+  },
+  {
+   "class": "witch",
+   "level": 17,
+   "abilities": 6
+  },
+  {
+   "class": "witch",
+   "level": 18,
+   "abilities": 7
+  },
+  {
+   "class": "witch",
+   "level": 19,
+   "abilities": 7
+  },
+  {
+   "class": "witch",
+   "level": 20,
+   "abilities": 7
+  }
+ ],
+ "note": "사역마 능력 개수(레벨별). base_default=보편 사역마(2). classes[클래스]=레벨1~20 총 개수(고정 능력 포함). 소스=Player Core 정본. 런타임이 펫 maxAbilities로 직접 읽음(대원칙 0)."
+}

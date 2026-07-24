@@ -643,7 +643,8 @@
      "kind": "feature"
     }
    ],
-   "prof_changes": {}
+   "prof_changes": {},
+   "granted_familiar": "familiar-of-restored-spirit"
   },
   {
    "id": "the-inscribed-one",
@@ -682,7 +683,8 @@
      "kind": "feature"
     }
    ],
-   "prof_changes": {}
+   "prof_changes": {},
+   "granted_familiar": "familiar-of-flowing-script"
   },
   {
    "id": "the-resentment",
@@ -721,7 +723,8 @@
      "kind": "feature"
     }
    ],
-   "prof_changes": {}
+   "prof_changes": {},
+   "granted_familiar": "familiar-of-ongoing-misery"
   },
   {
    "id": "silence-in-snow",
@@ -760,7 +763,8 @@
      "kind": "feature"
     }
    ],
-   "prof_changes": {}
+   "prof_changes": {},
+   "granted_familiar": "familiar-of-freezing-rime"
   },
   {
    "id": "spinner-of-threads",
@@ -799,7 +803,8 @@
      "kind": "feature"
     }
    ],
-   "prof_changes": {}
+   "prof_changes": {},
+   "granted_familiar": "familiar-of-balanced-luck"
   },
   {
    "id": "starless-shadow",
@@ -838,7 +843,8 @@
      "kind": "feature"
     }
    ],
-   "prof_changes": {}
+   "prof_changes": {},
+   "granted_familiar": "familiar-of-stalking-night"
   },
   {
    "id": "wilding-steward",
@@ -875,7 +881,8 @@
      "kind": "feature"
     }
    ],
-   "prof_changes": {}
+   "prof_changes": {},
+   "granted_familiar": "familiar-of-keen-senses"
   }
  ],
  "note": "서브클래스 큐레이션(PC1 정본 리치데이터: bard/druid/ranger/rogue/witch/wizard). build_subclasses 하니스 입력. cleric은 cleric_doctrines.json."

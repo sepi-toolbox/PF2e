@@ -150,6 +150,14 @@ function runDiag(){
     ok('WITCH_PATRON_GUIDE 로드(6)', typeof WITCH_PATRON_GUIDE!=='undefined' && WITCH_PATRON_GUIDE.length===6);
     var _wg = (typeof _bloodlineGuideHtml==='function') ? _bloodlineGuideHtml('witch') : '';
     ok('마녀 후원자 가이드 렌더(주술·교훈·패밀리어 설명)', !!(_wg && _wg.indexOf('주술')>=0 && _wg.indexOf('교훈')>=0 && _wg.indexOf('패밀리어')>=0));
+    // 사역마 능력 개수·후원자 고정 능력(데이터 구동) — familiarAbilityCount + subclassGrantTable.familiar
+    if (typeof PF2eClass!=='undefined' && PF2eClass.familiarAbilityCount) {
+      ok('사역마 능력 개수 데이터구동(마녀 L1=4 L6=5 L18=7)', PF2eClass.familiarAbilityCount('witch',1)===4 && PF2eClass.familiarAbilityCount('witch',6)===5 && PF2eClass.familiarAbilityCount('witch',18)===7);
+      ok('사역마 개수 기본값(비사역마 클래스=2)', PF2eClass.familiarAbilityCount('fighter',5)===2);
+      var _pf = (PF2eClass.subclassGrantTable('starless-shadow',1).familiar||[])[0];
+      ok('후원자 고정 사역마 능력=성장표 grant_familiar', !!(_pf && _pf.slug==='familiar-of-stalking-night'));
+      ok('후원자 사역마 능력 이름/설명 동봉(서브클래스 설명과 동일)', !!(_pf && _pf.name==='스며드는 밤 사역마' && (_pf.desc||'').length>50));
+    } else { ok('PF2eClass.familiarAbilityCount 로드', false); }
   } catch(e){ err.push('witch-patron:'+e.message); }
 
   // ── 효과 단일화(EFFECTS_DB) 검증 ──
