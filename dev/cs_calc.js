@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.234').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.235').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -1640,7 +1640,8 @@ function renderBoostModal() {
   // 클래스 섹션
   {
     const cls = state.selectedClass;
-    const keyAttrsKo = cls ? (cls.key_attrs || []).map(k => ATTR_KO[k]).join(' 또는 ') : '';
+    const _effKeys = getEffectiveClassKeyAttrs();   // 클래스 ∪ 서브클래스 확장(로그 수법 등)
+    const keyAttrsKo = cls ? _effKeys.map(k => ATTR_KO[k]).join(' 또는 ') : '';
     const clsDesc = cls
       ? `클래스: ${cls.name} — 핵심 속성: ${keyAttrsKo}`
       : '클래스를 선택하면 자동 설정됩니다.';
@@ -1654,9 +1655,9 @@ function renderBoostModal() {
           <span>${ATTR_KO[a]}</span>${clsKey===a?' ✓':''}
         </label>`).join('')}
       </div>`;
-    // 클래스 선택 가능하면 (근력/민첩 선택형)
+    // 클래스 선택 가능하면 (근력/민첩 선택형, 또는 로그 수법이 핵심 능력치 추가)
     if (cls) {
-      const keys = cls.key_attrs || [];
+      const keys = _effKeys;
       if (keys.length > 1) {
         sec.innerHTML = `<div class="boost-section-title">클래스 핵심 속성 선택</div>
           <div class="boost-section-desc">${cls.name}: ${keyAttrsKo} 중 선택</div>
@@ -2510,12 +2511,20 @@ function recalcPerc() {
   }
 }
 
+// 유효 핵심 능력치 후보 = 클래스 key_attrs ∪ 서브클래스 확장(로그 수법: 지략가 int·건달 str·사기꾼 cha 추가, 도둑=없음).
+//   성장·정체성(서브클래스) 데이터가 직접 소유(대원칙 0) — subclasses.json의 key_attr 필드. 다른 클래스도 이 필드로 확장 가능.
+function getEffectiveClassKeyAttrs() {
+  const cls = state.selectedClass; if (!cls) return [];
+  const base = (cls.key_attrs || []).slice();
+  const sub = state.selectedSubclass;
+  if (sub && sub.class_id === cls.id && sub.key_attr && !base.includes(sub.key_attr)) base.push(sub.key_attr);
+  return base;
+}
 function getClassKeyAttr() {
-  // 사용자 선택값(state.boosts.cls) 우선, 없으면 첫 번째 key_attrs
-  if (state.boosts.cls) return state.boosts.cls;
-  const keys = state.selectedClass?.key_attrs;
-  if (Array.isArray(keys) && keys.length) return keys[0];
-  return 'wis';
+  // 사용자 선택값(state.boosts.cls) 우선 — 단 유효 후보에 있을 때만(서브클래스 변경으로 무효화된 옛 선택 방지).
+  const eff = getEffectiveClassKeyAttrs();
+  if (state.boosts.cls && eff.includes(state.boosts.cls)) return state.boosts.cls;
+  return eff[0] || 'wis';
 }
 
 function recalcClassDC() {

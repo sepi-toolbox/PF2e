@@ -146,24 +146,26 @@ const SD = globalThis.SUBCLASS_DB;
   }
   console.log(`  레인저 사냥 방식 desc(정본 3방식 조립) 주입: ${edgePatched}종`);
 
-  // 로그 라켓(Rogue's Racket) = Player Core 정본 4라켓(subclasses_curated 구조화). 큐레이션 필드(flavor·racket_benefit·racket_skill·racket_key)로
-  //   rich desc 조립: 소개 + 라켓 효과 + 라켓 기술 + 핵심 능력치(일부). 라켓은 은밀 공격과 결합(주문 부여 없음).
-  //   교단·사냥 방식과 동일 패턴 — features(클래스 특성)는 desc가 소유하므로 비움. (subclass_type=라켓, 전문 아님.)
+  // 로그 수법(Rogue's Racket) = Player Core 정본 4수법(subclasses_curated 구조화). 큐레이션 필드(flavor·racket_benefit·racket_skill·key_attr)로
+  //   rich desc 조립: 소개 + 수법 효과 + 수법 기술 + 핵심 능력치 선택(일부). 수법은 은밀 공격과 결합(주문 부여 없음).
+  //   교단·사냥 방식과 동일 패턴 — features(클래스 특성)는 desc가 소유하므로 비움. (subclass_type=수법. Rogue's Racket=「로그의 수법」 store 번역과 통일.)
+  const _ATTR_KO = { str: '근력', dex: '민첩', con: '건강', int: '지능', wis: '지혜', cha: '매력' };
   const _eul = w => { const c = String(w).charCodeAt(String(w).length - 1); return (c >= 0xAC00 && c <= 0xD7A3 && (c - 0xAC00) % 28 !== 0) ? '을' : '를'; };  // 받침 조사 정정(지능을/도둑을 vs 매력를 방지)
   let racketPatched = 0;
   for (const s of SD) {
     if (s.class_id !== 'rogue') continue;
     const skillTxt = s.racket_skill || (s.granted_skills || []).map(sk => SKILL_KO[sk] || sk).join(', ');
+    const keyKo = s.key_attr ? _ATTR_KO[s.key_attr] : '';
     let d = '';
     if (s.flavor) d += `<p><em>${s.flavor}</em></p>`;
-    if (s.racket_benefit) d += `<p><strong>라켓 효과</strong> ${s.racket_benefit}</p>`;
-    if (skillTxt) d += `<p><strong>라켓 기술</strong> ${skillTxt}</p>`;
-    if (s.racket_key) d += `<p><strong>핵심 능력치</strong> ${s.racket_key}${_eul(s.racket_key)} 핵심 능력치로 선택할 수 있습니다.</p>`;
+    if (s.racket_benefit) d += `<p><strong>수법 효과</strong> ${s.racket_benefit}</p>`;
+    if (skillTxt) d += `<p><strong>수법 기술</strong> ${skillTxt}</p>`;
+    if (keyKo) d += `<p><strong>핵심 능력치</strong> ${keyKo}${_eul(keyKo)} 핵심 능력치로 선택할 수 있습니다(기본 민첩과 택1).</p>`;
     s.desc = PF.enrichDesc(d);
-    s.features = [];   // 라켓 효과는 desc가 소유 → 클래스 특성 카드 중복 표시 안 함.
+    s.features = [];   // 수법 효과는 desc가 소유 → 클래스 특성 카드 중복 표시 안 함.
     racketPatched++;
   }
-  console.log(`  로그 라켓 desc(정본 4라켓 조립) 주입: ${racketPatched}종`);
+  console.log(`  로그 수법 desc(정본 4수법 조립) 주입: ${racketPatched}종`);
 }
 
 // 표시용 별칭(DataManager 서브클래스 탭: slug/class/grants/rules_n) 부가 — 런타임 필드(id/class_id/...)는 보존

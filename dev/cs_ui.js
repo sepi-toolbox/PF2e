@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.234').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.235').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -4457,13 +4457,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.234'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.234'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.235'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.235'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.234'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.235'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}
