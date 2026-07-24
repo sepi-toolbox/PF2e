@@ -4854,8 +4854,9 @@ function _bloodlineGuideHtml(classId) {
   else if (classId === 'fighter') guide = (typeof FIGHTER_GUIDE !== 'undefined' && Array.isArray(FIGHTER_GUIDE)) ? FIGHTER_GUIDE : [];
   else if (classId === 'monk') guide = (typeof MONK_GUIDE !== 'undefined' && Array.isArray(MONK_GUIDE)) ? MONK_GUIDE : [];
   if (!guide.length) return '';
-  const items = guide.map(g => `<div style="margin-bottom:4px;"><strong style="color:var(--text);">${g.term}</strong> ${g.def}</div>`).join('');
-  return `<div style="margin-bottom:8px;font-size:11px;line-height:1.6;color:var(--text2);">${items}</div>`;
+  // 항목 = 좌측 액센트 바 + 용어 강조 + 간격 → "다닥다닥" 방지, 정의 목록처럼 스캔 가능하게(가독성).
+  const items = guide.map(g => `<div style="margin:0 0 7px;padding-left:9px;border-left:2px solid var(--border2);line-height:1.6;"><strong style="color:var(--text);">${g.term}</strong> ${g.def}</div>`).join('');
+  return `<div style="margin-bottom:9px;font-size:11px;color:var(--text2);">${items}</div>`;
 }
 
 function _onSubclassChange(id) {

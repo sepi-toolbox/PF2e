@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.241').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.242').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -673,7 +673,13 @@ function _effectCondCtx() {   // recalc마다 값싸게 재구성(캐시 없음 
   try { Object.values(state.feats || {}).forEach(arr => (arr || []).forEach(f => { if (f) { const s = (typeof featSlug === 'function') ? featSlug(f) : (f.id || f.name); if (s) feats.add(String(s)); } })); } catch (e) {}
   const features = new Set();
   const sub = (typeof state !== 'undefined') && state.selectedSubclass;
-  if (sub && sub.id) { features.add(String(sub.id)); if (sub.subclass_type) features.add(String(sub.subclass_type)); }
+  if (sub && sub.id) {
+    features.add(String(sub.id)); if (sub.subclass_type) features.add(String(sub.subclass_type));
+    // 레인저 특기(hunter's edge) 서브클래스 id는 edge-flurry/edge-outwit/edge-precision인데, 효과 조건(masterful-hunter 등)은
+    //   FVTT 특기 슬러그 feature:flurry/outwit/precision를 씀 → 접두 제거 별칭도 등록해 슬러그 드리프트로 부여가 무음 드롭되던 것 해소.
+    const _stripped = String(sub.id).replace(/^edge-/, '');
+    if (_stripped !== String(sub.id)) features.add(_stripped);
+  }
   try { if (typeof PF2eClass !== 'undefined' && PF2eClass.classFeatureRoster && cls) (PF2eClass.classFeatureRoster(cls) || []).forEach(f => { const s = f && (f.slug || f.id); if (s) features.add(String(s)); }); } catch (e) {}
   const heritage = (typeof state !== 'undefined' && state.selectedHeritage && state.selectedHeritage.id) || '';
   const ancestry = (typeof state !== 'undefined' && state.selectedAncestry && state.selectedAncestry.id) || '';
