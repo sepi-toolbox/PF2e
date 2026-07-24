@@ -2981,14 +2981,15 @@ function _checkOnePrereq(cond) {
   if (cond.heritage) {
     return nameMatches(cond.heritage, state.selectedHeritage);
   }
-  // 서브클래스: {subclass:'수수께끼 뮤즈'} — name_ko로 시작하면 매칭 (서브클래스 타입 단어 차이 허용)
+  // 서브클래스: {subclass:'order-leaf'} — slug(정본, build_prereqs가 slug emit). 레거시 이름도 폴백 매칭.
   if (cond.subclass) {
     const c = cond.subclass;
     const matchSub = (sub) => {
       if (!sub) return false;
+      if (sub.id === c || sub.slug === c) return true;   // ★ slug 판정(정본)
+      // 레거시(구 PREREQ_GROUPS 등) 이름 폴백
       if (nameMatches(c, sub)) return true;
-      // "폭풍 결사" / "수수께끼 뮤즈" 등: 첫 단어가 name_ko면 매칭 ('교단'/'결사' 같은 어휘 차이 흡수)
-      const firstWord = c.split(' ')[0];
+      const firstWord = String(c).split(' ')[0];
       if (sub.name_ko && firstWord === sub.name_ko) return true;
       if (sub.name_en && firstWord.toLowerCase() === sub.name_en.toLowerCase()) return true;
       return false;

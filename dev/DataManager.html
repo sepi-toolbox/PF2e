@@ -167,7 +167,8 @@ const DM = (function(){
        // 7컬럼 정규화(v0.162): 그룹(owner)·효과타입(type)·대상(target)·값(value)·값종류(bonus_type)·조건(condition)·조건밸류(cond_value). 뒤는 보조 메타.
        cols:['owner_kind','owner_slug','owner_name','type','target','value','bonus_type','condition','cond_value','rule','src','actionCost','summary','note','choice','option','option_name']},
     {id:'prereqs', label:'선행조건', kind:'derived', src:'data/derived/prereqs.json', shape:'rows',
-       cols:['slug','text','parsed','conds']},
+       // 정규화 1:N(효과 테이블과 동일 철학): 한 행=원자 조건, 한 컬럼=한 역할. group 같으면 OR·다르면 AND.
+       cols:['owner_slug','group','type','target','value','src_text']},
     {id:'spells',     label:'주문',     cat:'spells',     cols:['slug','name_en','name_ko','rank','traits_ko','range','area','defense','duration','rules_n','source']},
     {id:'equipment',  label:'장비',     cat:'equipment',  cols:['slug','name_en','name_ko','level','type','price','bulk','damage','traits_ko','source']},
     {id:'classes',    label:'클래스',   cat:'classes',    cols:['slug','name_en','name_ko','boost_fixed','boost_free','boost_choice','boost_flaws','casting','tradition','hp','perception','saves','attacks','defenses','source']},
@@ -422,8 +423,16 @@ const DM = (function(){
     features:      { tabs:['classfeatures','feats','spells'] },            // 성장표 클래스특성 — slug별로 맞는 탭 자동 링크(기술 등 비내비 slug=평문)
     traits_ko:     { tab:'traits' },                                      // 특성 slug → 특성 레지스트리(오타/미등록 탐지)
     traits:        { tab:'traits' },                                      // 크리처/해저드 등 raw 특성 컬럼
-    owner_slug:    { tab:r=>_OWNER_TAB[r.owner_kind] || null },            // 효과행 소유 엔티티(owner_kind로 탭 결정)
-    target:        { tab:r=>r.type==='grant_feat' ? 'feats' : (/spell/.test(r.type||'') ? 'spells' : null) }, // 부여 대상(재주/주문일 때만)
+    owner_slug:    { tab:r=>_OWNER_TAB[r.owner_kind] || null },            // 효과/선행조건행 소유 엔티티(owner_kind로 탭 결정; 선행조건은 owner_kind='feat')
+    target:        { tab:r=>{                                             // 부여/선행조건 대상 → type별 대상 탭
+                       const t=r.type||'';
+                       if(t==='grant_feat'||t==='feat') return 'feats';
+                       if(/spell/.test(t)) return 'spells';
+                       if(t==='subclass') return 'subclasses';
+                       if(t==='heritage') return 'heritages';
+                       if(t==='ancestry') return 'ancestries';
+                       return null;                                        // skill/ability/perception/lore/narrative=평문
+                     } },
   };
   const refSlugSets={};   // tabId → Set(slug) 검증 캐시
   function refSlugsOf(r,col){ const d=REFNAV[col]; if(!d)return null;
