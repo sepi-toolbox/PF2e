@@ -1,0 +1,187 @@
+{
+ "note": "클레릭 교의(Doctrine) 정본 — 레벨별 숙련성장(prof_changes)+주문시전 발전(features)+부여재주. FVTT 컴펜디움에 없는 기계효과(수작업 정본, PC1/PC2). DataManager 단일소스, 런타임 SUBCLASS_DB에 주입.",
+ "rows": [
+  {
+   "id": "doctrine-cloistered",
+   "class_id": "cleric",
+   "subclass_type": "교리",
+   "name_ko": "수도원 성직자",
+   "name_en": "Cloistered Cleric",
+   "desc": "신성 마법과 신격의 영역에 집중하는 성직자입니다.<br><strong>1차 교의(1레벨):</strong> 영역 입문 클레릭 재주를 얻습니다.<br><strong>2차 교의(3레벨):</strong> 인내 내성 → 전문가.<br><strong>3차 교의(7레벨):</strong> 주문 명중/DC → 전문가.<br><strong>4차 교의(11레벨):</strong> 신격 선호 무기, 단순 무기, 비무장 → 전문가. 선호 무기 치명 성공 시 치명 특수 효과 적용; 클래스 DC 대신 주문 DC 사용 가능.<br><strong>5차 교의(15레벨):</strong> 주문 명중/DC → 달인.<br><strong>최종 교의(19레벨):</strong> 주문 명중/DC → 전설.",
+   "granted_skills": [],
+   "granted_feats": [
+    "domain-initiate"
+   ],
+   "granted_spells": [],
+   "features": [
+    {
+     "lv": 3,
+     "name_ko": "전문가 주문시전자",
+     "name_en": "Expert Spellcaster",
+     "desc": "주문 시전 능력이 한 단계 더 발전했습니다. 주문 명중과 주문 DC의 숙련도가 전문가로 증가합니다.",
+     "slug": "expert-spellcaster"
+    },
+    {
+     "lv": 15,
+     "name_ko": "달인 주문시전자",
+     "name_en": "Master Spellcaster",
+     "desc": "주문 시전에 대한 달인급 숙달을 달성했습니다. 주문 명중과 주문 DC의 숙련도가 달인으로 증가합니다.",
+     "slug": "master-spellcaster"
+    },
+    {
+     "lv": 19,
+     "name_ko": "전설 주문시전자",
+     "name_en": "Legendary Spellcaster",
+     "desc": "마법의 완벽한 숙달을 이루었습니다. 주문 명중과 주문 DC의 숙련도가 전설로 증가합니다.",
+     "slug": "legendary-spellcaster"
+    }
+   ],
+   "prof_changes": {
+    "fort": {
+     "1": 2,
+     "3": 4
+    },
+    "spatk": {
+     "1": 2,
+     "7": 4,
+     "15": 6,
+     "19": 8
+    },
+    "weapon-simple": {
+     "11": 4
+    },
+    "weapon-unarmed": {
+     "11": 4
+    },
+    "ref": {
+     "1": 2,
+     "11": 4
+    },
+    "will": {
+     "1": 4,
+     "9": 6,
+     "17": 8
+    },
+    "armor-light": {
+     "1": 2
+    },
+    "armor-unarmored": {
+     "1": 2
+    }
+   }
+  },
+  {
+   "id": "doctrine-warpriest",
+   "class_id": "cleric",
+   "subclass_type": "교리",
+   "name_ko": "전투 사제",
+   "name_en": "Warpriest",
+   "desc": "주문과 전투 모두에 능한 전투적 성직자입니다.<br><strong>1차 교의(1레벨):</strong> 경갑·평갑 숙련, 인내 내성 → 전문가, 방패 막기 재주 획득. 신격 선호 무기가 단순/비무장이면 치명적 소박함 재주 획득. 13레벨에 신성 방어 획득 시 경갑·평갑 → 전문가.<br><strong>2차 교의(3레벨):</strong> 군용 무기 숙련.<br><strong>3차 교의(7레벨):</strong> 신격 선호 무기, 군용/단순/비무장 → 전문가. 선호 무기 치명 성공 시 치명 특수 효과; 클래스 DC 대신 주문 DC 사용 가능.<br><strong>4차 교의(11레벨):</strong> 주문 명중/DC → 전문가.<br><strong>5차 교의(15레벨):</strong> 인내 내성 → 달인. 인내 성공 시 대성공.<br><strong>최종 교의(19레벨):</strong> 신격 선호 무기, 주문 명중/DC → 달인.",
+   "granted_skills": [],
+   "granted_feats": [
+    "shield-block"
+   ],
+   "granted_spells": [],
+   "features": [
+    {
+     "lv": 1,
+     "name_ko": "경갑·평갑 훈련 + 인내 전문가",
+     "name_en": "First Doctrine",
+     "desc": "전쟁사제 교리를 따르는 전투 훈련을 받습니다. 경갑과 평갑(중갑)에 훈련되고, 인내 내성 숙련도가 전문가로 증가하며, 방패 막기 재주를 얻습니다. 신격 선호 무기가 단순 무기나 비무장이면 치명적 소박함 재주도 얻습니다.",
+     "slug": "warpriest-martial-armor-training"
+    },
+    {
+     "lv": 3,
+     "name_ko": "군용 무기 훈련",
+     "name_en": "Second Doctrine",
+     "desc": "2차 교의로 군용 무기에 훈련됩니다.",
+     "slug": "warpriest-second-doctrine"
+    },
+    {
+     "lv": 3,
+     "name_ko": "반사 전문가",
+     "name_en": "Expert Reflex",
+     "desc": "전투 경험을 통해 반사신경이 향상됩니다. 반사 내성 숙련도가 전문가로 증가합니다.",
+     "slug": "warpriest-expert-reflex"
+    },
+    {
+     "lv": 7,
+     "name_ko": "무기 전문가",
+     "name_en": "Third Doctrine",
+     "desc": "신격 선호 무기, 군용·단순 무기, 비무장 공격에 전문가가 됩니다. 선호 무기로 명중에 대성공하면 무기의 치명적 특수화 효과를 적용하고, 클래스 DC 대신 주문 DC를 쓸 수 있습니다.",
+     "slug": "warpriest-third-doctrine"
+    },
+    {
+     "lv": 11,
+     "name_ko": "전문가 주문시전자",
+     "name_en": "Expert Spellcaster",
+     "desc": "주문 시전 능력이 한 단계 더 발전했습니다. 주문 명중과 주문 DC의 숙련도가 전문가로 증가합니다.",
+     "slug": "expert-spellcaster"
+    },
+    {
+     "lv": 15,
+     "name_ko": "인내 달인",
+     "name_en": "Fifth Doctrine",
+     "desc": "인내 내성 숙련도가 달인으로 증가합니다. 인내 내성에서 성공을 굴리면 대성공으로 취급됩니다.",
+     "slug": "warpriest-fifth-doctrine"
+    },
+    {
+     "lv": 19,
+     "name_ko": "달인 주문시전자",
+     "name_en": "Master Spellcaster",
+     "desc": "신격 선호 무기, 주문 명중, 주문 DC의 숙련도가 달인으로 증가합니다.",
+     "slug": "master-spellcaster"
+    }
+   ],
+   "prof_changes": {
+    "fort": {
+     "1": 4,
+     "15": 6
+    },
+    "spatk": {
+     "1": 2,
+     "11": 4,
+     "19": 6
+    },
+    "ref": {
+     "1": 2,
+     "3": 4
+    },
+    "will": {
+     "1": 4,
+     "9": 6
+    },
+    "weapon-martial": {
+     "3": 2,
+     "7": 4
+    },
+    "weapon-simple": {
+     "1": 2,
+     "7": 4
+    },
+    "weapon-unarmed": {
+     "1": 2,
+     "7": 4
+    },
+    "armor-light": {
+     "1": 2,
+     "13": 4,
+     "17": 6
+    },
+    "armor-medium": {
+     "1": 2,
+     "13": 4,
+     "17": 6
+    },
+    "armor-heavy": {
+     "1": 2
+    },
+    "armor-unarmored": {
+     "1": 2,
+     "13": 4,
+     "17": 6
+    }
+   }
+  }
+ ]
+}

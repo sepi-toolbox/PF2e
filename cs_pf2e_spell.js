@@ -8,12 +8,12 @@
   const isNode = typeof window === 'undefined';
   const PF = root.PF2eData || (isNode ? require('/tmp/PF2e-publish/dev/cs_pf2e.js') : null);
 
-  let _ready = false, _lang = null, _index = null, _list = null;
+  let _ready = false, _index = null, _list = null;
 
-  const AREA_KO = { burst: '폭발', emanation: '방출', cone: '원뿔', line: '직선', square: '사각', cube: '정육면체', sphere: '구체', radius: '반경' };
+  const AREA_KO = { burst: '폭발', emanation: '발산', cone: '원뿔', line: '직선', square: '사각', cube: '정육면체', sphere: '구체', radius: '반경' };
   const SAVE_KO = { reflex: '반사', fortitude: '인내', will: '의지' };
 
-  function _traitKo(slug) { return (_lang && _lang.traits && _lang.traits[slug]) || slug; }
+  function _traitKo(slug) { return PF.traitKo(slug); }  // 공용 글로서리(cs_pf2e.js) 단일 소스로 위임
   function _rangeKo(v) {
     if (!v) return '';
     return String(v).replace(/\s*\bfeet\b/gi, '피트').replace(/\s*\bfoot\b/gi, '피트').replace(/\s*\bmiles?\b/gi, '마일')
@@ -37,21 +37,10 @@
     return v; // "1"|"2"|"3" 또는 "1 minute" 등
   }
 
-  function _loadLangSync() {
-    if (!isNode) return;
-    const fs = require('fs');
-    for (const p of ['data/overlay/_lang.ko.json', 'dev/data/overlay/_lang.ko.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} }
-    _lang = _lang || { traits: {} };
-  }
-  async function _loadLangAsync() {
-    if (root.PF2eAnc && root.PF2eAnc._glossary) { _lang = { traits: { /* lazy via glossary */ } }; }
-    try { const r = await fetch('data/overlay/_lang.ko.json'); _lang = await r.json(); } catch (e) { _lang = { traits: {} }; }
-  }
-
   async function init() {
     if (_ready) return;
-    if (isNode) { PF.loadCategorySync('spells'); _loadLangSync(); }
-    else await Promise.all([PF.loadCategory('spells'), _loadLangAsync()]);
+    if (isNode) { PF.loadCategorySync('spells'); }
+    else await Promise.all([PF.loadCategory('spells'), PF.loadGlossary()]);
     _build();
     _ready = true;
   }

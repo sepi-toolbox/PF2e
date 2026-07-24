@@ -55,13 +55,17 @@ function _getFeatEffectsDef(nameEn) {
   let choice = null, choiceEffects = null;
   if (choiceE) {
     choice = { type: choiceE.kind || '' };
+    if (choiceE.id) choice.id = choiceE.id;   // 영역 등 동적 옵션 choice 판별용(isDomainChoice)
     if (choiceE.label) choice.label = choiceE.label;
     if (choiceE.filter && typeof choiceE.filter === 'object') Object.assign(choice, choiceE.filter);
     const opts = choiceE.options || [];
-    if (choiceE.kind === 'custom') choice.options = opts.map(o => ({ id: o.option_id, name: o.option_name }));
-    else if (choiceE.kind === 'skill_defaults') choice.defaults = opts.filter(o => o.is_default).map(o => o.option_id);
+    // 옵션 필드는 두 표기 허용: option_id/option_name(레거시) 또는 id/name(큐레이션 choice.options).
+    const _oid = o => { const v = (o.option_id != null ? o.option_id : (o.id != null ? o.id : o.value)); return v == null ? '' : v; };
+    const _onm = o => o.option_name || o.name || o.label || '';
+    if (choiceE.kind === 'custom' || choiceE.kind === 'familiar_pick') choice.options = opts.map(o => ({ id: _oid(o), name: _onm(o) }));
+    else if (choiceE.kind === 'skill_defaults') choice.defaults = opts.filter(o => o.is_default).map(_oid);
     for (const o of opts) {
-      if (o.rows && o.rows.length) { (choiceEffects = choiceEffects || {})[o.option_id] = o.rows.map(_rowToEffect); }
+      if (o.rows && o.rows.length) { (choiceEffects = choiceEffects || {})[_oid(o)] = o.rows.map(_rowToEffect); }
     }
   }
   const def = { effects };
@@ -93,19 +97,10 @@ function applyFeatEffects() {
   const level = getLevel();
 
   // ═══ 재주 부여 효과 재구축: 이전 사이클 정리 ═══
+  // 지식(lore)은 출처 기반 — collectLoreSource로 수집만 하고 배정/정리는 assignLoreSlots(recalcAll)가 담당.
+  //   (state._loreSources는 rebuildCoreEffects가 recalc 시작 시 리셋함.)
 
-  // grant_lore: 지식 슬롯 초기화
-  (state._featGrantedLores || []).forEach(entry => {
-    const nameEl = document.getElementById('lore-name-' + entry.slot);
-    const profEl = document.getElementById('sk-prof-' + entry.slot);
-    if (nameEl && nameEl.value === entry.name) {
-      nameEl.value = '';
-      if (profEl) profEl.value = '0';
-    }
-  });
-  state._featGrantedLores = [];
-
-  // skill_trained: 재주가 부여한 기술 숙련 → 이전 값으로 복원
+  // skill_trained: 재주가 부여한 기술 숙련 → 이전 값으로 복원 (출처별 prevRank, 매 recalc 재빌드)
   (state._featGrantedSkills || []).forEach(entry => {
     const profEl = document.getElementById('sk-prof-' + entry.skill);
     if (profEl && parseInt(profEl.value || 0) === entry.rank) {
@@ -113,6 +108,16 @@ function applyFeatEffects() {
     }
   });
   state._featGrantedSkills = [];
+
+  // proficiency(무기/방어 숙련등급): 재주 부여분 복원 (출처별 prevRank — skill_trained과 동일 패턴)
+  //   출처(재주) 제거 시 다음 recalc에서 재적용되지 않아 base로 복원됨(유령 잔존 방지).
+  (state._featGrantedProfs || []).forEach(entry => {
+    const profEl = document.getElementById('prof-' + entry.target);
+    if (profEl && parseInt(profEl.value || 0) === entry.rank) {
+      profEl.value = String(entry.prevRank || 0);
+    }
+  });
+  state._featGrantedProfs = [];
 
   // grant_focus_spell: _sourceFeat 있는 집중 주문 제거
   if (state.spells?.focus) {
@@ -140,6 +145,23 @@ function applyFeatEffects() {
       }
     }
   });
+
+  // 선택 기반 부여($choice grant_feat, order-explorer 등): owner의 현재 choice와 slug가 다르면 stale → 제거(선택 변경 반영).
+  //   부모 생존이면 위 루프가 안 지우므로 별도 처리. 매 recalc 재빌드로 최신 choice만 유지.
+  {
+    const _allFeatsFlat = Object.values(state.feats).flat().filter(f => f);
+    Object.values(state.feats).forEach(arr => {
+      if (!arr) return;
+      for (let i = arr.length - 1; i >= 0; i--) {
+        const g = arr[i];
+        if (g && g._choiceGrant && g._grantedBy) {
+          const owner = _allFeatsFlat.find(f => _fslug(f) === _fslug(g._grantedBy));
+          const ownerChoice = owner && owner.choice;
+          if (!ownerChoice || _fslug(g) !== _fslug(ownerChoice)) arr.splice(i, 1);
+        }
+      }
+    });
+  }
 
   // 시야: 매 사이클 혈통 기본 → 유산 업그레이드 재적용 (재주 시야는 아래 효과 루프에서 max로 적용)
   // (v0.5 P4: 유산 단독 시야[동굴 엘프 등]가 _featVisionUpgrade 게이트에 막혀 미적용되던 버그 수정 — 항상 재계산)
@@ -289,11 +311,18 @@ function _applyOneEffect(fb, eff, feat, level) {
       // 1건(갑옷 숙련) 사용, choice 시스템 통합은 Phase 3a 이후 별도 작업
       break;
     case 'proficiency': {
-      // 숙련도 직접 부여 (v531~) — target=DOM id suffix, rank=숫자
-      if (eff.target && typeof eff.rank === 'number') {
-        const profEl = document.getElementById('prof-' + eff.target);
-        if (profEl && parseInt(profEl.value || 0) < eff.rank) {
-          profEl.value = String(eff.rank);
+      // 숙련도 부여 (v0.166 배선) — target=FVTT 경로 → _profTargetToDom로 표준 카테고리 DOM 매핑, value=랭크 숫자.
+      //   상향덮기(prevRank<rank): 재주/아키타입이 성장표(섀시)보다 높은 숙련을 주면 덮고, 아니면 기존 유지.
+      //   개별무기·시전별칭·공식값(@actor/max/ternary)은 매핑/파싱 불가 → 미적용(섀시가 담당).
+      const _pDom = (typeof _profTargetToDom === 'function') ? _profTargetToDom(eff.target) : null;
+      const _pRank = (typeof eff.value === 'number') ? eff.value
+        : (typeof eff.value === 'string' && /^\d+$/.test(eff.value.trim())) ? parseInt(eff.value, 10) : NaN;
+      if (_pDom && Number.isFinite(_pRank)) {
+        const profEl = document.getElementById('prof-' + _pDom);
+        const prevRank = parseInt(profEl?.value || 0);
+        if (profEl && prevRank < _pRank) {
+          state._featGrantedProfs.push({target: _pDom, rank: _pRank, feat: feat.name, prevRank});
+          profEl.value = String(_pRank);
         }
       }
       break;
@@ -327,16 +356,20 @@ function _applyOneEffect(fb, eff, feat, level) {
     }
     case 'grant_feat': {
       // 재주 자동 부여 — eff.feat = slug(신) 또는 이름(구/override). getFeat이 둘 다 해소, dedup·저장은 slug 기준.
-      if (eff.feat && feat.name) {
-        const gf = getFeat(eff.feat);
+      //   $choice = 소유 재주의 인라인 선택값(order-explorer/multifarious-muse 등: 선택한 1레벨 재주를 부여). 미선택이면 skip.
+      const isChoiceGrant = eff.feat === '$choice';
+      const featRef = isChoiceGrant ? (feat.choice || '') : eff.feat;
+      if (featRef && feat.name) {
+        const gf = getFeat(featRef);
         const gslug = gf?.id || null;
-        const gname = gf ? (gf.name_ko + (gf.name_en ? ` (${gf.name_en})` : '')) : eff.feat;
+        const gname = gf ? (gf.name_ko + (gf.name_en ? ` (${gf.name_en})` : '')) : featRef;
         const alreadyHas = gslug
           ? Object.values(state.feats).flat().some(f => f && featSlug(f) === gslug)
-          : Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(String(eff.feat).split(' (')[0]));
+          : Object.values(state.feats).flat().some(f => f && f.name && f.name.includes(String(featRef).split(' (')[0]));
         if (!alreadyHas) {
           if (!state.feats.general) state.feats.general = [];
           const entry = {id: gslug, name: gname, level: 1, _auto: true, _grantedBy: feat.id || feat.name};
+          if (isChoiceGrant) entry._choiceGrant = true;   // 선택 변경 시 stale 정리용(cleanup에서 owner.choice와 대조)
           // defaultChoice: 자식 재주의 초기 choice 설정 (사용자 변경 가능)
           if (eff.defaultChoice) entry.choice = eff.defaultChoice;
           state.feats.general.push(entry);
@@ -415,6 +448,33 @@ function _applyOneEffect(fb, eff, feat, level) {
         const sp = id ? getSpell(id) : null;
         spellName = sp ? sp.name_ko : '';
         spellId = sp?.id || null;
+      } else if (spellName === '$bloodline_advanced' || spellName === '$bloodline_greater') {
+        // 소서러 중급/고급 혈통 집중주문 = 현재 선택한 혈통(state.selectedSubclass)에서 해소(BLOODLINE_DB).
+        //   Advanced/Greater Bloodline 재주가 이 효과행 소유(대원칙 0: 재주→효과 탭). 혈통 미선택 시 미부여.
+        const bid = state.selectedSubclass && state.selectedSubclass.id;
+        const bl = bid && typeof BLOODLINE_DB !== 'undefined' ? BLOODLINE_DB[bid] : null;
+        const id = bl ? (spellName === '$bloodline_advanced' ? bl.advanced : bl.greater) : null;
+        const sp = id ? getSpell(id) : null;
+        spellName = sp ? sp.name_ko : '';
+        spellId = sp?.id || null;
+      } else if (spellName === '$mystery_advanced' || spellName === '$mystery_greater') {
+        // 오라클 상급/고급 계시주문 = 현재 선택한 신비(state.selectedSubclass)에서 해소(MYSTERY_DB.revelation).
+        //   상급 계시/대계시 재주가 이 효과행 소유(대원칙 0: 재주→효과 탭). 신비 미선택 시 미부여.
+        const mid = state.selectedSubclass && state.selectedSubclass.id;
+        const my = mid && typeof MYSTERY_DB !== 'undefined' ? MYSTERY_DB[mid] : null;
+        const id = my && my.revelation ? (spellName === '$mystery_advanced' ? my.revelation.advanced : my.revelation.greater) : null;
+        const sp = id ? getSpell(id) : null;
+        spellName = sp ? sp.name_ko : '';
+        spellId = sp?.id || null;
+      } else if (spellName === '$school_advanced') {
+        // 위저드 상급 학파 주문 = 현재 선택한 학파(state.selectedSubclass)에서 해소(WIZARD_SCHOOL_DB.school_spell.advanced).
+        //   「고급 학파 주문」 재주가 이 효과행 소유(대원칙 0: 재주→효과 탭). 학파 미선택 시 미부여.
+        const wid = state.selectedSubclass && state.selectedSubclass.id;
+        const ws = wid && typeof WIZARD_SCHOOL_DB !== 'undefined' ? WIZARD_SCHOOL_DB[wid] : null;
+        const id = ws && ws.school_spell ? ws.school_spell.advanced : null;
+        const sp = id ? getSpell(id) : null;
+        spellName = sp ? sp.name_ko : '';
+        spellId = sp?.id || null;
       } else {
         const _sp = getSpell(spellName);  // slug(신) 또는 이름(구) 해소
         spellId = _sp?.id || null;
@@ -431,30 +491,21 @@ function _applyOneEffect(fb, eff, feat, level) {
       break;
     }
     case 'grant_lore': {
-      // 빈 지식 슬롯을 찾아 이름 설정 + 숙련 부여
+      // 출처 기반 지식 부여 — 이 재주(feat)가 하나의 출처=슬롯 점유. 이름 미입력이어도 점유(빈 이름 허용).
+      //   레벨 스케일(prof_by_level, 예: 추가 지식 [[1,2],[3,4],[7,6],[15,8]] → 3/7/15레벨에 전문가·달인·전설)은
+      //   이름과 무관하게 적용. 배정/초과는 assignLoreSlots(recalcAll)가 처리.
       let loreName = eff.name || '';
       if (loreName === '$choice') loreName = feat.choice || '';
-      if (!loreName) break;
-      const slots = ['lore1','lore2'];
-      for (const sid of slots) {
-        const nameEl = document.getElementById('lore-name-'+sid);
-        const profEl = document.getElementById('sk-prof-'+sid);
-        if (!nameEl) continue;
-        if (nameEl.value === loreName) {
-          if (profEl && parseInt(profEl.value||0) < 2) profEl.value = '2';
-          if (!fb.skills[sid]) fb.skills[sid] = {min_rank:0, bonus:0};
-          fb.skills[sid].min_rank = Math.max(fb.skills[sid].min_rank, 2);
-          state._featGrantedLores.push({slot: sid, name: loreName, feat: feat.name});
-          break;
-        }
-        if (!nameEl.value) {
-          nameEl.value = loreName;
-          if (profEl && parseInt(profEl.value||0) < 2) profEl.value = '2';
-          if (!fb.skills[sid]) fb.skills[sid] = {min_rank:0, bonus:0};
-          fb.skills[sid].min_rank = Math.max(fb.skills[sid].min_rank, 2);
-          state._featGrantedLores.push({slot: sid, name: loreName, feat: feat.name});
-          break;
-        }
+      if (typeof collectLoreSource === 'function') {
+        const _fk = (typeof featSlug === 'function' ? featSlug(feat) : null) || feat.id || feat.name || '?';
+        collectLoreSource({
+          key: 'feat:' + _fk + ':' + (feat.level || 1),
+          name: loreName,
+          rank: (typeof _loreRank === 'function') ? _loreRank(eff.prof_by_level) : 2,
+          kind: 'feat',
+          ref: feat,
+          fixed: false,
+        });
       }
       break;
     }
@@ -515,6 +566,11 @@ function _getChoiceDisplayName(feat) {
     const muse = SUBCLASS_DB.find(s => s.id === feat.choice);
     if (muse) return muse.name_ko + ' ' + (muse.subclass_type || '뮤즈');
   }
+  // 영역(도메인) 선택: DOMAIN_DB에서 한글 영역명
+  if ((def?.choice?.id === 'cho-domain-initiate' || def?.choice?.id === 'cho-advanced-domain')
+      && typeof DOMAIN_DB !== 'undefined' && feat.choice && DOMAIN_DB[feat.choice]) {
+    return DOMAIN_DB[feat.choice].name || feat.choice;
+  }
   // 커스텀 옵션이면 _getFeatEffectsDef로 def.choice.options 검색
   if (def && def.choice && def.choice.options) {
     const opt = def.choice.options.find(o => o.id === feat.choice);
@@ -541,7 +597,7 @@ function _hasFeatChoiceIssue(feat) {
     }
   }
   // choice 미선택
-  if (!feat.choice && (ch.type === 'lore' || ch.type === 'skill' || ch.type === 'custom')) return true;
+  if (!feat.choice && (ch.type === 'lore' || ch.type === 'skill' || ch.type === 'custom' || ch.type === 'familiar_pick')) return true;
   return false;
 }
 
@@ -565,6 +621,7 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
   const def = _getFeatEffectsDef(nameEn);
   if (!def || !def.choice) return '';
   const ch = def.choice;
+  const isDomainChoice = ch.id === 'cho-domain-initiate' || ch.id === 'cho-advanced-domain';
   const uid = `fc-${featType}-${featIndex}`;
   const current = feat.choice || '';
   const displayName = _getChoiceDisplayName(feat);
@@ -572,7 +629,39 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
   let html = `<div class="feat-choice-ctrl" style="margin-top:8px;padding:8px;background:var(--bg4);border-radius:6px;border:1px solid var(--border);">`;
   html += `<div style="font-size:11px;color:var(--accent);margin-bottom:6px;font-weight:600;">${ch.label || '선택'}</div>`;
 
-  if (ch.type === 'skill_fixed') {
+  if (isDomainChoice) {
+    // 영역 입문자/고급 영역: 현재 신격(성장계획 신격 슬롯)의 영역만. 선택 → 해당 영역 집중주문 부여.
+    const deity = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
+    const isAdv = ch.id === 'cho-advanced-domain';
+    const DB = (typeof DOMAIN_DB !== 'undefined') ? DOMAIN_DB : null;
+    if (!deity || !(Array.isArray(deity.domains) && deity.domains.length)) {
+      html += `<div style="font-size:11px;color:var(--text2);">먼저 <b>신격</b>을 선택하세요 (성장계획 🙏 신격 슬롯).</div>`;
+    } else {
+      let domSlugs = deity.domains.slice();
+      if (isAdv) {
+        const initiated = new Set();
+        Object.values(state.feats).flat().forEach(f => { if (f && featSlug(f) === 'domain-initiate' && f.choice) initiated.add(f.choice); });
+        domSlugs = domSlugs.filter(s => initiated.has(s));
+      }
+      if (isAdv && !domSlugs.length) {
+        html += `<div style="font-size:11px;color:var(--text2);">먼저 <b>영역 입문자</b>로 영역을 선택하세요.</div>`;
+      } else {
+        html += `<select id="${uid}" onchange="_onFeatChoiceInline('${featType}',${featIndex},'custom')"
+          style="width:100%;padding:6px 8px;font-size:13px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;outline:none;">
+          <option value="">— 영역 선택 —</option>`;
+        domSlugs.forEach(slug => {
+          const d = DB ? DB[slug] : null;
+          const spSlug = d ? (isAdv ? d.advanced : d.initial) : null;
+          const sp = (spSlug && typeof getSpell === 'function') ? getSpell(spSlug) : null;
+          const nm = (d && d.name) || slug;
+          const spName = sp ? (sp.name_ko || sp.name_en) : (spSlug || '');
+          html += `<option value="${slug}"${slug === current ? ' selected' : ''}>${nm}${spName ? ' — ' + spName : ''}</option>`;
+        });
+        html += `</select>`;
+        if (!current) html += `<div style="margin-top:4px;font-size:11px;color:#f44336;">⚠ 영역을 선택하세요.</div>`;
+      }
+    }
+  } else if (ch.type === 'skill_fixed') {
     const skills = typeof SKILLS !== 'undefined' ? SKILLS : [];
     const fixedId = ch.fixedSkill || '';
     const fixedName = skills.find(s => s.id === fixedId)?.name || fixedId;
@@ -588,6 +677,7 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
         style="padding:6px 12px;font-size:12px;background:var(--accent);color:var(--bg);border:none;border-radius:4px;cursor:pointer;white-space:nowrap;font-weight:600;">확인</button>
     </div>`;
     if (!current) html += `<div style="margin-top:4px;font-size:11px;color:#f44336;">⚠ 선택하지 않은 항목이 있습니다.</div>`;
+    else if (typeof loreSlotFullForFeat === 'function' && loreSlotFullForFeat(feat)) html += `<div style="margin-top:4px;font-size:11px;color:#ff9800;">⚠ 지식 슬롯(2칸)이 가득 차 아직 적용되지 않았습니다. 다른 지식 출처를 제거하면 자동으로 적용됩니다.</div>`;
   } else if (ch.type === 'skill') {
     const skills = typeof SKILLS !== 'undefined' ? SKILLS : [];
     const minRank = ch.filter?.min_rank || 0;
@@ -643,6 +733,9 @@ function _buildFeatChoiceUI(feat, featType, featIndex) {
     });
     html += `</select>`;
     if (!current) html += `<div style="margin-top:4px;font-size:11px;color:#f44336;">⚠ 선택하지 않은 항목이 있습니다.</div>`;
+  } else if (ch.type === 'feat_pick' && ch.inline) {
+    // 결단 탐험가/다중 뮤즈 등: 2단계(주 결단 제외 결단/뮤즈 선택 → 그 선결 1레벨 재주 선택) + 효과 정보 박스.
+    html += _explorerHtml(ch, uid, current, 'tab', featType, featIndex);
   } else {
     // 기타 타입 (spell_cantrip 등) — 기존 모달 사용
     const escapedName = feat.name.replace(/'/g, "\\'");
@@ -1085,7 +1178,7 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
     const candidates = PF2eEquip.legacyList({type:'weapon'}).filter(w => {
       if (w.rarity !== 'uncommon') return false;           // 비일반 희귀도만
       if (allMartialTrained) return true;                  // 고급 비일반도 허용
-      return w.category === '단순' || w.category === '군용'; // 그 외 단순/군용 비일반만
+      return w.catSlug === 'simple' || w.catSlug === 'martial'; // 그 외 단순/군용 비일반만 (원본 slug)
     });
 
     if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; searchEl.oninput = () => {
@@ -1123,41 +1216,8 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       container.appendChild(row);
     });
   } else if (choiceDef.type === 'feat_pick' && typeof _allFeats === 'function') {
-    // ── 범용 재주 선택 모달 (적응력, 자연 야심, 고급 일반 훈련 등) ──
-    let pickCat = choiceDef.pickCategory || 'general';
-    if (pickCat === '$class' && state.selectedClass) pickCat = state.selectedClass.id;
-    const pickMax = choiceDef.pickMaxLevel || 99;
-    const pickTraits = choiceDef.pickTraits || null;
-
-    // 이미 보유한 재주 (중복 방지) — slug 기준(이름 표기 무관)
-    const ownedSlugs = new Set();
-    for (const arr of Object.values(state.feats)) {
-      if (Array.isArray(arr)) arr.forEach(f => { const s = (typeof featSlug === 'function') ? featSlug(f) : (f && f.id); if (s) ownedSlugs.add(s); });
-    }
-
-    // 아이우바린 유산 보유 + skipPrereqIfAiuvarin이면 능력치 전제조건 생략
-    const isAiuvarin = state.selectedHeritage?.id === 'aiuvarin';
-    const skipPrereq = choiceDef.skipPrereqIfAiuvarin && isAiuvarin;
-    // 자기 클래스 헌신 slug = {classId}-dedication (이름 매칭 대체)
-    const myClassDedSlug = state.selectedClass ? state.selectedClass.id + '-dedication' : '';
-
-    // 소스 무관 통일: 클래스 pickCat은 _featInClass(FVTT category='class'+_classSlugs)로 판정
-    const _isClassPick = pickCat && !['ancestry','general','skill','archetype','feature','other','class'].includes(pickCat);
-    const candidates = _allFeats().filter(f => {
-      if (!f) return false;
-      if (_isClassPick) { if (!(typeof _featInClass === 'function' ? _featInClass(f, pickCat) : f.category === pickCat) && f.category !== 'archetype') return false; }
-      else if (f.category !== pickCat) return false;
-      if (f.feat_level > pickMax) return false;
-      if (pickTraits && !(f.traits && f.traits.some(t => pickTraits.includes(t)))) return false;
-      // 헌신 재주: 자기 클래스 헌신 제외 (slug 기준)
-      if (pickTraits?.includes('헌신') && myClassDedSlug && f.id === myClassDedSlug) return false;
-      // 전제조건 체크 (아이우바린이면 생략 가능)
-      if (f.prerequisites && !skipPrereq && typeof _checkPrereqs === 'function' && !_checkPrereqs(f.prerequisites)) return false;
-      // 헌신 재주 특수 조건 (다재다능은 skipDedicationLimit으로 무시)
-      if (f.traits?.includes('헌신') && !choiceDef.skipDedicationLimit && typeof canTakeDedication === 'function' && !canTakeDedication(f)) return false;
-      if (f.id && ownedSlugs.has(f.id)) return false;
-      return true;
-    });
+    // ── 범용 재주 선택 모달 (적응력, 자연 야심, 고급 일반 훈련 등) — 후보 산출은 공용 _featPickCandidates ──
+    const candidates = _featPickCandidates(choiceDef);
 
     if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; searchEl.oninput = () => {
       const q = searchEl.value.toLowerCase();
@@ -1199,6 +1259,108 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       };
       container.appendChild(row);
     });
+  }
+}
+
+// feat_pick 후보 산출 — 팝업/인라인 공용(원칙#1). choiceDef.filter: pickCategory·pickMaxLevel·pickTraits·grantTo +
+//   prereqPattern(선결에 이 문자열 포함해야 후보, 예 order-explorer='order') + skipPrereq(선결검사 생략, 예 결단탐험=결단 멤버십 부여).
+function _prereqStr(f) { let p = f && f.prerequisites; if (!p) return ''; if (p.value != null) p = p.value; if (Array.isArray(p)) return p.map(x => typeof x === 'string' ? x : (x && x.value) || '').join(' '); return String(p); }
+function _featPickCandidates(cd) {
+  if (typeof _allFeats !== 'function' || !cd) return [];
+  let pickCat = cd.pickCategory || 'general';
+  if (pickCat === '$class' && state.selectedClass) pickCat = state.selectedClass.id;
+  const pickMax = cd.pickMaxLevel || 99;
+  const pickTraits = cd.pickTraits || null;
+  const prereqRe = cd.prereqPattern ? new RegExp(cd.prereqPattern, 'i') : null;
+  const isAiuvarin = state.selectedHeritage?.id === 'aiuvarin';
+  const skipPrereq = cd.skipPrereq || (cd.skipPrereqIfAiuvarin && isAiuvarin);
+  const myClassDedSlug = state.selectedClass ? state.selectedClass.id + '-dedication' : '';
+  const _isClassPick = pickCat && !['ancestry', 'general', 'skill', 'archetype', 'feature', 'other', 'class'].includes(pickCat);
+  const ownedSlugs = new Set();
+  for (const arr of Object.values(state.feats)) if (Array.isArray(arr)) arr.forEach(f => { const s = (typeof featSlug === 'function') ? featSlug(f) : (f && f.id); if (s) ownedSlugs.add(s); });
+  return _allFeats().filter(f => {
+    if (!f) return false;
+    if (_isClassPick) { if (!(typeof _featInClass === 'function' ? _featInClass(f, pickCat) : f.category === pickCat) && f.category !== 'archetype') return false; }
+    else if (f.category !== pickCat) return false;
+    if (f.feat_level > pickMax) return false;
+    if (pickTraits && !([].concat(f.traitSlugs || [], f.traits || []).some(t => pickTraits.includes(t)))) return false;
+    if (pickTraits?.includes('dedication') && myClassDedSlug && f.id === myClassDedSlug) return false;
+    if (prereqRe && !prereqRe.test(_prereqStr(f))) return false;   // 선결 패턴(결단/뮤즈 요구 재주만)
+    if (f.prerequisites && !skipPrereq && typeof _checkPrereqs === 'function' && !_checkPrereqs(f.prerequisites)) return false;
+    if (typeof featHasTrait === 'function' && featHasTrait(f, 'dedication', '헌신') && !cd.skipDedicationLimit && typeof canTakeDedication === 'function' && !canTakeDedication(f)) return false;
+    if (f.id && ownedSlugs.has(f.id)) return false;
+    return true;
+  });
+}
+
+// ── 서브클래스 탐험형(결단 탐험가/다중 뮤즈 등): 주 서브클래스 제외한 결단/뮤즈 선택 → 그 선결 1레벨 재주 선택 ──
+//   cd.pickCategory=클래스(druid/bard), cd.prereqPattern=서브클래스 종류 키워드(order/muse). SUBCLASS_DB에서 해당 클래스 서브클래스를
+//   name_en으로 재주 선결과 매칭(예 "Untamed"→"untamed order", "Warrior"→"warrior muse"). 주 서브클래스(state.selectedSubclass)는 제외.
+function _subclassExplorerOptions(cd) {
+  const SD = (typeof SUBCLASS_DB !== 'undefined') ? SUBCLASS_DB : ((typeof window !== 'undefined' && window.SUBCLASS_DB) || []);
+  const cls = cd.pickCategory, primaryId = (state.selectedSubclass && state.selectedSubclass.id) || '';
+  const cands = _featPickCandidates(cd);
+  const out = [];
+  for (const sub of SD.filter(s => s && (s.class_id === cls || s.class === cls))) {
+    if (sub.id === primaryId) continue;   // 이미 고른 주 결단/뮤즈 제외
+    const key = (sub.name_en || sub.name_ko || '').toLowerCase().trim();
+    if (!key) continue;
+    const re = new RegExp('(^|[^a-z])' + key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '([^a-z]|$)', 'i');
+    const feats = cands.filter(f => re.test(_prereqStr(f)));
+    if (feats.length) out.push({ subId: sub.id, subName: sub.name_ko || sub.name_en || sub.id, feats });
+  }
+  return out;
+}
+// 선택 재주 정보 박스(효과 요약) — 고를 정보 제공.
+function _explorerFeatInfo(slug) {
+  if (!slug || typeof getFeat !== 'function') return '';
+  const f = getFeat(slug); if (!f) return '';
+  let desc = f.desc_ko || f._desc_ko || f.description || (f.description && f.description.value) || '';
+  desc = String(desc).replace(/<[^>]+>/g, '').replace(/@[A-Za-z]+\[[^\]]*\]({[^}]*})?/g, '').trim();
+  if (desc.length > 260) desc = desc.slice(0, 260) + '…';
+  const nm = f.name_ko + (f.name_en ? ` (${f.name_en})` : '');
+  return `<div style="font-weight:600;color:var(--accent);margin-bottom:3px;">${nm}</div><div>${desc || '(설명 없음)'}</div>`;
+}
+const _explorerCache = {};
+// 2단계 UI HTML. mode='modal'(→_modalChoices.featChoice) | 'tab'(→feat.choice+recalc). idPrefix로 DOM·캐시 구분.
+function _explorerHtml(cd, idPrefix, current, mode, featType, featIndex) {
+  const opts = _subclassExplorerOptions(cd);
+  _explorerCache[idPrefix] = { opts, mode, featType, featIndex };
+  let curOrder = '';
+  if (current) for (const o of opts) if (o.feats.some(f => f.id === current)) { curOrder = o.subId; break; }
+  const ss = 'width:100%;padding:6px 8px;font-size:13px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;outline:none;margin-bottom:6px;';
+  let h = `<select id="${idPrefix}-ord" onchange="_onExplorerOrder('${idPrefix}')" style="${ss}"><option value="">— 결단/뮤즈 선택 —</option>`;
+  h += opts.map(o => `<option value="${o.subId}"${o.subId === curOrder ? ' selected' : ''}>${o.subName}</option>`).join('') + `</select>`;
+  h += `<select id="${idPrefix}-feat" onchange="_onExplorerFeat('${idPrefix}')" style="${ss}${curOrder ? '' : 'display:none;'}">`;
+  if (curOrder) { const o = opts.find(x => x.subId === curOrder); h += `<option value="">— 재주 선택 —</option>` + o.feats.map(f => `<option value="${f.id}"${f.id === current ? ' selected' : ''}>${f.name_ko}${f.name_en ? ' (' + f.name_en + ')' : ''}</option>`).join(''); }
+  h += `</select>`;
+  h += `<div id="${idPrefix}-info" style="font-size:11px;line-height:1.5;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;${current ? '' : 'display:none;'}">${current ? _explorerFeatInfo(current) : ''}</div>`;
+  if (!current) h += `<div id="${idPrefix}-warn" style="margin-top:4px;font-size:11px;color:#f44336;">⚠ 결단/뮤즈와 재주를 선택하세요.</div>`;
+  return h;
+}
+function _onExplorerOrder(idPrefix) {
+  const cache = _explorerCache[idPrefix]; if (!cache) return;
+  const ordEl = document.getElementById(idPrefix + '-ord'), featEl = document.getElementById(idPrefix + '-feat'), infoEl = document.getElementById(idPrefix + '-info');
+  const o = cache.opts.find(x => x.subId === ordEl.value);
+  if (!o) { if (featEl) featEl.style.display = 'none'; if (infoEl) infoEl.style.display = 'none'; return; }
+  featEl.innerHTML = `<option value="">— 재주 선택 —</option>` + o.feats.map(f => `<option value="${f.id}">${f.name_ko}${f.name_en ? ' (' + f.name_en + ')' : ''}</option>`).join('');
+  featEl.style.display = '';
+  // 결단에 재주가 하나면 자동 선택
+  if (o.feats.length === 1) { featEl.value = o.feats[0].id; _onExplorerFeat(idPrefix); }
+  else if (infoEl) infoEl.style.display = 'none';
+}
+function _onExplorerFeat(idPrefix) {
+  const cache = _explorerCache[idPrefix]; if (!cache) return;
+  const featEl = document.getElementById(idPrefix + '-feat'), infoEl = document.getElementById(idPrefix + '-info');
+  const val = featEl ? featEl.value : '';
+  if (infoEl) { infoEl.innerHTML = val ? _explorerFeatInfo(val) : ''; infoEl.style.display = val ? '' : 'none'; }
+  const warnEl = document.getElementById(idPrefix + '-warn'); if (warnEl) warnEl.style.display = val ? 'none' : '';
+  if (cache.mode === 'modal') { if (typeof _modalChoices !== 'undefined' && _modalChoices) _modalChoices.featChoice = val; }
+  else if (cache.mode === 'tab' && cache.featType != null && state.feats[cache.featType]?.[cache.featIndex]) {
+    state.feats[cache.featType][cache.featIndex].choice = val;
+    if (typeof renderFeats === 'function') renderFeats();   // 커밋 상태·부여 재주 반영(컨트롤 재빌드)
+    try { recalcAll(); } catch (e) { console.error(e); }
+    if (typeof save === 'function') save();
   }
 }
 
@@ -1296,9 +1458,10 @@ function checkFeatChoice(featName, featType, featIndex) {
   const def = _getFeatEffectsDef(nameEn);
   if (def && def.choice) {
     const t = def.choice.type;
-    // 인라인 컨트롤이 있는 타입은 팝업 생략 → 재주 탭에서 선택.
-    // 단 lore(지식 분야 입력)는 획득 즉시 팝업으로 프롬프트(발견성 — "얻어도 아무 일 없음" 방지). 인라인 편집 UI는 유지.
-    if (t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || (t === 'custom' && def.choice.options)) {
+    // 인라인 컨트롤이 있는 타입(기술/지식/커스텀)은 팝업 생략 → 선택 모달 상세 패널의 인라인 UI
+    //   (_buildFeatModalChoiceUI, 배경 지식 입력과 동일 방식) + 재주 탭 인라인에서 입력/편집.
+    if (t === 'skill' || t === 'skill_fixed' || t === 'skill_defaults' || t === 'lore' || ((t === 'custom' || t === 'familiar_pick') && def.choice.options)
+        || (t === 'feat_pick' && def.choice.inline)) {   // 인라인 재주선택(결단탐험 등)=팝업 생략, 상세패널/재주탭 드롭다운
       return false;
     }
     openFeatChoiceModal(featType, featIndex, def.choice);

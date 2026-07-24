@@ -7,90 +7,7 @@
 //  target = DOM element suffix (prof-{target})
 // ═══════════════════════════════════════════════
 
-var CLASS_PROF_TABLE = {
-  bard: {
-    fort:{1:2, 9:4},
-    ref:{1:2, 3:4},
-    will:{1:4, 9:6},
-    perc:{1:4, 11:6},
-    spatk:{1:2, 7:4, 15:6, 19:8},
-    classdc:{1:2},
-    'weapon-simple':{1:2, 11:4}, 'weapon-unarmed':{1:2, 11:4},
-    'armor-light':{1:2, 13:4, 17:6}, 'armor-unarmored':{1:2, 13:4, 17:6},
-  },
-  cleric: {
-    fort:{1:2},           // doctrine overrides
-    ref:{1:2},            // doctrine overrides
-    will:{1:4, 9:6},     // L9 확고한 신앙
-    perc:{1:2, 5:4, 11:6},
-    spatk:{1:2}, // doctrine overrides this
-    classdc:{1:2},
-    'weapon-simple':{1:2}, 'weapon-unarmed':{1:2},
-    'armor-unarmored':{1:2},
-  },
-  druid: {
-    fort:{1:2, 3:4},
-    ref:{1:2, 5:4},
-    will:{1:4, 11:6},
-    perc:{1:2, 3:4},
-    spatk:{1:2, 7:4, 15:6, 19:8},
-    classdc:{1:2},
-    'weapon-simple':{1:2, 11:4}, 'weapon-unarmed':{1:2, 11:4},
-    'armor-light':{1:2, 13:4}, 'armor-medium':{1:2, 13:4}, 'armor-unarmored':{1:2, 13:4},
-  },
-  fighter: {
-    fort:{1:4, 9:6, 17:8},
-    ref:{1:4, 15:6},
-    will:{1:2, 3:4, 17:6},
-    perc:{1:4, 7:6, 13:8},
-    classdc:{1:2, 9:4},
-    'weapon-simple':{1:4, 5:6, 13:8}, 'weapon-martial':{1:4, 5:6, 13:8},
-    'weapon-advanced':{1:2, 5:4, 13:6}, 'weapon-unarmed':{1:4, 5:6, 13:8},
-    'armor-light':{1:2, 11:4, 17:6}, 'armor-medium':{1:2, 11:4, 17:6},
-    'armor-heavy':{1:2, 11:4, 17:6}, 'armor-unarmored':{1:2, 11:4, 17:6},
-  },
-  ranger: {
-    fort:{1:4, 9:6},
-    ref:{1:4, 15:6},
-    will:{1:2, 3:4, 17:6},
-    perc:{1:4, 7:6, 15:8},
-    classdc:{1:2, 9:4},
-    'weapon-simple':{1:2, 5:4, 13:6}, 'weapon-martial':{1:2, 5:4, 13:6},
-    'weapon-unarmed':{1:2, 5:4, 13:6},
-    'armor-light':{1:2, 11:4, 17:6}, 'armor-medium':{1:2, 11:4, 17:6},
-    'armor-unarmored':{1:2, 11:4, 17:6},
-  },
-  rogue: {
-    fort:{1:2, 9:4},
-    ref:{1:4, 13:6, 17:8},
-    will:{1:4, 17:6},
-    perc:{1:4, 7:6, 13:8},
-    classdc:{1:2, 9:4},
-    'weapon-simple':{1:2, 11:4}, 'weapon-unarmed':{1:2, 11:4},
-    // Rogue also trains rapier, sap, shortbow, shortsword specifically
-    'armor-light':{1:2, 13:4, 17:6}, 'armor-unarmored':{1:2, 13:4, 17:6},
-  },
-  witch: {
-    fort:{1:2, 5:4},    // L5 마법 인내 Magical Fortitude
-    ref:{1:2, 9:4},     // L9 반사 전문가
-    will:{1:4, 9:6, 17:8},
-    perc:{1:2, 5:4, 11:6},
-    spatk:{1:2, 7:4, 15:6, 19:8},
-    classdc:{1:2},
-    'weapon-simple':{1:2}, 'weapon-unarmed':{1:2},
-    'armor-unarmored':{1:2},
-  },
-  wizard: {
-    fort:{1:2, 9:4},
-    ref:{1:2, 5:4},
-    will:{1:4, 9:6, 17:8},
-    perc:{1:2, 5:4, 11:6},
-    spatk:{1:2, 7:4, 15:6, 19:8},
-    classdc:{1:2},
-    'weapon-simple':{1:2}, 'weapon-unarmed':{1:2},
-    'armor-unarmored':{1:2},
-  },
-};
+// CLASS_PROF_TABLE 폐기 → DataManager 단일 소스(class_progression.json)에서 런타임 구성(cs_pf2e_class).
 
 // ═══════════════════════════════════════════════
 //  SUBCLASS PROFICIENCY TABLE — overrides CLASS entries
@@ -111,49 +28,19 @@ var CLASS_FEATURE_NAMES = {};
 //  AUTO-GRANTED FEATS — class features that grant feats
 // ═══════════════════════════════════════════════
 
-// id(=FVTT slug)가 정본 식별자 — 소비처는 id로 카탈로그를 해소(getFeat(id)). name_ko/name_en은
-// slug 미해소 시 폴백 표시용일 뿐(번역 갱신으로 드리프트해도 id가 있으면 무해).
-var CLASS_AUTO_FEATS = {
-  fighter: [
-    {lv:1, id:'shield-block', name_ko:'방패 막기', name_en:'Shield Block', category:'special'},
-    {lv:1, id:'reactive-strike', name_ko:'반응 타격', name_en:'Reactive Strike', category:'special'},
-  ],
-  druid: [
-    {lv:1, id:'shield-block', name_ko:'방패 막기', name_en:'Shield Block', category:'special'},
-    {lv:1, id:'voice-of-nature', name_ko:'자연의 목소리', name_en:'Voice of Nature', category:'special'},
-  ],
-  rogue: [
-    {lv:1, id:'sneak-attack', name_ko:'은밀 공격', name_en:'Sneak Attack', category:'special'},
-    {lv:1, id:'surprise-attack', name_ko:'기습', name_en:'Surprise Attack', category:'special'},
-  ],
-  ranger: [
-    {lv:1, id:'hunt-prey', name_ko:'사냥감 추적', name_en:'Hunt Prey', category:'special'},
-  ],
-  bard: [
-    // 작곡 주문(Composition Spells) L1 클래스 특성 — 부여 로직은 효과(자동화) 데이터에 있음:
-    // data/override/effect_groups.json 의 'composition-spells' grant_focus_spell(용기의 찬가). 하드코딩 아님.
-    {lv:1, id:'composition-spells', name_ko:'작곡 주문', name_en:'Composition Spells', category:'special'},
-  ],
-};
+// ⚠ CLASS_AUTO_FEATS 폐기(v0.158) — 클래스 자동부여 재주는 클래스 성장표 로스터가 단일소스.
+//   fighter 방패막기/반응타격, rogue 은밀공격 등은 이미 data/store/classes.json system.items(=성장표 features[])에
+//   있었고, 이 const는 그걸 손으로 재선언한 중복이었음. CLASS_FEATURE_NAMES가 성장표 로스터에서 slug+kind를
+//   실어오므로(cs_pf2e_class.classFeatureRoster) applyClassFeatures의 featureNames 주입이 전량 커버. 파리티 검증됨.
 
-// Subclass auto-granted feats
 // ═══════════════════════════════════════════════
-//  AUTO-GRANTED SPELLS — added to spell tab
-//  type: 'cantrip' | 'focus' | 'known'
+//  AUTO-GRANTED SPELLS — added to spell tab (type: 'cantrip' | 'focus' | 'known')
 // ═══════════════════════════════════════════════
-
-var CLASS_AUTO_SPELLS = {
-  // Bard: Inspire Courage composition cantrip at L1
-  bard: [
-    // 용기의 찬가(Courageous Anthem)는 '작곡 주문' 특성의 효과(자동화) 데이터가 부여 →
-    //   data/override/effect_groups.json 'composition-spells'. 여기 하드코딩 아님.
-    {lv:1, type:'focus', id:'counter-performance', name_ko:'대항 공연', name_en:'Counter Performance'},
-  ],
-  // Summoner: Boost Eidolon 집중 주문 L1 (FVTT 컴펜디움 미인코딩=시스템 TS 전용 → 수작업 표)
-  summoner: [
-    {lv:1, type:'focus', id:'boost-eidolon', name_ko:'에이돌론 강화', name_en:'Boost Eidolon'},
-  ],
-};
+// ⚠ CLASS_AUTO_SPELLS 비움(v0.159) — 클래스특성이 부여하는 집중주문은 그 특성의 효과(자동화) 슬러그가 정본:
+//   작곡 주문(composition-spells) → 용기의 찬가+대항 공연 / 소환사 시전(summoner-spellcasting) → 에이돌론 강화.
+//   전부 data/override/effect_groups.json의 grant_focus_spell 행 → getEffectRows(slug)가 applyFeatEffects에서
+//   부여(클래스특성이 auto 재주로 주입되므로 재주와 동일 경로). 하드코딩 목록 폐기. (센티널로 var는 유지)
+var CLASS_AUTO_SPELLS = {};
 
 // ═══════════════════════════════════════════════
 //  SUBCLASS FEATURE NAMES — for display
@@ -166,326 +53,59 @@ var CLASS_AUTO_SPELLS = {
 //  DOMAIN DATABASE — 영역별 초기/고급 집중 주문
 // ═══════════════════════════════════════════════
 
-var DOMAIN_DB = {
-  "air": {
-    "name": "공기",
-    "initial": "pushing-gust",
-    "advanced": "disperse-into-air"
-  },
-  "ambition": {
-    "name": "야망",
-    "initial": "ignite-ambition",
-    "advanced": "competitive-edge"
-  },
-  "cities": {
-    "name": "도시",
-    "initial": "face-in-the-crowd",
-    "advanced": "pulse-of-civilization"
-  },
-  "confidence": {
-    "name": "자신감",
-    "initial": "veil-of-confidence",
-    "advanced": "delusional-pride"
-  },
-  "creation": {
-    "name": "창조",
-    "initial": "creative-splash",
-    "advanced": "artistic-flourish"
-  },
-  "darkness": {
-    "name": "어둠",
-    "initial": "cloak-of-shadow",
-    "advanced": "darkened-sight"
-  },
-  "death": {
-    "name": "죽음",
-    "initial": "deaths-call",
-    "advanced": "eradicate-undeath"
-  },
-  "destruction": {
-    "name": "파괴",
-    "initial": "cry-of-destruction",
-    "advanced": "destructive-aura"
-  },
-  "dreams": {
-    "name": "꿈",
-    "initial": "sweet-dream",
-    "advanced": "dreamers-call"
-  },
-  "earth": {
-    "name": "대지",
-    "initial": "hurtling-stone",
-    "advanced": "localized-quake"
-  },
-  "family": {
-    "name": "가족",
-    "initial": "soothing-words",
-    "advanced": "community-restoration"
-  },
-  "fate": {
-    "name": "운명",
-    "initial": "read-fate",
-    "advanced": "tempt-fate"
-  },
-  "fire": {
-    "name": "화염",
-    "initial": "fire-ray",
-    "advanced": "flame-barrier"
-  },
-  "freedom": {
-    "name": "자유",
-    "initial": "unimpeded-stride",
-    "advanced": "word-of-freedom"
-  },
-  "healing": {
-    "name": "치유",
-    "initial": "healers-blessing",
-    "advanced": "rebuke-death"
-  },
-  "indulgence": {
-    "name": "탐닉",
-    "initial": "overstuff",
-    "advanced": "take-its-course"
-  },
-  "knowledge": {
-    "name": "지식",
-    "initial": "scholarly-recollection",
-    "advanced": "know-the-enemy"
-  },
-  "luck": {
-    "name": "행운",
-    "initial": "bit-of-luck",
-    "advanced": "lucky-break"
-  },
-  "magic": {
-    "name": "마법",
-    "initial": "magics-vessel",
-    "advanced": "mystic-beacon"
-  },
-  "might": {
-    "name": "힘",
-    "initial": "athletic-rush",
-    "advanced": "enduring-might"
-  },
-  "moon": {
-    "name": "달",
-    "initial": "moonbeam",
-    "advanced": "touch-of-the-moon"
-  },
-  "nature": {
-    "name": "자연",
-    "initial": "vibrant-thorns",
-    "advanced": "natures-bounty"
-  },
-  "nightmares": {
-    "name": "악몽",
-    "initial": "waking-nightmare",
-    "advanced": "shared-nightmare"
-  },
-  "pain": {
-    "name": "고통",
-    "initial": "savor-the-sting",
-    "advanced": "retributive-pain"
-  },
-  "passion": {
-    "name": "열정",
-    "initial": "charming-touch",
-    "advanced": "captivating-adoration"
-  },
-  "perfection": {
-    "name": "완벽",
-    "initial": "perfected-mind",
-    "advanced": "perfected-body"
-  },
-  "protection": {
-    "name": "보호",
-    "initial": "protectors-sacrifice",
-    "advanced": "protectors-sphere"
-  },
-  "secrecy": {
-    "name": "비밀",
-    "initial": "whispering-quiet",
-    "advanced": "safeguard-secret"
-  },
-  "soul": {
-    "name": "영혼"
-  },
-  "sun": {
-    "name": "태양",
-    "initial": "dazzling-flash",
-    "advanced": "vital-luminance"
-  },
-  "travel": {
-    "name": "여행",
-    "initial": "agile-feet",
-    "advanced": "travelers-transit"
-  },
-  "trickery": {
-    "name": "속임수",
-    "initial": "sudden-shift",
-    "advanced": "tricksters-twin"
-  },
-  "truth": {
-    "name": "진실",
-    "initial": "word-of-truth",
-    "advanced": "glimpse-the-truth"
-  },
-  "tyranny": {
-    "name": "폭정",
-    "initial": "touch-of-obedience",
-    "advanced": "commanding-lash"
-  },
-  "undeath": {
-    "name": "언데스",
-    "initial": "touch-of-undeath",
-    "advanced": "malignant-sustenance"
-  },
-  "void": {
-    "name": "공허",
-    "initial": "scramble-body"
-  },
-  "water": {
-    "name": "물",
-    "initial": "tidal-surge",
-    "advanced": "downpour"
-  },
-  "wealth": {
-    "name": "부",
-    "advanced": "precious-metals"
-  },
-  "zeal": {
-    "name": "열의",
-    "initial": "weapon-surge",
-    "advanced": "zeal-for-battle"
-  },
-  "repose": {
-    "name": "휴식",
-    "initial": "share-burden",
-    "advanced": "font-of-serenity"
-  },
-  "sorrow": {
-    "name": "슬픔",
-    "initial": "lament",
-    "advanced": "overflowing-sorrow"
-  },
-  "star": {
-    "name": "스타",
-    "initial": "zenith-star",
-    "advanced": "asterism"
-  },
-  "duty": {
-    "name": "의무",
-    "initial": "oathkeepers-insignia",
-    "advanced": "dutiful-challenge"
-  },
-  "change": {
-    "name": "변경",
-    "initial": "adapt-self",
-    "advanced": "adaptive-ablation"
-  },
-  "vigil": {
-    "name": "비질",
-    "initial": "object-memory",
-    "advanced": "remember-the-lost"
-  },
-  "glyph": {
-    "name": "글리프",
-    "initial": "redact",
-    "advanced": "ghostly-transcription"
-  },
-  "time": {
-    "name": "시간",
-    "initial": "delay-consequence",
-    "advanced": "stasis"
-  },
-  "wyrmkin": {
-    "name": "웜킨",
-    "initial": "draconic-barrage"
-  },
-  "lightning": {
-    "name": "라이트닝",
-    "initial": "charged-javelin",
-    "advanced": "bottle-the-storm"
-  },
-  "cold": {
-    "name": "추위",
-    "initial": "winter-bolt",
-    "advanced": "diamond-dust"
-  },
-  "dust": {
-    "name": "먼지",
-    "initial": "parch",
-    "advanced": "dust-storm"
-  },
-  "toil": {
-    "name": "근면",
-    "initial": "practice-makes-perfect",
-    "advanced": "tireless-worker"
-  },
-  "naga": {
-    "name": "나가",
-    "initial": "split-the-tongue",
-    "advanced": "ordained-purpose"
-  },
-  "introspection": {
-    "name": "자기 성찰"
-  },
-  "decay": {
-    "name": "부패",
-    "initial": "withering-grasp",
-    "advanced": "fallow-field"
-  },
-  "plague": {
-    "name": "전염병",
-    "initial": "divine-plagues",
-    "advanced": "foul-miasma"
-  },
-  "swarm": {
-    "name": "무리",
-    "initial": "swarmsense",
-    "advanced": "swarm-form"
-  },
-  "delirium": {
-    "name": "섬망",
-    "advanced": "ephemeral-hazards"
-  },
-  "metal": {
-    "name": "금속",
-    "initial": "serrate",
-    "advanced": "repel-metal"
-  },
-  "wood": {
-    "name": "목재"
-  },
-  "abomination": {
-    "name": "혐오",
-    "initial": "lift-natures-caul",
-    "advanced": "fearful-feast"
-  }
-};
+var DOMAIN_DB = {}; // 영역 데이터 = DataManager 단일소스(data/derived/domains.json). cs_pf2e_deity.loadDomains()가 런타임 채움(구 61개 하드코딩 폐기, v0.150).
+
+// 소서러 혈통(BLOODLINE_DB) = DataManager 단일소스(data/derived/bloodlines.json). cs_pf2e_class.loadBloodlines()가 런타임 채움.
+//   {slug:{name,tradition,skills,initial,advanced,greater,granted,blood_magic,exemplars,...}} — 혈통 집중주문(초/중/고급)·부여 레퍼토리·표본 선택.
+var BLOODLINE_DB = {};
+// 「혈통 항목 읽는 법」 정본 용어 설명(전 혈통 공통, bloodline-spells 항목 파생) — [{term,def},...].
+var BLOODLINE_GUIDE = [];
+// 오라클 신비(MYSTERY_DB) = DataManager 단일소스(data/derived/oracle_mysteries.json). cs_pf2e_class.loadMysteries()가 런타임 채움.
+//   {slug:{name,tradition,mystery_skill,granted_spells,revelation:{initial,advanced,greater},domains,curse,oracle_feat}} — 미스터리 기술·부여 레퍼토리·계시주문(초/상/고급).
+var MYSTERY_DB = {};
+// 「신비 항목 읽는 법」 정본 용어 설명(전 신비 공통, oracle_mysteries.json guide) — [{term,def},...].
+var MYSTERY_GUIDE = [];
+// 위저드 비전 학파(WIZARD_SCHOOL_DB) = DataManager 단일소스(data/derived/wizard_schools.json). cs_pf2e_class.loadWizardSchools()가 런타임 채움.
+//   {slug:{name,tradition,curriculum:{rank:[{spell}]},school_spell:{initial,advanced}}} — 교육과정 풀·학파 주문(초/상급).
+var WIZARD_SCHOOL_DB = {};
+// 「학파 항목 읽는 법」 정본 용어 설명(전 학파 공통, wizard_schools.json guide) — [{term,def},...].
+var WIZARD_SCHOOL_GUIDE = [];
+// 바드 뮤즈 「항목 읽는 법」 가이드 = data/derived/bard_muses.json → cs_pf2e_class.loadBardMuses()가 채움.
+var BARD_MUSE_GUIDE = [];
+// 마녀 후원자 「항목 읽는 법」 가이드 = data/derived/witch_patrons.json → cs_pf2e_class.loadWitchPatrons()가 채움.
+var WITCH_PATRON_GUIDE = [];
+// 드루이드 교단 「항목 읽는 법」 가이드 = data/derived/druid_orders.json → cs_pf2e_class.loadDruidOrders()가 채움.
+var DRUID_ORDER_GUIDE = [];
+// 레인저 사냥 방식 「항목 읽는 법」 가이드 = data/derived/ranger_edges.json → cs_pf2e_class.loadRangerEdges()가 채움.
+var RANGER_EDGE_GUIDE = [];
+// 로그 수법 「항목 읽는 법」 가이드 = data/derived/rogue_rackets.json → cs_pf2e_class.loadRogueRackets()가 채움.
+var ROGUE_RACKET_GUIDE = [];
+// 챔피언 원인 「항목 읽는 법」 가이드 = data/derived/champion_causes.json → cs_pf2e_class.loadChampionCauses()가 채움.
+var CHAMPION_CAUSE_GUIDE = [];
+// 바바리안 본능 「항목 읽는 법」 가이드 = data/derived/barbarian_instincts.json → cs_pf2e_class.loadBarbarianInstincts()가 채움.
+var BARBARIAN_INSTINCT_GUIDE = [];
+// 수사관 방법론 「항목 읽는 법」 가이드 = data/derived/investigator_methodologies.json → cs_pf2e_class.loadInvestigatorMethodologies()가 채움.
+var INVESTIGATOR_METHODOLOGY_GUIDE = [];
+// 스워시버클러 스타일 「항목 읽는 법」 가이드 = data/derived/swashbuckler_styles.json → cs_pf2e_class.loadSwashbucklerStyles()가 채움.
+var SWASHBUCKLER_STYLE_GUIDE = [];
+// 연금술사 연구 분야 「항목 읽는 법」 가이드 = data/derived/alchemist_research_fields.json → cs_pf2e_class.loadAlchemistResearchFields()가 채움.
+var ALCHEMIST_RESEARCH_FIELD_GUIDE = [];
+// 파이터/몽크 「클래스 핵심 특징」 가이드(서브클래스 없는 클래스) = data/derived/{fighter,monk}_features.json → cs_pf2e_class.load{Fighter,Monk}Features()가 채움.
+var FIGHTER_GUIDE = [];
+var MONK_GUIDE = [];
 
 // ═══════════════════════════════════════════════
 //  WITCH PATRON → SPELL TRADITION MAPPING
 // ═══════════════════════════════════════════════
 
-var PATRON_TRADITION = {
-  'patron-curse':  'occult',
-  'patron-fate':   'occult',
-  'patron-fervor': 'divine',
-  'patron-night':  'occult',
-  'patron-rune':   'arcane',
-  'patron-wild':   'primal',
-};
+// 마녀 후원자 전통 매핑은 SUBCLASS_DB 각 후원자 행의 `tradition` 필드로 이관됨(v0.134, 원칙#2 — 별도 상수표 제거).
 
 // ═══════════════════════════════════════════════
 //  DIVINE FONT SPELL SLOTS — extra slots per level
 //  Value = base extra slots (add CHA modifier)
 // ═══════════════════════════════════════════════
 
-var DIVINE_FONT_SLOTS = {
-  1:4, 2:4, 3:4, 4:5, 5:5, 6:5, 7:6, 8:6, 9:6, 10:7,
-  11:7, 12:7, 13:8, 14:8, 15:8, 16:9, 17:9, 18:9, 19:10, 20:10
-};
+// DIVINE_FONT_SLOTS 제거(v0.x~): 레벨별 슬롯 = 공식 4+floor((lv-1)/3) (getDivineFontSlots).
 
 // ═══════════════════════════════════════════════
 //  CLASS_SPELL_TABLE — 클래스별 일일 주문 수 (Player Core 정본)
@@ -493,29 +113,10 @@ var DIVINE_FONT_SLOTS = {
 //  spontaneous 캐스터: 레퍼토리 크기 = 슬롯 수 (각 랭크)
 // ═══════════════════════════════════════════════
 
+// 레거시 풀캐스터 5종은 표준 풀캐스터 진행표 공유(값 동일 — bard 명시 중복 제거).
+// 신규(sorcerer/oracle/animist)는 cs_pf2e_class.js spellTable()가 FULL_CASTERS로 동일 표 생성.
 var CLASS_SPELL_TABLE = {
-  bard: {
-    1:  {cantrips:5, slots:[2,0,0,0,0,0,0,0,0,0]},
-    2:  {cantrips:5, slots:[3,0,0,0,0,0,0,0,0,0]},
-    3:  {cantrips:5, slots:[3,2,0,0,0,0,0,0,0,0]},
-    4:  {cantrips:5, slots:[3,3,0,0,0,0,0,0,0,0]},
-    5:  {cantrips:5, slots:[3,3,2,0,0,0,0,0,0,0]},
-    6:  {cantrips:5, slots:[3,3,3,0,0,0,0,0,0,0]},
-    7:  {cantrips:5, slots:[3,3,3,2,0,0,0,0,0,0]},
-    8:  {cantrips:5, slots:[3,3,3,3,0,0,0,0,0,0]},
-    9:  {cantrips:5, slots:[3,3,3,3,2,0,0,0,0,0]},
-    10: {cantrips:5, slots:[3,3,3,3,3,0,0,0,0,0]},
-    11: {cantrips:5, slots:[3,3,3,3,3,2,0,0,0,0]},
-    12: {cantrips:5, slots:[3,3,3,3,3,3,0,0,0,0]},
-    13: {cantrips:5, slots:[3,3,3,3,3,3,2,0,0,0]},
-    14: {cantrips:5, slots:[3,3,3,3,3,3,3,0,0,0]},
-    15: {cantrips:5, slots:[3,3,3,3,3,3,3,2,0,0]},
-    16: {cantrips:5, slots:[3,3,3,3,3,3,3,3,0,0]},
-    17: {cantrips:5, slots:[3,3,3,3,3,3,3,3,2,0]},
-    18: {cantrips:5, slots:[3,3,3,3,3,3,3,3,3,0]},
-    19: {cantrips:5, slots:[3,3,3,3,3,3,3,3,3,1]},
-    20: {cantrips:5, slots:[3,3,3,3,3,3,3,3,3,1]},
-  },
+  bard:    _FULL_CASTER_TABLE(),
   witch:   _FULL_CASTER_TABLE(),
   cleric:  _FULL_CASTER_TABLE(),
   druid:   _FULL_CASTER_TABLE(),

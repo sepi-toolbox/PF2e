@@ -1,0 +1,1958 @@
+{
+ "rows": [
+  {
+   "slug": "bloodline-aberrant",
+   "name_en": "Bloodline: Aberrant",
+   "name_ko": "혈통: 이형체",
+   "tradition": "occult",
+   "skills": [
+    "intimidation",
+    "occultism"
+   ],
+   "variable_skill": false,
+   "initial": "tentacular-limbs",
+   "initial_ko": "촉수 사지",
+   "advanced": "aberrant-whispers",
+   "advanced_ko": "이형체 속삭임",
+   "greater": "unusual-anatomy",
+   "greater_ko": "특이한 해부학적 구조",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "daze",
+     "ko": "정신 혼란"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "phantom-pain",
+     "ko": "환상 통증"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "stupefy",
+     "ko": "혼미"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "vampiric-feast",
+     "ko": "뱀파이어의 잔치"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "confusion",
+     "ko": "혼란"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "slither",
+     "ko": "미끄러짐"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "never-mind",
+     "ko": "무뇌화"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "warp-mind",
+     "ko": "정신 왜곡"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "uncontrollable-dance",
+     "ko": "통제 불가능한 춤"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "unfathomable-song",
+     "ko": "헤아릴 수 없는 노래"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "Eerie Veil",
+    "name_ko": "섬뜩한 베일",
+    "text": "An ominous pall spills from your mind. Either one target takes a –1 status penalty to Will saving throws for 1 round or you gain a +2 status bonus to Will saving throws for 1 round.",
+    "text_ko": "불길한 장막이 당신의 정신에서 흘러나온다. 하나의 대상이 1라운드 동안 의지 내성 굴림에 -1 상태 페널티를 받거나, 당신이 1라운드 동안 의지 내성 굴림에 +2 상태 보너스를 얻는다."
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-aesir",
+   "name_en": "Bloodline: Aesir",
+   "name_ko": "혈통: 에시르",
+   "tradition": "divine",
+   "skills": [
+    "intimidation",
+    "religion"
+   ],
+   "variable_skill": false,
+   "initial": "barbed-spear",
+   "initial_ko": "가시 창",
+   "advanced": "wings-of-the-valkyrie",
+   "advanced_ko": "발키리의 날개",
+   "greater": "let-not-the-fallen-rest",
+   "greater_ko": "쓰러진 자여, 쉬지 말라",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "shield",
+     "ko": "방패"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "mystic-armor",
+     "ko": "신비한 갑옷"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "spiritual-armament",
+     "ko": "영적 무장"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "heroism",
+     "ko": "영웅심"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "seal-fate",
+     "ko": "운명 봉인"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "invoke-spirits",
+     "ko": "영혼 소환"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "blinding-fury",
+     "ko": "맹렬한 분노"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "execute",
+     "ko": "처형"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "spirit-song",
+     "ko": "영혼의 노래"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "massacre",
+     "ko": "학살"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "Call the Storm",
+    "name_ko": "폭풍을 불러내다",
+    "text": "You bring down a bolt of lightning to damage a foe or energize yourself. Either you gain a +2 status bonus to Reflex saving throws for 1 round, or a target takes 1 electricity damage per spell rank (if the spell already deals initial electricity damage, combine this with the spell's initial damage before determining weaknesses and resistances).",
+    "text_ko": "당신은 적에게 피해를 입히거나 자신을 강화하기 위해 번개를 내리친다. 1라운드 동안 반사 내성에 +2 상태 보너스를 얻거나, 대상이 주문 랭크당 1의 전기 피해를 받습니다(주문이 이미 초기 전기 피해를 주는 경우, 약점과 저항을 결정하기 전에 이 피해를 주문의 초기 피해와 합산합니다)."
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-angelic",
+   "name_en": "Bloodline: Angelic",
+   "name_ko": "혈통: 천상체",
+   "tradition": "divine",
+   "skills": [
+    "diplomacy",
+    "religion"
+   ],
+   "variable_skill": false,
+   "initial": "angelic-halo",
+   "initial_ko": "천사의 후광",
+   "advanced": "angelic-wings",
+   "advanced_ko": "천사의 날개",
+   "greater": "celestial-brand",
+   "greater_ko": "천상의 낙인",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "light",
+     "ko": "빛"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "heal",
+     "ko": "치유"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "spiritual-armament",
+     "ko": "영적 무장"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "holy-light",
+     "ko": "신성한 빛"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "divine-wrath",
+     "ko": "신성한 분노"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "divine-immolation",
+     "ko": "신성한 화형"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "blessed-boundary",
+     "ko": "축복의 경계"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "divine-decree",
+     "ko": "신성한 칙령"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "moment-of-renewal",
+     "ko": "재생의 순간"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "foresight",
+     "ko": "예지력"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "Divine Aura",
+    "name_ko": "신성한 오라",
+    "text": "You project a warming aura that protects you or one target, granting a +1 status bonus to saving throws for 1 round",
+    "text_ko": "자신 또는 한 명의 대상에게 보호하는 온기 오라를 투사하여 1라운드 동안 내성 굴림 +1 상태 보너스를 부여합니다"
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-demonic",
+   "name_en": "Bloodline: Demonic",
+   "name_ko": "혈통: 데몬",
+   "tradition": "divine",
+   "skills": [
+    "intimidation",
+    "religion"
+   ],
+   "variable_skill": false,
+   "initial": "gluttons-jaws",
+   "initial_ko": "탐식의 턱",
+   "advanced": "swamp-of-sloth",
+   "advanced_ko": "나태의 늪",
+   "greater": "chthonian-wrath",
+   "greater_ko": "지하의 분노",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "caustic-blast",
+     "ko": "부식성 폭발"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "fear",
+     "ko": "공포"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "enlarge",
+     "ko": "확대"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "slow",
+     "ko": "느려짐"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "divine-wrath",
+     "ko": "신성한 분노"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "blister",
+     "ko": "물집"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "disintegrate",
+     "ko": "분해"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "divine-decree",
+     "ko": "신성한 칙령"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "canticle-of-everlasting-grief",
+     "ko": "영원한 슬픔의 찬가"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "implosion",
+     "ko": "내파"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "Corruption of Sin",
+    "name_ko": "죄악의 타락",
+    "text": "You mentally broadcast brief glimpses into the darkest desires of the mind. Either a target takes a –1 status penalty to AC for 1 round, or you gain a +2 status bonus to Intimidation checks for 1 round.",
+    "text_ko": "당신은 정신적으로 대상의 가장 어두운 욕망을 잠깐 엿보게 합니다. 대상은 1라운드 동안 AC에 -1 상태 페널티를 받거나, 당신은 1라운드 동안 협박 판정에서 +2 상태 보너스를 얻습니다."
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-diabolic",
+   "name_en": "Bloodline: Diabolic",
+   "name_ko": "혈통: 데빌",
+   "tradition": "divine",
+   "skills": [
+    "deception",
+    "religion"
+   ],
+   "variable_skill": false,
+   "initial": "diabolic-edict",
+   "initial_ko": "데빌의 칙령",
+   "advanced": "embrace-the-pit",
+   "advanced_ko": "심연 포옹",
+   "greater": "hellfire-plume",
+   "greater_ko": "지옥불 기둥",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "ignition",
+     "ko": "점화"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "charm",
+     "ko": "매혹"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "floating-flame",
+     "ko": "떠다니는 불꽃"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "enthrall",
+     "ko": "매혹"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "suggestion",
+     "ko": "제안"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "wave-of-despair",
+     "ko": "절망의 파도"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "truesight",
+     "ko": "진시야"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "divine-decree",
+     "ko": "신성한 칙령"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "divine-inspiration",
+     "ko": "신성한 영감"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "falling-stars",
+     "ko": "유성"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "Tongue of Flame",
+    "name_ko": "불의 혀",
+    "text": "Your tongue becomes laced with the fires of Hell, and you can either lash out at a foe with it or swallow it to make your lies more palatable. Either a target takes 1 fire damage per spell rank (if the spell already deals initial fire damage, combine this with the spell's initial damage before determining weaknesses and resistances), or you gain a +2 status bonus to Deception checks for 1 round.",
+    "text_ko": "당신의 혀는 지옥의 불길로 뒤덮여, 적을 향해 휘둘러 공격하거나 삼켜 거짓말을 더 설득력 있게 만들 수 있습니다. 대상은 주문 랭크당 1점의 화염 피해를 받거나(주문이 이미 초기 화염 피해를 주는 경우, 약점과 저항을 결정하기 전에 이 피해를 주문의 초기 피해와 합산), 1라운드 동안 기만 판정에서 +2 상태 보너스를 얻습니다."
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-draconic",
+   "name_en": "Bloodline: Draconic",
+   "name_ko": "혈통: 드라코닉",
+   "tradition": "variable",
+   "skills": [
+    "intimidation"
+   ],
+   "variable_skill": true,
+   "initial": "flurry-of-claws",
+   "initial_ko": "발톱의 연타",
+   "advanced": "dragon-breath",
+   "advanced_ko": "드래곤의 숨결",
+   "greater": "dragon-wings",
+   "greater_ko": "용의 날개",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "shield",
+     "ko": "방패"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "fear",
+     "ko": "공포"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "haste",
+     "ko": "신속"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "fly",
+     "ko": "비행"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "dragon-form",
+     "ko": "드래곤 형태"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "mask-of-terror",
+     "ko": "공포의 가면"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "overwhelming-presence",
+     "ko": "압도적인 위엄"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "Scaly Hide",
+    "name_ko": "비늘 피부",
+    "text": "Draconic scales grow briefly on you or one target, granting a +1 status bonus to AC for 1 round.",
+    "text_ko": "당신이나 한 대상에게 잠시 드라코닉 비늘이 자라나며, 1라운드 동안 AC에 +1 상태 보너스를 부여합니다."
+   },
+   "exemplars": [
+    {
+     "name_en": "Arcane",
+     "name_ko": "아케인",
+     "tradition": "arcane",
+     "skill": "arcana",
+     "damage": null,
+     "gifts": [
+      {
+       "rank": 2,
+       "charLevel": 3,
+       "slug": "blazing-bolt",
+       "ko": "불타는 화살"
+      },
+      {
+       "rank": 5,
+       "charLevel": 9,
+       "slug": "subconscious-suggestion",
+       "ko": "잠재의식적 암시"
+      },
+      {
+       "rank": 8,
+       "charLevel": 15,
+       "slug": "quandary",
+       "ko": "딜레마"
+      }
+     ]
+    },
+    {
+     "name_en": "Divine",
+     "name_ko": "신성",
+     "tradition": "divine",
+     "skill": "religion",
+     "damage": null,
+     "gifts": [
+      {
+       "rank": 2,
+       "charLevel": 3,
+       "slug": "augury",
+       "ko": "점술"
+      },
+      {
+       "rank": 5,
+       "charLevel": 9,
+       "slug": "divine-immolation",
+       "ko": "신성한 화형"
+      },
+      {
+       "rank": 8,
+       "charLevel": 15,
+       "slug": "divine-inspiration",
+       "ko": "신성한 영감"
+      }
+     ]
+    },
+    {
+     "name_en": "Occult",
+     "name_ko": "오컬트",
+     "tradition": "occult",
+     "skill": "occultism",
+     "damage": null,
+     "gifts": [
+      {
+       "rank": 2,
+       "charLevel": 3,
+       "slug": "blood-vendetta",
+       "ko": "피의 복수"
+      },
+      {
+       "rank": 5,
+       "charLevel": 9,
+       "slug": "slither",
+       "ko": "미끄러짐"
+      },
+      {
+       "rank": 8,
+       "charLevel": 15,
+       "slug": "unrelenting-observation",
+       "ko": "끊임없는 관찰"
+      }
+     ]
+    },
+    {
+     "name_en": "Primal",
+     "name_ko": "프라이멀",
+     "tradition": "primal",
+     "skill": "nature",
+     "damage": null,
+     "gifts": [
+      {
+       "rank": 2,
+       "charLevel": 3,
+       "slug": "shatter",
+       "ko": "산산조각"
+      },
+      {
+       "rank": 5,
+       "charLevel": 9,
+       "slug": "howling-blizzard",
+       "ko": "울부짖는 눈보라"
+      },
+      {
+       "rank": 8,
+       "charLevel": 15,
+       "slug": "earthquake",
+       "ko": "지진"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "bloodline-elemental",
+   "name_en": "Bloodline: Elemental",
+   "name_ko": "혈통: 원소",
+   "tradition": "primal",
+   "skills": [
+    "intimidation",
+    "nature"
+   ],
+   "variable_skill": false,
+   "initial": "elemental-toss",
+   "initial_ko": "원소 투척",
+   "advanced": "elemental-motion",
+   "advanced_ko": "원소의 움직임",
+   "greater": "elemental-blast",
+   "greater_ko": "원소 폭발",
+   "granted": [
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "resist-energy",
+     "ko": "에너지 저항"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "unfettered-movement",
+     "ko": "자유로운 이동"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "elemental-form",
+     "ko": "원소 형태"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "energy-aegis",
+     "ko": "에너지 이지스"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "earthquake",
+     "ko": "지진"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "wrathful-storm",
+     "ko": "분노의 폭풍"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "Elemental Fury",
+    "name_ko": "",
+    "text": "Elemental energy wreathes your form and infuses your magic. Either you gain a +2 status bonus to Intimidation checks for 1 round, or a target takes 1 damage per spell rank; this damage type is listed under your elemental influence. If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.",
+    "text_ko": ""
+   },
+   "exemplars": [
+    {
+     "name_en": "Air",
+     "name_ko": "공기",
+     "tradition": null,
+     "skill": null,
+     "damage": "slashing",
+     "gifts": [
+      {
+       "rank": 0,
+       "charLevel": 1,
+       "slug": "gale-blast",
+       "ko": "강풍 폭발"
+      },
+      {
+       "rank": 1,
+       "charLevel": 1,
+       "slug": "tailwind",
+       "ko": "뒤바람"
+      },
+      {
+       "rank": 3,
+       "charLevel": 5,
+       "slug": "wall-of-wind",
+       "ko": "바람의 벽"
+      },
+      {
+       "rank": 6,
+       "charLevel": 11,
+       "slug": "chain-lightning",
+       "ko": "연쇄 번개"
+      }
+     ]
+    },
+    {
+     "name_en": "Earth",
+     "name_ko": "대지",
+     "tradition": null,
+     "skill": null,
+     "damage": "bludgeoning",
+     "gifts": [
+      {
+       "rank": 0,
+       "charLevel": 1,
+       "slug": "scatter-scree",
+       "ko": "산사태"
+      },
+      {
+       "rank": 1,
+       "charLevel": 1,
+       "slug": "pummeling-rubble",
+       "ko": "쇄석 폭격"
+      },
+      {
+       "rank": 3,
+       "charLevel": 5,
+       "slug": "earthbind",
+       "ko": "대지 결박"
+      },
+      {
+       "rank": 6,
+       "charLevel": 11,
+       "slug": "petrify",
+       "ko": "석화"
+      }
+     ]
+    },
+    {
+     "name_en": "Fire",
+     "name_ko": "불",
+     "tradition": null,
+     "skill": null,
+     "damage": "fire",
+     "gifts": [
+      {
+       "rank": 0,
+       "charLevel": 1,
+       "slug": "ignition",
+       "ko": "점화"
+      },
+      {
+       "rank": 1,
+       "charLevel": 1,
+       "slug": "breathe-fire",
+       "ko": "불기"
+      },
+      {
+       "rank": 3,
+       "charLevel": 5,
+       "slug": "fireball",
+       "ko": "화염구"
+      },
+      {
+       "rank": 6,
+       "charLevel": 11,
+       "slug": "tree-of-seasons",
+       "ko": "계절의 나무"
+      }
+     ]
+    },
+    {
+     "name_en": "Metal",
+     "name_ko": "금속",
+     "tradition": null,
+     "skill": null,
+     "damage": "piercing",
+     "gifts": [
+      {
+       "rank": 0,
+       "charLevel": 1,
+       "slug": "electric-arc",
+       "ko": "전기 아크"
+      },
+      {
+       "rank": 1,
+       "charLevel": 1,
+       "slug": "thunderstrike",
+       "ko": "천둥의 일격"
+      },
+      {
+       "rank": 3,
+       "charLevel": 5,
+       "slug": "lightning-bolt",
+       "ko": "번개 화살"
+      },
+      {
+       "rank": 6,
+       "charLevel": 11,
+       "slug": "chain-lightning",
+       "ko": "연쇄 번개"
+      }
+     ]
+    },
+    {
+     "name_en": "Water",
+     "name_ko": "물",
+     "tradition": null,
+     "skill": null,
+     "damage": "bludgeoning",
+     "gifts": [
+      {
+       "rank": 0,
+       "charLevel": 1,
+       "slug": "frostbite",
+       "ko": "동상"
+      },
+      {
+       "rank": 1,
+       "charLevel": 1,
+       "slug": "hydraulic-push",
+       "ko": "수압 밀기"
+      },
+      {
+       "rank": 3,
+       "charLevel": 5,
+       "slug": "aqueous-orb",
+       "ko": "물 구체"
+      },
+      {
+       "rank": 6,
+       "charLevel": 11,
+       "slug": "scintillating-safeguard",
+       "ko": "반짝이는 보호막"
+      }
+     ]
+    },
+    {
+     "name_en": "Wood",
+     "name_ko": "나무",
+     "tradition": null,
+     "skill": null,
+     "damage": "bludgeoning",
+     "gifts": [
+      {
+       "rank": 0,
+       "charLevel": 1,
+       "slug": "tangle-vine",
+       "ko": "엉킴덩굴"
+      },
+      {
+       "rank": 1,
+       "charLevel": 1,
+       "slug": "cleanse-cuisine",
+       "ko": "음식 정화"
+      },
+      {
+       "rank": 3,
+       "charLevel": 5,
+       "slug": "wall-of-thorns",
+       "ko": "가시덤불 벽"
+      },
+      {
+       "rank": 6,
+       "charLevel": 11,
+       "slug": "tangling-creepers",
+       "ko": "얽히는 덩굴"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "bloodline-fey",
+   "name_en": "Bloodline: Fey",
+   "name_ko": "혈통: 페이",
+   "tradition": "primal",
+   "skills": [
+    "deception",
+    "nature"
+   ],
+   "variable_skill": false,
+   "initial": "faerie-dust",
+   "initial_ko": "요정 가루",
+   "advanced": "fey-disappearance",
+   "advanced_ko": "페이 소멸",
+   "greater": "fey-glamour",
+   "greater_ko": "페이 환상",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "figment",
+     "ko": "허상"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "charm",
+     "ko": "매혹"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "laughing-fit",
+     "ko": "폭소 발작"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "enthrall",
+     "ko": "매혹"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "suggestion",
+     "ko": "제안"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "hallucination",
+     "ko": "환각"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "mislead",
+     "ko": "유인 환영"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "visions-of-danger",
+     "ko": "위험의 환상"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "uncontrollable-dance",
+     "ko": "통제 불가능한 춤"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "metamorphosis",
+     "ko": "변신"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "Cloak of Ribbons",
+    "name_ko": "리본 망토",
+    "text": "Colorful fey ribbons dance around you. Either you gain a +2 status bonus to Performance checks for 1 round, or you can become @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} for 1 round. Such obvious concealment can't be used to @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{Hide}",
+    "text_ko": "다채로운 페이 리본이 당신 주위를 춤추듯 휘감습니다. 1라운드 동안 공연 능력 판정에서 +2 상태 보너스를 얻거나, 1라운드 동안 @link[conditions.concealed] 상태가 될 수 있다. 이러한 명백한 은폐 상태는 @link[actions.hide]"
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-genie",
+   "name_en": "Bloodline: Genie",
+   "name_ko": "혈통: 지니",
+   "tradition": "arcane",
+   "skills": [
+    "arcana",
+    "deception"
+   ],
+   "variable_skill": false,
+   "initial": "genies-veil",
+   "initial_ko": "지니의 베일",
+   "advanced": "hearts-desire",
+   "advanced_ko": "마음의 소망",
+   "greater": "wish-twisted-form",
+   "greater_ko": "소원-뒤틀린 형태",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "detect-magic",
+     "ko": "마법 탐지"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "illusory-disguise",
+     "ko": "환상 변장"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "enthrall",
+     "ko": "매혹"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "creation",
+     "ko": "창조"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "truesight",
+     "ko": "진시야"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "energy-aegis",
+     "ko": "에너지 이지스"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "resplendent-mansion",
+     "ko": "화려한 저택"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "",
+    "name_ko": "",
+    "text": "Your spellcasting warps reality and distracts your foes. Either you gain a +1 status bonus to Deception checks for 1 round, or a target takes a -1 status penalty to Perception for 1 round.",
+    "text_ko": "당신의 주문 시전은 현실을 왜곡하고 적의 주의를 분산시킵니다. 1라운드 동안 기만 판정에서 +1 상태 보너스를 얻거나, 대상이 1라운드 동안 지각 판정에서 -1 상태 페널티를 받습니다."
+   },
+   "exemplars": [
+    {
+     "name_en": "Janni",
+     "name_ko": "잔니",
+     "tradition": null,
+     "skill": null,
+     "damage": null,
+     "gifts": [
+      {
+       "rank": 2,
+       "charLevel": 3,
+       "slug": "create-food",
+       "ko": "음식 생성"
+      },
+      {
+       "rank": 5,
+       "charLevel": 9,
+       "slug": "banishment",
+       "ko": "추방"
+      },
+      {
+       "rank": 8,
+       "charLevel": 15,
+       "slug": "confusing-colors",
+       "ko": "혼란스러운 색채"
+      }
+     ]
+    },
+    {
+     "name_en": "Jaathoom",
+     "name_ko": "자툼",
+     "tradition": null,
+     "skill": null,
+     "damage": null,
+     "gifts": [
+      {
+       "rank": 2,
+       "charLevel": 3,
+       "slug": "invisibility",
+       "ko": "투명화"
+      },
+      {
+       "rank": 5,
+       "charLevel": 9,
+       "slug": "illusory-scene",
+       "ko": "환상 장면"
+      },
+      {
+       "rank": 8,
+       "charLevel": 15,
+       "slug": "punishing-winds",
+       "ko": "벌하는 바람"
+      }
+     ]
+    },
+    {
+     "name_en": "Ifrit",
+     "name_ko": "이프리트",
+     "tradition": null,
+     "skill": null,
+     "damage": null,
+     "gifts": [
+      {
+       "rank": 2,
+       "charLevel": 3,
+       "slug": "enlarge",
+       "ko": "확대"
+      },
+      {
+       "rank": 5,
+       "charLevel": 9,
+       "slug": "elemental-form",
+       "ko": "원소 형태"
+      },
+      {
+       "rank": 8,
+       "charLevel": 15,
+       "slug": "quandary",
+       "ko": "딜레마"
+      }
+     ]
+    },
+    {
+     "name_en": "Faydhaan",
+     "name_ko": "파이드한",
+     "tradition": null,
+     "skill": null,
+     "damage": null,
+     "gifts": [
+      {
+       "rank": 2,
+       "charLevel": 3,
+       "slug": "water-walk",
+       "ko": "물 위 걷기"
+      },
+      {
+       "rank": 5,
+       "charLevel": 9,
+       "slug": "control-water",
+       "ko": "물 제어"
+      },
+      {
+       "rank": 8,
+       "charLevel": 15,
+       "slug": "desiccate",
+       "ko": "건조화"
+      }
+     ]
+    },
+    {
+     "name_en": "Jabali",
+     "name_ko": "자발리",
+     "tradition": null,
+     "skill": null,
+     "damage": null,
+     "gifts": [
+      {
+       "rank": 2,
+       "charLevel": 3,
+       "slug": "revealing-light",
+       "ko": "드러내는 빛"
+      },
+      {
+       "rank": 5,
+       "charLevel": 9,
+       "slug": "wall-of-stone",
+       "ko": "돌벽"
+      },
+      {
+       "rank": 8,
+       "charLevel": 15,
+       "slug": "earthquake",
+       "ko": "지진"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "bloodline-hag",
+   "name_en": "Bloodline: Hag",
+   "name_ko": "혈통: 마녀",
+   "tradition": "occult",
+   "skills": [
+    "deception",
+    "occultism"
+   ],
+   "variable_skill": false,
+   "initial": "jealous-hex",
+   "initial_ko": "질투의 저주",
+   "advanced": "horrific-visage",
+   "advanced_ko": "끔찍한 얼굴",
+   "greater": "youre-mine",
+   "greater_ko": "너는 내 거야",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "daze",
+     "ko": "정신 혼란"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "illusory-disguise",
+     "ko": "환상 변장"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "stupefy",
+     "ko": "혼미"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "blindness",
+     "ko": "실명"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "outcasts-curse",
+     "ko": "추방자의 저주"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "mariners-curse",
+     "ko": "항해자의 저주"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "cursed-metamorphosis",
+     "ko": "저주받은 변형"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "warp-mind",
+     "ko": "정신 왜곡"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "quandary",
+     "ko": "딜레마"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "phantasmagoria",
+     "ko": "환상극"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "Retributive Spite",
+    "name_ko": "보복의 악의",
+    "text": "Malice and acrimony take physical form around you. You deal 4 mental damage per spell rank (basic Will save) to the first creature that deals damage to you before the end of your next turn; if no creature damages you in that time, you consume that spite to gain temporary Hit Points at the beginning of your next turn equal to the spell's rank. These temporary Hit Points last until the beginning of your following turn.",
+    "text_ko": "악의와 증오가 주변에 물리적 형태로 나타난다. 다음 턴이 끝나기 전에 당신에게 피해를 입힌 첫 번째 생물에게 주문 랭크당 4의 정신 피해를 입힌다(기본 의지 내성). 해당 시간 내에 피해를 입히지 않은 생물이 있다면, 그 원한을 흡수하여 다음 턴 시작 시 주문 랭크과 동일한 임시 HP를 얻는다. 이 임시 HP는 다음 턴 시작까지 지속된다."
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-harrow",
+   "name_en": "Bloodline: Harrow",
+   "name_ko": "혈통: 해로우",
+   "tradition": "occult",
+   "skills": [
+    "occultism",
+    "performance"
+   ],
+   "variable_skill": false,
+   "initial": "unraveling-blast",
+   "initial_ko": "잠재력 폭발 해제",
+   "advanced": "invoke-the-harrow",
+   "advanced_ko": "해로우 카드",
+   "greater": "rewrite-possibility",
+   "greater_ko": "재작성 가능성",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "detect-magic",
+     "ko": "마법 탐지"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "ill-omen",
+     "ko": "불길한 징조"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "augury",
+     "ko": "점술"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "wanderers-guide",
+     "ko": "방랑자의 안내서"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "suggestion",
+     "ko": "제안"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "shadow-siphon",
+     "ko": "그림자 흡수"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "truesight",
+     "ko": "진시야"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "retrocognition",
+     "ko": "과거 인식"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "unrelenting-observation",
+     "ko": "끊임없는 관찰"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "weird",
+     "ko": "기이함"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "",
+    "name_ko": "",
+    "text": "You become enveloped in possibility, represented as multiple versions of yourself from your possible futures overlaid on each other. You gain @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealment} for 1 round, but can't use the concealment to @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{Hide}.",
+    "text_ko": "당신은 가능성에 둘러싸이게 되며, 이는 가능한 미래의 여러 버전의 자신이 서로 겹쳐진 형태로 나타납니다. 1라운드 동안 @link[conditions.concealed]를 얻지만, 이 은폐를 이용해 @link[actions.hide]를 사용할 수 없다."
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-imperial",
+   "name_en": "Bloodline: Imperial",
+   "name_ko": "혈통: 제국",
+   "tradition": "arcane",
+   "skills": [
+    "arcana",
+    "society"
+   ],
+   "variable_skill": false,
+   "initial": "ancestral-memories",
+   "initial_ko": "선조의 기억",
+   "advanced": "extend-blood-magic",
+   "advanced_ko": "혈마법 연장",
+   "greater": "arcane-countermeasure",
+   "greater_ko": "아케인 대응",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "detect-magic",
+     "ko": "마법 탐지"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "force-barrage",
+     "ko": "포스 포격"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "dispel-magic",
+     "ko": "마법 해제"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "haste",
+     "ko": "신속"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "translocate",
+     "ko": "점멸"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "scouting-eye",
+     "ko": "정찰의 눈"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "disintegrate",
+     "ko": "분해"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "retrocognition",
+     "ko": "과거 인식"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "quandary",
+     "ko": "딜레마"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "implosion",
+     "ko": "내파"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "Imperious Defense",
+    "name_ko": "",
+    "text": "Raw magic emanates from every cell in your body, protecting you. Until the start of your next turn, you gain your choice of either a +1 status bonus to AC or a +1 status bonus to saving throws.",
+    "text_ko": "초급: @link[spells.ancestral-memories], 중급: @link[spells.extend-blood-magic], 고급: @link[spells.arcane-countermeasure]"
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-nymph",
+   "name_en": "Bloodline: Nymph",
+   "name_ko": "혈통: 님프",
+   "tradition": "primal",
+   "skills": [
+    "diplomacy",
+    "nature"
+   ],
+   "variable_skill": false,
+   "initial": "nymphs-token",
+   "initial_ko": "요정의 증표",
+   "advanced": "blinding-beauty",
+   "advanced_ko": "눈부신 아름다움",
+   "greater": "establish-ward",
+   "greater_ko": "수호부 구축",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "tangle-vine",
+     "ko": "엉킴덩굴"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "charm",
+     "ko": "매혹"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "calm",
+     "ko": "진정"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "animal-vision",
+     "ko": "동물 시야"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "vital-beacon",
+     "ko": "생명 신호"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "wave-of-despair",
+     "ko": "절망의 파도"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "repulsion",
+     "ko": "반발"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "unfettered-pack",
+     "ko": "속박 없는 무리"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "moment-of-renewal",
+     "ko": "재생의 순간"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "overwhelming-presence",
+     "ko": "압도적인 위엄"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "",
+    "name_ko": "",
+    "text": "Nymph grace accentuates your movements and distracts your foes, either granting you a +1 status bonus to Diplomacy checks for 1 round or imposing a -1 status penalty on one target's Will saves for 1 round.",
+    "text_ko": "요정의 우아함이 당신의 움직임을 강조하고 적을 혼란스럽게 하여, 1라운드 동안 외교 판정에서 +1 상태 보너스를 부여하거나, 1라운드 동안 한 대상의 의지 내성에 -1 상태 페널티를 부과합니다."
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-phoenix",
+   "name_en": "Bloodline: Phoenix",
+   "name_ko": "혈통: 불사조",
+   "tradition": "primal",
+   "skills": [
+    "diplomacy",
+    "nature"
+   ],
+   "variable_skill": false,
+   "initial": "rejuvenating-flames",
+   "initial_ko": "재생 불꽃",
+   "advanced": "shroud-of-flame",
+   "advanced_ko": "불꽃의 장막",
+   "greater": "cleansing-flames",
+   "greater_ko": "정화의 불꽃",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "detect-magic",
+     "ko": "마법 탐지"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "breathe-fire",
+     "ko": "불기"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "see-the-unseen",
+     "ko": "보이지 않는 것 보기"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "fireball",
+     "ko": "화염구"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "cleanse-affliction",
+     "ko": "질병 정화"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "breath-of-life",
+     "ko": "생명의 숨결"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "disintegrate",
+     "ko": "분해"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "contingency",
+     "ko": "컨틴전시"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "moment-of-renewal",
+     "ko": "재생의 순간"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "falling-stars",
+     "ko": "유성"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "",
+    "name_ko": "",
+    "text": "The primal fire of life and death flows through you or one target. Choose to have either you or a target of the spell gain temporary Hit Points equal to the spell's rank for 1 round, or to have a target of the spell take fire damage equal to the spell's rank (if the spell already deals initial fire damage, combine this with the spell's initial damage before determining weaknesses and resistances).",
+    "text_ko": "생명과 죽음의 프라이멀한 불꽃이 당신 또는 하나의 대상에게 흐릅니다. 당신이나 대상 중 하나가 1라운드 동안 주문 랭크에 해당하는 임시 HP를 얻거나, 대상이 주문 랭크에 해당하는 화염 피해를 입도록 선택합니다(주문이 이미 초기 화염 피해를 입히는 경우, 약점과 저항을 결정하기 전에 이 피해를 주문의 초기 피해와 합산합니다)."
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-psychopomp",
+   "name_en": "Bloodline: Psychopomp",
+   "name_ko": "혈통: 사이코폼프",
+   "tradition": "divine",
+   "skills": [
+    "intimidation",
+    "religion"
+   ],
+   "variable_skill": false,
+   "initial": "sepulchral-mask",
+   "initial_ko": "무덤의 가면",
+   "advanced": "spirit-veil",
+   "advanced_ko": "영혼의 베일",
+   "greater": "shepherd-of-souls",
+   "greater_ko": "영혼의 목자",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "vitality-lash",
+     "ko": "활력 채찍"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "heal",
+     "ko": "치유"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "calm",
+     "ko": "진정"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "holy-light",
+     "ko": "신성한 빛"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "planar-tether",
+     "ko": "평면 구속"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "death-ward",
+     "ko": "죽음의 수호부"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "spirit-blast",
+     "ko": "영혼 폭발"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "execute",
+     "ko": "처형"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "spirit-song",
+     "ko": "영혼의 노래"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "massacre",
+     "ko": "학살"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "",
+    "name_ko": "",
+    "text": "The border between life and death becomes blurred to you. Either you gain a +2 status bonus to Fortitude saving throws for 1 round, or a target takes 1 damage per spell rank. The damage is void if the target is living or vitality if the target is undead. If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.",
+    "text_ko": "생과 사의 경계가 흐려집니다. 1라운드 동안 인내 내성에 +2 상태 보너스를 얻거나, 대상이 주문 랭크당 1의 피해를 입는다. 대상이 생물일 경우 피해는 무효화되며, 언데드일 경우 활력 피해로 처리된다. 해당 유형의 피해를 이미 입히는 주문인 경우, 약점과 저항을 판단하기 전에 주문의 초기 피해와 합산한다."
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-shadow",
+   "name_en": "Bloodline: Shadow",
+   "name_ko": "혈통: 그림자",
+   "tradition": "occult",
+   "skills": [
+    "occultism",
+    "stealth"
+   ],
+   "variable_skill": false,
+   "initial": "dim-the-light",
+   "initial_ko": "빛을 어둡게 하다",
+   "advanced": "steal-shadow",
+   "advanced_ko": "그림자 훔치기",
+   "greater": "consuming-darkness",
+   "greater_ko": "삼켜지는 어둠",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "void-warp",
+     "ko": "공허 왜곡"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "grim-tendrils",
+     "ko": "암흑의 촉수"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "darkness",
+     "ko": "암흑"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "chilling-darkness",
+     "ko": "차가운 어둠"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "phantasmal-killer",
+     "ko": "환상 살인자"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "shadow-siphon",
+     "ko": "그림자 흡수"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "collective-transposition",
+     "ko": "집단 변위"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "duplicate-foe",
+     "ko": "적 복제"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "disappearance",
+     "ko": "소멸"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "weird",
+     "ko": "기이함"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "",
+    "name_ko": "",
+    "text": "Shadows grow deeper around you or one target, either granting a +1 status bonus to Stealth or imposing a -1 status penalty to Perception for 1 round.",
+    "text_ko": "주변 또는 한 대상의 그림자가 짙어져, 1라운드 동안 은신 능력에 +1 상태 보너스를 부여하거나 지각 능력에 -1 상태 페널티를 부과합니다."
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-undead",
+   "name_en": "Bloodline: Undead",
+   "name_ko": "혈통: 언데드",
+   "tradition": "divine",
+   "skills": [
+    "intimidation",
+    "religion"
+   ],
+   "variable_skill": false,
+   "initial": "undeaths-blessing",
+   "initial_ko": "언데드의 축복",
+   "advanced": "drain-life",
+   "advanced_ko": "흡수",
+   "greater": "grasping-grave",
+   "greater_ko": "움켜잡는 무덤",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "void-warp",
+     "ko": "공허 왜곡"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "harm",
+     "ko": "해악"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "see-the-unseen",
+     "ko": "보이지 않는 것 보기"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "bind-undead",
+     "ko": "언데드 구속"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "talking-corpse",
+     "ko": "말하는 시체"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "invoke-spirits",
+     "ko": "영혼 소환"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "vampiric-exsanguination",
+     "ko": "뱀파이어의 흡혈"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "execute",
+     "ko": "처형"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "canticle-of-everlasting-grief",
+     "ko": "영원한 슬픔의 찬가"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "wails-of-the-damned",
+     "ko": "저주받은 자들의 통곡"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "Stolen Life",
+    "name_ko": "도둑맞은 생명",
+    "text": "You can channel the necromantic energy in your blood. Either you gain temporary Hit Points equal to the spell's rank that last until the start of your next turn, or a target takes 1 void damage per spell rank (if the spell already deals initial void damage, combine this with the spell's initial damage before determining weaknesses and resistances).",
+    "text_ko": "당신은 피 속에 흐르는 네크로맨틱 에너지를 집중시킬 수 있습니다. 다음 중 하나를 선택한다: 주문 랭크만큼의 임시 HP를 얻어 다음 턴 시작까지 유지하거나, 대상이 주문 랭크당 1의 공허 피해를 입는다(해당 주문이 이미 초기 공허 피해를 입히는 경우, 이 피해를 주문 초기 피해와 합산한 후 약점과 저항을 적용한다)."
+   },
+   "exemplars": null
+  },
+  {
+   "slug": "bloodline-wyrmblessed",
+   "name_en": "Bloodline: Wyrmblessed",
+   "name_ko": "혈통: 용의 축복",
+   "tradition": "divine",
+   "skills": [
+    "intimidation",
+    "religion"
+   ],
+   "variable_skill": false,
+   "initial": "flurry-of-claws",
+   "initial_ko": "발톱의 연타",
+   "advanced": "dragon-breath",
+   "advanced_ko": "드래곤의 숨결",
+   "greater": "dragon-wings",
+   "greater_ko": "용의 날개",
+   "granted": [
+    {
+     "rank": 0,
+     "charLevel": 1,
+     "slug": "read-aura",
+     "ko": "오라 읽기"
+    },
+    {
+     "rank": 1,
+     "charLevel": 1,
+     "slug": "mystic-armor",
+     "ko": "신비한 갑옷"
+    },
+    {
+     "rank": 2,
+     "charLevel": 3,
+     "slug": "resist-energy",
+     "ko": "에너지 저항"
+    },
+    {
+     "rank": 3,
+     "charLevel": 5,
+     "slug": "haste",
+     "ko": "신속"
+    },
+    {
+     "rank": 4,
+     "charLevel": 7,
+     "slug": "reflective-scales",
+     "ko": "반사 비늘"
+    },
+    {
+     "rank": 5,
+     "charLevel": 9,
+     "slug": "cloak-of-colors",
+     "ko": "색채의 망토"
+    },
+    {
+     "rank": 6,
+     "charLevel": 11,
+     "slug": "repulsion",
+     "ko": "반발"
+    },
+    {
+     "rank": 7,
+     "charLevel": 13,
+     "slug": "mask-of-terror",
+     "ko": "공포의 가면"
+    },
+    {
+     "rank": 8,
+     "charLevel": 15,
+     "slug": "divine-inspiration",
+     "ko": "신성한 영감"
+    },
+    {
+     "rank": 9,
+     "charLevel": 17,
+     "slug": "overwhelming-presence",
+     "ko": "압도적인 위엄"
+    }
+   ],
+   "blood_magic": {
+    "name_en": "",
+    "name_ko": "",
+    "text": "Draconic might carries in your voice. Either you gain a +1 status bonus to Intimidation checks for 1 round, or a target takes a -1 status penalty to Will saves for 1 round.",
+    "text_ko": "드라코닉 위엄이 네 목소리에 실린다. 당신은 1라운드 동안 협박 판정에서 +1 상태 보너스를 얻거나, 대상은 1라운드 동안 의지 내성에 -1 상태 페널티를 받는다."
+   },
+   "exemplars": null
+  }
+ ],
+ "guide": [
+  {
+   "term": "전통",
+   "def": "이 마법 전통과 주문 목록을 사용합니다."
+  },
+  {
+   "term": "혈통 기술",
+   "def": "나열된 기술에 숙련됩니다."
+  },
+  {
+   "term": "마법적 재능",
+   "def": "당신은 주문 목록 특성에 설명된 대로 여기에 나열된 주문들을 자동으로 당신의 주문 목록에 추가합니다. 1레벨에, 당신은 캔트립 하나와 1랭크 주문 하나를 얻습니다. 목록에 있는 다른 주문들은 해당 랭크의 소서러 주문을 시전할 수 있는 능력을 얻는 즉시 습득합니다."
+  },
+  {
+   "term": "혈통 주문",
+   "def": "1레벨에 초기 혈통 주문을 자동으로 획득하며, 고급 혈통 및 위대한 혈통 재주를 선택하여 더 많은 혈통 주문을 얻을 수 있습니다."
+  },
+  {
+   "term": "혈통 마법",
+   "def": "포커스 포인트를 사용해 혈통 주문을 시전하거나, 주문 슬롯을 사용해 소서러 재능 주문을 시전할 때마다, 자신이 아는 혈통 마법 효과 중 하나를 선택해 혜택을 받습니다. 플레이 시작 시 혈통에 기재된 혜택을 받으며, 소서러 재주를 통해 다른 효과를 얻을 수 있습니다."
+  }
+ ],
+ "note": "소서러 혈통 정본 메타(런타임 BLOODLINE_DB). build_bloodlines.mjs 생성(소스=store/feats.json bloodline-* FVTT desc). guide=혈통 항목 읽는 법(bloodline-spells 항목)."
+}

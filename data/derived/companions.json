@@ -1,0 +1,512 @@
+{
+ "rows": [
+  {
+   "id": "ape",
+   "name_ko": "유인원",
+   "name_en": "Ape",
+   "size": "소형",
+   "hp": 6,
+   "str": 3,
+   "dex": 2,
+   "con": 2,
+   "int": -4,
+   "wis": 2,
+   "cha": 0,
+   "skill": "위협",
+   "senses": "저광 시야",
+   "speed": 25,
+   "speeds": {
+    "climb": 25
+   },
+   "attacks": [
+    {
+     "name": "주먹",
+     "hit": "",
+     "dmg": "1d8 B",
+     "traits": []
+    }
+   ]
+  },
+  {
+   "id": "arboreal",
+   "name_ko": "수목 묘목",
+   "name_en": "Arboreal Sapling",
+   "size": "소형",
+   "hp": 8,
+   "str": 3,
+   "dex": 1,
+   "con": 2,
+   "int": -4,
+   "wis": 2,
+   "cha": 0,
+   "skill": "은신",
+   "senses": "저광 시야",
+   "speed": 25,
+   "speeds": {},
+   "attacks": [
+    {
+     "name": "가지",
+     "hit": "",
+     "dmg": "1d8 B",
+     "traits": []
+    }
+   ]
+  },
+  {
+   "id": "bat",
+   "name_ko": "박쥐",
+   "name_en": "Bat",
+   "size": "소형",
+   "hp": 6,
+   "str": 2,
+   "dex": 3,
+   "con": 2,
+   "int": -4,
+   "wis": 1,
+   "cha": 0,
+   "skill": "은신",
+   "senses": "반향정위 20피트, 저광 시야",
+   "speed": 15,
+   "speeds": {
+    "fly": 30
+   },
+   "attacks": [
+    {
+     "name": "턱",
+     "hit": "",
+     "dmg": "1d6 P",
+     "traits": [
+      "기교"
+     ]
+    },
+    {
+     "name": "날개",
+     "hit": "",
+     "dmg": "1d4 S",
+     "traits": [
+      "민첩",
+      "기교"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "badger",
+   "name_ko": "오소리",
+   "name_en": "Badger",
+   "size": "소형",
+   "hp": 8,
+   "str": 2,
+   "dex": 2,
+   "con": 2,
+   "int": -4,
+   "wis": 2,
+   "cha": 0,
+   "skill": "생존",
+   "senses": "저광 시야, 후각(부정확 30피트)",
+   "speed": 25,
+   "speeds": {
+    "burrow": 10,
+    "climb": 10
+   },
+   "attacks": [
+    {
+     "name": "턱",
+     "hit": "",
+     "dmg": "1d8 P",
+     "traits": []
+    },
+    {
+     "name": "발톱",
+     "hit": "",
+     "dmg": "1d6 S",
+     "traits": [
+      "민첩"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bear",
+   "name_ko": "곰",
+   "name_en": "Bear",
+   "size": "소형",
+   "hp": 8,
+   "str": 3,
+   "dex": 2,
+   "con": 2,
+   "int": -4,
+   "wis": 1,
+   "cha": 0,
+   "skill": "위협",
+   "senses": "저광 시야, 후각(부정확 30피트)",
+   "speed": 35,
+   "speeds": {},
+   "attacks": [
+    {
+     "name": "턱",
+     "hit": "",
+     "dmg": "1d8 P",
+     "traits": []
+    },
+    {
+     "name": "발톱",
+     "hit": "",
+     "dmg": "1d6 S",
+     "traits": [
+      "민첩"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bird",
+   "name_ko": "새",
+   "name_en": "Bird",
+   "size": "소형",
+   "hp": 4,
+   "str": 2,
+   "dex": 3,
+   "con": 1,
+   "int": -4,
+   "wis": 2,
+   "cha": 0,
+   "skill": "은신",
+   "senses": "저광 시야",
+   "speed": 10,
+   "speeds": {
+    "fly": 60
+   },
+   "attacks": [
+    {
+     "name": "부리",
+     "hit": "",
+     "dmg": "1d6 P",
+     "traits": [
+      "기교"
+     ]
+    },
+    {
+     "name": "발톱",
+     "hit": "",
+     "dmg": "1d4 S",
+     "traits": [
+      "민첩",
+      "기교"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boar",
+   "name_ko": "멧돼지",
+   "name_en": "Boar",
+   "size": "소형",
+   "hp": 8,
+   "str": 3,
+   "dex": 1,
+   "con": 2,
+   "int": -4,
+   "wis": 2,
+   "cha": 0,
+   "skill": "생존",
+   "senses": "저광 시야, 후각(부정확 30피트)",
+   "speed": 35,
+   "speeds": {},
+   "attacks": [
+    {
+     "name": "엄니",
+     "hit": "",
+     "dmg": "1d8 P",
+     "traits": []
+    }
+   ]
+  },
+  {
+   "id": "cat",
+   "name_ko": "고양이",
+   "name_en": "Cat",
+   "size": "소형",
+   "hp": 4,
+   "str": 2,
+   "dex": 3,
+   "con": 1,
+   "int": -4,
+   "wis": 2,
+   "cha": 0,
+   "skill": "은신",
+   "senses": "저광 시야, 후각(부정확 30피트)",
+   "speed": 35,
+   "speeds": {},
+   "attacks": [
+    {
+     "name": "턱",
+     "hit": "",
+     "dmg": "1d6 P",
+     "traits": [
+      "기교"
+     ]
+    },
+    {
+     "name": "발톱",
+     "hit": "",
+     "dmg": "1d4 S",
+     "traits": [
+      "민첩",
+      "기교"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "crocodile",
+   "name_ko": "악어",
+   "name_en": "Crocodile",
+   "size": "소형",
+   "hp": 6,
+   "str": 3,
+   "dex": 2,
+   "con": 2,
+   "int": -4,
+   "wis": 1,
+   "cha": 0,
+   "skill": "은신",
+   "senses": "저광 시야",
+   "speed": 20,
+   "speeds": {
+    "swim": 25
+   },
+   "attacks": [
+    {
+     "name": "턱",
+     "hit": "",
+     "dmg": "1d8 P",
+     "traits": []
+    },
+    {
+     "name": "꼬리",
+     "hit": "",
+     "dmg": "1d6 B",
+     "traits": [
+      "민첩"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "dromaeosaur",
+   "name_ko": "드로마에오사우루스",
+   "name_en": "Dromaeosaur",
+   "size": "소형",
+   "hp": 6,
+   "str": 2,
+   "dex": 3,
+   "con": 2,
+   "int": -4,
+   "wis": 1,
+   "cha": 0,
+   "skill": "은신",
+   "senses": "저광 시야, 후각(부정확 30피트)",
+   "speed": 50,
+   "speeds": {},
+   "attacks": [
+    {
+     "name": "턱",
+     "hit": "",
+     "dmg": "1d8 P",
+     "traits": [
+      "기교"
+     ]
+    },
+    {
+     "name": "발톱",
+     "hit": "",
+     "dmg": "1d6 S",
+     "traits": [
+      "민첩",
+      "기교"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "horse",
+   "name_ko": "말",
+   "name_en": "Horse",
+   "size": "대형",
+   "hp": 8,
+   "str": 3,
+   "dex": 2,
+   "con": 2,
+   "int": -4,
+   "wis": 1,
+   "cha": 0,
+   "skill": "생존",
+   "senses": "저광 시야, 후각(부정확 30피트)",
+   "speed": 40,
+   "speeds": {},
+   "mount": true,
+   "attacks": [
+    {
+     "name": "발굽",
+     "hit": "",
+     "dmg": "1d6 B",
+     "traits": [
+      "민첩"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "drake",
+   "name_ko": "기마 드레이크",
+   "name_en": "Riding Drake",
+   "size": "대형",
+   "hp": 8,
+   "str": 2,
+   "dex": 1,
+   "con": 2,
+   "int": -4,
+   "wis": 1,
+   "cha": 2,
+   "skill": "위협",
+   "senses": "암시야",
+   "speed": 45,
+   "speeds": {},
+   "mount": true,
+   "uncommon": true,
+   "attacks": [
+    {
+     "name": "턱",
+     "hit": "",
+     "dmg": "1d8 P",
+     "traits": []
+    },
+    {
+     "name": "꼬리",
+     "hit": "",
+     "dmg": "1d6 B",
+     "traits": []
+    }
+   ]
+  },
+  {
+   "id": "scorpion",
+   "name_ko": "전갈",
+   "name_en": "Scorpion",
+   "size": "소형",
+   "hp": 6,
+   "str": 3,
+   "dex": 3,
+   "con": 1,
+   "int": -4,
+   "wis": 1,
+   "cha": 0,
+   "skill": "은신",
+   "senses": "암시야",
+   "speed": 30,
+   "speeds": {},
+   "attacks": [
+    {
+     "name": "침",
+     "hit": "",
+     "dmg": "1d6 P",
+     "traits": []
+    },
+    {
+     "name": "집게",
+     "hit": "",
+     "dmg": "1d6 S",
+     "traits": [
+      "민첩"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "shark",
+   "name_ko": "상어",
+   "name_en": "Shark",
+   "size": "소형",
+   "hp": 6,
+   "str": 3,
+   "dex": 2,
+   "con": 2,
+   "int": -4,
+   "wis": 1,
+   "cha": 0,
+   "skill": "은신",
+   "senses": "피냄새, 후각(부정확 60피트)",
+   "speed": 0,
+   "speeds": {
+    "swim": 40
+   },
+   "attacks": [
+    {
+     "name": "턱",
+     "hit": "",
+     "dmg": "1d8 P",
+     "traits": []
+    }
+   ]
+  },
+  {
+   "id": "snake",
+   "name_ko": "뱀",
+   "name_en": "Snake",
+   "size": "소형",
+   "hp": 6,
+   "str": 3,
+   "dex": 3,
+   "con": 1,
+   "int": -4,
+   "wis": 1,
+   "cha": 0,
+   "skill": "은신",
+   "senses": "저광 시야, 후각(부정확 30피트)",
+   "speed": 20,
+   "speeds": {
+    "climb": 20,
+    "swim": 20
+   },
+   "attacks": [
+    {
+     "name": "턱",
+     "hit": "",
+     "dmg": "1d8 P",
+     "traits": [
+      "기교"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wolf",
+   "name_ko": "늑대",
+   "name_en": "Wolf",
+   "size": "소형",
+   "hp": 6,
+   "str": 2,
+   "dex": 3,
+   "con": 2,
+   "int": -4,
+   "wis": 1,
+   "cha": 0,
+   "skill": "생존",
+   "senses": "저광 시야, 후각(부정확 30피트)",
+   "speed": 40,
+   "speeds": {},
+   "attacks": [
+    {
+     "name": "턱",
+     "hit": "",
+     "dmg": "1d8 P",
+     "traits": [
+      "기교"
+     ]
+    }
+   ]
+  }
+ ],
+ "note": "동물 동료(Animal Companion) 정본 스탯블록 — 레인저/드루이드 등 동물 동료 선택 목록. id=저장 키(불변). cs_ui.js COMPANION_DB가 로드. 정본 Player Core."
+}

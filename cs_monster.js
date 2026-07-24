@@ -59,7 +59,7 @@
   // tools/rebase/extract_item_icons.mjs 로 추출 → dev/data/icons/ 아래 벤더링. 미로드 시 타입별 기본 아이콘.
   let _itemImg = null, _ITEM_ICON_BASE = 'data/icons/';
   let _iconLookup = null;                 // 플레이어 시트 icon_map.json(scope→slug/name→path) 재사용(장비/주문 보강)
-  const _IIMG_VER = '0.104';
+  const _IIMG_VER = '0.249';
   // FVTT가 "고유 아트 없음"에 쓰는 제네릭(행동비용·기본) img — 깔끔한 타입별 SVG로 대체할 대상
   const _GENERIC_IMG = new Set([
     'systems/pf2e/icons/actions/Passive.webp','systems/pf2e/icons/actions/OneAction.webp',
@@ -221,7 +221,7 @@
   const _koOf = c => _koById[c.id] || null;                        // 생물 오버레이 (id 기준)
   const _koItem = (ent, slug) => (ent && ent.items && ent.items[slug]) || null;
   const _txt = (ko, en) => (ko && ko.trim()) ? ko : (en || '');   // KO 우선
-  const SIZE_KO = { tiny: '초소형', sm: '소형', med: '중형', lg: '대형', huge: '거대', grg: '초대형' };
+  const SIZE_KO = { tiny: '초소형', sm: '소형', med: '중형', lg: '대형', huge: '거대형', grg: '초대형' };
   const SAVE_KO = { fortitude: '인내', reflex: '반사', will: '의지' };
   const ABIL_KO = { str: '근력', dex: '민첩', con: '건강', int: '지능', wis: '지혜', cha: '매력' };
 

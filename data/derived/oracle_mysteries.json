@@ -1,0 +1,574 @@
+{
+ "rows": [
+  {
+   "slug": "ancestors",
+   "name_ko": "조상",
+   "name_en": "Ancestors",
+   "tradition": "divine",
+   "mystery_skill": "society",
+   "lore_choice": false,
+   "granted_spells": [
+    {
+     "rank": "cantrip",
+     "char_level": 1,
+     "spell": "guidance",
+     "name_ko": "안내"
+    },
+    {
+     "rank": 1,
+     "char_level": 1,
+     "spell": "ill-omen",
+     "name_ko": "불길한 징조"
+    },
+    {
+     "rank": 2,
+     "char_level": 3,
+     "spell": "ghostly-carrier",
+     "name_ko": "유령 운반자"
+    },
+    {
+     "rank": 5,
+     "char_level": 9,
+     "spell": "dreaming-potential",
+     "name_ko": "꿈의 잠재력"
+    }
+   ],
+   "revelation": {
+    "initial": "ancestral-touch",
+    "advanced": "ancestral-defense",
+    "greater": "ancestral-form"
+   },
+   "domains": [
+    "death",
+    "duty",
+    "family",
+    "soul"
+   ],
+   "curse": "curse-of-ancestral-meddling",
+   "curse_name_ko": "조상의 간섭 저주",
+   "curse_name_en": "Curse of Ancestral Meddling",
+   "oracle_feat": "whispers-of-weakness"
+  },
+  {
+   "slug": "ashes",
+   "name_ko": "재",
+   "name_en": "Ashes",
+   "tradition": "divine",
+   "mystery_skill": "occultism",
+   "lore_choice": false,
+   "granted_spells": [
+    {
+     "rank": "cantrip",
+     "char_level": 1,
+     "spell": "ignition",
+     "name_ko": "점화"
+    },
+    {
+     "rank": 1,
+     "char_level": 1,
+     "spell": "breathe-fire",
+     "name_ko": "불기"
+    },
+    {
+     "rank": 2,
+     "char_level": 3,
+     "spell": "mist",
+     "name_ko": "안개"
+    },
+    {
+     "rank": 6,
+     "char_level": 11,
+     "spell": "disintegrate",
+     "name_ko": "분해"
+    }
+   ],
+   "revelation": {
+    "initial": "ashen-wind",
+    "advanced": "incendiary-ashes",
+    "greater": "ash-form"
+   },
+   "domains": [
+    "destruction",
+    "dust",
+    "fire",
+    "nothingness"
+   ],
+   "curse": "curse-of-creeping-ashes",
+   "curse_name_ko": "기어다니는 재의 저주",
+   "curse_name_en": "Curse of Creeping Ashes",
+   "oracle_feat": "whispers-of-weakness"
+  },
+  {
+   "slug": "battle",
+   "name_ko": "전투",
+   "name_en": "Battle",
+   "tradition": "divine",
+   "mystery_skill": "athletics",
+   "lore_choice": false,
+   "granted_spells": [
+    {
+     "rank": "cantrip",
+     "char_level": 1,
+     "spell": "shield",
+     "name_ko": "방패"
+    },
+    {
+     "rank": 1,
+     "char_level": 1,
+     "spell": "sure-strike",
+     "name_ko": "확실한 타격"
+    },
+    {
+     "rank": 2,
+     "char_level": 3,
+     "spell": "telekinetic-maneuver",
+     "name_ko": "염력 기동"
+    },
+    {
+     "rank": 4,
+     "char_level": 7,
+     "spell": "weapon-storm",
+     "name_ko": "무기 폭풍"
+    }
+   ],
+   "revelation": {
+    "initial": "weapon-trance",
+    "advanced": "battlefield-persistence",
+    "greater": "revel-in-retribution"
+   },
+   "domains": [
+    "destruction",
+    "might",
+    "protection",
+    "zeal"
+   ],
+   "curse": "curse-of-the-mortal-warrior",
+   "curse_name_ko": "필멸의 전사 저주",
+   "curse_name_en": "Curse of the Mortal Warrior",
+   "oracle_feat": "oracular-warning"
+  },
+  {
+   "slug": "blight",
+   "name_ko": "병폐",
+   "name_en": "Blight",
+   "tradition": "divine",
+   "mystery_skill": "nature",
+   "lore_choice": false,
+   "granted_spells": [
+    {
+     "rank": "cantrip",
+     "char_level": 1,
+     "spell": "caustic-blast",
+     "name_ko": "부식성 폭발"
+    },
+    {
+     "rank": 1,
+     "char_level": 1,
+     "spell": "noxious-vapors",
+     "name_ko": "유독한 증기"
+    },
+    {
+     "rank": 2,
+     "char_level": 3,
+     "spell": "fungal-infestation",
+     "name_ko": "균류 감염"
+    },
+    {
+     "rank": 5,
+     "char_level": 9,
+     "spell": "toxic-cloud",
+     "name_ko": "독성 구름"
+    }
+   ],
+   "revelation": {
+    "initial": "ulcerous-canker",
+    "advanced": "purging-toxins",
+    "greater": "accelerated-decomposition"
+   },
+   "domains": [
+    "death",
+    "decay",
+    "disorientation",
+    "plague"
+   ],
+   "curse": "curse-of-inevitable-rot",
+   "curse_name_ko": "피할 수 없는 부패의 저주",
+   "curse_name_en": "Curse of Inevitable Rot",
+   "oracle_feat": "whispers-of-weakness"
+  },
+  {
+   "slug": "bones",
+   "name_ko": "뼈",
+   "name_en": "Bones",
+   "tradition": "divine",
+   "mystery_skill": "medicine",
+   "lore_choice": false,
+   "granted_spells": [
+    {
+     "rank": "cantrip",
+     "char_level": 1,
+     "spell": "void-warp",
+     "name_ko": "공허 왜곡"
+    },
+    {
+     "rank": 1,
+     "char_level": 1,
+     "spell": "grim-tendrils",
+     "name_ko": "암흑의 촉수"
+    },
+    {
+     "rank": 2,
+     "char_level": 3,
+     "spell": "false-vitality",
+     "name_ko": "거짓 활력"
+    },
+    {
+     "rank": 3,
+     "char_level": 5,
+     "spell": "ghostly-weapon",
+     "name_ko": "유령 무기"
+    }
+   ],
+   "revelation": {
+    "initial": "soul-siphon",
+    "advanced": "armor-of-bones",
+    "greater": "claim-undead"
+   },
+   "domains": [
+    "death",
+    "decay",
+    "undeath",
+    "vigil"
+   ],
+   "curse": "curse-of-the-living-death",
+   "curse_name_ko": "생명의 죽음의 저주",
+   "curse_name_en": "Curse of the Living Death",
+   "oracle_feat": "nudge-the-scales"
+  },
+  {
+   "slug": "cosmos",
+   "name_ko": "우주",
+   "name_en": "Cosmos",
+   "tradition": "divine",
+   "mystery_skill": "nature",
+   "lore_choice": false,
+   "granted_spells": [
+    {
+     "rank": "cantrip",
+     "char_level": 1,
+     "spell": "light",
+     "name_ko": "빛"
+    },
+    {
+     "rank": 1,
+     "char_level": 1,
+     "spell": "dizzying-colors",
+     "name_ko": "현기증 나는 색채"
+    },
+    {
+     "rank": 2,
+     "char_level": 3,
+     "spell": "darkness",
+     "name_ko": "암흑"
+    },
+    {
+     "rank": 5,
+     "char_level": 9,
+     "spell": "moon-frenzy",
+     "name_ko": "달의 광란"
+    }
+   ],
+   "revelation": {
+    "initial": "spray-of-stars",
+    "advanced": "interstellar-void",
+    "greater": "moonlight-bridge"
+   },
+   "domains": [
+    "darkness",
+    "moon",
+    "nothingness",
+    "star"
+   ],
+   "curse": "curse-of-the-skys-call",
+   "curse_name_ko": "하늘의 부름의 저주",
+   "curse_name_en": "Curse of the Sky's Call",
+   "oracle_feat": "oracular-warning"
+  },
+  {
+   "slug": "flames",
+   "name_ko": "불꽃",
+   "name_en": "Flames",
+   "tradition": "divine",
+   "mystery_skill": "acrobatics",
+   "lore_choice": false,
+   "granted_spells": [
+    {
+     "rank": "cantrip",
+     "char_level": 1,
+     "spell": "ignition",
+     "name_ko": "점화"
+    },
+    {
+     "rank": 1,
+     "char_level": 1,
+     "spell": "breathe-fire",
+     "name_ko": "불기"
+    },
+    {
+     "rank": 2,
+     "char_level": 3,
+     "spell": "blazing-bolt",
+     "name_ko": "불타는 화살"
+    },
+    {
+     "rank": 3,
+     "char_level": 5,
+     "spell": "fireball",
+     "name_ko": "화염구"
+    }
+   ],
+   "revelation": {
+    "initial": "incendiary-aura",
+    "advanced": "whirling-flames",
+    "greater": "flaming-fusillade"
+   },
+   "domains": [
+    "dust",
+    "fire",
+    "star",
+    "sun"
+   ],
+   "curse": "curse-of-engulfing-flames",
+   "curse_name_ko": "삼켜버리는 불꽃의 저주",
+   "curse_name_en": "Curse of Engulfing Flames",
+   "oracle_feat": "foretell-harm"
+  },
+  {
+   "slug": "life",
+   "name_ko": "생명",
+   "name_en": "Life",
+   "tradition": "divine",
+   "mystery_skill": "medicine",
+   "lore_choice": false,
+   "granted_spells": [
+    {
+     "rank": "cantrip",
+     "char_level": 1,
+     "spell": "vitality-lash",
+     "name_ko": "활력 채찍"
+    },
+    {
+     "rank": 1,
+     "char_level": 1,
+     "spell": "soothe",
+     "name_ko": "진정"
+    },
+    {
+     "rank": 2,
+     "char_level": 3,
+     "spell": "false-vitality",
+     "name_ko": "거짓 활력"
+    },
+    {
+     "rank": 5,
+     "char_level": 9,
+     "spell": "grisly-growths",
+     "name_ko": "끔찍한 성장"
+    }
+   ],
+   "revelation": {
+    "initial": "life-link",
+    "advanced": "delay-affliction",
+    "greater": "life-giving-form"
+   },
+   "domains": [
+    "death",
+    "healing",
+    "pain",
+    "soul"
+   ],
+   "curse": "curse-of-outpouring-life",
+   "curse_name_ko": "생명의 분출 저주",
+   "curse_name_en": "Curse of Outpouring Life",
+   "oracle_feat": "nudge-the-scales"
+  },
+  {
+   "slug": "lore",
+   "name_ko": "지식",
+   "name_en": "Lore",
+   "tradition": "divine",
+   "mystery_skill": "occultism",
+   "lore_choice": true,
+   "granted_spells": [
+    {
+     "rank": "cantrip",
+     "char_level": 1,
+     "spell": "read-aura",
+     "name_ko": "오라 읽기"
+    },
+    {
+     "rank": 1,
+     "char_level": 1,
+     "spell": "mindlink",
+     "name_ko": "정신 연결"
+    },
+    {
+     "rank": 3,
+     "char_level": 5,
+     "spell": "hypercognition",
+     "name_ko": "초인지력"
+    },
+    {
+     "rank": 6,
+     "char_level": 11,
+     "spell": "never-mind",
+     "name_ko": "무뇌화"
+    }
+   ],
+   "revelation": {
+    "initial": "brain-drain",
+    "advanced": "access-lore",
+    "greater": "dread-secret"
+   },
+   "domains": [
+    "knowledge",
+    "magic",
+    "secrecy",
+    "truth"
+   ],
+   "curse": "curse-of-torrential-knowledge",
+   "curse_name_ko": "폭우 같은 지식의 저주",
+   "curse_name_en": "Curse of Torrential Knowledge",
+   "oracle_feat": "whispers-of-weakness"
+  },
+  {
+   "slug": "tempest",
+   "name_ko": "폭풍",
+   "name_en": "Tempest",
+   "tradition": "divine",
+   "mystery_skill": "nature",
+   "lore_choice": false,
+   "granted_spells": [
+    {
+     "rank": "cantrip",
+     "char_level": 1,
+     "spell": "electric-arc",
+     "name_ko": "전기 아크"
+    },
+    {
+     "rank": 1,
+     "char_level": 1,
+     "spell": "thunderstrike",
+     "name_ko": "천둥의 일격"
+    },
+    {
+     "rank": 4,
+     "char_level": 7,
+     "spell": "hydraulic-torrent",
+     "name_ko": "수압 급류"
+    },
+    {
+     "rank": 6,
+     "char_level": 11,
+     "spell": "chain-lightning",
+     "name_ko": "연쇄 번개"
+    }
+   ],
+   "revelation": {
+    "initial": "tempest-touch",
+    "advanced": "thunderburst",
+    "greater": "tempest-form"
+   },
+   "domains": [
+    "air",
+    "cold",
+    "lightning",
+    "water"
+   ],
+   "curse": "curse-of-inclement-headwinds",
+   "curse_name_ko": "불길한 역풍의 저주",
+   "curse_name_en": "Curse of Inclement Headwinds",
+   "oracle_feat": "foretell-harm"
+  },
+  {
+   "slug": "time",
+   "name_ko": "시간",
+   "name_en": "Time",
+   "tradition": "divine",
+   "mystery_skill": "occultism",
+   "lore_choice": false,
+   "granted_spells": [
+    {
+     "rank": "cantrip",
+     "char_level": 1,
+     "spell": "time-sense",
+     "name_ko": "시간 감각"
+    },
+    {
+     "rank": 1,
+     "char_level": 1,
+     "spell": "déjà-vu",
+     "name_ko": "데자뷰"
+    },
+    {
+     "rank": 3,
+     "char_level": 5,
+     "spell": "time-pocket",
+     "name_ko": "시간 주머니"
+    },
+    {
+     "rank": 7,
+     "char_level": 13,
+     "spell": "time-beacon",
+     "name_ko": "시간 등대"
+    }
+   ],
+   "revelation": {
+    "initial": "temporal-distortion",
+    "advanced": "time-skip",
+    "greater": "manifold-lives"
+   },
+   "domains": [
+    "change",
+    "fate",
+    "nothingness",
+    "time"
+   ],
+   "curse": "curse-of-turbulent-moments",
+   "curse_name_ko": "격동의 순간의 저주",
+   "curse_name_en": "Curse of Turbulent Moments",
+   "oracle_feat": "trance-of-celerity"
+  }
+ ],
+ "guide": [
+  {
+   "term": "전통",
+   "def": "오라클은 항상 신성(divine) 전통과 그 주문 목록을 사용합니다."
+  },
+  {
+   "term": "부여 주문",
+   "def": "신비가 나열한 주문을 자동으로 주문 목록(레퍼토리)에 추가합니다. 1레벨에 캔트립 하나와 1랭크 주문 하나를 얻고, 나머지는 해당 랭크의 주문을 시전할 수 있게 되는 즉시 습득합니다."
+  },
+  {
+   "term": "계시 주문",
+   "def": "신비가 부여하는 특별한 포커스 주문입니다. 1레벨에 신비가 정해주는 초급 계시 주문을 배우며, 「고급 계시」·「대계시」 재주로 상급·고급 계시 주문을 추가로 얻습니다. 포커스 포인트로 시전하고 재집중으로 회복합니다."
+  },
+  {
+   "term": "미스터리 스킬",
+   "def": "나열된 기술에 숙련됩니다."
+  },
+  {
+   "term": "관련 영역",
+   "def": "이 신비와 관련된 신성 영역입니다. 「신성한 접근」(11레벨) 등에서 사용합니다."
+  },
+  {
+   "term": "오라클 재주",
+   "def": "이 신비가 접근을 부여하는 오라클 재주입니다."
+  },
+  {
+   "term": "예언의 저주",
+   "def": "신비가 정해주는 고유한 저주입니다. 저주 결속 능력을 쓸수록 「저주 묶임(cursebound)」 수치가 오르며 혜택과 대가가 함께 커지고, 재집중할 때 1단계 감소합니다."
+  }
+ ],
+ "note": "오라클 신비 정본 메타(11종). 소스=store feats 신비 classfeature 파생. tradition=divine 고정, mystery_skill=미스터리 기술, granted_spells=부여 레퍼토리(캔트립+3랭크), revelation=계시주문(초급/상급/고급 focus), curse=예언의 저주, oracle_feat=신비 보너스 재주. MYSTERY_DB/MYSTERY_GUIDE가 로드."
+}

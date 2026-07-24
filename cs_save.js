@@ -32,7 +32,7 @@ function _charRichness(data) {
 // 트랜잭션 안전 저장: (1)클라우드가 내가 본 버전보다 최신이면 stale → 덮어쓰지 않음(들어오는 onSnapshot이 동기화)
 //                    (2)기존이 풍부한데 새 데이터가 절반 미만으로 급감하면 파괴적 → 차단.
 // resolve → {skipped:false|'stale'|'destructive', oldR, newR}
-function safeSaveCharacter(ref, payload) {
+function safeSaveCharacter(ref, payload, allowDestructive) {
   return firebase.firestore().runTransaction(function (tx) {
     return tx.get(ref).then(function (snap) {
       var cloudMs = snap.exists ? _docUpdatedMillis(snap.data()) : 0;
@@ -40,7 +40,9 @@ function safeSaveCharacter(ref, payload) {
       if (snap.exists && cloudMs > _baseUpdatedAt + 200 && cloudData !== _lastWrittenJson) {
         return { skipped: 'stale' };
       }
-      if (cloudData) {
+      // 파괴적 저장 차단 = 버그로 인한 우발적 데이터 손실 방지. 단, 사용자가 명시적으로 초기화·코어 삭제한 경우(allowDestructive)는 우회
+      //   — 안 그러면 클래스 삭제·슬롯 초기화가 클라우드에 반영 안 돼 리로드 시 옛 캐릭터가 되살아남(회귀 수정).
+      if (!allowDestructive && cloudData) {
         var oldR = _charRichness(cloudData), newR = _charRichness(payload.data);
         if (oldR >= 8 && newR < Math.ceil(oldR * 0.5)) return { skipped: 'destructive', oldR: oldR, newR: newR };
       }
@@ -48,6 +50,15 @@ function safeSaveCharacter(ref, payload) {
       return { skipped: false };
     });
   });
+}
+
+// 명시적 초기화/코어 삭제 시 다음 저장 1회에 한해 파괴적 가드 우회(사용자 의도). autoSaveNow가 읽고 소비.
+let _forceSaveDestructive = false;
+// 즉시 강제 저장(디바운스 없이) — clearCoreSelection·executeReset 등 사용자 명시 행동용.
+function forceSaveNow() {
+  _forceSaveDestructive = true;
+  if (typeof _autoSaveDebounce !== 'undefined' && _autoSaveDebounce) clearTimeout(_autoSaveDebounce);
+  if (typeof autoSaveNow === 'function') autoSaveNow();
 }
 
 function save() {
@@ -75,11 +86,12 @@ function autoSaveNow() {
   if (st) { st.textContent = '저장 중...'; st.style.color = '#f5c518'; }
   const db2 = firebase.firestore();
   const ref = db2.collection('users').doc(currentUser.uid).collection(PF_COL.characters).doc(currentSlot);
+  const _allowDestructive = _forceSaveDestructive; _forceSaveDestructive = false;   // 이번 저장 1회만 우회
   safeSaveCharacter(ref, {
     data: json,
     name: (data.fields && data.fields.name) || '이름 없음',   // 실제 캐릭터 이름은 fields.name (이전엔 data.name=undefined라 항상 '이름 없음' 저장되던 버그)
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-  }).then((res) => {
+  }, _allowDestructive).then((res) => {
     if (res.skipped === 'stale') { if (st) { st.textContent = '다른 기기 변경 감지 — 동기화 중'; st.style.color = '#f5c518'; } return; }
     if (res.skipped === 'destructive') { console.warn('[autoSave] 파괴적 저장 차단', res); if (st) { st.textContent = '⚠ 빈 데이터 저장 차단됨'; st.style.color = '#e74c3c'; } return; }
     _lastSavedJson = json; _lastWrittenJson = json;
@@ -156,7 +168,11 @@ function collectData() {
     deity: state.deity || null,
     divineFont: state.divineFont || null,
     sanctification: state.sanctification || null,
+    devotionSpell: state.devotionSpell || null,             // 챔피언 헌신 주문(리로드 소실 방지)
+    championBlessing: state.championBlessing || null,       // 챔피언 헌신자의 축복(3레벨 택1)
     divineFontUsed: state.divineFontUsed || 0,
+    bloodlineExemplar: state.bloodlineExemplar || null,   // 소서러 혈통 표본/원소/지니 유형 선택
+    classFeatureChoices: state.classFeatureChoices || {}, // 클래스 특성 인라인 선택(자연의 목소리 등)
     signatureSpells: state.signatureSpells || {},
     familiarSpells: state.familiarSpells || null,
     preparedSpells: state.preparedSpells || null,
@@ -165,7 +181,9 @@ function collectData() {
   };
   SKILLS.forEach(sk => {
     data.skillProfs[sk.id] = document.getElementById('sk-prof-'+sk.id)?.value;
-    if (sk.isLore) data.loreNames[sk.id] = document.getElementById('lore-name-'+sk.id)?.value;
+    // 지식 이름: 부여(출처 소유) 슬롯은 출처의 choice에서 재파생되므로 저장 안 함(로드 시 수동 오인 방지).
+    //   수동 입력 슬롯만 저장.
+    if (sk.isLore && !(state._loreSlotSource && state._loreSlotSource[sk.id])) data.loreNames[sk.id] = document.getElementById('lore-name-'+sk.id)?.value;
   });
   for (let r=1; r<=10; r++) {
     // CLASS_SPELL_TABLE 기반 클래스는 state 값 그대로 저장 (숫자)
@@ -213,6 +231,38 @@ function _migrateDerivedSpellStoresToSlug() {
     if (!store) continue;
     for (const k in store) if (Array.isArray(store[k])) store[k] = _slugArr(store[k]);
   }
+}
+
+// 로드 시 skillProfs에는 출처기반으로 '재파생되는' 기술 숙련(클래스 고정/선택, 신격 기술, 배경 선택기술,
+// 성장 훈련/향상)이 baked돼 있음 → 걷어내서 recalcAll이 prevRank=0에서 clean 재파생하도록.
+// 안 걷어내면 ①향상이 이중적용(+2 두 번) ②훈련/부여 prevRank가 stale(2)가 돼 로드 후 신격 변경·클래스 선택
+// 변경·성장 슬롯 제거 시 유령 잔존(특히 신격은 reset 경로가 없어 치명적). 구/신 저장본 동일 취급(플래그 불필요).
+// ⚠ state.growth·selectedClass·deity·initialChoices 로드 후, applyClassFeatures(→recalcAll) 전에 호출할 것.
+// ⚠ 무기 숙련(prof-weapon-*)은 클래스 진행표(비재파생)와 공유하므로 strip 대상에서 제외 — 신격 무기숙련은
+//    현행 유지(로드 후 신격 무기변경은 희소). 유산/배경고정/재주 기술도 기존 동작 보존(변경 시 각자 reset 존재).
+function _stripDerivedSkillProfs() {
+  const g = state.growth || {};
+  const rankOf = id => parseInt(document.getElementById('sk-prof-' + id)?.value || 0);
+  const setRank = (id, v) => { const el = document.getElementById('sk-prof-' + id); if (el) el.value = String(v); };
+  const toId = n => (typeof skillNameToId === 'function' ? skillNameToId(n) : null);
+  // 향상 strip (레벨마다 -2). 재파생이 정확히 되돌림.
+  Object.keys(g).forEach(lv => {
+    const inc = g[lv] && g[lv].skillIncrease;
+    if (inc && rankOf(inc) > 0) setRank(inc, Math.max(0, rankOf(inc) - 2));
+  });
+  // 재파생되는 '트레인드 기술' 부여를 0으로 걷어냄(위 대상만).
+  const ids = new Set();
+  const cls = state.selectedClass;
+  if (cls) (cls.fixed_skills || []).forEach(i => { if (i) ids.add(i); });
+  ((state.initialChoices && state.initialChoices.class && state.initialChoices.class.chosenFixedSkills) || [])
+    .forEach(n => { const i = toId(n); if (i) ids.add(i); });
+  if (cls && cls.deity_skill && state.deity && typeof _getDeity === 'function') {
+    const d = _getDeity(state.deity); if (d && d.skill) ids.add(d.skill);
+  }
+  const bgc = state.initialChoices && state.initialChoices.background && state.initialChoices.background.choiceSkill;
+  if (bgc) ids.add(bgc);
+  ((g[1] && g[1].skillTraining) || []).forEach(i => { if (i) ids.add(i); });
+  ids.forEach(id => setRank(id, 0));
 }
 
 function loadData(d) {
@@ -513,6 +563,10 @@ function loadData(d) {
     }
     if (d.growth) { state.growth = d.growth; }
     _migrateGrowthStoresToSlug(); // 동기화 전에 growth를 slug로 정규화 → sync가 slug로 파생
+    // initialChoices(선택형 고정기술 등)를 strip 전에 복원해야 함 — 아래 strip이 chosenFixedSkills를 참조.
+    if (d.initialChoices) state.initialChoices = d.initialChoices;
+    // 재파생 대상 기술 숙련(클래스/신격/배경선택/성장)을 skillProfs에서 걷어냄 → recalcAll이 clean 재파생.
+    _stripDerivedSkillProfs();
     applyClassFeatures();
     if (typeof syncGrowthSpellsToState === 'function') syncGrowthSpellsToState();
     if (typeof syncFamiliarSpellsToState === 'function') syncFamiliarSpellsToState();
@@ -558,14 +612,18 @@ function loadData(d) {
     }
     if (d.divineFont) state.divineFont = d.divineFont;
     if (d.sanctification) state.sanctification = d.sanctification;
+    if (d.devotionSpell) state.devotionSpell = d.devotionSpell;
+    if (d.championBlessing) state.championBlessing = d.championBlessing;
     if (d.divineFontUsed !== undefined) state.divineFontUsed = d.divineFontUsed;
+    if (d.bloodlineExemplar) state.bloodlineExemplar = d.bloodlineExemplar;
+    if (d.classFeatureChoices) state.classFeatureChoices = d.classFeatureChoices;
     if (d.signatureSpells) state.signatureSpells = d.signatureSpells;
     if (d.familiarSpells) state.familiarSpells = d.familiarSpells;
     if (d.preparedSpells) state.preparedSpells = d.preparedSpells;
     // v0.26~: 파생 주문 저장소(signature/familiar/prepared)도 slug로 정규화.
     // (familiarSpells는 위 sync가 growth에서 slug로 재구축하지만, 저장본 우선 로드 케이스도 커버)
     _migrateDerivedSpellStoresToSlug();
-    if (d.initialChoices) state.initialChoices = d.initialChoices;
+    // initialChoices는 위(growth strip 직전)에서 이미 복원됨.
   } catch(e) { console.warn('Load failed',e); }
   // 로드 완료 — 자동저장 복원 + 진행 중인 debounce 취소
   _loadComplete = wasLoadComplete;

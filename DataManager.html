@@ -72,6 +72,12 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
   .dm-grid td.num{text-align:center;color:var(--text2)}
   .dm-grid td.editable{cursor:text}
   .dm-grid td.editable:hover{background:#fff9ea;box-shadow:inset 0 0 0 1px var(--gold2)}
+  .dm-grid .dm-ref{cursor:pointer;font-family:ui-monospace,monospace;font-size:11px;padding:0 3px;border-radius:3px;border:1px solid transparent;white-space:nowrap}
+  .dm-grid .dm-ref.ok{color:var(--accent)}
+  .dm-grid .dm-ref.ok:hover{background:#fff3d6;border-color:var(--gold2);text-decoration:underline}
+  .dm-grid .dm-ref.broken{color:#b00;background:#fde8e8;border-color:#e6a2a2}
+  .dm-grid .dm-ref.broken::before{content:'⚠ '}
+  .dm-grid .dm-ref.pending{color:var(--text2)}
   .dm-grid td.edited{background:#fff3d6;box-shadow:inset 3px 0 0 var(--edit)}
   .dm-grid td.empty-ko{color:#b99;font-style:italic}
   .dm-spacer{height:0}
@@ -100,6 +106,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
 <body>
   <div class="dm-top">
     <span class="dm-title">Pathforge 데이터 관리 <small>FVTT 단일 기반 · BASE⊕OVERLAY⊕OVERRIDE</small></span>
+    <span id="dm-ver" title="배포된 데이터 버전(새로고침마다 갱신). 기대 버전과 다르면 캐시/배포 반영 전." style="font-size:11px;color:var(--gold2);border:1px solid var(--line);border-radius:10px;padding:1px 9px;white-space:nowrap">데이터 v…</span>
     <span class="sp"></span>
     <input class="dm-search" id="dm-search" placeholder="검색 (slug/이름/영문/설명)…" oninput="DM.onSearch(this.value)">
     <span class="dm-diffbadge" id="dm-diff">변경 0</span>
@@ -109,6 +116,17 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <span class="dm-auth" id="dm-auth"></span>
   </div>
   <div class="dm-tabs" id="dm-tabs"></div>
+  <div class="dm-filterbar" id="dm-filterbar" style="display:none;padding:5px 10px;gap:8px;align-items:center;border-bottom:1px solid var(--line);font-size:11px">
+    <span style="color:var(--gold2)">효과 필터</span>
+    <label>효과타입 <select class="dm-search" id="dm-f-type" style="min-width:150px" onchange="DM.onEffType(this.value)"></select></label>
+    <label>대상 <select class="dm-search" id="dm-f-target" style="min-width:150px" onchange="DM.onEffFilter()"><option value="">(전체)</option></select></label>
+    <label>조건 <select class="dm-search" id="dm-f-cond" style="min-width:120px" onchange="DM.onEffFilter()">
+      <option value="">(전체)</option><option value="none">무조건</option><option value="static">정적(적용)</option><option value="sit">상황(표시만)</option></select></label>
+    <button class="dm-btn" onclick="DM.clearEffFilter()">필터 해제</button>
+    <button class="dm-btn" onclick="DM.toggleSchema()" title="코드(런타임)가 실제 처리하는 조건·효과타입 자료형. 빌더가 코드 상수에서 파생 — 이 목록 밖 값은 런타임이 모름.">자료형 스키마</button>
+    <span id="dm-eff-stamp" style="margin-left:auto;font-size:10px;color:var(--text2)" title="로드된 효과 데이터. 정리 후=행 적고 타입 34종·조건 영문 열거형."></span>
+  </div>
+  <div class="dm-schema" id="dm-schema" style="display:none;padding:8px 12px;border-bottom:1px solid var(--line);font-size:11px;line-height:1.7;background:var(--bg2,#00000010)"></div>
   <div class="dm-body">
     <div class="dm-gridwrap">
       <div class="dm-status" id="dm-status">준비</div>
@@ -120,7 +138,7 @@ window.PF_COL = { dataOverrides: PF_ENV === 'dev' ? 'data_overrides_dev' : 'data
     <div class="dm-detail" id="dm-detail"><div class="dm-detail-inner" id="dm-detail-inner"></div></div>
   </div>
 
-<script src="cs_pf2e.js?v=dm8"></script>
+<script src="cs_pf2e.js?v=dm39"></script>
 <script>
 /* ============================================================
    DataManager — FVTT 데이터 관리 툴 (베이스)
@@ -140,31 +158,40 @@ const DM = (function(){
   const CLASS_SLUG_SET = new Set();
   // OVERRIDE 편집 대상. traits_ko는 제외 — 특성 번역은 '특성' 레지스트리 탭에서 slug 기준 단일편집,
   // 다른 표의 특성 컬럼은 slug→레지스트리 읽기전용 표시(표시 레이어 분리).
-  const EDITABLE = new Set(['name_ko','desc_ko']);
+  const EDITABLE = new Set(['name_ko','desc_ko','boost_fixed','boost_free','boost_choice','boost_flaws']);
+  const BOOST_ARRAY_COLS = new Set(['boost_fixed','boost_choice','boost_flaws']);   // 편집 시 슬러그 배열로 파싱/저장
+  const BOOST_INT_COLS = new Set(['boost_free']);                                    // 편집 시 정수로 저장
   const TABS = [
-    {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'class','category','effect_group_id','actions','prerequisites','frequency','rules_n']},
+    {id:'feats',      label:'재주',     cat:'feats',      cols:[...COMMON,'class','category','effect_group_id','actions','frequency','rules_n']},
     {id:'effects', label:'효과(자동화)', kind:'derived', src:'data/derived/effects.json', shape:'rows',
-       cols:['owner_kind','owner_slug','owner_name','rule','src','type','target','value','bonus_type','condition','actionCost','summary','note','choice','option','option_name']},
+       // 7컬럼 정규화(v0.162): 그룹(owner)·효과타입(type)·대상(target)·값(value)·값종류(bonus_type)·조건(condition)·조건밸류(cond_value). 뒤는 보조 메타.
+       cols:['owner_kind','owner_slug','owner_name','type','target','value','bonus_type','condition','cond_value','rule','src','actionCost','summary','note','choice','choice_kind','choice_label','option','option_name']},
     {id:'prereqs', label:'선행조건', kind:'derived', src:'data/derived/prereqs.json', shape:'rows',
-       cols:['slug','text','parsed','conds']},
+       // 정규화 1:N(효과 테이블과 동일 철학): 한 행=원자 조건, 한 컬럼=한 역할. group 같으면 OR·다르면 AND.
+       cols:['owner_slug','group','type','target','value','src_text']},
     {id:'spells',     label:'주문',     cat:'spells',     cols:['slug','name_en','name_ko','rank','traits_ko','range','area','defense','duration','rules_n','source']},
     {id:'equipment',  label:'장비',     cat:'equipment',  cols:['slug','name_en','name_ko','level','type','price','bulk','damage','traits_ko','source']},
-    {id:'classes',    label:'클래스',   cat:'classes',    cols:['slug','name_en','name_ko','keyAbility','casting','tradition','hp','perception','saves','attacks','defenses','source']},
+    {id:'classes',    label:'클래스',   cat:'classes',    cols:['slug','name_en','name_ko','boost_fixed','boost_free','boost_choice','boost_flaws','casting','tradition','hp','perception','saves','attacks','defenses','source']},
     {id:'conditions', label:'상태이상', cat:'conditions', cols:['slug','name_en','name_ko','effect_group_id','valued','group','rules_n','source']},
     {id:'actions',    label:'행동',     cat:'actions',    cols:[...COMMON.slice(0,3),'category','actions','frequency','traits_ko','rules_n']},
-    {id:'ancestries', label:'혈통',     cat:'ancestries', cols:['slug','name_en','name_ko','hp','size','speed','vision','languages','source']},
-    {id:'backgrounds',label:'배경',     cat:'backgrounds',cols:['slug','name_en','name_ko','effect_group_id','boosts','trainedSkills','rules_n','source']},
+    {id:'ancestries', label:'혈통',     cat:'ancestries', cols:['slug','name_en','name_ko','boost_fixed','boost_free','boost_choice','boost_flaws','hp','size','speed','vision','languages','source']},
+    {id:'backgrounds',label:'배경',     cat:'backgrounds',cols:['slug','name_en','name_ko','boost_fixed','boost_free','boost_choice','boost_flaws','effect_group_id','trainedSkills','rules_n','source']},
     {id:'heritages',  label:'유산',     cat:'heritages',  cols:['slug','name_en','name_ko','effect_group_id','ancestry','traits_ko','rules_n','source']},
-    {id:'deities',    label:'신격',     cat:'deities',    cols:['slug','name_en','name_ko','effect_group_id','category','attribute','domains','font','sanctification','source']},
+    {id:'deities',    label:'신격',     cat:'deities',    editable:['name_ko','desc_ko'], cols:['slug','name_en','name_ko','desc_ko','effect_group_id','category','attribute','domains','alt_domains','cleric_spells','font','sanctification','source']},
+    {id:'domains',    label:'영역',     kind:'derived', src:'data/derived/domains.json', shape:'rows',
+       editable:['name_ko','desc_ko','initialSpell','advancedSpell'],
+       cols:['slug','name_en','name_ko','initialSpell','initialSpell_ko','advancedSpell','advancedSpell_ko','desc_ko']},
     {id:'effects',    label:'효과',     cat:'effects',    cols:['slug','name_en','name_ko','level','traits_ko','duration','rules_n','source']},
     {id:'traits',     label:'특성',     kind:'derived', src:'data/derived/traits.json', shape:'map',
        cols:['slug','name_en','name_ko','desc_ko','has_desc'], editable:['name_ko','desc_ko']},
     {id:'classfeatures', label:'클래스특성', kind:'derived', src:'data/derived/class_features.json', shape:'rows', ovKey:'feats',
-       cols:['slug','class','name_en','name_ko','level','is_subclass','subclass_type','grants','rules_n'], editable:['name_ko']},
+       cols:['slug','class','name_en','name_ko','level','desc','is_subclass','subclass_type','grants','rules_n'], editable:['name_ko','desc']},
     {id:'subclasses', label:'서브클래스', kind:'derived', src:'data/derived/subclasses.json', shape:'rows', ovKey:'feats',
-       cols:['slug','class','subclass_type','name_en','name_ko','grants','rules_n'], editable:['name_ko']},
+       cols:['slug','class','subclass_type','name_en','name_ko','tradition','desc','granted_feats','granted_skills','granted_spells','granted_actions','features','grants','rules_n'], editable:['name_ko','desc']},
     {id:'class_progression', label:'클래스성장(파생)', kind:'derived', src:'data/derived/class_progression.json', shape:'rows',
-       cols:['class','cp_name','level','perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting','_src']},
+       cols:['class','cp_name','level','features','perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting','_src']},
+    {id:'subclass_progression', label:'서브클래스성장(파생)', kind:'derived', src:'data/derived/subclass_progression.json', shape:'rows',
+       cols:['subclass','class','name_ko','level','features','grant_feats','grant_skills','grant_spells','grant_actions','perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting','_src']},
     {id:'creatures',  label:'크리처',   kind:'derived', src:'data/derived/creatures.json', shape:'rows',
        cols:['id','name_en','name_ko','level','size','ac','hp','fort','ref','will','perception','traits','n_strikes','n_abilities','n_spells','pack']},
     {id:'hazards',    label:'해저드',   kind:'derived', src:'data/derived/hazards.json', shape:'rows',
@@ -176,6 +203,10 @@ const DM = (function(){
     {id:'system_terms', label:'시스템용어', kind:'derived', src:'data/derived/system_terms.json', shape:'rows',
        cols:['type','slug','name_en','name_ko','desc','ref']},
     {id:'familiar_abilities', label:'사역마능력', kind:'derived', src:'data/derived/familiar_abilities.json', shape:'rows', ovKey:'@familiar', editable:['name_ko','desc_ko'], cols:['slug','name_en','name_ko','traits','desc_ko']},
+    {id:'companions', label:'동물동료', kind:'derived', src:'data/derived/companions.json', shape:'rows',
+       cols:['id','name_ko','name_en','size','hp','str','dex','con','int','wis','cha','skill','senses','speed','mount']},
+    {id:'condition_catalog', label:'상태이상(표시)', kind:'derived', src:'data/derived/conditions.json', shape:'rows',
+       cols:['id','name','en','valued','max','desc']},
     {id:'ui_terms', label:'UI용어집', kind:'derived', src:'data/derived/ui_glossary.json', shape:'rows', cols:['slug','name_ko']},
     {id:'npc_abilities', label:'NPC능력', kind:'derived', src:'data/derived/localize.ko.json', shape:'kv', cols:['slug','text']},
     {id:'enrichers', label:'변환자 사전', ref:true, cols:[]},
@@ -188,7 +219,7 @@ const DM = (function(){
     level:{h:'Lv',w:44,cls:'num',num:true}, rank:{h:'랭크',w:50,cls:'num',num:true},
     traits_ko:{h:'특성',w:200,edit:false}, source:{h:'출처',w:120},
     category:{h:'분류',w:110}, class:{h:'클래스',w:120,edit:false}, type:{h:'종류',w:100}, actions:{h:'비용',w:56,cls:'num'},
-    prerequisites:{h:'선행조건',w:200}, frequency:{h:'빈도',w:110}, rules_n:{h:'RE',w:44,cls:'num',num:true},
+    frequency:{h:'빈도',w:110}, rules_n:{h:'RE',w:44,cls:'num',num:true},
     range:{h:'사거리',w:80}, area:{h:'범위',w:90}, defense:{h:'방어',w:80}, duration:{h:'지속',w:90},
     price:{h:'가격',w:90}, bulk:{h:'부피',w:56,cls:'num'}, damage:{h:'피해',w:110},
     keyAbility:{h:'핵심능력',w:90}, casting:{h:'시전',w:92}, tradition:{h:'전통',w:70}, hp:{h:'HP',w:50,cls:'num'}, perception:{h:'지각',w:50,cls:'num'},
@@ -196,10 +227,19 @@ const DM = (function(){
     valued:{h:'수치형',w:60,cls:'num'}, group:{h:'그룹',w:90},
     size:{h:'크기',w:60}, speed:{h:'속도',w:56,cls:'num'}, vision:{h:'시야',w:90}, languages:{h:'언어',w:150},
     ancestry:{h:'혈통',w:110}, boosts:{h:'능력증가',w:150}, trainedSkills:{h:'훈련기술',w:170},
-    attribute:{h:'능력치',w:110}, domains:{h:'영역',w:160}, font:{h:'신성원천',w:90}, sanctification:{h:'성별화',w:100},
+    boost_fixed:{h:'고정증강',w:100,cls:'key',edit:true}, boost_free:{h:'자유수',w:56,cls:'num',num:true,edit:true},
+    boost_choice:{h:'택1풀',w:110,cls:'key',edit:true}, boost_flaws:{h:'결함',w:80,cls:'key',edit:true},
+    attribute:{h:'능력치',w:110}, domains:{h:'영역(주)',w:150}, alt_domains:{h:'영역(대체)',w:120}, font:{h:'신성원천',w:90}, sanctification:{h:'성별화',w:100},
+    cleric_spells:{h:'신격주문(랭크:슬러그)',w:280},
+    initialSpell:{h:'초기주문',w:160,cls:'key',edit:true}, initialSpell_ko:{h:'초기주문(한)',w:130},
+    advancedSpell:{h:'고급주문',w:160,cls:'key',edit:true}, advancedSpell_ko:{h:'고급주문(한)',w:130},
+    desc_en:{h:'설명(EN)',w:300},
     desc_ko:{h:'설명',w:340,edit:true}, has_desc:{h:'설명有',w:56,cls:'num'},
     class:{h:'클래스',w:100,cls:'key'}, cp_name:{h:'한글명',w:100}, _src:{h:'증가원(특성)',w:220},
-    subclass_type:{h:'서브클래스종류',w:120}, is_subclass:{h:'서브',w:44,cls:'num'}, grants:{h:'부여',w:44,cls:'num'}, tag:{h:'태그',w:140,cls:'key'},
+    subclass_type:{h:'서브클래스종류',w:120}, is_subclass:{h:'서브',w:44,cls:'num'}, grants:{h:'부여',w:44,cls:'num'}, tag:{h:'태그',w:140,cls:'key'}, granted_feats:{h:'부여 재주',w:160},
+    features:{h:'클래스 특성',w:240}, granted_skills:{h:'부여 기술',w:130}, granted_spells:{h:'부여 주문',w:150}, granted_actions:{h:'부여 행동',w:150},
+    grant_feats:{h:'부여 재주',w:150}, grant_skills:{h:'부여 기술',w:110}, grant_spells:{h:'부여 주문',w:140}, grant_actions:{h:'부여 행동',w:140},
+    tradition:{h:'전통',w:70,cls:'key'},
     id:{h:'id',w:150,cls:'key'}, pack:{h:'팩',w:110,cls:'key'}, traits:{h:'특성',w:200}, size:{h:'크기',w:56}, ac:{h:'AC',w:44,cls:'num'},
     fort:{h:'인내',w:44,cls:'num'}, n_strikes:{h:'공격',w:44,cls:'num'}, n_abilities:{h:'능력',w:44,cls:'num'}, n_spells:{h:'주문',w:44,cls:'num'},
     complex:{h:'복합',w:44,cls:'num'}, hardness:{h:'경도',w:44,cls:'num'}, stealth:{h:'은신',w:44,cls:'num'},
@@ -214,9 +254,14 @@ const DM = (function(){
     owner_kind:{h:'소속',w:74}, owner_slug:{h:'엔티티',w:160,cls:'key'}, owner_name:{h:'엔티티(한글)',w:160},
     rule:{h:'규칙/그룹',w:150,cls:'key'},
     effect_group_id:{h:'효과그룹(FK)',w:190,cls:'key'}, src:{h:'구분',w:74},
-    target:{h:'대상',w:130}, value:{h:'값',w:64}, bonus_type:{h:'보너스종류',w:92}, condition:{h:'조건',w:150},
+    target:{h:'대상',w:130}, value:{h:'값',w:64}, bonus_type:{h:'값종류',w:92}, condition:{h:'조건',w:120}, cond_value:{h:'조건밸류',w:190},
     actionCost:{h:'행동비용',w:64}, summary:{h:'요약',w:280}, note:{h:'노트',w:300},
-    choice:{h:'선택지ID',w:130,cls:'key'}, option:{h:'옵션ID',w:130,cls:'key'}, option_name:{h:'옵션명',w:150},
+    choice:{h:'선택지ID',w:130,cls:'key'}, choice_kind:{h:'선택종류',w:120}, choice_label:{h:'선택안내',w:220},
+    option:{h:'옵션ID',w:130,cls:'key'}, option_name:{h:'옵션명',w:150},
+    // 동물 동료·상태이상(표시) 탭 컬럼
+    name:{h:'이름',w:120}, en:{h:'영문',w:130}, max:{h:'최대치',w:64}, desc:{h:'설명',w:340},
+    str:{h:'근력',w:52}, dex:{h:'민첩',w:52}, con:{h:'건강',w:52}, int:{h:'지능',w:52}, wis:{h:'지혜',w:52}, cha:{h:'매력',w:52},
+    senses:{h:'감각',w:200}, mount:{h:'탈것',w:60},
   };
   // 컬럼별 입력 가이드 (헤더 툴팁 ⓘ + 편집 시 하단 안내)
   const COLGUIDE={
@@ -229,6 +274,10 @@ const DM = (function(){
     text:'UI 문자열(HTML). @변환자 사용 가능.',
     traits_ko:'특성 — slug로 저장·매칭, 한글은 표시용. 편집은 「특성」 레지스트리 탭에서(slug 단일편집).',
     traits:'특성 — slug로 저장·매칭, 한글은 표시용. 편집은 「특성」 레지스트리 탭에서.',
+    boost_fixed:'고정 능력치 부스트(항상 적용). 능력치 slug를 / 또는 , 로 구분 입력(예: con / wis). 비우면 없음.',
+    boost_free:'자유 부스트 개수(정수). 아무 능력치에나 투자(런타임이 중복 방지).',
+    boost_choice:'택1 제한 풀. 이 중 1개 선택(예: str / con). PF2e 제한 부스트는 항상 택1.',
+    boost_flaws:'능력치 결함(-1, 항상 적용). slug를 / 로 구분(예: cha). 종족만 해당.',
     level:'정수 레벨(0~).', rank:'주문 랭크(0=캔트립 ~ 10).',
     type:'유형/분류 enum(slug).', category:'분류 enum(slug).',
     ability:'핵심 능력치 slug (str/dex/con/int/wis/cha).',
@@ -241,18 +290,22 @@ const DM = (function(){
     ac:'방어도(정수).', hp:'체력(정수).', damage:'피해식 (예: 2d6 화염).',
     // 효과(자동화 정본 통합 테이블) — 소스=재주/유산/배경 effect_group_id ⨝ EFFECT_GROUPS(+CHOICE_OPTIONS) + 조건/신격 편입
     owner_kind:'소속 엔티티 종류: feat(재주)/heritage(유산)/background(배경)/condition(조건 자동효과, 런타임=conditionMod)/deity(신격 신봉효과, 런타임=selectDeity). 조건·신격은 표시/감사·FK만(런타임 EFFECTS_DB 미편입).',
-    rule:'효과 행의 정의 규칙(구 FVTT룰+효과그룹 통합): FVTT Rule Element 종류(FlatModifier/ActiveEffectLike/GrantItem/Resistance/ChoiceSet 등) 또는 레거시 효과그룹 id. 표시/감사용(런타임 미사용).',
+    rule:'이 효과행의 출처 규칙(rule=FVTT 룰에서 번역/field=구조필드/curated=우리 큐레이션). 참고용. ★표에는 우리가 모델링한 효과만 있고, FVTT 룰을 그대로 덤프하지 않음.',
     owner_slug:'효과가 속한 엔티티 slug(정본 키).', owner_name:'엔티티 한글명(표시용).',
     effect_group_id:'참조 효과그룹 FK(entity→effect 연결키). 같은 값=한 그룹으로 묶인 효과. 엔티티 탭에도 이 컬럼으로 역참조 표시.',
     src:'행 역할: effect(실제 기계효과) / note(시트 표시용 설명글, 효과 없음) / choice·choice_opt(사용자 선택지·옵션). 한 재주는 여러 행 조합으로 정의됨.',
-    type:'효과 유형(enum): grant_lore(지식 부여)·grant_feat(재주 부여)·grant_focus_spell/grant_innate_spell(주문 부여)·skill_trained(기술 숙련)·save_bonus·resistance·vision_upgrade… raw slug 그대로.',
-    target:'효과 대상 = slug(예 breath-control) 또는 특수토큰 $choice(=이 재주의 choice 행에서 사용자가 고른 값에 바인딩). type별로 기술id·주문slug·재주slug·피해유형 등.',
-    value:'수치 또는 특수값(예: level). type별 의미(HP/보너스/저항량 등).',
-    bonus_type:'보너스 종류(circumstance/status/item/untyped) — 스태킹 규칙.',
-    condition:'적용 조건(있을 때만). 표시용 텍스트.',
+    type:'효과타입 = 우리 동작 열거형(grant_feat 재주부여·grant_lore 지식·grant_focus_spell/innate 주문·skill_trained 기술훈련·proficiency 숙련·resistance 저항·save_bonus·vision_upgrade·domain·favored_weapon 등). FVTT 룰타입을 우리 타입으로 번역, 미모델 룰은 제외.',
+    target:'효과 대상 = 우리 slug/데이터(예 breath-control·barbarian·poison·martial). 특수토큰 $choice=이 효과의 choice 행에서 사용자가 고른 값에 바인딩. FVTT 내부 경로(system.…)·동적 브래킷은 노출 안 함(미모델 대상은 행 제외). choice 헤더행에서는 선택 대상 풀(고정기술·주문전통·재주카테고리).',
+    value:'수치 또는 특수값(예: level). type별 의미(HP/보너스/저항량 등). choice 헤더행에서는 수치 제약(개수/랭크/최대레벨), choice_opt 행에서는 default 마커.',
+    bonus_type:'값종류 = 보너스 스태킹 규칙(circumstance 상황/status 상태/item 물품/untyped 무형).',
+    condition:'조건 = 영문 열거형 slug(type·target과 동일 어휘). 무조건=빈칸 / level·class·feat·feature·heritage·ancestry·trait·armor·size·sense=단일 정적조건(런타임 조건엔진이 캐릭터 상태로 평가·적용) / no-*=부정(예 no-class) / compound=진짜 다원자 조건. ★owner-함의 조건(재주가 이미 그 클래스 전용이면 class:X 재확인)은 제거해 무조건화. 숙련 진행은 성장표(섀시)가 전담 → 효과에 안 넣음. 상황(롤타임)조건·FVTT 미모델 룰은 이 표에 넣지 않음.',
+    cond_value:'조건밸류 = 한 원자값(1NF). 단일: level→>=5, class→barbarian, feat/feature→slug, sense→darkvision. compound만 영문 slug 식(예 "armor:category:heavy & armor:group:composite", "(feature:armor-innovation | feature:weapon-innovation)"). &=그리고, |=또는, !=아님.',
     actionCost:'grant_action 행동비용(1/2/3/free/reaction).', summary:'grant_action 등 행동 요약(HTML).',
     note:'display_note/damage_note 본문(자동 표시 노트).',
-    choice:'선택지 그룹 id(choice_id).', option:'선택 옵션 id.', option_name:'선택 옵션 표시명.',
+    choice:'선택지 그룹 id(choice_id). 같은 id의 choice(헤더)+choice_opt(옵션) 행이 한 선택지를 이룸.',
+    choice_kind:'선택 종류 = 무엇을 고르는가. skill(기술1)·skill_defaults(기본기술N)·skill_multi(기술N)·skill_fixed(고정기술)·custom(지정목록)·spell_cantrip/spell_rank(주문)·feat_pick(재주)·weapon_pick(무기)·ancestry_pick(혈통)·lore(지식 자유입력)·familiar_pick(사역마 능력). 이걸로 알맞은 선택 창·후보 목록이 정해짐.',
+    choice_label:'선택지 안내 문구(표시용). 예: "식물 또는 균류 중 선택".',
+    option:'선택 옵션 id(슬러그). choice_opt 행에서 채워짐 — 이 선택지의 후보 하나. value=default이면 기본값(skill_defaults 기본기술·skill_fixed 고정기술).', option_name:'선택 옵션 표시명(한글).',
   };
 
   // ---- 필드 접근자 (row = base⊕overlay 조인된 FVTT 문서) ----
@@ -263,6 +316,7 @@ const DM = (function(){
     _id:r=>r._id||'',
     name_en:r=>r.name_en||r.name||'',
     name_ko:r=>r.name_ko||'',
+    desc_ko:r=>r._desc_ko||'',   // store 카테고리(신격 등) 재번역 설명 단일소스. 편집 시 override→해당 cat.
     level:r=>{const l=digV(r,'level'); return l==null?'':l;},
     rank:r=>{const l=digV(r,'level'); return l==null?'':l;},
     traits_ko:r=>{const t=r.system&&r.system.traits&&r.system.traits.value;return Array.isArray(t)?t.join(', '):'';}, // slug 그대로(매칭 키). 한글은 hover 툴팁
@@ -272,7 +326,6 @@ const DM = (function(){
     class:r=>{const t=(r.system&&r.system.traits&&r.system.traits.value)||[];return t.filter(x=>CLASS_SLUG_SET.has(x)).join(', ');},
     type:r=>r.system&&r.system.category||'',
     actions:r=>{const a=r.system&&r.system.actions; return a?(a.value==null?(r.system.actionType&&r.system.actionType.value||''):a.value):'';},
-    prerequisites:r=>{const p=r.system&&r.system.prerequisites&&r.system.prerequisites.value; return Array.isArray(p)?p.map(x=>x&&x.value||x).join('; '):'';},
     frequency:r=>{const f=r.system&&r.system.frequency; return f?((f.max||'')+'/'+(f.per||'')):'';},
     rules_n:r=>{const rr=r.system&&r.system.rules; return rr?rr.length:0;},
     range:r=>digV(r,'range')||'',
@@ -298,9 +351,16 @@ const DM = (function(){
     languages:r=>{const l=r.system&&r.system.languages&&r.system.languages.value; return Array.isArray(l)?l.join(', '):'';},
     ancestry:r=>{const a=r.system&&r.system.ancestry; return a&&(a.slug||a.name)||'';},
     boosts:r=>{const b=r.system&&r.system.boosts; if(!b)return''; return Object.values(b).map(x=>Array.isArray(x.value)?x.value.join('/'):'').filter(Boolean).join(', ');},
+    // 능력치 부스트 네이티브 4컬럼(store 단일소스, build_boosts.mjs). raw 슬러그 표시.
+    boost_fixed:r=>Array.isArray(r.boost_fixed)?r.boost_fixed.join(' / '):'',
+    boost_free:r=>r.boost_free!=null?String(r.boost_free):'',
+    boost_choice:r=>Array.isArray(r.boost_choice)?r.boost_choice.join(' / '):'',
+    boost_flaws:r=>Array.isArray(r.boost_flaws)?r.boost_flaws.join(' / '):'',
     trainedSkills:r=>{const t=r.system&&r.system.trainedSkills&&r.system.trainedSkills.value; return Array.isArray(t)?t.join(', '):'';},
     attribute:r=>{const a=r.system&&r.system.attribute; return Array.isArray(a)?a.join('/'):(a||'');},
     domains:r=>{const d=r.system&&r.system.domains&&r.system.domains.primary; return Array.isArray(d)?d.join(', '):'';},
+    alt_domains:r=>{const d=r.system&&r.system.domains&&r.system.domains.alternate; return Array.isArray(d)?d.join(', '):'';},
+    cleric_spells:r=>{const sp=r.system&&r.system.spells_slug; if(!sp||typeof sp!=='object')return''; return Object.keys(sp).sort((a,b)=>(+a)-(+b)).map(k=>k+':'+(sp[k]||'?')).join(', ');},
     font:r=>{const f=r.system&&r.system.font; return Array.isArray(f)?f.join('/'):(f||'');},
     sanctification:r=>{const s=r.system&&r.system.sanctification; return s&&s.modal||'';},
     // 엔티티(재주/유산/배경) → 참조 효과그룹 FK (effect_refs.json 역참조 인덱스, 현재 탭 cat 기준)
@@ -320,7 +380,7 @@ const DM = (function(){
     try{
       const [g,l,td]=await Promise.all([
         fetch('data/creatures/_glossary.ko.json').then(r=>r.json()).catch(()=>({})),
-        fetch('data/overlay/_lang.ko.json').then(r=>r.json()).catch(()=>({})),
+        fetch('data/store/_glossary.json').then(r=>r.json()).catch(()=>({})),
         fetch('data/creatures/_trait_desc.ko.json').then(r=>r.json()).catch(()=>({})),
       ]);
       TERM.trait={...(l.traits||{}),...(g.trait||{})};
@@ -357,6 +417,93 @@ const DM = (function(){
   function tabKey(){ return curTab.ovKey || curTab.cat || ('@'+curTab.id); }
   function isEditable(key){ return curTab.editable ? curTab.editable.includes(key) : EDITABLE.has(key); }
   function rowSlug(r){ return r._flat ? (r.slug||'') : ACC.slug(r); }
+
+  // ── 슬러그 상호참조 내비게이션 + 정합성(오타 탐지) ──
+  //   ref 컬럼의 값 = 다른 탭 엔티티의 slug. 클릭 → 그 탭+항목으로 이동. 대상 탭에 없는 slug = 깨진 참조(빨강 ⚠, 오타 탐지).
+  //   대상 탭 slug 집합은 지연 로드(ensureSlugSet) 후 재렌더로 색칠. 확장: REFNAV에 {컬럼:{tab, slugs?}} 추가.
+  //   tab = 대상 탭 id(문자열) 또는 행별 해소 함수 r=>tabId|null(owner_kind/type로 갈리는 경우).
+  const _OWNER_TAB = { feat:'feats', heritage:'heritages', background:'backgrounds', deity:'deities', condition:'conditions', ancestry:'ancestries', equipment:'equipment', subclass:'subclasses' };
+  const REFNAV = {
+    class:         { tab:'classes' },
+    ancestry:      { tab:'ancestries' },
+    initialSpell:  { tab:'spells' },
+    advancedSpell: { tab:'spells' },
+    domains:       { tab:'domains' },
+    alt_domains:   { tab:'domains' },
+    cleric_spells: { tab:'spells', slugs:r=>{ const sp=r.system&&r.system.spells_slug; return (sp&&typeof sp==='object')?Object.values(sp).filter(Boolean):[]; } },
+    subclass:      { tab:'subclasses' },                                   // 서브클래스성장 → 서브클래스
+    features:      { tabs:['classfeatures','feats','spells'] },            // 성장표 클래스특성 — slug별로 맞는 탭 자동 링크(기술 등 비내비 slug=평문)
+    traits_ko:     { tab:'traits' },                                      // 특성 slug → 특성 레지스트리(오타/미등록 탐지)
+    traits:        { tab:'traits' },                                      // 크리처/해저드 등 raw 특성 컬럼
+    owner_slug:    { tab:r=>_OWNER_TAB[r.owner_kind] || null },            // 효과/선행조건행 소유 엔티티(owner_kind로 탭 결정; 선행조건은 owner_kind='feat')
+    target:        { tab:r=>{                                             // 부여/선행조건 대상 → type별 대상 탭
+                       const t=r.type||'';
+                       if(t==='grant_feat'||t==='feat') return 'feats';
+                       if(/spell/.test(t)) return 'spells';
+                       if(t==='subclass') return 'subclasses';
+                       if(t==='heritage') return 'heritages';
+                       if(t==='ancestry') return 'ancestries';
+                       return null;                                        // skill/ability/perception/lore/narrative=평문
+                     } },
+  };
+  const refSlugSets={};   // tabId → Set(slug) 검증 캐시
+  function refSlugsOf(r,col){ const d=REFNAV[col]; if(!d)return null;
+    const arr = d.slugs ? d.slugs(r).map(String) : String(rawVal(r,col)||'').split(/\s*[,\/、]\s*/).map(s=>s.trim());
+    return arr.filter(s=>s && s[0]!=='$');   // $choice/$domain_* 등 동적 플레이스홀더는 실제 slug 아님 → 링크 제외
+  }
+  async function ensureSlugSet(tabId){
+    if(refSlugSets[tabId]) return refSlugSets[tabId];
+    const t=TABS.find(x=>x.id===tabId); if(!t) return refSlugSets[tabId]=new Set();
+    let data=[];
+    try{ if(t.kind==='derived'){ await ensureDerived(t); data=loaded['@'+t.id]||[]; } else { await PF2eData.loadCategory(t.cat); data=loaded[t.cat]=PF2eData.all(t.cat)||[]; } }catch(e){}
+    const set=new Set(); for(const x of data){ const s=rowSlug(x); if(s)set.add(String(s)); }
+    return refSlugSets[tabId]=set;
+  }
+  async function preloadRefSets(t){   // 현재 탭 ref 컬럼이 가리키는 대상 탭 slug집합 로드 → 재렌더로 ok/broken 색칠
+    const cols=(t.cols||[]).filter(c=>REFNAV[c]);
+    if(!cols.length) return;
+    const targets=new Set();
+    for(const c of cols){ const d=REFNAV[c];
+      if(d.tabs) d.tabs.forEach(t=>targets.add(t));                              // 다중 후보 탭(slug별 해소)
+      else if(typeof d.tab==='string') targets.add(d.tab);
+      else for(const r of rows){ const tb=d.tab(r); if(tb)targets.add(tb); }   // 함수형: 행 스캔으로 대상 탭 수집
+    }
+    if(!targets.size) return;
+    await Promise.all([...targets].map(ensureSlugSet));
+    if(curTab===t) applyView();
+  }
+  function refCellHtml(r,col){
+    const d=REFNAV[col]; const slugs=refSlugsOf(r,col)||[];
+    if(!slugs.length) return '';
+    if(d.tabs){   // slug별 다중 탭 해소: 후보 탭 중 그 slug를 가진 첫 탭으로 링크, 없으면 평문(기술 등 비내비)
+      const anyLoaded = d.tabs.some(t=>refSlugSets[t]);
+      return slugs.map(s=>{
+        let tab=null; for(const t of d.tabs){ const set=refSlugSets[t]; if(set&&set.has(s)){ tab=t; break; } }
+        if(tab) return '<span class="dm-ref ok" data-nav-tab="'+esc(tab)+'" data-nav-slug="'+esc(s)+'" title="'+esc('클릭 → 「'+tab+'」 '+s)+'">'+esc(s)+'</span>';
+        if(!anyLoaded) return '<span class="dm-ref pending" title="로드 중…">'+esc(s)+'</span>';
+        return esc(s);   // 어느 후보 탭에도 없음(기술 등) → 평문
+      }).join(' ');
+    }
+    const tab = (typeof d.tab==='function') ? d.tab(r) : d.tab;
+    if(!tab) return '';   // 이 행에선 링크 대상 탭 없음(예: grant_lore target, 자연공격 등) → 평문 표시
+    const set=refSlugSets[tab];
+    return slugs.map(s=>{
+      const status = !set ? 'pending' : (set.has(s)?'ok':'broken');
+      const tip = status==='broken' ? '「'+tab+'」 탭에 없는 슬러그 — 오타 의심' : (status==='ok' ? '클릭 → 「'+tab+'」 탭 '+s : '로드 중…');
+      return '<span class="dm-ref '+status+'" data-nav-tab="'+esc(tab)+'" data-nav-slug="'+esc(s)+'" title="'+esc(tip)+'">'+esc(s)+'</span>';
+    }).join(' ');
+  }
+  async function navigateToRef(tabId,slug){
+    const t=TABS.find(x=>x.id===tabId); if(!t) return;
+    if(curTab!==t) await selectTab(t);
+    if(search){ search=''; const sb=document.getElementById('dm-search'); if(sb)sb.value=''; applyView(); }
+    const idx=view.findIndex(x=>String(rowSlug(x))===String(slug));
+    if(idx<0) return;   // 대상 탭에 없음(깨진 참조) — 이동 불가
+    selSlug=slug;
+    const sc=document.getElementById('dm-scroller');
+    if(sc) sc.scrollTop=Math.max(0, idx*ROWH - Math.floor((sc.clientHeight||400)/2));
+    setTimeout(()=>{ document.querySelectorAll('#dm-rows tr.sel').forEach(x=>x.classList.remove('sel')); const esc2=(window.CSS&&CSS.escape)?CSS.escape(slug):slug; const tr=document.querySelector('#dm-rows tr[data-slug="'+esc2+'"]'); if(tr)tr.classList.add('sel'); openDetail(view[idx]); }, 40);
+  }
   const TYPE_KO={ability:'능력치',skill:'기술',sense:'감각',save:'내성',damage_type:'피해유형',weapon_group:'무기군',armor_group:'갑옷군',armor_category:'갑옷종류',weapon_category:'무기종류',size:'크기',rarity:'희귀도',language:'언어'};
   // 데이터 관리 툴 — 저장된 raw 값(slug/enum) 그대로 표시. 치환 없음(한글은 hover 툴팁으로만 보조).
   // 효과 행을 한글 한 문장으로 요약(컬럼만 봐도 뜻이 보이도록). 데이터 무변경 — 표시 파생.
@@ -381,8 +528,15 @@ const DM = (function(){
     if(cond) s += ' [조건부]';
     return s;
   }
+  const FEATURE_ARR_COLS = new Set(['features','granted_feats','granted_skills','granted_spells','grant_feats','grant_skills','grant_spells','grant_actions']);   // 파생 탭의 특성/부여 배열 컬럼(객체·slug 배열)
   function rawVal(r,key){
-    if(r._flat){ if(key==='summary'){ return r[key] || _effSummary(r); } const v=r[key]; return key==='has_desc'?(v?'✓':''):(v==null?'':v); }
+    if(r._flat){
+      if(key==='summary'){ return r[key] || _effSummary(r); }
+      const v=r[key];
+      if(FEATURE_ARR_COLS.has(key) && Array.isArray(v))   // 클래스특성/부여 배열 → raw slug 나열(slug 없으면 name_ko, 예: 혈통 마법)
+        return v.map(x=> (x&&typeof x==='object') ? (x.slug||x.name_ko||'') : x).filter(Boolean).join(', ');
+      return key==='has_desc'?(v?'✓':''):(v==null?'':v);
+    }
     const fn=ACC[key]; return fn?fn(r):'';
   }
   // 편집 반영값(override 우선)
@@ -403,6 +557,8 @@ const DM = (function(){
   }
   async function selectTab(t){
     curTab=t; selSlug=null; closeDetail(); search=''; document.getElementById('dm-search').value='';
+    effType=''; effTarget=''; effCond='';
+    document.getElementById('dm-filterbar').style.display = (t.id==='effects' && t.kind==='derived') ? 'flex' : 'none';
     renderTabs();
     if(t.ref){ rows=[];view=[]; await ensureTerms(); if(window.PF2eData&&PF2eData.loadLocalize)await PF2eData.loadLocalize();
       try{ await PF2eData.loadCategory('conditions'); await PF2eData.loadCategory('actions'); }catch(e){}  // 예시 @UUID/@Embed 정본해소용
@@ -413,7 +569,49 @@ const DM = (function(){
     else await ensureLoaded(t.cat);
     rows = t.kind==='derived' ? loaded['@'+t.id] : loaded[t.cat];
     sortKey=t.cols[0]; sortDir=1;
+    if(t.id==='effects' && t.kind==='derived') populateEffTypes();
     applyView();
+    preloadRefSets(t);   // 슬러그 참조 컬럼 정합성 색칠(비동기, 로드되면 재렌더)
+  }
+  // 효과 탭 필터(v0.163): 효과타입·대상·조건. 효과타입 선택 시 대상 후보를 그 타입 행의 target으로 스코프(사용자 요구).
+  let effType='', effTarget='', effCond='';
+  function _condKind(r){ const c=r.condition||''; if(!c) return 'none'; return /^상황/.test(c) ? 'sit' : 'static'; }
+  function populateEffTypes(){
+    const types=[...new Set(rows.map(r=>r.type).filter(Boolean))].sort();
+    const sel=document.getElementById('dm-f-type');
+    sel.innerHTML='<option value="">(전체 효과타입)</option>'+types.map(t=>'<option value="'+esc(t)+'">'+esc(t)+' ('+rows.filter(r=>r.type===t).length+')</option>').join('');
+    const stamp=document.getElementById('dm-eff-stamp');
+    if(stamp) stamp.textContent='로드: 효과행 '+rows.length+' · 타입 '+types.length+'종';
+    populateEffTargets();
+  }
+  function populateEffTargets(){
+    const pool = effType ? rows.filter(r=>r.type===effType) : rows;
+    const targets=[...new Set(pool.map(r=>r.target).filter(t=>t!=null&&t!==''))].sort().slice(0,400);
+    const sel=document.getElementById('dm-f-target');
+    sel.innerHTML='<option value="">(전체 대상)</option>'+targets.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join('');
+  }
+  function onEffType(v){ effType=v; effTarget=''; populateEffTargets(); onEffFilter(); }
+  function onEffFilter(){ effTarget=document.getElementById('dm-f-target').value; effCond=document.getElementById('dm-f-cond').value; applyView(); }
+  function clearEffFilter(){ effType=''; effTarget=''; effCond=''; document.getElementById('dm-f-cond').value=''; populateEffTypes(); applyView(); }
+  // 코드가 실제 처리하는 자료형 스키마 표시(effects.json _schema — 빌더가 APPLY_TYPES/ACT_COND_TYPES/조건 eval 상수에서 파생).
+  function toggleSchema(){ const el=document.getElementById('dm-schema'); const show=el.style.display==='none'; el.style.display=show?'block':'none'; if(show)renderSchema(); }
+  function renderSchema(){
+    const el=document.getElementById('dm-schema');
+    const sc=(loaded['@'+(curTab&&curTab.id)]||{})._schema;
+    if(!sc){ el.innerHTML='<span style="color:var(--text2)">스키마 정보 없음(effects.json _schema 부재).</span>'; return; }
+    const chips=(arr,color)=>(arr||[]).map(x=>'<code style="background:'+color+';padding:1px 5px;border-radius:3px;margin:1px;display:inline-block">'+esc(x)+'</code>').join(' ');
+    const c=sc.condition||{}, t=sc.effect_type||{};
+    el.innerHTML =
+      '<div style="color:var(--gold2);font-weight:600;margin-bottom:3px">코드가 실제 처리하는 자료형 (런타임 소스)</div>'
+      +'<div style="color:var(--text2);margin-bottom:6px">'+esc(sc.note||'')+'</div>'
+      +'<div style="margin-bottom:2px"><b>조건 enum</b> — 무조건: '+esc(c.unconditional||'(빈칸)')+'</div>'
+      +'<div style="margin:2px 0 2px 10px">평가(런타임 조건엔진이 판정·게이트): '+chips(c.evaluated,'#2a6')+'</div>'
+      +'<div style="margin:2px 0 2px 10px">표시만(미해소·적용 안 함): '+chips(c.display_only,'#a63')+'</div>'
+      +'<div style="margin:2px 0 6px 10px">부정: <code>'+esc(c.negation||'')+'</code> · 복합: '+esc(c.compound||'')+'</div>'
+      +'<div style="margin-bottom:2px"><b>효과타입 enum</b></div>'
+      +'<div style="margin:2px 0 2px 10px">런타임 적용(applyFeatEffects): '+chips(t.runtime_applied,'#2a6')+'</div>'
+      +'<div style="margin:2px 0 2px 10px">정적조건 게이트(ACT_COND): '+chips(t.condition_gated,'#46a')+'</div>'
+      +'<div style="margin:2px 0 0 10px">표시만(런타임 미적용): '+chips(t.display_only,'#a63')+'</div>';
   }
   async function ensureLoaded(cat){
     if(loaded[cat]) return;
@@ -433,12 +631,13 @@ const DM = (function(){
     document.getElementById('dm-loading').style.display='block';
     document.getElementById('dm-rows').innerHTML='';
     try{
-      const j=await fetch(t.src+'?v=dm8').then(r=>r.json());
+      const j=await fetch(t.src+'?v=dm39').then(r=>r.json());
       if(t.shape==='map') loaded[key]=Object.entries(j).map(([slug,v])=>({slug,...v,_flat:true}));
       else if(t.shape==='kv') loaded[key]=Object.entries(j).map(([k,v])=>({slug:k,text:v,_flat:true}));
       else loaded[key]=(j.rows||[]).map((r,i)=>({...r,_flat:true, cp_name:r.name_ko,
         slug:r.slug||((r.class!=null&&r.level!=null)?r.class+':L'+r.level:'row'+i)}));
       loaded[key]._meta=j.note||'';
+      loaded[key]._schema=j._schema||null;   // 코드가 실제 처리하는 자료형(빌더가 코드 상수에서 파생)
     }catch(e){ loaded[key]=[]; console.error(e); }
     document.getElementById('dm-loading').style.display='none';
     renderTabs();
@@ -452,6 +651,12 @@ const DM = (function(){
       // 파생 테이블: 표시 컬럼 값 전반 검색(재주효과·크리처공격 등 name_ko 없는 표)
       return (curTab.cols||[]).some(c=>(''+(cellVal(r,c)==null?'':cellVal(r,c))).toLowerCase().includes(q));
     }) : rows.slice();
+    // 효과 탭 필터(효과타입·대상·조건)
+    if(curTab.id==='effects' && curTab.kind==='derived'){
+      if(effType) view=view.filter(r=>r.type===effType);
+      if(effTarget) view=view.filter(r=>(''+(r.target==null?'':r.target))===effTarget);
+      if(effCond) view=view.filter(r=>_condKind(r)===effCond);
+    }
     view.sort((a,b)=>{ let x=cellSort(a,sortKey),y=cellSort(b,sortKey); return (x<y?-1:x>y?1:0)*sortDir; });
     renderHead(); renderRows(); updateStatus();
   }
@@ -493,12 +698,15 @@ const DM = (function(){
     const slug=rowSlug(r), sel=slug===selSlug?' sel':'';
     let tds='';
     curTab.cols.forEach(c=>{
-      const m=COLMETA[c]||{}; const v=cellVal(r,c);
+      const m=COLMETA[c]||{}; const v0=cellVal(r,c);
+      const v = Array.isArray(v0) ? v0.join(' / ') : v0;   // override가 배열(부스트)이면 표시용 join
       const edit = m.edit && isEditable(c) && _isOwner;   // 소유자만 편집 가능(비소유자=읽기 전용)
       const edited = edit && ovGet(tabKey(),slug,c)!=null;
       const emptyKo = c==='name_ko'&&!v;
       let cls=(m.cls||'')+(edit?' editable':'')+(edited?' edited':'')+(emptyKo?' empty-ko':'');
-      tds+='<td class="'+cls+'"'+(edit?' data-edit="'+c+'" data-slug="'+esc(slug)+'"':'')+' title="'+esc(v)+'">'+esc(emptyKo?'(미번역)':v)+'</td>';
+      const refHtml = REFNAV[c] ? refCellHtml(r,c) : null;   // 슬러그 참조 컬럼 → 클릭 이동 칩(정합성 색칠)
+      const content = (refHtml!=null && refHtml!=='') ? refHtml : esc(emptyKo?'(미번역)':v);
+      tds+='<td class="'+cls+'"'+(edit?' data-edit="'+c+'" data-slug="'+esc(slug)+'"':'')+' title="'+esc(v)+'">'+content+'</td>';
     });
     return '<tr class="'+sel+'" data-slug="'+esc(slug)+'" data-i="'+i+'">'+tds+'</tr>';
   }
@@ -557,7 +765,12 @@ const DM = (function(){
       td.removeAttribute('contenteditable');
       const val=td.textContent.trim();
       _undo.push({cat:tabKey(),slug,field,prev: ovGet(tabKey(),slug,field)});   // Ctrl+Z용 이전값 기록
-      ovSet(tabKey(),slug,field, val===orig?'':val);
+      // 부스트 배열/정수 컬럼은 raw 슬러그 배열/숫자로 파싱해 저장(런타임 override가 top-level 필드로 그대로 반영).
+      let out;
+      if(BOOST_ARRAY_COLS.has(field)) out = val ? val.split(/[\s,\/、]+/).filter(Boolean) : '';
+      else if(BOOST_INT_COLS.has(field)) out = val==='' ? '' : (Number(val)||0);
+      else out = val;
+      ovSet(tabKey(),slug,field, val===orig?'':out);
       td.classList.toggle('edited', ovGet(tabKey(),slug,field)!=null);
       if(field==='name_ko'&&!val){ td.classList.add('empty-ko'); td.textContent='(미번역)'; }
       updateStatus();
@@ -566,8 +779,16 @@ const DM = (function(){
     td.onkeydown=ev=>{ if(ev.key==='Enter'){ev.preventDefault();td.blur();} if(ev.key==='Escape'){td.textContent=td.getAttribute('data-orig')||'';td.blur();} };
   });
 
+  // ---- 슬러그 참조 칩 클릭 → 대상 탭+항목으로 이동 ----
+  document.addEventListener('click',e=>{
+    const chip=e.target.closest('.dm-ref[data-nav-slug]'); if(!chip)return;
+    if(chip.classList.contains('broken'))return;   // 깨진 참조는 이동 대상 없음
+    e.stopPropagation();
+    navigateToRef(chip.getAttribute('data-nav-tab'), chip.getAttribute('data-nav-slug'));
+  });
   // ---- 행 선택 → 상세 ----
   document.addEventListener('click',e=>{
+    if(e.target.closest('.dm-ref[data-nav-slug]'))return;   // 참조 칩 클릭은 내비게이션 전용
     const tr=e.target.closest('tr[data-slug]'); if(!tr||e.target.closest('td.editable[contenteditable]'))return;
     if(e.target.closest('td.editable')&&e.detail>1)return;
     const slug=tr.getAttribute('data-slug'); if(e.target.closest('td[data-edit]'))return;
@@ -584,12 +805,14 @@ const DM = (function(){
         inner.innerHTML=close+'<h3>'+esc(cellVal(r,'name_ko'))+'</h3><div class="slug">'+esc(r.name_en)+' · '+esc(r.slug)+'</div>'+
           (r.desc_ko?'<div class="sec"><div class="sec-h">특성 설명</div><div class="descbox">'+esc(r.desc_ko)+'</div></div>'
             :'<div class="sec"><div class="dm-empty">설명 없음 (PF2e-KR 원본에 미수록)</div></div>');
-      } else if(curTab.id==='class_progression'){
+      } else if(curTab.id==='class_progression'||curTab.id==='subclass_progression'){
         const order=['perception','fortitude','reflex','will','simple','martial','unarmed','advanced','unarmored','light','medium','heavy','classDC','spellcasting'];
         inner.innerHTML=close+'<h3>'+esc(r.name_ko)+' <small style="color:var(--text2)">L'+esc(r.level)+'</small></h3><div class="slug">'+esc(r.class)+'</div>'+
           '<div class="sec"><div class="sec-h">숙련 (U/T/E/M/L)</div><div class="layer">'+
           order.map(k=>'<b>'+(COLMETA[k]?COLMETA[k].h:k)+'</b><span>'+esc(r[k])+'</span>').join('')+'</div></div>'+
-          (r._src?'<div class="sec"><div class="sec-h">이 레벨 숙련증가 특성</div><div>'+esc(r._src)+'</div></div>':'');
+          (r.features&&r.features.length?'<div class="sec"><div class="sec-h">이 레벨 획득 클래스 특성</div><div class="layer">'+
+            r.features.map(f=>'<b>'+esc(f.name_ko||f.slug)+'</b><span style="color:var(--text2)">'+esc(f.slug)+' · '+esc(f.kind)+'</span>').join('')+'</div></div>':'')+
+          (r._src?'<div class="sec"><div class="sec-h">데이터 출처</div><div>'+esc(r._src)+'</div></div>':'');
       } else {
         // 범용 파생행 상세 (크리처/해저드/공격/능력/시스템용어/UI용어집/클래스특성/서브클래스)
         const enr=s=>(window.PF2eData&&PF2eData.enrichDesc)?PF2eData.enrichDesc(s):esc(s);
@@ -747,17 +970,19 @@ const DM = (function(){
 
   // ---- init ----
   function init(){ updateDiff(); renderTabs(); if(window.PF2eData&&PF2eData.loadLocalize)PF2eData.loadLocalize();
+    // 배포본 버전 표시(캐시 무시 fresh fetch) — 캐시/배포 반영 여부 확인용
+    fetch('version.json?_='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(v=>{ const el=document.getElementById('dm-ver'); if(el)el.textContent='데이터 v'+((v&&v.v)||'?'); }).catch(()=>{ const el=document.getElementById('dm-ver'); if(el)el.textContent='버전 확인 실패'; });
     // 인증 상태 추적 → 소유자면 편집 활성. 로그인/아웃 시 재렌더.
     auth.onAuthStateChanged(function(u){ _user=u; _isOwner=!!(u && u.uid===OWNER_UID); updateAuthUI(); if(rows.length)applyView(); });
     updateAuthUI(); loadCloudOverrides();
     // Ctrl+Z(⌘Z) = 편집 한 단계 되돌리기 (셀 편집 중이 아닐 때만)
     document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){ if(document.querySelector('td[contenteditable="true"]'))return; e.preventDefault(); undo(); } });
     // 효과그룹 역참조 인덱스 로드 → 엔티티 탭 effect_group_id FK 컬럼. 로드 후 현재 탭 재적용.
-    fetch('data/derived/effect_refs.json?v=dm8').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
-    fetch('data/derived/effects_db.json?v=dm8').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
+    fetch('data/derived/effect_refs.json?v=dm39').then(r=>r.json()).then(j=>{ EFF_REF=j||EFF_REF; if(curTab&&curTab.cat&&(curTab.cols||[]).includes('effect_group_id'))applyView(); }).catch(()=>{});
+    fetch('data/derived/effects_db.json?v=dm39').then(r=>r.json()).then(j=>{ EG_RAW=j||{}; }).catch(()=>{}); // slug→{source,rows,...} 단일 소스
     const h=(location.hash||'').slice(1); const t=TABS.find(x=>x.id===h)||TABS[0]; selectTab(t);
     window.addEventListener('hashchange',()=>{ const t2=TABS.find(x=>x.id===(location.hash||'').slice(1)); if(t2&&t2!==curTab)selectTab(t2); }); }
-  return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride };
+  return { init, selectTab, onSearch, commit, cloudSave, login, logout, revertAll, closeDetail, saveDesc, clearDesc, saveEffectGroupOverride, clearEffectGroupOverride, onEffType, onEffFilter, clearEffFilter, toggleSchema };
 })();
 window.addEventListener('DOMContentLoaded', DM.init);
 </script>

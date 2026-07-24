@@ -7,18 +7,13 @@
   const isNode = typeof window === 'undefined';
   const PF = root.PF2eData || (isNode ? require('/tmp/PF2e-publish/dev/cs_pf2e.js') : null);
 
-  let _lang = null;
-  function _loadLang() {
-    if (_lang) return _lang;
-    if (isNode) { const fs = require('fs'); for (const p of ['data/overlay/_lang.ko.json', 'dev/data/overlay/_lang.ko.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} } }
-    _lang = _lang || { traits: {}, damageType: {}, weaponGroup: {}, armorGroup: {} };
-    return _lang;
-  }
-  // 브라우저용 async 초기화
-  async function init() { if (!isNode && !_lang) { try { const r = await fetch('data/overlay/_lang.ko.json'); _lang = await r.json(); } catch (e) { _lang = { traits: {}, damageType: {}, weaponGroup: {}, armorGroup: {} }; } } _loadLang(); }
+  // store/_glossary(traits/damageType/weaponGroup/armorGroup)는 PF 공용 로더/캐시로 통합. _loadLang는 위임.
+  function _loadLang() { return PF.glossary(); }
+  // 브라우저용 async 초기화 — 공용 글로서리 선로드(노드는 PF.glossary()가 동기 지연로드).
+  async function init() { if (!isNode) await PF.loadGlossary(); }
 
   const RARITY_KO = { common: '일반', uncommon: '비범', rare: '희귀', unique: '고유' };
-  const WCAT_KO = { simple: '단순', martial: '전투', advanced: '고급', unarmed: '비무장' };
+  const WCAT_KO = { simple: '단순', martial: '군용', advanced: '고급', unarmed: '비무장' };
   const ACAT_KO = { unarmored: '비무장', light: '경장', medium: '중장', heavy: '중량' };
   const ITEMTYPE_KO = { weapon: '무기', armor: '방어구', shield: '방패', consumable: '소비품', equipment: '장비', treasure: '보물', backpack: '용기', ammo: '탄약', kit: '키트' };
 
@@ -111,9 +106,9 @@
     const base = { id: s.slug || doc._id, name_ko: doc.name_ko || doc.name, name_en: doc.name_en || doc.name, img: doc.img || null, price: formatPrice(s.price), bulk: _bulkNum(s.bulk), level: (s.level && s.level.value) || 0, desc: PF.descKo(doc) || '' };
     switch (doc.type) {
       case 'weapon':
-        return Object.assign(base, { category: WCAT_LEGACY[s.category] || s.category || '단순', rarity: (s.traits && s.traits.rarity) || 'common', damage: _weaponDamageStr(s), hands: ((s.traits && s.traits.value) || []).some(t => t.startsWith('two-hand')) ? 2 : 1, range: (s.range && (s.range.increment || s.range.max)) || (typeof s.range === 'number' ? s.range : null), reload: (s.reload && s.reload.value) != null ? Number(s.reload.value) : null, group: (_loadLang().weaponGroup || {})[s.group] || s.group || '', traits: _traitsKo(s) });
+        return Object.assign(base, { category: WCAT_LEGACY[s.category] || s.category || '단순', catSlug: s.category || '', rarity: (s.traits && s.traits.rarity) || 'common', damage: _weaponDamageStr(s), hands: ((s.traits && s.traits.value) || []).some(t => t.startsWith('two-hand')) ? 2 : 1, range: (s.range && (s.range.increment || s.range.max)) || (typeof s.range === 'number' ? s.range : null), reload: (s.reload && s.reload.value) != null ? Number(s.reload.value) : null, group: (_loadLang().weaponGroup || {})[s.group] || s.group || '', traits: _traitsKo(s) });
       case 'armor':
-        return Object.assign(base, { ac_bonus: s.acBonus || 0, dex_cap: s.dexCap != null ? s.dexCap : null, check_penalty: s.checkPenalty || 0, speed_penalty: s.speedPenalty || 0, strength: s.strength || 0, category: ACAT_LEGACY[s.category] || s.category || '', group: (_loadLang().armorGroup || {})[s.group] || s.group || '', traits: _traitsKo(s) });
+        return Object.assign(base, { ac_bonus: s.acBonus || 0, dex_cap: s.dexCap != null ? s.dexCap : null, check_penalty: s.checkPenalty || 0, speed_penalty: s.speedPenalty || 0, strength: s.strength || 0, category: ACAT_LEGACY[s.category] || s.category || '', catSlug: s.category || '', group: (_loadLang().armorGroup || {})[s.group] || s.group || '', traits: _traitsKo(s) });
       case 'shield':
         return Object.assign(base, { ac_bonus: s.acBonus || 0, hardness: s.hardness || 0, hp: (s.hp && s.hp.max) || 0, bt: Math.floor(((s.hp && s.hp.max) || 0) / 2), speed_penalty: s.speedPenalty || 0, traits: _traitsKo(s) });
       default: // equipment/consumable/treasure/backpack/ammo/kit → 인벤토리 장비

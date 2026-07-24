@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.104').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.249').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -126,10 +126,14 @@ function getArmorCategory(name) {
   if (!name) return 'unarmored';
   const armor = getArmor(name);
   if (!armor) return 'unarmored';
+  // 정본 = FVTT 원본 slug(catSlug: unarmored/light/medium/heavy). 번역 드리프트 무관.
+  const slug = (armor.catSlug || armor._dbData?.catSlug || '').toLowerCase();
+  if (slug === 'light' || slug === 'medium' || slug === 'heavy' || slug === 'unarmored') return slug;
+  // 폴백: 구 저장/레거시 한글·영문 표기
   const cat = armor.category || '';
-  if (cat.includes('경갑') || cat.toLowerCase().includes('light')) return 'light';
-  if (cat.includes('重甲') || cat.includes('중갑')) return 'heavy';
-  if (cat.includes('평갑') || cat.toLowerCase().includes('medium')) return 'medium';
+  if (cat.includes('경갑') || cat.includes('경장') || cat.toLowerCase().includes('light')) return 'light';
+  if (cat.includes('重甲') || cat.includes('중갑') || cat.includes('중량') || cat.toLowerCase().includes('heavy')) return 'heavy';
+  if (cat.includes('평갑') || cat.includes('중장') || cat.toLowerCase().includes('medium')) return 'medium';
   return 'unarmored';
 }
 
@@ -261,7 +265,13 @@ function toggleShieldStow() {
 
 // ── Weapon category mapping ──
 function getWeaponCategory(w) {
-  // From DB data
+  // 정본 = FVTT 원본 slug(catSlug: simple/martial/advanced/unarmed). 번역 드리프트 무관.
+  const slug = (w._dbData?.catSlug || w.catSlug || '').toLowerCase();
+  if (slug === 'unarmed') return 'unarmed';
+  if (slug === 'advanced') return 'advanced';
+  if (slug === 'martial') return 'martial';
+  if (slug === 'simple') return 'simple';
+  // 폴백: 구 저장/레거시 한글·영문 표기
   const cat = (w._dbData?.category || w.category || '').toLowerCase();
   if (cat.includes('비무장') || cat.includes('unarmed')) return 'unarmed';
   if (cat.includes('고급') || cat.includes('advanced') || cat.includes('상급')) return 'advanced';
@@ -313,7 +323,7 @@ function calcWeaponHit(w) {
   if (state._fb?.martialExperience && rank < 2) {
     rank = lv >= 11 ? 2 : 0;
   }
-  const profBonus = (rank > 0) ? (rank + lv) : (state._fb?.martialExperience ? lv : 0);
+  const profBonus = rankBonus(rank, lv) || (state._fb?.martialExperience ? lv : 0);
 
   // Ability modifier
   let abilMod;
@@ -382,18 +392,23 @@ function calcWeaponDamage(w) {
     if (getMod('str') < 0) abilMod = getMod('str'); // negative STR fully applied
   }
 
-  // Rune damage bonus (potency doesn't add to damage in PF2e, only hit)
-  // But we keep the structure for property runes later
+  // Rune damage bonus (potency doesn't add to damage in PF2e, only hit; striking adds dice above)
+  // 속성 룬 추가 피해: 비지속(명중 시)은 피해식에 "+1d6 화염"으로, 지속/치명은 노트(w._runeNotes)로.
+  // 피해유형 한글 = 정본 글로서리 리졸버 단일 사용(로컬 맵 divergence 제거 — void 공허/spirit 영혼/vitality 활력).
+  const _dtKo = (t) => (typeof PF2eEquip !== 'undefined' && PF2eEquip.damageTypeKo) ? PF2eEquip.damageTypeKo(t) : t;
+  let runeDmgStr = '';
+  (w._runeDamage || []).filter(d => !d.persistent).forEach(d => { runeDmgStr += ' + ' + d.dice + ' ' + _dtKo(d.type); });
 
   const totalBonus = abilMod;
   if (numDice === 0 && dieSizeBase === 0) {
     // No parseable dice, return raw string
-    return { str: rawDmg || '—', abilMod };
+    return { str: (rawDmg || '—') + runeDmgStr, abilMod };
   }
   let str = numDice + 'd' + dieSize;
   if (totalBonus > 0) str += '+' + totalBonus;
   else if (totalBonus < 0) str += totalBonus;
   if (dmgType) str += ' ' + dmgType;
+  str += runeDmgStr;
   return { str, abilMod };
 }
 
@@ -507,13 +522,16 @@ function renderWeapons() {
 
     // Rune indicator text
     let runeInfo = '';
-    if ((w._potency||0) > 0 || (w._striking||0) > 0) {
+    const _propRuneNames = (w._runeNotes || []).map(n => String(n).split(':')[0].trim());
+    if ((w._potency||0) > 0 || (w._striking||0) > 0 || _propRuneNames.length) {
       const parts = [];
       if (w._potency > 0) parts.push('+'+w._potency+' 잠재력');
       if (w._striking === 1) parts.push('강타');
       if (w._striking === 2) parts.push('상위 강타');
       if (w._striking === 3) parts.push('최상위 강타');
-      runeInfo = `<span style="font-size:9px;color:var(--accent);margin-left:6px;">[${parts.join(', ')}]</span>`;
+      _propRuneNames.forEach(n => parts.push(n));
+      const _tip = (w._runeNotes || []).length ? ` title="${(w._runeNotes||[]).join('&#10;').replace(/"/g,'&quot;')}"` : '';
+      runeInfo = `<span style="font-size:9px;color:var(--accent);margin-left:6px;cursor:help;"${_tip}>[${parts.join(', ')}]</span>`;
     }
 
     // 개별 무기 숙련도 표시 (TEML 뱃지) — 무기 친숙/훈련 반영
@@ -624,10 +642,17 @@ function attachRune(runeIdx, targetIdx) {
 
   // 같은 유형 룬 중복 방지 (potency 2개 등)
   const existing = _getAttachedRunes(targetIdx);
-  const dup = existing.find(r => r._runeData?.runeType === rd.runeType);
-  if (dup) {
-    alert(`이미 같은 유형의 룬(${dup.name})이 부착되어 있습니다. 먼저 해제하세요.`);
-    return;
+  if (rd.runeType === 'property') {
+    // 속성 룬은 여러 개 허용 — 최대 개수 = 부착된 잠재력 룬 수치(PF2e). 동일 슬러그 중복만 차단.
+    const pot = existing.find(r => r._runeData?.runeType === 'potency');
+    const maxProp = pot ? (pot._runeData.runeValue || 0) : 0;
+    const propRunes = existing.filter(r => r._runeData?.runeType === 'property');
+    if (propRunes.some(r => r.name === rune.name)) { alert(`이미 같은 속성 룬(${rune.name})이 새겨져 있습니다.`); return; }
+    if (propRunes.length >= maxProp) { alert(`속성 룬은 잠재력 룬 수치(${maxProp})만큼만 새길 수 있습니다. 먼저 잠재력 룬을 올리세요.`); return; }
+  } else {
+    // 기본 룬(잠재력/강타/탄력/보스/가시)은 유형당 하나.
+    const dup = existing.find(r => r._runeData?.runeType === rd.runeType);
+    if (dup) { alert(`이미 같은 유형의 룬(${dup.name})이 부착되어 있습니다. 먼저 해제하세요.`); return; }
   }
 
   rune._attachedTo = targetIdx;
@@ -660,21 +685,30 @@ function applyAttachedRunes(equipIdx) {
   if (target._type === 'weapon') {
     const w = state.weapons.find(w => w._fromEquip === equipIdx);
     if (w) {
-      w._potency = 0; w._striking = 0;
+      w._potency = 0; w._striking = 0; w._runeDamage = []; w._runeNotes = [];
       runes.forEach(r => {
         const rd = r._runeData;
         if (rd.runeType === 'potency') w._potency = rd.runeValue;
-        if (rd.runeType === 'striking') w._striking = rd.runeValue;
+        else if (rd.runeType === 'striking') w._striking = rd.runeValue;
+        else if (rd.runeType === 'property') {
+          if (rd.damage) w._runeDamage.push({ dice: rd.damage.dice, type: rd.damage.type });
+          if (rd.persistent) w._runeDamage.push({ dice: rd.persistent.dice, type: rd.persistent.type, persistent: true, on: rd.persistent.on || 'hit' });
+          if (r.name) w._runeNotes.push(r.name);  // 룬 이름(기계적 정체성)만 표시 — 효과 프로즈는 룬 본문(desc)이 단일 소스
+        }
       });
     }
   }
 
   if (target._type === 'armor') {
-    state.armorPotency = 0; state.armorResilient = 0;
+    // 저항은 renderResistances가 착용 방어구 룬에서 직접 재파생(출처 기반) — 여기서 스냅샷 수집 안 함.
+    state.armorPotency = 0; state.armorResilient = 0; state.armorRuneNotes = [];
     runes.forEach(r => {
       const rd = r._runeData;
       if (rd.runeType === 'potency') state.armorPotency = rd.runeValue;
-      if (rd.runeType === 'resilient') state.armorResilient = rd.runeValue;
+      else if (rd.runeType === 'resilient') state.armorResilient = rd.runeValue;
+      else if (rd.runeType === 'property') {
+        if (r.name) state.armorRuneNotes.push(r.name);  // 룬 이름만 — 효과 프로즈는 룬 본문(desc)이 단일 소스
+      }
     });
   }
 
@@ -1563,6 +1597,9 @@ function getActionIcons(actions) {
   // 정규 코드(1/2/3/reaction/free)
   const direct = {'1':'1','2':'2','3':'3','reaction':'R','free':'F'};
   if (direct[s]) return G(direct[s]);
+  // 활동시간·특수 비용(전 표면 공용): passive/varies/분·시간 단위 — cs_modal COST_ICON 흡수(원칙#1)
+  const MISC = {'passive':'—','varies':'✦','10min':'10분','1min':'1분','1h':'1시간','1day':'1일','8h':'8시간'};
+  if (MISC[s] !== undefined) return MISC[s];
   // 한글 액션 텍스트: 반응 / 자유 행동 / N행동 / 1~3행동 / 1행동~2행동
   if (s.includes('반응')) return G('R');
   if (s.includes('자유')) return G('F');
@@ -1570,6 +1607,20 @@ function getActionIcons(actions) {
   if (digits && digits.length >= 2) return G(digits[0]) + '~' + G(digits[digits.length - 1]);
   if (digits && digits.length === 1) return G(digits[0]);
   return s; // 폴백: 원문
+}
+
+// 재주 카드 행동 비용 글리프 = featData.actionType(reaction/free/action) + actions(숫자). FVTT 재주 desc엔 [N행동] 마커가
+//   없어(_buildFeatActionCard는 마커 의존) 재주 탭 카드에 비용이 안 뜨던 것 보완 — 액션 탭과 동일 정보(getActionIcons 재사용).
+//   passive/미지정 = 글리프 없음. 반응·자유는 actions=null이라 actionType 우선 판정.
+function _featActionGlyph(fd) {
+  if (!fd) return '';
+  let code = null;
+  if (fd.actionType === 'reaction') code = 'reaction';
+  else if (fd.actionType === 'free') code = 'free';
+  else if (fd.actions != null && fd.actions !== '') code = String(fd.actions);
+  if (!code) return '';
+  const g = (typeof getActionIcons === 'function') ? getActionIcons(code) : '';
+  return g ? `<span class="feat-cost-glyph" style="flex-shrink:0;display:inline-flex;align-items:center;margin-left:3px;" title="행동 비용">${g}</span>` : '';
 }
 
 function switchSpellSubtab(tab) {
@@ -1802,15 +1853,16 @@ function renderSpells() {
   const dfSection = document.getElementById('spell-divine-font-section');
   const dfBody = document.getElementById('divine-font-body');
   if (dfSection && dfBody) {
-    if (state.divineFont && state.selectedClass?.id === 'cleric') {
+    if (state.divineFont && state.selectedClass?.deity_skill) {
       dfSection.style.display = '';
       const isHeal = state.divineFont === 'heal';
-      const spellName = isHeal ? '치유 (Heal)' : '해로움 (Harm)';
+      const dfSlug = isHeal ? 'heal' : 'harm';   // 정본 slug (name_ko '해악' 드리프트 무관)
       const totalSlots = getDivineFontSlots();
       const used = Math.min(state.divineFontUsed || 0, totalSlots);
       document.getElementById('divine-font-label').textContent = isHeal ? 'Divine Font — Heal' : 'Divine Font — Harm';
       // 신성 원천 주문은 일반 주문과 동일한 행 형식으로 표시 (범주만 다를 뿐). 슬롯은 영웅점수식 pip.
-      const dfSpell = getSpell(isHeal ? '치유' : '해로움');
+      const dfSpell = getSpell(dfSlug);
+      const spellName = (dfSpell?.name_ko || (isHeal ? '치유' : '해악')) + (dfSpell?.name_en ? ` (${dfSpell.name_en})` : '');
       const dfActions = getActionIcons(dfSpell?.actions);
       let fires = '';
       for (let i = 0; i < totalSlots; i++) {
@@ -1819,7 +1871,7 @@ function renderSpells() {
       }
       dfBody.innerHTML = `
         <div class="spell-slot-row">
-          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${isHeal?'치유':'해로움'}')">${iconImg('spell', dfSpell || {name:spellName})}${spellName}${dfActions ? ' <span class="spell-actions-inline">'+dfActions+'</span>' : ''}</span>
+          <span class="spell-slot-name" onclick="toggleSpellInline(this,'${dfSlug}')">${iconImg('spell', dfSpell || {name:spellName})}${spellName}${dfActions ? ' <span class="spell-actions-inline">'+dfActions+'</span>' : ''}</span>
           <span class="spell-slot-fires" style="margin-left:auto;">${fires}</span>
         </div>`;
     } else {
@@ -2168,7 +2220,34 @@ function renderFeats() {
       herDisplay.innerHTML = '';
       herDisplay.appendChild(div);
     } else {
-      herDisplay.innerHTML = '<div style="font-size:11px;color:var(--text2);padding:6px 0;">코어 탭에서 유산을 선택하세요</div>';
+      herDisplay.innerHTML = '';  // 유산 미선택 → 빈 상태(단락 숨김)
+    }
+  }
+
+  // ── 서브클래스 단락: 선택한 서브클래스 '하나'만 카드로. 레이블 = 서브클래스 종류명(교리/본능/뮤즈 등). ──
+  //   ⚠ 서브클래스가 부여하는 재주(_subclass)는 '서브클래스'가 아님 → 클래스 특성에 남김. 여기엔 선택한 서브클래스만.
+  const subEl = document.getElementById('feats-subclass');
+  const subTitleEl = document.getElementById('feats-subclass-title');
+  const _selSub = state.selectedSubclass;
+  const _subIsThisClass = !!(_selSub && _selSub.class_id === state.selectedClass?.id);
+  // 서브클래스 선택 슬롯(kind=subclass, 예: 혈통/뮤즈/교의) slug 집합 — 클래스 특성 목록에서 스킵(위 「서브클래스」 단락이 대체). 이름 아닌 slug/kind로 식별.
+  const _subSelSlugs = new Set(((_subIsThisClass && typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES[state.selectedClass?.id]) || []).filter(c => c.kind === 'subclass').map(c => c.slug || c.id));
+  if (subEl) {
+    subEl.innerHTML = '';
+    if (subTitleEl) subTitleEl.textContent = (_subIsThisClass && _selSub.subclass_type) ? _selSub.subclass_type : '서브클래스';
+    if (_subIsThisClass) {
+      const sdiv = document.createElement('div');
+      sdiv.className = 'feat-entry';
+      sdiv.style.cursor = 'pointer';
+      const sdesc = (typeof resolveDescRefs === 'function') ? resolveDescRefs(_selSub.desc || '') : (_selSub.desc || '');
+      sdiv.innerHTML = `
+        <div class="feat-card-header" style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
+          <span style="color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${typeof iconImg==='function'?iconImg('feat',_selSub):''}${_selSub.name_ko} <span style="color:var(--text2);font-size:10px;margin-left:4px;">${_selSub.name_en||''}</span></span>
+        </div>
+        <div class="feat-src"><span class="tag-meta">${_selSub.subclass_type||'서브클래스'}</span></div>
+        <div class="feat-detail"><div style="line-height:1.6;">${sdesc}</div></div>`;
+      sdiv.addEventListener('click', () => _toggleFeatAccordion(sdiv));
+      subEl.appendChild(sdiv);
     }
   }
 
@@ -2179,23 +2258,23 @@ function renderFeats() {
     if (!el) return;
     el.innerHTML = '';
     state.feats[t].forEach((f,i) => {
+      // 서브클래스 선택 슬롯(혈통/뮤즈/교의 등 kind=subclass)은 위 「서브클래스」 단락이 대체 → 클래스 특성에서 스킵. slug로 식별(이름 매칭 폐지).
+      if (t === 'special' && _subIsThisClass && _subSelSlugs.has(featSlug(f))) return;
       const isAuto = f._auto;
       const div = document.createElement('div');
       div.className = 'feat-entry';
       div.style.cursor = 'pointer';
       const srcLabel = isAuto ? `Lv ${f.level||1} — 클래스 특성` : `Lv ${f.level||1}`;
-      // DB에서 설명 가져오기
-      const fNameKo = f.name.split(' (')[0].trim();
-      const fNameEn = (f.name.match(/\(([^)]+)\)/)||[])[1] || '';
-      let featData = getFeat(fNameKo);
-      // 클래스 특성은 CLASS_FEATURE_NAMES / SUBCLASS_DB.features에서 desc 보충
+      // DB에서 설명 가져오기 — slug 기반(featSlug). 이름 lookup 폐지.
+      let featData = getFeat(featSlug(f));
+      // 클래스 특성 desc 보충 = CLASS_FEATURE_NAMES / 서브클래스 features[] 중 같은 slug 항목(이름 아님).
       let classFeatureDesc = '';
       if (t === 'special' && typeof CLASS_FEATURE_NAMES !== 'undefined') {
         const clsId = state.selectedClass?.id;
         const allCF = [...(clsId && CLASS_FEATURE_NAMES[clsId] || []),
                        ...(state.selectedSubclass?.features || [])];
-        // 어휘 매칭 (사용자 데이터 vs DB 객체) — _findInDb로 처리
-        const cfMatch = _findInDb(allCF, fNameKo, ['name_ko','name_en']) || _findInDb(allCF, fNameEn, ['name_ko','name_en']);
+        const _fs = featSlug(f);
+        const cfMatch = _fs && allCF.find(c => (c.slug || c.id) === _fs);
         if (cfMatch?.desc) classFeatureDesc = cfMatch.desc;
       }
       const desc = featData?.desc || featData?.summary || classFeatureDesc || '';
@@ -2208,29 +2287,37 @@ function renderFeats() {
       const choiceBadge = f.choice && typeof _getChoiceDisplayName === 'function' ? _getChoiceDisplayName(f) : '';
       const hasChoiceIssue = typeof _hasFeatChoiceIssue === 'function' && _hasFeatChoiceIssue(f);
       const hasPrereqIssue = typeof _hasFeatPrereqIssue === 'function' && _hasFeatPrereqIssue(f);
+      const hasLoreOverflow = typeof loreSlotFullForFeat === 'function' && loreSlotFullForFeat(f);
+      // 선행 문구는 설명(desc)에서 관리 — 영어 원문 미표시. 기계 conds 미충족 시 경고만.
       let fPrereq = '';
-      if (featData?.prerequisites) {
-        const prParts = featData.prerequisites.split(/(?<=\.)\s+/);
-        const _pColor = hasPrereqIssue ? '#ff9800' : 'var(--accent)';
-        fPrereq = hasPrereqIssue
-          ? `<div style="margin-top:4px;background:#ff980020;border:1px solid #ff9800;border-radius:4px;padding:4px 8px;color:#ff9800;font-size:11px;font-weight:600;">⚠ 선행 조건이 충족되지 않았습니다</div><div style="margin-top:4px;"><b style="color:${_pColor};">선행:</b> ${prParts[0].replace(/\.$/,'')}</div>`
-          : `<div style="margin-top:4px;"><b style="color:${_pColor};">선행:</b> ${prParts[0].replace(/\.$/,'')}</div>`;
+      if (hasPrereqIssue) {
+        fPrereq = `<div style="margin-top:4px;background:#ff980020;border:1px solid #ff9800;border-radius:4px;padding:4px 8px;color:#ff9800;font-size:11px;font-weight:600;">⚠ 선행 조건이 충족되지 않았습니다</div>`;
       }
       const redDot = hasChoiceIssue ? '<span style="font-size:11px;color:#f44336;flex-shrink:0;line-height:1;" title="선택 필요">⚠</span>'
-        : hasPrereqIssue ? '<span style="font-size:11px;color:#ff9800;flex-shrink:0;line-height:1;" title="선행 조건 미충족">⚠</span>' : '';
+        : hasPrereqIssue ? '<span style="font-size:11px;color:#ff9800;flex-shrink:0;line-height:1;" title="선행 조건 미충족">⚠</span>'
+        : hasLoreOverflow ? '<span style="font-size:11px;color:#ff9800;flex-shrink:0;line-height:1;" title="지식 슬롯 가득 참 — 다른 지식 제거 시 자동 적용">⚠</span>' : '';
       // 서브클래스 선택 특성(방법론·교의·기질 등): 선택한 서브클래스만 박스로 표시(모든 옵션 나열 방지)
       const _sub = state.selectedSubclass;
       const _isSubChoice = t === 'special' && _sub && _sub.class_id === state.selectedClass?.id
-        && f.name && f.name.split(' (')[0].trim() === (_sub.subclass_type || '').trim();
+        && _subSelSlugs.has(featSlug(f));
       // 서브클래스 선택 특성 desc는 인트로만 남기고 옵션 목록(<ul>)은 선택 박스로 대체
       const _descShown = _isSubChoice ? String(desc).split(/<ul/i)[0].split(/<hr/i)[0] : desc;
       const subBox = _isSubChoice ? `<div style="margin-top:8px;padding:8px 10px;background:var(--bg3);border-radius:6px;border-left:3px solid var(--accent);">
           <div style="font-weight:600;font-size:12px;margin-bottom:3px;display:inline-flex;align-items:center;gap:4px;">${typeof iconImg==='function'?iconImg('feat',_sub):''}${_sub.name_ko} <span style="color:var(--text2);font-weight:400;font-size:10px;">${_sub.name_en||''}</span></div>
           <div style="font-size:11px;line-height:1.6;color:var(--text2);">${typeof resolveDescRefs==='function'?resolveDescRefs(_sub.desc||''):(_sub.desc||'')}</div>
         </div>` : '';
+      // 클래스 선택 특성(신성/신성한 샘): 확정된 신격·성별화·신성 원천을 카드 안에 표시(재주 탭)
+      //   신격 선택 특성은 클래스별로 슬러그가 다름(클레릭=deity-cleric, 챔피언=deity-champion) — 공통 처리.
+      let _classChoiceBox = '';
+      if (t === 'special' && typeof featSlug === 'function') {
+        const _fslug = featSlug(f);
+        if ((_fslug === 'deity-cleric' || _fslug === 'deity-champion') && typeof _deityFeatDisplayHtml === 'function') _classChoiceBox = _deityFeatDisplayHtml();
+        else if (_fslug === 'divine-font' && typeof _fontFeatDisplayHtml === 'function') _classChoiceBox = _fontFeatDisplayHtml();
+        else if (_fslug === 'devotion-spells' && typeof _devotionFeatDisplayHtml === 'function') _classChoiceBox = _devotionFeatDisplayHtml();
+      }
       div.innerHTML = `
         <div class="feat-card-header" style="display:flex;align-items:center;gap:4px;width:100%;margin-bottom:2px;">
-          <span style="color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${iconImg('feat', featData)}${f.name || labels[t] + ' 재주'}</span>${redDot}
+          <span style="color:var(--text);font-size:12px;display:inline-flex;align-items:center;">${iconImg('feat', featData)}${f.name || labels[t] + ' 재주'}</span>${typeof _featActionGlyph==='function'?_featActionGlyph(featData):''}${redDot}
           <span style="flex:1;"></span>
           ${choiceBadge ? `<span style="font-size:10px;color:var(--accent);flex-shrink:0;">[${choiceBadge}]</span>` : ''}
         </div>
@@ -2240,6 +2327,7 @@ function renderFeats() {
           ${fPrereq}
           <div style="line-height:1.6;">${typeof formatDescActions==='function'?formatDescActions(_descShown,featData):_descShown}</div>
           ${subBox}
+          ${_classChoiceBox}
           ${typeof _buildFeatActionCard==='function'?_buildFeatActionCard(featData):''}
           ${choiceUI}
         </div>`;
@@ -2249,6 +2337,13 @@ function renderFeats() {
       });
       el.appendChild(div);
     });
+  });
+
+  // 소속 항목이 없는 단락은 박스째 숨김(빈 컨테이너 → 부모 .box display:none). CSS :has 백업 + 확실한 JS 처리.
+  ['feats-special','feats-subclass','heritage-display','feats-ancestry','feats-class','feats-general','feats-skill','feats-archetype','feats-other'].forEach(id => {
+    const c = document.getElementById(id);
+    const box = c && c.closest('.box');
+    if (box) box.style.display = (c.childElementCount === 0) ? 'none' : '';
   });
 }
 
@@ -2272,8 +2367,7 @@ function cascadeRemoveFeats() {
       for (let j = arr.length - 1; j >= 0; j--) {
         const f = arr[j];
         if (!f?.name) continue;
-        const fNameKo = f.name.split(' (')[0].trim();
-        const fData = getFeat(fNameKo);
+        const fData = getFeat(featSlug(f));   // slug 기반(이름 매칭 폐지)
         if (fData?.prerequisites && !_checkPrereqs(fData.prerequisites)) {
           if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(f));
           // 성장에서도 제거 (slug 기준 — 저장명 드리프트 무관)
@@ -2333,51 +2427,17 @@ function cascadeRemoveFeats() {
 function removeFeat(t, i) {
   const feat = state.feats[t][i];
   const featName = feat?.name?.split(' (')[0].trim() || '';
-  // 재주로 얻은 선천 주문 + 집중 주문 제거
-  if (feat?.name) {
-    if (state.spells?.innate) state.spells.innate = state.spells.innate.filter(s => featSlug(s._sourceFeat) !== featSlug(feat));
-    if (state.spells?.focus) state.spells.focus = state.spells.focus.filter(s => featSlug(s._sourceFeat) !== featSlug(feat));
-  }
+  // 재주로 얻은 선천 주문 + 집중 주문 제거 (출처 slug 기준 공용 정본)
+  if (feat?.name) removeSpellsBySource(feat);
   // 재주로 부여된 무기 제거 (grant_weapon) — slug 기준(이름 편집 무관, applyFeatEffects 정리와 일치)
   if (feat) {
     const _fslug = featSlug(feat);
     if (_fslug) state.weapons = state.weapons.filter(w => featSlug(w._fromFeat) !== _fslug);
   }
 
-  // 재주로 부여된 지식/기술 숙련 정리
-  if (feat?.name && typeof _getFeatEffectsDef === 'function') {
-    const nameEn = (typeof _extractEnName === 'function') ? _extractEnName(feat.name) : '';
-    const def = nameEn ? _getFeatEffectsDef(nameEn) : null;
-    if (def?.effects) {
-      def.effects.forEach(eff => {
-        // grant_lore: 고정 이름 또는 $choice
-        if (eff.type === 'grant_lore') {
-          const loreName = (eff.name === '$choice') ? feat.choice : eff.name;
-          if (loreName) {
-            const loreKo = (typeof getLoreKo === 'function') ? getLoreKo(loreName) : loreName;
-            ['lore1','lore2'].forEach(sid => {
-              const el = document.getElementById('lore-name-'+sid);
-              const profEl = document.getElementById('sk-prof-'+sid);
-              if (el && (el.value === loreName || el.value === loreKo)) { el.value = ''; if (profEl) profEl.value = '0'; }
-            });
-          }
-        }
-        // skill_trained: 고정 skill ID 또는 $choice
-        if (eff.type === 'skill_trained') {
-          const skillId = (eff.skill === '$choice') ? feat.choice : eff.skill;
-          if (skillId) {
-            const ids = skillId.includes(',') ? skillId.split(',') : [skillId];
-            ids.forEach(sid => {
-              const s = sid.trim();
-              if (!s) return;
-              const profEl = document.getElementById('sk-prof-' + s);
-              if (profEl && parseInt(profEl.value || 0) === 2) profEl.value = '0';
-            });
-          }
-        }
-      });
-    }
-  }
+  // 부여 효과(지식·기술숙련·숙련도 등) 정리는 출처 기반 — splice 후 recalcAll이 이 재주를 수집/재적용하지
+  //   않으므로 자동으로 사라진다(applyFeatEffects의 clear+rebuild가 prevRank로 복원, assignLoreSlots가 재배정).
+  //   ⚠ 이름·값 기반 수동 정리(if 숙련===2 then 0) 금지: base나 다른 출처의 동일 부여를 오삭제한다.
   state.feats[t].splice(i,1);
   cascadeRemoveFeats();
   recalcAll(); renderFeats(); save();
@@ -2488,6 +2548,19 @@ function _calcLearnableRanks(cid, lv) {
 
 var _learnSpellRanks = [];
 
+// 주문 배우기 모달 진행도 탭 바 HTML — 랭크별 current/max·경고색. 공용 정본(구: 렌더/갱신 2곳 동일 복붙).
+function _learnSpellTabBarHtml() {
+  let tabHtml = '';
+  _learnSpellRanks.forEach(r => {
+    const active = _learnSpellRank === r.rank ? 'active' : '';
+    const isFull = r.current >= r.max;
+    const warn = (!isFull && r.max < 99) ? ' style="color:#f44336;"' : '';
+    const countStr = r.max >= 99 ? `${r.current}` : `${r.current}/${r.max}`;
+    tabHtml += `<span class="spell-subtab ${active}" onclick="_learnSpellRank=${r.rank};_refreshLearnSpellsList()">${r.label} <b${warn}>${countStr}</b></span>`;
+  });
+  return `<div style="display:flex;flex-wrap:wrap;gap:2px;padding:4px 0;">${tabHtml}</div>`;
+}
+
 function _renderLearnSpellsModal() {
   const overlay = document.getElementById('modal-overlay');
   overlay.classList.remove('hidden');
@@ -2498,17 +2571,8 @@ function _renderLearnSpellsModal() {
   const footer = document.querySelector('.modal-footer');
   if (footer) footer.style.display = 'none';
 
-  // ── 진행도 탭 바 생성 ──
-  let tabHtml = '';
-  _learnSpellRanks.forEach(r => {
-    const active = _learnSpellRank === r.rank ? 'active' : '';
-    const isFull = r.current >= r.max;
-    const warn = (!isFull && r.max < 99) ? ' style="color:#f44336;"' : '';
-    const countStr = r.max >= 99 ? `${r.current}` : `${r.current}/${r.max}`;
-    tabHtml += `<span class="spell-subtab ${active}" onclick="_learnSpellRank=${r.rank};_refreshLearnSpellsList()">${r.label} <b${warn}>${countStr}</b></span>`;
-  });
-
-  if (fbar) fbar.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:2px;padding:4px 0;">${tabHtml}</div>`;
+  // ── 진행도 탭 바 생성 (공용 _learnSpellTabBarHtml) ──
+  if (fbar) fbar.innerHTML = _learnSpellTabBarHtml();
 
   // 인라인 아코디언 방식 — 우측 상세 패널 숨기고 목록을 전체폭으로 (closeModal이 초기화)
   const detail = document.getElementById('modal-detail');
@@ -2536,12 +2600,13 @@ function _refreshLearnSpellsList() {
   const r = _learnSpellRank;
   const q = (document.getElementById('modal-search')?.value || '').toLowerCase();
   let classTrad = state.selectedClass?.tradition || '';
-  if (classTrad === 'any' && state.selectedSubclass && typeof PATRON_TRADITION !== 'undefined') {
-    classTrad = PATRON_TRADITION[state.selectedSubclass.id] || classTrad;
+  if (classTrad === 'any' && state.selectedSubclass) {
+    classTrad = (typeof _subclassTradition === 'function' ? _subclassTradition() : state.selectedSubclass.tradition) || classTrad;
   }
 
+  const _deitySet = (typeof deitySpellSlugSet === 'function') ? deitySpellSlugSet() : new Set();  // 신격 주문=전통 무관 편입
   const filtered = (typeof _allSpells === 'function' ? _allSpells() : []).filter(sp => {
-    if (classTrad && classTrad !== 'any' && sp.traditions && !sp.traditions.includes(classTrad)) return false;
+    if (classTrad && classTrad !== 'any' && sp.traditions && !sp.traditions.includes(classTrad) && !_deitySet.has(sp.id)) return false;
     if (r === 0) { if (!sp.is_cantrip) return false; }
     else { if (sp.is_cantrip || sp.is_focus) return false; if (sp.rank !== r) return false; }
     if (sp.is_focus) return false;
@@ -2624,19 +2689,9 @@ function _learnSpellDetailHtml(item) {
   const rankStr = item.is_cantrip ? '캔트립' : item.is_focus ? '집중' : `랭크 ${item.rank}`;
   const spTraits = [...(item.traditions || []), ...(item.traits || [])].map(_tt).join('');
   const tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${rankStr}</span> <span class="spell-actions">${item.actions || ''}</span></div>${spTraits ? '<div style="margin-bottom:6px;">' + spTraits + '</div>' : ''}`;
-  let spellMeta = '';
-  if (item.castTime) spellMeta += `<div><strong>시전:</strong> ${item.castTime}</div>`;
-  if (item.range) spellMeta += `<div><strong>사거리:</strong> ${item.range}${item.area ? ` | <strong>영역:</strong> ${item.area}` : ''}</div>`;
-  if (item.target) spellMeta += `<div><strong>대상:</strong> ${item.target}</div>`;
-  if (item.defense) spellMeta += `<div><strong>방어:</strong> ${item.defense}</div>`;
-  if (item.duration) spellMeta += `<div><strong>지속 시간:</strong> ${item.duration}</div>`;
-  if (item.frequency) spellMeta += `<div><strong>빈도:</strong> ${item.frequency}</div>`;
-  if (item.trigger) spellMeta += `<div><strong>유발 조건:</strong> ${item.trigger}</div>`;
-  if (item.requirements) spellMeta += `<div><strong>요구사항:</strong> ${item.requirements}</div>`;
-  if (item.cost) spellMeta += `<div><strong>비용:</strong> ${item.cost}</div>`;
-  if (spellMeta) spellMeta = `<div style="font-size:12px;line-height:1.6;padding:6px 0;margin-bottom:6px;border-bottom:1px solid var(--border);color:var(--text2);">${spellMeta}</div>`;
+  const spellMeta = (typeof _spellMetaHtml === 'function') ? _spellMetaHtml(item) : '';   // 공용 정본
   let desc = item.desc || item.summary || '';
-  desc = desc.replace(/<strong>(?:사거리|영역|대상|방어|지속 ?시간|빈도|유발 조건|요구사항|비용|시전):<\/strong>[^<]*(?:<br>)?/g, '').replace(/^\s*<br>/, '');
+  desc = (typeof _stripSpellMetaFromDesc === 'function') ? _stripSpellMetaFromDesc(desc) : desc;
   const spellNotes = (typeof getSpellFeatNotes === 'function') ? getSpellFeatNotes(item.name_ko || '') : '';
   const body = (typeof formatDescActions === 'function') ? formatDescActions(desc, item) : desc;
   return `${tags}${spellMeta}<div style="font-size:13px;line-height:1.6;">${body}${spellNotes}</div>`;
@@ -2774,17 +2829,7 @@ function _refreshLearnSpellsUI() {
   _learnSpellRanks = _calcLearnableRanks(cid, lv) || [];
   // 탭 바 진행도 갱신
   const fbar = document.getElementById('modal-filterbar');
-  if (fbar) {
-    let tabHtml = '';
-    _learnSpellRanks.forEach(r => {
-      const active = _learnSpellRank === r.rank ? 'active' : '';
-      const isFull = r.current >= r.max;
-      const warn = (!isFull && r.max < 99) ? ' style="color:#f44336;"' : '';
-      const countStr = r.max >= 99 ? `${r.current}` : `${r.current}/${r.max}`;
-      tabHtml += `<span class="spell-subtab ${active}" onclick="_learnSpellRank=${r.rank};_refreshLearnSpellsList()">${r.label} <b${warn}>${countStr}</b></span>`;
-    });
-    fbar.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:2px;padding:4px 0;">${tabHtml}</div>`;
-  }
+  if (fbar) fbar.innerHTML = _learnSpellTabBarHtml();   // 공용 정본
   // 목록 갱신
   _refreshLearnSpellsList();
 }
@@ -3030,8 +3075,8 @@ function renderEquipBrowseItems() {
   else if (equipBrowseTab === 'shield') items = PF2eEquip.legacyList({ type: 'shield', search: q });
   else { // gear: FVTT 일반 장비/소비품/보물/탄약/용기 + 룬(부착 시스템 큐레이션 보존)
     items = PF2eEquip.legacyList({ search: q }).filter(i => i.damage === undefined && i.ac_bonus === undefined && i.hardness === undefined);
-    if (typeof RUNE_DB !== 'undefined') {
-      let runes = RUNE_DB;
+    if (typeof getRuneCatalog === 'function') {
+      let runes = (typeof getRuneCatalog === 'function' ? getRuneCatalog() : []);
       if (q) runes = runes.filter(i => (i.name_ko || '').toLowerCase().includes(q) || (i.name_en || '').toLowerCase().includes(q));
       items = [...runes, ...items];
     }
@@ -3172,7 +3217,7 @@ function equipBrowseGive() {
 
   // 룬 아이템 감지
   if (item.runeType) {
-    addEquip({name: item.name_ko, qty:1, bulk, _isRune: true, _runeData: {attachTo: item.attachTo, runeType: item.runeType, runeValue: item.runeValue}, _attachedTo: null, _broken: isBroken});
+    addEquip({name: item.name_ko, qty:1, bulk, _isRune: true, _runeData: {attachTo: item.attachTo, runeType: item.runeType, runeValue: item.runeValue, damage: item.runeDamage||null, persistent: item.runePersistent||null, resist: item.runeResist||null, note: item.runeNote||''}, _attachedTo: null, _broken: isBroken});
   } else {
     const invCat = item.invCat || null;
     // _data는 무기/갑옷/방패뿐 아니라 일반 장비(포션·소비품·보물 등)에도 저장 — 추가 후 정보 카드(_infoResolveItem)가 BASE 항목 설명을 해소하도록(미저장 시 "DB에 정보 없음").
@@ -3373,6 +3418,18 @@ function _setCustomType(type) {
   _updateCustomTypeFields();
 }
 
+// 특성 드롭다운 옵션 = TRAIT_DB(배열, v526~) 순회. Object.keys(배열)이 인덱스만 뱉던 버그 대체.
+function _traitOptionsHtml() {
+  if (typeof TRAIT_DB === 'undefined' || !Array.isArray(TRAIT_DB)) return '';
+  const seen = new Set(), names = [];
+  for (const t of TRAIT_DB) {
+    const n = (t && (t.name_ko || t.id)) || '';
+    if (!n || seen.has(n)) continue;
+    seen.add(n); names.push(n);
+  }
+  names.sort((a, b) => a.localeCompare(b, 'ko'));
+  return names.map(n => `<option value="${n}">${n}</option>`).join('');
+}
 function _addCustomTrait() {
   const sel = document.getElementById('ce-trait-select');
   if (!sel || !sel.value) return;
@@ -3451,7 +3508,7 @@ function _updateCustomTypeFields() {
           <div style="display:flex;gap:4px;margin-bottom:4px;">
             <select id="ce-trait-select" style="${s}flex:1;">
               <option value="">— 특성 선택 —</option>
-              ${Object.keys(TRAIT_DB).map(t => `<option value="${t}">${t}</option>`).join('')}
+              ${_traitOptionsHtml()}
             </select>
             <button onclick="_addCustomTrait()" style="padding:4px 10px;background:var(--accent);color:var(--bg);border:none;border-radius:4px;font-size:11px;cursor:pointer;white-space:nowrap;">추가</button>
           </div>
@@ -3503,7 +3560,7 @@ function _updateCustomTypeFields() {
             <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">특성</div>
             <select id="ce-trait-select" style="${s}" onchange="_addCustomTrait()">
               <option value="">— 선택 —</option>
-              ${Object.keys(TRAIT_DB).map(t => `<option value="${t}">${t}</option>`).join('')}
+              ${_traitOptionsHtml()}
             </select>
           </div>
         </div>
@@ -3623,56 +3680,25 @@ const BARDING_DB = [
   {name:'반판 마갑', ac:5, dex:1, check:-3, speed:-10, bulk:4, category:'중갑'},
 ];
 
-const COMPANION_DB = [
-  {id:'ape',name_ko:'유인원',name_en:'Ape',size:'소형',hp:6,str:3,dex:2,con:2,int:-4,wis:2,cha:0,
-   skill:'위협',senses:'저광 시야',speed:25,speeds:{climb:25},
-   attacks:[{name:'주먹',hit:'',dmg:'1d8 B',traits:[]}]},
-  {id:'arboreal',name_ko:'수목 묘목',name_en:'Arboreal Sapling',size:'소형',hp:8,str:3,dex:1,con:2,int:-4,wis:2,cha:0,
-   skill:'은신',senses:'저광 시야',speed:25,speeds:{},
-   attacks:[{name:'가지',hit:'',dmg:'1d8 B',traits:[]}]},
-  {id:'bat',name_ko:'박쥐',name_en:'Bat',size:'소형',hp:6,str:2,dex:3,con:2,int:-4,wis:1,cha:0,
-   skill:'은신',senses:'반향정위 20피트, 저광 시야',speed:15,speeds:{fly:30},
-   attacks:[{name:'턱',hit:'',dmg:'1d6 P',traits:['기교']},{name:'날개',hit:'',dmg:'1d4 S',traits:['민첩','기교']}]},
-  {id:'badger',name_ko:'오소리',name_en:'Badger',size:'소형',hp:8,str:2,dex:2,con:2,int:-4,wis:2,cha:0,
-   skill:'생존',senses:'저광 시야, 후각(부정확 30피트)',speed:25,speeds:{burrow:10,climb:10},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:[]},{name:'발톱',hit:'',dmg:'1d6 S',traits:['민첩']}]},
-  {id:'bear',name_ko:'곰',name_en:'Bear',size:'소형',hp:8,str:3,dex:2,con:2,int:-4,wis:1,cha:0,
-   skill:'위협',senses:'저광 시야, 후각(부정확 30피트)',speed:35,speeds:{},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:[]},{name:'발톱',hit:'',dmg:'1d6 S',traits:['민첩']}]},
-  {id:'bird',name_ko:'새',name_en:'Bird',size:'소형',hp:4,str:2,dex:3,con:1,int:-4,wis:2,cha:0,
-   skill:'은신',senses:'저광 시야',speed:10,speeds:{fly:60},
-   attacks:[{name:'부리',hit:'',dmg:'1d6 P',traits:['기교']},{name:'발톱',hit:'',dmg:'1d4 S',traits:['민첩','기교']}]},
-  {id:'boar',name_ko:'멧돼지',name_en:'Boar',size:'소형',hp:8,str:3,dex:1,con:2,int:-4,wis:2,cha:0,
-   skill:'생존',senses:'저광 시야, 후각(부정확 30피트)',speed:35,speeds:{},
-   attacks:[{name:'엄니',hit:'',dmg:'1d8 P',traits:[]}]},
-  {id:'cat',name_ko:'고양이',name_en:'Cat',size:'소형',hp:4,str:2,dex:3,con:1,int:-4,wis:2,cha:0,
-   skill:'은신',senses:'저광 시야, 후각(부정확 30피트)',speed:35,speeds:{},
-   attacks:[{name:'턱',hit:'',dmg:'1d6 P',traits:['기교']},{name:'발톱',hit:'',dmg:'1d4 S',traits:['민첩','기교']}]},
-  {id:'crocodile',name_ko:'악어',name_en:'Crocodile',size:'소형',hp:6,str:3,dex:2,con:2,int:-4,wis:1,cha:0,
-   skill:'은신',senses:'저광 시야',speed:20,speeds:{swim:25},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:[]},{name:'꼬리',hit:'',dmg:'1d6 B',traits:['민첩']}]},
-  {id:'dromaeosaur',name_ko:'드로마에오사우루스',name_en:'Dromaeosaur',size:'소형',hp:6,str:2,dex:3,con:2,int:-4,wis:1,cha:0,
-   skill:'은신',senses:'저광 시야, 후각(부정확 30피트)',speed:50,speeds:{},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:['기교']},{name:'발톱',hit:'',dmg:'1d6 S',traits:['민첩','기교']}]},
-  {id:'horse',name_ko:'말',name_en:'Horse',size:'대형',hp:8,str:3,dex:2,con:2,int:-4,wis:1,cha:0,
-   skill:'생존',senses:'저광 시야, 후각(부정확 30피트)',speed:40,speeds:{},mount:true,
-   attacks:[{name:'발굽',hit:'',dmg:'1d6 B',traits:['민첩']}]},
-  {id:'drake',name_ko:'기마 드레이크',name_en:'Riding Drake',size:'대형',hp:8,str:2,dex:1,con:2,int:-4,wis:1,cha:2,
-   skill:'위협',senses:'암시야',speed:45,speeds:{},mount:true,uncommon:true,
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:[]},{name:'꼬리',hit:'',dmg:'1d6 B',traits:[]}]},
-  {id:'scorpion',name_ko:'전갈',name_en:'Scorpion',size:'소형',hp:6,str:3,dex:3,con:1,int:-4,wis:1,cha:0,
-   skill:'은신',senses:'암시야',speed:30,speeds:{},
-   attacks:[{name:'침',hit:'',dmg:'1d6 P',traits:[]},{name:'집게',hit:'',dmg:'1d6 S',traits:['민첩']}]},
-  {id:'shark',name_ko:'상어',name_en:'Shark',size:'소형',hp:6,str:3,dex:2,con:2,int:-4,wis:1,cha:0,
-   skill:'은신',senses:'피냄새, 후각(부정확 60피트)',speed:0,speeds:{swim:40},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:[]}]},
-  {id:'snake',name_ko:'뱀',name_en:'Snake',size:'소형',hp:6,str:3,dex:3,con:1,int:-4,wis:1,cha:0,
-   skill:'은신',senses:'저광 시야, 후각(부정확 30피트)',speed:20,speeds:{climb:20,swim:20},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:['기교']}]},
-  {id:'wolf',name_ko:'늑대',name_en:'Wolf',size:'소형',hp:6,str:2,dex:3,con:2,int:-4,wis:1,cha:0,
-   skill:'생존',senses:'저광 시야, 후각(부정확 30피트)',speed:40,speeds:{},
-   attacks:[{name:'턱',hit:'',dmg:'1d8 P',traits:['기교']}]},
-];
+// 동물 동료(Animal Companion) 정본 스탯블록 = data/derived/companions.json 단일소스(DataManager 편집 가능, 하드코딩 폐기).
+//   id=저장 키(불변, companionId로 저장) → 이관해도 저장 캐릭터 호환. 아래 로더가 채움(픽커는 사용자 액션으로 열려 로드 후 접근).
+let COMPANION_DB = [];
+function _loadCompanions() {
+  if (COMPANION_DB.length) return;
+  fetch('data/derived/companions.json?v=0.249').then(r => r.ok ? r.json() : null).then(j => {
+    if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
+  }).catch(() => {});
+}
+// 상태이상 카탈로그(파생 단일소스) 선로딩. 표시·조회용 → 로드 후 이미 그려진 상태이상 그리드 소급 재렌더(buildConditions).
+function _loadConditions() {
+  if (typeof CONDITIONS_DATA !== 'undefined' && CONDITIONS_DATA.length) return;
+  fetch('data/derived/conditions.json?v=0.249').then(r => r.ok ? r.json() : null).then(j => {
+    if (j && Array.isArray(j.rows)) {
+      CONDITIONS_DATA = j.rows;
+      try { if (typeof buildConditions === 'function' && document.getElementById('conditions-grid')) buildConditions(); } catch (e) {}
+    }
+  }).catch(() => {});
+}
 
 function addPet() {
   if (!state.pets) state.pets = [];
@@ -3939,6 +3965,52 @@ function applyPetHp(i, action) {
   renderPets(); save(); closeModal();
 }
 
+// 현재 캐릭터의 사역마 사양(데이터 파생) — 대원칙 0: 개수는 familiar_progression 표에서, 후원자 고정 능력은
+//   subclass_progression grant_familiar 칸에서 직접 읽음(하드코딩 없음). {total: 총 능력 수, patron: {slug,name,desc}|null}.
+function _familiarSpec() {
+  const cid = state.selectedClass?.id;
+  const lv = (typeof getLevel === 'function') ? getLevel() : 1;
+  const total = (typeof PF2eClass !== 'undefined' && PF2eClass.familiarAbilityCount) ? PF2eClass.familiarAbilityCount(cid, lv) : 2;
+  let patron = null;
+  const sub = state.selectedSubclass;
+  if (sub && sub.id && sub.class_id === cid && typeof PF2eClass !== 'undefined' && PF2eClass.subclassGrantTable) {
+    const fam = (PF2eClass.subclassGrantTable(sub.id, lv).familiar) || [];
+    if (fam.length) {
+      const slug = fam[0].slug;
+      // 서브클래스 설명과 동일한 큐레이트 name/desc 우선(성장표가 함께 실음) → 없으면 데이터 사전(familiar_abilities.json) 폴백.
+      const info = (PF2eClass.familiarAbility && PF2eClass.familiarAbility(slug)) || null;
+      patron = { slug, name: fam[0].name || (info && info.name_ko) || slug, desc: fam[0].desc || (info && info.desc_ko) || '' };
+    }
+  }
+  // 재주가 부여하는 사역마 능력(효과 테이블 familiar_ability, 예: 레시 패밀리어 → 식물/균류 택1). bonus=한도 밖 +1.
+  //   후원자 고정(성장표)과 동일하게 "부여된(잠금) 능력"으로 취급 — 소비 통일(patron+재주 부여를 한 목록으로 표시).
+  const featAbilities = [];
+  if (typeof getEffectRows === 'function' && state.feats) {
+    for (const f of Object.values(state.feats).flat()) {
+      if (!f) continue;
+      const fslug = (typeof featSlug === 'function') ? featSlug(f) : (f.id || '');
+      for (const r of (getEffectRows(fslug) || [])) {
+        if (r.type !== 'familiar_ability') continue;
+        const abil = (r.target === '$choice') ? f.choice : r.target;
+        if (!abil) continue;   // 아직 미선택(식물/균류) → 표시 보류
+        const fi = (typeof PF2eClass !== 'undefined' && PF2eClass.familiarAbility) ? PF2eClass.familiarAbility(abil) : null;
+        featAbilities.push({ slug: abil, name: (fi && fi.name_ko) || abil, desc: (fi && fi.desc_ko) || '', bonus: (r.value === 'bonus') });
+      }
+    }
+  }
+  return { total, patron, featAbilities };
+}
+// 펫(사역마)의 파생 필드(maxAbilities·patronAbility)를 데이터로 재계산 — 레벨/후원자 변경이 즉시 반영되도록 렌더 시 갱신.
+function _syncFamiliarDerived(p) {
+  if (!p || !p.isFamiliar) return;
+  const spec = _familiarSpec();
+  p.patronAbility = spec.patron;   // {slug,name,desc}|null — 후원자 고정 능력(자유선택에서 제외)
+  p.featGrantedAbilities = spec.featAbilities || [];   // 재주 부여 능력(bonus=한도 밖)
+  p.abilityLimit = spec.total;     // 기본 한도(후원자 고정 포함)
+  const bonusN = p.featGrantedAbilities.filter(a => a.bonus).length;
+  p.maxAbilities = spec.total + bonusN;   // 표시 총량 = 한도 + 보너스 능력 수
+}
+
 function renderPets() {
   const el = document.getElementById('pet-list');
   if (!el) return;
@@ -3949,6 +4021,7 @@ function renderPets() {
     return;
   }
   state.pets.forEach((p, i) => {
+    _syncFamiliarDerived(p);   // 데이터 파생(능력 개수·후원자 고정 능력) 갱신
     const hpPct = p.hp.max > 0 ? Math.round((p.hp.cur/p.hp.max)*100) : 0;
     const hpColor = hpPct > 50 ? '#2d8a5e' : hpPct > 25 ? '#a08a20' : '#a03030';
     // 마갑 적용 계산 (파손 시 AC 보너스 절반)
@@ -3987,7 +4060,6 @@ function renderPets() {
       ${p.barding && p.barding !== '없음' ? `<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">🛡 마갑: <strong style="color:${p.bardingBroken?'var(--red-light)':'var(--text)'};">${p.bardingBroken?'파손된 ':''}${p.barding}</strong> <span style="color:var(--text2);">(AC+${bd?.ac||0} 민첩상한+${bd?.dex||0} 판정${bd?.check||0})</span>
         <button onclick="event.stopPropagation();togglePetBardingBroken(${i})" style="font-size:9px;padding:1px 6px;border-radius:3px;cursor:pointer;margin-left:4px;${p.bardingBroken?'background:var(--red-bg);color:var(--red-light);border:1px solid var(--red);':'background:var(--bg4);color:var(--text2);border:1px solid var(--border2);'}">${p.bardingBroken?'파손됨':'정상'}</button>
       </div>` : ''}
-      ${p.isFamiliar && p.familiarAbilities?.length > 0 ? `<div style="font-size:10px;color:var(--text2);margin-bottom:4px;">✦ 능력: <strong style="color:var(--accent);">${p.familiarAbilities.map(id => FAMILIAR_ABILITIES.find(a=>a.id===id)?.name||id).join(', ')}</strong></div>` : ''}
       ${(p.conditions && Object.keys(p.conditions).some(k=>p.conditions[k]>0)) ? `<div style="font-size:10px;color:var(--red-light);margin-bottom:4px;">⚠ ${Object.entries(p.conditions).filter(([,v])=>v>0).map(([k,v])=>{const cd=CONDITIONS_DATA.find(c=>c.name===k);return cd?.valued?k+' '+v:k;}).join(', ')}</div>` : ''}
       <!-- Info row -->
       <div style="display:flex;gap:8px;font-size:10px;color:var(--text2);margin-bottom:6px;flex-wrap:wrap;">
@@ -4013,6 +4085,7 @@ function renderPets() {
       <div style="display:flex;gap:4px;font-size:10px;flex-wrap:wrap;">
         ${['str','dex','con','int','wis','cha'].map(a => `<span style="color:var(--text2);">${a.toUpperCase()} <strong style="color:${p[a]<0?'var(--red-light)':'var(--text)'};">${p[a]>=0?'+':''}${p[a]}</strong></span>`).join('')}
       </div>
+      ${_familiarAbilitiesSectionHtml(p, i)}
       ${p.notes ? `<div style="font-size:10px;color:var(--text2);margin-top:4px;padding-top:4px;border-top:1px solid var(--border);">${p.notes}</div>` : ''}
     </div>`;
   });
@@ -4174,7 +4247,7 @@ function renderPetSkillList(i) {
   SKILLS.forEach(sk => {
     const rank = parseInt(p.skills[sk.id] || 0);
     const mod = p[sk.attr] || 0;
-    const total = mod + (rank > 0 ? rank + lv : 0);
+    const total = mod + rankBonus(rank, lv);   // 공용 정본(cs_calc)
     const rankLabel = RANK_LABELS[String(rank)] || '미숙련';
     const rankClass = RANK_CLASSES[String(rank)] || '';
     const row = document.createElement('div');
@@ -4227,6 +4300,7 @@ function renderPetCondList(i) {
 
   CONDITIONS_DATA.forEach(c => {
     if (c.id === 'broken') return; // 장비 상태이므로 제외
+    if (c.class_only) return; // 클래스 전용 상태이상(저주에 묶인=오라클)은 펫에 해당 없음
     if (q && !c.name.includes(q) && !c.en.toLowerCase().includes(q)) return;
     const current = p.conditions[c.name] || 0;
     const isActive = c.valued ? current > 0 : !!current;
@@ -4343,6 +4417,63 @@ const FAMILIAR_ABILITIES = [
   {id:'valet',name:'시종',en:'Valet',desc:'턴 종료 전 2회까지 가벼운 부피 아이템을 가져와 주인 빈 손에 놓을 수 있습니다.'},
 ];
 
+// 사역마 능력 아이콘 = FVTT 번들 아이콘(data/icons/). FVTT엔 능력별 고유 아트가 없어(전부 제네릭 Passive) →
+//   능력 의미에 맞는 FVTT 게임 아이콘을 매핑(자연무기 테마 아이콘과 동일 방식, cs_monster _abilThemeIcon 참고).
+const FAMILIAR_ABILITY_ICON_BASE = 'data/icons/';
+const FAMILIAR_ABILITY_ICONS = {
+  amphibious: 'icons/magic/water/water-hand.webp', burrower: 'icons/tools/hand/shovel-spade-steel-grey.webp',
+  climber: 'icons/skills/movement/figure-running-gray.webp', darkvision: 'icons/magic/perception/eye-slit-orange.webp',
+  echolocation: 'icons/magic/sonic/explosion-shock-sound-wave.webp', fast: 'icons/skills/movement/feet-winged-boots-blue.webp',
+  flier: 'icons/creatures/abilities/wing-batlike-purple-blue.webp', 'manual-dex': 'icons/skills/social/diplomacy-handshake.webp',
+  scent: 'icons/creatures/abilities/wolf-heads-swirl-purple.webp', tough: 'icons/magic/life/heart-glowing-red.webp',
+  accompanist: 'icons/tools/instruments/drum-brown-red.webp', construct: 'icons/creatures/magical/construct-stone-earth-gray.webp',
+  'damage-avoid': 'icons/magic/defensive/shield-barrier-deflect-gold.webp', dragon: 'icons/creatures/reptiles/dragon-winged-blue.webp',
+  elemental: 'icons/magic/water/elemental-water.webp', 'focused-rejuv': 'icons/magic/life/heart-cross-green.webp',
+  fungus: 'icons/magic/nature/leaf-glow-maple-green.webp', independent: 'icons/creatures/abilities/paw-glowing-yellow.webp',
+  kinspeech: 'icons/skills/trades/music-singing-voice-blue.webp', 'major-resist': 'icons/magic/defensive/barrier-shield-dome-blue-purple.webp',
+  'master-form': 'icons/magic/control/silhouette-hold-change-blue.webp', 'partner-crime': 'icons/magic/control/mouth-smile-deception-purple.webp',
+  plant: 'icons/magic/nature/leaf-glow-green.webp', 'plant-form': 'icons/magic/nature/leaf-armor-scale-green.webp',
+  resistance: 'icons/magic/defensive/shield-barrier-blue.webp', skilled: 'icons/sundries/books/book-embossed-blue.webp',
+  speech: 'icons/skills/trades/music-singing-voice-blue.webp', spellcasting: 'icons/magic/control/silhouette-aura-energy.webp',
+  toolbearer: 'icons/tools/hand/shovel-spade-steel-grey.webp', 'touch-telepathy': 'icons/commodities/biological/organ-brain-pink-purple.webp',
+  valet: 'icons/skills/social/diplomacy-handshake-yellow.webp',
+};
+const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
+const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.249'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.249'; }
+
+// 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
+function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
+  return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.249'">
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
+      ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}
+    </div>
+  </div>`;
+}
+// 사역마 활성화 능력 전체 섹션(후원자 고정 + 자유 선택) — 펫 시트 능력치 아래 표시.
+function _familiarAbilitiesSectionHtml(p, petIdx) {
+  if (!p.isFamiliar) return '';
+  const boxes = [];
+  if (p.patronAbility) boxes.push(_familiarAbilityBoxHtml(_familiarPatronIconUrl(), p.patronAbility.name, '후원자 고정', p.patronAbility.desc || '', true));
+  for (const g of (p.featGrantedAbilities || [])) boxes.push(_familiarAbilityBoxHtml(_familiarAbilityIconUrl(g.slug), g.name, g.bonus ? '재주 부여 · 보너스' : '재주 부여', g.desc || '', true));
+  for (const id of (p.familiarAbilities || [])) {
+    const a = FAMILIAR_ABILITIES.find(x => x.id === id);
+    if (a) boxes.push(_familiarAbilityBoxHtml(_familiarAbilityIconUrl(id), a.name, a.en, a.desc || '', false));
+    else boxes.push(_familiarAbilityBoxHtml(_familiarAbilityIconUrl(id), id, '', '', false));
+  }
+  const total = p.maxAbilities || 2, used = (p.patronAbility ? 1 : 0) + (p.featGrantedAbilities || []).length + (p.familiarAbilities || []).length;
+  const header = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+      <span style="font-size:10px;color:var(--text2);">🐾 사역마 능력 <span style="color:var(--text);">${used}/${total}</span></span>
+      <button class="defense-btn" style="padding:1px 8px;font-size:10px;" onclick="openFamiliarAbilities(${petIdx})">능력 선택</button>
+    </div>`;
+  const body = boxes.length ? `<div style="display:grid;grid-template-columns:1fr;gap:4px;">${boxes.join('')}</div>`
+    : `<div style="font-size:10px;color:var(--text2);padding:4px 0;">아직 선택한 능력이 없습니다. 「능력 선택」을 누르세요.</div>`;
+  return `<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);">${header}${body}</div>`;
+}
+
 function addFamiliar() {
   if (!state.pets) state.pets = [];
   const overlay = document.getElementById('modal-overlay');
@@ -4382,7 +4513,7 @@ function addFamiliar() {
         <strong>지각/곡예/은신:</strong> 주문시전 속성(${spellAttr.toUpperCase()}) + 레벨 = <strong style="color:var(--text);">${percMod>=0?'+':''}${percMod}</strong><br>
         <strong>크기:</strong> 극소형 (Tiny)<br>
         <strong>속도:</strong> 25피트<br>
-        <strong>능력:</strong> 매일 2개 선택 (재주로 증가 가능)
+        ${(() => { const s = _familiarSpec(); const free = s.total - (s.patron ? 1 : 0); return `<strong>능력:</strong> 총 ${s.total}개${s.patron ? ` (후원자 고정 «${s.patron.name}» 1개 + 자유 선택 ${free}개)` : ` (자유 선택, 재주로 증가 가능)`}`; })()}
       </div>
     </div>
     <div style="margin-bottom:12px;">
@@ -4422,17 +4553,27 @@ function createFamiliar() {
     perc: percMod,
     senses: '저광 시야',
     attacks: [],
-    familiarAbilities: [], // 선택된 능력 ID 목록
-    maxAbilities: 2,
+    familiarAbilities: [], // 자유 선택 능력 ID 목록
+    maxAbilities: _familiarSpec().total,   // 데이터 파생(familiar_progression) — 하드코딩 제거
+    ownerClass: state.selectedClass?.id || '',
     notes: '외형: ' + form,
   });
+  const _np = state.pets[state.pets.length - 1];
+  _syncFamiliarDerived(_np);   // 후원자 고정 능력 즉시 부착
   renderPets(); save(); closeModal();
+}
+
+// 자유 선택 가능 능력 수 = 기본 한도 − 잠금(한도 내) 능력. 후원자 고정·재주 부여(비보너스)는 한도를 차지, 보너스(레시)는 한도 밖이라 자유 슬롯 차감 안 함.
+function _familiarFreeMax(p) {
+  const nonBonus = (p.patronAbility ? 1 : 0) + ((p.featGrantedAbilities || []).filter(a => !a.bonus).length);
+  return Math.max(0, (p.abilityLimit != null ? p.abilityLimit : (p.maxAbilities || 2)) - nonBonus);
 }
 
 function openFamiliarAbilities(petIdx) {
   const p = state.pets[petIdx];
   if (!p.familiarAbilities) p.familiarAbilities = [];
-  const max = p.maxAbilities || 2;
+  _syncFamiliarDerived(p);   // 개수·후원자 고정 능력 데이터 최신화
+  const max = _familiarFreeMax(p);
 
   const overlay = document.getElementById('modal-overlay');
   overlay.classList.remove('hidden');
@@ -4456,7 +4597,7 @@ function openFamiliarAbilities(petIdx) {
 function renderFamiliarAbilityList(petIdx) {
   const p = state.pets[petIdx];
   const selected = p.familiarAbilities || [];
-  const max = p.maxAbilities || 2;
+  const max = _familiarFreeMax(p);
   const isFull = selected.length >= max;
   const q = document.getElementById('modal-search')?.value?.toLowerCase() || '';
   const container = document.getElementById('modal-options');
@@ -4464,6 +4605,53 @@ function renderFamiliarAbilityList(petIdx) {
 
   const titleEl = document.getElementById('modal-title');
   if (titleEl) titleEl.textContent = '🐱 ' + p.name + ' — 능력 선택 (' + selected.length + '/' + max + ')';
+
+  // 후원자 고정 능력(잠금) — 서브클래스 성장 데이터에서 부여. 해제 불가, 자유 슬롯을 차지하지 않음.
+  if (p.patronAbility) {
+    const pa = p.patronAbility;
+    const lock = document.createElement('div');
+    lock.className = 'opt-row selected';
+    lock.style.cursor = 'default';
+    lock.innerHTML = `
+      <div class="opt-row-icon">🔒</div>
+      <div style="flex:1;">
+        <div class="opt-row-name">${pa.name} <span style="color:var(--text2);font-size:10px;">후원자 고정</span></div>
+      </div>`;
+    lock.addEventListener('click', () => {
+      const detail = document.getElementById('modal-detail');
+      if (detail && window.innerWidth > 900) {
+        container.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
+        lock.classList.add('selected');
+        detail.innerHTML = `<div class="modal-detail-title">${pa.name}</div>
+          <div class="modal-detail-en">후원자가 부여한 고정 사역마 능력 — 항상 선택됨</div>
+          <div class="modal-detail-desc" style="margin-top:10px;">${pa.desc || '후원자 설명 참조.'}</div>`;
+      }
+    });
+    container.appendChild(lock);
+  }
+  // 재주 부여(레시 등) 잠금 능력 — 후원자 고정과 동일한 잠금 행. bonus는 한도 밖.
+  for (const g of (p.featGrantedAbilities || [])) {
+    const lock = document.createElement('div');
+    lock.className = 'opt-row selected';
+    lock.style.cursor = 'default';
+    const tag = g.bonus ? '재주 부여 · 보너스' : '재주 부여';
+    lock.innerHTML = `
+      <div class="opt-row-icon">🔒</div>
+      <div style="flex:1;">
+        <div class="opt-row-name">${g.name} <span style="color:var(--text2);font-size:10px;">${tag}</span></div>
+      </div>`;
+    lock.addEventListener('click', () => {
+      const detail = document.getElementById('modal-detail');
+      if (detail && window.innerWidth > 900) {
+        container.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
+        lock.classList.add('selected');
+        detail.innerHTML = `<div class="modal-detail-title">${g.name}</div>
+          <div class="modal-detail-en">재주가 부여한 사역마 능력 — 항상 선택됨${g.bonus ? ' (한도 밖 보너스)' : ''}</div>
+          <div class="modal-detail-desc" style="margin-top:10px;">${g.desc || ''}</div>`;
+      }
+    });
+    container.appendChild(lock);
+  }
 
   FAMILIAR_ABILITIES.forEach(a => {
     if (q && !a.name.includes(q) && !a.en.toLowerCase().includes(q)) return;
@@ -4506,7 +4694,7 @@ function renderFamiliarAbilityList(petIdx) {
 function toggleFamiliarAbility(petIdx, abilityId) {
   const p = state.pets[petIdx];
   if (!p.familiarAbilities) p.familiarAbilities = [];
-  const max = p.maxAbilities || 2;
+  const max = _familiarFreeMax(p);
   const idx = p.familiarAbilities.indexOf(abilityId);
   if (idx >= 0) {
     p.familiarAbilities.splice(idx, 1);
@@ -4553,6 +4741,8 @@ function renderPortrait() {
 
 // 아이콘 맵 선로딩 (fetch는 DOM 불필요 — 즉시 시작, 로드 후 열린 탭 소급 렌더)
 _loadIconMap();
+_loadCompanions();   // 동물 동료 스탯블록(파생 단일소스) 선로딩 — 펫 픽커는 사용자 액션으로 열려 로드 후 접근
+_loadConditions();   // 상태이상 카탈로그(파생 단일소스) 선로딩 — 로드 후 그리드 소급 재렌더
 // L3 효과 override 선로딩 (data/override/effect_groups.json — 재주/유산/배경 자동화 override)
 if (typeof _loadEffectOverride === 'function') _loadEffectOverride();
 

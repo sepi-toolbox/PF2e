@@ -11,7 +11,6 @@
   const RE = root.REEngine || (isNode ? require('/tmp/PF2e-publish/dev/cs_re_engine.js') : null);
 
   let _ready = false;
-  let _lang = null;    // _lang.ko.json (traits, size, damageType)
   let _sense = null;   // creatures/_glossary.ko.json.sense
   let _langGloss = null;   // creatures/_glossary.ko.json.language (언어 slug→한글, 시스템 용어 단일 소스)
   let _loreGloss = null;   // creatures/_glossary.ko.json.lore (지식 주제 영문→한글)
@@ -23,7 +22,7 @@
   // FVTT vision/sense slug → 레거시 vision id (cs_data VISION_DEFS)
   const VISION_MAP = { 'low-light-vision': 'low-light', 'low-light': 'low-light', 'darkvision': 'darkvision', 'greater-darkvision': 'greater-darkvision', 'normal': 'none', '': 'none' };
   const VISION_RANK = { none: 0, 'low-light': 1, darkvision: 2, 'greater-darkvision': 3 };
-  function _traitKo(slug) { return (_lang && _lang.traits && _lang.traits[slug]) || slug; }
+  function _traitKo(slug) { return PF.traitKo(slug); }  // 공용 글로서리(cs_pf2e.js) 단일 소스로 위임
   function _sizeKo(sz) { return SIZE_KO[sz] || '중형'; }
   function _senseKo(slug) { return (_sense && _sense[slug]) || slug; }
   function _languageKo(slug) { return (_langGloss && _langGloss[slug]) || slug; }
@@ -32,21 +31,19 @@
     const key = String(name).replace(/\s*Lore\b.*$/i, '').trim();   // "Warfare Lore"·"Warfare" 모두 허용
     return _loreGloss[key] || _loreGloss[name] || name;
   }
-  function _dmgKo(slug) { return (_lang && _lang.damageType && _lang.damageType[slug]) || slug; }
+  function _dmgKo(slug) { return (PF.glossary().damageType || {})[slug] || slug; }
   function _slugify(s) { return String(s || '').toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
 
   // ── 초기화 ──
+  // store/_glossary(traits/damageType)는 PF 공용 로더로 이관. 여기선 creatures/_glossary.ko(감각/언어/지식)만 로드.
   function _loadGlossariesSync() {
     if (!isNode) return;
     const fs = require('fs');
-    for (const p of ['data/overlay/_lang.ko.json', 'dev/data/overlay/_lang.ko.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} }
     for (const p of ['data/creatures/_glossary.ko.json', 'dev/data/creatures/_glossary.ko.json']) { try { const g = JSON.parse(fs.readFileSync(p, 'utf8')) || {}; _sense = g.sense; _langGloss = g.language; _loreGloss = g.lore; break; } catch (e) {} }
-    _lang = _lang || { traits: {}, damageType: {}, size: {} };
     _sense = _sense || {}; _langGloss = _langGloss || {}; _loreGloss = _loreGloss || {};
   }
   async function _loadGlossariesAsync(ver) {
     const q = ver ? ('?v=' + ver) : '';
-    try { const r = await fetch('data/overlay/_lang.ko.json' + q); _lang = await r.json(); } catch (e) { _lang = { traits: {}, damageType: {} }; }
     try { const r = await fetch('data/creatures/_glossary.ko.json' + q); const g = await r.json(); _sense = g.sense; _langGloss = g.language; _loreGloss = g.lore; } catch (e) { _sense = {}; _langGloss = {}; _loreGloss = {}; }
     _sense = _sense || {}; _langGloss = _langGloss || {}; _loreGloss = _loreGloss || {};
   }
@@ -54,7 +51,7 @@
   async function init(ver) {
     if (_ready) return;
     if (isNode) { PF.loadCategorySync('ancestries'); PF.loadCategorySync('heritages'); _loadGlossariesSync(); }
-    else { await Promise.all([PF.loadCategory('ancestries'), PF.loadCategory('heritages'), _loadGlossariesAsync(ver)]); }
+    else { await Promise.all([PF.loadCategory('ancestries'), PF.loadCategory('heritages'), PF.loadGlossary(ver), _loadGlossariesAsync(ver)]); }
     _buildIndexes();
     _ready = true;
   }
@@ -78,20 +75,12 @@
   // ── 혈통 → 레거시 ANCESTRIES 형태 ──
   function ancestryToLegacy(doc) {
     const s = doc.system || {};
-    const boosts = [], boost_choices = []; let free_boosts = 0;
-    for (const k of Object.keys(s.boosts || {})) {
-      const v = ((s.boosts[k] || {}).value) || [];
-      if (v.length >= 6) free_boosts++;          // 6개 전체 = 자유 부스트
-      else if (v.length === 1) boosts.push(v[0]); // 단일 = 고정
-      else if (v.length > 1) boost_choices.push(v.slice());
-    }
-    const flaws = [], flaw_choices = []; let free_flaws = 0;
-    for (const k of Object.keys(s.flaws || {})) {
-      const v = ((s.flaws[k] || {}).value) || [];
-      if (v.length >= 6) free_flaws++;
-      else if (v.length === 1) flaws.push(v[0]);
-      else if (v.length > 1) flaw_choices.push(v.slice());
-    }
+    // 부스트/결함 = store 네이티브 4컬럼 단일소스(build_boosts.mjs 베이크). system.boosts 직접 파싱 폐기.
+    const boosts = (doc.boost_fixed || []).slice();          // 고정 부스트(항상 적용)
+    const free_boosts = doc.boost_free || 0;                 // 자유 부스트 개수
+    const boost_choices = (doc.boost_choice && doc.boost_choice.length) ? [doc.boost_choice.slice()] : []; // 택1 풀(≤1그룹)
+    const flaws = (doc.boost_flaws || []).slice();           // 고정 결함
+    const flaw_choices = []; const free_flaws = 0;           // 측정상 종족 결함은 고정뿐(호환 필드 유지)
     const vision = VISION_MAP[s.vision] != null ? VISION_MAP[s.vision] : (s.vision || 'none');
     const langs = (s.languages && s.languages.value) || [];
     const addl = s.additionalLanguages || {};

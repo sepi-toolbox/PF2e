@@ -7,7 +7,7 @@
  },
  "acid": {
   "name_en": "Acid",
-  "name_ko": "산성",
+  "name_ko": "산",
   "desc_ko": "이 특성을 가진 효과는 산성 피해를 입힙니다. 이 특성을 가진 생물은 산과 마법적인 관련이 있습니다.",
   "has_desc": true
  },
@@ -38,6 +38,18 @@
  "additive-3": {
   "name_en": "Additive 3",
   "name_ko": "추가 3",
+  "desc_ko": "",
+  "has_desc": false
+ },
+ "additive1": {
+  "name_en": "Additive1",
+  "name_ko": "첨가제 1",
+  "desc_ko": "",
+  "has_desc": false
+ },
+ "additive2": {
+  "name_en": "Additive2",
+  "name_ko": "첨가제 2",
   "desc_ko": "",
   "has_desc": false
  },
@@ -539,6 +551,12 @@
   "desc_ko": "",
   "has_desc": false
  },
+ "army": {
+  "name_en": "Army",
+  "name_ko": "군대",
+  "desc_ko": "",
+  "has_desc": false
+ },
  "artifact": {
   "name_en": "Artifact",
   "name_ko": "아티팩트",
@@ -863,6 +881,12 @@
   "desc_ko": "이 특성을 가진 생물은 캣포크 혈통의 일원입니다.",
   "has_desc": true
  },
+ "cavalry": {
+  "name_en": "Cavalry",
+  "name_ko": "기병",
+  "desc_ko": "",
+  "has_desc": false
+ },
  "celestial": {
   "name_en": "Celestial",
   "name_ko": "천상체",
@@ -899,6 +923,12 @@
   "desc_ko": "이 특성을 가진 생물은 체인질링 조상의 일원입니다.",
   "has_desc": true
  },
+ "chaotic": {
+  "name_en": "Chaotic",
+  "name_ko": "혼돈",
+  "desc_ko": "",
+  "has_desc": false
+ },
  "charau-ka": {
   "name_en": "CharauKa",
   "name_ko": "차라우카",
@@ -910,6 +940,18 @@
   "name_ko": "서커스",
   "desc_ko": "",
   "has_desc": false
+ },
+ "civic": {
+  "name_en": "Civic",
+  "name_ko": "자치",
+  "desc_ko": "",
+  "has_desc": false
+ },
+ "class": {
+  "name_en": "Class",
+  "name_ko": "클래스",
+  "desc_ko": "클래스 특성이 있는 원형은 근본적으로 클래스의 전문 분야와 다르지만 수업의 주제에는 여전히 부합합니다. 클래스가 아키타입의 전제 조건에 나열된 기준을 충족하는 경우에만 클래스 아키타입을 선택할 수 있습니다. 클래스 원형은 항상 클래스의 정적인 클래스 특징 중 일부를 변경하거나 대체하며, 새로운 재주도 추가합니다. 클래스 원형이 클래스의 초기 클래스 특징중 일부를 변경하거나 대체하는 경우, 1레벨에 해당 원형을 선택할 수 있습니다. 1레벨 능력은 클래스 특징과 비슷하게 표시되며, 클래스 원형의 전제 조건과 클래스를 변화시키는 규칙이 포함되어 있습니다. 이 능력을 선택하면 2레벨에 해당 원형의 헌신 재주를 선택해야 하며, 이후에는 정상적으로 진행합니다. 클래스 원형을 두 개 이상 가질 수는 없습니다.",
+  "has_desc": true
  },
  "cleric": {
   "name_en": "Cleric",
@@ -949,7 +991,7 @@
  },
  "cold": {
   "name_en": "Cold",
-  "name_ko": "냉기",
+  "name_ko": "추위",
   "desc_ko": "이 특성을 가진 효과는 냉기 피해를 줍니다. 이 특성을 가진 생물은 마법의 냉기와 관련이 있습니다.",
   "has_desc": true
  },
@@ -976,6 +1018,12 @@
   "name_ko": "커맨더",
   "desc_ko": "This trait indicates abilities from the commander class.",
   "has_desc": true
+ },
+ "commerce": {
+  "name_en": "Commerce",
+  "name_ko": "상업",
+  "desc_ko": "",
+  "has_desc": false
  },
  "common": {
   "name_en": "Common",
@@ -1399,7 +1447,7 @@
  },
  "description-aphorite": {
   "name_en": "Description Aphorite",
-  "name_ko": "질서 차원인 액시스의 존재로부터 내려온 일종의 차원 자손입니다.",
+  "name_ko": "질서 차원인 액시스(Axis)의 존재로부터 내려온 일종의 차원 자손입니다.",
   "desc_ko": "",
   "has_desc": false
  },
@@ -1441,7 +1489,7 @@
  },
  "description-ardande": {
   "name_en": "Description Ardande",
-  "name_ko": "아르단데스는 키지다르와 기타 나무 원소 존재의 후손인 차원 자손입니다.",
+  "name_ko": "아르단데스(Ardandes)는 키지다르(kizidhars)와 기타 나무 원소 존재의 후손인 차원 자손입니다.",
   "desc_ko": "",
   "has_desc": false
  },
@@ -3355,7 +3403,7 @@
  },
  "description-samsaran": {
   "name_en": "Description Samsaran",
-  "name_ko": "지 하 출신으로 파란 피부를 가진 사람들로서, 죽은 후 환생하며 과거 생애의 일부를 기억하는 종족.",
+  "name_ko": "지 하(Zi Ha) 출신으로 파란 피부를 가진 사람들로서, 죽은 후 환생하며 과거 생애의 일부를 기억하는 종족.",
   "desc_ko": "",
   "has_desc": false
  },
@@ -4081,7 +4129,7 @@
  },
  "div": {
   "name_en": "Div",
-  "name_ko": "디브",
+  "name_ko": "디브(Div)",
   "desc_ko": "디브는 아바돈의 황폐한 땅에서 사악한 지니의 영혼에서 태어난 악마의 일족입니다. 대부분의 디브는 중립 악입니다. 이들은 일반적으로 암흑 시야가 뛰어나고, 냉철에 약하고, 피해가 큽니다.",
   "has_desc": true
  },
@@ -4378,6 +4426,12 @@
   "name_ko": "에테리얼",
   "desc_ko": "에테리얼 생물은 에테리얼 평면의 원주민입니다. 그들은 에테리얼 평면의 기본 환경 효과를 견딜 수 있습니다.",
   "has_desc": true
+ },
+ "evil": {
+  "name_en": "Evil",
+  "name_ko": "악",
+  "desc_ko": "",
+  "has_desc": false
  },
  "evolution": {
   "name_en": "Evolution",
@@ -4697,6 +4751,12 @@
   "desc_ko": "무수히 많은 눈을 가진 고립된 휴머노이드.",
   "has_desc": true
  },
+ "good": {
+  "name_en": "Good",
+  "name_ko": "선",
+  "desc_ko": "",
+  "has_desc": false
+ },
  "graft": {
   "name_en": "Graft",
   "name_ko": "그래프트",
@@ -4955,6 +5015,12 @@
   "desc_ko": "이 구조화된 영원은 공리주의자들에 의해 만들어졌습니다. 각 유형의 불가피는 특정 임무에 전념합니다. 대부분의 불가피는 카오스 피해에 약합니다.",
   "has_desc": true
  },
+ "infantry": {
+  "name_en": "Infantry",
+  "name_ko": "보병",
+  "desc_ko": "",
+  "has_desc": false
+ },
  "infused": {
   "name_en": "Infused",
   "name_ko": "주입된",
@@ -5062,6 +5128,12 @@
   "name_ko": "소음기 없는 무기에 설치됨",
   "desc_ko": "",
   "has_desc": false
+ },
+ "integrated": {
+  "name_en": "Integrated",
+  "name_ko": "일체형",
+  "desc_ko": "이 방패는 부착된 무기처럼 작동하지만 방패에서 제거할 수 없는 무기를 포함하도록 제작되었습니다.",
+  "has_desc": true
  },
  "integrated-1d-6-b": {
   "name_en": "Integrated 1d 6 B",
@@ -5171,6 +5243,12 @@
   "desc_ko": "독특한 수정 뿔과 타고난 초능력을 지닌 강인한 혈통입니다.",
   "has_desc": true
  },
+ "kholo": {
+  "name_en": "Kholo",
+  "name_ko": "콜로",
+  "desc_ko": "콜로스는 하이에나와 닮은 인간형 생물입니다.",
+  "has_desc": true
+ },
  "kickback": {
   "name_en": "Kickback",
   "name_ko": "킥백",
@@ -5218,6 +5296,24 @@
   "name_ko": "발사가능",
   "desc_ko": "방패에 있는 메커니즘이 투사체를 발사하여 방패를 원거리 무기로도 사용할 수 있습니다. 특성에는 \"발사 다트\"와 같은 무기의 종류가 나열되어 있습니다. 발사기로 공격할 때는 평소와 같은 수의 손이 필요하지만, 방패를 들고 있는 손도 이 총계에 포함되므로 한손 원거리 무기는 한 손만 있으면 됩니다. 재장전에는 일반적인 인터랙트 액션 횟수인 최소 1회의 액션이 필요하며, 방패를 들고 있는 손으로는 재장전할 수 없습니다.",
   "has_desc": true
+ },
+ "launching-dart": {
+  "name_en": "Launching Dart",
+  "name_ko": "발사 다트",
+  "desc_ko": "",
+  "has_desc": false
+ },
+ "lawful": {
+  "name_en": "Lawful",
+  "name_ko": "질서",
+  "desc_ko": "",
+  "has_desc": false
+ },
+ "leadership": {
+  "name_en": "Leadership",
+  "name_ko": "지휘",
+  "desc_ko": "",
+  "has_desc": false
  },
  "leshy": {
   "name_en": "Leshy",
@@ -5296,6 +5392,12 @@
   "name_ko": "메이거스",
   "desc_ko": "메이거스 클래스의 능력을 나타냅니다.",
   "has_desc": true
+ },
+ "maneuver": {
+  "name_en": "Maneuver",
+  "name_ko": "기동",
+  "desc_ko": "",
+  "has_desc": false
  },
  "manipulate": {
   "name_en": "Manipulate",
@@ -5392,6 +5494,12 @@
   "name_ko": "몽크",
   "desc_ko": "이 특성을 가진 능력은 몽크 클래스에 속합니다. 이 특성을 가진 무기는 주로 몽크가 사용합니다.",
   "has_desc": true
+ },
+ "morale": {
+  "name_en": "Morale",
+  "name_ko": "사기",
+  "desc_ko": "",
+  "has_desc": false
  },
  "morlock": {
   "name_en": "Morlock",
@@ -5951,6 +6059,12 @@
   "desc_ko": "이 특성을 가진 생물은 리플렉션 다재다능한 유산을 가지고 있습니다. 리플렉션은 복제, 평면 복제, 또는 다른 메커니즘을 통해 살아있는 사람의 복사본이 된 존재입니다. 이 특성을 가진 능력은 리플렉션만 사용하거나 선택할 수 있습니다.",
   "has_desc": true
  },
+ "region": {
+  "name_en": "Region",
+  "name_ko": "지역",
+  "desc_ko": "",
+  "has_desc": false
+ },
  "reincarnated": {
   "name_en": "Reincarnated",
   "name_ko": "환생",
@@ -6209,6 +6323,12 @@
   "desc_ko": "이 무기는 양손이 자유롭지 않아도 운동 기술로 밀기 기술을 사용할 수 있습니다. 이 경우 무기의 사정거리(자신의 사정거리와 다른 경우)를 사용하며, 무기의 아이템 보너스를 운동 기술 판정에 아이템 보너스로 추가하여 명중 굴림에 추가합니다. 무기를 사용하여 밀치기 판정에서 대실패하면 무기를 떨어뜨려 대실패 대신 실패의 효과를 받을 수 있습니다.",
   "has_desc": true
  },
+ "siege": {
+  "name_en": "Siege",
+  "name_ko": "공성",
+  "desc_ko": "",
+  "has_desc": false
+ },
  "siktempora": {
   "name_en": "Siktempora",
   "name_ko": "시크템포라",
@@ -6233,6 +6353,12 @@
   "desc_ko": "기술 특성이 있는 일반 재주는 기술과 해당 기술의 액션을 향상시키거나 기술에 새로운 액션을 부여합니다. 이 특성을 가진 업적은 클래스가 기술 업적 또는 일반 재주를 획득할 때 선택할 수 있습니다. 기술 특성을 가진 아키타입 재주는 해당 원형의 헌신 재주가 있는 경우 기술 재주 대신 선택할 수 있습니다.",
   "has_desc": true
  },
+ "skirmisher": {
+  "name_en": "Skirmisher",
+  "name_ko": "척후병",
+  "desc_ko": "",
+  "has_desc": false
+ },
  "skulk": {
   "name_en": "Skulk",
   "name_ko": "스컬크",
@@ -6241,7 +6367,7 @@
  },
  "slashing": {
   "name_en": "Slashing",
-  "name_ko": "참격",
+  "name_ko": "베기",
   "desc_ko": "",
   "has_desc": false
  },
@@ -6319,7 +6445,7 @@
  },
  "spirit": {
   "name_en": "Spirit",
-  "name_ko": "영혼",
+  "name_ko": "스피릿",
   "desc_ko": "이 특성이 있는 효과는 영적 본질을 가진 생물에게 영향을 미칠 수 있으며 영혼 피해를 입힐 수도 있습니다. 이 특성을 가진 생물은 영적 본질로 정의됩니다. 정령 생물은 종종 물질적 형태를 갖지 않습니다.",
   "has_desc": true
  },
@@ -6701,6 +6827,12 @@
   "desc_ko": "이 무기는 양손이 자유롭지 않더라도 운동 기술로 넘어뜨릴 때 사용할 수 있습니다. 이 경우 무기의 사거리(자신의 사거리와 다른 경우)를 사용하며, 무기의 아이템 보너스를 운동 판정에 아이템 보너스로 추가하여 명중 굴림에 추가합니다. 무기를 사용하여 넘어지기 판정에서 대실패하면 무기를 떨어뜨려 대실패 대신 실패의 효과를 받을 수 있습니다.",
   "has_desc": true
  },
+ "tripkee": {
+  "name_en": "Tripkee",
+  "name_ko": "트립키",
+  "desc_ko": "Tripkees are a family of froglike humanoids.",
+  "has_desc": true
+ },
  "troll": {
   "name_en": "Troll",
   "name_ko": "트롤",
@@ -6800,6 +6932,12 @@
  "untyped": {
   "name_en": "Untyped",
   "name_ko": "유형 없음",
+  "desc_ko": "",
+  "has_desc": false
+ },
+ "upkeep": {
+  "name_en": "Upkeep",
+  "name_ko": "유지",
   "desc_ko": "",
   "has_desc": false
  },

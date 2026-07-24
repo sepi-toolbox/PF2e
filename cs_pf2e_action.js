@@ -10,9 +10,9 @@
   const isNode = typeof window === 'undefined';
   const PF = root.PF2eData || (isNode ? require('/tmp/PF2e-publish/dev/cs_pf2e.js') : null);
 
-  let _ready = false, _lang = null, _index = null, _list = null;
+  let _ready = false, _index = null, _list = null;
 
-  function _traitKo(slug) { return (_lang && _lang.traits && _lang.traits[slug]) || slug; }
+  function _traitKo(slug) { return PF.traitKo(slug); }  // 공용 글로서리(cs_pf2e.js) 단일 소스로 위임
 
   // 행동경제 비용: actionType/actions.value → 탭이 쓰는 코드('1'|'2'|'3'|'reaction'|'free'|'passive')
   function _costOf(s) {
@@ -22,17 +22,6 @@
     if (at === 'passive') return 'passive';
     const n = s.actions && s.actions.value;
     return n != null ? String(n) : 'passive';
-  }
-
-  function _loadLangSync() {
-    if (!isNode) return;
-    const fs = require('fs');
-    for (const p of ['data/overlay/_lang.ko.json', 'dev/data/overlay/_lang.ko.json']) { try { _lang = JSON.parse(fs.readFileSync(p, 'utf8')); break; } catch (e) {} }
-    _lang = _lang || { traits: {} };
-  }
-  async function _loadLangAsync(ver) {
-    const q = ver ? ('?v=' + ver) : '';
-    try { const r = await fetch('data/overlay/_lang.ko.json' + q); _lang = await r.json(); } catch (e) { _lang = { traits: {} }; }
   }
 
   // 행동 큐레이션(그룹/비용요건/기술게이트 — FVTT 컴펜디움 미인코딩 메타). 표시데이터는 FVTT로 오버레이.
@@ -60,8 +49,8 @@
 
   function init(ver) {
     if (_ready) return Promise.resolve();
-    if (isNode) { PF.loadCategorySync('actions'); _loadLangSync(); _loadCurationSync(); _build(); _ready = true; return Promise.resolve(); }
-    return Promise.all([PF.loadCategory('actions'), _loadLangAsync(ver), _loadCurationAsync(ver)]).then(() => { _build(); _ready = true; });
+    if (isNode) { PF.loadCategorySync('actions'); _loadCurationSync(); _build(); _ready = true; return Promise.resolve(); }
+    return Promise.all([PF.loadCategory('actions'), PF.loadGlossary(ver), _loadCurationAsync(ver)]).then(() => { _build(); _ready = true; });
   }
   function ready() { return _ready; }
 

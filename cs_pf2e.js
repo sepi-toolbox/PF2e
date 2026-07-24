@@ -10,13 +10,49 @@
   // window.PF2eDataConfig = {dataRoot:'../data'} 로 override (하위호환 — 미설정 시 기존 동작).
   const _cfg = (!isNode && root.PF2eDataConfig) || {};
   const _dataRoot = _cfg.dataRoot || 'data';
-  const BASE_DIR = _cfg.baseDir || (_dataRoot + '/base');
-  const OVL_DIR = _cfg.ovlDir || (_dataRoot + '/overlay');
+  const STORE_DIR = _cfg.storeDir || (_dataRoot + '/store'); // 단일 소스(materialized: 기계데이터 + 한글 baked)
+  const BASE_DIR = _cfg.baseDir || (_dataRoot + '/base');    // (레거시, store 전환으로 미사용)
+  const OVL_DIR = _cfg.ovlDir || (_dataRoot + '/overlay');   // (레거시, store 전환으로 미사용)
   const OVR_DIR = _cfg.ovrDir || (_dataRoot + '/override'); // L3 OVERRIDE(관리툴 편집본, 최종 적용)
 
   // 비크리처 카테고리(단일 파일). 크리처는 별도(팩 분할 + _index).
   const CATEGORIES = ['equipment', 'spells', 'feats', 'actions', 'backgrounds',
     'deities', 'heritages', 'ancestries', 'conditions', 'classes', 'effects'];
+
+  // ── 정본(보유 룰북) 필터 ── data/derived/allowed_content.json.
+  //   FVTT store에는 보유 안 한 서적(AP·Lost Omens·G&G 등) 콘텐츠가 섞여 있음 → 보유 6권 소속만 유지.
+  //   store 원본 불변(되돌림 가능): 로드 시점에 제외. publication.title이 허용목록이면 유지, 아니면 제외.
+  //   단 FVTT가 룰북 수록 항목을 타 서적으로 오태깅(신격=Divine Mysteries)하면 rescue 로스터(이름)로 구제.
+  //   자동화층(effects)·공용 글로서리는 필터 대상 아님(콘텐츠 카탈로그만). content catalog만 여기 나열.
+  const FILTER_CATS = new Set(['equipment', 'spells', 'feats', 'actions', 'backgrounds', 'deities', 'heritages', 'ancestries', 'conditions', 'classes']);
+  let _allowed = null;
+  function _prepAllowed(j) {
+    j = j || {};
+    const books = new Set(j.allowed_books || []);
+    const rescue = {};
+    for (const cat in (j.rescue || {})) rescue[cat] = new Set(j.rescue[cat] || []);
+    return { books, rescue, enabled: books.size > 0 };
+  }
+  function _ensureAllowedSync() { if (_allowed) return _allowed; _allowed = _prepAllowed(isNode ? _readJSON(`${_dataRoot}/derived/allowed_content.json`) : null); return _allowed; }
+  async function loadAllowed() { if (_allowed) return _allowed; _allowed = _prepAllowed(await _fetchJSON(`${_dataRoot}/derived/allowed_content.json?v=0.249`)); return _allowed; }
+  function _pubOf(d) {
+    const s = d.system || {}; const p = s.publication || {};
+    let t = p.title;
+    if (!t) { const src = s.source; t = (src && typeof src === 'object') ? src.value : src; }
+    return t || '';
+  }
+  function _isAllowedDoc(cat, d) {
+    const a = _allowed; if (!a || !a.enabled) return true;         // 미로드/비활성 = 전부 허용(안전 폴백)
+    if (a.books.has(_pubOf(d))) return true;
+    const r = a.rescue[cat];
+    if (r) { const nm = d.name_en || d.name; if (nm && r.has(nm)) return true; }   // 룰북 수록·오태깅 구제
+    return false;
+  }
+  function _filterAllowed(cat, docs) {
+    if (!FILTER_CATS.has(cat)) return docs;
+    const a = _allowed; if (!a || !a.enabled) return docs;
+    return docs.filter(d => _isAllowedDoc(cat, d));
+  }
 
   // ---- 로더 (지연, 카테고리 단위 캐시) ----
   const _baseCache = {};   // cat → array
@@ -27,6 +63,15 @@
 
   function _ensureLocalizeSync() { if (_localize) return _localize; if (isNode) _localize = _readJSON(`${_dataRoot}/derived/localize.ko.json`) || {}; return _localize; }
   async function loadLocalize() { if (_localize) return _localize; if (isNode) return _ensureLocalizeSync(); _localize = (await _fetchJSON(`${_dataRoot}/derived/localize.ko.json`)) || {}; return _localize; }
+
+  // ---- 공용 글로서리 (data/store/_glossary.json): traits/damageType/weaponGroup/armorGroup 등 slug→한글 ----
+  //   과거 어댑터(equip/feat/spell/action/anc)마다 개별 fetch(5회 중복) + 동일한 _traitKo를 각자 정의했음.
+  //   → PF 단일 로더+캐시로 통합(fetch 1회). traitKo도 단일 소스. 각 어댑터는 이 API로 위임.
+  let _glossary = null;
+  function _ensureGlossarySync() { if (_glossary) return _glossary; if (isNode) _glossary = _readJSON(`${STORE_DIR}/_glossary.json`) || { traits: {} }; return _glossary || { traits: {} }; }
+  async function loadGlossary() { if (_glossary) return _glossary; if (isNode) return _ensureGlossarySync(); _glossary = (await _fetchJSON(`${STORE_DIR}/_glossary.json`)) || { traits: {} }; return _glossary; }
+  function glossary() { return _glossary || (isNode ? _ensureGlossarySync() : { traits: {} }); }  // 동기 접근자(항상 객체 반환)
+  function traitKo(slug) { const g = glossary(); return (g.traits && g.traits[slug]) || slug; }
 
   function _readJSON(relPath) {
     if (isNode) {
@@ -49,11 +94,11 @@
   // 카테고리 로드(조인 포함). Node=동기 가능, 브라우저=async.
   function loadCategorySync(cat) {
     if (_index[cat]) return _index[cat];
-    const base = _readJSON(`${BASE_DIR}/${cat}.base.json`) || [];
-    const ovl = _readJSON(`${OVL_DIR}/${cat}.ko.json`) || {};
-    const ovr = _readJSON(`${OVR_DIR}/${cat}.json`) || {}; // 없으면 {} (선택적)
-    _baseCache[cat] = base; _ovlCache[cat] = ovl; _ovrCache[cat] = ovr;
-    return _buildIndex(cat, base, ovl, ovr);
+    _ensureAllowedSync();
+    // 단일 소스: data/store/{cat}.json (materialized — name_ko/_desc_ko 및 기계데이터 baked).
+    const store = _filterAllowed(cat, _readJSON(`${STORE_DIR}/${cat}.json`) || []);   // 보유 룰북 밖 콘텐츠 제외(정본 필터)
+    _baseCache[cat] = store; _ovlCache[cat] = {}; _ovrCache[cat] = {};
+    return _buildIndex(cat, store, {});
   }
   const _loadPromises = {}; // 브라우저 in-flight dedup — 동시 호출(어댑터 init + 전체 게이트)이 같은 대용량 파일을 중복 fetch하지 않게
   async function loadCategory(cat) {
@@ -64,19 +109,16 @@
     return _loadPromises[cat];
   }
   async function _loadCategoryFetch(cat) {
-    const [base, ovl, ovr] = await Promise.all([
-      _fetchJSON(`${BASE_DIR}/${cat}.base.json`),
-      _fetchJSON(`${OVL_DIR}/${cat}.ko.json`),
-      _fetchJSON(`${OVR_DIR}/${cat}.json`), // 파일 없으면 404 → null → {}
-    ]);
-    let merged = ovr || {};
-    // L4 클라우드 override: 소유자가 DataManager에서 라이브 저장한 편집(Firestore). 호스트가 window.PF2eOverrideFetcher 제공 시 파일 위에 덮음.
-    // 공개 read라 로그인 불필요. 실패/미제공/느림이면 파일 override로 조용히 진행(비침입).
+    await loadAllowed();   // 정본 필터 목록(보유 룰북) 준비 후 로드
+    const store = _filterAllowed(cat, (await _fetchJSON(`${STORE_DIR}/${cat}.json`)) || []);
+    let merged = {};
+    // L4 클라우드 override: DataManager에서 라이브 저장한 편집(Firestore) — store 위에 slug 단위로 덮음.
+    // 공개 read라 로그인 불필요. 실패/미제공/느림이면 store만으로 조용히 진행(비침입).
     if (typeof window !== 'undefined' && typeof window.PF2eOverrideFetcher === 'function') {
-      try { const cloud = await window.PF2eOverrideFetcher(cat); if (cloud && typeof cloud === 'object') merged = _mergeOvr(merged, cloud); } catch (e) {}
+      try { const cloud = await window.PF2eOverrideFetcher(cat); if (cloud && typeof cloud === 'object') merged = cloud; } catch (e) {}
     }
-    _baseCache[cat] = base || []; _ovlCache[cat] = ovl || {}; _ovrCache[cat] = merged;
-    return _buildIndex(cat, base || [], ovl || {}, merged);
+    _baseCache[cat] = store; _ovlCache[cat] = {}; _ovrCache[cat] = merged;
+    return _buildIndex(cat, store, merged);
   }
   // 파일 override(a) 위에 클라우드 override(b)를 슬러그 단위 병합(b 우선). 원본 불변.
   function _mergeOvr(a, b) {
@@ -87,29 +129,18 @@
 
   function _slugOf(d) { return (d.system && d.system.slug) || d._id; }
 
-  function _buildIndex(cat, base, ovl, ovr) {
+  function _buildIndex(cat, storeDocs, ovr) {
     ovr = ovr || {};
     const m = new Map();
-    for (const d of base) {
+    for (const d of storeDocs) {
       const slug = _slugOf(d);
-      // 조인: BASE 복제 위에 OVERLAY 텍스트 덮기(가역 위해 _en 보존)
-      const joined = d;                       // BASE는 불변 취급(여기선 참조 + 한글 필드 부착)
-      const ko = ovl[slug];
-      if (ko) {
-        joined.name_en = d.name;
-        joined.name_ko = ko.name || d.name;
-        if (ko.description) {
-          joined.system = joined.system || {};
-          joined._desc_en = joined.system.description && joined.system.description.value;
-          joined._desc_ko = ko.description;
-        }
-      } else {
-        joined.name_en = d.name; joined.name_ko = d.name;
-      }
-      // L3 OVERRIDE 적용(관리툴 편집본이 최종). 기계효과(rules/slug/_id)엔 손대지 않음.
-      _applyOverride(joined, ovr[slug]);
-      m.set(slug, joined);
-      m.set(d._id, joined);
+      // store 문서는 materialize 시 name_ko/name_en/_desc_ko/_desc_en가 이미 baked됨(base⊕overlay⊕file-override 해소).
+      if (d.name_en == null) d.name_en = d.name;
+      if (d.name_ko == null) d.name_ko = d.name;
+      // L4 클라우드 override(DataManager 라이브 편집)만 store 위에 적용. base/overlay/file-override는 store에 흡수됨.
+      _applyOverride(d, ovr[slug]);
+      m.set(slug, d);
+      m.set(d._id, d);
     }
     _index[cat] = m;
     return m;
@@ -152,8 +183,11 @@
   const _DMG_KO = { piercing: '관통', slashing: '참격', bludgeoning: '타격', fire: '화염', cold: '냉기', acid: '산성', electricity: '전기', sonic: '음파', mental: '정신', poison: '독', void: '공허', spirit: '영혼', vitality: '활력', force: '역장', bleed: '출혈', untyped: '', precision: '정밀', healing: '회복' };
   const _SAVE_KO = { fortitude: '인내', reflex: '반사', will: '의지' };
   const _SKILL_KO = { acrobatics: '곡예', arcana: '주문학', athletics: '운동', crafting: '제작', deception: '기만', diplomacy: '외교', intimidation: '위협', medicine: '의학', nature: '자연학', occultism: '오컬티즘', performance: '공연', religion: '종교학', society: '사회', stealth: '은신', survival: '생존', thievery: '도둑질' };
-  const _CHECK_KO = Object.assign({ perception: '지각', flat: '단순', spell: '주문' }, _SAVE_KO, _SKILL_KO);
+  const _CHECK_KO = Object.assign({ perception: '지각', flat: '플랫', spell: '주문' }, _SAVE_KO, _SKILL_KO);
   function _checkTypeKo(t) { if (_CHECK_KO[t]) return _CHECK_KO[t]; const m = /^(.*)-lore$/.exec(t); if (m) return m[1].replace(/-/g, ' ') + ' 지식'; return t; }
+  // @Check 렌더용: 내성='X 내성', 그 외(단순/지각/기술/지식)='X 판정'. 자연스러운 한글 표기.
+  const _SAVE_TYPES = new Set(['fortitude', 'reflex', 'will']);
+  function _checkPhrase(t) { const ko = _checkTypeKo(t); if (!t || t === 'spell') return ko; return ko + (_SAVE_TYPES.has(t) ? ' 내성' : ' 판정'); }
   function _escDesc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
   function enrichDesc(html) {
     if (!html) return '';
@@ -195,7 +229,7 @@
       });
       return `<span class="ref-dmg">${parts.join(' + ')}</span>`;
     });
-    s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_checkTypeKo(type)}</span>`; });
+    s = s.replace(/@Check\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `<span class="ref-check">${dc ? `DC ${dc} ` : ''}${basic}${_checkPhrase(type)}</span>`; });
     // @link[cat.slug]{label}: 프로젝트 네이티브 엔티티 링크 → 항상 정본 name_ko로 렌더(라벨은 참조마다 제각각이라 불일치 원인).
     // 라벨의 뒤 숫자(조건 값 등, 예 "기절 2")만 정본명에 보존. 미해소 엔티티일 때만 라벨/슬러그 폴백.
     s = s.replace(/@link\[([a-z]+)\.([a-z0-9._-]+)\](?:\{([^}]*)\})?/g, (m, cat, slug, label) => {
@@ -260,7 +294,7 @@
       return parts.filter(Boolean).join(' + ');
     });
     // @Check → 라벨 있으면 라벨, 없으면 (DC) (기본) 한글 판정명
-    s = s.replace(/@Check\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, body, label) => { if (label) return label; const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `${dc ? `DC ${dc} ` : ''}${basic}${_checkTypeKo(type)}`.trim(); });
+    s = s.replace(/@Check\[([^\]]+)\](?:\{([^}]*)\})?/g, (m, body, label) => { if (label) return label; const tm = body.match(/(?:^|[|[])type:([a-z0-9-]+)/) || body.match(/\b(perception|flat|fortitude|reflex|will|athletics|acrobatics|arcana|crafting|deception|diplomacy|intimidation|medicine|nature|occultism|performance|religion|society|stealth|survival|thievery)\b/); const type = tm ? tm[1] : ''; const dc = (body.match(/dc:(\d+)/) || [])[1]; const basic = /basic/.test(body) ? '기본 ' : ''; return `${dc ? `DC ${dc} ` : ''}${basic}${_checkPhrase(type)}`.trim(); });
     // @Template → N피트 형태
     s = s.replace(/@Template\[([^\]]+)\](\{[^}]*\})?/g, (m, body) => { const d = (body.match(/distance:(\d+)/) || [])[1]; const SH = { emanation: '발산', burst: '폭발', cone: '원뿔', line: '직선' }; const ty = (body.match(/type:(\w+)/) || [])[1]; return `${d || ''}피트 ${SH[ty] || ty || ''}`.trim(); });
     return s;
@@ -399,6 +433,7 @@
 
   const API = {
     CATEGORIES, loadCategory, loadCategorySync, get, all, nameKo, descKo, enrichDesc, bakePlainMacros, bakeEntityLinks, loadLocalize,
+    loadGlossary, glossary, traitKo,
     testPredicate, _testStatement, getByUuid, resolveBrackets, evalFormula,
     _state: { base: _baseCache, ovl: _ovlCache, ovr: _ovrCache, index: _index },
   };

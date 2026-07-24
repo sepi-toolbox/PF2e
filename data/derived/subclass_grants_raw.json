@@ -1,0 +1,386 @@
+{
+ "note": "서브클래스 부여 원본(효과 추출에서 우회) — build_subclass_progression.mjs가 subclasses.json granted_*와 합쳐 성장표 grant_* 칸 생성. build_effects.mjs 생성.",
+ "rows": {
+  "wit": {
+   "grant_feats": [
+    {
+     "slug": "bon-mot",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "diplomacy",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "battledancer": {
+   "grant_feats": [
+    {
+     "slug": "fascinating-performance",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "performance",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "the-resentment": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "occultism",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "silence-in-snow": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "nature",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "gymnast": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "athletics",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "the-inscribed-one": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "arcana",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "flames": {
+   "grant_feats": [
+    {
+     "slug": "foretell-harm",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-engulfing-flames",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "acrobatics",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "bones": {
+   "grant_feats": [
+    {
+     "slug": "nudge-the-scales",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-the-living-death",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "medicine",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "fencer": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "deception",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "braggart": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "intimidation",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "forensic-medicine-methodology": {
+   "grant_feats": [
+    {
+     "slug": "forensic-acumen",
+     "lv": 1
+    },
+    {
+     "slug": "battle-medicine",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "medicine",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "cosmos": {
+   "grant_feats": [
+    {
+     "slug": "oracular-warning",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-the-skys-call",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "nature",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "interrogation-methodology": {
+   "grant_feats": [
+    {
+     "slug": "no-cause-for-alarm",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "diplomacy",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "tempest": {
+   "grant_feats": [
+    {
+     "slug": "foretell-harm",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-inclement-headwinds",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "nature",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "rascal": {
+   "grant_feats": [
+    {
+     "slug": "dirty-trick",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "thievery",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "wilding-steward": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "nature",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "empiricism-methodology": {
+   "grant_feats": [
+    {
+     "slug": "thats-odd",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "spinner-of-threads": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "occultism",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "battle": {
+   "grant_feats": [
+    {
+     "slug": "oracular-warning",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-the-mortal-warrior",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "athletics",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "alchemical-sciences-methodology": {
+   "grant_feats": [
+    {
+     "slug": "alchemical-crafting",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "crafting",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "faiths-flamekeeper": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "religion",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "life": {
+   "grant_feats": [
+    {
+     "slug": "nudge-the-scales",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-outpouring-life",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "medicine",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "ancestors": {
+   "grant_feats": [
+    {
+     "slug": "whispers-of-weakness",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-ancestral-meddling",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "society",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "starless-shadow": {
+   "grant_feats": [],
+   "grant_skills": [
+    {
+     "slug": "occultism",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  },
+  "lore": {
+   "grant_feats": [
+    {
+     "slug": "whispers-of-weakness",
+     "lv": 1
+    },
+    {
+     "slug": "curse-of-torrential-knowledge",
+     "lv": 1
+    }
+   ],
+   "grant_skills": [
+    {
+     "slug": "occultism",
+     "lv": 1
+    }
+   ],
+   "grant_spells": [],
+   "grant_actions": []
+  }
+ }
+}
