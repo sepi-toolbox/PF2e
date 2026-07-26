@@ -3866,25 +3866,22 @@ function renderOptions(data) {
       grouped[key].push(item);
     });
   } else if (isFeat) {
-    // 전제조건 충족 재주를 상단, 미달 재주를 하단으로 정렬
+    // 레벨 구분선(그룹 헤더) 제거 → 플랫 정렬(사용자 지시).
+    //   1순위(가장 중요): 배울 수 없는 재주(선행 미달 또는 헌신 불가)는 맨 아래.
+    //   2순위: 레벨 오름차순. (배울 수 있는 재주끼리는 레벨 낮은 것부터, 배울 수 없는 것끼리도 레벨순.)
+    const _cantLearn = f => {
+      try {
+        if ((f.prereq_group_id || f.prerequisites) && !_checkPrereqs(f)) return true;
+        if (typeof canTakeDedication === 'function' && featHasTrait(f, 'dedication', '헌신') && !canTakeDedication(f)) return true;
+      } catch (e) {}
+      return false;
+    };
     data.sort((a, b) => {
-      let aFail = false, bFail = false;
-      try { aFail = (a.prereq_group_id || a.prerequisites) && !_checkPrereqs(a); } catch(e) {}
-      try { bFail = (b.prereq_group_id || b.prerequisites) && !_checkPrereqs(b); } catch(e) {}
-      if (aFail !== bFail) return aFail ? 1 : -1;
-      return 0;
+      const af = _cantLearn(a) ? 1 : 0, bf = _cantLearn(b) ? 1 : 0;
+      if (af !== bf) return af - bf;                       // 배울 수 있는 것 먼저(가장 중요)
+      return (a.feat_level || 0) - (b.feat_level || 0);    // 그다음 레벨 오름차순
     });
-    // 헌신(원형 입문) 재주는 레벨 그룹에서 빼내 맨 아래 별도 그룹으로 분리(클래스 재주 슬롯 등).
-    const DED_KEY = '🎓 원형 헌신 재주';
-    const lvGroups = {}, dedItems = [];
-    data.forEach(item => {
-      if (featHasTrait(item, 'dedication', '헌신')) { dedItems.push(item); return; }
-      (lvGroups[item.feat_level] = lvGroups[item.feat_level] || []).push(item);
-    });
-    grouped = {};
-    // 정수형 키는 JS 객체가 오름차순 순회 → 레벨 낮은 순 헤더
-    Object.keys(lvGroups).forEach(lv => { grouped[`${lv}레벨`] = lvGroups[lv]; });
-    if (dedItems.length) grouped[DED_KEY] = dedItems;
+    grouped = null;   // 그룹 없이 플랫 렌더(구분선 제거)
   } else if (modalType === 'equip-browse' && !equipBrowseSubTab) {
     if (equipBrowseTab === 'all') {
       grouped = {};
