@@ -6015,7 +6015,7 @@ function updateSpellSlotsForClass() {
 // ═══════════════════════════════════════════════
 
 let _actionFilter = 'all';
-let _actionAvailOnly = false;   // 행동: 사용 가능한 것만
+let _actionShowLocked = false;  // 행동: 기본=사용 가능한 것만, 체크 시 사용 못하는 것도 표시
 let _condActiveOnly = false;    // 상태이상: 적용 중인 것만
 
 function setActionFilter(f, btn) {
@@ -6028,7 +6028,7 @@ function setActionFilter(f, btn) {
 // 우측 끝 체크박스: 행동 탭이면 "사용 가능한 것만", 상태이상 탭이면 "적용 중인 것만"
 function toggleActionExtraFilter(cb) {
   if (_actionFilter === 'conditions') _condActiveOnly = cb.checked;
-  else _actionAvailOnly = cb.checked;
+  else _actionShowLocked = cb.checked;
   renderActions();
 }
 
@@ -6043,9 +6043,9 @@ function _syncActionExtraFilter() {
     cb.checked = _condActiveOnly;
     if (wrap) wrap.title = '적용 중인 상태이상만 표시';
   } else {
-    lbl.textContent = '사용 가능한 것만';
-    cb.checked = _actionAvailOnly;
-    if (wrap) wrap.title = '사용 가능한 행동만 표시';
+    lbl.textContent = '사용 못하는 것도 보기';
+    cb.checked = _actionShowLocked;
+    if (wrap) wrap.title = '재주·유산·숙련이 없어 아직 못 쓰는 행동도 표시';
   }
 }
 
@@ -6354,7 +6354,7 @@ function renderActions() {
 
   orderedGroups.forEach(label => {
     const g = groups[label];
-    const all = _actionAvailOnly ? [...g.available] : [...g.available, ...g.locked];
+    const all = _actionShowLocked ? [...g.available, ...g.locked] : [...g.available];
     if (!all.length) return;
     html += `<div style="margin-bottom:12px;"><div class="action-group-title">${label}</div><div class="action-acc-list">`;
     all.forEach(a => {
@@ -6381,14 +6381,15 @@ function renderActions() {
       const body = `${traitsHtml ? `<div class="action-traits">${traitsHtml}</div>` : ''}`
         + `<div class="cfb-desc">${descFull || '<span style="color:var(--text2);">상세 설명이 없습니다.</span>'}</div>`
         + `${sourceHtml}${reqHtml}`;
+      // 행동 카드는 기본 펼침(cfb-open) — 클릭으로 접을 수 있음(주문·클래스특성은 기본 접힘 유지).
       html += `<div class="cfb-card action-acc${granted ? ' action-acc-granted' : ''}" style="${opacity}">
-        <div class="cfb-head cfb-clickable" onclick="_toggleClassFeatInline(this)">
+        <div class="cfb-head cfb-clickable cfb-head-open" onclick="_toggleClassFeatInline(this)">
           <span class="action-cost action-acc-cost">${costIcon}</span>
           ${iconWrap}
           <span class="cfb-name">${a.name_ko} <span class="cfb-en">${a.name_en}</span></span>
           <span class="cfb-chev">▾</span>
         </div>
-        <div class="cfb-body">${body}</div>
+        <div class="cfb-body cfb-open">${body}</div>
       </div>`;
     });
     html += `</div></div>`;
