@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  // ── Firebase/네트워크 스텁 (렌더 하니스: 실제 저장/인증 없이 UI만) ──
+  window.firebase = { firestore: function(){ var f=function(){return f;}; f.collection=f; f.doc=f; f.get=function(){return Promise.resolve({exists:false});}; f.FieldValue={serverTimestamp:function(){return 0;},delete:function(){return 0;}}; f.Timestamp={now:function(){return {toMillis:function(){return 0;}};}}; return f; }, auth: function(){ return { onAuthStateChanged:function(){}, }; } };
+  window.db = null; window.currentUser = null;
+</script>
+<!-- 앱 스크립트 (Firebase SDK·auth 제외) -->
+<script src="equipment_db.js"></script>
+<script src="class_features_db.js"></script>
+<script src="effects_db.js"></script>
+<script src="prereqs_db.js"></script>
+<script src="cs_data.js"></script>
+<script src="cs_calc.js"></script>
+<script src="cs_pf2e.js"></script>
+<script src="cs_re_engine.js"></script>
+<script src="cs_pf2e_stats.js"></script>
+<script src="cs_pf2e_equip.js"></script>
+<script src="cs_pf2e_anc.js"></script>
+<script src="cs_pf2e_bg.js"></script>
+<script src="cs_pf2e_spell.js"></script>
+<script src="cs_pf2e_deity.js"></script>
+<script src="cs_pf2e_action.js"></script>
+<script src="cs_pf2e_feat.js"></script>
+<script src="cs_pf2e_class.js"></script>
+<script src="cs_pf2e_actor.js"></script>
+<script src="cs_ui.js"></script>
+<script src="cs_modal.js"></script>
+<script src="cs_feat_effects.js"></script>
+<style>body{margin:0;background:#1a1512;}#growth-plan{max-width:380px;padding:8px;}</style>
+</head>
+<body>
+<!-- renderGrowthPlan/보조 함수가 참조하는 최소 DOM -->
+<input type="hidden" id="level" value="1">
+<input type="hidden" id="f-level" value="1">
+<div id="growth-plan"></div>
+<div id="growth-plan-mobile"></div>
+<div id="boot-status" style="color:#fff;font:12px monospace;padding:8px;"></div>
+<script>
+(async function(){
+  var log = function(m){ var el=document.getElementById('boot-status'); if(el) el.textContent += m+' | '; };
+  try {
+    // 1) index.html의 <style> 런타임 주입(동일 CSS)
+    var htmlTxt = await (await fetch('index.html')).text();
+    var m, re = /<style[^>]*>([\s\S]*?)<\/style>/g, css='';
+    while ((m = re.exec(htmlTxt))) css += m[1] + '\n';
+    var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+    log('css:'+css.length);
+
+    // 2) 카탈로그 로드
+    if (typeof _ensureAllCatalogs === 'function') { await _ensureAllCatalogs(); log('catalogs'); }
+
+    // 3) 목 state (URL 파라미터: ?class=cleric&level=1)
+    var Q = new URLSearchParams(location.search);
+    var clsId = Q.get('class') || 'cleric';
+    var lvl = Q.get('level') || '1';
+    var lvEl = document.getElementById('level'); if (lvEl) lvEl.value = lvl;
+    var lvEl2 = document.getElementById('f-level'); if (lvEl2) lvEl2.value = lvl;
+    if (typeof PF2eClass !== 'undefined' && PF2eClass.getClassLegacy) state.selectedClass = PF2eClass.getClassLegacy(clsId);
+    if (typeof PF2eAnc !== 'undefined') { try { state.selectedAncestry = PF2eAnc.getAncestryLegacy('human'); } catch(e){} }
+    if (typeof PF2eBg !== 'undefined') { try { var bgs = PF2eBg.list ? PF2eBg.list() : null; if (bgs && bgs.length) state.selectedBackground = PF2eBg.getBackgroundLegacy(bgs[0].id); } catch(e){} }
+    // 신격: 목록에서 성별화 2택 + 폰트 있는 것 하나
+    try {
+      var dl = (typeof _allDeities === 'function') ? _allDeities() : (typeof PF2eDeity !== 'undefined' && PF2eDeity.list ? PF2eDeity.list() : []);
+      var pick = dl.find(function(d){ return (d.sanctification||[]).length>=1 && (d.font||[]).length; }) || dl[0];
+      if (pick) state.deity = pick.id;
+    } catch(e){ log('deityErr'); }
+    state.trainableSkillSlots = (state.selectedClass && state.selectedClass.free_skill_count) || 2;
+    state.growth = state.growth || {};
+    log('cls:'+(state.selectedClass?state.selectedClass.id:'none')+' deity:'+state.deity);
+
+    // 4) 유효성 판정 + 렌더
+    if (typeof _resolveChoiceValidity === 'function') _resolveChoiceValidity();
+    if (typeof renderGrowthPlan === 'function') renderGrowthPlan();
+    log('rendered');
+    document.title = 'READY';
+  } catch(e){ log('ERR:'+e.message); document.title = 'ERR:'+e.message; console.error(e); }
+})();
+</script>
+</body></html>
