@@ -1701,18 +1701,6 @@ function getAvailableSkillsForTraining(slotIndex, trainArr) {
   }).map(sk => sk.id);
 }
 
-function getSkillsForIncrease(lv) {
-  // 이 레벨에서 실제로 올릴 수 있는 기술만 — 트레인드(2) 이상 + 레벨 관문 아래(rank < cap).
-  //   cap = skillIncreaseRankCap(lv): 전문가는 언제나·달인은 7레벨·전설은 15레벨(cs_calc, 원칙#1 공용).
-  //   예: 5레벨이면 이미 전문가(4)인 기술은 달인(6)이 7레벨부터라 후보에서 제외.
-  const cap = (typeof skillIncreaseRankCap === 'function') ? skillIncreaseRankCap(lv) : 8;
-  return SKILLS.filter(sk => {
-    const el = document.getElementById('sk-prof-' + sk.id);
-    const rank = parseInt(el?.value || 0);
-    return rank >= 2 && rank < cap;
-  });
-}
-
 function getSkillRankLabel(skillId) {
   const el = document.getElementById('sk-prof-' + skillId);
   const rank = parseInt(el?.value || 0);
@@ -1839,11 +1827,57 @@ function _skillRowParts(sk) {
   return { rank, attrMod, prof, item, total: attrMod + prof + item };
 }
 
+// 기술 증가 선택 — 기술 훈련 멀티 모달(growthPickSkillTrainingMulti)과 동일한 리치 레이아웃(TEML·능력치·숙련·장비)을 재사용.
+//   전체 기술을 다 보여주되, 이 레벨에서 못 올리는 기술(미숙련이거나 레벨 관문 초과)은 목록에서 빼지 않고 딤(.disabled)한다.
+//   레벨 관문 강제는 계산(applyGrowthSkills)이 담당(원칙#1: skillIncreaseRankCap 공용). 여긴 표시·클릭 게이팅.
 function growthPickSkillIncrease(lv) {
-  _skillPickMode = 'increase';
-  _skillPickLevel = lv;
-  const skills = getSkillsForIncrease(lv);
-  openSkillPickModal('기술 증가 선택', skills.map(s => s.id));
+  if (!state.growth[lv]) state.growth[lv] = {};
+  const current = state.growth[lv].skillIncrease || null;
+  const cap = (typeof skillIncreaseRankCap === 'function') ? skillIncreaseRankCap(lv) : 8;
+
+  document.getElementById('modal-overlay').classList.remove('hidden');
+  document.getElementById('modal-title').textContent = `기술 증가 — 레벨 ${lv}`;
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) { searchEl.style.display = 'none'; searchEl.value = ''; }
+  const fbar = document.getElementById('modal-filterbar');
+  if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm');
+  if (confirmBtn) { confirmBtn.style.display = ''; confirmBtn.textContent = '완료'; }
+  modalType = 'skill-multi';   // 완료 버튼=닫기(confirmModal 공용). 검색 숨김이라 타입 재사용 안전.
+  modalSelected = null;
+
+  const container = document.getElementById('modal-options');
+  const detail = document.getElementById('modal-detail');
+  container.innerHTML = '';
+  if (detail) detail.innerHTML = `<div class="modal-detail-empty">올릴 기술을 선택하세요.<br>회색 기술은 이 레벨에서 올릴 수 없습니다(미숙련이거나 레벨 관문 초과).<br><span style="font-size:11px;">전문가는 언제나·달인은 7레벨·전설은 15레벨 이상부터.</span></div>`;
+
+  SKILLS.forEach(sk => {
+    const p = _skillRowParts(sk);
+    const cur = (typeof getSkillRank === 'function') ? getSkillRank(sk.id) : 0;
+    const isCurrent = sk.id === current;
+    const eligible = cur >= 2 && cur < cap;       // 트레인드~관문 미만이면 올릴 수 있음
+    const clickable = isCurrent || eligible;      // 현재 선택은 결과값이 관문에 닿아도 해제 가능하도록 항상 허용
+    const row = document.createElement('div');
+    row.className = 'skrow' + (isCurrent ? ' selected' : '') + (!clickable ? ' disabled' : '');
+    row.innerHTML = `
+      <div class="skrow-name">${sk.name} <span class="en">${sk.en}</span> <span class="skrow-total">${fmtBonus(p.total)}</span></div>
+      <div class="skrow-teml">${_skillTemlHtml(p.rank)}</div>
+      <div class="skrow-cols">
+        <div class="skcol"><span class="skcol-h">${ATTR_KO[sk.attr]}</span><span class="skcol-v">${fmtBonus(p.attrMod)}</span></div>
+        <div class="skcol"><span class="skcol-h">숙련</span><span class="skcol-v">${p.prof}</span></div>
+        <div class="skcol"><span class="skcol-h">장비</span><span class="skcol-v">${p.item}</span></div>
+      </div>`;
+    if (clickable) {
+      row.onclick = () => {
+        growthSkillIncreaseChanged(lv, isCurrent ? '' : sk.id);   // 현재=해제 / 그 외=선택·교체
+        growthPickSkillIncrease(lv);   // 재렌더(등급 상승·선택 반영)
+      };
+    }
+    container.appendChild(row);
+  });
+
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) listEl.style.display = '';
 }
 
 function growthClearSkillIncrease(lv) {
