@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.275').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.276').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -1552,8 +1552,13 @@ function getMod(a) { return calcMod(a).mod; }
 function getAttr(a) { return getMod(a); } // 호환성 유지
 
 // ─── 증강 팝업 모달 ───
-function openBoostModal() {
-  document.getElementById('modal-title').textContent = '능력치 증강 배분';
+// focusLv: 레벨 5/10/15/20 기어에서 넘어오면 그 레벨의 자유 증강 4개만 보여줌(Pathbuilder "Set Ability Boosts Level N").
+//   미지정/1이면 초기 배분(혈통·배경·클래스·레벨1) 전체 모달.
+let _boostFocusLv = null;
+function openBoostModal(focusLv) {
+  _boostFocusLv = (focusLv && focusLv > 1) ? focusLv : null;
+  document.getElementById('modal-title').textContent = _boostFocusLv
+    ? `능력치 증강 — 레벨 ${_boostFocusLv}` : '능력치 증강 배분';
   document.getElementById('modal-overlay').classList.remove('hidden');
   const searchEl = document.getElementById('modal-search');
   if (searchEl) searchEl.style.display = 'none';
@@ -1579,6 +1584,16 @@ function renderBoostModal() {
     </div>`;
   });
   container.appendChild(bar);
+
+  // 포커스 모드(레벨 5/10/15/20) = 그 레벨의 자유 증강 4개만. 초기 배분(혈통·배경·클래스·레벨1)은 아래 전체 렌더.
+  if (_boostFocusLv) {
+    const hint = document.createElement('div');
+    hint.style.cssText = 'font-size:11px;color:var(--text2);line-height:1.6;padding:8px 10px 0;';
+    hint.innerHTML = `이 레벨에는 서로 <b>다른 능력치 4개</b>를 증강합니다. 수정치가 이미 <b>+4 이상</b>인 능력치는 증강 2개가 모여야 +1 오릅니다(부분 증강 <b>½</b>).`;
+    container.appendChild(hint);
+    container.appendChild(_boostFreeSection(_boostFocusLv, 'lv' + _boostFocusLv, ATTRS));
+    return;
+  }
 
   let html = '';
 

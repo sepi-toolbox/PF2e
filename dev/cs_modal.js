@@ -1376,7 +1376,7 @@ function renderGrowthPlan() {
       if (plan.boosts) {
         const _bk = lv === 1 ? 'lv1' : `lv${lv}`;
         const _bc = (state.boosts[_bk] || []).length;
-        _gears += _growthGearHTML(plan.boosts, '능력치 증강', 'Set Abilities', "openModal('boost')", _bc >= plan.boosts);
+        _gears += _growthGearHTML(plan.boosts, '능력치 증강', 'Set Abilities', `openBoostModal(${lv})`, _bc >= plan.boosts);
       }
       if (lv === 1) {
         const _nSk = state.trainableSkillSlots || 0;
@@ -2946,7 +2946,7 @@ function openModal(type, ctx) {
   modalSelected = null;
 
   // 증강 모달은 별도 처리
-  if (type === 'boost') { openBoostModal(); return; }
+  if (type === 'boost') { openBoostModal(ctx && ctx.level); return; }
 
   // ── FVTT 카탈로그 로딩 게이트 ──
   // 관련 어댑터가 준비 안 됐으면 빈 목록 대신 "로딩 중"을 보여주고 상호작용을 막은 뒤,
