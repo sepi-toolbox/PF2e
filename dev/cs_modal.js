@@ -1242,6 +1242,32 @@ function _growthGrantChildHtml(child, gm, depth) {
   return `<div class="gcf-grant"><span class="gcf-gic">${ic}</span><span class="gcf-gname">${nm}</span><span class="gcf-gbadge">${badge}</span></div>${kidsHtml}`;
 }
 
+// 서브클래스 변형 특성 해소(데이터 기반): 특성 desc가 `@link[feats.<슬러그>-<변형>]` 목록이면
+//   (예: 첫 번째 교리 → 은둔 클레릭/전사 사제) 선택된 서브클래스에 맞는 변형 특성의 desc로 대체.
+//   미선택 시 프롬프트 반환. 하드코딩 없이 desc의 @link 후보 + 서브클래스 name_en 매칭으로 판정.
+function _subclassVariantDesc(genericSlug, desc) {
+  if (!desc || !genericSlug) return null;
+  const cands = [];
+  // 런타임 desc는 enrich 후 `data-ref="feats.X"`, 원본은 `@link[feats.X]` — 둘 다 매칭.
+  const re = /(?:@link\[feats\.|data-ref="feats\.)([a-z0-9-]+)/g; let m;
+  while ((m = re.exec(desc))) { if (m[1].startsWith(genericSlug + '-') && m[1] !== genericSlug && !cands.includes(m[1])) cands.push(m[1]); }
+  if (cands.length < 2) return null;   // 변형 선택 목록(2+ 옵션)이 아니면 일반 특성 — 그대로 둠.
+  const cls = state.selectedClass;
+  const sub = state.selectedSubclass;
+  if (!sub || (cls && sub.class_id !== cls.id)) {
+    let stype = '서브클래스';
+    try { const s = (typeof SUBCLASS_DB !== 'undefined' && cls) ? SUBCLASS_DB.find(x => x.class_id === cls.id) : null; if (s && s.subclass_type) stype = s.subclass_type; } catch (e) {}
+    return { prompt: `아직 ${stype}를 선택하지 않았습니다. 선택하면 해당 ${stype}의 혜택이 여기에 표시됩니다.` };
+  }
+  const key = String(sub.name_en || sub.id || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  const hit = cands.find(c => c.slice(genericSlug.length + 1) === key)
+           || cands.find(c => { const suf = c.slice(genericSlug.length + 1); return key && suf.startsWith(key); });
+  if (!hit) return null;
+  const fd = (typeof getFeat === 'function') ? (getFeat(hit) || null) : null;
+  const d = fd && (fd.desc || fd.summary);
+  return d ? { desc: d } : null;
+}
+
 // 클래스/서브클래스 특성 박스 — 헤더(특성명) + 부여 항목 중첩. opts.granted=출처 없는 부여재주(orphan) 표기.
 function _growthFeatureBoxHtml(f, lv, gm, opts) {
   const slug = featSlug(f.slug || f.id || f.name_en || f.name_ko);
@@ -1254,8 +1280,16 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
   const nameEn = f.name_en || (featData && featData.name_en) || '';
   const badge = (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
   // 클릭 아코디언: 설명(+부여 재주/주문)을 접었다 펼침.
-  const _desc = featData ? (featData.desc || featData.summary || '') : '';
-  const descHtml = _desc ? `<div class="gcf-desc">${typeof resolveDescRefs === 'function' ? resolveDescRefs(_desc) : _desc}</div>` : '';
+  let _desc = featData ? (featData.desc || featData.summary || '') : '';
+  // 서브클래스 변형 특성(첫 번째 교리 등)은 선택한 서브클래스의 혜택 설명으로 대체(미선택=프롬프트).
+  const _variant = _subclassVariantDesc(slug, _desc);
+  let descHtml = '';
+  if (_variant && _variant.prompt) {
+    descHtml = `<div class="gcf-desc gcf-desc-prompt">${_variant.prompt}</div>`;
+  } else {
+    if (_variant && _variant.desc) _desc = _variant.desc;
+    descHtml = _desc ? `<div class="gcf-desc">${typeof resolveDescRefs === 'function' ? resolveDescRefs(_desc) : _desc}</div>` : '';
+  }
   const hasBody = !!(descHtml || kidsHtml);
   return `<div class="growth-slot filled gcf-box">
     <div class="gcf-main${hasBody ? ' gcf-clickable' : ''}"${hasBody ? ' onclick="_toggleGcfInline(this)"' : ''}>
@@ -1351,8 +1385,17 @@ function renderGrowthPlan() {
       // 선택박스로 대체된 클래스특성(신격/교리/신성한 샘)은 특성 박스에서 제외 — 중복 방지.
       const _choiceSlugs = new Set(['doctrine', 'deity-cleric', 'divine-font']);
       const classFeats = (CLASS_FEATURE_NAMES[state.selectedClass.id]||[]).filter(f => f.lv === lv && !_choiceSlugs.has(f.slug || f.id));
+      // 서브클래스 특성 중, 클래스 로스터 특성과 같은 항목(같은 slug 또는 같은 name_en)은 중복 박스이므로 제외.
+      //   예: 전투 사제의 「First Doctrine(경갑·평갑 훈련)」 = 제네릭 「첫 번째 교리」와 동일 → 제네릭 박스가 교리별 혜택을 표시하므로 서브 박스 생략.
+      const _cfSlugs = new Set(classFeats.map(f => featSlug(f.slug || f.id || f.name_en || f.name_ko)));
+      const _cfNames = new Set(classFeats.map(f => String(f.name_en || '').toLowerCase().trim()).filter(Boolean));
       const subFeats = (state.selectedSubclass && state.selectedSubclass.class_id === state.selectedClass.id)
-        ? (state.selectedSubclass.features || []).filter(f => f.lv === lv) : [];
+        ? (state.selectedSubclass.features || []).filter(f => {
+            if (f.lv !== lv) return false;
+            const sl = featSlug(f.slug || f.id || f.name_en || f.name_ko);
+            const nm = String(f.name_en || '').toLowerCase().trim();
+            return !_cfSlugs.has(sl) && !(nm && _cfNames.has(nm));
+          }) : [];
       [...classFeats, ...subFeats].forEach(f => { _featBoxes += _growthFeatureBoxHtml(f, lv, gm); });
       // 출처 특성이 로스터에 없는 부여 재주(orphan)도 이 레벨에서 박스로 노출 — 무엇도 누락 없이.
       gm.orphanFeats.filter(o => (o.lv || 1) === lv).forEach(o => {

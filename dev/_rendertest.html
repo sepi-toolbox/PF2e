@@ -104,7 +104,10 @@
     try {
       var _cid = state.selectedClass && state.selectedClass.id;
       var _docs = (typeof SUBCLASS_DB !== 'undefined' && _cid) ? SUBCLASS_DB.filter(function(s){return s.class_id===_cid;}) : [];
-      if (_docs.length) state.selectedSubclass = _docs[0];
+      var _subQ = Q.get('sub');   // ?sub=doctrine-warpriest 로 서브클래스 지정, ?sub=none 이면 미선택
+      if (_subQ === 'none') { state.selectedSubclass = null; }
+      else if (_subQ) { state.selectedSubclass = _docs.find(function(s){return s.id===_subQ;}) || _docs[0]; }
+      else if (_docs.length) state.selectedSubclass = _docs[0];
       var _dd = state.deity && typeof _getDeity==='function' ? _getDeity(state.deity) : null;
       if (_dd) { if ((_dd.sanctification||[]).length) state.sanctification = _dd.sanctification[0]; if ((_dd.font||[]).length) state.divineFont = _dd.font[0]; }
     } catch(e){}
@@ -132,6 +135,11 @@
     if (modal === 'boost' && typeof openBoostModal === 'function') { openBoostModal(); log('boostModal'); }
     else if (modal === 'skill' && typeof growthPickSkillTrainingMulti === 'function') { growthPickSkillTrainingMulti(); log('skillModal'); }
 
+    // 검증용: ?expandgcf=1 이면 클래스특성 아코디언 전부 펼침
+    if (Q.get('expandgcf')) {
+      document.querySelectorAll('.gcf-body').forEach(function(b){ b.classList.add('gcf-open'); });
+      document.querySelectorAll('.gcf-main').forEach(function(h){ h.classList.add('gcf-head-open'); });
+    }
     document.title = 'READY';
   } catch(e){ log('ERR:'+e.message); document.title = 'ERR:'+e.message; console.error(e); }
 })();
