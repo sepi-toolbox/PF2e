@@ -842,7 +842,7 @@ function openDeityPicker() {
   if (!_deities.length) return;
   // 검색 활성화(478개 — 이름으로 찾기)
   const items = _deities.map(d =>
-    `<div class="opt-row" data-s="${((d.name_ko||'')+' '+(d.name_en||'')+' '+(d.domains_ko||[]).join(' ')).toLowerCase()}" onclick="previewDeity('${d.id}',this)" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
+    `<div class="opt-row" data-id="${d.id}" data-s="${((d.name_ko||'')+' '+(d.name_en||'')+' '+(d.domains_ko||[]).join(' ')).toLowerCase()}" onclick="previewDeity('${d.id}',this)" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
       ${typeof iconImg==='function'&&iconImg('deity',d)?`<div class="opt-row-icon" style="background:none;">${iconImg('deity',d)}</div>`:''}
       <span class="opt-row-name" style="flex:1;">${d.name_ko} <span style="color:var(--text2);font-size:11px;">${d.name_en}</span></span>
       <span style="font-size:10px;color:var(--text2);">${weaponRefHtml(d.weapon)} / ${(d.sanctification||[]).map(s=>s==='holy'?'신성':'불경').join('·')}</span>
@@ -858,6 +858,11 @@ function openDeityPicker() {
   if(footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
   modalType = 'deity-pick';
   _pendingDeityId = null;
+  // 이미 고른 신격이 있으면 그 행을 하이라이트 + 미리보기(클래스·배경·타 선택 피커와 동일). 데스크톱은 상세, 모바일은 아코디언.
+  if (state.deity) {
+    const row = document.querySelector(`#modal-options .opt-row[data-id="${state.deity}"]`);
+    if (row) { previewDeity(state.deity, row); row.scrollIntoView({ block: 'center' }); }
+  }
 }
 
 var _pendingDeityId = null;
