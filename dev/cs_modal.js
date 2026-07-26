@@ -1331,7 +1331,7 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
   return `<div class="growth-slot filled gcf-box">
     <div class="gcf-main${hasBody ? ' gcf-clickable' : ''}"${hasBody ? ' onclick="_toggleGcfInline(this)"' : ''}>
       <span class="gcf-fic">${ic}</span>
-      <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>${badge}${_needBadge}
+      <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span>${(typeof featCostGlyph==='function')?featCostGlyph(featData, slug):''}</span>${badge}${_needBadge}
       ${hasBody ? '<span class="gcf-chev">▾</span>' : ''}
     </div>
     ${hasBody ? `<div class="gcf-body">${_traitsHtml}${kidsHtml}${descHtml}${_choiceHtml}</div>` : ''}
