@@ -1323,15 +1323,66 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
     if (_variant && _variant.desc) _desc = _variant.desc;
     descHtml = _desc ? `<div class="gcf-desc">${typeof resolveDescRefs === 'function' ? resolveDescRefs(_desc) : _desc}</div>` : '';
   }
-  const hasBody = !!(descHtml || kidsHtml || _traitsHtml);
+  // 하위 선택(kind:'choice' 특성 — 드루이드 레시 패밀리어·자연의 목소리 등): 서브클래스를 빌더에서 고르면
+  //   그 특성 박스가 뜨고, 여기서 하위 선택. 미선택이면 헤더에 「선택 필요」 표시(구: 클래스 모달에서만 가능했음).
+  const _choiceHtml = (typeof _growthFeatureChoiceHtml === 'function') ? _growthFeatureChoiceHtml(f) : '';
+  const _choiceNeeded = !!(f && f.kind === 'choice' && _choiceHtml && !((state.classFeatureChoices || {})[f.slug || f.id]));
+  const _needBadge = _choiceNeeded ? '<span class="gcf-need">선택 필요</span>' : '';
+  const hasBody = !!(descHtml || kidsHtml || _traitsHtml || _choiceHtml);
   return `<div class="growth-slot filled gcf-box">
     <div class="gcf-main${hasBody ? ' gcf-clickable' : ''}"${hasBody ? ' onclick="_toggleGcfInline(this)"' : ''}>
       <span class="gcf-fic">${ic}</span>
-      <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>${badge}
+      <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>${badge}${_needBadge}
       ${hasBody ? '<span class="gcf-chev">▾</span>' : ''}
     </div>
-    ${hasBody ? `<div class="gcf-body">${_traitsHtml}${kidsHtml}${descHtml}</div>` : ''}
+    ${hasBody ? `<div class="gcf-body">${_traitsHtml}${kidsHtml}${descHtml}${_choiceHtml}</div>` : ''}
   </div>`;
+}
+
+// 성장 빌더: kind:'choice' 특성의 하위 선택 렌더(EFFECTS_DB choice 옵션). 값=state.classFeatureChoices[slug].
+function _growthFeatureChoiceHtml(f) {
+  if (!f || f.kind !== 'choice') return '';
+  const slug = f.slug || f.id; if (!slug) return '';
+  const def = (typeof EFFECTS_DB !== 'undefined') ? EFFECTS_DB[slug] : null;
+  const ch = def && def.choice;
+  if (!ch || !Array.isArray(ch.options) || !ch.options.length) return '';
+  const cur = (state.classFeatureChoices && state.classFeatureChoices[slug]) || '';
+  const opts = ch.options.map(o => `<option value="${o.option_id}"${o.option_id === cur ? ' selected' : ''}>${o.option_name || o.name || o.option_id}</option>`).join('');
+  return `<div class="gcf-choice">
+    <div class="gcf-choice-label">${ch.label || '선택'}</div>
+    <select onclick="event.stopPropagation()" onchange="event.stopPropagation();_onGrowthFeatureChoice('${slug}', this.value)" class="gcf-choice-sel">
+      <option value="">— 선택 —</option>${opts}
+    </select>
+  </div>`;
+}
+function _onGrowthFeatureChoice(slug, val) {
+  if (!state.classFeatureChoices) state.classFeatureChoices = {};
+  state.classFeatureChoices[slug] = val || '';
+  if (typeof applyClassFeatures === 'function') applyClassFeatures();
+  if (typeof recalcAll === 'function') recalcAll();   // renderGrowthPlan/save는 recalcAll 내부
+}
+
+// 소서러 혈통 표본(드라코닉 용 종류·원소·지니) 하위선택 — 값=state.bloodlineExemplar(전통·2번째 기술이 여기서 파생).
+function _growthBloodlineExemplarHTML(blId, bl) {
+  const LABEL = { 'bloodline-draconic': '드라코닉 표본', 'bloodline-elemental': '원소', 'bloodline-genie': '지니 유형' };
+  const label = LABEL[blId] || '표본';
+  const cur = state.bloodlineExemplar || '';
+  const _skKo = sk => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s => s.id === sk)?.name || sk) : sk);
+  const opts = bl.exemplars.map(e => {
+    const meta = [e.tradition ? '전통 ' + e.tradition : '', e.skill ? '기술 ' + _skKo(e.skill) : '', e.damage ? '피해 ' + e.damage : ''].filter(Boolean).join(', ');
+    return `<option value="${e.name_en}"${e.name_en === cur ? ' selected' : ''}>${e.name_ko}${meta ? ' — ' + meta : ''}</option>`;
+  }).join('');
+  const need = !cur ? ' <span class="gcf-need">선택 필요</span>' : '';
+  return `<div class="gcf-choice" style="margin:5px 0 0;">
+    <div class="gcf-choice-label">${label} 선택${need}</div>
+    <select onchange="_onGrowthBloodlineExemplar(this.value)" class="gcf-choice-sel">
+      <option value="">— 선택 —</option>${opts}
+    </select>
+  </div>`;
+}
+function _onGrowthBloodlineExemplar(val) {
+  state.bloodlineExemplar = val || null;
+  if (typeof recalcAll === 'function') recalcAll();   // 전통/2번째 기술 재파생 + renderGrowthPlan/save
 }
 
 // 성장플랜 클래스특성 박스 아코디언 토글
@@ -1496,6 +1547,13 @@ function renderGrowthPlan() {
             const _csub = (state.selectedSubclass && state.selectedSubclass.class_id === _cls.id) ? state.selectedSubclass : null;
             html += _growthFieldHTML('🎭', _scLabel, _csub ? (_csub.name_ko || _csub.name_en) : '', false,
               "openDoctrinePicker()", _csub ? "clearDoctrine()" : null);
+            // 서브클래스 하위선택(소서러 혈통 표본: 드라코닉 용 종류·원소·지니) — 선택한 혈통이 표본 보유 시 표본 선택을 이어서 노출.
+            if (_csub && typeof BLOODLINE_DB !== 'undefined') {
+              const _bl = BLOODLINE_DB[_csub.id];
+              if (_bl && Array.isArray(_bl.exemplars) && _bl.exemplars.length && typeof _growthBloodlineExemplarHTML === 'function') {
+                html += _growthBloodlineExemplarHTML(_csub.id, _bl);
+              }
+            }
           }
         }
         // 성별화 (클레릭·챔피언) — 신격이 옵션 제약(옵션 있을 때만, 신격 미선택 시엔 안내용으로 표시)
