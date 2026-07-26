@@ -36,6 +36,7 @@
 <input type="hidden" id="f-level" value="1">
 <div id="growth-plan"></div>
 <div id="growth-plan-mobile"></div>
+<div id="spell-panel-host"></div>
 
 <!-- 모달 셸(index.html 복제) — ?modal=boost|skill 로 해당 모달 렌더 확인 -->
 <div class="modal-overlay hidden" id="modal-overlay">
@@ -124,10 +125,35 @@
       document.body.appendChild(skHost);
     }
 
+    // 3c) 스펠 탭(?panel=spells) — index.html의 panel-spells 주입 + 클레릭 주문 상태 + renderSpells
+    if (Q.get('panel') === 'spells') {
+      var _pi = htmlTxt.indexOf('<div id="panel-spells"');
+      var _pe = htmlTxt.indexOf('id="panel-pets"');
+      if (_pi >= 0 && _pe > _pi) {
+        var _slice = htmlTxt.slice(_pi, htmlTxt.lastIndexOf('<', _pe));  // panel-spells ~ 직전
+        document.getElementById('spell-panel-host').innerHTML = _slice;
+        var _ps = document.getElementById('panel-spells'); if (_ps) { _ps.classList.add('active'); _ps.style.display = 'block'; }
+        // 스펠 탭만 보이게 성장 플랜 숨김
+        var _gp = document.getElementById('growth-plan'); if (_gp) _gp.style.display = 'none';
+        var _gpm = document.getElementById('growth-plan-mobile'); if (_gpm) _gpm.style.display = 'none';
+      }
+      // 클레릭 주문 상태(목: 레벨1 준비형 + 신성 원천 해악)
+      state.spellSlots = state.spellSlots || {}; state.spellSlots[1] = 2;
+      state.cantripSlots = 5;
+      state.preparedSpells = state.preparedSpells || { cantrip: [], 1: [] };
+      state.divineFont = Q.get('font') || 'harm';
+      state.divineFontUsed = 0;
+      state.spells = state.spells || { cantrip: [], known: [], focus: [], innate: [] };
+    }
+
     // 4) 유효성 판정 + 렌더
     if (typeof _resolveChoiceValidity === 'function') _resolveChoiceValidity();
     try { if (typeof recalcAll === 'function') recalcAll(); log('recalc'); } catch(e){ log('recalcErr:'+e.message); }
     if (typeof renderGrowthPlan === 'function') renderGrowthPlan();
+    if (Q.get('panel') === 'spells') {
+      try { if (typeof renderSpells === 'function') renderSpells(); log('spells'); } catch(e){ log('spellsErr:'+e.message); console.error(e); }
+      try { if (typeof switchSpellSubtab === 'function') switchSpellSubtab(Q.get('sub') || 'class'); } catch(e){ log('subErr:'+e.message); }
+    }
     log('rendered');
 
     // 5) 모달 렌더(옵션): ?modal=boost | skill
