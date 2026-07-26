@@ -951,6 +951,8 @@ function clearDeity() {
   state.deity = null;
   state.sanctification = null;
   state._deityWeapon = null;
+  // 신성 원천은 유지(신격과 불일치면 리졸버가 「선행조건 불일치」로 표시·효과 보류 — B안).
+  if (typeof applyClassFeatures === 'function') applyClassFeatures();   // selectDeity와 대칭 — 신격 부여(기술·주문·무기) 완전 재파생/정리
   recalcAll();   // 출처기반 재파생 — rebuildCoreEffects가 신격 부여 기술/무기숙련을 정리(v0.134).
   renderGrowthPlan();
   save();
