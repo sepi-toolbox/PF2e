@@ -4366,42 +4366,11 @@ function _buildClassChoicesUI(cls) {
   // === 1레벨 ===
   html += _classLevelHeader(1);
 
-  // 기술 숙련 블록 — 클레릭(deity_skill)은 1레벨 「기술 훈련」 기어(성장플랜)로 이관 → 모달에서 숨김.
-  if (!deitySkill) html += _classFeatureBlock('📖', '기술 숙련', 'Skill Proficiencies', () => {
-    let inner = '';
-    fixedSkills.forEach(name => {
-      inner += _choiceDropdown('', '고정 기술', [{value: name, label: name}], true, name);
-    });
-    choiceSkills.forEach((choices, ci) => {
-      const curFixed = _modalChoices.chosenFixedSkills[ci] || '';
-      const options = choices.map(c => ({value: c, label: c}));
-      inner += `<div style="margin-bottom:6px;">
-        <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 (선택)</div>
-        <select onchange="_modalChoices.chosenFixedSkills[${ci}]=this.value;_validateInitialChoices()" style="${_selStyle}">
-          <option value="">— 선택 —</option>
-          ${options.map(o => `<option value="${o.value}"${o.value === curFixed ? ' selected' : ''}>${o.label}</option>`).join('')}
-        </select>
-      </div>`;
-    });
-    inner += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">추가 기술 숙련 (기본 ${trainableBase}개${_inlineDeity ? ' + 신격 기술' : ''}, + 버튼으로 추가)</div>`;
-    inner += `<div id="class-trainable-skills">`;
-    for (let i = 0; i < trainableBase; i++) {
-      inner += _buildTrainableSkillRow(i, fixedSkills);
-    }
-    inner += `</div>`;
-    inner += `<div style="text-align:center;margin-top:4px;">
-      <button onclick="_addTrainableSkill()" style="padding:4px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--accent);cursor:pointer;font-size:12px;">＋ 추가</button>
-      <span style="font-size:10px;color:var(--text2);margin-left:6px;">INT 수정치만큼 추가 가능</span>
-    </div>`;
-    return inner;
-  });
+  // 기술 숙련 선택 = 성장 빌더 「기술 훈련」 기어로 일원화(v0.283) → 클래스 모달에서 제거(전 클래스).
+  //   클래스 모달은 '클래스 고르기 + 특성 설명'만. 실제 선택(기술·서브클래스·신격 등)은 전부 빌더에서.
 
-  // 서브클래스/클레릭 블록 (1레벨)
-  //   ⚠ 교리 등 선택 UI가 담당하는 특성의 부여 재주/주문은 별도 박스로 그리지 않는다 — PF2e 규칙상 부여 주체는
-  //     '레벨별 발전 특성'(첫 번째 교리 등)이며(_growthGrantMap 귀속), 그 특성 카드 안에 중첩되어 이미 표시됨.
-  if (subclassHtml) {
-    html += subclassHtml;
-  }
+  // 서브클래스/신격/성별화/신성원천 선택 UI = 성장 빌더 정체성 필드로 일원화(v0.283) → 모달에서 제거(subclassHtml 미렌더).
+  //   서브클래스가 부여하는 특성은 아래 레벨 루프가 설명 박스로 그림(선택 컨트롤 없이).
   // 부여 트리 — subclassHtml이 _modalChoices.subclass를 설정한 뒤에 계산(선택한 교리 기준).
   const _gm = _modalGrantMap(cls);
 
@@ -5444,21 +5413,8 @@ function _validateInitialChoices() {
   let valid = true;
 
   if (_modalChoices.type === 'class') {
-    const skills = _modalChoices.trainableSkills || [];
-    // 모든 드롭다운이 선택되어야 함
-    if (skills.some(v => !v)) valid = false;
-    // 최소 base 개수
-    if (skills.length < (_modalChoices.trainableBase || 0)) valid = false;
-    // 선택형 고정 기술 ("또는" 패턴)
-    if ((_modalChoices.chosenFixedSkills || []).some(v => !v)) valid = false;
-    // 클레릭: 교리/신격/성별화/신성 원천 필수
-    if (_modalChoices.doctrine !== undefined && !_modalChoices.doctrine) valid = false;
-    if (_modalChoices.deity !== undefined && !_modalChoices.deity) valid = false;
-    if (_modalChoices.sanctification !== undefined && !_modalChoices.sanctification) valid = false;
-    if (_modalChoices.divineFont !== undefined && !_modalChoices.divineFont) valid = false;
-    if (_modalChoices.devotionSpell !== undefined && !_modalChoices.devotionSpell) valid = false;   // 챔피언 헌신 주문 필수
-    // 범용 서브클래스
-    if (_modalChoices.subclass !== undefined && !_modalChoices.subclass) valid = false;
+    // 클래스 확정 = 클래스만 고르면 됨(v0.283). 기술·서브클래스·신격·성별화·신성원천·헌신 등 모든 선택은
+    //   성장 빌더에서 하므로 여기선 필수 조건 없음. (모달 선택 UI 제거 → 조건 유지 시 확정 버튼이 영구 disabled됨)
   } else if (_modalChoices.type === 'background') {
     if (_modalChoices.hasChoiceSkill && !_modalChoices.choiceSkill) valid = false;
   } else if (_modalChoices.type === 'ancestry') {
@@ -5697,44 +5653,10 @@ function confirmModal() {
     const btnC = document.getElementById('btn-class');
     if (btnC) { btnC.textContent = `${modalSelected.name} (${modalSelected.en})`; btnC.classList.add('filled'); }
     applyClassDefaults(modalSelected);
-    // 모달 내 기술 선택 반영 — 단, 클레릭(deity_skill)은 기술 훈련을 1레벨 기어(성장플랜)가 소유 →
-    //   모달에서 커밋 안 함(trainableSkillSlots는 applyClassDefaults의 free_skill_count가 설정, skillTraining은 기어가 소유).
-    if (_modalChoices.type === 'class' && !modalSelected.deity_skill) {
-      // 선택형 고정 기술(예: "곡예 또는 운동")·추가 기술 숙련 모두 state에만 기록하고 부여는
-      //   recalcAll의 출처기반 재파생에 위임(rebuildCoreEffects._classGrantedSkills / applyGrowthSkills).
-      const skills = (_modalChoices.trainableSkills || []).filter(v => v);
-      state.trainableSkillSlots = skills.length;
-      if (!state.growth[1]) state.growth[1] = {};
-      state.growth[1].skillTraining = skills;
-    }
-    // 클레릭: 교리/신격/신성 원천 반영
-    if (_modalChoices.doctrine) {
-      const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === _modalChoices.doctrine) : null;
-      if (sub) { state.selectedSubclass = sub; const btn = document.getElementById('btn-subclass'); if (btn) { btn.textContent = `${sub.name_ko} (${sub.name_en})`; btn.classList.add('filled'); } }
-    }
-    if (_classHasInlineDeity(modalSelected)) {
-      if (!modalSelected.deity_skill) {
-        // 챔피언 등(비-deity_skill 인라인): 모달에서 신격/성별화/신성원천 커밋(현행 유지, Stage 1b에서 슬롯화 예정)
-        state.deity = _modalChoices.deity || null;
-        state.sanctification = _modalChoices.sanctification || null;
-        const nf = _modalChoices.divineFont || null;
-        if (state.divineFont !== nf) state.divineFontUsed = 0;
-        state.divineFont = nf;
-      }
-      // 클레릭(deity_skill): 신격/성별화/신성원천은 1레벨 독립 슬롯이 직접 소유 → 여기서 건드리지 않음
-      //   (클래스 재확정 시 슬롯으로 고른 값이 지워지지 않도록 — Stage 1 핵심).
-      state.devotionSpell = _modalChoices.devotionSpell || null;   // 챔피언 헌신 주문(클레릭=undefined→null, 무해)
-      if (_clericDeityIsChampion()) state.championBlessing = _modalChoices.championBlessing || null;   // 챔피언 헌신자의 축복(3레벨 택1)
-    } else {
-      if (_modalChoices.deity) state.deity = _modalChoices.deity;
-      if (_modalChoices.sanctification) state.sanctification = _modalChoices.sanctification;
-      if (_modalChoices.divineFont) { state.divineFont = _modalChoices.divineFont; state.divineFontUsed = 0; }
-    }
-    // 범용 서브클래스
-    if (_modalChoices.subclass) {
-      const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === _modalChoices.subclass) : null;
-      if (sub) { state.selectedSubclass = sub; const btn = document.getElementById('btn-subclass'); if (btn) { btn.textContent = `${sub.name_ko} (${sub.name_en})`; btn.classList.add('filled'); } }
-    }
+    // v0.283: 기술 숙련·서브클래스·신격·성별화·신성원천·헌신 등 모든 선택은 성장 빌더가 소유.
+    //   → 클래스 확정은 클래스만 세팅하고, 이 값들은 모달에서 커밋하지 않는다(빈 모달값으로 빌더 선택을 덮어쓰던 회귀 방지).
+    //   trainableSkillSlots는 위 applyClassDefaults(free_skill_count)가 세팅, skillTraining/selectedSubclass/deity 등은 빌더 필드가 소유.
+    //   클래스 변경 시엔 위 resetFromClass가 초기화 → 사용자가 빌더에서 새로 선택.
     // 소서러 혈통 표본/원소/지니 유형 선택 반영(드라코닉=전통+2번째 기술, recalcAll·_subclassTradition이 소비)
     state.bloodlineExemplar = _modalChoices.bloodlineExemplar || null;
     // 클래스 특성 선택(자연의 목소리 등) 반영 → applyClassFeatures가 auto 부여 특성 choice로 주입

@@ -175,6 +175,14 @@
     else if (modal === 'skill' && typeof growthPickSkillTrainingMulti === 'function') { growthPickSkillTrainingMulti(); log('skillModal'); }
     else if (modal === 'deityskill' && typeof openDeitySkillInfo === 'function') { openDeitySkillInfo(); log('deitySkillModal'); }
     else if (modal === 'deity' && typeof openDeityPicker === 'function') { openDeityPicker(); log('deityModal'); }
+    else if (modal === 'class' && typeof _buildClassChoicesUI === 'function') {
+      document.getElementById('modal-overlay').classList.remove('hidden');
+      document.getElementById('modal-title').textContent = '클래스 선택';
+      var _searchEl2 = document.getElementById('modal-search'); if (_searchEl2) _searchEl2.style.display = 'none';
+      var _opt2 = document.getElementById('modal-options'); if (_opt2) _opt2.innerHTML = _buildClassChoicesUI(state.selectedClass);
+      var _det = document.getElementById('modal-detail'); if (_det) _det.innerHTML = '';
+      log('classModal');
+    }
     else if (modal === 'skillincrease' && typeof growthPickSkillIncrease === 'function') { growthPickSkillIncrease(parseInt(Q.get('siLevel')||lvl)||3); log('skillIncModal'); }
     else if (modal === 'skilltrain' && typeof growthPickSkillTraining === 'function') { growthPickSkillTraining(parseInt(Q.get('siSlot')||0)); log('skillTrainModal'); }
     else if (modal === 'sanct' && typeof openSanctPicker === 'function') { openSanctPicker(); log('sanctModal'); }
