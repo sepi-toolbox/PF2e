@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.268').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.269').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2038,20 +2038,33 @@ function renderSpells() {
     } else if (isPreparedCaster) {
       // ═══ PREPARED CASTER: 준비된 주문 + 🔥 시전 토글 ═══
       const prep = state.preparedSpells?.[r] || [];
+      const colHeaderP = document.createElement('div');
+      colHeaderP.className = 'spell-slot-col-header';
+      colHeaderP.innerHTML = `<span style="width:40px;text-align:center;">시전</span><span style="flex:1;">주문</span><span style="width:70px;text-align:center;">지속</span><span style="width:70px;text-align:center;">사거리</span><span style="width:20px;"></span>`;
+      section.appendChild(colHeaderP);
       for (let i = 0; i < slotMax; i++) {
         const name = prep[i] || null;
         const isCast = !!(state.spellSlotsUsed?.[r]?.[i]);
         const row = document.createElement('div');
-        row.className = 'spell-slot-row';
-        if (isCast) row.style.opacity = '0.35';
+        row.className = 'spell-slot-row' + (isCast ? ' slot-used' : '');
         if (name) {
           const spellData = getSpell(name);
           const actions = getActionIcons(spellData?.actions);
-          const fireIcon = `<span class="spell-slot-fire${isCast?' used':''}" onclick="togglePreparedCast(${r},${i})" style="cursor:pointer;font-size:14px;margin-right:4px;" title="${isCast?'슬롯 복원':'시전 (소모)'}">\uD83D\uDD25</span>`;
+          const dur = (spellData && spellData.duration) ? spellData.duration : '—';
+          const rng = (spellData && spellData.range) ? spellData.range : '—';
           row.innerHTML = `
-            ${fireIcon}<span class="spell-slot-name" onclick="toggleSpellInline(this,'${String(name).replace(/'/g,"\\'")}')">${iconImg('spell', spellData||{name})}${(typeof spellDisplay==='function')?spellDisplay(name):name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}${isCast ? ' <span style="font-size:9px;color:var(--text2);">(시전됨)</span>' : ''}</span>`;
+            <span class="spell-cast-label${isCast?' cast-used':''}" onclick="togglePreparedCast(${r},${i})" title="${isCast?'슬롯 복원':'시전 (소모)'}">시전</span>
+            <span class="spell-slot-name" onclick="toggleSpellInline(this,'${String(name).replace(/'/g,"\\'")}')">${iconImg('spell', spellData||{name})}${(typeof spellDisplay==='function')?spellDisplay(name):name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-dur">${dur}</span>
+            <span class="spell-slot-range">${rng}</span>
+            <span class="spell-slot-del" onclick="unprepareSlot(${r},${i})" title="준비 해제">✕</span>`;
         } else {
-          row.innerHTML = `<span class="spell-slot-fire used" style="margin-right:4px;opacity:0.35;"></span><span class="spell-slot-name" style="color:var(--text2);font-size:12px;">준비 안 됨</span>`;
+          row.innerHTML = `
+            <span class="spell-cast-label" style="opacity:0.35;">시전</span>
+            <span class="spell-slot-name empty" onclick="openPrepareSpellForSlot(${r},${i})">준비 안 됨</span>
+            <span class="spell-slot-dur"></span>
+            <span class="spell-slot-range"></span>
+            <span style="width:20px;"></span>`;
         }
         section.appendChild(row);
       }
@@ -3727,14 +3740,14 @@ const BARDING_DB = [
 let COMPANION_DB = [];
 function _loadCompanions() {
   if (COMPANION_DB.length) return;
-  fetch('data/derived/companions.json?v=0.268').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/companions.json?v=0.269').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
   }).catch(() => {});
 }
 // 상태이상 카탈로그(파생 단일소스) 선로딩. 표시·조회용 → 로드 후 이미 그려진 상태이상 그리드 소급 재렌더(buildConditions).
 function _loadConditions() {
   if (typeof CONDITIONS_DATA !== 'undefined' && CONDITIONS_DATA.length) return;
-  fetch('data/derived/conditions.json?v=0.268').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/conditions.json?v=0.269').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) {
       CONDITIONS_DATA = j.rows;
       try { if (typeof buildConditions === 'function' && document.getElementById('conditions-grid')) buildConditions(); } catch (e) {}
@@ -4482,13 +4495,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.268'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.268'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.269'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.269'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.268'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.269'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}
