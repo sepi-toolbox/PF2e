@@ -225,6 +225,15 @@
       if (_cdObj) showItemDetail(_cdObj);
       log('classDetail:'+(_cdObj?_cdObj.id:'null'));
     }
+    else if (modal === 'bgdetail' && typeof showItemDetail === 'function' && typeof PF2eBg !== 'undefined') {
+      if (typeof openModal === 'function') openModal('background');
+      var _bgId = Q.get('bg') || 'guard';
+      var _bgObj = PF2eBg.getBackgroundLegacy(_bgId);
+      var _bmb = document.getElementById('modal-body'); if (_bmb) _bmb.classList.add('detail-open');
+      var _bdet = document.getElementById('modal-detail'); if (_bdet) _bdet.style.display = '';
+      if (_bgObj) showItemDetail(_bgObj);
+      log('bgDetail:'+(_bgObj?_bgObj.id:'null'));
+    }
     else if (modal === 'skillincrease' && typeof growthPickSkillIncrease === 'function') { growthPickSkillIncrease(parseInt(Q.get('siLevel')||lvl)||3); log('skillIncModal'); }
     else if (modal === 'skilltrain' && typeof growthPickSkillTraining === 'function') { growthPickSkillTraining(parseInt(Q.get('siSlot')||0)); log('skillTrainModal'); }
     else if (modal === 'sanct' && typeof openSanctPicker === 'function') { openSanctPicker(); log('sanctModal'); }

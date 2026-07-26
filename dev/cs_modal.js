@@ -4211,8 +4211,8 @@ function showItemDetail(item) {
   // ── 클래스/배경/혈통: 초기 선택 UI 포함 상세 패널 ──
   if ((modalType === 'class' || modalType === 'background' || modalType === 'ancestry') && _buildInitialChoicesUI) {
     const choicesHtml = _buildInitialChoicesUI(modalType, item);
-    // 혈통은 선택 UI가 없어도(빈 choicesHtml) 스탯블록+확정 버튼을 렌더한다.
-    if (choicesHtml || modalType === 'ancestry') {
+    // 혈통·클래스·배경은 선택 UI가 없어도(빈 choicesHtml) 본문/스탯블록 + 확정 버튼을 렌더한다.
+    if (choicesHtml || modalType === 'ancestry' || modalType === 'class' || modalType === 'background') {
       const shortDesc = modalType === 'background'
         ? (item.desc || '').replace(/\s*속성 증강:.*$/, '')
         : (item.desc || '').split('<br><strong>')[0]; // 첫 단락만
@@ -4231,7 +4231,6 @@ function showItemDetail(item) {
         <div style="font-size:12px;line-height:1.7;color:var(--text2);margin-bottom:10px;">${shortDesc}</div>
         ${ancStatBlock}
         ${clsStatBlock}
-        ${modalType === 'class' ? _buildClassProgressionTable(item) : ''}
         ${choicesHtml}
         <button id="modal-confirm-choice" onclick="confirmModal()" disabled
           style="width:100%;margin-top:14px;padding:10px;background:var(--bg4);color:var(--text2);border:1px solid var(--border);border-radius:4px;font-size:13px;font-weight:600;cursor:not-allowed;">
@@ -4609,9 +4608,11 @@ function _buildClassChoicesUI(cls) {
     html += `</div>`;
   });
 
-  // 동적 갱신용 컨테이너 ID
-  html = `<div id="class-level-ui">${html}</div>`;
-  return html;
+  // 1~20레벨 클래스 특성 표시는 클래스 모달에서 제거(v0.296) — 클래스를 고르면 성장 빌더가 레벨별
+  //   특성 박스로 충실히 표시하므로 모달은 'flavor + 스탯블록'만. 위 계산(_modalChoices/분류/부여맵)은
+  //   부수효과(커밋용 _modalChoices) 보존 위해 유지하고, 레벨 특성 html만 미반환.
+  void html;
+  return '';
 }
 
 // ── 레벨 헤더 ──
@@ -5403,83 +5404,16 @@ function _rebuildTrainableSkillDropdowns() {
   container.innerHTML = html;
 }
 
-// ── 배경 모달: 기술 + 재주 ──
+// ── 배경 모달: 선택 박스 제거(v0.296) ──
+//   「배경 혜택」 박스(능력치/기술/지식/재주 표시)는 본문(desc)에 이미 서술되고, 부여 결과는 성장 빌더/시트가
+//   충실히 표시하므로 모달에선 제거. 확정 커밋을 위해 _modalChoices만 세팅(저장된 선택값 보존)하고 UI는 미반환.
+//   ⚠ 실측: skill_choice(택1 기술)를 가진 배경 0종 → 기술 선택 손실 없음. choice_lore(원하는 지식) 명명은
+//   시트 「지식」 모달(v0.286 커스텀 지식)에서 관리.
 function _buildBackgroundChoicesUI(bg) {
-  const beff = (typeof getBackgroundEffects === 'function') ? getBackgroundEffects(bg) : {};
   const _savedBgChoice = (state.selectedBackground?.id === bg.id) ? (state.initialChoices?.background?.choiceSkill || null) : null;
   const _savedBgLore = (state.selectedBackground?.id === bg.id) ? (state.initialChoices?.background?.choiceLore || '') : '';
-  _modalChoices = { type: 'background', skills: {}, choiceSkill: _savedBgChoice, loreName: '', choiceLore: _savedBgLore };
-
-  let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
-  html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📋 배경 혜택</div>`;
-  // 능력치 증강 표시
-  const bgBoostKo = [
-    ...(beff.boosts || []).map(k => ATTR_KO[k]),
-    ...(beff.boost_choices || []).map(g => g.map(k => ATTR_KO[k]).join(' 또는 ')),
-    ...Array(beff.free_boosts || 0).fill('자유'),
-  ].join(', ') || '—';
-  html += `<div style="font-size:11px;color:var(--text2);margin-bottom:6px;"><strong>능력치 증강:</strong> ${bgBoostKo}</div>`;
-
-  // 고정 기술
-  (beff.fixed_skills || []).forEach(id => {
-    const skill = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === id) : null;
-    const label = skill ? skill.name : id;
-    html += _choiceDropdown('', `기술`, [{value: id, label}], true, id);
-  });
-
-  // 선택 기술 그룹 (그룹당 1택)
-  let hasChoice = false;
-  (beff.choice_skill_groups || []).forEach((group, gi) => {
-    hasChoice = true;
-    const options = group.map(id => {
-      const skill = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === id) : null;
-      return { value: id, label: skill ? skill.name : id };
-    });
-    html += `<div style="margin-bottom:6px;">
-      <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 (선택)</div>
-      <select id="bg-choice-skill${gi||''}" onchange="_modalChoices.choiceSkill=this.value;_validateInitialChoices()" style="${_selStyle}">
-        <option value="">— 선택 —</option>
-        ${options.map(o => `<option value="${o.value}"${o.value === _savedBgChoice ? ' selected' : ''}>${o.label}</option>`).join('')}
-      </select>
-    </div>`;
-  });
-  _modalChoices.hasChoiceSkill = hasChoice;
-
-  // 고정 지식 (lore) — 한국어 그대로
-  (beff.fixed_lores || []).forEach(loreName => {
-    _modalChoices.loreName = loreName;
-    const _loreKo = (typeof getLoreKo === 'function') ? getLoreKo(loreName) : loreName;
-    html += _choiceDropdown('', `지식 기술`, [{value: loreName, label: _loreKo + ' 지식'}], true, loreName);
-  });
-
-  // 원하는 지식 (선택) — 사용자가 분야명 지정(추가 지식과 동일). 미입력 허용(시트에서 나중에 입력 가능).
-  if (beff.choice_lore) {
-    const _curLore = (_modalChoices.choiceLore || '').replace(/"/g, '&quot;');
-    html += `<div style="margin-bottom:6px;">
-      <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">지식 기술 (원하는 분야 1개)</div>
-      <input type="text" id="bg-choice-lore" value="${_curLore}" placeholder="예: 소문 지식" maxlength="30"
-        oninput="_modalChoices.choiceLore=this.value" style="${_selStyle}">
-    </div>`;
-  }
-
-  // 신격 기술/지식 마커 (raised-by-belief)
-  if (beff.deity_skill || beff.deity_lore) {
-    html += `<div style="font-size:10px;color:var(--text2);margin:4px 0;">※ 신격 선택 후 자동 부여 (신격 기술${beff.deity_lore ? ' + 신격 지식' : ''})</div>`;
-  }
-
-  // 기술 재주 — 클래스/서브클래스 자동재주와 동일한 표준 카드(_subFeatCard, 아이콘 포함)
-  if (beff.feat_id) {
-    const fd = getFeat(beff.feat_id);
-    const descHtml = fd
-      ? resolveDescRefs((fd.desc || fd.summary || '').replace(/<strong>전제조건:<\/strong>[^<]*<br>/i, ''))
-      : `<div style="font-size:10px;color:var(--text2);font-style:italic;">※ 카탈로그 미등재 (${beff.feat_id})</div>`;
-    html += `<div style="margin-top:4px;">`;
-    html += `<div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 재주</div>`;
-    html += _subFeatCard('feat', fd || { id: beff.feat_id }, fd ? fd.name_ko : beff.feat_id, fd ? fd.name_en : '', '재주', descHtml);
-    html += `</div>`;
-  }
-  html += `</div>`;
-  return html;
+  _modalChoices = { type: 'background', skills: {}, choiceSkill: _savedBgChoice, loreName: '', choiceLore: _savedBgLore, hasChoiceSkill: false };
+  return '';   // 선택 UI 없음 — 상세 패널은 본문(desc) + 확정 버튼만
 }
 
 // ── 혈통 모달: 언어 선택 UI 제거(v0.293) ──
@@ -5622,6 +5556,9 @@ function _classStatBlockHtml(cls) {
     const trad = cls.tradition ? (_TRADITION_KO[cls.tradition] || '') : '';   // 알려진 4전통만(witch 'any' 등은 생략)
     out += _ancStatSection('주문 Spells', `주문 공격 수정치 · 주문 DC ${rkKo(spatk)}` + (trad ? ` (${trad} 전통)` : ''));
   }
+  // 출처 = store publication.title(모든 클래스 보유) → 한글(_pubTitleKo). 종족과 동일 패턴.
+  const srcKo = _pubTitleKo(cls._doc && cls._doc.system && cls._doc.system.publication && cls._doc.system.publication.title);
+  if (srcKo) out += `<div style="font-size:11px;color:var(--text2);font-style:italic;margin-top:4px;">출처: ${srcKo}</div>`;
   out += `</div>`;
   return out;
 }
