@@ -150,7 +150,7 @@ function collectData() {
     selectedBackground: state.selectedBackground?.id || null,
     selectedHeritage:   state.selectedHeritage?.id   || null,
     weapons: state.weapons, equip: state.equip, containers: state.containers || [], formulas: state.formulas || [], languages: state.languages || [], pets: state.pets || [],
-    spells: state.spells, spellSlots: state.spellSlots, spellSlotsUsed: state.spellSlotsUsed, cantripSlots: state.cantripSlots || 5,
+    spells: state.spells, spellSlots: state.spellSlots, spellSlotsUsed: state.spellSlotsUsed, cantripSlots: state.cantripSlots || 5, bonusSpellSlots: state.bonusSpellSlots || {},
     feats: state.feats, conditions: state.conditions,
     growth: state.growth,
     vision: state.vision || null,
@@ -496,6 +496,7 @@ function loadData(d) {
     }
     if (d.spellSlotsUsed) state.spellSlotsUsed = d.spellSlotsUsed;
     if (d.cantripSlots) state.cantripSlots = d.cantripSlots;
+    state.bonusSpellSlots = d.bonusSpellSlots || {};
     renderSpells();
     if (d.feats) {
       state.feats = d.feats;
