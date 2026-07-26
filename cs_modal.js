@@ -6015,7 +6015,7 @@ function updateSpellSlotsForClass() {
 // ═══════════════════════════════════════════════
 
 let _actionFilter = 'all';
-let _actionAvailOnly = false;   // 행동: 사용 가능한 것만
+let _actionShowLocked = false;  // 행동: 기본=사용 가능한 것만, 체크 시 사용 못하는 것도 표시
 let _condActiveOnly = false;    // 상태이상: 적용 중인 것만
 
 function setActionFilter(f, btn) {
@@ -6028,7 +6028,7 @@ function setActionFilter(f, btn) {
 // 우측 끝 체크박스: 행동 탭이면 "사용 가능한 것만", 상태이상 탭이면 "적용 중인 것만"
 function toggleActionExtraFilter(cb) {
   if (_actionFilter === 'conditions') _condActiveOnly = cb.checked;
-  else _actionAvailOnly = cb.checked;
+  else _actionShowLocked = cb.checked;
   renderActions();
 }
 
@@ -6043,9 +6043,9 @@ function _syncActionExtraFilter() {
     cb.checked = _condActiveOnly;
     if (wrap) wrap.title = '적용 중인 상태이상만 표시';
   } else {
-    lbl.textContent = '사용 가능한 것만';
-    cb.checked = _actionAvailOnly;
-    if (wrap) wrap.title = '사용 가능한 행동만 표시';
+    lbl.textContent = '사용 못하는 것도 보기';
+    cb.checked = _actionShowLocked;
+    if (wrap) wrap.title = '재주·유산·숙련이 없어 아직 못 쓰는 행동도 표시';
   }
 }
 
@@ -6307,9 +6307,35 @@ function renderActions() {
     });
   }
 
-  // 행동경제(비용) 필터 — _actionFilter 값('1'|'2'|'3'|'free'|'reaction')이 곧 a.cost
-  // 그 외(1min/10min/passive/varies 등)는 '전체'에서만 노출. 그룹 분류(기본/기술/재주)는 그대로 유지.
-  if (_actionFilter !== 'all') {
+  // 활동(activity): 탐험/막간 특성 행동을 카탈로그에서 직접 파생(대원칙 0 — 데이터 파생, 하드코딩 목록 없음).
+  //   정본 필터(PF.all)가 보유 6권 밖·오태깅을 이미 제외 → exploration/downtime 특성으로 그룹만 분류.
+  //   큐레이션에 이미 있는 기술 활동(흔적 지우기·정보 수집·상처 치료 등)은 name_en 대조로 중복 제외.
+  //   크리처 전용 활동(이름이 '('로 시작)은 제외. cost=passive라 '전체' 필터에서만 노출.
+  if (typeof PF2eAction !== 'undefined' && PF2eAction.ready && PF2eAction.ready() && PF2eAction.actionList) {
+    const _existN = new Set(visible.map(a => (a.name_en || '').toLowerCase()));
+    PF2eAction.actionList().forEach(a => {
+      const tv = (a._doc && a._doc.system && a._doc.system.traits && a._doc.system.traits.value) || [];
+      const isExp = tv.includes('exploration'), isDt = tv.includes('downtime');
+      if (!isExp && !isDt) return;
+      if ((a.name_en || '').startsWith('(')) return;              // 크리처 전용 활동 제외
+      const key = (a.name_en || '').toLowerCase();
+      if (_existN.has(key)) return;                               // 기술 행동 등 이미 큐레이션에 존재
+      _existN.add(key);
+      visible.push({
+        id: 'activity-' + a.id, cat: 'activity', cat_label: isExp ? '탐험 활동' : '막간 활동',
+        name_ko: a.name_ko, name_en: a.name_en, cost: a.cost || 'passive',
+        traits: a.traits || [], req_skill: null, req_rank: 0, req_feat: null,
+        summary: a.desc || '', _fvttDesc: a.desc || '',
+      });
+    });
+  }
+
+  // '활동' 필터 — 탐험/막간 활동(cat==='activity')만. 조우 행동과 별도 뷰로 구분.
+  // 그 외 행동경제(비용) 필터 — _actionFilter 값('1'|'2'|'3'|'free'|'reaction')이 곧 a.cost.
+  // '전체'는 활동 포함 전부. 활동은 cost=passive라 비용 필터엔 안 잡히고 '활동'/'전체'에서만 노출.
+  if (_actionFilter === 'activity') {
+    visible = visible.filter(a => a.cat === 'activity');
+  } else if (_actionFilter !== 'all') {
     visible = visible.filter(a => a.cost === _actionFilter);
   }
 
@@ -6321,21 +6347,20 @@ function renderActions() {
     else groups[a.cat_label].locked.push(a);
   });
 
-  const catOrder = ['재주 행동','유산 행동','기본 행동','운동 행동','곡예 행동','은신 행동','기만 행동','외교 행동','위협 행동','의학 행동','도둑질 행동','자연 행동','생존 행동','제작 행동','공연 행동','지식 행동'];
+  const catOrder = ['재주 행동','유산 행동','기본 행동','운동 행동','곡예 행동','은신 행동','기만 행동','외교 행동','위협 행동','의학 행동','도둑질 행동','자연 행동','생존 행동','제작 행동','공연 행동','지식 행동','탐험 활동','막간 활동'];
 
   let html = '';
   const orderedGroups = [...catOrder.filter(k => groups[k]), ...Object.keys(groups).filter(k => !catOrder.includes(k))];
 
   orderedGroups.forEach(label => {
     const g = groups[label];
-    const all = _actionAvailOnly ? [...g.available] : [...g.available, ...g.locked];
+    const all = _actionShowLocked ? [...g.available, ...g.locked] : [...g.available];
     if (!all.length) return;
-    html += `<div style="margin-bottom:12px;"><div class="action-group-title">${label}</div><div class="actions-grid">`;
+    html += `<div style="margin-bottom:12px;"><div class="action-group-title">${label}</div><div class="action-acc-list">`;
     all.forEach(a => {
       const avail = isActionAvailable(a);
       const granted = avail && isGrantedAction(a);
-      const opacity = avail ? '' : 'opacity:0.45;';
-      const grantedStyle = granted ? 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);' : '';
+      const opacity = avail ? '' : 'opacity:0.5;';
       const costIcon = getActionCostIcon(a.cost);
       const traitsHtml = (a.traits||[]).map(t => typeof traitTag==='function' ? traitTag(t) : `<span class="tag">${t}</span>`).join('');
       let reqHtml = '';
@@ -6348,25 +6373,24 @@ function renderActions() {
           reqHtml = `<div class="action-req">${sk?sk.name:a.req_skill} ${rankNames[a.req_rank]||''} 필요</div>`;
         }
       }
-      const sourceHtml = granted ? `<div style="font-size:9px;color:var(--accent);margin-top:2px;">${a._grantedBySub ? (a._grantedBySub + ' 부여') : a.req_heritage ? '유산 부여' : a.req_feat ? '재주: '+(a.req_feat_name || a.req_feat) : ''}</div>` : '';
-      // FVTT 이행: 전체 설명=FVTT desc(폴백 레거시 summary). 카드=컴팩트 프리뷰 + 클릭 시 인라인 아코디언.
+      const sourceHtml = granted ? `<div style="font-size:9px;color:var(--accent);margin-top:4px;">${a._grantedBySub ? (a._grantedBySub + ' 부여') : a.req_heritage ? '유산 부여' : a.req_feat ? '재주: '+(a.req_feat_name || a.req_feat) : ''}</div>` : '';
+      // 주문·클래스특성과 동일한 접이식 카드(cfb 아코디언): 헤더=비용+아이콘+이름+펼침 화살표, 본문=특성+전체 설명.
       const descFull = (s=>typeof resolveDescRefs==='function'?resolveDescRefs(s):s)(_stripTraitLine(a._fvttDesc || a.summary || ''));
-      const previewText = descFull.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
-      const preview = previewText.slice(0,76) + (previewText.length>76 ? '…' : '');
-      html += `<div class="action-card action-card-click" onclick="typeof toggleActionInline==='function'&&toggleActionInline(this)" style="${opacity}${grantedStyle}">
-        <div class="action-card-head">
-          <span class="action-cost">${costIcon}</span>
-          ${a.cat==='feat' && typeof iconImg==='function' ? iconImg('feat',a) : ''}
-          <div style="flex:1;min-width:0;">
-            <div class="action-name-ko">${a.name_ko}</div>
-            <div class="action-name-en">${a.name_en}</div>
-          </div>
+      const iconHtml = (a.cat==='feat' && typeof iconImg==='function') ? iconImg('feat', a, 'cfb-ic') : '';
+      const iconWrap = iconHtml ? `<span class="cfb-icon">${iconHtml}</span>` : '';
+      const body = `${traitsHtml ? `<div class="action-traits">${traitsHtml}</div>` : ''}`
+        + `<div class="cfb-desc">${descFull || '<span style="color:var(--text2);">상세 설명이 없습니다.</span>'}</div>`
+        + `${sourceHtml}${reqHtml}`;
+      // 행동 카드는 기본 펼침(cfb-open) — 클릭으로 접을 수 있음(주문·클래스특성은 기본 접힘 유지).
+      html += `<div class="cfb-card action-acc${granted ? ' action-acc-granted' : ''}" style="${opacity}">
+        <div class="cfb-head cfb-clickable cfb-head-open" onclick="_toggleClassFeatInline(this)">
+          <span class="action-cost action-acc-cost">${costIcon}</span>
+          ${iconWrap}
+          <span class="cfb-name">${a.name_ko} <span class="cfb-en">${a.name_en}</span></span>
+          <span class="cfb-chev">▾</span>
         </div>
-        ${traitsHtml ? `<div class="action-traits">${traitsHtml}</div>` : ''}
-        ${preview ? `<div class="action-summary">${preview}</div>` : ''}
-        ${sourceHtml}${reqHtml}
-      </div>
-      <div class="action-inline-detail">${descFull || '<span style="color:var(--text2);">상세 설명이 없습니다.</span>'}</div>`;
+        <div class="cfb-body cfb-open">${body}</div>
+      </div>`;
     });
     html += `</div></div>`;
   });
