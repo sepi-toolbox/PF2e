@@ -1003,21 +1003,29 @@ function clearDoctrine() {
   else { state.selectedSubclass = null; renderGrowthPlan(); }
 }
 
+// 신성 원천(치유/해악) 정본 설명 — divine-font 클래스특성 desc에서 해당 원천 문단만 추출(손번역 금지).
+function _divineFontDesc(heal) {
+  const cf = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
+    ? CLASS_FEATURE_NAMES.cleric.find(f => (f.id || f.slug) === 'divine-font') : null;
+  const full = (cf && cf.desc) || '';
+  const want = heal ? '치유' : '해악';
+  if (full) {
+    const blocks = full.match(/<p>[\s\S]*?<\/p>/gi) || [full];
+    const hit = blocks.find(b => b.indexOf('<em>' + want + '</em> 주문만') !== -1)
+             || blocks.find(b => b.indexOf('추가로 얻') !== -1 && b.indexOf(want) !== -1);
+    if (hit) return hit;
+  }
+  // 데이터 없을 때 정본 요지 폴백(4/5/6 슬롯)
+  return `<p>매일 클레릭 주문 슬롯 중 가장 높은 랭크의 주문 슬롯을 4개 추가로 얻습니다. 이 슬롯에는 <em>${want}</em> 주문만 준비할 수 있습니다. 5레벨에 5개, 15레벨에 6개로 늘어납니다.</p>`;
+}
+
 function openDivineFontPicker() {
-  const _dfDesc = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
-    ? (CLASS_FEATURE_NAMES.cleric.find(f => f.id === 'divine-font') || {}).desc || '' : '';
-  const mk = (heal) => {
-    const base = heal
-      ? '최고 랭크 <strong>추가 주문 슬롯</strong>에 <strong>치유(heal)</strong> 주문만 준비할 수 있습니다.'
-      : '최고 랭크 <strong>추가 주문 슬롯</strong>에 <strong>해악(harm)</strong> 주문만 준비할 수 있습니다.';
-    return base + (_dfDesc ? `<div style="margin-top:8px;color:var(--text2);font-size:12px;">${_dfDesc}</div>` : '');
-  };
   _openChoicePicker({
     title: '신성 원천 선택', modalType: 'font-pick', source: 'PC1',
     hint: '원천을 선택하면 설명이 표시됩니다.',
     options: [
-      { id: 'heal', name: '치유', nameEn: 'Heal', desc: mk(true) },
-      { id: 'harm', name: '해악', nameEn: 'Harm', desc: mk(false) },
+      { id: 'heal', name: '치유의 샘', nameEn: 'Healing Font', desc: _divineFontDesc(true) },
+      { id: 'harm', name: '해악의 샘', nameEn: 'Harmful Font', desc: _divineFontDesc(false) },
     ],
     current: state.divineFont,
     onSelect: (v) => {
@@ -1282,9 +1290,9 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
   const nameEn = f.name_en || (featData && featData.name_en) || '';
   const badge = (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
   // 클릭 아코디언: 설명(+부여 재주/주문)을 접었다 펼침.
-  let _desc = featData ? (featData.desc || featData.summary || '') : '';
+  let _desc = (opts && opts.descOverride != null) ? opts.descOverride : (featData ? (featData.desc || featData.summary || '') : '');
   // 서브클래스 변형 특성(첫 번째 교리 등)은 선택한 서브클래스의 혜택 설명으로 대체(미선택=프롬프트).
-  const _variant = _subclassVariantDesc(slug, _desc);
+  const _variant = (opts && opts.descOverride != null) ? null : _subclassVariantDesc(slug, _desc);
   let descHtml = '';
   if (_variant && _variant.prompt) {
     descHtml = `<div class="gcf-desc gcf-desc-prompt">${_variant.prompt}</div>`;
@@ -1386,8 +1394,9 @@ function renderGrowthPlan() {
     // 클래스/서브클래스 특성 = 하단 아코디언으로(예시). 여기선 수집만 하고 레벨 끝에 붙임.
     let _featBoxes = '';
     if (state.selectedClass && typeof CLASS_FEATURE_NAMES !== 'undefined') {
-      // 선택박스로 대체된 클래스특성(신격/교리/신성한 샘)은 특성 박스에서 제외 — 중복 방지.
-      const _choiceSlugs = new Set(['doctrine', 'deity-cleric', 'divine-font']);
+      // 교리/신성한 샘/신격은 선택 UI(피커·필드)가 대체하므로 일반 특성 박스에서 제외.
+      //   신격은 아래에서 「신격 Deity」 전용 설명 박스(부여 부분만 발췌)로 노출(예시 Pathbuilder).
+      const _choiceSlugs = new Set(['doctrine', 'divine-font', 'deity-cleric']);
       const classFeats = (CLASS_FEATURE_NAMES[state.selectedClass.id]||[]).filter(f => f.lv === lv && !_choiceSlugs.has(f.slug || f.id));
       // 서브클래스 특성 중, 클래스 로스터 특성과 같은 항목(같은 slug 또는 같은 name_en)은 중복 박스이므로 제외.
       //   예: 전투 사제의 「First Doctrine(경갑·평갑 훈련)」 = 제네릭 「첫 번째 교리」와 동일 → 제네릭 박스가 교리별 혜택을 표시하므로 서브 박스 생략.
@@ -1401,6 +1410,15 @@ function renderGrowthPlan() {
             return !_cfSlugs.has(sl) && !(nm && _cfNames.has(nm));
           }) : [];
       [...classFeats, ...subFeats].forEach(f => { _featBoxes += _growthFeatureBoxHtml(f, lv, gm); });
+      // 「신격 Deity」 설명 박스(예시 Pathbuilder) — 신격 사용 클래스(deity_skill)의 1레벨.
+      //   신격이 부여하는 것(기술·선호무기·주문)까지만 발췌(성화/금기 하위 섹션 제외).
+      if (lv === 1 && state.selectedClass.deity_skill) {
+        let _dd = (typeof getFeat === 'function') ? ((getFeat('deity-cleric') || {}).desc || '') : '';
+        if (_dd) {
+          const _cut = _dd.search(/<h[1-6]/i); if (_cut > 0) _dd = _dd.slice(0, _cut);
+          _featBoxes += _growthFeatureBoxHtml({ slug: 'deity-cleric', name_ko: '신격', name_en: 'Deity' }, lv, gm, { descOverride: _dd });
+        }
+      }
       // 출처 특성이 로스터에 없는 부여 재주(orphan)도 이 레벨에서 박스로 노출 — 무엇도 누락 없이.
       gm.orphanFeats.filter(o => (o.lv || 1) === lv).forEach(o => {
         _featBoxes += _growthFeatureBoxHtml({ slug: o.slug, name_ko: o.name }, lv, gm, { granted: true });
