@@ -303,14 +303,55 @@ function _sheetLoadingHide() {
   if (typeof _hideBootLoading === 'function') _hideBootLoading();
 }
 
+// GM 시트 전환/세션 로드 전, 이전 플레이어 데이터 잔상 제거.
+// ⚠ loadData는 존재하는 필드만 덮어써서(if(d.X)), 리셋 없이 전환하면 새 캐릭터에 없는 필드가 이전 값으로 남는다.
+//   특히 빈/미완성 슬롯으로 전환하면 loadData조차 안 불려 이전 시트가 통째로 남음("뭘 눌러도 똑같이 보이는" 버그).
+function _resetSheetForSwitch() {
+  // ── state 초기 템플릿으로 리셋 ──
+  state.selectedClass = null; state.selectedSubclass = null;
+  state.selectedAncestry = null; state.selectedBackground = null; state.selectedHeritage = null;
+  state.portrait = null;
+  state.boosts = { ancFixed:[], ancFlaw:[], ancFree:[], bg:[], cls:null, lv1:[], lv5:[], lv10:[], lv15:[], lv20:[] };
+  state.weapons = []; state.equip = []; state.containers = []; state.formulas = []; state.languages = []; state.pets = [];
+  state.spells = { cantrip:[], known:[], focus:[], innate:[] };
+  state.cantripSlots = 5; state.spellSlots = {}; state.spellSlotsUsed = {}; state.signatureSpells = {};
+  state.familiarSpells = null; state.preparedSpells = null;
+  state.feats = { special:[], ancestry:[], class:[], general:[], skill:[], archetype:[], other:[] };
+  state.conditions = {}; state.growth = {}; state.extraSpeeds = {};
+  state.deity = null; state.divineFont = null; state.sanctification = null; state.divineFontUsed = 0;
+  state.bloodlineExemplar = null; state.classFeatureChoices = {};
+  state.shieldRaised = false; state.trainableSkillSlots = 0;
+  delete state.armorPotency; delete state.armorResilient; delete state.armorStowed; delete state.shieldStowed;
+
+  // ── DOM 입력/버튼 리셋(loadData가 '존재 시에만' 세팅하는 값들) ──
+  var g = function(id){ return document.getElementById(id); };
+  var setv = function(id, v){ var el = g(id); if (el) el.value = v; };
+  ['f-name','name','f-xp','xp','f-notes','notes','combat-notes','equip-notes','hp-cur','hp-max','hp-temp','shield-hp-cur'].forEach(function(id){ setv(id, ''); });
+  setv('f-level','1'); setv('level','1'); setv('speed','25');
+  setv('dying','0'); setv('wounded','0'); setv('fp-cur','0'); setv('fp-max','0');
+  setv('hero-points','1'); if (typeof loadHeroPoints === 'function') { try { loadHeroPoints(1); } catch(e){} }
+  ['ac','fort','ref','will','perc','classdc','spatk'].forEach(function(p){ setv('prof-'+p, '0'); });
+  ['simple','martial','advanced','unarmed'].forEach(function(c){ setv('prof-weapon-'+c, '0'); });
+  if (typeof SKILLS !== 'undefined') SKILLS.forEach(function(sk){ setv('sk-prof-'+sk.id, '0'); setv('lore-name-'+sk.id, ''); });
+  ['name','ac','dex'].forEach(function(k){ setv('armor-'+k, k==='name' ? '' : '0'); });
+  ['name','ac','hard','hp'].forEach(function(k){ setv('shield-'+k, k==='name' ? '' : '0'); });
+  for (var r=1; r<=10; r++) { setv('slots-max-'+r, '0'); }
+  ['gp','sp','cp','pp'].forEach(function(c){ setv('cur-'+c, ''); });
+  [['btn-class','클래스 선택...'],['btn-subclass','서브클래스...'],['btn-ancestry','혈통 선택...'],['btn-background','배경 선택...'],['btn-heritage','유산...']].forEach(function(p){ var b = g(p[0]); if (b) { b.textContent = p[1]; b.classList.remove('filled'); } });
+  var subBtn = g('btn-subclass'); if (subBtn) subBtn.style.display = 'none';
+}
+
 function loadSessionCharacter(uid) {
   const st = document.getElementById('save-status');
   if (st) { st.textContent = '불러오는 중...'; st.style.color = 'var(--accent)'; }
   _sheetLoadingShow();   // 화면 덮는 로딩 연출 — 로드 완료(성공/빈/실패) 시 해제
+  _loadComplete = false;
+  _resetSheetForSwitch();   // ⚠ 이전 플레이어 잔상 제거(핵심 — 데이터 누수/빈 슬롯 시 이전 시트 잔존 방지)
   // 세션 players map에서 해당 플레이어의 슬롯 확인
   const slotId = _currentSession.players[uid]?.slotId;
   if (!slotId) {
     if (st) { st.textContent = '슬롯 미지정'; st.style.color = 'var(--text2)'; }
+    _rebuildAllUI(); recalcAll();   // 빈 시트로 반영
     _cloudResolved = true; _checkReady();
     _sheetLoadingHide();
     return;
@@ -328,6 +369,7 @@ function loadSessionCharacter(uid) {
         if (st) { st.textContent = '✓ 불러오기 완료'; st.style.color = 'var(--green)'; }
       } else {
         if (st) { st.textContent = '빈 캐릭터'; st.style.color = 'var(--text2)'; }
+        _rebuildAllUI(); recalcAll();   // 빈 시트로 반영(이전 플레이어 잔존 방지)
         _cloudResolved = true; _checkReady();
       }
     }).catch(e => {
