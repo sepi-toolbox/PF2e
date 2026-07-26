@@ -1375,14 +1375,14 @@ function renderGrowthPlan() {
       let _gears = '';
       if (plan.boosts) {
         const _bk = lv === 1 ? 'lv1' : `lv${lv}`;
-        const _bc = (state.boosts[_bk] || []).length;
-        _gears += _growthGearHTML(plan.boosts, '능력치 증강', 'Set Abilities', `openBoostModal(${lv})`, _bc >= plan.boosts);
+        const _bc = (state.boosts[_bk] || []).filter(Boolean).length;
+        _gears += _growthGearHTML(Math.max(0, plan.boosts - _bc), '능력치 증강', 'Set Abilities', `openBoostModal(${lv})`, _bc >= plan.boosts);
       }
       if (lv === 1) {
         const _nSk = state.trainableSkillSlots || 0;
         if (_nSk > 0) {
           const _tr = ((state.growth[1] || {}).skillTraining || []).filter(Boolean).length;
-          _gears += _growthGearHTML(_nSk, '기술 훈련', 'Skill Training', "growthPickSkillTrainingMulti()", _tr >= _nSk);
+          _gears += _growthGearHTML(Math.max(0, _nSk - _tr), '기술 훈련', 'Skill Training', "growthPickSkillTrainingMulti()", _tr >= _nSk);
         }
         if (state.selectedClass && state.selectedClass.deity_skill) {
           // 신격 기술은 선택 항목이 아니라 신격이 자동으로 정함 → 부여 기술을 캡션으로 표시, 클릭=안내.
@@ -1532,11 +1532,12 @@ function growthSlotWithClearHTML(key, icon, label, value, onclickStr, clearActio
   return _growthSlotSkeleton({ value, onclick: onclickStr, icon, label, trailing: clearBtn });
 }
 
-// Pathbuilder식 기어 원형(능력치 증강/기술 훈련/신격 기술). num=숫자, filled=선택 완료. sub=부가 캡션(예: 신격 기술명).
+// Pathbuilder식 기어 원형(능력치 증강/기술 훈련/신격 기술). num=남은 개수(선택할수록 감소), filled=완료 시 체크(✓). sub=부가 캡션.
 function _growthGearHTML(num, labelKo, labelEn, onclickStr, filled, sub) {
   const subHtml = sub ? `<span class="growth-gear-sub">${sub}</span>` : '';
+  const inner = filled ? '✓' : num;   // 완료(남은 0)면 숫자 대신 체크
   return `<div class="growth-gear ${filled ? 'filled' : ''}" onclick="${onclickStr}">
-    <div class="growth-gear-circle"><span class="growth-gear-num">${num}</span></div>
+    <div class="growth-gear-circle"><span class="growth-gear-num">${inner}</span></div>
     <div class="growth-gear-label">${labelKo}<span class="en">${labelEn}</span>${subHtml}</div>
   </div>`;
 }

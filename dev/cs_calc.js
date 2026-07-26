@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.277').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.278').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -1671,12 +1671,9 @@ function renderBoostModal() {
 
   container.insertAdjacentHTML('beforeend', html);
 
-  // ── 자유 증강(레벨별 4개, 체크박스 + 카운터) ──
-  const lv = getLevel();
-  [[1,'lv1'],[5,'lv5'],[10,'lv10'],[15,'lv15'],[20,'lv20']].forEach(([reqLv, key]) => {
-    if (lv < reqLv) return;
-    container.appendChild(_boostFreeSection(reqLv, key, ATTRS));
-  });
+  // 초기 배분 모달(레벨1 기어) = 혈통·배경·클래스 + 레벨1 자유 증강만.
+  //   5·10·15·20레벨 증강은 각 레벨 기어의 포커스 창(_boostFocusLv, 위 early-return)에서 처리 — 여기 섞지 않음.
+  container.appendChild(_boostFreeSection(1, 'lv1', ATTRS));
 }
 
 // ── Pathbuilder식 능력치 증강 모달 헬퍼 (v0.262~) ──
