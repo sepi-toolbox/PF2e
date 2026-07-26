@@ -959,27 +959,21 @@ function clearDeity() {
 }
 
 function openSanctPicker() {
-  if(!state.deity) return;
-  const d = _getDeity(state.deity);
-  if(!d) return;
+  if (!state.deity) return;
+  const d = _getDeity(state.deity); if (!d) return;
   const opts = d.sanctification || [];
-  const labels = {holy:'✨ 신성 Holy — 선한 힘에 축성됨', unholy:'🔥 불경 Unholy — 악한 힘에 축성됨'};
-  const items = opts.map(s =>
-    `<div class="opt-row" onclick="pickSanctification('${s}')" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
-      <span class="opt-row-name">${labels[s]||s}</span>
-    </div>`).join('');
-  items && (document.getElementById('modal-overlay').classList.remove('hidden'));
-  document.getElementById('modal-title').textContent = '성별화 선택';
-  const fbar = document.getElementById('modal-filterbar'); if(fbar) fbar.innerHTML='';
-  const searchEl = document.getElementById('modal-search'); if(searchEl) searchEl.style.display='none';
-  document.getElementById('modal-options').innerHTML = items;
-  document.getElementById('modal-detail').innerHTML = '';
-  const footer = document.querySelector('.modal-footer');
-  if(footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
-  modalType = 'sanct-pick';
+  const META = {
+    holy: { name: '신성', nameEn: 'Holy', desc: '<strong>신성(holy)</strong> 특성을 얻습니다 — 선한 힘에 헌신합니다. 신성 특성이 붙은 재주·주문·아이템을 사용할 수 있고, 불경(unholy)한 대상에게 특히 효과적입니다.' },
+    unholy: { name: '불경', nameEn: 'Unholy', desc: '<strong>불경(unholy)</strong> 특성을 얻습니다 — 악한 힘에 헌신합니다. 불경 특성이 붙은 재주·주문·아이템을 사용할 수 있고, 신성(holy)한 대상에게 특히 효과적입니다.' },
+  };
+  _openChoicePicker({
+    title: '성별화 선택', modalType: 'sanct-pick', source: 'PC1',
+    hint: '신격이 허용하는 성별화를 선택하면 설명이 표시됩니다.',
+    options: opts.map(s => ({ id: s, name: (META[s] || {}).name || s, nameEn: (META[s] || {}).nameEn || '', desc: (META[s] || {}).desc || '' })),
+    current: state.sanctification,
+    onSelect: (v) => { state.sanctification = v; closeModal(); renderGrowthPlan(); save(); },
+  });
 }
-
-function pickSanctification(val) { state.sanctification = val; closeModal(); renderGrowthPlan(); save(); }
 function clearSanctification() { state.sanctification = null; renderGrowthPlan(); save(); }
 
 // 교리(서브클래스) 독립 피커 — 성장플랜 교리 슬롯에서 사용(클래스 모달 밖).
@@ -987,19 +981,13 @@ function openDoctrinePicker() {
   const cid = state.selectedClass && state.selectedClass.id;
   const doctrines = (typeof SUBCLASS_DB !== 'undefined' && cid) ? SUBCLASS_DB.filter(s => s.class_id === cid) : [];
   if (!doctrines.length) return;
-  const items = doctrines.map(s =>
-    `<div class="opt-row" onclick="pickDoctrine('${s.id}')" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
-      <span class="opt-row-name">${s.name_ko} <span style="color:var(--text2);font-size:11px;">${s.name_en || ''}</span></span>
-    </div>`).join('');
-  document.getElementById('modal-overlay').classList.remove('hidden');
-  document.getElementById('modal-title').textContent = '교리 선택';
-  const fbar = document.getElementById('modal-filterbar'); if (fbar) fbar.innerHTML = '';
-  const searchEl = document.getElementById('modal-search'); if (searchEl) searchEl.style.display = 'none';
-  document.getElementById('modal-options').innerHTML = items;
-  document.getElementById('modal-detail').innerHTML = '';
-  const footer = document.querySelector('.modal-footer');
-  if (footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
-  modalType = 'doctrine-pick';
+  _openChoicePicker({
+    title: '교리 선택', modalType: 'doctrine-pick', source: 'PC1',
+    hint: '교리를 선택하면 그 교리의 혜택 설명이 표시됩니다.',
+    options: doctrines.map(s => ({ id: s.id, name: s.name_ko, nameEn: s.name_en || '', desc: s.desc || '' })),
+    current: state.selectedSubclass && state.selectedSubclass.id,
+    onSelect: (id) => pickDoctrine(id),
+  });
 }
 function pickDoctrine(id) {
   const sub = (typeof SUBCLASS_DB !== 'undefined') ? SUBCLASS_DB.find(s => s.id === id) : null;
@@ -1015,79 +1003,93 @@ function clearDoctrine() {
   else { state.selectedSubclass = null; renderGrowthPlan(); }
 }
 
-var _pendingFont = null;
 function openDivineFontPicker() {
-  _pendingFont = null;
-  const items = `
-    <div class="opt-row" onclick="previewDivineFont('heal',this)" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
-      <span class="opt-row-name">💚 치유 Heal — 치유 주문 추가 시전 횟수</span></div>
-    <div class="opt-row" onclick="previewDivineFont('harm',this)" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
-      <span class="opt-row-name">💀 해악 Harm — 해악 주문 추가 시전 횟수</span></div>`;
-  document.getElementById('modal-overlay').classList.remove('hidden');
-  document.getElementById('modal-title').textContent = '신성 원천 선택';
-  const fbar = document.getElementById('modal-filterbar'); if(fbar) fbar.innerHTML='';
-  const searchEl = document.getElementById('modal-search'); if(searchEl) searchEl.style.display='none';
-  document.getElementById('modal-options').innerHTML = items;
-  document.getElementById('modal-detail').innerHTML = '<div class="modal-detail-empty">원천을 선택하면 상세 정보가 표시됩니다.</div>';
-  const footer = document.querySelector('.modal-footer');
-  if(footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
-  modalType = 'font-pick';
-}
-
-function previewDivineFont(val, row) {
-  _pendingFont = val;
-  document.querySelectorAll('.opt-row').forEach(r=>r.classList.remove('selected'));
-  if(row) row.classList.add('selected');
-
-  const isHeal = val === 'heal';
-  const icon = isHeal ? '💚' : '💀';
-  const label = isHeal ? '치유 원천' : '해악 원천';
-  const labelEn = isHeal ? 'Heal' : 'Harm';
-  const spellDesc = isHeal
-    ? '최고 랭크 추가 슬롯에 <em>치유(Heal)</em> 주문만 준비할 수 있습니다.'
-    : '최고 랭크 추가 슬롯에 <em>해로움(Harm)</em> 주문만 준비할 수 있습니다.';
   const _dfDesc = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
     ? (CLASS_FEATURE_NAMES.cleric.find(f => f.id === 'divine-font') || {}).desc || '' : '';
-
-  const detailHtml = `
-    <div class="modal-detail-title">${icon} ${label}</div>
-    <div class="modal-detail-en">${labelEn}</div>
-    <div style="margin:12px 0;font-size:13px;line-height:1.7;">
-      <div>${spellDesc}</div>
-      <div style="margin-top:8px;color:var(--text2);font-size:12px;">${_dfDesc}</div>
-    </div>
-    <button onclick="confirmDivineFont()" style="width:100%;margin-top:12px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">선택 확정</button>`;
-
-  if (window.innerWidth <= 900) {
-    document.querySelectorAll('.opt-row-detail.open').forEach(d=>d.classList.remove('open'));
-    document.querySelectorAll('.opt-row.expanded').forEach(r=>r.classList.remove('expanded'));
-    if(row) {
-      row.classList.add('expanded');
-      let detailDiv = row.nextElementSibling;
-      if(!detailDiv || !detailDiv.classList.contains('opt-row-detail')) {
-        detailDiv = document.createElement('div'); detailDiv.className='opt-row-detail'; row.after(detailDiv);
-      }
-      detailDiv.innerHTML = detailHtml;
-      detailDiv.classList.add('open');
-    }
-  } else {
-    document.getElementById('modal-detail').innerHTML = detailHtml;
-  }
-}
-
-function confirmDivineFont() {
-  if (!_pendingFont) return;
-  state.divineFont = _pendingFont;
-  state.divineFontUsed = 0;
-  _pendingFont = null;
-  closeModal();
-  applyClassFeatures();
-  renderGrowthPlan();
-  renderSpells();
-  save();
+  const mk = (heal) => {
+    const base = heal
+      ? '최고 랭크 <strong>추가 주문 슬롯</strong>에 <strong>치유(heal)</strong> 주문만 준비할 수 있습니다.'
+      : '최고 랭크 <strong>추가 주문 슬롯</strong>에 <strong>해악(harm)</strong> 주문만 준비할 수 있습니다.';
+    return base + (_dfDesc ? `<div style="margin-top:8px;color:var(--text2);font-size:12px;">${_dfDesc}</div>` : '');
+  };
+  _openChoicePicker({
+    title: '신성 원천 선택', modalType: 'font-pick', source: 'PC1',
+    hint: '원천을 선택하면 설명이 표시됩니다.',
+    options: [
+      { id: 'heal', name: '치유', nameEn: 'Heal', desc: mk(true) },
+      { id: 'harm', name: '해악', nameEn: 'Harm', desc: mk(false) },
+    ],
+    current: state.divineFont,
+    onSelect: (v) => {
+      state.divineFont = v; state.divineFontUsed = 0; closeModal();
+      if (typeof applyClassFeatures === 'function') applyClassFeatures();
+      renderGrowthPlan();
+      if (typeof renderSpells === 'function') renderSpells();
+      save();
+    },
+  });
 }
 
 function clearDivineFont() { state.divineFont = null; state.divineFontUsed = 0; renderGrowthPlan(); renderSpells(); save(); }
+
+// ── 공용 선택 피커(성별화·교리·신성원천 등 소수 옵션 + 설명) ──
+//   데스크톱=우측 상세 패널 / 모바일=인라인 아코디언(신성원천 기존 패턴 일반화). 이모지 없음. Pathbuilder 팝업 미러.
+var _choiceCfg = null;
+function _openChoicePicker(cfg) {
+  _choiceCfg = cfg;
+  document.getElementById('modal-overlay').classList.remove('hidden');
+  document.getElementById('modal-title').textContent = cfg.title;
+  const searchEl = document.getElementById('modal-search'); if (searchEl) searchEl.style.display = 'none';
+  const fbar = document.getElementById('modal-filterbar'); if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm'); if (confirmBtn) confirmBtn.style.display = 'none';
+  modalType = cfg.modalType || 'choice-pick';
+  const rows = cfg.options.map((o, i) => {
+    const sel = cfg.current === o.id;
+    return `<div class="opt-row choice-row${sel ? ' selected' : ''}" onclick="_previewChoice(${i}, this)">
+      <span class="opt-row-name">${o.name}${o.nameEn ? ` <span class="choice-en">${o.nameEn}</span>` : ''}</span>
+      ${sel ? '<span class="choice-cur">현재</span>' : ''}
+    </div>`;
+  }).join('');
+  document.getElementById('modal-options').innerHTML = rows;
+  const detail = document.getElementById('modal-detail');
+  if (detail) detail.innerHTML = `<div class="modal-detail-empty">${cfg.hint || '항목을 선택하면 설명이 표시됩니다.'}</div>`;
+  const listEl = document.querySelector('.modal-list'); if (listEl) listEl.style.display = '';
+  const footer = document.querySelector('.modal-footer'); if (footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
+  // 데스크톱: 현재 선택 항목이 있으면 미리 설명 표시
+  if (window.innerWidth > 900) {
+    const idx = cfg.options.findIndex(o => o.id === cfg.current);
+    if (idx >= 0) _previewChoice(idx, document.querySelectorAll('.choice-row')[idx]);
+  }
+}
+function _previewChoice(i, row) {
+  const cfg = _choiceCfg; if (!cfg) return;
+  const o = cfg.options[i]; if (!o) return;
+  const src = cfg.source ? `<div class="choice-src">${cfg.source}</div>` : '';
+  const detailHtml = `
+    <div class="modal-detail-title">${o.name}</div>
+    ${o.nameEn ? `<div class="modal-detail-en">${o.nameEn}</div>` : ''}
+    <div style="margin:12px 0;font-size:13px;line-height:1.75;">${o.desc || ''}</div>${src}
+    <button onclick="_confirmChoice(${i})" style="width:100%;margin-top:12px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">선택 확정</button>`;
+  if (window.innerWidth <= 900) {
+    document.querySelectorAll('#modal-options .opt-row-detail.open').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('#modal-options .opt-row.expanded').forEach(r => r.classList.remove('expanded'));
+    if (row) {
+      row.classList.add('expanded');
+      let det = row.nextElementSibling;
+      if (!det || !det.classList.contains('opt-row-detail')) { det = document.createElement('div'); det.className = 'opt-row-detail'; row.after(det); }
+      det.innerHTML = detailHtml; det.classList.add('open');
+    }
+  } else {
+    document.querySelectorAll('.choice-row').forEach(r => r.classList.remove('selected'));
+    if (row) row.classList.add('selected');
+    const detail = document.getElementById('modal-detail'); if (detail) detail.innerHTML = detailHtml;
+  }
+}
+function _confirmChoice(i) {
+  const cfg = _choiceCfg; if (!cfg) return;
+  const o = cfg.options[i]; if (!o) return;
+  if (typeof cfg.onSelect === 'function') cfg.onSelect(o.id);
+}
 
 function toggleDivineFontSlot(idx) {
   const total = getDivineFontSlots();
