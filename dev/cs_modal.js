@@ -1293,7 +1293,32 @@ function renderGrowthPlan() {
           state.selectedHeritage ? state.selectedHeritage.name_ko : null,
           "openModal('heritage')", state.selectedHeritage ? "clearCoreSelection('heritage')" : null);
       }
-      // 언어/서브클래스/후원자 전통은 각 모달에서 처리
+      // 클레릭(deity_skill): 신격·성별화·신성원천을 클래스 모달이 아닌 1레벨 독립 슬롯으로 선택(Stage 1).
+      //   성별화·신성원천은 신격 선택 후 노출. 신격과 불일치하면 값은 유지하고 「⚠불일치」 표기(B안, 효과는 보류).
+      if (state.selectedClass && state.selectedClass.deity_skill) {
+        const _d = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
+        const _inv = state._invalidChoices || {};
+        html += growthSlotWithClearHTML('deity-sel',
+          _d ? _slotCircle('deity', _d, '🙏') : '🙏', '신격 Deity',
+          _d ? (_d.name_ko || _d.name_en) : null,
+          "openDeityPicker()", state.deity ? "clearDeity()" : null);
+        if (_d) {
+          const _sOpts = _d.sanctification || [];
+          if (_sOpts.length) {
+            const _sLab = state.sanctification
+              ? ((state.sanctification === 'holy' ? '신성 (Holy)' : '불경 (Unholy)') + (_inv.sanctification ? ' ⚠불일치' : ''))
+              : null;
+            html += growthSlotWithClearHTML('sanct-sel', '✨', '성별화 Sanctification',
+              _sLab, "openSanctPicker()", state.sanctification ? "clearSanctification()" : null);
+          }
+          const _fLab = state.divineFont
+            ? ((state.divineFont === 'heal' ? '치유 (Heal)' : '해악 (Harm)') + (_inv.divineFont ? ' ⚠불일치' : ''))
+            : null;
+          html += growthSlotWithClearHTML('font-sel', '⛲', '신성 원천 Divine Font',
+            _fLab, "openDivineFontPicker()", state.divineFont ? "clearDivineFont()" : null);
+        }
+      }
+      // 언어/후원자 전통은 각 모달에서 처리 (교리/서브클래스·기술훈련은 후속 Stage에서 슬롯화)
 
     }
 
@@ -4413,31 +4438,24 @@ function openClassModalAtLevel(targetLv) {
 
 // ── 클레릭 전용 UI: 교리 + 신격 + 신성 원천 ──
 function _buildClericChoicesUI() {
-  // ── 이전 선택값 복원 ──
-  const _savedSanct = state.sanctification || '';
-  const _savedFont = state.divineFont || '';
-  _modalChoices.doctrine = undefined;   // 교리는 일반 서브클래스 선택(_modalChoices.subclass)으로 통합 — 별도 doctrine 게이트 제거
+  // Stage 1: 신격·성별화·신성원천은 1레벨 독립 슬롯으로 이관 → 클래스 모달에서 제거(중복 방지),
+  //   모달 확정 검증(_validateInitialChoices) 대상에서도 빼기 위해 관련 _modalChoices를 undefined로.
+  _modalChoices.doctrine = undefined;   // 교리는 일반 서브클래스 선택(_modalChoices.subclass)으로 통합
   _modalChoices.deity = undefined;
-  _modalChoices.divineFont = state.selectedClass?.id === 'cleric' ? _savedFont : '';
+  _modalChoices.sanctification = undefined;
+  _modalChoices.divineFont = undefined;
 
   const cid = state.selectedClass?.id || 'cleric';
   const roster = (typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cid] || []) : []);
   const rf = slug => roster.find(f => (f.slug || f.id) === slug);   // 클래스 특성 데이터에서 조회(없으면 카드 안 그림)
   const doctrines = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.filter(s => s.class_id === cid) : [];
 
-  // 교리 카드 = 서브클래스 선택 (데이터 특성 'doctrine'). 라벨=서브클래스 종류(데이터).
+  // 교리 카드 = 서브클래스 선택 (데이터 특성 'doctrine'). 라벨=서브클래스 종류(데이터). (Stage 2에서 슬롯화 예정)
   const docFeat = rf('doctrine');
   const docLabel = (doctrines[0] && doctrines[0].subclass_type) || (docFeat && docFeat.name_ko) || '교리';
   let html = _buildSubclassChoiceUI(cid, docLabel, doctrines);
 
-  // 신성(클레릭) 카드 — 클래스 특성 데이터(deity-cleric)에 있을 때만. 이름=데이터, 설명=카탈로그, 컨트롤은 본문에.
-  const deityFeat = rf('deity-cleric');
-  if (deityFeat) html += _classFeatureBlock('🙏', deityFeat.name_ko, deityFeat.name_en, () => _choiceCardBody('deity-cleric', _clericDeityControlHtml(_savedSanct)), false, false);
-
-  // 신성한 샘 카드 — 클래스 특성 데이터(divine-font)에 있을 때만.
-  const fontFeat = rf('divine-font');
-  if (fontFeat) html += _classFeatureBlock('⛲', fontFeat.name_ko, fontFeat.name_en, () => _choiceCardBody('divine-font', _clericFontControlHtml(_savedFont)), false, false);
-
+  // 신격·성별화·신성원천 카드는 1레벨 슬롯(renderGrowthPlan)으로 이관됨 → 여기서 안 그림(Stage 1).
   return html;
 }
 
@@ -5429,13 +5447,17 @@ function confirmModal() {
       if (sub) { state.selectedSubclass = sub; const btn = document.getElementById('btn-subclass'); if (btn) { btn.textContent = `${sub.name_ko} (${sub.name_en})`; btn.classList.add('filled'); } }
     }
     if (_classHasInlineDeity(modalSelected)) {
-      // 신격/성별화/신성원천/헌신주문을 클래스 모달에서 인라인 선택 → 확정 시 동기(미선택·해제 포함)
-      state.deity = _modalChoices.deity || null;
-      state.sanctification = _modalChoices.sanctification || null;
-      const nf = _modalChoices.divineFont || null;
-      if (state.divineFont !== nf) state.divineFontUsed = 0;
-      state.divineFont = nf;
-      state.devotionSpell = _modalChoices.devotionSpell || null;   // 챔피언 헌신 주문
+      if (!modalSelected.deity_skill) {
+        // 챔피언 등(비-deity_skill 인라인): 모달에서 신격/성별화/신성원천 커밋(현행 유지, Stage 1b에서 슬롯화 예정)
+        state.deity = _modalChoices.deity || null;
+        state.sanctification = _modalChoices.sanctification || null;
+        const nf = _modalChoices.divineFont || null;
+        if (state.divineFont !== nf) state.divineFontUsed = 0;
+        state.divineFont = nf;
+      }
+      // 클레릭(deity_skill): 신격/성별화/신성원천은 1레벨 독립 슬롯이 직접 소유 → 여기서 건드리지 않음
+      //   (클래스 재확정 시 슬롯으로 고른 값이 지워지지 않도록 — Stage 1 핵심).
+      state.devotionSpell = _modalChoices.devotionSpell || null;   // 챔피언 헌신 주문(클레릭=undefined→null, 무해)
       if (_clericDeityIsChampion()) state.championBlessing = _modalChoices.championBlessing || null;   // 챔피언 헌신자의 축복(3레벨 택1)
     } else {
       if (_modalChoices.deity) state.deity = _modalChoices.deity;
