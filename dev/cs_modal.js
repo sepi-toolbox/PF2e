@@ -1305,8 +1305,7 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
   const kidsHtml = kids.length ? `<div class="gcf-grants">${kids.map(c => _growthGrantChildHtml(c, gm, 1)).join('')}</div>` : '';
   const nameKo = (f.name_ko || (featData && featData.name_ko) || slug).split(' (')[0].trim();
   const nameEn = f.name_en || (featData && featData.name_en) || '';
-  const badge = (opts && opts.freeFeat) ? '<span class="gcf-gbadge">무료 재주 Free Feat</span>'
-              : (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
+  const badge = (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
   // 무료 재주(배경 부여)는 예시(Pathbuilder)처럼 특성 배지(General·Skill 등)도 함께 표시.
   let _traitsHtml = '';
   if (opts && opts.freeFeat && featData && Array.isArray(featData.traits) && featData.traits.length && typeof traitTag === 'function') {
@@ -1363,7 +1362,6 @@ function _growthVisionBoxHtml() {
     <div class="gcf-main${hasBody ? ' gcf-clickable' : ''}"${hasBody ? ' onclick="_toggleGcfInline(this)"' : ''}>
       <span class="gcf-fic">${ic}</span>
       <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>
-      <span class="gcf-gbadge">감각 Sense</span>
       ${hasBody ? '<span class="gcf-chev">▾</span>' : ''}
     </div>
     ${hasBody ? `<div class="gcf-body"><div class="gcf-desc">${desc}</div></div>` : ''}
@@ -1529,7 +1527,10 @@ function renderGrowthPlan() {
 
     // Class features at this level — 특성별 개별 박스 + 부여 재주/주문 중첩(출처 기반)
     // 클래스/서브클래스 특성 = 하단 아코디언으로(예시). 여기선 수집만 하고 레벨 끝에 붙임.
-    let _featBoxes = '';
+    //   ★그룹 순서(사용자 지시): 클래스 선택지 → 클래스 특성 → 혈통/종족 기반 특성(시야) → 배경 기반 특성.
+    let _featBoxes = '';           // 클래스 특성
+    let _ancestryFeatBoxes = '';   // 혈통/종족 기반 특성(시야 등)
+    let _bgFeatBoxes = '';         // 배경 기반 특성(무료 재주 등)
     if (state.selectedClass && typeof CLASS_FEATURE_NAMES !== 'undefined') {
       // 교리/신성한 샘/신격은 선택 UI(피커·필드)가 대체하므로 일반 특성 박스에서 제외.
       //   신격은 아래에서 「신격 Deity」 전용 설명 박스(부여 부분만 발췌)로 노출(예시 Pathbuilder).
@@ -1562,12 +1563,14 @@ function renderGrowthPlan() {
       });
     }
 
-    // 배경 부여 재주(무료 재주) = 클래스 특성처럼 아코디언 박스로(예시 Pathbuilder "Free Feat: X").
-    //   클래스 가드 밖 — 클래스 미선택에도 배경만 있으면 표시. 배경 재주는 항상 1레벨 부여.
+    // 혈통/종족 기반 특성 — 시야/감각(혈통 base + 유산 상승). Pathbuilder식 특성 박스(FVTT 아이콘).
+    if (lv === 1 && typeof _growthVisionBoxHtml === 'function') _ancestryFeatBoxes += _growthVisionBoxHtml();
+
+    // 배경 부여 재주(무료 재주) = 특성 박스로. 클래스 가드 밖 — 클래스 미선택에도 배경만 있으면 표시. 항상 1레벨 부여.
     if (lv === 1 && state.selectedBackground && typeof getBackgroundEffects === 'function') {
       const _beff = getBackgroundEffects(state.selectedBackground);
       if (_beff && _beff.feat_id) {
-        _featBoxes += _growthFeatureBoxHtml({ slug: _beff.feat_id }, lv, gm, { freeFeat: true });
+        _bgFeatBoxes += _growthFeatureBoxHtml({ slug: _beff.feat_id }, lv, gm, { freeFeat: true });
       }
     }
 
@@ -1579,8 +1582,6 @@ function renderGrowthPlan() {
           state.selectedHeritage ? _slotCircle('heritage', state.selectedHeritage, '🛡') : '🛡', '유산 Heritage',
           state.selectedHeritage ? state.selectedHeritage.name_ko : null,
           "openModal('heritage')", state.selectedHeritage ? "clearCoreSelection('heritage')" : null);
-        // 시야/감각(혈통 base + 유산 상승) — Pathbuilder식 특성 박스로 표시(FVTT 아이콘)
-        if (typeof _growthVisionBoxHtml === 'function') html += _growthVisionBoxHtml();
       }
       // 정체성 선택 필드(클레릭식 패턴, Pathbuilder식 라벨+박스). 신격 불일치는 값 유지 + 「선행조건 불일치」.
       //   신격·성별화 = 신격 사용 클래스(클레릭 deity_skill · 챔피언 deity-champion). 신성원천 = 클레릭 전용.
@@ -1663,7 +1664,8 @@ function renderGrowthPlan() {
     }
 
     // 클래스/서브클래스 특성 = 레벨 하단에 아코디언으로(예시 레이아웃)
-    if (_featBoxes) html += `<div class="growth-feats-section">${_featBoxes}</div>`;
+    // 특성 그룹 순서: 클래스 특성 → 혈통/종족 기반 특성(시야) → 배경 기반 특성.
+    if (_featBoxes || _ancestryFeatBoxes || _bgFeatBoxes) html += `<div class="growth-feats-section">${_featBoxes}${_ancestryFeatBoxes}${_bgFeatBoxes}</div>`;
   }
 
   container.innerHTML = html;
