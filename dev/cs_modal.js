@@ -1294,7 +1294,13 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
   const kidsHtml = kids.length ? `<div class="gcf-grants">${kids.map(c => _growthGrantChildHtml(c, gm, 1)).join('')}</div>` : '';
   const nameKo = (f.name_ko || (featData && featData.name_ko) || slug).split(' (')[0].trim();
   const nameEn = f.name_en || (featData && featData.name_en) || '';
-  const badge = (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
+  const badge = (opts && opts.freeFeat) ? '<span class="gcf-gbadge">무료 재주 Free Feat</span>'
+              : (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
+  // 무료 재주(배경 부여)는 예시(Pathbuilder)처럼 특성 배지(General·Skill 등)도 함께 표시.
+  let _traitsHtml = '';
+  if (opts && opts.freeFeat && featData && Array.isArray(featData.traits) && featData.traits.length && typeof traitTag === 'function') {
+    _traitsHtml = `<div class="gcf-traits">${featData.traits.map(t => traitTag(t)).join(' ')}</div>`;
+  }
   // 클릭 아코디언: 설명(+부여 재주/주문)을 접었다 펼침.
   let _desc = (opts && opts.descOverride != null) ? opts.descOverride : (featData ? (featData.desc || featData.summary || '') : '');
   // 서브클래스 변형 특성(첫 번째 교리 등)은 선택한 서브클래스의 혜택 설명으로 대체(미선택=프롬프트).
@@ -1306,14 +1312,14 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
     if (_variant && _variant.desc) _desc = _variant.desc;
     descHtml = _desc ? `<div class="gcf-desc">${typeof resolveDescRefs === 'function' ? resolveDescRefs(_desc) : _desc}</div>` : '';
   }
-  const hasBody = !!(descHtml || kidsHtml);
+  const hasBody = !!(descHtml || kidsHtml || _traitsHtml);
   return `<div class="growth-slot filled gcf-box">
     <div class="gcf-main${hasBody ? ' gcf-clickable' : ''}"${hasBody ? ' onclick="_toggleGcfInline(this)"' : ''}>
       <span class="gcf-fic">${ic}</span>
       <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>${badge}
       ${hasBody ? '<span class="gcf-chev">▾</span>' : ''}
     </div>
-    ${hasBody ? `<div class="gcf-body">${kidsHtml}${descHtml}</div>` : ''}
+    ${hasBody ? `<div class="gcf-body">${_traitsHtml}${kidsHtml}${descHtml}</div>` : ''}
   </div>`;
 }
 
@@ -1429,6 +1435,15 @@ function renderGrowthPlan() {
       gm.orphanFeats.filter(o => (o.lv || 1) === lv).forEach(o => {
         _featBoxes += _growthFeatureBoxHtml({ slug: o.slug, name_ko: o.name }, lv, gm, { granted: true });
       });
+    }
+
+    // 배경 부여 재주(무료 재주) = 클래스 특성처럼 아코디언 박스로(예시 Pathbuilder "Free Feat: X").
+    //   클래스 가드 밖 — 클래스 미선택에도 배경만 있으면 표시. 배경 재주는 항상 1레벨 부여.
+    if (lv === 1 && state.selectedBackground && typeof getBackgroundEffects === 'function') {
+      const _beff = getBackgroundEffects(state.selectedBackground);
+      if (_beff && _beff.feat_id) {
+        _featBoxes += _growthFeatureBoxHtml({ slug: _beff.feat_id }, lv, gm, { freeFeat: true });
+      }
     }
 
     // Level 1 specials
