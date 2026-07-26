@@ -249,9 +249,14 @@ function _cleanTarget(t) {
   if (/^system\.proficiencies\.perception\.rank$/.test(t)) return 'perception';
   return t;
 }
+// X-Lore 혈통 재주(엘프 지식 등): FVTT는 일반 「추가 지식」(grant_feat:additional-lore, $choice 지식)을 부여하나,
+//   정본상 이 재주가 주는 지식은 고정(엘프 지식·오크 지식…). → additional-lore 부여를 억제하고 curated가 고정명 grant_lore로 대체.
+//   (이게 기존 '빈 지식' 슬롯의 원인이었음. R1: 기술 픽커 choice도 curated에서 제거.)
+const LORE_FEATS = new Set(['orc-lore', 'changeling-lore', 'dwarven-lore', 'halfling-lore', 'leshy-lore', 'nephilim-lore', 'goblin-lore', 'elven-lore']);
 function emitFvtt(base, doc, bake = true) {
   if (!doc) return;
-  const rr = fvttRuleRows(doc);
+  let rr = fvttRuleRows(doc);
+  if (LORE_FEATS.has(base.owner_slug)) rr = rr.filter(r => !(r.type === 'grant_feat' && String(r.target || '').includes('additional-lore')));
   if (!rr.length) return;
   const ocls = ownerClassesOf(doc), oslug = base.owner_slug;   // owner-함의 조건 판정 컨텍스트
   const b = { owner_kind: base.owner_kind, owner_slug: base.owner_slug, owner_name: base.owner_name, owner_level: base.owner_level, category: base.category, src: 'rule' };

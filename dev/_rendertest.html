@@ -34,6 +34,15 @@
 <!-- renderGrowthPlan/보조 함수가 참조하는 최소 DOM -->
 <input type="hidden" id="level" value="1">
 <input type="hidden" id="f-level" value="1">
+<input type="hidden" id="hp-max" value="0">
+<input type="hidden" id="hp-cur" value="0">
+<!-- recalcAll이 무가드로 읽고/쓰는 시트 본문 요소 — 최소 스텁(flow 러너의 recalcAll 완주용) -->
+<input type="hidden" id="armor-name" value="">
+<input type="hidden" id="armor-category" value="">
+<input type="hidden" id="hp-temp" value="0">
+<input type="hidden" id="hero-points" value="0">
+<input type="hidden" id="prof-ac" value="0">
+<span id="bulk-max"></span><span id="bulk-total"></span><span id="val-classdc"></span>
 <div id="growth-plan"></div>
 <div id="growth-plan-mobile"></div>
 <div id="spell-panel-host"></div>
@@ -65,6 +74,10 @@
   </div>
 </div>
 
+<!-- 지식(Lore) 섹션·모달 — index.html 복제(하니스에서 renderLores/모달 검증용) -->
+<div style="max-width:380px;padding:8px;"><span style="color:#ddd;font:13px sans-serif;">지식 Lore</span><div id="lore-list"></div></div>
+<div class="modal-overlay hidden" id="lore-modal"><div class="modal"><div class="modal-header"><h2 style="flex:1;">지식 Lore</h2></div><div class="modal-body" style="display:block;"><input id="lore-add-name"><div id="lore-modal-list"></div><div id="lore-modal-empty"></div></div></div></div>
+
 <div id="boot-status" style="color:#fff;font:12px monospace;padding:8px;"></div>
 <script>
 (async function(){
@@ -80,6 +93,16 @@
     // 2) 카탈로그 로드
     if (typeof _ensureAllCatalogs === 'function') { await _ensureAllCatalogs(); log('catalogs'); }
 
+    // ══ 2b) 인터랙션 흐름 검증 러너 (?flow=class-build) ══════════════════════════
+    //   state를 미리 심지 않고 실제 함수 체인(모달 열기→확정→빌더 선택)을 순차 구동한 뒤,
+    //   각 단계 결과를 자동 검증(assert)해 #assert-out(JSON)+document.title(PASS/FAIL)로 출력.
+    //   tools/verifyflow.sh가 --dump-dom으로 이 결과를 뽑아 스크립트로 pass/fail 판정.
+    var FLOW = new URLSearchParams(location.search).get('flow');
+    if (FLOW) {
+      await runFlow(FLOW, new URLSearchParams(location.search));
+      return;  // 흐름 모드는 이 브랜치에서 완결(아래 렌더 로직 건너뜀)
+    }
+
     // 3) 목 state (URL 파라미터: ?class=cleric&level=1)
     var Q = new URLSearchParams(location.search);
     var clsId = Q.get('class') || 'cleric';
@@ -87,7 +110,7 @@
     var lvEl = document.getElementById('level'); if (lvEl) lvEl.value = lvl;
     var lvEl2 = document.getElementById('f-level'); if (lvEl2) lvEl2.value = lvl;
     if (typeof PF2eClass !== 'undefined' && PF2eClass.getClassLegacy) state.selectedClass = PF2eClass.getClassLegacy(clsId);
-    if (typeof PF2eAnc !== 'undefined') { try { state.selectedAncestry = PF2eAnc.getAncestryLegacy('human'); } catch(e){} }
+    if (typeof PF2eAnc !== 'undefined') { try { state.selectedAncestry = PF2eAnc.getAncestryLegacy(Q.get('ancestry') || 'human'); if (state.selectedAncestry) state.vision = state.selectedAncestry.vision || 'none'; } catch(e){} }
     if (typeof PF2eBg !== 'undefined') { try {
       var _bg = PF2eBg.getBackgroundLegacy('acolyte') || PF2eBg.getBackgroundLegacy('acrobat');
       if (!_bg) { var bgs = PF2eBg.backgroundList ? PF2eBg.backgroundList() : (PF2eBg.list ? PF2eBg.list() : []); _bg = (bgs && bgs.length) ? bgs[0] : null; }
@@ -205,5 +228,255 @@
     document.title = 'READY';
   } catch(e){ log('ERR:'+e.message); document.title = 'ERR:'+e.message; console.error(e); }
 })();
+
+// ══════════════════════════════════════════════════════════════════════════════
+// 인터랙션 흐름 검증 러너 — 실제 함수 체인을 순차 구동하고 단계별 결과를 자동 검증한다.
+//   호출: ?flow=class-build&class=cleric&sub=doctrine-warpriest&deity=<id>&trainpick=<skillId>
+//   출력: #assert-out(JSON, 스크립트 판정용) + 화면 요약 + document.title="PASS n/n"|"FAIL n/n"
+// ══════════════════════════════════════════════════════════════════════════════
+async function runFlow(flow, Q){
+  var A = [];
+  function assert(name, cond, detail){ A.push({name:name, pass:!!cond, detail:detail==null?'':String(detail)}); }
+  function has(html, s){ return (html||'').indexOf(s) >= 0; }
+  function gp(){ return (document.getElementById('growth-plan')||{}).innerHTML || ''; }
+  // native 대화상자 스텁(headless에서 confirm=false로 흐름이 중단되는 것 방지)
+  window.confirm = function(){ return true; };
+  window.alert = function(){};
+  // 저장/세션 계층(cs_save.js·cs_session.js) 스텁 — 하니스는 이 파일들을 로드하지 않음
+  if (typeof window.save !== 'function') window.save = function(){};
+  if (typeof window.autoSaveNow !== 'function') window.autoSaveNow = function(){};
+  try {
+    var clsId   = Q.get('class') || 'cleric';
+    var subId   = Q.get('sub')   || '';
+    var deityId = Q.get('deity') || '';
+    var trainId = Q.get('trainpick') || '';
+    var lvEl = document.getElementById('level'); if (lvEl) lvEl.value = '1';
+    var lvEl2 = document.getElementById('f-level'); if (lvEl2) lvEl2.value = '1';
+    // 기술 숙련 DOM(sk-prof-*) — recalcAll/기술훈련이 참조
+    if (typeof SKILLS !== 'undefined') {
+      var skHost = document.createElement('div'); skHost.style.display='none';
+      skHost.innerHTML = SKILLS.map(function(s){ return '<select id="sk-prof-'+s.id+'"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select><span id="sk-val-'+s.id+'"></span>'; }).join('');
+      document.body.appendChild(skHost);
+    }
+    // 선행 전제: 혈통/배경(실 캐릭터가 갖는 상태) — 클래스 확정만 흐름으로 검증
+    try { if (typeof PF2eAnc !== 'undefined') state.selectedAncestry = PF2eAnc.getAncestryLegacy('human'); } catch(e){}
+    try { if (typeof PF2eBg !== 'undefined') { var _bg = PF2eBg.getBackgroundLegacy('acolyte'); if(!_bg){ var bgs=PF2eBg.backgroundList?PF2eBg.backgroundList():[]; _bg=bgs&&bgs[0]; } if(_bg) state.selectedBackground=_bg; } } catch(e){}
+
+    // 공용 헬퍼: 레벨 설정 / 클래스 확정(실제 커밋 경로)
+    function setLevel(L){ ['level','f-level'].forEach(function(id){ var e=document.getElementById(id); if(e) e.value=String(L); }); }
+    function commitClass(cid){ openModal('class'); modalSelected=(typeof PF2eClass!=='undefined'&&PF2eClass.getClassLegacy)?PF2eClass.getClassLegacy(cid):null; confirmModal(); }
+
+    if (flow === 'class-build') {
+      // 0) 클래스 미선택 상태에서 시작
+      assert('0.pre-no-class', !state.selectedClass, 'selectedClass='+(state.selectedClass&&state.selectedClass.id));
+      // 1) 클래스 모달 열기 → 목록 렌더 확인
+      openModal('class');
+      assert('1.modal-opened', modalType === 'class', 'modalType='+modalType);
+      var _opt = document.getElementById('modal-options');
+      assert('1.class-list-rendered', _opt && _opt.innerHTML.length > 50, 'options.len='+(_opt?_opt.innerHTML.length:'-'));
+      // 2) 클래스 선택 + 확정(실제 커밋 경로: modalSelected → confirmModal)
+      var _cls = (typeof PF2eClass !== 'undefined' && PF2eClass.getClassLegacy) ? PF2eClass.getClassLegacy(clsId) : null;
+      assert('2.class-in-catalog', !!_cls, 'getClassLegacy('+clsId+')='+(_cls?_cls.id:'null'));
+      modalSelected = _cls;
+      confirmModal();
+      assert('2.class-committed', state.selectedClass && state.selectedClass.id === clsId, 'selectedClass='+(state.selectedClass&&state.selectedClass.id));
+      assert('2.skill-slots-set', (state.trainableSkillSlots||0) > 0, 'trainableSkillSlots='+state.trainableSkillSlots);
+      // 확정 후 빌더 재렌더 → 기술 훈련 필드 노출
+      renderGrowthPlan();
+      assert('2.builder-skill-field', has(gp(),'기술 훈련'), '빌더에 「기술 훈련」 박스 노출');
+      // 3) 서브클래스 선택(빌더 소유)
+      if (subId) {
+        pickDoctrine(subId);
+        assert('3.subclass-committed', state.selectedSubclass && state.selectedSubclass.id === subId, 'selectedSubclass='+(state.selectedSubclass&&state.selectedSubclass.id));
+        var _subName = state.selectedSubclass && (state.selectedSubclass.name_ko || state.selectedSubclass.name);
+        assert('3.builder-subclass-reflected', _subName && has(gp(), _subName), '빌더에 서브클래스명: '+_subName);
+      }
+      // 4) 신격 선택(빌더 소유; deity_skill 클래스면 기술/성별화까지 파생)
+      if (deityId) {
+        selectDeity(deityId);
+        assert('4.deity-committed', state.deity === deityId, 'deity='+state.deity);
+      }
+      // 5) 기술 훈련 선택 커밋(빌더)
+      if (trainId) {
+        growthSkillTrainingChanged(0, trainId);
+        var _tr = ((state.growth[1]||{}).skillTraining)||[];
+        assert('5.skill-trained-committed', _tr.indexOf(trainId) >= 0, 'skillTraining='+JSON.stringify(_tr));
+      }
+      // 6) 최종 재렌더 후 선택값 유지(빈 모달값이 빌더 선택을 덮어쓰지 않음 — v0.283 회귀 방지)
+      renderGrowthPlan();
+      assert('6.class-persists', state.selectedClass && state.selectedClass.id === clsId, 'selectedClass='+(state.selectedClass&&state.selectedClass.id));
+      if (subId)   assert('6.subclass-persists', state.selectedSubclass && state.selectedSubclass.id === subId, 'selectedSubclass='+(state.selectedSubclass&&state.selectedSubclass.id));
+      if (deityId) assert('6.deity-persists', state.deity === deityId, 'deity='+state.deity);
+      if (trainId){ var _tr2=((state.growth[1]||{}).skillTraining)||[]; assert('6.skill-persists', _tr2.indexOf(trainId)>=0, 'skillTraining='+JSON.stringify(_tr2)); }
+
+    } else if (flow === 'ancestry-build') {
+      // 혈통 선택 → 확정 → 유산 선택 → 확정 (?ancestry=elf&heritage=arctic-elf)
+      state.selectedAncestry = null; state.selectedHeritage = null;
+      var ancId = Q.get('ancestry') || 'elf';
+      var herId = Q.get('heritage') || 'arctic-elf';
+      assert('0.pre-no-ancestry', !state.selectedAncestry, 'selectedAncestry='+(state.selectedAncestry&&state.selectedAncestry.id));
+      openModal('ancestry');
+      assert('1.ancestry-modal', modalType === 'ancestry', 'modalType='+modalType);
+      var _anc = PF2eAnc.getAncestryLegacy(ancId);
+      assert('2.ancestry-in-catalog', !!_anc, ancId+'='+(_anc?_anc.id:'null'));
+      modalSelected = _anc; confirmModal();
+      assert('2.ancestry-committed', state.selectedAncestry === _anc, 'selectedAncestry='+(state.selectedAncestry&&state.selectedAncestry.id));
+      assert('2.ancestry-boosts-applied', (state.boosts.ancFixed.length + state.boosts.ancFlaw.length) > 0, 'ancFixed='+JSON.stringify(state.boosts.ancFixed)+' ancFlaw='+JSON.stringify(state.boosts.ancFlaw));
+      openModal('heritage');
+      assert('3.heritage-modal', modalType === 'heritage', 'modalType='+modalType);
+      var _her = PF2eAnc.getHeritageLegacy(herId);
+      assert('3.heritage-in-catalog', !!_her, herId);
+      modalSelected = _her; confirmModal();
+      assert('3.heritage-committed', state.selectedHeritage === _her, 'selectedHeritage='+(state.selectedHeritage&&(state.selectedHeritage.id||state.selectedHeritage.slug)));
+      renderGrowthPlan();
+      assert('4.ancestry-persists', state.selectedAncestry === _anc, 'selectedAncestry='+(state.selectedAncestry&&state.selectedAncestry.id));
+      assert('4.heritage-persists', state.selectedHeritage === _her, 'ok');
+
+    } else if (flow === 'background-build') {
+      // 배경 선택 → 확정 → 기술/지식 부여 반영 (?background=acolyte&skill=<id>&lore=<text>)
+      state.selectedBackground = null;
+      var bgId = Q.get('background') || 'acolyte';
+      assert('0.pre-no-bg', !state.selectedBackground, 'selectedBackground='+(state.selectedBackground&&state.selectedBackground.id));
+      openModal('background');
+      assert('1.bg-modal', modalType === 'background', 'modalType='+modalType);
+      var _bgo = PF2eBg.getBackgroundLegacy(bgId);
+      assert('2.bg-in-catalog', !!_bgo, bgId);
+      modalSelected = _bgo;
+      _modalChoices = { type:'background' };
+      var skPick = Q.get('skill'); if (skPick) _modalChoices.choiceSkill = skPick;
+      var lorePick = Q.get('lore'); if (lorePick) _modalChoices.choiceLore = lorePick;
+      confirmModal();
+      assert('2.bg-committed', state.selectedBackground === _bgo, 'selectedBackground='+(state.selectedBackground&&state.selectedBackground.id));
+      recalcAll();
+      var _bgSk = state._bgGrantedSkills || [];
+      var _bgLo = state._bgGrantedLores || [];
+      assert('2.bg-grants-applied', (_bgSk.length + _bgLo.length) > 0, '_bgGrantedSkills='+JSON.stringify(_bgSk)+' _bgGrantedLores='+JSON.stringify(_bgLo));
+      renderGrowthPlan();
+      assert('3.bg-persists', state.selectedBackground === _bgo, 'ok');
+
+    } else if (flow === 'ability-boost') {
+      // 능력치 증강 배분: 클래스 확정 → 부스트 모달 → 핵심능력치 + 레벨1 자유증강 4종 + 토글해제 (?class=fighter&level=5&clskey=str&lv1=str,dex,con,wis)
+      var abCls = Q.get('class') || 'fighter';
+      var abLv = parseInt(Q.get('level')||'5') || 5;
+      commitClass(abCls); setLevel(abLv);
+      assert('1.class-committed', state.selectedClass && state.selectedClass.id === abCls, 'selectedClass='+(state.selectedClass&&state.selectedClass.id));
+      openBoostModal();
+      assert('1.boost-modal', modalType === 'boost', 'modalType='+modalType);
+      var keyAttr = Q.get('clskey') || 'str';
+      _onBoostSelect('__clsKey', 0, keyAttr);
+      assert('2.class-keyattr-set', state.boosts.cls === keyAttr, 'boosts.cls='+state.boosts.cls);
+      var lv1picks = (Q.get('lv1') || 'str,dex,con,wis').split(',');
+      lv1picks.forEach(function(a){ _onBoostFree('lv1', a); });
+      var _got = state.boosts.lv1.filter(Boolean);
+      assert('3.lv1-boosts-set', _got.length === 4 && lv1picks.every(function(a){ return _got.indexOf(a) >= 0; }), 'boosts.lv1='+JSON.stringify(state.boosts.lv1));
+      // 같은 능력치 재클릭 = 토글 해제
+      _onBoostFree('lv1', lv1picks[0]);
+      assert('4.boost-toggle-off', state.boosts.lv1.filter(Boolean).indexOf(lv1picks[0]) < 0, 'after toggle boosts.lv1='+JSON.stringify(state.boosts.lv1));
+
+    } else if (flow === 'skill-increase') {
+      // 기술 증가 레벨 관문: 클래스 확정 → 기술 훈련 시드 → 레벨N 증가 커밋 → 랭크 상승 반영 (?class=rogue&siLevel=7&skill=athletics)
+      var siCls = Q.get('class') || 'rogue';
+      var siLv = parseInt(Q.get('siLevel') || Q.get('level') || '7') || 7;
+      var siSkill = Q.get('skill') || 'athletics';
+      commitClass(siCls); setLevel(siLv);
+      assert('1.class-committed', state.selectedClass && state.selectedClass.id === siCls, 'selectedClass='+(state.selectedClass&&state.selectedClass.id));
+      // 대상 기술을 1레벨에 훈련(전문가→달인 관문 검증 준비)
+      state.growth[1] = state.growth[1] || {}; state.growth[1].skillTraining = [siSkill];
+      // 하위 레벨 사전 증가 시드(선택): ?seed=3:stealth
+      var _seed = Q.get('seed'); if (_seed) { _seed.split(';').forEach(function(p){ var kv=p.split(':'); var L=parseInt(kv[0]); if(L&&kv[1]){ state.growth[L]=state.growth[L]||{}; state.growth[L].skillIncrease=kv[1]; } }); }
+      growthSkillIncreaseChanged(siLv, siSkill);
+      assert('2.increase-committed', (state.growth[siLv]||{}).skillIncrease === siSkill, 'growth['+siLv+'].skillIncrease='+((state.growth[siLv]||{}).skillIncrease));
+      recalcAll();
+      var _rank = parseInt((document.getElementById('sk-prof-'+siSkill)||{}).value || '0');
+      assert('3.skill-rank-raised', _rank >= 4, 'sk-prof-'+siSkill+'='+_rank+' (훈련→증가 후 전문가+ 기대)');
+      renderGrowthPlan();
+      assert('4.increase-persists', (state.growth[siLv]||{}).skillIncrease === siSkill, 'ok');
+
+    } else if (flow === 'feat-select') {
+      // 성장 빌더 재주 슬롯: 클래스 확정 → 슬롯 클릭(모달 오픈) → 재주 선택 확정 → 빌더/재주목록 반영 (?class=fighter&feat=power-attack&featType=class&featLevel=1)
+      var fCls = Q.get('class') || 'fighter';
+      var fSlug = Q.get('feat') || 'vicious-swing';   // 리마스터: 구 power-attack
+      var fType = Q.get('featType') || 'class';
+      var fLv = parseInt(Q.get('featLevel') || '1') || 1;
+      var fKey = Q.get('featkey') || (fType + fLv);
+      commitClass(fCls); setLevel(fLv);
+      assert('1.class-committed', state.selectedClass && state.selectedClass.id === fCls, 'selectedClass='+(state.selectedClass&&state.selectedClass.id));
+      growthPickFeat(fLv, fKey, fType);
+      assert('1.feat-modal-opened', modalType === 'feat', 'modalType='+modalType);
+      var _feat = PF2eFeat.getFeatLegacy(fSlug);
+      assert('2.feat-in-catalog', !!_feat, fSlug+' → '+(_feat?(_feat.name_en||_feat.name_ko):'null'));
+      if (_feat) {
+        modalSelected = _feat; confirmModal();
+        var _fName = (_feat.name_ko||'') + (_feat.name_en ? (' ('+_feat.name_en+')') : '');
+        var _picked = (state.feats[fType]||[]).some(function(f){ return featSlug(f)===featSlug(_fName) || featSlug(f)===fSlug; });
+        assert('2.feat-committed', _picked, 'feats.'+fType+'='+JSON.stringify((state.feats[fType]||[]).map(function(f){ return f.name||f; })));
+        assert('2.feat-in-growth-slot', !!((state.growth[fLv]||{})[fKey]), 'growth['+fLv+']['+fKey+']='+((state.growth[fLv]||{})[fKey]));
+        renderGrowthPlan();
+        assert('3.feat-persists', (state.feats[fType]||[]).length>0 && !!((state.growth[fLv]||{})[fKey]), 'ok');
+      }
+
+    } else if (flow === 'default-build') {
+      // 완전 빈 캐릭터 → 기본 빌드(Human/Fighter/Warrior) 자동 적용, 아무것도 미선택 상태 방지
+      state.selectedClass = null; state.selectedAncestry = null; state.selectedBackground = null; state.selectedHeritage = null;
+      assert('0.pre-all-empty', !state.selectedClass && !state.selectedAncestry && !state.selectedBackground, 'ok');
+      var _ret = applyDefaultBuild();
+      assert('1.applied', _ret === true, 'applyDefaultBuild='+_ret);
+      assert('2.ancestry-set', state.selectedAncestry && state.selectedAncestry.id === 'human', 'ancestry='+(state.selectedAncestry&&state.selectedAncestry.id));
+      assert('2.class-set', state.selectedClass && state.selectedClass.id === 'fighter', 'class='+(state.selectedClass&&state.selectedClass.id));
+      assert('2.background-set', state.selectedBackground && state.selectedBackground.id === 'warrior', 'background='+(state.selectedBackground&&state.selectedBackground.id));
+      assert('3.class-defaults', (state.trainableSkillSlots||0) > 0, 'trainableSkillSlots='+state.trainableSkillSlots);
+      recalcAll();
+      var _hp = parseInt((document.getElementById('hp-max')||{}).value||'0');
+      assert('3.hp-derived', _hp > 0, 'hp-max='+_hp+' (혈통+클래스 HP 파생)');
+      assert('3.background-grants', (state._bgGrantedSkills||[]).length > 0, '_bgGrantedSkills='+JSON.stringify(state._bgGrantedSkills||[]));
+      renderGrowthPlan();
+      // 재적용 방지(멱등): 이미 채워졌으면 no-op
+      assert('4.idempotent', applyDefaultBuild() === false, '두 번째 호출은 false여야');
+
+    } else if (flow === 'lore-build') {
+      // R3: 엘프 지식 재주 → '엘프 지식' 부여 지식 자동 수집·렌더. R2: 커스텀 지식 add/remove·렌더.
+      commitClass('wizard'); setLevel(1);
+      // 엘프 지식 재주 부여(성장 빌더 없이 직접 state에 주입)
+      state.feats = state.feats || {}; state.feats.ancestry = state.feats.ancestry || [];
+      state.feats.ancestry.push({ id: 'elven-lore', name: '엘프 지식 (Elven Lore)', level: 1 });
+      recalcAll();
+      var _src = (state._loreSources || []).map(function(s){ return s.name; });
+      assert('R3.granted-collected', _src.indexOf('엘프 지식') >= 0, '_loreSources=' + JSON.stringify(_src));
+      var _ll = function(){ return (document.getElementById('lore-list')||{}).innerHTML || ''; };
+      assert('R3.granted-rendered', _ll().indexOf('엘프 지식') >= 0 && _ll().indexOf('부여') >= 0, '지식 목록에 엘프 지식+부여 배지');
+      // R1 확인: 엘프 지식 효과에 skill_defaults choice 없음(픽커 제거)
+      var _eff = (typeof EFFECTS_DB !== 'undefined') ? EFFECTS_DB['elven-lore'] : null;
+      assert('R1.no-picker', _eff && !_eff.choice, 'elven-lore.choice=' + (_eff && JSON.stringify(_eff.choice)));
+      // R2: 커스텀 지식 추가
+      document.getElementById('lore-add-name').value = '검술 지식';
+      addCustomLore();
+      assert('R2.custom-added', (state.customLores||[]).some(function(l){return l.name==='검술 지식';}), 'customLores=' + JSON.stringify(state.customLores));
+      assert('R2.custom-trained2', ((state.customLores||[])[0]||{}).rank === 2, 'rank=' + ((state.customLores||[])[0]||{}).rank);
+      assert('R2.custom-rendered', _ll().indexOf('검술 지식') >= 0, '지식 목록에 검술 지식');
+      // 기본 빈 지식(lore1/lore2 유령) 없음 — 모든 지식은 이름을 가짐(빈 슬롯 폐지)
+      var _allLore = (state._loreSources||[]).map(function(s){return s.name;}).concat((state.customLores||[]).map(function(l){return l.name;}));
+      assert('R2.no-empty-slots', _allLore.length > 0 && _allLore.every(function(n){return (n||'').trim();}), '전 지식 명명됨(빈 슬롯 없음): ' + JSON.stringify(_allLore));
+      // R2: 커스텀 삭제
+      removeCustomLore(0);
+      assert('R2.custom-removed', !(state.customLores||[]).some(function(l){return l.name==='검술 지식';}), 'customLores=' + JSON.stringify(state.customLores));
+      assert('R2.granted-persists', (state._loreSources||[]).map(function(s){return s.name;}).indexOf('엘프 지식') >= 0, '부여 지식은 삭제 후에도 유지');
+
+    } else {
+      assert('unknown-flow', false, 'flow='+flow);
+    }
+  } catch(e){ assert('EXCEPTION', false, e.message + ' @ ' + ((e.stack||'').split('\n')[1]||'')); }
+
+  // ── 결과 출력 ──
+  var pass = A.filter(function(a){return a.pass;}).length, total = A.length;
+  var el = document.createElement('div'); el.id = 'assert-out';
+  el.textContent = JSON.stringify({flow:flow, pass:pass, total:total, ok:(pass===total&&total>0), asserts:A});
+  el.style.cssText = 'position:absolute;left:-9999px;';  // 화면 밖(dump-dom 파싱 전용)
+  document.body.appendChild(el);
+  var sum = document.createElement('div'); sum.style.cssText='font:13px monospace;padding:10px;color:#ddd;line-height:1.6;';
+  sum.innerHTML = '<b>'+(pass===total&&total>0?'PASS':'FAIL')+' '+pass+'/'+total+'</b> — '+flow+'<hr style="border-color:#333">'+
+    A.map(function(a){ return (a.pass?'<span style="color:#6c6">✔</span>':'<span style="color:#e66">✘</span>')+' '+a.name+(a.detail?' <span style="color:#999">('+a.detail.replace(/</g,'&lt;')+')</span>':''); }).join('<br>');
+  document.body.appendChild(sum);
+  document.title = (pass===total&&total>0 ? 'PASS ' : 'FAIL ') + pass + '/' + total;
+}
 </script>
 </body></html>

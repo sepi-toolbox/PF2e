@@ -1339,6 +1339,69 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
   </div>`;
 }
 
+// 성장 빌더: 시야/감각 박스 — 혈통 base 시야(+유산 상승)를 Pathbuilder처럼 특성 박스로 표시.
+//   아이콘 = FVTT 매칭(암시야=darkvision 주문 아이콘 등). 설명 = VISION_DEFS.desc(정본).
+const VISION_ICON_REL = {
+  'low-light':          'systems/pf2e/icons/spells/light.webp',
+  'darkvision':         'systems/pf2e/icons/spells/darkvision.webp',
+  'greater-darkvision': 'systems/pf2e/icons/spells/true-seeing.webp',
+};
+function _growthVisionBoxHtml() {
+  const vid = state.vision || (state.selectedAncestry && state.selectedAncestry.vision) || 'none';
+  if (!vid || vid === 'none') return '';
+  const def = (typeof VISION_DEFS !== 'undefined') ? VISION_DEFS.find(v => v.id === vid) : null;
+  if (!def) return '';
+  const rel = VISION_ICON_REL[vid];
+  const ic = rel
+    ? `<img class="item-icon gcf-ic" src="data/icons/${rel}" loading="lazy" onerror="this.style.display='none'">`
+    : '<span style="font-size:11px;">👁</span>';
+  const nameKo = def.name_ko || vid;
+  const nameEn = def.name_en || '';
+  const desc = def.desc || '';
+  const hasBody = !!desc;
+  return `<div class="growth-slot filled gcf-box">
+    <div class="gcf-main${hasBody ? ' gcf-clickable' : ''}"${hasBody ? ' onclick="_toggleGcfInline(this)"' : ''}>
+      <span class="gcf-fic">${ic}</span>
+      <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>
+      <span class="gcf-gbadge">감각 Sense</span>
+      ${hasBody ? '<span class="gcf-chev">▾</span>' : ''}
+    </div>
+    ${hasBody ? `<div class="gcf-body"><div class="gcf-desc">${desc}</div></div>` : ''}
+  </div>`;
+}
+
+// ── 신규(완전 빈) 캐릭터 기본 빌드 — "아무것도 선택되지 않은 상태" 방지(사용자 지시 2026-07-26) ──
+//   혈통/클래스/배경이 모두 비어있을 때만 기본값을 채운다(부분 빌드·저장 캐릭터는 건드리지 않음).
+//   각 확정(confirmModal)과 동일한 apply* 경로를 써서 숙련/부스트/특성까지 정상 파생.
+const DEFAULT_BUILD = { ancestry: 'human', class: 'fighter', background: 'warrior' };
+function _setCoreBtn(id, obj) {
+  const btn = document.getElementById(id);
+  if (btn && obj) { btn.textContent = obj.en ? `${obj.name} (${obj.en})` : obj.name; btn.classList.add('filled'); }
+}
+function applyDefaultBuild() {
+  if (state.selectedClass || state.selectedAncestry || state.selectedBackground) return false;
+  if (typeof PF2eClass === 'undefined' || !PF2eClass.getClassLegacy) return false;
+  // 혈통
+  const anc = PF2eAnc.getAncestryLegacy(DEFAULT_BUILD.ancestry) || (PF2eAnc.ancestryList && PF2eAnc.ancestryList()[0]);
+  if (anc) { state.selectedAncestry = anc; if (typeof applyAncestryDefaults === 'function') applyAncestryDefaults(anc); _setCoreBtn('btn-ancestry', anc); }
+  // 배경
+  const bg = PF2eBg.getBackgroundLegacy(DEFAULT_BUILD.background) || (PF2eBg.backgroundList && PF2eBg.backgroundList()[0]);
+  if (bg) { state.selectedBackground = bg; if (typeof applyBackgroundInfo === 'function') applyBackgroundInfo(bg); _setCoreBtn('btn-background', bg); }
+  // 클래스 (숙련/특성 파생을 위해 마지막)
+  const cls = PF2eClass.getClassLegacy(DEFAULT_BUILD.class) || (PF2eClass.classList && PF2eClass.classList()[0]);
+  if (cls) { state.selectedClass = cls; if (typeof applyClassDefaults === 'function') applyClassDefaults(cls); _setCoreBtn('btn-class', cls); if (typeof applyClassFeatures === 'function') applyClassFeatures(); }
+  if (typeof recalcAll === 'function') recalcAll();
+  if (typeof renderGrowthPlan === 'function') renderGrowthPlan();
+  return true;
+}
+// 부팅 완료 시점에 호출(_checkReady) — 완전 빈 캐릭터면 카탈로그 준비 후 기본 빌드 적용.
+function _maybeApplyDefaultBuild() {
+  if (state.selectedClass || state.selectedAncestry || state.selectedBackground) return;
+  const go = () => { try { applyDefaultBuild(); } catch (e) { console.warn('[defaultBuild]', e); } };
+  if (typeof catalogsReady === 'function' && !catalogsReady() && typeof _ensureAllCatalogs === 'function') _ensureAllCatalogs().then(go);
+  else go();
+}
+
 // 성장 빌더: kind:'choice' 특성의 하위 선택 렌더(EFFECTS_DB choice 옵션). 값=state.classFeatureChoices[slug].
 function _growthFeatureChoiceHtml(f) {
   if (!f || f.kind !== 'choice') return '';
@@ -1516,6 +1579,8 @@ function renderGrowthPlan() {
           state.selectedHeritage ? _slotCircle('heritage', state.selectedHeritage, '🛡') : '🛡', '유산 Heritage',
           state.selectedHeritage ? state.selectedHeritage.name_ko : null,
           "openModal('heritage')", state.selectedHeritage ? "clearCoreSelection('heritage')" : null);
+        // 시야/감각(혈통 base + 유산 상승) — Pathbuilder식 특성 박스로 표시(FVTT 아이콘)
+        if (typeof _growthVisionBoxHtml === 'function') html += _growthVisionBoxHtml();
       }
       // 정체성 선택 필드(클레릭식 패턴, Pathbuilder식 라벨+박스). 신격 불일치는 값 유지 + 「선행조건 불일치」.
       //   신격·성별화 = 신격 사용 클래스(클레릭 deity_skill · 챔피언 deity-champion). 신성원천 = 클레릭 전용.

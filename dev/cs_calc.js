@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.284').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.286').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -906,24 +906,79 @@ function _loreSlotName(sid) {
   return nameEl ? nameEl.value : '';
 }
 
-// 수집된 출처들을 슬롯에 배정 — recalcAll에서 rebuildCoreEffects+applyFeatEffects 뒤 1회 호출.
-// 이전에 '부여'였던 슬롯만 비우고(수동 입력 슬롯은 보존), 출처를 수집 순서대로 빈 슬롯에 배치, 초과는 오버플로.
-function assignLoreSlots() {
-  const oldOwners = state._loreSlotSource || {};
-  LORE_SLOTS.forEach(sid => { if (oldOwners[sid]) _writeLoreSlot(sid, '', 0, false); });
-  const freeSlots = LORE_SLOTS.filter(sid => !_loreSlotName(sid)); // 남은 이름 = 수동 지식(점유 유지)
-  state._loreSlotSource = {};
-  state._loreSlotRef = {};
-  const overflow = [];
-  (state._loreSources || []).forEach(src => {
-    const sid = freeSlots.shift();
-    if (!sid) { overflow.push(src); return; }
-    _writeLoreSlot(sid, src.name, src.rank, src.fixed);
-    state._loreSlotSource[sid] = src.key;
-    state._loreSlotRef[sid] = src;
+// 지식(Lore) 동적 렌더 — 고정 슬롯(lore1/lore2) 폐지. 부여 지식(출처) + 커스텀 지식을 목록으로 표시.
+//   recalcAll 말미 1회 호출. 부여=state._loreSources(배경·재주, 읽기전용) / 커스텀=state.customLores(모달 편집).
+//   총합 = INT + 숙련 랭크(부여는 prof_by_level 스케일, 커스텀은 훈련2). 슬롯 초과 개념 없음(경고 제거).
+function renderLores() {
+  state._loreOverflow = [];   // 동적 목록 = 초과 없음 (loreSlotFullForFeat/Background 항상 false)
+  const host = document.getElementById('lore-list');
+  if (!host) return;
+  const level = (typeof getLevel === 'function') ? getLevel() : 1;
+  const intMod = getMod('int');
+  const pen = (typeof getCondPenalty === 'function') ? getCondPenalty() : { all: 0, stupefied: 0 };
+  const penalty = (pen.all || 0) + (pen.stupefied || 0);
+  const granted = (state._loreSources || []).map(s => ({ name: s.name, rank: s.rank || 2, kind: 'granted' }));
+  const custom = (state.customLores || []).map(l => ({ name: l.name, rank: l.rank || 2, kind: 'custom' }));
+  const all = granted.concat(custom);
+  if (!all.length) {
+    host.innerHTML = '<div style="color:var(--text2);font-size:11px;padding:2px 0;">없음 — 「＋ 편집」으로 추가하거나 배경·재주로 획득합니다.</div>';
+    return;
+  }
+  host.innerHTML = all.map((lo, i) => {
+    const rk = ['U', 'T', 'E', 'M', 'L'][Math.round((lo.rank || 0) / 2)] || 'U';
+    const nm = (lo.name || '').trim() ? String(lo.name).replace(/</g, '&lt;') : '<span style="color:var(--text2);">(이름 없음)</span>';
+    const src = lo.kind === 'granted'
+      ? '<span style="font-size:9px;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:0 3px;margin-left:4px;vertical-align:middle;" title="배경·재주가 부여 — 출처에서만 편집">부여</span>'
+      : '';
+    return `<div class="skill-row">
+      <span class="prof-rank-badge">${rk}</span>
+      <span class="skill-attr">INT</span>
+      <span class="skill-name">${nm}${src}</span>
+      <span class="skill-total" id="lore-val-${i}">+0</span>
+    </div>`;
+  }).join('');
+  all.forEach((lo, i) => {
+    const base = intMod + rankBonus(lo.rank || 0, level);
+    applyPenaltyColor(document.getElementById('lore-val-' + i), base, penalty);
   });
-  // 초과 출처 → 경고 큐. ref로 해당 재주에 ⚠ 표시(loreSlotFullForFeat).
-  state._loreOverflow = overflow.map(s => ({ kind: s.kind, loreName: s.name, name: s.name, ref: s.ref }));
+}
+
+// ── 커스텀 지식 편집 모달 (Add/Remove/Finished) — 커스텀 지식만 관리(부여 지식은 목록에만 표시) ──
+function openLoreModal() {
+  renderLoreModalList();
+  const el = document.getElementById('lore-modal'); if (el) el.classList.remove('hidden');
+  const inp = document.getElementById('lore-add-name'); if (inp) { inp.value = ''; setTimeout(() => inp.focus(), 30); }
+}
+function closeLoreModal() {
+  const el = document.getElementById('lore-modal'); if (el) el.classList.add('hidden');
+}
+function addCustomLore() {
+  const inp = document.getElementById('lore-add-name'); if (!inp) return;
+  const name = (inp.value || '').trim(); if (!name) { inp.focus(); return; }
+  (state.customLores = state.customLores || []).push({ name: name, rank: 2 });   // 훈련(2) 기본
+  inp.value = '';
+  if (typeof recalcAll === 'function') recalcAll();   // renderLores 반영 + save(자동)
+  else if (typeof save === 'function') save();
+  renderLoreModalList();
+  inp.focus();
+}
+function removeCustomLore(idx) {
+  if (!state.customLores || idx < 0 || idx >= state.customLores.length) return;
+  state.customLores.splice(idx, 1);
+  if (typeof recalcAll === 'function') recalcAll();
+  else if (typeof save === 'function') save();
+  renderLoreModalList();
+}
+function renderLoreModalList() {
+  const host = document.getElementById('lore-modal-list');
+  const empty = document.getElementById('lore-modal-empty');
+  const list = state.customLores || [];
+  if (empty) empty.style.display = list.length ? 'none' : '';
+  if (!host) return;
+  host.innerHTML = list.map((l, i) => `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);">
+    <button class="btn" onclick="removeCustomLore(${i})" style="font-size:11px;padding:2px 10px;">삭제 Remove</button>
+    <span style="flex:1;">${String(l.name || '').replace(/</g, '&lt;')} <span style="color:var(--text2);font-size:11px;">훈련 Trained</span></span>
+  </div>`).join('');
 }
 
 // 지식 슬롯 이름 편집 = 소유 출처의 choice에 기록(단일 진실원). 슬롯 점유는 이름 무관 → recalc 불필요.
@@ -2295,7 +2350,7 @@ function recalcAll() {
   // 재주 효과 집계
   if (typeof applyFeatEffects === 'function') applyFeatEffects();
   // 지식(lore) 출처 → 슬롯 배정 (배경+재주 수집 완료 후 1회). 기술 재계산 전에 실행해야 지식 숙련 반영.
-  if (typeof assignLoreSlots === 'function') assignLoreSlots();
+  if (typeof renderLores === 'function') renderLores();
   // 성장(빌더) 기술 훈련/향상 재적용 — 모든 트레인드 부여(클래스고정/유산/배경/재주) 확정 후 마지막에.
   //   향상(+2)은 트레인드 base를 요구하므로 최하단. lore도 assignLoreSlots 후라 지식 향상 대상도 커버.
   applyGrowthSkills();
