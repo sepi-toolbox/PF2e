@@ -62,12 +62,12 @@ window.PF2eOverrideFetcher = function(cat){
   return window._cloudOvrPromise.then(function(all){ return (all && all[cat]) || {}; });
 };
 </script>
-<script src="equipment_db.js?v=0.288"></script>
-<script src="class_features_db.js?v=0.288"></script>
-<script src="effects_db.js?v=0.288"></script>
-<script src="prereqs_db.js?v=0.288"></script>
-<script src="changelog.js?v=0.288"></script>
-<script src="gear-shell.js?v=0.288"></script>
+<script src="equipment_db.js?v=0.289"></script>
+<script src="class_features_db.js?v=0.289"></script>
+<script src="effects_db.js?v=0.289"></script>
+<script src="prereqs_db.js?v=0.289"></script>
+<script src="changelog.js?v=0.289"></script>
+<script src="gear-shell.js?v=0.289"></script>
 <script>
 // Verify class_features_db loaded (센티널 = CLASS_AUTO_SPELLS; CLASS_AUTO_FEATS는 v0.158 폐기)
 if (typeof CLASS_AUTO_SPELLS === 'undefined') {
@@ -86,7 +86,7 @@ if (typeof CLASS_AUTO_SPELLS === 'undefined') {
   console.log('✓ class_features_db.js loaded — 클래스 자동부여=성장표 로스터(CLASS_FEATURE_NAMES)');
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.288">
+<link rel="stylesheet" href="app-shell.css?v=0.289">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -2085,7 +2085,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.288</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.289</span></div>
 </div>
 
 <!-- 업데이트로그·버그제보 모달 → gear-shell.js(공유 주입) -->
@@ -2554,7 +2554,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
         <button class="af-eco af-word" data-filter="activity" onclick="setActionFilter('activity',this)" title="탐험·막간 활동" aria-label="활동">활동</button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.288" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.289" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2628,36 +2628,36 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.288"></script>
-<script src="cs_calc.js?v=0.288"></script>
+<script src="cs_data.js?v=0.289"></script>
+<script src="cs_calc.js?v=0.289"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.288"></script>
-<script src="cs_re_engine.js?v=0.288"></script>
-<script src="cs_pf2e_stats.js?v=0.288"></script>
-<script src="cs_pf2e_equip.js?v=0.288"></script>
-<script src="cs_pf2e_anc.js?v=0.288"></script>
-<script src="cs_pf2e_bg.js?v=0.288"></script>
-<script src="cs_pf2e_spell.js?v=0.288"></script>
-<script src="cs_pf2e_deity.js?v=0.288"></script>
-<script src="cs_pf2e_action.js?v=0.288"></script>
-<script src="cs_pf2e_feat.js?v=0.288"></script>
-<script src="cs_pf2e_class.js?v=0.288"></script>
-<script src="cs_pf2e_actor.js?v=0.288"></script>
-<script src="cs_ui.js?v=0.288"></script>
-<script src="cs_modal.js?v=0.288"></script>
-<script src="cs_feat_effects.js?v=0.288"></script>
-<script src="cs_save.js?v=0.288"></script>
-<script src="cs_session.js?v=0.288"></script>
-<script src="cs_dice.js?v=0.288"></script>
-<script src="cs_map.js?v=0.288"></script>
+<script src="cs_pf2e.js?v=0.289"></script>
+<script src="cs_re_engine.js?v=0.289"></script>
+<script src="cs_pf2e_stats.js?v=0.289"></script>
+<script src="cs_pf2e_equip.js?v=0.289"></script>
+<script src="cs_pf2e_anc.js?v=0.289"></script>
+<script src="cs_pf2e_bg.js?v=0.289"></script>
+<script src="cs_pf2e_spell.js?v=0.289"></script>
+<script src="cs_pf2e_deity.js?v=0.289"></script>
+<script src="cs_pf2e_action.js?v=0.289"></script>
+<script src="cs_pf2e_feat.js?v=0.289"></script>
+<script src="cs_pf2e_class.js?v=0.289"></script>
+<script src="cs_pf2e_actor.js?v=0.289"></script>
+<script src="cs_ui.js?v=0.289"></script>
+<script src="cs_modal.js?v=0.289"></script>
+<script src="cs_feat_effects.js?v=0.289"></script>
+<script src="cs_save.js?v=0.289"></script>
+<script src="cs_session.js?v=0.289"></script>
+<script src="cs_dice.js?v=0.289"></script>
+<script src="cs_map.js?v=0.289"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.288"></script>
-<script src="cs_i18n.js?v=0.288"></script>
+<script src="cs_locale.js?v=0.289"></script>
+<script src="cs_i18n.js?v=0.289"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.288');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.289');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({

@@ -1690,7 +1690,7 @@ function _growthSlotSkeleton(o) {
     <div class="growth-slot-icon">${o.icon}</div>
     <div class="growth-slot-body">
       <div class="growth-slot-label">${o.label}</div>
-      <div class="growth-slot-value">${display}</div>${o.bodyExtra || ''}
+      <div class="growth-slot-value">${display}${o.valueGlyph || ''}</div>${o.bodyExtra || ''}
     </div>${trailing}
   </div>`;
 }
@@ -1788,7 +1788,10 @@ function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
     } catch(e) {}
   }
   const trailing = value ? '<span class="spell-del" onclick="event.stopPropagation();growthClearFeat('+lv+',\''+key+'\',\''+featType+'\');" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>' : '';
-  return _growthSlotSkeleton({ value, onclick: clickAction, icon: circleIco, label, bodyExtra: prereqWarn + loreWarn, trailing });
+  // 채워진 재주의 행동 비용 글리프(돌진=2행동 등) — 이름 옆에. 데이터 파생(featCostGlyph).
+  const _costGlyph = (value && typeof featCostGlyph === 'function')
+    ? featCostGlyph(_fd, (_fd && _fd.id) || (typeof featSlug === 'function' ? featSlug(value) : null)) : '';
+  return _growthSlotSkeleton({ value, onclick: clickAction, icon: circleIco, label, bodyExtra: prereqWarn + loreWarn, trailing, valueGlyph: _costGlyph });
 }
 
 // Growth Plan: pick a feat via the existing modal system
