@@ -68,6 +68,14 @@
     } catch(e){ log('deityErr'); }
     state.trainableSkillSlots = (state.selectedClass && state.selectedClass.free_skill_count) || 2;
     state.growth = state.growth || {};
+    // 채워진 박스 확인용: 교리/성별화/신성원천도 세팅(있으면)
+    try {
+      var _cid = state.selectedClass && state.selectedClass.id;
+      var _docs = (typeof SUBCLASS_DB !== 'undefined' && _cid) ? SUBCLASS_DB.filter(function(s){return s.class_id===_cid;}) : [];
+      if (_docs.length) state.selectedSubclass = _docs[0];
+      var _dd = state.deity && typeof _getDeity==='function' ? _getDeity(state.deity) : null;
+      if (_dd) { if ((_dd.sanctification||[]).length) state.sanctification = _dd.sanctification[0]; if ((_dd.font||[]).length) state.divineFont = _dd.font[0]; }
+    } catch(e){}
     log('cls:'+(state.selectedClass?state.selectedClass.id:'none')+' deity:'+state.deity);
 
     // 4) 유효성 판정 + 렌더
