@@ -152,6 +152,8 @@ function collectData() {
     weapons: state.weapons, equip: state.equip, containers: state.containers || [], formulas: state.formulas || [], languages: state.languages || [], pets: state.pets || [],
     spells: state.spells, spellSlots: state.spellSlots, spellSlotsUsed: state.spellSlotsUsed, cantripSlots: state.cantripSlots || 5, bonusSpellSlots: state.bonusSpellSlots || {},
     feats: state.feats, conditions: state.conditions,
+    customLores: state.customLores || [],
+    classSkillChoices: state.classSkillChoices || [],
     growth: state.growth,
     vision: state.vision || null,
     size: state.size || null,
@@ -497,6 +499,8 @@ function loadData(d) {
     if (d.spellSlotsUsed) state.spellSlotsUsed = d.spellSlotsUsed;
     if (d.cantripSlots) state.cantripSlots = d.cantripSlots;
     state.bonusSpellSlots = d.bonusSpellSlots || {};
+    state.customLores = Array.isArray(d.customLores) ? d.customLores : [];   // 커스텀 지식(부여 지식은 출처에서 재파생)
+    state.classSkillChoices = Array.isArray(d.classSkillChoices) ? d.classSkillChoices : [];   // 택1 클래스 스킬
     renderSpells();
     if (d.feats) {
       state.feats = d.feats;
@@ -664,6 +668,8 @@ let _cloudResolved = false;  // 클라우드 로드 완료 (or 로그인 안 됨
 function _checkReady() {
   if (_uiReady && _cloudResolved && !_loadComplete) {
     _loadComplete = true;
+    // 완전 빈 캐릭터면 기본 빌드(혈통/클래스/배경) 적용 — 아무것도 선택 안 된 상태 방지.
+    if (typeof _maybeApplyDefaultBuild === 'function') _maybeApplyDefaultBuild();
   }
 }
 const _origRecalcAll = recalcAll;

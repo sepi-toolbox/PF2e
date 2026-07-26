@@ -1800,20 +1800,6 @@
   },
   {
    "owner_kind": "feat",
-   "owner_slug": "orc-lore",
-   "owner_name": "오크 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "src": "rule",
-   "rule": "GrantItem",
-   "type": "grant_feat",
-   "target": "additional-lore",
-   "name": "추가 지식",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
    "owner_slug": "diverse-mystery",
    "owner_name": "다양한 신비",
    "owner_level": 16,
@@ -2009,20 +1995,6 @@
    "target": "occultism",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "changeling-lore",
-   "owner_name": "체인질링 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "src": "rule",
-   "rule": "GrantItem",
-   "type": "grant_feat",
-   "target": "additional-lore",
-   "name": "추가 지식",
    "condition": "",
    "cond_value": ""
   },
@@ -2521,20 +2493,6 @@
    "target": "religion",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "dwarven-lore",
-   "owner_name": "드워프 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "src": "rule",
-   "rule": "GrantItem",
-   "type": "grant_feat",
-   "target": "additional-lore",
-   "name": "추가 지식",
    "condition": "",
    "cond_value": ""
   },
@@ -4073,20 +4031,6 @@
   },
   {
    "owner_kind": "feat",
-   "owner_slug": "halfling-lore",
-   "owner_name": "하플링 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "src": "rule",
-   "rule": "GrantItem",
-   "type": "grant_feat",
-   "target": "additional-lore",
-   "name": "추가 지식",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
    "owner_slug": "second-blessing",
    "owner_name": "두 번째 축복",
    "owner_level": 8,
@@ -5031,20 +4975,6 @@
    "owner_level": 1,
    "category": "ancestry",
    "src": "rule",
-   "rule": "GrantItem",
-   "type": "grant_feat",
-   "target": "additional-lore",
-   "name": "추가 지식",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "leshy-lore",
-   "owner_name": "레시 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "src": "rule",
    "rule": "ActiveEffectLike",
    "type": "skill_trained",
    "target": "nature",
@@ -5925,20 +5855,6 @@
   },
   {
    "owner_kind": "feat",
-   "owner_slug": "nephilim-lore",
-   "owner_name": "네필림 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "src": "rule",
-   "rule": "GrantItem",
-   "type": "grant_feat",
-   "target": "additional-lore",
-   "name": "추가 지식",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
    "owner_slug": "goblin-lore",
    "owner_name": "고블린 지식",
    "owner_level": 1,
@@ -5964,20 +5880,6 @@
    "target": "stealth",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "goblin-lore",
-   "owner_name": "고블린 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "src": "rule",
-   "rule": "GrantItem",
-   "type": "grant_feat",
-   "target": "additional-lore",
-   "name": "추가 지식",
    "condition": "",
    "cond_value": ""
   },
@@ -6522,20 +6424,6 @@
    "target": "nature",
    "value": 1,
    "bonus_type": "upgrade",
-   "condition": "",
-   "cond_value": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "elven-lore",
-   "owner_name": "엘프 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "src": "rule",
-   "rule": "GrantItem",
-   "type": "grant_feat",
-   "target": "additional-lore",
-   "name": "추가 지식",
    "condition": "",
    "cond_value": ""
   },
@@ -13211,41 +13099,27 @@
    "owner_level": 1,
    "category": "ancestry",
    "rule": "curated",
-   "src": "choice",
-   "type": "choice",
-   "choice": "cho-orc-lore",
-   "choice_kind": "skill_defaults",
-   "choice_label": "오크 지식 기술 (기본: 운동, 생존)",
-   "value": 2,
-   "target": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "orc-lore",
-   "owner_name": "오크 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-orc-lore",
-   "option": "athletics",
-   "option_name": "운동",
-   "value": "default"
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "orc-lore",
-   "owner_name": "오크 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-orc-lore",
-   "option": "survival",
-   "option_name": "생존",
-   "value": "default"
+   "src": "effect",
+   "type": "grant_lore",
+   "target": "오크 지식",
+   "prof_by_level": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     15,
+     8
+    ]
+   ]
   },
   {
    "owner_kind": "feat",
@@ -13269,41 +13143,27 @@
    "owner_level": 1,
    "category": "ancestry",
    "rule": "curated",
-   "src": "choice",
-   "type": "choice",
-   "choice": "cho-changeling-lore",
-   "choice_kind": "skill_defaults",
-   "choice_label": "체인질링 지식 기술 (기본: 기만, 오컬티즘)",
-   "value": 2,
-   "target": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "changeling-lore",
-   "owner_name": "체인질링 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-changeling-lore",
-   "option": "deception",
-   "option_name": "기만",
-   "value": "default"
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "changeling-lore",
-   "owner_name": "체인질링 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-changeling-lore",
-   "option": "occultism",
-   "option_name": "오컬티즘",
-   "value": "default"
+   "src": "effect",
+   "type": "grant_lore",
+   "target": "체인질링 지식",
+   "prof_by_level": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     15,
+     8
+    ]
+   ]
   },
   {
    "owner_kind": "feat",
@@ -13327,41 +13187,27 @@
    "owner_level": 1,
    "category": "ancestry",
    "rule": "curated",
-   "src": "choice",
-   "type": "choice",
-   "choice": "cho-dwarven-lore",
-   "choice_kind": "skill_defaults",
-   "choice_label": "드워프 지식 기술 (기본: 제작, 종교학)",
-   "value": 2,
-   "target": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "dwarven-lore",
-   "owner_name": "드워프 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-dwarven-lore",
-   "option": "crafting",
-   "option_name": "제작",
-   "value": "default"
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "dwarven-lore",
-   "owner_name": "드워프 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-dwarven-lore",
-   "option": "religion",
-   "option_name": "종교학",
-   "value": "default"
+   "src": "effect",
+   "type": "grant_lore",
+   "target": "드워프 지식",
+   "prof_by_level": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     15,
+     8
+    ]
+   ]
   },
   {
    "owner_kind": "feat",
@@ -13630,41 +13476,27 @@
    "owner_level": 1,
    "category": "ancestry",
    "rule": "curated",
-   "src": "choice",
-   "type": "choice",
-   "choice": "cho-halfling-lore",
-   "choice_kind": "skill_defaults",
-   "choice_label": "하플링 지식 기술 (기본: 곡예, 은신)",
-   "value": 2,
-   "target": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "halfling-lore",
-   "owner_name": "하플링 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-halfling-lore",
-   "option": "acrobatics",
-   "option_name": "곡예",
-   "value": "default"
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "halfling-lore",
-   "owner_name": "하플링 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-halfling-lore",
-   "option": "stealth",
-   "option_name": "은신",
-   "value": "default"
+   "src": "effect",
+   "type": "grant_lore",
+   "target": "하플링 지식",
+   "prof_by_level": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     15,
+     8
+    ]
+   ]
   },
   {
    "owner_kind": "feat",
@@ -13842,41 +13674,27 @@
    "owner_level": 1,
    "category": "ancestry",
    "rule": "curated",
-   "src": "choice",
-   "type": "choice",
-   "choice": "cho-leshy-lore",
-   "choice_kind": "skill_defaults",
-   "choice_label": "레쉬 지식 기술 (기본: 자연학, 은신)",
-   "value": 2,
-   "target": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "leshy-lore",
-   "owner_name": "레시 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-leshy-lore",
-   "option": "nature",
-   "option_name": "자연학",
-   "value": "default"
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "leshy-lore",
-   "owner_name": "레시 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-leshy-lore",
-   "option": "stealth",
-   "option_name": "은신",
-   "value": "default"
+   "src": "effect",
+   "type": "grant_lore",
+   "target": "레쉬 지식",
+   "prof_by_level": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     15,
+     8
+    ]
+   ]
   },
   {
    "owner_kind": "feat",
@@ -13988,27 +13806,27 @@
    "owner_level": 1,
    "category": "ancestry",
    "rule": "curated",
-   "src": "choice",
-   "type": "choice",
-   "choice": "cho-nephilim-lore",
-   "choice_kind": "skill_defaults",
-   "choice_label": "네피림 지식 기술 (기본: 종교학, 외교)",
-   "value": 2,
-   "target": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "nephilim-lore",
-   "owner_name": "네필림 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-nephilim-lore",
-   "option": "religion",
-   "option_name": "종교학",
-   "value": "default"
+   "src": "effect",
+   "type": "grant_lore",
+   "target": "네피림 지식",
+   "prof_by_level": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     15,
+     8
+    ]
+   ]
   },
   {
    "owner_kind": "feat",
@@ -14032,41 +13850,27 @@
    "owner_level": 1,
    "category": "ancestry",
    "rule": "curated",
-   "src": "choice",
-   "type": "choice",
-   "choice": "cho-goblin-lore",
-   "choice_kind": "skill_defaults",
-   "choice_label": "고블린 지식 기술 (기본: 자연학, 은신)",
-   "value": 2,
-   "target": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "goblin-lore",
-   "owner_name": "고블린 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-goblin-lore",
-   "option": "nature",
-   "option_name": "자연학",
-   "value": "default"
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "goblin-lore",
-   "owner_name": "고블린 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-goblin-lore",
-   "option": "stealth",
-   "option_name": "은신",
-   "value": "default"
+   "src": "effect",
+   "type": "grant_lore",
+   "target": "고블린 지식",
+   "prof_by_level": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     15,
+     8
+    ]
+   ]
   },
   {
    "owner_kind": "feat",
@@ -14202,41 +14006,27 @@
    "owner_level": 1,
    "category": "ancestry",
    "rule": "curated",
-   "src": "choice",
-   "type": "choice",
-   "choice": "cho-elven-lore",
-   "choice_kind": "skill_defaults",
-   "choice_label": "엘프 지식 기술 (기본: 주문학, 자연학)",
-   "value": 2,
-   "target": ""
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "elven-lore",
-   "owner_name": "엘프 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-elven-lore",
-   "option": "arcana",
-   "option_name": "주문학",
-   "value": "default"
-  },
-  {
-   "owner_kind": "feat",
-   "owner_slug": "elven-lore",
-   "owner_name": "엘프 지식",
-   "owner_level": 1,
-   "category": "ancestry",
-   "rule": "curated",
-   "src": "choice_opt",
-   "type": "choice_opt",
-   "choice": "cho-elven-lore",
-   "option": "nature",
-   "option_name": "자연학",
-   "value": "default"
+   "src": "effect",
+   "type": "grant_lore",
+   "target": "엘프 지식",
+   "prof_by_level": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     15,
+     8
+    ]
+   ]
   },
   {
    "owner_kind": "feat",
@@ -16522,7 +16312,7 @@
    "name": "학파 주문(상급)"
   }
  ],
- "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 1249 · 29 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.",
+ "note": "자동화 효과 테이블 — 우리가 모델링하는 효과만, 우리 열거형으로. 효과행 1226 · 29 type. 소스=FVTT system.rules[](feat/heritage/background)를 우리 스키마로 번역 + 신격 구조필드 + curated_effects.json. ★ FVTT 룰을 그대로 덤프하지 않음: 미모델 룰타입(ael/roll_option/adjust_*/item_alteration/strike/… )·상황조건행(롤타임 predicate)·미모델 숙련(개별무기·시전별칭)은 표시 제외. 효과타입·대상·값·값종류·조건 전부 영문 열거형/slug(한글 프로즈 없음). 조건=열거형 slug, 조건밸류=한 원자값. 코드가 실제 처리하는 자료형은 _schema 참조. 재생성=node tools/derive/build_effects.mjs.",
  "_schema": {
   "note": "코드가 실제 처리하는 자료형(런타임 소스). 이 목록 밖 값은 런타임이 모름 = 데이터·코드 불변식. 조건 평가=cs_calc _evalEffectCondition, 효과 적용=applyFeatEffects.",
   "condition": {
@@ -16595,9 +16385,9 @@
   }
  },
  "_types": {
-  "grant_feat": 176,
+  "grant_feat": 168,
   "grant_item": 76,
-  "choice": 187,
+  "choice": 179,
   "note": 11,
   "skill_trained": 164,
   "resistance": 39,
@@ -16610,7 +16400,7 @@
   "hp_bonus": 9,
   "save_bonus": 4,
   "ac_bonus": 4,
-  "grant_lore": 44,
+  "grant_lore": 52,
   "immunity": 2,
   "perception_bonus": 3,
   "attribute_boost": 38,
@@ -16620,7 +16410,7 @@
   "domain": 112,
   "grant_spell": 66,
   "damage_note": 3,
-  "choice_opt": 22,
+  "choice_opt": 7,
   "grant_focus_spell": 8,
   "familiar_ability": 1,
   "rune": 161

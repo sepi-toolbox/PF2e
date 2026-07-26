@@ -127,8 +127,8 @@
       return Promise.resolve();
     }
     return Promise.all([
-      fetch('data/derived/familiar_progression.json?v=0.284').then(r => r.json()).then(_fillFamProg).catch(() => {}),
-      fetch('data/derived/familiar_abilities.json?v=0.284').then(r => r.json()).then(j => _fillFamAbil(j.rows)).catch(() => {}),
+      fetch('data/derived/familiar_progression.json?v=0.290').then(r => r.json()).then(_fillFamProg).catch(() => {}),
+      fetch('data/derived/familiar_abilities.json?v=0.290').then(r => r.json()).then(j => _fillFamAbil(j.rows)).catch(() => {}),
     ]).then(() => {});
   }
 
@@ -136,7 +136,7 @@
     if (_subProfTable) return _subProfTable;
     let rows = null;
     if (isNode) { const fs = require("fs"); for (const p of ["data/derived/subclass_progression.json", "dev/data/derived/subclass_progression.json"]) { try { rows = JSON.parse(fs.readFileSync(p, "utf8")).rows; break; } catch (e) {} } }
-    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.284"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/subclass_progression.json?v=0.290"); rows = ((await r.json()).rows) || []; } catch (e) { rows = []; } }
     _subProfTable = _buildSubProfTable(rows || []);
     _subGrantTable = _buildSubGrantTable(rows || []);   // 같은 rows에서 부여표도 동시 구축
     return _subProfTable;
@@ -148,7 +148,7 @@
   async function _ensureProfTable() {
     if (_profTable) return _profTable;
     let rows = _profRows();
-    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.284"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
+    if (rows == null) { try { const r = await fetch("data/derived/class_progression.json?v=0.290"); rows = ((await r.json()).rows) || []; } catch(e){ rows = []; } }
     _profTable = _buildProfTable(rows);
     _featRoster = _buildFeatRoster(rows);   // 레벨별 특성 로스터(같은 성장표 rows에서)
     root.CLASS_PROF_TABLE = _profTable;   // 전역 노출(cs_pf2e_stats/actor/cs_modal 소비)
@@ -373,7 +373,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/cleric_doctrines.json?v=0.284').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/cleric_doctrines.json?v=0.290').then(r => r.json()).then(j => { _injectDoctrines(j.rows); _doctrinesLoaded = true; }).catch(() => {});
   }
 
   // 서브클래스 단일소스 = data/derived/subclasses.json → 런타임 SUBCLASS_DB 채움.
@@ -392,7 +392,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/subclasses.json?v=0.284').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/subclasses.json?v=0.290').then(r => r.json()).then(j => { inject(j.rows); _subclassesLoaded = true; }).catch(() => {});
   }
 
   // 소서러 혈통 정본 메타 = data/derived/bloodlines.json → 런타임 BLOODLINE_DB 채움.
@@ -420,7 +420,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/bloodlines.json?v=0.284').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/bloodlines.json?v=0.290').then(r => r.json()).then(j => { _fillBloodlineDB(j.rows); _fillBloodlineGuide(j.guide); _bloodlinesLoaded = true; }).catch(() => {});
   }
 
   // 오라클 신비 정본 메타 = data/derived/oracle_mysteries.json → 런타임 MYSTERY_DB 채움.
@@ -447,7 +447,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/oracle_mysteries.json?v=0.284').then(r => r.json()).then(j => { _fillMysteryDB(j.rows); _fillMysteryGuide(j.guide); _mysteriesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/oracle_mysteries.json?v=0.290').then(r => r.json()).then(j => { _fillMysteryDB(j.rows); _fillMysteryGuide(j.guide); _mysteriesLoaded = true; }).catch(() => {});
   }
 
   // 위저드 비전 학파 정본 메타 = data/derived/wizard_schools.json → 런타임 WIZARD_SCHOOL_DB/GUIDE 채움.
@@ -473,7 +473,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/wizard_schools.json?v=0.284').then(r => r.json()).then(j => { _fillWizardSchoolDB(j.rows); _fillWizardSchoolGuide(j.guide); _wizardSchoolsLoaded = true; }).catch(() => {});
+    return fetch('data/derived/wizard_schools.json?v=0.290').then(r => r.json()).then(j => { _fillWizardSchoolDB(j.rows); _fillWizardSchoolGuide(j.guide); _wizardSchoolsLoaded = true; }).catch(() => {});
   }
 
   // 바드 뮤즈 가이드 = data/derived/bard_muses.json → BARD_MUSE_GUIDE 채움(모달 「뮤즈 항목 읽는 법」).
@@ -494,7 +494,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/bard_muses.json?v=0.284').then(r => r.json()).then(j => { _fillBardMuseGuide(j.guide); _bardMusesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/bard_muses.json?v=0.290').then(r => r.json()).then(j => { _fillBardMuseGuide(j.guide); _bardMusesLoaded = true; }).catch(() => {});
   }
 
   // 마녀 후원자 가이드 = data/derived/witch_patrons.json → WITCH_PATRON_GUIDE(모달 「후원자 항목 읽는 법」).
@@ -514,7 +514,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/witch_patrons.json?v=0.284').then(r => r.json()).then(j => { _fillWitchPatronGuide(j.guide); _witchPatronsLoaded = true; }).catch(() => {});
+    return fetch('data/derived/witch_patrons.json?v=0.290').then(r => r.json()).then(j => { _fillWitchPatronGuide(j.guide); _witchPatronsLoaded = true; }).catch(() => {});
   }
 
   // 드루이드 교단 가이드 = data/derived/druid_orders.json → DRUID_ORDER_GUIDE(모달 「교단 항목 읽는 법」).
@@ -535,7 +535,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/druid_orders.json?v=0.284').then(r => r.json()).then(j => { _fillDruidOrderGuide(j.guide); _druidOrdersLoaded = true; }).catch(() => {});
+    return fetch('data/derived/druid_orders.json?v=0.290').then(r => r.json()).then(j => { _fillDruidOrderGuide(j.guide); _druidOrdersLoaded = true; }).catch(() => {});
   }
 
   // 레인저 사냥 방식 가이드 = data/derived/ranger_edges.json → RANGER_EDGE_GUIDE(모달 「사냥 방식 항목 읽는 법」).
@@ -556,7 +556,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/ranger_edges.json?v=0.284').then(r => r.json()).then(j => { _fillRangerEdgeGuide(j.guide); _rangerEdgesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/ranger_edges.json?v=0.290').then(r => r.json()).then(j => { _fillRangerEdgeGuide(j.guide); _rangerEdgesLoaded = true; }).catch(() => {});
   }
 
   // 로그 수법 가이드 = data/derived/rogue_rackets.json → ROGUE_RACKET_GUIDE(모달 「수법 항목 읽는 법」).
@@ -577,7 +577,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/rogue_rackets.json?v=0.284').then(r => r.json()).then(j => { _fillRogueRacketGuide(j.guide); _rogueRacketsLoaded = true; }).catch(() => {});
+    return fetch('data/derived/rogue_rackets.json?v=0.290').then(r => r.json()).then(j => { _fillRogueRacketGuide(j.guide); _rogueRacketsLoaded = true; }).catch(() => {});
   }
 
   // 챔피언 원인 가이드 = data/derived/champion_causes.json → CHAMPION_CAUSE_GUIDE(모달 「원인 항목 읽는 법」).
@@ -598,7 +598,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/champion_causes.json?v=0.284').then(r => r.json()).then(j => { _fillChampionCauseGuide(j.guide); _championCausesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/champion_causes.json?v=0.290').then(r => r.json()).then(j => { _fillChampionCauseGuide(j.guide); _championCausesLoaded = true; }).catch(() => {});
   }
 
   // 바바리안 본능 가이드 = data/derived/barbarian_instincts.json → BARBARIAN_INSTINCT_GUIDE(모달 「본능 항목 읽는 법」).
@@ -619,7 +619,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/barbarian_instincts.json?v=0.284').then(r => r.json()).then(j => { _fillBarbarianInstinctGuide(j.guide); _barbarianInstinctsLoaded = true; }).catch(() => {});
+    return fetch('data/derived/barbarian_instincts.json?v=0.290').then(r => r.json()).then(j => { _fillBarbarianInstinctGuide(j.guide); _barbarianInstinctsLoaded = true; }).catch(() => {});
   }
 
   // 수사관 방법론 가이드 = data/derived/investigator_methodologies.json → INVESTIGATOR_METHODOLOGY_GUIDE(모달 「방법론 항목 읽는 법」).
@@ -640,7 +640,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/investigator_methodologies.json?v=0.284').then(r => r.json()).then(j => { _fillInvestigatorMethodologyGuide(j.guide); _investigatorMethodologiesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/investigator_methodologies.json?v=0.290').then(r => r.json()).then(j => { _fillInvestigatorMethodologyGuide(j.guide); _investigatorMethodologiesLoaded = true; }).catch(() => {});
   }
 
   // 스워시버클러 스타일 가이드 = data/derived/swashbuckler_styles.json → SWASHBUCKLER_STYLE_GUIDE(모달 「스타일 항목 읽는 법」).
@@ -661,7 +661,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/swashbuckler_styles.json?v=0.284').then(r => r.json()).then(j => { _fillSwashbucklerStyleGuide(j.guide); _swashbucklerStylesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/swashbuckler_styles.json?v=0.290').then(r => r.json()).then(j => { _fillSwashbucklerStyleGuide(j.guide); _swashbucklerStylesLoaded = true; }).catch(() => {});
   }
 
   // 연금술사 연구 분야 가이드 = data/derived/alchemist_research_fields.json → ALCHEMIST_RESEARCH_FIELD_GUIDE(모달 「연구 분야 항목 읽는 법」).
@@ -682,7 +682,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/alchemist_research_fields.json?v=0.284').then(r => r.json()).then(j => { _fillAlchemistResearchFieldGuide(j.guide); _alchemistResearchFieldsLoaded = true; }).catch(() => {});
+    return fetch('data/derived/alchemist_research_fields.json?v=0.290').then(r => r.json()).then(j => { _fillAlchemistResearchFieldGuide(j.guide); _alchemistResearchFieldsLoaded = true; }).catch(() => {});
   }
 
   // 파이터 「클래스 핵심 특징」 가이드 = data/derived/fighter_features.json → FIGHTER_GUIDE(모달 「클래스 핵심 특징」 박스).
@@ -703,7 +703,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/fighter_features.json?v=0.284').then(r => r.json()).then(j => { _fillFighterGuide(j.guide); _fighterFeaturesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/fighter_features.json?v=0.290').then(r => r.json()).then(j => { _fillFighterGuide(j.guide); _fighterFeaturesLoaded = true; }).catch(() => {});
   }
 
   // 몽크 「클래스 핵심 특징」 가이드 = data/derived/monk_features.json → MONK_GUIDE(모달 「클래스 핵심 특징」 박스).
@@ -724,7 +724,7 @@
       }
       return Promise.resolve();
     }
-    return fetch('data/derived/monk_features.json?v=0.284').then(r => r.json()).then(j => { _fillMonkGuide(j.guide); _monkFeaturesLoaded = true; }).catch(() => {});
+    return fetch('data/derived/monk_features.json?v=0.290').then(r => r.json()).then(j => { _fillMonkGuide(j.guide); _monkFeaturesLoaded = true; }).catch(() => {});
   }
 
   async function init() {
@@ -772,6 +772,21 @@
     _list.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ko'));
   }
 
+  // 클래스 「택1 클래스 스킬」 = system.rules의 스킬 ChoiceSet(파이터 곡예/운동 등) → 옵션 배열 그룹.
+  //   trainedSkills.value(고정)와 별개 — Pathbuilder의 「Class Skill」 게이지에 해당(빌더 택1 피커).
+  function _skillChoiceGroups(rules) {
+    const out = [];
+    for (const r of (rules || [])) {
+      if (r && r.key === 'ChoiceSet' && Array.isArray(r.choices)) {
+        const isSkill = r.choices.every(c => c && typeof c.label === 'string' && /^PF2E\.Skill\./.test(c.label)) || /skill/i.test(r.prompt || '');
+        if (isSkill) {
+          const options = r.choices.map(c => c && c.value).filter(v => typeof v === 'string' && v);
+          if (options.length) out.push(options);
+        }
+      }
+    }
+    return out;
+  }
   function classToLegacy(doc) {
     const s = doc.system || {};
     const slug = s.slug;
@@ -795,7 +810,7 @@
       },
       free_skill_count: (s.trainedSkills && s.trainedSkills.additional) || 0,
       fixed_skills: ((s.trainedSkills && s.trainedSkills.value) || []).slice(),
-      choice_skill_groups: [],
+      choice_skill_groups: _skillChoiceGroups(s.rules),   // 택1 클래스 스킬(파이터 곡예/운동 등)
       desc: PF.enrichDesc(PF.descKo(doc) || ''),
       img: doc.img || null, _fvtt: true, _doc: doc,
     };

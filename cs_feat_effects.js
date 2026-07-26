@@ -504,7 +504,7 @@ function _applyOneEffect(fb, eff, feat, level) {
           rank: (typeof _loreRank === 'function') ? _loreRank(eff.prof_by_level) : 2,
           kind: 'feat',
           ref: feat,
-          fixed: false,
+          fixed: eff.name !== '$choice',   // 고정명(엘프 지식 등)=이름 잠금 / $choice(추가 지식)=사용자 명명
         });
       }
       break;

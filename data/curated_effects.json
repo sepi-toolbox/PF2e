@@ -11,15 +11,30 @@
   }
  },
  "orc-lore": {
-  "choice": {
-   "id": "cho-orc-lore",
-   "kind": "skill_defaults",
-   "label": "오크 지식 기술 (기본: 운동, 생존)",
-   "filter": {
-    "count": 2
-   },
-   "options": []
-  }
+  "rows": [
+   {
+    "type": "grant_lore",
+    "target": "오크 지식",
+    "prof_by_level": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      7,
+      6
+     ],
+     [
+      15,
+      8
+     ]
+    ]
+   }
+  ]
  },
  "unconventional-weaponry": {
   "choice": {
@@ -31,15 +46,30 @@
   }
  },
  "changeling-lore": {
-  "choice": {
-   "id": "cho-changeling-lore",
-   "kind": "skill_defaults",
-   "label": "체인질링 지식 기술 (기본: 기만, 오컬티즘)",
-   "filter": {
-    "count": 2
-   },
-   "options": []
-  }
+  "rows": [
+   {
+    "type": "grant_lore",
+    "target": "체인질링 지식",
+    "prof_by_level": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      7,
+      6
+     ],
+     [
+      15,
+      8
+     ]
+    ]
+   }
+  ]
  },
  "terrain-expertise": {
   "choice": {
@@ -53,15 +83,30 @@
   }
  },
  "dwarven-lore": {
-  "choice": {
-   "id": "cho-dwarven-lore",
-   "kind": "skill_defaults",
-   "label": "드워프 지식 기술 (기본: 제작, 종교학)",
-   "filter": {
-    "count": 2
-   },
-   "options": []
-  }
+  "rows": [
+   {
+    "type": "grant_lore",
+    "target": "드워프 지식",
+    "prof_by_level": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      7,
+      6
+     ],
+     [
+      15,
+      8
+     ]
+    ]
+   }
+  ]
  },
  "additional-lore": {
   "choice": {
@@ -259,15 +304,30 @@
   }
  },
  "halfling-lore": {
-  "choice": {
-   "id": "cho-halfling-lore",
-   "kind": "skill_defaults",
-   "label": "하플링 지식 기술 (기본: 곡예, 은신)",
-   "filter": {
-    "count": 2
-   },
-   "options": []
-  }
+  "rows": [
+   {
+    "type": "grant_lore",
+    "target": "하플링 지식",
+    "prof_by_level": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      7,
+      6
+     ],
+     [
+      15,
+      8
+     ]
+    ]
+   }
+  ]
  },
  "assurance": {
   "choice": {
@@ -388,15 +448,30 @@
   }
  },
  "leshy-lore": {
-  "choice": {
-   "id": "cho-leshy-lore",
-   "kind": "skill_defaults",
-   "label": "레쉬 지식 기술 (기본: 자연학, 은신)",
-   "filter": {
-    "count": 2
-   },
-   "options": []
-  }
+  "rows": [
+   {
+    "type": "grant_lore",
+    "target": "레쉬 지식",
+    "prof_by_level": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      7,
+      6
+     ],
+     [
+      15,
+      8
+     ]
+    ]
+   }
+  ]
  },
  "adopted-ancestry": {
   "choice": {
@@ -453,15 +528,30 @@
   }
  },
  "nephilim-lore": {
-  "choice": {
-   "id": "cho-nephilim-lore",
-   "kind": "skill_defaults",
-   "label": "네피림 지식 기술 (기본: 종교학, 외교)",
-   "filter": {
-    "count": 2
-   },
-   "options": []
-  }
+  "rows": [
+   {
+    "type": "grant_lore",
+    "target": "네피림 지식",
+    "prof_by_level": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      7,
+      6
+     ],
+     [
+      15,
+      8
+     ]
+    ]
+   }
+  ]
  },
  "favored-terrain": {
   "choice": {
@@ -473,15 +563,30 @@
   }
  },
  "goblin-lore": {
-  "choice": {
-   "id": "cho-goblin-lore",
-   "kind": "skill_defaults",
-   "label": "고블린 지식 기술 (기본: 자연학, 은신)",
-   "filter": {
-    "count": 2
-   },
-   "options": []
-  }
+  "rows": [
+   {
+    "type": "grant_lore",
+    "target": "고블린 지식",
+    "prof_by_level": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      7,
+      6
+     ],
+     [
+      15,
+      8
+     ]
+    ]
+   }
+  ]
  },
  "advanced-domain": {
   "choice": {
@@ -557,15 +662,30 @@
   }
  },
  "elven-lore": {
-  "choice": {
-   "id": "cho-elven-lore",
-   "kind": "skill_defaults",
-   "label": "엘프 지식 기술 (기본: 주문학, 자연학)",
-   "filter": {
-    "count": 2
-   },
-   "options": []
-  }
+  "rows": [
+   {
+    "type": "grant_lore",
+    "target": "엘프 지식",
+    "prof_by_level": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      7,
+      6
+     ],
+     [
+      15,
+      8
+     ]
+    ]
+   }
+  ]
  },
  "vengeful-hatred": {
   "choice": {

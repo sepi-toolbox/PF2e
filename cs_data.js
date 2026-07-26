@@ -25,10 +25,10 @@ const SUBCLASS_DB = []; // 서브클래스 = DataManager 단일소스(data/deriv
 //  HERITAGE_DB.vision='upgrade'는 매직 값 (혈통 시야를 한 단계 상승) — enum 외 별도 처리
 // ═══════════════════════════════════════════════
 const VISION_DEFS = [
-  { "id": "none",                "name_ko": "없음",        "name_en": "",                    "rank": 0 },
-  { "id": "low-light",           "name_ko": "저광 시야",   "name_en": "Low-Light Vision",    "rank": 1 },
-  { "id": "darkvision",          "name_ko": "암시야",      "name_en": "Darkvision",          "rank": 2 },
-  { "id": "greater-darkvision",  "name_ko": "상위 암시야", "name_en": "Greater Darkvision",  "rank": 3 }
+  { "id": "none",                "name_ko": "없음",        "name_en": "",                    "rank": 0, "desc": "" },
+  { "id": "low-light",           "name_ko": "저광 시야",   "name_en": "Low-Light Vision",    "rank": 1, "desc": "어두운 빛 속에서도 밝은 빛에서처럼 볼 수 있어, 어두운 빛으로 인한 가려짐(은폐) 상태를 무시합니다." },
+  { "id": "darkvision",          "name_ko": "암시야",      "name_en": "Darkvision",          "rank": 2, "desc": "어둠과 어두운 빛 속에서도 밝은 빛에서처럼 잘 볼 수 있지만, 어둠 속에서 보는 모든 것은 흑백으로만 보입니다. 마법적 어둠 속의 일부 대상은 여전히 가려져 보일 수 있습니다." },
+  { "id": "greater-darkvision",  "name_ko": "상위 암시야", "name_en": "Greater Darkvision",  "rank": 3, "desc": "암시야와 같지만, 마법으로 만들어진 어둠조차 꿰뚫어 볼 수 있습니다. 마법적 어둠 속에서도 대상이 가려지지 않습니다." }
 ];
 // 코드 호환을 위한 매핑 (VISION_DEFS에서 자동 빌드)
 const VISION_TYPES = VISION_DEFS.map(v => v.id);
@@ -4551,20 +4551,6 @@ const SKILLS = [
     "attr": "cha"
   },
   {
-    "id": "lore1",
-    "name": "지식 1",
-    "en": "Lore",
-    "attr": "int",
-    "isLore": true
-  },
-  {
-    "id": "lore2",
-    "name": "지식 2",
-    "en": "Lore",
-    "attr": "int",
-    "isLore": true
-  },
-  {
     "id": "medicine",
     "name": "의학",
     "en": "Medicine",
@@ -4726,6 +4712,8 @@ let state = {
   familiarSpells: null, // {cantrip:[], 1:[], 2:[], ...} — 사역마/주문서가 아는 주문 (prepared caster)
   preparedSpells: null, // {cantrip:[], 1:[], 2:[], ...} — 슬롯에 준비된 주문 (중복 가능, null=빈)
   feats: {special:[], ancestry:[], class:[], general:[], skill:[], archetype:[], other:[]},
+  customLores: [],  // 플레이어가 지식 편집 모달로 추가하는 커스텀 지식 [{name, rank}] (부여 지식과 별도)
+  classSkillChoices: [],  // 택1 클래스 스킬(파이터 곡예/운동 등) 선택값 — choice_skill_groups 병렬 배열 [skillId,...]
   conditions: {},
   growth: {},  // level-by-level progression
   // Class-specific choices

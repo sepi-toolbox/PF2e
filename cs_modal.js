@@ -1305,8 +1305,7 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
   const kidsHtml = kids.length ? `<div class="gcf-grants">${kids.map(c => _growthGrantChildHtml(c, gm, 1)).join('')}</div>` : '';
   const nameKo = (f.name_ko || (featData && featData.name_ko) || slug).split(' (')[0].trim();
   const nameEn = f.name_en || (featData && featData.name_en) || '';
-  const badge = (opts && opts.freeFeat) ? '<span class="gcf-gbadge">무료 재주 Free Feat</span>'
-              : (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
+  const badge = (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
   // 무료 재주(배경 부여)는 예시(Pathbuilder)처럼 특성 배지(General·Skill 등)도 함께 표시.
   let _traitsHtml = '';
   if (opts && opts.freeFeat && featData && Array.isArray(featData.traits) && featData.traits.length && typeof traitTag === 'function') {
@@ -1332,11 +1331,73 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
   return `<div class="growth-slot filled gcf-box">
     <div class="gcf-main${hasBody ? ' gcf-clickable' : ''}"${hasBody ? ' onclick="_toggleGcfInline(this)"' : ''}>
       <span class="gcf-fic">${ic}</span>
-      <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>${badge}${_needBadge}
+      <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span>${(typeof featCostGlyph==='function')?featCostGlyph(featData, slug):''}</span>${badge}${_needBadge}
       ${hasBody ? '<span class="gcf-chev">▾</span>' : ''}
     </div>
     ${hasBody ? `<div class="gcf-body">${_traitsHtml}${kidsHtml}${descHtml}${_choiceHtml}</div>` : ''}
   </div>`;
+}
+
+// 성장 빌더: 시야/감각 박스 — 혈통 base 시야(+유산 상승)를 Pathbuilder처럼 특성 박스로 표시.
+//   아이콘 = FVTT 매칭(암시야=darkvision 주문 아이콘 등). 설명 = VISION_DEFS.desc(정본).
+const VISION_ICON_REL = {
+  'low-light':          'systems/pf2e/icons/spells/light.webp',
+  'darkvision':         'systems/pf2e/icons/spells/darkvision.webp',
+  'greater-darkvision': 'systems/pf2e/icons/spells/true-seeing.webp',
+};
+function _growthVisionBoxHtml() {
+  const vid = state.vision || (state.selectedAncestry && state.selectedAncestry.vision) || 'none';
+  if (!vid || vid === 'none') return '';
+  const def = (typeof VISION_DEFS !== 'undefined') ? VISION_DEFS.find(v => v.id === vid) : null;
+  if (!def) return '';
+  const rel = VISION_ICON_REL[vid];
+  const ic = rel
+    ? `<img class="item-icon gcf-ic" src="data/icons/${rel}" loading="lazy" onerror="this.style.display='none'">`
+    : '<span style="font-size:11px;">👁</span>';
+  const nameKo = def.name_ko || vid;
+  const nameEn = def.name_en || '';
+  const desc = def.desc || '';
+  const hasBody = !!desc;
+  return `<div class="growth-slot filled gcf-box">
+    <div class="gcf-main${hasBody ? ' gcf-clickable' : ''}"${hasBody ? ' onclick="_toggleGcfInline(this)"' : ''}>
+      <span class="gcf-fic">${ic}</span>
+      <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>
+      ${hasBody ? '<span class="gcf-chev">▾</span>' : ''}
+    </div>
+    ${hasBody ? `<div class="gcf-body"><div class="gcf-desc">${desc}</div></div>` : ''}
+  </div>`;
+}
+
+// ── 신규(완전 빈) 캐릭터 기본 빌드 — "아무것도 선택되지 않은 상태" 방지(사용자 지시 2026-07-26) ──
+//   혈통/클래스/배경이 모두 비어있을 때만 기본값을 채운다(부분 빌드·저장 캐릭터는 건드리지 않음).
+//   각 확정(confirmModal)과 동일한 apply* 경로를 써서 숙련/부스트/특성까지 정상 파생.
+const DEFAULT_BUILD = { ancestry: 'human', class: 'fighter', background: 'warrior' };
+function _setCoreBtn(id, obj) {
+  const btn = document.getElementById(id);
+  if (btn && obj) { btn.textContent = obj.en ? `${obj.name} (${obj.en})` : obj.name; btn.classList.add('filled'); }
+}
+function applyDefaultBuild() {
+  if (state.selectedClass || state.selectedAncestry || state.selectedBackground) return false;
+  if (typeof PF2eClass === 'undefined' || !PF2eClass.getClassLegacy) return false;
+  // 혈통
+  const anc = PF2eAnc.getAncestryLegacy(DEFAULT_BUILD.ancestry) || (PF2eAnc.ancestryList && PF2eAnc.ancestryList()[0]);
+  if (anc) { state.selectedAncestry = anc; if (typeof applyAncestryDefaults === 'function') applyAncestryDefaults(anc); _setCoreBtn('btn-ancestry', anc); }
+  // 배경
+  const bg = PF2eBg.getBackgroundLegacy(DEFAULT_BUILD.background) || (PF2eBg.backgroundList && PF2eBg.backgroundList()[0]);
+  if (bg) { state.selectedBackground = bg; if (typeof applyBackgroundInfo === 'function') applyBackgroundInfo(bg); _setCoreBtn('btn-background', bg); }
+  // 클래스 (숙련/특성 파생을 위해 마지막)
+  const cls = PF2eClass.getClassLegacy(DEFAULT_BUILD.class) || (PF2eClass.classList && PF2eClass.classList()[0]);
+  if (cls) { state.selectedClass = cls; if (typeof applyClassDefaults === 'function') applyClassDefaults(cls); _setCoreBtn('btn-class', cls); if (typeof applyClassFeatures === 'function') applyClassFeatures(); }
+  if (typeof recalcAll === 'function') recalcAll();
+  if (typeof renderGrowthPlan === 'function') renderGrowthPlan();
+  return true;
+}
+// 부팅 완료 시점에 호출(_checkReady) — 완전 빈 캐릭터면 카탈로그 준비 후 기본 빌드 적용.
+function _maybeApplyDefaultBuild() {
+  if (state.selectedClass || state.selectedAncestry || state.selectedBackground) return;
+  const go = () => { try { applyDefaultBuild(); } catch (e) { console.warn('[defaultBuild]', e); } };
+  if (typeof catalogsReady === 'function' && !catalogsReady() && typeof _ensureAllCatalogs === 'function') _ensureAllCatalogs().then(go);
+  else go();
 }
 
 // 성장 빌더: kind:'choice' 특성의 하위 선택 렌더(EFFECTS_DB choice 옵션). 값=state.classFeatureChoices[slug].
@@ -1452,6 +1513,13 @@ function renderGrowthPlan() {
           const _tr = ((state.growth[1] || {}).skillTraining || []).filter(Boolean).length;
           _gears += _growthGearHTML(Math.max(0, _nSk - _tr), '기술 훈련', 'Skill Training', "growthPickSkillTrainingMulti()", _tr >= _nSk);
         }
+        // 택1 클래스 스킬(파이터 곡예/운동 등) — Pathbuilder식 별도 게이지. 그룹마다 하나씩.
+        (state.selectedClass && state.selectedClass.choice_skill_groups || []).forEach((grp, gi) => {
+          if (!grp || !grp.length) return;
+          const _sel = (state.classSkillChoices || [])[gi];
+          const _sk = _sel && typeof SKILLS !== 'undefined' ? SKILLS.find(s => s.id === _sel) : null;
+          _gears += _growthGearHTML(_sel ? 0 : 1, '클래스 스킬', 'Class Skill', `growthPickClassSkill(${gi})`, !!_sel, _sk ? _sk.name : null);
+        });
         if (state.selectedClass && state.selectedClass.deity_skill) {
           // 신격 기술은 선택 항목이 아니라 신격이 자동으로 정함 → 부여 기술을 캡션으로 표시, 클릭=안내.
           const _dsk = _deitySkillName();
@@ -1466,7 +1534,10 @@ function renderGrowthPlan() {
 
     // Class features at this level — 특성별 개별 박스 + 부여 재주/주문 중첩(출처 기반)
     // 클래스/서브클래스 특성 = 하단 아코디언으로(예시). 여기선 수집만 하고 레벨 끝에 붙임.
-    let _featBoxes = '';
+    //   ★그룹 순서(사용자 지시): 클래스 선택지 → 클래스 특성 → 혈통/종족 기반 특성(시야) → 배경 기반 특성.
+    let _featBoxes = '';           // 클래스 특성
+    let _ancestryFeatBoxes = '';   // 혈통/종족 기반 특성(시야 등)
+    let _bgFeatBoxes = '';         // 배경 기반 특성(무료 재주 등)
     if (state.selectedClass && typeof CLASS_FEATURE_NAMES !== 'undefined') {
       // 교리/신성한 샘/신격은 선택 UI(피커·필드)가 대체하므로 일반 특성 박스에서 제외.
       //   신격은 아래에서 「신격 Deity」 전용 설명 박스(부여 부분만 발췌)로 노출(예시 Pathbuilder).
@@ -1499,12 +1570,14 @@ function renderGrowthPlan() {
       });
     }
 
-    // 배경 부여 재주(무료 재주) = 클래스 특성처럼 아코디언 박스로(예시 Pathbuilder "Free Feat: X").
-    //   클래스 가드 밖 — 클래스 미선택에도 배경만 있으면 표시. 배경 재주는 항상 1레벨 부여.
+    // 혈통/종족 기반 특성 — 시야/감각(혈통 base + 유산 상승). Pathbuilder식 특성 박스(FVTT 아이콘).
+    if (lv === 1 && typeof _growthVisionBoxHtml === 'function') _ancestryFeatBoxes += _growthVisionBoxHtml();
+
+    // 배경 부여 재주(무료 재주) = 특성 박스로. 클래스 가드 밖 — 클래스 미선택에도 배경만 있으면 표시. 항상 1레벨 부여.
     if (lv === 1 && state.selectedBackground && typeof getBackgroundEffects === 'function') {
       const _beff = getBackgroundEffects(state.selectedBackground);
       if (_beff && _beff.feat_id) {
-        _featBoxes += _growthFeatureBoxHtml({ slug: _beff.feat_id }, lv, gm, { freeFeat: true });
+        _bgFeatBoxes += _growthFeatureBoxHtml({ slug: _beff.feat_id }, lv, gm, { freeFeat: true });
       }
     }
 
@@ -1598,7 +1671,8 @@ function renderGrowthPlan() {
     }
 
     // 클래스/서브클래스 특성 = 레벨 하단에 아코디언으로(예시 레이아웃)
-    if (_featBoxes) html += `<div class="growth-feats-section">${_featBoxes}</div>`;
+    // 특성 그룹 순서: 클래스 특성 → 혈통/종족 기반 특성(시야) → 배경 기반 특성.
+    if (_featBoxes || _ancestryFeatBoxes || _bgFeatBoxes) html += `<div class="growth-feats-section">${_featBoxes}${_ancestryFeatBoxes}${_bgFeatBoxes}</div>`;
   }
 
   container.innerHTML = html;
@@ -1623,7 +1697,7 @@ function _growthSlotSkeleton(o) {
     <div class="growth-slot-icon">${o.icon}</div>
     <div class="growth-slot-body">
       <div class="growth-slot-label">${o.label}</div>
-      <div class="growth-slot-value">${display}</div>${o.bodyExtra || ''}
+      <div class="growth-slot-value">${display}${o.valueGlyph || ''}</div>${o.bodyExtra || ''}
     </div>${trailing}
   </div>`;
 }
@@ -1721,7 +1795,10 @@ function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
     } catch(e) {}
   }
   const trailing = value ? '<span class="spell-del" onclick="event.stopPropagation();growthClearFeat('+lv+',\''+key+'\',\''+featType+'\');" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>' : '';
-  return _growthSlotSkeleton({ value, onclick: clickAction, icon: circleIco, label, bodyExtra: prereqWarn + loreWarn, trailing });
+  // 채워진 재주의 행동 비용 글리프(돌진=2행동 등) — 이름 옆에. 데이터 파생(featCostGlyph).
+  const _costGlyph = (value && typeof featCostGlyph === 'function')
+    ? featCostGlyph(_fd, (_fd && _fd.id) || (typeof featSlug === 'function' ? featSlug(value) : null)) : '';
+  return _growthSlotSkeleton({ value, onclick: clickAction, icon: circleIco, label, bodyExtra: prereqWarn + loreWarn, trailing, valueGlyph: _costGlyph });
 }
 
 // Growth Plan: pick a feat via the existing modal system
@@ -1845,6 +1922,38 @@ function growthPickSkillTraining(slotIndex) {
 
 function growthClearSkillTraining(slotIndex) {
   growthSkillTrainingChanged(slotIndex, '');
+}
+
+// 택1 클래스 스킬 피커(파이터 곡예/운동 등) — 제한 풀(choice_skill_groups[gi]) 중 1개 선택.
+function growthPickClassSkill(gi) {
+  const cls = state.selectedClass; if (!cls) return;
+  const grp = (cls.choice_skill_groups || [])[gi]; if (!grp || !grp.length) return;
+  const cur = (state.classSkillChoices || [])[gi] || '';
+  _openChoicePicker({
+    title: '클래스 스킬 선택',
+    modalType: 'class-skill-pick',
+    hint: '이 클래스가 훈련시키는 기술을 하나 고르세요(택1).',
+    options: grp.map(id => {
+      const sk = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === id) : null;
+      return { id, name: sk ? sk.name : id, nameEn: sk ? sk.en : '' };
+    }),
+    current: cur,
+    onSelect: (id) => {
+      if (!state.classSkillChoices) state.classSkillChoices = [];
+      state.classSkillChoices[gi] = id;
+      closeModal();
+      recalcAll();
+      renderGrowthPlan();
+      if (typeof save === 'function') save();
+    },
+  });
+}
+function growthClearClassSkill(gi) {
+  if (state.classSkillChoices && state.classSkillChoices[gi]) {
+    state.classSkillChoices[gi] = null;
+    recalcAll(); renderGrowthPlan();
+    if (typeof save === 'function') save();
+  }
 }
 
 function growthClearAllSkillTraining() {
@@ -5520,6 +5629,7 @@ function resetFromClass() {
   state.selectedSubclass = null;
   state.bloodlineExemplar = null;   // 소서러 혈통 표본 선택 초기화
   state.classFeatureChoices = {};   // 클래스 특성 인라인 선택 초기화
+  state.classSkillChoices = [];     // 택1 클래스 스킬(파이터 곡예/운동 등) 초기화
   const subBtn = document.getElementById('btn-subclass');
   if (subBtn) { subBtn.textContent = '서브클래스...'; subBtn.classList.remove('filled'); subBtn.style.display = 'none'; }
   // Reset weapon proficiencies to defaults
