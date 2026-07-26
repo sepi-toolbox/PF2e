@@ -1466,39 +1466,49 @@ function renderGrowthPlan() {
           state.selectedHeritage ? state.selectedHeritage.name_ko : null,
           "openModal('heritage')", state.selectedHeritage ? "clearCoreSelection('heritage')" : null);
       }
-      // 클레릭(deity_skill): 신격·신성원천·교리·성별화를 라벨+선택박스(Pathbuilder식)로. 항상 노출.
-      //   신격과 불일치하면 값 유지 + 「선행조건 불일치」(B안, 효과 보류).
-      if (state.selectedClass && state.selectedClass.deity_skill) {
+      // 정체성 선택 필드(클레릭식 패턴, Pathbuilder식 라벨+박스). 신격 불일치는 값 유지 + 「선행조건 불일치」.
+      //   신격·성별화 = 신격 사용 클래스(클레릭 deity_skill · 챔피언 deity-champion). 신성원천 = 클레릭 전용.
+      //   서브클래스(정체성) = 클레릭은 교리, 그 외는 subclass_type(챔피언 원인·위저드 학파·주술사 혈통…). 파이터·몽크 없음.
+      if (state.selectedClass) {
+        const _cls = state.selectedClass;
+        const _usesDeity = (typeof _classHasInlineDeity === 'function') && _classHasInlineDeity(_cls);
         const _d = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
         const _inv = state._invalidChoices || {};
-        html += _growthFieldHTML('🙏', '신격 Deity', _d ? (_d.name_ko || _d.name_en) : '', false,
-          "openDeityPicker()", state.deity ? "clearDeity()" : null);
-        const _fLab = state.divineFont ? (state.divineFont === 'heal' ? '치유 (Heal)' : '해악 (Harm)') : '';
-        html += _growthFieldHTML('💧', '신성 원천 Divine Font', _fLab, !!_inv.divineFont,
-          "openDivineFontPicker()", state.divineFont ? "clearDivineFont()" : null);
-        const _sub = state.selectedSubclass;
-        html += _growthFieldHTML('📖', '교리 Doctrine', _sub ? (_sub.name_ko || _sub.name_en) : '', false,
-          "openDoctrinePicker()", _sub ? "clearDoctrine()" : null);
-        const _sOpts = _d ? (_d.sanctification || []) : [];
-        if (!_d || _sOpts.length) {
-          const _sLab = state.sanctification ? (state.sanctification === 'holy' ? '신성 (Holy)' : '불경 (Unholy)') : '';
-          html += _growthFieldHTML('✨', '성별화 Sanctification', _sLab, !!_inv.sanctification,
-            "openSanctPicker()", state.sanctification ? "clearSanctification()" : null);
+        // 신격 (클레릭·챔피언)
+        if (_usesDeity) {
+          html += _growthFieldHTML('🙏', '신격 Deity', _d ? (_d.name_ko || _d.name_en) : '', false,
+            "openDeityPicker()", state.deity ? "clearDeity()" : null);
+        }
+        // 신성 원천 (클레릭 전용)
+        if (_cls.deity_skill) {
+          const _fLab = state.divineFont ? (state.divineFont === 'heal' ? '치유 (Heal)' : '해악 (Harm)') : '';
+          html += _growthFieldHTML('💧', '신성 원천 Divine Font', _fLab, !!_inv.divineFont,
+            "openDivineFontPicker()", state.divineFont ? "clearDivineFont()" : null);
+        }
+        // 서브클래스/정체성 — 클레릭=교리, 그 외=subclass_type(챔피언 원인 포함). 파이터·몽크(_scLabel=null)=미표시.
+        if (_cls.deity_skill) {
+          const _sub = state.selectedSubclass;
+          html += _growthFieldHTML('📖', '교리 Doctrine', _sub ? (_sub.name_ko || _sub.name_en) : '', false,
+            "openDoctrinePicker()", _sub ? "clearDoctrine()" : null);
+        } else {
+          const _scLabel = _classSubclassLabel(_cls);
+          if (_scLabel) {
+            const _csub = (state.selectedSubclass && state.selectedSubclass.class_id === _cls.id) ? state.selectedSubclass : null;
+            html += _growthFieldHTML('🎭', _scLabel, _csub ? (_csub.name_ko || _csub.name_en) : '', false,
+              "openDoctrinePicker()", _csub ? "clearDoctrine()" : null);
+          }
+        }
+        // 성별화 (클레릭·챔피언) — 신격이 옵션 제약(옵션 있을 때만, 신격 미선택 시엔 안내용으로 표시)
+        if (_usesDeity) {
+          const _sOpts = _d ? (_d.sanctification || []) : [];
+          if (!_d || _sOpts.length) {
+            const _sLab = state.sanctification ? (state.sanctification === 'holy' ? '신성 (Holy)' : '불경 (Unholy)') : '';
+            html += _growthFieldHTML('✨', '성별화 Sanctification', _sLab, !!_inv.sanctification,
+              "openSanctPicker()", state.sanctification ? "clearSanctification()" : null);
+          }
         }
       }
       // 언어/후원자 전통은 각 모달에서 처리
-
-      // 정체성(서브클래스) 선택 필드 — 클레릭 교리와 동일 패턴을 서브클래스 보유 전 클래스로 확대(v0.280).
-      //   deity_skill(클레릭)은 위에서 교리로 이미 처리 → 제외. 라벨=클래스 subclass_type(비전 학파·혈통·본능·교단…).
-      //   서브클래스 없는 클래스(파이터·몽크)는 _scLabel=null → 미표시.
-      if (state.selectedClass && !state.selectedClass.deity_skill) {
-        const _scLabel = _classSubclassLabel(state.selectedClass);
-        if (_scLabel) {
-          const _csub = (state.selectedSubclass && state.selectedSubclass.class_id === state.selectedClass.id) ? state.selectedSubclass : null;
-          html += _growthFieldHTML('🎭', _scLabel, _csub ? (_csub.name_ko || _csub.name_en) : '', false,
-            "openDoctrinePicker()", _csub ? "clearDoctrine()" : null);
-        }
-      }
     }
 
     // 능력치 증강·기술 증가는 위 기어 행으로 이관됨.
