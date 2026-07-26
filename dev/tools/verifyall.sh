@@ -15,6 +15,7 @@ flow=skill-increase&class=rogue&siLevel=7&skill=athletics
 flow=feat-select&class=fighter&feat=vicious-swing&featType=class&featLevel=1
 flow=default-build
 flow=lore-build
+flow=class-skill
 "
 FAIL=0; N=0
 echo "════════════════════ PF2e 빌드 흐름 회귀 스위트 ════════════════════"

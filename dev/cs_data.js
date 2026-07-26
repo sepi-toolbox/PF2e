@@ -4713,6 +4713,7 @@ let state = {
   preparedSpells: null, // {cantrip:[], 1:[], 2:[], ...} — 슬롯에 준비된 주문 (중복 가능, null=빈)
   feats: {special:[], ancestry:[], class:[], general:[], skill:[], archetype:[], other:[]},
   customLores: [],  // 플레이어가 지식 편집 모달로 추가하는 커스텀 지식 [{name, rank}] (부여 지식과 별도)
+  classSkillChoices: [],  // 택1 클래스 스킬(파이터 곡예/운동 등) 선택값 — choice_skill_groups 병렬 배열 [skillId,...]
   conditions: {},
   growth: {},  // level-by-level progression
   // Class-specific choices

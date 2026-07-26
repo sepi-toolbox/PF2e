@@ -461,6 +461,29 @@ async function runFlow(flow, Q){
       assert('R2.custom-removed', !(state.customLores||[]).some(function(l){return l.name==='검술 지식';}), 'customLores=' + JSON.stringify(state.customLores));
       assert('R2.granted-persists', (state._loreSources||[]).map(function(s){return s.name;}).indexOf('엘프 지식') >= 0, '부여 지식은 삭제 후에도 유지');
 
+    } else if (flow === 'class-skill') {
+      // 택1 클래스 스킬(파이터 곡예/운동) — 데이터 파싱·게이지·선택 적용 검증.
+      commitClass('fighter'); setLevel(1);
+      var _grp = (state.selectedClass && state.selectedClass.choice_skill_groups) || [];
+      assert('1.data-parsed', _grp.length === 1 && _grp[0].indexOf('acrobatics') >= 0 && _grp[0].indexOf('athletics') >= 0, 'choice_skill_groups=' + JSON.stringify(_grp));
+      renderGrowthPlan();
+      var _gp = function(){ return (document.getElementById('growth-plan')||{}).innerHTML || ''; };
+      assert('2.gauge-rendered', _gp().indexOf('클래스 스킬') >= 0, '빌더에 「클래스 스킬」 게이지');
+      // 선택 시뮬레이션(피커 onSelect가 하는 일): athletics 선택
+      state.classSkillChoices = state.classSkillChoices || [];
+      state.classSkillChoices[0] = 'athletics';
+      recalcAll();
+      var _rank = parseInt((document.getElementById('sk-prof-athletics')||{}).value || '0');
+      assert('3.skill-trained', _rank >= 2, 'sk-prof-athletics=' + _rank + ' (택1 클래스 스킬 훈련)');
+      // 그룹 밖 값은 무시(운동만 유효) — 잘못된 값 주입 시 미적용
+      state.classSkillChoices[0] = 'stealth';   // 파이터 그룹(곡예/운동) 밖
+      recalcAll();
+      var _rankBad = parseInt((document.getElementById('sk-prof-stealth')||{}).value || '0');
+      assert('4.invalid-ignored', _rankBad < 2, 'sk-prof-stealth=' + _rankBad + ' (그룹 밖 값 미적용)');
+      // 재렌더 후에도 게이지 유지 + athletics 복원
+      state.classSkillChoices[0] = 'athletics'; recalcAll(); renderGrowthPlan();
+      assert('5.persists', _gp().indexOf('클래스 스킬') >= 0 && parseInt((document.getElementById('sk-prof-athletics')||{}).value||'0') >= 2, 'ok');
+
     } else {
       assert('unknown-flow', false, 'flow='+flow);
     }

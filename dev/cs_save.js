@@ -153,6 +153,7 @@ function collectData() {
     spells: state.spells, spellSlots: state.spellSlots, spellSlotsUsed: state.spellSlotsUsed, cantripSlots: state.cantripSlots || 5, bonusSpellSlots: state.bonusSpellSlots || {},
     feats: state.feats, conditions: state.conditions,
     customLores: state.customLores || [],
+    classSkillChoices: state.classSkillChoices || [],
     growth: state.growth,
     vision: state.vision || null,
     size: state.size || null,
@@ -499,6 +500,7 @@ function loadData(d) {
     if (d.cantripSlots) state.cantripSlots = d.cantripSlots;
     state.bonusSpellSlots = d.bonusSpellSlots || {};
     state.customLores = Array.isArray(d.customLores) ? d.customLores : [];   // 커스텀 지식(부여 지식은 출처에서 재파생)
+    state.classSkillChoices = Array.isArray(d.classSkillChoices) ? d.classSkillChoices : [];   // 택1 클래스 스킬
     renderSpells();
     if (d.feats) {
       state.feats = d.feats;

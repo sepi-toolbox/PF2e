@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>전술 지도 · Pathforge</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="app-shell.css?v=0.289">
-<script src="changelog.js?v=0.289"></script>
-<script src="gear-shell.js?v=0.289"></script>
+<link rel="stylesheet" href="app-shell.css?v=0.290">
+<script src="changelog.js?v=0.290"></script>
+<script src="gear-shell.js?v=0.290"></script>
 <meta name="theme-color" content="#17130d">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -492,9 +492,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_dice.js?v=0.289"></script>
-<script src="cs_monster.js?v=0.289"></script>
-<script src="cs_map.js?v=0.289"></script>
+<script src="cs_dice.js?v=0.290"></script>
+<script src="cs_monster.js?v=0.290"></script>
+<script src="cs_map.js?v=0.290"></script>
 <style>
 /* 듀얼모니터: GM 도구 + 플레이어 CCTV */
 #map-gm-tools{margin-left:12px;display:inline-flex;gap:6px;align-items:center;}
@@ -780,7 +780,7 @@ window.MonsterLink = (function () {
     const _b = document.getElementById('pf-dice-box'); if (_b) _b.remove();
   } else {
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.289');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.290');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     const box = new DiceBox({ container: '#pf-dice-box', assetPath, theme: 'default', offscreen: false, scale: 6 });
     let ready = false;

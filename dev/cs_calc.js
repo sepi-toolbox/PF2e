@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.289').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.290').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -2198,6 +2198,11 @@ function rebuildCoreEffects() {
       if (!name) return;
       const id = (typeof skillNameToId === 'function') ? skillNameToId(name) : null;
       if (id) clsSkillIds.push(id);
+    });
+    // 택1 클래스 스킬(파이터 곡예/운동 등) — 성장 빌더 「클래스 스킬」 피커 선택값(그룹 내 유효값만) 훈련.
+    const _cscGroups = cls.choice_skill_groups || [];
+    (state.classSkillChoices || []).forEach((sid, gi) => {
+      if (sid && _cscGroups[gi] && _cscGroups[gi].indexOf(sid) >= 0 && clsSkillIds.indexOf(sid) < 0) clsSkillIds.push(sid);
     });
     clsSkillIds.forEach(id => {
       const el = document.getElementById('sk-prof-' + id);

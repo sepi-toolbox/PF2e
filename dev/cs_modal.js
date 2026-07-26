@@ -1513,6 +1513,13 @@ function renderGrowthPlan() {
           const _tr = ((state.growth[1] || {}).skillTraining || []).filter(Boolean).length;
           _gears += _growthGearHTML(Math.max(0, _nSk - _tr), '기술 훈련', 'Skill Training', "growthPickSkillTrainingMulti()", _tr >= _nSk);
         }
+        // 택1 클래스 스킬(파이터 곡예/운동 등) — Pathbuilder식 별도 게이지. 그룹마다 하나씩.
+        (state.selectedClass && state.selectedClass.choice_skill_groups || []).forEach((grp, gi) => {
+          if (!grp || !grp.length) return;
+          const _sel = (state.classSkillChoices || [])[gi];
+          const _sk = _sel && typeof SKILLS !== 'undefined' ? SKILLS.find(s => s.id === _sel) : null;
+          _gears += _growthGearHTML(_sel ? 0 : 1, '클래스 스킬', 'Class Skill', `growthPickClassSkill(${gi})`, !!_sel, _sk ? _sk.name : null);
+        });
         if (state.selectedClass && state.selectedClass.deity_skill) {
           // 신격 기술은 선택 항목이 아니라 신격이 자동으로 정함 → 부여 기술을 캡션으로 표시, 클릭=안내.
           const _dsk = _deitySkillName();
@@ -1915,6 +1922,38 @@ function growthPickSkillTraining(slotIndex) {
 
 function growthClearSkillTraining(slotIndex) {
   growthSkillTrainingChanged(slotIndex, '');
+}
+
+// 택1 클래스 스킬 피커(파이터 곡예/운동 등) — 제한 풀(choice_skill_groups[gi]) 중 1개 선택.
+function growthPickClassSkill(gi) {
+  const cls = state.selectedClass; if (!cls) return;
+  const grp = (cls.choice_skill_groups || [])[gi]; if (!grp || !grp.length) return;
+  const cur = (state.classSkillChoices || [])[gi] || '';
+  _openChoicePicker({
+    title: '클래스 스킬 선택',
+    modalType: 'class-skill-pick',
+    hint: '이 클래스가 훈련시키는 기술을 하나 고르세요(택1).',
+    options: grp.map(id => {
+      const sk = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === id) : null;
+      return { id, name: sk ? sk.name : id, nameEn: sk ? sk.en : '' };
+    }),
+    current: cur,
+    onSelect: (id) => {
+      if (!state.classSkillChoices) state.classSkillChoices = [];
+      state.classSkillChoices[gi] = id;
+      closeModal();
+      recalcAll();
+      renderGrowthPlan();
+      if (typeof save === 'function') save();
+    },
+  });
+}
+function growthClearClassSkill(gi) {
+  if (state.classSkillChoices && state.classSkillChoices[gi]) {
+    state.classSkillChoices[gi] = null;
+    recalcAll(); renderGrowthPlan();
+    if (typeof save === 'function') save();
+  }
 }
 
 function growthClearAllSkillTraining() {
@@ -5590,6 +5629,7 @@ function resetFromClass() {
   state.selectedSubclass = null;
   state.bloodlineExemplar = null;   // 소서러 혈통 표본 선택 초기화
   state.classFeatureChoices = {};   // 클래스 특성 인라인 선택 초기화
+  state.classSkillChoices = [];     // 택1 클래스 스킬(파이터 곡예/운동 등) 초기화
   const subBtn = document.getElementById('btn-subclass');
   if (subBtn) { subBtn.textContent = '서브클래스...'; subBtn.classList.remove('filled'); subBtn.style.display = 'none'; }
   // Reset weapon proficiencies to defaults
