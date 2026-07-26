@@ -823,6 +823,51 @@ function _classHasInlineDeity(cls) {
   return roster.some(f => /^deity-/.test(String(f.slug || f.id || '')));
 }
 
+// ── 빌드에 "신격을 사용하는 효과"가 있는가 (대원칙0: 효과 데이터 파생) ──
+//   신격 선택 UI를 상시 노출하지 않고, 신격 의존 효과가 빌드에 생겼을 때만 파생시키기 위한 판정.
+//   데이터 마커(effects_db, 신규 스키마 없이 기존 것 재사용):
+//     ① grant_focus_spell target = $domain_initial|$domain_advanced (영역 집중주문 = 신격 영역 의존)
+//     ② choice.id = cho-domain-initiate|cho-advanced-domain (영역 선택 = 신격 영역 의존)
+//     ③ grant_feat target ∈ 신격 부여 노드(부여 체인 재귀) — dedication이 deity-*를, 교리가 domain-initiate를 부여
+const _DEITY_GRANT_TARGETS = new Set(['deity-cleric', 'deity-champion', 'domain-initiate', 'advanced-domain']);
+function _slugUsesDeity(slug, _seen) {
+  if (!slug || typeof _getFeatEffectsDef !== 'function') return false;
+  _seen = _seen || new Set();
+  if (_seen.has(slug)) return false;
+  _seen.add(slug);
+  const def = _getFeatEffectsDef(slug);
+  if (!def) return false;
+  if (def.choice && (def.choice.id === 'cho-domain-initiate' || def.choice.id === 'cho-advanced-domain')) return true;
+  for (const r of (def.rows || [])) {
+    if (r.type === 'grant_focus_spell' && (r.target === '$domain_initial' || r.target === '$domain_advanced')) return true;
+    if (r.type === 'grant_feat' && (_DEITY_GRANT_TARGETS.has(r.target) || _slugUsesDeity(r.target, _seen))) return true;
+  }
+  return false;
+}
+function _buildUsesDeity() {
+  // 보유 재주 전체(모든 카테고리)
+  const feats = state.feats || {};
+  for (const cat of Object.keys(feats)) {
+    for (const f of (feats[cat] || [])) {
+      const sl = (typeof featSlug === 'function') ? featSlug(f) : (f && (f.slug || f.id));
+      if (_slugUsesDeity(sl)) return true;
+    }
+  }
+  // 클래스 특성
+  const cls = state.selectedClass;
+  if (cls && typeof CLASS_FEATURE_NAMES !== 'undefined') {
+    for (const f of (CLASS_FEATURE_NAMES[cls.id] || [])) {
+      if (_slugUsesDeity(f.slug || f.id)) return true;
+    }
+  }
+  // 서브클래스 특성
+  const sub = state.selectedSubclass;
+  if (sub && Array.isArray(sub.features)) {
+    for (const f of sub.features) { if (_slugUsesDeity(f.slug || f.id || f.name_en)) return true; }
+  }
+  return false;
+}
+
 // 슬러그→무기 정본명 표시 = @link 단일 경로(원칙#1: 별도 getWeapon().name_ko 해소 금지).
 //   link=true → 인터랙티브 @link 스팬(툴팁), false → 평문(리스트/폼컨트롤용, 동일 리졸버 get('equipment')).
 // 자연공격 등 player equipment에 없는 슬러그: @link 대신 한글 평문(깨진 링크 방지).
@@ -1479,15 +1524,8 @@ function renderGrowthPlan() {
     state.selectedClass ? _slotCircle('class', state.selectedClass, '⚔') : '⚔', '클래스 Class',
     state.selectedClass ? `${state.selectedClass.name} (${state.selectedClass.en})` : null,
     "openModal('class')", state.selectedClass ? "clearCoreSelection('class')" : null);
-  // Deity selector — 신격을 클래스 모달에서 인라인 선택하는 클래스(클레릭=deity_skill, 챔피언=deity-champion 특성)는
-  //   성장플랜 슬롯 숨김(중복 제거). 그 외 신격 사용 클래스는 여기서 계속 선택.
-  if (!_classHasInlineDeity(state.selectedClass)) {
-    const _dObj = state.deity ? _getDeity(state.deity) : null;
-    html += growthSlotWithClearHTML('deity-sel',
-      _dObj ? _slotCircle('deity', _dObj, '🙏') : '🙏', '신격 Deity',
-      _dObj ? `${_dObj.name_ko} (${_dObj.name_en})` : null,
-      "openDeityPicker()", state.deity ? "clearDeity()" : null);
-  }
+  // Deity selector — 상단 상시 슬롯 제거(v0.294). 신격은 클래스가 신격을 쓰거나(클레릭/챔피언),
+  //   빌드에 신격 사용 효과(영역 재주 등)가 생겼을 때만 레벨1 정체성 영역에 파생(_buildUsesDeity).
   html += `</div>`;
 
   const _growthTable = getGrowthTable(state.selectedClass);
@@ -1596,10 +1634,13 @@ function renderGrowthPlan() {
       if (state.selectedClass) {
         const _cls = state.selectedClass;
         const _usesDeity = (typeof _classHasInlineDeity === 'function') && _classHasInlineDeity(_cls);
+        // 신격 필드 노출 = 클래스가 신격 사용(클레릭/챔피언) OR 빌드에 신격 사용 효과 존재(영역 재주 등).
+        //   성별화·신성원천은 여전히 클래스 게이트(_usesDeity)만 — 신격 효과가 있다고 성별화가 생기진 않음.
+        const _showDeity = _usesDeity || ((typeof _buildUsesDeity === 'function') && _buildUsesDeity());
         const _d = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
         const _inv = state._invalidChoices || {};
-        // 신격 (클레릭·챔피언)
-        if (_usesDeity) {
+        // 신격 (클레릭·챔피언, 또는 신격 사용 효과 보유 빌드)
+        if (_showDeity) {
           html += _growthFieldHTML('🙏', '신격 Deity', _d ? (_d.name_ko || _d.name_en) : '', false,
             "openDeityPicker()", state.deity ? "clearDeity()" : null);
         }

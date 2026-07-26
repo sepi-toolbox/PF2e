@@ -431,6 +431,23 @@ async function runFlow(flow, Q){
         assert('3.feat-persists', (state.feats[fType]||[]).length>0 && !!((state.growth[fLv]||{})[fKey]), 'ok');
       }
 
+    } else if (flow === 'deity-derive') {
+      // 신격 파생: 신격 미사용 클래스(파이터)엔 신격 필드 없음 → 신격 사용 재주(도메인 입문자) 추가 시 파생 노출.
+      commitClass('fighter'); setLevel(1);
+      assert('1.class-committed', state.selectedClass && state.selectedClass.id === 'fighter', 'cls='+(state.selectedClass&&state.selectedClass.id));
+      assert('2.no-deity-initial', typeof _buildUsesDeity === 'function' && _buildUsesDeity() === false, '_buildUsesDeity='+(typeof _buildUsesDeity==='function'?_buildUsesDeity():'undef'));
+      renderGrowthPlan();
+      assert('3.no-deity-field', gp().indexOf('신격 Deity') < 0, '초기 성장플랜에 신격 필드 없어야');
+      var _df = PF2eFeat.getFeatLegacy('domain-initiate');
+      assert('4.deity-feat-in-catalog', !!_df, 'domain-initiate → '+(_df?(_df.name_en||_df.name_ko):'null'));
+      if (_df) {
+        state.feats.archetype = state.feats.archetype || [];
+        state.feats.archetype.push({ name: (_df.name_ko||'')+' ('+(_df.name_en||'')+')', slug: 'domain-initiate', level: 1 });
+        assert('5.uses-deity-after', _buildUsesDeity() === true, '재주 추가 후 _buildUsesDeity='+_buildUsesDeity());
+        renderGrowthPlan();
+        assert('6.deity-field-appears', gp().indexOf('신격 Deity') >= 0, '신격 사용 재주 추가 후 신격 필드 파생돼야');
+      }
+
     } else if (flow === 'default-build') {
       // 완전 빈 캐릭터 → 기본 빌드(Human/Fighter/Warrior) 자동 적용, 아무것도 미선택 상태 방지
       state.selectedClass = null; state.selectedAncestry = null; state.selectedBackground = null; state.selectedHeritage = null;

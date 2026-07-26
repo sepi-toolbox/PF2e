@@ -16,6 +16,7 @@ flow=feat-select&class=fighter&feat=vicious-swing&featType=class&featLevel=1
 flow=default-build
 flow=lore-build
 flow=class-skill
+flow=deity-derive
 "
 FAIL=0; N=0
 echo "════════════════════ PF2e 빌드 흐름 회귀 스위트 ════════════════════"
