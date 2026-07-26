@@ -122,6 +122,9 @@
       var _siLv = parseInt(Q.get('siLevel') || lvl) || 3;
       var _siPick = Q.get('siPick');
       if (_siPick) { state.growth[_siLv] = state.growth[_siLv] || {}; state.growth[_siLv].skillIncrease = _siPick; }
+      // ?siSeed=3:religion;5:athletics — 관문 검증용, 다른 레벨의 기술 증가를 미리 심음(예: 3레벨에 전문가로 만들어 5레벨 후보 제외 확인)
+      var _siSeed = Q.get('siSeed');
+      if (_siSeed) { _siSeed.split(';').forEach(function(p){ var kv=p.split(':'); var L=parseInt(kv[0]); if(L&&kv[1]){ state.growth[L]=state.growth[L]||{}; state.growth[L].skillIncrease=kv[1]; } }); }
     }
 
     // 3b) 기술 숙련 DOM(sk-prof-*) 주입 — 기술 모달이 참조. recalcAll이 훈련값 기록.

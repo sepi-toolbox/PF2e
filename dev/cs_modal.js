@@ -1702,11 +1702,14 @@ function getAvailableSkillsForTraining(slotIndex, trainArr) {
 }
 
 function getSkillsForIncrease(lv) {
-  // Returns skills that are at least trained (rank >= 2)
+  // 이 레벨에서 실제로 올릴 수 있는 기술만 — 트레인드(2) 이상 + 레벨 관문 아래(rank < cap).
+  //   cap = skillIncreaseRankCap(lv): 전문가는 언제나·달인은 7레벨·전설은 15레벨(cs_calc, 원칙#1 공용).
+  //   예: 5레벨이면 이미 전문가(4)인 기술은 달인(6)이 7레벨부터라 후보에서 제외.
+  const cap = (typeof skillIncreaseRankCap === 'function') ? skillIncreaseRankCap(lv) : 8;
   return SKILLS.filter(sk => {
     const el = document.getElementById('sk-prof-' + sk.id);
     const rank = parseInt(el?.value || 0);
-    return rank >= 2;
+    return rank >= 2 && rank < cap;
   });
 }
 

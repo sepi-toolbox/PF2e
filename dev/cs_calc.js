@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.274').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.275').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -1882,6 +1882,15 @@ function clearGrowthSkills() {
   state._growthTrainedSkills = [];
 }
 
+// 기술 증가 레벨 관문(정본 Player Core): 전문가(4)는 언제나, 달인(6)은 7레벨, 전설(8)은 15레벨 이상부터.
+//   반환 = 해당 캐릭터 레벨에서 기술 증가로 도달 가능한 최고 숙련도 rank. 후보 필터·실제 적용 공용(원칙#1).
+function skillIncreaseRankCap(lv) {
+  lv = parseInt(lv) || 0;
+  if (lv >= 15) return 8;   // 전설
+  if (lv >= 7)  return 6;   // 달인
+  return 4;                 // 전문가
+}
+
 function applyGrowthSkills() {
   state._growthTrainedSkills = [];
   state._growthIncreasedSkills = [];
@@ -1895,7 +1904,7 @@ function applyGrowthSkills() {
     state._growthTrainedSkills.push({skill: id, rank: 2, prevRank: cur});
     if (cur < 2) el.value = '2';
   });
-  // 기술 향상 — 레벨 순서대로 +2단계(전설 8 상한). 트레인드(2) 이상만 향상 가능.
+  // 기술 향상 — 레벨 순서대로 한 단계씩. 트레인드(2) 이상만 대상 + 레벨 관문(달인@7·전설@15) 강제.
   const levels = Object.keys(state.growth).map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b);
   levels.forEach(lv => {
     const inc = state.growth[lv] && state.growth[lv].skillIncrease;
@@ -1903,12 +1912,13 @@ function applyGrowthSkills() {
     const el = document.getElementById('sk-prof-' + inc);
     if (!el) return;
     const cur = parseInt(el.value || 0);
-    if (cur >= 2 && cur < 8) {
-      const nr = cur + 2;
+    const cap = skillIncreaseRankCap(lv);   // 이 레벨에서 도달 가능한 최고 rank
+    if (cur >= 2 && cur < cap) {
+      const nr = cur + 2;   // cur<cap(≤8)이므로 nr≤cap≤8 — 관문·전설 상한 동시 충족
       state._growthIncreasedSkills.push({skill: inc, prevRank: cur, newRank: nr});
       el.value = String(nr);
     } else {
-      // 미달(트레인드 아님) 또는 이미 전설 — 무변경이지만 추적은 유지(clear 대칭)
+      // 미달(트레인드 아님)·이미 전설·레벨 관문 초과(예: 5레벨에 전문가→달인) — 무변경이지만 추적은 유지(clear 대칭)
       state._growthIncreasedSkills.push({skill: inc, prevRank: cur, newRank: cur});
     }
   });
