@@ -2983,7 +2983,9 @@ function _renderMemorizeDetail() {
   const isCantrip = active.rank === 0;
   const rank = active.rank;
   const fs = state.familiarSpells;
-  const hasSpellbook = !!fs; // 위치/위저드: 주문서/사역마 보유
+  // 배우기 단계 폐지(v0.298) — 모든 시전자가 전통 전체에서 준비(클레릭식). 주문서/사역마 습득 한도 제거.
+  //   (구: hasSpellbook = !!fs → 위저드/위치를 주문서로 제한. 이제 아래 전통 전체 분기를 전원 사용.)
+  const hasSpellbook = false;
 
   // 선택 가능한 주문 목록 구축
   let available = [];
