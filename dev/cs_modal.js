@@ -4161,15 +4161,9 @@ function showItemDetail(item) {
     tags = `<span class="tag-meta">HP ${item.hp}+CON</span> <span class="tag-meta">${keyKo}</span>
             ${item.tradition?`<span class="tag">${item.tradition} 주문</span>`:''}`;
   } else if (item.boosts !== undefined && item.flaws !== undefined && item.size !== undefined) {
-    // ANCESTRIES (혈통)
-    const boostKo = [
-      ...(item.boosts || []).map(k => ATTR_KO[k]),
-      ...(item.boost_choices || []).map(g => g.map(k => ATTR_KO[k]).join('/')),
-      ...Array(item.free_boosts || 0).fill('자유'),
-    ];
-    tags = `<span class="tag hl">HP ${item.hp}</span>
-            <span class="tag">${item.size}/${item.speed}피트</span>
-            ${boostKo.map(b=>`<span class="tag hl">${b}</span>`).join('')}`;
+    // ANCESTRIES (혈통) — 상단은 트레잇 칩만(스탯블록: HP/크기/속도/부스트/결함/언어/특수는 _ancestryStatBlockHtml).
+    const ancTraits = (item.traits || []).map(t => traitTag(t)).join('');
+    tags = ancTraits ? `<div style="margin-bottom:2px;">${ancTraits}</div>` : '';
   } else if (item.subclass_type) {
     tags = `<span class="tag hl">${item.subclass_type}</span>`;
   }
@@ -4181,6 +4175,9 @@ function showItemDetail(item) {
       const shortDesc = modalType === 'background'
         ? (item.desc || '').replace(/\s*속성 증강:.*$/, '')
         : (item.desc || '').split('<br><strong>')[0]; // 첫 단락만
+      // 혈통: 스크린샷식 구조화 스탯블록(생명점/크기/이동/보너스·결함/언어/특수/출처) — flavor 아래.
+      const ancStatBlock = (modalType === 'ancestry' && typeof _ancestryStatBlockHtml === 'function')
+        ? _ancestryStatBlockHtml(item) : '';
       detail.innerHTML = `
         <div class="modal-detail-back" onclick="document.getElementById('modal-body').classList.remove('detail-open')">← 목록으로</div>
         <div class="modal-detail-title">${nameKo}</div>
@@ -4188,6 +4185,7 @@ function showItemDetail(item) {
         <div class="modal-detail-tags">${tags}</div>
         <hr style="border:none;border-top:1px solid var(--border);margin:0 0 10px 0;">
         <div style="font-size:12px;line-height:1.7;color:var(--text2);margin-bottom:10px;">${shortDesc}</div>
+        ${ancStatBlock}
         ${modalType === 'class' ? _buildClassProgressionTable(item) : ''}
         ${choicesHtml}
         <button id="modal-confirm-choice" onclick="confirmModal()" disabled
@@ -5483,15 +5481,72 @@ function _buildAncestryChoicesUI(anc) {
     <button onclick="_addBonusLang()" style="padding:4px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--accent);cursor:pointer;font-size:12px;">＋ 추가</button>
     <span style="font-size:10px;color:var(--text2);margin-left:6px;">INT 수정치만큼 추가 가능</span>
   </div>`;
-
-  // 시야/크기/속도 정보 표시
-  html += `<div style="margin-top:10px;font-size:11px;color:var(--text2);line-height:1.7;">`;
-  html += `<div><strong>크기:</strong> ${anc.size} | <strong>속도:</strong> ${anc.speed}피트</div>`;
-  html += `<div><strong>감각:</strong> ${VISION_KO[anc.vision] || anc.vision || '없음'}</div>`;
-  html += `</div>`;
+  // (크기/속도/감각 정보는 상단 스탯블록 _ancestryStatBlockHtml이 표시 — 중복 제거)
 
   html += `</div>`;
   return html;
+}
+
+// ── 혈통 구조화 스탯블록 (생명점/크기/이동/능력치 보너스·결함/언어/특수/출처) ──
+//   룰북 스탯블록 형식. 데이터는 혈통 네이티브 필드에서 조립(하드코딩 없음).
+function _pubTitleKo(t) {
+  if (!t) return '';
+  const M = {
+    'Pathfinder Player Core': '플레이어 코어',
+    'Pathfinder Player Core 2': '플레이어 코어 2',
+    'Pathfinder GM Core': '게임마스터 코어',
+    'Pathfinder Monster Core': '몬스터 코어',
+    'Pathfinder Monster Core 2': '몬스터 코어 2',
+    'Pathfinder NPC Core': 'NPC 코어',
+  };
+  return M[t] || String(t).replace(/^Pathfinder\s+/, '');
+}
+function _ancStatSection(label, valueHtml) {
+  return `<div style="margin-bottom:9px;">
+    <div style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--accent);margin-bottom:2px;">${label}</div>
+    <div style="font-size:12px;color:var(--text);line-height:1.6;">${valueHtml}</div>
+  </div>`;
+}
+function _ancestryStatBlockHtml(anc) {
+  if (!anc) return '';
+  const A = (typeof ATTR_KO !== 'undefined') ? ATTR_KO : {};
+  // 능력치 보너스 = 고정 + 자유 + 택1풀 / 결함 = 고정
+  const boostParts = [
+    ...(anc.boosts || []).map(k => A[k] || k),
+    ...Array(anc.free_boosts || 0).fill('자유'),
+    ...(anc.boost_choices || []).filter(g => g && g.length).map(g => '택1(' + g.map(k => A[k] || k).join('/') + ')'),
+  ];
+  const flawParts = (anc.flaws || []).map(k => A[k] || k);
+  // 언어 = 고정 언어 + 추가 언어 규칙
+  const langKo = (typeof getLanguageKo === 'function');
+  const fixed = (anc.languages || []).map(l => langKo ? getLanguageKo(l) : l);
+  const base = anc.bonusLangs || 0;
+  let langText = fixed.join(', ');
+  langText += base > 0
+    ? `. 여기에 더해 기본 추가 언어 ${base}개, 그리고 지능 수정치가 양수라면 그만큼 언어를 더 선택합니다.`
+    : `. 지능 수정치가 양수라면 그만큼 추가 언어를 선택할 수 있습니다.`;
+  // 특수 = 시야(정본 설명) + 무료 획득 무기
+  const specials = [];
+  const vdef = (typeof VISION_DEFS !== 'undefined') ? VISION_DEFS.find(v => v.id === anc.vision) : null;
+  if (vdef && vdef.id !== 'none') specials.push(`<strong>${vdef.name_ko}</strong> ${vdef.desc}`);
+  if (anc.grantWeapon) {
+    const w = (typeof getWeapon === 'function') ? getWeapon(anc.grantWeapon) : null;
+    if (w) specials.push(`<strong>무료 획득</strong> ${w.name_ko}`);
+  }
+  const srcKo = _pubTitleKo(anc._doc && anc._doc.system && anc._doc.system.publication && anc._doc.system.publication.title);
+
+  let out = `<div style="border:1px solid var(--border);border-radius:6px;padding:11px 12px;margin-bottom:10px;background:var(--bg2);">`;
+  out += _ancStatSection('생명점 Hit Points', String(anc.hp || 0));
+  out += _ancStatSection('크기 Size', anc.size || '중형');
+  out += _ancStatSection('이동 속도 Speed', `${anc.speed || 25}피트`);
+  out += _ancStatSection('능력치 보너스와 결함 Ability Boosts &amp; Flaws',
+    `<strong>보너스</strong> ${boostParts.length ? boostParts.join(', ') : '없음'}`
+    + (flawParts.length ? `<br><strong>결함</strong> ${flawParts.join(', ')}` : ''));
+  out += _ancStatSection('언어 Languages', langText);
+  if (specials.length) out += _ancStatSection('특수 Special', specials.join('<br>'));
+  out += `</div>`;
+  if (srcKo) out += `<div style="font-size:11px;color:var(--text2);font-style:italic;margin:-4px 0 10px 2px;">출처: ${srcKo}</div>`;
+  return out;
 }
 
 function _buildBonusLangRow(index, excludeLangs) {

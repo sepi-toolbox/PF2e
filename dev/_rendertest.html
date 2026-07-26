@@ -206,6 +206,16 @@
       var _det = document.getElementById('modal-detail'); if (_det) _det.innerHTML = '';
       log('classModal');
     }
+    else if (modal === 'ancestry' && typeof showItemDetail === 'function' && typeof PF2eAnc !== 'undefined') {
+      // openModal이 modalType='ancestry'를 세팅(cs_data의 let modalType는 window 할당 불가) → showItemDetail 분기 활성화.
+      if (typeof openModal === 'function') openModal('ancestry');
+      var _ancId = Q.get('anc') || 'elf';
+      var _ancObj = PF2eAnc.getAncestryLegacy(_ancId);
+      var _mb = document.getElementById('modal-body'); if (_mb) _mb.classList.add('detail-open');
+      var _det2 = document.getElementById('modal-detail'); if (_det2) _det2.style.display = '';
+      if (_ancObj) showItemDetail(_ancObj);
+      log('ancestryDetail:'+(_ancObj?_ancObj.id:'null'));
+    }
     else if (modal === 'skillincrease' && typeof growthPickSkillIncrease === 'function') { growthPickSkillIncrease(parseInt(Q.get('siLevel')||lvl)||3); log('skillIncModal'); }
     else if (modal === 'skilltrain' && typeof growthPickSkillTraining === 'function') { growthPickSkillTraining(parseInt(Q.get('siSlot')||0)); log('skillTrainModal'); }
     else if (modal === 'sanct' && typeof openSanctPicker === 'function') { openSanctPicker(); log('sanctModal'); }
