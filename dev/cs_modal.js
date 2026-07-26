@@ -1369,7 +1369,9 @@ function renderGrowthPlan() {
           _gears += _growthGearHTML(_nSk, '기술 훈련', 'Skill Training', "growthPickSkillTrainingMulti()", _tr >= _nSk);
         }
         if (state.selectedClass && state.selectedClass.deity_skill) {
-          _gears += _growthGearHTML(1, '신격 기술', 'Deity Skill', "openDeityPicker()", !!state.deity);
+          // 신격 기술은 선택 항목이 아니라 신격이 자동으로 정함 → 부여 기술을 캡션으로 표시, 클릭=안내.
+          const _dsk = _deitySkillName();
+          _gears += _growthGearHTML(1, '신격 기술', 'Deity Skill', "openDeitySkillInfo()", !!state.deity, _dsk || null);
         }
       }
       if (plan.skillIncrease) {
@@ -1504,12 +1506,54 @@ function growthSlotWithClearHTML(key, icon, label, value, onclickStr, clearActio
   return _growthSlotSkeleton({ value, onclick: onclickStr, icon, label, trailing: clearBtn });
 }
 
-// Pathbuilder식 기어 원형(능력치 증강/기술 훈련/신격 기술). num=숫자, filled=선택 완료.
-function _growthGearHTML(num, labelKo, labelEn, onclickStr, filled) {
+// Pathbuilder식 기어 원형(능력치 증강/기술 훈련/신격 기술). num=숫자, filled=선택 완료. sub=부가 캡션(예: 신격 기술명).
+function _growthGearHTML(num, labelKo, labelEn, onclickStr, filled, sub) {
+  const subHtml = sub ? `<span class="growth-gear-sub">${sub}</span>` : '';
   return `<div class="growth-gear ${filled ? 'filled' : ''}" onclick="${onclickStr}">
     <div class="growth-gear-circle"><span class="growth-gear-num">${num}</span></div>
-    <div class="growth-gear-label">${labelKo}<span class="en">${labelEn}</span></div>
+    <div class="growth-gear-label">${labelKo}<span class="en">${labelEn}</span>${subHtml}</div>
   </div>`;
+}
+
+// 신격이 부여하는 기술(클레릭 신격 기술)의 한글명 — 신격이 결정(선택 아님).
+function _deitySkillName() {
+  if (!state.deity || typeof _getDeity !== 'function') return '';
+  const d = _getDeity(state.deity); if (!d) return '';
+  const id = d.skill; if (!id) return '';
+  const sk = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === id) : null;
+  return d.skill_ko || (sk ? sk.name : id);
+}
+
+// 신격 기술은 신격이 자동으로 정하는 항목 — 「고르는 창」이 아니라 안내 + (신격 선택/변경) 버튼.
+function openDeitySkillInfo() {
+  const has = !!state.deity;
+  const d = has && typeof _getDeity === 'function' ? _getDeity(state.deity) : null;
+  const dName = d ? (d.name_ko || d.name_en || '') : '';
+  const skName = _deitySkillName();
+  document.getElementById('modal-overlay').classList.remove('hidden');
+  document.getElementById('modal-title').textContent = '신격 기술';
+  const searchEl = document.getElementById('modal-search'); if (searchEl) searchEl.style.display = 'none';
+  const fbar = document.getElementById('modal-filterbar'); if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm'); if (confirmBtn) confirmBtn.style.display = 'none';
+  modalType = 'info';
+  const body = has
+    ? `<p>클레릭은 <b>신격이 정한 기술</b>에 자동으로 숙련됩니다 — 직접 고르는 항목이 아닙니다.</p>
+       <p style="margin-top:10px;">신격 <b>${dName}</b>의 신격 기술: <b style="color:var(--accent);">${skName || '—'}</b></p>
+       <p style="margin-top:10px;color:var(--text2);font-size:12px;">신격을 바꾸면 신격 기술도 함께 바뀝니다.</p>`
+    : `<p>클레릭의 <b>신격 기술</b>은 선택한 <b>신격</b>이 결정합니다 — 직접 고르는 기술이 아닙니다.</p>
+       <p style="margin-top:10px;">먼저 신격을 선택하면 그 신격이 정한 기술에 자동으로 숙련됩니다.</p>`;
+  const btnLabel = has ? '신격 변경' : '신격 선택';
+  const html = `<div style="padding:16px;font-size:13px;line-height:1.75;">${body}
+    <button onclick="closeModal();openDeityPicker();" style="margin-top:14px;width:100%;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">${btnLabel}</button></div>`;
+  if (window.innerWidth <= 900) {
+    document.getElementById('modal-options').innerHTML = html;
+    const listEl = document.querySelector('.modal-list'); if (listEl) listEl.style.display = '';
+    const detail = document.getElementById('modal-detail'); if (detail) detail.innerHTML = '';
+  } else {
+    const listEl = document.querySelector('.modal-list'); if (listEl) listEl.style.display = 'none';
+    const detail = document.getElementById('modal-detail'); if (detail) detail.innerHTML = html;
+  }
+  const footer = document.querySelector('.modal-footer'); if (footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
 }
 // Pathbuilder식 라벨+선택박스(신격/신성원천/교리/성별화). warn=선행조건 불일치 강조.
 function _growthFieldHTML(label, placeholder, value, warn, onclickStr, clearAction) {

@@ -134,6 +134,10 @@
     var modal = Q.get('modal');
     if (modal === 'boost' && typeof openBoostModal === 'function') { openBoostModal(); log('boostModal'); }
     else if (modal === 'skill' && typeof growthPickSkillTrainingMulti === 'function') { growthPickSkillTrainingMulti(); log('skillModal'); }
+    else if (modal === 'deityskill' && typeof openDeitySkillInfo === 'function') { openDeitySkillInfo(); log('deitySkillModal'); }
+    else if (modal === 'sanct' && typeof openSanctPicker === 'function') { openSanctPicker(); log('sanctModal'); }
+    else if (modal === 'font' && typeof openDivineFontPicker === 'function') { openDivineFontPicker(); log('fontModal'); }
+    else if (modal === 'doctrine' && typeof openDoctrinePicker === 'function') { openDoctrinePicker(); log('doctrineModal'); }
 
     // 검증용: ?expandgcf=1 이면 클래스특성 아코디언 전부 펼침
     if (Q.get('expandgcf')) {
