@@ -372,6 +372,12 @@ async function runFlow(flow, Q){
       // 같은 능력치 재클릭 = 토글 해제
       _onBoostFree('lv1', lv1picks[0]);
       assert('4.boost-toggle-off', state.boosts.lv1.filter(Boolean).indexOf(lv1picks[0]) < 0, 'after toggle boosts.lv1='+JSON.stringify(state.boosts.lv1));
+      // ★ 지능 수정치 → 훈련 가능 기술 슬롯 반영 (v0.291 변경 검증): 슬롯 = free_skill_count + Int mod
+      var _base = (state.selectedClass.free_skill_count || 0);
+      state.boosts.lv1 = []; recalcAll();   // 지능 증강 0 상태
+      assert('5.slots-base-no-int', state.trainableSkillSlots === _base, 'trainableSkillSlots='+state.trainableSkillSlots+' 기대 base='+_base+' (int mod 0)');
+      _onBoostFree('lv1', 'int'); recalcAll();   // 지능 +1
+      assert('6.slots-plus-int', state.trainableSkillSlots === _base + 1, 'trainableSkillSlots='+state.trainableSkillSlots+' 기대 '+(_base+1)+' (int +1)');
 
     } else if (flow === 'skill-increase') {
       // 기술 증가 레벨 관문: 클래스 확정 → 기술 훈련 시드 → 레벨N 증가 커밋 → 랭크 상승 반영 (?class=rogue&siLevel=7&skill=athletics)

@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.290').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.291').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -2192,6 +2192,10 @@ function rebuildCoreEffects() {
   //   선택 시 이전 선택 기술이 유령 잔존(resetFromClass는 id 변경 시에만 정리). clear+rebuild로 출처추적.
   const cls = state.selectedClass;
   if (cls) {
+    // 훈련 가능한 자유 기술 슬롯 = 클래스 부여 수(free_skill_count) + 지능 수정치 (PF2e 정본).
+    //   반응형 단일 소스: 능력치 증강(지능) 변경마다 recalcAll→여기서 재계산(applyClassDefaults의 초기 세팅을 대체).
+    //   음수 지능이면 자유 슬롯 감소, 최소 0(고정 클래스 기술은 별도라 줄지 않음).
+    state.trainableSkillSlots = Math.max(0, (cls.free_skill_count || 0) + getMod('int'));
     const clsSkillIds = [];
     (cls.fixed_skills || []).forEach(id => { if (id) clsSkillIds.push(id); });
     ((state.initialChoices && state.initialChoices.class && state.initialChoices.class.chosenFixedSkills) || []).forEach(name => {

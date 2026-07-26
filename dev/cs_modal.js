@@ -6229,6 +6229,7 @@ function applyClassDefaults(cls) {
   if (keys.length === 1) state.boosts.cls = keys[0];
   // 길이 2+ (OR)는 기존 선택 보존 또는 빈 상태로 둠 (renderBoostModal에서 사용자 선택)
   // 고정 클래스 기술 숙련은 rebuildCoreEffects(출처기반, _classGrantedSkills)가 재파생 — 명령형 부여 제거(v0.134).
+  // 초기 base(클래스 부여 수)만 세팅 — 지능 수정치 가산은 rebuildCoreEffects가 반응형으로 재계산(recalcAll 시).
   state.trainableSkillSlots = cls.free_skill_count || 0;
   updateHP();
   updateSpellSlotsForClass();
