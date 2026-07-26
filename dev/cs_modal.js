@@ -4198,9 +4198,8 @@ function showItemDetail(item) {
             ${item.speed_penalty?`<span class="tag-meta" style="color:var(--red-light);">속도: ${item.speed_penalty}</span>`:''}
             <span class="tag-meta">가격: ${item.price?(typeof priceWithIcons==='function'?priceWithIcons(item.price):item.price):'-'}</span></div>`;
   } else if (item.hp !== undefined && item.key_attrs !== undefined) {
-    const keyKo = (item.key_attrs || []).map(k => ATTR_KO[k]).join(' 또는 ');
-    tags = `<span class="tag-meta">HP ${item.hp}+CON</span> <span class="tag-meta">${keyKo}</span>
-            ${item.tradition?`<span class="tag">${item.tradition} 주문</span>`:''}`;
+    // 클래스 — HP/핵심능력치/주문은 아래 스탯블록(_classStatBlockHtml)이 표시하므로 상단 칩은 생략.
+    tags = '';
   } else if (item.boosts !== undefined && item.flaws !== undefined && item.size !== undefined) {
     // ANCESTRIES (혈통) — 상단은 트레잇 칩만(스탯블록: HP/크기/속도/부스트/결함/언어/특수는 _ancestryStatBlockHtml).
     const ancTraits = (item.traits || []).map(t => traitTag(t)).join('');
@@ -4220,6 +4219,9 @@ function showItemDetail(item) {
       // 혈통: 스크린샷식 구조화 스탯블록(생명점/크기/이동/보너스·결함/언어/특수/출처) — flavor 아래.
       const ancStatBlock = (modalType === 'ancestry' && typeof _ancestryStatBlockHtml === 'function')
         ? _ancestryStatBlockHtml(item) : '';
+      // 클래스: 룰북식 스탯블록(핵심능력치/생명점/지각/내성/기술/공격/방어/클래스DC/주문) — flavor 아래, 진행표 위.
+      const clsStatBlock = (modalType === 'class' && typeof _classStatBlockHtml === 'function')
+        ? _classStatBlockHtml(item) : '';
       detail.innerHTML = `
         <div class="modal-detail-back" onclick="document.getElementById('modal-body').classList.remove('detail-open')">← 목록으로</div>
         <div class="modal-detail-title">${nameKo}</div>
@@ -4228,6 +4230,7 @@ function showItemDetail(item) {
         <hr style="border:none;border-top:1px solid var(--border);margin:0 0 10px 0;">
         <div style="font-size:12px;line-height:1.7;color:var(--text2);margin-bottom:10px;">${shortDesc}</div>
         ${ancStatBlock}
+        ${clsStatBlock}
         ${modalType === 'class' ? _buildClassProgressionTable(item) : ''}
         ${choicesHtml}
         <button id="modal-confirm-choice" onclick="confirmModal()" disabled
@@ -5553,6 +5556,72 @@ function _ancestryStatBlockHtml(anc) {
   out += _ancStatSection('언어 Languages', langText);
   if (specials.length) out += _ancStatSection('특수 Special', specials.join('<br>'));
   if (srcKo) out += `<div style="font-size:11px;color:var(--text2);font-style:italic;margin-top:4px;">출처: ${srcKo}</div>`;
+  out += `</div>`;
+  return out;
+}
+
+// ── 클래스 구조화 스탯블록 (핵심능력치/생명점/지각/내성/기술/공격/방어/클래스DC/주문) ──
+//   룰북 클래스 스탯블록 형식. 데이터는 레거시 필드(hp/key_attrs/saves/perc/skills) + 진행표 레벨1 숙련
+//   (PF2eClass.classProfTable — 무기/갑옷/클래스DC/주문)에서 조립(하드코딩 없음).
+const _PROF_RANK_KO = { 0: '미숙련', 2: '숙련', 4: '전문가', 6: '달인', 8: '전설' };
+const _TRADITION_KO = { arcane: '비전', divine: '신성', occult: '신비', primal: '원시' };
+function _classStatBlockHtml(cls) {
+  if (!cls) return '';
+  const A = (typeof ATTR_KO !== 'undefined') ? ATTR_KO : {};
+  const rkKo = n => _PROF_RANK_KO[n] || '미숙련';
+  // 레벨1 숙련 진행표 (무기/갑옷/클래스DC/주문). 값 = 0/2/4/6/8.
+  const prof = (typeof PF2eClass !== 'undefined' && PF2eClass.classProfTable) ? PF2eClass.classProfTable(cls.id) : null;
+  const L1 = stat => (prof && prof[stat] && prof[stat][1]) || 0;
+
+  // 핵심 능력치
+  const keyKo = (cls.key_attrs || []).map(k => A[k] || k).join(' 또는 ') || '—';
+  // 지각·내성 (레거시가 이미 한글 라벨. 없으면 진행표에서 파생)
+  const perc = cls.perc || rkKo(L1('perc'));
+  const sv = cls.saves || {};
+  const fort = sv.fort || rkKo(L1('fort'));
+  const ref = sv.ref || rkKo(L1('ref'));
+  const will = sv.will || rkKo(L1('will'));
+  // 공격(무기) — 훈련 이상만
+  const WPN = { 'weapon-unarmed': '비무장 공격', 'weapon-simple': '단순 무기', 'weapon-martial': '군용 무기', 'weapon-advanced': '고급 무기' };
+  const atk = [];
+  ['weapon-unarmed', 'weapon-simple', 'weapon-martial', 'weapon-advanced'].forEach(k => { const n = L1(k); if (n > 0) atk.push(`${WPN[k]} ${rkKo(n)}`); });
+  // 방어(갑옷) — 훈련 이상만
+  const ARM = { 'armor-unarmored': '비무장 방어', 'armor-light': '경갑', 'armor-medium': '평갑', 'armor-heavy': '중갑' };
+  const def = [];
+  ['armor-unarmored', 'armor-light', 'armor-medium', 'armor-heavy'].forEach(k => { const n = L1(k); if (n > 0) def.push(`${ARM[k]} ${rkKo(n)}`); });
+  // 기술 = (신격/서브클래스가 정하는 1기술) + 고정 + 택1 + (추가 N + 지능)
+  const skById = {}; if (typeof SKILLS !== 'undefined') SKILLS.forEach(s => { skById[s.id] = s.name; });
+  const skillParts = [];
+  if (cls.deity_skill) skillParts.push('신격이 정하는 기술 1개');
+  else if (typeof SUBCLASS_DB !== 'undefined') {
+    // 서브클래스가 기술을 정하는 클래스(마녀 후원자·소서러 혈통·오라클 신비 등) — granted_skills 존재로 판별.
+    const subs = SUBCLASS_DB.filter(s => s.class_id === cls.id);
+    if (subs.some(s => (s.granted_skills || []).length)) {
+      const lbl = (typeof _classSubclassLabel === 'function') ? (_classSubclassLabel(cls) || '서브클래스') : '서브클래스';
+      skillParts.push(`${lbl}가 정하는 기술 1개`);
+    }
+  }
+  (cls.fixed_skills || []).forEach(id => skillParts.push(skById[id] || id));
+  (cls.choice_skill_groups || []).forEach(grp => { if (grp && grp.length) skillParts.push('택1(' + grp.map(id => skById[id] || id).join('/') + ')'); });
+  const addl = cls.free_skill_count || 0;
+  let skillText = skillParts.length ? `${skillParts.join(', ')}에 숙련. ` : '';
+  skillText += `추가로 ${addl} + 지능 수정치개의 기술에 숙련.`;
+
+  let out = `<div style="margin-bottom:8px;">`;
+  out += _ancStatSection('핵심 능력치 Key Ability', keyKo);
+  out += _ancStatSection('생명점 Hit Points', `${cls.hp || 8} + 건강 수정치`);
+  out += _ancStatSection('지각 Perception', perc);
+  out += _ancStatSection('내성 Saving Throws', `강인 ${fort} · 반사 ${ref} · 의지 ${will}`);
+  out += _ancStatSection('기술 Skills', skillText);
+  if (atk.length) out += _ancStatSection('공격 Attacks', atk.join(' · '));
+  if (def.length) out += _ancStatSection('방어 Defenses', def.join(' · '));
+  out += _ancStatSection('클래스 DC Class DC', rkKo(L1('classdc')));
+  // 주문 — 시전 클래스만(주문 공격/DC 숙련 존재 시)
+  const spatk = L1('spatk');
+  if (spatk > 0) {
+    const trad = cls.tradition ? (_TRADITION_KO[cls.tradition] || '') : '';   // 알려진 4전통만(witch 'any' 등은 생략)
+    out += _ancStatSection('주문 Spells', `주문 공격 수정치 · 주문 DC ${rkKo(spatk)}` + (trad ? ` (${trad} 전통)` : ''));
+  }
   out += `</div>`;
   return out;
 }

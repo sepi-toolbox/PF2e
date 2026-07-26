@@ -216,6 +216,15 @@
       if (_ancObj) showItemDetail(_ancObj);
       log('ancestryDetail:'+(_ancObj?_ancObj.id:'null'));
     }
+    else if (modal === 'classdetail' && typeof showItemDetail === 'function' && typeof PF2eClass !== 'undefined') {
+      if (typeof openModal === 'function') openModal('class');
+      var _cdId = Q.get('class') || 'witch';
+      var _cdObj = PF2eClass.getClassLegacy(_cdId);
+      var _cmb = document.getElementById('modal-body'); if (_cmb) _cmb.classList.add('detail-open');
+      var _cdet = document.getElementById('modal-detail'); if (_cdet) _cdet.style.display = '';
+      if (_cdObj) showItemDetail(_cdObj);
+      log('classDetail:'+(_cdObj?_cdObj.id:'null'));
+    }
     else if (modal === 'skillincrease' && typeof growthPickSkillIncrease === 'function') { growthPickSkillIncrease(parseInt(Q.get('siLevel')||lvl)||3); log('skillIncModal'); }
     else if (modal === 'skilltrain' && typeof growthPickSkillTraining === 'function') { growthPickSkillTraining(parseInt(Q.get('siSlot')||0)); log('skillTrainModal'); }
     else if (modal === 'sanct' && typeof openSanctPicker === 'function') { openSanctPicker(); log('sanctModal'); }
