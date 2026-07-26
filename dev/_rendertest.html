@@ -187,8 +187,30 @@
     try { if (typeof recalcAll === 'function') recalcAll(); log('recalc'); } catch(e){ log('recalcErr:'+e.message); }
     if (typeof renderGrowthPlan === 'function') renderGrowthPlan();
     if (Q.get('panel') === 'spells') {
+      // 실제 #panel-spells DOM을 index.html에서 추출해 주입(renderSpells가 참조하는 요소 전부 제공).
+      try {
+        var _psS = htmlTxt.indexOf('<div id="panel-spells"');
+        var _psMark = '/#panel-spells -->';
+        var _psE = htmlTxt.indexOf(_psMark);
+        if (_psS >= 0 && _psE > _psS) {
+          var _host = document.createElement('div');
+          _host.innerHTML = htmlTxt.slice(_psS, _psE + _psMark.length);
+          document.body.appendChild(_host);
+          log('spellPanelDOM');
+        }
+      } catch(e){ log('panelInjErr:'+e.message); }
+      // 자동 부여 특성/주문(집중 주문 등) 적용 후 렌더.
+      try { if (typeof applyClassFeatures === 'function') applyClassFeatures(); } catch(e){ log('acfErr:'+e.message); }
+      try { if (typeof recalcAll === 'function') recalcAll(); } catch(e){}
       try { if (typeof renderSpells === 'function') renderSpells(); log('spells'); } catch(e){ log('spellsErr:'+e.message); console.error(e); }
       try { if (typeof switchSpellSubtab === 'function') switchSpellSubtab(Q.get('sub') || 'class'); } catch(e){ log('subErr:'+e.message); }
+      // 슬롯 준비 트리거 검증: ?prepslot=R:I → openPrepareSpellForSlot(R,I) (memorize 모달)
+      var _ps = Q.get('prepslot');
+      if (_ps && typeof openPrepareSpellForSlot === 'function') {
+        var _pp = _ps.split(':'); try { openPrepareSpellForSlot(parseInt(_pp[0])||0, parseInt(_pp[1])||0); log('prepslot'); } catch(e){ log('prepErr:'+e.message); }
+      }
+      // 주문 배우기/기억 모달 직접 열기: ?openmem=1
+      if (Q.get('openmem') && typeof openMemorizeModal === 'function') { try { openMemorizeModal(); log('memOpen'); } catch(e){ log('memErr:'+e.message); } }
     }
     log('rendered');
 

@@ -1705,11 +1705,7 @@ function renderGrowthPlan() {
       html += growthFeatSlotHTML(lv, 'skillFeat', '📚', '기술 재주 Skill Feat', 'skill', g.skillFeat);
     }
 
-    // 주문 관련은 주문 탭의 "주문 배우기" 버튼에서 처리
-    // 시그니처 주문만 빌더에 유지
-    if (lv >= 3 && state.selectedClass?.casting === 'spontaneous') {
-      html += growthSignatureCardHTML(lv);
-    }
+    // 주문은 주문 탭에서 준비(전 시전자 클레릭식, v0.299). 빌더 시그니처 카드(즉흥 전용)는 폐지.
 
     // 클래스/서브클래스 특성 = 레벨 하단에 아코디언으로(예시 레이아웃)
     // 특성 그룹 순서: 클래스 특성 → 혈통/종족 기반 특성(시야) → 배경 기반 특성.
@@ -2891,7 +2887,8 @@ function _isCurriculumSlot(rank, idx, slotMax) {
 let _memorizeActiveSlot = null; // {rank, idx}
 
 function openMemorizeModal() {
-  if (!state.selectedClass || state.selectedClass.casting !== 'prepared') return;
+  // v0.299: 전 시전자가 준비형(클레릭식) → 즉흥(바드/소서러)도 이 모달로 전통 전체 준비.
+  if (!state.selectedClass || !state.selectedClass.casting) return;
   const overlay = document.getElementById('modal-overlay');
   overlay.classList.remove('hidden');
   modalType = 'memorize';
@@ -3135,66 +3132,11 @@ function _memorizeAdvanceSlot(curRank, curIdx) {
 }
 
 function openPrepareSpellForSlot(rank, slotIdx) {
-  // 주문서/사역마가 아는 주문 목록에서 선택 → 슬롯에 준비
-  if (!state.familiarSpells) return;
-  const isCantrip = rank === 0;
-  const known = isCantrip ? (state.familiarSpells.cantrip || []) : (state.familiarSpells[rank] || []);
-  const isWiz = state.selectedClass?.id === 'wizard';
-  if (known.length === 0) { alert(isWiz ? '주문서에 이 랭크의 주문이 없습니다. 빌더에서 먼저 주문을 배우세요.' : '사역마가 이 랭크의 주문을 모릅니다. 빌더에서 먼저 주문을 배우세요.'); return; }
-
-  // 간단한 인라인 모달 — opt-row 목록
-  document.getElementById('modal-overlay').classList.remove('hidden');
-  document.getElementById('modal-title').textContent = isCantrip ? '캔트립 준비' : `${rank}랭크 주문 준비`;
-  const searchEl = document.getElementById('modal-search');
-  if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; }
-  const fbar = document.getElementById('modal-filterbar');
-  if (fbar) fbar.innerHTML = '';
-  const confirmBtn = document.querySelector('.btn-confirm');
-  if (confirmBtn) confirmBtn.style.display = 'none';
-  modalType = 'prepare-spell';
-  modalSelected = null;
-
-  const container = document.getElementById('modal-options');
-  const detail = document.getElementById('modal-detail');
-  container.innerHTML = '';
-  if (detail) detail.innerHTML = '<div class="modal-detail-empty">준비할 주문을 선택하세요.</div>';
-
-  // 사역마가 아는 주문 + 낮은 랭크 주문 (고양 가능)
-  const allAvailable = [];
-  if (!isCantrip) {
-    for (let r = 1; r <= rank; r++) {
-      (state.familiarSpells[r] || []).forEach(name => {
-        allAvailable.push({name, originalRank: r});
-      });
-    }
-  } else {
-    known.forEach(name => allAvailable.push({name, originalRank: 0}));
-  }
-
-  allAvailable.forEach(({name, originalRank}) => {
-    const spellData = getSpell(name);
-    const actions = typeof getActionIcons === 'function' ? getActionIcons(spellData?.actions) : '';
-    const row = document.createElement('div');
-    row.className = 'opt-row';
-    const rankNote = (!isCantrip && originalRank < rank) ? ` <span style="font-size:9px;color:var(--accent);">(${originalRank}랭크에서 고양)</span>` : '';
-    row.innerHTML = `
-      <div class="opt-row-icon">📖</div>
-      <span class="opt-row-name">${spellDisplay(name)}${rankNote}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>`;
-    row.onclick = () => {
-      // 슬롯에 준비
-      if (!state.preparedSpells) state.preparedSpells = {cantrip:[]};
-      const key = isCantrip ? 'cantrip' : rank;
-      if (!state.preparedSpells[key]) state.preparedSpells[key] = [];
-      state.preparedSpells[key][slotIdx] = name;
-      closeModal();
-      renderSpells();
-      save();
-    };
-    container.appendChild(row);
-  });
-
-  const listEl = document.querySelector('.modal-list');
-  if (listEl) listEl.style.display = '';
+  // v0.299: 전 시전자 클레릭식 — 빈 슬롯 클릭 = 전통 전체 memorize 모달을 해당 슬롯 포커스로 연다.
+  //   (구: 주문서/사역마 familiarSpells 한정 목록 → 배우기 필요. 이제 배우기 폐지, 전통 전체 준비.)
+  if (typeof openMemorizeModal !== 'function') return;
+  openMemorizeModal();
+  if (typeof _memorizeSelectSlot === 'function') _memorizeSelectSlot(rank, slotIdx);
 }
 
 function castPreparedSpell(rank, slotIdx) {
