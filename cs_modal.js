@@ -823,6 +823,51 @@ function _classHasInlineDeity(cls) {
   return roster.some(f => /^deity-/.test(String(f.slug || f.id || '')));
 }
 
+// ── 빌드에 "신격을 사용하는 효과"가 있는가 (대원칙0: 효과 데이터 파생) ──
+//   신격 선택 UI를 상시 노출하지 않고, 신격 의존 효과가 빌드에 생겼을 때만 파생시키기 위한 판정.
+//   데이터 마커(effects_db, 신규 스키마 없이 기존 것 재사용):
+//     ① grant_focus_spell target = $domain_initial|$domain_advanced (영역 집중주문 = 신격 영역 의존)
+//     ② choice.id = cho-domain-initiate|cho-advanced-domain (영역 선택 = 신격 영역 의존)
+//     ③ grant_feat target ∈ 신격 부여 노드(부여 체인 재귀) — dedication이 deity-*를, 교리가 domain-initiate를 부여
+const _DEITY_GRANT_TARGETS = new Set(['deity-cleric', 'deity-champion', 'domain-initiate', 'advanced-domain']);
+function _slugUsesDeity(slug, _seen) {
+  if (!slug || typeof _getFeatEffectsDef !== 'function') return false;
+  _seen = _seen || new Set();
+  if (_seen.has(slug)) return false;
+  _seen.add(slug);
+  const def = _getFeatEffectsDef(slug);
+  if (!def) return false;
+  if (def.choice && (def.choice.id === 'cho-domain-initiate' || def.choice.id === 'cho-advanced-domain')) return true;
+  for (const r of (def.rows || [])) {
+    if (r.type === 'grant_focus_spell' && (r.target === '$domain_initial' || r.target === '$domain_advanced')) return true;
+    if (r.type === 'grant_feat' && (_DEITY_GRANT_TARGETS.has(r.target) || _slugUsesDeity(r.target, _seen))) return true;
+  }
+  return false;
+}
+function _buildUsesDeity() {
+  // 보유 재주 전체(모든 카테고리)
+  const feats = state.feats || {};
+  for (const cat of Object.keys(feats)) {
+    for (const f of (feats[cat] || [])) {
+      const sl = (typeof featSlug === 'function') ? featSlug(f) : (f && (f.slug || f.id));
+      if (_slugUsesDeity(sl)) return true;
+    }
+  }
+  // 클래스 특성
+  const cls = state.selectedClass;
+  if (cls && typeof CLASS_FEATURE_NAMES !== 'undefined') {
+    for (const f of (CLASS_FEATURE_NAMES[cls.id] || [])) {
+      if (_slugUsesDeity(f.slug || f.id)) return true;
+    }
+  }
+  // 서브클래스 특성
+  const sub = state.selectedSubclass;
+  if (sub && Array.isArray(sub.features)) {
+    for (const f of sub.features) { if (_slugUsesDeity(f.slug || f.id || f.name_en)) return true; }
+  }
+  return false;
+}
+
 // 슬러그→무기 정본명 표시 = @link 단일 경로(원칙#1: 별도 getWeapon().name_ko 해소 금지).
 //   link=true → 인터랙티브 @link 스팬(툴팁), false → 평문(리스트/폼컨트롤용, 동일 리졸버 get('equipment')).
 // 자연공격 등 player equipment에 없는 슬러그: @link 대신 한글 평문(깨진 링크 방지).
@@ -1479,15 +1524,8 @@ function renderGrowthPlan() {
     state.selectedClass ? _slotCircle('class', state.selectedClass, '⚔') : '⚔', '클래스 Class',
     state.selectedClass ? `${state.selectedClass.name} (${state.selectedClass.en})` : null,
     "openModal('class')", state.selectedClass ? "clearCoreSelection('class')" : null);
-  // Deity selector — 신격을 클래스 모달에서 인라인 선택하는 클래스(클레릭=deity_skill, 챔피언=deity-champion 특성)는
-  //   성장플랜 슬롯 숨김(중복 제거). 그 외 신격 사용 클래스는 여기서 계속 선택.
-  if (!_classHasInlineDeity(state.selectedClass)) {
-    const _dObj = state.deity ? _getDeity(state.deity) : null;
-    html += growthSlotWithClearHTML('deity-sel',
-      _dObj ? _slotCircle('deity', _dObj, '🙏') : '🙏', '신격 Deity',
-      _dObj ? `${_dObj.name_ko} (${_dObj.name_en})` : null,
-      "openDeityPicker()", state.deity ? "clearDeity()" : null);
-  }
+  // Deity selector — 상단 상시 슬롯 제거(v0.294). 신격은 클래스가 신격을 쓰거나(클레릭/챔피언),
+  //   빌드에 신격 사용 효과(영역 재주 등)가 생겼을 때만 레벨1 정체성 영역에 파생(_buildUsesDeity).
   html += `</div>`;
 
   const _growthTable = getGrowthTable(state.selectedClass);
@@ -1596,10 +1634,13 @@ function renderGrowthPlan() {
       if (state.selectedClass) {
         const _cls = state.selectedClass;
         const _usesDeity = (typeof _classHasInlineDeity === 'function') && _classHasInlineDeity(_cls);
+        // 신격 필드 노출 = 클래스가 신격 사용(클레릭/챔피언) OR 빌드에 신격 사용 효과 존재(영역 재주 등).
+        //   성별화·신성원천은 여전히 클래스 게이트(_usesDeity)만 — 신격 효과가 있다고 성별화가 생기진 않음.
+        const _showDeity = _usesDeity || ((typeof _buildUsesDeity === 'function') && _buildUsesDeity());
         const _d = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
         const _inv = state._invalidChoices || {};
-        // 신격 (클레릭·챔피언)
-        if (_usesDeity) {
+        // 신격 (클레릭·챔피언, 또는 신격 사용 효과 보유 빌드)
+        if (_showDeity) {
           html += _growthFieldHTML('🙏', '신격 Deity', _d ? (_d.name_ko || _d.name_en) : '', false,
             "openDeityPicker()", state.deity ? "clearDeity()" : null);
         }
@@ -4157,19 +4198,12 @@ function showItemDetail(item) {
             ${item.speed_penalty?`<span class="tag-meta" style="color:var(--red-light);">속도: ${item.speed_penalty}</span>`:''}
             <span class="tag-meta">가격: ${item.price?(typeof priceWithIcons==='function'?priceWithIcons(item.price):item.price):'-'}</span></div>`;
   } else if (item.hp !== undefined && item.key_attrs !== undefined) {
-    const keyKo = (item.key_attrs || []).map(k => ATTR_KO[k]).join(' 또는 ');
-    tags = `<span class="tag-meta">HP ${item.hp}+CON</span> <span class="tag-meta">${keyKo}</span>
-            ${item.tradition?`<span class="tag">${item.tradition} 주문</span>`:''}`;
+    // 클래스 — HP/핵심능력치/주문은 아래 스탯블록(_classStatBlockHtml)이 표시하므로 상단 칩은 생략.
+    tags = '';
   } else if (item.boosts !== undefined && item.flaws !== undefined && item.size !== undefined) {
-    // ANCESTRIES (혈통)
-    const boostKo = [
-      ...(item.boosts || []).map(k => ATTR_KO[k]),
-      ...(item.boost_choices || []).map(g => g.map(k => ATTR_KO[k]).join('/')),
-      ...Array(item.free_boosts || 0).fill('자유'),
-    ];
-    tags = `<span class="tag hl">HP ${item.hp}</span>
-            <span class="tag">${item.size}/${item.speed}피트</span>
-            ${boostKo.map(b=>`<span class="tag hl">${b}</span>`).join('')}`;
+    // ANCESTRIES (혈통) — 상단은 트레잇 칩만(스탯블록: HP/크기/속도/부스트/결함/언어/특수는 _ancestryStatBlockHtml).
+    const ancTraits = (item.traits || []).map(t => traitTag(t)).join('');
+    tags = ancTraits ? `<div style="margin-bottom:2px;">${ancTraits}</div>` : '';
   } else if (item.subclass_type) {
     tags = `<span class="tag hl">${item.subclass_type}</span>`;
   }
@@ -4177,10 +4211,17 @@ function showItemDetail(item) {
   // ── 클래스/배경/혈통: 초기 선택 UI 포함 상세 패널 ──
   if ((modalType === 'class' || modalType === 'background' || modalType === 'ancestry') && _buildInitialChoicesUI) {
     const choicesHtml = _buildInitialChoicesUI(modalType, item);
-    if (choicesHtml) {
+    // 혈통·클래스·배경은 선택 UI가 없어도(빈 choicesHtml) 본문/스탯블록 + 확정 버튼을 렌더한다.
+    if (choicesHtml || modalType === 'ancestry' || modalType === 'class' || modalType === 'background') {
       const shortDesc = modalType === 'background'
         ? (item.desc || '').replace(/\s*속성 증강:.*$/, '')
         : (item.desc || '').split('<br><strong>')[0]; // 첫 단락만
+      // 혈통: 스크린샷식 구조화 스탯블록(생명점/크기/이동/보너스·결함/언어/특수/출처) — flavor 아래.
+      const ancStatBlock = (modalType === 'ancestry' && typeof _ancestryStatBlockHtml === 'function')
+        ? _ancestryStatBlockHtml(item) : '';
+      // 클래스: 룰북식 스탯블록(핵심능력치/생명점/지각/내성/기술/공격/방어/클래스DC/주문) — flavor 아래, 진행표 위.
+      const clsStatBlock = (modalType === 'class' && typeof _classStatBlockHtml === 'function')
+        ? _classStatBlockHtml(item) : '';
       detail.innerHTML = `
         <div class="modal-detail-back" onclick="document.getElementById('modal-body').classList.remove('detail-open')">← 목록으로</div>
         <div class="modal-detail-title">${nameKo}</div>
@@ -4188,7 +4229,8 @@ function showItemDetail(item) {
         <div class="modal-detail-tags">${tags}</div>
         <hr style="border:none;border-top:1px solid var(--border);margin:0 0 10px 0;">
         <div style="font-size:12px;line-height:1.7;color:var(--text2);margin-bottom:10px;">${shortDesc}</div>
-        ${modalType === 'class' ? _buildClassProgressionTable(item) : ''}
+        ${ancStatBlock}
+        ${clsStatBlock}
         ${choicesHtml}
         <button id="modal-confirm-choice" onclick="confirmModal()" disabled
           style="width:100%;margin-top:14px;padding:10px;background:var(--bg4);color:var(--text2);border:1px solid var(--border);border-radius:4px;font-size:13px;font-weight:600;cursor:not-allowed;">
@@ -4566,9 +4608,11 @@ function _buildClassChoicesUI(cls) {
     html += `</div>`;
   });
 
-  // 동적 갱신용 컨테이너 ID
-  html = `<div id="class-level-ui">${html}</div>`;
-  return html;
+  // 1~20레벨 클래스 특성 표시는 클래스 모달에서 제거(v0.296) — 클래스를 고르면 성장 빌더가 레벨별
+  //   특성 박스로 충실히 표시하므로 모달은 'flavor + 스탯블록'만. 위 계산(_modalChoices/분류/부여맵)은
+  //   부수효과(커밋용 _modalChoices) 보존 위해 유지하고, 레벨 특성 html만 미반환.
+  void html;
+  return '';
 }
 
 // ── 레벨 헤더 ──
@@ -5360,138 +5404,163 @@ function _rebuildTrainableSkillDropdowns() {
   container.innerHTML = html;
 }
 
-// ── 배경 모달: 기술 + 재주 ──
+// ── 배경 모달: 선택 박스 제거(v0.296) ──
+//   「배경 혜택」 박스(능력치/기술/지식/재주 표시)는 본문(desc)에 이미 서술되고, 부여 결과는 성장 빌더/시트가
+//   충실히 표시하므로 모달에선 제거. 확정 커밋을 위해 _modalChoices만 세팅(저장된 선택값 보존)하고 UI는 미반환.
+//   ⚠ 실측: skill_choice(택1 기술)를 가진 배경 0종 → 기술 선택 손실 없음. choice_lore(원하는 지식) 명명은
+//   시트 「지식」 모달(v0.286 커스텀 지식)에서 관리.
 function _buildBackgroundChoicesUI(bg) {
-  const beff = (typeof getBackgroundEffects === 'function') ? getBackgroundEffects(bg) : {};
   const _savedBgChoice = (state.selectedBackground?.id === bg.id) ? (state.initialChoices?.background?.choiceSkill || null) : null;
   const _savedBgLore = (state.selectedBackground?.id === bg.id) ? (state.initialChoices?.background?.choiceLore || '') : '';
-  _modalChoices = { type: 'background', skills: {}, choiceSkill: _savedBgChoice, loreName: '', choiceLore: _savedBgLore };
-
-  let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
-  html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">📋 배경 혜택</div>`;
-  // 능력치 증강 표시
-  const bgBoostKo = [
-    ...(beff.boosts || []).map(k => ATTR_KO[k]),
-    ...(beff.boost_choices || []).map(g => g.map(k => ATTR_KO[k]).join(' 또는 ')),
-    ...Array(beff.free_boosts || 0).fill('자유'),
-  ].join(', ') || '—';
-  html += `<div style="font-size:11px;color:var(--text2);margin-bottom:6px;"><strong>능력치 증강:</strong> ${bgBoostKo}</div>`;
-
-  // 고정 기술
-  (beff.fixed_skills || []).forEach(id => {
-    const skill = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === id) : null;
-    const label = skill ? skill.name : id;
-    html += _choiceDropdown('', `기술`, [{value: id, label}], true, id);
-  });
-
-  // 선택 기술 그룹 (그룹당 1택)
-  let hasChoice = false;
-  (beff.choice_skill_groups || []).forEach((group, gi) => {
-    hasChoice = true;
-    const options = group.map(id => {
-      const skill = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === id) : null;
-      return { value: id, label: skill ? skill.name : id };
-    });
-    html += `<div style="margin-bottom:6px;">
-      <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 (선택)</div>
-      <select id="bg-choice-skill${gi||''}" onchange="_modalChoices.choiceSkill=this.value;_validateInitialChoices()" style="${_selStyle}">
-        <option value="">— 선택 —</option>
-        ${options.map(o => `<option value="${o.value}"${o.value === _savedBgChoice ? ' selected' : ''}>${o.label}</option>`).join('')}
-      </select>
-    </div>`;
-  });
-  _modalChoices.hasChoiceSkill = hasChoice;
-
-  // 고정 지식 (lore) — 한국어 그대로
-  (beff.fixed_lores || []).forEach(loreName => {
-    _modalChoices.loreName = loreName;
-    const _loreKo = (typeof getLoreKo === 'function') ? getLoreKo(loreName) : loreName;
-    html += _choiceDropdown('', `지식 기술`, [{value: loreName, label: _loreKo + ' 지식'}], true, loreName);
-  });
-
-  // 원하는 지식 (선택) — 사용자가 분야명 지정(추가 지식과 동일). 미입력 허용(시트에서 나중에 입력 가능).
-  if (beff.choice_lore) {
-    const _curLore = (_modalChoices.choiceLore || '').replace(/"/g, '&quot;');
-    html += `<div style="margin-bottom:6px;">
-      <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">지식 기술 (원하는 분야 1개)</div>
-      <input type="text" id="bg-choice-lore" value="${_curLore}" placeholder="예: 소문 지식" maxlength="30"
-        oninput="_modalChoices.choiceLore=this.value" style="${_selStyle}">
-    </div>`;
-  }
-
-  // 신격 기술/지식 마커 (raised-by-belief)
-  if (beff.deity_skill || beff.deity_lore) {
-    html += `<div style="font-size:10px;color:var(--text2);margin:4px 0;">※ 신격 선택 후 자동 부여 (신격 기술${beff.deity_lore ? ' + 신격 지식' : ''})</div>`;
-  }
-
-  // 기술 재주 — 클래스/서브클래스 자동재주와 동일한 표준 카드(_subFeatCard, 아이콘 포함)
-  if (beff.feat_id) {
-    const fd = getFeat(beff.feat_id);
-    const descHtml = fd
-      ? resolveDescRefs((fd.desc || fd.summary || '').replace(/<strong>전제조건:<\/strong>[^<]*<br>/i, ''))
-      : `<div style="font-size:10px;color:var(--text2);font-style:italic;">※ 카탈로그 미등재 (${beff.feat_id})</div>`;
-    html += `<div style="margin-top:4px;">`;
-    html += `<div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 재주</div>`;
-    html += _subFeatCard('feat', fd || { id: beff.feat_id }, fd ? fd.name_ko : beff.feat_id, fd ? fd.name_en : '', '재주', descHtml);
-    html += `</div>`;
-  }
-  html += `</div>`;
-  return html;
+  _modalChoices = { type: 'background', skills: {}, choiceSkill: _savedBgChoice, loreName: '', choiceLore: _savedBgLore, hasChoiceSkill: false };
+  return '';   // 선택 UI 없음 — 상세 패널은 본문(desc) + 확정 버튼만
 }
 
-// ── 혈통 모달: 언어 선택 ──
+// ── 혈통 모달: 언어 선택 UI 제거(v0.293) ──
+//   언어(고정+추가)는 시트 본문 「언어」 섹션(renderLanguages/addLanguage)에서 관리한다.
+//   여기선 확정 커밋을 위해 _modalChoices만 세팅(고정 언어 + 기존 저장 보너스 보존)하고 UI는 렌더하지 않음.
+//   언어 요약은 상단 스탯블록 _ancestryStatBlockHtml이 읽기전용으로 표시.
 function _buildAncestryChoicesUI(anc) {
   const fixedLangs = anc.languages || ['common'];
-  // PF2e Remaster 룰: 인간 1 + INT, 나머지 INT만 (v528~ ANCESTRIES.bonusLangs 데이터 사용)
-  const bonusBase = anc.bonusLangs ?? 0;
-  _modalChoices = { type: 'ancestry', fixedLangs, bonusBase, bonusLangs: Array(bonusBase).fill('') };
-
-  // ── 이전 선택값 복원: state.languages에서 고정 언어를 제외한 나머지가 보너스 언어 ──
+  let savedBonus = [];
   if (state.selectedAncestry?.id === anc.id && state.languages?.length) {
     const fixedSet = new Set(fixedLangs);
-    const savedBonus = state.languages.filter(l => !fixedSet.has(l));
-    for (let i = 0; i < savedBonus.length; i++) {
-      if (i < _modalChoices.bonusLangs.length) {
-        _modalChoices.bonusLangs[i] = savedBonus[i];
-      } else {
-        _modalChoices.bonusLangs.push(savedBonus[i]);
-      }
+    savedBonus = state.languages.filter(l => !fixedSet.has(l));   // 고정 제외 = 이전에 시트에서 추가한 언어
+  }
+  _modalChoices = { type: 'ancestry', fixedLangs, bonusBase: anc.bonusLangs ?? 0, bonusLangs: savedBonus };
+  return '';   // 선택 UI 없음 — 상세 패널은 스탯블록 + 확정 버튼만
+}
+
+// ── 혈통 구조화 스탯블록 (생명점/크기/이동/능력치 보너스·결함/언어/특수/출처) ──
+//   룰북 스탯블록 형식. 데이터는 혈통 네이티브 필드에서 조립(하드코딩 없음).
+function _pubTitleKo(t) {
+  if (!t) return '';
+  const M = {
+    'Pathfinder Player Core': '플레이어 코어',
+    'Pathfinder Player Core 2': '플레이어 코어 2',
+    'Pathfinder GM Core': '게임마스터 코어',
+    'Pathfinder Monster Core': '몬스터 코어',
+    'Pathfinder Monster Core 2': '몬스터 코어 2',
+    'Pathfinder NPC Core': 'NPC 코어',
+  };
+  return M[t] || String(t).replace(/^Pathfinder\s+/, '');
+}
+function _ancStatSection(label, valueHtml) {
+  return `<div style="margin-bottom:9px;">
+    <div style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--accent);margin-bottom:2px;">${label}</div>
+    <div style="font-size:12px;color:var(--text);line-height:1.6;">${valueHtml}</div>
+  </div>`;
+}
+function _ancestryStatBlockHtml(anc) {
+  if (!anc) return '';
+  const A = (typeof ATTR_KO !== 'undefined') ? ATTR_KO : {};
+  // 능력치 보너스 = 고정 + 자유 + 택1풀 / 결함 = 고정
+  const boostParts = [
+    ...(anc.boosts || []).map(k => A[k] || k),
+    ...Array(anc.free_boosts || 0).fill('자유'),
+    ...(anc.boost_choices || []).filter(g => g && g.length).map(g => '택1(' + g.map(k => A[k] || k).join('/') + ')'),
+  ];
+  const flawParts = (anc.flaws || []).map(k => A[k] || k);
+  // 언어 = 고정 언어 + 추가 언어 규칙
+  const langKo = (typeof getLanguageKo === 'function');
+  const fixed = (anc.languages || []).map(l => langKo ? getLanguageKo(l) : l);
+  const base = anc.bonusLangs || 0;
+  let langText = fixed.join(', ');
+  langText += base > 0
+    ? `. 여기에 더해 기본 추가 언어 ${base}개, 그리고 지능 수정치가 양수라면 그만큼 언어를 더 선택합니다.`
+    : `. 지능 수정치가 양수라면 그만큼 추가 언어를 선택할 수 있습니다.`;
+  // 특수 = 시야(정본 설명) + 무료 획득 무기
+  const specials = [];
+  const vdef = (typeof VISION_DEFS !== 'undefined') ? VISION_DEFS.find(v => v.id === anc.vision) : null;
+  if (vdef && vdef.id !== 'none') specials.push(`<strong>${vdef.name_ko}</strong> ${vdef.desc}`);
+  if (anc.grantWeapon) {
+    const w = (typeof getWeapon === 'function') ? getWeapon(anc.grantWeapon) : null;
+    if (w) specials.push(`<strong>무료 획득</strong> ${w.name_ko}`);
+  }
+  const srcKo = _pubTitleKo(anc._doc && anc._doc.system && anc._doc.system.publication && anc._doc.system.publication.title);
+
+  // 콜아웃(박스) 없이 평문 섹션 나열(룰북 스탯블록 형식).
+  let out = `<div style="margin-bottom:8px;">`;
+  out += _ancStatSection('생명점 Hit Points', String(anc.hp || 0));
+  out += _ancStatSection('크기 Size', anc.size || '중형');
+  out += _ancStatSection('이동 속도 Speed', `${anc.speed || 25}피트`);
+  out += _ancStatSection('능력치 보너스와 결함 Ability Boosts &amp; Flaws',
+    `<strong>보너스</strong> ${boostParts.length ? boostParts.join(', ') : '없음'}`
+    + (flawParts.length ? `<br><strong>결함</strong> ${flawParts.join(', ')}` : ''));
+  out += _ancStatSection('언어 Languages', langText);
+  if (specials.length) out += _ancStatSection('특수 Special', specials.join('<br>'));
+  if (srcKo) out += `<div style="font-size:11px;color:var(--text2);font-style:italic;margin-top:4px;">출처: ${srcKo}</div>`;
+  out += `</div>`;
+  return out;
+}
+
+// ── 클래스 구조화 스탯블록 (핵심능력치/생명점/지각/내성/기술/공격/방어/클래스DC/주문) ──
+//   룰북 클래스 스탯블록 형식. 데이터는 레거시 필드(hp/key_attrs/saves/perc/skills) + 진행표 레벨1 숙련
+//   (PF2eClass.classProfTable — 무기/갑옷/클래스DC/주문)에서 조립(하드코딩 없음).
+const _PROF_RANK_KO = { 0: '미숙련', 2: '숙련', 4: '전문가', 6: '달인', 8: '전설' };
+const _TRADITION_KO = { arcane: '비전', divine: '신성', occult: '신비', primal: '원시' };
+function _classStatBlockHtml(cls) {
+  if (!cls) return '';
+  const A = (typeof ATTR_KO !== 'undefined') ? ATTR_KO : {};
+  const rkKo = n => _PROF_RANK_KO[n] || '미숙련';
+  // 레벨1 숙련 진행표 (무기/갑옷/클래스DC/주문). 값 = 0/2/4/6/8.
+  const prof = (typeof PF2eClass !== 'undefined' && PF2eClass.classProfTable) ? PF2eClass.classProfTable(cls.id) : null;
+  const L1 = stat => (prof && prof[stat] && prof[stat][1]) || 0;
+
+  // 핵심 능력치
+  const keyKo = (cls.key_attrs || []).map(k => A[k] || k).join(' 또는 ') || '—';
+  // 지각·내성 (레거시가 이미 한글 라벨. 없으면 진행표에서 파생)
+  const perc = cls.perc || rkKo(L1('perc'));
+  const sv = cls.saves || {};
+  const fort = sv.fort || rkKo(L1('fort'));
+  const ref = sv.ref || rkKo(L1('ref'));
+  const will = sv.will || rkKo(L1('will'));
+  // 공격(무기) — 훈련 이상만
+  const WPN = { 'weapon-unarmed': '비무장 공격', 'weapon-simple': '단순 무기', 'weapon-martial': '군용 무기', 'weapon-advanced': '고급 무기' };
+  const atk = [];
+  ['weapon-unarmed', 'weapon-simple', 'weapon-martial', 'weapon-advanced'].forEach(k => { const n = L1(k); if (n > 0) atk.push(`${WPN[k]} ${rkKo(n)}`); });
+  // 방어(갑옷) — 훈련 이상만
+  const ARM = { 'armor-unarmored': '비무장 방어', 'armor-light': '경갑', 'armor-medium': '평갑', 'armor-heavy': '중갑' };
+  const def = [];
+  ['armor-unarmored', 'armor-light', 'armor-medium', 'armor-heavy'].forEach(k => { const n = L1(k); if (n > 0) def.push(`${ARM[k]} ${rkKo(n)}`); });
+  // 기술 = (신격/서브클래스가 정하는 1기술) + 고정 + 택1 + (추가 N + 지능)
+  const skById = {}; if (typeof SKILLS !== 'undefined') SKILLS.forEach(s => { skById[s.id] = s.name; });
+  const skillParts = [];
+  if (cls.deity_skill) skillParts.push('신격이 정하는 기술 1개');
+  else if (typeof SUBCLASS_DB !== 'undefined') {
+    // 서브클래스가 기술을 정하는 클래스(마녀 후원자·소서러 혈통·오라클 신비 등) — granted_skills 존재로 판별.
+    const subs = SUBCLASS_DB.filter(s => s.class_id === cls.id);
+    if (subs.some(s => (s.granted_skills || []).length)) {
+      const lbl = (typeof _classSubclassLabel === 'function') ? (_classSubclassLabel(cls) || '서브클래스') : '서브클래스';
+      skillParts.push(`${lbl}가 정하는 기술 1개`);
     }
   }
+  (cls.fixed_skills || []).forEach(id => skillParts.push(skById[id] || id));
+  (cls.choice_skill_groups || []).forEach(grp => { if (grp && grp.length) skillParts.push('택1(' + grp.map(id => skById[id] || id).join('/') + ')'); });
+  const addl = cls.free_skill_count || 0;
+  let skillText = skillParts.length ? `${skillParts.join(', ')}에 숙련. ` : '';
+  skillText += `추가로 ${addl} + 지능 수정치개의 기술에 숙련.`;
 
-  let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
-  html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">🗣 언어</div>`;
-
-  // 고정 언어 (disabled) — id로 저장, 라벨은 한글 표시
-  fixedLangs.forEach(langId => {
-    const ko = (typeof getLanguageKo === 'function') ? getLanguageKo(langId) : langId;
-    html += _choiceDropdown('', `기본 언어`, [{value: langId, label: ko}], true, langId);
-  });
-
-  // 추가 언어 (active + "+" 버튼)
-  const bonusLabel = bonusBase > 0
-    ? `추가 언어 (기본 ${bonusBase}개 + INT 수정치, + 버튼으로 추가)`
-    : `추가 언어 (INT 수정치만큼, + 버튼으로 추가)`;
-  html += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">${bonusLabel}</div>`;
-  html += `<div id="anc-bonus-langs">`;
-  const bonusCount = Math.max(bonusBase, _modalChoices.bonusLangs.length);
-  for (let i = 0; i < bonusCount; i++) {
-    html += _buildBonusLangRow(i, fixedLangs);
+  let out = `<div style="margin-bottom:8px;">`;
+  out += _ancStatSection('핵심 능력치 Key Ability', keyKo);
+  out += _ancStatSection('생명점 Hit Points', `${cls.hp || 8} + 건강 수정치`);
+  out += _ancStatSection('지각 Perception', perc);
+  out += _ancStatSection('내성 Saving Throws', `강인 ${fort} · 반사 ${ref} · 의지 ${will}`);
+  out += _ancStatSection('기술 Skills', skillText);
+  if (atk.length) out += _ancStatSection('공격 Attacks', atk.join(' · '));
+  if (def.length) out += _ancStatSection('방어 Defenses', def.join(' · '));
+  out += _ancStatSection('클래스 DC Class DC', rkKo(L1('classdc')));
+  // 주문 — 시전 클래스만(주문 공격/DC 숙련 존재 시)
+  const spatk = L1('spatk');
+  if (spatk > 0) {
+    const trad = cls.tradition ? (_TRADITION_KO[cls.tradition] || '') : '';   // 알려진 4전통만(witch 'any' 등은 생략)
+    out += _ancStatSection('주문 Spells', `주문 공격 수정치 · 주문 DC ${rkKo(spatk)}` + (trad ? ` (${trad} 전통)` : ''));
   }
-  html += `</div>`;
-  html += `<div style="text-align:center;margin-top:4px;">
-    <button onclick="_addBonusLang()" style="padding:4px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--accent);cursor:pointer;font-size:12px;">＋ 추가</button>
-    <span style="font-size:10px;color:var(--text2);margin-left:6px;">INT 수정치만큼 추가 가능</span>
-  </div>`;
-
-  // 시야/크기/속도 정보 표시
-  html += `<div style="margin-top:10px;font-size:11px;color:var(--text2);line-height:1.7;">`;
-  html += `<div><strong>크기:</strong> ${anc.size} | <strong>속도:</strong> ${anc.speed}피트</div>`;
-  html += `<div><strong>감각:</strong> ${VISION_KO[anc.vision] || anc.vision || '없음'}</div>`;
-  html += `</div>`;
-
-  html += `</div>`;
-  return html;
+  // 출처 = store publication.title(모든 클래스 보유) → 한글(_pubTitleKo). 종족과 동일 패턴.
+  const srcKo = _pubTitleKo(cls._doc && cls._doc.system && cls._doc.system.publication && cls._doc.system.publication.title);
+  if (srcKo) out += `<div style="font-size:11px;color:var(--text2);font-style:italic;margin-top:4px;">출처: ${srcKo}</div>`;
+  out += `</div>`;
+  return out;
 }
 
 function _buildBonusLangRow(index, excludeLangs) {
@@ -5585,9 +5654,7 @@ function _validateInitialChoices() {
   } else if (_modalChoices.type === 'background') {
     if (_modalChoices.hasChoiceSkill && !_modalChoices.choiceSkill) valid = false;
   } else if (_modalChoices.type === 'ancestry') {
-    const langs = _modalChoices.bonusLangs || [];
-    if (langs.some(v => !v)) valid = false;
-    if (langs.length < (_modalChoices.bonusBase || 0)) valid = false;
+    // 혈통은 언어 선택 UI를 제거(언어는 시트 본문에서 관리) → 필수 선택 없음, 항상 확정 가능.
   }
 
   btns.forEach(btn => {
@@ -6229,6 +6296,7 @@ function applyClassDefaults(cls) {
   if (keys.length === 1) state.boosts.cls = keys[0];
   // 길이 2+ (OR)는 기존 선택 보존 또는 빈 상태로 둠 (renderBoostModal에서 사용자 선택)
   // 고정 클래스 기술 숙련은 rebuildCoreEffects(출처기반, _classGrantedSkills)가 재파생 — 명령형 부여 제거(v0.134).
+  // 초기 base(클래스 부여 수)만 세팅 — 지능 수정치 가산은 rebuildCoreEffects가 반응형으로 재계산(recalcAll 시).
   state.trainableSkillSlots = cls.free_skill_count || 0;
   updateHP();
   updateSpellSlotsForClass();
