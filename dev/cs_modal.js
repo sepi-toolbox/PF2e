@@ -1068,6 +1068,7 @@ function toggleDivineFontSlot(idx) {
 
 function getDivineFontSlots() {
   if(!state.divineFont || !state.selectedClass || !state.selectedClass.deity_skill) return 0;
+  if(state._invalidChoices && state._invalidChoices.divineFont) return 0;   // 신격과 불일치 → 효과 보류(B안)
   const lv = getLevel();
   // 신성한 샘(Divine Font) 리마스터(Player Core) 정본: 최고 랭크 치유/해악 슬롯 4개 → 5개(5레벨) → 6개(15레벨).
   //   ⚠ "1 + 매력 수정치"는 구판(CRB) 규칙 — 리마스터는 고정 슬롯 수로 변경됨. (신격 데이터 _desc_en 원문 확인)
@@ -4469,9 +4470,10 @@ function _clericDeityControlHtml(savedSanct) {
 //   _modalChoices.sanctification: 단일→그 값, 2택→저장값 or '' (미선택=확정 차단), 없음→undefined(미필수).
 function _setSanctChoice(d, savedSanct) {
   const opts = (d && d.sanctification) || [];
-  if (opts.length === 1) _modalChoices.sanctification = opts[0];
-  else if (opts.length >= 2) _modalChoices.sanctification = (savedSanct && opts.includes(savedSanct)) ? savedSanct : '';
-  else _modalChoices.sanctification = undefined;
+  if (opts.length === 1) _modalChoices.sanctification = opts[0];   // 신격이 강제(고정) — 무효 불가
+  // 2택 이상: 저장값 유지(신격과 안 맞아도 지우지 않음 → 불일치 플래그로 처리, B안). 미선택은 ''.
+  else if (opts.length >= 2) _modalChoices.sanctification = savedSanct || '';
+  else _modalChoices.sanctification = undefined;   // 신격이 성별화 없음
 }
 
 // 주문 호버 툴팁(title) — 행동/사거리/특성 + 설명 발췌(평문). 신격 주문·신성 원천 주문 공용.
@@ -4497,15 +4499,18 @@ function _deityBoxHtml(d, savedSanct, readonly, hideSanct) {
   // 성별화 — 신격이 결정. 단일/없음=평문, 2택=선택(재주 탭=확정값 평문, 모달=인라인 select).
   const sOpts = d.sanctification || [];
   const _sLabel = (o) => o === 'holy' ? '신성 (Holy)' : '불경 (Unholy)';
+  const _sanctInvalid = savedSanct && sOpts.length && !sOpts.includes(savedSanct);   // 신격과 안 맞는 성별화(B안: 유지+플래그)
+  const _sanctFlag = _sanctInvalid ? `<div style="font-size:10px;color:#ff9800;margin-top:2px;">⚠ 선행조건 불일치 — 이 신격은 「${_sLabel(savedSanct)}」을 허용하지 않습니다. 효과 미적용, 다시 골라주세요.</div>` : '';
   let sanctHtml;
   if (sOpts.length === 0) sanctHtml = `<div style="font-size:10px;margin-top:2px;"><b>✨ 성별화:</b> 없음</div>`;
   else if (sOpts.length === 1) sanctHtml = `<div style="font-size:10px;margin-top:2px;"><b>✨ 성별화:</b> ${_sLabel(sOpts[0])} <span style="color:var(--text2);">— 신격이 요구(고정)</span></div>`;
-  else if (readonly) sanctHtml = `<div style="font-size:10px;margin-top:2px;"><b>✨ 성별화:</b> ${savedSanct ? _sLabel(savedSanct) : '<span style="color:#ff9800;">⚠ 미선택</span>'}</div>`;
+  else if (readonly) sanctHtml = `<div style="font-size:10px;margin-top:2px;"><b>✨ 성별화:</b> ${savedSanct ? (_sLabel(savedSanct) + (_sanctInvalid ? ' <span style="color:#ff9800;">(불일치)</span>' : '')) : '<span style="color:#ff9800;">⚠ 미선택</span>'}</div>${_sanctFlag}`;
   else sanctHtml = `<div style="font-size:10px;margin-top:4px;"><b>✨ 성별화:</b> 신성·불경 중 선택
       <select id="cls-sanct" onchange="_modalChoices.sanctification=this.value;_validateInitialChoices()" style="${_selStyle}display:inline-block;width:auto;margin-left:4px;vertical-align:middle;">
         <option value=""${!savedSanct ? ' selected' : ''}>— 선택 —</option>
         ${sOpts.map(o => `<option value="${o}"${o === savedSanct ? ' selected' : ''}>${_sLabel(o)}</option>`).join('')}
-      </select></div>`;
+        ${_sanctInvalid ? `<option value="${savedSanct}" selected>${_sLabel(savedSanct)} (불일치)</option>` : ''}
+      </select></div>${_sanctFlag}`;
   // 신격 주문 — 아이콘 + 클릭(desc-ref 떠 있는 팝업)으로 주문 정보. 모달·재주 탭 공용(모달-overlay 미간섭).
   const spEntries = Object.entries(d.spells_slug || {}).sort((a, b) => (+a[0]) - (+b[0]));
   const spHtml = spEntries.length ? `<div style="margin-top:6px;"><div style="font-size:9px;color:var(--text2);margin-bottom:3px;">신격 주문 <span style="opacity:0.7;">(클릭하면 주문 정보)</span></div>${spEntries.map(([rank, slug]) => {
@@ -4537,11 +4542,23 @@ function _clericFontControlHtml(savedFont) {
 function _fontOptionsHtml(d, savedFont) {
   if (!d) { _modalChoices.divineFont = undefined; return `<div style="font-size:10px;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;">먼저 <b>신성(클레릭)</b>에서 신격을 선택하세요. 신성 원천(치유/해악)은 신격이 허용하는 것만 고를 수 있습니다.</div>`; }
   const fonts = d.font || [];
+  const _fLabel = (v) => v === 'heal' ? '치유 (Heal)' : '해악 (Harm)';
+  const _fontInvalid = savedFont && fonts.length && !fonts.includes(savedFont);   // 신격이 허용 안 하는 폰트(B안: 유지+플래그)
+  const _fontFlag = _fontInvalid ? `<div style="font-size:10px;color:#ff9800;margin-top:4px;">⚠ 선행조건 불일치 — 이 신격은 「${_fLabel(savedFont)}」을 허용하지 않습니다. 효과 미적용, 다시 골라주세요.</div>` : '';
   let cur = (savedFont && fonts.includes(savedFont)) ? savedFont : '';
   let inner;
-  if (fonts.length === 1) {
+  if (_fontInvalid) {
+    // 무효값 유지: 신격 허용 옵션 + 무효값(불일치)을 함께 노출, 무효값 선택 상태.
+    _modalChoices.divineFont = savedFont;
+    inner = `<select id="cls-font" onchange="_onClericFontChange(this.value)" style="${_selStyle}">
+      <option value="">— 선택 —</option>
+      ${fonts.includes('heal') ? `<option value="heal">치유 (Heal)</option>` : ''}
+      ${fonts.includes('harm') ? `<option value="harm">해악 (Harm)</option>` : ''}
+      <option value="${savedFont}" selected>${_fLabel(savedFont)} (불일치)</option>
+    </select>`;
+  } else if (fonts.length === 1) {
     cur = fonts[0]; _modalChoices.divineFont = cur;
-    inner = `<select disabled style="${_selStyle}opacity:0.7;"><option>${cur === 'heal' ? '치유 (Heal)' : '해악 (Harm)'}</option></select>
+    inner = `<select disabled style="${_selStyle}opacity:0.7;"><option>${_fLabel(cur)}</option></select>
       <div style="font-size:9px;color:var(--text2);margin-top:2px;">이 신격은 ${cur === 'heal' ? '치유' : '해악'}만 제공합니다.</div>`;
   } else {
     _modalChoices.divineFont = cur || undefined;
@@ -4551,7 +4568,7 @@ function _fontOptionsHtml(d, savedFont) {
       ${fonts.includes('harm') ? `<option value="harm"${cur === 'harm' ? ' selected' : ''}>해악 (Harm)</option>` : ''}
     </select>`;
   }
-  return `${inner}<div id="cls-font-info" style="font-size:10px;color:var(--text2);margin-top:6px;line-height:1.5;">${cur ? _fontSpellBoxHtml(cur) : ''}</div>`;
+  return `${inner}${_fontFlag}<div id="cls-font-info" style="font-size:10px;color:var(--text2);margin-top:6px;line-height:1.5;">${(cur && !_fontInvalid) ? _fontSpellBoxHtml(cur) : ''}</div>`;
 }
 
 // 신성 원천 결과 주문 박스(아이콘) — 치유/해악.
@@ -4576,7 +4593,9 @@ function _deityFeatDisplayHtml() {
 function _fontFeatDisplayHtml() {
   const val = state.divineFont;
   if (!val) return `<div style="font-size:11px;color:#ff9800;margin-top:8px;">⚠ 신성 원천 미선택 — 성장 계획에서 치유/해악을 골라주세요.</div>`;
-  return `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:4px;"><b>신성 원천:</b> ${val === 'heal' ? '치유 (Heal)' : '해악 (Harm)'}</div>${_fontSpellBoxHtml(val)}</div>`;
+  const invalid = state._invalidChoices && state._invalidChoices.divineFont;   // 신격과 불일치(B안) → 효과 보류 + 플래그
+  const flag = invalid ? `<div style="font-size:11px;color:#ff9800;margin-top:4px;">⚠ 선행조건 불일치 — 현재 신격이 이 신성 원천을 허용하지 않아 효과(추가 슬롯·주문)가 적용되지 않습니다.</div>` : '';
+  return `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:4px;"><b>신성 원천:</b> ${val === 'heal' ? '치유 (Heal)' : '해악 (Harm)'}${invalid ? ' <span style="color:#ff9800;">(불일치)</span>' : ''}</div>${flag}${invalid ? '' : _fontSpellBoxHtml(val)}</div>`;
 }
 // 재주 탭 — 챔피언 헌신 주문(선택한 영혼의 방패/안수치료/공허의 손길) 표시.
 function _devotionFeatDisplayHtml() {
@@ -4595,13 +4614,12 @@ function _refreshFontWrap() {
 function _onClericDeityChange(id) {
   _modalChoices.deity = id || undefined;
   const d = id ? _getDeity(id) : null;
-  _setSanctChoice(d, '');   // 신격이 바뀌면 성별화 재설정(2택이면 미선택 상태로)
+  // B안: 신격이 바뀌어도 성별화·신성원천을 강제로 지우지 않음 — 유지하고, 새 신격과 안 맞으면
+  //   각 카드에서 「선행조건 불일치」로 표시(효과는 커밋 후 recalcAll이 보류). 강제 고정(1택)만 반영.
+  _setSanctChoice(d, _modalChoices.sanctification || '');
   const info = document.getElementById('cls-deity-info');
   if (info) info.innerHTML = _deityBoxHtml(d, _modalChoices.sanctification || '');   // 설명·성별화·주문(호버) 통합 박스
-  // 신격이 바뀌면 신성 원천 허용치가 달라짐 → 폰트 카드 갱신(허용 안 되는 폰트는 리셋)
-  const fonts = (d && d.font) || [];
-  if (_modalChoices.divineFont && fonts.length && !fonts.includes(_modalChoices.divineFont)) _modalChoices.divineFont = undefined;
-  _refreshFontWrap();
+  _refreshFontWrap();   // 폰트 카드도 저장값 유지 + 불일치 플래그(_fontOptionsHtml에서 처리)
   _validateInitialChoices();
 }
 

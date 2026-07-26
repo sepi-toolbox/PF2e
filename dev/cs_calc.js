@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.257').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.258').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -2232,9 +2232,38 @@ function _subclassTradition() {
   return null;
 }
 
+// ── 선택 유효성 리졸버 (B안: 캐스케이드 자동삭제 대신 유지+플래그+효과보류) ──
+// 종속 선택(성별화·신성원천 등)이 그 출처(신격)와 맞는지 판정. 무효여도 값은 유지하고
+// state._invalidChoices에 표시만 → 빌더는 「선행조건 불일치」 렌더, 효과는 각 적용부에서 게이트해 보류.
+// (현재 파일럿 = 클레릭 신격↔성별화↔신성원천. 이후 서브클래스·챔피언 등으로 확장.)
+function _resolveChoiceValidity() {
+  const inv = {};
+  const cls = state.selectedClass;
+  // ⚠ 파일럿 범위 = 클레릭 계열(deity_skill: 신격이 성별화·신성원천을 강제)만 판정.
+  //   챔피언 등 비-deity_skill 클래스도 성별화를 쓰지만(원인↔신격 제약) 규칙이 달라 오탐 방지 위해 제외(Phase 3).
+  if (cls && cls.deity_skill) {
+    const d = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
+    if (!d) {
+      // 신격 미선택인데 하위 선택이 남아 있으면 무효(성립 안 함)
+      if (state.sanctification) inv.sanctification = true;
+      if (state.divineFont) inv.divineFont = true;
+    } else {
+      // 성별화: 신격이 성별화를 제약(옵션 있음)하는데 그 안에 없으면 무효. 제약 없는 신격(0옵션)은 판정 제외(오탐 방지).
+      const sanct = d.sanctification || [];
+      if (state.sanctification && sanct.length && !sanct.includes(state.sanctification)) inv.sanctification = true;
+      // 신성원천: 신격이 폰트를 제한(옵션 있음)하는데 그 안에 없으면 무효.
+      const font = d.font || [];
+      if (state.divineFont && font.length && !font.includes(state.divineFont)) inv.divineFont = true;
+    }
+  }
+  state._invalidChoices = inv;
+}
+
 function recalcAll() {
   // 성장(빌더) 기술 훈련/향상 기여를 먼저 걷어냄 — heritage/bg/feat가 깨끗한 base에서 prevRank 스냅샷하도록.
   clearGrowthSkills();
+  // 선택 유효성 판정(효과 보류·불일치 표시의 단일 소스) — 부여 적용 전에 계산.
+  _resolveChoiceValidity();
   // 빌더 핵심 선택 재파생 (유산/배경)
   rebuildCoreEffects();
   // 재주 효과 집계

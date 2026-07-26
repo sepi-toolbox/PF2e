@@ -34,7 +34,7 @@
     return { books, rescue, enabled: books.size > 0 };
   }
   function _ensureAllowedSync() { if (_allowed) return _allowed; _allowed = _prepAllowed(isNode ? _readJSON(`${_dataRoot}/derived/allowed_content.json`) : null); return _allowed; }
-  async function loadAllowed() { if (_allowed) return _allowed; _allowed = _prepAllowed(await _fetchJSON(`${_dataRoot}/derived/allowed_content.json?v=0.257`)); return _allowed; }
+  async function loadAllowed() { if (_allowed) return _allowed; _allowed = _prepAllowed(await _fetchJSON(`${_dataRoot}/derived/allowed_content.json?v=0.258`)); return _allowed; }
   function _pubOf(d) {
     const s = d.system || {}; const p = s.publication || {};
     let t = p.title;
