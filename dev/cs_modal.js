@@ -1439,18 +1439,18 @@ function renderGrowthPlan() {
       if (state.selectedClass && state.selectedClass.deity_skill) {
         const _d = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
         const _inv = state._invalidChoices || {};
-        html += _growthFieldHTML('신격 Deity', '신격 선택', _d ? (_d.name_ko || _d.name_en) : '', false,
+        html += _growthFieldHTML('🙏', '신격 Deity', _d ? (_d.name_ko || _d.name_en) : '', false,
           "openDeityPicker()", state.deity ? "clearDeity()" : null);
-        const _fLab = state.divineFont ? ((state.divineFont === 'heal' ? '치유 (Heal)' : '해악 (Harm)') + (_inv.divineFont ? ' — 선행조건 불일치' : '')) : '';
-        html += _growthFieldHTML('신성 원천 Divine Font', '치유/해악 선택', _fLab, !!_inv.divineFont,
+        const _fLab = state.divineFont ? (state.divineFont === 'heal' ? '치유 (Heal)' : '해악 (Harm)') : '';
+        html += _growthFieldHTML('💧', '신성 원천 Divine Font', _fLab, !!_inv.divineFont,
           "openDivineFontPicker()", state.divineFont ? "clearDivineFont()" : null);
         const _sub = state.selectedSubclass;
-        html += _growthFieldHTML('교리 Doctrine', '교리 선택', _sub ? (_sub.name_ko || _sub.name_en) : '', false,
+        html += _growthFieldHTML('📖', '교리 Doctrine', _sub ? (_sub.name_ko || _sub.name_en) : '', false,
           "openDoctrinePicker()", _sub ? "clearDoctrine()" : null);
         const _sOpts = _d ? (_d.sanctification || []) : [];
         if (!_d || _sOpts.length) {
-          const _sLab = state.sanctification ? ((state.sanctification === 'holy' ? '신성 (Holy)' : '불경 (Unholy)') + (_inv.sanctification ? ' — 선행조건 불일치' : '')) : '';
-          html += _growthFieldHTML('성별화 Sanctification', '성별화 선택', _sLab, !!_inv.sanctification,
+          const _sLab = state.sanctification ? (state.sanctification === 'holy' ? '신성 (Holy)' : '불경 (Unholy)') : '';
+          html += _growthFieldHTML('✨', '성별화 Sanctification', _sLab, !!_inv.sanctification,
             "openSanctPicker()", state.sanctification ? "clearSanctification()" : null);
         }
       }
@@ -1575,18 +1575,13 @@ function openDeitySkillInfo() {
   }
   const footer = document.querySelector('.modal-footer'); if (footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
 }
-// Pathbuilder식 라벨+선택박스(신격/신성원천/교리/성별화). warn=선행조건 불일치 강조.
-function _growthFieldHTML(label, placeholder, value, warn, onclickStr, clearAction) {
-  const clr = clearAction ? `<span class="growth-field-clear" onclick="event.stopPropagation();${clearAction};">✕</span>` : '';
-  return `<div class="growth-field">
-    <div class="growth-field-label">${label}</div>
-    <div class="growth-field-box ${value ? 'filled' : ''}" onclick="${onclickStr}">
-      <div class="growth-field-inner">
-        <div class="growth-field-ph">${placeholder}</div>
-        <div class="growth-field-val ${warn ? 'warn' : ''}">${value || '선택 안 됨'}</div>
-      </div>${clr}
-    </div>
-  </div>`;
+// Pathbuilder식 선택박스(신격/신성원천/교리/성별화) — 유산·재주 슬롯과 동일 골격 공유(원칙#1:
+//   레이블을 박스 안(growth-slot-label)에 넣고 마진도 통일 → 헤더가 박스 밖에 뜨거나 아래 슬롯과 붙던 문제 해소).
+//   warn=선행조건 불일치는 재주 슬롯과 동일하게 값 아래 주황 주석으로 표시.
+function _growthFieldHTML(icon, label, value, warn, onclickStr, clearAction) {
+  const clr = clearAction ? `<span class="spell-del" onclick="event.stopPropagation();${clearAction};" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>` : '';
+  const warnNote = warn ? '<div style="color:#ff9800;font-size:10px;margin-top:2px;">⚠ 선행조건 불일치</div>' : '';
+  return _growthSlotSkeleton({ value, onclick: onclickStr, icon, label, bodyExtra: warnNote, trailing: clr });
 }
 
 function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
