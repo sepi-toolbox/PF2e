@@ -117,6 +117,12 @@
     // 3a) 기술 훈련 미리선택(검증용): ?trainpick=acrobatics,arcana
     var _tp = Q.get('trainpick');
     if (_tp) { state.growth[1] = state.growth[1] || {}; state.growth[1].skillTraining = _tp.split(','); }
+    // 3a') 기술 증가 모달 검증용: ?modal=skillincrease&siLevel=N&siPick=athletics (해당 레벨 증가 사전선택 → 재오픈 하이라이트 확인)
+    if (Q.get('modal') === 'skillincrease') {
+      var _siLv = parseInt(Q.get('siLevel') || lvl) || 3;
+      var _siPick = Q.get('siPick');
+      if (_siPick) { state.growth[_siLv] = state.growth[_siLv] || {}; state.growth[_siLv].skillIncrease = _siPick; }
+    }
 
     // 3b) 기술 숙련 DOM(sk-prof-*) 주입 — 기술 모달이 참조. recalcAll이 훈련값 기록.
     if (typeof SKILLS !== 'undefined') {
@@ -162,6 +168,8 @@
     else if (modal === 'skill' && typeof growthPickSkillTrainingMulti === 'function') { growthPickSkillTrainingMulti(); log('skillModal'); }
     else if (modal === 'deityskill' && typeof openDeitySkillInfo === 'function') { openDeitySkillInfo(); log('deitySkillModal'); }
     else if (modal === 'deity' && typeof openDeityPicker === 'function') { openDeityPicker(); log('deityModal'); }
+    else if (modal === 'skillincrease' && typeof growthPickSkillIncrease === 'function') { growthPickSkillIncrease(parseInt(Q.get('siLevel')||lvl)||3); log('skillIncModal'); }
+    else if (modal === 'skilltrain' && typeof growthPickSkillTraining === 'function') { growthPickSkillTraining(parseInt(Q.get('siSlot')||0)); log('skillTrainModal'); }
     else if (modal === 'sanct' && typeof openSanctPicker === 'function') { openSanctPicker(); log('sanctModal'); }
     else if (modal === 'font' && typeof openDivineFontPicker === 'function') { openDivineFontPicker(); log('fontModal'); }
     else if (modal === 'doctrine' && typeof openDoctrinePicker === 'function') { openDoctrinePicker(); log('doctrineModal'); }

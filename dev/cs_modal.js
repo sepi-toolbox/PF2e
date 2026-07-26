@@ -1060,6 +1060,7 @@ function _openChoicePicker(cfg) {
     const sel = cfg.current === o.id;
     return `<div class="opt-row choice-row${sel ? ' selected' : ''}" onclick="_previewChoice(${i}, this)">
       <span class="opt-row-name">${o.name}${o.nameEn ? ` <span class="choice-en">${o.nameEn}</span>` : ''}</span>
+      ${o.tag ? `<span class="choice-tag">${o.tag}</span>` : ''}
       ${sel ? '<span class="choice-cur">현재</span>' : ''}
     </div>`;
   }).join('');
@@ -1846,48 +1847,47 @@ function growthClearSkillIncrease(lv) {
   growthSkillIncreaseChanged(lv, '');
 }
 
+// 기술 증가/훈련 선택 — 신격·교리·성별화 등과 동일한 선택 피커(_openChoicePicker)로 통일(원칙#1):
+//   현재 선택 하이라이트 + 우측 상세(현재 숙련도→상승 결과) + 「선택 확정」.
+//   (구현 전: placeholder·검색 oninput이 직전 신격 모달 잔재로 깨지고, 우측 상세가 영구 공백이었음.)
+const _RANK_KO = { 0: '미숙련', 2: '숙련', 4: '전문가', 6: '달인', 8: '전설' };
 function openSkillPickModal(title, availableIds) {
-  document.getElementById('modal-overlay').classList.remove('hidden');
-  document.getElementById('modal-title').textContent = title;
-  const searchEl = document.getElementById('modal-search');
-  if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; }
-  const fbar = document.getElementById('modal-filterbar');
-  if (fbar) fbar.innerHTML = '';
-  const confirmBtn = document.querySelector('.btn-confirm');
-  if (confirmBtn) confirmBtn.style.display = 'none';
-  modalType = 'skill-pick';
-  modalSelected = null;
-
-  const container = document.getElementById('modal-options');
-  const detail = document.getElementById('modal-detail');
-  container.innerHTML = '';
-  if (detail) detail.innerHTML = '<div class="modal-detail-empty">기술을 선택하세요.</div>';
-
-  SKILLS.forEach(sk => {
-    if (!availableIds.includes(sk.id)) return;
-    const rankLabel = getSkillRankLabel(sk.id);
-    const row = document.createElement('div');
-    row.className = 'opt-row';
-    row.innerHTML = `
-      <div class="opt-row-icon">📖</div>
-      <span class="opt-row-name">${sk.name} <span style="color:var(--text2);font-size:11px;">${sk.en}</span></span>
-      <span style="font-size:10px;color:var(--text2);margin-right:4px;">${rankLabel}</span>`;
-    row.onclick = () => {
-      document.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
-      row.classList.add('selected');
-      // Immediately apply
-      if (_skillPickMode === 'training') {
-        growthSkillTrainingChanged(_skillPickSlotIndex, sk.id);
-      } else if (_skillPickMode === 'increase') {
-        growthSkillIncreaseChanged(_skillPickLevel, sk.id);
-      }
-      closeModal();
-    };
-    container.appendChild(row);
+  const isInc = _skillPickMode === 'increase';
+  const lv = _skillPickLevel;
+  const current = isInc
+    ? ((state.growth[lv] && state.growth[lv].skillIncrease) || null)
+    : ((((state.growth[1] && state.growth[1].skillTraining) || [])[_skillPickSlotIndex]) || null);
+  const options = SKILLS.filter(sk => availableIds.includes(sk.id)).map(sk => {
+    const cur = parseInt((document.getElementById('sk-prof-' + sk.id) || {}).value || 0);
+    const curLab = _RANK_KO[cur] || '미숙련';
+    let desc;
+    if (!isInc) {
+      desc = '이 기술에 <b>훈련됨(Trained)</b> 숙련을 얻습니다.';
+    } else if (sk.id === current) {
+      // 이미 이 레벨의 기술 증가 대상 — 표시 숙련도는 이 증가가 반영된 결과값이라 상승 화살표 대신 결과만 표기.
+      desc = `이 레벨의 기술 증가로 선택된 기술입니다 — 현재 <b style="color:var(--accent);">${curLab}</b>.`;
+    } else if (cur >= 8) {
+      desc = '이미 <b>전설(Legendary)</b>이라 더 올릴 수 없습니다.';
+    } else {
+      const nr = Math.min(cur + 2, 8);
+      desc = `현재 <b>${curLab}</b>에서 <b style="color:var(--accent);">${_RANK_KO[nr]}</b>(으)로 한 단계 오릅니다.`;
+    }
+    return { id: sk.id, name: sk.name, nameEn: sk.en, desc, tag: curLab };
   });
-  // Show list, hide detail on mobile
-  const listEl = document.querySelector('.modal-list');
-  if (listEl) listEl.style.display = '';
+  _openChoicePicker({
+    title,
+    modalType: 'skill-pick',
+    hint: isInc
+      ? '기술을 선택하면 상승 결과가 표시됩니다.<br><span style="font-size:11px;color:var(--text2);">기술 증가는 한 단계씩 올리며, <b>전문가</b>는 언제나·<b>달인</b>은 7레벨·<b>전설</b>은 15레벨 이상부터 가능합니다.</span>'
+      : '기술을 선택하면 설명이 표시됩니다.',
+    options,
+    current,
+    onSelect: (id) => {
+      if (_skillPickMode === 'training') growthSkillTrainingChanged(_skillPickSlotIndex, id);
+      else if (_skillPickMode === 'increase') growthSkillIncreaseChanged(lv, id);
+      closeModal();
+    },
+  });
 }
 
 // ═══════════════════════════════════════════════
