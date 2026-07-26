@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.257').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.284').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -1552,8 +1552,13 @@ function getMod(a) { return calcMod(a).mod; }
 function getAttr(a) { return getMod(a); } // 호환성 유지
 
 // ─── 증강 팝업 모달 ───
-function openBoostModal() {
-  document.getElementById('modal-title').textContent = '능력치 증강 배분';
+// focusLv: 레벨 5/10/15/20 기어에서 넘어오면 그 레벨의 자유 증강 4개만 보여줌(Pathbuilder "Set Ability Boosts Level N").
+//   미지정/1이면 초기 배분(혈통·배경·클래스·레벨1) 전체 모달.
+let _boostFocusLv = null;
+function openBoostModal(focusLv) {
+  _boostFocusLv = (focusLv && focusLv > 1) ? focusLv : null;
+  document.getElementById('modal-title').textContent = _boostFocusLv
+    ? `능력치 증강 — 레벨 ${_boostFocusLv}` : '능력치 증강 배분';
   document.getElementById('modal-overlay').classList.remove('hidden');
   const searchEl = document.getElementById('modal-search');
   if (searchEl) searchEl.style.display = 'none';
@@ -1568,7 +1573,7 @@ function renderBoostModal() {
   const container = document.getElementById('modal-options');
   container.innerHTML = '';
 
-  // 현재 수정치 요약 바
+  // 현재 수정치 요약 바(상단)
   const bar = document.createElement('div');
   bar.className = 'boost-summary-bar';
   ATTRS.forEach(a => {
@@ -1580,143 +1585,154 @@ function renderBoostModal() {
   });
   container.appendChild(bar);
 
-  const info = document.createElement('div');
-  info.style.cssText = 'font-size:10px;color:var(--text2);margin-bottom:8px;';
-  info.textContent = '증강: 수정치 +1 (이미 +4 이상이면 ½ 표시 → 2개 = +1). 결함: -1. 같은 출처에서 동일 속성 중복 불가.';
-  container.appendChild(info);
-
-  // 혈통 섹션
-  if (state.selectedAncestry) {
-    const anc = state.selectedAncestry;
-    const fixedKeys = state.boosts.ancFixed;
-    const flawKeys = state.boosts.ancFlaw;
-    const freeCount = anc.free_boosts || 0;
-    const unavailForFree = [...fixedKeys, ...flawKeys];
-
-    const desc = `고정: ${fixedKeys.map(k=>ATTR_KO[k]).join(', ')||'없음'}
-      ${flawKeys.length?` | 결함: ${flawKeys.map(k=>ATTR_KO[k]).join(', ')}`:''}
-      | 자유 ${freeCount}개 선택 (고정/결함 속성 제외)`;
-    container.appendChild(makeBoostSection('혈통 자유 증강 — '+anc.name, desc,
-      'ancFree', freeCount, ATTRS.filter(a=>!unavailForFree.includes(a)), state.boosts.ancFree));
-  } else {
-    const s = document.createElement('div');
-    s.className = 'boost-section';
-    s.innerHTML = '<div class="boost-section-title">혈통 자유 증강</div><div class="boost-section-desc" style="color:var(--text2);">혈통을 먼저 선택하세요.</div>';
-    container.appendChild(s);
+  // 포커스 모드(레벨 5/10/15/20) = 그 레벨의 자유 증강 4개만. 초기 배분(혈통·배경·클래스·레벨1)은 아래 전체 렌더.
+  if (_boostFocusLv) {
+    const hint = document.createElement('div');
+    hint.style.cssText = 'font-size:11px;color:var(--text2);line-height:1.6;padding:8px 10px 0;';
+    hint.innerHTML = `이 레벨에는 서로 <b>다른 능력치 4개</b>를 증강합니다. 수정치가 이미 <b>+4 이상</b>인 능력치는 증강 2개가 모여야 +1 오릅니다(부분 증강 <b>½</b>).`;
+    container.appendChild(hint);
+    container.appendChild(_boostFreeSection(_boostFocusLv, 'lv' + _boostFocusLv, ATTRS));
+    return;
   }
 
-  // 배경 섹션 — 고정 선택 + 자유 선택 분리
+  let html = '';
+
+  // ── 혈통 증강 (고정=readonly, 자유=드롭다운, 결함=− 행) ──
+  if (state.selectedAncestry) {
+    const anc = state.selectedAncestry;
+    const fixed = state.boosts.ancFixed || [];
+    const flaws = state.boosts.ancFlaw || [];
+    const freeCount = anc.free_boosts || 0;
+    const ancChoice = (anc.boost_choices && anc.boost_choices[0]) || null;  // 드문 택1 풀(반요정 등)
+    const baseExcl = [...fixed, ...flaws];
+    let rows = '';
+    fixed.forEach(a => { rows += _boostFixedRow(a); });
+    if (ancChoice && ancChoice.length) {
+      rows += _boostSelectRow('ancFree', 0, ancChoice, state.boosts.ancFree[0], baseExcl);
+    } else {
+      for (let i = 0; i < freeCount; i++) {
+        const others = state.boosts.ancFree.filter((v, idx) => idx !== i);
+        rows += _boostSelectRow('ancFree', i, ATTRS, state.boosts.ancFree[i], [...baseExcl, ...others]);
+      }
+    }
+    flaws.forEach(a => { rows += _boostFixedRow(a, true); });
+    html += _boostSec('혈통 증강 Ancestry Boosts', rows);
+  } else {
+    html += _boostSec('혈통 증강 Ancestry Boosts', '<div class="boost-pb-empty">혈통을 먼저 선택하세요.</div>');
+  }
+
+  // ── 배경 증강 (택1 풀 + 자유, 모두 드롭다운) ──
   {
     const bg = state.selectedBackground;
     if (!bg) {
-      const s = document.createElement('div');
-      s.className = 'boost-section';
-      s.innerHTML = '<div class="boost-section-title">배경 증강</div><div class="boost-section-desc" style="color:var(--text2);">배경을 먼저 선택하세요.</div>';
-      container.appendChild(s);
+      html += _boostSec('배경 증강 Background Boosts', '<div class="boost-pb-empty">배경을 먼저 선택하세요.</div>');
     } else {
       const beff = getBackgroundEffects(bg);
-      const choices = beff.boost_choices || [];
+      const choiceGroup = (beff.boost_choices || [])[0];
       const freeCount = beff.free_boosts || 0;
-      const choiceGroup = choices[0];  // 보통 그룹 1개
-
-      if (choiceGroup && choiceGroup.length > 0) {
-        if (!state.boosts.bgFixed) state.boosts.bgFixed = [];
-        if (!state.boosts.bgFree) state.boosts.bgFree = [];
-        state.boosts.bg = [...state.boosts.bgFixed, ...state.boosts.bgFree];
-
-        const groupLabel = choiceGroup.map(k => ATTR_KO[k]).join(' 또는 ');
-        container.appendChild(makeBoostSection(
-          `배경 고정 증강 — ${groupLabel}`, `배경: ${bg.name}`,
-          'bgFixed', 1, choiceGroup, state.boosts.bgFixed));
-
-        if (freeCount > 0) {
-          const freeAvail = ATTRS.filter(a => !state.boosts.bgFixed.includes(a));
-          container.appendChild(makeBoostSection(
-            `배경 자유 증강 (다른 속성 ${freeCount}개)`, '고정 증강와 다른 속성을 선택하세요.',
-            'bgFree', freeCount, freeAvail, state.boosts.bgFree));
+      if (!state.boosts.bgFixed) state.boosts.bgFixed = [];
+      if (!state.boosts.bgFree) state.boosts.bgFree = [];
+      let rows = '';
+      if (choiceGroup && choiceGroup.length) {
+        rows += _boostSelectRow('bgFixed', 0, choiceGroup, state.boosts.bgFixed[0], []);
+        for (let i = 0; i < freeCount; i++) {
+          const others = state.boosts.bgFree.filter((v, idx) => idx !== i);
+          rows += _boostSelectRow('bgFree', i, ATTRS, state.boosts.bgFree[i], [...state.boosts.bgFixed, ...others]);
         }
       } else if (freeCount > 0) {
-        // 선택 그룹 없이 자유만 (예: 자유 2개)
-        container.appendChild(makeBoostSection(`배경 증강 (자유 ${freeCount}개, 서로 다른 속성)`,
-          `배경: ${bg.name}`, 'bg', freeCount, ATTRS, state.boosts.bg));
+        for (let i = 0; i < freeCount; i++) {
+          const others = state.boosts.bg.filter((v, idx) => idx !== i);
+          rows += _boostSelectRow('bg', i, ATTRS, state.boosts.bg[i], [...others]);
+        }
       }
+      state.boosts.bg = [...state.boosts.bgFixed, ...state.boosts.bgFree];
+      html += _boostSec('배경 증강 Background Boosts', rows || '<div class="boost-pb-empty">이 배경은 능력치 증강이 없습니다.</div>');
     }
   }
 
-  // 클래스 섹션
+  // ── 클래스 증강 (핵심 속성: 1개=readonly, 선택형=드롭다운) ──
   {
     const cls = state.selectedClass;
-    const _effKeys = getEffectiveClassKeyAttrs();   // 클래스 ∪ 서브클래스 확장(로그 수법 등)
-    const keyAttrsKo = cls ? _effKeys.map(k => ATTR_KO[k]).join(' 또는 ') : '';
-    const clsDesc = cls
-      ? `클래스: ${cls.name} — 핵심 속성: ${keyAttrsKo}`
-      : '클래스를 선택하면 자동 설정됩니다.';
-    const clsKey = state.boosts.cls;
-    const sec = document.createElement('div');
-    sec.className = 'boost-section';
-    sec.innerHTML = `<div class="boost-section-title">클래스 핵심 속성 (자동)</div>
-      <div class="boost-section-desc">${clsDesc}</div>
-      <div class="boost-radio-group">${ATTRS.map(a=>`
-        <label class="${clsKey===a?'selected fixed':'fixed'}">
-          <span>${ATTR_KO[a]}</span>${clsKey===a?' ✓':''}
-        </label>`).join('')}
-      </div>`;
-    // 클래스 선택 가능하면 (근력/민첩 선택형, 또는 로그 수법이 핵심 능력치 추가)
-    if (cls) {
-      const keys = _effKeys;
+    if (!cls) {
+      html += _boostSec('클래스 증강 Class Boost', '<div class="boost-pb-empty">클래스를 먼저 선택하세요.</div>');
+    } else {
+      const keys = getEffectiveClassKeyAttrs();   // 클래스 ∪ 서브클래스 확장(로그 수법 등)
+      let rows = '';
       if (keys.length > 1) {
-        sec.innerHTML = `<div class="boost-section-title">클래스 핵심 속성 선택</div>
-          <div class="boost-section-desc">${cls.name}: ${keyAttrsKo} 중 선택</div>
-          <div class="boost-radio-group">${keys.map(a=>`
-            <label class="${state.boosts.cls===a?'selected':''}" onclick="setClassKey('${a}')">
-              ${ATTR_KO[a]}${state.boosts.cls===a?' ✓':''}
-            </label>`).join('')}
-          </div>`;
+        rows += _boostSelectRow('__clsKey', 0, keys, state.boosts.cls, []);
+      } else {
+        const k = keys[0] || state.boosts.cls;
+        if (k && state.boosts.cls !== k) state.boosts.cls = k;   // 단일 핵심속성 자동 확정
+        rows += _boostFixedRow(k);
       }
+      html += _boostSec('클래스 증강 Class Boost', rows);
     }
-    container.appendChild(sec);
   }
 
-  // 레벨별 자유 증강
-  const lv = getLevel();
-  [[1,'lv1'],[5,'lv5'],[10,'lv10'],[15,'lv15'],[20,'lv20']].forEach(([reqLv, key]) => {
-    if (lv < reqLv) return;
-    container.appendChild(makeBoostSection(
-      `레벨 ${reqLv} 자유 증강 (4개, 서로 다른 속성)`,
-      '4개를 서로 다른 속성에 배분하세요.',
-      key, 4, ATTRS, state.boosts[key]));
-  });
+  container.insertAdjacentHTML('beforeend', html);
+
+  // 초기 배분 모달(레벨1 기어) = 혈통·배경·클래스 + 레벨1 자유 증강만.
+  //   5·10·15·20레벨 증강은 각 레벨 기어의 포커스 창(_boostFocusLv, 위 early-return)에서 처리 — 여기 섞지 않음.
+  container.appendChild(_boostFreeSection(1, 'lv1', ATTRS));
 }
 
-function makeBoostSection(title, desc, stateKey, maxCount, allowedAttrs, currentArr) {
+// ── Pathbuilder식 능력치 증강 모달 헬퍼 (v0.262~) ──
+function _boostSec(title, rowsHtml) {
+  return `<div class="boost-pb-sec"><div class="boost-pb-title">${title}</div>${rowsHtml}</div>`;
+}
+// 고정 증강/결함 행 (+ 원 아이콘 + 속성명)
+function _boostFixedRow(attr, isFlaw) {
+  if (!attr) return '';
+  return `<div class="boost-pb-row ${isFlaw ? 'boost-pb-flaw' : ''}">
+    <span class="boost-plus ${isFlaw ? 'minus' : ''}"></span>
+    <span class="boost-pb-fixed">${ATTR_KO[attr]}</span></div>`;
+}
+// 드롭다운 행. key=state.boosts 키, idx=슬롯, opts=선택가능 속성, cur=현재값, excluded=제외(disabled)
+function _boostSelectRow(key, idx, opts, cur, excluded) {
+  const options = ['<option value="">— 선택 —</option>'].concat(opts.map(a => {
+    const dis = excluded.includes(a) && a !== cur;
+    return `<option value="${a}" ${a === cur ? 'selected' : ''} ${dis ? 'disabled' : ''}>${ATTR_KO[a]}</option>`;
+  })).join('');
+  return `<div class="boost-pb-row">
+    <span class="boost-plus"></span>
+    <select class="boost-pb-select" onchange="_onBoostSelect('${key}',${idx},this.value)">${options}</select></div>`;
+}
+// 자유 증강 섹션 (체크박스 그리드 + 남은 개수 카운터)
+function _boostFreeSection(reqLv, key, ATTRS) {
   const sec = document.createElement('div');
-  sec.className = 'boost-section';
-  const chosen = currentArr.filter(a=>allowedAttrs.includes(a)).length;
-  sec.innerHTML = `<div class="boost-section-title">${title}</div>
-    <div class="boost-section-desc">${desc}<br>선택됨: <strong>${chosen}/${maxCount}</strong></div>
-    <div class="boost-radio-group" id="bg-${stateKey}"></div>`;
-  const grp = sec.querySelector(`#bg-${stateKey}`);
-  allowedAttrs.forEach(a => {
-    const lbl = document.createElement('label');
-    const isSelected = currentArr.includes(a);
-    lbl.className = isSelected ? 'selected' : '';
-    lbl.innerHTML = `${ATTR_KO[a]}${isSelected?' ✓':''}`;
-    lbl.onclick = () => {
-      if (currentArr.includes(a)) {
-        currentArr.splice(currentArr.indexOf(a), 1);
-      } else {
-        if (currentArr.length >= maxCount) return;
-        currentArr.push(a);
-      }
-      recalcAll(); save(); renderBoostModal();
-    };
-    grp.appendChild(lbl);
+  sec.className = 'boost-pb-sec';
+  const arr = state.boosts[key];
+  const chosen = arr.filter(a => ATTRS.includes(a)).length;
+  const remain = 4 - chosen;
+  const title = reqLv === 1 ? '자유 증강 Free Boosts' : `레벨 ${reqLv} 자유 증강 Free Boosts`;
+  let items = '';
+  ATTRS.forEach(a => {
+    const on = arr.includes(a);
+    const full = chosen >= 4 && !on;
+    const { mod, partial } = calcMod(a);
+    items += `<div class="boost-free-item ${on ? 'on' : ''} ${full ? 'disabled' : ''}" onclick="${full ? '' : `_onBoostFree('${key}','${a}')`}">
+      <span class="boost-free-box"></span>
+      <span class="boost-free-abbr">${ATTR_KO[a]}</span>
+      <span class="boost-free-val">${fmtBonus(mod)}${partial ? '½' : ''}</span></div>`;
   });
+  sec.innerHTML = `<div class="boost-free-head"><div class="boost-pb-title" style="margin:0;">${title}</div>
+    <span class="boost-counter ${remain <= 0 ? 'done' : ''}">${remain}</span></div>
+    <div class="boost-free-grid">${items}</div>`;
   return sec;
 }
-
-function setClassKey(a) {
-  state.boosts.cls = a;
+function _onBoostSelect(key, idx, val) {
+  if (key === '__clsKey') { state.boosts.cls = val; recalcAll(); save(); renderBoostModal(); return; }
+  const arr = state.boosts[key];
+  if (val) arr[idx] = val; else arr.splice(idx, 1);
+  state.boosts[key] = arr.filter((v, i) => v && arr.indexOf(v) === i);
+  if (key === 'bgFixed' || key === 'bgFree') state.boosts.bg = [...(state.boosts.bgFixed || []), ...(state.boosts.bgFree || [])];
+  recalcAll(); save(); renderBoostModal();
+}
+function _onBoostFree(key, a) {
+  const arr = state.boosts[key];
+  const i = arr.indexOf(a);
+  if (i >= 0) arr.splice(i, 1);
+  else { if (arr.filter(x => x).length >= 4) return; arr.push(a); }
   recalcAll(); save(); renderBoostModal();
 }
 
@@ -1878,6 +1894,15 @@ function clearGrowthSkills() {
   state._growthTrainedSkills = [];
 }
 
+// 기술 증가 레벨 관문(정본 Player Core): 전문가(4)는 언제나, 달인(6)은 7레벨, 전설(8)은 15레벨 이상부터.
+//   반환 = 해당 캐릭터 레벨에서 기술 증가로 도달 가능한 최고 숙련도 rank. 후보 필터·실제 적용 공용(원칙#1).
+function skillIncreaseRankCap(lv) {
+  lv = parseInt(lv) || 0;
+  if (lv >= 15) return 8;   // 전설
+  if (lv >= 7)  return 6;   // 달인
+  return 4;                 // 전문가
+}
+
 function applyGrowthSkills() {
   state._growthTrainedSkills = [];
   state._growthIncreasedSkills = [];
@@ -1891,7 +1916,7 @@ function applyGrowthSkills() {
     state._growthTrainedSkills.push({skill: id, rank: 2, prevRank: cur});
     if (cur < 2) el.value = '2';
   });
-  // 기술 향상 — 레벨 순서대로 +2단계(전설 8 상한). 트레인드(2) 이상만 향상 가능.
+  // 기술 향상 — 레벨 순서대로 한 단계씩. 트레인드(2) 이상만 대상 + 레벨 관문(달인@7·전설@15) 강제.
   const levels = Object.keys(state.growth).map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b);
   levels.forEach(lv => {
     const inc = state.growth[lv] && state.growth[lv].skillIncrease;
@@ -1899,12 +1924,13 @@ function applyGrowthSkills() {
     const el = document.getElementById('sk-prof-' + inc);
     if (!el) return;
     const cur = parseInt(el.value || 0);
-    if (cur >= 2 && cur < 8) {
-      const nr = cur + 2;
+    const cap = skillIncreaseRankCap(lv);   // 이 레벨에서 도달 가능한 최고 rank
+    if (cur >= 2 && cur < cap) {
+      const nr = cur + 2;   // cur<cap(≤8)이므로 nr≤cap≤8 — 관문·전설 상한 동시 충족
       state._growthIncreasedSkills.push({skill: inc, prevRank: cur, newRank: nr});
       el.value = String(nr);
     } else {
-      // 미달(트레인드 아님) 또는 이미 전설 — 무변경이지만 추적은 유지(clear 대칭)
+      // 미달(트레인드 아님)·이미 전설·레벨 관문 초과(예: 5레벨에 전문가→달인) — 무변경이지만 추적은 유지(clear 대칭)
       state._growthIncreasedSkills.push({skill: inc, prevRank: cur, newRank: cur});
     }
   });
@@ -2232,9 +2258,38 @@ function _subclassTradition() {
   return null;
 }
 
+// ── 선택 유효성 리졸버 (B안: 캐스케이드 자동삭제 대신 유지+플래그+효과보류) ──
+// 종속 선택(성별화·신성원천 등)이 그 출처(신격)와 맞는지 판정. 무효여도 값은 유지하고
+// state._invalidChoices에 표시만 → 빌더는 「선행조건 불일치」 렌더, 효과는 각 적용부에서 게이트해 보류.
+// (현재 파일럿 = 클레릭 신격↔성별화↔신성원천. 이후 서브클래스·챔피언 등으로 확장.)
+function _resolveChoiceValidity() {
+  const inv = {};
+  const cls = state.selectedClass;
+  // ⚠ 파일럿 범위 = 클레릭 계열(deity_skill: 신격이 성별화·신성원천을 강제)만 판정.
+  //   챔피언 등 비-deity_skill 클래스도 성별화를 쓰지만(원인↔신격 제약) 규칙이 달라 오탐 방지 위해 제외(Phase 3).
+  if (cls && cls.deity_skill) {
+    const d = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
+    if (!d) {
+      // 신격 미선택인데 하위 선택이 남아 있으면 무효(성립 안 함)
+      if (state.sanctification) inv.sanctification = true;
+      if (state.divineFont) inv.divineFont = true;
+    } else {
+      // 성별화: 신격이 성별화를 제약(옵션 있음)하는데 그 안에 없으면 무효. 제약 없는 신격(0옵션)은 판정 제외(오탐 방지).
+      const sanct = d.sanctification || [];
+      if (state.sanctification && sanct.length && !sanct.includes(state.sanctification)) inv.sanctification = true;
+      // 신성원천: 신격이 폰트를 제한(옵션 있음)하는데 그 안에 없으면 무효.
+      const font = d.font || [];
+      if (state.divineFont && font.length && !font.includes(state.divineFont)) inv.divineFont = true;
+    }
+  }
+  state._invalidChoices = inv;
+}
+
 function recalcAll() {
   // 성장(빌더) 기술 훈련/향상 기여를 먼저 걷어냄 — heritage/bg/feat가 깨끗한 base에서 prevRank 스냅샷하도록.
   clearGrowthSkills();
+  // 선택 유효성 판정(효과 보류·불일치 표시의 단일 소스) — 부여 적용 전에 계산.
+  _resolveChoiceValidity();
   // 빌더 핵심 선택 재파생 (유산/배경)
   rebuildCoreEffects();
   // 재주 효과 집계

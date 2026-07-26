@@ -842,7 +842,7 @@ function openDeityPicker() {
   if (!_deities.length) return;
   // 검색 활성화(478개 — 이름으로 찾기)
   const items = _deities.map(d =>
-    `<div class="opt-row" data-s="${((d.name_ko||'')+' '+(d.name_en||'')+' '+(d.domains_ko||[]).join(' ')).toLowerCase()}" onclick="previewDeity('${d.id}',this)" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
+    `<div class="opt-row" data-id="${d.id}" data-s="${((d.name_ko||'')+' '+(d.name_en||'')+' '+(d.domains_ko||[]).join(' ')).toLowerCase()}" onclick="previewDeity('${d.id}',this)" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border);">
       ${typeof iconImg==='function'&&iconImg('deity',d)?`<div class="opt-row-icon" style="background:none;">${iconImg('deity',d)}</div>`:''}
       <span class="opt-row-name" style="flex:1;">${d.name_ko} <span style="color:var(--text2);font-size:11px;">${d.name_en}</span></span>
       <span style="font-size:10px;color:var(--text2);">${weaponRefHtml(d.weapon)} / ${(d.sanctification||[]).map(s=>s==='holy'?'신성':'불경').join('·')}</span>
@@ -858,6 +858,11 @@ function openDeityPicker() {
   if(footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
   modalType = 'deity-pick';
   _pendingDeityId = null;
+  // 이미 고른 신격이 있으면 그 행을 하이라이트 + 미리보기(클래스·배경·타 선택 피커와 동일). 데스크톱은 상세, 모바일은 아코디언.
+  if (state.deity) {
+    const row = document.querySelector(`#modal-options .opt-row[data-id="${state.deity}"]`);
+    if (row) { previewDeity(state.deity, row); row.scrollIntoView({ block: 'center' }); }
+  }
 }
 
 var _pendingDeityId = null;
@@ -951,108 +956,165 @@ function clearDeity() {
   state.deity = null;
   state.sanctification = null;
   state._deityWeapon = null;
+  // 신성 원천은 유지(신격과 불일치면 리졸버가 「선행조건 불일치」로 표시·효과 보류 — B안).
+  if (typeof applyClassFeatures === 'function') applyClassFeatures();   // selectDeity와 대칭 — 신격 부여(기술·주문·무기) 완전 재파생/정리
   recalcAll();   // 출처기반 재파생 — rebuildCoreEffects가 신격 부여 기술/무기숙련을 정리(v0.134).
   renderGrowthPlan();
   save();
 }
 
 function openSanctPicker() {
-  if(!state.deity) return;
-  const d = _getDeity(state.deity);
-  if(!d) return;
+  if (!state.deity) return;
+  const d = _getDeity(state.deity); if (!d) return;
   const opts = d.sanctification || [];
-  const labels = {holy:'✨ 신성 Holy — 선한 힘에 축성됨', unholy:'🔥 불경 Unholy — 악한 힘에 축성됨'};
-  const items = opts.map(s =>
-    `<div class="opt-row" onclick="pickSanctification('${s}')" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
-      <span class="opt-row-name">${labels[s]||s}</span>
-    </div>`).join('');
-  items && (document.getElementById('modal-overlay').classList.remove('hidden'));
-  document.getElementById('modal-title').textContent = '성별화 선택';
-  const fbar = document.getElementById('modal-filterbar'); if(fbar) fbar.innerHTML='';
-  const searchEl = document.getElementById('modal-search'); if(searchEl) searchEl.style.display='none';
-  document.getElementById('modal-options').innerHTML = items;
-  document.getElementById('modal-detail').innerHTML = '';
-  const footer = document.querySelector('.modal-footer');
-  if(footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
-  modalType = 'sanct-pick';
+  const META = {
+    holy: { name: '신성', nameEn: 'Holy', desc: '<strong>신성(holy)</strong> 특성을 얻습니다 — 선한 힘에 헌신합니다. 신성 특성이 붙은 재주·주문·아이템을 사용할 수 있고, 불경(unholy)한 대상에게 특히 효과적입니다.' },
+    unholy: { name: '불경', nameEn: 'Unholy', desc: '<strong>불경(unholy)</strong> 특성을 얻습니다 — 악한 힘에 헌신합니다. 불경 특성이 붙은 재주·주문·아이템을 사용할 수 있고, 신성(holy)한 대상에게 특히 효과적입니다.' },
+  };
+  _openChoicePicker({
+    title: '성별화 선택', modalType: 'sanct-pick', source: 'PC1',
+    hint: '신격이 허용하는 성별화를 선택하면 설명이 표시됩니다.',
+    options: opts.map(s => ({ id: s, name: (META[s] || {}).name || s, nameEn: (META[s] || {}).nameEn || '', desc: (META[s] || {}).desc || '' })),
+    current: state.sanctification,
+    onSelect: (v) => { state.sanctification = v; closeModal(); renderGrowthPlan(); save(); },
+  });
 }
-
-function pickSanctification(val) { state.sanctification = val; closeModal(); renderGrowthPlan(); save(); }
 function clearSanctification() { state.sanctification = null; renderGrowthPlan(); save(); }
 
-var _pendingFont = null;
-function openDivineFontPicker() {
-  _pendingFont = null;
-  const items = `
-    <div class="opt-row" onclick="previewDivineFont('heal',this)" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
-      <span class="opt-row-name">💚 치유 Heal — 치유 주문 추가 시전 횟수</span></div>
-    <div class="opt-row" onclick="previewDivineFont('harm',this)" style="padding:12px;cursor:pointer;border-bottom:1px solid var(--border);">
-      <span class="opt-row-name">💀 해악 Harm — 해악 주문 추가 시전 횟수</span></div>`;
-  document.getElementById('modal-overlay').classList.remove('hidden');
-  document.getElementById('modal-title').textContent = '신성 원천 선택';
-  const fbar = document.getElementById('modal-filterbar'); if(fbar) fbar.innerHTML='';
-  const searchEl = document.getElementById('modal-search'); if(searchEl) searchEl.style.display='none';
-  document.getElementById('modal-options').innerHTML = items;
-  document.getElementById('modal-detail').innerHTML = '<div class="modal-detail-empty">원천을 선택하면 상세 정보가 표시됩니다.</div>';
-  const footer = document.querySelector('.modal-footer');
-  if(footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
-  modalType = 'font-pick';
+// 클래스의 서브클래스 유형 라벨(교리·비전 학파·혈통·본능·교단·수법·뮤즈·사냥 방식·원인·후원자·신비·스타일·방법론·연구 분야).
+//   SUBCLASS_DB.subclass_type 단일소스. 서브클래스 없는 클래스(파이터·몽크)는 null.
+function _classSubclassLabel(cls) {
+  if (!cls || typeof SUBCLASS_DB === 'undefined') return null;
+  const s = SUBCLASS_DB.find(x => x.class_id === cls.id);
+  return s ? (s.subclass_type || '서브클래스') : null;
 }
 
-function previewDivineFont(val, row) {
-  _pendingFont = val;
-  document.querySelectorAll('.opt-row').forEach(r=>r.classList.remove('selected'));
-  if(row) row.classList.add('selected');
-
-  const isHeal = val === 'heal';
-  const icon = isHeal ? '💚' : '💀';
-  const label = isHeal ? '치유 원천' : '해악 원천';
-  const labelEn = isHeal ? 'Heal' : 'Harm';
-  const spellDesc = isHeal
-    ? '최고 랭크 추가 슬롯에 <em>치유(Heal)</em> 주문만 준비할 수 있습니다.'
-    : '최고 랭크 추가 슬롯에 <em>해로움(Harm)</em> 주문만 준비할 수 있습니다.';
-  const _dfDesc = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
-    ? (CLASS_FEATURE_NAMES.cleric.find(f => f.id === 'divine-font') || {}).desc || '' : '';
-
-  const detailHtml = `
-    <div class="modal-detail-title">${icon} ${label}</div>
-    <div class="modal-detail-en">${labelEn}</div>
-    <div style="margin:12px 0;font-size:13px;line-height:1.7;">
-      <div>${spellDesc}</div>
-      <div style="margin-top:8px;color:var(--text2);font-size:12px;">${_dfDesc}</div>
-    </div>
-    <button onclick="confirmDivineFont()" style="width:100%;margin-top:12px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">선택 확정</button>`;
-
-  if (window.innerWidth <= 900) {
-    document.querySelectorAll('.opt-row-detail.open').forEach(d=>d.classList.remove('open'));
-    document.querySelectorAll('.opt-row.expanded').forEach(r=>r.classList.remove('expanded'));
-    if(row) {
-      row.classList.add('expanded');
-      let detailDiv = row.nextElementSibling;
-      if(!detailDiv || !detailDiv.classList.contains('opt-row-detail')) {
-        detailDiv = document.createElement('div'); detailDiv.className='opt-row-detail'; row.after(detailDiv);
-      }
-      detailDiv.innerHTML = detailHtml;
-      detailDiv.classList.add('open');
-    }
-  } else {
-    document.getElementById('modal-detail').innerHTML = detailHtml;
-  }
+// 서브클래스(정체성) 독립 피커 — 성장플랜 정체성 슬롯에서 사용(클래스 모달 밖). 전 클래스 공용(라벨=subclass_type).
+//   구 명칭 openDoctrinePicker 유지(클레릭 교리 필드 호환). 클레릭 교리·위저드 학파·주술사 혈통… 동일 경로.
+function openDoctrinePicker() {
+  const cls = state.selectedClass;
+  const cid = cls && cls.id;
+  const subs = (typeof SUBCLASS_DB !== 'undefined' && cid) ? SUBCLASS_DB.filter(s => s.class_id === cid) : [];
+  if (!subs.length) return;
+  const label = (subs[0] && subs[0].subclass_type) || '서브클래스';
+  _openChoicePicker({
+    title: `${label} 선택`, modalType: 'doctrine-pick', source: null,
+    hint: '선택하면 혜택 설명이 표시됩니다.',
+    options: subs.map(s => ({ id: s.id, name: s.name_ko, nameEn: s.name_en || '', desc: s.desc || '' })),
+    current: state.selectedSubclass && state.selectedSubclass.id,
+    onSelect: (id) => pickDoctrine(id),
+  });
 }
-
-function confirmDivineFont() {
-  if (!_pendingFont) return;
-  state.divineFont = _pendingFont;
-  state.divineFontUsed = 0;
-  _pendingFont = null;
+function pickDoctrine(id) {
+  const sub = (typeof SUBCLASS_DB !== 'undefined') ? SUBCLASS_DB.find(s => s.id === id) : null;
+  if (!sub) return;
+  state.selectedSubclass = sub;
   closeModal();
-  applyClassFeatures();
+  if (typeof applyClassFeatures === 'function') applyClassFeatures();
   renderGrowthPlan();
-  renderSpells();
-  save();
+  if (typeof save === 'function') save();
+}
+function clearDoctrine() {
+  if (typeof resetFromSubclass === 'function') resetFromSubclass();
+  else { state.selectedSubclass = null; renderGrowthPlan(); }
+}
+
+// 신성 원천(치유/해악) 정본 설명 — divine-font 클래스특성 desc에서 해당 원천 문단만 추출(손번역 금지).
+function _divineFontDesc(heal) {
+  const cf = (typeof CLASS_FEATURE_NAMES !== 'undefined' && CLASS_FEATURE_NAMES.cleric)
+    ? CLASS_FEATURE_NAMES.cleric.find(f => (f.id || f.slug) === 'divine-font') : null;
+  const full = (cf && cf.desc) || '';
+  const want = heal ? '치유' : '해악';
+  if (full) {
+    const blocks = full.match(/<p>[\s\S]*?<\/p>/gi) || [full];
+    const hit = blocks.find(b => b.indexOf('<em>' + want + '</em> 주문만') !== -1)
+             || blocks.find(b => b.indexOf('추가로 얻') !== -1 && b.indexOf(want) !== -1);
+    if (hit) return hit;
+  }
+  // 데이터 없을 때 정본 요지 폴백(4/5/6 슬롯)
+  return `<p>매일 클레릭 주문 슬롯 중 가장 높은 랭크의 주문 슬롯을 4개 추가로 얻습니다. 이 슬롯에는 <em>${want}</em> 주문만 준비할 수 있습니다. 5레벨에 5개, 15레벨에 6개로 늘어납니다.</p>`;
+}
+
+function openDivineFontPicker() {
+  _openChoicePicker({
+    title: '신성 원천 선택', modalType: 'font-pick', source: 'PC1',
+    hint: '원천을 선택하면 설명이 표시됩니다.',
+    options: [
+      { id: 'heal', name: '치유의 샘', nameEn: 'Healing Font', desc: _divineFontDesc(true) },
+      { id: 'harm', name: '해악의 샘', nameEn: 'Harmful Font', desc: _divineFontDesc(false) },
+    ],
+    current: state.divineFont,
+    onSelect: (v) => {
+      state.divineFont = v; state.divineFontUsed = 0; closeModal();
+      if (typeof applyClassFeatures === 'function') applyClassFeatures();
+      renderGrowthPlan();
+      if (typeof renderSpells === 'function') renderSpells();
+      save();
+    },
+  });
 }
 
 function clearDivineFont() { state.divineFont = null; state.divineFontUsed = 0; renderGrowthPlan(); renderSpells(); save(); }
+
+// ── 공용 선택 피커(성별화·교리·신성원천 등 소수 옵션 + 설명) ──
+//   데스크톱=우측 상세 패널 / 모바일=인라인 아코디언(신성원천 기존 패턴 일반화). 이모지 없음. Pathbuilder 팝업 미러.
+var _choiceCfg = null;
+function _openChoicePicker(cfg) {
+  _choiceCfg = cfg;
+  document.getElementById('modal-overlay').classList.remove('hidden');
+  document.getElementById('modal-title').textContent = cfg.title;
+  const searchEl = document.getElementById('modal-search'); if (searchEl) searchEl.style.display = 'none';
+  const fbar = document.getElementById('modal-filterbar'); if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm'); if (confirmBtn) confirmBtn.style.display = 'none';
+  modalType = cfg.modalType || 'choice-pick';
+  const rows = cfg.options.map((o, i) => {
+    const sel = cfg.current === o.id;
+    return `<div class="opt-row choice-row${sel ? ' selected' : ''}" onclick="_previewChoice(${i}, this)">
+      <span class="opt-row-name">${o.name}${o.nameEn ? ` <span class="choice-en">${o.nameEn}</span>` : ''}</span>
+      ${o.tag ? `<span class="choice-tag">${o.tag}</span>` : ''}
+      ${sel ? '<span class="choice-cur">현재</span>' : ''}
+    </div>`;
+  }).join('');
+  document.getElementById('modal-options').innerHTML = rows;
+  const detail = document.getElementById('modal-detail');
+  if (detail) detail.innerHTML = `<div class="modal-detail-empty">${cfg.hint || '항목을 선택하면 설명이 표시됩니다.'}</div>`;
+  const listEl = document.querySelector('.modal-list'); if (listEl) listEl.style.display = '';
+  const footer = document.querySelector('.modal-footer'); if (footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
+  // 데스크톱: 현재 선택 항목이 있으면 미리 설명 표시
+  if (window.innerWidth > 900) {
+    const idx = cfg.options.findIndex(o => o.id === cfg.current);
+    if (idx >= 0) _previewChoice(idx, document.querySelectorAll('.choice-row')[idx]);
+  }
+}
+function _previewChoice(i, row) {
+  const cfg = _choiceCfg; if (!cfg) return;
+  const o = cfg.options[i]; if (!o) return;
+  const src = cfg.source ? `<div class="choice-src">${cfg.source}</div>` : '';
+  const detailHtml = `
+    <div class="modal-detail-title">${o.name}</div>
+    ${o.nameEn ? `<div class="modal-detail-en">${o.nameEn}</div>` : ''}
+    <div style="margin:12px 0;font-size:13px;line-height:1.75;">${o.desc || ''}</div>${src}
+    <button onclick="_confirmChoice(${i})" style="width:100%;margin-top:12px;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">선택 확정</button>`;
+  if (window.innerWidth <= 900) {
+    document.querySelectorAll('#modal-options .opt-row-detail.open').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('#modal-options .opt-row.expanded').forEach(r => r.classList.remove('expanded'));
+    if (row) {
+      row.classList.add('expanded');
+      let det = row.nextElementSibling;
+      if (!det || !det.classList.contains('opt-row-detail')) { det = document.createElement('div'); det.className = 'opt-row-detail'; row.after(det); }
+      det.innerHTML = detailHtml; det.classList.add('open');
+    }
+  } else {
+    document.querySelectorAll('.choice-row').forEach(r => r.classList.remove('selected'));
+    if (row) row.classList.add('selected');
+    const detail = document.getElementById('modal-detail'); if (detail) detail.innerHTML = detailHtml;
+  }
+}
+function _confirmChoice(i) {
+  const cfg = _choiceCfg; if (!cfg) return;
+  const o = cfg.options[i]; if (!o) return;
+  if (typeof cfg.onSelect === 'function') cfg.onSelect(o.id);
+}
 
 function toggleDivineFontSlot(idx) {
   const total = getDivineFontSlots();
@@ -1068,6 +1130,7 @@ function toggleDivineFontSlot(idx) {
 
 function getDivineFontSlots() {
   if(!state.divineFont || !state.selectedClass || !state.selectedClass.deity_skill) return 0;
+  if(state._invalidChoices && state._invalidChoices.divineFont) return 0;   // 신격과 불일치 → 효과 보류(B안)
   const lv = getLevel();
   // 신성한 샘(Divine Font) 리마스터(Player Core) 정본: 최고 랭크 치유/해악 슬롯 4개 → 5개(5레벨) → 6개(15레벨).
   //   ⚠ "1 + 매력 수정치"는 구판(CRB) 규칙 — 리마스터는 고정 슬롯 수로 변경됨. (신격 데이터 _desc_en 원문 확인)
@@ -1206,6 +1269,32 @@ function _growthGrantChildHtml(child, gm, depth) {
   return `<div class="gcf-grant"><span class="gcf-gic">${ic}</span><span class="gcf-gname">${nm}</span><span class="gcf-gbadge">${badge}</span></div>${kidsHtml}`;
 }
 
+// 서브클래스 변형 특성 해소(데이터 기반): 특성 desc가 `@link[feats.<슬러그>-<변형>]` 목록이면
+//   (예: 첫 번째 교리 → 은둔 클레릭/전사 사제) 선택된 서브클래스에 맞는 변형 특성의 desc로 대체.
+//   미선택 시 프롬프트 반환. 하드코딩 없이 desc의 @link 후보 + 서브클래스 name_en 매칭으로 판정.
+function _subclassVariantDesc(genericSlug, desc) {
+  if (!desc || !genericSlug) return null;
+  const cands = [];
+  // 런타임 desc는 enrich 후 `data-ref="feats.X"`, 원본은 `@link[feats.X]` — 둘 다 매칭.
+  const re = /(?:@link\[feats\.|data-ref="feats\.)([a-z0-9-]+)/g; let m;
+  while ((m = re.exec(desc))) { if (m[1].startsWith(genericSlug + '-') && m[1] !== genericSlug && !cands.includes(m[1])) cands.push(m[1]); }
+  if (cands.length < 2) return null;   // 변형 선택 목록(2+ 옵션)이 아니면 일반 특성 — 그대로 둠.
+  const cls = state.selectedClass;
+  const sub = state.selectedSubclass;
+  if (!sub || (cls && sub.class_id !== cls.id)) {
+    let stype = '서브클래스';
+    try { const s = (typeof SUBCLASS_DB !== 'undefined' && cls) ? SUBCLASS_DB.find(x => x.class_id === cls.id) : null; if (s && s.subclass_type) stype = s.subclass_type; } catch (e) {}
+    return { prompt: `아직 ${stype}를 선택하지 않았습니다. 선택하면 해당 ${stype}의 혜택이 여기에 표시됩니다.` };
+  }
+  const key = String(sub.name_en || sub.id || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  const hit = cands.find(c => c.slice(genericSlug.length + 1) === key)
+           || cands.find(c => { const suf = c.slice(genericSlug.length + 1); return key && suf.startsWith(key); });
+  if (!hit) return null;
+  const fd = (typeof getFeat === 'function') ? (getFeat(hit) || null) : null;
+  const d = fd && (fd.desc || fd.summary);
+  return d ? { desc: d } : null;
+}
+
 // 클래스/서브클래스 특성 박스 — 헤더(특성명) + 부여 항목 중첩. opts.granted=출처 없는 부여재주(orphan) 표기.
 function _growthFeatureBoxHtml(f, lv, gm, opts) {
   const slug = featSlug(f.slug || f.id || f.name_en || f.name_ko);
@@ -1216,14 +1305,92 @@ function _growthFeatureBoxHtml(f, lv, gm, opts) {
   const kidsHtml = kids.length ? `<div class="gcf-grants">${kids.map(c => _growthGrantChildHtml(c, gm, 1)).join('')}</div>` : '';
   const nameKo = (f.name_ko || (featData && featData.name_ko) || slug).split(' (')[0].trim();
   const nameEn = f.name_en || (featData && featData.name_en) || '';
-  const badge = (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
-  return `<div class="growth-slot filled gcf-box" onclick="openClassModalAtLevel(${lv})">
-    <div class="gcf-main">
+  const badge = (opts && opts.freeFeat) ? '<span class="gcf-gbadge">무료 재주 Free Feat</span>'
+              : (opts && opts.granted) ? '<span class="gcf-gbadge">부여 재주</span>' : '';
+  // 무료 재주(배경 부여)는 예시(Pathbuilder)처럼 특성 배지(General·Skill 등)도 함께 표시.
+  let _traitsHtml = '';
+  if (opts && opts.freeFeat && featData && Array.isArray(featData.traits) && featData.traits.length && typeof traitTag === 'function') {
+    _traitsHtml = `<div class="gcf-traits">${featData.traits.map(t => traitTag(t)).join(' ')}</div>`;
+  }
+  // 클릭 아코디언: 설명(+부여 재주/주문)을 접었다 펼침.
+  let _desc = (opts && opts.descOverride != null) ? opts.descOverride : (featData ? (featData.desc || featData.summary || '') : '');
+  // 서브클래스 변형 특성(첫 번째 교리 등)은 선택한 서브클래스의 혜택 설명으로 대체(미선택=프롬프트).
+  const _variant = (opts && opts.descOverride != null) ? null : _subclassVariantDesc(slug, _desc);
+  let descHtml = '';
+  if (_variant && _variant.prompt) {
+    descHtml = `<div class="gcf-desc gcf-desc-prompt">${_variant.prompt}</div>`;
+  } else {
+    if (_variant && _variant.desc) _desc = _variant.desc;
+    descHtml = _desc ? `<div class="gcf-desc">${typeof resolveDescRefs === 'function' ? resolveDescRefs(_desc) : _desc}</div>` : '';
+  }
+  // 하위 선택(kind:'choice' 특성 — 드루이드 레시 패밀리어·자연의 목소리 등): 서브클래스를 빌더에서 고르면
+  //   그 특성 박스가 뜨고, 여기서 하위 선택. 미선택이면 헤더에 「선택 필요」 표시(구: 클래스 모달에서만 가능했음).
+  const _choiceHtml = (typeof _growthFeatureChoiceHtml === 'function') ? _growthFeatureChoiceHtml(f) : '';
+  const _choiceNeeded = !!(f && f.kind === 'choice' && _choiceHtml && !((state.classFeatureChoices || {})[f.slug || f.id]));
+  const _needBadge = _choiceNeeded ? '<span class="gcf-need">선택 필요</span>' : '';
+  const hasBody = !!(descHtml || kidsHtml || _traitsHtml || _choiceHtml);
+  return `<div class="growth-slot filled gcf-box">
+    <div class="gcf-main${hasBody ? ' gcf-clickable' : ''}"${hasBody ? ' onclick="_toggleGcfInline(this)"' : ''}>
       <span class="gcf-fic">${ic}</span>
-      <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>${badge}
+      <span class="gcf-fname">${nameKo} <span class="gcf-fen">${nameEn}</span></span>${badge}${_needBadge}
+      ${hasBody ? '<span class="gcf-chev">▾</span>' : ''}
     </div>
-    ${kidsHtml}
+    ${hasBody ? `<div class="gcf-body">${_traitsHtml}${kidsHtml}${descHtml}${_choiceHtml}</div>` : ''}
   </div>`;
+}
+
+// 성장 빌더: kind:'choice' 특성의 하위 선택 렌더(EFFECTS_DB choice 옵션). 값=state.classFeatureChoices[slug].
+function _growthFeatureChoiceHtml(f) {
+  if (!f || f.kind !== 'choice') return '';
+  const slug = f.slug || f.id; if (!slug) return '';
+  const def = (typeof EFFECTS_DB !== 'undefined') ? EFFECTS_DB[slug] : null;
+  const ch = def && def.choice;
+  if (!ch || !Array.isArray(ch.options) || !ch.options.length) return '';
+  const cur = (state.classFeatureChoices && state.classFeatureChoices[slug]) || '';
+  const opts = ch.options.map(o => `<option value="${o.option_id}"${o.option_id === cur ? ' selected' : ''}>${o.option_name || o.name || o.option_id}</option>`).join('');
+  return `<div class="gcf-choice">
+    <div class="gcf-choice-label">${ch.label || '선택'}</div>
+    <select onclick="event.stopPropagation()" onchange="event.stopPropagation();_onGrowthFeatureChoice('${slug}', this.value)" class="gcf-choice-sel">
+      <option value="">— 선택 —</option>${opts}
+    </select>
+  </div>`;
+}
+function _onGrowthFeatureChoice(slug, val) {
+  if (!state.classFeatureChoices) state.classFeatureChoices = {};
+  state.classFeatureChoices[slug] = val || '';
+  if (typeof applyClassFeatures === 'function') applyClassFeatures();
+  if (typeof recalcAll === 'function') recalcAll();   // renderGrowthPlan/save는 recalcAll 내부
+}
+
+// 소서러 혈통 표본(드라코닉 용 종류·원소·지니) 하위선택 — 값=state.bloodlineExemplar(전통·2번째 기술이 여기서 파생).
+function _growthBloodlineExemplarHTML(blId, bl) {
+  const LABEL = { 'bloodline-draconic': '드라코닉 표본', 'bloodline-elemental': '원소', 'bloodline-genie': '지니 유형' };
+  const label = LABEL[blId] || '표본';
+  const cur = state.bloodlineExemplar || '';
+  const _skKo = sk => (typeof SKILLS !== 'undefined' ? (SKILLS.find(s => s.id === sk)?.name || sk) : sk);
+  const opts = bl.exemplars.map(e => {
+    const meta = [e.tradition ? '전통 ' + e.tradition : '', e.skill ? '기술 ' + _skKo(e.skill) : '', e.damage ? '피해 ' + e.damage : ''].filter(Boolean).join(', ');
+    return `<option value="${e.name_en}"${e.name_en === cur ? ' selected' : ''}>${e.name_ko}${meta ? ' — ' + meta : ''}</option>`;
+  }).join('');
+  const need = !cur ? ' <span class="gcf-need">선택 필요</span>' : '';
+  return `<div class="gcf-choice" style="margin:5px 0 0;">
+    <div class="gcf-choice-label">${label} 선택${need}</div>
+    <select onchange="_onGrowthBloodlineExemplar(this.value)" class="gcf-choice-sel">
+      <option value="">— 선택 —</option>${opts}
+    </select>
+  </div>`;
+}
+function _onGrowthBloodlineExemplar(val) {
+  state.bloodlineExemplar = val || null;
+  if (typeof recalcAll === 'function') recalcAll();   // 전통/2번째 기술 재파생 + renderGrowthPlan/save
+}
+
+// 성장플랜 클래스특성 박스 아코디언 토글
+function _toggleGcfInline(headEl) {
+  const box = headEl.closest('.gcf-box'); if (!box) return;
+  const body = box.querySelector('.gcf-body'); if (!body) return;
+  const open = body.classList.toggle('gcf-open');
+  headEl.classList.toggle('gcf-head-open', open);
 }
 
 function renderGrowthPlan() {
@@ -1271,16 +1438,74 @@ function renderGrowthPlan() {
 
     html += `<div class="growth-level-header">레벨 ${lv}<span style="font-size:10px;color:var(--text2);font-weight:400;">Level ${lv}</span></div>`;
 
+    // ── 기어 행(카운터형 선택): 능력치 증강 / 기술 훈련(lv1) / 신격 기술(lv1 클레릭) / 기술 증가 ──
+    {
+      let _gears = '';
+      if (plan.boosts) {
+        const _bk = lv === 1 ? 'lv1' : `lv${lv}`;
+        const _bc = (state.boosts[_bk] || []).filter(Boolean).length;
+        _gears += _growthGearHTML(Math.max(0, plan.boosts - _bc), '능력치 증강', 'Set Abilities', `openBoostModal(${lv})`, _bc >= plan.boosts);
+      }
+      if (lv === 1) {
+        const _nSk = state.trainableSkillSlots || 0;
+        if (_nSk > 0) {
+          const _tr = ((state.growth[1] || {}).skillTraining || []).filter(Boolean).length;
+          _gears += _growthGearHTML(Math.max(0, _nSk - _tr), '기술 훈련', 'Skill Training', "growthPickSkillTrainingMulti()", _tr >= _nSk);
+        }
+        if (state.selectedClass && state.selectedClass.deity_skill) {
+          // 신격 기술은 선택 항목이 아니라 신격이 자동으로 정함 → 부여 기술을 캡션으로 표시, 클릭=안내.
+          const _dsk = _deitySkillName();
+          _gears += _growthGearHTML(1, '신격 기술', 'Deity Skill', "openDeitySkillInfo()", !!state.deity, _dsk || null);
+        }
+      }
+      if (plan.skillIncrease) {
+        _gears += _growthGearHTML('▲', '기술 증가', 'Skill Increase', `growthPickSkillIncrease(${lv})`, !!g.skillIncrease);
+      }
+      if (_gears) html += `<div class="growth-gear-row">${_gears}</div>`;
+    }
+
     // Class features at this level — 특성별 개별 박스 + 부여 재주/주문 중첩(출처 기반)
+    // 클래스/서브클래스 특성 = 하단 아코디언으로(예시). 여기선 수집만 하고 레벨 끝에 붙임.
+    let _featBoxes = '';
     if (state.selectedClass && typeof CLASS_FEATURE_NAMES !== 'undefined') {
-      const classFeats = (CLASS_FEATURE_NAMES[state.selectedClass.id]||[]).filter(f => f.lv === lv);
+      // 교리/신성한 샘/신격은 선택 UI(피커·필드)가 대체하므로 일반 특성 박스에서 제외.
+      //   신격은 아래에서 「신격 Deity」 전용 설명 박스(부여 부분만 발췌)로 노출(예시 Pathbuilder).
+      const _choiceSlugs = new Set(['doctrine', 'divine-font', 'deity-cleric']);
+      const classFeats = (CLASS_FEATURE_NAMES[state.selectedClass.id]||[]).filter(f => f.lv === lv && !_choiceSlugs.has(f.slug || f.id));
+      // 서브클래스 특성 중, 클래스 로스터 특성과 같은 항목(같은 slug 또는 같은 name_en)은 중복 박스이므로 제외.
+      //   예: 전투 사제의 「First Doctrine(경갑·평갑 훈련)」 = 제네릭 「첫 번째 교리」와 동일 → 제네릭 박스가 교리별 혜택을 표시하므로 서브 박스 생략.
+      const _cfSlugs = new Set(classFeats.map(f => featSlug(f.slug || f.id || f.name_en || f.name_ko)));
+      const _cfNames = new Set(classFeats.map(f => String(f.name_en || '').toLowerCase().trim()).filter(Boolean));
       const subFeats = (state.selectedSubclass && state.selectedSubclass.class_id === state.selectedClass.id)
-        ? (state.selectedSubclass.features || []).filter(f => f.lv === lv) : [];
-      [...classFeats, ...subFeats].forEach(f => { html += _growthFeatureBoxHtml(f, lv, gm); });
+        ? (state.selectedSubclass.features || []).filter(f => {
+            if (f.lv !== lv) return false;
+            const sl = featSlug(f.slug || f.id || f.name_en || f.name_ko);
+            const nm = String(f.name_en || '').toLowerCase().trim();
+            return !_cfSlugs.has(sl) && !(nm && _cfNames.has(nm));
+          }) : [];
+      [...classFeats, ...subFeats].forEach(f => { _featBoxes += _growthFeatureBoxHtml(f, lv, gm); });
+      // 「신격 Deity」 설명 박스(예시 Pathbuilder) — 신격 사용 클래스(deity_skill)의 1레벨.
+      //   신격이 부여하는 것(기술·선호무기·주문)까지만 발췌(성화/금기 하위 섹션 제외).
+      if (lv === 1 && state.selectedClass.deity_skill) {
+        let _dd = (typeof getFeat === 'function') ? ((getFeat('deity-cleric') || {}).desc || '') : '';
+        if (_dd) {
+          const _cut = _dd.search(/<h[1-6]/i); if (_cut > 0) _dd = _dd.slice(0, _cut);
+          _featBoxes += _growthFeatureBoxHtml({ slug: 'deity-cleric', name_ko: '신격', name_en: 'Deity' }, lv, gm, { descOverride: _dd });
+        }
+      }
       // 출처 특성이 로스터에 없는 부여 재주(orphan)도 이 레벨에서 박스로 노출 — 무엇도 누락 없이.
       gm.orphanFeats.filter(o => (o.lv || 1) === lv).forEach(o => {
-        html += _growthFeatureBoxHtml({ slug: o.slug, name_ko: o.name }, lv, gm, { granted: true });
+        _featBoxes += _growthFeatureBoxHtml({ slug: o.slug, name_ko: o.name }, lv, gm, { granted: true });
       });
+    }
+
+    // 배경 부여 재주(무료 재주) = 클래스 특성처럼 아코디언 박스로(예시 Pathbuilder "Free Feat: X").
+    //   클래스 가드 밖 — 클래스 미선택에도 배경만 있으면 표시. 배경 재주는 항상 1레벨 부여.
+    if (lv === 1 && state.selectedBackground && typeof getBackgroundEffects === 'function') {
+      const _beff = getBackgroundEffects(state.selectedBackground);
+      if (_beff && _beff.feat_id) {
+        _featBoxes += _growthFeatureBoxHtml({ slug: _beff.feat_id }, lv, gm, { freeFeat: true });
+      }
     }
 
     // Level 1 specials
@@ -1292,39 +1517,59 @@ function renderGrowthPlan() {
           state.selectedHeritage ? state.selectedHeritage.name_ko : null,
           "openModal('heritage')", state.selectedHeritage ? "clearCoreSelection('heritage')" : null);
       }
-      // 언어/서브클래스/후원자 전통은 각 모달에서 처리
-
+      // 정체성 선택 필드(클레릭식 패턴, Pathbuilder식 라벨+박스). 신격 불일치는 값 유지 + 「선행조건 불일치」.
+      //   신격·성별화 = 신격 사용 클래스(클레릭 deity_skill · 챔피언 deity-champion). 신성원천 = 클레릭 전용.
+      //   서브클래스(정체성) = 클레릭은 교리, 그 외는 subclass_type(챔피언 원인·위저드 학파·주술사 혈통…). 파이터·몽크 없음.
+      if (state.selectedClass) {
+        const _cls = state.selectedClass;
+        const _usesDeity = (typeof _classHasInlineDeity === 'function') && _classHasInlineDeity(_cls);
+        const _d = (state.deity && typeof _getDeity === 'function') ? _getDeity(state.deity) : null;
+        const _inv = state._invalidChoices || {};
+        // 신격 (클레릭·챔피언)
+        if (_usesDeity) {
+          html += _growthFieldHTML('🙏', '신격 Deity', _d ? (_d.name_ko || _d.name_en) : '', false,
+            "openDeityPicker()", state.deity ? "clearDeity()" : null);
+        }
+        // 신성 원천 (클레릭 전용)
+        if (_cls.deity_skill) {
+          const _fLab = state.divineFont ? (state.divineFont === 'heal' ? '치유 (Heal)' : '해악 (Harm)') : '';
+          html += _growthFieldHTML('💧', '신성 원천 Divine Font', _fLab, !!_inv.divineFont,
+            "openDivineFontPicker()", state.divineFont ? "clearDivineFont()" : null);
+        }
+        // 서브클래스/정체성 — 클레릭=교리, 그 외=subclass_type(챔피언 원인 포함). 파이터·몽크(_scLabel=null)=미표시.
+        if (_cls.deity_skill) {
+          const _sub = state.selectedSubclass;
+          html += _growthFieldHTML('📖', '교리 Doctrine', _sub ? (_sub.name_ko || _sub.name_en) : '', false,
+            "openDoctrinePicker()", _sub ? "clearDoctrine()" : null);
+        } else {
+          const _scLabel = _classSubclassLabel(_cls);
+          if (_scLabel) {
+            const _csub = (state.selectedSubclass && state.selectedSubclass.class_id === _cls.id) ? state.selectedSubclass : null;
+            html += _growthFieldHTML('🎭', _scLabel, _csub ? (_csub.name_ko || _csub.name_en) : '', false,
+              "openDoctrinePicker()", _csub ? "clearDoctrine()" : null);
+            // 서브클래스 하위선택(소서러 혈통 표본: 드라코닉 용 종류·원소·지니) — 선택한 혈통이 표본 보유 시 표본 선택을 이어서 노출.
+            if (_csub && typeof BLOODLINE_DB !== 'undefined') {
+              const _bl = BLOODLINE_DB[_csub.id];
+              if (_bl && Array.isArray(_bl.exemplars) && _bl.exemplars.length && typeof _growthBloodlineExemplarHTML === 'function') {
+                html += _growthBloodlineExemplarHTML(_csub.id, _bl);
+              }
+            }
+          }
+        }
+        // 성별화 (클레릭·챔피언) — 신격이 옵션 제약(옵션 있을 때만, 신격 미선택 시엔 안내용으로 표시)
+        if (_usesDeity) {
+          const _sOpts = _d ? (_d.sanctification || []) : [];
+          if (!_d || _sOpts.length) {
+            const _sLab = state.sanctification ? (state.sanctification === 'holy' ? '신성 (Holy)' : '불경 (Unholy)') : '';
+            html += _growthFieldHTML('✨', '성별화 Sanctification', _sLab, !!_inv.sanctification,
+              "openSanctPicker()", state.sanctification ? "clearSanctification()" : null);
+          }
+        }
+      }
+      // 언어/후원자 전통은 각 모달에서 처리
     }
 
-    // Ability Boosts
-    if (plan.boosts) {
-      const boostKey = lv === 1 ? 'lv1' : `lv${lv}`;
-      const boostCount = (state.boosts[boostKey] || []).length;
-      const boostRemain = plan.boosts - boostCount;
-      html += `<div class="growth-slot ${boostCount >= plan.boosts ? 'filled' : ''}" onclick="openModal('boost')">
-        <div class="growth-slot-icon">⚙</div>
-        <div class="growth-slot-body">
-          <div class="growth-slot-label">능력치 증강 Set Abilities</div>
-          <div class="growth-slot-value">${boostCount >= plan.boosts ? boostCount + '개 선택 완료' : boostCount + '/' + plan.boosts + ' 선택'}</div>
-        </div>
-        ${boostRemain > 0 ? `<div class="growth-slot-badge">${boostRemain}</div>` : ''}
-      </div>`;
-    }
-
-    // Skill Increase (levels 3,5,7,9,11,13,15,17,19)
-    if (plan.skillIncrease) {
-      const siVal = g.skillIncrease || '';
-      const skObj = siVal ? SKILLS.find(s => s.id === siVal) : null;
-      const display = skObj ? `${skObj.name} (${skObj.en})` : null;
-      html += `<div class="growth-slot ${siVal ? 'filled' : ''}" onclick="growthPickSkillIncrease(${lv})">
-        <div class="growth-slot-icon">📈</div>
-        <div class="growth-slot-body">
-          <div class="growth-slot-label">기술 증가 Skill Increase</div>
-          <div class="growth-slot-value">${display || '선택 안 됨'}</div>
-        </div>
-        ${siVal ? '<span class="spell-del" onclick="event.stopPropagation();growthClearSkillIncrease('+lv+');" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>' : ''}
-      </div>`;
-    }
+    // 능력치 증강·기술 증가는 위 기어 행으로 이관됨.
 
     // Ancestry Feat (혈통 선택 시에만)
     if (plan.ancestryFeat && state.selectedAncestry) {
@@ -1351,6 +1596,9 @@ function renderGrowthPlan() {
     if (lv >= 3 && state.selectedClass?.casting === 'spontaneous') {
       html += growthSignatureCardHTML(lv);
     }
+
+    // 클래스/서브클래스 특성 = 레벨 하단에 아코디언으로(예시 레이아웃)
+    if (_featBoxes) html += `<div class="growth-feats-section">${_featBoxes}</div>`;
   }
 
   container.innerHTML = html;
@@ -1387,6 +1635,65 @@ function growthSlotHTML(lv, key, icon, label, value, onclickStr) {
 function growthSlotWithClearHTML(key, icon, label, value, onclickStr, clearAction) {
   const clearBtn = clearAction ? `<span class="spell-del" onclick="event.stopPropagation();${clearAction};" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>` : '';
   return _growthSlotSkeleton({ value, onclick: onclickStr, icon, label, trailing: clearBtn });
+}
+
+// Pathbuilder식 기어 원형(능력치 증강/기술 훈련/신격 기술). num=남은 개수(선택할수록 감소), filled=완료 시 체크(✓). sub=부가 캡션.
+function _growthGearHTML(num, labelKo, labelEn, onclickStr, filled, sub) {
+  const subHtml = sub ? `<span class="growth-gear-sub">${sub}</span>` : '';
+  const inner = filled ? '✓' : num;   // 완료(남은 0)면 숫자 대신 체크
+  return `<div class="growth-gear ${filled ? 'filled' : ''}" onclick="${onclickStr}">
+    <div class="growth-gear-circle"><span class="growth-gear-num">${inner}</span></div>
+    <div class="growth-gear-label">${labelKo}<span class="en">${labelEn}</span>${subHtml}</div>
+  </div>`;
+}
+
+// 신격이 부여하는 기술(클레릭 신격 기술)의 한글명 — 신격이 결정(선택 아님).
+function _deitySkillName() {
+  if (!state.deity || typeof _getDeity !== 'function') return '';
+  const d = _getDeity(state.deity); if (!d) return '';
+  const id = d.skill; if (!id) return '';
+  const sk = (typeof SKILLS !== 'undefined') ? SKILLS.find(s => s.id === id) : null;
+  return d.skill_ko || (sk ? sk.name : id);
+}
+
+// 신격 기술은 신격이 자동으로 정하는 항목 — 「고르는 창」이 아니라 안내 + (신격 선택/변경) 버튼.
+function openDeitySkillInfo() {
+  const has = !!state.deity;
+  const d = has && typeof _getDeity === 'function' ? _getDeity(state.deity) : null;
+  const dName = d ? (d.name_ko || d.name_en || '') : '';
+  const skName = _deitySkillName();
+  document.getElementById('modal-overlay').classList.remove('hidden');
+  document.getElementById('modal-title').textContent = '신격 기술';
+  const searchEl = document.getElementById('modal-search'); if (searchEl) searchEl.style.display = 'none';
+  const fbar = document.getElementById('modal-filterbar'); if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm'); if (confirmBtn) confirmBtn.style.display = 'none';
+  modalType = 'info';
+  const body = has
+    ? `<p>클레릭은 <b>신격이 정한 기술</b>에 자동으로 숙련됩니다 — 직접 고르는 항목이 아닙니다.</p>
+       <p style="margin-top:10px;">신격 <b>${dName}</b>의 신격 기술: <b style="color:var(--accent);">${skName || '—'}</b></p>
+       <p style="margin-top:10px;color:var(--text2);font-size:12px;">신격을 바꾸면 신격 기술도 함께 바뀝니다.</p>`
+    : `<p>클레릭의 <b>신격 기술</b>은 선택한 <b>신격</b>이 결정합니다 — 직접 고르는 기술이 아닙니다.</p>
+       <p style="margin-top:10px;">먼저 신격을 선택하면 그 신격이 정한 기술에 자동으로 숙련됩니다.</p>`;
+  const btnLabel = has ? '신격 변경' : '신격 선택';
+  const html = `<div style="padding:16px;font-size:13px;line-height:1.75;">${body}
+    <button onclick="closeModal();openDeityPicker();" style="margin-top:14px;width:100%;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">${btnLabel}</button></div>`;
+  if (window.innerWidth <= 900) {
+    document.getElementById('modal-options').innerHTML = html;
+    const listEl = document.querySelector('.modal-list'); if (listEl) listEl.style.display = '';
+    const detail = document.getElementById('modal-detail'); if (detail) detail.innerHTML = '';
+  } else {
+    const listEl = document.querySelector('.modal-list'); if (listEl) listEl.style.display = 'none';
+    const detail = document.getElementById('modal-detail'); if (detail) detail.innerHTML = html;
+  }
+  const footer = document.querySelector('.modal-footer'); if (footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
+}
+// Pathbuilder식 선택박스(신격/신성원천/교리/성별화) — 유산·재주 슬롯과 동일 골격 공유(원칙#1:
+//   레이블을 박스 안(growth-slot-label)에 넣고 마진도 통일 → 헤더가 박스 밖에 뜨거나 아래 슬롯과 붙던 문제 해소).
+//   warn=선행조건 불일치는 재주 슬롯과 동일하게 값 아래 주황 주석으로 표시.
+function _growthFieldHTML(icon, label, value, warn, onclickStr, clearAction) {
+  const clr = clearAction ? `<span class="spell-del" onclick="event.stopPropagation();${clearAction};" style="color:var(--red);font-size:14px;padding:0 4px;cursor:pointer;">✕</span>` : '';
+  const warnNote = warn ? '<div style="color:#ff9800;font-size:10px;margin-top:2px;">⚠ 선행조건 불일치</div>' : '';
+  return _growthSlotSkeleton({ value, onclick: onclickStr, icon, label, bodyExtra: warnNote, trailing: clr });
 }
 
 function growthFeatSlotHTML(lv, key, icon, label, featType, value) {
@@ -1500,15 +1807,6 @@ function getAvailableSkillsForTraining(slotIndex, trainArr) {
   }).map(sk => sk.id);
 }
 
-function getSkillsForIncrease(lv) {
-  // Returns skills that are at least trained (rank >= 2)
-  return SKILLS.filter(sk => {
-    const el = document.getElementById('sk-prof-' + sk.id);
-    const rank = parseInt(el?.value || 0);
-    return rank >= 2;
-  });
-}
-
 function getSkillRankLabel(skillId) {
   const el = document.getElementById('sk-prof-' + skillId);
   const rank = parseInt(el?.value || 0);
@@ -1564,9 +1862,9 @@ function growthPickSkillTrainingMulti() {
   const alreadySelected = trainArr.filter(v => v);
 
   document.getElementById('modal-overlay').classList.remove('hidden');
-  document.getElementById('modal-title').textContent = `추가 기술 숙련 선택 (${alreadySelected.length}/${numSlots})`;
+  document.getElementById('modal-title').textContent = `남은 기술 선택: ${Math.max(0, numSlots - alreadySelected.length)}`;
   const searchEl = document.getElementById('modal-search');
-  if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; }
+  if (searchEl) { searchEl.style.display = 'none'; searchEl.value = ''; }
   const fbar = document.getElementById('modal-filterbar');
   if (fbar) fbar.innerHTML = '';
   const confirmBtn = document.querySelector('.btn-confirm');
@@ -1577,7 +1875,7 @@ function growthPickSkillTrainingMulti() {
   const container = document.getElementById('modal-options');
   const detail = document.getElementById('modal-detail');
   container.innerHTML = '';
-  if (detail) detail.innerHTML = `<div class="modal-detail-empty">${numSlots}개의 기술을 선택하세요.<br>이미 훈련된 기술은 선택할 수 없습니다.</div>`;
+  if (detail) detail.innerHTML = `<div class="modal-detail-empty">훈련할 기술을 선택하세요.<br>이미 다른 곳에서 훈련된 기술은 선택할 수 없습니다.</div>`;
 
   const available = getAvailableSkillsForTraining(-1, []);
 
@@ -1585,29 +1883,31 @@ function growthPickSkillTrainingMulti() {
     const isAvail = available.includes(sk.id);
     const isSelected = alreadySelected.includes(sk.id);
     const isFull = alreadySelected.length >= numSlots && !isSelected;
+    const locked = !isAvail && !isSelected;   // 다른 출처로 이미 훈련됨(선택 불가)
+    const p = _skillRowParts(sk);
     const row = document.createElement('div');
-    row.className = 'opt-row' + (isSelected ? ' selected' : '');
-    if (!isAvail && !isSelected) row.style.opacity = '0.4';
+    row.className = 'skrow' + (isSelected ? ' selected' : '') + (locked ? ' trained' : '')
+      + ((isFull && !isSelected && !locked) ? ' disabled' : '');
     row.innerHTML = `
-      <div class="opt-row-icon">${isSelected ? '✓' : '📖'}</div>
-      <span class="opt-row-name">${sk.name} <span style="color:var(--text2);font-size:11px;">${sk.en}</span></span>
-      <span style="font-size:10px;color:var(--text2);margin-right:4px;">${getSkillRankLabel(sk.id)}</span>`;
+      <div class="skrow-name">${sk.name} <span class="en">${sk.en}</span> <span class="skrow-total">${fmtBonus(p.total)}</span></div>
+      <div class="skrow-teml">${_skillTemlHtml(p.rank)}</div>
+      <div class="skrow-cols">
+        <div class="skcol"><span class="skcol-h">${ATTR_KO[sk.attr]}</span><span class="skcol-v">${fmtBonus(p.attrMod)}</span></div>
+        <div class="skcol"><span class="skcol-h">숙련</span><span class="skcol-v">${p.prof}</span></div>
+        <div class="skcol"><span class="skcol-h">장비</span><span class="skcol-v">${p.item}</span></div>
+      </div>`;
 
-    if (isAvail || isSelected) {
-      row.style.cursor = 'pointer';
+    if (!locked && !isFull) {
       row.onclick = () => {
         if (isSelected) {
-          // Deselect
           const idx = trainArr.indexOf(sk.id);
           if (idx >= 0) growthSkillTrainingChanged(idx, '');
-          growthPickSkillTrainingMulti(); // Re-render modal
-        } else if (!isFull) {
-          // Select: find empty slot
+        } else {
           let emptyIdx = trainArr.findIndex(v => !v);
           if (emptyIdx < 0) emptyIdx = trainArr.length;
           growthSkillTrainingChanged(emptyIdx, sk.id);
-          growthPickSkillTrainingMulti(); // Re-render modal
         }
+        growthPickSkillTrainingMulti(); // Re-render modal
       };
     }
     container.appendChild(row);
@@ -1617,59 +1917,120 @@ function growthPickSkillTrainingMulti() {
   if (listEl) listEl.style.display = '';
 }
 
+// ── Pathbuilder식 기술 행 헬퍼 (v0.262~) ──
+// 현재 숙련 등급(0/2/4/6/8) → TEML 배지 4개(현재 등급 하나만 강조)
+function _skillTemlHtml(rank) {
+  const map = { 2: 't', 4: 'e', 6: 'm', 8: 'l' };
+  return ['t', 'e', 'm', 'l'].map(c => `<span class="teml ${c} ${map[rank] === c ? 'on' : ''}">${c.toUpperCase()}</span>`).join('');
+}
+// 기술 계산 구성요소(능력치 수정치·숙련 보너스·장비·합계) — recalcSkill과 동일 식(getMod+rankBonus) 재사용
+function _skillRowParts(sk) {
+  const rank = (typeof getSkillRank === 'function') ? getSkillRank(sk.id) : 0;
+  const lv = (typeof getLevel === 'function') ? getLevel() : 1;
+  const attrMod = (typeof getMod === 'function') ? getMod(sk.attr) : 0;
+  const prof = (typeof rankBonus === 'function') ? rankBonus(rank, lv) : 0;
+  const item = 0;   // 기술 장비 보너스는 현재 모델에서 별도 추적 안 함
+  return { rank, attrMod, prof, item, total: attrMod + prof + item };
+}
+
+// 기술 증가 선택 — 기술 훈련 멀티 모달(growthPickSkillTrainingMulti)과 동일한 리치 레이아웃(TEML·능력치·숙련·장비)을 재사용.
+//   전체 기술을 다 보여주되, 이 레벨에서 못 올리는 기술(미숙련이거나 레벨 관문 초과)은 목록에서 빼지 않고 딤(.disabled)한다.
+//   레벨 관문 강제는 계산(applyGrowthSkills)이 담당(원칙#1: skillIncreaseRankCap 공용). 여긴 표시·클릭 게이팅.
 function growthPickSkillIncrease(lv) {
-  _skillPickMode = 'increase';
-  _skillPickLevel = lv;
-  const skills = getSkillsForIncrease(lv);
-  openSkillPickModal('기술 증가 선택', skills.map(s => s.id));
+  if (!state.growth[lv]) state.growth[lv] = {};
+  const current = state.growth[lv].skillIncrease || null;
+  const cap = (typeof skillIncreaseRankCap === 'function') ? skillIncreaseRankCap(lv) : 8;
+
+  document.getElementById('modal-overlay').classList.remove('hidden');
+  document.getElementById('modal-title').textContent = `기술 증가 — 레벨 ${lv}`;
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) { searchEl.style.display = 'none'; searchEl.value = ''; }
+  const fbar = document.getElementById('modal-filterbar');
+  if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm');
+  if (confirmBtn) { confirmBtn.style.display = ''; confirmBtn.textContent = '완료'; }
+  modalType = 'skill-multi';   // 완료 버튼=닫기(confirmModal 공용). 검색 숨김이라 타입 재사용 안전.
+  modalSelected = null;
+
+  const container = document.getElementById('modal-options');
+  const detail = document.getElementById('modal-detail');
+  container.innerHTML = '';
+  if (detail) detail.innerHTML = `<div class="modal-detail-empty">올릴 기술을 선택하세요.<br>회색 기술은 이 레벨에서 올릴 수 없습니다(미숙련이거나 레벨 관문 초과).<br><span style="font-size:11px;">전문가는 언제나·달인은 7레벨·전설은 15레벨 이상부터.</span></div>`;
+
+  SKILLS.forEach(sk => {
+    const p = _skillRowParts(sk);
+    const cur = (typeof getSkillRank === 'function') ? getSkillRank(sk.id) : 0;
+    const isCurrent = sk.id === current;
+    const eligible = cur >= 2 && cur < cap;       // 트레인드~관문 미만이면 올릴 수 있음
+    const clickable = isCurrent || eligible;      // 현재 선택은 결과값이 관문에 닿아도 해제 가능하도록 항상 허용
+    const row = document.createElement('div');
+    row.className = 'skrow' + (isCurrent ? ' selected' : '') + (!clickable ? ' disabled' : '');
+    row.innerHTML = `
+      <div class="skrow-name">${sk.name} <span class="en">${sk.en}</span> <span class="skrow-total">${fmtBonus(p.total)}</span></div>
+      <div class="skrow-teml">${_skillTemlHtml(p.rank)}</div>
+      <div class="skrow-cols">
+        <div class="skcol"><span class="skcol-h">${ATTR_KO[sk.attr]}</span><span class="skcol-v">${fmtBonus(p.attrMod)}</span></div>
+        <div class="skcol"><span class="skcol-h">숙련</span><span class="skcol-v">${p.prof}</span></div>
+        <div class="skcol"><span class="skcol-h">장비</span><span class="skcol-v">${p.item}</span></div>
+      </div>`;
+    if (clickable) {
+      row.onclick = () => {
+        growthSkillIncreaseChanged(lv, isCurrent ? '' : sk.id);   // 현재=해제 / 그 외=선택·교체
+        growthPickSkillIncrease(lv);   // 재렌더(등급 상승·선택 반영)
+      };
+    }
+    container.appendChild(row);
+  });
+
+  const listEl = document.querySelector('.modal-list');
+  if (listEl) listEl.style.display = '';
 }
 
 function growthClearSkillIncrease(lv) {
   growthSkillIncreaseChanged(lv, '');
 }
 
+// 기술 증가/훈련 선택 — 신격·교리·성별화 등과 동일한 선택 피커(_openChoicePicker)로 통일(원칙#1):
+//   현재 선택 하이라이트 + 우측 상세(현재 숙련도→상승 결과) + 「선택 확정」.
+//   (구현 전: placeholder·검색 oninput이 직전 신격 모달 잔재로 깨지고, 우측 상세가 영구 공백이었음.)
+const _RANK_KO = { 0: '미숙련', 2: '숙련', 4: '전문가', 6: '달인', 8: '전설' };
 function openSkillPickModal(title, availableIds) {
-  document.getElementById('modal-overlay').classList.remove('hidden');
-  document.getElementById('modal-title').textContent = title;
-  const searchEl = document.getElementById('modal-search');
-  if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; }
-  const fbar = document.getElementById('modal-filterbar');
-  if (fbar) fbar.innerHTML = '';
-  const confirmBtn = document.querySelector('.btn-confirm');
-  if (confirmBtn) confirmBtn.style.display = 'none';
-  modalType = 'skill-pick';
-  modalSelected = null;
-
-  const container = document.getElementById('modal-options');
-  const detail = document.getElementById('modal-detail');
-  container.innerHTML = '';
-  if (detail) detail.innerHTML = '<div class="modal-detail-empty">기술을 선택하세요.</div>';
-
-  SKILLS.forEach(sk => {
-    if (!availableIds.includes(sk.id)) return;
-    const rankLabel = getSkillRankLabel(sk.id);
-    const row = document.createElement('div');
-    row.className = 'opt-row';
-    row.innerHTML = `
-      <div class="opt-row-icon">📖</div>
-      <span class="opt-row-name">${sk.name} <span style="color:var(--text2);font-size:11px;">${sk.en}</span></span>
-      <span style="font-size:10px;color:var(--text2);margin-right:4px;">${rankLabel}</span>`;
-    row.onclick = () => {
-      document.querySelectorAll('.opt-row').forEach(r => r.classList.remove('selected'));
-      row.classList.add('selected');
-      // Immediately apply
-      if (_skillPickMode === 'training') {
-        growthSkillTrainingChanged(_skillPickSlotIndex, sk.id);
-      } else if (_skillPickMode === 'increase') {
-        growthSkillIncreaseChanged(_skillPickLevel, sk.id);
-      }
-      closeModal();
-    };
-    container.appendChild(row);
+  const isInc = _skillPickMode === 'increase';
+  const lv = _skillPickLevel;
+  const current = isInc
+    ? ((state.growth[lv] && state.growth[lv].skillIncrease) || null)
+    : ((((state.growth[1] && state.growth[1].skillTraining) || [])[_skillPickSlotIndex]) || null);
+  const options = SKILLS.filter(sk => availableIds.includes(sk.id)).map(sk => {
+    const cur = parseInt((document.getElementById('sk-prof-' + sk.id) || {}).value || 0);
+    const curLab = _RANK_KO[cur] || '미숙련';
+    let desc;
+    if (!isInc) {
+      desc = '이 기술에 <b>훈련됨(Trained)</b> 숙련을 얻습니다.';
+    } else if (sk.id === current) {
+      // 이미 이 레벨의 기술 증가 대상 — 표시 숙련도는 이 증가가 반영된 결과값이라 상승 화살표 대신 결과만 표기.
+      desc = `이 레벨의 기술 증가로 선택된 기술입니다 — 현재 <b style="color:var(--accent);">${curLab}</b>.`;
+    } else if (cur >= 8) {
+      desc = '이미 <b>전설(Legendary)</b>이라 더 올릴 수 없습니다.';
+    } else {
+      const nr = Math.min(cur + 2, 8);
+      desc = `현재 <b>${curLab}</b>에서 <b style="color:var(--accent);">${_RANK_KO[nr]}</b>(으)로 한 단계 오릅니다.`;
+    }
+    return { id: sk.id, name: sk.name, nameEn: sk.en, desc, tag: curLab };
   });
-  // Show list, hide detail on mobile
-  const listEl = document.querySelector('.modal-list');
-  if (listEl) listEl.style.display = '';
+  _openChoicePicker({
+    title,
+    modalType: 'skill-pick',
+    hint: isInc
+      ? '기술을 선택하면 상승 결과가 표시됩니다.<br><span style="font-size:11px;color:var(--text2);">기술 증가는 한 단계씩 올리며, <b>전문가</b>는 언제나·<b>달인</b>은 7레벨·<b>전설</b>은 15레벨 이상부터 가능합니다.</span>'
+      : '기술을 선택하면 설명이 표시됩니다.',
+    options,
+    current,
+    onSelect: (id) => {
+      if (_skillPickMode === 'training') growthSkillTrainingChanged(_skillPickSlotIndex, id);
+      else if (_skillPickMode === 'increase') growthSkillIncreaseChanged(lv, id);
+      closeModal();
+    },
+  });
 }
 
 // ═══════════════════════════════════════════════
@@ -2725,7 +3086,7 @@ function openModal(type, ctx) {
   modalSelected = null;
 
   // 증강 모달은 별도 처리
-  if (type === 'boost') { openBoostModal(); return; }
+  if (type === 'boost') { openBoostModal(ctx && ctx.level); return; }
 
   // ── FVTT 카탈로그 로딩 게이트 ──
   // 관련 어댑터가 준비 안 됐으면 빈 목록 대신 "로딩 중"을 보여주고 상호작용을 막은 뒤,
@@ -4063,42 +4424,11 @@ function _buildClassChoicesUI(cls) {
   // === 1레벨 ===
   html += _classLevelHeader(1);
 
-  // 기술 숙련 블록
-  html += _classFeatureBlock('📖', '기술 숙련', 'Skill Proficiencies', () => {
-    let inner = '';
-    fixedSkills.forEach(name => {
-      inner += _choiceDropdown('', '고정 기술', [{value: name, label: name}], true, name);
-    });
-    choiceSkills.forEach((choices, ci) => {
-      const curFixed = _modalChoices.chosenFixedSkills[ci] || '';
-      const options = choices.map(c => ({value: c, label: c}));
-      inner += `<div style="margin-bottom:6px;">
-        <div style="font-size:10px;color:var(--text2);margin-bottom:2px;">기술 (선택)</div>
-        <select onchange="_modalChoices.chosenFixedSkills[${ci}]=this.value;_validateInitialChoices()" style="${_selStyle}">
-          <option value="">— 선택 —</option>
-          ${options.map(o => `<option value="${o.value}"${o.value === curFixed ? ' selected' : ''}>${o.label}</option>`).join('')}
-        </select>
-      </div>`;
-    });
-    inner += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">추가 기술 숙련 (기본 ${trainableBase}개${_inlineDeity ? ' + 신격 기술' : ''}, + 버튼으로 추가)</div>`;
-    inner += `<div id="class-trainable-skills">`;
-    for (let i = 0; i < trainableBase; i++) {
-      inner += _buildTrainableSkillRow(i, fixedSkills);
-    }
-    inner += `</div>`;
-    inner += `<div style="text-align:center;margin-top:4px;">
-      <button onclick="_addTrainableSkill()" style="padding:4px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--accent);cursor:pointer;font-size:12px;">＋ 추가</button>
-      <span style="font-size:10px;color:var(--text2);margin-left:6px;">INT 수정치만큼 추가 가능</span>
-    </div>`;
-    return inner;
-  });
+  // 기술 숙련 선택 = 성장 빌더 「기술 훈련」 기어로 일원화(v0.283) → 클래스 모달에서 제거(전 클래스).
+  //   클래스 모달은 '클래스 고르기 + 특성 설명'만. 실제 선택(기술·서브클래스·신격 등)은 전부 빌더에서.
 
-  // 서브클래스/클레릭 블록 (1레벨)
-  //   ⚠ 교리 등 선택 UI가 담당하는 특성의 부여 재주/주문은 별도 박스로 그리지 않는다 — PF2e 규칙상 부여 주체는
-  //     '레벨별 발전 특성'(첫 번째 교리 등)이며(_growthGrantMap 귀속), 그 특성 카드 안에 중첩되어 이미 표시됨.
-  if (subclassHtml) {
-    html += subclassHtml;
-  }
+  // 서브클래스/신격/성별화/신성원천 선택 UI = 성장 빌더 정체성 필드로 일원화(v0.283) → 모달에서 제거(subclassHtml 미렌더).
+  //   서브클래스가 부여하는 특성은 아래 레벨 루프가 설명 박스로 그림(선택 컨트롤 없이).
   // 부여 트리 — subclassHtml이 _modalChoices.subclass를 설정한 뒤에 계산(선택한 교리 기준).
   const _gm = _modalGrantMap(cls);
 
@@ -4412,32 +4742,16 @@ function openClassModalAtLevel(targetLv) {
 
 // ── 클레릭 전용 UI: 교리 + 신격 + 신성 원천 ──
 function _buildClericChoicesUI() {
-  // ── 이전 선택값 복원 ──
-  const _savedSanct = state.sanctification || '';
-  const _savedFont = state.divineFont || '';
-  _modalChoices.doctrine = undefined;   // 교리는 일반 서브클래스 선택(_modalChoices.subclass)으로 통합 — 별도 doctrine 게이트 제거
+  // 클레릭은 신격·교리·성별화·신성원천·기술훈련을 전부 1레벨 독립 슬롯(renderGrowthPlan)에서 선택 →
+  //   클래스 모달에서는 아무 것도 안 고름. 모달 확정 검증/커밋 대상에서 빠지도록 관련 _modalChoices 비활성.
+  _modalChoices.doctrine = undefined;
   _modalChoices.deity = undefined;
-  _modalChoices.divineFont = state.selectedClass?.id === 'cleric' ? _savedFont : '';
-
-  const cid = state.selectedClass?.id || 'cleric';
-  const roster = (typeof CLASS_FEATURE_NAMES !== 'undefined' ? (CLASS_FEATURE_NAMES[cid] || []) : []);
-  const rf = slug => roster.find(f => (f.slug || f.id) === slug);   // 클래스 특성 데이터에서 조회(없으면 카드 안 그림)
-  const doctrines = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.filter(s => s.class_id === cid) : [];
-
-  // 교리 카드 = 서브클래스 선택 (데이터 특성 'doctrine'). 라벨=서브클래스 종류(데이터).
-  const docFeat = rf('doctrine');
-  const docLabel = (doctrines[0] && doctrines[0].subclass_type) || (docFeat && docFeat.name_ko) || '교리';
-  let html = _buildSubclassChoiceUI(cid, docLabel, doctrines);
-
-  // 신성(클레릭) 카드 — 클래스 특성 데이터(deity-cleric)에 있을 때만. 이름=데이터, 설명=카탈로그, 컨트롤은 본문에.
-  const deityFeat = rf('deity-cleric');
-  if (deityFeat) html += _classFeatureBlock('🙏', deityFeat.name_ko, deityFeat.name_en, () => _choiceCardBody('deity-cleric', _clericDeityControlHtml(_savedSanct)), false, false);
-
-  // 신성한 샘 카드 — 클래스 특성 데이터(divine-font)에 있을 때만.
-  const fontFeat = rf('divine-font');
-  if (fontFeat) html += _classFeatureBlock('⛲', fontFeat.name_ko, fontFeat.name_en, () => _choiceCardBody('divine-font', _clericFontControlHtml(_savedFont)), false, false);
-
-  return html;
+  _modalChoices.sanctification = undefined;
+  _modalChoices.divineFont = undefined;
+  _modalChoices.subclass = undefined;
+  _modalChoices.trainableSkills = [];
+  _modalChoices.trainableBase = 0;
+  return '';
 }
 
 // 선택 특성 카드 본문 = 특성 설명(재주 카탈로그 = data/store/feats.json 단일소스, class_progression엔 desc 없음) + 선택 컨트롤.
@@ -4469,9 +4783,10 @@ function _clericDeityControlHtml(savedSanct) {
 //   _modalChoices.sanctification: 단일→그 값, 2택→저장값 or '' (미선택=확정 차단), 없음→undefined(미필수).
 function _setSanctChoice(d, savedSanct) {
   const opts = (d && d.sanctification) || [];
-  if (opts.length === 1) _modalChoices.sanctification = opts[0];
-  else if (opts.length >= 2) _modalChoices.sanctification = (savedSanct && opts.includes(savedSanct)) ? savedSanct : '';
-  else _modalChoices.sanctification = undefined;
+  if (opts.length === 1) _modalChoices.sanctification = opts[0];   // 신격이 강제(고정) — 무효 불가
+  // 2택 이상: 저장값 유지(신격과 안 맞아도 지우지 않음 → 불일치 플래그로 처리, B안). 미선택은 ''.
+  else if (opts.length >= 2) _modalChoices.sanctification = savedSanct || '';
+  else _modalChoices.sanctification = undefined;   // 신격이 성별화 없음
 }
 
 // 주문 호버 툴팁(title) — 행동/사거리/특성 + 설명 발췌(평문). 신격 주문·신성 원천 주문 공용.
@@ -4497,15 +4812,18 @@ function _deityBoxHtml(d, savedSanct, readonly, hideSanct) {
   // 성별화 — 신격이 결정. 단일/없음=평문, 2택=선택(재주 탭=확정값 평문, 모달=인라인 select).
   const sOpts = d.sanctification || [];
   const _sLabel = (o) => o === 'holy' ? '신성 (Holy)' : '불경 (Unholy)';
+  const _sanctInvalid = savedSanct && sOpts.length && !sOpts.includes(savedSanct);   // 신격과 안 맞는 성별화(B안: 유지+플래그)
+  const _sanctFlag = _sanctInvalid ? `<div style="font-size:10px;color:#ff9800;margin-top:2px;">⚠ 선행조건 불일치 — 이 신격은 「${_sLabel(savedSanct)}」을 허용하지 않습니다. 효과 미적용, 다시 골라주세요.</div>` : '';
   let sanctHtml;
   if (sOpts.length === 0) sanctHtml = `<div style="font-size:10px;margin-top:2px;"><b>✨ 성별화:</b> 없음</div>`;
   else if (sOpts.length === 1) sanctHtml = `<div style="font-size:10px;margin-top:2px;"><b>✨ 성별화:</b> ${_sLabel(sOpts[0])} <span style="color:var(--text2);">— 신격이 요구(고정)</span></div>`;
-  else if (readonly) sanctHtml = `<div style="font-size:10px;margin-top:2px;"><b>✨ 성별화:</b> ${savedSanct ? _sLabel(savedSanct) : '<span style="color:#ff9800;">⚠ 미선택</span>'}</div>`;
+  else if (readonly) sanctHtml = `<div style="font-size:10px;margin-top:2px;"><b>✨ 성별화:</b> ${savedSanct ? (_sLabel(savedSanct) + (_sanctInvalid ? ' <span style="color:#ff9800;">(불일치)</span>' : '')) : '<span style="color:#ff9800;">⚠ 미선택</span>'}</div>${_sanctFlag}`;
   else sanctHtml = `<div style="font-size:10px;margin-top:4px;"><b>✨ 성별화:</b> 신성·불경 중 선택
       <select id="cls-sanct" onchange="_modalChoices.sanctification=this.value;_validateInitialChoices()" style="${_selStyle}display:inline-block;width:auto;margin-left:4px;vertical-align:middle;">
         <option value=""${!savedSanct ? ' selected' : ''}>— 선택 —</option>
         ${sOpts.map(o => `<option value="${o}"${o === savedSanct ? ' selected' : ''}>${_sLabel(o)}</option>`).join('')}
-      </select></div>`;
+        ${_sanctInvalid ? `<option value="${savedSanct}" selected>${_sLabel(savedSanct)} (불일치)</option>` : ''}
+      </select></div>${_sanctFlag}`;
   // 신격 주문 — 아이콘 + 클릭(desc-ref 떠 있는 팝업)으로 주문 정보. 모달·재주 탭 공용(모달-overlay 미간섭).
   const spEntries = Object.entries(d.spells_slug || {}).sort((a, b) => (+a[0]) - (+b[0]));
   const spHtml = spEntries.length ? `<div style="margin-top:6px;"><div style="font-size:9px;color:var(--text2);margin-bottom:3px;">신격 주문 <span style="opacity:0.7;">(클릭하면 주문 정보)</span></div>${spEntries.map(([rank, slug]) => {
@@ -4537,11 +4855,23 @@ function _clericFontControlHtml(savedFont) {
 function _fontOptionsHtml(d, savedFont) {
   if (!d) { _modalChoices.divineFont = undefined; return `<div style="font-size:10px;color:var(--text2);padding:6px 8px;background:var(--bg4);border-radius:4px;">먼저 <b>신성(클레릭)</b>에서 신격을 선택하세요. 신성 원천(치유/해악)은 신격이 허용하는 것만 고를 수 있습니다.</div>`; }
   const fonts = d.font || [];
+  const _fLabel = (v) => v === 'heal' ? '치유 (Heal)' : '해악 (Harm)';
+  const _fontInvalid = savedFont && fonts.length && !fonts.includes(savedFont);   // 신격이 허용 안 하는 폰트(B안: 유지+플래그)
+  const _fontFlag = _fontInvalid ? `<div style="font-size:10px;color:#ff9800;margin-top:4px;">⚠ 선행조건 불일치 — 이 신격은 「${_fLabel(savedFont)}」을 허용하지 않습니다. 효과 미적용, 다시 골라주세요.</div>` : '';
   let cur = (savedFont && fonts.includes(savedFont)) ? savedFont : '';
   let inner;
-  if (fonts.length === 1) {
+  if (_fontInvalid) {
+    // 무효값 유지: 신격 허용 옵션 + 무효값(불일치)을 함께 노출, 무효값 선택 상태.
+    _modalChoices.divineFont = savedFont;
+    inner = `<select id="cls-font" onchange="_onClericFontChange(this.value)" style="${_selStyle}">
+      <option value="">— 선택 —</option>
+      ${fonts.includes('heal') ? `<option value="heal">치유 (Heal)</option>` : ''}
+      ${fonts.includes('harm') ? `<option value="harm">해악 (Harm)</option>` : ''}
+      <option value="${savedFont}" selected>${_fLabel(savedFont)} (불일치)</option>
+    </select>`;
+  } else if (fonts.length === 1) {
     cur = fonts[0]; _modalChoices.divineFont = cur;
-    inner = `<select disabled style="${_selStyle}opacity:0.7;"><option>${cur === 'heal' ? '치유 (Heal)' : '해악 (Harm)'}</option></select>
+    inner = `<select disabled style="${_selStyle}opacity:0.7;"><option>${_fLabel(cur)}</option></select>
       <div style="font-size:9px;color:var(--text2);margin-top:2px;">이 신격은 ${cur === 'heal' ? '치유' : '해악'}만 제공합니다.</div>`;
   } else {
     _modalChoices.divineFont = cur || undefined;
@@ -4551,7 +4881,7 @@ function _fontOptionsHtml(d, savedFont) {
       ${fonts.includes('harm') ? `<option value="harm"${cur === 'harm' ? ' selected' : ''}>해악 (Harm)</option>` : ''}
     </select>`;
   }
-  return `${inner}<div id="cls-font-info" style="font-size:10px;color:var(--text2);margin-top:6px;line-height:1.5;">${cur ? _fontSpellBoxHtml(cur) : ''}</div>`;
+  return `${inner}${_fontFlag}<div id="cls-font-info" style="font-size:10px;color:var(--text2);margin-top:6px;line-height:1.5;">${(cur && !_fontInvalid) ? _fontSpellBoxHtml(cur) : ''}</div>`;
 }
 
 // 신성 원천 결과 주문 박스(아이콘) — 치유/해악.
@@ -4576,7 +4906,9 @@ function _deityFeatDisplayHtml() {
 function _fontFeatDisplayHtml() {
   const val = state.divineFont;
   if (!val) return `<div style="font-size:11px;color:#ff9800;margin-top:8px;">⚠ 신성 원천 미선택 — 성장 계획에서 치유/해악을 골라주세요.</div>`;
-  return `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:4px;"><b>신성 원천:</b> ${val === 'heal' ? '치유 (Heal)' : '해악 (Harm)'}</div>${_fontSpellBoxHtml(val)}</div>`;
+  const invalid = state._invalidChoices && state._invalidChoices.divineFont;   // 신격과 불일치(B안) → 효과 보류 + 플래그
+  const flag = invalid ? `<div style="font-size:11px;color:#ff9800;margin-top:4px;">⚠ 선행조건 불일치 — 현재 신격이 이 신성 원천을 허용하지 않아 효과(추가 슬롯·주문)가 적용되지 않습니다.</div>` : '';
+  return `<div style="margin-top:8px;"><div style="font-size:10px;color:var(--text2);margin-bottom:4px;"><b>신성 원천:</b> ${val === 'heal' ? '치유 (Heal)' : '해악 (Harm)'}${invalid ? ' <span style="color:#ff9800;">(불일치)</span>' : ''}</div>${flag}${invalid ? '' : _fontSpellBoxHtml(val)}</div>`;
 }
 // 재주 탭 — 챔피언 헌신 주문(선택한 영혼의 방패/안수치료/공허의 손길) 표시.
 function _devotionFeatDisplayHtml() {
@@ -4595,13 +4927,12 @@ function _refreshFontWrap() {
 function _onClericDeityChange(id) {
   _modalChoices.deity = id || undefined;
   const d = id ? _getDeity(id) : null;
-  _setSanctChoice(d, '');   // 신격이 바뀌면 성별화 재설정(2택이면 미선택 상태로)
+  // B안: 신격이 바뀌어도 성별화·신성원천을 강제로 지우지 않음 — 유지하고, 새 신격과 안 맞으면
+  //   각 카드에서 「선행조건 불일치」로 표시(효과는 커밋 후 recalcAll이 보류). 강제 고정(1택)만 반영.
+  _setSanctChoice(d, _modalChoices.sanctification || '');
   const info = document.getElementById('cls-deity-info');
   if (info) info.innerHTML = _deityBoxHtml(d, _modalChoices.sanctification || '');   // 설명·성별화·주문(호버) 통합 박스
-  // 신격이 바뀌면 신성 원천 허용치가 달라짐 → 폰트 카드 갱신(허용 안 되는 폰트는 리셋)
-  const fonts = (d && d.font) || [];
-  if (_modalChoices.divineFont && fonts.length && !fonts.includes(_modalChoices.divineFont)) _modalChoices.divineFont = undefined;
-  _refreshFontWrap();
+  _refreshFontWrap();   // 폰트 카드도 저장값 유지 + 불일치 플래그(_fontOptionsHtml에서 처리)
   _validateInitialChoices();
 }
 
@@ -5140,21 +5471,8 @@ function _validateInitialChoices() {
   let valid = true;
 
   if (_modalChoices.type === 'class') {
-    const skills = _modalChoices.trainableSkills || [];
-    // 모든 드롭다운이 선택되어야 함
-    if (skills.some(v => !v)) valid = false;
-    // 최소 base 개수
-    if (skills.length < (_modalChoices.trainableBase || 0)) valid = false;
-    // 선택형 고정 기술 ("또는" 패턴)
-    if ((_modalChoices.chosenFixedSkills || []).some(v => !v)) valid = false;
-    // 클레릭: 교리/신격/성별화/신성 원천 필수
-    if (_modalChoices.doctrine !== undefined && !_modalChoices.doctrine) valid = false;
-    if (_modalChoices.deity !== undefined && !_modalChoices.deity) valid = false;
-    if (_modalChoices.sanctification !== undefined && !_modalChoices.sanctification) valid = false;
-    if (_modalChoices.divineFont !== undefined && !_modalChoices.divineFont) valid = false;
-    if (_modalChoices.devotionSpell !== undefined && !_modalChoices.devotionSpell) valid = false;   // 챔피언 헌신 주문 필수
-    // 범용 서브클래스
-    if (_modalChoices.subclass !== undefined && !_modalChoices.subclass) valid = false;
+    // 클래스 확정 = 클래스만 고르면 됨(v0.283). 기술·서브클래스·신격·성별화·신성원천·헌신 등 모든 선택은
+    //   성장 빌더에서 하므로 여기선 필수 조건 없음. (모달 선택 UI 제거 → 조건 유지 시 확정 버튼이 영구 disabled됨)
   } else if (_modalChoices.type === 'background') {
     if (_modalChoices.hasChoiceSkill && !_modalChoices.choiceSkill) valid = false;
   } else if (_modalChoices.type === 'ancestry') {
@@ -5393,42 +5711,10 @@ function confirmModal() {
     const btnC = document.getElementById('btn-class');
     if (btnC) { btnC.textContent = `${modalSelected.name} (${modalSelected.en})`; btnC.classList.add('filled'); }
     applyClassDefaults(modalSelected);
-    // 모달 내 기술 선택 반영
-    if (_modalChoices.type === 'class') {
-      // 선택형 고정 기술(예: "곡예 또는 운동")·추가 기술 숙련 모두 state에만 기록하고 부여는
-      //   recalcAll의 출처기반 재파생에 위임(rebuildCoreEffects._classGrantedSkills / applyGrowthSkills).
-      //   (구: 여기서 명령형으로 sk-prof를 훈련시켜 같은 클래스 재확정+다른 선택 시 이전 기술 유령 잔존 — v0.134 해소)
-      // 추가 기술 숙련 — state.growth에만 기록하고 부여는 recalcAll의 applyGrowthSkills(출처기반)에 위임.
-      //   (여기서 명령형으로 sk-prof를 훈련시키면 prevRank base가 오염돼 이후 슬롯 제거 시 유령 잔존)
-      const skills = (_modalChoices.trainableSkills || []).filter(v => v);
-      state.trainableSkillSlots = skills.length;
-      if (!state.growth[1]) state.growth[1] = {};
-      state.growth[1].skillTraining = skills;
-    }
-    // 클레릭: 교리/신격/신성 원천 반영
-    if (_modalChoices.doctrine) {
-      const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === _modalChoices.doctrine) : null;
-      if (sub) { state.selectedSubclass = sub; const btn = document.getElementById('btn-subclass'); if (btn) { btn.textContent = `${sub.name_ko} (${sub.name_en})`; btn.classList.add('filled'); } }
-    }
-    if (_classHasInlineDeity(modalSelected)) {
-      // 신격/성별화/신성원천/헌신주문을 클래스 모달에서 인라인 선택 → 확정 시 동기(미선택·해제 포함)
-      state.deity = _modalChoices.deity || null;
-      state.sanctification = _modalChoices.sanctification || null;
-      const nf = _modalChoices.divineFont || null;
-      if (state.divineFont !== nf) state.divineFontUsed = 0;
-      state.divineFont = nf;
-      state.devotionSpell = _modalChoices.devotionSpell || null;   // 챔피언 헌신 주문
-      if (_clericDeityIsChampion()) state.championBlessing = _modalChoices.championBlessing || null;   // 챔피언 헌신자의 축복(3레벨 택1)
-    } else {
-      if (_modalChoices.deity) state.deity = _modalChoices.deity;
-      if (_modalChoices.sanctification) state.sanctification = _modalChoices.sanctification;
-      if (_modalChoices.divineFont) { state.divineFont = _modalChoices.divineFont; state.divineFontUsed = 0; }
-    }
-    // 범용 서브클래스
-    if (_modalChoices.subclass) {
-      const sub = typeof SUBCLASS_DB !== 'undefined' ? SUBCLASS_DB.find(s => s.id === _modalChoices.subclass) : null;
-      if (sub) { state.selectedSubclass = sub; const btn = document.getElementById('btn-subclass'); if (btn) { btn.textContent = `${sub.name_ko} (${sub.name_en})`; btn.classList.add('filled'); } }
-    }
+    // v0.283: 기술 숙련·서브클래스·신격·성별화·신성원천·헌신 등 모든 선택은 성장 빌더가 소유.
+    //   → 클래스 확정은 클래스만 세팅하고, 이 값들은 모달에서 커밋하지 않는다(빈 모달값으로 빌더 선택을 덮어쓰던 회귀 방지).
+    //   trainableSkillSlots는 위 applyClassDefaults(free_skill_count)가 세팅, skillTraining/selectedSubclass/deity 등은 빌더 필드가 소유.
+    //   클래스 변경 시엔 위 resetFromClass가 초기화 → 사용자가 빌더에서 새로 선택.
     // 소서러 혈통 표본/원소/지니 유형 선택 반영(드라코닉=전통+2번째 기술, recalcAll·_subclassTradition이 소비)
     state.bloodlineExemplar = _modalChoices.bloodlineExemplar || null;
     // 클래스 특성 선택(자연의 목소리 등) 반영 → applyClassFeatures가 auto 부여 특성 choice로 주입
@@ -5828,7 +6114,7 @@ function applyClassDefaults(cls) {
   initArmorProfBadges();
   renderArmorCard();
 
-  // 핵심 능력치: 단일 고정이면 자동 설정, OR이면 사용자 선택 대기 (모달에서 setClassKey)
+  // 핵심 능력치: 단일 고정이면 자동 설정, OR이면 사용자 선택 대기 (능력치 증강 모달 드롭다운에서 선택)
   const keys = cls.key_attrs || [];
   if (keys.length === 1) state.boosts.cls = keys[0];
   // 길이 2+ (OR)는 기존 선택 보존 또는 빈 상태로 둠 (renderBoostModal에서 사용자 선택)

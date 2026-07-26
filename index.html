@@ -62,12 +62,12 @@ window.PF2eOverrideFetcher = function(cat){
   return window._cloudOvrPromise.then(function(all){ return (all && all[cat]) || {}; });
 };
 </script>
-<script src="equipment_db.js?v=0.257"></script>
-<script src="class_features_db.js?v=0.257"></script>
-<script src="effects_db.js?v=0.257"></script>
-<script src="prereqs_db.js?v=0.257"></script>
-<script src="changelog.js?v=0.257"></script>
-<script src="gear-shell.js?v=0.257"></script>
+<script src="equipment_db.js?v=0.284"></script>
+<script src="class_features_db.js?v=0.284"></script>
+<script src="effects_db.js?v=0.284"></script>
+<script src="prereqs_db.js?v=0.284"></script>
+<script src="changelog.js?v=0.284"></script>
+<script src="gear-shell.js?v=0.284"></script>
 <script>
 // Verify class_features_db loaded (센티널 = CLASS_AUTO_SPELLS; CLASS_AUTO_FEATS는 v0.158 폐기)
 if (typeof CLASS_AUTO_SPELLS === 'undefined') {
@@ -86,7 +86,7 @@ if (typeof CLASS_AUTO_SPELLS === 'undefined') {
   console.log('✓ class_features_db.js loaded — 클래스 자동부여=성장표 로스터(CLASS_FEATURE_NAMES)');
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.257">
+<link rel="stylesheet" href="app-shell.css?v=0.284">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -773,7 +773,20 @@ body.map-open{overflow:hidden;}
 .spell-subtab.active{color:var(--accent);border-bottom-color:var(--accent);}
 
 /* Header bar */
-.spell-header-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+.spell-header-bar{display:flex;align-items:center;justify-content:center;padding:12px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:18px;}
+.spell-header-dc{font-size:18px;font-weight:700;color:var(--text);}
+.spell-header-dc .spell-header-atk{font-size:15px;color:var(--text2);font-weight:600;}
+.spell-teml{display:flex;gap:4px;}
+.spell-bonus-btn{padding:5px 12px;background:var(--bg4);border:1px solid var(--border2);border-radius:5px;color:var(--text);font-size:12px;font-weight:600;cursor:pointer;}
+.spell-bonus-btn:hover{border-color:var(--accent);color:var(--accent);}
+/* 신성 원천 서브탭(view-font): 클래스 콘텐츠 공유하되 캔트립/랭크 숨기고 신성 원천만 */
+#spell-content-class.view-font #spell-cantrips-section,
+#spell-content-class.view-font #spell-ranks-container{display:none !important;}
+#spell-content-class:not(.view-font) #spell-divine-font-section{display:none !important;}
+.bonus-spell-list{padding:6px 4px;}
+.bonus-spell-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px;border-bottom:1px solid var(--border);}
+.bonus-spell-label{font-size:13px;font-weight:600;color:var(--text);}
+.bonus-spell-sel{font-size:13px;padding:5px 10px;background:var(--bg2);color:var(--text);border:1px solid var(--border2);border-radius:4px;cursor:pointer;min-width:70px;}
 .spell-header-left{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
 .spell-header-stats{display:flex;gap:8px;align-items:center;font-size:12px;flex-wrap:wrap;}
 .spell-stat{color:var(--text2);display:flex;align-items:center;gap:3px;}
@@ -1349,6 +1362,44 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 .gcf-grant{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text);}
 .gcf-gic{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--bg4);border:1px solid var(--border2);overflow:hidden;font-size:10px;}
 .gcf-gic img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;}
+/* ── Pathbuilder식 1레벨 레이아웃: 기어 원형 행 + 라벨+선택박스 ── */
+.growth-gear-row{display:flex;gap:8px;margin:6px 0;justify-content:center;flex-wrap:wrap;}
+.growth-gear{flex:0 0 92px;width:92px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:7px 3px;border:1px solid var(--border);border-radius:7px;background:var(--bg3);cursor:pointer;transition:border-color .12s,background .12s;text-align:center;}
+.growth-gear:hover{border-color:var(--accent);background:var(--bg4);}
+.growth-gear.filled{border-color:var(--accent);}
+.growth-gear-circle{position:relative;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--accent);box-shadow:0 0 0 2px var(--bg3),0 0 0 3px var(--border2);}
+.growth-gear-circle::before{content:"\2699";position:absolute;font-size:32px;line-height:1;color:rgba(255,255,255,0.16);}
+.growth-gear-num{position:relative;font-size:14px;font-weight:800;color:#fff;}
+.growth-gear-label{font-size:10px;color:var(--text2);line-height:1.25;font-weight:600;}
+.growth-gear.filled .growth-gear-label{color:var(--text);}
+.growth-gear-label .en{display:block;font-size:8px;color:var(--text2);font-weight:400;}
+.growth-gear-sub{display:block;font-size:9px;color:var(--accent);font-weight:700;margin-top:2px;}
+.growth-field{margin:8px 0 0;}
+.growth-field-label{font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.growth-field-box{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg3);cursor:pointer;transition:border-color .12s;}
+.growth-field-box:hover{border-color:var(--accent);}
+.growth-field-box.filled{border-color:var(--accent);}
+.growth-field-inner{flex:1;min-width:0;}
+.growth-field-ph{font-size:9px;color:var(--text2);}
+.growth-field-val{font-size:12px;color:var(--text2);margin-top:1px;}
+.growth-field-box.filled .growth-field-val{color:var(--accent);font-weight:600;}
+.growth-field-val.warn{color:#ff9800 !important;}
+.growth-field-clear{color:var(--red);font-size:13px;padding:0 2px;cursor:pointer;flex-shrink:0;}
+/* 클래스 특성 = 하단 아코디언 */
+.growth-feats-section{margin-top:10px;}
+.gcf-main.gcf-clickable{cursor:pointer;}
+.gcf-chev{margin-left:auto;color:var(--text2);font-size:11px;transition:transform .15s ease;flex-shrink:0;}
+.gcf-main.gcf-head-open .gcf-chev{transform:rotate(180deg);}
+.gcf-box .gcf-body{display:none;margin-top:6px;padding-top:6px;border-top:1px solid var(--border);}
+.gcf-box .gcf-body.gcf-open{display:block;}
+.gcf-desc{font-size:11px;line-height:1.6;color:var(--text2);}
+.gcf-desc p{margin:5px 0;}
+.gcf-traits{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;}
+.gcf-choice{margin-top:8px;padding:6px 8px;background:var(--bg4);border-radius:4px;border-left:2px solid var(--accent);}
+.gcf-choice-label{font-size:11px;font-weight:600;color:var(--text2);margin-bottom:4px;}
+.gcf-choice-sel{width:100%;padding:5px 8px;font-size:12px;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:4px;cursor:pointer;}
+.gcf-need{font-size:8px;color:#ff9800;border:1px solid #ff9800;border-radius:3px;padding:0 4px;flex-shrink:0;font-weight:700;}
+.gcf-desc-prompt{font-style:italic;color:var(--text2);opacity:.85;}
 .gcf-gname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .gcf-gbadge{font-size:8px;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:0 4px;flex-shrink:0;opacity:.85;}
 .gcf-emoji{font-size:10px;}
@@ -1408,6 +1459,65 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 .boost-summary-attr{text-align:center;flex:1;}
 .boost-summary-attr .bsa-name{font-size:9px;color:var(--text2);text-transform:uppercase;}
 .boost-summary-attr .bsa-val{font-size:18px;font-weight:700;color:var(--accent);}
+/* ── Pathbuilder식 능력치 증강 모달 (v0.262~). + 아이콘 = FVTT plus.svg(mask, 이모지 아님·모바일 일관) ── */
+.boost-pb-sec{background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:10px 12px;margin-bottom:8px;}
+.boost-pb-title{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:8px;letter-spacing:.02em;}
+.boost-pb-row{display:flex;align-items:center;gap:9px;margin-bottom:7px;}
+.boost-pb-row:last-child{margin-bottom:0;}
+.boost-plus{width:22px;height:22px;flex:0 0 22px;border-radius:50%;border:2px solid var(--accent);
+  display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;}
+.boost-plus::before{content:"";width:12px;height:12px;background:var(--accent);
+  -webkit-mask:url(data/fvtt-assets/icons/plus.svg) center/contain no-repeat;mask:url(data/fvtt-assets/icons/plus.svg) center/contain no-repeat;}
+.boost-plus.minus{border-color:var(--red);}
+.boost-plus.minus::before{background:var(--red);-webkit-mask:none;mask:none;width:11px;height:2px;border-radius:1px;}
+.boost-pb-fixed{font-size:14px;color:var(--text);font-weight:600;}
+.boost-pb-flaw .boost-pb-fixed{color:var(--red);}
+.boost-pb-select{flex:1;min-width:0;font-size:13px;padding:6px 8px;background:var(--bg2);color:var(--text);
+  border:1px solid var(--border2);border-radius:4px;cursor:pointer;}
+.boost-pb-select:focus{border-color:var(--accent);outline:none;}
+.boost-free-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
+.boost-free-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px 18px;align-items:center;}
+.boost-free-item{display:flex;align-items:center;gap:9px;font-size:13px;cursor:pointer;padding:3px 4px;border-radius:4px;}
+.boost-free-item:hover{background:var(--bg4);}
+.boost-free-item.disabled{opacity:.4;cursor:default;}
+.boost-free-box{width:17px;height:17px;flex:0 0 17px;border:2px solid var(--border2);border-radius:3px;box-sizing:border-box;
+  display:inline-flex;align-items:center;justify-content:center;}
+.boost-free-item.on .boost-free-box{background:var(--accent);border-color:var(--accent);}
+.boost-free-item.on .boost-free-box::after{content:"";width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);margin-top:-2px;}
+.boost-free-abbr{font-weight:700;width:34px;}
+.boost-free-val{color:var(--text2);}
+.boost-free-item.on .boost-free-val{color:var(--accent);font-weight:700;}
+.boost-counter{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 5px;
+  border-radius:50%;background:var(--accent);color:#fff;font-size:14px;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.3);}
+.boost-counter.done{background:var(--bg4);color:var(--text2);}
+.boost-pb-empty{font-size:11px;color:var(--text2);}
+/* ── Pathbuilder식 기술 선택 모달 (TEML 배지 + 능력치/숙련/장비 컬럼) v0.262~ ── */
+.skrow{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--border);cursor:pointer;}
+.skrow:hover{background:var(--bg4);}
+.skrow.disabled{opacity:.45;cursor:default;}
+.skrow.disabled:hover{background:none;}
+.skrow.trained{cursor:default;opacity:.82;}
+.skrow.trained:hover{background:none;}
+.skrow.selected{background:rgba(110,20,20,.09);}
+.skrow-name{flex:1;min-width:0;font-size:13px;font-weight:600;color:var(--text);}
+.skrow-name .en{font-size:10px;color:var(--text2);font-weight:400;}
+.skrow-total{color:var(--accent);margin-left:3px;font-weight:700;}
+.skrow-teml{display:flex;gap:3px;flex:0 0 auto;}
+.teml{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border2);color:var(--text2);box-sizing:border-box;
+  font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;background:var(--bg2);}
+.teml.on{background:var(--accent);border-color:var(--accent);color:#fff;}
+.skrow-cols{display:flex;gap:2px;flex:0 0 auto;}
+.skcol{width:36px;text-align:center;}
+.skcol-h{display:block;font-size:8px;color:var(--text2);line-height:1.3;}
+.skcol-v{display:block;font-size:13px;font-weight:600;color:var(--text);}
+/* ── 공용 선택 피커(성별화·교리·신성원천) v0.265~ ── */
+.choice-row{padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.choice-row:hover{background:var(--bg4);}
+.choice-row.selected,.choice-row.expanded{background:var(--accent-bg);border-left:3px solid var(--accent);}
+.choice-row .choice-en{color:var(--text2);font-size:11px;font-weight:400;}
+.choice-cur{font-size:10px;color:var(--accent);font-weight:700;flex:0 0 auto;}
+.choice-tag{font-size:10px;color:var(--text2);font-weight:600;flex:0 0 auto;margin-left:8px;}
+.choice-src{margin-top:10px;font-size:10px;color:var(--text2);font-style:italic;}
 .boost-grid{display:grid;grid-template-columns:90px repeat(6,1fr);gap:3px;font-size:11px;margin-top:4px;}
 .boost-grid .bg-head{color:var(--accent);font-size:10px;text-align:center;padding:2px;}
 .boost-grid .bg-src{color:var(--text2);font-size:10px;display:flex;align-items:center;padding:2px 0;}
@@ -1746,7 +1856,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 /* ── 주문 탭 박스화: 랭크/캔트립 = 가벼운 섹션 헤더 + 주문 = 박스 카드 (장비 탭과 동일 언어) ──
    #panel-spells 로 스코프 — 같은 클래스를 쓰는 장비 컨테이너(배낭)는 영향 안 받음 */
 #panel-spells .spell-rank-section{ border:none; border-radius:0; margin:10px 0 0; overflow:visible; background:transparent; }
-#panel-spells .spell-rank-header{ background:transparent; border:none; border-bottom:1px solid var(--border); color:var(--accent); font-weight:700; text-align:left; padding:6px 4px 5px; font-size:13px; margin-bottom:5px; }
+#panel-spells .spell-rank-header{ background:transparent; border:none; border-bottom:1px solid var(--border); color:var(--accent); font-weight:700; text-align:center; padding:8px 4px 6px; font-size:15px; margin-bottom:5px; }
 #panel-spells .spell-slots-used{ padding:2px 2px 4px; }
 #panel-spells .spell-slot-row{ border:1px solid var(--border); border-radius:6px; margin:4px 0; background:var(--bg3); padding:8px 10px; }
 #panel-spells .spell-slot-row:hover{ background:var(--bg3); border-color:var(--border2); box-shadow:none; }
@@ -1975,7 +2085,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.257</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.284</span></div>
 </div>
 
 <!-- 업데이트로그·버그제보 모달 → gear-shell.js(공유 주입) -->
@@ -2162,7 +2272,6 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <div class="tab" onclick="switchTab('spells',this)">주문</div>
     <div class="tab" onclick="switchTab('equip',this)">장비</div>
     <div class="tab" onclick="switchTab('pets',this)">동료</div>
-    <div class="tab" onclick="switchTab('feats',this)">재주</div>
     <div class="tab" onclick="switchTab('actions',this)">행동</div>
   </div>
 
@@ -2241,6 +2350,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
       <!-- Sub-tabs -->
       <div class="spell-subtabs" style="display:flex;align-items:center;">
         <span class="spell-subtab active" id="spell-subtab-class" onclick="switchSpellSubtab('class')">주문</span>
+        <span class="spell-subtab" id="spell-subtab-font" onclick="switchSpellSubtab('font')" style="display:none;">신성 원천</span>
         <span class="spell-subtab" id="spell-subtab-focus" onclick="switchSpellSubtab('focus')">집중 주문</span>
         <span class="spell-subtab" id="spell-subtab-innate" onclick="switchSpellSubtab('innate')">선천적 주문</span>
         <span class="spell-subtab" id="spell-subtab-ritual" onclick="switchSpellSubtab('ritual')">의식</span>
@@ -2252,35 +2362,19 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
       <!-- Class spells content -->
       <div id="spell-content-class">
-        <!-- Header bar: DC / Attack + TEML -->
+        <!-- Header bar (예시 Pathbuilder식): DC N (주문 명중 +M) · TEML · Wis/Prof/Item · 보너스 주문 -->
         <div class="spell-header-bar">
-          <div style="display:flex;align-items:center;gap:20px;">
-            <div style="text-align:center;">
-              <div class="spell-val-label">DC</div>
-              <div class="spell-val" id="spell-dc-val" style="font-size:22px;">10</div>
-            </div>
-            <div style="text-align:center;">
-              <div class="spell-val-label">주문 명중</div>
-              <div class="spell-val" id="spell-atk-val" style="font-size:22px;">+0</div>
-            </div>
-          </div>
-          <div style="text-align:center;">
-            <div class="spell-val-label">주문시전</div>
-            <div class="prof-rank-text" id="rank-spell" style="font-size:16px;">미숙련</div>
-          </div>
+          <div class="spell-header-dc">DC <span id="spell-dc-val">10</span> <span class="spell-header-atk">(주문 명중 <span id="spell-atk-val">+0</span>)</span></div>
+          <div class="spell-teml" id="spell-teml"></div>
           <div style="display:flex;gap:12px;font-size:11px;color:var(--text2);">
             <div style="text-align:center;"><div class="bd-label" id="spell-key-label">Wis</div><div class="bd-val" id="spell-key-val" style="font-weight:700;color:var(--text);">0</div></div>
             <div style="text-align:center;"><div class="bd-label">Prof</div><div class="bd-val" id="spell-prof-val" style="font-weight:700;color:var(--text);">0</div></div>
             <div style="text-align:center;"><div class="bd-label">Item</div><div class="bd-val" id="spell-item-val" style="font-weight:700;color:var(--text);">0</div></div>
           </div>
+          <button class="spell-bonus-btn" onclick="openBonusSpellsModal()">보너스 주문</button>
+          <span id="rank-spell" style="display:none;"></span>
         </div>
-        <!-- 계열 / 시전 유형 (읽기전용 표시) -->
-        <div style="display:flex;justify-content:center;gap:16px;padding:6px 12px;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border);">
-          <span>계열: <strong style="color:var(--text);" id="spell-tradition-display">—</strong></span>
-          <span>|</span>
-          <span>시전: <strong style="color:var(--text);" id="spell-type-display">—</strong></span>
-        </div>
-        <!-- Hidden selects for save/load -->
+        <!-- Hidden selects for save/load (계열/시전 표시는 예시식 헤더에서 제거) -->
         <select id="spell-tradition" style="display:none;"><option value="">—</option><option value="arcane">비전</option><option value="divine">신성</option><option value="occult">비의</option><option value="primal">원시</option></select>
         <select id="spell-type" style="display:none;"><option value="">—</option><option value="prepared">준비형</option><option value="spontaneous">즉흥형</option></select>
         <select id="prof-spatk" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
@@ -2424,47 +2518,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
       </div>
     </div>
 
-    <!-- ── 재주 Feats ── -->
-    <div id="panel-feats" class="panel">
-      <div class="feats-single">
-        <div class="box">
-          <div class="box-title" id="feats-subclass-title">서브클래스 Subclass</div>
-          <div id="feats-subclass"></div>
-        </div>
-        <div class="box">
-          <div class="box-title">클래스 특성 Class Features</div>
-          <div id="feats-special"></div>
-        </div>
-        <div class="box">
-          <div class="box-title">유산 Heritage</div>
-          <div id="heritage-display"></div>
-        </div>
-        <div class="box">
-          <div class="box-title">혈통 재주 Ancestry Feats</div>
-          <div id="feats-ancestry"></div>
-        </div>
-        <div class="box">
-          <div class="box-title">클래스 재주 Class Feats</div>
-          <div id="feats-class"></div>
-        </div>
-        <div class="box">
-          <div class="box-title">일반 재주 General Feats</div>
-          <div id="feats-general"></div>
-        </div>
-        <div class="box">
-          <div class="box-title">기술 재주 Skill Feats</div>
-          <div id="feats-skill"></div>
-        </div>
-        <div class="box">
-          <div class="box-title">원형 재주 Archetype Feats</div>
-          <div id="feats-archetype"></div>
-        </div>
-        <div class="box">
-          <div class="box-title">기타 능력 Other Abilities</div>
-          <div id="feats-other"></div>
-        </div>
-      </div>
-    </div><!-- /#panel-feats -->
+    <!-- 재주 탭 제거(v0.282): 모든 내용이 성장 빌더로 이관됨(클래스 특성·유산·서브클래스=박스, 재주=슬롯). -->
 
     <!-- ── 행동 Actions ── -->
     <div id="panel-actions" class="panel">
@@ -2476,7 +2530,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
         <button class="af-eco af-word" data-filter="activity" onclick="setActionFilter('activity',this)" title="탐험·막간 활동" aria-label="활동">활동</button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.257" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.284" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2550,36 +2604,36 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.257"></script>
-<script src="cs_calc.js?v=0.257"></script>
+<script src="cs_data.js?v=0.284"></script>
+<script src="cs_calc.js?v=0.284"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.257"></script>
-<script src="cs_re_engine.js?v=0.257"></script>
-<script src="cs_pf2e_stats.js?v=0.257"></script>
-<script src="cs_pf2e_equip.js?v=0.257"></script>
-<script src="cs_pf2e_anc.js?v=0.257"></script>
-<script src="cs_pf2e_bg.js?v=0.257"></script>
-<script src="cs_pf2e_spell.js?v=0.257"></script>
-<script src="cs_pf2e_deity.js?v=0.257"></script>
-<script src="cs_pf2e_action.js?v=0.257"></script>
-<script src="cs_pf2e_feat.js?v=0.257"></script>
-<script src="cs_pf2e_class.js?v=0.257"></script>
-<script src="cs_pf2e_actor.js?v=0.257"></script>
-<script src="cs_ui.js?v=0.257"></script>
-<script src="cs_modal.js?v=0.257"></script>
-<script src="cs_feat_effects.js?v=0.257"></script>
-<script src="cs_save.js?v=0.257"></script>
-<script src="cs_session.js?v=0.257"></script>
-<script src="cs_dice.js?v=0.257"></script>
-<script src="cs_map.js?v=0.257"></script>
+<script src="cs_pf2e.js?v=0.284"></script>
+<script src="cs_re_engine.js?v=0.284"></script>
+<script src="cs_pf2e_stats.js?v=0.284"></script>
+<script src="cs_pf2e_equip.js?v=0.284"></script>
+<script src="cs_pf2e_anc.js?v=0.284"></script>
+<script src="cs_pf2e_bg.js?v=0.284"></script>
+<script src="cs_pf2e_spell.js?v=0.284"></script>
+<script src="cs_pf2e_deity.js?v=0.284"></script>
+<script src="cs_pf2e_action.js?v=0.284"></script>
+<script src="cs_pf2e_feat.js?v=0.284"></script>
+<script src="cs_pf2e_class.js?v=0.284"></script>
+<script src="cs_pf2e_actor.js?v=0.284"></script>
+<script src="cs_ui.js?v=0.284"></script>
+<script src="cs_modal.js?v=0.284"></script>
+<script src="cs_feat_effects.js?v=0.284"></script>
+<script src="cs_save.js?v=0.284"></script>
+<script src="cs_session.js?v=0.284"></script>
+<script src="cs_dice.js?v=0.284"></script>
+<script src="cs_map.js?v=0.284"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.257"></script>
-<script src="cs_i18n.js?v=0.257"></script>
+<script src="cs_locale.js?v=0.284"></script>
+<script src="cs_i18n.js?v=0.284"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.257');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.284');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({
@@ -3229,7 +3283,6 @@ function mobileNavSwitch(id) {
   <button class="bnav-btn" data-tab="spells" onclick="mobileNavSwitch('spells')"><span class="bnav-icon">✨</span>주문</button>
   <button class="bnav-btn" data-tab="equip" onclick="mobileNavSwitch('equip')"><span class="bnav-icon">🎒</span>장비</button>
   <button class="bnav-btn" data-tab="pets" onclick="mobileNavSwitch('pets')"><span class="bnav-icon">🐾</span>펫</button>
-  <button class="bnav-btn" data-tab="feats" onclick="mobileNavSwitch('feats')"><span class="bnav-icon">⭐</span>재주</button>
   <button class="bnav-btn" data-tab="actions" onclick="mobileNavSwitch('actions')"><span class="bnav-icon">▶️</span>행동</button>
 </nav>
 

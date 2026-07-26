@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.257').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.284').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -1624,17 +1624,59 @@ function _featActionGlyph(fd) {
 }
 
 function switchSpellSubtab(tab) {
-  ['class','focus','innate','ritual'].forEach(t => {
+  // '신성 원천(font)'은 별도 콘텐츠 없이 클래스 콘텐츠를 공유(view-font 클래스로 캔트립/랭크 숨김, 신성 원천만)
+  const classContent = document.getElementById('spell-content-class');
+  if (classContent) classContent.classList.toggle('view-font', tab === 'font');
+  ['class','font','focus','innate','ritual'].forEach(t => {
     const tabEl = document.getElementById('spell-subtab-'+t);
-    const contentEl = document.getElementById('spell-content-'+t);
     if (tabEl) tabEl.classList.toggle('active', tab===t);
-    if (contentEl) contentEl.style.display = tab===t ? '' : 'none';
+    const contentEl = document.getElementById('spell-content-'+t);   // font는 content div 없음
+    if (contentEl) contentEl.style.display = (t===tab || (t==='class' && tab==='font')) ? '' : 'none';
   });
 }
 
 
 function updateSpellTemlBadges() {
   if (typeof syncAllProfRanks === 'function') syncAllProfRanks();
+  // 헤더 TEML 배지(현재 주문시전 숙련 등급 강조, 클릭=등급 설정)
+  const el = document.getElementById('prof-spatk');
+  const rank = el ? parseInt(el.value || 0) : 0;
+  const map = { 2: 't', 4: 'e', 6: 'm', 8: 'l' };
+  const html = [['t', 2], ['e', 4], ['m', 6], ['l', 8]].map(([c, rv]) =>
+    `<span class="teml ${c} ${map[rank] === c ? 'on' : ''}" onclick="setSpellProf(${rv})" style="cursor:pointer;">${c.toUpperCase()}</span>`
+  ).join('');
+  ['spell-teml', 'spell-teml-focus'].forEach(id => { const t = document.getElementById(id); if (t) t.innerHTML = html; });
+}
+
+// ── 보너스 주문 모달(예시 Pathbuilder): 랭크별 추가 주문 슬롯 ──
+function openBonusSpellsModal() {
+  if (!state.bonusSpellSlots) state.bonusSpellSlots = {};
+  const maxRank = Math.min(10, Math.ceil((getLevel() || 1) / 2)) || 1;
+  const clsName = state.selectedClass ? state.selectedClass.name : '';
+  document.getElementById('modal-overlay').classList.remove('hidden');
+  document.getElementById('modal-title').textContent = `${clsName} 보너스 주문`.trim();
+  const searchEl = document.getElementById('modal-search'); if (searchEl) searchEl.style.display = 'none';
+  const fbar = document.getElementById('modal-filterbar'); if (fbar) fbar.innerHTML = '';
+  const confirmBtn = document.querySelector('.btn-confirm'); if (confirmBtn) confirmBtn.style.display = 'none';
+  modalType = 'bonus-spells';
+  let rows = '';
+  for (let r = 0; r <= maxRank; r++) {
+    const cur = state.bonusSpellSlots[r] || 0;
+    const label = r === 0 ? '캔트립 (랭크 0)' : `${r}랭크 주문`;
+    const opts = [0, 1, 2, 3, 4, 5].map(n => `<option value="${n}" ${n === cur ? 'selected' : ''}>+${n}</option>`).join('');
+    rows += `<div class="bonus-spell-row"><div class="bonus-spell-label">${label}</div><select class="bonus-spell-sel" onchange="_onBonusSpellChange(${r},this.value)">${opts}</select></div>`;
+  }
+  document.getElementById('modal-options').innerHTML = `<div class="bonus-spell-list">${rows}</div>`;
+  const detail = document.getElementById('modal-detail'); if (detail) detail.innerHTML = '<div class="modal-detail-empty">랭크별로 추가 주문 슬롯 수를 정합니다(재주·아이템 등으로 얻은 보너스).</div>';
+  const listEl = document.querySelector('.modal-list'); if (listEl) listEl.style.display = '';
+  const footer = document.querySelector('.modal-footer'); if (footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
+}
+function _onBonusSpellChange(r, val) {
+  if (!state.bonusSpellSlots) state.bonusSpellSlots = {};
+  const n = parseInt(val) || 0;
+  if (n) state.bonusSpellSlots[r] = n; else delete state.bonusSpellSlots[r];
+  if (typeof renderSpells === 'function') renderSpells();
+  if (typeof save === 'function') save();
 }
 
 function setSpellProf(rank) {
@@ -1731,7 +1773,7 @@ function renderSpells() {
   if (focusTab) focusTab.style.display = focusArr.length > 0 ? '' : 'none';
 
   // 현재 활성 탭이 숨겨지면 첫 번째 보이는 탭으로 전환
-  const allSubtabs = ['class','focus','innate','ritual'];
+  const allSubtabs = ['class','font','focus','innate','ritual'];
   const activeTab = allSubtabs.find(t => document.getElementById('spell-subtab-'+t)?.classList.contains('active'));
   const activeHidden = activeTab && document.getElementById('spell-subtab-'+activeTab)?.style.display === 'none';
   if (activeHidden || (!hasCastingClass && activeTab === 'class')) {
@@ -1769,7 +1811,7 @@ function renderSpells() {
   const cantripHeader = document.getElementById('cantrip-header');
   if (cantripHeader) cantripHeader.textContent = `캔트립 (강화 랭크 ${heightenedLevel})`;
 
-  const cantripSlots = state.cantripSlots || 5;
+  const cantripSlots = (state.cantripSlots || 5) + ((state.bonusSpellSlots && state.bonusSpellSlots[0]) || 0);
   const cantripEl = document.getElementById('spells-cantrip');
   if (cantripEl) {
     cantripEl.innerHTML = '';
@@ -1852,8 +1894,12 @@ function renderSpells() {
   // ── Divine Font (Cleric) ──
   const dfSection = document.getElementById('spell-divine-font-section');
   const dfBody = document.getElementById('divine-font-body');
+  const fontTab = document.getElementById('spell-subtab-font');
+  const hasFont = !!(state.divineFont && state.selectedClass?.deity_skill && !(state._invalidChoices && state._invalidChoices.divineFont));
+  if (fontTab) fontTab.style.display = hasFont ? '' : 'none';   // 신성 원천 서브탭은 원천 있을 때만
   if (dfSection && dfBody) {
-    if (state.divineFont && state.selectedClass?.deity_skill) {
+    // 신격과 불일치(선행조건 불일치)면 신성 원천 효과 보류 → 주문 탭 섹션 숨김(B안)
+    if (hasFont) {
       dfSection.style.display = '';
       const isHeal = state.divineFont === 'heal';
       const dfSlug = isHeal ? 'heal' : 'harm';   // 정본 slug (name_ko '해악' 드리프트 무관)
@@ -1864,16 +1910,18 @@ function renderSpells() {
       const dfSpell = getSpell(dfSlug);
       const spellName = (dfSpell?.name_ko || (isHeal ? '치유' : '해악')) + (dfSpell?.name_en ? ` (${dfSpell.name_en})` : '');
       const dfActions = getActionIcons(dfSpell?.actions);
-      let fires = '';
+      const dfRange = (dfSpell && dfSpell.range) ? dfSpell.range : '가변';
+      // 예시(Pathbuilder)식: 슬롯마다 「시전 | 주문명 | 사거리」 행 N개(1행+pip → 슬롯별 Cast 행).
+      let rows = '';
       for (let i = 0; i < totalSlots; i++) {
         const isUsed = i >= (totalSlots - used);
-        fires += `<span class="spell-slot-fire${isUsed?' used':''}" style="cursor:pointer;" onclick="toggleDivineFontSlot(${i})" title="${isUsed?'슬롯 복원':'슬롯 사용'}"></span>`;
-      }
-      dfBody.innerHTML = `
-        <div class="spell-slot-row">
+        rows += `<div class="spell-slot-row${isUsed ? ' slot-used' : ''}">
+          <span class="spell-cast-label${isUsed ? ' cast-used' : ''}" onclick="toggleDivineFontSlot(${i})" title="${isUsed ? '슬롯 복원' : '시전(슬롯 사용)'}">시전</span>
           <span class="spell-slot-name" onclick="toggleSpellInline(this,'${dfSlug}')">${iconImg('spell', dfSpell || {name:spellName})}${spellName}${dfActions ? ' <span class="spell-actions-inline">'+dfActions+'</span>' : ''}</span>
-          <span class="spell-slot-fires" style="margin-left:auto;">${fires}</span>
+          <span class="spell-slot-range">${dfRange}</span>
         </div>`;
+      }
+      dfBody.innerHTML = `<div class="spell-slot-col-header"><span class="spell-cast-label" style="visibility:hidden;">시전</span><span style="flex:1;">주문</span><span style="width:70px;text-align:center;">사거리</span></div>${rows}`;
     } else {
       dfSection.style.display = 'none';
     }
@@ -1885,7 +1933,7 @@ function renderSpells() {
   ranksContainer.innerHTML = '';
 
   for (let r = 1; r <= maxRank; r++) {
-    const slotMax = parseInt(state.spellSlots?.[r] || 0);
+    const slotMax = parseInt(state.spellSlots?.[r] || 0) + ((state.bonusSpellSlots && state.bonusSpellSlots[r]) || 0);
     // 이 랭크의 모든 known 주문 (auto + growth + 재주 부여 등)
     const allAtRank = state.spells.known.filter(s => s.rank === r);
 
@@ -1901,8 +1949,7 @@ function renderSpells() {
     const header = document.createElement('div');
     header.className = 'spell-rank-header';
     if (isSpontaneous || isPreparedCaster) {
-      header.innerHTML = `${r}랭크 주문
-        <span style="float:right;font-size:11px;color:var(--text2);">슬롯 ${slotMax}개</span>`;
+      header.textContent = `${r}랭크 주문`;
     } else {
       header.innerHTML = `주문 랭크 ${r}
         <span style="float:right;font-size:11px;color:var(--text2);">
@@ -1916,7 +1963,8 @@ function renderSpells() {
     if (slotMax > 0 && !isPreparedCaster) {
       const firesDiv = document.createElement('div');
       firesDiv.className = 'spell-slots-used';
-      firesDiv.innerHTML = '<span style="font-size:10px;color:var(--text2);margin-right:4px;">슬롯:</span>';
+      firesDiv.style.justifyContent = 'center';   // 예시식: 랭크 헤더 아래 중앙 슬롯 pip
+      firesDiv.innerHTML = '';
       const usedCount = getSpellSlotUsedCount(r, slotMax);
       for (let c = 0; c < slotMax; c++) {
         const isUsed = c >= (slotMax - usedCount);
@@ -1996,20 +2044,33 @@ function renderSpells() {
     } else if (isPreparedCaster) {
       // ═══ PREPARED CASTER: 준비된 주문 + 🔥 시전 토글 ═══
       const prep = state.preparedSpells?.[r] || [];
+      const colHeaderP = document.createElement('div');
+      colHeaderP.className = 'spell-slot-col-header';
+      colHeaderP.innerHTML = `<span style="width:40px;text-align:center;">시전</span><span style="flex:1;">주문</span><span style="width:70px;text-align:center;">지속</span><span style="width:70px;text-align:center;">사거리</span><span style="width:20px;"></span>`;
+      section.appendChild(colHeaderP);
       for (let i = 0; i < slotMax; i++) {
         const name = prep[i] || null;
         const isCast = !!(state.spellSlotsUsed?.[r]?.[i]);
         const row = document.createElement('div');
-        row.className = 'spell-slot-row';
-        if (isCast) row.style.opacity = '0.35';
+        row.className = 'spell-slot-row' + (isCast ? ' slot-used' : '');
         if (name) {
           const spellData = getSpell(name);
           const actions = getActionIcons(spellData?.actions);
-          const fireIcon = `<span class="spell-slot-fire${isCast?' used':''}" onclick="togglePreparedCast(${r},${i})" style="cursor:pointer;font-size:14px;margin-right:4px;" title="${isCast?'슬롯 복원':'시전 (소모)'}">\uD83D\uDD25</span>`;
+          const dur = (spellData && spellData.duration) ? spellData.duration : '—';
+          const rng = (spellData && spellData.range) ? spellData.range : '—';
           row.innerHTML = `
-            ${fireIcon}<span class="spell-slot-name" onclick="toggleSpellInline(this,'${String(name).replace(/'/g,"\\'")}')">${iconImg('spell', spellData||{name})}${(typeof spellDisplay==='function')?spellDisplay(name):name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}${isCast ? ' <span style="font-size:9px;color:var(--text2);">(시전됨)</span>' : ''}</span>`;
+            <span class="spell-cast-label${isCast?' cast-used':''}" onclick="togglePreparedCast(${r},${i})" title="${isCast?'슬롯 복원':'시전 (소모)'}">시전</span>
+            <span class="spell-slot-name" onclick="toggleSpellInline(this,'${String(name).replace(/'/g,"\\'")}')">${iconImg('spell', spellData||{name})}${(typeof spellDisplay==='function')?spellDisplay(name):name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+            <span class="spell-slot-dur">${dur}</span>
+            <span class="spell-slot-range">${rng}</span>
+            <span class="spell-slot-del" onclick="unprepareSlot(${r},${i})" title="준비 해제">✕</span>`;
         } else {
-          row.innerHTML = `<span class="spell-slot-fire used" style="margin-right:4px;opacity:0.35;"></span><span class="spell-slot-name" style="color:var(--text2);font-size:12px;">준비 안 됨</span>`;
+          row.innerHTML = `
+            <span class="spell-cast-label" style="opacity:0.35;">시전</span>
+            <span class="spell-slot-name empty" onclick="openPrepareSpellForSlot(${r},${i})">준비 안 됨</span>
+            <span class="spell-slot-dur"></span>
+            <span class="spell-slot-range"></span>
+            <span style="width:20px;"></span>`;
         }
         section.appendChild(row);
       }
@@ -2198,6 +2259,8 @@ function addFeat(type) {
 }
 
 function renderFeats() {
+  // 재주 탭 제거(v0.282) — 패널이 없으면 no-op. 여러 곳에서 호출되므로 안전 가드.
+  if (!document.getElementById('feats-special')) return;
   // 유산 표시 — 아코디언
   const herDisplay = document.getElementById('heritage-display');
   if (herDisplay) {
@@ -3685,14 +3748,14 @@ const BARDING_DB = [
 let COMPANION_DB = [];
 function _loadCompanions() {
   if (COMPANION_DB.length) return;
-  fetch('data/derived/companions.json?v=0.257').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/companions.json?v=0.284').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
   }).catch(() => {});
 }
 // 상태이상 카탈로그(파생 단일소스) 선로딩. 표시·조회용 → 로드 후 이미 그려진 상태이상 그리드 소급 재렌더(buildConditions).
 function _loadConditions() {
   if (typeof CONDITIONS_DATA !== 'undefined' && CONDITIONS_DATA.length) return;
-  fetch('data/derived/conditions.json?v=0.257').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/conditions.json?v=0.284').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) {
       CONDITIONS_DATA = j.rows;
       try { if (typeof buildConditions === 'function' && document.getElementById('conditions-grid')) buildConditions(); } catch (e) {}
@@ -4440,13 +4503,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.257'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.257'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.284'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.284'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.257'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.284'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}
