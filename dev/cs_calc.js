@@ -656,7 +656,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.261').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.262').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -1568,7 +1568,7 @@ function renderBoostModal() {
   const container = document.getElementById('modal-options');
   container.innerHTML = '';
 
-  // 현재 수정치 요약 바
+  // 현재 수정치 요약 바(상단)
   const bar = document.createElement('div');
   bar.className = 'boost-summary-bar';
   ATTRS.forEach(a => {
@@ -1580,143 +1580,147 @@ function renderBoostModal() {
   });
   container.appendChild(bar);
 
-  const info = document.createElement('div');
-  info.style.cssText = 'font-size:10px;color:var(--text2);margin-bottom:8px;';
-  info.textContent = '증강: 수정치 +1 (이미 +4 이상이면 ½ 표시 → 2개 = +1). 결함: -1. 같은 출처에서 동일 속성 중복 불가.';
-  container.appendChild(info);
+  let html = '';
 
-  // 혈통 섹션
+  // ── 혈통 증강 (고정=readonly, 자유=드롭다운, 결함=− 행) ──
   if (state.selectedAncestry) {
     const anc = state.selectedAncestry;
-    const fixedKeys = state.boosts.ancFixed;
-    const flawKeys = state.boosts.ancFlaw;
+    const fixed = state.boosts.ancFixed || [];
+    const flaws = state.boosts.ancFlaw || [];
     const freeCount = anc.free_boosts || 0;
-    const unavailForFree = [...fixedKeys, ...flawKeys];
-
-    const desc = `고정: ${fixedKeys.map(k=>ATTR_KO[k]).join(', ')||'없음'}
-      ${flawKeys.length?` | 결함: ${flawKeys.map(k=>ATTR_KO[k]).join(', ')}`:''}
-      | 자유 ${freeCount}개 선택 (고정/결함 속성 제외)`;
-    container.appendChild(makeBoostSection('혈통 자유 증강 — '+anc.name, desc,
-      'ancFree', freeCount, ATTRS.filter(a=>!unavailForFree.includes(a)), state.boosts.ancFree));
+    const ancChoice = (anc.boost_choices && anc.boost_choices[0]) || null;  // 드문 택1 풀(반요정 등)
+    const baseExcl = [...fixed, ...flaws];
+    let rows = '';
+    fixed.forEach(a => { rows += _boostFixedRow(a); });
+    if (ancChoice && ancChoice.length) {
+      rows += _boostSelectRow('ancFree', 0, ancChoice, state.boosts.ancFree[0], baseExcl);
+    } else {
+      for (let i = 0; i < freeCount; i++) {
+        const others = state.boosts.ancFree.filter((v, idx) => idx !== i);
+        rows += _boostSelectRow('ancFree', i, ATTRS, state.boosts.ancFree[i], [...baseExcl, ...others]);
+      }
+    }
+    flaws.forEach(a => { rows += _boostFixedRow(a, true); });
+    html += _boostSec('혈통 증강 Ancestry Boosts', rows);
   } else {
-    const s = document.createElement('div');
-    s.className = 'boost-section';
-    s.innerHTML = '<div class="boost-section-title">혈통 자유 증강</div><div class="boost-section-desc" style="color:var(--text2);">혈통을 먼저 선택하세요.</div>';
-    container.appendChild(s);
+    html += _boostSec('혈통 증강 Ancestry Boosts', '<div class="boost-pb-empty">혈통을 먼저 선택하세요.</div>');
   }
 
-  // 배경 섹션 — 고정 선택 + 자유 선택 분리
+  // ── 배경 증강 (택1 풀 + 자유, 모두 드롭다운) ──
   {
     const bg = state.selectedBackground;
     if (!bg) {
-      const s = document.createElement('div');
-      s.className = 'boost-section';
-      s.innerHTML = '<div class="boost-section-title">배경 증강</div><div class="boost-section-desc" style="color:var(--text2);">배경을 먼저 선택하세요.</div>';
-      container.appendChild(s);
+      html += _boostSec('배경 증강 Background Boosts', '<div class="boost-pb-empty">배경을 먼저 선택하세요.</div>');
     } else {
       const beff = getBackgroundEffects(bg);
-      const choices = beff.boost_choices || [];
+      const choiceGroup = (beff.boost_choices || [])[0];
       const freeCount = beff.free_boosts || 0;
-      const choiceGroup = choices[0];  // 보통 그룹 1개
-
-      if (choiceGroup && choiceGroup.length > 0) {
-        if (!state.boosts.bgFixed) state.boosts.bgFixed = [];
-        if (!state.boosts.bgFree) state.boosts.bgFree = [];
-        state.boosts.bg = [...state.boosts.bgFixed, ...state.boosts.bgFree];
-
-        const groupLabel = choiceGroup.map(k => ATTR_KO[k]).join(' 또는 ');
-        container.appendChild(makeBoostSection(
-          `배경 고정 증강 — ${groupLabel}`, `배경: ${bg.name}`,
-          'bgFixed', 1, choiceGroup, state.boosts.bgFixed));
-
-        if (freeCount > 0) {
-          const freeAvail = ATTRS.filter(a => !state.boosts.bgFixed.includes(a));
-          container.appendChild(makeBoostSection(
-            `배경 자유 증강 (다른 속성 ${freeCount}개)`, '고정 증강와 다른 속성을 선택하세요.',
-            'bgFree', freeCount, freeAvail, state.boosts.bgFree));
+      if (!state.boosts.bgFixed) state.boosts.bgFixed = [];
+      if (!state.boosts.bgFree) state.boosts.bgFree = [];
+      let rows = '';
+      if (choiceGroup && choiceGroup.length) {
+        rows += _boostSelectRow('bgFixed', 0, choiceGroup, state.boosts.bgFixed[0], []);
+        for (let i = 0; i < freeCount; i++) {
+          const others = state.boosts.bgFree.filter((v, idx) => idx !== i);
+          rows += _boostSelectRow('bgFree', i, ATTRS, state.boosts.bgFree[i], [...state.boosts.bgFixed, ...others]);
         }
       } else if (freeCount > 0) {
-        // 선택 그룹 없이 자유만 (예: 자유 2개)
-        container.appendChild(makeBoostSection(`배경 증강 (자유 ${freeCount}개, 서로 다른 속성)`,
-          `배경: ${bg.name}`, 'bg', freeCount, ATTRS, state.boosts.bg));
+        for (let i = 0; i < freeCount; i++) {
+          const others = state.boosts.bg.filter((v, idx) => idx !== i);
+          rows += _boostSelectRow('bg', i, ATTRS, state.boosts.bg[i], [...others]);
+        }
       }
+      state.boosts.bg = [...state.boosts.bgFixed, ...state.boosts.bgFree];
+      html += _boostSec('배경 증강 Background Boosts', rows || '<div class="boost-pb-empty">이 배경은 능력치 증강이 없습니다.</div>');
     }
   }
 
-  // 클래스 섹션
+  // ── 클래스 증강 (핵심 속성: 1개=readonly, 선택형=드롭다운) ──
   {
     const cls = state.selectedClass;
-    const _effKeys = getEffectiveClassKeyAttrs();   // 클래스 ∪ 서브클래스 확장(로그 수법 등)
-    const keyAttrsKo = cls ? _effKeys.map(k => ATTR_KO[k]).join(' 또는 ') : '';
-    const clsDesc = cls
-      ? `클래스: ${cls.name} — 핵심 속성: ${keyAttrsKo}`
-      : '클래스를 선택하면 자동 설정됩니다.';
-    const clsKey = state.boosts.cls;
-    const sec = document.createElement('div');
-    sec.className = 'boost-section';
-    sec.innerHTML = `<div class="boost-section-title">클래스 핵심 속성 (자동)</div>
-      <div class="boost-section-desc">${clsDesc}</div>
-      <div class="boost-radio-group">${ATTRS.map(a=>`
-        <label class="${clsKey===a?'selected fixed':'fixed'}">
-          <span>${ATTR_KO[a]}</span>${clsKey===a?' ✓':''}
-        </label>`).join('')}
-      </div>`;
-    // 클래스 선택 가능하면 (근력/민첩 선택형, 또는 로그 수법이 핵심 능력치 추가)
-    if (cls) {
-      const keys = _effKeys;
+    if (!cls) {
+      html += _boostSec('클래스 증강 Class Boost', '<div class="boost-pb-empty">클래스를 먼저 선택하세요.</div>');
+    } else {
+      const keys = getEffectiveClassKeyAttrs();   // 클래스 ∪ 서브클래스 확장(로그 수법 등)
+      let rows = '';
       if (keys.length > 1) {
-        sec.innerHTML = `<div class="boost-section-title">클래스 핵심 속성 선택</div>
-          <div class="boost-section-desc">${cls.name}: ${keyAttrsKo} 중 선택</div>
-          <div class="boost-radio-group">${keys.map(a=>`
-            <label class="${state.boosts.cls===a?'selected':''}" onclick="setClassKey('${a}')">
-              ${ATTR_KO[a]}${state.boosts.cls===a?' ✓':''}
-            </label>`).join('')}
-          </div>`;
+        rows += _boostSelectRow('__clsKey', 0, keys, state.boosts.cls, []);
+      } else {
+        const k = keys[0] || state.boosts.cls;
+        if (k && state.boosts.cls !== k) state.boosts.cls = k;   // 단일 핵심속성 자동 확정
+        rows += _boostFixedRow(k);
       }
+      html += _boostSec('클래스 증강 Class Boost', rows);
     }
-    container.appendChild(sec);
   }
 
-  // 레벨별 자유 증강
+  container.insertAdjacentHTML('beforeend', html);
+
+  // ── 자유 증강(레벨별 4개, 체크박스 + 카운터) ──
   const lv = getLevel();
   [[1,'lv1'],[5,'lv5'],[10,'lv10'],[15,'lv15'],[20,'lv20']].forEach(([reqLv, key]) => {
     if (lv < reqLv) return;
-    container.appendChild(makeBoostSection(
-      `레벨 ${reqLv} 자유 증강 (4개, 서로 다른 속성)`,
-      '4개를 서로 다른 속성에 배분하세요.',
-      key, 4, ATTRS, state.boosts[key]));
+    container.appendChild(_boostFreeSection(reqLv, key, ATTRS));
   });
 }
 
-function makeBoostSection(title, desc, stateKey, maxCount, allowedAttrs, currentArr) {
+// ── Pathbuilder식 능력치 증강 모달 헬퍼 (v0.262~) ──
+function _boostSec(title, rowsHtml) {
+  return `<div class="boost-pb-sec"><div class="boost-pb-title">${title}</div>${rowsHtml}</div>`;
+}
+// 고정 증강/결함 행 (+ 원 아이콘 + 속성명)
+function _boostFixedRow(attr, isFlaw) {
+  if (!attr) return '';
+  return `<div class="boost-pb-row ${isFlaw ? 'boost-pb-flaw' : ''}">
+    <span class="boost-plus ${isFlaw ? 'minus' : ''}"></span>
+    <span class="boost-pb-fixed">${ATTR_KO[attr]}</span></div>`;
+}
+// 드롭다운 행. key=state.boosts 키, idx=슬롯, opts=선택가능 속성, cur=현재값, excluded=제외(disabled)
+function _boostSelectRow(key, idx, opts, cur, excluded) {
+  const options = ['<option value="">— 선택 —</option>'].concat(opts.map(a => {
+    const dis = excluded.includes(a) && a !== cur;
+    return `<option value="${a}" ${a === cur ? 'selected' : ''} ${dis ? 'disabled' : ''}>${ATTR_KO[a]}</option>`;
+  })).join('');
+  return `<div class="boost-pb-row">
+    <span class="boost-plus"></span>
+    <select class="boost-pb-select" onchange="_onBoostSelect('${key}',${idx},this.value)">${options}</select></div>`;
+}
+// 자유 증강 섹션 (체크박스 그리드 + 남은 개수 카운터)
+function _boostFreeSection(reqLv, key, ATTRS) {
   const sec = document.createElement('div');
-  sec.className = 'boost-section';
-  const chosen = currentArr.filter(a=>allowedAttrs.includes(a)).length;
-  sec.innerHTML = `<div class="boost-section-title">${title}</div>
-    <div class="boost-section-desc">${desc}<br>선택됨: <strong>${chosen}/${maxCount}</strong></div>
-    <div class="boost-radio-group" id="bg-${stateKey}"></div>`;
-  const grp = sec.querySelector(`#bg-${stateKey}`);
-  allowedAttrs.forEach(a => {
-    const lbl = document.createElement('label');
-    const isSelected = currentArr.includes(a);
-    lbl.className = isSelected ? 'selected' : '';
-    lbl.innerHTML = `${ATTR_KO[a]}${isSelected?' ✓':''}`;
-    lbl.onclick = () => {
-      if (currentArr.includes(a)) {
-        currentArr.splice(currentArr.indexOf(a), 1);
-      } else {
-        if (currentArr.length >= maxCount) return;
-        currentArr.push(a);
-      }
-      recalcAll(); save(); renderBoostModal();
-    };
-    grp.appendChild(lbl);
+  sec.className = 'boost-pb-sec';
+  const arr = state.boosts[key];
+  const chosen = arr.filter(a => ATTRS.includes(a)).length;
+  const remain = 4 - chosen;
+  const title = reqLv === 1 ? '자유 증강 Free Boosts' : `레벨 ${reqLv} 자유 증강 Free Boosts`;
+  let items = '';
+  ATTRS.forEach(a => {
+    const on = arr.includes(a);
+    const full = chosen >= 4 && !on;
+    const { mod, partial } = calcMod(a);
+    items += `<div class="boost-free-item ${on ? 'on' : ''} ${full ? 'disabled' : ''}" onclick="${full ? '' : `_onBoostFree('${key}','${a}')`}">
+      <span class="boost-free-box"></span>
+      <span class="boost-free-abbr">${ATTR_KO[a]}</span>
+      <span class="boost-free-val">${fmtBonus(mod)}${partial ? '½' : ''}</span></div>`;
   });
+  sec.innerHTML = `<div class="boost-free-head"><div class="boost-pb-title" style="margin:0;">${title}</div>
+    <span class="boost-counter ${remain <= 0 ? 'done' : ''}">${remain}</span></div>
+    <div class="boost-free-grid">${items}</div>`;
   return sec;
 }
-
-function setClassKey(a) {
-  state.boosts.cls = a;
+function _onBoostSelect(key, idx, val) {
+  if (key === '__clsKey') { state.boosts.cls = val; recalcAll(); save(); renderBoostModal(); return; }
+  const arr = state.boosts[key];
+  if (val) arr[idx] = val; else arr.splice(idx, 1);
+  state.boosts[key] = arr.filter((v, i) => v && arr.indexOf(v) === i);
+  if (key === 'bgFixed' || key === 'bgFree') state.boosts.bg = [...(state.boosts.bgFixed || []), ...(state.boosts.bgFree || [])];
+  recalcAll(); save(); renderBoostModal();
+}
+function _onBoostFree(key, a) {
+  const arr = state.boosts[key];
+  const i = arr.indexOf(a);
+  if (i >= 0) arr.splice(i, 1);
+  else { if (arr.filter(x => x).length >= 4) return; arr.push(a); }
   recalcAll(); save(); renderBoostModal();
 }
 

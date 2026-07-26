@@ -1657,9 +1657,9 @@ function growthPickSkillTrainingMulti() {
   const alreadySelected = trainArr.filter(v => v);
 
   document.getElementById('modal-overlay').classList.remove('hidden');
-  document.getElementById('modal-title').textContent = `추가 기술 숙련 선택 (${alreadySelected.length}/${numSlots})`;
+  document.getElementById('modal-title').textContent = `남은 기술 선택: ${Math.max(0, numSlots - alreadySelected.length)}`;
   const searchEl = document.getElementById('modal-search');
-  if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; }
+  if (searchEl) { searchEl.style.display = 'none'; searchEl.value = ''; }
   const fbar = document.getElementById('modal-filterbar');
   if (fbar) fbar.innerHTML = '';
   const confirmBtn = document.querySelector('.btn-confirm');
@@ -1670,7 +1670,7 @@ function growthPickSkillTrainingMulti() {
   const container = document.getElementById('modal-options');
   const detail = document.getElementById('modal-detail');
   container.innerHTML = '';
-  if (detail) detail.innerHTML = `<div class="modal-detail-empty">${numSlots}개의 기술을 선택하세요.<br>이미 훈련된 기술은 선택할 수 없습니다.</div>`;
+  if (detail) detail.innerHTML = `<div class="modal-detail-empty">훈련할 기술을 선택하세요.<br>이미 다른 곳에서 훈련된 기술은 선택할 수 없습니다.</div>`;
 
   const available = getAvailableSkillsForTraining(-1, []);
 
@@ -1678,29 +1678,31 @@ function growthPickSkillTrainingMulti() {
     const isAvail = available.includes(sk.id);
     const isSelected = alreadySelected.includes(sk.id);
     const isFull = alreadySelected.length >= numSlots && !isSelected;
+    const locked = !isAvail && !isSelected;   // 다른 출처로 이미 훈련됨(선택 불가)
+    const p = _skillRowParts(sk);
     const row = document.createElement('div');
-    row.className = 'opt-row' + (isSelected ? ' selected' : '');
-    if (!isAvail && !isSelected) row.style.opacity = '0.4';
+    row.className = 'skrow' + (isSelected ? ' selected' : '') + (locked ? ' trained' : '')
+      + ((isFull && !isSelected && !locked) ? ' disabled' : '');
     row.innerHTML = `
-      <div class="opt-row-icon">${isSelected ? '✓' : '📖'}</div>
-      <span class="opt-row-name">${sk.name} <span style="color:var(--text2);font-size:11px;">${sk.en}</span></span>
-      <span style="font-size:10px;color:var(--text2);margin-right:4px;">${getSkillRankLabel(sk.id)}</span>`;
+      <div class="skrow-name">${sk.name} <span class="en">${sk.en}</span> <span class="skrow-total">${fmtBonus(p.total)}</span></div>
+      <div class="skrow-teml">${_skillTemlHtml(p.rank)}</div>
+      <div class="skrow-cols">
+        <div class="skcol"><span class="skcol-h">${ATTR_KO[sk.attr]}</span><span class="skcol-v">${fmtBonus(p.attrMod)}</span></div>
+        <div class="skcol"><span class="skcol-h">숙련</span><span class="skcol-v">${p.prof}</span></div>
+        <div class="skcol"><span class="skcol-h">장비</span><span class="skcol-v">${p.item}</span></div>
+      </div>`;
 
-    if (isAvail || isSelected) {
-      row.style.cursor = 'pointer';
+    if (!locked && !isFull) {
       row.onclick = () => {
         if (isSelected) {
-          // Deselect
           const idx = trainArr.indexOf(sk.id);
           if (idx >= 0) growthSkillTrainingChanged(idx, '');
-          growthPickSkillTrainingMulti(); // Re-render modal
-        } else if (!isFull) {
-          // Select: find empty slot
+        } else {
           let emptyIdx = trainArr.findIndex(v => !v);
           if (emptyIdx < 0) emptyIdx = trainArr.length;
           growthSkillTrainingChanged(emptyIdx, sk.id);
-          growthPickSkillTrainingMulti(); // Re-render modal
         }
+        growthPickSkillTrainingMulti(); // Re-render modal
       };
     }
     container.appendChild(row);
@@ -1708,6 +1710,22 @@ function growthPickSkillTrainingMulti() {
 
   const listEl = document.querySelector('.modal-list');
   if (listEl) listEl.style.display = '';
+}
+
+// ── Pathbuilder식 기술 행 헬퍼 (v0.262~) ──
+// 현재 숙련 등급(0/2/4/6/8) → TEML 배지 4개(현재 등급 하나만 강조)
+function _skillTemlHtml(rank) {
+  const map = { 2: 't', 4: 'e', 6: 'm', 8: 'l' };
+  return ['t', 'e', 'm', 'l'].map(c => `<span class="teml ${c} ${map[rank] === c ? 'on' : ''}">${c.toUpperCase()}</span>`).join('');
+}
+// 기술 계산 구성요소(능력치 수정치·숙련 보너스·장비·합계) — recalcSkill과 동일 식(getMod+rankBonus) 재사용
+function _skillRowParts(sk) {
+  const rank = (typeof getSkillRank === 'function') ? getSkillRank(sk.id) : 0;
+  const lv = (typeof getLevel === 'function') ? getLevel() : 1;
+  const attrMod = (typeof getMod === 'function') ? getMod(sk.attr) : 0;
+  const prof = (typeof rankBonus === 'function') ? rankBonus(rank, lv) : 0;
+  const item = 0;   // 기술 장비 보너스는 현재 모델에서 별도 추적 안 함
+  return { rank, attrMod, prof, item, total: attrMod + prof + item };
 }
 
 function growthPickSkillIncrease(lv) {
@@ -5924,7 +5942,7 @@ function applyClassDefaults(cls) {
   initArmorProfBadges();
   renderArmorCard();
 
-  // 핵심 능력치: 단일 고정이면 자동 설정, OR이면 사용자 선택 대기 (모달에서 setClassKey)
+  // 핵심 능력치: 단일 고정이면 자동 설정, OR이면 사용자 선택 대기 (능력치 증강 모달 드롭다운에서 선택)
   const keys = cls.key_attrs || [];
   if (keys.length === 1) state.boosts.cls = keys[0];
   // 길이 2+ (OR)는 기존 선택 보존 또는 빈 상태로 둠 (renderBoostModal에서 사용자 선택)

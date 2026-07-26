@@ -36,6 +36,34 @@
 <input type="hidden" id="f-level" value="1">
 <div id="growth-plan"></div>
 <div id="growth-plan-mobile"></div>
+
+<!-- 모달 셸(index.html 복제) — ?modal=boost|skill 로 해당 모달 렌더 확인 -->
+<div class="modal-overlay hidden" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header" id="modal-header-bar">
+      <h2 id="modal-title" style="flex:1;">선택</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button id="modal-close-m" class="modal-close-mobile" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <div class="modal-list">
+        <div class="modal-list-header">
+          <input class="modal-search" id="modal-search" placeholder="검색..." oninput="filterOptions()">
+          <div class="modal-filters" id="modal-filterbar"></div>
+        </div>
+        <div class="modal-list-items" id="modal-options"></div>
+      </div>
+      <div class="modal-detail" id="modal-detail">
+        <div class="modal-detail-empty">항목을 선택하면 상세 정보가 표시됩니다.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" onclick="closeModal()">닫기</button>
+      <button class="btn btn-confirm" onclick="confirmModal()">선택</button>
+    </div>
+  </div>
+</div>
+
 <div id="boot-status" style="color:#fff;font:12px monospace;padding:8px;"></div>
 <script>
 (async function(){
@@ -59,7 +87,11 @@
     var lvEl2 = document.getElementById('f-level'); if (lvEl2) lvEl2.value = lvl;
     if (typeof PF2eClass !== 'undefined' && PF2eClass.getClassLegacy) state.selectedClass = PF2eClass.getClassLegacy(clsId);
     if (typeof PF2eAnc !== 'undefined') { try { state.selectedAncestry = PF2eAnc.getAncestryLegacy('human'); } catch(e){} }
-    if (typeof PF2eBg !== 'undefined') { try { var bgs = PF2eBg.list ? PF2eBg.list() : null; if (bgs && bgs.length) state.selectedBackground = PF2eBg.getBackgroundLegacy(bgs[0].id); } catch(e){} }
+    if (typeof PF2eBg !== 'undefined') { try {
+      var _bg = PF2eBg.getBackgroundLegacy('acolyte') || PF2eBg.getBackgroundLegacy('acrobat');
+      if (!_bg) { var bgs = PF2eBg.backgroundList ? PF2eBg.backgroundList() : (PF2eBg.list ? PF2eBg.list() : []); _bg = (bgs && bgs.length) ? bgs[0] : null; }
+      if (_bg) state.selectedBackground = _bg;
+    } catch(e){ log('bgErr:'+e.message); } }
     // 신격: 목록에서 성별화 2택 + 폰트 있는 것 하나
     try {
       var dl = (typeof _allDeities === 'function') ? _allDeities() : (typeof PF2eDeity !== 'undefined' && PF2eDeity.list ? PF2eDeity.list() : []);
@@ -78,10 +110,28 @@
     } catch(e){}
     log('cls:'+(state.selectedClass?state.selectedClass.id:'none')+' deity:'+state.deity);
 
+    // 3a) 기술 훈련 미리선택(검증용): ?trainpick=acrobatics,arcana
+    var _tp = Q.get('trainpick');
+    if (_tp) { state.growth[1] = state.growth[1] || {}; state.growth[1].skillTraining = _tp.split(','); }
+
+    // 3b) 기술 숙련 DOM(sk-prof-*) 주입 — 기술 모달이 참조. recalcAll이 훈련값 기록.
+    if (typeof SKILLS !== 'undefined') {
+      var skHost = document.createElement('div'); skHost.style.display = 'none';
+      skHost.innerHTML = SKILLS.map(function(s){ return '<select id="sk-prof-'+s.id+'"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select><span id="sk-val-'+s.id+'"></span>'; }).join('');
+      document.body.appendChild(skHost);
+    }
+
     // 4) 유효성 판정 + 렌더
     if (typeof _resolveChoiceValidity === 'function') _resolveChoiceValidity();
+    try { if (typeof recalcAll === 'function') recalcAll(); log('recalc'); } catch(e){ log('recalcErr:'+e.message); }
     if (typeof renderGrowthPlan === 'function') renderGrowthPlan();
     log('rendered');
+
+    // 5) 모달 렌더(옵션): ?modal=boost | skill
+    var modal = Q.get('modal');
+    if (modal === 'boost' && typeof openBoostModal === 'function') { openBoostModal(); log('boostModal'); }
+    else if (modal === 'skill' && typeof growthPickSkillTrainingMulti === 'function') { growthPickSkillTrainingMulti(); log('skillModal'); }
+
     document.title = 'READY';
   } catch(e){ log('ERR:'+e.message); document.title = 'ERR:'+e.message; console.error(e); }
 })();

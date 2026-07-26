@@ -15,7 +15,7 @@ SRV=$!
 sleep 1.5
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 "$CHROME" --headless=new --disable-gpu --no-sandbox --hide-scrollbars \
-  --window-size=400,3600 --virtual-time-budget=20000 \
+  --window-size=500,3600 --virtual-time-budget=20000 \
   --screenshot="$OUT" "http://localhost:$PORT/_rendertest.html$QUERY" 2>/tmp/rt_chrome.log || true
 kill $SRV 2>/dev/null || true
 echo "$OUT"
