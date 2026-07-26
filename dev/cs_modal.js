@@ -981,15 +981,26 @@ function openSanctPicker() {
 }
 function clearSanctification() { state.sanctification = null; renderGrowthPlan(); save(); }
 
-// 교리(서브클래스) 독립 피커 — 성장플랜 교리 슬롯에서 사용(클래스 모달 밖).
+// 클래스의 서브클래스 유형 라벨(교리·비전 학파·혈통·본능·교단·수법·뮤즈·사냥 방식·원인·후원자·신비·스타일·방법론·연구 분야).
+//   SUBCLASS_DB.subclass_type 단일소스. 서브클래스 없는 클래스(파이터·몽크)는 null.
+function _classSubclassLabel(cls) {
+  if (!cls || typeof SUBCLASS_DB === 'undefined') return null;
+  const s = SUBCLASS_DB.find(x => x.class_id === cls.id);
+  return s ? (s.subclass_type || '서브클래스') : null;
+}
+
+// 서브클래스(정체성) 독립 피커 — 성장플랜 정체성 슬롯에서 사용(클래스 모달 밖). 전 클래스 공용(라벨=subclass_type).
+//   구 명칭 openDoctrinePicker 유지(클레릭 교리 필드 호환). 클레릭 교리·위저드 학파·주술사 혈통… 동일 경로.
 function openDoctrinePicker() {
-  const cid = state.selectedClass && state.selectedClass.id;
-  const doctrines = (typeof SUBCLASS_DB !== 'undefined' && cid) ? SUBCLASS_DB.filter(s => s.class_id === cid) : [];
-  if (!doctrines.length) return;
+  const cls = state.selectedClass;
+  const cid = cls && cls.id;
+  const subs = (typeof SUBCLASS_DB !== 'undefined' && cid) ? SUBCLASS_DB.filter(s => s.class_id === cid) : [];
+  if (!subs.length) return;
+  const label = (subs[0] && subs[0].subclass_type) || '서브클래스';
   _openChoicePicker({
-    title: '교리 선택', modalType: 'doctrine-pick', source: 'PC1',
-    hint: '교리를 선택하면 그 교리의 혜택 설명이 표시됩니다.',
-    options: doctrines.map(s => ({ id: s.id, name: s.name_ko, nameEn: s.name_en || '', desc: s.desc || '' })),
+    title: `${label} 선택`, modalType: 'doctrine-pick', source: null,
+    hint: '선택하면 혜택 설명이 표시됩니다.',
+    options: subs.map(s => ({ id: s.id, name: s.name_ko, nameEn: s.name_en || '', desc: s.desc || '' })),
     current: state.selectedSubclass && state.selectedSubclass.id,
     onSelect: (id) => pickDoctrine(id),
   });
@@ -1477,6 +1488,17 @@ function renderGrowthPlan() {
       }
       // 언어/후원자 전통은 각 모달에서 처리
 
+      // 정체성(서브클래스) 선택 필드 — 클레릭 교리와 동일 패턴을 서브클래스 보유 전 클래스로 확대(v0.280).
+      //   deity_skill(클레릭)은 위에서 교리로 이미 처리 → 제외. 라벨=클래스 subclass_type(비전 학파·혈통·본능·교단…).
+      //   서브클래스 없는 클래스(파이터·몽크)는 _scLabel=null → 미표시.
+      if (state.selectedClass && !state.selectedClass.deity_skill) {
+        const _scLabel = _classSubclassLabel(state.selectedClass);
+        if (_scLabel) {
+          const _csub = (state.selectedSubclass && state.selectedSubclass.class_id === state.selectedClass.id) ? state.selectedSubclass : null;
+          html += _growthFieldHTML('🎭', _scLabel, _csub ? (_csub.name_ko || _csub.name_en) : '', false,
+            "openDoctrinePicker()", _csub ? "clearDoctrine()" : null);
+        }
+      }
     }
 
     // 능력치 증강·기술 증가는 위 기어 행으로 이관됨.
