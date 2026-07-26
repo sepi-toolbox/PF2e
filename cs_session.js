@@ -290,14 +290,29 @@ function sessionSaveNow() {
     });
 }
 
+// 시트 로딩 오버레이 — 전체화면 부트 오버레이(구르는 d20 + 문구) 재사용.
+// GM 시트 전환/세션 캐릭터 로드 중 빈 시트가 보이던 것을 화면 덮어 가림(사용자 지정). 무한대기 안전망 포함.
+var _sheetLoadTimer = null;
+function _sheetLoadingShow() {
+  if (typeof _showBootLoading === 'function') _showBootLoading();
+  if (_sheetLoadTimer) clearTimeout(_sheetLoadTimer);
+  _sheetLoadTimer = setTimeout(_sheetLoadingHide, 20000);   // 네트워크 지연 무한대기 방지
+}
+function _sheetLoadingHide() {
+  if (_sheetLoadTimer) { clearTimeout(_sheetLoadTimer); _sheetLoadTimer = null; }
+  if (typeof _hideBootLoading === 'function') _hideBootLoading();
+}
+
 function loadSessionCharacter(uid) {
   const st = document.getElementById('save-status');
   if (st) { st.textContent = '불러오는 중...'; st.style.color = 'var(--accent)'; }
+  _sheetLoadingShow();   // 화면 덮는 로딩 연출 — 로드 완료(성공/빈/실패) 시 해제
   // 세션 players map에서 해당 플레이어의 슬롯 확인
   const slotId = _currentSession.players[uid]?.slotId;
   if (!slotId) {
     if (st) { st.textContent = '슬롯 미지정'; st.style.color = 'var(--text2)'; }
     _cloudResolved = true; _checkReady();
+    _sheetLoadingHide();
     return;
   }
   db.collection('users').doc(uid)
@@ -319,7 +334,7 @@ function loadSessionCharacter(uid) {
       console.error('[loadSessionChar]', e);
       if (st) { st.textContent = '로드 실패'; st.style.color = 'var(--red-light)'; }
       _cloudResolved = true; _checkReady();
-    });
+    }).then(_sheetLoadingHide, _sheetLoadingHide);   // finally: 어떤 경우에도 오버레이 해제
 }
 
 // 모든 UI 재구축 (loadFromCloud와 동일 패턴)
