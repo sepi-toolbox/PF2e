@@ -4171,7 +4171,8 @@ function showItemDetail(item) {
   // ── 클래스/배경/혈통: 초기 선택 UI 포함 상세 패널 ──
   if ((modalType === 'class' || modalType === 'background' || modalType === 'ancestry') && _buildInitialChoicesUI) {
     const choicesHtml = _buildInitialChoicesUI(modalType, item);
-    if (choicesHtml) {
+    // 혈통은 선택 UI가 없어도(빈 choicesHtml) 스탯블록+확정 버튼을 렌더한다.
+    if (choicesHtml || modalType === 'ancestry') {
       const shortDesc = modalType === 'background'
         ? (item.desc || '').replace(/\s*속성 증강:.*$/, '')
         : (item.desc || '').split('<br><strong>')[0]; // 첫 단락만
@@ -5437,54 +5438,19 @@ function _buildBackgroundChoicesUI(bg) {
   return html;
 }
 
-// ── 혈통 모달: 언어 선택 ──
+// ── 혈통 모달: 언어 선택 UI 제거(v0.293) ──
+//   언어(고정+추가)는 시트 본문 「언어」 섹션(renderLanguages/addLanguage)에서 관리한다.
+//   여기선 확정 커밋을 위해 _modalChoices만 세팅(고정 언어 + 기존 저장 보너스 보존)하고 UI는 렌더하지 않음.
+//   언어 요약은 상단 스탯블록 _ancestryStatBlockHtml이 읽기전용으로 표시.
 function _buildAncestryChoicesUI(anc) {
   const fixedLangs = anc.languages || ['common'];
-  // PF2e Remaster 룰: 인간 1 + INT, 나머지 INT만 (v528~ ANCESTRIES.bonusLangs 데이터 사용)
-  const bonusBase = anc.bonusLangs ?? 0;
-  _modalChoices = { type: 'ancestry', fixedLangs, bonusBase, bonusLangs: Array(bonusBase).fill('') };
-
-  // ── 이전 선택값 복원: state.languages에서 고정 언어를 제외한 나머지가 보너스 언어 ──
+  let savedBonus = [];
   if (state.selectedAncestry?.id === anc.id && state.languages?.length) {
     const fixedSet = new Set(fixedLangs);
-    const savedBonus = state.languages.filter(l => !fixedSet.has(l));
-    for (let i = 0; i < savedBonus.length; i++) {
-      if (i < _modalChoices.bonusLangs.length) {
-        _modalChoices.bonusLangs[i] = savedBonus[i];
-      } else {
-        _modalChoices.bonusLangs.push(savedBonus[i]);
-      }
-    }
+    savedBonus = state.languages.filter(l => !fixedSet.has(l));   // 고정 제외 = 이전에 시트에서 추가한 언어
   }
-
-  let html = `<div style="border:1px solid var(--border);border-radius:6px;padding:10px;margin-top:6px;">`;
-  html += `<div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;">🗣 언어</div>`;
-
-  // 고정 언어 (disabled) — id로 저장, 라벨은 한글 표시
-  fixedLangs.forEach(langId => {
-    const ko = (typeof getLanguageKo === 'function') ? getLanguageKo(langId) : langId;
-    html += _choiceDropdown('', `기본 언어`, [{value: langId, label: ko}], true, langId);
-  });
-
-  // 추가 언어 (active + "+" 버튼)
-  const bonusLabel = bonusBase > 0
-    ? `추가 언어 (기본 ${bonusBase}개 + INT 수정치, + 버튼으로 추가)`
-    : `추가 언어 (INT 수정치만큼, + 버튼으로 추가)`;
-  html += `<div style="font-size:10px;color:var(--text2);margin:8px 0 4px;">${bonusLabel}</div>`;
-  html += `<div id="anc-bonus-langs">`;
-  const bonusCount = Math.max(bonusBase, _modalChoices.bonusLangs.length);
-  for (let i = 0; i < bonusCount; i++) {
-    html += _buildBonusLangRow(i, fixedLangs);
-  }
-  html += `</div>`;
-  html += `<div style="text-align:center;margin-top:4px;">
-    <button onclick="_addBonusLang()" style="padding:4px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--accent);cursor:pointer;font-size:12px;">＋ 추가</button>
-    <span style="font-size:10px;color:var(--text2);margin-left:6px;">INT 수정치만큼 추가 가능</span>
-  </div>`;
-  // (크기/속도/감각 정보는 상단 스탯블록 _ancestryStatBlockHtml이 표시 — 중복 제거)
-
-  html += `</div>`;
-  return html;
+  _modalChoices = { type: 'ancestry', fixedLangs, bonusBase: anc.bonusLangs ?? 0, bonusLangs: savedBonus };
+  return '';   // 선택 UI 없음 — 상세 패널은 스탯블록 + 확정 버튼만
 }
 
 // ── 혈통 구조화 스탯블록 (생명점/크기/이동/능력치 보너스·결함/언어/특수/출처) ──
@@ -5535,7 +5501,8 @@ function _ancestryStatBlockHtml(anc) {
   }
   const srcKo = _pubTitleKo(anc._doc && anc._doc.system && anc._doc.system.publication && anc._doc.system.publication.title);
 
-  let out = `<div style="border:1px solid var(--border);border-radius:6px;padding:11px 12px;margin-bottom:10px;background:var(--bg2);">`;
+  // 콜아웃(박스) 없이 평문 섹션 나열(룰북 스탯블록 형식).
+  let out = `<div style="margin-bottom:8px;">`;
   out += _ancStatSection('생명점 Hit Points', String(anc.hp || 0));
   out += _ancStatSection('크기 Size', anc.size || '중형');
   out += _ancStatSection('이동 속도 Speed', `${anc.speed || 25}피트`);
@@ -5544,8 +5511,8 @@ function _ancestryStatBlockHtml(anc) {
     + (flawParts.length ? `<br><strong>결함</strong> ${flawParts.join(', ')}` : ''));
   out += _ancStatSection('언어 Languages', langText);
   if (specials.length) out += _ancStatSection('특수 Special', specials.join('<br>'));
+  if (srcKo) out += `<div style="font-size:11px;color:var(--text2);font-style:italic;margin-top:4px;">출처: ${srcKo}</div>`;
   out += `</div>`;
-  if (srcKo) out += `<div style="font-size:11px;color:var(--text2);font-style:italic;margin:-4px 0 10px 2px;">출처: ${srcKo}</div>`;
   return out;
 }
 
@@ -5640,9 +5607,7 @@ function _validateInitialChoices() {
   } else if (_modalChoices.type === 'background') {
     if (_modalChoices.hasChoiceSkill && !_modalChoices.choiceSkill) valid = false;
   } else if (_modalChoices.type === 'ancestry') {
-    const langs = _modalChoices.bonusLangs || [];
-    if (langs.some(v => !v)) valid = false;
-    if (langs.length < (_modalChoices.bonusBase || 0)) valid = false;
+    // 혈통은 언어 선택 UI를 제거(언어는 시트 본문에서 관리) → 필수 선택 없음, 항상 확정 가능.
   }
 
   btns.forEach(btn => {
