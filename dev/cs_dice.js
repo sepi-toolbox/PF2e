@@ -486,33 +486,31 @@ const DiceRoller = (() => {
         }
       }
 
-      // 내성 클릭 (val-fort/ref/will) → 숙련 정보 팝업(굴림은 팝업 안 버튼)
-      const saveKeys = { 'val-fort': 'fort', 'val-ref': 'ref', 'val-will': 'will' };
-      for (const [id, key] of Object.entries(saveKeys)) {
-        if (e.target.id === id || e.target.closest('#' + id)) {
-          if (typeof openProfInfo === 'function') openProfInfo('save', key);
-          return;
+      // 입력 필드(지식 이름 등) 클릭은 팝업 대상에서 제외 — 타이핑 방해 방지
+      const _isFormEl = e.target.closest('input,textarea');
+
+      // 내성/지각/클래스 난이도 — 행(.stat-row) 전체 클릭 → 숙련 정보 팝업
+      //   (숫자뿐 아니라 라벨·등급 어디를 눌러도 열림. 해당 val 요소를 가진 행만 대상)
+      if (!_isFormEl) {
+        const statRow = e.target.closest('.stat-row');
+        if (statRow) {
+          const v = statRow.querySelector('#val-fort,#val-ref,#val-will,#val-perc,#val-classdc');
+          if (v && typeof openProfInfo === 'function') {
+            const map = { 'val-fort': ['save', 'fort'], 'val-ref': ['save', 'ref'], 'val-will': ['save', 'will'],
+                          'val-perc': ['perc', 'perc'], 'val-classdc': ['classdc', 'classdc'] };
+            const [kind, sid] = map[v.id];
+            openProfInfo(kind, sid);
+            return;
+          }
         }
-      }
 
-      // 지각 클릭 → 숙련 정보 팝업
-      if (e.target.id === 'val-perc' || e.target.closest('#val-perc')) {
-        if (typeof openProfInfo === 'function') openProfInfo('perc', 'perc');
-        return;
-      }
-
-      // 클래스 난이도 클릭 → 숙련 정보 팝업
-      if (e.target.id === 'val-classdc' || e.target.closest('#val-classdc')) {
-        if (typeof openProfInfo === 'function') openProfInfo('classdc', 'classdc');
-        return;
-      }
-
-      // 기술 클릭 (sk-val-*) → 숙련 정보 팝업
-      if (e.target.classList.contains('skill-total') || e.target.closest('.skill-total')) {
-        const el = e.target.classList.contains('skill-total') ? e.target : e.target.closest('.skill-total');
-        const sid = (el.id || '').replace('sk-val-', '');
-        if (sid && typeof openProfInfo === 'function') openProfInfo('skill', sid);
-        return;
+        // 기술 — 행(.skill-row) 전체 클릭 → 숙련 정보 팝업
+        const skillRow = e.target.closest('.skill-row');
+        if (skillRow) {
+          const sv = skillRow.querySelector('.skill-total');
+          const sid = sv && (sv.id || '').replace('sk-val-', '');
+          if (sid && typeof openProfInfo === 'function') { openProfInfo('skill', sid); return; }
+        }
       }
 
       // 선제 클릭

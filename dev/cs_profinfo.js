@@ -164,8 +164,9 @@
 
   function _doRoll(roll) {
     closeProfInfo();
-    if (typeof DiceRoller !== 'undefined' && DiceRoller.statRoll) {
-      DiceRoller.statRoll(roll.category, roll.label, roll.mod);
+    // 팝업 안 「굴림」 = 즉시 d20 판정(상황보너스 추가 모달 없이 바로 굴림).
+    if (typeof DiceRoller !== 'undefined' && DiceRoller.rollCheck) {
+      DiceRoller.rollCheck(roll.mod || 0, roll.label);
     }
   }
   // Roll 버튼 onclick에서 참조할 임시 저장
