@@ -3877,6 +3877,10 @@ function renderOptions(data) {
     // Action icons — 행동경제 글리프는 cs_ui.getActionIcons 단일 소스로(코드 1/2/3/reaction/free + 한글텍스트 + 범위).
     //   (구: 동일 로직 if-체인 중복. FVTT 재주 actions는 숫자라 getActionIcons가 String()로 안전 처리)
     const actionsHtml = (typeof getActionIcons === 'function') ? getActionIcons(item.actions) : (item.actions ? String(item.actions) : '');
+    // 재주는 이름 옆 행동비용 글리프(featCostGlyph)로 통일 — 빌더 슬롯(growthFeatSlotHTML)과 동일 파생.
+    //   (재주 자체 actionType 우선 → passive면 동일 슬러그 행동 카탈로그 비용 폴백. 원칙#1 단일 소스.)
+    const _isFeatRow = modalType === 'feat';
+    const _featGlyph = (_isFeatRow && typeof featCostGlyph === 'function') ? featCostGlyph(item, item.id || item.slug) : '';
 
     // 전제조건 미달 체크
     let prereqFail = false;
@@ -3889,9 +3893,9 @@ function renderOptions(data) {
     const _ico = _scope && typeof iconImg === 'function' ? iconImg(_scope, item) : '';
     row.innerHTML = `
       ${_ico ? `<div class="opt-row-icon" style="background:none;">${_ico}</div>` : '<div class="opt-row-icon">📄</div>'}
-      <span class="opt-row-name" ${prereqFail ? 'style="opacity:0.5;"' : ''}>${nameKo}</span>
+      <span class="opt-row-name" ${prereqFail ? 'style="opacity:0.5;"' : ''}>${nameKo}${_featGlyph}</span>
       ${prereqFail ? '<span style="font-size:10px;color:#f44336;flex-shrink:0;" title="선행 조건 미충족">⚠</span>' : ''}
-      ${actionsHtml ? `<span class="opt-row-actions">${actionsHtml}</span>` : ''}
+      ${(!_isFeatRow && actionsHtml) ? `<span class="opt-row-actions">${actionsHtml}</span>` : ''}
       ${levelText !== '' ? (
         (modalType === 'equip-browse' && item.price && item.price !== '—')
           ? `<span class="opt-row-price">${typeof priceWithIcons==='function'?priceWithIcons(item.price,14):levelText}</span>`
@@ -3956,18 +3960,26 @@ function selectOption(item, row) {
                <button class="btn-buy" onclick="equipBrowseBuy()" style="flex:1;padding:8px;background:var(--accent-bg);border:1px solid var(--accent);border-radius:4px;color:var(--accent);cursor:pointer;">구매</button>`}
         </div>`;
     } else if ((modalType === 'class' || modalType === 'background' || modalType === 'ancestry') && _buildInitialChoicesUI) {
+      // _buildInitialChoicesUI는 선택 UI가 없어도(빈 '') _modalChoices를 세팅. 데스크톱 showItemDetail과 동일하게
+      // 빈 choicesHtml이어도 스탯블록·설명을 렌더한다(모바일에서 종족/클래스/배경 정보가 안 뜨던 버그 수정).
       const choicesHtml = _buildInitialChoicesUI(modalType, item);
-      if (choicesHtml) {
-        const shortDesc = modalType === 'background'
-          ? (item.desc || '').replace(/\s*속성 증강:.*$/, '')
-          : (item.desc || '').split('<br><strong>')[0];
-        detailHtml = `<div style="font-size:12px;line-height:1.7;color:var(--text2);margin-bottom:8px;">${shortDesc}</div>
-          ${choicesHtml}
-          <button id="modal-confirm-choice" onclick="confirmModal()" disabled
-            style="width:100%;margin-top:10px;padding:10px;background:var(--bg4);color:var(--text2);border:1px solid var(--border);border-radius:4px;font-size:13px;font-weight:600;cursor:not-allowed;">
-            모든 항목을 선택하세요
-          </button>`;
-      }
+      const shortDesc = modalType === 'background'
+        ? (item.desc || '').replace(/\s*속성 증강:.*$/, '')
+        : (item.desc || '').split('<br><strong>')[0];
+      const ancStatBlock = (modalType === 'ancestry' && typeof _ancestryStatBlockHtml === 'function')
+        ? _ancestryStatBlockHtml(item) : '';
+      const clsStatBlock = (modalType === 'class' && typeof _classStatBlockHtml === 'function')
+        ? _classStatBlockHtml(item) : '';
+      const ancTraits = (modalType === 'ancestry') ? (item.traits || []).map(t => traitTag(t)).join('') : '';
+      detailHtml = `${ancTraits ? '<div style="margin-bottom:6px;">' + ancTraits + '</div>' : ''}
+        <div style="font-size:12px;line-height:1.7;color:var(--text2);margin-bottom:8px;">${shortDesc}</div>
+        ${ancStatBlock}
+        ${clsStatBlock}
+        ${choicesHtml}
+        <button id="modal-confirm-choice" onclick="confirmModal()" disabled
+          style="width:100%;margin-top:10px;padding:10px;background:var(--bg4);color:var(--text2);border:1px solid var(--border);border-radius:4px;font-size:13px;font-weight:600;cursor:not-allowed;">
+          모든 항목을 선택하세요
+        </button>`;
     } else {
       const nameKo = item.name || item.name_ko || '';
       let mDesc = item.desc || item.summary || '';

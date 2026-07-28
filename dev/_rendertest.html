@@ -274,6 +274,29 @@
     else if (modal === 'font' && typeof openDivineFontPicker === 'function') { openDivineFontPicker(); log('fontModal'); }
     else if (modal === 'doctrine' && typeof openDoctrinePicker === 'function') { openDoctrinePicker(); log('doctrineModal'); }
     else if (modal === 'bonus' && typeof openBonusSpellsModal === 'function') { openBonusSpellsModal(); log('bonusModal'); }
+    // ?modal=featlist&featType=class : 재주 선택 모달 목록 렌더(행동비용 글리프 검증용, #4)
+    else if (modal === 'featlist' && typeof growthPickFeat === 'function') { growthPickFeat(parseInt(Q.get('featLevel')||lvl)||1, 'class1', Q.get('featType')||'class'); log('featListModal'); }
+    // ?modal=mobilepick&mt=class|ancestry|background&optid=<이름조각> : 모바일 폭에서 목록 클릭→아코디언 상세 구동(#5 검증)
+    else if (modal === 'mobilepick' && typeof openModal === 'function') {
+      var _mt = Q.get('mt') || 'class';
+      openModal(_mt);
+      var _mpTries = 0;
+      (function _mpClick() {
+        var _rows = document.querySelectorAll('#modal-options .opt-row');
+        if (!_rows.length && _mpTries++ < 30) { setTimeout(_mpClick, 100); return; }
+        if (window.__mpDone) return; window.__mpDone = 1;
+        var _optid = Q.get('optid'), _idx = 0;
+        if (_optid) { for (var i = 0; i < _rows.length; i++) { if ((_rows[i].textContent || '').indexOf(_optid) >= 0) { _idx = i; break; } } }
+        var _row = _rows[_idx];
+        // 아이템 객체를 legacy 게터로 얻어 selectOption을 정확히 1회 직접 호출(.click() 이중 토글 회피)
+        var _getr = { class: (window.PF2eClass && PF2eClass.getClassLegacy), ancestry: (window.PF2eAnc && PF2eAnc.getAncestryLegacy), background: (window.PF2eBg && PF2eBg.getBackgroundLegacy) }[_mt];
+        var _id = (_mt === 'class') ? (Q.get('class') || 'fighter') : (Q.get('optidval') || _optid);
+        var _item = _getr ? _getr(_id) : null;
+        if (_item && _row && typeof selectOption === 'function') selectOption(_item, _row);
+        else if (_row) _row.click();
+        log('mobilePick:' + (_row ? (_row.textContent || 'x').slice(0, 10) : 'norow') + '|open=' + document.querySelectorAll('.opt-row-detail.open').length);
+      })();
+    }
     // ?pick=N : 선택 피커에서 N번 옵션 미리보기(설명 펼침) 트리거
     var _pk = Q.get('pick');
     if (_pk != null && typeof _previewChoice === 'function') {
