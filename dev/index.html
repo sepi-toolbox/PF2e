@@ -62,12 +62,12 @@ window.PF2eOverrideFetcher = function(cat){
   return window._cloudOvrPromise.then(function(all){ return (all && all[cat]) || {}; });
 };
 </script>
-<script src="equipment_db.js?v=0.304"></script>
-<script src="class_features_db.js?v=0.304"></script>
-<script src="effects_db.js?v=0.304"></script>
-<script src="prereqs_db.js?v=0.304"></script>
-<script src="changelog.js?v=0.304"></script>
-<script src="gear-shell.js?v=0.304"></script>
+<script src="equipment_db.js?v=0.305"></script>
+<script src="class_features_db.js?v=0.305"></script>
+<script src="effects_db.js?v=0.305"></script>
+<script src="prereqs_db.js?v=0.305"></script>
+<script src="changelog.js?v=0.305"></script>
+<script src="gear-shell.js?v=0.305"></script>
 <script>
 // Verify class_features_db loaded (센티널 = CLASS_AUTO_SPELLS; CLASS_AUTO_FEATS는 v0.158 폐기)
 if (typeof CLASS_AUTO_SPELLS === 'undefined') {
@@ -86,7 +86,7 @@ if (typeof CLASS_AUTO_SPELLS === 'undefined') {
   console.log('✓ class_features_db.js loaded — 클래스 자동부여=성장표 로스터(CLASS_FEATURE_NAMES)');
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.304">
+<link rel="stylesheet" href="app-shell.css?v=0.305">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -1221,6 +1221,34 @@ table.pf2e p{margin:0;}
   #lore-modal .modal-close{display:block !important;}
   #lore-modal .modal-footer .btn-confirm{display:block !important;width:100%;padding:12px;font-size:14px;}
 }
+/* ── 숙련 정보 팝업(cs_profinfo.js) — 기술·내성·지각·클래스DC 클릭 시 ── */
+.pi-overlay{position:fixed;inset:0;background:rgba(35,24,12,0.55);z-index:10002;display:flex;align-items:center;justify-content:center;padding:16px;}
+.pi-modal{background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border:1px solid var(--border2);border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.4);width:100%;max-width:460px;max-height:88vh;overflow-y:auto;padding:18px;color:var(--text);}
+.pi-title{font-family:"Eczar",var(--bs);font-size:19px;font-weight:700;color:var(--accent);margin-bottom:12px;}
+.pi-card{background:linear-gradient(180deg,rgba(255,250,238,.5),rgba(231,216,184,.5)),var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:10px;}
+.pi-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.pi-roll{display:inline-flex;align-items:center;gap:4px;background:#6e1414 url("data/fvtt-assets/sheet/red_bg.webp") repeat;border:1px solid #7a1d1d;color:#f3e7cd;border-radius:6px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--bs);transition:filter .12s;flex-shrink:0;}
+.pi-roll:hover{filter:brightness(1.1);}
+.pi-label{font-size:15px;font-weight:700;color:var(--text);}
+.pi-teml{display:inline-flex;gap:4px;}
+.pi-teml-b{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
+.pi-teml-b.on{background:var(--accent);color:#f3e7cd;border-color:var(--accent);}
+.pi-cols{display:inline-flex;gap:14px;margin-left:auto;}
+.pi-col{text-align:center;min-width:30px;}
+.pi-col-h{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.3px;margin-bottom:2px;}
+.pi-col-v{font-size:15px;font-weight:800;color:var(--text);}
+.pi-desc{font-size:13px;line-height:1.7;color:var(--text2);}
+.pi-sec-h{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border);}
+.pi-act{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 2px;border-bottom:1px solid rgba(191,165,114,.3);cursor:pointer;font-size:13px;color:var(--text);}
+.pi-act:last-of-type{border-bottom:none;}
+.pi-act:hover{color:var(--accent);}
+.pi-act-name{flex:1;}
+.pi-act-rank{font-size:10px;color:var(--text2);}
+.pi-act-cost .action-glyph{font-size:15px;}
+.pi-act-detail{font-size:12px;line-height:1.6;color:var(--text2);padding:6px 2px 10px;}
+.pi-finish{width:100%;margin-top:4px;padding:11px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;font-weight:700;cursor:pointer;font-family:var(--bs);transition:filter .12s;}
+.pi-finish:hover{filter:brightness(1.05);}
+@media(max-width:900px){ .pi-modal{max-width:none;max-height:92vh;} .pi-cols{margin-left:0;width:100%;justify-content:flex-start;margin-top:6px;} }
 @media(min-width:901px){
   .modal-detail-back{display:none;}
   /* 데스크톱: 상단 크롬(헤더/세션바) 실제 높이만큼만 차지하고 본문이 나머지를 정확히 채움.
@@ -2089,7 +2117,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.304</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge (dev) · <span>v0.305</span></div>
 </div>
 
 <!-- 업데이트로그·버그제보 모달 → gear-shell.js(공유 주입) -->
@@ -2547,7 +2575,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
         <button class="af-eco af-word" data-filter="activity" onclick="setActionFilter('activity',this)" title="탐험·막간 활동" aria-label="활동">활동</button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.304" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.305" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2621,36 +2649,37 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.304"></script>
-<script src="cs_calc.js?v=0.304"></script>
+<script src="cs_data.js?v=0.305"></script>
+<script src="cs_calc.js?v=0.305"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.304"></script>
-<script src="cs_re_engine.js?v=0.304"></script>
-<script src="cs_pf2e_stats.js?v=0.304"></script>
-<script src="cs_pf2e_equip.js?v=0.304"></script>
-<script src="cs_pf2e_anc.js?v=0.304"></script>
-<script src="cs_pf2e_bg.js?v=0.304"></script>
-<script src="cs_pf2e_spell.js?v=0.304"></script>
-<script src="cs_pf2e_deity.js?v=0.304"></script>
-<script src="cs_pf2e_action.js?v=0.304"></script>
-<script src="cs_pf2e_feat.js?v=0.304"></script>
-<script src="cs_pf2e_class.js?v=0.304"></script>
-<script src="cs_pf2e_actor.js?v=0.304"></script>
-<script src="cs_ui.js?v=0.304"></script>
-<script src="cs_modal.js?v=0.304"></script>
-<script src="cs_feat_effects.js?v=0.304"></script>
-<script src="cs_save.js?v=0.304"></script>
-<script src="cs_session.js?v=0.304"></script>
-<script src="cs_dice.js?v=0.304"></script>
-<script src="cs_map.js?v=0.304"></script>
+<script src="cs_pf2e.js?v=0.305"></script>
+<script src="cs_re_engine.js?v=0.305"></script>
+<script src="cs_pf2e_stats.js?v=0.305"></script>
+<script src="cs_pf2e_equip.js?v=0.305"></script>
+<script src="cs_pf2e_anc.js?v=0.305"></script>
+<script src="cs_pf2e_bg.js?v=0.305"></script>
+<script src="cs_pf2e_spell.js?v=0.305"></script>
+<script src="cs_pf2e_deity.js?v=0.305"></script>
+<script src="cs_pf2e_action.js?v=0.305"></script>
+<script src="cs_pf2e_feat.js?v=0.305"></script>
+<script src="cs_pf2e_class.js?v=0.305"></script>
+<script src="cs_pf2e_actor.js?v=0.305"></script>
+<script src="cs_ui.js?v=0.305"></script>
+<script src="cs_modal.js?v=0.305"></script>
+<script src="cs_feat_effects.js?v=0.305"></script>
+<script src="cs_save.js?v=0.305"></script>
+<script src="cs_session.js?v=0.305"></script>
+<script src="cs_dice.js?v=0.305"></script>
+<script src="cs_profinfo.js?v=0.305"></script>
+<script src="cs_map.js?v=0.305"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.304"></script>
-<script src="cs_i18n.js?v=0.304"></script>
+<script src="cs_locale.js?v=0.305"></script>
+<script src="cs_i18n.js?v=0.305"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.304');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.305');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({

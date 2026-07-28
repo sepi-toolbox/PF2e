@@ -28,6 +28,7 @@
 <script src="cs_ui.js"></script>
 <script src="cs_modal.js"></script>
 <script src="cs_feat_effects.js"></script>
+<script src="cs_profinfo.js"></script>
 <style>body{margin:0;background:#1a1512;}#growth-plan{max-width:380px;padding:8px;}</style>
 </head>
 <body>
@@ -296,6 +297,32 @@
         else if (_row) _row.click();
         log('mobilePick:' + (_row ? (_row.textContent || 'x').slice(0, 10) : 'norow') + '|open=' + document.querySelectorAll('.opt-row-detail.open').length);
       })();
+    }
+    // ?profinfo=skill:acrobatics|save:fort|perc:perc|classdc:classdc&rank=4 : 숙련 정보 팝업 검증
+    var _piQ = Q.get('profinfo');
+    if (_piQ && typeof openProfInfo === 'function') {
+      var _pp = _piQ.split(':'), _pk = _pp[0], _pid = _pp[1] || _pk, _prank = Q.get('rank') || '4';
+      var _SELOPTS = '<option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option>';
+      function _ensure(id, tag) { var e = document.getElementById(id); if (!e) { e = document.createElement(tag || 'span'); e.id = id; document.body.appendChild(e); } return e; }
+      if (_pk === 'skill') {
+        if (!document.getElementById('sk-prof-' + _pid)) {
+          var _h = document.createElement('div');
+          _h.innerHTML = SKILLS.map(function (s) { return '<select id="sk-prof-' + s.id + '">' + _SELOPTS + '</select><span class="skill-total" id="sk-val-' + s.id + '"></span>'; }).join('');
+          document.body.appendChild(_h);
+        }
+        document.getElementById('sk-prof-' + _pid).value = _prank;
+        if (typeof recalcSkill === 'function') recalcSkill(_pid);
+      } else if (_pk === 'save' || _pk === 'perc' || _pk === 'classdc') {
+        var _pfId = _pk === 'save' ? ('prof-' + _pid) : ('prof-' + _pk);
+        var _vId = _pk === 'save' ? ('val-' + _pid) : ('val-' + _pk);
+        var _s = _ensure(_pfId, 'select'); _s.innerHTML = _SELOPTS; _s.value = _prank;
+        _ensure(_vId);
+        if (_pk === 'save' && typeof recalcSaves === 'function') recalcSaves();
+        if (_pk === 'perc' && typeof recalcPerc === 'function') recalcPerc();
+        if (_pk === 'classdc' && typeof recalcClassDC === 'function') recalcClassDC();
+      }
+      openProfInfo(_pk, _pid);
+      log('profinfo:' + _pk + ':' + _pid);
     }
     // ?pick=N : 선택 피커에서 N번 옵션 미리보기(설명 펼침) 트리거
     var _pk = Q.get('pick');

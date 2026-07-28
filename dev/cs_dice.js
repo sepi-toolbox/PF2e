@@ -486,47 +486,32 @@ const DiceRoller = (() => {
         }
       }
 
-      // 내성 클릭 (val-fort, val-ref, val-will)
-      const saveNames = {
-        'val-fort': ['건강 내성', 'fort'], 'val-ref': ['반사 내성', 'ref'], 'val-will': ['의지 내성', 'will']
-      };
-      for (const [id, [label]] of Object.entries(saveNames)) {
+      // 내성 클릭 (val-fort/ref/will) → 숙련 정보 팝업(굴림은 팝업 안 버튼)
+      const saveKeys = { 'val-fort': 'fort', 'val-ref': 'ref', 'val-will': 'will' };
+      for (const [id, key] of Object.entries(saveKeys)) {
         if (e.target.id === id || e.target.closest('#' + id)) {
-          const el = e.target.id === id ? e.target : e.target.closest('#' + id);
-          const mod = parseInt(el.textContent) || 0;
-          openBonusRollModal({
-            category: 'save',
-            label,
-            onConfirm: extra => rollCheck(mod + extra, label),
-          });
+          if (typeof openProfInfo === 'function') openProfInfo('save', key);
           return;
         }
       }
 
-      // 지각 클릭
+      // 지각 클릭 → 숙련 정보 팝업
       if (e.target.id === 'val-perc' || e.target.closest('#val-perc')) {
-        const el = e.target.id === 'val-perc' ? e.target : e.target.closest('#val-perc');
-        const mod = parseInt(el.textContent) || 0;
-        openBonusRollModal({
-          category: 'perception',
-          label: '지각',
-          onConfirm: extra => rollCheck(mod + extra, '지각'),
-        });
+        if (typeof openProfInfo === 'function') openProfInfo('perc', 'perc');
         return;
       }
 
-      // 기술 클릭 (sk-val-*)
+      // 클래스 난이도 클릭 → 숙련 정보 팝업
+      if (e.target.id === 'val-classdc' || e.target.closest('#val-classdc')) {
+        if (typeof openProfInfo === 'function') openProfInfo('classdc', 'classdc');
+        return;
+      }
+
+      // 기술 클릭 (sk-val-*) → 숙련 정보 팝업
       if (e.target.classList.contains('skill-total') || e.target.closest('.skill-total')) {
         const el = e.target.classList.contains('skill-total') ? e.target : e.target.closest('.skill-total');
-        const mod = parseInt(el.textContent) || 0;
-        const row = el.closest('.skill-row');
-        const nameEl = row?.querySelector('.skill-name');
-        const skillName = nameEl?.textContent?.trim() || '기술';
-        openBonusRollModal({
-          category: 'skill',
-          label: skillName,
-          onConfirm: extra => rollCheck(mod + extra, skillName),
-        });
+        const sid = (el.id || '').replace('sk-val-', '');
+        if (sid && typeof openProfInfo === 'function') openProfInfo('skill', sid);
         return;
       }
 
@@ -622,11 +607,16 @@ const DiceRoller = (() => {
     if (logOpen) renderLog();
   }
 
+  // 숙련 정보 팝업의 "굴림" 버튼 진입점 — 상황 보너스 모달 경유(기존 스탯 굴림과 동일 흐름).
+  function statRoll(category, label, mod) {
+    openBonusRollModal({ category, label, onConfirm: extra => rollCheck((mod || 0) + extra, label) });
+  }
+
   // ── Public API ──
   return {
     addToPool, removeFromPool, clearPool,
     rollPool, rollQuick, rollCheck, rollDamage, rollFormula, rollAdvDis,
     toggleTray, toggleLog, clearLog,
-    onRoll, showRemoteToast,
+    onRoll, showRemoteToast, statRoll,
   };
 })();
