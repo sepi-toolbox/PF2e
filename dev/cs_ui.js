@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.306').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.307').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -518,7 +518,7 @@ function renderWeapons() {
 
     // Range info
     const range = w._dbData?.range || w.range || null;
-    const rangeHtml = range ? `<div class="weapon-card-range">\uD83C\uDFAF 사거리: ${range} ft.</div>` : '';
+    const rangeHtml = range ? `<div class="weapon-card-range">사거리 ${range} ft.</div>` : '';
 
     // Rune indicator text
     let runeInfo = '';
@@ -548,48 +548,41 @@ function renderWeapons() {
     const [wpTemlLetter, wpProfName, wpProfCls] = wpTemlMap[wpProfVal]||['U','미숙련',''];
     const wpCatLabel = {simple:'단순',martial:'군용',advanced:'고급',unarmed:'비무장'}[wpCat]||wpCat;
 
-    // 상태별 행동 버튼
-    const isHeld = !w._stowed && !isDropped;
-    const canGrip = isHeld && (w._dbData?.hands) !== 2 && !w._isShield;
-    let actionBtns = '';
-    if (isDropped) {
-      actionBtns = `<button class="weapon-btn" onclick="pickUpWeapon(${i})" title="줍기 (행동 1)">줍기<span class="wb-glyph action-glyph">1</span></button>`;
-    } else if (w._stowed) {
-      actionBtns = `<button class="weapon-btn" onclick="drawWeapon(${i})" title="들기 (행동 1)">들기<span class="wb-glyph action-glyph">1</span></button>`;
-    } else {
-      // 손에 든 상태
-      actionBtns = `<button class="weapon-btn" onclick="stowWeapon(${i})" title="넣기 (행동 1)">넣기<span class="wb-glyph action-glyph">1</span></button>`;
-      actionBtns += `<button class="weapon-btn" onclick="dropWeapon(${i})" title="떨구기 (자유 행동)">떨구기<span class="wb-glyph action-glyph">F</span></button>`;
-      if (canGrip) {
-        actionBtns += w._twoHand
-          ? `<button class="weapon-btn" onclick="toggleGrip(${i})" title="한손 전환 (자유 행동)">한손<span class="wb-glyph action-glyph">F</span></button>`
-          : `<button class="weapon-btn" onclick="toggleGrip(${i})" title="양손 전환 (행동 1)">양손<span class="wb-glyph action-glyph">1</span></button>`;
-      }
-    }
+    // 순서 이동 가능 여부
+    const isFirst = i === 0, isLast = i === state.weapons.length - 1;
+    // 수납/꺼내기 토글
+    const stowBtn = w._stowed
+      ? `<button class="weapon-btn" onclick="drawWeapon(${i})" title="꺼내기 (행동 1)">꺼내기</button>`
+      : `<button class="weapon-btn" onclick="stowWeapon(${i})" title="수납 (행동 1)">수납</button>`;
 
     card.innerHTML = `
       <div class="weapon-card-header">
-        ${actionBtns}
-        <span style="flex:1;"></span>
+        <button class="weapon-btn wb-roll" onclick="rollWeapon(${i})" title="명중 굴림">🎲 굴림</button>
+        <button class="weapon-btn" onclick="weaponOptionsMenu(${i},event)" title="옵션">옵션</button>
+        <button class="weapon-btn" onclick="weaponRunesPopup(${i},event)" title="룬">룬</button>
+        ${stowBtn}
         <button class="weapon-btn danger" onclick="removeWeapon(${i})" title="삭제">삭제</button>
+        <span style="flex:1;"></span>
+        <button class="weapon-reorder" onclick="moveWeapon(${i},-1)" title="위로 이동" ${isFirst?'disabled':''}>▲</button>
+        <button class="weapon-reorder" onclick="moveWeapon(${i},1)" title="아래로 이동" ${isLast?'disabled':''}>▼</button>
       </div>
       <div class="weapon-card-body">
-        <div class="weapon-card-stats">
-          <div class="weapon-card-name" onclick="showInfo('weapon','${escapedName}')" style="display:flex;align-items:center;flex-wrap:wrap;">
-            ${iconImg('equipment', w) || '\u2694 '}${w._broken?'<span style="color:var(--red-light);">파손된 </span>':''}${w.name||'무기'}${runeInfo}${isDropped ? '<span style="font-size:9px;color:var(--red-light,#c66);margin-left:4px;">[바닥]</span>' : ''}${w._twoHand ? '<span style="font-size:9px;color:var(--accent);margin-left:4px;">[양손]</span>' : ''}
-          </div>
-          ${wpProfVal > 0 ? `<div style="font-size:9px;color:var(--text2);margin-top:-2px;margin-bottom:2px;"><span class="weapon-prof-badge ${wpProfCls}" style="font-size:7px;width:12px;height:12px;display:inline-flex;align-items:center;justify-content:center;">${wpTemlLetter}</span> ${wpCatLabel} 무기 ${wpProfName}</div>` : `<div style="font-size:9px;color:var(--red-light);margin-top:-2px;margin-bottom:2px;">⚠ ${wpCatLabel} 무기 미숙련</div>`}
-          <div class="weapon-stat">
-            <span class="stat-label">\u2699 명중</span>
+        <div class="weapon-card-name" onclick="showInfo('weapon','${escapedName}')">
+          ${iconImg('equipment', w) || '⚔ '}${w._broken?'<span style="color:var(--red-light);">파손된 </span>':''}${w.name||'무기'}${runeInfo}${isDropped ? '<span class="wc-flag" style="color:var(--red-light,#c66);">[바닥]</span>' : ''}${w._twoHand ? '<span class="wc-flag" style="color:var(--accent);">[양손]</span>' : ''}
+        </div>
+        ${wpProfVal > 0 ? `<div class="weapon-prof-line"><span class="prof-rank-badge ${wpProfCls}">${wpTemlLetter}</span> ${wpCatLabel} 무기 ${wpProfName}</div>` : `<div class="weapon-prof-line warn">⚠ ${wpCatLabel} 무기 미숙련</div>`}
+        <div class="weapon-stat-row">
+          <div class="weapon-stat" title="명중 굴림">
+            <span class="stat-label">명중</span>
             <span class="stat-val" style="${w._broken?'color:var(--red-light);':''}">${hitStr}</span>
           </div>
-          <div class="weapon-stat weapon-stat-dmg" data-dmg="${(dmgResult.str||'').replace(/"/g,'&quot;')}">
-            <span class="stat-label">\uD83C\uDFAF 피해</span>
+          <div class="weapon-stat weapon-stat-dmg" data-dmg="${(dmgResult.str||'').replace(/"/g,'&quot;')}" title="피해 굴림">
+            <span class="stat-label">피해</span>
             <span class="stat-val dmg">${dmgStr}</span>
           </div>
         </div>
-        ${traitHtml ? `<div class="weapon-card-traits">${traitHtml}</div>` : ''}
         ${rangeHtml}
+        ${traitHtml ? `<div class="weapon-card-traits">${traitHtml}</div>` : ''}
       </div>
     `;
     list.appendChild(card);
@@ -600,6 +593,96 @@ function removeWeapon(i) {
   state.weapons.splice(i,1);
   renderWeapons();
   save();
+}
+
+// ── 무기 카드 액션(굴림/순서/옵션/룬/파손/인쇄) ──
+function rollWeapon(i) {
+  const w = state.weapons[i]; if (!w) return;
+  const hitMod = calcWeaponHit(w);
+  const name = w.name || '무기';
+  if (typeof DiceRoller !== 'undefined' && DiceRoller.rollCheck) DiceRoller.rollCheck(hitMod, name + ' 명중');
+}
+
+function moveWeapon(i, dir) {
+  const j = i + dir;
+  if (j < 0 || j >= state.weapons.length) return;
+  const arr = state.weapons;
+  const t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+  renderWeapons();
+  save();
+}
+
+function toggleWeaponBroken(i) {
+  const w = state.weapons[i]; if (!w) return;
+  w._broken = !w._broken;
+  renderWeapons();
+  if (typeof recalcAll === 'function') recalcAll();
+  save();
+}
+
+// 무기 카드 버튼 앵커 팝업(옵션/룬 공용)
+let _weaponPopupEl = null;
+function _closeWeaponPopup() {
+  if (_weaponPopupEl) { _weaponPopupEl.remove(); _weaponPopupEl = null; document.removeEventListener('click', _weaponPopupOutside, true); }
+}
+function _weaponPopupOutside(e) { if (_weaponPopupEl && !_weaponPopupEl.contains(e.target)) _closeWeaponPopup(); }
+function _openWeaponPopup(ev, html) {
+  _closeWeaponPopup();
+  const el = document.createElement('div');
+  el.className = 'weapon-popup';
+  el.innerHTML = html;
+  document.body.appendChild(el);
+  const btn = ev && ev.currentTarget ? ev.currentTarget : (ev && ev.target);
+  const r = (btn && btn.getBoundingClientRect) ? btn.getBoundingClientRect() : { left: 20, bottom: 60 };
+  const w = el.offsetWidth || 220, h = el.offsetHeight || 200;
+  let left = Math.min(r.left, window.innerWidth - w - 12);
+  let top = r.bottom + 4;
+  if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - h - 4);
+  el.style.left = Math.max(8, left) + 'px';
+  el.style.top = top + 'px';
+  _weaponPopupEl = el;
+  setTimeout(() => document.addEventListener('click', _weaponPopupOutside, true), 0);
+}
+
+function weaponOptionsMenu(i, ev) {
+  if (ev) ev.stopPropagation();
+  const w = state.weapons[i]; if (!w) return;
+  const isDropped = !!w._dropped, isHeld = !w._stowed && !isDropped;
+  const canGrip = isHeld && (w._dbData?.hands) !== 2 && !w._isShield;
+  const rows = [];
+  if (isDropped) rows.push(`<button onclick="pickUpWeapon(${i});_closeWeaponPopup()">줍기 <span class="action-glyph">1</span></button>`);
+  else if (w._stowed) rows.push(`<button onclick="drawWeapon(${i});_closeWeaponPopup()">꺼내 들기 <span class="action-glyph">1</span></button>`);
+  else {
+    rows.push(`<button onclick="dropWeapon(${i});_closeWeaponPopup()">떨구기 <span class="action-glyph">F</span></button>`);
+    if (canGrip) rows.push(w._twoHand
+      ? `<button onclick="toggleGrip(${i});_closeWeaponPopup()">한손으로 잡기 <span class="action-glyph">F</span></button>`
+      : `<button onclick="toggleGrip(${i});_closeWeaponPopup()">양손으로 잡기 <span class="action-glyph">1</span></button>`);
+  }
+  rows.push(`<button onclick="toggleWeaponBroken(${i});_closeWeaponPopup()">${w._broken ? '파손 해제' : '파손 표시'}</button>`);
+  rows.push(`<button onclick="_closeWeaponPopup();showInfo('weapon','${(w.name || '').replace(/'/g, "\\'")}')">상세 정보</button>`);
+  _openWeaponPopup(ev, `<div class="wpop-title">옵션</div>${rows.join('')}`);
+}
+
+function weaponRunesPopup(i, ev) {
+  if (ev) ev.stopPropagation();
+  const w = state.weapons[i]; if (!w) return;
+  const eqIdx = w._fromEquip;
+  if (eqIdx === undefined || eqIdx === null) {
+    _openWeaponPopup(ev, `<div class="wpop-title">룬</div><div class="wpop-note">이 무기는 장비 목록과 연결되어 있지 않아 룬을 부착할 수 없습니다. 장비 탭에서 획득한 무기에만 룬을 새길 수 있습니다.</div>`);
+    return;
+  }
+  const attached = (typeof _getAttachedRunes === 'function') ? _getAttachedRunes(eqIdx) : [];
+  const attHtml = attached.length ? attached.map(r => {
+    const ri = state.equip.indexOf(r);
+    return `<div class="wpop-rune"><span>${r.name}</span><button onclick="detachRune(${ri});_closeWeaponPopup()">해제</button></div>`;
+  }).join('') : '<div class="wpop-note">부착된 룬이 없습니다.</div>';
+  const avail = state.equip.map((e, idx) => ({ e, idx })).filter(x => x.e._isRune && x.e._runeData?.attachTo === 'weapon' && (x.e._attachedTo === null || x.e._attachedTo === undefined));
+  const availHtml = avail.length ? avail.map(x => `<div class="wpop-rune"><span>${x.e.name}</span><button onclick="attachRune(${x.idx},${eqIdx});_closeWeaponPopup()">부착</button></div>`).join('') : '<div class="wpop-note">보유한 무기 룬이 없습니다. 장비 탭에서 룬을 구매·획득하세요.</div>';
+  _openWeaponPopup(ev, `<div class="wpop-title">룬 관리 — ${w.name || '무기'}</div><div class="wpop-sec">부착됨</div>${attHtml}<div class="wpop-sec">보유 룬</div>${availHtml}`);
+}
+
+function printWeaponsTab() {
+  window.print();
 }
 
 function addEquip(data) {
@@ -3788,14 +3871,14 @@ const BARDING_DB = [
 let COMPANION_DB = [];
 function _loadCompanions() {
   if (COMPANION_DB.length) return;
-  fetch('data/derived/companions.json?v=0.306').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/companions.json?v=0.307').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
   }).catch(() => {});
 }
 // 상태이상 카탈로그(파생 단일소스) 선로딩. 표시·조회용 → 로드 후 이미 그려진 상태이상 그리드 소급 재렌더(buildConditions).
 function _loadConditions() {
   if (typeof CONDITIONS_DATA !== 'undefined' && CONDITIONS_DATA.length) return;
-  fetch('data/derived/conditions.json?v=0.306').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/conditions.json?v=0.307').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) {
       CONDITIONS_DATA = j.rows;
       try { if (typeof buildConditions === 'function' && document.getElementById('conditions-grid')) buildConditions(); } catch (e) {}
@@ -4543,13 +4626,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.306'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.306'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.307'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.307'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.306'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.307'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}

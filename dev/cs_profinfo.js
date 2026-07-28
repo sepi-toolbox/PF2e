@@ -104,6 +104,17 @@
         roll: { category: 'perception', label: '지각', mod: total },
       };
     }
+    if (kind === 'weapon') {
+      const catKo = { simple: '단순 무기', martial: '군용 무기', advanced: '고급 무기', unarmed: '비무장 공격' }[id] || id;
+      const rank = _rankOf('prof-weapon-' + id);
+      const profB = rankBonus(rank, lv);
+      return {
+        title: '무기 숙련', label: catKo, mod: profB, rank,
+        cols: [{ h: '숙련', v: profB }],
+        desc: '이 무기 범주로 공격할 때 명중 굴림에 더하는 숙련 보너스입니다. 숙련되지 않으면 명중에 아무 보너스도 얻지 못합니다.\n(수련 등급: 미숙련 U · 숙련 T · 전문가 E · 달인 M · 전설 L)',
+        actions: null, roll: null,
+      };
+    }
     if (kind === 'classdc') {
       const attr = (typeof getClassKeyAttr === 'function') ? getClassKeyAttr() : 'wis';
       const rank = _rankOf('prof-classdc');
@@ -186,7 +197,7 @@
       <div class="pi-modal">
         <div class="pi-title">${cfg.title}</div>
         <div class="pi-card pi-head">
-          <button class="pi-roll" onclick="ProfInfo.roll()">🎲 <span>굴림</span></button>
+          ${cfg.roll ? '<button class="pi-roll" onclick="ProfInfo.roll()">🎲 <span>굴림</span></button>' : ''}
           <span class="pi-label">${cfg.label} ${_fmt(cfg.mod)}</span>
           <span class="pi-teml">${_temlHtml(cfg.rank)}</span>
           <span class="pi-cols">${_colsHtml(cfg.cols)}</span>

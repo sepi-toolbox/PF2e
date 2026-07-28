@@ -298,6 +298,34 @@
         log('mobilePick:' + (_row ? (_row.textContent || 'x').slice(0, 10) : 'norow') + '|open=' + document.querySelectorAll('.opt-row-detail.open').length);
       })();
     }
+    // ?panel=weapons : 무기 탭 개편 검증 — 패널 주입 + 무기 2개 시드 + renderWeapons
+    if (Q.get('panel') === 'weapons') {
+      try {
+        var _wMark = '/#panel-weapons -->';
+        var _wS = htmlTxt.indexOf('<div id="panel-weapons"');
+        var _wE = htmlTxt.indexOf(_wMark);
+        if (_wS >= 0 && _wE > _wS) {
+          var _wh = document.createElement('div');
+          _wh.innerHTML = htmlTxt.slice(_wS, _wE + _wMark.length);
+          document.body.appendChild(_wh);
+        }
+        ['simple', 'martial'].forEach(function (c) { var s = document.getElementById('prof-weapon-' + c); if (s) s.value = '2'; });
+        var _wl = (window.PF2eEquip && PF2eEquip.legacyList) ? PF2eEquip.legacyList({ type: 'weapon' }) : [];
+        function _pickW(en) { return _wl.find(function (x) { return x.en === en || x.name === en; }) || null; }
+        var _w1 = _pickW('Longsword') || _wl[0], _w2 = _pickW('Shortbow') || _pickW('Dagger') || _wl[1];
+        state.weapons = [];
+        if (_w1) state.weapons.push({ name: _w1.name || _w1.name_ko || _w1.en, _dbData: _w1, dmg: _w1.damage, _potency: 0, _striking: 0 });
+        if (_w2) state.weapons.push({ name: _w2.name || _w2.name_ko || _w2.en, _dbData: _w2, dmg: _w2.damage, _potency: 0, _striking: 0 });
+        if (typeof syncAllProfRanks === 'function') syncAllProfRanks();
+        if (typeof renderWeapons === 'function') renderWeapons();
+        var _gpw = document.getElementById('growth-plan'); if (_gpw) _gpw.style.display = 'none';
+        var _gpwm = document.getElementById('growth-plan-mobile'); if (_gpwm) _gpwm.style.display = 'none';
+        var _wpop = Q.get('wpop');
+        if (_wpop === 'options' && typeof weaponOptionsMenu === 'function') weaponOptionsMenu(0, null);
+        else if (_wpop === 'runes' && typeof weaponRunesPopup === 'function') weaponRunesPopup(0, null);
+        log('panelWeapons:' + state.weapons.length);
+      } catch (e) { log('wpnErr:' + e.message); }
+    }
     // ?profinfo=skill:acrobatics|save:fort|perc:perc|classdc:classdc&rank=4 : 숙련 정보 팝업 검증
     var _piQ = Q.get('profinfo');
     if (_piQ && typeof openProfInfo === 'function') {
