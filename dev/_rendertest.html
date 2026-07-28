@@ -211,6 +211,18 @@
       }
       // 주문 배우기/기억 모달 직접 열기: ?openmem=1
       if (Q.get('openmem') && typeof openMemorizeModal === 'function') { try { openMemorizeModal(); log('memOpen'); } catch(e){ log('memErr:'+e.message); } }
+      // 주문 상세 HTML 직접 렌더 검증: ?spelldetail=<slug> (주사위 버튼·메타·출처)
+      var _sd = Q.get('spelldetail');
+      if (_sd && typeof _learnSpellDetailHtml === 'function' && typeof getSpell === 'function') {
+        try {
+          var _sp = getSpell(_sd);
+          var _box = document.createElement('div');
+          _box.style.cssText = 'max-width:640px;margin:12px;padding:14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;';
+          _box.innerHTML = _sp ? _learnSpellDetailHtml(_sp) : ('주문 없음: '+_sd);
+          document.body.insertBefore(_box, document.body.firstChild);
+          log('spellDetail:'+(_sp?_sp.id:'null'));
+        } catch(e){ log('sdErr:'+e.message); }
+      }
     }
     log('rendered');
 

@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.299').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.300').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -2769,18 +2769,36 @@ function _toggleLearnSpellRow(row, sp) {
   dd.classList.add('open');
 }
 
-// 주문 상세 HTML (showItemDetail의 주문 분기와 동일 포맷 — 메타 + 본문)
+// 주문 상세 HTML (showItemDetail의 주문 분기와 동일 포맷 — 메타 + 본문 + 주사위 버튼 + 출처)
+//   memorize·상세 팝업·인라인 아코디언 3곳 공용 → 여기 한 곳만 고치면 전 표면 반영.
 function _learnSpellDetailHtml(item) {
   const _tt = (t) => (typeof traitTag === 'function') ? traitTag(t) : `<span class="tag">${t}</span>`;
   const rankStr = item.is_cantrip ? '캔트립' : item.is_focus ? '집중' : `랭크 ${item.rank}`;
   const spTraits = [...(item.traditions || []), ...(item.traits || [])].map(_tt).join('');
   const tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${rankStr}</span> <span class="spell-actions">${item.actions || ''}</span></div>${spTraits ? '<div style="margin-bottom:6px;">' + spTraits + '</div>' : ''}`;
+  // ── 주사위 굴림 버튼(공격/피해) — 공격 주문=주문 명중, 피해 있는 주문=피해 굴림 ──
+  const _esc = s => String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  const _bs = 'display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;';
+  let diceBtns = '';
+  const _atkEl = document.getElementById(item.is_focus ? 'spell-atk-val-focus' : 'spell-atk-val');
+  const _atk = _atkEl ? (parseInt(String(_atkEl.textContent).replace(/[^0-9\-]/g, '')) || 0) : 0;
+  if (item.isAttack) {
+    diceBtns += `<button style="${_bs}" onclick="if(typeof DiceRoller!=='undefined')DiceRoller.rollCheck(${_atk},'주문 명중: ${_esc(item.name_ko)}')">🎲 주문 명중 ${_atk >= 0 ? '+' : ''}${_atk}</button>`;
+  }
+  if (item.damageFormula) {
+    const _dlabel = (item.damageParts || []).map(d => d.formula).join(' + ') || item.damageFormula;
+    diceBtns += `<button style="${_bs}" onclick="if(typeof DiceRoller!=='undefined')DiceRoller.rollDamage('${_esc(item.damageFormula)}','주문 피해: ${_esc(item.name_ko)}')">🎲 ${_dlabel}</button>`;
+  }
+  const diceRow = diceBtns ? `<div style="display:flex;gap:8px;margin:2px 0 8px;flex-wrap:wrap;">${diceBtns}</div>` : '';
   const spellMeta = (typeof _spellMetaHtml === 'function') ? _spellMetaHtml(item) : '';   // 공용 정본
   let desc = item.desc || item.summary || '';
   desc = (typeof _stripSpellMetaFromDesc === 'function') ? _stripSpellMetaFromDesc(desc) : desc;
   const spellNotes = (typeof getSpellFeatNotes === 'function') ? getSpellFeatNotes(item.name_ko || '') : '';
   const body = (typeof formatDescActions === 'function') ? formatDescActions(desc, item) : desc;
-  return `${tags}${spellMeta}<div style="font-size:13px;line-height:1.6;">${body}${spellNotes}</div>`;
+  // ── 출처(publication) — 종족/클래스와 동일 패턴 ──
+  const _src = (typeof _pubTitleKo === 'function') ? _pubTitleKo(item._doc && item._doc.system && item._doc.system.publication && item._doc.system.publication.title) : '';
+  const srcLine = _src ? `<div style="font-size:11px;color:var(--text2);font-style:italic;margin-top:6px;">출처: ${_src}</div>` : '';
+  return `${tags}${diceRow}${spellMeta}<div style="font-size:13px;line-height:1.6;">${body}${spellNotes}</div>${srcLine}`;
 }
 
 // 주문 행 클릭 시 팝업 대신 인라인 아코디언으로 상세 펼침/접힘 (형식 통일: 주문 배우기/기억 모달과 동일)
@@ -3771,14 +3789,14 @@ const BARDING_DB = [
 let COMPANION_DB = [];
 function _loadCompanions() {
   if (COMPANION_DB.length) return;
-  fetch('data/derived/companions.json?v=0.299').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/companions.json?v=0.300').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
   }).catch(() => {});
 }
 // 상태이상 카탈로그(파생 단일소스) 선로딩. 표시·조회용 → 로드 후 이미 그려진 상태이상 그리드 소급 재렌더(buildConditions).
 function _loadConditions() {
   if (typeof CONDITIONS_DATA !== 'undefined' && CONDITIONS_DATA.length) return;
-  fetch('data/derived/conditions.json?v=0.299').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/conditions.json?v=0.300').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) {
       CONDITIONS_DATA = j.rows;
       try { if (typeof buildConditions === 'function' && document.getElementById('conditions-grid')) buildConditions(); } catch (e) {}
@@ -4526,13 +4544,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.299'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.299'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.300'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.300'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.299'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.300'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}
