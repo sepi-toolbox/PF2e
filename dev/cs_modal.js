@@ -3033,6 +3033,8 @@ function _renderMemorizeDetail() {
   detail.innerHTML = `<div style="padding:8px;">
     <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">슬롯 ${active.idx+1} — ${label} 주문 선택${isCurrSlot ? ' <span style="color:var(--gold);font-size:11px;">· 교육과정 전용</span>' : ''}
       <span style="font-weight:400;color:var(--text2);font-size:11px;">(이름을 누르면 상세 · 「준비」로 슬롯 배치)</span></div>
+    <input id="mem-spell-filter" oninput="_memFilterSpells(this.value)" placeholder="🔍 주문 이름·특성 검색" autocomplete="off"
+      style="width:100%;box-sizing:border-box;padding:6px 10px;margin-bottom:8px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:12px;">
     <div id="mem-spell-list"></div></div>`;
   const listEl = detail.querySelector('#mem-spell-list');
   if (!listEl) return;
@@ -3041,6 +3043,8 @@ function _renderMemorizeDetail() {
     const actions = typeof getActionIcons === 'function' ? getActionIcons(spellData?.actions) : '';
     const wrap = document.createElement('div');
     wrap.className = 'mem-spell';
+    // 검색 데이터(이름 한글/영문 + 특성) — _memFilterSpells가 사용.
+    wrap.dataset.search = [spellDisplay(name), spellData?.name_en, ...((spellData?.traits) || []), ...((spellData?.traditions) || [])].filter(Boolean).join(' ').toLowerCase();
     const ic = (typeof iconImg === 'function') ? iconImg('spell', spellData || {name}) : '';
     wrap.innerHTML = `
       <div class="mem-spell-row">
@@ -3070,6 +3074,16 @@ function _renderMemorizeDetail() {
       }
     };
     listEl.appendChild(wrap);
+  });
+}
+
+// memorize 모달 주문 목록 검색/필터 — 이름(한/영)·특성·전통으로 필터(v0.301).
+function _memFilterSpells(q) {
+  q = String(q || '').trim().toLowerCase();
+  const rows = document.querySelectorAll('#mem-spell-list .mem-spell');
+  rows.forEach(w => {
+    const hay = w.dataset.search || (w.querySelector('.mem-spell-name')?.textContent || '').toLowerCase();
+    w.style.display = (!q || hay.indexOf(q) >= 0) ? '' : 'none';
   });
 }
 
