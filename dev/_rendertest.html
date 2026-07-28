@@ -326,6 +326,11 @@
         log('panelWeapons:' + state.weapons.length);
       } catch (e) { log('wpnErr:' + e.message); }
     }
+    // ?wbclick=1 : 실제 버튼 클릭처럼 미리로드 없이 openWeaponBrowse 생짜 호출(데이터 미로드 경로 재현)
+    if (Q.get('wbclick') && typeof openWeaponBrowse === 'function') {
+      try { _equipDataReady = false; } catch (e) {}
+      try { openWeaponBrowse(); log('wbclick-called'); } catch (e) { log('wbclickErr:' + e.message); }
+    }
     // ?wbrowse=cat:kind : 무기 추가 브라우저 검증 (예: ?panel=weapons&wbrowse=martial:standard)
     var _wbQ = Q.get('wbrowse');
     if (_wbQ && typeof openWeaponBrowse === 'function') {
