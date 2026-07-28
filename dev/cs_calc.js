@@ -26,6 +26,7 @@ function syncProfRankBadge(badgeId, selectId) {
 
 function syncAllProfRanks() {
   ['simple','martial','advanced','unarmed'].forEach(c => syncProfRankText('rank-weapon-'+c, 'prof-weapon-'+c));
+  if (typeof updateWeaponTeml === 'function') updateWeaponTeml();  // 무기 탭 상단 TEML 스케일 pill
   ['light','medium','heavy','unarmored'].forEach(c => syncProfRankText('rank-armor-'+c, 'prof-armor-'+c));
   syncProfRankText('rank-spell', 'prof-spatk');
   syncProfRankText('rank-spell-focus', 'prof-spatk');
@@ -656,7 +657,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.309').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.310').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
