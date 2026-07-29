@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.312').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.313').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -163,30 +163,29 @@ function renderArmorCard() {
   const runeNames = ['','강화 +1','강화 +2','강화 +3'];
   const resNames = ['','탄력 (회피 +1)','상위 탄력 (+2)','최상 탄력 (+3)'];
 
-  card.className = 'defense-card' + (stowed ? ' stowed' : '');
-  if (!name) {
-    card.className = 'defense-card';
-    card.innerHTML = '';
-    return;
-  }
+  const worn = !!name;
+  const displayName = worn ? name : '비무장';
+  const itemBonus = worn ? (parseInt(ac) + (potency || 0)) : 0;
+  const dexCap = worn ? (dex === '-' || dex === '' ? '—' : dex) : '—';
+  card.className = 'defense-card weapon-card' + (stowed ? ' stowed' : '');
   card.innerHTML = `
-    <div class="defense-card-header">
-      <button class="defense-btn" onclick="toggleArmorStow()">${stowed?'장착':'보관'}</button>
+    <div class="weapon-card-header">
+      <button class="weapon-btn wb-roll" onclick="openArmorBrowse()">변경</button>
+      <button class="weapon-btn" onclick="armorOptionsMenu(event)">옵션</button>
+      <button class="weapon-btn" onclick="armorRunesPopup(event)">룬</button>
+      ${worn ? `<button class="weapon-btn" onclick="toggleArmorStow()">${stowed ? '장착' : '보관'}</button>` : ''}
     </div>
-    <div class="defense-card-body">
-      <div class="defense-card-name">
-        ${(typeof iconImg==='function' ? iconImg('equipment', (typeof getArmor==='function' && getArmor(name)) || {name:name}) : '')}
-        <span class="weapon-prof-badge ${profCls}" style="font-size:8px;width:14px;height:14px;">${profLetter}</span>
-        ${name}
-        ${potency > 0 ? `<span class="tag" style="font-size:9px;">+${potency}</span>` : ''}
-        ${resilient > 0 ? `<span class="tag" style="font-size:9px;">${resNames[resilient]||''}</span>` : ''}
+    <div class="weapon-card-body">
+      <div class="weapon-card-name" ${worn ? `onclick="showInfo('armor','${name.replace(/'/g, "\\'")}')"` : ''}>
+        <span class="prof-rank-badge ${profCls}">${profLetter}</span> ${displayName}
+        ${potency > 0 ? `<span class="wc-flag" style="color:var(--accent);">+${potency}</span>` : ''}
+        ${resilient > 0 ? `<span class="wc-flag" style="color:var(--accent);">${resNames[resilient] || ''}</span>` : ''}
       </div>
-      <div class="defense-card-stats">
-        <span class="stat-item">🛡 Item Bonus <span class="stat-val">+${parseInt(ac)+(potency||0)}</span></span>
-        <span class="stat-item">⬆ Dex Cap <span class="stat-val">${dex==='-'||dex===''?'—':dex}</span></span>
+      <div class="weapon-stat-row">
+        <div class="weapon-stat"><span class="stat-label">장비 보너스</span><span class="stat-val">+${itemBonus}</span></div>
+        <div class="weapon-stat"><span class="stat-label">민첩 상한</span><span class="stat-val">${dexCap}</span></div>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function clearArmor() {
@@ -222,26 +221,35 @@ function renderShieldCard() {
   const bt = Math.floor(parseInt(hp)/2);
   const stowed = state.shieldStowed || false;
 
+  card.className = 'defense-card weapon-card' + (stowed ? ' stowed' : '');
   if (!name) {
-    card.className = 'defense-card';
-    card.innerHTML = '';
+    card.innerHTML = `
+      <div class="weapon-card-header">
+        <button class="weapon-btn wb-roll" onclick="openShieldBrowse()">변경</button>
+      </div>
+      <div class="weapon-card-body"><div class="weapon-prof-line" style="color:var(--text2);">방패 없음</div></div>`;
     return;
   }
-  card.className = 'defense-card' + (stowed ? ' stowed' : '');
+  const _sEq = state.equip.find(e => e._type === 'shield' && e._equipped);
+  const _sTraits = (_sEq && _sEq._data && _sEq._data.traits) || [];
+  const _traitHtml = _sTraits.length ? `<div class="weapon-card-traits">${_sTraits.map(t => traitTag(t)).join(' ')}</div>` : '';
   card.innerHTML = `
-    <div class="defense-card-header">
-      <button class="defense-btn" onclick="showInfo('shield','${name.replace(/'/g,"\\'")}')">정보</button>
-      <button class="defense-btn" onclick="toggleShieldStow()">${stowed?'장착':'보관'}</button>
+    <div class="weapon-card-header">
+      <button class="weapon-btn wb-roll" onclick="openShieldBrowse()">변경</button>
+      <button class="weapon-btn" onclick="showInfo('shield','${name.replace(/'/g, "\\'")}')">정보</button>
+      <button class="weapon-btn danger" onclick="removeShield()">제거</button>
+      <button class="weapon-btn" onclick="toggleShieldStow()">${stowed ? '장착' : '보관'}</button>
+      <button class="weapon-btn" onclick="shieldRunesPopup(event)">룬</button>
     </div>
-    <div class="defense-card-body">
-      <div class="defense-card-name">${name}</div>
-      <div class="defense-card-stats">
-        <span class="stat-item">🛡 Raised AC <span class="stat-val">+${ac}</span></span>
-        <span class="stat-item">⚒ Hardness <span class="stat-val">${hard}</span></span>
-        <span class="stat-item">❤ HP <span class="stat-val">${hp}</span> (BT ${bt})</span>
+    <div class="weapon-card-body">
+      <div class="weapon-card-name" onclick="showInfo('shield','${name.replace(/'/g, "\\'")}')">${name}</div>
+      <div class="weapon-stat-row">
+        <div class="weapon-stat"><span class="stat-label">방패 AC</span><span class="stat-val">+${ac}</span></div>
+        <div class="weapon-stat"><span class="stat-label">경도</span><span class="stat-val">${hard}</span></div>
+        <div class="weapon-stat"><span class="stat-label">HP</span><span class="stat-val">${hp}</span> <span style="font-size:10px;color:var(--text2);">(BT ${bt})</span></div>
       </div>
-    </div>
-  `;
+      ${_traitHtml}
+    </div>`;
 }
 
 function clearShield() {
@@ -262,6 +270,75 @@ function toggleShieldStow() {
   renderShieldCard();
   save();
 }
+
+// ── 방어 카드 액션(변경/옵션/룬/제거) ──
+// "변경" = 기존 장비 브라우저(방어구/방패 탭) 재사용 + 지급 시 자동 착용/장착(_equipGiveMode).
+let _equipGiveMode = null;  // 'wear-armor' | 'equip-shield' | null
+function openArmorBrowse() {
+  openEquipBrowse();
+  if (typeof switchEquipTab === 'function') switchEquipTab('armor');
+  _equipGiveMode = 'wear-armor';
+  const t = document.getElementById('modal-title'); if (t) t.textContent = '갑옷 변경';
+}
+function openShieldBrowse() {
+  openEquipBrowse();
+  if (typeof switchEquipTab === 'function') switchEquipTab('shield');
+  _equipGiveMode = 'equip-shield';
+  const t = document.getElementById('modal-title'); if (t) t.textContent = '방패 변경';
+}
+
+function _wornArmorEquipIdx() { return state.equip.findIndex(e => e._type === 'armor' && e._equipped); }
+function _wornShieldEquipIdx() { return state.equip.findIndex(e => e._type === 'shield' && e._equipped); }
+
+function armorOptionsMenu(ev) {
+  if (ev) ev.stopPropagation();
+  const worn = !!(document.getElementById('armor-name')?.value);
+  const rows = [];
+  if (worn) {
+    rows.push(`<button onclick="toggleArmorStow();_closeWeaponPopup()">${state.armorStowed ? '다시 착용' : '보관(벗기)'}</button>`);
+    rows.push(`<button onclick="_removeWornArmor();_closeWeaponPopup()">갑옷 제거</button>`);
+  } else {
+    rows.push(`<div class="wpop-note">착용한 갑옷이 없습니다. 「변경」으로 갑옷을 고르세요.</div>`);
+  }
+  _openWeaponPopup(ev, `<div class="wpop-title">갑옷 옵션</div>${rows.join('')}`);
+}
+
+function _removeWornArmor() {
+  const idx = _wornArmorEquipIdx();
+  if (idx >= 0) removeEquip(idx);
+  if (typeof _unwearArmor === 'function') _unwearArmor();
+  if (typeof recalcAll === 'function') recalcAll();
+  save();
+}
+
+function removeShield() {
+  const idx = _wornShieldEquipIdx();
+  if (idx >= 0) removeEquip(idx);
+  if (typeof _unequipShield === 'function') _unequipShield();
+  if (typeof recalcAll === 'function') recalcAll();
+  save();
+}
+
+// 갑옷/방패 룬 관리 팝업 (무기 룬 팝업과 동일 패턴, 착용 중인 장비 대상)
+function _defenseRunesPopup(kind, ev) {
+  if (ev) ev.stopPropagation();
+  const eqIdx = kind === 'armor' ? _wornArmorEquipIdx() : _wornShieldEquipIdx();
+  const label = kind === 'armor' ? '갑옷' : '방패';
+  if (eqIdx < 0) {
+    _openWeaponPopup(ev, `<div class="wpop-title">룬</div><div class="wpop-note">착용한 ${label}이 없거나 인벤토리와 연결되어 있지 않아 룬을 부착할 수 없습니다.</div>`);
+    return;
+  }
+  const attached = (typeof _getAttachedRunes === 'function') ? _getAttachedRunes(eqIdx) : [];
+  const attHtml = attached.length ? attached.map(r => {
+    const ri = state.equip.indexOf(r);
+    return `<div class="wpop-rune"><span>${r.name}</span><button onclick="detachRune(${ri});_closeWeaponPopup()">해제</button></div>`;
+  }).join('') : '<div class="wpop-note">부착된 룬이 없습니다.</div>';
+  const avail = state.equip.map((e, idx) => ({ e, idx })).filter(x => x.e._isRune && x.e._runeData?.attachTo === kind && (x.e._attachedTo === null || x.e._attachedTo === undefined));
+  const availHtml = avail.length ? avail.map(x => `<div class="wpop-rune"><span>${x.e.name}</span><button onclick="attachRune(${x.idx},${eqIdx});_closeWeaponPopup()">부착</button></div>`).join('') : `<div class="wpop-note">보유한 ${label} 룬이 없습니다. 장비 탭에서 룬을 구매·획득하세요.</div>`;
+  _openWeaponPopup(ev, `<div class="wpop-title">${label} 룬 관리</div><div class="wpop-sec">부착됨</div>${attHtml}<div class="wpop-sec">보유 룬</div>${availHtml}`);
+}
+function armorRunesPopup(ev) { _defenseRunesPopup('armor', ev); }
+function shieldRunesPopup(ev) { _defenseRunesPopup('shield', ev); }
 
 // ── Weapon category mapping ──
 function getWeaponCategory(w) {
@@ -501,14 +578,16 @@ function toggleGrip(idx) {
 //   무기 추가는 장비 탭이 아니라 무기 탭에 나타난다(사용자 요청). 장비 탭 렌더는 무기/방패 범주를 제외.
 //   기존 저장본(무기가 equip에만 있던 것)도 로드 시 이 동기화로 무기 탭에 표시됨. state.weapons에 직접 push(재귀 없음).
 function _ensureWeaponCards() {
+  // 방패는 방어 탭(방패 카드)에서 관리 → 무기 탭의 방패 카드는 제거.
+  for (let k = state.weapons.length - 1; k >= 0; k--) { if (state.weapons[k] && state.weapons[k]._isShield) state.weapons.splice(k, 1); }
   let added = false;
   for (let i = 0; i < state.equip.length; i++) {
     const e = state.equip[i];
     if (!e || e._isRune) continue;
-    if (e._type !== 'weapon' && e._type !== 'shield') continue;
+    if (e._type !== 'weapon') continue;   // 방패 제외(방어 탭 관리)
     if (state.weapons.some(w => w._fromEquip === i)) continue;
     const d = e._data || {};
-    const isShield = e._type === 'shield';
+    const isShield = false;
     state.weapons.push({
       id: 'w-' + Date.now() + '-' + i,
       name: d.name_ko || e.name || (isShield ? '방패' : '무기'),
@@ -543,6 +622,13 @@ function updateWeaponTeml() {
   ['simple', 'martial', 'advanced', 'unarmed'].forEach(c => {
     const el = document.getElementById('teml-weapon-' + c);
     if (el) el.innerHTML = _temlScaleHtml(parseInt(document.getElementById('prof-weapon-' + c)?.value || 0));
+  });
+}
+// 방어 탭 상단 갑옷 4범주 숙련 스케일 갱신
+function updateArmorTeml() {
+  ['light', 'medium', 'heavy', 'unarmored'].forEach(c => {
+    const el = document.getElementById('teml-armor-' + c);
+    if (el) el.innerHTML = _temlScaleHtml(parseInt(document.getElementById('prof-armor-' + c)?.value || 0));
   });
 }
 
@@ -999,7 +1085,7 @@ function renderEquip() {
 
   // 카테고리 순서대로 렌더 (주문 탭 spell-rank 스타일)
   INV_CATEGORIES.forEach(cat => {
-    if (cat.id === 'weapon-shield') return;   // 무기·방패는 무기 탭에서 관리(장비 탭 제외). 부피는 equip에 남아 계속 계산됨.
+    if (cat.id === 'weapon-shield' || cat.id === 'armor') return;   // 무기·방패=무기 탭, 갑옷=방어 탭에서 관리(장비 탭 제외). 부피는 equip에 남아 계속 계산됨.
     const idxs = groups[cat.id] || [];
 
     const section = document.createElement('div');
@@ -3101,6 +3187,7 @@ let weaponBrowseKind = 'standard';      // standard(레벨0) | magic(레벨1+)
 
 function openEquipBrowse() {
   equipBrowseMode = 'equip';
+  _equipGiveMode = null;   // 방어 「변경」 자동착용 플래그 초기화(일반 장비추가는 착용 안 함)
   modalType = 'equip-browse';
   modalSelected = null;
   modalContext = null;
@@ -3559,7 +3646,20 @@ function equipBrowseGive() {
     const invCat = item.invCat || null;
     // _data는 무기/갑옷/방패뿐 아니라 일반 장비(포션·소비품·보물 등)에도 저장 — 추가 후 정보 카드(_infoResolveItem)가 BASE 항목 설명을 해소하도록(미저장 시 "DB에 정보 없음").
     addEquip({name: item.name_ko, qty:1, bulk, _type: type, _data: item, _invCat: invCat, _broken: isBroken});
+    // 방어 탭 「변경」에서 온 경우: 추가 즉시 착용/장착(단일 갑옷·방패 모델)
+    if (_equipGiveMode === 'wear-armor' && type === 'armor') {
+      state.equip.forEach(e => { if (e._type === 'armor') e._equipped = false; });
+      const idx = state.equip.length - 1;
+      if (state.equip[idx]) { state.equip[idx]._holdMode = 'worn'; state.equip[idx]._equipped = true; }
+      if (typeof _wearArmor === 'function') _wearArmor(item);
+    } else if (_equipGiveMode === 'equip-shield' && type === 'shield') {
+      state.equip.forEach(e => { if (e._type === 'shield') e._equipped = false; });
+      const idx = state.equip.length - 1;
+      if (state.equip[idx]) { state.equip[idx]._holdMode = 'held'; state.equip[idx]._equipped = true; }
+      if (typeof _equipShield === 'function') _equipShield(item);
+    }
   }
+  _equipGiveMode = null;
   recalcAll();
   save();
   closeModal();
@@ -4022,14 +4122,14 @@ const BARDING_DB = [
 let COMPANION_DB = [];
 function _loadCompanions() {
   if (COMPANION_DB.length) return;
-  fetch('data/derived/companions.json?v=0.312').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/companions.json?v=0.313').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
   }).catch(() => {});
 }
 // 상태이상 카탈로그(파생 단일소스) 선로딩. 표시·조회용 → 로드 후 이미 그려진 상태이상 그리드 소급 재렌더(buildConditions).
 function _loadConditions() {
   if (typeof CONDITIONS_DATA !== 'undefined' && CONDITIONS_DATA.length) return;
-  fetch('data/derived/conditions.json?v=0.312').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/conditions.json?v=0.313').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) {
       CONDITIONS_DATA = j.rows;
       try { if (typeof buildConditions === 'function' && document.getElementById('conditions-grid')) buildConditions(); } catch (e) {}
@@ -4777,13 +4877,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.312'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.312'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.313'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.313'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.312'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.313'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}

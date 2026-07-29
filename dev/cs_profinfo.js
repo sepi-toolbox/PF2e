@@ -115,6 +115,17 @@
         actions: null, roll: null,
       };
     }
+    if (kind === 'armor') {
+      const catKo = { light: '경갑', medium: '평갑', heavy: '중갑', unarmored: '비무장' }[id] || id;
+      const rank = _rankOf('prof-armor-' + id);
+      const profB = rankBonus(rank, lv);
+      return {
+        title: '갑옷 숙련', label: catKo, mod: profB, rank,
+        cols: [{ h: '숙련', v: profB }],
+        desc: '이 갑옷 범주를 착용했을 때(비무장은 갑옷을 안 입었을 때) 방어 등급(AC)에 더하는 숙련 보너스입니다.\n(수련 등급: 미숙련 U · 숙련 T · 전문가 E · 달인 M · 전설 L)',
+        actions: null, roll: null,
+      };
+    }
     if (kind === 'classdc') {
       const attr = (typeof getClassKeyAttr === 'function') ? getClassKeyAttr() : 'wis';
       const rank = _rankOf('prof-classdc');

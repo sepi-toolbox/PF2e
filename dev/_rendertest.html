@@ -334,6 +334,35 @@
         log('panelWeapons:' + state.weapons.length);
       } catch (e) { log('wpnErr:' + e.message); }
     }
+    // ?panel=defense : 방어 탭 개편 검증 — 패널 주입 + 갑옷/방패 시드 + 카드 렌더
+    if (Q.get('panel') === 'defense') {
+      try {
+        var _dMark = '/#panel-defense -->';
+        var _dS = htmlTxt.indexOf('<div id="panel-defense"');
+        var _dE = htmlTxt.indexOf(_dMark);
+        if (_dS >= 0 && _dE > _dS) {
+          var _dh = document.createElement('div');
+          _dh.innerHTML = htmlTxt.slice(_dS, _dE + _dMark.length);
+          document.body.appendChild(_dh);
+          var _dp = document.getElementById('panel-defense'); if (_dp) { _dp.classList.add('active'); _dp.style.display = 'block'; }
+        }
+        ['light', 'unarmored'].forEach(function (c) { var s = document.getElementById('prof-armor-' + c); if (s) s.value = '2'; });
+        var _al = (window.PF2eEquip && PF2eEquip.legacyList) ? PF2eEquip.legacyList({ type: 'armor' }) : [];
+        var _sl = (window.PF2eEquip && PF2eEquip.legacyList) ? PF2eEquip.legacyList({ type: 'shield' }) : [];
+        var _arm = _al.find(function (x) { return /가죽|leather/i.test((x.name_ko || '') + (x.name_en || '')); }) || _al[0];
+        var _shd = _sl[0];
+        state.equip = state.equip || [];
+        if (Q.get('armor') !== 'none' && _arm && typeof _wearArmor === 'function') { state.equip.push({ name: _arm.name_ko || _arm.name, _type: 'armor', _data: _arm, _equipped: true, _holdMode: 'worn' }); _wearArmor(_arm); }
+        if (Q.get('shield') !== 'none' && _shd && typeof _equipShield === 'function') { state.equip.push({ name: _shd.name_ko || _shd.name, _type: 'shield', _data: _shd, _equipped: true, _holdMode: 'held' }); _equipShield(_shd); }
+        if (typeof syncAllProfRanks === 'function') syncAllProfRanks();
+        if (typeof recalcAC === 'function') recalcAC();
+        if (typeof renderArmorCard === 'function') renderArmorCard();
+        if (typeof renderShieldCard === 'function') renderShieldCard();
+        var _gpd = document.getElementById('growth-plan'); if (_gpd) _gpd.style.display = 'none';
+        var _gpdm = document.getElementById('growth-plan-mobile'); if (_gpdm) _gpdm.style.display = 'none';
+        log('panelDefense');
+      } catch (e) { log('defErr:' + e.message); }
+    }
     // ?wbclick=1 : 실제 버튼 클릭처럼 미리로드 없이 openWeaponBrowse 생짜 호출(데이터 미로드 경로 재현)
     if (Q.get('wbclick') && typeof openWeaponBrowse === 'function') {
       try { _equipDataReady = false; } catch (e) {}
