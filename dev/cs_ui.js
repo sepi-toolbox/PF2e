@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.316').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.317').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -377,26 +377,32 @@ function _wornShieldEquipIdx() { return state.equip.findIndex(e => e._type === '
 //  방어구 옵션 모달 (Pathbuilder식) — 강화룬/저항룬/재질/부피 오버라이드
 //  정본 데이터 = GM Core(강화·탄력 룬, 정밀 재질 등급별 레벨/가격)
 // ═══════════════════════════════════════════════
-const ARMOR_POTENCY_RUNES = [
-  { v: 1, ko: '강화 룬 +1', level: 5,  price: '160 gp' },
-  { v: 2, ko: '강화 룬 +2', level: 11, price: '1,060 gp' },
-  { v: 3, ko: '강화 룬 +3', level: 18, price: '20,560 gp' },
-];
-const ARMOR_RESILIENT_RUNES = [
-  { v: 1, ko: '탄력 룬',        level: 8,  price: '340 gp' },
-  { v: 2, ko: '상위 탄력 룬',   level: 14, price: '3,440 gp' },
-  { v: 3, ko: '최상위 탄력 룬', level: 20, price: '49,440 gp' },
-];
-// GM Core 정밀 재질(갑옷) — 등급별 레벨/가격. 보유 6권 정본만.
-const ARMOR_MATERIALS = [
-  { mat: 'cold-iron',  ko: '냉철',    grades: [ {g:'low',level:5,price:'140 gp'},   {g:'standard',level:11,price:'1,200 gp'}, {g:'high',level:18,price:'20,000 gp'} ] },
-  { mat: 'silver',     ko: '은',      grades: [ {g:'low',level:5,price:'140 gp'},   {g:'standard',level:11,price:'1,200 gp'}, {g:'high',level:18,price:'20,000 gp'} ] },
-  { mat: 'adamantine', ko: '아다만틴', grades: [ {g:'standard',level:12,price:'1,600 gp'}, {g:'high',level:19,price:'32,000 gp'} ] },
-  { mat: 'dawnsilver', ko: '여명은',  grades: [ {g:'standard',level:12,price:'1,600 gp'}, {g:'high',level:19,price:'32,000 gp'} ] },
-  { mat: 'duskwood',   ko: '황혼목',  grades: [ {g:'standard',level:12,price:'1,600 gp'}, {g:'high',level:19,price:'32,000 gp'} ] },
-  { mat: 'orichalcum', ko: '오리칼쿰', grades: [ {g:'high',level:20,price:'55,000 gp'} ] },
-];
-const _GRADE_KO = { low: '하급', standard: '표준급', high: '상급' };
+// ★ 강화/탄력 룬 = getRuneCatalog() 단일 소스(장비 탭 룬 목록과 동일). 상수표 하드코딩 금지.
+function _armorRunes(kind) {
+  const rt = kind === 'potency' ? 'potency' : 'resilient';
+  const cat = (typeof getRuneCatalog === 'function') ? getRuneCatalog() : [];
+  return cat.filter(r => r.attachTo === 'armor' && r.runeType === rt)
+    .sort((a, b) => (a.runeValue || 0) - (b.runeValue || 0))
+    .map(r => ({ v: r.runeValue, name_ko: r.name_ko, name_en: r.name_en, level: r.level, price: r.price }));
+}
+function _armorRuneName(kind, value) {
+  if (!value) return '없음';
+  const r = _armorRunes(kind).find(x => x.v === value);
+  return r ? r.name_ko : '';
+}
+// ★ 정밀 재질 = 런타임 로드 데이터(data/armor_materials.json). 상수표 하드코딩 금지.
+let _armorMatData = null, _armorMatPromise = null;
+function _armorMaterials() { return (_armorMatData && _armorMatData.materials) || []; }
+function _gradeKo(g) { return (_armorMatData && _armorMatData.grade_ko && _armorMatData.grade_ko[g]) || ({ low: '하급', standard: '표준급', high: '상급' })[g] || g; }
+function _ensureArmorMatData() {
+  if (_armorMatData) return Promise.resolve(_armorMatData);
+  if (_armorMatPromise) return _armorMatPromise;
+  _armorMatPromise = fetch('data/armor_materials.json?v=0.317')
+    .then(r => r.ok ? r.json() : null)
+    .then(j => { _armorMatData = j || { materials: [] }; return _armorMatData; })
+    .catch(() => { _armorMatData = { materials: [] }; return _armorMatData; });
+  return _armorMatPromise;
+}
 const _ARMOR_BULK_OPTS = [ [null,'없음'], [0,'— (0)'], [0.1,'L'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'] ];
 
 let _aoptView = 'main';   // main | potency | resilient | material
@@ -407,7 +413,7 @@ let _aoptPickItems = [];  // 현재 피커 목록
 // 기존 「옵션」 버튼 호환 — 새 모달로 진입
 function armorOptionsMenu(ev) { openArmorOptions(ev); }
 
-function _matKo(m) { if (!m) return null; const md = ARMOR_MATERIALS.find(x => x.mat === m.mat); if (!md) return null; return `${md.ko} (${_GRADE_KO[m.grade] || m.grade})`; }
+function _matKo(m) { if (!m) return null; const md = _armorMaterials().find(x => x.mat === m.mat); const ko = md ? md.ko : m.mat; return `${ko} (${_gradeKo(m.grade)})`; }
 
 // AC 분해(장비/민첩/숙련) — recalcAC와 동일 파생(대원칙0)
 function _armorOptAcParts() {
@@ -497,9 +503,8 @@ function _renderArmorOpt() {
   const displayName = worn ? name : '비무장';
   if (titleEl) titleEl.textContent = '갑옷 옵션';
   const p = _armorOptAcParts();
-  const potNames = ['없음', '강화 +1', '강화 +2', '강화 +3'];
-  const resNames = ['없음', '탄력 룬', '상위 탄력 룬', '최상위 탄력 룬'];
   const matLabel = _matKo(state.armorMaterial) || '재질 없음';
+  if (!_armorMatData) _ensureArmorMatData().then(() => { if (_aoptView === 'main') _renderArmorOpt(); }); // 재질명 라벨용 데이터 로드
   let desc = worn ? '' : '갑옷을 착용하지 않았습니다.';
   const wornEq = state.equip.find(e => e._type === 'armor' && e._equipped);
   if (worn && wornEq && wornEq._data && (wornEq._data.desc || wornEq._data._desc)) desc = wornEq._data.desc || wornEq._data._desc;
@@ -523,8 +528,8 @@ function _renderArmorOpt() {
         </div>
       </div>
       <div class="aopt-fields">
-        ${field('강화 룬', potNames[state.armorPotency || 0], 'potency')}
-        ${field('저항 룬', resNames[state.armorResilient || 0], 'resilient')}
+        ${field('강화 룬', _armorRuneName('potency', state.armorPotency || 0), 'potency')}
+        ${field('저항 룬', _armorRuneName('resilient', state.armorResilient || 0), 'resilient')}
         ${field('재질', matLabel, 'material')}
         <div class="aopt-row">
           <span class="aopt-label">부피 오버라이드</span>
@@ -570,21 +575,32 @@ function _aoptRow(item, sel) {
   </div>`;
 }
 function _renderRunePicker(kind) {
-  const list = kind === 'potency' ? ARMOR_POTENCY_RUNES : ARMOR_RESILIENT_RUNES;
   const cur = kind === 'potency' ? (state.armorPotency||0) : (state.armorResilient||0);
-  _aoptPickItems = list.map(r => ({ _pk: kind+':'+r.v, _kind: kind, v: r.v, name_ko: r.ko, name_en: (kind==='potency'?'Armor Potency +':'Resilient +')+r.v, level: r.level, price: r.price }));
   _aoptPickerChrome(kind === 'potency' ? '강화 룬 (Potency)' : '탄력 룬 (Resilient)');
   const opts = document.getElementById('modal-options');
+  const runes = _armorRunes(kind);   // getRuneCatalog 단일 소스
+  if (!runes.length) {  // 장비 카탈로그 미로드 → 로드 후 재렌더
+    if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">룬 데이터 불러오는 중…</div>';
+    if (typeof _ensureEquipData === 'function') _ensureEquipData().then(ok => { if (ok && _aoptView === kind) _renderRunePicker(kind); });
+    return;
+  }
+  _aoptPickItems = runes.map(r => ({ _pk: kind+':'+r.v, _kind: kind, v: r.v, name_ko: r.name_ko, name_en: r.name_en, level: r.level, price: r.price }));
   if (opts) opts.innerHTML = _aoptPickItems.map(it => _aoptRow(it, cur === it.v)).join('');
   const cd = _aoptPickItems.find(it => it.v === cur);
   if (cd) _aoptSelectPick(cd._pk); else _aoptPickEmptyDetail(kind);
 }
 function _renderMaterialPicker() {
   const cur = state.armorMaterial;
-  _aoptPickItems = [];
-  ARMOR_MATERIALS.forEach(md => md.grades.forEach(g => _aoptPickItems.push({ _pk: 'mat:'+md.mat+':'+g.g, _kind:'material', mat: md.mat, grade: g.g, name_ko: md.ko+' ('+_GRADE_KO[g.g]+')', name_en: md.mat+' '+g.g, level: g.level, price: g.price })));
   _aoptPickerChrome('정밀 재질 (Material)');
   const opts = document.getElementById('modal-options');
+  const mats = _armorMaterials();   // data/armor_materials.json 단일 소스
+  if (!mats.length) {  // 미로드 → 로드 후 재렌더
+    if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">재질 데이터 불러오는 중…</div>';
+    _ensureArmorMatData().then(() => { if (_aoptView === 'material') _renderMaterialPicker(); });
+    return;
+  }
+  _aoptPickItems = [];
+  mats.forEach(md => (md.grades||[]).forEach(g => _aoptPickItems.push({ _pk: 'mat:'+md.mat+':'+g.g, _kind:'material', mat: md.mat, grade: g.g, name_ko: md.ko+' ('+_gradeKo(g.g)+')', name_en: md.mat+' '+g.g, level: g.level, price: g.price })));
   if (opts) opts.innerHTML = _aoptPickItems.map(it => _aoptRow(it, cur && cur.mat===it.mat && cur.grade===it.grade)).join('');
   const cd = _aoptPickItems.find(it => cur && it.mat===cur.mat && it.grade===cur.grade);
   if (cd) _aoptSelectPick(cd._pk); else _aoptPickEmptyDetail('material');
@@ -4456,14 +4472,14 @@ const BARDING_DB = [
 let COMPANION_DB = [];
 function _loadCompanions() {
   if (COMPANION_DB.length) return;
-  fetch('data/derived/companions.json?v=0.316').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/companions.json?v=0.317').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
   }).catch(() => {});
 }
 // 상태이상 카탈로그(파생 단일소스) 선로딩. 표시·조회용 → 로드 후 이미 그려진 상태이상 그리드 소급 재렌더(buildConditions).
 function _loadConditions() {
   if (typeof CONDITIONS_DATA !== 'undefined' && CONDITIONS_DATA.length) return;
-  fetch('data/derived/conditions.json?v=0.316').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/conditions.json?v=0.317').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) {
       CONDITIONS_DATA = j.rows;
       try { if (typeof buildConditions === 'function' && document.getElementById('conditions-grid')) buildConditions(); } catch (e) {}
@@ -5211,13 +5227,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.316'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.316'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.317'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.317'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.316'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.317'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}
