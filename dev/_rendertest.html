@@ -313,9 +313,12 @@
         var _wl = (window.PF2eEquip && PF2eEquip.legacyList) ? PF2eEquip.legacyList({ type: 'weapon' }) : [];
         function _pickW(en) { return _wl.find(function (x) { return x.en === en || x.name === en; }) || null; }
         var _w1 = _pickW('Longsword') || _wl[0], _w2 = _pickW('Shortbow') || _pickW('Dagger') || _wl[1];
-        state.weapons = [];
-        if (_w1) state.weapons.push({ name: _w1.name || _w1.name_ko || _w1.en, _dbData: _w1, dmg: _w1.damage, _potency: 0, _striking: 0 });
-        if (_w2) state.weapons.push({ name: _w2.name || _w2.name_ko || _w2.en, _dbData: _w2, dmg: _w2.damage, _potency: 0, _striking: 0 });
+        // 실제 추가 흐름 재현: 무기는 state.equip에 넣고, 동기화(_ensureWeaponCards)가 무기 탭 카드를 만든다.
+        state.equip = state.equip || [];
+        if (_w1) state.equip.push({ name: _w1.name || _w1.en, qty: 1, bulk: 1, _type: 'weapon', _data: _w1, _holdMode: 'one', _equipped: true });
+        if (_w2) state.equip.push({ name: _w2.name || _w2.en, qty: 1, bulk: 1, _type: 'weapon', _data: _w2, _holdMode: 'stowed' });
+        state.equip.push({ name: '밧줄 (Rope)', qty: 1, bulk: 1, _invCat: 'gear', _data: { name_ko: '밧줄' } });
+        state.weapons = [];   // 카드는 동기화가 생성
         if (typeof syncAllProfRanks === 'function') syncAllProfRanks();
         if (typeof renderWeapons === 'function') renderWeapons();
         var _gpw = document.getElementById('growth-plan'); if (_gpw) _gpw.style.display = 'none';
@@ -323,6 +326,11 @@
         var _wpop = Q.get('wpop');
         if (_wpop === 'options' && typeof weaponOptionsMenu === 'function') weaponOptionsMenu(0, null);
         else if (_wpop === 'runes' && typeof weaponRunesPopup === 'function') weaponRunesPopup(0, null);
+        // 장비 탭 제외 검증: #equip-list에 무기가 안 뜨고 일반 장비(밧줄)만 뜨는지
+        if (!document.getElementById('equip-list')) { var _el = document.createElement('div'); _el.id = 'equip-list'; document.body.appendChild(_el); }
+        try { if (typeof renderEquip === 'function') renderEquip(); } catch (e) { log('eqErr:' + e.message); }
+        var _eqText = (document.getElementById('equip-list') || {}).textContent || '';
+        log('equipHasWeapon(가시)=' + (_eqText.indexOf('가시') >= 0) + '|equipHasRope(밧줄)=' + (_eqText.indexOf('밧줄') >= 0));
         log('panelWeapons:' + state.weapons.length);
       } catch (e) { log('wpnErr:' + e.message); }
     }

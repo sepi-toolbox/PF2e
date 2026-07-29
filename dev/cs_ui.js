@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.311').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.312').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -497,6 +497,42 @@ function toggleGrip(idx) {
   renderWeapons(); renderEquip(); save();
 }
 
+// state.equip의 무기/방패를 무기 탭 카드(state.weapons)로 자동 동기화.
+//   무기 추가는 장비 탭이 아니라 무기 탭에 나타난다(사용자 요청). 장비 탭 렌더는 무기/방패 범주를 제외.
+//   기존 저장본(무기가 equip에만 있던 것)도 로드 시 이 동기화로 무기 탭에 표시됨. state.weapons에 직접 push(재귀 없음).
+function _ensureWeaponCards() {
+  let added = false;
+  for (let i = 0; i < state.equip.length; i++) {
+    const e = state.equip[i];
+    if (!e || e._isRune) continue;
+    if (e._type !== 'weapon' && e._type !== 'shield') continue;
+    if (state.weapons.some(w => w._fromEquip === i)) continue;
+    const d = e._data || {};
+    const isShield = e._type === 'shield';
+    state.weapons.push({
+      id: 'w-' + Date.now() + '-' + i,
+      name: d.name_ko || e.name || (isShield ? '방패' : '무기'),
+      dmg: isShield ? '' : (d.damage || ''),
+      traits: isShield ? '' : (d.traits || []).join(', '),
+      _dbData: isShield ? null : d,
+      _isShield: isShield,
+      category: isShield ? 'shield' : d.category,
+      range: d.range,
+      _fromEquip: i,
+      _broken: e._broken || false,
+      _twoHand: (d.hands === 2),
+      _stowed: e._holdMode === 'stowed',
+      _dropped: e._holdMode === 'dropped',
+      _potency: 0, _striking: 0, _runeDamage: [], _runeNotes: [], _propertyRunes: [],
+    });
+    added = true;
+  }
+  if (added && typeof applyAttachedRunes === 'function') {
+    state.equip.forEach((e, i) => { if ((e._type === 'weapon' || e._type === 'shield') && !e._isRune) applyAttachedRunes(i); });
+  }
+  return added;
+}
+
 // TEML 등급 스케일 HTML(T/E/M/L 4원, 현재 rank만 강조). rank = 0/2/4/6/8.
 function _temlScaleHtml(rank) {
   const ranks = [['T', 2], ['E', 4], ['M', 6], ['L', 8]];
@@ -511,6 +547,7 @@ function updateWeaponTeml() {
 }
 
 function renderWeapons() {
+  _ensureWeaponCards();   // equip의 무기/방패 → 무기 탭 카드 동기화(신규 추가·기존 저장본)
   const list = document.getElementById('weapons-list');
   if (!list) return;
   list.innerHTML = '';
@@ -603,7 +640,13 @@ function renderWeapons() {
 }
 
 function removeWeapon(i) {
-  state.weapons.splice(i,1);
+  const w = state.weapons[i];
+  const eqIdx = (w && w._fromEquip != null) ? w._fromEquip : null;
+  state.weapons.splice(i, 1);
+  // 무기 탭 카드는 equip의 무기 항목과 1:1 → 연결된 equip 항목도 제거(안 하면 동기화가 카드를 재생성).
+  if (eqIdx != null && state.equip[eqIdx]) {
+    removeEquip(eqIdx);   // equip 제거 + _fromEquip/룬 인덱스 재정렬 + renderEquip + save
+  }
   renderWeapons();
   save();
 }
@@ -956,6 +999,7 @@ function renderEquip() {
 
   // 카테고리 순서대로 렌더 (주문 탭 spell-rank 스타일)
   INV_CATEGORIES.forEach(cat => {
+    if (cat.id === 'weapon-shield') return;   // 무기·방패는 무기 탭에서 관리(장비 탭 제외). 부피는 equip에 남아 계속 계산됨.
     const idxs = groups[cat.id] || [];
 
     const section = document.createElement('div');
@@ -3978,14 +4022,14 @@ const BARDING_DB = [
 let COMPANION_DB = [];
 function _loadCompanions() {
   if (COMPANION_DB.length) return;
-  fetch('data/derived/companions.json?v=0.311').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/companions.json?v=0.312').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
   }).catch(() => {});
 }
 // 상태이상 카탈로그(파생 단일소스) 선로딩. 표시·조회용 → 로드 후 이미 그려진 상태이상 그리드 소급 재렌더(buildConditions).
 function _loadConditions() {
   if (typeof CONDITIONS_DATA !== 'undefined' && CONDITIONS_DATA.length) return;
-  fetch('data/derived/conditions.json?v=0.311').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/conditions.json?v=0.312').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) {
       CONDITIONS_DATA = j.rows;
       try { if (typeof buildConditions === 'function' && document.getElementById('conditions-grid')) buildConditions(); } catch (e) {}
@@ -4733,13 +4777,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.311'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.311'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.312'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.312'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.311'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.312'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}
