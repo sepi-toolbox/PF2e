@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.314').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.315').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -180,6 +180,8 @@ function renderArmorCard() {
         <span class="prof-rank-badge ${profCls}">${profLetter}</span> ${displayName}
         ${potency > 0 ? `<span class="wc-flag" style="color:var(--accent);">+${potency}</span>` : ''}
         ${resilient > 0 ? `<span class="wc-flag" style="color:var(--accent);">${resNames[resilient] || ''}</span>` : ''}
+        ${state.armorMaterial ? `<span class="wc-flag" style="color:var(--gold,#c9a44a);">${(typeof _matKo==='function'&&_matKo(state.armorMaterial))||''}</span>` : ''}
+        ${state.armorBulkOverride != null ? `<span class="wc-flag" style="color:var(--text2);">부피 ${state.armorBulkOverride===0.1?'L':state.armorBulkOverride}</span>` : ''}
       </div>
       <div class="weapon-stat-row">
         <div class="weapon-stat"><span class="stat-label">장비 보너스</span><span class="stat-val">+${itemBonus}</span></div>
@@ -371,18 +373,227 @@ function openShieldBrowse() {
 function _wornArmorEquipIdx() { return state.equip.findIndex(e => e._type === 'armor' && e._equipped); }
 function _wornShieldEquipIdx() { return state.equip.findIndex(e => e._type === 'shield' && e._equipped); }
 
-function armorOptionsMenu(ev) {
-  if (ev) ev.stopPropagation();
+// ═══════════════════════════════════════════════
+//  방어구 옵션 모달 (Pathbuilder식) — 강화룬/저항룬/재질/부피 오버라이드
+//  정본 데이터 = GM Core(강화·탄력 룬, 정밀 재질 등급별 레벨/가격)
+// ═══════════════════════════════════════════════
+const ARMOR_POTENCY_RUNES = [
+  { v: 1, ko: '강화 룬 +1', level: 5,  price: '160 gp' },
+  { v: 2, ko: '강화 룬 +2', level: 11, price: '1,060 gp' },
+  { v: 3, ko: '강화 룬 +3', level: 18, price: '20,560 gp' },
+];
+const ARMOR_RESILIENT_RUNES = [
+  { v: 1, ko: '탄력 룬',        level: 8,  price: '340 gp' },
+  { v: 2, ko: '상위 탄력 룬',   level: 14, price: '3,440 gp' },
+  { v: 3, ko: '최상위 탄력 룬', level: 20, price: '49,440 gp' },
+];
+// GM Core 정밀 재질(갑옷) — 등급별 레벨/가격. 보유 6권 정본만.
+const ARMOR_MATERIALS = [
+  { mat: 'cold-iron',  ko: '냉철',    grades: [ {g:'low',level:5,price:'140 gp'},   {g:'standard',level:11,price:'1,200 gp'}, {g:'high',level:18,price:'20,000 gp'} ] },
+  { mat: 'silver',     ko: '은',      grades: [ {g:'low',level:5,price:'140 gp'},   {g:'standard',level:11,price:'1,200 gp'}, {g:'high',level:18,price:'20,000 gp'} ] },
+  { mat: 'adamantine', ko: '아다만틴', grades: [ {g:'standard',level:12,price:'1,600 gp'}, {g:'high',level:19,price:'32,000 gp'} ] },
+  { mat: 'dawnsilver', ko: '여명은',  grades: [ {g:'standard',level:12,price:'1,600 gp'}, {g:'high',level:19,price:'32,000 gp'} ] },
+  { mat: 'duskwood',   ko: '황혼목',  grades: [ {g:'standard',level:12,price:'1,600 gp'}, {g:'high',level:19,price:'32,000 gp'} ] },
+  { mat: 'orichalcum', ko: '오리칼쿰', grades: [ {g:'high',level:20,price:'55,000 gp'} ] },
+];
+const _GRADE_KO = { low: '하급', standard: '표준급', high: '상급' };
+const _ARMOR_BULK_OPTS = [ [null,'없음'], [0,'— (0)'], [0.1,'L'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'] ];
+
+let _aoptView = 'main';   // main | potency | resilient | material
+let _aoptSnap = null;     // 취소 복원용 스냅샷
+
+// 기존 「옵션」 버튼 호환 — 새 모달로 진입
+function armorOptionsMenu(ev) { openArmorOptions(ev); }
+
+function _matKo(m) { if (!m) return null; const md = ARMOR_MATERIALS.find(x => x.mat === m.mat); if (!md) return null; return `${md.ko} (${_GRADE_KO[m.grade] || m.grade})`; }
+
+// AC 분해(장비/민첩/숙련) — recalcAC와 동일 파생(대원칙0)
+function _armorOptAcParts() {
   const worn = !!(document.getElementById('armor-name')?.value);
-  const rows = [];
-  if (worn) {
-    rows.push(`<button onclick="toggleArmorStow();_closeWeaponPopup()">${state.armorStowed ? '다시 착용' : '보관(벗기)'}</button>`);
-    rows.push(`<button onclick="_removeWornArmor();_closeWeaponPopup()">갑옷 제거</button>`);
-  } else {
-    rows.push(`<div class="wpop-note">착용한 갑옷이 없습니다. 「변경」으로 갑옷을 고르세요.</div>`);
-  }
-  _openWeaponPopup(ev, `<div class="wpop-title">갑옷 옵션</div>${rows.join('')}`);
+  const baseAc = parseInt(document.getElementById('armor-ac')?.value || 0);
+  const item = worn ? baseAc + (state.armorPotency || 0) : 0;
+  const dexCapV = document.getElementById('armor-dex')?.value;
+  let dex = (typeof getMod === 'function') ? getMod('dex') : 0;
+  if (worn && dexCapV && dexCapV !== '-' && dexCapV !== '') dex = Math.min(dex, parseInt(dexCapV) || 99);
+  const profId = (typeof getArmorProfSelectId === 'function') ? getArmorProfSelectId() : 'prof-armor-unarmored';
+  const rank = parseInt(document.getElementById(profId)?.value || 0);
+  const lv = (typeof getLevel === 'function') ? getLevel() : 1;
+  const prof = (typeof rankBonus === 'function') ? rankBonus(rank, lv) : 0;
+  return { worn, item, dex, prof, rank, sum: item + dex + prof };
 }
+
+function openArmorOptions(ev) {
+  if (ev) ev.stopPropagation();
+  _aoptSnap = {
+    potency: state.armorPotency || 0,
+    resilient: state.armorResilient || 0,
+    material: state.armorMaterial ? { ...state.armorMaterial } : null,
+    bulk: (state.armorBulkOverride != null ? state.armorBulkOverride : null),
+  };
+  _aoptView = 'main';
+  _renderArmorOpt();
+}
+
+function _armorOptOverlay() {
+  let ov = document.getElementById('armor-opt-overlay');
+  if (!ov) {
+    ov = document.createElement('div');
+    ov.id = 'armor-opt-overlay';
+    ov.className = 'aopt-overlay';
+    ov.innerHTML = '<div class="aopt-modal"><div class="aopt-body" id="aopt-body"></div><div class="aopt-foot" id="aopt-foot"></div></div>';
+    document.body.appendChild(ov);
+    ov.addEventListener('click', e => { if (e.target === ov) { if (_aoptView === 'main') closeArmorOptions(true); else { _aoptView = 'main'; _renderArmorOpt(); } } });
+  }
+  return ov;
+}
+
+function closeArmorOptions(cancel) {
+  if (cancel && _aoptSnap) {
+    state.armorPotency = _aoptSnap.potency;
+    state.armorResilient = _aoptSnap.resilient;
+    state.armorMaterial = _aoptSnap.material;
+    state.armorBulkOverride = _aoptSnap.bulk;
+    if (typeof recalcAll === 'function') recalcAll();
+    renderArmorCard();
+  }
+  const ov = document.getElementById('armor-opt-overlay'); if (ov) ov.remove();
+  _aoptSnap = null;
+}
+
+function acceptArmorOptions() {
+  if (typeof save === 'function') save();
+  const ov = document.getElementById('armor-opt-overlay'); if (ov) ov.remove();
+  _aoptSnap = null;
+}
+
+// 룬/재질 변경 즉시 반영(라이브) — 취소 시 스냅샷 복원
+function _aoptApply() { if (typeof recalcAll === 'function') recalcAll(); renderArmorCard(); _renderArmorOpt(); }
+
+function _renderArmorOpt() {
+  _armorOptOverlay();
+  const body = document.getElementById('aopt-body');
+  const foot = document.getElementById('aopt-foot');
+  if (!body || !foot) return;
+  if (_aoptView === 'potency') { _renderRunePicker(body, foot, 'potency'); return; }
+  if (_aoptView === 'resilient') { _renderRunePicker(body, foot, 'resilient'); return; }
+  if (_aoptView === 'material') { _renderMaterialPicker(body, foot); return; }
+
+  // ── 메인 뷰 ──
+  const name = document.getElementById('armor-name')?.value || '';
+  const worn = !!name;
+  const displayName = worn ? name : '비무장';
+  const p = _armorOptAcParts();
+  const potNames = ['없음', '강화 +1', '강화 +2', '강화 +3'];
+  const resNames = ['없음', '탄력 룬', '상위 탄력 룬', '최상위 탄력 룬'];
+  const matLabel = _matKo(state.armorMaterial) || '재질 없음';
+  const bulkLabel = (state.armorBulkOverride == null) ? '없음' : (_ARMOR_BULK_OPTS.find(o => o[0] === state.armorBulkOverride)?.[1] || String(state.armorBulkOverride));
+  // 설명(착용 갑옷 desc)
+  let desc = worn ? '' : '갑옷을 착용하지 않았습니다.';
+  const wornEq = state.equip.find(e => e._type === 'armor' && e._equipped);
+  if (worn && wornEq && wornEq._data && (wornEq._data.desc || wornEq._data._desc)) desc = wornEq._data.desc || wornEq._data._desc;
+
+  const field = (label, val, view) => `
+    <div class="aopt-row" onclick="_aoptGo('${view}')">
+      <span class="aopt-label">${label}</span>
+      <button class="aopt-pick">${val}</button>
+    </div>`;
+  const bulkOpts = _ARMOR_BULK_OPTS.map(([v, ko]) => `<option value="${v === null ? '' : v}"${state.armorBulkOverride === v ? ' selected' : ''}>${ko}</option>`).join('');
+
+  body.innerHTML = `
+    <div class="aopt-title">${displayName}</div>
+    <div class="aopt-acbox">
+      <div class="aopt-acname">${worn ? '갑옷' : '비무장'} AC <b>${p.sum}</b></div>
+      <div class="teml-scale">${_temlScaleHtml(p.rank)}</div>
+      <div class="aopt-acbreak">
+        <div><span>민첩</span><b>${p.dex >= 0 ? '+' : ''}${p.dex}</b></div>
+        <div><span>숙련</span><b>+${p.prof}</b></div>
+        <div><span>장비</span><b>+${p.item}</b></div>
+      </div>
+    </div>
+    <div class="aopt-fields">
+      ${field('강화 룬', potNames[state.armorPotency || 0], 'potency')}
+      ${field('저항 룬', resNames[state.armorResilient || 0], 'resilient')}
+      ${field('재질', matLabel, 'material')}
+      <div class="aopt-row">
+        <span class="aopt-label">부피 오버라이드</span>
+        <select class="aopt-select" onchange="_aoptSetBulk(this.value)">${bulkOpts}</select>
+      </div>
+    </div>
+    <div class="aopt-desc">${desc}</div>`;
+
+  foot.innerHTML = `
+    <button class="aopt-btn aopt-accept" onclick="acceptArmorOptions()">확인</button>
+    <button class="aopt-btn aopt-cancel" onclick="closeArmorOptions(true)">취소</button>`;
+}
+
+function _aoptGo(view) { _aoptPend = null; _aoptView = view; _renderArmorOpt(); }
+
+function _aoptSetBulk(v) {
+  state.armorBulkOverride = (v === '' ? null : parseFloat(v));
+  if (typeof recalcBulk === 'function') recalcBulk();
+  renderArmorCard();
+}
+
+// 행 선택 대기값(지급/구매 확정 전) — 피커 진입 시 현재값으로 초기화
+let _aoptPend = null;   // {kind,v} (룬) | {mat,grade} (재질)
+
+// 강화/탄력 룬 피커 (Fundamental Runes)
+function _renderRunePicker(body, foot, kind) {
+  const list = kind === 'potency' ? ARMOR_POTENCY_RUNES : ARMOR_RESILIENT_RUNES;
+  const title = kind === 'potency' ? '강화 룬 (Potency)' : '탄력 룬 (Resilient)';
+  const pv = (_aoptPend && _aoptPend.kind === kind) ? _aoptPend.v : (kind === 'potency' ? (state.armorPotency || 0) : (state.armorResilient || 0));
+  const rows = list.map(r => `
+    <div class="aopt-pk-row${pv === r.v ? ' sel' : ''}" onclick="_aoptPend={kind:'${kind}',v:${r.v}};_renderArmorOpt()">
+      <span class="aopt-pk-name">${r.ko}</span>
+      <span class="aopt-pk-meta"><span class="aopt-lvl">Lv ${r.level}</span><span class="aopt-price">${r.price}</span></span>
+    </div>`).join('');
+  body.innerHTML = `<div class="aopt-title">${title}</div><div class="aopt-picklist">${rows}</div>`;
+  const canApply = !!(_aoptPend && _aoptPend.kind === kind && _aoptPend.v);
+  foot.innerHTML = `
+    <button class="aopt-btn" onclick="_aoptRemoveRune('${kind}')">제거</button>
+    <button class="aopt-btn${canApply ? '' : ' dis'}" ${canApply ? `onclick="_aoptApplyRune('${kind}',false)"` : 'disabled'}>지급</button>
+    <button class="aopt-btn aopt-buy${canApply ? '' : ' dis'}" ${canApply ? `onclick="_aoptApplyRune('${kind}',true)"` : 'disabled'}>구매</button>
+    <button class="aopt-btn aopt-cancel" onclick="_aoptPend=null;_aoptGo('main')">뒤로</button>`;
+}
+function _aoptApplyRune(kind, buy) {
+  if (!_aoptPend || _aoptPend.kind !== kind) return;
+  const v = _aoptPend.v;
+  const list = kind === 'potency' ? ARMOR_POTENCY_RUNES : ARMOR_RESILIENT_RUNES;
+  const r = list.find(x => x.v === v); if (!r) return;
+  if (buy) { const cp = (typeof parsePrice === 'function') ? parsePrice(r.price) : 0; if (cp && typeof getCurrencyTotalCp === 'function' && getCurrencyTotalCp() < cp) { alert('소지금이 부족합니다! 필요: ' + r.price); return; } if (cp && typeof deductCurrency === 'function') deductCurrency(cp); }
+  if (kind === 'potency') state.armorPotency = v; else state.armorResilient = v;
+  _aoptPend = null; _aoptView = 'main'; _aoptApply();
+}
+function _aoptRemoveRune(kind) { if (kind === 'potency') state.armorPotency = 0; else state.armorResilient = 0; _aoptPend = null; _aoptView = 'main'; _aoptApply(); }
+
+// 재질 피커 (Equipment Material)
+function _renderMaterialPicker(body, foot) {
+  const pend = (_aoptPend && _aoptPend.mat) ? _aoptPend : state.armorMaterial;
+  let rows = '';
+  ARMOR_MATERIALS.forEach(md => md.grades.forEach(g => {
+    const sel = pend && pend.mat === md.mat && pend.grade === g.g;
+    rows += `
+    <div class="aopt-pk-row${sel ? ' sel' : ''}" onclick="_aoptPend={mat:'${md.mat}',grade:'${g.g}'};_renderArmorOpt()">
+      <span class="aopt-pk-name">${md.ko} <small>(${_GRADE_KO[g.g]})</small></span>
+      <span class="aopt-pk-meta"><span class="aopt-lvl">Lv ${g.level}</span><span class="aopt-price">${g.price}</span></span>
+    </div>`;
+  }));
+  body.innerHTML = `<div class="aopt-title">정밀 재질 (Material)</div><div class="aopt-picklist">${rows}</div>`;
+  const canApply = !!(_aoptPend && _aoptPend.mat);
+  foot.innerHTML = `
+    <button class="aopt-btn" onclick="_aoptRemoveMat()">제거</button>
+    <button class="aopt-btn${canApply ? '' : ' dis'}" ${canApply ? 'onclick="_aoptApplyMat(false)"' : 'disabled'}>지급</button>
+    <button class="aopt-btn aopt-buy${canApply ? '' : ' dis'}" ${canApply ? 'onclick="_aoptApplyMat(true)"' : 'disabled'}>구매</button>
+    <button class="aopt-btn aopt-cancel" onclick="_aoptPend=null;_aoptGo('main')">뒤로</button>`;
+}
+function _aoptApplyMat(buy) {
+  if (!_aoptPend || !_aoptPend.mat) return;
+  const { mat, grade } = _aoptPend;
+  if (buy) { const md = ARMOR_MATERIALS.find(x => x.mat === mat); const g = md && md.grades.find(x => x.g === grade); const cp = (g && typeof parsePrice === 'function') ? parsePrice(g.price) : 0; if (cp && typeof getCurrencyTotalCp === 'function' && getCurrencyTotalCp() < cp) { alert('소지금이 부족합니다! 필요: ' + (g && g.price)); return; } if (cp && typeof deductCurrency === 'function') deductCurrency(cp); }
+  state.armorMaterial = { mat, grade };
+  _aoptPend = null; _aoptView = 'main'; _aoptApply();
+}
+function _aoptRemoveMat() { state.armorMaterial = null; _aoptPend = null; _aoptView = 'main'; _aoptApply(); }
 
 function _removeWornArmor() {
   const idx = _wornArmorEquipIdx();
@@ -4204,14 +4415,14 @@ const BARDING_DB = [
 let COMPANION_DB = [];
 function _loadCompanions() {
   if (COMPANION_DB.length) return;
-  fetch('data/derived/companions.json?v=0.314').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/companions.json?v=0.315').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
   }).catch(() => {});
 }
 // 상태이상 카탈로그(파생 단일소스) 선로딩. 표시·조회용 → 로드 후 이미 그려진 상태이상 그리드 소급 재렌더(buildConditions).
 function _loadConditions() {
   if (typeof CONDITIONS_DATA !== 'undefined' && CONDITIONS_DATA.length) return;
-  fetch('data/derived/conditions.json?v=0.314').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/conditions.json?v=0.315').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) {
       CONDITIONS_DATA = j.rows;
       try { if (typeof buildConditions === 'function' && document.getElementById('conditions-grid')) buildConditions(); } catch (e) {}
@@ -4959,13 +5170,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.314'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.314'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.315'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.315'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.314'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.315'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}

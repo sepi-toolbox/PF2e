@@ -161,6 +161,8 @@ function collectData() {
     armorPotency: state.armorPotency || 0,
     armorResilient: state.armorResilient || 0,
     armorStowed: state.armorStowed || false,
+    armorMaterial: state.armorMaterial || null,
+    armorBulkOverride: (state.armorBulkOverride != null ? state.armorBulkOverride : null),
     shieldStowed: state.shieldStowed || false,
     extraSpeeds: state.extraSpeeds || {},
     shieldRaised: state.shieldRaised || false,
@@ -366,6 +368,8 @@ function loadData(d) {
     if (d.armorPotency !== undefined) state.armorPotency = d.armorPotency;
     if (d.armorResilient !== undefined) state.armorResilient = d.armorResilient;
     if (d.armorStowed !== undefined) state.armorStowed = d.armorStowed;
+    state.armorMaterial = (d.armorMaterial !== undefined) ? d.armorMaterial : null;
+    state.armorBulkOverride = (d.armorBulkOverride !== undefined) ? d.armorBulkOverride : null;
     if (d.shieldStowed !== undefined) state.shieldStowed = d.shieldStowed;
     renderArmorCard();
     renderShieldCard();
