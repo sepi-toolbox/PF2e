@@ -6101,6 +6101,8 @@ function confirmModal() {
 }
 
 function closeModal() {
+  // 방어구 옵션 모달: ✕/바깥클릭 = 취소(스냅샷 복원) + 표준 body 복원 후 종료
+  if (modalType === 'armor-opt' && typeof closeArmorOptions === 'function') { closeArmorOptions(true); return; }
   const wasBoost = (modalType === 'boost');
   document.getElementById('modal-overlay').classList.add('hidden');
   // 닫기/취소/footer 복원 (spell_cantrip에서 숨겼을 수 있음)
