@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.313').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.314').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -272,13 +272,94 @@ function toggleShieldStow() {
 }
 
 // ── 방어 카드 액션(변경/옵션/룬/제거) ──
-// "변경" = 기존 장비 브라우저(방어구/방패 탭) 재사용 + 지급 시 자동 착용/장착(_equipGiveMode).
+// "변경" = 방어구 전용 브라우저(무기 브라우저 패턴) + 지급 시 자동 착용(_equipGiveMode).
 let _equipGiveMode = null;  // 'wear-armor' | 'equip-shield' | null
+let armorBrowseCat = '';               // '' | light | medium | heavy | unarmored
+let armorBrowseKind = 'standard';      // standard(비마법) | magic(마법 트레잇)
 function openArmorBrowse() {
-  openEquipBrowse();
-  if (typeof switchEquipTab === 'function') switchEquipTab('armor');
+  equipBrowseMode = 'armor';
+  armorBrowseCat = '';
+  armorBrowseKind = 'standard';
+  modalType = 'equip-browse';
+  modalSelected = null;
+  modalContext = null;
   _equipGiveMode = 'wear-armor';
-  const t = document.getElementById('modal-title'); if (t) t.textContent = '갑옷 변경';
+
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('hidden');
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) { searchEl.value = ''; searchEl.style.display = ''; }
+  document.getElementById('modal-title').textContent = '갑옷 변경';
+  const fbar = document.getElementById('modal-filterbar'); if (fbar) fbar.innerHTML = '';
+
+  let tabContainer = document.getElementById('equip-tab-container');
+  if (!tabContainer) {
+    tabContainer = document.createElement('div');
+    tabContainer.id = 'equip-tab-container';
+    // ⚠ document.querySelector('.modal') 금지(다중 .modal) — #modal-body의 실제 부모(메인 모달)에 삽입.
+    const modalBody = document.getElementById('modal-body');
+    modalBody.parentNode.insertBefore(tabContainer, modalBody);
+  }
+  tabContainer.style.display = '';
+  const cats = [['', '전체'], ['light', '경장'], ['medium', '중장'], ['heavy', '중량'], ['unarmored', '비무장']];
+  tabContainer.innerHTML = `
+    <div class="equip-tabs" id="armor-cat-tabs">
+      ${cats.map(([id, ko]) => `<div class="equip-tab${id === '' ? ' active' : ''}" onclick="switchArmorCat('${id}')">${ko}</div>`).join('')}
+    </div>
+    <div class="equip-subtabs" id="armor-kind-tabs">
+      <div class="equip-subtab active" onclick="switchArmorKind('standard')">표준</div>
+      <div class="equip-subtab" onclick="switchArmorKind('magic')">마법</div>
+    </div>`;
+
+  const footer = document.querySelector('#modal-overlay .modal-footer');
+  footer.innerHTML = `<div class="modal-currency" id="modal-currency">
+    <div class="modal-currency-item">${coinIcon('pp',20)}<span class="coin-val" id="mc-pp">${document.getElementById('cur-pp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('gp',20)}<span class="coin-val" id="mc-gp">${document.getElementById('cur-gp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('sp',20)}<span class="coin-val" id="mc-sp">${document.getElementById('cur-sp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('cp',20)}<span class="coin-val" id="mc-cp">${document.getElementById('cur-cp')?.value||0}</span></div>
+  </div>
+  <button class="btn btn-cancel" onclick="closeModal()" style="width:100%;padding:12px;font-size:14px;margin-top:6px;">닫기</button>`;
+
+  renderArmorBrowseItems();
+}
+
+function switchArmorCat(cat) {
+  armorBrowseCat = cat;
+  const order = ['', 'light', 'medium', 'heavy', 'unarmored'];
+  const tabs = document.querySelectorAll('#armor-cat-tabs .equip-tab');
+  tabs.forEach(t => t.classList.remove('active'));
+  const idx = order.indexOf(cat);
+  if (tabs[idx]) tabs[idx].classList.add('active');
+  renderArmorBrowseItems();
+}
+
+function switchArmorKind(kind) {
+  armorBrowseKind = kind;
+  document.querySelectorAll('#armor-kind-tabs .equip-subtab').forEach(t => {
+    t.classList.toggle('active', (t.textContent === '표준' && kind === 'standard') || (t.textContent === '마법' && kind === 'magic'));
+  });
+  renderArmorBrowseItems();
+}
+
+function renderArmorBrowseItems() {
+  const opts = document.getElementById('modal-options');
+  if (!_equipDataReady) {
+    if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">갑옷 데이터 불러오는 중…</div>';
+    _ensureEquipData().then(ok => {
+      if (ok) renderArmorBrowseItems();
+      else if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">갑옷 데이터를 불러오지 못했습니다.</div>';
+    });
+    return;
+  }
+  const q = (document.getElementById('modal-search')?.value || '').toLowerCase();
+  // 동물 바딩(light-barding/heavy-barding)은 PC 갑옷 아님 → 제외.
+  const all = PF2eEquip.legacyList({ type: 'armor', search: q }).filter(i => (i.catSlug || '') !== 'light-barding' && (i.catSlug || '') !== 'heavy-barding');
+  // 표준 / 마법 = 'magical' 트레잇 기준(구체 마법갑옷·특정 매직아이템만 마법 탭으로 분리).
+  const magicIds = new Set(PF2eEquip.legacyList({ type: 'armor', search: q, traits: ['magical'] }).map(i => i.id));
+  let items = all.filter(i => armorBrowseKind === 'magic' ? magicIds.has(i.id) : !magicIds.has(i.id));
+  if (armorBrowseCat) items = items.filter(i => (i.catSlug || '') === armorBrowseCat);
+  if (opts && !items.length) { opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">해당 조건의 갑옷이 없습니다.</div>'; return; }
+  renderOptions(items);
 }
 function openShieldBrowse() {
   openEquipBrowse();
@@ -3391,6 +3472,7 @@ function _ensureAllCatalogs() {
 
 function renderEquipBrowseItems() {
   if (equipBrowseMode === 'weapon') return renderWeaponBrowseItems();
+  if (equipBrowseMode === 'armor') return renderArmorBrowseItems();
   // 장비 카탈로그 = FVTT 단일 소스. 미로드면 로드 후 재렌더(로딩 표시).
   const opts = document.getElementById('modal-options');
   if (!_equipDataReady) {
@@ -4122,14 +4204,14 @@ const BARDING_DB = [
 let COMPANION_DB = [];
 function _loadCompanions() {
   if (COMPANION_DB.length) return;
-  fetch('data/derived/companions.json?v=0.313').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/companions.json?v=0.314').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
   }).catch(() => {});
 }
 // 상태이상 카탈로그(파생 단일소스) 선로딩. 표시·조회용 → 로드 후 이미 그려진 상태이상 그리드 소급 재렌더(buildConditions).
 function _loadConditions() {
   if (typeof CONDITIONS_DATA !== 'undefined' && CONDITIONS_DATA.length) return;
-  fetch('data/derived/conditions.json?v=0.313').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/conditions.json?v=0.314').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) {
       CONDITIONS_DATA = j.rows;
       try { if (typeof buildConditions === 'function' && document.getElementById('conditions-grid')) buildConditions(); } catch (e) {}
@@ -4877,13 +4959,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.313'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.313'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.314'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.314'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.313'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.314'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}
