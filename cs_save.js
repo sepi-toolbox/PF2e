@@ -454,9 +454,13 @@ function loadData(d) {
           if (e._type === 'armor') e._holdMode = 'worn';
           else e._holdMode = 'one';
         }
-        if (!e._holdMode) e._holdMode = 'stowed';
+        // 기본값 = 'carried'(휴대, 정상 표시). 이전 'stowed'는 저장 장비를 전부 흐림(딤) 처리했음.
+        if (!e._holdMode) e._holdMode = 'carried';
       });
-      state.equip = d.equip; renderEquip();
+      state.equip = d.equip;
+      // 구 누적 버그(v0.319 이전) 유령 무기/갑옷/방패 정리 — UI에 안 뜨는 인스턴스가 부피만 먹어 봉인 유발. 멱등.
+      if (typeof _purgeGhostGear === 'function') { const _g = _purgeGhostGear(); if (_g && typeof renderWeapons === 'function') renderWeapons(); }
+      renderEquip();
     }
     if (d.containers) { state.containers = d.containers; if (typeof renderContainers === 'function') renderContainers(); }
     if (d.formulas) { state.formulas = d.formulas; if (typeof renderFormulas === 'function') renderFormulas(); }

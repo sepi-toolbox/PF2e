@@ -1439,6 +1439,9 @@ function applyDefaultBuild() {
 }
 // 부팅 완료 시점에 호출(_checkReady) — 완전 빈 캐릭터면 카탈로그 준비 후 기본 빌드 적용.
 function _maybeApplyDefaultBuild() {
+  // GM 세션 시트 조회(?gmsession)에선 기본 빌드(파이터 1레벨)를 적용하지 않는다 — 플레이어 캐릭터 로드 중.
+  //   (이게 로드 전에 잠깐 적용되면 "1레벨 시트가 먼저 뜨는" 현상 유발)
+  try { if (new URLSearchParams(location.search).get('gmsession')) return; } catch (e) {}
   if (state.selectedClass || state.selectedAncestry || state.selectedBackground) return;
   const go = () => { try { applyDefaultBuild(); } catch (e) { console.warn('[defaultBuild]', e); } };
   if (typeof catalogsReady === 'function' && !catalogsReady() && typeof _ensureAllCatalogs === 'function') _ensureAllCatalogs().then(go);
