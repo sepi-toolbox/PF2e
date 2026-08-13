@@ -1060,7 +1060,9 @@ function openFeatChoiceModal(featType, featIndex, choiceDef) {
       cantrips = _sp.filter(sp => !sp.is_cantrip && !sp.is_focus && sp.rank && sp.rank <= targetRank && sp.traditions && sp.traditions.includes(tradition));
     } else if (tradition === 'any' || tradition === '$other') {
       const classTrad = state.selectedClass?.tradition || '';
-      cantrips = _sp.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && (!classTrad || !sp.traditions.includes(classTrad)));
+      // ⚠ traditions:[] (전통 없는 시전) = 바드 작곡/위치 저주 캔트립. []는 truthy·[].includes()=false라
+      //    "다른 전통 캔트립" 목록에 새어 들어와 상세가 빈 전통으로 이상하게 보였다 → 전통 보유분만.
+      cantrips = _sp.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && sp.traditions.length > 0 && (!classTrad || !sp.traditions.includes(classTrad)));
     } else {
       cantrips = _sp.filter(sp => sp.is_cantrip && !sp.is_focus && sp.traditions && sp.traditions.includes(tradition));
     }
@@ -1280,6 +1282,9 @@ function _featPickCandidates(cd) {
   for (const arr of Object.values(state.feats)) if (Array.isArray(arr)) arr.forEach(f => { const s = (typeof featSlug === 'function') ? featSlug(f) : (f && f.id); if (s) ownedSlugs.add(s); });
   return _allFeats().filter(f => {
     if (!f) return false;
+    // 클래스/혈통 특성(FEATURE, acquisition=auto)은 선택 대상 재주가 아니다 — feat_pick 목록에서 제외.
+    //   (타고난 야망 등 클래스 재주 픽에 방패막기·반응타격 등 특성이 섞여 나오던 버그)
+    if (f.acquisition === 'auto') return false;
     if (_isClassPick) { if (!(typeof _featInClass === 'function' ? _featInClass(f, pickCat) : f.category === pickCat) && f.category !== 'archetype') return false; }
     else if (f.category !== pickCat) return false;
     if (f.feat_level > pickMax) return false;
