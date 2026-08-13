@@ -285,6 +285,12 @@
   }
  },
  "natural-skill": {
+  "rows": [
+   {
+    "type": "skill_trained",
+    "target": "$choice"
+   }
+  ],
   "choice": {
    "id": "cho-natural-skill",
    "kind": "skill_multi",

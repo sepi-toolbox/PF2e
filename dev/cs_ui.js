@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.318').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.319').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -397,7 +397,7 @@ function _gradeKo(g) { return (_armorMatData && _armorMatData.grade_ko && _armor
 function _ensureArmorMatData() {
   if (_armorMatData) return Promise.resolve(_armorMatData);
   if (_armorMatPromise) return _armorMatPromise;
-  _armorMatPromise = fetch('data/armor_materials.json?v=0.318')
+  _armorMatPromise = fetch('data/armor_materials.json?v=0.319')
     .then(r => r.ok ? r.json() : null)
     .then(j => { _armorMatData = j || { materials: [] }; return _armorMatData; })
     .catch(() => { _armorMatData = { materials: [] }; return _armorMatData; });
@@ -1485,9 +1485,10 @@ function _renderEquipRow(list, e, i, hasContainers) {
   }
 
   const isDropTarget = e._type === 'weapon' || e._type === 'armor' || e._type === 'shield';
-  const hm = e._holdMode || 'stowed';
-  // FVTT식 카드: 들고/착용=사용중(좌측 강조), 보관=흐림, 떨구기=점선, 파손=적색
-  const stateCls = hm === 'dropped' ? 'dropped' : (hm === 'stowed' ? 'stowed' : 'held');
+  // 기본값 = 'carried'(휴대). 이전엔 'stowed'라 새로 추가/구버전 저장 장비가 전부 흐림(딤)으로 떴다.
+  const hm = e._holdMode || 'carried';
+  // FVTT식 카드: 들고/착용=사용중(좌측 강조), 휴대=기본(정상), 보관=흐림, 떨구기=점선, 파손=적색
+  const stateCls = hm === 'dropped' ? 'dropped' : (hm === 'stowed' ? 'stowed' : (hm === 'carried' ? '' : 'held'));
   row.className = 'equip-card ' + stateCls + (e._broken ? ' broken' : '') + (isDropTarget ? ' equip-drop-target' : '');
   if (isDropTarget) {
     row.dataset.equipIdx = i;
@@ -1498,9 +1499,10 @@ function _renderEquipRow(list, e, i, hasContainers) {
 
   const isArmor = e._type === 'armor';
   const isTwoOnly = e._type === 'weapon' && e._data && e._data.hands === 2;
-  const HOLD_LABEL = { stowed:'보관', one:'한손', two:'양손', worn:'착용', dropped:'떨어뜨림' };
+  const HOLD_LABEL = { carried:'휴대', stowed:'보관', one:'한손', two:'양손', worn:'착용', dropped:'떨어뜨림' };
 
-  let holdSelectHtml = `<select class="equip-hold-select${hm!=='stowed'?' active':''}" onchange="event.stopPropagation();changeHoldMode(${i},this.value)">
+  let holdSelectHtml = `<select class="equip-hold-select${(hm==='one'||hm==='two'||hm==='worn')?' active':''}" onchange="event.stopPropagation();changeHoldMode(${i},this.value)">
+    <option value="carried"${hm==='carried'?' selected':''}>휴대</option>
     <option value="stowed"${hm==='stowed'?' selected':''}>보관</option>
     ${!isTwoOnly ? `<option value="one"${hm==='one'?' selected':''}>한손 들기</option>` : ''}
     <option value="two"${hm==='two'?' selected':''}>두손 들기</option>
@@ -1613,7 +1615,7 @@ function changeQty(i, delta) {
 function changeHoldMode(i, newMode) {
   const item = state.equip[i];
   if (!item) return;
-  const oldMode = item._holdMode || 'stowed';
+  const oldMode = item._holdMode || 'carried';
   if (oldMode === newMode) return;
 
   const wasHeld = oldMode === 'one' || oldMode === 'two';
@@ -3991,21 +3993,29 @@ function equipBrowseGive() {
 
   // 룬 아이템 감지
   if (item.runeType) {
-    addEquip({name: item.name_ko, qty:1, bulk, _isRune: true, _runeData: {attachTo: item.attachTo, runeType: item.runeType, runeValue: item.runeValue, damage: item.runeDamage||null, persistent: item.runePersistent||null, resist: item.runeResist||null, note: item.runeNote||''}, _attachedTo: null, _broken: isBroken});
+    // _data = 룬의 BASE 카탈로그 원본(설명 포함) 저장 → 획득 후 정보 카드가 "DB에 정보 없음" 대신 설명 표시.
+    addEquip({name: item.name_ko, qty:1, bulk, _isRune: true, _data: item, _runeData: {attachTo: item.attachTo, runeType: item.runeType, runeValue: item.runeValue, damage: item.runeDamage||null, persistent: item.runePersistent||null, resist: item.runeResist||null, note: item.runeNote||''}, _attachedTo: null, _broken: isBroken});
   } else {
     const invCat = item.invCat || null;
     // _data는 무기/갑옷/방패뿐 아니라 일반 장비(포션·소비품·보물 등)에도 저장 — 추가 후 정보 카드(_infoResolveItem)가 BASE 항목 설명을 해소하도록(미저장 시 "DB에 정보 없음").
     addEquip({name: item.name_ko, qty:1, bulk, _type: type, _data: item, _invCat: invCat, _broken: isBroken});
     // 방어 탭 「변경」에서 온 경우: 추가 즉시 착용/장착(단일 갑옷·방패 모델)
+    // ⚠ 변경 = 교체. 기존 갑옷/방패를 removeEquip으로 제거해 누적 방지(부착 룬·인덱스도 removeEquip이 정리).
     if (_equipGiveMode === 'wear-armor' && type === 'armor') {
-      state.equip.forEach(e => { if (e._type === 'armor') e._equipped = false; });
-      const idx = state.equip.length - 1;
-      if (state.equip[idx]) { state.equip[idx]._holdMode = 'worn'; state.equip[idx]._equipped = true; }
+      const added = state.equip[state.equip.length - 1];
+      for (let k = state.equip.length - 1; k >= 0; k--) {
+        if (state.equip[k] !== added && state.equip[k]._type === 'armor') removeEquip(k);
+      }
+      const nidx = state.equip.indexOf(added);
+      if (nidx >= 0) { state.equip[nidx]._holdMode = 'worn'; state.equip[nidx]._equipped = true; }
       if (typeof _wearArmor === 'function') _wearArmor(item);
     } else if (_equipGiveMode === 'equip-shield' && type === 'shield') {
-      state.equip.forEach(e => { if (e._type === 'shield') e._equipped = false; });
-      const idx = state.equip.length - 1;
-      if (state.equip[idx]) { state.equip[idx]._holdMode = 'held'; state.equip[idx]._equipped = true; }
+      const added = state.equip[state.equip.length - 1];
+      for (let k = state.equip.length - 1; k >= 0; k--) {
+        if (state.equip[k] !== added && state.equip[k]._type === 'shield') removeEquip(k);
+      }
+      const nidx = state.equip.indexOf(added);
+      if (nidx >= 0) { state.equip[nidx]._holdMode = 'held'; state.equip[nidx]._equipped = true; }
       if (typeof _equipShield === 'function') _equipShield(item);
     }
   }
@@ -4472,14 +4482,14 @@ const BARDING_DB = [
 let COMPANION_DB = [];
 function _loadCompanions() {
   if (COMPANION_DB.length) return;
-  fetch('data/derived/companions.json?v=0.318').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/companions.json?v=0.319').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
   }).catch(() => {});
 }
 // 상태이상 카탈로그(파생 단일소스) 선로딩. 표시·조회용 → 로드 후 이미 그려진 상태이상 그리드 소급 재렌더(buildConditions).
 function _loadConditions() {
   if (typeof CONDITIONS_DATA !== 'undefined' && CONDITIONS_DATA.length) return;
-  fetch('data/derived/conditions.json?v=0.318').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/conditions.json?v=0.319').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) {
       CONDITIONS_DATA = j.rows;
       try { if (typeof buildConditions === 'function' && document.getElementById('conditions-grid')) buildConditions(); } catch (e) {}
@@ -5227,13 +5237,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.318'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.318'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.319'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.319'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.318'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.319'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}

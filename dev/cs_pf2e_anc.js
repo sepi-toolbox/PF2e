@@ -157,6 +157,14 @@
       const m = path.match(/^system\.skills\.([a-z-]+)\.rank$/);
       if (m && a.dataChanges[path] >= 1) (out.grantSkills = out.grantSkills || []).push(m[1]);
     }
+    // 다재다능/혼합 혈통(base 혈통 없음: 네피림·담피르·체인질링·아이우바린 등): 유산 자체의 계보(lineage)
+    //   트레잇을 extraFeats로 노출 → filterFeats의 혈통 재주 풀(_ancestryTraits)에 합류해 계보 재주가
+    //   재주 선택 목록에 뜨고, "아무 X 계보 재주" 선행조건도 매칭된다(3곳 소비처 단일 소스).
+    const _hs = herDoc.system || {};
+    if (!(_hs.ancestry && _hs.ancestry.slug)) {
+      const _tv = (_hs.traits && _hs.traits.value) || [];
+      if (_tv.length) out.extraFeats = _tv.map(_traitKo);
+    }
     // 미구현/조건부 RE 로그 (디버그)
     if (a._log && a._log.length) out._log = a._log.slice();
     return out;

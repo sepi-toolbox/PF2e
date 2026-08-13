@@ -658,7 +658,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.318').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.319').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -1211,7 +1211,14 @@ function _infoResolveItem(type, name) {
     item = getShield(nameKo);
   } else if (type === 'gear' || type === 'rune') {
     item = getGear(nameKo);
-    if (!item && typeof getRuneCatalog === 'function') item = getRuneCatalog().find(r => r && (r.name_ko === nameKo || r.name_en === nameKo || r.id === nameKo));
+    if (!item && typeof getRuneCatalog === 'function') {
+      const _rc = getRuneCatalog();
+      // ⚠ 룬 이름엔 "(+1)" 같은 등급 괄호가 붙는다(무기 위력 룬 (+1)). nameKo는 ' ('로 잘려 괄호가 없으므로
+      //    카탈로그 name_ko(괄호 포함)와 정확일치가 실패 → "DB에 정보 없음". 전체 이름/괄호제거 양쪽으로 매칭.
+      item = _rc.find(r => r && (r.name_ko === name || r.name_en === name))
+          || _rc.find(r => r && (r.name_ko === nameKo || r.name_en === nameKo || r.id === nameKo))
+          || _rc.find(r => r && (r.name_ko || '').split(' (')[0].trim() === nameKo);
+    }
   }
 
   // 장비 인스턴스 매칭: 전체 이름 우선(등급 괄호 "(상급)" 등 보존), 실패 시 괄호 제거된 nameKo로.
