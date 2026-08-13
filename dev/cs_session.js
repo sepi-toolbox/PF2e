@@ -810,11 +810,14 @@ function checkGMSessionParam() {
 let _pendingGMSession = null;
 
 async function enterGMSessionMode(sessionId) {
+  // GM 진입 시작부터 전체화면 로딩으로 화면을 덮는다 — 세션 조회+첫 플레이어 로드 전까지 빈/1레벨 시트가
+  //   노출되던 문제 방지(loadSessionCharacter도 다시 show하지만 그 이전 async 구간이 안 덮였음). 각 종료 경로에서 hide.
+  _sheetLoadingShow();
   try {
     const doc = await db.collection(PF_COL.sessions).doc(sessionId).get();
-    if (!doc.exists) { alert('세션을 찾을 수 없습니다.'); return; }
+    if (!doc.exists) { alert('세션을 찾을 수 없습니다.'); _sheetLoadingHide(); return; }
     const data = doc.data();
-    if (data.gmUid !== currentUser.uid) { alert('이 세션의 GM이 아닙니다.'); return; }
+    if (data.gmUid !== currentUser.uid) { alert('이 세션의 GM이 아닙니다.'); _sheetLoadingHide(); return; }
 
     _currentSession = { id: doc.id, name: data.name, joinCode: data.joinCode, gmUid: data.gmUid, players: data.players || {} };
     _sessionMode = true;
@@ -899,13 +902,15 @@ async function enterGMSessionMode(sessionId) {
     // 첫 번째 플레이어 탭 자동 선택
     const uids = Object.keys(_currentSession.players);
     if (uids.length > 0) {
-      gmSwitchTab(uids[0]);
+      gmSwitchTab(uids[0]);   // → loadSessionCharacter가 로드 완료 시 _sheetLoadingHide
     } else {
       _showEmptyPartyMessage();
+      _sheetLoadingHide();    // 플레이어 없음 = 로드할 시트 없음 → 오버레이 해제
     }
   } catch(e) {
     console.error('[enterGMSessionMode]', e);
     alert('세션 로드 실패: ' + e.message);
+    _sheetLoadingHide();
   }
 }
 
