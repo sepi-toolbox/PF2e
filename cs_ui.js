@@ -6,7 +6,7 @@
 let _ICON_MAP = null;
 function _loadIconMap() {
   if (_ICON_MAP) return;
-  fetch('data/icon_map.json?v=0.296').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/icon_map.json?v=0.317').then(r => r.ok ? r.json() : null).then(m => {
     if (!m) return;
     _ICON_MAP = m;
     // 이미 그려진 탭에 아이콘 소급 적용 (성장계획 코어 슬롯=클래스/혈통/배경/유산 아이콘 포함 — 누락 시 모바일에서 클래스 아이콘 안 뜨던 버그)
@@ -163,30 +163,31 @@ function renderArmorCard() {
   const runeNames = ['','강화 +1','강화 +2','강화 +3'];
   const resNames = ['','탄력 (회피 +1)','상위 탄력 (+2)','최상 탄력 (+3)'];
 
-  card.className = 'defense-card' + (stowed ? ' stowed' : '');
-  if (!name) {
-    card.className = 'defense-card';
-    card.innerHTML = '';
-    return;
-  }
+  const worn = !!name;
+  const displayName = worn ? name : '비무장';
+  const itemBonus = worn ? (parseInt(ac) + (potency || 0)) : 0;
+  const dexCap = worn ? (dex === '-' || dex === '' ? '—' : dex) : '—';
+  card.className = 'defense-card weapon-card' + (stowed ? ' stowed' : '');
   card.innerHTML = `
-    <div class="defense-card-header">
-      <button class="defense-btn" onclick="toggleArmorStow()">${stowed?'장착':'보관'}</button>
+    <div class="weapon-card-header">
+      <button class="weapon-btn wb-roll" onclick="openArmorBrowse()">변경</button>
+      <button class="weapon-btn" onclick="armorOptionsMenu(event)">옵션</button>
+      <button class="weapon-btn" onclick="armorRunesPopup(event)">룬</button>
+      ${worn ? `<button class="weapon-btn" onclick="toggleArmorStow()">${stowed ? '장착' : '보관'}</button>` : ''}
     </div>
-    <div class="defense-card-body">
-      <div class="defense-card-name">
-        ${(typeof iconImg==='function' ? iconImg('equipment', (typeof getArmor==='function' && getArmor(name)) || {name:name}) : '')}
-        <span class="weapon-prof-badge ${profCls}" style="font-size:8px;width:14px;height:14px;">${profLetter}</span>
-        ${name}
-        ${potency > 0 ? `<span class="tag" style="font-size:9px;">+${potency}</span>` : ''}
-        ${resilient > 0 ? `<span class="tag" style="font-size:9px;">${resNames[resilient]||''}</span>` : ''}
+    <div class="weapon-card-body">
+      <div class="weapon-card-name" ${worn ? `onclick="showInfo('armor','${name.replace(/'/g, "\\'")}')"` : ''}>
+        <span class="prof-rank-badge ${profCls}">${profLetter}</span> ${displayName}
+        ${potency > 0 ? `<span class="wc-flag" style="color:var(--accent);">+${potency}</span>` : ''}
+        ${resilient > 0 ? `<span class="wc-flag" style="color:var(--accent);">${resNames[resilient] || ''}</span>` : ''}
+        ${state.armorMaterial ? `<span class="wc-flag" style="color:var(--gold,#c9a44a);">${(typeof _matKo==='function'&&_matKo(state.armorMaterial))||''}</span>` : ''}
+        ${state.armorBulkOverride != null ? `<span class="wc-flag" style="color:var(--text2);">부피 ${state.armorBulkOverride===0.1?'L':state.armorBulkOverride}</span>` : ''}
       </div>
-      <div class="defense-card-stats">
-        <span class="stat-item">🛡 Item Bonus <span class="stat-val">+${parseInt(ac)+(potency||0)}</span></span>
-        <span class="stat-item">⬆ Dex Cap <span class="stat-val">${dex==='-'||dex===''?'—':dex}</span></span>
+      <div class="weapon-stat-row">
+        <div class="weapon-stat"><span class="stat-label">장비 보너스</span><span class="stat-val">+${itemBonus}</span></div>
+        <div class="weapon-stat"><span class="stat-label">민첩 상한</span><span class="stat-val">${dexCap}</span></div>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function clearArmor() {
@@ -222,26 +223,35 @@ function renderShieldCard() {
   const bt = Math.floor(parseInt(hp)/2);
   const stowed = state.shieldStowed || false;
 
+  card.className = 'defense-card weapon-card' + (stowed ? ' stowed' : '');
   if (!name) {
-    card.className = 'defense-card';
-    card.innerHTML = '';
+    card.innerHTML = `
+      <div class="weapon-card-header">
+        <button class="weapon-btn wb-roll" onclick="openShieldBrowse()">변경</button>
+      </div>
+      <div class="weapon-card-body"><div class="weapon-prof-line" style="color:var(--text2);">방패 없음</div></div>`;
     return;
   }
-  card.className = 'defense-card' + (stowed ? ' stowed' : '');
+  const _sEq = state.equip.find(e => e._type === 'shield' && e._equipped);
+  const _sTraits = (_sEq && _sEq._data && _sEq._data.traits) || [];
+  const _traitHtml = _sTraits.length ? `<div class="weapon-card-traits">${_sTraits.map(t => traitTag(t)).join(' ')}</div>` : '';
   card.innerHTML = `
-    <div class="defense-card-header">
-      <button class="defense-btn" onclick="showInfo('shield','${name.replace(/'/g,"\\'")}')">정보</button>
-      <button class="defense-btn" onclick="toggleShieldStow()">${stowed?'장착':'보관'}</button>
+    <div class="weapon-card-header">
+      <button class="weapon-btn wb-roll" onclick="openShieldBrowse()">변경</button>
+      <button class="weapon-btn" onclick="showInfo('shield','${name.replace(/'/g, "\\'")}')">정보</button>
+      <button class="weapon-btn danger" onclick="removeShield()">제거</button>
+      <button class="weapon-btn" onclick="toggleShieldStow()">${stowed ? '장착' : '보관'}</button>
+      <button class="weapon-btn" onclick="shieldRunesPopup(event)">룬</button>
     </div>
-    <div class="defense-card-body">
-      <div class="defense-card-name">${name}</div>
-      <div class="defense-card-stats">
-        <span class="stat-item">🛡 Raised AC <span class="stat-val">+${ac}</span></span>
-        <span class="stat-item">⚒ Hardness <span class="stat-val">${hard}</span></span>
-        <span class="stat-item">❤ HP <span class="stat-val">${hp}</span> (BT ${bt})</span>
+    <div class="weapon-card-body">
+      <div class="weapon-card-name" onclick="showInfo('shield','${name.replace(/'/g, "\\'")}')">${name}</div>
+      <div class="weapon-stat-row">
+        <div class="weapon-stat"><span class="stat-label">방패 AC</span><span class="stat-val">+${ac}</span></div>
+        <div class="weapon-stat"><span class="stat-label">경도</span><span class="stat-val">${hard}</span></div>
+        <div class="weapon-stat"><span class="stat-label">HP</span><span class="stat-val">${hp}</span> <span style="font-size:10px;color:var(--text2);">(BT ${bt})</span></div>
       </div>
-    </div>
-  `;
+      ${_traitHtml}
+    </div>`;
 }
 
 function clearShield() {
@@ -262,6 +272,422 @@ function toggleShieldStow() {
   renderShieldCard();
   save();
 }
+
+// ── 방어 카드 액션(변경/옵션/룬/제거) ──
+// "변경" = 방어구 전용 브라우저(무기 브라우저 패턴) + 지급 시 자동 착용(_equipGiveMode).
+let _equipGiveMode = null;  // 'wear-armor' | 'equip-shield' | null
+let armorBrowseCat = '';               // '' | light | medium | heavy | unarmored
+let armorBrowseKind = 'standard';      // standard(비마법) | magic(마법 트레잇)
+function openArmorBrowse() {
+  equipBrowseMode = 'armor';
+  armorBrowseCat = '';
+  armorBrowseKind = 'standard';
+  modalType = 'equip-browse';
+  modalSelected = null;
+  modalContext = null;
+  _equipGiveMode = 'wear-armor';
+
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('hidden');
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) { searchEl.value = ''; searchEl.style.display = ''; }
+  document.getElementById('modal-title').textContent = '갑옷 변경';
+  const fbar = document.getElementById('modal-filterbar'); if (fbar) fbar.innerHTML = '';
+
+  let tabContainer = document.getElementById('equip-tab-container');
+  if (!tabContainer) {
+    tabContainer = document.createElement('div');
+    tabContainer.id = 'equip-tab-container';
+    // ⚠ document.querySelector('.modal') 금지(다중 .modal) — #modal-body의 실제 부모(메인 모달)에 삽입.
+    const modalBody = document.getElementById('modal-body');
+    modalBody.parentNode.insertBefore(tabContainer, modalBody);
+  }
+  tabContainer.style.display = '';
+  const cats = [['', '전체'], ['light', '경장'], ['medium', '중장'], ['heavy', '중량'], ['unarmored', '비무장']];
+  tabContainer.innerHTML = `
+    <div class="equip-tabs" id="armor-cat-tabs">
+      ${cats.map(([id, ko]) => `<div class="equip-tab${id === '' ? ' active' : ''}" onclick="switchArmorCat('${id}')">${ko}</div>`).join('')}
+    </div>
+    <div class="equip-subtabs" id="armor-kind-tabs">
+      <div class="equip-subtab active" onclick="switchArmorKind('standard')">표준</div>
+      <div class="equip-subtab" onclick="switchArmorKind('magic')">마법</div>
+    </div>`;
+
+  const footer = document.querySelector('#modal-overlay .modal-footer');
+  footer.innerHTML = `<div class="modal-currency" id="modal-currency">
+    <div class="modal-currency-item">${coinIcon('pp',20)}<span class="coin-val" id="mc-pp">${document.getElementById('cur-pp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('gp',20)}<span class="coin-val" id="mc-gp">${document.getElementById('cur-gp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('sp',20)}<span class="coin-val" id="mc-sp">${document.getElementById('cur-sp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('cp',20)}<span class="coin-val" id="mc-cp">${document.getElementById('cur-cp')?.value||0}</span></div>
+  </div>
+  <button class="btn btn-cancel" onclick="closeModal()" style="width:100%;padding:12px;font-size:14px;margin-top:6px;">닫기</button>`;
+
+  renderArmorBrowseItems();
+}
+
+function switchArmorCat(cat) {
+  armorBrowseCat = cat;
+  const order = ['', 'light', 'medium', 'heavy', 'unarmored'];
+  const tabs = document.querySelectorAll('#armor-cat-tabs .equip-tab');
+  tabs.forEach(t => t.classList.remove('active'));
+  const idx = order.indexOf(cat);
+  if (tabs[idx]) tabs[idx].classList.add('active');
+  renderArmorBrowseItems();
+}
+
+function switchArmorKind(kind) {
+  armorBrowseKind = kind;
+  document.querySelectorAll('#armor-kind-tabs .equip-subtab').forEach(t => {
+    t.classList.toggle('active', (t.textContent === '표준' && kind === 'standard') || (t.textContent === '마법' && kind === 'magic'));
+  });
+  renderArmorBrowseItems();
+}
+
+function renderArmorBrowseItems() {
+  const opts = document.getElementById('modal-options');
+  if (!_equipDataReady) {
+    if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">갑옷 데이터 불러오는 중…</div>';
+    _ensureEquipData().then(ok => {
+      if (ok) renderArmorBrowseItems();
+      else if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">갑옷 데이터를 불러오지 못했습니다.</div>';
+    });
+    return;
+  }
+  const q = (document.getElementById('modal-search')?.value || '').toLowerCase();
+  // 동물 바딩(light-barding/heavy-barding)은 PC 갑옷 아님 → 제외.
+  const all = PF2eEquip.legacyList({ type: 'armor', search: q }).filter(i => (i.catSlug || '') !== 'light-barding' && (i.catSlug || '') !== 'heavy-barding');
+  // 표준 / 마법 = 'magical' 트레잇 기준(구체 마법갑옷·특정 매직아이템만 마법 탭으로 분리).
+  const magicIds = new Set(PF2eEquip.legacyList({ type: 'armor', search: q, traits: ['magical'] }).map(i => i.id));
+  let items = all.filter(i => armorBrowseKind === 'magic' ? magicIds.has(i.id) : !magicIds.has(i.id));
+  if (armorBrowseCat) items = items.filter(i => (i.catSlug || '') === armorBrowseCat);
+  if (opts && !items.length) { opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">해당 조건의 갑옷이 없습니다.</div>'; return; }
+  renderOptions(items);
+}
+function openShieldBrowse() {
+  openEquipBrowse();
+  if (typeof switchEquipTab === 'function') switchEquipTab('shield');
+  _equipGiveMode = 'equip-shield';
+  const t = document.getElementById('modal-title'); if (t) t.textContent = '방패 변경';
+}
+
+function _wornArmorEquipIdx() { return state.equip.findIndex(e => e._type === 'armor' && e._equipped); }
+function _wornShieldEquipIdx() { return state.equip.findIndex(e => e._type === 'shield' && e._equipped); }
+
+// ═══════════════════════════════════════════════
+//  방어구 옵션 모달 (Pathbuilder식) — 강화룬/저항룬/재질/부피 오버라이드
+//  정본 데이터 = GM Core(강화·탄력 룬, 정밀 재질 등급별 레벨/가격)
+// ═══════════════════════════════════════════════
+// ★ 강화/탄력 룬 = getRuneCatalog() 단일 소스(장비 탭 룬 목록과 동일). 상수표 하드코딩 금지.
+function _armorRunes(kind) {
+  const rt = kind === 'potency' ? 'potency' : 'resilient';
+  const cat = (typeof getRuneCatalog === 'function') ? getRuneCatalog() : [];
+  return cat.filter(r => r.attachTo === 'armor' && r.runeType === rt)
+    .sort((a, b) => (a.runeValue || 0) - (b.runeValue || 0))
+    .map(r => ({ v: r.runeValue, name_ko: r.name_ko, name_en: r.name_en, level: r.level, price: r.price }));
+}
+function _armorRuneName(kind, value) {
+  if (!value) return '없음';
+  const r = _armorRunes(kind).find(x => x.v === value);
+  return r ? r.name_ko : '';
+}
+// ★ 정밀 재질 = 런타임 로드 데이터(data/armor_materials.json). 상수표 하드코딩 금지.
+let _armorMatData = null, _armorMatPromise = null;
+function _armorMaterials() { return (_armorMatData && _armorMatData.materials) || []; }
+function _gradeKo(g) { return (_armorMatData && _armorMatData.grade_ko && _armorMatData.grade_ko[g]) || ({ low: '하급', standard: '표준급', high: '상급' })[g] || g; }
+function _ensureArmorMatData() {
+  if (_armorMatData) return Promise.resolve(_armorMatData);
+  if (_armorMatPromise) return _armorMatPromise;
+  _armorMatPromise = fetch('data/armor_materials.json?v=0.317')
+    .then(r => r.ok ? r.json() : null)
+    .then(j => { _armorMatData = j || { materials: [] }; return _armorMatData; })
+    .catch(() => { _armorMatData = { materials: [] }; return _armorMatData; });
+  return _armorMatPromise;
+}
+const _ARMOR_BULK_OPTS = [ [null,'없음'], [0,'— (0)'], [0.1,'L'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'] ];
+
+let _aoptView = 'main';   // main | potency | resilient | material
+let _aoptSnap = null;     // 취소 복원용 스냅샷
+let _aoptPend = null;     // 상세에 띄운 선택 항목
+let _aoptPickItems = [];  // 현재 피커 목록
+
+// 기존 「옵션」 버튼 호환 — 새 모달로 진입
+function armorOptionsMenu(ev) { openArmorOptions(ev); }
+
+function _matKo(m) { if (!m) return null; const md = _armorMaterials().find(x => x.mat === m.mat); const ko = md ? md.ko : m.mat; return `${ko} (${_gradeKo(m.grade)})`; }
+
+// AC 분해(장비/민첩/숙련) — recalcAC와 동일 파생(대원칙0)
+function _armorOptAcParts() {
+  const worn = !!(document.getElementById('armor-name')?.value);
+  const baseAc = parseInt(document.getElementById('armor-ac')?.value || 0);
+  const item = worn ? baseAc + (state.armorPotency || 0) : 0;
+  const dexCapV = document.getElementById('armor-dex')?.value;
+  let dex = (typeof getMod === 'function') ? getMod('dex') : 0;
+  if (worn && dexCapV && dexCapV !== '-' && dexCapV !== '') dex = Math.min(dex, parseInt(dexCapV) || 99);
+  const profId = (typeof getArmorProfSelectId === 'function') ? getArmorProfSelectId() : 'prof-armor-unarmored';
+  const rank = parseInt(document.getElementById(profId)?.value || 0);
+  const lv = (typeof getLevel === 'function') ? getLevel() : 1;
+  const prof = (typeof rankBonus === 'function') ? rankBonus(rank, lv) : 0;
+  return { worn, item, dex, prof, rank, sum: item + dex + prof };
+}
+
+// 표준 획득 팝업(#modal-overlay)과 동일한 2단 body/푸터 (복원용)
+const _AOPT_STD_BODY = `
+  <div class="modal-list">
+    <div class="modal-list-header">
+      <input class="modal-search" id="modal-search" placeholder="검색..." oninput="filterOptions()">
+      <div class="modal-filters" id="modal-filterbar"></div>
+    </div>
+    <div class="modal-list-items" id="modal-options"></div>
+  </div>
+  <div class="modal-detail" id="modal-detail"><div class="modal-detail-empty">항목을 선택하면 상세 정보가 표시됩니다.</div></div>`;
+const _AOPT_STD_FOOTER = `<button class="btn btn-cancel" onclick="closeModal()">닫기</button><button class="btn btn-confirm" onclick="confirmModal()">선택</button>`;
+function _aoptRestoreModal() {
+  const body = document.getElementById('modal-body'); if (body) { body.classList.remove('detail-open'); body.innerHTML = _AOPT_STD_BODY; }
+  const foot = document.querySelector('#modal-overlay .modal-footer'); if (foot) foot.innerHTML = _AOPT_STD_FOOTER;
+}
+
+function openArmorOptions(ev) {
+  if (ev) ev.stopPropagation();
+  _aoptSnap = {
+    potency: state.armorPotency || 0,
+    resilient: state.armorResilient || 0,
+    material: state.armorMaterial ? { ...state.armorMaterial } : null,
+    bulk: (state.armorBulkOverride != null ? state.armorBulkOverride : null),
+  };
+  _aoptView = 'main'; _aoptPend = null; _aoptPickItems = [];
+  modalType = 'armor-opt'; modalSelected = null; modalContext = null;
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('hidden');
+  const tc = document.getElementById('equip-tab-container'); if (tc) tc.style.display = 'none';
+  _renderArmorOpt();
+}
+
+function closeArmorOptions(cancel) {
+  if (cancel && _aoptSnap) {
+    state.armorPotency = _aoptSnap.potency;
+    state.armorResilient = _aoptSnap.resilient;
+    state.armorMaterial = _aoptSnap.material;
+    state.armorBulkOverride = _aoptSnap.bulk;
+    if (typeof recalcAll === 'function') recalcAll();
+    renderArmorCard();
+  }
+  _aoptSnap = null; _aoptPend = null;
+  _aoptCloseModal();
+}
+function acceptArmorOptions() {
+  if (typeof save === 'function') save();
+  _aoptSnap = null; _aoptPend = null;
+  _aoptCloseModal();
+}
+function _aoptCloseModal() {
+  _aoptRestoreModal();
+  const overlay = document.getElementById('modal-overlay'); if (overlay) overlay.classList.add('hidden');
+  modalType = null; modalSelected = null;
+}
+
+// 룬/재질 변경 즉시 반영 (취소 시 스냅샷 복원)
+function _aoptApply() { if (typeof recalcAll === 'function') recalcAll(); renderArmorCard(); }
+
+function _renderArmorOpt() {
+  if (_aoptView === 'potency' || _aoptView === 'resilient') return _renderRunePicker(_aoptView);
+  if (_aoptView === 'material') return _renderMaterialPicker();
+
+  // ── 메인(설정) 뷰 — 표준 모달 chrome 안에 설정 폼 ──
+  const body = document.getElementById('modal-body');
+  const foot = document.querySelector('#modal-overlay .modal-footer');
+  const titleEl = document.getElementById('modal-title');
+  if (!body || !foot) return;
+  body.classList.remove('detail-open');
+  const name = document.getElementById('armor-name')?.value || '';
+  const worn = !!name;
+  const displayName = worn ? name : '비무장';
+  if (titleEl) titleEl.textContent = '갑옷 옵션';
+  const p = _armorOptAcParts();
+  const matLabel = _matKo(state.armorMaterial) || '재질 없음';
+  if (!_armorMatData) _ensureArmorMatData().then(() => { if (_aoptView === 'main') _renderArmorOpt(); }); // 재질명 라벨용 데이터 로드
+  let desc = worn ? '' : '갑옷을 착용하지 않았습니다.';
+  const wornEq = state.equip.find(e => e._type === 'armor' && e._equipped);
+  if (worn && wornEq && wornEq._data && (wornEq._data.desc || wornEq._data._desc)) desc = wornEq._data.desc || wornEq._data._desc;
+
+  const field = (label, val, view) => `
+    <div class="aopt-row" onclick="_aoptGo('${view}')">
+      <span class="aopt-label">${label}</span>
+      <button class="aopt-pick">${val}</button>
+    </div>`;
+  const bulkOpts = _ARMOR_BULK_OPTS.map(([v, ko]) => `<option value="${v === null ? '' : v}"${state.armorBulkOverride === v ? ' selected' : ''}>${ko}</option>`).join('');
+
+  body.innerHTML = `
+    <div class="aopt-config">
+      <div class="aopt-acbox">
+        <div class="aopt-acname">${worn ? '갑옷' : '비무장'} AC <b>${p.sum}</b></div>
+        <div class="teml-scale">${_temlScaleHtml(p.rank)}</div>
+        <div class="aopt-acbreak">
+          <div><span>민첩</span><b>${p.dex >= 0 ? '+' : ''}${p.dex}</b></div>
+          <div><span>숙련</span><b>+${p.prof}</b></div>
+          <div><span>장비</span><b>+${p.item}</b></div>
+        </div>
+      </div>
+      <div class="aopt-fields">
+        ${field('강화 룬', _armorRuneName('potency', state.armorPotency || 0), 'potency')}
+        ${field('저항 룬', _armorRuneName('resilient', state.armorResilient || 0), 'resilient')}
+        ${field('재질', matLabel, 'material')}
+        <div class="aopt-row">
+          <span class="aopt-label">부피 오버라이드</span>
+          <select class="aopt-select" onchange="_aoptSetBulk(this.value)">${bulkOpts}</select>
+        </div>
+      </div>
+      ${desc ? `<div class="aopt-desc">${desc}</div>` : ''}
+    </div>`;
+  foot.innerHTML = `
+    <button class="btn btn-cancel" onclick="closeArmorOptions(true)">취소</button>
+    <button class="btn btn-confirm" onclick="acceptArmorOptions()">확인</button>`;
+}
+
+function _aoptGo(view) { _aoptPend = null; modalSelected = null; _aoptView = view; _renderArmorOpt(); }
+function _aoptBack() { _aoptGo('main'); }
+
+function _aoptSetBulk(v) {
+  state.armorBulkOverride = (v === '' ? null : parseFloat(v));
+  if (typeof recalcBulk === 'function') recalcBulk();
+  renderArmorCard();
+}
+
+// ── 룬/재질 피커 = 표준 획득 팝업(목록 modal-options + 상세 modal-detail + 통화 푸터, 획득/구매) ──
+function _aoptPickerChrome(titleTxt) {
+  const titleEl = document.getElementById('modal-title'); if (titleEl) titleEl.textContent = titleTxt;
+  _aoptRestoreModal();  // 표준 2단 body 확보 (#modal-options / #modal-detail 재생성)
+  const sh = document.querySelector('#modal-overlay .modal-list-header'); if (sh) sh.style.display = 'none'; // 짧은 목록 → 검색 숨김
+  const foot = document.querySelector('#modal-overlay .modal-footer');
+  foot.innerHTML = `<div class="modal-currency" id="modal-currency">
+    <div class="modal-currency-item">${coinIcon('pp',20)}<span class="coin-val" id="mc-pp">${document.getElementById('cur-pp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('gp',20)}<span class="coin-val" id="mc-gp">${document.getElementById('cur-gp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('sp',20)}<span class="coin-val" id="mc-sp">${document.getElementById('cur-sp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('cp',20)}<span class="coin-val" id="mc-cp">${document.getElementById('cur-cp')?.value||0}</span></div>
+  </div>
+  <button class="btn btn-cancel" onclick="_aoptBack()" style="width:100%;padding:12px;font-size:14px;margin-top:6px;">← 갑옷 옵션으로</button>`;
+}
+function _aoptRow(item, sel) {
+  return `<div class="opt-row${sel ? ' selected' : ''}" data-pk="${item._pk}" onclick="_aoptSelectPick('${item._pk}')">
+    <div class="opt-row-icon">📄</div>
+    <span class="opt-row-name">${item.name_ko}</span>
+    <span class="opt-row-level r${Math.min(item.level,10)}">Lv ${item.level}</span>
+    <span class="opt-row-price">${typeof priceWithIcons==='function'?priceWithIcons(item.price,14):item.price}</span>
+  </div>`;
+}
+function _renderRunePicker(kind) {
+  const cur = kind === 'potency' ? (state.armorPotency||0) : (state.armorResilient||0);
+  _aoptPickerChrome(kind === 'potency' ? '강화 룬 (Potency)' : '탄력 룬 (Resilient)');
+  const opts = document.getElementById('modal-options');
+  const runes = _armorRunes(kind);   // getRuneCatalog 단일 소스
+  if (!runes.length) {  // 장비 카탈로그 미로드 → 로드 후 재렌더
+    if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">룬 데이터 불러오는 중…</div>';
+    if (typeof _ensureEquipData === 'function') _ensureEquipData().then(ok => { if (ok && _aoptView === kind) _renderRunePicker(kind); });
+    return;
+  }
+  _aoptPickItems = runes.map(r => ({ _pk: kind+':'+r.v, _kind: kind, v: r.v, name_ko: r.name_ko, name_en: r.name_en, level: r.level, price: r.price }));
+  if (opts) opts.innerHTML = _aoptPickItems.map(it => _aoptRow(it, cur === it.v)).join('');
+  const cd = _aoptPickItems.find(it => it.v === cur);
+  if (cd) _aoptSelectPick(cd._pk); else _aoptPickEmptyDetail(kind);
+}
+function _renderMaterialPicker() {
+  const cur = state.armorMaterial;
+  _aoptPickerChrome('정밀 재질 (Material)');
+  const opts = document.getElementById('modal-options');
+  const mats = _armorMaterials();   // data/armor_materials.json 단일 소스
+  if (!mats.length) {  // 미로드 → 로드 후 재렌더
+    if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">재질 데이터 불러오는 중…</div>';
+    _ensureArmorMatData().then(() => { if (_aoptView === 'material') _renderMaterialPicker(); });
+    return;
+  }
+  _aoptPickItems = [];
+  mats.forEach(md => (md.grades||[]).forEach(g => _aoptPickItems.push({ _pk: 'mat:'+md.mat+':'+g.g, _kind:'material', mat: md.mat, grade: g.g, name_ko: md.ko+' ('+_gradeKo(g.g)+')', name_en: md.mat+' '+g.g, level: g.level, price: g.price })));
+  if (opts) opts.innerHTML = _aoptPickItems.map(it => _aoptRow(it, cur && cur.mat===it.mat && cur.grade===it.grade)).join('');
+  const cd = _aoptPickItems.find(it => cur && it.mat===cur.mat && it.grade===cur.grade);
+  if (cd) _aoptSelectPick(cd._pk); else _aoptPickEmptyDetail('material');
+}
+function _aoptPickEmptyDetail(kind) {
+  const d = document.getElementById('modal-detail'); if (!d) return;
+  const rm = kind==='material' ? '재질' : '룬';
+  d.innerHTML = `<div class="modal-detail-empty">항목을 선택하면 상세가 표시됩니다.<br>현재 부착된 ${rm}이 없습니다.</div>`;
+}
+function _aoptSelectPick(pk) {
+  const item = _aoptPickItems.find(i => i._pk === pk); if (!item) return;
+  _aoptPend = item;
+  const opts = document.getElementById('modal-options');
+  if (opts) { opts.querySelectorAll('.opt-row').forEach(r => r.classList.toggle('selected', r.getAttribute('data-pk') === pk)); }
+  const d = document.getElementById('modal-detail'); if (!d) return;
+  const isCur = (item._kind==='material')
+    ? (state.armorMaterial && state.armorMaterial.mat===item.mat && state.armorMaterial.grade===item.grade)
+    : ((item._kind==='potency'?(state.armorPotency||0):(state.armorResilient||0)) === item.v);
+  d.innerHTML = `
+    <div class="modal-detail-back" onclick="document.getElementById('modal-body').classList.remove('detail-open')">← 목록으로</div>
+    <div class="modal-detail-title">${item.name_ko}</div>
+    <div class="modal-detail-en">${item.name_en}</div>
+    <div style="margin:12px 0;font-size:13px;line-height:2.2;">
+      <div><strong>레벨:</strong> ${item.level}</div>
+      <div><strong>가격:</strong> ${item.price}</div>
+    </div>
+    <div class="equip-give-buy">
+      <button class="btn-give" onclick="_aoptApplyPick(false)">획득</button>
+      <button class="btn-buy" onclick="_aoptApplyPick(true)">구매</button>
+      ${isCur ? `<button class="btn-give" style="background:var(--bg4);color:var(--text2);" onclick="_aoptRemovePick()">제거</button>` : ''}
+    </div>`;
+  const mb = document.getElementById('modal-body'); if (mb && window.innerWidth <= 900) mb.classList.add('detail-open');
+}
+function _aoptApplyPick(buy) {
+  const item = _aoptPend; if (!item) return;
+  if (buy) { const cp = (typeof parsePrice==='function')?parsePrice(item.price):0; if (cp && typeof getCurrencyTotalCp==='function' && getCurrencyTotalCp() < cp) { alert('소지금이 부족합니다! 필요: '+item.price); return; } if (cp && typeof deductCurrency==='function') deductCurrency(cp); }
+  if (item._kind === 'material') state.armorMaterial = { mat: item.mat, grade: item.grade };
+  else if (item._kind === 'potency') state.armorPotency = item.v;
+  else state.armorResilient = item.v;
+  _aoptApply();
+  _aoptGo('main');
+}
+function _aoptRemovePick() {
+  const item = _aoptPend; if (!item) return;
+  if (item._kind === 'material') state.armorMaterial = null;
+  else if (item._kind === 'potency') state.armorPotency = 0;
+  else state.armorResilient = 0;
+  _aoptApply();
+  _aoptGo('main');
+}
+
+function _removeWornArmor() {
+  const idx = _wornArmorEquipIdx();
+  if (idx >= 0) removeEquip(idx);
+  if (typeof _unwearArmor === 'function') _unwearArmor();
+  if (typeof recalcAll === 'function') recalcAll();
+  save();
+}
+
+function removeShield() {
+  const idx = _wornShieldEquipIdx();
+  if (idx >= 0) removeEquip(idx);
+  if (typeof _unequipShield === 'function') _unequipShield();
+  if (typeof recalcAll === 'function') recalcAll();
+  save();
+}
+
+// 갑옷/방패 룬 관리 팝업 (무기 룬 팝업과 동일 패턴, 착용 중인 장비 대상)
+function _defenseRunesPopup(kind, ev) {
+  if (ev) ev.stopPropagation();
+  const eqIdx = kind === 'armor' ? _wornArmorEquipIdx() : _wornShieldEquipIdx();
+  const label = kind === 'armor' ? '갑옷' : '방패';
+  if (eqIdx < 0) {
+    _openWeaponPopup(ev, `<div class="wpop-title">룬</div><div class="wpop-note">착용한 ${label}이 없거나 인벤토리와 연결되어 있지 않아 룬을 부착할 수 없습니다.</div>`);
+    return;
+  }
+  const attached = (typeof _getAttachedRunes === 'function') ? _getAttachedRunes(eqIdx) : [];
+  const attHtml = attached.length ? attached.map(r => {
+    const ri = state.equip.indexOf(r);
+    return `<div class="wpop-rune"><span>${r.name}</span><button onclick="detachRune(${ri});_closeWeaponPopup()">해제</button></div>`;
+  }).join('') : '<div class="wpop-note">부착된 룬이 없습니다.</div>';
+  const avail = state.equip.map((e, idx) => ({ e, idx })).filter(x => x.e._isRune && x.e._runeData?.attachTo === kind && (x.e._attachedTo === null || x.e._attachedTo === undefined));
+  const availHtml = avail.length ? avail.map(x => `<div class="wpop-rune"><span>${x.e.name}</span><button onclick="attachRune(${x.idx},${eqIdx});_closeWeaponPopup()">부착</button></div>`).join('') : `<div class="wpop-note">보유한 ${label} 룬이 없습니다. 장비 탭에서 룬을 구매·획득하세요.</div>`;
+  _openWeaponPopup(ev, `<div class="wpop-title">${label} 룬 관리</div><div class="wpop-sec">부착됨</div>${attHtml}<div class="wpop-sec">보유 룬</div>${availHtml}`);
+}
+function armorRunesPopup(ev) { _defenseRunesPopup('armor', ev); }
+function shieldRunesPopup(ev) { _defenseRunesPopup('shield', ev); }
 
 // ── Weapon category mapping ──
 function getWeaponCategory(w) {
@@ -497,7 +923,66 @@ function toggleGrip(idx) {
   renderWeapons(); renderEquip(); save();
 }
 
+// state.equip의 무기/방패를 무기 탭 카드(state.weapons)로 자동 동기화.
+//   무기 추가는 장비 탭이 아니라 무기 탭에 나타난다(사용자 요청). 장비 탭 렌더는 무기/방패 범주를 제외.
+//   기존 저장본(무기가 equip에만 있던 것)도 로드 시 이 동기화로 무기 탭에 표시됨. state.weapons에 직접 push(재귀 없음).
+function _ensureWeaponCards() {
+  // 방패는 방어 탭(방패 카드)에서 관리 → 무기 탭의 방패 카드는 제거.
+  for (let k = state.weapons.length - 1; k >= 0; k--) { if (state.weapons[k] && state.weapons[k]._isShield) state.weapons.splice(k, 1); }
+  let added = false;
+  for (let i = 0; i < state.equip.length; i++) {
+    const e = state.equip[i];
+    if (!e || e._isRune) continue;
+    if (e._type !== 'weapon') continue;   // 방패 제외(방어 탭 관리)
+    if (state.weapons.some(w => w._fromEquip === i)) continue;
+    const d = e._data || {};
+    const isShield = false;
+    state.weapons.push({
+      id: 'w-' + Date.now() + '-' + i,
+      name: d.name_ko || e.name || (isShield ? '방패' : '무기'),
+      dmg: isShield ? '' : (d.damage || ''),
+      traits: isShield ? '' : (d.traits || []).join(', '),
+      _dbData: isShield ? null : d,
+      _isShield: isShield,
+      category: isShield ? 'shield' : d.category,
+      range: d.range,
+      _fromEquip: i,
+      _broken: e._broken || false,
+      _twoHand: (d.hands === 2),
+      _stowed: e._holdMode === 'stowed',
+      _dropped: e._holdMode === 'dropped',
+      _potency: 0, _striking: 0, _runeDamage: [], _runeNotes: [], _propertyRunes: [],
+    });
+    added = true;
+  }
+  if (added && typeof applyAttachedRunes === 'function') {
+    state.equip.forEach((e, i) => { if ((e._type === 'weapon' || e._type === 'shield') && !e._isRune) applyAttachedRunes(i); });
+  }
+  return added;
+}
+
+// TEML 등급 스케일 HTML(T/E/M/L 4원, 현재 rank만 강조). rank = 0/2/4/6/8.
+function _temlScaleHtml(rank) {
+  const ranks = [['T', 2], ['E', 4], ['M', 6], ['L', 8]];
+  return ranks.map(([c, rv]) => `<span class="teml-c${rank === rv ? ' on' : ''}">${c}</span>`).join('');
+}
+// 무기 탭 상단 4범주 숙련 스케일 갱신 (syncAllProfRanks에서 호출)
+function updateWeaponTeml() {
+  ['simple', 'martial', 'advanced', 'unarmed'].forEach(c => {
+    const el = document.getElementById('teml-weapon-' + c);
+    if (el) el.innerHTML = _temlScaleHtml(parseInt(document.getElementById('prof-weapon-' + c)?.value || 0));
+  });
+}
+// 방어 탭 상단 갑옷 4범주 숙련 스케일 갱신
+function updateArmorTeml() {
+  ['light', 'medium', 'heavy', 'unarmored'].forEach(c => {
+    const el = document.getElementById('teml-armor-' + c);
+    if (el) el.innerHTML = _temlScaleHtml(parseInt(document.getElementById('prof-armor-' + c)?.value || 0));
+  });
+}
+
 function renderWeapons() {
+  _ensureWeaponCards();   // equip의 무기/방패 → 무기 탭 카드 동기화(신규 추가·기존 저장본)
   const list = document.getElementById('weapons-list');
   if (!list) return;
   list.innerHTML = '';
@@ -518,7 +1003,7 @@ function renderWeapons() {
 
     // Range info
     const range = w._dbData?.range || w.range || null;
-    const rangeHtml = range ? `<div class="weapon-card-range">\uD83C\uDFAF 사거리: ${range} ft.</div>` : '';
+    const rangeHtml = range ? `<div class="weapon-card-range">사거리 ${range} ft.</div>` : '';
 
     // Rune indicator text
     let runeInfo = '';
@@ -548,48 +1033,41 @@ function renderWeapons() {
     const [wpTemlLetter, wpProfName, wpProfCls] = wpTemlMap[wpProfVal]||['U','미숙련',''];
     const wpCatLabel = {simple:'단순',martial:'군용',advanced:'고급',unarmed:'비무장'}[wpCat]||wpCat;
 
-    // 상태별 행동 버튼
-    const isHeld = !w._stowed && !isDropped;
-    const canGrip = isHeld && (w._dbData?.hands) !== 2 && !w._isShield;
-    let actionBtns = '';
-    if (isDropped) {
-      actionBtns = `<button class="weapon-btn" onclick="pickUpWeapon(${i})" title="줍기 (행동 1)">줍기<span class="wb-glyph action-glyph">1</span></button>`;
-    } else if (w._stowed) {
-      actionBtns = `<button class="weapon-btn" onclick="drawWeapon(${i})" title="들기 (행동 1)">들기<span class="wb-glyph action-glyph">1</span></button>`;
-    } else {
-      // 손에 든 상태
-      actionBtns = `<button class="weapon-btn" onclick="stowWeapon(${i})" title="넣기 (행동 1)">넣기<span class="wb-glyph action-glyph">1</span></button>`;
-      actionBtns += `<button class="weapon-btn" onclick="dropWeapon(${i})" title="떨구기 (자유 행동)">떨구기<span class="wb-glyph action-glyph">F</span></button>`;
-      if (canGrip) {
-        actionBtns += w._twoHand
-          ? `<button class="weapon-btn" onclick="toggleGrip(${i})" title="한손 전환 (자유 행동)">한손<span class="wb-glyph action-glyph">F</span></button>`
-          : `<button class="weapon-btn" onclick="toggleGrip(${i})" title="양손 전환 (행동 1)">양손<span class="wb-glyph action-glyph">1</span></button>`;
-      }
-    }
+    // 순서 이동 가능 여부
+    const isFirst = i === 0, isLast = i === state.weapons.length - 1;
+    // 수납/꺼내기 토글
+    const stowBtn = w._stowed
+      ? `<button class="weapon-btn" onclick="drawWeapon(${i})" title="꺼내기 (행동 1)">꺼내기</button>`
+      : `<button class="weapon-btn" onclick="stowWeapon(${i})" title="수납 (행동 1)">수납</button>`;
 
     card.innerHTML = `
       <div class="weapon-card-header">
-        ${actionBtns}
-        <span style="flex:1;"></span>
+        <button class="weapon-btn wb-roll" onclick="rollWeapon(${i})" title="명중 굴림">🎲 굴림</button>
+        <button class="weapon-btn" onclick="weaponOptionsMenu(${i},event)" title="옵션">옵션</button>
+        <button class="weapon-btn" onclick="weaponRunesPopup(${i},event)" title="룬">룬</button>
+        ${stowBtn}
         <button class="weapon-btn danger" onclick="removeWeapon(${i})" title="삭제">삭제</button>
+        <span style="flex:1;"></span>
+        <button class="weapon-reorder" onclick="moveWeapon(${i},-1)" title="위로 이동" ${isFirst?'disabled':''}>▲</button>
+        <button class="weapon-reorder" onclick="moveWeapon(${i},1)" title="아래로 이동" ${isLast?'disabled':''}>▼</button>
       </div>
       <div class="weapon-card-body">
-        <div class="weapon-card-stats">
-          <div class="weapon-card-name" onclick="showInfo('weapon','${escapedName}')" style="display:flex;align-items:center;flex-wrap:wrap;">
-            ${iconImg('equipment', w) || '\u2694 '}${w._broken?'<span style="color:var(--red-light);">파손된 </span>':''}${w.name||'무기'}${runeInfo}${isDropped ? '<span style="font-size:9px;color:var(--red-light,#c66);margin-left:4px;">[바닥]</span>' : ''}${w._twoHand ? '<span style="font-size:9px;color:var(--accent);margin-left:4px;">[양손]</span>' : ''}
-          </div>
-          ${wpProfVal > 0 ? `<div style="font-size:9px;color:var(--text2);margin-top:-2px;margin-bottom:2px;"><span class="weapon-prof-badge ${wpProfCls}" style="font-size:7px;width:12px;height:12px;display:inline-flex;align-items:center;justify-content:center;">${wpTemlLetter}</span> ${wpCatLabel} 무기 ${wpProfName}</div>` : `<div style="font-size:9px;color:var(--red-light);margin-top:-2px;margin-bottom:2px;">⚠ ${wpCatLabel} 무기 미숙련</div>`}
-          <div class="weapon-stat">
-            <span class="stat-label">\u2699 명중</span>
+        <div class="weapon-card-name" onclick="showInfo('weapon','${escapedName}')">
+          ${iconImg('equipment', w) || '⚔ '}${w._broken?'<span style="color:var(--red-light);">파손된 </span>':''}${w.name||'무기'}${runeInfo}${isDropped ? '<span class="wc-flag" style="color:var(--red-light,#c66);">[바닥]</span>' : ''}${w._twoHand ? '<span class="wc-flag" style="color:var(--accent);">[양손]</span>' : ''}
+        </div>
+        ${wpProfVal > 0 ? `<div class="weapon-prof-line"><span class="prof-rank-badge ${wpProfCls}">${wpTemlLetter}</span> ${wpCatLabel} 무기 ${wpProfName}</div>` : `<div class="weapon-prof-line warn">⚠ ${wpCatLabel} 무기 미숙련</div>`}
+        <div class="weapon-stat-row">
+          <div class="weapon-stat" title="명중 굴림">
+            <span class="stat-label">명중</span>
             <span class="stat-val" style="${w._broken?'color:var(--red-light);':''}">${hitStr}</span>
           </div>
-          <div class="weapon-stat weapon-stat-dmg" data-dmg="${(dmgResult.str||'').replace(/"/g,'&quot;')}">
-            <span class="stat-label">\uD83C\uDFAF 피해</span>
+          <div class="weapon-stat weapon-stat-dmg" data-dmg="${(dmgResult.str||'').replace(/"/g,'&quot;')}" title="피해 굴림">
+            <span class="stat-label">피해</span>
             <span class="stat-val dmg">${dmgStr}</span>
           </div>
         </div>
-        ${traitHtml ? `<div class="weapon-card-traits">${traitHtml}</div>` : ''}
         ${rangeHtml}
+        ${traitHtml ? `<div class="weapon-card-traits">${traitHtml}</div>` : ''}
       </div>
     `;
     list.appendChild(card);
@@ -597,10 +1075,103 @@ function renderWeapons() {
 }
 
 function removeWeapon(i) {
-  state.weapons.splice(i,1);
+  const w = state.weapons[i];
+  const eqIdx = (w && w._fromEquip != null) ? w._fromEquip : null;
+  state.weapons.splice(i, 1);
+  // 무기 탭 카드는 equip의 무기 항목과 1:1 → 연결된 equip 항목도 제거(안 하면 동기화가 카드를 재생성).
+  if (eqIdx != null && state.equip[eqIdx]) {
+    removeEquip(eqIdx);   // equip 제거 + _fromEquip/룬 인덱스 재정렬 + renderEquip + save
+  }
   renderWeapons();
   save();
 }
+
+// ── 무기 카드 액션(굴림/순서/옵션/룬/파손/인쇄) ──
+function rollWeapon(i) {
+  const w = state.weapons[i]; if (!w) return;
+  const hitMod = calcWeaponHit(w);
+  const name = w.name || '무기';
+  if (typeof DiceRoller !== 'undefined' && DiceRoller.rollCheck) DiceRoller.rollCheck(hitMod, name + ' 명중');
+}
+
+function moveWeapon(i, dir) {
+  const j = i + dir;
+  if (j < 0 || j >= state.weapons.length) return;
+  const arr = state.weapons;
+  const t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+  renderWeapons();
+  save();
+}
+
+function toggleWeaponBroken(i) {
+  const w = state.weapons[i]; if (!w) return;
+  w._broken = !w._broken;
+  renderWeapons();
+  if (typeof recalcAll === 'function') recalcAll();
+  save();
+}
+
+// 무기 카드 버튼 앵커 팝업(옵션/룬 공용)
+let _weaponPopupEl = null;
+function _closeWeaponPopup() {
+  if (_weaponPopupEl) { _weaponPopupEl.remove(); _weaponPopupEl = null; document.removeEventListener('click', _weaponPopupOutside, true); }
+}
+function _weaponPopupOutside(e) { if (_weaponPopupEl && !_weaponPopupEl.contains(e.target)) _closeWeaponPopup(); }
+function _openWeaponPopup(ev, html) {
+  _closeWeaponPopup();
+  const el = document.createElement('div');
+  el.className = 'weapon-popup';
+  el.innerHTML = html;
+  document.body.appendChild(el);
+  const btn = ev && ev.currentTarget ? ev.currentTarget : (ev && ev.target);
+  const r = (btn && btn.getBoundingClientRect) ? btn.getBoundingClientRect() : { left: 20, bottom: 60 };
+  const w = el.offsetWidth || 220, h = el.offsetHeight || 200;
+  let left = Math.min(r.left, window.innerWidth - w - 12);
+  let top = r.bottom + 4;
+  if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - h - 4);
+  el.style.left = Math.max(8, left) + 'px';
+  el.style.top = top + 'px';
+  _weaponPopupEl = el;
+  setTimeout(() => document.addEventListener('click', _weaponPopupOutside, true), 0);
+}
+
+function weaponOptionsMenu(i, ev) {
+  if (ev) ev.stopPropagation();
+  const w = state.weapons[i]; if (!w) return;
+  const isDropped = !!w._dropped, isHeld = !w._stowed && !isDropped;
+  const canGrip = isHeld && (w._dbData?.hands) !== 2 && !w._isShield;
+  const rows = [];
+  if (isDropped) rows.push(`<button onclick="pickUpWeapon(${i});_closeWeaponPopup()">줍기 <span class="action-glyph">1</span></button>`);
+  else if (w._stowed) rows.push(`<button onclick="drawWeapon(${i});_closeWeaponPopup()">꺼내 들기 <span class="action-glyph">1</span></button>`);
+  else {
+    rows.push(`<button onclick="dropWeapon(${i});_closeWeaponPopup()">떨구기 <span class="action-glyph">F</span></button>`);
+    if (canGrip) rows.push(w._twoHand
+      ? `<button onclick="toggleGrip(${i});_closeWeaponPopup()">한손으로 잡기 <span class="action-glyph">F</span></button>`
+      : `<button onclick="toggleGrip(${i});_closeWeaponPopup()">양손으로 잡기 <span class="action-glyph">1</span></button>`);
+  }
+  rows.push(`<button onclick="toggleWeaponBroken(${i});_closeWeaponPopup()">${w._broken ? '파손 해제' : '파손 표시'}</button>`);
+  rows.push(`<button onclick="_closeWeaponPopup();showInfo('weapon','${(w.name || '').replace(/'/g, "\\'")}')">상세 정보</button>`);
+  _openWeaponPopup(ev, `<div class="wpop-title">옵션</div>${rows.join('')}`);
+}
+
+function weaponRunesPopup(i, ev) {
+  if (ev) ev.stopPropagation();
+  const w = state.weapons[i]; if (!w) return;
+  const eqIdx = w._fromEquip;
+  if (eqIdx === undefined || eqIdx === null) {
+    _openWeaponPopup(ev, `<div class="wpop-title">룬</div><div class="wpop-note">이 무기는 장비 목록과 연결되어 있지 않아 룬을 부착할 수 없습니다. 장비 탭에서 획득한 무기에만 룬을 새길 수 있습니다.</div>`);
+    return;
+  }
+  const attached = (typeof _getAttachedRunes === 'function') ? _getAttachedRunes(eqIdx) : [];
+  const attHtml = attached.length ? attached.map(r => {
+    const ri = state.equip.indexOf(r);
+    return `<div class="wpop-rune"><span>${r.name}</span><button onclick="detachRune(${ri});_closeWeaponPopup()">해제</button></div>`;
+  }).join('') : '<div class="wpop-note">부착된 룬이 없습니다.</div>';
+  const avail = state.equip.map((e, idx) => ({ e, idx })).filter(x => x.e._isRune && x.e._runeData?.attachTo === 'weapon' && (x.e._attachedTo === null || x.e._attachedTo === undefined));
+  const availHtml = avail.length ? avail.map(x => `<div class="wpop-rune"><span>${x.e.name}</span><button onclick="attachRune(${x.idx},${eqIdx});_closeWeaponPopup()">부착</button></div>`).join('') : '<div class="wpop-note">보유한 무기 룬이 없습니다. 장비 탭에서 룬을 구매·획득하세요.</div>';
+  _openWeaponPopup(ev, `<div class="wpop-title">룬 관리 — ${w.name || '무기'}</div><div class="wpop-sec">부착됨</div>${attHtml}<div class="wpop-sec">보유 룬</div>${availHtml}`);
+}
+
 
 function addEquip(data) {
   if (typeof isOverloaded === 'function' && isOverloaded()) {
@@ -863,6 +1434,7 @@ function renderEquip() {
 
   // 카테고리 순서대로 렌더 (주문 탭 spell-rank 스타일)
   INV_CATEGORIES.forEach(cat => {
+    if (cat.id === 'weapon-shield' || cat.id === 'armor') return;   // 무기·방패=무기 탭, 갑옷=방어 탭에서 관리(장비 탭 제외). 부피는 equip에 남아 계속 계산됨.
     const idxs = groups[cat.id] || [];
 
     const section = document.createElement('div');
@@ -1688,7 +2260,7 @@ function openBonusSpellsModal() {
   document.getElementById('modal-options').innerHTML = `<div class="bonus-spell-list">${rows}</div>`;
   const detail = document.getElementById('modal-detail'); if (detail) detail.innerHTML = '<div class="modal-detail-empty">랭크별로 추가 주문 슬롯 수를 정합니다(재주·아이템 등으로 얻은 보너스).</div>';
   const listEl = document.querySelector('.modal-list'); if (listEl) listEl.style.display = '';
-  const footer = document.querySelector('.modal-footer'); if (footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
+  const footer = document.querySelector('#modal-overlay .modal-footer'); if (footer) footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button>';
 }
 function _onBonusSpellChange(r, val) {
   if (!state.bonusSpellSlots) state.bonusSpellSlots = {};
@@ -1809,15 +2381,19 @@ function renderSpells() {
   updateSpellBreakdown();
 
   // ── "주문 배우기" / "주문 기억" 버튼 표시/숨김 ──
-  const isPrepared = state.selectedClass?.casting === 'prepared';
-  const isPreparedCaster = isPrepared && (typeof CLASS_SPELL_TABLE !== 'undefined') && CLASS_SPELL_TABLE[state.selectedClass?.id];
-  const isSpontaneous = state.selectedClass?.casting === 'spontaneous';
+  // v0.299: "배우기" 폐지 — 모든 시전자를 "전통 전체 준비(클레릭식)"로 통합.
+  //   즉흥(바드/소서러)도 슬롯에 전통 전체 풀에서 준비. 레퍼토리·시그니처·주문서 습득한도 개념 폐지.
+  //   접근 불가 주문 필터(전통 게이트)는 memorize 모달에서 유지.
+  const hasSpellTable = (typeof CLASS_SPELL_TABLE !== 'undefined') && !!CLASS_SPELL_TABLE[state.selectedClass?.id];
   const hasCasting = !!(state.selectedClass?.casting);
+  const isPreparedCaster = hasCasting && hasSpellTable;   // 전 시전자 = 준비형 렌더
+  const isPrepared = hasCasting;                          // 메모라이즈 버튼 게이트(전 시전자)
+  const isSpontaneous = false;                            // 즉흥 전용 경로 폐지
   const memBtn = document.getElementById('btn-memorize-spells');
   if (memBtn) memBtn.style.display = isPrepared ? '' : 'none';
-  // 주문 배우기 버튼: 전통 전체 접근 캐스터(클레릭/드루이드)는 숨김
-  const isSpellbookCaster = isPrepared && typeof FAMILIAR_INIT !== 'undefined' && FAMILIAR_INIT[state.selectedClass?.id];
-  const showLearnBtn = isSpontaneous || isSpellbookCaster;
+  // "주문 배우기" 단계 폐지(v0.298) — 주문서형(위저드/위치)도 전통 전체에서 준비(클레릭식) → 배우기 버튼 숨김.
+  //   spontaneous(바드/소서러)는 아직 레퍼토리 방식이라 유지(후속 단계에서 전통 전체로 통합 예정).
+  const showLearnBtn = isSpontaneous;
   const learnBtn = document.getElementById('btn-learn-spells');
   if (learnBtn) learnBtn.style.display = showLearnBtn ? '' : 'none';
   // 경고 배지: 배울 수 있는 주문이 남아있으면 표시
@@ -2214,22 +2790,21 @@ function renderSpellSlotList(elId, arr, type, heightenedLevel) {
     const isAuto = s?._auto;
     const spellData = getSpell(s.name);
     const actions = getActionIcons(spellData?.actions);
-    // 집중 주문 랭크 표시: 캔트립은 heightenedLevel로, 일반 집중주문도 heightenedLevel
-    let rankLabel = '';
-    if (type === 'focus' && heightenedLevel) {
+    // 우측 랭크 라벨(참조 양식: "Cantrip 1" / "Focus 1") — 캔트립/집중 + 유효 랭크.
+    let rightLabel = '';
+    if (type === 'focus') {
       const isCantrip = spellData ? spellData.is_cantrip : false;
       const baseRank = spellData?.rank || 1;
-      const effectiveRank = isCantrip ? heightenedLevel : Math.max(baseRank, heightenedLevel);
-      rankLabel = `<span style="font-size:10px;color:var(--accent);margin-left:4px;">[${effectiveRank}랭크]</span>`;
+      const effectiveRank = isCantrip ? (heightenedLevel || 1) : Math.max(baseRank, heightenedLevel || baseRank);
+      rightLabel = `<span style="margin-left:auto;font-size:12px;color:var(--accent);font-weight:600;white-space:nowrap;">${isCantrip ? '캔트립' : '집중'} ${effectiveRank}</span>`;
     }
     const row = document.createElement('div');
     row.className = 'spell-slot-row';
     if (isAuto) row.style.cssText = 'border-left:3px solid var(--accent);background:rgba(100,160,255,0.06);';
-    const srcLabel = isAuto && s._source ? `<span style="font-size:9px;color:var(--accent);margin-left:auto;">${s._source}</span>` : '';
     row.innerHTML = `
-      <span class="spell-slot-name" onclick="toggleSpellInline(this,'${s.name.replace(/'/g,"\\'")}')">${iconImg('spell', spellData || s)}${s.name}${rankLabel}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
-      ${srcLabel}
-      ${isAuto ? '<span style="width:20px;"></span>' : `<span class="spell-slot-del" onclick="removeSpell('${type}',${i})">✕</span>`}`;
+      <span class="spell-slot-name" onclick="toggleSpellInline(this,'${s.name.replace(/'/g,"\\'")}')">${iconImg('spell', spellData || s)}${s.name}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>
+      ${rightLabel}
+      ${isAuto ? '' : `<span class="spell-slot-del" onclick="removeSpell('${type}',${i})" style="margin-left:10px;">✕</span>`}`;
     el.appendChild(row);
   });
 }
@@ -2650,7 +3225,7 @@ function _renderLearnSpellsModal() {
   const searchEl = document.getElementById('modal-search');
   if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; }
   const fbar = document.getElementById('modal-filterbar');
-  const footer = document.querySelector('.modal-footer');
+  const footer = document.querySelector('#modal-overlay .modal-footer');
   if (footer) footer.style.display = 'none';
 
   // ── 진행도 탭 바 생성 (공용 _learnSpellTabBarHtml) ──
@@ -2765,18 +3340,36 @@ function _toggleLearnSpellRow(row, sp) {
   dd.classList.add('open');
 }
 
-// 주문 상세 HTML (showItemDetail의 주문 분기와 동일 포맷 — 메타 + 본문)
+// 주문 상세 HTML (showItemDetail의 주문 분기와 동일 포맷 — 메타 + 본문 + 주사위 버튼 + 출처)
+//   memorize·상세 팝업·인라인 아코디언 3곳 공용 → 여기 한 곳만 고치면 전 표면 반영.
 function _learnSpellDetailHtml(item) {
   const _tt = (t) => (typeof traitTag === 'function') ? traitTag(t) : `<span class="tag">${t}</span>`;
   const rankStr = item.is_cantrip ? '캔트립' : item.is_focus ? '집중' : `랭크 ${item.rank}`;
   const spTraits = [...(item.traditions || []), ...(item.traits || [])].map(_tt).join('');
   const tags = `<div style="margin-bottom:4px;"><span class="tag-meta">${rankStr}</span> <span class="spell-actions">${item.actions || ''}</span></div>${spTraits ? '<div style="margin-bottom:6px;">' + spTraits + '</div>' : ''}`;
+  // ── 주사위 굴림 버튼(공격/피해) — 공격 주문=주문 명중, 피해 있는 주문=피해 굴림 ──
+  const _esc = s => String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  const _bs = 'display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;';
+  let diceBtns = '';
+  const _atkEl = document.getElementById(item.is_focus ? 'spell-atk-val-focus' : 'spell-atk-val');
+  const _atk = _atkEl ? (parseInt(String(_atkEl.textContent).replace(/[^0-9\-]/g, '')) || 0) : 0;
+  if (item.isAttack) {
+    diceBtns += `<button style="${_bs}" onclick="if(typeof DiceRoller!=='undefined')DiceRoller.rollCheck(${_atk},'주문 명중: ${_esc(item.name_ko)}')">🎲 주문 명중 ${_atk >= 0 ? '+' : ''}${_atk}</button>`;
+  }
+  if (item.damageFormula) {
+    const _dlabel = (item.damageParts || []).map(d => d.formula).join(' + ') || item.damageFormula;
+    diceBtns += `<button style="${_bs}" onclick="if(typeof DiceRoller!=='undefined')DiceRoller.rollDamage('${_esc(item.damageFormula)}','주문 피해: ${_esc(item.name_ko)}')">🎲 ${_dlabel}</button>`;
+  }
+  const diceRow = diceBtns ? `<div style="display:flex;gap:8px;margin:2px 0 8px;flex-wrap:wrap;">${diceBtns}</div>` : '';
   const spellMeta = (typeof _spellMetaHtml === 'function') ? _spellMetaHtml(item) : '';   // 공용 정본
   let desc = item.desc || item.summary || '';
   desc = (typeof _stripSpellMetaFromDesc === 'function') ? _stripSpellMetaFromDesc(desc) : desc;
   const spellNotes = (typeof getSpellFeatNotes === 'function') ? getSpellFeatNotes(item.name_ko || '') : '';
   const body = (typeof formatDescActions === 'function') ? formatDescActions(desc, item) : desc;
-  return `${tags}${spellMeta}<div style="font-size:13px;line-height:1.6;">${body}${spellNotes}</div>`;
+  // ── 출처(publication) — 종족/클래스와 동일 패턴 ──
+  const _src = (typeof _pubTitleKo === 'function') ? _pubTitleKo(item._doc && item._doc.system && item._doc.system.publication && item._doc.system.publication.title) : '';
+  const srcLine = _src ? `<div style="font-size:11px;color:var(--text2);font-style:italic;margin-top:6px;">출처: ${_src}</div>` : '';
+  return `${tags}${diceRow}${spellMeta}<div style="font-size:13px;line-height:1.6;">${body}${spellNotes}</div>${srcLine}`;
 }
 
 // 주문 행 클릭 시 팝업 대신 인라인 아코디언으로 상세 펼침/접힘 (형식 통일: 주문 배우기/기억 모달과 동일)
@@ -2936,8 +3529,14 @@ function updateSlotChecks(rank) {
 
 let equipBrowseTab = 'weapon';
 let equipBrowseSubTab = '';
+// 무기 추가 전용 브라우저 상태(Pathbuilder식: 카테고리 상단 탭 + 표준/마법 하위 탭)
+let equipBrowseMode = 'equip';          // 'equip'(장비 전체) | 'weapon'(무기 전용)
+let weaponBrowseCat = '';               // '' | simple | martial | advanced | unarmed | proficient
+let weaponBrowseKind = 'standard';      // standard(레벨0) | magic(레벨1+)
 
 function openEquipBrowse() {
+  equipBrowseMode = 'equip';
+  _equipGiveMode = null;   // 방어 「변경」 자동착용 플래그 초기화(일반 장비추가는 착용 안 함)
   modalType = 'equip-browse';
   modalSelected = null;
   modalContext = null;
@@ -2957,9 +3556,9 @@ function openEquipBrowse() {
   if (!tabContainer) {
     tabContainer = document.createElement('div');
     tabContainer.id = 'equip-tab-container';
-    const modalEl = document.querySelector('.modal');
+    // ⚠ querySelector('.modal') 금지(다중 .modal) — #modal-body의 실제 부모에 삽입.
     const modalBody = document.getElementById('modal-body');
-    modalEl.insertBefore(tabContainer, modalBody);
+    modalBody.parentNode.insertBefore(tabContainer, modalBody);
   }
   tabContainer.style.display = '';
   tabContainer.innerHTML = `
@@ -2972,7 +3571,7 @@ function openEquipBrowse() {
     <div class="equip-subtabs" id="equip-subtabs" style="display:none;"></div>`;
 
   // Replace footer with currency
-  const footer = document.querySelector('.modal-footer');
+  const footer = document.querySelector('#modal-overlay .modal-footer');
   footer.innerHTML = `<div class="modal-currency" id="modal-currency">
     <div class="modal-currency-item">${coinIcon('pp',20)}<span class="coin-val" id="mc-pp">${document.getElementById('cur-pp')?.value||0}</span></div>
     <div class="modal-currency-item">${coinIcon('gp',20)}<span class="coin-val" id="mc-gp">${document.getElementById('cur-gp')?.value||0}</span></div>
@@ -3140,6 +3739,8 @@ function _ensureAllCatalogs() {
 }
 
 function renderEquipBrowseItems() {
+  if (equipBrowseMode === 'weapon') return renderWeaponBrowseItems();
+  if (equipBrowseMode === 'armor') return renderArmorBrowseItems();
   // 장비 카탈로그 = FVTT 단일 소스. 미로드면 로드 후 재렌더(로딩 표시).
   const opts = document.getElementById('modal-options');
   if (!_equipDataReady) {
@@ -3164,6 +3765,97 @@ function renderEquipBrowseItems() {
     }
   }
   if (equipBrowseSubTab) items = items.filter(i => i.category === equipBrowseSubTab);
+  renderOptions(items);
+}
+
+// ── 무기 추가 전용 브라우저 (Pathbuilder식) ──
+function openWeaponBrowse() {
+  equipBrowseMode = 'weapon';
+  weaponBrowseCat = '';
+  weaponBrowseKind = 'standard';
+  modalType = 'equip-browse';
+  modalSelected = null;
+  modalContext = null;
+
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('hidden');
+  const searchEl = document.getElementById('modal-search');
+  if (searchEl) { searchEl.value = ''; searchEl.style.display = ''; }
+  document.getElementById('modal-title').textContent = '무기 추가';
+  const fbar = document.getElementById('modal-filterbar'); if (fbar) fbar.innerHTML = '';
+
+  let tabContainer = document.getElementById('equip-tab-container');
+  if (!tabContainer) {
+    tabContainer = document.createElement('div');
+    tabContainer.id = 'equip-tab-container';
+    // ⚠ document.querySelector('.modal')은 페이지에 여러 .modal(지식 모달 등)이 있어 엉뚱한 걸 잡음 →
+    //   #modal-body의 실제 부모(메인 모달)에 삽입해야 insertBefore가 안전.
+    const modalBody = document.getElementById('modal-body');
+    modalBody.parentNode.insertBefore(tabContainer, modalBody);
+  }
+  tabContainer.style.display = '';
+  const cats = [['', '전체'], ['simple', '단순'], ['martial', '군용'], ['advanced', '고급'], ['unarmed', '비무장'], ['proficient', '숙련 보유']];
+  tabContainer.innerHTML = `
+    <div class="equip-tabs" id="weapon-cat-tabs">
+      ${cats.map(([id, ko]) => `<div class="equip-tab${id === '' ? ' active' : ''}" onclick="switchWeaponCat('${id}')">${ko}</div>`).join('')}
+    </div>
+    <div class="equip-subtabs" id="weapon-kind-tabs">
+      <div class="equip-subtab active" onclick="switchWeaponKind('standard')">표준</div>
+      <div class="equip-subtab" onclick="switchWeaponKind('magic')">마법</div>
+    </div>`;
+
+  const footer = document.querySelector('#modal-overlay .modal-footer');
+  footer.innerHTML = `<div class="modal-currency" id="modal-currency">
+    <div class="modal-currency-item">${coinIcon('pp',20)}<span class="coin-val" id="mc-pp">${document.getElementById('cur-pp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('gp',20)}<span class="coin-val" id="mc-gp">${document.getElementById('cur-gp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('sp',20)}<span class="coin-val" id="mc-sp">${document.getElementById('cur-sp')?.value||0}</span></div>
+    <div class="modal-currency-item">${coinIcon('cp',20)}<span class="coin-val" id="mc-cp">${document.getElementById('cur-cp')?.value||0}</span></div>
+  </div>
+  <button class="btn btn-cancel" onclick="closeModal()" style="width:100%;padding:12px;font-size:14px;margin-top:6px;">닫기</button>`;
+
+  renderWeaponBrowseItems();
+}
+
+function switchWeaponCat(cat) {
+  weaponBrowseCat = cat;
+  const order = ['', 'simple', 'martial', 'advanced', 'unarmed', 'proficient'];
+  const tabs = document.querySelectorAll('#weapon-cat-tabs .equip-tab');
+  tabs.forEach(t => t.classList.remove('active'));
+  const idx = order.indexOf(cat);
+  if (tabs[idx]) tabs[idx].classList.add('active');
+  renderWeaponBrowseItems();
+}
+
+function switchWeaponKind(kind) {
+  weaponBrowseKind = kind;
+  document.querySelectorAll('#weapon-kind-tabs .equip-subtab').forEach(t => {
+    t.classList.toggle('active', (t.textContent === '표준' && kind === 'standard') || (t.textContent === '마법' && kind === 'magic'));
+  });
+  renderWeaponBrowseItems();
+}
+
+function renderWeaponBrowseItems() {
+  const opts = document.getElementById('modal-options');
+  if (!_equipDataReady) {
+    if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">무기 데이터 불러오는 중…</div>';
+    _ensureEquipData().then(ok => {
+      if (ok) renderWeaponBrowseItems();
+      else if (opts) opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">무기 데이터를 불러오지 못했습니다.</div>';
+    });
+    return;
+  }
+  const q = (document.getElementById('modal-search')?.value || '').toLowerCase();
+  const all = PF2eEquip.legacyList({ type: 'weapon', search: q });
+  // 표준 / 마법 = 'magical' 트레잇 기준(레벨 기준은 복합궁 등 비마법 무기를 오분류).
+  const magicIds = new Set(PF2eEquip.legacyList({ type: 'weapon', search: q, traits: ['magical'] }).map(i => i.id));
+  let items = all.filter(i => weaponBrowseKind === 'magic' ? magicIds.has(i.id) : !magicIds.has(i.id));
+  // 카테고리 / 숙련 보유
+  if (weaponBrowseCat === 'proficient') {
+    items = items.filter(i => parseInt(document.getElementById('prof-weapon-' + (i.catSlug || ''))?.value || 0) >= 2);
+  } else if (weaponBrowseCat) {
+    items = items.filter(i => i.catSlug === weaponBrowseCat);
+  }
+  if (opts && !items.length) { opts.innerHTML = '<div style="color:var(--text2);text-align:center;padding:20px;">해당 조건의 무기가 없습니다.</div>'; return; }
   renderOptions(items);
 }
 
@@ -3304,7 +3996,20 @@ function equipBrowseGive() {
     const invCat = item.invCat || null;
     // _data는 무기/갑옷/방패뿐 아니라 일반 장비(포션·소비품·보물 등)에도 저장 — 추가 후 정보 카드(_infoResolveItem)가 BASE 항목 설명을 해소하도록(미저장 시 "DB에 정보 없음").
     addEquip({name: item.name_ko, qty:1, bulk, _type: type, _data: item, _invCat: invCat, _broken: isBroken});
+    // 방어 탭 「변경」에서 온 경우: 추가 즉시 착용/장착(단일 갑옷·방패 모델)
+    if (_equipGiveMode === 'wear-armor' && type === 'armor') {
+      state.equip.forEach(e => { if (e._type === 'armor') e._equipped = false; });
+      const idx = state.equip.length - 1;
+      if (state.equip[idx]) { state.equip[idx]._holdMode = 'worn'; state.equip[idx]._equipped = true; }
+      if (typeof _wearArmor === 'function') _wearArmor(item);
+    } else if (_equipGiveMode === 'equip-shield' && type === 'shield') {
+      state.equip.forEach(e => { if (e._type === 'shield') e._equipped = false; });
+      const idx = state.equip.length - 1;
+      if (state.equip[idx]) { state.equip[idx]._holdMode = 'held'; state.equip[idx]._equipped = true; }
+      if (typeof _equipShield === 'function') _equipShield(item);
+    }
   }
+  _equipGiveMode = null;
   recalcAll();
   save();
   closeModal();
@@ -3767,14 +4472,14 @@ const BARDING_DB = [
 let COMPANION_DB = [];
 function _loadCompanions() {
   if (COMPANION_DB.length) return;
-  fetch('data/derived/companions.json?v=0.296').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/companions.json?v=0.317').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) COMPANION_DB = j.rows;
   }).catch(() => {});
 }
 // 상태이상 카탈로그(파생 단일소스) 선로딩. 표시·조회용 → 로드 후 이미 그려진 상태이상 그리드 소급 재렌더(buildConditions).
 function _loadConditions() {
   if (typeof CONDITIONS_DATA !== 'undefined' && CONDITIONS_DATA.length) return;
-  fetch('data/derived/conditions.json?v=0.296').then(r => r.ok ? r.json() : null).then(j => {
+  fetch('data/derived/conditions.json?v=0.317').then(r => r.ok ? r.json() : null).then(j => {
     if (j && Array.isArray(j.rows)) {
       CONDITIONS_DATA = j.rows;
       try { if (typeof buildConditions === 'function' && document.getElementById('conditions-grid')) buildConditions(); } catch (e) {}
@@ -4522,13 +5227,13 @@ const FAMILIAR_ABILITY_ICONS = {
 };
 const FAMILIAR_PATRON_ICON = 'icons/magic/light/explosion-star-glow-blue.webp';   // 후원자 고정 능력(고유)
 const FAMILIAR_DEFAULT_ICON = 'icons/creatures/abilities/paw-print-tan.webp';
-function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.296'; }
-function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.296'; }
+function _familiarAbilityIconUrl(id) { return FAMILIAR_ABILITY_ICON_BASE + (FAMILIAR_ABILITY_ICONS[id] || FAMILIAR_DEFAULT_ICON) + '?v=0.317'; }
+function _familiarPatronIconUrl() { return FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_PATRON_ICON + '?v=0.317'; }
 
 // 사역마 능력 박스(재주 카드형): 아이콘 + 이름 + 설명. locked=후원자 고정(강조 테두리 + 🔒).
 function _familiarAbilityBoxHtml(icon, name, sub, desc, locked) {
   return `<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 8px;background:var(--bg3);border:1px solid ${locked ? 'var(--accent)' : 'var(--border2)'};border-radius:6px;">
-    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.296'">
+    <img src="${icon}" loading="lazy" style="width:28px;height:28px;border-radius:5px;flex-shrink:0;object-fit:cover;" onerror="this.src='${FAMILIAR_ABILITY_ICON_BASE + FAMILIAR_DEFAULT_ICON}?v=0.317'">
     <div style="flex:1;min-width:0;">
       <div style="font-size:11px;font-weight:600;color:var(--text);">${locked ? '🔒 ' : ''}${name}${sub ? ` <span style="color:var(--text2);font-weight:400;font-size:9px;">${sub}</span>` : ''}</div>
       ${desc ? `<div style="font-size:9.5px;color:var(--text2);line-height:1.45;margin-top:2px;">${desc}</div>` : ''}

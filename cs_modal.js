@@ -1705,11 +1705,7 @@ function renderGrowthPlan() {
       html += growthFeatSlotHTML(lv, 'skillFeat', '📚', '기술 재주 Skill Feat', 'skill', g.skillFeat);
     }
 
-    // 주문 관련은 주문 탭의 "주문 배우기" 버튼에서 처리
-    // 시그니처 주문만 빌더에 유지
-    if (lv >= 3 && state.selectedClass?.casting === 'spontaneous') {
-      html += growthSignatureCardHTML(lv);
-    }
+    // 주문은 주문 탭에서 준비(전 시전자 클레릭식, v0.299). 빌더 시그니처 카드(즉흥 전용)는 폐지.
 
     // 클래스/서브클래스 특성 = 레벨 하단에 아코디언으로(예시 레이아웃)
     // 특성 그룹 순서: 클래스 특성 → 혈통/종족 기반 특성(시야) → 배경 기반 특성.
@@ -2891,7 +2887,8 @@ function _isCurriculumSlot(rank, idx, slotMax) {
 let _memorizeActiveSlot = null; // {rank, idx}
 
 function openMemorizeModal() {
-  if (!state.selectedClass || state.selectedClass.casting !== 'prepared') return;
+  // v0.299: 전 시전자가 준비형(클레릭식) → 즉흥(바드/소서러)도 이 모달로 전통 전체 준비.
+  if (!state.selectedClass || !state.selectedClass.casting) return;
   const overlay = document.getElementById('modal-overlay');
   overlay.classList.remove('hidden');
   modalType = 'memorize';
@@ -2983,7 +2980,9 @@ function _renderMemorizeDetail() {
   const isCantrip = active.rank === 0;
   const rank = active.rank;
   const fs = state.familiarSpells;
-  const hasSpellbook = !!fs; // 위치/위저드: 주문서/사역마 보유
+  // 배우기 단계 폐지(v0.298) — 모든 시전자가 전통 전체에서 준비(클레릭식). 주문서/사역마 습득 한도 제거.
+  //   (구: hasSpellbook = !!fs → 위저드/위치를 주문서로 제한. 이제 아래 전통 전체 분기를 전원 사용.)
+  const hasSpellbook = false;
 
   // 선택 가능한 주문 목록 구축
   let available = [];
@@ -3034,6 +3033,8 @@ function _renderMemorizeDetail() {
   detail.innerHTML = `<div style="padding:8px;">
     <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px;">슬롯 ${active.idx+1} — ${label} 주문 선택${isCurrSlot ? ' <span style="color:var(--gold);font-size:11px;">· 교육과정 전용</span>' : ''}
       <span style="font-weight:400;color:var(--text2);font-size:11px;">(이름을 누르면 상세 · 「준비」로 슬롯 배치)</span></div>
+    <input id="mem-spell-filter" oninput="_memFilterSpells(this.value)" placeholder="🔍 주문 이름·특성 검색" autocomplete="off"
+      style="width:100%;box-sizing:border-box;padding:6px 10px;margin-bottom:8px;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:6px;font-size:12px;">
     <div id="mem-spell-list"></div></div>`;
   const listEl = detail.querySelector('#mem-spell-list');
   if (!listEl) return;
@@ -3042,6 +3043,8 @@ function _renderMemorizeDetail() {
     const actions = typeof getActionIcons === 'function' ? getActionIcons(spellData?.actions) : '';
     const wrap = document.createElement('div');
     wrap.className = 'mem-spell';
+    // 검색 데이터(이름 한글/영문 + 특성) — _memFilterSpells가 사용.
+    wrap.dataset.search = [spellDisplay(name), spellData?.name_en, ...((spellData?.traits) || []), ...((spellData?.traditions) || [])].filter(Boolean).join(' ').toLowerCase();
     const ic = (typeof iconImg === 'function') ? iconImg('spell', spellData || {name}) : '';
     wrap.innerHTML = `
       <div class="mem-spell-row">
@@ -3071,6 +3074,16 @@ function _renderMemorizeDetail() {
       }
     };
     listEl.appendChild(wrap);
+  });
+}
+
+// memorize 모달 주문 목록 검색/필터 — 이름(한/영)·특성·전통으로 필터(v0.301).
+function _memFilterSpells(q) {
+  q = String(q || '').trim().toLowerCase();
+  const rows = document.querySelectorAll('#mem-spell-list .mem-spell');
+  rows.forEach(w => {
+    const hay = w.dataset.search || (w.querySelector('.mem-spell-name')?.textContent || '').toLowerCase();
+    w.style.display = (!q || hay.indexOf(q) >= 0) ? '' : 'none';
   });
 }
 
@@ -3133,66 +3146,11 @@ function _memorizeAdvanceSlot(curRank, curIdx) {
 }
 
 function openPrepareSpellForSlot(rank, slotIdx) {
-  // 주문서/사역마가 아는 주문 목록에서 선택 → 슬롯에 준비
-  if (!state.familiarSpells) return;
-  const isCantrip = rank === 0;
-  const known = isCantrip ? (state.familiarSpells.cantrip || []) : (state.familiarSpells[rank] || []);
-  const isWiz = state.selectedClass?.id === 'wizard';
-  if (known.length === 0) { alert(isWiz ? '주문서에 이 랭크의 주문이 없습니다. 빌더에서 먼저 주문을 배우세요.' : '사역마가 이 랭크의 주문을 모릅니다. 빌더에서 먼저 주문을 배우세요.'); return; }
-
-  // 간단한 인라인 모달 — opt-row 목록
-  document.getElementById('modal-overlay').classList.remove('hidden');
-  document.getElementById('modal-title').textContent = isCantrip ? '캔트립 준비' : `${rank}랭크 주문 준비`;
-  const searchEl = document.getElementById('modal-search');
-  if (searchEl) { searchEl.style.display = ''; searchEl.value = ''; }
-  const fbar = document.getElementById('modal-filterbar');
-  if (fbar) fbar.innerHTML = '';
-  const confirmBtn = document.querySelector('.btn-confirm');
-  if (confirmBtn) confirmBtn.style.display = 'none';
-  modalType = 'prepare-spell';
-  modalSelected = null;
-
-  const container = document.getElementById('modal-options');
-  const detail = document.getElementById('modal-detail');
-  container.innerHTML = '';
-  if (detail) detail.innerHTML = '<div class="modal-detail-empty">준비할 주문을 선택하세요.</div>';
-
-  // 사역마가 아는 주문 + 낮은 랭크 주문 (고양 가능)
-  const allAvailable = [];
-  if (!isCantrip) {
-    for (let r = 1; r <= rank; r++) {
-      (state.familiarSpells[r] || []).forEach(name => {
-        allAvailable.push({name, originalRank: r});
-      });
-    }
-  } else {
-    known.forEach(name => allAvailable.push({name, originalRank: 0}));
-  }
-
-  allAvailable.forEach(({name, originalRank}) => {
-    const spellData = getSpell(name);
-    const actions = typeof getActionIcons === 'function' ? getActionIcons(spellData?.actions) : '';
-    const row = document.createElement('div');
-    row.className = 'opt-row';
-    const rankNote = (!isCantrip && originalRank < rank) ? ` <span style="font-size:9px;color:var(--accent);">(${originalRank}랭크에서 고양)</span>` : '';
-    row.innerHTML = `
-      <div class="opt-row-icon">📖</div>
-      <span class="opt-row-name">${spellDisplay(name)}${rankNote}${actions ? ' <span class="spell-actions-inline">'+actions+'</span>' : ''}</span>`;
-    row.onclick = () => {
-      // 슬롯에 준비
-      if (!state.preparedSpells) state.preparedSpells = {cantrip:[]};
-      const key = isCantrip ? 'cantrip' : rank;
-      if (!state.preparedSpells[key]) state.preparedSpells[key] = [];
-      state.preparedSpells[key][slotIdx] = name;
-      closeModal();
-      renderSpells();
-      save();
-    };
-    container.appendChild(row);
-  });
-
-  const listEl = document.querySelector('.modal-list');
-  if (listEl) listEl.style.display = '';
+  // v0.299: 전 시전자 클레릭식 — 빈 슬롯 클릭 = 전통 전체 memorize 모달을 해당 슬롯 포커스로 연다.
+  //   (구: 주문서/사역마 familiarSpells 한정 목록 → 배우기 필요. 이제 배우기 폐지, 전통 전체 준비.)
+  if (typeof openMemorizeModal !== 'function') return;
+  openMemorizeModal();
+  if (typeof _memorizeSelectSlot === 'function') _memorizeSelectSlot(rank, slotIdx);
 }
 
 function castPreparedSpell(rank, slotIdx) {
@@ -3866,25 +3824,22 @@ function renderOptions(data) {
       grouped[key].push(item);
     });
   } else if (isFeat) {
-    // 전제조건 충족 재주를 상단, 미달 재주를 하단으로 정렬
+    // 레벨 구분선(그룹 헤더) 제거 → 플랫 정렬(사용자 지시).
+    //   1순위(가장 중요): 배울 수 없는 재주(선행 미달 또는 헌신 불가)는 맨 아래.
+    //   2순위: 레벨 오름차순. (배울 수 있는 재주끼리는 레벨 낮은 것부터, 배울 수 없는 것끼리도 레벨순.)
+    const _cantLearn = f => {
+      try {
+        if ((f.prereq_group_id || f.prerequisites) && !_checkPrereqs(f)) return true;
+        if (typeof canTakeDedication === 'function' && featHasTrait(f, 'dedication', '헌신') && !canTakeDedication(f)) return true;
+      } catch (e) {}
+      return false;
+    };
     data.sort((a, b) => {
-      let aFail = false, bFail = false;
-      try { aFail = (a.prereq_group_id || a.prerequisites) && !_checkPrereqs(a); } catch(e) {}
-      try { bFail = (b.prereq_group_id || b.prerequisites) && !_checkPrereqs(b); } catch(e) {}
-      if (aFail !== bFail) return aFail ? 1 : -1;
-      return 0;
+      const af = _cantLearn(a) ? 1 : 0, bf = _cantLearn(b) ? 1 : 0;
+      if (af !== bf) return af - bf;                       // 배울 수 있는 것 먼저(가장 중요)
+      return (a.feat_level || 0) - (b.feat_level || 0);    // 그다음 레벨 오름차순
     });
-    // 헌신(원형 입문) 재주는 레벨 그룹에서 빼내 맨 아래 별도 그룹으로 분리(클래스 재주 슬롯 등).
-    const DED_KEY = '🎓 원형 헌신 재주';
-    const lvGroups = {}, dedItems = [];
-    data.forEach(item => {
-      if (featHasTrait(item, 'dedication', '헌신')) { dedItems.push(item); return; }
-      (lvGroups[item.feat_level] = lvGroups[item.feat_level] || []).push(item);
-    });
-    grouped = {};
-    // 정수형 키는 JS 객체가 오름차순 순회 → 레벨 낮은 순 헤더
-    Object.keys(lvGroups).forEach(lv => { grouped[`${lv}레벨`] = lvGroups[lv]; });
-    if (dedItems.length) grouped[DED_KEY] = dedItems;
+    grouped = null;   // 그룹 없이 플랫 렌더(구분선 제거)
   } else if (modalType === 'equip-browse' && !equipBrowseSubTab) {
     if (equipBrowseTab === 'all') {
       grouped = {};
@@ -3922,6 +3877,10 @@ function renderOptions(data) {
     // Action icons — 행동경제 글리프는 cs_ui.getActionIcons 단일 소스로(코드 1/2/3/reaction/free + 한글텍스트 + 범위).
     //   (구: 동일 로직 if-체인 중복. FVTT 재주 actions는 숫자라 getActionIcons가 String()로 안전 처리)
     const actionsHtml = (typeof getActionIcons === 'function') ? getActionIcons(item.actions) : (item.actions ? String(item.actions) : '');
+    // 재주는 이름 옆 행동비용 글리프(featCostGlyph)로 통일 — 빌더 슬롯(growthFeatSlotHTML)과 동일 파생.
+    //   (재주 자체 actionType 우선 → passive면 동일 슬러그 행동 카탈로그 비용 폴백. 원칙#1 단일 소스.)
+    const _isFeatRow = modalType === 'feat';
+    const _featGlyph = (_isFeatRow && typeof featCostGlyph === 'function') ? featCostGlyph(item, item.id || item.slug) : '';
 
     // 전제조건 미달 체크
     let prereqFail = false;
@@ -3934,9 +3893,9 @@ function renderOptions(data) {
     const _ico = _scope && typeof iconImg === 'function' ? iconImg(_scope, item) : '';
     row.innerHTML = `
       ${_ico ? `<div class="opt-row-icon" style="background:none;">${_ico}</div>` : '<div class="opt-row-icon">📄</div>'}
-      <span class="opt-row-name" ${prereqFail ? 'style="opacity:0.5;"' : ''}>${nameKo}</span>
+      <span class="opt-row-name" ${prereqFail ? 'style="opacity:0.5;"' : ''}>${nameKo}${_featGlyph}</span>
       ${prereqFail ? '<span style="font-size:10px;color:#f44336;flex-shrink:0;" title="선행 조건 미충족">⚠</span>' : ''}
-      ${actionsHtml ? `<span class="opt-row-actions">${actionsHtml}</span>` : ''}
+      ${(!_isFeatRow && actionsHtml) ? `<span class="opt-row-actions">${actionsHtml}</span>` : ''}
       ${levelText !== '' ? (
         (modalType === 'equip-browse' && item.price && item.price !== '—')
           ? `<span class="opt-row-price">${typeof priceWithIcons==='function'?priceWithIcons(item.price,14):levelText}</span>`
@@ -4001,18 +3960,26 @@ function selectOption(item, row) {
                <button class="btn-buy" onclick="equipBrowseBuy()" style="flex:1;padding:8px;background:var(--accent-bg);border:1px solid var(--accent);border-radius:4px;color:var(--accent);cursor:pointer;">구매</button>`}
         </div>`;
     } else if ((modalType === 'class' || modalType === 'background' || modalType === 'ancestry') && _buildInitialChoicesUI) {
+      // _buildInitialChoicesUI는 선택 UI가 없어도(빈 '') _modalChoices를 세팅. 데스크톱 showItemDetail과 동일하게
+      // 빈 choicesHtml이어도 스탯블록·설명을 렌더한다(모바일에서 종족/클래스/배경 정보가 안 뜨던 버그 수정).
       const choicesHtml = _buildInitialChoicesUI(modalType, item);
-      if (choicesHtml) {
-        const shortDesc = modalType === 'background'
-          ? (item.desc || '').replace(/\s*속성 증강:.*$/, '')
-          : (item.desc || '').split('<br><strong>')[0];
-        detailHtml = `<div style="font-size:12px;line-height:1.7;color:var(--text2);margin-bottom:8px;">${shortDesc}</div>
-          ${choicesHtml}
-          <button id="modal-confirm-choice" onclick="confirmModal()" disabled
-            style="width:100%;margin-top:10px;padding:10px;background:var(--bg4);color:var(--text2);border:1px solid var(--border);border-radius:4px;font-size:13px;font-weight:600;cursor:not-allowed;">
-            모든 항목을 선택하세요
-          </button>`;
-      }
+      const shortDesc = modalType === 'background'
+        ? (item.desc || '').replace(/\s*속성 증강:.*$/, '')
+        : (item.desc || '').split('<br><strong>')[0];
+      const ancStatBlock = (modalType === 'ancestry' && typeof _ancestryStatBlockHtml === 'function')
+        ? _ancestryStatBlockHtml(item) : '';
+      const clsStatBlock = (modalType === 'class' && typeof _classStatBlockHtml === 'function')
+        ? _classStatBlockHtml(item) : '';
+      const ancTraits = (modalType === 'ancestry') ? (item.traits || []).map(t => traitTag(t)).join('') : '';
+      detailHtml = `${ancTraits ? '<div style="margin-bottom:6px;">' + ancTraits + '</div>' : ''}
+        <div style="font-size:12px;line-height:1.7;color:var(--text2);margin-bottom:8px;">${shortDesc}</div>
+        ${ancStatBlock}
+        ${clsStatBlock}
+        ${choicesHtml}
+        <button id="modal-confirm-choice" onclick="confirmModal()" disabled
+          style="width:100%;margin-top:10px;padding:10px;background:var(--bg4);color:var(--text2);border:1px solid var(--border);border-radius:4px;font-size:13px;font-weight:600;cursor:not-allowed;">
+          모든 항목을 선택하세요
+        </button>`;
     } else {
       const nameKo = item.name || item.name_ko || '';
       let mDesc = item.desc || item.summary || '';
@@ -6134,6 +6101,8 @@ function confirmModal() {
 }
 
 function closeModal() {
+  // 방어구 옵션 모달: ✕/바깥클릭 = 취소(스냅샷 복원) + 표준 body 복원 후 종료
+  if (modalType === 'armor-opt' && typeof closeArmorOptions === 'function') { closeArmorOptions(true); return; }
   const wasBoost = (modalType === 'boost');
   document.getElementById('modal-overlay').classList.add('hidden');
   // 닫기/취소/footer 복원 (spell_cantrip에서 숨겼을 수 있음)

@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Pathforge</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#17130d">
@@ -62,12 +62,12 @@ window.PF2eOverrideFetcher = function(cat){
   return window._cloudOvrPromise.then(function(all){ return (all && all[cat]) || {}; });
 };
 </script>
-<script src="equipment_db.js?v=0.296"></script>
-<script src="class_features_db.js?v=0.296"></script>
-<script src="effects_db.js?v=0.296"></script>
-<script src="prereqs_db.js?v=0.296"></script>
-<script src="changelog.js?v=0.296"></script>
-<script src="gear-shell.js?v=0.296"></script>
+<script src="equipment_db.js?v=0.317"></script>
+<script src="class_features_db.js?v=0.317"></script>
+<script src="effects_db.js?v=0.317"></script>
+<script src="prereqs_db.js?v=0.317"></script>
+<script src="changelog.js?v=0.317"></script>
+<script src="gear-shell.js?v=0.317"></script>
 <script>
 // Verify class_features_db loaded (센티널 = CLASS_AUTO_SPELLS; CLASS_AUTO_FEATS는 v0.158 폐기)
 if (typeof CLASS_AUTO_SPELLS === 'undefined') {
@@ -86,7 +86,7 @@ if (typeof CLASS_AUTO_SPELLS === 'undefined') {
   console.log('✓ class_features_db.js loaded — 클래스 자동부여=성장표 로스터(CLASS_FEATURE_NAMES)');
 }
 </script>
-<link rel="stylesheet" href="app-shell.css?v=0.296">
+<link rel="stylesheet" href="app-shell.css?v=0.317">
 <style>
 /* ═══════════════════════════════════════════
    PATHBUILDER2E STYLE — CSS CUSTOM PROPERTIES
@@ -724,10 +724,30 @@ body.map-open{overflow:hidden;}
   display:flex;align-items:center;gap:12px;flex-wrap:wrap;
 }
 .weapon-card-name{
-  font-size:13px;font-weight:700;color:var(--text);cursor:pointer;
-  display:flex;align-items:center;gap:4px;
+  font-size:14px;font-weight:700;color:var(--text);cursor:pointer;
+  display:flex;align-items:center;gap:4px;flex-wrap:wrap;
 }
 .weapon-card-name:hover{color:var(--accent);}
+.wc-flag{font-size:9px;margin-left:4px;}
+/* 무기 카드 개편(Pathbuilder식): 숙련 라인·명중/피해 한 줄·순서이동 화살표·옵션/룬 팝업 */
+.weapon-prof-line{font-size:10px;color:var(--text2);margin:2px 0 4px;display:flex;align-items:center;gap:4px;}
+.weapon-prof-line.warn{color:var(--red-light);}
+.weapon-prof-line .prof-rank-badge{width:14px;height:14px;font-size:8px;}
+.weapon-stat-row{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:2px;}
+.weapon-reorder{background:none;border:none;color:var(--text2);cursor:pointer;font-size:11px;padding:2px 3px;line-height:1;border-radius:3px;}
+.weapon-reorder:hover{color:var(--accent);background:var(--bg2);}
+.weapon-reorder:disabled{opacity:.3;cursor:default;}
+.weapon-popup{position:fixed;z-index:10003;background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border:1px solid var(--border2);border-radius:8px;box-shadow:0 8px 28px rgba(0,0,0,.4);padding:8px;min-width:200px;max-width:280px;max-height:70vh;overflow-y:auto;}
+.weapon-popup .wpop-title{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border);}
+.weapon-popup .wpop-sec{font-size:10px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin:8px 0 4px;}
+.weapon-popup > button{display:flex;align-items:center;gap:6px;width:100%;text-align:left;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:8px 10px;margin-bottom:4px;font-size:12px;cursor:pointer;font-family:var(--bs);}
+.weapon-popup > button:hover{border-color:var(--accent);color:var(--accent);}
+.weapon-popup .wpop-note{font-size:11px;color:var(--text2);line-height:1.5;padding:2px 0 4px;}
+.weapon-popup .wpop-rune{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 2px;border-bottom:1px solid rgba(191,165,114,.3);font-size:12px;}
+.weapon-popup .wpop-rune button{background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:4px;padding:3px 10px;font-size:11px;cursor:pointer;}
+.weapon-popup .wpop-rune button:hover{border-color:var(--accent);color:var(--accent);}
+.weapon-btn.wb-roll{background:#6e1414 url("data/fvtt-assets/sheet/red_bg.webp") repeat;border-color:#7a1d1d;color:#f3e7cd;font-weight:700;}
+.weapon-btn.wb-roll:hover{filter:brightness(1.1);color:#fff;}
 .weapon-stat{
   display:flex;align-items:center;gap:3px;font-size:12px;
 }
@@ -1216,7 +1236,74 @@ table.pf2e p{margin:0;}
   /* 모달 닫기: 데스크톱 ✕ 숨기고, 모바일 "닫기" 버튼 표시 */
   .modal-close{display:none !important;}
   .modal-close-mobile{display:block !important;}
+  /* 지식(Lore) 모달은 독립 모달로 .modal-close-mobile/.btn-cancel이 없음 →
+     전역 모바일 숨김에 걸려 닫기 버튼이 사라졌음. 이 모달에 한해 ✕와 완료 버튼을 되살린다. */
+  #lore-modal .modal-close{display:block !important;}
+  #lore-modal .modal-footer .btn-confirm{display:block !important;width:100%;padding:12px;font-size:14px;}
 }
+/* ── 숙련 정보 팝업(cs_profinfo.js) — 기술·내성·지각·클래스DC 클릭 시 ── */
+.pi-overlay{position:fixed;inset:0;background:rgba(35,24,12,0.55);z-index:10002;display:flex;align-items:center;justify-content:center;padding:16px;}
+.pi-modal{background:#ece1c7 url("data/fvtt-assets/sheet/parchment.webp") repeat;border:1px solid var(--border2);border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.4);width:100%;max-width:460px;max-height:88vh;overflow-y:auto;padding:18px;color:var(--text);}
+.pi-title{font-family:"Eczar",var(--bs);font-size:19px;font-weight:700;color:var(--accent);margin-bottom:12px;}
+.pi-card{background:linear-gradient(180deg,rgba(255,250,238,.5),rgba(231,216,184,.5)),var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:10px;}
+.pi-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.pi-roll{display:inline-flex;align-items:center;gap:4px;background:#6e1414 url("data/fvtt-assets/sheet/red_bg.webp") repeat;border:1px solid #7a1d1d;color:#f3e7cd;border-radius:6px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--bs);transition:filter .12s;flex-shrink:0;}
+.pi-roll:hover{filter:brightness(1.1);}
+.pi-label{font-size:15px;font-weight:700;color:var(--text);}
+.pi-teml{display:inline-flex;gap:4px;}
+.pi-teml-b{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
+.pi-teml-b.on{background:var(--accent);color:#f3e7cd;border-color:var(--accent);}
+.pi-cols{display:inline-flex;gap:14px;margin-left:auto;}
+.pi-col{text-align:center;min-width:30px;}
+.pi-col-h{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.3px;margin-bottom:2px;}
+.pi-col-v{font-size:15px;font-weight:800;color:var(--text);}
+.pi-desc{font-size:13px;line-height:1.7;color:var(--text2);}
+.pi-sec-h{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border);}
+.pi-act{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 2px;border-bottom:1px solid rgba(191,165,114,.3);cursor:pointer;font-size:13px;color:var(--text);}
+.pi-act:last-of-type{border-bottom:none;}
+.pi-act:hover{color:var(--accent);}
+.pi-act-name{flex:1;}
+.pi-act-rank{font-size:10px;color:var(--text2);}
+.pi-act-cost .action-glyph{font-size:15px;}
+.pi-act-detail{font-size:12px;line-height:1.6;color:var(--text2);padding:6px 2px 10px;}
+.pi-finish{width:100%;margin-top:4px;padding:11px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;font-weight:700;cursor:pointer;font-family:var(--bs);transition:filter .12s;}
+.pi-finish:hover{filter:brightness(1.05);}
+@media(max-width:900px){ .pi-modal{max-width:none;max-height:92vh;} .pi-cols{margin-left:0;width:100%;justify-content:flex-start;margin-top:6px;} }
+
+/* ══════════════════════════════════
+   ARMOR OPTIONS MODAL (강화/탄력 룬·재질·부피)
+   ══════════════════════════════════ */
+.aopt-config{flex:1;min-width:0;padding:18px;overflow-y:auto;}
+.aopt-title{font-family:"Eczar",var(--bs);font-size:20px;font-weight:700;color:var(--accent);margin-bottom:12px;}
+.aopt-acbox{background:linear-gradient(180deg,rgba(255,250,238,.5),rgba(231,216,184,.5)),var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.aopt-acname{font-size:15px;font-weight:700;color:var(--text);}
+.aopt-acname b{color:var(--accent);font-size:18px;}
+.aopt-acbreak{display:inline-flex;gap:16px;margin-left:auto;}
+.aopt-acbreak div{text-align:center;}
+.aopt-acbreak span{display:block;font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.3px;margin-bottom:2px;}
+.aopt-acbreak b{font-size:15px;font-weight:800;color:var(--text);}
+.aopt-fields{display:flex;flex-direction:column;gap:2px;margin-bottom:12px;}
+.aopt-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 2px;border-bottom:1px solid rgba(191,165,114,.3);cursor:pointer;}
+.aopt-row:hover .aopt-pick{border-color:var(--accent);color:var(--accent);}
+.aopt-label{font-size:14px;font-weight:600;color:var(--text);}
+.aopt-pick{min-width:150px;text-align:center;padding:8px 12px;background:var(--card);border:1px solid var(--border2);border-radius:6px;font-size:13px;color:var(--text);cursor:pointer;font-family:var(--bs);transition:all .12s;}
+.aopt-select{min-width:150px;padding:8px 10px;background:var(--card);border:1px solid var(--border2);border-radius:6px;font-size:13px;color:var(--text);font-family:var(--bs);cursor:pointer;}
+.aopt-desc{font-size:13px;line-height:1.7;color:var(--text2);border-top:1px solid var(--border);padding-top:10px;}
+.aopt-picklist{display:flex;flex-direction:column;}
+.aopt-pk-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 8px;border-bottom:1px solid rgba(191,165,114,.3);cursor:pointer;border-radius:6px;transition:background .12s;}
+.aopt-pk-row:hover{background:rgba(191,165,114,.18);}
+.aopt-pk-row.sel{background:rgba(110,20,20,.14);box-shadow:inset 3px 0 0 var(--accent);}
+.aopt-pk-name{font-size:14px;color:var(--text);font-weight:600;}
+.aopt-pk-name small{color:var(--text2);font-weight:400;}
+.aopt-pk-meta{display:inline-flex;align-items:center;gap:10px;}
+.aopt-lvl{font-size:11px;font-weight:800;color:#f3e7cd;background:var(--accent);border-radius:4px;padding:2px 7px;}
+.aopt-price{font-size:12px;color:var(--text2);min-width:64px;text-align:right;}
+.aopt-foot{display:flex;gap:8px;padding:12px 18px;border-top:1px solid var(--border2);flex-shrink:0;}
+.aopt-btn{flex:1;padding:11px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;font-weight:700;cursor:pointer;font-family:var(--bs);transition:filter .12s;}
+.aopt-btn:hover{filter:brightness(1.06);}
+.aopt-btn.dis,.aopt-btn[disabled]{opacity:.4;cursor:default;}
+.aopt-accept,.aopt-buy{background:#6e1414 url("data/fvtt-assets/sheet/red_bg.webp") repeat;border-color:#7a1d1d;color:#f3e7cd;}
+@media(max-width:900px){ .aopt-acbreak{margin-left:0;width:100%;justify-content:flex-start;margin-top:4px;} .aopt-pick,.aopt-select{min-width:120px;} }
 @media(min-width:901px){
   .modal-detail-back{display:none;}
   /* 데스크톱: 상단 크롬(헤더/세션바) 실제 높이만큼만 차지하고 본문이 나머지를 정확히 채움.
@@ -1368,7 +1455,7 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 .growth-gear:hover{border-color:var(--accent);background:var(--bg4);}
 .growth-gear.filled{border-color:var(--accent);}
 .growth-gear-circle{position:relative;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--accent);box-shadow:0 0 0 2px var(--bg3),0 0 0 3px var(--border2);}
-.growth-gear-circle::before{content:"\2699";position:absolute;font-size:32px;line-height:1;color:rgba(255,255,255,0.16);}
+/* 기어 원 워터마크(⚙)는 모바일에서 컬러 이모지로 떠서 제거 — 깔끔한 원+숫자만(사용자 지시: 이모지 쓰지 말 것). */
 .growth-gear-num{position:relative;font-size:14px;font-weight:800;color:#fff;}
 .growth-gear-label{font-size:10px;color:var(--text2);line-height:1.25;font-weight:600;}
 .growth-gear.filled .growth-gear-label{color:var(--text);}
@@ -1724,7 +1811,12 @@ hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0;}
 
 /* 판정 클릭 가능 표시 */
 #val-fort,#val-ref,#val-will,#val-perc,#val-init,.skill-total,.weapon-stat{cursor:pointer;}
+/* 숙련 정보 팝업이 열리는 행 전체를 클릭 영역으로(숫자뿐 아니라 라벨·등급 어디든). */
+.skill-row,.stat-row:has(#val-fort),.stat-row:has(#val-ref),.stat-row:has(#val-will),.stat-row:has(#val-perc),.stat-row:has(#val-classdc){cursor:pointer;}
+.stat-row:has(#val-fort):hover,.stat-row:has(#val-ref):hover,.stat-row:has(#val-will):hover,.stat-row:has(#val-perc):hover,.stat-row:has(#val-classdc):hover{background:var(--bg3);}
 .weapon-stat:hover .stat-val,.skill-total:hover,#val-fort:hover,#val-ref:hover,#val-will:hover,#val-perc:hover,#val-init:hover{color:var(--accent,#d4a04a)!important;text-decoration:underline;text-decoration-style:dotted;}
+/* 행 호버 시 그 행의 값도 강조(클릭 가능함을 표시) */
+.skill-row:hover .skill-total,.stat-row:has(#val-fort):hover .stat-val,.stat-row:has(#val-ref):hover .stat-val,.stat-row:has(#val-will):hover .stat-val,.stat-row:has(#val-perc):hover .stat-val,.stat-row:has(#val-classdc):hover .stat-val{color:var(--accent)!important;}
 
 /* 모바일 대응 */
 @media(max-width:900px){
@@ -1837,6 +1929,19 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 /* ── 무기·방어(및 동급 카드형) 탭 외형 통일 ──
    1) 상단 숙련 바: 무기 바도 방어 바처럼 배경+하단 테두리 프레임 */
 .weapon-prof-bar{ background:var(--bg2); border-bottom:1px solid var(--border); padding:0; margin:0; }
+/* ── 무기 탭 상단바(숙련 pill + 무기추가/인쇄) — Pathbuilder식 ── */
+.weapon-top{ background:var(--bg2); border-bottom:1px solid var(--border); padding:10px 12px; }
+.weapon-prof-row{ display:flex; flex-wrap:wrap; gap:10px 20px; justify-content:center; }
+.wp-pill{ display:inline-flex; flex-direction:column; align-items:center; gap:5px; font-size:12px; font-weight:700; color:var(--text); cursor:pointer; padding:4px 8px; border-radius:8px; transition:background .12s; }
+.wp-pill:hover{ background:var(--bg3); }
+.wp-pill-label{ white-space:nowrap; }
+/* TEML 등급 스케일(예시 스타일): 4개 원형(T/E/M/L), 현재 등급만 딥레드 채움 */
+.teml-scale{ display:inline-flex; gap:5px; }
+.teml-c{ width:26px; height:26px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; background:var(--bg2); color:var(--text2); border:1px solid var(--border2); box-shadow:inset 0 1px 2px rgba(0,0,0,.06); }
+.teml-c.on{ background:var(--accent); color:#f3e7cd; border-color:var(--accent); box-shadow:0 1px 4px rgba(110,20,20,.35); }
+.weapon-top-btns{ display:flex; gap:8px; justify-content:center; margin-top:10px; }
+.wtop-btn{ background:var(--bg3); border:1px solid var(--border2); color:var(--text); border-radius:6px; padding:7px 18px; font-size:13px; font-weight:700; cursor:pointer; font-family:var(--bs); transition:filter .12s,border-color .12s; }
+.wtop-btn:hover{ border-color:var(--accent); color:var(--accent); }
 /* 2) 아이템 카드: 동일 크기(풀폭, 좌우 들여쓰기 제거)·동일 여백(상단 8px gap) */
 .weapon-card, .defense-card{ margin:8px 0 0 0; }
 .weapon-card:first-child, .defense-card:first-child{ margin-top:8px; }
@@ -2085,7 +2190,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     </div>
     <button class="btn btn-danger" style="width:100%;justify-content:center;" onclick="closeGearMenu();openResetModal();">🗑 초기화</button>
   </div>
-  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.296</span></div>
+  <div style="text-align:center;font-size:10px;color:#888;border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">Pathforge · <span>v0.317</span></div>
 </div>
 
 <!-- 업데이트로그·버그제보 모달 → gear-shell.js(공유 주입) -->
@@ -2267,7 +2372,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
     <!-- 지식 편집 모달 — 커스텀 지식만 Add/Remove (부여 지식은 목록에만 표시). -->
     <div class="modal-overlay hidden" id="lore-modal">
       <div class="modal" style="max-width:440px;">
-        <div class="modal-header"><h2 id="modal-title" style="flex:1;">지식 Lore</h2><button class="modal-close" onclick="closeLoreModal()">✕</button></div>
+        <div class="modal-header"><h2 id="lore-modal-title" style="flex:1;">지식 Lore</h2><button class="modal-close" onclick="closeLoreModal()">✕</button></div>
         <div class="modal-body" style="display:block;padding:16px;">
           <div style="display:flex;gap:8px;margin-bottom:14px;">
             <button class="btn" onclick="addCustomLore()">추가 Add</button>
@@ -2304,15 +2409,20 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
     <!-- ── 무기 Weapons ── -->
     <div id="panel-weapons" class="panel active">
-      <div class="weapon-prof-bar">
-          <div class="weapon-prof-item"><span>단순</span><span class="prof-rank-text" id="rank-weapon-simple">미숙련</span></div>
-          <div class="weapon-prof-item"><span>군용</span><span class="prof-rank-text" id="rank-weapon-martial">미숙련</span></div>
-          <div class="weapon-prof-item"><span>고급</span><span class="prof-rank-text" id="rank-weapon-advanced">미숙련</span></div>
-          <div class="weapon-prof-item"><span>비무장</span><span class="prof-rank-text" id="rank-weapon-unarmed">미숙련</span></div>
-          <select id="prof-weapon-simple" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
-          <select id="prof-weapon-martial" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
-          <select id="prof-weapon-advanced" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
-          <select id="prof-weapon-unarmed" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+      <div class="weapon-top">
+        <div class="weapon-prof-row">
+          <div class="wp-pill" onclick="openProfInfo&&openProfInfo('weapon','simple')" title="단순 무기 숙련"><span class="wp-pill-label">단순 무기</span><span class="teml-scale" id="teml-weapon-simple"></span></div>
+          <div class="wp-pill" onclick="openProfInfo&&openProfInfo('weapon','martial')" title="군용 무기 숙련"><span class="wp-pill-label">군용 무기</span><span class="teml-scale" id="teml-weapon-martial"></span></div>
+          <div class="wp-pill" onclick="openProfInfo&&openProfInfo('weapon','advanced')" title="고급 무기 숙련"><span class="wp-pill-label">고급 무기</span><span class="teml-scale" id="teml-weapon-advanced"></span></div>
+          <div class="wp-pill" onclick="openProfInfo&&openProfInfo('weapon','unarmed')" title="비무장 공격 숙련"><span class="wp-pill-label">비무장 공격</span><span class="teml-scale" id="teml-weapon-unarmed"></span></div>
+        </div>
+        <div class="weapon-top-btns">
+          <button class="wtop-btn" onclick="openWeaponBrowse()">＋ 무기 추가</button>
+        </div>
+        <select id="prof-weapon-simple" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <select id="prof-weapon-martial" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <select id="prof-weapon-advanced" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
+        <select id="prof-weapon-unarmed" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
       </div>
       <div id="weapon-prof-summary" class="ac-breakdown" style="min-height:0;border-top:1px solid var(--border);display:none;"></div>
       <div id="weapons-list"></div>
@@ -2337,34 +2447,37 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <option value="4">전문가</option><option value="6">달인</option><option value="8">전설</option>
       </select>
 
-      <!-- Armor Proficiency Bar -->
-      <div class="armor-prof-bar">
-        <div class="armor-prof-item"><span>경갑</span><span class="prof-rank-text" id="rank-armor-light">미숙련</span></div>
-        <div class="armor-prof-item"><span>평갑</span><span class="prof-rank-text" id="rank-armor-medium">미숙련</span></div>
-        <div class="armor-prof-item"><span>중갑</span><span class="prof-rank-text" id="rank-armor-heavy">미숙련</span></div>
-        <div class="armor-prof-item"><span>비무장</span><span class="prof-rank-text" id="rank-armor-unarmored">미숙련</span></div>
+      <!-- Armor Proficiency Bar (TEML pill, Pathbuilder식) + AC 분해 + 변경 버튼 -->
+      <div class="weapon-top">
+        <div class="weapon-prof-row">
+          <div class="wp-pill" onclick="openProfInfo&&openProfInfo('armor','light')" title="경갑 숙련"><span class="wp-pill-label">경갑</span><span class="teml-scale" id="teml-armor-light"></span></div>
+          <div class="wp-pill" onclick="openProfInfo&&openProfInfo('armor','medium')" title="평갑 숙련"><span class="wp-pill-label">평갑</span><span class="teml-scale" id="teml-armor-medium"></span></div>
+          <div class="wp-pill" onclick="openProfInfo&&openProfInfo('armor','heavy')" title="중갑 숙련"><span class="wp-pill-label">중갑</span><span class="teml-scale" id="teml-armor-heavy"></span></div>
+          <div class="wp-pill" onclick="openProfInfo&&openProfInfo('armor','unarmored')" title="비무장 숙련"><span class="wp-pill-label">비무장</span><span class="teml-scale" id="teml-armor-unarmored"></span></div>
+        </div>
+        <div class="ac-breakdown" id="ac-breakdown" style="justify-content:center;border:none;">
+          <span class="ac-part">기본 <span class="ac-part-val" id="ac-base">10</span></span>
+          <span class="ac-sep">|</span>
+          <span class="ac-part">장비 <span class="ac-part-val" id="ac-item-display">+0</span></span>
+          <span class="ac-sep">|</span>
+          <span class="ac-part">민첩 <span class="ac-part-val" id="ac-dex-display">+0</span></span>
+          <span class="ac-sep">|</span>
+          <span class="ac-part">숙련 <span class="ac-part-val" id="ac-prof-display">+0</span></span>
+        </div>
+        <div class="weapon-top-btns">
+          <button class="wtop-btn" onclick="openArmorBrowse()">＋ 갑옷 변경</button>
+          <button class="wtop-btn" onclick="openShieldBrowse()">＋ 방패 변경</button>
+        </div>
         <select id="prof-armor-light" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
         <select id="prof-armor-medium" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
         <select id="prof-armor-heavy" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
         <select id="prof-armor-unarmored" style="display:none;"><option value="0"></option><option value="2"></option><option value="4"></option><option value="6"></option><option value="8"></option></select>
       </div>
-      <div id="armor-prof-summary" class="ac-breakdown" style="min-height:0;border-top:1px solid var(--border);display:none;"></div>
-
-      <!-- AC Breakdown -->
-      <div class="ac-breakdown" id="ac-breakdown">
-        <span class="ac-part">Base <span class="ac-part-val" id="ac-base">10</span></span>
-        <span class="ac-sep">|</span>
-        <span class="ac-part">Item <span class="ac-part-val" id="ac-item-display">+0</span></span>
-        <span class="ac-sep">|</span>
-        <span class="ac-part">Dex <span class="ac-part-val" id="ac-dex-display">+0</span></span>
-        <span class="ac-sep">|</span>
-        <span class="ac-part">Proficiency <span class="ac-part-val" id="ac-prof-display">+0</span></span>
-      </div>
 
       <!-- Armor Card -->
       <div class="defense-card" id="armor-card"></div>
-      <!-- Shield Card (무기 탭으로 이동, 숨김) -->
-      <div class="defense-card" id="shield-card" style="display:none;"></div>
+      <!-- Shield Card -->
+      <div class="defense-card" id="shield-card"></div>
       <!-- conditions-grid hidden but kept for buildConditions() -->
       <div id="conditions-grid" style="display:none;"></div>
     </div><!-- /#panel-defense -->
@@ -2430,34 +2543,23 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
       <!-- Focus Spells content (separate tab) -->
       <div id="spell-content-focus" style="display:none;">
-        <!-- Focus header (클래스 탭과 동일 구조) -->
+        <!-- 집중 포인트 (참조 양식: 상단 배치) -->
+        <div class="spell-header-bar" style="justify-content:center;gap:12px;">
+          <span style="font-size:13px;font-weight:600;color:var(--text2);">집중 포인트</span>
+          <span id="fp-checks" style="display:flex;gap:5px;"></span>
+          <input type="hidden" id="fp-cur" value="0">
+          <input type="hidden" id="fp-max" value="0">
+        </div>
+        <!-- Focus header (클래스 탭과 동일 구조: DC + TEML + Key/Prof/Item) -->
         <div class="spell-header-bar">
-          <div style="display:flex;align-items:center;gap:20px;">
-            <div style="text-align:center;">
-              <div class="spell-val-label">DC</div>
-              <div class="spell-val" id="spell-dc-val-focus" style="font-size:22px;">10</div>
-            </div>
-            <div style="text-align:center;">
-              <div class="spell-val-label">주문 명중</div>
-              <div class="spell-val" id="spell-atk-val-focus" style="font-size:22px;">+0</div>
-            </div>
-          </div>
-          <div style="text-align:center;">
-            <div class="spell-val-label">주문시전</div>
-            <div class="prof-rank-text" id="rank-spell-focus" style="font-size:16px;">미숙련</div>
-          </div>
+          <div class="spell-header-dc">DC <span id="spell-dc-val-focus">10</span> <span class="spell-header-atk">(주문 명중 <span id="spell-atk-val-focus">+0</span>)</span></div>
+          <div class="spell-teml" id="spell-teml-focus"></div>
           <div style="display:flex;gap:12px;font-size:11px;color:var(--text2);">
             <div style="text-align:center;"><div class="bd-label" id="spell-key-label-f">Wis</div><div class="bd-val" id="spell-key-val-f" style="font-weight:700;color:var(--text);">0</div></div>
             <div style="text-align:center;"><div class="bd-label">Prof</div><div class="bd-val" id="spell-prof-val-f" style="font-weight:700;color:var(--text);">0</div></div>
             <div style="text-align:center;"><div class="bd-label">Item</div><div class="bd-val" id="spell-item-val-f" style="font-weight:700;color:var(--text);">0</div></div>
           </div>
-        </div>
-        <!-- 집중 포인트 (체크박스 방식) -->
-        <div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--border);">
-          <span style="font-size:12px;color:var(--text2);">집중 포인트</span>
-          <span id="fp-checks" style="display:flex;gap:4px;"></span>
-          <input type="hidden" id="fp-cur" value="0">
-          <input type="hidden" id="fp-max" value="0">
+          <span id="rank-spell-focus" style="display:none;"></span>
         </div>
         <!-- Focus Cantrips -->
         <div class="spell-rank-section">
@@ -2554,7 +2656,7 @@ input::placeholder{ color:rgba(80,66,44,.55); }
         <button class="af-eco" data-filter="free" onclick="setActionFilter('free',this)" title="자유 행동" aria-label="자유 행동"><span class="action-glyph">F</span></button>
         <button class="af-eco" data-filter="reaction" onclick="setActionFilter('reaction',this)" title="반응" aria-label="반응"><span class="action-glyph">R</span></button>
         <button class="af-eco af-word" data-filter="activity" onclick="setActionFilter('activity',this)" title="탐험·막간 활동" aria-label="활동">활동</button>
-        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.296" alt="상태이상"></button>
+        <button class="af-eco" data-filter="conditions" onclick="setActionFilter('conditions',this)" title="상태이상" aria-label="상태이상"><img src="data/icons/systems/pf2e/icons/conditions/dying.webp?v=0.317" alt="상태이상"></button>
         <label class="action-extra-filter" id="action-extra-filter" title="사용 가능한 것만 표시">
           <input type="checkbox" id="action-extra-check" onchange="toggleActionExtraFilter(this)">
           <span id="action-extra-label">사용 가능한 것만</span>
@@ -2628,36 +2730,37 @@ input::placeholder{ color:rgba(80,66,44,.55); }
 
 
 <!-- App code (split from inline JS) -->
-<script src="cs_data.js?v=0.296"></script>
-<script src="cs_calc.js?v=0.296"></script>
+<script src="cs_data.js?v=0.317"></script>
+<script src="cs_calc.js?v=0.317"></script>
 <!-- FVTT-Native 재기반: ACCESS 코어 + RE엔진 + 숙련수학 + 액터어댑터 + 장비 (P1~P4) -->
-<script src="cs_pf2e.js?v=0.296"></script>
-<script src="cs_re_engine.js?v=0.296"></script>
-<script src="cs_pf2e_stats.js?v=0.296"></script>
-<script src="cs_pf2e_equip.js?v=0.296"></script>
-<script src="cs_pf2e_anc.js?v=0.296"></script>
-<script src="cs_pf2e_bg.js?v=0.296"></script>
-<script src="cs_pf2e_spell.js?v=0.296"></script>
-<script src="cs_pf2e_deity.js?v=0.296"></script>
-<script src="cs_pf2e_action.js?v=0.296"></script>
-<script src="cs_pf2e_feat.js?v=0.296"></script>
-<script src="cs_pf2e_class.js?v=0.296"></script>
-<script src="cs_pf2e_actor.js?v=0.296"></script>
-<script src="cs_ui.js?v=0.296"></script>
-<script src="cs_modal.js?v=0.296"></script>
-<script src="cs_feat_effects.js?v=0.296"></script>
-<script src="cs_save.js?v=0.296"></script>
-<script src="cs_session.js?v=0.296"></script>
-<script src="cs_dice.js?v=0.296"></script>
-<script src="cs_map.js?v=0.296"></script>
+<script src="cs_pf2e.js?v=0.317"></script>
+<script src="cs_re_engine.js?v=0.317"></script>
+<script src="cs_pf2e_stats.js?v=0.317"></script>
+<script src="cs_pf2e_equip.js?v=0.317"></script>
+<script src="cs_pf2e_anc.js?v=0.317"></script>
+<script src="cs_pf2e_bg.js?v=0.317"></script>
+<script src="cs_pf2e_spell.js?v=0.317"></script>
+<script src="cs_pf2e_deity.js?v=0.317"></script>
+<script src="cs_pf2e_action.js?v=0.317"></script>
+<script src="cs_pf2e_feat.js?v=0.317"></script>
+<script src="cs_pf2e_class.js?v=0.317"></script>
+<script src="cs_pf2e_actor.js?v=0.317"></script>
+<script src="cs_ui.js?v=0.317"></script>
+<script src="cs_modal.js?v=0.317"></script>
+<script src="cs_feat_effects.js?v=0.317"></script>
+<script src="cs_save.js?v=0.317"></script>
+<script src="cs_session.js?v=0.317"></script>
+<script src="cs_dice.js?v=0.317"></script>
+<script src="cs_profinfo.js?v=0.317"></script>
+<script src="cs_map.js?v=0.317"></script>
 <!-- UI 로컬라이즈 오버레이 (한↔영, 런타임 DOM 번역) -->
-<script src="cs_locale.js?v=0.296"></script>
-<script src="cs_i18n.js?v=0.296"></script>
+<script src="cs_locale.js?v=0.317"></script>
+<script src="cs_i18n.js?v=0.317"></script>
 
 <!-- 3D 물리 주사위 (@3d-dice/dice-box, 벤더링·오프라인). 실패 시 cs_dice가 2D로 폴백 -->
 <script type="module">
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.296');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.317');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     // v1.1 API: 단일 config 객체 (container = DOM 셀렉터)
     const box = new DiceBox({

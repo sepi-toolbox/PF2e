@@ -62,6 +62,9 @@
     const rank = (s.level && s.level.value) || 0;
     const isCantrip = traitsV.includes('cantrip');
     const isFocus = traitsV.includes('focus');
+    // 공격 주문 = 'attack' 트레잇(정본, defense는 null인 경우 많음). 피해 = FVTT damage 객체(다중 타입 가능).
+    const isAttack = traitsV.includes('attack');
+    const damageParts = Object.values(s.damage || {}).filter(d => d && d.formula).map(d => ({ formula: d.formula, type: d.type || '' }));
     return {
       id: doc.system.slug, name_ko: PF.nameKo(doc), name_en: doc.name_en || doc.name,
       rank, is_cantrip: isCantrip, is_focus: isFocus,
@@ -71,6 +74,9 @@
       range: _rangeKo(s.range && s.range.value),
       area: _areaKo(s.area),
       defense: _defenseKo(s.defense),
+      isAttack,
+      damageParts,
+      damageFormula: damageParts.map(d => d.formula).join('+'),   // 굴림용 합산 공식
       summary: '', desc: PF.enrichDesc(PF.descKo(doc) || ''),
       img: doc.img || null, _fvtt: true, _doc: doc,
     };

@@ -1,0 +1,12 @@
+{
+  "_note": "정밀 재질(갑옷) 등급별 레벨/가격. 정본 = Pathfinder GM Core '정밀 재질' 장(pdftotext 추출). FVTT store/effects에 재질 등급 평가표가 없어 별도 데이터 테이블로 관리한다. 보유 6권(PC/PC2/GM Core/MC/MC2/NPC Core) 밖 재질은 제외. 한글명은 PF2e-KR 정본(냉철/여명은/황혼목/오리칼쿰 등). 수정 시 이 파일만 고치면 방어구 옵션 재질 목록에 반영(cs_ui _ensureArmorMatData).",
+  "grade_ko": { "low": "하급", "standard": "표준급", "high": "상급" },
+  "materials": [
+    { "mat": "cold-iron",  "ko": "냉철",    "grades": [ { "g": "low", "level": 5, "price": "140 gp" }, { "g": "standard", "level": 11, "price": "1,200 gp" }, { "g": "high", "level": 18, "price": "20,000 gp" } ] },
+    { "mat": "silver",     "ko": "은",      "grades": [ { "g": "low", "level": 5, "price": "140 gp" }, { "g": "standard", "level": 11, "price": "1,200 gp" }, { "g": "high", "level": 18, "price": "20,000 gp" } ] },
+    { "mat": "adamantine", "ko": "아다만틴", "grades": [ { "g": "standard", "level": 12, "price": "1,600 gp" }, { "g": "high", "level": 19, "price": "32,000 gp" } ] },
+    { "mat": "dawnsilver", "ko": "여명은",  "grades": [ { "g": "standard", "level": 12, "price": "1,600 gp" }, { "g": "high", "level": 19, "price": "32,000 gp" } ] },
+    { "mat": "duskwood",   "ko": "황혼목",  "grades": [ { "g": "standard", "level": 12, "price": "1,600 gp" }, { "g": "high", "level": 19, "price": "32,000 gp" } ] },
+    { "mat": "orichalcum", "ko": "오리칼쿰", "grades": [ { "g": "high", "level": 20, "price": "55,000 gp" } ] }
+  ]
+}

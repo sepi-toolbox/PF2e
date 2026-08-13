@@ -26,7 +26,9 @@ function syncProfRankBadge(badgeId, selectId) {
 
 function syncAllProfRanks() {
   ['simple','martial','advanced','unarmed'].forEach(c => syncProfRankText('rank-weapon-'+c, 'prof-weapon-'+c));
+  if (typeof updateWeaponTeml === 'function') updateWeaponTeml();  // 무기 탭 상단 TEML 스케일 pill
   ['light','medium','heavy','unarmored'].forEach(c => syncProfRankText('rank-armor-'+c, 'prof-armor-'+c));
+  if (typeof updateArmorTeml === 'function') updateArmorTeml();  // 방어 탭 상단 TEML 스케일
   syncProfRankText('rank-spell', 'prof-spatk');
   syncProfRankText('rank-spell-focus', 'prof-spatk');
   // 계열/시전 유형 텍스트 동기화
@@ -656,7 +658,7 @@ const _EFFECT_GROUPS_INDEX = new Map();
 let _EFFECT_OVERRIDE = null;
 function _loadEffectOverride() {
   if (_EFFECT_OVERRIDE || typeof fetch !== 'function') return;
-  fetch('data/override/effect_groups.json?v=0.296').then(r => r.ok ? r.json() : null).then(m => {
+  fetch('data/override/effect_groups.json?v=0.317').then(r => r.ok ? r.json() : null).then(m => {
     if (!m || typeof m !== 'object') return;
     _EFFECT_OVERRIDE = m;
     _clearRuneCatalog();   // 룬 효과 override 반영 위해 카탈로그 캐시 무효화
@@ -2938,7 +2940,13 @@ function renderResistances() {
 // 총 부피 = 장비 + 배낭(ignoreBulk 제외) + 동전(100개당 0.1). recalcBulk·isOverloaded 공용 단일 소스.
 function getTotalBulk() {
   let total = 0;
-  state.equip.forEach(e => { const b = parseFloat(e.bulk||0); total += isNaN(b)?0:b; });
+  state.equip.forEach(e => {
+    // 착용 갑옷 부피 오버라이드(방어구 옵션 모달) — 설정 시 해당 갑옷 부피를 대체
+    let b;
+    if (e._type === 'armor' && e._equipped && state.armorBulkOverride != null) b = parseFloat(state.armorBulkOverride);
+    else b = parseFloat(e.bulk||0);
+    total += isNaN(b)?0:b;
+  });
   if (state.containers) state.containers.forEach(c => { if (c.ignoreBulk) return; c.items.forEach(e => { const b = parseFloat(e.bulk||0); total += isNaN(b)?0:b; }); });
   const totalCoins = ['cur-gp','cur-sp','cur-cp','cur-pp'].reduce((s,id) => s + (parseInt(document.getElementById(id)?.value)||0), 0);
   total += Math.floor(totalCoins / 100) * 0.1;
