@@ -6104,11 +6104,15 @@ function closeModal() {
   // 방어구 옵션 모달: ✕/바깥클릭 = 취소(스냅샷 복원) + 표준 body 복원 후 종료
   if (modalType === 'armor-opt' && typeof closeArmorOptions === 'function') { closeArmorOptions(true); return; }
   const wasBoost = (modalType === 'boost');
-  document.getElementById('modal-overlay').classList.add('hidden');
+  // ⚠ 모든 .modal* / .btn-confirm 셀렉터는 메인 오버레이(#modal-overlay)로 스코프한다.
+  //    페이지에 .modal/.modal-footer/.modal-close/.btn-confirm이 여러 개(#lore-modal이 DOM상 #modal-overlay보다 먼저)라
+  //    비스코프 document.querySelector(...)는 엉뚱한 모달(지식 모달)을 잡아 메인 모달을 리셋하지 못한다.
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.add('hidden');
   // 닫기/취소/footer 복원 (spell_cantrip에서 숨겼을 수 있음)
-  const closeBtn = document.querySelector('.modal-close');
+  const closeBtn = overlay.querySelector('.modal-close');
   const closeBtnM = document.getElementById('modal-close-m');
-  const footer = document.querySelector('.modal-footer');
+  const footer = overlay.querySelector('.modal-footer');
   if (closeBtn) closeBtn.style.display = '';
   if (closeBtnM) closeBtnM.style.display = '';
   if (footer) footer.style.display = '';
@@ -6116,6 +6120,10 @@ function closeModal() {
   const eqTabs = document.getElementById('equip-tab-container');
   if (eqTabs) eqTabs.style.display = 'none';
   if (typeof _hideCustomEquipForm === 'function') _hideCustomEquipForm();
+  // ⚠ 직전 모달 내용(#modal-options)을 반드시 비운다 — 안 비우면 다음 모달의 렌더가
+  //    스킵/예외/지연될 때 이전 모달 내용이 그대로 노출된다("장비 추가 눌렀는데 이전 모달이 뜸").
+  const optsEl = document.getElementById('modal-options');
+  if (optsEl) optsEl.innerHTML = '';
   // footer 버튼 항상 초기화
   if (footer) {
     footer.innerHTML = '<button class="btn btn-cancel" onclick="closeModal()">닫기</button><button class="btn btn-confirm" onclick="confirmModal()">선택</button>';
@@ -6127,13 +6135,13 @@ function closeModal() {
   growthPendingKey = null;
   growthPendingFeatType = null;
   _spellSlotPending = null;
-  const confirmBtn = document.querySelector('.btn-confirm');
+  const confirmBtn = overlay.querySelector('.btn-confirm');
   if (confirmBtn) confirmBtn.style.display = '';
   // Restore modal size
-  const modalEl = document.querySelector('.modal');
+  const modalEl = overlay.querySelector('.modal');
   if (modalEl) { modalEl.style.maxWidth = ''; modalEl.style.height = ''; }
   // Restore list/detail to default state
-  const listEl = document.querySelector('.modal-list');
+  const listEl = overlay.querySelector('.modal-list');
   if (listEl) { listEl.style.display = ''; listEl.style.width = ''; listEl.style.borderRight = ''; }
   const detailEl = document.getElementById('modal-detail');
   if (detailEl) { detailEl.style.display = ''; detailEl.innerHTML = '<div class="modal-detail-empty">항목을 선택하면 상세 정보가 표시됩니다.</div>'; }
