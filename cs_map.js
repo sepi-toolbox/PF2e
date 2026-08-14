@@ -2296,7 +2296,7 @@ var MapView = (function() {
     if (!_npcEditId || typeof MapSync === 'undefined') return;
     const t = MapSync.getToken(_npcEditId);
     const mid = t && t.monsterId; if (!mid) { alert('연결된 몬스터가 없습니다.'); return; }
-    if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.showStat(mid, (t && (t.monsterName || t.name)) || '');
+    if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.showStat(mid, _npcEditId);  // 토큰 id 전달 → 초상화 교체
   }
   function npcApply() {
     if (!_npcEditId || !_effGM() || typeof MapSync === 'undefined') return;
@@ -2399,7 +2399,7 @@ var MapView = (function() {
     if (!_actionTokenId || typeof MapSync === 'undefined') return;
     const t = MapSync.getToken(_actionTokenId); if (!t) return;
     if (!t.monsterId) { alert('이 토큰에 연결된 몬스터가 없습니다.'); return; }
-    if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.showStat(t.monsterId, t.monsterName || t.name);
+    if (typeof window !== 'undefined' && window.MonsterLink) window.MonsterLink.showStat(t.monsterId, _actionTokenId);  // 토큰 id 전달 → 초상화 교체
     else alert('몬스터 데이터 모듈이 로드되지 않았습니다.');
   }
   function _applyHp(sign) {                                   // 피해(-1)/회복(+1)

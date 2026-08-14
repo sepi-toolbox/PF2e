@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>전술 지도 · Pathforge</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="app-shell.css?v=0.320">
-<script src="changelog.js?v=0.320"></script>
-<script src="gear-shell.js?v=0.320"></script>
+<link rel="stylesheet" href="app-shell.css?v=0.323">
+<script src="changelog.js?v=0.323"></script>
+<script src="gear-shell.js?v=0.323"></script>
 <meta name="theme-color" content="#17130d">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -256,6 +256,21 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
 #ml-stat-card{position:relative;max-width:760px;width:100%;margin:auto;}
 #ml-stat-close{position:absolute;top:-12px;right:-8px;z-index:2;width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:15px;cursor:pointer;}
 #ml-stat-close:hover{color:var(--accent);border-color:var(--accent);}
+/* ── 초상화 교체 (배치 토큰 GM) ── */
+.mon-portrait.ml-swappable{cursor:pointer;outline:2px solid transparent;transition:outline-color .12s;position:relative;}
+.mon-portrait.ml-swappable:hover{outline-color:var(--accent,#c9a44a);}
+#ml-portrait-overlay{position:fixed;inset:0;z-index:10020;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.6);padding:24px 12px;}
+#ml-portrait-card{background:var(--bg2,#1e1a15);border:1px solid var(--border2,#5a4a30);border-radius:12px;max-width:640px;width:100%;max-height:82vh;display:flex;flex-direction:column;box-shadow:0 10px 40px rgba(0,0,0,.6);overflow:hidden;}
+#ml-portrait-hd{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border,#463a26);}
+#ml-portrait-hd b{color:var(--accent,#c9a44a);font-size:15px;flex:0 0 auto;}
+#ml-portrait-q{flex:1;min-width:0;padding:7px 10px;background:var(--bg,#141210);color:var(--text,#e8ddc7);border:1px solid var(--border,#463a26);border-radius:8px;font-size:13px;}
+#ml-portrait-x{flex:0 0 auto;width:28px;height:28px;border-radius:50%;border:1px solid var(--border2,#5a4a30);background:var(--bg3,#2a2016);color:var(--text,#e8ddc7);cursor:pointer;font-size:14px;}
+#ml-portrait-x:hover{color:var(--accent,#c9a44a);border-color:var(--accent,#c9a44a);}
+#ml-portrait-grid{padding:12px;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:10px;}
+.ml-pt-item{cursor:pointer;text-align:center;border-radius:8px;padding:5px;border:1px solid transparent;transition:border-color .12s,background .12s;}
+.ml-pt-item:hover{border-color:var(--accent,#c9a44a);background:var(--bg3,#2a2016);}
+.ml-pt-thumb{width:100%;aspect-ratio:1;border-radius:6px;background:#15110d center/cover no-repeat;border:1px solid var(--border2,#5a4a30);margin-bottom:4px;}
+.ml-pt-item span{display:block;font-size:10.5px;color:var(--text2,#b3a582);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 /* ── 다이스 피드백 (cs_dice.js) ── */
 #dice-toast-container{position:fixed;top:12px;right:12px;z-index:99999;display:flex;flex-direction:column;gap:6px;pointer-events:none;max-height:60vh;overflow:hidden;}
 .dice-toast{pointer-events:auto;min-width:180px;max-width:260px;background:#1e1e1e;border:1px solid #444;border-left:3px solid #3498db;border-radius:10px;padding:10px 14px;box-shadow:0 6px 24px rgba(0,0,0,.5);transform:translateX(120%);opacity:0;transition:all .35s cubic-bezier(.22,1,.36,1);}
@@ -492,9 +507,9 @@ html,body{margin:0;height:100%;background:#0c0c0c;color:var(--text);font-family:
   </div>
 </div>
 
-<script src="cs_dice.js?v=0.320"></script>
-<script src="cs_monster.js?v=0.320"></script>
-<script src="cs_map.js?v=0.320"></script>
+<script src="cs_dice.js?v=0.323"></script>
+<script src="cs_monster.js?v=0.323"></script>
+<script src="cs_map.js?v=0.323"></script>
 <style>
 /* 듀얼모니터: GM 도구 + 플레이어 CCTV */
 #map-gm-tools{margin-left:12px;display:inline-flex;gap:6px;align-items:center;}
@@ -753,7 +768,7 @@ window.MonsterLink = (function () {
     if (typeof MapView !== 'undefined' && MapView.npcApply) MapView.npcApply();
   }
 
-  function showStat(id) {                           // 배치 토큰 📋 → 스탯블록 팝오버 + 굴림
+  function showStat(id, tokenId) {                  // 배치 토큰 📋 → 스탯블록 팝오버 + 굴림. tokenId=배치 토큰이면 초상화 교체 활성.
     ensure().then(() => {
       let ov = document.getElementById('ml-stat-overlay');
       if (!ov) {
@@ -764,9 +779,76 @@ window.MonsterLink = (function () {
         ov.querySelector('#ml-stat-close').onclick = () => ov.style.display = 'none';
         MonsterDB.bindRolls(ov.querySelector('#ml-stat-body'));      // 위임 바인드 1회(재렌더 안전)
       }
-      ov.querySelector('#ml-stat-body').innerHTML = MonsterDB.renderStatBlock(id);
+      const body = ov.querySelector('#ml-stat-body');
+      body.innerHTML = MonsterDB.renderStatBlock(id);
       ov.style.display = 'flex';
+      // ── 배치 토큰 + GM: 초상화 클릭 = DB 초상화 교체 (해당 토큰만) ──
+      const isGM = (typeof MapSync !== 'undefined' && MapSync.isGM && MapSync.isGM());
+      const pt = body.querySelector('.mon-portrait');
+      if (pt && tokenId && isGM) {
+        const tk = (MapSync.getToken && MapSync.getToken(tokenId)) || null;
+        if (tk && tk.img) _setPortraitImg(pt, tk.img);          // 이 토큰의 커스텀 초상 반영(창 재열람 시에도 유지)
+        pt.classList.add('ml-swappable');
+        pt.title = '클릭 = 초상화 교체';
+        pt.onclick = function (ev) { ev.stopPropagation(); _openPortraitPicker(tokenId, pt); };
+      }
     }).catch(e => alert('몬스터 데이터 로드 실패: ' + e.message));
+  }
+
+  // 초상화 요소(img 또는 placeholder div) 이미지 세팅 — 공용.
+  function _setPortraitImg(el, url) {
+    if (!el) return;
+    if (el.tagName === 'IMG') { el.src = url; return; }
+    el.classList.remove('mon-portrait-ph'); el.textContent = '';
+    el.style.backgroundImage = 'url(' + url + ')';
+    el.style.backgroundSize = 'cover'; el.style.backgroundPosition = 'center';
+  }
+
+  // 초상화 교체 피커 — DB 크리처 토큰 아트 중 선택(검색). 선택 시 해당 토큰 img 갱신(지도 즉시 반영).
+  function _openPortraitPicker(tokenId, portraitEl) {
+    ensure().then(() => {
+      let ov = document.getElementById('ml-portrait-overlay');
+      if (!ov) {
+        ov = document.createElement('div'); ov.id = 'ml-portrait-overlay';
+        ov.innerHTML = '<div id="ml-portrait-card"><div id="ml-portrait-hd"><b>초상화 교체</b>' +
+          '<input id="ml-portrait-q" placeholder="이름 검색 (한글/영문)…"><button id="ml-portrait-x" title="닫기">✕</button></div>' +
+          '<div id="ml-portrait-grid"></div></div>';
+        document.body.appendChild(ov);
+        ov.addEventListener('click', e => { if (e.target === ov) ov.style.display = 'none'; });
+        ov.querySelector('#ml-portrait-x').onclick = () => ov.style.display = 'none';
+        ov.querySelector('#ml-portrait-q').oninput = function () { _renderPortraitGrid(this.value); };
+      }
+      ov._tokenId = tokenId; ov._portraitEl = portraitEl;
+      ov.querySelector('#ml-portrait-q').value = '';
+      _renderPortraitGrid('');
+      ov.style.display = 'flex';
+      const q = ov.querySelector('#ml-portrait-q'); if (q) q.focus();
+    }).catch(e => alert('데이터 로드 실패: ' + e.message));
+  }
+  function _renderPortraitGrid(q) {
+    const ov = document.getElementById('ml-portrait-overlay'); if (!ov) return;
+    const grid = ov.querySelector('#ml-portrait-grid'); if (!grid) return;
+    q = (q || '').trim().toLowerCase();
+    let arr = MonsterDB.all().filter(c => !!MonsterDB.creatureIcon(c));   // 토큰 아트 있는 DB 항목만
+    if (q) arr = arr.filter(c => { const n = MonsterDB.name(c); return (n.ko || '').toLowerCase().indexOf(q) >= 0 || (n.en || '').toLowerCase().indexOf(q) >= 0; });
+    const total = arr.length;
+    arr = arr.slice(0, 120);
+    if (!arr.length) { grid.innerHTML = '<div class="ml-empty" style="grid-column:1/-1;">결과 없음</div>'; return; }
+    grid.innerHTML = arr.map(c => {
+      const art = MonsterDB.creatureIcon(c), n = MonsterDB.name(c);
+      return '<div class="ml-pt-item" data-art="' + esc(art) + '" title="' + esc(n.ko) + '">' +
+             '<div class="ml-pt-thumb" style="background-image:url(' + esc(art) + ')"></div><span>' + esc(n.ko) + '</span></div>';
+    }).join('') + (total > 120 ? '<div class="ml-empty" style="grid-column:1/-1;">' + total + '종 중 120종 표시 — 검색으로 좁히세요</div>' : '');
+    grid.querySelectorAll('.ml-pt-item').forEach(el => el.onclick = () => _applyPortrait(el.getAttribute('data-art')));
+  }
+  function _applyPortrait(art) {
+    const ov = document.getElementById('ml-portrait-overlay'); if (!ov) return;
+    const tokenId = ov._tokenId, el = ov._portraitEl;
+    if (tokenId && typeof MapSync !== 'undefined' && MapSync.upsertToken) {
+      MapSync.upsertToken(tokenId, { img: art }).catch(e => alert('교체 실패: ' + (e && e.message || e)));
+    }
+    if (el) _setPortraitImg(el, art);              // 시트 초상 즉시 갱신(지도 토큰은 MapSync onChange가 재렌더)
+    ov.style.display = 'none';
   }
 
   return { ensure, onEditOpen, getSelection, onSearch, pick, clearLink, showStat };
@@ -780,7 +862,7 @@ window.MonsterLink = (function () {
     const _b = document.getElementById('pf-dice-box'); if (_b) _b.remove();
   } else {
   try {
-    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.320');
+    const { default: DiceBox } = await import('./dice/dice-box.es.min.js?v=0.323');
     const assetPath = new URL('dice/assets/', document.baseURI).pathname;
     const box = new DiceBox({ container: '#pf-dice-box', assetPath, theme: 'default', offscreen: false, scale: 6 });
     let ready = false;
