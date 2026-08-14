@@ -33,6 +33,19 @@ function ownerClassesOf(doc) { const tr = (doc && doc.system && doc.system.trait
 // FVTT-갭 큐레이션: {slug:{rows?,choice?,auto_note?,damage_note?}}. FVTT rules[]가 못 담는 choice/note/수동 grant.
 const CURATED = JSON.parse(fs.readFileSync(path.join(DEV, 'data/curated_effects.json'), 'utf8'));
 
+// 바드 작곡/집중 주문 slug → 한글명. 이 주문들은 동명 재주가 부여하지만 FVTT 재주 rules[]가 비어(리마스터가
+//   시전 로직으로 처리) 우리 빌더엔 부여가 안 잡힌다 → 재주 루프에서 grant_focus_spell 파생(대원칙: 데이터 도출).
+const COMPO_SPELL = {};
+try {
+  const _spRaw = JSON.parse(fs.readFileSync(path.join(DEV, 'data/store/spells.json'), 'utf8'));
+  const _spItems = Array.isArray(_spRaw) ? _spRaw : (_spRaw.items || Object.values(_spRaw));
+  for (const sp of _spItems) {
+    const ss = (sp && sp.system) || {}; const sl = ss.slug; if (!sl) continue;
+    const tr = (ss.traits && ss.traits.value) || [];
+    if (tr.includes('bard') && (tr.includes('composition') || tr.includes('focus'))) COMPO_SPELL[sl] = sp.name_ko || sp.name || sl;
+  }
+} catch (e) { console.warn('[build_effects] spells.json 로드 실패(작곡주문 파생 생략):', e.message); }
+
 const rows = [];
 const refs = { feats: {}, heritages: {}, backgrounds: {}, conditions: {}, deities: {} };
 const stat = { fvtt: 0, curated: 0 };
@@ -352,6 +365,17 @@ function ownerBase(kind, doc, slug, name, level, category) { ownerMeta[slug] = {
 for (const doc of PF.all('feats')) {
   const s = doc.system || {}; const slug = s.slug; if (!slug) continue;
   emitFvtt(ownerBase('feat', doc, slug, PF.nameKo(doc) || slug, (s.level && s.level.value) != null ? s.level.value : '', s.category || ''), doc);
+  // 바드 작곡/집중 재주: 동명 집중주문을 부여해야 하나 FVTT rules[]가 비어 안 잡힘 → grant_focus_spell 파생.
+  //   (이미 룰/큐레이션으로 같은 주문을 주고 있으면 중복 생성 안 함)
+  if (COMPO_SPELL[slug] && (((s.traits && s.traits.value) || []).includes('bard'))) {
+    const cur = dbBySlug[slug];
+    const already = cur && cur.rows.some(r => r.type === 'grant_focus_spell' && r.target === slug);
+    if (!already) {
+      (dbBySlug[slug] = cur || { rows: [] }).rows.push({ type: 'grant_focus_spell', target: slug });
+      rows.push({ owner_kind: 'feat', owner_slug: slug, owner_name: PF.nameKo(doc) || slug, owner_level: (s.level && s.level.value) != null ? s.level.value : '', category: s.category || '', src: 'derived', rule: '', type: 'grant_focus_spell', target: slug, name: COMPO_SPELL[slug], condition: '', cond_value: '' });
+      stat.derived = (stat.derived || 0) + 1;
+    }
+  }
   if (Object.keys(refs.feats).length === 0) {} // (FK 마커는 큐레이션/조건/신격에서만; feat rules는 slug 자체가 키)
 }
 for (const doc of PF.all('heritages')) {
