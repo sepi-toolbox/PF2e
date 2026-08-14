@@ -59,7 +59,7 @@
   // tools/rebase/extract_item_icons.mjs 로 추출 → dev/data/icons/ 아래 벤더링. 미로드 시 타입별 기본 아이콘.
   let _itemImg = null, _ITEM_ICON_BASE = 'data/icons/';
   let _iconLookup = null;                 // 플레이어 시트 icon_map.json(scope→slug/name→path) 재사용(장비/주문 보강)
-  const _IIMG_VER = '0.321';
+  const _IIMG_VER = '0.322';
   // FVTT가 "고유 아트 없음"에 쓰는 제네릭(행동비용·기본) img — 깔끔한 타입별 SVG로 대체할 대상
   const _GENERIC_IMG = new Set([
     'systems/pf2e/icons/actions/Passive.webp','systems/pf2e/icons/actions/OneAction.webp',
@@ -339,7 +339,16 @@
       target.spells.push({
         id: it._id, slug: it.slug,
         name: { ko: (ko && ko.name) || it.name, en: it.name },
-        rank: s.level?.value ?? 0
+        rank: s.level?.value ?? 0,
+        // 박스+클릭 펼침(능력 카드와 동일)용 메타/설명 — 이전엔 칩이라 이름만 담았음.
+        desc: { ko: _txt(ko && ko.description, s.description?.value), en: s.description?.value || '' },
+        traits: (s.traits && s.traits.value) || [],
+        time: (s.time && s.time.value) || '',
+        range: (s.range && s.range.value) || '',
+        area: s.area || null,
+        duration: (s.duration && s.duration.value) || '',
+        target: (s.target && s.target.value) || '',
+        defense: s.defense || null
       });
     }
     return entries;
@@ -397,6 +406,18 @@
   function _actGlyph(ab){
     const ch=_glyph(ab.actions!=null?ab.actions:ab.actionType);
     return ch?`<span class="action-glyph">${ch}</span>`:'';
+  }
+  // 주문 메타 한 줄(시전/사거리/영역/대상/지속/방어) — 플레이어 시트 주문 상세와 동형. 값 있는 항목만.
+  const _AREA_KO={emanation:'발산',burst:'폭발',cone:'원뿔',line:'직선',square:'사각',cube:'정육면체',aura:'오라'};
+  function _spellMetaLine(sp){
+    const m=[];
+    if(sp.time){ const ch=_glyph(sp.time); m.push(`<b>시전</b> ${ch?`<span class="action-glyph">${ch}</span>`:_esc(sp.time)}`); }
+    if(sp.range) m.push(`<b>사거리</b> ${_esc(sp.range)}`);
+    if(sp.area && sp.area.value!=null) m.push(`<b>영역</b> ${_esc(String(sp.area.value))}피트 ${_esc(_AREA_KO[sp.area.type]||sp.area.type||'')}`);
+    if(sp.target) m.push(`<b>대상</b> ${_esc(sp.target)}`);
+    if(sp.duration) m.push(`<b>지속</b> ${_esc(sp.duration)}`);
+    if(sp.defense && sp.defense.save && sp.defense.save.statistic) m.push(`<b>방어</b> ${sp.defense.save.basic?'기본 ':''}${_esc(_g('save',sp.defense.save.statistic))}`);
+    return m.length?`<div class="mon-spell-meta">${m.join(' · ')}</div>`:'';
   }
   // 면역/저항/약점 enum 한글화 (피해형 → 상태이상 → 특성 → slug)
   function _resName(slug){
@@ -485,13 +506,26 @@
       h+=`</div>`;
     }
 
-    // ── 시전(주문) 섹션 ──
+    // ── 시전(주문) 섹션 — 공격/능력처럼 박스 + 클릭 펼침(설명·메타) ──
     for(const sc of v.spellcasting){
       h+=`<div class="mon-sec"><div class="mon-sec-hd">${_esc(sc.name.ko)}${sc.dc!=null?`<span class="mon-sc-dc">DC ${sc.dc}</span>`:''}${sc.attack!=null?`<span class="mon-sc-dc">명중 ${sign(sc.attack)}</span>`:''}</div>`;
       const byRank={};
       sc.spells.forEach(sp=>{ (byRank[sp.rank]=byRank[sp.rank]||[]).push(sp); });
       Object.keys(byRank).map(Number).sort((a,b)=>b-a).forEach(r=>{
-        h+=`<div class="mon-spell-row"><span class="mon-spell-rank">${r===0?'캔트립':r+'레벨'}</span><span class="mon-spell-list">${byRank[r].map(sp=>`<span class="mon-spell"><img class="mon-ico mon-ico-sm" src="${itemIcon(sp,'spell')}" alt="" loading="lazy">${_esc(sp.name.ko)}</span>`).join('')}</span></div>`;
+        h+=`<div class="mon-spell-rankhd">${r===0?'캔트립':r+'레벨'}</div>`;
+        for(const sp of byRank[r]){
+          const spico=`<img class="mon-ico mon-ico-sm" src="${itemIcon(sp,'spell')}" alt="" loading="lazy">`;
+          const ch=_glyph(sp.time);
+          const gl=ch?`<span class="mon-ico mon-ico-glyph action-glyph mon-sp-glyph">${ch}</span>`:'';
+          const trs=(sp.traits||[]).map(t=>_traitChip(t,'sm')).join('');
+          const meta=_spellMetaLine(sp);
+          const desc=sp.desc.ko?resolveFoundryRefs(sp.desc.ko):'';
+          if(desc||meta){
+            h+=`<details class="mon-ab"><summary class="mon-ab-hd">${spico}${gl}<span class="mon-ab-name">${_esc(sp.name.ko)}</span>${trs}<span class="mon-ab-caret">▾</span></summary><div class="mon-ab-bd">${meta}${desc}</div></details>`;
+          } else {
+            h+=`<div class="mon-ab no-desc"><div class="mon-ab-hd">${spico}${gl}<span class="mon-ab-name">${_esc(sp.name.ko)}</span>${trs}</div></div>`;
+          }
+        }
       });
       h+=`</div>`;
     }
@@ -659,6 +693,11 @@
 .mon-skill{font-size:11.5px;background:var(--m-bg2);border:1px solid var(--m-border);border-radius:14px;padding:3px 10px;cursor:pointer;transition:border-color .12s,background .12s;}
 .mon-skill b{color:var(--m-accent);}
 .mon-skill:hover{border-color:var(--m-accent);background:var(--m-bg3);}
+.mon-spell-rankhd{font-size:11px;font-weight:800;color:var(--m-accent);margin:9px 0 4px;letter-spacing:.3px;}
+.mon-spell-meta{font-size:11.5px;color:var(--m-text2);margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--m-border);line-height:1.7;}
+.mon-spell-meta b{color:var(--m-text);font-weight:700;}
+.mon-spell-meta .action-glyph{font-family:"Pathfinder2eActions",serif;color:var(--m-accent);}
+.mon-sp-glyph{width:18px;height:18px;font-size:12px;}
 .mon-sec{margin-top:13px;}
 .mon-sec-hd{font-size:13px;font-weight:800;color:var(--m-accent);font-family:"EczarMon",serif;letter-spacing:.5px;border-bottom:2px solid var(--m-border);padding-bottom:3px;margin-bottom:7px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
 .mon-sc-dc{font-size:11px;font-weight:700;color:var(--m-text2);background:var(--m-bg2);border:1px solid var(--m-border);border-radius:4px;padding:1px 6px;font-family:inherit;letter-spacing:0;}
